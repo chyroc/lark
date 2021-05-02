@@ -31,8 +31,7 @@ func (r *apiImpl) request(ctx context.Context, req *requestParam, resp interface
 			return nil, err
 		}
 		headers["Authorization"] = "Bearer " + token.Token
-	}
-	if req.NeedAppAccessToken {
+	} else if req.NeedAppAccessToken {
 		token, _, err := r.Token().GetAppAccessToken(ctx)
 		if err != nil {
 			return nil, err

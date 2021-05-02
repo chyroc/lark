@@ -22,7 +22,7 @@ jobs:
       run: go build -v ./...
 
     - name: Test
-      run: go test -v ./...
+      run: go test -race -coverprofile=coverage.txt -covermode=atomic
       env:
         LARK_APP_NO_PERMISSION_APP_ID: ${{ secrets.LARK_APP_NO_PERMISSION_APP_ID }}
         LARK_APP_NO_PERMISSION_APP_SECRET: ${{ secrets.LARK_APP_NO_PERMISSION_APP_SECRET }}
@@ -30,3 +30,6 @@ jobs:
         LARK_APP_ALL_PERMISSION_APP_SECRET: ${{ secrets.LARK_APP_ALL_PERMISSION_APP_SECRET }}
         LARK_USER_ADMIN_USER_ID: ${{ secrets.LARK_USER_ADMIN_USER_ID }}
         LARK_USER_ADMIN_NAME: ${{ secrets.LARK_USER_ADMIN_NAME }}
+
+    - name: Upload Cov
+      run: bash <(curl -s https://codecov.io/bash)

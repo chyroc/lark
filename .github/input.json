@@ -23,6 +23,11 @@
         "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat/delete"
       },
       {
+        "file_name": "chat_get_chat_list_of_self.go",
+        "func_name": "GetChatListOfSelf",
+        "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat/list"
+      },
+      {
         "file_name": "chat_member_add_member.go",
         "func_name": "AddMember",
         "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-members/create"
