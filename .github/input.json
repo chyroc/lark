@@ -34,7 +34,7 @@
     "apis": [
       {
         "file_name": "message_get_message.go",
-        "func_name": "Message",
+        "func_name": "GetMessage",
         "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/get"
       }
     ]
