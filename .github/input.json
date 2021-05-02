@@ -16,6 +16,11 @@
         "file_name": "lark_chat_update_chat.go",
         "func_name": "UpdateChat",
         "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat/update"
+      },
+      {
+        "file_name": "lark_chat_delete_chat.go",
+        "func_name": "DeleteChat",
+        "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat/delete"
       }
     ]
   }
