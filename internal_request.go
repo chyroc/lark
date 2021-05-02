@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"context"
 	"encoding/json"
+	"fmt"
 	"io"
 	"net/http"
 	"net/url"
@@ -101,6 +102,7 @@ func request(ctx context.Context, cli *http.Client, requestParam *requestParam, 
 	if err != nil {
 		return response, err
 	}
+	req.Header.Set("Content-Type", "application/json; charset=utf-8")
 	resp, err := cli.Do(req)
 	if err != nil {
 		return response, err
@@ -117,7 +119,7 @@ func request(ctx context.Context, cli *http.Client, requestParam *requestParam, 
 	}
 	err = json.Unmarshal(bs, realResponse)
 	if err != nil {
-		return response, err
+		return response, fmt.Errorf("invalid json: %s", bs)
 	}
 	return response, nil
 }

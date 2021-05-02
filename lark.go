@@ -18,4 +18,5 @@ func New(appID, appSecret string) API {
 type API interface {
 	Message() *MessageAPI
 	Chat() *ChatAPI
+	Token() *TokenAPI
 }
