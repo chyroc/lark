@@ -11,9 +11,11 @@ import (
 // https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat/create
 func (r *ChatAPI) CreateChat(ctx context.Context, request *CreateChatReq) (*CreateChatResp, *Response, error) {
 	req := &requestParam{
-		Method: "POST",
-		URL:    "https://open.feishu.cn/open-apis/im/v1/chats",
-		Body:   request,
+		Method:                "POST",
+		URL:                   "https://open.feishu.cn/open-apis/im/v1/chats",
+		Body:                  request,
+		NeedTenantAccessToken: true,
+		NeedAppAccessToken:    false,
 	}
 	resp := new(createChatResp)
 

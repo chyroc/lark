@@ -17,9 +17,11 @@ import (
 // https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat/update
 func (r *ChatAPI) UpdateChat(ctx context.Context, request *UpdateChatReq) (*UpdateChatResp, *Response, error) {
 	req := &requestParam{
-		Method: "PUT",
-		URL:    "https://open.feishu.cn/open-apis/im/v1/chats/:chat_id",
-		Body:   request,
+		Method:                "PUT",
+		URL:                   "https://open.feishu.cn/open-apis/im/v1/chats/:chat_id",
+		Body:                  request,
+		NeedTenantAccessToken: true,
+		NeedAppAccessToken:    false,
 	}
 	resp := new(updateChatResp)
 

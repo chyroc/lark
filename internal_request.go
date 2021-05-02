@@ -24,13 +24,30 @@ type Response struct {
 }
 
 func (r *apiImpl) request(ctx context.Context, req *requestParam, resp interface{}) (*Response, error) {
-	return request(ctx, r.httpClient, req, resp)
+	headers := map[string]string{}
+	if req.NeedTenantAccessToken {
+		token, _, err := r.Token().GetTenantAccessToken(ctx)
+		if err != nil {
+			return nil, err
+		}
+		headers["Authorization"] = "Bearer " + token.Token
+	}
+	if req.NeedAppAccessToken {
+		token, _, err := r.Token().GetAppAccessToken(ctx)
+		if err != nil {
+			return nil, err
+		}
+		headers["Authorization"] = "Bearer " + token.Token
+	}
+	return request(ctx, r.httpClient, req, headers, resp)
 }
 
 type requestParam struct {
-	Method string
-	URL    string
-	Body   interface{}
+	Method                string
+	URL                   string
+	Body                  interface{}
+	NeedTenantAccessToken bool
+	NeedAppAccessToken    bool
 }
 
 func parseRequestParam(req *requestParam) (*realRequestParam, error) {
@@ -91,7 +108,7 @@ type realRequestParam struct {
 	Body   io.Reader
 }
 
-func request(ctx context.Context, cli *http.Client, requestParam *requestParam, realResponse interface{}) (*Response, error) {
+func request(ctx context.Context, cli *http.Client, requestParam *requestParam, headers map[string]string, realResponse interface{}) (*Response, error) {
 	response := new(Response)
 	realReq, err := parseRequestParam(requestParam)
 	if err != nil {
@@ -103,6 +120,10 @@ func request(ctx context.Context, cli *http.Client, requestParam *requestParam, 
 		return response, err
 	}
 	req.Header.Set("Content-Type", "application/json; charset=utf-8")
+	for k, v := range headers {
+		req.Header.Set(k, v)
+	}
+
 	resp, err := cli.Do(req)
 	if err != nil {
 		return response, err

@@ -12,9 +12,11 @@ import (
 // https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat/delete
 func (r *ChatAPI) DeleteChat(ctx context.Context, request *DeleteChatReq) (*DeleteChatResp, *Response, error) {
 	req := &requestParam{
-		Method: "DELETE",
-		URL:    "https://open.feishu.cn/open-apis/im/v1/chats/:chat_id",
-		Body:   request,
+		Method:                "DELETE",
+		URL:                   "https://open.feishu.cn/open-apis/im/v1/chats/:chat_id",
+		Body:                  request,
+		NeedTenantAccessToken: true,
+		NeedAppAccessToken:    false,
 	}
 	resp := new(deleteChatResp)
 

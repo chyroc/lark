@@ -12,9 +12,11 @@ import (
 // https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat/get
 func (r *ChatAPI) GetChat(ctx context.Context, request *GetChatReq) (*GetChatResp, *Response, error) {
 	req := &requestParam{
-		Method: "GET",
-		URL:    "https://open.feishu.cn/open-apis/im/v1/chats/:chat_id",
-		Body:   request,
+		Method:                "GET",
+		URL:                   "https://open.feishu.cn/open-apis/im/v1/chats/:chat_id",
+		Body:                  request,
+		NeedTenantAccessToken: true,
+		NeedAppAccessToken:    false,
 	}
 	resp := new(getChatResp)
 
