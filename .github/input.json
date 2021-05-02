@@ -21,6 +21,21 @@
         "file_name": "chat_delete_chat.go",
         "func_name": "DeleteChat",
         "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat/delete"
+      },
+      {
+        "file_name": "chat_member_add_member.go",
+        "func_name": "AddMember",
+        "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-members/create"
+      }
+    ]
+  },
+  {
+    "scope": "Message",
+    "apis": [
+      {
+        "file_name": "message_get_message.go",
+        "func_name": "Message",
+        "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/get"
       }
     ]
   }
