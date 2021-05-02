@@ -26,6 +26,11 @@
         "file_name": "chat_member_add_member.go",
         "func_name": "AddMember",
         "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-members/create"
+      },
+      {
+        "file_name": "chat_member_delete_member.go",
+        "func_name": "DeleteMember",
+        "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-members/delete"
       }
     ]
   },

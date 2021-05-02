@@ -46,6 +46,16 @@ func Test_CreateChat(t *testing.T) {
 		}
 
 		{
+			resp, _, err := cli.Chat().DeleteMember(ctx, &lark.DeleteMemberReq{
+				MemberIDType: lark.IDTypeUserID,
+				ChatID:       chatID,
+				IDList:       []string{UserAdmin.UserID},
+			})
+			spew.Dump("DeleteMember", resp, err)
+			as.Nil(err)
+		}
+
+		{
 			resp, _, err := cli.Chat().DeleteChat(ctx, &lark.DeleteChatReq{
 				ChatID: chatID,
 			})
