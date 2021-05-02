@@ -1,5 +1,15 @@
 package lark
 
+import (
+	"net/http"
+)
+
+type apiImpl struct {
+	appID      string
+	appSecret  string
+	httpClient *http.Client
+}
+
 func (r *apiImpl) Chat() *ChatAPI {
 	return &ChatAPI{
 		cli: r,

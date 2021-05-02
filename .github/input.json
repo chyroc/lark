@@ -3,37 +3,44 @@
     "scope": "Chat",
     "apis": [
       {
-        "file_name": "chat_create_chat.go",
+        "file_name": "api_chat_create.go",
+        "old_file_name": "chat_create_chat.go",
         "func_name": "CreateChat",
         "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat/create"
       },
       {
-        "file_name": "chat_get_chat.go",
+        "file_name": "api_chat_get.go",
+        "old_file_name": "chat_get_chat.go",
         "func_name": "GetChat",
         "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat/get"
       },
       {
-        "file_name": "chat_update_chat.go",
+        "file_name": "api_chat_update.go",
+        "old_file_name": "chat_update_chat.go",
         "func_name": "UpdateChat",
         "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat/update"
       },
       {
-        "file_name": "chat_delete_chat.go",
+        "file_name": "api_chat_delete.go",
+        "old_file_name": "chat_delete_chat.go",
         "func_name": "DeleteChat",
         "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat/delete"
       },
       {
-        "file_name": "chat_get_chat_list_of_self.go",
+        "file_name": "api_chat_get_list_of_self.go",
+        "old_file_name": "chat_get_chat_list_of_self.go",
         "func_name": "GetChatListOfSelf",
         "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat/list"
       },
       {
-        "file_name": "chat_member_add_member.go",
+        "file_name": "api_chat_member_add.go",
+        "old_file_name": "chat_member_add_member.go",
         "func_name": "AddMember",
         "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-members/create"
       },
       {
-        "file_name": "chat_member_delete_member.go",
+        "file_name": "api_chat_member_delete.go",
+        "old_file_name": "chat_member_delete_member.go",
         "func_name": "DeleteMember",
         "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-members/delete"
       }
@@ -43,7 +50,8 @@
     "scope": "Message",
     "apis": [
       {
-        "file_name": "message_get_message.go",
+        "file_name": "api_message_get.go",
+        "old_file_name": "message_get_message.go",
         "func_name": "GetMessage",
         "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/get"
       }
