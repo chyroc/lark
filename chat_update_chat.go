@@ -15,26 +15,27 @@ import (
 // - 群主 或 创建群组且具备==更新应用所创建群的群信息==权限的机器人，可更新所有信息
 // - 不满足上述条件的群成员或者机器人，任何群信息都不能修改
 // https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat/update
-func (r *ChatAPI) UpdateChat(ctx context.Context, request *UpdateChatReq) (*UpdateChatResp, error) {
-	req := req{
-		method: "PUT",
-		url:    "https://open.feishu.cn/open-apis/im/v1/chats/:chat_id",
-		body:   request,
+func (r *ChatAPI) UpdateChat(ctx context.Context, request *UpdateChatReq) (*UpdateChatResp, *Response, error) {
+	req := &requestParam{
+		Method: "PUT",
+		URL:    "https://open.feishu.cn/open-apis/im/v1/chats/:chat_id",
+		Body:   request,
 	}
 	resp := new(updateChatResp)
 
-	if err := r.cli.request(ctx, req, resp); err != nil {
-		return nil, err
+	response, err := r.cli.request(ctx, req, resp)
+	if err != nil {
+		return nil, response, err
 	} else if resp.Code != 0 {
-		return nil, newError("Chat", "UpdateChat", resp.Code, resp.Msg)
+		return nil, response, newError("Chat", "UpdateChat", resp.Code, resp.Msg)
 	}
 
-	return resp.Data, nil
+	return resp.Data, response, nil
 }
 
 type UpdateChatReq struct {
-	UserIDType             string                  `query:"user_id_type"`                      // 用户 ID 类型,**示例值**："open_id",**可选值有**：,- `open_id`：用户的 open id,- `union_id`：用户的 union id,- `user_id`：用户的 user id,**默认值**：`open_id`,**当值为 `user_id`，字段权限要求**：,<md-perm href="/ssl:ttdoc/ukTMukTMukTM/uQjN3QjL0YzN04CN2cDN">获取用户 userid</md-perm>
-	ChatID                 string                  `path:"chat_id"`                            // 群 ID,**示例值**："oc_a0553eda9014c201e6969b478895c230"
+	UserIDType             string                  `query:"user_id_type" json:"-"`             // 用户 ID 类型,**示例值**："open_id",**可选值有**：,- `open_id`：用户的 open id,- `union_id`：用户的 union id,- `user_id`：用户的 user id,**默认值**：`open_id`,**当值为 `user_id`，字段权限要求**：,<md-perm href="/ssl:ttdoc/ukTMukTMukTM/uQjN3QjL0YzN04CN2cDN">获取用户 userid</md-perm>
+	ChatID                 string                  `path:"chat_id" json:"-"`                   // 群 ID,**示例值**："oc_a0553eda9014c201e6969b478895c230"
 	Avatar                 string                  `json:"avatar,omitempty"`                   // 群头像对应的 Image Key，可通过[上传图片](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/image/create)获取（注意：上传图片的 ==image_type== 需要指定为 ==avatar==）,**示例值**："default-avatar_44ae0ca3-e140-494b-956f-78091e348435"
 	Name                   string                  `json:"name,omitempty"`                     // 群名称,**示例值**："测试群名称"
 	Description            string                  `json:"description,omitempty"`              // 群描述,**示例值**："测试群描述"
@@ -61,5 +62,4 @@ type updateChatResp struct {
 	Data *UpdateChatResp `json:"data,omitempty"`
 }
 
-type UpdateChatResp struct {
-}
+type UpdateChatResp struct{}

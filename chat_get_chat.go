@@ -10,26 +10,27 @@ import (
 // - 应用需要开启[机器人能力](https://open.feishu.cn/document/uQjL04CN/uYTMuYTMuYTM)
 // - 机器人或授权用户必须在群里
 // https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat/get
-func (r *ChatAPI) GetChat(ctx context.Context, request *GetChatReq) (*GetChatResp, error) {
-	req := req{
-		method: "GET",
-		url:    "https://open.feishu.cn/open-apis/im/v1/chats/:chat_id",
-		body:   request,
+func (r *ChatAPI) GetChat(ctx context.Context, request *GetChatReq) (*GetChatResp, *Response, error) {
+	req := &requestParam{
+		Method: "GET",
+		URL:    "https://open.feishu.cn/open-apis/im/v1/chats/:chat_id",
+		Body:   request,
 	}
 	resp := new(getChatResp)
 
-	if err := r.cli.request(ctx, req, resp); err != nil {
-		return nil, err
+	response, err := r.cli.request(ctx, req, resp)
+	if err != nil {
+		return nil, response, err
 	} else if resp.Code != 0 {
-		return nil, newError("Chat", "GetChat", resp.Code, resp.Msg)
+		return nil, response, newError("Chat", "GetChat", resp.Code, resp.Msg)
 	}
 
-	return resp.Data, nil
+	return resp.Data, response, nil
 }
 
 type GetChatReq struct {
-	UserIDType string `query:"user_id_type"` // 用户 ID 类型,**示例值**："open_id",**可选值有**：,- `open_id`：用户的 open id,- `union_id`：用户的 union id,- `user_id`：用户的 user id,**默认值**：`open_id`,**当值为 `user_id`，字段权限要求**：,<md-perm href="/ssl:ttdoc/ukTMukTMukTM/uQjN3QjL0YzN04CN2cDN">获取用户 userid</md-perm>
-	ChatID     string `path:"chat_id"`       // 群 ID,**示例值**："oc_a0553eda9014c201e6969b478895c230"
+	UserIDType string `query:"user_id_type" json:"-"` // 用户 ID 类型,**示例值**："open_id",**可选值有**：,- `open_id`：用户的 open id,- `union_id`：用户的 union id,- `user_id`：用户的 user id,**默认值**：`open_id`,**当值为 `user_id`，字段权限要求**：,<md-perm href="/ssl:ttdoc/ukTMukTMukTM/uQjN3QjL0YzN04CN2cDN">获取用户 userid</md-perm>
+	ChatID     string `path:"chat_id" json:"-"`       // 群 ID,**示例值**："oc_a0553eda9014c201e6969b478895c230"
 }
 
 type getChatResp struct {
