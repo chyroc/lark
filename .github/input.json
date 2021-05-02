@@ -43,6 +43,16 @@
         "old_file_name": "chat_member_delete_member.go",
         "func_name": "DeleteMember",
         "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-members/delete"
+      },
+      {
+        "file_name": "api_chat_announcement_get.go",
+        "func_name": "GetAnnouncement",
+        "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-announcement/get"
+      },
+      {
+        "file_name": "api_chat_announcement_update.go",
+        "func_name": "UpdateAnnouncement",
+        "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-announcement/patch"
       }
     ]
   },
