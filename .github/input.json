@@ -1,0 +1,22 @@
+[
+  {
+    "scope": "Chat",
+    "apis": [
+      {
+        "file_name": "lark_chat_create_chat.go",
+        "func_name": "CreateChat",
+        "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat/create"
+      },
+      {
+        "file_name": "lark_chat_get_chat.go",
+        "func_name": "GetChat",
+        "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat/get"
+      },
+      {
+        "file_name": "lark_chat_update_chat.go",
+        "func_name": "UpdateChat",
+        "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat/update"
+      }
+    ]
+  }
+]
