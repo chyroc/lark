@@ -2,6 +2,7 @@ package tests
 
 import (
 	"context"
+	"fmt"
 	"testing"
 
 	"github.com/davecgh/go-spew/spew"
@@ -9,6 +10,8 @@ import (
 
 	"github.com/chyroc/lark"
 )
+
+var ctx = context.Background()
 
 func Test_CreateChat(t *testing.T) {
 	as := assert.New(t)
@@ -68,15 +71,45 @@ func Test_CreateChat(t *testing.T) {
 func Test_GetChat(t *testing.T) {
 	as := assert.New(t)
 
-	t.Run("", func(t *testing.T) {
-		ctx := context.Background()
-
-		_, _, err := AppNoPermission.Ins().Chat().GetChatListOfSelf(ctx, &lark.GetChatListOfSelfReq{
-			UserIDType: nil,
-			PageToken:  nil,
-			PageSize:   nil,
-		})
+	t.Run("no-permission", func(t *testing.T) {
+		_, _, err := AppNoPermission.Ins().Chat().GetChatListOfSelf(ctx, &lark.GetChatListOfSelfReq{})
 		as.NotNil(err)
 		as.Contains(err.Error(), "No permission")
+	})
+
+	t.Run("no-permission", func(t *testing.T) {
+		_, _, err := AppNoPermission.Ins().Chat().GetChatListBySearch(ctx, &lark.GetChatListBySearchReq{})
+		as.NotNil(err)
+		as.Contains(err.Error(), "No permission")
+	})
+
+	t.Run("", func(t *testing.T) {
+		resp, _, err := AppALLPermission.Ins().Chat().GetChatListOfSelf(ctx, &lark.GetChatListOfSelfReq{
+			UserIDType: lark.IDTypePtr(lark.IDTypeOpenID),
+		})
+		as.Nil(err)
+		as.True(len(resp.Items) > 0)
+		containThisChat := true
+		for _, v := range resp.Items {
+			if v.ChatID == ChatContainALLPermissionApp.ChatID {
+				containThisChat = true
+			}
+		}
+		as.True(containThisChat, fmt.Sprintf("shou contain chat: %s: %#v", ChatContainALLPermissionApp.ChatID, resp.Items))
+	})
+
+	t.Run("", func(t *testing.T) {
+		resp, _, err := AppALLPermission.Ins().Chat().GetChatListBySearch(ctx, &lark.GetChatListBySearchReq{
+			Query: ptrString("lark-sdk"),
+		})
+		as.Nil(err)
+		as.True(len(resp.Items) > 0)
+		containThisChat := true
+		for _, v := range resp.Items {
+			if v.ChatID == ChatContainALLPermissionApp.ChatID {
+				containThisChat = true
+			}
+		}
+		as.True(containThisChat, fmt.Sprintf("shou contain chat: %s: %#v", ChatContainALLPermissionApp.ChatID, resp.Items))
 	})
 }

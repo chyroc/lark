@@ -23,6 +23,11 @@ type User struct {
 	Name   string
 }
 
+type Chat struct {
+	ChatID string
+	Name   string
+}
+
 var AppNoPermission = App{
 	AppID:     os.Getenv("LARK_APP_NO_PERMISSION_APP_ID"),
 	AppSecret: os.Getenv("LARK_APP_NO_PERMISSION_APP_SECRET"),
@@ -38,6 +43,11 @@ var UserAdmin = User{
 	Name:   os.Getenv("LARK_USER_ADMIN_NAME"),
 }
 
+var ChatContainALLPermissionApp = Chat{
+	ChatID: os.Getenv("LARK_CHAT_CONTAINS_APP_PERMISSION_APP_CHAT_ID"),
+	Name:   "包含「lark-sdk」的群",
+}
+
 func Test_Config(t *testing.T) {
 	as := assert.New(t)
 
@@ -46,4 +56,5 @@ func Test_Config(t *testing.T) {
 	as.NotEmpty(AppALLPermission.AppID)
 	as.NotEmpty(AppALLPermission.AppSecret)
 	as.NotEmpty(UserAdmin.UserID)
+	as.NotEmpty(ChatContainALLPermissionApp.ChatID)
 }
