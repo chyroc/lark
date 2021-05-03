@@ -5,7 +5,10 @@ import (
 	"strconv"
 )
 
-func ReflectToString(v reflect.Value) string {
+func ReflectToString(v reflect.Value) (s string) {
+	if v.Kind() == reflect.Ptr {
+		v = v.Elem()
+	}
 	switch v.Kind() {
 	case reflect.String:
 		return v.String()

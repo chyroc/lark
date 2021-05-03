@@ -20,6 +20,8 @@ import (
 type Response struct {
 	HTTPResponse *http.Response
 
+	Method    string
+	URL       string
 	RequestID string
 }
 
@@ -66,6 +68,10 @@ func parseRequestParam(req *requestParam) (*realRequestParam, error) {
 	for i := 0; i < vt.NumField(); i++ {
 		fieldVV := vv.Field(i)
 		fieldVT := vt.Field(i)
+
+		if fieldVV.Kind() == reflect.Ptr && fieldVV.IsNil() {
+			continue
+		}
 		if path := fieldVT.Tag.Get("path"); path != "" {
 			uri = strings.ReplaceAll(uri, ":"+path, internal.ReflectToString(fieldVV))
 			continue
@@ -113,6 +119,9 @@ func request(ctx context.Context, cli *http.Client, requestParam *requestParam, 
 	if err != nil {
 		return response, err
 	}
+
+	response.Method = realReq.Method
+	response.URL = realReq.URL
 
 	req, err := http.NewRequest(realReq.Method, realReq.URL, realReq.Body)
 	if err != nil {
