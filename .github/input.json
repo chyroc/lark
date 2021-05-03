@@ -158,5 +158,30 @@
         "doc_url": "https://open.feishu.cn/document/ukTMukTMukTM/uQDOyUjL0gjM14CN4ITN"
       }
     ]
+  },
+  {
+    "scope": "HelpDesk",
+    "apis": [
+      {
+        "file_name": "api_helpdesk_start_service.go",
+        "func_name": "StartService",
+        "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/ticket/start_service"
+      },
+      {
+        "file_name": "api_helpdesk_ticket_get.go",
+        "func_name": "GetTicket",
+        "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/ticket/get"
+      },
+      {
+        "file_name": "api_helpdesk_ticket_update.go",
+        "func_name": "UpdateTicket",
+        "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/ticket/update"
+      },
+      {
+        "file_name": "api_helpdesk_ticket_get_list.go",
+        "func_name": "GetTicketList",
+        "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/ticket/list"
+      }
+    ]
   }
 ]

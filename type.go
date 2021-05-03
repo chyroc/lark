@@ -35,3 +35,9 @@ type Mention struct {
 	IDType IDType `json:"id_type,omitempty"` // id 可以是open_id，user_id或者union_id
 	Name   string `json:"name,omitempty"`    // 被at用户的姓名
 }
+
+type HelpDeskCustomizedField struct {
+	ID      string `json:"id"`       // id ,示例值："123"
+	Value   string `json:"value"`    // value ,示例值："value"
+	KeyName string `json:"key_name"` // key name ,示例值："key"
+}

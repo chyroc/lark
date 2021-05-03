@@ -59,3 +59,13 @@ func (r *Lark) Approval() *ApprovalAPI {
 type ApprovalAPI struct {
 	cli *Lark
 }
+
+func (r *Lark) HelpDesk() *HelpDeskAPI {
+	return &HelpDeskAPI{
+		cli: r,
+	}
+}
+
+type HelpDeskAPI struct {
+	cli *Lark
+}
