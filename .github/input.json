@@ -81,5 +81,30 @@
         "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/get"
       }
     ]
+  },
+  {
+    "scope": "Contact",
+    "apis": [
+      {
+        "file_name": "contact_user_create.go",
+        "func_name": "CreateUser",
+        "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/create"
+      },
+      {
+        "file_name": "contact_user_delete.go",
+        "func_name": "DeleteUser",
+        "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/delete"
+      },
+      {
+        "file_name": "contact_user_get.go",
+        "func_name": "GetUser",
+        "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/get"
+      },
+      {
+        "file_name": "contact_user_get_list.go",
+        "func_name": "GetUserList",
+        "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/list"
+      }
+    ]
   }
 ]

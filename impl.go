@@ -39,3 +39,13 @@ func (r *apiImpl) Token() *TokenAPI {
 type TokenAPI struct {
 	cli *apiImpl
 }
+
+func (r *apiImpl) Contact() *ContactAPI {
+	return &ContactAPI{
+		cli: r,
+	}
+}
+
+type ContactAPI struct {
+	cli *apiImpl
+}
