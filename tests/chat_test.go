@@ -3,6 +3,7 @@ package tests
 import (
 	"context"
 	"fmt"
+	"strconv"
 	"testing"
 
 	"github.com/davecgh/go-spew/spew"
@@ -101,6 +102,12 @@ func Test_Chat_member(t *testing.T) {
 func Test_GetChat(t *testing.T) {
 	as := assert.New(t)
 
+	t.Run("GetChat, no-permission", func(t *testing.T) {
+		_, _, err := AppNoPermission.Ins().Chat().GetChat(ctx, &lark.GetChatReq{})
+		as.NotNil(err)
+		as.Contains(err.Error(), "No permission")
+	})
+
 	t.Run("GetChatListOfSelf, no-permission", func(t *testing.T) {
 		_, _, err := AppNoPermission.Ins().Chat().GetChatListOfSelf(ctx, &lark.GetChatListOfSelfReq{})
 		as.NotNil(err)
@@ -111,6 +118,27 @@ func Test_GetChat(t *testing.T) {
 		_, _, err := AppNoPermission.Ins().Chat().GetChatListBySearch(ctx, &lark.GetChatListBySearchReq{})
 		as.NotNil(err)
 		as.Contains(err.Error(), "No permission")
+	})
+
+	t.Run("GetChatListBySearch, success", func(t *testing.T) {
+		resp, _, err := AppALLPermission.Ins().Chat().GetChat(ctx, &lark.GetChatReq{
+			ChatID: ChatContainALLPermissionApp.ChatID,
+		})
+		spew.Dump(resp, err)
+		as.Nil(err)
+		as.NotNil(resp)
+		as.Contains(resp.Name, "lark-sdk")
+		as.Equal("group", resp.ChatMode)
+		as.Equal("private", resp.ChatType)
+	})
+
+	t.Run("", func(t *testing.T) {
+		resp, _, err := AppALLPermission.Ins().Chat().UpdateChat(ctx, &lark.UpdateChatReq{
+			ChatID: ChatContainALLPermissionApp.ChatID,
+			Name:   ptrString("包含「lark-sdk」的群 " + strconv.FormatInt(randInt64(), 10)),
+		})
+		as.Nil(err)
+		as.NotNil(resp)
 	})
 
 	t.Run("GetChatListOfSelf, success", func(t *testing.T) {
