@@ -42,27 +42,21 @@ type getChatResp struct {
 }
 
 type GetChatResp struct {
-	Avatar                 string                `json:"avatar,omitempty"`                   // 群头像 URL
-	Name                   string                `json:"name,omitempty"`                     // 群名称
-	Description            string                `json:"description,omitempty"`              // 群描述
-	I18nNames              *GetChatRespI18nNames `json:"i18n_names,omitempty"`               // 群国际化名称
-	AddMemberPermission    string                `json:"add_member_permission,omitempty"`    // 群成员添加权限(all_members/only_owner)
-	ShareCardPermission    string                `json:"share_card_permission,omitempty"`    // 群分享权限(allowed/not_allowed)
-	AtAllPermission        string                `json:"at_all_permission,omitempty"`        // at 所有人权限(all_members/only_owner)
-	EditPermission         string                `json:"edit_permission,omitempty"`          // 群编辑权限(all_members/only_owner)
-	OwnerIDType            IDType                `json:"owner_id_type,omitempty"`            // 群主 ID 的类型(open_id/user_id/union_id)，群主是机器人时，不返回该字段。
-	OwnerID                string                `json:"owner_id,omitempty"`                 // 群主 ID，群主是机器人时，不返回该字段。
-	ChatMode               string                `json:"chat_mode,omitempty"`                // 群模式(group/topic/p2p)
-	ChatType               string                `json:"chat_type,omitempty"`                // 群类型(private/public)
-	ChatTag                string                `json:"chat_tag,omitempty"`                 // 优先级最高的一个群tag(inner/tenant/department/edu/meeting/customer_service)
-	JoinMessageVisibility  string                `json:"join_message_visibility,omitempty"`  // 入群消息可见性(only_owner/all_members/not_anyone)
-	LeaveMessageVisibility string                `json:"leave_message_visibility,omitempty"` // 出群消息可见性(only_owner/all_members/not_anyone)
-	MembershipApproval     string                `json:"membership_approval,omitempty"`      // 加群审批(no_approval_required/approval_required)
-	ModerationPermission   string                `json:"moderation_permission,omitempty"`    // 发言权限(all_members/only_owner/moderator_list)
-}
-
-type GetChatRespI18nNames struct {
-	ZhCn string `json:"zh_cn,omitempty"` // 中文名
-	EnUs string `json:"en_us,omitempty"` // 英文名
-	JaJp string `json:"ja_jp,omitempty"` // 日文名
+	Avatar                 string     `json:"avatar,omitempty"`                   // 群头像 URL
+	Name                   string     `json:"name,omitempty"`                     // 群名称
+	Description            string     `json:"description,omitempty"`              // 群描述
+	I18nNames              *I18nNames `json:"i18n_names,omitempty"`               // 群国际化名称
+	AddMemberPermission    string     `json:"add_member_permission,omitempty"`    // 群成员添加权限(all_members/only_owner)
+	ShareCardPermission    string     `json:"share_card_permission,omitempty"`    // 群分享权限(allowed/not_allowed)
+	AtAllPermission        string     `json:"at_all_permission,omitempty"`        // at 所有人权限(all_members/only_owner)
+	EditPermission         string     `json:"edit_permission,omitempty"`          // 群编辑权限(all_members/only_owner)
+	OwnerIDType            IDType     `json:"owner_id_type,omitempty"`            // 群主 ID 的类型(open_id/user_id/union_id)，群主是机器人时，不返回该字段。
+	OwnerID                string     `json:"owner_id,omitempty"`                 // 群主 ID，群主是机器人时，不返回该字段。
+	ChatMode               string     `json:"chat_mode,omitempty"`                // 群模式(group/topic/p2p)
+	ChatType               string     `json:"chat_type,omitempty"`                // 群类型(private/public)
+	ChatTag                string     `json:"chat_tag,omitempty"`                 // 优先级最高的一个群tag(inner/tenant/department/edu/meeting/customer_service)
+	JoinMessageVisibility  string     `json:"join_message_visibility,omitempty"`  // 入群消息可见性(only_owner/all_members/not_anyone)
+	LeaveMessageVisibility string     `json:"leave_message_visibility,omitempty"` // 出群消息可见性(only_owner/all_members/not_anyone)
+	MembershipApproval     string     `json:"membership_approval,omitempty"`      // 加群审批(no_approval_required/approval_required)
+	ModerationPermission   string     `json:"moderation_permission,omitempty"`    // 发言权限(all_members/only_owner/moderator_list)
 }

@@ -41,38 +41,21 @@ type getMessageResp struct {
 }
 
 type GetMessageResp struct {
-	Items *GetMessageRespItems `json:"items,omitempty"` // -
+	Items []*GetMessageRespItem `json:"items,omitempty"` // -
 }
 
-type GetMessageRespItems struct {
-	MessageID      string                       `json:"message_id,omitempty"`       // 消息id open_message_id
-	RootID         string                       `json:"root_id,omitempty"`          // 根消息id open_message_id
-	ParentID       string                       `json:"parent_id,omitempty"`        // 父消息的id open_message_id
-	MsgType        string                       `json:"msg_type,omitempty"`         // 消息类型 text post card image等等
-	CreateTime     string                       `json:"create_time,omitempty"`      // 消息生成的时间戳(毫秒)
-	UpdateTime     string                       `json:"update_time,omitempty"`      // 消息更新的时间戳
-	Deleted        bool                         `json:"deleted,omitempty"`          // 消息是否被撤回
-	Updated        bool                         `json:"updated,omitempty"`          // 消息是否被更新
-	ChatID         string                       `json:"chat_id,omitempty"`          // 所属的群
-	Sender         *GetMessageRespItemsSender   `json:"sender,omitempty"`           // 发送者，可以是用户或应用
-	Body           *GetMessageRespItemsBody     `json:"body,omitempty"`             // 消息内容，json结构，格式说明参考： [消息content说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/im-v1/message/events/message_content)
-	Mentions       *GetMessageRespItemsMentions `json:"mentions,omitempty"`         // 被艾特的人或应用的id
-	UpperMessageID string                       `json:"upper_message_id,omitempty"` // 上一层级的消息id open_message_id
-}
-
-type GetMessageRespItemsSender struct {
-	Id         string `json:"id,omitempty"`          // 该字段标识发送者的id
-	IDType     IDType `json:"id_type,omitempty"`     // 该字段标识发送者的id类型
-	SenderType string `json:"sender_type,omitempty"` // 该字段标识发送者的类型
-}
-
-type GetMessageRespItemsBody struct {
-	Content string `json:"content,omitempty"` // 消息jsonContent
-}
-
-type GetMessageRespItemsMentions struct {
-	Key    string `json:"key,omitempty"`     // mention key
-	Id     string `json:"id,omitempty"`      // 用户open id
-	IDType IDType `json:"id_type,omitempty"` // id 可以是open_id，user_id或者union_id
-	Name   string `json:"name,omitempty"`    // 被at用户的姓名
+type GetMessageRespItem struct {
+	MessageID      string       `json:"message_id,omitempty"`       // 消息id open_message_id
+	RootID         string       `json:"root_id,omitempty"`          // 根消息id open_message_id
+	ParentID       string       `json:"parent_id,omitempty"`        // 父消息的id open_message_id
+	MsgType        string       `json:"msg_type,omitempty"`         // 消息类型 text post card image等等
+	CreateTime     string       `json:"create_time,omitempty"`      // 消息生成的时间戳(毫秒)
+	UpdateTime     string       `json:"update_time,omitempty"`      // 消息更新的时间戳
+	Deleted        bool         `json:"deleted,omitempty"`          // 消息是否被撤回
+	Updated        bool         `json:"updated,omitempty"`          // 消息是否被更新
+	ChatID         string       `json:"chat_id,omitempty"`          // 所属的群
+	Sender         *Sender      `json:"sender,omitempty"`           // 发送者，可以是用户或应用
+	Body           *MessageBody `json:"body,omitempty"`             // 消息内容，json结构，格式说明参考： [消息content说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/im-v1/message/events/message_content)
+	Mentions       []*Mention   `json:"mentions,omitempty"`         // 被艾特的人或应用的id
+	UpperMessageID string       `json:"upper_message_id,omitempty"` // 上一层级的消息id open_message_id
 }

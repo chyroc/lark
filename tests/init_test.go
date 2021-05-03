@@ -5,11 +5,17 @@ import (
 	"testing"
 
 	"github.com/stretchr/testify/assert"
+
+	"github.com/chyroc/lark"
 )
 
 type App struct {
 	AppID     string
 	AppSecret string
+}
+
+func (r *App) Ins() lark.API {
+	return lark.New(r.AppID, r.AppSecret)
 }
 
 type User struct {

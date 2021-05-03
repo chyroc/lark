@@ -14,7 +14,7 @@ func Test_CreateChat(t *testing.T) {
 	as := assert.New(t)
 
 	t.Run("Chat.CreateChat no-permission", func(t *testing.T) {
-		cli := lark.New(AppNoPermission.AppID, AppNoPermission.AppSecret)
+		cli := AppNoPermission.Ins()
 		ctx := context.Background()
 		_, _, err := cli.Chat().CreateChat(ctx, &lark.CreateChatReq{})
 		spew.Dump(err)
@@ -37,9 +37,9 @@ func Test_CreateChat(t *testing.T) {
 
 		{
 			resp, _, err := cli.Chat().AddMember(ctx, &lark.AddMemberReq{
-				// MemberIDType: lark.IDTypeUserID,
-				ChatID: chatID,
-				IDList: []string{UserAdmin.UserID},
+				MemberIDType: lark.IDTypePtr(lark.IDTypeUserID),
+				ChatID:       chatID,
+				IDList:       []string{UserAdmin.UserID},
 			})
 			spew.Dump("AddMember", resp, err)
 			as.Nil(err)
@@ -62,5 +62,21 @@ func Test_CreateChat(t *testing.T) {
 			spew.Dump("DeleteChat", resp, err)
 			as.Nil(err)
 		}
+	})
+}
+
+func Test_GetChat(t *testing.T) {
+	as := assert.New(t)
+
+	t.Run("", func(t *testing.T) {
+		ctx := context.Background()
+
+		_, _, err := AppNoPermission.Ins().Chat().GetChatListOfSelf(ctx, &lark.GetChatListOfSelfReq{
+			UserIDType: nil,
+			PageToken:  nil,
+			PageSize:   nil,
+		})
+		as.NotNil(err)
+		as.Contains(err.Error(), "No permission")
 	})
 }

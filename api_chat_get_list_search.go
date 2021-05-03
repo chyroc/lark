@@ -53,12 +53,12 @@ type getChatListBySearchResp struct {
 }
 
 type GetChatListBySearchResp struct {
-	Items     *GetChatListBySearchRespItems `json:"items,omitempty"`      // chat 列表
-	PageToken string                        `json:"page_token,omitempty"` // 分页标记，当 has_more 为 true 时，会同时返回新的 page_token，否则不返回 page_token
-	HasMore   bool                          `json:"has_more,omitempty"`   // 是否还有更多项
+	Items     []*GetChatListBySearchRespItem `json:"items,omitempty"`      // chat 列表
+	PageToken string                         `json:"page_token,omitempty"` // 分页标记，当 has_more 为 true 时，会同时返回新的 page_token，否则不返回 page_token
+	HasMore   bool                           `json:"has_more,omitempty"`   // 是否还有更多项
 }
 
-type GetChatListBySearchRespItems struct {
+type GetChatListBySearchRespItem struct {
 	ChatID      string `json:"chat_id,omitempty"`       // 群组 ID
 	Avatar      string `json:"avatar,omitempty"`        // 群头像 URL
 	Name        string `json:"name,omitempty"`          // 群名称
