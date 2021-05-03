@@ -1,9 +1,11 @@
 package lark
 
 import (
+	"bytes"
 	"io"
 	"testing"
 
+	"github.com/davecgh/go-spew/spew"
 	"github.com/stretchr/testify/assert"
 )
 
@@ -109,5 +111,30 @@ func TestName(t *testing.T) {
 		bs, err := io.ReadAll(resp.Body)
 		as.Nil(err)
 		as.Equal(`{"name":"lark"}`, string(bs))
+	})
+
+	t.Run("", func(t *testing.T) {
+		type req struct {
+			ImageType ImageType `json:"image_type,omitempty"` // 图片类型,**示例值**："message",**可选值有**：,- `message`：用于发送消息,- `avatar`：用于设置头像
+			Image     io.Reader `json:"image,omitempty"`      // 图片内容,**示例值**：二进流
+		}
+		resp, err := parseRequestParam(&requestParam{
+			Method: "get",
+			URL:    "http://x.com",
+			IsFile: true,
+			Body: req{
+				ImageType: ImageTypeMessage,
+				Image:     bytes.NewReader([]byte("hi")),
+			},
+		})
+		as.Nil(err)
+		as.NotNil(resp)
+		as.Equal("GET", resp.Method)
+		as.Equal("http://x.com", resp.URL)
+		as.NotNil(resp.Body)
+		spew.Dump(resp.Body)
+		// bs, err := io.ReadAll(resp.Body)
+		// as.Nil(err)
+		// as.Equal(`{"name":"lark"}`, string(bs))
 	})
 }

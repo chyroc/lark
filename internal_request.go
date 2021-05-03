@@ -6,6 +6,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"io"
+	"mime/multipart"
 	"net/http"
 	"net/url"
 	"os"
@@ -26,7 +27,9 @@ type Response struct {
 }
 
 func (r *Lark) request(ctx context.Context, req *requestParam, resp interface{}) (*Response, error) {
-	headers := map[string]string{}
+	headers := map[string]string{
+		"Content-Type": "application/json; charset=utf-8",
+	}
 	if req.NeedTenantAccessToken {
 		token, _, err := r.Token().GetTenantAccessToken(ctx)
 		if err != nil {
@@ -47,11 +50,18 @@ type requestParam struct {
 	Method                string
 	URL                   string
 	Body                  interface{}
+	IsFile                bool
 	NeedTenantAccessToken bool
 	NeedAppAccessToken    bool
 }
 
 func parseRequestParam(req *requestParam) (*realRequestParam, error) {
+	uri := req.URL
+	var body io.Reader
+	var reader io.Reader
+	headers := map[string]string{}
+	fileKey := ""
+
 	vv := reflect.ValueOf(req.Body)
 	vt := reflect.TypeOf(req.Body)
 
@@ -61,9 +71,9 @@ func parseRequestParam(req *requestParam) (*realRequestParam, error) {
 	}
 
 	q := url.Values{}
-	uri := req.URL
 	isNeedQuery := false
 	isNeedBody := false
+	filedata := map[string]string{}
 
 	for i := 0; i < vt.NumField(); i++ {
 		fieldVV := vv.Field(i)
@@ -72,6 +82,7 @@ func parseRequestParam(req *requestParam) (*realRequestParam, error) {
 		if fieldVV.Kind() == reflect.Ptr && fieldVV.IsNil() {
 			continue
 		}
+
 		if path := fieldVT.Tag.Get("path"); path != "" {
 			uri = strings.ReplaceAll(uri, ":"+path, internal.ReflectToString(fieldVV))
 			continue
@@ -80,14 +91,25 @@ func parseRequestParam(req *requestParam) (*realRequestParam, error) {
 			q.Set(query, internal.ReflectToString(fieldVV))
 			continue
 		} else if j := fieldVT.Tag.Get("json"); j != "" {
-			isNeedBody = true
+			if strings.HasSuffix(j, ",omitempty") {
+				j = j[:len(j)-10]
+			}
+			if req.IsFile {
+				fileKey = j
+				if r, ok := fieldVV.Interface().(io.Reader); ok {
+					reader = r
+				} else {
+					filedata[j] = internal.ReflectToString(fieldVV)
+				}
+			} else {
+				isNeedBody = true
+			}
 			continue
 		}
 		spew.Dump(req)
 		os.Exit(0)
 	}
 
-	var body io.Reader
 	if isNeedBody {
 		bs, err := json.Marshal(req.Body)
 		if err != nil {
@@ -96,21 +118,32 @@ func parseRequestParam(req *requestParam) (*realRequestParam, error) {
 		body = bytes.NewBuffer(bs)
 	}
 
+	if req.IsFile {
+		contentType, bod, err := newFileUploadRequest(filedata, fileKey, reader)
+		if err != nil {
+			return nil, err
+		}
+		headers["Content-Type"] = contentType
+		body = bod
+	}
+
 	if isNeedQuery {
 		uri = uri + "?" + q.Encode()
 	}
 
 	return &realRequestParam{
-		Method: strings.ToUpper(req.Method),
-		URL:    uri,
-		Body:   body,
+		Method:  strings.ToUpper(req.Method),
+		URL:     uri,
+		Body:    body,
+		Headers: headers,
 	}, nil
 }
 
 type realRequestParam struct {
-	Method string
-	URL    string
-	Body   io.Reader
+	Method  string
+	URL     string
+	Body    io.Reader
+	Headers map[string]string
 }
 
 func request(ctx context.Context, cli *http.Client, requestParam *requestParam, headers map[string]string, realResponse interface{}) (*Response, error) {
@@ -122,12 +155,14 @@ func request(ctx context.Context, cli *http.Client, requestParam *requestParam, 
 
 	response.Method = realReq.Method
 	response.URL = realReq.URL
+	for k, v := range realReq.Headers {
+		headers[k] = v
+	}
 
 	req, err := http.NewRequest(realReq.Method, realReq.URL, realReq.Body)
 	if err != nil {
 		return response, err
 	}
-	req.Header.Set("Content-Type", "application/json; charset=utf-8")
 	for k, v := range headers {
 		req.Header.Set(k, v)
 	}
@@ -151,4 +186,26 @@ func request(ctx context.Context, cli *http.Client, requestParam *requestParam, 
 		return response, fmt.Errorf("invalid json: %s", bs)
 	}
 	return response, nil
+}
+
+func newFileUploadRequest(params map[string]string, filekey string, reader io.Reader) (string, io.Reader, error) {
+	body := &bytes.Buffer{}
+	writer := multipart.NewWriter(body)
+	part, err := writer.CreateFormFile(filekey, "file.file")
+	if err != nil {
+		return "", nil, err
+	}
+	if _, err = io.Copy(part, reader); err != nil {
+		return "", nil, err
+	}
+	for key, val := range params {
+		if err = writer.WriteField(key, val); err != nil {
+			return "", nil, err
+		}
+	}
+	if err = writer.Close(); err != nil {
+		return "", nil, err
+	}
+
+	return writer.FormDataContentType(), body, nil
 }

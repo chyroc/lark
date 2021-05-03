@@ -65,6 +65,16 @@
     ]
   },
   {
+    "scope": "File",
+    "apis": [
+      {
+        "file_name": "api_file_upload_image.go",
+        "func_name": "UploadImage",
+        "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/image/create"
+      }
+    ]
+  },
+  {
     "scope": "Message",
     "apis": [
       {

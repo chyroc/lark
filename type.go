@@ -36,6 +36,13 @@ type Mention struct {
 	Name   string `json:"name,omitempty"`    // 被at用户的姓名
 }
 
+type ImageType string
+
+const (
+	ImageTypeMessage ImageType = "message" // 用于发送消息
+	ImageTypeAvatar  ImageType = "avatar"  // 用于设置头像
+)
+
 type HelpDeskCustomizedField struct {
 	ID      string `json:"id"`       // id ,示例值："123"
 	Value   string `json:"value"`    // value ,示例值："value"

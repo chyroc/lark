@@ -69,3 +69,13 @@ func (r *Lark) HelpDesk() *HelpDeskAPI {
 type HelpDeskAPI struct {
 	cli *Lark
 }
+
+func (r *Lark) File() *FileAPI {
+	return &FileAPI{
+		cli: r,
+	}
+}
+
+type FileAPI struct {
+	cli *Lark
+}
