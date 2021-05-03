@@ -8,6 +8,8 @@
 
 Feishu/Lark Open API Go Sdk Written Casually During Non-Working Hours.
 
+Created By Code Generation.
+
 ## Install
 
 ```shell
@@ -17,3 +19,9 @@ go get github.com/chyroc/lark
 ## Usage
 
 doc: https://godoc.org/github.com/chyroc/lark
+
+## Todo
+
+- [ ] generate all api
+- [ ] test coverage >= 80%
+- [ ] add english comment, from larksuite webpage

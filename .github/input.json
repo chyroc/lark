@@ -104,6 +104,56 @@
         "file_name": "contact_user_get_list.go",
         "func_name": "GetUserList",
         "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/list"
+      },
+      {
+        "file_name": "contact_user_update_patch.go",
+        "func_name": "UpdateUserPatch",
+        "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/patch"
+      },
+      {
+        "file_name": "contact_user_update.go",
+        "func_name": "UpdateUser",
+        "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/update"
+      },
+      {
+        "file_name": "contact_department_create.go",
+        "func_name": "CreateDepartment",
+        "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/create"
+      },
+      {
+        "file_name": "contact_department_get.go",
+        "func_name": "GetDepartment",
+        "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/get"
+      },
+      {
+        "file_name": "contact_department_get_list.go",
+        "func_name": "GetDepartmentList",
+        "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/list"
+      },
+      {
+        "file_name": "contact_department_get_parent.go",
+        "func_name": "GetParentDepartment",
+        "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/parent"
+      },
+      {
+        "file_name": "contact_department_search.go",
+        "func_name": "SearchDepartment",
+        "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/search"
+      },
+      {
+        "file_name": "contact_department_update_patch.go",
+        "func_name": "UpdateDepartmentPatch",
+        "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/patch"
+      },
+      {
+        "file_name": "contact_department_update.go",
+        "func_name": "UpdateDepartment",
+        "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/update"
+      },
+      {
+        "file_name": "contact_department_delete.go",
+        "func_name": "DeleteDepartment",
+        "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/delete"
       }
     ]
   }
