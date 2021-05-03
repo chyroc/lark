@@ -4,31 +4,26 @@
     "apis": [
       {
         "file_name": "api_chat_create.go",
-        "old_file_name": "chat_create_chat.go",
         "func_name": "CreateChat",
         "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat/create"
       },
       {
         "file_name": "api_chat_get.go",
-        "old_file_name": "chat_get_chat.go",
         "func_name": "GetChat",
         "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat/get"
       },
       {
         "file_name": "api_chat_update.go",
-        "old_file_name": "chat_update_chat.go",
         "func_name": "UpdateChat",
         "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat/update"
       },
       {
         "file_name": "api_chat_delete.go",
-        "old_file_name": "chat_delete_chat.go",
         "func_name": "DeleteChat",
         "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat/delete"
       },
       {
         "file_name": "api_chat_get_list_of_self.go",
-        "old_file_name": "chat_get_chat_list_of_self.go",
         "func_name": "GetChatListOfSelf",
         "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat/list"
       },
@@ -49,13 +44,11 @@
       },
       {
         "file_name": "api_chat_member_add.go",
-        "old_file_name": "chat_member_add_member.go",
         "func_name": "AddMember",
         "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-members/create"
       },
       {
         "file_name": "api_chat_member_delete.go",
-        "old_file_name": "chat_member_delete_member.go",
         "func_name": "DeleteMember",
         "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-members/delete"
       },
@@ -76,7 +69,6 @@
     "apis": [
       {
         "file_name": "api_message_get.go",
-        "old_file_name": "message_get_message.go",
         "func_name": "GetMessage",
         "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/get"
       }
@@ -154,6 +146,16 @@
         "file_name": "contact_department_delete.go",
         "func_name": "DeleteDepartment",
         "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/delete"
+      }
+    ]
+  },
+  {
+    "scope": "Approval",
+    "apis": [
+      {
+        "file_name": "api_approval_get_instance_list.go",
+        "func_name": "GetInstanceList",
+        "doc_url": "https://open.feishu.cn/document/ukTMukTMukTM/uQDOyUjL0gjM14CN4ITN"
       }
     ]
   }

@@ -49,3 +49,13 @@ func (r *apiImpl) Contact() *ContactAPI {
 type ContactAPI struct {
 	cli *apiImpl
 }
+
+func (r *apiImpl) Approval() *ApprovalAPI {
+	return &ApprovalAPI{
+		cli: r,
+	}
+}
+
+type ApprovalAPI struct {
+	cli *apiImpl
+}
