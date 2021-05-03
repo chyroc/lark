@@ -4,58 +4,58 @@ import (
 	"net/http"
 )
 
-type apiImpl struct {
+type Lark struct {
 	appID      string
 	appSecret  string
 	httpClient *http.Client
 }
 
-func (r *apiImpl) Chat() *ChatAPI {
+func (r *Lark) Chat() *ChatAPI {
 	return &ChatAPI{
 		cli: r,
 	}
 }
 
 type ChatAPI struct {
-	cli *apiImpl
+	cli *Lark
 }
 
-func (r *apiImpl) Message() *MessageAPI {
+func (r *Lark) Message() *MessageAPI {
 	return &MessageAPI{
 		cli: r,
 	}
 }
 
 type MessageAPI struct {
-	cli *apiImpl
+	cli *Lark
 }
 
-func (r *apiImpl) Token() *TokenAPI {
+func (r *Lark) Token() *TokenAPI {
 	return &TokenAPI{
 		cli: r,
 	}
 }
 
 type TokenAPI struct {
-	cli *apiImpl
+	cli *Lark
 }
 
-func (r *apiImpl) Contact() *ContactAPI {
+func (r *Lark) Contact() *ContactAPI {
 	return &ContactAPI{
 		cli: r,
 	}
 }
 
 type ContactAPI struct {
-	cli *apiImpl
+	cli *Lark
 }
 
-func (r *apiImpl) Approval() *ApprovalAPI {
+func (r *Lark) Approval() *ApprovalAPI {
 	return &ApprovalAPI{
 		cli: r,
 	}
 }
 
 type ApprovalAPI struct {
-	cli *apiImpl
+	cli *Lark
 }

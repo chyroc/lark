@@ -1,7 +1,6 @@
 package tests
 
 import (
-	"context"
 	"testing"
 
 	"github.com/davecgh/go-spew/spew"
@@ -13,11 +12,8 @@ import (
 func Test_GetMessage(t *testing.T) {
 	as := assert.New(t)
 
-	r := lark.New(AppALLPermission.AppID, AppALLPermission.AppSecret)
-	ctx := context.Background()
-
 	t.Run("ids not existed", func(t *testing.T) {
-		_, _, err := r.Message().GetMessage(ctx, &lark.GetMessageReq{
+		_, _, err := AppALLPermission.Ins().Message().GetMessage(ctx, &lark.GetMessageReq{
 			MessageID: "1",
 		})
 		as.NotNil(err)
@@ -25,8 +21,7 @@ func Test_GetMessage(t *testing.T) {
 	})
 
 	t.Run("ids not existed", func(t *testing.T) {
-		r = lark.New(AppNoPermission.AppID, AppNoPermission.AppSecret)
-		_, _, err := r.Message().GetMessage(ctx, &lark.GetMessageReq{
+		_, _, err := AppNoPermission.Ins().Message().GetMessage(ctx, &lark.GetMessageReq{
 			MessageID: "1",
 		})
 		as.NotNil(err)
@@ -34,7 +29,7 @@ func Test_GetMessage(t *testing.T) {
 	})
 
 	t.Run("ids not existed", func(t *testing.T) {
-		resp, _, err := r.Message().GetMessage(ctx, &lark.GetMessageReq{
+		resp, _, err := AppALLPermission.Ins().Message().GetMessage(ctx, &lark.GetMessageReq{
 			MessageID: "1",
 		})
 		spew.Dump(resp, err)

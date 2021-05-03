@@ -25,7 +25,7 @@ type Response struct {
 	RequestID string
 }
 
-func (r *apiImpl) request(ctx context.Context, req *requestParam, resp interface{}) (*Response, error) {
+func (r *Lark) request(ctx context.Context, req *requestParam, resp interface{}) (*Response, error) {
 	headers := map[string]string{}
 	if req.NeedTenantAccessToken {
 		token, _, err := r.Token().GetTenantAccessToken(ctx)

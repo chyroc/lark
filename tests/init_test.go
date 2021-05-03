@@ -14,8 +14,8 @@ type App struct {
 	AppSecret string
 }
 
-func (r *App) Ins() lark.API {
-	return lark.New(r.AppID, r.AppSecret)
+func (r *App) Ins() *lark.Lark {
+	return lark.New(lark.WithAppCredential(r.AppID, r.AppSecret))
 }
 
 type User struct {

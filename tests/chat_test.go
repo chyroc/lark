@@ -26,7 +26,7 @@ func Test_CreateChat(t *testing.T) {
 	})
 
 	t.Run("CreateChat, AddMember, GetMember, DeleteMember, DeleteChat", func(t *testing.T) {
-		cli := lark.New(AppALLPermission.AppID, AppALLPermission.AppSecret)
+		cli := lark.New(lark.WithAppCredential(AppALLPermission.AppID, AppALLPermission.AppSecret))
 
 		chatID := ""
 		{
