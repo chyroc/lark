@@ -114,13 +114,13 @@ func Test_GetChat(t *testing.T) {
 		as.Contains(err.Error(), "No permission")
 	})
 
-	t.Run("GetChatListBySearch, no-permission", func(t *testing.T) {
-		_, _, err := AppNoPermission.Ins().Chat().GetChatListBySearch(ctx, &lark.GetChatListBySearchReq{})
+	t.Run("SearchChat, no-permission", func(t *testing.T) {
+		_, _, err := AppNoPermission.Ins().Chat().SearchChat(ctx, &lark.SearchChatReq{})
 		as.NotNil(err)
 		as.Contains(err.Error(), "No permission")
 	})
 
-	t.Run("GetChatListBySearch, success", func(t *testing.T) {
+	t.Run("SearchChat, success", func(t *testing.T) {
 		resp, _, err := AppALLPermission.Ins().Chat().GetChat(ctx, &lark.GetChatReq{
 			ChatID: ChatContainALLPermissionApp.ChatID,
 		})
@@ -156,8 +156,8 @@ func Test_GetChat(t *testing.T) {
 		as.True(containThisChat, fmt.Sprintf("shou contain chat: %s: %#v", ChatContainALLPermissionApp.ChatID, resp.Items))
 	})
 
-	t.Run("GetChatListBySearch, success", func(t *testing.T) {
-		resp, _, err := AppALLPermission.Ins().Chat().GetChatListBySearch(ctx, &lark.GetChatListBySearchReq{
+	t.Run("SearchChat, success", func(t *testing.T) {
+		resp, _, err := AppALLPermission.Ins().Chat().SearchChat(ctx, &lark.SearchChatReq{
 			Query: ptrString("lark-sdk"),
 		})
 		as.Nil(err)
