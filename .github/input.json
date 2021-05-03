@@ -73,9 +73,9 @@
         "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/image/create"
       },
       {
-        "file_name": "api_file_download_image.go",
-        "func_name": "DownloadImage",
-        "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/image/get"
+        "file_name": "api_file_upload_file.go",
+        "func_name": "UploadFile",
+        "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/file/create"
       }
     ]
   },

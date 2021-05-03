@@ -43,6 +43,18 @@ const (
 	ImageTypeAvatar  ImageType = "avatar"  // 用于设置头像
 )
 
+type FileType string
+
+const (
+	FileTypeOpus   FileType = "opus"   // 上传opus音频文件；其他格式的音频文件，请转为opus格式后上传，转换方式可参考：ffmpeg -i SourceFile.mp3 -acodec libopus -ac 1 -ar 16000 TargetFile.opus
+	FileTypeMp4    FileType = "mp4"    // 上传mp4视频文件
+	FileTypePdf    FileType = "pdf"    // 上传pdf格式文件
+	FileTypeDoc    FileType = "doc"    // 上传doc格式文件
+	FileTypeXls    FileType = "xls"    // 上传xls格式文件
+	FileTypePpt    FileType = "ppt"    // 上传ppt格式文件
+	FileTypeStream FileType = "stream" // 上传stream格式文件
+)
+
 type HelpDeskCustomizedField struct {
 	ID      string `json:"id"`       // id ,示例值："123"
 	Value   string `json:"value"`    // value ,示例值："value"
