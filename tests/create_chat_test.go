@@ -37,9 +37,9 @@ func Test_CreateChat(t *testing.T) {
 
 		{
 			resp, _, err := cli.Chat().AddMember(ctx, &lark.AddMemberReq{
-				MemberIDType: lark.IDTypeUserID,
-				ChatID:       chatID,
-				IDList:       []string{UserAdmin.UserID},
+				// MemberIDType: lark.IDTypeUserID,
+				ChatID: chatID,
+				IDList: []string{UserAdmin.UserID},
 			})
 			spew.Dump("AddMember", resp, err)
 			as.Nil(err)
@@ -47,7 +47,7 @@ func Test_CreateChat(t *testing.T) {
 
 		{
 			resp, _, err := cli.Chat().DeleteMember(ctx, &lark.DeleteMemberReq{
-				MemberIDType: lark.IDTypeUserID,
+				MemberIDType: lark.IDTypePtr(lark.IDTypeUserID),
 				ChatID:       chatID,
 				IDList:       []string{UserAdmin.UserID},
 			})

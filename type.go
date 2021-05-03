@@ -8,3 +8,7 @@ const (
 	IDTypeOpenID  IDType = "open_id"  // 以 open_id 来识别成员
 	IDTypeAppID   IDType = "app_id"   // 以 app_id 来识别成员
 )
+
+func IDTypePtr(idType IDType) *IDType {
+	return &idType
+}

@@ -33,6 +33,11 @@
         "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat/list"
       },
       {
+        "file_name": "api_chat_get_list_search.go",
+        "func_name": "GetChatListBySearch",
+        "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat/search"
+      },
+      {
         "file_name": "api_chat_member_add.go",
         "old_file_name": "chat_member_add_member.go",
         "func_name": "AddMember",

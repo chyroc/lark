@@ -31,8 +31,8 @@ func (r *ChatAPI) GetChat(ctx context.Context, request *GetChatReq) (*GetChatRes
 }
 
 type GetChatReq struct {
-	UserIDType IDType `query:"user_id_type" json:"-"` // 用户 ID 类型,**示例值**："open_id",**可选值有**：,- `open_id`：用户的 open id,- `union_id`：用户的 union id,- `user_id`：用户的 user id,**默认值**：`open_id`,**当值为 `user_id`，字段权限要求**：,<md-perm href="/ssl:ttdoc/ukTMukTMukTM/uQjN3QjL0YzN04CN2cDN">获取用户 userid</md-perm>
-	ChatID     string `path:"chat_id" json:"-"`       // 群 ID,**示例值**："oc_a0553eda9014c201e6969b478895c230"
+	UserIDType *IDType `query:"user_id_type" json:"-"` // 用户 ID 类型,**示例值**："open_id",**可选值有**：,- `open_id`：用户的 open id,- `union_id`：用户的 union id,- `user_id`：用户的 user id,**默认值**：`open_id`,**当值为 `user_id`，字段权限要求**：,<md-perm href="/ssl:ttdoc/ukTMukTMukTM/uQjN3QjL0YzN04CN2cDN">获取用户 userid</md-perm>
+	ChatID     string  `path:"chat_id" json:"-"`       // 群 ID,**示例值**："oc_a0553eda9014c201e6969b478895c230"
 }
 
 type getChatResp struct {
@@ -50,7 +50,7 @@ type GetChatResp struct {
 	ShareCardPermission    string                `json:"share_card_permission,omitempty"`    // 群分享权限(allowed/not_allowed)
 	AtAllPermission        string                `json:"at_all_permission,omitempty"`        // at 所有人权限(all_members/only_owner)
 	EditPermission         string                `json:"edit_permission,omitempty"`          // 群编辑权限(all_members/only_owner)
-	OwnerIDType            string                `json:"owner_id_type,omitempty"`            // 群主 ID 的类型(open_id/user_id/union_id)，群主是机器人时，不返回该字段。
+	OwnerIDType            IDType                `json:"owner_id_type,omitempty"`            // 群主 ID 的类型(open_id/user_id/union_id)，群主是机器人时，不返回该字段。
 	OwnerID                string                `json:"owner_id,omitempty"`                 // 群主 ID，群主是机器人时，不返回该字段。
 	ChatMode               string                `json:"chat_mode,omitempty"`                // 群模式(group/topic/p2p)
 	ChatType               string                `json:"chat_type,omitempty"`                // 群类型(private/public)

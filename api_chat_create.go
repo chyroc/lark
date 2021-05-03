@@ -30,21 +30,21 @@ func (r *ChatAPI) CreateChat(ctx context.Context, request *CreateChatReq) (*Crea
 }
 
 type CreateChatReq struct {
-	Avatar                 string                  `json:"avatar,omitempty"`                   // 群头像对应的 Image Key，可通过[上传图片](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/image/create)获取（注意：上传图片的 ==image_type== 需要指定为 ==avatar==）,**示例值**："default-avatar_44ae0ca3-e140-494b-956f-78091e348435"
-	Name                   string                  `json:"name,omitempty"`                     // 群名称,**示例值**："测试群名称"
-	Description            string                  `json:"description,omitempty"`              // 群描述,**示例值**："测试群描述"
+	Avatar                 *string                 `json:"avatar,omitempty"`                   // 群头像对应的 Image Key，可通过[上传图片](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/image/create)获取（注意：上传图片的 ==image_type== 需要指定为 ==avatar==）,**示例值**："default-avatar_44ae0ca3-e140-494b-956f-78091e348435"
+	Name                   *string                 `json:"name,omitempty"`                     // 群名称,**示例值**："测试群名称"
+	Description            *string                 `json:"description,omitempty"`              // 群描述,**示例值**："测试群描述"
 	I18nNames              *CreateChatReqI18nNames `json:"i18n_names,omitempty"`               // 群国际化名称
-	ChatMode               string                  `json:"chat_mode,omitempty"`                // 群模式(group),**示例值**："group"
-	ChatType               string                  `json:"chat_type,omitempty"`                // 群类型(private/public),**示例值**："private"
-	JoinMessageVisibility  string                  `json:"join_message_visibility,omitempty"`  // 入群消息可见性(only_owner/all_members/not_anyone),**示例值**："all_members"
-	LeaveMessageVisibility string                  `json:"leave_message_visibility,omitempty"` // 出群消息可见性(only_owner/all_members/not_anyone),**示例值**："all_members"
-	MembershipApproval     string                  `json:"membership_approval,omitempty"`      // 加群审批(no_approval_required/approval_required),**示例值**："no_approval_required"
+	ChatMode               *string                 `json:"chat_mode,omitempty"`                // 群模式(group),**示例值**："group"
+	ChatType               *string                 `json:"chat_type,omitempty"`                // 群类型(private/public),**示例值**："private"
+	JoinMessageVisibility  *string                 `json:"join_message_visibility,omitempty"`  // 入群消息可见性(only_owner/all_members/not_anyone),**示例值**："all_members"
+	LeaveMessageVisibility *string                 `json:"leave_message_visibility,omitempty"` // 出群消息可见性(only_owner/all_members/not_anyone),**示例值**："all_members"
+	MembershipApproval     *string                 `json:"membership_approval,omitempty"`      // 加群审批(no_approval_required/approval_required),**示例值**："no_approval_required"
 }
 
 type CreateChatReqI18nNames struct {
-	ZhCn string `json:"zh_cn,omitempty"` // 中文名,**示例值**："群聊"
-	EnUs string `json:"en_us,omitempty"` // 英文名,**示例值**："group chat"
-	JaJp string `json:"ja_jp,omitempty"` // 日文名,**示例值**："グループチャット"
+	ZhCn *string `json:"zh_cn,omitempty"` // 中文名,**示例值**："群聊"
+	EnUs *string `json:"en_us,omitempty"` // 英文名,**示例值**："group chat"
+	JaJp *string `json:"ja_jp,omitempty"` // 日文名,**示例值**："グループチャット"
 }
 
 type createChatResp struct {
