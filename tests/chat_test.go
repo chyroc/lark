@@ -21,7 +21,7 @@ func Test_CreateChat(t *testing.T) {
 		spew.Dump(err)
 		as.NotNil(err)
 		as.Equal(99991672, lark.GetErrorCode(err))
-		as.Equal("request Chat#CreateChat failed: code: 99991672, msg: No permission", err.Error())
+		as.Contains(err.Error(), "No permission")
 	})
 
 	t.Run("CreateChat, AddMember, GetMember, DeleteMember, DeleteChat", func(t *testing.T) {
@@ -141,5 +141,28 @@ func Test_GetChat(t *testing.T) {
 			}
 		}
 		as.True(containThisChat, fmt.Sprintf("shou contain chat: %s: %#v", ChatContainALLPermissionApp.ChatID, resp.Items))
+	})
+}
+
+func Test_ChatAnnouncement(t *testing.T) {
+	as := assert.New(t)
+
+	t.Run("GetAnnouncement, no-permission", func(t *testing.T) {
+		_, _, err := AppNoPermission.Ins().Chat().GetAnnouncement(ctx, &lark.GetAnnouncementReq{
+			ChatID: ChatContainALLPermissionApp.ChatID,
+		})
+		spew.Dump(err)
+		as.NotNil(err)
+		as.Contains(err.Error(), "No permission")
+	})
+
+	t.Run("GetAnnouncement, all-permission", func(t *testing.T) {
+		resp, _, err := AppALLPermission.Ins().Chat().GetAnnouncement(ctx, &lark.GetAnnouncementReq{
+			ChatID: ChatContainALLPermissionApp.ChatID,
+		})
+		spew.Dump(resp, err)
+		as.Nil(err)
+		as.NotNil(resp)
+		as.Contains(resp.Content, "群公告")
 	})
 }

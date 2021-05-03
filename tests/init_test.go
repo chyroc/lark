@@ -43,6 +43,7 @@ var UserAdmin = User{
 	Name:   os.Getenv("LARK_USER_ADMIN_NAME"),
 }
 
+// 这个群公共，必须设置「群公共」三个字
 var ChatContainALLPermissionApp = Chat{
 	ChatID: os.Getenv("LARK_CHAT_CONTAINS_APP_PERMISSION_APP_CHAT_ID"),
 	Name:   "包含「lark-sdk」的群",
