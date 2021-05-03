@@ -22,7 +22,7 @@ jobs:
       run: go build -v ./...
 
     - name: Test
-      run: go test -race -coverprofile=coverage.txt -covermode=atomic
+      run: ./.github/test.sh
       env:
         LARK_APP_NO_PERMISSION_APP_ID: ${{ secrets.LARK_APP_NO_PERMISSION_APP_ID }}
         LARK_APP_NO_PERMISSION_APP_SECRET: ${{ secrets.LARK_APP_NO_PERMISSION_APP_SECRET }}
