@@ -31,6 +31,7 @@ jobs:
         LARK_USER_ADMIN_USER_ID: ${{ secrets.LARK_USER_ADMIN_USER_ID }}
         LARK_USER_ADMIN_NAME: ${{ secrets.LARK_USER_ADMIN_NAME }}
         LARK_CHAT_CONTAINS_APP_PERMISSION_APP_CHAT_ID: ${{ secrets.LARK_CHAT_CONTAINS_APP_PERMISSION_APP_CHAT_ID }}
+        LARK_CHAT_NOT_CONTAINS_APP_PERMISSION_APP_CHAT_ID: ${{ secrets.LARK_CHAT_NOT_CONTAINS_APP_PERMISSION_APP_CHAT_ID }}
 
     - name: Upload Cov
       run: bash <(curl -s https://codecov.io/bash)

@@ -43,6 +43,11 @@
         "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-members/get"
       },
       {
+        "file_name": "api_chat_member_in.go",
+        "func_name": "IsInChat",
+        "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-members/is_in_chat"
+      },
+      {
         "file_name": "api_chat_member_add.go",
         "old_file_name": "chat_member_add_member.go",
         "func_name": "AddMember",

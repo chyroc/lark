@@ -48,6 +48,11 @@ var ChatContainALLPermissionApp = Chat{
 	Name:   "包含「lark-sdk」的群",
 }
 
+var ChatNotContainALLPermissionApp = Chat{
+	ChatID: os.Getenv("LARK_CHAT_NOT_CONTAINS_APP_PERMISSION_APP_CHAT_ID"),
+	Name:   "不包含「lark-sdk」的群",
+}
+
 func Test_Config(t *testing.T) {
 	as := assert.New(t)
 
@@ -57,4 +62,5 @@ func Test_Config(t *testing.T) {
 	as.NotEmpty(AppALLPermission.AppSecret)
 	as.NotEmpty(UserAdmin.UserID)
 	as.NotEmpty(ChatContainALLPermissionApp.ChatID)
+	as.NotEmpty(ChatNotContainALLPermissionApp.ChatID)
 }

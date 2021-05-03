@@ -24,7 +24,7 @@ func Test_CreateChat(t *testing.T) {
 		as.Equal("request Chat#CreateChat failed: code: 99991672, msg: No permission", err.Error())
 	})
 
-	t.Run("Chat.CreateChat no-permission", func(t *testing.T) {
+	t.Run("CreateChat, AddMember, GetMember, DeleteMember, DeleteChat", func(t *testing.T) {
 		cli := lark.New(AppALLPermission.AppID, AppALLPermission.AppSecret)
 
 		chatID := ""
@@ -73,6 +73,28 @@ func Test_CreateChat(t *testing.T) {
 			spew.Dump("DeleteChat", resp, err)
 			as.Nil(err)
 		}
+	})
+}
+
+func Test_Chat_member(t *testing.T) {
+	as := assert.New(t)
+
+	t.Run("", func(t *testing.T) {
+		resp, _, err := AppALLPermission.Ins().Chat().IsInChat(ctx, &lark.IsInChatReq{
+			ChatID: ChatContainALLPermissionApp.ChatID,
+		})
+		spew.Dump("IsInChat", resp, err)
+		as.Nil(err)
+		as.Equal(true, resp.IsInChat)
+	})
+
+	t.Run("", func(t *testing.T) {
+		resp, _, err := AppALLPermission.Ins().Chat().IsInChat(ctx, &lark.IsInChatReq{
+			ChatID: ChatNotContainALLPermissionApp.ChatID,
+		})
+		spew.Dump("IsInChat", resp, err)
+		as.Nil(err)
+		as.Equal(false, resp.IsInChat)
 	})
 }
 
