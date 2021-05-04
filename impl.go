@@ -8,6 +8,7 @@ type Lark struct {
 	appID      string
 	appSecret  string
 	httpClient *http.Client
+	mock       *Mock
 }
 
 func (r *Lark) Chat() *ChatAPI {

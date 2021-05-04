@@ -17,12 +17,23 @@ var ctx = context.Background()
 func Test_CreateChat(t *testing.T) {
 	as := assert.New(t)
 
-	t.Run("CreateChat, no-permission", func(t *testing.T) {
-		_, _, err := AppNoPermission.Ins().Chat().CreateChat(ctx, &lark.CreateChatReq{})
-		spew.Dump(err)
-		as.NotNil(err)
-		as.Equal(99991672, lark.GetErrorCode(err))
-		as.Contains(err.Error(), "No permission")
+	t.Run("failed", func(t *testing.T) {
+		t.Run("request failed", func(t *testing.T) {
+			cli := AppNoPermission.Ins()
+			cli.Mock().MockGetTenantAccessToken(mockGetTenantAccessTokenFailed)
+
+			_, _, err := cli.Chat().CreateChat(ctx, &lark.CreateChatReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "failed")
+		})
+
+		t.Run("CreateChat, no-permission", func(t *testing.T) {
+			_, _, err := AppNoPermission.Ins().Chat().CreateChat(ctx, &lark.CreateChatReq{})
+			spew.Dump(err)
+			as.NotNil(err)
+			as.Equal(99991672, lark.GetErrorCode(err))
+			as.Contains(err.Error(), "No permission")
+		})
 	})
 
 	t.Run("CreateChat, AddMember, GetMember, DeleteMember, DeleteChat", func(t *testing.T) {

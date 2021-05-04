@@ -16,6 +16,7 @@ func WithAppCredential(appID, appSecret string) ClientOptionFunc {
 
 func New(options ...ClientOptionFunc) *Lark {
 	r := new(Lark)
+	r.mock = new(Mock)
 	r.httpClient = &http.Client{
 		Timeout: time.Second * 3,
 	}

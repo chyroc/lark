@@ -6,6 +6,10 @@ import (
 
 // https://open.feishu.cn/document/ukTMukTMukTM/uIjNz4iM2MjLyYzM
 func (r *TokenAPI) GetTenantAccessToken(ctx context.Context) (*TokenExpire, *Response, error) {
+	if r.cli.mock.mockGetTenantAccessToken != nil {
+		return r.cli.mock.mockGetTenantAccessToken(ctx)
+	}
+
 	req := &requestParam{
 		Method: "POST",
 		URL:    "https://open.feishu.cn/open-apis/auth/v3/tenant_access_token/internal/",
@@ -27,6 +31,14 @@ func (r *TokenAPI) GetTenantAccessToken(ctx context.Context) (*TokenExpire, *Res
 		Token:  resp.TenantAccessToken,
 		Expire: resp.Expire,
 	}, response, nil
+}
+
+func (r *Mock) MockGetTenantAccessToken(f func(ctx context.Context) (*TokenExpire, *Response, error)) {
+	r.mockGetTenantAccessToken = f
+}
+
+func (r *Mock) UnMockGetTenantAccessToken() {
+	r.mockGetTenantAccessToken = nil
 }
 
 type TokenExpire struct {
