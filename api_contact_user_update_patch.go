@@ -15,6 +15,7 @@ func (r *ContactAPI) UpdateUserPatch(ctx context.Context, request *UpdateUserPat
 		Body:                  request,
 		NeedTenantAccessToken: true,
 		NeedAppAccessToken:    false,
+		IsFile:                false,
 	}
 	resp := new(updateUserPatchResp)
 

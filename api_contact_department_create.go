@@ -15,6 +15,7 @@ func (r *ContactAPI) CreateDepartment(ctx context.Context, request *CreateDepart
 		Body:                  request,
 		NeedTenantAccessToken: true,
 		NeedAppAccessToken:    false,
+		IsFile:                false,
 	}
 	resp := new(createDepartmentResp)
 

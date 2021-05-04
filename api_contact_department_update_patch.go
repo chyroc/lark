@@ -15,6 +15,7 @@ func (r *ContactAPI) UpdateDepartmentPatch(ctx context.Context, request *UpdateD
 		Body:                  request,
 		NeedTenantAccessToken: true,
 		NeedAppAccessToken:    false,
+		IsFile:                false,
 	}
 	resp := new(updateDepartmentPatchResp)
 

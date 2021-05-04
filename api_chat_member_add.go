@@ -20,6 +20,7 @@ func (r *ChatAPI) AddMember(ctx context.Context, request *AddMemberReq) (*AddMem
 		Body:                  request,
 		NeedTenantAccessToken: true,
 		NeedAppAccessToken:    false,
+		IsFile:                false,
 	}
 	resp := new(addMemberResp)
 

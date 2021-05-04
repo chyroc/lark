@@ -18,6 +18,7 @@ func (r *ChatAPI) DeleteMember(ctx context.Context, request *DeleteMemberReq) (*
 		Body:                  request,
 		NeedTenantAccessToken: true,
 		NeedAppAccessToken:    false,
+		IsFile:                false,
 	}
 	resp := new(deleteMemberResp)
 

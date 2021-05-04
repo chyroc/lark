@@ -15,6 +15,7 @@ func (r *ChatAPI) IsInChat(ctx context.Context, request *IsInChatReq) (*IsInChat
 		Body:                  request,
 		NeedTenantAccessToken: true,
 		NeedAppAccessToken:    false,
+		IsFile:                false,
 	}
 	resp := new(isInChatResp)
 

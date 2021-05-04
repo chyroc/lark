@@ -18,6 +18,7 @@ func (r *ContactAPI) GetParentDepartment(ctx context.Context, request *GetParent
 		Body:                  request,
 		NeedTenantAccessToken: true,
 		NeedAppAccessToken:    false,
+		IsFile:                false,
 	}
 	resp := new(getParentDepartmentResp)
 

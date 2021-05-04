@@ -15,6 +15,7 @@ func (r *HelpDeskAPI) UpdateTicket(ctx context.Context, request *UpdateTicketReq
 		Body:                  request,
 		NeedTenantAccessToken: false,
 		NeedAppAccessToken:    false,
+		IsFile:                false,
 	}
 	resp := new(updateTicketResp)
 

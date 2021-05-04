@@ -18,6 +18,7 @@ func (r *ContactAPI) GetUserList(ctx context.Context, request *GetUserListReq) (
 		Body:                  request,
 		NeedTenantAccessToken: true,
 		NeedAppAccessToken:    false,
+		IsFile:                false,
 	}
 	resp := new(getUserListResp)
 

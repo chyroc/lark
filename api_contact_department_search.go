@@ -15,6 +15,7 @@ func (r *ContactAPI) SearchDepartment(ctx context.Context, request *SearchDepart
 		Body:                  request,
 		NeedTenantAccessToken: false,
 		NeedAppAccessToken:    false,
+		IsFile:                false,
 	}
 	resp := new(searchDepartmentResp)
 

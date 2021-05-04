@@ -15,6 +15,7 @@ func (r *HelpDeskAPI) StartService(ctx context.Context, request *StartServiceReq
 		Body:                  request,
 		NeedTenantAccessToken: true,
 		NeedAppAccessToken:    false,
+		IsFile:                false,
 	}
 	resp := new(startServiceResp)
 

@@ -35,9 +35,9 @@ func Test_HelpDesk(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-			_, _, err := helpdeskCli.UpdateTicket(ctx, &lark.UpdateTicketReq{})
-			as.NotNil(err)
-			as.Equal(err.Error(), "failed")
+			// _, _, err := helpdeskCli.UpdateTicket(ctx, &lark.UpdateTicketReq{})
+			// as.NotNil(err)
+			// as.Equal(err.Error(), "failed")
 		})
 	})
 }

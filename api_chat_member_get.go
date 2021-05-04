@@ -17,6 +17,7 @@ func (r *ChatAPI) GetMember(ctx context.Context, request *GetMemberReq) (*GetMem
 		Body:                  request,
 		NeedTenantAccessToken: true,
 		NeedAppAccessToken:    false,
+		IsFile:                false,
 	}
 	resp := new(getMemberResp)
 

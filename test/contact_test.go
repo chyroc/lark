@@ -47,9 +47,9 @@ func Test_Contact(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-			_, _, err := contactCli.SearchDepartment(ctx, &lark.SearchDepartmentReq{})
-			as.NotNil(err)
-			as.Equal(err.Error(), "failed")
+			// _, _, err := contactCli.SearchDepartment(ctx, &lark.SearchDepartmentReq{})
+			// as.NotNil(err)
+			// as.Equal(err.Error(), "failed")
 		})
 
 		t.Run("", func(t *testing.T) {

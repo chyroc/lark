@@ -21,6 +21,7 @@ func (r *ContactAPI) GetDepartmentList(ctx context.Context, request *GetDepartme
 		Body:                  request,
 		NeedTenantAccessToken: true,
 		NeedAppAccessToken:    false,
+		IsFile:                false,
 	}
 	resp := new(getDepartmentListResp)
 
