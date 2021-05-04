@@ -54,6 +54,14 @@ var ChatNotContainALLPermissionApp = Chat{
 	Name:   "不包含「lark-sdk」的群",
 }
 
+type File struct {
+	Key string
+}
+
+var File1 = File{
+	Key: os.Getenv("FILE_KEY_TEST_FILE_1_PNG"), // this is file of ./test/file_1.png
+}
+
 func Test_Config(t *testing.T) {
 	as := assert.New(t)
 
@@ -64,4 +72,5 @@ func Test_Config(t *testing.T) {
 	as.NotEmpty(UserAdmin.UserID)
 	as.NotEmpty(ChatContainALLPermissionApp.ChatID)
 	as.NotEmpty(ChatNotContainALLPermissionApp.ChatID)
+	as.NotEmpty(File1.Key)
 }

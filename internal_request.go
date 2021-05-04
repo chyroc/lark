@@ -177,12 +177,21 @@ func request(ctx context.Context, cli *http.Client, requestParam *requestParam, 
 	if resp.Body != nil {
 		defer resp.Body.Close()
 	}
+
 	bs, err := io.ReadAll(resp.Body)
 	if err != nil {
 		return response, err
 	}
-	err = json.Unmarshal(bs, realResponse)
-	if err != nil {
+
+	if resp != nil {
+		respFileSetter, ok := realResponse.(fileSetter)
+		if ok {
+			respFileSetter.SetFile(bytes.NewReader(bs))
+			return response, nil
+		}
+	}
+
+	if err = json.Unmarshal(bs, realResponse); err != nil {
 		return response, fmt.Errorf("invalid json: %s", bs)
 	}
 	return response, nil
@@ -208,4 +217,9 @@ func newFileUploadRequest(params map[string]string, filekey string, reader io.Re
 	}
 
 	return writer.FormDataContentType(), body, nil
+}
+
+type fileSetter interface {
+	IsFileType() bool
+	SetFile(file io.Reader)
 }
