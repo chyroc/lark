@@ -15,6 +15,42 @@ import (
 func Test_GetMessage(t *testing.T) {
 	as := assert.New(t)
 
+	t.Run("request failed", func(t *testing.T) {
+		cli := AppALLPermission.Ins()
+		cli.Mock().MockGetTenantAccessToken(mockGetTenantAccessTokenFailed)
+		msgCli := cli.Message()
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := msgCli.SendRawMessage(ctx, &lark.SendRawMessageReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := msgCli.GetMessage(ctx, &lark.GetMessageReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := msgCli.GetMessageList(ctx, &lark.GetMessageListReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := msgCli.GetMessageFile(ctx, &lark.GetMessageFileReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := msgCli.GetMessageReadUser(ctx, &lark.GetMessageReadUserReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "failed")
+		})
+	})
+
 	t.Run("No permission", func(t *testing.T) {
 		_, _, err := AppNoPermission.Ins().Message().SendRawMessage(ctx, &lark.SendRawMessageReq{
 			ReceiveIDType: lark.IDTypePtr(lark.IDTypeChatID),

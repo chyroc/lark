@@ -15,6 +15,36 @@ import (
 func Test_File(t *testing.T) {
 	as := assert.New(t)
 
+	t.Run("request failed", func(t *testing.T) {
+		cli := AppALLPermission.Ins()
+		cli.Mock().MockGetTenantAccessToken(mockGetTenantAccessTokenFailed)
+		fileCli := cli.File()
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := fileCli.UploadImage(ctx, &lark.UploadImageReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := fileCli.DownloadImage(ctx, &lark.DownloadImageReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := fileCli.UploadFile(ctx, &lark.UploadFileReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := fileCli.DownloadFile(ctx, &lark.DownloadFileReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "failed")
+		})
+	})
+
 	t.Run("", func(t *testing.T) {
 		_, _, err := AppNoPermission.Ins().File().UploadImage(ctx, &lark.UploadImageReq{
 			ImageType: lark.ImageTypeMessage,
