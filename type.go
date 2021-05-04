@@ -1,5 +1,11 @@
 package lark
 
+type ContainerIDType string
+
+const (
+	ContainerIDTypeChat ContainerIDType = "chat"
+)
+
 type IDType string
 
 const (

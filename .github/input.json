@@ -93,6 +93,11 @@
     "scope": "Message",
     "apis": [
       {
+        "file_name": "api_message_list.go",
+        "func_name": "GetMessageList",
+        "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/list"
+      },
+      {
         "file_name": "api_message_get_file.go",
         "func_name": "GetMessageFile",
         "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message-resource/get"
