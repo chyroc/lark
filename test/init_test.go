@@ -18,6 +18,24 @@ func (r *App) Ins() *lark.Lark {
 	return lark.New(lark.WithAppCredential(r.AppID, r.AppSecret))
 }
 
+type Helpdesk struct {
+	AppID     string
+	AppSecret string
+	ID        string
+	Token     string
+}
+
+func (r *Helpdesk) Ins() *lark.Lark {
+	return lark.New(lark.WithAppCredential(r.AppID, r.AppSecret), lark.WithHelpdeskCredential(r.ID, r.Token))
+}
+
+var HelpdeskAllPermission = Helpdesk{
+	AppID:     os.Getenv("LARK_APP_ALL_PERMISSION_APP_ID"),
+	AppSecret: os.Getenv("LARK_APP_ALL_PERMISSION_APP_SECRET"),
+	ID:        os.Getenv("LARK_HELPDESK_ALL_PERMISSION_ID"),
+	Token:     os.Getenv("LARK_HELPDESK_ALL_PERMISSION_TOKEN"),
+}
+
 type User struct {
 	UserID string
 	OpenID string

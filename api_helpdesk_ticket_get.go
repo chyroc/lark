@@ -15,6 +15,7 @@ func (r *HelpdeskAPI) GetTicket(ctx context.Context, request *GetTicketReq) (*Ge
 		Body:                  request,
 		NeedTenantAccessToken: true,
 		NeedAppAccessToken:    false,
+		NeedHelpdeskAuth:      true,
 		IsFile:                false,
 	}
 	resp := new(getTicketResp)

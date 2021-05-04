@@ -3,6 +3,7 @@ package lark
 import (
 	"bytes"
 	"context"
+	"encoding/base64"
 	"encoding/json"
 	"fmt"
 	"io"
@@ -28,6 +29,25 @@ type Response struct {
 }
 
 func (r *Lark) request(ctx context.Context, req *requestParam, resp interface{}) (*Response, error) {
+	headers, err := r.prepareHeaders(ctx, req)
+	if err != nil {
+		return nil, err
+	}
+	// spew.Dump(headers)
+	return request(ctx, r.httpClient, req, headers, resp)
+}
+
+type requestParam struct {
+	Method                string
+	URL                   string
+	Body                  interface{}
+	IsFile                bool
+	NeedTenantAccessToken bool
+	NeedAppAccessToken    bool
+	NeedHelpdeskAuth      bool
+}
+
+func (r *Lark) prepareHeaders(ctx context.Context, req *requestParam) (map[string]string, error) {
 	headers := map[string]string{
 		"Content-Type": "application/json; charset=utf-8",
 	}
@@ -44,17 +64,12 @@ func (r *Lark) request(ctx context.Context, req *requestParam, resp interface{})
 		}
 		headers["Authorization"] = "Bearer " + token.Token
 	}
-	return request(ctx, r.httpClient, req, headers, resp)
-}
 
-type requestParam struct {
-	Method                string
-	URL                   string
-	Body                  interface{}
-	IsFile                bool
-	NeedTenantAccessToken bool
-	NeedAppAccessToken    bool
-	NeedHelpdeskAuth      bool
+	if req.NeedHelpdeskAuth {
+		headers["X-Lark-Helpdesk-Authorization"] = base64.StdEncoding.EncodeToString([]byte(r.helpdeskID + ":" + r.helpdeskToken))
+	}
+
+	return headers, nil
 }
 
 func parseRequestParam(req *requestParam) (*realRequestParam, error) {

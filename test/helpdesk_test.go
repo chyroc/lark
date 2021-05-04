@@ -3,6 +3,7 @@ package test
 import (
 	"testing"
 
+	"github.com/davecgh/go-spew/spew"
 	"github.com/stretchr/testify/assert"
 
 	"github.com/chyroc/lark"
@@ -68,5 +69,20 @@ func Test_Helpdesk_Failed(t *testing.T) {
 			// as.NotNil(err)
 			//   as.True(lark.GetErrorCode(err)>0)
 		})
+	})
+}
+
+func Test_Helpdesk(t *testing.T) {
+	as := assert.New(t)
+
+	t.Run("", func(t *testing.T) {
+		resp, _, err := HelpdeskAllPermission.Ins().Helpdesk().StartService(ctx, &lark.StartServiceReq{
+			// HumanService: ptr.Bool(false),
+			// AppointedAgents: nil,
+			OpenID: UserAdmin.OpenID,
+			// CustomizedInfo: ptr.String("test"),
+		})
+		spew.Dump(resp, err)
+		as.Nil(err)
 	})
 }
