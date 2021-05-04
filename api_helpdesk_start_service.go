@@ -8,13 +8,14 @@ import (
 //
 //
 // https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/ticket/start_service
-func (r *HelpDeskAPI) StartService(ctx context.Context, request *StartServiceReq) (*StartServiceResp, *Response, error) {
+func (r *HelpdeskAPI) StartService(ctx context.Context, request *StartServiceReq) (*StartServiceResp, *Response, error) {
 	req := &requestParam{
 		Method:                "POST",
 		URL:                   "https://open.feishu.cn/open-apis/helpdesk/v1/start_service",
 		Body:                  request,
 		NeedTenantAccessToken: true,
 		NeedAppAccessToken:    false,
+		NeedHelpdeskAuth:      true,
 		IsFile:                false,
 	}
 	resp := new(startServiceResp)
@@ -23,7 +24,7 @@ func (r *HelpDeskAPI) StartService(ctx context.Context, request *StartServiceReq
 	if err != nil {
 		return nil, response, err
 	} else if resp.Code != 0 {
-		return nil, response, newError("HelpDesk", "StartService", resp.Code, resp.Msg)
+		return nil, response, newError("Helpdesk", "StartService", resp.Code, resp.Msg)
 	}
 
 	return resp.Data, response, nil

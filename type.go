@@ -78,7 +78,7 @@ const (
 	FileTypeStream FileType = "stream" // 上传stream格式文件
 )
 
-type HelpDeskCustomizedField struct {
+type HelpdeskCustomizedField struct {
 	ID      string `json:"id"`       // id ,示例值："123"
 	Value   string `json:"value"`    // value ,示例值："value"
 	KeyName string `json:"key_name"` // key name ,示例值："key"

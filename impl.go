@@ -5,10 +5,12 @@ import (
 )
 
 type Lark struct {
-	appID      string
-	appSecret  string
-	httpClient *http.Client
-	mock       *Mock
+	appID         string
+	appSecret     string
+	helpdeskID    string
+	helpdeskToken string
+	httpClient    *http.Client
+	mock          *Mock
 }
 
 func (r *Lark) Chat() *ChatAPI {
@@ -61,13 +63,13 @@ type ApprovalAPI struct {
 	cli *Lark
 }
 
-func (r *Lark) HelpDesk() *HelpDeskAPI {
-	return &HelpDeskAPI{
+func (r *Lark) Helpdesk() *HelpdeskAPI {
+	return &HelpdeskAPI{
 		cli: r,
 	}
 }
 
-type HelpDeskAPI struct {
+type HelpdeskAPI struct {
 	cli *Lark
 }
 

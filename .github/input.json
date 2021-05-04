@@ -220,7 +220,7 @@
     ]
   },
   {
-    "scope": "HelpDesk",
+    "scope": "Helpdesk",
     "apis": [
       {
         "file_name": "api_helpdesk_start_service.go",

@@ -8,7 +8,7 @@ import (
 //
 //
 // https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/ticket/update
-func (r *HelpDeskAPI) UpdateTicket(ctx context.Context, request *UpdateTicketReq) (*UpdateTicketResp, *Response, error) {
+func (r *HelpdeskAPI) UpdateTicket(ctx context.Context, request *UpdateTicketReq) (*UpdateTicketResp, *Response, error) {
 	req := &requestParam{
 		Method:                "PUT",
 		URL:                   "https://open.feishu.cn/open-apis/helpdesk/v1/tickets/:ticket_id",
@@ -23,7 +23,7 @@ func (r *HelpDeskAPI) UpdateTicket(ctx context.Context, request *UpdateTicketReq
 	if err != nil {
 		return nil, response, err
 	} else if resp.Code != 0 {
-		return nil, response, newError("HelpDesk", "UpdateTicket", resp.Code, resp.Msg)
+		return nil, response, newError("Helpdesk", "UpdateTicket", resp.Code, resp.Msg)
 	}
 
 	return resp.Data, response, nil

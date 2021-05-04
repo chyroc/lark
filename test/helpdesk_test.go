@@ -8,13 +8,13 @@ import (
 	"github.com/chyroc/lark"
 )
 
-func Test_HelpDesk_Failed(t *testing.T) {
+func Test_Helpdesk_Failed(t *testing.T) {
 	as := assert.New(t)
 
 	t.Run("request failed", func(t *testing.T) {
 		cli := AppALLPermission.Ins()
 		cli.Mock().MockGetTenantAccessToken(mockGetTenantAccessTokenFailed)
-		helpdeskCli := cli.HelpDesk()
+		helpdeskCli := cli.Helpdesk()
 
 		t.Run("", func(t *testing.T) {
 			_, _, err := helpdeskCli.StartService(ctx, &lark.StartServiceReq{})
@@ -43,7 +43,7 @@ func Test_HelpDesk_Failed(t *testing.T) {
 
 	t.Run("response failed", func(t *testing.T) {
 		cli := AppNoPermission.Ins()
-		helpdeskCli := cli.HelpDesk()
+		helpdeskCli := cli.Helpdesk()
 
 		t.Run("", func(t *testing.T) {
 			_, _, err := helpdeskCli.StartService(ctx, &lark.StartServiceReq{})

@@ -8,7 +8,7 @@ import (
 //
 //
 // https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/ticket/list
-func (r *HelpDeskAPI) GetTicketList(ctx context.Context, request *GetTicketListReq) (*GetTicketListResp, *Response, error) {
+func (r *HelpdeskAPI) GetTicketList(ctx context.Context, request *GetTicketListReq) (*GetTicketListResp, *Response, error) {
 	req := &requestParam{
 		Method:                "GET",
 		URL:                   "https://open.feishu.cn/open-apis/helpdesk/v1/tickets",
@@ -23,7 +23,7 @@ func (r *HelpDeskAPI) GetTicketList(ctx context.Context, request *GetTicketListR
 	if err != nil {
 		return nil, response, err
 	} else if resp.Code != 0 {
-		return nil, response, newError("HelpDesk", "GetTicketList", resp.Code, resp.Msg)
+		return nil, response, newError("Helpdesk", "GetTicketList", resp.Code, resp.Msg)
 	}
 
 	return resp.Data, response, nil
@@ -40,7 +40,7 @@ type GetTicketListReq struct {
 	StatusList       []int                      `query:"status_list" json:"-"`       // 搜索条件: 工单状态列表
 	GuestName        *string                    `query:"guest_name" json:"-"`        // 搜索条件: 用户名称,**示例值**："abc"
 	GuestID          *string                    `query:"guest_id" json:"-"`          // 搜索条件: 用户id,**示例值**："ou_b5de90429xxx"
-	CustomizedFields []*HelpDeskCustomizedField `query:"customized_fields" json:"-"` // 搜索条件: 自定义字段列表
+	CustomizedFields []*HelpdeskCustomizedField `query:"customized_fields" json:"-"` // 搜索条件: 自定义字段列表
 	Tags             []string                   `query:"tags" json:"-"`              // 搜索条件: 用户标签列表
 	Page             *int                       `query:"page" json:"-"`              // 页数, 从1开始, 默认为1,**示例值**：1
 	PageSize         *int                       `query:"page_size" json:"-"`         // 当前页大小，最大为200， 默认为20,**示例值**：20

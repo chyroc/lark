@@ -14,6 +14,13 @@ func WithAppCredential(appID, appSecret string) ClientOptionFunc {
 	}
 }
 
+func WithHelpdeskCredential(helpdeskID, helpdeskToken string) ClientOptionFunc {
+	return func(r *Lark) {
+		r.helpdeskID = helpdeskID
+		r.helpdeskToken = helpdeskToken
+	}
+}
+
 func New(options ...ClientOptionFunc) *Lark {
 	r := new(Lark)
 	r.mock = new(Mock)

@@ -54,6 +54,7 @@ type requestParam struct {
 	IsFile                bool
 	NeedTenantAccessToken bool
 	NeedAppAccessToken    bool
+	NeedHelpdeskAuth      bool
 }
 
 func parseRequestParam(req *requestParam) (*realRequestParam, error) {
