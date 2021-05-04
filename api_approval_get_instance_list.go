@@ -16,6 +16,7 @@ func (r *ApprovalAPI) GetInstanceList(ctx context.Context, request *GetInstanceL
 		Body:                  request,
 		NeedTenantAccessToken: true,
 		NeedAppAccessToken:    false,
+		NeedHelpdeskAuth:      false,
 		IsFile:                false,
 	}
 	resp := new(getInstanceListResp)

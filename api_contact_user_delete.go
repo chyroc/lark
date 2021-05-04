@@ -15,6 +15,7 @@ func (r *ContactAPI) DeleteUser(ctx context.Context, request *DeleteUserReq) (*D
 		Body:                  request,
 		NeedTenantAccessToken: true,
 		NeedAppAccessToken:    false,
+		NeedHelpdeskAuth:      false,
 		IsFile:                false,
 	}
 	resp := new(deleteUserResp)

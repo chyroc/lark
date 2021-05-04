@@ -17,6 +17,7 @@ func (r *FileAPI) UploadFile(ctx context.Context, request *UploadFileReq) (*Uplo
 		Body:                  request,
 		NeedTenantAccessToken: true,
 		NeedAppAccessToken:    false,
+		NeedHelpdeskAuth:      false,
 		IsFile:                true,
 	}
 	resp := new(uploadFileResp)

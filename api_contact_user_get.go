@@ -15,6 +15,7 @@ func (r *ContactAPI) GetUser(ctx context.Context, request *GetUserReq) (*GetUser
 		Body:                  request,
 		NeedTenantAccessToken: true,
 		NeedAppAccessToken:    false,
+		NeedHelpdeskAuth:      false,
 		IsFile:                false,
 	}
 	resp := new(getUserResp)

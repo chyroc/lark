@@ -18,6 +18,7 @@ func (r *MessageAPI) GetMessageReadUser(ctx context.Context, request *GetMessage
 		Body:                  request,
 		NeedTenantAccessToken: true,
 		NeedAppAccessToken:    false,
+		NeedHelpdeskAuth:      false,
 		IsFile:                false,
 	}
 	resp := new(getMessageReadUserResp)

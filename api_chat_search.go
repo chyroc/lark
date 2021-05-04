@@ -26,6 +26,7 @@ func (r *ChatAPI) SearchChat(ctx context.Context, request *SearchChatReq) (*Sear
 		Body:                  request,
 		NeedTenantAccessToken: true,
 		NeedAppAccessToken:    false,
+		NeedHelpdeskAuth:      false,
 		IsFile:                false,
 	}
 	resp := new(searchChatResp)

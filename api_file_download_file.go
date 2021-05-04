@@ -18,6 +18,7 @@ func (r *FileAPI) DownloadFile(ctx context.Context, request *DownloadFileReq) (*
 		Body:                  request,
 		NeedTenantAccessToken: true,
 		NeedAppAccessToken:    false,
+		NeedHelpdeskAuth:      false,
 		IsFile:                false,
 	}
 	resp := new(downloadFileResp)

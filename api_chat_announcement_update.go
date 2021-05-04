@@ -19,6 +19,7 @@ func (r *ChatAPI) UpdateAnnouncement(ctx context.Context, request *UpdateAnnounc
 		Body:                  request,
 		NeedTenantAccessToken: true,
 		NeedAppAccessToken:    false,
+		NeedHelpdeskAuth:      false,
 		IsFile:                false,
 	}
 	resp := new(updateAnnouncementResp)

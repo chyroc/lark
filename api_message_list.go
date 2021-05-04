@@ -17,6 +17,7 @@ func (r *MessageAPI) GetMessageList(ctx context.Context, request *GetMessageList
 		Body:                  request,
 		NeedTenantAccessToken: true,
 		NeedAppAccessToken:    false,
+		NeedHelpdeskAuth:      false,
 		IsFile:                false,
 	}
 	resp := new(getMessageListResp)

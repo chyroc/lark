@@ -17,6 +17,7 @@ func (r *ChatAPI) GetChat(ctx context.Context, request *GetChatReq) (*GetChatRes
 		Body:                  request,
 		NeedTenantAccessToken: true,
 		NeedAppAccessToken:    false,
+		NeedHelpdeskAuth:      false,
 		IsFile:                false,
 	}
 	resp := new(getChatResp)

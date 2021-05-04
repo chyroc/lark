@@ -19,6 +19,7 @@ func (r *MessageAPI) GetMessageFile(ctx context.Context, request *GetMessageFile
 		Body:                  request,
 		NeedTenantAccessToken: true,
 		NeedAppAccessToken:    false,
+		NeedHelpdeskAuth:      false,
 		IsFile:                false,
 	}
 	resp := new(getMessageFileResp)

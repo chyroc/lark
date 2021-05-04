@@ -17,6 +17,7 @@ func (r *FileAPI) UploadImage(ctx context.Context, request *UploadImageReq) (*Up
 		Body:                  request,
 		NeedTenantAccessToken: true,
 		NeedAppAccessToken:    false,
+		NeedHelpdeskAuth:      false,
 		IsFile:                true,
 	}
 	resp := new(uploadImageResp)

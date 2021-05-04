@@ -18,6 +18,7 @@ func (r *MessageAPI) UpdateMessage(ctx context.Context, request *UpdateMessageRe
 		Body:                  request,
 		NeedTenantAccessToken: true,
 		NeedAppAccessToken:    false,
+		NeedHelpdeskAuth:      false,
 		IsFile:                false,
 	}
 	resp := new(updateMessageResp)

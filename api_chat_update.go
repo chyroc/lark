@@ -22,6 +22,7 @@ func (r *ChatAPI) UpdateChat(ctx context.Context, request *UpdateChatReq) (*Upda
 		Body:                  request,
 		NeedTenantAccessToken: true,
 		NeedAppAccessToken:    false,
+		NeedHelpdeskAuth:      false,
 		IsFile:                false,
 	}
 	resp := new(updateChatResp)

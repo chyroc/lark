@@ -15,6 +15,7 @@ func (r *ContactAPI) DeleteDepartment(ctx context.Context, request *DeleteDepart
 		Body:                  request,
 		NeedTenantAccessToken: true,
 		NeedAppAccessToken:    false,
+		NeedHelpdeskAuth:      false,
 		IsFile:                false,
 	}
 	resp := new(deleteDepartmentResp)

@@ -18,6 +18,7 @@ func (r *FileAPI) DownloadImage(ctx context.Context, request *DownloadImageReq) 
 		Body:                  request,
 		NeedTenantAccessToken: true,
 		NeedAppAccessToken:    false,
+		NeedHelpdeskAuth:      false,
 		IsFile:                false,
 	}
 	resp := new(downloadImageResp)

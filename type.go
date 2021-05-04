@@ -1,5 +1,8 @@
 package lark
 
+// const type
+
+// MsgType 消息类型
 type MsgType string
 
 const (
@@ -15,12 +18,14 @@ const (
 	MsgTypeShareUser   MsgType = "share_user"  // 分享个人卡片
 )
 
+// ContainerIDType 容器类型
 type ContainerIDType string
 
 const (
 	ContainerIDTypeChat ContainerIDType = "chat"
 )
 
+// IDType ID类型
 type IDType string
 
 const (
@@ -35,6 +40,35 @@ const (
 func IDTypePtr(idType IDType) *IDType {
 	return &idType
 }
+
+// ImageType 图片类型
+type ImageType string
+
+const (
+	ImageTypeMessage ImageType = "message" // 用于发送消息
+	ImageTypeAvatar  ImageType = "avatar"  // 用于设置头像
+)
+
+// FileType 文件类型
+type FileType string
+
+const (
+	FileTypeOpus   FileType = "opus"   // 上传opus音频文件；其他格式的音频文件，请转为opus格式后上传，转换方式可参考：ffmpeg -i SourceFile.mp3 -acodec libopus -ac 1 -ar 16000 TargetFile.opus
+	FileTypeMp4    FileType = "mp4"    // 上传mp4视频文件
+	FileTypePdf    FileType = "pdf"    // 上传pdf格式文件
+	FileTypeDoc    FileType = "doc"    // 上传doc格式文件
+	FileTypeXls    FileType = "xls"    // 上传xls格式文件
+	FileTypePpt    FileType = "ppt"    // 上传ppt格式文件
+	FileTypeStream FileType = "stream" // 上传stream格式文件
+)
+
+// EmployeeType 用户类型
+type EmployeeType string
+
+const (
+	EmployeeTypeID EmployeeType = "employee_id" // 员工id
+	EmployeeTypeNo EmployeeType = "employee_no" // 员工工号
+)
 
 type I18nNames struct {
 	ZhCn string `json:"zh_cn,omitempty"` // 中文名,**示例值**："群聊"
@@ -58,25 +92,6 @@ type Mention struct {
 	IDType IDType `json:"id_type,omitempty"` // id 可以是open_id，user_id或者union_id
 	Name   string `json:"name,omitempty"`    // 被at用户的姓名
 }
-
-type ImageType string
-
-const (
-	ImageTypeMessage ImageType = "message" // 用于发送消息
-	ImageTypeAvatar  ImageType = "avatar"  // 用于设置头像
-)
-
-type FileType string
-
-const (
-	FileTypeOpus   FileType = "opus"   // 上传opus音频文件；其他格式的音频文件，请转为opus格式后上传，转换方式可参考：ffmpeg -i SourceFile.mp3 -acodec libopus -ac 1 -ar 16000 TargetFile.opus
-	FileTypeMp4    FileType = "mp4"    // 上传mp4视频文件
-	FileTypePdf    FileType = "pdf"    // 上传pdf格式文件
-	FileTypeDoc    FileType = "doc"    // 上传doc格式文件
-	FileTypeXls    FileType = "xls"    // 上传xls格式文件
-	FileTypePpt    FileType = "ppt"    // 上传ppt格式文件
-	FileTypeStream FileType = "stream" // 上传stream格式文件
-)
 
 type HelpdeskCustomizedField struct {
 	ID      string `json:"id"`       // id ,示例值："123"

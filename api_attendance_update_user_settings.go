@@ -15,6 +15,7 @@ func (r *AttendanceAPI) UpdateUserSettings(ctx context.Context, request *UpdateU
 		Body:                  request,
 		NeedTenantAccessToken: true,
 		NeedAppAccessToken:    false,
+		NeedHelpdeskAuth:      false,
 		IsFile:                false,
 	}
 	resp := new(updateUserSettingsResp)
@@ -30,7 +31,7 @@ func (r *AttendanceAPI) UpdateUserSettings(ctx context.Context, request *UpdateU
 }
 
 type UpdateUserSettingsReq struct {
-	EmployeeType string                            `query:"employee_type" json:"-"` // 用户类型,**可选值有**：,- `employee_id`： 员工id,- `employee_no`： 员工工号
+	EmployeeType EmployeeType                      `query:"employee_type" json:"-"` // 用户类型,**可选值有**：,- `employee_id`： 员工id,- `employee_no`： 员工工号
 	UserSetting  *UpdateUserSettingsReqUserSetting `json:"user_setting,omitempty"`  // 用户信息
 }
 

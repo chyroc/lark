@@ -16,6 +16,7 @@ func (r *ChatAPI) GetChatListOfSelf(ctx context.Context, request *GetChatListOfS
 		Body:                  request,
 		NeedTenantAccessToken: true,
 		NeedAppAccessToken:    false,
+		NeedHelpdeskAuth:      false,
 		IsFile:                false,
 	}
 	resp := new(getChatListOfSelfResp)

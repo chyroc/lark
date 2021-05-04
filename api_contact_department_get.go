@@ -16,6 +16,7 @@ func (r *ContactAPI) GetDepartment(ctx context.Context, request *GetDepartmentRe
 		Body:                  request,
 		NeedTenantAccessToken: true,
 		NeedAppAccessToken:    false,
+		NeedHelpdeskAuth:      false,
 		IsFile:                false,
 	}
 	resp := new(getDepartmentResp)

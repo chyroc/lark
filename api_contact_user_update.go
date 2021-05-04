@@ -15,6 +15,7 @@ func (r *ContactAPI) UpdateUser(ctx context.Context, request *UpdateUserReq) (*U
 		Body:                  request,
 		NeedTenantAccessToken: true,
 		NeedAppAccessToken:    false,
+		NeedHelpdeskAuth:      false,
 		IsFile:                false,
 	}
 	resp := new(updateUserResp)

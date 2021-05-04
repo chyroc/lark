@@ -18,6 +18,7 @@ func (r *MessageAPI) ReplyRawMessage(ctx context.Context, request *ReplyRawMessa
 		Body:                  request,
 		NeedTenantAccessToken: true,
 		NeedAppAccessToken:    false,
+		NeedHelpdeskAuth:      false,
 		IsFile:                false,
 	}
 	resp := new(replyRawMessageResp)

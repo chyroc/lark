@@ -19,6 +19,7 @@ func (r *MessageAPI) DeleteMessage(ctx context.Context, request *DeleteMessageRe
 		Body:                  request,
 		NeedTenantAccessToken: true,
 		NeedAppAccessToken:    false,
+		NeedHelpdeskAuth:      false,
 		IsFile:                false,
 	}
 	resp := new(deleteMessageResp)
