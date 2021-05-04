@@ -3,16 +3,16 @@ package lark
 type MsgType string
 
 const (
-	MsgTypeText        MsgType = "text"
-	MsgTypePost        MsgType = "post"
-	MsgTypeImage       MsgType = "image"
-	MsgTypeFile        MsgType = "file"
-	MsgTypeAudio       MsgType = "audio"
-	MsgTypeMedia       MsgType = "media"
-	MsgTypeSticker     MsgType = "sticker"
-	MsgTypeInteractive MsgType = "interactive"
-	MsgTypeShareChat   MsgType = "share_chat"
-	MsgTypeShareUser   MsgType = "share_user"
+	MsgTypeText        MsgType = "text"        // 文本
+	MsgTypePost        MsgType = "post"        // 富文本
+	MsgTypeImage       MsgType = "image"       // 图片
+	MsgTypeFile        MsgType = "file"        // 文件
+	MsgTypeAudio       MsgType = "audio"       // 语音
+	MsgTypeMedia       MsgType = "media"       // 视频
+	MsgTypeSticker     MsgType = "sticker"     // 表情包
+	MsgTypeInteractive MsgType = "interactive" // 卡片消息
+	MsgTypeShareChat   MsgType = "share_chat"  // 分享群卡片
+	MsgTypeShareUser   MsgType = "share_user"  // 分享个人卡片
 )
 
 type ContainerIDType string

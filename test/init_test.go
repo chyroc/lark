@@ -20,6 +20,7 @@ func (r *App) Ins() *lark.Lark {
 
 type User struct {
 	UserID string
+	OpenID string
 	Name   string
 }
 
@@ -40,6 +41,7 @@ var AppALLPermission = App{
 
 var UserAdmin = User{
 	UserID: os.Getenv("LARK_USER_ADMIN_USER_ID"),
+	OpenID: os.Getenv("LARK_USER_ADMIN_OPEN_ID"),
 	Name:   os.Getenv("LARK_USER_ADMIN_NAME"),
 }
 
@@ -99,7 +101,16 @@ func Test_Config(t *testing.T) {
 	as.NotEmpty(AppALLPermission.AppID)
 	as.NotEmpty(AppALLPermission.AppSecret)
 	as.NotEmpty(UserAdmin.UserID)
+	as.NotEmpty(UserAdmin.OpenID)
 	as.NotEmpty(ChatContainALLPermissionApp.ChatID)
 	as.NotEmpty(ChatNotContainALLPermissionApp.ChatID)
+	as.NotEmpty(ChatForSendMessage.ChatID)
 	as.NotEmpty(File1.Key)
+	as.NotEmpty(File2.Key)
+	as.NotEmpty(MessageAdminSendTextInChatContainAllPermissionApp.ChatID)
+	as.NotEmpty(MessageAdminSendTextInChatContainAllPermissionApp.MessageID)
+	as.NotEmpty(MessageAdminSendImageInChatContainAllPermissionApp.ChatID)
+	as.NotEmpty(MessageAdminSendImageInChatContainAllPermissionApp.MessageID)
+	as.NotEmpty(MessageAllPermissionAppSendTextInChatContainAllPermissionApp.ChatID)
+	as.NotEmpty(MessageAllPermissionAppSendTextInChatContainAllPermissionApp.MessageID)
 }

@@ -3,6 +3,7 @@ package test
 import (
 	"fmt"
 	"io"
+	"strconv"
 	"testing"
 	"time"
 
@@ -94,14 +95,42 @@ func Test_Message_Failed(t *testing.T) {
 func Test_GetMessage(t *testing.T) {
 	as := assert.New(t)
 
-	t.Run("send-raw-message", func(t *testing.T) {
-		_, _, err := AppALLPermission.Ins().Message().SendRawMessage(ctx, &lark.SendRawMessageReq{
-			ReceiveIDType: lark.IDTypePtr(lark.IDTypeChatID),
-			ReceiveID:     ptr.String(ChatForSendMessage.ChatID),
-			Content:       fmt.Sprintf(`{"text":"%d"}`, time.Now().Unix()),
-			MsgType:       lark.MsgTypeText,
+	t.Run("send-message", func(t *testing.T) {
+		t.Run("raw", func(t *testing.T) {
+			_, _, err := AppALLPermission.Ins().Message().SendRawMessage(ctx, &lark.SendRawMessageReq{
+				ReceiveIDType: lark.IDTypePtr(lark.IDTypeChatID),
+				ReceiveID:     ptr.String(ChatForSendMessage.ChatID),
+				Content:       fmt.Sprintf(`{"text":"%d"}`, time.Now().Unix()),
+				MsgType:       lark.MsgTypeText,
+			})
+			as.Nil(err)
 		})
-		as.Nil(err)
+
+		t.Run("text", func(t *testing.T) {
+			_, _, err := AppALLPermission.Ins().Message().Send().ToChatID(ChatForSendMessage.ChatID).SendText(ctx, strconv.FormatInt(time.Now().Unix(), 10))
+			as.Nil(err)
+		})
+
+		// 这个图，竟然报：The content of the message contains sensitive information.，暂时不测这个
+		t.Run("image", func(t *testing.T) {
+			// _, _, err := AppALLPermission.Ins().Message().Send().ToChatID(ChatForSendMessage.ChatID).SendImage(ctx, File1.Key)
+			// as.Nil(err)
+		})
+
+		t.Run("file", func(t *testing.T) {
+			_, _, err := AppALLPermission.Ins().Message().Send().ToChatID(ChatForSendMessage.ChatID).SendFile(ctx, File2.Key)
+			as.Nil(err)
+		})
+
+		t.Run("chat", func(t *testing.T) {
+			_, _, err := AppALLPermission.Ins().Message().Send().ToChatID(ChatForSendMessage.ChatID).SendShareChat(ctx, ChatForSendMessage.ChatID)
+			as.Nil(err)
+		})
+
+		t.Run("user", func(t *testing.T) {
+			_, _, err := AppALLPermission.Ins().Message().Send().ToChatID(ChatForSendMessage.ChatID).SendShareUser(ctx, UserAdmin.OpenID)
+			as.Nil(err)
+		})
 	})
 
 	t.Run("get-message-read", func(t *testing.T) {
