@@ -241,6 +241,11 @@
         "file_name": "api_helpdesk_ticket_get_list.go",
         "func_name": "GetTicketList",
         "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/ticket/list"
+      },
+      {
+        "file_name": "api_helpdesk_ticket_get_message_list.go",
+        "func_name": "GetTicketMessageList",
+        "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/ticket-message/list"
       }
     ]
   },

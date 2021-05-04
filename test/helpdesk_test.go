@@ -85,4 +85,30 @@ func Test_Helpdesk(t *testing.T) {
 		spew.Dump(resp, err)
 		as.Nil(err)
 	})
+
+	t.Run("", func(t *testing.T) {
+		resp, _, err := HelpdeskAllPermission.Ins().Helpdesk().GetTicketList(ctx, &lark.GetTicketListReq{})
+		spew.Dump(resp, err)
+		as.Nil(err)
+		// 6958447406052540443
+		as.True(len(resp.Tickets) > 0)
+	})
+
+	t.Run("", func(t *testing.T) {
+		resp, _, err := HelpdeskAllPermission.Ins().Helpdesk().GetTicketList(ctx, &lark.GetTicketListReq{})
+		spew.Dump(resp, err)
+		as.Nil(err)
+		// 6958447406052540443
+		as.True(len(resp.Tickets) > 0)
+	})
+
+	t.Run("", func(t *testing.T) {
+		resp, _, err := HelpdeskAllPermission.Ins().Helpdesk().GetTicketMessageList(ctx, &lark.GetTicketMessageListReq{
+			TicketID: "6958447406052540443",
+		})
+		spew.Dump(resp, err)
+		as.Nil(err)
+		// 6958447406052540443
+		// as.True(len(resp.Tickets) > 0)
+	})
 }

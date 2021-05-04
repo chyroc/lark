@@ -48,8 +48,9 @@ type requestParam struct {
 }
 
 func (r *Lark) prepareHeaders(ctx context.Context, req *requestParam) (map[string]string, error) {
-	headers := map[string]string{
-		"Content-Type": "application/json; charset=utf-8",
+	headers := map[string]string{}
+	if req.Method != http.MethodGet {
+		headers["Content-Type"] = "application/json; charset=utf-8"
 	}
 	if req.NeedTenantAccessToken {
 		token, _, err := r.Token().GetTenantAccessToken(ctx)
@@ -97,6 +98,9 @@ func parseRequestParam(req *requestParam) (*realRequestParam, error) {
 		fieldVT := vt.Field(i)
 
 		if fieldVV.Kind() == reflect.Ptr && fieldVV.IsNil() {
+			continue
+		}
+		if fieldVV.Kind() == reflect.Slice && fieldVV.Len() == 0 {
 			continue
 		}
 
