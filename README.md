@@ -55,5 +55,6 @@ https://godoc.org/github.com/chyroc/lark
 ## Todo
 
 - [ ] generate all api
-- [ ] test coverage >= 80%
+- [x] test coverage >= 80%
 - [ ] add english comment, from larksuite webpage
+- [ ] struct data
