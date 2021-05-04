@@ -59,11 +59,21 @@ type File struct {
 }
 
 var File1 = File{
-	Key: os.Getenv("FILE_KEY_TEST_FILE_1_PNG"), // this is file of ./test/file_1.png
+	Key: os.Getenv("LARK_FILE_KEY_TEST_FILE_1_PNG"), // this is file of ./test/file_1.png
 }
 
 var File2 = File{
-	Key: os.Getenv("FILE_KEY_TEST_FILE_2_DOC"), // ./test/file_2.docx
+	Key: os.Getenv("LARK_FILE_KEY_TEST_FILE_2_DOC"), // ./test/file_2.docx
+}
+
+type Message struct {
+	MessageID string
+	ChatID    string
+}
+
+var MessageAdminSendInChatContainAllPermissionApp = Message{
+	MessageID: os.Getenv("LARK_MESSAGE_ADMIN_SEND_TEST_IN_CHAT_CONTAINS_APP_PERMISSION_APP"),
+	ChatID:    os.Getenv("LARK_CHAT_CONTAINS_APP_PERMISSION_APP_CHAT_ID"),
 }
 
 func Test_Config(t *testing.T) {
