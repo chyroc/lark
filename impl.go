@@ -80,3 +80,13 @@ func (r *Lark) File() *FileAPI {
 type FileAPI struct {
 	cli *Lark
 }
+
+func (r *Lark) Attendance() *AttendanceAPI {
+	return &AttendanceAPI{
+		cli: r,
+	}
+}
+
+type AttendanceAPI struct {
+	cli *Lark
+}

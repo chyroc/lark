@@ -228,5 +228,15 @@
         "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/ticket/list"
       }
     ]
+  },
+  {
+    "scope": "Attendance",
+    "apis": [
+      {
+        "file_name": "api_attendance_update_user_settings.go",
+        "func_name": "UpdateUserSettings",
+        "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/Attendance/rule/user-setting-modify"
+      }
+    ]
   }
 ]
