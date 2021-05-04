@@ -16,6 +16,10 @@ Created By Code Generation.
 go get github.com/chyroc/lark
 ```
 
+## Docs
+
+https://godoc.org/github.com/chyroc/lark
+
 ## Usage
 
 ### Quick Start
@@ -36,9 +40,9 @@ import (
 
 func main() {
 	ctx := context.Background()
-	r := lark.New(lark.WithAppCredential("<APP_ID>", "<APP_SECRET>"))
+	cli := lark.New(lark.WithAppCredential("<APP_ID>", "<APP_SECRET>"))
 
-	resp, _, err := r.Chat().CreateChat(ctx, &lark.CreateChatReq{
+	resp, _, err := cli.Chat().CreateChat(ctx, &lark.CreateChatReq{
 		Name: ptr.String("chat-name"),
 	})
 	if err != nil {
@@ -48,9 +52,21 @@ func main() {
 }
 ```
 
-### Docs
+### Example: chat
 
-https://godoc.org/github.com/chyroc/lark
+for more about chat example, see [./examples/chat.go](./examples/chat.go)
+
+create chat example:
+
+```go
+cli := lark.New(lark.WithAppCredential("<APP_ID>", "<APP_SECRET>"))
+
+resp, _, err := cli.Chat().CreateChat(ctx, &lark.CreateChatReq{
+    Name: ptr.String("<CHAT_NAME>"),
+})
+fmt.Println(resp, err)
+```
+
 
 ## Todo
 
