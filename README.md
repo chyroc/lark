@@ -65,6 +65,21 @@ resp, _, err := cli.Message().Send().ToChatID("<CHAT_ID>").SendText(ctx, "<TEXT>
 fmt.Println(resp, err)
 ```
 
+### Example: other message
+
+for more about other message example, see [./examples/other_message.go](./examples/other_message.go) .
+
+send delete message example:
+
+```go
+cli := lark.New(lark.WithAppCredential("<APP_ID>", "<APP_SECRET>"))
+
+resp, _, err := cli.Message().DeleteMessage(ctx, &lark.DeleteMessageReq{
+    MessageID: "<MESSAGE_ID>",
+})
+fmt.Println(resp, err)
+```
+
 ### Example: chat
 
 for more about chat example, see [./examples/chat.go](./examples/chat.go) .
@@ -76,6 +91,26 @@ cli := lark.New(lark.WithAppCredential("<APP_ID>", "<APP_SECRET>"))
 
 resp, _, err := cli.Chat().CreateChat(ctx, &lark.CreateChatReq{
     Name: ptr.String("<CHAT_NAME>"),
+})
+fmt.Println(resp, err)
+```
+
+### Example: file
+
+for more about file example, see [./examples/file.go](./examples/file.go) .
+
+upload image example:
+
+```go
+cli := lark.New(lark.WithAppCredential("<APP_ID>", "<APP_SECRET>"))
+
+f, err := os.Open("<FILE_PATH>")
+if err != nil {
+    panic(err)
+}
+resp, _, err := cli.File().UploadImage(ctx, &lark.UploadImageReq{
+    ImageType: lark.ImageTypeMessage,
+    Image:     f,
 })
 fmt.Println(resp, err)
 ```

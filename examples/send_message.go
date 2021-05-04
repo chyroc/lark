@@ -4,12 +4,25 @@ import (
 	"context"
 	"fmt"
 
+	"github.com/chyroc/go-ptr"
+
 	"github.com/chyroc/lark"
 )
 
-func main() {
+func ExampleSendMessage() {
 	ctx := context.Background()
 	cli := lark.New(lark.WithAppCredential("<APP_ID>", "<APP_SECRET>"))
+
+	// send raw message
+	{
+		resp, _, err := cli.Message().SendRawMessage(ctx, &lark.SendRawMessageReq{
+			ReceiveIDType: lark.IDTypePtr(lark.IDTypeEmail),
+			ReceiveID:     ptr.String("<EMAIL>"),
+			Content:       `{"text":"text"}`,
+			MsgType:       lark.MsgTypeText,
+		})
+		fmt.Println(resp, err)
+	}
 
 	// send text message
 	{

@@ -11,11 +11,11 @@ import (
 
 func ExampleChat() {
 	ctx := context.Background()
-	r := lark.New(lark.WithAppCredential("<APP_ID>", "<APP_SECRET>"))
+	cli := lark.New(lark.WithAppCredential("<APP_ID>", "<APP_SECRET>"))
 
 	// create chat
 	{
-		resp, _, err := r.Chat().CreateChat(ctx, &lark.CreateChatReq{
+		resp, _, err := cli.Chat().CreateChat(ctx, &lark.CreateChatReq{
 			Name: ptr.String("<CHAT_NAME>"),
 		})
 		fmt.Println(resp, err)
@@ -23,7 +23,7 @@ func ExampleChat() {
 
 	// update chat
 	{
-		resp, _, err := r.Chat().UpdateChat(ctx, &lark.UpdateChatReq{
+		resp, _, err := cli.Chat().UpdateChat(ctx, &lark.UpdateChatReq{
 			ChatID: "<CHAT_ID>",
 			Name:   ptr.String("<CHAT_NAME>"),
 		})
@@ -32,7 +32,7 @@ func ExampleChat() {
 
 	// delete chat
 	{
-		resp, _, err := r.Chat().DeleteChat(ctx, &lark.DeleteChatReq{
+		resp, _, err := cli.Chat().DeleteChat(ctx, &lark.DeleteChatReq{
 			ChatID: "<CHAT_ID>",
 		})
 		fmt.Println(resp, err)
@@ -40,7 +40,7 @@ func ExampleChat() {
 
 	// get chat
 	{
-		resp, _, err := r.Chat().GetChat(ctx, &lark.GetChatReq{
+		resp, _, err := cli.Chat().GetChat(ctx, &lark.GetChatReq{
 			ChatID: "<CHAT_ID>",
 		})
 		fmt.Println(resp, err)
@@ -48,13 +48,13 @@ func ExampleChat() {
 
 	// get chat of self
 	{
-		resp, _, err := r.Chat().GetChatListOfSelf(ctx, &lark.GetChatListOfSelfReq{})
+		resp, _, err := cli.Chat().GetChatListOfSelf(ctx, &lark.GetChatListOfSelfReq{})
 		fmt.Println(resp, err)
 	}
 
 	// add member
 	{
-		resp, _, err := r.Chat().AddMember(ctx, &lark.AddMemberReq{
+		resp, _, err := cli.Chat().AddMember(ctx, &lark.AddMemberReq{
 			ChatID:       "<CHAT_ID>",
 			MemberIDType: lark.IDTypePtr(lark.IDTypeOpenID),
 			IDList:       []string{"<USER_OPEN_ID>"},
@@ -64,7 +64,7 @@ func ExampleChat() {
 
 	// delete member
 	{
-		resp, _, err := r.Chat().DeleteMember(ctx, &lark.DeleteMemberReq{
+		resp, _, err := cli.Chat().DeleteMember(ctx, &lark.DeleteMemberReq{
 			ChatID:       "<CHAT_ID>",
 			MemberIDType: lark.IDTypePtr(lark.IDTypeOpenID),
 			IDList:       []string{"<USER_OPEN_ID>"},
@@ -74,7 +74,7 @@ func ExampleChat() {
 
 	// check bot is in member
 	{
-		resp, _, err := r.Chat().IsInChat(ctx, &lark.IsInChatReq{
+		resp, _, err := cli.Chat().IsInChat(ctx, &lark.IsInChatReq{
 			ChatID: "<CHAT_ID>",
 		})
 		fmt.Println(resp, err)
@@ -82,7 +82,7 @@ func ExampleChat() {
 
 	// search chat
 	{
-		resp, _, err := r.Chat().SearchChat(ctx, &lark.SearchChatReq{
+		resp, _, err := cli.Chat().SearchChat(ctx, &lark.SearchChatReq{
 			Query: ptr.String("<SEARCH>"),
 		})
 		fmt.Println(resp, err)
