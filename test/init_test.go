@@ -62,6 +62,10 @@ var File1 = File{
 	Key: os.Getenv("FILE_KEY_TEST_FILE_1_PNG"), // this is file of ./test/file_1.png
 }
 
+var File2 = File{
+	Key: os.Getenv("FILE_KEY_TEST_FILE_2_DOC"), // ./test/file_2.docx
+}
+
 func Test_Config(t *testing.T) {
 	as := assert.New(t)
 

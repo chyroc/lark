@@ -21,9 +21,10 @@ import (
 type Response struct {
 	HTTPResponse *http.Response
 
-	Method    string
-	URL       string
-	RequestID string
+	Method     string
+	URL        string
+	RequestID  string
+	StatusCode int
 }
 
 func (r *Lark) request(ctx context.Context, req *requestParam, resp interface{}) (*Response, error) {
@@ -172,6 +173,7 @@ func request(ctx context.Context, cli *http.Client, requestParam *requestParam, 
 		return response, err
 	}
 	response.HTTPResponse = resp
+	response.StatusCode = resp.StatusCode
 	response.RequestID = resp.Header.Get("x-request-id")
 
 	if resp.Body != nil {
@@ -183,7 +185,7 @@ func request(ctx context.Context, cli *http.Client, requestParam *requestParam, 
 		return response, err
 	}
 
-	if resp != nil {
+	if resp != nil && resp.StatusCode == http.StatusOK {
 		respFileSetter, ok := realResponse.(fileSetter)
 		if ok {
 			respFileSetter.SetFile(bytes.NewReader(bs))
@@ -204,8 +206,10 @@ func newFileUploadRequest(params map[string]string, filekey string, reader io.Re
 	if err != nil {
 		return "", nil, err
 	}
-	if _, err = io.Copy(part, reader); err != nil {
-		return "", nil, err
+	if reader != nil {
+		if _, err = io.Copy(part, reader); err != nil {
+			return "", nil, err
+		}
 	}
 	for key, val := range params {
 		if err = writer.WriteField(key, val); err != nil {

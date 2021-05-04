@@ -33,6 +33,20 @@ func Test_File(t *testing.T) {
 	})
 
 	t.Run("", func(t *testing.T) {
+		_, _, err := AppNoPermission.Ins().File().UploadFile(ctx, &lark.UploadFileReq{})
+		as.NotNil(err)
+		as.Contains(err.Error(), "No permission")
+	})
+
+	t.Run("", func(t *testing.T) {
+		_, _, err := AppNoPermission.Ins().File().DownloadFile(ctx, &lark.DownloadFileReq{
+			FileKey: "x",
+		})
+		as.NotNil(err)
+		as.Contains(err.Error(), "the_app_is_not_the_resource_sender")
+	})
+
+	t.Run("", func(t *testing.T) {
 		f, err := os.Open("./file_1.png")
 		as.Nil(err)
 		defer f.Close()
@@ -56,5 +70,34 @@ func Test_File(t *testing.T) {
 		bs, err := io.ReadAll(resp.File)
 		as.Nil(err)
 		as.Len(bs, 84)
+	})
+
+	t.Run("", func(t *testing.T) {
+		f, err := os.Open("./file_2.docx")
+		as.Nil(err)
+		defer f.Close()
+		resp, _, err := AppALLPermission.Ins().File().UploadFile(ctx, &lark.UploadFileReq{
+			FileType: lark.FileTypeDoc,
+			FileName: "file2.docx",
+			Duration: nil,
+			File:     f,
+		})
+		spew.Dump(resp, err)
+		as.Nil(err)
+		as.NotNil(resp)
+		as.NotEmpty(resp.FileKey)
+	})
+
+	t.Run("", func(t *testing.T) {
+		// ./test/file_2.docx
+		resp, _, err := AppALLPermission.Ins().File().DownloadFile(ctx, &lark.DownloadFileReq{
+			FileKey: File2.Key,
+		})
+		// spew.Dump(resp, err)
+		as.Nil(err)
+		as.NotNil(resp)
+		bs, err := io.ReadAll(resp.File)
+		as.Nil(err)
+		as.Len(bs, 3247)
 	})
 }

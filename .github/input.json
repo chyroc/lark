@@ -81,6 +81,11 @@
         "file_name": "api_file_upload_file.go",
         "func_name": "UploadFile",
         "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/file/create"
+      },
+      {
+        "file_name": "api_file_download_file.go",
+        "func_name": "DownloadFile",
+        "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/file/get"
       }
     ]
   },
