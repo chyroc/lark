@@ -45,6 +45,26 @@ func Test_GetMessage(t *testing.T) {
 		as.Contains(err.Error(), "these ids not existed")
 	})
 
+	t.Run("get-message-read", func(t *testing.T) {
+		resp, _, err := AppALLPermission.Ins().Message().GetMessageReadUser(ctx, &lark.GetMessageReadUserReq{
+			UserIDType: lark.IDTypeUserID,
+			MessageID:  MessageAdminSendTextInChatContainAllPermissionApp.MessageID,
+		})
+		spew.Dump(resp, err)
+		as.NotNil(err)
+		as.Contains(err.Error(), "Bot is NOT the sender of the message")
+	})
+
+	t.Run("get-message-read", func(t *testing.T) {
+		// resp, _, err := AppALLPermission.Ins().Message().GetMessageRead(ctx, &lark.GetMessageReadReq{
+		// 	UserIDType: lark.IDTypeUserID,
+		// 	MessageID: MessageAdminSendTextInChatContainAllPermissionApp.MessageID,
+		// })
+		// spew.Dump(resp, err)
+		// as.NotNil(err)
+		// as.Contains(err.Error(), "Bot is NOT the sender of the message")
+	})
+
 	t.Run("get-message-text", func(t *testing.T) {
 		resp, _, err := AppALLPermission.Ins().Message().GetMessage(ctx, &lark.GetMessageReq{
 			MessageID: MessageAdminSendTextInChatContainAllPermissionApp.MessageID,

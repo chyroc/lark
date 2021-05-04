@@ -93,6 +93,11 @@
     "scope": "Message",
     "apis": [
       {
+        "file_name": "api_message_get_read_user.go",
+        "func_name": "GetMessageReadUser",
+        "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/read_users"
+      },
+      {
         "file_name": "api_message_list.go",
         "func_name": "GetMessageList",
         "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/list"
