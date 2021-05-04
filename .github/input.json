@@ -93,6 +93,11 @@
     "scope": "Message",
     "apis": [
       {
+        "file_name": "api_message_send.go",
+        "func_name": "SendRawMessage",
+        "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/create"
+      },
+      {
         "file_name": "api_message_get_read_user.go",
         "func_name": "GetMessageReadUser",
         "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/read_users"

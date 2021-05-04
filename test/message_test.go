@@ -1,8 +1,10 @@
 package test
 
 import (
+	"fmt"
 	"io"
 	"testing"
+	"time"
 
 	"github.com/davecgh/go-spew/spew"
 	"github.com/stretchr/testify/assert"
@@ -12,6 +14,17 @@ import (
 
 func Test_GetMessage(t *testing.T) {
 	as := assert.New(t)
+
+	t.Run("No permission", func(t *testing.T) {
+		_, _, err := AppNoPermission.Ins().Message().SendRawMessage(ctx, &lark.SendRawMessageReq{
+			ReceiveIDType: lark.IDTypePtr(lark.IDTypeChatID),
+			ReceiveID:     ptrString("x"),
+			Content:       `{"text":"hi"}`,
+			MsgType:       lark.MsgTypeText,
+		})
+		as.NotNil(err)
+		as.Contains(err.Error(), "No permission")
+	})
 
 	t.Run("No permission", func(t *testing.T) {
 		_, _, err := AppNoPermission.Ins().Message().GetMessage(ctx, &lark.GetMessageReq{
@@ -43,6 +56,16 @@ func Test_GetMessage(t *testing.T) {
 		})
 		as.NotNil(err)
 		as.Contains(err.Error(), "these ids not existed")
+	})
+
+	t.Run("send-raw-message", func(t *testing.T) {
+		_, _, err := AppNoPermission.Ins().Message().SendRawMessage(ctx, &lark.SendRawMessageReq{
+			ReceiveIDType: lark.IDTypePtr(lark.IDTypeChatID),
+			ReceiveID:     ptrString(ChatForSendMessage.ChatID),
+			Content:       fmt.Sprintf(`{"text":"%d"}`, time.Now().Unix()),
+			MsgType:       lark.MsgTypeText,
+		})
+		as.Nil(err)
 	})
 
 	t.Run("get-message-read", func(t *testing.T) {

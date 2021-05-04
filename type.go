@@ -1,5 +1,20 @@
 package lark
 
+type MsgType string
+
+const (
+	MsgTypeText        MsgType = "text"
+	MsgTypePost        MsgType = "post"
+	MsgTypeImage       MsgType = "image"
+	MsgTypeFile        MsgType = "file"
+	MsgTypeAudio       MsgType = "audio"
+	MsgTypeMedia       MsgType = "media"
+	MsgTypeSticker     MsgType = "sticker"
+	MsgTypeInteractive MsgType = "interactive"
+	MsgTypeShareChat   MsgType = "share_chat"
+	MsgTypeShareUser   MsgType = "share_user"
+)
+
 type ContainerIDType string
 
 const (
@@ -13,6 +28,8 @@ const (
 	IDTypeUnionID IDType = "union_id" // 以 union_id 来识别成员
 	IDTypeOpenID  IDType = "open_id"  // 以 open_id 来识别成员
 	IDTypeAppID   IDType = "app_id"   // 以 app_id 来识别成员
+	IDTypeChatID  IDType = "chat_id"  // 以 chat_id 来识别成员
+	IDTypeEmail   IDType = "email"    // 以 email 来识别成员
 )
 
 func IDTypePtr(idType IDType) *IDType {

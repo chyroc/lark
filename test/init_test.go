@@ -54,6 +54,11 @@ var ChatNotContainALLPermissionApp = Chat{
 	Name:   "不包含「lark-sdk」的群",
 }
 
+var ChatForSendMessage = Chat{
+	ChatID: os.Getenv("LARK_CHAT_FOR_SEND_MSG_CHAT_ID"),
+	Name:   "for-send-message",
+}
+
 type File struct {
 	Key string
 }
@@ -72,12 +77,17 @@ type Message struct {
 }
 
 var MessageAdminSendTextInChatContainAllPermissionApp = Message{
-	MessageID: os.Getenv("LARK_MESSAGE_ADMIN_SEND_TEST_IN_CHAT_CONTAINS_APP_PERMISSION_APP"),
+	MessageID: os.Getenv("LARK_MESSAGE_ADMIN_SEND_TEST_IN_CHAT_CONTAINS_ALL_PERMISSION_APP"),
 	ChatID:    os.Getenv("LARK_CHAT_CONTAINS_APP_PERMISSION_APP_CHAT_ID"),
 }
 
 var MessageAdminSendImageInChatContainAllPermissionApp = Message{
-	MessageID: os.Getenv("LARK_MESSAGE_ADMIN_SEND_IMAGE_IN_CHAT_CONTAINS_APP_PERMISSION_APP"),
+	MessageID: os.Getenv("LARK_MESSAGE_ADMIN_SEND_IMAGE_IN_CHAT_CONTAINS_ALL_PERMISSION_APP"),
+	ChatID:    os.Getenv("LARK_CHAT_CONTAINS_APP_PERMISSION_APP_CHAT_ID"),
+}
+
+var MessageAllPermissionAppSendTextInChatContainAllPermissionApp = Message{
+	MessageID: os.Getenv("LARK_MESSAGE_ALL_PERMISSION_APP_SEND_TEXT_IN_CHAT_CONTAINS_ALL_PERMISSION_APP"),
 	ChatID:    os.Getenv("LARK_CHAT_CONTAINS_APP_PERMISSION_APP_CHAT_ID"),
 }
 

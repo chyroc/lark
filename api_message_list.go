@@ -56,7 +56,7 @@ type GetMessageListRespItem struct {
 	MessageID      string       `json:"message_id,omitempty"`       // 消息id open_message_id
 	RootID         string       `json:"root_id,omitempty"`          // 根消息id open_message_id
 	ParentID       string       `json:"parent_id,omitempty"`        // 父消息的id open_message_id
-	MsgType        string       `json:"msg_type,omitempty"`         // 消息类型 text post card image等等
+	MsgType        MsgType      `json:"msg_type,omitempty"`         // 消息类型 text post card image等等
 	CreateTime     string       `json:"create_time,omitempty"`      // 消息生成的时间戳(毫秒)
 	UpdateTime     string       `json:"update_time,omitempty"`      // 消息更新的时间戳
 	Deleted        bool         `json:"deleted,omitempty"`          // 消息是否被撤回
