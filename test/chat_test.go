@@ -6,6 +6,7 @@ import (
 	"strconv"
 	"testing"
 
+	"github.com/chyroc/go-ptr"
 	"github.com/davecgh/go-spew/spew"
 	"github.com/stretchr/testify/assert"
 
@@ -106,7 +107,9 @@ func Test_ChatFailed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-			_, _, err := chatCli.UpdateAnnouncement(ctx, &lark.UpdateAnnouncementReq{})
+			_, _, err := chatCli.UpdateAnnouncement(ctx, &lark.UpdateAnnouncementReq{
+				ChatID: "x",
+			})
 			as.NotNil(err)
 			as.True(lark.GetErrorCode(err) > 0)
 		})
@@ -138,7 +141,9 @@ func Test_ChatFailed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-			_, _, err := chatCli.AddMember(ctx, &lark.AddMemberReq{})
+			_, _, err := chatCli.AddMember(ctx, &lark.AddMemberReq{
+				ChatID: "x",
+			})
 			as.NotNil(err)
 			as.True(lark.GetErrorCode(err) > 0)
 		})
@@ -156,7 +161,9 @@ func Test_ChatFailed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-			_, _, err := chatCli.IsInChat(ctx, &lark.IsInChatReq{})
+			_, _, err := chatCli.IsInChat(ctx, &lark.IsInChatReq{
+				ChatID: "x",
+			})
 			as.NotNil(err)
 			as.True(lark.GetErrorCode(err) > 0)
 		})
@@ -272,7 +279,7 @@ func Test_GetChat(t *testing.T) {
 	t.Run("", func(t *testing.T) {
 		resp, _, err := AppALLPermission.Ins().Chat().UpdateChat(ctx, &lark.UpdateChatReq{
 			ChatID: ChatContainALLPermissionApp.ChatID,
-			Name:   ptrString("包含「lark-sdk」的群 " + strconv.FormatInt(randInt64(), 10)),
+			Name:   ptr.String("包含「lark-sdk」的群 " + strconv.FormatInt(randInt64(), 10)),
 		})
 		as.Nil(err)
 		as.NotNil(resp)
@@ -295,7 +302,7 @@ func Test_GetChat(t *testing.T) {
 
 	t.Run("SearchChat, success", func(t *testing.T) {
 		resp, _, err := AppALLPermission.Ins().Chat().SearchChat(ctx, &lark.SearchChatReq{
-			Query: ptrString("lark-sdk"),
+			Query: ptr.String("lark-sdk"),
 		})
 		as.Nil(err)
 		as.True(len(resp.Items) > 0)

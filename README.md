@@ -18,7 +18,39 @@ go get github.com/chyroc/lark
 
 ## Usage
 
-doc: https://godoc.org/github.com/chyroc/lark
+### Quick Start
+
+create lark client and create chat:
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+
+	"github.com/chyroc/go-ptr"
+
+	"github.com/chyroc/lark"
+)
+
+func main() {
+	ctx := context.Background()
+	r := lark.New(lark.WithAppCredential("<APP_ID>", "<APP_SECRET>"))
+
+	resp, _, err := r.Chat().CreateChat(ctx, &lark.CreateChatReq{
+		Name: ptr.String("chat-name"),
+	})
+	if err != nil {
+		panic(err)
+	}
+	fmt.Println("chat created: ", resp.ChatID)
+}
+```
+
+### Docs
+
+https://godoc.org/github.com/chyroc/lark
 
 ## Todo
 

@@ -6,6 +6,7 @@ import (
 	"testing"
 	"time"
 
+	"github.com/chyroc/go-ptr"
 	"github.com/davecgh/go-spew/spew"
 	"github.com/stretchr/testify/assert"
 
@@ -96,7 +97,7 @@ func Test_GetMessage(t *testing.T) {
 	t.Run("send-raw-message", func(t *testing.T) {
 		_, _, err := AppALLPermission.Ins().Message().SendRawMessage(ctx, &lark.SendRawMessageReq{
 			ReceiveIDType: lark.IDTypePtr(lark.IDTypeChatID),
-			ReceiveID:     ptrString(ChatForSendMessage.ChatID),
+			ReceiveID:     ptr.String(ChatForSendMessage.ChatID),
 			Content:       fmt.Sprintf(`{"text":"%d"}`, time.Now().Unix()),
 			MsgType:       lark.MsgTypeText,
 		})
