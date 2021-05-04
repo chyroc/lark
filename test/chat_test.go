@@ -14,7 +14,7 @@ import (
 
 var ctx = context.Background()
 
-func Test_CreateChat(t *testing.T) {
+func Test_ChatFailed(t *testing.T) {
 	as := assert.New(t)
 
 	t.Run("request failed", func(t *testing.T) {
@@ -96,14 +96,89 @@ func Test_CreateChat(t *testing.T) {
 	})
 
 	t.Run("response is failed", func(t *testing.T) {
-		t.Run("CreateChat, no-permission", func(t *testing.T) {
-			_, _, err := AppNoPermission.Ins().Chat().CreateChat(ctx, &lark.CreateChatReq{})
-			spew.Dump(err)
+		cli := AppNoPermission.Ins()
+		chatCli := cli.Chat()
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := chatCli.GetAnnouncement(ctx, &lark.GetAnnouncementReq{})
 			as.NotNil(err)
-			as.Equal(99991672, lark.GetErrorCode(err))
-			as.Contains(err.Error(), "No permission")
+			as.True(lark.GetErrorCode(err) > 0)
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := chatCli.UpdateAnnouncement(ctx, &lark.UpdateAnnouncementReq{})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0)
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := chatCli.CreateChat(ctx, &lark.CreateChatReq{})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0)
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := chatCli.DeleteChat(ctx, &lark.DeleteChatReq{
+				ChatID: "x",
+			})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0)
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := chatCli.GetChat(ctx, &lark.GetChatReq{})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0)
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := chatCli.GetChatListOfSelf(ctx, &lark.GetChatListOfSelfReq{})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0)
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := chatCli.AddMember(ctx, &lark.AddMemberReq{})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0)
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := chatCli.DeleteMember(ctx, &lark.DeleteMemberReq{})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0)
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := chatCli.GetMember(ctx, &lark.GetMemberReq{})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0)
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := chatCli.IsInChat(ctx, &lark.IsInChatReq{})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0)
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := chatCli.SearchChat(ctx, &lark.SearchChatReq{})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0)
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := chatCli.UpdateChat(ctx, &lark.UpdateChatReq{
+				ChatID: "x",
+			})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0)
 		})
 	})
+}
+
+func Test_CreateChat(t *testing.T) {
+	as := assert.New(t)
 
 	t.Run("CreateChat, AddMember, GetMember, DeleteMember, DeleteChat", func(t *testing.T) {
 		cli := lark.New(lark.WithAppCredential(AppALLPermission.AppID, AppALLPermission.AppSecret))
@@ -182,24 +257,6 @@ func Test_Chat_member(t *testing.T) {
 func Test_GetChat(t *testing.T) {
 	as := assert.New(t)
 
-	t.Run("GetChat, no-permission", func(t *testing.T) {
-		_, _, err := AppNoPermission.Ins().Chat().GetChat(ctx, &lark.GetChatReq{})
-		as.NotNil(err)
-		as.Contains(err.Error(), "No permission")
-	})
-
-	t.Run("GetChatListOfSelf, no-permission", func(t *testing.T) {
-		_, _, err := AppNoPermission.Ins().Chat().GetChatListOfSelf(ctx, &lark.GetChatListOfSelfReq{})
-		as.NotNil(err)
-		as.Contains(err.Error(), "No permission")
-	})
-
-	t.Run("SearchChat, no-permission", func(t *testing.T) {
-		_, _, err := AppNoPermission.Ins().Chat().SearchChat(ctx, &lark.SearchChatReq{})
-		as.NotNil(err)
-		as.Contains(err.Error(), "No permission")
-	})
-
 	t.Run("SearchChat, success", func(t *testing.T) {
 		resp, _, err := AppALLPermission.Ins().Chat().GetChat(ctx, &lark.GetChatReq{
 			ChatID: ChatContainALLPermissionApp.ChatID,
@@ -254,15 +311,6 @@ func Test_GetChat(t *testing.T) {
 
 func Test_ChatAnnouncement(t *testing.T) {
 	as := assert.New(t)
-
-	t.Run("GetAnnouncement, no-permission", func(t *testing.T) {
-		_, _, err := AppNoPermission.Ins().Chat().GetAnnouncement(ctx, &lark.GetAnnouncementReq{
-			ChatID: ChatContainALLPermissionApp.ChatID,
-		})
-		spew.Dump(err)
-		as.NotNil(err)
-		as.Contains(err.Error(), "No permission")
-	})
 
 	t.Run("GetAnnouncement, all-permission", func(t *testing.T) {
 		resp, _, err := AppALLPermission.Ins().Chat().GetAnnouncement(ctx, &lark.GetAnnouncementReq{

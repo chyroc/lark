@@ -8,7 +8,7 @@ import (
 	"github.com/chyroc/lark"
 )
 
-func Test_HelpDesk(t *testing.T) {
+func Test_HelpDesk_Failed(t *testing.T) {
 	as := assert.New(t)
 
 	t.Run("request failed", func(t *testing.T) {
@@ -38,6 +38,35 @@ func Test_HelpDesk(t *testing.T) {
 			// _, _, err := helpdeskCli.UpdateTicket(ctx, &lark.UpdateTicketReq{})
 			// as.NotNil(err)
 			// as.Equal(err.Error(), "failed")
+		})
+	})
+
+	t.Run("response failed", func(t *testing.T) {
+		cli := AppNoPermission.Ins()
+		helpdeskCli := cli.HelpDesk()
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := helpdeskCli.StartService(ctx, &lark.StartServiceReq{})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0)
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := helpdeskCli.GetTicket(ctx, &lark.GetTicketReq{})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0)
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := helpdeskCli.GetTicketList(ctx, &lark.GetTicketListReq{})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0)
+		})
+
+		t.Run("", func(t *testing.T) {
+			// _, _, err := helpdeskCli.UpdateTicket(ctx, &lark.UpdateTicketReq{})
+			// as.NotNil(err)
+			//   as.True(lark.GetErrorCode(err)>0)
 		})
 	})
 }

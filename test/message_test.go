@@ -12,7 +12,7 @@ import (
 	"github.com/chyroc/lark"
 )
 
-func Test_GetMessage(t *testing.T) {
+func Test_Message_Failed(t *testing.T) {
 	as := assert.New(t)
 
 	t.Run("request failed", func(t *testing.T) {
@@ -51,48 +51,47 @@ func Test_GetMessage(t *testing.T) {
 		})
 	})
 
-	t.Run("No permission", func(t *testing.T) {
-		_, _, err := AppNoPermission.Ins().Message().SendRawMessage(ctx, &lark.SendRawMessageReq{
-			ReceiveIDType: lark.IDTypePtr(lark.IDTypeChatID),
-			ReceiveID:     ptrString("x"),
-			Content:       `{"text":"hi"}`,
-			MsgType:       lark.MsgTypeText,
-		})
-		as.NotNil(err)
-		as.Contains(err.Error(), "No permission")
-	})
+	t.Run("request failed", func(t *testing.T) {
+		cli := AppNoPermission.Ins()
+		msgCli := cli.Message()
 
-	t.Run("No permission", func(t *testing.T) {
-		_, _, err := AppNoPermission.Ins().Message().GetMessage(ctx, &lark.GetMessageReq{
-			MessageID: "1",
+		t.Run("", func(t *testing.T) {
+			_, _, err := msgCli.SendRawMessage(ctx, &lark.SendRawMessageReq{})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0)
 		})
-		as.NotNil(err)
-		as.Contains(err.Error(), "No permission")
-	})
 
-	t.Run("No permission", func(t *testing.T) {
-		_, _, err := AppNoPermission.Ins().Message().GetMessageFile(ctx, &lark.GetMessageFileReq{
-			Type:      "s",
-			MessageID: "s",
-			FileKey:   "s",
+		t.Run("", func(t *testing.T) {
+			_, _, err := msgCli.GetMessage(ctx, &lark.GetMessageReq{})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0)
 		})
-		as.NotNil(err)
-		as.Contains(err.Error(), "No permission")
-	})
 
-	t.Run("No permission", func(t *testing.T) {
-		_, _, err := AppNoPermission.Ins().Message().GetMessageList(ctx, &lark.GetMessageListReq{})
-		as.NotNil(err)
-		as.Contains(err.Error(), "No permission")
-	})
-
-	t.Run("ids not existed", func(t *testing.T) {
-		_, _, err := AppALLPermission.Ins().Message().GetMessage(ctx, &lark.GetMessageReq{
-			MessageID: "1",
+		t.Run("", func(t *testing.T) {
+			_, _, err := msgCli.GetMessageList(ctx, &lark.GetMessageListReq{})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0)
 		})
-		as.NotNil(err)
-		as.Contains(err.Error(), "these ids not existed")
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := msgCli.GetMessageFile(ctx, &lark.GetMessageFileReq{
+				MessageID: "x",
+				FileKey:   "x",
+			})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0)
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := msgCli.GetMessageReadUser(ctx, &lark.GetMessageReadUserReq{})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0)
+		})
 	})
+}
+
+func Test_GetMessage(t *testing.T) {
+	as := assert.New(t)
 
 	t.Run("send-raw-message", func(t *testing.T) {
 		_, _, err := AppALLPermission.Ins().Message().SendRawMessage(ctx, &lark.SendRawMessageReq{

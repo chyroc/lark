@@ -1,7 +1,6 @@
 package test
 
 import (
-	"bytes"
 	"io"
 	"os"
 	"testing"
@@ -12,7 +11,7 @@ import (
 	"github.com/chyroc/lark"
 )
 
-func Test_File(t *testing.T) {
+func Test_File_Failed(t *testing.T) {
 	as := assert.New(t)
 
 	t.Run("request failed", func(t *testing.T) {
@@ -45,36 +44,42 @@ func Test_File(t *testing.T) {
 		})
 	})
 
-	t.Run("", func(t *testing.T) {
-		_, _, err := AppNoPermission.Ins().File().UploadImage(ctx, &lark.UploadImageReq{
-			ImageType: lark.ImageTypeMessage,
-			Image:     bytes.NewReader(nil),
-		})
-		as.NotNil(err)
-		as.Contains(err.Error(), "No permission")
-	})
+	t.Run("response failed", func(t *testing.T) {
+		cli := AppNoPermission.Ins()
+		fileCli := cli.File()
 
-	t.Run("", func(t *testing.T) {
-		_, _, err := AppNoPermission.Ins().File().DownloadImage(ctx, &lark.DownloadImageReq{
-			ImageKey: "x",
+		t.Run("", func(t *testing.T) {
+			_, _, err := fileCli.UploadImage(ctx, &lark.UploadImageReq{})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0)
 		})
-		as.NotNil(err)
-		as.Contains(err.Error(), "the app do not turn on bot")
-	})
 
-	t.Run("", func(t *testing.T) {
-		_, _, err := AppNoPermission.Ins().File().UploadFile(ctx, &lark.UploadFileReq{})
-		as.NotNil(err)
-		as.Contains(err.Error(), "No permission")
-	})
-
-	t.Run("", func(t *testing.T) {
-		_, _, err := AppNoPermission.Ins().File().DownloadFile(ctx, &lark.DownloadFileReq{
-			FileKey: "x",
+		t.Run("", func(t *testing.T) {
+			_, _, err := fileCli.DownloadImage(ctx, &lark.DownloadImageReq{
+				ImageKey: "x",
+			})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0)
 		})
-		as.NotNil(err)
-		as.Contains(err.Error(), "the_app_is_not_the_resource_sender")
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := fileCli.UploadFile(ctx, &lark.UploadFileReq{})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0)
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := fileCli.DownloadFile(ctx, &lark.DownloadFileReq{
+				FileKey: "x",
+			})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0)
+		})
 	})
+}
+
+func Test_File(t *testing.T) {
+	as := assert.New(t)
 
 	t.Run("", func(t *testing.T) {
 		f, err := os.Open("./file_1.png")
