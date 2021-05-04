@@ -52,9 +52,22 @@ func main() {
 }
 ```
 
+### Example: send message
+
+for more about send message example, see [./examples/send_message.go](./examples/send_message.go) .
+
+send text message example:
+
+```go
+cli := lark.New(lark.WithAppCredential("<APP_ID>", "<APP_SECRET>"))
+
+resp, _, err := cli.Message().Send().ToChatID("<CHAT_ID>").SendText(ctx, "<TEXT>")
+fmt.Println(resp, err)
+```
+
 ### Example: chat
 
-for more about chat example, see [./examples/chat.go](./examples/chat.go)
+for more about chat example, see [./examples/chat.go](./examples/chat.go) .
 
 create chat example:
 
