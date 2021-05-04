@@ -117,6 +117,18 @@ func Test_GetMessage(t *testing.T) {
 			// as.Nil(err)
 		})
 
+		t.Run("post", func(t *testing.T) {
+			s := `{"zh_cn": {"title": "我是一个标题","content": [[{"tag": "text","text": "文本"}]]}}`
+			_, _, err := AppALLPermission.Ins().Message().Send().ToChatID(ChatForSendMessage.ChatID).SendPost(ctx, s)
+			as.Nil(err)
+		})
+
+		t.Run("card", func(t *testing.T) {
+			s := `{"config": { "wide_screen_mode": true },"i18n_elements": {"zh_cn": [{"tag": "div","text": { "tag": "lark_md", "content": "文本"}}]}}`
+			_, _, err := AppALLPermission.Ins().Message().Send().ToChatID(ChatForSendMessage.ChatID).SendCard(ctx, s)
+			as.Nil(err)
+		})
+
 		t.Run("file", func(t *testing.T) {
 			_, _, err := AppALLPermission.Ins().Message().Send().ToChatID(ChatForSendMessage.ChatID).SendFile(ctx, File2.Key)
 			as.Nil(err)

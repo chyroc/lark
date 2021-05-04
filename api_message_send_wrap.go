@@ -57,6 +57,14 @@ func (r *MessageSendAPI) SendImage(ctx context.Context, imageKey string) (*SendR
 	return r.send(ctx, MsgTypeImage, `{"image_key":%q}`, imageKey)
 }
 
+func (r *MessageSendAPI) SendPost(ctx context.Context, card string) (*SendRawMessageResp, *Response, error) {
+	return r.send(ctx, MsgTypePost, card)
+}
+
+func (r *MessageSendAPI) SendCard(ctx context.Context, card string) (*SendRawMessageResp, *Response, error) {
+	return r.send(ctx, MsgTypeInteractive, card)
+}
+
 func (r *MessageSendAPI) SendShareChat(ctx context.Context, chatID string) (*SendRawMessageResp, *Response, error) {
 	return r.send(ctx, MsgTypeShareChat, `{"chat_id":%q}`, chatID)
 }
