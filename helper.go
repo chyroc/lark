@@ -20,7 +20,7 @@ func UnwrapMessageContent(resp *GetMessageRespItem) (*MessageContent, error) {
 		content := new(MessageContent)
 		err := json.Unmarshal([]byte(resp.Body.Content), content)
 		if err != nil {
-			return nil, err
+			return nil, fmt.Errorf("invalid content: %s", resp.Body.Content)
 		}
 		return content, nil
 	}

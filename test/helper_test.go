@@ -4,7 +4,10 @@ import (
 	"context"
 	"fmt"
 	"math/rand"
+	"testing"
 	"time"
+
+	"github.com/stretchr/testify/assert"
 
 	"github.com/chyroc/lark"
 )
@@ -19,4 +22,57 @@ func randInt64() int64 {
 
 func mockGetTenantAccessTokenFailed(ctx context.Context) (*lark.TokenExpire, *lark.Response, error) {
 	return nil, nil, fmt.Errorf("failed")
+}
+
+func Test_Helper(t *testing.T) {
+	as := assert.New(t)
+
+	t.Run("GetErrorCode", func(t *testing.T) {
+		as.Equal(-1, lark.GetErrorCode(fmt.Errorf("x")))
+	})
+
+	t.Run("UnwrapMessageContent", func(t *testing.T) {
+		t.Run("image", func(t *testing.T) {
+			_, err := lark.UnwrapMessageContent(&lark.GetMessageRespItem{
+				Body: &lark.MessageBody{
+					Content: fmt.Sprintf(`{"image_key":"image-x"}`),
+				},
+			})
+			as.NotNil(err)
+			as.Contains(err.Error(), "unknown message type")
+		})
+
+		t.Run("image", func(t *testing.T) {
+			_, err := lark.UnwrapMessageContent(&lark.GetMessageRespItem{
+				MsgType: lark.MsgTypeText,
+				Body: &lark.MessageBody{
+					Content: fmt.Sprintf(``),
+				},
+			})
+			as.NotNil(err)
+			as.Contains(err.Error(), "invalid content")
+		})
+
+		t.Run("text", func(t *testing.T) {
+			res, err := lark.UnwrapMessageContent(&lark.GetMessageRespItem{
+				MsgType: lark.MsgTypeText,
+				Body: &lark.MessageBody{
+					Content: fmt.Sprintf(`{"text":"hi"}`),
+				},
+			})
+			as.Nil(err)
+			as.Equal("hi", res.Text)
+		})
+
+		t.Run("image", func(t *testing.T) {
+			res, err := lark.UnwrapMessageContent(&lark.GetMessageRespItem{
+				MsgType: lark.MsgTypeImage,
+				Body: &lark.MessageBody{
+					Content: fmt.Sprintf(`{"image_key":"image-x"}`),
+				},
+			})
+			as.Nil(err)
+			as.Equal("image-x", res.ImageKey)
+		})
+	})
 }
