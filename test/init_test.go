@@ -71,8 +71,13 @@ type Message struct {
 	ChatID    string
 }
 
-var MessageAdminSendInChatContainAllPermissionApp = Message{
+var MessageAdminSendTextInChatContainAllPermissionApp = Message{
 	MessageID: os.Getenv("LARK_MESSAGE_ADMIN_SEND_TEST_IN_CHAT_CONTAINS_APP_PERMISSION_APP"),
+	ChatID:    os.Getenv("LARK_CHAT_CONTAINS_APP_PERMISSION_APP_CHAT_ID"),
+}
+
+var MessageAdminSendImageInChatContainAllPermissionApp = Message{
+	MessageID: os.Getenv("LARK_MESSAGE_ADMIN_SEND_IMAGE_IN_CHAT_CONTAINS_APP_PERMISSION_APP"),
 	ChatID:    os.Getenv("LARK_CHAT_CONTAINS_APP_PERMISSION_APP_CHAT_ID"),
 }
 

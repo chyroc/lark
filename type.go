@@ -66,3 +66,8 @@ type HelpDeskCustomizedField struct {
 	Value   string `json:"value"`    // value ,示例值："value"
 	KeyName string `json:"key_name"` // key name ,示例值："key"
 }
+
+type MessageContent struct {
+	Text     string `json:"text"`
+	ImageKey string `json:"image_key"`
+}
