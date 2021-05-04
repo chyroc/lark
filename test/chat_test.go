@@ -17,16 +17,85 @@ var ctx = context.Background()
 func Test_CreateChat(t *testing.T) {
 	as := assert.New(t)
 
-	t.Run("failed", func(t *testing.T) {
-		t.Run("request failed", func(t *testing.T) {
-			cli := AppNoPermission.Ins()
-			cli.Mock().MockGetTenantAccessToken(mockGetTenantAccessTokenFailed)
+	t.Run("request failed", func(t *testing.T) {
+		cli := AppALLPermission.Ins()
+		cli.Mock().MockGetTenantAccessToken(mockGetTenantAccessTokenFailed)
+		chatCli := cli.Chat()
 
-			_, _, err := cli.Chat().CreateChat(ctx, &lark.CreateChatReq{})
+		t.Run("", func(t *testing.T) {
+			_, _, err := chatCli.GetAnnouncement(ctx, &lark.GetAnnouncementReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "failed")
 		})
 
+		t.Run("", func(t *testing.T) {
+			_, _, err := chatCli.UpdateAnnouncement(ctx, &lark.UpdateAnnouncementReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := chatCli.CreateChat(ctx, &lark.CreateChatReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := chatCli.DeleteChat(ctx, &lark.DeleteChatReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := chatCli.GetChat(ctx, &lark.GetChatReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := chatCli.GetChatListOfSelf(ctx, &lark.GetChatListOfSelfReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := chatCli.AddMember(ctx, &lark.AddMemberReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := chatCli.DeleteMember(ctx, &lark.DeleteMemberReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := chatCli.GetMember(ctx, &lark.GetMemberReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := chatCli.IsInChat(ctx, &lark.IsInChatReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := chatCli.SearchChat(ctx, &lark.SearchChatReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := chatCli.UpdateChat(ctx, &lark.UpdateChatReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "failed")
+		})
+	})
+
+	t.Run("response is failed", func(t *testing.T) {
 		t.Run("CreateChat, no-permission", func(t *testing.T) {
 			_, _, err := AppNoPermission.Ins().Chat().CreateChat(ctx, &lark.CreateChatReq{})
 			spew.Dump(err)
