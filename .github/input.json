@@ -98,6 +98,21 @@
         "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/create"
       },
       {
+        "file_name": "api_message_reply.go",
+        "func_name": "ReplyRawMessage",
+        "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/reply"
+      },
+      {
+        "file_name": "api_message_delete.go",
+        "func_name": "DeleteMessage",
+        "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/delete"
+      },
+      {
+        "file_name": "api_message_update.go",
+        "func_name": "UpdateMessage",
+        "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/patch"
+      },
+      {
         "file_name": "api_message_get_read_user.go",
         "func_name": "GetMessageReadUser",
         "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/read_users"
