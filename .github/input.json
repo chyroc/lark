@@ -223,6 +223,26 @@
     "scope": "Calendar",
     "apis": [
       {
+        "file_name": "api_calendar_acl_create.go",
+        "func_name": "CreateCalendarACL",
+        "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar-acl/create"
+      },
+      {
+        "file_name": "api_calendar_acl_delete.go",
+        "func_name": "DeleteCalendarACL",
+        "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar-acl/delete"
+      },
+      {
+        "file_name": "api_calendar_acl_get_list.go",
+        "func_name": "GetCalendarACLList",
+        "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar-acl/list"
+      },
+      {
+        "file_name": "api_calendar_acl_subscribe.go",
+        "func_name": "SubscribeCalendarACL",
+        "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar-acl/subscription"
+      },
+      {
         "file_name": "api_calendar_calendar_create.go",
         "func_name": "CreateCalendar",
         "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar/create"
@@ -266,8 +286,7 @@
         "file_name": "api_calendar_calendar_event_create.go",
         "func_name": "CreateCalendarEvent",
         "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar-event/create-event"
-      }
-    ,
+      },
       {
         "file_name": "api_calendar_calendar_event_delete.go",
         "func_name": "DeleteCalendarEvent",
@@ -277,8 +296,7 @@
         "file_name": "api_calendar_calendar_event_get.go",
         "func_name": "GetCalendarEvent",
         "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar-event/get"
-      }
-    ,
+      },
       {
         "file_name": "api_calendar_calendar_event_get_list.go",
         "func_name": "GetCalendarEventList",
@@ -288,8 +306,7 @@
         "file_name": "api_calendar_calendar_event_patch.go",
         "func_name": "UpdateCalendarEvent",
         "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar-event/patch"
-      }
-    ,
+      },
       {
         "file_name": "api_calendar_calendar_event_search.go",
         "func_name": "SearchCalendarEvent",

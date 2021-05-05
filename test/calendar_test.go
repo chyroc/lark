@@ -242,6 +242,76 @@ func Test_CalendarEvent_Failed(t *testing.T) {
 	})
 }
 
+func Test_CalendarACL_Failed(t *testing.T) {
+	as := assert.New(t)
+
+	t.Run("request failed", func(t *testing.T) {
+		cli := AppALLPermission.Ins()
+		cli.Mock().MockGetTenantAccessToken(mockGetTenantAccessTokenFailed)
+		moduleCli := cli.Calendar()
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.CreateCalendarACL(ctx, &lark.CreateCalendarACLReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.DeleteCalendarACL(ctx, &lark.DeleteCalendarACLReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.GetCalendarACLList(ctx, &lark.GetCalendarACLListReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+			// _, _, err := moduleCli.SubscribeCalendarACL(ctx, &lark.SubscribeCalendarACLReq{
+			// 	CalendarID: "x",
+			// })
+			// as.NotNil(err)
+			// as.Equal(err.Error(), "failed")
+		})
+	})
+
+	t.Run("response failed", func(t *testing.T) {
+		cli := AppNoPermission.Ins()
+		moduleCli := cli.Calendar()
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.CreateCalendarACL(ctx, &lark.CreateCalendarACLReq{})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0)
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.DeleteCalendarACL(ctx, &lark.DeleteCalendarACLReq{
+				CalendarID: "x",
+				ACLID:      "x",
+			})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0)
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.GetCalendarACLList(ctx, &lark.GetCalendarACLListReq{})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0)
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.SubscribeCalendarACL(ctx, &lark.SubscribeCalendarACLReq{
+				CalendarID: "x",
+			})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0)
+		})
+	})
+}
+
 func Test_Calendar(t *testing.T) {
 	as := assert.New(t)
 	moduleCli := AppALLPermission.Ins().Calendar()
@@ -397,6 +467,75 @@ func Test_CalendarEvent(t *testing.T) {
 			resp, _, err := moduleCli.DeleteCalendarEvent(ctx, &lark.DeleteCalendarEventReq{
 				CalendarID: calendarID,
 				EventID:    eventID,
+			})
+			spew.Dump(resp, err)
+			as.Nil(err)
+		}
+	})
+}
+
+func Test_CalendarACL(t *testing.T) {
+	as := assert.New(t)
+	moduleCli := AppALLPermission.Ins().Calendar()
+
+	t.Run("", func(t *testing.T) {
+		calendarID := ""
+		aclID := ""
+		defer func() {
+			_, _, _ = moduleCli.DeleteCalendar(ctx, &lark.DeleteCalendarReq{
+				CalendarID: calendarID,
+			})
+		}()
+
+		{
+			resp, _, err := moduleCli.CreateCalendar(ctx, &lark.CreateCalendarReq{
+				Summary:      ptr.String("summary-test"),
+				Description:  ptr.String("desc-test"),
+				Permissions:  nil,
+				Color:        nil,
+				SummaryAlias: nil,
+			})
+			spew.Dump(resp, err)
+			as.Nil(err)
+			calendarID = resp.Calendar.CalendarID
+		}
+
+		{
+			resp, _, err := moduleCli.CreateCalendarACL(ctx, &lark.CreateCalendarACLReq{
+				UserIDType: nil,
+				CalendarID: calendarID,
+				Role:       lark.CalendarRoleWriter,
+				Scope: &lark.CreateCalendarACLReqScope{
+					Type:   "user",
+					UserID: &UserAdmin.OpenID,
+				},
+			})
+			spew.Dump(resp, err)
+			as.Nil(err)
+			aclID = resp.ACLID
+		}
+
+		{
+			resp, _, err := moduleCli.GetCalendarACLList(ctx, &lark.GetCalendarACLListReq{
+				CalendarID: calendarID,
+			})
+			spew.Dump(resp, err)
+			as.Nil(err)
+		}
+
+		{
+			// TODO: user_access_token
+			// resp, _, err := moduleCli.SubscribeCalendarACL(ctx, &lark.SubscribeCalendarACLReq{
+			// 	CalendarID: calendarID,
+			// })
+			// spew.Dump(resp, err)
+			// as.Nil(err)
+		}
+
+		{
+			resp, _, err := moduleCli.DeleteCalendarACL(ctx, &lark.DeleteCalendarACLReq{
+				CalendarID: calendarID,
+				ACLID:      aclID,
 			})
 			spew.Dump(resp, err)
 			as.Nil(err)

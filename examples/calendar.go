@@ -130,4 +130,38 @@ func ExampleCalendar() {
 		})
 		fmt.Println(resp, err)
 	}
+
+	// create calendar acl
+	{
+		resp, _, err := cli.Calendar().CreateCalendarACL(ctx, &lark.CreateCalendarACLReq{
+			CalendarID: "<CALENDAR_ID>",
+			Role:       lark.CalendarRoleReader,
+		})
+		fmt.Println(resp, err)
+	}
+
+	// get calendar acl list
+	{
+		resp, _, err := cli.Calendar().GetCalendarACLList(ctx, &lark.GetCalendarACLListReq{
+			CalendarID: "<CALENDAR_ID>",
+		})
+		fmt.Println(resp, err)
+	}
+
+	// delete calendar acl
+	{
+		resp, _, err := cli.Calendar().DeleteCalendarACL(ctx, &lark.DeleteCalendarACLReq{
+			CalendarID: "<CALENDAR_ID>",
+			ACLID:      "<ACL_ID>",
+		})
+		fmt.Println(resp, err)
+	}
+
+	// subscribe calendar acl
+	{
+		resp, _, err := cli.Calendar().SubscribeCalendarACL(ctx, &lark.SubscribeCalendarACLReq{
+			CalendarID: "<CALENDAR_ID>",
+		})
+		fmt.Println(resp, err)
+	}
 }
