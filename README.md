@@ -22,34 +22,57 @@ https://godoc.org/github.com/chyroc/lark
 
 ## Usage
 
-### Quick Start
+### Example: create lark client
 
-create lark client and create chat:
+- for sample bot and app:
 
 ```go
-package main
+cli := lark.New(lark.WithAppCredential("<APP_ID>", "<APP_SECRET>"))
+}
+```
 
-import (
-	"context"
-	"fmt"
+- for need handle event callback:
 
-	"github.com/chyroc/go-ptr"
+```go
+cli := lark.New(
+    lark.WithAppCredential("<APP_ID>", "<APP_SECRET>"),
+    lark.WithEventCallbackVerify("<ENCRYPY_KEY>", "<VERIFICATION_TOKEN>"),
+)
+```
 
-	"github.com/chyroc/lark"
+- for helpdesk app:
+
+```go
+cli := lark.New(
+    lark.WithAppCredential("<APP_ID>", "<APP_SECRET>"),
+	lark.WithHelpdeskCredential("<HELPDESK_ID>", "HELPDESK_TOKEN"),
+)
+```
+
+### Example: handle event callback
+
+for more about event callback example, see [./examples/event_callback.go](./examples/event_callback.go) .
+
+handle message callback example:
+
+```go
+cli := lark.New(
+    lark.WithAppCredential("<APP_ID>", "<APP_SECRET>"),
+    lark.WithEventCallbackVerify("<ENCRYPY_KEY>", "<VERIFICATION_TOKEN>"),
 )
 
-func main() {
-	ctx := context.Background()
-	cli := lark.New(lark.WithAppCredential("<APP_ID>", "<APP_SECRET>"))
+// handle message callback
+cli.EventCallback().HandlerEventIMMessageReceiveV1(func(ctx context.Context, cli *lark.Lark, schema string, header *lark.EventHeader, event *lark.EventIMMessageReceiveV1) (string, error) {
+    _, _, err := cli.Message().Reply(event.Message.MessageID).SendText(ctx, "hi, "+event.Message.Content)
+    return "", err
+})
 
-	resp, _, err := cli.Chat().CreateChat(ctx, &lark.CreateChatReq{
-		Name: ptr.String("chat-name"),
-	})
-	if err != nil {
-		panic(err)
-	}
-	fmt.Println("chat created: ", resp.ChatID)
-}
+http.HandleFunc("/api", func(w http.ResponseWriter, r *http.Request) {
+    cli.EventCallback().ListenCallback(r.Context(), r.Body, w)
+})
+
+fmt.Println("start server ...")
+log.Fatal(http.ListenAndServe(":9726", nil))
 ```
 
 ### Example: send message
