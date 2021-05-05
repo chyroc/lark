@@ -6,33 +6,33 @@
 [![Apache-2.0 license](https://img.shields.io/badge/License-Apache%202.0-brightgreen.svg)](https://opensource.org/licenses/Apache-2.0)
 [![Go.Dev reference](https://img.shields.io/badge/go.dev-reference-blue?logo=go&logoColor=white)](https://pkg.go.dev/github.com/chyroc/lark)
 
-[中文版 README](./README_CN.md)
+[English README](./README.md)
 
-Feishu/Lark Open API Go Sdk, Support ALL Open API and Event Callback.
+飞书/Lark 的开放接口 Go SDK，支持所有的开放接口，和事件回调。
 
-Created By Code Generation.
+使用代码生成创建。
 
-## Install
+## 安装
 
 ```shell
 go get github.com/chyroc/lark
 ```
 
-## Docs
+## 文档
 
 https://godoc.org/github.com/chyroc/lark
 
-## Usage
+## 使用
 
-### Example: create lark client
+### 例子: 创建 Lark 客户端
 
-- for sample bot and app:
+- 使用简单的 App
 
 ```go
 cli := lark.New(lark.WithAppCredential("<APP_ID>", "<APP_SECRET>"))
 ```
 
-- for need handle event callback:
+- 处理事件回调
 
 ```go
 cli := lark.New(
@@ -41,7 +41,7 @@ cli := lark.New(
 )
 ```
 
-- for helpdesk app:
+- 服务台
 
 ```go
 cli := lark.New(
@@ -50,11 +50,11 @@ cli := lark.New(
 )
 ```
 
-### Example: handle event callback
+### 例子：处理事件回调
 
-for more about event callback example, see [./examples/event_callback.go](./examples/event_callback.go) .
+如果需要更多的例子，可以参考：[./examples/event_callback.go](./examples/event_callback.go) 。
 
-handle message callback example:
+处理消息的事件回调：
 
 ```go
 cli := lark.New(
@@ -76,11 +76,11 @@ fmt.Println("start server ...")
 log.Fatal(http.ListenAndServe(":9726", nil))
 ```
 
-### Example: send message
+### 例子: 发送消息
 
-for more about send message example, see [./examples/send_message.go](./examples/send_message.go) .
+如果需要更多的例子，可以参考： [./examples/send_message.go](./examples/send_message.go) 。
 
-send text message example:
+发送文本消息：
 
 ```go
 cli := lark.New(lark.WithAppCredential("<APP_ID>", "<APP_SECRET>"))
@@ -89,11 +89,11 @@ resp, _, err := cli.Message().Send().ToChatID("<CHAT_ID>").SendText(ctx, "<TEXT>
 fmt.Println(resp, err)
 ```
 
-### Example: other message
+### 例子: 其他消息
 
-for more about other message example, see [./examples/other_message.go](./examples/other_message.go) .
+如果需要更多的例子，可以参考： [./examples/other_message.go](./examples/other_message.go) 。
 
-send delete message example:
+撤回消息：
 
 ```go
 cli := lark.New(lark.WithAppCredential("<APP_ID>", "<APP_SECRET>"))
@@ -104,11 +104,11 @@ resp, _, err := cli.Message().DeleteMessage(ctx, &lark.DeleteMessageReq{
 fmt.Println(resp, err)
 ```
 
-### Example: chat
+### 例子: 群聊
 
-for more about chat example, see [./examples/chat.go](./examples/chat.go) .
+如果需要更多的例子，可以参考： [./examples/chat.go](./examples/chat.go) 。
 
-create chat example:
+创建群聊：
 
 ```go
 cli := lark.New(lark.WithAppCredential("<APP_ID>", "<APP_SECRET>"))
@@ -119,11 +119,11 @@ resp, _, err := cli.Chat().CreateChat(ctx, &lark.CreateChatReq{
 fmt.Println(resp, err)
 ```
 
-### Example: file
+### 例子: 文件
 
-for more about file example, see [./examples/file.go](./examples/file.go) .
+如果需要更多的例子，可以参考： [./examples/file.go](./examples/file.go) 。
 
-upload image example:
+上传图片
 
 ```go
 cli := lark.New(lark.WithAppCredential("<APP_ID>", "<APP_SECRET>"))
@@ -138,11 +138,3 @@ resp, _, err := cli.File().UploadImage(ctx, &lark.UploadImageReq{
 })
 fmt.Println(resp, err)
 ```
-
-
-## Todo
-
-- [ ] generate all api
-- [x] test coverage >= 80%
-- [ ] add english comment, from larksuite webpage
-- [ ] struct data
