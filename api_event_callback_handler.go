@@ -40,6 +40,7 @@ func (r *EventCallbackAPI) listenCallback(ctx context.Context, reader io.Reader,
 
 func (r *EventCallbackAPI) parserReq(ctx context.Context, body []byte) (*eventReq, error) {
 	req := new(eventReq)
+	req.eventBody = new(eventBody)
 
 	if err := json.Unmarshal(body, &req); err != nil {
 		return nil, fmt.Errorf("lark event unmarshal event_req %s failed", body)
