@@ -104,7 +104,7 @@ func Test_ChatFailed(t *testing.T) {
 		t.Run("", func(t *testing.T) {
 			_, _, err := chatCli.GetAnnouncement(ctx, &lark.GetAnnouncementReq{})
 			as.NotNil(err)
-			as.True(lark.GetErrorCode(err) > 0)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
 		})
 
 		t.Run("", func(t *testing.T) {
@@ -112,13 +112,13 @@ func Test_ChatFailed(t *testing.T) {
 				ChatID: "x",
 			})
 			as.NotNil(err)
-			as.True(lark.GetErrorCode(err) > 0)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
 		})
 
 		t.Run("", func(t *testing.T) {
 			_, _, err := chatCli.CreateChat(ctx, &lark.CreateChatReq{})
 			as.NotNil(err)
-			as.True(lark.GetErrorCode(err) > 0)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
 		})
 
 		t.Run("", func(t *testing.T) {
@@ -126,19 +126,19 @@ func Test_ChatFailed(t *testing.T) {
 				ChatID: "x",
 			})
 			as.NotNil(err)
-			as.True(lark.GetErrorCode(err) > 0)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
 		})
 
 		t.Run("", func(t *testing.T) {
 			_, _, err := chatCli.GetChat(ctx, &lark.GetChatReq{})
 			as.NotNil(err)
-			as.True(lark.GetErrorCode(err) > 0)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
 		})
 
 		t.Run("", func(t *testing.T) {
 			_, _, err := chatCli.GetChatListOfSelf(ctx, &lark.GetChatListOfSelfReq{})
 			as.NotNil(err)
-			as.True(lark.GetErrorCode(err) > 0)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
 		})
 
 		t.Run("", func(t *testing.T) {
@@ -146,19 +146,19 @@ func Test_ChatFailed(t *testing.T) {
 				ChatID: "x",
 			})
 			as.NotNil(err)
-			as.True(lark.GetErrorCode(err) > 0)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
 		})
 
 		t.Run("", func(t *testing.T) {
 			_, _, err := chatCli.DeleteMember(ctx, &lark.DeleteMemberReq{})
 			as.NotNil(err)
-			as.True(lark.GetErrorCode(err) > 0)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
 		})
 
 		t.Run("", func(t *testing.T) {
 			_, _, err := chatCli.GetMemberList(ctx, &lark.GetMemberListReq{})
 			as.NotNil(err)
-			as.True(lark.GetErrorCode(err) > 0)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
 		})
 
 		t.Run("", func(t *testing.T) {
@@ -166,13 +166,13 @@ func Test_ChatFailed(t *testing.T) {
 				ChatID: "x",
 			})
 			as.NotNil(err)
-			as.True(lark.GetErrorCode(err) > 0)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
 		})
 
 		t.Run("", func(t *testing.T) {
 			_, _, err := chatCli.SearchChat(ctx, &lark.SearchChatReq{})
 			as.NotNil(err)
-			as.True(lark.GetErrorCode(err) > 0)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
 		})
 
 		t.Run("", func(t *testing.T) {
@@ -180,7 +180,7 @@ func Test_ChatFailed(t *testing.T) {
 				ChatID: "x",
 			})
 			as.NotNil(err)
-			as.True(lark.GetErrorCode(err) > 0)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
 		})
 	})
 }

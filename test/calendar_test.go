@@ -1,6 +1,7 @@
 package test
 
 import (
+	"fmt"
 	"testing"
 
 	"github.com/chyroc/go-ptr"
@@ -73,7 +74,7 @@ func Test_Calendar_Failed(t *testing.T) {
 		t.Run("", func(t *testing.T) {
 			_, _, err := moduleCli.CreateCalendar(ctx, &lark.CreateCalendarReq{})
 			as.NotNil(err)
-			as.True(lark.GetErrorCode(err) > 0)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
 		})
 
 		t.Run("", func(t *testing.T) {
@@ -81,7 +82,7 @@ func Test_Calendar_Failed(t *testing.T) {
 				CalendarID: "x",
 			})
 			as.NotNil(err)
-			as.True(lark.GetErrorCode(err) > 0)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
 		})
 
 		t.Run("", func(t *testing.T) {
@@ -89,13 +90,13 @@ func Test_Calendar_Failed(t *testing.T) {
 				CalendarID: "x",
 			})
 			as.NotNil(err)
-			as.True(lark.GetErrorCode(err) > 0)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
 		})
 
 		t.Run("", func(t *testing.T) {
 			_, _, err := moduleCli.GetCalendarList(ctx, &lark.GetCalendarListReq{})
 			as.NotNil(err)
-			as.True(lark.GetErrorCode(err) > 0)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
 		})
 
 		t.Run("", func(t *testing.T) {
@@ -103,20 +104,20 @@ func Test_Calendar_Failed(t *testing.T) {
 				CalendarID: "x",
 			})
 			as.NotNil(err)
-			as.True(lark.GetErrorCode(err) > 0)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
 		})
 
 		t.Run("", func(t *testing.T) {
 			_, _, err := moduleCli.SearchCalendar(ctx, &lark.SearchCalendarReq{})
 			as.NotNil(err)
-			as.True(lark.GetErrorCode(err) > 0)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
 		})
 		t.Run("", func(t *testing.T) {
 			_, _, err := moduleCli.SubscribeCalendar(ctx, &lark.SubscribeCalendarReq{
 				CalendarID: "x",
 			})
 			as.NotNil(err)
-			as.True(lark.GetErrorCode(err) > 0)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
 		})
 
 		t.Run("", func(t *testing.T) {
@@ -124,7 +125,7 @@ func Test_Calendar_Failed(t *testing.T) {
 				CalendarID: "x",
 			})
 			as.NotNil(err)
-			as.True(lark.GetErrorCode(err) > 0)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
 		})
 	})
 }
@@ -191,7 +192,7 @@ func Test_CalendarEvent_Failed(t *testing.T) {
 		t.Run("", func(t *testing.T) {
 			_, _, err := moduleCli.CreateCalendarEvent(ctx, &lark.CreateCalendarEventReq{})
 			as.NotNil(err)
-			as.True(lark.GetErrorCode(err) > 0)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
 		})
 
 		t.Run("", func(t *testing.T) {
@@ -200,7 +201,7 @@ func Test_CalendarEvent_Failed(t *testing.T) {
 				EventID:    "x",
 			})
 			as.NotNil(err)
-			as.True(lark.GetErrorCode(err) > 0)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
 		})
 
 		t.Run("", func(t *testing.T) {
@@ -209,13 +210,13 @@ func Test_CalendarEvent_Failed(t *testing.T) {
 				EventID:    "x",
 			})
 			as.NotNil(err)
-			as.True(lark.GetErrorCode(err) > 0)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
 		})
 
 		t.Run("", func(t *testing.T) {
 			_, _, err := moduleCli.GetCalendarEventList(ctx, &lark.GetCalendarEventListReq{})
 			as.NotNil(err)
-			as.True(lark.GetErrorCode(err) > 0)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
 		})
 
 		t.Run("", func(t *testing.T) {
@@ -224,20 +225,20 @@ func Test_CalendarEvent_Failed(t *testing.T) {
 				EventID:    "x",
 			})
 			as.NotNil(err)
-			as.True(lark.GetErrorCode(err) > 0)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
 		})
 
 		t.Run("", func(t *testing.T) {
 			_, _, err := moduleCli.SearchCalendarEvent(ctx, &lark.SearchCalendarEventReq{})
 			as.NotNil(err)
-			as.True(lark.GetErrorCode(err) > 0)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
 		})
 		t.Run("", func(t *testing.T) {
 			_, _, err := moduleCli.SubscribeCalendarEvent(ctx, &lark.SubscribeCalendarEventReq{
 				CalendarID: "x",
 			})
 			as.NotNil(err)
-			as.True(lark.GetErrorCode(err) > 0)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
 		})
 	})
 }
@@ -284,7 +285,7 @@ func Test_CalendarACL_Failed(t *testing.T) {
 		t.Run("", func(t *testing.T) {
 			_, _, err := moduleCli.CreateCalendarACL(ctx, &lark.CreateCalendarACLReq{})
 			as.NotNil(err)
-			as.True(lark.GetErrorCode(err) > 0)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
 		})
 
 		t.Run("", func(t *testing.T) {
@@ -293,13 +294,13 @@ func Test_CalendarACL_Failed(t *testing.T) {
 				ACLID:      "x",
 			})
 			as.NotNil(err)
-			as.True(lark.GetErrorCode(err) > 0)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
 		})
 
 		t.Run("", func(t *testing.T) {
 			_, _, err := moduleCli.GetCalendarACLList(ctx, &lark.GetCalendarACLListReq{})
 			as.NotNil(err)
-			as.True(lark.GetErrorCode(err) > 0)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
 		})
 
 		t.Run("", func(t *testing.T) {
@@ -307,7 +308,7 @@ func Test_CalendarACL_Failed(t *testing.T) {
 				CalendarID: "x",
 			})
 			as.NotNil(err)
-			as.True(lark.GetErrorCode(err) > 0)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
 		})
 	})
 }
@@ -346,19 +347,19 @@ func Test_CalendarEventAttendee_Failed(t *testing.T) {
 		t.Run("", func(t *testing.T) {
 			_, _, err := moduleCli.CreateCalendarEventAttendee(ctx, &lark.CreateCalendarEventAttendeeReq{})
 			as.NotNil(err)
-			as.True(lark.GetErrorCode(err) > 0)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
 		})
 
 		t.Run("", func(t *testing.T) {
 			_, _, err := moduleCli.GetCalendarEventAttendeeList(ctx, &lark.GetCalendarEventAttendeeListReq{})
 			as.NotNil(err)
-			as.True(lark.GetErrorCode(err) > 0)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
 		})
 
 		t.Run("", func(t *testing.T) {
 			_, _, err := moduleCli.DeleteCalendarEventAttendee(ctx, &lark.DeleteCalendarEventAttendeeReq{})
 			as.NotNil(err)
-			as.True(lark.GetErrorCode(err) > 0)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
 		})
 	})
 }
@@ -411,19 +412,19 @@ func Test_Calendar_Other_Failed(t *testing.T) {
 		t.Run("", func(t *testing.T) {
 			_, _, err := moduleCli.GetCalendarEventAttendeeChatMemberList(ctx, &lark.GetCalendarEventAttendeeChatMemberListReq{})
 			as.NotNil(err)
-			as.True(lark.GetErrorCode(err) > 0)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
 		})
 
 		t.Run("", func(t *testing.T) {
 			_, _, err := moduleCli.GetCalendarFreebusyList(ctx, &lark.GetCalendarFreebusyListReq{})
 			as.NotNil(err)
-			as.True(lark.GetErrorCode(err) > 0)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
 		})
 
 		t.Run("", func(t *testing.T) {
 			_, _, err := moduleCli.CreateCalendarTimeoffEvent(ctx, &lark.CreateCalendarTimeoffEventReq{})
 			as.NotNil(err)
-			as.True(lark.GetErrorCode(err) > 0)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
 		})
 
 		t.Run("", func(t *testing.T) {
@@ -431,7 +432,7 @@ func Test_Calendar_Other_Failed(t *testing.T) {
 				TimeoffEventID: "x",
 			})
 			as.NotNil(err)
-			as.True(lark.GetErrorCode(err) > 0)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
 		})
 
 		t.Run("", func(t *testing.T) {
@@ -439,7 +440,7 @@ func Test_Calendar_Other_Failed(t *testing.T) {
 			// 	DeviceName: ptr.String("x"),
 			// })
 			// as.NotNil(err)
-			// as.True(lark.GetErrorCode(err) > 0)
+			// as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
 		})
 	})
 }

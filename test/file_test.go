@@ -51,7 +51,7 @@ func Test_File_Failed(t *testing.T) {
 		t.Run("", func(t *testing.T) {
 			_, _, err := fileCli.UploadImage(ctx, &lark.UploadImageReq{})
 			as.NotNil(err)
-			as.True(lark.GetErrorCode(err) > 0)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
 		})
 
 		t.Run("", func(t *testing.T) {
@@ -59,13 +59,13 @@ func Test_File_Failed(t *testing.T) {
 				ImageKey: "x",
 			})
 			as.NotNil(err)
-			as.True(lark.GetErrorCode(err) > 0)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
 		})
 
 		t.Run("", func(t *testing.T) {
 			_, _, err := fileCli.UploadFile(ctx, &lark.UploadFileReq{})
 			as.NotNil(err)
-			as.True(lark.GetErrorCode(err) > 0)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
 		})
 
 		t.Run("", func(t *testing.T) {
@@ -73,7 +73,7 @@ func Test_File_Failed(t *testing.T) {
 				FileKey: "x",
 			})
 			as.NotNil(err)
-			as.True(lark.GetErrorCode(err) > 0)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
 		})
 	})
 }

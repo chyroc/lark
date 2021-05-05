@@ -49,19 +49,19 @@ func Test_Helpdesk_Failed(t *testing.T) {
 		t.Run("", func(t *testing.T) {
 			_, _, err := helpdeskCli.StartService(ctx, &lark.StartServiceReq{})
 			as.NotNil(err)
-			as.True(lark.GetErrorCode(err) > 0)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
 		})
 
 		t.Run("", func(t *testing.T) {
 			_, _, err := helpdeskCli.GetTicket(ctx, &lark.GetTicketReq{})
 			as.NotNil(err)
-			as.True(lark.GetErrorCode(err) > 0)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
 		})
 
 		t.Run("", func(t *testing.T) {
 			_, _, err := helpdeskCli.GetTicketList(ctx, &lark.GetTicketListReq{})
 			as.NotNil(err)
-			as.True(lark.GetErrorCode(err) > 0)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
 		})
 
 		t.Run("", func(t *testing.T) {

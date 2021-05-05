@@ -109,7 +109,7 @@ func Test_Contact_Failed(t *testing.T) {
 		t.Run("", func(t *testing.T) {
 			_, _, err := contactCli.CreateDepartment(ctx, &lark.CreateDepartmentReq{})
 			as.NotNil(err)
-			as.True(lark.GetErrorCode(err) > 0)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
 		})
 
 		t.Run("", func(t *testing.T) {
@@ -118,25 +118,25 @@ func Test_Contact_Failed(t *testing.T) {
 			})
 			spew.Dump(resp, err)
 			as.NotNil(err)
-			as.True(lark.GetErrorCode(err) > 0)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
 		})
 
 		t.Run("", func(t *testing.T) {
 			_, _, err := contactCli.GetDepartment(ctx, &lark.GetDepartmentReq{})
 			as.NotNil(err)
-			as.True(lark.GetErrorCode(err) > 0)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
 		})
 
 		t.Run("", func(t *testing.T) {
 			_, _, err := contactCli.GetDepartmentList(ctx, &lark.GetDepartmentListReq{})
 			as.NotNil(err)
-			as.True(lark.GetErrorCode(err) > 0)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
 		})
 
 		t.Run("", func(t *testing.T) {
 			_, _, err := contactCli.GetParentDepartment(ctx, &lark.GetParentDepartmentReq{})
 			as.NotNil(err)
-			as.True(lark.GetErrorCode(err) > 0)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
 		})
 
 		t.Run("", func(t *testing.T) {
@@ -150,7 +150,7 @@ func Test_Contact_Failed(t *testing.T) {
 				DepartmentID: "x",
 			})
 			as.NotNil(err)
-			as.True(lark.GetErrorCode(err) > 0)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
 		})
 
 		t.Run("", func(t *testing.T) {
@@ -158,13 +158,13 @@ func Test_Contact_Failed(t *testing.T) {
 				DepartmentID: "x",
 			})
 			as.NotNil(err)
-			as.True(lark.GetErrorCode(err) > 0)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
 		})
 
 		t.Run("", func(t *testing.T) {
 			_, _, err := contactCli.CreateUser(ctx, &lark.CreateUserReq{})
 			as.NotNil(err)
-			as.True(lark.GetErrorCode(err) > 0)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
 		})
 
 		t.Run("", func(t *testing.T) {
@@ -172,7 +172,7 @@ func Test_Contact_Failed(t *testing.T) {
 				UserID: "x",
 			})
 			as.NotNil(err)
-			as.True(lark.GetErrorCode(err) > 0)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
 		})
 
 		t.Run("", func(t *testing.T) {
@@ -180,13 +180,13 @@ func Test_Contact_Failed(t *testing.T) {
 				UserID: "x",
 			})
 			as.NotNil(err)
-			as.True(lark.GetErrorCode(err) > 0)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
 		})
 
 		t.Run("", func(t *testing.T) {
 			_, _, err := contactCli.GetUserList(ctx, &lark.GetUserListReq{})
 			as.NotNil(err)
-			as.True(lark.GetErrorCode(err) > 0)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
 		})
 
 		t.Run("", func(t *testing.T) {
@@ -194,7 +194,7 @@ func Test_Contact_Failed(t *testing.T) {
 				UserID: "x",
 			})
 			as.NotNil(err)
-			as.True(lark.GetErrorCode(err) > 0)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
 		})
 
 		t.Run("", func(t *testing.T) {
@@ -202,7 +202,7 @@ func Test_Contact_Failed(t *testing.T) {
 				UserID: "x",
 			})
 			as.NotNil(err)
-			as.True(lark.GetErrorCode(err) > 0)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
 		})
 	})
 }

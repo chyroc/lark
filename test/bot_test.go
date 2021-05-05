@@ -31,7 +31,7 @@ func Test_Bot_Failed(t *testing.T) {
 		t.Run("", func(t *testing.T) {
 			_, _, err := fileCli.GetBotInfo(ctx, &lark.GetBotInfoReq{})
 			as.NotNil(err)
-			as.True(lark.GetErrorCode(err) > 0)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
 		})
 	})
 }

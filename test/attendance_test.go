@@ -30,7 +30,7 @@ func Test_Attendance_Failed(t *testing.T) {
 		t.Run("", func(t *testing.T) {
 			_, _, err := chatCli.UpdateUserSettings(ctx, &lark.UpdateUserSettingsReq{})
 			as.NotNil(err)
-			as.True(lark.GetErrorCode(err) > 0)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
 		})
 	})
 }
