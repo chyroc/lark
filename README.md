@@ -44,7 +44,7 @@ cli := lark.New(
 ```go
 cli := lark.New(
     lark.WithAppCredential("<APP_ID>", "<APP_SECRET>"),
-	lark.WithHelpdeskCredential("<HELPDESK_ID>", "HELPDESK_TOKEN"),
+    lark.WithHelpdeskCredential("<HELPDESK_ID>", "HELPDESK_TOKEN"),
 )
 ```
 
