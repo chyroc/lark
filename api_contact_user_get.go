@@ -93,7 +93,7 @@ type GetUserRespUserOrder struct {
 
 type GetUserRespUserCustomAttr struct {
 	Type  string                          `json:"type,omitempty"`  // 自定义属性类型
-	Id    string                          `json:"id,omitempty"`    // 自定义属性ID
+	ID    string                          `json:"id,omitempty"`    // 自定义属性ID
 	Value *GetUserRespUserCustomAttrValue `json:"value,omitempty"` // 自定义属性取值
 }
 

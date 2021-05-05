@@ -80,28 +80,28 @@ type GetTicketListRespTicket struct {
 }
 
 type GetTicketListRespTicketGuest struct {
-	Id        string `json:"id,omitempty"`         // 用户ID
+	ID        string `json:"id,omitempty"`         // 用户ID
 	AvatarUrl string `json:"avatar_url,omitempty"` // 用户头像url
 	Name      string `json:"name,omitempty"`       // 用户名
 	Email     string `json:"email,omitempty"`      // 用户邮箱
 }
 
 type GetTicketListRespTicketAgent struct {
-	Id        string `json:"id,omitempty"`         // 用户ID
+	ID        string `json:"id,omitempty"`         // 用户ID
 	AvatarUrl string `json:"avatar_url,omitempty"` // 用户头像url
 	Name      string `json:"name,omitempty"`       // 用户名
 	Email     string `json:"email,omitempty"`      // 用户邮箱
 }
 
 type GetTicketListRespTicketClosedBy struct {
-	Id        string `json:"id,omitempty"`         // 用户ID
+	ID        string `json:"id,omitempty"`         // 用户ID
 	AvatarUrl string `json:"avatar_url,omitempty"` // 用户头像url
 	Name      string `json:"name,omitempty"`       // 用户名
 	Email     string `json:"email,omitempty"`      // 用户邮箱
 }
 
 type GetTicketListRespTicketCollaborator struct {
-	Id        string `json:"id,omitempty"`         // 用户ID
+	ID        string `json:"id,omitempty"`         // 用户ID
 	AvatarUrl string `json:"avatar_url,omitempty"` // 用户头像url
 	Name      string `json:"name,omitempty"`       // 用户名
 	Email     string `json:"email,omitempty"`      // 用户邮箱

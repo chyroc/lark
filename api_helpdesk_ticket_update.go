@@ -42,7 +42,7 @@ type UpdateTicketReq struct {
 }
 
 type UpdateTicketReqCustomizedField struct {
-	Id      *string `json:"id,omitempty"`       // id,**示例值**："123"
+	ID      *string `json:"id,omitempty"`       // id,**示例值**："123"
 	Value   *string `json:"value,omitempty"`    // value,**示例值**："value"
 	KeyName *string `json:"key_name,omitempty"` // key name,**示例值**："key"
 }

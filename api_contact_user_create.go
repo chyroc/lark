@@ -65,7 +65,7 @@ type CreateUserReqOrder struct {
 
 type CreateUserReqCustomAttr struct {
 	Type  *string                       `json:"type,omitempty"`  // 自定义属性类型,**示例值**："TEXT"
-	Id    *string                       `json:"id,omitempty"`    // 自定义属性ID,**示例值**："DemoId"
+	ID    *string                       `json:"id,omitempty"`    // 自定义属性ID,**示例值**："DemoId"
 	Value *CreateUserReqCustomAttrValue `json:"value,omitempty"` // 自定义属性取值
 }
 
@@ -140,7 +140,7 @@ type CreateUserRespUserOrder struct {
 
 type CreateUserRespUserCustomAttr struct {
 	Type  string                             `json:"type,omitempty"`  // 自定义属性类型
-	Id    string                             `json:"id,omitempty"`    // 自定义属性ID
+	ID    string                             `json:"id,omitempty"`    // 自定义属性ID
 	Value *CreateUserRespUserCustomAttrValue `json:"value,omitempty"` // 自定义属性取值
 }
 

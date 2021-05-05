@@ -63,7 +63,7 @@ type UpdateUserPatchReqOrder struct {
 
 type UpdateUserPatchReqCustomAttr struct {
 	Type  *string                            `json:"type,omitempty"`  // 自定义属性类型,**示例值**："TEXT"
-	Id    *string                            `json:"id,omitempty"`    // 自定义属性ID,**示例值**："DemoId"
+	ID    *string                            `json:"id,omitempty"`    // 自定义属性ID,**示例值**："DemoId"
 	Value *UpdateUserPatchReqCustomAttrValue `json:"value,omitempty"` // 自定义属性取值
 }
 
@@ -131,7 +131,7 @@ type UpdateUserPatchRespUserOrder struct {
 
 type UpdateUserPatchRespUserCustomAttr struct {
 	Type  string                                  `json:"type,omitempty"`  // 自定义属性类型
-	Id    string                                  `json:"id,omitempty"`    // 自定义属性ID
+	ID    string                                  `json:"id,omitempty"`    // 自定义属性ID
 	Value *UpdateUserPatchRespUserCustomAttrValue `json:"value,omitempty"` // 自定义属性取值
 }
 
