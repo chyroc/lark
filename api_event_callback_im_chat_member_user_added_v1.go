@@ -9,7 +9,7 @@ import (
 // 新用户进群触发此事件。
 // 注意事项：
 // - 需要开启[机器人能力](https://open.feishu.cn/document/uQjL04CN/uYTMuYTMuYTM)
-// - 需要订阅 ==即时通讯== 分类下的 ==用户进群== 事件
+// - 需要订阅 [即时通讯] 分类下的 [用户进群] 事件
 // - 事件会向群内订阅了该事件的机器人进行推送
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-member-user/events/added

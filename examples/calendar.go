@@ -212,7 +212,7 @@ func ExampleCalendar() {
 
 	// get calendar freebusy list
 	{
-		resp, _, err := cli.Calendar().GetCalendarFreebusyList(ctx, &lark.GetCalendarFreebusyListReq{
+		resp, _, err := cli.Calendar().GetCalendarFreeBusyList(ctx, &lark.GetCalendarFreeBusyListReq{
 			TimeMin: "2020-10-28T12:00:00+08:00",
 			TimeMax: "2020-10-29T12:00:00+08:00",
 			UserID:  ptr.String("<USER_ID>"),

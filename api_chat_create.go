@@ -38,7 +38,7 @@ type CreateChatReq struct {
 	Description            *string    `json:"description,omitempty"`              // 群描述,**示例值**："测试群描述"
 	I18nNames              *I18nNames `json:"i18n_names,omitempty"`               // 群国际化名称
 	ChatMode               *string    `json:"chat_mode,omitempty"`                // 群模式(group),**示例值**："group"
-	ChatType               *string    `json:"chat_type,omitempty"`                // 群类型(private/public),**示例值**："private"
+	ChatType               *ChatType  `json:"chat_type,omitempty"`                // 群类型(private/public),**示例值**："private"
 	JoinMessageVisibility  *string    `json:"join_message_visibility,omitempty"`  // 入群消息可见性(only_owner/all_members/not_anyone),**示例值**："all_members"
 	LeaveMessageVisibility *string    `json:"leave_message_visibility,omitempty"` // 出群消息可见性(only_owner/all_members/not_anyone),**示例值**："all_members"
 	MembershipApproval     *string    `json:"membership_approval,omitempty"`      // 加群审批(no_approval_required/approval_required),**示例值**："no_approval_required"
@@ -61,7 +61,7 @@ type CreateChatResp struct {
 	AtAllPermission        string     `json:"at_all_permission,omitempty"`        // at 所有人权限(all_members/only_owner)
 	EditPermission         string     `json:"edit_permission,omitempty"`          // 群编辑权限(all_members/only_owner)
 	ChatMode               string     `json:"chat_mode,omitempty"`                // 群模式(group)
-	ChatType               string     `json:"chat_type,omitempty"`                // 群类型(private/public)
+	ChatType               ChatType   `json:"chat_type,omitempty"`                // 群类型(private/public)
 	ChatTag                string     `json:"chat_tag,omitempty"`                 // 优先级最高的一个群 tag（inner/tenant/department/edu/meeting/customer_service）
 	JoinMessageVisibility  string     `json:"join_message_visibility,omitempty"`  // 入群消息可见性(only_owner/all_members/not_anyone)
 	LeaveMessageVisibility string     `json:"leave_message_visibility,omitempty"` // 出群消息可见性(only_owner/all_members/not_anyone)

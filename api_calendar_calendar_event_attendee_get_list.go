@@ -53,7 +53,7 @@ type GetCalendarEventAttendeeListResp struct {
 }
 
 type GetCalendarEventAttendeeListRespItem struct {
-	Type            string                                            `json:"type,omitempty"`              // 参与人类型,**可选值有**：,- `user`：用户,- `chat`：群组,- `resource`：会议室,- `third_party`：邮箱
+	Type            CalendarEventAttendeeType                         `json:"type,omitempty"`              // 参与人类型,**可选值有**：,- `user`：用户,- `chat`：群组,- `resource`：会议室,- `third_party`：邮箱
 	AttendeeID      string                                            `json:"attendee_id,omitempty"`       // 参与人ID
 	RsvpStatus      string                                            `json:"rsvp_status,omitempty"`       // 参与人RSVP状态,**可选值有**：,- `needs_action`：参与人尚未回复状态，或表示会议室预约中,- `accept`：参与人回复接受，或表示会议室预约成功,- `tentative`：参与人回复待定,- `decline`：参与人回复拒绝，或表示会议室预约失败,- `removed`：参与人或会议室已经从日程中被移除
 	IsOptional      bool                                              `json:"is_optional,omitempty"`       // 参与人是否为「可选参加」，无法编辑群参与人的此字段,**默认值**：`false`

@@ -394,7 +394,7 @@ func Test_Calendar_Other_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-			_, _, err := moduleCli.GetCalendarFreebusyList(ctx, &lark.GetCalendarFreebusyListReq{})
+			_, _, err := moduleCli.GetCalendarFreeBusyList(ctx, &lark.GetCalendarFreeBusyListReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "failed")
 		})
@@ -435,7 +435,7 @@ func Test_Calendar_Other_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-			_, _, err := moduleCli.GetCalendarFreebusyList(ctx, &lark.GetCalendarFreebusyListReq{})
+			_, _, err := moduleCli.GetCalendarFreeBusyList(ctx, &lark.GetCalendarFreeBusyListReq{})
 			as.NotNil(err)
 			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
 		})

@@ -7,7 +7,7 @@ import (
 // UpdateCalendarEvent
 //
 // 该接口用于以当前身份（应用 / 用户）更新日历上的一个日程。
-// 身份由 Header Authorization 的 Token 类型决定。{尝试一下}(url=/api/tools/api_explore/api_explore_config?project=calendar&version=v4&resource=calendar.event&method=patch)
+// 身份由 Header Authorization 的 Token 类型决定。
 // 当前身份必须对日历有 writer 或 owner 权限，并且日历的类型只能为 primary 或 shared。
 // 当前身份为日程组织者时，可修改所有可编辑字段。
 // 当前身份为日程参与者时，仅可编辑部分字段。（如：visibility, free_busy_status, color, reminders）

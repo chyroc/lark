@@ -339,7 +339,7 @@
       },
       {
         "file_name": "api_calendar_calendar_freebusy_get_list.go",
-        "func_name": "GetCalendarFreebusyList",
+        "func_name": "GetCalendarFreeBusyList",
         "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/freebusy/list"
       },
       {

@@ -81,6 +81,42 @@ const (
 	CalendarRoleOwner          CalendarRole = "owner"            // 管理员，管理日历及共享设置
 )
 
+// 参与人类型
+type CalendarEventAttendeeType string
+
+const (
+	CalendarEventAttendeeTypeUser       CalendarEventAttendeeType = "user" // 用户
+	CalendarEventAttendeeTypeChat       CalendarEventAttendeeType = "chat" // 群组
+	CalendarEventAttendeeTypeResource   CalendarEventAttendeeType = "user" // 会议室
+	CalendarEventAttendeeTypeThirdParty CalendarEventAttendeeType = "user" // 邮箱
+)
+
+type CalendarType string
+
+const (
+	CalendarTypeUnknown  CalendarType = "unknown"  // 未知类型
+	CalendarTypePrimary  CalendarType = "primary"  // 用户或应用的主日历
+	CalendarTypeShared   CalendarType = "shared"   // 由用户或应用创建的共享日历
+	CalendarTypeGoogle   CalendarType = "google"   // 用户绑定的谷歌日历
+	CalendarTypeResource CalendarType = "resource" // 会议室日历
+	CalendarTypeExchange CalendarType = "exchange" // 用户绑定的Exchange日历
+)
+
+type ChatType string
+
+const (
+	ChatTypePrivate ChatType = "private"
+	ChatTypePublic  ChatType = "public"
+)
+
+type CalendarPermission string
+
+const (
+	CalendarPermissionPrivate          = "private"             // 私密
+	CalendarPermissionShowOnlyFreeBusy = "show_only_free_busy" // 仅展示忙闲信息
+	CalendarPermissionPublic           = "public"              // 他人可查看日程详情
+)
+
 type I18nNames struct {
 	ZhCn string `json:"zh_cn,omitempty"` // 中文名,**示例值**："群聊"
 	EnUs string `json:"en_us,omitempty"` // 英文名,**示例值**："group chat"

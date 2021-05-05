@@ -8,7 +8,7 @@ import (
 //
 // 注意事项：
 // - 应用需要开启[机器人能力](https://open.feishu.cn/document/uQjL04CN/uYTMuYTMuYTM)
-// - 仅有 群主 或 创建群组且具备==更新应用所创建群的群信息==权限的机器人，可解散群
+// - 仅有 群主 或 创建群组且具备[更新应用所创建群的群信息]权限的机器人，可解散群
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat/delete
 func (r *ChatAPI) DeleteChat(ctx context.Context, request *DeleteChatReq) (*DeleteChatResp, *Response, error) {

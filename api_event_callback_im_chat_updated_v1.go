@@ -12,7 +12,7 @@ import (
 // - 群权限修改(加人入群权限/群编辑权限/at所有人权限/群分享权限)
 // 注意事项：
 // - 需要开启[机器人能力](https://open.feishu.cn/document/uQjL04CN/uYTMuYTMuYTM)
-// - 需要订阅 ==即时通讯== 分类下的 ==群配置修改== 事件
+// - 需要订阅 [即时通讯] 分类下的 [群配置修改] 事件
 // - 事件会向群内订阅了该事件的机器人进行推送
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat/events/updated

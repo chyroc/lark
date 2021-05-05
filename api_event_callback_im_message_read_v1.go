@@ -9,7 +9,7 @@ import (
 // 用户阅读机器人发送的单聊消息后触发此事件。
 // 注意事项:
 // - 需要开启[机器人能力](https://open.feishu.cn/document/uQjL04CN/uYTMuYTMuYTM)
-// - 需要订阅 ==即时通讯== 分类下的 ==消息已读== 事件
+// - 需要订阅 [即时通讯] 分类下的 [消息已读] 事件
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/events/message_read
 func (r *EventCallbackAPI) HandlerEventIMMessageReadV1(f eventIMMessageReadV1Handler) {
