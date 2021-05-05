@@ -316,6 +316,46 @@
         "file_name": "api_calendar_calendar_event_subscribe.go",
         "func_name": "SubscribeCalendarEvent",
         "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar-event/subscription"
+      },
+      {
+        "file_name": "api_calendar_calendar_event_attendee_create.go",
+        "func_name": "CreateCalendarEventAttendee",
+        "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar-event-attendee/create"
+      },
+      {
+        "file_name": "api_calendar_calendar_event_attendee_get_list.go",
+        "func_name": "GetCalendarEventAttendeeList",
+        "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar-event-attendee/list"
+      },
+      {
+        "file_name": "api_calendar_calendar_event_attendee_delete.go",
+        "func_name": "DeleteCalendarEventAttendee",
+        "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar-event-attendee/batch_delete"
+      },
+      {
+        "file_name": "api_calendar_calendar_event_attendee_chat_member_list.go",
+        "func_name": "GetCalendarEventAttendeeChatMemberList",
+        "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar-event-attendee-chat_member/list"
+      },
+      {
+        "file_name": "api_calendar_calendar_freebusy_get_list.go",
+        "func_name": "GetCalendarFreebusyList",
+        "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/freebusy/list"
+      },
+      {
+        "file_name": "api_calendar_calendar_timeoff_event_create.go",
+        "func_name": "CreateCalendarTimeoffEvent",
+        "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/timeoff_event/create"
+      },
+      {
+        "file_name": "api_calendar_calendar_timeoff_event_delete.go",
+        "func_name": "DeleteCalendarTimeoffEvent",
+        "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/timeoff_event/delete"
+      },
+      {
+        "file_name": "api_calendar_generate_caldav_conf.go",
+        "func_name": "GenerateCaldavConf",
+        "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/setting/generate_caldav_conf"
       }
     ]
   },

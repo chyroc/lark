@@ -164,4 +164,86 @@ func ExampleCalendar() {
 		})
 		fmt.Println(resp, err)
 	}
+
+	// create calendar event attendee
+	{
+		resp, _, err := cli.Calendar().CreateCalendarEventAttendee(ctx, &lark.CreateCalendarEventAttendeeReq{
+			CalendarID: "<CALENDAR_ID>",
+			EventID:    "<EVENT_ID>",
+			Attendees: []*lark.CreateCalendarEventAttendeeReqAttendee{
+				{
+					UserID: ptr.String("<USER_ID>"),
+				},
+			},
+		})
+		fmt.Println(resp, err)
+	}
+
+	// get calendar event attendee list
+	{
+		resp, _, err := cli.Calendar().GetCalendarEventAttendeeList(ctx, &lark.GetCalendarEventAttendeeListReq{
+			CalendarID: "<CALENDAR_ID>",
+			EventID:    "<EVENT_ID>",
+		})
+		fmt.Println(resp, err)
+	}
+
+	// delete calendar event attendee
+	{
+		resp, _, err := cli.Calendar().DeleteCalendarEventAttendee(ctx, &lark.DeleteCalendarEventAttendeeReq{
+			CalendarID: "<CALENDAR_ID>",
+			EventID:    "<EVENT_ID>",
+			AttendeeIDs: []string{
+				"<USER_ID>",
+			},
+		})
+		fmt.Println(resp, err)
+	}
+
+	// get calendar event attendee chat member list
+	{
+		resp, _, err := cli.Calendar().GetCalendarEventAttendeeChatMemberList(ctx, &lark.GetCalendarEventAttendeeChatMemberListReq{
+			CalendarID: "<CALENDAR_ID>",
+			EventID:    "<EVENT_ID>",
+			AttendeeID: "<CHAT_ID>",
+		})
+		fmt.Println(resp, err)
+	}
+
+	// get calendar freebusy list
+	{
+		resp, _, err := cli.Calendar().GetCalendarFreebusyList(ctx, &lark.GetCalendarFreebusyListReq{
+			TimeMin: "2020-10-28T12:00:00+08:00",
+			TimeMax: "2020-10-29T12:00:00+08:00",
+			UserID:  ptr.String("<USER_ID>"),
+		})
+		fmt.Println(resp, err)
+	}
+
+	// create calendar timeoff event
+	{
+		resp, _, err := cli.Calendar().CreateCalendarTimeoffEvent(ctx, &lark.CreateCalendarTimeoffEventReq{
+			UserID:    "<USER_ID>",
+			StartTime: "2021-01-01",
+			EndTime:   "2021-01-02",
+			Title:     ptr.String("<TITLE>"),
+		})
+		fmt.Println(resp, err)
+	}
+
+	// delete calendar timeoff event
+	{
+		resp, _, err := cli.Calendar().DeleteCalendarTimeoffEvent(ctx, &lark.DeleteCalendarTimeoffEventReq{
+			TimeoffEventID: "TIMEOFF_EVENT_ID",
+		})
+		fmt.Println(resp, err)
+	}
+
+	// subscribe calendar acl
+	{
+		resp, _, err := cli.Calendar().GenerateCaldavConf(ctx, &lark.GenerateCaldavConfReq{
+			DeviceName: ptr.String("DEVICE_NAME"),
+		})
+		fmt.Println(resp, err)
+	}
 }

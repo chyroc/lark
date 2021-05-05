@@ -312,6 +312,138 @@ func Test_CalendarACL_Failed(t *testing.T) {
 	})
 }
 
+func Test_CalendarEventAttendee_Failed(t *testing.T) {
+	as := assert.New(t)
+
+	t.Run("request failed", func(t *testing.T) {
+		cli := AppALLPermission.Ins()
+		cli.Mock().MockGetTenantAccessToken(mockGetTenantAccessTokenFailed)
+		moduleCli := cli.Calendar()
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.CreateCalendarEventAttendee(ctx, &lark.CreateCalendarEventAttendeeReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.GetCalendarEventAttendeeList(ctx, &lark.GetCalendarEventAttendeeListReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.DeleteCalendarEventAttendee(ctx, &lark.DeleteCalendarEventAttendeeReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "failed")
+		})
+	})
+
+	t.Run("response failed", func(t *testing.T) {
+		cli := AppNoPermission.Ins()
+		moduleCli := cli.Calendar()
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.CreateCalendarEventAttendee(ctx, &lark.CreateCalendarEventAttendeeReq{})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0)
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.GetCalendarEventAttendeeList(ctx, &lark.GetCalendarEventAttendeeListReq{})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0)
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.DeleteCalendarEventAttendee(ctx, &lark.DeleteCalendarEventAttendeeReq{})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0)
+		})
+	})
+}
+
+func Test_Calendar_Other_Failed(t *testing.T) {
+	as := assert.New(t)
+
+	t.Run("request failed", func(t *testing.T) {
+		cli := AppALLPermission.Ins()
+		cli.Mock().MockGetTenantAccessToken(mockGetTenantAccessTokenFailed)
+		moduleCli := cli.Calendar()
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.GetCalendarEventAttendeeChatMemberList(ctx, &lark.GetCalendarEventAttendeeChatMemberListReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.GetCalendarFreebusyList(ctx, &lark.GetCalendarFreebusyListReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.CreateCalendarTimeoffEvent(ctx, &lark.CreateCalendarTimeoffEventReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.DeleteCalendarTimeoffEvent(ctx, &lark.DeleteCalendarTimeoffEventReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+			// _, _, err := moduleCli.GenerateCaldavConf(ctx, &lark.GenerateCaldavConfReq{
+			// 	DeviceName: ptr.String("x"),
+			// })
+			// as.NotNil(err)
+			// as.Equal(err.Error(), "failed")
+		})
+	})
+
+	t.Run("response failed", func(t *testing.T) {
+		cli := AppNoPermission.Ins()
+		moduleCli := cli.Calendar()
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.GetCalendarEventAttendeeChatMemberList(ctx, &lark.GetCalendarEventAttendeeChatMemberListReq{})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0)
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.GetCalendarFreebusyList(ctx, &lark.GetCalendarFreebusyListReq{})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0)
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.CreateCalendarTimeoffEvent(ctx, &lark.CreateCalendarTimeoffEventReq{})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0)
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.DeleteCalendarTimeoffEvent(ctx, &lark.DeleteCalendarTimeoffEventReq{
+				TimeoffEventID: "x",
+			})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0)
+		})
+
+		t.Run("", func(t *testing.T) {
+			// _, _, err := moduleCli.GenerateCaldavConf(ctx, &lark.GenerateCaldavConfReq{
+			// 	DeviceName: ptr.String("x"),
+			// })
+			// as.NotNil(err)
+			// as.True(lark.GetErrorCode(err) > 0)
+		})
+	})
+}
+
 func Test_Calendar(t *testing.T) {
 	as := assert.New(t)
 	moduleCli := AppALLPermission.Ins().Calendar()
