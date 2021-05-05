@@ -1,6 +1,8 @@
 package lark
 
 import (
+	"context"
+	"io"
 	"net/http"
 )
 
@@ -11,6 +13,7 @@ type Lark struct {
 	helpdeskToken string
 	httpClient    *http.Client
 	mock          *Mock
+	eventHandler  *eventHandler
 }
 
 func (r *Lark) Chat() *ChatAPI {
@@ -92,3 +95,19 @@ func (r *Lark) Attendance() *AttendanceAPI {
 type AttendanceAPI struct {
 	cli *Lark
 }
+
+func (r *Lark) EventCallback() *EventCallbackAPI {
+	return &EventCallbackAPI{
+		cli: r,
+	}
+}
+
+type EventCallbackAPI struct {
+	cli *Lark
+}
+
+type eventHandler struct {
+	eventTypeImageReceiveHandler eventTypeImageReceiveHandler
+}
+
+type eventTypeImageReceiveHandler func(ctx context.Context, cli *Lark, writer io.Writer, schema string, header *EventHeader, event *EventMessageReceive)
