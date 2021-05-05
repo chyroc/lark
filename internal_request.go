@@ -7,6 +7,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"io"
+	"io/ioutil"
 	"mime/multipart"
 	"net/http"
 	"net/url"
@@ -200,7 +201,7 @@ func request(ctx context.Context, cli *http.Client, requestParam *requestParam, 
 		defer resp.Body.Close()
 	}
 
-	bs, err := io.ReadAll(resp.Body)
+	bs, err := ioutil.ReadAll(resp.Body)
 	if err != nil {
 		return response, err
 	}

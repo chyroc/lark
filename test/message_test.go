@@ -2,7 +2,7 @@ package test
 
 import (
 	"fmt"
-	"io"
+	"io/ioutil"
 	"strconv"
 	"testing"
 	"time"
@@ -293,7 +293,7 @@ func Test_GetMessage(t *testing.T) {
 			})
 			as.Nil(err)
 			as.NotNil(resp)
-			bs, err := io.ReadAll(resp.File)
+			bs, err := ioutil.ReadAll(resp.File)
 			as.Nil(err)
 			as.NotEmpty(bs)
 		}

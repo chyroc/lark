@@ -5,6 +5,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"io"
+	"io/ioutil"
 	"net/http"
 
 	"github.com/davecgh/go-spew/spew"
@@ -13,7 +14,7 @@ import (
 // https://open.feishu.cn/document/ukTMukTMukTM/uUTNz4SN1MjL1UzM#8f960a4b
 
 func (r *EventCallbackAPI) listenCallback(ctx context.Context, reader io.Reader, writer http.ResponseWriter) {
-	bs, err := io.ReadAll(reader)
+	bs, err := ioutil.ReadAll(reader)
 	if err != nil {
 		writer.WriteHeader(500)
 		_, _ = writer.Write([]byte(fmt.Sprintf(`{"err":%q}`, err)))

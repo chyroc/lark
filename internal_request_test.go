@@ -3,6 +3,7 @@ package lark
 import (
 	"bytes"
 	"io"
+	"io/ioutil"
 	"testing"
 
 	"github.com/davecgh/go-spew/spew"
@@ -108,7 +109,7 @@ func TestName(t *testing.T) {
 		as.Equal("GET", resp.Method)
 		as.Equal("http://x.com/1234?type=x", resp.URL)
 		as.NotNil(resp.Body)
-		bs, err := io.ReadAll(resp.Body)
+		bs, err := ioutil.ReadAll(resp.Body)
 		as.Nil(err)
 		as.Equal(`{"name":"lark"}`, string(bs))
 	})
@@ -133,7 +134,7 @@ func TestName(t *testing.T) {
 		as.Equal("http://x.com", resp.URL)
 		as.NotNil(resp.Body)
 		spew.Dump(resp.Body)
-		// bs, err := io.ReadAll(resp.Body)
+		// bs, err := ioutil.ReadAll(resp.Body)
 		// as.Nil(err)
 		// as.Equal(`{"name":"lark"}`, string(bs))
 	})
