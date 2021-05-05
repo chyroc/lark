@@ -1,7 +1,7 @@
 package test
 
 import (
-	"io"
+	"io/ioutil"
 	"os"
 	"testing"
 
@@ -102,7 +102,7 @@ func Test_File(t *testing.T) {
 		})
 		as.Nil(err)
 		as.NotNil(resp)
-		bs, err := io.ReadAll(resp.File)
+		bs, err := ioutil.ReadAll(resp.File)
 		as.Nil(err)
 		as.Len(bs, 84)
 	})
@@ -131,7 +131,7 @@ func Test_File(t *testing.T) {
 		// spew.Dump(resp, err)
 		as.Nil(err)
 		as.NotNil(resp)
-		bs, err := io.ReadAll(resp.File)
+		bs, err := ioutil.ReadAll(resp.File)
 		as.Nil(err)
 		as.Len(bs, 3247)
 	})
