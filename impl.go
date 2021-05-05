@@ -2,18 +2,19 @@ package lark
 
 import (
 	"context"
-	"io"
 	"net/http"
 )
 
 type Lark struct {
-	appID         string
-	appSecret     string
-	helpdeskID    string
-	helpdeskToken string
-	httpClient    *http.Client
-	mock          *Mock
-	eventHandler  *eventHandler
+	appID             string
+	appSecret         string
+	encryptKey        string
+	verificationToken string
+	helpdeskID        string
+	helpdeskToken     string
+	httpClient        *http.Client
+	mock              *Mock
+	eventHandler      *eventHandler
 }
 
 func (r *Lark) Chat() *ChatAPI {
@@ -110,4 +111,4 @@ type eventHandler struct {
 	eventTypeImageReceiveHandler eventTypeImageReceiveHandler
 }
 
-type eventTypeImageReceiveHandler func(ctx context.Context, cli *Lark, writer io.Writer, schema string, header *EventHeader, event *EventMessageReceive)
+type eventTypeImageReceiveHandler func(ctx context.Context, cli *Lark, schema string, header *EventHeader, event *EventMessageReceive) (string, error)

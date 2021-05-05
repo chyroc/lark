@@ -14,6 +14,13 @@ func WithAppCredential(appID, appSecret string) ClientOptionFunc {
 	}
 }
 
+func WithEventCallbackVerify(encryptKey, verificationToken string) ClientOptionFunc {
+	return func(r *Lark) {
+		r.encryptKey = encryptKey
+		r.verificationToken = verificationToken
+	}
+}
+
 func WithHelpdeskCredential(helpdeskID, helpdeskToken string) ClientOptionFunc {
 	return func(r *Lark) {
 		r.helpdeskID = helpdeskID

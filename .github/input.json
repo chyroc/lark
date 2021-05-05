@@ -258,5 +258,15 @@
         "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/Attendance/rule/user-setting-modify"
       }
     ]
+  },
+  {
+    "scope": "EventCallback",
+    "events": [
+      {
+        "file_name": "api_event_callback_im_message_receive_v1.go",
+        "event_name": "EventMessageReceive",
+        "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/events/receive"
+      }
+    ]
   }
 ]
