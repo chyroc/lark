@@ -16,5 +16,4 @@ func ExampleBot() {
 		resp, _, err := cli.Bot().GetBotInfo(ctx, &lark.GetBotInfoReq{})
 		fmt.Println(resp, err)
 	}
-
 }

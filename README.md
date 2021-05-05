@@ -151,3 +151,18 @@ resp, _, err := cli.File().UploadImage(ctx, &lark.UploadImageReq{
 })
 fmt.Println(resp, err)
 ```
+
+### Example: calendar
+
+for more about calendar example, see [./examples/calendar.go](./examples/calendar.go) .
+
+create calendar example:
+
+```go
+cli := lark.New(lark.WithAppCredential("<APP_ID>", "<APP_SECRET>"))
+
+resp, _, err := cli.Calendar().CreateCalendar(ctx, &lark.CreateCalendarReq{
+    Summary: ptr.String("<SUMMARY>"),
+})
+fmt.Println(resp, err)
+```

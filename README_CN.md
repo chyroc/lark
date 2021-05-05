@@ -153,6 +153,21 @@ resp, _, err := cli.File().UploadImage(ctx, &lark.UploadImageReq{
 fmt.Println(resp, err)
 ```
 
+### 例子: 日历
+
+如果需要更多的例子，可以参考： [./examples/calendar.go](./examples/calendar.go) 。
+
+创建日历
+
+```go
+cli := lark.New(lark.WithAppCredential("<APP_ID>", "<APP_SECRET>"))
+
+resp, _, err := cli.Calendar().CreateCalendar(ctx, &lark.CreateCalendarReq{
+Summary: ptr.String("<SUMMARY>"),
+})
+fmt.Println(resp, err)
+```
+
 ## Todo
 
 - [ ] 单侧覆盖率 >= 80%

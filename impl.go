@@ -46,6 +46,16 @@ type BotAPI struct {
 	cli *Lark
 }
 
+func (r *Lark) Calendar() *CalendarAPI {
+	return &CalendarAPI{
+		cli: r,
+	}
+}
+
+type CalendarAPI struct {
+	cli *Lark
+}
+
 func (r *Lark) Token() *TokenAPI {
 	return &TokenAPI{
 		cli: r,
