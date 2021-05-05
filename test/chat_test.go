@@ -72,7 +72,7 @@ func Test_ChatFailed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-			_, _, err := chatCli.GetMember(ctx, &lark.GetMemberReq{})
+			_, _, err := chatCli.GetMemberList(ctx, &lark.GetMemberReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "failed")
 		})
@@ -155,7 +155,7 @@ func Test_ChatFailed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-			_, _, err := chatCli.GetMember(ctx, &lark.GetMemberReq{})
+			_, _, err := chatCli.GetMemberList(ctx, &lark.GetMemberReq{})
 			as.NotNil(err)
 			as.True(lark.GetErrorCode(err) > 0)
 		})
@@ -187,7 +187,7 @@ func Test_ChatFailed(t *testing.T) {
 func Test_CreateChat(t *testing.T) {
 	as := assert.New(t)
 
-	t.Run("CreateChat, AddMember, GetMember, DeleteMember, DeleteChat", func(t *testing.T) {
+	t.Run("CreateChat, AddMember, GetMemberList, DeleteMember, DeleteChat", func(t *testing.T) {
 		cli := lark.New(lark.WithAppCredential(AppALLPermission.AppID, AppALLPermission.AppSecret))
 
 		chatID := ""
@@ -209,11 +209,11 @@ func Test_CreateChat(t *testing.T) {
 		}
 
 		{
-			resp, _, err := cli.Chat().GetMember(ctx, &lark.GetMemberReq{
+			resp, _, err := cli.Chat().GetMemberList(ctx, &lark.GetMemberReq{
 				MemberIDType: lark.IDTypePtr(lark.IDTypeUserID),
 				ChatID:       chatID,
 			})
-			spew.Dump("GetMember", resp, err)
+			spew.Dump("GetMemberList", resp, err)
 			as.Nil(err)
 			as.Len(resp.Items, 1)
 			as.Equal(UserAdmin.UserID, resp.Items[0].MemberID)

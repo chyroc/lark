@@ -33,8 +33,8 @@
         "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat/search"
       },
       {
-        "file_name": "api_chat_member_get.go",
-        "func_name": "GetMember",
+        "file_name": "api_chat_member_get_list.go",
+        "func_name": "GetMemberList",
         "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-members/get"
       },
       {
@@ -113,8 +113,8 @@
         "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/patch"
       },
       {
-        "file_name": "api_message_get_read_user.go",
-        "func_name": "GetMessageReadUser",
+        "file_name": "api_message_get_read_user_list.go",
+        "func_name": "GetMessageReadUserList",
         "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/read_users"
       },
       {
