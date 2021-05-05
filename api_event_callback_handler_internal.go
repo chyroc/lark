@@ -30,7 +30,7 @@ type eventReq struct {
 	Event interface{} `json:"event"`
 
 	// v2 解析后字段
-	eventMessageReceive *EventMessageReceive
+	*eventBody
 }
 
 func (r *eventReq) unmarshalEvent(e interface{}) error {

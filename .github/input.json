@@ -264,8 +264,13 @@
     "events": [
       {
         "file_name": "api_event_callback_im_message_receive_v1.go",
-        "event_name": "EventMessageReceive",
+        "event_name": "EventIMMessageReceiveV1",
         "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/events/receive"
+      },
+      {
+        "file_name": "api_event_callback_im_message_read_v1.go",
+        "event_name": "EventIMMessageReadV1",
+        "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/events/message_read"
       }
     ]
   }

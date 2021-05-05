@@ -1,7 +1,6 @@
 package lark
 
 import (
-	"context"
 	"net/http"
 )
 
@@ -106,9 +105,3 @@ func (r *Lark) EventCallback() *EventCallbackAPI {
 type EventCallbackAPI struct {
 	cli *Lark
 }
-
-type eventHandler struct {
-	eventTypeImageReceiveHandler eventTypeImageReceiveHandler
-}
-
-type eventTypeImageReceiveHandler func(ctx context.Context, cli *Lark, schema string, header *EventHeader, event *EventMessageReceive) (string, error)

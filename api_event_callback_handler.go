@@ -39,7 +39,6 @@ func (r *EventCallbackAPI) listenCallback(ctx context.Context, reader io.Reader,
 }
 
 func (r *EventCallbackAPI) parserReq(ctx context.Context, body []byte) (*eventReq, error) {
-	fmt.Println("bs", string(body))
 	req := new(eventReq)
 
 	if err := json.Unmarshal(body, &req); err != nil {
@@ -65,21 +64,10 @@ func (r *EventCallbackAPI) parserReq(ctx context.Context, body []byte) (*eventRe
 
 	switch {
 	case req.Type == "url_verification":
-		// _, err = writer.Write([]byte(fmt.Sprintf(`{"challenge":%q}`, req.Challenge)))
-		// return err
 		return req, nil
 	case req.Schema == "2.0":
-		if req.Header == nil {
-			return req, fmt.Errorf("get schema=2.0, but header is nil")
-		}
-		switch req.Header.EventType {
-		case EventTypeMessageReceive:
-			event := new(EventMessageReceive)
-			if err := req.unmarshalEvent(event); err != nil {
-				return req, err
-			}
-			req.eventMessageReceive = event
-			return req, nil
+		if err := r.parserEventV2(req); err != nil {
+			return req, err
 		}
 	}
 
@@ -95,13 +83,14 @@ func (r *EventCallbackAPI) handlerReq(ctx context.Context, writer io.Writer, req
 		return "", fmt.Errorf("verification token check failed")
 	}
 
-	switch {
-	case req.Type == "url_verification":
+	if req.Type == "url_verification" {
 		return fmt.Sprintf(`{"challenge":%q}`, req.Challenge), nil
-	case req.eventMessageReceive != nil:
-		if r.cli.eventHandler.eventTypeImageReceiveHandler != nil {
-			return r.cli.eventHandler.eventTypeImageReceiveHandler(ctx, r.cli, req.Schema, req.Header, req.eventMessageReceive)
-		}
 	}
+
+	handled, s, err := r.handlerEventV2(ctx, req)
+	if handled {
+		return s, err
+	}
+
 	return "{}", nil
 }
