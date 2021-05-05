@@ -138,11 +138,3 @@ resp, _, err := cli.File().UploadImage(ctx, &lark.UploadImageReq{
 })
 fmt.Println(resp, err)
 ```
-
-
-## Todo
-
-- [ ] generate all api
-- [x] test coverage >= 80%
-- [ ] add english comment, from larksuite webpage
-- [ ] struct data

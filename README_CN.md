@@ -138,3 +138,12 @@ resp, _, err := cli.File().UploadImage(ctx, &lark.UploadImageReq{
 })
 fmt.Println(resp, err)
 ```
+
+## Todo
+
+- [ ] 单侧覆盖率 >= 80%
+- [ ] 发送消息，提供helper pack
+- [ ] 收到消息，提供helper unpack
+- [ ] 生成所有 API
+- [ ] 英文注释
+- [ ] 结构化的数据
