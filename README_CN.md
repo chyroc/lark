@@ -76,6 +76,20 @@ fmt.Println("start server ...")
 log.Fatal(http.ListenAndServe(":9726", nil))
 ```
 
+
+### 例子: 获取机器人信息
+
+如果需要更多的例子，可以参考： [./examples/bot.go](./examples/bot.go) 。
+
+获取机器人信息：
+
+```go
+cli := lark.New(lark.WithAppCredential("<APP_ID>", "<APP_SECRET>"))
+
+resp, _, err := cli.Bot().GetBotInfo(ctx, &lark.GetBotInfoReq{})
+fmt.Println(resp, err)
+```
+
 ### 例子: 发送消息
 
 如果需要更多的例子，可以参考： [./examples/send_message.go](./examples/send_message.go) 。
@@ -147,3 +161,20 @@ fmt.Println(resp, err)
 - [ ] 生成所有 API
 - [ ] 英文注释
 - [ ] 结构化的数据
+- 自定义机器人 https://open.feishu.cn/document/ukTMukTMukTM/ucTM5YjL3ETO24yNxkjN
+- 消息卡片 builder
+- 日历
+- 文档
+- 多维表格
+- 会议室
+- 会议
+- 应用
+- 邮箱
+- 审批
+- 服务台
+- admin
+- 实名
+- ai
+- 打卡
+- okr
+- 人事

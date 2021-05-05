@@ -76,6 +76,19 @@ fmt.Println("start server ...")
 log.Fatal(http.ListenAndServe(":9726", nil))
 ```
 
+### Example: get bot info
+
+for more about bot example, see [./examples/bot.go](./examples/bot.go) .
+
+get bot info example:
+
+```go
+cli := lark.New(lark.WithAppCredential("<APP_ID>", "<APP_SECRET>"))
+
+resp, _, err := cli.Bot().GetBotInfo(ctx, &lark.GetBotInfoReq{})
+fmt.Println(resp, err)
+```
+
 ### Example: send message
 
 for more about send message example, see [./examples/send_message.go](./examples/send_message.go) .

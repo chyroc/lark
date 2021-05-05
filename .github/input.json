@@ -135,6 +135,16 @@
     ]
   },
   {
+    "scope": "Bot",
+    "apis": [
+      {
+        "file_name": "api_bot_info.go",
+        "func_name": "GetBotInfo",
+        "doc_url": "https://open.feishu.cn/document/ukTMukTMukTM/uAjMxEjLwITMx4CMyETM"
+      }
+    ]
+  },
+  {
     "scope": "Contact",
     "apis": [
       {

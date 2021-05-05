@@ -36,6 +36,16 @@ type MessageAPI struct {
 	cli *Lark
 }
 
+func (r *Lark) Bot() *BotAPI {
+	return &BotAPI{
+		cli: r,
+	}
+}
+
+type BotAPI struct {
+	cli *Lark
+}
+
 func (r *Lark) Token() *TokenAPI {
 	return &TokenAPI{
 		cli: r,

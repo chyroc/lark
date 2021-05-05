@@ -21,7 +21,7 @@ import (
 )
 
 type Response struct {
-	HTTPResponse *http.Response
+	// HTTPResponse *http.Response
 
 	Method     string
 	URL        string
@@ -193,7 +193,7 @@ func request(ctx context.Context, cli *http.Client, requestParam *requestParam, 
 	if err != nil {
 		return response, err
 	}
-	response.HTTPResponse = resp
+	// response.HTTPResponse = resp
 	response.StatusCode = resp.StatusCode
 	response.RequestID = resp.Header.Get("x-request-id")
 
