@@ -75,4 +75,59 @@ func ExampleCalendar() {
 		})
 		fmt.Println(resp, err)
 	}
+
+	// create calendar event
+	{
+		resp, _, err := cli.Calendar().CreateCalendarEvent(ctx, &lark.CreateCalendarEventReq{
+			Summary: ptr.String("<SUMMARY>"),
+		})
+		fmt.Println(resp, err)
+	}
+
+	// update calendar event
+	{
+		resp, _, err := cli.Calendar().UpdateCalendarEvent(ctx, &lark.UpdateCalendarEventReq{
+			CalendarID: "<CALENDAR_ID>",
+			Summary:    ptr.String("<SUMMARY>"),
+		})
+		fmt.Println(resp, err)
+	}
+
+	// delete calendar event
+	{
+		resp, _, err := cli.Calendar().DeleteCalendarEvent(ctx, &lark.DeleteCalendarEventReq{
+			CalendarID: "<CALENDAR_ID>",
+		})
+		fmt.Println(resp, err)
+	}
+
+	// get calendar event
+	{
+		resp, _, err := cli.Calendar().GetCalendarEvent(ctx, &lark.GetCalendarEventReq{
+			CalendarID: "<CALENDAR_ID>",
+		})
+		fmt.Println(resp, err)
+	}
+
+	// get calendar list event
+	{
+		resp, _, err := cli.Calendar().GetCalendarEventList(ctx, &lark.GetCalendarEventListReq{})
+		fmt.Println(resp, err)
+	}
+
+	// search calendar event
+	{
+		resp, _, err := cli.Calendar().SearchCalendarEvent(ctx, &lark.SearchCalendarEventReq{
+			Query: "<SEARCH>",
+		})
+		fmt.Println(resp, err)
+	}
+
+	// subscribe calendar event
+	{
+		resp, _, err := cli.Calendar().SubscribeCalendarEvent(ctx, &lark.SubscribeCalendarEventReq{
+			CalendarID: "<CALENDAR_ID>",
+		})
+		fmt.Println(resp, err)
+	}
 }

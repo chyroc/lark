@@ -261,6 +261,44 @@
         "file_name": "api_calendar_calendar_unsubscribe.go",
         "func_name": "UnsubscribeCalendar",
         "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar/unsubscribe"
+      },
+      {
+        "file_name": "api_calendar_calendar_event_create.go",
+        "func_name": "CreateCalendarEvent",
+        "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar-event/create-event"
+      }
+    ,
+      {
+        "file_name": "api_calendar_calendar_event_delete.go",
+        "func_name": "DeleteCalendarEvent",
+        "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar-event/delete"
+      },
+      {
+        "file_name": "api_calendar_calendar_event_get.go",
+        "func_name": "GetCalendarEvent",
+        "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar-event/get"
+      }
+    ,
+      {
+        "file_name": "api_calendar_calendar_event_get_list.go",
+        "func_name": "GetCalendarEventList",
+        "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar-event/list"
+      },
+      {
+        "file_name": "api_calendar_calendar_event_patch.go",
+        "func_name": "UpdateCalendarEvent",
+        "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar-event/patch"
+      }
+    ,
+      {
+        "file_name": "api_calendar_calendar_event_search.go",
+        "func_name": "SearchCalendarEvent",
+        "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar-event/search"
+      },
+      {
+        "file_name": "api_calendar_calendar_event_subscribe.go",
+        "func_name": "SubscribeCalendarEvent",
+        "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar-event/subscription"
       }
     ]
   },
