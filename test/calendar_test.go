@@ -190,7 +190,9 @@ func Test_CalendarEvent_Failed(t *testing.T) {
 		moduleCli := cli.Calendar()
 
 		t.Run("", func(t *testing.T) {
-			_, _, err := moduleCli.CreateCalendarEvent(ctx, &lark.CreateCalendarEventReq{})
+			_, _, err := moduleCli.CreateCalendarEvent(ctx, &lark.CreateCalendarEventReq{
+				CalendarID: "x",
+			})
 			as.NotNil(err)
 			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
 		})
@@ -229,7 +231,9 @@ func Test_CalendarEvent_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-			_, _, err := moduleCli.SearchCalendarEvent(ctx, &lark.SearchCalendarEventReq{})
+			_, _, err := moduleCli.SearchCalendarEvent(ctx, &lark.SearchCalendarEventReq{
+				CalendarID: "x",
+			})
 			as.NotNil(err)
 			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
 		})
@@ -283,7 +287,9 @@ func Test_CalendarACL_Failed(t *testing.T) {
 		moduleCli := cli.Calendar()
 
 		t.Run("", func(t *testing.T) {
-			_, _, err := moduleCli.CreateCalendarACL(ctx, &lark.CreateCalendarACLReq{})
+			_, _, err := moduleCli.CreateCalendarACL(ctx, &lark.CreateCalendarACLReq{
+				CalendarID: "x",
+			})
 			as.NotNil(err)
 			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
 		})
@@ -345,19 +351,28 @@ func Test_CalendarEventAttendee_Failed(t *testing.T) {
 		moduleCli := cli.Calendar()
 
 		t.Run("", func(t *testing.T) {
-			_, _, err := moduleCli.CreateCalendarEventAttendee(ctx, &lark.CreateCalendarEventAttendeeReq{})
+			_, _, err := moduleCli.CreateCalendarEventAttendee(ctx, &lark.CreateCalendarEventAttendeeReq{
+				CalendarID: "x",
+				EventID:    "x",
+			})
 			as.NotNil(err)
 			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
 		})
 
 		t.Run("", func(t *testing.T) {
-			_, _, err := moduleCli.GetCalendarEventAttendeeList(ctx, &lark.GetCalendarEventAttendeeListReq{})
+			_, _, err := moduleCli.GetCalendarEventAttendeeList(ctx, &lark.GetCalendarEventAttendeeListReq{
+				CalendarID: "x",
+				EventID:    "x",
+			})
 			as.NotNil(err)
 			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
 		})
 
 		t.Run("", func(t *testing.T) {
-			_, _, err := moduleCli.DeleteCalendarEventAttendee(ctx, &lark.DeleteCalendarEventAttendeeReq{})
+			_, _, err := moduleCli.DeleteCalendarEventAttendee(ctx, &lark.DeleteCalendarEventAttendeeReq{
+				CalendarID: "x",
+				EventID:    "x",
+			})
 			as.NotNil(err)
 			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
 		})
@@ -410,7 +425,11 @@ func Test_Calendar_Other_Failed(t *testing.T) {
 		moduleCli := cli.Calendar()
 
 		t.Run("", func(t *testing.T) {
-			_, _, err := moduleCli.GetCalendarEventAttendeeChatMemberList(ctx, &lark.GetCalendarEventAttendeeChatMemberListReq{})
+			_, _, err := moduleCli.GetCalendarEventAttendeeChatMemberList(ctx, &lark.GetCalendarEventAttendeeChatMemberListReq{
+				CalendarID: "x",
+				EventID:    "x",
+				AttendeeID: "x",
+			})
 			as.NotNil(err)
 			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
 		})
