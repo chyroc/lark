@@ -6,7 +6,7 @@
 [![Apache-2.0 license](https://img.shields.io/badge/License-Apache%202.0-brightgreen.svg)](https://opensource.org/licenses/Apache-2.0)
 [![Go.Dev reference](https://img.shields.io/badge/go.dev-reference-blue?logo=go&logoColor=white)](https://pkg.go.dev/github.com/chyroc/lark)
 
-Feishu/Lark Open API Go Sdk Written Casually During Non-Working Hours.
+Feishu/Lark Open API Go Sdk, Support ALL Open API and Event Callback.
 
 Created By Code Generation.
 
