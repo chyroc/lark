@@ -48,7 +48,7 @@ func ExampleOtherMessage() {
 
 	// get message read users
 	{
-		resp, _, err := cli.Message().GetMessageReadUserList(ctx, &lark.GetMessageReadUserReq{
+		resp, _, err := cli.Message().GetMessageReadUserList(ctx, &lark.GetMessageReadUserListReq{
 			MessageID: "<MESSAGE_ID>",
 		})
 		fmt.Println(resp, err)

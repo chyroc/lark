@@ -41,7 +41,7 @@ func Test_Message_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-			_, _, err := msgCli.GetMessageReadUserList(ctx, &lark.GetMessageReadUserReq{})
+			_, _, err := msgCli.GetMessageReadUserList(ctx, &lark.GetMessageReadUserListReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "failed")
 		})
@@ -100,7 +100,7 @@ func Test_Message_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-			_, _, err := msgCli.GetMessageReadUserList(ctx, &lark.GetMessageReadUserReq{})
+			_, _, err := msgCli.GetMessageReadUserList(ctx, &lark.GetMessageReadUserListReq{})
 			as.NotNil(err)
 			as.True(lark.GetErrorCode(err) > 0)
 		})
@@ -233,7 +233,7 @@ func Test_GetMessage(t *testing.T) {
 	})
 
 	t.Run("get-message-read", func(t *testing.T) {
-		resp, _, err := AppALLPermission.Ins().Message().GetMessageReadUserList(ctx, &lark.GetMessageReadUserReq{
+		resp, _, err := AppALLPermission.Ins().Message().GetMessageReadUserList(ctx, &lark.GetMessageReadUserListReq{
 			UserIDType: lark.IDTypeUserID,
 			MessageID:  MessageAdminSendTextInChatContainAllPermissionApp.MessageID,
 		})
