@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"strconv"
 	"testing"
+	"time"
 
 	"github.com/chyroc/go-ptr"
 	"github.com/davecgh/go-spew/spew"
@@ -188,7 +189,10 @@ func Test_CreateChat(t *testing.T) {
 	as := assert.New(t)
 
 	t.Run("CreateChat, AddMember, GetMemberList, DeleteMember, DeleteChat", func(t *testing.T) {
-		cli := lark.New(lark.WithAppCredential(AppALLPermission.AppID, AppALLPermission.AppSecret))
+		cli := lark.New(
+			lark.WithAppCredential(AppALLPermission.AppID, AppALLPermission.AppSecret),
+			lark.WithTimeout(time.Second*10),
+		)
 
 		chatID := ""
 		{

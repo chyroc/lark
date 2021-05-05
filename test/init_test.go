@@ -3,6 +3,7 @@ package test
 import (
 	"os"
 	"testing"
+	"time"
 
 	"github.com/stretchr/testify/assert"
 
@@ -15,7 +16,10 @@ type App struct {
 }
 
 func (r *App) Ins() *lark.Lark {
-	return lark.New(lark.WithAppCredential(r.AppID, r.AppSecret))
+	return lark.New(
+		lark.WithAppCredential(r.AppID, r.AppSecret),
+		lark.WithTimeout(time.Second*10),
+	)
 }
 
 type Helpdesk struct {
@@ -26,7 +30,11 @@ type Helpdesk struct {
 }
 
 func (r *Helpdesk) Ins() *lark.Lark {
-	return lark.New(lark.WithAppCredential(r.AppID, r.AppSecret), lark.WithHelpdeskCredential(r.ID, r.Token))
+	return lark.New(
+		lark.WithAppCredential(r.AppID, r.AppSecret),
+		lark.WithHelpdeskCredential(r.ID, r.Token),
+		lark.WithTimeout(time.Second*10),
+	)
 }
 
 var HelpdeskAllPermission = Helpdesk{

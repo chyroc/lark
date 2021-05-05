@@ -2,6 +2,7 @@ package lark
 
 import (
 	"net/http"
+	"time"
 )
 
 type Lark struct {
@@ -11,9 +12,12 @@ type Lark struct {
 	verificationToken string
 	helpdeskID        string
 	helpdeskToken     string
-	httpClient        *http.Client
-	mock              *Mock
-	eventHandler      *eventHandler
+
+	timeout    time.Duration
+	httpClient *http.Client
+
+	mock         *Mock
+	eventHandler *eventHandler
 }
 
 func (r *Lark) Chat() *ChatAPI {

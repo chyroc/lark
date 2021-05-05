@@ -28,12 +28,21 @@ func WithHelpdeskCredential(helpdeskID, helpdeskToken string) ClientOptionFunc {
 	}
 }
 
+func WithTimeout(timeout time.Duration) ClientOptionFunc {
+	return func(r *Lark) {
+		r.timeout = timeout
+	}
+}
+
 func New(options ...ClientOptionFunc) *Lark {
 	r := new(Lark)
 	r.mock = new(Mock)
 	r.eventHandler = new(eventHandler)
+	if r.timeout == 0 {
+		r.timeout = time.Second * 3
+	}
 	r.httpClient = &http.Client{
-		Timeout: time.Second * 10,
+		Timeout: r.timeout,
 	}
 	for _, v := range options {
 		if v != nil {
