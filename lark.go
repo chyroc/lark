@@ -33,7 +33,7 @@ func New(options ...ClientOptionFunc) *Lark {
 	r.mock = new(Mock)
 	r.eventHandler = new(eventHandler)
 	r.httpClient = &http.Client{
-		Timeout: time.Second * 3,
+		Timeout: time.Second * 10,
 	}
 	for _, v := range options {
 		if v != nil {
