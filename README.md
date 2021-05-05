@@ -28,7 +28,6 @@ https://godoc.org/github.com/chyroc/lark
 
 ```go
 cli := lark.New(lark.WithAppCredential("<APP_ID>", "<APP_SECRET>"))
-}
 ```
 
 - for need handle event callback:
