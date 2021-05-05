@@ -10,7 +10,8 @@ import (
 // - 需要开启[机器人能力](https://open.feishu.cn/document/uQjL04CN/uYTMuYTMuYTM)
 // - 只能查询机器人自己发送，且发送时间不超过7天的消息
 // - 查询消息已读信息时机器人仍需要在会话内
-// https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/read_users
+//
+// doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/read_users
 func (r *MessageAPI) GetMessageReadUserList(ctx context.Context, request *GetMessageReadUserListReq) (*GetMessageReadUserListResp, *Response, error) {
 	req := &requestParam{
 		Method:                "GET",

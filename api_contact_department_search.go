@@ -7,7 +7,8 @@ import (
 // SearchDepartment 搜索部门，用户通过关键词查询可见的部门数据，部门可见性需要管理员在后台配置
 //
 // 部门存在，但用户搜索不到并不一定是搜索有问题，可能是管理员在后台配置了权限控制，导致用户无法搜索到该部门
-// https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/search
+//
+// doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/search
 func (r *ContactAPI) SearchDepartment(ctx context.Context, request *SearchDepartmentReq) (*SearchDepartmentResp, *Response, error) {
 	req := &requestParam{
 		Method:                "POST",

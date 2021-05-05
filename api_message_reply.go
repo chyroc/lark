@@ -10,7 +10,8 @@ import (
 // - 需要开启[机器人能力](https://open.feishu.cn/document/uQjL04CN/uYTMuYTMuYTM)
 // - 回复私聊消息，需要机器人对用户有可见性
 // - 回复群组消息，需要机器人在群中
-// https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/reply
+//
+// doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/reply
 func (r *MessageAPI) ReplyRawMessage(ctx context.Context, request *ReplyRawMessageReq) (*ReplyRawMessageResp, *Response, error) {
 	req := &requestParam{
 		Method:                "POST",

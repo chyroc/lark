@@ -7,9 +7,9 @@ import (
 // EventVCMeetingShareEndedV1
 //
 // 发生在屏幕共享停止时
-//
 // 了解事件订阅的使用场景和配置流程，请点击查看 [事件订阅概述](/ssl:ttdoc/ukTMukTMukTM/uUTNz4SN1MjL1UzM)
-// https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/vc-v1/meeting/events/share_ended
+//
+// doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/vc-v1/meeting/events/share_ended
 func (r *EventCallbackAPI) HandlerEventVCMeetingShareEndedV1(f eventVCMeetingShareEndedV1Handler) {
 	r.cli.eventHandler.eventVCMeetingShareEndedV1Handler = f
 }

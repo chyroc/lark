@@ -7,17 +7,10 @@ import (
 // DeleteCalendar
 //
 // 该接口用于以当前身份（应用 / 用户）删除一个共享日历。
-//
 // 身份由 Header Authorization 的 Token 类型决定。{尝试一下}(url=/api/tools/api_explore/api_explore_config?project=calendar&version=v4&resource=calendar&method=delete)
-//
-//
-//
-//
-//
-//
-//
 // 当前身份必须对日历具有 owner 权限。
-// https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar/delete
+//
+// doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar/delete
 func (r *CalendarAPI) DeleteCalendar(ctx context.Context, request *DeleteCalendarReq) (*DeleteCalendarResp, *Response, error) {
 	req := &requestParam{
 		Method:                "DELETE",

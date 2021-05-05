@@ -7,7 +7,8 @@ import (
 // DeleteDepartment 该接口用于向通讯录中删除部门。
 //
 // 应用需要同时拥有待删除部门及其父部门的通讯录授权。应用商店应用无权限调用该接口。
-// https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/delete
+//
+// doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/delete
 func (r *ContactAPI) DeleteDepartment(ctx context.Context, request *DeleteDepartmentReq) (*DeleteDepartmentResp, *Response, error) {
 	req := &requestParam{
 		Method:                "DELETE",

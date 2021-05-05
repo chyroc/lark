@@ -7,17 +7,10 @@ import (
 // GetCalendar
 //
 // 该接口用于以当前身份（应用 / 用户）根据日历 ID 获取日历信息。
-//
 // 身份由 Header Authorization 的 Token 类型决定。{尝试一下}(url=/api/tools/api_explore/api_explore_config?project=calendar&version=v4&resource=calendar&method=get)
-//
-//
-//
-//
-//
-//
-//
 // 当前身份必须对日历有访问权限。
-// https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar/get
+//
+// doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar/get
 func (r *CalendarAPI) GetCalendar(ctx context.Context, request *GetCalendarReq) (*GetCalendarResp, *Response, error) {
 	req := &requestParam{
 		Method:                "GET",

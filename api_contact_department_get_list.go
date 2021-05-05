@@ -7,13 +7,11 @@ import (
 // GetDepartmentList 该接口用于获取当前部门子部门列表。
 //
 // - 使用tenant_access_token时,只返回权限范围内的部门。
-//
 // - 使用user_access_token时，返回可见性范围内的所有可见部门。当进行递归查询时，只筛查最多1000个部门的可见性。
-//
 // - fetch_child字段填写为false：如果填写具体的部门ID，则返回该部门下的一级子部门；如果没有填写部门ID， 若有全员权限，返回根部门信息，若没有全员权限则返回通讯录范围中配置的部门及其一级子部门。
-//
 // - fetch_child字段填写为true：如果填写具体的部门ID，则返回该部门下所有子部门；如果没有填写部门ID， 若有全员权限，返回根部门信息，可以根据根部门ID获取其下的一级子部门，若没有全员权限则返回通讯录范围中配置的部门及其子部门。
-// https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/list
+//
+// doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/list
 func (r *ContactAPI) GetDepartmentList(ctx context.Context, request *GetDepartmentListReq) (*GetDepartmentListResp, *Response, error) {
 	req := &requestParam{
 		Method:                "GET",

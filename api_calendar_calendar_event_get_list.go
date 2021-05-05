@@ -7,9 +7,9 @@ import (
 // GetCalendarEventList 该接口用于以当前身份（应用 / 用户）获取日历下的日程列表。
 //
 // 当前身份必须对日历有访问权限。
-//
 // 调用时首先使用 page_token 分页拉取存量数据，之后使用 sync_token 增量同步变更数据。
-// https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar-event/list
+//
+// doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar-event/list
 func (r *CalendarAPI) GetCalendarEventList(ctx context.Context, request *GetCalendarEventListReq) (*GetCalendarEventListResp, *Response, error) {
 	req := &requestParam{
 		Method:                "GET",

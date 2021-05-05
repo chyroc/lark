@@ -7,9 +7,9 @@ import (
 // DeleteCalendarEventAttendee 批量删除日程的参与人。
 //
 // - 当前身份需要有日历的 writer 或 owner 权限，并且日历的类型只能为 primary 或 shared。
-//
 // - 当前身份需要是日程的组织者。
-// https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar-event-attendee/batch_delete
+//
+// doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar-event-attendee/batch_delete
 func (r *CalendarAPI) DeleteCalendarEventAttendee(ctx context.Context, request *DeleteCalendarEventAttendeeReq) (*DeleteCalendarEventAttendeeResp, *Response, error) {
 	req := &requestParam{
 		Method:                "POST",

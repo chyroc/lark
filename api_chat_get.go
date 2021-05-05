@@ -9,7 +9,8 @@ import (
 // 注意事项：
 // - 应用需要开启[机器人能力](https://open.feishu.cn/document/uQjL04CN/uYTMuYTMuYTM)
 // - 机器人或授权用户必须在群里
-// https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat/get
+//
+// doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat/get
 func (r *ChatAPI) GetChat(ctx context.Context, request *GetChatReq) (*GetChatResp, *Response, error) {
 	req := &requestParam{
 		Method:                "GET",

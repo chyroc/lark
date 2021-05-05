@@ -7,7 +7,8 @@ import (
 // DeleteUser 该接口向通讯录删除一个用户信息。
 //
 // 应用需要待删除用户的所有部门的通讯录权限才能删除该用户。应用商店应用无权限调用接口。用户可以在删除员工时设置删除员工数据的接收者，如果不设置则由其leader接受，如果该员工没有leader，则会将该员工的数据删除。
-// https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/delete
+//
+// doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/delete
 func (r *ContactAPI) DeleteUser(ctx context.Context, request *DeleteUserReq) (*DeleteUserResp, *Response, error) {
 	req := &requestParam{
 		Method:                "DELETE",

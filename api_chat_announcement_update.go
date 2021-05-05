@@ -11,7 +11,8 @@ import (
 // - 当授权用户或机器人是群主时，可更新群公告信息
 // - 当授权用户或机器人非群主，但群主未设置 ==仅群主可编辑群信息== 时，可更新群公告信息
 // - 当授权用户或机器人非群主，但群主设置了 ==仅群主可编辑群信息== 时，无法更新公告信息
-// https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-announcement/patch
+//
+// doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-announcement/patch
 func (r *ChatAPI) UpdateAnnouncement(ctx context.Context, request *UpdateAnnouncementReq) (*UpdateAnnouncementResp, *Response, error) {
 	req := &requestParam{
 		Method:                "PATCH",

@@ -7,18 +7,12 @@ import (
 // EventIMChatDisbandedV1
 //
 // 群组被解散后触发此事件。
-//
-//
-//
-//
-//
-//
-//
 // 注意事项：
 // - 需要开启[机器人能力](https://open.feishu.cn/document/uQjL04CN/uYTMuYTMuYTM)
 // - 需要订阅 ==即时通讯== 分类下的 ==解散群== 事件
 // - 事件会向群内订阅了该事件的机器人进行推送
-// https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat/events/disbanded
+//
+// doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat/events/disbanded
 func (r *EventCallbackAPI) HandlerEventIMChatDisbandedV1(f eventIMChatDisbandedV1Handler) {
 	r.cli.eventHandler.eventIMChatDisbandedV1Handler = f
 }

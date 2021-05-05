@@ -6,8 +6,7 @@ import (
 
 // GetTicket 该接口用于获取单个服务台工单详情。仅支持自建应用。
 //
-//
-// https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/ticket/get
+// doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/ticket/get
 func (r *HelpdeskAPI) GetTicket(ctx context.Context, request *GetTicketReq) (*GetTicketResp, *Response, error) {
 	req := &requestParam{
 		Method:                "GET",

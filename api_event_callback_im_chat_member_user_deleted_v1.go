@@ -7,18 +7,12 @@ import (
 // EventIMChatMemberUserDeletedV1
 //
 // 用户主动退群或被移出群聊时推送事件
-//
-//
-//
-//
-//
-//
-//
 // 注意事项：
 // - 应用需要开启[机器人能力](https://open.feishu.cn/document/uQjL04CN/uYTMuYTMuYTM)并且机器人所在群发生上述变化
 // - 机器人需要订阅 ==即时通讯== 分类下的 ==用户主动退群或被移出群聊== 事件
 // - 事件会向群内订阅了该事件的机器人进行推送
-// https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-member-user/events/deleted
+//
+// doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-member-user/events/deleted
 func (r *EventCallbackAPI) HandlerEventIMChatMemberUserDeletedV1(f eventIMChatMemberUserDeletedV1Handler) {
 	r.cli.eventHandler.eventIMChatMemberUserDeletedV1Handler = f
 }

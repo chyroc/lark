@@ -7,7 +7,8 @@ import (
 // UpdateUser 该接口用于更新通讯录中用户的字段。
 //
 // 应用需要拥有待更新用户的通讯录授权，如果涉及到用户部门变更，还需要同时拥有所有新部门的通讯录授权。应用商店应用无权限调用此接口。
-// https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/update
+//
+// doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/update
 func (r *ContactAPI) UpdateUser(ctx context.Context, request *UpdateUserReq) (*UpdateUserResp, *Response, error) {
 	req := &requestParam{
 		Method:                "PUT",

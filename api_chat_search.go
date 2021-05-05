@@ -9,16 +9,10 @@ import (
 // 搜索对用户或机器人可见的群列表，包括：
 // - 用户或机器人所在的群
 // - 对用户或机器人公开的群{尝试一下}(url=/api/tools/api_explore/api_explore_config?project=im&version=v1&resource=chat&method=search)
-//
-//
-//
-//
-//
-//
-//
 // 注意事项：
 // - 应用需要开启[机器人能力](https://open.feishu.cn/document/uQjL04CN/uYTMuYTMuYTM)
-// https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat/search
+//
+// doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat/search
 func (r *ChatAPI) SearchChat(ctx context.Context, request *SearchChatReq) (*SearchChatResp, *Response, error) {
 	req := &requestParam{
 		Method:                "GET",

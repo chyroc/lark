@@ -10,18 +10,12 @@ import (
 // - 群主转移
 // - 群基本信息修改(群头像/群名称/群描述/群国际化名称)
 // - 群权限修改(加人入群权限/群编辑权限/at所有人权限/群分享权限)
-//
-//
-//
-//
-//
-//
-//
 // 注意事项：
 // - 需要开启[机器人能力](https://open.feishu.cn/document/uQjL04CN/uYTMuYTMuYTM)
 // - 需要订阅 ==即时通讯== 分类下的 ==群配置修改== 事件
 // - 事件会向群内订阅了该事件的机器人进行推送
-// https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat/events/updated
+//
+// doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat/events/updated
 func (r *EventCallbackAPI) HandlerEventIMChatUpdatedV1(f eventIMChatUpdatedV1Handler) {
 	r.cli.eventHandler.eventIMChatUpdatedV1Handler = f
 }
@@ -87,25 +81,25 @@ type EventIMChatUpdatedV1BeforeChangeOwnerID struct {
 }
 
 type EventIMChatUpdatedV1ModeratorList struct {
-	AddedMemberList   *EventIMChatUpdatedV1ModeratorListAddedMemberList   `json:"added_member_list,omitempty"`   // 被添加进可发言名单的用户列表（列表中一定会有owner）
-	RemovedMemberList *EventIMChatUpdatedV1ModeratorListRemovedMemberList `json:"removed_member_list,omitempty"` // 被移除出可发言名单的用户列表
+	AddedMemberList   []*EventIMChatUpdatedV1ModeratorListAddedMember   `json:"added_member_list,omitempty"`   // 被添加进可发言名单的用户列表（列表中一定会有owner）
+	RemovedMemberList []*EventIMChatUpdatedV1ModeratorListRemovedMember `json:"removed_member_list,omitempty"` // 被移除出可发言名单的用户列表
 }
 
-type EventIMChatUpdatedV1ModeratorListAddedMemberList struct {
-	UserID *EventIMChatUpdatedV1ModeratorListAddedMemberListUserID `json:"user_id,omitempty"` // 用户 ID
+type EventIMChatUpdatedV1ModeratorListAddedMember struct {
+	UserID *EventIMChatUpdatedV1ModeratorListAddedMemberUserID `json:"user_id,omitempty"` // 用户 ID
 }
 
-type EventIMChatUpdatedV1ModeratorListAddedMemberListUserID struct {
+type EventIMChatUpdatedV1ModeratorListAddedMemberUserID struct {
 	UnionID string `json:"union_id,omitempty"` // 用户的 union id
 	UserID  string `json:"user_id,omitempty"`  // 用户的 user id,**字段权限要求**：,<md-perm href="/ssl:ttdoc/ukTMukTMukTM/uQjN3QjL0YzN04CN2cDN">获取用户 userid</md-perm>
 	OpenID  string `json:"open_id,omitempty"`  // 用户的 open id
 }
 
-type EventIMChatUpdatedV1ModeratorListRemovedMemberList struct {
-	UserID *EventIMChatUpdatedV1ModeratorListRemovedMemberListUserID `json:"user_id,omitempty"` // 用户 ID
+type EventIMChatUpdatedV1ModeratorListRemovedMember struct {
+	UserID *EventIMChatUpdatedV1ModeratorListRemovedMemberUserID `json:"user_id,omitempty"` // 用户 ID
 }
 
-type EventIMChatUpdatedV1ModeratorListRemovedMemberListUserID struct {
+type EventIMChatUpdatedV1ModeratorListRemovedMemberUserID struct {
 	UnionID string `json:"union_id,omitempty"` // 用户的 union id
 	UserID  string `json:"user_id,omitempty"`  // 用户的 user id,**字段权限要求**：,<md-perm href="/ssl:ttdoc/ukTMukTMukTM/uQjN3QjL0YzN04CN2cDN">获取用户 userid</md-perm>
 	OpenID  string `json:"open_id,omitempty"`  // 用户的 open id

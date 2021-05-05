@@ -7,17 +7,10 @@ import (
 // CreateCalendarEvent
 //
 // 该接口用于以当前身份（应用 / 用户）在日历上创建一个日程。
-//
 // 身份由 Header Authorization 的 Token 类型决定。{尝试一下}(url=/api/tools/api_explore/api_explore_config?project=calendar&version=v4&resource=calendar.event&method=create)
-//
-//
-//
-//
-//
-//
-//
 // 当前身份必须对日历有 writer 或 owner 权限，并且日历的类型只能为 primary 或 shared。
-// https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar-event/create-event
+//
+// doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar-event/create-event
 func (r *CalendarAPI) CreateCalendarEvent(ctx context.Context, request *CreateCalendarEventReq) (*CreateCalendarEventResp, *Response, error) {
 	req := &requestParam{
 		Method:                "POST",

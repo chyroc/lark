@@ -6,8 +6,7 @@ import (
 
 // GenerateCaldavConf 用于为当前用户生成一个CalDAV账号密码。
 //
-//
-// https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/setting/generate_caldav_conf
+// doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/setting/generate_caldav_conf
 func (r *CalendarAPI) GenerateCaldavConf(ctx context.Context, request *GenerateCaldavConfReq) (*GenerateCaldavConfResp, *Response, error) {
 	req := &requestParam{
 		Method:                "POST",

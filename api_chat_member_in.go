@@ -6,8 +6,7 @@ import (
 
 // IsInChat 判断用户或者机器人是否在群里。
 //
-//
-// https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-members/is_in_chat
+// doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-members/is_in_chat
 func (r *ChatAPI) IsInChat(ctx context.Context, request *IsInChatReq) (*IsInChatResp, *Response, error) {
 	req := &requestParam{
 		Method:                "GET",

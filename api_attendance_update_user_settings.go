@@ -6,8 +6,7 @@ import (
 
 // UpdateUserSettings
 //
-//
-// https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/Attendance/rule/user-setting-modify
+// doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/Attendance/rule/user-setting-modify
 func (r *AttendanceAPI) UpdateUserSettings(ctx context.Context, request *UpdateUserSettingsReq) (*UpdateUserSettingsResp, *Response, error) {
 	req := &requestParam{
 		Method:                "POST",

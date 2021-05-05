@@ -7,9 +7,9 @@ import (
 // EventVCMeetingLeaveMeetingV1
 //
 // 发生在有人离开会议时
-//
 // 了解事件订阅的使用场景和配置流程，请点击查看 [事件订阅概述](/ssl:ttdoc/ukTMukTMukTM/uUTNz4SN1MjL1UzM)
-// https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/vc-v1/meeting/events/leave_meeting
+//
+// doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/vc-v1/meeting/events/leave_meeting
 func (r *EventCallbackAPI) HandlerEventVCMeetingLeaveMeetingV1(f eventVCMeetingLeaveMeetingV1Handler) {
 	r.cli.eventHandler.eventVCMeetingLeaveMeetingV1Handler = f
 }

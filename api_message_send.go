@@ -10,7 +10,8 @@ import (
 // - 需要开启[机器人能力](https://open.feishu.cn/document/uQjL04CN/uYTMuYTMuYTM)
 // - 给用户发送消息，需要机器人对用户有可见性
 // - 给群组发送消息，需要机器人在群中
-// https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/create
+//
+// doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/create
 func (r *MessageAPI) SendRawMessage(ctx context.Context, request *SendRawMessageReq) (*SendRawMessageResp, *Response, error) {
 	req := &requestParam{
 		Method:                "POST",

@@ -7,7 +7,8 @@ import (
 // UpdateDepartmentPatch 该接口用于更新通讯录中部门的信息中的任一个字段。
 //
 // 调用该接口需要具有该部门以及更新操作涉及的部门的通讯录权限。应用商店应用无权限调用此接口。
-// https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/patch
+//
+// doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/patch
 func (r *ContactAPI) UpdateDepartmentPatch(ctx context.Context, request *UpdateDepartmentPatchReq) (*UpdateDepartmentPatchResp, *Response, error) {
 	req := &requestParam{
 		Method:                "PATCH",

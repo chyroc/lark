@@ -6,8 +6,7 @@ import (
 
 // GetCalendarFreebusyList 查询用户主日历或会议室的忙闲信息。
 //
-//
-// https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/freebusy/list
+// doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/freebusy/list
 func (r *CalendarAPI) GetCalendarFreebusyList(ctx context.Context, request *GetCalendarFreebusyListReq) (*GetCalendarFreebusyListResp, *Response, error) {
 	req := &requestParam{
 		Method:                "POST",

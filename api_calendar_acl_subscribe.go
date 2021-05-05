@@ -7,7 +7,8 @@ import (
 // SubscribeCalendarACL 该接口用于以用户身份订阅指定日历下的日历成员变更事件。
 //
 // 用户必须对日历有访问权限。
-// https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar-acl/subscription
+//
+// doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar-acl/subscription
 func (r *CalendarAPI) SubscribeCalendarACL(ctx context.Context, request *SubscribeCalendarACLReq) (*SubscribeCalendarACLResp, *Response, error) {
 	req := &requestParam{
 		Method:                "POST",

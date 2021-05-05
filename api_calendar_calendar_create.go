@@ -7,9 +7,9 @@ import (
 // CreateCalendar
 //
 // 该接口用于为当前身份（应用 / 用户）创建一个共享日历。
-//
 // 身份由 Header Authorization 的 Token 类型决定。{尝试一下}(url=/api/tools/api_explore/api_explore_config?project=calendar&version=v4&resource=calendar&method=create)
-// https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar/create
+//
+// doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar/create
 func (r *CalendarAPI) CreateCalendar(ctx context.Context, request *CreateCalendarReq) (*CreateCalendarResp, *Response, error) {
 	req := &requestParam{
 		Method:                "POST",

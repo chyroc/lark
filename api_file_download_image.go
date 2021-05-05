@@ -10,7 +10,8 @@ import (
 // 注意事项:
 // - 需要开启[机器人能力](https://open.feishu.cn/document/uQjL04CN/uYTMuYTMuYTM)
 // - 只能下载机器人自己上传且图片类型为message的图片，avatar类型暂不支持下载；
-// https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/image/get
+//
+// doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/image/get
 func (r *FileAPI) DownloadImage(ctx context.Context, request *DownloadImageReq) (*DownloadImageResp, *Response, error) {
 	req := &requestParam{
 		Method:                "GET",

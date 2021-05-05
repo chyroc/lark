@@ -11,7 +11,8 @@ import (
 // - 需要开启[机器人能力](https://open.feishu.cn/document/uQjL04CN/uYTMuYTMuYTM)
 // - 机器人和消息需要在同一会话中
 // - 请求的 file_key 和 message_id 需要匹配
-// https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message-resource/get
+//
+// doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message-resource/get
 func (r *MessageAPI) GetMessageFile(ctx context.Context, request *GetMessageFileReq) (*GetMessageFileResp, *Response, error) {
 	req := &requestParam{
 		Method:                "GET",

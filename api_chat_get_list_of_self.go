@@ -8,7 +8,8 @@ import (
 //
 // 注意事项：
 // - 应用需要开启[机器人能力](https://open.feishu.cn/document/uQjL04CN/uYTMuYTMuYTM)
-// https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat/list
+//
+// doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat/list
 func (r *ChatAPI) GetChatListOfSelf(ctx context.Context, request *GetChatListOfSelfReq) (*GetChatListOfSelfResp, *Response, error) {
 	req := &requestParam{
 		Method:                "GET",

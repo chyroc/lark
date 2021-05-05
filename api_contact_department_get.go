@@ -8,7 +8,8 @@ import (
 //
 // 使用tenant_access_token时，应用需要拥有待查询部门的通讯录授权。如果需要获取根部门信息，则需要拥有全员权限。
 // 使用user_access_token时，用户需要有待查询部门的可见性，如果需要获取根部门信息，则要求员工可见所有人。
-// https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/get
+//
+// doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/get
 func (r *ContactAPI) GetDepartment(ctx context.Context, request *GetDepartmentReq) (*GetDepartmentResp, *Response, error) {
 	req := &requestParam{
 		Method:                "GET",

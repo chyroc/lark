@@ -10,7 +10,8 @@ import (
 // - 应用需要开启[机器人能力](https://open.feishu.cn/document/uQjL04CN/uYTMuYTMuYTM)
 // - 用户或机器人在任何条件下均可移除自己出群（即主动退群）；但仅有群主 及 创建群组且具备==更新应用所创建群的群信息==权限的机器人，可以移除其他用户或者机器人
 // - 每次请求，最多移除50个用户或者5个机器人
-// https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-members/delete
+//
+// doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-members/delete
 func (r *ChatAPI) DeleteMember(ctx context.Context, request *DeleteMemberReq) (*DeleteMemberResp, *Response, error) {
 	req := &requestParam{
 		Method:                "DELETE",

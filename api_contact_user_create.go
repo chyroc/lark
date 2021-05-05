@@ -7,7 +7,8 @@ import (
 // CreateUser 使用该接口向通讯录创建一个用户
 //
 // 新增用户的所有部门必须都在当前应用的通讯录授权范围内才允许新增用户，如果想要在根部门下新增用户，必须要有全员权限。 应用商店应用无权限调用此接口
-// https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/create
+//
+// doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/create
 func (r *ContactAPI) CreateUser(ctx context.Context, request *CreateUserReq) (*CreateUserResp, *Response, error) {
 	req := &requestParam{
 		Method:                "POST",

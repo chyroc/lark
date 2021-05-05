@@ -10,7 +10,8 @@ import (
 // - 需要开启[机器人能力](https://open.feishu.cn/document/uQjL04CN/uYTMuYTMuYTM)
 // - 当前仅更新支持卡片消息
 // - 只支持对所有人都更新的「共享卡片」。如果你只想更新特定人的消息卡片，必须要用户在卡片操作交互后触发，开发文档参考[「独享卡片」](https://open.feishu.cn/document/ukTMukTMukTM/uYjNwUjL2YDM14iN2ATN#49904b71)
-// https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/patch
+//
+// doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/patch
 func (r *MessageAPI) UpdateMessage(ctx context.Context, request *UpdateMessageReq) (*UpdateMessageResp, *Response, error) {
 	req := &requestParam{
 		Method:                "PATCH",

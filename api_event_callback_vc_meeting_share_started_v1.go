@@ -7,9 +7,9 @@ import (
 // EventVCMeetingShareStartedV1
 //
 // 发生在屏幕共享开始时
-//
 // 了解事件订阅的使用场景和配置流程，请点击查看 [事件订阅概述](/ssl:ttdoc/ukTMukTMukTM/uUTNz4SN1MjL1UzM)
-// https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/vc-v1/meeting/events/share_started
+//
+// doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/vc-v1/meeting/events/share_started
 func (r *EventCallbackAPI) HandlerEventVCMeetingShareStartedV1(f eventVCMeetingShareStartedV1Handler) {
 	r.cli.eventHandler.eventVCMeetingShareStartedV1Handler = f
 }

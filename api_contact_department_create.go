@@ -7,7 +7,8 @@ import (
 // CreateDepartment 该接口用于向通讯录中创建部门。
 //
 // 应用需要拥有待新增部门的父部门的通讯录授权。如果需要在根部门上新增部门，则需要全员权限。 应用商店应用无权限调用接口。
-// https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/create
+//
+// doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/create
 func (r *ContactAPI) CreateDepartment(ctx context.Context, request *CreateDepartmentReq) (*CreateDepartmentResp, *Response, error) {
 	req := &requestParam{
 		Method:                "POST",

@@ -9,7 +9,8 @@ import (
 // 注意事项:
 // - 需要开启[机器人能力](https://open.feishu.cn/document/uQjL04CN/uYTMuYTMuYTM)
 // - 机器人必须在群组中
-// https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/get
+//
+// doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/get
 func (r *MessageAPI) GetMessage(ctx context.Context, request *GetMessageReq) (*GetMessageResp, *Response, error) {
 	req := &requestParam{
 		Method:                "GET",

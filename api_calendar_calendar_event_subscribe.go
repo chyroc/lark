@@ -7,7 +7,8 @@ import (
 // SubscribeCalendarEvent 该接口用于以用户身份订阅指定日历下的日程变更事件。
 //
 // 用户必须对日历有访问权限。
-// https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar-event/subscription
+//
+// doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar-event/subscription
 func (r *CalendarAPI) SubscribeCalendarEvent(ctx context.Context, request *SubscribeCalendarEventReq) (*SubscribeCalendarEventResp, *Response, error) {
 	req := &requestParam{
 		Method:                "POST",

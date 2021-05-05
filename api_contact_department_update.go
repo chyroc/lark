@@ -7,9 +7,9 @@ import (
 // UpdateDepartment 该接口用于更新当前部门所有信息。
 //
 // - 调用该接口需要具有该部门以及更新操作涉及的部门的通讯录权限。应用商店应用无权限调用此接口。
-//
 // - 没有填写的字段会被置为空值（order字段除外）。
-// https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/update
+//
+// doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/update
 func (r *ContactAPI) UpdateDepartment(ctx context.Context, request *UpdateDepartmentReq) (*UpdateDepartmentResp, *Response, error) {
 	req := &requestParam{
 		Method:                "PUT",

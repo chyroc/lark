@@ -7,17 +7,10 @@ import (
 // SubscribeCalendar
 //
 // 该接口用于以当前身份（应用 / 用户）订阅某个日历。
-//
 // 身份由 Header Authorization 的 Token 类型决定。{尝试一下}(url=/api/tools/api_explore/api_explore_config?project=calendar&version=v4&resource=calendar&method=subscribe)
-//
-//
-//
-//
-//
-//
-//
 // 仅可订阅类型为 primary 或 shared 的公开日历。
-// https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar/subscribe
+//
+// doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar/subscribe
 func (r *CalendarAPI) SubscribeCalendar(ctx context.Context, request *SubscribeCalendarReq) (*SubscribeCalendarResp, *Response, error) {
 	req := &requestParam{
 		Method:                "POST",

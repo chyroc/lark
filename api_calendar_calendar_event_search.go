@@ -7,17 +7,10 @@ import (
 // SearchCalendarEvent
 //
 // 该接口用于以用户身份搜索某日历下的相关日程。
-//
 // 身份由 Header Authorization 的 Token 类型决定。{尝试一下}(url=/api/tools/api_explore/api_explore_config?project=calendar&version=v4&resource=calendar.event&method=search)
-//
-//
-//
-//
-//
-//
-//
 // 当前身份必须对日历有访问权限。
-// https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar-event/search
+//
+// doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar-event/search
 func (r *CalendarAPI) SearchCalendarEvent(ctx context.Context, request *SearchCalendarEventReq) (*SearchCalendarEventResp, *Response, error) {
 	req := &requestParam{
 		Method:                "POST",

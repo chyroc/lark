@@ -6,8 +6,7 @@ import (
 
 // GetUser 该接口用于获取通讯录中单个用户的信息。
 //
-//
-// https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/get
+// doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/get
 func (r *ContactAPI) GetUser(ctx context.Context, request *GetUserReq) (*GetUserResp, *Response, error) {
 	req := &requestParam{
 		Method:                "GET",

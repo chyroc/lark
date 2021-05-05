@@ -7,9 +7,9 @@ import (
 // GetCalendarEventAttendeeChatMemberList 获取日程的群参与人的群成员列表。
 //
 // - 当前身份必须有权限查看日程的参与人列表。
-//
 // - 当前身份必须在群聊中，或有权限查看群成员列表。
-// https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar-event-attendee-chat_member/list
+//
+// doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar-event-attendee-chat_member/list
 func (r *CalendarAPI) GetCalendarEventAttendeeChatMemberList(ctx context.Context, request *GetCalendarEventAttendeeChatMemberListReq) (*GetCalendarEventAttendeeChatMemberListResp, *Response, error) {
 	req := &requestParam{
 		Method:                "GET",

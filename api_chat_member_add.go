@@ -12,7 +12,8 @@ import (
 // - 在开启==仅群主可添加群成员==的设置时，仅有群主 或 创建群组且具备==更新应用所创建群的群信息==权限的机器人，可以拉用户或者机器人进群
 // - 在未开启==仅群主可添加群成员==的设置时，所有群成员都可以拉用户或机器人进群
 // - 每次请求，最多拉50个用户或者5个机器人，并且群组最多容纳15个机器人
-// https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-members/create
+//
+// doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-members/create
 func (r *ChatAPI) AddMember(ctx context.Context, request *AddMemberReq) (*AddMemberResp, *Response, error) {
 	req := &requestParam{
 		Method:                "POST",

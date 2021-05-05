@@ -7,9 +7,9 @@ import (
 // GetCalendarEventAttendeeList 获取日程的参与人列表，若参与者列表中有群组，请使用 [获取参与人群成员列表](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar-event-attendee-chat_member/list) 。
 //
 // - 当前身份必须对日历有访问权限。
-//
 // - 当前身份必须有权限查看日程的参与人列表。
-// https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar-event-attendee/list
+//
+// doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar-event-attendee/list
 func (r *CalendarAPI) GetCalendarEventAttendeeList(ctx context.Context, request *GetCalendarEventAttendeeListReq) (*GetCalendarEventAttendeeListResp, *Response, error) {
 	req := &requestParam{
 		Method:                "GET",

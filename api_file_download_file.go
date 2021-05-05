@@ -10,7 +10,8 @@ import (
 // 注意事项:
 // - 需要开启[机器人能力](https://open.feishu.cn/document/uQjL04CN/uYTMuYTMuYTM)
 // - 只能下载机器人自己上传的文件
-// https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/file/get
+//
+// doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/file/get
 func (r *FileAPI) DownloadFile(ctx context.Context, request *DownloadFileReq) (*DownloadFileResp, *Response, error) {
 	req := &requestParam{
 		Method:                "GET",

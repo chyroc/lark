@@ -6,8 +6,7 @@ import (
 
 // GetTicketMessageList 该接口用于获取服务台工单消息详情。
 //
-//
-// https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/ticket-message/list
+// doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/ticket-message/list
 func (r *HelpdeskAPI) GetTicketMessageList(ctx context.Context, request *GetTicketMessageListReq) (*GetTicketMessageListResp, *Response, error) {
 	req := &requestParam{
 		Method:                "GET",

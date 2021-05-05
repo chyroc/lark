@@ -7,15 +7,12 @@ import (
 // CreateCalendarEventAttendee 批量给日程添加参与人。
 //
 // - 当前身份需要有日历的 writer 或 owner 权限，并且日历的类型只能为 primary 或 shared。
-//
 // - 当前身份需要是日程的组织者，或日程设置了「参与人可邀请其它参与人」权限。
-//
 // - 新添加的日程参与人必须与日程组织者在同一个企业内。
-//
 // - 使用该接口添加会议室后，会议室会进入异步的预约流程，请求结束不代表会议室预约成功，需后续再查询预约状态。
-//
 // - 每个日程最多只能有 3000 名参与人。
-// https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar-event-attendee/create
+//
+// doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar-event-attendee/create
 func (r *CalendarAPI) CreateCalendarEventAttendee(ctx context.Context, request *CreateCalendarEventAttendeeReq) (*CreateCalendarEventAttendeeResp, *Response, error) {
 	req := &requestParam{
 		Method:                "POST",

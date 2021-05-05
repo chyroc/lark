@@ -9,7 +9,8 @@ import (
 //
 // 注意事项:
 // - 需要开启[机器人能力](https://open.feishu.cn/document/uQjL04CN/uYTMuYTMuYTM)
-// https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/file/create
+//
+// doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/file/create
 func (r *FileAPI) UploadFile(ctx context.Context, request *UploadFileReq) (*UploadFileResp, *Response, error) {
 	req := &requestParam{
 		Method:                "POST",

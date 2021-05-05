@@ -7,10 +7,10 @@ import (
 // GetParentDepartment 该接口用来递归获取部门父部门的信息，并按照由子到父的顺序返回有权限的父部门信息列表。
 //
 // 使用tenant_access_token时,该接口只返回可见性范围内的父部门信息
-//
 // 例如：A >>B>>C>>D四级部门，通讯录权限只到B，那么查询D部门的parent，会返回B和C两级部门。
 // 使用user_access_token时,该接口只返回对于用户可见的父部门信息
-// https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/parent
+//
+// doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/parent
 func (r *ContactAPI) GetParentDepartment(ctx context.Context, request *GetParentDepartmentReq) (*GetParentDepartmentResp, *Response, error) {
 	req := &requestParam{
 		Method:                "GET",

@@ -6,8 +6,7 @@ import (
 
 // CreateCalendarTimeoffEvent 为指定用户创建一个请假日程，可以是一个普通请假日程，也可以是一个全天日程。
 //
-//
-// https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/timeoff_event/create
+// doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/timeoff_event/create
 func (r *CalendarAPI) CreateCalendarTimeoffEvent(ctx context.Context, request *CreateCalendarTimeoffEventReq) (*CreateCalendarTimeoffEventResp, *Response, error) {
 	req := &requestParam{
 		Method:                "POST",

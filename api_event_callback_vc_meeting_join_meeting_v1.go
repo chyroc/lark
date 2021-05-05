@@ -7,9 +7,9 @@ import (
 // EventVCMeetingJoinMeetingV1
 //
 // 发生在有人加入会议时
-//
 // 了解事件订阅的使用场景和配置流程，请点击查看 [事件订阅概述](/ssl:ttdoc/ukTMukTMukTM/uUTNz4SN1MjL1UzM)
-// https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/vc-v1/meeting/events/join_meeting
+//
+// doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/vc-v1/meeting/events/join_meeting
 func (r *EventCallbackAPI) HandlerEventVCMeetingJoinMeetingV1(f eventVCMeetingJoinMeetingV1Handler) {
 	r.cli.eventHandler.eventVCMeetingJoinMeetingV1Handler = f
 }

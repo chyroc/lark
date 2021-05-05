@@ -7,9 +7,9 @@ import (
 // EventVCMeetingRecordingReadyV1
 //
 // 发生在录制文件上传完毕时。收到该事件后，方可进行录制文件获取、授权等操作
-//
 // 了解事件订阅的使用场景和配置流程，请点击查看 [事件订阅概述](/ssl:ttdoc/ukTMukTMukTM/uUTNz4SN1MjL1UzM)
-// https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/vc-v1/meeting/events/recording_ready
+//
+// doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/vc-v1/meeting/events/recording_ready
 func (r *EventCallbackAPI) HandlerEventVCMeetingRecordingReadyV1(f eventVCMeetingRecordingReadyV1Handler) {
 	r.cli.eventHandler.eventVCMeetingRecordingReadyV1Handler = f
 }

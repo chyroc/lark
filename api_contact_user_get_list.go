@@ -7,10 +7,10 @@ import (
 // GetUserList 通过该接口向通讯录获取用户信息列表。
 //
 // 如果没有全员权限，则返回有通讯录范围的用户列表；如果有全员权限且应用可用范围为全员，将department_id字段设置为0，则可返回根部门下所有用户；如果传入一个具体的department_id,则返回该部门下的所有用户。
-//
 // 如果没有单独设置用户的可见性，不填写具体的department_id则不会获取到用户数据
 // 如果有全员权限，将department_id字段设置为0，但根部门下没有任何用户的情况下，不会获取到用户数据。
-// https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/list
+//
+// doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/list
 func (r *ContactAPI) GetUserList(ctx context.Context, request *GetUserListReq) (*GetUserListResp, *Response, error) {
 	req := &requestParam{
 		Method:                "GET",
