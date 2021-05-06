@@ -8,7 +8,6 @@ import (
 	"time"
 
 	"github.com/chyroc/go-ptr"
-	"github.com/davecgh/go-spew/spew"
 	"github.com/stretchr/testify/assert"
 
 	"github.com/chyroc/lark"
@@ -237,7 +236,7 @@ func Test_GetMessage(t *testing.T) {
 			UserIDType: lark.IDTypeUserID,
 			MessageID:  MessageAdminSendTextInChatContainAllPermissionApp.MessageID,
 		})
-		spew.Dump(resp, err)
+		printData(resp, err)
 		as.NotNil(err)
 		as.Contains(err.Error(), "Bot is NOT the sender of the message")
 	})
@@ -247,7 +246,7 @@ func Test_GetMessage(t *testing.T) {
 		// 	UserIDType: lark.IDTypeUserID,
 		// 	MessageID: MessageAdminSendTextInChatContainAllPermissionApp.MessageID,
 		// })
-		// spew.Dump(resp, err)
+		// printData(resp, err)
 		// as.NotNil(err)
 		// as.Contains(err.Error(), "Bot is NOT the sender of the message")
 	})
@@ -256,7 +255,7 @@ func Test_GetMessage(t *testing.T) {
 		resp, _, err := AppALLPermission.Ins().Message().GetMessage(ctx, &lark.GetMessageReq{
 			MessageID: MessageAdminSendTextInChatContainAllPermissionApp.MessageID,
 		})
-		spew.Dump(resp, err)
+		printData(resp, err)
 		as.Nil(err)
 		as.NotNil(resp)
 		as.Len(resp.Items, 1)
@@ -273,7 +272,7 @@ func Test_GetMessage(t *testing.T) {
 			resp, _, err := AppALLPermission.Ins().Message().GetMessage(ctx, &lark.GetMessageReq{
 				MessageID: MessageAdminSendImageInChatContainAllPermissionApp.MessageID,
 			})
-			spew.Dump(resp, err)
+			printData(resp, err)
 			as.Nil(err)
 			as.NotNil(resp)
 			as.Len(resp.Items, 1)
@@ -308,7 +307,7 @@ func Test_GetMessage(t *testing.T) {
 			PageToken:       nil,
 			PageSize:        nil,
 		})
-		spew.Dump(resp, err)
+		printData(resp, err)
 		as.Nil(err)
 		as.NotNil(resp)
 		as.True(len(resp.Items) > 0)

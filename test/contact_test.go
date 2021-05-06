@@ -4,7 +4,6 @@ import (
 	"fmt"
 	"testing"
 
-	"github.com/davecgh/go-spew/spew"
 	"github.com/stretchr/testify/assert"
 
 	"github.com/chyroc/lark"
@@ -117,7 +116,7 @@ func Test_Contact_Failed(t *testing.T) {
 			resp, _, err := contactCli.DeleteDepartment(ctx, &lark.DeleteDepartmentReq{
 				DepartmentID: "1",
 			})
-			spew.Dump(resp, err)
+			printData(resp, err)
 			as.NotNil(err)
 			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
 		})

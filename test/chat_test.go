@@ -8,7 +8,6 @@ import (
 	"time"
 
 	"github.com/chyroc/go-ptr"
-	"github.com/davecgh/go-spew/spew"
 	"github.com/stretchr/testify/assert"
 
 	"github.com/chyroc/lark"
@@ -197,7 +196,7 @@ func Test_CreateChat(t *testing.T) {
 		chatID := ""
 		{
 			resp, _, err := cli.Chat().CreateChat(ctx, &lark.CreateChatReq{})
-			spew.Dump("CreateChat", resp, err)
+			printData("CreateChat", resp, err)
 			as.Nil(err)
 			chatID = resp.ChatID
 		}
@@ -208,7 +207,7 @@ func Test_CreateChat(t *testing.T) {
 				ChatID:       chatID,
 				IDList:       []string{UserAdmin.UserID},
 			})
-			spew.Dump("AddMember", resp, err)
+			printData("AddMember", resp, err)
 			as.Nil(err)
 		}
 
@@ -217,7 +216,7 @@ func Test_CreateChat(t *testing.T) {
 				MemberIDType: lark.IDTypePtr(lark.IDTypeUserID),
 				ChatID:       chatID,
 			})
-			spew.Dump("GetMemberList", resp, err)
+			printData("GetMemberList", resp, err)
 			as.Nil(err)
 			as.Len(resp.Items, 1)
 			as.Equal(UserAdmin.UserID, resp.Items[0].MemberID)
@@ -229,7 +228,7 @@ func Test_CreateChat(t *testing.T) {
 				ChatID:       chatID,
 				IDList:       []string{UserAdmin.UserID},
 			})
-			spew.Dump("DeleteMember", resp, err)
+			printData("DeleteMember", resp, err)
 			as.Nil(err)
 		}
 
@@ -237,7 +236,7 @@ func Test_CreateChat(t *testing.T) {
 			resp, _, err := cli.Chat().DeleteChat(ctx, &lark.DeleteChatReq{
 				ChatID: chatID,
 			})
-			spew.Dump("DeleteChat", resp, err)
+			printData("DeleteChat", resp, err)
 			as.Nil(err)
 		}
 	})
@@ -250,7 +249,7 @@ func Test_Chat_member(t *testing.T) {
 		resp, _, err := AppALLPermission.Ins().Chat().IsInChat(ctx, &lark.IsInChatReq{
 			ChatID: ChatContainALLPermissionApp.ChatID,
 		})
-		spew.Dump("IsInChat", resp, err)
+		printData("IsInChat", resp, err)
 		as.Nil(err)
 		as.Equal(true, resp.IsInChat)
 	})
@@ -259,7 +258,7 @@ func Test_Chat_member(t *testing.T) {
 		resp, _, err := AppALLPermission.Ins().Chat().IsInChat(ctx, &lark.IsInChatReq{
 			ChatID: ChatNotContainALLPermissionApp.ChatID,
 		})
-		spew.Dump("IsInChat", resp, err)
+		printData("IsInChat", resp, err)
 		as.Nil(err)
 		as.Equal(false, resp.IsInChat)
 	})
@@ -272,7 +271,7 @@ func Test_GetChat(t *testing.T) {
 		resp, _, err := AppALLPermission.Ins().Chat().GetChat(ctx, &lark.GetChatReq{
 			ChatID: ChatContainALLPermissionApp.ChatID,
 		})
-		spew.Dump(resp, err)
+		printData(resp, err)
 		as.Nil(err)
 		as.NotNil(resp)
 		as.Contains(resp.Name, "lark-sdk")
@@ -327,7 +326,7 @@ func Test_ChatAnnouncement(t *testing.T) {
 		resp, _, err := AppALLPermission.Ins().Chat().GetAnnouncement(ctx, &lark.GetAnnouncementReq{
 			ChatID: ChatContainALLPermissionApp.ChatID,
 		})
-		spew.Dump(resp, err)
+		printData(resp, err)
 		as.Nil(err)
 		as.NotNil(resp)
 		as.Contains(resp.Content, "群公告")

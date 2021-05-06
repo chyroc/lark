@@ -1,10 +1,10 @@
 package test
 
 import (
+	"encoding/json"
 	"fmt"
 	"testing"
 
-	"github.com/davecgh/go-spew/spew"
 	"github.com/stretchr/testify/assert"
 
 	"github.com/chyroc/lark"
@@ -42,7 +42,9 @@ func Test_Bot(t *testing.T) {
 
 	t.Run("", func(t *testing.T) {
 		resp, _, err := AppALLPermission.Ins().Bot().GetBotInfo(ctx, &lark.GetBotInfoReq{})
-		spew.Dump(resp, err)
+		bs, _ := json.Marshal(resp)
+		fmt.Println(string(bs))
+		// printData(resp, err)
 		as.Nil(err)
 		as.NotNil(resp)
 		as.Equal("lark-sdk", resp.AppName)

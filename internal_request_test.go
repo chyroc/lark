@@ -6,7 +6,6 @@ import (
 	"io/ioutil"
 	"testing"
 
-	"github.com/davecgh/go-spew/spew"
 	"github.com/stretchr/testify/assert"
 )
 
@@ -133,7 +132,6 @@ func TestName(t *testing.T) {
 		as.Equal("GET", resp.Method)
 		as.Equal("http://x.com", resp.URL)
 		as.NotNil(resp.Body)
-		spew.Dump(resp.Body)
 		// bs, err := ioutil.ReadAll(resp.Body)
 		// as.Nil(err)
 		// as.Equal(`{"name":"lark"}`, string(bs))

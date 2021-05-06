@@ -5,7 +5,6 @@ import (
 	"testing"
 
 	"github.com/chyroc/go-ptr"
-	"github.com/davecgh/go-spew/spew"
 	"github.com/stretchr/testify/assert"
 
 	"github.com/chyroc/lark"
@@ -480,7 +479,7 @@ func Test_Calendar(t *testing.T) {
 				Color:        nil,
 				SummaryAlias: nil,
 			})
-			spew.Dump(resp, err)
+			printData(resp, err)
 			as.Nil(err)
 			calendarID = resp.Calendar.CalendarID
 		}
@@ -489,14 +488,14 @@ func Test_Calendar(t *testing.T) {
 			resp, _, err := moduleCli.GetCalendar(ctx, &lark.GetCalendarReq{
 				CalendarID: calendarID,
 			})
-			spew.Dump(resp, err)
+			printData(resp, err)
 			as.Nil(err)
 			as.Equal(summary, resp.Summary)
 		}
 
 		{
 			resp, _, err := moduleCli.GetCalendarList(ctx, &lark.GetCalendarListReq{})
-			spew.Dump(resp, err)
+			printData(resp, err)
 			as.Nil(err)
 		}
 
@@ -505,7 +504,7 @@ func Test_Calendar(t *testing.T) {
 				CalendarID: calendarID,
 				Summary:    ptr.String(summary + "-update"),
 			})
-			spew.Dump(resp, err)
+			printData(resp, err)
 			as.Nil(err)
 		}
 
@@ -513,7 +512,7 @@ func Test_Calendar(t *testing.T) {
 			resp, _, err := moduleCli.SubscribeCalendar(ctx, &lark.SubscribeCalendarReq{
 				CalendarID: calendarID,
 			})
-			spew.Dump(resp, err)
+			printData(resp, err)
 			as.Nil(err)
 		}
 
@@ -521,7 +520,7 @@ func Test_Calendar(t *testing.T) {
 			resp, _, err := moduleCli.UnsubscribeCalendar(ctx, &lark.UnsubscribeCalendarReq{
 				CalendarID: calendarID,
 			})
-			spew.Dump(resp, err)
+			printData(resp, err)
 			as.Nil(err)
 		}
 
@@ -529,7 +528,7 @@ func Test_Calendar(t *testing.T) {
 			resp, _, err := moduleCli.DeleteCalendar(ctx, &lark.DeleteCalendarReq{
 				CalendarID: calendarID,
 			})
-			spew.Dump(resp, err)
+			printData(resp, err)
 			as.Nil(err)
 		}
 	})
@@ -557,7 +556,7 @@ func Test_CalendarEvent(t *testing.T) {
 				Color:        nil,
 				SummaryAlias: nil,
 			})
-			spew.Dump(resp, err)
+			printData(resp, err)
 			as.Nil(err)
 			calendarID = resp.Calendar.CalendarID
 		}
@@ -573,7 +572,7 @@ func Test_CalendarEvent(t *testing.T) {
 					Date: ptr.String("2020-09-02"),
 				},
 			})
-			spew.Dump(resp, err)
+			printData(resp, err)
 			as.Nil(err)
 			eventID = resp.Event.EventID
 		}
@@ -583,7 +582,7 @@ func Test_CalendarEvent(t *testing.T) {
 				CalendarID: calendarID,
 				EventID:    eventID,
 			})
-			spew.Dump(resp, err)
+			printData(resp, err)
 			as.Nil(err)
 			as.Equal(summary, resp.Event.Summary)
 		}
@@ -592,7 +591,7 @@ func Test_CalendarEvent(t *testing.T) {
 			resp, _, err := moduleCli.GetCalendarEventList(ctx, &lark.GetCalendarEventListReq{
 				CalendarID: calendarID,
 			})
-			spew.Dump(resp, err)
+			printData(resp, err)
 			as.Nil(err)
 		}
 
@@ -602,7 +601,7 @@ func Test_CalendarEvent(t *testing.T) {
 				EventID:    eventID,
 				Summary:    ptr.String(summary + "-update"),
 			})
-			spew.Dump(resp, err)
+			printData(resp, err)
 			as.Nil(err)
 		}
 
@@ -611,7 +610,7 @@ func Test_CalendarEvent(t *testing.T) {
 			// resp, _, err := moduleCli.SubscribeCalendarEvent(ctx, &lark.SubscribeCalendarEventReq{
 			// 	CalendarID: calendarID,
 			// })
-			// spew.Dump(resp, err)
+			// printData(resp, err)
 			// as.Nil(err)
 		}
 
@@ -620,7 +619,7 @@ func Test_CalendarEvent(t *testing.T) {
 				CalendarID: calendarID,
 				EventID:    eventID,
 			})
-			spew.Dump(resp, err)
+			printData(resp, err)
 			as.Nil(err)
 		}
 	})
@@ -647,7 +646,7 @@ func Test_CalendarACL(t *testing.T) {
 				Color:        nil,
 				SummaryAlias: nil,
 			})
-			spew.Dump(resp, err)
+			printData(resp, err)
 			as.Nil(err)
 			calendarID = resp.Calendar.CalendarID
 		}
@@ -662,7 +661,7 @@ func Test_CalendarACL(t *testing.T) {
 					UserID: &UserAdmin.OpenID,
 				},
 			})
-			spew.Dump(resp, err)
+			printData(resp, err)
 			as.Nil(err)
 			aclID = resp.ACLID
 		}
@@ -671,7 +670,7 @@ func Test_CalendarACL(t *testing.T) {
 			resp, _, err := moduleCli.GetCalendarACLList(ctx, &lark.GetCalendarACLListReq{
 				CalendarID: calendarID,
 			})
-			spew.Dump(resp, err)
+			printData(resp, err)
 			as.Nil(err)
 		}
 
@@ -680,7 +679,7 @@ func Test_CalendarACL(t *testing.T) {
 			// resp, _, err := moduleCli.SubscribeCalendarACL(ctx, &lark.SubscribeCalendarACLReq{
 			// 	CalendarID: calendarID,
 			// })
-			// spew.Dump(resp, err)
+			// printData(resp, err)
 			// as.Nil(err)
 		}
 
@@ -689,7 +688,7 @@ func Test_CalendarACL(t *testing.T) {
 				CalendarID: calendarID,
 				ACLID:      aclID,
 			})
-			spew.Dump(resp, err)
+			printData(resp, err)
 			as.Nil(err)
 		}
 	})

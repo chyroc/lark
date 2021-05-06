@@ -2,8 +2,10 @@ package test
 
 import (
 	"context"
+	"encoding/json"
 	"fmt"
 	"math/rand"
+	"reflect"
 	"testing"
 	"time"
 
@@ -22,6 +24,55 @@ func randInt64() int64 {
 
 func mockGetTenantAccessTokenFailed(ctx context.Context) (*lark.TokenExpire, *lark.Response, error) {
 	return nil, nil, fmt.Errorf("failed")
+}
+
+func printData(datas ...interface{}) {
+	for _, v := range datas {
+		printDataSingle(v)
+	}
+}
+
+func printDataSingle(v interface{}) {
+	vt := reflect.TypeOf(v)
+	if vt != nil {
+		if vt.Kind() == reflect.Ptr {
+			vt = vt.Elem()
+		}
+		fmt.Printf(vt.Name() + "#")
+	}
+	if v == nil {
+		fmt.Println("nil")
+		return
+	}
+	switch v := v.(type) {
+	case int:
+		fmt.Println(v)
+	case int8:
+		fmt.Println(v)
+	case int16:
+		fmt.Println(v)
+	case int32:
+		fmt.Println(v)
+	case int64:
+		fmt.Println(v)
+	case uint:
+		fmt.Println(v)
+	case uint8:
+		fmt.Println(v)
+	case uint16:
+		fmt.Println(v)
+	case uint32:
+		fmt.Println(v)
+	case uint64:
+		fmt.Println(v)
+	case bool:
+		fmt.Println(v)
+	case error:
+		fmt.Println(v)
+	default:
+		vv, _ := json.Marshal(v)
+		fmt.Println(string(vv))
+	}
 }
 
 func Test_Helper(t *testing.T) {
@@ -55,5 +106,17 @@ func Test_Helper(t *testing.T) {
 			as.Nil(err)
 			as.Equal("image-x", res.ImageKey)
 		})
+	})
+
+	t.Run("", func(t *testing.T) {
+		printData(nil)
+		printData("hi")
+		printData(1)
+		printData(false)
+		printData(lark.MsgTypeText)
+		printData(lark.SendRawMessageReq{Content: "x"})
+		var x *lark.SendRawMessageReq = nil
+		printData(x)
+		printData(lark.SendRawMessageReq{Content: "x"}, x)
 	})
 }

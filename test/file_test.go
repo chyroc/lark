@@ -6,7 +6,6 @@ import (
 	"os"
 	"testing"
 
-	"github.com/davecgh/go-spew/spew"
 	"github.com/stretchr/testify/assert"
 
 	"github.com/chyroc/lark"
@@ -90,7 +89,7 @@ func Test_File(t *testing.T) {
 			ImageType: lark.ImageTypeMessage,
 			Image:     f,
 		})
-		spew.Dump(resp, err)
+		printData(resp, err)
 		as.Nil(err)
 		as.NotNil(resp)
 		as.NotEmpty(resp.ImageKey)
@@ -118,7 +117,7 @@ func Test_File(t *testing.T) {
 			Duration: nil,
 			File:     f,
 		})
-		spew.Dump(resp, err)
+		printData(resp, err)
 		as.Nil(err)
 		as.NotNil(resp)
 		as.NotEmpty(resp.FileKey)
@@ -129,7 +128,7 @@ func Test_File(t *testing.T) {
 		resp, _, err := AppALLPermission.Ins().File().DownloadFile(ctx, &lark.DownloadFileReq{
 			FileKey: File2.Key,
 		})
-		// spew.Dump(resp, err)
+		// printData(resp, err)
 		as.Nil(err)
 		as.NotNil(resp)
 		bs, err := ioutil.ReadAll(resp.File)
