@@ -26,6 +26,6 @@ type EventIMChatDisbandedV1 struct {
 
 type EventIMChatDisbandedV1OperatorID struct {
 	UnionID string `json:"union_id,omitempty"` // 用户的 union id
-	UserID  string `json:"user_id,omitempty"`  // 用户的 user id,**字段权限要求**：,<md-perm href="/ssl:ttdoc/ukTMukTMukTM/uQjN3QjL0YzN04CN2cDN">获取用户 userid</md-perm>
+	UserID  string `json:"user_id,omitempty"`  // 用户的 user id, 字段权限要求: 获取用户 userid
 	OpenID  string `json:"open_id,omitempty"`  // 用户的 open id
 }

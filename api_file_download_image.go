@@ -35,7 +35,7 @@ func (r *FileAPI) DownloadImage(ctx context.Context, request *DownloadImageReq) 
 }
 
 type DownloadImageReq struct {
-	ImageKey string `path:"image_key" json:"-"` // 图片的key,**示例值**："img_8d5181ca-0aed-40f0-b0d1-b1452132afbg"
+	ImageKey string `path:"image_key" json:"-"` // 图片的key, 示例值："img_8d5181ca-0aed-40f0-b0d1-b1452132afbg"
 }
 
 type downloadImageResp struct {

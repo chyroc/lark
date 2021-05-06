@@ -34,7 +34,7 @@ func (r *ChatAPI) DeleteChat(ctx context.Context, request *DeleteChatReq) (*Dele
 }
 
 type DeleteChatReq struct {
-	ChatID string `path:"chat_id" json:"-"` // 群 ID,**示例值**："oc_a0553eda9014c201e6969b478895c230"
+	ChatID string `path:"chat_id" json:"-"` // 群 ID, 示例值："oc_a0553eda9014c201e6969b478895c230"
 }
 
 type deleteChatResp struct {

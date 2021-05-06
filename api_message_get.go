@@ -34,13 +34,13 @@ func (r *MessageAPI) GetMessage(ctx context.Context, request *GetMessageReq) (*G
 }
 
 type GetMessageReq struct {
-	MessageID string `path:"message_id" json:"-"` // 待获取消息内容的消息的ID,**示例值**："om_dc13264520392913993dd051dba21dcf"
+	MessageID string `path:"message_id" json:"-"` // 待获取消息内容的消息的ID, 示例值："om_dc13264520392913993dd051dba21dcf"
 }
 
 type getMessageResp struct {
 	Code int             `json:"code,omitempty"` // 错误码，非 0 表示失败
 	Msg  string          `json:"msg,omitempty"`  // 错误描述
-	Data *GetMessageResp `json:"data,omitempty"` // \-
+	Data *GetMessageResp `json:"data,omitempty"` //
 }
 
 type GetMessageResp struct {

@@ -36,7 +36,7 @@ func (r *MessageAPI) DeleteMessage(ctx context.Context, request *DeleteMessageRe
 }
 
 type DeleteMessageReq struct {
-	MessageID string `path:"message_id" json:"-"` // 待撤回的消息的ID,**示例值**："om_dc13264520392913993dd051dba21dcf"
+	MessageID string `path:"message_id" json:"-"` // 待撤回的消息的ID, 示例值："om_dc13264520392913993dd051dba21dcf"
 }
 
 type deleteMessageResp struct {

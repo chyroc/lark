@@ -30,7 +30,7 @@ func (r *AttendanceAPI) UpdateUserSettings(ctx context.Context, request *UpdateU
 }
 
 type UpdateUserSettingsReq struct {
-	EmployeeType EmployeeType                      `query:"employee_type" json:"-"` // 用户类型,**可选值有**：,- `employee_id`： 员工id,- `employee_no`： 员工工号
+	EmployeeType EmployeeType                      `query:"employee_type" json:"-"` // 用户类型, 可选值有: `employee_id`： 员工id, `employee_no`： 员工工号
 	UserSetting  *UpdateUserSettingsReqUserSetting `json:"user_setting,omitempty"`  // 用户信息
 }
 
@@ -42,7 +42,7 @@ type UpdateUserSettingsReqUserSetting struct {
 type updateUserSettingsResp struct {
 	Code int                     `json:"code,omitempty"` // 错误码，非 0 表示失败
 	Msg  string                  `json:"msg,omitempty"`  // 错误描述
-	Data *UpdateUserSettingsResp `json:"data,omitempty"` // \-
+	Data *UpdateUserSettingsResp `json:"data,omitempty"` //
 }
 
 type UpdateUserSettingsResp struct {

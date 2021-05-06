@@ -30,13 +30,13 @@ func (r *CalendarAPI) GenerateCaldavConf(ctx context.Context, request *GenerateC
 }
 
 type GenerateCaldavConfReq struct {
-	DeviceName *string `json:"device_name,omitempty"` // 需要同步日历的设备名，在日历中展示用来管理密码,**示例值**："iPhone",**数据校验规则**：,- 最大长度：`100` 字符
+	DeviceName *string `json:"device_name,omitempty"` // 需要同步日历的设备名，在日历中展示用来管理密码, 示例值："iPhone", 最大长度：`100` 字符
 }
 
 type generateCaldavConfResp struct {
 	Code int                     `json:"code,omitempty"` // 错误码，非 0 表示失败
 	Msg  string                  `json:"msg,omitempty"`  // 错误描述
-	Data *GenerateCaldavConfResp `json:"data,omitempty"` // \-
+	Data *GenerateCaldavConfResp `json:"data,omitempty"` //
 }
 
 type GenerateCaldavConfResp struct {

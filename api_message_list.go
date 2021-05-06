@@ -34,18 +34,18 @@ func (r *MessageAPI) GetMessageList(ctx context.Context, request *GetMessageList
 }
 
 type GetMessageListReq struct {
-	ContainerIDType ContainerIDType `query:"container_id_type" json:"-"` // 容器类型 ，目前可选值仅有"chat",**示例值**："chat"
-	ContainerID     string          `query:"container_id" json:"-"`      // 容器的id，即chat的id,**示例值**："oc_234jsi43d3ssi993d43545f"
-	StartTime       *string         `query:"start_time" json:"-"`        // 历史信息的起始时间,**示例值**："1609296809"
-	EndTime         *string         `query:"end_time" json:"-"`          // 历史信息的结束时间,**示例值**："1608594809"
-	PageToken       *string         `query:"page_token" json:"-"`        // 分页标记，第一次请求不填，表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token，下次遍历可采用该 page_token 获取查询结果,**示例值**："GxmvlNRvP0NdQZpa7yIqf_Lv_QuBwTQ8tXkX7w-irAghVD_TvuYd1aoJ1LQph86O-XImC4X9j9FhUPhXQDvtrQ=="
-	PageSize        *int            `query:"page_size" json:"-"`         // 分页大小,**示例值**：10,**数据校验规则**：,- 最大值：`50`
+	ContainerIDType ContainerIDType `query:"container_id_type" json:"-"` // 容器类型 ，目前可选值仅有"chat", 示例值："chat"
+	ContainerID     string          `query:"container_id" json:"-"`      // 容器的id，即chat的id, 示例值："oc_234jsi43d3ssi993d43545f"
+	StartTime       *string         `query:"start_time" json:"-"`        // 历史信息的起始时间, 示例值："1609296809"
+	EndTime         *string         `query:"end_time" json:"-"`          // 历史信息的结束时间, 示例值："1608594809"
+	PageToken       *string         `query:"page_token" json:"-"`        // 分页标记，第一次请求不填，表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token，下次遍历可采用该 page_token 获取查询结果, 示例值："GxmvlNRvP0NdQZpa7yIqf_Lv_QuBwTQ8tXkX7w-irAghVD_TvuYd1aoJ1LQph86O-XImC4X9j9FhUPhXQDvtrQ=="
+	PageSize        *int            `query:"page_size" json:"-"`         // 分页大小, 示例值：10, 最大值：`50`
 }
 
 type getMessageListResp struct {
 	Code int                 `json:"code,omitempty"` // 错误码，非 0 表示失败
 	Msg  string              `json:"msg,omitempty"`  // 错误描述
-	Data *GetMessageListResp `json:"data,omitempty"` // \-
+	Data *GetMessageListResp `json:"data,omitempty"` //
 }
 
 type GetMessageListResp struct {

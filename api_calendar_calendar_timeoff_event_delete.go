@@ -30,7 +30,7 @@ func (r *CalendarAPI) DeleteCalendarTimeoffEvent(ctx context.Context, request *D
 }
 
 type DeleteCalendarTimeoffEventReq struct {
-	TimeoffEventID string `path:"timeoff_event_id" json:"-"` // 休假申请的唯一标识id,**示例值**："timeoff:XXXXXX-XXXX-0917-1623-aa493d591a39"
+	TimeoffEventID string `path:"timeoff_event_id" json:"-"` // 休假申请的唯一标识id, 示例值："timeoff:XXXXXX-XXXX-0917-1623-aa493d591a39"
 }
 
 type deleteCalendarTimeoffEventResp struct {

@@ -30,20 +30,20 @@ func (r *HelpdeskAPI) UpdateTicket(ctx context.Context, request *UpdateTicketReq
 }
 
 type UpdateTicketReq struct {
-	TicketID         string                            `path:"ticket_id" json:"-"`          // 工单ID,**示例值**："6945345902185807891"
-	Status           *int                              `json:"status,omitempty"`            // new status, 1: 已创建, 2: 处理中, 3: 排队中, 5: 待定, 50: 机器人关闭工单, 51: 关闭工单,**示例值**：1
+	TicketID         string                            `path:"ticket_id" json:"-"`          // 工单ID, 示例值："6945345902185807891"
+	Status           *int                              `json:"status,omitempty"`            // new status, 1: 已创建, 2: 处理中, 3: 排队中, 5: 待定, 50: 机器人关闭工单, 51: 关闭工单, 示例值：1
 	TagNames         []string                          `json:"tag_names,omitempty"`         // 新标签名
-	Comment          *string                           `json:"comment,omitempty"`           // 新评论,**示例值**："good"
+	Comment          *string                           `json:"comment,omitempty"`           // 新评论, 示例值："good"
 	CustomizedFields []*UpdateTicketReqCustomizedField `json:"customized_fields,omitempty"` // 自定义字段
-	TicketType       *int                              `json:"ticket_type,omitempty"`       // ticket stage,**示例值**：1
-	Solved           *int                              `json:"solved,omitempty"`            // 工单是否解决，1: 未解决, 2: 已解决,**示例值**：1
-	Channel          *int                              `json:"channel,omitempty"`           // 工单来源渠道ID,**示例值**：1
+	TicketType       *int                              `json:"ticket_type,omitempty"`       // ticket stage, 示例值：1
+	Solved           *int                              `json:"solved,omitempty"`            // 工单是否解决，1: 未解决, 2: 已解决, 示例值：1
+	Channel          *int                              `json:"channel,omitempty"`           // 工单来源渠道ID, 示例值：1
 }
 
 type UpdateTicketReqCustomizedField struct {
-	ID      *string `json:"id,omitempty"`       // id,**示例值**："123"
-	Value   *string `json:"value,omitempty"`    // value,**示例值**："value"
-	KeyName *string `json:"key_name,omitempty"` // key name,**示例值**："key"
+	ID      *string `json:"id,omitempty"`       // id, 示例值："123"
+	Value   *string `json:"value,omitempty"`    // value, 示例值："value"
+	KeyName *string `json:"key_name,omitempty"` // key name, 示例值："key"
 }
 
 type updateTicketResp struct {

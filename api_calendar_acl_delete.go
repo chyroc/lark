@@ -34,8 +34,8 @@ func (r *CalendarAPI) DeleteCalendarACL(ctx context.Context, request *DeleteCale
 }
 
 type DeleteCalendarACLReq struct {
-	CalendarID string `path:"calendar_id" json:"-"` // 日历ID,**示例值**："feishu.cn_xxxxxxxxxx@group.calendar.feishu.cn"
-	ACLID      string `path:"acl_id" json:"-"`      // acl资源ID,**示例值**："user_xxxxxx"
+	CalendarID string `path:"calendar_id" json:"-"` // 日历ID, 示例值："feishu.cn_xxxxxxxxxx@group.calendar.feishu.cn"
+	ACLID      string `path:"acl_id" json:"-"`      // acl资源ID, 示例值："user_xxxxxx"
 }
 
 type deleteCalendarACLResp struct {

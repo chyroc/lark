@@ -36,9 +36,9 @@ func (r *MessageAPI) GetMessageFile(ctx context.Context, request *GetMessageFile
 }
 
 type GetMessageFileReq struct {
-	Type      string `query:"type" json:"-"`      // 资源类型，可选"image, file“； image对应消息中的 图片资源。  file对应消息中的 文件、音频、视频、表情包 资源,**示例值**："image,"
-	MessageID string `path:"message_id" json:"-"` // 待查询资源对应的消息ID,**示例值**："om_dc13264520392913993dd051dba21dcf"
-	FileKey   string `path:"file_key" json:"-"`   // 待查询资源的key,**示例值**："file_456a92d6-c6ea-4de4-ac3f-7afcf44ac78g"
+	Type      string `query:"type" json:"-"`      // 资源类型，可选"image, file“； image对应消息中的 图片资源。  file对应消息中的 文件、音频、视频、表情包 资源, 示例值："image,"
+	MessageID string `path:"message_id" json:"-"` // 待查询资源对应的消息ID, 示例值："om_dc13264520392913993dd051dba21dcf"
+	FileKey   string `path:"file_key" json:"-"`   // 待查询资源的key, 示例值："file_456a92d6-c6ea-4de4-ac3f-7afcf44ac78g"
 }
 
 type getMessageFileResp struct {

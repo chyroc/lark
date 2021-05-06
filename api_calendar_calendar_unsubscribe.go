@@ -34,7 +34,7 @@ func (r *CalendarAPI) UnsubscribeCalendar(ctx context.Context, request *Unsubscr
 }
 
 type UnsubscribeCalendarReq struct {
-	CalendarID string `path:"calendar_id" json:"-"` // 日历ID,**示例值**："feishu.cn_xxxxxxxxxx@group.calendar.feishu.cn"
+	CalendarID string `path:"calendar_id" json:"-"` // 日历ID, 示例值："feishu.cn_xxxxxxxxxx@group.calendar.feishu.cn"
 }
 
 type unsubscribeCalendarResp struct {

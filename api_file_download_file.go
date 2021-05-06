@@ -35,7 +35,7 @@ func (r *FileAPI) DownloadFile(ctx context.Context, request *DownloadFileReq) (*
 }
 
 type DownloadFileReq struct {
-	FileKey string `path:"file_key" json:"-"` // 文件的key,**示例值**："file_456a92d6-c6ea-4de4-ac3f-7afcf44ac78g"
+	FileKey string `path:"file_key" json:"-"` // 文件的key, 示例值："file_456a92d6-c6ea-4de4-ac3f-7afcf44ac78g"
 }
 
 type downloadFileResp struct {

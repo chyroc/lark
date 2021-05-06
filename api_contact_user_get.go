@@ -30,15 +30,15 @@ func (r *ContactAPI) GetUser(ctx context.Context, request *GetUserReq) (*GetUser
 }
 
 type GetUserReq struct {
-	UserIDType       *IDType `query:"user_id_type" json:"-"`       // 用户 ID 类型,**示例值**："open_id",**可选值有**：,- `open_id`：用户的 open id,- `union_id`：用户的 union id,- `user_id`：用户的 user id,**默认值**：`open_id`,**当值为 `user_id`，字段权限要求**：,<md-perm href="/ssl:ttdoc/ukTMukTMukTM/uQjN3QjL0YzN04CN2cDN">获取用户 userid</md-perm>
-	DepartmentIDType *IDType `query:"department_id_type" json:"-"` // 此次调用中使用的部门ID的类型,**示例值**："open_department_id",**可选值有**：,- `department_id`：以自定义department_id来标识部门,- `open_department_id`：以open_department_id来标识部门,**默认值**：`open_department_id`
-	UserID           string  `path:"user_id" json:"-"`             // 用户ID，需要与查询参数中的user_id_type类型保持一致。,**示例值**："ou_7dab8a3d3cdcc9da365777c7ad535d62"
+	UserIDType       *IDType `query:"user_id_type" json:"-"`       // 用户 ID 类型, 示例值："open_id", 可选值有: `open_id`：用户的 open id, `union_id`：用户的 union id, `user_id`：用户的 user id, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 userid
+	DepartmentIDType *IDType `query:"department_id_type" json:"-"` // 此次调用中使用的部门ID的类型, 示例值："open_department_id", 可选值有: `department_id`：以自定义department_id来标识部门, `open_department_id`：以open_department_id来标识部门, 默认值: `open_department_id`
+	UserID           string  `path:"user_id" json:"-"`             // 用户ID，需要与查询参数中的user_id_type类型保持一致。, 示例值："ou_7dab8a3d3cdcc9da365777c7ad535d62"
 }
 
 type getUserResp struct {
 	Code int          `json:"code,omitempty"` // 错误码，非 0 表示失败
 	Msg  string       `json:"msg,omitempty"`  // 错误描述
-	Data *GetUserResp `json:"data,omitempty"` // \-
+	Data *GetUserResp `json:"data,omitempty"` //
 }
 
 type GetUserResp struct {
@@ -49,12 +49,12 @@ type GetUserRespUser struct {
 	UnionID         string                       `json:"union_id,omitempty"`          // 用户的union_id
 	UserID          string                       `json:"user_id,omitempty"`           // 租户内用户的唯一标识
 	OpenID          string                       `json:"open_id,omitempty"`           // 用户的open_id
-	Name            string                       `json:"name,omitempty"`              // 用户名,**数据校验规则**：,- 最小长度：`1` 字符
+	Name            string                       `json:"name,omitempty"`              // 用户名, 最小长度：`1` 字符
 	EnName          string                       `json:"en_name,omitempty"`           // 英文名
-	Email           string                       `json:"email,omitempty"`             // 邮箱,**字段权限要求**：, <md-perm href="/ssl:ttdoc/ukTMukTMukTM/uQjN3QjL0YzN04CN2cDN">获取用户邮箱</md-perm>
-	Mobile          string                       `json:"mobile,omitempty"`            // 手机号,**字段权限要求**：, <md-perm href="/ssl:ttdoc/ukTMukTMukTM/uQjN3QjL0YzN04CN2cDN">获取用户手机号</md-perm>
+	Email           string                       `json:"email,omitempty"`             // 邮箱, 字段权限要求:  获取用户邮箱
+	Mobile          string                       `json:"mobile,omitempty"`            // 手机号, 字段权限要求:  获取用户手机号
 	MobileVisible   bool                         `json:"mobile_visible,omitempty"`    // 手机号码可见性，true 为可见，false 为不可见，目前默认为 true。不可见时，组织员工将无法查看该员工的手机号码
-	Gender          int                          `json:"gender,omitempty"`            // 性别,**可选值有**：,- `0`：保密,- `1`：男,- `2`：女
+	Gender          int                          `json:"gender,omitempty"`            // 性别, 可选值有: `0`：保密, `1`：男, `2`：女
 	Avatar          *GetUserRespUserAvatar       `json:"avatar,omitempty"`            // 用户头像信息
 	Status          *GetUserRespUserStatus       `json:"status,omitempty"`            // 用户状态
 	DepartmentIDs   []string                     `json:"department_ids,omitempty"`    // 用户所属部门的ID列表
@@ -65,7 +65,7 @@ type GetUserRespUser struct {
 	JoinTime        int                          `json:"join_time,omitempty"`         // 入职时间
 	IsTenantManager bool                         `json:"is_tenant_manager,omitempty"` // 是否是租户管理员
 	EmployeeNo      string                       `json:"employee_no,omitempty"`       // 工号
-	EmployeeType    int                          `json:"employee_type,omitempty"`     // 员工类型,**可选值有**：,- `1`：正式员工,- `2`：实习生,- `3`：外包,- `4`：劳务,- `5`：顾问
+	EmployeeType    int                          `json:"employee_type,omitempty"`     // 员工类型, 可选值有: `1`：正式员工, `2`：实习生, `3`：外包, `4`：劳务, `5`：顾问
 	Orders          []*GetUserRespUserOrder      `json:"orders,omitempty"`            // 用户排序信息
 	CustomAttrs     []*GetUserRespUserCustomAttr `json:"custom_attrs,omitempty"`      // 自定义属性
 	EnterpriseEmail string                       `json:"enterprise_email,omitempty"`  // 企业邮箱，请先确保已在管理后台启用飞书邮箱服务

@@ -32,14 +32,14 @@ func (r *ContactAPI) DeleteUser(ctx context.Context, request *DeleteUserReq) (*D
 }
 
 type DeleteUserReq struct {
-	UserIDType                   *IDType `query:"user_id_type" json:"-"`                     // 用户 ID 类型,**示例值**："open_id",**可选值有**：,- `open_id`：用户的 open id,- `union_id`：用户的 union id,- `user_id`：用户的 user id,**默认值**：`open_id`,**当值为 `user_id`，字段权限要求**：,<md-perm href="/ssl:ttdoc/ukTMukTMukTM/uQjN3QjL0YzN04CN2cDN">获取用户 userid</md-perm>
-	UserID                       string  `path:"user_id" json:"-"`                           // 用户ID，需要与查询参数中的user_id_type类型保持一致。,**示例值**："ou_7dab8a3d3cdcc9da365777c7ad535d62"
-	DepartmentChatAcceptorUserID *string `json:"department_chat_acceptor_user_id,omitempty"` // 用户部门群聊接收者,**示例值**："ou_7dab8a3d3cdcc9da365777c7ad535d62"
-	ExternalChatAcceptorUserID   *string `json:"external_chat_acceptor_user_id,omitempty"`   // 用户外部群聊接收者,**示例值**："ou_7dab8a3d3cdcc9da365777c7ad535d62"
-	DocsAcceptorUserID           *string `json:"docs_acceptor_user_id,omitempty"`            // 用户文档接收者,**示例值**："ou_7dab8a3d3cdcc9da365777c7ad535d62"
-	CalendarAcceptorUserID       *string `json:"calendar_acceptor_user_id,omitempty"`        // 用户日历接收者,**示例值**："ou_7dab8a3d3cdcc9da365777c7ad535d62"
-	ApplicationAcceptorUserID    *string `json:"application_acceptor_user_id,omitempty"`     // 用户应用接收者,**示例值**："ou_7dab8a3d3cdcc9da365777c7ad535d62"
-	HelpdeskAcceptorUserID       *string `json:"helpdesk_acceptor_user_id,omitempty"`        // 用户超文本帮助信息接收者,**示例值**："ou_7dab8a3d3cdcc9da365777c7ad535d62"
+	UserIDType                   *IDType `query:"user_id_type" json:"-"`                     // 用户 ID 类型, 示例值："open_id", 可选值有: `open_id`：用户的 open id, `union_id`：用户的 union id, `user_id`：用户的 user id, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 userid
+	UserID                       string  `path:"user_id" json:"-"`                           // 用户ID，需要与查询参数中的user_id_type类型保持一致。, 示例值："ou_7dab8a3d3cdcc9da365777c7ad535d62"
+	DepartmentChatAcceptorUserID *string `json:"department_chat_acceptor_user_id,omitempty"` // 用户部门群聊接收者, 示例值："ou_7dab8a3d3cdcc9da365777c7ad535d62"
+	ExternalChatAcceptorUserID   *string `json:"external_chat_acceptor_user_id,omitempty"`   // 用户外部群聊接收者, 示例值："ou_7dab8a3d3cdcc9da365777c7ad535d62"
+	DocsAcceptorUserID           *string `json:"docs_acceptor_user_id,omitempty"`            // 用户文档接收者, 示例值："ou_7dab8a3d3cdcc9da365777c7ad535d62"
+	CalendarAcceptorUserID       *string `json:"calendar_acceptor_user_id,omitempty"`        // 用户日历接收者, 示例值："ou_7dab8a3d3cdcc9da365777c7ad535d62"
+	ApplicationAcceptorUserID    *string `json:"application_acceptor_user_id,omitempty"`     // 用户应用接收者, 示例值："ou_7dab8a3d3cdcc9da365777c7ad535d62"
+	HelpdeskAcceptorUserID       *string `json:"helpdesk_acceptor_user_id,omitempty"`        // 用户超文本帮助信息接收者, 示例值："ou_7dab8a3d3cdcc9da365777c7ad535d62"
 }
 
 type deleteUserResp struct {

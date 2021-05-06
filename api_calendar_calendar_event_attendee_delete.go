@@ -33,8 +33,8 @@ func (r *CalendarAPI) DeleteCalendarEventAttendee(ctx context.Context, request *
 }
 
 type DeleteCalendarEventAttendeeReq struct {
-	CalendarID  string   `path:"calendar_id" json:"-"`   // 日历 ID,**示例值**："feishu.cn_xxxxxxxxxx@group.calendar.feishu.cn"
-	EventID     string   `path:"event_id" json:"-"`      // 日程 ID,**示例值**："xxxxxxxxx_0"
+	CalendarID  string   `path:"calendar_id" json:"-"`   // 日历 ID, 示例值："feishu.cn_xxxxxxxxxx@group.calendar.feishu.cn"
+	EventID     string   `path:"event_id" json:"-"`      // 日程 ID, 示例值："xxxxxxxxx_0"
 	AttendeeIDs []string `json:"attendee_ids,omitempty"` // 要移除的参与人 ID 列表
 }
 

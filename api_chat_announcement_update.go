@@ -36,8 +36,8 @@ func (r *ChatAPI) UpdateAnnouncement(ctx context.Context, request *UpdateAnnounc
 }
 
 type UpdateAnnouncementReq struct {
-	ChatID   string   `path:"chat_id" json:"-"`   // 待修改公告的群 ID,**示例值**："oc_5ad11d72b830411d72b836c20"
-	Revision string   `json:"revision,omitempty"` // 文档当前版本号 int64 类型，get 接口会返回,**示例值**："12"
+	ChatID   string   `path:"chat_id" json:"-"`   // 待修改公告的群 ID, 示例值："oc_5ad11d72b830411d72b836c20"
+	Revision string   `json:"revision,omitempty"` // 文档当前版本号 int64 类型，get 接口会返回, 示例值："12"
 	Requests []string `json:"requests,omitempty"` // 修改文档请求的序列化字段
 }
 

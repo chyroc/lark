@@ -32,7 +32,7 @@ func (r *CalendarAPI) SubscribeCalendarACL(ctx context.Context, request *Subscri
 }
 
 type SubscribeCalendarACLReq struct {
-	CalendarID string `path:"calendar_id" json:"-"` // 日历ID,**示例值**："feishu.cn_xxxxxxxxxx@group.calendar.feishu.cn"
+	CalendarID string `path:"calendar_id" json:"-"` // 日历ID, 示例值："feishu.cn_xxxxxxxxxx@group.calendar.feishu.cn"
 }
 
 type subscribeCalendarACLResp struct {

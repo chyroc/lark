@@ -30,17 +30,17 @@ func (r *HelpdeskAPI) GetTicketMessageList(ctx context.Context, request *GetTick
 }
 
 type GetTicketMessageListReq struct {
-	TimeStart *int   `query:"time_start" json:"-"` // 起始时间,**示例值**：1617960686000
-	TimeEnd   *int   `query:"time_end" json:"-"`   // 结束时间,**示例值**：1617960687000
-	Page      *int   `query:"page" json:"-"`       // 页数ID,**示例值**：1
-	PageSize  *int   `query:"page_size" json:"-"`  // 消息数量，最大200，默认20,**示例值**：10
-	TicketID  string `path:"ticket_id" json:"-"`   // 工单ID,**示例值**："6948728206392295444"
+	TimeStart *int   `query:"time_start" json:"-"` // 起始时间, 示例值：1617960686000
+	TimeEnd   *int   `query:"time_end" json:"-"`   // 结束时间, 示例值：1617960687000
+	Page      *int   `query:"page" json:"-"`       // 页数ID, 示例值：1
+	PageSize  *int   `query:"page_size" json:"-"`  // 消息数量，最大200，默认20, 示例值：10
+	TicketID  string `path:"ticket_id" json:"-"`   // 工单ID, 示例值："6948728206392295444"
 }
 
 type getTicketMessageListResp struct {
 	Code int                       `json:"code,omitempty"` // 错误码，非 0 表示失败
 	Msg  string                    `json:"msg,omitempty"`  // 错误描述
-	Data *GetTicketMessageListResp `json:"data,omitempty"` // \-
+	Data *GetTicketMessageListResp `json:"data,omitempty"` //
 }
 
 type GetTicketMessageListResp struct {

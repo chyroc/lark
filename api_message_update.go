@@ -35,8 +35,8 @@ func (r *MessageAPI) UpdateMessage(ctx context.Context, request *UpdateMessageRe
 }
 
 type UpdateMessageReq struct {
-	MessageID string `path:"message_id" json:"-"` // 待更新的消息的ID,**示例值**："om_dc13264520392913993dd051dba21dcf"
-	Content   string `json:"content,omitempty"`   // 消息内容 json 格式，[发送消息 content 说明](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/im-v1/message/create_json)，参考文档中的卡片格式|,**示例值**："参考链接"
+	MessageID string `path:"message_id" json:"-"` // 待更新的消息的ID, 示例值："om_dc13264520392913993dd051dba21dcf"
+	Content   string `json:"content,omitempty"`   // 消息内容 json 格式，[发送消息 content 说明](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/im-v1/message/create_json)，参考文档中的卡片格式|, 示例值："参考链接"
 }
 
 type updateMessageResp struct {

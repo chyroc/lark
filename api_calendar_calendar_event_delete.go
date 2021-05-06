@@ -35,8 +35,8 @@ func (r *CalendarAPI) DeleteCalendarEvent(ctx context.Context, request *DeleteCa
 }
 
 type DeleteCalendarEventReq struct {
-	CalendarID string `path:"calendar_id" json:"-"` // 日历ID,**示例值**："feishu.cn_xxxxxxxxxx@group.calendar.feishu.cn"
-	EventID    string `path:"event_id" json:"-"`    // 日程ID,**示例值**："xxxxxxxxx_0"
+	CalendarID string `path:"calendar_id" json:"-"` // 日历ID, 示例值："feishu.cn_xxxxxxxxxx@group.calendar.feishu.cn"
+	EventID    string `path:"event_id" json:"-"`    // 日程ID, 示例值："xxxxxxxxx_0"
 }
 
 type deleteCalendarEventResp struct {

@@ -118,9 +118,9 @@ const (
 )
 
 type I18nNames struct {
-	ZhCn string `json:"zh_cn,omitempty"` // 中文名,**示例值**："群聊"
-	EnUs string `json:"en_us,omitempty"` // 英文名,**示例值**："group chat"
-	JaJp string `json:"ja_jp,omitempty"` // 日文名,**示例值**："グループチャット"
+	ZhCn string `json:"zh_cn,omitempty"` // 中文名, 示例值: "群聊"
+	EnUs string `json:"en_us,omitempty"` // 英文名, 示例值: "group chat"
+	JaJp string `json:"ja_jp,omitempty"` // 日文名, 示例值: "グループチャット"
 }
 
 type Sender struct {

@@ -35,16 +35,16 @@ func (r *MessageAPI) GetMessageReadUserList(ctx context.Context, request *GetMes
 }
 
 type GetMessageReadUserListReq struct {
-	UserIDType IDType  `query:"user_id_type" json:"-"` // 用户 ID 类型,**示例值**："open_id",**可选值有**：,- `open_id`：用户的 open id,- `union_id`：用户的 union id,- `user_id`：用户的 user id,**默认值**：`open_id`,**当值为 `user_id`，字段权限要求**：,<md-perm href="/ssl:ttdoc/ukTMukTMukTM/uQjN3QjL0YzN04CN2cDN">获取用户 userid</md-perm>
-	PageSize   *int    `query:"page_size" json:"-"`    // 此次调用中使用的分页的大小,**示例值**：20,**数据校验规则**：,- 取值范围：`1` ～ `100`
-	PageToken  *string `query:"page_token" json:"-"`   // 下一页分页的token,**示例值**："GxmvlNRvP0NdQZpa7yIqf_Lv_QuBwTQ8tXkX7w-irAghVD_TvuYd1aoJ1LQph86O-XImC4X9j9FhUPhXQDvtrQ=="
-	MessageID  string  `path:"message_id" json:"-"`    // 待查询的消息的ID,**示例值**："om_dc13264520392913993dd051dba21dcf"
+	UserIDType IDType  `query:"user_id_type" json:"-"` // 用户 ID 类型, 示例值："open_id", 可选值有: `open_id`：用户的 open id, `union_id`：用户的 union id, `user_id`：用户的 user id, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 userid
+	PageSize   *int    `query:"page_size" json:"-"`    // 此次调用中使用的分页的大小, 示例值：20, 取值范围：`1` ～ `100`
+	PageToken  *string `query:"page_token" json:"-"`   // 下一页分页的token, 示例值："GxmvlNRvP0NdQZpa7yIqf_Lv_QuBwTQ8tXkX7w-irAghVD_TvuYd1aoJ1LQph86O-XImC4X9j9FhUPhXQDvtrQ=="
+	MessageID  string  `path:"message_id" json:"-"`    // 待查询的消息的ID, 示例值："om_dc13264520392913993dd051dba21dcf"
 }
 
 type getMessageReadUserListResp struct {
 	Code int                         `json:"code,omitempty"` // 错误码，非 0 表示失败
 	Msg  string                      `json:"msg,omitempty"`  // 错误描述
-	Data *GetMessageReadUserListResp `json:"data,omitempty"` // \-
+	Data *GetMessageReadUserListResp `json:"data,omitempty"` //
 }
 
 type GetMessageReadUserListResp struct {

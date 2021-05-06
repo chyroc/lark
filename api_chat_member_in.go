@@ -30,13 +30,13 @@ func (r *ChatAPI) IsInChat(ctx context.Context, request *IsInChatReq) (*IsInChat
 }
 
 type IsInChatReq struct {
-	ChatID string `path:"chat_id" json:"-"` // 群 ID,**示例值：** "oc_a0553eda9014c201e6969b478895c230"
+	ChatID string `path:"chat_id" json:"-"` // 群 ID, 示例值: "oc_a0553eda9014c201e6969b478895c230"
 }
 
 type isInChatResp struct {
 	Code int           `json:"code,omitempty"` // 错误码，非 0 表示失败
 	Msg  string        `json:"msg,omitempty"`  // 错误描述
-	Data *IsInChatResp `json:"data,omitempty"` // \-
+	Data *IsInChatResp `json:"data,omitempty"` //
 }
 
 type IsInChatResp struct {

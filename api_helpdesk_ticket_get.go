@@ -30,13 +30,13 @@ func (r *HelpdeskAPI) GetTicket(ctx context.Context, request *GetTicketReq) (*Ge
 }
 
 type GetTicketReq struct {
-	TicketID string `path:"ticket_id" json:"-"` // ticket id,**示例值**："123456"
+	TicketID string `path:"ticket_id" json:"-"` // ticket id, 示例值："123456"
 }
 
 type getTicketResp struct {
 	Code int            `json:"code,omitempty"` // 错误码，非 0 表示失败
 	Msg  string         `json:"msg,omitempty"`  // 错误描述
-	Data *GetTicketResp `json:"data,omitempty"` // \-
+	Data *GetTicketResp `json:"data,omitempty"` //
 }
 
 type GetTicketResp struct {
