@@ -91,6 +91,7 @@ func (r *Lark) WithTenant(tenantKey string) *Lark {
 	return cli
 }
 
+// 接口不是很多，用 func-opt，
 func (r *Lark) WithUser(tenantKey string) *Lark {
 	cli := r.clone()
 	cli.tenantKey = tenantKey
@@ -111,4 +112,16 @@ func (r *Lark) clone() *Lark {
 		eventHandler:      r.eventHandler.clone(),
 	}
 	return cli
+}
+
+type MethodOptionFunc func(*Lark)
+
+func WithTenant(tenantKey string) MethodOptionFunc {
+	return func(r *Lark) {
+	}
+}
+
+func WithUser() MethodOptionFunc {
+	return func(r *Lark) {
+	}
 }
