@@ -176,6 +176,36 @@ fmt.Println(resp, err)
 - [ ] 生成所有 API
 - [ ] 英文注释
 - [ ] 结构化的数据
+
+*Lark 是指针，是 mock 和 event handler 的实际注册 receiver
+
+如何获取 app-ticket？
+
+isv，刚开始应该是没有 app-ticket 的，假设通过某种方式，设置了一个 resend 请求，收到事件
+
+https://open.feishu.cn/document/ukTMukTMukTM/uQjNz4CN2MjL0YzM
+
+https://open.feishu.cn/document/ukTMukTMukTM/uQTNxYjL0UTM24CN1EjN#1d112a8a
+
+然后通过内置的 getter setter，设置到 store
+
+这个时候可以获取到 app-token 了
+
+如何获取 tenant-key ？
+
+首次启用 app，购买，停用，卸载，可用性修改
+https://open.feishu.cn/document/ukTMukTMukTM/uQTNxYjL0UTM24CN1EjN
+
+schema=2 的消息的 header，都有 tenant_key
+
+- Clone 的时候，这些值是否需要传递到复制后的上面？
+- 
+- user token
+  - WithUser(user-token).Drive().CreateFolder() ?
+  - Drive().CreateFolder(ctx, req, lark.WithUser(user-token)) ?
+- 多租户
+  - WithTenant(tenantKey).Drive().CreateFolder() ?
+  - Drive().CreateFolder(ctx, req, lark.WithTenant(tenantKey)) ?
 - 自定义机器人 https://open.feishu.cn/document/ukTMukTMukTM/ucTM5YjL3ETO24yNxkjN
 - 消息卡片 builder
 - 日历

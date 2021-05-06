@@ -10,13 +10,28 @@ func (r *TokenAPI) GetTenantAccessToken(ctx context.Context) (*TokenExpire, *Res
 		return r.cli.mock.mockGetTenantAccessToken(ctx)
 	}
 
+	appToken, res, err := r.GetAppAccessToken(ctx)
+	if err != nil {
+		return nil, res, err
+	}
+
+	url := "https://open.feishu.cn/open-apis/auth/v3/tenant_access_token/internal/"
+	body := getTenantAccessTokenReq{
+		AppID:     r.cli.appID,
+		AppSecret: r.cli.appSecret,
+	}
+	if r.cli.tenantKey != "" {
+		url = "https://open.feishu.cn/open-apis/auth/v3/tenant_access_token/"
+		body = getTenantAccessTokenReq{
+			TenantKey: r.cli.tenantKey,
+			AppSecret: appToken.Token,
+		}
+	}
+
 	req := &requestParam{
 		Method: "POST",
-		URL:    "https://open.feishu.cn/open-apis/auth/v3/tenant_access_token/internal/",
-		Body: getTenantAccessTokenReq{
-			AppID:     r.cli.appID,
-			AppSecret: r.cli.appSecret,
-		},
+		URL:    url,
+		Body:   body,
 	}
 	resp := new(getTenantAccessTokenResp)
 
@@ -47,8 +62,11 @@ type TokenExpire struct {
 }
 
 type getTenantAccessTokenReq struct {
-	AppID     string `json:"app_id"`
-	AppSecret string `json:"app_secret"`
+	AppID          string `json:"app_id,omitempty"`
+	AppSecret      string `json:"app_secret,omitempty"`
+	AppTicket      string `json:"app_ticket,omitempty"`       // 平台定时推送给应用的临时凭证，通过事件监听机制获得，详见订阅事件
+	TenantKey      string `json:"tenant_key,omitempty"`       // 企业标识，两种获取方式，企业开通应用时由平台方推送给应用 / 用户登录时返回，示例：73658811060f175d
+	AppAccessToken string `json:"app_access_token,omitempty"` // app 凭证，示例：a-32bd8551db2f081cbfd26293f27516390b9feb04
 }
 
 type getTenantAccessTokenResp struct {

@@ -6,13 +6,25 @@ import (
 
 // https://open.feishu.cn/document/ukTMukTMukTM/uADN14CM0UjLwQTN
 func (r *TokenAPI) GetAppAccessToken(ctx context.Context) (*TokenExpire, *Response, error) {
-	req := &requestParam{
-		Method: "POST",
-		URL:    "https://open.feishu.cn/open-apis/auth/v3/app_access_token/internal/",
-		Body: getTenantAccessTokenReq{
+	url := "https://open.feishu.cn/open-apis/auth/v3/app_access_token/internal/"
+	body := getTenantAccessTokenReq{
+		AppID:     r.cli.appID,
+		AppSecret: r.cli.appSecret,
+	}
+
+	if r.cli.tenantKey != "" {
+		url = "https://open.feishu.cn/open-apis/auth/v3/app_access_token/"
+		body = getTenantAccessTokenReq{
 			AppID:     r.cli.appID,
 			AppSecret: r.cli.appSecret,
-		},
+			AppTicket: "",
+		}
+	}
+
+	req := &requestParam{
+		Method: "POST",
+		URL:    url,
+		Body:   body,
 	}
 	resp := new(getTenantAccessTokenResp)
 

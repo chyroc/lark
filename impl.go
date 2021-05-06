@@ -1,25 +1,5 @@
 package lark
 
-import (
-	"net/http"
-	"time"
-)
-
-type Lark struct {
-	appID             string
-	appSecret         string
-	encryptKey        string
-	verificationToken string
-	helpdeskID        string
-	helpdeskToken     string
-
-	timeout    time.Duration
-	httpClient *http.Client
-
-	mock         *Mock
-	eventHandler *eventHandler
-}
-
 func (r *Lark) Chat() *ChatAPI {
 	return &ChatAPI{
 		cli: r,

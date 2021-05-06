@@ -49,6 +49,29 @@ type eventHandler struct {
 	eventVCMeetingShareEndedV1Handler       eventVCMeetingShareEndedV1Handler
 }
 
+func (r *eventHandler) clone() *eventHandler {
+	return &eventHandler{
+		eventIMMessageReceiveV1Handler:          r.eventIMMessageReceiveV1Handler,
+		eventIMMessageReadV1Handler:             r.eventIMMessageReadV1Handler,
+		eventIMChatDisbandedV1Handler:           r.eventIMChatDisbandedV1Handler,
+		eventIMChatUpdatedV1Handler:             r.eventIMChatUpdatedV1Handler,
+		eventIMChatMemberBotAddedV1Handler:      r.eventIMChatMemberBotAddedV1Handler,
+		eventIMChatMemberBotDeletedV1Handler:    r.eventIMChatMemberBotDeletedV1Handler,
+		eventIMChatMemberUserAddedV1Handler:     r.eventIMChatMemberUserAddedV1Handler,
+		eventIMChatMemberUserWithdrawnV1Handler: r.eventIMChatMemberUserWithdrawnV1Handler,
+		eventIMChatMemberUserDeletedV1Handler:   r.eventIMChatMemberUserDeletedV1Handler,
+		eventVCMeetingMeetingStartedV1Handler:   r.eventVCMeetingMeetingStartedV1Handler,
+		eventVCMeetingMeetingEndedV1Handler:     r.eventVCMeetingMeetingEndedV1Handler,
+		eventVCMeetingJoinMeetingV1Handler:      r.eventVCMeetingJoinMeetingV1Handler,
+		eventVCMeetingLeaveMeetingV1Handler:     r.eventVCMeetingLeaveMeetingV1Handler,
+		eventVCMeetingRecordingStartedV1Handler: r.eventVCMeetingRecordingStartedV1Handler,
+		eventVCMeetingRecordingEndedV1Handler:   r.eventVCMeetingRecordingEndedV1Handler,
+		eventVCMeetingRecordingReadyV1Handler:   r.eventVCMeetingRecordingReadyV1Handler,
+		eventVCMeetingShareStartedV1Handler:     r.eventVCMeetingShareStartedV1Handler,
+		eventVCMeetingShareEndedV1Handler:       r.eventVCMeetingShareEndedV1Handler,
+	}
+}
+
 type eventBody struct {
 	eventIMMessageReceiveV1          *EventIMMessageReceiveV1
 	eventIMMessageReadV1             *EventIMMessageReadV1

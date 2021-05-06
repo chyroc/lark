@@ -11,3 +11,9 @@ type Mock struct {
 func (r *Lark) Mock() *Mock {
 	return r.mock
 }
+
+func (r *Mock) clone() *Mock {
+	return &Mock{
+		mockGetTenantAccessToken: r.mockGetTenantAccessToken,
+	}
+}
