@@ -33,44 +33,25 @@ func Test_Helper(t *testing.T) {
 
 	t.Run("UnwrapMessageContent", func(t *testing.T) {
 		t.Run("image", func(t *testing.T) {
-			_, err := lark.UnwrapMessageContent(&lark.GetMessageRespItem{
-				Body: &lark.MessageBody{
-					Content: fmt.Sprintf(`{"image_key":"image-x"}`),
-				},
-			})
+			_, err := lark.UnwrapMessageContent(lark.MsgTypeShareChat, `{"image_key":"image-x"}`)
 			as.NotNil(err)
 			as.Contains(err.Error(), "unknown message type")
 		})
 
 		t.Run("image", func(t *testing.T) {
-			_, err := lark.UnwrapMessageContent(&lark.GetMessageRespItem{
-				MsgType: lark.MsgTypeText,
-				Body: &lark.MessageBody{
-					Content: fmt.Sprintf(``),
-				},
-			})
+			_, err := lark.UnwrapMessageContent(lark.MsgTypeText, "")
 			as.NotNil(err)
 			as.Contains(err.Error(), "invalid content")
 		})
 
 		t.Run("text", func(t *testing.T) {
-			res, err := lark.UnwrapMessageContent(&lark.GetMessageRespItem{
-				MsgType: lark.MsgTypeText,
-				Body: &lark.MessageBody{
-					Content: fmt.Sprintf(`{"text":"hi"}`),
-				},
-			})
+			res, err := lark.UnwrapMessageContent(lark.MsgTypeText, `{"text":"hi"}`)
 			as.Nil(err)
 			as.Equal("hi", res.Text)
 		})
 
 		t.Run("image", func(t *testing.T) {
-			res, err := lark.UnwrapMessageContent(&lark.GetMessageRespItem{
-				MsgType: lark.MsgTypeImage,
-				Body: &lark.MessageBody{
-					Content: fmt.Sprintf(`{"image_key":"image-x"}`),
-				},
-			})
+			res, err := lark.UnwrapMessageContent(lark.MsgTypeImage, `{"image_key":"image-x"}`)
 			as.Nil(err)
 			as.Equal("image-x", res.ImageKey)
 		})

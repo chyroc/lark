@@ -14,15 +14,15 @@ func GetErrorCode(err error) int {
 	return -1
 }
 
-func UnwrapMessageContent(resp *GetMessageRespItem) (*MessageContent, error) {
-	switch resp.MsgType {
+func UnwrapMessageContent(msgType MsgType, content string) (*MessageContent, error) {
+	switch msgType {
 	case "text", "image":
-		content := new(MessageContent)
-		err := json.Unmarshal([]byte(resp.Body.Content), content)
+		msg := new(MessageContent)
+		err := json.Unmarshal([]byte(content), msg)
 		if err != nil {
-			return nil, fmt.Errorf("invalid content: %s", resp.Body.Content)
+			return nil, fmt.Errorf("invalid content: %s, type: %v", content, msgType)
 		}
-		return content, nil
+		return msg, nil
 	}
-	return nil, fmt.Errorf("unknown message type: %s", resp.MsgType)
+	return nil, fmt.Errorf("unknown message type: %s", msgType)
 }
