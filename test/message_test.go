@@ -263,7 +263,7 @@ func Test_GetMessage(t *testing.T) {
 		as.Equal(MessageAdminSendTextInChatContainAllPermissionApp.ChatID, resp.Items[0].ChatID)
 		msgContent, err := lark.UnwrapMessageContent(resp.Items[0].MsgType, resp.Items[0].Body.Content)
 		as.Nil(err)
-		as.Equal("test", msgContent.Text)
+		as.Equal("test", msgContent.Text.Text)
 	})
 
 	t.Run("get-message-image", func(t *testing.T) {
