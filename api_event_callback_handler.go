@@ -7,8 +7,6 @@ import (
 	"io"
 	"io/ioutil"
 	"net/http"
-
-	"github.com/davecgh/go-spew/spew"
 )
 
 // https://open.feishu.cn/document/ukTMukTMukTM/uUTNz4SN1MjL1UzM#8f960a4b
@@ -61,8 +59,6 @@ func (r *EventCallbackAPI) parserReq(ctx context.Context, body []byte) (*eventRe
 			return nil, err
 		}
 	}
-
-	spew.Dump(req)
 
 	switch {
 	case req.Type == "url_verification":

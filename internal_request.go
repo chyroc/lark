@@ -11,11 +11,8 @@ import (
 	"mime/multipart"
 	"net/http"
 	"net/url"
-	"os"
 	"reflect"
 	"strings"
-
-	"github.com/davecgh/go-spew/spew"
 
 	"github.com/chyroc/lark/internal"
 )
@@ -34,7 +31,6 @@ func (r *Lark) request(ctx context.Context, req *requestParam, resp interface{})
 	if err != nil {
 		return nil, err
 	}
-	// spew.Dump(headers)
 	return request(ctx, r.httpClient, req, headers, resp)
 }
 
@@ -128,8 +124,6 @@ func parseRequestParam(req *requestParam) (*realRequestParam, error) {
 			}
 			continue
 		}
-		spew.Dump(req)
-		os.Exit(0)
 	}
 
 	if isNeedBody {
