@@ -190,7 +190,7 @@ func Test_CreateChat(t *testing.T) {
 	t.Run("CreateChat, AddMember, GetMemberList, DeleteMember, DeleteChat", func(t *testing.T) {
 		cli := lark.New(
 			lark.WithAppCredential(AppALLPermission.AppID, AppALLPermission.AppSecret),
-			lark.WithTimeout(time.Second*10),
+			lark.WithTimeout(time.Second*20),
 		)
 
 		chatID := ""

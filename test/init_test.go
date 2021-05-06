@@ -18,7 +18,7 @@ type App struct {
 func (r *App) Ins() *lark.Lark {
 	return lark.New(
 		lark.WithAppCredential(r.AppID, r.AppSecret),
-		lark.WithTimeout(time.Second*10),
+		lark.WithTimeout(time.Second*20),
 	)
 }
 
@@ -33,7 +33,7 @@ func (r *Helpdesk) Ins() *lark.Lark {
 	return lark.New(
 		lark.WithAppCredential(r.AppID, r.AppSecret),
 		lark.WithHelpdeskCredential(r.ID, r.Token),
-		lark.WithTimeout(time.Second*10),
+		lark.WithTimeout(time.Second*20),
 	)
 }
 
