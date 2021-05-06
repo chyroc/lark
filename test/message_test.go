@@ -182,6 +182,7 @@ func Test_GetMessage(t *testing.T) {
 				resp, _, err := AppALLPermission.Ins().Message().Send().ToChatID(ChatForSendMessage.ChatID).SendText(ctx, strconv.FormatInt(time.Now().Unix(), 10))
 				as.Nil(err)
 				messageID = resp.MessageID
+				msgIDs = append(msgIDs, messageID)
 			}
 
 			t.Run("text", func(t *testing.T) {
@@ -197,9 +198,32 @@ func Test_GetMessage(t *testing.T) {
 				// msgIDs= append(msgIDs, resp.MessageID)
 			})
 
-			t.Run("post", func(t *testing.T) {
+			t.Run("post-1", func(t *testing.T) {
 				s := `{"zh_cn": {"title": "我是一个标题","content": [[{"tag": "text","text": "文本"}]]}}`
 				resp, _, err := AppALLPermission.Ins().Message().Reply(messageID).SendPost(ctx, s)
+				as.Nil(err)
+				msgIDs = append(msgIDs, resp.MessageID)
+			})
+
+			t.Run("post-2", func(t *testing.T) {
+				s2 := lark.MessageContentPostALL{
+					ZhCn: &lark.MessageContentPost{
+						Title: "标题",
+						Content: [][]lark.MessageContentPostItem{
+							{
+								lark.MessageContentPostText{
+									Text: "文本",
+								},
+							},
+							{
+								lark.MessageContentPostAt{
+									UserID: UserAdmin.OpenID,
+								},
+							},
+						},
+					},
+				}
+				resp, _, err := AppALLPermission.Ins().Message().Reply(messageID).SendPost(ctx, s2.String())
 				as.Nil(err)
 				msgIDs = append(msgIDs, resp.MessageID)
 			})

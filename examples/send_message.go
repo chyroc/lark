@@ -38,13 +38,37 @@ func ExampleSendMessage() {
 
 	// send post message
 	{
-		resp, _, err := cli.Message().Send().ToChatID("<CHAT_ID>").SendPost(ctx, "<POST>")
-		fmt.Println(resp, err)
+		// send post message with string
+		{
+			resp, _, err := cli.Message().Send().ToChatID("<CHAT_ID>").SendPost(ctx, "<POST_MESSAGE_CONTENT>")
+			fmt.Println(resp, err)
+		}
+
+		// send post message with struct
+		{
+			data := &lark.MessageContentPostALL{
+				ZhCn: &lark.MessageContentPost{
+					Title: "<TITLE>",
+					Content: [][]lark.MessageContentPostItem{
+						{
+							lark.MessageContentPostText{Text: "<TEXT>"},
+						},
+						{
+							lark.MessageContentPostAt{UserID: "<OPEN_ID>"},
+						},
+					},
+				},
+				JaJp: nil,
+				EnUs: nil,
+			}
+			resp, _, err := cli.Message().Send().ToChatID("<CHAT_ID>").SendPost(ctx, data.String())
+			fmt.Println(resp, err)
+		}
 	}
 
 	// send card message
 	{
-		resp, _, err := cli.Message().Send().ToChatID("<CHAT_ID>").SendCard(ctx, "<CARD>")
+		resp, _, err := cli.Message().Send().ToChatID("<CHAT_ID>").SendCard(ctx, "<CARD_MESSAGE_CONTENT>")
 		fmt.Println(resp, err)
 	}
 
