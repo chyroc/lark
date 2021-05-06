@@ -1,4 +1,4 @@
-package main
+package example
 
 import (
 	"context"
@@ -9,7 +9,7 @@ import (
 
 // send excel file example
 // 发送 excel 文件例子
-func main() {
+func example() {
 	appID := "<APP_ID>"
 	appSecret := "<APP_SECRET>"
 	chatID := "<CHAT_ID>"
