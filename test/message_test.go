@@ -281,7 +281,7 @@ func Test_GetMessage(t *testing.T) {
 			as.Contains(resp.Items[0].Body.Content, "image_key")
 			msgContent, err := lark.UnwrapMessageContent(resp.Items[0].MsgType, resp.Items[0].Body.Content)
 			as.Nil(err)
-			messageFile = msgContent.ImageKey
+			messageFile = msgContent.Image.ImageKey
 		}
 
 		{

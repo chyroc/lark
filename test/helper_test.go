@@ -84,7 +84,7 @@ func Test_Helper(t *testing.T) {
 
 	t.Run("UnwrapMessageContent", func(t *testing.T) {
 		t.Run("image", func(t *testing.T) {
-			_, err := lark.UnwrapMessageContent(lark.MsgTypeShareChat, `{"image_key":"image-x"}`)
+			_, err := lark.UnwrapMessageContent(lark.MsgTypeInteractive, `{"image_key":"image-x"}`)
 			as.NotNil(err)
 			as.Contains(err.Error(), "unknown message type")
 		})
@@ -98,13 +98,13 @@ func Test_Helper(t *testing.T) {
 		t.Run("text", func(t *testing.T) {
 			res, err := lark.UnwrapMessageContent(lark.MsgTypeText, `{"text":"hi"}`)
 			as.Nil(err)
-			as.Equal("hi", res.Text)
+			as.Equal("hi", res.Text.Text)
 		})
 
 		t.Run("image", func(t *testing.T) {
 			res, err := lark.UnwrapMessageContent(lark.MsgTypeImage, `{"image_key":"image-x"}`)
 			as.Nil(err)
-			as.Equal("image-x", res.ImageKey)
+			as.Equal("image-x", res.Image.ImageKey)
 		})
 	})
 
