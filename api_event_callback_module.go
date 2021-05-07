@@ -2,95 +2,104 @@ package lark
 
 import (
 	"context"
+	"encoding/json"
 	"fmt"
 )
 
 type EventType string
 
 const (
-	EventTypeIMMessageReceiveV1          EventType = "im.message.receive_v1"
-	EventTypeIMMessageReadV1             EventType = "im.message.message_read_v1"
-	EventTypeIMChatDisbandedV1           EventType = "im.chat.disbanded_v1"
-	EventTypeIMChatUpdatedV1             EventType = "im.chat.updated_v1"
-	EventTypeIMChatMemberBotAddedV1      EventType = "im.chat.member.bot.added_v1"
-	EventTypeIMChatMemberBotDeletedV1    EventType = "im.chat.member.bot.deleted_v1"
-	EventTypeIMChatMemberUserAddedV1     EventType = "im.chat.member.user.added_v1"
-	EventTypeIMChatMemberUserWithdrawnV1 EventType = "im.chat.member.user.withdrawn_v1"
-	EventTypeIMChatMemberUserDeletedV1   EventType = "im.chat.member.user.deleted_v1"
-	EventTypeVCMeetingMeetingStartedV1   EventType = "vc.meeting.meeting_started_v1"
-	EventTypeVCMeetingMeetingEndedV1     EventType = "vc.meeting.meeting_ended_v1"
-	EventTypeVCMeetingJoinMeetingV1      EventType = "vc.meeting.join_meeting_v1"
-	EventTypeVCMeetingLeaveMeetingV1     EventType = "vc.meeting.leave_meeting_v1"
-	EventTypeVCMeetingRecordingStartedV1 EventType = "vc.meeting.recording_started_v1"
-	EventTypeVCMeetingRecordingEndedV1   EventType = "vc.meeting.recording_ended_v1"
-	EventTypeVCMeetingRecordingReadyV1   EventType = "vc.meeting.recording_ready_v1"
-	EventTypeVCMeetingShareStartedV1     EventType = "vc.meeting.share_started_v1"
-	EventTypeVCMeetingShareEndedV1       EventType = "vc.meeting.share_ended_v1"
+	EventTypeV2IMMessageReceiveV1          EventType = "im.message.receive_v1"
+	EventTypeV2IMMessageReadV1             EventType = "im.message.message_read_v1"
+	EventTypeV2IMChatDisbandedV1           EventType = "im.chat.disbanded_v1"
+	EventTypeV2IMChatUpdatedV1             EventType = "im.chat.updated_v1"
+	EventTypeV2IMChatMemberBotAddedV1      EventType = "im.chat.member.bot.added_v1"
+	EventTypeV2IMChatMemberBotDeletedV1    EventType = "im.chat.member.bot.deleted_v1"
+	EventTypeV2IMChatMemberUserAddedV1     EventType = "im.chat.member.user.added_v1"
+	EventTypeV2IMChatMemberUserWithdrawnV1 EventType = "im.chat.member.user.withdrawn_v1"
+	EventTypeV2IMChatMemberUserDeletedV1   EventType = "im.chat.member.user.deleted_v1"
+	EventTypeV2VCMeetingMeetingStartedV1   EventType = "vc.meeting.meeting_started_v1"
+	EventTypeV2VCMeetingMeetingEndedV1     EventType = "vc.meeting.meeting_ended_v1"
+	EventTypeV2VCMeetingJoinMeetingV1      EventType = "vc.meeting.join_meeting_v1"
+	EventTypeV2VCMeetingLeaveMeetingV1     EventType = "vc.meeting.leave_meeting_v1"
+	EventTypeV2VCMeetingRecordingStartedV1 EventType = "vc.meeting.recording_started_v1"
+	EventTypeV2VCMeetingRecordingEndedV1   EventType = "vc.meeting.recording_ended_v1"
+	EventTypeV2VCMeetingRecordingReadyV1   EventType = "vc.meeting.recording_ready_v1"
+	EventTypeV2VCMeetingShareStartedV1     EventType = "vc.meeting.share_started_v1"
+	EventTypeV2VCMeetingShareEndedV1       EventType = "vc.meeting.share_ended_v1"
+	EventTypeV1P2PChatCreate               EventType = "p2p_chat_create"
+	EventTypeV1AddUserToChat               EventType = "add_user_to_chat"
 )
 
 type eventHandler struct {
-	eventIMMessageReceiveV1Handler          eventIMMessageReceiveV1Handler
-	eventIMMessageReadV1Handler             eventIMMessageReadV1Handler
-	eventIMChatDisbandedV1Handler           eventIMChatDisbandedV1Handler
-	eventIMChatUpdatedV1Handler             eventIMChatUpdatedV1Handler
-	eventIMChatMemberBotAddedV1Handler      eventIMChatMemberBotAddedV1Handler
-	eventIMChatMemberBotDeletedV1Handler    eventIMChatMemberBotDeletedV1Handler
-	eventIMChatMemberUserAddedV1Handler     eventIMChatMemberUserAddedV1Handler
-	eventIMChatMemberUserWithdrawnV1Handler eventIMChatMemberUserWithdrawnV1Handler
-	eventIMChatMemberUserDeletedV1Handler   eventIMChatMemberUserDeletedV1Handler
-	eventVCMeetingMeetingStartedV1Handler   eventVCMeetingMeetingStartedV1Handler
-	eventVCMeetingMeetingEndedV1Handler     eventVCMeetingMeetingEndedV1Handler
-	eventVCMeetingJoinMeetingV1Handler      eventVCMeetingJoinMeetingV1Handler
-	eventVCMeetingLeaveMeetingV1Handler     eventVCMeetingLeaveMeetingV1Handler
-	eventVCMeetingRecordingStartedV1Handler eventVCMeetingRecordingStartedV1Handler
-	eventVCMeetingRecordingEndedV1Handler   eventVCMeetingRecordingEndedV1Handler
-	eventVCMeetingRecordingReadyV1Handler   eventVCMeetingRecordingReadyV1Handler
-	eventVCMeetingShareStartedV1Handler     eventVCMeetingShareStartedV1Handler
-	eventVCMeetingShareEndedV1Handler       eventVCMeetingShareEndedV1Handler
+	eventV2IMMessageReceiveV1Handler          eventV2IMMessageReceiveV1Handler
+	eventV2IMMessageReadV1Handler             eventV2IMMessageReadV1Handler
+	eventV2IMChatDisbandedV1Handler           eventV2IMChatDisbandedV1Handler
+	eventV2IMChatUpdatedV1Handler             eventV2IMChatUpdatedV1Handler
+	eventV2IMChatMemberBotAddedV1Handler      eventV2IMChatMemberBotAddedV1Handler
+	eventV2IMChatMemberBotDeletedV1Handler    eventV2IMChatMemberBotDeletedV1Handler
+	eventV2IMChatMemberUserAddedV1Handler     eventV2IMChatMemberUserAddedV1Handler
+	eventV2IMChatMemberUserWithdrawnV1Handler eventV2IMChatMemberUserWithdrawnV1Handler
+	eventV2IMChatMemberUserDeletedV1Handler   eventV2IMChatMemberUserDeletedV1Handler
+	eventV2VCMeetingMeetingStartedV1Handler   eventV2VCMeetingMeetingStartedV1Handler
+	eventV2VCMeetingMeetingEndedV1Handler     eventV2VCMeetingMeetingEndedV1Handler
+	eventV2VCMeetingJoinMeetingV1Handler      eventV2VCMeetingJoinMeetingV1Handler
+	eventV2VCMeetingLeaveMeetingV1Handler     eventV2VCMeetingLeaveMeetingV1Handler
+	eventV2VCMeetingRecordingStartedV1Handler eventV2VCMeetingRecordingStartedV1Handler
+	eventV2VCMeetingRecordingEndedV1Handler   eventV2VCMeetingRecordingEndedV1Handler
+	eventV2VCMeetingRecordingReadyV1Handler   eventV2VCMeetingRecordingReadyV1Handler
+	eventV2VCMeetingShareStartedV1Handler     eventV2VCMeetingShareStartedV1Handler
+	eventV2VCMeetingShareEndedV1Handler       eventV2VCMeetingShareEndedV1Handler
+	eventV1P2PChatCreateHandler               eventV1P2PChatCreateHandler
+	eventV1AddUserToChatHandler               eventV1AddUserToChatHandler
 }
 
 func (r *eventHandler) clone() *eventHandler {
 	return &eventHandler{
-		eventIMMessageReceiveV1Handler:          r.eventIMMessageReceiveV1Handler,
-		eventIMMessageReadV1Handler:             r.eventIMMessageReadV1Handler,
-		eventIMChatDisbandedV1Handler:           r.eventIMChatDisbandedV1Handler,
-		eventIMChatUpdatedV1Handler:             r.eventIMChatUpdatedV1Handler,
-		eventIMChatMemberBotAddedV1Handler:      r.eventIMChatMemberBotAddedV1Handler,
-		eventIMChatMemberBotDeletedV1Handler:    r.eventIMChatMemberBotDeletedV1Handler,
-		eventIMChatMemberUserAddedV1Handler:     r.eventIMChatMemberUserAddedV1Handler,
-		eventIMChatMemberUserWithdrawnV1Handler: r.eventIMChatMemberUserWithdrawnV1Handler,
-		eventIMChatMemberUserDeletedV1Handler:   r.eventIMChatMemberUserDeletedV1Handler,
-		eventVCMeetingMeetingStartedV1Handler:   r.eventVCMeetingMeetingStartedV1Handler,
-		eventVCMeetingMeetingEndedV1Handler:     r.eventVCMeetingMeetingEndedV1Handler,
-		eventVCMeetingJoinMeetingV1Handler:      r.eventVCMeetingJoinMeetingV1Handler,
-		eventVCMeetingLeaveMeetingV1Handler:     r.eventVCMeetingLeaveMeetingV1Handler,
-		eventVCMeetingRecordingStartedV1Handler: r.eventVCMeetingRecordingStartedV1Handler,
-		eventVCMeetingRecordingEndedV1Handler:   r.eventVCMeetingRecordingEndedV1Handler,
-		eventVCMeetingRecordingReadyV1Handler:   r.eventVCMeetingRecordingReadyV1Handler,
-		eventVCMeetingShareStartedV1Handler:     r.eventVCMeetingShareStartedV1Handler,
-		eventVCMeetingShareEndedV1Handler:       r.eventVCMeetingShareEndedV1Handler,
+		eventV2IMMessageReceiveV1Handler:          r.eventV2IMMessageReceiveV1Handler,
+		eventV2IMMessageReadV1Handler:             r.eventV2IMMessageReadV1Handler,
+		eventV2IMChatDisbandedV1Handler:           r.eventV2IMChatDisbandedV1Handler,
+		eventV2IMChatUpdatedV1Handler:             r.eventV2IMChatUpdatedV1Handler,
+		eventV2IMChatMemberBotAddedV1Handler:      r.eventV2IMChatMemberBotAddedV1Handler,
+		eventV2IMChatMemberBotDeletedV1Handler:    r.eventV2IMChatMemberBotDeletedV1Handler,
+		eventV2IMChatMemberUserAddedV1Handler:     r.eventV2IMChatMemberUserAddedV1Handler,
+		eventV2IMChatMemberUserWithdrawnV1Handler: r.eventV2IMChatMemberUserWithdrawnV1Handler,
+		eventV2IMChatMemberUserDeletedV1Handler:   r.eventV2IMChatMemberUserDeletedV1Handler,
+		eventV2VCMeetingMeetingStartedV1Handler:   r.eventV2VCMeetingMeetingStartedV1Handler,
+		eventV2VCMeetingMeetingEndedV1Handler:     r.eventV2VCMeetingMeetingEndedV1Handler,
+		eventV2VCMeetingJoinMeetingV1Handler:      r.eventV2VCMeetingJoinMeetingV1Handler,
+		eventV2VCMeetingLeaveMeetingV1Handler:     r.eventV2VCMeetingLeaveMeetingV1Handler,
+		eventV2VCMeetingRecordingStartedV1Handler: r.eventV2VCMeetingRecordingStartedV1Handler,
+		eventV2VCMeetingRecordingEndedV1Handler:   r.eventV2VCMeetingRecordingEndedV1Handler,
+		eventV2VCMeetingRecordingReadyV1Handler:   r.eventV2VCMeetingRecordingReadyV1Handler,
+		eventV2VCMeetingShareStartedV1Handler:     r.eventV2VCMeetingShareStartedV1Handler,
+		eventV2VCMeetingShareEndedV1Handler:       r.eventV2VCMeetingShareEndedV1Handler,
+		eventV1P2PChatCreateHandler:               r.eventV1P2PChatCreateHandler,
+		eventV1AddUserToChatHandler:               r.eventV1AddUserToChatHandler,
 	}
 }
 
 type eventBody struct {
-	eventIMMessageReceiveV1          *EventIMMessageReceiveV1
-	eventIMMessageReadV1             *EventIMMessageReadV1
-	eventIMChatDisbandedV1           *EventIMChatDisbandedV1
-	eventIMChatUpdatedV1             *EventIMChatUpdatedV1
-	eventIMChatMemberBotAddedV1      *EventIMChatMemberBotAddedV1
-	eventIMChatMemberBotDeletedV1    *EventIMChatMemberBotDeletedV1
-	eventIMChatMemberUserAddedV1     *EventIMChatMemberUserAddedV1
-	eventIMChatMemberUserWithdrawnV1 *EventIMChatMemberUserWithdrawnV1
-	eventIMChatMemberUserDeletedV1   *EventIMChatMemberUserDeletedV1
-	eventVCMeetingMeetingStartedV1   *EventVCMeetingMeetingStartedV1
-	eventVCMeetingMeetingEndedV1     *EventVCMeetingMeetingEndedV1
-	eventVCMeetingJoinMeetingV1      *EventVCMeetingJoinMeetingV1
-	eventVCMeetingLeaveMeetingV1     *EventVCMeetingLeaveMeetingV1
-	eventVCMeetingRecordingStartedV1 *EventVCMeetingRecordingStartedV1
-	eventVCMeetingRecordingEndedV1   *EventVCMeetingRecordingEndedV1
-	eventVCMeetingRecordingReadyV1   *EventVCMeetingRecordingReadyV1
-	eventVCMeetingShareStartedV1     *EventVCMeetingShareStartedV1
-	eventVCMeetingShareEndedV1       *EventVCMeetingShareEndedV1
+	eventV2IMMessageReceiveV1          *EventV2IMMessageReceiveV1
+	eventV2IMMessageReadV1             *EventV2IMMessageReadV1
+	eventV2IMChatDisbandedV1           *EventV2IMChatDisbandedV1
+	eventV2IMChatUpdatedV1             *EventV2IMChatUpdatedV1
+	eventV2IMChatMemberBotAddedV1      *EventV2IMChatMemberBotAddedV1
+	eventV2IMChatMemberBotDeletedV1    *EventV2IMChatMemberBotDeletedV1
+	eventV2IMChatMemberUserAddedV1     *EventV2IMChatMemberUserAddedV1
+	eventV2IMChatMemberUserWithdrawnV1 *EventV2IMChatMemberUserWithdrawnV1
+	eventV2IMChatMemberUserDeletedV1   *EventV2IMChatMemberUserDeletedV1
+	eventV2VCMeetingMeetingStartedV1   *EventV2VCMeetingMeetingStartedV1
+	eventV2VCMeetingMeetingEndedV1     *EventV2VCMeetingMeetingEndedV1
+	eventV2VCMeetingJoinMeetingV1      *EventV2VCMeetingJoinMeetingV1
+	eventV2VCMeetingLeaveMeetingV1     *EventV2VCMeetingLeaveMeetingV1
+	eventV2VCMeetingRecordingStartedV1 *EventV2VCMeetingRecordingStartedV1
+	eventV2VCMeetingRecordingEndedV1   *EventV2VCMeetingRecordingEndedV1
+	eventV2VCMeetingRecordingReadyV1   *EventV2VCMeetingRecordingReadyV1
+	eventV2VCMeetingShareStartedV1     *EventV2VCMeetingShareStartedV1
+	eventV2VCMeetingShareEndedV1       *EventV2VCMeetingShareEndedV1
+	eventV1P2PChatCreate               *EventV1P2PChatCreate
+	eventV1AddUserToChat               *EventV1AddUserToChat
 }
 
 func (r *EventCallbackAPI) parserEventV2(req *eventReq) error {
@@ -99,209 +108,259 @@ func (r *EventCallbackAPI) parserEventV2(req *eventReq) error {
 	}
 
 	switch req.Header.EventType {
-	case EventTypeIMMessageReceiveV1:
-		event := new(EventIMMessageReceiveV1)
+	case EventTypeV2IMMessageReceiveV1:
+		event := new(EventV2IMMessageReceiveV1)
 		if err := req.unmarshalEvent(event); err != nil {
 			return err
 		}
-		req.eventIMMessageReceiveV1 = event
-	case EventTypeIMMessageReadV1:
-		event := new(EventIMMessageReadV1)
+		req.eventV2IMMessageReceiveV1 = event
+	case EventTypeV2IMMessageReadV1:
+		event := new(EventV2IMMessageReadV1)
 		if err := req.unmarshalEvent(event); err != nil {
 			return err
 		}
-		req.eventIMMessageReadV1 = event
-	case EventTypeIMChatDisbandedV1:
-		event := new(EventIMChatDisbandedV1)
+		req.eventV2IMMessageReadV1 = event
+	case EventTypeV2IMChatDisbandedV1:
+		event := new(EventV2IMChatDisbandedV1)
 		if err := req.unmarshalEvent(event); err != nil {
 			return err
 		}
-		req.eventIMChatDisbandedV1 = event
-	case EventTypeIMChatUpdatedV1:
-		event := new(EventIMChatUpdatedV1)
+		req.eventV2IMChatDisbandedV1 = event
+	case EventTypeV2IMChatUpdatedV1:
+		event := new(EventV2IMChatUpdatedV1)
 		if err := req.unmarshalEvent(event); err != nil {
 			return err
 		}
-		req.eventIMChatUpdatedV1 = event
-	case EventTypeIMChatMemberBotAddedV1:
-		event := new(EventIMChatMemberBotAddedV1)
+		req.eventV2IMChatUpdatedV1 = event
+	case EventTypeV2IMChatMemberBotAddedV1:
+		event := new(EventV2IMChatMemberBotAddedV1)
 		if err := req.unmarshalEvent(event); err != nil {
 			return err
 		}
-		req.eventIMChatMemberBotAddedV1 = event
-	case EventTypeIMChatMemberBotDeletedV1:
-		event := new(EventIMChatMemberBotDeletedV1)
+		req.eventV2IMChatMemberBotAddedV1 = event
+	case EventTypeV2IMChatMemberBotDeletedV1:
+		event := new(EventV2IMChatMemberBotDeletedV1)
 		if err := req.unmarshalEvent(event); err != nil {
 			return err
 		}
-		req.eventIMChatMemberBotDeletedV1 = event
-	case EventTypeIMChatMemberUserAddedV1:
-		event := new(EventIMChatMemberUserAddedV1)
+		req.eventV2IMChatMemberBotDeletedV1 = event
+	case EventTypeV2IMChatMemberUserAddedV1:
+		event := new(EventV2IMChatMemberUserAddedV1)
 		if err := req.unmarshalEvent(event); err != nil {
 			return err
 		}
-		req.eventIMChatMemberUserAddedV1 = event
-	case EventTypeIMChatMemberUserWithdrawnV1:
-		event := new(EventIMChatMemberUserWithdrawnV1)
+		req.eventV2IMChatMemberUserAddedV1 = event
+	case EventTypeV2IMChatMemberUserWithdrawnV1:
+		event := new(EventV2IMChatMemberUserWithdrawnV1)
 		if err := req.unmarshalEvent(event); err != nil {
 			return err
 		}
-		req.eventIMChatMemberUserWithdrawnV1 = event
-	case EventTypeIMChatMemberUserDeletedV1:
-		event := new(EventIMChatMemberUserDeletedV1)
+		req.eventV2IMChatMemberUserWithdrawnV1 = event
+	case EventTypeV2IMChatMemberUserDeletedV1:
+		event := new(EventV2IMChatMemberUserDeletedV1)
 		if err := req.unmarshalEvent(event); err != nil {
 			return err
 		}
-		req.eventIMChatMemberUserDeletedV1 = event
-	case EventTypeVCMeetingMeetingStartedV1:
-		event := new(EventVCMeetingMeetingStartedV1)
+		req.eventV2IMChatMemberUserDeletedV1 = event
+	case EventTypeV2VCMeetingMeetingStartedV1:
+		event := new(EventV2VCMeetingMeetingStartedV1)
 		if err := req.unmarshalEvent(event); err != nil {
 			return err
 		}
-		req.eventVCMeetingMeetingStartedV1 = event
-	case EventTypeVCMeetingMeetingEndedV1:
-		event := new(EventVCMeetingMeetingEndedV1)
+		req.eventV2VCMeetingMeetingStartedV1 = event
+	case EventTypeV2VCMeetingMeetingEndedV1:
+		event := new(EventV2VCMeetingMeetingEndedV1)
 		if err := req.unmarshalEvent(event); err != nil {
 			return err
 		}
-		req.eventVCMeetingMeetingEndedV1 = event
-	case EventTypeVCMeetingJoinMeetingV1:
-		event := new(EventVCMeetingJoinMeetingV1)
+		req.eventV2VCMeetingMeetingEndedV1 = event
+	case EventTypeV2VCMeetingJoinMeetingV1:
+		event := new(EventV2VCMeetingJoinMeetingV1)
 		if err := req.unmarshalEvent(event); err != nil {
 			return err
 		}
-		req.eventVCMeetingJoinMeetingV1 = event
-	case EventTypeVCMeetingLeaveMeetingV1:
-		event := new(EventVCMeetingLeaveMeetingV1)
+		req.eventV2VCMeetingJoinMeetingV1 = event
+	case EventTypeV2VCMeetingLeaveMeetingV1:
+		event := new(EventV2VCMeetingLeaveMeetingV1)
 		if err := req.unmarshalEvent(event); err != nil {
 			return err
 		}
-		req.eventVCMeetingLeaveMeetingV1 = event
-	case EventTypeVCMeetingRecordingStartedV1:
-		event := new(EventVCMeetingRecordingStartedV1)
+		req.eventV2VCMeetingLeaveMeetingV1 = event
+	case EventTypeV2VCMeetingRecordingStartedV1:
+		event := new(EventV2VCMeetingRecordingStartedV1)
 		if err := req.unmarshalEvent(event); err != nil {
 			return err
 		}
-		req.eventVCMeetingRecordingStartedV1 = event
-	case EventTypeVCMeetingRecordingEndedV1:
-		event := new(EventVCMeetingRecordingEndedV1)
+		req.eventV2VCMeetingRecordingStartedV1 = event
+	case EventTypeV2VCMeetingRecordingEndedV1:
+		event := new(EventV2VCMeetingRecordingEndedV1)
 		if err := req.unmarshalEvent(event); err != nil {
 			return err
 		}
-		req.eventVCMeetingRecordingEndedV1 = event
-	case EventTypeVCMeetingRecordingReadyV1:
-		event := new(EventVCMeetingRecordingReadyV1)
+		req.eventV2VCMeetingRecordingEndedV1 = event
+	case EventTypeV2VCMeetingRecordingReadyV1:
+		event := new(EventV2VCMeetingRecordingReadyV1)
 		if err := req.unmarshalEvent(event); err != nil {
 			return err
 		}
-		req.eventVCMeetingRecordingReadyV1 = event
-	case EventTypeVCMeetingShareStartedV1:
-		event := new(EventVCMeetingShareStartedV1)
+		req.eventV2VCMeetingRecordingReadyV1 = event
+	case EventTypeV2VCMeetingShareStartedV1:
+		event := new(EventV2VCMeetingShareStartedV1)
 		if err := req.unmarshalEvent(event); err != nil {
 			return err
 		}
-		req.eventVCMeetingShareStartedV1 = event
-	case EventTypeVCMeetingShareEndedV1:
-		event := new(EventVCMeetingShareEndedV1)
+		req.eventV2VCMeetingShareStartedV1 = event
+	case EventTypeV2VCMeetingShareEndedV1:
+		event := new(EventV2VCMeetingShareEndedV1)
 		if err := req.unmarshalEvent(event); err != nil {
 			return err
 		}
-		req.eventVCMeetingShareEndedV1 = event
+		req.eventV2VCMeetingShareEndedV1 = event
 	}
 
 	return nil
 }
 
+// https://open.feishu.cn/document/ukTMukTMukTM/uYDNxYjL2QTM24iN0EjN/bot-events
+func (r *EventCallbackAPI) parserEventV1(req *eventReq) error {
+	if req.UUID == "" {
+		return fmt.Errorf("get schema=1.0, but uuid is nil")
+	}
+
+	bs, err := json.Marshal(req.Event)
+	if err != nil {
+		return err
+	}
+
+	v1type := new(v1type)
+	if err = json.Unmarshal(bs, v1type); err != nil {
+		return err
+	}
+
+	switch v1type.Type {
+	case EventTypeV1P2PChatCreate:
+		event := new(EventV1P2PChatCreate)
+		if err := json.Unmarshal(bs, event); err != nil {
+			return fmt.Errorf("lark event unmarshal event %s failed", bs)
+		}
+
+		req.eventV1P2PChatCreate = event
+	case EventTypeV1AddUserToChat:
+		event := new(EventV1AddUserToChat)
+		if err := json.Unmarshal(bs, event); err != nil {
+			return fmt.Errorf("lark event unmarshal event %s failed", bs)
+		}
+
+		req.eventV1AddUserToChat = event
+	}
+
+	return nil
+}
+
+type v1type struct {
+	Type EventType `json:"type"`
+}
+
 func (r *EventCallbackAPI) handlerEventV2(ctx context.Context, req *eventReq) (handled bool, s string, err error) {
 	switch {
-	case req.eventIMMessageReceiveV1 != nil:
-		if r.cli.eventHandler.eventIMMessageReceiveV1Handler != nil {
-			s, err = r.cli.eventHandler.eventIMMessageReceiveV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventIMMessageReceiveV1)
+	case req.eventV2IMMessageReceiveV1 != nil:
+		if r.cli.eventHandler.eventV2IMMessageReceiveV1Handler != nil {
+			s, err = r.cli.eventHandler.eventV2IMMessageReceiveV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2IMMessageReceiveV1)
 		}
 		return true, s, err
-	case req.eventIMMessageReadV1 != nil:
-		if r.cli.eventHandler.eventIMMessageReadV1Handler != nil {
-			s, err = r.cli.eventHandler.eventIMMessageReadV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventIMMessageReadV1)
+	case req.eventV2IMMessageReadV1 != nil:
+		if r.cli.eventHandler.eventV2IMMessageReadV1Handler != nil {
+			s, err = r.cli.eventHandler.eventV2IMMessageReadV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2IMMessageReadV1)
 		}
 		return true, s, err
-	case req.eventIMChatDisbandedV1 != nil:
-		if r.cli.eventHandler.eventIMChatDisbandedV1Handler != nil {
-			s, err = r.cli.eventHandler.eventIMChatDisbandedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventIMChatDisbandedV1)
+	case req.eventV2IMChatDisbandedV1 != nil:
+		if r.cli.eventHandler.eventV2IMChatDisbandedV1Handler != nil {
+			s, err = r.cli.eventHandler.eventV2IMChatDisbandedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2IMChatDisbandedV1)
 		}
 		return true, s, err
-	case req.eventIMChatUpdatedV1 != nil:
-		if r.cli.eventHandler.eventIMChatUpdatedV1Handler != nil {
-			s, err = r.cli.eventHandler.eventIMChatUpdatedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventIMChatUpdatedV1)
+	case req.eventV2IMChatUpdatedV1 != nil:
+		if r.cli.eventHandler.eventV2IMChatUpdatedV1Handler != nil {
+			s, err = r.cli.eventHandler.eventV2IMChatUpdatedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2IMChatUpdatedV1)
 		}
 		return true, s, err
-	case req.eventIMChatMemberBotAddedV1 != nil:
-		if r.cli.eventHandler.eventIMChatMemberBotAddedV1Handler != nil {
-			s, err = r.cli.eventHandler.eventIMChatMemberBotAddedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventIMChatMemberBotAddedV1)
+	case req.eventV2IMChatMemberBotAddedV1 != nil:
+		if r.cli.eventHandler.eventV2IMChatMemberBotAddedV1Handler != nil {
+			s, err = r.cli.eventHandler.eventV2IMChatMemberBotAddedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2IMChatMemberBotAddedV1)
 		}
 		return true, s, err
-	case req.eventIMChatMemberBotDeletedV1 != nil:
-		if r.cli.eventHandler.eventIMChatMemberBotDeletedV1Handler != nil {
-			s, err = r.cli.eventHandler.eventIMChatMemberBotDeletedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventIMChatMemberBotDeletedV1)
+	case req.eventV2IMChatMemberBotDeletedV1 != nil:
+		if r.cli.eventHandler.eventV2IMChatMemberBotDeletedV1Handler != nil {
+			s, err = r.cli.eventHandler.eventV2IMChatMemberBotDeletedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2IMChatMemberBotDeletedV1)
 		}
 		return true, s, err
-	case req.eventIMChatMemberUserAddedV1 != nil:
-		if r.cli.eventHandler.eventIMChatMemberUserAddedV1Handler != nil {
-			s, err = r.cli.eventHandler.eventIMChatMemberUserAddedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventIMChatMemberUserAddedV1)
+	case req.eventV2IMChatMemberUserAddedV1 != nil:
+		if r.cli.eventHandler.eventV2IMChatMemberUserAddedV1Handler != nil {
+			s, err = r.cli.eventHandler.eventV2IMChatMemberUserAddedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2IMChatMemberUserAddedV1)
 		}
 		return true, s, err
-	case req.eventIMChatMemberUserWithdrawnV1 != nil:
-		if r.cli.eventHandler.eventIMChatMemberUserWithdrawnV1Handler != nil {
-			s, err = r.cli.eventHandler.eventIMChatMemberUserWithdrawnV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventIMChatMemberUserWithdrawnV1)
+	case req.eventV2IMChatMemberUserWithdrawnV1 != nil:
+		if r.cli.eventHandler.eventV2IMChatMemberUserWithdrawnV1Handler != nil {
+			s, err = r.cli.eventHandler.eventV2IMChatMemberUserWithdrawnV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2IMChatMemberUserWithdrawnV1)
 		}
 		return true, s, err
-	case req.eventIMChatMemberUserDeletedV1 != nil:
-		if r.cli.eventHandler.eventIMChatMemberUserDeletedV1Handler != nil {
-			s, err = r.cli.eventHandler.eventIMChatMemberUserDeletedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventIMChatMemberUserDeletedV1)
+	case req.eventV2IMChatMemberUserDeletedV1 != nil:
+		if r.cli.eventHandler.eventV2IMChatMemberUserDeletedV1Handler != nil {
+			s, err = r.cli.eventHandler.eventV2IMChatMemberUserDeletedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2IMChatMemberUserDeletedV1)
 		}
 		return true, s, err
-	case req.eventVCMeetingMeetingStartedV1 != nil:
-		if r.cli.eventHandler.eventVCMeetingMeetingStartedV1Handler != nil {
-			s, err = r.cli.eventHandler.eventVCMeetingMeetingStartedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventVCMeetingMeetingStartedV1)
+	case req.eventV2VCMeetingMeetingStartedV1 != nil:
+		if r.cli.eventHandler.eventV2VCMeetingMeetingStartedV1Handler != nil {
+			s, err = r.cli.eventHandler.eventV2VCMeetingMeetingStartedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2VCMeetingMeetingStartedV1)
 		}
 		return true, s, err
-	case req.eventVCMeetingMeetingEndedV1 != nil:
-		if r.cli.eventHandler.eventVCMeetingMeetingEndedV1Handler != nil {
-			s, err = r.cli.eventHandler.eventVCMeetingMeetingEndedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventVCMeetingMeetingEndedV1)
+	case req.eventV2VCMeetingMeetingEndedV1 != nil:
+		if r.cli.eventHandler.eventV2VCMeetingMeetingEndedV1Handler != nil {
+			s, err = r.cli.eventHandler.eventV2VCMeetingMeetingEndedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2VCMeetingMeetingEndedV1)
 		}
 		return true, s, err
-	case req.eventVCMeetingJoinMeetingV1 != nil:
-		if r.cli.eventHandler.eventVCMeetingJoinMeetingV1Handler != nil {
-			s, err = r.cli.eventHandler.eventVCMeetingJoinMeetingV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventVCMeetingJoinMeetingV1)
+	case req.eventV2VCMeetingJoinMeetingV1 != nil:
+		if r.cli.eventHandler.eventV2VCMeetingJoinMeetingV1Handler != nil {
+			s, err = r.cli.eventHandler.eventV2VCMeetingJoinMeetingV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2VCMeetingJoinMeetingV1)
 		}
 		return true, s, err
-	case req.eventVCMeetingLeaveMeetingV1 != nil:
-		if r.cli.eventHandler.eventVCMeetingLeaveMeetingV1Handler != nil {
-			s, err = r.cli.eventHandler.eventVCMeetingLeaveMeetingV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventVCMeetingLeaveMeetingV1)
+	case req.eventV2VCMeetingLeaveMeetingV1 != nil:
+		if r.cli.eventHandler.eventV2VCMeetingLeaveMeetingV1Handler != nil {
+			s, err = r.cli.eventHandler.eventV2VCMeetingLeaveMeetingV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2VCMeetingLeaveMeetingV1)
 		}
 		return true, s, err
-	case req.eventVCMeetingRecordingStartedV1 != nil:
-		if r.cli.eventHandler.eventVCMeetingRecordingStartedV1Handler != nil {
-			s, err = r.cli.eventHandler.eventVCMeetingRecordingStartedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventVCMeetingRecordingStartedV1)
+	case req.eventV2VCMeetingRecordingStartedV1 != nil:
+		if r.cli.eventHandler.eventV2VCMeetingRecordingStartedV1Handler != nil {
+			s, err = r.cli.eventHandler.eventV2VCMeetingRecordingStartedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2VCMeetingRecordingStartedV1)
 		}
 		return true, s, err
-	case req.eventVCMeetingRecordingEndedV1 != nil:
-		if r.cli.eventHandler.eventVCMeetingRecordingEndedV1Handler != nil {
-			s, err = r.cli.eventHandler.eventVCMeetingRecordingEndedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventVCMeetingRecordingEndedV1)
+	case req.eventV2VCMeetingRecordingEndedV1 != nil:
+		if r.cli.eventHandler.eventV2VCMeetingRecordingEndedV1Handler != nil {
+			s, err = r.cli.eventHandler.eventV2VCMeetingRecordingEndedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2VCMeetingRecordingEndedV1)
 		}
 		return true, s, err
-	case req.eventVCMeetingRecordingReadyV1 != nil:
-		if r.cli.eventHandler.eventVCMeetingRecordingReadyV1Handler != nil {
-			s, err = r.cli.eventHandler.eventVCMeetingRecordingReadyV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventVCMeetingRecordingReadyV1)
+	case req.eventV2VCMeetingRecordingReadyV1 != nil:
+		if r.cli.eventHandler.eventV2VCMeetingRecordingReadyV1Handler != nil {
+			s, err = r.cli.eventHandler.eventV2VCMeetingRecordingReadyV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2VCMeetingRecordingReadyV1)
 		}
 		return true, s, err
-	case req.eventVCMeetingShareStartedV1 != nil:
-		if r.cli.eventHandler.eventVCMeetingShareStartedV1Handler != nil {
-			s, err = r.cli.eventHandler.eventVCMeetingShareStartedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventVCMeetingShareStartedV1)
+	case req.eventV2VCMeetingShareStartedV1 != nil:
+		if r.cli.eventHandler.eventV2VCMeetingShareStartedV1Handler != nil {
+			s, err = r.cli.eventHandler.eventV2VCMeetingShareStartedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2VCMeetingShareStartedV1)
 		}
 		return true, s, err
-	case req.eventVCMeetingShareEndedV1 != nil:
-		if r.cli.eventHandler.eventVCMeetingShareEndedV1Handler != nil {
-			s, err = r.cli.eventHandler.eventVCMeetingShareEndedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventVCMeetingShareEndedV1)
+	case req.eventV2VCMeetingShareEndedV1 != nil:
+		if r.cli.eventHandler.eventV2VCMeetingShareEndedV1Handler != nil {
+			s, err = r.cli.eventHandler.eventV2VCMeetingShareEndedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2VCMeetingShareEndedV1)
+		}
+		return true, s, err
+	case req.eventV1P2PChatCreate != nil:
+		if r.cli.eventHandler.eventV1P2PChatCreateHandler != nil {
+			s, err = r.cli.eventHandler.eventV1P2PChatCreateHandler(ctx, r.cli, req.Schema, req.headerV1(EventTypeV1P2PChatCreate), req.eventV1P2PChatCreate)
+		}
+		return true, s, err
+	case req.eventV1AddUserToChat != nil:
+		if r.cli.eventHandler.eventV1AddUserToChatHandler != nil {
+			s, err = r.cli.eventHandler.eventV1AddUserToChatHandler(ctx, r.cli, req.Schema, req.headerV1(EventTypeV1AddUserToChat), req.eventV1AddUserToChat)
 		}
 		return true, s, err
 	}

@@ -16,15 +16,15 @@ type eventReq struct {
 	Encrypt string `json:"encrypt"` // 加密
 
 	// v2 字段
-	Schema string       `json:"schema"` // 2.0
-	Header *EventHeader `json:"header"`
+	Schema string         `json:"schema"` // 2.0
+	Header *EventHeaderV2 `json:"header"`
 
 	// v1 字段
-	UUID      string `json:"uuid"`
-	Token     string `json:"token"`
-	Ts        string `json:"ts"`
-	Type      string `json:"type"` // event_callback,
-	Challenge string `json:"challenge"`
+	UUID      string `json:"uuid"`      // 事件的唯一标识
+	Token     string `json:"token"`     // 即Verification Token
+	TS        string `json:"ts"`        // 事件发送的时间，一般近似于事件发生的时间。
+	Type      string `json:"type"`      // url_verification, event_callback,
+	Challenge string `json:"challenge"` // 配合 url_verification
 
 	// 通用字段
 	Event interface{} `json:"event"`
@@ -50,6 +50,15 @@ func (r *eventReq) getToken() string {
 		return r.Header.Token
 	}
 	return r.Token
+}
+
+func (r *eventReq) headerV1(eventType EventType) *EventHeaderV1 {
+	return &EventHeaderV1{
+		UUID:      r.UUID,
+		EventType: eventType,
+		TS:        r.TS,
+		Token:     r.Token,
+	}
 }
 
 func decryptEncryptString(encryptKey string, cryptoText string) (string, error) {

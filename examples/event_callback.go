@@ -15,14 +15,20 @@ func ExampleEventCallback() {
 		lark.WithEventCallbackVerify("<ENCRYPY_KEY>", "<VERIFICATION_TOKEN>"),
 	)
 
+	// handle chat create callback
+	cli.EventCallback().HandlerEventV1P2PChatCreate(func(ctx context.Context, cli *lark.Lark, schema string, header *lark.EventHeaderV1, event *lark.EventV1P2PChatCreate) (string, error) {
+		_, _, err := cli.Message().Send().ToChatID(event.ChatID).SendText(ctx, "hi")
+		return "", err
+	})
+
 	// handle message callback
-	cli.EventCallback().HandlerEventIMMessageReceiveV1(func(ctx context.Context, cli *lark.Lark, schema string, header *lark.EventHeader, event *lark.EventIMMessageReceiveV1) (string, error) {
+	cli.EventCallback().HandlerEventV2IMMessageReceiveV1(func(ctx context.Context, cli *lark.Lark, schema string, header *lark.EventHeaderV2, event *lark.EventV2IMMessageReceiveV1) (string, error) {
 		_, _, err := cli.Message().Reply(event.Message.MessageID).SendText(ctx, "hi, "+event.Message.Content)
 		return "", err
 	})
 
 	// handle add bot
-	cli.EventCallback().HandlerEventIMChatMemberBotAddedV1(func(ctx context.Context, cli *lark.Lark, schema string, header *lark.EventHeader, event *lark.EventIMChatMemberBotAddedV1) (string, error) {
+	cli.EventCallback().HandlerEventV2IMChatMemberBotAddedV1(func(ctx context.Context, cli *lark.Lark, schema string, header *lark.EventHeaderV2, event *lark.EventV2IMChatMemberBotAddedV1) (string, error) {
 		return "", nil
 	})
 

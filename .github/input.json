@@ -414,93 +414,105 @@
     "events": [
       {
         "file_name": "api_event_callback_v2_im_message_receive_v1.go",
-        "event_name": "EventIMMessageReceiveV1",
+        "event_name": "EventV2IMMessageReceiveV1",
         "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/events/receive"
       },
       {
         "file_name": "api_event_callback_v2_im_message_read_v1.go",
-        "event_name": "EventIMMessageReadV1",
+        "event_name": "EventV2IMMessageReadV1",
         "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/events/message_read"
       },
       {
         "file_name": "api_event_callback_v2_im_chat_disbanded_v1.go",
-        "event_name": "EventIMChatDisbandedV1",
+        "event_name": "EventV2IMChatDisbandedV1",
         "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat/events/disbanded"
       },
       {
         "file_name": "api_event_callback_v2_im_chat_updated_v1.go",
-        "event_name": "EventIMChatUpdatedV1",
+        "event_name": "EventV2IMChatUpdatedV1",
         "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat/events/updated"
       },
       {
         "file_name": "api_event_callback_v2_im_chat_member_bot_added_v1.go",
-        "event_name": "EventIMChatMemberBotAddedV1",
+        "event_name": "EventV2IMChatMemberBotAddedV1",
         "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-member-bot/events/added"
       },
       {
         "file_name": "api_event_callback_v2_im_chat_member_bot_deleted_v1.go",
-        "event_name": "EventIMChatMemberBotDeletedV1",
+        "event_name": "EventV2IMChatMemberBotDeletedV1",
         "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-member-bot/events/deleted"
       },
       {
         "file_name": "api_event_callback_v2_im_chat_member_user_added_v1.go",
-        "event_name": "EventIMChatMemberUserAddedV1",
+        "event_name": "EventV2IMChatMemberUserAddedV1",
         "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-member-user/events/added"
       },
       {
         "file_name": "api_event_callback_v2_im_chat_member_user_withdrawn_v1.go",
-        "event_name": "EventIMChatMemberUserWithdrawnV1",
+        "event_name": "EventV2IMChatMemberUserWithdrawnV1",
         "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-member-user/events/withdrawn"
       },
       {
         "file_name": "api_event_callback_v2_im_chat_member_user_deleted_v1.go",
-        "event_name": "EventIMChatMemberUserDeletedV1",
+        "event_name": "EventV2IMChatMemberUserDeletedV1",
         "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-member-user/events/deleted"
       },
       {
         "file_name": "api_event_callback_v2_vc_meeting_meeting_started_v1.go",
-        "event_name": "EventVCMeetingMeetingStartedV1",
+        "event_name": "EventV2VCMeetingMeetingStartedV1",
         "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/vc-v1/meeting/events/meeting_started"
       },
       {
         "file_name": "api_event_callback_v2_vc_meeting_meeting_ended_v1.go",
-        "event_name": "EventVCMeetingMeetingEndedV1",
+        "event_name": "EventV2VCMeetingMeetingEndedV1",
         "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/vc-v1/meeting/events/meeting_ended"
       },
       {
         "file_name": "api_event_callback_v2_vc_meeting_join_meeting_v1.go",
-        "event_name": "EventVCMeetingJoinMeetingV1",
+        "event_name": "EventV2VCMeetingJoinMeetingV1",
         "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/vc-v1/meeting/events/join_meeting"
       },
       {
         "file_name": "api_event_callback_v2_vc_meeting_leave_meeting_v1.go",
-        "event_name": "EventVCMeetingLeaveMeetingV1",
+        "event_name": "EventV2VCMeetingLeaveMeetingV1",
         "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/vc-v1/meeting/events/leave_meeting"
       },
       {
         "file_name": "api_event_callback_v2_vc_meeting_recording_started_v1.go",
-        "event_name": "EventVCMeetingRecordingStartedV1",
+        "event_name": "EventV2VCMeetingRecordingStartedV1",
         "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/vc-v1/meeting/events/recording_started"
       },
       {
         "file_name": "api_event_callback_v2_vc_meeting_recording_ended_v1.go",
-        "event_name": "EventVCMeetingRecordingEndedV1",
+        "event_name": "EventV2VCMeetingRecordingEndedV1",
         "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/vc-v1/meeting/events/recording_ended"
       },
       {
         "file_name": "api_event_callback_v2_vc_meeting_recording_ready_v1.go",
-        "event_name": "EventVCMeetingRecordingReadyV1",
+        "event_name": "EventV2VCMeetingRecordingReadyV1",
         "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/vc-v1/meeting/events/recording_ready"
       },
       {
         "file_name": "api_event_callback_v2_vc_meeting_share_started_v1.go",
-        "event_name": "EventVCMeetingShareStartedV1",
+        "event_name": "EventV2VCMeetingShareStartedV1",
         "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/vc-v1/meeting/events/share_started"
       },
       {
         "file_name": "api_event_callback_v2_vc_meeting_share_ended_v1.go",
-        "event_name": "EventVCMeetingShareEndedV1",
+        "event_name": "EventV2VCMeetingShareEndedV1",
         "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/vc-v1/meeting/events/share_ended"
+      },
+      {
+        "file_name": "api_event_callback_v1_p2p_chat_create.go",
+        "event_name": "EventV1P2PChatCreate",
+        "doc_url": "https://open.feishu.cn/document/ukTMukTMukTM/uYDNxYjL2QTM24iN0EjN/bot-events"
+      },
+      {
+        "file_name": "api_event_callback_v1_add_user_to_chat.go",
+        "event_name": "EventV1AddUserToChat",
+        "doc_url": "https://open.feishu.cn/document/ukTMukTMukTM/ukjNxYjL5YTM24SO2EjN",
+        "from": "用户进群、出群事件",
+        "to": "解散群"
       }
     ]
   }

@@ -4,7 +4,7 @@ import (
 	"context"
 )
 
-// EventIMChatMemberBotAddedV1
+// EventV2IMChatMemberBotAddedV1
 //
 // 机器人被添加至群聊时触发此事件。
 // 注意事项：
@@ -13,18 +13,18 @@ import (
 // - 事件会向进群的机器人进行推送
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-member-bot/events/added
-func (r *EventCallbackAPI) HandlerEventIMChatMemberBotAddedV1(f eventIMChatMemberBotAddedV1Handler) {
-	r.cli.eventHandler.eventIMChatMemberBotAddedV1Handler = f
+func (r *EventCallbackAPI) HandlerEventV2IMChatMemberBotAddedV1(f eventV2IMChatMemberBotAddedV1Handler) {
+	r.cli.eventHandler.eventV2IMChatMemberBotAddedV1Handler = f
 }
 
-type eventIMChatMemberBotAddedV1Handler func(ctx context.Context, cli *Lark, schema string, header *EventHeader, event *EventIMChatMemberBotAddedV1) (string, error)
+type eventV2IMChatMemberBotAddedV1Handler func(ctx context.Context, cli *Lark, schema string, header *EventHeaderV2, event *EventV2IMChatMemberBotAddedV1) (string, error)
 
-type EventIMChatMemberBotAddedV1 struct {
-	ChatID     string                                 `json:"chat_id,omitempty"`     // 群组 ID
-	OperatorID *EventIMChatMemberBotAddedV1OperatorID `json:"operator_id,omitempty"` // 用户 ID
+type EventV2IMChatMemberBotAddedV1 struct {
+	ChatID     string                                   `json:"chat_id,omitempty"`     // 群组 ID
+	OperatorID *EventV2IMChatMemberBotAddedV1OperatorID `json:"operator_id,omitempty"` // 用户 ID
 }
 
-type EventIMChatMemberBotAddedV1OperatorID struct {
+type EventV2IMChatMemberBotAddedV1OperatorID struct {
 	UnionID string `json:"union_id,omitempty"` // 用户的 union id
 	UserID  string `json:"user_id,omitempty"`  // 用户的 user id, 字段权限要求: 获取用户 userid
 	OpenID  string `json:"open_id,omitempty"`  // 用户的 open id

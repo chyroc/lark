@@ -67,6 +67,10 @@ func (r *EventCallbackAPI) parserReq(ctx context.Context, body []byte) (*eventRe
 		if err := r.parserEventV2(req); err != nil {
 			return req, err
 		}
+	case req.UUID != "":
+		if err := r.parserEventV1(req); err != nil {
+			return req, err
+		}
 	}
 
 	return req, nil
@@ -85,7 +89,7 @@ func (r *EventCallbackAPI) handlerReq(ctx context.Context, writer io.Writer, req
 		return fmt.Sprintf(`{"challenge":%q}`, req.Challenge), nil
 	}
 
-	handled, s, err := r.handlerEventV2(ctx, req)
+	handled, s, err := r.handlerEvent(ctx, req)
 	if handled {
 		return s, err
 	}
