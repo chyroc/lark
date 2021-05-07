@@ -47,7 +47,7 @@ type GetUserResp struct {
 
 type GetUserRespUser struct {
 	UnionID         string                       `json:"union_id,omitempty"`          // 用户的union_id
-	UserID          string                       `json:"user_id,omitempty"`           // 租户内用户的唯一标识
+	UserID          string                       `json:"user_id,omitempty"`           // 租户内用户的唯一标识, 字段权限要求:  获取用户 userid
 	OpenID          string                       `json:"open_id,omitempty"`           // 用户的open_id
 	Name            string                       `json:"name,omitempty"`              // 用户名, 最小长度：`1` 字符
 	EnName          string                       `json:"en_name,omitempty"`           // 英文名
@@ -86,8 +86,8 @@ type GetUserRespUserStatus struct {
 
 type GetUserRespUserOrder struct {
 	DepartmentID    string `json:"department_id,omitempty"`    // 排序信息对应的部门ID
-	UserOrder       int    `json:"user_order,omitempty"`       // 用户在部门内的排序
-	DepartmentOrder int    `json:"department_order,omitempty"` // 用户的部门间的排序
+	UserOrder       int    `json:"user_order,omitempty"`       // 用户在部门内的排序，数值越大，排序越靠前
+	DepartmentOrder int    `json:"department_order,omitempty"` // 用户的部门间的排序，数值越大，排序越靠前
 }
 
 type GetUserRespUserCustomAttr struct {

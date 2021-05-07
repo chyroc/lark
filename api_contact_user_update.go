@@ -58,8 +58,8 @@ type UpdateUserReq struct {
 
 type UpdateUserReqOrder struct {
 	DepartmentID    *string `json:"department_id,omitempty"`    // 排序信息对应的部门ID, 示例值："od-4e6ac4d14bcd5071a37a39de902c7141"
-	UserOrder       *int    `json:"user_order,omitempty"`       // 用户在部门内的排序, 示例值：100
-	DepartmentOrder *int    `json:"department_order,omitempty"` // 用户的部门间的排序, 示例值：100
+	UserOrder       *int    `json:"user_order,omitempty"`       // 用户在部门内的排序，数值越大，排序越靠前, 示例值：100
+	DepartmentOrder *int    `json:"department_order,omitempty"` // 用户的部门间的排序，数值越大，排序越靠前, 示例值：100
 }
 
 type UpdateUserReqCustomAttr struct {
@@ -126,8 +126,8 @@ type UpdateUserRespUserStatus struct {
 
 type UpdateUserRespUserOrder struct {
 	DepartmentID    string `json:"department_id,omitempty"`    // 排序信息对应的部门ID
-	UserOrder       int    `json:"user_order,omitempty"`       // 用户在部门内的排序
-	DepartmentOrder int    `json:"department_order,omitempty"` // 用户的部门间的排序
+	UserOrder       int    `json:"user_order,omitempty"`       // 用户在部门内的排序，数值越大，排序越靠前
+	DepartmentOrder int    `json:"department_order,omitempty"` // 用户的部门间的排序，数值越大，排序越靠前
 }
 
 type UpdateUserRespUserCustomAttr struct {

@@ -413,92 +413,92 @@
     "scope": "EventCallback",
     "events": [
       {
-        "file_name": "api_event_callback_im_message_receive_v1.go",
+        "file_name": "api_event_callback_v2_im_message_receive_v1.go",
         "event_name": "EventIMMessageReceiveV1",
         "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/events/receive"
       },
       {
-        "file_name": "api_event_callback_im_message_read_v1.go",
+        "file_name": "api_event_callback_v2_im_message_read_v1.go",
         "event_name": "EventIMMessageReadV1",
         "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/events/message_read"
       },
       {
-        "file_name": "api_event_callback_im_chat_disbanded_v1.go",
+        "file_name": "api_event_callback_v2_im_chat_disbanded_v1.go",
         "event_name": "EventIMChatDisbandedV1",
         "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat/events/disbanded"
       },
       {
-        "file_name": "api_event_callback_im_chat_updated_v1.go",
+        "file_name": "api_event_callback_v2_im_chat_updated_v1.go",
         "event_name": "EventIMChatUpdatedV1",
         "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat/events/updated"
       },
       {
-        "file_name": "api_event_callback_im_chat_member_bot_added_v1.go",
+        "file_name": "api_event_callback_v2_im_chat_member_bot_added_v1.go",
         "event_name": "EventIMChatMemberBotAddedV1",
         "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-member-bot/events/added"
       },
       {
-        "file_name": "api_event_callback_im_chat_member_bot_deleted_v1.go",
+        "file_name": "api_event_callback_v2_im_chat_member_bot_deleted_v1.go",
         "event_name": "EventIMChatMemberBotDeletedV1",
         "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-member-bot/events/deleted"
       },
       {
-        "file_name": "api_event_callback_im_chat_member_user_added_v1.go",
+        "file_name": "api_event_callback_v2_im_chat_member_user_added_v1.go",
         "event_name": "EventIMChatMemberUserAddedV1",
         "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-member-user/events/added"
       },
       {
-        "file_name": "api_event_callback_im_chat_member_user_withdrawn_v1.go",
+        "file_name": "api_event_callback_v2_im_chat_member_user_withdrawn_v1.go",
         "event_name": "EventIMChatMemberUserWithdrawnV1",
         "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-member-user/events/withdrawn"
       },
       {
-        "file_name": "api_event_callback_im_chat_member_user_deleted_v1.go",
+        "file_name": "api_event_callback_v2_im_chat_member_user_deleted_v1.go",
         "event_name": "EventIMChatMemberUserDeletedV1",
         "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-member-user/events/deleted"
       },
       {
-        "file_name": "api_event_callback_vc_meeting_meeting_started_v1.go",
+        "file_name": "api_event_callback_v2_vc_meeting_meeting_started_v1.go",
         "event_name": "EventVCMeetingMeetingStartedV1",
         "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/vc-v1/meeting/events/meeting_started"
       },
       {
-        "file_name": "api_event_callback_vc_meeting_meeting_ended_v1.go",
+        "file_name": "api_event_callback_v2_vc_meeting_meeting_ended_v1.go",
         "event_name": "EventVCMeetingMeetingEndedV1",
         "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/vc-v1/meeting/events/meeting_ended"
       },
       {
-        "file_name": "api_event_callback_vc_meeting_join_meeting_v1.go",
+        "file_name": "api_event_callback_v2_vc_meeting_join_meeting_v1.go",
         "event_name": "EventVCMeetingJoinMeetingV1",
         "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/vc-v1/meeting/events/join_meeting"
       },
       {
-        "file_name": "api_event_callback_vc_meeting_leave_meeting_v1.go",
+        "file_name": "api_event_callback_v2_vc_meeting_leave_meeting_v1.go",
         "event_name": "EventVCMeetingLeaveMeetingV1",
         "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/vc-v1/meeting/events/leave_meeting"
       },
       {
-        "file_name": "api_event_callback_vc_meeting_recording_started_v1.go",
+        "file_name": "api_event_callback_v2_vc_meeting_recording_started_v1.go",
         "event_name": "EventVCMeetingRecordingStartedV1",
         "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/vc-v1/meeting/events/recording_started"
       },
       {
-        "file_name": "api_event_callback_vc_meeting_recording_ended_v1.go",
+        "file_name": "api_event_callback_v2_vc_meeting_recording_ended_v1.go",
         "event_name": "EventVCMeetingRecordingEndedV1",
         "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/vc-v1/meeting/events/recording_ended"
       },
       {
-        "file_name": "api_event_callback_vc_meeting_recording_ready_v1.go",
+        "file_name": "api_event_callback_v2_vc_meeting_recording_ready_v1.go",
         "event_name": "EventVCMeetingRecordingReadyV1",
         "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/vc-v1/meeting/events/recording_ready"
       },
       {
-        "file_name": "api_event_callback_vc_meeting_share_started_v1.go",
+        "file_name": "api_event_callback_v2_vc_meeting_share_started_v1.go",
         "event_name": "EventVCMeetingShareStartedV1",
         "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/vc-v1/meeting/events/share_started"
       },
       {
-        "file_name": "api_event_callback_vc_meeting_share_ended_v1.go",
+        "file_name": "api_event_callback_v2_vc_meeting_share_ended_v1.go",
         "event_name": "EventVCMeetingShareEndedV1",
         "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/vc-v1/meeting/events/share_ended"
       }
