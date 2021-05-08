@@ -8,7 +8,7 @@ import (
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/freebusy/list
 func (r *CalendarAPI) GetCalendarFreeBusyList(ctx context.Context, request *GetCalendarFreeBusyListReq) (*GetCalendarFreeBusyListResp, *Response, error) {
-	req := &requestParam{
+	req := &RawRequestReq{
 		Method:                "POST",
 		URL:                   "https://open.feishu.cn/open-apis/calendar/v4/freebusy/list",
 		Body:                  request,
@@ -19,11 +19,11 @@ func (r *CalendarAPI) GetCalendarFreeBusyList(ctx context.Context, request *GetC
 	}
 	resp := new(getCalendarFreeBusyListResp)
 
-	response, err := r.cli.request(ctx, req, resp)
+	response, err := r.cli.RawRequest(ctx, req, resp)
 	if err != nil {
 		return nil, response, err
 	} else if resp.Code != 0 {
-		return nil, response, newError("Calendar", "GetCalendarFreeBusyList", resp.Code, resp.Msg)
+		return nil, response, NewError("Calendar", "GetCalendarFreeBusyList", resp.Code, resp.Msg)
 	}
 
 	return resp.Data, response, nil

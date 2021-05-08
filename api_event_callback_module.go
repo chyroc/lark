@@ -27,8 +27,13 @@ const (
 	EventTypeV2VCMeetingRecordingReadyV1   EventType = "vc.meeting.recording_ready_v1"
 	EventTypeV2VCMeetingShareStartedV1     EventType = "vc.meeting.share_started_v1"
 	EventTypeV2VCMeetingShareEndedV1       EventType = "vc.meeting.share_ended_v1"
+	EventTypeV1AddBot                      EventType = "add_bot"
+	EventTypeV1RemoveBot                   EventType = "remove_bot"
 	EventTypeV1P2PChatCreate               EventType = "p2p_chat_create"
 	EventTypeV1AddUserToChat               EventType = "add_user_to_chat"
+	EventTypeV1RemoveUserFromChat          EventType = "remove_user_from_chat"
+	EventTypeV1RevokeAddUserFromChat       EventType = "revoke_add_user_from_chat"
+	EventTypeV1ChatDisband                 EventType = "chat_disband"
 )
 
 type eventHandler struct {
@@ -50,8 +55,13 @@ type eventHandler struct {
 	eventV2VCMeetingRecordingReadyV1Handler   eventV2VCMeetingRecordingReadyV1Handler
 	eventV2VCMeetingShareStartedV1Handler     eventV2VCMeetingShareStartedV1Handler
 	eventV2VCMeetingShareEndedV1Handler       eventV2VCMeetingShareEndedV1Handler
+	eventV1AddBotHandler                      eventV1AddBotHandler
+	eventV1RemoveBotHandler                   eventV1RemoveBotHandler
 	eventV1P2PChatCreateHandler               eventV1P2PChatCreateHandler
 	eventV1AddUserToChatHandler               eventV1AddUserToChatHandler
+	eventV1RemoveUserFromChatHandler          eventV1RemoveUserFromChatHandler
+	eventV1RevokeAddUserFromChatHandler       eventV1RevokeAddUserFromChatHandler
+	eventV1ChatDisbandHandler                 eventV1ChatDisbandHandler
 }
 
 func (r *eventHandler) clone() *eventHandler {
@@ -74,8 +84,13 @@ func (r *eventHandler) clone() *eventHandler {
 		eventV2VCMeetingRecordingReadyV1Handler:   r.eventV2VCMeetingRecordingReadyV1Handler,
 		eventV2VCMeetingShareStartedV1Handler:     r.eventV2VCMeetingShareStartedV1Handler,
 		eventV2VCMeetingShareEndedV1Handler:       r.eventV2VCMeetingShareEndedV1Handler,
+		eventV1AddBotHandler:                      r.eventV1AddBotHandler,
+		eventV1RemoveBotHandler:                   r.eventV1RemoveBotHandler,
 		eventV1P2PChatCreateHandler:               r.eventV1P2PChatCreateHandler,
 		eventV1AddUserToChatHandler:               r.eventV1AddUserToChatHandler,
+		eventV1RemoveUserFromChatHandler:          r.eventV1RemoveUserFromChatHandler,
+		eventV1RevokeAddUserFromChatHandler:       r.eventV1RevokeAddUserFromChatHandler,
+		eventV1ChatDisbandHandler:                 r.eventV1ChatDisbandHandler,
 	}
 }
 
@@ -98,8 +113,13 @@ type eventBody struct {
 	eventV2VCMeetingRecordingReadyV1   *EventV2VCMeetingRecordingReadyV1
 	eventV2VCMeetingShareStartedV1     *EventV2VCMeetingShareStartedV1
 	eventV2VCMeetingShareEndedV1       *EventV2VCMeetingShareEndedV1
+	eventV1AddBot                      *EventV1AddBot
+	eventV1RemoveBot                   *EventV1RemoveBot
 	eventV1P2PChatCreate               *EventV1P2PChatCreate
 	eventV1AddUserToChat               *EventV1AddUserToChat
+	eventV1RemoveUserFromChat          *EventV1RemoveUserFromChat
+	eventV1RevokeAddUserFromChat       *EventV1RevokeAddUserFromChat
+	eventV1ChatDisband                 *EventV1ChatDisband
 }
 
 func (r *EventCallbackAPI) parserEventV2(req *eventReq) error {
@@ -238,6 +258,20 @@ func (r *EventCallbackAPI) parserEventV1(req *eventReq) error {
 	}
 
 	switch v1type.Type {
+	case EventTypeV1AddBot:
+		event := new(EventV1AddBot)
+		if err := json.Unmarshal(bs, event); err != nil {
+			return fmt.Errorf("lark event unmarshal event %s failed", bs)
+		}
+
+		req.eventV1AddBot = event
+	case EventTypeV1RemoveBot:
+		event := new(EventV1RemoveBot)
+		if err := json.Unmarshal(bs, event); err != nil {
+			return fmt.Errorf("lark event unmarshal event %s failed", bs)
+		}
+
+		req.eventV1RemoveBot = event
 	case EventTypeV1P2PChatCreate:
 		event := new(EventV1P2PChatCreate)
 		if err := json.Unmarshal(bs, event); err != nil {
@@ -252,6 +286,27 @@ func (r *EventCallbackAPI) parserEventV1(req *eventReq) error {
 		}
 
 		req.eventV1AddUserToChat = event
+	case EventTypeV1RemoveUserFromChat:
+		event := new(EventV1RemoveUserFromChat)
+		if err := json.Unmarshal(bs, event); err != nil {
+			return fmt.Errorf("lark event unmarshal event %s failed", bs)
+		}
+
+		req.eventV1RemoveUserFromChat = event
+	case EventTypeV1RevokeAddUserFromChat:
+		event := new(EventV1RevokeAddUserFromChat)
+		if err := json.Unmarshal(bs, event); err != nil {
+			return fmt.Errorf("lark event unmarshal event %s failed", bs)
+		}
+
+		req.eventV1RevokeAddUserFromChat = event
+	case EventTypeV1ChatDisband:
+		event := new(EventV1ChatDisband)
+		if err := json.Unmarshal(bs, event); err != nil {
+			return fmt.Errorf("lark event unmarshal event %s failed", bs)
+		}
+
+		req.eventV1ChatDisband = event
 	}
 
 	return nil
@@ -261,7 +316,7 @@ type v1type struct {
 	Type EventType `json:"type"`
 }
 
-func (r *EventCallbackAPI) handlerEventV2(ctx context.Context, req *eventReq) (handled bool, s string, err error) {
+func (r *EventCallbackAPI) handlerEvent(ctx context.Context, req *eventReq) (handled bool, s string, err error) {
 	switch {
 	case req.eventV2IMMessageReceiveV1 != nil:
 		if r.cli.eventHandler.eventV2IMMessageReceiveV1Handler != nil {
@@ -353,6 +408,16 @@ func (r *EventCallbackAPI) handlerEventV2(ctx context.Context, req *eventReq) (h
 			s, err = r.cli.eventHandler.eventV2VCMeetingShareEndedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2VCMeetingShareEndedV1)
 		}
 		return true, s, err
+	case req.eventV1AddBot != nil:
+		if r.cli.eventHandler.eventV1AddBotHandler != nil {
+			s, err = r.cli.eventHandler.eventV1AddBotHandler(ctx, r.cli, req.Schema, req.headerV1(EventTypeV1AddBot), req.eventV1AddBot)
+		}
+		return true, s, err
+	case req.eventV1RemoveBot != nil:
+		if r.cli.eventHandler.eventV1RemoveBotHandler != nil {
+			s, err = r.cli.eventHandler.eventV1RemoveBotHandler(ctx, r.cli, req.Schema, req.headerV1(EventTypeV1RemoveBot), req.eventV1RemoveBot)
+		}
+		return true, s, err
 	case req.eventV1P2PChatCreate != nil:
 		if r.cli.eventHandler.eventV1P2PChatCreateHandler != nil {
 			s, err = r.cli.eventHandler.eventV1P2PChatCreateHandler(ctx, r.cli, req.Schema, req.headerV1(EventTypeV1P2PChatCreate), req.eventV1P2PChatCreate)
@@ -361,6 +426,21 @@ func (r *EventCallbackAPI) handlerEventV2(ctx context.Context, req *eventReq) (h
 	case req.eventV1AddUserToChat != nil:
 		if r.cli.eventHandler.eventV1AddUserToChatHandler != nil {
 			s, err = r.cli.eventHandler.eventV1AddUserToChatHandler(ctx, r.cli, req.Schema, req.headerV1(EventTypeV1AddUserToChat), req.eventV1AddUserToChat)
+		}
+		return true, s, err
+	case req.eventV1RemoveUserFromChat != nil:
+		if r.cli.eventHandler.eventV1RemoveUserFromChatHandler != nil {
+			s, err = r.cli.eventHandler.eventV1RemoveUserFromChatHandler(ctx, r.cli, req.Schema, req.headerV1(EventTypeV1RemoveUserFromChat), req.eventV1RemoveUserFromChat)
+		}
+		return true, s, err
+	case req.eventV1RevokeAddUserFromChat != nil:
+		if r.cli.eventHandler.eventV1RevokeAddUserFromChatHandler != nil {
+			s, err = r.cli.eventHandler.eventV1RevokeAddUserFromChatHandler(ctx, r.cli, req.Schema, req.headerV1(EventTypeV1RevokeAddUserFromChat), req.eventV1RevokeAddUserFromChat)
+		}
+		return true, s, err
+	case req.eventV1ChatDisband != nil:
+		if r.cli.eventHandler.eventV1ChatDisbandHandler != nil {
+			s, err = r.cli.eventHandler.eventV1ChatDisbandHandler(ctx, r.cli, req.Schema, req.headerV1(EventTypeV1ChatDisband), req.eventV1ChatDisband)
 		}
 		return true, s, err
 	}

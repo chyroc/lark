@@ -8,7 +8,7 @@ import (
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/get
 func (r *ContactAPI) GetUser(ctx context.Context, request *GetUserReq) (*GetUserResp, *Response, error) {
-	req := &requestParam{
+	req := &RawRequestReq{
 		Method:                "GET",
 		URL:                   "https://open.feishu.cn/open-apis/contact/v3/users/:user_id",
 		Body:                  request,
@@ -19,11 +19,11 @@ func (r *ContactAPI) GetUser(ctx context.Context, request *GetUserReq) (*GetUser
 	}
 	resp := new(getUserResp)
 
-	response, err := r.cli.request(ctx, req, resp)
+	response, err := r.cli.RawRequest(ctx, req, resp)
 	if err != nil {
 		return nil, response, err
 	} else if resp.Code != 0 {
-		return nil, response, newError("Contact", "GetUser", resp.Code, resp.Msg)
+		return nil, response, NewError("Contact", "GetUser", resp.Code, resp.Msg)
 	}
 
 	return resp.Data, response, nil
@@ -86,8 +86,8 @@ type GetUserRespUserStatus struct {
 
 type GetUserRespUserOrder struct {
 	DepartmentID    string `json:"department_id,omitempty"`    // 排序信息对应的部门ID
-	UserOrder       int    `json:"user_order,omitempty"`       // 用户在部门内的排序，数值越大，排序越靠前
-	DepartmentOrder int    `json:"department_order,omitempty"` // 用户的部门间的排序，数值越大，排序越靠前
+	UserOrder       int    `json:"user_order,omitempty"`       // 用户在其直属部门内的排序，数值越大，排序越靠前
+	DepartmentOrder int    `json:"department_order,omitempty"` // 用户所属的多个部门间的排序，数值越大，排序越靠前
 }
 
 type GetUserRespUserCustomAttr struct {

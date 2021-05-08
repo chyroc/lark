@@ -13,7 +13,7 @@ import (
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/image/get
 func (r *FileAPI) DownloadImage(ctx context.Context, request *DownloadImageReq) (*DownloadImageResp, *Response, error) {
-	req := &requestParam{
+	req := &RawRequestReq{
 		Method:                "GET",
 		URL:                   "https://open.feishu.cn/open-apis/im/v1/images/:image_key",
 		Body:                  request,
@@ -24,11 +24,11 @@ func (r *FileAPI) DownloadImage(ctx context.Context, request *DownloadImageReq) 
 	}
 	resp := new(downloadImageResp)
 
-	response, err := r.cli.request(ctx, req, resp)
+	response, err := r.cli.RawRequest(ctx, req, resp)
 	if err != nil {
 		return nil, response, err
 	} else if resp.Code != 0 {
-		return nil, response, newError("File", "DownloadImage", resp.Code, resp.Msg)
+		return nil, response, NewError("File", "DownloadImage", resp.Code, resp.Msg)
 	}
 
 	return resp.Data, response, nil

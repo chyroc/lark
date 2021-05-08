@@ -11,7 +11,7 @@ import (
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat/create
 func (r *ChatAPI) CreateChat(ctx context.Context, request *CreateChatReq) (*CreateChatResp, *Response, error) {
-	req := &requestParam{
+	req := &RawRequestReq{
 		Method:                "POST",
 		URL:                   "https://open.feishu.cn/open-apis/im/v1/chats",
 		Body:                  request,
@@ -22,11 +22,11 @@ func (r *ChatAPI) CreateChat(ctx context.Context, request *CreateChatReq) (*Crea
 	}
 	resp := new(createChatResp)
 
-	response, err := r.cli.request(ctx, req, resp)
+	response, err := r.cli.RawRequest(ctx, req, resp)
 	if err != nil {
 		return nil, response, err
 	} else if resp.Code != 0 {
-		return nil, response, newError("Chat", "CreateChat", resp.Code, resp.Msg)
+		return nil, response, NewError("Chat", "CreateChat", resp.Code, resp.Msg)
 	}
 
 	return resp.Data, response, nil

@@ -13,7 +13,7 @@ import (
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-members/delete
 func (r *ChatAPI) DeleteMember(ctx context.Context, request *DeleteMemberReq) (*DeleteMemberResp, *Response, error) {
-	req := &requestParam{
+	req := &RawRequestReq{
 		Method:                "DELETE",
 		URL:                   "https://open.feishu.cn/open-apis/im/v1/chats/:chat_id/members",
 		Body:                  request,
@@ -24,11 +24,11 @@ func (r *ChatAPI) DeleteMember(ctx context.Context, request *DeleteMemberReq) (*
 	}
 	resp := new(deleteMemberResp)
 
-	response, err := r.cli.request(ctx, req, resp)
+	response, err := r.cli.RawRequest(ctx, req, resp)
 	if err != nil {
 		return nil, response, err
 	} else if resp.Code != 0 {
-		return nil, response, newError("Chat", "DeleteMember", resp.Code, resp.Msg)
+		return nil, response, NewError("Chat", "DeleteMember", resp.Code, resp.Msg)
 	}
 
 	return resp.Data, response, nil

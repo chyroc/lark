@@ -11,7 +11,7 @@ import (
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uQDOyUjL0gjM14CN4ITN
 func (r *ApprovalAPI) GetInstanceList(ctx context.Context, request *GetInstanceListReq) (*GetInstanceListResp, *Response, error) {
-	req := &requestParam{
+	req := &RawRequestReq{
 		Method:                "POST",
 		URL:                   "https://www.feishu.cn/approval/openapi/v2/instance/list",
 		Body:                  request,
@@ -22,11 +22,11 @@ func (r *ApprovalAPI) GetInstanceList(ctx context.Context, request *GetInstanceL
 	}
 	resp := new(getInstanceListResp)
 
-	response, err := r.cli.request(ctx, req, resp)
+	response, err := r.cli.RawRequest(ctx, req, resp)
 	if err != nil {
 		return nil, response, err
 	} else if resp.Code != 0 {
-		return nil, response, newError("Approval", "GetInstanceList", resp.Code, resp.Msg)
+		return nil, response, NewError("Approval", "GetInstanceList", resp.Code, resp.Msg)
 	}
 
 	return resp.Data, response, nil

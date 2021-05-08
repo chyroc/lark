@@ -11,7 +11,7 @@ import (
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar/create
 func (r *CalendarAPI) CreateCalendar(ctx context.Context, request *CreateCalendarReq) (*CreateCalendarResp, *Response, error) {
-	req := &requestParam{
+	req := &RawRequestReq{
 		Method:                "POST",
 		URL:                   "https://open.feishu.cn/open-apis/calendar/v4/calendars",
 		Body:                  request,
@@ -22,11 +22,11 @@ func (r *CalendarAPI) CreateCalendar(ctx context.Context, request *CreateCalenda
 	}
 	resp := new(createCalendarResp)
 
-	response, err := r.cli.request(ctx, req, resp)
+	response, err := r.cli.RawRequest(ctx, req, resp)
 	if err != nil {
 		return nil, response, err
 	} else if resp.Code != 0 {
-		return nil, response, newError("Calendar", "CreateCalendar", resp.Code, resp.Msg)
+		return nil, response, NewError("Calendar", "CreateCalendar", resp.Code, resp.Msg)
 	}
 
 	return resp.Data, response, nil

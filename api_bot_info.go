@@ -9,7 +9,7 @@ import (
 // 需要启用机器人能力
 // https://open.feishu.cn/document/ukTMukTMukTM/uAjMxEjLwITMx4CMyETM
 func (r *BotAPI) GetBotInfo(ctx context.Context, request *GetBotInfoReq) (*GetBotInfoResp, *Response, error) {
-	req := &requestParam{
+	req := &RawRequestReq{
 		Method:                "GET",
 		URL:                   "https://open.feishu.cn/open-apis/bot/v3/info",
 		Body:                  request,
@@ -20,11 +20,11 @@ func (r *BotAPI) GetBotInfo(ctx context.Context, request *GetBotInfoReq) (*GetBo
 	}
 	resp := new(getBotInfoResp)
 
-	response, err := r.cli.request(ctx, req, resp)
+	response, err := r.cli.RawRequest(ctx, req, resp)
 	if err != nil {
 		return nil, response, err
 	} else if resp.Code != 0 {
-		return nil, response, newError("Bot", "GetBotInfo", resp.Code, resp.Msg)
+		return nil, response, NewError("Bot", "GetBotInfo", resp.Code, resp.Msg)
 	}
 
 	return resp.Bot, response, nil

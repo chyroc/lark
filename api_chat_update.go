@@ -17,7 +17,7 @@ import (
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat/update
 func (r *ChatAPI) UpdateChat(ctx context.Context, request *UpdateChatReq) (*UpdateChatResp, *Response, error) {
-	req := &requestParam{
+	req := &RawRequestReq{
 		Method:                "PUT",
 		URL:                   "https://open.feishu.cn/open-apis/im/v1/chats/:chat_id",
 		Body:                  request,
@@ -28,11 +28,11 @@ func (r *ChatAPI) UpdateChat(ctx context.Context, request *UpdateChatReq) (*Upda
 	}
 	resp := new(updateChatResp)
 
-	response, err := r.cli.request(ctx, req, resp)
+	response, err := r.cli.RawRequest(ctx, req, resp)
 	if err != nil {
 		return nil, response, err
 	} else if resp.Code != 0 {
-		return nil, response, newError("Chat", "UpdateChat", resp.Code, resp.Msg)
+		return nil, response, NewError("Chat", "UpdateChat", resp.Code, resp.Msg)
 	}
 
 	return resp.Data, response, nil

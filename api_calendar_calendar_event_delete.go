@@ -13,7 +13,7 @@ import (
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar-event/delete
 func (r *CalendarAPI) DeleteCalendarEvent(ctx context.Context, request *DeleteCalendarEventReq) (*DeleteCalendarEventResp, *Response, error) {
-	req := &requestParam{
+	req := &RawRequestReq{
 		Method:                "DELETE",
 		URL:                   "https://open.feishu.cn/open-apis/calendar/v4/calendars/:calendar_id/events/:event_id",
 		Body:                  request,
@@ -24,19 +24,20 @@ func (r *CalendarAPI) DeleteCalendarEvent(ctx context.Context, request *DeleteCa
 	}
 	resp := new(deleteCalendarEventResp)
 
-	response, err := r.cli.request(ctx, req, resp)
+	response, err := r.cli.RawRequest(ctx, req, resp)
 	if err != nil {
 		return nil, response, err
 	} else if resp.Code != 0 {
-		return nil, response, newError("Calendar", "DeleteCalendarEvent", resp.Code, resp.Msg)
+		return nil, response, NewError("Calendar", "DeleteCalendarEvent", resp.Code, resp.Msg)
 	}
 
 	return resp.Data, response, nil
 }
 
 type DeleteCalendarEventReq struct {
-	CalendarID string `path:"calendar_id" json:"-"` // 日历ID, 示例值："feishu.cn_xxxxxxxxxx@group.calendar.feishu.cn"
-	EventID    string `path:"event_id" json:"-"`    // 日程ID, 示例值："xxxxxxxxx_0"
+	NeedNotification *bool  `query:"need_notification" json:"-"` // 删除日程是否给日程参与人发送bot通知，默认为true, 示例值：false, 可选值有: `true`：true, `false`：false
+	CalendarID       string `path:"calendar_id" json:"-"`        // 日历ID, 示例值："feishu.cn_xxxxxxxxxx@group.calendar.feishu.cn"
+	EventID          string `path:"event_id" json:"-"`           // 日程ID, 示例值："xxxxxxxxx_0"
 }
 
 type deleteCalendarEventResp struct {

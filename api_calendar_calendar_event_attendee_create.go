@@ -14,7 +14,7 @@ import (
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar-event-attendee/create
 func (r *CalendarAPI) CreateCalendarEventAttendee(ctx context.Context, request *CreateCalendarEventAttendeeReq) (*CreateCalendarEventAttendeeResp, *Response, error) {
-	req := &requestParam{
+	req := &RawRequestReq{
 		Method:                "POST",
 		URL:                   "https://open.feishu.cn/open-apis/calendar/v4/calendars/:calendar_id/events/:event_id/attendees",
 		Body:                  request,
@@ -25,11 +25,11 @@ func (r *CalendarAPI) CreateCalendarEventAttendee(ctx context.Context, request *
 	}
 	resp := new(createCalendarEventAttendeeResp)
 
-	response, err := r.cli.request(ctx, req, resp)
+	response, err := r.cli.RawRequest(ctx, req, resp)
 	if err != nil {
 		return nil, response, err
 	} else if resp.Code != 0 {
-		return nil, response, newError("Calendar", "CreateCalendarEventAttendee", resp.Code, resp.Msg)
+		return nil, response, NewError("Calendar", "CreateCalendarEventAttendee", resp.Code, resp.Msg)
 	}
 
 	return resp.Data, response, nil
@@ -40,7 +40,7 @@ type CreateCalendarEventAttendeeReq struct {
 	CalendarID       string                                    `path:"calendar_id" json:"-"`        // 日历 ID, 示例值："feishu.cn_xxxxxxxxxx@group.calendar.feishu.cn"
 	EventID          string                                    `path:"event_id" json:"-"`           // 日程 ID, 示例值："xxxxxxxxx_0"
 	Attendees        []*CreateCalendarEventAttendeeReqAttendee `json:"attendees,omitempty"`         // 新增参与人列表
-	NeedNotification *bool                                     `json:"need_notification,omitempty"` // 是否给参与人发送bot通知, 示例值：false
+	NeedNotification *bool                                     `json:"need_notification,omitempty"` // 是否给参与人发送bot通知 默认为true, 示例值：false
 }
 
 type CreateCalendarEventAttendeeReqAttendee struct {

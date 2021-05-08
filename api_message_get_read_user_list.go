@@ -13,7 +13,7 @@ import (
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/read_users
 func (r *MessageAPI) GetMessageReadUserList(ctx context.Context, request *GetMessageReadUserListReq) (*GetMessageReadUserListResp, *Response, error) {
-	req := &requestParam{
+	req := &RawRequestReq{
 		Method:                "GET",
 		URL:                   "https://open.feishu.cn/open-apis/im/v1/messages/:message_id/read_users",
 		Body:                  request,
@@ -24,11 +24,11 @@ func (r *MessageAPI) GetMessageReadUserList(ctx context.Context, request *GetMes
 	}
 	resp := new(getMessageReadUserListResp)
 
-	response, err := r.cli.request(ctx, req, resp)
+	response, err := r.cli.RawRequest(ctx, req, resp)
 	if err != nil {
 		return nil, response, err
 	} else if resp.Code != 0 {
-		return nil, response, newError("Message", "GetMessageReadUserList", resp.Code, resp.Msg)
+		return nil, response, NewError("Message", "GetMessageReadUserList", resp.Code, resp.Msg)
 	}
 
 	return resp.Data, response, nil

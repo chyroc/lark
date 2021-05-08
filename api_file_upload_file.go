@@ -12,7 +12,7 @@ import (
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/file/create
 func (r *FileAPI) UploadFile(ctx context.Context, request *UploadFileReq) (*UploadFileResp, *Response, error) {
-	req := &requestParam{
+	req := &RawRequestReq{
 		Method:                "POST",
 		URL:                   "https://open.feishu.cn/open-apis/im/v1/files",
 		Body:                  request,
@@ -23,11 +23,11 @@ func (r *FileAPI) UploadFile(ctx context.Context, request *UploadFileReq) (*Uplo
 	}
 	resp := new(uploadFileResp)
 
-	response, err := r.cli.request(ctx, req, resp)
+	response, err := r.cli.RawRequest(ctx, req, resp)
 	if err != nil {
 		return nil, response, err
 	} else if resp.Code != 0 {
-		return nil, response, newError("File", "UploadFile", resp.Code, resp.Msg)
+		return nil, response, NewError("File", "UploadFile", resp.Code, resp.Msg)
 	}
 
 	return resp.Data, response, nil

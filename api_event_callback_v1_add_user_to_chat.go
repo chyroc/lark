@@ -27,9 +27,16 @@ type EventV1AddUserToChat struct {
 	Operator  *EventV1AddUserToChatOperator `json:"operator,omitempty"`
 	TenantKey string                        `json:"tenant_key,omitempty"` // 如: 736588c9260f175d
 	Type      string                        `json:"type,omitempty"`       // 事件类型，add_user_to_chat/remove_user_from_chat/revoke_add_user_from_chat. 如: add_user_to_chat
+	Users     []*EventV1AddUserToChatUser   `json:"users,omitempty"`
 }
 
 type EventV1AddUserToChatOperator struct {
 	OpenID string `json:"open_id,omitempty"` // 员工对此应用的唯一标识，同一员工对不同应用的open_id不同. 如: ou_18eac85d35a26f989317ad4f02e8bbbb
 	UserID string `json:"user_id,omitempty"` // 即“用户ID”，仅企业自建应用会返回. 如: ca51d83b
+}
+
+type EventV1AddUserToChatUser struct {
+	Name   string `json:"name,omitempty"`    // 如: James
+	OpenID string `json:"open_id,omitempty"` // 如: ou_706adeb944ab1473b9fb3e7da2a40b68
+	UserID string `json:"user_id,omitempty"` // 如: 51g97a4g
 }

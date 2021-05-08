@@ -8,7 +8,7 @@ import (
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/Attendance/rule/user-setting-modify
 func (r *AttendanceAPI) UpdateUserSettings(ctx context.Context, request *UpdateUserSettingsReq) (*UpdateUserSettingsResp, *Response, error) {
-	req := &requestParam{
+	req := &RawRequestReq{
 		Method:                "POST",
 		URL:                   "https://open.feishu.cn/open-apis/attendance/v1/user_settings/modify",
 		Body:                  request,
@@ -19,11 +19,11 @@ func (r *AttendanceAPI) UpdateUserSettings(ctx context.Context, request *UpdateU
 	}
 	resp := new(updateUserSettingsResp)
 
-	response, err := r.cli.request(ctx, req, resp)
+	response, err := r.cli.RawRequest(ctx, req, resp)
 	if err != nil {
 		return nil, response, err
 	} else if resp.Code != 0 {
-		return nil, response, newError("Attendance", "UpdateUserSettings", resp.Code, resp.Msg)
+		return nil, response, NewError("Attendance", "UpdateUserSettings", resp.Code, resp.Msg)
 	}
 
 	return resp.Data, response, nil

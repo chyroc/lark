@@ -8,7 +8,7 @@ import (
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/ticket/start_service
 func (r *HelpdeskAPI) StartService(ctx context.Context, request *StartServiceReq) (*StartServiceResp, *Response, error) {
-	req := &requestParam{
+	req := &RawRequestReq{
 		Method:                "POST",
 		URL:                   "https://open.feishu.cn/open-apis/helpdesk/v1/start_service",
 		Body:                  request,
@@ -19,11 +19,11 @@ func (r *HelpdeskAPI) StartService(ctx context.Context, request *StartServiceReq
 	}
 	resp := new(startServiceResp)
 
-	response, err := r.cli.request(ctx, req, resp)
+	response, err := r.cli.RawRequest(ctx, req, resp)
 	if err != nil {
 		return nil, response, err
 	} else if resp.Code != 0 {
-		return nil, response, newError("Helpdesk", "StartService", resp.Code, resp.Msg)
+		return nil, response, NewError("Helpdesk", "StartService", resp.Code, resp.Msg)
 	}
 
 	return resp.Data, response, nil

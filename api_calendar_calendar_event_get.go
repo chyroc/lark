@@ -10,7 +10,7 @@ import (
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar-event/get
 func (r *CalendarAPI) GetCalendarEvent(ctx context.Context, request *GetCalendarEventReq) (*GetCalendarEventResp, *Response, error) {
-	req := &requestParam{
+	req := &RawRequestReq{
 		Method:                "GET",
 		URL:                   "https://open.feishu.cn/open-apis/calendar/v4/calendars/:calendar_id/events/:event_id",
 		Body:                  request,
@@ -21,11 +21,11 @@ func (r *CalendarAPI) GetCalendarEvent(ctx context.Context, request *GetCalendar
 	}
 	resp := new(getCalendarEventResp)
 
-	response, err := r.cli.request(ctx, req, resp)
+	response, err := r.cli.RawRequest(ctx, req, resp)
 	if err != nil {
 		return nil, response, err
 	} else if resp.Code != 0 {
-		return nil, response, newError("Calendar", "GetCalendarEvent", resp.Code, resp.Msg)
+		return nil, response, NewError("Calendar", "GetCalendarEvent", resp.Code, resp.Msg)
 	}
 
 	return resp.Data, response, nil

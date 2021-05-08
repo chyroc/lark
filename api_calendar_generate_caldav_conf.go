@@ -8,7 +8,7 @@ import (
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/setting/generate_caldav_conf
 func (r *CalendarAPI) GenerateCaldavConf(ctx context.Context, request *GenerateCaldavConfReq) (*GenerateCaldavConfResp, *Response, error) {
-	req := &requestParam{
+	req := &RawRequestReq{
 		Method:                "POST",
 		URL:                   "https://open.feishu.cn/open-apis/calendar/v4/settings/generate_caldav_conf",
 		Body:                  request,
@@ -19,11 +19,11 @@ func (r *CalendarAPI) GenerateCaldavConf(ctx context.Context, request *GenerateC
 	}
 	resp := new(generateCaldavConfResp)
 
-	response, err := r.cli.request(ctx, req, resp)
+	response, err := r.cli.RawRequest(ctx, req, resp)
 	if err != nil {
 		return nil, response, err
 	} else if resp.Code != 0 {
-		return nil, response, newError("Calendar", "GenerateCaldavConf", resp.Code, resp.Msg)
+		return nil, response, NewError("Calendar", "GenerateCaldavConf", resp.Code, resp.Msg)
 	}
 
 	return resp.Data, response, nil

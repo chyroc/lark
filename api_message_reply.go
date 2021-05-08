@@ -13,7 +13,7 @@ import (
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/reply
 func (r *MessageAPI) ReplyRawMessage(ctx context.Context, request *ReplyRawMessageReq) (*ReplyRawMessageResp, *Response, error) {
-	req := &requestParam{
+	req := &RawRequestReq{
 		Method:                "POST",
 		URL:                   "https://open.feishu.cn/open-apis/im/v1/messages/:message_id/reply",
 		Body:                  request,
@@ -24,11 +24,11 @@ func (r *MessageAPI) ReplyRawMessage(ctx context.Context, request *ReplyRawMessa
 	}
 	resp := new(replyRawMessageResp)
 
-	response, err := r.cli.request(ctx, req, resp)
+	response, err := r.cli.RawRequest(ctx, req, resp)
 	if err != nil {
 		return nil, response, err
 	} else if resp.Code != 0 {
-		return nil, response, newError("Message", "ReplyRawMessage", resp.Code, resp.Msg)
+		return nil, response, NewError("Message", "ReplyRawMessage", resp.Code, resp.Msg)
 	}
 
 	return resp.Data, response, nil

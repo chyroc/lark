@@ -14,7 +14,7 @@ import (
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar-event/patch
 func (r *CalendarAPI) UpdateCalendarEvent(ctx context.Context, request *UpdateCalendarEventReq) (*UpdateCalendarEventResp, *Response, error) {
-	req := &requestParam{
+	req := &RawRequestReq{
 		Method:                "PATCH",
 		URL:                   "https://open.feishu.cn/open-apis/calendar/v4/calendars/:calendar_id/events/:event_id",
 		Body:                  request,
@@ -25,32 +25,33 @@ func (r *CalendarAPI) UpdateCalendarEvent(ctx context.Context, request *UpdateCa
 	}
 	resp := new(updateCalendarEventResp)
 
-	response, err := r.cli.request(ctx, req, resp)
+	response, err := r.cli.RawRequest(ctx, req, resp)
 	if err != nil {
 		return nil, response, err
 	} else if resp.Code != 0 {
-		return nil, response, newError("Calendar", "UpdateCalendarEvent", resp.Code, resp.Msg)
+		return nil, response, NewError("Calendar", "UpdateCalendarEvent", resp.Code, resp.Msg)
 	}
 
 	return resp.Data, response, nil
 }
 
 type UpdateCalendarEventReq struct {
-	CalendarID      string                            `path:"calendar_id" json:"-"`       // 日历ID, 示例值："feishu.cn_xxxxxxxxxx@group.calendar.feishu.cn"
-	EventID         string                            `path:"event_id" json:"-"`          // 日程ID, 示例值："xxxxxxxxx_0"
-	Summary         *string                           `json:"summary,omitempty"`          // 日程标题, 示例值："日程标题", 最大长度：`1000` 字符
-	Description     *string                           `json:"description,omitempty"`      // 日程描述, 示例值："日程描述", 最大长度：`8192` 字符
-	StartTime       *UpdateCalendarEventReqStartTime  `json:"start_time,omitempty"`       // 日程开始时间
-	EndTime         *UpdateCalendarEventReqEndTime    `json:"end_time,omitempty"`         // 日程结束时间
-	Vchat           *UpdateCalendarEventReqVchat      `json:"vchat,omitempty"`            // 视频会议信息，仅当日程至少有一位attendee时生效
-	Visibility      *string                           `json:"visibility,omitempty"`       // 日程公开范围，新建日程默认为Default；仅新建日程时对所有参与人生效，之后修改该属性仅对当前身份生效, 示例值："default", 可选值有: `default`：默认权限，仅向他人显示是否“忙碌”, `public`：公开，显示日程详情, `private`：私密，仅自己可见
-	AttendeeAbility *string                           `json:"attendee_ability,omitempty"` // 参与人权限, 示例值："can_see_others", 可选值有: `none`：无法编辑日程、无法邀请其它参与人、无法查看参与人列表, `can_see_others`：无法编辑日程、无法邀请其它参与人、可以查看参与人列表, `can_invite_others`：无法编辑日程、可以邀请其它参与人、可以查看参与人列表, `can_modify_event`：可以编辑日程、可以邀请其它参与人、可以查看参与人列表
-	FreeBusyStatus  *string                           `json:"free_busy_status,omitempty"` // 日程占用的忙闲状态，新建日程默认为Busy；仅新建日程时对所有参与人生效，之后修改该属性仅对当前身份生效, 示例值："busy", 可选值有: `busy`：忙碌, `free`：空闲
-	Location        *UpdateCalendarEventReqLocation   `json:"location,omitempty"`         // 日程地点
-	Color           *int                              `json:"color,omitempty"`            // 日程颜色，颜色RGB值的int32表示。仅对当前身份生效；客户端展示时会映射到色板上最接近的一种颜色；值为0或-1时默认跟随日历颜色。, 示例值：-1
-	Reminders       []*UpdateCalendarEventReqReminder `json:"reminders,omitempty"`        // 日程提醒列表
-	Recurrence      *string                           `json:"recurrence,omitempty"`       // 重复日程的重复性规则, 示例值："xxxxx", 最大长度：`2000` 字符
-	Schemas         []*UpdateCalendarEventReqSchema   `json:"schemas,omitempty"`          // 日程自定义信息
+	CalendarID       string                            `path:"calendar_id" json:"-"`        // 日历ID, 示例值："feishu.cn_xxxxxxxxxx@group.calendar.feishu.cn"
+	EventID          string                            `path:"event_id" json:"-"`           // 日程ID, 示例值："xxxxxxxxx_0"
+	Summary          *string                           `json:"summary,omitempty"`           // 日程标题, 示例值："日程标题", 最大长度：`1000` 字符
+	Description      *string                           `json:"description,omitempty"`       // 日程描述, 示例值："日程描述", 最大长度：`8192` 字符
+	StartTime        *UpdateCalendarEventReqStartTime  `json:"start_time,omitempty"`        // 日程开始时间
+	EndTime          *UpdateCalendarEventReqEndTime    `json:"end_time,omitempty"`          // 日程结束时间
+	Vchat            *UpdateCalendarEventReqVchat      `json:"vchat,omitempty"`             // 视频会议信息，仅当日程至少有一位attendee时生效
+	Visibility       *string                           `json:"visibility,omitempty"`        // 日程公开范围，新建日程默认为Default；仅新建日程时对所有参与人生效，之后修改该属性仅对当前身份生效, 示例值："default", 可选值有: `default`：默认权限，仅向他人显示是否“忙碌”, `public`：公开，显示日程详情, `private`：私密，仅自己可见
+	AttendeeAbility  *string                           `json:"attendee_ability,omitempty"`  // 参与人权限, 示例值："can_see_others", 可选值有: `none`：无法编辑日程、无法邀请其它参与人、无法查看参与人列表, `can_see_others`：无法编辑日程、无法邀请其它参与人、可以查看参与人列表, `can_invite_others`：无法编辑日程、可以邀请其它参与人、可以查看参与人列表, `can_modify_event`：可以编辑日程、可以邀请其它参与人、可以查看参与人列表
+	FreeBusyStatus   *string                           `json:"free_busy_status,omitempty"`  // 日程占用的忙闲状态，新建日程默认为Busy；仅新建日程时对所有参与人生效，之后修改该属性仅对当前身份生效, 示例值："busy", 可选值有: `busy`：忙碌, `free`：空闲
+	Location         *UpdateCalendarEventReqLocation   `json:"location,omitempty"`          // 日程地点
+	Color            *int                              `json:"color,omitempty"`             // 日程颜色，颜色RGB值的int32表示。仅对当前身份生效；客户端展示时会映射到色板上最接近的一种颜色；值为0或-1时默认跟随日历颜色。, 示例值：-1
+	Reminders        []*UpdateCalendarEventReqReminder `json:"reminders,omitempty"`         // 日程提醒列表
+	Recurrence       *string                           `json:"recurrence,omitempty"`        // 重复日程的重复性规则, 示例值："xxxxx", 最大长度：`2000` 字符
+	Schemas          []*UpdateCalendarEventReqSchema   `json:"schemas,omitempty"`           // 日程自定义信息
+	NeedNotification *bool                             `json:"need_notification,omitempty"` // 更新日程是否给日程参与人发送bot通知，默认为true, 示例值：false
 }
 
 type UpdateCalendarEventReqStartTime struct {

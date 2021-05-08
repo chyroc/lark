@@ -11,7 +11,7 @@ import (
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar-event-attendee/list
 func (r *CalendarAPI) GetCalendarEventAttendeeList(ctx context.Context, request *GetCalendarEventAttendeeListReq) (*GetCalendarEventAttendeeListResp, *Response, error) {
-	req := &requestParam{
+	req := &RawRequestReq{
 		Method:                "GET",
 		URL:                   "https://open.feishu.cn/open-apis/calendar/v4/calendars/:calendar_id/events/:event_id/attendees",
 		Body:                  request,
@@ -22,11 +22,11 @@ func (r *CalendarAPI) GetCalendarEventAttendeeList(ctx context.Context, request 
 	}
 	resp := new(getCalendarEventAttendeeListResp)
 
-	response, err := r.cli.request(ctx, req, resp)
+	response, err := r.cli.RawRequest(ctx, req, resp)
 	if err != nil {
 		return nil, response, err
 	} else if resp.Code != 0 {
-		return nil, response, newError("Calendar", "GetCalendarEventAttendeeList", resp.Code, resp.Msg)
+		return nil, response, NewError("Calendar", "GetCalendarEventAttendeeList", resp.Code, resp.Msg)
 	}
 
 	return resp.Data, response, nil

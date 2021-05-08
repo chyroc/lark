@@ -6,10 +6,11 @@ import (
 
 // EventV1P2PChatCreate
 //
+// ## 用户和机器人的会话首次被创建
 // 首次会话是用户了解应用的重要机会，你可以发送操作说明、配置地址来指导用户开始使用你的应用。
 // 如果是应用商店应用，请务必确保订阅并响应此事件。
 //
-// doc: https://open.feishu.cn/document/ukTMukTMukTM/uYDNxYjL2QTM24iN0EjN/bot-events
+// doc: https://open.feishu.cn/document/ukTMukTMukTM/uMTNxYjLzUTM24yM1EjN
 func (r *EventCallbackAPI) HandlerEventV1P2PChatCreate(f eventV1P2PChatCreateHandler) {
 	r.cli.eventHandler.eventV1P2PChatCreateHandler = f
 }

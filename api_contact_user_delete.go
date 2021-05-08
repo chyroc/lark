@@ -4,13 +4,13 @@ import (
 	"context"
 )
 
-// DeleteUser 该接口向通讯录删除一个用户信息。
+// DeleteUser 该接口向通讯录删除一个用户信息，可以理解为员工离职。
 //
 // 应用需要待删除用户的所有部门的通讯录权限才能删除该用户。应用商店应用无权限调用接口。用户可以在删除员工时设置删除员工数据的接收者，如果不设置则由其leader接受，如果该员工没有leader，则会将该员工的数据删除。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/delete
 func (r *ContactAPI) DeleteUser(ctx context.Context, request *DeleteUserReq) (*DeleteUserResp, *Response, error) {
-	req := &requestParam{
+	req := &RawRequestReq{
 		Method:                "DELETE",
 		URL:                   "https://open.feishu.cn/open-apis/contact/v3/users/:user_id",
 		Body:                  request,
@@ -21,11 +21,11 @@ func (r *ContactAPI) DeleteUser(ctx context.Context, request *DeleteUserReq) (*D
 	}
 	resp := new(deleteUserResp)
 
-	response, err := r.cli.request(ctx, req, resp)
+	response, err := r.cli.RawRequest(ctx, req, resp)
 	if err != nil {
 		return nil, response, err
 	} else if resp.Code != 0 {
-		return nil, response, newError("Contact", "DeleteUser", resp.Code, resp.Msg)
+		return nil, response, NewError("Contact", "DeleteUser", resp.Code, resp.Msg)
 	}
 
 	return resp.Data, response, nil

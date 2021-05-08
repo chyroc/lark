@@ -15,7 +15,7 @@ import (
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-members/create
 func (r *ChatAPI) AddMember(ctx context.Context, request *AddMemberReq) (*AddMemberResp, *Response, error) {
-	req := &requestParam{
+	req := &RawRequestReq{
 		Method:                "POST",
 		URL:                   "https://open.feishu.cn/open-apis/im/v1/chats/:chat_id/members",
 		Body:                  request,
@@ -26,11 +26,11 @@ func (r *ChatAPI) AddMember(ctx context.Context, request *AddMemberReq) (*AddMem
 	}
 	resp := new(addMemberResp)
 
-	response, err := r.cli.request(ctx, req, resp)
+	response, err := r.cli.RawRequest(ctx, req, resp)
 	if err != nil {
 		return nil, response, err
 	} else if resp.Code != 0 {
-		return nil, response, newError("Chat", "AddMember", resp.Code, resp.Msg)
+		return nil, response, NewError("Chat", "AddMember", resp.Code, resp.Msg)
 	}
 
 	return resp.Data, response, nil

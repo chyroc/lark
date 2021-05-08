@@ -14,7 +14,7 @@ import (
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-announcement/patch
 func (r *ChatAPI) UpdateAnnouncement(ctx context.Context, request *UpdateAnnouncementReq) (*UpdateAnnouncementResp, *Response, error) {
-	req := &requestParam{
+	req := &RawRequestReq{
 		Method:                "PATCH",
 		URL:                   "https://open.feishu.cn/open-apis/im/v1/chats/:chat_id/announcement",
 		Body:                  request,
@@ -25,11 +25,11 @@ func (r *ChatAPI) UpdateAnnouncement(ctx context.Context, request *UpdateAnnounc
 	}
 	resp := new(updateAnnouncementResp)
 
-	response, err := r.cli.request(ctx, req, resp)
+	response, err := r.cli.RawRequest(ctx, req, resp)
 	if err != nil {
 		return nil, response, err
 	} else if resp.Code != 0 {
-		return nil, response, newError("Chat", "UpdateAnnouncement", resp.Code, resp.Msg)
+		return nil, response, NewError("Chat", "UpdateAnnouncement", resp.Code, resp.Msg)
 	}
 
 	return resp.Data, response, nil

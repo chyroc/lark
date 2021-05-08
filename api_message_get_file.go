@@ -14,7 +14,7 @@ import (
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message-resource/get
 func (r *MessageAPI) GetMessageFile(ctx context.Context, request *GetMessageFileReq) (*GetMessageFileResp, *Response, error) {
-	req := &requestParam{
+	req := &RawRequestReq{
 		Method:                "GET",
 		URL:                   "https://open.feishu.cn/open-apis/im/v1/messages/:message_id/resources/:file_key",
 		Body:                  request,
@@ -25,11 +25,11 @@ func (r *MessageAPI) GetMessageFile(ctx context.Context, request *GetMessageFile
 	}
 	resp := new(getMessageFileResp)
 
-	response, err := r.cli.request(ctx, req, resp)
+	response, err := r.cli.RawRequest(ctx, req, resp)
 	if err != nil {
 		return nil, response, err
 	} else if resp.Code != 0 {
-		return nil, response, newError("Message", "GetMessageFile", resp.Code, resp.Msg)
+		return nil, response, NewError("Message", "GetMessageFile", resp.Code, resp.Msg)
 	}
 
 	return resp.Data, response, nil

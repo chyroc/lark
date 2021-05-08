@@ -12,7 +12,7 @@ import (
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat/get
 func (r *ChatAPI) GetChat(ctx context.Context, request *GetChatReq) (*GetChatResp, *Response, error) {
-	req := &requestParam{
+	req := &RawRequestReq{
 		Method:                "GET",
 		URL:                   "https://open.feishu.cn/open-apis/im/v1/chats/:chat_id",
 		Body:                  request,
@@ -23,11 +23,11 @@ func (r *ChatAPI) GetChat(ctx context.Context, request *GetChatReq) (*GetChatRes
 	}
 	resp := new(getChatResp)
 
-	response, err := r.cli.request(ctx, req, resp)
+	response, err := r.cli.RawRequest(ctx, req, resp)
 	if err != nil {
 		return nil, response, err
 	} else if resp.Code != 0 {
-		return nil, response, newError("Chat", "GetChat", resp.Code, resp.Msg)
+		return nil, response, NewError("Chat", "GetChat", resp.Code, resp.Msg)
 	}
 
 	return resp.Data, response, nil

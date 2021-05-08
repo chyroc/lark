@@ -4,13 +4,13 @@ import (
 	"context"
 )
 
-// CreateUser 使用该接口向通讯录创建一个用户
+// CreateUser 使用该接口向通讯录创建一个用户，可以理解为员工入职。
 //
 // 新增用户的所有部门必须都在当前应用的通讯录授权范围内才允许新增用户，如果想要在根部门下新增用户，必须要有全员权限。 应用商店应用无权限调用此接口
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/create
 func (r *ContactAPI) CreateUser(ctx context.Context, request *CreateUserReq) (*CreateUserResp, *Response, error) {
-	req := &requestParam{
+	req := &RawRequestReq{
 		Method:                "POST",
 		URL:                   "https://open.feishu.cn/open-apis/contact/v3/users",
 		Body:                  request,
@@ -21,11 +21,11 @@ func (r *ContactAPI) CreateUser(ctx context.Context, request *CreateUserReq) (*C
 	}
 	resp := new(createUserResp)
 
-	response, err := r.cli.request(ctx, req, resp)
+	response, err := r.cli.RawRequest(ctx, req, resp)
 	if err != nil {
 		return nil, response, err
 	} else if resp.Code != 0 {
-		return nil, response, newError("Contact", "CreateUser", resp.Code, resp.Msg)
+		return nil, response, NewError("Contact", "CreateUser", resp.Code, resp.Msg)
 	}
 
 	return resp.Data, response, nil
@@ -60,8 +60,8 @@ type CreateUserReq struct {
 
 type CreateUserReqOrder struct {
 	DepartmentID    *string `json:"department_id,omitempty"`    // 排序信息对应的部门ID, 示例值："od-4e6ac4d14bcd5071a37a39de902c7141"
-	UserOrder       *int    `json:"user_order,omitempty"`       // 用户在部门内的排序，数值越大，排序越靠前, 示例值：100
-	DepartmentOrder *int    `json:"department_order,omitempty"` // 用户的部门间的排序，数值越大，排序越靠前, 示例值：100
+	UserOrder       *int    `json:"user_order,omitempty"`       // 用户在其直属部门内的排序，数值越大，排序越靠前, 示例值：100
+	DepartmentOrder *int    `json:"department_order,omitempty"` // 用户所属的多个部门间的排序，数值越大，排序越靠前, 示例值：100
 }
 
 type CreateUserReqCustomAttr struct {
@@ -135,8 +135,8 @@ type CreateUserRespUserStatus struct {
 
 type CreateUserRespUserOrder struct {
 	DepartmentID    string `json:"department_id,omitempty"`    // 排序信息对应的部门ID
-	UserOrder       int    `json:"user_order,omitempty"`       // 用户在部门内的排序，数值越大，排序越靠前
-	DepartmentOrder int    `json:"department_order,omitempty"` // 用户的部门间的排序，数值越大，排序越靠前
+	UserOrder       int    `json:"user_order,omitempty"`       // 用户在其直属部门内的排序，数值越大，排序越靠前
+	DepartmentOrder int    `json:"department_order,omitempty"` // 用户所属的多个部门间的排序，数值越大，排序越靠前
 }
 
 type CreateUserRespUserCustomAttr struct {

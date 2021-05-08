@@ -10,7 +10,7 @@ func (r *TokenAPI) GetTenantAccessToken(ctx context.Context) (*TokenExpire, *Res
 		return r.cli.mock.mockGetTenantAccessToken(ctx)
 	}
 
-	req := &requestParam{
+	req := &RawRequestReq{
 		Method: "POST",
 		URL:    "https://open.feishu.cn/open-apis/auth/v3/tenant_access_token/internal/",
 		Body: getTenantAccessTokenReq{
@@ -20,11 +20,11 @@ func (r *TokenAPI) GetTenantAccessToken(ctx context.Context) (*TokenExpire, *Res
 	}
 	resp := new(getTenantAccessTokenResp)
 
-	response, err := r.cli.request(ctx, req, resp)
+	response, err := r.cli.RawRequest(ctx, req, resp)
 	if err != nil {
 		return nil, response, err
 	} else if resp.Code != 0 {
-		return nil, response, newError("Token", "GetTenantAccessToken", resp.Code, resp.Msg)
+		return nil, response, NewError("Token", "GetTenantAccessToken", resp.Code, resp.Msg)
 	}
 
 	return &TokenExpire{

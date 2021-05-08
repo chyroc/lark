@@ -11,7 +11,7 @@ import (
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/update
 func (r *ContactAPI) UpdateDepartment(ctx context.Context, request *UpdateDepartmentReq) (*UpdateDepartmentResp, *Response, error) {
-	req := &requestParam{
+	req := &RawRequestReq{
 		Method:                "PUT",
 		URL:                   "https://open.feishu.cn/open-apis/contact/v3/departments/:department_id",
 		Body:                  request,
@@ -22,11 +22,11 @@ func (r *ContactAPI) UpdateDepartment(ctx context.Context, request *UpdateDepart
 	}
 	resp := new(updateDepartmentResp)
 
-	response, err := r.cli.request(ctx, req, resp)
+	response, err := r.cli.RawRequest(ctx, req, resp)
 	if err != nil {
 		return nil, response, err
 	} else if resp.Code != 0 {
-		return nil, response, newError("Contact", "UpdateDepartment", resp.Code, resp.Msg)
+		return nil, response, NewError("Contact", "UpdateDepartment", resp.Code, resp.Msg)
 	}
 
 	return resp.Data, response, nil

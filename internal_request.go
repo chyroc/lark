@@ -26,7 +26,7 @@ type Response struct {
 	StatusCode int
 }
 
-func (r *Lark) request(ctx context.Context, req *requestParam, resp interface{}) (*Response, error) {
+func (r *Lark) RawRequest(ctx context.Context, req *RawRequestReq, resp interface{}) (*Response, error) {
 	headers, err := r.prepareHeaders(ctx, req)
 	if err != nil {
 		return nil, err
@@ -34,7 +34,7 @@ func (r *Lark) request(ctx context.Context, req *requestParam, resp interface{})
 	return request(ctx, r.httpClient, req, headers, resp)
 }
 
-type requestParam struct {
+type RawRequestReq struct {
 	Method                string
 	URL                   string
 	Body                  interface{}
@@ -44,7 +44,7 @@ type requestParam struct {
 	NeedHelpdeskAuth      bool
 }
 
-func (r *Lark) prepareHeaders(ctx context.Context, req *requestParam) (map[string]string, error) {
+func (r *Lark) prepareHeaders(ctx context.Context, req *RawRequestReq) (map[string]string, error) {
 	headers := map[string]string{}
 	if req.Method != http.MethodGet {
 		headers["Content-Type"] = "application/json; charset=utf-8"
@@ -70,7 +70,7 @@ func (r *Lark) prepareHeaders(ctx context.Context, req *requestParam) (map[strin
 	return headers, nil
 }
 
-func parseRequestParam(req *requestParam) (*realRequestParam, error) {
+func parseRequestParam(req *RawRequestReq) (*realRequestParam, error) {
 	uri := req.URL
 	var body io.Reader
 	var reader io.Reader
@@ -162,7 +162,7 @@ type realRequestParam struct {
 	Headers map[string]string
 }
 
-func request(ctx context.Context, cli *http.Client, requestParam *requestParam, headers map[string]string, realResponse interface{}) (*Response, error) {
+func request(ctx context.Context, cli *http.Client, requestParam *RawRequestReq, headers map[string]string, realResponse interface{}) (*Response, error) {
 	response := new(Response)
 	realReq, err := parseRequestParam(requestParam)
 	if err != nil {

@@ -13,7 +13,7 @@ import (
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/patch
 func (r *MessageAPI) UpdateMessage(ctx context.Context, request *UpdateMessageReq) (*UpdateMessageResp, *Response, error) {
-	req := &requestParam{
+	req := &RawRequestReq{
 		Method:                "PATCH",
 		URL:                   "https://open.feishu.cn/open-apis/im/v1/messages/:message_id",
 		Body:                  request,
@@ -24,11 +24,11 @@ func (r *MessageAPI) UpdateMessage(ctx context.Context, request *UpdateMessageRe
 	}
 	resp := new(updateMessageResp)
 
-	response, err := r.cli.request(ctx, req, resp)
+	response, err := r.cli.RawRequest(ctx, req, resp)
 	if err != nil {
 		return nil, response, err
 	} else if resp.Code != 0 {
-		return nil, response, newError("Message", "UpdateMessage", resp.Code, resp.Msg)
+		return nil, response, NewError("Message", "UpdateMessage", resp.Code, resp.Msg)
 	}
 
 	return resp.Data, response, nil

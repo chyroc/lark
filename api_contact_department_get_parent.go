@@ -12,7 +12,7 @@ import (
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/parent
 func (r *ContactAPI) GetParentDepartment(ctx context.Context, request *GetParentDepartmentReq) (*GetParentDepartmentResp, *Response, error) {
-	req := &requestParam{
+	req := &RawRequestReq{
 		Method:                "GET",
 		URL:                   "https://open.feishu.cn/open-apis/contact/v3/departments/parent",
 		Body:                  request,
@@ -23,11 +23,11 @@ func (r *ContactAPI) GetParentDepartment(ctx context.Context, request *GetParent
 	}
 	resp := new(getParentDepartmentResp)
 
-	response, err := r.cli.request(ctx, req, resp)
+	response, err := r.cli.RawRequest(ctx, req, resp)
 	if err != nil {
 		return nil, response, err
 	} else if resp.Code != 0 {
-		return nil, response, newError("Contact", "GetParentDepartment", resp.Code, resp.Msg)
+		return nil, response, NewError("Contact", "GetParentDepartment", resp.Code, resp.Msg)
 	}
 
 	return resp.Data, response, nil

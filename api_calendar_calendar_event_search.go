@@ -12,7 +12,7 @@ import (
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar-event/search
 func (r *CalendarAPI) SearchCalendarEvent(ctx context.Context, request *SearchCalendarEventReq) (*SearchCalendarEventResp, *Response, error) {
-	req := &requestParam{
+	req := &RawRequestReq{
 		Method:                "POST",
 		URL:                   "https://open.feishu.cn/open-apis/calendar/v4/calendars/:calendar_id/events/search",
 		Body:                  request,
@@ -23,11 +23,11 @@ func (r *CalendarAPI) SearchCalendarEvent(ctx context.Context, request *SearchCa
 	}
 	resp := new(searchCalendarEventResp)
 
-	response, err := r.cli.request(ctx, req, resp)
+	response, err := r.cli.RawRequest(ctx, req, resp)
 	if err != nil {
 		return nil, response, err
 	} else if resp.Code != 0 {
-		return nil, response, newError("Calendar", "SearchCalendarEvent", resp.Code, resp.Msg)
+		return nil, response, NewError("Calendar", "SearchCalendarEvent", resp.Code, resp.Msg)
 	}
 
 	return resp.Data, response, nil

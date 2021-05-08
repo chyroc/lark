@@ -503,16 +503,56 @@
         "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/vc-v1/meeting/events/share_ended"
       },
       {
+        "file_name": "api_event_callback_v1_add_bot.go",
+        "event_name": "EventV1AddBot",
+        "doc_url": "https://open.feishu.cn/document/ukTMukTMukTM/uMTNxYjLzUTM24yM1EjN",
+        "from": "机器人进群",
+        "to": "机器人被移出群"
+      },
+      {
+        "file_name": "api_event_callback_v1_remove_bot.go",
+        "event_name": "EventV1RemoveBot",
+        "doc_url": "https://open.feishu.cn/document/ukTMukTMukTM/uMTNxYjLzUTM24yM1EjN",
+        "from": "机器人被移出群",
+        "to": "用户和机器人的会话首次被创建"
+      },
+      {
         "file_name": "api_event_callback_v1_p2p_chat_create.go",
         "event_name": "EventV1P2PChatCreate",
-        "doc_url": "https://open.feishu.cn/document/ukTMukTMukTM/uYDNxYjL2QTM24iN0EjN/bot-events"
+        "doc_url": "https://open.feishu.cn/document/ukTMukTMukTM/uMTNxYjLzUTM24yM1EjN",
+        "from": "用户和机器人的会话首次被创建",
+        "to": "接收消息"
       },
       {
         "file_name": "api_event_callback_v1_add_user_to_chat.go",
         "event_name": "EventV1AddUserToChat",
         "doc_url": "https://open.feishu.cn/document/ukTMukTMukTM/ukjNxYjL5YTM24SO2EjN",
         "from": "用户进群、出群事件",
-        "to": "解散群"
+        "to": "解散群",
+        "event_type": "add_user_to_chat"
+      },
+      {
+        "file_name": "api_event_callback_v1_remove_user_from_chat.go",
+        "event_name": "EventV1RemoveUserFromChat",
+        "doc_url": "https://open.feishu.cn/document/ukTMukTMukTM/ukjNxYjL5YTM24SO2EjN",
+        "from": "用户进群、出群事件",
+        "to": "解散群",
+        "event_type": "remove_user_from_chat"
+      },
+      {
+        "file_name": "api_event_callback_v1_revoke_add_user_from_chat.go",
+        "event_name": "EventV1RevokeAddUserFromChat",
+        "doc_url": "https://open.feishu.cn/document/ukTMukTMukTM/ukjNxYjL5YTM24SO2EjN",
+        "from": "用户进群、出群事件",
+        "to": "解散群",
+        "event_type": "revoke_add_user_from_chat"
+      },
+      {
+        "file_name": "api_event_callback_v1_chat_disband.go",
+        "event_name": "EventV1ChatDisband",
+        "doc_url": "https://open.feishu.cn/document/ukTMukTMukTM/ukjNxYjL5YTM24SO2EjN",
+        "from": "解散群",
+        "to": "群配置修改"
       }
     ]
   }

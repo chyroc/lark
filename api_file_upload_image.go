@@ -12,7 +12,7 @@ import (
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/image/create
 func (r *FileAPI) UploadImage(ctx context.Context, request *UploadImageReq) (*UploadImageResp, *Response, error) {
-	req := &requestParam{
+	req := &RawRequestReq{
 		Method:                "POST",
 		URL:                   "https://open.feishu.cn/open-apis/im/v1/images",
 		Body:                  request,
@@ -23,11 +23,11 @@ func (r *FileAPI) UploadImage(ctx context.Context, request *UploadImageReq) (*Up
 	}
 	resp := new(uploadImageResp)
 
-	response, err := r.cli.request(ctx, req, resp)
+	response, err := r.cli.RawRequest(ctx, req, resp)
 	if err != nil {
 		return nil, response, err
 	} else if resp.Code != 0 {
-		return nil, response, newError("File", "UploadImage", resp.Code, resp.Msg)
+		return nil, response, NewError("File", "UploadImage", resp.Code, resp.Msg)
 	}
 
 	return resp.Data, response, nil

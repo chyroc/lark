@@ -13,7 +13,7 @@ import (
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar/patch
 func (r *CalendarAPI) UpdateCalendar(ctx context.Context, request *UpdateCalendarReq) (*UpdateCalendarResp, *Response, error) {
-	req := &requestParam{
+	req := &RawRequestReq{
 		Method:                "PATCH",
 		URL:                   "https://open.feishu.cn/open-apis/calendar/v4/calendars/:calendar_id",
 		Body:                  request,
@@ -24,11 +24,11 @@ func (r *CalendarAPI) UpdateCalendar(ctx context.Context, request *UpdateCalenda
 	}
 	resp := new(updateCalendarResp)
 
-	response, err := r.cli.request(ctx, req, resp)
+	response, err := r.cli.RawRequest(ctx, req, resp)
 	if err != nil {
 		return nil, response, err
 	} else if resp.Code != 0 {
-		return nil, response, newError("Calendar", "UpdateCalendar", resp.Code, resp.Msg)
+		return nil, response, NewError("Calendar", "UpdateCalendar", resp.Code, resp.Msg)
 	}
 
 	return resp.Data, response, nil

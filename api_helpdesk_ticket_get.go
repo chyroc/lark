@@ -8,7 +8,7 @@ import (
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/ticket/get
 func (r *HelpdeskAPI) GetTicket(ctx context.Context, request *GetTicketReq) (*GetTicketResp, *Response, error) {
-	req := &requestParam{
+	req := &RawRequestReq{
 		Method:                "GET",
 		URL:                   "https://open.feishu.cn/open-apis/helpdesk/v1/tickets/:ticket_id",
 		Body:                  request,
@@ -19,11 +19,11 @@ func (r *HelpdeskAPI) GetTicket(ctx context.Context, request *GetTicketReq) (*Ge
 	}
 	resp := new(getTicketResp)
 
-	response, err := r.cli.request(ctx, req, resp)
+	response, err := r.cli.RawRequest(ctx, req, resp)
 	if err != nil {
 		return nil, response, err
 	} else if resp.Code != 0 {
-		return nil, response, newError("Helpdesk", "GetTicket", resp.Code, resp.Msg)
+		return nil, response, NewError("Helpdesk", "GetTicket", resp.Code, resp.Msg)
 	}
 
 	return resp.Data, response, nil

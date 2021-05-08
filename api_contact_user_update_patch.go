@@ -8,7 +8,7 @@ import (
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/patch
 func (r *ContactAPI) UpdateUserPatch(ctx context.Context, request *UpdateUserPatchReq) (*UpdateUserPatchResp, *Response, error) {
-	req := &requestParam{
+	req := &RawRequestReq{
 		Method:                "PATCH",
 		URL:                   "https://open.feishu.cn/open-apis/contact/v3/users/:user_id",
 		Body:                  request,
@@ -19,11 +19,11 @@ func (r *ContactAPI) UpdateUserPatch(ctx context.Context, request *UpdateUserPat
 	}
 	resp := new(updateUserPatchResp)
 
-	response, err := r.cli.request(ctx, req, resp)
+	response, err := r.cli.RawRequest(ctx, req, resp)
 	if err != nil {
 		return nil, response, err
 	} else if resp.Code != 0 {
-		return nil, response, newError("Contact", "UpdateUserPatch", resp.Code, resp.Msg)
+		return nil, response, NewError("Contact", "UpdateUserPatch", resp.Code, resp.Msg)
 	}
 
 	return resp.Data, response, nil
@@ -56,8 +56,8 @@ type UpdateUserPatchReq struct {
 
 type UpdateUserPatchReqOrder struct {
 	DepartmentID    *string `json:"department_id,omitempty"`    // 排序信息对应的部门ID, 示例值："od-4e6ac4d14bcd5071a37a39de902c7141"
-	UserOrder       *int    `json:"user_order,omitempty"`       // 用户在部门内的排序，数值越大，排序越靠前, 示例值：100
-	DepartmentOrder *int    `json:"department_order,omitempty"` // 用户的部门间的排序，数值越大，排序越靠前, 示例值：100
+	UserOrder       *int    `json:"user_order,omitempty"`       // 用户在其直属部门内的排序，数值越大，排序越靠前, 示例值：100
+	DepartmentOrder *int    `json:"department_order,omitempty"` // 用户所属的多个部门间的排序，数值越大，排序越靠前, 示例值：100
 }
 
 type UpdateUserPatchReqCustomAttr struct {
@@ -124,8 +124,8 @@ type UpdateUserPatchRespUserStatus struct {
 
 type UpdateUserPatchRespUserOrder struct {
 	DepartmentID    string `json:"department_id,omitempty"`    // 排序信息对应的部门ID
-	UserOrder       int    `json:"user_order,omitempty"`       // 用户在部门内的排序，数值越大，排序越靠前
-	DepartmentOrder int    `json:"department_order,omitempty"` // 用户的部门间的排序，数值越大，排序越靠前
+	UserOrder       int    `json:"user_order,omitempty"`       // 用户在其直属部门内的排序，数值越大，排序越靠前
+	DepartmentOrder int    `json:"department_order,omitempty"` // 用户所属的多个部门间的排序，数值越大，排序越靠前
 }
 
 type UpdateUserPatchRespUserCustomAttr struct {

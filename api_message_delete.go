@@ -14,7 +14,7 @@ import (
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/delete
 func (r *MessageAPI) DeleteMessage(ctx context.Context, request *DeleteMessageReq) (*DeleteMessageResp, *Response, error) {
-	req := &requestParam{
+	req := &RawRequestReq{
 		Method:                "DELETE",
 		URL:                   "https://open.feishu.cn/open-apis/im/v1/messages/:message_id",
 		Body:                  request,
@@ -25,11 +25,11 @@ func (r *MessageAPI) DeleteMessage(ctx context.Context, request *DeleteMessageRe
 	}
 	resp := new(deleteMessageResp)
 
-	response, err := r.cli.request(ctx, req, resp)
+	response, err := r.cli.RawRequest(ctx, req, resp)
 	if err != nil {
 		return nil, response, err
 	} else if resp.Code != 0 {
-		return nil, response, newError("Message", "DeleteMessage", resp.Code, resp.Msg)
+		return nil, response, NewError("Message", "DeleteMessage", resp.Code, resp.Msg)
 	}
 
 	return resp.Data, response, nil

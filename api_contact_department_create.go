@@ -10,7 +10,7 @@ import (
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/create
 func (r *ContactAPI) CreateDepartment(ctx context.Context, request *CreateDepartmentReq) (*CreateDepartmentResp, *Response, error) {
-	req := &requestParam{
+	req := &RawRequestReq{
 		Method:                "POST",
 		URL:                   "https://open.feishu.cn/open-apis/contact/v3/departments",
 		Body:                  request,
@@ -21,11 +21,11 @@ func (r *ContactAPI) CreateDepartment(ctx context.Context, request *CreateDepart
 	}
 	resp := new(createDepartmentResp)
 
-	response, err := r.cli.request(ctx, req, resp)
+	response, err := r.cli.RawRequest(ctx, req, resp)
 	if err != nil {
 		return nil, response, err
 	} else if resp.Code != 0 {
-		return nil, response, newError("Contact", "CreateDepartment", resp.Code, resp.Msg)
+		return nil, response, NewError("Contact", "CreateDepartment", resp.Code, resp.Msg)
 	}
 
 	return resp.Data, response, nil

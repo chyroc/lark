@@ -8,7 +8,7 @@ import (
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-members/is_in_chat
 func (r *ChatAPI) IsInChat(ctx context.Context, request *IsInChatReq) (*IsInChatResp, *Response, error) {
-	req := &requestParam{
+	req := &RawRequestReq{
 		Method:                "GET",
 		URL:                   "https://open.feishu.cn/open-apis/im/v1/chats/:chat_id/members/is_in_chat",
 		Body:                  request,
@@ -19,11 +19,11 @@ func (r *ChatAPI) IsInChat(ctx context.Context, request *IsInChatReq) (*IsInChat
 	}
 	resp := new(isInChatResp)
 
-	response, err := r.cli.request(ctx, req, resp)
+	response, err := r.cli.RawRequest(ctx, req, resp)
 	if err != nil {
 		return nil, response, err
 	} else if resp.Code != 0 {
-		return nil, response, newError("Chat", "IsInChat", resp.Code, resp.Msg)
+		return nil, response, NewError("Chat", "IsInChat", resp.Code, resp.Msg)
 	}
 
 	return resp.Data, response, nil
