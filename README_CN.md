@@ -24,122 +24,146 @@ https://godoc.org/github.com/chyroc/lark
 
 ## 支持的接口
 
+API Count: 97, Event Count: 25
 
 <details>
   <summary>
-    点击这里展开
+    Click This to See ALL
   </summary>
 
-API 个数: 73, 事件个数: 25
-
 - Contact
-    - CreateUser
-    - DeleteUser
-    - GetUser
-    - GetUserList
-    - UpdateUserPatch
-    - UpdateUser
-    - CreateDepartment
-    - GetDepartment
-    - GetDepartmentList
-    - GetParentDepartment
-    - SearchDepartment
-    - UpdateDepartmentPatch
-    - UpdateDepartment
-    - DeleteDepartment
+  - CreateUser
+  - DeleteUser
+  - GetUser
+  - GetUserList
+  - UpdateUserPatch
+  - UpdateUser
+  - CreateDepartment
+  - GetDepartment
+  - GetDepartmentList
+  - GetParentDepartment
+  - SearchDepartment
+  - UpdateDepartmentPatch
+  - UpdateDepartment
+  - DeleteDepartment
 - Chat
-    - CreateChat
-    - GetChat
-    - UpdateChat
-    - DeleteChat
-    - GetChatListOfSelf
-    - SearchChat
-    - GetMemberList
-    - IsInChat
-    - AddMember
-    - DeleteMember
-    - GetAnnouncement
-    - UpdateAnnouncement
+  - CreateChat
+  - GetChat
+  - UpdateChat
+  - DeleteChat
+  - GetChatListOfSelf
+  - SearchChat
+  - GetMemberList
+  - IsInChat
+  - AddMember
+  - DeleteMember
+  - GetAnnouncement
+  - UpdateAnnouncement
 - File
-    - UploadImage
-    - DownloadImage
-    - UploadFile
-    - DownloadFile
+  - UploadImage
+  - DownloadImage
+  - UploadFile
+  - DownloadFile
 - Message
-    - SendRawMessage
-    - ReplyRawMessage
-    - DeleteMessage
-    - UpdateMessage
-    - GetMessageReadUserList
-    - GetMessageList
-    - GetMessageFile
-    - GetMessage
+  - SendRawMessage
+  - ReplyRawMessage
+  - DeleteMessage
+  - UpdateMessage
+  - GetMessageReadUserList
+  - GetMessageList
+  - GetMessageFile
+  - GetMessage
 - Bot
-    - GetBotInfo
+  - GetBotInfo
 - Calendar
-    - CreateCalendarACL
-    - DeleteCalendarACL
-    - GetCalendarACLList
-    - SubscribeCalendarACL
-    - CreateCalendar
-    - DeleteCalendar
-    - GetCalendar
-    - GetCalendarList
-    - UpdateCalendar
-    - SearchCalendar
-    - SubscribeCalendar
-    - UnsubscribeCalendar
-    - CreateCalendarEvent
-    - DeleteCalendarEvent
-    - GetCalendarEvent
-    - GetCalendarEventList
-    - UpdateCalendarEvent
-    - SearchCalendarEvent
-    - SubscribeCalendarEvent
-    - CreateCalendarEventAttendee
-    - GetCalendarEventAttendeeList
-    - DeleteCalendarEventAttendee
-    - GetCalendarEventAttendeeChatMemberList
-    - GetCalendarFreeBusyList
-    - CreateCalendarTimeoffEvent
-    - DeleteCalendarTimeoffEvent
-    - GenerateCaldavConf
+  - CreateCalendarACL
+  - DeleteCalendarACL
+  - GetCalendarACLList
+  - SubscribeCalendarACL
+  - CreateCalendar
+  - DeleteCalendar
+  - GetCalendar
+  - GetCalendarList
+  - UpdateCalendar
+  - SearchCalendar
+  - SubscribeCalendar
+  - UnsubscribeCalendar
+  - CreateCalendarEvent
+  - DeleteCalendarEvent
+  - GetCalendarEvent
+  - GetCalendarEventList
+  - UpdateCalendarEvent
+  - SearchCalendarEvent
+  - SubscribeCalendarEvent
+  - CreateCalendarEventAttendee
+  - GetCalendarEventAttendeeList
+  - DeleteCalendarEventAttendee
+  - GetCalendarEventAttendeeChatMemberList
+  - GetCalendarFreeBusyList
+  - CreateCalendarTimeoffEvent
+  - DeleteCalendarTimeoffEvent
+  - GenerateCaldavConf
 - Approval
-    - GetInstanceList
+  - GetInstanceList
 - Helpdesk
-    - StartService
-    - GetTicket
-    - UpdateTicket
-    - GetTicketList
-    - GetTicketMessageList
+  - StartService
+  - GetTicket
+  - UpdateTicket
+  - GetTicketList
+  - GetTicketMessageList
 - Attendance
-    - UpdateUserSettings
+  - UpdateUserSettings
+- Mail
+  - CreateMailGroup
+  - GetMailGroup
+  - GetMailGroupList
+  - UpdateMailGroupPatch
+  - UpdateMailGroup
+  - DeleteMailGroup
+  - CreateMailGroupMember
+  - GetMailGroupMember
+  - GetMailGroupMemberList
+  - DeleteMailGroupMember
+  - CreateMailGroupPermissionMember
+  - GetMailGroupPermissionMember
+  - GetMailGroupPermissionMemberList
+  - DeleteMailGroupPermissionMember
+  - CreatePublicMailbox
+  - GetPublicMailbox
+  - GetPublicMailboxList
+  - UpdatePublicMailboxPatch
+  - UpdatePublicMailbox
+  - CreatePublicMailboxMember
+  - GetPublicMailboxMember
+  - GetPublicMailboxMemberList
+  - DeletePublicMailboxMember
+  - ClearPublicMailboxMember
 - EventCallback
-    - EventV2IMMessageReceiveV1
-    - EventV2IMMessageReadV1
-    - EventV2IMChatDisbandedV1
-    - EventV2IMChatUpdatedV1
-    - EventV2IMChatMemberBotAddedV1
-    - EventV2IMChatMemberBotDeletedV1
-    - EventV2IMChatMemberUserAddedV1
-    - EventV2IMChatMemberUserWithdrawnV1
-    - EventV2IMChatMemberUserDeletedV1
-    - EventV2VCMeetingMeetingStartedV1
-    - EventV2VCMeetingMeetingEndedV1
-    - EventV2VCMeetingJoinMeetingV1
-    - EventV2VCMeetingLeaveMeetingV1
-    - EventV2VCMeetingRecordingStartedV1
-    - EventV2VCMeetingRecordingEndedV1
-    - EventV2VCMeetingRecordingReadyV1
-    - EventV2VCMeetingShareStartedV1
-    - EventV2VCMeetingShareEndedV1
-    - EventV1AddBot
-    - EventV1RemoveBot
-    - EventV1P2PChatCreate
-    - EventV1AddUserToChat
-    - EventV1RemoveUserFromChat
-    - EventV1RevokeAddUserFromChat
-    - EventV1ChatDisband
+  - EventV2IMMessageReceiveV1
+  - EventV2IMMessageReadV1
+  - EventV2IMChatDisbandedV1
+  - EventV2IMChatUpdatedV1
+  - EventV2IMChatMemberBotAddedV1
+  - EventV2IMChatMemberBotDeletedV1
+  - EventV2IMChatMemberUserAddedV1
+  - EventV2IMChatMemberUserWithdrawnV1
+  - EventV2IMChatMemberUserDeletedV1
+  - EventV2VCMeetingMeetingStartedV1
+  - EventV2VCMeetingMeetingEndedV1
+  - EventV2VCMeetingJoinMeetingV1
+  - EventV2VCMeetingLeaveMeetingV1
+  - EventV2VCMeetingRecordingStartedV1
+  - EventV2VCMeetingRecordingEndedV1
+  - EventV2VCMeetingRecordingReadyV1
+  - EventV2VCMeetingShareStartedV1
+  - EventV2VCMeetingShareEndedV1
+  - EventV1AddBot
+  - EventV1RemoveBot
+  - EventV1P2PChatCreate
+  - EventV1AddUserToChat
+  - EventV1RemoveUserFromChat
+  - EventV1RevokeAddUserFromChat
+  - EventV1ChatDisband
 
 
 </details>

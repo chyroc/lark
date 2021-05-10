@@ -410,6 +410,131 @@
     ]
   },
   {
+    "scope": "Mail",
+    "apis": [
+      {
+        "file_name": "api_mail_mail_group_create.go",
+        "func_name": "CreateMailGroup",
+        "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/mail-v1/mailgroup/create"
+      },
+      {
+        "file_name": "api_mail_mail_group_get.go",
+        "func_name": "GetMailGroup",
+        "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/mail-v1/mailgroup/get"
+      },
+      {
+        "file_name": "api_mail_mail_group_get_list.go",
+        "func_name": "GetMailGroupList",
+        "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/mail-v1/mailgroup/list"
+      },
+      {
+        "file_name": "api_mail_mail_group_patch.go",
+        "func_name": "UpdateMailGroupPatch",
+        "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/mail-v1/mailgroup/patch"
+      },
+      {
+        "file_name": "api_mail_mail_group_update.go",
+        "func_name": "UpdateMailGroup",
+        "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/mail-v1/mailgroup/update"
+      },
+      {
+        "file_name": "api_mail_mail_group_delete.go",
+        "func_name": "DeleteMailGroup",
+        "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/mail-v1/mailgroup/delete"
+      },
+      {
+        "file_name": "api_mail_mail_group_member_create.go",
+        "func_name": "CreateMailGroupMember",
+        "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/mail-v1/mailgroup-member/create"
+      },
+      {
+        "file_name": "api_mail_mail_group_member_get.go",
+        "func_name": "GetMailGroupMember",
+        "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/mail-v1/mailgroup-member/get"
+      },
+      {
+        "file_name": "api_mail_mail_group_member_get_list.go",
+        "func_name": "GetMailGroupMemberList",
+        "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/mail-v1/mailgroup-member/list"
+      },
+      {
+        "file_name": "api_mail_mail_group_member_delete.go",
+        "func_name": "DeleteMailGroupMember",
+        "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/mail-v1/mailgroup-member/delete"
+      },
+      {
+        "file_name": "api_mail_mail_group_permission_member_create.go",
+        "func_name": "CreateMailGroupPermissionMember",
+        "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/mail-v1/mailgroup-permission_member/create"
+      },
+      {
+        "file_name": "api_mail_mail_group_permission_member_get.go",
+        "func_name": "GetMailGroupPermissionMember",
+        "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/mail-v1/mailgroup-permission_member/get"
+      },
+      {
+        "file_name": "api_mail_mail_group_permission_member_get_list.go",
+        "func_name": "GetMailGroupPermissionMemberList",
+        "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/mail-v1/mailgroup-permission_member/list"
+      },
+      {
+        "file_name": "api_mail_mail_group_permission_member_delete.go",
+        "func_name": "DeleteMailGroupPermissionMember",
+        "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/mail-v1/mailgroup-permission_member/delete"
+      },
+      {
+        "file_name": "api_mail_public_mailbox_create.go",
+        "func_name": "CreatePublicMailbox",
+        "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/mail-v1/public_mailbox/create"
+      },
+      {
+        "file_name": "api_mail_public_mailbox_get.go",
+        "func_name": "GetPublicMailbox",
+        "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/mail-v1/public_mailbox/get"
+      },
+      {
+        "file_name": "api_mail_public_mailbox_get_list.go",
+        "func_name": "GetPublicMailboxList",
+        "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/mail-v1/public_mailbox/list"
+      },
+      {
+        "file_name": "api_mail_public_mailbox_patch.go",
+        "func_name": "UpdatePublicMailboxPatch",
+        "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/mail-v1/public_mailbox/patch"
+      },
+      {
+        "file_name": "api_mail_public_mailbox_update.go",
+        "func_name": "UpdatePublicMailbox",
+        "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/mail-v1/public_mailbox/update"
+      },
+      {
+        "file_name": "api_mail_public_mailbox_member_create.go",
+        "func_name": "CreatePublicMailboxMember",
+        "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/mail-v1/public_mailbox-member/create"
+      },
+      {
+        "file_name": "api_mail_public_mailbox_member_get.go",
+        "func_name": "GetPublicMailboxMember",
+        "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/mail-v1/public_mailbox-member/get"
+      },
+      {
+        "file_name": "api_mail_public_mailbox_member_get_list.go",
+        "func_name": "GetPublicMailboxMemberList",
+        "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/mail-v1/public_mailbox-member/list"
+      },
+      {
+        "file_name": "api_mail_public_mailbox_member_delete.go",
+        "func_name": "DeletePublicMailboxMember",
+        "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/mail-v1/public_mailbox-member/delete"
+      },
+      {
+        "file_name": "api_mail_public_mailbox_member_clear.go",
+        "func_name": "ClearPublicMailboxMember",
+        "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/mail-v1/public_mailbox-member/clear"
+      }
+    ]
+  },
+  {
     "scope": "EventCallback",
     "events": [
       {

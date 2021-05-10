@@ -120,6 +120,16 @@ type AttendanceAPI struct {
 	cli *Lark
 }
 
+func (r *Lark) Mail() *MailAPI {
+	return &MailAPI{
+		cli: r,
+	}
+}
+
+type MailAPI struct {
+	cli *Lark
+}
+
 func (r *Lark) EventCallback() *EventCallbackAPI {
 	return &EventCallbackAPI{
 		cli: r,
