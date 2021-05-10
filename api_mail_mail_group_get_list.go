@@ -47,7 +47,7 @@ type GetMailGroupListResp struct {
 }
 
 type GetMailGroupListRespItem struct {
-	MailgroupID             string `json:"mailgroup_id,omitempty"`               // 邮件组ID
+	MailGroupID             string `json:"mailgroup_id,omitempty"`               // 邮件组ID
 	Email                   string `json:"email,omitempty"`                      // 邮件组地址
 	Name                    string `json:"name,omitempty"`                       // 邮件组名称
 	Description             string `json:"description,omitempty"`                // 邮件组描述

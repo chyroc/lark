@@ -75,6 +75,51 @@
     ]
   },
   {
+    "scope": "Message",
+    "apis": [
+      {
+        "file_name": "api_message_send.go",
+        "func_name": "SendRawMessage",
+        "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/create"
+      },
+      {
+        "file_name": "api_message_reply.go",
+        "func_name": "ReplyRawMessage",
+        "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/reply"
+      },
+      {
+        "file_name": "api_message_delete.go",
+        "func_name": "DeleteMessage",
+        "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/delete"
+      },
+      {
+        "file_name": "api_message_update.go",
+        "func_name": "UpdateMessage",
+        "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/patch"
+      },
+      {
+        "file_name": "api_message_get_read_user_list.go",
+        "func_name": "GetMessageReadUserList",
+        "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/read_users"
+      },
+      {
+        "file_name": "api_message_list.go",
+        "func_name": "GetMessageList",
+        "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/list"
+      },
+      {
+        "file_name": "api_message_get_file.go",
+        "func_name": "GetMessageFile",
+        "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message-resource/get"
+      },
+      {
+        "file_name": "api_message_get.go",
+        "func_name": "GetMessage",
+        "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/get"
+      }
+    ]
+  },
+  {
     "scope": "Chat",
     "apis": [
       {
@@ -136,76 +181,6 @@
         "file_name": "api_chat_announcement_update.go",
         "func_name": "UpdateAnnouncement",
         "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-announcement/patch"
-      }
-    ]
-  },
-  {
-    "scope": "File",
-    "apis": [
-      {
-        "file_name": "api_file_upload_image.go",
-        "func_name": "UploadImage",
-        "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/image/create"
-      },
-      {
-        "file_name": "api_file_download_image.go",
-        "func_name": "DownloadImage",
-        "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/image/get"
-      },
-      {
-        "file_name": "api_file_upload_file.go",
-        "func_name": "UploadFile",
-        "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/file/create"
-      },
-      {
-        "file_name": "api_file_download_file.go",
-        "func_name": "DownloadFile",
-        "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/file/get"
-      }
-    ]
-  },
-  {
-    "scope": "Message",
-    "apis": [
-      {
-        "file_name": "api_message_send.go",
-        "func_name": "SendRawMessage",
-        "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/create"
-      },
-      {
-        "file_name": "api_message_reply.go",
-        "func_name": "ReplyRawMessage",
-        "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/reply"
-      },
-      {
-        "file_name": "api_message_delete.go",
-        "func_name": "DeleteMessage",
-        "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/delete"
-      },
-      {
-        "file_name": "api_message_update.go",
-        "func_name": "UpdateMessage",
-        "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/patch"
-      },
-      {
-        "file_name": "api_message_get_read_user_list.go",
-        "func_name": "GetMessageReadUserList",
-        "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/read_users"
-      },
-      {
-        "file_name": "api_message_list.go",
-        "func_name": "GetMessageList",
-        "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/list"
-      },
-      {
-        "file_name": "api_message_get_file.go",
-        "func_name": "GetMessageFile",
-        "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message-resource/get"
-      },
-      {
-        "file_name": "api_message_get.go",
-        "func_name": "GetMessage",
-        "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/get"
       }
     ]
   },
@@ -360,52 +335,177 @@
     ]
   },
   {
-    "scope": "Approval",
+    "scope": "MeetingRoom",
     "apis": [
       {
-        "file_name": "api_approval_get_instance_list.go",
-        "func_name": "GetInstanceList",
-        "doc_url": "https://open.feishu.cn/document/ukTMukTMukTM/uQDOyUjL0gjM14CN4ITN"
+        "file_name": "api_meeting_room_summary_batch_get.go",
+        "func_name": "BatchGetSummary",
+        "doc_url": "https://open.feishu.cn/document/ukTMukTMukTM/uIjM5UjLyITO14iMykTN/"
+      },
+      {
+        "file_name": "api_meeting_room_building_get_list.go",
+        "func_name": "GetBuildingList",
+        "doc_url": "https://open.feishu.cn/document/ukTMukTMukTM/ugzNyUjL4cjM14CO3ITN"
+      },
+      {
+        "file_name": "api_meeting_room_building_batch_get.go",
+        "func_name": "BatchGetBuilding",
+        "doc_url": "https://open.feishu.cn/document/ukTMukTMukTM/ukzNyUjL5cjM14SO3ITN"
+      },
+      {
+        "file_name": "api_meeting_room_room_get_list.go",
+        "func_name": "GetRoomList",
+        "doc_url": "https://open.feishu.cn/document/ukTMukTMukTM/uADOyUjLwgjM14CM4ITN"
+      },
+      {
+        "file_name": "api_meeting_room_room_batch_get.go",
+        "func_name": "BatchGetRoom",
+        "doc_url": "https://open.feishu.cn/document/ukTMukTMukTM/uEDOyUjLxgjM14SM4ITN"
+      },
+      {
+        "file_name": "api_meeting_room_freebusy_batch_get.go",
+        "func_name": "BatchGetFreebusy",
+        "doc_url": "https://open.feishu.cn/document/ukTMukTMukTM/uIDOyUjLygjM14iM4ITN"
+      },
+      {
+        "file_name": "api_meeting_room_instance_reply.go",
+        "func_name": "ReplyInstance",
+        "doc_url": "https://open.feishu.cn/document/ukTMukTMukTM/uYzN4UjL2cDO14iN3gTN"
+      },
+      {
+        "file_name": "api_meeting_room_building_create.go",
+        "func_name": "CreateBuilding",
+        "doc_url": "https://open.feishu.cn/document/ukTMukTMukTM/uATNwYjLwUDM24CM1AjN"
+      },
+      {
+        "file_name": "api_meeting_room_building_update.go",
+        "func_name": "UpdateBuilding",
+        "doc_url": "https://open.feishu.cn/document/ukTMukTMukTM/uETNwYjLxUDM24SM1AjN"
+      },
+      {
+        "file_name": "api_meeting_room_building_delete.go",
+        "func_name": "DeleteBuilding",
+        "doc_url": "https://open.feishu.cn/document/ukTMukTMukTM/uMzMxYjLzMTM24yMzEjN"
+      },
+      {
+        "file_name": "api_meeting_room_building_batch_get_id.go",
+        "func_name": "BatchGetBuildingID",
+        "doc_url": "https://open.feishu.cn/document/ukTMukTMukTM/uMzMxYjLzMTM24yMzEjN"
+      },
+      {
+        "file_name": "api_meeting_room_room_create.go",
+        "func_name": "CreateRoom",
+        "doc_url": "https://open.feishu.cn/document/ukTMukTMukTM/uITNwYjLyUDM24iM1AjN"
+      },
+      {
+        "file_name": "api_meeting_room_room_update.go",
+        "func_name": "UpdateRoom",
+        "doc_url": "https://open.feishu.cn/document/ukTMukTMukTM/uMTNwYjLzUDM24yM1AjN"
+      },
+      {
+        "file_name": "api_meeting_room_room_delete.go",
+        "func_name": "DeleteRoom",
+        "doc_url": "https://open.feishu.cn/document/ukTMukTMukTM/uUzMxYjL1MTM24SNzEjN"
+      },
+      {
+        "file_name": "api_meeting_room_room_batch_get_id.go",
+        "func_name": "BatchGetRoomID",
+        "doc_url": "https://open.feishu.cn/document/ukTMukTMukTM/uYzMxYjL2MTM24iNzEjN"
+      },
+      {
+        "file_name": "api_meeting_room_country_get_list.go",
+        "func_name": "GetCountryList",
+        "doc_url": "https://open.feishu.cn/document/ukTMukTMukTM/uQTNwYjL0UDM24CN1AjN"
+      },
+      {
+        "file_name": "api_meeting_room_district_get_list.go",
+        "func_name": "GetDistrictList",
+        "doc_url": "https://open.feishu.cn/document/ukTMukTMukTM/uUTNwYjL1UDM24SN1AjN"
       }
     ]
   },
   {
-    "scope": "Helpdesk",
+    "scope": "VC",
     "apis": [
       {
-        "file_name": "api_helpdesk_start_service.go",
-        "func_name": "StartService",
-        "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/ticket/start_service"
+        "file_name": "api_vc_reserve_apply.go",
+        "func_name": "ApplyReserve",
+        "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/vc-v1/reserve/apply"
       },
       {
-        "file_name": "api_helpdesk_ticket_get.go",
-        "func_name": "GetTicket",
-        "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/ticket/get"
+        "file_name": "api_vc_reserve_update.go",
+        "func_name": "UpdateReserve",
+        "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/vc-v1/reserve/update"
       },
       {
-        "file_name": "api_helpdesk_ticket_update.go",
-        "func_name": "UpdateTicket",
-        "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/ticket/update"
+        "file_name": "api_vc_reserve_delete.go",
+        "func_name": "DeleteReserve",
+        "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/vc-v1/reserve/delete"
       },
       {
-        "file_name": "api_helpdesk_ticket_get_list.go",
-        "func_name": "GetTicketList",
-        "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/ticket/list"
+        "file_name": "api_vc_reserve_get_active_meeting.go",
+        "func_name": "GetReserveActiveMeeting",
+        "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/vc-v1/reserve/get_active_meeting"
       },
       {
-        "file_name": "api_helpdesk_ticket_get_message_list.go",
-        "func_name": "GetTicketMessageList",
-        "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/ticket-message/list"
-      }
-    ]
-  },
-  {
-    "scope": "Attendance",
-    "apis": [
+        "file_name": "api_vc_meeting_get.go",
+        "func_name": "GetMeeting",
+        "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/vc-v1/meeting/get"
+      },
       {
-        "file_name": "api_attendance_update_user_settings.go",
-        "func_name": "UpdateUserSettings",
-        "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/Attendance/rule/user-setting-modify"
+        "file_name": "api_vc_meeting_invite.go",
+        "func_name": "InviteMeeting",
+        "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/vc-v1/meeting/invite"
+      },
+      {
+        "file_name": "api_vc_meeting_set_host.go",
+        "func_name": "SetHostMeeting",
+        "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/vc-v1/meeting/set_host"
+      },
+      {
+        "file_name": "api_vc_meeting_end.go",
+        "func_name": "EndMeeting",
+        "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/vc-v1/meeting/end"
+      },
+      {
+        "file_name": "api_vc_meeting_recording_start.go",
+        "func_name": "StartMeetingRecording",
+        "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/vc-v1/meeting.recording/start"
+      },
+      {
+        "file_name": "api_vc_meeting_recording_stop.go",
+        "func_name": "StopMeetingRecording",
+        "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/vc-v1/meeting.recording/stop"
+      },
+      {
+        "file_name": "api_vc_meeting_recording_get.go",
+        "func_name": "GetMeetingRecording",
+        "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/vc-v1/meeting.recording/get"
+      },
+      {
+        "file_name": "api_vc_meeting_recording_set_permission.go",
+        "func_name": "SetPermissionMeetingRecording",
+        "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/vc-v1/meeting.recording/set_permission"
+      },
+      {
+        "file_name": "api_vc_report_get_daily.go",
+        "func_name": "GetDailyReport",
+        "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/vc-v1/report/get_daily"
+      },
+      {
+        "file_name": "api_vc_report_get_top_user.go",
+        "func_name": "GetTopUserReport",
+        "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/vc-v1/report/get_top_user"
+      },
+      {
+        "file_name": "api_vc_room_config_query.go",
+        "func_name": "QueryRoomConfig",
+        "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/vc-v1/room_config/query"
+      },
+      {
+        "file_name": "api_vc_room_config_set.go",
+        "func_name": "SetRoomConfig",
+        "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/vc-v1/room_config/set"
       }
     ]
   },
@@ -531,6 +631,81 @@
         "file_name": "api_mail_public_mailbox_member_clear.go",
         "func_name": "ClearPublicMailboxMember",
         "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/mail-v1/public_mailbox-member/clear"
+      }
+    ]
+  },
+  {
+    "scope": "Approval",
+    "apis": [
+      {
+        "file_name": "api_approval_get_instance_list.go",
+        "func_name": "GetInstanceList",
+        "doc_url": "https://open.feishu.cn/document/ukTMukTMukTM/uQDOyUjL0gjM14CN4ITN"
+      }
+    ]
+  },
+  {
+    "scope": "Helpdesk",
+    "apis": [
+      {
+        "file_name": "api_helpdesk_start_service.go",
+        "func_name": "StartService",
+        "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/ticket/start_service"
+      },
+      {
+        "file_name": "api_helpdesk_ticket_get.go",
+        "func_name": "GetTicket",
+        "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/ticket/get"
+      },
+      {
+        "file_name": "api_helpdesk_ticket_update.go",
+        "func_name": "UpdateTicket",
+        "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/ticket/update"
+      },
+      {
+        "file_name": "api_helpdesk_ticket_get_list.go",
+        "func_name": "GetTicketList",
+        "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/ticket/list"
+      },
+      {
+        "file_name": "api_helpdesk_ticket_get_message_list.go",
+        "func_name": "GetTicketMessageList",
+        "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/ticket-message/list"
+      }
+    ]
+  },
+  {
+    "scope": "Attendance",
+    "apis": [
+      {
+        "file_name": "api_attendance_update_user_settings.go",
+        "func_name": "UpdateUserSettings",
+        "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/Attendance/rule/user-setting-modify"
+      }
+    ]
+  },
+  {
+    "scope": "File",
+    "apis": [
+      {
+        "file_name": "api_file_upload_image.go",
+        "func_name": "UploadImage",
+        "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/image/create"
+      },
+      {
+        "file_name": "api_file_download_image.go",
+        "func_name": "DownloadImage",
+        "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/image/get"
+      },
+      {
+        "file_name": "api_file_upload_file.go",
+        "func_name": "UploadFile",
+        "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/file/create"
+      },
+      {
+        "file_name": "api_file_download_file.go",
+        "func_name": "DownloadFile",
+        "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/file/get"
       }
     ]
   },

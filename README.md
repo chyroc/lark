@@ -24,7 +24,8 @@ https://godoc.org/github.com/chyroc/lark
 
 ## Support APIs
 
-API Count: 97, Event Count: 25
+API Count: 130, Event Count: 25
+
 
 <details>
   <summary>
@@ -46,6 +47,15 @@ API Count: 97, Event Count: 25
   - UpdateDepartmentPatch
   - UpdateDepartment
   - DeleteDepartment
+- Message
+  - SendRawMessage
+  - ReplyRawMessage
+  - DeleteMessage
+  - UpdateMessage
+  - GetMessageReadUserList
+  - GetMessageList
+  - GetMessageFile
+  - GetMessage
 - Chat
   - CreateChat
   - GetChat
@@ -59,20 +69,6 @@ API Count: 97, Event Count: 25
   - DeleteMember
   - GetAnnouncement
   - UpdateAnnouncement
-- File
-  - UploadImage
-  - DownloadImage
-  - UploadFile
-  - DownloadFile
-- Message
-  - SendRawMessage
-  - ReplyRawMessage
-  - DeleteMessage
-  - UpdateMessage
-  - GetMessageReadUserList
-  - GetMessageList
-  - GetMessageFile
-  - GetMessage
 - Bot
   - GetBotInfo
 - Calendar
@@ -103,16 +99,41 @@ API Count: 97, Event Count: 25
   - CreateCalendarTimeoffEvent
   - DeleteCalendarTimeoffEvent
   - GenerateCaldavConf
-- Approval
-  - GetInstanceList
-- Helpdesk
-  - StartService
-  - GetTicket
-  - UpdateTicket
-  - GetTicketList
-  - GetTicketMessageList
-- Attendance
-  - UpdateUserSettings
+- MeetingRoom
+  - BatchGetSummary
+  - GetBuildingList
+  - BatchGetBuilding
+  - GetRoomList
+  - BatchGetRoom
+  - BatchGetFreebusy
+  - ReplyInstance
+  - CreateBuilding
+  - UpdateBuilding
+  - DeleteBuilding
+  - BatchGetBuildingID
+  - CreateRoom
+  - UpdateRoom
+  - DeleteRoom
+  - BatchGetRoomID
+  - GetCountryList
+  - GetDistrictList
+- VC
+  - ApplyReserve
+  - UpdateReserve
+  - DeleteReserve
+  - GetReserveActiveMeeting
+  - GetMeeting
+  - InviteMeeting
+  - SetHostMeeting
+  - EndMeeting
+  - StartMeetingRecording
+  - StopMeetingRecording
+  - GetMeetingRecording
+  - SetPermissionMeetingRecording
+  - GetDailyReport
+  - GetTopUserReport
+  - QueryRoomConfig
+  - SetRoomConfig
 - Mail
   - CreateMailGroup
   - GetMailGroup
@@ -138,6 +159,21 @@ API Count: 97, Event Count: 25
   - GetPublicMailboxMemberList
   - DeletePublicMailboxMember
   - ClearPublicMailboxMember
+- Approval
+  - GetInstanceList
+- Helpdesk
+  - StartService
+  - GetTicket
+  - UpdateTicket
+  - GetTicketList
+  - GetTicketMessageList
+- Attendance
+  - UpdateUserSettings
+- File
+  - UploadImage
+  - DownloadImage
+  - UploadFile
+  - DownloadFile
 - EventCallback
   - EventV2IMMessageReceiveV1
   - EventV2IMMessageReadV1

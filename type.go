@@ -37,6 +37,25 @@ const (
 	IDTypeEmail   IDType = "email"    // 以 email 来识别成员
 )
 
+// IDType ID类型
+type DepartmentIDType string
+
+const (
+	DepartmentIDTypeDepartmentID     DepartmentIDType = "department_id"      // 以 department_id 来识别
+	DepartmentIDTypeOpenDepartmentID DepartmentIDType = "open_department_id" // 以 open_department_id 来识别
+)
+
+type MailUserType string
+
+const (
+	MailUserTypeUser         MailUserType = "USER"          // 内部用户
+	MailUserTypeDepartment   MailUserType = "DEPARTMENT"    // 部门
+	MailUserTypeCompany      MailUserType = "COMPANY"       // 全员
+	MailUserTypeExternalUser MailUserType = "EXTERNAL_USER" // 外部用户
+	MailUserTypeMailGroup    MailUserType = "MAIL_GROUP"    // 邮件组
+	MailUserTypeOtherMember  MailUserType = "OTHER_MEMBER"  // 内部成员
+)
+
 func IDTypePtr(idType IDType) *IDType {
 	return &idType
 }

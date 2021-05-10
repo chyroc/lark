@@ -33,9 +33,9 @@ func (r *ContactAPI) GetDepartment(ctx context.Context, request *GetDepartmentRe
 }
 
 type GetDepartmentReq struct {
-	UserIDType       *IDType `query:"user_id_type" json:"-"`       // 用户 ID 类型, 示例值："open_id", 可选值有: `open_id`：用户的 open id, `union_id`：用户的 union id, `user_id`：用户的 user id, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 userid
-	DepartmentIDType *IDType `query:"department_id_type" json:"-"` // 此次调用中使用的部门ID的类型, 示例值："open_department_id", 可选值有: `department_id`：以自定义department_id来标识部门, `open_department_id`：以open_department_id来标识部门, 默认值: `open_department_id`
-	DepartmentID     string  `path:"department_id" json:"-"`       // 需要获取的部门ID, 示例值："od-4e6ac4d14bcd5071a37a39de902c7141", 最大长度：`128` 字符, 正则校验：`^0|[^od][A-Za-z0-9]*`
+	UserIDType       *IDType           `query:"user_id_type" json:"-"`       // 用户 ID 类型, 示例值："open_id", 可选值有: `open_id`：用户的 open id, `union_id`：用户的 union id, `user_id`：用户的 user id, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 userid
+	DepartmentIDType *DepartmentIDType `query:"department_id_type" json:"-"` // 此次调用中使用的部门ID的类型, 示例值："open_department_id", 可选值有: `department_id`：以自定义department_id来标识部门, `open_department_id`：以open_department_id来标识部门, 默认值: `open_department_id`
+	DepartmentID     string            `path:"department_id" json:"-"`       // 需要获取的部门ID, 示例值："od-4e6ac4d14bcd5071a37a39de902c7141", 最大长度：`128` 字符, 正则校验：`^0|[^od][A-Za-z0-9]*`
 }
 
 type getDepartmentResp struct {

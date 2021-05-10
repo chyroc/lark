@@ -1,7 +1,6 @@
 package test
 
 import (
-	"fmt"
 	"io/ioutil"
 	"os"
 	"testing"
@@ -10,73 +9,6 @@ import (
 
 	"github.com/chyroc/lark"
 )
-
-func Test_File_Failed(t *testing.T) {
-	as := assert.New(t)
-
-	t.Run("request failed", func(t *testing.T) {
-		cli := AppALLPermission.Ins()
-		cli.Mock().MockGetTenantAccessToken(mockGetTenantAccessTokenFailed)
-		fileCli := cli.File()
-
-		t.Run("", func(t *testing.T) {
-			_, _, err := fileCli.UploadImage(ctx, &lark.UploadImageReq{})
-			as.NotNil(err)
-			as.Equal(err.Error(), "failed")
-		})
-
-		t.Run("", func(t *testing.T) {
-			_, _, err := fileCli.DownloadImage(ctx, &lark.DownloadImageReq{})
-			as.NotNil(err)
-			as.Equal(err.Error(), "failed")
-		})
-
-		t.Run("", func(t *testing.T) {
-			_, _, err := fileCli.UploadFile(ctx, &lark.UploadFileReq{})
-			as.NotNil(err)
-			as.Equal(err.Error(), "failed")
-		})
-
-		t.Run("", func(t *testing.T) {
-			_, _, err := fileCli.DownloadFile(ctx, &lark.DownloadFileReq{})
-			as.NotNil(err)
-			as.Equal(err.Error(), "failed")
-		})
-	})
-
-	t.Run("response failed", func(t *testing.T) {
-		cli := AppNoPermission.Ins()
-		fileCli := cli.File()
-
-		t.Run("", func(t *testing.T) {
-			_, _, err := fileCli.UploadImage(ctx, &lark.UploadImageReq{})
-			as.NotNil(err)
-			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
-		})
-
-		t.Run("", func(t *testing.T) {
-			_, _, err := fileCli.DownloadImage(ctx, &lark.DownloadImageReq{
-				ImageKey: "x",
-			})
-			as.NotNil(err)
-			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
-		})
-
-		t.Run("", func(t *testing.T) {
-			_, _, err := fileCli.UploadFile(ctx, &lark.UploadFileReq{})
-			as.NotNil(err)
-			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
-		})
-
-		t.Run("", func(t *testing.T) {
-			_, _, err := fileCli.DownloadFile(ctx, &lark.DownloadFileReq{
-				FileKey: "x",
-			})
-			as.NotNil(err)
-			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
-		})
-	})
-}
 
 func Test_File(t *testing.T) {
 	as := assert.New(t)

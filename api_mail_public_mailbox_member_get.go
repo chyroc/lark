@@ -42,7 +42,7 @@ type getPublicMailboxMemberResp struct {
 }
 
 type GetPublicMailboxMemberResp struct {
-	MemberID string `json:"member_id,omitempty"` // 公共邮箱内成员唯一标识
-	UserID   string `json:"user_id,omitempty"`   // 租户内用户的唯一标识（当成员类型是USER时有值）
-	Type     string `json:"type,omitempty"`      // 成员类型, 可选值有: `USER`：内部用户
+	MemberID string       `json:"member_id,omitempty"` // 公共邮箱内成员唯一标识
+	UserID   string       `json:"user_id,omitempty"`   // 租户内用户的唯一标识（当成员类型是USER时有值）
+	Type     MailUserType `json:"type,omitempty"`      // 成员类型, 可选值有: `USER`：内部用户
 }

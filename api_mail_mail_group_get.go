@@ -30,7 +30,7 @@ func (r *MailAPI) GetMailGroup(ctx context.Context, request *GetMailGroupReq) (*
 }
 
 type GetMailGroupReq struct {
-	MailgroupID string `path:"mailgroup_id" json:"-"` // 邮件组ID或者邮件组地址, 示例值："xxxxxxxxxxxxxxx 或 test_mail_group@xxx.xx"
+	MailGroupID string `path:"mailgroup_id" json:"-"` // 邮件组ID或者邮件组地址, 示例值："xxxxxxxxxxxxxxx 或 test_mail_group@xxx.xx"
 }
 
 type getMailGroupResp struct {
@@ -40,7 +40,7 @@ type getMailGroupResp struct {
 }
 
 type GetMailGroupResp struct {
-	MailgroupID             string `json:"mailgroup_id,omitempty"`               // 邮件组ID
+	MailGroupID             string `json:"mailgroup_id,omitempty"`               // 邮件组ID
 	Email                   string `json:"email,omitempty"`                      // 邮件组地址
 	Name                    string `json:"name,omitempty"`                       // 邮件组名称
 	Description             string `json:"description,omitempty"`                // 邮件组描述

@@ -33,7 +33,7 @@ func (r *ContactAPI) UpdateUser(ctx context.Context, request *UpdateUserReq) (*U
 
 type UpdateUserReq struct {
 	UserIDType       *IDType                    `query:"user_id_type" json:"-"`       // 用户 ID 类型, 示例值："open_id", 可选值有: `open_id`：用户的 open id, `union_id`：用户的 union id, `user_id`：用户的 user id, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 userid
-	DepartmentIDType *IDType                    `query:"department_id_type" json:"-"` // 此次调用中使用的部门ID的类型, 示例值："open_department_id", 可选值有: `department_id`：以自定义department_id来标识部门, `open_department_id`：以open_department_id来标识部门, 默认值: `open_department_id`
+	DepartmentIDType *DepartmentIDType          `query:"department_id_type" json:"-"` // 此次调用中使用的部门ID的类型, 示例值："open_department_id", 可选值有: `department_id`：以自定义department_id来标识部门, `open_department_id`：以open_department_id来标识部门, 默认值: `open_department_id`
 	UserID           string                     `path:"user_id" json:"-"`             // 用户ID，需要与查询参数中的user_id_type类型保持一致。, 示例值："ou_7dab8a3d3cdcc9da365777c7ad535d62"
 	Name             string                     `json:"name,omitempty"`               // 用户名, 示例值："张三", 最小长度：`1` 字符
 	EnName           *string                    `json:"en_name,omitempty"`            // 英文名, 示例值："San Zhang"
@@ -70,7 +70,7 @@ type UpdateUserReqCustomAttr struct {
 
 type UpdateUserReqCustomAttrValue struct {
 	Text  *string `json:"text,omitempty"`   // 属性文本, 示例值："DemoText"
-	Url   *string `json:"url,omitempty"`    // URL, 示例值："http://www.feishu.cn"
+	URL   *string `json:"url,omitempty"`    // URL, 示例值："http://www.feishu.cn"
 	PcUrl *string `json:"pc_url,omitempty"` // PC上的URL, 示例值："http://www.feishu.cn"
 }
 
@@ -138,6 +138,6 @@ type UpdateUserRespUserCustomAttr struct {
 
 type UpdateUserRespUserCustomAttrValue struct {
 	Text  string `json:"text,omitempty"`   // 属性文本
-	Url   string `json:"url,omitempty"`    // URL
+	URL   string `json:"url,omitempty"`    // URL
 	PcUrl string `json:"pc_url,omitempty"` // PC上的URL
 }

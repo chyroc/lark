@@ -30,7 +30,7 @@ func (r *MailAPI) DeleteMailGroupPermissionMember(ctx context.Context, request *
 }
 
 type DeleteMailGroupPermissionMemberReq struct {
-	MailgroupID        string `path:"mailgroup_id" json:"-"`         // The unique ID or email address of a mail group, 示例值："xxxxxxxxxxxxxxx or test_mail_group@xxx.xx"
+	MailGroupID        string `path:"mailgroup_id" json:"-"`         // The unique ID or email address of a mail group, 示例值："xxxxxxxxxxxxxxx or test_mail_group@xxx.xx"
 	PermissionMemberID string `path:"permission_member_id" json:"-"` // The unique ID of a member in this permission group, 示例值："xxxxxxxxxxxxxxx"
 }
 

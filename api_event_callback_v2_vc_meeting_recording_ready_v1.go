@@ -18,7 +18,7 @@ type eventV2VCMeetingRecordingReadyV1Handler func(ctx context.Context, cli *Lark
 
 type EventV2VCMeetingRecordingReadyV1 struct {
 	Meeting  *EventV2VCMeetingRecordingReadyV1Meeting `json:"meeting,omitempty"`  // 会议数据
-	Url      string                                   `json:"url,omitempty"`      // 会议录制链接
+	URL      string                                   `json:"url,omitempty"`      // 会议录制链接
 	Duration string                                   `json:"duration,omitempty"` // 录制总时长（单位msec）
 }
 

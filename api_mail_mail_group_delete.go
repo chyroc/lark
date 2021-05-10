@@ -30,7 +30,7 @@ func (r *MailAPI) DeleteMailGroup(ctx context.Context, request *DeleteMailGroupR
 }
 
 type DeleteMailGroupReq struct {
-	MailgroupID string `path:"mailgroup_id" json:"-"` // 邮件组ID或者邮件组地址, 示例值："xxxxxxxxxxxxxxx 或 test_mail_group@xxx.xx"
+	MailGroupID string `path:"mailgroup_id" json:"-"` // 邮件组ID或者邮件组地址, 示例值："xxxxxxxxxxxxxxx 或 test_mail_group@xxx.xx"
 }
 
 type deleteMailGroupResp struct {

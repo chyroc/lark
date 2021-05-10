@@ -33,7 +33,7 @@ func (r *ContactAPI) CreateUser(ctx context.Context, request *CreateUserReq) (*C
 
 type CreateUserReq struct {
 	UserIDType           *IDType                          `query:"user_id_type" json:"-"`           // 用户 ID 类型, 示例值："open_id", 可选值有: `open_id`：用户的 open id, `union_id`：用户的 union id, `user_id`：用户的 user id, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 userid
-	DepartmentIDType     *IDType                          `query:"department_id_type" json:"-"`     // 此次调用中使用的部门ID的类型, 示例值："open_department_id", 可选值有: `department_id`：以自定义department_id来标识部门, `open_department_id`：以open_department_id来标识部门, 默认值: `open_department_id`
+	DepartmentIDType     *DepartmentIDType                `query:"department_id_type" json:"-"`     // 此次调用中使用的部门ID的类型, 示例值："open_department_id", 可选值有: `department_id`：以自定义department_id来标识部门, `open_department_id`：以open_department_id来标识部门, 默认值: `open_department_id`
 	ClientToken          *string                          `query:"client_token" json:"-"`           // 根据client_token是否一致来判断是否为同一请求, 示例值："xxxx-xxxxx-xxx"
 	UserID               *string                          `json:"user_id,omitempty"`                // 租户内用户的唯一标识, 示例值："ou_7dab8a3d3cdcc9da365777c7ad535d62", 字段权限要求:  获取用户 userid
 	Name                 string                           `json:"name,omitempty"`                   // 用户名, 示例值："张三", 最小长度：`1` 字符
@@ -72,7 +72,7 @@ type CreateUserReqCustomAttr struct {
 
 type CreateUserReqCustomAttrValue struct {
 	Text  *string `json:"text,omitempty"`   // 属性文本, 示例值："DemoText"
-	Url   *string `json:"url,omitempty"`    // URL, 示例值："http://www.feishu.cn"
+	URL   *string `json:"url,omitempty"`    // URL, 示例值："http://www.feishu.cn"
 	PcUrl *string `json:"pc_url,omitempty"` // PC上的URL, 示例值："http://www.feishu.cn"
 }
 
@@ -147,7 +147,7 @@ type CreateUserRespUserCustomAttr struct {
 
 type CreateUserRespUserCustomAttrValue struct {
 	Text  string `json:"text,omitempty"`   // 属性文本
-	Url   string `json:"url,omitempty"`    // URL
+	URL   string `json:"url,omitempty"`    // URL
 	PcUrl string `json:"pc_url,omitempty"` // PC上的URL
 }
 

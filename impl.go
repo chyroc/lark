@@ -130,8 +130,28 @@ type MailAPI struct {
 	cli *Lark
 }
 
+func (r *Lark) MeetingRoom() *MeetingRoomAPI {
+	return &MeetingRoomAPI{
+		cli: r,
+	}
+}
+
+type MeetingRoomAPI struct {
+	cli *Lark
+}
+
 func (r *Lark) EventCallback() *EventCallbackAPI {
 	return &EventCallbackAPI{
+		cli: r,
+	}
+}
+
+type VCAPI struct {
+	cli *Lark
+}
+
+func (r *Lark) VC() *VCAPI {
+	return &VCAPI{
 		cli: r,
 	}
 }

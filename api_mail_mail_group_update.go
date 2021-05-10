@@ -30,7 +30,7 @@ func (r *MailAPI) UpdateMailGroup(ctx context.Context, request *UpdateMailGroupR
 }
 
 type UpdateMailGroupReq struct {
-	MailgroupID    string  `path:"mailgroup_id" json:"-"`       // 邮件组ID或者邮件组地址, 示例值："xxxxxxxxxxxxxxx 或 test_mail_group@xxx.xx"
+	MailGroupID    string  `path:"mailgroup_id" json:"-"`       // 邮件组ID或者邮件组地址, 示例值："xxxxxxxxxxxxxxx 或 test_mail_group@xxx.xx"
 	Email          *string `json:"email,omitempty"`             // 邮件组地址, 示例值："test_mail_group@xxx.xx"
 	Name           *string `json:"name,omitempty"`              // 邮件组名称, 示例值："test mail group"
 	Description    *string `json:"description,omitempty"`       // 邮件组描述, 示例值："mail group for testing"
@@ -44,7 +44,7 @@ type updateMailGroupResp struct {
 }
 
 type UpdateMailGroupResp struct {
-	MailgroupID             string `json:"mailgroup_id,omitempty"`               // 邮件组ID
+	MailGroupID             string `json:"mailgroup_id,omitempty"`               // 邮件组ID
 	Email                   string `json:"email,omitempty"`                      // 邮件组地址
 	Name                    string `json:"name,omitempty"`                       // 邮件组名称
 	Description             string `json:"description,omitempty"`                // 邮件组描述
