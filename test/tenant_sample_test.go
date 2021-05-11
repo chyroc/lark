@@ -3,6 +3,7 @@
 package test
 
 import (
+	"context"
 	"fmt"
 	"testing"
 
@@ -23,6 +24,22 @@ func Test_Tenant_Sample_Failed(t *testing.T) {
 			_, _, err := moduleCli.QueryTenant(ctx, &lark.QueryTenantReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "failed")
+		})
+	})
+
+	t.Run("request mock failed", func(t *testing.T) {
+		cli := AppALLPermission.Ins()
+		moduleCli := cli.Tenant()
+
+		t.Run("", func(t *testing.T) {
+			cli.Mock().MockTenantQueryTenant(func(ctx context.Context, request *lark.QueryTenantReq, options ...lark.MethodOptionFunc) (*lark.QueryTenantResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockTenantQueryTenant()
+
+			_, _, err := moduleCli.QueryTenant(ctx, &lark.QueryTenantReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
 		})
 	})
 

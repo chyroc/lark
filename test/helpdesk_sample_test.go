@@ -3,6 +3,7 @@
 package test
 
 import (
+	"context"
 	"fmt"
 	"testing"
 
@@ -101,6 +102,165 @@ func Test_Helpdesk_Sample_Failed(t *testing.T) {
 			_, _, err := moduleCli.SearchFAQ(ctx, &lark.SearchFAQReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "failed")
+		})
+	})
+
+	t.Run("request mock failed", func(t *testing.T) {
+		cli := AppALLPermission.Ins()
+		moduleCli := cli.Helpdesk()
+
+		t.Run("", func(t *testing.T) {
+			cli.Mock().MockHelpdeskStartService(func(ctx context.Context, request *lark.StartServiceReq, options ...lark.MethodOptionFunc) (*lark.StartServiceResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockHelpdeskStartService()
+
+			_, _, err := moduleCli.StartService(ctx, &lark.StartServiceReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+			cli.Mock().MockHelpdeskGetTicket(func(ctx context.Context, request *lark.GetTicketReq, options ...lark.MethodOptionFunc) (*lark.GetTicketResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockHelpdeskGetTicket()
+
+			_, _, err := moduleCli.GetTicket(ctx, &lark.GetTicketReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+			cli.Mock().MockHelpdeskGetTicketList(func(ctx context.Context, request *lark.GetTicketListReq, options ...lark.MethodOptionFunc) (*lark.GetTicketListResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockHelpdeskGetTicketList()
+
+			_, _, err := moduleCli.GetTicketList(ctx, &lark.GetTicketListReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+			cli.Mock().MockHelpdeskDownloadTicketImage(func(ctx context.Context, request *lark.DownloadTicketImageReq, options ...lark.MethodOptionFunc) (*lark.DownloadTicketImageResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockHelpdeskDownloadTicketImage()
+
+			_, _, err := moduleCli.DownloadTicketImage(ctx, &lark.DownloadTicketImageReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+			cli.Mock().MockHelpdeskGetTicketMessageList(func(ctx context.Context, request *lark.GetTicketMessageListReq, options ...lark.MethodOptionFunc) (*lark.GetTicketMessageListResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockHelpdeskGetTicketMessageList()
+
+			_, _, err := moduleCli.GetTicketMessageList(ctx, &lark.GetTicketMessageListReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+			cli.Mock().MockHelpdeskSendTicketMessage(func(ctx context.Context, request *lark.SendTicketMessageReq, options ...lark.MethodOptionFunc) (*lark.SendTicketMessageResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockHelpdeskSendTicketMessage()
+
+			_, _, err := moduleCli.SendTicketMessage(ctx, &lark.SendTicketMessageReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+			cli.Mock().MockHelpdeskGetTicketCustomizedFieldList(func(ctx context.Context, request *lark.GetTicketCustomizedFieldListReq, options ...lark.MethodOptionFunc) (*lark.GetTicketCustomizedFieldListResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockHelpdeskGetTicketCustomizedFieldList()
+
+			_, _, err := moduleCli.GetTicketCustomizedFieldList(ctx, &lark.GetTicketCustomizedFieldListReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+			cli.Mock().MockHelpdeskGetTicketCustomizedField(func(ctx context.Context, request *lark.GetTicketCustomizedFieldReq, options ...lark.MethodOptionFunc) (*lark.GetTicketCustomizedFieldResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockHelpdeskGetTicketCustomizedField()
+
+			_, _, err := moduleCli.GetTicketCustomizedField(ctx, &lark.GetTicketCustomizedFieldReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+			cli.Mock().MockHelpdeskGetCategory(func(ctx context.Context, request *lark.GetCategoryReq, options ...lark.MethodOptionFunc) (*lark.GetCategoryResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockHelpdeskGetCategory()
+
+			_, _, err := moduleCli.GetCategory(ctx, &lark.GetCategoryReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+			cli.Mock().MockHelpdeskGetCategoryList(func(ctx context.Context, request *lark.GetCategoryListReq, options ...lark.MethodOptionFunc) (*lark.GetCategoryListResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockHelpdeskGetCategoryList()
+
+			_, _, err := moduleCli.GetCategoryList(ctx, &lark.GetCategoryListReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+			cli.Mock().MockHelpdeskGetFAQ(func(ctx context.Context, request *lark.GetFAQReq, options ...lark.MethodOptionFunc) (*lark.GetFAQResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockHelpdeskGetFAQ()
+
+			_, _, err := moduleCli.GetFAQ(ctx, &lark.GetFAQReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+			cli.Mock().MockHelpdeskGetFAQList(func(ctx context.Context, request *lark.GetFAQListReq, options ...lark.MethodOptionFunc) (*lark.GetFAQListResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockHelpdeskGetFAQList()
+
+			_, _, err := moduleCli.GetFAQList(ctx, &lark.GetFAQListReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+			cli.Mock().MockHelpdeskGetFAQImage(func(ctx context.Context, request *lark.GetFAQImageReq, options ...lark.MethodOptionFunc) (*lark.GetFAQImageResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockHelpdeskGetFAQImage()
+
+			_, _, err := moduleCli.GetFAQImage(ctx, &lark.GetFAQImageReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+			cli.Mock().MockHelpdeskSearchFAQ(func(ctx context.Context, request *lark.SearchFAQReq, options ...lark.MethodOptionFunc) (*lark.SearchFAQResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockHelpdeskSearchFAQ()
+
+			_, _, err := moduleCli.SearchFAQ(ctx, &lark.SearchFAQReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
 		})
 	})
 

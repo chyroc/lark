@@ -3,6 +3,7 @@
 package test
 
 import (
+	"context"
 	"fmt"
 	"testing"
 
@@ -23,6 +24,22 @@ func Test_Bot_Sample_Failed(t *testing.T) {
 			_, _, err := moduleCli.GetBotInfo(ctx, &lark.GetBotInfoReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "failed")
+		})
+	})
+
+	t.Run("request mock failed", func(t *testing.T) {
+		cli := AppALLPermission.Ins()
+		moduleCli := cli.Bot()
+
+		t.Run("", func(t *testing.T) {
+			cli.Mock().MockBotGetBotInfo(func(ctx context.Context, request *lark.GetBotInfoReq, options ...lark.MethodOptionFunc) (*lark.GetBotInfoResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockBotGetBotInfo()
+
+			_, _, err := moduleCli.GetBotInfo(ctx, &lark.GetBotInfoReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
 		})
 	})
 

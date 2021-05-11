@@ -3,6 +3,7 @@
 package test
 
 import (
+	"context"
 	"fmt"
 	"testing"
 
@@ -47,6 +48,66 @@ func Test_VC_Sample_Failed(t *testing.T) {
 			_, _, err := moduleCli.SetRoomConfig(ctx, &lark.SetRoomConfigReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "failed")
+		})
+	})
+
+	t.Run("request mock failed", func(t *testing.T) {
+		cli := AppALLPermission.Ins()
+		moduleCli := cli.VC()
+
+		t.Run("", func(t *testing.T) {
+			cli.Mock().MockVCGetMeeting(func(ctx context.Context, request *lark.GetMeetingReq, options ...lark.MethodOptionFunc) (*lark.GetMeetingResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockVCGetMeeting()
+
+			_, _, err := moduleCli.GetMeeting(ctx, &lark.GetMeetingReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+			cli.Mock().MockVCGetDailyReport(func(ctx context.Context, request *lark.GetDailyReportReq, options ...lark.MethodOptionFunc) (*lark.GetDailyReportResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockVCGetDailyReport()
+
+			_, _, err := moduleCli.GetDailyReport(ctx, &lark.GetDailyReportReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+			cli.Mock().MockVCGetTopUserReport(func(ctx context.Context, request *lark.GetTopUserReportReq, options ...lark.MethodOptionFunc) (*lark.GetTopUserReportResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockVCGetTopUserReport()
+
+			_, _, err := moduleCli.GetTopUserReport(ctx, &lark.GetTopUserReportReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+			cli.Mock().MockVCQueryRoomConfig(func(ctx context.Context, request *lark.QueryRoomConfigReq, options ...lark.MethodOptionFunc) (*lark.QueryRoomConfigResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockVCQueryRoomConfig()
+
+			_, _, err := moduleCli.QueryRoomConfig(ctx, &lark.QueryRoomConfigReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+			cli.Mock().MockVCSetRoomConfig(func(ctx context.Context, request *lark.SetRoomConfigReq, options ...lark.MethodOptionFunc) (*lark.SetRoomConfigResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockVCSetRoomConfig()
+
+			_, _, err := moduleCli.SetRoomConfig(ctx, &lark.SetRoomConfigReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
 		})
 	})
 

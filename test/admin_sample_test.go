@@ -3,6 +3,7 @@
 package test
 
 import (
+	"context"
 	"fmt"
 	"testing"
 
@@ -29,6 +30,33 @@ func Test_Admin_Sample_Failed(t *testing.T) {
 			_, _, err := moduleCli.GetAdminUserStats(ctx, &lark.GetAdminUserStatsReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "failed")
+		})
+	})
+
+	t.Run("request mock failed", func(t *testing.T) {
+		cli := AppALLPermission.Ins()
+		moduleCli := cli.Admin()
+
+		t.Run("", func(t *testing.T) {
+			cli.Mock().MockAdminGetAdminDeptStats(func(ctx context.Context, request *lark.GetAdminDeptStatsReq, options ...lark.MethodOptionFunc) (*lark.GetAdminDeptStatsResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockAdminGetAdminDeptStats()
+
+			_, _, err := moduleCli.GetAdminDeptStats(ctx, &lark.GetAdminDeptStatsReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+			cli.Mock().MockAdminGetAdminUserStats(func(ctx context.Context, request *lark.GetAdminUserStatsReq, options ...lark.MethodOptionFunc) (*lark.GetAdminUserStatsResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockAdminGetAdminUserStats()
+
+			_, _, err := moduleCli.GetAdminUserStats(ctx, &lark.GetAdminUserStatsReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
 		})
 	})
 

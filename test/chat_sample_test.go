@@ -3,6 +3,7 @@
 package test
 
 import (
+	"context"
 	"fmt"
 	"testing"
 
@@ -89,6 +90,143 @@ func Test_Chat_Sample_Failed(t *testing.T) {
 			_, _, err := moduleCli.UpdateAnnouncement(ctx, &lark.UpdateAnnouncementReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "failed")
+		})
+	})
+
+	t.Run("request mock failed", func(t *testing.T) {
+		cli := AppALLPermission.Ins()
+		moduleCli := cli.Chat()
+
+		t.Run("", func(t *testing.T) {
+			cli.Mock().MockChatCreateChat(func(ctx context.Context, request *lark.CreateChatReq, options ...lark.MethodOptionFunc) (*lark.CreateChatResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockChatCreateChat()
+
+			_, _, err := moduleCli.CreateChat(ctx, &lark.CreateChatReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+			cli.Mock().MockChatGetChat(func(ctx context.Context, request *lark.GetChatReq, options ...lark.MethodOptionFunc) (*lark.GetChatResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockChatGetChat()
+
+			_, _, err := moduleCli.GetChat(ctx, &lark.GetChatReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+			cli.Mock().MockChatUpdateChat(func(ctx context.Context, request *lark.UpdateChatReq, options ...lark.MethodOptionFunc) (*lark.UpdateChatResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockChatUpdateChat()
+
+			_, _, err := moduleCli.UpdateChat(ctx, &lark.UpdateChatReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+			cli.Mock().MockChatDeleteChat(func(ctx context.Context, request *lark.DeleteChatReq, options ...lark.MethodOptionFunc) (*lark.DeleteChatResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockChatDeleteChat()
+
+			_, _, err := moduleCli.DeleteChat(ctx, &lark.DeleteChatReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+			cli.Mock().MockChatGetChatListOfSelf(func(ctx context.Context, request *lark.GetChatListOfSelfReq, options ...lark.MethodOptionFunc) (*lark.GetChatListOfSelfResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockChatGetChatListOfSelf()
+
+			_, _, err := moduleCli.GetChatListOfSelf(ctx, &lark.GetChatListOfSelfReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+			cli.Mock().MockChatSearchChat(func(ctx context.Context, request *lark.SearchChatReq, options ...lark.MethodOptionFunc) (*lark.SearchChatResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockChatSearchChat()
+
+			_, _, err := moduleCli.SearchChat(ctx, &lark.SearchChatReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+			cli.Mock().MockChatGetMemberList(func(ctx context.Context, request *lark.GetMemberListReq, options ...lark.MethodOptionFunc) (*lark.GetMemberListResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockChatGetMemberList()
+
+			_, _, err := moduleCli.GetMemberList(ctx, &lark.GetMemberListReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+			cli.Mock().MockChatIsInChat(func(ctx context.Context, request *lark.IsInChatReq, options ...lark.MethodOptionFunc) (*lark.IsInChatResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockChatIsInChat()
+
+			_, _, err := moduleCli.IsInChat(ctx, &lark.IsInChatReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+			cli.Mock().MockChatAddMember(func(ctx context.Context, request *lark.AddMemberReq, options ...lark.MethodOptionFunc) (*lark.AddMemberResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockChatAddMember()
+
+			_, _, err := moduleCli.AddMember(ctx, &lark.AddMemberReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+			cli.Mock().MockChatDeleteMember(func(ctx context.Context, request *lark.DeleteMemberReq, options ...lark.MethodOptionFunc) (*lark.DeleteMemberResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockChatDeleteMember()
+
+			_, _, err := moduleCli.DeleteMember(ctx, &lark.DeleteMemberReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+			cli.Mock().MockChatGetAnnouncement(func(ctx context.Context, request *lark.GetAnnouncementReq, options ...lark.MethodOptionFunc) (*lark.GetAnnouncementResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockChatGetAnnouncement()
+
+			_, _, err := moduleCli.GetAnnouncement(ctx, &lark.GetAnnouncementReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+			cli.Mock().MockChatUpdateAnnouncement(func(ctx context.Context, request *lark.UpdateAnnouncementReq, options ...lark.MethodOptionFunc) (*lark.UpdateAnnouncementResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockChatUpdateAnnouncement()
+
+			_, _, err := moduleCli.UpdateAnnouncement(ctx, &lark.UpdateAnnouncementReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
 		})
 	})
 

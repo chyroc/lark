@@ -3,6 +3,7 @@
 package test
 
 import (
+	"context"
 	"fmt"
 	"testing"
 
@@ -41,6 +42,55 @@ func Test_File_Sample_Failed(t *testing.T) {
 			_, _, err := moduleCli.DownloadFile(ctx, &lark.DownloadFileReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "failed")
+		})
+	})
+
+	t.Run("request mock failed", func(t *testing.T) {
+		cli := AppALLPermission.Ins()
+		moduleCli := cli.File()
+
+		t.Run("", func(t *testing.T) {
+			cli.Mock().MockFileUploadImage(func(ctx context.Context, request *lark.UploadImageReq, options ...lark.MethodOptionFunc) (*lark.UploadImageResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockFileUploadImage()
+
+			_, _, err := moduleCli.UploadImage(ctx, &lark.UploadImageReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+			cli.Mock().MockFileDownloadImage(func(ctx context.Context, request *lark.DownloadImageReq, options ...lark.MethodOptionFunc) (*lark.DownloadImageResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockFileDownloadImage()
+
+			_, _, err := moduleCli.DownloadImage(ctx, &lark.DownloadImageReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+			cli.Mock().MockFileUploadFile(func(ctx context.Context, request *lark.UploadFileReq, options ...lark.MethodOptionFunc) (*lark.UploadFileResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockFileUploadFile()
+
+			_, _, err := moduleCli.UploadFile(ctx, &lark.UploadFileReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+			cli.Mock().MockFileDownloadFile(func(ctx context.Context, request *lark.DownloadFileReq, options ...lark.MethodOptionFunc) (*lark.DownloadFileResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockFileDownloadFile()
+
+			_, _, err := moduleCli.DownloadFile(ctx, &lark.DownloadFileReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
 		})
 	})
 

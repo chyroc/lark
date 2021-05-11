@@ -3,6 +3,7 @@
 package test
 
 import (
+	"context"
 	"fmt"
 	"testing"
 
@@ -29,6 +30,33 @@ func Test_EHR_Sample_Failed(t *testing.T) {
 			_, _, err := moduleCli.DownloadAttachments(ctx, &lark.DownloadAttachmentsReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "failed")
+		})
+	})
+
+	t.Run("request mock failed", func(t *testing.T) {
+		cli := AppALLPermission.Ins()
+		moduleCli := cli.EHR()
+
+		t.Run("", func(t *testing.T) {
+			cli.Mock().MockEHRGetEmployeeList(func(ctx context.Context, request *lark.GetEmployeeListReq, options ...lark.MethodOptionFunc) (*lark.GetEmployeeListResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockEHRGetEmployeeList()
+
+			_, _, err := moduleCli.GetEmployeeList(ctx, &lark.GetEmployeeListReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+			cli.Mock().MockEHRDownloadAttachments(func(ctx context.Context, request *lark.DownloadAttachmentsReq, options ...lark.MethodOptionFunc) (*lark.DownloadAttachmentsResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockEHRDownloadAttachments()
+
+			_, _, err := moduleCli.DownloadAttachments(ctx, &lark.DownloadAttachmentsReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
 		})
 	})
 

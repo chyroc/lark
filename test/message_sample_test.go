@@ -3,6 +3,7 @@
 package test
 
 import (
+	"context"
 	"fmt"
 	"testing"
 
@@ -65,6 +66,99 @@ func Test_Message_Sample_Failed(t *testing.T) {
 			_, _, err := moduleCli.GetMessage(ctx, &lark.GetMessageReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "failed")
+		})
+	})
+
+	t.Run("request mock failed", func(t *testing.T) {
+		cli := AppALLPermission.Ins()
+		moduleCli := cli.Message()
+
+		t.Run("", func(t *testing.T) {
+			cli.Mock().MockMessageSendRawMessage(func(ctx context.Context, request *lark.SendRawMessageReq, options ...lark.MethodOptionFunc) (*lark.SendRawMessageResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockMessageSendRawMessage()
+
+			_, _, err := moduleCli.SendRawMessage(ctx, &lark.SendRawMessageReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+			cli.Mock().MockMessageReplyRawMessage(func(ctx context.Context, request *lark.ReplyRawMessageReq, options ...lark.MethodOptionFunc) (*lark.ReplyRawMessageResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockMessageReplyRawMessage()
+
+			_, _, err := moduleCli.ReplyRawMessage(ctx, &lark.ReplyRawMessageReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+			cli.Mock().MockMessageDeleteMessage(func(ctx context.Context, request *lark.DeleteMessageReq, options ...lark.MethodOptionFunc) (*lark.DeleteMessageResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockMessageDeleteMessage()
+
+			_, _, err := moduleCli.DeleteMessage(ctx, &lark.DeleteMessageReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+			cli.Mock().MockMessageUpdateMessage(func(ctx context.Context, request *lark.UpdateMessageReq, options ...lark.MethodOptionFunc) (*lark.UpdateMessageResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockMessageUpdateMessage()
+
+			_, _, err := moduleCli.UpdateMessage(ctx, &lark.UpdateMessageReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+			cli.Mock().MockMessageGetMessageReadUserList(func(ctx context.Context, request *lark.GetMessageReadUserListReq, options ...lark.MethodOptionFunc) (*lark.GetMessageReadUserListResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockMessageGetMessageReadUserList()
+
+			_, _, err := moduleCli.GetMessageReadUserList(ctx, &lark.GetMessageReadUserListReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+			cli.Mock().MockMessageGetMessageList(func(ctx context.Context, request *lark.GetMessageListReq, options ...lark.MethodOptionFunc) (*lark.GetMessageListResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockMessageGetMessageList()
+
+			_, _, err := moduleCli.GetMessageList(ctx, &lark.GetMessageListReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+			cli.Mock().MockMessageGetMessageFile(func(ctx context.Context, request *lark.GetMessageFileReq, options ...lark.MethodOptionFunc) (*lark.GetMessageFileResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockMessageGetMessageFile()
+
+			_, _, err := moduleCli.GetMessageFile(ctx, &lark.GetMessageFileReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+			cli.Mock().MockMessageGetMessage(func(ctx context.Context, request *lark.GetMessageReq, options ...lark.MethodOptionFunc) (*lark.GetMessageResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockMessageGetMessage()
+
+			_, _, err := moduleCli.GetMessage(ctx, &lark.GetMessageReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
 		})
 	})
 
