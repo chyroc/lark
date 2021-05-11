@@ -11,15 +11,17 @@ import (
 // 发起邀请的操作者必须具有相应的权限（如果操作者为用户，则必须在会中），如果会议被锁定、或参会人数如果达到上限，则会邀请失败
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/vc-v1/meeting/invite
-func (r *VCAPI) InviteMeeting(ctx context.Context, request *InviteMeetingReq) (*InviteMeetingResp, *Response, error) {
+func (r *VCAPI) InviteMeeting(ctx context.Context, request *InviteMeetingReq, options ...MethodOptionFunc) (*InviteMeetingResp, *Response, error) {
+	if r.cli.mock.mockVCInviteMeeting != nil {
+		return r.cli.mock.mockVCInviteMeeting(ctx, request, options...)
+	}
+
 	req := &RawRequestReq{
-		Method:                "PATCH",
-		URL:                   "https://open.feishu.cn/open-apis/vc/v1/meetings/:meeting_id/invite",
-		Body:                  request,
-		NeedTenantAccessToken: false,
-		NeedAppAccessToken:    false,
-		NeedHelpdeskAuth:      false,
-		IsFile:                false,
+		Method:              "PATCH",
+		URL:                 "https://open.feishu.cn/open-apis/vc/v1/meetings/:meeting_id/invite",
+		Body:                request,
+		MethodOption:        newMethodOption(options),
+		NeedUserAccessToken: true,
 	}
 	resp := new(inviteMeetingResp)
 
@@ -31,6 +33,14 @@ func (r *VCAPI) InviteMeeting(ctx context.Context, request *InviteMeetingReq) (*
 	}
 
 	return resp.Data, response, nil
+}
+
+func (r *Mock) MockVCInviteMeeting(f func(ctx context.Context, request *InviteMeetingReq, options ...MethodOptionFunc) (*InviteMeetingResp, *Response, error)) {
+	r.mockVCInviteMeeting = f
+}
+
+func (r *Mock) UnMockVCInviteMeeting() {
+	r.mockVCInviteMeeting = nil
 }
 
 type InviteMeetingReq struct {

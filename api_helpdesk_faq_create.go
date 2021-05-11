@@ -9,15 +9,18 @@ import (
 // CreateFAQ 该接口用于创建知识库。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/faq/create
-func (r *HelpdeskAPI) CreateFAQ(ctx context.Context, request *CreateFAQReq) (*CreateFAQResp, *Response, error) {
+func (r *HelpdeskAPI) CreateFAQ(ctx context.Context, request *CreateFAQReq, options ...MethodOptionFunc) (*CreateFAQResp, *Response, error) {
+	if r.cli.mock.mockHelpdeskCreateFAQ != nil {
+		return r.cli.mock.mockHelpdeskCreateFAQ(ctx, request, options...)
+	}
+
 	req := &RawRequestReq{
-		Method:                "POST",
-		URL:                   "https://open.feishu.cn/open-apis/helpdesk/v1/faqs",
-		Body:                  request,
-		NeedTenantAccessToken: false,
-		NeedAppAccessToken:    false,
-		NeedHelpdeskAuth:      true,
-		IsFile:                false,
+		Method:              "POST",
+		URL:                 "https://open.feishu.cn/open-apis/helpdesk/v1/faqs",
+		Body:                request,
+		MethodOption:        newMethodOption(options),
+		NeedUserAccessToken: true,
+		NeedHelpdeskAuth:    true,
 	}
 	resp := new(createFAQResp)
 
@@ -29,6 +32,14 @@ func (r *HelpdeskAPI) CreateFAQ(ctx context.Context, request *CreateFAQReq) (*Cr
 	}
 
 	return resp.Data, response, nil
+}
+
+func (r *Mock) MockHelpdeskCreateFAQ(f func(ctx context.Context, request *CreateFAQReq, options ...MethodOptionFunc) (*CreateFAQResp, *Response, error)) {
+	r.mockHelpdeskCreateFAQ = f
+}
+
+func (r *Mock) UnMockHelpdeskCreateFAQ() {
+	r.mockHelpdeskCreateFAQ = nil
 }
 
 type CreateFAQReq struct {

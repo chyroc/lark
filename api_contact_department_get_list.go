@@ -14,15 +14,18 @@ import (
 // - fetch_child字段填写为true：如果填写具体的部门ID，则返回该部门下所有子部门；如果没有填写部门ID, 若有全员权限，返回根部门信息，可以根据根部门ID获取其下的一级子部门，若没有全员权限则返回通讯录范围中配置的部门及其子部门。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/list
-func (r *ContactAPI) GetDepartmentList(ctx context.Context, request *GetDepartmentListReq) (*GetDepartmentListResp, *Response, error) {
+func (r *ContactAPI) GetDepartmentList(ctx context.Context, request *GetDepartmentListReq, options ...MethodOptionFunc) (*GetDepartmentListResp, *Response, error) {
+	if r.cli.mock.mockContactGetDepartmentList != nil {
+		return r.cli.mock.mockContactGetDepartmentList(ctx, request, options...)
+	}
+
 	req := &RawRequestReq{
 		Method:                "GET",
 		URL:                   "https://open.feishu.cn/open-apis/contact/v3/departments",
 		Body:                  request,
+		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
-		NeedAppAccessToken:    false,
-		NeedHelpdeskAuth:      false,
-		IsFile:                false,
+		NeedUserAccessToken:   true,
 	}
 	resp := new(getDepartmentListResp)
 
@@ -34,6 +37,14 @@ func (r *ContactAPI) GetDepartmentList(ctx context.Context, request *GetDepartme
 	}
 
 	return resp.Data, response, nil
+}
+
+func (r *Mock) MockContactGetDepartmentList(f func(ctx context.Context, request *GetDepartmentListReq, options ...MethodOptionFunc) (*GetDepartmentListResp, *Response, error)) {
+	r.mockContactGetDepartmentList = f
+}
+
+func (r *Mock) UnMockContactGetDepartmentList() {
+	r.mockContactGetDepartmentList = nil
 }
 
 type GetDepartmentListReq struct {

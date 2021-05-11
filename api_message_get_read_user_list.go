@@ -14,15 +14,17 @@ import (
 // - 查询消息已读信息时机器人仍需要在会话内
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/read_users
-func (r *MessageAPI) GetMessageReadUserList(ctx context.Context, request *GetMessageReadUserListReq) (*GetMessageReadUserListResp, *Response, error) {
+func (r *MessageAPI) GetMessageReadUserList(ctx context.Context, request *GetMessageReadUserListReq, options ...MethodOptionFunc) (*GetMessageReadUserListResp, *Response, error) {
+	if r.cli.mock.mockMessageGetMessageReadUserList != nil {
+		return r.cli.mock.mockMessageGetMessageReadUserList(ctx, request, options...)
+	}
+
 	req := &RawRequestReq{
 		Method:                "GET",
 		URL:                   "https://open.feishu.cn/open-apis/im/v1/messages/:message_id/read_users",
 		Body:                  request,
+		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
-		NeedAppAccessToken:    false,
-		NeedHelpdeskAuth:      false,
-		IsFile:                false,
 	}
 	resp := new(getMessageReadUserListResp)
 
@@ -34,6 +36,14 @@ func (r *MessageAPI) GetMessageReadUserList(ctx context.Context, request *GetMes
 	}
 
 	return resp.Data, response, nil
+}
+
+func (r *Mock) MockMessageGetMessageReadUserList(f func(ctx context.Context, request *GetMessageReadUserListReq, options ...MethodOptionFunc) (*GetMessageReadUserListResp, *Response, error)) {
+	r.mockMessageGetMessageReadUserList = f
+}
+
+func (r *Mock) UnMockMessageGetMessageReadUserList() {
+	r.mockMessageGetMessageReadUserList = nil
 }
 
 type GetMessageReadUserListReq struct {

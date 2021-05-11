@@ -9,15 +9,17 @@ import (
 // GenerateCaldavConf 用于为当前用户生成一个CalDAV账号密码。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/setting/generate_caldav_conf
-func (r *CalendarAPI) GenerateCaldavConf(ctx context.Context, request *GenerateCaldavConfReq) (*GenerateCaldavConfResp, *Response, error) {
+func (r *CalendarAPI) GenerateCaldavConf(ctx context.Context, request *GenerateCaldavConfReq, options ...MethodOptionFunc) (*GenerateCaldavConfResp, *Response, error) {
+	if r.cli.mock.mockCalendarGenerateCaldavConf != nil {
+		return r.cli.mock.mockCalendarGenerateCaldavConf(ctx, request, options...)
+	}
+
 	req := &RawRequestReq{
-		Method:                "POST",
-		URL:                   "https://open.feishu.cn/open-apis/calendar/v4/settings/generate_caldav_conf",
-		Body:                  request,
-		NeedTenantAccessToken: false,
-		NeedAppAccessToken:    false,
-		NeedHelpdeskAuth:      false,
-		IsFile:                false,
+		Method:              "POST",
+		URL:                 "https://open.feishu.cn/open-apis/calendar/v4/settings/generate_caldav_conf",
+		Body:                request,
+		MethodOption:        newMethodOption(options),
+		NeedUserAccessToken: true,
 	}
 	resp := new(generateCaldavConfResp)
 
@@ -29,6 +31,14 @@ func (r *CalendarAPI) GenerateCaldavConf(ctx context.Context, request *GenerateC
 	}
 
 	return resp.Data, response, nil
+}
+
+func (r *Mock) MockCalendarGenerateCaldavConf(f func(ctx context.Context, request *GenerateCaldavConfReq, options ...MethodOptionFunc) (*GenerateCaldavConfResp, *Response, error)) {
+	r.mockCalendarGenerateCaldavConf = f
+}
+
+func (r *Mock) UnMockCalendarGenerateCaldavConf() {
+	r.mockCalendarGenerateCaldavConf = nil
 }
 
 type GenerateCaldavConfReq struct {

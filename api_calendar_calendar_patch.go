@@ -14,15 +14,18 @@ import (
 // 当前身份对日历不具有 owner 权限时，仅可修改对自己生效的字段：color, summary_alias。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar/patch
-func (r *CalendarAPI) UpdateCalendar(ctx context.Context, request *UpdateCalendarReq) (*UpdateCalendarResp, *Response, error) {
+func (r *CalendarAPI) UpdateCalendar(ctx context.Context, request *UpdateCalendarReq, options ...MethodOptionFunc) (*UpdateCalendarResp, *Response, error) {
+	if r.cli.mock.mockCalendarUpdateCalendar != nil {
+		return r.cli.mock.mockCalendarUpdateCalendar(ctx, request, options...)
+	}
+
 	req := &RawRequestReq{
 		Method:                "PATCH",
 		URL:                   "https://open.feishu.cn/open-apis/calendar/v4/calendars/:calendar_id",
 		Body:                  request,
+		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
-		NeedAppAccessToken:    false,
-		NeedHelpdeskAuth:      false,
-		IsFile:                false,
+		NeedUserAccessToken:   true,
 	}
 	resp := new(updateCalendarResp)
 
@@ -34,6 +37,14 @@ func (r *CalendarAPI) UpdateCalendar(ctx context.Context, request *UpdateCalenda
 	}
 
 	return resp.Data, response, nil
+}
+
+func (r *Mock) MockCalendarUpdateCalendar(f func(ctx context.Context, request *UpdateCalendarReq, options ...MethodOptionFunc) (*UpdateCalendarResp, *Response, error)) {
+	r.mockCalendarUpdateCalendar = f
+}
+
+func (r *Mock) UnMockCalendarUpdateCalendar() {
+	r.mockCalendarUpdateCalendar = nil
 }
 
 type UpdateCalendarReq struct {

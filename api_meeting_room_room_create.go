@@ -9,15 +9,17 @@ import (
 // CreateRoom 该接口用于创建会议室。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uITNwYjLyUDM24iM1AjN
-func (r *MeetingRoomAPI) CreateRoom(ctx context.Context, request *CreateRoomReq) (*CreateRoomResp, *Response, error) {
+func (r *MeetingRoomAPI) CreateRoom(ctx context.Context, request *CreateRoomReq, options ...MethodOptionFunc) (*CreateRoomResp, *Response, error) {
+	if r.cli.mock.mockMeetingRoomCreateRoom != nil {
+		return r.cli.mock.mockMeetingRoomCreateRoom(ctx, request, options...)
+	}
+
 	req := &RawRequestReq{
 		Method:                "POST",
 		URL:                   "https://open.feishu.cn/open-apis/meeting_room/room/create",
 		Body:                  request,
+		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
-		NeedAppAccessToken:    false,
-		NeedHelpdeskAuth:      false,
-		IsFile:                false,
 	}
 	resp := new(createRoomResp)
 
@@ -29,6 +31,14 @@ func (r *MeetingRoomAPI) CreateRoom(ctx context.Context, request *CreateRoomReq)
 	}
 
 	return resp.Data, response, nil
+}
+
+func (r *Mock) MockMeetingRoomCreateRoom(f func(ctx context.Context, request *CreateRoomReq, options ...MethodOptionFunc) (*CreateRoomResp, *Response, error)) {
+	r.mockMeetingRoomCreateRoom = f
+}
+
+func (r *Mock) UnMockMeetingRoomCreateRoom() {
+	r.mockMeetingRoomCreateRoom = nil
 }
 
 type CreateRoomReq struct {

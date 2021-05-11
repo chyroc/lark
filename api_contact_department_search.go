@@ -11,15 +11,17 @@ import (
 // 部门存在，但用户搜索不到并不一定是搜索有问题，可能是管理员在后台配置了权限控制，导致用户无法搜索到该部门
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/search
-func (r *ContactAPI) SearchDepartment(ctx context.Context, request *SearchDepartmentReq) (*SearchDepartmentResp, *Response, error) {
+func (r *ContactAPI) SearchDepartment(ctx context.Context, request *SearchDepartmentReq, options ...MethodOptionFunc) (*SearchDepartmentResp, *Response, error) {
+	if r.cli.mock.mockContactSearchDepartment != nil {
+		return r.cli.mock.mockContactSearchDepartment(ctx, request, options...)
+	}
+
 	req := &RawRequestReq{
-		Method:                "POST",
-		URL:                   "https://open.feishu.cn/open-apis/contact/v3/departments/search",
-		Body:                  request,
-		NeedTenantAccessToken: false,
-		NeedAppAccessToken:    false,
-		NeedHelpdeskAuth:      false,
-		IsFile:                false,
+		Method:              "POST",
+		URL:                 "https://open.feishu.cn/open-apis/contact/v3/departments/search",
+		Body:                request,
+		MethodOption:        newMethodOption(options),
+		NeedUserAccessToken: true,
 	}
 	resp := new(searchDepartmentResp)
 
@@ -31,6 +33,14 @@ func (r *ContactAPI) SearchDepartment(ctx context.Context, request *SearchDepart
 	}
 
 	return resp.Data, response, nil
+}
+
+func (r *Mock) MockContactSearchDepartment(f func(ctx context.Context, request *SearchDepartmentReq, options ...MethodOptionFunc) (*SearchDepartmentResp, *Response, error)) {
+	r.mockContactSearchDepartment = f
+}
+
+func (r *Mock) UnMockContactSearchDepartment() {
+	r.mockContactSearchDepartment = nil
 }
 
 type SearchDepartmentReq struct {

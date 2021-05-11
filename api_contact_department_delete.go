@@ -11,15 +11,17 @@ import (
 // 应用需要同时拥有待删除部门及其父部门的通讯录授权。应用商店应用无权限调用该接口。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/delete
-func (r *ContactAPI) DeleteDepartment(ctx context.Context, request *DeleteDepartmentReq) (*DeleteDepartmentResp, *Response, error) {
+func (r *ContactAPI) DeleteDepartment(ctx context.Context, request *DeleteDepartmentReq, options ...MethodOptionFunc) (*DeleteDepartmentResp, *Response, error) {
+	if r.cli.mock.mockContactDeleteDepartment != nil {
+		return r.cli.mock.mockContactDeleteDepartment(ctx, request, options...)
+	}
+
 	req := &RawRequestReq{
 		Method:                "DELETE",
 		URL:                   "https://open.feishu.cn/open-apis/contact/v3/departments/:department_id",
 		Body:                  request,
+		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
-		NeedAppAccessToken:    false,
-		NeedHelpdeskAuth:      false,
-		IsFile:                false,
 	}
 	resp := new(deleteDepartmentResp)
 
@@ -31,6 +33,14 @@ func (r *ContactAPI) DeleteDepartment(ctx context.Context, request *DeleteDepart
 	}
 
 	return resp.Data, response, nil
+}
+
+func (r *Mock) MockContactDeleteDepartment(f func(ctx context.Context, request *DeleteDepartmentReq, options ...MethodOptionFunc) (*DeleteDepartmentResp, *Response, error)) {
+	r.mockContactDeleteDepartment = f
+}
+
+func (r *Mock) UnMockContactDeleteDepartment() {
+	r.mockContactDeleteDepartment = nil
 }
 
 type DeleteDepartmentReq struct {

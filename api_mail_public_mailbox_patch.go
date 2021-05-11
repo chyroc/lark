@@ -9,15 +9,17 @@ import (
 // UpdatePublicMailboxPatch 更新公共邮箱部分字段，没有填写的字段不会被更新
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/mail-v1/public_mailbox/patch
-func (r *MailAPI) UpdatePublicMailboxPatch(ctx context.Context, request *UpdatePublicMailboxPatchReq) (*UpdatePublicMailboxPatchResp, *Response, error) {
+func (r *MailAPI) UpdatePublicMailboxPatch(ctx context.Context, request *UpdatePublicMailboxPatchReq, options ...MethodOptionFunc) (*UpdatePublicMailboxPatchResp, *Response, error) {
+	if r.cli.mock.mockMailUpdatePublicMailboxPatch != nil {
+		return r.cli.mock.mockMailUpdatePublicMailboxPatch(ctx, request, options...)
+	}
+
 	req := &RawRequestReq{
 		Method:                "PATCH",
 		URL:                   "https://open.feishu.cn/open-apis/mail/v1/public_mailboxes/:public_mailbox_id",
 		Body:                  request,
+		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
-		NeedAppAccessToken:    false,
-		NeedHelpdeskAuth:      false,
-		IsFile:                false,
 	}
 	resp := new(updatePublicMailboxPatchResp)
 
@@ -29,6 +31,14 @@ func (r *MailAPI) UpdatePublicMailboxPatch(ctx context.Context, request *UpdateP
 	}
 
 	return resp.Data, response, nil
+}
+
+func (r *Mock) MockMailUpdatePublicMailboxPatch(f func(ctx context.Context, request *UpdatePublicMailboxPatchReq, options ...MethodOptionFunc) (*UpdatePublicMailboxPatchResp, *Response, error)) {
+	r.mockMailUpdatePublicMailboxPatch = f
+}
+
+func (r *Mock) UnMockMailUpdatePublicMailboxPatch() {
+	r.mockMailUpdatePublicMailboxPatch = nil
 }
 
 type UpdatePublicMailboxPatchReq struct {

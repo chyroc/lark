@@ -11,15 +11,17 @@ import (
 // 通过考勤组 ID 获取考勤组详情。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/Attendance//group
-func (r *AttendanceAPI) GetGroup(ctx context.Context, request *GetGroupReq) (*GetGroupResp, *Response, error) {
+func (r *AttendanceAPI) GetGroup(ctx context.Context, request *GetGroupReq, options ...MethodOptionFunc) (*GetGroupResp, *Response, error) {
+	if r.cli.mock.mockAttendanceGetGroup != nil {
+		return r.cli.mock.mockAttendanceGetGroup(ctx, request, options...)
+	}
+
 	req := &RawRequestReq{
 		Method:                "GET",
 		URL:                   "https://open.feishu.cn/open-apis/attendance/v1/groups/:group_id",
 		Body:                  request,
+		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
-		NeedAppAccessToken:    false,
-		NeedHelpdeskAuth:      false,
-		IsFile:                false,
 	}
 	resp := new(getGroupResp)
 
@@ -31,6 +33,14 @@ func (r *AttendanceAPI) GetGroup(ctx context.Context, request *GetGroupReq) (*Ge
 	}
 
 	return resp.Data, response, nil
+}
+
+func (r *Mock) MockAttendanceGetGroup(f func(ctx context.Context, request *GetGroupReq, options ...MethodOptionFunc) (*GetGroupResp, *Response, error)) {
+	r.mockAttendanceGetGroup = f
+}
+
+func (r *Mock) UnMockAttendanceGetGroup() {
+	r.mockAttendanceGetGroup = nil
 }
 
 type GetGroupReq struct {

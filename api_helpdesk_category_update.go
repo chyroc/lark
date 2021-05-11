@@ -9,15 +9,18 @@ import (
 // UpdateCategory 该接口用于更新知识库分类详情。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/category/patch
-func (r *HelpdeskAPI) UpdateCategory(ctx context.Context, request *UpdateCategoryReq) (*UpdateCategoryResp, *Response, error) {
+func (r *HelpdeskAPI) UpdateCategory(ctx context.Context, request *UpdateCategoryReq, options ...MethodOptionFunc) (*UpdateCategoryResp, *Response, error) {
+	if r.cli.mock.mockHelpdeskUpdateCategory != nil {
+		return r.cli.mock.mockHelpdeskUpdateCategory(ctx, request, options...)
+	}
+
 	req := &RawRequestReq{
-		Method:                "PATCH",
-		URL:                   "https://open.feishu.cn/open-apis/helpdesk/v1/categories/:id",
-		Body:                  request,
-		NeedTenantAccessToken: false,
-		NeedAppAccessToken:    false,
-		NeedHelpdeskAuth:      true,
-		IsFile:                false,
+		Method:              "PATCH",
+		URL:                 "https://open.feishu.cn/open-apis/helpdesk/v1/categories/:id",
+		Body:                request,
+		MethodOption:        newMethodOption(options),
+		NeedUserAccessToken: true,
+		NeedHelpdeskAuth:    true,
 	}
 	resp := new(updateCategoryResp)
 
@@ -29,6 +32,14 @@ func (r *HelpdeskAPI) UpdateCategory(ctx context.Context, request *UpdateCategor
 	}
 
 	return resp.Data, response, nil
+}
+
+func (r *Mock) MockHelpdeskUpdateCategory(f func(ctx context.Context, request *UpdateCategoryReq, options ...MethodOptionFunc) (*UpdateCategoryResp, *Response, error)) {
+	r.mockHelpdeskUpdateCategory = f
+}
+
+func (r *Mock) UnMockHelpdeskUpdateCategory() {
+	r.mockHelpdeskUpdateCategory = nil
 }
 
 type UpdateCategoryReq struct {

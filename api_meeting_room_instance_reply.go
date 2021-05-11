@@ -9,15 +9,17 @@ import (
 // ReplyInstance 该接口用于回复会议室日程实例，包括未签到释放和提前结束释放。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uYzN4UjL2cDO14iN3gTN
-func (r *MeetingRoomAPI) ReplyInstance(ctx context.Context, request *ReplyInstanceReq) (*ReplyInstanceResp, *Response, error) {
+func (r *MeetingRoomAPI) ReplyInstance(ctx context.Context, request *ReplyInstanceReq, options ...MethodOptionFunc) (*ReplyInstanceResp, *Response, error) {
+	if r.cli.mock.mockMeetingRoomReplyInstance != nil {
+		return r.cli.mock.mockMeetingRoomReplyInstance(ctx, request, options...)
+	}
+
 	req := &RawRequestReq{
 		Method:                "POST",
 		URL:                   "https://open.feishu.cn/open-apis/meeting_room/instance/reply",
 		Body:                  request,
+		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
-		NeedAppAccessToken:    false,
-		NeedHelpdeskAuth:      false,
-		IsFile:                false,
 	}
 	resp := new(replyInstanceResp)
 
@@ -29,6 +31,14 @@ func (r *MeetingRoomAPI) ReplyInstance(ctx context.Context, request *ReplyInstan
 	}
 
 	return resp.Data, response, nil
+}
+
+func (r *Mock) MockMeetingRoomReplyInstance(f func(ctx context.Context, request *ReplyInstanceReq, options ...MethodOptionFunc) (*ReplyInstanceResp, *Response, error)) {
+	r.mockMeetingRoomReplyInstance = f
+}
+
+func (r *Mock) UnMockMeetingRoomReplyInstance() {
+	r.mockMeetingRoomReplyInstance = nil
 }
 
 type ReplyInstanceReq struct {

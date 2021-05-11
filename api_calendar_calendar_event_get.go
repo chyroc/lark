@@ -11,15 +11,18 @@ import (
 // 当前身份必须对日历有访问权限。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar-event/get
-func (r *CalendarAPI) GetCalendarEvent(ctx context.Context, request *GetCalendarEventReq) (*GetCalendarEventResp, *Response, error) {
+func (r *CalendarAPI) GetCalendarEvent(ctx context.Context, request *GetCalendarEventReq, options ...MethodOptionFunc) (*GetCalendarEventResp, *Response, error) {
+	if r.cli.mock.mockCalendarGetCalendarEvent != nil {
+		return r.cli.mock.mockCalendarGetCalendarEvent(ctx, request, options...)
+	}
+
 	req := &RawRequestReq{
 		Method:                "GET",
 		URL:                   "https://open.feishu.cn/open-apis/calendar/v4/calendars/:calendar_id/events/:event_id",
 		Body:                  request,
+		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
-		NeedAppAccessToken:    false,
-		NeedHelpdeskAuth:      false,
-		IsFile:                false,
+		NeedUserAccessToken:   true,
 	}
 	resp := new(getCalendarEventResp)
 
@@ -31,6 +34,14 @@ func (r *CalendarAPI) GetCalendarEvent(ctx context.Context, request *GetCalendar
 	}
 
 	return resp.Data, response, nil
+}
+
+func (r *Mock) MockCalendarGetCalendarEvent(f func(ctx context.Context, request *GetCalendarEventReq, options ...MethodOptionFunc) (*GetCalendarEventResp, *Response, error)) {
+	r.mockCalendarGetCalendarEvent = f
+}
+
+func (r *Mock) UnMockCalendarGetCalendarEvent() {
+	r.mockCalendarGetCalendarEvent = nil
 }
 
 type GetCalendarEventReq struct {

@@ -11,15 +11,17 @@ import (
 // 支持预约最近30天内的会议（到期时间距离当前时间不超过30天），预约到期后会议号将被释放，如需继续使用可通过"更新预约"接口进行续期；预约会议时可配置参会人在会中的权限，以达到控制会议的目的
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/vc-v1/reserve/apply
-func (r *VCAPI) ApplyReserve(ctx context.Context, request *ApplyReserveReq) (*ApplyReserveResp, *Response, error) {
+func (r *VCAPI) ApplyReserve(ctx context.Context, request *ApplyReserveReq, options ...MethodOptionFunc) (*ApplyReserveResp, *Response, error) {
+	if r.cli.mock.mockVCApplyReserve != nil {
+		return r.cli.mock.mockVCApplyReserve(ctx, request, options...)
+	}
+
 	req := &RawRequestReq{
-		Method:                "POST",
-		URL:                   "https://open.feishu.cn/open-apis/vc/v1/reserves/apply",
-		Body:                  request,
-		NeedTenantAccessToken: false,
-		NeedAppAccessToken:    false,
-		NeedHelpdeskAuth:      false,
-		IsFile:                false,
+		Method:              "POST",
+		URL:                 "https://open.feishu.cn/open-apis/vc/v1/reserves/apply",
+		Body:                request,
+		MethodOption:        newMethodOption(options),
+		NeedUserAccessToken: true,
 	}
 	resp := new(applyReserveResp)
 
@@ -31,6 +33,14 @@ func (r *VCAPI) ApplyReserve(ctx context.Context, request *ApplyReserveReq) (*Ap
 	}
 
 	return resp.Data, response, nil
+}
+
+func (r *Mock) MockVCApplyReserve(f func(ctx context.Context, request *ApplyReserveReq, options ...MethodOptionFunc) (*ApplyReserveResp, *Response, error)) {
+	r.mockVCApplyReserve = f
+}
+
+func (r *Mock) UnMockVCApplyReserve() {
+	r.mockVCApplyReserve = nil
 }
 
 type ApplyReserveReq struct {

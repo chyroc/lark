@@ -10,15 +10,18 @@ import (
 // GetFAQImage 该接口用于获取知识库图像。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/faq/faq_image
-func (r *HelpdeskAPI) GetFAQImage(ctx context.Context, request *GetFAQImageReq) (*GetFAQImageResp, *Response, error) {
+func (r *HelpdeskAPI) GetFAQImage(ctx context.Context, request *GetFAQImageReq, options ...MethodOptionFunc) (*GetFAQImageResp, *Response, error) {
+	if r.cli.mock.mockHelpdeskGetFAQImage != nil {
+		return r.cli.mock.mockHelpdeskGetFAQImage(ctx, request, options...)
+	}
+
 	req := &RawRequestReq{
 		Method:                "GET",
 		URL:                   "https://open.feishu.cn/open-apis/helpdesk/v1/faqs/:id/image/:image_key",
 		Body:                  request,
+		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
-		NeedAppAccessToken:    false,
 		NeedHelpdeskAuth:      true,
-		IsFile:                false,
 	}
 	resp := new(getFAQImageResp)
 
@@ -30,6 +33,14 @@ func (r *HelpdeskAPI) GetFAQImage(ctx context.Context, request *GetFAQImageReq) 
 	}
 
 	return resp.Data, response, nil
+}
+
+func (r *Mock) MockHelpdeskGetFAQImage(f func(ctx context.Context, request *GetFAQImageReq, options ...MethodOptionFunc) (*GetFAQImageResp, *Response, error)) {
+	r.mockHelpdeskGetFAQImage = f
+}
+
+func (r *Mock) UnMockHelpdeskGetFAQImage() {
+	r.mockHelpdeskGetFAQImage = nil
 }
 
 type GetFAQImageReq struct {

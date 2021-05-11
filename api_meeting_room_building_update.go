@@ -9,15 +9,17 @@ import (
 // UpdateBuilding 该接口用于编辑建筑信息，添加楼层，删除楼层，编辑楼层信息。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uETNwYjLxUDM24SM1AjN
-func (r *MeetingRoomAPI) UpdateBuilding(ctx context.Context, request *UpdateBuildingReq) (*UpdateBuildingResp, *Response, error) {
+func (r *MeetingRoomAPI) UpdateBuilding(ctx context.Context, request *UpdateBuildingReq, options ...MethodOptionFunc) (*UpdateBuildingResp, *Response, error) {
+	if r.cli.mock.mockMeetingRoomUpdateBuilding != nil {
+		return r.cli.mock.mockMeetingRoomUpdateBuilding(ctx, request, options...)
+	}
+
 	req := &RawRequestReq{
 		Method:                "POST",
 		URL:                   "https://open.feishu.cn/open-apis/meeting_room/building/update",
 		Body:                  request,
+		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
-		NeedAppAccessToken:    false,
-		NeedHelpdeskAuth:      false,
-		IsFile:                false,
 	}
 	resp := new(updateBuildingResp)
 
@@ -29,6 +31,14 @@ func (r *MeetingRoomAPI) UpdateBuilding(ctx context.Context, request *UpdateBuil
 	}
 
 	return resp.Data, response, nil
+}
+
+func (r *Mock) MockMeetingRoomUpdateBuilding(f func(ctx context.Context, request *UpdateBuildingReq, options ...MethodOptionFunc) (*UpdateBuildingResp, *Response, error)) {
+	r.mockMeetingRoomUpdateBuilding = f
+}
+
+func (r *Mock) UnMockMeetingRoomUpdateBuilding() {
+	r.mockMeetingRoomUpdateBuilding = nil
 }
 
 type UpdateBuildingReq struct {

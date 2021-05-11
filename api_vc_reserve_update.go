@@ -11,15 +11,17 @@ import (
 // 只能更新归属于自己的预约，不需要更新的字段不传（如果传空则会被更新为空）；可用于续期操作，到期时间距离当前时间不超过30天
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/vc-v1/reserve/update
-func (r *VCAPI) UpdateReserve(ctx context.Context, request *UpdateReserveReq) (*UpdateReserveResp, *Response, error) {
+func (r *VCAPI) UpdateReserve(ctx context.Context, request *UpdateReserveReq, options ...MethodOptionFunc) (*UpdateReserveResp, *Response, error) {
+	if r.cli.mock.mockVCUpdateReserve != nil {
+		return r.cli.mock.mockVCUpdateReserve(ctx, request, options...)
+	}
+
 	req := &RawRequestReq{
-		Method:                "PUT",
-		URL:                   "https://open.feishu.cn/open-apis/vc/v1/reserves/:reserve_id",
-		Body:                  request,
-		NeedTenantAccessToken: false,
-		NeedAppAccessToken:    false,
-		NeedHelpdeskAuth:      false,
-		IsFile:                false,
+		Method:              "PUT",
+		URL:                 "https://open.feishu.cn/open-apis/vc/v1/reserves/:reserve_id",
+		Body:                request,
+		MethodOption:        newMethodOption(options),
+		NeedUserAccessToken: true,
 	}
 	resp := new(updateReserveResp)
 
@@ -31,6 +33,14 @@ func (r *VCAPI) UpdateReserve(ctx context.Context, request *UpdateReserveReq) (*
 	}
 
 	return resp.Data, response, nil
+}
+
+func (r *Mock) MockVCUpdateReserve(f func(ctx context.Context, request *UpdateReserveReq, options ...MethodOptionFunc) (*UpdateReserveResp, *Response, error)) {
+	r.mockVCUpdateReserve = f
+}
+
+func (r *Mock) UnMockVCUpdateReserve() {
+	r.mockVCUpdateReserve = nil
 }
 
 type UpdateReserveReq struct {

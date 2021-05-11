@@ -9,15 +9,18 @@ import (
 // GetFAQ 该接口用于获取服务台知识库详情。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/faq/get
-func (r *HelpdeskAPI) GetFAQ(ctx context.Context, request *GetFAQReq) (*GetFAQResp, *Response, error) {
+func (r *HelpdeskAPI) GetFAQ(ctx context.Context, request *GetFAQReq, options ...MethodOptionFunc) (*GetFAQResp, *Response, error) {
+	if r.cli.mock.mockHelpdeskGetFAQ != nil {
+		return r.cli.mock.mockHelpdeskGetFAQ(ctx, request, options...)
+	}
+
 	req := &RawRequestReq{
 		Method:                "GET",
 		URL:                   "https://open.feishu.cn/open-apis/helpdesk/v1/faqs/:id",
 		Body:                  request,
+		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
-		NeedAppAccessToken:    false,
 		NeedHelpdeskAuth:      true,
-		IsFile:                false,
 	}
 	resp := new(getFAQResp)
 
@@ -29,6 +32,14 @@ func (r *HelpdeskAPI) GetFAQ(ctx context.Context, request *GetFAQReq) (*GetFAQRe
 	}
 
 	return resp.Data, response, nil
+}
+
+func (r *Mock) MockHelpdeskGetFAQ(f func(ctx context.Context, request *GetFAQReq, options ...MethodOptionFunc) (*GetFAQResp, *Response, error)) {
+	r.mockHelpdeskGetFAQ = f
+}
+
+func (r *Mock) UnMockHelpdeskGetFAQ() {
+	r.mockHelpdeskGetFAQ = nil
 }
 
 type GetFAQReq struct {

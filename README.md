@@ -10,7 +10,13 @@
 
 Feishu/Lark Open API Go Sdk, Support ALL Open API and Event Callback.
 
-Created By Code Generation.
+Supported Features
+
+- Many interfaces and events
+- Support mock to support test
+- Support isv and self-built apps
+- Support UserAccessToken
+- Use code generation to create, interface and document update timely
 
 ## Install
 
@@ -24,7 +30,7 @@ https://godoc.org/github.com/chyroc/lark
 
 ## Support APIs
 
-API Count: 186, Event Count: 25
+API Count: 184, Event Count: 25
 
 <details>
   <summary>
@@ -172,7 +178,6 @@ API Count: 186, Event Count: 25
   - DeleteTicketCustomizedField
   - UpdateTicketCustomizedField
   - CreateTicketCustomizedField
-  - DeleteTicketCustomizedField
   - GetTicketCustomizedField
   - CreateCategory
   - GetCategory
@@ -214,7 +219,6 @@ API Count: 186, Event Count: 25
   - GetStatisticsHeader
   - UpdateUserStatisticsSettings
   - GetUserStatisticsSettings
-  - GetUserDailyShift
   - GetUserDailyShift
   - GetUserTask
   - GetUserFlow

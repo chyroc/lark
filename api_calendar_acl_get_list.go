@@ -13,15 +13,18 @@ import (
 // 当前身份需要有日历的 owner 权限，并且日历的类型只能为 primary 或 shared。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar-acl/list
-func (r *CalendarAPI) GetCalendarACLList(ctx context.Context, request *GetCalendarACLListReq) (*GetCalendarACLListResp, *Response, error) {
+func (r *CalendarAPI) GetCalendarACLList(ctx context.Context, request *GetCalendarACLListReq, options ...MethodOptionFunc) (*GetCalendarACLListResp, *Response, error) {
+	if r.cli.mock.mockCalendarGetCalendarACLList != nil {
+		return r.cli.mock.mockCalendarGetCalendarACLList(ctx, request, options...)
+	}
+
 	req := &RawRequestReq{
 		Method:                "GET",
 		URL:                   "https://open.feishu.cn/open-apis/calendar/v4/calendars/:calendar_id/acls",
 		Body:                  request,
+		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
-		NeedAppAccessToken:    false,
-		NeedHelpdeskAuth:      false,
-		IsFile:                false,
+		NeedUserAccessToken:   true,
 	}
 	resp := new(getCalendarACLListResp)
 
@@ -33,6 +36,14 @@ func (r *CalendarAPI) GetCalendarACLList(ctx context.Context, request *GetCalend
 	}
 
 	return resp.Data, response, nil
+}
+
+func (r *Mock) MockCalendarGetCalendarACLList(f func(ctx context.Context, request *GetCalendarACLListReq, options ...MethodOptionFunc) (*GetCalendarACLListResp, *Response, error)) {
+	r.mockCalendarGetCalendarACLList = f
+}
+
+func (r *Mock) UnMockCalendarGetCalendarACLList() {
+	r.mockCalendarGetCalendarACLList = nil
 }
 
 type GetCalendarACLListReq struct {

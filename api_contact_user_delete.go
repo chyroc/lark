@@ -11,15 +11,17 @@ import (
 // 应用需要待删除用户的所有部门的通讯录权限才能删除该用户。应用商店应用无权限调用接口。用户可以在删除员工时设置删除员工数据的接收者，如果不设置则由其leader接受，如果该员工没有leader，则会将该员工的数据删除。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/delete
-func (r *ContactAPI) DeleteUser(ctx context.Context, request *DeleteUserReq) (*DeleteUserResp, *Response, error) {
+func (r *ContactAPI) DeleteUser(ctx context.Context, request *DeleteUserReq, options ...MethodOptionFunc) (*DeleteUserResp, *Response, error) {
+	if r.cli.mock.mockContactDeleteUser != nil {
+		return r.cli.mock.mockContactDeleteUser(ctx, request, options...)
+	}
+
 	req := &RawRequestReq{
 		Method:                "DELETE",
 		URL:                   "https://open.feishu.cn/open-apis/contact/v3/users/:user_id",
 		Body:                  request,
+		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
-		NeedAppAccessToken:    false,
-		NeedHelpdeskAuth:      false,
-		IsFile:                false,
 	}
 	resp := new(deleteUserResp)
 
@@ -31,6 +33,14 @@ func (r *ContactAPI) DeleteUser(ctx context.Context, request *DeleteUserReq) (*D
 	}
 
 	return resp.Data, response, nil
+}
+
+func (r *Mock) MockContactDeleteUser(f func(ctx context.Context, request *DeleteUserReq, options ...MethodOptionFunc) (*DeleteUserResp, *Response, error)) {
+	r.mockContactDeleteUser = f
+}
+
+func (r *Mock) UnMockContactDeleteUser() {
+	r.mockContactDeleteUser = nil
 }
 
 type DeleteUserReq struct {

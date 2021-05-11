@@ -13,15 +13,18 @@ import (
 // 仅可订阅类型为 primary 或 shared 的公开日历。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar/subscribe
-func (r *CalendarAPI) SubscribeCalendar(ctx context.Context, request *SubscribeCalendarReq) (*SubscribeCalendarResp, *Response, error) {
+func (r *CalendarAPI) SubscribeCalendar(ctx context.Context, request *SubscribeCalendarReq, options ...MethodOptionFunc) (*SubscribeCalendarResp, *Response, error) {
+	if r.cli.mock.mockCalendarSubscribeCalendar != nil {
+		return r.cli.mock.mockCalendarSubscribeCalendar(ctx, request, options...)
+	}
+
 	req := &RawRequestReq{
 		Method:                "POST",
 		URL:                   "https://open.feishu.cn/open-apis/calendar/v4/calendars/:calendar_id/subscribe",
 		Body:                  request,
+		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
-		NeedAppAccessToken:    false,
-		NeedHelpdeskAuth:      false,
-		IsFile:                false,
+		NeedUserAccessToken:   true,
 	}
 	resp := new(subscribeCalendarResp)
 
@@ -33,6 +36,14 @@ func (r *CalendarAPI) SubscribeCalendar(ctx context.Context, request *SubscribeC
 	}
 
 	return resp.Data, response, nil
+}
+
+func (r *Mock) MockCalendarSubscribeCalendar(f func(ctx context.Context, request *SubscribeCalendarReq, options ...MethodOptionFunc) (*SubscribeCalendarResp, *Response, error)) {
+	r.mockCalendarSubscribeCalendar = f
+}
+
+func (r *Mock) UnMockCalendarSubscribeCalendar() {
+	r.mockCalendarSubscribeCalendar = nil
 }
 
 type SubscribeCalendarReq struct {

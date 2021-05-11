@@ -9,15 +9,17 @@ import (
 // GetStatisticsData
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/Attendance//task/query-statistics-data
-func (r *AttendanceAPI) GetStatisticsData(ctx context.Context, request *GetStatisticsDataReq) (*GetStatisticsDataResp, *Response, error) {
+func (r *AttendanceAPI) GetStatisticsData(ctx context.Context, request *GetStatisticsDataReq, options ...MethodOptionFunc) (*GetStatisticsDataResp, *Response, error) {
+	if r.cli.mock.mockAttendanceGetStatisticsData != nil {
+		return r.cli.mock.mockAttendanceGetStatisticsData(ctx, request, options...)
+	}
+
 	req := &RawRequestReq{
 		Method:                "POST",
 		URL:                   "https://open.feishu.cn/open-apis/attendance/v1/user_stats_datas/query",
 		Body:                  request,
+		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
-		NeedAppAccessToken:    false,
-		NeedHelpdeskAuth:      false,
-		IsFile:                false,
 	}
 	resp := new(getStatisticsDataResp)
 
@@ -29,6 +31,14 @@ func (r *AttendanceAPI) GetStatisticsData(ctx context.Context, request *GetStati
 	}
 
 	return resp.Data, response, nil
+}
+
+func (r *Mock) MockAttendanceGetStatisticsData(f func(ctx context.Context, request *GetStatisticsDataReq, options ...MethodOptionFunc) (*GetStatisticsDataResp, *Response, error)) {
+	r.mockAttendanceGetStatisticsData = f
+}
+
+func (r *Mock) UnMockAttendanceGetStatisticsData() {
+	r.mockAttendanceGetStatisticsData = nil
 }
 
 type GetStatisticsDataReq struct {

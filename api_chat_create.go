@@ -12,15 +12,17 @@ import (
 // - 应用需要开启[机器人能力](https://open.feishu.cn/document/uQjL04CN/uYTMuYTMuYTM)
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat/create
-func (r *ChatAPI) CreateChat(ctx context.Context, request *CreateChatReq) (*CreateChatResp, *Response, error) {
+func (r *ChatAPI) CreateChat(ctx context.Context, request *CreateChatReq, options ...MethodOptionFunc) (*CreateChatResp, *Response, error) {
+	if r.cli.mock.mockChatCreateChat != nil {
+		return r.cli.mock.mockChatCreateChat(ctx, request, options...)
+	}
+
 	req := &RawRequestReq{
 		Method:                "POST",
 		URL:                   "https://open.feishu.cn/open-apis/im/v1/chats",
 		Body:                  request,
+		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
-		NeedAppAccessToken:    false,
-		NeedHelpdeskAuth:      false,
-		IsFile:                false,
 	}
 	resp := new(createChatResp)
 
@@ -32,6 +34,14 @@ func (r *ChatAPI) CreateChat(ctx context.Context, request *CreateChatReq) (*Crea
 	}
 
 	return resp.Data, response, nil
+}
+
+func (r *Mock) MockChatCreateChat(f func(ctx context.Context, request *CreateChatReq, options ...MethodOptionFunc) (*CreateChatResp, *Response, error)) {
+	r.mockChatCreateChat = f
+}
+
+func (r *Mock) UnMockChatCreateChat() {
+	r.mockChatCreateChat = nil
 }
 
 type CreateChatReq struct {

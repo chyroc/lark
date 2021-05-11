@@ -11,15 +11,17 @@ import (
 // 通过班次的名称获取班次信息。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/Attendance//shift_by_name
-func (r *AttendanceAPI) GetShiftByName(ctx context.Context, request *GetShiftByNameReq) (*GetShiftByNameResp, *Response, error) {
+func (r *AttendanceAPI) GetShiftByName(ctx context.Context, request *GetShiftByNameReq, options ...MethodOptionFunc) (*GetShiftByNameResp, *Response, error) {
+	if r.cli.mock.mockAttendanceGetShiftByName != nil {
+		return r.cli.mock.mockAttendanceGetShiftByName(ctx, request, options...)
+	}
+
 	req := &RawRequestReq{
 		Method:                "POST",
 		URL:                   "https://open.feishu.cn/open-apis/attendance/v1/shifts/query",
 		Body:                  request,
+		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
-		NeedAppAccessToken:    false,
-		NeedHelpdeskAuth:      false,
-		IsFile:                false,
 	}
 	resp := new(getShiftByNameResp)
 
@@ -31,6 +33,14 @@ func (r *AttendanceAPI) GetShiftByName(ctx context.Context, request *GetShiftByN
 	}
 
 	return resp.Data, response, nil
+}
+
+func (r *Mock) MockAttendanceGetShiftByName(f func(ctx context.Context, request *GetShiftByNameReq, options ...MethodOptionFunc) (*GetShiftByNameResp, *Response, error)) {
+	r.mockAttendanceGetShiftByName = f
+}
+
+func (r *Mock) UnMockAttendanceGetShiftByName() {
+	r.mockAttendanceGetShiftByName = nil
 }
 
 type GetShiftByNameReq struct {

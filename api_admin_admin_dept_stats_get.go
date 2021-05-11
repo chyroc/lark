@@ -13,15 +13,17 @@ import (
 // - 部门维度的数据最多查询最近366天（包含366天）的数据
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/admin-v1/admin_dept_stat/list
-func (r *AdminAPI) GetAdminDeptStats(ctx context.Context, request *GetAdminDeptStatsReq) (*GetAdminDeptStatsResp, *Response, error) {
+func (r *AdminAPI) GetAdminDeptStats(ctx context.Context, request *GetAdminDeptStatsReq, options ...MethodOptionFunc) (*GetAdminDeptStatsResp, *Response, error) {
+	if r.cli.mock.mockAdminGetAdminDeptStats != nil {
+		return r.cli.mock.mockAdminGetAdminDeptStats(ctx, request, options...)
+	}
+
 	req := &RawRequestReq{
 		Method:                "GET",
 		URL:                   "https://open.feishu.cn/open-apis/admin/v1/admin_dept_stats",
 		Body:                  request,
+		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
-		NeedAppAccessToken:    false,
-		NeedHelpdeskAuth:      false,
-		IsFile:                false,
 	}
 	resp := new(getAdminDeptStatsResp)
 
@@ -33,6 +35,14 @@ func (r *AdminAPI) GetAdminDeptStats(ctx context.Context, request *GetAdminDeptS
 	}
 
 	return resp.Data, response, nil
+}
+
+func (r *Mock) MockAdminGetAdminDeptStats(f func(ctx context.Context, request *GetAdminDeptStatsReq, options ...MethodOptionFunc) (*GetAdminDeptStatsResp, *Response, error)) {
+	r.mockAdminGetAdminDeptStats = f
+}
+
+func (r *Mock) UnMockAdminGetAdminDeptStats() {
+	r.mockAdminGetAdminDeptStats = nil
 }
 
 type GetAdminDeptStatsReq struct {

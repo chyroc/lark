@@ -9,15 +9,17 @@ import (
 // UpdateRoom 该接口用于更新会议室。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uMTNwYjLzUDM24yM1AjN
-func (r *MeetingRoomAPI) UpdateRoom(ctx context.Context, request *UpdateRoomReq) (*UpdateRoomResp, *Response, error) {
+func (r *MeetingRoomAPI) UpdateRoom(ctx context.Context, request *UpdateRoomReq, options ...MethodOptionFunc) (*UpdateRoomResp, *Response, error) {
+	if r.cli.mock.mockMeetingRoomUpdateRoom != nil {
+		return r.cli.mock.mockMeetingRoomUpdateRoom(ctx, request, options...)
+	}
+
 	req := &RawRequestReq{
 		Method:                "POST",
 		URL:                   "https://open.feishu.cn/open-apis/meeting_room/room/update",
 		Body:                  request,
+		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
-		NeedAppAccessToken:    false,
-		NeedHelpdeskAuth:      false,
-		IsFile:                false,
 	}
 	resp := new(updateRoomResp)
 
@@ -29,6 +31,14 @@ func (r *MeetingRoomAPI) UpdateRoom(ctx context.Context, request *UpdateRoomReq)
 	}
 
 	return resp.Data, response, nil
+}
+
+func (r *Mock) MockMeetingRoomUpdateRoom(f func(ctx context.Context, request *UpdateRoomReq, options ...MethodOptionFunc) (*UpdateRoomResp, *Response, error)) {
+	r.mockMeetingRoomUpdateRoom = f
+}
+
+func (r *Mock) UnMockMeetingRoomUpdateRoom() {
+	r.mockMeetingRoomUpdateRoom = nil
 }
 
 type UpdateRoomReq struct {

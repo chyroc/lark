@@ -13,15 +13,18 @@ import (
 // - 机器人或授权用户必须在群里
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat/get
-func (r *ChatAPI) GetChat(ctx context.Context, request *GetChatReq) (*GetChatResp, *Response, error) {
+func (r *ChatAPI) GetChat(ctx context.Context, request *GetChatReq, options ...MethodOptionFunc) (*GetChatResp, *Response, error) {
+	if r.cli.mock.mockChatGetChat != nil {
+		return r.cli.mock.mockChatGetChat(ctx, request, options...)
+	}
+
 	req := &RawRequestReq{
 		Method:                "GET",
 		URL:                   "https://open.feishu.cn/open-apis/im/v1/chats/:chat_id",
 		Body:                  request,
+		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
-		NeedAppAccessToken:    false,
-		NeedHelpdeskAuth:      false,
-		IsFile:                false,
+		NeedUserAccessToken:   true,
 	}
 	resp := new(getChatResp)
 
@@ -33,6 +36,14 @@ func (r *ChatAPI) GetChat(ctx context.Context, request *GetChatReq) (*GetChatRes
 	}
 
 	return resp.Data, response, nil
+}
+
+func (r *Mock) MockChatGetChat(f func(ctx context.Context, request *GetChatReq, options ...MethodOptionFunc) (*GetChatResp, *Response, error)) {
+	r.mockChatGetChat = f
+}
+
+func (r *Mock) UnMockChatGetChat() {
+	r.mockChatGetChat = nil
 }
 
 type GetChatReq struct {

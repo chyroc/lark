@@ -9,15 +9,17 @@ import (
 // CreateBuilding 该接口对应管理后台的添加建筑，添加楼层的功能，可用于创建建筑物和建筑物的楼层信息。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uATNwYjLwUDM24CM1AjN
-func (r *MeetingRoomAPI) CreateBuilding(ctx context.Context, request *CreateBuildingReq) (*CreateBuildingResp, *Response, error) {
+func (r *MeetingRoomAPI) CreateBuilding(ctx context.Context, request *CreateBuildingReq, options ...MethodOptionFunc) (*CreateBuildingResp, *Response, error) {
+	if r.cli.mock.mockMeetingRoomCreateBuilding != nil {
+		return r.cli.mock.mockMeetingRoomCreateBuilding(ctx, request, options...)
+	}
+
 	req := &RawRequestReq{
 		Method:                "POST",
 		URL:                   "https://open.feishu.cn/open-apis/meeting_room/building/create",
 		Body:                  request,
+		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
-		NeedAppAccessToken:    false,
-		NeedHelpdeskAuth:      false,
-		IsFile:                false,
 	}
 	resp := new(createBuildingResp)
 
@@ -29,6 +31,14 @@ func (r *MeetingRoomAPI) CreateBuilding(ctx context.Context, request *CreateBuil
 	}
 
 	return resp.Data, response, nil
+}
+
+func (r *Mock) MockMeetingRoomCreateBuilding(f func(ctx context.Context, request *CreateBuildingReq, options ...MethodOptionFunc) (*CreateBuildingResp, *Response, error)) {
+	r.mockMeetingRoomCreateBuilding = f
+}
+
+func (r *Mock) UnMockMeetingRoomCreateBuilding() {
+	r.mockMeetingRoomCreateBuilding = nil
 }
 
 type CreateBuildingReq struct {

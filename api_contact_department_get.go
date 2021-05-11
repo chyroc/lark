@@ -12,15 +12,18 @@ import (
 // 使用user_access_token时，用户需要有待查询部门的可见性，如果需要获取根部门信息，则要求员工可见所有人。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/get
-func (r *ContactAPI) GetDepartment(ctx context.Context, request *GetDepartmentReq) (*GetDepartmentResp, *Response, error) {
+func (r *ContactAPI) GetDepartment(ctx context.Context, request *GetDepartmentReq, options ...MethodOptionFunc) (*GetDepartmentResp, *Response, error) {
+	if r.cli.mock.mockContactGetDepartment != nil {
+		return r.cli.mock.mockContactGetDepartment(ctx, request, options...)
+	}
+
 	req := &RawRequestReq{
 		Method:                "GET",
 		URL:                   "https://open.feishu.cn/open-apis/contact/v3/departments/:department_id",
 		Body:                  request,
+		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
-		NeedAppAccessToken:    false,
-		NeedHelpdeskAuth:      false,
-		IsFile:                false,
+		NeedUserAccessToken:   true,
 	}
 	resp := new(getDepartmentResp)
 
@@ -32,6 +35,14 @@ func (r *ContactAPI) GetDepartment(ctx context.Context, request *GetDepartmentRe
 	}
 
 	return resp.Data, response, nil
+}
+
+func (r *Mock) MockContactGetDepartment(f func(ctx context.Context, request *GetDepartmentReq, options ...MethodOptionFunc) (*GetDepartmentResp, *Response, error)) {
+	r.mockContactGetDepartment = f
+}
+
+func (r *Mock) UnMockContactGetDepartment() {
+	r.mockContactGetDepartment = nil
 }
 
 type GetDepartmentReq struct {

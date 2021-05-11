@@ -11,15 +11,18 @@ import (
 // 该接口用于获取服务台知识库所有分类。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/category/list-categories
-func (r *HelpdeskAPI) GetCategoryList(ctx context.Context, request *GetCategoryListReq) (*GetCategoryListResp, *Response, error) {
+func (r *HelpdeskAPI) GetCategoryList(ctx context.Context, request *GetCategoryListReq, options ...MethodOptionFunc) (*GetCategoryListResp, *Response, error) {
+	if r.cli.mock.mockHelpdeskGetCategoryList != nil {
+		return r.cli.mock.mockHelpdeskGetCategoryList(ctx, request, options...)
+	}
+
 	req := &RawRequestReq{
 		Method:                "GET",
 		URL:                   "https://open.feishu.cn/open-apis/helpdesk/v1/categories",
 		Body:                  request,
+		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
-		NeedAppAccessToken:    false,
 		NeedHelpdeskAuth:      true,
-		IsFile:                false,
 	}
 	resp := new(getCategoryListResp)
 
@@ -31,6 +34,14 @@ func (r *HelpdeskAPI) GetCategoryList(ctx context.Context, request *GetCategoryL
 	}
 
 	return resp.Data, response, nil
+}
+
+func (r *Mock) MockHelpdeskGetCategoryList(f func(ctx context.Context, request *GetCategoryListReq, options ...MethodOptionFunc) (*GetCategoryListResp, *Response, error)) {
+	r.mockHelpdeskGetCategoryList = f
+}
+
+func (r *Mock) UnMockHelpdeskGetCategoryList() {
+	r.mockHelpdeskGetCategoryList = nil
 }
 
 type GetCategoryListReq struct {

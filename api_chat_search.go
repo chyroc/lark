@@ -15,15 +15,18 @@ import (
 // - 应用需要开启[机器人能力](https://open.feishu.cn/document/uQjL04CN/uYTMuYTMuYTM)
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat/search
-func (r *ChatAPI) SearchChat(ctx context.Context, request *SearchChatReq) (*SearchChatResp, *Response, error) {
+func (r *ChatAPI) SearchChat(ctx context.Context, request *SearchChatReq, options ...MethodOptionFunc) (*SearchChatResp, *Response, error) {
+	if r.cli.mock.mockChatSearchChat != nil {
+		return r.cli.mock.mockChatSearchChat(ctx, request, options...)
+	}
+
 	req := &RawRequestReq{
 		Method:                "GET",
 		URL:                   "https://open.feishu.cn/open-apis/im/v1/chats/search",
 		Body:                  request,
+		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
-		NeedAppAccessToken:    false,
-		NeedHelpdeskAuth:      false,
-		IsFile:                false,
+		NeedUserAccessToken:   true,
 	}
 	resp := new(searchChatResp)
 
@@ -35,6 +38,14 @@ func (r *ChatAPI) SearchChat(ctx context.Context, request *SearchChatReq) (*Sear
 	}
 
 	return resp.Data, response, nil
+}
+
+func (r *Mock) MockChatSearchChat(f func(ctx context.Context, request *SearchChatReq, options ...MethodOptionFunc) (*SearchChatResp, *Response, error)) {
+	r.mockChatSearchChat = f
+}
+
+func (r *Mock) UnMockChatSearchChat() {
+	r.mockChatSearchChat = nil
 }
 
 type SearchChatReq struct {

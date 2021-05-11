@@ -9,15 +9,18 @@ import (
 // CreateCategory 该接口用于创建知识库分类。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/category/create
-func (r *HelpdeskAPI) CreateCategory(ctx context.Context, request *CreateCategoryReq) (*CreateCategoryResp, *Response, error) {
+func (r *HelpdeskAPI) CreateCategory(ctx context.Context, request *CreateCategoryReq, options ...MethodOptionFunc) (*CreateCategoryResp, *Response, error) {
+	if r.cli.mock.mockHelpdeskCreateCategory != nil {
+		return r.cli.mock.mockHelpdeskCreateCategory(ctx, request, options...)
+	}
+
 	req := &RawRequestReq{
-		Method:                "POST",
-		URL:                   "https://open.feishu.cn/open-apis/helpdesk/v1/categories",
-		Body:                  request,
-		NeedTenantAccessToken: false,
-		NeedAppAccessToken:    false,
-		NeedHelpdeskAuth:      true,
-		IsFile:                false,
+		Method:              "POST",
+		URL:                 "https://open.feishu.cn/open-apis/helpdesk/v1/categories",
+		Body:                request,
+		MethodOption:        newMethodOption(options),
+		NeedUserAccessToken: true,
+		NeedHelpdeskAuth:    true,
 	}
 	resp := new(createCategoryResp)
 
@@ -29,6 +32,14 @@ func (r *HelpdeskAPI) CreateCategory(ctx context.Context, request *CreateCategor
 	}
 
 	return resp.Data, response, nil
+}
+
+func (r *Mock) MockHelpdeskCreateCategory(f func(ctx context.Context, request *CreateCategoryReq, options ...MethodOptionFunc) (*CreateCategoryResp, *Response, error)) {
+	r.mockHelpdeskCreateCategory = f
+}
+
+func (r *Mock) UnMockHelpdeskCreateCategory() {
+	r.mockHelpdeskCreateCategory = nil
 }
 
 type CreateCategoryReq struct {

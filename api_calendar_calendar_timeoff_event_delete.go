@@ -9,15 +9,17 @@ import (
 // DeleteCalendarTimeoffEvent 删除一个指定的请假日程，请假日程删除，用户个人签名页的请假信息也会消失。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/timeoff_event/delete
-func (r *CalendarAPI) DeleteCalendarTimeoffEvent(ctx context.Context, request *DeleteCalendarTimeoffEventReq) (*DeleteCalendarTimeoffEventResp, *Response, error) {
+func (r *CalendarAPI) DeleteCalendarTimeoffEvent(ctx context.Context, request *DeleteCalendarTimeoffEventReq, options ...MethodOptionFunc) (*DeleteCalendarTimeoffEventResp, *Response, error) {
+	if r.cli.mock.mockCalendarDeleteCalendarTimeoffEvent != nil {
+		return r.cli.mock.mockCalendarDeleteCalendarTimeoffEvent(ctx, request, options...)
+	}
+
 	req := &RawRequestReq{
 		Method:                "DELETE",
 		URL:                   "https://open.feishu.cn/open-apis/calendar/v4/timeoff_events/:timeoff_event_id",
 		Body:                  request,
+		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
-		NeedAppAccessToken:    false,
-		NeedHelpdeskAuth:      false,
-		IsFile:                false,
 	}
 	resp := new(deleteCalendarTimeoffEventResp)
 
@@ -29,6 +31,14 @@ func (r *CalendarAPI) DeleteCalendarTimeoffEvent(ctx context.Context, request *D
 	}
 
 	return resp.Data, response, nil
+}
+
+func (r *Mock) MockCalendarDeleteCalendarTimeoffEvent(f func(ctx context.Context, request *DeleteCalendarTimeoffEventReq, options ...MethodOptionFunc) (*DeleteCalendarTimeoffEventResp, *Response, error)) {
+	r.mockCalendarDeleteCalendarTimeoffEvent = f
+}
+
+func (r *Mock) UnMockCalendarDeleteCalendarTimeoffEvent() {
+	r.mockCalendarDeleteCalendarTimeoffEvent = nil
 }
 
 type DeleteCalendarTimeoffEventReq struct {

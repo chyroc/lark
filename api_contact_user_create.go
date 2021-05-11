@@ -11,15 +11,17 @@ import (
 // 新增用户的所有部门必须都在当前应用的通讯录授权范围内才允许新增用户，如果想要在根部门下新增用户，必须要有全员权限。 应用商店应用无权限调用此接口
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/create
-func (r *ContactAPI) CreateUser(ctx context.Context, request *CreateUserReq) (*CreateUserResp, *Response, error) {
+func (r *ContactAPI) CreateUser(ctx context.Context, request *CreateUserReq, options ...MethodOptionFunc) (*CreateUserResp, *Response, error) {
+	if r.cli.mock.mockContactCreateUser != nil {
+		return r.cli.mock.mockContactCreateUser(ctx, request, options...)
+	}
+
 	req := &RawRequestReq{
 		Method:                "POST",
 		URL:                   "https://open.feishu.cn/open-apis/contact/v3/users",
 		Body:                  request,
+		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
-		NeedAppAccessToken:    false,
-		NeedHelpdeskAuth:      false,
-		IsFile:                false,
 	}
 	resp := new(createUserResp)
 
@@ -31,6 +33,14 @@ func (r *ContactAPI) CreateUser(ctx context.Context, request *CreateUserReq) (*C
 	}
 
 	return resp.Data, response, nil
+}
+
+func (r *Mock) MockContactCreateUser(f func(ctx context.Context, request *CreateUserReq, options ...MethodOptionFunc) (*CreateUserResp, *Response, error)) {
+	r.mockContactCreateUser = f
+}
+
+func (r *Mock) UnMockContactCreateUser() {
+	r.mockContactCreateUser = nil
 }
 
 type CreateUserReq struct {

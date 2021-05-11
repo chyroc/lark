@@ -14,15 +14,17 @@ import (
 // - 回复群组消息，需要机器人在群中
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/reply
-func (r *MessageAPI) ReplyRawMessage(ctx context.Context, request *ReplyRawMessageReq) (*ReplyRawMessageResp, *Response, error) {
+func (r *MessageAPI) ReplyRawMessage(ctx context.Context, request *ReplyRawMessageReq, options ...MethodOptionFunc) (*ReplyRawMessageResp, *Response, error) {
+	if r.cli.mock.mockMessageReplyRawMessage != nil {
+		return r.cli.mock.mockMessageReplyRawMessage(ctx, request, options...)
+	}
+
 	req := &RawRequestReq{
 		Method:                "POST",
 		URL:                   "https://open.feishu.cn/open-apis/im/v1/messages/:message_id/reply",
 		Body:                  request,
+		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
-		NeedAppAccessToken:    false,
-		NeedHelpdeskAuth:      false,
-		IsFile:                false,
 	}
 	resp := new(replyRawMessageResp)
 
@@ -34,6 +36,14 @@ func (r *MessageAPI) ReplyRawMessage(ctx context.Context, request *ReplyRawMessa
 	}
 
 	return resp.Data, response, nil
+}
+
+func (r *Mock) MockMessageReplyRawMessage(f func(ctx context.Context, request *ReplyRawMessageReq, options ...MethodOptionFunc) (*ReplyRawMessageResp, *Response, error)) {
+	r.mockMessageReplyRawMessage = f
+}
+
+func (r *Mock) UnMockMessageReplyRawMessage() {
+	r.mockMessageReplyRawMessage = nil
 }
 
 type ReplyRawMessageReq struct {

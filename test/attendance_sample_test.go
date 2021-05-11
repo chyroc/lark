@@ -104,12 +104,6 @@ func Test_Attendance_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-			_, _, err := moduleCli.GetUserDailyShift(ctx, &lark.GetUserDailyShiftReq{})
-			as.NotNil(err)
-			as.Equal(err.Error(), "failed")
-		})
-
-		t.Run("", func(t *testing.T) {
 			_, _, err := moduleCli.GetUserTask(ctx, &lark.GetUserTaskReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "failed")
@@ -246,12 +240,6 @@ func Test_Attendance_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 			_, _, err := moduleCli.GetUserStatisticsSettings(ctx, &lark.GetUserStatisticsSettingsReq{})
-			as.NotNil(err)
-			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
-		})
-
-		t.Run("", func(t *testing.T) {
-			_, _, err := moduleCli.GetUserDailyShift(ctx, &lark.GetUserDailyShiftReq{})
 			as.NotNil(err)
 			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
 		})

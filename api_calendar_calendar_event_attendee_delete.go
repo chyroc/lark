@@ -12,15 +12,18 @@ import (
 // - 当前身份需要是日程的组织者。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar-event-attendee/batch_delete
-func (r *CalendarAPI) DeleteCalendarEventAttendee(ctx context.Context, request *DeleteCalendarEventAttendeeReq) (*DeleteCalendarEventAttendeeResp, *Response, error) {
+func (r *CalendarAPI) DeleteCalendarEventAttendee(ctx context.Context, request *DeleteCalendarEventAttendeeReq, options ...MethodOptionFunc) (*DeleteCalendarEventAttendeeResp, *Response, error) {
+	if r.cli.mock.mockCalendarDeleteCalendarEventAttendee != nil {
+		return r.cli.mock.mockCalendarDeleteCalendarEventAttendee(ctx, request, options...)
+	}
+
 	req := &RawRequestReq{
 		Method:                "POST",
 		URL:                   "https://open.feishu.cn/open-apis/calendar/v4/calendars/:calendar_id/events/:event_id/attendees/batch_delete",
 		Body:                  request,
+		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
-		NeedAppAccessToken:    false,
-		NeedHelpdeskAuth:      false,
-		IsFile:                false,
+		NeedUserAccessToken:   true,
 	}
 	resp := new(deleteCalendarEventAttendeeResp)
 
@@ -32,6 +35,14 @@ func (r *CalendarAPI) DeleteCalendarEventAttendee(ctx context.Context, request *
 	}
 
 	return resp.Data, response, nil
+}
+
+func (r *Mock) MockCalendarDeleteCalendarEventAttendee(f func(ctx context.Context, request *DeleteCalendarEventAttendeeReq, options ...MethodOptionFunc) (*DeleteCalendarEventAttendeeResp, *Response, error)) {
+	r.mockCalendarDeleteCalendarEventAttendee = f
+}
+
+func (r *Mock) UnMockCalendarDeleteCalendarEventAttendee() {
+	r.mockCalendarDeleteCalendarEventAttendee = nil
 }
 
 type DeleteCalendarEventAttendeeReq struct {

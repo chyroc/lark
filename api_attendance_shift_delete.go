@@ -9,15 +9,17 @@ import (
 // DeleteShift
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/Attendance//shift_delete
-func (r *AttendanceAPI) DeleteShift(ctx context.Context, request *DeleteShiftReq) (*DeleteShiftResp, *Response, error) {
+func (r *AttendanceAPI) DeleteShift(ctx context.Context, request *DeleteShiftReq, options ...MethodOptionFunc) (*DeleteShiftResp, *Response, error) {
+	if r.cli.mock.mockAttendanceDeleteShift != nil {
+		return r.cli.mock.mockAttendanceDeleteShift(ctx, request, options...)
+	}
+
 	req := &RawRequestReq{
 		Method:                "DELETE",
 		URL:                   "https://open.feishu.cn/open-apis/attendance/v1/shifts/:shift_id",
 		Body:                  request,
+		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
-		NeedAppAccessToken:    false,
-		NeedHelpdeskAuth:      false,
-		IsFile:                false,
 	}
 	resp := new(deleteShiftResp)
 
@@ -29,6 +31,14 @@ func (r *AttendanceAPI) DeleteShift(ctx context.Context, request *DeleteShiftReq
 	}
 
 	return resp.Data, response, nil
+}
+
+func (r *Mock) MockAttendanceDeleteShift(f func(ctx context.Context, request *DeleteShiftReq, options ...MethodOptionFunc) (*DeleteShiftResp, *Response, error)) {
+	r.mockAttendanceDeleteShift = f
+}
+
+func (r *Mock) UnMockAttendanceDeleteShift() {
+	r.mockAttendanceDeleteShift = nil
 }
 
 type DeleteShiftReq struct {

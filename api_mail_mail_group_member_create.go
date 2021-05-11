@@ -9,15 +9,17 @@ import (
 // CreateMailGroupMember 向邮件组添加单个成员
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/mail-v1/mailgroup-member/create
-func (r *MailAPI) CreateMailGroupMember(ctx context.Context, request *CreateMailGroupMemberReq) (*CreateMailGroupMemberResp, *Response, error) {
+func (r *MailAPI) CreateMailGroupMember(ctx context.Context, request *CreateMailGroupMemberReq, options ...MethodOptionFunc) (*CreateMailGroupMemberResp, *Response, error) {
+	if r.cli.mock.mockMailCreateMailGroupMember != nil {
+		return r.cli.mock.mockMailCreateMailGroupMember(ctx, request, options...)
+	}
+
 	req := &RawRequestReq{
 		Method:                "POST",
 		URL:                   "https://open.feishu.cn/open-apis/mail/v1/mailgroups/:mailgroup_id/members",
 		Body:                  request,
+		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
-		NeedAppAccessToken:    false,
-		NeedHelpdeskAuth:      false,
-		IsFile:                false,
 	}
 	resp := new(createMailGroupMemberResp)
 
@@ -29,6 +31,14 @@ func (r *MailAPI) CreateMailGroupMember(ctx context.Context, request *CreateMail
 	}
 
 	return resp.Data, response, nil
+}
+
+func (r *Mock) MockMailCreateMailGroupMember(f func(ctx context.Context, request *CreateMailGroupMemberReq, options ...MethodOptionFunc) (*CreateMailGroupMemberResp, *Response, error)) {
+	r.mockMailCreateMailGroupMember = f
+}
+
+func (r *Mock) UnMockMailCreateMailGroupMember() {
+	r.mockMailCreateMailGroupMember = nil
 }
 
 type CreateMailGroupMemberReq struct {

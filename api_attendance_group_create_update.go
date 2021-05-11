@@ -39,15 +39,17 @@ import (
 // - 加班设置：支持配置加班时间的计算规则。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/Attendance//group_create_update
-func (r *AttendanceAPI) CreateUpdateGroup(ctx context.Context, request *CreateUpdateGroupReq) (*CreateUpdateGroupResp, *Response, error) {
+func (r *AttendanceAPI) CreateUpdateGroup(ctx context.Context, request *CreateUpdateGroupReq, options ...MethodOptionFunc) (*CreateUpdateGroupResp, *Response, error) {
+	if r.cli.mock.mockAttendanceCreateUpdateGroup != nil {
+		return r.cli.mock.mockAttendanceCreateUpdateGroup(ctx, request, options...)
+	}
+
 	req := &RawRequestReq{
 		Method:                "POST",
 		URL:                   "https://open.feishu.cn/open-apis/attendance/v1/groups",
 		Body:                  request,
+		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
-		NeedAppAccessToken:    false,
-		NeedHelpdeskAuth:      false,
-		IsFile:                false,
 	}
 	resp := new(createUpdateGroupResp)
 
@@ -59,6 +61,14 @@ func (r *AttendanceAPI) CreateUpdateGroup(ctx context.Context, request *CreateUp
 	}
 
 	return resp.Data, response, nil
+}
+
+func (r *Mock) MockAttendanceCreateUpdateGroup(f func(ctx context.Context, request *CreateUpdateGroupReq, options ...MethodOptionFunc) (*CreateUpdateGroupResp, *Response, error)) {
+	r.mockAttendanceCreateUpdateGroup = f
+}
+
+func (r *Mock) UnMockAttendanceCreateUpdateGroup() {
+	r.mockAttendanceCreateUpdateGroup = nil
 }
 
 type CreateUpdateGroupReq struct {

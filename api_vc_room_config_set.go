@@ -11,15 +11,17 @@ import (
 // 根据设置范围传入对应的参数
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/vc-v1/room_config/set
-func (r *VCAPI) SetRoomConfig(ctx context.Context, request *SetRoomConfigReq) (*SetRoomConfigResp, *Response, error) {
+func (r *VCAPI) SetRoomConfig(ctx context.Context, request *SetRoomConfigReq, options ...MethodOptionFunc) (*SetRoomConfigResp, *Response, error) {
+	if r.cli.mock.mockVCSetRoomConfig != nil {
+		return r.cli.mock.mockVCSetRoomConfig(ctx, request, options...)
+	}
+
 	req := &RawRequestReq{
 		Method:                "POST",
 		URL:                   "https://open.feishu.cn/open-apis/vc/v1/room_configs/set",
 		Body:                  request,
+		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
-		NeedAppAccessToken:    false,
-		NeedHelpdeskAuth:      false,
-		IsFile:                false,
 	}
 	resp := new(setRoomConfigResp)
 
@@ -31,6 +33,14 @@ func (r *VCAPI) SetRoomConfig(ctx context.Context, request *SetRoomConfigReq) (*
 	}
 
 	return resp.Data, response, nil
+}
+
+func (r *Mock) MockVCSetRoomConfig(f func(ctx context.Context, request *SetRoomConfigReq, options ...MethodOptionFunc) (*SetRoomConfigResp, *Response, error)) {
+	r.mockVCSetRoomConfig = f
+}
+
+func (r *Mock) UnMockVCSetRoomConfig() {
+	r.mockVCSetRoomConfig = nil
 }
 
 type SetRoomConfigReq struct {

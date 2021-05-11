@@ -9,15 +9,17 @@ import (
 // UpdateMailGroupPatch 更新邮件组部分字段，没有填写的字段不会被更新
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/mail-v1/mailgroup/patch
-func (r *MailAPI) UpdateMailGroupPatch(ctx context.Context, request *UpdateMailGroupPatchReq) (*UpdateMailGroupPatchResp, *Response, error) {
+func (r *MailAPI) UpdateMailGroupPatch(ctx context.Context, request *UpdateMailGroupPatchReq, options ...MethodOptionFunc) (*UpdateMailGroupPatchResp, *Response, error) {
+	if r.cli.mock.mockMailUpdateMailGroupPatch != nil {
+		return r.cli.mock.mockMailUpdateMailGroupPatch(ctx, request, options...)
+	}
+
 	req := &RawRequestReq{
 		Method:                "PATCH",
 		URL:                   "https://open.feishu.cn/open-apis/mail/v1/mailgroups/:mailgroup_id",
 		Body:                  request,
+		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
-		NeedAppAccessToken:    false,
-		NeedHelpdeskAuth:      false,
-		IsFile:                false,
 	}
 	resp := new(updateMailGroupPatchResp)
 
@@ -29,6 +31,14 @@ func (r *MailAPI) UpdateMailGroupPatch(ctx context.Context, request *UpdateMailG
 	}
 
 	return resp.Data, response, nil
+}
+
+func (r *Mock) MockMailUpdateMailGroupPatch(f func(ctx context.Context, request *UpdateMailGroupPatchReq, options ...MethodOptionFunc) (*UpdateMailGroupPatchResp, *Response, error)) {
+	r.mockMailUpdateMailGroupPatch = f
+}
+
+func (r *Mock) UnMockMailUpdateMailGroupPatch() {
+	r.mockMailUpdateMailGroupPatch = nil
 }
 
 type UpdateMailGroupPatchReq struct {

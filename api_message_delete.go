@@ -15,15 +15,18 @@ import (
 // - 无法撤回通过「批量发送消息接口」发送的消息
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/delete
-func (r *MessageAPI) DeleteMessage(ctx context.Context, request *DeleteMessageReq) (*DeleteMessageResp, *Response, error) {
+func (r *MessageAPI) DeleteMessage(ctx context.Context, request *DeleteMessageReq, options ...MethodOptionFunc) (*DeleteMessageResp, *Response, error) {
+	if r.cli.mock.mockMessageDeleteMessage != nil {
+		return r.cli.mock.mockMessageDeleteMessage(ctx, request, options...)
+	}
+
 	req := &RawRequestReq{
 		Method:                "DELETE",
 		URL:                   "https://open.feishu.cn/open-apis/im/v1/messages/:message_id",
 		Body:                  request,
+		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
-		NeedAppAccessToken:    false,
-		NeedHelpdeskAuth:      false,
-		IsFile:                false,
+		NeedUserAccessToken:   true,
 	}
 	resp := new(deleteMessageResp)
 
@@ -35,6 +38,14 @@ func (r *MessageAPI) DeleteMessage(ctx context.Context, request *DeleteMessageRe
 	}
 
 	return resp.Data, response, nil
+}
+
+func (r *Mock) MockMessageDeleteMessage(f func(ctx context.Context, request *DeleteMessageReq, options ...MethodOptionFunc) (*DeleteMessageResp, *Response, error)) {
+	r.mockMessageDeleteMessage = f
+}
+
+func (r *Mock) UnMockMessageDeleteMessage() {
+	r.mockMessageDeleteMessage = nil
 }
 
 type DeleteMessageReq struct {

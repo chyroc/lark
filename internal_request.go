@@ -41,7 +41,9 @@ type RawRequestReq struct {
 	IsFile                bool
 	NeedTenantAccessToken bool
 	NeedAppAccessToken    bool
+	NeedUserAccessToken   bool
 	NeedHelpdeskAuth      bool
+	MethodOption          *MethodOption
 }
 
 func (r *Lark) prepareHeaders(ctx context.Context, req *RawRequestReq) (map[string]string, error) {
@@ -49,7 +51,9 @@ func (r *Lark) prepareHeaders(ctx context.Context, req *RawRequestReq) (map[stri
 	if req.Method != http.MethodGet {
 		headers["Content-Type"] = "application/json; charset=utf-8"
 	}
-	if req.NeedTenantAccessToken {
+	if req.NeedUserAccessToken && req.MethodOption.userAccessToken != "" {
+		headers["Authorization"] = "Bearer " + req.MethodOption.userAccessToken
+	} else if req.NeedTenantAccessToken {
 		token, _, err := r.Token().GetTenantAccessToken(ctx)
 		if err != nil {
 			return nil, err

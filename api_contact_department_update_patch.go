@@ -11,15 +11,17 @@ import (
 // 调用该接口需要具有该部门以及更新操作涉及的部门的通讯录权限。应用商店应用无权限调用此接口。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/patch
-func (r *ContactAPI) UpdateDepartmentPatch(ctx context.Context, request *UpdateDepartmentPatchReq) (*UpdateDepartmentPatchResp, *Response, error) {
+func (r *ContactAPI) UpdateDepartmentPatch(ctx context.Context, request *UpdateDepartmentPatchReq, options ...MethodOptionFunc) (*UpdateDepartmentPatchResp, *Response, error) {
+	if r.cli.mock.mockContactUpdateDepartmentPatch != nil {
+		return r.cli.mock.mockContactUpdateDepartmentPatch(ctx, request, options...)
+	}
+
 	req := &RawRequestReq{
 		Method:                "PATCH",
 		URL:                   "https://open.feishu.cn/open-apis/contact/v3/departments/:department_id",
 		Body:                  request,
+		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
-		NeedAppAccessToken:    false,
-		NeedHelpdeskAuth:      false,
-		IsFile:                false,
 	}
 	resp := new(updateDepartmentPatchResp)
 
@@ -31,6 +33,14 @@ func (r *ContactAPI) UpdateDepartmentPatch(ctx context.Context, request *UpdateD
 	}
 
 	return resp.Data, response, nil
+}
+
+func (r *Mock) MockContactUpdateDepartmentPatch(f func(ctx context.Context, request *UpdateDepartmentPatchReq, options ...MethodOptionFunc) (*UpdateDepartmentPatchResp, *Response, error)) {
+	r.mockContactUpdateDepartmentPatch = f
+}
+
+func (r *Mock) UnMockContactUpdateDepartmentPatch() {
+	r.mockContactUpdateDepartmentPatch = nil
 }
 
 type UpdateDepartmentPatchReq struct {

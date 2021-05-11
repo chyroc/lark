@@ -9,15 +9,17 @@ import (
 // GetStatisticsHeader
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/Attendance//task/query-statistics-header
-func (r *AttendanceAPI) GetStatisticsHeader(ctx context.Context, request *GetStatisticsHeaderReq) (*GetStatisticsHeaderResp, *Response, error) {
+func (r *AttendanceAPI) GetStatisticsHeader(ctx context.Context, request *GetStatisticsHeaderReq, options ...MethodOptionFunc) (*GetStatisticsHeaderResp, *Response, error) {
+	if r.cli.mock.mockAttendanceGetStatisticsHeader != nil {
+		return r.cli.mock.mockAttendanceGetStatisticsHeader(ctx, request, options...)
+	}
+
 	req := &RawRequestReq{
 		Method:                "POST",
 		URL:                   "https://open.feishu.cn/open-apis/attendance/v1/user_stats_fields/query",
 		Body:                  request,
+		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
-		NeedAppAccessToken:    false,
-		NeedHelpdeskAuth:      false,
-		IsFile:                false,
 	}
 	resp := new(getStatisticsHeaderResp)
 
@@ -29,6 +31,14 @@ func (r *AttendanceAPI) GetStatisticsHeader(ctx context.Context, request *GetSta
 	}
 
 	return resp.Data, response, nil
+}
+
+func (r *Mock) MockAttendanceGetStatisticsHeader(f func(ctx context.Context, request *GetStatisticsHeaderReq, options ...MethodOptionFunc) (*GetStatisticsHeaderResp, *Response, error)) {
+	r.mockAttendanceGetStatisticsHeader = f
+}
+
+func (r *Mock) UnMockAttendanceGetStatisticsHeader() {
+	r.mockAttendanceGetStatisticsHeader = nil
 }
 
 type GetStatisticsHeaderReq struct {

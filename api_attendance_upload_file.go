@@ -10,14 +10,17 @@ import (
 // UploadAttendanceFile
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/Attendance//rule/file_upload
-func (r *AttendanceAPI) UploadAttendanceFile(ctx context.Context, request *UploadAttendanceFileReq) (*UploadAttendanceFileResp, *Response, error) {
+func (r *AttendanceAPI) UploadAttendanceFile(ctx context.Context, request *UploadAttendanceFileReq, options ...MethodOptionFunc) (*UploadAttendanceFileResp, *Response, error) {
+	if r.cli.mock.mockAttendanceUploadAttendanceFile != nil {
+		return r.cli.mock.mockAttendanceUploadAttendanceFile(ctx, request, options...)
+	}
+
 	req := &RawRequestReq{
 		Method:                "POST",
 		URL:                   "https://open.feishu.cn/open-apis/attendance/v1/files/upload",
 		Body:                  request,
+		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
-		NeedAppAccessToken:    false,
-		NeedHelpdeskAuth:      false,
 		IsFile:                true,
 	}
 	resp := new(uploadAttendanceFileResp)
@@ -30,6 +33,14 @@ func (r *AttendanceAPI) UploadAttendanceFile(ctx context.Context, request *Uploa
 	}
 
 	return resp.Data, response, nil
+}
+
+func (r *Mock) MockAttendanceUploadAttendanceFile(f func(ctx context.Context, request *UploadAttendanceFileReq, options ...MethodOptionFunc) (*UploadAttendanceFileResp, *Response, error)) {
+	r.mockAttendanceUploadAttendanceFile = f
+}
+
+func (r *Mock) UnMockAttendanceUploadAttendanceFile() {
+	r.mockAttendanceUploadAttendanceFile = nil
 }
 
 type UploadAttendanceFileReq struct {

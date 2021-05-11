@@ -9,15 +9,17 @@ import (
 // BatchGetRoom 该接口用于获取指定会议室的详细信息。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uEDOyUjLxgjM14SM4ITN
-func (r *MeetingRoomAPI) BatchGetRoom(ctx context.Context, request *BatchGetRoomReq) (*BatchGetRoomResp, *Response, error) {
+func (r *MeetingRoomAPI) BatchGetRoom(ctx context.Context, request *BatchGetRoomReq, options ...MethodOptionFunc) (*BatchGetRoomResp, *Response, error) {
+	if r.cli.mock.mockMeetingRoomBatchGetRoom != nil {
+		return r.cli.mock.mockMeetingRoomBatchGetRoom(ctx, request, options...)
+	}
+
 	req := &RawRequestReq{
 		Method:                "GET",
 		URL:                   "https://open.feishu.cn/open-apis/meeting_room/room/batch_get?room_ids=omm_eada1d61a550955240c28757e7dec3af&room_ids=omm_83d09ad4f6896e02029a6a075f71c9d1&fields=*",
 		Body:                  request,
+		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
-		NeedAppAccessToken:    false,
-		NeedHelpdeskAuth:      false,
-		IsFile:                false,
 	}
 	resp := new(batchGetRoomResp)
 
@@ -29,6 +31,14 @@ func (r *MeetingRoomAPI) BatchGetRoom(ctx context.Context, request *BatchGetRoom
 	}
 
 	return resp.Data, response, nil
+}
+
+func (r *Mock) MockMeetingRoomBatchGetRoom(f func(ctx context.Context, request *BatchGetRoomReq, options ...MethodOptionFunc) (*BatchGetRoomResp, *Response, error)) {
+	r.mockMeetingRoomBatchGetRoom = f
+}
+
+func (r *Mock) UnMockMeetingRoomBatchGetRoom() {
+	r.mockMeetingRoomBatchGetRoom = nil
 }
 
 type BatchGetRoomReq struct {

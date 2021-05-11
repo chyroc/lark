@@ -14,15 +14,18 @@ import (
 // - 只支持对所有人都更新的「共享卡片」。如果你只想更新特定人的消息卡片，必须要用户在卡片操作交互后触发，开发文档参考[「独享卡片」](https://open.feishu.cn/document/ukTMukTMukTM/uYjNwUjL2YDM14iN2ATN#49904b71)
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/patch
-func (r *MessageAPI) UpdateMessage(ctx context.Context, request *UpdateMessageReq) (*UpdateMessageResp, *Response, error) {
+func (r *MessageAPI) UpdateMessage(ctx context.Context, request *UpdateMessageReq, options ...MethodOptionFunc) (*UpdateMessageResp, *Response, error) {
+	if r.cli.mock.mockMessageUpdateMessage != nil {
+		return r.cli.mock.mockMessageUpdateMessage(ctx, request, options...)
+	}
+
 	req := &RawRequestReq{
 		Method:                "PATCH",
 		URL:                   "https://open.feishu.cn/open-apis/im/v1/messages/:message_id",
 		Body:                  request,
+		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
-		NeedAppAccessToken:    false,
-		NeedHelpdeskAuth:      false,
-		IsFile:                false,
+		NeedUserAccessToken:   true,
 	}
 	resp := new(updateMessageResp)
 
@@ -34,6 +37,14 @@ func (r *MessageAPI) UpdateMessage(ctx context.Context, request *UpdateMessageRe
 	}
 
 	return resp.Data, response, nil
+}
+
+func (r *Mock) MockMessageUpdateMessage(f func(ctx context.Context, request *UpdateMessageReq, options ...MethodOptionFunc) (*UpdateMessageResp, *Response, error)) {
+	r.mockMessageUpdateMessage = f
+}
+
+func (r *Mock) UnMockMessageUpdateMessage() {
+	r.mockMessageUpdateMessage = nil
 }
 
 type UpdateMessageReq struct {

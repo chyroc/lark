@@ -9,15 +9,17 @@ import (
 // BatchGetSummary 通过日程的Uid和Original time，查询会议室日程主题。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uIjM5UjLyITO14iMykTN/
-func (r *MeetingRoomAPI) BatchGetSummary(ctx context.Context, request *BatchGetSummaryReq) (*BatchGetSummaryResp, *Response, error) {
+func (r *MeetingRoomAPI) BatchGetSummary(ctx context.Context, request *BatchGetSummaryReq, options ...MethodOptionFunc) (*BatchGetSummaryResp, *Response, error) {
+	if r.cli.mock.mockMeetingRoomBatchGetSummary != nil {
+		return r.cli.mock.mockMeetingRoomBatchGetSummary(ctx, request, options...)
+	}
+
 	req := &RawRequestReq{
 		Method:                "POST",
 		URL:                   "https://open.feishu.cn/open-apis/meeting_room/summary/batch_get",
 		Body:                  request,
+		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
-		NeedAppAccessToken:    false,
-		NeedHelpdeskAuth:      false,
-		IsFile:                false,
 	}
 	resp := new(batchGetSummaryResp)
 
@@ -29,6 +31,14 @@ func (r *MeetingRoomAPI) BatchGetSummary(ctx context.Context, request *BatchGetS
 	}
 
 	return resp.Data, response, nil
+}
+
+func (r *Mock) MockMeetingRoomBatchGetSummary(f func(ctx context.Context, request *BatchGetSummaryReq, options ...MethodOptionFunc) (*BatchGetSummaryResp, *Response, error)) {
+	r.mockMeetingRoomBatchGetSummary = f
+}
+
+func (r *Mock) UnMockMeetingRoomBatchGetSummary() {
+	r.mockMeetingRoomBatchGetSummary = nil
 }
 
 type BatchGetSummaryReq struct {

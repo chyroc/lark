@@ -9,15 +9,18 @@ import (
 // IsInChat 判断用户或者机器人是否在群里。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-members/is_in_chat
-func (r *ChatAPI) IsInChat(ctx context.Context, request *IsInChatReq) (*IsInChatResp, *Response, error) {
+func (r *ChatAPI) IsInChat(ctx context.Context, request *IsInChatReq, options ...MethodOptionFunc) (*IsInChatResp, *Response, error) {
+	if r.cli.mock.mockChatIsInChat != nil {
+		return r.cli.mock.mockChatIsInChat(ctx, request, options...)
+	}
+
 	req := &RawRequestReq{
 		Method:                "GET",
 		URL:                   "https://open.feishu.cn/open-apis/im/v1/chats/:chat_id/members/is_in_chat",
 		Body:                  request,
+		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
-		NeedAppAccessToken:    false,
-		NeedHelpdeskAuth:      false,
-		IsFile:                false,
+		NeedUserAccessToken:   true,
 	}
 	resp := new(isInChatResp)
 
@@ -29,6 +32,14 @@ func (r *ChatAPI) IsInChat(ctx context.Context, request *IsInChatReq) (*IsInChat
 	}
 
 	return resp.Data, response, nil
+}
+
+func (r *Mock) MockChatIsInChat(f func(ctx context.Context, request *IsInChatReq, options ...MethodOptionFunc) (*IsInChatResp, *Response, error)) {
+	r.mockChatIsInChat = f
+}
+
+func (r *Mock) UnMockChatIsInChat() {
+	r.mockChatIsInChat = nil
 }
 
 type IsInChatReq struct {

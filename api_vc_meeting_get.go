@@ -11,15 +11,18 @@ import (
 // 只能获取归属于自己（或参与）的会议，支持查询最近90天内的会议
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/vc-v1/meeting/get
-func (r *VCAPI) GetMeeting(ctx context.Context, request *GetMeetingReq) (*GetMeetingResp, *Response, error) {
+func (r *VCAPI) GetMeeting(ctx context.Context, request *GetMeetingReq, options ...MethodOptionFunc) (*GetMeetingResp, *Response, error) {
+	if r.cli.mock.mockVCGetMeeting != nil {
+		return r.cli.mock.mockVCGetMeeting(ctx, request, options...)
+	}
+
 	req := &RawRequestReq{
 		Method:                "GET",
 		URL:                   "https://open.feishu.cn/open-apis/vc/v1/meetings/:meeting_id",
 		Body:                  request,
+		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
-		NeedAppAccessToken:    false,
-		NeedHelpdeskAuth:      false,
-		IsFile:                false,
+		NeedUserAccessToken:   true,
 	}
 	resp := new(getMeetingResp)
 
@@ -31,6 +34,14 @@ func (r *VCAPI) GetMeeting(ctx context.Context, request *GetMeetingReq) (*GetMee
 	}
 
 	return resp.Data, response, nil
+}
+
+func (r *Mock) MockVCGetMeeting(f func(ctx context.Context, request *GetMeetingReq, options ...MethodOptionFunc) (*GetMeetingResp, *Response, error)) {
+	r.mockVCGetMeeting = f
+}
+
+func (r *Mock) UnMockVCGetMeeting() {
+	r.mockVCGetMeeting = nil
 }
 
 type GetMeetingReq struct {

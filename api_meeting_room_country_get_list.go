@@ -9,15 +9,17 @@ import (
 // GetCountryList 新建建筑时需要标明所处国家/地区，该接口用于获得系统预先提供的可供选择的国家 /地区列表。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uQTNwYjL0UDM24CN1AjN
-func (r *MeetingRoomAPI) GetCountryList(ctx context.Context, request *GetCountryListReq) (*GetCountryListResp, *Response, error) {
+func (r *MeetingRoomAPI) GetCountryList(ctx context.Context, request *GetCountryListReq, options ...MethodOptionFunc) (*GetCountryListResp, *Response, error) {
+	if r.cli.mock.mockMeetingRoomGetCountryList != nil {
+		return r.cli.mock.mockMeetingRoomGetCountryList(ctx, request, options...)
+	}
+
 	req := &RawRequestReq{
 		Method:                "GET",
 		URL:                   "https://open.feishu.cn/open-apis/meeting_room/country/list",
 		Body:                  request,
+		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
-		NeedAppAccessToken:    false,
-		NeedHelpdeskAuth:      false,
-		IsFile:                false,
 	}
 	resp := new(getCountryListResp)
 
@@ -29,6 +31,14 @@ func (r *MeetingRoomAPI) GetCountryList(ctx context.Context, request *GetCountry
 	}
 
 	return resp.Data, response, nil
+}
+
+func (r *Mock) MockMeetingRoomGetCountryList(f func(ctx context.Context, request *GetCountryListReq, options ...MethodOptionFunc) (*GetCountryListResp, *Response, error)) {
+	r.mockMeetingRoomGetCountryList = f
+}
+
+func (r *Mock) UnMockMeetingRoomGetCountryList() {
+	r.mockMeetingRoomGetCountryList = nil
 }
 
 type GetCountryListReq struct{}

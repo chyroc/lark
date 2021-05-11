@@ -13,15 +13,18 @@ import (
 // 调用时首先使用 page_token 分页拉取存量数据，之后使用 sync_token 增量同步变更数据。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar/list
-func (r *CalendarAPI) GetCalendarList(ctx context.Context, request *GetCalendarListReq) (*GetCalendarListResp, *Response, error) {
+func (r *CalendarAPI) GetCalendarList(ctx context.Context, request *GetCalendarListReq, options ...MethodOptionFunc) (*GetCalendarListResp, *Response, error) {
+	if r.cli.mock.mockCalendarGetCalendarList != nil {
+		return r.cli.mock.mockCalendarGetCalendarList(ctx, request, options...)
+	}
+
 	req := &RawRequestReq{
 		Method:                "GET",
 		URL:                   "https://open.feishu.cn/open-apis/calendar/v4/calendars",
 		Body:                  request,
+		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
-		NeedAppAccessToken:    false,
-		NeedHelpdeskAuth:      false,
-		IsFile:                false,
+		NeedUserAccessToken:   true,
 	}
 	resp := new(getCalendarListResp)
 
@@ -33,6 +36,14 @@ func (r *CalendarAPI) GetCalendarList(ctx context.Context, request *GetCalendarL
 	}
 
 	return resp.Data, response, nil
+}
+
+func (r *Mock) MockCalendarGetCalendarList(f func(ctx context.Context, request *GetCalendarListReq, options ...MethodOptionFunc) (*GetCalendarListResp, *Response, error)) {
+	r.mockCalendarGetCalendarList = f
+}
+
+func (r *Mock) UnMockCalendarGetCalendarList() {
+	r.mockCalendarGetCalendarList = nil
 }
 
 type GetCalendarListReq struct {

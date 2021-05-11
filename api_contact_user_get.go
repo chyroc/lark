@@ -9,15 +9,18 @@ import (
 // GetUser 该接口用于获取通讯录中单个用户的信息。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/get
-func (r *ContactAPI) GetUser(ctx context.Context, request *GetUserReq) (*GetUserResp, *Response, error) {
+func (r *ContactAPI) GetUser(ctx context.Context, request *GetUserReq, options ...MethodOptionFunc) (*GetUserResp, *Response, error) {
+	if r.cli.mock.mockContactGetUser != nil {
+		return r.cli.mock.mockContactGetUser(ctx, request, options...)
+	}
+
 	req := &RawRequestReq{
 		Method:                "GET",
 		URL:                   "https://open.feishu.cn/open-apis/contact/v3/users/:user_id",
 		Body:                  request,
+		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
-		NeedAppAccessToken:    false,
-		NeedHelpdeskAuth:      false,
-		IsFile:                false,
+		NeedUserAccessToken:   true,
 	}
 	resp := new(getUserResp)
 
@@ -29,6 +32,14 @@ func (r *ContactAPI) GetUser(ctx context.Context, request *GetUserReq) (*GetUser
 	}
 
 	return resp.Data, response, nil
+}
+
+func (r *Mock) MockContactGetUser(f func(ctx context.Context, request *GetUserReq, options ...MethodOptionFunc) (*GetUserResp, *Response, error)) {
+	r.mockContactGetUser = f
+}
+
+func (r *Mock) UnMockContactGetUser() {
+	r.mockContactGetUser = nil
 }
 
 type GetUserReq struct {

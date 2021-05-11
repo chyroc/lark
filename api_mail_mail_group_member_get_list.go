@@ -9,15 +9,17 @@ import (
 // GetMailGroupMemberList 分页批量获取邮件组成员列表
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/mail-v1/mailgroup-member/list
-func (r *MailAPI) GetMailGroupMemberList(ctx context.Context, request *GetMailGroupMemberListReq) (*GetMailGroupMemberListResp, *Response, error) {
+func (r *MailAPI) GetMailGroupMemberList(ctx context.Context, request *GetMailGroupMemberListReq, options ...MethodOptionFunc) (*GetMailGroupMemberListResp, *Response, error) {
+	if r.cli.mock.mockMailGetMailGroupMemberList != nil {
+		return r.cli.mock.mockMailGetMailGroupMemberList(ctx, request, options...)
+	}
+
 	req := &RawRequestReq{
 		Method:                "GET",
 		URL:                   "https://open.feishu.cn/open-apis/mail/v1/mailgroups/:mailgroup_id/members",
 		Body:                  request,
+		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
-		NeedAppAccessToken:    false,
-		NeedHelpdeskAuth:      false,
-		IsFile:                false,
 	}
 	resp := new(getMailGroupMemberListResp)
 
@@ -29,6 +31,14 @@ func (r *MailAPI) GetMailGroupMemberList(ctx context.Context, request *GetMailGr
 	}
 
 	return resp.Data, response, nil
+}
+
+func (r *Mock) MockMailGetMailGroupMemberList(f func(ctx context.Context, request *GetMailGroupMemberListReq, options ...MethodOptionFunc) (*GetMailGroupMemberListResp, *Response, error)) {
+	r.mockMailGetMailGroupMemberList = f
+}
+
+func (r *Mock) UnMockMailGetMailGroupMemberList() {
+	r.mockMailGetMailGroupMemberList = nil
 }
 
 type GetMailGroupMemberListReq struct {

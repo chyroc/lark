@@ -9,15 +9,18 @@ import (
 // UpdateFAQ 该接口用于修改知识库。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/faq/patch
-func (r *HelpdeskAPI) UpdateFAQ(ctx context.Context, request *UpdateFAQReq) (*UpdateFAQResp, *Response, error) {
+func (r *HelpdeskAPI) UpdateFAQ(ctx context.Context, request *UpdateFAQReq, options ...MethodOptionFunc) (*UpdateFAQResp, *Response, error) {
+	if r.cli.mock.mockHelpdeskUpdateFAQ != nil {
+		return r.cli.mock.mockHelpdeskUpdateFAQ(ctx, request, options...)
+	}
+
 	req := &RawRequestReq{
-		Method:                "PATCH",
-		URL:                   "https://open.feishu.cn/open-apis/helpdesk/v1/faqs/:id",
-		Body:                  request,
-		NeedTenantAccessToken: false,
-		NeedAppAccessToken:    false,
-		NeedHelpdeskAuth:      true,
-		IsFile:                false,
+		Method:              "PATCH",
+		URL:                 "https://open.feishu.cn/open-apis/helpdesk/v1/faqs/:id",
+		Body:                request,
+		MethodOption:        newMethodOption(options),
+		NeedUserAccessToken: true,
+		NeedHelpdeskAuth:    true,
 	}
 	resp := new(updateFAQResp)
 
@@ -29,6 +32,14 @@ func (r *HelpdeskAPI) UpdateFAQ(ctx context.Context, request *UpdateFAQReq) (*Up
 	}
 
 	return resp.Data, response, nil
+}
+
+func (r *Mock) MockHelpdeskUpdateFAQ(f func(ctx context.Context, request *UpdateFAQReq, options ...MethodOptionFunc) (*UpdateFAQResp, *Response, error)) {
+	r.mockHelpdeskUpdateFAQ = f
+}
+
+func (r *Mock) UnMockHelpdeskUpdateFAQ() {
+	r.mockHelpdeskUpdateFAQ = nil
 }
 
 type UpdateFAQReq struct {

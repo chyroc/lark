@@ -13,15 +13,18 @@ import (
 // - 该接口不会返回群内的机器人成员
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-members/get
-func (r *ChatAPI) GetMemberList(ctx context.Context, request *GetMemberListReq) (*GetMemberListResp, *Response, error) {
+func (r *ChatAPI) GetMemberList(ctx context.Context, request *GetMemberListReq, options ...MethodOptionFunc) (*GetMemberListResp, *Response, error) {
+	if r.cli.mock.mockChatGetMemberList != nil {
+		return r.cli.mock.mockChatGetMemberList(ctx, request, options...)
+	}
+
 	req := &RawRequestReq{
 		Method:                "GET",
 		URL:                   "https://open.feishu.cn/open-apis/im/v1/chats/:chat_id/members",
 		Body:                  request,
+		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
-		NeedAppAccessToken:    false,
-		NeedHelpdeskAuth:      false,
-		IsFile:                false,
+		NeedUserAccessToken:   true,
 	}
 	resp := new(getMemberListResp)
 
@@ -33,6 +36,14 @@ func (r *ChatAPI) GetMemberList(ctx context.Context, request *GetMemberListReq) 
 	}
 
 	return resp.Data, response, nil
+}
+
+func (r *Mock) MockChatGetMemberList(f func(ctx context.Context, request *GetMemberListReq, options ...MethodOptionFunc) (*GetMemberListResp, *Response, error)) {
+	r.mockChatGetMemberList = f
+}
+
+func (r *Mock) UnMockChatGetMemberList() {
+	r.mockChatGetMemberList = nil
 }
 
 type GetMemberListReq struct {

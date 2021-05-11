@@ -10,7 +10,13 @@
 
 飞书/Lark 的开放接口 Go SDK，支持所有的开放接口，和事件回调。
 
-使用代码生成创建。
+支持的功能
+
+- 非常多的接口和事件
+- 支持 Mock 以支持测试
+- 支持 ISV 和自建 App
+- 支持 UserAccessToken
+- 使用代码生成创建，接口和文档更新及时
 
 ## 安装
 
@@ -24,7 +30,7 @@ https://godoc.org/github.com/chyroc/lark
 
 ## 支持的接口
 
-API 总数: 186, 事件总数: 25
+API 总数: 184, 事件总数: 25
 
 <details>
   <summary>
@@ -172,7 +178,6 @@ API 总数: 186, 事件总数: 25
   - DeleteTicketCustomizedField
   - UpdateTicketCustomizedField
   - CreateTicketCustomizedField
-  - DeleteTicketCustomizedField
   - GetTicketCustomizedField
   - CreateCategory
   - GetCategory
@@ -214,7 +219,6 @@ API 总数: 186, 事件总数: 25
   - GetStatisticsHeader
   - UpdateUserStatisticsSettings
   - GetUserStatisticsSettings
-  - GetUserDailyShift
   - GetUserDailyShift
   - GetUserTask
   - GetUserFlow

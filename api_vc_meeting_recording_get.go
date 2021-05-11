@@ -11,15 +11,17 @@ import (
 // 会议结束后并且收到了"录制完成"的事件方可获取录制文件；只有会议owner（通过开放平台预约的会议即为预约人）有权限获取；录制时间太短(&lt;5s)有可能无法生成录制文件
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/vc-v1/meeting-recording/get
-func (r *VCAPI) GetMeetingRecording(ctx context.Context, request *GetMeetingRecordingReq) (*GetMeetingRecordingResp, *Response, error) {
+func (r *VCAPI) GetMeetingRecording(ctx context.Context, request *GetMeetingRecordingReq, options ...MethodOptionFunc) (*GetMeetingRecordingResp, *Response, error) {
+	if r.cli.mock.mockVCGetMeetingRecording != nil {
+		return r.cli.mock.mockVCGetMeetingRecording(ctx, request, options...)
+	}
+
 	req := &RawRequestReq{
-		Method:                "GET",
-		URL:                   "https://open.feishu.cn/open-apis/vc/v1/meetings/:meeting_id/recording",
-		Body:                  request,
-		NeedTenantAccessToken: false,
-		NeedAppAccessToken:    false,
-		NeedHelpdeskAuth:      false,
-		IsFile:                false,
+		Method:              "GET",
+		URL:                 "https://open.feishu.cn/open-apis/vc/v1/meetings/:meeting_id/recording",
+		Body:                request,
+		MethodOption:        newMethodOption(options),
+		NeedUserAccessToken: true,
 	}
 	resp := new(getMeetingRecordingResp)
 
@@ -31,6 +33,14 @@ func (r *VCAPI) GetMeetingRecording(ctx context.Context, request *GetMeetingReco
 	}
 
 	return resp.Data, response, nil
+}
+
+func (r *Mock) MockVCGetMeetingRecording(f func(ctx context.Context, request *GetMeetingRecordingReq, options ...MethodOptionFunc) (*GetMeetingRecordingResp, *Response, error)) {
+	r.mockVCGetMeetingRecording = f
+}
+
+func (r *Mock) UnMockVCGetMeetingRecording() {
+	r.mockVCGetMeetingRecording = nil
 }
 
 type GetMeetingRecordingReq struct {

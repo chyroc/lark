@@ -13,15 +13,18 @@ import (
 // 当前身份需要有日历的 owner 权限，并且日历的类型只能为 primary 或 shared。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar-acl/delete
-func (r *CalendarAPI) DeleteCalendarACL(ctx context.Context, request *DeleteCalendarACLReq) (*DeleteCalendarACLResp, *Response, error) {
+func (r *CalendarAPI) DeleteCalendarACL(ctx context.Context, request *DeleteCalendarACLReq, options ...MethodOptionFunc) (*DeleteCalendarACLResp, *Response, error) {
+	if r.cli.mock.mockCalendarDeleteCalendarACL != nil {
+		return r.cli.mock.mockCalendarDeleteCalendarACL(ctx, request, options...)
+	}
+
 	req := &RawRequestReq{
 		Method:                "DELETE",
 		URL:                   "https://open.feishu.cn/open-apis/calendar/v4/calendars/:calendar_id/acls/:acl_id",
 		Body:                  request,
+		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
-		NeedAppAccessToken:    false,
-		NeedHelpdeskAuth:      false,
-		IsFile:                false,
+		NeedUserAccessToken:   true,
 	}
 	resp := new(deleteCalendarACLResp)
 
@@ -33,6 +36,14 @@ func (r *CalendarAPI) DeleteCalendarACL(ctx context.Context, request *DeleteCale
 	}
 
 	return resp.Data, response, nil
+}
+
+func (r *Mock) MockCalendarDeleteCalendarACL(f func(ctx context.Context, request *DeleteCalendarACLReq, options ...MethodOptionFunc) (*DeleteCalendarACLResp, *Response, error)) {
+	r.mockCalendarDeleteCalendarACL = f
+}
+
+func (r *Mock) UnMockCalendarDeleteCalendarACL() {
+	r.mockCalendarDeleteCalendarACL = nil
 }
 
 type DeleteCalendarACLReq struct {

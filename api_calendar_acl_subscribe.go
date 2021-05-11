@@ -11,15 +11,17 @@ import (
 // 用户必须对日历有访问权限。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar-acl/subscription
-func (r *CalendarAPI) SubscribeCalendarACL(ctx context.Context, request *SubscribeCalendarACLReq) (*SubscribeCalendarACLResp, *Response, error) {
+func (r *CalendarAPI) SubscribeCalendarACL(ctx context.Context, request *SubscribeCalendarACLReq, options ...MethodOptionFunc) (*SubscribeCalendarACLResp, *Response, error) {
+	if r.cli.mock.mockCalendarSubscribeCalendarACL != nil {
+		return r.cli.mock.mockCalendarSubscribeCalendarACL(ctx, request, options...)
+	}
+
 	req := &RawRequestReq{
-		Method:                "POST",
-		URL:                   "https://open.feishu.cn/open-apis/calendar/v4/calendars/:calendar_id/acls/subscription",
-		Body:                  request,
-		NeedTenantAccessToken: false,
-		NeedAppAccessToken:    false,
-		NeedHelpdeskAuth:      false,
-		IsFile:                false,
+		Method:              "POST",
+		URL:                 "https://open.feishu.cn/open-apis/calendar/v4/calendars/:calendar_id/acls/subscription",
+		Body:                request,
+		MethodOption:        newMethodOption(options),
+		NeedUserAccessToken: true,
 	}
 	resp := new(subscribeCalendarACLResp)
 
@@ -31,6 +33,14 @@ func (r *CalendarAPI) SubscribeCalendarACL(ctx context.Context, request *Subscri
 	}
 
 	return resp.Data, response, nil
+}
+
+func (r *Mock) MockCalendarSubscribeCalendarACL(f func(ctx context.Context, request *SubscribeCalendarACLReq, options ...MethodOptionFunc) (*SubscribeCalendarACLResp, *Response, error)) {
+	r.mockCalendarSubscribeCalendarACL = f
+}
+
+func (r *Mock) UnMockCalendarSubscribeCalendarACL() {
+	r.mockCalendarSubscribeCalendarACL = nil
 }
 
 type SubscribeCalendarACLReq struct {

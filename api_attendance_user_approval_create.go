@@ -13,15 +13,17 @@ import (
 // 目前支持加班、请假、出差和外出这四种审批结果的写入。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/Attendance//AddApprovalsInLarkAttendance
-func (r *AttendanceAPI) CreateUserApproval(ctx context.Context, request *CreateUserApprovalReq) (*CreateUserApprovalResp, *Response, error) {
+func (r *AttendanceAPI) CreateUserApproval(ctx context.Context, request *CreateUserApprovalReq, options ...MethodOptionFunc) (*CreateUserApprovalResp, *Response, error) {
+	if r.cli.mock.mockAttendanceCreateUserApproval != nil {
+		return r.cli.mock.mockAttendanceCreateUserApproval(ctx, request, options...)
+	}
+
 	req := &RawRequestReq{
 		Method:                "POST",
 		URL:                   "https://open.feishu.cn/open-apis/attendance/v1/user_approvals",
 		Body:                  request,
+		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
-		NeedAppAccessToken:    false,
-		NeedHelpdeskAuth:      false,
-		IsFile:                false,
 	}
 	resp := new(createUserApprovalResp)
 
@@ -33,6 +35,14 @@ func (r *AttendanceAPI) CreateUserApproval(ctx context.Context, request *CreateU
 	}
 
 	return resp.Data, response, nil
+}
+
+func (r *Mock) MockAttendanceCreateUserApproval(f func(ctx context.Context, request *CreateUserApprovalReq, options ...MethodOptionFunc) (*CreateUserApprovalResp, *Response, error)) {
+	r.mockAttendanceCreateUserApproval = f
+}
+
+func (r *Mock) UnMockAttendanceCreateUserApproval() {
+	r.mockAttendanceCreateUserApproval = nil
 }
 
 type CreateUserApprovalReq struct {

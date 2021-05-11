@@ -9,15 +9,17 @@ import (
 // DeleteMailGroupPermissionMember 从自定义成员中删除单个成员，删除后该成员无法发送邮件到该邮件组
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/mail-v1/mailgroup-permission_member/delete
-func (r *MailAPI) DeleteMailGroupPermissionMember(ctx context.Context, request *DeleteMailGroupPermissionMemberReq) (*DeleteMailGroupPermissionMemberResp, *Response, error) {
+func (r *MailAPI) DeleteMailGroupPermissionMember(ctx context.Context, request *DeleteMailGroupPermissionMemberReq, options ...MethodOptionFunc) (*DeleteMailGroupPermissionMemberResp, *Response, error) {
+	if r.cli.mock.mockMailDeleteMailGroupPermissionMember != nil {
+		return r.cli.mock.mockMailDeleteMailGroupPermissionMember(ctx, request, options...)
+	}
+
 	req := &RawRequestReq{
 		Method:                "DELETE",
 		URL:                   "https://open.feishu.cn/open-apis/mail/v1/mailgroups/:mailgroup_id/permission_members/:permission_member_id",
 		Body:                  request,
+		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
-		NeedAppAccessToken:    false,
-		NeedHelpdeskAuth:      false,
-		IsFile:                false,
 	}
 	resp := new(deleteMailGroupPermissionMemberResp)
 
@@ -29,6 +31,14 @@ func (r *MailAPI) DeleteMailGroupPermissionMember(ctx context.Context, request *
 	}
 
 	return resp.Data, response, nil
+}
+
+func (r *Mock) MockMailDeleteMailGroupPermissionMember(f func(ctx context.Context, request *DeleteMailGroupPermissionMemberReq, options ...MethodOptionFunc) (*DeleteMailGroupPermissionMemberResp, *Response, error)) {
+	r.mockMailDeleteMailGroupPermissionMember = f
+}
+
+func (r *Mock) UnMockMailDeleteMailGroupPermissionMember() {
+	r.mockMailDeleteMailGroupPermissionMember = nil
 }
 
 type DeleteMailGroupPermissionMemberReq struct {

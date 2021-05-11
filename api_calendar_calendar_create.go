@@ -12,15 +12,18 @@ import (
 // 身份由 Header Authorization 的 Token 类型决定。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar/create
-func (r *CalendarAPI) CreateCalendar(ctx context.Context, request *CreateCalendarReq) (*CreateCalendarResp, *Response, error) {
+func (r *CalendarAPI) CreateCalendar(ctx context.Context, request *CreateCalendarReq, options ...MethodOptionFunc) (*CreateCalendarResp, *Response, error) {
+	if r.cli.mock.mockCalendarCreateCalendar != nil {
+		return r.cli.mock.mockCalendarCreateCalendar(ctx, request, options...)
+	}
+
 	req := &RawRequestReq{
 		Method:                "POST",
 		URL:                   "https://open.feishu.cn/open-apis/calendar/v4/calendars",
 		Body:                  request,
+		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
-		NeedAppAccessToken:    false,
-		NeedHelpdeskAuth:      false,
-		IsFile:                false,
+		NeedUserAccessToken:   true,
 	}
 	resp := new(createCalendarResp)
 
@@ -32,6 +35,14 @@ func (r *CalendarAPI) CreateCalendar(ctx context.Context, request *CreateCalenda
 	}
 
 	return resp.Data, response, nil
+}
+
+func (r *Mock) MockCalendarCreateCalendar(f func(ctx context.Context, request *CreateCalendarReq, options ...MethodOptionFunc) (*CreateCalendarResp, *Response, error)) {
+	r.mockCalendarCreateCalendar = f
+}
+
+func (r *Mock) UnMockCalendarCreateCalendar() {
+	r.mockCalendarCreateCalendar = nil
 }
 
 type CreateCalendarReq struct {

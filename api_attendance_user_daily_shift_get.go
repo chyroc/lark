@@ -11,15 +11,17 @@ import (
 // 支持查询多个用户的排班情况，查询的时间跨度不能超过 30 天。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/Attendance//task/GetScheduledShifts
-func (r *AttendanceAPI) GetUserDailyShift(ctx context.Context, request *GetUserDailyShiftReq) (*GetUserDailyShiftResp, *Response, error) {
+func (r *AttendanceAPI) GetUserDailyShift(ctx context.Context, request *GetUserDailyShiftReq, options ...MethodOptionFunc) (*GetUserDailyShiftResp, *Response, error) {
+	if r.cli.mock.mockAttendanceGetUserDailyShift != nil {
+		return r.cli.mock.mockAttendanceGetUserDailyShift(ctx, request, options...)
+	}
+
 	req := &RawRequestReq{
 		Method:                "POST",
 		URL:                   "https://open.feishu.cn/open-apis/attendance/v1/user_daily_shifts/query",
 		Body:                  request,
+		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
-		NeedAppAccessToken:    false,
-		NeedHelpdeskAuth:      false,
-		IsFile:                false,
 	}
 	resp := new(getUserDailyShiftResp)
 
@@ -31,6 +33,14 @@ func (r *AttendanceAPI) GetUserDailyShift(ctx context.Context, request *GetUserD
 	}
 
 	return resp.Data, response, nil
+}
+
+func (r *Mock) MockAttendanceGetUserDailyShift(f func(ctx context.Context, request *GetUserDailyShiftReq, options ...MethodOptionFunc) (*GetUserDailyShiftResp, *Response, error)) {
+	r.mockAttendanceGetUserDailyShift = f
+}
+
+func (r *Mock) UnMockAttendanceGetUserDailyShift() {
+	r.mockAttendanceGetUserDailyShift = nil
 }
 
 type GetUserDailyShiftReq struct {

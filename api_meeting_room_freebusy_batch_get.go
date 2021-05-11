@@ -9,15 +9,17 @@ import (
 // BatchGetFreebusy 该接口用于获取指定会议室的忙闲日程实例列表。非重复日程只有唯一实例；重复日程可能存在多个实例，依据重复规则和时间范围扩展。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uIDOyUjLygjM14iM4ITN
-func (r *MeetingRoomAPI) BatchGetFreebusy(ctx context.Context, request *BatchGetFreebusyReq) (*BatchGetFreebusyResp, *Response, error) {
+func (r *MeetingRoomAPI) BatchGetFreebusy(ctx context.Context, request *BatchGetFreebusyReq, options ...MethodOptionFunc) (*BatchGetFreebusyResp, *Response, error) {
+	if r.cli.mock.mockMeetingRoomBatchGetFreebusy != nil {
+		return r.cli.mock.mockMeetingRoomBatchGetFreebusy(ctx, request, options...)
+	}
+
 	req := &RawRequestReq{
 		Method:                "GET",
 		URL:                   "https://open.feishu.cn/open-apis/meeting_room/freebusy/batch_get?room_ids=omm_83d09ad4f6896e02029a6a075f71c9d1&room_ids=omm_eada1d61a550955240c28757e7dec3af&time_min=2019-09-04T08:45:00%2B08:00&time_max=2019-09-04T09:45:00%2B08:00",
 		Body:                  request,
+		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
-		NeedAppAccessToken:    false,
-		NeedHelpdeskAuth:      false,
-		IsFile:                false,
 	}
 	resp := new(batchGetFreebusyResp)
 
@@ -29,6 +31,14 @@ func (r *MeetingRoomAPI) BatchGetFreebusy(ctx context.Context, request *BatchGet
 	}
 
 	return resp.Data, response, nil
+}
+
+func (r *Mock) MockMeetingRoomBatchGetFreebusy(f func(ctx context.Context, request *BatchGetFreebusyReq, options ...MethodOptionFunc) (*BatchGetFreebusyResp, *Response, error)) {
+	r.mockMeetingRoomBatchGetFreebusy = f
+}
+
+func (r *Mock) UnMockMeetingRoomBatchGetFreebusy() {
+	r.mockMeetingRoomBatchGetFreebusy = nil
 }
 
 type BatchGetFreebusyReq struct {

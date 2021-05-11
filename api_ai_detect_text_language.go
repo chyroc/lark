@@ -11,15 +11,17 @@ import (
 // 单租户限流：20QPS，同租户下的应用没有限流，共享本租户的 20QPS 限流
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/ai/translation-v1/text/detect
-func (r *AIAPI) DetectTextLanguage(ctx context.Context, request *DetectTextLanguageReq) (*DetectTextLanguageResp, *Response, error) {
+func (r *AIAPI) DetectTextLanguage(ctx context.Context, request *DetectTextLanguageReq, options ...MethodOptionFunc) (*DetectTextLanguageResp, *Response, error) {
+	if r.cli.mock.mockAIDetectTextLanguage != nil {
+		return r.cli.mock.mockAIDetectTextLanguage(ctx, request, options...)
+	}
+
 	req := &RawRequestReq{
 		Method:                "POST",
 		URL:                   "https://open.feishu.cn/open-apis/translation/v1/text/detect",
 		Body:                  request,
+		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
-		NeedAppAccessToken:    false,
-		NeedHelpdeskAuth:      false,
-		IsFile:                false,
 	}
 	resp := new(detectTextLanguageResp)
 
@@ -31,6 +33,14 @@ func (r *AIAPI) DetectTextLanguage(ctx context.Context, request *DetectTextLangu
 	}
 
 	return resp.Data, response, nil
+}
+
+func (r *Mock) MockAIDetectTextLanguage(f func(ctx context.Context, request *DetectTextLanguageReq, options ...MethodOptionFunc) (*DetectTextLanguageResp, *Response, error)) {
+	r.mockAIDetectTextLanguage = f
+}
+
+func (r *Mock) UnMockAIDetectTextLanguage() {
+	r.mockAIDetectTextLanguage = nil
 }
 
 type DetectTextLanguageReq struct {

@@ -11,15 +11,17 @@ import (
 // 只能删除归属于自己的预约；删除后数据不可恢复
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/vc-v1/reserve/delete
-func (r *VCAPI) DeleteReserve(ctx context.Context, request *DeleteReserveReq) (*DeleteReserveResp, *Response, error) {
+func (r *VCAPI) DeleteReserve(ctx context.Context, request *DeleteReserveReq, options ...MethodOptionFunc) (*DeleteReserveResp, *Response, error) {
+	if r.cli.mock.mockVCDeleteReserve != nil {
+		return r.cli.mock.mockVCDeleteReserve(ctx, request, options...)
+	}
+
 	req := &RawRequestReq{
-		Method:                "DELETE",
-		URL:                   "https://open.feishu.cn/open-apis/vc/v1/reserves/:reserve_id",
-		Body:                  request,
-		NeedTenantAccessToken: false,
-		NeedAppAccessToken:    false,
-		NeedHelpdeskAuth:      false,
-		IsFile:                false,
+		Method:              "DELETE",
+		URL:                 "https://open.feishu.cn/open-apis/vc/v1/reserves/:reserve_id",
+		Body:                request,
+		MethodOption:        newMethodOption(options),
+		NeedUserAccessToken: true,
 	}
 	resp := new(deleteReserveResp)
 
@@ -31,6 +33,14 @@ func (r *VCAPI) DeleteReserve(ctx context.Context, request *DeleteReserveReq) (*
 	}
 
 	return resp.Data, response, nil
+}
+
+func (r *Mock) MockVCDeleteReserve(f func(ctx context.Context, request *DeleteReserveReq, options ...MethodOptionFunc) (*DeleteReserveResp, *Response, error)) {
+	r.mockVCDeleteReserve = f
+}
+
+func (r *Mock) UnMockVCDeleteReserve() {
+	r.mockVCDeleteReserve = nil
 }
 
 type DeleteReserveReq struct {

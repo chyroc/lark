@@ -12,15 +12,17 @@ import (
 // 默认以审批创建时间排序。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uQDOyUjL0gjM14CN4ITN
-func (r *ApprovalAPI) GetInstanceList(ctx context.Context, request *GetInstanceListReq) (*GetInstanceListResp, *Response, error) {
+func (r *ApprovalAPI) GetInstanceList(ctx context.Context, request *GetInstanceListReq, options ...MethodOptionFunc) (*GetInstanceListResp, *Response, error) {
+	if r.cli.mock.mockApprovalGetInstanceList != nil {
+		return r.cli.mock.mockApprovalGetInstanceList(ctx, request, options...)
+	}
+
 	req := &RawRequestReq{
 		Method:                "POST",
 		URL:                   "https://www.feishu.cn/approval/openapi/v2/instance/list",
 		Body:                  request,
+		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
-		NeedAppAccessToken:    false,
-		NeedHelpdeskAuth:      false,
-		IsFile:                false,
 	}
 	resp := new(getInstanceListResp)
 
@@ -32,6 +34,14 @@ func (r *ApprovalAPI) GetInstanceList(ctx context.Context, request *GetInstanceL
 	}
 
 	return resp.Data, response, nil
+}
+
+func (r *Mock) MockApprovalGetInstanceList(f func(ctx context.Context, request *GetInstanceListReq, options ...MethodOptionFunc) (*GetInstanceListResp, *Response, error)) {
+	r.mockApprovalGetInstanceList = f
+}
+
+func (r *Mock) UnMockApprovalGetInstanceList() {
+	r.mockApprovalGetInstanceList = nil
 }
 
 type GetInstanceListReq struct {

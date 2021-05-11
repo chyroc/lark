@@ -10,15 +10,18 @@ import (
 // DownloadTicketImage 该接口用于获取服务台工单消息图象。仅支持自建应用。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/ticket/ticket_image
-func (r *HelpdeskAPI) DownloadTicketImage(ctx context.Context, request *DownloadTicketImageReq) (*DownloadTicketImageResp, *Response, error) {
+func (r *HelpdeskAPI) DownloadTicketImage(ctx context.Context, request *DownloadTicketImageReq, options ...MethodOptionFunc) (*DownloadTicketImageResp, *Response, error) {
+	if r.cli.mock.mockHelpdeskDownloadTicketImage != nil {
+		return r.cli.mock.mockHelpdeskDownloadTicketImage(ctx, request, options...)
+	}
+
 	req := &RawRequestReq{
 		Method:                "GET",
 		URL:                   "https://open.feishu.cn/open-apis/helpdesk/v1/ticket_images",
 		Body:                  request,
+		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
-		NeedAppAccessToken:    false,
 		NeedHelpdeskAuth:      true,
-		IsFile:                false,
 	}
 	resp := new(downloadTicketImageResp)
 
@@ -30,6 +33,14 @@ func (r *HelpdeskAPI) DownloadTicketImage(ctx context.Context, request *Download
 	}
 
 	return resp.Data, response, nil
+}
+
+func (r *Mock) MockHelpdeskDownloadTicketImage(f func(ctx context.Context, request *DownloadTicketImageReq, options ...MethodOptionFunc) (*DownloadTicketImageResp, *Response, error)) {
+	r.mockHelpdeskDownloadTicketImage = f
+}
+
+func (r *Mock) UnMockHelpdeskDownloadTicketImage() {
+	r.mockHelpdeskDownloadTicketImage = nil
 }
 
 type DownloadTicketImageReq struct {

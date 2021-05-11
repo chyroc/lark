@@ -11,15 +11,17 @@ import (
 // 班表是用来描述考勤组内人员每天按哪个班次进行上班。目前班表支持按一个整月对一位或多位人员进行排班。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/Attendance//CreateandEditShifts
-func (r *AttendanceAPI) CreateUpdateUserDailyShift(ctx context.Context, request *CreateUpdateUserDailyShiftReq) (*CreateUpdateUserDailyShiftResp, *Response, error) {
+func (r *AttendanceAPI) CreateUpdateUserDailyShift(ctx context.Context, request *CreateUpdateUserDailyShiftReq, options ...MethodOptionFunc) (*CreateUpdateUserDailyShiftResp, *Response, error) {
+	if r.cli.mock.mockAttendanceCreateUpdateUserDailyShift != nil {
+		return r.cli.mock.mockAttendanceCreateUpdateUserDailyShift(ctx, request, options...)
+	}
+
 	req := &RawRequestReq{
 		Method:                "POST",
 		URL:                   "https://open.feishu.cn/open-apis/attendance/v1/user_daily_shifts/batch_create",
 		Body:                  request,
+		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
-		NeedAppAccessToken:    false,
-		NeedHelpdeskAuth:      false,
-		IsFile:                false,
 	}
 	resp := new(createUpdateUserDailyShiftResp)
 
@@ -31,6 +33,14 @@ func (r *AttendanceAPI) CreateUpdateUserDailyShift(ctx context.Context, request 
 	}
 
 	return resp.Data, response, nil
+}
+
+func (r *Mock) MockAttendanceCreateUpdateUserDailyShift(f func(ctx context.Context, request *CreateUpdateUserDailyShiftReq, options ...MethodOptionFunc) (*CreateUpdateUserDailyShiftResp, *Response, error)) {
+	r.mockAttendanceCreateUpdateUserDailyShift = f
+}
+
+func (r *Mock) UnMockAttendanceCreateUpdateUserDailyShift() {
+	r.mockAttendanceCreateUpdateUserDailyShift = nil
 }
 
 type CreateUpdateUserDailyShiftReq struct {

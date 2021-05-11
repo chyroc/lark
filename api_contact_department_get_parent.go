@@ -13,15 +13,18 @@ import (
 // 使用user_access_token时,该接口只返回对于用户可见的父部门信息
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/parent
-func (r *ContactAPI) GetParentDepartment(ctx context.Context, request *GetParentDepartmentReq) (*GetParentDepartmentResp, *Response, error) {
+func (r *ContactAPI) GetParentDepartment(ctx context.Context, request *GetParentDepartmentReq, options ...MethodOptionFunc) (*GetParentDepartmentResp, *Response, error) {
+	if r.cli.mock.mockContactGetParentDepartment != nil {
+		return r.cli.mock.mockContactGetParentDepartment(ctx, request, options...)
+	}
+
 	req := &RawRequestReq{
 		Method:                "GET",
 		URL:                   "https://open.feishu.cn/open-apis/contact/v3/departments/parent",
 		Body:                  request,
+		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
-		NeedAppAccessToken:    false,
-		NeedHelpdeskAuth:      false,
-		IsFile:                false,
+		NeedUserAccessToken:   true,
 	}
 	resp := new(getParentDepartmentResp)
 
@@ -33,6 +36,14 @@ func (r *ContactAPI) GetParentDepartment(ctx context.Context, request *GetParent
 	}
 
 	return resp.Data, response, nil
+}
+
+func (r *Mock) MockContactGetParentDepartment(f func(ctx context.Context, request *GetParentDepartmentReq, options ...MethodOptionFunc) (*GetParentDepartmentResp, *Response, error)) {
+	r.mockContactGetParentDepartment = f
+}
+
+func (r *Mock) UnMockContactGetParentDepartment() {
+	r.mockContactGetParentDepartment = nil
 }
 
 type GetParentDepartmentReq struct {

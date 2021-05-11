@@ -9,15 +9,17 @@ import (
 // UpdateUserStatisticsSettings
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/Attendance//task/update-user-stats-settings
-func (r *AttendanceAPI) UpdateUserStatisticsSettings(ctx context.Context, request *UpdateUserStatisticsSettingsReq) (*UpdateUserStatisticsSettingsResp, *Response, error) {
+func (r *AttendanceAPI) UpdateUserStatisticsSettings(ctx context.Context, request *UpdateUserStatisticsSettingsReq, options ...MethodOptionFunc) (*UpdateUserStatisticsSettingsResp, *Response, error) {
+	if r.cli.mock.mockAttendanceUpdateUserStatisticsSettings != nil {
+		return r.cli.mock.mockAttendanceUpdateUserStatisticsSettings(ctx, request, options...)
+	}
+
 	req := &RawRequestReq{
 		Method:                "PUT",
 		URL:                   "https://open.feishu.cn/open-apis/attendance/v1/user_stats_views/:user_stats_view_id",
 		Body:                  request,
+		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
-		NeedAppAccessToken:    false,
-		NeedHelpdeskAuth:      false,
-		IsFile:                false,
 	}
 	resp := new(updateUserStatisticsSettingsResp)
 
@@ -29,6 +31,14 @@ func (r *AttendanceAPI) UpdateUserStatisticsSettings(ctx context.Context, reques
 	}
 
 	return resp.Data, response, nil
+}
+
+func (r *Mock) MockAttendanceUpdateUserStatisticsSettings(f func(ctx context.Context, request *UpdateUserStatisticsSettingsReq, options ...MethodOptionFunc) (*UpdateUserStatisticsSettingsResp, *Response, error)) {
+	r.mockAttendanceUpdateUserStatisticsSettings = f
+}
+
+func (r *Mock) UnMockAttendanceUpdateUserStatisticsSettings() {
+	r.mockAttendanceUpdateUserStatisticsSettings = nil
 }
 
 type UpdateUserStatisticsSettingsReq struct {

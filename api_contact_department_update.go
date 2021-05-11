@@ -12,15 +12,17 @@ import (
 // - 没有填写的字段会被置为空值（order字段除外）。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/update
-func (r *ContactAPI) UpdateDepartment(ctx context.Context, request *UpdateDepartmentReq) (*UpdateDepartmentResp, *Response, error) {
+func (r *ContactAPI) UpdateDepartment(ctx context.Context, request *UpdateDepartmentReq, options ...MethodOptionFunc) (*UpdateDepartmentResp, *Response, error) {
+	if r.cli.mock.mockContactUpdateDepartment != nil {
+		return r.cli.mock.mockContactUpdateDepartment(ctx, request, options...)
+	}
+
 	req := &RawRequestReq{
 		Method:                "PUT",
 		URL:                   "https://open.feishu.cn/open-apis/contact/v3/departments/:department_id",
 		Body:                  request,
+		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
-		NeedAppAccessToken:    false,
-		NeedHelpdeskAuth:      false,
-		IsFile:                false,
 	}
 	resp := new(updateDepartmentResp)
 
@@ -32,6 +34,14 @@ func (r *ContactAPI) UpdateDepartment(ctx context.Context, request *UpdateDepart
 	}
 
 	return resp.Data, response, nil
+}
+
+func (r *Mock) MockContactUpdateDepartment(f func(ctx context.Context, request *UpdateDepartmentReq, options ...MethodOptionFunc) (*UpdateDepartmentResp, *Response, error)) {
+	r.mockContactUpdateDepartment = f
+}
+
+func (r *Mock) UnMockContactUpdateDepartment() {
+	r.mockContactUpdateDepartment = nil
 }
 
 type UpdateDepartmentReq struct {

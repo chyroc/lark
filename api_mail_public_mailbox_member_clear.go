@@ -9,15 +9,17 @@ import (
 // ClearPublicMailboxMember 删除公共邮箱所有成员
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/mail-v1/public_mailbox-member/clear
-func (r *MailAPI) ClearPublicMailboxMember(ctx context.Context, request *ClearPublicMailboxMemberReq) (*ClearPublicMailboxMemberResp, *Response, error) {
+func (r *MailAPI) ClearPublicMailboxMember(ctx context.Context, request *ClearPublicMailboxMemberReq, options ...MethodOptionFunc) (*ClearPublicMailboxMemberResp, *Response, error) {
+	if r.cli.mock.mockMailClearPublicMailboxMember != nil {
+		return r.cli.mock.mockMailClearPublicMailboxMember(ctx, request, options...)
+	}
+
 	req := &RawRequestReq{
 		Method:                "POST",
 		URL:                   "https://open.feishu.cn/open-apis/mail/v1/public_mailboxes/:public_mailbox_id/members/clear",
 		Body:                  request,
+		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
-		NeedAppAccessToken:    false,
-		NeedHelpdeskAuth:      false,
-		IsFile:                false,
 	}
 	resp := new(clearPublicMailboxMemberResp)
 
@@ -29,6 +31,14 @@ func (r *MailAPI) ClearPublicMailboxMember(ctx context.Context, request *ClearPu
 	}
 
 	return resp.Data, response, nil
+}
+
+func (r *Mock) MockMailClearPublicMailboxMember(f func(ctx context.Context, request *ClearPublicMailboxMemberReq, options ...MethodOptionFunc) (*ClearPublicMailboxMemberResp, *Response, error)) {
+	r.mockMailClearPublicMailboxMember = f
+}
+
+func (r *Mock) UnMockMailClearPublicMailboxMember() {
+	r.mockMailClearPublicMailboxMember = nil
 }
 
 type ClearPublicMailboxMemberReq struct {

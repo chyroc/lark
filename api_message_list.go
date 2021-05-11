@@ -13,15 +13,17 @@ import (
 // - 获取群组消息时，机器人必须在群组中
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/list
-func (r *MessageAPI) GetMessageList(ctx context.Context, request *GetMessageListReq) (*GetMessageListResp, *Response, error) {
+func (r *MessageAPI) GetMessageList(ctx context.Context, request *GetMessageListReq, options ...MethodOptionFunc) (*GetMessageListResp, *Response, error) {
+	if r.cli.mock.mockMessageGetMessageList != nil {
+		return r.cli.mock.mockMessageGetMessageList(ctx, request, options...)
+	}
+
 	req := &RawRequestReq{
 		Method:                "GET",
 		URL:                   "https://open.feishu.cn/open-apis/im/v1/messages",
 		Body:                  request,
+		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
-		NeedAppAccessToken:    false,
-		NeedHelpdeskAuth:      false,
-		IsFile:                false,
 	}
 	resp := new(getMessageListResp)
 
@@ -33,6 +35,14 @@ func (r *MessageAPI) GetMessageList(ctx context.Context, request *GetMessageList
 	}
 
 	return resp.Data, response, nil
+}
+
+func (r *Mock) MockMessageGetMessageList(f func(ctx context.Context, request *GetMessageListReq, options ...MethodOptionFunc) (*GetMessageListResp, *Response, error)) {
+	r.mockMessageGetMessageList = f
+}
+
+func (r *Mock) UnMockMessageGetMessageList() {
+	r.mockMessageGetMessageList = nil
 }
 
 type GetMessageListReq struct {

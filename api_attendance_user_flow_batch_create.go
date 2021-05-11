@@ -12,15 +12,17 @@ import (
 // 适用于考勤机数据导入等场景。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/Attendance//ImportAttendanceFlowRecords
-func (r *AttendanceAPI) BatchCreateUserFlow(ctx context.Context, request *BatchCreateUserFlowReq) (*BatchCreateUserFlowResp, *Response, error) {
+func (r *AttendanceAPI) BatchCreateUserFlow(ctx context.Context, request *BatchCreateUserFlowReq, options ...MethodOptionFunc) (*BatchCreateUserFlowResp, *Response, error) {
+	if r.cli.mock.mockAttendanceBatchCreateUserFlow != nil {
+		return r.cli.mock.mockAttendanceBatchCreateUserFlow(ctx, request, options...)
+	}
+
 	req := &RawRequestReq{
 		Method:                "POST",
 		URL:                   "https://open.feishu.cn/open-apis/attendance/v1/user_flows/batch_create",
 		Body:                  request,
+		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
-		NeedAppAccessToken:    false,
-		NeedHelpdeskAuth:      false,
-		IsFile:                false,
 	}
 	resp := new(batchCreateUserFlowResp)
 
@@ -32,6 +34,14 @@ func (r *AttendanceAPI) BatchCreateUserFlow(ctx context.Context, request *BatchC
 	}
 
 	return resp.Data, response, nil
+}
+
+func (r *Mock) MockAttendanceBatchCreateUserFlow(f func(ctx context.Context, request *BatchCreateUserFlowReq, options ...MethodOptionFunc) (*BatchCreateUserFlowResp, *Response, error)) {
+	r.mockAttendanceBatchCreateUserFlow = f
+}
+
+func (r *Mock) UnMockAttendanceBatchCreateUserFlow() {
+	r.mockAttendanceBatchCreateUserFlow = nil
 }
 
 type BatchCreateUserFlowReq struct {

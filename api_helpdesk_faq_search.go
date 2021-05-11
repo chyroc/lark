@@ -9,15 +9,18 @@ import (
 // SearchFAQ 该接口用于搜索服务台知识库。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/faq/search
-func (r *HelpdeskAPI) SearchFAQ(ctx context.Context, request *SearchFAQReq) (*SearchFAQResp, *Response, error) {
+func (r *HelpdeskAPI) SearchFAQ(ctx context.Context, request *SearchFAQReq, options ...MethodOptionFunc) (*SearchFAQResp, *Response, error) {
+	if r.cli.mock.mockHelpdeskSearchFAQ != nil {
+		return r.cli.mock.mockHelpdeskSearchFAQ(ctx, request, options...)
+	}
+
 	req := &RawRequestReq{
 		Method:                "GET",
 		URL:                   "https://open.feishu.cn/open-apis/helpdesk/v1/faqs/search",
 		Body:                  request,
+		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
-		NeedAppAccessToken:    false,
 		NeedHelpdeskAuth:      true,
-		IsFile:                false,
 	}
 	resp := new(searchFAQResp)
 
@@ -29,6 +32,14 @@ func (r *HelpdeskAPI) SearchFAQ(ctx context.Context, request *SearchFAQReq) (*Se
 	}
 
 	return resp.Data, response, nil
+}
+
+func (r *Mock) MockHelpdeskSearchFAQ(f func(ctx context.Context, request *SearchFAQReq, options ...MethodOptionFunc) (*SearchFAQResp, *Response, error)) {
+	r.mockHelpdeskSearchFAQ = f
+}
+
+func (r *Mock) UnMockHelpdeskSearchFAQ() {
+	r.mockHelpdeskSearchFAQ = nil
 }
 
 type SearchFAQReq struct {

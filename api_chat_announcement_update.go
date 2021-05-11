@@ -15,15 +15,18 @@ import (
 // - 当授权用户或机器人非群主，但群主设置了 [仅群主可编辑群信息] 时，无法更新公告信息
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-announcement/patch
-func (r *ChatAPI) UpdateAnnouncement(ctx context.Context, request *UpdateAnnouncementReq) (*UpdateAnnouncementResp, *Response, error) {
+func (r *ChatAPI) UpdateAnnouncement(ctx context.Context, request *UpdateAnnouncementReq, options ...MethodOptionFunc) (*UpdateAnnouncementResp, *Response, error) {
+	if r.cli.mock.mockChatUpdateAnnouncement != nil {
+		return r.cli.mock.mockChatUpdateAnnouncement(ctx, request, options...)
+	}
+
 	req := &RawRequestReq{
 		Method:                "PATCH",
 		URL:                   "https://open.feishu.cn/open-apis/im/v1/chats/:chat_id/announcement",
 		Body:                  request,
+		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
-		NeedAppAccessToken:    false,
-		NeedHelpdeskAuth:      false,
-		IsFile:                false,
+		NeedUserAccessToken:   true,
 	}
 	resp := new(updateAnnouncementResp)
 
@@ -35,6 +38,14 @@ func (r *ChatAPI) UpdateAnnouncement(ctx context.Context, request *UpdateAnnounc
 	}
 
 	return resp.Data, response, nil
+}
+
+func (r *Mock) MockChatUpdateAnnouncement(f func(ctx context.Context, request *UpdateAnnouncementReq, options ...MethodOptionFunc) (*UpdateAnnouncementResp, *Response, error)) {
+	r.mockChatUpdateAnnouncement = f
+}
+
+func (r *Mock) UnMockChatUpdateAnnouncement() {
+	r.mockChatUpdateAnnouncement = nil
 }
 
 type UpdateAnnouncementReq struct {

@@ -11,15 +11,18 @@ import (
 // 该接口用于更新自定义字段。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/ticket_customized_field/update-ticket-customized-field
-func (r *HelpdeskAPI) UpdateTicketCustomizedField(ctx context.Context, request *UpdateTicketCustomizedFieldReq) (*UpdateTicketCustomizedFieldResp, *Response, error) {
+func (r *HelpdeskAPI) UpdateTicketCustomizedField(ctx context.Context, request *UpdateTicketCustomizedFieldReq, options ...MethodOptionFunc) (*UpdateTicketCustomizedFieldResp, *Response, error) {
+	if r.cli.mock.mockHelpdeskUpdateTicketCustomizedField != nil {
+		return r.cli.mock.mockHelpdeskUpdateTicketCustomizedField(ctx, request, options...)
+	}
+
 	req := &RawRequestReq{
-		Method:                "PATCH",
-		URL:                   "https://open.feishu.cn/open-apis/helpdesk/v1/ticket_customized_fields/:ticket_customized_field_id",
-		Body:                  request,
-		NeedTenantAccessToken: false,
-		NeedAppAccessToken:    false,
-		NeedHelpdeskAuth:      true,
-		IsFile:                false,
+		Method:              "PATCH",
+		URL:                 "https://open.feishu.cn/open-apis/helpdesk/v1/ticket_customized_fields/:ticket_customized_field_id",
+		Body:                request,
+		MethodOption:        newMethodOption(options),
+		NeedUserAccessToken: true,
+		NeedHelpdeskAuth:    true,
 	}
 	resp := new(updateTicketCustomizedFieldResp)
 
@@ -31,6 +34,14 @@ func (r *HelpdeskAPI) UpdateTicketCustomizedField(ctx context.Context, request *
 	}
 
 	return resp.Data, response, nil
+}
+
+func (r *Mock) MockHelpdeskUpdateTicketCustomizedField(f func(ctx context.Context, request *UpdateTicketCustomizedFieldReq, options ...MethodOptionFunc) (*UpdateTicketCustomizedFieldResp, *Response, error)) {
+	r.mockHelpdeskUpdateTicketCustomizedField = f
+}
+
+func (r *Mock) UnMockHelpdeskUpdateTicketCustomizedField() {
+	r.mockHelpdeskUpdateTicketCustomizedField = nil
 }
 
 type UpdateTicketCustomizedFieldReq struct {

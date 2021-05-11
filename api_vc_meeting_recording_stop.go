@@ -11,15 +11,17 @@ import (
 // 会议正在录制中，且操作者具有相应权限（如果操作者为用户，必须是会中当前主持人）
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/vc-v1/meeting-recording/stop
-func (r *VCAPI) StopMeetingRecording(ctx context.Context, request *StopMeetingRecordingReq) (*StopMeetingRecordingResp, *Response, error) {
+func (r *VCAPI) StopMeetingRecording(ctx context.Context, request *StopMeetingRecordingReq, options ...MethodOptionFunc) (*StopMeetingRecordingResp, *Response, error) {
+	if r.cli.mock.mockVCStopMeetingRecording != nil {
+		return r.cli.mock.mockVCStopMeetingRecording(ctx, request, options...)
+	}
+
 	req := &RawRequestReq{
-		Method:                "PATCH",
-		URL:                   "https://open.feishu.cn/open-apis/vc/v1/meetings/:meeting_id/recording/stop",
-		Body:                  request,
-		NeedTenantAccessToken: false,
-		NeedAppAccessToken:    false,
-		NeedHelpdeskAuth:      false,
-		IsFile:                false,
+		Method:              "PATCH",
+		URL:                 "https://open.feishu.cn/open-apis/vc/v1/meetings/:meeting_id/recording/stop",
+		Body:                request,
+		MethodOption:        newMethodOption(options),
+		NeedUserAccessToken: true,
 	}
 	resp := new(stopMeetingRecordingResp)
 
@@ -31,6 +33,14 @@ func (r *VCAPI) StopMeetingRecording(ctx context.Context, request *StopMeetingRe
 	}
 
 	return resp.Data, response, nil
+}
+
+func (r *Mock) MockVCStopMeetingRecording(f func(ctx context.Context, request *StopMeetingRecordingReq, options ...MethodOptionFunc) (*StopMeetingRecordingResp, *Response, error)) {
+	r.mockVCStopMeetingRecording = f
+}
+
+func (r *Mock) UnMockVCStopMeetingRecording() {
+	r.mockVCStopMeetingRecording = nil
 }
 
 type StopMeetingRecordingReq struct {

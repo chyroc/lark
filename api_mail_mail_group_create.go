@@ -9,15 +9,17 @@ import (
 // CreateMailGroup 创建一个邮件组
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/mail-v1/mailgroup/create
-func (r *MailAPI) CreateMailGroup(ctx context.Context, request *CreateMailGroupReq) (*CreateMailGroupResp, *Response, error) {
+func (r *MailAPI) CreateMailGroup(ctx context.Context, request *CreateMailGroupReq, options ...MethodOptionFunc) (*CreateMailGroupResp, *Response, error) {
+	if r.cli.mock.mockMailCreateMailGroup != nil {
+		return r.cli.mock.mockMailCreateMailGroup(ctx, request, options...)
+	}
+
 	req := &RawRequestReq{
 		Method:                "POST",
 		URL:                   "https://open.feishu.cn/open-apis/mail/v1/mailgroups",
 		Body:                  request,
+		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
-		NeedAppAccessToken:    false,
-		NeedHelpdeskAuth:      false,
-		IsFile:                false,
 	}
 	resp := new(createMailGroupResp)
 
@@ -29,6 +31,14 @@ func (r *MailAPI) CreateMailGroup(ctx context.Context, request *CreateMailGroupR
 	}
 
 	return resp.Data, response, nil
+}
+
+func (r *Mock) MockMailCreateMailGroup(f func(ctx context.Context, request *CreateMailGroupReq, options ...MethodOptionFunc) (*CreateMailGroupResp, *Response, error)) {
+	r.mockMailCreateMailGroup = f
+}
+
+func (r *Mock) UnMockMailCreateMailGroup() {
+	r.mockMailCreateMailGroup = nil
 }
 
 type CreateMailGroupReq struct {

@@ -9,15 +9,17 @@ import (
 // DeleteGroup
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/Attendance//group_delete
-func (r *AttendanceAPI) DeleteGroup(ctx context.Context, request *DeleteGroupReq) (*DeleteGroupResp, *Response, error) {
+func (r *AttendanceAPI) DeleteGroup(ctx context.Context, request *DeleteGroupReq, options ...MethodOptionFunc) (*DeleteGroupResp, *Response, error) {
+	if r.cli.mock.mockAttendanceDeleteGroup != nil {
+		return r.cli.mock.mockAttendanceDeleteGroup(ctx, request, options...)
+	}
+
 	req := &RawRequestReq{
 		Method:                "DELETE",
 		URL:                   "https://open.feishu.cn/open-apis/attendance/v1/groups/:group_id",
 		Body:                  request,
+		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
-		NeedAppAccessToken:    false,
-		NeedHelpdeskAuth:      false,
-		IsFile:                false,
 	}
 	resp := new(deleteGroupResp)
 
@@ -29,6 +31,14 @@ func (r *AttendanceAPI) DeleteGroup(ctx context.Context, request *DeleteGroupReq
 	}
 
 	return resp.Data, response, nil
+}
+
+func (r *Mock) MockAttendanceDeleteGroup(f func(ctx context.Context, request *DeleteGroupReq, options ...MethodOptionFunc) (*DeleteGroupResp, *Response, error)) {
+	r.mockAttendanceDeleteGroup = f
+}
+
+func (r *Mock) UnMockAttendanceDeleteGroup() {
+	r.mockAttendanceDeleteGroup = nil
 }
 
 type DeleteGroupReq struct {

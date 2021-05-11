@@ -12,15 +12,18 @@ import (
 // - 当前身份必须在群聊中，或有权限查看群成员列表。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar-event-attendee-chat_member/list
-func (r *CalendarAPI) GetCalendarEventAttendeeChatMemberList(ctx context.Context, request *GetCalendarEventAttendeeChatMemberListReq) (*GetCalendarEventAttendeeChatMemberListResp, *Response, error) {
+func (r *CalendarAPI) GetCalendarEventAttendeeChatMemberList(ctx context.Context, request *GetCalendarEventAttendeeChatMemberListReq, options ...MethodOptionFunc) (*GetCalendarEventAttendeeChatMemberListResp, *Response, error) {
+	if r.cli.mock.mockCalendarGetCalendarEventAttendeeChatMemberList != nil {
+		return r.cli.mock.mockCalendarGetCalendarEventAttendeeChatMemberList(ctx, request, options...)
+	}
+
 	req := &RawRequestReq{
 		Method:                "GET",
 		URL:                   "https://open.feishu.cn/open-apis/calendar/v4/calendars/:calendar_id/events/:event_id/attendees/:attendee_id/chat_members",
 		Body:                  request,
+		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
-		NeedAppAccessToken:    false,
-		NeedHelpdeskAuth:      false,
-		IsFile:                false,
+		NeedUserAccessToken:   true,
 	}
 	resp := new(getCalendarEventAttendeeChatMemberListResp)
 
@@ -32,6 +35,14 @@ func (r *CalendarAPI) GetCalendarEventAttendeeChatMemberList(ctx context.Context
 	}
 
 	return resp.Data, response, nil
+}
+
+func (r *Mock) MockCalendarGetCalendarEventAttendeeChatMemberList(f func(ctx context.Context, request *GetCalendarEventAttendeeChatMemberListReq, options ...MethodOptionFunc) (*GetCalendarEventAttendeeChatMemberListResp, *Response, error)) {
+	r.mockCalendarGetCalendarEventAttendeeChatMemberList = f
+}
+
+func (r *Mock) UnMockCalendarGetCalendarEventAttendeeChatMemberList() {
+	r.mockCalendarGetCalendarEventAttendeeChatMemberList = nil
 }
 
 type GetCalendarEventAttendeeChatMemberListReq struct {

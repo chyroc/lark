@@ -14,15 +14,17 @@ import (
 // - 只能下载机器人自己上传且图片类型为message的图片，avatar类型暂不支持下载；
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/image/get
-func (r *FileAPI) DownloadImage(ctx context.Context, request *DownloadImageReq) (*DownloadImageResp, *Response, error) {
+func (r *FileAPI) DownloadImage(ctx context.Context, request *DownloadImageReq, options ...MethodOptionFunc) (*DownloadImageResp, *Response, error) {
+	if r.cli.mock.mockFileDownloadImage != nil {
+		return r.cli.mock.mockFileDownloadImage(ctx, request, options...)
+	}
+
 	req := &RawRequestReq{
 		Method:                "GET",
 		URL:                   "https://open.feishu.cn/open-apis/im/v1/images/:image_key",
 		Body:                  request,
+		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
-		NeedAppAccessToken:    false,
-		NeedHelpdeskAuth:      false,
-		IsFile:                false,
 	}
 	resp := new(downloadImageResp)
 
@@ -34,6 +36,14 @@ func (r *FileAPI) DownloadImage(ctx context.Context, request *DownloadImageReq) 
 	}
 
 	return resp.Data, response, nil
+}
+
+func (r *Mock) MockFileDownloadImage(f func(ctx context.Context, request *DownloadImageReq, options ...MethodOptionFunc) (*DownloadImageResp, *Response, error)) {
+	r.mockFileDownloadImage = f
+}
+
+func (r *Mock) UnMockFileDownloadImage() {
+	r.mockFileDownloadImage = nil
 }
 
 type DownloadImageReq struct {

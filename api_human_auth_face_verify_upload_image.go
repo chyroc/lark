@@ -15,14 +15,17 @@ import (
 // 无源人脸比对流程，开发者后台通过调用此接口将基准图片上传到飞书后台，做检测时的对比使用。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/human_authentication-v1/face/upload-facial-reference-image
-func (r *HumanAuthAPI) UploadFaceVerifyImage(ctx context.Context, request *UploadFaceVerifyImageReq) (*UploadFaceVerifyImageResp, *Response, error) {
+func (r *HumanAuthAPI) UploadFaceVerifyImage(ctx context.Context, request *UploadFaceVerifyImageReq, options ...MethodOptionFunc) (*UploadFaceVerifyImageResp, *Response, error) {
+	if r.cli.mock.mockHumanAuthUploadFaceVerifyImage != nil {
+		return r.cli.mock.mockHumanAuthUploadFaceVerifyImage(ctx, request, options...)
+	}
+
 	req := &RawRequestReq{
 		Method:                "POST",
 		URL:                   "https://open.feishu.cn/open-apis/face_verify/v1/upload_face_image",
 		Body:                  request,
+		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
-		NeedAppAccessToken:    false,
-		NeedHelpdeskAuth:      false,
 		IsFile:                true,
 	}
 	resp := new(uploadFaceVerifyImageResp)
@@ -35,6 +38,14 @@ func (r *HumanAuthAPI) UploadFaceVerifyImage(ctx context.Context, request *Uploa
 	}
 
 	return resp.Data, response, nil
+}
+
+func (r *Mock) MockHumanAuthUploadFaceVerifyImage(f func(ctx context.Context, request *UploadFaceVerifyImageReq, options ...MethodOptionFunc) (*UploadFaceVerifyImageResp, *Response, error)) {
+	r.mockHumanAuthUploadFaceVerifyImage = f
+}
+
+func (r *Mock) UnMockHumanAuthUploadFaceVerifyImage() {
+	r.mockHumanAuthUploadFaceVerifyImage = nil
 }
 
 type UploadFaceVerifyImageReq struct {

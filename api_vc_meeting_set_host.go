@@ -11,15 +11,17 @@ import (
 // 发起设置主持人的操作者必须具有相应的权限（如果操作者为用户，必须是会中当前主持人）；该操作使用CAS并发安全机制，需传入会中当前主持人，如果操作失败可使用返回的最新数据重试
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/vc-v1/meeting/set_host
-func (r *VCAPI) SetHostMeeting(ctx context.Context, request *SetHostMeetingReq) (*SetHostMeetingResp, *Response, error) {
+func (r *VCAPI) SetHostMeeting(ctx context.Context, request *SetHostMeetingReq, options ...MethodOptionFunc) (*SetHostMeetingResp, *Response, error) {
+	if r.cli.mock.mockVCSetHostMeeting != nil {
+		return r.cli.mock.mockVCSetHostMeeting(ctx, request, options...)
+	}
+
 	req := &RawRequestReq{
-		Method:                "PATCH",
-		URL:                   "https://open.feishu.cn/open-apis/vc/v1/meetings/:meeting_id/set_host",
-		Body:                  request,
-		NeedTenantAccessToken: false,
-		NeedAppAccessToken:    false,
-		NeedHelpdeskAuth:      false,
-		IsFile:                false,
+		Method:              "PATCH",
+		URL:                 "https://open.feishu.cn/open-apis/vc/v1/meetings/:meeting_id/set_host",
+		Body:                request,
+		MethodOption:        newMethodOption(options),
+		NeedUserAccessToken: true,
 	}
 	resp := new(setHostMeetingResp)
 
@@ -31,6 +33,14 @@ func (r *VCAPI) SetHostMeeting(ctx context.Context, request *SetHostMeetingReq) 
 	}
 
 	return resp.Data, response, nil
+}
+
+func (r *Mock) MockVCSetHostMeeting(f func(ctx context.Context, request *SetHostMeetingReq, options ...MethodOptionFunc) (*SetHostMeetingResp, *Response, error)) {
+	r.mockVCSetHostMeeting = f
+}
+
+func (r *Mock) UnMockVCSetHostMeeting() {
+	r.mockVCSetHostMeeting = nil
 }
 
 type SetHostMeetingReq struct {

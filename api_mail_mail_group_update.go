@@ -9,15 +9,17 @@ import (
 // UpdateMailGroup 更新邮件组所有信息
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/mail-v1/mailgroup/update
-func (r *MailAPI) UpdateMailGroup(ctx context.Context, request *UpdateMailGroupReq) (*UpdateMailGroupResp, *Response, error) {
+func (r *MailAPI) UpdateMailGroup(ctx context.Context, request *UpdateMailGroupReq, options ...MethodOptionFunc) (*UpdateMailGroupResp, *Response, error) {
+	if r.cli.mock.mockMailUpdateMailGroup != nil {
+		return r.cli.mock.mockMailUpdateMailGroup(ctx, request, options...)
+	}
+
 	req := &RawRequestReq{
 		Method:                "PUT",
 		URL:                   "https://open.feishu.cn/open-apis/mail/v1/mailgroups/:mailgroup_id",
 		Body:                  request,
+		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
-		NeedAppAccessToken:    false,
-		NeedHelpdeskAuth:      false,
-		IsFile:                false,
 	}
 	resp := new(updateMailGroupResp)
 
@@ -29,6 +31,14 @@ func (r *MailAPI) UpdateMailGroup(ctx context.Context, request *UpdateMailGroupR
 	}
 
 	return resp.Data, response, nil
+}
+
+func (r *Mock) MockMailUpdateMailGroup(f func(ctx context.Context, request *UpdateMailGroupReq, options ...MethodOptionFunc) (*UpdateMailGroupResp, *Response, error)) {
+	r.mockMailUpdateMailGroup = f
+}
+
+func (r *Mock) UnMockMailUpdateMailGroup() {
+	r.mockMailUpdateMailGroup = nil
 }
 
 type UpdateMailGroupReq struct {

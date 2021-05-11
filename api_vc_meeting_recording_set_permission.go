@@ -11,15 +11,17 @@ import (
 // 会议结束后并且收到了"录制完成"的事件方可进行授权；会议owner（通过开放平台预约的会议即为预约人）才有权限操作
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/vc-v1/meeting-recording/set_permission
-func (r *VCAPI) SetPermissionMeetingRecording(ctx context.Context, request *SetPermissionMeetingRecordingReq) (*SetPermissionMeetingRecordingResp, *Response, error) {
+func (r *VCAPI) SetPermissionMeetingRecording(ctx context.Context, request *SetPermissionMeetingRecordingReq, options ...MethodOptionFunc) (*SetPermissionMeetingRecordingResp, *Response, error) {
+	if r.cli.mock.mockVCSetPermissionMeetingRecording != nil {
+		return r.cli.mock.mockVCSetPermissionMeetingRecording(ctx, request, options...)
+	}
+
 	req := &RawRequestReq{
-		Method:                "PATCH",
-		URL:                   "https://open.feishu.cn/open-apis/vc/v1/meetings/:meeting_id/recording/set_permission",
-		Body:                  request,
-		NeedTenantAccessToken: false,
-		NeedAppAccessToken:    false,
-		NeedHelpdeskAuth:      false,
-		IsFile:                false,
+		Method:              "PATCH",
+		URL:                 "https://open.feishu.cn/open-apis/vc/v1/meetings/:meeting_id/recording/set_permission",
+		Body:                request,
+		MethodOption:        newMethodOption(options),
+		NeedUserAccessToken: true,
 	}
 	resp := new(setPermissionMeetingRecordingResp)
 
@@ -31,6 +33,14 @@ func (r *VCAPI) SetPermissionMeetingRecording(ctx context.Context, request *SetP
 	}
 
 	return resp.Data, response, nil
+}
+
+func (r *Mock) MockVCSetPermissionMeetingRecording(f func(ctx context.Context, request *SetPermissionMeetingRecordingReq, options ...MethodOptionFunc) (*SetPermissionMeetingRecordingResp, *Response, error)) {
+	r.mockVCSetPermissionMeetingRecording = f
+}
+
+func (r *Mock) UnMockVCSetPermissionMeetingRecording() {
+	r.mockVCSetPermissionMeetingRecording = nil
 }
 
 type SetPermissionMeetingRecordingReq struct {

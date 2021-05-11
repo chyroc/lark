@@ -9,15 +9,17 @@ import (
 // GetEmployeeList 根据员工飞书用户 ID / 员工状态 / 雇员类型等搜索条件 ，批量获取员工花名册字段信息。字段包括「系统标准字段 / system_fields」和「自定义字段 / custom_fields」
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/ehr/ehr-v1/employee/list
-func (r *EHRAPI) GetEmployeeList(ctx context.Context, request *GetEmployeeListReq) (*GetEmployeeListResp, *Response, error) {
+func (r *EHRAPI) GetEmployeeList(ctx context.Context, request *GetEmployeeListReq, options ...MethodOptionFunc) (*GetEmployeeListResp, *Response, error) {
+	if r.cli.mock.mockEHRGetEmployeeList != nil {
+		return r.cli.mock.mockEHRGetEmployeeList(ctx, request, options...)
+	}
+
 	req := &RawRequestReq{
 		Method:                "GET",
 		URL:                   "https://open.feishu.cn/open-apis/ehr/v1/employees",
 		Body:                  request,
+		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
-		NeedAppAccessToken:    false,
-		NeedHelpdeskAuth:      false,
-		IsFile:                false,
 	}
 	resp := new(getEmployeeListResp)
 
@@ -29,6 +31,14 @@ func (r *EHRAPI) GetEmployeeList(ctx context.Context, request *GetEmployeeListRe
 	}
 
 	return resp.Data, response, nil
+}
+
+func (r *Mock) MockEHRGetEmployeeList(f func(ctx context.Context, request *GetEmployeeListReq, options ...MethodOptionFunc) (*GetEmployeeListResp, *Response, error)) {
+	r.mockEHRGetEmployeeList = f
+}
+
+func (r *Mock) UnMockEHRGetEmployeeList() {
+	r.mockEHRGetEmployeeList = nil
 }
 
 type GetEmployeeListReq struct {

@@ -14,15 +14,17 @@ import (
 // - 只能下载机器人自己上传的文件
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/file/get
-func (r *FileAPI) DownloadFile(ctx context.Context, request *DownloadFileReq) (*DownloadFileResp, *Response, error) {
+func (r *FileAPI) DownloadFile(ctx context.Context, request *DownloadFileReq, options ...MethodOptionFunc) (*DownloadFileResp, *Response, error) {
+	if r.cli.mock.mockFileDownloadFile != nil {
+		return r.cli.mock.mockFileDownloadFile(ctx, request, options...)
+	}
+
 	req := &RawRequestReq{
 		Method:                "GET",
 		URL:                   "https://open.feishu.cn/open-apis/im/v1/files/:file_key",
 		Body:                  request,
+		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
-		NeedAppAccessToken:    false,
-		NeedHelpdeskAuth:      false,
-		IsFile:                false,
 	}
 	resp := new(downloadFileResp)
 
@@ -34,6 +36,14 @@ func (r *FileAPI) DownloadFile(ctx context.Context, request *DownloadFileReq) (*
 	}
 
 	return resp.Data, response, nil
+}
+
+func (r *Mock) MockFileDownloadFile(f func(ctx context.Context, request *DownloadFileReq, options ...MethodOptionFunc) (*DownloadFileResp, *Response, error)) {
+	r.mockFileDownloadFile = f
+}
+
+func (r *Mock) UnMockFileDownloadFile() {
+	r.mockFileDownloadFile = nil
 }
 
 type DownloadFileReq struct {

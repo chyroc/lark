@@ -14,15 +14,17 @@ import (
 // ![image.png](//sf1-ttcdn-tos.pstatp.com/obj/open-platform-opendoc/bed391d2a8ce6ed2d5985ea69bf92850_9GY1mnuDXP.png)
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/ehr/ehr-v1/attachment/get
-func (r *EHRAPI) DownloadAttachments(ctx context.Context, request *DownloadAttachmentsReq) (*DownloadAttachmentsResp, *Response, error) {
+func (r *EHRAPI) DownloadAttachments(ctx context.Context, request *DownloadAttachmentsReq, options ...MethodOptionFunc) (*DownloadAttachmentsResp, *Response, error) {
+	if r.cli.mock.mockEHRDownloadAttachments != nil {
+		return r.cli.mock.mockEHRDownloadAttachments(ctx, request, options...)
+	}
+
 	req := &RawRequestReq{
 		Method:                "GET",
 		URL:                   "https://open.feishu.cn/open-apis/ehr/v1/attachments/:token",
 		Body:                  request,
+		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
-		NeedAppAccessToken:    false,
-		NeedHelpdeskAuth:      false,
-		IsFile:                false,
 	}
 	resp := new(downloadAttachmentsResp)
 
@@ -34,6 +36,14 @@ func (r *EHRAPI) DownloadAttachments(ctx context.Context, request *DownloadAttac
 	}
 
 	return resp.Data, response, nil
+}
+
+func (r *Mock) MockEHRDownloadAttachments(f func(ctx context.Context, request *DownloadAttachmentsReq, options ...MethodOptionFunc) (*DownloadAttachmentsResp, *Response, error)) {
+	r.mockEHRDownloadAttachments = f
+}
+
+func (r *Mock) UnMockEHRDownloadAttachments() {
+	r.mockEHRDownloadAttachments = nil
 }
 
 type DownloadAttachmentsReq struct {

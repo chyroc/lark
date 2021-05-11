@@ -9,15 +9,17 @@ import (
 // GetPublicMailboxMember 获取公共邮箱单个成员信息
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/mail-v1/public_mailbox-member/get
-func (r *MailAPI) GetPublicMailboxMember(ctx context.Context, request *GetPublicMailboxMemberReq) (*GetPublicMailboxMemberResp, *Response, error) {
+func (r *MailAPI) GetPublicMailboxMember(ctx context.Context, request *GetPublicMailboxMemberReq, options ...MethodOptionFunc) (*GetPublicMailboxMemberResp, *Response, error) {
+	if r.cli.mock.mockMailGetPublicMailboxMember != nil {
+		return r.cli.mock.mockMailGetPublicMailboxMember(ctx, request, options...)
+	}
+
 	req := &RawRequestReq{
 		Method:                "GET",
 		URL:                   "https://open.feishu.cn/open-apis/mail/v1/public_mailboxes/:public_mailbox_id/members/:member_id",
 		Body:                  request,
+		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
-		NeedAppAccessToken:    false,
-		NeedHelpdeskAuth:      false,
-		IsFile:                false,
 	}
 	resp := new(getPublicMailboxMemberResp)
 
@@ -29,6 +31,14 @@ func (r *MailAPI) GetPublicMailboxMember(ctx context.Context, request *GetPublic
 	}
 
 	return resp.Data, response, nil
+}
+
+func (r *Mock) MockMailGetPublicMailboxMember(f func(ctx context.Context, request *GetPublicMailboxMemberReq, options ...MethodOptionFunc) (*GetPublicMailboxMemberResp, *Response, error)) {
+	r.mockMailGetPublicMailboxMember = f
+}
+
+func (r *Mock) UnMockMailGetPublicMailboxMember() {
+	r.mockMailGetPublicMailboxMember = nil
 }
 
 type GetPublicMailboxMemberReq struct {

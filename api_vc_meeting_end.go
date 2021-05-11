@@ -11,15 +11,17 @@ import (
 // 会议正在进行中，且操作者须具有相应的权限（如果操作者为用户，必须是会中当前主持人）
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/vc-v1/meeting/end
-func (r *VCAPI) EndMeeting(ctx context.Context, request *EndMeetingReq) (*EndMeetingResp, *Response, error) {
+func (r *VCAPI) EndMeeting(ctx context.Context, request *EndMeetingReq, options ...MethodOptionFunc) (*EndMeetingResp, *Response, error) {
+	if r.cli.mock.mockVCEndMeeting != nil {
+		return r.cli.mock.mockVCEndMeeting(ctx, request, options...)
+	}
+
 	req := &RawRequestReq{
-		Method:                "PATCH",
-		URL:                   "https://open.feishu.cn/open-apis/vc/v1/meetings/:meeting_id/end",
-		Body:                  request,
-		NeedTenantAccessToken: false,
-		NeedAppAccessToken:    false,
-		NeedHelpdeskAuth:      false,
-		IsFile:                false,
+		Method:              "PATCH",
+		URL:                 "https://open.feishu.cn/open-apis/vc/v1/meetings/:meeting_id/end",
+		Body:                request,
+		MethodOption:        newMethodOption(options),
+		NeedUserAccessToken: true,
 	}
 	resp := new(endMeetingResp)
 
@@ -31,6 +33,14 @@ func (r *VCAPI) EndMeeting(ctx context.Context, request *EndMeetingReq) (*EndMee
 	}
 
 	return resp.Data, response, nil
+}
+
+func (r *Mock) MockVCEndMeeting(f func(ctx context.Context, request *EndMeetingReq, options ...MethodOptionFunc) (*EndMeetingResp, *Response, error)) {
+	r.mockVCEndMeeting = f
+}
+
+func (r *Mock) UnMockVCEndMeeting() {
+	r.mockVCEndMeeting = nil
 }
 
 type EndMeetingReq struct {

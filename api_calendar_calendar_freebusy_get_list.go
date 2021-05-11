@@ -9,15 +9,17 @@ import (
 // GetCalendarFreeBusyList 查询用户主日历或会议室的忙闲信息。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/freebusy/list
-func (r *CalendarAPI) GetCalendarFreeBusyList(ctx context.Context, request *GetCalendarFreeBusyListReq) (*GetCalendarFreeBusyListResp, *Response, error) {
+func (r *CalendarAPI) GetCalendarFreeBusyList(ctx context.Context, request *GetCalendarFreeBusyListReq, options ...MethodOptionFunc) (*GetCalendarFreeBusyListResp, *Response, error) {
+	if r.cli.mock.mockCalendarGetCalendarFreeBusyList != nil {
+		return r.cli.mock.mockCalendarGetCalendarFreeBusyList(ctx, request, options...)
+	}
+
 	req := &RawRequestReq{
 		Method:                "POST",
 		URL:                   "https://open.feishu.cn/open-apis/calendar/v4/freebusy/list",
 		Body:                  request,
+		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
-		NeedAppAccessToken:    false,
-		NeedHelpdeskAuth:      false,
-		IsFile:                false,
 	}
 	resp := new(getCalendarFreeBusyListResp)
 
@@ -29,6 +31,14 @@ func (r *CalendarAPI) GetCalendarFreeBusyList(ctx context.Context, request *GetC
 	}
 
 	return resp.Data, response, nil
+}
+
+func (r *Mock) MockCalendarGetCalendarFreeBusyList(f func(ctx context.Context, request *GetCalendarFreeBusyListReq, options ...MethodOptionFunc) (*GetCalendarFreeBusyListResp, *Response, error)) {
+	r.mockCalendarGetCalendarFreeBusyList = f
+}
+
+func (r *Mock) UnMockCalendarGetCalendarFreeBusyList() {
+	r.mockCalendarGetCalendarFreeBusyList = nil
 }
 
 type GetCalendarFreeBusyListReq struct {

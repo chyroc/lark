@@ -11,15 +11,17 @@ import (
 // 如果ISV应用是预装的并且180天内企业未使用过此应用，则无法通过此接口获取到企业信息
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/tenant-v2/tenant/query
-func (r *TenantAPI) QueryTenant(ctx context.Context, request *QueryTenantReq) (*QueryTenantResp, *Response, error) {
+func (r *TenantAPI) QueryTenant(ctx context.Context, request *QueryTenantReq, options ...MethodOptionFunc) (*QueryTenantResp, *Response, error) {
+	if r.cli.mock.mockTenantQueryTenant != nil {
+		return r.cli.mock.mockTenantQueryTenant(ctx, request, options...)
+	}
+
 	req := &RawRequestReq{
 		Method:                "GET",
 		URL:                   "https://open.feishu.cn/open-apis/tenant/v2/tenant/query",
 		Body:                  request,
+		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
-		NeedAppAccessToken:    false,
-		NeedHelpdeskAuth:      false,
-		IsFile:                false,
 	}
 	resp := new(queryTenantResp)
 
@@ -31,6 +33,14 @@ func (r *TenantAPI) QueryTenant(ctx context.Context, request *QueryTenantReq) (*
 	}
 
 	return resp.Data, response, nil
+}
+
+func (r *Mock) MockTenantQueryTenant(f func(ctx context.Context, request *QueryTenantReq, options ...MethodOptionFunc) (*QueryTenantResp, *Response, error)) {
+	r.mockTenantQueryTenant = f
+}
+
+func (r *Mock) UnMockTenantQueryTenant() {
+	r.mockTenantQueryTenant = nil
 }
 
 type QueryTenantReq struct{}

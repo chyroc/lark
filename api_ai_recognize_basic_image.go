@@ -11,15 +11,17 @@ import (
 // 单租户限流：20QPS，同租户下的应用没有限流，共享本租户的 20QPS 限流
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/ai/optical_char_recognition-v1/image/basic_recognize
-func (r *AIAPI) RecognizeBasicImage(ctx context.Context, request *RecognizeBasicImageReq) (*RecognizeBasicImageResp, *Response, error) {
+func (r *AIAPI) RecognizeBasicImage(ctx context.Context, request *RecognizeBasicImageReq, options ...MethodOptionFunc) (*RecognizeBasicImageResp, *Response, error) {
+	if r.cli.mock.mockAIRecognizeBasicImage != nil {
+		return r.cli.mock.mockAIRecognizeBasicImage(ctx, request, options...)
+	}
+
 	req := &RawRequestReq{
 		Method:                "POST",
 		URL:                   "https://open.feishu.cn/open-apis/optical_char_recognition/v1/image/basic_recognize",
 		Body:                  request,
+		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
-		NeedAppAccessToken:    false,
-		NeedHelpdeskAuth:      false,
-		IsFile:                false,
 	}
 	resp := new(recognizeBasicImageResp)
 
@@ -31,6 +33,14 @@ func (r *AIAPI) RecognizeBasicImage(ctx context.Context, request *RecognizeBasic
 	}
 
 	return resp.Data, response, nil
+}
+
+func (r *Mock) MockAIRecognizeBasicImage(f func(ctx context.Context, request *RecognizeBasicImageReq, options ...MethodOptionFunc) (*RecognizeBasicImageResp, *Response, error)) {
+	r.mockAIRecognizeBasicImage = f
+}
+
+func (r *Mock) UnMockAIRecognizeBasicImage() {
+	r.mockAIRecognizeBasicImage = nil
 }
 
 type RecognizeBasicImageReq struct {

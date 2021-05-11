@@ -11,15 +11,17 @@ import (
 // 应用需要拥有待更新用户的通讯录授权，如果涉及到用户部门变更，还需要同时拥有所有新部门的通讯录授权。应用商店应用无权限调用此接口。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/update
-func (r *ContactAPI) UpdateUser(ctx context.Context, request *UpdateUserReq) (*UpdateUserResp, *Response, error) {
+func (r *ContactAPI) UpdateUser(ctx context.Context, request *UpdateUserReq, options ...MethodOptionFunc) (*UpdateUserResp, *Response, error) {
+	if r.cli.mock.mockContactUpdateUser != nil {
+		return r.cli.mock.mockContactUpdateUser(ctx, request, options...)
+	}
+
 	req := &RawRequestReq{
 		Method:                "PUT",
 		URL:                   "https://open.feishu.cn/open-apis/contact/v3/users/:user_id",
 		Body:                  request,
+		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
-		NeedAppAccessToken:    false,
-		NeedHelpdeskAuth:      false,
-		IsFile:                false,
 	}
 	resp := new(updateUserResp)
 
@@ -31,6 +33,14 @@ func (r *ContactAPI) UpdateUser(ctx context.Context, request *UpdateUserReq) (*U
 	}
 
 	return resp.Data, response, nil
+}
+
+func (r *Mock) MockContactUpdateUser(f func(ctx context.Context, request *UpdateUserReq, options ...MethodOptionFunc) (*UpdateUserResp, *Response, error)) {
+	r.mockContactUpdateUser = f
+}
+
+func (r *Mock) UnMockContactUpdateUser() {
+	r.mockContactUpdateUser = nil
 }
 
 type UpdateUserReq struct {

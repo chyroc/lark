@@ -9,15 +9,17 @@ import (
 // CreateCalendarTimeoffEvent 为指定用户创建一个请假日程，可以是一个普通请假日程，也可以是一个全天日程。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/timeoff_event/create
-func (r *CalendarAPI) CreateCalendarTimeoffEvent(ctx context.Context, request *CreateCalendarTimeoffEventReq) (*CreateCalendarTimeoffEventResp, *Response, error) {
+func (r *CalendarAPI) CreateCalendarTimeoffEvent(ctx context.Context, request *CreateCalendarTimeoffEventReq, options ...MethodOptionFunc) (*CreateCalendarTimeoffEventResp, *Response, error) {
+	if r.cli.mock.mockCalendarCreateCalendarTimeoffEvent != nil {
+		return r.cli.mock.mockCalendarCreateCalendarTimeoffEvent(ctx, request, options...)
+	}
+
 	req := &RawRequestReq{
 		Method:                "POST",
 		URL:                   "https://open.feishu.cn/open-apis/calendar/v4/timeoff_events",
 		Body:                  request,
+		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
-		NeedAppAccessToken:    false,
-		NeedHelpdeskAuth:      false,
-		IsFile:                false,
 	}
 	resp := new(createCalendarTimeoffEventResp)
 
@@ -29,6 +31,14 @@ func (r *CalendarAPI) CreateCalendarTimeoffEvent(ctx context.Context, request *C
 	}
 
 	return resp.Data, response, nil
+}
+
+func (r *Mock) MockCalendarCreateCalendarTimeoffEvent(f func(ctx context.Context, request *CreateCalendarTimeoffEventReq, options ...MethodOptionFunc) (*CreateCalendarTimeoffEventResp, *Response, error)) {
+	r.mockCalendarCreateCalendarTimeoffEvent = f
+}
+
+func (r *Mock) UnMockCalendarCreateCalendarTimeoffEvent() {
+	r.mockCalendarCreateCalendarTimeoffEvent = nil
 }
 
 type CreateCalendarTimeoffEventReq struct {

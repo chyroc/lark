@@ -9,15 +9,17 @@ import (
 // GetMailGroupPermissionMember 获取邮件组单个权限成员信息
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/mail-v1/mailgroup-permission_member/get
-func (r *MailAPI) GetMailGroupPermissionMember(ctx context.Context, request *GetMailGroupPermissionMemberReq) (*GetMailGroupPermissionMemberResp, *Response, error) {
+func (r *MailAPI) GetMailGroupPermissionMember(ctx context.Context, request *GetMailGroupPermissionMemberReq, options ...MethodOptionFunc) (*GetMailGroupPermissionMemberResp, *Response, error) {
+	if r.cli.mock.mockMailGetMailGroupPermissionMember != nil {
+		return r.cli.mock.mockMailGetMailGroupPermissionMember(ctx, request, options...)
+	}
+
 	req := &RawRequestReq{
 		Method:                "GET",
 		URL:                   "https://open.feishu.cn/open-apis/mail/v1/mailgroups/:mailgroup_id/permission_members/:permission_member_id",
 		Body:                  request,
+		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
-		NeedAppAccessToken:    false,
-		NeedHelpdeskAuth:      false,
-		IsFile:                false,
 	}
 	resp := new(getMailGroupPermissionMemberResp)
 
@@ -29,6 +31,14 @@ func (r *MailAPI) GetMailGroupPermissionMember(ctx context.Context, request *Get
 	}
 
 	return resp.Data, response, nil
+}
+
+func (r *Mock) MockMailGetMailGroupPermissionMember(f func(ctx context.Context, request *GetMailGroupPermissionMemberReq, options ...MethodOptionFunc) (*GetMailGroupPermissionMemberResp, *Response, error)) {
+	r.mockMailGetMailGroupPermissionMember = f
+}
+
+func (r *Mock) UnMockMailGetMailGroupPermissionMember() {
+	r.mockMailGetMailGroupPermissionMember = nil
 }
 
 type GetMailGroupPermissionMemberReq struct {

@@ -14,15 +14,18 @@ import (
 // - 每次请求，最多移除50个用户或者5个机器人
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-members/delete
-func (r *ChatAPI) DeleteMember(ctx context.Context, request *DeleteMemberReq) (*DeleteMemberResp, *Response, error) {
+func (r *ChatAPI) DeleteMember(ctx context.Context, request *DeleteMemberReq, options ...MethodOptionFunc) (*DeleteMemberResp, *Response, error) {
+	if r.cli.mock.mockChatDeleteMember != nil {
+		return r.cli.mock.mockChatDeleteMember(ctx, request, options...)
+	}
+
 	req := &RawRequestReq{
 		Method:                "DELETE",
 		URL:                   "https://open.feishu.cn/open-apis/im/v1/chats/:chat_id/members",
 		Body:                  request,
+		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
-		NeedAppAccessToken:    false,
-		NeedHelpdeskAuth:      false,
-		IsFile:                false,
+		NeedUserAccessToken:   true,
 	}
 	resp := new(deleteMemberResp)
 
@@ -34,6 +37,14 @@ func (r *ChatAPI) DeleteMember(ctx context.Context, request *DeleteMemberReq) (*
 	}
 
 	return resp.Data, response, nil
+}
+
+func (r *Mock) MockChatDeleteMember(f func(ctx context.Context, request *DeleteMemberReq, options ...MethodOptionFunc) (*DeleteMemberResp, *Response, error)) {
+	r.mockChatDeleteMember = f
+}
+
+func (r *Mock) UnMockChatDeleteMember() {
+	r.mockChatDeleteMember = nil
 }
 
 type DeleteMemberReq struct {

@@ -9,15 +9,17 @@ import (
 // BatchGetBuildingID 该接口用于删除建筑物（办公大楼）。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uMzMxYjLzMTM24yMzEjN
-func (r *MeetingRoomAPI) BatchGetBuildingID(ctx context.Context, request *BatchGetBuildingIDReq) (*BatchGetBuildingIDResp, *Response, error) {
+func (r *MeetingRoomAPI) BatchGetBuildingID(ctx context.Context, request *BatchGetBuildingIDReq, options ...MethodOptionFunc) (*BatchGetBuildingIDResp, *Response, error) {
+	if r.cli.mock.mockMeetingRoomBatchGetBuildingID != nil {
+		return r.cli.mock.mockMeetingRoomBatchGetBuildingID(ctx, request, options...)
+	}
+
 	req := &RawRequestReq{
 		Method:                "POST",
 		URL:                   "https://open.feishu.cn/open-apis/meeting_room/building/delete",
 		Body:                  request,
+		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
-		NeedAppAccessToken:    false,
-		NeedHelpdeskAuth:      false,
-		IsFile:                false,
 	}
 	resp := new(batchGetBuildingIDResp)
 
@@ -29,6 +31,14 @@ func (r *MeetingRoomAPI) BatchGetBuildingID(ctx context.Context, request *BatchG
 	}
 
 	return resp.Data, response, nil
+}
+
+func (r *Mock) MockMeetingRoomBatchGetBuildingID(f func(ctx context.Context, request *BatchGetBuildingIDReq, options ...MethodOptionFunc) (*BatchGetBuildingIDResp, *Response, error)) {
+	r.mockMeetingRoomBatchGetBuildingID = f
+}
+
+func (r *Mock) UnMockMeetingRoomBatchGetBuildingID() {
+	r.mockMeetingRoomBatchGetBuildingID = nil
 }
 
 type BatchGetBuildingIDReq struct {

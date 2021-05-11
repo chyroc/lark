@@ -11,15 +11,17 @@ import (
 // 获取授权内员工的补卡记录。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/Attendance//GetUsersRemedyRecords
-func (r *AttendanceAPI) GetUserTaskRemedy(ctx context.Context, request *GetUserTaskRemedyReq) (*GetUserTaskRemedyResp, *Response, error) {
+func (r *AttendanceAPI) GetUserTaskRemedy(ctx context.Context, request *GetUserTaskRemedyReq, options ...MethodOptionFunc) (*GetUserTaskRemedyResp, *Response, error) {
+	if r.cli.mock.mockAttendanceGetUserTaskRemedy != nil {
+		return r.cli.mock.mockAttendanceGetUserTaskRemedy(ctx, request, options...)
+	}
+
 	req := &RawRequestReq{
 		Method:                "POST",
 		URL:                   "https://open.feishu.cn/open-apis/attendance/v1/user_task_remedys/query",
 		Body:                  request,
+		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
-		NeedAppAccessToken:    false,
-		NeedHelpdeskAuth:      false,
-		IsFile:                false,
 	}
 	resp := new(getUserTaskRemedyResp)
 
@@ -31,6 +33,14 @@ func (r *AttendanceAPI) GetUserTaskRemedy(ctx context.Context, request *GetUserT
 	}
 
 	return resp.Data, response, nil
+}
+
+func (r *Mock) MockAttendanceGetUserTaskRemedy(f func(ctx context.Context, request *GetUserTaskRemedyReq, options ...MethodOptionFunc) (*GetUserTaskRemedyResp, *Response, error)) {
+	r.mockAttendanceGetUserTaskRemedy = f
+}
+
+func (r *Mock) UnMockAttendanceGetUserTaskRemedy() {
+	r.mockAttendanceGetUserTaskRemedy = nil
 }
 
 type GetUserTaskRemedyReq struct {

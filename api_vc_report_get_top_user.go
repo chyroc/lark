@@ -11,15 +11,17 @@ import (
 // 支持最近90天内的数据查询；默认返回前10位，最多可查询前100位
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/vc-v1/report/get_top_user
-func (r *VCAPI) GetTopUserReport(ctx context.Context, request *GetTopUserReportReq) (*GetTopUserReportResp, *Response, error) {
+func (r *VCAPI) GetTopUserReport(ctx context.Context, request *GetTopUserReportReq, options ...MethodOptionFunc) (*GetTopUserReportResp, *Response, error) {
+	if r.cli.mock.mockVCGetTopUserReport != nil {
+		return r.cli.mock.mockVCGetTopUserReport(ctx, request, options...)
+	}
+
 	req := &RawRequestReq{
 		Method:                "GET",
 		URL:                   "https://open.feishu.cn/open-apis/vc/v1/reports/get_top_user",
 		Body:                  request,
+		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
-		NeedAppAccessToken:    false,
-		NeedHelpdeskAuth:      false,
-		IsFile:                false,
 	}
 	resp := new(getTopUserReportResp)
 
@@ -31,6 +33,14 @@ func (r *VCAPI) GetTopUserReport(ctx context.Context, request *GetTopUserReportR
 	}
 
 	return resp.Data, response, nil
+}
+
+func (r *Mock) MockVCGetTopUserReport(f func(ctx context.Context, request *GetTopUserReportReq, options ...MethodOptionFunc) (*GetTopUserReportResp, *Response, error)) {
+	r.mockVCGetTopUserReport = f
+}
+
+func (r *Mock) UnMockVCGetTopUserReport() {
+	r.mockVCGetTopUserReport = nil
 }
 
 type GetTopUserReportReq struct {

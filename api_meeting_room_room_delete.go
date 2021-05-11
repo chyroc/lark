@@ -9,15 +9,17 @@ import (
 // DeleteRoom 该接口用于删除会议室。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uUzMxYjL1MTM24SNzEjN
-func (r *MeetingRoomAPI) DeleteRoom(ctx context.Context, request *DeleteRoomReq) (*DeleteRoomResp, *Response, error) {
+func (r *MeetingRoomAPI) DeleteRoom(ctx context.Context, request *DeleteRoomReq, options ...MethodOptionFunc) (*DeleteRoomResp, *Response, error) {
+	if r.cli.mock.mockMeetingRoomDeleteRoom != nil {
+		return r.cli.mock.mockMeetingRoomDeleteRoom(ctx, request, options...)
+	}
+
 	req := &RawRequestReq{
 		Method:                "POST",
 		URL:                   "https://open.feishu.cn/open-apis/meeting_room/room/delete",
 		Body:                  request,
+		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
-		NeedAppAccessToken:    false,
-		NeedHelpdeskAuth:      false,
-		IsFile:                false,
 	}
 	resp := new(deleteRoomResp)
 
@@ -29,6 +31,14 @@ func (r *MeetingRoomAPI) DeleteRoom(ctx context.Context, request *DeleteRoomReq)
 	}
 
 	return resp.Data, response, nil
+}
+
+func (r *Mock) MockMeetingRoomDeleteRoom(f func(ctx context.Context, request *DeleteRoomReq, options ...MethodOptionFunc) (*DeleteRoomResp, *Response, error)) {
+	r.mockMeetingRoomDeleteRoom = f
+}
+
+func (r *Mock) UnMockMeetingRoomDeleteRoom() {
+	r.mockMeetingRoomDeleteRoom = nil
 }
 
 type DeleteRoomReq struct {

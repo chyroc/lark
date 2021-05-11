@@ -9,15 +9,18 @@ import (
 // DeleteFAQ 该接口用于删除知识库。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/faq/delete
-func (r *HelpdeskAPI) DeleteFAQ(ctx context.Context, request *DeleteFAQReq) (*DeleteFAQResp, *Response, error) {
+func (r *HelpdeskAPI) DeleteFAQ(ctx context.Context, request *DeleteFAQReq, options ...MethodOptionFunc) (*DeleteFAQResp, *Response, error) {
+	if r.cli.mock.mockHelpdeskDeleteFAQ != nil {
+		return r.cli.mock.mockHelpdeskDeleteFAQ(ctx, request, options...)
+	}
+
 	req := &RawRequestReq{
-		Method:                "DELETE",
-		URL:                   "https://open.feishu.cn/open-apis/helpdesk/v1/faqs/:id",
-		Body:                  request,
-		NeedTenantAccessToken: false,
-		NeedAppAccessToken:    false,
-		NeedHelpdeskAuth:      true,
-		IsFile:                false,
+		Method:              "DELETE",
+		URL:                 "https://open.feishu.cn/open-apis/helpdesk/v1/faqs/:id",
+		Body:                request,
+		MethodOption:        newMethodOption(options),
+		NeedUserAccessToken: true,
+		NeedHelpdeskAuth:    true,
 	}
 	resp := new(deleteFAQResp)
 
@@ -29,6 +32,14 @@ func (r *HelpdeskAPI) DeleteFAQ(ctx context.Context, request *DeleteFAQReq) (*De
 	}
 
 	return resp.Data, response, nil
+}
+
+func (r *Mock) MockHelpdeskDeleteFAQ(f func(ctx context.Context, request *DeleteFAQReq, options ...MethodOptionFunc) (*DeleteFAQResp, *Response, error)) {
+	r.mockHelpdeskDeleteFAQ = f
+}
+
+func (r *Mock) UnMockHelpdeskDeleteFAQ() {
+	r.mockHelpdeskDeleteFAQ = nil
 }
 
 type DeleteFAQReq struct {

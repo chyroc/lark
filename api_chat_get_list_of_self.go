@@ -12,15 +12,18 @@ import (
 // - 应用需要开启[机器人能力](https://open.feishu.cn/document/uQjL04CN/uYTMuYTMuYTM)
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat/list
-func (r *ChatAPI) GetChatListOfSelf(ctx context.Context, request *GetChatListOfSelfReq) (*GetChatListOfSelfResp, *Response, error) {
+func (r *ChatAPI) GetChatListOfSelf(ctx context.Context, request *GetChatListOfSelfReq, options ...MethodOptionFunc) (*GetChatListOfSelfResp, *Response, error) {
+	if r.cli.mock.mockChatGetChatListOfSelf != nil {
+		return r.cli.mock.mockChatGetChatListOfSelf(ctx, request, options...)
+	}
+
 	req := &RawRequestReq{
 		Method:                "GET",
 		URL:                   "https://open.feishu.cn/open-apis/im/v1/chats",
 		Body:                  request,
+		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
-		NeedAppAccessToken:    false,
-		NeedHelpdeskAuth:      false,
-		IsFile:                false,
+		NeedUserAccessToken:   true,
 	}
 	resp := new(getChatListOfSelfResp)
 
@@ -32,6 +35,14 @@ func (r *ChatAPI) GetChatListOfSelf(ctx context.Context, request *GetChatListOfS
 	}
 
 	return resp.Data, response, nil
+}
+
+func (r *Mock) MockChatGetChatListOfSelf(f func(ctx context.Context, request *GetChatListOfSelfReq, options ...MethodOptionFunc) (*GetChatListOfSelfResp, *Response, error)) {
+	r.mockChatGetChatListOfSelf = f
+}
+
+func (r *Mock) UnMockChatGetChatListOfSelf() {
+	r.mockChatGetChatListOfSelf = nil
 }
 
 type GetChatListOfSelfReq struct {

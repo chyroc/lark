@@ -703,11 +703,6 @@
         "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/ticket_customized_field/create-ticket-customized-field"
       },
       {
-        "file_name": "api_helpdesk_ticket_customized_field_delete.go",
-        "func_name": "DeleteTicketCustomizedField",
-        "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/ticket_customized_field/delete"
-      },
-      {
         "file_name": "api_helpdesk_ticket_customized_field_get.go",
         "func_name": "GetTicketCustomizedField",
         "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/ticket_customized_field/get-ticket-customized-field"
@@ -911,11 +906,6 @@
         "file_name": "api_attendance_user_statistics_settings_get.go",
         "func_name": "GetUserStatisticsSettings",
         "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/Attendance//task/query-user-statistics-settings"
-      },
-      {
-        "file_name": "api_attendance_user_daily_shift_get.go",
-        "func_name": "GetUserDailyShift",
-        "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/Attendance//task/GetScheduledShifts"
       },
       {
         "file_name": "api_attendance_user_daily_shift_get.go",

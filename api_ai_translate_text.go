@@ -11,15 +11,17 @@ import (
 // 单租户限流：20QPS，同租户下的应用没有限流，共享本租户的 20QPS 限流
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/ai/translation-v1/text/translate
-func (r *AIAPI) TranslateText(ctx context.Context, request *TranslateTextReq) (*TranslateTextResp, *Response, error) {
+func (r *AIAPI) TranslateText(ctx context.Context, request *TranslateTextReq, options ...MethodOptionFunc) (*TranslateTextResp, *Response, error) {
+	if r.cli.mock.mockAITranslateText != nil {
+		return r.cli.mock.mockAITranslateText(ctx, request, options...)
+	}
+
 	req := &RawRequestReq{
 		Method:                "POST",
 		URL:                   "https://open.feishu.cn/open-apis/translation/v1/text/translate",
 		Body:                  request,
+		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
-		NeedAppAccessToken:    false,
-		NeedHelpdeskAuth:      false,
-		IsFile:                false,
 	}
 	resp := new(translateTextResp)
 
@@ -31,6 +33,14 @@ func (r *AIAPI) TranslateText(ctx context.Context, request *TranslateTextReq) (*
 	}
 
 	return resp.Data, response, nil
+}
+
+func (r *Mock) MockAITranslateText(f func(ctx context.Context, request *TranslateTextReq, options ...MethodOptionFunc) (*TranslateTextResp, *Response, error)) {
+	r.mockAITranslateText = f
+}
+
+func (r *Mock) UnMockAITranslateText() {
+	r.mockAITranslateText = nil
 }
 
 type TranslateTextReq struct {

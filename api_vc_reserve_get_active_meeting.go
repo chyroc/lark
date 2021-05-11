@@ -11,15 +11,17 @@ import (
 // 只能获取归属于自己的预约的活跃会议（一个预约最多有一个正在进行中的会议）
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/vc-v1/reserve/get_active_meeting
-func (r *VCAPI) GetReserveActiveMeeting(ctx context.Context, request *GetReserveActiveMeetingReq) (*GetReserveActiveMeetingResp, *Response, error) {
+func (r *VCAPI) GetReserveActiveMeeting(ctx context.Context, request *GetReserveActiveMeetingReq, options ...MethodOptionFunc) (*GetReserveActiveMeetingResp, *Response, error) {
+	if r.cli.mock.mockVCGetReserveActiveMeeting != nil {
+		return r.cli.mock.mockVCGetReserveActiveMeeting(ctx, request, options...)
+	}
+
 	req := &RawRequestReq{
-		Method:                "GET",
-		URL:                   "https://open.feishu.cn/open-apis/vc/v1/reserves/:reserve_id/get_active_meeting",
-		Body:                  request,
-		NeedTenantAccessToken: false,
-		NeedAppAccessToken:    false,
-		NeedHelpdeskAuth:      false,
-		IsFile:                false,
+		Method:              "GET",
+		URL:                 "https://open.feishu.cn/open-apis/vc/v1/reserves/:reserve_id/get_active_meeting",
+		Body:                request,
+		MethodOption:        newMethodOption(options),
+		NeedUserAccessToken: true,
 	}
 	resp := new(getReserveActiveMeetingResp)
 
@@ -31,6 +33,14 @@ func (r *VCAPI) GetReserveActiveMeeting(ctx context.Context, request *GetReserve
 	}
 
 	return resp.Data, response, nil
+}
+
+func (r *Mock) MockVCGetReserveActiveMeeting(f func(ctx context.Context, request *GetReserveActiveMeetingReq, options ...MethodOptionFunc) (*GetReserveActiveMeetingResp, *Response, error)) {
+	r.mockVCGetReserveActiveMeeting = f
+}
+
+func (r *Mock) UnMockVCGetReserveActiveMeeting() {
+	r.mockVCGetReserveActiveMeeting = nil
 }
 
 type GetReserveActiveMeetingReq struct {

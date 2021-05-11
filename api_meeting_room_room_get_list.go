@@ -9,15 +9,17 @@ import (
 // GetRoomList 该接口用于获取指定建筑下的会议室。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uADOyUjLwgjM14CM4ITN
-func (r *MeetingRoomAPI) GetRoomList(ctx context.Context, request *GetRoomListReq) (*GetRoomListResp, *Response, error) {
+func (r *MeetingRoomAPI) GetRoomList(ctx context.Context, request *GetRoomListReq, options ...MethodOptionFunc) (*GetRoomListResp, *Response, error) {
+	if r.cli.mock.mockMeetingRoomGetRoomList != nil {
+		return r.cli.mock.mockMeetingRoomGetRoomList(ctx, request, options...)
+	}
+
 	req := &RawRequestReq{
 		Method:                "GET",
 		URL:                   "https://open.feishu.cn/open-apis/meeting_room/room/list?building_id=omb_8ec170b937536a5d87c23b418b83f9bb&page_size=1&page_token=0&order_by=name-asc&fields=*",
 		Body:                  request,
+		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
-		NeedAppAccessToken:    false,
-		NeedHelpdeskAuth:      false,
-		IsFile:                false,
 	}
 	resp := new(getRoomListResp)
 
@@ -29,6 +31,14 @@ func (r *MeetingRoomAPI) GetRoomList(ctx context.Context, request *GetRoomListRe
 	}
 
 	return resp.Data, response, nil
+}
+
+func (r *Mock) MockMeetingRoomGetRoomList(f func(ctx context.Context, request *GetRoomListReq, options ...MethodOptionFunc) (*GetRoomListResp, *Response, error)) {
+	r.mockMeetingRoomGetRoomList = f
+}
+
+func (r *Mock) UnMockMeetingRoomGetRoomList() {
+	r.mockMeetingRoomGetRoomList = nil
 }
 
 type GetRoomListReq struct {

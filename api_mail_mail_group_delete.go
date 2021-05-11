@@ -9,15 +9,17 @@ import (
 // DeleteMailGroup 删除一个邮件组
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/mail-v1/mailgroup/delete
-func (r *MailAPI) DeleteMailGroup(ctx context.Context, request *DeleteMailGroupReq) (*DeleteMailGroupResp, *Response, error) {
+func (r *MailAPI) DeleteMailGroup(ctx context.Context, request *DeleteMailGroupReq, options ...MethodOptionFunc) (*DeleteMailGroupResp, *Response, error) {
+	if r.cli.mock.mockMailDeleteMailGroup != nil {
+		return r.cli.mock.mockMailDeleteMailGroup(ctx, request, options...)
+	}
+
 	req := &RawRequestReq{
 		Method:                "DELETE",
 		URL:                   "https://open.feishu.cn/open-apis/mail/v1/mailgroups/:mailgroup_id",
 		Body:                  request,
+		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
-		NeedAppAccessToken:    false,
-		NeedHelpdeskAuth:      false,
-		IsFile:                false,
 	}
 	resp := new(deleteMailGroupResp)
 
@@ -29,6 +31,14 @@ func (r *MailAPI) DeleteMailGroup(ctx context.Context, request *DeleteMailGroupR
 	}
 
 	return resp.Data, response, nil
+}
+
+func (r *Mock) MockMailDeleteMailGroup(f func(ctx context.Context, request *DeleteMailGroupReq, options ...MethodOptionFunc) (*DeleteMailGroupResp, *Response, error)) {
+	r.mockMailDeleteMailGroup = f
+}
+
+func (r *Mock) UnMockMailDeleteMailGroup() {
+	r.mockMailDeleteMailGroup = nil
 }
 
 type DeleteMailGroupReq struct {

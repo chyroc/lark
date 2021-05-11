@@ -12,15 +12,17 @@ import (
 // 如果只需获取打卡结果，而不需要打卡的详细数据，可使用“获取打卡结果”的接口。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/Attendance//BatchQueryCheckinFlowHistory
-func (r *AttendanceAPI) BatchGetUserFlow(ctx context.Context, request *BatchGetUserFlowReq) (*BatchGetUserFlowResp, *Response, error) {
+func (r *AttendanceAPI) BatchGetUserFlow(ctx context.Context, request *BatchGetUserFlowReq, options ...MethodOptionFunc) (*BatchGetUserFlowResp, *Response, error) {
+	if r.cli.mock.mockAttendanceBatchGetUserFlow != nil {
+		return r.cli.mock.mockAttendanceBatchGetUserFlow(ctx, request, options...)
+	}
+
 	req := &RawRequestReq{
 		Method:                "POST",
 		URL:                   "https://open.feishu.cn/open-apis/attendance/v1/user_flows/query",
 		Body:                  request,
+		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
-		NeedAppAccessToken:    false,
-		NeedHelpdeskAuth:      false,
-		IsFile:                false,
 	}
 	resp := new(batchGetUserFlowResp)
 
@@ -32,6 +34,14 @@ func (r *AttendanceAPI) BatchGetUserFlow(ctx context.Context, request *BatchGetU
 	}
 
 	return resp.Data, response, nil
+}
+
+func (r *Mock) MockAttendanceBatchGetUserFlow(f func(ctx context.Context, request *BatchGetUserFlowReq, options ...MethodOptionFunc) (*BatchGetUserFlowResp, *Response, error)) {
+	r.mockAttendanceBatchGetUserFlow = f
+}
+
+func (r *Mock) UnMockAttendanceBatchGetUserFlow() {
+	r.mockAttendanceBatchGetUserFlow = nil
 }
 
 type BatchGetUserFlowReq struct {

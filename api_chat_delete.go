@@ -13,15 +13,18 @@ import (
 // - 仅有 群主 或 创建群组且具备[更新应用所创建群的群信息]权限的机器人，可解散群
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat/delete
-func (r *ChatAPI) DeleteChat(ctx context.Context, request *DeleteChatReq) (*DeleteChatResp, *Response, error) {
+func (r *ChatAPI) DeleteChat(ctx context.Context, request *DeleteChatReq, options ...MethodOptionFunc) (*DeleteChatResp, *Response, error) {
+	if r.cli.mock.mockChatDeleteChat != nil {
+		return r.cli.mock.mockChatDeleteChat(ctx, request, options...)
+	}
+
 	req := &RawRequestReq{
 		Method:                "DELETE",
 		URL:                   "https://open.feishu.cn/open-apis/im/v1/chats/:chat_id",
 		Body:                  request,
+		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
-		NeedAppAccessToken:    false,
-		NeedHelpdeskAuth:      false,
-		IsFile:                false,
+		NeedUserAccessToken:   true,
 	}
 	resp := new(deleteChatResp)
 
@@ -33,6 +36,14 @@ func (r *ChatAPI) DeleteChat(ctx context.Context, request *DeleteChatReq) (*Dele
 	}
 
 	return resp.Data, response, nil
+}
+
+func (r *Mock) MockChatDeleteChat(f func(ctx context.Context, request *DeleteChatReq, options ...MethodOptionFunc) (*DeleteChatResp, *Response, error)) {
+	r.mockChatDeleteChat = f
+}
+
+func (r *Mock) UnMockChatDeleteChat() {
+	r.mockChatDeleteChat = nil
 }
 
 type DeleteChatReq struct {

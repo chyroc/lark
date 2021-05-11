@@ -15,15 +15,17 @@ import (
 // - 请求的 file_key 和 message_id 需要匹配
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message-resource/get
-func (r *MessageAPI) GetMessageFile(ctx context.Context, request *GetMessageFileReq) (*GetMessageFileResp, *Response, error) {
+func (r *MessageAPI) GetMessageFile(ctx context.Context, request *GetMessageFileReq, options ...MethodOptionFunc) (*GetMessageFileResp, *Response, error) {
+	if r.cli.mock.mockMessageGetMessageFile != nil {
+		return r.cli.mock.mockMessageGetMessageFile(ctx, request, options...)
+	}
+
 	req := &RawRequestReq{
 		Method:                "GET",
 		URL:                   "https://open.feishu.cn/open-apis/im/v1/messages/:message_id/resources/:file_key",
 		Body:                  request,
+		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
-		NeedAppAccessToken:    false,
-		NeedHelpdeskAuth:      false,
-		IsFile:                false,
 	}
 	resp := new(getMessageFileResp)
 
@@ -35,6 +37,14 @@ func (r *MessageAPI) GetMessageFile(ctx context.Context, request *GetMessageFile
 	}
 
 	return resp.Data, response, nil
+}
+
+func (r *Mock) MockMessageGetMessageFile(f func(ctx context.Context, request *GetMessageFileReq, options ...MethodOptionFunc) (*GetMessageFileResp, *Response, error)) {
+	r.mockMessageGetMessageFile = f
+}
+
+func (r *Mock) UnMockMessageGetMessageFile() {
+	r.mockMessageGetMessageFile = nil
 }
 
 type GetMessageFileReq struct {

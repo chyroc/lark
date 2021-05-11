@@ -14,15 +14,17 @@ import (
 // 无源人脸比对流程，开发者后台通过调用此接口请求飞书后台，对本次活体比对结果做校验。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/human_authentication-v1/face/query-recognition-result
-func (r *HumanAuthAPI) GetFaceVerifyAuthResult(ctx context.Context, request *GetFaceVerifyAuthResultReq) (*GetFaceVerifyAuthResultResp, *Response, error) {
+func (r *HumanAuthAPI) GetFaceVerifyAuthResult(ctx context.Context, request *GetFaceVerifyAuthResultReq, options ...MethodOptionFunc) (*GetFaceVerifyAuthResultResp, *Response, error) {
+	if r.cli.mock.mockHumanAuthGetFaceVerifyAuthResult != nil {
+		return r.cli.mock.mockHumanAuthGetFaceVerifyAuthResult(ctx, request, options...)
+	}
+
 	req := &RawRequestReq{
 		Method:                "GET",
 		URL:                   "https://open.feishu.cn/open-apis/face_verify/v1/query_auth_result",
 		Body:                  request,
+		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
-		NeedAppAccessToken:    false,
-		NeedHelpdeskAuth:      false,
-		IsFile:                false,
 	}
 	resp := new(getFaceVerifyAuthResultResp)
 
@@ -34,6 +36,14 @@ func (r *HumanAuthAPI) GetFaceVerifyAuthResult(ctx context.Context, request *Get
 	}
 
 	return resp.Data, response, nil
+}
+
+func (r *Mock) MockHumanAuthGetFaceVerifyAuthResult(f func(ctx context.Context, request *GetFaceVerifyAuthResultReq, options ...MethodOptionFunc) (*GetFaceVerifyAuthResultResp, *Response, error)) {
+	r.mockHumanAuthGetFaceVerifyAuthResult = f
+}
+
+func (r *Mock) UnMockHumanAuthGetFaceVerifyAuthResult() {
+	r.mockHumanAuthGetFaceVerifyAuthResult = nil
 }
 
 type GetFaceVerifyAuthResultReq struct {

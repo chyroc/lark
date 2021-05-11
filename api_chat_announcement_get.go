@@ -12,15 +12,18 @@ import (
 // - 应用需要开启[机器人能力](https://open.feishu.cn/document/uQjL04CN/uYTMuYTMuYTM)
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-announcement/get
-func (r *ChatAPI) GetAnnouncement(ctx context.Context, request *GetAnnouncementReq) (*GetAnnouncementResp, *Response, error) {
+func (r *ChatAPI) GetAnnouncement(ctx context.Context, request *GetAnnouncementReq, options ...MethodOptionFunc) (*GetAnnouncementResp, *Response, error) {
+	if r.cli.mock.mockChatGetAnnouncement != nil {
+		return r.cli.mock.mockChatGetAnnouncement(ctx, request, options...)
+	}
+
 	req := &RawRequestReq{
 		Method:                "GET",
 		URL:                   "https://open.feishu.cn/open-apis/im/v1/chats/:chat_id/announcement",
 		Body:                  request,
+		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
-		NeedAppAccessToken:    false,
-		NeedHelpdeskAuth:      false,
-		IsFile:                false,
+		NeedUserAccessToken:   true,
 	}
 	resp := new(getAnnouncementResp)
 
@@ -32,6 +35,14 @@ func (r *ChatAPI) GetAnnouncement(ctx context.Context, request *GetAnnouncementR
 	}
 
 	return resp.Data, response, nil
+}
+
+func (r *Mock) MockChatGetAnnouncement(f func(ctx context.Context, request *GetAnnouncementReq, options ...MethodOptionFunc) (*GetAnnouncementResp, *Response, error)) {
+	r.mockChatGetAnnouncement = f
+}
+
+func (r *Mock) UnMockChatGetAnnouncement() {
+	r.mockChatGetAnnouncement = nil
 }
 
 type GetAnnouncementReq struct {

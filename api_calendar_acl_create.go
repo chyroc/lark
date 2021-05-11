@@ -13,15 +13,18 @@ import (
 // 当前身份需要有日历的 owner 权限，并且日历的类型只能为 primary 或 shared。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar-acl/create
-func (r *CalendarAPI) CreateCalendarACL(ctx context.Context, request *CreateCalendarACLReq) (*CreateCalendarACLResp, *Response, error) {
+func (r *CalendarAPI) CreateCalendarACL(ctx context.Context, request *CreateCalendarACLReq, options ...MethodOptionFunc) (*CreateCalendarACLResp, *Response, error) {
+	if r.cli.mock.mockCalendarCreateCalendarACL != nil {
+		return r.cli.mock.mockCalendarCreateCalendarACL(ctx, request, options...)
+	}
+
 	req := &RawRequestReq{
 		Method:                "POST",
 		URL:                   "https://open.feishu.cn/open-apis/calendar/v4/calendars/:calendar_id/acls",
 		Body:                  request,
+		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
-		NeedAppAccessToken:    false,
-		NeedHelpdeskAuth:      false,
-		IsFile:                false,
+		NeedUserAccessToken:   true,
 	}
 	resp := new(createCalendarACLResp)
 
@@ -33,6 +36,14 @@ func (r *CalendarAPI) CreateCalendarACL(ctx context.Context, request *CreateCale
 	}
 
 	return resp.Data, response, nil
+}
+
+func (r *Mock) MockCalendarCreateCalendarACL(f func(ctx context.Context, request *CreateCalendarACLReq, options ...MethodOptionFunc) (*CreateCalendarACLResp, *Response, error)) {
+	r.mockCalendarCreateCalendarACL = f
+}
+
+func (r *Mock) UnMockCalendarCreateCalendarACL() {
+	r.mockCalendarCreateCalendarACL = nil
 }
 
 type CreateCalendarACLReq struct {

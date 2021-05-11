@@ -13,15 +13,17 @@ import (
 // * 如果要获取打卡的详细数据，如打卡位置等信息，可使用“获取打卡流水记录”或“批量查询打卡流水记录”的接口。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/Attendance//GetCheckinResults
-func (r *AttendanceAPI) GetUserTask(ctx context.Context, request *GetUserTaskReq) (*GetUserTaskResp, *Response, error) {
+func (r *AttendanceAPI) GetUserTask(ctx context.Context, request *GetUserTaskReq, options ...MethodOptionFunc) (*GetUserTaskResp, *Response, error) {
+	if r.cli.mock.mockAttendanceGetUserTask != nil {
+		return r.cli.mock.mockAttendanceGetUserTask(ctx, request, options...)
+	}
+
 	req := &RawRequestReq{
 		Method:                "POST",
 		URL:                   "https://open.feishu.cn/open-apis/attendance/v1/user_tasks/query",
 		Body:                  request,
+		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
-		NeedAppAccessToken:    false,
-		NeedHelpdeskAuth:      false,
-		IsFile:                false,
 	}
 	resp := new(getUserTaskResp)
 
@@ -33,6 +35,14 @@ func (r *AttendanceAPI) GetUserTask(ctx context.Context, request *GetUserTaskReq
 	}
 
 	return resp.Data, response, nil
+}
+
+func (r *Mock) MockAttendanceGetUserTask(f func(ctx context.Context, request *GetUserTaskReq, options ...MethodOptionFunc) (*GetUserTaskResp, *Response, error)) {
+	r.mockAttendanceGetUserTask = f
+}
+
+func (r *Mock) UnMockAttendanceGetUserTask() {
+	r.mockAttendanceGetUserTask = nil
 }
 
 type GetUserTaskReq struct {

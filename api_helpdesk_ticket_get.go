@@ -9,15 +9,18 @@ import (
 // GetTicket 该接口用于获取单个服务台工单详情。仅支持自建应用。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/ticket/get
-func (r *HelpdeskAPI) GetTicket(ctx context.Context, request *GetTicketReq) (*GetTicketResp, *Response, error) {
+func (r *HelpdeskAPI) GetTicket(ctx context.Context, request *GetTicketReq, options ...MethodOptionFunc) (*GetTicketResp, *Response, error) {
+	if r.cli.mock.mockHelpdeskGetTicket != nil {
+		return r.cli.mock.mockHelpdeskGetTicket(ctx, request, options...)
+	}
+
 	req := &RawRequestReq{
 		Method:                "GET",
 		URL:                   "https://open.feishu.cn/open-apis/helpdesk/v1/tickets/:ticket_id",
 		Body:                  request,
+		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
-		NeedAppAccessToken:    false,
 		NeedHelpdeskAuth:      true,
-		IsFile:                false,
 	}
 	resp := new(getTicketResp)
 
@@ -29,6 +32,14 @@ func (r *HelpdeskAPI) GetTicket(ctx context.Context, request *GetTicketReq) (*Ge
 	}
 
 	return resp.Data, response, nil
+}
+
+func (r *Mock) MockHelpdeskGetTicket(f func(ctx context.Context, request *GetTicketReq, options ...MethodOptionFunc) (*GetTicketResp, *Response, error)) {
+	r.mockHelpdeskGetTicket = f
+}
+
+func (r *Mock) UnMockHelpdeskGetTicket() {
+	r.mockHelpdeskGetTicket = nil
 }
 
 type GetTicketReq struct {

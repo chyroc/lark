@@ -9,15 +9,18 @@ import (
 // UpdateTicket 该接口用于更新服务台工单详情。只会更新数据，不会触发相关操作。如修改工单状态到关单，不会关闭聊天页面。仅支持自建应用。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/ticket/update
-func (r *HelpdeskAPI) UpdateTicket(ctx context.Context, request *UpdateTicketReq) (*UpdateTicketResp, *Response, error) {
+func (r *HelpdeskAPI) UpdateTicket(ctx context.Context, request *UpdateTicketReq, options ...MethodOptionFunc) (*UpdateTicketResp, *Response, error) {
+	if r.cli.mock.mockHelpdeskUpdateTicket != nil {
+		return r.cli.mock.mockHelpdeskUpdateTicket(ctx, request, options...)
+	}
+
 	req := &RawRequestReq{
-		Method:                "PUT",
-		URL:                   "https://open.feishu.cn/open-apis/helpdesk/v1/tickets/:ticket_id",
-		Body:                  request,
-		NeedTenantAccessToken: false,
-		NeedAppAccessToken:    false,
-		NeedHelpdeskAuth:      true,
-		IsFile:                false,
+		Method:              "PUT",
+		URL:                 "https://open.feishu.cn/open-apis/helpdesk/v1/tickets/:ticket_id",
+		Body:                request,
+		MethodOption:        newMethodOption(options),
+		NeedUserAccessToken: true,
+		NeedHelpdeskAuth:    true,
 	}
 	resp := new(updateTicketResp)
 
@@ -29,6 +32,14 @@ func (r *HelpdeskAPI) UpdateTicket(ctx context.Context, request *UpdateTicketReq
 	}
 
 	return resp.Data, response, nil
+}
+
+func (r *Mock) MockHelpdeskUpdateTicket(f func(ctx context.Context, request *UpdateTicketReq, options ...MethodOptionFunc) (*UpdateTicketResp, *Response, error)) {
+	r.mockHelpdeskUpdateTicket = f
+}
+
+func (r *Mock) UnMockHelpdeskUpdateTicket() {
+	r.mockHelpdeskUpdateTicket = nil
 }
 
 type UpdateTicketReq struct {

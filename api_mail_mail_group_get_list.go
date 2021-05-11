@@ -9,15 +9,17 @@ import (
 // GetMailGroupList 分页批量获取邮件组
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/mail-v1/mailgroup/list
-func (r *MailAPI) GetMailGroupList(ctx context.Context, request *GetMailGroupListReq) (*GetMailGroupListResp, *Response, error) {
+func (r *MailAPI) GetMailGroupList(ctx context.Context, request *GetMailGroupListReq, options ...MethodOptionFunc) (*GetMailGroupListResp, *Response, error) {
+	if r.cli.mock.mockMailGetMailGroupList != nil {
+		return r.cli.mock.mockMailGetMailGroupList(ctx, request, options...)
+	}
+
 	req := &RawRequestReq{
 		Method:                "GET",
 		URL:                   "https://open.feishu.cn/open-apis/mail/v1/mailgroups",
 		Body:                  request,
+		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
-		NeedAppAccessToken:    false,
-		NeedHelpdeskAuth:      false,
-		IsFile:                false,
 	}
 	resp := new(getMailGroupListResp)
 
@@ -29,6 +31,14 @@ func (r *MailAPI) GetMailGroupList(ctx context.Context, request *GetMailGroupLis
 	}
 
 	return resp.Data, response, nil
+}
+
+func (r *Mock) MockMailGetMailGroupList(f func(ctx context.Context, request *GetMailGroupListReq, options ...MethodOptionFunc) (*GetMailGroupListResp, *Response, error)) {
+	r.mockMailGetMailGroupList = f
+}
+
+func (r *Mock) UnMockMailGetMailGroupList() {
+	r.mockMailGetMailGroupList = nil
 }
 
 type GetMailGroupListReq struct {

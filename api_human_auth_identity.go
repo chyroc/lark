@@ -11,15 +11,17 @@ import (
 // 实名认证接口会有计费管理，接入前请联系飞书开放平台工作人员，邮箱：openplatform@bytedance.com。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/human_authentication-v1/identity/create
-func (r *HumanAuthAPI) CreateIdentity(ctx context.Context, request *CreateIdentityReq) (*CreateIdentityResp, *Response, error) {
+func (r *HumanAuthAPI) CreateIdentity(ctx context.Context, request *CreateIdentityReq, options ...MethodOptionFunc) (*CreateIdentityResp, *Response, error) {
+	if r.cli.mock.mockHumanAuthCreateIdentity != nil {
+		return r.cli.mock.mockHumanAuthCreateIdentity(ctx, request, options...)
+	}
+
 	req := &RawRequestReq{
 		Method:                "POST",
 		URL:                   "https://open.feishu.cn/open-apis/human_authentication/v1/identities",
 		Body:                  request,
+		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
-		NeedAppAccessToken:    false,
-		NeedHelpdeskAuth:      false,
-		IsFile:                false,
 	}
 	resp := new(createIdentityResp)
 
@@ -31,6 +33,14 @@ func (r *HumanAuthAPI) CreateIdentity(ctx context.Context, request *CreateIdenti
 	}
 
 	return resp.Data, response, nil
+}
+
+func (r *Mock) MockHumanAuthCreateIdentity(f func(ctx context.Context, request *CreateIdentityReq, options ...MethodOptionFunc) (*CreateIdentityResp, *Response, error)) {
+	r.mockHumanAuthCreateIdentity = f
+}
+
+func (r *Mock) UnMockHumanAuthCreateIdentity() {
+	r.mockHumanAuthCreateIdentity = nil
 }
 
 type CreateIdentityReq struct {

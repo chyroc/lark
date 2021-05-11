@@ -9,15 +9,18 @@ import (
 // GetTicketMessageList 该接口用于获取服务台工单消息详情。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/ticket-message/list
-func (r *HelpdeskAPI) GetTicketMessageList(ctx context.Context, request *GetTicketMessageListReq) (*GetTicketMessageListResp, *Response, error) {
+func (r *HelpdeskAPI) GetTicketMessageList(ctx context.Context, request *GetTicketMessageListReq, options ...MethodOptionFunc) (*GetTicketMessageListResp, *Response, error) {
+	if r.cli.mock.mockHelpdeskGetTicketMessageList != nil {
+		return r.cli.mock.mockHelpdeskGetTicketMessageList(ctx, request, options...)
+	}
+
 	req := &RawRequestReq{
 		Method:                "GET",
 		URL:                   "https://open.feishu.cn/open-apis/helpdesk/v1/tickets/:ticket_id/messages",
 		Body:                  request,
+		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
-		NeedAppAccessToken:    false,
 		NeedHelpdeskAuth:      true,
-		IsFile:                false,
 	}
 	resp := new(getTicketMessageListResp)
 
@@ -29,6 +32,14 @@ func (r *HelpdeskAPI) GetTicketMessageList(ctx context.Context, request *GetTick
 	}
 
 	return resp.Data, response, nil
+}
+
+func (r *Mock) MockHelpdeskGetTicketMessageList(f func(ctx context.Context, request *GetTicketMessageListReq, options ...MethodOptionFunc) (*GetTicketMessageListResp, *Response, error)) {
+	r.mockHelpdeskGetTicketMessageList = f
+}
+
+func (r *Mock) UnMockHelpdeskGetTicketMessageList() {
+	r.mockHelpdeskGetTicketMessageList = nil
 }
 
 type GetTicketMessageListReq struct {

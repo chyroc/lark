@@ -11,15 +11,17 @@ import (
 // 单租户限流：20QPS，同租户下的应用没有限流，共享本租户的 20QPS 限流
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/ai/speech_to_text-v1/speech/file_recognize
-func (r *AIAPI) RecognizeSpeechFile(ctx context.Context, request *RecognizeSpeechFileReq) (*RecognizeSpeechFileResp, *Response, error) {
+func (r *AIAPI) RecognizeSpeechFile(ctx context.Context, request *RecognizeSpeechFileReq, options ...MethodOptionFunc) (*RecognizeSpeechFileResp, *Response, error) {
+	if r.cli.mock.mockAIRecognizeSpeechFile != nil {
+		return r.cli.mock.mockAIRecognizeSpeechFile(ctx, request, options...)
+	}
+
 	req := &RawRequestReq{
 		Method:                "POST",
 		URL:                   "https://open.feishu.cn/open-apis/speech_to_text/v1/speech/file_recognize",
 		Body:                  request,
+		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
-		NeedAppAccessToken:    false,
-		NeedHelpdeskAuth:      false,
-		IsFile:                false,
 	}
 	resp := new(recognizeSpeechFileResp)
 
@@ -31,6 +33,14 @@ func (r *AIAPI) RecognizeSpeechFile(ctx context.Context, request *RecognizeSpeec
 	}
 
 	return resp.Data, response, nil
+}
+
+func (r *Mock) MockAIRecognizeSpeechFile(f func(ctx context.Context, request *RecognizeSpeechFileReq, options ...MethodOptionFunc) (*RecognizeSpeechFileResp, *Response, error)) {
+	r.mockAIRecognizeSpeechFile = f
+}
+
+func (r *Mock) UnMockAIRecognizeSpeechFile() {
+	r.mockAIRecognizeSpeechFile = nil
 }
 
 type RecognizeSpeechFileReq struct {

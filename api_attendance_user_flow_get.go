@@ -11,15 +11,17 @@ import (
 // 通过打卡记录 ID 获取用户的打卡流水记录。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/Attendance//GetCardSwipeHistory
-func (r *AttendanceAPI) GetUserFlow(ctx context.Context, request *GetUserFlowReq) (*GetUserFlowResp, *Response, error) {
+func (r *AttendanceAPI) GetUserFlow(ctx context.Context, request *GetUserFlowReq, options ...MethodOptionFunc) (*GetUserFlowResp, *Response, error) {
+	if r.cli.mock.mockAttendanceGetUserFlow != nil {
+		return r.cli.mock.mockAttendanceGetUserFlow(ctx, request, options...)
+	}
+
 	req := &RawRequestReq{
 		Method:                "GET",
 		URL:                   "https://open.feishu.cn/open-apis/attendance/v1/user_flows/:user_flow_id",
 		Body:                  request,
+		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
-		NeedAppAccessToken:    false,
-		NeedHelpdeskAuth:      false,
-		IsFile:                false,
 	}
 	resp := new(getUserFlowResp)
 
@@ -31,6 +33,14 @@ func (r *AttendanceAPI) GetUserFlow(ctx context.Context, request *GetUserFlowReq
 	}
 
 	return resp.Data, response, nil
+}
+
+func (r *Mock) MockAttendanceGetUserFlow(f func(ctx context.Context, request *GetUserFlowReq, options ...MethodOptionFunc) (*GetUserFlowResp, *Response, error)) {
+	r.mockAttendanceGetUserFlow = f
+}
+
+func (r *Mock) UnMockAttendanceGetUserFlow() {
+	r.mockAttendanceGetUserFlow = nil
 }
 
 type GetUserFlowReq struct {

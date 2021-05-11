@@ -9,15 +9,18 @@ import (
 // StartService 该接口用于创建服务台对话。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/ticket/start_service
-func (r *HelpdeskAPI) StartService(ctx context.Context, request *StartServiceReq) (*StartServiceResp, *Response, error) {
+func (r *HelpdeskAPI) StartService(ctx context.Context, request *StartServiceReq, options ...MethodOptionFunc) (*StartServiceResp, *Response, error) {
+	if r.cli.mock.mockHelpdeskStartService != nil {
+		return r.cli.mock.mockHelpdeskStartService(ctx, request, options...)
+	}
+
 	req := &RawRequestReq{
 		Method:                "POST",
 		URL:                   "https://open.feishu.cn/open-apis/helpdesk/v1/start_service",
 		Body:                  request,
+		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
-		NeedAppAccessToken:    false,
 		NeedHelpdeskAuth:      true,
-		IsFile:                false,
 	}
 	resp := new(startServiceResp)
 
@@ -29,6 +32,14 @@ func (r *HelpdeskAPI) StartService(ctx context.Context, request *StartServiceReq
 	}
 
 	return resp.Data, response, nil
+}
+
+func (r *Mock) MockHelpdeskStartService(f func(ctx context.Context, request *StartServiceReq, options ...MethodOptionFunc) (*StartServiceResp, *Response, error)) {
+	r.mockHelpdeskStartService = f
+}
+
+func (r *Mock) UnMockHelpdeskStartService() {
+	r.mockHelpdeskStartService = nil
 }
 
 type StartServiceReq struct {

@@ -13,15 +13,18 @@ import (
 // 仅可操作已经被当前身份订阅的日历。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar/unsubscribe
-func (r *CalendarAPI) UnsubscribeCalendar(ctx context.Context, request *UnsubscribeCalendarReq) (*UnsubscribeCalendarResp, *Response, error) {
+func (r *CalendarAPI) UnsubscribeCalendar(ctx context.Context, request *UnsubscribeCalendarReq, options ...MethodOptionFunc) (*UnsubscribeCalendarResp, *Response, error) {
+	if r.cli.mock.mockCalendarUnsubscribeCalendar != nil {
+		return r.cli.mock.mockCalendarUnsubscribeCalendar(ctx, request, options...)
+	}
+
 	req := &RawRequestReq{
 		Method:                "POST",
 		URL:                   "https://open.feishu.cn/open-apis/calendar/v4/calendars/:calendar_id/unsubscribe",
 		Body:                  request,
+		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
-		NeedAppAccessToken:    false,
-		NeedHelpdeskAuth:      false,
-		IsFile:                false,
+		NeedUserAccessToken:   true,
 	}
 	resp := new(unsubscribeCalendarResp)
 
@@ -33,6 +36,14 @@ func (r *CalendarAPI) UnsubscribeCalendar(ctx context.Context, request *Unsubscr
 	}
 
 	return resp.Data, response, nil
+}
+
+func (r *Mock) MockCalendarUnsubscribeCalendar(f func(ctx context.Context, request *UnsubscribeCalendarReq, options ...MethodOptionFunc) (*UnsubscribeCalendarResp, *Response, error)) {
+	r.mockCalendarUnsubscribeCalendar = f
+}
+
+func (r *Mock) UnMockCalendarUnsubscribeCalendar() {
+	r.mockCalendarUnsubscribeCalendar = nil
 }
 
 type UnsubscribeCalendarReq struct {

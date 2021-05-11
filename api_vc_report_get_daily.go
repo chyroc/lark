@@ -11,15 +11,17 @@ import (
 // 支持最近90天内的数据查询
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/vc-v1/report/get_daily
-func (r *VCAPI) GetDailyReport(ctx context.Context, request *GetDailyReportReq) (*GetDailyReportResp, *Response, error) {
+func (r *VCAPI) GetDailyReport(ctx context.Context, request *GetDailyReportReq, options ...MethodOptionFunc) (*GetDailyReportResp, *Response, error) {
+	if r.cli.mock.mockVCGetDailyReport != nil {
+		return r.cli.mock.mockVCGetDailyReport(ctx, request, options...)
+	}
+
 	req := &RawRequestReq{
 		Method:                "GET",
 		URL:                   "https://open.feishu.cn/open-apis/vc/v1/reports/get_daily",
 		Body:                  request,
+		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
-		NeedAppAccessToken:    false,
-		NeedHelpdeskAuth:      false,
-		IsFile:                false,
 	}
 	resp := new(getDailyReportResp)
 
@@ -31,6 +33,14 @@ func (r *VCAPI) GetDailyReport(ctx context.Context, request *GetDailyReportReq) 
 	}
 
 	return resp.Data, response, nil
+}
+
+func (r *Mock) MockVCGetDailyReport(f func(ctx context.Context, request *GetDailyReportReq, options ...MethodOptionFunc) (*GetDailyReportResp, *Response, error)) {
+	r.mockVCGetDailyReport = f
+}
+
+func (r *Mock) UnMockVCGetDailyReport() {
+	r.mockVCGetDailyReport = nil
 }
 
 type GetDailyReportReq struct {

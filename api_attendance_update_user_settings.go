@@ -9,15 +9,17 @@ import (
 // UpdateUserSettings
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/Attendance//rule/user-setting-modify
-func (r *AttendanceAPI) UpdateUserSettings(ctx context.Context, request *UpdateUserSettingsReq) (*UpdateUserSettingsResp, *Response, error) {
+func (r *AttendanceAPI) UpdateUserSettings(ctx context.Context, request *UpdateUserSettingsReq, options ...MethodOptionFunc) (*UpdateUserSettingsResp, *Response, error) {
+	if r.cli.mock.mockAttendanceUpdateUserSettings != nil {
+		return r.cli.mock.mockAttendanceUpdateUserSettings(ctx, request, options...)
+	}
+
 	req := &RawRequestReq{
 		Method:                "POST",
 		URL:                   "https://open.feishu.cn/open-apis/attendance/v1/user_settings/modify",
 		Body:                  request,
+		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
-		NeedAppAccessToken:    false,
-		NeedHelpdeskAuth:      false,
-		IsFile:                false,
 	}
 	resp := new(updateUserSettingsResp)
 
@@ -29,6 +31,14 @@ func (r *AttendanceAPI) UpdateUserSettings(ctx context.Context, request *UpdateU
 	}
 
 	return resp.Data, response, nil
+}
+
+func (r *Mock) MockAttendanceUpdateUserSettings(f func(ctx context.Context, request *UpdateUserSettingsReq, options ...MethodOptionFunc) (*UpdateUserSettingsResp, *Response, error)) {
+	r.mockAttendanceUpdateUserSettings = f
+}
+
+func (r *Mock) UnMockAttendanceUpdateUserSettings() {
+	r.mockAttendanceUpdateUserSettings = nil
 }
 
 type UpdateUserSettingsReq struct {

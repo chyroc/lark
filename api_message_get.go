@@ -13,15 +13,17 @@ import (
 // - 机器人必须在群组中
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/get
-func (r *MessageAPI) GetMessage(ctx context.Context, request *GetMessageReq) (*GetMessageResp, *Response, error) {
+func (r *MessageAPI) GetMessage(ctx context.Context, request *GetMessageReq, options ...MethodOptionFunc) (*GetMessageResp, *Response, error) {
+	if r.cli.mock.mockMessageGetMessage != nil {
+		return r.cli.mock.mockMessageGetMessage(ctx, request, options...)
+	}
+
 	req := &RawRequestReq{
 		Method:                "GET",
 		URL:                   "https://open.feishu.cn/open-apis/im/v1/messages/:message_id",
 		Body:                  request,
+		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
-		NeedAppAccessToken:    false,
-		NeedHelpdeskAuth:      false,
-		IsFile:                false,
 	}
 	resp := new(getMessageResp)
 
@@ -33,6 +35,14 @@ func (r *MessageAPI) GetMessage(ctx context.Context, request *GetMessageReq) (*G
 	}
 
 	return resp.Data, response, nil
+}
+
+func (r *Mock) MockMessageGetMessage(f func(ctx context.Context, request *GetMessageReq, options ...MethodOptionFunc) (*GetMessageResp, *Response, error)) {
+	r.mockMessageGetMessage = f
+}
+
+func (r *Mock) UnMockMessageGetMessage() {
+	r.mockMessageGetMessage = nil
 }
 
 type GetMessageReq struct {

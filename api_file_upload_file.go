@@ -13,14 +13,17 @@ import (
 // - 需要开启[机器人能力](https://open.feishu.cn/document/uQjL04CN/uYTMuYTMuYTM)
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/file/create
-func (r *FileAPI) UploadFile(ctx context.Context, request *UploadFileReq) (*UploadFileResp, *Response, error) {
+func (r *FileAPI) UploadFile(ctx context.Context, request *UploadFileReq, options ...MethodOptionFunc) (*UploadFileResp, *Response, error) {
+	if r.cli.mock.mockFileUploadFile != nil {
+		return r.cli.mock.mockFileUploadFile(ctx, request, options...)
+	}
+
 	req := &RawRequestReq{
 		Method:                "POST",
 		URL:                   "https://open.feishu.cn/open-apis/im/v1/files",
 		Body:                  request,
+		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
-		NeedAppAccessToken:    false,
-		NeedHelpdeskAuth:      false,
 		IsFile:                true,
 	}
 	resp := new(uploadFileResp)
@@ -33,6 +36,14 @@ func (r *FileAPI) UploadFile(ctx context.Context, request *UploadFileReq) (*Uplo
 	}
 
 	return resp.Data, response, nil
+}
+
+func (r *Mock) MockFileUploadFile(f func(ctx context.Context, request *UploadFileReq, options ...MethodOptionFunc) (*UploadFileResp, *Response, error)) {
+	r.mockFileUploadFile = f
+}
+
+func (r *Mock) UnMockFileUploadFile() {
+	r.mockFileUploadFile = nil
 }
 
 type UploadFileReq struct {

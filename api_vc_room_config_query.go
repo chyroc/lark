@@ -11,15 +11,17 @@ import (
 // 根据查询范围传入对应的参数
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/vc-v1/room_config/query
-func (r *VCAPI) QueryRoomConfig(ctx context.Context, request *QueryRoomConfigReq) (*QueryRoomConfigResp, *Response, error) {
+func (r *VCAPI) QueryRoomConfig(ctx context.Context, request *QueryRoomConfigReq, options ...MethodOptionFunc) (*QueryRoomConfigResp, *Response, error) {
+	if r.cli.mock.mockVCQueryRoomConfig != nil {
+		return r.cli.mock.mockVCQueryRoomConfig(ctx, request, options...)
+	}
+
 	req := &RawRequestReq{
 		Method:                "GET",
 		URL:                   "https://open.feishu.cn/open-apis/vc/v1/room_configs/query",
 		Body:                  request,
+		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
-		NeedAppAccessToken:    false,
-		NeedHelpdeskAuth:      false,
-		IsFile:                false,
 	}
 	resp := new(queryRoomConfigResp)
 
@@ -31,6 +33,14 @@ func (r *VCAPI) QueryRoomConfig(ctx context.Context, request *QueryRoomConfigReq
 	}
 
 	return resp.Data, response, nil
+}
+
+func (r *Mock) MockVCQueryRoomConfig(f func(ctx context.Context, request *QueryRoomConfigReq, options ...MethodOptionFunc) (*QueryRoomConfigResp, *Response, error)) {
+	r.mockVCQueryRoomConfig = f
+}
+
+func (r *Mock) UnMockVCQueryRoomConfig() {
+	r.mockVCQueryRoomConfig = nil
 }
 
 type QueryRoomConfigReq struct {

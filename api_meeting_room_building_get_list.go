@@ -9,15 +9,17 @@ import (
 // GetBuildingList 该接口用于获取本企业下的建筑物（办公大楼）。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/ugzNyUjL4cjM14CO3ITN
-func (r *MeetingRoomAPI) GetBuildingList(ctx context.Context, request *GetBuildingListReq) (*GetBuildingListResp, *Response, error) {
+func (r *MeetingRoomAPI) GetBuildingList(ctx context.Context, request *GetBuildingListReq, options ...MethodOptionFunc) (*GetBuildingListResp, *Response, error) {
+	if r.cli.mock.mockMeetingRoomGetBuildingList != nil {
+		return r.cli.mock.mockMeetingRoomGetBuildingList(ctx, request, options...)
+	}
+
 	req := &RawRequestReq{
 		Method:                "GET",
 		URL:                   "https://open.feishu.cn/open-apis/meeting_room/building/list?page_size=1&page_token=0&order_by=name-asc&fields=*",
 		Body:                  request,
+		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
-		NeedAppAccessToken:    false,
-		NeedHelpdeskAuth:      false,
-		IsFile:                false,
 	}
 	resp := new(getBuildingListResp)
 
@@ -29,6 +31,14 @@ func (r *MeetingRoomAPI) GetBuildingList(ctx context.Context, request *GetBuildi
 	}
 
 	return resp.Data, response, nil
+}
+
+func (r *Mock) MockMeetingRoomGetBuildingList(f func(ctx context.Context, request *GetBuildingListReq, options ...MethodOptionFunc) (*GetBuildingListResp, *Response, error)) {
+	r.mockMeetingRoomGetBuildingList = f
+}
+
+func (r *Mock) UnMockMeetingRoomGetBuildingList() {
+	r.mockMeetingRoomGetBuildingList = nil
 }
 
 type GetBuildingListReq struct {

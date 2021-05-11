@@ -9,15 +9,17 @@ import (
 // SearchCalendar 该接口用于通过关键字查询公共日历或用户主日历。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar/search
-func (r *CalendarAPI) SearchCalendar(ctx context.Context, request *SearchCalendarReq) (*SearchCalendarResp, *Response, error) {
+func (r *CalendarAPI) SearchCalendar(ctx context.Context, request *SearchCalendarReq, options ...MethodOptionFunc) (*SearchCalendarResp, *Response, error) {
+	if r.cli.mock.mockCalendarSearchCalendar != nil {
+		return r.cli.mock.mockCalendarSearchCalendar(ctx, request, options...)
+	}
+
 	req := &RawRequestReq{
 		Method:                "POST",
 		URL:                   "https://open.feishu.cn/open-apis/calendar/v4/calendars/search",
 		Body:                  request,
+		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
-		NeedAppAccessToken:    false,
-		NeedHelpdeskAuth:      false,
-		IsFile:                false,
 	}
 	resp := new(searchCalendarResp)
 
@@ -29,6 +31,14 @@ func (r *CalendarAPI) SearchCalendar(ctx context.Context, request *SearchCalenda
 	}
 
 	return resp.Data, response, nil
+}
+
+func (r *Mock) MockCalendarSearchCalendar(f func(ctx context.Context, request *SearchCalendarReq, options ...MethodOptionFunc) (*SearchCalendarResp, *Response, error)) {
+	r.mockCalendarSearchCalendar = f
+}
+
+func (r *Mock) UnMockCalendarSearchCalendar() {
+	r.mockCalendarSearchCalendar = nil
 }
 
 type SearchCalendarReq struct {

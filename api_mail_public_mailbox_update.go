@@ -9,15 +9,17 @@ import (
 // UpdatePublicMailbox 更新公共邮箱所有信息
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/mail-v1/public_mailbox/update
-func (r *MailAPI) UpdatePublicMailbox(ctx context.Context, request *UpdatePublicMailboxReq) (*UpdatePublicMailboxResp, *Response, error) {
+func (r *MailAPI) UpdatePublicMailbox(ctx context.Context, request *UpdatePublicMailboxReq, options ...MethodOptionFunc) (*UpdatePublicMailboxResp, *Response, error) {
+	if r.cli.mock.mockMailUpdatePublicMailbox != nil {
+		return r.cli.mock.mockMailUpdatePublicMailbox(ctx, request, options...)
+	}
+
 	req := &RawRequestReq{
 		Method:                "PUT",
 		URL:                   "https://open.feishu.cn/open-apis/mail/v1/public_mailboxes/:public_mailbox_id",
 		Body:                  request,
+		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
-		NeedAppAccessToken:    false,
-		NeedHelpdeskAuth:      false,
-		IsFile:                false,
 	}
 	resp := new(updatePublicMailboxResp)
 
@@ -29,6 +31,14 @@ func (r *MailAPI) UpdatePublicMailbox(ctx context.Context, request *UpdatePublic
 	}
 
 	return resp.Data, response, nil
+}
+
+func (r *Mock) MockMailUpdatePublicMailbox(f func(ctx context.Context, request *UpdatePublicMailboxReq, options ...MethodOptionFunc) (*UpdatePublicMailboxResp, *Response, error)) {
+	r.mockMailUpdatePublicMailbox = f
+}
+
+func (r *Mock) UnMockMailUpdatePublicMailbox() {
+	r.mockMailUpdatePublicMailbox = nil
 }
 
 type UpdatePublicMailboxReq struct {

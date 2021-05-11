@@ -9,15 +9,18 @@ import (
 // DeleteTicketCustomizedField 该接口用于删除工单自定义字段。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/ticket_customized_field/delete
-func (r *HelpdeskAPI) DeleteTicketCustomizedField(ctx context.Context, request *DeleteTicketCustomizedFieldReq) (*DeleteTicketCustomizedFieldResp, *Response, error) {
+func (r *HelpdeskAPI) DeleteTicketCustomizedField(ctx context.Context, request *DeleteTicketCustomizedFieldReq, options ...MethodOptionFunc) (*DeleteTicketCustomizedFieldResp, *Response, error) {
+	if r.cli.mock.mockHelpdeskDeleteTicketCustomizedField != nil {
+		return r.cli.mock.mockHelpdeskDeleteTicketCustomizedField(ctx, request, options...)
+	}
+
 	req := &RawRequestReq{
-		Method:                "DELETE",
-		URL:                   "https://open.feishu.cn/open-apis/helpdesk/v1/ticket_customized_fields/:ticket_customized_field_id",
-		Body:                  request,
-		NeedTenantAccessToken: false,
-		NeedAppAccessToken:    false,
-		NeedHelpdeskAuth:      true,
-		IsFile:                false,
+		Method:              "DELETE",
+		URL:                 "https://open.feishu.cn/open-apis/helpdesk/v1/ticket_customized_fields/:ticket_customized_field_id",
+		Body:                request,
+		MethodOption:        newMethodOption(options),
+		NeedUserAccessToken: true,
+		NeedHelpdeskAuth:    true,
 	}
 	resp := new(deleteTicketCustomizedFieldResp)
 
@@ -29,6 +32,14 @@ func (r *HelpdeskAPI) DeleteTicketCustomizedField(ctx context.Context, request *
 	}
 
 	return resp.Data, response, nil
+}
+
+func (r *Mock) MockHelpdeskDeleteTicketCustomizedField(f func(ctx context.Context, request *DeleteTicketCustomizedFieldReq, options ...MethodOptionFunc) (*DeleteTicketCustomizedFieldResp, *Response, error)) {
+	r.mockHelpdeskDeleteTicketCustomizedField = f
+}
+
+func (r *Mock) UnMockHelpdeskDeleteTicketCustomizedField() {
+	r.mockHelpdeskDeleteTicketCustomizedField = nil
 }
 
 type DeleteTicketCustomizedFieldReq struct {

@@ -18,15 +18,18 @@ import (
 // - 不满足上述条件的群成员或者机器人，任何群信息都不能修改
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat/update
-func (r *ChatAPI) UpdateChat(ctx context.Context, request *UpdateChatReq) (*UpdateChatResp, *Response, error) {
+func (r *ChatAPI) UpdateChat(ctx context.Context, request *UpdateChatReq, options ...MethodOptionFunc) (*UpdateChatResp, *Response, error) {
+	if r.cli.mock.mockChatUpdateChat != nil {
+		return r.cli.mock.mockChatUpdateChat(ctx, request, options...)
+	}
+
 	req := &RawRequestReq{
 		Method:                "PUT",
 		URL:                   "https://open.feishu.cn/open-apis/im/v1/chats/:chat_id",
 		Body:                  request,
+		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
-		NeedAppAccessToken:    false,
-		NeedHelpdeskAuth:      false,
-		IsFile:                false,
+		NeedUserAccessToken:   true,
 	}
 	resp := new(updateChatResp)
 
@@ -38,6 +41,14 @@ func (r *ChatAPI) UpdateChat(ctx context.Context, request *UpdateChatReq) (*Upda
 	}
 
 	return resp.Data, response, nil
+}
+
+func (r *Mock) MockChatUpdateChat(f func(ctx context.Context, request *UpdateChatReq, options ...MethodOptionFunc) (*UpdateChatResp, *Response, error)) {
+	r.mockChatUpdateChat = f
+}
+
+func (r *Mock) UnMockChatUpdateChat() {
+	r.mockChatUpdateChat = nil
 }
 
 type UpdateChatReq struct {

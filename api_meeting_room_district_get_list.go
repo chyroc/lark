@@ -9,15 +9,17 @@ import (
 // GetDistrictList 新建建筑时需要选择所处国家/地区，该接口用于获得系统预先提供的可供选择的城市列表。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uUTNwYjL1UDM24SN1AjN
-func (r *MeetingRoomAPI) GetDistrictList(ctx context.Context, request *GetDistrictListReq) (*GetDistrictListResp, *Response, error) {
+func (r *MeetingRoomAPI) GetDistrictList(ctx context.Context, request *GetDistrictListReq, options ...MethodOptionFunc) (*GetDistrictListResp, *Response, error) {
+	if r.cli.mock.mockMeetingRoomGetDistrictList != nil {
+		return r.cli.mock.mockMeetingRoomGetDistrictList(ctx, request, options...)
+	}
+
 	req := &RawRequestReq{
 		Method:                "GET",
 		URL:                   "https://open.feishu.cn/open-apis/meeting_room/district/list?country_id=1814991",
 		Body:                  request,
+		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
-		NeedAppAccessToken:    false,
-		NeedHelpdeskAuth:      false,
-		IsFile:                false,
 	}
 	resp := new(getDistrictListResp)
 
@@ -29,6 +31,14 @@ func (r *MeetingRoomAPI) GetDistrictList(ctx context.Context, request *GetDistri
 	}
 
 	return resp.Data, response, nil
+}
+
+func (r *Mock) MockMeetingRoomGetDistrictList(f func(ctx context.Context, request *GetDistrictListReq, options ...MethodOptionFunc) (*GetDistrictListResp, *Response, error)) {
+	r.mockMeetingRoomGetDistrictList = f
+}
+
+func (r *Mock) UnMockMeetingRoomGetDistrictList() {
+	r.mockMeetingRoomGetDistrictList = nil
 }
 
 type GetDistrictListReq struct {

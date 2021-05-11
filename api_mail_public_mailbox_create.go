@@ -9,15 +9,17 @@ import (
 // CreatePublicMailbox 创建一个公共邮箱
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/mail-v1/public_mailbox/create
-func (r *MailAPI) CreatePublicMailbox(ctx context.Context, request *CreatePublicMailboxReq) (*CreatePublicMailboxResp, *Response, error) {
+func (r *MailAPI) CreatePublicMailbox(ctx context.Context, request *CreatePublicMailboxReq, options ...MethodOptionFunc) (*CreatePublicMailboxResp, *Response, error) {
+	if r.cli.mock.mockMailCreatePublicMailbox != nil {
+		return r.cli.mock.mockMailCreatePublicMailbox(ctx, request, options...)
+	}
+
 	req := &RawRequestReq{
 		Method:                "POST",
 		URL:                   "https://open.feishu.cn/open-apis/mail/v1/public_mailboxes",
 		Body:                  request,
+		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
-		NeedAppAccessToken:    false,
-		NeedHelpdeskAuth:      false,
-		IsFile:                false,
 	}
 	resp := new(createPublicMailboxResp)
 
@@ -29,6 +31,14 @@ func (r *MailAPI) CreatePublicMailbox(ctx context.Context, request *CreatePublic
 	}
 
 	return resp.Data, response, nil
+}
+
+func (r *Mock) MockMailCreatePublicMailbox(f func(ctx context.Context, request *CreatePublicMailboxReq, options ...MethodOptionFunc) (*CreatePublicMailboxResp, *Response, error)) {
+	r.mockMailCreatePublicMailbox = f
+}
+
+func (r *Mock) UnMockMailCreatePublicMailbox() {
+	r.mockMailCreatePublicMailbox = nil
 }
 
 type CreatePublicMailboxReq struct {

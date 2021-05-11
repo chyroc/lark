@@ -9,15 +9,18 @@ import (
 // UpdateUserPatch 该接口用于更新通讯录中用户的字段，未传递的参数不会更新。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/patch
-func (r *ContactAPI) UpdateUserPatch(ctx context.Context, request *UpdateUserPatchReq) (*UpdateUserPatchResp, *Response, error) {
+func (r *ContactAPI) UpdateUserPatch(ctx context.Context, request *UpdateUserPatchReq, options ...MethodOptionFunc) (*UpdateUserPatchResp, *Response, error) {
+	if r.cli.mock.mockContactUpdateUserPatch != nil {
+		return r.cli.mock.mockContactUpdateUserPatch(ctx, request, options...)
+	}
+
 	req := &RawRequestReq{
 		Method:                "PATCH",
 		URL:                   "https://open.feishu.cn/open-apis/contact/v3/users/:user_id",
 		Body:                  request,
+		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
-		NeedAppAccessToken:    false,
-		NeedHelpdeskAuth:      false,
-		IsFile:                false,
+		NeedUserAccessToken:   true,
 	}
 	resp := new(updateUserPatchResp)
 
@@ -29,6 +32,14 @@ func (r *ContactAPI) UpdateUserPatch(ctx context.Context, request *UpdateUserPat
 	}
 
 	return resp.Data, response, nil
+}
+
+func (r *Mock) MockContactUpdateUserPatch(f func(ctx context.Context, request *UpdateUserPatchReq, options ...MethodOptionFunc) (*UpdateUserPatchResp, *Response, error)) {
+	r.mockContactUpdateUserPatch = f
+}
+
+func (r *Mock) UnMockContactUpdateUserPatch() {
+	r.mockContactUpdateUserPatch = nil
 }
 
 type UpdateUserPatchReq struct {

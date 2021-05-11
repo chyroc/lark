@@ -11,15 +11,18 @@ import (
 // 该接口用于获取工单自定义字段详情。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/ticket_customized_field/get-ticket-customized-field
-func (r *HelpdeskAPI) GetTicketCustomizedField(ctx context.Context, request *GetTicketCustomizedFieldReq) (*GetTicketCustomizedFieldResp, *Response, error) {
+func (r *HelpdeskAPI) GetTicketCustomizedField(ctx context.Context, request *GetTicketCustomizedFieldReq, options ...MethodOptionFunc) (*GetTicketCustomizedFieldResp, *Response, error) {
+	if r.cli.mock.mockHelpdeskGetTicketCustomizedField != nil {
+		return r.cli.mock.mockHelpdeskGetTicketCustomizedField(ctx, request, options...)
+	}
+
 	req := &RawRequestReq{
 		Method:                "GET",
 		URL:                   "https://open.feishu.cn/open-apis/helpdesk/v1/ticket_customized_fields/:ticket_customized_field_id",
 		Body:                  request,
+		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
-		NeedAppAccessToken:    false,
 		NeedHelpdeskAuth:      true,
-		IsFile:                false,
 	}
 	resp := new(getTicketCustomizedFieldResp)
 
@@ -31,6 +34,14 @@ func (r *HelpdeskAPI) GetTicketCustomizedField(ctx context.Context, request *Get
 	}
 
 	return resp.Data, response, nil
+}
+
+func (r *Mock) MockHelpdeskGetTicketCustomizedField(f func(ctx context.Context, request *GetTicketCustomizedFieldReq, options ...MethodOptionFunc) (*GetTicketCustomizedFieldResp, *Response, error)) {
+	r.mockHelpdeskGetTicketCustomizedField = f
+}
+
+func (r *Mock) UnMockHelpdeskGetTicketCustomizedField() {
+	r.mockHelpdeskGetTicketCustomizedField = nil
 }
 
 type GetTicketCustomizedFieldReq struct {

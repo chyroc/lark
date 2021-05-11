@@ -16,15 +16,18 @@ import (
 // - 每次请求，最多拉50个用户或者5个机器人，并且群组最多容纳15个机器人
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-members/create
-func (r *ChatAPI) AddMember(ctx context.Context, request *AddMemberReq) (*AddMemberResp, *Response, error) {
+func (r *ChatAPI) AddMember(ctx context.Context, request *AddMemberReq, options ...MethodOptionFunc) (*AddMemberResp, *Response, error) {
+	if r.cli.mock.mockChatAddMember != nil {
+		return r.cli.mock.mockChatAddMember(ctx, request, options...)
+	}
+
 	req := &RawRequestReq{
 		Method:                "POST",
 		URL:                   "https://open.feishu.cn/open-apis/im/v1/chats/:chat_id/members",
 		Body:                  request,
+		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
-		NeedAppAccessToken:    false,
-		NeedHelpdeskAuth:      false,
-		IsFile:                false,
+		NeedUserAccessToken:   true,
 	}
 	resp := new(addMemberResp)
 
@@ -36,6 +39,14 @@ func (r *ChatAPI) AddMember(ctx context.Context, request *AddMemberReq) (*AddMem
 	}
 
 	return resp.Data, response, nil
+}
+
+func (r *Mock) MockChatAddMember(f func(ctx context.Context, request *AddMemberReq, options ...MethodOptionFunc) (*AddMemberResp, *Response, error)) {
+	r.mockChatAddMember = f
+}
+
+func (r *Mock) UnMockChatAddMember() {
+	r.mockChatAddMember = nil
 }
 
 type AddMemberReq struct {
