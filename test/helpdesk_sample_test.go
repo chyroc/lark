@@ -38,7 +38,67 @@ func Test_Helpdesk_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.DownloadTicketImage(ctx, &lark.DownloadTicketImageReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "failed")
+		})
+
+		t.Run("", func(t *testing.T) {
 			_, _, err := moduleCli.GetTicketMessageList(ctx, &lark.GetTicketMessageListReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.SendTicketMessage(ctx, &lark.SendTicketMessageReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.GetTicketCustomizedFieldList(ctx, &lark.GetTicketCustomizedFieldListReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.GetTicketCustomizedField(ctx, &lark.GetTicketCustomizedFieldReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.GetCategory(ctx, &lark.GetCategoryReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.GetCategoryList(ctx, &lark.GetCategoryListReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.GetFAQ(ctx, &lark.GetFAQReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.GetFAQList(ctx, &lark.GetFAQListReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.GetFAQImage(ctx, &lark.GetFAQImageReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.SearchFAQ(ctx, &lark.SearchFAQReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "failed")
 		})
@@ -69,9 +129,80 @@ func Test_Helpdesk_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.DownloadTicketImage(ctx, &lark.DownloadTicketImageReq{})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
 			_, _, err := moduleCli.GetTicketMessageList(ctx, &lark.GetTicketMessageListReq{
 				TicketID: "x",
 			})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.SendTicketMessage(ctx, &lark.SendTicketMessageReq{
+				TicketID: "x",
+			})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.GetTicketCustomizedFieldList(ctx, &lark.GetTicketCustomizedFieldListReq{})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.GetTicketCustomizedField(ctx, &lark.GetTicketCustomizedFieldReq{
+				TicketCustomizedFieldID: "x",
+			})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.GetCategory(ctx, &lark.GetCategoryReq{
+				ID: "x",
+			})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.GetCategoryList(ctx, &lark.GetCategoryListReq{})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.GetFAQ(ctx, &lark.GetFAQReq{
+				ID: "x",
+			})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.GetFAQList(ctx, &lark.GetFAQListReq{})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.GetFAQImage(ctx, &lark.GetFAQImageReq{
+				ID:       "x",
+				ImageKey: "x",
+			})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.SearchFAQ(ctx, &lark.SearchFAQReq{})
 			as.NotNil(err)
 			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
 		})

@@ -6,12 +6,11 @@ import (
 	"context"
 )
 
-// EndMeeting
+// EndMeeting 结束一个进行中的会议
 //
-// > 结束一个进行中的会议
-// 该会议正在进行中，且操作者具有相应的权限（如果操作者为用户，必须是会中当前主持人）
+// 会议正在进行中，且操作者须具有相应的权限（如果操作者为用户，必须是会中当前主持人）
 //
-// doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/vc-v1/meeting/end
+// doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/vc-v1/meeting/end
 func (r *VCAPI) EndMeeting(ctx context.Context, request *EndMeetingReq) (*EndMeetingResp, *Response, error) {
 	req := &RawRequestReq{
 		Method:                "PATCH",
@@ -35,7 +34,7 @@ func (r *VCAPI) EndMeeting(ctx context.Context, request *EndMeetingReq) (*EndMee
 }
 
 type EndMeetingReq struct {
-	MeetingID string `path:"meeting_id" json:"-"` // 会议id，示例值："6911188411932033028"
+	MeetingID string `path:"meeting_id" json:"-"` // 会议ID, 示例值："6911188411932033028"
 }
 
 type endMeetingResp struct {

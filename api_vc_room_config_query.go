@@ -6,12 +6,11 @@ import (
 	"context"
 )
 
-// QueryRoomConfig
+// QueryRoomConfig 查询一个范围内的会议室配置。
 //
-// > 查询一个范围内的会议室配置
 // 根据查询范围传入对应的参数
 //
-// doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/vc-v1/room_config/query
+// doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/vc-v1/room_config/query
 func (r *VCAPI) QueryRoomConfig(ctx context.Context, request *QueryRoomConfigReq) (*QueryRoomConfigResp, *Response, error) {
 	req := &RawRequestReq{
 		Method:                "GET",
@@ -35,18 +34,18 @@ func (r *VCAPI) QueryRoomConfig(ctx context.Context, request *QueryRoomConfigReq
 }
 
 type QueryRoomConfigReq struct {
-	Scope      int    `query:"scope" json:"-"`       // 查询节点范围，必选字段，可用值：【1（租户），2（国家/地区），3（城市），4（建筑），5（楼层），6（会议室）】，示例值：6
-	CountryID  string `query:"country_id" json:"-"`  // 国家/地区id scope为2/3时此参数必填，示例值："666"
-	DistrictID string `query:"district_id" json:"-"` // 城市id scope为3时此参数必填，示例值："555"
-	BuildingID string `query:"building_id" json:"-"` // 建筑id scope为4/5时此参数必填，示例值："123"
-	FloorName  string `query:"floor_name" json:"-"`  // 楼层 scope为5时此参数必填，示例值："8"
-	RoomID     string `query:"room_id" json:"-"`     // 会议室id scope为5时需要此参数，示例值："6383786266263"
+	Scope      int     `query:"scope" json:"-"`       // 查询节点范围, 示例值：5, 可选值有: `1`：租户, `2`：国家/地区, `3`：城市, `4`：建筑, `5`：楼层, `6`：会议室
+	CountryID  *string `query:"country_id" json:"-"`  // 国家/地区ID scope为1，2时需要此参数, 示例值："1"
+	DistrictID *string `query:"district_id" json:"-"` // 城市ID scope为2时需要此参数, 示例值："2"
+	BuildingID *string `query:"building_id" json:"-"` // 建筑ID scope为3，4时需要此参数, 示例值："3"
+	FloorName  *string `query:"floor_name" json:"-"`  // 楼层 scope为4时需要此参数, 示例值："4"
+	RoomID     *string `query:"room_id" json:"-"`     // 会议室ID scope为5时需要此参数, 示例值："6383786266263"
 }
 
 type queryRoomConfigResp struct {
 	Code int                  `json:"code,omitempty"` // 错误码，非 0 表示失败
 	Msg  string               `json:"msg,omitempty"`  // 错误描述
-	Data *QueryRoomConfigResp `json:"data,omitempty"` // -
+	Data *QueryRoomConfigResp `json:"data,omitempty"` //
 }
 
 type QueryRoomConfigResp struct {
@@ -64,9 +63,9 @@ type QueryRoomConfigRespDigitalSignage struct {
 }
 
 type QueryRoomConfigRespDigitalSignageMaterial struct {
-	ID           string `json:"id,omitempty"`            // 素材id
+	ID           string `json:"id,omitempty"`            // 素材ID
 	Name         string `json:"name,omitempty"`          // 素材名称
-	MaterialType int    `json:"material_type,omitempty"` // 素材类型，可用值：【1（图片），2（视频），3（GIF）】
+	MaterialType int    `json:"material_type,omitempty"` // 素材类型, 可选值有: `1`：图片, `2`：视频, `3`：GIF
 	URL          string `json:"url,omitempty"`           // 素材url
 	Duration     int    `json:"duration,omitempty"`      // 播放时长（单位sec）
 	Cover        string `json:"cover,omitempty"`         // 素材封面url

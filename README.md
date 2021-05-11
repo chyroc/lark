@@ -24,8 +24,7 @@ https://godoc.org/github.com/chyroc/lark
 
 ## Support APIs
 
-API Count: 130, Event Count: 25
-
+API Count: 186, Event Count: 25
 
 <details>
   <summary>
@@ -166,9 +165,65 @@ API Count: 130, Event Count: 25
   - GetTicket
   - UpdateTicket
   - GetTicketList
+  - DownloadTicketImage
   - GetTicketMessageList
+  - SendTicketMessage
+  - GetTicketCustomizedFieldList
+  - DeleteTicketCustomizedField
+  - UpdateTicketCustomizedField
+  - CreateTicketCustomizedField
+  - DeleteTicketCustomizedField
+  - GetTicketCustomizedField
+  - CreateCategory
+  - GetCategory
+  - UpdateCategory
+  - DeleteCategory
+  - GetCategoryList
+  - CreateFAQ
+  - GetFAQ
+  - UpdateFAQ
+  - DeleteFAQ
+  - GetFAQList
+  - GetFAQImage
+  - SearchFAQ
+- Admin
+  - GetAdminDeptStats
+  - GetAdminUserStats
+- HumanAuth
+  - GetFaceVerifyAuthResult
+  - UploadFaceVerifyImage
+  - CropFaceVerifyImage
+  - CreateIdentity
+- AI
+  - RecognizeBasicImage
+  - RecognizeSpeechStream
+  - RecognizeSpeechFile
+  - TranslateText
+  - DetectTextLanguage
 - Attendance
   - UpdateUserSettings
+  - UploadAttendanceFile
+  - CreateUpdateGroup
+  - DeleteGroup
+  - GetGroup
+  - CreateShift
+  - DeleteShift
+  - GetShiftByID
+  - GetShiftByName
+  - GetStatisticsData
+  - GetStatisticsHeader
+  - UpdateUserStatisticsSettings
+  - GetUserStatisticsSettings
+  - GetUserDailyShift
+  - GetUserDailyShift
+  - GetUserTask
+  - GetUserFlow
+  - BatchGetUserFlow
+  - BatchCreateUserFlow
+  - GetUserTaskRemedy
+  - CreateUpdateUserDailyShift
+  - GetUserApproval
+  - CreateUserApproval
 - File
   - UploadImage
   - DownloadImage
@@ -200,6 +255,11 @@ API Count: 130, Event Count: 25
   - EventV1RemoveUserFromChat
   - EventV1RevokeAddUserFromChat
   - EventV1ChatDisband
+- EHR
+  - GetEmployeeList
+  - DownloadAttachments
+- Tenant
+  - QueryTenant
 
 
 </details>

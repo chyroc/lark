@@ -24,6 +24,138 @@ func Test_Attendance_Sample_Failed(t *testing.T) {
 			as.NotNil(err)
 			as.Equal(err.Error(), "failed")
 		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.UploadAttendanceFile(ctx, &lark.UploadAttendanceFileReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.CreateUpdateGroup(ctx, &lark.CreateUpdateGroupReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.DeleteGroup(ctx, &lark.DeleteGroupReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.GetGroup(ctx, &lark.GetGroupReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.CreateShift(ctx, &lark.CreateShiftReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.DeleteShift(ctx, &lark.DeleteShiftReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.GetShiftByID(ctx, &lark.GetShiftByIDReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.GetShiftByName(ctx, &lark.GetShiftByNameReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.GetStatisticsData(ctx, &lark.GetStatisticsDataReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.GetStatisticsHeader(ctx, &lark.GetStatisticsHeaderReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.UpdateUserStatisticsSettings(ctx, &lark.UpdateUserStatisticsSettingsReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.GetUserStatisticsSettings(ctx, &lark.GetUserStatisticsSettingsReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.GetUserDailyShift(ctx, &lark.GetUserDailyShiftReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.GetUserDailyShift(ctx, &lark.GetUserDailyShiftReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.GetUserTask(ctx, &lark.GetUserTaskReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.GetUserFlow(ctx, &lark.GetUserFlowReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.BatchGetUserFlow(ctx, &lark.BatchGetUserFlowReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.BatchCreateUserFlow(ctx, &lark.BatchCreateUserFlowReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.GetUserTaskRemedy(ctx, &lark.GetUserTaskRemedyReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.CreateUpdateUserDailyShift(ctx, &lark.CreateUpdateUserDailyShiftReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.GetUserApproval(ctx, &lark.GetUserApprovalReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.CreateUserApproval(ctx, &lark.CreateUserApprovalReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "failed")
+		})
 	})
 
 	t.Run("response is failed", func(t *testing.T) {
@@ -32,6 +164,150 @@ func Test_Attendance_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 			_, _, err := moduleCli.UpdateUserSettings(ctx, &lark.UpdateUserSettingsReq{})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.UploadAttendanceFile(ctx, &lark.UploadAttendanceFileReq{})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.CreateUpdateGroup(ctx, &lark.CreateUpdateGroupReq{})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.DeleteGroup(ctx, &lark.DeleteGroupReq{
+				GroupID: "x",
+			})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.GetGroup(ctx, &lark.GetGroupReq{
+				GroupID: "x",
+			})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.CreateShift(ctx, &lark.CreateShiftReq{})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.DeleteShift(ctx, &lark.DeleteShiftReq{
+				ShiftID: "x",
+			})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.GetShiftByID(ctx, &lark.GetShiftByIDReq{
+				ShiftID: "x",
+			})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.GetShiftByName(ctx, &lark.GetShiftByNameReq{})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.GetStatisticsData(ctx, &lark.GetStatisticsDataReq{})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.GetStatisticsHeader(ctx, &lark.GetStatisticsHeaderReq{})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.UpdateUserStatisticsSettings(ctx, &lark.UpdateUserStatisticsSettingsReq{
+				UserStatsViewID: "x",
+			})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.GetUserStatisticsSettings(ctx, &lark.GetUserStatisticsSettingsReq{})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.GetUserDailyShift(ctx, &lark.GetUserDailyShiftReq{})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.GetUserDailyShift(ctx, &lark.GetUserDailyShiftReq{})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.GetUserTask(ctx, &lark.GetUserTaskReq{})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.GetUserFlow(ctx, &lark.GetUserFlowReq{
+				UserFlowID: "x",
+			})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.BatchGetUserFlow(ctx, &lark.BatchGetUserFlowReq{})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.BatchCreateUserFlow(ctx, &lark.BatchCreateUserFlowReq{})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.GetUserTaskRemedy(ctx, &lark.GetUserTaskRemedyReq{})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.CreateUpdateUserDailyShift(ctx, &lark.CreateUpdateUserDailyShiftReq{})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.GetUserApproval(ctx, &lark.GetUserApprovalReq{})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.CreateUserApproval(ctx, &lark.CreateUserApprovalReq{})
 			as.NotNil(err)
 			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
 		})

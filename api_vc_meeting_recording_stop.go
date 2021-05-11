@@ -6,12 +6,11 @@ import (
 	"context"
 )
 
-// StopMeetingRecording
+// StopMeetingRecording 在会议中停止录制。
 //
-// > 在会议中停止录制
 // 会议正在录制中，且操作者具有相应权限（如果操作者为用户，必须是会中当前主持人）
 //
-// doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/vc-v1/meeting.recording/stop
+// doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/vc-v1/meeting-recording/stop
 func (r *VCAPI) StopMeetingRecording(ctx context.Context, request *StopMeetingRecordingReq) (*StopMeetingRecordingResp, *Response, error) {
 	req := &RawRequestReq{
 		Method:                "PATCH",
@@ -35,7 +34,7 @@ func (r *VCAPI) StopMeetingRecording(ctx context.Context, request *StopMeetingRe
 }
 
 type StopMeetingRecordingReq struct {
-	MeetingID string `path:"meeting_id" json:"-"` // 会议id，示例值："6911188411932033028"
+	MeetingID string `path:"meeting_id" json:"-"` // 会议ID, 示例值: "6911188411932033028"
 }
 
 type stopMeetingRecordingResp struct {

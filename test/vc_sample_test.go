@@ -26,12 +26,6 @@ func Test_VC_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-			_, _, err := moduleCli.SetHostMeeting(ctx, &lark.SetHostMeetingReq{})
-			as.NotNil(err)
-			as.Equal(err.Error(), "failed")
-		})
-
-		t.Run("", func(t *testing.T) {
 			_, _, err := moduleCli.GetDailyReport(ctx, &lark.GetDailyReportReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "failed")
@@ -62,14 +56,6 @@ func Test_VC_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 			_, _, err := moduleCli.GetMeeting(ctx, &lark.GetMeetingReq{
-				MeetingID: "x",
-			})
-			as.NotNil(err)
-			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
-		})
-
-		t.Run("", func(t *testing.T) {
-			_, _, err := moduleCli.SetHostMeeting(ctx, &lark.SetHostMeetingReq{
 				MeetingID: "x",
 			})
 			as.NotNil(err)

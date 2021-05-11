@@ -6,12 +6,11 @@ import (
 	"context"
 )
 
-// GetMeetingRecording
+// GetMeetingRecording 获取一个会议的录制文件。
 //
-// > 获取一个会议的录制文件
-// 会议结束后并且收到了"录制完成"的事件方可获取录制文件；只有会议owner（通过开放平台预约的会议即为预约人）有权限获取；录制时间太短(<5s)有可能无法生成录制文件
+// 会议结束后并且收到了"录制完成"的事件方可获取录制文件；只有会议owner（通过开放平台预约的会议即为预约人）有权限获取；录制时间太短(&lt;5s)有可能无法生成录制文件
 //
-// doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/vc-v1/meeting.recording/get
+// doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/vc-v1/meeting-recording/get
 func (r *VCAPI) GetMeetingRecording(ctx context.Context, request *GetMeetingRecordingReq) (*GetMeetingRecordingResp, *Response, error) {
 	req := &RawRequestReq{
 		Method:                "GET",
@@ -35,13 +34,13 @@ func (r *VCAPI) GetMeetingRecording(ctx context.Context, request *GetMeetingReco
 }
 
 type GetMeetingRecordingReq struct {
-	MeetingID string `path:"meeting_id" json:"-"` // 会议id，示例值："6911188411932033028"
+	MeetingID string `path:"meeting_id" json:"-"` // 会议ID, 示例值："6911188411932033028"
 }
 
 type getMeetingRecordingResp struct {
 	Code int                      `json:"code,omitempty"` // 错误码，非 0 表示失败
 	Msg  string                   `json:"msg,omitempty"`  // 错误描述
-	Data *GetMeetingRecordingResp `json:"data,omitempty"` // -
+	Data *GetMeetingRecordingResp `json:"data,omitempty"` //
 }
 
 type GetMeetingRecordingResp struct {
@@ -49,6 +48,6 @@ type GetMeetingRecordingResp struct {
 }
 
 type GetMeetingRecordingRespRecording struct {
-	URL      string `json:"url,omitempty"`      // 录制文件URL
+	URL      string `json:"url,omitempty"`      // 录指文件URL
 	Duration string `json:"duration,omitempty"` // 录制总时长（单位msec）
 }

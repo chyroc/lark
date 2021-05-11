@@ -273,3 +273,56 @@ type EventHeaderV1 struct {
 	TS        string    `json:"create_time,omitempty"` // 事件创建时间戳（单位：毫秒）
 	Token     string    `json:"token,omitempty"`       // 事件 Token
 }
+
+// EHR 附件
+type EHRAttachment struct {
+	ID       string `json:"id,omitempty"`        // 下载文件所需要的 Token
+	MimeType string `json:"mime_type,omitempty"` // 文件类型
+	Name     string `json:"name,omitempty"`      // 名称
+	Size     int    `json:"size,omitempty"`      // 大小
+}
+
+// EHR 教育经历
+type EHREducation struct {
+	Level  int    `json:"level,omitempty"`  // 学历, 可选值有: `1`：小学, `2`：初中, `3`：高中, `4`：职业高级中学, `5`：中等专业学校, `6`：大专, `7`：本科, `8`：硕士, `9`：博士
+	School string `json:"school,omitempty"` // 毕业学校
+	Major  string `json:"major,omitempty"`  // 专业
+	Degree int    `json:"degree,omitempty"` // 学位, 可选值有: `1`：学士, `2`：硕士, `3`：博士
+	Start  string `json:"start,omitempty"`  // 开始日期
+	End    string `json:"end,omitempty"`    // 结束日期
+}
+
+// EHR 紧急联系人
+type EHREmergencyContact struct {
+	Name         string `json:"name,omitempty"`         // 紧急联系人姓名
+	Relationship int    `json:"relationship,omitempty"` // 与紧急联系人的关系, 可选值有: `1`：父母, `2`：配偶, `3`：子女, `4`：兄弟姐妹, `5`：朋友, `6`：其他
+	Mobile       string `json:"mobile,omitempty"`       // 手机号
+}
+
+// EHR 工作经历
+type EHRWorkExperience struct {
+	Company     string `json:"company,omitempty"`     // 公司
+	Department  string `json:"department,omitempty"`  // 部门
+	Job         string `json:"job,omitempty"`         // 职位
+	Start       string `json:"start,omitempty"`       // 开始日期
+	End         string `json:"end,omitempty"`         // 截止日期
+	Description string `json:"description,omitempty"` // 工作描述
+}
+
+// 下拉列表选项
+type HelpdeskDropdownOption struct {
+	Tag         string                    `json:"tag,omitempty"`          // 选项ID
+	DisplayName string                    `json:"display_name,omitempty"` // 展示名称
+	Children    []*HelpdeskDropdownOption `json:"children,omitempty"`     // 同上：选项列表，只适用于多层下拉列表（最多可以设置三级下拉列表）
+}
+
+// 知识库分类
+type HelpdeskCategory struct {
+	CategoryID string              `json:"category_id,omitempty"` // 知识库分类ID
+	ID         string              `json:"id,omitempty"`          // 知识库分类ID，（旧版，请使用category_id）
+	Name       string              `json:"name,omitempty"`        // 名称
+	ParentID   string              `json:"parent_id,omitempty"`   // 父知识库分类ID
+	HelpdeskID string              `json:"helpdesk_id,omitempty"` // 服务台ID
+	Language   string              `json:"language,omitempty"`    // 语言
+	Children   []*HelpdeskCategory `json:"children,omitempty"`    // 子分类详情
+}

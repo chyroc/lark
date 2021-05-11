@@ -156,6 +156,56 @@ func (r *Lark) VC() *VCAPI {
 	}
 }
 
+type TenantAPI struct {
+	cli *Lark
+}
+
+func (r *Lark) Tenant() *TenantAPI {
+	return &TenantAPI{
+		cli: r,
+	}
+}
+
+type EHRAPI struct {
+	cli *Lark
+}
+
+func (r *Lark) EHR() *EHRAPI {
+	return &EHRAPI{
+		cli: r,
+	}
+}
+
+type AIAPI struct {
+	cli *Lark
+}
+
+func (r *Lark) AI() *AIAPI {
+	return &AIAPI{
+		cli: r,
+	}
+}
+
+type HumanAuthAPI struct {
+	cli *Lark
+}
+
+func (r *Lark) HumanAuth() *HumanAuthAPI {
+	return &HumanAuthAPI{
+		cli: r,
+	}
+}
+
+type AdminAPI struct {
+	cli *Lark
+}
+
+func (r *Lark) Admin() *AdminAPI {
+	return &AdminAPI{
+		cli: r,
+	}
+}
+
 type EventCallbackAPI struct {
 	cli *Lark
 }

@@ -6,12 +6,11 @@ import (
 	"context"
 )
 
-// GetMeeting
+// GetMeeting 获取一个会议的详细数据
 //
-// > 获取一个会议的详细数据
-// 会议owner、会议参与者可获取会议详情，支持查询最近90天内的会议
+// 只能获取归属于自己（或参与）的会议，支持查询最近90天内的会议
 //
-// doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/vc-v1/meeting/get
+// doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/vc-v1/meeting/get
 func (r *VCAPI) GetMeeting(ctx context.Context, request *GetMeetingReq) (*GetMeetingResp, *Response, error) {
 	req := &RawRequestReq{
 		Method:                "GET",
@@ -35,16 +34,16 @@ func (r *VCAPI) GetMeeting(ctx context.Context, request *GetMeetingReq) (*GetMee
 }
 
 type GetMeetingReq struct {
-	WithParticipants   bool   `query:"with_participants" json:"-"`    // 是否需要参会人列表，默认为false，示例值：false
-	WithMeetingAbility bool   `query:"with_meeting_ability" json:"-"` // 是否需要会中使用能力统计（仅限tenant_access_token），默认为false，示例值：false
-	UserIDType         IDType `query:"user_id_type" json:"-"`         // 用户ID类型，可用值：【open_id，union_id，user_id】，默认值：open_id
-	MeetingID          string `path:"meeting_id" json:"-"`            // 会议id，示例值："6911188411932033028"
+	WithParticipants   *bool   `query:"with_participants" json:"-"`    // 是否需要参会人列表, 示例值：false
+	WithMeetingAbility *bool   `query:"with_meeting_ability" json:"-"` // 是否需要会中使用能力统计（仅限tenant_access_token）, 示例值：false
+	UserIDType         *IDType `query:"user_id_type" json:"-"`         // 用户 ID 类型, 示例值："open_id", 可选值有: `open_id`：用户的 open id, `union_id`：用户的 union id, `user_id`：用户的 user id, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 userid
+	MeetingID          string  `path:"meeting_id" json:"-"`            // 会议ID, 示例值："6911188411932033028"
 }
 
 type getMeetingResp struct {
 	Code int             `json:"code,omitempty"` // 错误码，非 0 表示失败
 	Msg  string          `json:"msg,omitempty"`  // 错误描述
-	Data *GetMeetingResp `json:"data,omitempty"` // -
+	Data *GetMeetingResp `json:"data,omitempty"` //
 }
 
 type GetMeetingResp struct {
@@ -52,31 +51,31 @@ type GetMeetingResp struct {
 }
 
 type GetMeetingRespMeeting struct {
-	ID               string                              `json:"id,omitempty"`                // 会议id
+	ID               string                              `json:"id,omitempty"`                // 会议ID
 	Topic            string                              `json:"topic,omitempty"`             // 会议主题
 	URL              string                              `json:"url,omitempty"`               // 会议链接
 	CreateTime       string                              `json:"create_time,omitempty"`       // 会议创建时间（unix时间，单位sec）
 	StartTime        string                              `json:"start_time,omitempty"`        // 会议开始时间（unix时间，单位sec）
 	EndTime          string                              `json:"end_time,omitempty"`          // 会议结束时间（unix时间，单位sec）
 	HostUser         *GetMeetingRespMeetingHostUser      `json:"host_user,omitempty"`         // 主持人
-	Status           int                                 `json:"status,omitempty"`            // 会议状态，可用值：【1（会议呼叫中），2（会议进行中），3（会议已结束）】
+	Status           int                                 `json:"status,omitempty"`            // 会议状态, 可选值有: `1`：会议呼叫中, `2`：会议进行中, `3`：会议已结束
 	ParticipantCount string                              `json:"participant_count,omitempty"` // 参会人数
 	Participants     []*GetMeetingRespMeetingParticipant `json:"participants,omitempty"`      // 参会人列表
 	Ability          *GetMeetingRespMeetingAbility       `json:"ability,omitempty"`           // 会中使用的能力
 }
 
 type GetMeetingRespMeetingHostUser struct {
-	ID       string `json:"id,omitempty"`        // 用户id
-	UserType int    `json:"user_type,omitempty"` // 用户类型，可用值：【1（飞书用户），2（飞书会议室用户），3（飞书云文档用户），4（飞书会议单品用户），5（飞书会议单品游客用户），6（PSTN用户），7（SIP用户）】
+	ID       string `json:"id,omitempty"`        // 用户ID
+	UserType int    `json:"user_type,omitempty"` // 用户类型, 可选值有: `1`：lark用户, `2`：rooms用户, `3`：文档用户, `4`：neo单品用户, `5`：neo单品游客用户, `6`：pstn用户, `7`：sip用户
 }
 
 type GetMeetingRespMeetingParticipant struct {
-	ID         string `json:"id,omitempty"`          // 用户id
-	UserType   int    `json:"user_type,omitempty"`   // 用户类型，可用值：【1（飞书用户），2（飞书会议室用户），3（飞书云文档用户），4（飞书会议单品用户），5（飞书会议单品游客用户），6（PSTN用户），7（SIP用户）】
+	ID         string `json:"id,omitempty"`          // 用户ID
+	UserType   int    `json:"user_type,omitempty"`   // 用户类型, 可选值有: `1`：lark用户, `2`：rooms用户, `3`：文档用户, `4`：neo单品用户, `5`：neo单品游客用户, `6`：pstn用户, `7`：sip用户
 	IsHost     bool   `json:"is_host,omitempty"`     // 是否为主持人
 	IsCohost   bool   `json:"is_cohost,omitempty"`   // 是否为联席主持人
 	IsExternal bool   `json:"is_external,omitempty"` // 是否为外部参会人
-	Status     int    `json:"status,omitempty"`      // 参会人状态，可用值：【1（呼叫中），2（在会中），3（正在响铃），4（不在会中或已经离开会议）】
+	Status     int    `json:"status,omitempty"`      // 参会人状态, 可选值有: `1`：呼叫中, `2`：在会中, `3`：正在响铃, `4`：不在会中或已经离开会议
 }
 
 type GetMeetingRespMeetingAbility struct {

@@ -6,12 +6,11 @@ import (
 	"context"
 )
 
-// DeleteReserve
+// DeleteReserve 删除一个预约
 //
-// > 删除一个预约
-// 操作者需为预约的owner；删除后数据不可恢复
+// 只能删除归属于自己的预约；删除后数据不可恢复
 //
-// doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/vc-v1/reserve/delete
+// doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/vc-v1/reserve/delete
 func (r *VCAPI) DeleteReserve(ctx context.Context, request *DeleteReserveReq) (*DeleteReserveResp, *Response, error) {
 	req := &RawRequestReq{
 		Method:                "DELETE",
@@ -35,7 +34,7 @@ func (r *VCAPI) DeleteReserve(ctx context.Context, request *DeleteReserveReq) (*
 }
 
 type DeleteReserveReq struct {
-	ReserveID string `path:"reserve_id" json:"-"` // 预约id，示例值："6911188411932033028"
+	ReserveID string `path:"reserve_id" json:"-"` // 预约ID, 示例值："6911188411932033028"
 }
 
 type deleteReserveResp struct {
