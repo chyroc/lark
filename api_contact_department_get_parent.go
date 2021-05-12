@@ -14,13 +14,13 @@ import (
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/parent
 func (r *ContactAPI) GetParentDepartment(ctx context.Context, request *GetParentDepartmentReq, options ...MethodOptionFunc) (*GetParentDepartmentResp, *Response, error) {
-	r.cli.logInfo(ctx, "[lark] Contact#GetParentDepartment call api")
-	r.cli.logDebug(ctx, "[lark] Contact#GetParentDepartment request: %s", jsonString(request))
-
 	if r.cli.mock.mockContactGetParentDepartment != nil {
 		r.cli.logDebug(ctx, "[lark] Contact#GetParentDepartment mock enable")
 		return r.cli.mock.mockContactGetParentDepartment(ctx, request, options...)
 	}
+
+	r.cli.logInfo(ctx, "[lark] Contact#GetParentDepartment call api")
+	r.cli.logDebug(ctx, "[lark] Contact#GetParentDepartment request: %s", jsonString(request))
 
 	req := &RawRequestReq{
 		Method:                "GET",

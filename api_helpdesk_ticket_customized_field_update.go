@@ -12,13 +12,13 @@ import (
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/ticket_customized_field/update-ticket-customized-field
 func (r *HelpdeskAPI) UpdateTicketCustomizedField(ctx context.Context, request *UpdateTicketCustomizedFieldReq, options ...MethodOptionFunc) (*UpdateTicketCustomizedFieldResp, *Response, error) {
-	r.cli.logInfo(ctx, "[lark] Helpdesk#UpdateTicketCustomizedField call api")
-	r.cli.logDebug(ctx, "[lark] Helpdesk#UpdateTicketCustomizedField request: %s", jsonString(request))
-
 	if r.cli.mock.mockHelpdeskUpdateTicketCustomizedField != nil {
 		r.cli.logDebug(ctx, "[lark] Helpdesk#UpdateTicketCustomizedField mock enable")
 		return r.cli.mock.mockHelpdeskUpdateTicketCustomizedField(ctx, request, options...)
 	}
+
+	r.cli.logInfo(ctx, "[lark] Helpdesk#UpdateTicketCustomizedField call api")
+	r.cli.logDebug(ctx, "[lark] Helpdesk#UpdateTicketCustomizedField request: %s", jsonString(request))
 
 	req := &RawRequestReq{
 		Method:              "PATCH",

@@ -17,13 +17,13 @@ import (
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-members/create
 func (r *ChatAPI) AddMember(ctx context.Context, request *AddMemberReq, options ...MethodOptionFunc) (*AddMemberResp, *Response, error) {
-	r.cli.logInfo(ctx, "[lark] Chat#AddMember call api")
-	r.cli.logDebug(ctx, "[lark] Chat#AddMember request: %s", jsonString(request))
-
 	if r.cli.mock.mockChatAddMember != nil {
 		r.cli.logDebug(ctx, "[lark] Chat#AddMember mock enable")
 		return r.cli.mock.mockChatAddMember(ctx, request, options...)
 	}
+
+	r.cli.logInfo(ctx, "[lark] Chat#AddMember call api")
+	r.cli.logDebug(ctx, "[lark] Chat#AddMember request: %s", jsonString(request))
 
 	req := &RawRequestReq{
 		Method:                "POST",

@@ -12,13 +12,13 @@ import (
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/vc-v1/report/get_top_user
 func (r *VCAPI) GetTopUserReport(ctx context.Context, request *GetTopUserReportReq, options ...MethodOptionFunc) (*GetTopUserReportResp, *Response, error) {
-	r.cli.logInfo(ctx, "[lark] VC#GetTopUserReport call api")
-	r.cli.logDebug(ctx, "[lark] VC#GetTopUserReport request: %s", jsonString(request))
-
 	if r.cli.mock.mockVCGetTopUserReport != nil {
 		r.cli.logDebug(ctx, "[lark] VC#GetTopUserReport mock enable")
 		return r.cli.mock.mockVCGetTopUserReport(ctx, request, options...)
 	}
+
+	r.cli.logInfo(ctx, "[lark] VC#GetTopUserReport call api")
+	r.cli.logDebug(ctx, "[lark] VC#GetTopUserReport request: %s", jsonString(request))
 
 	req := &RawRequestReq{
 		Method:                "GET",

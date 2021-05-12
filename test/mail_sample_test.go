@@ -18,6 +18,7 @@ func Test_Mail_Sample_Failed(t *testing.T) {
 	t.Run("request failed", func(t *testing.T) {
 		cli := AppALLPermission.Ins()
 		cli.Mock().MockGetTenantAccessToken(mockGetTenantAccessTokenFailed)
+		cli.Mock().MockGetAppAccessToken(mockGetTenantAccessTokenFailed)
 		moduleCli := cli.Mail()
 
 		t.Run("", func(t *testing.T) {

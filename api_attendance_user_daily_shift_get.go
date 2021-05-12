@@ -12,13 +12,13 @@ import (
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/Attendance//task/GetScheduledShifts
 func (r *AttendanceAPI) GetUserDailyShift(ctx context.Context, request *GetUserDailyShiftReq, options ...MethodOptionFunc) (*GetUserDailyShiftResp, *Response, error) {
-	r.cli.logInfo(ctx, "[lark] Attendance#GetUserDailyShift call api")
-	r.cli.logDebug(ctx, "[lark] Attendance#GetUserDailyShift request: %s", jsonString(request))
-
 	if r.cli.mock.mockAttendanceGetUserDailyShift != nil {
 		r.cli.logDebug(ctx, "[lark] Attendance#GetUserDailyShift mock enable")
 		return r.cli.mock.mockAttendanceGetUserDailyShift(ctx, request, options...)
 	}
+
+	r.cli.logInfo(ctx, "[lark] Attendance#GetUserDailyShift call api")
+	r.cli.logDebug(ctx, "[lark] Attendance#GetUserDailyShift request: %s", jsonString(request))
 
 	req := &RawRequestReq{
 		Method:                "POST",

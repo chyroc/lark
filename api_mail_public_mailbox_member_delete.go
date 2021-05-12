@@ -10,13 +10,13 @@ import (
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/mail-v1/public_mailbox-member/delete
 func (r *MailAPI) DeletePublicMailboxMember(ctx context.Context, request *DeletePublicMailboxMemberReq, options ...MethodOptionFunc) (*DeletePublicMailboxMemberResp, *Response, error) {
-	r.cli.logInfo(ctx, "[lark] Mail#DeletePublicMailboxMember call api")
-	r.cli.logDebug(ctx, "[lark] Mail#DeletePublicMailboxMember request: %s", jsonString(request))
-
 	if r.cli.mock.mockMailDeletePublicMailboxMember != nil {
 		r.cli.logDebug(ctx, "[lark] Mail#DeletePublicMailboxMember mock enable")
 		return r.cli.mock.mockMailDeletePublicMailboxMember(ctx, request, options...)
 	}
+
+	r.cli.logInfo(ctx, "[lark] Mail#DeletePublicMailboxMember call api")
+	r.cli.logDebug(ctx, "[lark] Mail#DeletePublicMailboxMember request: %s", jsonString(request))
 
 	req := &RawRequestReq{
 		Method:                "DELETE",

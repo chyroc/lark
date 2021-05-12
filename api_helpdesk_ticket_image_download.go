@@ -11,13 +11,13 @@ import (
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/ticket/ticket_image
 func (r *HelpdeskAPI) DownloadTicketImage(ctx context.Context, request *DownloadTicketImageReq, options ...MethodOptionFunc) (*DownloadTicketImageResp, *Response, error) {
-	r.cli.logInfo(ctx, "[lark] Helpdesk#DownloadTicketImage call api")
-	r.cli.logDebug(ctx, "[lark] Helpdesk#DownloadTicketImage request: %s", jsonString(request))
-
 	if r.cli.mock.mockHelpdeskDownloadTicketImage != nil {
 		r.cli.logDebug(ctx, "[lark] Helpdesk#DownloadTicketImage mock enable")
 		return r.cli.mock.mockHelpdeskDownloadTicketImage(ctx, request, options...)
 	}
+
+	r.cli.logInfo(ctx, "[lark] Helpdesk#DownloadTicketImage call api")
+	r.cli.logDebug(ctx, "[lark] Helpdesk#DownloadTicketImage request: %s", jsonString(request))
 
 	req := &RawRequestReq{
 		Method:                "GET",

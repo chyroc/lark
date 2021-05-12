@@ -12,13 +12,13 @@ import (
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/vc-v1/meeting-recording/start
 func (r *VCAPI) StartMeetingRecording(ctx context.Context, request *StartMeetingRecordingReq, options ...MethodOptionFunc) (*StartMeetingRecordingResp, *Response, error) {
-	r.cli.logInfo(ctx, "[lark] VC#StartMeetingRecording call api")
-	r.cli.logDebug(ctx, "[lark] VC#StartMeetingRecording request: %s", jsonString(request))
-
 	if r.cli.mock.mockVCStartMeetingRecording != nil {
 		r.cli.logDebug(ctx, "[lark] VC#StartMeetingRecording mock enable")
 		return r.cli.mock.mockVCStartMeetingRecording(ctx, request, options...)
 	}
+
+	r.cli.logInfo(ctx, "[lark] VC#StartMeetingRecording call api")
+	r.cli.logDebug(ctx, "[lark] VC#StartMeetingRecording request: %s", jsonString(request))
 
 	req := &RawRequestReq{
 		Method:              "PATCH",

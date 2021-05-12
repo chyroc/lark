@@ -18,6 +18,7 @@ func Test_Helpdesk_Sample_Failed(t *testing.T) {
 	t.Run("request failed", func(t *testing.T) {
 		cli := AppALLPermission.Ins()
 		cli.Mock().MockGetTenantAccessToken(mockGetTenantAccessTokenFailed)
+		cli.Mock().MockGetAppAccessToken(mockGetTenantAccessTokenFailed)
 		moduleCli := cli.Helpdesk()
 
 		t.Run("", func(t *testing.T) {
@@ -100,6 +101,18 @@ func Test_Helpdesk_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 			_, _, err := moduleCli.SearchFAQ(ctx, &lark.SearchFAQReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.SubscribeEvent(ctx, &lark.SubscribeEventReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.UnsubscribeEvent(ctx, &lark.UnsubscribeEventReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "failed")
 		})
@@ -262,6 +275,28 @@ func Test_Helpdesk_Sample_Failed(t *testing.T) {
 			as.NotNil(err)
 			as.Equal(err.Error(), "mock-failed")
 		})
+
+		t.Run("", func(t *testing.T) {
+			cli.Mock().MockHelpdeskSubscribeEvent(func(ctx context.Context, request *lark.SubscribeEventReq, options ...lark.MethodOptionFunc) (*lark.SubscribeEventResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockHelpdeskSubscribeEvent()
+
+			_, _, err := moduleCli.SubscribeEvent(ctx, &lark.SubscribeEventReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+			cli.Mock().MockHelpdeskUnsubscribeEvent(func(ctx context.Context, request *lark.UnsubscribeEventReq, options ...lark.MethodOptionFunc) (*lark.UnsubscribeEventResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockHelpdeskUnsubscribeEvent()
+
+			_, _, err := moduleCli.UnsubscribeEvent(ctx, &lark.UnsubscribeEventReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
 	})
 
 	t.Run("response is failed", func(t *testing.T) {
@@ -363,6 +398,18 @@ func Test_Helpdesk_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 			_, _, err := moduleCli.SearchFAQ(ctx, &lark.SearchFAQReq{})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.SubscribeEvent(ctx, &lark.SubscribeEventReq{})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.UnsubscribeEvent(ctx, &lark.UnsubscribeEventReq{})
 			as.NotNil(err)
 			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
 		})

@@ -12,13 +12,13 @@ import (
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/human_authentication-v1/identity/create
 func (r *HumanAuthAPI) CreateIdentity(ctx context.Context, request *CreateIdentityReq, options ...MethodOptionFunc) (*CreateIdentityResp, *Response, error) {
-	r.cli.logInfo(ctx, "[lark] HumanAuth#CreateIdentity call api")
-	r.cli.logDebug(ctx, "[lark] HumanAuth#CreateIdentity request: %s", jsonString(request))
-
 	if r.cli.mock.mockHumanAuthCreateIdentity != nil {
 		r.cli.logDebug(ctx, "[lark] HumanAuth#CreateIdentity mock enable")
 		return r.cli.mock.mockHumanAuthCreateIdentity(ctx, request, options...)
 	}
+
+	r.cli.logInfo(ctx, "[lark] HumanAuth#CreateIdentity call api")
+	r.cli.logDebug(ctx, "[lark] HumanAuth#CreateIdentity request: %s", jsonString(request))
 
 	req := &RawRequestReq{
 		Method:                "POST",

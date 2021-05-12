@@ -12,13 +12,13 @@ import (
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/Attendance//shift_by_id
 func (r *AttendanceAPI) GetShiftByID(ctx context.Context, request *GetShiftByIDReq, options ...MethodOptionFunc) (*GetShiftByIDResp, *Response, error) {
-	r.cli.logInfo(ctx, "[lark] Attendance#GetShiftByID call api")
-	r.cli.logDebug(ctx, "[lark] Attendance#GetShiftByID request: %s", jsonString(request))
-
 	if r.cli.mock.mockAttendanceGetShiftByID != nil {
 		r.cli.logDebug(ctx, "[lark] Attendance#GetShiftByID mock enable")
 		return r.cli.mock.mockAttendanceGetShiftByID(ctx, request, options...)
 	}
+
+	r.cli.logInfo(ctx, "[lark] Attendance#GetShiftByID call api")
+	r.cli.logDebug(ctx, "[lark] Attendance#GetShiftByID request: %s", jsonString(request))
 
 	req := &RawRequestReq{
 		Method:                "GET",

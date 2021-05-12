@@ -10,13 +10,13 @@ import (
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uMzMxYjLzMTM24yMzEjN
 func (r *MeetingRoomAPI) DeleteBuilding(ctx context.Context, request *DeleteBuildingReq, options ...MethodOptionFunc) (*DeleteBuildingResp, *Response, error) {
-	r.cli.logInfo(ctx, "[lark] MeetingRoom#DeleteBuilding call api")
-	r.cli.logDebug(ctx, "[lark] MeetingRoom#DeleteBuilding request: %s", jsonString(request))
-
 	if r.cli.mock.mockMeetingRoomDeleteBuilding != nil {
 		r.cli.logDebug(ctx, "[lark] MeetingRoom#DeleteBuilding mock enable")
 		return r.cli.mock.mockMeetingRoomDeleteBuilding(ctx, request, options...)
 	}
+
+	r.cli.logInfo(ctx, "[lark] MeetingRoom#DeleteBuilding call api")
+	r.cli.logDebug(ctx, "[lark] MeetingRoom#DeleteBuilding request: %s", jsonString(request))
 
 	req := &RawRequestReq{
 		Method:                "POST",

@@ -143,7 +143,7 @@ type I18nNames struct {
 }
 
 type Sender struct {
-	Id         string `json:"id,omitempty"`          // 该字段标识发送者的id
+	ID         string `json:"id,omitempty"`          // 该字段标识发送者的id
 	IDType     IDType `json:"id_type,omitempty"`     // 该字段标识发送者的id类型
 	SenderType string `json:"sender_type,omitempty"` // 该字段标识发送者的类型
 }
@@ -154,7 +154,7 @@ type MessageBody struct {
 
 type Mention struct {
 	Key    string `json:"key,omitempty"`     // mention key
-	Id     string `json:"id,omitempty"`      // 用户open id
+	ID     string `json:"id,omitempty"`      // 用户open id
 	IDType IDType `json:"id_type,omitempty"` // id 可以是open_id，user_id或者union_id
 	Name   string `json:"name,omitempty"`    // 被at用户的姓名
 }

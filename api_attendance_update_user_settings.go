@@ -10,13 +10,13 @@ import (
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/Attendance//rule/user-setting-modify
 func (r *AttendanceAPI) UpdateUserSettings(ctx context.Context, request *UpdateUserSettingsReq, options ...MethodOptionFunc) (*UpdateUserSettingsResp, *Response, error) {
-	r.cli.logInfo(ctx, "[lark] Attendance#UpdateUserSettings call api")
-	r.cli.logDebug(ctx, "[lark] Attendance#UpdateUserSettings request: %s", jsonString(request))
-
 	if r.cli.mock.mockAttendanceUpdateUserSettings != nil {
 		r.cli.logDebug(ctx, "[lark] Attendance#UpdateUserSettings mock enable")
 		return r.cli.mock.mockAttendanceUpdateUserSettings(ctx, request, options...)
 	}
+
+	r.cli.logInfo(ctx, "[lark] Attendance#UpdateUserSettings call api")
+	r.cli.logDebug(ctx, "[lark] Attendance#UpdateUserSettings request: %s", jsonString(request))
 
 	req := &RawRequestReq{
 		Method:                "POST",

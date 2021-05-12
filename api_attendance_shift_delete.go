@@ -10,13 +10,13 @@ import (
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/Attendance//shift_delete
 func (r *AttendanceAPI) DeleteShift(ctx context.Context, request *DeleteShiftReq, options ...MethodOptionFunc) (*DeleteShiftResp, *Response, error) {
-	r.cli.logInfo(ctx, "[lark] Attendance#DeleteShift call api")
-	r.cli.logDebug(ctx, "[lark] Attendance#DeleteShift request: %s", jsonString(request))
-
 	if r.cli.mock.mockAttendanceDeleteShift != nil {
 		r.cli.logDebug(ctx, "[lark] Attendance#DeleteShift mock enable")
 		return r.cli.mock.mockAttendanceDeleteShift(ctx, request, options...)
 	}
+
+	r.cli.logInfo(ctx, "[lark] Attendance#DeleteShift call api")
+	r.cli.logDebug(ctx, "[lark] Attendance#DeleteShift request: %s", jsonString(request))
 
 	req := &RawRequestReq{
 		Method:                "DELETE",

@@ -10,13 +10,13 @@ import (
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/mail-v1/mailgroup/create
 func (r *MailAPI) CreateMailGroup(ctx context.Context, request *CreateMailGroupReq, options ...MethodOptionFunc) (*CreateMailGroupResp, *Response, error) {
-	r.cli.logInfo(ctx, "[lark] Mail#CreateMailGroup call api")
-	r.cli.logDebug(ctx, "[lark] Mail#CreateMailGroup request: %s", jsonString(request))
-
 	if r.cli.mock.mockMailCreateMailGroup != nil {
 		r.cli.logDebug(ctx, "[lark] Mail#CreateMailGroup mock enable")
 		return r.cli.mock.mockMailCreateMailGroup(ctx, request, options...)
 	}
+
+	r.cli.logInfo(ctx, "[lark] Mail#CreateMailGroup call api")
+	r.cli.logDebug(ctx, "[lark] Mail#CreateMailGroup request: %s", jsonString(request))
 
 	req := &RawRequestReq{
 		Method:                "POST",

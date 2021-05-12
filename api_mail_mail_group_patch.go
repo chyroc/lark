@@ -10,13 +10,13 @@ import (
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/mail-v1/mailgroup/patch
 func (r *MailAPI) UpdateMailGroupPatch(ctx context.Context, request *UpdateMailGroupPatchReq, options ...MethodOptionFunc) (*UpdateMailGroupPatchResp, *Response, error) {
-	r.cli.logInfo(ctx, "[lark] Mail#UpdateMailGroupPatch call api")
-	r.cli.logDebug(ctx, "[lark] Mail#UpdateMailGroupPatch request: %s", jsonString(request))
-
 	if r.cli.mock.mockMailUpdateMailGroupPatch != nil {
 		r.cli.logDebug(ctx, "[lark] Mail#UpdateMailGroupPatch mock enable")
 		return r.cli.mock.mockMailUpdateMailGroupPatch(ctx, request, options...)
 	}
+
+	r.cli.logInfo(ctx, "[lark] Mail#UpdateMailGroupPatch call api")
+	r.cli.logDebug(ctx, "[lark] Mail#UpdateMailGroupPatch request: %s", jsonString(request))
 
 	req := &RawRequestReq{
 		Method:                "PATCH",

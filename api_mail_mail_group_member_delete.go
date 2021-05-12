@@ -10,13 +10,13 @@ import (
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/mail-v1/mailgroup-member/delete
 func (r *MailAPI) DeleteMailGroupMember(ctx context.Context, request *DeleteMailGroupMemberReq, options ...MethodOptionFunc) (*DeleteMailGroupMemberResp, *Response, error) {
-	r.cli.logInfo(ctx, "[lark] Mail#DeleteMailGroupMember call api")
-	r.cli.logDebug(ctx, "[lark] Mail#DeleteMailGroupMember request: %s", jsonString(request))
-
 	if r.cli.mock.mockMailDeleteMailGroupMember != nil {
 		r.cli.logDebug(ctx, "[lark] Mail#DeleteMailGroupMember mock enable")
 		return r.cli.mock.mockMailDeleteMailGroupMember(ctx, request, options...)
 	}
+
+	r.cli.logInfo(ctx, "[lark] Mail#DeleteMailGroupMember call api")
+	r.cli.logDebug(ctx, "[lark] Mail#DeleteMailGroupMember request: %s", jsonString(request))
 
 	req := &RawRequestReq{
 		Method:                "DELETE",

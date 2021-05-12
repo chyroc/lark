@@ -10,13 +10,13 @@ import (
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uIDOyUjLygjM14iM4ITN
 func (r *MeetingRoomAPI) BatchGetFreebusy(ctx context.Context, request *BatchGetFreebusyReq, options ...MethodOptionFunc) (*BatchGetFreebusyResp, *Response, error) {
-	r.cli.logInfo(ctx, "[lark] MeetingRoom#BatchGetFreebusy call api")
-	r.cli.logDebug(ctx, "[lark] MeetingRoom#BatchGetFreebusy request: %s", jsonString(request))
-
 	if r.cli.mock.mockMeetingRoomBatchGetFreebusy != nil {
 		r.cli.logDebug(ctx, "[lark] MeetingRoom#BatchGetFreebusy mock enable")
 		return r.cli.mock.mockMeetingRoomBatchGetFreebusy(ctx, request, options...)
 	}
+
+	r.cli.logInfo(ctx, "[lark] MeetingRoom#BatchGetFreebusy call api")
+	r.cli.logDebug(ctx, "[lark] MeetingRoom#BatchGetFreebusy request: %s", jsonString(request))
 
 	req := &RawRequestReq{
 		Method:                "GET",

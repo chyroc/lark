@@ -14,13 +14,13 @@ import (
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat/get
 func (r *ChatAPI) GetChat(ctx context.Context, request *GetChatReq, options ...MethodOptionFunc) (*GetChatResp, *Response, error) {
-	r.cli.logInfo(ctx, "[lark] Chat#GetChat call api")
-	r.cli.logDebug(ctx, "[lark] Chat#GetChat request: %s", jsonString(request))
-
 	if r.cli.mock.mockChatGetChat != nil {
 		r.cli.logDebug(ctx, "[lark] Chat#GetChat mock enable")
 		return r.cli.mock.mockChatGetChat(ctx, request, options...)
 	}
+
+	r.cli.logInfo(ctx, "[lark] Chat#GetChat call api")
+	r.cli.logDebug(ctx, "[lark] Chat#GetChat request: %s", jsonString(request))
 
 	req := &RawRequestReq{
 		Method:                "GET",

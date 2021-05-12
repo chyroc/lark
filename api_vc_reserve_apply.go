@@ -12,13 +12,13 @@ import (
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/vc-v1/reserve/apply
 func (r *VCAPI) ApplyReserve(ctx context.Context, request *ApplyReserveReq, options ...MethodOptionFunc) (*ApplyReserveResp, *Response, error) {
-	r.cli.logInfo(ctx, "[lark] VC#ApplyReserve call api")
-	r.cli.logDebug(ctx, "[lark] VC#ApplyReserve request: %s", jsonString(request))
-
 	if r.cli.mock.mockVCApplyReserve != nil {
 		r.cli.logDebug(ctx, "[lark] VC#ApplyReserve mock enable")
 		return r.cli.mock.mockVCApplyReserve(ctx, request, options...)
 	}
+
+	r.cli.logInfo(ctx, "[lark] VC#ApplyReserve call api")
+	r.cli.logDebug(ctx, "[lark] VC#ApplyReserve request: %s", jsonString(request))
 
 	req := &RawRequestReq{
 		Method:              "POST",

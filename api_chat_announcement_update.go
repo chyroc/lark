@@ -16,13 +16,13 @@ import (
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-announcement/patch
 func (r *ChatAPI) UpdateAnnouncement(ctx context.Context, request *UpdateAnnouncementReq, options ...MethodOptionFunc) (*UpdateAnnouncementResp, *Response, error) {
-	r.cli.logInfo(ctx, "[lark] Chat#UpdateAnnouncement call api")
-	r.cli.logDebug(ctx, "[lark] Chat#UpdateAnnouncement request: %s", jsonString(request))
-
 	if r.cli.mock.mockChatUpdateAnnouncement != nil {
 		r.cli.logDebug(ctx, "[lark] Chat#UpdateAnnouncement mock enable")
 		return r.cli.mock.mockChatUpdateAnnouncement(ctx, request, options...)
 	}
+
+	r.cli.logInfo(ctx, "[lark] Chat#UpdateAnnouncement call api")
+	r.cli.logDebug(ctx, "[lark] Chat#UpdateAnnouncement request: %s", jsonString(request))
 
 	req := &RawRequestReq{
 		Method:                "PATCH",

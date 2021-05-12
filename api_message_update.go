@@ -15,13 +15,13 @@ import (
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/patch
 func (r *MessageAPI) UpdateMessage(ctx context.Context, request *UpdateMessageReq, options ...MethodOptionFunc) (*UpdateMessageResp, *Response, error) {
-	r.cli.logInfo(ctx, "[lark] Message#UpdateMessage call api")
-	r.cli.logDebug(ctx, "[lark] Message#UpdateMessage request: %s", jsonString(request))
-
 	if r.cli.mock.mockMessageUpdateMessage != nil {
 		r.cli.logDebug(ctx, "[lark] Message#UpdateMessage mock enable")
 		return r.cli.mock.mockMessageUpdateMessage(ctx, request, options...)
 	}
+
+	r.cli.logInfo(ctx, "[lark] Message#UpdateMessage call api")
+	r.cli.logDebug(ctx, "[lark] Message#UpdateMessage request: %s", jsonString(request))
 
 	req := &RawRequestReq{
 		Method:                "PATCH",

@@ -12,13 +12,13 @@ import (
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/vc-v1/meeting/end
 func (r *VCAPI) EndMeeting(ctx context.Context, request *EndMeetingReq, options ...MethodOptionFunc) (*EndMeetingResp, *Response, error) {
-	r.cli.logInfo(ctx, "[lark] VC#EndMeeting call api")
-	r.cli.logDebug(ctx, "[lark] VC#EndMeeting request: %s", jsonString(request))
-
 	if r.cli.mock.mockVCEndMeeting != nil {
 		r.cli.logDebug(ctx, "[lark] VC#EndMeeting mock enable")
 		return r.cli.mock.mockVCEndMeeting(ctx, request, options...)
 	}
+
+	r.cli.logInfo(ctx, "[lark] VC#EndMeeting call api")
+	r.cli.logDebug(ctx, "[lark] VC#EndMeeting request: %s", jsonString(request))
 
 	req := &RawRequestReq{
 		Method:              "PATCH",

@@ -12,13 +12,13 @@ import (
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/tenant-v2/tenant/query
 func (r *TenantAPI) QueryTenant(ctx context.Context, request *QueryTenantReq, options ...MethodOptionFunc) (*QueryTenantResp, *Response, error) {
-	r.cli.logInfo(ctx, "[lark] Tenant#QueryTenant call api")
-	r.cli.logDebug(ctx, "[lark] Tenant#QueryTenant request: %s", jsonString(request))
-
 	if r.cli.mock.mockTenantQueryTenant != nil {
 		r.cli.logDebug(ctx, "[lark] Tenant#QueryTenant mock enable")
 		return r.cli.mock.mockTenantQueryTenant(ctx, request, options...)
 	}
+
+	r.cli.logInfo(ctx, "[lark] Tenant#QueryTenant call api")
+	r.cli.logDebug(ctx, "[lark] Tenant#QueryTenant request: %s", jsonString(request))
 
 	req := &RawRequestReq{
 		Method:                "GET",

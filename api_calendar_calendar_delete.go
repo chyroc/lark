@@ -14,13 +14,13 @@ import (
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar/delete
 func (r *CalendarAPI) DeleteCalendar(ctx context.Context, request *DeleteCalendarReq, options ...MethodOptionFunc) (*DeleteCalendarResp, *Response, error) {
-	r.cli.logInfo(ctx, "[lark] Calendar#DeleteCalendar call api")
-	r.cli.logDebug(ctx, "[lark] Calendar#DeleteCalendar request: %s", jsonString(request))
-
 	if r.cli.mock.mockCalendarDeleteCalendar != nil {
 		r.cli.logDebug(ctx, "[lark] Calendar#DeleteCalendar mock enable")
 		return r.cli.mock.mockCalendarDeleteCalendar(ctx, request, options...)
 	}
+
+	r.cli.logInfo(ctx, "[lark] Calendar#DeleteCalendar call api")
+	r.cli.logDebug(ctx, "[lark] Calendar#DeleteCalendar request: %s", jsonString(request))
 
 	req := &RawRequestReq{
 		Method:                "DELETE",

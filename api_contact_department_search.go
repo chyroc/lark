@@ -12,13 +12,13 @@ import (
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/search
 func (r *ContactAPI) SearchDepartment(ctx context.Context, request *SearchDepartmentReq, options ...MethodOptionFunc) (*SearchDepartmentResp, *Response, error) {
-	r.cli.logInfo(ctx, "[lark] Contact#SearchDepartment call api")
-	r.cli.logDebug(ctx, "[lark] Contact#SearchDepartment request: %s", jsonString(request))
-
 	if r.cli.mock.mockContactSearchDepartment != nil {
 		r.cli.logDebug(ctx, "[lark] Contact#SearchDepartment mock enable")
 		return r.cli.mock.mockContactSearchDepartment(ctx, request, options...)
 	}
+
+	r.cli.logInfo(ctx, "[lark] Contact#SearchDepartment call api")
+	r.cli.logDebug(ctx, "[lark] Contact#SearchDepartment request: %s", jsonString(request))
 
 	req := &RawRequestReq{
 		Method:              "POST",

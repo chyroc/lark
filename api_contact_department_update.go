@@ -13,13 +13,13 @@ import (
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/update
 func (r *ContactAPI) UpdateDepartment(ctx context.Context, request *UpdateDepartmentReq, options ...MethodOptionFunc) (*UpdateDepartmentResp, *Response, error) {
-	r.cli.logInfo(ctx, "[lark] Contact#UpdateDepartment call api")
-	r.cli.logDebug(ctx, "[lark] Contact#UpdateDepartment request: %s", jsonString(request))
-
 	if r.cli.mock.mockContactUpdateDepartment != nil {
 		r.cli.logDebug(ctx, "[lark] Contact#UpdateDepartment mock enable")
 		return r.cli.mock.mockContactUpdateDepartment(ctx, request, options...)
 	}
+
+	r.cli.logInfo(ctx, "[lark] Contact#UpdateDepartment call api")
+	r.cli.logDebug(ctx, "[lark] Contact#UpdateDepartment request: %s", jsonString(request))
 
 	req := &RawRequestReq{
 		Method:                "PUT",

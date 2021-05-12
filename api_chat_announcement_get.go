@@ -13,13 +13,13 @@ import (
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-announcement/get
 func (r *ChatAPI) GetAnnouncement(ctx context.Context, request *GetAnnouncementReq, options ...MethodOptionFunc) (*GetAnnouncementResp, *Response, error) {
-	r.cli.logInfo(ctx, "[lark] Chat#GetAnnouncement call api")
-	r.cli.logDebug(ctx, "[lark] Chat#GetAnnouncement request: %s", jsonString(request))
-
 	if r.cli.mock.mockChatGetAnnouncement != nil {
 		r.cli.logDebug(ctx, "[lark] Chat#GetAnnouncement mock enable")
 		return r.cli.mock.mockChatGetAnnouncement(ctx, request, options...)
 	}
+
+	r.cli.logInfo(ctx, "[lark] Chat#GetAnnouncement call api")
+	r.cli.logDebug(ctx, "[lark] Chat#GetAnnouncement request: %s", jsonString(request))
 
 	req := &RawRequestReq{
 		Method:                "GET",

@@ -14,13 +14,13 @@ import (
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar-event/search
 func (r *CalendarAPI) SearchCalendarEvent(ctx context.Context, request *SearchCalendarEventReq, options ...MethodOptionFunc) (*SearchCalendarEventResp, *Response, error) {
-	r.cli.logInfo(ctx, "[lark] Calendar#SearchCalendarEvent call api")
-	r.cli.logDebug(ctx, "[lark] Calendar#SearchCalendarEvent request: %s", jsonString(request))
-
 	if r.cli.mock.mockCalendarSearchCalendarEvent != nil {
 		r.cli.logDebug(ctx, "[lark] Calendar#SearchCalendarEvent mock enable")
 		return r.cli.mock.mockCalendarSearchCalendarEvent(ctx, request, options...)
 	}
+
+	r.cli.logInfo(ctx, "[lark] Calendar#SearchCalendarEvent call api")
+	r.cli.logDebug(ctx, "[lark] Calendar#SearchCalendarEvent request: %s", jsonString(request))
 
 	req := &RawRequestReq{
 		Method:              "POST",
@@ -126,7 +126,7 @@ type SearchCalendarEventRespItemEndTime struct {
 }
 
 type SearchCalendarEventRespItemVchat struct {
-	MeetingUrl string `json:"meeting_url,omitempty"` // 视频会议URL, 长度范围：`1` ～ `2000` 字符
+	MeetingURL string `json:"meeting_url,omitempty"` // 视频会议URL, 长度范围：`1` ～ `2000` 字符
 }
 
 type SearchCalendarEventRespItemLocation struct {

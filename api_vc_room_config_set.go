@@ -12,13 +12,13 @@ import (
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/vc-v1/room_config/set
 func (r *VCAPI) SetRoomConfig(ctx context.Context, request *SetRoomConfigReq, options ...MethodOptionFunc) (*SetRoomConfigResp, *Response, error) {
-	r.cli.logInfo(ctx, "[lark] VC#SetRoomConfig call api")
-	r.cli.logDebug(ctx, "[lark] VC#SetRoomConfig request: %s", jsonString(request))
-
 	if r.cli.mock.mockVCSetRoomConfig != nil {
 		r.cli.logDebug(ctx, "[lark] VC#SetRoomConfig mock enable")
 		return r.cli.mock.mockVCSetRoomConfig(ctx, request, options...)
 	}
+
+	r.cli.logInfo(ctx, "[lark] VC#SetRoomConfig call api")
+	r.cli.logDebug(ctx, "[lark] VC#SetRoomConfig request: %s", jsonString(request))
 
 	req := &RawRequestReq{
 		Method:                "POST",

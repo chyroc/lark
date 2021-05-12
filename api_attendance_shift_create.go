@@ -14,13 +14,13 @@ import (
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/Attendance//shift_create
 func (r *AttendanceAPI) CreateShift(ctx context.Context, request *CreateShiftReq, options ...MethodOptionFunc) (*CreateShiftResp, *Response, error) {
-	r.cli.logInfo(ctx, "[lark] Attendance#CreateShift call api")
-	r.cli.logDebug(ctx, "[lark] Attendance#CreateShift request: %s", jsonString(request))
-
 	if r.cli.mock.mockAttendanceCreateShift != nil {
 		r.cli.logDebug(ctx, "[lark] Attendance#CreateShift mock enable")
 		return r.cli.mock.mockAttendanceCreateShift(ctx, request, options...)
 	}
+
+	r.cli.logInfo(ctx, "[lark] Attendance#CreateShift call api")
+	r.cli.logDebug(ctx, "[lark] Attendance#CreateShift request: %s", jsonString(request))
 
 	req := &RawRequestReq{
 		Method:                "POST",

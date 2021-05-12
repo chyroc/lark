@@ -12,13 +12,13 @@ import (
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/vc-v1/meeting-recording/get
 func (r *VCAPI) GetMeetingRecording(ctx context.Context, request *GetMeetingRecordingReq, options ...MethodOptionFunc) (*GetMeetingRecordingResp, *Response, error) {
-	r.cli.logInfo(ctx, "[lark] VC#GetMeetingRecording call api")
-	r.cli.logDebug(ctx, "[lark] VC#GetMeetingRecording request: %s", jsonString(request))
-
 	if r.cli.mock.mockVCGetMeetingRecording != nil {
 		r.cli.logDebug(ctx, "[lark] VC#GetMeetingRecording mock enable")
 		return r.cli.mock.mockVCGetMeetingRecording(ctx, request, options...)
 	}
+
+	r.cli.logInfo(ctx, "[lark] VC#GetMeetingRecording call api")
+	r.cli.logDebug(ctx, "[lark] VC#GetMeetingRecording request: %s", jsonString(request))
 
 	req := &RawRequestReq{
 		Method:              "GET",

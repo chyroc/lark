@@ -15,13 +15,13 @@ import (
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/read_users
 func (r *MessageAPI) GetMessageReadUserList(ctx context.Context, request *GetMessageReadUserListReq, options ...MethodOptionFunc) (*GetMessageReadUserListResp, *Response, error) {
-	r.cli.logInfo(ctx, "[lark] Message#GetMessageReadUserList call api")
-	r.cli.logDebug(ctx, "[lark] Message#GetMessageReadUserList request: %s", jsonString(request))
-
 	if r.cli.mock.mockMessageGetMessageReadUserList != nil {
 		r.cli.logDebug(ctx, "[lark] Message#GetMessageReadUserList mock enable")
 		return r.cli.mock.mockMessageGetMessageReadUserList(ctx, request, options...)
 	}
+
+	r.cli.logInfo(ctx, "[lark] Message#GetMessageReadUserList call api")
+	r.cli.logDebug(ctx, "[lark] Message#GetMessageReadUserList request: %s", jsonString(request))
 
 	req := &RawRequestReq{
 		Method:                "GET",

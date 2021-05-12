@@ -16,13 +16,13 @@ import (
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar-event-attendee/create
 func (r *CalendarAPI) CreateCalendarEventAttendee(ctx context.Context, request *CreateCalendarEventAttendeeReq, options ...MethodOptionFunc) (*CreateCalendarEventAttendeeResp, *Response, error) {
-	r.cli.logInfo(ctx, "[lark] Calendar#CreateCalendarEventAttendee call api")
-	r.cli.logDebug(ctx, "[lark] Calendar#CreateCalendarEventAttendee request: %s", jsonString(request))
-
 	if r.cli.mock.mockCalendarCreateCalendarEventAttendee != nil {
 		r.cli.logDebug(ctx, "[lark] Calendar#CreateCalendarEventAttendee mock enable")
 		return r.cli.mock.mockCalendarCreateCalendarEventAttendee(ctx, request, options...)
 	}
+
+	r.cli.logInfo(ctx, "[lark] Calendar#CreateCalendarEventAttendee call api")
+	r.cli.logDebug(ctx, "[lark] Calendar#CreateCalendarEventAttendee request: %s", jsonString(request))
 
 	req := &RawRequestReq{
 		Method:                "POST",

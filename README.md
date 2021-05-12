@@ -31,13 +31,18 @@ https://godoc.org/github.com/chyroc/lark
 
 ## Support APIs
 
-API Count: 184, Event Count: 25
+API Count: 204, Event Count: 28
 
 <details>
   <summary>
     Click This to See ALL
   </summary>
 
+- Auth
+  - ResendAppTicket
+  - GetAccessToken
+  - RefreshAccessToken
+  - GetUserInfo
 - Contact
   - CreateUser
   - DeleteUser
@@ -105,6 +110,12 @@ API Count: 184, Event Count: 25
   - CreateCalendarTimeoffEvent
   - DeleteCalendarTimeoffEvent
   - GenerateCaldavConf
+- Drive
+  - GetSheetMeta
+  - UpdateSheetProperty
+  - ImportSheet
+  - PrependSheetValue
+  - AppendSheetValue
 - MeetingRoom
   - BatchGetSummary
   - GetBuildingList
@@ -192,6 +203,8 @@ API Count: 184, Event Count: 25
   - GetFAQList
   - GetFAQImage
   - SearchFAQ
+  - SubscribeEvent
+  - UnsubscribeEvent
 - Admin
   - GetAdminDeptStats
   - GetAdminUserStats
@@ -235,6 +248,9 @@ API Count: 184, Event Count: 25
   - UploadFile
   - DownloadFile
 - EventCallback
+  - EventV2ContactUserUpdatedV3
+  - EventV2ContactUserCreatedV3
+  - EventV2ContactScopeUpdatedV3
   - EventV2IMMessageReceiveV1
   - EventV2IMMessageReadV1
   - EventV2IMChatDisbandedV1
@@ -260,6 +276,10 @@ API Count: 184, Event Count: 25
   - EventV1RemoveUserFromChat
   - EventV1RevokeAddUserFromChat
   - EventV1ChatDisband
+- OKR
+  - GetPeriodList
+  - BatchGetOKR
+  - GetUserOKRList
 - EHR
   - GetEmployeeList
   - DownloadAttachments

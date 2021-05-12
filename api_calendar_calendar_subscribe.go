@@ -14,13 +14,13 @@ import (
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar/subscribe
 func (r *CalendarAPI) SubscribeCalendar(ctx context.Context, request *SubscribeCalendarReq, options ...MethodOptionFunc) (*SubscribeCalendarResp, *Response, error) {
-	r.cli.logInfo(ctx, "[lark] Calendar#SubscribeCalendar call api")
-	r.cli.logDebug(ctx, "[lark] Calendar#SubscribeCalendar request: %s", jsonString(request))
-
 	if r.cli.mock.mockCalendarSubscribeCalendar != nil {
 		r.cli.logDebug(ctx, "[lark] Calendar#SubscribeCalendar mock enable")
 		return r.cli.mock.mockCalendarSubscribeCalendar(ctx, request, options...)
 	}
+
+	r.cli.logInfo(ctx, "[lark] Calendar#SubscribeCalendar call api")
+	r.cli.logDebug(ctx, "[lark] Calendar#SubscribeCalendar request: %s", jsonString(request))
 
 	req := &RawRequestReq{
 		Method:                "POST",

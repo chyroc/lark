@@ -11,13 +11,13 @@ import (
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/Attendance//rule/file_upload
 func (r *AttendanceAPI) UploadAttendanceFile(ctx context.Context, request *UploadAttendanceFileReq, options ...MethodOptionFunc) (*UploadAttendanceFileResp, *Response, error) {
-	r.cli.logInfo(ctx, "[lark] Attendance#UploadAttendanceFile call api")
-	r.cli.logDebug(ctx, "[lark] Attendance#UploadAttendanceFile request: %s", jsonString(request))
-
 	if r.cli.mock.mockAttendanceUploadAttendanceFile != nil {
 		r.cli.logDebug(ctx, "[lark] Attendance#UploadAttendanceFile mock enable")
 		return r.cli.mock.mockAttendanceUploadAttendanceFile(ctx, request, options...)
 	}
+
+	r.cli.logInfo(ctx, "[lark] Attendance#UploadAttendanceFile call api")
+	r.cli.logDebug(ctx, "[lark] Attendance#UploadAttendanceFile request: %s", jsonString(request))
 
 	req := &RawRequestReq{
 		Method:                "POST",

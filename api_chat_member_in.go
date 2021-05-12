@@ -10,13 +10,13 @@ import (
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-members/is_in_chat
 func (r *ChatAPI) IsInChat(ctx context.Context, request *IsInChatReq, options ...MethodOptionFunc) (*IsInChatResp, *Response, error) {
-	r.cli.logInfo(ctx, "[lark] Chat#IsInChat call api")
-	r.cli.logDebug(ctx, "[lark] Chat#IsInChat request: %s", jsonString(request))
-
 	if r.cli.mock.mockChatIsInChat != nil {
 		r.cli.logDebug(ctx, "[lark] Chat#IsInChat mock enable")
 		return r.cli.mock.mockChatIsInChat(ctx, request, options...)
 	}
+
+	r.cli.logInfo(ctx, "[lark] Chat#IsInChat call api")
+	r.cli.logDebug(ctx, "[lark] Chat#IsInChat request: %s", jsonString(request))
 
 	req := &RawRequestReq{
 		Method:                "GET",

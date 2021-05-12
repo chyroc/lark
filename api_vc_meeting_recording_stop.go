@@ -12,13 +12,13 @@ import (
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/vc-v1/meeting-recording/stop
 func (r *VCAPI) StopMeetingRecording(ctx context.Context, request *StopMeetingRecordingReq, options ...MethodOptionFunc) (*StopMeetingRecordingResp, *Response, error) {
-	r.cli.logInfo(ctx, "[lark] VC#StopMeetingRecording call api")
-	r.cli.logDebug(ctx, "[lark] VC#StopMeetingRecording request: %s", jsonString(request))
-
 	if r.cli.mock.mockVCStopMeetingRecording != nil {
 		r.cli.logDebug(ctx, "[lark] VC#StopMeetingRecording mock enable")
 		return r.cli.mock.mockVCStopMeetingRecording(ctx, request, options...)
 	}
+
+	r.cli.logInfo(ctx, "[lark] VC#StopMeetingRecording call api")
+	r.cli.logDebug(ctx, "[lark] VC#StopMeetingRecording request: %s", jsonString(request))
 
 	req := &RawRequestReq{
 		Method:              "PATCH",

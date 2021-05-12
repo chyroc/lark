@@ -10,13 +10,13 @@ import (
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/ugzNyUjL4cjM14CO3ITN
 func (r *MeetingRoomAPI) GetBuildingList(ctx context.Context, request *GetBuildingListReq, options ...MethodOptionFunc) (*GetBuildingListResp, *Response, error) {
-	r.cli.logInfo(ctx, "[lark] MeetingRoom#GetBuildingList call api")
-	r.cli.logDebug(ctx, "[lark] MeetingRoom#GetBuildingList request: %s", jsonString(request))
-
 	if r.cli.mock.mockMeetingRoomGetBuildingList != nil {
 		r.cli.logDebug(ctx, "[lark] MeetingRoom#GetBuildingList mock enable")
 		return r.cli.mock.mockMeetingRoomGetBuildingList(ctx, request, options...)
 	}
+
+	r.cli.logInfo(ctx, "[lark] MeetingRoom#GetBuildingList call api")
+	r.cli.logDebug(ctx, "[lark] MeetingRoom#GetBuildingList request: %s", jsonString(request))
 
 	req := &RawRequestReq{
 		Method:                "GET",

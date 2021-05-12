@@ -10,13 +10,13 @@ import (
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/freebusy/list
 func (r *CalendarAPI) GetCalendarFreeBusyList(ctx context.Context, request *GetCalendarFreeBusyListReq, options ...MethodOptionFunc) (*GetCalendarFreeBusyListResp, *Response, error) {
-	r.cli.logInfo(ctx, "[lark] Calendar#GetCalendarFreeBusyList call api")
-	r.cli.logDebug(ctx, "[lark] Calendar#GetCalendarFreeBusyList request: %s", jsonString(request))
-
 	if r.cli.mock.mockCalendarGetCalendarFreeBusyList != nil {
 		r.cli.logDebug(ctx, "[lark] Calendar#GetCalendarFreeBusyList mock enable")
 		return r.cli.mock.mockCalendarGetCalendarFreeBusyList(ctx, request, options...)
 	}
+
+	r.cli.logInfo(ctx, "[lark] Calendar#GetCalendarFreeBusyList call api")
+	r.cli.logDebug(ctx, "[lark] Calendar#GetCalendarFreeBusyList request: %s", jsonString(request))
 
 	req := &RawRequestReq{
 		Method:                "POST",

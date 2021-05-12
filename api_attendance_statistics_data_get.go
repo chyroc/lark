@@ -10,13 +10,13 @@ import (
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/Attendance//task/query-statistics-data
 func (r *AttendanceAPI) GetStatisticsData(ctx context.Context, request *GetStatisticsDataReq, options ...MethodOptionFunc) (*GetStatisticsDataResp, *Response, error) {
-	r.cli.logInfo(ctx, "[lark] Attendance#GetStatisticsData call api")
-	r.cli.logDebug(ctx, "[lark] Attendance#GetStatisticsData request: %s", jsonString(request))
-
 	if r.cli.mock.mockAttendanceGetStatisticsData != nil {
 		r.cli.logDebug(ctx, "[lark] Attendance#GetStatisticsData mock enable")
 		return r.cli.mock.mockAttendanceGetStatisticsData(ctx, request, options...)
 	}
+
+	r.cli.logInfo(ctx, "[lark] Attendance#GetStatisticsData call api")
+	r.cli.logDebug(ctx, "[lark] Attendance#GetStatisticsData request: %s", jsonString(request))
 
 	req := &RawRequestReq{
 		Method:                "POST",

@@ -10,13 +10,13 @@ import (
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/mail-v1/mailgroup-permission_member/list
 func (r *MailAPI) GetMailGroupPermissionMemberList(ctx context.Context, request *GetMailGroupPermissionMemberListReq, options ...MethodOptionFunc) (*GetMailGroupPermissionMemberListResp, *Response, error) {
-	r.cli.logInfo(ctx, "[lark] Mail#GetMailGroupPermissionMemberList call api")
-	r.cli.logDebug(ctx, "[lark] Mail#GetMailGroupPermissionMemberList request: %s", jsonString(request))
-
 	if r.cli.mock.mockMailGetMailGroupPermissionMemberList != nil {
 		r.cli.logDebug(ctx, "[lark] Mail#GetMailGroupPermissionMemberList mock enable")
 		return r.cli.mock.mockMailGetMailGroupPermissionMemberList(ctx, request, options...)
 	}
+
+	r.cli.logInfo(ctx, "[lark] Mail#GetMailGroupPermissionMemberList call api")
+	r.cli.logDebug(ctx, "[lark] Mail#GetMailGroupPermissionMemberList request: %s", jsonString(request))
 
 	req := &RawRequestReq{
 		Method:                "GET",

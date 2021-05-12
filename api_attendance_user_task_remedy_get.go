@@ -12,13 +12,13 @@ import (
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/Attendance//GetUsersRemedyRecords
 func (r *AttendanceAPI) GetUserTaskRemedy(ctx context.Context, request *GetUserTaskRemedyReq, options ...MethodOptionFunc) (*GetUserTaskRemedyResp, *Response, error) {
-	r.cli.logInfo(ctx, "[lark] Attendance#GetUserTaskRemedy call api")
-	r.cli.logDebug(ctx, "[lark] Attendance#GetUserTaskRemedy request: %s", jsonString(request))
-
 	if r.cli.mock.mockAttendanceGetUserTaskRemedy != nil {
 		r.cli.logDebug(ctx, "[lark] Attendance#GetUserTaskRemedy mock enable")
 		return r.cli.mock.mockAttendanceGetUserTaskRemedy(ctx, request, options...)
 	}
+
+	r.cli.logInfo(ctx, "[lark] Attendance#GetUserTaskRemedy call api")
+	r.cli.logDebug(ctx, "[lark] Attendance#GetUserTaskRemedy request: %s", jsonString(request))
 
 	req := &RawRequestReq{
 		Method:                "POST",

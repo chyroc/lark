@@ -14,13 +14,13 @@ import (
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat/delete
 func (r *ChatAPI) DeleteChat(ctx context.Context, request *DeleteChatReq, options ...MethodOptionFunc) (*DeleteChatResp, *Response, error) {
-	r.cli.logInfo(ctx, "[lark] Chat#DeleteChat call api")
-	r.cli.logDebug(ctx, "[lark] Chat#DeleteChat request: %s", jsonString(request))
-
 	if r.cli.mock.mockChatDeleteChat != nil {
 		r.cli.logDebug(ctx, "[lark] Chat#DeleteChat mock enable")
 		return r.cli.mock.mockChatDeleteChat(ctx, request, options...)
 	}
+
+	r.cli.logInfo(ctx, "[lark] Chat#DeleteChat call api")
+	r.cli.logDebug(ctx, "[lark] Chat#DeleteChat request: %s", jsonString(request))
 
 	req := &RawRequestReq{
 		Method:                "DELETE",

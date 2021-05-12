@@ -14,13 +14,13 @@ import (
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/image/create
 func (r *FileAPI) UploadImage(ctx context.Context, request *UploadImageReq, options ...MethodOptionFunc) (*UploadImageResp, *Response, error) {
-	r.cli.logInfo(ctx, "[lark] File#UploadImage call api")
-	r.cli.logDebug(ctx, "[lark] File#UploadImage request: %s", jsonString(request))
-
 	if r.cli.mock.mockFileUploadImage != nil {
 		r.cli.logDebug(ctx, "[lark] File#UploadImage mock enable")
 		return r.cli.mock.mockFileUploadImage(ctx, request, options...)
 	}
+
+	r.cli.logInfo(ctx, "[lark] File#UploadImage call api")
+	r.cli.logDebug(ctx, "[lark] File#UploadImage request: %s", jsonString(request))
 
 	req := &RawRequestReq{
 		Method:                "POST",

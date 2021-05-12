@@ -12,13 +12,13 @@ import (
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/vc-v1/meeting-recording/set_permission
 func (r *VCAPI) SetPermissionMeetingRecording(ctx context.Context, request *SetPermissionMeetingRecordingReq, options ...MethodOptionFunc) (*SetPermissionMeetingRecordingResp, *Response, error) {
-	r.cli.logInfo(ctx, "[lark] VC#SetPermissionMeetingRecording call api")
-	r.cli.logDebug(ctx, "[lark] VC#SetPermissionMeetingRecording request: %s", jsonString(request))
-
 	if r.cli.mock.mockVCSetPermissionMeetingRecording != nil {
 		r.cli.logDebug(ctx, "[lark] VC#SetPermissionMeetingRecording mock enable")
 		return r.cli.mock.mockVCSetPermissionMeetingRecording(ctx, request, options...)
 	}
+
+	r.cli.logInfo(ctx, "[lark] VC#SetPermissionMeetingRecording call api")
+	r.cli.logDebug(ctx, "[lark] VC#SetPermissionMeetingRecording request: %s", jsonString(request))
 
 	req := &RawRequestReq{
 		Method:              "PATCH",

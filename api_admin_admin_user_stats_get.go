@@ -14,13 +14,13 @@ import (
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/admin-v1/admin_user_stat/list
 func (r *AdminAPI) GetAdminUserStats(ctx context.Context, request *GetAdminUserStatsReq, options ...MethodOptionFunc) (*GetAdminUserStatsResp, *Response, error) {
-	r.cli.logInfo(ctx, "[lark] Admin#GetAdminUserStats call api")
-	r.cli.logDebug(ctx, "[lark] Admin#GetAdminUserStats request: %s", jsonString(request))
-
 	if r.cli.mock.mockAdminGetAdminUserStats != nil {
 		r.cli.logDebug(ctx, "[lark] Admin#GetAdminUserStats mock enable")
 		return r.cli.mock.mockAdminGetAdminUserStats(ctx, request, options...)
 	}
+
+	r.cli.logInfo(ctx, "[lark] Admin#GetAdminUserStats call api")
+	r.cli.logDebug(ctx, "[lark] Admin#GetAdminUserStats request: %s", jsonString(request))
 
 	req := &RawRequestReq{
 		Method:                "GET",

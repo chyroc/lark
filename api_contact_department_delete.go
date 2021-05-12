@@ -12,13 +12,13 @@ import (
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/delete
 func (r *ContactAPI) DeleteDepartment(ctx context.Context, request *DeleteDepartmentReq, options ...MethodOptionFunc) (*DeleteDepartmentResp, *Response, error) {
-	r.cli.logInfo(ctx, "[lark] Contact#DeleteDepartment call api")
-	r.cli.logDebug(ctx, "[lark] Contact#DeleteDepartment request: %s", jsonString(request))
-
 	if r.cli.mock.mockContactDeleteDepartment != nil {
 		r.cli.logDebug(ctx, "[lark] Contact#DeleteDepartment mock enable")
 		return r.cli.mock.mockContactDeleteDepartment(ctx, request, options...)
 	}
+
+	r.cli.logInfo(ctx, "[lark] Contact#DeleteDepartment call api")
+	r.cli.logDebug(ctx, "[lark] Contact#DeleteDepartment request: %s", jsonString(request))
 
 	req := &RawRequestReq{
 		Method:                "DELETE",

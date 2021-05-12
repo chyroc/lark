@@ -10,13 +10,13 @@ import (
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uIjM5UjLyITO14iMykTN/
 func (r *MeetingRoomAPI) BatchGetSummary(ctx context.Context, request *BatchGetSummaryReq, options ...MethodOptionFunc) (*BatchGetSummaryResp, *Response, error) {
-	r.cli.logInfo(ctx, "[lark] MeetingRoom#BatchGetSummary call api")
-	r.cli.logDebug(ctx, "[lark] MeetingRoom#BatchGetSummary request: %s", jsonString(request))
-
 	if r.cli.mock.mockMeetingRoomBatchGetSummary != nil {
 		r.cli.logDebug(ctx, "[lark] MeetingRoom#BatchGetSummary mock enable")
 		return r.cli.mock.mockMeetingRoomBatchGetSummary(ctx, request, options...)
 	}
+
+	r.cli.logInfo(ctx, "[lark] MeetingRoom#BatchGetSummary call api")
+	r.cli.logDebug(ctx, "[lark] MeetingRoom#BatchGetSummary request: %s", jsonString(request))
 
 	req := &RawRequestReq{
 		Method:                "POST",

@@ -10,13 +10,13 @@ import (
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/Attendance//group_delete
 func (r *AttendanceAPI) DeleteGroup(ctx context.Context, request *DeleteGroupReq, options ...MethodOptionFunc) (*DeleteGroupResp, *Response, error) {
-	r.cli.logInfo(ctx, "[lark] Attendance#DeleteGroup call api")
-	r.cli.logDebug(ctx, "[lark] Attendance#DeleteGroup request: %s", jsonString(request))
-
 	if r.cli.mock.mockAttendanceDeleteGroup != nil {
 		r.cli.logDebug(ctx, "[lark] Attendance#DeleteGroup mock enable")
 		return r.cli.mock.mockAttendanceDeleteGroup(ctx, request, options...)
 	}
+
+	r.cli.logInfo(ctx, "[lark] Attendance#DeleteGroup call api")
+	r.cli.logDebug(ctx, "[lark] Attendance#DeleteGroup request: %s", jsonString(request))
 
 	req := &RawRequestReq{
 		Method:                "DELETE",

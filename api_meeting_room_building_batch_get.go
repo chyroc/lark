@@ -10,13 +10,13 @@ import (
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/ukzNyUjL5cjM14SO3ITN
 func (r *MeetingRoomAPI) BatchGetBuilding(ctx context.Context, request *BatchGetBuildingReq, options ...MethodOptionFunc) (*BatchGetBuildingResp, *Response, error) {
-	r.cli.logInfo(ctx, "[lark] MeetingRoom#BatchGetBuilding call api")
-	r.cli.logDebug(ctx, "[lark] MeetingRoom#BatchGetBuilding request: %s", jsonString(request))
-
 	if r.cli.mock.mockMeetingRoomBatchGetBuilding != nil {
 		r.cli.logDebug(ctx, "[lark] MeetingRoom#BatchGetBuilding mock enable")
 		return r.cli.mock.mockMeetingRoomBatchGetBuilding(ctx, request, options...)
 	}
+
+	r.cli.logInfo(ctx, "[lark] MeetingRoom#BatchGetBuilding call api")
+	r.cli.logDebug(ctx, "[lark] MeetingRoom#BatchGetBuilding request: %s", jsonString(request))
 
 	req := &RawRequestReq{
 		Method:                "GET",

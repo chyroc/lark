@@ -12,13 +12,13 @@ import (
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/vc-v1/reserve/update
 func (r *VCAPI) UpdateReserve(ctx context.Context, request *UpdateReserveReq, options ...MethodOptionFunc) (*UpdateReserveResp, *Response, error) {
-	r.cli.logInfo(ctx, "[lark] VC#UpdateReserve call api")
-	r.cli.logDebug(ctx, "[lark] VC#UpdateReserve request: %s", jsonString(request))
-
 	if r.cli.mock.mockVCUpdateReserve != nil {
 		r.cli.logDebug(ctx, "[lark] VC#UpdateReserve mock enable")
 		return r.cli.mock.mockVCUpdateReserve(ctx, request, options...)
 	}
+
+	r.cli.logInfo(ctx, "[lark] VC#UpdateReserve call api")
+	r.cli.logDebug(ctx, "[lark] VC#UpdateReserve request: %s", jsonString(request))
 
 	req := &RawRequestReq{
 		Method:              "PUT",

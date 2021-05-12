@@ -12,13 +12,13 @@ import (
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/vc-v1/meeting/set_host
 func (r *VCAPI) SetHostMeeting(ctx context.Context, request *SetHostMeetingReq, options ...MethodOptionFunc) (*SetHostMeetingResp, *Response, error) {
-	r.cli.logInfo(ctx, "[lark] VC#SetHostMeeting call api")
-	r.cli.logDebug(ctx, "[lark] VC#SetHostMeeting request: %s", jsonString(request))
-
 	if r.cli.mock.mockVCSetHostMeeting != nil {
 		r.cli.logDebug(ctx, "[lark] VC#SetHostMeeting mock enable")
 		return r.cli.mock.mockVCSetHostMeeting(ctx, request, options...)
 	}
+
+	r.cli.logInfo(ctx, "[lark] VC#SetHostMeeting call api")
+	r.cli.logDebug(ctx, "[lark] VC#SetHostMeeting request: %s", jsonString(request))
 
 	req := &RawRequestReq{
 		Method:              "PATCH",

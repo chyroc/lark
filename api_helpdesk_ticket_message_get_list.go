@@ -10,13 +10,13 @@ import (
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/ticket-message/list
 func (r *HelpdeskAPI) GetTicketMessageList(ctx context.Context, request *GetTicketMessageListReq, options ...MethodOptionFunc) (*GetTicketMessageListResp, *Response, error) {
-	r.cli.logInfo(ctx, "[lark] Helpdesk#GetTicketMessageList call api")
-	r.cli.logDebug(ctx, "[lark] Helpdesk#GetTicketMessageList request: %s", jsonString(request))
-
 	if r.cli.mock.mockHelpdeskGetTicketMessageList != nil {
 		r.cli.logDebug(ctx, "[lark] Helpdesk#GetTicketMessageList mock enable")
 		return r.cli.mock.mockHelpdeskGetTicketMessageList(ctx, request, options...)
 	}
+
+	r.cli.logInfo(ctx, "[lark] Helpdesk#GetTicketMessageList call api")
+	r.cli.logDebug(ctx, "[lark] Helpdesk#GetTicketMessageList request: %s", jsonString(request))
 
 	req := &RawRequestReq{
 		Method:                "GET",
@@ -76,6 +76,6 @@ type GetTicketMessageListRespMessage struct {
 	CreatedAt   int     `json:"created_at,omitempty"`   // 创建时间
 	Content     string  `json:"content,omitempty"`      // 内容
 	UserName    string  `json:"user_name,omitempty"`    // 用户名
-	AvatarUrl   string  `json:"avatar_url,omitempty"`   // 用户图片url
+	AvatarURL   string  `json:"avatar_url,omitempty"`   // 用户图片url
 	UserID      string  `json:"user_id,omitempty"`      // 用户open ID
 }

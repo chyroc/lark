@@ -13,13 +13,13 @@ import (
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat/create
 func (r *ChatAPI) CreateChat(ctx context.Context, request *CreateChatReq, options ...MethodOptionFunc) (*CreateChatResp, *Response, error) {
-	r.cli.logInfo(ctx, "[lark] Chat#CreateChat call api")
-	r.cli.logDebug(ctx, "[lark] Chat#CreateChat request: %s", jsonString(request))
-
 	if r.cli.mock.mockChatCreateChat != nil {
 		r.cli.logDebug(ctx, "[lark] Chat#CreateChat mock enable")
 		return r.cli.mock.mockChatCreateChat(ctx, request, options...)
 	}
+
+	r.cli.logInfo(ctx, "[lark] Chat#CreateChat call api")
+	r.cli.logDebug(ctx, "[lark] Chat#CreateChat request: %s", jsonString(request))
 
 	req := &RawRequestReq{
 		Method:                "POST",

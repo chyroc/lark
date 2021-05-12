@@ -13,13 +13,13 @@ import (
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/Attendance//BatchQueryCheckinFlowHistory
 func (r *AttendanceAPI) BatchGetUserFlow(ctx context.Context, request *BatchGetUserFlowReq, options ...MethodOptionFunc) (*BatchGetUserFlowResp, *Response, error) {
-	r.cli.logInfo(ctx, "[lark] Attendance#BatchGetUserFlow call api")
-	r.cli.logDebug(ctx, "[lark] Attendance#BatchGetUserFlow request: %s", jsonString(request))
-
 	if r.cli.mock.mockAttendanceBatchGetUserFlow != nil {
 		r.cli.logDebug(ctx, "[lark] Attendance#BatchGetUserFlow mock enable")
 		return r.cli.mock.mockAttendanceBatchGetUserFlow(ctx, request, options...)
 	}
+
+	r.cli.logInfo(ctx, "[lark] Attendance#BatchGetUserFlow call api")
+	r.cli.logDebug(ctx, "[lark] Attendance#BatchGetUserFlow request: %s", jsonString(request))
 
 	req := &RawRequestReq{
 		Method:                "POST",
@@ -83,5 +83,5 @@ type BatchGetUserFlowRespUserFlowResult struct {
 	IsField      bool     `json:"is_field,omitempty"`      // 是否为外勤打卡
 	IsWifi       bool     `json:"is_wifi,omitempty"`       // 是否为 Wi-Fi 打卡
 	Type         int      `json:"type,omitempty"`          // 记录生成方式，可用值：【0（用户自己打卡），1（管理员修改），2（用户补卡），3（系统自动生成），4（下班免打卡），5（考勤机打卡），6（极速打卡），7（考勤开放平台导入）】
-	PhotoUrls    []string `json:"photo_urls,omitempty"`    // 打卡照片列表
+	PhotoURLs    []string `json:"photo_urls,omitempty"`    // 打卡照片列表
 }

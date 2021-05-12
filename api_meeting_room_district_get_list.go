@@ -10,13 +10,13 @@ import (
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uUTNwYjL1UDM24SN1AjN
 func (r *MeetingRoomAPI) GetDistrictList(ctx context.Context, request *GetDistrictListReq, options ...MethodOptionFunc) (*GetDistrictListResp, *Response, error) {
-	r.cli.logInfo(ctx, "[lark] MeetingRoom#GetDistrictList call api")
-	r.cli.logDebug(ctx, "[lark] MeetingRoom#GetDistrictList request: %s", jsonString(request))
-
 	if r.cli.mock.mockMeetingRoomGetDistrictList != nil {
 		r.cli.logDebug(ctx, "[lark] MeetingRoom#GetDistrictList mock enable")
 		return r.cli.mock.mockMeetingRoomGetDistrictList(ctx, request, options...)
 	}
+
+	r.cli.logInfo(ctx, "[lark] MeetingRoom#GetDistrictList call api")
+	r.cli.logDebug(ctx, "[lark] MeetingRoom#GetDistrictList request: %s", jsonString(request))
 
 	req := &RawRequestReq{
 		Method:                "GET",

@@ -18,6 +18,7 @@ func Test_Admin_Sample_Failed(t *testing.T) {
 	t.Run("request failed", func(t *testing.T) {
 		cli := AppALLPermission.Ins()
 		cli.Mock().MockGetTenantAccessToken(mockGetTenantAccessTokenFailed)
+		cli.Mock().MockGetAppAccessToken(mockGetTenantAccessTokenFailed)
 		moduleCli := cli.Admin()
 
 		t.Run("", func(t *testing.T) {

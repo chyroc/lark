@@ -10,13 +10,13 @@ import (
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/mail-v1/mailgroup/list
 func (r *MailAPI) GetMailGroupList(ctx context.Context, request *GetMailGroupListReq, options ...MethodOptionFunc) (*GetMailGroupListResp, *Response, error) {
-	r.cli.logInfo(ctx, "[lark] Mail#GetMailGroupList call api")
-	r.cli.logDebug(ctx, "[lark] Mail#GetMailGroupList request: %s", jsonString(request))
-
 	if r.cli.mock.mockMailGetMailGroupList != nil {
 		r.cli.logDebug(ctx, "[lark] Mail#GetMailGroupList mock enable")
 		return r.cli.mock.mockMailGetMailGroupList(ctx, request, options...)
 	}
+
+	r.cli.logInfo(ctx, "[lark] Mail#GetMailGroupList call api")
+	r.cli.logDebug(ctx, "[lark] Mail#GetMailGroupList request: %s", jsonString(request))
 
 	req := &RawRequestReq{
 		Method:                "GET",

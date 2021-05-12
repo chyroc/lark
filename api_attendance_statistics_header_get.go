@@ -10,13 +10,13 @@ import (
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/Attendance//task/query-statistics-header
 func (r *AttendanceAPI) GetStatisticsHeader(ctx context.Context, request *GetStatisticsHeaderReq, options ...MethodOptionFunc) (*GetStatisticsHeaderResp, *Response, error) {
-	r.cli.logInfo(ctx, "[lark] Attendance#GetStatisticsHeader call api")
-	r.cli.logDebug(ctx, "[lark] Attendance#GetStatisticsHeader request: %s", jsonString(request))
-
 	if r.cli.mock.mockAttendanceGetStatisticsHeader != nil {
 		r.cli.logDebug(ctx, "[lark] Attendance#GetStatisticsHeader mock enable")
 		return r.cli.mock.mockAttendanceGetStatisticsHeader(ctx, request, options...)
 	}
+
+	r.cli.logInfo(ctx, "[lark] Attendance#GetStatisticsHeader call api")
+	r.cli.logDebug(ctx, "[lark] Attendance#GetStatisticsHeader request: %s", jsonString(request))
 
 	req := &RawRequestReq{
 		Method:                "POST",

@@ -10,13 +10,13 @@ import (
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/mail-v1/public_mailbox-member/create
 func (r *MailAPI) CreatePublicMailboxMember(ctx context.Context, request *CreatePublicMailboxMemberReq, options ...MethodOptionFunc) (*CreatePublicMailboxMemberResp, *Response, error) {
-	r.cli.logInfo(ctx, "[lark] Mail#CreatePublicMailboxMember call api")
-	r.cli.logDebug(ctx, "[lark] Mail#CreatePublicMailboxMember request: %s", jsonString(request))
-
 	if r.cli.mock.mockMailCreatePublicMailboxMember != nil {
 		r.cli.logDebug(ctx, "[lark] Mail#CreatePublicMailboxMember mock enable")
 		return r.cli.mock.mockMailCreatePublicMailboxMember(ctx, request, options...)
 	}
+
+	r.cli.logInfo(ctx, "[lark] Mail#CreatePublicMailboxMember call api")
+	r.cli.logDebug(ctx, "[lark] Mail#CreatePublicMailboxMember request: %s", jsonString(request))
 
 	req := &RawRequestReq{
 		Method:                "POST",

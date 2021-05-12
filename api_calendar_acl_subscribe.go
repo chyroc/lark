@@ -12,13 +12,13 @@ import (
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar-acl/subscription
 func (r *CalendarAPI) SubscribeCalendarACL(ctx context.Context, request *SubscribeCalendarACLReq, options ...MethodOptionFunc) (*SubscribeCalendarACLResp, *Response, error) {
-	r.cli.logInfo(ctx, "[lark] Calendar#SubscribeCalendarACL call api")
-	r.cli.logDebug(ctx, "[lark] Calendar#SubscribeCalendarACL request: %s", jsonString(request))
-
 	if r.cli.mock.mockCalendarSubscribeCalendarACL != nil {
 		r.cli.logDebug(ctx, "[lark] Calendar#SubscribeCalendarACL mock enable")
 		return r.cli.mock.mockCalendarSubscribeCalendarACL(ctx, request, options...)
 	}
+
+	r.cli.logInfo(ctx, "[lark] Calendar#SubscribeCalendarACL call api")
+	r.cli.logDebug(ctx, "[lark] Calendar#SubscribeCalendarACL request: %s", jsonString(request))
 
 	req := &RawRequestReq{
 		Method:              "POST",

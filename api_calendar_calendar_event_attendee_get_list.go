@@ -13,13 +13,13 @@ import (
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar-event-attendee/list
 func (r *CalendarAPI) GetCalendarEventAttendeeList(ctx context.Context, request *GetCalendarEventAttendeeListReq, options ...MethodOptionFunc) (*GetCalendarEventAttendeeListResp, *Response, error) {
-	r.cli.logInfo(ctx, "[lark] Calendar#GetCalendarEventAttendeeList call api")
-	r.cli.logDebug(ctx, "[lark] Calendar#GetCalendarEventAttendeeList request: %s", jsonString(request))
-
 	if r.cli.mock.mockCalendarGetCalendarEventAttendeeList != nil {
 		r.cli.logDebug(ctx, "[lark] Calendar#GetCalendarEventAttendeeList mock enable")
 		return r.cli.mock.mockCalendarGetCalendarEventAttendeeList(ctx, request, options...)
 	}
+
+	r.cli.logInfo(ctx, "[lark] Calendar#GetCalendarEventAttendeeList call api")
+	r.cli.logDebug(ctx, "[lark] Calendar#GetCalendarEventAttendeeList request: %s", jsonString(request))
 
 	req := &RawRequestReq{
 		Method:                "GET",

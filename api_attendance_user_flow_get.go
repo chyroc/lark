@@ -12,13 +12,13 @@ import (
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/Attendance//GetCardSwipeHistory
 func (r *AttendanceAPI) GetUserFlow(ctx context.Context, request *GetUserFlowReq, options ...MethodOptionFunc) (*GetUserFlowResp, *Response, error) {
-	r.cli.logInfo(ctx, "[lark] Attendance#GetUserFlow call api")
-	r.cli.logDebug(ctx, "[lark] Attendance#GetUserFlow request: %s", jsonString(request))
-
 	if r.cli.mock.mockAttendanceGetUserFlow != nil {
 		r.cli.logDebug(ctx, "[lark] Attendance#GetUserFlow mock enable")
 		return r.cli.mock.mockAttendanceGetUserFlow(ctx, request, options...)
 	}
+
+	r.cli.logInfo(ctx, "[lark] Attendance#GetUserFlow call api")
+	r.cli.logDebug(ctx, "[lark] Attendance#GetUserFlow request: %s", jsonString(request))
 
 	req := &RawRequestReq{
 		Method:                "GET",
@@ -76,5 +76,5 @@ type GetUserFlowResp struct {
 	IsField      bool     `json:"is_field,omitempty"`      // 是否为外勤打卡
 	IsWifi       bool     `json:"is_wifi,omitempty"`       // 是否为 Wi-Fi 打卡
 	Type         int      `json:"type,omitempty"`          // 记录生成方式，可用值：【0（用户自己打卡），1（管理员修改），2（用户补卡），3（系统自动生成），4（下班免打卡），5（考勤机打卡），6（极速打卡），7（考勤开放平台导入）】
-	PhotoUrls    []string `json:"photo_urls,omitempty"`    // 打卡照片列表
+	PhotoURLs    []string `json:"photo_urls,omitempty"`    // 打卡照片列表
 }

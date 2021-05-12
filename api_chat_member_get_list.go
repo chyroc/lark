@@ -14,13 +14,13 @@ import (
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-members/get
 func (r *ChatAPI) GetMemberList(ctx context.Context, request *GetMemberListReq, options ...MethodOptionFunc) (*GetMemberListResp, *Response, error) {
-	r.cli.logInfo(ctx, "[lark] Chat#GetMemberList call api")
-	r.cli.logDebug(ctx, "[lark] Chat#GetMemberList request: %s", jsonString(request))
-
 	if r.cli.mock.mockChatGetMemberList != nil {
 		r.cli.logDebug(ctx, "[lark] Chat#GetMemberList mock enable")
 		return r.cli.mock.mockChatGetMemberList(ctx, request, options...)
 	}
+
+	r.cli.logInfo(ctx, "[lark] Chat#GetMemberList call api")
+	r.cli.logDebug(ctx, "[lark] Chat#GetMemberList request: %s", jsonString(request))
 
 	req := &RawRequestReq{
 		Method:                "GET",

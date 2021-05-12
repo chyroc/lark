@@ -12,13 +12,13 @@ import (
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/vc-v1/meeting/invite
 func (r *VCAPI) InviteMeeting(ctx context.Context, request *InviteMeetingReq, options ...MethodOptionFunc) (*InviteMeetingResp, *Response, error) {
-	r.cli.logInfo(ctx, "[lark] VC#InviteMeeting call api")
-	r.cli.logDebug(ctx, "[lark] VC#InviteMeeting request: %s", jsonString(request))
-
 	if r.cli.mock.mockVCInviteMeeting != nil {
 		r.cli.logDebug(ctx, "[lark] VC#InviteMeeting mock enable")
 		return r.cli.mock.mockVCInviteMeeting(ctx, request, options...)
 	}
+
+	r.cli.logInfo(ctx, "[lark] VC#InviteMeeting call api")
+	r.cli.logDebug(ctx, "[lark] VC#InviteMeeting request: %s", jsonString(request))
 
 	req := &RawRequestReq{
 		Method:              "PATCH",

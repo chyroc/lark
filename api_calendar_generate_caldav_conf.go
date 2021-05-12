@@ -10,13 +10,13 @@ import (
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/setting/generate_caldav_conf
 func (r *CalendarAPI) GenerateCaldavConf(ctx context.Context, request *GenerateCaldavConfReq, options ...MethodOptionFunc) (*GenerateCaldavConfResp, *Response, error) {
-	r.cli.logInfo(ctx, "[lark] Calendar#GenerateCaldavConf call api")
-	r.cli.logDebug(ctx, "[lark] Calendar#GenerateCaldavConf request: %s", jsonString(request))
-
 	if r.cli.mock.mockCalendarGenerateCaldavConf != nil {
 		r.cli.logDebug(ctx, "[lark] Calendar#GenerateCaldavConf mock enable")
 		return r.cli.mock.mockCalendarGenerateCaldavConf(ctx, request, options...)
 	}
+
+	r.cli.logInfo(ctx, "[lark] Calendar#GenerateCaldavConf call api")
+	r.cli.logDebug(ctx, "[lark] Calendar#GenerateCaldavConf request: %s", jsonString(request))
 
 	req := &RawRequestReq{
 		Method:              "POST",

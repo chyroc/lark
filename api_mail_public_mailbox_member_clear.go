@@ -10,13 +10,13 @@ import (
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/mail-v1/public_mailbox-member/clear
 func (r *MailAPI) ClearPublicMailboxMember(ctx context.Context, request *ClearPublicMailboxMemberReq, options ...MethodOptionFunc) (*ClearPublicMailboxMemberResp, *Response, error) {
-	r.cli.logInfo(ctx, "[lark] Mail#ClearPublicMailboxMember call api")
-	r.cli.logDebug(ctx, "[lark] Mail#ClearPublicMailboxMember request: %s", jsonString(request))
-
 	if r.cli.mock.mockMailClearPublicMailboxMember != nil {
 		r.cli.logDebug(ctx, "[lark] Mail#ClearPublicMailboxMember mock enable")
 		return r.cli.mock.mockMailClearPublicMailboxMember(ctx, request, options...)
 	}
+
+	r.cli.logInfo(ctx, "[lark] Mail#ClearPublicMailboxMember call api")
+	r.cli.logDebug(ctx, "[lark] Mail#ClearPublicMailboxMember request: %s", jsonString(request))
 
 	req := &RawRequestReq{
 		Method:                "POST",

@@ -12,13 +12,13 @@ import (
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/ai/translation-v1/text/translate
 func (r *AIAPI) TranslateText(ctx context.Context, request *TranslateTextReq, options ...MethodOptionFunc) (*TranslateTextResp, *Response, error) {
-	r.cli.logInfo(ctx, "[lark] AI#TranslateText call api")
-	r.cli.logDebug(ctx, "[lark] AI#TranslateText request: %s", jsonString(request))
-
 	if r.cli.mock.mockAITranslateText != nil {
 		r.cli.logDebug(ctx, "[lark] AI#TranslateText mock enable")
 		return r.cli.mock.mockAITranslateText(ctx, request, options...)
 	}
+
+	r.cli.logInfo(ctx, "[lark] AI#TranslateText call api")
+	r.cli.logDebug(ctx, "[lark] AI#TranslateText request: %s", jsonString(request))
 
 	req := &RawRequestReq{
 		Method:                "POST",

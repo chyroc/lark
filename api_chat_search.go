@@ -16,13 +16,13 @@ import (
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat/search
 func (r *ChatAPI) SearchChat(ctx context.Context, request *SearchChatReq, options ...MethodOptionFunc) (*SearchChatResp, *Response, error) {
-	r.cli.logInfo(ctx, "[lark] Chat#SearchChat call api")
-	r.cli.logDebug(ctx, "[lark] Chat#SearchChat request: %s", jsonString(request))
-
 	if r.cli.mock.mockChatSearchChat != nil {
 		r.cli.logDebug(ctx, "[lark] Chat#SearchChat mock enable")
 		return r.cli.mock.mockChatSearchChat(ctx, request, options...)
 	}
+
+	r.cli.logInfo(ctx, "[lark] Chat#SearchChat call api")
+	r.cli.logDebug(ctx, "[lark] Chat#SearchChat request: %s", jsonString(request))
 
 	req := &RawRequestReq{
 		Method:                "GET",

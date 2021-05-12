@@ -13,13 +13,13 @@ import (
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar-event-attendee/batch_delete
 func (r *CalendarAPI) DeleteCalendarEventAttendee(ctx context.Context, request *DeleteCalendarEventAttendeeReq, options ...MethodOptionFunc) (*DeleteCalendarEventAttendeeResp, *Response, error) {
-	r.cli.logInfo(ctx, "[lark] Calendar#DeleteCalendarEventAttendee call api")
-	r.cli.logDebug(ctx, "[lark] Calendar#DeleteCalendarEventAttendee request: %s", jsonString(request))
-
 	if r.cli.mock.mockCalendarDeleteCalendarEventAttendee != nil {
 		r.cli.logDebug(ctx, "[lark] Calendar#DeleteCalendarEventAttendee mock enable")
 		return r.cli.mock.mockCalendarDeleteCalendarEventAttendee(ctx, request, options...)
 	}
+
+	r.cli.logInfo(ctx, "[lark] Calendar#DeleteCalendarEventAttendee call api")
+	r.cli.logDebug(ctx, "[lark] Calendar#DeleteCalendarEventAttendee request: %s", jsonString(request))
 
 	req := &RawRequestReq{
 		Method:                "POST",

@@ -41,20 +41,39 @@ func WithLogger(logger Logger, level LogLevel) ClientOptionFunc {
 	}
 }
 
-func New(options ...ClientOptionFunc) *Lark {
-	r := new(Lark)
-	r.mock = new(Mock)
-	r.eventHandler = new(eventHandler)
-	if r.timeout == 0 {
-		r.timeout = time.Second * 3
+func WithISV(isISV bool) ClientOptionFunc {
+	return func(lark *Lark) {
+		lark.isISV = isISV
 	}
-	r.httpClient = &http.Client{
-		Timeout: r.timeout,
+}
+
+func WithStore(store Store) ClientOptionFunc {
+	return func(lark *Lark) {
+		lark.store = store
+	}
+}
+
+func New(options ...ClientOptionFunc) *Lark {
+	return newClient("", options)
+}
+
+func newClient(tenantKey string, options []ClientOptionFunc) *Lark {
+	r := &Lark{
+		timeout:      time.Second * 3,
+		isISV:        false,
+		tenantKey:    tenantKey,
+		store:        NewStoreMemory(),
+		mock:         new(Mock),
+		eventHandler: new(eventHandler),
 	}
 	for _, v := range options {
 		if v != nil {
 			v(r)
 		}
+	}
+
+	r.httpClient = &http.Client{
+		Timeout: r.timeout,
 	}
 
 	return r

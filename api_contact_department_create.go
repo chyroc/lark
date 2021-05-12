@@ -12,13 +12,13 @@ import (
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/create
 func (r *ContactAPI) CreateDepartment(ctx context.Context, request *CreateDepartmentReq, options ...MethodOptionFunc) (*CreateDepartmentResp, *Response, error) {
-	r.cli.logInfo(ctx, "[lark] Contact#CreateDepartment call api")
-	r.cli.logDebug(ctx, "[lark] Contact#CreateDepartment request: %s", jsonString(request))
-
 	if r.cli.mock.mockContactCreateDepartment != nil {
 		r.cli.logDebug(ctx, "[lark] Contact#CreateDepartment mock enable")
 		return r.cli.mock.mockContactCreateDepartment(ctx, request, options...)
 	}
+
+	r.cli.logInfo(ctx, "[lark] Contact#CreateDepartment call api")
+	r.cli.logDebug(ctx, "[lark] Contact#CreateDepartment request: %s", jsonString(request))
 
 	req := &RawRequestReq{
 		Method:                "POST",
@@ -58,11 +58,11 @@ type CreateDepartmentReq struct {
 	Name               string                       `json:"name,omitempty"`                 // 部门名称, 示例值："DemoName", 最小长度：`1` 字符
 	I18nName           *CreateDepartmentReqI18nName `json:"i18n_name,omitempty"`            // 国际化的部门名称
 	ParentDepartmentID string                       `json:"parent_department_id,omitempty"` // 父部门的ID,* 创建根部门，该参数值为 “0”, 示例值："od-4e6ac4d14bcd5071a37a39de902c7141"
-	DepartmentID       *string                      `json:"department_id,omitempty"`        // 本部门的自定义部门ID, 示例值："this_is_custom_name", 最大长度：`128` 字符, 正则校验：`^0|[^od][A-Za-z0-9]*`
+	DepartmentID       *string                      `json:"department_id,omitempty"`        // 本部门的自定义部门ID, 示例值："od-4e6ac4d14bcd5071a37a39de902c7141", 最大长度：`128` 字符, 正则校验：`^0|[^od][A-Za-z0-9]*`
 	LeaderUserID       *string                      `json:"leader_user_id,omitempty"`       // 部门主管用户ID, 示例值："ou_7dab8a3d3cdcc9da365777c7ad535d62"
 	Order              *string                      `json:"order,omitempty"`                // 部门的排序，即部门在其同级部门的展示顺序, 示例值："100"
 	UnitIDs            []string                     `json:"unit_ids,omitempty"`             // 部门单位自定义ID列表，当前只支持一个
-	CreateGroupChat    *bool                        `json:"create_group_chat,omitempty"`    // 是否创建部门群，默认不创建, 示例值：true
+	CreateGroupChat    *bool                        `json:"create_group_chat,omitempty"`    // 是否创建部门群，默认不创建, 示例值：false
 }
 
 type CreateDepartmentReqI18nName struct {

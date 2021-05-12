@@ -16,13 +16,13 @@ import (
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar-event/patch
 func (r *CalendarAPI) UpdateCalendarEvent(ctx context.Context, request *UpdateCalendarEventReq, options ...MethodOptionFunc) (*UpdateCalendarEventResp, *Response, error) {
-	r.cli.logInfo(ctx, "[lark] Calendar#UpdateCalendarEvent call api")
-	r.cli.logDebug(ctx, "[lark] Calendar#UpdateCalendarEvent request: %s", jsonString(request))
-
 	if r.cli.mock.mockCalendarUpdateCalendarEvent != nil {
 		r.cli.logDebug(ctx, "[lark] Calendar#UpdateCalendarEvent mock enable")
 		return r.cli.mock.mockCalendarUpdateCalendarEvent(ctx, request, options...)
 	}
+
+	r.cli.logInfo(ctx, "[lark] Calendar#UpdateCalendarEvent call api")
+	r.cli.logDebug(ctx, "[lark] Calendar#UpdateCalendarEvent request: %s", jsonString(request))
 
 	req := &RawRequestReq{
 		Method:                "PATCH",
@@ -88,7 +88,7 @@ type UpdateCalendarEventReqEndTime struct {
 }
 
 type UpdateCalendarEventReqVchat struct {
-	MeetingUrl *string `json:"meeting_url,omitempty"` // 视频会议URL, 示例值："https://example.com", 长度范围：`1` ～ `2000` 字符
+	MeetingURL *string `json:"meeting_url,omitempty"` // 视频会议URL, 示例值："https://example.com", 长度范围：`1` ～ `2000` 字符
 }
 
 type UpdateCalendarEventReqLocation struct {
@@ -151,7 +151,7 @@ type UpdateCalendarEventRespEventEndTime struct {
 }
 
 type UpdateCalendarEventRespEventVchat struct {
-	MeetingUrl string `json:"meeting_url,omitempty"` // 视频会议URL, 长度范围：`1` ～ `2000` 字符
+	MeetingURL string `json:"meeting_url,omitempty"` // 视频会议URL, 长度范围：`1` ～ `2000` 字符
 }
 
 type UpdateCalendarEventRespEventLocation struct {

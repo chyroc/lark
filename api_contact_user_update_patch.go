@@ -10,13 +10,13 @@ import (
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/patch
 func (r *ContactAPI) UpdateUserPatch(ctx context.Context, request *UpdateUserPatchReq, options ...MethodOptionFunc) (*UpdateUserPatchResp, *Response, error) {
-	r.cli.logInfo(ctx, "[lark] Contact#UpdateUserPatch call api")
-	r.cli.logDebug(ctx, "[lark] Contact#UpdateUserPatch request: %s", jsonString(request))
-
 	if r.cli.mock.mockContactUpdateUserPatch != nil {
 		r.cli.logDebug(ctx, "[lark] Contact#UpdateUserPatch mock enable")
 		return r.cli.mock.mockContactUpdateUserPatch(ctx, request, options...)
 	}
+
+	r.cli.logInfo(ctx, "[lark] Contact#UpdateUserPatch call api")
+	r.cli.logDebug(ctx, "[lark] Contact#UpdateUserPatch request: %s", jsonString(request))
 
 	req := &RawRequestReq{
 		Method:                "PATCH",
@@ -90,7 +90,7 @@ type UpdateUserPatchReqCustomAttr struct {
 type UpdateUserPatchReqCustomAttrValue struct {
 	Text  *string `json:"text,omitempty"`   // 属性文本, 示例值："DemoText"
 	URL   *string `json:"url,omitempty"`    // URL, 示例值："http://www.feishu.cn"
-	PcUrl *string `json:"pc_url,omitempty"` // PC上的URL, 示例值："http://www.feishu.cn"
+	PcURL *string `json:"pc_url,omitempty"` // PC上的URL, 示例值："http://www.feishu.cn"
 }
 
 type updateUserPatchResp struct {
@@ -158,5 +158,5 @@ type UpdateUserPatchRespUserCustomAttr struct {
 type UpdateUserPatchRespUserCustomAttrValue struct {
 	Text  string `json:"text,omitempty"`   // 属性文本
 	URL   string `json:"url,omitempty"`    // URL
-	PcUrl string `json:"pc_url,omitempty"` // PC上的URL
+	PcURL string `json:"pc_url,omitempty"` // PC上的URL
 }

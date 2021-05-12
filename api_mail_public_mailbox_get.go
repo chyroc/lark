@@ -10,13 +10,13 @@ import (
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/mail-v1/public_mailbox/get
 func (r *MailAPI) GetPublicMailbox(ctx context.Context, request *GetPublicMailboxReq, options ...MethodOptionFunc) (*GetPublicMailboxResp, *Response, error) {
-	r.cli.logInfo(ctx, "[lark] Mail#GetPublicMailbox call api")
-	r.cli.logDebug(ctx, "[lark] Mail#GetPublicMailbox request: %s", jsonString(request))
-
 	if r.cli.mock.mockMailGetPublicMailbox != nil {
 		r.cli.logDebug(ctx, "[lark] Mail#GetPublicMailbox mock enable")
 		return r.cli.mock.mockMailGetPublicMailbox(ctx, request, options...)
 	}
+
+	r.cli.logInfo(ctx, "[lark] Mail#GetPublicMailbox call api")
+	r.cli.logDebug(ctx, "[lark] Mail#GetPublicMailbox request: %s", jsonString(request))
 
 	req := &RawRequestReq{
 		Method:                "GET",

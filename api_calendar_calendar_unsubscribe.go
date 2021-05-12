@@ -14,13 +14,13 @@ import (
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar/unsubscribe
 func (r *CalendarAPI) UnsubscribeCalendar(ctx context.Context, request *UnsubscribeCalendarReq, options ...MethodOptionFunc) (*UnsubscribeCalendarResp, *Response, error) {
-	r.cli.logInfo(ctx, "[lark] Calendar#UnsubscribeCalendar call api")
-	r.cli.logDebug(ctx, "[lark] Calendar#UnsubscribeCalendar request: %s", jsonString(request))
-
 	if r.cli.mock.mockCalendarUnsubscribeCalendar != nil {
 		r.cli.logDebug(ctx, "[lark] Calendar#UnsubscribeCalendar mock enable")
 		return r.cli.mock.mockCalendarUnsubscribeCalendar(ctx, request, options...)
 	}
+
+	r.cli.logInfo(ctx, "[lark] Calendar#UnsubscribeCalendar call api")
+	r.cli.logDebug(ctx, "[lark] Calendar#UnsubscribeCalendar request: %s", jsonString(request))
 
 	req := &RawRequestReq{
 		Method:                "POST",

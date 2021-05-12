@@ -1,5 +1,30 @@
 [
   {
+    "scope": "Auth",
+    "apis": [
+      {
+        "file_name": "api_auth_app_ticket_resend.go",
+        "func_name": "ResendAppTicket",
+        "doc_url": "https://open.feishu.cn/document/ukTMukTMukTM/uQjNz4CN2MjL0YzM"
+      },
+      {
+        "file_name": "api_auth_access_token_get.go",
+        "func_name": "GetAccessToken",
+        "doc_url": "https://open.feishu.cn/document/ukTMukTMukTM/uEDO4UjLxgDO14SM4gTN"
+      },
+      {
+        "file_name": "api_auth_access_token_refresh.go",
+        "func_name": "RefreshAccessToken",
+        "doc_url": "https://open.feishu.cn/document/ukTMukTMukTM/uQDO4UjL0gDO14CN4gTN"
+      },
+      {
+        "file_name": "api_auth_user_info_get.go",
+        "func_name": "GetUserInfo",
+        "doc_url": "https://open.feishu.cn/document/ukTMukTMukTM/uIDO4UjLygDO14iM4gTN"
+      }
+    ]
+  },
+  {
     "scope": "Contact",
     "apis": [
       {
@@ -331,6 +356,36 @@
         "file_name": "api_calendar_generate_caldav_conf.go",
         "func_name": "GenerateCaldavConf",
         "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/setting/generate_caldav_conf"
+      }
+    ]
+  },
+  {
+    "scope": "Drive",
+    "apis": [
+      {
+        "file_name": "api_drive_sheet_meta_get.go",
+        "func_name": "GetSheetMeta",
+        "doc_url": "https://open.feishu.cn/document/ukTMukTMukTM/uETMzUjLxEzM14SMxMTN"
+      },
+      {
+        "file_name": "api_drive_sheet_property_update.go",
+        "func_name": "UpdateSheetProperty",
+        "doc_url": "https://open.feishu.cn/document/ukTMukTMukTM/ucTMzUjL3EzM14yNxMTN"
+      },
+      {
+        "file_name": "api_drive_sheet_import.go",
+        "func_name": "ImportSheet",
+        "doc_url": "https://open.feishu.cn/document/ukTMukTMukTM/uATO2YjLwkjN24CM5YjN"
+      },
+      {
+        "file_name": "api_drive_sheet_value_prepend.go",
+        "func_name": "PrependSheetValue",
+        "doc_url": "https://open.feishu.cn/document/ukTMukTMukTM/uIjMzUjLyIzM14iMyMTN"
+      },
+      {
+        "file_name": "api_drive_sheet_value_append.go",
+        "func_name": "AppendSheetValue",
+        "doc_url": "https://open.feishu.cn/document/ukTMukTMukTM/uMjMzUjLzIzM14yMyMTN"
       }
     ]
   },
@@ -766,6 +821,16 @@
         "file_name": "api_helpdesk_faq_search.go",
         "func_name": "SearchFAQ",
         "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/faq/search"
+      },
+      {
+        "file_name": "api_helpdesk_event_subscribe.go",
+        "func_name": "SubscribeEvent",
+        "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/event/subscribe"
+      },
+      {
+        "file_name": "api_helpdesk_event_unsubscribe.go",
+        "func_name": "UnsubscribeEvent",
+        "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/event/unsubscribe"
       }
     ]
   },
@@ -983,6 +1048,21 @@
     "scope": "EventCallback",
     "events": [
       {
+        "file_name": "api_event_callback_v2_contact_user_updated_v3.go",
+        "event_name": "EventV2ContactUserUpdatedV3",
+        "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/events/updated"
+      },
+      {
+        "file_name": "api_event_callback_v2_contact_user_created_v3.go",
+        "event_name": "EventV2ContactUserCreatedV3",
+        "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/events/created"
+      },
+      {
+        "file_name": "api_event_callback_v2_contact_scope_updated_v3.go",
+        "event_name": "EventV2ContactScopeUpdatedV3",
+        "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/scope/events/updated"
+      },
+      {
         "file_name": "api_event_callback_v2_im_message_receive_v1.go",
         "event_name": "EventV2IMMessageReceiveV1",
         "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/events/receive"
@@ -1123,6 +1203,26 @@
         "doc_url": "https://open.feishu.cn/document/ukTMukTMukTM/ukjNxYjL5YTM24SO2EjN",
         "from": "解散群",
         "to": "群配置修改"
+      }
+    ]
+  },
+  {
+    "scope": "OKR",
+    "apis": [
+      {
+        "file_name": "api_okr_period_get_list.go",
+        "func_name": "GetPeriodList",
+        "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/okr-v1/period/list"
+      },
+      {
+        "file_name": "api_okr_okr_batch_get.go",
+        "func_name": "BatchGetOKR",
+        "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/okr-v1/okr/batch_get"
+      },
+      {
+        "file_name": "api_okr_user_okr_get_list.go",
+        "func_name": "GetUserOKRList",
+        "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/okr-v1/user-okr/list"
       }
     ]
   },

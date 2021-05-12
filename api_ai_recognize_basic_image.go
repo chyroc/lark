@@ -12,13 +12,13 @@ import (
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/ai/optical_char_recognition-v1/image/basic_recognize
 func (r *AIAPI) RecognizeBasicImage(ctx context.Context, request *RecognizeBasicImageReq, options ...MethodOptionFunc) (*RecognizeBasicImageResp, *Response, error) {
-	r.cli.logInfo(ctx, "[lark] AI#RecognizeBasicImage call api")
-	r.cli.logDebug(ctx, "[lark] AI#RecognizeBasicImage request: %s", jsonString(request))
-
 	if r.cli.mock.mockAIRecognizeBasicImage != nil {
 		r.cli.logDebug(ctx, "[lark] AI#RecognizeBasicImage mock enable")
 		return r.cli.mock.mockAIRecognizeBasicImage(ctx, request, options...)
 	}
+
+	r.cli.logInfo(ctx, "[lark] AI#RecognizeBasicImage call api")
+	r.cli.logDebug(ctx, "[lark] AI#RecognizeBasicImage request: %s", jsonString(request))
 
 	req := &RawRequestReq{
 		Method:                "POST",

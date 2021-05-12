@@ -12,13 +12,13 @@ import (
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/ai/translation-v1/text/detect
 func (r *AIAPI) DetectTextLanguage(ctx context.Context, request *DetectTextLanguageReq, options ...MethodOptionFunc) (*DetectTextLanguageResp, *Response, error) {
-	r.cli.logInfo(ctx, "[lark] AI#DetectTextLanguage call api")
-	r.cli.logDebug(ctx, "[lark] AI#DetectTextLanguage request: %s", jsonString(request))
-
 	if r.cli.mock.mockAIDetectTextLanguage != nil {
 		r.cli.logDebug(ctx, "[lark] AI#DetectTextLanguage mock enable")
 		return r.cli.mock.mockAIDetectTextLanguage(ctx, request, options...)
 	}
+
+	r.cli.logInfo(ctx, "[lark] AI#DetectTextLanguage call api")
+	r.cli.logDebug(ctx, "[lark] AI#DetectTextLanguage request: %s", jsonString(request))
 
 	req := &RawRequestReq{
 		Method:                "POST",

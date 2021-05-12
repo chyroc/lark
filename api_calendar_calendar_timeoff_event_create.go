@@ -10,13 +10,13 @@ import (
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/timeoff_event/create
 func (r *CalendarAPI) CreateCalendarTimeoffEvent(ctx context.Context, request *CreateCalendarTimeoffEventReq, options ...MethodOptionFunc) (*CreateCalendarTimeoffEventResp, *Response, error) {
-	r.cli.logInfo(ctx, "[lark] Calendar#CreateCalendarTimeoffEvent call api")
-	r.cli.logDebug(ctx, "[lark] Calendar#CreateCalendarTimeoffEvent request: %s", jsonString(request))
-
 	if r.cli.mock.mockCalendarCreateCalendarTimeoffEvent != nil {
 		r.cli.logDebug(ctx, "[lark] Calendar#CreateCalendarTimeoffEvent mock enable")
 		return r.cli.mock.mockCalendarCreateCalendarTimeoffEvent(ctx, request, options...)
 	}
+
+	r.cli.logInfo(ctx, "[lark] Calendar#CreateCalendarTimeoffEvent call api")
+	r.cli.logDebug(ctx, "[lark] Calendar#CreateCalendarTimeoffEvent request: %s", jsonString(request))
 
 	req := &RawRequestReq{
 		Method:                "POST",

@@ -10,13 +10,13 @@ import (
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/category/get
 func (r *HelpdeskAPI) GetCategory(ctx context.Context, request *GetCategoryReq, options ...MethodOptionFunc) (*GetCategoryResp, *Response, error) {
-	r.cli.logInfo(ctx, "[lark] Helpdesk#GetCategory call api")
-	r.cli.logDebug(ctx, "[lark] Helpdesk#GetCategory request: %s", jsonString(request))
-
 	if r.cli.mock.mockHelpdeskGetCategory != nil {
 		r.cli.logDebug(ctx, "[lark] Helpdesk#GetCategory mock enable")
 		return r.cli.mock.mockHelpdeskGetCategory(ctx, request, options...)
 	}
+
+	r.cli.logInfo(ctx, "[lark] Helpdesk#GetCategory call api")
+	r.cli.logDebug(ctx, "[lark] Helpdesk#GetCategory request: %s", jsonString(request))
 
 	req := &RawRequestReq{
 		Method:                "GET",

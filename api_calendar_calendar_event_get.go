@@ -12,13 +12,13 @@ import (
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar-event/get
 func (r *CalendarAPI) GetCalendarEvent(ctx context.Context, request *GetCalendarEventReq, options ...MethodOptionFunc) (*GetCalendarEventResp, *Response, error) {
-	r.cli.logInfo(ctx, "[lark] Calendar#GetCalendarEvent call api")
-	r.cli.logDebug(ctx, "[lark] Calendar#GetCalendarEvent request: %s", jsonString(request))
-
 	if r.cli.mock.mockCalendarGetCalendarEvent != nil {
 		r.cli.logDebug(ctx, "[lark] Calendar#GetCalendarEvent mock enable")
 		return r.cli.mock.mockCalendarGetCalendarEvent(ctx, request, options...)
 	}
+
+	r.cli.logInfo(ctx, "[lark] Calendar#GetCalendarEvent call api")
+	r.cli.logDebug(ctx, "[lark] Calendar#GetCalendarEvent request: %s", jsonString(request))
 
 	req := &RawRequestReq{
 		Method:                "GET",
@@ -100,7 +100,7 @@ type GetCalendarEventRespEventEndTime struct {
 }
 
 type GetCalendarEventRespEventVchat struct {
-	MeetingUrl string `json:"meeting_url,omitempty"` // 视频会议URL, 长度范围：`1` ～ `2000` 字符
+	MeetingURL string `json:"meeting_url,omitempty"` // 视频会议URL, 长度范围：`1` ～ `2000` 字符
 }
 
 type GetCalendarEventRespEventLocation struct {

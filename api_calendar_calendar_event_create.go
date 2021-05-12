@@ -14,13 +14,13 @@ import (
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar-event/create-event
 func (r *CalendarAPI) CreateCalendarEvent(ctx context.Context, request *CreateCalendarEventReq, options ...MethodOptionFunc) (*CreateCalendarEventResp, *Response, error) {
-	r.cli.logInfo(ctx, "[lark] Calendar#CreateCalendarEvent call api")
-	r.cli.logDebug(ctx, "[lark] Calendar#CreateCalendarEvent request: %s", jsonString(request))
-
 	if r.cli.mock.mockCalendarCreateCalendarEvent != nil {
 		r.cli.logDebug(ctx, "[lark] Calendar#CreateCalendarEvent mock enable")
 		return r.cli.mock.mockCalendarCreateCalendarEvent(ctx, request, options...)
 	}
+
+	r.cli.logInfo(ctx, "[lark] Calendar#CreateCalendarEvent call api")
+	r.cli.logDebug(ctx, "[lark] Calendar#CreateCalendarEvent request: %s", jsonString(request))
 
 	req := &RawRequestReq{
 		Method:                "POST",
@@ -84,7 +84,7 @@ type CreateCalendarEventReqEndTime struct {
 }
 
 type CreateCalendarEventReqVchat struct {
-	MeetingUrl *string `json:"meeting_url,omitempty"` // 视频会议URL, 示例值："https://example.com", 长度范围：`1` ～ `2000` 字符
+	MeetingURL *string `json:"meeting_url,omitempty"` // 视频会议URL, 示例值："https://example.com", 长度范围：`1` ～ `2000` 字符
 }
 
 type CreateCalendarEventReqLocation struct {
@@ -147,7 +147,7 @@ type CreateCalendarEventRespEventEndTime struct {
 }
 
 type CreateCalendarEventRespEventVchat struct {
-	MeetingUrl string `json:"meeting_url,omitempty"` // 视频会议URL, 长度范围：`1` ～ `2000` 字符
+	MeetingURL string `json:"meeting_url,omitempty"` // 视频会议URL, 长度范围：`1` ～ `2000` 字符
 }
 
 type CreateCalendarEventRespEventLocation struct {

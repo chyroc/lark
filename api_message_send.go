@@ -15,13 +15,13 @@ import (
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/create
 func (r *MessageAPI) SendRawMessage(ctx context.Context, request *SendRawMessageReq, options ...MethodOptionFunc) (*SendRawMessageResp, *Response, error) {
-	r.cli.logInfo(ctx, "[lark] Message#SendRawMessage call api")
-	r.cli.logDebug(ctx, "[lark] Message#SendRawMessage request: %s", jsonString(request))
-
 	if r.cli.mock.mockMessageSendRawMessage != nil {
 		r.cli.logDebug(ctx, "[lark] Message#SendRawMessage mock enable")
 		return r.cli.mock.mockMessageSendRawMessage(ctx, request, options...)
 	}
+
+	r.cli.logInfo(ctx, "[lark] Message#SendRawMessage call api")
+	r.cli.logDebug(ctx, "[lark] Message#SendRawMessage request: %s", jsonString(request))
 
 	req := &RawRequestReq{
 		Method:                "POST",

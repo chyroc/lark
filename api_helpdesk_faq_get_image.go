@@ -11,13 +11,13 @@ import (
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/faq/faq_image
 func (r *HelpdeskAPI) GetFAQImage(ctx context.Context, request *GetFAQImageReq, options ...MethodOptionFunc) (*GetFAQImageResp, *Response, error) {
-	r.cli.logInfo(ctx, "[lark] Helpdesk#GetFAQImage call api")
-	r.cli.logDebug(ctx, "[lark] Helpdesk#GetFAQImage request: %s", jsonString(request))
-
 	if r.cli.mock.mockHelpdeskGetFAQImage != nil {
 		r.cli.logDebug(ctx, "[lark] Helpdesk#GetFAQImage mock enable")
 		return r.cli.mock.mockHelpdeskGetFAQImage(ctx, request, options...)
 	}
+
+	r.cli.logInfo(ctx, "[lark] Helpdesk#GetFAQImage call api")
+	r.cli.logDebug(ctx, "[lark] Helpdesk#GetFAQImage request: %s", jsonString(request))
 
 	req := &RawRequestReq{
 		Method:                "GET",

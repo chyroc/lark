@@ -10,13 +10,13 @@ import (
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uMzMxYjLzMTM24yMzEjN
 func (r *MeetingRoomAPI) BatchGetBuildingID(ctx context.Context, request *BatchGetBuildingIDReq, options ...MethodOptionFunc) (*BatchGetBuildingIDResp, *Response, error) {
-	r.cli.logInfo(ctx, "[lark] MeetingRoom#BatchGetBuildingID call api")
-	r.cli.logDebug(ctx, "[lark] MeetingRoom#BatchGetBuildingID request: %s", jsonString(request))
-
 	if r.cli.mock.mockMeetingRoomBatchGetBuildingID != nil {
 		r.cli.logDebug(ctx, "[lark] MeetingRoom#BatchGetBuildingID mock enable")
 		return r.cli.mock.mockMeetingRoomBatchGetBuildingID(ctx, request, options...)
 	}
+
+	r.cli.logInfo(ctx, "[lark] MeetingRoom#BatchGetBuildingID call api")
+	r.cli.logDebug(ctx, "[lark] MeetingRoom#BatchGetBuildingID request: %s", jsonString(request))
 
 	req := &RawRequestReq{
 		Method:                "POST",

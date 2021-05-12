@@ -10,13 +10,13 @@ import (
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/ticket_customized_field/delete
 func (r *HelpdeskAPI) DeleteTicketCustomizedField(ctx context.Context, request *DeleteTicketCustomizedFieldReq, options ...MethodOptionFunc) (*DeleteTicketCustomizedFieldResp, *Response, error) {
-	r.cli.logInfo(ctx, "[lark] Helpdesk#DeleteTicketCustomizedField call api")
-	r.cli.logDebug(ctx, "[lark] Helpdesk#DeleteTicketCustomizedField request: %s", jsonString(request))
-
 	if r.cli.mock.mockHelpdeskDeleteTicketCustomizedField != nil {
 		r.cli.logDebug(ctx, "[lark] Helpdesk#DeleteTicketCustomizedField mock enable")
 		return r.cli.mock.mockHelpdeskDeleteTicketCustomizedField(ctx, request, options...)
 	}
+
+	r.cli.logInfo(ctx, "[lark] Helpdesk#DeleteTicketCustomizedField call api")
+	r.cli.logDebug(ctx, "[lark] Helpdesk#DeleteTicketCustomizedField request: %s", jsonString(request))
 
 	req := &RawRequestReq{
 		Method:              "DELETE",

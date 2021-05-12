@@ -12,13 +12,13 @@ import (
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/create
 func (r *ContactAPI) CreateUser(ctx context.Context, request *CreateUserReq, options ...MethodOptionFunc) (*CreateUserResp, *Response, error) {
-	r.cli.logInfo(ctx, "[lark] Contact#CreateUser call api")
-	r.cli.logDebug(ctx, "[lark] Contact#CreateUser request: %s", jsonString(request))
-
 	if r.cli.mock.mockContactCreateUser != nil {
 		r.cli.logDebug(ctx, "[lark] Contact#CreateUser mock enable")
 		return r.cli.mock.mockContactCreateUser(ctx, request, options...)
 	}
+
+	r.cli.logInfo(ctx, "[lark] Contact#CreateUser call api")
+	r.cli.logDebug(ctx, "[lark] Contact#CreateUser request: %s", jsonString(request))
 
 	req := &RawRequestReq{
 		Method:                "POST",
@@ -93,7 +93,7 @@ type CreateUserReqCustomAttr struct {
 type CreateUserReqCustomAttrValue struct {
 	Text  *string `json:"text,omitempty"`   // 属性文本, 示例值："DemoText"
 	URL   *string `json:"url,omitempty"`    // URL, 示例值："http://www.feishu.cn"
-	PcUrl *string `json:"pc_url,omitempty"` // PC上的URL, 示例值："http://www.feishu.cn"
+	PcURL *string `json:"pc_url,omitempty"` // PC上的URL, 示例值："http://www.feishu.cn"
 }
 
 type CreateUserReqNotificationOption struct {
@@ -168,7 +168,7 @@ type CreateUserRespUserCustomAttr struct {
 type CreateUserRespUserCustomAttrValue struct {
 	Text  string `json:"text,omitempty"`   // 属性文本
 	URL   string `json:"url,omitempty"`    // URL
-	PcUrl string `json:"pc_url,omitempty"` // PC上的URL
+	PcURL string `json:"pc_url,omitempty"` // PC上的URL
 }
 
 type CreateUserRespUserNotificationOption struct {

@@ -10,13 +10,13 @@ import (
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/Attendance//task/update-user-stats-settings
 func (r *AttendanceAPI) UpdateUserStatisticsSettings(ctx context.Context, request *UpdateUserStatisticsSettingsReq, options ...MethodOptionFunc) (*UpdateUserStatisticsSettingsResp, *Response, error) {
-	r.cli.logInfo(ctx, "[lark] Attendance#UpdateUserStatisticsSettings call api")
-	r.cli.logDebug(ctx, "[lark] Attendance#UpdateUserStatisticsSettings request: %s", jsonString(request))
-
 	if r.cli.mock.mockAttendanceUpdateUserStatisticsSettings != nil {
 		r.cli.logDebug(ctx, "[lark] Attendance#UpdateUserStatisticsSettings mock enable")
 		return r.cli.mock.mockAttendanceUpdateUserStatisticsSettings(ctx, request, options...)
 	}
+
+	r.cli.logInfo(ctx, "[lark] Attendance#UpdateUserStatisticsSettings call api")
+	r.cli.logDebug(ctx, "[lark] Attendance#UpdateUserStatisticsSettings request: %s", jsonString(request))
 
 	req := &RawRequestReq{
 		Method:                "PUT",

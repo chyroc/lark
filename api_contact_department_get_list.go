@@ -15,13 +15,13 @@ import (
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/list
 func (r *ContactAPI) GetDepartmentList(ctx context.Context, request *GetDepartmentListReq, options ...MethodOptionFunc) (*GetDepartmentListResp, *Response, error) {
-	r.cli.logInfo(ctx, "[lark] Contact#GetDepartmentList call api")
-	r.cli.logDebug(ctx, "[lark] Contact#GetDepartmentList request: %s", jsonString(request))
-
 	if r.cli.mock.mockContactGetDepartmentList != nil {
 		r.cli.logDebug(ctx, "[lark] Contact#GetDepartmentList mock enable")
 		return r.cli.mock.mockContactGetDepartmentList(ctx, request, options...)
 	}
+
+	r.cli.logInfo(ctx, "[lark] Contact#GetDepartmentList call api")
+	r.cli.logDebug(ctx, "[lark] Contact#GetDepartmentList request: %s", jsonString(request))
 
 	req := &RawRequestReq{
 		Method:                "GET",

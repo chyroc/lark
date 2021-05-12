@@ -15,13 +15,13 @@ import (
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/ehr/ehr-v1/attachment/get
 func (r *EHRAPI) DownloadAttachments(ctx context.Context, request *DownloadAttachmentsReq, options ...MethodOptionFunc) (*DownloadAttachmentsResp, *Response, error) {
-	r.cli.logInfo(ctx, "[lark] EHR#DownloadAttachments call api")
-	r.cli.logDebug(ctx, "[lark] EHR#DownloadAttachments request: %s", jsonString(request))
-
 	if r.cli.mock.mockEHRDownloadAttachments != nil {
 		r.cli.logDebug(ctx, "[lark] EHR#DownloadAttachments mock enable")
 		return r.cli.mock.mockEHRDownloadAttachments(ctx, request, options...)
 	}
+
+	r.cli.logInfo(ctx, "[lark] EHR#DownloadAttachments call api")
+	r.cli.logDebug(ctx, "[lark] EHR#DownloadAttachments request: %s", jsonString(request))
 
 	req := &RawRequestReq{
 		Method:                "GET",

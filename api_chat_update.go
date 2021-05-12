@@ -19,13 +19,13 @@ import (
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat/update
 func (r *ChatAPI) UpdateChat(ctx context.Context, request *UpdateChatReq, options ...MethodOptionFunc) (*UpdateChatResp, *Response, error) {
-	r.cli.logInfo(ctx, "[lark] Chat#UpdateChat call api")
-	r.cli.logDebug(ctx, "[lark] Chat#UpdateChat request: %s", jsonString(request))
-
 	if r.cli.mock.mockChatUpdateChat != nil {
 		r.cli.logDebug(ctx, "[lark] Chat#UpdateChat mock enable")
 		return r.cli.mock.mockChatUpdateChat(ctx, request, options...)
 	}
+
+	r.cli.logInfo(ctx, "[lark] Chat#UpdateChat call api")
+	r.cli.logDebug(ctx, "[lark] Chat#UpdateChat request: %s", jsonString(request))
 
 	req := &RawRequestReq{
 		Method:                "PUT",

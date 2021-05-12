@@ -16,13 +16,13 @@ import (
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/human_authentication-v1/face/upload-facial-reference-image
 func (r *HumanAuthAPI) UploadFaceVerifyImage(ctx context.Context, request *UploadFaceVerifyImageReq, options ...MethodOptionFunc) (*UploadFaceVerifyImageResp, *Response, error) {
-	r.cli.logInfo(ctx, "[lark] HumanAuth#UploadFaceVerifyImage call api")
-	r.cli.logDebug(ctx, "[lark] HumanAuth#UploadFaceVerifyImage request: %s", jsonString(request))
-
 	if r.cli.mock.mockHumanAuthUploadFaceVerifyImage != nil {
 		r.cli.logDebug(ctx, "[lark] HumanAuth#UploadFaceVerifyImage mock enable")
 		return r.cli.mock.mockHumanAuthUploadFaceVerifyImage(ctx, request, options...)
 	}
+
+	r.cli.logInfo(ctx, "[lark] HumanAuth#UploadFaceVerifyImage call api")
+	r.cli.logDebug(ctx, "[lark] HumanAuth#UploadFaceVerifyImage request: %s", jsonString(request))
 
 	req := &RawRequestReq{
 		Method:                "POST",

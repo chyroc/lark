@@ -10,13 +10,13 @@ import (
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/faq/get
 func (r *HelpdeskAPI) GetFAQ(ctx context.Context, request *GetFAQReq, options ...MethodOptionFunc) (*GetFAQResp, *Response, error) {
-	r.cli.logInfo(ctx, "[lark] Helpdesk#GetFAQ call api")
-	r.cli.logDebug(ctx, "[lark] Helpdesk#GetFAQ request: %s", jsonString(request))
-
 	if r.cli.mock.mockHelpdeskGetFAQ != nil {
 		r.cli.logDebug(ctx, "[lark] Helpdesk#GetFAQ mock enable")
 		return r.cli.mock.mockHelpdeskGetFAQ(ctx, request, options...)
 	}
+
+	r.cli.logInfo(ctx, "[lark] Helpdesk#GetFAQ call api")
+	r.cli.logDebug(ctx, "[lark] Helpdesk#GetFAQ request: %s", jsonString(request))
 
 	req := &RawRequestReq{
 		Method:                "GET",
@@ -82,12 +82,12 @@ type GetFAQRespFaq struct {
 
 type GetFAQRespFaqUpdateUser struct {
 	ID        string `json:"id,omitempty"`         // 用户ID
-	AvatarUrl string `json:"avatar_url,omitempty"` // 用户头像url
+	AvatarURL string `json:"avatar_url,omitempty"` // 用户头像url
 	Name      string `json:"name,omitempty"`       // 用户名
 }
 
 type GetFAQRespFaqCreateUser struct {
 	ID        string `json:"id,omitempty"`         // 用户ID
-	AvatarUrl string `json:"avatar_url,omitempty"` // 用户头像url
+	AvatarURL string `json:"avatar_url,omitempty"` // 用户头像url
 	Name      string `json:"name,omitempty"`       // 用户名
 }

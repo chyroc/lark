@@ -10,17 +10,18 @@ import (
 //
 // 注意事项:
 // - 需要开启[机器人能力](https://open.feishu.cn/document/uQjL04CN/uYTMuYTMuYTM)
-// - 获取群组消息时，机器人必须在群组中
+// - 获取消息时，机器人必须在群组中
+// - 获取群组消息时，应用必须拥有 获取群组中所有的消息 权限
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/list
 func (r *MessageAPI) GetMessageList(ctx context.Context, request *GetMessageListReq, options ...MethodOptionFunc) (*GetMessageListResp, *Response, error) {
-	r.cli.logInfo(ctx, "[lark] Message#GetMessageList call api")
-	r.cli.logDebug(ctx, "[lark] Message#GetMessageList request: %s", jsonString(request))
-
 	if r.cli.mock.mockMessageGetMessageList != nil {
 		r.cli.logDebug(ctx, "[lark] Message#GetMessageList mock enable")
 		return r.cli.mock.mockMessageGetMessageList(ctx, request, options...)
 	}
+
+	r.cli.logInfo(ctx, "[lark] Message#GetMessageList call api")
+	r.cli.logDebug(ctx, "[lark] Message#GetMessageList request: %s", jsonString(request))
 
 	req := &RawRequestReq{
 		Method:                "GET",

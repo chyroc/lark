@@ -10,13 +10,13 @@ import (
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/faq/search
 func (r *HelpdeskAPI) SearchFAQ(ctx context.Context, request *SearchFAQReq, options ...MethodOptionFunc) (*SearchFAQResp, *Response, error) {
-	r.cli.logInfo(ctx, "[lark] Helpdesk#SearchFAQ call api")
-	r.cli.logDebug(ctx, "[lark] Helpdesk#SearchFAQ request: %s", jsonString(request))
-
 	if r.cli.mock.mockHelpdeskSearchFAQ != nil {
 		r.cli.logDebug(ctx, "[lark] Helpdesk#SearchFAQ mock enable")
 		return r.cli.mock.mockHelpdeskSearchFAQ(ctx, request, options...)
 	}
+
+	r.cli.logInfo(ctx, "[lark] Helpdesk#SearchFAQ call api")
+	r.cli.logDebug(ctx, "[lark] Helpdesk#SearchFAQ request: %s", jsonString(request))
 
 	req := &RawRequestReq{
 		Method:                "GET",

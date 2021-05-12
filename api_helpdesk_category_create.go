@@ -10,13 +10,13 @@ import (
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/category/create
 func (r *HelpdeskAPI) CreateCategory(ctx context.Context, request *CreateCategoryReq, options ...MethodOptionFunc) (*CreateCategoryResp, *Response, error) {
-	r.cli.logInfo(ctx, "[lark] Helpdesk#CreateCategory call api")
-	r.cli.logDebug(ctx, "[lark] Helpdesk#CreateCategory request: %s", jsonString(request))
-
 	if r.cli.mock.mockHelpdeskCreateCategory != nil {
 		r.cli.logDebug(ctx, "[lark] Helpdesk#CreateCategory mock enable")
 		return r.cli.mock.mockHelpdeskCreateCategory(ctx, request, options...)
 	}
+
+	r.cli.logInfo(ctx, "[lark] Helpdesk#CreateCategory call api")
+	r.cli.logDebug(ctx, "[lark] Helpdesk#CreateCategory request: %s", jsonString(request))
 
 	req := &RawRequestReq{
 		Method:              "POST",

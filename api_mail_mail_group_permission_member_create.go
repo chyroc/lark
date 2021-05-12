@@ -10,13 +10,13 @@ import (
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/mail-v1/mailgroup-permission_member/create
 func (r *MailAPI) CreateMailGroupPermissionMember(ctx context.Context, request *CreateMailGroupPermissionMemberReq, options ...MethodOptionFunc) (*CreateMailGroupPermissionMemberResp, *Response, error) {
-	r.cli.logInfo(ctx, "[lark] Mail#CreateMailGroupPermissionMember call api")
-	r.cli.logDebug(ctx, "[lark] Mail#CreateMailGroupPermissionMember request: %s", jsonString(request))
-
 	if r.cli.mock.mockMailCreateMailGroupPermissionMember != nil {
 		r.cli.logDebug(ctx, "[lark] Mail#CreateMailGroupPermissionMember mock enable")
 		return r.cli.mock.mockMailCreateMailGroupPermissionMember(ctx, request, options...)
 	}
+
+	r.cli.logInfo(ctx, "[lark] Mail#CreateMailGroupPermissionMember call api")
+	r.cli.logDebug(ctx, "[lark] Mail#CreateMailGroupPermissionMember request: %s", jsonString(request))
 
 	req := &RawRequestReq{
 		Method:                "POST",

@@ -10,13 +10,13 @@ import (
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar/search
 func (r *CalendarAPI) SearchCalendar(ctx context.Context, request *SearchCalendarReq, options ...MethodOptionFunc) (*SearchCalendarResp, *Response, error) {
-	r.cli.logInfo(ctx, "[lark] Calendar#SearchCalendar call api")
-	r.cli.logDebug(ctx, "[lark] Calendar#SearchCalendar request: %s", jsonString(request))
-
 	if r.cli.mock.mockCalendarSearchCalendar != nil {
 		r.cli.logDebug(ctx, "[lark] Calendar#SearchCalendar mock enable")
 		return r.cli.mock.mockCalendarSearchCalendar(ctx, request, options...)
 	}
+
+	r.cli.logInfo(ctx, "[lark] Calendar#SearchCalendar call api")
+	r.cli.logDebug(ctx, "[lark] Calendar#SearchCalendar request: %s", jsonString(request))
 
 	req := &RawRequestReq{
 		Method:                "POST",

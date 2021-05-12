@@ -10,13 +10,13 @@ import (
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uYzN4UjL2cDO14iN3gTN
 func (r *MeetingRoomAPI) ReplyInstance(ctx context.Context, request *ReplyInstanceReq, options ...MethodOptionFunc) (*ReplyInstanceResp, *Response, error) {
-	r.cli.logInfo(ctx, "[lark] MeetingRoom#ReplyInstance call api")
-	r.cli.logDebug(ctx, "[lark] MeetingRoom#ReplyInstance request: %s", jsonString(request))
-
 	if r.cli.mock.mockMeetingRoomReplyInstance != nil {
 		r.cli.logDebug(ctx, "[lark] MeetingRoom#ReplyInstance mock enable")
 		return r.cli.mock.mockMeetingRoomReplyInstance(ctx, request, options...)
 	}
+
+	r.cli.logInfo(ctx, "[lark] MeetingRoom#ReplyInstance call api")
+	r.cli.logDebug(ctx, "[lark] MeetingRoom#ReplyInstance request: %s", jsonString(request))
 
 	req := &RawRequestReq{
 		Method:                "POST",

@@ -12,13 +12,13 @@ import (
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/vc-v1/room_config/query
 func (r *VCAPI) QueryRoomConfig(ctx context.Context, request *QueryRoomConfigReq, options ...MethodOptionFunc) (*QueryRoomConfigResp, *Response, error) {
-	r.cli.logInfo(ctx, "[lark] VC#QueryRoomConfig call api")
-	r.cli.logDebug(ctx, "[lark] VC#QueryRoomConfig request: %s", jsonString(request))
-
 	if r.cli.mock.mockVCQueryRoomConfig != nil {
 		r.cli.logDebug(ctx, "[lark] VC#QueryRoomConfig mock enable")
 		return r.cli.mock.mockVCQueryRoomConfig(ctx, request, options...)
 	}
+
+	r.cli.logInfo(ctx, "[lark] VC#QueryRoomConfig call api")
+	r.cli.logDebug(ctx, "[lark] VC#QueryRoomConfig request: %s", jsonString(request))
 
 	req := &RawRequestReq{
 		Method:                "GET",

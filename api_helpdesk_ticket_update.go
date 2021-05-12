@@ -10,13 +10,13 @@ import (
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/ticket/update
 func (r *HelpdeskAPI) UpdateTicket(ctx context.Context, request *UpdateTicketReq, options ...MethodOptionFunc) (*UpdateTicketResp, *Response, error) {
-	r.cli.logInfo(ctx, "[lark] Helpdesk#UpdateTicket call api")
-	r.cli.logDebug(ctx, "[lark] Helpdesk#UpdateTicket request: %s", jsonString(request))
-
 	if r.cli.mock.mockHelpdeskUpdateTicket != nil {
 		r.cli.logDebug(ctx, "[lark] Helpdesk#UpdateTicket mock enable")
 		return r.cli.mock.mockHelpdeskUpdateTicket(ctx, request, options...)
 	}
+
+	r.cli.logInfo(ctx, "[lark] Helpdesk#UpdateTicket call api")
+	r.cli.logDebug(ctx, "[lark] Helpdesk#UpdateTicket request: %s", jsonString(request))
 
 	req := &RawRequestReq{
 		Method:              "PUT",
@@ -62,9 +62,9 @@ type UpdateTicketReq struct {
 }
 
 type UpdateTicketReqCustomizedField struct {
-	ID      *string `json:"id,omitempty"`       // id, 示例值："123"
-	Value   *string `json:"value,omitempty"`    // value, 示例值："value"
-	KeyName *string `json:"key_name,omitempty"` // key name, 示例值："key"
+	ID      *string `json:"id,omitempty"`       // 自定义字段ID, 示例值："123"
+	Value   *string `json:"value,omitempty"`    // 自定义字段值, 示例值："value"
+	KeyName *string `json:"key_name,omitempty"` // 键名, 示例值："key"
 }
 
 type updateTicketResp struct {

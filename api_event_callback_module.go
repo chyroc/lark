@@ -11,6 +11,9 @@ import (
 type EventType string
 
 const (
+	EventTypeV2ContactUserUpdatedV3        EventType = "contact.user.updated_v3"
+	EventTypeV2ContactUserCreatedV3        EventType = "contact.user.created_v3"
+	EventTypeV2ContactScopeUpdatedV3       EventType = "contact.scope.updated_v3"
 	EventTypeV2IMMessageReceiveV1          EventType = "im.message.receive_v1"
 	EventTypeV2IMMessageReadV1             EventType = "im.message.message_read_v1"
 	EventTypeV2IMChatDisbandedV1           EventType = "im.chat.disbanded_v1"
@@ -39,6 +42,9 @@ const (
 )
 
 type eventHandler struct {
+	eventV2ContactUserUpdatedV3Handler        eventV2ContactUserUpdatedV3Handler
+	eventV2ContactUserCreatedV3Handler        eventV2ContactUserCreatedV3Handler
+	eventV2ContactScopeUpdatedV3Handler       eventV2ContactScopeUpdatedV3Handler
 	eventV2IMMessageReceiveV1Handler          eventV2IMMessageReceiveV1Handler
 	eventV2IMMessageReadV1Handler             eventV2IMMessageReadV1Handler
 	eventV2IMChatDisbandedV1Handler           eventV2IMChatDisbandedV1Handler
@@ -68,6 +74,9 @@ type eventHandler struct {
 
 func (r *eventHandler) clone() *eventHandler {
 	return &eventHandler{
+		eventV2ContactUserUpdatedV3Handler:        r.eventV2ContactUserUpdatedV3Handler,
+		eventV2ContactUserCreatedV3Handler:        r.eventV2ContactUserCreatedV3Handler,
+		eventV2ContactScopeUpdatedV3Handler:       r.eventV2ContactScopeUpdatedV3Handler,
 		eventV2IMMessageReceiveV1Handler:          r.eventV2IMMessageReceiveV1Handler,
 		eventV2IMMessageReadV1Handler:             r.eventV2IMMessageReadV1Handler,
 		eventV2IMChatDisbandedV1Handler:           r.eventV2IMChatDisbandedV1Handler,
@@ -97,6 +106,9 @@ func (r *eventHandler) clone() *eventHandler {
 }
 
 type eventBody struct {
+	eventV2ContactUserUpdatedV3        *EventV2ContactUserUpdatedV3
+	eventV2ContactUserCreatedV3        *EventV2ContactUserCreatedV3
+	eventV2ContactScopeUpdatedV3       *EventV2ContactScopeUpdatedV3
 	eventV2IMMessageReceiveV1          *EventV2IMMessageReceiveV1
 	eventV2IMMessageReadV1             *EventV2IMMessageReadV1
 	eventV2IMChatDisbandedV1           *EventV2IMChatDisbandedV1
@@ -130,6 +142,24 @@ func (r *EventCallbackAPI) parserEventV2(req *eventReq) error {
 	}
 
 	switch req.Header.EventType {
+	case EventTypeV2ContactUserUpdatedV3:
+		event := new(EventV2ContactUserUpdatedV3)
+		if err := req.unmarshalEvent(event); err != nil {
+			return err
+		}
+		req.eventV2ContactUserUpdatedV3 = event
+	case EventTypeV2ContactUserCreatedV3:
+		event := new(EventV2ContactUserCreatedV3)
+		if err := req.unmarshalEvent(event); err != nil {
+			return err
+		}
+		req.eventV2ContactUserCreatedV3 = event
+	case EventTypeV2ContactScopeUpdatedV3:
+		event := new(EventV2ContactScopeUpdatedV3)
+		if err := req.unmarshalEvent(event); err != nil {
+			return err
+		}
+		req.eventV2ContactScopeUpdatedV3 = event
 	case EventTypeV2IMMessageReceiveV1:
 		event := new(EventV2IMMessageReceiveV1)
 		if err := req.unmarshalEvent(event); err != nil {
@@ -320,6 +350,21 @@ type v1type struct {
 
 func (r *EventCallbackAPI) handlerEvent(ctx context.Context, req *eventReq) (handled bool, s string, err error) {
 	switch {
+	case req.eventV2ContactUserUpdatedV3 != nil:
+		if r.cli.eventHandler.eventV2ContactUserUpdatedV3Handler != nil {
+			s, err = r.cli.eventHandler.eventV2ContactUserUpdatedV3Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2ContactUserUpdatedV3)
+		}
+		return true, s, err
+	case req.eventV2ContactUserCreatedV3 != nil:
+		if r.cli.eventHandler.eventV2ContactUserCreatedV3Handler != nil {
+			s, err = r.cli.eventHandler.eventV2ContactUserCreatedV3Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2ContactUserCreatedV3)
+		}
+		return true, s, err
+	case req.eventV2ContactScopeUpdatedV3 != nil:
+		if r.cli.eventHandler.eventV2ContactScopeUpdatedV3Handler != nil {
+			s, err = r.cli.eventHandler.eventV2ContactScopeUpdatedV3Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2ContactScopeUpdatedV3)
+		}
+		return true, s, err
 	case req.eventV2IMMessageReceiveV1 != nil:
 		if r.cli.eventHandler.eventV2IMMessageReceiveV1Handler != nil {
 			s, err = r.cli.eventHandler.eventV2IMMessageReceiveV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2IMMessageReceiveV1)

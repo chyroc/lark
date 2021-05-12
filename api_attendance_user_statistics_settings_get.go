@@ -10,13 +10,13 @@ import (
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/Attendance//task/query-user-statistics-settings
 func (r *AttendanceAPI) GetUserStatisticsSettings(ctx context.Context, request *GetUserStatisticsSettingsReq, options ...MethodOptionFunc) (*GetUserStatisticsSettingsResp, *Response, error) {
-	r.cli.logInfo(ctx, "[lark] Attendance#GetUserStatisticsSettings call api")
-	r.cli.logDebug(ctx, "[lark] Attendance#GetUserStatisticsSettings request: %s", jsonString(request))
-
 	if r.cli.mock.mockAttendanceGetUserStatisticsSettings != nil {
 		r.cli.logDebug(ctx, "[lark] Attendance#GetUserStatisticsSettings mock enable")
 		return r.cli.mock.mockAttendanceGetUserStatisticsSettings(ctx, request, options...)
 	}
+
+	r.cli.logInfo(ctx, "[lark] Attendance#GetUserStatisticsSettings call api")
+	r.cli.logDebug(ctx, "[lark] Attendance#GetUserStatisticsSettings request: %s", jsonString(request))
 
 	req := &RawRequestReq{
 		Method:                "POST",

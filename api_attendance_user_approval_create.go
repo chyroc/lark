@@ -14,13 +14,13 @@ import (
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/Attendance//AddApprovalsInLarkAttendance
 func (r *AttendanceAPI) CreateUserApproval(ctx context.Context, request *CreateUserApprovalReq, options ...MethodOptionFunc) (*CreateUserApprovalResp, *Response, error) {
-	r.cli.logInfo(ctx, "[lark] Attendance#CreateUserApproval call api")
-	r.cli.logDebug(ctx, "[lark] Attendance#CreateUserApproval request: %s", jsonString(request))
-
 	if r.cli.mock.mockAttendanceCreateUserApproval != nil {
 		r.cli.logDebug(ctx, "[lark] Attendance#CreateUserApproval mock enable")
 		return r.cli.mock.mockAttendanceCreateUserApproval(ctx, request, options...)
 	}
+
+	r.cli.logInfo(ctx, "[lark] Attendance#CreateUserApproval call api")
+	r.cli.logDebug(ctx, "[lark] Attendance#CreateUserApproval request: %s", jsonString(request))
 
 	req := &RawRequestReq{
 		Method:                "POST",

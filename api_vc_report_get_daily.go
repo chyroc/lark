@@ -12,13 +12,13 @@ import (
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/vc-v1/report/get_daily
 func (r *VCAPI) GetDailyReport(ctx context.Context, request *GetDailyReportReq, options ...MethodOptionFunc) (*GetDailyReportResp, *Response, error) {
-	r.cli.logInfo(ctx, "[lark] VC#GetDailyReport call api")
-	r.cli.logDebug(ctx, "[lark] VC#GetDailyReport request: %s", jsonString(request))
-
 	if r.cli.mock.mockVCGetDailyReport != nil {
 		r.cli.logDebug(ctx, "[lark] VC#GetDailyReport mock enable")
 		return r.cli.mock.mockVCGetDailyReport(ctx, request, options...)
 	}
+
+	r.cli.logInfo(ctx, "[lark] VC#GetDailyReport call api")
+	r.cli.logDebug(ctx, "[lark] VC#GetDailyReport request: %s", jsonString(request))
 
 	req := &RawRequestReq{
 		Method:                "GET",

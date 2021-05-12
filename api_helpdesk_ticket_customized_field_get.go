@@ -12,13 +12,13 @@ import (
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/ticket_customized_field/get-ticket-customized-field
 func (r *HelpdeskAPI) GetTicketCustomizedField(ctx context.Context, request *GetTicketCustomizedFieldReq, options ...MethodOptionFunc) (*GetTicketCustomizedFieldResp, *Response, error) {
-	r.cli.logInfo(ctx, "[lark] Helpdesk#GetTicketCustomizedField call api")
-	r.cli.logDebug(ctx, "[lark] Helpdesk#GetTicketCustomizedField request: %s", jsonString(request))
-
 	if r.cli.mock.mockHelpdeskGetTicketCustomizedField != nil {
 		r.cli.logDebug(ctx, "[lark] Helpdesk#GetTicketCustomizedField mock enable")
 		return r.cli.mock.mockHelpdeskGetTicketCustomizedField(ctx, request, options...)
 	}
+
+	r.cli.logInfo(ctx, "[lark] Helpdesk#GetTicketCustomizedField call api")
+	r.cli.logDebug(ctx, "[lark] Helpdesk#GetTicketCustomizedField request: %s", jsonString(request))
 
 	req := &RawRequestReq{
 		Method:                "GET",
@@ -82,14 +82,14 @@ type GetTicketCustomizedFieldResp struct {
 
 type GetTicketCustomizedFieldRespCreatedBy struct {
 	ID        string `json:"id,omitempty"`         // 用户ID
-	AvatarUrl string `json:"avatar_url,omitempty"` // 用户头像url
+	AvatarURL string `json:"avatar_url,omitempty"` // 用户头像url
 	Name      string `json:"name,omitempty"`       // 用户名
 	Email     string `json:"email,omitempty"`      // 用户邮箱
 }
 
 type GetTicketCustomizedFieldRespUpdatedBy struct {
 	ID              string                  `json:"id,omitempty"`               // 用户ID
-	AvatarUrl       string                  `json:"avatar_url,omitempty"`       // 用户头像url
+	AvatarURL       string                  `json:"avatar_url,omitempty"`       // 用户头像url
 	Name            string                  `json:"name,omitempty"`             // 用户名
 	Email           string                  `json:"email,omitempty"`            // 用户邮箱
 	DropdownOptions *HelpdeskDropdownOption `json:"dropdown_options,omitempty"` // 下拉列表选项

@@ -15,13 +15,13 @@ import (
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/human_authentication-v1/face/query-recognition-result
 func (r *HumanAuthAPI) GetFaceVerifyAuthResult(ctx context.Context, request *GetFaceVerifyAuthResultReq, options ...MethodOptionFunc) (*GetFaceVerifyAuthResultResp, *Response, error) {
-	r.cli.logInfo(ctx, "[lark] HumanAuth#GetFaceVerifyAuthResult call api")
-	r.cli.logDebug(ctx, "[lark] HumanAuth#GetFaceVerifyAuthResult request: %s", jsonString(request))
-
 	if r.cli.mock.mockHumanAuthGetFaceVerifyAuthResult != nil {
 		r.cli.logDebug(ctx, "[lark] HumanAuth#GetFaceVerifyAuthResult mock enable")
 		return r.cli.mock.mockHumanAuthGetFaceVerifyAuthResult(ctx, request, options...)
 	}
+
+	r.cli.logInfo(ctx, "[lark] HumanAuth#GetFaceVerifyAuthResult call api")
+	r.cli.logDebug(ctx, "[lark] HumanAuth#GetFaceVerifyAuthResult request: %s", jsonString(request))
 
 	req := &RawRequestReq{
 		Method:                "GET",

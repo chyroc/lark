@@ -14,13 +14,13 @@ import (
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar/get
 func (r *CalendarAPI) GetCalendar(ctx context.Context, request *GetCalendarReq, options ...MethodOptionFunc) (*GetCalendarResp, *Response, error) {
-	r.cli.logInfo(ctx, "[lark] Calendar#GetCalendar call api")
-	r.cli.logDebug(ctx, "[lark] Calendar#GetCalendar request: %s", jsonString(request))
-
 	if r.cli.mock.mockCalendarGetCalendar != nil {
 		r.cli.logDebug(ctx, "[lark] Calendar#GetCalendar mock enable")
 		return r.cli.mock.mockCalendarGetCalendar(ctx, request, options...)
 	}
+
+	r.cli.logInfo(ctx, "[lark] Calendar#GetCalendar call api")
+	r.cli.logDebug(ctx, "[lark] Calendar#GetCalendar request: %s", jsonString(request))
 
 	req := &RawRequestReq{
 		Method:                "GET",

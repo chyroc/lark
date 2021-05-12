@@ -12,13 +12,13 @@ import (
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/ai/speech_to_text-v1/speech/file_recognize
 func (r *AIAPI) RecognizeSpeechFile(ctx context.Context, request *RecognizeSpeechFileReq, options ...MethodOptionFunc) (*RecognizeSpeechFileResp, *Response, error) {
-	r.cli.logInfo(ctx, "[lark] AI#RecognizeSpeechFile call api")
-	r.cli.logDebug(ctx, "[lark] AI#RecognizeSpeechFile request: %s", jsonString(request))
-
 	if r.cli.mock.mockAIRecognizeSpeechFile != nil {
 		r.cli.logDebug(ctx, "[lark] AI#RecognizeSpeechFile mock enable")
 		return r.cli.mock.mockAIRecognizeSpeechFile(ctx, request, options...)
 	}
+
+	r.cli.logInfo(ctx, "[lark] AI#RecognizeSpeechFile call api")
+	r.cli.logDebug(ctx, "[lark] AI#RecognizeSpeechFile request: %s", jsonString(request))
 
 	req := &RawRequestReq{
 		Method:                "POST",

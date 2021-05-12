@@ -12,13 +12,13 @@ import (
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/vc-v1/reserve/get_active_meeting
 func (r *VCAPI) GetReserveActiveMeeting(ctx context.Context, request *GetReserveActiveMeetingReq, options ...MethodOptionFunc) (*GetReserveActiveMeetingResp, *Response, error) {
-	r.cli.logInfo(ctx, "[lark] VC#GetReserveActiveMeeting call api")
-	r.cli.logDebug(ctx, "[lark] VC#GetReserveActiveMeeting request: %s", jsonString(request))
-
 	if r.cli.mock.mockVCGetReserveActiveMeeting != nil {
 		r.cli.logDebug(ctx, "[lark] VC#GetReserveActiveMeeting mock enable")
 		return r.cli.mock.mockVCGetReserveActiveMeeting(ctx, request, options...)
 	}
+
+	r.cli.logInfo(ctx, "[lark] VC#GetReserveActiveMeeting call api")
+	r.cli.logDebug(ctx, "[lark] VC#GetReserveActiveMeeting request: %s", jsonString(request))
 
 	req := &RawRequestReq{
 		Method:              "GET",

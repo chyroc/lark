@@ -12,13 +12,13 @@ import (
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/vc-v1/reserve/delete
 func (r *VCAPI) DeleteReserve(ctx context.Context, request *DeleteReserveReq, options ...MethodOptionFunc) (*DeleteReserveResp, *Response, error) {
-	r.cli.logInfo(ctx, "[lark] VC#DeleteReserve call api")
-	r.cli.logDebug(ctx, "[lark] VC#DeleteReserve request: %s", jsonString(request))
-
 	if r.cli.mock.mockVCDeleteReserve != nil {
 		r.cli.logDebug(ctx, "[lark] VC#DeleteReserve mock enable")
 		return r.cli.mock.mockVCDeleteReserve(ctx, request, options...)
 	}
+
+	r.cli.logInfo(ctx, "[lark] VC#DeleteReserve call api")
+	r.cli.logDebug(ctx, "[lark] VC#DeleteReserve request: %s", jsonString(request))
 
 	req := &RawRequestReq{
 		Method:              "DELETE",

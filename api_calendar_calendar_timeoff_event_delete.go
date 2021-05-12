@@ -10,13 +10,13 @@ import (
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/timeoff_event/delete
 func (r *CalendarAPI) DeleteCalendarTimeoffEvent(ctx context.Context, request *DeleteCalendarTimeoffEventReq, options ...MethodOptionFunc) (*DeleteCalendarTimeoffEventResp, *Response, error) {
-	r.cli.logInfo(ctx, "[lark] Calendar#DeleteCalendarTimeoffEvent call api")
-	r.cli.logDebug(ctx, "[lark] Calendar#DeleteCalendarTimeoffEvent request: %s", jsonString(request))
-
 	if r.cli.mock.mockCalendarDeleteCalendarTimeoffEvent != nil {
 		r.cli.logDebug(ctx, "[lark] Calendar#DeleteCalendarTimeoffEvent mock enable")
 		return r.cli.mock.mockCalendarDeleteCalendarTimeoffEvent(ctx, request, options...)
 	}
+
+	r.cli.logInfo(ctx, "[lark] Calendar#DeleteCalendarTimeoffEvent call api")
+	r.cli.logDebug(ctx, "[lark] Calendar#DeleteCalendarTimeoffEvent request: %s", jsonString(request))
 
 	req := &RawRequestReq{
 		Method:                "DELETE",

@@ -12,13 +12,13 @@ import (
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/Attendance//RetrieveUserApprovals
 func (r *AttendanceAPI) GetUserApproval(ctx context.Context, request *GetUserApprovalReq, options ...MethodOptionFunc) (*GetUserApprovalResp, *Response, error) {
-	r.cli.logInfo(ctx, "[lark] Attendance#GetUserApproval call api")
-	r.cli.logDebug(ctx, "[lark] Attendance#GetUserApproval request: %s", jsonString(request))
-
 	if r.cli.mock.mockAttendanceGetUserApproval != nil {
 		r.cli.logDebug(ctx, "[lark] Attendance#GetUserApproval mock enable")
 		return r.cli.mock.mockAttendanceGetUserApproval(ctx, request, options...)
 	}
+
+	r.cli.logInfo(ctx, "[lark] Attendance#GetUserApproval call api")
+	r.cli.logDebug(ctx, "[lark] Attendance#GetUserApproval request: %s", jsonString(request))
 
 	req := &RawRequestReq{
 		Method:                "POST",

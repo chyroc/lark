@@ -10,13 +10,13 @@ import (
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/get
 func (r *ContactAPI) GetUser(ctx context.Context, request *GetUserReq, options ...MethodOptionFunc) (*GetUserResp, *Response, error) {
-	r.cli.logInfo(ctx, "[lark] Contact#GetUser call api")
-	r.cli.logDebug(ctx, "[lark] Contact#GetUser request: %s", jsonString(request))
-
 	if r.cli.mock.mockContactGetUser != nil {
 		r.cli.logDebug(ctx, "[lark] Contact#GetUser mock enable")
 		return r.cli.mock.mockContactGetUser(ctx, request, options...)
 	}
+
+	r.cli.logInfo(ctx, "[lark] Contact#GetUser call api")
+	r.cli.logDebug(ctx, "[lark] Contact#GetUser request: %s", jsonString(request))
 
 	req := &RawRequestReq{
 		Method:                "GET",
@@ -120,5 +120,5 @@ type GetUserRespUserCustomAttr struct {
 type GetUserRespUserCustomAttrValue struct {
 	Text  string `json:"text,omitempty"`   // 属性文本
 	URL   string `json:"url,omitempty"`    // URL
-	PcUrl string `json:"pc_url,omitempty"` // PC上的URL
+	PcURL string `json:"pc_url,omitempty"` // PC上的URL
 }

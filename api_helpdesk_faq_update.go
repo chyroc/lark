@@ -10,13 +10,13 @@ import (
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/faq/patch
 func (r *HelpdeskAPI) UpdateFAQ(ctx context.Context, request *UpdateFAQReq, options ...MethodOptionFunc) (*UpdateFAQResp, *Response, error) {
-	r.cli.logInfo(ctx, "[lark] Helpdesk#UpdateFAQ call api")
-	r.cli.logDebug(ctx, "[lark] Helpdesk#UpdateFAQ request: %s", jsonString(request))
-
 	if r.cli.mock.mockHelpdeskUpdateFAQ != nil {
 		r.cli.logDebug(ctx, "[lark] Helpdesk#UpdateFAQ mock enable")
 		return r.cli.mock.mockHelpdeskUpdateFAQ(ctx, request, options...)
 	}
+
+	r.cli.logInfo(ctx, "[lark] Helpdesk#UpdateFAQ call api")
+	r.cli.logDebug(ctx, "[lark] Helpdesk#UpdateFAQ request: %s", jsonString(request))
 
 	req := &RawRequestReq{
 		Method:              "PATCH",

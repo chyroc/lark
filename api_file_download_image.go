@@ -15,13 +15,13 @@ import (
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/image/get
 func (r *FileAPI) DownloadImage(ctx context.Context, request *DownloadImageReq, options ...MethodOptionFunc) (*DownloadImageResp, *Response, error) {
-	r.cli.logInfo(ctx, "[lark] File#DownloadImage call api")
-	r.cli.logDebug(ctx, "[lark] File#DownloadImage request: %s", jsonString(request))
-
 	if r.cli.mock.mockFileDownloadImage != nil {
 		r.cli.logDebug(ctx, "[lark] File#DownloadImage mock enable")
 		return r.cli.mock.mockFileDownloadImage(ctx, request, options...)
 	}
+
+	r.cli.logInfo(ctx, "[lark] File#DownloadImage call api")
+	r.cli.logDebug(ctx, "[lark] File#DownloadImage request: %s", jsonString(request))
 
 	req := &RawRequestReq{
 		Method:                "GET",

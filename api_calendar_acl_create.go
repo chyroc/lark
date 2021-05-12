@@ -14,13 +14,13 @@ import (
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar-acl/create
 func (r *CalendarAPI) CreateCalendarACL(ctx context.Context, request *CreateCalendarACLReq, options ...MethodOptionFunc) (*CreateCalendarACLResp, *Response, error) {
-	r.cli.logInfo(ctx, "[lark] Calendar#CreateCalendarACL call api")
-	r.cli.logDebug(ctx, "[lark] Calendar#CreateCalendarACL request: %s", jsonString(request))
-
 	if r.cli.mock.mockCalendarCreateCalendarACL != nil {
 		r.cli.logDebug(ctx, "[lark] Calendar#CreateCalendarACL mock enable")
 		return r.cli.mock.mockCalendarCreateCalendarACL(ctx, request, options...)
 	}
+
+	r.cli.logInfo(ctx, "[lark] Calendar#CreateCalendarACL call api")
+	r.cli.logDebug(ctx, "[lark] Calendar#CreateCalendarACL request: %s", jsonString(request))
 
 	req := &RawRequestReq{
 		Method:                "POST",

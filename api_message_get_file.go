@@ -16,13 +16,13 @@ import (
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message-resource/get
 func (r *MessageAPI) GetMessageFile(ctx context.Context, request *GetMessageFileReq, options ...MethodOptionFunc) (*GetMessageFileResp, *Response, error) {
-	r.cli.logInfo(ctx, "[lark] Message#GetMessageFile call api")
-	r.cli.logDebug(ctx, "[lark] Message#GetMessageFile request: %s", jsonString(request))
-
 	if r.cli.mock.mockMessageGetMessageFile != nil {
 		r.cli.logDebug(ctx, "[lark] Message#GetMessageFile mock enable")
 		return r.cli.mock.mockMessageGetMessageFile(ctx, request, options...)
 	}
+
+	r.cli.logInfo(ctx, "[lark] Message#GetMessageFile call api")
+	r.cli.logDebug(ctx, "[lark] Message#GetMessageFile request: %s", jsonString(request))
 
 	req := &RawRequestReq{
 		Method:                "GET",

@@ -14,13 +14,13 @@ import (
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/Attendance//GetCheckinResults
 func (r *AttendanceAPI) GetUserTask(ctx context.Context, request *GetUserTaskReq, options ...MethodOptionFunc) (*GetUserTaskResp, *Response, error) {
-	r.cli.logInfo(ctx, "[lark] Attendance#GetUserTask call api")
-	r.cli.logDebug(ctx, "[lark] Attendance#GetUserTask request: %s", jsonString(request))
-
 	if r.cli.mock.mockAttendanceGetUserTask != nil {
 		r.cli.logDebug(ctx, "[lark] Attendance#GetUserTask mock enable")
 		return r.cli.mock.mockAttendanceGetUserTask(ctx, request, options...)
 	}
+
+	r.cli.logInfo(ctx, "[lark] Attendance#GetUserTask call api")
+	r.cli.logDebug(ctx, "[lark] Attendance#GetUserTask request: %s", jsonString(request))
 
 	req := &RawRequestReq{
 		Method:                "POST",

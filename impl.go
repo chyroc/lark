@@ -12,15 +12,26 @@ type Lark struct {
 	verificationToken string
 	helpdeskID        string
 	helpdeskToken     string
+	timeout           time.Duration
+	isISV             bool
+	tenantKey         string
 
-	timeout    time.Duration
-	httpClient *http.Client
-
-	logger   Logger
-	logLevel LogLevel
-
+	httpClient   *http.Client
+	logger       Logger
+	logLevel     LogLevel
+	store        Store
 	mock         *Mock
 	eventHandler *eventHandler
+}
+
+func (r *Lark) Auth() *AuthAPI {
+	return &AuthAPI{
+		cli: r,
+	}
+}
+
+type AuthAPI struct {
+	cli *Lark
 }
 
 func (r *Lark) Chat() *ChatAPI {
@@ -205,6 +216,26 @@ type AdminAPI struct {
 
 func (r *Lark) Admin() *AdminAPI {
 	return &AdminAPI{
+		cli: r,
+	}
+}
+
+type DriveAPI struct {
+	cli *Lark
+}
+
+func (r *Lark) Drive() *DriveAPI {
+	return &DriveAPI{
+		cli: r,
+	}
+}
+
+type OKRAPI struct {
+	cli *Lark
+}
+
+func (r *Lark) OKR() *OKRAPI {
+	return &OKRAPI{
 		cli: r,
 	}
 }

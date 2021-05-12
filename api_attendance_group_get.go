@@ -12,13 +12,13 @@ import (
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/Attendance//group
 func (r *AttendanceAPI) GetGroup(ctx context.Context, request *GetGroupReq, options ...MethodOptionFunc) (*GetGroupResp, *Response, error) {
-	r.cli.logInfo(ctx, "[lark] Attendance#GetGroup call api")
-	r.cli.logDebug(ctx, "[lark] Attendance#GetGroup request: %s", jsonString(request))
-
 	if r.cli.mock.mockAttendanceGetGroup != nil {
 		r.cli.logDebug(ctx, "[lark] Attendance#GetGroup mock enable")
 		return r.cli.mock.mockAttendanceGetGroup(ctx, request, options...)
 	}
+
+	r.cli.logInfo(ctx, "[lark] Attendance#GetGroup call api")
+	r.cli.logDebug(ctx, "[lark] Attendance#GetGroup request: %s", jsonString(request))
 
 	req := &RawRequestReq{
 		Method:                "GET",
@@ -52,9 +52,9 @@ func (r *Mock) UnMockAttendanceGetGroup() {
 }
 
 type GetGroupReq struct {
-	EmployeeType EmployeeType `query:"employee_type" json:"-"`
-	DeptType     string       `query:"dept_type" json:"-"` // 部门 ID 的类型，可用值：【open_id（暂时只支持部门的 openid）】，示例值：“od-fcb45c28a45311afd441b8869541ece8”
-	GroupID      string       `path:"group_id" json:"-"`   // 考勤组的 ID，需要从获取打卡结果的接口中获取 group_id，示例值："6919358128597097404"
+	EmployeeType EmployeeType `query:"employee_type" json:"-"` // 用户 ID 的类型，可用值：【employee_id（员工的 employeeId），employee_no（员工工号）】
+	DeptType     string       `query:"dept_type" json:"-"`     // 部门 ID 的类型，可用值：【open_id（暂时只支持部门的 openid）】，示例值：“od-fcb45c28a45311afd441b8869541ece8”
+	GroupID      string       `path:"group_id" json:"-"`       // 考勤组的 ID，需要从获取打卡结果的接口中获取 group_id，示例值："6919358128597097404"
 }
 
 type getGroupResp struct {

@@ -10,13 +10,13 @@ import (
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/ticket/start_service
 func (r *HelpdeskAPI) StartService(ctx context.Context, request *StartServiceReq, options ...MethodOptionFunc) (*StartServiceResp, *Response, error) {
-	r.cli.logInfo(ctx, "[lark] Helpdesk#StartService call api")
-	r.cli.logDebug(ctx, "[lark] Helpdesk#StartService request: %s", jsonString(request))
-
 	if r.cli.mock.mockHelpdeskStartService != nil {
 		r.cli.logDebug(ctx, "[lark] Helpdesk#StartService mock enable")
 		return r.cli.mock.mockHelpdeskStartService(ctx, request, options...)
 	}
+
+	r.cli.logInfo(ctx, "[lark] Helpdesk#StartService call api")
+	r.cli.logDebug(ctx, "[lark] Helpdesk#StartService request: %s", jsonString(request))
 
 	req := &RawRequestReq{
 		Method:                "POST",

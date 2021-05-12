@@ -10,13 +10,13 @@ import (
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uMTNwYjLzUDM24yM1AjN
 func (r *MeetingRoomAPI) UpdateRoom(ctx context.Context, request *UpdateRoomReq, options ...MethodOptionFunc) (*UpdateRoomResp, *Response, error) {
-	r.cli.logInfo(ctx, "[lark] MeetingRoom#UpdateRoom call api")
-	r.cli.logDebug(ctx, "[lark] MeetingRoom#UpdateRoom request: %s", jsonString(request))
-
 	if r.cli.mock.mockMeetingRoomUpdateRoom != nil {
 		r.cli.logDebug(ctx, "[lark] MeetingRoom#UpdateRoom mock enable")
 		return r.cli.mock.mockMeetingRoomUpdateRoom(ctx, request, options...)
 	}
+
+	r.cli.logInfo(ctx, "[lark] MeetingRoom#UpdateRoom call api")
+	r.cli.logDebug(ctx, "[lark] MeetingRoom#UpdateRoom request: %s", jsonString(request))
 
 	req := &RawRequestReq{
 		Method:                "POST",

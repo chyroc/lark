@@ -10,13 +10,13 @@ import (
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/mail-v1/public_mailbox/update
 func (r *MailAPI) UpdatePublicMailbox(ctx context.Context, request *UpdatePublicMailboxReq, options ...MethodOptionFunc) (*UpdatePublicMailboxResp, *Response, error) {
-	r.cli.logInfo(ctx, "[lark] Mail#UpdatePublicMailbox call api")
-	r.cli.logDebug(ctx, "[lark] Mail#UpdatePublicMailbox request: %s", jsonString(request))
-
 	if r.cli.mock.mockMailUpdatePublicMailbox != nil {
 		r.cli.logDebug(ctx, "[lark] Mail#UpdatePublicMailbox mock enable")
 		return r.cli.mock.mockMailUpdatePublicMailbox(ctx, request, options...)
 	}
+
+	r.cli.logInfo(ctx, "[lark] Mail#UpdatePublicMailbox call api")
+	r.cli.logDebug(ctx, "[lark] Mail#UpdatePublicMailbox request: %s", jsonString(request))
 
 	req := &RawRequestReq{
 		Method:                "PUT",

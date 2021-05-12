@@ -40,13 +40,13 @@ import (
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/Attendance//group_create_update
 func (r *AttendanceAPI) CreateUpdateGroup(ctx context.Context, request *CreateUpdateGroupReq, options ...MethodOptionFunc) (*CreateUpdateGroupResp, *Response, error) {
-	r.cli.logInfo(ctx, "[lark] Attendance#CreateUpdateGroup call api")
-	r.cli.logDebug(ctx, "[lark] Attendance#CreateUpdateGroup request: %s", jsonString(request))
-
 	if r.cli.mock.mockAttendanceCreateUpdateGroup != nil {
 		r.cli.logDebug(ctx, "[lark] Attendance#CreateUpdateGroup mock enable")
 		return r.cli.mock.mockAttendanceCreateUpdateGroup(ctx, request, options...)
 	}
+
+	r.cli.logInfo(ctx, "[lark] Attendance#CreateUpdateGroup call api")
+	r.cli.logDebug(ctx, "[lark] Attendance#CreateUpdateGroup request: %s", jsonString(request))
 
 	req := &RawRequestReq{
 		Method:                "POST",
@@ -80,9 +80,9 @@ func (r *Mock) UnMockAttendanceCreateUpdateGroup() {
 }
 
 type CreateUpdateGroupReq struct {
-	EmployeeType EmployeeType               `query:"employee_type" json:"-"`
-	DeptType     string                     `query:"dept_type" json:"-"` // 部门 ID 的类型，必选字段，可用值：【open_id（暂时只支持部门的 openid）】，示例值：“od-fcb45c28a45311afd441b8869541ece8”
-	Group        *CreateUpdateGroupReqGroup `json:"group,omitempty"`     // 考勤组
+	EmployeeType EmployeeType               `query:"employee_type" json:"-"` // 用户 ID 的类型，必选字段，可用值：【employee_id（员工的 employeeId），employee_no（员工工号）】
+	DeptType     string                     `query:"dept_type" json:"-"`     // 部门 ID 的类型，必选字段，可用值：【open_id（暂时只支持部门的 openid）】，示例值：“od-fcb45c28a45311afd441b8869541ece8”
+	Group        *CreateUpdateGroupReqGroup `json:"group,omitempty"`         // 考勤组
 }
 
 type CreateUpdateGroupReqGroup struct {
