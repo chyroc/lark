@@ -10,7 +10,11 @@ import (
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/ticket/start_service
 func (r *HelpdeskAPI) StartService(ctx context.Context, request *StartServiceReq, options ...MethodOptionFunc) (*StartServiceResp, *Response, error) {
+	r.cli.logInfo(ctx, "[lark] Helpdesk#StartService call api")
+	r.cli.logDebug(ctx, "[lark] Helpdesk#StartService request: %s", jsonString(request))
+
 	if r.cli.mock.mockHelpdeskStartService != nil {
+		r.cli.logDebug(ctx, "[lark] Helpdesk#StartService mock enable")
 		return r.cli.mock.mockHelpdeskStartService(ctx, request, options...)
 	}
 
@@ -26,10 +30,14 @@ func (r *HelpdeskAPI) StartService(ctx context.Context, request *StartServiceReq
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
 	if err != nil {
+		r.cli.logError(ctx, "[lark] Helpdesk#StartService POST https://open.feishu.cn/open-apis/helpdesk/v1/start_service failed: %s", err)
 		return nil, response, err
 	} else if resp.Code != 0 {
+		r.cli.logError(ctx, "[lark] Helpdesk#StartService POST https://open.feishu.cn/open-apis/helpdesk/v1/start_service failed, code: %d, msg: %s", resp.Code, resp.Msg)
 		return nil, response, NewError("Helpdesk", "StartService", resp.Code, resp.Msg)
 	}
+
+	r.cli.logDebug(ctx, "[lark] Helpdesk#StartService request_id: %s, response: %s", response.RequestID, jsonString(resp.Data))
 
 	return resp.Data, response, nil
 }

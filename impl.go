@@ -16,6 +16,9 @@ type Lark struct {
 	timeout    time.Duration
 	httpClient *http.Client
 
+	logger   Logger
+	logLevel LogLevel
+
 	mock         *Mock
 	eventHandler *eventHandler
 }

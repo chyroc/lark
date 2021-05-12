@@ -17,7 +17,11 @@ import (
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-members/create
 func (r *ChatAPI) AddMember(ctx context.Context, request *AddMemberReq, options ...MethodOptionFunc) (*AddMemberResp, *Response, error) {
+	r.cli.logInfo(ctx, "[lark] Chat#AddMember call api")
+	r.cli.logDebug(ctx, "[lark] Chat#AddMember request: %s", jsonString(request))
+
 	if r.cli.mock.mockChatAddMember != nil {
+		r.cli.logDebug(ctx, "[lark] Chat#AddMember mock enable")
 		return r.cli.mock.mockChatAddMember(ctx, request, options...)
 	}
 
@@ -33,10 +37,14 @@ func (r *ChatAPI) AddMember(ctx context.Context, request *AddMemberReq, options 
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
 	if err != nil {
+		r.cli.logError(ctx, "[lark] Chat#AddMember POST https://open.feishu.cn/open-apis/im/v1/chats/:chat_id/members failed: %s", err)
 		return nil, response, err
 	} else if resp.Code != 0 {
+		r.cli.logError(ctx, "[lark] Chat#AddMember POST https://open.feishu.cn/open-apis/im/v1/chats/:chat_id/members failed, code: %d, msg: %s", resp.Code, resp.Msg)
 		return nil, response, NewError("Chat", "AddMember", resp.Code, resp.Msg)
 	}
+
+	r.cli.logDebug(ctx, "[lark] Chat#AddMember request_id: %s, response: %s", response.RequestID, jsonString(resp.Data))
 
 	return resp.Data, response, nil
 }

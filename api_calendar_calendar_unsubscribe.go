@@ -14,7 +14,11 @@ import (
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar/unsubscribe
 func (r *CalendarAPI) UnsubscribeCalendar(ctx context.Context, request *UnsubscribeCalendarReq, options ...MethodOptionFunc) (*UnsubscribeCalendarResp, *Response, error) {
+	r.cli.logInfo(ctx, "[lark] Calendar#UnsubscribeCalendar call api")
+	r.cli.logDebug(ctx, "[lark] Calendar#UnsubscribeCalendar request: %s", jsonString(request))
+
 	if r.cli.mock.mockCalendarUnsubscribeCalendar != nil {
+		r.cli.logDebug(ctx, "[lark] Calendar#UnsubscribeCalendar mock enable")
 		return r.cli.mock.mockCalendarUnsubscribeCalendar(ctx, request, options...)
 	}
 
@@ -30,10 +34,14 @@ func (r *CalendarAPI) UnsubscribeCalendar(ctx context.Context, request *Unsubscr
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
 	if err != nil {
+		r.cli.logError(ctx, "[lark] Calendar#UnsubscribeCalendar POST https://open.feishu.cn/open-apis/calendar/v4/calendars/:calendar_id/unsubscribe failed: %s", err)
 		return nil, response, err
 	} else if resp.Code != 0 {
+		r.cli.logError(ctx, "[lark] Calendar#UnsubscribeCalendar POST https://open.feishu.cn/open-apis/calendar/v4/calendars/:calendar_id/unsubscribe failed, code: %d, msg: %s", resp.Code, resp.Msg)
 		return nil, response, NewError("Calendar", "UnsubscribeCalendar", resp.Code, resp.Msg)
 	}
+
+	r.cli.logDebug(ctx, "[lark] Calendar#UnsubscribeCalendar request_id: %s, response: %s", response.RequestID, jsonString(resp.Data))
 
 	return resp.Data, response, nil
 }

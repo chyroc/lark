@@ -10,7 +10,11 @@ import (
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/ticket/get
 func (r *HelpdeskAPI) GetTicket(ctx context.Context, request *GetTicketReq, options ...MethodOptionFunc) (*GetTicketResp, *Response, error) {
+	r.cli.logInfo(ctx, "[lark] Helpdesk#GetTicket call api")
+	r.cli.logDebug(ctx, "[lark] Helpdesk#GetTicket request: %s", jsonString(request))
+
 	if r.cli.mock.mockHelpdeskGetTicket != nil {
+		r.cli.logDebug(ctx, "[lark] Helpdesk#GetTicket mock enable")
 		return r.cli.mock.mockHelpdeskGetTicket(ctx, request, options...)
 	}
 
@@ -26,10 +30,14 @@ func (r *HelpdeskAPI) GetTicket(ctx context.Context, request *GetTicketReq, opti
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
 	if err != nil {
+		r.cli.logError(ctx, "[lark] Helpdesk#GetTicket GET https://open.feishu.cn/open-apis/helpdesk/v1/tickets/:ticket_id failed: %s", err)
 		return nil, response, err
 	} else if resp.Code != 0 {
+		r.cli.logError(ctx, "[lark] Helpdesk#GetTicket GET https://open.feishu.cn/open-apis/helpdesk/v1/tickets/:ticket_id failed, code: %d, msg: %s", resp.Code, resp.Msg)
 		return nil, response, NewError("Helpdesk", "GetTicket", resp.Code, resp.Msg)
 	}
+
+	r.cli.logDebug(ctx, "[lark] Helpdesk#GetTicket request_id: %s, response: %s", response.RequestID, jsonString(resp.Data))
 
 	return resp.Data, response, nil
 }

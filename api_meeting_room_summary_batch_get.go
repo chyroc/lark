@@ -10,7 +10,11 @@ import (
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uIjM5UjLyITO14iMykTN/
 func (r *MeetingRoomAPI) BatchGetSummary(ctx context.Context, request *BatchGetSummaryReq, options ...MethodOptionFunc) (*BatchGetSummaryResp, *Response, error) {
+	r.cli.logInfo(ctx, "[lark] MeetingRoom#BatchGetSummary call api")
+	r.cli.logDebug(ctx, "[lark] MeetingRoom#BatchGetSummary request: %s", jsonString(request))
+
 	if r.cli.mock.mockMeetingRoomBatchGetSummary != nil {
+		r.cli.logDebug(ctx, "[lark] MeetingRoom#BatchGetSummary mock enable")
 		return r.cli.mock.mockMeetingRoomBatchGetSummary(ctx, request, options...)
 	}
 
@@ -25,10 +29,14 @@ func (r *MeetingRoomAPI) BatchGetSummary(ctx context.Context, request *BatchGetS
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
 	if err != nil {
+		r.cli.logError(ctx, "[lark] MeetingRoom#BatchGetSummary POST https://open.feishu.cn/open-apis/meeting_room/summary/batch_get failed: %s", err)
 		return nil, response, err
 	} else if resp.Code != 0 {
+		r.cli.logError(ctx, "[lark] MeetingRoom#BatchGetSummary POST https://open.feishu.cn/open-apis/meeting_room/summary/batch_get failed, code: %d, msg: %s", resp.Code, resp.Msg)
 		return nil, response, NewError("MeetingRoom", "BatchGetSummary", resp.Code, resp.Msg)
 	}
+
+	r.cli.logDebug(ctx, "[lark] MeetingRoom#BatchGetSummary request_id: %s, response: %s", response.RequestID, jsonString(resp.Data))
 
 	return resp.Data, response, nil
 }

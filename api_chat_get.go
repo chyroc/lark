@@ -14,7 +14,11 @@ import (
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat/get
 func (r *ChatAPI) GetChat(ctx context.Context, request *GetChatReq, options ...MethodOptionFunc) (*GetChatResp, *Response, error) {
+	r.cli.logInfo(ctx, "[lark] Chat#GetChat call api")
+	r.cli.logDebug(ctx, "[lark] Chat#GetChat request: %s", jsonString(request))
+
 	if r.cli.mock.mockChatGetChat != nil {
+		r.cli.logDebug(ctx, "[lark] Chat#GetChat mock enable")
 		return r.cli.mock.mockChatGetChat(ctx, request, options...)
 	}
 
@@ -30,10 +34,14 @@ func (r *ChatAPI) GetChat(ctx context.Context, request *GetChatReq, options ...M
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
 	if err != nil {
+		r.cli.logError(ctx, "[lark] Chat#GetChat GET https://open.feishu.cn/open-apis/im/v1/chats/:chat_id failed: %s", err)
 		return nil, response, err
 	} else if resp.Code != 0 {
+		r.cli.logError(ctx, "[lark] Chat#GetChat GET https://open.feishu.cn/open-apis/im/v1/chats/:chat_id failed, code: %d, msg: %s", resp.Code, resp.Msg)
 		return nil, response, NewError("Chat", "GetChat", resp.Code, resp.Msg)
 	}
+
+	r.cli.logDebug(ctx, "[lark] Chat#GetChat request_id: %s, response: %s", response.RequestID, jsonString(resp.Data))
 
 	return resp.Data, response, nil
 }

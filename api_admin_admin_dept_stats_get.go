@@ -14,7 +14,11 @@ import (
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/admin-v1/admin_dept_stat/list
 func (r *AdminAPI) GetAdminDeptStats(ctx context.Context, request *GetAdminDeptStatsReq, options ...MethodOptionFunc) (*GetAdminDeptStatsResp, *Response, error) {
+	r.cli.logInfo(ctx, "[lark] Admin#GetAdminDeptStats call api")
+	r.cli.logDebug(ctx, "[lark] Admin#GetAdminDeptStats request: %s", jsonString(request))
+
 	if r.cli.mock.mockAdminGetAdminDeptStats != nil {
+		r.cli.logDebug(ctx, "[lark] Admin#GetAdminDeptStats mock enable")
 		return r.cli.mock.mockAdminGetAdminDeptStats(ctx, request, options...)
 	}
 
@@ -29,10 +33,14 @@ func (r *AdminAPI) GetAdminDeptStats(ctx context.Context, request *GetAdminDeptS
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
 	if err != nil {
+		r.cli.logError(ctx, "[lark] Admin#GetAdminDeptStats GET https://open.feishu.cn/open-apis/admin/v1/admin_dept_stats failed: %s", err)
 		return nil, response, err
 	} else if resp.Code != 0 {
+		r.cli.logError(ctx, "[lark] Admin#GetAdminDeptStats GET https://open.feishu.cn/open-apis/admin/v1/admin_dept_stats failed, code: %d, msg: %s", resp.Code, resp.Msg)
 		return nil, response, NewError("Admin", "GetAdminDeptStats", resp.Code, resp.Msg)
 	}
+
+	r.cli.logDebug(ctx, "[lark] Admin#GetAdminDeptStats request_id: %s, response: %s", response.RequestID, jsonString(resp.Data))
 
 	return resp.Data, response, nil
 }

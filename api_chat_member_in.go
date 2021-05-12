@@ -10,7 +10,11 @@ import (
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-members/is_in_chat
 func (r *ChatAPI) IsInChat(ctx context.Context, request *IsInChatReq, options ...MethodOptionFunc) (*IsInChatResp, *Response, error) {
+	r.cli.logInfo(ctx, "[lark] Chat#IsInChat call api")
+	r.cli.logDebug(ctx, "[lark] Chat#IsInChat request: %s", jsonString(request))
+
 	if r.cli.mock.mockChatIsInChat != nil {
+		r.cli.logDebug(ctx, "[lark] Chat#IsInChat mock enable")
 		return r.cli.mock.mockChatIsInChat(ctx, request, options...)
 	}
 
@@ -26,10 +30,14 @@ func (r *ChatAPI) IsInChat(ctx context.Context, request *IsInChatReq, options ..
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
 	if err != nil {
+		r.cli.logError(ctx, "[lark] Chat#IsInChat GET https://open.feishu.cn/open-apis/im/v1/chats/:chat_id/members/is_in_chat failed: %s", err)
 		return nil, response, err
 	} else if resp.Code != 0 {
+		r.cli.logError(ctx, "[lark] Chat#IsInChat GET https://open.feishu.cn/open-apis/im/v1/chats/:chat_id/members/is_in_chat failed, code: %d, msg: %s", resp.Code, resp.Msg)
 		return nil, response, NewError("Chat", "IsInChat", resp.Code, resp.Msg)
 	}
+
+	r.cli.logDebug(ctx, "[lark] Chat#IsInChat request_id: %s, response: %s", response.RequestID, jsonString(resp.Data))
 
 	return resp.Data, response, nil
 }

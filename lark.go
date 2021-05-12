@@ -34,6 +34,13 @@ func WithTimeout(timeout time.Duration) ClientOptionFunc {
 	}
 }
 
+func WithLogger(logger Logger, level LogLevel) ClientOptionFunc {
+	return func(lark *Lark) {
+		lark.logger = logger
+		lark.logLevel = level
+	}
+}
+
 func New(options ...ClientOptionFunc) *Lark {
 	r := new(Lark)
 	r.mock = new(Mock)

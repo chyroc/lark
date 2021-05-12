@@ -10,7 +10,11 @@ import (
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/Attendance//shift_delete
 func (r *AttendanceAPI) DeleteShift(ctx context.Context, request *DeleteShiftReq, options ...MethodOptionFunc) (*DeleteShiftResp, *Response, error) {
+	r.cli.logInfo(ctx, "[lark] Attendance#DeleteShift call api")
+	r.cli.logDebug(ctx, "[lark] Attendance#DeleteShift request: %s", jsonString(request))
+
 	if r.cli.mock.mockAttendanceDeleteShift != nil {
+		r.cli.logDebug(ctx, "[lark] Attendance#DeleteShift mock enable")
 		return r.cli.mock.mockAttendanceDeleteShift(ctx, request, options...)
 	}
 
@@ -25,10 +29,14 @@ func (r *AttendanceAPI) DeleteShift(ctx context.Context, request *DeleteShiftReq
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
 	if err != nil {
+		r.cli.logError(ctx, "[lark] Attendance#DeleteShift DELETE https://open.feishu.cn/open-apis/attendance/v1/shifts/:shift_id failed: %s", err)
 		return nil, response, err
 	} else if resp.Code != 0 {
+		r.cli.logError(ctx, "[lark] Attendance#DeleteShift DELETE https://open.feishu.cn/open-apis/attendance/v1/shifts/:shift_id failed, code: %d, msg: %s", resp.Code, resp.Msg)
 		return nil, response, NewError("Attendance", "DeleteShift", resp.Code, resp.Msg)
 	}
+
+	r.cli.logDebug(ctx, "[lark] Attendance#DeleteShift request_id: %s, response: %s", response.RequestID, jsonString(resp.Data))
 
 	return resp.Data, response, nil
 }

@@ -19,7 +19,11 @@ import (
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat/update
 func (r *ChatAPI) UpdateChat(ctx context.Context, request *UpdateChatReq, options ...MethodOptionFunc) (*UpdateChatResp, *Response, error) {
+	r.cli.logInfo(ctx, "[lark] Chat#UpdateChat call api")
+	r.cli.logDebug(ctx, "[lark] Chat#UpdateChat request: %s", jsonString(request))
+
 	if r.cli.mock.mockChatUpdateChat != nil {
+		r.cli.logDebug(ctx, "[lark] Chat#UpdateChat mock enable")
 		return r.cli.mock.mockChatUpdateChat(ctx, request, options...)
 	}
 
@@ -35,10 +39,14 @@ func (r *ChatAPI) UpdateChat(ctx context.Context, request *UpdateChatReq, option
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
 	if err != nil {
+		r.cli.logError(ctx, "[lark] Chat#UpdateChat PUT https://open.feishu.cn/open-apis/im/v1/chats/:chat_id failed: %s", err)
 		return nil, response, err
 	} else if resp.Code != 0 {
+		r.cli.logError(ctx, "[lark] Chat#UpdateChat PUT https://open.feishu.cn/open-apis/im/v1/chats/:chat_id failed, code: %d, msg: %s", resp.Code, resp.Msg)
 		return nil, response, NewError("Chat", "UpdateChat", resp.Code, resp.Msg)
 	}
+
+	r.cli.logDebug(ctx, "[lark] Chat#UpdateChat request_id: %s, response: %s", response.RequestID, jsonString(resp.Data))
 
 	return resp.Data, response, nil
 }

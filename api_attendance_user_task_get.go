@@ -14,7 +14,11 @@ import (
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/Attendance//GetCheckinResults
 func (r *AttendanceAPI) GetUserTask(ctx context.Context, request *GetUserTaskReq, options ...MethodOptionFunc) (*GetUserTaskResp, *Response, error) {
+	r.cli.logInfo(ctx, "[lark] Attendance#GetUserTask call api")
+	r.cli.logDebug(ctx, "[lark] Attendance#GetUserTask request: %s", jsonString(request))
+
 	if r.cli.mock.mockAttendanceGetUserTask != nil {
+		r.cli.logDebug(ctx, "[lark] Attendance#GetUserTask mock enable")
 		return r.cli.mock.mockAttendanceGetUserTask(ctx, request, options...)
 	}
 
@@ -29,10 +33,14 @@ func (r *AttendanceAPI) GetUserTask(ctx context.Context, request *GetUserTaskReq
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
 	if err != nil {
+		r.cli.logError(ctx, "[lark] Attendance#GetUserTask POST https://open.feishu.cn/open-apis/attendance/v1/user_tasks/query failed: %s", err)
 		return nil, response, err
 	} else if resp.Code != 0 {
+		r.cli.logError(ctx, "[lark] Attendance#GetUserTask POST https://open.feishu.cn/open-apis/attendance/v1/user_tasks/query failed, code: %d, msg: %s", resp.Code, resp.Msg)
 		return nil, response, NewError("Attendance", "GetUserTask", resp.Code, resp.Msg)
 	}
+
+	r.cli.logDebug(ctx, "[lark] Attendance#GetUserTask request_id: %s, response: %s", response.RequestID, jsonString(resp.Data))
 
 	return resp.Data, response, nil
 }

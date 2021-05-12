@@ -16,7 +16,11 @@ import (
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat/search
 func (r *ChatAPI) SearchChat(ctx context.Context, request *SearchChatReq, options ...MethodOptionFunc) (*SearchChatResp, *Response, error) {
+	r.cli.logInfo(ctx, "[lark] Chat#SearchChat call api")
+	r.cli.logDebug(ctx, "[lark] Chat#SearchChat request: %s", jsonString(request))
+
 	if r.cli.mock.mockChatSearchChat != nil {
+		r.cli.logDebug(ctx, "[lark] Chat#SearchChat mock enable")
 		return r.cli.mock.mockChatSearchChat(ctx, request, options...)
 	}
 
@@ -32,10 +36,14 @@ func (r *ChatAPI) SearchChat(ctx context.Context, request *SearchChatReq, option
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
 	if err != nil {
+		r.cli.logError(ctx, "[lark] Chat#SearchChat GET https://open.feishu.cn/open-apis/im/v1/chats/search failed: %s", err)
 		return nil, response, err
 	} else if resp.Code != 0 {
+		r.cli.logError(ctx, "[lark] Chat#SearchChat GET https://open.feishu.cn/open-apis/im/v1/chats/search failed, code: %d, msg: %s", resp.Code, resp.Msg)
 		return nil, response, NewError("Chat", "SearchChat", resp.Code, resp.Msg)
 	}
+
+	r.cli.logDebug(ctx, "[lark] Chat#SearchChat request_id: %s, response: %s", response.RequestID, jsonString(resp.Data))
 
 	return resp.Data, response, nil
 }

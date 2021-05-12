@@ -10,7 +10,11 @@ import (
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/faq/get
 func (r *HelpdeskAPI) GetFAQ(ctx context.Context, request *GetFAQReq, options ...MethodOptionFunc) (*GetFAQResp, *Response, error) {
+	r.cli.logInfo(ctx, "[lark] Helpdesk#GetFAQ call api")
+	r.cli.logDebug(ctx, "[lark] Helpdesk#GetFAQ request: %s", jsonString(request))
+
 	if r.cli.mock.mockHelpdeskGetFAQ != nil {
+		r.cli.logDebug(ctx, "[lark] Helpdesk#GetFAQ mock enable")
 		return r.cli.mock.mockHelpdeskGetFAQ(ctx, request, options...)
 	}
 
@@ -26,10 +30,14 @@ func (r *HelpdeskAPI) GetFAQ(ctx context.Context, request *GetFAQReq, options ..
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
 	if err != nil {
+		r.cli.logError(ctx, "[lark] Helpdesk#GetFAQ GET https://open.feishu.cn/open-apis/helpdesk/v1/faqs/:id failed: %s", err)
 		return nil, response, err
 	} else if resp.Code != 0 {
+		r.cli.logError(ctx, "[lark] Helpdesk#GetFAQ GET https://open.feishu.cn/open-apis/helpdesk/v1/faqs/:id failed, code: %d, msg: %s", resp.Code, resp.Msg)
 		return nil, response, NewError("Helpdesk", "GetFAQ", resp.Code, resp.Msg)
 	}
+
+	r.cli.logDebug(ctx, "[lark] Helpdesk#GetFAQ request_id: %s, response: %s", response.RequestID, jsonString(resp.Data))
 
 	return resp.Data, response, nil
 }

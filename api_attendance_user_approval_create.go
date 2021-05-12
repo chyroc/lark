@@ -14,7 +14,11 @@ import (
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/Attendance//AddApprovalsInLarkAttendance
 func (r *AttendanceAPI) CreateUserApproval(ctx context.Context, request *CreateUserApprovalReq, options ...MethodOptionFunc) (*CreateUserApprovalResp, *Response, error) {
+	r.cli.logInfo(ctx, "[lark] Attendance#CreateUserApproval call api")
+	r.cli.logDebug(ctx, "[lark] Attendance#CreateUserApproval request: %s", jsonString(request))
+
 	if r.cli.mock.mockAttendanceCreateUserApproval != nil {
+		r.cli.logDebug(ctx, "[lark] Attendance#CreateUserApproval mock enable")
 		return r.cli.mock.mockAttendanceCreateUserApproval(ctx, request, options...)
 	}
 
@@ -29,10 +33,14 @@ func (r *AttendanceAPI) CreateUserApproval(ctx context.Context, request *CreateU
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
 	if err != nil {
+		r.cli.logError(ctx, "[lark] Attendance#CreateUserApproval POST https://open.feishu.cn/open-apis/attendance/v1/user_approvals failed: %s", err)
 		return nil, response, err
 	} else if resp.Code != 0 {
+		r.cli.logError(ctx, "[lark] Attendance#CreateUserApproval POST https://open.feishu.cn/open-apis/attendance/v1/user_approvals failed, code: %d, msg: %s", resp.Code, resp.Msg)
 		return nil, response, NewError("Attendance", "CreateUserApproval", resp.Code, resp.Msg)
 	}
+
+	r.cli.logDebug(ctx, "[lark] Attendance#CreateUserApproval request_id: %s, response: %s", response.RequestID, jsonString(resp.Data))
 
 	return resp.Data, response, nil
 }

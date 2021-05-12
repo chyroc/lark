@@ -10,7 +10,11 @@ import (
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/mail-v1/mailgroup-member/list
 func (r *MailAPI) GetMailGroupMemberList(ctx context.Context, request *GetMailGroupMemberListReq, options ...MethodOptionFunc) (*GetMailGroupMemberListResp, *Response, error) {
+	r.cli.logInfo(ctx, "[lark] Mail#GetMailGroupMemberList call api")
+	r.cli.logDebug(ctx, "[lark] Mail#GetMailGroupMemberList request: %s", jsonString(request))
+
 	if r.cli.mock.mockMailGetMailGroupMemberList != nil {
+		r.cli.logDebug(ctx, "[lark] Mail#GetMailGroupMemberList mock enable")
 		return r.cli.mock.mockMailGetMailGroupMemberList(ctx, request, options...)
 	}
 
@@ -25,10 +29,14 @@ func (r *MailAPI) GetMailGroupMemberList(ctx context.Context, request *GetMailGr
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
 	if err != nil {
+		r.cli.logError(ctx, "[lark] Mail#GetMailGroupMemberList GET https://open.feishu.cn/open-apis/mail/v1/mailgroups/:mailgroup_id/members failed: %s", err)
 		return nil, response, err
 	} else if resp.Code != 0 {
+		r.cli.logError(ctx, "[lark] Mail#GetMailGroupMemberList GET https://open.feishu.cn/open-apis/mail/v1/mailgroups/:mailgroup_id/members failed, code: %d, msg: %s", resp.Code, resp.Msg)
 		return nil, response, NewError("Mail", "GetMailGroupMemberList", resp.Code, resp.Msg)
 	}
+
+	r.cli.logDebug(ctx, "[lark] Mail#GetMailGroupMemberList request_id: %s, response: %s", response.RequestID, jsonString(resp.Data))
 
 	return resp.Data, response, nil
 }

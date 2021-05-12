@@ -14,7 +14,11 @@ import (
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/list
 func (r *MessageAPI) GetMessageList(ctx context.Context, request *GetMessageListReq, options ...MethodOptionFunc) (*GetMessageListResp, *Response, error) {
+	r.cli.logInfo(ctx, "[lark] Message#GetMessageList call api")
+	r.cli.logDebug(ctx, "[lark] Message#GetMessageList request: %s", jsonString(request))
+
 	if r.cli.mock.mockMessageGetMessageList != nil {
+		r.cli.logDebug(ctx, "[lark] Message#GetMessageList mock enable")
 		return r.cli.mock.mockMessageGetMessageList(ctx, request, options...)
 	}
 
@@ -29,10 +33,14 @@ func (r *MessageAPI) GetMessageList(ctx context.Context, request *GetMessageList
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
 	if err != nil {
+		r.cli.logError(ctx, "[lark] Message#GetMessageList GET https://open.feishu.cn/open-apis/im/v1/messages failed: %s", err)
 		return nil, response, err
 	} else if resp.Code != 0 {
+		r.cli.logError(ctx, "[lark] Message#GetMessageList GET https://open.feishu.cn/open-apis/im/v1/messages failed, code: %d, msg: %s", resp.Code, resp.Msg)
 		return nil, response, NewError("Message", "GetMessageList", resp.Code, resp.Msg)
 	}
+
+	r.cli.logDebug(ctx, "[lark] Message#GetMessageList request_id: %s, response: %s", response.RequestID, jsonString(resp.Data))
 
 	return resp.Data, response, nil
 }

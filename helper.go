@@ -70,3 +70,8 @@ func unmarshalMessageContent(msgType MsgType, content string, res interface{}) e
 	}
 	return nil
 }
+
+func jsonString(v interface{}) string {
+	bs, _ := json.Marshal(v)
+	return string(bs)
+}

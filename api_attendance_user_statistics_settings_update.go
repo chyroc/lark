@@ -10,7 +10,11 @@ import (
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/Attendance//task/update-user-stats-settings
 func (r *AttendanceAPI) UpdateUserStatisticsSettings(ctx context.Context, request *UpdateUserStatisticsSettingsReq, options ...MethodOptionFunc) (*UpdateUserStatisticsSettingsResp, *Response, error) {
+	r.cli.logInfo(ctx, "[lark] Attendance#UpdateUserStatisticsSettings call api")
+	r.cli.logDebug(ctx, "[lark] Attendance#UpdateUserStatisticsSettings request: %s", jsonString(request))
+
 	if r.cli.mock.mockAttendanceUpdateUserStatisticsSettings != nil {
+		r.cli.logDebug(ctx, "[lark] Attendance#UpdateUserStatisticsSettings mock enable")
 		return r.cli.mock.mockAttendanceUpdateUserStatisticsSettings(ctx, request, options...)
 	}
 
@@ -25,10 +29,14 @@ func (r *AttendanceAPI) UpdateUserStatisticsSettings(ctx context.Context, reques
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
 	if err != nil {
+		r.cli.logError(ctx, "[lark] Attendance#UpdateUserStatisticsSettings PUT https://open.feishu.cn/open-apis/attendance/v1/user_stats_views/:user_stats_view_id failed: %s", err)
 		return nil, response, err
 	} else if resp.Code != 0 {
+		r.cli.logError(ctx, "[lark] Attendance#UpdateUserStatisticsSettings PUT https://open.feishu.cn/open-apis/attendance/v1/user_stats_views/:user_stats_view_id failed, code: %d, msg: %s", resp.Code, resp.Msg)
 		return nil, response, NewError("Attendance", "UpdateUserStatisticsSettings", resp.Code, resp.Msg)
 	}
+
+	r.cli.logDebug(ctx, "[lark] Attendance#UpdateUserStatisticsSettings request_id: %s, response: %s", response.RequestID, jsonString(resp.Data))
 
 	return resp.Data, response, nil
 }

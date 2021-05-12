@@ -10,7 +10,11 @@ import (
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uMzMxYjLzMTM24yMzEjN
 func (r *MeetingRoomAPI) DeleteBuilding(ctx context.Context, request *DeleteBuildingReq, options ...MethodOptionFunc) (*DeleteBuildingResp, *Response, error) {
+	r.cli.logInfo(ctx, "[lark] MeetingRoom#DeleteBuilding call api")
+	r.cli.logDebug(ctx, "[lark] MeetingRoom#DeleteBuilding request: %s", jsonString(request))
+
 	if r.cli.mock.mockMeetingRoomDeleteBuilding != nil {
+		r.cli.logDebug(ctx, "[lark] MeetingRoom#DeleteBuilding mock enable")
 		return r.cli.mock.mockMeetingRoomDeleteBuilding(ctx, request, options...)
 	}
 
@@ -25,10 +29,14 @@ func (r *MeetingRoomAPI) DeleteBuilding(ctx context.Context, request *DeleteBuil
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
 	if err != nil {
+		r.cli.logError(ctx, "[lark] MeetingRoom#DeleteBuilding POST https://open.feishu.cn/open-apis/meeting_room/building/delete failed: %s", err)
 		return nil, response, err
 	} else if resp.Code != 0 {
+		r.cli.logError(ctx, "[lark] MeetingRoom#DeleteBuilding POST https://open.feishu.cn/open-apis/meeting_room/building/delete failed, code: %d, msg: %s", resp.Code, resp.Msg)
 		return nil, response, NewError("MeetingRoom", "DeleteBuilding", resp.Code, resp.Msg)
 	}
+
+	r.cli.logDebug(ctx, "[lark] MeetingRoom#DeleteBuilding request_id: %s, response: %s", response.RequestID, jsonString(resp.Data))
 
 	return resp.Data, response, nil
 }

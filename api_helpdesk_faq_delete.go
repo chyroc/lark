@@ -10,7 +10,11 @@ import (
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/faq/delete
 func (r *HelpdeskAPI) DeleteFAQ(ctx context.Context, request *DeleteFAQReq, options ...MethodOptionFunc) (*DeleteFAQResp, *Response, error) {
+	r.cli.logInfo(ctx, "[lark] Helpdesk#DeleteFAQ call api")
+	r.cli.logDebug(ctx, "[lark] Helpdesk#DeleteFAQ request: %s", jsonString(request))
+
 	if r.cli.mock.mockHelpdeskDeleteFAQ != nil {
+		r.cli.logDebug(ctx, "[lark] Helpdesk#DeleteFAQ mock enable")
 		return r.cli.mock.mockHelpdeskDeleteFAQ(ctx, request, options...)
 	}
 
@@ -26,10 +30,14 @@ func (r *HelpdeskAPI) DeleteFAQ(ctx context.Context, request *DeleteFAQReq, opti
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
 	if err != nil {
+		r.cli.logError(ctx, "[lark] Helpdesk#DeleteFAQ DELETE https://open.feishu.cn/open-apis/helpdesk/v1/faqs/:id failed: %s", err)
 		return nil, response, err
 	} else if resp.Code != 0 {
+		r.cli.logError(ctx, "[lark] Helpdesk#DeleteFAQ DELETE https://open.feishu.cn/open-apis/helpdesk/v1/faqs/:id failed, code: %d, msg: %s", resp.Code, resp.Msg)
 		return nil, response, NewError("Helpdesk", "DeleteFAQ", resp.Code, resp.Msg)
 	}
+
+	r.cli.logDebug(ctx, "[lark] Helpdesk#DeleteFAQ request_id: %s, response: %s", response.RequestID, jsonString(resp.Data))
 
 	return resp.Data, response, nil
 }

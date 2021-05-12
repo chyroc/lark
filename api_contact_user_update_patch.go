@@ -10,7 +10,11 @@ import (
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/patch
 func (r *ContactAPI) UpdateUserPatch(ctx context.Context, request *UpdateUserPatchReq, options ...MethodOptionFunc) (*UpdateUserPatchResp, *Response, error) {
+	r.cli.logInfo(ctx, "[lark] Contact#UpdateUserPatch call api")
+	r.cli.logDebug(ctx, "[lark] Contact#UpdateUserPatch request: %s", jsonString(request))
+
 	if r.cli.mock.mockContactUpdateUserPatch != nil {
+		r.cli.logDebug(ctx, "[lark] Contact#UpdateUserPatch mock enable")
 		return r.cli.mock.mockContactUpdateUserPatch(ctx, request, options...)
 	}
 
@@ -26,10 +30,14 @@ func (r *ContactAPI) UpdateUserPatch(ctx context.Context, request *UpdateUserPat
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
 	if err != nil {
+		r.cli.logError(ctx, "[lark] Contact#UpdateUserPatch PATCH https://open.feishu.cn/open-apis/contact/v3/users/:user_id failed: %s", err)
 		return nil, response, err
 	} else if resp.Code != 0 {
+		r.cli.logError(ctx, "[lark] Contact#UpdateUserPatch PATCH https://open.feishu.cn/open-apis/contact/v3/users/:user_id failed, code: %d, msg: %s", resp.Code, resp.Msg)
 		return nil, response, NewError("Contact", "UpdateUserPatch", resp.Code, resp.Msg)
 	}
+
+	r.cli.logDebug(ctx, "[lark] Contact#UpdateUserPatch request_id: %s, response: %s", response.RequestID, jsonString(resp.Data))
 
 	return resp.Data, response, nil
 }

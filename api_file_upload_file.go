@@ -14,7 +14,11 @@ import (
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/file/create
 func (r *FileAPI) UploadFile(ctx context.Context, request *UploadFileReq, options ...MethodOptionFunc) (*UploadFileResp, *Response, error) {
+	r.cli.logInfo(ctx, "[lark] File#UploadFile call api")
+	r.cli.logDebug(ctx, "[lark] File#UploadFile request: %s", jsonString(request))
+
 	if r.cli.mock.mockFileUploadFile != nil {
+		r.cli.logDebug(ctx, "[lark] File#UploadFile mock enable")
 		return r.cli.mock.mockFileUploadFile(ctx, request, options...)
 	}
 
@@ -30,10 +34,14 @@ func (r *FileAPI) UploadFile(ctx context.Context, request *UploadFileReq, option
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
 	if err != nil {
+		r.cli.logError(ctx, "[lark] File#UploadFile POST https://open.feishu.cn/open-apis/im/v1/files failed: %s", err)
 		return nil, response, err
 	} else if resp.Code != 0 {
+		r.cli.logError(ctx, "[lark] File#UploadFile POST https://open.feishu.cn/open-apis/im/v1/files failed, code: %d, msg: %s", resp.Code, resp.Msg)
 		return nil, response, NewError("File", "UploadFile", resp.Code, resp.Msg)
 	}
+
+	r.cli.logDebug(ctx, "[lark] File#UploadFile request_id: %s, response: %s", response.RequestID, jsonString(resp.Data))
 
 	return resp.Data, response, nil
 }

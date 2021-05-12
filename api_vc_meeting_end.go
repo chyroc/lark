@@ -12,7 +12,11 @@ import (
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/vc-v1/meeting/end
 func (r *VCAPI) EndMeeting(ctx context.Context, request *EndMeetingReq, options ...MethodOptionFunc) (*EndMeetingResp, *Response, error) {
+	r.cli.logInfo(ctx, "[lark] VC#EndMeeting call api")
+	r.cli.logDebug(ctx, "[lark] VC#EndMeeting request: %s", jsonString(request))
+
 	if r.cli.mock.mockVCEndMeeting != nil {
+		r.cli.logDebug(ctx, "[lark] VC#EndMeeting mock enable")
 		return r.cli.mock.mockVCEndMeeting(ctx, request, options...)
 	}
 
@@ -27,10 +31,14 @@ func (r *VCAPI) EndMeeting(ctx context.Context, request *EndMeetingReq, options 
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
 	if err != nil {
+		r.cli.logError(ctx, "[lark] VC#EndMeeting PATCH https://open.feishu.cn/open-apis/vc/v1/meetings/:meeting_id/end failed: %s", err)
 		return nil, response, err
 	} else if resp.Code != 0 {
+		r.cli.logError(ctx, "[lark] VC#EndMeeting PATCH https://open.feishu.cn/open-apis/vc/v1/meetings/:meeting_id/end failed, code: %d, msg: %s", resp.Code, resp.Msg)
 		return nil, response, NewError("VC", "EndMeeting", resp.Code, resp.Msg)
 	}
+
+	r.cli.logDebug(ctx, "[lark] VC#EndMeeting request_id: %s, response: %s", response.RequestID, jsonString(resp.Data))
 
 	return resp.Data, response, nil
 }

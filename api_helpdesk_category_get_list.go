@@ -12,7 +12,11 @@ import (
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/category/list-categories
 func (r *HelpdeskAPI) GetCategoryList(ctx context.Context, request *GetCategoryListReq, options ...MethodOptionFunc) (*GetCategoryListResp, *Response, error) {
+	r.cli.logInfo(ctx, "[lark] Helpdesk#GetCategoryList call api")
+	r.cli.logDebug(ctx, "[lark] Helpdesk#GetCategoryList request: %s", jsonString(request))
+
 	if r.cli.mock.mockHelpdeskGetCategoryList != nil {
+		r.cli.logDebug(ctx, "[lark] Helpdesk#GetCategoryList mock enable")
 		return r.cli.mock.mockHelpdeskGetCategoryList(ctx, request, options...)
 	}
 
@@ -28,10 +32,14 @@ func (r *HelpdeskAPI) GetCategoryList(ctx context.Context, request *GetCategoryL
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
 	if err != nil {
+		r.cli.logError(ctx, "[lark] Helpdesk#GetCategoryList GET https://open.feishu.cn/open-apis/helpdesk/v1/categories failed: %s", err)
 		return nil, response, err
 	} else if resp.Code != 0 {
+		r.cli.logError(ctx, "[lark] Helpdesk#GetCategoryList GET https://open.feishu.cn/open-apis/helpdesk/v1/categories failed, code: %d, msg: %s", resp.Code, resp.Msg)
 		return nil, response, NewError("Helpdesk", "GetCategoryList", resp.Code, resp.Msg)
 	}
+
+	r.cli.logDebug(ctx, "[lark] Helpdesk#GetCategoryList request_id: %s, response: %s", response.RequestID, jsonString(resp.Data))
 
 	return resp.Data, response, nil
 }

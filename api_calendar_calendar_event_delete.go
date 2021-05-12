@@ -15,7 +15,11 @@ import (
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar-event/delete
 func (r *CalendarAPI) DeleteCalendarEvent(ctx context.Context, request *DeleteCalendarEventReq, options ...MethodOptionFunc) (*DeleteCalendarEventResp, *Response, error) {
+	r.cli.logInfo(ctx, "[lark] Calendar#DeleteCalendarEvent call api")
+	r.cli.logDebug(ctx, "[lark] Calendar#DeleteCalendarEvent request: %s", jsonString(request))
+
 	if r.cli.mock.mockCalendarDeleteCalendarEvent != nil {
+		r.cli.logDebug(ctx, "[lark] Calendar#DeleteCalendarEvent mock enable")
 		return r.cli.mock.mockCalendarDeleteCalendarEvent(ctx, request, options...)
 	}
 
@@ -31,10 +35,14 @@ func (r *CalendarAPI) DeleteCalendarEvent(ctx context.Context, request *DeleteCa
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
 	if err != nil {
+		r.cli.logError(ctx, "[lark] Calendar#DeleteCalendarEvent DELETE https://open.feishu.cn/open-apis/calendar/v4/calendars/:calendar_id/events/:event_id failed: %s", err)
 		return nil, response, err
 	} else if resp.Code != 0 {
+		r.cli.logError(ctx, "[lark] Calendar#DeleteCalendarEvent DELETE https://open.feishu.cn/open-apis/calendar/v4/calendars/:calendar_id/events/:event_id failed, code: %d, msg: %s", resp.Code, resp.Msg)
 		return nil, response, NewError("Calendar", "DeleteCalendarEvent", resp.Code, resp.Msg)
 	}
+
+	r.cli.logDebug(ctx, "[lark] Calendar#DeleteCalendarEvent request_id: %s, response: %s", response.RequestID, jsonString(resp.Data))
 
 	return resp.Data, response, nil
 }

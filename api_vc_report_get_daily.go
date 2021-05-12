@@ -12,7 +12,11 @@ import (
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/vc-v1/report/get_daily
 func (r *VCAPI) GetDailyReport(ctx context.Context, request *GetDailyReportReq, options ...MethodOptionFunc) (*GetDailyReportResp, *Response, error) {
+	r.cli.logInfo(ctx, "[lark] VC#GetDailyReport call api")
+	r.cli.logDebug(ctx, "[lark] VC#GetDailyReport request: %s", jsonString(request))
+
 	if r.cli.mock.mockVCGetDailyReport != nil {
+		r.cli.logDebug(ctx, "[lark] VC#GetDailyReport mock enable")
 		return r.cli.mock.mockVCGetDailyReport(ctx, request, options...)
 	}
 
@@ -27,10 +31,14 @@ func (r *VCAPI) GetDailyReport(ctx context.Context, request *GetDailyReportReq, 
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
 	if err != nil {
+		r.cli.logError(ctx, "[lark] VC#GetDailyReport GET https://open.feishu.cn/open-apis/vc/v1/reports/get_daily failed: %s", err)
 		return nil, response, err
 	} else if resp.Code != 0 {
+		r.cli.logError(ctx, "[lark] VC#GetDailyReport GET https://open.feishu.cn/open-apis/vc/v1/reports/get_daily failed, code: %d, msg: %s", resp.Code, resp.Msg)
 		return nil, response, NewError("VC", "GetDailyReport", resp.Code, resp.Msg)
 	}
+
+	r.cli.logDebug(ctx, "[lark] VC#GetDailyReport request_id: %s, response: %s", response.RequestID, jsonString(resp.Data))
 
 	return resp.Data, response, nil
 }

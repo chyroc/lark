@@ -10,7 +10,11 @@ import (
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/ticket-message/list
 func (r *HelpdeskAPI) SendTicketMessage(ctx context.Context, request *SendTicketMessageReq, options ...MethodOptionFunc) (*SendTicketMessageResp, *Response, error) {
+	r.cli.logInfo(ctx, "[lark] Helpdesk#SendTicketMessage call api")
+	r.cli.logDebug(ctx, "[lark] Helpdesk#SendTicketMessage request: %s", jsonString(request))
+
 	if r.cli.mock.mockHelpdeskSendTicketMessage != nil {
+		r.cli.logDebug(ctx, "[lark] Helpdesk#SendTicketMessage mock enable")
 		return r.cli.mock.mockHelpdeskSendTicketMessage(ctx, request, options...)
 	}
 
@@ -26,10 +30,14 @@ func (r *HelpdeskAPI) SendTicketMessage(ctx context.Context, request *SendTicket
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
 	if err != nil {
+		r.cli.logError(ctx, "[lark] Helpdesk#SendTicketMessage GET https://open.feishu.cn/open-apis/helpdesk/v1/tickets/:ticket_id/messages failed: %s", err)
 		return nil, response, err
 	} else if resp.Code != 0 {
+		r.cli.logError(ctx, "[lark] Helpdesk#SendTicketMessage GET https://open.feishu.cn/open-apis/helpdesk/v1/tickets/:ticket_id/messages failed, code: %d, msg: %s", resp.Code, resp.Msg)
 		return nil, response, NewError("Helpdesk", "SendTicketMessage", resp.Code, resp.Msg)
 	}
+
+	r.cli.logDebug(ctx, "[lark] Helpdesk#SendTicketMessage request_id: %s, response: %s", response.RequestID, jsonString(resp.Data))
 
 	return resp.Data, response, nil
 }

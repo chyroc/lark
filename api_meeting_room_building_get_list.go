@@ -10,7 +10,11 @@ import (
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/ugzNyUjL4cjM14CO3ITN
 func (r *MeetingRoomAPI) GetBuildingList(ctx context.Context, request *GetBuildingListReq, options ...MethodOptionFunc) (*GetBuildingListResp, *Response, error) {
+	r.cli.logInfo(ctx, "[lark] MeetingRoom#GetBuildingList call api")
+	r.cli.logDebug(ctx, "[lark] MeetingRoom#GetBuildingList request: %s", jsonString(request))
+
 	if r.cli.mock.mockMeetingRoomGetBuildingList != nil {
+		r.cli.logDebug(ctx, "[lark] MeetingRoom#GetBuildingList mock enable")
 		return r.cli.mock.mockMeetingRoomGetBuildingList(ctx, request, options...)
 	}
 
@@ -25,10 +29,14 @@ func (r *MeetingRoomAPI) GetBuildingList(ctx context.Context, request *GetBuildi
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
 	if err != nil {
+		r.cli.logError(ctx, "[lark] MeetingRoom#GetBuildingList GET https://open.feishu.cn/open-apis/meeting_room/building/list?page_size=1&page_token=0&order_by=name-asc&fields=* failed: %s", err)
 		return nil, response, err
 	} else if resp.Code != 0 {
+		r.cli.logError(ctx, "[lark] MeetingRoom#GetBuildingList GET https://open.feishu.cn/open-apis/meeting_room/building/list?page_size=1&page_token=0&order_by=name-asc&fields=* failed, code: %d, msg: %s", resp.Code, resp.Msg)
 		return nil, response, NewError("MeetingRoom", "GetBuildingList", resp.Code, resp.Msg)
 	}
+
+	r.cli.logDebug(ctx, "[lark] MeetingRoom#GetBuildingList request_id: %s, response: %s", response.RequestID, jsonString(resp.Data))
 
 	return resp.Data, response, nil
 }

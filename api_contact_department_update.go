@@ -13,7 +13,11 @@ import (
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/update
 func (r *ContactAPI) UpdateDepartment(ctx context.Context, request *UpdateDepartmentReq, options ...MethodOptionFunc) (*UpdateDepartmentResp, *Response, error) {
+	r.cli.logInfo(ctx, "[lark] Contact#UpdateDepartment call api")
+	r.cli.logDebug(ctx, "[lark] Contact#UpdateDepartment request: %s", jsonString(request))
+
 	if r.cli.mock.mockContactUpdateDepartment != nil {
+		r.cli.logDebug(ctx, "[lark] Contact#UpdateDepartment mock enable")
 		return r.cli.mock.mockContactUpdateDepartment(ctx, request, options...)
 	}
 
@@ -28,10 +32,14 @@ func (r *ContactAPI) UpdateDepartment(ctx context.Context, request *UpdateDepart
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
 	if err != nil {
+		r.cli.logError(ctx, "[lark] Contact#UpdateDepartment PUT https://open.feishu.cn/open-apis/contact/v3/departments/:department_id failed: %s", err)
 		return nil, response, err
 	} else if resp.Code != 0 {
+		r.cli.logError(ctx, "[lark] Contact#UpdateDepartment PUT https://open.feishu.cn/open-apis/contact/v3/departments/:department_id failed, code: %d, msg: %s", resp.Code, resp.Msg)
 		return nil, response, NewError("Contact", "UpdateDepartment", resp.Code, resp.Msg)
 	}
+
+	r.cli.logDebug(ctx, "[lark] Contact#UpdateDepartment request_id: %s, response: %s", response.RequestID, jsonString(resp.Data))
 
 	return resp.Data, response, nil
 }

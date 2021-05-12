@@ -12,7 +12,11 @@ import (
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/Attendance//group
 func (r *AttendanceAPI) GetGroup(ctx context.Context, request *GetGroupReq, options ...MethodOptionFunc) (*GetGroupResp, *Response, error) {
+	r.cli.logInfo(ctx, "[lark] Attendance#GetGroup call api")
+	r.cli.logDebug(ctx, "[lark] Attendance#GetGroup request: %s", jsonString(request))
+
 	if r.cli.mock.mockAttendanceGetGroup != nil {
+		r.cli.logDebug(ctx, "[lark] Attendance#GetGroup mock enable")
 		return r.cli.mock.mockAttendanceGetGroup(ctx, request, options...)
 	}
 
@@ -27,10 +31,14 @@ func (r *AttendanceAPI) GetGroup(ctx context.Context, request *GetGroupReq, opti
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
 	if err != nil {
+		r.cli.logError(ctx, "[lark] Attendance#GetGroup GET https://open.feishu.cn/open-apis/attendance/v1/groups/:group_id failed: %s", err)
 		return nil, response, err
 	} else if resp.Code != 0 {
+		r.cli.logError(ctx, "[lark] Attendance#GetGroup GET https://open.feishu.cn/open-apis/attendance/v1/groups/:group_id failed, code: %d, msg: %s", resp.Code, resp.Msg)
 		return nil, response, NewError("Attendance", "GetGroup", resp.Code, resp.Msg)
 	}
+
+	r.cli.logDebug(ctx, "[lark] Attendance#GetGroup request_id: %s, response: %s", response.RequestID, jsonString(resp.Data))
 
 	return resp.Data, response, nil
 }

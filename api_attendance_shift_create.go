@@ -14,7 +14,11 @@ import (
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/Attendance//shift_create
 func (r *AttendanceAPI) CreateShift(ctx context.Context, request *CreateShiftReq, options ...MethodOptionFunc) (*CreateShiftResp, *Response, error) {
+	r.cli.logInfo(ctx, "[lark] Attendance#CreateShift call api")
+	r.cli.logDebug(ctx, "[lark] Attendance#CreateShift request: %s", jsonString(request))
+
 	if r.cli.mock.mockAttendanceCreateShift != nil {
+		r.cli.logDebug(ctx, "[lark] Attendance#CreateShift mock enable")
 		return r.cli.mock.mockAttendanceCreateShift(ctx, request, options...)
 	}
 
@@ -29,10 +33,14 @@ func (r *AttendanceAPI) CreateShift(ctx context.Context, request *CreateShiftReq
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
 	if err != nil {
+		r.cli.logError(ctx, "[lark] Attendance#CreateShift POST https://open.feishu.cn/open-apis/attendance/v1/shifts failed: %s", err)
 		return nil, response, err
 	} else if resp.Code != 0 {
+		r.cli.logError(ctx, "[lark] Attendance#CreateShift POST https://open.feishu.cn/open-apis/attendance/v1/shifts failed, code: %d, msg: %s", resp.Code, resp.Msg)
 		return nil, response, NewError("Attendance", "CreateShift", resp.Code, resp.Msg)
 	}
+
+	r.cli.logDebug(ctx, "[lark] Attendance#CreateShift request_id: %s, response: %s", response.RequestID, jsonString(resp.Data))
 
 	return resp.Data, response, nil
 }

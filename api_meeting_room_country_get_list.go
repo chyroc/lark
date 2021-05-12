@@ -10,7 +10,11 @@ import (
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uQTNwYjL0UDM24CN1AjN
 func (r *MeetingRoomAPI) GetCountryList(ctx context.Context, request *GetCountryListReq, options ...MethodOptionFunc) (*GetCountryListResp, *Response, error) {
+	r.cli.logInfo(ctx, "[lark] MeetingRoom#GetCountryList call api")
+	r.cli.logDebug(ctx, "[lark] MeetingRoom#GetCountryList request: %s", jsonString(request))
+
 	if r.cli.mock.mockMeetingRoomGetCountryList != nil {
+		r.cli.logDebug(ctx, "[lark] MeetingRoom#GetCountryList mock enable")
 		return r.cli.mock.mockMeetingRoomGetCountryList(ctx, request, options...)
 	}
 
@@ -25,10 +29,14 @@ func (r *MeetingRoomAPI) GetCountryList(ctx context.Context, request *GetCountry
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
 	if err != nil {
+		r.cli.logError(ctx, "[lark] MeetingRoom#GetCountryList GET https://open.feishu.cn/open-apis/meeting_room/country/list failed: %s", err)
 		return nil, response, err
 	} else if resp.Code != 0 {
+		r.cli.logError(ctx, "[lark] MeetingRoom#GetCountryList GET https://open.feishu.cn/open-apis/meeting_room/country/list failed, code: %d, msg: %s", resp.Code, resp.Msg)
 		return nil, response, NewError("MeetingRoom", "GetCountryList", resp.Code, resp.Msg)
 	}
+
+	r.cli.logDebug(ctx, "[lark] MeetingRoom#GetCountryList request_id: %s, response: %s", response.RequestID, jsonString(resp.Data))
 
 	return resp.Data, response, nil
 }

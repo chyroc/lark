@@ -16,7 +16,11 @@ import (
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/human_authentication-v1/face/upload-facial-reference-image
 func (r *HumanAuthAPI) UploadFaceVerifyImage(ctx context.Context, request *UploadFaceVerifyImageReq, options ...MethodOptionFunc) (*UploadFaceVerifyImageResp, *Response, error) {
+	r.cli.logInfo(ctx, "[lark] HumanAuth#UploadFaceVerifyImage call api")
+	r.cli.logDebug(ctx, "[lark] HumanAuth#UploadFaceVerifyImage request: %s", jsonString(request))
+
 	if r.cli.mock.mockHumanAuthUploadFaceVerifyImage != nil {
+		r.cli.logDebug(ctx, "[lark] HumanAuth#UploadFaceVerifyImage mock enable")
 		return r.cli.mock.mockHumanAuthUploadFaceVerifyImage(ctx, request, options...)
 	}
 
@@ -32,10 +36,14 @@ func (r *HumanAuthAPI) UploadFaceVerifyImage(ctx context.Context, request *Uploa
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
 	if err != nil {
+		r.cli.logError(ctx, "[lark] HumanAuth#UploadFaceVerifyImage POST https://open.feishu.cn/open-apis/face_verify/v1/upload_face_image failed: %s", err)
 		return nil, response, err
 	} else if resp.Code != 0 {
+		r.cli.logError(ctx, "[lark] HumanAuth#UploadFaceVerifyImage POST https://open.feishu.cn/open-apis/face_verify/v1/upload_face_image failed, code: %d, msg: %s", resp.Code, resp.Msg)
 		return nil, response, NewError("HumanAuth", "UploadFaceVerifyImage", resp.Code, resp.Msg)
 	}
+
+	r.cli.logDebug(ctx, "[lark] HumanAuth#UploadFaceVerifyImage request_id: %s, response: %s", response.RequestID, jsonString(resp.Data))
 
 	return resp.Data, response, nil
 }

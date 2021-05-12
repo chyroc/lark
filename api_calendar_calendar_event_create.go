@@ -14,7 +14,11 @@ import (
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar-event/create-event
 func (r *CalendarAPI) CreateCalendarEvent(ctx context.Context, request *CreateCalendarEventReq, options ...MethodOptionFunc) (*CreateCalendarEventResp, *Response, error) {
+	r.cli.logInfo(ctx, "[lark] Calendar#CreateCalendarEvent call api")
+	r.cli.logDebug(ctx, "[lark] Calendar#CreateCalendarEvent request: %s", jsonString(request))
+
 	if r.cli.mock.mockCalendarCreateCalendarEvent != nil {
+		r.cli.logDebug(ctx, "[lark] Calendar#CreateCalendarEvent mock enable")
 		return r.cli.mock.mockCalendarCreateCalendarEvent(ctx, request, options...)
 	}
 
@@ -30,10 +34,14 @@ func (r *CalendarAPI) CreateCalendarEvent(ctx context.Context, request *CreateCa
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
 	if err != nil {
+		r.cli.logError(ctx, "[lark] Calendar#CreateCalendarEvent POST https://open.feishu.cn/open-apis/calendar/v4/calendars/:calendar_id/events failed: %s", err)
 		return nil, response, err
 	} else if resp.Code != 0 {
+		r.cli.logError(ctx, "[lark] Calendar#CreateCalendarEvent POST https://open.feishu.cn/open-apis/calendar/v4/calendars/:calendar_id/events failed, code: %d, msg: %s", resp.Code, resp.Msg)
 		return nil, response, NewError("Calendar", "CreateCalendarEvent", resp.Code, resp.Msg)
 	}
+
+	r.cli.logDebug(ctx, "[lark] Calendar#CreateCalendarEvent request_id: %s, response: %s", response.RequestID, jsonString(resp.Data))
 
 	return resp.Data, response, nil
 }

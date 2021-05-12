@@ -10,7 +10,11 @@ import (
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uETNwYjLxUDM24SM1AjN
 func (r *MeetingRoomAPI) UpdateBuilding(ctx context.Context, request *UpdateBuildingReq, options ...MethodOptionFunc) (*UpdateBuildingResp, *Response, error) {
+	r.cli.logInfo(ctx, "[lark] MeetingRoom#UpdateBuilding call api")
+	r.cli.logDebug(ctx, "[lark] MeetingRoom#UpdateBuilding request: %s", jsonString(request))
+
 	if r.cli.mock.mockMeetingRoomUpdateBuilding != nil {
+		r.cli.logDebug(ctx, "[lark] MeetingRoom#UpdateBuilding mock enable")
 		return r.cli.mock.mockMeetingRoomUpdateBuilding(ctx, request, options...)
 	}
 
@@ -25,10 +29,14 @@ func (r *MeetingRoomAPI) UpdateBuilding(ctx context.Context, request *UpdateBuil
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
 	if err != nil {
+		r.cli.logError(ctx, "[lark] MeetingRoom#UpdateBuilding POST https://open.feishu.cn/open-apis/meeting_room/building/update failed: %s", err)
 		return nil, response, err
 	} else if resp.Code != 0 {
+		r.cli.logError(ctx, "[lark] MeetingRoom#UpdateBuilding POST https://open.feishu.cn/open-apis/meeting_room/building/update failed, code: %d, msg: %s", resp.Code, resp.Msg)
 		return nil, response, NewError("MeetingRoom", "UpdateBuilding", resp.Code, resp.Msg)
 	}
+
+	r.cli.logDebug(ctx, "[lark] MeetingRoom#UpdateBuilding request_id: %s, response: %s", response.RequestID, jsonString(resp.Data))
 
 	return resp.Data, response, nil
 }

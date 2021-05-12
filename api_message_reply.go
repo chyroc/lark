@@ -15,7 +15,11 @@ import (
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/reply
 func (r *MessageAPI) ReplyRawMessage(ctx context.Context, request *ReplyRawMessageReq, options ...MethodOptionFunc) (*ReplyRawMessageResp, *Response, error) {
+	r.cli.logInfo(ctx, "[lark] Message#ReplyRawMessage call api")
+	r.cli.logDebug(ctx, "[lark] Message#ReplyRawMessage request: %s", jsonString(request))
+
 	if r.cli.mock.mockMessageReplyRawMessage != nil {
+		r.cli.logDebug(ctx, "[lark] Message#ReplyRawMessage mock enable")
 		return r.cli.mock.mockMessageReplyRawMessage(ctx, request, options...)
 	}
 
@@ -30,10 +34,14 @@ func (r *MessageAPI) ReplyRawMessage(ctx context.Context, request *ReplyRawMessa
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
 	if err != nil {
+		r.cli.logError(ctx, "[lark] Message#ReplyRawMessage POST https://open.feishu.cn/open-apis/im/v1/messages/:message_id/reply failed: %s", err)
 		return nil, response, err
 	} else if resp.Code != 0 {
+		r.cli.logError(ctx, "[lark] Message#ReplyRawMessage POST https://open.feishu.cn/open-apis/im/v1/messages/:message_id/reply failed, code: %d, msg: %s", resp.Code, resp.Msg)
 		return nil, response, NewError("Message", "ReplyRawMessage", resp.Code, resp.Msg)
 	}
+
+	r.cli.logDebug(ctx, "[lark] Message#ReplyRawMessage request_id: %s, response: %s", response.RequestID, jsonString(resp.Data))
 
 	return resp.Data, response, nil
 }

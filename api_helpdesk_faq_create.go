@@ -10,7 +10,11 @@ import (
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/faq/create
 func (r *HelpdeskAPI) CreateFAQ(ctx context.Context, request *CreateFAQReq, options ...MethodOptionFunc) (*CreateFAQResp, *Response, error) {
+	r.cli.logInfo(ctx, "[lark] Helpdesk#CreateFAQ call api")
+	r.cli.logDebug(ctx, "[lark] Helpdesk#CreateFAQ request: %s", jsonString(request))
+
 	if r.cli.mock.mockHelpdeskCreateFAQ != nil {
+		r.cli.logDebug(ctx, "[lark] Helpdesk#CreateFAQ mock enable")
 		return r.cli.mock.mockHelpdeskCreateFAQ(ctx, request, options...)
 	}
 
@@ -26,10 +30,14 @@ func (r *HelpdeskAPI) CreateFAQ(ctx context.Context, request *CreateFAQReq, opti
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
 	if err != nil {
+		r.cli.logError(ctx, "[lark] Helpdesk#CreateFAQ POST https://open.feishu.cn/open-apis/helpdesk/v1/faqs failed: %s", err)
 		return nil, response, err
 	} else if resp.Code != 0 {
+		r.cli.logError(ctx, "[lark] Helpdesk#CreateFAQ POST https://open.feishu.cn/open-apis/helpdesk/v1/faqs failed, code: %d, msg: %s", resp.Code, resp.Msg)
 		return nil, response, NewError("Helpdesk", "CreateFAQ", resp.Code, resp.Msg)
 	}
+
+	r.cli.logDebug(ctx, "[lark] Helpdesk#CreateFAQ request_id: %s, response: %s", response.RequestID, jsonString(resp.Data))
 
 	return resp.Data, response, nil
 }

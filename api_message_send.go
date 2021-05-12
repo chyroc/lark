@@ -15,7 +15,11 @@ import (
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/create
 func (r *MessageAPI) SendRawMessage(ctx context.Context, request *SendRawMessageReq, options ...MethodOptionFunc) (*SendRawMessageResp, *Response, error) {
+	r.cli.logInfo(ctx, "[lark] Message#SendRawMessage call api")
+	r.cli.logDebug(ctx, "[lark] Message#SendRawMessage request: %s", jsonString(request))
+
 	if r.cli.mock.mockMessageSendRawMessage != nil {
+		r.cli.logDebug(ctx, "[lark] Message#SendRawMessage mock enable")
 		return r.cli.mock.mockMessageSendRawMessage(ctx, request, options...)
 	}
 
@@ -30,10 +34,14 @@ func (r *MessageAPI) SendRawMessage(ctx context.Context, request *SendRawMessage
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
 	if err != nil {
+		r.cli.logError(ctx, "[lark] Message#SendRawMessage POST https://open.feishu.cn/open-apis/im/v1/messages failed: %s", err)
 		return nil, response, err
 	} else if resp.Code != 0 {
+		r.cli.logError(ctx, "[lark] Message#SendRawMessage POST https://open.feishu.cn/open-apis/im/v1/messages failed, code: %d, msg: %s", resp.Code, resp.Msg)
 		return nil, response, NewError("Message", "SendRawMessage", resp.Code, resp.Msg)
 	}
+
+	r.cli.logDebug(ctx, "[lark] Message#SendRawMessage request_id: %s, response: %s", response.RequestID, jsonString(resp.Data))
 
 	return resp.Data, response, nil
 }

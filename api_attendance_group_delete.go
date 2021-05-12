@@ -10,7 +10,11 @@ import (
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/Attendance//group_delete
 func (r *AttendanceAPI) DeleteGroup(ctx context.Context, request *DeleteGroupReq, options ...MethodOptionFunc) (*DeleteGroupResp, *Response, error) {
+	r.cli.logInfo(ctx, "[lark] Attendance#DeleteGroup call api")
+	r.cli.logDebug(ctx, "[lark] Attendance#DeleteGroup request: %s", jsonString(request))
+
 	if r.cli.mock.mockAttendanceDeleteGroup != nil {
+		r.cli.logDebug(ctx, "[lark] Attendance#DeleteGroup mock enable")
 		return r.cli.mock.mockAttendanceDeleteGroup(ctx, request, options...)
 	}
 
@@ -25,10 +29,14 @@ func (r *AttendanceAPI) DeleteGroup(ctx context.Context, request *DeleteGroupReq
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
 	if err != nil {
+		r.cli.logError(ctx, "[lark] Attendance#DeleteGroup DELETE https://open.feishu.cn/open-apis/attendance/v1/groups/:group_id failed: %s", err)
 		return nil, response, err
 	} else if resp.Code != 0 {
+		r.cli.logError(ctx, "[lark] Attendance#DeleteGroup DELETE https://open.feishu.cn/open-apis/attendance/v1/groups/:group_id failed, code: %d, msg: %s", resp.Code, resp.Msg)
 		return nil, response, NewError("Attendance", "DeleteGroup", resp.Code, resp.Msg)
 	}
+
+	r.cli.logDebug(ctx, "[lark] Attendance#DeleteGroup request_id: %s, response: %s", response.RequestID, jsonString(resp.Data))
 
 	return resp.Data, response, nil
 }

@@ -12,7 +12,11 @@ import (
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/ai/optical_char_recognition-v1/image/basic_recognize
 func (r *AIAPI) RecognizeBasicImage(ctx context.Context, request *RecognizeBasicImageReq, options ...MethodOptionFunc) (*RecognizeBasicImageResp, *Response, error) {
+	r.cli.logInfo(ctx, "[lark] AI#RecognizeBasicImage call api")
+	r.cli.logDebug(ctx, "[lark] AI#RecognizeBasicImage request: %s", jsonString(request))
+
 	if r.cli.mock.mockAIRecognizeBasicImage != nil {
+		r.cli.logDebug(ctx, "[lark] AI#RecognizeBasicImage mock enable")
 		return r.cli.mock.mockAIRecognizeBasicImage(ctx, request, options...)
 	}
 
@@ -27,10 +31,14 @@ func (r *AIAPI) RecognizeBasicImage(ctx context.Context, request *RecognizeBasic
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
 	if err != nil {
+		r.cli.logError(ctx, "[lark] AI#RecognizeBasicImage POST https://open.feishu.cn/open-apis/optical_char_recognition/v1/image/basic_recognize failed: %s", err)
 		return nil, response, err
 	} else if resp.Code != 0 {
+		r.cli.logError(ctx, "[lark] AI#RecognizeBasicImage POST https://open.feishu.cn/open-apis/optical_char_recognition/v1/image/basic_recognize failed, code: %d, msg: %s", resp.Code, resp.Msg)
 		return nil, response, NewError("AI", "RecognizeBasicImage", resp.Code, resp.Msg)
 	}
+
+	r.cli.logDebug(ctx, "[lark] AI#RecognizeBasicImage request_id: %s, response: %s", response.RequestID, jsonString(resp.Data))
 
 	return resp.Data, response, nil
 }

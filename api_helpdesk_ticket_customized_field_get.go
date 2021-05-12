@@ -12,7 +12,11 @@ import (
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/ticket_customized_field/get-ticket-customized-field
 func (r *HelpdeskAPI) GetTicketCustomizedField(ctx context.Context, request *GetTicketCustomizedFieldReq, options ...MethodOptionFunc) (*GetTicketCustomizedFieldResp, *Response, error) {
+	r.cli.logInfo(ctx, "[lark] Helpdesk#GetTicketCustomizedField call api")
+	r.cli.logDebug(ctx, "[lark] Helpdesk#GetTicketCustomizedField request: %s", jsonString(request))
+
 	if r.cli.mock.mockHelpdeskGetTicketCustomizedField != nil {
+		r.cli.logDebug(ctx, "[lark] Helpdesk#GetTicketCustomizedField mock enable")
 		return r.cli.mock.mockHelpdeskGetTicketCustomizedField(ctx, request, options...)
 	}
 
@@ -28,10 +32,14 @@ func (r *HelpdeskAPI) GetTicketCustomizedField(ctx context.Context, request *Get
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
 	if err != nil {
+		r.cli.logError(ctx, "[lark] Helpdesk#GetTicketCustomizedField GET https://open.feishu.cn/open-apis/helpdesk/v1/ticket_customized_fields/:ticket_customized_field_id failed: %s", err)
 		return nil, response, err
 	} else if resp.Code != 0 {
+		r.cli.logError(ctx, "[lark] Helpdesk#GetTicketCustomizedField GET https://open.feishu.cn/open-apis/helpdesk/v1/ticket_customized_fields/:ticket_customized_field_id failed, code: %d, msg: %s", resp.Code, resp.Msg)
 		return nil, response, NewError("Helpdesk", "GetTicketCustomizedField", resp.Code, resp.Msg)
 	}
+
+	r.cli.logDebug(ctx, "[lark] Helpdesk#GetTicketCustomizedField request_id: %s, response: %s", response.RequestID, jsonString(resp.Data))
 
 	return resp.Data, response, nil
 }

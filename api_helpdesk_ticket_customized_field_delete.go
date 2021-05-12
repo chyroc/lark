@@ -10,7 +10,11 @@ import (
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/ticket_customized_field/delete
 func (r *HelpdeskAPI) DeleteTicketCustomizedField(ctx context.Context, request *DeleteTicketCustomizedFieldReq, options ...MethodOptionFunc) (*DeleteTicketCustomizedFieldResp, *Response, error) {
+	r.cli.logInfo(ctx, "[lark] Helpdesk#DeleteTicketCustomizedField call api")
+	r.cli.logDebug(ctx, "[lark] Helpdesk#DeleteTicketCustomizedField request: %s", jsonString(request))
+
 	if r.cli.mock.mockHelpdeskDeleteTicketCustomizedField != nil {
+		r.cli.logDebug(ctx, "[lark] Helpdesk#DeleteTicketCustomizedField mock enable")
 		return r.cli.mock.mockHelpdeskDeleteTicketCustomizedField(ctx, request, options...)
 	}
 
@@ -26,10 +30,14 @@ func (r *HelpdeskAPI) DeleteTicketCustomizedField(ctx context.Context, request *
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
 	if err != nil {
+		r.cli.logError(ctx, "[lark] Helpdesk#DeleteTicketCustomizedField DELETE https://open.feishu.cn/open-apis/helpdesk/v1/ticket_customized_fields/:ticket_customized_field_id failed: %s", err)
 		return nil, response, err
 	} else if resp.Code != 0 {
+		r.cli.logError(ctx, "[lark] Helpdesk#DeleteTicketCustomizedField DELETE https://open.feishu.cn/open-apis/helpdesk/v1/ticket_customized_fields/:ticket_customized_field_id failed, code: %d, msg: %s", resp.Code, resp.Msg)
 		return nil, response, NewError("Helpdesk", "DeleteTicketCustomizedField", resp.Code, resp.Msg)
 	}
+
+	r.cli.logDebug(ctx, "[lark] Helpdesk#DeleteTicketCustomizedField request_id: %s, response: %s", response.RequestID, jsonString(resp.Data))
 
 	return resp.Data, response, nil
 }

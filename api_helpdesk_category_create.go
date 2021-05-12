@@ -10,7 +10,11 @@ import (
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/category/create
 func (r *HelpdeskAPI) CreateCategory(ctx context.Context, request *CreateCategoryReq, options ...MethodOptionFunc) (*CreateCategoryResp, *Response, error) {
+	r.cli.logInfo(ctx, "[lark] Helpdesk#CreateCategory call api")
+	r.cli.logDebug(ctx, "[lark] Helpdesk#CreateCategory request: %s", jsonString(request))
+
 	if r.cli.mock.mockHelpdeskCreateCategory != nil {
+		r.cli.logDebug(ctx, "[lark] Helpdesk#CreateCategory mock enable")
 		return r.cli.mock.mockHelpdeskCreateCategory(ctx, request, options...)
 	}
 
@@ -26,10 +30,14 @@ func (r *HelpdeskAPI) CreateCategory(ctx context.Context, request *CreateCategor
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
 	if err != nil {
+		r.cli.logError(ctx, "[lark] Helpdesk#CreateCategory POST https://open.feishu.cn/open-apis/helpdesk/v1/categories failed: %s", err)
 		return nil, response, err
 	} else if resp.Code != 0 {
+		r.cli.logError(ctx, "[lark] Helpdesk#CreateCategory POST https://open.feishu.cn/open-apis/helpdesk/v1/categories failed, code: %d, msg: %s", resp.Code, resp.Msg)
 		return nil, response, NewError("Helpdesk", "CreateCategory", resp.Code, resp.Msg)
 	}
+
+	r.cli.logDebug(ctx, "[lark] Helpdesk#CreateCategory request_id: %s, response: %s", response.RequestID, jsonString(resp.Data))
 
 	return resp.Data, response, nil
 }

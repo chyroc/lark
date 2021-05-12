@@ -16,7 +16,11 @@ import (
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/human_authentication-v1/face/facial-image-cropping
 func (r *HumanAuthAPI) CropFaceVerifyImage(ctx context.Context, request *CropFaceVerifyImageReq, options ...MethodOptionFunc) (*CropFaceVerifyImageResp, *Response, error) {
+	r.cli.logInfo(ctx, "[lark] HumanAuth#CropFaceVerifyImage call api")
+	r.cli.logDebug(ctx, "[lark] HumanAuth#CropFaceVerifyImage request: %s", jsonString(request))
+
 	if r.cli.mock.mockHumanAuthCropFaceVerifyImage != nil {
+		r.cli.logDebug(ctx, "[lark] HumanAuth#CropFaceVerifyImage mock enable")
 		return r.cli.mock.mockHumanAuthCropFaceVerifyImage(ctx, request, options...)
 	}
 
@@ -32,10 +36,14 @@ func (r *HumanAuthAPI) CropFaceVerifyImage(ctx context.Context, request *CropFac
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
 	if err != nil {
+		r.cli.logError(ctx, "[lark] HumanAuth#CropFaceVerifyImage POST https://open.feishu.cn/open-apis/face_verify/v1/crop_face_image failed: %s", err)
 		return nil, response, err
 	} else if resp.Code != 0 {
+		r.cli.logError(ctx, "[lark] HumanAuth#CropFaceVerifyImage POST https://open.feishu.cn/open-apis/face_verify/v1/crop_face_image failed, code: %d, msg: %s", resp.Code, resp.Msg)
 		return nil, response, NewError("HumanAuth", "CropFaceVerifyImage", resp.Code, resp.Msg)
 	}
+
+	r.cli.logDebug(ctx, "[lark] HumanAuth#CropFaceVerifyImage request_id: %s, response: %s", response.RequestID, jsonString(resp.Data))
 
 	return resp.Data, response, nil
 }

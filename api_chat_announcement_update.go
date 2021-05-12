@@ -16,7 +16,11 @@ import (
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-announcement/patch
 func (r *ChatAPI) UpdateAnnouncement(ctx context.Context, request *UpdateAnnouncementReq, options ...MethodOptionFunc) (*UpdateAnnouncementResp, *Response, error) {
+	r.cli.logInfo(ctx, "[lark] Chat#UpdateAnnouncement call api")
+	r.cli.logDebug(ctx, "[lark] Chat#UpdateAnnouncement request: %s", jsonString(request))
+
 	if r.cli.mock.mockChatUpdateAnnouncement != nil {
+		r.cli.logDebug(ctx, "[lark] Chat#UpdateAnnouncement mock enable")
 		return r.cli.mock.mockChatUpdateAnnouncement(ctx, request, options...)
 	}
 
@@ -32,10 +36,14 @@ func (r *ChatAPI) UpdateAnnouncement(ctx context.Context, request *UpdateAnnounc
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
 	if err != nil {
+		r.cli.logError(ctx, "[lark] Chat#UpdateAnnouncement PATCH https://open.feishu.cn/open-apis/im/v1/chats/:chat_id/announcement failed: %s", err)
 		return nil, response, err
 	} else if resp.Code != 0 {
+		r.cli.logError(ctx, "[lark] Chat#UpdateAnnouncement PATCH https://open.feishu.cn/open-apis/im/v1/chats/:chat_id/announcement failed, code: %d, msg: %s", resp.Code, resp.Msg)
 		return nil, response, NewError("Chat", "UpdateAnnouncement", resp.Code, resp.Msg)
 	}
+
+	r.cli.logDebug(ctx, "[lark] Chat#UpdateAnnouncement request_id: %s, response: %s", response.RequestID, jsonString(resp.Data))
 
 	return resp.Data, response, nil
 }

@@ -12,7 +12,11 @@ import (
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/vc-v1/meeting-recording/get
 func (r *VCAPI) GetMeetingRecording(ctx context.Context, request *GetMeetingRecordingReq, options ...MethodOptionFunc) (*GetMeetingRecordingResp, *Response, error) {
+	r.cli.logInfo(ctx, "[lark] VC#GetMeetingRecording call api")
+	r.cli.logDebug(ctx, "[lark] VC#GetMeetingRecording request: %s", jsonString(request))
+
 	if r.cli.mock.mockVCGetMeetingRecording != nil {
+		r.cli.logDebug(ctx, "[lark] VC#GetMeetingRecording mock enable")
 		return r.cli.mock.mockVCGetMeetingRecording(ctx, request, options...)
 	}
 
@@ -27,10 +31,14 @@ func (r *VCAPI) GetMeetingRecording(ctx context.Context, request *GetMeetingReco
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
 	if err != nil {
+		r.cli.logError(ctx, "[lark] VC#GetMeetingRecording GET https://open.feishu.cn/open-apis/vc/v1/meetings/:meeting_id/recording failed: %s", err)
 		return nil, response, err
 	} else if resp.Code != 0 {
+		r.cli.logError(ctx, "[lark] VC#GetMeetingRecording GET https://open.feishu.cn/open-apis/vc/v1/meetings/:meeting_id/recording failed, code: %d, msg: %s", resp.Code, resp.Msg)
 		return nil, response, NewError("VC", "GetMeetingRecording", resp.Code, resp.Msg)
 	}
+
+	r.cli.logDebug(ctx, "[lark] VC#GetMeetingRecording request_id: %s, response: %s", response.RequestID, jsonString(resp.Data))
 
 	return resp.Data, response, nil
 }

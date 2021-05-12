@@ -12,7 +12,11 @@ import (
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/vc-v1/meeting-recording/set_permission
 func (r *VCAPI) SetPermissionMeetingRecording(ctx context.Context, request *SetPermissionMeetingRecordingReq, options ...MethodOptionFunc) (*SetPermissionMeetingRecordingResp, *Response, error) {
+	r.cli.logInfo(ctx, "[lark] VC#SetPermissionMeetingRecording call api")
+	r.cli.logDebug(ctx, "[lark] VC#SetPermissionMeetingRecording request: %s", jsonString(request))
+
 	if r.cli.mock.mockVCSetPermissionMeetingRecording != nil {
+		r.cli.logDebug(ctx, "[lark] VC#SetPermissionMeetingRecording mock enable")
 		return r.cli.mock.mockVCSetPermissionMeetingRecording(ctx, request, options...)
 	}
 
@@ -27,10 +31,14 @@ func (r *VCAPI) SetPermissionMeetingRecording(ctx context.Context, request *SetP
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
 	if err != nil {
+		r.cli.logError(ctx, "[lark] VC#SetPermissionMeetingRecording PATCH https://open.feishu.cn/open-apis/vc/v1/meetings/:meeting_id/recording/set_permission failed: %s", err)
 		return nil, response, err
 	} else if resp.Code != 0 {
+		r.cli.logError(ctx, "[lark] VC#SetPermissionMeetingRecording PATCH https://open.feishu.cn/open-apis/vc/v1/meetings/:meeting_id/recording/set_permission failed, code: %d, msg: %s", resp.Code, resp.Msg)
 		return nil, response, NewError("VC", "SetPermissionMeetingRecording", resp.Code, resp.Msg)
 	}
+
+	r.cli.logDebug(ctx, "[lark] VC#SetPermissionMeetingRecording request_id: %s, response: %s", response.RequestID, jsonString(resp.Data))
 
 	return resp.Data, response, nil
 }

@@ -12,7 +12,11 @@ import (
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/search
 func (r *ContactAPI) SearchDepartment(ctx context.Context, request *SearchDepartmentReq, options ...MethodOptionFunc) (*SearchDepartmentResp, *Response, error) {
+	r.cli.logInfo(ctx, "[lark] Contact#SearchDepartment call api")
+	r.cli.logDebug(ctx, "[lark] Contact#SearchDepartment request: %s", jsonString(request))
+
 	if r.cli.mock.mockContactSearchDepartment != nil {
+		r.cli.logDebug(ctx, "[lark] Contact#SearchDepartment mock enable")
 		return r.cli.mock.mockContactSearchDepartment(ctx, request, options...)
 	}
 
@@ -27,10 +31,14 @@ func (r *ContactAPI) SearchDepartment(ctx context.Context, request *SearchDepart
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
 	if err != nil {
+		r.cli.logError(ctx, "[lark] Contact#SearchDepartment POST https://open.feishu.cn/open-apis/contact/v3/departments/search failed: %s", err)
 		return nil, response, err
 	} else if resp.Code != 0 {
+		r.cli.logError(ctx, "[lark] Contact#SearchDepartment POST https://open.feishu.cn/open-apis/contact/v3/departments/search failed, code: %d, msg: %s", resp.Code, resp.Msg)
 		return nil, response, NewError("Contact", "SearchDepartment", resp.Code, resp.Msg)
 	}
+
+	r.cli.logDebug(ctx, "[lark] Contact#SearchDepartment request_id: %s, response: %s", response.RequestID, jsonString(resp.Data))
 
 	return resp.Data, response, nil
 }

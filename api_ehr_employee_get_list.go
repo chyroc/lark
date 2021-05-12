@@ -10,7 +10,11 @@ import (
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/ehr/ehr-v1/employee/list
 func (r *EHRAPI) GetEmployeeList(ctx context.Context, request *GetEmployeeListReq, options ...MethodOptionFunc) (*GetEmployeeListResp, *Response, error) {
+	r.cli.logInfo(ctx, "[lark] EHR#GetEmployeeList call api")
+	r.cli.logDebug(ctx, "[lark] EHR#GetEmployeeList request: %s", jsonString(request))
+
 	if r.cli.mock.mockEHRGetEmployeeList != nil {
+		r.cli.logDebug(ctx, "[lark] EHR#GetEmployeeList mock enable")
 		return r.cli.mock.mockEHRGetEmployeeList(ctx, request, options...)
 	}
 
@@ -25,10 +29,14 @@ func (r *EHRAPI) GetEmployeeList(ctx context.Context, request *GetEmployeeListRe
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
 	if err != nil {
+		r.cli.logError(ctx, "[lark] EHR#GetEmployeeList GET https://open.feishu.cn/open-apis/ehr/v1/employees failed: %s", err)
 		return nil, response, err
 	} else if resp.Code != 0 {
+		r.cli.logError(ctx, "[lark] EHR#GetEmployeeList GET https://open.feishu.cn/open-apis/ehr/v1/employees failed, code: %d, msg: %s", resp.Code, resp.Msg)
 		return nil, response, NewError("EHR", "GetEmployeeList", resp.Code, resp.Msg)
 	}
+
+	r.cli.logDebug(ctx, "[lark] EHR#GetEmployeeList request_id: %s, response: %s", response.RequestID, jsonString(resp.Data))
 
 	return resp.Data, response, nil
 }

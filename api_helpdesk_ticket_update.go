@@ -10,7 +10,11 @@ import (
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/ticket/update
 func (r *HelpdeskAPI) UpdateTicket(ctx context.Context, request *UpdateTicketReq, options ...MethodOptionFunc) (*UpdateTicketResp, *Response, error) {
+	r.cli.logInfo(ctx, "[lark] Helpdesk#UpdateTicket call api")
+	r.cli.logDebug(ctx, "[lark] Helpdesk#UpdateTicket request: %s", jsonString(request))
+
 	if r.cli.mock.mockHelpdeskUpdateTicket != nil {
+		r.cli.logDebug(ctx, "[lark] Helpdesk#UpdateTicket mock enable")
 		return r.cli.mock.mockHelpdeskUpdateTicket(ctx, request, options...)
 	}
 
@@ -26,10 +30,14 @@ func (r *HelpdeskAPI) UpdateTicket(ctx context.Context, request *UpdateTicketReq
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
 	if err != nil {
+		r.cli.logError(ctx, "[lark] Helpdesk#UpdateTicket PUT https://open.feishu.cn/open-apis/helpdesk/v1/tickets/:ticket_id failed: %s", err)
 		return nil, response, err
 	} else if resp.Code != 0 {
+		r.cli.logError(ctx, "[lark] Helpdesk#UpdateTicket PUT https://open.feishu.cn/open-apis/helpdesk/v1/tickets/:ticket_id failed, code: %d, msg: %s", resp.Code, resp.Msg)
 		return nil, response, NewError("Helpdesk", "UpdateTicket", resp.Code, resp.Msg)
 	}
+
+	r.cli.logDebug(ctx, "[lark] Helpdesk#UpdateTicket request_id: %s, response: %s", response.RequestID, jsonString(resp.Data))
 
 	return resp.Data, response, nil
 }

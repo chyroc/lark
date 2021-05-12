@@ -15,7 +15,11 @@ import (
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/human_authentication-v1/face/query-recognition-result
 func (r *HumanAuthAPI) GetFaceVerifyAuthResult(ctx context.Context, request *GetFaceVerifyAuthResultReq, options ...MethodOptionFunc) (*GetFaceVerifyAuthResultResp, *Response, error) {
+	r.cli.logInfo(ctx, "[lark] HumanAuth#GetFaceVerifyAuthResult call api")
+	r.cli.logDebug(ctx, "[lark] HumanAuth#GetFaceVerifyAuthResult request: %s", jsonString(request))
+
 	if r.cli.mock.mockHumanAuthGetFaceVerifyAuthResult != nil {
+		r.cli.logDebug(ctx, "[lark] HumanAuth#GetFaceVerifyAuthResult mock enable")
 		return r.cli.mock.mockHumanAuthGetFaceVerifyAuthResult(ctx, request, options...)
 	}
 
@@ -30,10 +34,14 @@ func (r *HumanAuthAPI) GetFaceVerifyAuthResult(ctx context.Context, request *Get
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
 	if err != nil {
+		r.cli.logError(ctx, "[lark] HumanAuth#GetFaceVerifyAuthResult GET https://open.feishu.cn/open-apis/face_verify/v1/query_auth_result failed: %s", err)
 		return nil, response, err
 	} else if resp.Code != 0 {
+		r.cli.logError(ctx, "[lark] HumanAuth#GetFaceVerifyAuthResult GET https://open.feishu.cn/open-apis/face_verify/v1/query_auth_result failed, code: %d, msg: %s", resp.Code, resp.Msg)
 		return nil, response, NewError("HumanAuth", "GetFaceVerifyAuthResult", resp.Code, resp.Msg)
 	}
+
+	r.cli.logDebug(ctx, "[lark] HumanAuth#GetFaceVerifyAuthResult request_id: %s, response: %s", response.RequestID, jsonString(resp.Data))
 
 	return resp.Data, response, nil
 }

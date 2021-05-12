@@ -12,7 +12,11 @@ import (
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/Attendance//CreateandEditShifts
 func (r *AttendanceAPI) CreateUpdateUserDailyShift(ctx context.Context, request *CreateUpdateUserDailyShiftReq, options ...MethodOptionFunc) (*CreateUpdateUserDailyShiftResp, *Response, error) {
+	r.cli.logInfo(ctx, "[lark] Attendance#CreateUpdateUserDailyShift call api")
+	r.cli.logDebug(ctx, "[lark] Attendance#CreateUpdateUserDailyShift request: %s", jsonString(request))
+
 	if r.cli.mock.mockAttendanceCreateUpdateUserDailyShift != nil {
+		r.cli.logDebug(ctx, "[lark] Attendance#CreateUpdateUserDailyShift mock enable")
 		return r.cli.mock.mockAttendanceCreateUpdateUserDailyShift(ctx, request, options...)
 	}
 
@@ -27,10 +31,14 @@ func (r *AttendanceAPI) CreateUpdateUserDailyShift(ctx context.Context, request 
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
 	if err != nil {
+		r.cli.logError(ctx, "[lark] Attendance#CreateUpdateUserDailyShift POST https://open.feishu.cn/open-apis/attendance/v1/user_daily_shifts/batch_create failed: %s", err)
 		return nil, response, err
 	} else if resp.Code != 0 {
+		r.cli.logError(ctx, "[lark] Attendance#CreateUpdateUserDailyShift POST https://open.feishu.cn/open-apis/attendance/v1/user_daily_shifts/batch_create failed, code: %d, msg: %s", resp.Code, resp.Msg)
 		return nil, response, NewError("Attendance", "CreateUpdateUserDailyShift", resp.Code, resp.Msg)
 	}
+
+	r.cli.logDebug(ctx, "[lark] Attendance#CreateUpdateUserDailyShift request_id: %s, response: %s", response.RequestID, jsonString(resp.Data))
 
 	return resp.Data, response, nil
 }

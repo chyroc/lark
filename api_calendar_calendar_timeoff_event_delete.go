@@ -10,7 +10,11 @@ import (
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/timeoff_event/delete
 func (r *CalendarAPI) DeleteCalendarTimeoffEvent(ctx context.Context, request *DeleteCalendarTimeoffEventReq, options ...MethodOptionFunc) (*DeleteCalendarTimeoffEventResp, *Response, error) {
+	r.cli.logInfo(ctx, "[lark] Calendar#DeleteCalendarTimeoffEvent call api")
+	r.cli.logDebug(ctx, "[lark] Calendar#DeleteCalendarTimeoffEvent request: %s", jsonString(request))
+
 	if r.cli.mock.mockCalendarDeleteCalendarTimeoffEvent != nil {
+		r.cli.logDebug(ctx, "[lark] Calendar#DeleteCalendarTimeoffEvent mock enable")
 		return r.cli.mock.mockCalendarDeleteCalendarTimeoffEvent(ctx, request, options...)
 	}
 
@@ -25,10 +29,14 @@ func (r *CalendarAPI) DeleteCalendarTimeoffEvent(ctx context.Context, request *D
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
 	if err != nil {
+		r.cli.logError(ctx, "[lark] Calendar#DeleteCalendarTimeoffEvent DELETE https://open.feishu.cn/open-apis/calendar/v4/timeoff_events/:timeoff_event_id failed: %s", err)
 		return nil, response, err
 	} else if resp.Code != 0 {
+		r.cli.logError(ctx, "[lark] Calendar#DeleteCalendarTimeoffEvent DELETE https://open.feishu.cn/open-apis/calendar/v4/timeoff_events/:timeoff_event_id failed, code: %d, msg: %s", resp.Code, resp.Msg)
 		return nil, response, NewError("Calendar", "DeleteCalendarTimeoffEvent", resp.Code, resp.Msg)
 	}
+
+	r.cli.logDebug(ctx, "[lark] Calendar#DeleteCalendarTimeoffEvent request_id: %s, response: %s", response.RequestID, jsonString(resp.Data))
 
 	return resp.Data, response, nil
 }

@@ -10,7 +10,11 @@ import (
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uIDOyUjLygjM14iM4ITN
 func (r *MeetingRoomAPI) BatchGetFreebusy(ctx context.Context, request *BatchGetFreebusyReq, options ...MethodOptionFunc) (*BatchGetFreebusyResp, *Response, error) {
+	r.cli.logInfo(ctx, "[lark] MeetingRoom#BatchGetFreebusy call api")
+	r.cli.logDebug(ctx, "[lark] MeetingRoom#BatchGetFreebusy request: %s", jsonString(request))
+
 	if r.cli.mock.mockMeetingRoomBatchGetFreebusy != nil {
+		r.cli.logDebug(ctx, "[lark] MeetingRoom#BatchGetFreebusy mock enable")
 		return r.cli.mock.mockMeetingRoomBatchGetFreebusy(ctx, request, options...)
 	}
 
@@ -25,10 +29,14 @@ func (r *MeetingRoomAPI) BatchGetFreebusy(ctx context.Context, request *BatchGet
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
 	if err != nil {
+		r.cli.logError(ctx, "[lark] MeetingRoom#BatchGetFreebusy GET https://open.feishu.cn/open-apis/meeting_room/freebusy/batch_get?room_ids=omm_83d09ad4f6896e02029a6a075f71c9d1&room_ids=omm_eada1d61a550955240c28757e7dec3af&time_min=2019-09-04T08:45:00%2B08:00&time_max=2019-09-04T09:45:00%2B08:00 failed: %s", err)
 		return nil, response, err
 	} else if resp.Code != 0 {
+		r.cli.logError(ctx, "[lark] MeetingRoom#BatchGetFreebusy GET https://open.feishu.cn/open-apis/meeting_room/freebusy/batch_get?room_ids=omm_83d09ad4f6896e02029a6a075f71c9d1&room_ids=omm_eada1d61a550955240c28757e7dec3af&time_min=2019-09-04T08:45:00%2B08:00&time_max=2019-09-04T09:45:00%2B08:00 failed, code: %d, msg: %s", resp.Code, resp.Msg)
 		return nil, response, NewError("MeetingRoom", "BatchGetFreebusy", resp.Code, resp.Msg)
 	}
+
+	r.cli.logDebug(ctx, "[lark] MeetingRoom#BatchGetFreebusy request_id: %s, response: %s", response.RequestID, jsonString(resp.Data))
 
 	return resp.Data, response, nil
 }

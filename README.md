@@ -12,11 +12,12 @@ Feishu/Lark Open API Go Sdk, Support ALL Open API and Event Callback.
 
 Supported Features
 
-- Many interfaces and events
+- Many APIs and events
 - Support mock to support test
 - Support isv and self-built apps
+- Support Logger interface
 - Support UserAccessToken
-- Use code generation to create, interface and document update timely
+- Use code generation to create, api and document update timely
 
 ## Install
 

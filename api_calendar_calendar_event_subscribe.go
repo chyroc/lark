@@ -12,7 +12,11 @@ import (
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar-event/subscription
 func (r *CalendarAPI) SubscribeCalendarEvent(ctx context.Context, request *SubscribeCalendarEventReq, options ...MethodOptionFunc) (*SubscribeCalendarEventResp, *Response, error) {
+	r.cli.logInfo(ctx, "[lark] Calendar#SubscribeCalendarEvent call api")
+	r.cli.logDebug(ctx, "[lark] Calendar#SubscribeCalendarEvent request: %s", jsonString(request))
+
 	if r.cli.mock.mockCalendarSubscribeCalendarEvent != nil {
+		r.cli.logDebug(ctx, "[lark] Calendar#SubscribeCalendarEvent mock enable")
 		return r.cli.mock.mockCalendarSubscribeCalendarEvent(ctx, request, options...)
 	}
 
@@ -27,10 +31,14 @@ func (r *CalendarAPI) SubscribeCalendarEvent(ctx context.Context, request *Subsc
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
 	if err != nil {
+		r.cli.logError(ctx, "[lark] Calendar#SubscribeCalendarEvent POST https://open.feishu.cn/open-apis/calendar/v4/calendars/:calendar_id/events/subscription failed: %s", err)
 		return nil, response, err
 	} else if resp.Code != 0 {
+		r.cli.logError(ctx, "[lark] Calendar#SubscribeCalendarEvent POST https://open.feishu.cn/open-apis/calendar/v4/calendars/:calendar_id/events/subscription failed, code: %d, msg: %s", resp.Code, resp.Msg)
 		return nil, response, NewError("Calendar", "SubscribeCalendarEvent", resp.Code, resp.Msg)
 	}
+
+	r.cli.logDebug(ctx, "[lark] Calendar#SubscribeCalendarEvent request_id: %s, response: %s", response.RequestID, jsonString(resp.Data))
 
 	return resp.Data, response, nil
 }

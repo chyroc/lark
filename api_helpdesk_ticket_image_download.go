@@ -11,7 +11,11 @@ import (
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/ticket/ticket_image
 func (r *HelpdeskAPI) DownloadTicketImage(ctx context.Context, request *DownloadTicketImageReq, options ...MethodOptionFunc) (*DownloadTicketImageResp, *Response, error) {
+	r.cli.logInfo(ctx, "[lark] Helpdesk#DownloadTicketImage call api")
+	r.cli.logDebug(ctx, "[lark] Helpdesk#DownloadTicketImage request: %s", jsonString(request))
+
 	if r.cli.mock.mockHelpdeskDownloadTicketImage != nil {
+		r.cli.logDebug(ctx, "[lark] Helpdesk#DownloadTicketImage mock enable")
 		return r.cli.mock.mockHelpdeskDownloadTicketImage(ctx, request, options...)
 	}
 
@@ -27,10 +31,14 @@ func (r *HelpdeskAPI) DownloadTicketImage(ctx context.Context, request *Download
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
 	if err != nil {
+		r.cli.logError(ctx, "[lark] Helpdesk#DownloadTicketImage GET https://open.feishu.cn/open-apis/helpdesk/v1/ticket_images failed: %s", err)
 		return nil, response, err
 	} else if resp.Code != 0 {
+		r.cli.logError(ctx, "[lark] Helpdesk#DownloadTicketImage GET https://open.feishu.cn/open-apis/helpdesk/v1/ticket_images failed, code: %d, msg: %s", resp.Code, resp.Msg)
 		return nil, response, NewError("Helpdesk", "DownloadTicketImage", resp.Code, resp.Msg)
 	}
+
+	r.cli.logDebug(ctx, "[lark] Helpdesk#DownloadTicketImage request_id: %s, response: %s", response.RequestID, jsonString(resp.Data))
 
 	return resp.Data, response, nil
 }

@@ -15,7 +15,11 @@ import (
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/read_users
 func (r *MessageAPI) GetMessageReadUserList(ctx context.Context, request *GetMessageReadUserListReq, options ...MethodOptionFunc) (*GetMessageReadUserListResp, *Response, error) {
+	r.cli.logInfo(ctx, "[lark] Message#GetMessageReadUserList call api")
+	r.cli.logDebug(ctx, "[lark] Message#GetMessageReadUserList request: %s", jsonString(request))
+
 	if r.cli.mock.mockMessageGetMessageReadUserList != nil {
+		r.cli.logDebug(ctx, "[lark] Message#GetMessageReadUserList mock enable")
 		return r.cli.mock.mockMessageGetMessageReadUserList(ctx, request, options...)
 	}
 
@@ -30,10 +34,14 @@ func (r *MessageAPI) GetMessageReadUserList(ctx context.Context, request *GetMes
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
 	if err != nil {
+		r.cli.logError(ctx, "[lark] Message#GetMessageReadUserList GET https://open.feishu.cn/open-apis/im/v1/messages/:message_id/read_users failed: %s", err)
 		return nil, response, err
 	} else if resp.Code != 0 {
+		r.cli.logError(ctx, "[lark] Message#GetMessageReadUserList GET https://open.feishu.cn/open-apis/im/v1/messages/:message_id/read_users failed, code: %d, msg: %s", resp.Code, resp.Msg)
 		return nil, response, NewError("Message", "GetMessageReadUserList", resp.Code, resp.Msg)
 	}
+
+	r.cli.logDebug(ctx, "[lark] Message#GetMessageReadUserList request_id: %s, response: %s", response.RequestID, jsonString(resp.Data))
 
 	return resp.Data, response, nil
 }

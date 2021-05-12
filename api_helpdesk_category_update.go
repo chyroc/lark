@@ -10,7 +10,11 @@ import (
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/category/patch
 func (r *HelpdeskAPI) UpdateCategory(ctx context.Context, request *UpdateCategoryReq, options ...MethodOptionFunc) (*UpdateCategoryResp, *Response, error) {
+	r.cli.logInfo(ctx, "[lark] Helpdesk#UpdateCategory call api")
+	r.cli.logDebug(ctx, "[lark] Helpdesk#UpdateCategory request: %s", jsonString(request))
+
 	if r.cli.mock.mockHelpdeskUpdateCategory != nil {
+		r.cli.logDebug(ctx, "[lark] Helpdesk#UpdateCategory mock enable")
 		return r.cli.mock.mockHelpdeskUpdateCategory(ctx, request, options...)
 	}
 
@@ -26,10 +30,14 @@ func (r *HelpdeskAPI) UpdateCategory(ctx context.Context, request *UpdateCategor
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
 	if err != nil {
+		r.cli.logError(ctx, "[lark] Helpdesk#UpdateCategory PATCH https://open.feishu.cn/open-apis/helpdesk/v1/categories/:id failed: %s", err)
 		return nil, response, err
 	} else if resp.Code != 0 {
+		r.cli.logError(ctx, "[lark] Helpdesk#UpdateCategory PATCH https://open.feishu.cn/open-apis/helpdesk/v1/categories/:id failed, code: %d, msg: %s", resp.Code, resp.Msg)
 		return nil, response, NewError("Helpdesk", "UpdateCategory", resp.Code, resp.Msg)
 	}
+
+	r.cli.logDebug(ctx, "[lark] Helpdesk#UpdateCategory request_id: %s, response: %s", response.RequestID, jsonString(resp.Data))
 
 	return resp.Data, response, nil
 }

@@ -12,7 +12,11 @@ import (
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/Attendance//task/GetScheduledShifts
 func (r *AttendanceAPI) GetUserDailyShift(ctx context.Context, request *GetUserDailyShiftReq, options ...MethodOptionFunc) (*GetUserDailyShiftResp, *Response, error) {
+	r.cli.logInfo(ctx, "[lark] Attendance#GetUserDailyShift call api")
+	r.cli.logDebug(ctx, "[lark] Attendance#GetUserDailyShift request: %s", jsonString(request))
+
 	if r.cli.mock.mockAttendanceGetUserDailyShift != nil {
+		r.cli.logDebug(ctx, "[lark] Attendance#GetUserDailyShift mock enable")
 		return r.cli.mock.mockAttendanceGetUserDailyShift(ctx, request, options...)
 	}
 
@@ -27,10 +31,14 @@ func (r *AttendanceAPI) GetUserDailyShift(ctx context.Context, request *GetUserD
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
 	if err != nil {
+		r.cli.logError(ctx, "[lark] Attendance#GetUserDailyShift POST https://open.feishu.cn/open-apis/attendance/v1/user_daily_shifts/query failed: %s", err)
 		return nil, response, err
 	} else if resp.Code != 0 {
+		r.cli.logError(ctx, "[lark] Attendance#GetUserDailyShift POST https://open.feishu.cn/open-apis/attendance/v1/user_daily_shifts/query failed, code: %d, msg: %s", resp.Code, resp.Msg)
 		return nil, response, NewError("Attendance", "GetUserDailyShift", resp.Code, resp.Msg)
 	}
+
+	r.cli.logDebug(ctx, "[lark] Attendance#GetUserDailyShift request_id: %s, response: %s", response.RequestID, jsonString(resp.Data))
 
 	return resp.Data, response, nil
 }

@@ -10,7 +10,11 @@ import (
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/Attendance//task/query-statistics-data
 func (r *AttendanceAPI) GetStatisticsData(ctx context.Context, request *GetStatisticsDataReq, options ...MethodOptionFunc) (*GetStatisticsDataResp, *Response, error) {
+	r.cli.logInfo(ctx, "[lark] Attendance#GetStatisticsData call api")
+	r.cli.logDebug(ctx, "[lark] Attendance#GetStatisticsData request: %s", jsonString(request))
+
 	if r.cli.mock.mockAttendanceGetStatisticsData != nil {
+		r.cli.logDebug(ctx, "[lark] Attendance#GetStatisticsData mock enable")
 		return r.cli.mock.mockAttendanceGetStatisticsData(ctx, request, options...)
 	}
 
@@ -25,10 +29,14 @@ func (r *AttendanceAPI) GetStatisticsData(ctx context.Context, request *GetStati
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
 	if err != nil {
+		r.cli.logError(ctx, "[lark] Attendance#GetStatisticsData POST https://open.feishu.cn/open-apis/attendance/v1/user_stats_datas/query failed: %s", err)
 		return nil, response, err
 	} else if resp.Code != 0 {
+		r.cli.logError(ctx, "[lark] Attendance#GetStatisticsData POST https://open.feishu.cn/open-apis/attendance/v1/user_stats_datas/query failed, code: %d, msg: %s", resp.Code, resp.Msg)
 		return nil, response, NewError("Attendance", "GetStatisticsData", resp.Code, resp.Msg)
 	}
+
+	r.cli.logDebug(ctx, "[lark] Attendance#GetStatisticsData request_id: %s, response: %s", response.RequestID, jsonString(resp.Data))
 
 	return resp.Data, response, nil
 }

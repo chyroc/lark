@@ -12,7 +12,11 @@ import (
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/tenant-v2/tenant/query
 func (r *TenantAPI) QueryTenant(ctx context.Context, request *QueryTenantReq, options ...MethodOptionFunc) (*QueryTenantResp, *Response, error) {
+	r.cli.logInfo(ctx, "[lark] Tenant#QueryTenant call api")
+	r.cli.logDebug(ctx, "[lark] Tenant#QueryTenant request: %s", jsonString(request))
+
 	if r.cli.mock.mockTenantQueryTenant != nil {
+		r.cli.logDebug(ctx, "[lark] Tenant#QueryTenant mock enable")
 		return r.cli.mock.mockTenantQueryTenant(ctx, request, options...)
 	}
 
@@ -27,10 +31,14 @@ func (r *TenantAPI) QueryTenant(ctx context.Context, request *QueryTenantReq, op
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
 	if err != nil {
+		r.cli.logError(ctx, "[lark] Tenant#QueryTenant GET https://open.feishu.cn/open-apis/tenant/v2/tenant/query failed: %s", err)
 		return nil, response, err
 	} else if resp.Code != 0 {
+		r.cli.logError(ctx, "[lark] Tenant#QueryTenant GET https://open.feishu.cn/open-apis/tenant/v2/tenant/query failed, code: %d, msg: %s", resp.Code, resp.Msg)
 		return nil, response, NewError("Tenant", "QueryTenant", resp.Code, resp.Msg)
 	}
+
+	r.cli.logDebug(ctx, "[lark] Tenant#QueryTenant request_id: %s, response: %s", response.RequestID, jsonString(resp.Data))
 
 	return resp.Data, response, nil
 }

@@ -10,7 +10,11 @@ import (
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/mail-v1/mailgroup/update
 func (r *MailAPI) UpdateMailGroup(ctx context.Context, request *UpdateMailGroupReq, options ...MethodOptionFunc) (*UpdateMailGroupResp, *Response, error) {
+	r.cli.logInfo(ctx, "[lark] Mail#UpdateMailGroup call api")
+	r.cli.logDebug(ctx, "[lark] Mail#UpdateMailGroup request: %s", jsonString(request))
+
 	if r.cli.mock.mockMailUpdateMailGroup != nil {
+		r.cli.logDebug(ctx, "[lark] Mail#UpdateMailGroup mock enable")
 		return r.cli.mock.mockMailUpdateMailGroup(ctx, request, options...)
 	}
 
@@ -25,10 +29,14 @@ func (r *MailAPI) UpdateMailGroup(ctx context.Context, request *UpdateMailGroupR
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
 	if err != nil {
+		r.cli.logError(ctx, "[lark] Mail#UpdateMailGroup PUT https://open.feishu.cn/open-apis/mail/v1/mailgroups/:mailgroup_id failed: %s", err)
 		return nil, response, err
 	} else if resp.Code != 0 {
+		r.cli.logError(ctx, "[lark] Mail#UpdateMailGroup PUT https://open.feishu.cn/open-apis/mail/v1/mailgroups/:mailgroup_id failed, code: %d, msg: %s", resp.Code, resp.Msg)
 		return nil, response, NewError("Mail", "UpdateMailGroup", resp.Code, resp.Msg)
 	}
+
+	r.cli.logDebug(ctx, "[lark] Mail#UpdateMailGroup request_id: %s, response: %s", response.RequestID, jsonString(resp.Data))
 
 	return resp.Data, response, nil
 }

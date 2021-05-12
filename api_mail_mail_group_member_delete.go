@@ -10,7 +10,11 @@ import (
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/mail-v1/mailgroup-member/delete
 func (r *MailAPI) DeleteMailGroupMember(ctx context.Context, request *DeleteMailGroupMemberReq, options ...MethodOptionFunc) (*DeleteMailGroupMemberResp, *Response, error) {
+	r.cli.logInfo(ctx, "[lark] Mail#DeleteMailGroupMember call api")
+	r.cli.logDebug(ctx, "[lark] Mail#DeleteMailGroupMember request: %s", jsonString(request))
+
 	if r.cli.mock.mockMailDeleteMailGroupMember != nil {
+		r.cli.logDebug(ctx, "[lark] Mail#DeleteMailGroupMember mock enable")
 		return r.cli.mock.mockMailDeleteMailGroupMember(ctx, request, options...)
 	}
 
@@ -25,10 +29,14 @@ func (r *MailAPI) DeleteMailGroupMember(ctx context.Context, request *DeleteMail
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
 	if err != nil {
+		r.cli.logError(ctx, "[lark] Mail#DeleteMailGroupMember DELETE https://open.feishu.cn/open-apis/mail/v1/mailgroups/:mailgroup_id/members/:member_id failed: %s", err)
 		return nil, response, err
 	} else if resp.Code != 0 {
+		r.cli.logError(ctx, "[lark] Mail#DeleteMailGroupMember DELETE https://open.feishu.cn/open-apis/mail/v1/mailgroups/:mailgroup_id/members/:member_id failed, code: %d, msg: %s", resp.Code, resp.Msg)
 		return nil, response, NewError("Mail", "DeleteMailGroupMember", resp.Code, resp.Msg)
 	}
+
+	r.cli.logDebug(ctx, "[lark] Mail#DeleteMailGroupMember request_id: %s, response: %s", response.RequestID, jsonString(resp.Data))
 
 	return resp.Data, response, nil
 }

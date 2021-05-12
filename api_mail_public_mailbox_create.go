@@ -10,7 +10,11 @@ import (
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/mail-v1/public_mailbox/create
 func (r *MailAPI) CreatePublicMailbox(ctx context.Context, request *CreatePublicMailboxReq, options ...MethodOptionFunc) (*CreatePublicMailboxResp, *Response, error) {
+	r.cli.logInfo(ctx, "[lark] Mail#CreatePublicMailbox call api")
+	r.cli.logDebug(ctx, "[lark] Mail#CreatePublicMailbox request: %s", jsonString(request))
+
 	if r.cli.mock.mockMailCreatePublicMailbox != nil {
+		r.cli.logDebug(ctx, "[lark] Mail#CreatePublicMailbox mock enable")
 		return r.cli.mock.mockMailCreatePublicMailbox(ctx, request, options...)
 	}
 
@@ -25,10 +29,14 @@ func (r *MailAPI) CreatePublicMailbox(ctx context.Context, request *CreatePublic
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
 	if err != nil {
+		r.cli.logError(ctx, "[lark] Mail#CreatePublicMailbox POST https://open.feishu.cn/open-apis/mail/v1/public_mailboxes failed: %s", err)
 		return nil, response, err
 	} else if resp.Code != 0 {
+		r.cli.logError(ctx, "[lark] Mail#CreatePublicMailbox POST https://open.feishu.cn/open-apis/mail/v1/public_mailboxes failed, code: %d, msg: %s", resp.Code, resp.Msg)
 		return nil, response, NewError("Mail", "CreatePublicMailbox", resp.Code, resp.Msg)
 	}
+
+	r.cli.logDebug(ctx, "[lark] Mail#CreatePublicMailbox request_id: %s, response: %s", response.RequestID, jsonString(resp.Data))
 
 	return resp.Data, response, nil
 }

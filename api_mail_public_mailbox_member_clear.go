@@ -10,7 +10,11 @@ import (
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/mail-v1/public_mailbox-member/clear
 func (r *MailAPI) ClearPublicMailboxMember(ctx context.Context, request *ClearPublicMailboxMemberReq, options ...MethodOptionFunc) (*ClearPublicMailboxMemberResp, *Response, error) {
+	r.cli.logInfo(ctx, "[lark] Mail#ClearPublicMailboxMember call api")
+	r.cli.logDebug(ctx, "[lark] Mail#ClearPublicMailboxMember request: %s", jsonString(request))
+
 	if r.cli.mock.mockMailClearPublicMailboxMember != nil {
+		r.cli.logDebug(ctx, "[lark] Mail#ClearPublicMailboxMember mock enable")
 		return r.cli.mock.mockMailClearPublicMailboxMember(ctx, request, options...)
 	}
 
@@ -25,10 +29,14 @@ func (r *MailAPI) ClearPublicMailboxMember(ctx context.Context, request *ClearPu
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
 	if err != nil {
+		r.cli.logError(ctx, "[lark] Mail#ClearPublicMailboxMember POST https://open.feishu.cn/open-apis/mail/v1/public_mailboxes/:public_mailbox_id/members/clear failed: %s", err)
 		return nil, response, err
 	} else if resp.Code != 0 {
+		r.cli.logError(ctx, "[lark] Mail#ClearPublicMailboxMember POST https://open.feishu.cn/open-apis/mail/v1/public_mailboxes/:public_mailbox_id/members/clear failed, code: %d, msg: %s", resp.Code, resp.Msg)
 		return nil, response, NewError("Mail", "ClearPublicMailboxMember", resp.Code, resp.Msg)
 	}
+
+	r.cli.logDebug(ctx, "[lark] Mail#ClearPublicMailboxMember request_id: %s, response: %s", response.RequestID, jsonString(resp.Data))
 
 	return resp.Data, response, nil
 }

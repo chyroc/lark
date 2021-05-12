@@ -10,7 +10,11 @@ import (
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uATNwYjLwUDM24CM1AjN
 func (r *MeetingRoomAPI) CreateBuilding(ctx context.Context, request *CreateBuildingReq, options ...MethodOptionFunc) (*CreateBuildingResp, *Response, error) {
+	r.cli.logInfo(ctx, "[lark] MeetingRoom#CreateBuilding call api")
+	r.cli.logDebug(ctx, "[lark] MeetingRoom#CreateBuilding request: %s", jsonString(request))
+
 	if r.cli.mock.mockMeetingRoomCreateBuilding != nil {
+		r.cli.logDebug(ctx, "[lark] MeetingRoom#CreateBuilding mock enable")
 		return r.cli.mock.mockMeetingRoomCreateBuilding(ctx, request, options...)
 	}
 
@@ -25,10 +29,14 @@ func (r *MeetingRoomAPI) CreateBuilding(ctx context.Context, request *CreateBuil
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
 	if err != nil {
+		r.cli.logError(ctx, "[lark] MeetingRoom#CreateBuilding POST https://open.feishu.cn/open-apis/meeting_room/building/create failed: %s", err)
 		return nil, response, err
 	} else if resp.Code != 0 {
+		r.cli.logError(ctx, "[lark] MeetingRoom#CreateBuilding POST https://open.feishu.cn/open-apis/meeting_room/building/create failed, code: %d, msg: %s", resp.Code, resp.Msg)
 		return nil, response, NewError("MeetingRoom", "CreateBuilding", resp.Code, resp.Msg)
 	}
+
+	r.cli.logDebug(ctx, "[lark] MeetingRoom#CreateBuilding request_id: %s, response: %s", response.RequestID, jsonString(resp.Data))
 
 	return resp.Data, response, nil
 }

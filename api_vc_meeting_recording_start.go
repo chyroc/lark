@@ -12,7 +12,11 @@ import (
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/vc-v1/meeting-recording/start
 func (r *VCAPI) StartMeetingRecording(ctx context.Context, request *StartMeetingRecordingReq, options ...MethodOptionFunc) (*StartMeetingRecordingResp, *Response, error) {
+	r.cli.logInfo(ctx, "[lark] VC#StartMeetingRecording call api")
+	r.cli.logDebug(ctx, "[lark] VC#StartMeetingRecording request: %s", jsonString(request))
+
 	if r.cli.mock.mockVCStartMeetingRecording != nil {
+		r.cli.logDebug(ctx, "[lark] VC#StartMeetingRecording mock enable")
 		return r.cli.mock.mockVCStartMeetingRecording(ctx, request, options...)
 	}
 
@@ -27,10 +31,14 @@ func (r *VCAPI) StartMeetingRecording(ctx context.Context, request *StartMeeting
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
 	if err != nil {
+		r.cli.logError(ctx, "[lark] VC#StartMeetingRecording PATCH https://open.feishu.cn/open-apis/vc/v1/meetings/:meeting_id/recording/start failed: %s", err)
 		return nil, response, err
 	} else if resp.Code != 0 {
+		r.cli.logError(ctx, "[lark] VC#StartMeetingRecording PATCH https://open.feishu.cn/open-apis/vc/v1/meetings/:meeting_id/recording/start failed, code: %d, msg: %s", resp.Code, resp.Msg)
 		return nil, response, NewError("VC", "StartMeetingRecording", resp.Code, resp.Msg)
 	}
+
+	r.cli.logDebug(ctx, "[lark] VC#StartMeetingRecording request_id: %s, response: %s", response.RequestID, jsonString(resp.Data))
 
 	return resp.Data, response, nil
 }

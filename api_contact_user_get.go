@@ -10,7 +10,11 @@ import (
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/get
 func (r *ContactAPI) GetUser(ctx context.Context, request *GetUserReq, options ...MethodOptionFunc) (*GetUserResp, *Response, error) {
+	r.cli.logInfo(ctx, "[lark] Contact#GetUser call api")
+	r.cli.logDebug(ctx, "[lark] Contact#GetUser request: %s", jsonString(request))
+
 	if r.cli.mock.mockContactGetUser != nil {
+		r.cli.logDebug(ctx, "[lark] Contact#GetUser mock enable")
 		return r.cli.mock.mockContactGetUser(ctx, request, options...)
 	}
 
@@ -26,10 +30,14 @@ func (r *ContactAPI) GetUser(ctx context.Context, request *GetUserReq, options .
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
 	if err != nil {
+		r.cli.logError(ctx, "[lark] Contact#GetUser GET https://open.feishu.cn/open-apis/contact/v3/users/:user_id failed: %s", err)
 		return nil, response, err
 	} else if resp.Code != 0 {
+		r.cli.logError(ctx, "[lark] Contact#GetUser GET https://open.feishu.cn/open-apis/contact/v3/users/:user_id failed, code: %d, msg: %s", resp.Code, resp.Msg)
 		return nil, response, NewError("Contact", "GetUser", resp.Code, resp.Msg)
 	}
+
+	r.cli.logDebug(ctx, "[lark] Contact#GetUser request_id: %s, response: %s", response.RequestID, jsonString(resp.Data))
 
 	return resp.Data, response, nil
 }

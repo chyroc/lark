@@ -12,7 +12,11 @@ import (
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/delete
 func (r *ContactAPI) DeleteDepartment(ctx context.Context, request *DeleteDepartmentReq, options ...MethodOptionFunc) (*DeleteDepartmentResp, *Response, error) {
+	r.cli.logInfo(ctx, "[lark] Contact#DeleteDepartment call api")
+	r.cli.logDebug(ctx, "[lark] Contact#DeleteDepartment request: %s", jsonString(request))
+
 	if r.cli.mock.mockContactDeleteDepartment != nil {
+		r.cli.logDebug(ctx, "[lark] Contact#DeleteDepartment mock enable")
 		return r.cli.mock.mockContactDeleteDepartment(ctx, request, options...)
 	}
 
@@ -27,10 +31,14 @@ func (r *ContactAPI) DeleteDepartment(ctx context.Context, request *DeleteDepart
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
 	if err != nil {
+		r.cli.logError(ctx, "[lark] Contact#DeleteDepartment DELETE https://open.feishu.cn/open-apis/contact/v3/departments/:department_id failed: %s", err)
 		return nil, response, err
 	} else if resp.Code != 0 {
+		r.cli.logError(ctx, "[lark] Contact#DeleteDepartment DELETE https://open.feishu.cn/open-apis/contact/v3/departments/:department_id failed, code: %d, msg: %s", resp.Code, resp.Msg)
 		return nil, response, NewError("Contact", "DeleteDepartment", resp.Code, resp.Msg)
 	}
+
+	r.cli.logDebug(ctx, "[lark] Contact#DeleteDepartment request_id: %s, response: %s", response.RequestID, jsonString(resp.Data))
 
 	return resp.Data, response, nil
 }

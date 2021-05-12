@@ -10,7 +10,11 @@ import (
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/setting/generate_caldav_conf
 func (r *CalendarAPI) GenerateCaldavConf(ctx context.Context, request *GenerateCaldavConfReq, options ...MethodOptionFunc) (*GenerateCaldavConfResp, *Response, error) {
+	r.cli.logInfo(ctx, "[lark] Calendar#GenerateCaldavConf call api")
+	r.cli.logDebug(ctx, "[lark] Calendar#GenerateCaldavConf request: %s", jsonString(request))
+
 	if r.cli.mock.mockCalendarGenerateCaldavConf != nil {
+		r.cli.logDebug(ctx, "[lark] Calendar#GenerateCaldavConf mock enable")
 		return r.cli.mock.mockCalendarGenerateCaldavConf(ctx, request, options...)
 	}
 
@@ -25,10 +29,14 @@ func (r *CalendarAPI) GenerateCaldavConf(ctx context.Context, request *GenerateC
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
 	if err != nil {
+		r.cli.logError(ctx, "[lark] Calendar#GenerateCaldavConf POST https://open.feishu.cn/open-apis/calendar/v4/settings/generate_caldav_conf failed: %s", err)
 		return nil, response, err
 	} else if resp.Code != 0 {
+		r.cli.logError(ctx, "[lark] Calendar#GenerateCaldavConf POST https://open.feishu.cn/open-apis/calendar/v4/settings/generate_caldav_conf failed, code: %d, msg: %s", resp.Code, resp.Msg)
 		return nil, response, NewError("Calendar", "GenerateCaldavConf", resp.Code, resp.Msg)
 	}
+
+	r.cli.logDebug(ctx, "[lark] Calendar#GenerateCaldavConf request_id: %s, response: %s", response.RequestID, jsonString(resp.Data))
 
 	return resp.Data, response, nil
 }

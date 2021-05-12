@@ -15,7 +15,11 @@ import (
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/list
 func (r *ContactAPI) GetDepartmentList(ctx context.Context, request *GetDepartmentListReq, options ...MethodOptionFunc) (*GetDepartmentListResp, *Response, error) {
+	r.cli.logInfo(ctx, "[lark] Contact#GetDepartmentList call api")
+	r.cli.logDebug(ctx, "[lark] Contact#GetDepartmentList request: %s", jsonString(request))
+
 	if r.cli.mock.mockContactGetDepartmentList != nil {
+		r.cli.logDebug(ctx, "[lark] Contact#GetDepartmentList mock enable")
 		return r.cli.mock.mockContactGetDepartmentList(ctx, request, options...)
 	}
 
@@ -31,10 +35,14 @@ func (r *ContactAPI) GetDepartmentList(ctx context.Context, request *GetDepartme
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
 	if err != nil {
+		r.cli.logError(ctx, "[lark] Contact#GetDepartmentList GET https://open.feishu.cn/open-apis/contact/v3/departments failed: %s", err)
 		return nil, response, err
 	} else if resp.Code != 0 {
+		r.cli.logError(ctx, "[lark] Contact#GetDepartmentList GET https://open.feishu.cn/open-apis/contact/v3/departments failed, code: %d, msg: %s", resp.Code, resp.Msg)
 		return nil, response, NewError("Contact", "GetDepartmentList", resp.Code, resp.Msg)
 	}
+
+	r.cli.logDebug(ctx, "[lark] Contact#GetDepartmentList request_id: %s, response: %s", response.RequestID, jsonString(resp.Data))
 
 	return resp.Data, response, nil
 }

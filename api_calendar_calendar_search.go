@@ -10,7 +10,11 @@ import (
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar/search
 func (r *CalendarAPI) SearchCalendar(ctx context.Context, request *SearchCalendarReq, options ...MethodOptionFunc) (*SearchCalendarResp, *Response, error) {
+	r.cli.logInfo(ctx, "[lark] Calendar#SearchCalendar call api")
+	r.cli.logDebug(ctx, "[lark] Calendar#SearchCalendar request: %s", jsonString(request))
+
 	if r.cli.mock.mockCalendarSearchCalendar != nil {
+		r.cli.logDebug(ctx, "[lark] Calendar#SearchCalendar mock enable")
 		return r.cli.mock.mockCalendarSearchCalendar(ctx, request, options...)
 	}
 
@@ -25,10 +29,14 @@ func (r *CalendarAPI) SearchCalendar(ctx context.Context, request *SearchCalenda
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
 	if err != nil {
+		r.cli.logError(ctx, "[lark] Calendar#SearchCalendar POST https://open.feishu.cn/open-apis/calendar/v4/calendars/search failed: %s", err)
 		return nil, response, err
 	} else if resp.Code != 0 {
+		r.cli.logError(ctx, "[lark] Calendar#SearchCalendar POST https://open.feishu.cn/open-apis/calendar/v4/calendars/search failed, code: %d, msg: %s", resp.Code, resp.Msg)
 		return nil, response, NewError("Calendar", "SearchCalendar", resp.Code, resp.Msg)
 	}
+
+	r.cli.logDebug(ctx, "[lark] Calendar#SearchCalendar request_id: %s, response: %s", response.RequestID, jsonString(resp.Data))
 
 	return resp.Data, response, nil
 }

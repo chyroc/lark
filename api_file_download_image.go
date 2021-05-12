@@ -15,7 +15,11 @@ import (
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/image/get
 func (r *FileAPI) DownloadImage(ctx context.Context, request *DownloadImageReq, options ...MethodOptionFunc) (*DownloadImageResp, *Response, error) {
+	r.cli.logInfo(ctx, "[lark] File#DownloadImage call api")
+	r.cli.logDebug(ctx, "[lark] File#DownloadImage request: %s", jsonString(request))
+
 	if r.cli.mock.mockFileDownloadImage != nil {
+		r.cli.logDebug(ctx, "[lark] File#DownloadImage mock enable")
 		return r.cli.mock.mockFileDownloadImage(ctx, request, options...)
 	}
 
@@ -30,10 +34,14 @@ func (r *FileAPI) DownloadImage(ctx context.Context, request *DownloadImageReq, 
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
 	if err != nil {
+		r.cli.logError(ctx, "[lark] File#DownloadImage GET https://open.feishu.cn/open-apis/im/v1/images/:image_key failed: %s", err)
 		return nil, response, err
 	} else if resp.Code != 0 {
+		r.cli.logError(ctx, "[lark] File#DownloadImage GET https://open.feishu.cn/open-apis/im/v1/images/:image_key failed, code: %d, msg: %s", resp.Code, resp.Msg)
 		return nil, response, NewError("File", "DownloadImage", resp.Code, resp.Msg)
 	}
+
+	r.cli.logDebug(ctx, "[lark] File#DownloadImage request_id: %s, response: %s", response.RequestID, jsonString(resp.Data))
 
 	return resp.Data, response, nil
 }

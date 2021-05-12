@@ -10,7 +10,11 @@ import (
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/ukzNyUjL5cjM14SO3ITN
 func (r *MeetingRoomAPI) BatchGetBuilding(ctx context.Context, request *BatchGetBuildingReq, options ...MethodOptionFunc) (*BatchGetBuildingResp, *Response, error) {
+	r.cli.logInfo(ctx, "[lark] MeetingRoom#BatchGetBuilding call api")
+	r.cli.logDebug(ctx, "[lark] MeetingRoom#BatchGetBuilding request: %s", jsonString(request))
+
 	if r.cli.mock.mockMeetingRoomBatchGetBuilding != nil {
+		r.cli.logDebug(ctx, "[lark] MeetingRoom#BatchGetBuilding mock enable")
 		return r.cli.mock.mockMeetingRoomBatchGetBuilding(ctx, request, options...)
 	}
 
@@ -25,10 +29,14 @@ func (r *MeetingRoomAPI) BatchGetBuilding(ctx context.Context, request *BatchGet
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
 	if err != nil {
+		r.cli.logError(ctx, "[lark] MeetingRoom#BatchGetBuilding GET https://open.feishu.cn/open-apis/meeting_room/building/batch_get?building_ids=omb_8ec170b937536a5d87c23b418b83f9bb&building_ids=omb_38570e4f0fd9ecf15030d3cc8b388f3a&fields=* failed: %s", err)
 		return nil, response, err
 	} else if resp.Code != 0 {
+		r.cli.logError(ctx, "[lark] MeetingRoom#BatchGetBuilding GET https://open.feishu.cn/open-apis/meeting_room/building/batch_get?building_ids=omb_8ec170b937536a5d87c23b418b83f9bb&building_ids=omb_38570e4f0fd9ecf15030d3cc8b388f3a&fields=* failed, code: %d, msg: %s", resp.Code, resp.Msg)
 		return nil, response, NewError("MeetingRoom", "BatchGetBuilding", resp.Code, resp.Msg)
 	}
+
+	r.cli.logDebug(ctx, "[lark] MeetingRoom#BatchGetBuilding request_id: %s, response: %s", response.RequestID, jsonString(resp.Data))
 
 	return resp.Data, response, nil
 }

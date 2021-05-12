@@ -12,7 +12,11 @@ import (
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/Attendance//GetUsersRemedyRecords
 func (r *AttendanceAPI) GetUserTaskRemedy(ctx context.Context, request *GetUserTaskRemedyReq, options ...MethodOptionFunc) (*GetUserTaskRemedyResp, *Response, error) {
+	r.cli.logInfo(ctx, "[lark] Attendance#GetUserTaskRemedy call api")
+	r.cli.logDebug(ctx, "[lark] Attendance#GetUserTaskRemedy request: %s", jsonString(request))
+
 	if r.cli.mock.mockAttendanceGetUserTaskRemedy != nil {
+		r.cli.logDebug(ctx, "[lark] Attendance#GetUserTaskRemedy mock enable")
 		return r.cli.mock.mockAttendanceGetUserTaskRemedy(ctx, request, options...)
 	}
 
@@ -27,10 +31,14 @@ func (r *AttendanceAPI) GetUserTaskRemedy(ctx context.Context, request *GetUserT
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
 	if err != nil {
+		r.cli.logError(ctx, "[lark] Attendance#GetUserTaskRemedy POST https://open.feishu.cn/open-apis/attendance/v1/user_task_remedys/query failed: %s", err)
 		return nil, response, err
 	} else if resp.Code != 0 {
+		r.cli.logError(ctx, "[lark] Attendance#GetUserTaskRemedy POST https://open.feishu.cn/open-apis/attendance/v1/user_task_remedys/query failed, code: %d, msg: %s", resp.Code, resp.Msg)
 		return nil, response, NewError("Attendance", "GetUserTaskRemedy", resp.Code, resp.Msg)
 	}
+
+	r.cli.logDebug(ctx, "[lark] Attendance#GetUserTaskRemedy request_id: %s, response: %s", response.RequestID, jsonString(resp.Data))
 
 	return resp.Data, response, nil
 }

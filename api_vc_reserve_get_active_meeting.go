@@ -12,7 +12,11 @@ import (
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/vc-v1/reserve/get_active_meeting
 func (r *VCAPI) GetReserveActiveMeeting(ctx context.Context, request *GetReserveActiveMeetingReq, options ...MethodOptionFunc) (*GetReserveActiveMeetingResp, *Response, error) {
+	r.cli.logInfo(ctx, "[lark] VC#GetReserveActiveMeeting call api")
+	r.cli.logDebug(ctx, "[lark] VC#GetReserveActiveMeeting request: %s", jsonString(request))
+
 	if r.cli.mock.mockVCGetReserveActiveMeeting != nil {
+		r.cli.logDebug(ctx, "[lark] VC#GetReserveActiveMeeting mock enable")
 		return r.cli.mock.mockVCGetReserveActiveMeeting(ctx, request, options...)
 	}
 
@@ -27,10 +31,14 @@ func (r *VCAPI) GetReserveActiveMeeting(ctx context.Context, request *GetReserve
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
 	if err != nil {
+		r.cli.logError(ctx, "[lark] VC#GetReserveActiveMeeting GET https://open.feishu.cn/open-apis/vc/v1/reserves/:reserve_id/get_active_meeting failed: %s", err)
 		return nil, response, err
 	} else if resp.Code != 0 {
+		r.cli.logError(ctx, "[lark] VC#GetReserveActiveMeeting GET https://open.feishu.cn/open-apis/vc/v1/reserves/:reserve_id/get_active_meeting failed, code: %d, msg: %s", resp.Code, resp.Msg)
 		return nil, response, NewError("VC", "GetReserveActiveMeeting", resp.Code, resp.Msg)
 	}
+
+	r.cli.logDebug(ctx, "[lark] VC#GetReserveActiveMeeting request_id: %s, response: %s", response.RequestID, jsonString(resp.Data))
 
 	return resp.Data, response, nil
 }

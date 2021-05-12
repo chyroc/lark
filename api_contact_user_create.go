@@ -12,7 +12,11 @@ import (
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/create
 func (r *ContactAPI) CreateUser(ctx context.Context, request *CreateUserReq, options ...MethodOptionFunc) (*CreateUserResp, *Response, error) {
+	r.cli.logInfo(ctx, "[lark] Contact#CreateUser call api")
+	r.cli.logDebug(ctx, "[lark] Contact#CreateUser request: %s", jsonString(request))
+
 	if r.cli.mock.mockContactCreateUser != nil {
+		r.cli.logDebug(ctx, "[lark] Contact#CreateUser mock enable")
 		return r.cli.mock.mockContactCreateUser(ctx, request, options...)
 	}
 
@@ -27,10 +31,14 @@ func (r *ContactAPI) CreateUser(ctx context.Context, request *CreateUserReq, opt
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
 	if err != nil {
+		r.cli.logError(ctx, "[lark] Contact#CreateUser POST https://open.feishu.cn/open-apis/contact/v3/users failed: %s", err)
 		return nil, response, err
 	} else if resp.Code != 0 {
+		r.cli.logError(ctx, "[lark] Contact#CreateUser POST https://open.feishu.cn/open-apis/contact/v3/users failed, code: %d, msg: %s", resp.Code, resp.Msg)
 		return nil, response, NewError("Contact", "CreateUser", resp.Code, resp.Msg)
 	}
+
+	r.cli.logDebug(ctx, "[lark] Contact#CreateUser request_id: %s, response: %s", response.RequestID, jsonString(resp.Data))
 
 	return resp.Data, response, nil
 }

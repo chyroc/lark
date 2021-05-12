@@ -15,6 +15,7 @@
 - 非常多的接口和事件
 - 支持 Mock 以支持测试
 - 支持 ISV 和自建 App
+- 支持 Logger 接口
 - 支持 UserAccessToken
 - 使用代码生成创建，接口和文档更新及时
 

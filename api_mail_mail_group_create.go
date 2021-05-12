@@ -10,7 +10,11 @@ import (
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/mail-v1/mailgroup/create
 func (r *MailAPI) CreateMailGroup(ctx context.Context, request *CreateMailGroupReq, options ...MethodOptionFunc) (*CreateMailGroupResp, *Response, error) {
+	r.cli.logInfo(ctx, "[lark] Mail#CreateMailGroup call api")
+	r.cli.logDebug(ctx, "[lark] Mail#CreateMailGroup request: %s", jsonString(request))
+
 	if r.cli.mock.mockMailCreateMailGroup != nil {
+		r.cli.logDebug(ctx, "[lark] Mail#CreateMailGroup mock enable")
 		return r.cli.mock.mockMailCreateMailGroup(ctx, request, options...)
 	}
 
@@ -25,10 +29,14 @@ func (r *MailAPI) CreateMailGroup(ctx context.Context, request *CreateMailGroupR
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
 	if err != nil {
+		r.cli.logError(ctx, "[lark] Mail#CreateMailGroup POST https://open.feishu.cn/open-apis/mail/v1/mailgroups failed: %s", err)
 		return nil, response, err
 	} else if resp.Code != 0 {
+		r.cli.logError(ctx, "[lark] Mail#CreateMailGroup POST https://open.feishu.cn/open-apis/mail/v1/mailgroups failed, code: %d, msg: %s", resp.Code, resp.Msg)
 		return nil, response, NewError("Mail", "CreateMailGroup", resp.Code, resp.Msg)
 	}
+
+	r.cli.logDebug(ctx, "[lark] Mail#CreateMailGroup request_id: %s, response: %s", response.RequestID, jsonString(resp.Data))
 
 	return resp.Data, response, nil
 }

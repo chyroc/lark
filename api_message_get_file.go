@@ -16,7 +16,11 @@ import (
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message-resource/get
 func (r *MessageAPI) GetMessageFile(ctx context.Context, request *GetMessageFileReq, options ...MethodOptionFunc) (*GetMessageFileResp, *Response, error) {
+	r.cli.logInfo(ctx, "[lark] Message#GetMessageFile call api")
+	r.cli.logDebug(ctx, "[lark] Message#GetMessageFile request: %s", jsonString(request))
+
 	if r.cli.mock.mockMessageGetMessageFile != nil {
+		r.cli.logDebug(ctx, "[lark] Message#GetMessageFile mock enable")
 		return r.cli.mock.mockMessageGetMessageFile(ctx, request, options...)
 	}
 
@@ -31,10 +35,14 @@ func (r *MessageAPI) GetMessageFile(ctx context.Context, request *GetMessageFile
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
 	if err != nil {
+		r.cli.logError(ctx, "[lark] Message#GetMessageFile GET https://open.feishu.cn/open-apis/im/v1/messages/:message_id/resources/:file_key failed: %s", err)
 		return nil, response, err
 	} else if resp.Code != 0 {
+		r.cli.logError(ctx, "[lark] Message#GetMessageFile GET https://open.feishu.cn/open-apis/im/v1/messages/:message_id/resources/:file_key failed, code: %d, msg: %s", resp.Code, resp.Msg)
 		return nil, response, NewError("Message", "GetMessageFile", resp.Code, resp.Msg)
 	}
+
+	r.cli.logDebug(ctx, "[lark] Message#GetMessageFile request_id: %s, response: %s", response.RequestID, jsonString(resp.Data))
 
 	return resp.Data, response, nil
 }

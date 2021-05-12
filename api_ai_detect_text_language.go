@@ -12,7 +12,11 @@ import (
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/ai/translation-v1/text/detect
 func (r *AIAPI) DetectTextLanguage(ctx context.Context, request *DetectTextLanguageReq, options ...MethodOptionFunc) (*DetectTextLanguageResp, *Response, error) {
+	r.cli.logInfo(ctx, "[lark] AI#DetectTextLanguage call api")
+	r.cli.logDebug(ctx, "[lark] AI#DetectTextLanguage request: %s", jsonString(request))
+
 	if r.cli.mock.mockAIDetectTextLanguage != nil {
+		r.cli.logDebug(ctx, "[lark] AI#DetectTextLanguage mock enable")
 		return r.cli.mock.mockAIDetectTextLanguage(ctx, request, options...)
 	}
 
@@ -27,10 +31,14 @@ func (r *AIAPI) DetectTextLanguage(ctx context.Context, request *DetectTextLangu
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
 	if err != nil {
+		r.cli.logError(ctx, "[lark] AI#DetectTextLanguage POST https://open.feishu.cn/open-apis/translation/v1/text/detect failed: %s", err)
 		return nil, response, err
 	} else if resp.Code != 0 {
+		r.cli.logError(ctx, "[lark] AI#DetectTextLanguage POST https://open.feishu.cn/open-apis/translation/v1/text/detect failed, code: %d, msg: %s", resp.Code, resp.Msg)
 		return nil, response, NewError("AI", "DetectTextLanguage", resp.Code, resp.Msg)
 	}
+
+	r.cli.logDebug(ctx, "[lark] AI#DetectTextLanguage request_id: %s, response: %s", response.RequestID, jsonString(resp.Data))
 
 	return resp.Data, response, nil
 }
