@@ -6,9 +6,9 @@ import (
 	"context"
 )
 
-// CreateUser 使用该接口向通讯录创建一个用户，可以理解为员工入职。
+// CreateUser 使用该接口向通讯录创建一个用户，可以理解为员工入职。创建部门后只返回有数据权限的数据。具体的数据权限的与字段的对应关系请参照[应用权限](/ssl:ttdoc/ukTMukTMukTM/uQjN3QjL0YzN04CN2cDN)
 //
-// 新增用户的所有部门必须都在当前应用的通讯录授权范围内才允许新增用户，如果想要在根部门下新增用户，必须要有全员权限。 应用商店应用无权限调用此接口
+// 新增用户的所有部门必须都在当前应用的通讯录授权范围内才允许新增用户，如果想要在根部门下新增用户，必须要有全员权限。 应用商店应用无权限调用此接口。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/create
 func (r *ContactAPI) CreateUser(ctx context.Context, request *CreateUserReq, options ...MethodOptionFunc) (*CreateUserResp, *Response, error) {
@@ -132,7 +132,7 @@ type CreateUserRespUser struct {
 	JoinTime             int                                   `json:"join_time,omitempty"`              // 入职时间
 	IsTenantManager      bool                                  `json:"is_tenant_manager,omitempty"`      // 是否是租户管理员
 	EmployeeNo           string                                `json:"employee_no,omitempty"`            // 工号
-	EmployeeType         int                                   `json:"employee_type,omitempty"`          // 员工类型, 可选值有: `1`：正式员工, `2`：实习生, `3`：外包, `4`：劳务, `5`：顾问
+	EmployeeType         int                                   `json:"employee_type,omitempty"`          // 员工类型
 	Orders               []*CreateUserRespUserOrder            `json:"orders,omitempty"`                 // 用户排序信息
 	CustomAttrs          []*CreateUserRespUserCustomAttr       `json:"custom_attrs,omitempty"`           // 自定义属性
 	EnterpriseEmail      string                                `json:"enterprise_email,omitempty"`       // 企业邮箱，请先确保已在管理后台启用飞书邮箱服务

@@ -6,7 +6,7 @@ import (
 	"context"
 )
 
-// GetUser 该接口用于获取通讯录中单个用户的信息。
+// GetUser 该接口用于获取通讯录中单个用户的信息。只能访问有数据权限的字段，具体的数据权限与字段的关系请参考[应用权限](/ssl:ttdoc/ukTMukTMukTM/uQjN3QjL0YzN04CN2cDN)
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/get
 func (r *ContactAPI) GetUser(ctx context.Context, request *GetUserReq, options ...MethodOptionFunc) (*GetUserResp, *Response, error) {
@@ -86,7 +86,7 @@ type GetUserRespUser struct {
 	JoinTime        int                          `json:"join_time,omitempty"`         // 入职时间
 	IsTenantManager bool                         `json:"is_tenant_manager,omitempty"` // 是否是租户管理员
 	EmployeeNo      string                       `json:"employee_no,omitempty"`       // 工号
-	EmployeeType    int                          `json:"employee_type,omitempty"`     // 员工类型, 可选值有: `1`：正式员工, `2`：实习生, `3`：外包, `4`：劳务, `5`：顾问
+	EmployeeType    int                          `json:"employee_type,omitempty"`     // 员工类型
 	Orders          []*GetUserRespUserOrder      `json:"orders,omitempty"`            // 用户排序信息
 	CustomAttrs     []*GetUserRespUserCustomAttr `json:"custom_attrs,omitempty"`      // 自定义属性
 	EnterpriseEmail string                       `json:"enterprise_email,omitempty"`  // 企业邮箱，请先确保已在管理后台启用飞书邮箱服务

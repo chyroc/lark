@@ -6,7 +6,7 @@ import (
 	"context"
 )
 
-// UpdateUser 该接口用于更新通讯录中用户的字段。
+// UpdateUser 该接口用于更新通讯录中用户的字段。接口只会返回应用有数据权限的字段,具体的数据权限与字段的关系请参考[应用权限](/ssl:ttdoc/ukTMukTMukTM/uQjN3QjL0YzN04CN2cDN)
 //
 // 应用需要拥有待更新用户的通讯录授权，如果涉及到用户部门变更，还需要同时拥有所有新部门的通讯录授权。应用商店应用无权限调用此接口。
 //
@@ -69,10 +69,11 @@ type UpdateUserReq struct {
 	WorkStation      *string                    `json:"work_station,omitempty"`       // 工位, 示例值："杭州"
 	JoinTime         *int                       `json:"join_time,omitempty"`          // 入职时间, 示例值：2147483647
 	EmployeeNo       *string                    `json:"employee_no,omitempty"`        // 工号, 示例值："1"
-	EmployeeType     int                        `json:"employee_type,omitempty"`      // 员工类型, 示例值：1, 可选值有: `1`：正式员工, `2`：实习生, `3`：外包, `4`：劳务, `5`：顾问
+	EmployeeType     int                        `json:"employee_type,omitempty"`      // 员工类型, 示例值：1
 	Orders           []*UpdateUserReqOrder      `json:"orders,omitempty"`             // 用户排序信息
 	CustomAttrs      []*UpdateUserReqCustomAttr `json:"custom_attrs,omitempty"`       // 自定义属性
 	EnterpriseEmail  *string                    `json:"enterprise_email,omitempty"`   // 企业邮箱，请先确保已在管理后台启用飞书邮箱服务, 示例值："demo@mail.com"
+	JobTitle         *string                    `json:"job_title,omitempty"`          // 职务, 示例值："xxxxx"
 	IsFrozen         *bool                      `json:"is_frozen,omitempty"`          // 是否冻结用户, 示例值：false
 }
 
@@ -105,30 +106,33 @@ type UpdateUserResp struct {
 }
 
 type UpdateUserRespUser struct {
-	UnionID         string                          `json:"union_id,omitempty"`          // 用户的union_id
-	UserID          string                          `json:"user_id,omitempty"`           // 租户内用户的唯一标识
-	OpenID          string                          `json:"open_id,omitempty"`           // 用户的open_id
-	Name            string                          `json:"name,omitempty"`              // 用户名, 最小长度：`1` 字符
-	EnName          string                          `json:"en_name,omitempty"`           // 英文名
-	Email           string                          `json:"email,omitempty"`             // 邮箱, 字段权限要求:  获取用户邮箱
-	Mobile          string                          `json:"mobile,omitempty"`            // 手机号, 字段权限要求:  获取用户手机号
-	MobileVisible   bool                            `json:"mobile_visible,omitempty"`    // 手机号码可见性，true 为可见，false 为不可见，目前默认为 true。不可见时，组织员工将无法查看该员工的手机号码
-	Gender          int                             `json:"gender,omitempty"`            // 性别, 可选值有: `0`：保密, `1`：男, `2`：女
-	AvatarKey       string                          `json:"avatar_key,omitempty"`        // 头像的文件Key
-	Avatar          *UpdateUserRespUserAvatar       `json:"avatar,omitempty"`            // 用户头像信息
-	Status          *UpdateUserRespUserStatus       `json:"status,omitempty"`            // 用户状态
-	DepartmentIDs   []string                        `json:"department_ids,omitempty"`    // 用户所属部门的ID列表
-	LeaderUserID    string                          `json:"leader_user_id,omitempty"`    // 用户的直接主管的用户ID
-	City            string                          `json:"city,omitempty"`              // 城市
-	Country         string                          `json:"country,omitempty"`           // 国家
-	WorkStation     string                          `json:"work_station,omitempty"`      // 工位
-	JoinTime        int                             `json:"join_time,omitempty"`         // 入职时间
-	IsTenantManager bool                            `json:"is_tenant_manager,omitempty"` // 是否是租户管理员
-	EmployeeNo      string                          `json:"employee_no,omitempty"`       // 工号
-	EmployeeType    int                             `json:"employee_type,omitempty"`     // 员工类型, 可选值有: `1`：正式员工, `2`：实习生, `3`：外包, `4`：劳务, `5`：顾问
-	Orders          []*UpdateUserRespUserOrder      `json:"orders,omitempty"`            // 用户排序信息
-	CustomAttrs     []*UpdateUserRespUserCustomAttr `json:"custom_attrs,omitempty"`      // 自定义属性
-	EnterpriseEmail string                          `json:"enterprise_email,omitempty"`  // 企业邮箱，请先确保已在管理后台启用飞书邮箱服务
+	UnionID              string                                `json:"union_id,omitempty"`               // 用户的union_id
+	UserID               string                                `json:"user_id,omitempty"`                // 租户内用户的唯一标识, 字段权限要求:  获取用户 userid
+	OpenID               string                                `json:"open_id,omitempty"`                // 用户的open_id
+	Name                 string                                `json:"name,omitempty"`                   // 用户名, 最小长度：`1` 字符
+	EnName               string                                `json:"en_name,omitempty"`                // 英文名
+	Email                string                                `json:"email,omitempty"`                  // 邮箱, 字段权限要求:  获取用户邮箱
+	Mobile               string                                `json:"mobile,omitempty"`                 // 手机号, 字段权限要求:  获取用户手机号
+	MobileVisible        bool                                  `json:"mobile_visible,omitempty"`         // 手机号码可见性，true 为可见，false 为不可见，目前默认为 true。不可见时，组织员工将无法查看该员工的手机号码
+	Gender               int                                   `json:"gender,omitempty"`                 // 性别, 可选值有: `0`：保密, `1`：男, `2`：女
+	AvatarKey            string                                `json:"avatar_key,omitempty"`             // 头像的文件Key
+	Avatar               *UpdateUserRespUserAvatar             `json:"avatar,omitempty"`                 // 用户头像信息
+	Status               *UpdateUserRespUserStatus             `json:"status,omitempty"`                 // 用户状态
+	DepartmentIDs        []string                              `json:"department_ids,omitempty"`         // 用户所属部门的ID列表
+	LeaderUserID         string                                `json:"leader_user_id,omitempty"`         // 用户的直接主管的用户ID
+	City                 string                                `json:"city,omitempty"`                   // 城市
+	Country              string                                `json:"country,omitempty"`                // 国家
+	WorkStation          string                                `json:"work_station,omitempty"`           // 工位
+	JoinTime             int                                   `json:"join_time,omitempty"`              // 入职时间
+	IsTenantManager      bool                                  `json:"is_tenant_manager,omitempty"`      // 是否是租户管理员
+	EmployeeNo           string                                `json:"employee_no,omitempty"`            // 工号
+	EmployeeType         int                                   `json:"employee_type,omitempty"`          // 员工类型
+	Orders               []*UpdateUserRespUserOrder            `json:"orders,omitempty"`                 // 用户排序信息
+	CustomAttrs          []*UpdateUserRespUserCustomAttr       `json:"custom_attrs,omitempty"`           // 自定义属性
+	EnterpriseEmail      string                                `json:"enterprise_email,omitempty"`       // 企业邮箱，请先确保已在管理后台启用飞书邮箱服务
+	JobTitle             string                                `json:"job_title,omitempty"`              // 职务
+	NeedSendNotification bool                                  `json:"need_send_notification,omitempty"` // 是否发送提示消息
+	NotificationOption   *UpdateUserRespUserNotificationOption `json:"notification_option,omitempty"`    // 创建用户的邀请方式
 }
 
 type UpdateUserRespUserAvatar struct {
@@ -160,4 +164,9 @@ type UpdateUserRespUserCustomAttrValue struct {
 	Text  string `json:"text,omitempty"`   // 属性文本
 	URL   string `json:"url,omitempty"`    // URL
 	PcURL string `json:"pc_url,omitempty"` // PC上的URL
+}
+
+type UpdateUserRespUserNotificationOption struct {
+	Channels []string `json:"channels,omitempty"` // 通道列表，枚举值：,sms（短信邀请），email（邮件邀请）
+	Language string   `json:"language,omitempty"` // 语言类型, 可选值有: `zh-CN`：中文, `en-US`：英文, `ja-JP`：日文
 }

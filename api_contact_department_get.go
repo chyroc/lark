@@ -6,7 +6,7 @@ import (
 	"context"
 )
 
-// GetDepartment 该接口用于向通讯录获取单个部门信息。
+// GetDepartment 该接口用于向通讯录获取单个部门信息。只能访问有数据权限的字段，具体的数据权限与字段的关系请参考[应用权限](/ssl:ttdoc/ukTMukTMukTM/uQjN3QjL0YzN04CN2cDN)
 //
 // 使用tenant_access_token时，应用需要拥有待查询部门的通讯录授权。如果需要获取根部门信息，则需要拥有全员权限。
 // 使用user_access_token时，用户需要有待查询部门的可见性，如果需要获取根部门信息，则要求员工可见所有人。

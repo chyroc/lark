@@ -6,7 +6,7 @@ import (
 	"context"
 )
 
-// GetUserList 通过该接口向通讯录获取用户信息列表。
+// GetUserList 只能访问有数据权限的字段，具体的数据权限与字段的关系请参考[应用权限](/ssl:ttdoc/ukTMukTMukTM/uQjN3QjL0YzN04CN2cDN)
 //
 // 如果没有全员权限，则返回有通讯录范围的用户列表；如果有全员权限且应用可用范围为全员，将department_id字段设置为0，则可返回根部门下所有用户；如果传入一个具体的department_id,则返回该部门下的所有用户。
 // 如果没有单独设置用户的可见性，不填写具体的department_id则不会获取到用户数据
@@ -76,7 +76,7 @@ type GetUserListResp struct {
 
 type GetUserListRespItem struct {
 	UnionID         string                           `json:"union_id,omitempty"`          // 用户的union_id
-	UserID          string                           `json:"user_id,omitempty"`           // 租户内用户的唯一标识
+	UserID          string                           `json:"user_id,omitempty"`           // 租户内用户的唯一标识, 字段权限要求:  获取用户 userid
 	OpenID          string                           `json:"open_id,omitempty"`           // 用户的open_id
 	Name            string                           `json:"name,omitempty"`              // 用户名, 最小长度：`1` 字符
 	EnName          string                           `json:"en_name,omitempty"`           // 英文名
@@ -94,7 +94,7 @@ type GetUserListRespItem struct {
 	JoinTime        int                              `json:"join_time,omitempty"`         // 入职时间
 	IsTenantManager bool                             `json:"is_tenant_manager,omitempty"` // 是否是租户管理员
 	EmployeeNo      string                           `json:"employee_no,omitempty"`       // 工号
-	EmployeeType    int                              `json:"employee_type,omitempty"`     // 员工类型, 可选值有: `1`：正式员工, `2`：实习生, `3`：外包, `4`：劳务, `5`：顾问
+	EmployeeType    int                              `json:"employee_type,omitempty"`     // 员工类型
 	Orders          []*GetUserListRespItemOrder      `json:"orders,omitempty"`            // 用户排序信息
 	CustomAttrs     []*GetUserListRespItemCustomAttr `json:"custom_attrs,omitempty"`      // 自定义属性
 	EnterpriseEmail string                           `json:"enterprise_email,omitempty"`  // 企业邮箱，请先确保已在管理后台启用飞书邮箱服务

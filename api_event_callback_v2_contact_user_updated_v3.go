@@ -8,7 +8,7 @@ import (
 
 // EventV2ContactUserUpdatedV3
 //
-// 通过该事件订阅员工变更。old_object中只展示更新的字段的原始值
+// 通过该事件订阅员工变更。old_object中只展示更新的字段的原始值。事件只有在应用有数据权限的字段改动才会发送,具体的数据权限与字段的关系请参考[应用权限](/ssl:ttdoc/ukTMukTMukTM/uQjN3QjL0YzN04CN2cDN)
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/events/updated
 func (r *EventCallbackAPI) HandlerEventV2ContactUserUpdatedV3(f eventV2ContactUserUpdatedV3Handler) {
@@ -24,7 +24,7 @@ type EventV2ContactUserUpdatedV3 struct {
 
 type EventV2ContactUserUpdatedV3Object struct {
 	OpenID        string                                         `json:"open_id,omitempty"`        // 用户的open_id
-	UserID        string                                         `json:"user_id,omitempty"`        // 租户内用户的唯一标识
+	UserID        string                                         `json:"user_id,omitempty"`        // 租户内用户的唯一标识, 字段权限要求:  获取用户 userid
 	Name          string                                         `json:"name,omitempty"`           // 用户名, 最小长度：`1` 字符
 	EnName        string                                         `json:"en_name,omitempty"`        // 英文名
 	Email         string                                         `json:"email,omitempty"`          // 邮箱, 字段权限要求:  获取用户邮箱
@@ -77,7 +77,7 @@ type EventV2ContactUserUpdatedV3ObjectCustomAttrValue struct {
 
 type EventV2ContactUserUpdatedV3OldObject struct {
 	OpenID        string                                            `json:"open_id,omitempty"`        // 用户的open_id
-	UserID        string                                            `json:"user_id,omitempty"`        // 租户内用户的唯一标识
+	UserID        string                                            `json:"user_id,omitempty"`        // 租户内用户的唯一标识, 字段权限要求:  获取用户 userid
 	Name          string                                            `json:"name,omitempty"`           // 用户名, 最小长度：`1` 字符
 	EnName        string                                            `json:"en_name,omitempty"`        // 英文名
 	Email         string                                            `json:"email,omitempty"`          // 邮箱, 字段权限要求:  获取用户邮箱
