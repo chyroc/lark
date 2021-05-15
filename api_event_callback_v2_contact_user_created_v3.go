@@ -8,7 +8,7 @@ import (
 
 // EventV2ContactUserCreatedV3
 //
-// 通过该事件订阅员工入职。
+// 通过该事件订阅员工入职。事件只会返回应用有数据权限的字段,具体的数据权限与字段的关系请参考[应用权限](/ssl:ttdoc/ukTMukTMukTM/uQjN3QjL0YzN04CN2cDN)
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/events/created
 func (r *EventCallbackAPI) HandlerEventV2ContactUserCreatedV3(f eventV2ContactUserCreatedV3Handler) {
@@ -23,7 +23,7 @@ type EventV2ContactUserCreatedV3 struct {
 
 type EventV2ContactUserCreatedV3Object struct {
 	OpenID        string                                         `json:"open_id,omitempty"`        // 用户的open_id
-	UserID        string                                         `json:"user_id,omitempty"`        // 租户内用户的唯一标识
+	UserID        string                                         `json:"user_id,omitempty"`        // 租户内用户的唯一标识, 字段权限要求:  获取用户 userid
 	Name          string                                         `json:"name,omitempty"`           // 用户名, 最小长度：`1` 字符
 	EnName        string                                         `json:"en_name,omitempty"`        // 英文名
 	Email         string                                         `json:"email,omitempty"`          // 邮箱, 字段权限要求:  获取用户邮箱

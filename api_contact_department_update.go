@@ -6,7 +6,7 @@ import (
 	"context"
 )
 
-// UpdateDepartment 该接口用于更新当前部门所有信息。
+// UpdateDepartment 该接口用于更新当前部门所有信息。接口只会返回应用有数据权限的字段，具体的数据权限与字段的关系请参考[应用权限](/ssl:ttdoc/ukTMukTMukTM/uQjN3QjL0YzN04CN2cDN)
 //
 // - 调用该接口需要具有该部门以及更新操作涉及的部门的通讯录权限。应用商店应用无权限调用此接口。
 // - 没有填写的字段会被置为空值（order字段除外）。
@@ -62,7 +62,7 @@ type UpdateDepartmentReq struct {
 	LeaderUserID       *string                      `json:"leader_user_id,omitempty"`       // 部门主管用户ID, 示例值："ou_7dab8a3d3cdcc9da365777c7ad535d62"
 	Order              *string                      `json:"order,omitempty"`                // 部门的排序，即部门在其同级部门的展示顺序, 示例值："100"
 	UnitIDs            []string                     `json:"unit_ids,omitempty"`             // 部门单位自定义ID列表，当前只支持一个
-	CreateGroupChat    *bool                        `json:"create_group_chat,omitempty"`    // 是否创建部门群，默认不创建, 示例值：true
+	CreateGroupChat    *bool                        `json:"create_group_chat,omitempty"`    // 是否创建部门群，默认不创建, 示例值：false
 }
 
 type UpdateDepartmentReqI18nName struct {
