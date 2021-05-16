@@ -74,16 +74,6 @@ type CalendarAPI struct {
 	cli *Lark
 }
 
-func (r *Lark) Token() *TokenAPI {
-	return &TokenAPI{
-		cli: r,
-	}
-}
-
-type TokenAPI struct {
-	cli *Lark
-}
-
 func (r *Lark) Contact() *ContactAPI {
 	return &ContactAPI{
 		cli: r,
@@ -236,6 +226,16 @@ type OKRAPI struct {
 
 func (r *Lark) OKR() *OKRAPI {
 	return &OKRAPI{
+		cli: r,
+	}
+}
+
+type BitableAPI struct {
+	cli *Lark
+}
+
+func (r *Lark) Bitable() *BitableAPI {
+	return &BitableAPI{
 		cli: r,
 	}
 }

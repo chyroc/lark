@@ -31,7 +31,7 @@ https://godoc.org/github.com/chyroc/lark
 
 ## Support APIs
 
-API Count: 213, Event Count: 28
+API Count: 240, Event Count: 28
 
 <details>
   <summary>
@@ -111,11 +111,9 @@ API Count: 213, Event Count: 28
   - DeleteCalendarTimeoffEvent
   - GenerateCaldavConf
 - Drive
-  - GetSheetMeta
-  - UpdateSheetProperty
-  - ImportSheet
-  - PrependSheetValue
-  - AppendSheetValue
+  - GetDocMeta
+  - CreateFolder
+  - GetFolderChildren
   - CreateMemberPermission
   - TransferMemberPermission
   - UpdatePublicPermission
@@ -125,6 +123,36 @@ API Count: 213, Event Count: 28
   - CheckMemberPermission
   - UpdatePublicPermissionV2
   - GetPublicPermissionV2
+  - GetSheetMeta
+  - GetCommentList
+  - GetComment
+  - CreateComment
+  - UpdateComment
+  - DeleteComment
+  - UpdateCommentPatch
+  - UpdateSheetProperty
+  - ImportSheet
+  - PrependSheetValue
+  - AppendSheetValue
+- Bitable
+  - GetRecordList
+  - GetRecord
+  - CreateRecord
+  - BatchCreateRecord
+  - UpdateRecord
+  - BatchUpdateRecord
+  - DeleteRecord
+  - BatchDeleteRecord
+  - GetFieldList
+  - CreateField
+  - UpdateField
+  - DeleteField
+  - GetTableList
+  - CreateTable
+  - BatchCreateTable
+  - DeleteTable
+  - BatchDeleteTable
+  - GetMeta
 - MeetingRoom
   - BatchGetSummary
   - GetBuildingList

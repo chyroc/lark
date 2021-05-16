@@ -27,11 +27,11 @@ func (r *Lark) WithTenant(tenantKey string) *Lark {
 	}
 }
 
-func (r *TokenAPI) GetAppTicket(ctx context.Context) (string, error) {
+func (r *AuthAPI) GetAppTicket(ctx context.Context) (string, error) {
 	s, _, err := r.cli.store.Get(ctx, genISVAppTicketKey(r.cli.appSecret))
 	return s, err
 }
 
-func (r *TokenAPI) SetAppTicket(ctx context.Context, appTicket string) error {
+func (r *AuthAPI) SetAppTicket(ctx context.Context, appTicket string) error {
 	return r.cli.store.Set(ctx, genISVAppTicketKey(r.cli.appID), appTicket, time.Hour*2)
 }

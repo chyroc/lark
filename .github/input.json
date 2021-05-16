@@ -363,29 +363,19 @@
     "scope": "Drive",
     "apis": [
       {
-        "file_name": "api_drive_sheet_meta_get.go",
-        "func_name": "GetSheetMeta",
-        "doc_url": "https://open.feishu.cn/document/ukTMukTMukTM/uETMzUjLxEzM14SMxMTN"
+        "file_name": "api_drive_doc_meta.go",
+        "func_name": "GetDocMeta",
+        "doc_url": "https://open.feishu.cn/document/ukTMukTMukTM/uMjN3UjLzYzN14yM2cTN"
       },
       {
-        "file_name": "api_drive_sheet_property_update.go",
-        "func_name": "UpdateSheetProperty",
-        "doc_url": "https://open.feishu.cn/document/ukTMukTMukTM/ucTMzUjL3EzM14yNxMTN"
+        "file_name": "api_drive_explorer_folder_create.go",
+        "func_name": "CreateFolder",
+        "doc_url": "https://open.feishu.cn/document/ukTMukTMukTM/ukTNzUjL5UzM14SO1MTN"
       },
       {
-        "file_name": "api_drive_sheet_import.go",
-        "func_name": "ImportSheet",
-        "doc_url": "https://open.feishu.cn/document/ukTMukTMukTM/uATO2YjLwkjN24CM5YjN"
-      },
-      {
-        "file_name": "api_drive_sheet_value_prepend.go",
-        "func_name": "PrependSheetValue",
-        "doc_url": "https://open.feishu.cn/document/ukTMukTMukTM/uIjMzUjLyIzM14iMyMTN"
-      },
-      {
-        "file_name": "api_drive_sheet_value_append.go",
-        "func_name": "AppendSheetValue",
-        "doc_url": "https://open.feishu.cn/document/ukTMukTMukTM/uMjMzUjLzIzM14yMyMTN"
+        "file_name": "api_drive_explorer_folder_children_get.go",
+        "func_name": "GetFolderChildren",
+        "doc_url": "https://open.feishu.cn/document/ukTMukTMukTM/uEjNzUjLxYzM14SM2MTN"
       },
       {
         "file_name": "api_drive_permission_member_create.go",
@@ -431,6 +421,156 @@
         "file_name": "api_drive_permission_public_get_v2.go",
         "func_name": "GetPublicPermissionV2",
         "doc_url": "https://open.feishu.cn/document/ukTMukTMukTM/uITM3YjLyEzN24iMxcjN"
+      },
+      {
+        "file_name": "api_drive_sheet_meta_get.go",
+        "func_name": "GetSheetMeta",
+        "doc_url": "https://open.feishu.cn/document/ukTMukTMukTM/uETMzUjLxEzM14SMxMTN"
+      },
+      {
+        "file_name": "api_drive_comment_list.go",
+        "func_name": "GetCommentList",
+        "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file-comment/list"
+      },
+      {
+        "file_name": "api_drive_comment_get.go",
+        "func_name": "GetComment",
+        "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file-comment/get"
+      },
+      {
+        "file_name": "api_drive_comment_create.go",
+        "func_name": "CreateComment",
+        "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file-comment/create"
+      },
+      {
+        "file_name": "api_drive_comment_update.go",
+        "func_name": "UpdateComment",
+        "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file-comment/update"
+      },
+      {
+        "file_name": "api_drive_comment_delete.go",
+        "func_name": "DeleteComment",
+        "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file-comment-reply/delete"
+      },
+      {
+        "file_name": "api_drive_comment_patch.go",
+        "func_name": "UpdateCommentPatch",
+        "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file-comment/patch"
+      },
+      {
+        "file_name": "api_drive_sheet_property_update.go",
+        "func_name": "UpdateSheetProperty",
+        "doc_url": "https://open.feishu.cn/document/ukTMukTMukTM/ucTMzUjL3EzM14yNxMTN"
+      },
+      {
+        "file_name": "api_drive_sheet_import.go",
+        "func_name": "ImportSheet",
+        "doc_url": "https://open.feishu.cn/document/ukTMukTMukTM/uATO2YjLwkjN24CM5YjN"
+      },
+      {
+        "file_name": "api_drive_sheet_value_prepend.go",
+        "func_name": "PrependSheetValue",
+        "doc_url": "https://open.feishu.cn/document/ukTMukTMukTM/uIjMzUjLyIzM14iMyMTN"
+      },
+      {
+        "file_name": "api_drive_sheet_value_append.go",
+        "func_name": "AppendSheetValue",
+        "doc_url": "https://open.feishu.cn/document/ukTMukTMukTM/uMjMzUjLzIzM14yMyMTN"
+      }
+    ]
+  },
+  {
+    "scope": "Bitable",
+    "apis": [
+      {
+        "file_name": "api_bitable_record_list.go",
+        "func_name": "GetRecordList",
+        "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table-record/list"
+      },
+      {
+        "file_name": "api_bitable_record_get.go",
+        "func_name": "GetRecord",
+        "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table-record/get"
+      },
+      {
+        "file_name": "api_bitable_record_create.go",
+        "func_name": "CreateRecord",
+        "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table-record/create"
+      },
+      {
+        "file_name": "api_bitable_record_batch_create.go",
+        "func_name": "BatchCreateRecord",
+        "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table-record/batch_create"
+      },
+      {
+        "file_name": "api_bitable_record_update.go",
+        "func_name": "UpdateRecord",
+        "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table-record/update"
+      },
+      {
+        "file_name": "api_bitable_record_batch_update.go",
+        "func_name": "BatchUpdateRecord",
+        "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table-record/batch_update"
+      },
+      {
+        "file_name": "api_bitable_record_delete.go",
+        "func_name": "DeleteRecord",
+        "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table-record/delete"
+      },
+      {
+        "file_name": "api_bitable_record_batch_delete.go",
+        "func_name": "BatchDeleteRecord",
+        "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table-record/batch_delete"
+      },
+      {
+        "file_name": "api_bitable_field_list.go",
+        "func_name": "GetFieldList",
+        "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table-field/list"
+      },
+      {
+        "file_name": "api_bitable_field_create.go",
+        "func_name": "CreateField",
+        "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table-field/create"
+      },
+      {
+        "file_name": "api_bitable_field_update.go",
+        "func_name": "UpdateField",
+        "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table-field/update"
+      },
+      {
+        "file_name": "api_bitable_field_delete.go",
+        "func_name": "DeleteField",
+        "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table-field/delete"
+      },
+      {
+        "file_name": "api_bitable_table_list.go",
+        "func_name": "GetTableList",
+        "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table/list"
+      },
+      {
+        "file_name": "api_bitable_table_create.go",
+        "func_name": "CreateTable",
+        "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table/create"
+      },
+      {
+        "file_name": "api_bitable_table_batch_create.go",
+        "func_name": "BatchCreateTable",
+        "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table/batch_create"
+      },
+      {
+        "file_name": "api_bitable_table_delete.go",
+        "func_name": "DeleteTable",
+        "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table/delete"
+      },
+      {
+        "file_name": "api_bitable_table_batch_delete.go",
+        "func_name": "BatchDeleteTable",
+        "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table/batch_delete"
+      },
+      {
+        "file_name": "api_bitable_meta_get.go",
+        "func_name": "GetMeta",
+        "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app/get"
       }
     ]
   },

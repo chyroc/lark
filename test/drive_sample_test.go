@@ -22,36 +22,6 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		moduleCli := cli.Drive()
 
 		t.Run("", func(t *testing.T) {
-			_, _, err := moduleCli.GetSheetMeta(ctx, &lark.GetSheetMetaReq{})
-			as.NotNil(err)
-			as.Equal(err.Error(), "failed")
-		})
-
-		t.Run("", func(t *testing.T) {
-			_, _, err := moduleCli.UpdateSheetProperty(ctx, &lark.UpdateSheetPropertyReq{})
-			as.NotNil(err)
-			as.Equal(err.Error(), "failed")
-		})
-
-		t.Run("", func(t *testing.T) {
-			_, _, err := moduleCli.ImportSheet(ctx, &lark.ImportSheetReq{})
-			as.NotNil(err)
-			as.Equal(err.Error(), "failed")
-		})
-
-		t.Run("", func(t *testing.T) {
-			_, _, err := moduleCli.PrependSheetValue(ctx, &lark.PrependSheetValueReq{})
-			as.NotNil(err)
-			as.Equal(err.Error(), "failed")
-		})
-
-		t.Run("", func(t *testing.T) {
-			_, _, err := moduleCli.AppendSheetValue(ctx, &lark.AppendSheetValueReq{})
-			as.NotNil(err)
-			as.Equal(err.Error(), "failed")
-		})
-
-		t.Run("", func(t *testing.T) {
 			_, _, err := moduleCli.CreateMemberPermission(ctx, &lark.CreateMemberPermissionReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "failed")
@@ -104,66 +74,71 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 			as.NotNil(err)
 			as.Equal(err.Error(), "failed")
 		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.GetSheetMeta(ctx, &lark.GetSheetMetaReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.GetCommentList(ctx, &lark.GetCommentListReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.GetComment(ctx, &lark.GetCommentReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.CreateComment(ctx, &lark.CreateCommentReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.DeleteComment(ctx, &lark.DeleteCommentReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.UpdateCommentPatch(ctx, &lark.UpdateCommentPatchReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.UpdateSheetProperty(ctx, &lark.UpdateSheetPropertyReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.ImportSheet(ctx, &lark.ImportSheetReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.PrependSheetValue(ctx, &lark.PrependSheetValueReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.AppendSheetValue(ctx, &lark.AppendSheetValueReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "failed")
+		})
 	})
 
 	t.Run("request mock failed", func(t *testing.T) {
 		cli := AppALLPermission.Ins()
 		moduleCli := cli.Drive()
-
-		t.Run("", func(t *testing.T) {
-			cli.Mock().MockDriveGetSheetMeta(func(ctx context.Context, request *lark.GetSheetMetaReq, options ...lark.MethodOptionFunc) (*lark.GetSheetMetaResp, *lark.Response, error) {
-				return nil, nil, fmt.Errorf("mock-failed")
-			})
-			defer cli.Mock().UnMockDriveGetSheetMeta()
-
-			_, _, err := moduleCli.GetSheetMeta(ctx, &lark.GetSheetMetaReq{})
-			as.NotNil(err)
-			as.Equal(err.Error(), "mock-failed")
-		})
-
-		t.Run("", func(t *testing.T) {
-			cli.Mock().MockDriveUpdateSheetProperty(func(ctx context.Context, request *lark.UpdateSheetPropertyReq, options ...lark.MethodOptionFunc) (*lark.UpdateSheetPropertyResp, *lark.Response, error) {
-				return nil, nil, fmt.Errorf("mock-failed")
-			})
-			defer cli.Mock().UnMockDriveUpdateSheetProperty()
-
-			_, _, err := moduleCli.UpdateSheetProperty(ctx, &lark.UpdateSheetPropertyReq{})
-			as.NotNil(err)
-			as.Equal(err.Error(), "mock-failed")
-		})
-
-		t.Run("", func(t *testing.T) {
-			cli.Mock().MockDriveImportSheet(func(ctx context.Context, request *lark.ImportSheetReq, options ...lark.MethodOptionFunc) (*lark.ImportSheetResp, *lark.Response, error) {
-				return nil, nil, fmt.Errorf("mock-failed")
-			})
-			defer cli.Mock().UnMockDriveImportSheet()
-
-			_, _, err := moduleCli.ImportSheet(ctx, &lark.ImportSheetReq{})
-			as.NotNil(err)
-			as.Equal(err.Error(), "mock-failed")
-		})
-
-		t.Run("", func(t *testing.T) {
-			cli.Mock().MockDrivePrependSheetValue(func(ctx context.Context, request *lark.PrependSheetValueReq, options ...lark.MethodOptionFunc) (*lark.PrependSheetValueResp, *lark.Response, error) {
-				return nil, nil, fmt.Errorf("mock-failed")
-			})
-			defer cli.Mock().UnMockDrivePrependSheetValue()
-
-			_, _, err := moduleCli.PrependSheetValue(ctx, &lark.PrependSheetValueReq{})
-			as.NotNil(err)
-			as.Equal(err.Error(), "mock-failed")
-		})
-
-		t.Run("", func(t *testing.T) {
-			cli.Mock().MockDriveAppendSheetValue(func(ctx context.Context, request *lark.AppendSheetValueReq, options ...lark.MethodOptionFunc) (*lark.AppendSheetValueResp, *lark.Response, error) {
-				return nil, nil, fmt.Errorf("mock-failed")
-			})
-			defer cli.Mock().UnMockDriveAppendSheetValue()
-
-			_, _, err := moduleCli.AppendSheetValue(ctx, &lark.AppendSheetValueReq{})
-			as.NotNil(err)
-			as.Equal(err.Error(), "mock-failed")
-		})
 
 		t.Run("", func(t *testing.T) {
 			cli.Mock().MockDriveCreateMemberPermission(func(ctx context.Context, request *lark.CreateMemberPermissionReq, options ...lark.MethodOptionFunc) (*lark.CreateMemberPermissionResp, *lark.Response, error) {
@@ -263,49 +238,121 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 			as.NotNil(err)
 			as.Equal(err.Error(), "mock-failed")
 		})
+
+		t.Run("", func(t *testing.T) {
+			cli.Mock().MockDriveGetSheetMeta(func(ctx context.Context, request *lark.GetSheetMetaReq, options ...lark.MethodOptionFunc) (*lark.GetSheetMetaResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockDriveGetSheetMeta()
+
+			_, _, err := moduleCli.GetSheetMeta(ctx, &lark.GetSheetMetaReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+			cli.Mock().MockDriveGetCommentList(func(ctx context.Context, request *lark.GetCommentListReq, options ...lark.MethodOptionFunc) (*lark.GetCommentListResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockDriveGetCommentList()
+
+			_, _, err := moduleCli.GetCommentList(ctx, &lark.GetCommentListReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+			cli.Mock().MockDriveGetComment(func(ctx context.Context, request *lark.GetCommentReq, options ...lark.MethodOptionFunc) (*lark.GetCommentResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockDriveGetComment()
+
+			_, _, err := moduleCli.GetComment(ctx, &lark.GetCommentReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+			cli.Mock().MockDriveCreateComment(func(ctx context.Context, request *lark.CreateCommentReq, options ...lark.MethodOptionFunc) (*lark.CreateCommentResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockDriveCreateComment()
+
+			_, _, err := moduleCli.CreateComment(ctx, &lark.CreateCommentReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+			cli.Mock().MockDriveDeleteComment(func(ctx context.Context, request *lark.DeleteCommentReq, options ...lark.MethodOptionFunc) (*lark.DeleteCommentResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockDriveDeleteComment()
+
+			_, _, err := moduleCli.DeleteComment(ctx, &lark.DeleteCommentReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+			cli.Mock().MockDriveUpdateCommentPatch(func(ctx context.Context, request *lark.UpdateCommentPatchReq, options ...lark.MethodOptionFunc) (*lark.UpdateCommentPatchResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockDriveUpdateCommentPatch()
+
+			_, _, err := moduleCli.UpdateCommentPatch(ctx, &lark.UpdateCommentPatchReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+			cli.Mock().MockDriveUpdateSheetProperty(func(ctx context.Context, request *lark.UpdateSheetPropertyReq, options ...lark.MethodOptionFunc) (*lark.UpdateSheetPropertyResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockDriveUpdateSheetProperty()
+
+			_, _, err := moduleCli.UpdateSheetProperty(ctx, &lark.UpdateSheetPropertyReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+			cli.Mock().MockDriveImportSheet(func(ctx context.Context, request *lark.ImportSheetReq, options ...lark.MethodOptionFunc) (*lark.ImportSheetResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockDriveImportSheet()
+
+			_, _, err := moduleCli.ImportSheet(ctx, &lark.ImportSheetReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+			cli.Mock().MockDrivePrependSheetValue(func(ctx context.Context, request *lark.PrependSheetValueReq, options ...lark.MethodOptionFunc) (*lark.PrependSheetValueResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockDrivePrependSheetValue()
+
+			_, _, err := moduleCli.PrependSheetValue(ctx, &lark.PrependSheetValueReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+			cli.Mock().MockDriveAppendSheetValue(func(ctx context.Context, request *lark.AppendSheetValueReq, options ...lark.MethodOptionFunc) (*lark.AppendSheetValueResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockDriveAppendSheetValue()
+
+			_, _, err := moduleCli.AppendSheetValue(ctx, &lark.AppendSheetValueReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
 	})
 
 	t.Run("response is failed", func(t *testing.T) {
 		cli := AppNoPermission.Ins()
 		moduleCli := cli.Drive()
-
-		t.Run("", func(t *testing.T) {
-			_, _, err := moduleCli.GetSheetMeta(ctx, &lark.GetSheetMetaReq{
-				SpreadsheetToken: "x",
-			})
-			as.NotNil(err)
-			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
-		})
-
-		t.Run("", func(t *testing.T) {
-			_, _, err := moduleCli.UpdateSheetProperty(ctx, &lark.UpdateSheetPropertyReq{
-				SpreadsheetToken: "x",
-			})
-			as.NotNil(err)
-			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
-		})
-
-		t.Run("", func(t *testing.T) {
-			_, _, err := moduleCli.ImportSheet(ctx, &lark.ImportSheetReq{})
-			as.NotNil(err)
-			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
-		})
-
-		t.Run("", func(t *testing.T) {
-			_, _, err := moduleCli.PrependSheetValue(ctx, &lark.PrependSheetValueReq{
-				SpreadsheetToken: "x",
-			})
-			as.NotNil(err)
-			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
-		})
-
-		t.Run("", func(t *testing.T) {
-			_, _, err := moduleCli.AppendSheetValue(ctx, &lark.AppendSheetValueReq{
-				SpreadsheetToken: "x",
-			})
-			as.NotNil(err)
-			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
-		})
 
 		t.Run("", func(t *testing.T) {
 			_, _, err := moduleCli.CreateMemberPermission(ctx, &lark.CreateMemberPermissionReq{})
@@ -357,6 +404,88 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 			_, _, err := moduleCli.GetPublicPermissionV2(ctx, &lark.GetPublicPermissionV2Req{})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.GetSheetMeta(ctx, &lark.GetSheetMetaReq{
+				SpreadsheetToken: "x",
+			})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.GetCommentList(ctx, &lark.GetCommentListReq{
+				FileToken: "x",
+			})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.GetComment(ctx, &lark.GetCommentReq{
+				FileToken: "x",
+				CommentID: "x",
+			})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.CreateComment(ctx, &lark.CreateCommentReq{
+				FileToken: "x",
+			})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.DeleteComment(ctx, &lark.DeleteCommentReq{
+				FileToken: "x",
+				CommentID: "x",
+				ReplyID:   "x",
+			})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.UpdateCommentPatch(ctx, &lark.UpdateCommentPatchReq{
+				FileToken: "x",
+				CommentID: "x",
+			})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.UpdateSheetProperty(ctx, &lark.UpdateSheetPropertyReq{
+				SpreadsheetToken: "x",
+			})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.ImportSheet(ctx, &lark.ImportSheetReq{})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.PrependSheetValue(ctx, &lark.PrependSheetValueReq{
+				SpreadsheetToken: "x",
+			})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.AppendSheetValue(ctx, &lark.AppendSheetValueReq{
+				SpreadsheetToken: "x",
+			})
 			as.NotNil(err)
 			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
 		})
