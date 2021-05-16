@@ -386,6 +386,56 @@
         "file_name": "api_drive_sheet_value_append.go",
         "func_name": "AppendSheetValue",
         "doc_url": "https://open.feishu.cn/document/ukTMukTMukTM/uMjMzUjLzIzM14yMyMTN"
+      },
+      {
+        "file_name": "api_drive_permission_member_create.go",
+        "func_name": "CreateMemberPermission",
+        "doc_url": "https://open.feishu.cn/document/ukTMukTMukTM/uMzNzUjLzczM14yM3MTN"
+      },
+      {
+        "file_name": "api_drive_permission_member_transfer.go",
+        "func_name": "TransferMemberPermission",
+        "doc_url": "https://open.feishu.cn/document/ukTMukTMukTM/uQzNzUjL0czM14CN3MTN"
+      },
+      {
+        "file_name": "api_drive_permission_public_update.go",
+        "func_name": "UpdatePublicPermission",
+        "doc_url": "https://open.feishu.cn/document/ukTMukTMukTM/ukTM3UjL5EzN14SOxcTN"
+      },
+      {
+        "file_name": "api_drive_permission_member_list.go",
+        "func_name": "GetMemberPermissionList",
+        "doc_url": "https://open.feishu.cn/document/ukTMukTMukTM/uATN3UjLwUzN14CM1cTN"
+      },
+      {
+        "file_name": "api_drive_permission_member_delete.go",
+        "func_name": "DeleteMemberPermission",
+        "doc_url": "https://open.feishu.cn/document/ukTMukTMukTM/uYTN3UjL2UzN14iN1cTN"
+      },
+      {
+        "file_name": "api_drive_permission_member_update.go",
+        "func_name": "UpdateMemberPermission",
+        "doc_url": "https://open.feishu.cn/document/ukTMukTMukTM/ucTN3UjL3UzN14yN1cTN"
+      },
+      {
+        "file_name": "api_drive_permission_member_check.go",
+        "func_name": "CheckMemberPermission",
+        "doc_url": "https://open.feishu.cn/document/ukTMukTMukTM/ucTN3UjL3UzN14yN1cTN"
+      },
+      {
+        "file_name": "api_drive_permission_member_check.go",
+        "func_name": "CheckMemberPermission",
+        "doc_url": "https://open.feishu.cn/document/ukTMukTMukTM/uYzN3UjL2czN14iN3cTN"
+      },
+      {
+        "file_name": "api_drive_permission_public_update_v2.go",
+        "func_name": "UpdatePublicPermissionV2",
+        "doc_url": "https://open.feishu.cn/document/ukTMukTMukTM/uITN5UjLyUTO14iM1kTN"
+      },
+      {
+        "file_name": "api_drive_permission_public_get_v2.go",
+        "func_name": "GetPublicPermissionV2",
+        "doc_url": "https://open.feishu.cn/document/ukTMukTMukTM/uITM3YjLyEzN24iMxcjN"
       }
     ]
   },
