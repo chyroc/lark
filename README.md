@@ -31,7 +31,7 @@ https://godoc.org/github.com/chyroc/lark
 
 ## Support APIs
 
-API Count: 204, Event Count: 28
+API Count: 213, Event Count: 28
 
 <details>
   <summary>
@@ -116,6 +116,15 @@ API Count: 204, Event Count: 28
   - ImportSheet
   - PrependSheetValue
   - AppendSheetValue
+  - CreateMemberPermission
+  - TransferMemberPermission
+  - UpdatePublicPermission
+  - GetMemberPermissionList
+  - DeleteMemberPermission
+  - UpdateMemberPermission
+  - CheckMemberPermission
+  - UpdatePublicPermissionV2
+  - GetPublicPermissionV2
 - MeetingRoom
   - BatchGetSummary
   - GetBuildingList
@@ -341,6 +350,26 @@ http.HandleFunc("/api", func(w http.ResponseWriter, r *http.Request) {
 
 fmt.Println("start server ...")
 log.Fatal(http.ListenAndServe(":9726", nil))
+```
+
+### Example: ISV APP
+
+for more about isv example, see [./examples/isv.go](./examples/isv.go) .
+
+create isv chat:
+
+```go
+cli := lark.New(
+    lark.WithAppCredential("<APP_ID>", "<APP_SECRET>"),
+    lark.WithISV(true),
+    lark.WithStore("<NEW_STORE>"),
+)
+
+tenantKey1Cli := cli.WithTenant("<TENANT_KEY_1>")
+resp, _, err := tenantKey1Cli.Chat().CreateChat(ctx, &lark.CreateChatReq{
+    Name: ptr.String("<CHAT_NAME_1>"),
+})
+fmt.Println(resp, err)
 ```
 
 ### Example: get bot info

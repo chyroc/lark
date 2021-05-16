@@ -31,7 +31,7 @@ https://godoc.org/github.com/chyroc/lark
 
 ## 支持的接口
 
-API 总数: 204, 事件总数: 28
+API 总数: 213, 事件总数: 28
 
 <details>
   <summary>
@@ -116,6 +116,15 @@ API 总数: 204, 事件总数: 28
   - ImportSheet
   - PrependSheetValue
   - AppendSheetValue
+  - CreateMemberPermission
+  - TransferMemberPermission
+  - UpdatePublicPermission
+  - GetMemberPermissionList
+  - DeleteMemberPermission
+  - UpdateMemberPermission
+  - CheckMemberPermission
+  - UpdatePublicPermissionV2
+  - GetPublicPermissionV2
 - MeetingRoom
   - BatchGetSummary
   - GetBuildingList
@@ -343,6 +352,25 @@ fmt.Println("start server ...")
 log.Fatal(http.ListenAndServe(":9726", nil))
 ```
 
+### 例子: ISV APP
+
+如果需要更多的例子，可以参考： [./examples/isv.go](./examples/isv.go) .
+
+ISV 创建群聊:
+
+```go
+cli := lark.New(
+    lark.WithAppCredential("<APP_ID>", "<APP_SECRET>"),
+    lark.WithISV(true),
+    lark.WithStore("<NEW_STORE>"),
+)
+
+tenantKey1Cli := cli.WithTenant("<TENANT_KEY_1>")
+resp, _, err := tenantKey1Cli.Chat().CreateChat(ctx, &lark.CreateChatReq{
+    Name: ptr.String("<CHAT_NAME_1>"),
+})
+fmt.Println(resp, err)
+```
 
 ### 例子: 获取机器人信息
 
