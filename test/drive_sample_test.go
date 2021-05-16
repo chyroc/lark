@@ -94,12 +94,6 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-			_, _, err := moduleCli.CheckMemberPermission(ctx, &lark.CheckMemberPermissionReq{})
-			as.NotNil(err)
-			as.Equal(err.Error(), "failed")
-		})
-
-		t.Run("", func(t *testing.T) {
 			_, _, err := moduleCli.UpdatePublicPermissionV2(ctx, &lark.UpdatePublicPermissionV2Req{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "failed")
@@ -249,17 +243,6 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-			cli.Mock().MockDriveCheckMemberPermission(func(ctx context.Context, request *lark.CheckMemberPermissionReq, options ...lark.MethodOptionFunc) (*lark.CheckMemberPermissionResp, *lark.Response, error) {
-				return nil, nil, fmt.Errorf("mock-failed")
-			})
-			defer cli.Mock().UnMockDriveCheckMemberPermission()
-
-			_, _, err := moduleCli.CheckMemberPermission(ctx, &lark.CheckMemberPermissionReq{})
-			as.NotNil(err)
-			as.Equal(err.Error(), "mock-failed")
-		})
-
-		t.Run("", func(t *testing.T) {
 			cli.Mock().MockDriveUpdatePublicPermissionV2(func(ctx context.Context, request *lark.UpdatePublicPermissionV2Req, options ...lark.MethodOptionFunc) (*lark.UpdatePublicPermissionV2Resp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -356,12 +339,6 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 			_, _, err := moduleCli.UpdateMemberPermission(ctx, &lark.UpdateMemberPermissionReq{})
-			as.NotNil(err)
-			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
-		})
-
-		t.Run("", func(t *testing.T) {
-			_, _, err := moduleCli.CheckMemberPermission(ctx, &lark.CheckMemberPermissionReq{})
 			as.NotNil(err)
 			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
 		})

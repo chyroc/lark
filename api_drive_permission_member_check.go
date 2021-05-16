@@ -6,9 +6,9 @@ import (
 	"context"
 )
 
-// CheckMemberPermission 该接口用于根据 filetoken 更新文档协作者的权限。
+// CheckMemberPermission 该接口用于根据 filetoken 判断当前登录用户是否具有某权限。
 //
-// doc: https://open.feishu.cn/document/ukTMukTMukTM/ucTN3UjL3UzN14yN1cTN
+// doc: https://open.feishu.cn/document/ukTMukTMukTM/uYzN3UjL2czN14iN3cTN
 func (r *DriveAPI) CheckMemberPermission(ctx context.Context, request *CheckMemberPermissionReq, options ...MethodOptionFunc) (*CheckMemberPermissionResp, *Response, error) {
 	if r.cli.mock.mockDriveCheckMemberPermission != nil {
 		r.cli.logDebug(ctx, "[lark] Drive#CheckMemberPermission mock enable")
@@ -20,7 +20,7 @@ func (r *DriveAPI) CheckMemberPermission(ctx context.Context, request *CheckMemb
 
 	req := &RawRequestReq{
 		Method:                "POST",
-		URL:                   "https://open.feishu.cn/open-apis/drive/permission/member/update",
+		URL:                   "https://open.feishu.cn/open-apis/drive/permission/member/permitted",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
@@ -30,10 +30,10 @@ func (r *DriveAPI) CheckMemberPermission(ctx context.Context, request *CheckMemb
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
 	if err != nil {
-		r.cli.logError(ctx, "[lark] Drive#CheckMemberPermission POST https://open.feishu.cn/open-apis/drive/permission/member/update failed: %s", err)
+		r.cli.logError(ctx, "[lark] Drive#CheckMemberPermission POST https://open.feishu.cn/open-apis/drive/permission/member/permitted failed: %s", err)
 		return nil, response, err
 	} else if resp.Code != 0 {
-		r.cli.logError(ctx, "[lark] Drive#CheckMemberPermission POST https://open.feishu.cn/open-apis/drive/permission/member/update failed, code: %d, msg: %s", resp.Code, resp.Msg)
+		r.cli.logError(ctx, "[lark] Drive#CheckMemberPermission POST https://open.feishu.cn/open-apis/drive/permission/member/permitted failed, code: %d, msg: %s", resp.Code, resp.Msg)
 		return nil, response, NewError("Drive", "CheckMemberPermission", resp.Code, resp.Msg)
 	}
 
@@ -51,12 +51,9 @@ func (r *Mock) UnMockDriveCheckMemberPermission() {
 }
 
 type CheckMemberPermissionReq struct {
-	Token      string `json:"token,omitempty"`       // 文件的 token，获取方式见 [对接前说明](/ssl:ttdoc/ukTMukTMukTM/uczNzUjL3czM14yN3MTN)的第 4 项
-	Type       string `json:"type,omitempty"`        // 文档类型  "doc"  or  "sheet" or "file"
-	MemberType string `json:"member_type,omitempty"` // 用户类型，可选 **"openid"、"openchat"、"userid"**
-	MemberID   string `json:"member_id,omitempty"`   // 用户类型下的值
-	Perm       string `json:"perm,omitempty"`        // 权限，"view" or "edit"
-	NotifyLark *bool  `json:"notify_lark,omitempty"` // 修改权限后是否飞书/lark通知对方<br>true 通知 or false 不通知
+	Token string `json:"token,omitempty"` // 文件的 token，获取方式见 [对接前说明](/ssl:ttdoc/ukTMukTMukTM/uczNzUjL3czM14yN3MTN)的第 4 项
+	Type  string `json:"type,omitempty"`  // 文档类型  "doc"  or  "sheet" or "file"
+	Perm  string `json:"perm,omitempty"`  // 权限，"view" or "edit" or "share"
 }
 
 type checkMemberPermissionResp struct {
@@ -66,5 +63,5 @@ type checkMemberPermissionResp struct {
 }
 
 type CheckMemberPermissionResp struct {
-	IsSuccess bool `json:"is_success,omitempty"` // 是否操作成功
+	IsPermitted bool `json:"is_permitted,omitempty"` // 是否具有指定权限
 }

@@ -31,7 +31,7 @@ https://godoc.org/github.com/chyroc/lark
 
 ## Support APIs
 
-API Count: 214, Event Count: 28
+API Count: 213, Event Count: 28
 
 <details>
   <summary>
@@ -122,7 +122,6 @@ API Count: 214, Event Count: 28
   - GetMemberPermissionList
   - DeleteMemberPermission
   - UpdateMemberPermission
-  - CheckMemberPermission
   - CheckMemberPermission
   - UpdatePublicPermissionV2
   - GetPublicPermissionV2

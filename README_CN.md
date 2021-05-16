@@ -31,7 +31,7 @@ https://godoc.org/github.com/chyroc/lark
 
 ## 支持的接口
 
-API 总数: 214, 事件总数: 28
+API 总数: 213, 事件总数: 28
 
 <details>
   <summary>
@@ -122,7 +122,6 @@ API 总数: 214, 事件总数: 28
   - GetMemberPermissionList
   - DeleteMemberPermission
   - UpdateMemberPermission
-  - CheckMemberPermission
   - CheckMemberPermission
   - UpdatePublicPermissionV2
   - GetPublicPermissionV2

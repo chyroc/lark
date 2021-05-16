@@ -87,7 +87,6 @@ type Mock struct {
 	mockDriveDeleteMemberPermission                    func(ctx context.Context, request *DeleteMemberPermissionReq, options ...MethodOptionFunc) (*DeleteMemberPermissionResp, *Response, error)
 	mockDriveUpdateMemberPermission                    func(ctx context.Context, request *UpdateMemberPermissionReq, options ...MethodOptionFunc) (*UpdateMemberPermissionResp, *Response, error)
 	mockDriveCheckMemberPermission                     func(ctx context.Context, request *CheckMemberPermissionReq, options ...MethodOptionFunc) (*CheckMemberPermissionResp, *Response, error)
-	mockDriveCheckMemberPermission                     func(ctx context.Context, request *CheckMemberPermissionReq, options ...MethodOptionFunc) (*CheckMemberPermissionResp, *Response, error)
 	mockDriveUpdatePublicPermissionV2                  func(ctx context.Context, request *UpdatePublicPermissionV2Req, options ...MethodOptionFunc) (*UpdatePublicPermissionV2Resp, *Response, error)
 	mockDriveGetPublicPermissionV2                     func(ctx context.Context, request *GetPublicPermissionV2Req, options ...MethodOptionFunc) (*GetPublicPermissionV2Resp, *Response, error)
 	mockMeetingRoomBatchGetSummary                     func(ctx context.Context, request *BatchGetSummaryReq, options ...MethodOptionFunc) (*BatchGetSummaryResp, *Response, error)
