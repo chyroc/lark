@@ -22,3 +22,4 @@ debug.go
 .readme
 node_modules/
 */.vuepress/dist/
+dist/
