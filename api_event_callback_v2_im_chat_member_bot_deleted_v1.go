@@ -15,7 +15,7 @@ import (
 // - 事件会向被移出群的机器人进行推送
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-member-bot/events/deleted
-func (r *EventCallbackAPI) HandlerEventV2IMChatMemberBotDeletedV1(f eventV2IMChatMemberBotDeletedV1Handler) {
+func (r *EventCallbackService) HandlerEventV2IMChatMemberBotDeletedV1(f eventV2IMChatMemberBotDeletedV1Handler) {
 	r.cli.eventHandler.eventV2IMChatMemberBotDeletedV1Handler = f
 }
 

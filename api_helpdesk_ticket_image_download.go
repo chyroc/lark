@@ -10,7 +10,7 @@ import (
 // DownloadTicketImage 该接口用于获取服务台工单消息图象。仅支持自建应用。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/ticket/ticket_image
-func (r *HelpdeskAPI) DownloadTicketImage(ctx context.Context, request *DownloadTicketImageReq, options ...MethodOptionFunc) (*DownloadTicketImageResp, *Response, error) {
+func (r *HelpdeskService) DownloadTicketImage(ctx context.Context, request *DownloadTicketImageReq, options ...MethodOptionFunc) (*DownloadTicketImageResp, *Response, error) {
 	if r.cli.mock.mockHelpdeskDownloadTicketImage != nil {
 		r.cli.logDebug(ctx, "[lark] Helpdesk#DownloadTicketImage mock enable")
 		return r.cli.mock.mockHelpdeskDownloadTicketImage(ctx, request, options...)

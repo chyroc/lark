@@ -11,7 +11,7 @@ import (
 // 通过班次的名称获取班次信息。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/Attendance//shift_by_name
-func (r *AttendanceAPI) GetShiftByName(ctx context.Context, request *GetShiftByNameReq, options ...MethodOptionFunc) (*GetShiftByNameResp, *Response, error) {
+func (r *AttendanceService) GetShiftByName(ctx context.Context, request *GetShiftByNameReq, options ...MethodOptionFunc) (*GetShiftByNameResp, *Response, error) {
 	if r.cli.mock.mockAttendanceGetShiftByName != nil {
 		r.cli.logDebug(ctx, "[lark] Attendance#GetShiftByName mock enable")
 		return r.cli.mock.mockAttendanceGetShiftByName(ctx, request, options...)

@@ -19,7 +19,7 @@ func Test_HumanAuth_Sample_Failed(t *testing.T) {
 		cli := AppALLPermission.Ins()
 		cli.Mock().MockGetTenantAccessToken(mockGetTenantAccessTokenFailed)
 		cli.Mock().MockGetAppAccessToken(mockGetTenantAccessTokenFailed)
-		moduleCli := cli.HumanAuth()
+		moduleCli := cli.HumanAuth
 
 		t.Run("", func(t *testing.T) {
 			_, _, err := moduleCli.GetFaceVerifyAuthResult(ctx, &lark.GetFaceVerifyAuthResultReq{})
@@ -48,7 +48,7 @@ func Test_HumanAuth_Sample_Failed(t *testing.T) {
 
 	t.Run("request mock failed", func(t *testing.T) {
 		cli := AppALLPermission.Ins()
-		moduleCli := cli.HumanAuth()
+		moduleCli := cli.HumanAuth
 
 		t.Run("", func(t *testing.T) {
 			cli.Mock().MockHumanAuthGetFaceVerifyAuthResult(func(ctx context.Context, request *lark.GetFaceVerifyAuthResultReq, options ...lark.MethodOptionFunc) (*lark.GetFaceVerifyAuthResultResp, *lark.Response, error) {
@@ -97,7 +97,7 @@ func Test_HumanAuth_Sample_Failed(t *testing.T) {
 
 	t.Run("response is failed", func(t *testing.T) {
 		cli := AppNoPermission.Ins()
-		moduleCli := cli.HumanAuth()
+		moduleCli := cli.HumanAuth
 
 		t.Run("", func(t *testing.T) {
 			_, _, err := moduleCli.GetFaceVerifyAuthResult(ctx, &lark.GetFaceVerifyAuthResultReq{})

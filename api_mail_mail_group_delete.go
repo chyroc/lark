@@ -9,7 +9,7 @@ import (
 // DeleteMailGroup 删除一个邮件组
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/mail-v1/mailgroup/delete
-func (r *MailAPI) DeleteMailGroup(ctx context.Context, request *DeleteMailGroupReq, options ...MethodOptionFunc) (*DeleteMailGroupResp, *Response, error) {
+func (r *MailService) DeleteMailGroup(ctx context.Context, request *DeleteMailGroupReq, options ...MethodOptionFunc) (*DeleteMailGroupResp, *Response, error) {
 	if r.cli.mock.mockMailDeleteMailGroup != nil {
 		r.cli.logDebug(ctx, "[lark] Mail#DeleteMailGroup mock enable")
 		return r.cli.mock.mockMailDeleteMailGroup(ctx, request, options...)

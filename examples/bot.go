@@ -13,7 +13,7 @@ func ExampleBot() {
 
 	// get bot info
 	{
-		resp, _, err := cli.Bot().GetBotInfo(ctx, &lark.GetBotInfoReq{})
+		resp, _, err := cli.Bot.GetBotInfo(ctx, &lark.GetBotInfoReq{})
 		fmt.Println(resp, err)
 	}
 }

@@ -18,7 +18,7 @@ import (
 // - 不满足上述条件的群成员或者机器人，任何群信息都不能修改
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat/update
-func (r *ChatAPI) UpdateChat(ctx context.Context, request *UpdateChatReq, options ...MethodOptionFunc) (*UpdateChatResp, *Response, error) {
+func (r *ChatService) UpdateChat(ctx context.Context, request *UpdateChatReq, options ...MethodOptionFunc) (*UpdateChatResp, *Response, error) {
 	if r.cli.mock.mockChatUpdateChat != nil {
 		r.cli.logDebug(ctx, "[lark] Chat#UpdateChat mock enable")
 		return r.cli.mock.mockChatUpdateChat(ctx, request, options...)

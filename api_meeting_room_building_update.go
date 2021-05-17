@@ -9,7 +9,7 @@ import (
 // UpdateBuilding 该接口用于编辑建筑信息，添加楼层，删除楼层，编辑楼层信息。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uETNwYjLxUDM24SM1AjN
-func (r *MeetingRoomAPI) UpdateBuilding(ctx context.Context, request *UpdateBuildingReq, options ...MethodOptionFunc) (*UpdateBuildingResp, *Response, error) {
+func (r *MeetingRoomService) UpdateBuilding(ctx context.Context, request *UpdateBuildingReq, options ...MethodOptionFunc) (*UpdateBuildingResp, *Response, error) {
 	if r.cli.mock.mockMeetingRoomUpdateBuilding != nil {
 		r.cli.logDebug(ctx, "[lark] MeetingRoom#UpdateBuilding mock enable")
 		return r.cli.mock.mockMeetingRoomUpdateBuilding(ctx, request, options...)

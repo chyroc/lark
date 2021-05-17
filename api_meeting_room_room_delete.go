@@ -9,7 +9,7 @@ import (
 // DeleteRoom 该接口用于删除会议室。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uUzMxYjL1MTM24SNzEjN
-func (r *MeetingRoomAPI) DeleteRoom(ctx context.Context, request *DeleteRoomReq, options ...MethodOptionFunc) (*DeleteRoomResp, *Response, error) {
+func (r *MeetingRoomService) DeleteRoom(ctx context.Context, request *DeleteRoomReq, options ...MethodOptionFunc) (*DeleteRoomResp, *Response, error) {
 	if r.cli.mock.mockMeetingRoomDeleteRoom != nil {
 		r.cli.logDebug(ctx, "[lark] MeetingRoom#DeleteRoom mock enable")
 		return r.cli.mock.mockMeetingRoomDeleteRoom(ctx, request, options...)

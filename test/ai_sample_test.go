@@ -19,7 +19,7 @@ func Test_AI_Sample_Failed(t *testing.T) {
 		cli := AppALLPermission.Ins()
 		cli.Mock().MockGetTenantAccessToken(mockGetTenantAccessTokenFailed)
 		cli.Mock().MockGetAppAccessToken(mockGetTenantAccessTokenFailed)
-		moduleCli := cli.AI()
+		moduleCli := cli.AI
 
 		t.Run("", func(t *testing.T) {
 			_, _, err := moduleCli.RecognizeBasicImage(ctx, &lark.RecognizeBasicImageReq{})
@@ -54,7 +54,7 @@ func Test_AI_Sample_Failed(t *testing.T) {
 
 	t.Run("request mock failed", func(t *testing.T) {
 		cli := AppALLPermission.Ins()
-		moduleCli := cli.AI()
+		moduleCli := cli.AI
 
 		t.Run("", func(t *testing.T) {
 			cli.Mock().MockAIRecognizeBasicImage(func(ctx context.Context, request *lark.RecognizeBasicImageReq, options ...lark.MethodOptionFunc) (*lark.RecognizeBasicImageResp, *lark.Response, error) {
@@ -114,7 +114,7 @@ func Test_AI_Sample_Failed(t *testing.T) {
 
 	t.Run("response is failed", func(t *testing.T) {
 		cli := AppNoPermission.Ins()
-		moduleCli := cli.AI()
+		moduleCli := cli.AI
 
 		t.Run("", func(t *testing.T) {
 			_, _, err := moduleCli.RecognizeBasicImage(ctx, &lark.RecognizeBasicImageReq{})

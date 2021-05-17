@@ -9,7 +9,7 @@ import (
 // SearchCalendar 该接口用于通过关键字查询公共日历或用户主日历。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar/search
-func (r *CalendarAPI) SearchCalendar(ctx context.Context, request *SearchCalendarReq, options ...MethodOptionFunc) (*SearchCalendarResp, *Response, error) {
+func (r *CalendarService) SearchCalendar(ctx context.Context, request *SearchCalendarReq, options ...MethodOptionFunc) (*SearchCalendarResp, *Response, error) {
 	if r.cli.mock.mockCalendarSearchCalendar != nil {
 		r.cli.logDebug(ctx, "[lark] Calendar#SearchCalendar mock enable")
 		return r.cli.mock.mockCalendarSearchCalendar(ctx, request, options...)

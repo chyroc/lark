@@ -9,7 +9,7 @@ import (
 // UpdatePublicMailbox 更新公共邮箱所有信息
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/mail-v1/public_mailbox/update
-func (r *MailAPI) UpdatePublicMailbox(ctx context.Context, request *UpdatePublicMailboxReq, options ...MethodOptionFunc) (*UpdatePublicMailboxResp, *Response, error) {
+func (r *MailService) UpdatePublicMailbox(ctx context.Context, request *UpdatePublicMailboxReq, options ...MethodOptionFunc) (*UpdatePublicMailboxResp, *Response, error) {
 	if r.cli.mock.mockMailUpdatePublicMailbox != nil {
 		r.cli.logDebug(ctx, "[lark] Mail#UpdatePublicMailbox mock enable")
 		return r.cli.mock.mockMailUpdatePublicMailbox(ctx, request, options...)

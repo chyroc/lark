@@ -11,7 +11,7 @@ import (
 // 发生在有人加入会议时
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/vc-v1/meeting/events/join_meeting
-func (r *EventCallbackAPI) HandlerEventV2VCMeetingJoinMeetingV1(f eventV2VCMeetingJoinMeetingV1Handler) {
+func (r *EventCallbackService) HandlerEventV2VCMeetingJoinMeetingV1(f eventV2VCMeetingJoinMeetingV1Handler) {
 	r.cli.eventHandler.eventV2VCMeetingJoinMeetingV1Handler = f
 }
 

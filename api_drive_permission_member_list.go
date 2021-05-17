@@ -11,7 +11,7 @@ import (
 // 你能获取到协作者列表的前提是你对该文档有分享权限
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uATN3UjLwUzN14CM1cTN
-func (r *DriveAPI) GetMemberPermissionList(ctx context.Context, request *GetMemberPermissionListReq, options ...MethodOptionFunc) (*GetMemberPermissionListResp, *Response, error) {
+func (r *DriveService) GetMemberPermissionList(ctx context.Context, request *GetMemberPermissionListReq, options ...MethodOptionFunc) (*GetMemberPermissionListResp, *Response, error) {
 	if r.cli.mock.mockDriveGetMemberPermissionList != nil {
 		r.cli.logDebug(ctx, "[lark] Drive#GetMemberPermissionList mock enable")
 		return r.cli.mock.mockDriveGetMemberPermissionList(ctx, request, options...)

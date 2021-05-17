@@ -19,7 +19,7 @@ func Test_Tenant_Sample_Failed(t *testing.T) {
 		cli := AppALLPermission.Ins()
 		cli.Mock().MockGetTenantAccessToken(mockGetTenantAccessTokenFailed)
 		cli.Mock().MockGetAppAccessToken(mockGetTenantAccessTokenFailed)
-		moduleCli := cli.Tenant()
+		moduleCli := cli.Tenant
 
 		t.Run("", func(t *testing.T) {
 			_, _, err := moduleCli.QueryTenant(ctx, &lark.QueryTenantReq{})
@@ -30,7 +30,7 @@ func Test_Tenant_Sample_Failed(t *testing.T) {
 
 	t.Run("request mock failed", func(t *testing.T) {
 		cli := AppALLPermission.Ins()
-		moduleCli := cli.Tenant()
+		moduleCli := cli.Tenant
 
 		t.Run("", func(t *testing.T) {
 			cli.Mock().MockTenantQueryTenant(func(ctx context.Context, request *lark.QueryTenantReq, options ...lark.MethodOptionFunc) (*lark.QueryTenantResp, *lark.Response, error) {
@@ -46,7 +46,7 @@ func Test_Tenant_Sample_Failed(t *testing.T) {
 
 	t.Run("response is failed", func(t *testing.T) {
 		cli := AppNoPermission.Ins()
-		moduleCli := cli.Tenant()
+		moduleCli := cli.Tenant
 
 		t.Run("", func(t *testing.T) {
 			_, _, err := moduleCli.QueryTenant(ctx, &lark.QueryTenantReq{})

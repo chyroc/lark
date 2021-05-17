@@ -7,11 +7,11 @@ import (
 
 type MessageReplyAPI struct {
 	cli       *Lark
-	msgAPI    *MessageAPI
+	msgAPI    *MessageService
 	messageID string
 }
 
-func (r *MessageAPI) Reply(messageID string) *MessageReplyAPI {
+func (r *MessageService) Reply(messageID string) *MessageReplyAPI {
 	return &MessageReplyAPI{
 		cli:       r.cli,
 		msgAPI:    r,

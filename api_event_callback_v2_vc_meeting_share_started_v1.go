@@ -11,7 +11,7 @@ import (
 // 发生在屏幕共享开始时
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/vc-v1/meeting/events/share_started
-func (r *EventCallbackAPI) HandlerEventV2VCMeetingShareStartedV1(f eventV2VCMeetingShareStartedV1Handler) {
+func (r *EventCallbackService) HandlerEventV2VCMeetingShareStartedV1(f eventV2VCMeetingShareStartedV1Handler) {
 	r.cli.eventHandler.eventV2VCMeetingShareStartedV1Handler = f
 }
 

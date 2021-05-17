@@ -12,7 +12,7 @@ import (
 // - 应用需要开启[机器人能力](https://open.feishu.cn/document/uQjL04CN/uYTMuYTMuYTM)
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat/list
-func (r *ChatAPI) GetChatListOfSelf(ctx context.Context, request *GetChatListOfSelfReq, options ...MethodOptionFunc) (*GetChatListOfSelfResp, *Response, error) {
+func (r *ChatService) GetChatListOfSelf(ctx context.Context, request *GetChatListOfSelfReq, options ...MethodOptionFunc) (*GetChatListOfSelfResp, *Response, error) {
 	if r.cli.mock.mockChatGetChatListOfSelf != nil {
 		r.cli.logDebug(ctx, "[lark] Chat#GetChatListOfSelf mock enable")
 		return r.cli.mock.mockChatGetChatListOfSelf(ctx, request, options...)

@@ -13,7 +13,7 @@ import (
 // 仅可订阅类型为 primary 或 shared 的公开日历。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar/subscribe
-func (r *CalendarAPI) SubscribeCalendar(ctx context.Context, request *SubscribeCalendarReq, options ...MethodOptionFunc) (*SubscribeCalendarResp, *Response, error) {
+func (r *CalendarService) SubscribeCalendar(ctx context.Context, request *SubscribeCalendarReq, options ...MethodOptionFunc) (*SubscribeCalendarResp, *Response, error) {
 	if r.cli.mock.mockCalendarSubscribeCalendar != nil {
 		r.cli.logDebug(ctx, "[lark] Calendar#SubscribeCalendar mock enable")
 		return r.cli.mock.mockCalendarSubscribeCalendar(ctx, request, options...)

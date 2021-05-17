@@ -13,7 +13,7 @@ import (
 // 当前身份需要有日历的 owner 权限，并且日历的类型只能为 primary 或 shared。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar-acl/delete
-func (r *CalendarAPI) DeleteCalendarACL(ctx context.Context, request *DeleteCalendarACLReq, options ...MethodOptionFunc) (*DeleteCalendarACLResp, *Response, error) {
+func (r *CalendarService) DeleteCalendarACL(ctx context.Context, request *DeleteCalendarACLReq, options ...MethodOptionFunc) (*DeleteCalendarACLResp, *Response, error) {
 	if r.cli.mock.mockCalendarDeleteCalendarACL != nil {
 		r.cli.logDebug(ctx, "[lark] Calendar#DeleteCalendarACL mock enable")
 		return r.cli.mock.mockCalendarDeleteCalendarACL(ctx, request, options...)

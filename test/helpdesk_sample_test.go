@@ -19,7 +19,7 @@ func Test_Helpdesk_Sample_Failed(t *testing.T) {
 		cli := AppALLPermission.Ins()
 		cli.Mock().MockGetTenantAccessToken(mockGetTenantAccessTokenFailed)
 		cli.Mock().MockGetAppAccessToken(mockGetTenantAccessTokenFailed)
-		moduleCli := cli.Helpdesk()
+		moduleCli := cli.Helpdesk
 
 		t.Run("", func(t *testing.T) {
 			_, _, err := moduleCli.StartService(ctx, &lark.StartServiceReq{})
@@ -120,7 +120,7 @@ func Test_Helpdesk_Sample_Failed(t *testing.T) {
 
 	t.Run("request mock failed", func(t *testing.T) {
 		cli := AppALLPermission.Ins()
-		moduleCli := cli.Helpdesk()
+		moduleCli := cli.Helpdesk
 
 		t.Run("", func(t *testing.T) {
 			cli.Mock().MockHelpdeskStartService(func(ctx context.Context, request *lark.StartServiceReq, options ...lark.MethodOptionFunc) (*lark.StartServiceResp, *lark.Response, error) {
@@ -301,7 +301,7 @@ func Test_Helpdesk_Sample_Failed(t *testing.T) {
 
 	t.Run("response is failed", func(t *testing.T) {
 		cli := AppNoPermission.Ins()
-		moduleCli := cli.Helpdesk()
+		moduleCli := cli.Helpdesk
 
 		t.Run("", func(t *testing.T) {
 			_, _, err := moduleCli.StartService(ctx, &lark.StartServiceReq{})

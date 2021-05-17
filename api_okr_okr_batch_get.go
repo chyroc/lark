@@ -11,7 +11,7 @@ import (
 // 使用<md-tag mode="inline" type="token-tenant">tenant_access_token</md-tag>需要额外申请权限以应用身份访问OKR信息
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/okr-v1/okr/batch_get
-func (r *OKRAPI) BatchGetOKR(ctx context.Context, request *BatchGetOKRReq, options ...MethodOptionFunc) (*BatchGetOKRResp, *Response, error) {
+func (r *OKRService) BatchGetOKR(ctx context.Context, request *BatchGetOKRReq, options ...MethodOptionFunc) (*BatchGetOKRResp, *Response, error) {
 	if r.cli.mock.mockOKRBatchGetOKR != nil {
 		r.cli.logDebug(ctx, "[lark] OKR#BatchGetOKR mock enable")
 		return r.cli.mock.mockOKRBatchGetOKR(ctx, request, options...)

@@ -11,7 +11,7 @@ import (
 // 单租户限流：20QPS，同租户下的应用没有限流，共享本租户的 20QPS 限流
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/ai/translation-v1/text/detect
-func (r *AIAPI) DetectTextLanguage(ctx context.Context, request *DetectTextLanguageReq, options ...MethodOptionFunc) (*DetectTextLanguageResp, *Response, error) {
+func (r *AIService) DetectTextLanguage(ctx context.Context, request *DetectTextLanguageReq, options ...MethodOptionFunc) (*DetectTextLanguageResp, *Response, error) {
 	if r.cli.mock.mockAIDetectTextLanguage != nil {
 		r.cli.logDebug(ctx, "[lark] AI#DetectTextLanguage mock enable")
 		return r.cli.mock.mockAIDetectTextLanguage(ctx, request, options...)

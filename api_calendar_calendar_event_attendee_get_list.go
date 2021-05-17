@@ -12,7 +12,7 @@ import (
 // - 当前身份必须有权限查看日程的参与人列表。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar-event-attendee/list
-func (r *CalendarAPI) GetCalendarEventAttendeeList(ctx context.Context, request *GetCalendarEventAttendeeListReq, options ...MethodOptionFunc) (*GetCalendarEventAttendeeListResp, *Response, error) {
+func (r *CalendarService) GetCalendarEventAttendeeList(ctx context.Context, request *GetCalendarEventAttendeeListReq, options ...MethodOptionFunc) (*GetCalendarEventAttendeeListResp, *Response, error) {
 	if r.cli.mock.mockCalendarGetCalendarEventAttendeeList != nil {
 		r.cli.logDebug(ctx, "[lark] Calendar#GetCalendarEventAttendeeList mock enable")
 		return r.cli.mock.mockCalendarGetCalendarEventAttendeeList(ctx, request, options...)

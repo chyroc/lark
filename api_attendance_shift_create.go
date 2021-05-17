@@ -13,7 +13,7 @@ import (
 // - 一个公司内的班次是共享的，你可以直接引用他人创建的班次，但是需要注意的是，若他人修改了班次，会影响到你的考勤组及其考勤结果。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/Attendance//shift_create
-func (r *AttendanceAPI) CreateShift(ctx context.Context, request *CreateShiftReq, options ...MethodOptionFunc) (*CreateShiftResp, *Response, error) {
+func (r *AttendanceService) CreateShift(ctx context.Context, request *CreateShiftReq, options ...MethodOptionFunc) (*CreateShiftResp, *Response, error) {
 	if r.cli.mock.mockAttendanceCreateShift != nil {
 		r.cli.logDebug(ctx, "[lark] Attendance#CreateShift mock enable")
 		return r.cli.mock.mockAttendanceCreateShift(ctx, request, options...)

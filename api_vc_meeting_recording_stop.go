@@ -11,7 +11,7 @@ import (
 // 会议正在录制中，且操作者具有相应权限（如果操作者为用户，必须是会中当前主持人）
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/vc-v1/meeting-recording/stop
-func (r *VCAPI) StopMeetingRecording(ctx context.Context, request *StopMeetingRecordingReq, options ...MethodOptionFunc) (*StopMeetingRecordingResp, *Response, error) {
+func (r *VCService) StopMeetingRecording(ctx context.Context, request *StopMeetingRecordingReq, options ...MethodOptionFunc) (*StopMeetingRecordingResp, *Response, error) {
 	if r.cli.mock.mockVCStopMeetingRecording != nil {
 		r.cli.logDebug(ctx, "[lark] VC#StopMeetingRecording mock enable")
 		return r.cli.mock.mockVCStopMeetingRecording(ctx, request, options...)

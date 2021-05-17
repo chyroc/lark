@@ -16,7 +16,7 @@ func example() {
 	cli := lark.New(lark.WithAppCredential(appID, appSecret))
 	ctx := context.Background()
 
-	resp, _, err := cli.Message().GetMessageReadUserList(ctx, &lark.GetMessageReadUserListReq{
+	resp, _, err := cli.Message.GetMessageReadUserList(ctx, &lark.GetMessageReadUserListReq{
 		UserIDType: lark.IDTypeOpenID,
 		MessageID:  messageID,
 	})

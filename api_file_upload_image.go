@@ -13,7 +13,7 @@ import (
 // - 需要开启[机器人能力](https://open.feishu.cn/document/uQjL04CN/uYTMuYTMuYTM)
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/image/create
-func (r *FileAPI) UploadImage(ctx context.Context, request *UploadImageReq, options ...MethodOptionFunc) (*UploadImageResp, *Response, error) {
+func (r *FileService) UploadImage(ctx context.Context, request *UploadImageReq, options ...MethodOptionFunc) (*UploadImageResp, *Response, error) {
 	if r.cli.mock.mockFileUploadImage != nil {
 		r.cli.logDebug(ctx, "[lark] File#UploadImage mock enable")
 		return r.cli.mock.mockFileUploadImage(ctx, request, options...)

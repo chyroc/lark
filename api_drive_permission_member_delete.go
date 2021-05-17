@@ -9,7 +9,7 @@ import (
 // DeleteMemberPermission 该接口用于根据 filetoken 移除文档协作者的权限。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uYTN3UjL2UzN14iN1cTN
-func (r *DriveAPI) DeleteMemberPermission(ctx context.Context, request *DeleteMemberPermissionReq, options ...MethodOptionFunc) (*DeleteMemberPermissionResp, *Response, error) {
+func (r *DriveService) DeleteMemberPermission(ctx context.Context, request *DeleteMemberPermissionReq, options ...MethodOptionFunc) (*DeleteMemberPermissionResp, *Response, error) {
 	if r.cli.mock.mockDriveDeleteMemberPermission != nil {
 		r.cli.logDebug(ctx, "[lark] Drive#DeleteMemberPermission mock enable")
 		return r.cli.mock.mockDriveDeleteMemberPermission(ctx, request, options...)

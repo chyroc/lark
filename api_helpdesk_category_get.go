@@ -9,7 +9,7 @@ import (
 // GetCategory 该接口用于获取知识库分类。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/category/get
-func (r *HelpdeskAPI) GetCategory(ctx context.Context, request *GetCategoryReq, options ...MethodOptionFunc) (*GetCategoryResp, *Response, error) {
+func (r *HelpdeskService) GetCategory(ctx context.Context, request *GetCategoryReq, options ...MethodOptionFunc) (*GetCategoryResp, *Response, error) {
 	if r.cli.mock.mockHelpdeskGetCategory != nil {
 		r.cli.logDebug(ctx, "[lark] Helpdesk#GetCategory mock enable")
 		return r.cli.mock.mockHelpdeskGetCategory(ctx, request, options...)

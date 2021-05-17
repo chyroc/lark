@@ -9,7 +9,7 @@ import (
 // IsInChat 判断用户或者机器人是否在群里。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-members/is_in_chat
-func (r *ChatAPI) IsInChat(ctx context.Context, request *IsInChatReq, options ...MethodOptionFunc) (*IsInChatResp, *Response, error) {
+func (r *ChatService) IsInChat(ctx context.Context, request *IsInChatReq, options ...MethodOptionFunc) (*IsInChatResp, *Response, error) {
 	if r.cli.mock.mockChatIsInChat != nil {
 		r.cli.logDebug(ctx, "[lark] Chat#IsInChat mock enable")
 		return r.cli.mock.mockChatIsInChat(ctx, request, options...)

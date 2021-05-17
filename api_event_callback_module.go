@@ -136,7 +136,7 @@ type eventBody struct {
 	eventV1ChatDisband                 *EventV1ChatDisband
 }
 
-func (r *EventCallbackAPI) parserEventV2(req *eventReq) error {
+func (r *EventCallbackService) parserEventV2(req *eventReq) error {
 	if req.Header == nil {
 		return fmt.Errorf("get schema=2.0, but header is nil")
 	}
@@ -274,7 +274,7 @@ func (r *EventCallbackAPI) parserEventV2(req *eventReq) error {
 }
 
 // https://open.feishu.cn/document/ukTMukTMukTM/uYDNxYjL2QTM24iN0EjN/bot-events
-func (r *EventCallbackAPI) parserEventV1(req *eventReq) error {
+func (r *EventCallbackService) parserEventV1(req *eventReq) error {
 	if req.UUID == "" {
 		return fmt.Errorf("get schema=1.0, but uuid is nil")
 	}
@@ -348,7 +348,7 @@ type v1type struct {
 	Type EventType `json:"type"`
 }
 
-func (r *EventCallbackAPI) handlerEvent(ctx context.Context, req *eventReq) (handled bool, s string, err error) {
+func (r *EventCallbackService) handlerEvent(ctx context.Context, req *eventReq) (handled bool, s string, err error) {
 	switch {
 	case req.eventV2ContactUserUpdatedV3 != nil:
 		if r.cli.eventHandler.eventV2ContactUserUpdatedV3Handler != nil {

@@ -54,13 +54,13 @@ func (r *Lark) prepareHeaders(ctx context.Context, req *RawRequestReq) (map[stri
 	if req.NeedUserAccessToken && req.MethodOption.userAccessToken != "" {
 		headers["Authorization"] = "Bearer " + req.MethodOption.userAccessToken
 	} else if req.NeedTenantAccessToken {
-		token, _, err := r.Auth().GetTenantAccessToken(ctx)
+		token, _, err := r.Auth.GetTenantAccessToken(ctx)
 		if err != nil {
 			return nil, err
 		}
 		headers["Authorization"] = "Bearer " + token.Token
 	} else if req.NeedAppAccessToken {
-		token, _, err := r.Auth().GetAppAccessToken(ctx)
+		token, _, err := r.Auth.GetAppAccessToken(ctx)
 		if err != nil {
 			return nil, err
 		}

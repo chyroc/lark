@@ -12,7 +12,7 @@ import (
 // 适用于考勤机数据导入等场景。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/Attendance//ImportAttendanceFlowRecords
-func (r *AttendanceAPI) BatchCreateUserFlow(ctx context.Context, request *BatchCreateUserFlowReq, options ...MethodOptionFunc) (*BatchCreateUserFlowResp, *Response, error) {
+func (r *AttendanceService) BatchCreateUserFlow(ctx context.Context, request *BatchCreateUserFlowReq, options ...MethodOptionFunc) (*BatchCreateUserFlowResp, *Response, error) {
 	if r.cli.mock.mockAttendanceBatchCreateUserFlow != nil {
 		r.cli.logDebug(ctx, "[lark] Attendance#BatchCreateUserFlow mock enable")
 		return r.cli.mock.mockAttendanceBatchCreateUserFlow(ctx, request, options...)

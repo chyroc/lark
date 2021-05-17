@@ -14,7 +14,7 @@ import (
 // - 给群组发送消息，需要机器人在群中
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/create
-func (r *MessageAPI) SendRawMessage(ctx context.Context, request *SendRawMessageReq, options ...MethodOptionFunc) (*SendRawMessageResp, *Response, error) {
+func (r *MessageService) SendRawMessage(ctx context.Context, request *SendRawMessageReq, options ...MethodOptionFunc) (*SendRawMessageResp, *Response, error) {
 	if r.cli.mock.mockMessageSendRawMessage != nil {
 		r.cli.logDebug(ctx, "[lark] Message#SendRawMessage mock enable")
 		return r.cli.mock.mockMessageSendRawMessage(ctx, request, options...)

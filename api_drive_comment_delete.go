@@ -9,7 +9,7 @@ import (
 // DeleteComment 删除云文档中的某条回复。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file-comment-reply/delete
-func (r *DriveAPI) DeleteComment(ctx context.Context, request *DeleteCommentReq, options ...MethodOptionFunc) (*DeleteCommentResp, *Response, error) {
+func (r *DriveService) DeleteComment(ctx context.Context, request *DeleteCommentReq, options ...MethodOptionFunc) (*DeleteCommentResp, *Response, error) {
 	if r.cli.mock.mockDriveDeleteComment != nil {
 		r.cli.logDebug(ctx, "[lark] Drive#DeleteComment mock enable")
 		return r.cli.mock.mockDriveDeleteComment(ctx, request, options...)

@@ -9,7 +9,7 @@ import (
 // UpdateSheetProperty 该接口用于根据 spreadsheetToken 更新表格属性，如更新表格标题。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/ucTMzUjL3EzM14yNxMTN
-func (r *DriveAPI) UpdateSheetProperty(ctx context.Context, request *UpdateSheetPropertyReq, options ...MethodOptionFunc) (*UpdateSheetPropertyResp, *Response, error) {
+func (r *DriveService) UpdateSheetProperty(ctx context.Context, request *UpdateSheetPropertyReq, options ...MethodOptionFunc) (*UpdateSheetPropertyResp, *Response, error) {
 	if r.cli.mock.mockDriveUpdateSheetProperty != nil {
 		r.cli.logDebug(ctx, "[lark] Drive#UpdateSheetProperty mock enable")
 		return r.cli.mock.mockDriveUpdateSheetProperty(ctx, request, options...)

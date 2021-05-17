@@ -11,7 +11,7 @@ import (
 // 发生在会议结束时
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/vc-v1/meeting/events/meeting_ended
-func (r *EventCallbackAPI) HandlerEventV2VCMeetingMeetingEndedV1(f eventV2VCMeetingMeetingEndedV1Handler) {
+func (r *EventCallbackService) HandlerEventV2VCMeetingMeetingEndedV1(f eventV2VCMeetingMeetingEndedV1Handler) {
 	r.cli.eventHandler.eventV2VCMeetingMeetingEndedV1Handler = f
 }
 

@@ -9,7 +9,7 @@ import (
 // BatchGetSummary 通过日程的Uid和Original time，查询会议室日程主题。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uIjM5UjLyITO14iMykTN/
-func (r *MeetingRoomAPI) BatchGetSummary(ctx context.Context, request *BatchGetSummaryReq, options ...MethodOptionFunc) (*BatchGetSummaryResp, *Response, error) {
+func (r *MeetingRoomService) BatchGetSummary(ctx context.Context, request *BatchGetSummaryReq, options ...MethodOptionFunc) (*BatchGetSummaryResp, *Response, error) {
 	if r.cli.mock.mockMeetingRoomBatchGetSummary != nil {
 		r.cli.logDebug(ctx, "[lark] MeetingRoom#BatchGetSummary mock enable")
 		return r.cli.mock.mockMeetingRoomBatchGetSummary(ctx, request, options...)

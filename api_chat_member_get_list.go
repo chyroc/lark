@@ -13,7 +13,7 @@ import (
 // - 该接口不会返回群内的机器人成员
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-members/get
-func (r *ChatAPI) GetMemberList(ctx context.Context, request *GetMemberListReq, options ...MethodOptionFunc) (*GetMemberListResp, *Response, error) {
+func (r *ChatService) GetMemberList(ctx context.Context, request *GetMemberListReq, options ...MethodOptionFunc) (*GetMemberListResp, *Response, error) {
 	if r.cli.mock.mockChatGetMemberList != nil {
 		r.cli.logDebug(ctx, "[lark] Chat#GetMemberList mock enable")
 		return r.cli.mock.mockChatGetMemberList(ctx, request, options...)

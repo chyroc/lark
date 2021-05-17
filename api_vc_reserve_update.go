@@ -11,7 +11,7 @@ import (
 // 只能更新归属于自己的预约，不需要更新的字段不传（如果传空则会被更新为空）；可用于续期操作，到期时间距离当前时间不超过30天
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/vc-v1/reserve/update
-func (r *VCAPI) UpdateReserve(ctx context.Context, request *UpdateReserveReq, options ...MethodOptionFunc) (*UpdateReserveResp, *Response, error) {
+func (r *VCService) UpdateReserve(ctx context.Context, request *UpdateReserveReq, options ...MethodOptionFunc) (*UpdateReserveResp, *Response, error) {
 	if r.cli.mock.mockVCUpdateReserve != nil {
 		r.cli.logDebug(ctx, "[lark] VC#UpdateReserve mock enable")
 		return r.cli.mock.mockVCUpdateReserve(ctx, request, options...)

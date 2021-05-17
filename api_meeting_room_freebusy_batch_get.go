@@ -9,7 +9,7 @@ import (
 // BatchGetFreebusy 该接口用于获取指定会议室的忙闲日程实例列表。非重复日程只有唯一实例；重复日程可能存在多个实例，依据重复规则和时间范围扩展。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uIDOyUjLygjM14iM4ITN
-func (r *MeetingRoomAPI) BatchGetFreebusy(ctx context.Context, request *BatchGetFreebusyReq, options ...MethodOptionFunc) (*BatchGetFreebusyResp, *Response, error) {
+func (r *MeetingRoomService) BatchGetFreebusy(ctx context.Context, request *BatchGetFreebusyReq, options ...MethodOptionFunc) (*BatchGetFreebusyResp, *Response, error) {
 	if r.cli.mock.mockMeetingRoomBatchGetFreebusy != nil {
 		r.cli.logDebug(ctx, "[lark] MeetingRoom#BatchGetFreebusy mock enable")
 		return r.cli.mock.mockMeetingRoomBatchGetFreebusy(ctx, request, options...)

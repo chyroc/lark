@@ -19,7 +19,7 @@ func Test_MeetingRoom_Sample_Failed(t *testing.T) {
 		cli := AppALLPermission.Ins()
 		cli.Mock().MockGetTenantAccessToken(mockGetTenantAccessTokenFailed)
 		cli.Mock().MockGetAppAccessToken(mockGetTenantAccessTokenFailed)
-		moduleCli := cli.MeetingRoom()
+		moduleCli := cli.MeetingRoom
 
 		t.Run("", func(t *testing.T) {
 			_, _, err := moduleCli.BatchGetSummary(ctx, &lark.BatchGetSummaryReq{})
@@ -126,7 +126,7 @@ func Test_MeetingRoom_Sample_Failed(t *testing.T) {
 
 	t.Run("request mock failed", func(t *testing.T) {
 		cli := AppALLPermission.Ins()
-		moduleCli := cli.MeetingRoom()
+		moduleCli := cli.MeetingRoom
 
 		t.Run("", func(t *testing.T) {
 			cli.Mock().MockMeetingRoomBatchGetSummary(func(ctx context.Context, request *lark.BatchGetSummaryReq, options ...lark.MethodOptionFunc) (*lark.BatchGetSummaryResp, *lark.Response, error) {
@@ -318,7 +318,7 @@ func Test_MeetingRoom_Sample_Failed(t *testing.T) {
 
 	t.Run("response is failed", func(t *testing.T) {
 		cli := AppNoPermission.Ins()
-		moduleCli := cli.MeetingRoom()
+		moduleCli := cli.MeetingRoom
 
 		t.Run("", func(t *testing.T) {
 			_, _, err := moduleCli.BatchGetSummary(ctx, &lark.BatchGetSummaryReq{})

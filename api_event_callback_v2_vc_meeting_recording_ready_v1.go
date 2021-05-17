@@ -12,7 +12,7 @@ import (
 // 收到该事件后，方可进行录制文件获取、授权等操作
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/vc-v1/meeting/events/recording_ready
-func (r *EventCallbackAPI) HandlerEventV2VCMeetingRecordingReadyV1(f eventV2VCMeetingRecordingReadyV1Handler) {
+func (r *EventCallbackService) HandlerEventV2VCMeetingRecordingReadyV1(f eventV2VCMeetingRecordingReadyV1Handler) {
 	r.cli.eventHandler.eventV2VCMeetingRecordingReadyV1Handler = f
 }
 

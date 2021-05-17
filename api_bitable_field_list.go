@@ -9,7 +9,7 @@ import (
 // GetFieldList 根据 app_token 和 table_id，获取数据表的所有字段
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table-field/list
-func (r *BitableAPI) GetFieldList(ctx context.Context, request *GetFieldListReq, options ...MethodOptionFunc) (*GetFieldListResp, *Response, error) {
+func (r *BitableService) GetFieldList(ctx context.Context, request *GetFieldListReq, options ...MethodOptionFunc) (*GetFieldListResp, *Response, error) {
 	if r.cli.mock.mockBitableGetFieldList != nil {
 		r.cli.logDebug(ctx, "[lark] Bitable#GetFieldList mock enable")
 		return r.cli.mock.mockBitableGetFieldList(ctx, request, options...)

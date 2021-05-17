@@ -15,7 +15,7 @@ import (
 // 无源人脸比对流程，开发者后台通过调用此接口对基准图片做规范校验及处理。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/human_authentication-v1/face/facial-image-cropping
-func (r *HumanAuthAPI) CropFaceVerifyImage(ctx context.Context, request *CropFaceVerifyImageReq, options ...MethodOptionFunc) (*CropFaceVerifyImageResp, *Response, error) {
+func (r *HumanAuthService) CropFaceVerifyImage(ctx context.Context, request *CropFaceVerifyImageReq, options ...MethodOptionFunc) (*CropFaceVerifyImageResp, *Response, error) {
 	if r.cli.mock.mockHumanAuthCropFaceVerifyImage != nil {
 		r.cli.logDebug(ctx, "[lark] HumanAuth#CropFaceVerifyImage mock enable")
 		return r.cli.mock.mockHumanAuthCropFaceVerifyImage(ctx, request, options...)

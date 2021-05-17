@@ -26,14 +26,14 @@ func Test_CreateChat(t *testing.T) {
 
 		chatID := ""
 		{
-			resp, _, err := cli.Chat().CreateChat(ctx, &lark.CreateChatReq{})
+			resp, _, err := cli.Chat.CreateChat(ctx, &lark.CreateChatReq{})
 			printData("CreateChat", resp, err)
 			as.Nil(err)
 			chatID = resp.ChatID
 		}
 
 		{
-			resp, _, err := cli.Chat().AddMember(ctx, &lark.AddMemberReq{
+			resp, _, err := cli.Chat.AddMember(ctx, &lark.AddMemberReq{
 				MemberIDType: lark.IDTypePtr(lark.IDTypeUserID),
 				ChatID:       chatID,
 				IDList:       []string{UserAdmin.UserID},
@@ -43,7 +43,7 @@ func Test_CreateChat(t *testing.T) {
 		}
 
 		{
-			resp, _, err := cli.Chat().GetMemberList(ctx, &lark.GetMemberListReq{
+			resp, _, err := cli.Chat.GetMemberList(ctx, &lark.GetMemberListReq{
 				MemberIDType: lark.IDTypePtr(lark.IDTypeUserID),
 				ChatID:       chatID,
 			})
@@ -54,7 +54,7 @@ func Test_CreateChat(t *testing.T) {
 		}
 
 		{
-			resp, _, err := cli.Chat().DeleteMember(ctx, &lark.DeleteMemberReq{
+			resp, _, err := cli.Chat.DeleteMember(ctx, &lark.DeleteMemberReq{
 				MemberIDType: lark.IDTypePtr(lark.IDTypeUserID),
 				ChatID:       chatID,
 				IDList:       []string{UserAdmin.UserID},
@@ -64,7 +64,7 @@ func Test_CreateChat(t *testing.T) {
 		}
 
 		{
-			resp, _, err := cli.Chat().DeleteChat(ctx, &lark.DeleteChatReq{
+			resp, _, err := cli.Chat.DeleteChat(ctx, &lark.DeleteChatReq{
 				ChatID: chatID,
 			})
 			printData("DeleteChat", resp, err)
@@ -77,7 +77,7 @@ func Test_Chat_member(t *testing.T) {
 	as := assert.New(t)
 
 	t.Run("", func(t *testing.T) {
-		resp, _, err := AppALLPermission.Ins().Chat().IsInChat(ctx, &lark.IsInChatReq{
+		resp, _, err := AppALLPermission.Ins().Chat.IsInChat(ctx, &lark.IsInChatReq{
 			ChatID: ChatContainALLPermissionApp.ChatID,
 		})
 		printData("IsInChat", resp, err)
@@ -86,7 +86,7 @@ func Test_Chat_member(t *testing.T) {
 	})
 
 	t.Run("", func(t *testing.T) {
-		resp, _, err := AppALLPermission.Ins().Chat().IsInChat(ctx, &lark.IsInChatReq{
+		resp, _, err := AppALLPermission.Ins().Chat.IsInChat(ctx, &lark.IsInChatReq{
 			ChatID: ChatNotContainALLPermissionApp.ChatID,
 		})
 		printData("IsInChat", resp, err)
@@ -99,7 +99,7 @@ func Test_GetChat(t *testing.T) {
 	as := assert.New(t)
 
 	t.Run("SearchChat, success", func(t *testing.T) {
-		resp, _, err := AppALLPermission.Ins().Chat().GetChat(ctx, &lark.GetChatReq{
+		resp, _, err := AppALLPermission.Ins().Chat.GetChat(ctx, &lark.GetChatReq{
 			ChatID: ChatContainALLPermissionApp.ChatID,
 		})
 		printData(resp, err)
@@ -111,7 +111,7 @@ func Test_GetChat(t *testing.T) {
 	})
 
 	t.Run("", func(t *testing.T) {
-		resp, _, err := AppALLPermission.Ins().Chat().UpdateChat(ctx, &lark.UpdateChatReq{
+		resp, _, err := AppALLPermission.Ins().Chat.UpdateChat(ctx, &lark.UpdateChatReq{
 			ChatID: ChatContainALLPermissionApp.ChatID,
 			Name:   ptr.String("包含「lark-sdk」的群 " + strconv.FormatInt(randInt64(), 10)),
 		})
@@ -120,7 +120,7 @@ func Test_GetChat(t *testing.T) {
 	})
 
 	t.Run("GetChatListOfSelf, success", func(t *testing.T) {
-		resp, _, err := AppALLPermission.Ins().Chat().GetChatListOfSelf(ctx, &lark.GetChatListOfSelfReq{
+		resp, _, err := AppALLPermission.Ins().Chat.GetChatListOfSelf(ctx, &lark.GetChatListOfSelfReq{
 			UserIDType: lark.IDTypePtr(lark.IDTypeOpenID),
 		})
 		as.Nil(err)
@@ -135,7 +135,7 @@ func Test_GetChat(t *testing.T) {
 	})
 
 	t.Run("SearchChat, success", func(t *testing.T) {
-		resp, _, err := AppALLPermission.Ins().Chat().SearchChat(ctx, &lark.SearchChatReq{
+		resp, _, err := AppALLPermission.Ins().Chat.SearchChat(ctx, &lark.SearchChatReq{
 			Query: ptr.String("lark-sdk"),
 		})
 		as.Nil(err)
@@ -154,7 +154,7 @@ func Test_ChatAnnouncement(t *testing.T) {
 	as := assert.New(t)
 
 	t.Run("GetAnnouncement, all-permission", func(t *testing.T) {
-		resp, _, err := AppALLPermission.Ins().Chat().GetAnnouncement(ctx, &lark.GetAnnouncementReq{
+		resp, _, err := AppALLPermission.Ins().Chat.GetAnnouncement(ctx, &lark.GetAnnouncementReq{
 			ChatID: ChatContainALLPermissionApp.ChatID,
 		})
 		printData(resp, err)

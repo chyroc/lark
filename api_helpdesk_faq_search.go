@@ -9,7 +9,7 @@ import (
 // SearchFAQ 该接口用于搜索服务台知识库。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/faq/search
-func (r *HelpdeskAPI) SearchFAQ(ctx context.Context, request *SearchFAQReq, options ...MethodOptionFunc) (*SearchFAQResp, *Response, error) {
+func (r *HelpdeskService) SearchFAQ(ctx context.Context, request *SearchFAQReq, options ...MethodOptionFunc) (*SearchFAQResp, *Response, error) {
 	if r.cli.mock.mockHelpdeskSearchFAQ != nil {
 		r.cli.logDebug(ctx, "[lark] Helpdesk#SearchFAQ mock enable")
 		return r.cli.mock.mockHelpdeskSearchFAQ(ctx, request, options...)

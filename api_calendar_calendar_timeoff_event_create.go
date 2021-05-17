@@ -9,7 +9,7 @@ import (
 // CreateCalendarTimeoffEvent 为指定用户创建一个请假日程，可以是一个普通请假日程，也可以是一个全天日程。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/timeoff_event/create
-func (r *CalendarAPI) CreateCalendarTimeoffEvent(ctx context.Context, request *CreateCalendarTimeoffEventReq, options ...MethodOptionFunc) (*CreateCalendarTimeoffEventResp, *Response, error) {
+func (r *CalendarService) CreateCalendarTimeoffEvent(ctx context.Context, request *CreateCalendarTimeoffEventReq, options ...MethodOptionFunc) (*CreateCalendarTimeoffEventResp, *Response, error) {
 	if r.cli.mock.mockCalendarCreateCalendarTimeoffEvent != nil {
 		r.cli.logDebug(ctx, "[lark] Calendar#CreateCalendarTimeoffEvent mock enable")
 		return r.cli.mock.mockCalendarCreateCalendarTimeoffEvent(ctx, request, options...)

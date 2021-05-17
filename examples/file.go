@@ -18,7 +18,7 @@ func ExampleFile() {
 		if err != nil {
 			panic(err)
 		}
-		resp, _, err := cli.File().UploadImage(ctx, &lark.UploadImageReq{
+		resp, _, err := cli.File.UploadImage(ctx, &lark.UploadImageReq{
 			ImageType: lark.ImageTypeMessage,
 			Image:     f,
 		})
@@ -27,7 +27,7 @@ func ExampleFile() {
 
 	// download image
 	{
-		resp, _, err := cli.File().DownloadImage(ctx, &lark.DownloadImageReq{
+		resp, _, err := cli.File.DownloadImage(ctx, &lark.DownloadImageReq{
 			ImageKey: "<IMAGE_KEY>",
 		})
 		fmt.Println(resp, err)
@@ -39,7 +39,7 @@ func ExampleFile() {
 		if err != nil {
 			panic(err)
 		}
-		resp, _, err := cli.File().UploadFile(ctx, &lark.UploadFileReq{
+		resp, _, err := cli.File.UploadFile(ctx, &lark.UploadFileReq{
 			FileType: lark.FileTypeDoc,
 			FileName: "<FILE_NAME>",
 			File:     f,
@@ -49,7 +49,7 @@ func ExampleFile() {
 
 	// download file
 	{
-		resp, _, err := cli.File().DownloadFile(ctx, &lark.DownloadFileReq{
+		resp, _, err := cli.File.DownloadFile(ctx, &lark.DownloadFileReq{
 			FileKey: "<FILE_KEY>",
 		})
 		fmt.Println(resp, err)

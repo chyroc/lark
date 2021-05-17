@@ -9,7 +9,7 @@ import (
 // GetComment 获取云文档中的某条评论。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file-comment/get
-func (r *DriveAPI) GetComment(ctx context.Context, request *GetCommentReq, options ...MethodOptionFunc) (*GetCommentResp, *Response, error) {
+func (r *DriveService) GetComment(ctx context.Context, request *GetCommentReq, options ...MethodOptionFunc) (*GetCommentResp, *Response, error) {
 	if r.cli.mock.mockDriveGetComment != nil {
 		r.cli.logDebug(ctx, "[lark] Drive#GetComment mock enable")
 		return r.cli.mock.mockDriveGetComment(ctx, request, options...)

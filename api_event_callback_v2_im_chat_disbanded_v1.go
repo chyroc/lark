@@ -15,7 +15,7 @@ import (
 // - 事件会向群内订阅了该事件的机器人进行推送
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat/events/disbanded
-func (r *EventCallbackAPI) HandlerEventV2IMChatDisbandedV1(f eventV2IMChatDisbandedV1Handler) {
+func (r *EventCallbackService) HandlerEventV2IMChatDisbandedV1(f eventV2IMChatDisbandedV1Handler) {
 	r.cli.eventHandler.eventV2IMChatDisbandedV1Handler = f
 }
 

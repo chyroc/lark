@@ -19,7 +19,7 @@ func Test_Bot_Sample_Failed(t *testing.T) {
 		cli := AppALLPermission.Ins()
 		cli.Mock().MockGetTenantAccessToken(mockGetTenantAccessTokenFailed)
 		cli.Mock().MockGetAppAccessToken(mockGetTenantAccessTokenFailed)
-		moduleCli := cli.Bot()
+		moduleCli := cli.Bot
 
 		t.Run("", func(t *testing.T) {
 			_, _, err := moduleCli.GetBotInfo(ctx, &lark.GetBotInfoReq{})
@@ -30,7 +30,7 @@ func Test_Bot_Sample_Failed(t *testing.T) {
 
 	t.Run("request mock failed", func(t *testing.T) {
 		cli := AppALLPermission.Ins()
-		moduleCli := cli.Bot()
+		moduleCli := cli.Bot
 
 		t.Run("", func(t *testing.T) {
 			cli.Mock().MockBotGetBotInfo(func(ctx context.Context, request *lark.GetBotInfoReq, options ...lark.MethodOptionFunc) (*lark.GetBotInfoResp, *lark.Response, error) {
@@ -46,7 +46,7 @@ func Test_Bot_Sample_Failed(t *testing.T) {
 
 	t.Run("response is failed", func(t *testing.T) {
 		cli := AppNoPermission.Ins()
-		moduleCli := cli.Bot()
+		moduleCli := cli.Bot
 
 		t.Run("", func(t *testing.T) {
 			_, _, err := moduleCli.GetBotInfo(ctx, &lark.GetBotInfoReq{})

@@ -10,7 +10,7 @@ import (
 // UploadAttendanceFile
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/Attendance//rule/file_upload
-func (r *AttendanceAPI) UploadAttendanceFile(ctx context.Context, request *UploadAttendanceFileReq, options ...MethodOptionFunc) (*UploadAttendanceFileResp, *Response, error) {
+func (r *AttendanceService) UploadAttendanceFile(ctx context.Context, request *UploadAttendanceFileReq, options ...MethodOptionFunc) (*UploadAttendanceFileResp, *Response, error) {
 	if r.cli.mock.mockAttendanceUploadAttendanceFile != nil {
 		r.cli.logDebug(ctx, "[lark] Attendance#UploadAttendanceFile mock enable")
 		return r.cli.mock.mockAttendanceUploadAttendanceFile(ctx, request, options...)

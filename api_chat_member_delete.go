@@ -14,7 +14,7 @@ import (
 // - 每次请求，最多移除50个用户或者5个机器人
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-members/delete
-func (r *ChatAPI) DeleteMember(ctx context.Context, request *DeleteMemberReq, options ...MethodOptionFunc) (*DeleteMemberResp, *Response, error) {
+func (r *ChatService) DeleteMember(ctx context.Context, request *DeleteMemberReq, options ...MethodOptionFunc) (*DeleteMemberResp, *Response, error) {
 	if r.cli.mock.mockChatDeleteMember != nil {
 		r.cli.logDebug(ctx, "[lark] Chat#DeleteMember mock enable")
 		return r.cli.mock.mockChatDeleteMember(ctx, request, options...)

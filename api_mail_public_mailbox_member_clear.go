@@ -9,7 +9,7 @@ import (
 // ClearPublicMailboxMember 删除公共邮箱所有成员
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/mail-v1/public_mailbox-member/clear
-func (r *MailAPI) ClearPublicMailboxMember(ctx context.Context, request *ClearPublicMailboxMemberReq, options ...MethodOptionFunc) (*ClearPublicMailboxMemberResp, *Response, error) {
+func (r *MailService) ClearPublicMailboxMember(ctx context.Context, request *ClearPublicMailboxMemberReq, options ...MethodOptionFunc) (*ClearPublicMailboxMemberResp, *Response, error) {
 	if r.cli.mock.mockMailClearPublicMailboxMember != nil {
 		r.cli.logDebug(ctx, "[lark] Mail#ClearPublicMailboxMember mock enable")
 		return r.cli.mock.mockMailClearPublicMailboxMember(ctx, request, options...)

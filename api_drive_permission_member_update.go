@@ -9,7 +9,7 @@ import (
 // UpdateMemberPermission 该接口用于根据 filetoken 更新文档协作者的权限。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/ucTN3UjL3UzN14yN1cTN
-func (r *DriveAPI) UpdateMemberPermission(ctx context.Context, request *UpdateMemberPermissionReq, options ...MethodOptionFunc) (*UpdateMemberPermissionResp, *Response, error) {
+func (r *DriveService) UpdateMemberPermission(ctx context.Context, request *UpdateMemberPermissionReq, options ...MethodOptionFunc) (*UpdateMemberPermissionResp, *Response, error) {
 	if r.cli.mock.mockDriveUpdateMemberPermission != nil {
 		r.cli.logDebug(ctx, "[lark] Drive#UpdateMemberPermission mock enable")
 		return r.cli.mock.mockDriveUpdateMemberPermission(ctx, request, options...)

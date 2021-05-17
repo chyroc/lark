@@ -9,7 +9,7 @@ import (
 // DeleteGroup
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/Attendance//group_delete
-func (r *AttendanceAPI) DeleteGroup(ctx context.Context, request *DeleteGroupReq, options ...MethodOptionFunc) (*DeleteGroupResp, *Response, error) {
+func (r *AttendanceService) DeleteGroup(ctx context.Context, request *DeleteGroupReq, options ...MethodOptionFunc) (*DeleteGroupResp, *Response, error) {
 	if r.cli.mock.mockAttendanceDeleteGroup != nil {
 		r.cli.logDebug(ctx, "[lark] Attendance#DeleteGroup mock enable")
 		return r.cli.mock.mockAttendanceDeleteGroup(ctx, request, options...)

@@ -9,7 +9,7 @@ import (
 // UpdateField 该接口用于在数据表中更新一个字段
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table-field/update
-func (r *BitableAPI) UpdateField(ctx context.Context, request *UpdateFieldReq, options ...MethodOptionFunc) (*UpdateFieldResp, *Response, error) {
+func (r *BitableService) UpdateField(ctx context.Context, request *UpdateFieldReq, options ...MethodOptionFunc) (*UpdateFieldResp, *Response, error) {
 	if r.cli.mock.mockBitableUpdateField != nil {
 		r.cli.logDebug(ctx, "[lark] Bitable#UpdateField mock enable")
 		return r.cli.mock.mockBitableUpdateField(ctx, request, options...)

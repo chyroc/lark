@@ -11,7 +11,7 @@ import (
 // 请求用户需要拥有该文件的访问（读）权限
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uMjN3UjLzYzN14yM2cTN
-func (r *DriveAPI) GetDocMeta(ctx context.Context, request *GetDocMetaReq, options ...MethodOptionFunc) (*GetDocMetaResp, *Response, error) {
+func (r *DriveService) GetDocMeta(ctx context.Context, request *GetDocMetaReq, options ...MethodOptionFunc) (*GetDocMetaResp, *Response, error) {
 	if r.cli.mock.mockDriveGetDocMeta != nil {
 		r.cli.logDebug(ctx, "[lark] Drive#GetDocMeta mock enable")
 		return r.cli.mock.mockDriveGetDocMeta(ctx, request, options...)

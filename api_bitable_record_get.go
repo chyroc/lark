@@ -9,7 +9,7 @@ import (
 // GetRecord 该接口用于根据 record_id 的值检索现有记录
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table-record/get
-func (r *BitableAPI) GetRecord(ctx context.Context, request *GetRecordReq, options ...MethodOptionFunc) (*GetRecordResp, *Response, error) {
+func (r *BitableService) GetRecord(ctx context.Context, request *GetRecordReq, options ...MethodOptionFunc) (*GetRecordResp, *Response, error) {
 	if r.cli.mock.mockBitableGetRecord != nil {
 		r.cli.logDebug(ctx, "[lark] Bitable#GetRecord mock enable")
 		return r.cli.mock.mockBitableGetRecord(ctx, request, options...)

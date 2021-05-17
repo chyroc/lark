@@ -15,7 +15,7 @@ func ExampleCalendar() {
 
 	// create calendar
 	{
-		resp, _, err := cli.Calendar().CreateCalendar(ctx, &lark.CreateCalendarReq{
+		resp, _, err := cli.Calendar.CreateCalendar(ctx, &lark.CreateCalendarReq{
 			Summary: ptr.String("<SUMMARY>"),
 		})
 		fmt.Println(resp, err)
@@ -23,7 +23,7 @@ func ExampleCalendar() {
 
 	// update calendar
 	{
-		resp, _, err := cli.Calendar().UpdateCalendar(ctx, &lark.UpdateCalendarReq{
+		resp, _, err := cli.Calendar.UpdateCalendar(ctx, &lark.UpdateCalendarReq{
 			CalendarID: "<CALENDAR_ID>",
 			Summary:    ptr.String("<SUMMARY>"),
 		})
@@ -32,7 +32,7 @@ func ExampleCalendar() {
 
 	// delete calendar
 	{
-		resp, _, err := cli.Calendar().DeleteCalendar(ctx, &lark.DeleteCalendarReq{
+		resp, _, err := cli.Calendar.DeleteCalendar(ctx, &lark.DeleteCalendarReq{
 			CalendarID: "<CALENDAR_ID>",
 		})
 		fmt.Println(resp, err)
@@ -40,7 +40,7 @@ func ExampleCalendar() {
 
 	// get calendar
 	{
-		resp, _, err := cli.Calendar().GetCalendar(ctx, &lark.GetCalendarReq{
+		resp, _, err := cli.Calendar.GetCalendar(ctx, &lark.GetCalendarReq{
 			CalendarID: "<CALENDAR_ID>",
 		})
 		fmt.Println(resp, err)
@@ -48,13 +48,13 @@ func ExampleCalendar() {
 
 	// get calendar list
 	{
-		resp, _, err := cli.Calendar().GetCalendarList(ctx, &lark.GetCalendarListReq{})
+		resp, _, err := cli.Calendar.GetCalendarList(ctx, &lark.GetCalendarListReq{})
 		fmt.Println(resp, err)
 	}
 
 	// search calendar
 	{
-		resp, _, err := cli.Calendar().SearchCalendar(ctx, &lark.SearchCalendarReq{
+		resp, _, err := cli.Calendar.SearchCalendar(ctx, &lark.SearchCalendarReq{
 			Query: "<SEARCH>",
 		})
 		fmt.Println(resp, err)
@@ -62,7 +62,7 @@ func ExampleCalendar() {
 
 	// subscribe calendar
 	{
-		resp, _, err := cli.Calendar().SubscribeCalendar(ctx, &lark.SubscribeCalendarReq{
+		resp, _, err := cli.Calendar.SubscribeCalendar(ctx, &lark.SubscribeCalendarReq{
 			CalendarID: "<CALENDAR_ID>",
 		})
 		fmt.Println(resp, err)
@@ -70,7 +70,7 @@ func ExampleCalendar() {
 
 	// unsubscribe calendar
 	{
-		resp, _, err := cli.Calendar().UnsubscribeCalendar(ctx, &lark.UnsubscribeCalendarReq{
+		resp, _, err := cli.Calendar.UnsubscribeCalendar(ctx, &lark.UnsubscribeCalendarReq{
 			CalendarID: "<CALENDAR_ID>",
 		})
 		fmt.Println(resp, err)
@@ -78,7 +78,7 @@ func ExampleCalendar() {
 
 	// create calendar event
 	{
-		resp, _, err := cli.Calendar().CreateCalendarEvent(ctx, &lark.CreateCalendarEventReq{
+		resp, _, err := cli.Calendar.CreateCalendarEvent(ctx, &lark.CreateCalendarEventReq{
 			Summary: ptr.String("<SUMMARY>"),
 		})
 		fmt.Println(resp, err)
@@ -86,7 +86,7 @@ func ExampleCalendar() {
 
 	// update calendar event
 	{
-		resp, _, err := cli.Calendar().UpdateCalendarEvent(ctx, &lark.UpdateCalendarEventReq{
+		resp, _, err := cli.Calendar.UpdateCalendarEvent(ctx, &lark.UpdateCalendarEventReq{
 			CalendarID: "<CALENDAR_ID>",
 			Summary:    ptr.String("<SUMMARY>"),
 		})
@@ -95,7 +95,7 @@ func ExampleCalendar() {
 
 	// delete calendar event
 	{
-		resp, _, err := cli.Calendar().DeleteCalendarEvent(ctx, &lark.DeleteCalendarEventReq{
+		resp, _, err := cli.Calendar.DeleteCalendarEvent(ctx, &lark.DeleteCalendarEventReq{
 			CalendarID: "<CALENDAR_ID>",
 		})
 		fmt.Println(resp, err)
@@ -103,7 +103,7 @@ func ExampleCalendar() {
 
 	// get calendar event
 	{
-		resp, _, err := cli.Calendar().GetCalendarEvent(ctx, &lark.GetCalendarEventReq{
+		resp, _, err := cli.Calendar.GetCalendarEvent(ctx, &lark.GetCalendarEventReq{
 			CalendarID: "<CALENDAR_ID>",
 		})
 		fmt.Println(resp, err)
@@ -111,13 +111,13 @@ func ExampleCalendar() {
 
 	// get calendar list event
 	{
-		resp, _, err := cli.Calendar().GetCalendarEventList(ctx, &lark.GetCalendarEventListReq{})
+		resp, _, err := cli.Calendar.GetCalendarEventList(ctx, &lark.GetCalendarEventListReq{})
 		fmt.Println(resp, err)
 	}
 
 	// search calendar event
 	{
-		resp, _, err := cli.Calendar().SearchCalendarEvent(ctx, &lark.SearchCalendarEventReq{
+		resp, _, err := cli.Calendar.SearchCalendarEvent(ctx, &lark.SearchCalendarEventReq{
 			Query: "<SEARCH>",
 		})
 		fmt.Println(resp, err)
@@ -125,7 +125,7 @@ func ExampleCalendar() {
 
 	// subscribe calendar event
 	{
-		resp, _, err := cli.Calendar().SubscribeCalendarEvent(ctx, &lark.SubscribeCalendarEventReq{
+		resp, _, err := cli.Calendar.SubscribeCalendarEvent(ctx, &lark.SubscribeCalendarEventReq{
 			CalendarID: "<CALENDAR_ID>",
 		})
 		fmt.Println(resp, err)
@@ -133,7 +133,7 @@ func ExampleCalendar() {
 
 	// create calendar acl
 	{
-		resp, _, err := cli.Calendar().CreateCalendarACL(ctx, &lark.CreateCalendarACLReq{
+		resp, _, err := cli.Calendar.CreateCalendarACL(ctx, &lark.CreateCalendarACLReq{
 			CalendarID: "<CALENDAR_ID>",
 			Role:       lark.CalendarRoleReader,
 		})
@@ -142,7 +142,7 @@ func ExampleCalendar() {
 
 	// get calendar acl list
 	{
-		resp, _, err := cli.Calendar().GetCalendarACLList(ctx, &lark.GetCalendarACLListReq{
+		resp, _, err := cli.Calendar.GetCalendarACLList(ctx, &lark.GetCalendarACLListReq{
 			CalendarID: "<CALENDAR_ID>",
 		})
 		fmt.Println(resp, err)
@@ -150,7 +150,7 @@ func ExampleCalendar() {
 
 	// delete calendar acl
 	{
-		resp, _, err := cli.Calendar().DeleteCalendarACL(ctx, &lark.DeleteCalendarACLReq{
+		resp, _, err := cli.Calendar.DeleteCalendarACL(ctx, &lark.DeleteCalendarACLReq{
 			CalendarID: "<CALENDAR_ID>",
 			ACLID:      "<ACL_ID>",
 		})
@@ -159,7 +159,7 @@ func ExampleCalendar() {
 
 	// subscribe calendar acl
 	{
-		resp, _, err := cli.Calendar().SubscribeCalendarACL(ctx, &lark.SubscribeCalendarACLReq{
+		resp, _, err := cli.Calendar.SubscribeCalendarACL(ctx, &lark.SubscribeCalendarACLReq{
 			CalendarID: "<CALENDAR_ID>",
 		})
 		fmt.Println(resp, err)
@@ -167,7 +167,7 @@ func ExampleCalendar() {
 
 	// create calendar event attendee
 	{
-		resp, _, err := cli.Calendar().CreateCalendarEventAttendee(ctx, &lark.CreateCalendarEventAttendeeReq{
+		resp, _, err := cli.Calendar.CreateCalendarEventAttendee(ctx, &lark.CreateCalendarEventAttendeeReq{
 			CalendarID: "<CALENDAR_ID>",
 			EventID:    "<EVENT_ID>",
 			Attendees: []*lark.CreateCalendarEventAttendeeReqAttendee{
@@ -181,7 +181,7 @@ func ExampleCalendar() {
 
 	// get calendar event attendee list
 	{
-		resp, _, err := cli.Calendar().GetCalendarEventAttendeeList(ctx, &lark.GetCalendarEventAttendeeListReq{
+		resp, _, err := cli.Calendar.GetCalendarEventAttendeeList(ctx, &lark.GetCalendarEventAttendeeListReq{
 			CalendarID: "<CALENDAR_ID>",
 			EventID:    "<EVENT_ID>",
 		})
@@ -190,7 +190,7 @@ func ExampleCalendar() {
 
 	// delete calendar event attendee
 	{
-		resp, _, err := cli.Calendar().DeleteCalendarEventAttendee(ctx, &lark.DeleteCalendarEventAttendeeReq{
+		resp, _, err := cli.Calendar.DeleteCalendarEventAttendee(ctx, &lark.DeleteCalendarEventAttendeeReq{
 			CalendarID: "<CALENDAR_ID>",
 			EventID:    "<EVENT_ID>",
 			AttendeeIDs: []string{
@@ -202,7 +202,7 @@ func ExampleCalendar() {
 
 	// get calendar event attendee chat member list
 	{
-		resp, _, err := cli.Calendar().GetCalendarEventAttendeeChatMemberList(ctx, &lark.GetCalendarEventAttendeeChatMemberListReq{
+		resp, _, err := cli.Calendar.GetCalendarEventAttendeeChatMemberList(ctx, &lark.GetCalendarEventAttendeeChatMemberListReq{
 			CalendarID: "<CALENDAR_ID>",
 			EventID:    "<EVENT_ID>",
 			AttendeeID: "<CHAT_ID>",
@@ -212,7 +212,7 @@ func ExampleCalendar() {
 
 	// get calendar freebusy list
 	{
-		resp, _, err := cli.Calendar().GetCalendarFreeBusyList(ctx, &lark.GetCalendarFreeBusyListReq{
+		resp, _, err := cli.Calendar.GetCalendarFreeBusyList(ctx, &lark.GetCalendarFreeBusyListReq{
 			TimeMin: "2020-10-28T12:00:00+08:00",
 			TimeMax: "2020-10-29T12:00:00+08:00",
 			UserID:  ptr.String("<USER_ID>"),
@@ -222,7 +222,7 @@ func ExampleCalendar() {
 
 	// create calendar timeoff event
 	{
-		resp, _, err := cli.Calendar().CreateCalendarTimeoffEvent(ctx, &lark.CreateCalendarTimeoffEventReq{
+		resp, _, err := cli.Calendar.CreateCalendarTimeoffEvent(ctx, &lark.CreateCalendarTimeoffEventReq{
 			UserID:    "<USER_ID>",
 			StartTime: "2021-01-01",
 			EndTime:   "2021-01-02",
@@ -233,7 +233,7 @@ func ExampleCalendar() {
 
 	// delete calendar timeoff event
 	{
-		resp, _, err := cli.Calendar().DeleteCalendarTimeoffEvent(ctx, &lark.DeleteCalendarTimeoffEventReq{
+		resp, _, err := cli.Calendar.DeleteCalendarTimeoffEvent(ctx, &lark.DeleteCalendarTimeoffEventReq{
 			TimeoffEventID: "TIMEOFF_EVENT_ID",
 		})
 		fmt.Println(resp, err)
@@ -241,7 +241,7 @@ func ExampleCalendar() {
 
 	// subscribe calendar acl
 	{
-		resp, _, err := cli.Calendar().GenerateCaldavConf(ctx, &lark.GenerateCaldavConfReq{
+		resp, _, err := cli.Calendar.GenerateCaldavConf(ctx, &lark.GenerateCaldavConfReq{
 			DeviceName: ptr.String("DEVICE_NAME"),
 		})
 		fmt.Println(resp, err)

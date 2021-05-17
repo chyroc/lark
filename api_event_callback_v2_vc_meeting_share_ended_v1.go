@@ -11,7 +11,7 @@ import (
 // 发生在屏幕共享结束时
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/vc-v1/meeting/events/share_ended
-func (r *EventCallbackAPI) HandlerEventV2VCMeetingShareEndedV1(f eventV2VCMeetingShareEndedV1Handler) {
+func (r *EventCallbackService) HandlerEventV2VCMeetingShareEndedV1(f eventV2VCMeetingShareEndedV1Handler) {
 	r.cli.eventHandler.eventV2VCMeetingShareEndedV1Handler = f
 }
 

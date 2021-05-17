@@ -9,7 +9,7 @@ import (
 // GetTableList 根据  app_token，获取多维表格下的所有数据表
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table/list
-func (r *BitableAPI) GetTableList(ctx context.Context, request *GetTableListReq, options ...MethodOptionFunc) (*GetTableListResp, *Response, error) {
+func (r *BitableService) GetTableList(ctx context.Context, request *GetTableListReq, options ...MethodOptionFunc) (*GetTableListResp, *Response, error) {
 	if r.cli.mock.mockBitableGetTableList != nil {
 		r.cli.logDebug(ctx, "[lark] Bitable#GetTableList mock enable")
 		return r.cli.mock.mockBitableGetTableList(ctx, request, options...)

@@ -51,7 +51,7 @@ func ExampleISV() {
 		{
 			tenantKey1Cli := cli.WithTenant("<TENANT_KEY_1>")
 
-			resp, _, err := tenantKey1Cli.Chat().CreateChat(ctx, &lark.CreateChatReq{
+			resp, _, err := tenantKey1Cli.Chat.CreateChat(ctx, &lark.CreateChatReq{
 				Name: ptr.String("<CHAT_NAME_1>"),
 			})
 			fmt.Println(resp, err)
@@ -60,7 +60,7 @@ func ExampleISV() {
 		{
 			tenantKey2Cli := cli.WithTenant("<TENANT_KEY_2>")
 
-			resp, _, err := tenantKey2Cli.Chat().CreateChat(ctx, &lark.CreateChatReq{
+			resp, _, err := tenantKey2Cli.Chat.CreateChat(ctx, &lark.CreateChatReq{
 				Name: ptr.String("<CHAT_NAME_1>"),
 			})
 			fmt.Println(resp, err)

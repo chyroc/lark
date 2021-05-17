@@ -13,7 +13,7 @@ import (
 // 如果有全员权限，将department_id字段设置为0，但根部门下没有任何用户的情况下，不会获取到用户数据。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/list
-func (r *ContactAPI) GetUserList(ctx context.Context, request *GetUserListReq, options ...MethodOptionFunc) (*GetUserListResp, *Response, error) {
+func (r *ContactService) GetUserList(ctx context.Context, request *GetUserListReq, options ...MethodOptionFunc) (*GetUserListResp, *Response, error) {
 	if r.cli.mock.mockContactGetUserList != nil {
 		r.cli.logDebug(ctx, "[lark] Contact#GetUserList mock enable")
 		return r.cli.mock.mockContactGetUserList(ctx, request, options...)

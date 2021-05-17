@@ -11,7 +11,7 @@ import (
 // 通过该事件订阅员工变更。old_object中只展示更新的字段的原始值。事件只有在应用有数据权限的字段改动才会发送,具体的数据权限与字段的关系请参考[应用权限](/ssl:ttdoc/ukTMukTMukTM/uQjN3QjL0YzN04CN2cDN)
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/events/updated
-func (r *EventCallbackAPI) HandlerEventV2ContactUserUpdatedV3(f eventV2ContactUserUpdatedV3Handler) {
+func (r *EventCallbackService) HandlerEventV2ContactUserUpdatedV3(f eventV2ContactUserUpdatedV3Handler) {
 	r.cli.eventHandler.eventV2ContactUserUpdatedV3Handler = f
 }
 

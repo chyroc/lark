@@ -11,7 +11,7 @@ import (
 // 该接口用于更新自定义字段。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/ticket_customized_field/update-ticket-customized-field
-func (r *HelpdeskAPI) UpdateTicketCustomizedField(ctx context.Context, request *UpdateTicketCustomizedFieldReq, options ...MethodOptionFunc) (*UpdateTicketCustomizedFieldResp, *Response, error) {
+func (r *HelpdeskService) UpdateTicketCustomizedField(ctx context.Context, request *UpdateTicketCustomizedFieldReq, options ...MethodOptionFunc) (*UpdateTicketCustomizedFieldResp, *Response, error) {
 	if r.cli.mock.mockHelpdeskUpdateTicketCustomizedField != nil {
 		r.cli.logDebug(ctx, "[lark] Helpdesk#UpdateTicketCustomizedField mock enable")
 		return r.cli.mock.mockHelpdeskUpdateTicketCustomizedField(ctx, request, options...)

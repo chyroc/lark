@@ -9,7 +9,7 @@ import (
 // BatchGetBuildingID 该接口用于删除建筑物（办公大楼）。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uMzMxYjLzMTM24yMzEjN
-func (r *MeetingRoomAPI) BatchGetBuildingID(ctx context.Context, request *BatchGetBuildingIDReq, options ...MethodOptionFunc) (*BatchGetBuildingIDResp, *Response, error) {
+func (r *MeetingRoomService) BatchGetBuildingID(ctx context.Context, request *BatchGetBuildingIDReq, options ...MethodOptionFunc) (*BatchGetBuildingIDResp, *Response, error) {
 	if r.cli.mock.mockMeetingRoomBatchGetBuildingID != nil {
 		r.cli.logDebug(ctx, "[lark] MeetingRoom#BatchGetBuildingID mock enable")
 		return r.cli.mock.mockMeetingRoomBatchGetBuildingID(ctx, request, options...)

@@ -19,7 +19,7 @@ func Test_Approval_Sample_Failed(t *testing.T) {
 		cli := AppALLPermission.Ins()
 		cli.Mock().MockGetTenantAccessToken(mockGetTenantAccessTokenFailed)
 		cli.Mock().MockGetAppAccessToken(mockGetTenantAccessTokenFailed)
-		moduleCli := cli.Approval()
+		moduleCli := cli.Approval
 
 		t.Run("", func(t *testing.T) {
 			_, _, err := moduleCli.GetInstanceList(ctx, &lark.GetInstanceListReq{})
@@ -30,7 +30,7 @@ func Test_Approval_Sample_Failed(t *testing.T) {
 
 	t.Run("request mock failed", func(t *testing.T) {
 		cli := AppALLPermission.Ins()
-		moduleCli := cli.Approval()
+		moduleCli := cli.Approval
 
 		t.Run("", func(t *testing.T) {
 			cli.Mock().MockApprovalGetInstanceList(func(ctx context.Context, request *lark.GetInstanceListReq, options ...lark.MethodOptionFunc) (*lark.GetInstanceListResp, *lark.Response, error) {
@@ -46,7 +46,7 @@ func Test_Approval_Sample_Failed(t *testing.T) {
 
 	t.Run("response is failed", func(t *testing.T) {
 		cli := AppNoPermission.Ins()
-		moduleCli := cli.Approval()
+		moduleCli := cli.Approval
 
 		t.Run("", func(t *testing.T) {
 			_, _, err := moduleCli.GetInstanceList(ctx, &lark.GetInstanceListReq{})

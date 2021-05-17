@@ -9,7 +9,7 @@ import (
 // GetUserStatisticsSettings
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/Attendance//task/query-user-statistics-settings
-func (r *AttendanceAPI) GetUserStatisticsSettings(ctx context.Context, request *GetUserStatisticsSettingsReq, options ...MethodOptionFunc) (*GetUserStatisticsSettingsResp, *Response, error) {
+func (r *AttendanceService) GetUserStatisticsSettings(ctx context.Context, request *GetUserStatisticsSettingsReq, options ...MethodOptionFunc) (*GetUserStatisticsSettingsResp, *Response, error) {
 	if r.cli.mock.mockAttendanceGetUserStatisticsSettings != nil {
 		r.cli.logDebug(ctx, "[lark] Attendance#GetUserStatisticsSettings mock enable")
 		return r.cli.mock.mockAttendanceGetUserStatisticsSettings(ctx, request, options...)

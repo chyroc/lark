@@ -9,7 +9,7 @@ import (
 // GetCalendarFreeBusyList 查询用户主日历或会议室的忙闲信息。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/freebusy/list
-func (r *CalendarAPI) GetCalendarFreeBusyList(ctx context.Context, request *GetCalendarFreeBusyListReq, options ...MethodOptionFunc) (*GetCalendarFreeBusyListResp, *Response, error) {
+func (r *CalendarService) GetCalendarFreeBusyList(ctx context.Context, request *GetCalendarFreeBusyListReq, options ...MethodOptionFunc) (*GetCalendarFreeBusyListResp, *Response, error) {
 	if r.cli.mock.mockCalendarGetCalendarFreeBusyList != nil {
 		r.cli.logDebug(ctx, "[lark] Calendar#GetCalendarFreeBusyList mock enable")
 		return r.cli.mock.mockCalendarGetCalendarFreeBusyList(ctx, request, options...)

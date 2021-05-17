@@ -9,7 +9,7 @@ import (
 // GetPublicMailboxMember 获取公共邮箱单个成员信息
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/mail-v1/public_mailbox-member/get
-func (r *MailAPI) GetPublicMailboxMember(ctx context.Context, request *GetPublicMailboxMemberReq, options ...MethodOptionFunc) (*GetPublicMailboxMemberResp, *Response, error) {
+func (r *MailService) GetPublicMailboxMember(ctx context.Context, request *GetPublicMailboxMemberReq, options ...MethodOptionFunc) (*GetPublicMailboxMemberResp, *Response, error) {
 	if r.cli.mock.mockMailGetPublicMailboxMember != nil {
 		r.cli.logDebug(ctx, "[lark] Mail#GetPublicMailboxMember mock enable")
 		return r.cli.mock.mockMailGetPublicMailboxMember(ctx, request, options...)

@@ -13,7 +13,7 @@ import (
 // - 仅有 群主 或 创建群组且具备[更新应用所创建群的群信息]权限的机器人，可解散群
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat/delete
-func (r *ChatAPI) DeleteChat(ctx context.Context, request *DeleteChatReq, options ...MethodOptionFunc) (*DeleteChatResp, *Response, error) {
+func (r *ChatService) DeleteChat(ctx context.Context, request *DeleteChatReq, options ...MethodOptionFunc) (*DeleteChatResp, *Response, error) {
 	if r.cli.mock.mockChatDeleteChat != nil {
 		r.cli.logDebug(ctx, "[lark] Chat#DeleteChat mock enable")
 		return r.cli.mock.mockChatDeleteChat(ctx, request, options...)

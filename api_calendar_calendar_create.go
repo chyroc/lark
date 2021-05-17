@@ -12,7 +12,7 @@ import (
 // 身份由 Header Authorization 的 Token 类型决定。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar/create
-func (r *CalendarAPI) CreateCalendar(ctx context.Context, request *CreateCalendarReq, options ...MethodOptionFunc) (*CreateCalendarResp, *Response, error) {
+func (r *CalendarService) CreateCalendar(ctx context.Context, request *CreateCalendarReq, options ...MethodOptionFunc) (*CreateCalendarResp, *Response, error) {
 	if r.cli.mock.mockCalendarCreateCalendar != nil {
 		r.cli.logDebug(ctx, "[lark] Calendar#CreateCalendar mock enable")
 		return r.cli.mock.mockCalendarCreateCalendar(ctx, request, options...)

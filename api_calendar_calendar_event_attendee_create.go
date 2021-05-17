@@ -15,7 +15,7 @@ import (
 // - 每个日程最多只能有 3000 名参与人。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar-event-attendee/create
-func (r *CalendarAPI) CreateCalendarEventAttendee(ctx context.Context, request *CreateCalendarEventAttendeeReq, options ...MethodOptionFunc) (*CreateCalendarEventAttendeeResp, *Response, error) {
+func (r *CalendarService) CreateCalendarEventAttendee(ctx context.Context, request *CreateCalendarEventAttendeeReq, options ...MethodOptionFunc) (*CreateCalendarEventAttendeeResp, *Response, error) {
 	if r.cli.mock.mockCalendarCreateCalendarEventAttendee != nil {
 		r.cli.logDebug(ctx, "[lark] Calendar#CreateCalendarEventAttendee mock enable")
 		return r.cli.mock.mockCalendarCreateCalendarEventAttendee(ctx, request, options...)

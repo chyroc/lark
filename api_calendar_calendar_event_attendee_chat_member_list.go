@@ -12,7 +12,7 @@ import (
 // - 当前身份必须在群聊中，或有权限查看群成员列表。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar-event-attendee-chat_member/list
-func (r *CalendarAPI) GetCalendarEventAttendeeChatMemberList(ctx context.Context, request *GetCalendarEventAttendeeChatMemberListReq, options ...MethodOptionFunc) (*GetCalendarEventAttendeeChatMemberListResp, *Response, error) {
+func (r *CalendarService) GetCalendarEventAttendeeChatMemberList(ctx context.Context, request *GetCalendarEventAttendeeChatMemberListReq, options ...MethodOptionFunc) (*GetCalendarEventAttendeeChatMemberListResp, *Response, error) {
 	if r.cli.mock.mockCalendarGetCalendarEventAttendeeChatMemberList != nil {
 		r.cli.logDebug(ctx, "[lark] Calendar#GetCalendarEventAttendeeChatMemberList mock enable")
 		return r.cli.mock.mockCalendarGetCalendarEventAttendeeChatMemberList(ctx, request, options...)

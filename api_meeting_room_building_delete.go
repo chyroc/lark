@@ -9,7 +9,7 @@ import (
 // DeleteBuilding 该接口用于删除建筑物（办公大楼）。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uMzMxYjLzMTM24yMzEjN
-func (r *MeetingRoomAPI) DeleteBuilding(ctx context.Context, request *DeleteBuildingReq, options ...MethodOptionFunc) (*DeleteBuildingResp, *Response, error) {
+func (r *MeetingRoomService) DeleteBuilding(ctx context.Context, request *DeleteBuildingReq, options ...MethodOptionFunc) (*DeleteBuildingResp, *Response, error) {
 	if r.cli.mock.mockMeetingRoomDeleteBuilding != nil {
 		r.cli.logDebug(ctx, "[lark] MeetingRoom#DeleteBuilding mock enable")
 		return r.cli.mock.mockMeetingRoomDeleteBuilding(ctx, request, options...)

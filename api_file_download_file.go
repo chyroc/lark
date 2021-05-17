@@ -14,7 +14,7 @@ import (
 // - 只能下载机器人自己上传的文件
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/file/get
-func (r *FileAPI) DownloadFile(ctx context.Context, request *DownloadFileReq, options ...MethodOptionFunc) (*DownloadFileResp, *Response, error) {
+func (r *FileService) DownloadFile(ctx context.Context, request *DownloadFileReq, options ...MethodOptionFunc) (*DownloadFileResp, *Response, error) {
 	if r.cli.mock.mockFileDownloadFile != nil {
 		r.cli.logDebug(ctx, "[lark] File#DownloadFile mock enable")
 		return r.cli.mock.mockFileDownloadFile(ctx, request, options...)

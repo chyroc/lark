@@ -14,7 +14,7 @@ import (
 // - 查询消息已读信息时机器人仍需要在会话内
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/read_users
-func (r *MessageAPI) GetMessageReadUserList(ctx context.Context, request *GetMessageReadUserListReq, options ...MethodOptionFunc) (*GetMessageReadUserListResp, *Response, error) {
+func (r *MessageService) GetMessageReadUserList(ctx context.Context, request *GetMessageReadUserListReq, options ...MethodOptionFunc) (*GetMessageReadUserListResp, *Response, error) {
 	if r.cli.mock.mockMessageGetMessageReadUserList != nil {
 		r.cli.logDebug(ctx, "[lark] Message#GetMessageReadUserList mock enable")
 		return r.cli.mock.mockMessageGetMessageReadUserList(ctx, request, options...)

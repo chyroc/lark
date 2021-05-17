@@ -19,7 +19,7 @@ func Test_OKR_Sample_Failed(t *testing.T) {
 		cli := AppALLPermission.Ins()
 		cli.Mock().MockGetTenantAccessToken(mockGetTenantAccessTokenFailed)
 		cli.Mock().MockGetAppAccessToken(mockGetTenantAccessTokenFailed)
-		moduleCli := cli.OKR()
+		moduleCli := cli.OKR
 
 		t.Run("", func(t *testing.T) {
 			_, _, err := moduleCli.GetPeriodList(ctx, &lark.GetPeriodListReq{})
@@ -42,7 +42,7 @@ func Test_OKR_Sample_Failed(t *testing.T) {
 
 	t.Run("request mock failed", func(t *testing.T) {
 		cli := AppALLPermission.Ins()
-		moduleCli := cli.OKR()
+		moduleCli := cli.OKR
 
 		t.Run("", func(t *testing.T) {
 			cli.Mock().MockOKRGetPeriodList(func(ctx context.Context, request *lark.GetPeriodListReq, options ...lark.MethodOptionFunc) (*lark.GetPeriodListResp, *lark.Response, error) {
@@ -80,7 +80,7 @@ func Test_OKR_Sample_Failed(t *testing.T) {
 
 	t.Run("response is failed", func(t *testing.T) {
 		cli := AppNoPermission.Ins()
-		moduleCli := cli.OKR()
+		moduleCli := cli.OKR
 
 		t.Run("", func(t *testing.T) {
 			_, _, err := moduleCli.GetPeriodList(ctx, &lark.GetPeriodListReq{})

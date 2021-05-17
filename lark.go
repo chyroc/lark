@@ -76,5 +76,7 @@ func newClient(tenantKey string, options []ClientOptionFunc) *Lark {
 		Timeout: r.timeout,
 	}
 
+	r.initService()
+
 	return r
 }

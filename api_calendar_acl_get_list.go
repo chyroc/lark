@@ -13,7 +13,7 @@ import (
 // 当前身份需要有日历的 owner 权限，并且日历的类型只能为 primary 或 shared。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar-acl/list
-func (r *CalendarAPI) GetCalendarACLList(ctx context.Context, request *GetCalendarACLListReq, options ...MethodOptionFunc) (*GetCalendarACLListResp, *Response, error) {
+func (r *CalendarService) GetCalendarACLList(ctx context.Context, request *GetCalendarACLListReq, options ...MethodOptionFunc) (*GetCalendarACLListResp, *Response, error) {
 	if r.cli.mock.mockCalendarGetCalendarACLList != nil {
 		r.cli.logDebug(ctx, "[lark] Calendar#GetCalendarACLList mock enable")
 		return r.cli.mock.mockCalendarGetCalendarACLList(ctx, request, options...)

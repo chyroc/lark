@@ -19,7 +19,7 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		cli := AppALLPermission.Ins()
 		cli.Mock().MockGetTenantAccessToken(mockGetTenantAccessTokenFailed)
 		cli.Mock().MockGetAppAccessToken(mockGetTenantAccessTokenFailed)
-		moduleCli := cli.Drive()
+		moduleCli := cli.Drive
 
 		t.Run("", func(t *testing.T) {
 			_, _, err := moduleCli.CreateMemberPermission(ctx, &lark.CreateMemberPermissionReq{})
@@ -138,7 +138,7 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 
 	t.Run("request mock failed", func(t *testing.T) {
 		cli := AppALLPermission.Ins()
-		moduleCli := cli.Drive()
+		moduleCli := cli.Drive
 
 		t.Run("", func(t *testing.T) {
 			cli.Mock().MockDriveCreateMemberPermission(func(ctx context.Context, request *lark.CreateMemberPermissionReq, options ...lark.MethodOptionFunc) (*lark.CreateMemberPermissionResp, *lark.Response, error) {
@@ -352,7 +352,7 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 
 	t.Run("response is failed", func(t *testing.T) {
 		cli := AppNoPermission.Ins()
-		moduleCli := cli.Drive()
+		moduleCli := cli.Drive
 
 		t.Run("", func(t *testing.T) {
 			_, _, err := moduleCli.CreateMemberPermission(ctx, &lark.CreateMemberPermissionReq{})

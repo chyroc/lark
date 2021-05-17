@@ -17,7 +17,7 @@ import (
 // - 当具备[获取群组中所有的消息] 权限，可接收机器人所在群聊中所有的消息
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/events/receive
-func (r *EventCallbackAPI) HandlerEventV2IMMessageReceiveV1(f eventV2IMMessageReceiveV1Handler) {
+func (r *EventCallbackService) HandlerEventV2IMMessageReceiveV1(f eventV2IMMessageReceiveV1Handler) {
 	r.cli.eventHandler.eventV2IMMessageReceiveV1Handler = f
 }
 

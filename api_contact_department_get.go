@@ -12,7 +12,7 @@ import (
 // 使用user_access_token时，用户需要有待查询部门的可见性，如果需要获取根部门信息，则要求员工可见所有人。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/get
-func (r *ContactAPI) GetDepartment(ctx context.Context, request *GetDepartmentReq, options ...MethodOptionFunc) (*GetDepartmentResp, *Response, error) {
+func (r *ContactService) GetDepartment(ctx context.Context, request *GetDepartmentReq, options ...MethodOptionFunc) (*GetDepartmentResp, *Response, error) {
 	if r.cli.mock.mockContactGetDepartment != nil {
 		r.cli.logDebug(ctx, "[lark] Contact#GetDepartment mock enable")
 		return r.cli.mock.mockContactGetDepartment(ctx, request, options...)

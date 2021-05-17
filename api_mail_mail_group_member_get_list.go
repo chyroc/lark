@@ -9,7 +9,7 @@ import (
 // GetMailGroupMemberList 分页批量获取邮件组成员列表
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/mail-v1/mailgroup-member/list
-func (r *MailAPI) GetMailGroupMemberList(ctx context.Context, request *GetMailGroupMemberListReq, options ...MethodOptionFunc) (*GetMailGroupMemberListResp, *Response, error) {
+func (r *MailService) GetMailGroupMemberList(ctx context.Context, request *GetMailGroupMemberListReq, options ...MethodOptionFunc) (*GetMailGroupMemberListResp, *Response, error) {
 	if r.cli.mock.mockMailGetMailGroupMemberList != nil {
 		r.cli.logDebug(ctx, "[lark] Mail#GetMailGroupMemberList mock enable")
 		return r.cli.mock.mockMailGetMailGroupMemberList(ctx, request, options...)

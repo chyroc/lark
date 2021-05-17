@@ -11,7 +11,7 @@ import (
 // 根据查询范围传入对应的参数
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/vc-v1/room_config/query
-func (r *VCAPI) QueryRoomConfig(ctx context.Context, request *QueryRoomConfigReq, options ...MethodOptionFunc) (*QueryRoomConfigResp, *Response, error) {
+func (r *VCService) QueryRoomConfig(ctx context.Context, request *QueryRoomConfigReq, options ...MethodOptionFunc) (*QueryRoomConfigResp, *Response, error) {
 	if r.cli.mock.mockVCQueryRoomConfig != nil {
 		r.cli.logDebug(ctx, "[lark] VC#QueryRoomConfig mock enable")
 		return r.cli.mock.mockVCQueryRoomConfig(ctx, request, options...)

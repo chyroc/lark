@@ -11,7 +11,7 @@ import (
 // 只能获取归属于自己（或参与）的会议，支持查询最近90天内的会议
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/vc-v1/meeting/get
-func (r *VCAPI) GetMeeting(ctx context.Context, request *GetMeetingReq, options ...MethodOptionFunc) (*GetMeetingResp, *Response, error) {
+func (r *VCService) GetMeeting(ctx context.Context, request *GetMeetingReq, options ...MethodOptionFunc) (*GetMeetingResp, *Response, error) {
 	if r.cli.mock.mockVCGetMeeting != nil {
 		r.cli.logDebug(ctx, "[lark] VC#GetMeeting mock enable")
 		return r.cli.mock.mockVCGetMeeting(ctx, request, options...)

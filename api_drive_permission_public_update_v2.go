@@ -9,7 +9,7 @@ import (
 // UpdatePublicPermissionV2 该接口用于根据 filetoken 更新文档的公共设置。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uITN5UjLyUTO14iM1kTN
-func (r *DriveAPI) UpdatePublicPermissionV2(ctx context.Context, request *UpdatePublicPermissionV2Req, options ...MethodOptionFunc) (*UpdatePublicPermissionV2Resp, *Response, error) {
+func (r *DriveService) UpdatePublicPermissionV2(ctx context.Context, request *UpdatePublicPermissionV2Req, options ...MethodOptionFunc) (*UpdatePublicPermissionV2Resp, *Response, error) {
 	if r.cli.mock.mockDriveUpdatePublicPermissionV2 != nil {
 		r.cli.logDebug(ctx, "[lark] Drive#UpdatePublicPermissionV2 mock enable")
 		return r.cli.mock.mockDriveUpdatePublicPermissionV2(ctx, request, options...)

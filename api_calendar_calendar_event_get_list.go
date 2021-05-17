@@ -12,7 +12,7 @@ import (
 // 调用时首先使用 page_token 分页拉取存量数据，之后使用 sync_token 增量同步变更数据。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar-event/list
-func (r *CalendarAPI) GetCalendarEventList(ctx context.Context, request *GetCalendarEventListReq, options ...MethodOptionFunc) (*GetCalendarEventListResp, *Response, error) {
+func (r *CalendarService) GetCalendarEventList(ctx context.Context, request *GetCalendarEventListReq, options ...MethodOptionFunc) (*GetCalendarEventListResp, *Response, error) {
 	if r.cli.mock.mockCalendarGetCalendarEventList != nil {
 		r.cli.logDebug(ctx, "[lark] Calendar#GetCalendarEventList mock enable")
 		return r.cli.mock.mockCalendarGetCalendarEventList(ctx, request, options...)

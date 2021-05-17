@@ -9,7 +9,7 @@ import (
 // SendTicketMessage 该接口用于获取服务台工单消息详情。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/ticket-message/list
-func (r *HelpdeskAPI) SendTicketMessage(ctx context.Context, request *SendTicketMessageReq, options ...MethodOptionFunc) (*SendTicketMessageResp, *Response, error) {
+func (r *HelpdeskService) SendTicketMessage(ctx context.Context, request *SendTicketMessageReq, options ...MethodOptionFunc) (*SendTicketMessageResp, *Response, error) {
 	if r.cli.mock.mockHelpdeskSendTicketMessage != nil {
 		r.cli.logDebug(ctx, "[lark] Helpdesk#SendTicketMessage mock enable")
 		return r.cli.mock.mockHelpdeskSendTicketMessage(ctx, request, options...)

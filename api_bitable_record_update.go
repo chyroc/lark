@@ -9,7 +9,7 @@ import (
 // UpdateRecord 该接口用于更新数据表中的一条记录
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table-record/update
-func (r *BitableAPI) UpdateRecord(ctx context.Context, request *UpdateRecordReq, options ...MethodOptionFunc) (*UpdateRecordResp, *Response, error) {
+func (r *BitableService) UpdateRecord(ctx context.Context, request *UpdateRecordReq, options ...MethodOptionFunc) (*UpdateRecordResp, *Response, error) {
 	if r.cli.mock.mockBitableUpdateRecord != nil {
 		r.cli.logDebug(ctx, "[lark] Bitable#UpdateRecord mock enable")
 		return r.cli.mock.mockBitableUpdateRecord(ctx, request, options...)

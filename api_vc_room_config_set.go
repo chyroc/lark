@@ -11,7 +11,7 @@ import (
 // 根据设置范围传入对应的参数
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/vc-v1/room_config/set
-func (r *VCAPI) SetRoomConfig(ctx context.Context, request *SetRoomConfigReq, options ...MethodOptionFunc) (*SetRoomConfigResp, *Response, error) {
+func (r *VCService) SetRoomConfig(ctx context.Context, request *SetRoomConfigReq, options ...MethodOptionFunc) (*SetRoomConfigResp, *Response, error) {
 	if r.cli.mock.mockVCSetRoomConfig != nil {
 		r.cli.logDebug(ctx, "[lark] VC#SetRoomConfig mock enable")
 		return r.cli.mock.mockVCSetRoomConfig(ctx, request, options...)

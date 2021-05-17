@@ -11,7 +11,7 @@ import (
 // 该接口用于获取服务台知识库所有分类。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/category/list-categories
-func (r *HelpdeskAPI) GetCategoryList(ctx context.Context, request *GetCategoryListReq, options ...MethodOptionFunc) (*GetCategoryListResp, *Response, error) {
+func (r *HelpdeskService) GetCategoryList(ctx context.Context, request *GetCategoryListReq, options ...MethodOptionFunc) (*GetCategoryListResp, *Response, error) {
 	if r.cli.mock.mockHelpdeskGetCategoryList != nil {
 		r.cli.logDebug(ctx, "[lark] Helpdesk#GetCategoryList mock enable")
 		return r.cli.mock.mockHelpdeskGetCategoryList(ctx, request, options...)

@@ -19,7 +19,7 @@ func Test_VC_Sample_Failed(t *testing.T) {
 		cli := AppALLPermission.Ins()
 		cli.Mock().MockGetTenantAccessToken(mockGetTenantAccessTokenFailed)
 		cli.Mock().MockGetAppAccessToken(mockGetTenantAccessTokenFailed)
-		moduleCli := cli.VC()
+		moduleCli := cli.VC
 
 		t.Run("", func(t *testing.T) {
 			_, _, err := moduleCli.GetMeeting(ctx, &lark.GetMeetingReq{})
@@ -54,7 +54,7 @@ func Test_VC_Sample_Failed(t *testing.T) {
 
 	t.Run("request mock failed", func(t *testing.T) {
 		cli := AppALLPermission.Ins()
-		moduleCli := cli.VC()
+		moduleCli := cli.VC
 
 		t.Run("", func(t *testing.T) {
 			cli.Mock().MockVCGetMeeting(func(ctx context.Context, request *lark.GetMeetingReq, options ...lark.MethodOptionFunc) (*lark.GetMeetingResp, *lark.Response, error) {
@@ -114,7 +114,7 @@ func Test_VC_Sample_Failed(t *testing.T) {
 
 	t.Run("response is failed", func(t *testing.T) {
 		cli := AppNoPermission.Ins()
-		moduleCli := cli.VC()
+		moduleCli := cli.VC
 
 		t.Run("", func(t *testing.T) {
 			_, _, err := moduleCli.GetMeeting(ctx, &lark.GetMeetingReq{

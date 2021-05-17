@@ -11,7 +11,7 @@ import (
 // 获取员工在某段时间内的请假、加班、外出和出差四种审批的通过数据。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/Attendance//RetrieveUserApprovals
-func (r *AttendanceAPI) GetUserApproval(ctx context.Context, request *GetUserApprovalReq, options ...MethodOptionFunc) (*GetUserApprovalResp, *Response, error) {
+func (r *AttendanceService) GetUserApproval(ctx context.Context, request *GetUserApprovalReq, options ...MethodOptionFunc) (*GetUserApprovalResp, *Response, error) {
 	if r.cli.mock.mockAttendanceGetUserApproval != nil {
 		r.cli.logDebug(ctx, "[lark] Attendance#GetUserApproval mock enable")
 		return r.cli.mock.mockAttendanceGetUserApproval(ctx, request, options...)

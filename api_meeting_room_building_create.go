@@ -9,7 +9,7 @@ import (
 // CreateBuilding 该接口对应管理后台的添加建筑，添加楼层的功能，可用于创建建筑物和建筑物的楼层信息。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uATNwYjLwUDM24CM1AjN
-func (r *MeetingRoomAPI) CreateBuilding(ctx context.Context, request *CreateBuildingReq, options ...MethodOptionFunc) (*CreateBuildingResp, *Response, error) {
+func (r *MeetingRoomService) CreateBuilding(ctx context.Context, request *CreateBuildingReq, options ...MethodOptionFunc) (*CreateBuildingResp, *Response, error) {
 	if r.cli.mock.mockMeetingRoomCreateBuilding != nil {
 		r.cli.logDebug(ctx, "[lark] MeetingRoom#CreateBuilding mock enable")
 		return r.cli.mock.mockMeetingRoomCreateBuilding(ctx, request, options...)

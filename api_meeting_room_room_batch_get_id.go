@@ -9,7 +9,7 @@ import (
 // BatchGetRoomID 该接口用于根据租户自定义会议室ID查询会议室ID。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uYzMxYjL2MTM24iNzEjN
-func (r *MeetingRoomAPI) BatchGetRoomID(ctx context.Context, request *BatchGetRoomIDReq, options ...MethodOptionFunc) (*BatchGetRoomIDResp, *Response, error) {
+func (r *MeetingRoomService) BatchGetRoomID(ctx context.Context, request *BatchGetRoomIDReq, options ...MethodOptionFunc) (*BatchGetRoomIDResp, *Response, error) {
 	if r.cli.mock.mockMeetingRoomBatchGetRoomID != nil {
 		r.cli.logDebug(ctx, "[lark] MeetingRoom#BatchGetRoomID mock enable")
 		return r.cli.mock.mockMeetingRoomBatchGetRoomID(ctx, request, options...)

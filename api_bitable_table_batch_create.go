@@ -9,7 +9,7 @@ import (
 // BatchCreateTable 新增多个数据表
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table/batch_create
-func (r *BitableAPI) BatchCreateTable(ctx context.Context, request *BatchCreateTableReq, options ...MethodOptionFunc) (*BatchCreateTableResp, *Response, error) {
+func (r *BitableService) BatchCreateTable(ctx context.Context, request *BatchCreateTableReq, options ...MethodOptionFunc) (*BatchCreateTableResp, *Response, error) {
 	if r.cli.mock.mockBitableBatchCreateTable != nil {
 		r.cli.logDebug(ctx, "[lark] Bitable#BatchCreateTable mock enable")
 		return r.cli.mock.mockBitableBatchCreateTable(ctx, request, options...)

@@ -9,7 +9,7 @@ import (
 // CreateRecord 该接口用于在数据表中新增一条记录
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table-record/create
-func (r *BitableAPI) CreateRecord(ctx context.Context, request *CreateRecordReq, options ...MethodOptionFunc) (*CreateRecordResp, *Response, error) {
+func (r *BitableService) CreateRecord(ctx context.Context, request *CreateRecordReq, options ...MethodOptionFunc) (*CreateRecordResp, *Response, error) {
 	if r.cli.mock.mockBitableCreateRecord != nil {
 		r.cli.logDebug(ctx, "[lark] Bitable#CreateRecord mock enable")
 		return r.cli.mock.mockBitableCreateRecord(ctx, request, options...)

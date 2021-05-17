@@ -9,7 +9,7 @@ import (
 // CreateField 该接口用于在数据表中新增一个字段
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table-field/create
-func (r *BitableAPI) CreateField(ctx context.Context, request *CreateFieldReq, options ...MethodOptionFunc) (*CreateFieldResp, *Response, error) {
+func (r *BitableService) CreateField(ctx context.Context, request *CreateFieldReq, options ...MethodOptionFunc) (*CreateFieldResp, *Response, error) {
 	if r.cli.mock.mockBitableCreateField != nil {
 		r.cli.logDebug(ctx, "[lark] Bitable#CreateField mock enable")
 		return r.cli.mock.mockBitableCreateField(ctx, request, options...)
