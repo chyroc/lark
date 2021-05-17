@@ -20,3 +20,5 @@ coverage.txt
 coverage.tmp
 debug.go
 .readme
+node_modules/
+*/.vuepress/dist/
