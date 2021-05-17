@@ -367,13 +367,13 @@ cli := lark.New(
 )
 
 // handle message callback
-cli.EventCallback().HandlerEventIMMessageReceiveV1(func(ctx context.Context, cli *lark.Lark, schema string, header *lark.EventV2Header, event *lark.EventV2IMMessageReceiveV1) (string, error) {
-    _, _, err := cli.Message().Reply(event.Message.MessageID).SendText(ctx, "hi, "+event.Message.Content)
+cli.EventCallback.HandlerEventIMMessageReceiveV1(func(ctx context.Context, cli *lark.Lark, schema string, header *lark.EventV2Header, event *lark.EventV2IMMessageReceiveV1) (string, error) {
+    _, _, err := cli.Message.Reply(event.Message.MessageID).SendText(ctx, "hi, "+event.Message.Content)
     return "", err
 })
 
 http.HandleFunc("/api", func(w http.ResponseWriter, r *http.Request) {
-    cli.EventCallback().ListenCallback(r.Context(), r.Body, w)
+    cli.EventCallback.ListenCallback(r.Context(), r.Body, w)
 })
 
 fmt.Println("start server ...")
@@ -394,7 +394,7 @@ cli := lark.New(
 )
 
 tenantKey1Cli := cli.WithTenant("<TENANT_KEY_1>")
-resp, _, err := tenantKey1Cli.Chat().CreateChat(ctx, &lark.CreateChatReq{
+resp, _, err := tenantKey1cli.Chat.CreateChat(ctx, &lark.CreateChatReq{
     Name: ptr.String("<CHAT_NAME_1>"),
 })
 fmt.Println(resp, err)
@@ -409,7 +409,7 @@ get bot info example:
 ```go
 cli := lark.New(lark.WithAppCredential("<APP_ID>", "<APP_SECRET>"))
 
-resp, _, err := cli.Bot().GetBotInfo(ctx, &lark.GetBotInfoReq{})
+resp, _, err := cli.Bot.GetBotInfo(ctx, &lark.GetBotInfoReq{})
 fmt.Println(resp, err)
 ```
 
@@ -422,7 +422,7 @@ send text message example:
 ```go
 cli := lark.New(lark.WithAppCredential("<APP_ID>", "<APP_SECRET>"))
 
-resp, _, err := cli.Message().Send().ToChatID("<CHAT_ID>").SendText(ctx, "<TEXT>")
+resp, _, err := cli.Message.Send().ToChatID("<CHAT_ID>").SendText(ctx, "<TEXT>")
 fmt.Println(resp, err)
 ```
 
@@ -435,7 +435,7 @@ send delete message example:
 ```go
 cli := lark.New(lark.WithAppCredential("<APP_ID>", "<APP_SECRET>"))
 
-resp, _, err := cli.Message().DeleteMessage(ctx, &lark.DeleteMessageReq{
+resp, _, err := cli.Message.DeleteMessage(ctx, &lark.DeleteMessageReq{
     MessageID: "<MESSAGE_ID>",
 })
 fmt.Println(resp, err)
@@ -450,7 +450,7 @@ create chat example:
 ```go
 cli := lark.New(lark.WithAppCredential("<APP_ID>", "<APP_SECRET>"))
 
-resp, _, err := cli.Chat().CreateChat(ctx, &lark.CreateChatReq{
+resp, _, err := cli.Chat.CreateChat(ctx, &lark.CreateChatReq{
     Name: ptr.String("<CHAT_NAME>"),
 })
 fmt.Println(resp, err)
@@ -469,7 +469,7 @@ f, err := os.Open("<FILE_PATH>")
 if err != nil {
     panic(err)
 }
-resp, _, err := cli.File().UploadImage(ctx, &lark.UploadImageReq{
+resp, _, err := cli.File.UploadImage(ctx, &lark.UploadImageReq{
     ImageType: lark.ImageTypeMessage,
     Image:     f,
 })
@@ -485,7 +485,7 @@ create calendar example:
 ```go
 cli := lark.New(lark.WithAppCredential("<APP_ID>", "<APP_SECRET>"))
 
-resp, _, err := cli.Calendar().CreateCalendar(ctx, &lark.CreateCalendarReq{
+resp, _, err := cli.Calendar.CreateCalendar(ctx, &lark.CreateCalendarReq{
     Summary: ptr.String("<SUMMARY>"),
 })
 fmt.Println(resp, err)
