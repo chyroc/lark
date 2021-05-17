@@ -1,0 +1,143 @@
+# 查询会议室日程实例列表
+
+该接口用于获取指定会议室的忙闲日程实例列表。非重复日程只有唯一实例；重复日程可能存在多个实例，依据重复规则和时间范围扩展。{尝试一下}(url=/api/tools/api_explore/api_explore_config?project=meeting_room&version=v1&resource=freebusy&method=batch_get)
+
+
+## 请求
+:::html
+<md-table>
+  <md-thead>
+  <tr>
+      <md-th>基本</md-th>
+      <md-th></md-th>
+  </tr>
+  </md-thead>
+  <md-tbody>
+    <md-tr>
+      <md-th>HTTP URL</md-th>
+      <md-td>https://open.feishu.cn/open-apis/meeting_room/freebusy/batch_get?room_ids=omm_83d09ad4f6896e02029a6a075f71c9d1&room_ids=omm_eada1d61a550955240c28757e7dec3af&time_min=2019-09-04T08:45:00%2B08:00&time_max=2019-09-04T09:45:00%2B08:00</md-td>
+    </md-tr>
+    <md-tr>
+      <md-th>HTTP Method</md-th>
+      <md-td>GET</md-td>
+    </md-tr>
+    
+    
+    <md-tr>
+      <md-th>权限要求</md-th>
+      <md-td>
+        <md-perm href="/ssl:ttdoc/ukTMukTMukTM/uQjN3QjL0YzN04CN2cDN"> 获取会议室信息 </md-perm>
+      </md-td>
+    </md-tr>
+  </md-tbody>
+</md-table>
+:::
+### 请求头
+:::html
+<md-table> 
+  <md-thead> 
+    <md-tr> 
+      <md-th style="width: 18%;">名称</md-th>  
+      <md-th style="width: 15%;">类型</md-th>  
+       <md-th style="width: 15%;">必填</md-th>  
+      <md-th>描述</md-th> 
+    </md-tr> 
+  </md-thead>  
+  <md-tbody> 
+    <md-tr> 
+      <md-td>Authorization</md-td>  
+      <md-td>string</md-td>  
+      <md-td> 是 </md-td> 
+      	<md-td>
+<md-tag mode="inline" type="token-tenant">tenant_access_token</md-tag>
+ 
+**值格式**："Bearer `access_token`"
+
+**示例值**："Bearer t-7f1bcd13fc57d46bac21793a18e560"
+          
+ [了解更多：获取与使用access_token](/ssl:ttdoc/ukTMukTMukTM/uMTNz4yM1MjLzUzM)
+	</md-td>
+</md-tr>
+     <md-tr> 
+      <md-td>Content-Type</md-td>  
+      <md-td>string</md-td>  
+      <md-td> 是 </md-td> 
+     <md-td>**固定值**："application/json; charset=utf-8"</md-td>
+</md-tr>
+   
+  </md-tbody> 
+</md-table>
+:::
+
+
+### 查询参数
+| **参数** | **参数类型** | **必须** | **说明**                                                     |
+| -------- | ------------ | -------- | ------------------------------------------------------------ |
+| room_ids | string       | 是       | 用于查询指定会议室的 ID                                      |
+| time_min | string       | 是       | 查询会议室忙闲的起始时间，需要遵循格式 [RFC3339](https://tools.ietf.org/html/rfc3339)，需要进行URL Encode |
+| time_max | string       | 是       | 查询会议室忙闲的结束时间，需要遵循格式 [RFC3339](https://tools.ietf.org/html/rfc3339)，需要进行URL Encode |
+
+## 响应
+### 响应体
+
+| **参数**    | **说明**                                             |
+| ----------- | ---------------------------------------------------- |
+| code        | 返回码，非 0 表示失败                                |
+| msg         | 返回码的描述，"success" 表示成功，其他为错误提示信息 |
+| data        | 返回业务信息                                         |
+| ∟time_min   | 查询会议室忙闲的起始时间，与请求参数完全相同         |
+| ∟time_max   | 查询会议室忙闲的结束时间，与请求参数完全相同         |
+| ∟free_busy  | 会议室忙闲列表                                       |
+| &nbsp;&nbsp;&nbsp;∟room_id    | 与请求合法参数相同，表示之后是对应会议室的忙闲状态   |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;∟start_time | 忙碌起始时间                                         |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;∟end_time   | 忙碌结束时间                                         |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;∟uid   | 日程 ID                                         |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;∟original_time   | 日程实例的原始时间, 非重复日程为0，重复日程为非0  |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;∟organizer_info   | 组织者信息, 私密日程不返回该信息                               |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;∟name   | 组织者姓名                                  |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;∟open_id   | 组织者 open_id                                 |
+
+### 响应体示例
+```json
+{
+    "code":0,
+    "msg":"success",
+    "data":{
+        "time_max":"2019-09-04T09:45:00+08:00",
+        "time_min":"2019-09-04T08:45:00+08:00",
+        "free_busy":{
+            "omm_83d09ad4f6896e02029a6a075f71c9d1":[
+                {
+                    "end_time":"2019-09-04T09:30:00+08:00",
+                    "organizer_info": {
+                        "name": "张三",
+                        "open_id": "ou_09379914ab6dde664x9daf84d8b13842"
+                    },
+                    "start_time":"2019-09-04T09:00:00+08:00",
+                   "original_time": 0
+                    "uid": "bff6b51f-b7c1-40c6-b8ef-aef966c9ffc7"
+                }
+            ],
+            "omm_c7e9ef91ec9f3c007f1dfb2503918981": [
+                {
+                    "end_time": "2020-01-14T19:00:00+08:00",
+                    "organizer_info": {
+                        "name": "xxx",
+                        "open_id": "ou_09379914ab6dde66499daf94d8b13842"
+                    },
+                    "original_time": 1578997800,
+                    "start_time": "2020-01-14T18:30:00+08:00",
+                    "uid": "5632b176-4f0e-44eb-8331-c4b155ed270f"
+                }
+           ]
+        }
+    }
+}
+```
+
+### 错误码
+
+具体可参考：[会议室错误码](/ssl:ttdoc/ukTMukTMukTM/uMDOyUjLzgjM14yM4ITN)
+
+
+

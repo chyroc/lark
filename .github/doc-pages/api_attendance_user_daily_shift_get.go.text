@@ -1,0 +1,78 @@
+# 查询班表信息
+支持查询多个用户的排班情况，查询的时间跨度不能超过 30 天。
+
+## 请求
+|基本||
+|---|---|
+|HTTP URL|https://open.feishu.cn/open-apis/attendance/v1/user_daily_shifts/query|
+|HTTP Method|POST|
+|HTTP Content-Type|application/json; charset=utf-8|
+|凭证要求|tenant_access_token|
+|权限要求|打卡数据导出|
+### 头部
+key|value
+--|--
+Authorization|Bearer tenant_access_token
+Content-Type|application/json
+### 查询参数
+|名称|类型|必填|描述|
+|---|---|---|---|
+|employee_type|string|是|请求体中的 user_ids 的员工工号类型，可用值：【employee_id（员工的 employeeId），employee_no（员工工号）】，示例值：“employee_id”|
+
+
+### 请求体
+|名称|类型|必填|描述|
+|---|---|---|---|
+|user_ids|string\[\]|是|employee_no 或 employee_id 列表|
+|check_date_from|int|是|查询的起始工作日|
+|check_date_to|int|是|查询的结束工作日|
+### 请求体示例
+```json
+{
+    "user_ids": [
+        "abd754f7"
+    ],
+    "check_date_from": 20210121,
+    "check_date_to": 20210122
+}
+```
+## 响应
+### 响应体
+|名称|类型|描述|
+|---|---|---|
+|code|int|错误码，非 0 表示失败|
+|msg|string|错误描述|
+|data|-|-|
+|&emsp;∟user_daily_shifts|user_daily_shift\[\]|班表信息列表|
+|&emsp;&emsp;∟group_id|string|考勤组 ID|
+|&emsp;&emsp;∟shift_id|string|班次 ID，休息为 0|
+|&emsp;&emsp;∟month|int|月份|
+|&emsp;&emsp;∟employee_no|string|用户|
+|&emsp;&emsp;∟day_no|int|日期|
+### 响应体示例
+```json
+{
+    "code": 0,
+    "msg": "success",
+    "data": {
+        "user_daily_shifts": [
+            {
+                "group_id": "6737202939523236110",
+                "shift_id": "6753520403404030215",
+                "month": 202101,
+                "user_id": "abd754f7",
+                "day_no": 21
+            }
+        ]
+    }
+}
+```
+### 错误码
+|HTTP 状态码|错误码|描述|排查建议|
+|---|---|---|---|
+|400|1220001|参数错误|请检查参数是否符合要求|
+|400|1220002|租户不存在|请检查 tenant_access_token 是否正确|
+|400|1220004|用户不存在或没有权限|请检查用户 ID 是否正确|
+|400|1220005|没有权限|请前往考勤管理后台检查数据权限范围|
+|500|1225000|系统错误|详见错误信息|
+|500|1226000|班次服务系统错误|详见错误信息|

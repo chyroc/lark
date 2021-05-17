@@ -1,0 +1,1910 @@
+# 修改用户部分信息
+
+该接口用于更新通讯录中用户的字段，未传递的参数不会更新。接口只会返回应用有数据权限的字段，具体的数据权限与字段的关系请参考[应用权限](/ssl:ttdoc/ukTMukTMukTM/uQjN3QjL0YzN04CN2cDN){尝试一下}(url=/api/tools/api_explore/api_explore_config?project=contact&version=v3&resource=user&method=patch)
+
+:::html
+<md-alert type="error">
+
+</md-alert>
+:::
+
+:::html
+<md-alert type="warn">
+
+</md-alert>
+:::
+
+:::html
+<md-alert type="tip">
+
+</md-alert>
+:::
+
+
+
+## 请求
+:::html
+<md-table>
+  <md-thead>
+  <tr>
+      <md-th>基本</md-th>
+      <md-th></md-th>
+  </tr>
+  </md-thead>
+  <md-tbody>
+    <md-tr>
+      <md-th>HTTP URL</md-th>
+      <md-td>https://open.feishu.cn/open-apis/contact/v3/users/:user_id</md-td>
+    </md-tr>
+    <md-tr>
+      <md-th>HTTP Method</md-th>
+      <md-td>PATCH</md-td>
+    </md-tr>
+    <md-tr>
+      <md-th>权限要求</md-th>
+      <md-td>
+            <md-perm href="/ssl:ttdoc/ukTMukTMukTM/uQjN3QjL0YzN04CN2cDN">更新通讯录</md-perm>
+            <md-perm href="/ssl:ttdoc/ukTMukTMukTM/uQjN3QjL0YzN04CN2cDN">更新用户基本信息</md-perm>
+      </md-td>
+    </md-tr>
+    <md-tr>
+      <md-th>字段权限要求</md-th>
+      <md-td>
+        <md-perm href="/ssl:ttdoc/ukTMukTMukTM/uQjN3QjL0YzN04CN2cDN">获取用户 userid</md-perm>
+        <md-perm href="/ssl:ttdoc/ukTMukTMukTM/uQjN3QjL0YzN04CN2cDN">获取用户邮箱</md-perm>
+        <md-perm href="/ssl:ttdoc/ukTMukTMukTM/uQjN3QjL0YzN04CN2cDN">获取用户手机号</md-perm>
+      </md-td>
+    </md-tr>
+  </md-tbody>
+</md-table>
+:::
+
+
+### 请求头
+:::html
+<md-table>
+  <md-thead>
+    <md-tr>
+      <md-th style="width: 18%;">名称</md-th>
+      <md-th style="width: 15%;">类型</md-th>
+       <md-th style="width: 15%;">必填</md-th>
+      <md-th>描述</md-th>
+    </md-tr>
+  </md-thead>
+  <md-tbody>
+    <md-tr>
+      <md-td>Authorization</md-td>
+      <md-td>string</md-td>
+      <md-td>是</md-td>
+      	<md-td>
+<md-tag mode="inline" type="token-tenant">tenant_access_token</md-tag>
+或
+<md-tag mode="inline" type="token-user">user_access_token</md-tag>
+
+**值格式**："Bearer `access_token`"
+
+**示例值**："Bearer u-7f1bcd13fc57d46bac21793a18e560"
+
+[了解更多：获取与使用access_token](/ssl:ttdoc/ukTMukTMukTM/uMTNz4yM1MjLzUzM)
+</md-td>
+</md-tr>
+     <md-tr>
+      <md-td>Content-Type</md-td>
+      <md-td>string</md-td>
+      <md-td>是</md-td>
+      <md-td>**固定值**："application/json; charset=utf-8"</md-td>
+</md-tr>
+</md-tbody>
+</md-table>
+:::
+
+
+
+### 路径参数
+:::html
+<md-table>
+  <md-thead>
+      <tr>
+      <md-th style="width: 30%;">名称</md-th>
+      <md-th style="width: 15%;">类型</md-th>
+      <md-th >描述</md-th>
+      </tr>
+  </md-thead>
+  <md-tbody>
+
+<md-tr>
+	<md-td>
+	<md-text type="field-name" >user_id</md-text>
+	</md-td>
+	<md-td>
+	<md-text type="field-type" >string</md-text>
+	</md-td>
+	<md-td>
+	用户ID，需要与查询参数中的user_id_type类型保持一致。
+
+**示例值**："ou_7dab8a3d3cdcc9da365777c7ad535d62"
+	</md-td>
+</md-tr>
+
+  </md-tbody>
+</md-table>
+:::
+
+
+
+### 查询参数
+:::html
+<md-table>
+  <md-thead>
+      <tr>
+      <md-th style="width: 30%;">名称</md-th>
+      <md-th style="width: 15%;">类型</md-th>
+      <md-th style="width: 15%;">必填</md-th>
+      <md-th >描述</md-th>
+      </tr>
+  </md-thead>
+  <md-tbody>
+
+<md-tr>
+	<md-td>
+	<md-text type="field-name" >user_id_type</md-text>
+	</md-td>
+	<md-td>
+	<md-text type="field-type" >string</md-text>
+	</md-td>
+	<md-td>
+	否
+	</md-td>
+	<md-td>
+	
+用户 ID 类型
+
+**示例值**："open_id"
+
+**可选值有**：
+- `open_id`：用户的 open id
+- `union_id`：用户的 union id
+- `user_id`：用户的 user id
+
+**默认值**：`open_id`
+
+**当值为 `user_id`，字段权限要求**：
+<md-perm href="/ssl:ttdoc/ukTMukTMukTM/uQjN3QjL0YzN04CN2cDN">获取用户 userid</md-perm>
+	</md-td>
+</md-tr>
+
+
+<md-tr>
+	<md-td>
+	<md-text type="field-name" >department_id_type</md-text>
+	</md-td>
+	<md-td>
+	<md-text type="field-type" >string</md-text>
+	</md-td>
+	<md-td>
+	否
+	</md-td>
+	<md-td>
+	此次调用中使用的部门ID的类型
+
+**示例值**："open_department_id"
+
+**可选值有**：
+- `department_id`：以自定义department_id来标识部门
+- `open_department_id`：以open_department_id来标识部门
+
+**默认值**：`open_department_id`
+	</md-td>
+</md-tr>
+
+  </md-tbody>
+</md-table>
+:::
+
+
+
+### 请求体
+:::html
+引用类型：<md-text type="field-type" >user</md-text>
+:::
+:::html
+<md-table>
+  <md-thead>
+      <md-tr>
+      <md-th style="width: 40%;">名称</md-th>
+      <md-th style="width: 20%;">类型</md-th>
+      <md-th style="width: 10%;">必填</md-th>
+      <md-th style="width: 30%;">描述</md-th>
+      </md-tr>
+  </md-thead>
+  <md-tbody>
+
+<md-tr>
+	<md-td>
+	<md-text type="field-name" >name</md-text>
+	</md-td>
+	<md-td>
+	<md-text type="field-type" >string</md-text>
+	</md-td>
+	<md-td>
+	否
+	</md-td>
+	<md-td>
+	用户名
+
+**示例值**："张三"
+
+**数据校验规则**：
+
+- 最小长度：`1` 字符
+	</md-td>
+</md-tr>
+
+
+<md-tr>
+	<md-td>
+	<md-text type="field-name" >en_name</md-text>
+	</md-td>
+	<md-td>
+	<md-text type="field-type" >string</md-text>
+	</md-td>
+	<md-td>
+	否
+	</md-td>
+	<md-td>
+	英文名
+
+**示例值**："San Zhang"
+	</md-td>
+</md-tr>
+
+
+<md-tr>
+	<md-td>
+	<md-text type="field-name" >email</md-text>
+	</md-td>
+	<md-td>
+	<md-text type="field-type" >string</md-text>
+	</md-td>
+	<md-td>
+	否
+	</md-td>
+	<md-td>
+	邮箱
+
+**示例值**："zhangsan@gmail.com"
+
+**字段权限要求**：
+ <md-perm href="/ssl:ttdoc/ukTMukTMukTM/uQjN3QjL0YzN04CN2cDN">获取用户邮箱</md-perm>
+	</md-td>
+</md-tr>
+
+
+<md-tr>
+	<md-td>
+	<md-text type="field-name" >mobile</md-text>
+	</md-td>
+	<md-td>
+	<md-text type="field-type" >string</md-text>
+	</md-td>
+	<md-td>
+	否
+	</md-td>
+	<md-td>
+	手机号
+
+**示例值**："13011111111"
+	</md-td>
+</md-tr>
+
+
+<md-tr>
+	<md-td>
+	<md-text type="field-name" >mobile_visible</md-text>
+	</md-td>
+	<md-td>
+	<md-text type="field-type" >boolean</md-text>
+	</md-td>
+	<md-td>
+	否
+	</md-td>
+	<md-td>
+	手机号码可见性，true 为可见，false 为不可见，目前默认为 true。不可见时，组织员工将无法查看该员工的手机号码
+
+**示例值**：false
+	</md-td>
+</md-tr>
+
+
+<md-tr>
+	<md-td>
+	<md-text type="field-name" >gender</md-text>
+	</md-td>
+	<md-td>
+	<md-text type="field-type" >int</md-text>
+	</md-td>
+	<md-td>
+	否
+	</md-td>
+	<md-td>
+	性别
+
+**示例值**：1
+
+**可选值有**：
+- `0`：保密
+- `1`：男
+- `2`：女
+	</md-td>
+</md-tr>
+
+
+<md-tr>
+	<md-td>
+	<md-text type="field-name" >avatar_key</md-text>
+	</md-td>
+	<md-td>
+	<md-text type="field-type" >string</md-text>
+	</md-td>
+	<md-td>
+	否
+	</md-td>
+	<md-td>
+	头像的文件Key
+
+**示例值**："2500c7a9-5fff-4d9a-a2de-3d59614ae28g"
+	</md-td>
+</md-tr>
+
+
+<md-tr>
+	<md-td>
+	<md-text type="field-name" >department_ids</md-text>
+	</md-td>
+	<md-td>
+	<md-text type="field-type" >string\[\]</md-text>
+	</md-td>
+	<md-td>
+	否
+	</md-td>
+	<md-td>
+	用户所属部门的ID列表
+	</md-td>
+</md-tr>
+
+
+<md-tr>
+	<md-td>
+	<md-text type="field-name" >leader_user_id</md-text>
+	</md-td>
+	<md-td>
+	<md-text type="field-type" >string</md-text>
+	</md-td>
+	<md-td>
+	否
+	</md-td>
+	<md-td>
+	用户的直接主管的用户ID
+
+**示例值**："ou_7dab8a3d3cdcc9da365777c7ad535d62"
+	</md-td>
+</md-tr>
+
+
+<md-tr>
+	<md-td>
+	<md-text type="field-name" >city</md-text>
+	</md-td>
+	<md-td>
+	<md-text type="field-type" >string</md-text>
+	</md-td>
+	<md-td>
+	否
+	</md-td>
+	<md-td>
+	城市
+
+**示例值**："杭州"
+	</md-td>
+</md-tr>
+
+
+<md-tr>
+	<md-td>
+	<md-text type="field-name" >country</md-text>
+	</md-td>
+	<md-td>
+	<md-text type="field-type" >string</md-text>
+	</md-td>
+	<md-td>
+	否
+	</md-td>
+	<md-td>
+	国家
+
+**示例值**："中国"
+	</md-td>
+</md-tr>
+
+
+<md-tr>
+	<md-td>
+	<md-text type="field-name" >work_station</md-text>
+	</md-td>
+	<md-td>
+	<md-text type="field-type" >string</md-text>
+	</md-td>
+	<md-td>
+	否
+	</md-td>
+	<md-td>
+	工位
+
+**示例值**："杭州"
+	</md-td>
+</md-tr>
+
+
+<md-tr>
+	<md-td>
+	<md-text type="field-name" >join_time</md-text>
+	</md-td>
+	<md-td>
+	<md-text type="field-type" >int</md-text>
+	</md-td>
+	<md-td>
+	否
+	</md-td>
+	<md-td>
+	入职时间
+
+**示例值**：2147483647
+	</md-td>
+</md-tr>
+
+
+<md-tr>
+	<md-td>
+	<md-text type="field-name" >employee_no</md-text>
+	</md-td>
+	<md-td>
+	<md-text type="field-type" >string</md-text>
+	</md-td>
+	<md-td>
+	否
+	</md-td>
+	<md-td>
+	工号
+
+**示例值**："1"
+	</md-td>
+</md-tr>
+
+
+<md-tr>
+	<md-td>
+	<md-text type="field-name" >employee_type</md-text>
+	</md-td>
+	<md-td>
+	<md-text type="field-type" >int</md-text>
+	</md-td>
+	<md-td>
+	否
+	</md-td>
+	<md-td>
+	员工类型
+
+**示例值**：1
+	</md-td>
+</md-tr>
+
+
+<md-tr>
+	<md-td>
+	<md-text type="field-name" >orders</md-text>
+	</md-td>
+	<md-td>
+	<md-text type="field-type" >user_order\[\]</md-text>
+	</md-td>
+	<md-td>
+	否
+	</md-td>
+	<md-td>
+	用户排序信息
+	</md-td>
+</md-tr>
+
+
+<md-tr>
+	<md-td>
+	&emsp;<span style="color: #8F959E">∟</span>&nbsp;<md-text type="field-name" >department_id</md-text>
+	</md-td>
+	<md-td>
+	<md-text type="field-type" >string</md-text>
+	</md-td>
+	<md-td>
+	否
+	</md-td>
+	<md-td>
+	排序信息对应的部门ID
+
+**示例值**："od-4e6ac4d14bcd5071a37a39de902c7141"
+	</md-td>
+</md-tr>
+
+
+<md-tr>
+	<md-td>
+	&emsp;<span style="color: #8F959E">∟</span>&nbsp;<md-text type="field-name" >user_order</md-text>
+	</md-td>
+	<md-td>
+	<md-text type="field-type" >int</md-text>
+	</md-td>
+	<md-td>
+	否
+	</md-td>
+	<md-td>
+	用户在其直属部门内的排序，数值越大，排序越靠前
+
+**示例值**：100
+	</md-td>
+</md-tr>
+
+
+<md-tr>
+	<md-td>
+	&emsp;<span style="color: #8F959E">∟</span>&nbsp;<md-text type="field-name" >department_order</md-text>
+	</md-td>
+	<md-td>
+	<md-text type="field-type" >int</md-text>
+	</md-td>
+	<md-td>
+	否
+	</md-td>
+	<md-td>
+	用户所属的多个部门间的排序，数值越大，排序越靠前
+
+**示例值**：100
+	</md-td>
+</md-tr>
+
+
+<md-tr>
+	<md-td>
+	<md-text type="field-name" >custom_attrs</md-text>
+	</md-td>
+	<md-td>
+	<md-text type="field-type" >user_custom_attr\[\]</md-text>
+	</md-td>
+	<md-td>
+	否
+	</md-td>
+	<md-td>
+	自定义属性
+	</md-td>
+</md-tr>
+
+
+<md-tr>
+	<md-td>
+	&emsp;<span style="color: #8F959E">∟</span>&nbsp;<md-text type="field-name" >type</md-text>
+	</md-td>
+	<md-td>
+	<md-text type="field-type" >string</md-text>
+	</md-td>
+	<md-td>
+	否
+	</md-td>
+	<md-td>
+	自定义属性类型
+
+**示例值**："TEXT"
+	</md-td>
+</md-tr>
+
+
+<md-tr>
+	<md-td>
+	&emsp;<span style="color: #8F959E">∟</span>&nbsp;<md-text type="field-name" >id</md-text>
+	</md-td>
+	<md-td>
+	<md-text type="field-type" >string</md-text>
+	</md-td>
+	<md-td>
+	否
+	</md-td>
+	<md-td>
+	自定义属性ID
+
+**示例值**："DemoId"
+	</md-td>
+</md-tr>
+
+
+<md-tr>
+	<md-td>
+	&emsp;<span style="color: #8F959E">∟</span>&nbsp;<md-text type="field-name" >value</md-text>
+	</md-td>
+	<md-td>
+	<md-text type="field-type" >user_custom_attr_value</md-text>
+	</md-td>
+	<md-td>
+	否
+	</md-td>
+	<md-td>
+	自定义属性取值
+	</md-td>
+</md-tr>
+
+
+<md-tr>
+	<md-td>
+	&emsp;&emsp;<span style="color: #8F959E">∟</span>&nbsp;<md-text type="field-name" >text</md-text>
+	</md-td>
+	<md-td>
+	<md-text type="field-type" >string</md-text>
+	</md-td>
+	<md-td>
+	否
+	</md-td>
+	<md-td>
+	属性文本
+
+**示例值**："DemoText"
+	</md-td>
+</md-tr>
+
+
+<md-tr>
+	<md-td>
+	&emsp;&emsp;<span style="color: #8F959E">∟</span>&nbsp;<md-text type="field-name" >url</md-text>
+	</md-td>
+	<md-td>
+	<md-text type="field-type" >string</md-text>
+	</md-td>
+	<md-td>
+	否
+	</md-td>
+	<md-td>
+	URL
+
+**示例值**："http://www.feishu.cn"
+	</md-td>
+</md-tr>
+
+
+<md-tr>
+	<md-td>
+	&emsp;&emsp;<span style="color: #8F959E">∟</span>&nbsp;<md-text type="field-name" >pc_url</md-text>
+	</md-td>
+	<md-td>
+	<md-text type="field-type" >string</md-text>
+	</md-td>
+	<md-td>
+	否
+	</md-td>
+	<md-td>
+	PC上的URL
+
+**示例值**："http://www.feishu.cn"
+	</md-td>
+</md-tr>
+
+
+<md-tr>
+	<md-td>
+	<md-text type="field-name" >enterprise_email</md-text>
+	</md-td>
+	<md-td>
+	<md-text type="field-type" >string</md-text>
+	</md-td>
+	<md-td>
+	否
+	</md-td>
+	<md-td>
+	企业邮箱，请先确保已在管理后台启用飞书邮箱服务
+
+**示例值**："demo@mail.com"
+	</md-td>
+</md-tr>
+
+
+<md-tr>
+	<md-td>
+	<md-text type="field-name" >job_title</md-text>
+	</md-td>
+	<md-td>
+	<md-text type="field-type" >string</md-text>
+	</md-td>
+	<md-td>
+	否
+	</md-td>
+	<md-td>
+	职务
+
+**示例值**："xxxxx"
+	</md-td>
+</md-tr>
+
+
+<md-tr>
+	<md-td>
+	<md-text type="field-name" >is_frozen</md-text>
+	</md-td>
+	<md-td>
+	<md-text type="field-type" >boolean</md-text>
+	</md-td>
+	<md-td>
+	否
+	</md-td>
+	<md-td>
+	是否冻结用户
+
+**示例值**：false
+	</md-td>
+</md-tr>
+
+  </md-tbody>
+</md-table>
+:::
+
+
+
+### 请求体示例
+
+```json
+{
+    "name": "张三",
+    "en_name": "San Zhang",
+    "email": "zhangsan@gmail.com",
+    "mobile": "13011111111",
+    "mobile_visible": false,
+    "gender": 1,
+    "avatar_key": "2500c7a9-5fff-4d9a-a2de-3d59614ae28g",
+    "department_ids": [
+        "od-4e6ac4d14bcd5071a37a39de902c7141"
+    ],
+    "leader_user_id": "ou_7dab8a3d3cdcc9da365777c7ad535d62",
+    "city": "杭州",
+    "country": "中国",
+    "work_station": "杭州",
+    "join_time": 2147483647,
+    "employee_no": "1",
+    "employee_type": 1,
+    "orders": [
+        {
+            "department_id": "od-4e6ac4d14bcd5071a37a39de902c7141",
+            "user_order": 100,
+            "department_order": 100
+        }
+    ],
+    "custom_attrs": [
+        {
+            "type": "TEXT",
+            "id": "DemoId",
+            "value": {
+                "text": "DemoText",
+                "url": "http://www.feishu.cn",
+                "pc_url": "http://www.feishu.cn"
+            }
+        }
+    ],
+    "enterprise_email": "demo@mail.com",
+    "job_title": "xxxxx",
+    "is_frozen": false
+}
+```
+
+
+
+## 响应
+
+
+
+### 响应体
+:::html
+<md-table>
+  <md-thead>
+      <md-tr>
+      <md-th style="width: 40%;">名称</md-th>
+      <md-th style="width: 20%;">类型</md-th>
+      <md-th style="width: 30%;">描述</md-th>
+      </md-tr>
+  </md-thead>
+  <md-tbody>
+
+<md-tr>
+	<md-td>
+	<md-text type="field-name" >code</md-text>
+	</md-td>
+	<md-td>
+	<md-text type="field-type" >int</md-text>
+	</md-td>
+	<md-td>
+	错误码，非 0 表示失败
+	</md-td>
+</md-tr>
+
+
+<md-tr>
+	<md-td>
+	<md-text type="field-name" >msg</md-text>
+	</md-td>
+	<md-td>
+	<md-text type="field-type" >string</md-text>
+	</md-td>
+	<md-td>
+	错误描述
+	</md-td>
+</md-tr>
+
+
+<md-tr>
+	<md-td>
+	<md-text type="field-name" >data</md-text>
+	</md-td>
+	<md-td>
+	<md-text type="field-type" >\-</md-text>
+	</md-td>
+	<md-td>
+	\-
+	</md-td>
+</md-tr>
+
+
+<md-tr>
+	<md-td>
+	&emsp;<span style="color: #8F959E">∟</span>&nbsp;<md-text type="field-name" >user</md-text>
+	</md-td>
+	<md-td>
+	<md-text type="field-type" >user</md-text>
+	</md-td>
+	<md-td>
+	用户信息
+	</md-td>
+</md-tr>
+
+
+<md-tr>
+	<md-td>
+	&emsp;&emsp;<span style="color: #8F959E">∟</span>&nbsp;<md-text type="field-name" >union_id</md-text>
+	</md-td>
+	<md-td>
+	<md-text type="field-type" >string</md-text>
+	</md-td>
+	<md-td>
+	用户的union_id
+	</md-td>
+</md-tr>
+
+
+<md-tr>
+	<md-td>
+	&emsp;&emsp;<span style="color: #8F959E">∟</span>&nbsp;<md-text type="field-name" >user_id</md-text>
+	</md-td>
+	<md-td>
+	<md-text type="field-type" >string</md-text>
+	</md-td>
+	<md-td>
+	租户内用户的唯一标识
+
+**字段权限要求**：
+ <md-perm href="/ssl:ttdoc/ukTMukTMukTM/uQjN3QjL0YzN04CN2cDN">获取用户 userid</md-perm>
+	</md-td>
+</md-tr>
+
+
+<md-tr>
+	<md-td>
+	&emsp;&emsp;<span style="color: #8F959E">∟</span>&nbsp;<md-text type="field-name" >open_id</md-text>
+	</md-td>
+	<md-td>
+	<md-text type="field-type" >string</md-text>
+	</md-td>
+	<md-td>
+	用户的open_id
+	</md-td>
+</md-tr>
+
+
+<md-tr>
+	<md-td>
+	&emsp;&emsp;<span style="color: #8F959E">∟</span>&nbsp;<md-text type="field-name" >name</md-text>
+	</md-td>
+	<md-td>
+	<md-text type="field-type" >string</md-text>
+	</md-td>
+	<md-td>
+	用户名
+
+**数据校验规则**：
+
+- 最小长度：`1` 字符
+	</md-td>
+</md-tr>
+
+
+<md-tr>
+	<md-td>
+	&emsp;&emsp;<span style="color: #8F959E">∟</span>&nbsp;<md-text type="field-name" >en_name</md-text>
+	</md-td>
+	<md-td>
+	<md-text type="field-type" >string</md-text>
+	</md-td>
+	<md-td>
+	英文名
+	</md-td>
+</md-tr>
+
+
+<md-tr>
+	<md-td>
+	&emsp;&emsp;<span style="color: #8F959E">∟</span>&nbsp;<md-text type="field-name" >email</md-text>
+	</md-td>
+	<md-td>
+	<md-text type="field-type" >string</md-text>
+	</md-td>
+	<md-td>
+	邮箱
+
+**字段权限要求**：
+ <md-perm href="/ssl:ttdoc/ukTMukTMukTM/uQjN3QjL0YzN04CN2cDN">获取用户邮箱</md-perm>
+	</md-td>
+</md-tr>
+
+
+<md-tr>
+	<md-td>
+	&emsp;&emsp;<span style="color: #8F959E">∟</span>&nbsp;<md-text type="field-name" >mobile</md-text>
+	</md-td>
+	<md-td>
+	<md-text type="field-type" >string</md-text>
+	</md-td>
+	<md-td>
+	手机号
+
+**字段权限要求**：
+ <md-perm href="/ssl:ttdoc/ukTMukTMukTM/uQjN3QjL0YzN04CN2cDN">获取用户手机号</md-perm>
+	</md-td>
+</md-tr>
+
+
+<md-tr>
+	<md-td>
+	&emsp;&emsp;<span style="color: #8F959E">∟</span>&nbsp;<md-text type="field-name" >mobile_visible</md-text>
+	</md-td>
+	<md-td>
+	<md-text type="field-type" >boolean</md-text>
+	</md-td>
+	<md-td>
+	手机号码可见性，true 为可见，false 为不可见，目前默认为 true。不可见时，组织员工将无法查看该员工的手机号码
+	</md-td>
+</md-tr>
+
+
+<md-tr>
+	<md-td>
+	&emsp;&emsp;<span style="color: #8F959E">∟</span>&nbsp;<md-text type="field-name" >gender</md-text>
+	</md-td>
+	<md-td>
+	<md-text type="field-type" >int</md-text>
+	</md-td>
+	<md-td>
+	性别
+
+**可选值有**：
+- `0`：保密
+- `1`：男
+- `2`：女
+	</md-td>
+</md-tr>
+
+
+<md-tr>
+	<md-td>
+	&emsp;&emsp;<span style="color: #8F959E">∟</span>&nbsp;<md-text type="field-name" >avatar_key</md-text>
+	</md-td>
+	<md-td>
+	<md-text type="field-type" >string</md-text>
+	</md-td>
+	<md-td>
+	头像的文件Key
+	</md-td>
+</md-tr>
+
+
+<md-tr>
+	<md-td>
+	&emsp;&emsp;<span style="color: #8F959E">∟</span>&nbsp;<md-text type="field-name" >avatar</md-text>
+	</md-td>
+	<md-td>
+	<md-text type="field-type" >avatar_info</md-text>
+	</md-td>
+	<md-td>
+	用户头像信息
+	</md-td>
+</md-tr>
+
+
+<md-tr>
+	<md-td>
+	&emsp;&emsp;&emsp;<span style="color: #8F959E">∟</span>&nbsp;<md-text type="field-name" >avatar_72</md-text>
+	</md-td>
+	<md-td>
+	<md-text type="field-type" >string</md-text>
+	</md-td>
+	<md-td>
+	72*72像素头像链接
+	</md-td>
+</md-tr>
+
+
+<md-tr>
+	<md-td>
+	&emsp;&emsp;&emsp;<span style="color: #8F959E">∟</span>&nbsp;<md-text type="field-name" >avatar_240</md-text>
+	</md-td>
+	<md-td>
+	<md-text type="field-type" >string</md-text>
+	</md-td>
+	<md-td>
+	240*240像素头像链接
+	</md-td>
+</md-tr>
+
+
+<md-tr>
+	<md-td>
+	&emsp;&emsp;&emsp;<span style="color: #8F959E">∟</span>&nbsp;<md-text type="field-name" >avatar_640</md-text>
+	</md-td>
+	<md-td>
+	<md-text type="field-type" >string</md-text>
+	</md-td>
+	<md-td>
+	640*640像素头像链接
+	</md-td>
+</md-tr>
+
+
+<md-tr>
+	<md-td>
+	&emsp;&emsp;&emsp;<span style="color: #8F959E">∟</span>&nbsp;<md-text type="field-name" >avatar_origin</md-text>
+	</md-td>
+	<md-td>
+	<md-text type="field-type" >string</md-text>
+	</md-td>
+	<md-td>
+	原始头像链接
+	</md-td>
+</md-tr>
+
+
+<md-tr>
+	<md-td>
+	&emsp;&emsp;<span style="color: #8F959E">∟</span>&nbsp;<md-text type="field-name" >status</md-text>
+	</md-td>
+	<md-td>
+	<md-text type="field-type" >user_status</md-text>
+	</md-td>
+	<md-td>
+	用户状态
+	</md-td>
+</md-tr>
+
+
+<md-tr>
+	<md-td>
+	&emsp;&emsp;&emsp;<span style="color: #8F959E">∟</span>&nbsp;<md-text type="field-name" >is_frozen</md-text>
+	</md-td>
+	<md-td>
+	<md-text type="field-type" >boolean</md-text>
+	</md-td>
+	<md-td>
+	是否冻结
+	</md-td>
+</md-tr>
+
+
+<md-tr>
+	<md-td>
+	&emsp;&emsp;&emsp;<span style="color: #8F959E">∟</span>&nbsp;<md-text type="field-name" >is_resigned</md-text>
+	</md-td>
+	<md-td>
+	<md-text type="field-type" >boolean</md-text>
+	</md-td>
+	<md-td>
+	是否离职
+	</md-td>
+</md-tr>
+
+
+<md-tr>
+	<md-td>
+	&emsp;&emsp;&emsp;<span style="color: #8F959E">∟</span>&nbsp;<md-text type="field-name" >is_activated</md-text>
+	</md-td>
+	<md-td>
+	<md-text type="field-type" >boolean</md-text>
+	</md-td>
+	<md-td>
+	是否激活
+	</md-td>
+</md-tr>
+
+
+<md-tr>
+	<md-td>
+	&emsp;&emsp;<span style="color: #8F959E">∟</span>&nbsp;<md-text type="field-name" >department_ids</md-text>
+	</md-td>
+	<md-td>
+	<md-text type="field-type" >string\[\]</md-text>
+	</md-td>
+	<md-td>
+	用户所属部门的ID列表
+	</md-td>
+</md-tr>
+
+
+<md-tr>
+	<md-td>
+	&emsp;&emsp;<span style="color: #8F959E">∟</span>&nbsp;<md-text type="field-name" >leader_user_id</md-text>
+	</md-td>
+	<md-td>
+	<md-text type="field-type" >string</md-text>
+	</md-td>
+	<md-td>
+	用户的直接主管的用户ID
+	</md-td>
+</md-tr>
+
+
+<md-tr>
+	<md-td>
+	&emsp;&emsp;<span style="color: #8F959E">∟</span>&nbsp;<md-text type="field-name" >city</md-text>
+	</md-td>
+	<md-td>
+	<md-text type="field-type" >string</md-text>
+	</md-td>
+	<md-td>
+	城市
+	</md-td>
+</md-tr>
+
+
+<md-tr>
+	<md-td>
+	&emsp;&emsp;<span style="color: #8F959E">∟</span>&nbsp;<md-text type="field-name" >country</md-text>
+	</md-td>
+	<md-td>
+	<md-text type="field-type" >string</md-text>
+	</md-td>
+	<md-td>
+	国家
+	</md-td>
+</md-tr>
+
+
+<md-tr>
+	<md-td>
+	&emsp;&emsp;<span style="color: #8F959E">∟</span>&nbsp;<md-text type="field-name" >work_station</md-text>
+	</md-td>
+	<md-td>
+	<md-text type="field-type" >string</md-text>
+	</md-td>
+	<md-td>
+	工位
+	</md-td>
+</md-tr>
+
+
+<md-tr>
+	<md-td>
+	&emsp;&emsp;<span style="color: #8F959E">∟</span>&nbsp;<md-text type="field-name" >join_time</md-text>
+	</md-td>
+	<md-td>
+	<md-text type="field-type" >int</md-text>
+	</md-td>
+	<md-td>
+	入职时间
+	</md-td>
+</md-tr>
+
+
+<md-tr>
+	<md-td>
+	&emsp;&emsp;<span style="color: #8F959E">∟</span>&nbsp;<md-text type="field-name" >is_tenant_manager</md-text>
+	</md-td>
+	<md-td>
+	<md-text type="field-type" >boolean</md-text>
+	</md-td>
+	<md-td>
+	是否是租户管理员
+	</md-td>
+</md-tr>
+
+
+<md-tr>
+	<md-td>
+	&emsp;&emsp;<span style="color: #8F959E">∟</span>&nbsp;<md-text type="field-name" >employee_no</md-text>
+	</md-td>
+	<md-td>
+	<md-text type="field-type" >string</md-text>
+	</md-td>
+	<md-td>
+	工号
+	</md-td>
+</md-tr>
+
+
+<md-tr>
+	<md-td>
+	&emsp;&emsp;<span style="color: #8F959E">∟</span>&nbsp;<md-text type="field-name" >employee_type</md-text>
+	</md-td>
+	<md-td>
+	<md-text type="field-type" >int</md-text>
+	</md-td>
+	<md-td>
+	员工类型
+	</md-td>
+</md-tr>
+
+
+<md-tr>
+	<md-td>
+	&emsp;&emsp;<span style="color: #8F959E">∟</span>&nbsp;<md-text type="field-name" >orders</md-text>
+	</md-td>
+	<md-td>
+	<md-text type="field-type" >user_order\[\]</md-text>
+	</md-td>
+	<md-td>
+	用户排序信息
+	</md-td>
+</md-tr>
+
+
+<md-tr>
+	<md-td>
+	&emsp;&emsp;&emsp;<span style="color: #8F959E">∟</span>&nbsp;<md-text type="field-name" >department_id</md-text>
+	</md-td>
+	<md-td>
+	<md-text type="field-type" >string</md-text>
+	</md-td>
+	<md-td>
+	排序信息对应的部门ID
+	</md-td>
+</md-tr>
+
+
+<md-tr>
+	<md-td>
+	&emsp;&emsp;&emsp;<span style="color: #8F959E">∟</span>&nbsp;<md-text type="field-name" >user_order</md-text>
+	</md-td>
+	<md-td>
+	<md-text type="field-type" >int</md-text>
+	</md-td>
+	<md-td>
+	用户在其直属部门内的排序，数值越大，排序越靠前
+	</md-td>
+</md-tr>
+
+
+<md-tr>
+	<md-td>
+	&emsp;&emsp;&emsp;<span style="color: #8F959E">∟</span>&nbsp;<md-text type="field-name" >department_order</md-text>
+	</md-td>
+	<md-td>
+	<md-text type="field-type" >int</md-text>
+	</md-td>
+	<md-td>
+	用户所属的多个部门间的排序，数值越大，排序越靠前
+	</md-td>
+</md-tr>
+
+
+<md-tr>
+	<md-td>
+	&emsp;&emsp;<span style="color: #8F959E">∟</span>&nbsp;<md-text type="field-name" >custom_attrs</md-text>
+	</md-td>
+	<md-td>
+	<md-text type="field-type" >user_custom_attr\[\]</md-text>
+	</md-td>
+	<md-td>
+	自定义属性
+	</md-td>
+</md-tr>
+
+
+<md-tr>
+	<md-td>
+	&emsp;&emsp;&emsp;<span style="color: #8F959E">∟</span>&nbsp;<md-text type="field-name" >type</md-text>
+	</md-td>
+	<md-td>
+	<md-text type="field-type" >string</md-text>
+	</md-td>
+	<md-td>
+	自定义属性类型
+	</md-td>
+</md-tr>
+
+
+<md-tr>
+	<md-td>
+	&emsp;&emsp;&emsp;<span style="color: #8F959E">∟</span>&nbsp;<md-text type="field-name" >id</md-text>
+	</md-td>
+	<md-td>
+	<md-text type="field-type" >string</md-text>
+	</md-td>
+	<md-td>
+	自定义属性ID
+	</md-td>
+</md-tr>
+
+
+<md-tr>
+	<md-td>
+	&emsp;&emsp;&emsp;<span style="color: #8F959E">∟</span>&nbsp;<md-text type="field-name" >value</md-text>
+	</md-td>
+	<md-td>
+	<md-text type="field-type" >user_custom_attr_value</md-text>
+	</md-td>
+	<md-td>
+	自定义属性取值
+	</md-td>
+</md-tr>
+
+
+<md-tr>
+	<md-td>
+	&emsp;&emsp;&emsp;&emsp;<span style="color: #8F959E">∟</span>&nbsp;<md-text type="field-name" >text</md-text>
+	</md-td>
+	<md-td>
+	<md-text type="field-type" >string</md-text>
+	</md-td>
+	<md-td>
+	属性文本
+	</md-td>
+</md-tr>
+
+
+<md-tr>
+	<md-td>
+	&emsp;&emsp;&emsp;&emsp;<span style="color: #8F959E">∟</span>&nbsp;<md-text type="field-name" >url</md-text>
+	</md-td>
+	<md-td>
+	<md-text type="field-type" >string</md-text>
+	</md-td>
+	<md-td>
+	URL
+	</md-td>
+</md-tr>
+
+
+<md-tr>
+	<md-td>
+	&emsp;&emsp;&emsp;&emsp;<span style="color: #8F959E">∟</span>&nbsp;<md-text type="field-name" >pc_url</md-text>
+	</md-td>
+	<md-td>
+	<md-text type="field-type" >string</md-text>
+	</md-td>
+	<md-td>
+	PC上的URL
+	</md-td>
+</md-tr>
+
+
+<md-tr>
+	<md-td>
+	&emsp;&emsp;<span style="color: #8F959E">∟</span>&nbsp;<md-text type="field-name" >enterprise_email</md-text>
+	</md-td>
+	<md-td>
+	<md-text type="field-type" >string</md-text>
+	</md-td>
+	<md-td>
+	企业邮箱，请先确保已在管理后台启用飞书邮箱服务
+	</md-td>
+</md-tr>
+
+
+<md-tr>
+	<md-td>
+	&emsp;&emsp;<span style="color: #8F959E">∟</span>&nbsp;<md-text type="field-name" >job_title</md-text>
+	</md-td>
+	<md-td>
+	<md-text type="field-type" >string</md-text>
+	</md-td>
+	<md-td>
+	职务
+	</md-td>
+</md-tr>
+
+
+<md-tr>
+	<md-td>
+	&emsp;&emsp;<span style="color: #8F959E">∟</span>&nbsp;<md-text type="field-name" >need_send_notification</md-text>
+	</md-td>
+	<md-td>
+	<md-text type="field-type" >boolean</md-text>
+	</md-td>
+	<md-td>
+	是否发送提示消息
+	</md-td>
+</md-tr>
+
+
+<md-tr>
+	<md-td>
+	&emsp;&emsp;<span style="color: #8F959E">∟</span>&nbsp;<md-text type="field-name" >notification_option</md-text>
+	</md-td>
+	<md-td>
+	<md-text type="field-type" >notification_option</md-text>
+	</md-td>
+	<md-td>
+	创建用户的邀请方式
+	</md-td>
+</md-tr>
+
+
+<md-tr>
+	<md-td>
+	&emsp;&emsp;&emsp;<span style="color: #8F959E">∟</span>&nbsp;<md-text type="field-name" >channels</md-text>
+	</md-td>
+	<md-td>
+	<md-text type="field-type" >string\[\]</md-text>
+	</md-td>
+	<md-td>
+	通道列表，枚举值：
+sms（短信邀请），email（邮件邀请）
+	</md-td>
+</md-tr>
+
+
+<md-tr>
+	<md-td>
+	&emsp;&emsp;&emsp;<span style="color: #8F959E">∟</span>&nbsp;<md-text type="field-name" >language</md-text>
+	</md-td>
+	<md-td>
+	<md-text type="field-type" >string</md-text>
+	</md-td>
+	<md-td>
+	语言类型
+
+**可选值有**：
+- `zh-CN`：中文
+- `en-US`：英文
+- `ja-JP`：日文
+	</md-td>
+</md-tr>
+
+  </md-tbody>
+</md-table>
+:::
+
+
+
+### 响应体示例
+
+```json
+{
+    "code": 0,
+    "msg": "success",
+    "data": {
+        "user": {
+            "union_id": "on_94a1ee5551019f18cd73d9f111898cf2",
+            "user_id": "ou_7dab8a3d3cdcc9da365777c7ad535d62",
+            "open_id": "ou_7dab8a3d3cdcc9da365777c7ad535d62",
+            "name": "张三",
+            "en_name": "San Zhang",
+            "email": "zhangsan@gmail.com",
+            "mobile": "13011111111",
+            "mobile_visible": false,
+            "gender": 1,
+            "avatar_key": "2500c7a9-5fff-4d9a-a2de-3d59614ae28g",
+            "avatar": {
+                "avatar_72": "https://foo.icon.com/xxxx",
+                "avatar_240": "https://foo.icon.com/xxxx",
+                "avatar_640": "https://foo.icon.com/xxxx",
+                "avatar_origin": "https://foo.icon.com/xxxx"
+            },
+            "status": {
+                "is_frozen": false,
+                "is_resigned": false,
+                "is_activated": true
+            },
+            "department_ids": [
+                "od-4e6ac4d14bcd5071a37a39de902c7141"
+            ],
+            "leader_user_id": "ou_7dab8a3d3cdcc9da365777c7ad535d62",
+            "city": "杭州",
+            "country": "中国",
+            "work_station": "杭州",
+            "join_time": 2147483647,
+            "is_tenant_manager": false,
+            "employee_no": "1",
+            "employee_type": 1,
+            "orders": [
+                {
+                    "department_id": "od-4e6ac4d14bcd5071a37a39de902c7141",
+                    "user_order": 100,
+                    "department_order": 100
+                }
+            ],
+            "custom_attrs": [
+                {
+                    "type": "TEXT",
+                    "id": "DemoId",
+                    "value": {
+                        "text": "DemoText",
+                        "url": "http://www.feishu.cn",
+                        "pc_url": "http://www.feishu.cn"
+                    }
+                }
+            ],
+            "enterprise_email": "demo@mail.com",
+            "job_title": "xxxxx",
+            "need_send_notification": false,
+            "notification_option": {
+                "channels": [
+                    "sms"
+                ],
+                "language": "zh-CN"
+            }
+        }
+    }
+}
+```
+
+
+
+### 错误码
+:::html
+<md-table>
+    <md-thead>
+        <md-tr>
+            <md-th style="width: 15%;">HTTP状态码</md-th>
+            <md-th style="width: 15%;">错误码</md-th>
+            <md-th style="width: 30%;">描述</md-th>
+            <md-th style="width: 30%;">排查建议</md-th>
+        </md-tr>
+    </md-thead>
+  <md-tbody>
+
+<md-tr>
+  <md-td>400</md-td>
+  <md-td>41001</md-td>
+  <md-td>mobile has already exist error</md-td>
+  <md-td>手机号在企业内必须唯一，手机号在该企业创建过用户不允许再创建新用户</md-td>
+</md-tr>
+
+
+<md-tr>
+  <md-td>400</md-td>
+  <md-td>41002</md-td>
+  <md-td>email has already exist error</md-td>
+  <md-td>邮箱在企业内必须唯一，邮箱在该企业创建过用户不允许再创建新用户</md-td>
+</md-tr>
+
+
+<md-tr>
+  <md-td>409</md-td>
+  <md-td>41003</md-td>
+  <md-td>user account conflict error</md-td>
+  <md-td>用户的联系方式属于两个不同的飞书账号，添加失败。如有疑问请联系Lark客服</md-td>
+</md-tr>
+
+
+<md-tr>
+  <md-td>400</md-td>
+  <md-td>41004</md-td>
+  <md-td>mobile is invalid error</md-td>
+  <md-td>手机号不合法，请检查是否是正确的手机号格式</md-td>
+</md-tr>
+
+
+<md-tr>
+  <md-td>400</md-td>
+  <md-td>41005</md-td>
+  <md-td>email is invalid error</md-td>
+  <md-td>不是合法邮箱的邮箱地址，请检查邮箱地址的有效性</md-td>
+</md-tr>
+
+
+<md-tr>
+  <md-td>400</md-td>
+  <md-td>41006</md-td>
+  <md-td>no user name error</md-td>
+  <md-td>没有设置user的name</md-td>
+</md-tr>
+
+
+<md-tr>
+  <md-td>400</md-td>
+  <md-td>41011</md-td>
+  <md-td>userID already exist error</md-td>
+  <md-td>user_id是企业内用户的唯一ID，不能重复</md-td>
+</md-tr>
+
+
+<md-tr>
+  <md-td>400</md-td>
+  <md-td>41014</md-td>
+  <md-td> user name sensitive error</md-td>
+  <md-td>name中包含敏感信息，如有疑问，请联系客服</md-td>
+</md-tr>
+
+
+<md-tr>
+  <md-td>400</md-td>
+  <md-td>41016</md-td>
+  <md-td>department has too many users  error</md-td>
+  <md-td>一个部门中有过多的用户，用户数量超过了500</md-td>
+</md-tr>
+
+
+<md-tr>
+  <md-td>400</md-td>
+  <md-td>41018</md-td>
+  <md-td>position info is invalid error</md-td>
+  <md-td>岗位信息无效</md-td>
+</md-tr>
+
+
+<md-tr>
+  <md-td>400</md-td>
+  <md-td>41019</md-td>
+  <md-td>position department is invalid error</md-td>
+  <md-td>岗位部门无效</md-td>
+</md-tr>
+
+
+<md-tr>
+  <md-td>400</md-td>
+  <md-td>41020</md-td>
+  <md-td>position code has already exist  error</md-td>
+  <md-td>岗位code无效</md-td>
+</md-tr>
+
+
+<md-tr>
+  <md-td>400</md-td>
+  <md-td>41021</md-td>
+  <md-td>position multiple main count error</md-td>
+  <md-td>一个用户至多只能有设置一个主岗</md-td>
+</md-tr>
+
+
+<md-tr>
+  <md-td>400</md-td>
+  <md-td>41022</md-td>
+  <md-td>user tenant not match error</md-td>
+  <md-td>检查是否使用其他企业的凭证访问当前企业的资源</md-td>
+</md-tr>
+
+
+<md-tr>
+  <md-td>400</md-td>
+  <md-td>41023</md-td>
+  <md-td>update department conflict position department error</md-td>
+  <md-td>用户的岗位部门必须与用户的部门一致，更新用户部门需要同时更新相应的岗位部门，否则阻断更新操作</md-td>
+</md-tr>
+
+
+<md-tr>
+  <md-td>400</md-td>
+  <md-td>41024</md-td>
+  <md-td>update position department conflict department error</md-td>
+  <md-td>用户的岗位部门必须与用户的部门一致，用户的新岗位部门也必须是用户的部门之一，否则阻断更新操作</md-td>
+</md-tr>
+
+
+<md-tr>
+  <md-td>400</md-td>
+  <md-td>41025</md-td>
+  <md-td>order department invalid error</md-td>
+  <md-td>请求的用户排序信息中的部门ID必须是用户的部门ID之一</md-td>
+</md-tr>
+
+
+<md-tr>
+  <md-td>405</md-td>
+  <md-td>41028</md-td>
+  <md-td>user multi department need upgrade visibility error</md-td>
+  <md-td>请在企业管理后台更新“组织架构可见范围”的补充规则</md-td>
+</md-tr>
+
+
+<md-tr>
+  <md-td>400</md-td>
+  <md-td>41029</md-td>
+  <md-td>create or update user multi department error</md-td>
+  <md-td>当前企业不支持用户同时加入多个部门，如有疑问，请联系客服</md-td>
+</md-tr>
+
+
+<md-tr>
+  <md-td>400</md-td>
+  <md-td>41030</md-td>
+  <md-td>set leader to oneself error</md-td>
+  <md-td>请检查用户的直属上级参数值</md-td>
+</md-tr>
+
+
+<md-tr>
+  <md-td>504</md-td>
+  <md-td>41031</md-td>
+  <md-td>position feature not enable error</md-td>
+  <md-td>当前企业不支持设置用户岗位信息，如有疑问，请联系客服</md-td>
+</md-tr>
+
+
+<md-tr>
+  <md-td>504</md-td>
+  <md-td>41032</md-td>
+  <md-td>user multi department feature not enable error</md-td>
+  <md-td>当前企业不支持用户同时加入多个部门，如有疑问，请联系客服</md-td>
+</md-tr>
+
+
+<md-tr>
+  <md-td>400</md-td>
+  <md-td>41033</md-td>
+  <md-td>user in too many departments  error</md-td>
+  <md-td>不支持用户同时属于50个以上的部门，请检查</md-td>
+</md-tr>
+
+
+<md-tr>
+  <md-td>400</md-td>
+  <md-td>41034</md-td>
+  <md-td>email prefix already exist error</md-td>
+  <md-td>email的前缀已经存在</md-td>
+</md-tr>
+
+
+<md-tr>
+  <md-td>400</md-td>
+  <md-td>41035</md-td>
+  <md-td>email prefix is invalid error</md-td>
+  <md-td>email的前缀不合法，请检查拼写</md-td>
+</md-tr>
+
+
+<md-tr>
+  <md-td>400</md-td>
+  <md-td>41038</md-td>
+  <md-td>gender is invalid error</md-td>
+  <md-td>性别不合法，请检查</md-td>
+</md-tr>
+
+
+<md-tr>
+  <md-td>400</md-td>
+  <md-td>41040</md-td>
+  <md-td>user name is null error</md-td>
+  <md-td>用户名不能为空</md-td>
+</md-tr>
+
+
+<md-tr>
+  <md-td>400</md-td>
+  <md-td>41041</md-td>
+  <md-td>department id is not assigned  error</md-td>
+  <md-td>用户所属的部门不能为空</md-td>
+</md-tr>
+
+
+<md-tr>
+  <md-td>400</md-td>
+  <md-td>41042</md-td>
+  <md-td>join time is invalid error</md-td>
+  <md-td>用户加入时间不能为空</md-td>
+</md-tr>
+
+
+<md-tr>
+  <md-td>400</md-td>
+  <md-td>41043</md-td>
+  <md-td>employee type is invalid error</md-td>
+  <md-td>用户的雇员类型错误，请填写1-5之间的数字，1 正式员工 2 实习生 3 外包 4 劳务 5 顾问</md-td>
+</md-tr>
+
+
+<md-tr>
+  <md-td>400</md-td>
+  <md-td>41044</md-td>
+  <md-td>Custom attribute is not set error</md-td>
+  <md-td>设置用户自定义属性，必须指明设定的属性ID，属性ID可以通过获取企业自定义属性接口查询</md-td>
+</md-tr>
+
+
+<md-tr>
+  <md-td>400</md-td>
+  <md-td>41045</md-td>
+  <md-td>Custom attribute id is not exist error</md-td>
+  <md-td>自定义属性ID不存在，请确认自定义属性ID来源，自定义属性ID可以通过获取企业自定义属性接口查询</md-td>
+</md-tr>
+
+
+<md-tr>
+  <md-td>400</md-td>
+  <md-td>41046</md-td>
+  <md-td>Custom attribute value is not set error</md-td>
+  <md-td>设置自定义属性，需要传入属性value字段</md-td>
+</md-tr>
+
+
+<md-tr>
+  <md-td>400</md-td>
+  <md-td>41047</md-td>
+  <md-td>Custom attribute href text  is null error</md-td>
+  <md-td>设置HREF类型自定义属性，text字段为必填字段</md-td>
+</md-tr>
+
+
+<md-tr>
+  <md-td>400</md-td>
+  <md-td>41048</md-td>
+  <md-td>Custom attribute href url  is null error</md-td>
+  <md-td>设置HREF类型自定义属性，url字段为必填字段</md-td>
+</md-tr>
+
+
+<md-tr>
+  <md-td>400</md-td>
+  <md-td>41050</md-td>
+  <md-td>no user authority error</md-td>
+  <md-td>没有用户权限，检查该用户是否在通讯录权限范围内</md-td>
+</md-tr>
+
+
+<md-tr>
+  <md-td>400</md-td>
+  <md-td>41051</md-td>
+  <md-td>user id info not provide error</md-td>
+  <md-td>用户ID没有填写</md-td>
+</md-tr>
+
+
+<md-tr>
+  <md-td>403</md-td>
+  <md-td>40004</md-td>
+  <md-td>no dept authority error</md-td>
+  <md-td>检查是否有该部门的权限</md-td>
+</md-tr>
+
+
+<md-tr>
+  <md-td>403</md-td>
+  <md-td>41056</md-td>
+  <md-td>no field authority error</md-td>
+  <md-td>没有该字段的权限。</md-td>
+</md-tr>
+
+
+<md-tr>
+  <md-td>400</md-td>
+  <md-td>41057</md-td>
+  <md-td>invalid employee type error</md-td>
+  <md-td>员工类型不合法</md-td>
+</md-tr>
+
+
+<md-tr>
+  <md-td>400</md-td>
+  <md-td>41058</md-td>
+  <md-td>inactive employee type error</md-td>
+  <md-td>员工类型未启用</md-td>
+</md-tr>
+
+
+<md-tr>
+  <md-td>400</md-td>
+  <md-td>41059</md-td>
+  <md-td>job title len exceed limit error</md-td>
+  <md-td>职位数量超出限制</md-td>
+</md-tr>
+
+  </md-tbody>
+</md-table>
+:::
+
+
+
+

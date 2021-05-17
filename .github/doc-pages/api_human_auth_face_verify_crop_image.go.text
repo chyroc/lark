@@ -1,0 +1,98 @@
+# 人脸图片裁剪
+::: note
+无源人脸比对接入需申请白名单，接入前请联系飞书开放平台工作人员，邮箱：openplatform@bytedance.com。
+:::
+
+无源人脸比对流程，开发者后台通过调用此接口对基准图片做规范校验及处理。
+
+## 请求
+:::html
+<md-table>
+  <md-thead>
+  <tr>
+      <md-th>基本</md-th>
+      <md-th></md-th>
+  </tr>
+  </md-thead>
+  <md-tbody>
+    <md-tr>
+      <md-th>HTTP URL</md-th>
+      <md-td>https://open.feishu.cn/open-apis/face_verify/v1/crop_face_image</md-td>
+    </md-tr>
+    <md-tr>
+      <md-th>HTTP Method</md-th>
+      <md-td>POST</md-td>
+    </md-tr>
+    
+    
+  </md-tbody>
+</md-table>
+:::
+### 请求头
+:::html
+<md-table> 
+  <md-thead> 
+    <md-tr> 
+      <md-th style="width: 18%;">名称</md-th>  
+      <md-th style="width: 15%;">类型</md-th>  
+       <md-th style="width: 15%;">必填</md-th>  
+      <md-th>描述</md-th> 
+    </md-tr> 
+  </md-thead>  
+  <md-tbody> 
+    <md-tr> 
+      <md-td>Authorization</md-td>  
+      <md-td>string</md-td>  
+      <md-td> 是 </md-td> 
+      	<md-td>
+<md-tag mode="inline" type="token-tenant">tenant_access_token</md-tag>
+ 
+**值格式**："Bearer `access_token`"
+
+**示例值**："Bearer t-7f1bcd13fc57d46bac21793a18e560"
+          
+ [了解更多：获取与使用access_token](/ssl:ttdoc/ukTMukTMukTM/uMTNz4yM1MjLzUzM)
+	</md-td>
+</md-tr>
+     <md-tr> 
+      <md-td>Content-Type</md-td>  
+      <md-td>string</md-td>  
+      <md-td> 是 </md-td> 
+     <md-td>**固定值**："multipart/form-data"</md-td>
+</md-tr>
+   
+  </md-tbody> 
+</md-table>
+:::
+
+### 请求体  
+|参数|格式|必须|说明|类型|
+|--|-----|--|----|---|--
+|raw_image|file|是|带有头像的人脸照片文件名称|请求 body
+
+## 响应
+
+### 响应体
+|参数|说明|
+|--|----|
+|code|返回码，非0为失败|
+|msg|返回信息，返回码的描述|
+|data|业务数据|
+|&emsp;∟face_image |BASE64(裁剪后的人脸基准图片)，code为0时返回|
+
+### 响应体示例
+```json
+{ 
+    "code": 0, 
+    "msg": "ok"
+}
+```
+
+### 错误码
+|错误码|描述|排查建议|
+|--|-----|--|
+|10100|invalid request|检查参数是否为空，权限是否接入|
+|10101|internal error|建议重试|
+|10200|crop failed|检查图片是否符合规范|
+
+

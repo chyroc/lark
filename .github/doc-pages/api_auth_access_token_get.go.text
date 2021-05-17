@@ -1,0 +1,151 @@
+# 获取登录用户身份
+通过此接口获取登录预授权码 code 对应的登录用户身份。{尝试一下}(url=/api/tools/api_explore/api_explore_config?project=authen&version=v1&resource=authen&method=access_token)
+
+
+:::html
+<md-alert type="tip">
+该接口仅适用于通过网页应用登录方式获取的预授权码，小程序登录中用户身份的获取，请使用[小程序 code2session 接口](/ssl:ttdoc/uYjL24iN/ukjM04SOyQjL5IDN)
+</md-alert>
+:::
+
+## 请求
+:::html
+<md-table>
+  <md-thead>
+  <tr>
+      <md-th>基本</md-th>
+      <md-th></md-th>
+  </tr>
+  </md-thead>
+  <md-tbody>
+    <md-tr>
+      <md-th>HTTP URL</md-th>
+      <md-td>https://open.feishu.cn/open-apis/authen/v1/access_token</md-td>
+    </md-tr>
+    <md-tr>
+      <md-th>HTTP Method</md-th>
+      <md-td>POST</md-td>
+    </md-tr>
+    
+    
+    <md-tr>
+      <md-th>字段权限要求</md-th>
+      <md-td>
+        <md-perm href="/ssl:ttdoc/ukTMukTMukTM/uQjN3QjL0YzN04CN2cDN">获取用户 userid</md-perm>
+        <md-perm href="/ssl:ttdoc/ukTMukTMukTM/uQjN3QjL0YzN04CN2cDN">获取用户邮箱</md-perm>
+        <md-perm href="/ssl:ttdoc/ukTMukTMukTM/uQjN3QjL0YzN04CN2cDN">获取用户手机号</md-perm>
+      </md-td>
+    </md-tr>
+  </md-tbody>
+</md-table>
+:::
+### 请求头
+:::html
+<md-table> 
+  <md-thead> 
+    <md-tr> 
+      <md-th style="width: 18%;">名称</md-th>  
+      <md-th style="width: 15%;">类型</md-th>  
+       <md-th style="width: 15%;">必填</md-th>  
+      <md-th>描述</md-th> 
+    </md-tr> 
+  </md-thead>  
+  <md-tbody> 
+    <md-tr> 
+      <md-td>Authorization</md-td>  
+      <md-td>string</md-td>  
+      <md-td> 是 </md-td> 
+      	<md-td>
+<md-tag mode="inline" type="token-app">app_access_token</md-tag>
+ 
+**值格式**："Bearer `access_token`"
+
+**示例值**："Bearer a-7f1bcd13fc57d46bac21793a18e560"
+          
+ [了解更多：获取与使用access_token](/ssl:ttdoc/ukTMukTMukTM/uMTNz4yM1MjLzUzM)
+	</md-td>
+</md-tr>
+     <md-tr> 
+      <md-td>Content-Type</md-td>  
+      <md-td>string</md-td>  
+      <md-td> 是 </md-td> 
+     <md-td>**固定值**："application/json; charset=utf-8"</md-td>
+</md-tr>
+   
+  </md-tbody> 
+</md-table>
+:::
+
+### 请求体 
+|参数|类型|必须|说明|
+|--|-----|--|----|
+|grant_type|string|是|在本流程中，此值为 authorization_code|
+|code|string|是|来自[请求身份验证(新)](/ssl:ttdoc/ukTMukTMukTM/ukzN4UjL5cDO14SO3gTN)流程，用户扫码登录后会自动302到redirect_uri并带上此参数|
+
+### 请求体示例
+
+```json
+{
+    "grant_type":"authorization_code",
+    "code":"xMSldislSkdK"
+}
+```
+
+## 响应
+
+### 响应体
+
+|参数|说明|
+|-|-|
+|code|返回码，0表示请求成功，其他表示请求失败|
+|msg|返回信息|
+|data|返回业务数据|
+|&emsp;∟access_token|user_access_token，用于获取用户资源|
+|&emsp;∟avatar_url|用户头像|
+|&emsp;∟avatar_thumb|用户头像 72x72|
+|&emsp;∟avatar_middle|用户头像 240x240|
+|&emsp;∟avatar_big|用户头像 640x640|
+|&emsp;∟expires_in|access_token 的有效期，单位: 秒|
+|&emsp;∟name|用户姓名|
+|&emsp;∟en_name|用户英文名称|
+|&emsp;∟open_id|用户在应用内的唯一标识|
+|&emsp;∟union_id|用户统一ID|
+|&emsp;∟email|申请了"获取用户邮箱"权限的应用返回该字段|
+|&emsp;∟user_id|申请了"获取用户 user_id"权限的应用返回该字段|
+|&emsp;∟mobile|申请了"获取用户手机号"权限的应用返回该字段|
+|&emsp;∟tenant_key|当前企业标识|
+|&emsp;∟refresh_expires_in|refresh_token 的有效期，单位: 秒|
+|&emsp;∟refresh_token|刷新用户 access_token 时使用的 token|
+|&emsp;∟token_type|此处为 Bearer|
+
+### 响应体示例
+  
+```json
+{ 
+    "code": 0,
+    "msg": "success",
+    "data": {
+        "access_token": "u-6U1SbDiM6XIH2DcTCPyeub",
+        "avatar_url": "www.feishu.cn/avatar/icon",
+        "avatar_thumb": "www.feishu.cn/avatar/icon_thumb",
+        "avatar_middle": "www.feishu.cn/avatar/icon_middle",
+        "avatar_big": "www.feishu.cn/avatar/icon_big",
+        "expires_in": 7140,
+        "name": "zhangsan", 
+        "en_name": "Three Zhang",
+        "open_id": "ou-caecc734c2e3328a62489fe0648c4b98779515d3",
+        "union_id": "on_xxx",
+        "email": "zhangsan@feishu.cn",
+        "user_id": "5d9bdxx", 
+        "mobile": "+86130xxx",
+        "tenant_key": "736588c92lxf175d",
+        "refresh_expires_in": 2591940,
+        "refresh_token": "ur-t9HHgRCjMqGqIU9v05Zhos",
+        "token_type": "Bearer"
+    }
+}
+```
+
+### 错误码
+
+具体可参考：[服务端错误码说明](/ssl:ttdoc/ukTMukTMukTM/ugjM14COyUjL4ITN)

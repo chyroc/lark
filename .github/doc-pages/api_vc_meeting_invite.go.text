@@ -1,0 +1,514 @@
+# 邀请参会人
+
+邀请参会人进入会议{尝试一下}(url=/api/tools/api_explore/api_explore_config?project=vc&version=v1&resource=meeting&method=invite)
+
+:::html
+<md-alert type="error">
+
+</md-alert>
+:::
+
+:::html
+<md-alert type="warn">
+发起邀请的操作者必须具有相应的权限（如果操作者为用户，则必须在会中），如果会议被锁定、或参会人数如果达到上限，则会邀请失败
+</md-alert>
+:::
+
+:::html
+<md-alert type="tip">
+
+</md-alert>
+:::
+
+
+
+## 请求
+:::html
+<md-table>
+  <md-thead>
+  <tr>
+      <md-th>基本</md-th>
+      <md-th></md-th>
+  </tr>
+  </md-thead>
+  <md-tbody>
+    <md-tr>
+      <md-th>HTTP URL</md-th>
+      <md-td>https://open.feishu.cn/open-apis/vc/v1/meetings/:meeting_id/invite</md-td>
+    </md-tr>
+    <md-tr>
+      <md-th>HTTP Method</md-th>
+      <md-td>PATCH</md-td>
+    </md-tr>
+    <md-tr>
+      <md-th>权限要求</md-th>
+      <md-td>
+            <md-perm href="/ssl:ttdoc/ukTMukTMukTM/uQjN3QjL0YzN04CN2cDN">更新会议信息</md-perm>
+      </md-td>
+    </md-tr>
+    <md-tr>
+      <md-th>字段权限要求</md-th>
+      <md-td>
+        <md-perm href="/ssl:ttdoc/ukTMukTMukTM/uQjN3QjL0YzN04CN2cDN">获取用户 userid</md-perm>
+      </md-td>
+    </md-tr>
+  </md-tbody>
+</md-table>
+:::
+
+
+### 请求头
+:::html
+<md-table>
+  <md-thead>
+    <md-tr>
+      <md-th style="width: 18%;">名称</md-th>
+      <md-th style="width: 15%;">类型</md-th>
+       <md-th style="width: 15%;">必填</md-th>
+      <md-th>描述</md-th>
+    </md-tr>
+  </md-thead>
+  <md-tbody>
+    <md-tr>
+      <md-td>Authorization</md-td>
+      <md-td>string</md-td>
+      <md-td>是</md-td>
+      	<md-td>
+<md-tag mode="inline" type="token-user">user_access_token</md-tag>
+
+**值格式**："Bearer `access_token`"
+
+**示例值**："Bearer u-7f1bcd13fc57d46bac21793a18e560"
+
+[了解更多：获取与使用access_token](/ssl:ttdoc/ukTMukTMukTM/uMTNz4yM1MjLzUzM)
+</md-td>
+</md-tr>
+     <md-tr>
+      <md-td>Content-Type</md-td>
+      <md-td>string</md-td>
+      <md-td>是</md-td>
+      <md-td>**固定值**："application/json; charset=utf-8"</md-td>
+</md-tr>
+</md-tbody>
+</md-table>
+:::
+
+
+
+### 路径参数
+:::html
+<md-table>
+  <md-thead>
+      <tr>
+      <md-th style="width: 30%;">名称</md-th>
+      <md-th style="width: 15%;">类型</md-th>
+      <md-th >描述</md-th>
+      </tr>
+  </md-thead>
+  <md-tbody>
+
+<md-tr>
+	<md-td>
+	<md-text type="field-name" >meeting_id</md-text>
+	</md-td>
+	<md-td>
+	<md-text type="field-type" >string</md-text>
+	</md-td>
+	<md-td>
+	会议ID
+
+**示例值**："6911188411932033028"
+	</md-td>
+</md-tr>
+
+  </md-tbody>
+</md-table>
+:::
+
+
+
+### 查询参数
+:::html
+<md-table>
+  <md-thead>
+      <tr>
+      <md-th style="width: 30%;">名称</md-th>
+      <md-th style="width: 15%;">类型</md-th>
+      <md-th style="width: 15%;">必填</md-th>
+      <md-th >描述</md-th>
+      </tr>
+  </md-thead>
+  <md-tbody>
+
+<md-tr>
+	<md-td>
+	<md-text type="field-name" >user_id_type</md-text>
+	</md-td>
+	<md-td>
+	<md-text type="field-type" >string</md-text>
+	</md-td>
+	<md-td>
+	否
+	</md-td>
+	<md-td>
+	
+用户 ID 类型
+
+**示例值**："open_id"
+
+**可选值有**：
+- `open_id`：用户的 open id
+- `union_id`：用户的 union id
+- `user_id`：用户的 user id
+
+**默认值**：`open_id`
+
+**当值为 `user_id`，字段权限要求**：
+<md-perm href="/ssl:ttdoc/ukTMukTMukTM/uQjN3QjL0YzN04CN2cDN">获取用户 userid</md-perm>
+	</md-td>
+</md-tr>
+
+  </md-tbody>
+</md-table>
+:::
+
+
+
+### 请求体
+:::html
+<md-table>
+  <md-thead>
+      <md-tr>
+      <md-th style="width: 40%;">名称</md-th>
+      <md-th style="width: 20%;">类型</md-th>
+      <md-th style="width: 10%;">必填</md-th>
+      <md-th style="width: 40%;">描述</md-th>
+      </md-tr>
+  </md-thead>
+  <md-tbody>
+
+<md-tr>
+	<md-td>
+	<md-text type="field-name" >invitees</md-text>
+	</md-td>
+	<md-td>
+	<md-text type="field-type" >meeting_user\[\]</md-text>
+	</md-td>
+	<md-td>
+	是
+	</md-td>
+	<md-td>
+	被邀请的用户列表
+	</md-td>
+</md-tr>
+
+
+<md-tr>
+	<md-td>
+	&emsp;<span style="color: #8F959E">∟</span>&nbsp;<md-text type="field-name" >id</md-text>
+	</md-td>
+	<md-td>
+	<md-text type="field-type" >string</md-text>
+	</md-td>
+	<md-td>
+	否
+	</md-td>
+	<md-td>
+	用户ID
+
+**示例值**："ou_3ec3f6a28a0d08c45d895276e8e5e19b"
+	</md-td>
+</md-tr>
+
+
+<md-tr>
+	<md-td>
+	&emsp;<span style="color: #8F959E">∟</span>&nbsp;<md-text type="field-name" >user_type</md-text>
+	</md-td>
+	<md-td>
+	<md-text type="field-type" >int</md-text>
+	</md-td>
+	<md-td>
+	否
+	</md-td>
+	<md-td>
+	用户类型
+
+**示例值**：1
+
+**可选值有**：
+- `1`：lark用户
+- `2`：rooms用户
+- `3`：文档用户
+- `4`：neo单品用户
+- `5`：neo单品游客用户
+- `6`：pstn用户
+- `7`：sip用户
+	</md-td>
+</md-tr>
+
+  </md-tbody>
+</md-table>
+:::
+
+
+
+### 请求体示例
+
+```json
+{
+    "invitees": [
+        {
+            "id": "ou_3ec3f6a28a0d08c45d895276e8e5e19b",
+            "user_type": 1
+        }
+    ]
+}
+```
+
+
+
+## 响应
+
+
+
+### 响应体
+:::html
+<md-table>
+  <md-thead>
+      <md-tr>
+      <md-th style="width: 40%;">名称</md-th>
+      <md-th style="width: 20%;">类型</md-th>
+      <md-th style="width: 40%;">描述</md-th>
+      </md-tr>
+  </md-thead>
+  <md-tbody>
+
+<md-tr>
+	<md-td>
+	<md-text type="field-name" >code</md-text>
+	</md-td>
+	<md-td>
+	<md-text type="field-type" >int</md-text>
+	</md-td>
+	<md-td>
+	错误码，非 0 表示失败
+	</md-td>
+</md-tr>
+
+
+<md-tr>
+	<md-td>
+	<md-text type="field-name" >msg</md-text>
+	</md-td>
+	<md-td>
+	<md-text type="field-type" >string</md-text>
+	</md-td>
+	<md-td>
+	错误描述
+	</md-td>
+</md-tr>
+
+
+<md-tr>
+	<md-td>
+	<md-text type="field-name" >data</md-text>
+	</md-td>
+	<md-td>
+	<md-text type="field-type" >\-</md-text>
+	</md-td>
+	<md-td>
+	\-
+	</md-td>
+</md-tr>
+
+
+<md-tr>
+	<md-td>
+	&emsp;<span style="color: #8F959E">∟</span>&nbsp;<md-text type="field-name" >invite_results</md-text>
+	</md-td>
+	<md-td>
+	<md-text type="field-type" >meeting_invite_status\[\]</md-text>
+	</md-td>
+	<md-td>
+	邀请结果
+	</md-td>
+</md-tr>
+
+
+<md-tr>
+	<md-td>
+	&emsp;&emsp;<span style="color: #8F959E">∟</span>&nbsp;<md-text type="field-name" >id</md-text>
+	</md-td>
+	<md-td>
+	<md-text type="field-type" >string</md-text>
+	</md-td>
+	<md-td>
+	用户ID
+	</md-td>
+</md-tr>
+
+
+<md-tr>
+	<md-td>
+	&emsp;&emsp;<span style="color: #8F959E">∟</span>&nbsp;<md-text type="field-name" >user_type</md-text>
+	</md-td>
+	<md-td>
+	<md-text type="field-type" >int</md-text>
+	</md-td>
+	<md-td>
+	用户类型
+
+**可选值有**：
+- `1`：lark用户
+- `2`：rooms用户
+- `3`：文档用户
+- `4`：neo单品用户
+- `5`：neo单品游客用户
+- `6`：pstn用户
+- `7`：sip用户
+	</md-td>
+</md-tr>
+
+
+<md-tr>
+	<md-td>
+	&emsp;&emsp;<span style="color: #8F959E">∟</span>&nbsp;<md-text type="field-name" >status</md-text>
+	</md-td>
+	<md-td>
+	<md-text type="field-type" >int</md-text>
+	</md-td>
+	<md-td>
+	邀请结果
+
+**可选值有**：
+- `1`：邀请成功
+- `2`：邀请失败
+	</md-td>
+</md-tr>
+
+  </md-tbody>
+</md-table>
+:::
+
+
+
+### 响应体示例
+
+```json
+{
+    "code": 0,
+    "msg": "success",
+    "data": {
+        "invite_results": [
+            {
+                "id": "ou_3ec3f6a28a0d08c45d895276e8e5e19b",
+                "user_type": 1,
+                "status": 1
+            }
+        ]
+    }
+}
+```
+
+
+
+### 错误码
+:::html
+<md-table>
+    <md-thead>
+        <md-tr>
+            <md-th style="width: 15%;">HTTP状态码</md-th>
+            <md-th style="width: 15%;">错误码</md-th>
+            <md-th style="width: 30%;">描述</md-th>
+            <md-th style="width: 30%;">排查建议</md-th>
+        </md-tr>
+    </md-thead>
+  <md-tbody>
+
+<md-tr>
+  <md-td>500</md-td>
+  <md-td>121001</md-td>
+  <md-td>internal error</md-td>
+  <md-td>服务器内部错误，如果重试无效可联系管理员</md-td>
+</md-tr>
+
+
+<md-tr>
+  <md-td>400</md-td>
+  <md-td>121002</md-td>
+  <md-td>not support</md-td>
+  <md-td>暂不支持该功能</md-td>
+</md-tr>
+
+
+<md-tr>
+  <md-td>400</md-td>
+  <md-td>121003</md-td>
+  <md-td>param error</md-td>
+  <md-td>参数错误，检查参数的取值范围（例如：时间超过允许范围）</md-td>
+</md-tr>
+
+
+<md-tr>
+  <md-td>403</md-td>
+  <md-td>121005</md-td>
+  <md-td>no permission</md-td>
+  <md-td>无权限进行该操作，建议检查token类型、操作者身份以及资源的归属</md-td>
+</md-tr>
+
+
+<md-tr>
+  <md-td>500</md-td>
+  <md-td>122001</md-td>
+  <md-td>meeting status unexpected</md-td>
+  <md-td>会议状态不正确（例如：会中操作而会议不在进行中状态）</md-td>
+</md-tr>
+
+
+<md-tr>
+  <md-td>500</md-td>
+  <md-td>122002</md-td>
+  <md-td>meeting not exist</md-td>
+  <md-td>所操作的会议不存在</md-td>
+</md-tr>
+
+
+<md-tr>
+  <md-td>500</md-td>
+  <md-td>122003</md-td>
+  <md-td>operator user not in meeting</md-td>
+  <md-td>进行会中操作的用户必须在会中</md-td>
+</md-tr>
+
+
+<md-tr>
+  <md-td>500</md-td>
+  <md-td>122005</md-td>
+  <md-td>cannot operate self</md-td>
+  <md-td>用户进行会中操作时，操作对象不能是自己</md-td>
+</md-tr>
+
+
+<md-tr>
+  <md-td>500</md-td>
+  <md-td>122006</md-td>
+  <md-td>participant count reach limit</md-td>
+  <md-td>会议参会人数达到了上限</md-td>
+</md-tr>
+
+
+<md-tr>
+  <md-td>500</md-td>
+  <md-td>122007</md-td>
+  <md-td>callee is busy</md-td>
+  <md-td>被呼叫方正忙</md-td>
+</md-tr>
+
+  </md-tbody>
+</md-table>
+:::
+
+
+
+

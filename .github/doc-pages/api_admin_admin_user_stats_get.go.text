@@ -1,0 +1,730 @@
+# 获取用户维度的用户活跃和功能使用数据
+
+用于获取用户维度的用户活跃和功能使用数据，即IM（即时通讯）、日历、云文档、音视频会议功能的使用数据。{尝试一下}(url=/api/tools/api_explore/api_explore_config?project=admin&version=v1&resource=admin_user_stat&method=list)
+
+:::html
+<md-alert type="error">
+
+</md-alert>
+:::
+
+:::html
+<md-alert type="warn">
+- 只有企业自建应用才有权限调用此接口
+
+- 当天的数据会在第二天的凌晨五点产出（UTC+8）
+
+- 用户维度的数据最多查询最近31天的数据（包含31天）的数据
+
+</md-alert>
+:::
+
+:::html
+<md-alert type="tip">
+
+</md-alert>
+:::
+
+
+
+## 请求
+:::html
+<md-table>
+  <md-thead>
+  <tr>
+      <md-th>基本</md-th>
+      <md-th></md-th>
+  </tr>
+  </md-thead>
+  <md-tbody>
+    <md-tr>
+      <md-th>HTTP URL</md-th>
+      <md-td>https://open.feishu.cn/open-apis/admin/v1/admin_user_stats</md-td>
+    </md-tr>
+    <md-tr>
+      <md-th>HTTP Method</md-th>
+      <md-td>GET</md-td>
+    </md-tr>
+    <md-tr>
+      <md-th>权限要求</md-th>
+      <md-td>
+            <md-perm href="/ssl:ttdoc/ukTMukTMukTM/uQjN3QjL0YzN04CN2cDN">获取用户维度的用户活跃和功能使用数据</md-perm>
+      </md-td>
+    </md-tr>
+    <md-tr>
+      <md-th>字段权限要求</md-th>
+      <md-td>
+        <md-perm href="/ssl:ttdoc/ukTMukTMukTM/uQjN3QjL0YzN04CN2cDN">获取用户 userid</md-perm>
+      </md-td>
+    </md-tr>
+  </md-tbody>
+</md-table>
+:::
+
+
+### 请求头
+:::html
+<md-table>
+  <md-thead>
+    <md-tr>
+      <md-th style="width: 18%;">名称</md-th>
+      <md-th style="width: 15%;">类型</md-th>
+       <md-th style="width: 15%;">必填</md-th>
+      <md-th>描述</md-th>
+    </md-tr>
+  </md-thead>
+  <md-tbody>
+    <md-tr>
+      <md-td>Authorization</md-td>
+      <md-td>string</md-td>
+      <md-td>是</md-td>
+      	<md-td>
+<md-tag mode="inline" type="token-tenant">tenant_access_token</md-tag>
+
+**值格式**："Bearer `access_token`"
+
+**示例值**："Bearer t-7f1bcd13fc57d46bac21793a18e560"
+
+[了解更多：获取与使用access_token](/ssl:ttdoc/ukTMukTMukTM/uMTNz4yM1MjLzUzM)
+</md-td>
+</md-tr>
+     <md-tr>
+      <md-td>Content-Type</md-td>
+      <md-td>string</md-td>
+      <md-td>是</md-td>
+      <md-td>**固定值**："application/json; charset=utf-8"</md-td>
+</md-tr>
+</md-tbody>
+</md-table>
+:::
+
+
+
+### 查询参数
+:::html
+<md-table>
+  <md-thead>
+      <tr>
+      <md-th style="width: 30%;">名称</md-th>
+      <md-th style="width: 15%;">类型</md-th>
+      <md-th style="width: 15%;">必填</md-th>
+      <md-th >描述</md-th>
+      </tr>
+  </md-thead>
+  <md-tbody>
+
+<md-tr>
+	<md-td>
+	<md-text type="field-name" >user_id_type</md-text>
+	</md-td>
+	<md-td>
+	<md-text type="field-type" >string</md-text>
+	</md-td>
+	<md-td>
+	否
+	</md-td>
+	<md-td>
+	
+用户 ID 类型
+
+**示例值**："open_id"
+
+**可选值有**：
+- `open_id`：用户的 open id
+- `union_id`：用户的 union id
+- `user_id`：用户的 user id
+
+**默认值**：`open_id`
+
+**当值为 `user_id`，字段权限要求**：
+<md-perm href="/ssl:ttdoc/ukTMukTMukTM/uQjN3QjL0YzN04CN2cDN">获取用户 userid</md-perm>
+	</md-td>
+</md-tr>
+
+
+<md-tr>
+	<md-td>
+	<md-text type="field-name" >department_id_type</md-text>
+	</md-td>
+	<md-td>
+	<md-text type="field-type" >string</md-text>
+	</md-td>
+	<md-td>
+	否
+	</md-td>
+	<md-td>
+	部门ID类型
+
+**示例值**："open_department_id"
+
+**可选值有**：
+- `department_id`：部门的 ID
+- `open_department_id`：部门的 Open ID
+	</md-td>
+</md-tr>
+
+
+<md-tr>
+	<md-td>
+	<md-text type="field-name" >start_date</md-text>
+	</md-td>
+	<md-td>
+	<md-text type="field-type" >string</md-text>
+	</md-td>
+	<md-td>
+	是
+	</md-td>
+	<md-td>
+	起始日期（包含），格式是YYYY-mm-dd
+
+**示例值**："2020-02-15"
+	</md-td>
+</md-tr>
+
+
+<md-tr>
+	<md-td>
+	<md-text type="field-name" >end_date</md-text>
+	</md-td>
+	<md-td>
+	<md-text type="field-type" >string</md-text>
+	</md-td>
+	<md-td>
+	是
+	</md-td>
+	<md-td>
+	终止日期（包含），格式是YYYY-mm-dd。起止日期之间相差不能超过31天（包含31天）
+
+**示例值**："2020-02-15"
+	</md-td>
+</md-tr>
+
+
+<md-tr>
+	<md-td>
+	<md-text type="field-name" >department_id</md-text>
+	</md-td>
+	<md-td>
+	<md-text type="field-type" >string</md-text>
+	</md-td>
+	<md-td>
+	否
+	</md-td>
+	<md-td>
+	部门的 ID，取决于department_id_type
+
+**示例值**："od-382e2793cfc9471f892e8a672987654c"
+	</md-td>
+</md-tr>
+
+
+<md-tr>
+	<md-td>
+	<md-text type="field-name" >user_id</md-text>
+	</md-td>
+	<md-td>
+	<md-text type="field-type" >string</md-text>
+	</md-td>
+	<md-td>
+	否
+	</md-td>
+	<md-td>
+	用户的open_id，user_id或者union_id，取决于user_id_type
+
+**示例值**："ou_7dab8a3d3cdcc9da365777c7ad535d62"
+	</md-td>
+</md-tr>
+
+
+<md-tr>
+	<md-td>
+	<md-text type="field-name" >page_size</md-text>
+	</md-td>
+	<md-td>
+	<md-text type="field-type" >int</md-text>
+	</md-td>
+	<md-td>
+	否
+	</md-td>
+	<md-td>
+	分页大小，默认是10
+
+**示例值**：10
+
+**数据校验规则**：
+
+- 取值范围：`1` ～ `20`
+	</md-td>
+</md-tr>
+
+
+<md-tr>
+	<md-td>
+	<md-text type="field-name" >page_token</md-text>
+	</md-td>
+	<md-td>
+	<md-text type="field-type" >string</md-text>
+	</md-td>
+	<md-td>
+	否
+	</md-td>
+	<md-td>
+	分页标记，第一次请求不填，表示从头开始遍历；当返回的has_more为true时，会返回新的page_token，再次调用接口，传入这个page_token，将获得下一页数据
+
+**示例值**："2"
+	</md-td>
+</md-tr>
+
+  </md-tbody>
+</md-table>
+:::
+
+
+
+
+
+## 响应
+
+
+
+### 响应体
+:::html
+<md-table>
+  <md-thead>
+      <md-tr>
+      <md-th style="width: 40%;">名称</md-th>
+      <md-th style="width: 20%;">类型</md-th>
+      <md-th style="width: 30%;">描述</md-th>
+      </md-tr>
+  </md-thead>
+  <md-tbody>
+
+<md-tr>
+	<md-td>
+	<md-text type="field-name" >code</md-text>
+	</md-td>
+	<md-td>
+	<md-text type="field-type" >int</md-text>
+	</md-td>
+	<md-td>
+	错误码，非 0 表示失败
+	</md-td>
+</md-tr>
+
+
+<md-tr>
+	<md-td>
+	<md-text type="field-name" >msg</md-text>
+	</md-td>
+	<md-td>
+	<md-text type="field-type" >string</md-text>
+	</md-td>
+	<md-td>
+	错误描述
+	</md-td>
+</md-tr>
+
+
+<md-tr>
+	<md-td>
+	<md-text type="field-name" >data</md-text>
+	</md-td>
+	<md-td>
+	<md-text type="field-type" >\-</md-text>
+	</md-td>
+	<md-td>
+	\-
+	</md-td>
+</md-tr>
+
+
+<md-tr>
+	<md-td>
+	&emsp;<span style="color: #8F959E">∟</span>&nbsp;<md-text type="field-name" >has_more</md-text>
+	</md-td>
+	<md-td>
+	<md-text type="field-type" >boolean</md-text>
+	</md-td>
+	<md-td>
+	是否有下一页数据
+	</md-td>
+</md-tr>
+
+
+<md-tr>
+	<md-td>
+	&emsp;<span style="color: #8F959E">∟</span>&nbsp;<md-text type="field-name" >page_token</md-text>
+	</md-td>
+	<md-td>
+	<md-text type="field-type" >string</md-text>
+	</md-td>
+	<md-td>
+	下一页分页的token
+	</md-td>
+</md-tr>
+
+
+<md-tr>
+	<md-td>
+	&emsp;<span style="color: #8F959E">∟</span>&nbsp;<md-text type="field-name" >items</md-text>
+	</md-td>
+	<md-td>
+	<md-text type="field-type" >admin_user_stat\[\]</md-text>
+	</md-td>
+	<md-td>
+	数据报表
+	</md-td>
+</md-tr>
+
+
+<md-tr>
+	<md-td>
+	&emsp;&emsp;<span style="color: #8F959E">∟</span>&nbsp;<md-text type="field-name" >date</md-text>
+	</md-td>
+	<md-td>
+	<md-text type="field-type" >string</md-text>
+	</md-td>
+	<md-td>
+	日期
+	</md-td>
+</md-tr>
+
+
+<md-tr>
+	<md-td>
+	&emsp;&emsp;<span style="color: #8F959E">∟</span>&nbsp;<md-text type="field-name" >user_id</md-text>
+	</md-td>
+	<md-td>
+	<md-text type="field-type" >string</md-text>
+	</md-td>
+	<md-td>
+	用户ID
+	</md-td>
+</md-tr>
+
+
+<md-tr>
+	<md-td>
+	&emsp;&emsp;<span style="color: #8F959E">∟</span>&nbsp;<md-text type="field-name" >user_name</md-text>
+	</md-td>
+	<md-td>
+	<md-text type="field-type" >string</md-text>
+	</md-td>
+	<md-td>
+	用户名
+	</md-td>
+</md-tr>
+
+
+<md-tr>
+	<md-td>
+	&emsp;&emsp;<span style="color: #8F959E">∟</span>&nbsp;<md-text type="field-name" >department_name</md-text>
+	</md-td>
+	<md-td>
+	<md-text type="field-type" >string</md-text>
+	</md-td>
+	<md-td>
+	部门名
+	</md-td>
+</md-tr>
+
+
+<md-tr>
+	<md-td>
+	&emsp;&emsp;<span style="color: #8F959E">∟</span>&nbsp;<md-text type="field-name" >department_path</md-text>
+	</md-td>
+	<md-td>
+	<md-text type="field-type" >string</md-text>
+	</md-td>
+	<md-td>
+	部门路径
+	</md-td>
+</md-tr>
+
+
+<md-tr>
+	<md-td>
+	&emsp;&emsp;<span style="color: #8F959E">∟</span>&nbsp;<md-text type="field-name" >create_time</md-text>
+	</md-td>
+	<md-td>
+	<md-text type="field-type" >string</md-text>
+	</md-td>
+	<md-td>
+	添加时间
+	</md-td>
+</md-tr>
+
+
+<md-tr>
+	<md-td>
+	&emsp;&emsp;<span style="color: #8F959E">∟</span>&nbsp;<md-text type="field-name" >user_active_flag</md-text>
+	</md-td>
+	<md-td>
+	<md-text type="field-type" >int</md-text>
+	</md-td>
+	<md-td>
+	用户激活状态
+
+**可选值有**：
+- `0`：未激活
+- `1`：已激活
+	</md-td>
+</md-tr>
+
+
+<md-tr>
+	<md-td>
+	&emsp;&emsp;<span style="color: #8F959E">∟</span>&nbsp;<md-text type="field-name" >register_time</md-text>
+	</md-td>
+	<md-td>
+	<md-text type="field-type" >string</md-text>
+	</md-td>
+	<md-td>
+	激活时间
+	</md-td>
+</md-tr>
+
+
+<md-tr>
+	<md-td>
+	&emsp;&emsp;<span style="color: #8F959E">∟</span>&nbsp;<md-text type="field-name" >suite_active_flag</md-text>
+	</md-td>
+	<md-td>
+	<md-text type="field-type" >int</md-text>
+	</md-td>
+	<md-td>
+	用户活跃状态
+
+**可选值有**：
+- `0`：无活跃
+- `1`：活跃
+	</md-td>
+</md-tr>
+
+
+<md-tr>
+	<md-td>
+	&emsp;&emsp;<span style="color: #8F959E">∟</span>&nbsp;<md-text type="field-name" >last_active_time</md-text>
+	</md-td>
+	<md-td>
+	<md-text type="field-type" >string</md-text>
+	</md-td>
+	<md-td>
+	最近活跃时间
+	</md-td>
+</md-tr>
+
+
+<md-tr>
+	<md-td>
+	&emsp;&emsp;<span style="color: #8F959E">∟</span>&nbsp;<md-text type="field-name" >im_active_flag</md-text>
+	</md-td>
+	<md-td>
+	<md-text type="field-type" >int</md-text>
+	</md-td>
+	<md-td>
+	用户消息活跃状态
+
+**可选值有**：
+- `0`：无活跃
+- `1`：活跃
+	</md-td>
+</md-tr>
+
+
+<md-tr>
+	<md-td>
+	&emsp;&emsp;<span style="color: #8F959E">∟</span>&nbsp;<md-text type="field-name" >send_messenger_num</md-text>
+	</md-td>
+	<md-td>
+	<md-text type="field-type" >int</md-text>
+	</md-td>
+	<md-td>
+	发送消息数
+	</md-td>
+</md-tr>
+
+
+<md-tr>
+	<md-td>
+	&emsp;&emsp;<span style="color: #8F959E">∟</span>&nbsp;<md-text type="field-name" >docs_active_flag</md-text>
+	</md-td>
+	<md-td>
+	<md-text type="field-type" >int</md-text>
+	</md-td>
+	<md-td>
+	用户云文档活跃状态
+
+**可选值有**：
+- `0`：无活跃
+- `1`：活跃
+	</md-td>
+</md-tr>
+
+
+<md-tr>
+	<md-td>
+	&emsp;&emsp;<span style="color: #8F959E">∟</span>&nbsp;<md-text type="field-name" >create_docs_num</md-text>
+	</md-td>
+	<md-td>
+	<md-text type="field-type" >int</md-text>
+	</md-td>
+	<md-td>
+	创建文件数
+	</md-td>
+</md-tr>
+
+
+<md-tr>
+	<md-td>
+	&emsp;&emsp;<span style="color: #8F959E">∟</span>&nbsp;<md-text type="field-name" >cal_active_flag</md-text>
+	</md-td>
+	<md-td>
+	<md-text type="field-type" >int</md-text>
+	</md-td>
+	<md-td>
+	用户日历活跃状态
+
+**可选值有**：
+- `0`：无活跃
+- `1`：活跃
+	</md-td>
+</md-tr>
+
+
+<md-tr>
+	<md-td>
+	&emsp;&emsp;<span style="color: #8F959E">∟</span>&nbsp;<md-text type="field-name" >create_cal_num</md-text>
+	</md-td>
+	<md-td>
+	<md-text type="field-type" >int</md-text>
+	</md-td>
+	<md-td>
+	创建日程数
+	</md-td>
+</md-tr>
+
+
+<md-tr>
+	<md-td>
+	&emsp;&emsp;<span style="color: #8F959E">∟</span>&nbsp;<md-text type="field-name" >vc_active_flag</md-text>
+	</md-td>
+	<md-td>
+	<md-text type="field-type" >int</md-text>
+	</md-td>
+	<md-td>
+	用户音视频会议活跃状态
+
+**可选值有**：
+- `0`：无活跃
+- `1`：活跃
+	</md-td>
+</md-tr>
+
+
+<md-tr>
+	<md-td>
+	&emsp;&emsp;<span style="color: #8F959E">∟</span>&nbsp;<md-text type="field-name" >vc_duration</md-text>
+	</md-td>
+	<md-td>
+	<md-text type="field-type" >int</md-text>
+	</md-td>
+	<md-td>
+	会议时长
+	</md-td>
+</md-tr>
+
+
+<md-tr>
+	<md-td>
+	&emsp;&emsp;<span style="color: #8F959E">∟</span>&nbsp;<md-text type="field-name" >active_os</md-text>
+	</md-td>
+	<md-td>
+	<md-text type="field-type" >string</md-text>
+	</md-td>
+	<md-td>
+	活跃设备
+	</md-td>
+</md-tr>
+
+  </md-tbody>
+</md-table>
+:::
+
+
+
+### 响应体示例
+
+```json
+{
+    "code": 0,
+    "msg": "success",
+    "data": {
+        "has_more": true,
+        "page_token": "3",
+        "items": [
+            {
+                "date": "2020-02-15",
+                "user_id": "ou_7dab8a3d3cdcc9da365777c7ad535d62",
+                "user_name": "Zhang San",
+                "department_name": "testcqlbfaaasdasdasd",
+                "department_path": "testkkk/testcqlbfaaasdasdasd",
+                "create_time": "2020-09-04 11:17:55",
+                "user_active_flag": 1,
+                "register_time": "2020-09-04 11:18:32",
+                "suite_active_flag": 1,
+                "last_active_time": "2020-12-21 22:21:28",
+                "im_active_flag": 1,
+                "send_messenger_num": 0,
+                "docs_active_flag": 1,
+                "create_docs_num": 1,
+                "cal_active_flag": 1,
+                "create_cal_num": 0,
+                "vc_active_flag": 1,
+                "vc_duration": 0,
+                "active_os": "'ios 14.2,-','ios 14.2,feishu 3.40.0-alpha'"
+            }
+        ]
+    }
+}
+```
+
+
+
+### 错误码
+:::html
+<md-table>
+    <md-thead>
+        <md-tr>
+            <md-th style="width: 15%;">HTTP状态码</md-th>
+            <md-th style="width: 15%;">错误码</md-th>
+            <md-th style="width: 30%;">描述</md-th>
+            <md-th style="width: 30%;">排查建议</md-th>
+        </md-tr>
+    </md-thead>
+  <md-tbody>
+
+<md-tr>
+  <md-td>500</md-td>
+  <md-td>1051001</md-td>
+  <md-td>internal error</md-td>
+  <md-td>服务内部错误，请稍后重试</md-td>
+</md-tr>
+
+
+<md-tr>
+  <md-td>400</md-td>
+  <md-td>1051002</md-td>
+  <md-td>param validate error</md-td>
+  <md-td>1. 时间范围不能超出限制，具体限制详见文档，并且时间格式要正确。
+
+2. page_size和page_token也要正确填写</md-td>
+</md-tr>
+
+  </md-tbody>
+</md-table>
+:::
+
+
+
+

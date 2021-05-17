@@ -1,0 +1,720 @@
+# 预约会议
+
+创建一个会议预约。{尝试一下}(url=/api/tools/api_explore/api_explore_config?project=vc&version=v1&resource=reserve&method=apply)
+
+:::html
+<md-alert type="error">
+
+</md-alert>
+:::
+
+:::html
+<md-alert type="warn">
+支持预约最近30天内的会议（到期时间距离当前时间不超过30天），预约到期后会议号将被释放，如需继续使用可通过"更新预约"接口进行续期；预约会议时可配置参会人在会中的权限，以达到控制会议的目的
+</md-alert>
+:::
+
+:::html
+<md-alert type="tip">
+
+</md-alert>
+:::
+
+
+
+## 请求
+:::html
+<md-table>
+  <md-thead>
+  <tr>
+      <md-th>基本</md-th>
+      <md-th></md-th>
+  </tr>
+  </md-thead>
+  <md-tbody>
+    <md-tr>
+      <md-th>HTTP URL</md-th>
+      <md-td>https://open.feishu.cn/open-apis/vc/v1/reserves/apply</md-td>
+    </md-tr>
+    <md-tr>
+      <md-th>HTTP Method</md-th>
+      <md-td>POST</md-td>
+    </md-tr>
+    <md-tr>
+      <md-th>权限要求</md-th>
+      <md-td>
+            <md-perm href="/ssl:ttdoc/ukTMukTMukTM/uQjN3QjL0YzN04CN2cDN">更新会议预约</md-perm>
+      </md-td>
+    </md-tr>
+    <md-tr>
+      <md-th>字段权限要求</md-th>
+      <md-td>
+        <md-perm href="/ssl:ttdoc/ukTMukTMukTM/uQjN3QjL0YzN04CN2cDN">获取用户 userid</md-perm>
+      </md-td>
+    </md-tr>
+  </md-tbody>
+</md-table>
+:::
+
+
+### 请求头
+:::html
+<md-table>
+  <md-thead>
+    <md-tr>
+      <md-th style="width: 18%;">名称</md-th>
+      <md-th style="width: 15%;">类型</md-th>
+       <md-th style="width: 15%;">必填</md-th>
+      <md-th>描述</md-th>
+    </md-tr>
+  </md-thead>
+  <md-tbody>
+    <md-tr>
+      <md-td>Authorization</md-td>
+      <md-td>string</md-td>
+      <md-td>是</md-td>
+      	<md-td>
+<md-tag mode="inline" type="token-user">user_access_token</md-tag>
+
+**值格式**："Bearer `access_token`"
+
+**示例值**："Bearer u-7f1bcd13fc57d46bac21793a18e560"
+
+[了解更多：获取与使用access_token](/ssl:ttdoc/ukTMukTMukTM/uMTNz4yM1MjLzUzM)
+</md-td>
+</md-tr>
+     <md-tr>
+      <md-td>Content-Type</md-td>
+      <md-td>string</md-td>
+      <md-td>是</md-td>
+      <md-td>**固定值**："application/json; charset=utf-8"</md-td>
+</md-tr>
+</md-tbody>
+</md-table>
+:::
+
+
+
+### 查询参数
+:::html
+<md-table>
+  <md-thead>
+      <tr>
+      <md-th style="width: 30%;">名称</md-th>
+      <md-th style="width: 15%;">类型</md-th>
+      <md-th style="width: 15%;">必填</md-th>
+      <md-th >描述</md-th>
+      </tr>
+  </md-thead>
+  <md-tbody>
+
+<md-tr>
+	<md-td>
+	<md-text type="field-name" >user_id_type</md-text>
+	</md-td>
+	<md-td>
+	<md-text type="field-type" >string</md-text>
+	</md-td>
+	<md-td>
+	否
+	</md-td>
+	<md-td>
+	
+用户 ID 类型
+
+**示例值**："open_id"
+
+**可选值有**：
+- `open_id`：用户的 open id
+- `union_id`：用户的 union id
+- `user_id`：用户的 user id
+
+**默认值**：`open_id`
+
+**当值为 `user_id`，字段权限要求**：
+<md-perm href="/ssl:ttdoc/ukTMukTMukTM/uQjN3QjL0YzN04CN2cDN">获取用户 userid</md-perm>
+	</md-td>
+</md-tr>
+
+  </md-tbody>
+</md-table>
+:::
+
+
+
+### 请求体
+:::html
+<md-table>
+  <md-thead>
+      <md-tr>
+      <md-th style="width: 30%;">名称</md-th>
+      <md-th style="width: 20%;">类型</md-th>
+      <md-th style="width: 10%;">必填</md-th>
+      <md-th style="width: 50%;">描述</md-th>
+      </md-tr>
+  </md-thead>
+  <md-tbody>
+
+<md-tr>
+	<md-td>
+	<md-text type="field-name" >end_time</md-text>
+	</md-td>
+	<md-td>
+	<md-text type="field-type" >string</md-text>
+	</md-td>
+	<md-td>
+	否
+	</md-td>
+	<md-td>
+	预约到期时间（unix时间，单位sec）
+
+**示例值**："1608888867"
+	</md-td>
+</md-tr>
+
+
+<md-tr>
+	<md-td>
+	<md-text type="field-name" >meeting_settings</md-text>
+	</md-td>
+	<md-td>
+	<md-text type="field-type" >reserve_meeting_setting</md-text>
+	</md-td>
+	<md-td>
+	是
+	</md-td>
+	<md-td>
+	会议设置
+	</md-td>
+</md-tr>
+
+
+<md-tr>
+	<md-td>
+	&emsp;<span style="color: #8F959E">∟</span>&nbsp;<md-text type="field-name" >topic</md-text>
+	</md-td>
+	<md-td>
+	<md-text type="field-type" >string</md-text>
+	</md-td>
+	<md-td>
+	否
+	</md-td>
+	<md-td>
+	会议主题
+
+**示例值**："my meeting"
+	</md-td>
+</md-tr>
+
+
+<md-tr>
+	<md-td>
+	&emsp;<span style="color: #8F959E">∟</span>&nbsp;<md-text type="field-name" >action_permissions</md-text>
+	</md-td>
+	<md-td>
+	<md-text type="field-type" >reserve_action_permission\[\]</md-text>
+	</md-td>
+	<md-td>
+	否
+	</md-td>
+	<md-td>
+	会议权限配置列表，如果存在相同的权限配置项则它们之间为"逻辑或"的关系（即 有一个为true则拥有该权限）
+	</md-td>
+</md-tr>
+
+
+<md-tr>
+	<md-td>
+	&emsp;&emsp;<span style="color: #8F959E">∟</span>&nbsp;<md-text type="field-name" >permission</md-text>
+	</md-td>
+	<md-td>
+	<md-text type="field-type" >int</md-text>
+	</md-td>
+	<md-td>
+	是
+	</md-td>
+	<md-td>
+	权限项
+
+**示例值**：1
+
+**可选值有**：
+- `1`：是否能成为主持人
+- `2`：是否能邀请参会人
+- `3`：是否能加入会议
+	</md-td>
+</md-tr>
+
+
+<md-tr>
+	<md-td>
+	&emsp;&emsp;<span style="color: #8F959E">∟</span>&nbsp;<md-text type="field-name" >permission_checkers</md-text>
+	</md-td>
+	<md-td>
+	<md-text type="field-type" >reserve_permission_checker\[\]</md-text>
+	</md-td>
+	<md-td>
+	是
+	</md-td>
+	<md-td>
+	权限检查器列表，权限检查器之间为"逻辑或"的关系（即 有一个为true则拥有该权限）
+	</md-td>
+</md-tr>
+
+
+<md-tr>
+	<md-td>
+	&emsp;&emsp;&emsp;<span style="color: #8F959E">∟</span>&nbsp;<md-text type="field-name" >check_field</md-text>
+	</md-td>
+	<md-td>
+	<md-text type="field-type" >int</md-text>
+	</md-td>
+	<md-td>
+	是
+	</md-td>
+	<md-td>
+	检查字段类型
+
+**示例值**：1
+
+**可选值有**：
+- `1`：用户ID
+- `2`：用户类型
+- `3`：租户ID
+	</md-td>
+</md-tr>
+
+
+<md-tr>
+	<md-td>
+	&emsp;&emsp;&emsp;<span style="color: #8F959E">∟</span>&nbsp;<md-text type="field-name" >check_mode</md-text>
+	</md-td>
+	<md-td>
+	<md-text type="field-type" >int</md-text>
+	</md-td>
+	<md-td>
+	是
+	</md-td>
+	<md-td>
+	检查方式
+
+**示例值**：1
+
+**可选值有**：
+- `1`：在check_list中为有权限（白名单）
+- `2`：不在check_list中为有权限（黑名单）
+	</md-td>
+</md-tr>
+
+
+<md-tr>
+	<md-td>
+	&emsp;&emsp;&emsp;<span style="color: #8F959E">∟</span>&nbsp;<md-text type="field-name" >check_list</md-text>
+	</md-td>
+	<md-td>
+	<md-text type="field-type" >string\[\]</md-text>
+	</md-td>
+	<md-td>
+	是
+	</md-td>
+	<md-td>
+	检查字段列表
+	</md-td>
+</md-tr>
+
+
+<md-tr>
+	<md-td>
+	&emsp;<span style="color: #8F959E">∟</span>&nbsp;<md-text type="field-name" >meeting_initial_type</md-text>
+	</md-td>
+	<md-td>
+	<md-text type="field-type" >int</md-text>
+	</md-td>
+	<md-td>
+	否
+	</md-td>
+	<md-td>
+	会议初始类型
+
+**示例值**：1
+
+**可选值有**：
+- `1`：多人会议
+- `2`：1v1呼叫
+	</md-td>
+</md-tr>
+
+
+<md-tr>
+	<md-td>
+	&emsp;<span style="color: #8F959E">∟</span>&nbsp;<md-text type="field-name" >call_setting</md-text>
+	</md-td>
+	<md-td>
+	<md-text type="field-type" >reserve_call_setting</md-text>
+	</md-td>
+	<md-td>
+	否
+	</md-td>
+	<md-td>
+	1v1呼叫相关参数
+	</md-td>
+</md-tr>
+
+
+<md-tr>
+	<md-td>
+	&emsp;&emsp;<span style="color: #8F959E">∟</span>&nbsp;<md-text type="field-name" >callee</md-text>
+	</md-td>
+	<md-td>
+	<md-text type="field-type" >reserve_callee</md-text>
+	</md-td>
+	<md-td>
+	是
+	</md-td>
+	<md-td>
+	被呼叫的用户
+	</md-td>
+</md-tr>
+
+
+<md-tr>
+	<md-td>
+	&emsp;&emsp;&emsp;<span style="color: #8F959E">∟</span>&nbsp;<md-text type="field-name" >id</md-text>
+	</md-td>
+	<md-td>
+	<md-text type="field-type" >string</md-text>
+	</md-td>
+	<md-td>
+	否
+	</md-td>
+	<md-td>
+	用户ID
+
+**示例值**："ou_3ec3f6a28a0d08c45d895276e8e5e19b"
+	</md-td>
+</md-tr>
+
+
+<md-tr>
+	<md-td>
+	&emsp;&emsp;&emsp;<span style="color: #8F959E">∟</span>&nbsp;<md-text type="field-name" >user_type</md-text>
+	</md-td>
+	<md-td>
+	<md-text type="field-type" >int</md-text>
+	</md-td>
+	<md-td>
+	是
+	</md-td>
+	<md-td>
+	用户类型
+
+**示例值**：1
+
+**可选值有**：
+- `1`：lark用户
+- `2`：rooms用户
+- `3`：文档用户
+- `4`：neo单品用户
+- `5`：neo单品游客用户
+- `6`：pstn用户
+- `7`：sip用户
+	</md-td>
+</md-tr>
+
+
+<md-tr>
+	<md-td>
+	&emsp;&emsp;&emsp;<span style="color: #8F959E">∟</span>&nbsp;<md-text type="field-name" >pstn_sip_info</md-text>
+	</md-td>
+	<md-td>
+	<md-text type="field-type" >pstn_sip_info</md-text>
+	</md-td>
+	<md-td>
+	否
+	</md-td>
+	<md-td>
+	pstn/sip信息
+	</md-td>
+</md-tr>
+
+
+<md-tr>
+	<md-td>
+	&emsp;&emsp;&emsp;&emsp;<span style="color: #8F959E">∟</span>&nbsp;<md-text type="field-name" >nickname</md-text>
+	</md-td>
+	<md-td>
+	<md-text type="field-type" >string</md-text>
+	</md-td>
+	<md-td>
+	否
+	</md-td>
+	<md-td>
+	给pstn/sip用户设置的临时昵称
+
+**示例值**："dodo"
+	</md-td>
+</md-tr>
+
+
+<md-tr>
+	<md-td>
+	&emsp;&emsp;&emsp;&emsp;<span style="color: #8F959E">∟</span>&nbsp;<md-text type="field-name" >main_address</md-text>
+	</md-td>
+	<md-td>
+	<md-text type="field-type" >string</md-text>
+	</md-td>
+	<md-td>
+	是
+	</md-td>
+	<md-td>
+	pstn/sip主机号
+
+**示例值**："1234"
+	</md-td>
+</md-tr>
+
+  </md-tbody>
+</md-table>
+:::
+
+
+
+### 请求体示例
+
+```json
+{
+    "end_time": "1608888867",
+    "meeting_settings": {
+        "topic": "my meeting",
+        "action_permissions": [
+            {
+                "permission": 1,
+                "permission_checkers": [
+                    {
+                        "check_field": 1,
+                        "check_mode": 1,
+                        "check_list": [
+                            "ou_3ec3f6a28a0d08c45d895276e8e5e19b"
+                        ]
+                    }
+                ]
+            }
+        ],
+        "meeting_initial_type": 1,
+        "call_setting": {
+            "callee": {
+                "id": "ou_3ec3f6a28a0d08c45d895276e8e5e19b",
+                "user_type": 1,
+                "pstn_sip_info": {
+                    "nickname": "dodo",
+                    "main_address": "1234"
+                }
+            }
+        }
+    }
+}
+```
+
+
+
+## 响应
+
+
+
+### 响应体
+:::html
+<md-table>
+  <md-thead>
+      <md-tr>
+      <md-th style="width: 40%;">名称</md-th>
+      <md-th style="width: 20%;">类型</md-th>
+      <md-th style="width: 40%;">描述</md-th>
+      </md-tr>
+  </md-thead>
+  <md-tbody>
+
+<md-tr>
+	<md-td>
+	<md-text type="field-name" >code</md-text>
+	</md-td>
+	<md-td>
+	<md-text type="field-type" >int</md-text>
+	</md-td>
+	<md-td>
+	错误码，非 0 表示失败
+	</md-td>
+</md-tr>
+
+
+<md-tr>
+	<md-td>
+	<md-text type="field-name" >msg</md-text>
+	</md-td>
+	<md-td>
+	<md-text type="field-type" >string</md-text>
+	</md-td>
+	<md-td>
+	错误描述
+	</md-td>
+</md-tr>
+
+
+<md-tr>
+	<md-td>
+	<md-text type="field-name" >data</md-text>
+	</md-td>
+	<md-td>
+	<md-text type="field-type" >\-</md-text>
+	</md-td>
+	<md-td>
+	\-
+	</md-td>
+</md-tr>
+
+
+<md-tr>
+	<md-td>
+	&emsp;<span style="color: #8F959E">∟</span>&nbsp;<md-text type="field-name" >reserve</md-text>
+	</md-td>
+	<md-td>
+	<md-text type="field-type" >reserve</md-text>
+	</md-td>
+	<md-td>
+	预约数据
+	</md-td>
+</md-tr>
+
+
+<md-tr>
+	<md-td>
+	&emsp;&emsp;<span style="color: #8F959E">∟</span>&nbsp;<md-text type="field-name" >id</md-text>
+	</md-td>
+	<md-td>
+	<md-text type="field-type" >string</md-text>
+	</md-td>
+	<md-td>
+	预约ID
+	</md-td>
+</md-tr>
+
+
+<md-tr>
+	<md-td>
+	&emsp;&emsp;<span style="color: #8F959E">∟</span>&nbsp;<md-text type="field-name" >meeting_no</md-text>
+	</md-td>
+	<md-td>
+	<md-text type="field-type" >string</md-text>
+	</md-td>
+	<md-td>
+	9位会议号
+	</md-td>
+</md-tr>
+
+
+<md-tr>
+	<md-td>
+	&emsp;&emsp;<span style="color: #8F959E">∟</span>&nbsp;<md-text type="field-name" >url</md-text>
+	</md-td>
+	<md-td>
+	<md-text type="field-type" >string</md-text>
+	</md-td>
+	<md-td>
+	会议链接
+	</md-td>
+</md-tr>
+
+
+<md-tr>
+	<md-td>
+	&emsp;&emsp;<span style="color: #8F959E">∟</span>&nbsp;<md-text type="field-name" >app_link</md-text>
+	</md-td>
+	<md-td>
+	<md-text type="field-type" >string</md-text>
+	</md-td>
+	<md-td>
+	APPLink用于唤起飞书APP入会。"{?}"为占位符，用于配置入会参数，使用时需替换具体值：0表示关闭，1表示打开。preview为入会前的设置页，mic为麦克风，speaker为扬声器，camera为摄像头
+	</md-td>
+</md-tr>
+
+
+<md-tr>
+	<md-td>
+	&emsp;&emsp;<span style="color: #8F959E">∟</span>&nbsp;<md-text type="field-name" >end_time</md-text>
+	</md-td>
+	<md-td>
+	<md-text type="field-type" >string</md-text>
+	</md-td>
+	<md-td>
+	预约到期时间（unix时间，单位sec）
+	</md-td>
+</md-tr>
+
+  </md-tbody>
+</md-table>
+:::
+
+
+
+### 响应体示例
+
+```json
+{
+    "code": 0,
+    "msg": "success",
+    "data": {
+        "reserve": {
+            "id": "6911188411934973028",
+            "meeting_no": "112000358",
+            "url": "https://vc.feishu.cn/j/337736498",
+            "app_link": "https://applink.feishu.cn/client/videochat/open?source=openplatform&action=join&idtype=reservationid&id={?}&preview={?}&mic={?}&speaker={?}&camera={?}",
+            "end_time": "1608883322"
+        }
+    }
+}
+```
+
+
+
+### 错误码
+:::html
+<md-table>
+    <md-thead>
+        <md-tr>
+            <md-th style="width: 15%;">HTTP状态码</md-th>
+            <md-th style="width: 15%;">错误码</md-th>
+            <md-th style="width: 20%;">描述</md-th>
+            <md-th style="width: 40%;">排查建议</md-th>
+        </md-tr>
+    </md-thead>
+  <md-tbody>
+
+<md-tr>
+  <md-td>500</md-td>
+  <md-td>121001</md-td>
+  <md-td>internal error</md-td>
+  <md-td>服务器内部错误，如果重试无效可联系管理员</md-td>
+</md-tr>
+
+
+<md-tr>
+  <md-td>400</md-td>
+  <md-td>121002</md-td>
+  <md-td>not support</md-td>
+  <md-td>暂不支持该功能</md-td>
+</md-tr>
+
+
+<md-tr>
+  <md-td>400</md-td>
+  <md-td>121003</md-td>
+  <md-td>param error</md-td>
+  <md-td>参数错误，检查参数的取值范围（例如：时间超过允许范围）</md-td>
+</md-tr>
+
+  </md-tbody>
+</md-table>
+:::
+
+
+
+

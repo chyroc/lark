@@ -1,0 +1,677 @@
+# 获取会话历史消息
+
+获取会话（包括单聊、群组）的历史消息。{尝试一下}(url=/api/tools/api_explore/api_explore_config?project=im&version=v1&resource=message&method=list)
+
+:::html
+<md-alert type="error">
+
+</md-alert>
+:::
+
+:::html
+<md-alert type="warn">
+
+</md-alert>
+:::
+
+:::html
+<md-alert type="tip">
+注意事项:
+- 需要开启[机器人能力](https://open.feishu.cn/document/uQjL04CN/uYTMuYTMuYTM)  
+- 获取消息时，机器人必须在群组中
+- 获取群组消息时，应用必须拥有 获取群组中所有的消息 权限
+</md-alert>
+:::
+
+## 请求
+:::html
+<md-table>
+  <md-thead>
+  <tr>
+      <md-th>基本</md-th>
+      <md-th></md-th>
+  </tr>
+  </md-thead>
+  <md-tbody>
+    <md-tr>
+      <md-th>HTTP URL</md-th>
+      <md-td>https://open.feishu.cn/open-apis/im/v1/messages</md-td>
+    </md-tr>
+    <md-tr>
+      <md-th>HTTP Method</md-th>
+      <md-td>GET</md-td>
+    </md-tr>
+    <md-tr>
+      <md-th>权限要求</md-th>
+      <md-td>
+            <md-perm href="/ssl:ttdoc/ukTMukTMukTM/uQjN3QjL0YzN04CN2cDN">获取与发送单聊、群组消息</md-perm>
+            <md-perm href="/ssl:ttdoc/ukTMukTMukTM/uQjN3QjL0YzN04CN2cDN">获取单聊、群组消息</md-perm>
+      </md-td>
+    </md-tr>
+  </md-tbody>
+</md-table>
+:::
+
+
+### 请求头
+:::html
+<md-table>
+  <md-thead>
+    <md-tr>
+      <md-th style="width: 18%;">名称</md-th>
+      <md-th style="width: 15%;">类型</md-th>
+       <md-th style="width: 15%;">必填</md-th>
+      <md-th>描述</md-th>
+    </md-tr>
+  </md-thead>
+  <md-tbody>
+    <md-tr>
+      <md-td>Authorization</md-td>
+      <md-td>string</md-td>
+      <md-td>是</md-td>
+      	<md-td>
+<md-tag mode="inline" type="token-tenant">tenant_access_token</md-tag>
+
+**值格式**："Bearer `access_token`"
+
+**示例值**："Bearer t-7f1bcd13fc57d46bac21793a18e560"
+
+[了解更多：获取与使用access_token](/ssl:ttdoc/ukTMukTMukTM/uMTNz4yM1MjLzUzM)
+</md-td>
+</md-tr>
+     <md-tr>
+      <md-td>Content-Type</md-td>
+      <md-td>string</md-td>
+      <md-td>是</md-td>
+      <md-td>**固定值**："application/json; charset=utf-8"</md-td>
+</md-tr>
+</md-tbody>
+</md-table>
+:::
+
+### 查询参数
+:::html
+<md-table>
+  <md-thead>
+      <tr>
+      <md-th style="width: 30%;">名称</md-th>
+      <md-th style="width: 15%;">类型</md-th>
+      <md-th style="width: 15%;">必填</md-th>
+      <md-th >描述</md-th>
+      </tr>
+  </md-thead>
+  <md-tbody>
+
+<md-tr>
+	<md-td>
+	<md-text type="field-name" >container_id_type</md-text>
+	</md-td>
+	<md-td>
+	<md-text type="field-type" >string</md-text>
+	</md-td>
+	<md-td>
+	是
+	</md-td>
+	<md-td>
+	容器类型 ，目前可选值仅有"chat"
+
+**示例值**："chat"
+	</md-td>
+</md-tr>
+
+
+<md-tr>
+	<md-td>
+	<md-text type="field-name" >container_id</md-text>
+	</md-td>
+	<md-td>
+	<md-text type="field-type" >string</md-text>
+	</md-td>
+	<md-td>
+	是
+	</md-td>
+	<md-td>
+	容器的id，即chat的id
+
+**示例值**："oc_234jsi43d3ssi993d43545f"
+	</md-td>
+</md-tr>
+
+
+<md-tr>
+	<md-td>
+	<md-text type="field-name" >start_time</md-text>
+	</md-td>
+	<md-td>
+	<md-text type="field-type" >string</md-text>
+	</md-td>
+	<md-td>
+	否
+	</md-td>
+	<md-td>
+	历史信息的起始时间
+
+**示例值**："1609296809"
+	</md-td>
+</md-tr>
+
+
+<md-tr>
+	<md-td>
+	<md-text type="field-name" >end_time</md-text>
+	</md-td>
+	<md-td>
+	<md-text type="field-type" >string</md-text>
+	</md-td>
+	<md-td>
+	否
+	</md-td>
+	<md-td>
+	历史信息的结束时间
+
+**示例值**："1608594809"
+	</md-td>
+</md-tr>
+
+
+<md-tr>
+	<md-td>
+	<md-text type="field-name" >page_token</md-text>
+	</md-td>
+	<md-td>
+	<md-text type="field-type" >string</md-text>
+	</md-td>
+	<md-td>
+	否
+	</md-td>
+	<md-td>
+	分页标记，第一次请求不填，表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token，下次遍历可采用该 page_token 获取查询结果
+
+**示例值**："GxmvlNRvP0NdQZpa7yIqf_Lv_QuBwTQ8tXkX7w-irAghVD_TvuYd1aoJ1LQph86O-XImC4X9j9FhUPhXQDvtrQ=="
+	</md-td>
+</md-tr>
+
+
+<md-tr>
+	<md-td>
+	<md-text type="field-name" >page_size</md-text>
+	</md-td>
+	<md-td>
+	<md-text type="field-type" >int</md-text>
+	</md-td>
+	<md-td>
+	否
+	</md-td>
+	<md-td>
+	分页大小
+
+**示例值**：10
+
+**数据校验规则**：
+- 最大值：`50`
+	</md-td>
+</md-tr>
+
+  </md-tbody>
+</md-table>
+:::
+
+## 响应
+
+### 响应体
+:::html
+<md-table>
+  <md-thead>
+      <md-tr>
+      <md-th style="width: 40%;">名称</md-th>
+      <md-th style="width: 20%;">类型</md-th>
+      <md-th style="width: 30%;">描述</md-th>
+      </md-tr>
+  </md-thead>
+  <md-tbody>
+
+<md-tr>
+	<md-td>
+	<md-text type="field-name" >code</md-text>
+	</md-td>
+	<md-td>
+	<md-text type="field-type" >int</md-text>
+	</md-td>
+	<md-td>
+	错误码，非 0 表示失败
+	</md-td>
+</md-tr>
+
+
+<md-tr>
+	<md-td>
+	<md-text type="field-name" >msg</md-text>
+	</md-td>
+	<md-td>
+	<md-text type="field-type" >string</md-text>
+	</md-td>
+	<md-td>
+	错误描述
+	</md-td>
+</md-tr>
+
+
+<md-tr>
+	<md-td>
+	<md-text type="field-name" >data</md-text>
+	</md-td>
+	<md-td>
+	<md-text type="field-type" >\-</md-text>
+	</md-td>
+	<md-td>
+	\-
+	</md-td>
+</md-tr>
+
+
+<md-tr>
+	<md-td>
+	&emsp;<span style="color: #8F959E">∟</span>&nbsp;<md-text type="field-name" >has_more</md-text>
+	</md-td>
+	<md-td>
+	<md-text type="field-type" >boolean</md-text>
+	</md-td>
+	<md-td>
+	是否还有更多项
+	</md-td>
+</md-tr>
+
+
+<md-tr>
+	<md-td>
+	&emsp;<span style="color: #8F959E">∟</span>&nbsp;<md-text type="field-name" >page_token</md-text>
+	</md-td>
+	<md-td>
+	<md-text type="field-type" >string</md-text>
+	</md-td>
+	<md-td>
+	分页标记，当 has_more 为 true 时，会同时返回新的 page_token，否则不返回 page_token
+	</md-td>
+</md-tr>
+
+
+<md-tr>
+	<md-td>
+	&emsp;<span style="color: #8F959E">∟</span>&nbsp;<md-text type="field-name" >items</md-text>
+	</md-td>
+	<md-td>
+	<md-text type="field-type" >message\[\]</md-text>
+	</md-td>
+	<md-td>
+	message[]
+	</md-td>
+</md-tr>
+
+
+<md-tr>
+	<md-td>
+	&emsp;&emsp;<span style="color: #8F959E">∟</span>&nbsp;<md-text type="field-name" >message_id</md-text>
+	</md-td>
+	<md-td>
+	<md-text type="field-type" >string</md-text>
+	</md-td>
+	<md-td>
+	消息id open_message_id
+	</md-td>
+</md-tr>
+
+
+<md-tr>
+	<md-td>
+	&emsp;&emsp;<span style="color: #8F959E">∟</span>&nbsp;<md-text type="field-name" >root_id</md-text>
+	</md-td>
+	<md-td>
+	<md-text type="field-type" >string</md-text>
+	</md-td>
+	<md-td>
+	根消息id open_message_id
+	</md-td>
+</md-tr>
+
+
+<md-tr>
+	<md-td>
+	&emsp;&emsp;<span style="color: #8F959E">∟</span>&nbsp;<md-text type="field-name" >parent_id</md-text>
+	</md-td>
+	<md-td>
+	<md-text type="field-type" >string</md-text>
+	</md-td>
+	<md-td>
+	父消息的id open_message_id
+	</md-td>
+</md-tr>
+
+
+<md-tr>
+	<md-td>
+	&emsp;&emsp;<span style="color: #8F959E">∟</span>&nbsp;<md-text type="field-name" >msg_type</md-text>
+	</md-td>
+	<md-td>
+	<md-text type="field-type" >string</md-text>
+	</md-td>
+	<md-td>
+	消息类型 text post card image等等
+	</md-td>
+</md-tr>
+
+
+<md-tr>
+	<md-td>
+	&emsp;&emsp;<span style="color: #8F959E">∟</span>&nbsp;<md-text type="field-name" >create_time</md-text>
+	</md-td>
+	<md-td>
+	<md-text type="field-type" >string</md-text>
+	</md-td>
+	<md-td>
+	消息生成的时间戳(毫秒)
+	</md-td>
+</md-tr>
+
+
+<md-tr>
+	<md-td>
+	&emsp;&emsp;<span style="color: #8F959E">∟</span>&nbsp;<md-text type="field-name" >update_time</md-text>
+	</md-td>
+	<md-td>
+	<md-text type="field-type" >string</md-text>
+	</md-td>
+	<md-td>
+	消息更新的时间戳
+	</md-td>
+</md-tr>
+
+
+<md-tr>
+	<md-td>
+	&emsp;&emsp;<span style="color: #8F959E">∟</span>&nbsp;<md-text type="field-name" >deleted</md-text>
+	</md-td>
+	<md-td>
+	<md-text type="field-type" >boolean</md-text>
+	</md-td>
+	<md-td>
+	消息是否被撤回
+	</md-td>
+</md-tr>
+
+
+<md-tr>
+	<md-td>
+	&emsp;&emsp;<span style="color: #8F959E">∟</span>&nbsp;<md-text type="field-name" >updated</md-text>
+	</md-td>
+	<md-td>
+	<md-text type="field-type" >boolean</md-text>
+	</md-td>
+	<md-td>
+	消息是否被更新
+	</md-td>
+</md-tr>
+
+
+<md-tr>
+	<md-td>
+	&emsp;&emsp;<span style="color: #8F959E">∟</span>&nbsp;<md-text type="field-name" >chat_id</md-text>
+	</md-td>
+	<md-td>
+	<md-text type="field-type" >string</md-text>
+	</md-td>
+	<md-td>
+	所属的群
+	</md-td>
+</md-tr>
+
+
+<md-tr>
+	<md-td>
+	&emsp;&emsp;<span style="color: #8F959E">∟</span>&nbsp;<md-text type="field-name" >sender</md-text>
+	</md-td>
+	<md-td>
+	<md-text type="field-type" >sender</md-text>
+	</md-td>
+	<md-td>
+	发送者，可以是用户或应用
+	</md-td>
+</md-tr>
+
+
+<md-tr>
+	<md-td>
+	&emsp;&emsp;&emsp;<span style="color: #8F959E">∟</span>&nbsp;<md-text type="field-name" >id</md-text>
+	</md-td>
+	<md-td>
+	<md-text type="field-type" >string</md-text>
+	</md-td>
+	<md-td>
+	该字段标识发送者的id
+	</md-td>
+</md-tr>
+
+
+<md-tr>
+	<md-td>
+	&emsp;&emsp;&emsp;<span style="color: #8F959E">∟</span>&nbsp;<md-text type="field-name" >id_type</md-text>
+	</md-td>
+	<md-td>
+	<md-text type="field-type" >string</md-text>
+	</md-td>
+	<md-td>
+	该字段标识发送者的id类型
+	</md-td>
+</md-tr>
+
+
+<md-tr>
+	<md-td>
+	&emsp;&emsp;&emsp;<span style="color: #8F959E">∟</span>&nbsp;<md-text type="field-name" >sender_type</md-text>
+	</md-td>
+	<md-td>
+	<md-text type="field-type" >string</md-text>
+	</md-td>
+	<md-td>
+	该字段标识发送者的类型
+	</md-td>
+</md-tr>
+
+
+<md-tr>
+	<md-td>
+	&emsp;&emsp;<span style="color: #8F959E">∟</span>&nbsp;<md-text type="field-name" >body</md-text>
+	</md-td>
+	<md-td>
+	<md-text type="field-type" >message_body</md-text>
+	</md-td>
+	<md-td>
+	消息内容，json结构，格式说明参考： [消息content说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/im-v1/message/events/message_content)
+	</md-td>
+</md-tr>
+
+
+<md-tr>
+	<md-td>
+	&emsp;&emsp;&emsp;<span style="color: #8F959E">∟</span>&nbsp;<md-text type="field-name" >content</md-text>
+	</md-td>
+	<md-td>
+	<md-text type="field-type" >string</md-text>
+	</md-td>
+	<md-td>
+	消息jsonContent
+	</md-td>
+</md-tr>
+
+
+<md-tr>
+	<md-td>
+	&emsp;&emsp;<span style="color: #8F959E">∟</span>&nbsp;<md-text type="field-name" >mentions</md-text>
+	</md-td>
+	<md-td>
+	<md-text type="field-type" >mention\[\]</md-text>
+	</md-td>
+	<md-td>
+	被艾特的人或应用的id
+	</md-td>
+</md-tr>
+
+
+<md-tr>
+	<md-td>
+	&emsp;&emsp;&emsp;<span style="color: #8F959E">∟</span>&nbsp;<md-text type="field-name" >key</md-text>
+	</md-td>
+	<md-td>
+	<md-text type="field-type" >string</md-text>
+	</md-td>
+	<md-td>
+	mention key
+	</md-td>
+</md-tr>
+
+
+<md-tr>
+	<md-td>
+	&emsp;&emsp;&emsp;<span style="color: #8F959E">∟</span>&nbsp;<md-text type="field-name" >id</md-text>
+	</md-td>
+	<md-td>
+	<md-text type="field-type" >string</md-text>
+	</md-td>
+	<md-td>
+	用户open id
+	</md-td>
+</md-tr>
+
+
+<md-tr>
+	<md-td>
+	&emsp;&emsp;&emsp;<span style="color: #8F959E">∟</span>&nbsp;<md-text type="field-name" >id_type</md-text>
+	</md-td>
+	<md-td>
+	<md-text type="field-type" >string</md-text>
+	</md-td>
+	<md-td>
+	id 可以是open_id，user_id或者union_id
+	</md-td>
+</md-tr>
+
+
+<md-tr>
+	<md-td>
+	&emsp;&emsp;&emsp;<span style="color: #8F959E">∟</span>&nbsp;<md-text type="field-name" >name</md-text>
+	</md-td>
+	<md-td>
+	<md-text type="field-type" >string</md-text>
+	</md-td>
+	<md-td>
+	被at用户的姓名
+	</md-td>
+</md-tr>
+
+
+<md-tr>
+	<md-td>
+	&emsp;&emsp;<span style="color: #8F959E">∟</span>&nbsp;<md-text type="field-name" >upper_message_id</md-text>
+	</md-td>
+	<md-td>
+	<md-text type="field-type" >string</md-text>
+	</md-td>
+	<md-td>
+	上一层级的消息id open_message_id
+	</md-td>
+</md-tr>
+
+  </md-tbody>
+</md-table>
+:::
+### 响应体示例
+
+```json
+{
+    "code": 0,
+    "msg": "success",
+    "data": {
+        "has_more": false,
+        "page_token": "GxmvlNRvP0NdQZpa7yIqf_Lv_QuBwTQ8tXkX7w-irAghVD_TvuYd1aoJ1LQph86O-XImC4X9j9FhUPhXQDvtrQ==",
+        "items": [
+            {
+                "message_id": "om_dc13264520392913993dd051dba21dcf",
+                "root_id": "om_40eb06e7b84dc71c03e009ad3c754195",
+                "parent_id": "om_d4be107c616aed9c1da8ed8068570a9f",
+                "msg_type": "card",
+                "create_time": "1609296809",
+                "update_time": "1609336806",
+                "deleted": false,
+                "updated": false,
+                "chat_id": "oc_5ad11d72b830411d72b836c20",
+                "sender": {
+                    "id": "cli_9f427eec54ae901b",
+                    "id_type": "app_id",
+                    "sender_type": "app"
+                },
+                "body": {
+                    "content": "text:测试消息"
+                },
+                "mentions": [
+                    {
+                        "key": "@_user_1",
+                        "id": "ou_155184d1e73cbfb8973e5a9e698e74f2",
+                        "id_type": "open_id",
+                        "name": "Tom"
+                    }
+                ],
+                "upper_message_id": "om_40eb06e7b84dc71c03e009ad3c754195"
+            }
+        ]
+    }
+}
+```
+
+### 错误码
+:::html
+<md-table>
+    <md-thead>
+        <md-tr>
+            <md-th style="width: 15%;">HTTP状态码</md-th>
+            <md-th style="width: 15%;">错误码</md-th>
+            <md-th style="width: 30%;">描述</md-th>
+            <md-th style="width: 30%;">排查建议</md-th>
+        </md-tr>
+    </md-thead>
+  <md-tbody>
+
+<md-tr>
+  <md-td>400</md-td>
+  <md-td>230001</md-td>
+  <md-td>Your request contains an invalid request parameter.</md-td>
+  <md-td>参数错误，参考文档检查输入参数。</md-td>
+</md-tr>
+
+
+<md-tr>
+  <md-td>400</md-td>
+  <md-td>230002</md-td>
+  <md-td>Bot can NOT be out of the chat.</md-td>
+  <md-td>机器人不在对应群组中。</md-td>
+</md-tr>
+
+
+<md-tr>
+  <md-td>400</md-td>
+  <md-td>230006</md-td>
+  <md-td>Bot ability is not activated.</md-td>
+  <md-td>机器人能力不可用。</md-td>
+</md-tr>
+
+
+<md-tr>
+  <md-td>400</md-td>
+  <md-td>230027</md-td>
+  <md-td>Lack of necessary permissions.</md-td>
+  <md-td>根据接口文档补充所需权限。</md-td>
+</md-tr>
+
+  </md-tbody>
+</md-table>
+:::
+
+

@@ -1,0 +1,128 @@
+# 查询建筑物详情
+
+该接口用于获取指定建筑物的详细信息。{尝试一下}(url=/api/tools/api_explore/api_explore_config?project=meeting_room&version=v1&resource=building&method=batch_get)
+
+## 请求
+:::html
+<md-table>
+  <md-thead>
+  <tr>
+      <md-th>基本</md-th>
+      <md-th></md-th>
+  </tr>
+  </md-thead>
+  <md-tbody>
+    <md-tr>
+      <md-th>HTTP URL</md-th>
+      <md-td>https://open.feishu.cn/open-apis/meeting_room/building/batch_get?building_ids=omb_8ec170b937536a5d87c23b418b83f9bb&building_ids=omb_38570e4f0fd9ecf15030d3cc8b388f3a&fields=*</md-td>
+    </md-tr>
+    <md-tr>
+      <md-th>HTTP Method</md-th>
+      <md-td>GET</md-td>
+    </md-tr>
+    
+    
+    <md-tr>
+      <md-th>权限要求</md-th>
+      <md-td>
+        <md-perm href="/ssl:ttdoc/ukTMukTMukTM/uQjN3QjL0YzN04CN2cDN"> 获取会议室信息 </md-perm>
+      </md-td>
+    </md-tr>
+  </md-tbody>
+</md-table>
+:::
+### 请求头
+:::html
+<md-table> 
+  <md-thead> 
+    <md-tr> 
+      <md-th style="width: 18%;">名称</md-th>  
+      <md-th style="width: 15%;">类型</md-th>  
+       <md-th style="width: 15%;">必填</md-th>  
+      <md-th>描述</md-th> 
+    </md-tr> 
+  </md-thead>  
+  <md-tbody> 
+    <md-tr> 
+      <md-td>Authorization</md-td>  
+      <md-td>string</md-td>  
+      <md-td> 是 </md-td> 
+      	<md-td>
+<md-tag mode="inline" type="token-tenant">tenant_access_token</md-tag>
+ 
+**值格式**："Bearer `access_token`"
+
+**示例值**："Bearer t-7f1bcd13fc57d46bac21793a18e560"
+          
+ [了解更多：获取与使用access_token](/ssl:ttdoc/ukTMukTMukTM/uMTNz4yM1MjLzUzM)
+	</md-td>
+</md-tr>
+     <md-tr> 
+      <md-td>Content-Type</md-td>  
+      <md-td>string</md-td>  
+      <md-td> 是 </md-td> 
+     <md-td>**固定值**："application/json; charset=utf-8"</md-td>
+</md-tr>
+   
+  </md-tbody> 
+</md-table>
+:::
+
+### 查询参数
+
+| **参数**     | **参数类型** | **必须** | **说明**                                                     |
+| ------------ | ------------ | -------- | ------------------------------------------------------------ |
+| building_ids | string       | 是       | 用于查询指定建筑物的 ID                                      |
+| fields       | string       | 否       | 用于指定返回的字段名，每个字段名之间用逗号 "," 分隔，如：“id,name”，"*" 表示返回全部字段，可选字段有："id,name,description,floors"，默认返回所有字段 |
+
+
+## 响应
+
+### 响应体
+
+| **参数**     | **说明**                                             |
+| ------------ | ---------------------------------------------------- |
+| code         | 返回码，非 0 表示失败                                |
+| msg          | 返回码的描述，"success" 表示成功，其他为错误提示信息 |
+| data         | 返回业务信息                                         |
+| ∟buildings   | 建筑列表                                             |
+| &nbsp;&nbsp;&nbsp;∟building_id | 建筑物 ID                                            |
+| &nbsp;&nbsp;&nbsp;∟description | 建筑物的相关描述                                     |
+| &nbsp;&nbsp;&nbsp;∟floors      | 属于当前建筑物的所有楼层列表                         |
+| &nbsp;&nbsp;&nbsp;∟name        | 建筑物名称                                           |
+
+### 响应体示例
+
+```json
+{
+    "code":0,
+    "msg":"success",
+    "data":{
+        "buildings":[
+            {
+                "building_id":"omb_8ec170b937536a5d87c23b418b83f9bb",
+                "description":"Some description",
+                "floors":[
+                    "F1"
+                ],
+                "name":"Building name"
+            },
+            {
+                "building_id":"omb_38570e4f0fd9ecf15030d3cc8b388f3a",
+                "description":"Some description",
+                "floors":[
+                    "F1",
+                    "F2"
+                ],
+                "name":"Building name_2"
+            }
+        ]
+    }
+}
+```
+
+### 错误码
+
+具体可参考：[会议室错误码](/ssl:ttdoc/ukTMukTMukTM/uMDOyUjLzgjM14yM4ITN)
+
+

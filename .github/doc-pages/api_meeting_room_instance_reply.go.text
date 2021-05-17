@@ -1,0 +1,113 @@
+# 回复会议室日程实例
+
+该接口用于回复会议室日程实例，包括未签到释放和提前结束释放。{尝试一下}(url=/api/tools/api_explore/api_explore_config?project=meeting_room&version=v1&resource=instance&method=reply)
+
+
+## 请求
+:::html
+<md-table>
+  <md-thead>
+  <tr>
+      <md-th>基本</md-th>
+      <md-th></md-th>
+  </tr>
+  </md-thead>
+  <md-tbody>
+    <md-tr>
+      <md-th>HTTP URL</md-th>
+      <md-td>https://open.feishu.cn/open-apis/meeting_room/instance/reply</md-td>
+    </md-tr>
+    <md-tr>
+      <md-th>HTTP Method</md-th>
+      <md-td>POST</md-td>
+    </md-tr>
+    
+    
+    <md-tr>
+      <md-th>权限要求</md-th>
+      <md-td>
+        <md-perm href="/ssl:ttdoc/ukTMukTMukTM/uQjN3QjL0YzN04CN2cDN"> 获取会议室信息 </md-perm>
+      </md-td>
+    </md-tr>
+  </md-tbody>
+</md-table>
+:::
+### 请求头
+:::html
+<md-table> 
+  <md-thead> 
+    <md-tr> 
+      <md-th style="width: 18%;">名称</md-th>  
+      <md-th style="width: 15%;">类型</md-th>  
+       <md-th style="width: 15%;">必填</md-th>  
+      <md-th>描述</md-th> 
+    </md-tr> 
+  </md-thead>  
+  <md-tbody> 
+    <md-tr> 
+      <md-td>Authorization</md-td>  
+      <md-td>string</md-td>  
+      <md-td> 是 </md-td> 
+      	<md-td>
+<md-tag mode="inline" type="token-tenant">tenant_access_token</md-tag>
+ 
+**值格式**："Bearer `access_token`"
+
+**示例值**："Bearer t-7f1bcd13fc57d46bac21793a18e560"
+          
+ [了解更多：获取与使用access_token](/ssl:ttdoc/ukTMukTMukTM/uMTNz4yM1MjLzUzM)
+	</md-td>
+</md-tr>
+     <md-tr> 
+      <md-td>Content-Type</md-td>  
+      <md-td>string</md-td>  
+      <md-td> 是 </md-td> 
+     <md-td>**固定值**："application/json; charset=utf-8"</md-td>
+</md-tr>
+   
+  </md-tbody> 
+</md-table>
+:::
+
+### 请求体
+
+| **参数** | **参数类型** | **必须** | **说明**                                                     |
+| -------- | ------------ | -------- | ------------------------------------------------------------ |
+| room_id | string       | 是       | 会议室的 ID                                      |
+| uid | string       | 是       | 会议室的日程 ID|
+| original_time | int       | 是       | 日程实例原始时间，非重复日程必为0。重复日程若为0则表示回复其所有实例，否则表示回复单个实例。 |
+| status | string       | 是       | 回复状态，NOT_CHECK_IN 表示未签到，ENDED_BEFORE_DUE 表示提前结束|
+
+### 请求体示例
+
+```json
+{
+        "room_id":"omm_c7e9ef91ec9f3c007f1dfb2503918981",
+        "uid":"bff6b51f-b7c1-40c6-b8ef-aef966c9ffc7",
+        "original_time":0,
+        "status":"NOT_CHECK_IN"
+} 
+```
+
+## 响应
+### 响应体
+
+| **参数**    | **说明**                                             |
+| ----------- | ---------------------------------------------------- |
+| code        | 返回码，非 0 表示失败。105003表示 original_time 非法，此时可能是重复日程的整个开始时间被修改，建议应用重新查询会议室日程实例列表，获取最新的 original_time。                             |
+| msg         | 返回码的描述，"success" 表示成功，其他为错误提示信息 |
+
+### 响应体示例
+
+```json
+{
+    "code":0,
+    "msg":"success"
+}
+```
+
+### 错误码
+
+具体可参考：[会议室错误码](/ssl:ttdoc/ukTMukTMukTM/uMDOyUjLzgjM14yM4ITN)
+
+

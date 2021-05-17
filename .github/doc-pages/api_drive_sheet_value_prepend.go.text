@@ -1,0 +1,156 @@
+# 插入数据
+
+
+该接口用于根据 spreadsheetToken 和 range 向范围之前增加相应数据的行和相应的数据，相当于数组的插入操作；单次写入不超过5000行，100列，每个格子大小为0.5M。{尝试一下}(url=/api/tools/api_explore/api_explore_config?project=sheets&version=v2&resource=spreadsheets&method=values_prepend)
+## 请求
+:::html
+<md-table>
+  <md-thead>
+  <tr>
+      <md-th>基本</md-th>
+      <md-th></md-th>
+  </tr>
+  </md-thead>
+  <md-tbody>
+    <md-tr>
+      <md-th>HTTP URL</md-th>
+      <md-td>https://open.feishu.cn/open-apis/sheets/v2/spreadsheets/:spreadsheetToken/values_prepend   </md-td>
+    </md-tr>
+    <md-tr>
+      <md-th>HTTP Method</md-th>
+      <md-td>POST</md-td>
+    </md-tr>
+	<md-tr>
+      <md-th>权限要求</md-th>
+      <md-td>
+        <md-perm href="/ssl:ttdoc/ukTMukTMukTM/uQjN3QjL0YzN04CN2cDN">查看、评论、编辑和管理云文档所有文件</md-perm>
+        <md-perm href="/ssl:ttdoc/ukTMukTMukTM/uQjN3QjL0YzN04CN2cDN">查看、评论、编辑和管理表格</md-perm></md-td>
+    </md-tr>
+    
+  </md-tbody>
+</md-table>
+:::
+### 请求头
+:::html
+<md-table> 
+  <md-thead> 
+    <md-tr> 
+      <md-th style="width: 18%;">名称</md-th>  
+      <md-th style="width: 15%;">类型</md-th>  
+       <md-th style="width: 15%;">必填</md-th>  
+      <md-th>描述</md-th> 
+    </md-tr> 
+  </md-thead>  
+  <md-tbody> 
+    <md-tr> 
+      <md-td>Authorization</md-td>  
+      <md-td>string</md-td>  
+      <md-td> 是 </md-td> 
+      	<md-td>
+<md-tag mode="inline" type="token-user">user_access_token</md-tag>或 <md-tag mode="inline" type="token-tenant">tenant_access_token</md-tag>
+ 
+**值格式**："Bearer `access_token`"
+
+**示例值**："Bearer u-7f1bcd13fc57d46bac21793a18e560"
+          
+ [了解更多：获取与使用access_token](/ssl:ttdoc/ukTMukTMukTM/uMTNz4yM1MjLzUzM)
+	</md-td>
+</md-tr>
+     <md-tr> 
+      <md-td>Content-Type</md-td>  
+      <md-td>string</md-td>  
+      <md-td> 是 </md-td> 
+     <md-td>**固定值**："application/json; charset=utf-8"</md-td>
+</md-tr>
+   
+  </md-tbody> 
+</md-table>
+:::
+### 路径参数
+|参数|类型|必须|说明|
+|--|-----|--|----|
+|spreadsheetToken|string|是|sheet的token，获取方式见 [对接前说明](/ssl:ttdoc/ukTMukTMukTM/uczNzUjL3czM14yN3MTN) 的第 4 项| URL PATH|
+### 请求体
+|参数|类型|必须|说明|
+|--|-----|--|----|
+|valueRange||是|值与范围|
+|&emsp;∟range|string|是|⁣查询范围，包含 sheetId 与单元格范围两部分，目前支持四种索引方式，详见 ⁣[对接前说明](/ssl:ttdoc/ukTMukTMukTM/uczNzUjL3czM14yN3MTN)  的第 5 项|
+|&emsp;∟values|array<interface>|是|需要写入的值，如要写入公式、超链接、email、@人等，可详看附录[sheet 支持写入数据类型](/ssl:ttdoc/ukTMukTMukTM/ugjN1UjL4YTN14CO2UTN)|
+### 请求体示例
+```json
+{
+"valueRange":{
+  "range": "string",
+  "values": [
+    [
+      "string",1 ,"http://www.xx.com"
+    ]
+  ]
+  }
+}
+```
+  
+### cURL 请求示例
+```
+curl --location --request POST 'https://open.feishu.cn/open-apis/sheets/v2/spreadsheets/shtcngNygNfuqhxTBf588jwgWbJ/values_prepend' \
+--header 'Authorization: Bearer t-e346617a4acfc3a11d4ed24dca0d0c0fc8e0067e' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+"valueRange":{
+  "range": "Q7PlXT!C6:F9",
+  "values": [
+    [
+      "a",1,"http://www.xx.com",12
+    ],
+    [
+      "b",2,8,"me@HelloWorld.com"
+    ],
+    [
+      "c",3,2,6
+    ],
+    [
+      "d",4,6,"@Jack"
+    ]
+  ]
+  }
+}'
+```
+  
+## 响应
+### 响应体
+  |参数|类型|说明|
+|--|-----|--|
+|spreadsheetToken|string|spreadsheet 的 token|
+|tableRange|string|写入的范围|
+|revision|int|sheet 的版本号|
+|updates||插入数据的范围、行列数等|
+|&emsp;∟spreadsheetToken|string|spreadsheet 的 token|
+|&emsp;∟updatedRange|string|写入的范围|
+|&emsp;∟updatedRows|int|写入的行数|
+|&emsp;∟updatedColumns|int|写入的列数|
+|&emsp;∟updatedCells|int|写入的单元格总数|
+|&emsp;∟revision|int|sheet 的版本号|
+### 响应体示例  
+```json
+{
+    "code": 0,
+    "msg": "Success",
+    "data": {
+        "revision": 0,
+        "spreadsheetToken": "***",
+        "tableRange": "***",
+        "updates": {
+            "spreadsheetToken": "***",
+            "updatedRange": "***",
+            "updatedRows": 0,
+            "updatedColumns": 0,
+            "updatedCells": 0,
+            "revision": 0
+        }
+    }
+}
+```
+### 错误码
+
+具体可参考：[云文档请求错误码列表](/ssl:ttdoc/ukTMukTMukTM/uIzM0UjLyMDN14iMzQTN)
+

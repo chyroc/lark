@@ -1,0 +1,84 @@
+# 创建或修改班表
+班表是用来描述考勤组内人员每天按哪个班次进行上班。目前班表支持按一个整月对一位或多位人员进行排班。
+
+## 请求
+|基本||
+|---|---|
+|HTTP URL|https://open.feishu.cn/open-apis/attendance/v1/user_daily_shifts/batch_create|
+|HTTP Method|POST|
+|HTTP Content-Type|application/json; charset=utf-8|
+|凭证要求|tenant_access_token|
+|权限要求|打卡数据写入|
+### 头部
+key|value
+--|--
+Authorization|Bearer tenant_access_token
+Content-Type|application/json
+### 查询参数
+|名称|类型|必填|描述|
+|---|---|---|---|
+|employee_type|string|是|请求体中的 user_id 的员工工号类型可用值：【employee_id（员工的 employeeId），employee_no（员工工号）】，示例值："employee_id"|
+### 请求体
+|名称|类型|必填|描述|
+|---|---|---|---|
+|user_daily_shifts|user_daily_shift\[\]|是|班表信息列表|
+|&emsp;∟group_id|string|是|考勤组 ID|
+|&emsp;∟shift_id|string|是|班次 ID，休息为 0|
+|&emsp;∟month|int|是|月份|
+|&emsp;∟user_id|string|是|用户|
+|&emsp;∟day_no|int|是|日期|
+### 请求体示例
+```json
+{
+    "user_daily_shifts": [
+        {
+            "group_id": "6737202939523236110",
+            "shift_id": "6753520403404030215",
+            "month": 202101,
+            "user_id": "abd754f7",
+            "day_no": 21
+        }
+    ]
+}
+```
+## 响应
+### 响应体
+|名称|类型|描述|
+|---|---|---|
+|code|int|错误码，非 0 表示失败|
+|msg|string|错误描述|
+|data|-|-|
+|&emsp;∟user_daily_shifts|user_daily_shift\[\]|班表信息列表|
+|&emsp;&emsp;∟group_id|string|考勤组 ID|
+|&emsp;&emsp;∟shift_id|string|班次 ID|
+|&emsp;&emsp;∟month|int|月份|
+|&emsp;&emsp;∟user_id|string|用户|
+|&emsp;&emsp;∟day_no|int|日期|
+### 响应体示例
+```json
+{
+    "code": 0,
+    "msg": "success",
+    "data": {
+        "user_daily_shifts": [
+            {
+                "group_id": "6737202939523236110",
+                "shift_id": "6753520403404030215",
+                "month": 202101,
+                "user_id": "abd754f7",
+                "day_no": 21
+            }
+        ]
+    }
+}
+```
+### 错误码
+|HTTP 状态码|错误码|描述|排查建议|
+|---|---|---|---|
+|400|1220001|参数错误|请检查参数是否符合要求|
+|400|1220002|租户不存在|请检查 tenant_access_token 是否正确|
+|400|1220004|用户不存在或没有权限|请检查用户 ID 是否正确|
+|400|1220005|没有权限|请前往考勤管理后台检查数据权限范围|
+|500|1225000|系统错误|详见错误信息|
+|500|1226000|班次服务系统错误|详见错误信息|
+|500|1226003|班次不存在|请检查 shift_id 是否正确|

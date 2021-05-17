@@ -1,0 +1,628 @@
+# 删除字段
+
+该接口用于在数据表中删除一个字段{尝试一下}(url=/api/tools/api_explore/api_explore_config?project=bitable&version=v1&resource=app.table.field&method=delete)
+
+:::html
+<md-alert type="error">
+
+</md-alert>
+:::
+
+:::html
+<md-alert type="warn">
+
+</md-alert>
+:::
+
+:::html
+<md-alert type="tip">
+
+</md-alert>
+:::
+
+
+
+## 请求
+:::html
+<md-table>
+  <md-thead>
+  <tr>
+      <md-th>基本</md-th>
+      <md-th></md-th>
+  </tr>
+  </md-thead>
+  <md-tbody>
+    <md-tr>
+      <md-th>HTTP URL</md-th>
+      <md-td>https://open.feishu.cn/open-apis/bitable/v1/apps/:app_token/tables/:table_id/fields/:field_id</md-td>
+    </md-tr>
+    <md-tr>
+      <md-th>HTTP Method</md-th>
+      <md-td>DELETE</md-td>
+    </md-tr>
+    <md-tr>
+      <md-th>权限要求</md-th>
+      <md-td>
+            <md-perm href="/ssl:ttdoc/ukTMukTMukTM/uQjN3QjL0YzN04CN2cDN">查看、评论、编辑和管理多维表格</md-perm>
+      </md-td>
+    </md-tr>
+  </md-tbody>
+</md-table>
+:::
+
+
+### 请求头
+:::html
+<md-table>
+  <md-thead>
+    <md-tr>
+      <md-th style="width: 18%;">名称</md-th>
+      <md-th style="width: 15%;">类型</md-th>
+       <md-th style="width: 15%;">必填</md-th>
+      <md-th>描述</md-th>
+    </md-tr>
+  </md-thead>
+  <md-tbody>
+    <md-tr>
+      <md-td>Authorization</md-td>
+      <md-td>string</md-td>
+      <md-td>是</md-td>
+      	<md-td>
+<md-tag mode="inline" type="token-user">user_access_token</md-tag>
+
+**值格式**："Bearer `access_token`"
+
+**示例值**："Bearer u-7f1bcd13fc57d46bac21793a18e560"
+
+[了解更多：获取与使用access_token](/ssl:ttdoc/ukTMukTMukTM/uMTNz4yM1MjLzUzM)
+</md-td>
+</md-tbody>
+</md-table>
+:::
+
+
+
+### 路径参数
+:::html
+<md-table>
+  <md-thead>
+      <tr>
+      <md-th style="width: 30%;">名称</md-th>
+      <md-th style="width: 15%;">类型</md-th>
+      <md-th >描述</md-th>
+      </tr>
+  </md-thead>
+  <md-tbody>
+
+<md-tr>
+	<md-td>
+	<md-text type="field-name" >app_token</md-text>
+	</md-td>
+	<md-td>
+	<md-text type="field-type" >string</md-text>
+	</md-td>
+	<md-td>
+	bitable app token
+
+**示例值**："appbcbWCzen6D8dezhoCH2RpMAh"
+	</md-td>
+</md-tr>
+
+
+<md-tr>
+	<md-td>
+	<md-text type="field-name" >table_id</md-text>
+	</md-td>
+	<md-td>
+	<md-text type="field-type" >string</md-text>
+	</md-td>
+	<md-td>
+	table id
+
+**示例值**："tblsRc9GRRXKqhvW"
+	</md-td>
+</md-tr>
+
+
+<md-tr>
+	<md-td>
+	<md-text type="field-name" >field_id</md-text>
+	</md-td>
+	<md-td>
+	<md-text type="field-type" >string</md-text>
+	</md-td>
+	<md-td>
+	field id
+
+**示例值**："fldPTb0U2y"
+	</md-td>
+</md-tr>
+
+  </md-tbody>
+</md-table>
+:::
+
+
+
+
+
+## 响应
+
+
+
+### 响应体
+:::html
+<md-table>
+  <md-thead>
+      <md-tr>
+      <md-th style="width: 40%;">名称</md-th>
+      <md-th style="width: 20%;">类型</md-th>
+      <md-th style="width: 30%;">描述</md-th>
+      </md-tr>
+  </md-thead>
+  <md-tbody>
+
+<md-tr>
+	<md-td>
+	<md-text type="field-name" >code</md-text>
+	</md-td>
+	<md-td>
+	<md-text type="field-type" >int</md-text>
+	</md-td>
+	<md-td>
+	错误码，非 0 表示失败
+	</md-td>
+</md-tr>
+
+
+<md-tr>
+	<md-td>
+	<md-text type="field-name" >msg</md-text>
+	</md-td>
+	<md-td>
+	<md-text type="field-type" >string</md-text>
+	</md-td>
+	<md-td>
+	错误描述
+	</md-td>
+</md-tr>
+
+
+<md-tr>
+	<md-td>
+	<md-text type="field-name" >data</md-text>
+	</md-td>
+	<md-td>
+	<md-text type="field-type" >\-</md-text>
+	</md-td>
+	<md-td>
+	\-
+	</md-td>
+</md-tr>
+
+
+<md-tr>
+	<md-td>
+	&emsp;<span style="color: #8F959E">∟</span>&nbsp;<md-text type="field-name" >field_id</md-text>
+	</md-td>
+	<md-td>
+	<md-text type="field-type" >string</md-text>
+	</md-td>
+	<md-td>
+	field id
+	</md-td>
+</md-tr>
+
+
+<md-tr>
+	<md-td>
+	&emsp;<span style="color: #8F959E">∟</span>&nbsp;<md-text type="field-name" >deleted</md-text>
+	</md-td>
+	<md-td>
+	<md-text type="field-type" >boolean</md-text>
+	</md-td>
+	<md-td>
+	删除标记
+	</md-td>
+</md-tr>
+
+  </md-tbody>
+</md-table>
+:::
+
+
+
+### 响应体示例
+
+```json
+{
+    "code": 0,
+    "msg": "success",
+    "data": {
+        "field_id": "fldPTb0U2y",
+        "deleted": true
+    }
+}
+```
+
+
+
+### 错误码
+:::html
+<md-table>
+    <md-thead>
+        <md-tr>
+            <md-th style="width: 15%;">HTTP状态码</md-th>
+            <md-th style="width: 15%;">错误码</md-th>
+            <md-th style="width: 30%;">描述</md-th>
+            <md-th style="width: 30%;">排查建议</md-th>
+        </md-tr>
+    </md-thead>
+  <md-tbody>
+
+<md-tr>
+  <md-td>200</md-td>
+  <md-td>1254000</md-td>
+  <md-td>WrongRequestJson</md-td>
+  <md-td>请求体错误</md-td>
+</md-tr>
+
+
+<md-tr>
+  <md-td>200</md-td>
+  <md-td>1254001</md-td>
+  <md-td>WrongRequestBody</md-td>
+  <md-td>请求体错误</md-td>
+</md-tr>
+
+
+<md-tr>
+  <md-td>200</md-td>
+  <md-td>1254002</md-td>
+  <md-td>Fail</md-td>
+  <md-td>内部错误</md-td>
+</md-tr>
+
+
+<md-tr>
+  <md-td>200</md-td>
+  <md-td>1254003</md-td>
+  <md-td>WrongBaseToken</md-td>
+  <md-td>app_token 错误</md-td>
+</md-tr>
+
+
+<md-tr>
+  <md-td>200</md-td>
+  <md-td>1254004</md-td>
+  <md-td>WrongTableId</md-td>
+  <md-td>table_id 错误</md-td>
+</md-tr>
+
+
+<md-tr>
+  <md-td>200</md-td>
+  <md-td>1254005</md-td>
+  <md-td>WrongViewId</md-td>
+  <md-td>view_id 错误</md-td>
+</md-tr>
+
+
+<md-tr>
+  <md-td>200</md-td>
+  <md-td>1254006</md-td>
+  <md-td>WrongRecordId</md-td>
+  <md-td>检查 record_id</md-td>
+</md-tr>
+
+
+<md-tr>
+  <md-td>200</md-td>
+  <md-td>1254007</md-td>
+  <md-td>EmptyValue</md-td>
+  <md-td>空值</md-td>
+</md-tr>
+
+
+<md-tr>
+  <md-td>200</md-td>
+  <md-td>1254008</md-td>
+  <md-td>EmptyView</md-td>
+  <md-td>空视图</md-td>
+</md-tr>
+
+
+<md-tr>
+  <md-td>200</md-td>
+  <md-td>1254009</md-td>
+  <md-td>WrongFieldId</md-td>
+  <md-td>字段 id 错误</md-td>
+</md-tr>
+
+
+<md-tr>
+  <md-td>200</md-td>
+  <md-td>1254010</md-td>
+  <md-td>ReqConvError</md-td>
+  <md-td>请求错误</md-td>
+</md-tr>
+
+
+<md-tr>
+  <md-td>200</md-td>
+  <md-td>1254012</md-td>
+  <md-td>NotSupportFieldOrView</md-td>
+  <md-td>不支持的字段或试图</md-td>
+</md-tr>
+
+
+<md-tr>
+  <md-td>200</md-td>
+  <md-td>1254013</md-td>
+  <md-td>TableNameDuplicated</md-td>
+  <md-td>表名重复</md-td>
+</md-tr>
+
+
+<md-tr>
+  <md-td>200</md-td>
+  <md-td>1254014</md-td>
+  <md-td>FieldNameDuplicated</md-td>
+  <md-td>字段名重复</md-td>
+</md-tr>
+
+
+<md-tr>
+  <md-td>200</md-td>
+  <md-td>1254015</md-td>
+  <md-td>FieldTypeValueNotMatch</md-td>
+  <md-td>字段类型和值不匹配</md-td>
+</md-tr>
+
+
+<md-tr>
+  <md-td>200</md-td>
+  <md-td>1254030</md-td>
+  <md-td>TooLargeResponse</md-td>
+  <md-td>响应体过大</md-td>
+</md-tr>
+
+
+<md-tr>
+  <md-td>200</md-td>
+  <md-td>1254040</md-td>
+  <md-td>BaseTokenNotFound</md-td>
+  <md-td>app_token 不存在</md-td>
+</md-tr>
+
+
+<md-tr>
+  <md-td>200</md-td>
+  <md-td>1254041</md-td>
+  <md-td>TableIdNotFound</md-td>
+  <md-td>table_id 不存在</md-td>
+</md-tr>
+
+
+<md-tr>
+  <md-td>200</md-td>
+  <md-td>1254042</md-td>
+  <md-td>ViewIdNotFound</md-td>
+  <md-td>view_id 不存在</md-td>
+</md-tr>
+
+
+<md-tr>
+  <md-td>200</md-td>
+  <md-td>1254043</md-td>
+  <md-td>RecordIdNotFound</md-td>
+  <md-td>record_id 不存在</md-td>
+</md-tr>
+
+
+<md-tr>
+  <md-td>200</md-td>
+  <md-td>1254044</md-td>
+  <md-td>FieldIdNotFound</md-td>
+  <md-td>field_id  不存在</md-td>
+</md-tr>
+
+
+<md-tr>
+  <md-td>200</md-td>
+  <md-td>1254060</md-td>
+  <md-td>TextFieldConvFail</md-td>
+  <md-td>多行文本字段错误</md-td>
+</md-tr>
+
+
+<md-tr>
+  <md-td>200</md-td>
+  <md-td>1254061</md-td>
+  <md-td>NumberFieldConvFail</md-td>
+  <md-td>数字字段错误</md-td>
+</md-tr>
+
+
+<md-tr>
+  <md-td>200</md-td>
+  <md-td>1254062</md-td>
+  <md-td>SingleSelectFieldConvFail</md-td>
+  <md-td>单选字段错误</md-td>
+</md-tr>
+
+
+<md-tr>
+  <md-td>200</md-td>
+  <md-td>1254063</md-td>
+  <md-td>MultiSelectFieldConvFail</md-td>
+  <md-td>多选字段错误</md-td>
+</md-tr>
+
+
+<md-tr>
+  <md-td>200</md-td>
+  <md-td>1254064</md-td>
+  <md-td>DatetimeFieldConvFail</md-td>
+  <md-td>日期字段错误</md-td>
+</md-tr>
+
+
+<md-tr>
+  <md-td>200</md-td>
+  <md-td>1254065</md-td>
+  <md-td>CheckboxFieldConvFail</md-td>
+  <md-td>复选框字段错误</md-td>
+</md-tr>
+
+
+<md-tr>
+  <md-td>200</md-td>
+  <md-td>1254066</md-td>
+  <md-td>UserFieldConvFail</md-td>
+  <md-td>人员字段错误</md-td>
+</md-tr>
+
+
+<md-tr>
+  <md-td>200</md-td>
+  <md-td>1254067</md-td>
+  <md-td>LinkFieldConvFail</md-td>
+  <md-td>超链接字段错误</md-td>
+</md-tr>
+
+
+<md-tr>
+  <md-td>200</md-td>
+  <md-td>1254070</md-td>
+  <md-td>ActionValidateFailed</md-td>
+  <md-td>Action验证失败</md-td>
+</md-tr>
+
+
+<md-tr>
+  <md-td>200</md-td>
+  <md-td>1254100</md-td>
+  <md-td>TableExceedLimit</md-td>
+  <md-td>数据表数量超限</md-td>
+</md-tr>
+
+
+<md-tr>
+  <md-td>200</md-td>
+  <md-td>1254101</md-td>
+  <md-td>ViewExceedLimit</md-td>
+  <md-td>视图数量超限</md-td>
+</md-tr>
+
+
+<md-tr>
+  <md-td>200</md-td>
+  <md-td>1254102</md-td>
+  <md-td>FileExceedLimit</md-td>
+  <md-td>超限</md-td>
+</md-tr>
+
+
+<md-tr>
+  <md-td>200</md-td>
+  <md-td>1254103</md-td>
+  <md-td>RecordExceedLimit</md-td>
+  <md-td>记录数量超限</md-td>
+</md-tr>
+
+
+<md-tr>
+  <md-td>200</md-td>
+  <md-td>1254104</md-td>
+  <md-td>RecordAddOnceExceedLimit</md-td>
+  <md-td>单次添加记录数量超限</md-td>
+</md-tr>
+
+
+<md-tr>
+  <md-td>200</md-td>
+  <md-td>1254105</md-td>
+  <md-td>ColumnExceedLimit</md-td>
+  <md-td>字段数量超限</md-td>
+</md-tr>
+
+
+<md-tr>
+  <md-td>200</md-td>
+  <md-td>1254130</md-td>
+  <md-td>TooLargeCell</md-td>
+  <md-td>格子内容过大</md-td>
+</md-tr>
+
+
+<md-tr>
+  <md-td>200</md-td>
+  <md-td>1254290</md-td>
+  <md-td>TooManyRequest</md-td>
+  <md-td>请求过快，稍后重试</md-td>
+</md-tr>
+
+
+<md-tr>
+  <md-td>200</md-td>
+  <md-td>1254291</md-td>
+  <md-td>LockNotObtainedError</md-td>
+  <md-td>请求过快，稍后重试</md-td>
+</md-tr>
+
+
+<md-tr>
+  <md-td>200</md-td>
+  <md-td>1254301</md-td>
+  <md-td>OperationTypeError</md-td>
+  <md-td>内部错误</md-td>
+</md-tr>
+
+
+<md-tr>
+  <md-td>200</md-td>
+  <md-td>1255001</md-td>
+  <md-td>InternalError</md-td>
+  <md-td>内部错误</md-td>
+</md-tr>
+
+
+<md-tr>
+  <md-td>200</md-td>
+  <md-td>1255002</md-td>
+  <md-td>RpcError</md-td>
+  <md-td>内部错误</md-td>
+</md-tr>
+
+
+<md-tr>
+  <md-td>200</md-td>
+  <md-td>1255003</md-td>
+  <md-td>MarshalError</md-td>
+  <md-td>序列化错误</md-td>
+</md-tr>
+
+
+<md-tr>
+  <md-td>200</md-td>
+  <md-td>1255004</md-td>
+  <md-td>UmMarshalError</md-td>
+  <md-td>反序列化错误</md-td>
+</md-tr>
+
+
+<md-tr>
+  <md-td>200</md-td>
+  <md-td>1255005</md-td>
+  <md-td>ConvError</md-td>
+  <md-td>内部错误</md-td>
+</md-tr>
+
+  </md-tbody>
+</md-table>
+:::
+
+
+
+

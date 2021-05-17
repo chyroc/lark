@@ -1,0 +1,528 @@
+# 列出字段
+
+根据 app_token 和 table_id，获取数据表的所有字段{尝试一下}(url=/api/tools/api_explore/api_explore_config?project=bitable&version=v1&resource=app.table.field&method=list)
+
+:::html
+<md-alert type="error">
+
+</md-alert>
+:::
+
+:::html
+<md-alert type="warn">
+
+</md-alert>
+:::
+
+:::html
+<md-alert type="tip">
+
+</md-alert>
+:::
+
+
+
+## 请求
+:::html
+<md-table>
+  <md-thead>
+  <tr>
+      <md-th>基本</md-th>
+      <md-th></md-th>
+  </tr>
+  </md-thead>
+  <md-tbody>
+    <md-tr>
+      <md-th>HTTP URL</md-th>
+      <md-td>https://open.feishu.cn/open-apis/bitable/v1/apps/:app_token/tables/:table_id/fields</md-td>
+    </md-tr>
+    <md-tr>
+      <md-th>HTTP Method</md-th>
+      <md-td>GET</md-td>
+    </md-tr>
+    <md-tr>
+      <md-th>权限要求</md-th>
+      <md-td>
+            <md-perm href="/ssl:ttdoc/ukTMukTMukTM/uQjN3QjL0YzN04CN2cDN">查看、评论和导出多维表格</md-perm>
+            <md-perm href="/ssl:ttdoc/ukTMukTMukTM/uQjN3QjL0YzN04CN2cDN">查看、评论、编辑和管理多维表格</md-perm>
+      </md-td>
+    </md-tr>
+  </md-tbody>
+</md-table>
+:::
+
+
+### 请求头
+:::html
+<md-table>
+  <md-thead>
+    <md-tr>
+      <md-th style="width: 18%;">名称</md-th>
+      <md-th style="width: 15%;">类型</md-th>
+       <md-th style="width: 15%;">必填</md-th>
+      <md-th>描述</md-th>
+    </md-tr>
+  </md-thead>
+  <md-tbody>
+    <md-tr>
+      <md-td>Authorization</md-td>
+      <md-td>string</md-td>
+      <md-td>是</md-td>
+      	<md-td>
+<md-tag mode="inline" type="token-user">user_access_token</md-tag>
+
+**值格式**："Bearer `access_token`"
+
+**示例值**："Bearer u-7f1bcd13fc57d46bac21793a18e560"
+
+[了解更多：获取与使用access_token](/ssl:ttdoc/ukTMukTMukTM/uMTNz4yM1MjLzUzM)
+</md-td>
+</md-tr>
+     <md-tr>
+      <md-td>Content-Type</md-td>
+      <md-td>string</md-td>
+      <md-td>是</md-td>
+      <md-td>**固定值**："application/json; charset=utf-8"</md-td>
+</md-tr>
+</md-tbody>
+</md-table>
+:::
+
+
+
+### 路径参数
+:::html
+<md-table>
+  <md-thead>
+      <tr>
+      <md-th style="width: 30%;">名称</md-th>
+      <md-th style="width: 15%;">类型</md-th>
+      <md-th >描述</md-th>
+      </tr>
+  </md-thead>
+  <md-tbody>
+
+<md-tr>
+	<md-td>
+	<md-text type="field-name" >app_token</md-text>
+	</md-td>
+	<md-td>
+	<md-text type="field-type" >string</md-text>
+	</md-td>
+	<md-td>
+	bitable app token
+
+**示例值**："appbcbWCzen6D8dezhoCH2RpMAh"
+	</md-td>
+</md-tr>
+
+
+<md-tr>
+	<md-td>
+	<md-text type="field-name" >table_id</md-text>
+	</md-td>
+	<md-td>
+	<md-text type="field-type" >string</md-text>
+	</md-td>
+	<md-td>
+	table id
+
+**示例值**："tblsRc9GRRXKqhvW"
+	</md-td>
+</md-tr>
+
+  </md-tbody>
+</md-table>
+:::
+
+
+
+### 查询参数
+:::html
+<md-table>
+  <md-thead>
+      <tr>
+      <md-th style="width: 30%;">名称</md-th>
+      <md-th style="width: 15%;">类型</md-th>
+      <md-th style="width: 15%;">必填</md-th>
+      <md-th >描述</md-th>
+      </tr>
+  </md-thead>
+  <md-tbody>
+
+<md-tr>
+	<md-td>
+	<md-text type="field-name" >view_id</md-text>
+	</md-td>
+	<md-td>
+	<md-text type="field-type" >string</md-text>
+	</md-td>
+	<md-td>
+	否
+	</md-td>
+	<md-td>
+	视图 ID
+
+**示例值**："vewOVMEXPF"
+	</md-td>
+</md-tr>
+
+
+<md-tr>
+	<md-td>
+	<md-text type="field-name" >page_token</md-text>
+	</md-td>
+	<md-td>
+	<md-text type="field-type" >string</md-text>
+	</md-td>
+	<md-td>
+	否
+	</md-td>
+	<md-td>
+	分页标记，第一次请求不填，表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token，下次遍历可采用该 page_token 获取查询结果
+
+**示例值**："fldwJ4YrtB"
+	</md-td>
+</md-tr>
+
+
+<md-tr>
+	<md-td>
+	<md-text type="field-name" >page_size</md-text>
+	</md-td>
+	<md-td>
+	<md-text type="field-type" >int</md-text>
+	</md-td>
+	<md-td>
+	否
+	</md-td>
+	<md-td>
+	分页大小
+
+**示例值**：10
+
+**数据校验规则**：
+- 最大值：`100`
+	</md-td>
+</md-tr>
+
+  </md-tbody>
+</md-table>
+:::
+
+
+
+
+
+## 响应
+
+
+
+### 响应体
+:::html
+<md-table>
+  <md-thead>
+      <md-tr>
+      <md-th style="width: 40%;">名称</md-th>
+      <md-th style="width: 20%;">类型</md-th>
+      <md-th style="width: 30%;">描述</md-th>
+      </md-tr>
+  </md-thead>
+  <md-tbody>
+
+<md-tr>
+	<md-td>
+	<md-text type="field-name" >code</md-text>
+	</md-td>
+	<md-td>
+	<md-text type="field-type" >int</md-text>
+	</md-td>
+	<md-td>
+	错误码，非 0 表示失败
+	</md-td>
+</md-tr>
+
+
+<md-tr>
+	<md-td>
+	<md-text type="field-name" >msg</md-text>
+	</md-td>
+	<md-td>
+	<md-text type="field-type" >string</md-text>
+	</md-td>
+	<md-td>
+	错误描述
+	</md-td>
+</md-tr>
+
+
+<md-tr>
+	<md-td>
+	<md-text type="field-name" >data</md-text>
+	</md-td>
+	<md-td>
+	<md-text type="field-type" >\-</md-text>
+	</md-td>
+	<md-td>
+	\-
+	</md-td>
+</md-tr>
+
+
+<md-tr>
+	<md-td>
+	&emsp;<span style="color: #8F959E">∟</span>&nbsp;<md-text type="field-name" >has_more</md-text>
+	</md-td>
+	<md-td>
+	<md-text type="field-type" >boolean</md-text>
+	</md-td>
+	<md-td>
+	是否还有更多项
+	</md-td>
+</md-tr>
+
+
+<md-tr>
+	<md-td>
+	&emsp;<span style="color: #8F959E">∟</span>&nbsp;<md-text type="field-name" >page_token</md-text>
+	</md-td>
+	<md-td>
+	<md-text type="field-type" >string</md-text>
+	</md-td>
+	<md-td>
+	分页标记，当 has_more 为 true 时，会同时返回新的 page_token，否则不返回 page_token
+	</md-td>
+</md-tr>
+
+
+<md-tr>
+	<md-td>
+	&emsp;<span style="color: #8F959E">∟</span>&nbsp;<md-text type="field-name" >items</md-text>
+	</md-td>
+	<md-td>
+	<md-text type="field-type" >app.table.field\[\]</md-text>
+	</md-td>
+	<md-td>
+	字段信息
+	</md-td>
+</md-tr>
+
+
+<md-tr>
+	<md-td>
+	&emsp;&emsp;<span style="color: #8F959E">∟</span>&nbsp;<md-text type="field-name" >field_id</md-text>
+	</md-td>
+	<md-td>
+	<md-text type="field-type" >string</md-text>
+	</md-td>
+	<md-td>
+	多维表格字段 id
+	</md-td>
+</md-tr>
+
+
+<md-tr>
+	<md-td>
+	&emsp;&emsp;<span style="color: #8F959E">∟</span>&nbsp;<md-text type="field-name" >field_name</md-text>
+	</md-td>
+	<md-td>
+	<md-text type="field-type" >string</md-text>
+	</md-td>
+	<md-td>
+	多维表格字段名
+	</md-td>
+</md-tr>
+
+
+<md-tr>
+	<md-td>
+	&emsp;&emsp;<span style="color: #8F959E">∟</span>&nbsp;<md-text type="field-name" >type</md-text>
+	</md-td>
+	<md-td>
+	<md-text type="field-type" >int</md-text>
+	</md-td>
+	<md-td>
+	多维表格字段类型
+	</md-td>
+</md-tr>
+
+
+<md-tr>
+	<md-td>
+	&emsp;&emsp;<span style="color: #8F959E">∟</span>&nbsp;<md-text type="field-name" >property</md-text>
+	</md-td>
+	<md-td>
+	<md-text type="field-type" >union</md-text>
+	</md-td>
+	<md-td>
+	字段属性
+	</md-td>
+</md-tr>
+
+  </md-tbody>
+</md-table>
+:::
+
+
+
+### 响应体示例
+
+```json
+{
+    "code": 0,
+    "msg": "success",
+    "data": {
+        "has_more": true,
+        "page_token": "fldwJ4YrtB",
+        "items": [
+            {
+                "field_id": "fldwJ4YrtB",
+                "field_name": "多行文本",
+                "type": 1,
+                "property": [
+                    {
+                        "name": "选项A"
+                    },
+                    {
+                        "name": "选项B"
+                    }
+                ],
+            }
+        ]
+    }
+}
+```
+
+
+
+### 错误码
+:::html
+<md-table>
+    <md-thead>
+        <md-tr>
+            <md-th style="width: 15%;">HTTP状态码</md-th>
+            <md-th style="width: 15%;">错误码</md-th>
+            <md-th style="width: 30%;">描述</md-th>
+            <md-th style="width: 30%;">排查建议</md-th>
+        </md-tr>
+    </md-thead>
+  <md-tbody>
+
+<md-tr>
+  <md-td>200</md-td>
+  <md-td>1254000</md-td>
+  <md-td>WrongRequestJson</md-td>
+  <md-td>请求体错误</md-td>
+</md-tr>
+
+
+<md-tr>
+  <md-td>200</md-td>
+  <md-td>1254001</md-td>
+  <md-td>WrongRequestBody</md-td>
+  <md-td>请求体错误</md-td>
+</md-tr>
+
+
+<md-tr>
+  <md-td>200</md-td>
+  <md-td>1254002</md-td>
+  <md-td>Fail</md-td>
+  <md-td>内部错误</md-td>
+</md-tr>
+
+
+<md-tr>
+  <md-td>200</md-td>
+  <md-td>1254003</md-td>
+  <md-td>WrongBaseToken</md-td>
+  <md-td>app_token 错误</md-td>
+</md-tr>
+
+
+<md-tr>
+  <md-td>200</md-td>
+  <md-td>1254004</md-td>
+  <md-td>WrongTableId</md-td>
+  <md-td>table_id 错误</md-td>
+</md-tr>
+
+
+<md-tr>
+  <md-td>200</md-td>
+  <md-td>1254005</md-td>
+  <md-td>WrongViewId</md-td>
+  <md-td>view_id 错误</md-td>
+</md-tr>
+
+
+<md-tr>
+  <md-td>200</md-td>
+  <md-td>1254040</md-td>
+  <md-td>BaseTokenNotFound</md-td>
+  <md-td>app_token 不存在</md-td>
+</md-tr>
+
+
+<md-tr>
+  <md-td>200</md-td>
+  <md-td>1254041</md-td>
+  <md-td>TableIdNotFound</md-td>
+  <md-td>table_id 不存在</md-td>
+</md-tr>
+
+
+<md-tr>
+  <md-td>200</md-td>
+  <md-td>1254042</md-td>
+  <md-td>ViewIdNotFound</md-td>
+  <md-td>view_id 不存在</md-td>
+</md-tr>
+
+
+<md-tr>
+  <md-td>200</md-td>
+  <md-td>1254290</md-td>
+  <md-td>TooManyRequest</md-td>
+  <md-td>请求过快，稍后重试</md-td>
+</md-tr>
+
+
+<md-tr>
+  <md-td>200</md-td>
+  <md-td>1255001</md-td>
+  <md-td>InternalError</md-td>
+  <md-td>内部错误</md-td>
+</md-tr>
+
+
+<md-tr>
+  <md-td>200</md-td>
+  <md-td>1255002</md-td>
+  <md-td>RpcError</md-td>
+  <md-td>内部错误</md-td>
+</md-tr>
+
+
+<md-tr>
+  <md-td>200</md-td>
+  <md-td>1255003</md-td>
+  <md-td>MarshalError</md-td>
+  <md-td>序列化错误</md-td>
+</md-tr>
+
+
+<md-tr>
+  <md-td>200</md-td>
+  <md-td>1255004</md-td>
+  <md-td>UmMarshalError</md-td>
+  <md-td>反序列化错误</md-td>
+</md-tr>
+
+  </md-tbody>
+</md-table>
+:::
+
+
+
+

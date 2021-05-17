@@ -1,0 +1,131 @@
+# 增加权限
+
+该接口用于根据 filetoken 给用户增加文档的权限。{尝试一下}(url=/api/tools/api_explore/api_explore_config?project=drive_permission&version=v1&resource=member&method=create)
+
+## 请求
+:::html
+<md-table>
+  <md-thead>
+  <tr>
+      <md-th>基本</md-th>
+      <md-th></md-th>
+  </tr>
+  </md-thead>
+  <md-tbody>
+    <md-tr>
+      <md-th>HTTP URL</md-th>
+      <md-td>https://open.feishu.cn/open-apis/drive/permission/member/create</md-td>
+    </md-tr>
+    <md-tr>
+      <md-th>HTTP Method</md-th>
+      <md-td>POST</md-td>
+    </md-tr>
+    
+    
+     <md-tr>
+	<md-th>权限要求</md-th>
+   <md-td>
+	<md-perm href="/ssl:ttdoc/ukTMukTMukTM/uQjN3QjL0YzN04CN2cDN">查看、评论、编辑和管理云文档所有文件</md-perm>
+	<md-perm href="/ssl:ttdoc/ukTMukTMukTM/uQjN3QjL0YzN04CN2cDN">上传、下载文件到云文档</md-perm>
+	<md-perm href="/ssl:ttdoc/ukTMukTMukTM/uQjN3QjL0YzN04CN2cDN">查看、评论、编辑和管理文档</md-perm>
+	<md-perm href="/ssl:ttdoc/ukTMukTMukTM/uQjN3QjL0YzN04CN2cDN">查看、评论、编辑和管理表格</md-perm>
+  </md-td>
+ </md-tr>
+  </md-tbody>
+</md-table>
+:::
+### 请求头
+:::html
+<md-table> 
+  <md-thead> 
+    <md-tr> 
+      <md-th style="width: 18%;">名称</md-th>  
+      <md-th style="width: 15%;">类型</md-th>  
+       <md-th style="width: 15%;">必填</md-th>  
+      <md-th>描述</md-th> 
+    </md-tr> 
+  </md-thead>  
+  <md-tbody> 
+    <md-tr> 
+      <md-td>Authorization</md-td>  
+      <md-td>string</md-td>  
+      <md-td> 是 </md-td> 
+      	<md-td>
+<md-tag mode="inline" type="token-user">user_access_token</md-tag> 或 <md-tag mode="inline" type="token-tenant">tenant_access_token</md-tag>
+ 
+**值格式**："Bearer `access_token`"
+
+**示例值**："Bearer u-7f1bcd13fc57d46bac21793a18e560"
+          
+ [了解更多：获取与使用access_token](/ssl:ttdoc/ukTMukTMukTM/uMTNz4yM1MjLzUzM)
+	</md-td>
+</md-tr>
+     <md-tr> 
+      <md-td>Content-Type</md-td>  
+      <md-td>string</md-td>  
+      <md-td> 是 </md-td> 
+     <md-td>**固定值**："application/json; charset=utf-8"</md-td>
+</md-tr>
+   
+  </md-tbody> 
+</md-table>
+:::
+
+### 请求体
+|参数|类型|必须|说明|
+|--|-----|--|----|
+|token|string|是|文件的 token，获取方式见 [对接前说明](/ssl:ttdoc/ukTMukTMukTM/uczNzUjL3czM14yN3MTN)的第 4 项|
+|type|string|是|文档类型  "doc"  or  "sheet" or "file"|
+|members||是|用户|
+|&ensp;∟member_type|string|是|用户类型，可选 **email 、openid、openchat、userid**|
+|&ensp;∟member_id|string|是|用户类型下的值|
+|&ensp;∟perm|string|是|需要增加的权限，权限值："view"，"edit"|
+|notify_lark|bool|否|添加权限后是否飞书/lark通知对方<br>true 通知 or false 不通知|
+### 请求体示例
+```json
+{
+	"token": "doccnBKgoMyY5OMbUG6FioTXuBe",
+	"type": "doc",
+	"members": [
+		{
+			"member_type": "openid",
+			"member_id": "string",
+			"perm": "view"
+		}
+	]
+}
+```
+
+## 响应
+
+### 响应体
+|参数|说明|
+|--|--|
+|is_all_success|是否全部成功|
+|fail_members|添加权限失败的用户信息|
+|&ensp;∟member_type|用户类型|
+|&ensp;∟member_id|用户类型下的值|
+|&ensp;∟perm|需要增加的权限|
+
+
+### 响应体示例  
+```json
+{
+    "code": 0,
+    "data": {
+        "is_all_success": false,
+        "fail_members": [
+            {
+                "member_type": "openid",
+                "member_id": "string",
+                "perm": "view"
+            }
+        ]
+    },
+    "msg": "Success"
+}
+```
+
+### 错误码
+
+具体可参考：[云文档请求错误码列表](/ssl:ttdoc/ukTMukTMukTM/uIzM0UjLyMDN14iMzQTN)

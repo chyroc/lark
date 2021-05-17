@@ -1,0 +1,656 @@
+# 创建请假日程
+
+为指定用户创建一个请假日程，可以是一个普通请假日程，也可以是一个全天日程。
+创建请假日程后，会在相应时间内，在用户个人签名页展示请假信息。{尝试一下}(url=/api/tools/api_explore/api_explore_config?project=calendar&version=v4&resource=timeoff_event&method=create)
+
+:::html
+<md-alert type="error">
+
+</md-alert>
+:::
+
+:::html
+<md-alert type="warn">
+
+</md-alert>
+:::
+
+:::html
+<md-alert type="tip">
+
+</md-alert>
+:::
+
+## 请求
+:::html
+<md-table>
+  <md-thead>
+  <tr>
+      <md-th>基本</md-th>
+      <md-th></md-th>
+  </tr>
+  </md-thead>
+  <md-tbody>
+    <md-tr>
+      <md-th>HTTP URL</md-th>
+      <md-td>https://open.feishu.cn/open-apis/calendar/v4/timeoff_events</md-td>
+    </md-tr>
+    <md-tr>
+      <md-th>HTTP Method</md-th>
+      <md-td>POST</md-td>
+    </md-tr>
+    <md-tr>
+      <md-th>权限要求</md-th>
+      <md-td>
+            <md-perm href="/ssl:ttdoc/ukTMukTMukTM/uQjN3QjL0YzN04CN2cDN">创建或删除请假日程</md-perm>
+      </md-td>
+    </md-tr>
+    <md-tr>
+      <md-th>字段权限要求</md-th>
+      <md-td>
+        <md-perm href="/ssl:ttdoc/ukTMukTMukTM/uQjN3QjL0YzN04CN2cDN">获取用户 userid</md-perm>
+      </md-td>
+    </md-tr>
+  </md-tbody>
+</md-table>
+:::
+
+
+### 请求头
+:::html
+<md-table>
+  <md-thead>
+    <md-tr>
+      <md-th style="width: 18%;">名称</md-th>
+      <md-th style="width: 15%;">类型</md-th>
+       <md-th style="width: 15%;">必填</md-th>
+      <md-th>描述</md-th>
+    </md-tr>
+  </md-thead>
+  <md-tbody>
+    <md-tr>
+      <md-td>Authorization</md-td>
+      <md-td>string</md-td>
+      <md-td>是</md-td>
+      	<md-td>
+<md-tag mode="inline" type="token-tenant">tenant_access_token</md-tag>
+
+**值格式**："Bearer `access_token`"
+
+**示例值**："Bearer t-7f1bcd13fc57d46bac21793a18e560"
+
+[了解更多：获取与使用access_token](/ssl:ttdoc/ukTMukTMukTM/uMTNz4yM1MjLzUzM)
+</md-td>
+</md-tr>
+     <md-tr>
+      <md-td>Content-Type</md-td>
+      <md-td>string</md-td>
+      <md-td>是</md-td>
+      <md-td>**固定值**："application/json; charset=utf-8"</md-td>
+</md-tr>
+</md-tbody>
+</md-table>
+:::
+
+### 查询参数
+:::html
+<md-table>
+  <md-thead>
+      <tr>
+      <md-th style="width: 30%;">名称</md-th>
+      <md-th style="width: 15%;">类型</md-th>
+      <md-th style="width: 15%;">必填</md-th>
+      <md-th >描述</md-th>
+      </tr>
+  </md-thead>
+  <md-tbody>
+
+<md-tr>
+	<md-td>
+	<md-text type="field-name" >user_id_type</md-text>
+	</md-td>
+	<md-td>
+	<md-text type="field-type" >string</md-text>
+	</md-td>
+	<md-td>
+	否
+	</md-td>
+	<md-td>
+	
+用户 ID 类型
+
+**示例值**："open_id"
+
+**可选值有**：
+- `open_id`：用户的 open id
+- `union_id`：用户的 union id
+- `user_id`：用户的 user id
+
+**默认值**：`open_id`
+
+**当值为 `user_id`，字段权限要求**：
+<md-perm href="/ssl:ttdoc/ukTMukTMukTM/uQjN3QjL0YzN04CN2cDN">获取用户 userid</md-perm>
+	</md-td>
+</md-tr>
+
+  </md-tbody>
+</md-table>
+:::
+
+### 请求体
+:::html
+引用类型：<md-text type="field-type" >timeoff_event</md-text>
+:::
+:::html
+<md-table>
+  <md-thead>
+      <md-tr>
+      <md-th style="width: 40%;">名称</md-th>
+      <md-th style="width: 20%;">类型</md-th>
+      <md-th style="width: 10%;">必填</md-th>
+      <md-th style="width: 30%;">描述</md-th>
+      </md-tr>
+  </md-thead>
+  <md-tbody>
+
+<md-tr>
+	<md-td>
+	<md-text type="field-name" >user_id</md-text>
+	</md-td>
+	<md-td>
+	<md-text type="field-type" >string</md-text>
+	</md-td>
+	<md-td>
+	是
+	</md-td>
+	<md-td>
+	用户id
+
+**示例值**："ou_XXXXXXXXXX"
+	</md-td>
+</md-tr>
+
+
+<md-tr>
+	<md-td>
+	<md-text type="field-name" >timezone</md-text>
+	</md-td>
+	<md-td>
+	<md-text type="field-type" >string</md-text>
+	</md-td>
+	<md-td>
+	是
+	</md-td>
+	<md-td>
+	时区
+
+**示例值**："Asia/Shanghai"
+	</md-td>
+</md-tr>
+
+
+<md-tr>
+	<md-td>
+	<md-text type="field-name" >start_time</md-text>
+	</md-td>
+	<md-td>
+	<md-text type="field-type" >string</md-text>
+	</md-td>
+	<md-td>
+	是
+	</md-td>
+	<md-td>
+	休假开始时间：
+有时间戳(1609430400)和日期(2021-01-01)两种格式，其它格式无效；
+时间戳格式是按小时休假日程，日期格式是全天休假日程；
+start_time与end_time格式需保持一致，否则无效。
+
+**示例值**："2021-01-01"
+	</md-td>
+</md-tr>
+
+
+<md-tr>
+	<md-td>
+	<md-text type="field-name" >end_time</md-text>
+	</md-td>
+	<md-td>
+	<md-text type="field-type" >string</md-text>
+	</md-td>
+	<md-td>
+	是
+	</md-td>
+	<md-td>
+	休假结束时间：
+有时间戳(1609430400)和日期(2021-01-01)两种格式，其它格式无效；
+时间戳格式是按小时休假日程，日期格式是全天休假日程；
+start_time与end_time格式需保持一致，否则无效。
+
+**示例值**："2021-01-01"
+	</md-td>
+</md-tr>
+
+
+<md-tr>
+	<md-td>
+	<md-text type="field-name" >title</md-text>
+	</md-td>
+	<md-td>
+	<md-text type="field-type" >string</md-text>
+	</md-td>
+	<md-td>
+	否
+	</md-td>
+	<md-td>
+	自定义请假日程标题，没有设置则为默认日程标题
+
+**示例值**："请假中(全天) / 1-Day Time Off"
+	</md-td>
+</md-tr>
+
+
+<md-tr>
+	<md-td>
+	<md-text type="field-name" >description</md-text>
+	</md-td>
+	<md-td>
+	<md-text type="field-type" >string</md-text>
+	</md-td>
+	<md-td>
+	否
+	</md-td>
+	<md-td>
+	自定义请假日程描述，没有设置则为默认日程描述
+
+**示例值**："若删除此日程，飞书中相应的“请假”标签将自动消失，而请假系统中的休假申请不会被撤销。"
+	</md-td>
+</md-tr>
+
+  </md-tbody>
+</md-table>
+:::
+
+### 请求体示例
+
+```json
+{
+    "user_id": "ou_XXXXXXXXXX",
+    "timezone": "Asia/Shanghai",
+    "start_time": "2021-01-01",
+    "end_time": "2021-01-01",
+    "title": "请假中(全天) / 1-Day Time Off",
+    "description": "若删除此日程，飞书中相应的“请假”标签将自动消失，而请假系统中的休假申请不会被撤销。"
+}
+```
+
+## 响应
+
+### 响应体
+:::html
+<md-table>
+  <md-thead>
+      <md-tr>
+      <md-th style="width: 40%;">名称</md-th>
+      <md-th style="width: 20%;">类型</md-th>
+      <md-th style="width: 30%;">描述</md-th>
+      </md-tr>
+  </md-thead>
+  <md-tbody>
+
+<md-tr>
+	<md-td>
+	<md-text type="field-name" >code</md-text>
+	</md-td>
+	<md-td>
+	<md-text type="field-type" >int</md-text>
+	</md-td>
+	<md-td>
+	错误码，非 0 表示失败
+	</md-td>
+</md-tr>
+
+
+<md-tr>
+	<md-td>
+	<md-text type="field-name" >msg</md-text>
+	</md-td>
+	<md-td>
+	<md-text type="field-type" >string</md-text>
+	</md-td>
+	<md-td>
+	错误描述
+	</md-td>
+</md-tr>
+
+
+<md-tr>
+	<md-td>
+	<md-text type="field-name" >data</md-text>
+	</md-td>
+	<md-td>
+	<md-text type="field-type" >timeoff_event</md-text>
+	</md-td>
+	<md-td>
+	\-
+	</md-td>
+</md-tr>
+
+
+<md-tr>
+	<md-td>
+	&emsp;<span style="color: #8F959E">∟</span>&nbsp;<md-text type="field-name" >timeoff_event_id</md-text>
+	</md-td>
+	<md-td>
+	<md-text type="field-type" >string</md-text>
+	</md-td>
+	<md-td>
+	请假日程ID
+	</md-td>
+</md-tr>
+
+
+<md-tr>
+	<md-td>
+	&emsp;<span style="color: #8F959E">∟</span>&nbsp;<md-text type="field-name" >user_id</md-text>
+	</md-td>
+	<md-td>
+	<md-text type="field-type" >string</md-text>
+	</md-td>
+	<md-td>
+	用户id
+	</md-td>
+</md-tr>
+
+
+<md-tr>
+	<md-td>
+	&emsp;<span style="color: #8F959E">∟</span>&nbsp;<md-text type="field-name" >timezone</md-text>
+	</md-td>
+	<md-td>
+	<md-text type="field-type" >string</md-text>
+	</md-td>
+	<md-td>
+	时区
+	</md-td>
+</md-tr>
+
+
+<md-tr>
+	<md-td>
+	&emsp;<span style="color: #8F959E">∟</span>&nbsp;<md-text type="field-name" >start_time</md-text>
+	</md-td>
+	<md-td>
+	<md-text type="field-type" >string</md-text>
+	</md-td>
+	<md-td>
+	休假开始时间：
+有时间戳(1609430400)和日期(2021-01-01)两种格式，其它格式无效；
+时间戳格式是按小时休假日程，日期格式是全天休假日程；
+start_time与end_time格式需保持一致，否则无效。
+	</md-td>
+</md-tr>
+
+
+<md-tr>
+	<md-td>
+	&emsp;<span style="color: #8F959E">∟</span>&nbsp;<md-text type="field-name" >end_time</md-text>
+	</md-td>
+	<md-td>
+	<md-text type="field-type" >string</md-text>
+	</md-td>
+	<md-td>
+	休假结束时间：
+有时间戳(1609430400)和日期(2021-01-01)两种格式，其它格式无效；
+时间戳格式是按小时休假日程，日期格式是全天休假日程；
+start_time与end_time格式需保持一致，否则无效。
+	</md-td>
+</md-tr>
+
+
+<md-tr>
+	<md-td>
+	&emsp;<span style="color: #8F959E">∟</span>&nbsp;<md-text type="field-name" >title</md-text>
+	</md-td>
+	<md-td>
+	<md-text type="field-type" >string</md-text>
+	</md-td>
+	<md-td>
+	自定义请假日程标题，没有设置则为默认日程标题
+	</md-td>
+</md-tr>
+
+
+<md-tr>
+	<md-td>
+	&emsp;<span style="color: #8F959E">∟</span>&nbsp;<md-text type="field-name" >description</md-text>
+	</md-td>
+	<md-td>
+	<md-text type="field-type" >string</md-text>
+	</md-td>
+	<md-td>
+	自定义请假日程描述，没有设置则为默认日程描述
+	</md-td>
+</md-tr>
+
+  </md-tbody>
+</md-table>
+:::
+### 响应体示例
+
+```json
+{
+    "code": 0,
+    "msg": "success",
+    "data": {
+        "timeoff_event_id": "timeoff:XXXXXX-XXXX-0917-1623-aa493d591a39-XXXXXX",
+        "user_id": "ou_XXXXXXXXXX",
+        "timezone": "Asia/Shanghai",
+        "start_time": "2021-01-01",
+        "end_time": "2021-01-01",
+        "title": "请假中(全天) / 1-Day Time Off",
+        "description": "若删除此日程，飞书中相应的“请假”标签将自动消失，而请假系统中的休假申请不会被撤销。"
+    }
+}
+```
+
+### 错误码
+:::html
+<md-table>
+    <md-thead>
+        <md-tr>
+            <md-th style="width: 15%;">HTTP状态码</md-th>
+            <md-th style="width: 15%;">错误码</md-th>
+            <md-th style="width: 30%;">描述</md-th>
+            <md-th style="width: 30%;">排查建议</md-th>
+        </md-tr>
+    </md-thead>
+  <md-tbody>
+
+<md-tr>
+  <md-td>400</md-td>
+  <md-td>190001</md-td>
+  <md-td>unexpected head in request</md-td>
+  <md-td>检查calendar id是否填写正确</md-td>
+</md-tr>
+
+
+<md-tr>
+  <md-td>400</md-td>
+  <md-td>190002</md-td>
+  <md-td>invalid parameters in request</md-td>
+  <md-td>确保有日历从访问权限，检查一下对日历对访问角色</md-td>
+</md-tr>
+
+
+<md-tr>
+  <md-td>500</md-td>
+  <md-td>190003</md-td>
+  <md-td>internal service error</md-td>
+  <md-td>内部服务错误，请联系相关业务方oncall人员</md-td>
+</md-tr>
+
+
+<md-tr>
+  <md-td>429</md-td>
+  <md-td>190004</md-td>
+  <md-td>method rate limited</md-td>
+  <md-td>稍后再试，适当减小请求qps</md-td>
+</md-tr>
+
+
+<md-tr>
+  <md-td>429</md-td>
+  <md-td>190005</md-td>
+  <md-td>app rate limited</md-td>
+  <md-td>稍后再试，适当减小请求qps</md-td>
+</md-tr>
+
+
+<md-tr>
+  <md-td>403</md-td>
+  <md-td>190006</md-td>
+  <md-td>wrong unit for app tenant</md-td>
+  <md-td>请求错误，检查应用App ID和App Secret是否正确，无法解决请联系开放平台oncall解决</md-td>
+</md-tr>
+
+
+<md-tr>
+  <md-td>404</md-td>
+  <md-td>190007</md-td>
+  <md-td>app bot_id not found</md-td>
+  <md-td>bot id没有找到，联系开放平台oncall解决</md-td>
+</md-tr>
+
+
+<md-tr>
+  <md-td>404</md-td>
+  <md-td>191000</md-td>
+  <md-td>calendar not found</md-td>
+  <md-td>日历没有找到，检查日历ID是否正确</md-td>
+</md-tr>
+
+
+<md-tr>
+  <md-td>400</md-td>
+  <md-td>191001</md-td>
+  <md-td>invalid calendar_id</md-td>
+  <md-td>无效的calendar id，检查日历id是否正确</md-td>
+</md-tr>
+
+
+<md-tr>
+  <md-td>403</md-td>
+  <md-td>191002</md-td>
+  <md-td>no calendar access_role</md-td>
+  <md-td>没有日历的访问权限，确保calendar id正确</md-td>
+</md-tr>
+
+
+<md-tr>
+  <md-td>403</md-td>
+  <md-td>191003</md-td>
+  <md-td>calendar is deleted</md-td>
+  <md-td>日历已经被删除，检查日历id是否正确</md-td>
+</md-tr>
+
+
+<md-tr>
+  <md-td>403</md-td>
+  <md-td>191004</md-td>
+  <md-td>invalid calendar type</md-td>
+  <md-td>日历类型错误，检查日历类型</md-td>
+</md-tr>
+
+
+<md-tr>
+  <md-td>404</md-td>
+  <md-td>192000</md-td>
+  <md-td>acl not found</md-td>
+  <md-td>没有相应acl，确保acl存在</md-td>
+</md-tr>
+
+
+<md-tr>
+  <md-td>400</md-td>
+  <md-td>193000</md-td>
+  <md-td>invalid event_id</md-td>
+  <md-td>event id无效，检查event id</md-td>
+</md-tr>
+
+
+<md-tr>
+  <md-td>404</md-td>
+  <md-td>193001</md-td>
+  <md-td>event not found</md-td>
+  <md-td>确保event id正确</md-td>
+</md-tr>
+
+
+<md-tr>
+  <md-td>403</md-td>
+  <md-td>193002</md-td>
+  <md-td>no permission to operate event</md-td>
+  <md-td>确保有日历编辑权限</md-td>
+</md-tr>
+
+
+<md-tr>
+  <md-td>403</md-td>
+  <md-td>193003</md-td>
+  <md-td>event is deleted</md-td>
+  <md-td>日程已经被删除，确认event id是否正确</md-td>
+</md-tr>
+
+
+<md-tr>
+  <md-td>404</md-td>
+  <md-td>194000</md-td>
+  <md-td>attendee not found</md-td>
+  <md-td>没有找到参与人</md-td>
+</md-tr>
+
+
+<md-tr>
+  <md-td>403</md-td>
+  <md-td>194001</md-td>
+  <md-td>no permission to list event attendees</md-td>
+  <md-td>检查calendar id是否是组织者日历或者是否有查看参与人权限</md-td>
+</md-tr>
+
+
+<md-tr>
+  <md-td>403</md-td>
+  <md-td>194002</md-td>
+  <md-td>no permission to create event attendees</md-td>
+  <md-td>检查calendar id是否是组织者日历或者是否有邀请参与人权限</md-td>
+</md-tr>
+
+
+<md-tr>
+  <md-td>403</md-td>
+  <md-td>194003</md-td>
+  <md-td>no permission to delete event attendees</md-td>
+  <md-td>检查calendar id是否是组织者日历</md-td>
+</md-tr>
+
+
+<md-tr>
+  <md-td>400</md-td>
+  <md-td>194004</md-td>
+  <md-td>invalid attendee type</md-td>
+  <md-td>检查参与人类型是否正确</md-td>
+</md-tr>
+
+
+<md-tr>
+  <md-td>403</md-td>
+  <md-td>195000</md-td>
+  <md-td>no permission to delete timeoff event</md-td>
+  <md-td>检查请假日程是否是该应用创建的</md-td>
+</md-tr>
+
+  </md-tbody>
+</md-table>
+:::
+
+

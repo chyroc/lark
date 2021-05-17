@@ -1,0 +1,1579 @@
+# 更新日程
+
+该接口用于以当前身份（应用 / 用户）更新日历上的一个日程。
+
+身份由 Header Authorization 的 Token 类型决定。{尝试一下}(url=/api/tools/api_explore/api_explore_config?project=calendar&version=v4&resource=calendar.event&method=patch)
+
+:::html
+<md-alert type="error">
+
+</md-alert>
+:::
+
+:::html
+<md-alert type="warn">
+
+</md-alert>
+:::
+
+:::html
+<md-alert type="tip">
+当前身份必须对日历有 writer 或 owner 权限，并且日历的类型只能为 primary 或 shared。
+
+当前身份为日程组织者时，可修改所有可编辑字段。
+
+当前身份为日程参与者时，仅可编辑部分字段。（如：visibility, free_busy_status, color, reminders）
+</md-alert>
+:::
+
+
+
+## 请求
+:::html
+<md-table>
+  <md-thead>
+  <tr>
+      <md-th>基本</md-th>
+      <md-th></md-th>
+  </tr>
+  </md-thead>
+  <md-tbody>
+    <md-tr>
+      <md-th>HTTP URL</md-th>
+      <md-td>https://open.feishu.cn/open-apis/calendar/v4/calendars/:calendar_id/events/:event_id</md-td>
+    </md-tr>
+    <md-tr>
+      <md-th>HTTP Method</md-th>
+      <md-td>PATCH</md-td>
+    </md-tr>
+    <md-tr>
+      <md-th>权限要求</md-th>
+      <md-td>
+            <md-perm href="/ssl:ttdoc/ukTMukTMukTM/uQjN3QjL0YzN04CN2cDN">更新日历及日程信息</md-perm>
+      </md-td>
+    </md-tr>
+  </md-tbody>
+</md-table>
+:::
+
+
+### 请求头
+:::html
+<md-table>
+  <md-thead>
+    <md-tr>
+      <md-th style="width: 18%;">名称</md-th>
+      <md-th style="width: 15%;">类型</md-th>
+       <md-th style="width: 15%;">必填</md-th>
+      <md-th>描述</md-th>
+    </md-tr>
+  </md-thead>
+  <md-tbody>
+    <md-tr>
+      <md-td>Authorization</md-td>
+      <md-td>string</md-td>
+      <md-td>是</md-td>
+      	<md-td>
+<md-tag mode="inline" type="token-tenant">tenant_access_token</md-tag>
+或
+<md-tag mode="inline" type="token-user">user_access_token</md-tag>
+
+**值格式**："Bearer `access_token`"
+
+**示例值**："Bearer u-7f1bcd13fc57d46bac21793a18e560"
+
+[了解更多：获取与使用access_token](/ssl:ttdoc/ukTMukTMukTM/uMTNz4yM1MjLzUzM)
+</md-td>
+</md-tr>
+     <md-tr>
+      <md-td>Content-Type</md-td>
+      <md-td>string</md-td>
+      <md-td>是</md-td>
+      <md-td>**固定值**："application/json; charset=utf-8"</md-td>
+</md-tr>
+</md-tbody>
+</md-table>
+:::
+
+
+
+### 路径参数
+:::html
+<md-table>
+  <md-thead>
+      <tr>
+      <md-th style="width: 30%;">名称</md-th>
+      <md-th style="width: 15%;">类型</md-th>
+      <md-th >描述</md-th>
+      </tr>
+  </md-thead>
+  <md-tbody>
+
+<md-tr>
+	<md-td>
+	<md-text type="field-name" >calendar_id</md-text>
+	</md-td>
+	<md-td>
+	<md-text type="field-type" >string</md-text>
+	</md-td>
+	<md-td>
+	日历ID
+
+**示例值**："feishu.cn_xxxxxxxxxx@group.calendar.feishu.cn"
+	</md-td>
+</md-tr>
+
+
+<md-tr>
+	<md-td>
+	<md-text type="field-name" >event_id</md-text>
+	</md-td>
+	<md-td>
+	<md-text type="field-type" >string</md-text>
+	</md-td>
+	<md-td>
+	日程ID
+
+**示例值**："xxxxxxxxx_0"
+	</md-td>
+</md-tr>
+
+  </md-tbody>
+</md-table>
+:::
+
+
+
+### 请求体
+:::html
+引用类型：<md-text type="field-type" >calendar.event</md-text>
+:::
+:::html
+<md-table>
+  <md-thead>
+      <md-tr>
+      <md-th style="width: 40%;">名称</md-th>
+      <md-th style="width: 20%;">类型</md-th>
+      <md-th style="width: 10%;">必填</md-th>
+      <md-th style="width: 30%;">描述</md-th>
+      </md-tr>
+  </md-thead>
+  <md-tbody>
+
+<md-tr>
+	<md-td>
+	<md-text type="field-name" >summary</md-text>
+	</md-td>
+	<md-td>
+	<md-text type="field-type" >string</md-text>
+	</md-td>
+	<md-td>
+	否
+	</md-td>
+	<md-td>
+	日程标题
+
+**示例值**："日程标题"
+
+**数据校验规则**：
+
+- 最大长度：`1000` 字符
+	</md-td>
+</md-tr>
+
+
+<md-tr>
+	<md-td>
+	<md-text type="field-name" >description</md-text>
+	</md-td>
+	<md-td>
+	<md-text type="field-type" >string</md-text>
+	</md-td>
+	<md-td>
+	否
+	</md-td>
+	<md-td>
+	日程描述
+
+**示例值**："日程描述"
+
+**数据校验规则**：
+
+- 最大长度：`8192` 字符
+	</md-td>
+</md-tr>
+
+
+<md-tr>
+	<md-td>
+	<md-text type="field-name" >start_time</md-text>
+	</md-td>
+	<md-td>
+	<md-text type="field-type" >time_info</md-text>
+	</md-td>
+	<md-td>
+	否
+	</md-td>
+	<md-td>
+	日程开始时间
+	</md-td>
+</md-tr>
+
+
+<md-tr>
+	<md-td>
+	&emsp;<span style="color: #8F959E">∟</span>&nbsp;<md-text type="field-name" >date</md-text>
+	</md-td>
+	<md-td>
+	<md-text type="field-type" >string</md-text>
+	</md-td>
+	<md-td>
+	否
+	</md-td>
+	<md-td>
+	仅全天日程使用该字段，如2018-09-01。需满足 RFC3339 格式。不能与 time_stamp 同时指定
+
+**示例值**：" 2018-09-01"
+	</md-td>
+</md-tr>
+
+
+<md-tr>
+	<md-td>
+	&emsp;<span style="color: #8F959E">∟</span>&nbsp;<md-text type="field-name" >timestamp</md-text>
+	</md-td>
+	<md-td>
+	<md-text type="field-type" >string</md-text>
+	</md-td>
+	<md-td>
+	否
+	</md-td>
+	<md-td>
+	秒级时间戳，如1602504000(表示2020/10/12 20:0:00 +8时区)
+
+**示例值**："1605024000"
+	</md-td>
+</md-tr>
+
+
+<md-tr>
+	<md-td>
+	&emsp;<span style="color: #8F959E">∟</span>&nbsp;<md-text type="field-name" >timezone</md-text>
+	</md-td>
+	<md-td>
+	<md-text type="field-type" >string</md-text>
+	</md-td>
+	<md-td>
+	否
+	</md-td>
+	<md-td>
+	时区名称，使用IANA Time Zone Database标准，如Asia/Shanghai；全天日程时区固定为UTC，非全天日程时区默认为Asia/Shanghai
+
+**示例值**："Asia/Shanghai"
+	</md-td>
+</md-tr>
+
+
+<md-tr>
+	<md-td>
+	<md-text type="field-name" >end_time</md-text>
+	</md-td>
+	<md-td>
+	<md-text type="field-type" >time_info</md-text>
+	</md-td>
+	<md-td>
+	否
+	</md-td>
+	<md-td>
+	日程结束时间
+	</md-td>
+</md-tr>
+
+
+<md-tr>
+	<md-td>
+	&emsp;<span style="color: #8F959E">∟</span>&nbsp;<md-text type="field-name" >date</md-text>
+	</md-td>
+	<md-td>
+	<md-text type="field-type" >string</md-text>
+	</md-td>
+	<md-td>
+	否
+	</md-td>
+	<md-td>
+	仅全天日程使用该字段，如2018-09-01。需满足 RFC3339 格式。不能与 time_stamp 同时指定
+
+**示例值**：" 2018-09-01"
+	</md-td>
+</md-tr>
+
+
+<md-tr>
+	<md-td>
+	&emsp;<span style="color: #8F959E">∟</span>&nbsp;<md-text type="field-name" >timestamp</md-text>
+	</md-td>
+	<md-td>
+	<md-text type="field-type" >string</md-text>
+	</md-td>
+	<md-td>
+	否
+	</md-td>
+	<md-td>
+	秒级时间戳，如1602504000(表示2020/10/12 20:0:00 +8时区)
+
+**示例值**："1605024000"
+	</md-td>
+</md-tr>
+
+
+<md-tr>
+	<md-td>
+	&emsp;<span style="color: #8F959E">∟</span>&nbsp;<md-text type="field-name" >timezone</md-text>
+	</md-td>
+	<md-td>
+	<md-text type="field-type" >string</md-text>
+	</md-td>
+	<md-td>
+	否
+	</md-td>
+	<md-td>
+	时区名称，使用IANA Time Zone Database标准，如Asia/Shanghai；全天日程时区固定为UTC，非全天日程时区默认为Asia/Shanghai
+
+**示例值**："Asia/Shanghai"
+	</md-td>
+</md-tr>
+
+
+<md-tr>
+	<md-td>
+	<md-text type="field-name" >vchat</md-text>
+	</md-td>
+	<md-td>
+	<md-text type="field-type" >vchat</md-text>
+	</md-td>
+	<md-td>
+	否
+	</md-td>
+	<md-td>
+	视频会议信息，仅当日程至少有一位attendee时生效
+	</md-td>
+</md-tr>
+
+
+<md-tr>
+	<md-td>
+	&emsp;<span style="color: #8F959E">∟</span>&nbsp;<md-text type="field-name" >meeting_url</md-text>
+	</md-td>
+	<md-td>
+	<md-text type="field-type" >string</md-text>
+	</md-td>
+	<md-td>
+	否
+	</md-td>
+	<md-td>
+	视频会议URL
+
+**示例值**："https://example.com"
+
+**数据校验规则**：
+
+- 长度范围：`1` ～ `2000` 字符
+	</md-td>
+</md-tr>
+
+
+<md-tr>
+	<md-td>
+	<md-text type="field-name" >visibility</md-text>
+	</md-td>
+	<md-td>
+	<md-text type="field-type" >string</md-text>
+	</md-td>
+	<md-td>
+	否
+	</md-td>
+	<md-td>
+	日程公开范围，新建日程默认为Default；仅新建日程时对所有参与人生效，之后修改该属性仅对当前身份生效
+
+**示例值**："default"
+
+**可选值有**：
+- `default`：默认权限，仅向他人显示是否“忙碌”
+- `public`：公开，显示日程详情
+- `private`：私密，仅自己可见
+	</md-td>
+</md-tr>
+
+
+<md-tr>
+	<md-td>
+	<md-text type="field-name" >attendee_ability</md-text>
+	</md-td>
+	<md-td>
+	<md-text type="field-type" >string</md-text>
+	</md-td>
+	<md-td>
+	否
+	</md-td>
+	<md-td>
+	参与人权限
+
+**示例值**："can_see_others"
+
+**可选值有**：
+- `none`：无法编辑日程、无法邀请其它参与人、无法查看参与人列表
+- `can_see_others`：无法编辑日程、无法邀请其它参与人、可以查看参与人列表
+- `can_invite_others`：无法编辑日程、可以邀请其它参与人、可以查看参与人列表
+- `can_modify_event`：可以编辑日程、可以邀请其它参与人、可以查看参与人列表
+	</md-td>
+</md-tr>
+
+
+<md-tr>
+	<md-td>
+	<md-text type="field-name" >free_busy_status</md-text>
+	</md-td>
+	<md-td>
+	<md-text type="field-type" >string</md-text>
+	</md-td>
+	<md-td>
+	否
+	</md-td>
+	<md-td>
+	日程占用的忙闲状态，新建日程默认为Busy；仅新建日程时对所有参与人生效，之后修改该属性仅对当前身份生效
+
+**示例值**："busy"
+
+**可选值有**：
+- `busy`：忙碌
+- `free`：空闲
+	</md-td>
+</md-tr>
+
+
+<md-tr>
+	<md-td>
+	<md-text type="field-name" >location</md-text>
+	</md-td>
+	<md-td>
+	<md-text type="field-type" >event_location</md-text>
+	</md-td>
+	<md-td>
+	否
+	</md-td>
+	<md-td>
+	日程地点
+	</md-td>
+</md-tr>
+
+
+<md-tr>
+	<md-td>
+	&emsp;<span style="color: #8F959E">∟</span>&nbsp;<md-text type="field-name" >name</md-text>
+	</md-td>
+	<md-td>
+	<md-text type="field-type" >string</md-text>
+	</md-td>
+	<md-td>
+	否
+	</md-td>
+	<md-td>
+	地点名称
+
+**示例值**："地点名称"
+
+**数据校验规则**：
+
+- 长度范围：`1` ～ `512` 字符
+	</md-td>
+</md-tr>
+
+
+<md-tr>
+	<md-td>
+	&emsp;<span style="color: #8F959E">∟</span>&nbsp;<md-text type="field-name" >address</md-text>
+	</md-td>
+	<md-td>
+	<md-text type="field-type" >string</md-text>
+	</md-td>
+	<md-td>
+	否
+	</md-td>
+	<md-td>
+	地点地址
+
+**示例值**："地点地址"
+
+**数据校验规则**：
+
+- 长度范围：`1` ～ `255` 字符
+	</md-td>
+</md-tr>
+
+
+<md-tr>
+	<md-td>
+	&emsp;<span style="color: #8F959E">∟</span>&nbsp;<md-text type="field-name" >latitude</md-text>
+	</md-td>
+	<md-td>
+	<md-text type="field-type" >float</md-text>
+	</md-td>
+	<md-td>
+	否
+	</md-td>
+	<md-td>
+	地点坐标纬度信息，对于国内的地点，采用GCJ-02标准，海外地点采用WGS84标准
+
+**示例值**：xxxxx
+	</md-td>
+</md-tr>
+
+
+<md-tr>
+	<md-td>
+	&emsp;<span style="color: #8F959E">∟</span>&nbsp;<md-text type="field-name" >longitude</md-text>
+	</md-td>
+	<md-td>
+	<md-text type="field-type" >float</md-text>
+	</md-td>
+	<md-td>
+	否
+	</md-td>
+	<md-td>
+	地点坐标经度信息，对于国内的地点，采用GCJ-02标准，海外地点采用WGS84标准
+
+**示例值**：xxxxx
+	</md-td>
+</md-tr>
+
+
+<md-tr>
+	<md-td>
+	<md-text type="field-name" >color</md-text>
+	</md-td>
+	<md-td>
+	<md-text type="field-type" >int</md-text>
+	</md-td>
+	<md-td>
+	否
+	</md-td>
+	<md-td>
+	日程颜色，颜色RGB值的int32表示。仅对当前身份生效；客户端展示时会映射到色板上最接近的一种颜色；值为0或-1时默认跟随日历颜色。
+
+**示例值**：-1
+	</md-td>
+</md-tr>
+
+
+<md-tr>
+	<md-td>
+	<md-text type="field-name" >reminders</md-text>
+	</md-td>
+	<md-td>
+	<md-text type="field-type" >reminder\[\]</md-text>
+	</md-td>
+	<md-td>
+	否
+	</md-td>
+	<md-td>
+	日程提醒列表
+	</md-td>
+</md-tr>
+
+
+<md-tr>
+	<md-td>
+	&emsp;<span style="color: #8F959E">∟</span>&nbsp;<md-text type="field-name" >minutes</md-text>
+	</md-td>
+	<md-td>
+	<md-text type="field-type" >int</md-text>
+	</md-td>
+	<md-td>
+	否
+	</md-td>
+	<md-td>
+	日程提醒时间的偏移量，正数时表示在日程开始前X分钟提醒，负数时表示在日程开始后X分钟提醒
+新建或更新日程时传入该字段，仅对当前身份生效
+
+**示例值**：5
+
+**数据校验规则**：
+
+- 取值范围：`-20160` ～ `20160`
+	</md-td>
+</md-tr>
+
+
+<md-tr>
+	<md-td>
+	<md-text type="field-name" >recurrence</md-text>
+	</md-td>
+	<md-td>
+	<md-text type="field-type" >string</md-text>
+	</md-td>
+	<md-td>
+	否
+	</md-td>
+	<md-td>
+	重复日程的重复性规则
+
+**示例值**："xxxxx"
+
+**数据校验规则**：
+
+- 最大长度：`2000` 字符
+	</md-td>
+</md-tr>
+
+
+<md-tr>
+	<md-td>
+	<md-text type="field-name" >schemas</md-text>
+	</md-td>
+	<md-td>
+	<md-text type="field-type" >schema\[\]</md-text>
+	</md-td>
+	<md-td>
+	否
+	</md-td>
+	<md-td>
+	日程自定义信息
+	</md-td>
+</md-tr>
+
+
+<md-tr>
+	<md-td>
+	&emsp;<span style="color: #8F959E">∟</span>&nbsp;<md-text type="field-name" >ui_name</md-text>
+	</md-td>
+	<md-td>
+	<md-text type="field-type" >string</md-text>
+	</md-td>
+	<md-td>
+	否
+	</md-td>
+	<md-td>
+	UI项名称 TODO文档
+
+**示例值**："ForwardIcon"
+	</md-td>
+</md-tr>
+
+
+<md-tr>
+	<md-td>
+	&emsp;<span style="color: #8F959E">∟</span>&nbsp;<md-text type="field-name" >ui_status</md-text>
+	</md-td>
+	<md-td>
+	<md-text type="field-type" >string</md-text>
+	</md-td>
+	<md-td>
+	否
+	</md-td>
+	<md-td>
+	UI项自定义状态
+
+**示例值**："hide"
+
+**可选值有**：
+- `hide`：隐藏显示
+- `readonly`：只读
+- `editable`：可编辑
+- `unknown`：未知UI项自定义状态，仅用于读取时兼容
+	</md-td>
+</md-tr>
+
+
+<md-tr>
+	<md-td>
+	&emsp;<span style="color: #8F959E">∟</span>&nbsp;<md-text type="field-name" >app_link</md-text>
+	</md-td>
+	<md-td>
+	<md-text type="field-type" >string</md-text>
+	</md-td>
+	<md-td>
+	否
+	</md-td>
+	<md-td>
+	按钮点击后跳转的链接
+
+**示例值**："xxxxx"
+
+**数据校验规则**：
+
+- 最大长度：`2000` 字符
+	</md-td>
+</md-tr>
+
+
+<md-tr>
+	<md-td>
+	<md-text type="field-name" >need_notification</md-text>
+	</md-td>
+	<md-td>
+	<md-text type="field-type" >boolean</md-text>
+	</md-td>
+	<md-td>
+	否
+	</md-td>
+	<md-td>
+	更新日程是否给日程参与人发送bot通知，默认为true
+
+**示例值**：false
+	</md-td>
+</md-tr>
+
+  </md-tbody>
+</md-table>
+:::
+
+
+
+### 请求体示例
+
+```json
+{
+    "summary": "日程标题",
+    "description": "日程描述",
+    "start_time": {
+        "date": " 2018-09-01",
+        "timestamp": "1605024000",
+        "timezone": "Asia/Shanghai"
+    },
+    "end_time": {
+        "date": " 2018-09-01",
+        "timestamp": "1605024000",
+        "timezone": "Asia/Shanghai"
+    },
+    "vchat": {
+        "meeting_url": "https://example.com"
+    },
+    "visibility": "default",
+    "attendee_ability": "can_see_others",
+    "free_busy_status": "busy",
+    "location": {
+        "name": "地点名称",
+        "address": "地点地址",
+        "latitude": xxxxx,
+        "longitude": xxxxx
+    },
+    "color": -1,
+    "reminders": [
+        {
+            "minutes": 5
+        }
+    ],
+    "recurrence": "xxxxx",
+    "schemas": [
+        {
+            "ui_name": "ForwardIcon",
+            "ui_status": "hide",
+            "app_link": "xxxxx"
+        }
+    ],
+    "need_notification": false
+}
+```
+
+
+
+## 响应
+
+
+
+### 响应体
+:::html
+<md-table>
+  <md-thead>
+      <md-tr>
+      <md-th style="width: 40%;">名称</md-th>
+      <md-th style="width: 20%;">类型</md-th>
+      <md-th style="width: 30%;">描述</md-th>
+      </md-tr>
+  </md-thead>
+  <md-tbody>
+
+<md-tr>
+	<md-td>
+	<md-text type="field-name" >code</md-text>
+	</md-td>
+	<md-td>
+	<md-text type="field-type" >int</md-text>
+	</md-td>
+	<md-td>
+	错误码，非 0 表示失败
+	</md-td>
+</md-tr>
+
+
+<md-tr>
+	<md-td>
+	<md-text type="field-name" >msg</md-text>
+	</md-td>
+	<md-td>
+	<md-text type="field-type" >string</md-text>
+	</md-td>
+	<md-td>
+	错误描述
+	</md-td>
+</md-tr>
+
+
+<md-tr>
+	<md-td>
+	<md-text type="field-name" >data</md-text>
+	</md-td>
+	<md-td>
+	<md-text type="field-type" >\-</md-text>
+	</md-td>
+	<md-td>
+	\-
+	</md-td>
+</md-tr>
+
+
+<md-tr>
+	<md-td>
+	&emsp;<span style="color: #8F959E">∟</span>&nbsp;<md-text type="field-name" >event</md-text>
+	</md-td>
+	<md-td>
+	<md-text type="field-type" >calendar.event</md-text>
+	</md-td>
+	<md-td>
+	更新后的日程实体
+	</md-td>
+</md-tr>
+
+
+<md-tr>
+	<md-td>
+	&emsp;&emsp;<span style="color: #8F959E">∟</span>&nbsp;<md-text type="field-name" >event_id</md-text>
+	</md-td>
+	<md-td>
+	<md-text type="field-type" >string</md-text>
+	</md-td>
+	<md-td>
+	日程ID
+	</md-td>
+</md-tr>
+
+
+<md-tr>
+	<md-td>
+	&emsp;&emsp;<span style="color: #8F959E">∟</span>&nbsp;<md-text type="field-name" >summary</md-text>
+	</md-td>
+	<md-td>
+	<md-text type="field-type" >string</md-text>
+	</md-td>
+	<md-td>
+	日程标题
+
+**数据校验规则**：
+
+- 最大长度：`1000` 字符
+	</md-td>
+</md-tr>
+
+
+<md-tr>
+	<md-td>
+	&emsp;&emsp;<span style="color: #8F959E">∟</span>&nbsp;<md-text type="field-name" >description</md-text>
+	</md-td>
+	<md-td>
+	<md-text type="field-type" >string</md-text>
+	</md-td>
+	<md-td>
+	日程描述
+
+**数据校验规则**：
+
+- 最大长度：`8192` 字符
+	</md-td>
+</md-tr>
+
+
+<md-tr>
+	<md-td>
+	&emsp;&emsp;<span style="color: #8F959E">∟</span>&nbsp;<md-text type="field-name" >start_time</md-text>
+	</md-td>
+	<md-td>
+	<md-text type="field-type" >time_info</md-text>
+	</md-td>
+	<md-td>
+	日程开始时间
+	</md-td>
+</md-tr>
+
+
+<md-tr>
+	<md-td>
+	&emsp;&emsp;&emsp;<span style="color: #8F959E">∟</span>&nbsp;<md-text type="field-name" >date</md-text>
+	</md-td>
+	<md-td>
+	<md-text type="field-type" >string</md-text>
+	</md-td>
+	<md-td>
+	仅全天日程使用该字段，如2018-09-01。需满足 RFC3339 格式。不能与 time_stamp 同时指定
+	</md-td>
+</md-tr>
+
+
+<md-tr>
+	<md-td>
+	&emsp;&emsp;&emsp;<span style="color: #8F959E">∟</span>&nbsp;<md-text type="field-name" >timestamp</md-text>
+	</md-td>
+	<md-td>
+	<md-text type="field-type" >string</md-text>
+	</md-td>
+	<md-td>
+	秒级时间戳，如1602504000(表示2020/10/12 20:0:00 +8时区)
+	</md-td>
+</md-tr>
+
+
+<md-tr>
+	<md-td>
+	&emsp;&emsp;&emsp;<span style="color: #8F959E">∟</span>&nbsp;<md-text type="field-name" >timezone</md-text>
+	</md-td>
+	<md-td>
+	<md-text type="field-type" >string</md-text>
+	</md-td>
+	<md-td>
+	时区名称，使用IANA Time Zone Database标准，如Asia/Shanghai；全天日程时区固定为UTC，非全天日程时区默认为Asia/Shanghai
+	</md-td>
+</md-tr>
+
+
+<md-tr>
+	<md-td>
+	&emsp;&emsp;<span style="color: #8F959E">∟</span>&nbsp;<md-text type="field-name" >end_time</md-text>
+	</md-td>
+	<md-td>
+	<md-text type="field-type" >time_info</md-text>
+	</md-td>
+	<md-td>
+	日程结束时间
+	</md-td>
+</md-tr>
+
+
+<md-tr>
+	<md-td>
+	&emsp;&emsp;&emsp;<span style="color: #8F959E">∟</span>&nbsp;<md-text type="field-name" >date</md-text>
+	</md-td>
+	<md-td>
+	<md-text type="field-type" >string</md-text>
+	</md-td>
+	<md-td>
+	仅全天日程使用该字段，如2018-09-01。需满足 RFC3339 格式。不能与 time_stamp 同时指定
+	</md-td>
+</md-tr>
+
+
+<md-tr>
+	<md-td>
+	&emsp;&emsp;&emsp;<span style="color: #8F959E">∟</span>&nbsp;<md-text type="field-name" >timestamp</md-text>
+	</md-td>
+	<md-td>
+	<md-text type="field-type" >string</md-text>
+	</md-td>
+	<md-td>
+	秒级时间戳，如1602504000(表示2020/10/12 20:0:00 +8时区)
+	</md-td>
+</md-tr>
+
+
+<md-tr>
+	<md-td>
+	&emsp;&emsp;&emsp;<span style="color: #8F959E">∟</span>&nbsp;<md-text type="field-name" >timezone</md-text>
+	</md-td>
+	<md-td>
+	<md-text type="field-type" >string</md-text>
+	</md-td>
+	<md-td>
+	时区名称，使用IANA Time Zone Database标准，如Asia/Shanghai；全天日程时区固定为UTC，非全天日程时区默认为Asia/Shanghai
+	</md-td>
+</md-tr>
+
+
+<md-tr>
+	<md-td>
+	&emsp;&emsp;<span style="color: #8F959E">∟</span>&nbsp;<md-text type="field-name" >vchat</md-text>
+	</md-td>
+	<md-td>
+	<md-text type="field-type" >vchat</md-text>
+	</md-td>
+	<md-td>
+	视频会议信息，仅当日程至少有一位attendee时生效
+	</md-td>
+</md-tr>
+
+
+<md-tr>
+	<md-td>
+	&emsp;&emsp;&emsp;<span style="color: #8F959E">∟</span>&nbsp;<md-text type="field-name" >meeting_url</md-text>
+	</md-td>
+	<md-td>
+	<md-text type="field-type" >string</md-text>
+	</md-td>
+	<md-td>
+	视频会议URL
+
+**数据校验规则**：
+
+- 长度范围：`1` ～ `2000` 字符
+	</md-td>
+</md-tr>
+
+
+<md-tr>
+	<md-td>
+	&emsp;&emsp;<span style="color: #8F959E">∟</span>&nbsp;<md-text type="field-name" >visibility</md-text>
+	</md-td>
+	<md-td>
+	<md-text type="field-type" >string</md-text>
+	</md-td>
+	<md-td>
+	日程公开范围，新建日程默认为Default；仅新建日程时对所有参与人生效，之后修改该属性仅对当前身份生效
+
+**可选值有**：
+- `default`：默认权限，仅向他人显示是否“忙碌”
+- `public`：公开，显示日程详情
+- `private`：私密，仅自己可见
+	</md-td>
+</md-tr>
+
+
+<md-tr>
+	<md-td>
+	&emsp;&emsp;<span style="color: #8F959E">∟</span>&nbsp;<md-text type="field-name" >attendee_ability</md-text>
+	</md-td>
+	<md-td>
+	<md-text type="field-type" >string</md-text>
+	</md-td>
+	<md-td>
+	参与人权限
+
+**可选值有**：
+- `none`：无法编辑日程、无法邀请其它参与人、无法查看参与人列表
+- `can_see_others`：无法编辑日程、无法邀请其它参与人、可以查看参与人列表
+- `can_invite_others`：无法编辑日程、可以邀请其它参与人、可以查看参与人列表
+- `can_modify_event`：可以编辑日程、可以邀请其它参与人、可以查看参与人列表
+	</md-td>
+</md-tr>
+
+
+<md-tr>
+	<md-td>
+	&emsp;&emsp;<span style="color: #8F959E">∟</span>&nbsp;<md-text type="field-name" >free_busy_status</md-text>
+	</md-td>
+	<md-td>
+	<md-text type="field-type" >string</md-text>
+	</md-td>
+	<md-td>
+	日程占用的忙闲状态，新建日程默认为Busy；仅新建日程时对所有参与人生效，之后修改该属性仅对当前身份生效
+
+**可选值有**：
+- `busy`：忙碌
+- `free`：空闲
+	</md-td>
+</md-tr>
+
+
+<md-tr>
+	<md-td>
+	&emsp;&emsp;<span style="color: #8F959E">∟</span>&nbsp;<md-text type="field-name" >location</md-text>
+	</md-td>
+	<md-td>
+	<md-text type="field-type" >event_location</md-text>
+	</md-td>
+	<md-td>
+	日程地点
+	</md-td>
+</md-tr>
+
+
+<md-tr>
+	<md-td>
+	&emsp;&emsp;&emsp;<span style="color: #8F959E">∟</span>&nbsp;<md-text type="field-name" >name</md-text>
+	</md-td>
+	<md-td>
+	<md-text type="field-type" >string</md-text>
+	</md-td>
+	<md-td>
+	地点名称
+
+**数据校验规则**：
+
+- 长度范围：`1` ～ `512` 字符
+	</md-td>
+</md-tr>
+
+
+<md-tr>
+	<md-td>
+	&emsp;&emsp;&emsp;<span style="color: #8F959E">∟</span>&nbsp;<md-text type="field-name" >address</md-text>
+	</md-td>
+	<md-td>
+	<md-text type="field-type" >string</md-text>
+	</md-td>
+	<md-td>
+	地点地址
+
+**数据校验规则**：
+
+- 长度范围：`1` ～ `255` 字符
+	</md-td>
+</md-tr>
+
+
+<md-tr>
+	<md-td>
+	&emsp;&emsp;&emsp;<span style="color: #8F959E">∟</span>&nbsp;<md-text type="field-name" >latitude</md-text>
+	</md-td>
+	<md-td>
+	<md-text type="field-type" >float</md-text>
+	</md-td>
+	<md-td>
+	地点坐标纬度信息，对于国内的地点，采用GCJ-02标准，海外地点采用WGS84标准
+	</md-td>
+</md-tr>
+
+
+<md-tr>
+	<md-td>
+	&emsp;&emsp;&emsp;<span style="color: #8F959E">∟</span>&nbsp;<md-text type="field-name" >longitude</md-text>
+	</md-td>
+	<md-td>
+	<md-text type="field-type" >float</md-text>
+	</md-td>
+	<md-td>
+	地点坐标经度信息，对于国内的地点，采用GCJ-02标准，海外地点采用WGS84标准
+	</md-td>
+</md-tr>
+
+
+<md-tr>
+	<md-td>
+	&emsp;&emsp;<span style="color: #8F959E">∟</span>&nbsp;<md-text type="field-name" >color</md-text>
+	</md-td>
+	<md-td>
+	<md-text type="field-type" >int</md-text>
+	</md-td>
+	<md-td>
+	日程颜色，颜色RGB值的int32表示。仅对当前身份生效；客户端展示时会映射到色板上最接近的一种颜色；值为0或-1时默认跟随日历颜色。
+	</md-td>
+</md-tr>
+
+
+<md-tr>
+	<md-td>
+	&emsp;&emsp;<span style="color: #8F959E">∟</span>&nbsp;<md-text type="field-name" >reminders</md-text>
+	</md-td>
+	<md-td>
+	<md-text type="field-type" >reminder\[\]</md-text>
+	</md-td>
+	<md-td>
+	日程提醒列表
+	</md-td>
+</md-tr>
+
+
+<md-tr>
+	<md-td>
+	&emsp;&emsp;&emsp;<span style="color: #8F959E">∟</span>&nbsp;<md-text type="field-name" >minutes</md-text>
+	</md-td>
+	<md-td>
+	<md-text type="field-type" >int</md-text>
+	</md-td>
+	<md-td>
+	日程提醒时间的偏移量，正数时表示在日程开始前X分钟提醒，负数时表示在日程开始后X分钟提醒
+新建或更新日程时传入该字段，仅对当前身份生效
+
+**数据校验规则**：
+
+- 取值范围：`-20160` ～ `20160`
+	</md-td>
+</md-tr>
+
+
+<md-tr>
+	<md-td>
+	&emsp;&emsp;<span style="color: #8F959E">∟</span>&nbsp;<md-text type="field-name" >recurrence</md-text>
+	</md-td>
+	<md-td>
+	<md-text type="field-type" >string</md-text>
+	</md-td>
+	<md-td>
+	重复日程的重复性规则
+
+**数据校验规则**：
+
+- 最大长度：`2000` 字符
+	</md-td>
+</md-tr>
+
+
+<md-tr>
+	<md-td>
+	&emsp;&emsp;<span style="color: #8F959E">∟</span>&nbsp;<md-text type="field-name" >status</md-text>
+	</md-td>
+	<md-td>
+	<md-text type="field-type" >string</md-text>
+	</md-td>
+	<md-td>
+	日程状态
+
+**可选值有**：
+- `tentative`：未回应
+- `confirmed`：已确认
+- `cancelled`：日程已取消
+	</md-td>
+</md-tr>
+
+
+<md-tr>
+	<md-td>
+	&emsp;&emsp;<span style="color: #8F959E">∟</span>&nbsp;<md-text type="field-name" >is_exception</md-text>
+	</md-td>
+	<md-td>
+	<md-text type="field-type" >boolean</md-text>
+	</md-td>
+	<md-td>
+	日程是否是一个重复日程的例外日程
+	</md-td>
+</md-tr>
+
+
+<md-tr>
+	<md-td>
+	&emsp;&emsp;<span style="color: #8F959E">∟</span>&nbsp;<md-text type="field-name" >recurring_event_id</md-text>
+	</md-td>
+	<md-td>
+	<md-text type="field-type" >string</md-text>
+	</md-td>
+	<md-td>
+	例外日程的原重复日程的event_id
+	</md-td>
+</md-tr>
+
+
+<md-tr>
+	<md-td>
+	&emsp;&emsp;<span style="color: #8F959E">∟</span>&nbsp;<md-text type="field-name" >schemas</md-text>
+	</md-td>
+	<md-td>
+	<md-text type="field-type" >schema\[\]</md-text>
+	</md-td>
+	<md-td>
+	日程自定义信息
+	</md-td>
+</md-tr>
+
+
+<md-tr>
+	<md-td>
+	&emsp;&emsp;&emsp;<span style="color: #8F959E">∟</span>&nbsp;<md-text type="field-name" >ui_name</md-text>
+	</md-td>
+	<md-td>
+	<md-text type="field-type" >string</md-text>
+	</md-td>
+	<md-td>
+	UI项名称 TODO文档
+	</md-td>
+</md-tr>
+
+
+<md-tr>
+	<md-td>
+	&emsp;&emsp;&emsp;<span style="color: #8F959E">∟</span>&nbsp;<md-text type="field-name" >ui_status</md-text>
+	</md-td>
+	<md-td>
+	<md-text type="field-type" >string</md-text>
+	</md-td>
+	<md-td>
+	UI项自定义状态
+
+**可选值有**：
+- `hide`：隐藏显示
+- `readonly`：只读
+- `editable`：可编辑
+- `unknown`：未知UI项自定义状态，仅用于读取时兼容
+	</md-td>
+</md-tr>
+
+
+<md-tr>
+	<md-td>
+	&emsp;&emsp;&emsp;<span style="color: #8F959E">∟</span>&nbsp;<md-text type="field-name" >app_link</md-text>
+	</md-td>
+	<md-td>
+	<md-text type="field-type" >string</md-text>
+	</md-td>
+	<md-td>
+	按钮点击后跳转的链接
+
+**数据校验规则**：
+
+- 最大长度：`2000` 字符
+	</md-td>
+</md-tr>
+
+  </md-tbody>
+</md-table>
+:::
+
+
+
+### 响应体示例
+
+```json
+{
+    "code": 0,
+    "msg": "success",
+    "data": {
+        "event": {
+            "event_id": "xxxxx",
+            "summary": "日程标题",
+            "description": "日程描述",
+            "start_time": {
+                "date": " 2018-09-01",
+                "timestamp": "1605024000",
+                "timezone": "Asia/Shanghai"
+            },
+            "end_time": {
+                "date": " 2018-09-01",
+                "timestamp": "1605024000",
+                "timezone": "Asia/Shanghai"
+            },
+            "vchat": {
+                "meeting_url": "https://example.com"
+            },
+            "visibility": "default",
+            "attendee_ability": "can_see_others",
+            "free_busy_status": "busy",
+            "location": {
+                "name": "地点名称",
+                "address": "地点地址",
+                "latitude": xxxxx,
+                "longitude": xxxxx
+            },
+            "color": -1,
+            "reminders": [
+                {
+                    "minutes": 5
+                }
+            ],
+            "recurrence": "xxxxx",
+            "status": "xxxxx",
+            "is_exception": xxxxx,
+            "recurring_event_id": "xxxxx",
+            "schemas": [
+                {
+                    "ui_name": "ForwardIcon",
+                    "ui_status": "hide",
+                    "app_link": "xxxxx"
+                }
+            ]
+        }
+    }
+}
+```
+
+
+
+### 错误码
+:::html
+<md-table>
+    <md-thead>
+        <md-tr>
+            <md-th style="width: 15%;">HTTP状态码</md-th>
+            <md-th style="width: 15%;">错误码</md-th>
+            <md-th style="width: 30%;">描述</md-th>
+            <md-th style="width: 30%;">排查建议</md-th>
+        </md-tr>
+    </md-thead>
+  <md-tbody>
+
+<md-tr>
+  <md-td>400</md-td>
+  <md-td>190001</md-td>
+  <md-td>unexpected head in request</md-td>
+  <md-td>检查calendar id是否填写正确</md-td>
+</md-tr>
+
+
+<md-tr>
+  <md-td>400</md-td>
+  <md-td>190002</md-td>
+  <md-td>invalid parameters in request</md-td>
+  <md-td>确保有日历从访问权限，检查一下对日历对访问角色</md-td>
+</md-tr>
+
+
+<md-tr>
+  <md-td>500</md-td>
+  <md-td>190003</md-td>
+  <md-td>internal service error</md-td>
+  <md-td>内部服务错误，请联系相关业务方oncall人员</md-td>
+</md-tr>
+
+
+<md-tr>
+  <md-td>429</md-td>
+  <md-td>190004</md-td>
+  <md-td>method rate limited</md-td>
+  <md-td>稍后再试，适当减小请求qps</md-td>
+</md-tr>
+
+
+<md-tr>
+  <md-td>429</md-td>
+  <md-td>190005</md-td>
+  <md-td>app rate limited</md-td>
+  <md-td>稍后再试，适当减小请求qps</md-td>
+</md-tr>
+
+
+<md-tr>
+  <md-td>403</md-td>
+  <md-td>190006</md-td>
+  <md-td>wrong unit for app tenant</md-td>
+  <md-td>请求错误，检查应用App ID和App Secret是否正确，无法解决请联系开放平台oncall解决</md-td>
+</md-tr>
+
+
+<md-tr>
+  <md-td>404</md-td>
+  <md-td>190007</md-td>
+  <md-td>app bot_id not found</md-td>
+  <md-td>bot id没有找到，联系开放平台oncall解决</md-td>
+</md-tr>
+
+
+<md-tr>
+  <md-td>404</md-td>
+  <md-td>191000</md-td>
+  <md-td>calendar not found</md-td>
+  <md-td>日历没有找到，检查日历ID是否正确</md-td>
+</md-tr>
+
+
+<md-tr>
+  <md-td>400</md-td>
+  <md-td>191001</md-td>
+  <md-td>invalid calendar_id</md-td>
+  <md-td>无效的calendar id，检查日历id是否正确</md-td>
+</md-tr>
+
+
+<md-tr>
+  <md-td>403</md-td>
+  <md-td>191002</md-td>
+  <md-td>no calendar access_role</md-td>
+  <md-td>没有日历的访问权限，确保calendar id正确</md-td>
+</md-tr>
+
+
+<md-tr>
+  <md-td>403</md-td>
+  <md-td>191003</md-td>
+  <md-td>calendar is deleted</md-td>
+  <md-td>日历已经被删除，检查日历id是否正确</md-td>
+</md-tr>
+
+
+<md-tr>
+  <md-td>403</md-td>
+  <md-td>191004</md-td>
+  <md-td>invalid calendar type</md-td>
+  <md-td>日历类型错误，检查日历类型</md-td>
+</md-tr>
+
+
+<md-tr>
+  <md-td>404</md-td>
+  <md-td>192000</md-td>
+  <md-td>acl not found</md-td>
+  <md-td>没有相应acl，确保acl存在</md-td>
+</md-tr>
+
+
+<md-tr>
+  <md-td>400</md-td>
+  <md-td>193000</md-td>
+  <md-td>invalid event_id</md-td>
+  <md-td>event id无效，检查event id</md-td>
+</md-tr>
+
+
+<md-tr>
+  <md-td>404</md-td>
+  <md-td>193001</md-td>
+  <md-td>event not found</md-td>
+  <md-td>确保event id正确</md-td>
+</md-tr>
+
+
+<md-tr>
+  <md-td>403</md-td>
+  <md-td>193002</md-td>
+  <md-td>no permission to operate event</md-td>
+  <md-td>确保有日历编辑权限</md-td>
+</md-tr>
+
+
+<md-tr>
+  <md-td>403</md-td>
+  <md-td>193003</md-td>
+  <md-td>event is deleted</md-td>
+  <md-td>日程已经被删除，确认event id是否正确</md-td>
+</md-tr>
+
+
+<md-tr>
+  <md-td>404</md-td>
+  <md-td>194000</md-td>
+  <md-td>attendee not found</md-td>
+  <md-td>没有找到参与人</md-td>
+</md-tr>
+
+
+<md-tr>
+  <md-td>403</md-td>
+  <md-td>194001</md-td>
+  <md-td>no permission to list event attendees</md-td>
+  <md-td>检查calendar id是否是组织者日历或者是否有查看参与人权限</md-td>
+</md-tr>
+
+
+<md-tr>
+  <md-td>403</md-td>
+  <md-td>194002</md-td>
+  <md-td>no permission to create event attendees</md-td>
+  <md-td>检查calendar id是否是组织者日历或者是否有邀请参与人权限</md-td>
+</md-tr>
+
+
+<md-tr>
+  <md-td>403</md-td>
+  <md-td>194003</md-td>
+  <md-td>no permission to delete event attendees</md-td>
+  <md-td>检查calendar id是否是组织者日历</md-td>
+</md-tr>
+
+
+<md-tr>
+  <md-td>400</md-td>
+  <md-td>194004</md-td>
+  <md-td>invalid attendee type</md-td>
+  <md-td>检查参与人类型是否正确</md-td>
+</md-tr>
+
+  </md-tbody>
+</md-table>
+:::
+
+
+
+

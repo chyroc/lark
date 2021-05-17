@@ -1,0 +1,138 @@
+# 获取协作者列表
+
+
+该接口用于根据 filetoken 查询协作者，目前包括人("user")和群("chat") 。{尝试一下}(url=/api/tools/api_explore/api_explore_config?project=drive_permission&version=v1&resource=member&method=list)
+
+:::html
+<md-alert type="tip">
+你能获取到协作者列表的前提是你对该文档有分享权限
+</md-alert>
+:::
+
+## 请求
+
+:::html
+<md-table>
+  <md-thead>
+  <tr>
+      <md-th>基本</md-th>
+      <md-th></md-th>
+  </tr>
+  </md-thead>
+  <md-tbody>
+    <md-tr>
+      <md-th>HTTP URL</md-th>
+      <md-td>https://open.feishu.cn/open-apis/drive/permission/member/list</md-td>
+    </md-tr>
+    <md-tr>
+      <md-th>HTTP Method</md-th>
+      <md-td>POST</md-td>
+    </md-tr>
+    
+    
+     <md-tr>
+	<md-th>权限要求</md-th>
+   <md-td>
+	<md-perm href="/ssl:ttdoc/ukTMukTMukTM/uQjN3QjL0YzN04CN2cDN">查看、评论、编辑和管理云文档所有文件</md-perm>
+	<md-perm href="/ssl:ttdoc/ukTMukTMukTM/uQjN3QjL0YzN04CN2cDN">查看、评论和下载云文档所有文件</md-perm>
+	<md-perm href="/ssl:ttdoc/ukTMukTMukTM/uQjN3QjL0YzN04CN2cDN">上传、下载文件到云文档</md-perm>
+	<md-perm href="/ssl:ttdoc/ukTMukTMukTM/uQjN3QjL0YzN04CN2cDN">查看和下载云文档的文件</md-perm>
+	<md-perm href="/ssl:ttdoc/ukTMukTMukTM/uQjN3QjL0YzN04CN2cDN">查看、评论、编辑和管理文档</md-perm>
+	<md-perm href="/ssl:ttdoc/ukTMukTMukTM/uQjN3QjL0YzN04CN2cDN">查看、评论和导出文档</md-perm>
+	<md-perm href="/ssl:ttdoc/ukTMukTMukTM/uQjN3QjL0YzN04CN2cDN">查看、评论、编辑和管理表格</md-perm>
+	<md-perm href="/ssl:ttdoc/ukTMukTMukTM/uQjN3QjL0YzN04CN2cDN">查看、评论和导出表格</md-perm>
+  </md-td>
+ </md-tr>
+  </md-tbody>
+</md-table>
+:::
+### 请求头
+:::html
+<md-table> 
+  <md-thead> 
+    <md-tr> 
+      <md-th style="width: 18%;">名称</md-th>  
+      <md-th style="width: 15%;">类型</md-th>  
+       <md-th style="width: 15%;">必填</md-th>  
+      <md-th>描述</md-th> 
+    </md-tr> 
+  </md-thead>  
+  <md-tbody> 
+    <md-tr> 
+      <md-td>Authorization</md-td>  
+      <md-td>string</md-td>  
+      <md-td> 是 </md-td> 
+      	<md-td>
+<md-tag mode="inline" type="token-user">user_access_token</md-tag> 或 <md-tag mode="inline" type="token-tenant">tenant_access_token</md-tag>
+ 
+**值格式**："Bearer `access_token`"
+
+**示例值**："Bearer u-7f1bcd13fc57d46bac21793a18e560"
+          
+ [了解更多：获取与使用access_token](/ssl:ttdoc/ukTMukTMukTM/uMTNz4yM1MjLzUzM)
+	</md-td>
+</md-tr>
+     <md-tr> 
+      <md-td>Content-Type</md-td>  
+      <md-td>string</md-td>  
+      <md-td> 是 </md-td> 
+     <md-td>**固定值**："application/json; charset=utf-8"</md-td>
+</md-tr>
+   
+  </md-tbody> 
+</md-table>
+:::
+
+### 请求体
+|参数|类型|必须|说明|
+|--|-----|--|----|
+|token|string|是|文件的 token，获取方式见 [对接前说明](/ssl:ttdoc/ukTMukTMukTM/uczNzUjL3czM14yN3MTN)的第 4 项|
+|type|string|是|文档类型  "doc"  or  "sheet" or "file"|
+### 请求体示例
+```json
+{
+	"token": "doccnBKgoMyY5OMbUG6FioTXuBe",
+	"type": "doc"
+}
+```
+## 响应
+### 响应体
+|参数|说明|
+|--|--|
+|members|协作者列表|
+|&ensp;∟member_type|协作者类型 "user" or "chat"|
+|&ensp;∟member_open_id|协作者openid|
+|&ensp;∟member_user_id|协作者userid(仅当member_type="user"时有效)|
+|&ensp;∟perm|协作者权限 (注意: **有"edit"权限的协作者一定有"view"权限**)|
+### 响应体示例
+```json
+{
+    "code": 0,
+    "msg": "Success",
+    "data": {
+        "members": [
+            {
+                "member_type": "chat",
+                "member_open_id": "oc_b9be4164d821f466310bc22bb2979cc7",
+                "member_user_id": "",
+                "perm": "edit"
+            },
+            {
+                "member_type": "user",
+                "member_open_id": "ou_65b0affcc6c342a50e4c66f700137b64",
+                "member_user_id": "96g3c421",
+                "perm": "view"
+            },
+            {
+                "member_type": "user",
+                "member_open_id": "ou_b47765834b6bdc18c47a57340f98c0e5",
+                "member_user_id": "bg36b129",
+                "perm": "edit"
+            }
+        ]
+    }
+}
+```
+### 错误码
+
+具体可参考：[云文档请求错误码列表](/ssl:ttdoc/ukTMukTMukTM/uIzM0UjLyMDN14iMzQTN)

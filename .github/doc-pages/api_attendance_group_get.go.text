@@ -1,0 +1,157 @@
+# 获取考勤组详情
+通过考勤组 ID 获取考勤组详情。
+
+
+## 请求
+|基本||
+|---|---|
+|HTTP URL|https://open.feishu.cn/open-apis/attendance/v1/groups/:group_id|
+|HTTP Method|GET|
+|HTTP Content-Type|application/json; charset=utf-8|
+|凭证要求|tenant_access_token|
+|权限要求|打卡管理规则导出|
+### 路径参数
+|名称|类型|必填|描述|
+|---|---|---|---|
+|group_id|string|是|考勤组的 ID，需要从获取打卡结果的接口中获取 group_id，示例值："6919358128597097404"|
+### 查询参数
+|名称|类型|必填|描述|
+|---|---|---|---|
+|employee_type|string|是|用户 ID 的类型，可用值：【employee_id（员工的 employeeId），employee_no（员工工号）】
+|dept_type|string|是|部门 ID 的类型，可用值：【open_id（暂时只支持部门的 openid）】，示例值：“od-fcb45c28a45311afd441b8869541ece8”|
+## 响应
+### 响应体
+|名称|类型|描述|
+|---|---|---|
+|code|int|错误码，非 0 表示失败|
+|msg|string|错误描述|
+|data|-|-|
+|&emsp;&emsp;∟group_id|string|考勤组的 ID，需要从获取用户打卡结果的接口中获取 groupId|
+|&emsp;&emsp;∟group_name|string|考勤组名称|
+|&emsp;&emsp;∟time_zone|string|时区|
+|&emsp;&emsp;∟bind_dept_ids|string\[\]|绑定的部门 ID|
+|&emsp;&emsp;∟except_dept_ids|string\[\]|排除的部门 ID|
+|&emsp;&emsp;∟bind_user_ids|string\[\]|绑定的用户 ID|
+|&emsp;&emsp;∟except_user_ids|string\[\]|排除的用户 ID|
+|&emsp;&emsp;∟group_leader_ids|string\[\]|考勤负责人 ID 列表，必选字段|
+|&emsp;&emsp;∟allow_out_punch|boolean|是否允许外勤打卡|
+|&emsp;&emsp;∟allow_pc_punch|boolean|是否允许 PC 端打卡|
+|&emsp;&emsp;∟allow_remedy|boolean|是否允许补卡|
+|&emsp;&emsp;∟remedy_limit|boolean|是否限制补卡次数|
+|&emsp;&emsp;∟remedy_limit_count|int|补卡次数|
+|&emsp;&emsp;∟remedy_date_limit|boolean|是否限制补卡时间|
+|&emsp;&emsp;∟remedy_date_num|int|补卡时间|
+|&emsp;&emsp;∟show_cumulative_time|boolean|是否展示上班累计时长|
+|&emsp;&emsp;∟show_over_time|boolean|是否展示加班累计时长|
+|&emsp;&emsp;∟hide_staff_punch_time|boolean|是否隐藏员工打卡具体时间|
+|&emsp;&emsp;∟face_punch|boolean|是否开启人脸识别打卡|
+|&emsp;&emsp;∟face_punch_cfg|int|人脸识别打卡规则，1：每次打卡均需人脸识别，2：疑似作弊打卡时需要人脸识别|
+|&emsp;&emsp;∟face_downgrade|boolean|人脸识别失败时是否允许普通拍照打卡|
+|&emsp;&emsp;∟replace_basic_pic|boolean|人脸识别失败时是否允许替换基准图片|
+|&emsp;&emsp;∟machines|machine\[\]|考勤机列表|
+|&emsp;&emsp;&emsp;∟machine_sn|string|考勤机序列号|
+|&emsp;&emsp;&emsp;∟machine_name|string|考勤机名称|
+|&emsp;&emsp;∟gps_range|int|GPS 打卡的有效范围|
+|&emsp;&emsp;∟locations|location\[\]|地址列表|
+|&emsp;&emsp;&emsp;∟location_id|string|地址 ID|
+|&emsp;&emsp;&emsp;∟location_name|string|地址名称|
+|&emsp;&emsp;&emsp;∟location_type|int|地址类型，1：GPS，2：Wifi，8：IP|
+|&emsp;&emsp;&emsp;∟latitude|float|地址纬度|
+|&emsp;&emsp;&emsp;∟longitude|float|地址经度|
+|&emsp;&emsp;&emsp;∟ssid|string|Wi-Fi 名称|
+|&emsp;&emsp;&emsp;∟bssid|string|Wi-Fi 的 MAC 地址|
+|&emsp;&emsp;&emsp;∟map_type|int|地图类型，1：高德，2：谷歌|
+|&emsp;&emsp;&emsp;∟address|string|地址名称|
+|&emsp;&emsp;&emsp;∟ip|string|IP 地址|
+|&emsp;&emsp;&emsp;∟feature|string|额外信息，例如运营商信息|
+|&emsp;&emsp;∟group_type|int|考勤类型，0：固定班制，2：排班制，3：自由班制|
+|&emsp;&emsp;∟punch_day_shift_ids|string\[\]|固定班制必须填|
+|&emsp;&emsp;∟free_punch_cfg|free_punch_cfg|配置自由班制|
+|&emsp;&emsp;&emsp;∟free_start_time|string|自由班制的打卡开始时间|
+|&emsp;&emsp;&emsp;∟free_end_time|string|自由班制的打卡结束时间|
+|&emsp;&emsp;&emsp;∟punch_day|int|打卡时间，格式 1111100|
+|&emsp;&emsp;&emsp;∟work_day_no_punch_as_lack|boolean|工作日不打卡是否记为缺卡|
+|&emsp;&emsp;∟calendar_id|int|国家法定节假日历 ID，0：不根据国家法定节假日历排休，1：中国，2：美国，3：日本，4：印度，5：新加坡，默认为 1|
+|&emsp;&emsp;∟need_punch_special_days|punch_special_date_shift\[\]|必须打卡的特殊日期|
+|&emsp;&emsp;&emsp;∟punch_day|int|打卡日期，格式 20190101|
+|&emsp;&emsp;&emsp;∟shift_id|string|班次 ID|
+|&emsp;&emsp;∟no_need_punch_special_days|punch_special_date_shift\[\]|无需打卡的特殊日期|
+|&emsp;&emsp;&emsp;∟punch_day|int|打卡日期，格式 20190101|
+|&emsp;&emsp;&emsp;∟shift_id|string|班次 ID|
+|&emsp;&emsp;∟work_day_no_punch_as_lack|boolean|自由班制下，工作日不打卡是否记为缺卡|
+### 响应体示例
+```json
+{
+    "code": 0,
+    "msg": "",
+    "data": {
+        "allow_out_punch": true,
+        "allow_pc_punch": false,
+        "allow_remedy": true,
+        "bind_dept_ids": [
+            "a6a64f94gg768492"
+        ],
+        "bind_user_ids": [
+            "52aa1fa1"
+        ],
+        "calendar_id": 1,
+        "except_dept_ids": [],
+        "except_user_ids": [],
+        "face_downgrade": true,
+        "face_punch": true,
+        "face_punch_cfg": 1,
+        "gps_range": 300,
+        "group_id": "6921319402260496386",
+        "group_leader_ids": [
+            "52aa1fa1",
+            "2bg4a9be"
+        ],
+        "group_name": "now",
+        "group_type": 0,
+        "hide_staff_punch_time": true,
+        "locations": [
+            {
+                "address": "",
+                "bssid": "",
+                "feature": "",
+                "ip": "",
+                "latitude": 30.28994,
+                "location_id": "6921213751454744578",
+                "location_name": "浙江省杭州市余杭区五常街道木桥头西溪八方城",
+                "location_type": 1,
+                "longitude": 120.04509,
+                "map_type": 0,
+                "ssid": ""
+            }
+        ],
+        "machines": [],
+        "need_punch_special_days": [],
+        "no_need_punch_special_days": [],
+        "punch_day_shift_ids": [
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
+        ],
+        "remedy_date_limit": true,
+        "remedy_date_num": 30,
+        "remedy_limit": true,
+        "remedy_limit_count": 3,
+        "replace_basic_pic": true,
+        "show_cumulative_time": true,
+        "show_over_time": false,
+        "time_zone": "Asia/Shanghai"
+    }
+}
+```
+### 错误码
+|HTTP 状态码|错误码|描述|排查建议|
+|---|---|---|---|
+|400|1220001|参数错误|请检查参数是否符合要求|
+|400|1220002|租户不存在|请检查 tenant_access_token 是否正确|
+|400|1220003|employee_type 不存在|employee_type 可用值：【employee_id（员工的 employeeId），employee_no（员工工号）】|
+|500|1225000|系统错误|详见错误信息|
+|500|1227000|管理服务系统错误|详见错误信息|
