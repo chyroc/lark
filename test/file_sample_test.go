@@ -19,7 +19,7 @@ func Test_File_Sample_Failed(t *testing.T) {
 		cli := AppALLPermission.Ins()
 		cli.Mock().MockGetTenantAccessToken(mockGetTenantAccessTokenFailed)
 		cli.Mock().MockGetAppAccessToken(mockGetTenantAccessTokenFailed)
-		moduleCli := cli.File()
+		moduleCli := cli.File
 
 		t.Run("", func(t *testing.T) {
 			_, _, err := moduleCli.UploadImage(ctx, &lark.UploadImageReq{})
@@ -48,7 +48,7 @@ func Test_File_Sample_Failed(t *testing.T) {
 
 	t.Run("request mock failed", func(t *testing.T) {
 		cli := AppALLPermission.Ins()
-		moduleCli := cli.File()
+		moduleCli := cli.File
 
 		t.Run("", func(t *testing.T) {
 			cli.Mock().MockFileUploadImage(func(ctx context.Context, request *lark.UploadImageReq, options ...lark.MethodOptionFunc) (*lark.UploadImageResp, *lark.Response, error) {
@@ -97,7 +97,7 @@ func Test_File_Sample_Failed(t *testing.T) {
 
 	t.Run("response is failed", func(t *testing.T) {
 		cli := AppNoPermission.Ins()
-		moduleCli := cli.File()
+		moduleCli := cli.File
 
 		t.Run("", func(t *testing.T) {
 			_, _, err := moduleCli.UploadImage(ctx, &lark.UploadImageReq{})

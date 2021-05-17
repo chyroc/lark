@@ -11,7 +11,7 @@ import (
 // 使用<md-tag mode="inline" type="token-tenant">tenant_access_token</md-tag>需要额外申请权限以应用身份访问OKR信息
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/okr-v1/period/list
-func (r *OKRAPI) GetPeriodList(ctx context.Context, request *GetPeriodListReq, options ...MethodOptionFunc) (*GetPeriodListResp, *Response, error) {
+func (r *OKRService) GetPeriodList(ctx context.Context, request *GetPeriodListReq, options ...MethodOptionFunc) (*GetPeriodListResp, *Response, error) {
 	if r.cli.mock.mockOKRGetPeriodList != nil {
 		r.cli.logDebug(ctx, "[lark] OKR#GetPeriodList mock enable")
 		return r.cli.mock.mockOKRGetPeriodList(ctx, request, options...)

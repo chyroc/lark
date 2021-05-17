@@ -9,7 +9,7 @@ import (
 // BatchUpdateRecord 该接口用于更新数据表中的多条记录
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table-record/batch_update
-func (r *BitableAPI) BatchUpdateRecord(ctx context.Context, request *BatchUpdateRecordReq, options ...MethodOptionFunc) (*BatchUpdateRecordResp, *Response, error) {
+func (r *BitableService) BatchUpdateRecord(ctx context.Context, request *BatchUpdateRecordReq, options ...MethodOptionFunc) (*BatchUpdateRecordResp, *Response, error) {
 	if r.cli.mock.mockBitableBatchUpdateRecord != nil {
 		r.cli.logDebug(ctx, "[lark] Bitable#BatchUpdateRecord mock enable")
 		return r.cli.mock.mockBitableBatchUpdateRecord(ctx, request, options...)

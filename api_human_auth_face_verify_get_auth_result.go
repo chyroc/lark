@@ -14,7 +14,7 @@ import (
 // 无源人脸比对流程，开发者后台通过调用此接口请求飞书后台，对本次活体比对结果做校验。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/human_authentication-v1/face/query-recognition-result
-func (r *HumanAuthAPI) GetFaceVerifyAuthResult(ctx context.Context, request *GetFaceVerifyAuthResultReq, options ...MethodOptionFunc) (*GetFaceVerifyAuthResultResp, *Response, error) {
+func (r *HumanAuthService) GetFaceVerifyAuthResult(ctx context.Context, request *GetFaceVerifyAuthResultReq, options ...MethodOptionFunc) (*GetFaceVerifyAuthResultResp, *Response, error) {
 	if r.cli.mock.mockHumanAuthGetFaceVerifyAuthResult != nil {
 		r.cli.logDebug(ctx, "[lark] HumanAuth#GetFaceVerifyAuthResult mock enable")
 		return r.cli.mock.mockHumanAuthGetFaceVerifyAuthResult(ctx, request, options...)

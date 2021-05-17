@@ -6,7 +6,7 @@ import (
 )
 
 // https://open.feishu.cn/document/ukTMukTMukTM/uADN14CM0UjLwQTN
-func (r *AuthAPI) GetAppAccessToken(ctx context.Context) (*TokenExpire, *Response, error) {
+func (r *AuthService) GetAppAccessToken(ctx context.Context) (*TokenExpire, *Response, error) {
 	if r.cli.mock.mockGetAppAccessToken != nil {
 		r.cli.logDebug(ctx, "[lark] Auth#GetAppAccessToken mock enable")
 		return r.cli.mock.mockGetAppAccessToken(ctx)

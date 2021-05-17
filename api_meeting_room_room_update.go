@@ -9,7 +9,7 @@ import (
 // UpdateRoom 该接口用于更新会议室。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uMTNwYjLzUDM24yM1AjN
-func (r *MeetingRoomAPI) UpdateRoom(ctx context.Context, request *UpdateRoomReq, options ...MethodOptionFunc) (*UpdateRoomResp, *Response, error) {
+func (r *MeetingRoomService) UpdateRoom(ctx context.Context, request *UpdateRoomReq, options ...MethodOptionFunc) (*UpdateRoomResp, *Response, error) {
 	if r.cli.mock.mockMeetingRoomUpdateRoom != nil {
 		r.cli.logDebug(ctx, "[lark] MeetingRoom#UpdateRoom mock enable")
 		return r.cli.mock.mockMeetingRoomUpdateRoom(ctx, request, options...)

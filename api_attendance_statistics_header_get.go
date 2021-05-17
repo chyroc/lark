@@ -9,7 +9,7 @@ import (
 // GetStatisticsHeader
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/Attendance//task/query-statistics-header
-func (r *AttendanceAPI) GetStatisticsHeader(ctx context.Context, request *GetStatisticsHeaderReq, options ...MethodOptionFunc) (*GetStatisticsHeaderResp, *Response, error) {
+func (r *AttendanceService) GetStatisticsHeader(ctx context.Context, request *GetStatisticsHeaderReq, options ...MethodOptionFunc) (*GetStatisticsHeaderResp, *Response, error) {
 	if r.cli.mock.mockAttendanceGetStatisticsHeader != nil {
 		r.cli.logDebug(ctx, "[lark] Attendance#GetStatisticsHeader mock enable")
 		return r.cli.mock.mockAttendanceGetStatisticsHeader(ctx, request, options...)

@@ -17,7 +17,7 @@ func Test_File(t *testing.T) {
 		f, err := os.Open("./file_1.png")
 		as.Nil(err)
 		defer f.Close()
-		resp, _, err := AppALLPermission.Ins().File().UploadImage(ctx, &lark.UploadImageReq{
+		resp, _, err := AppALLPermission.Ins().File.UploadImage(ctx, &lark.UploadImageReq{
 			ImageType: lark.ImageTypeMessage,
 			Image:     f,
 		})
@@ -29,7 +29,7 @@ func Test_File(t *testing.T) {
 
 	t.Run("", func(t *testing.T) {
 		// this is file of ./test/file_1.png
-		resp, _, err := AppALLPermission.Ins().File().DownloadImage(ctx, &lark.DownloadImageReq{
+		resp, _, err := AppALLPermission.Ins().File.DownloadImage(ctx, &lark.DownloadImageReq{
 			ImageKey: File1.Key,
 		})
 		as.Nil(err)
@@ -43,7 +43,7 @@ func Test_File(t *testing.T) {
 		f, err := os.Open("./file_2.docx")
 		as.Nil(err)
 		defer f.Close()
-		resp, _, err := AppALLPermission.Ins().File().UploadFile(ctx, &lark.UploadFileReq{
+		resp, _, err := AppALLPermission.Ins().File.UploadFile(ctx, &lark.UploadFileReq{
 			FileType: lark.FileTypeDoc,
 			FileName: "file2.docx",
 			Duration: nil,
@@ -57,7 +57,7 @@ func Test_File(t *testing.T) {
 
 	t.Run("", func(t *testing.T) {
 		// ./test/file_2.docx
-		resp, _, err := AppALLPermission.Ins().File().DownloadFile(ctx, &lark.DownloadFileReq{
+		resp, _, err := AppALLPermission.Ins().File.DownloadFile(ctx, &lark.DownloadFileReq{
 			FileKey: File2.Key,
 		})
 		// printData(resp, err)

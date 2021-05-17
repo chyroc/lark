@@ -9,7 +9,7 @@ import (
 // GetStatisticsData
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/Attendance//task/query-statistics-data
-func (r *AttendanceAPI) GetStatisticsData(ctx context.Context, request *GetStatisticsDataReq, options ...MethodOptionFunc) (*GetStatisticsDataResp, *Response, error) {
+func (r *AttendanceService) GetStatisticsData(ctx context.Context, request *GetStatisticsDataReq, options ...MethodOptionFunc) (*GetStatisticsDataResp, *Response, error) {
 	if r.cli.mock.mockAttendanceGetStatisticsData != nil {
 		r.cli.logDebug(ctx, "[lark] Attendance#GetStatisticsData mock enable")
 		return r.cli.mock.mockAttendanceGetStatisticsData(ctx, request, options...)

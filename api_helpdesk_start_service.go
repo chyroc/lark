@@ -9,7 +9,7 @@ import (
 // StartService 该接口用于创建服务台对话。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/ticket/start_service
-func (r *HelpdeskAPI) StartService(ctx context.Context, request *StartServiceReq, options ...MethodOptionFunc) (*StartServiceResp, *Response, error) {
+func (r *HelpdeskService) StartService(ctx context.Context, request *StartServiceReq, options ...MethodOptionFunc) (*StartServiceResp, *Response, error) {
 	if r.cli.mock.mockHelpdeskStartService != nil {
 		r.cli.logDebug(ctx, "[lark] Helpdesk#StartService mock enable")
 		return r.cli.mock.mockHelpdeskStartService(ctx, request, options...)

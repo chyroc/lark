@@ -9,7 +9,7 @@ import (
 // GetPublicPermissionV2 该接口用于根据 filetoken 获取文档的公共设置。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uITM3YjLyEzN24iMxcjN
-func (r *DriveAPI) GetPublicPermissionV2(ctx context.Context, request *GetPublicPermissionV2Req, options ...MethodOptionFunc) (*GetPublicPermissionV2Resp, *Response, error) {
+func (r *DriveService) GetPublicPermissionV2(ctx context.Context, request *GetPublicPermissionV2Req, options ...MethodOptionFunc) (*GetPublicPermissionV2Resp, *Response, error) {
 	if r.cli.mock.mockDriveGetPublicPermissionV2 != nil {
 		r.cli.logDebug(ctx, "[lark] Drive#GetPublicPermissionV2 mock enable")
 		return r.cli.mock.mockDriveGetPublicPermissionV2(ctx, request, options...)

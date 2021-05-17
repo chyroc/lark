@@ -11,7 +11,7 @@ import (
 // 会议结束后并且收到了"录制完成"的事件方可获取录制文件；只有会议owner（通过开放平台预约的会议即为预约人）有权限获取；录制时间太短(&lt;5s)有可能无法生成录制文件
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/vc-v1/meeting-recording/get
-func (r *VCAPI) GetMeetingRecording(ctx context.Context, request *GetMeetingRecordingReq, options ...MethodOptionFunc) (*GetMeetingRecordingResp, *Response, error) {
+func (r *VCService) GetMeetingRecording(ctx context.Context, request *GetMeetingRecordingReq, options ...MethodOptionFunc) (*GetMeetingRecordingResp, *Response, error) {
 	if r.cli.mock.mockVCGetMeetingRecording != nil {
 		r.cli.logDebug(ctx, "[lark] VC#GetMeetingRecording mock enable")
 		return r.cli.mock.mockVCGetMeetingRecording(ctx, request, options...)

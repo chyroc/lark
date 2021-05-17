@@ -9,7 +9,7 @@ import (
 // GetUserInfo 此接口仅用于获取登录用户的信息。调用此接口需要在 Header 中带上 user_access_token。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uIDO4UjLygDO14iM4gTN
-func (r *AuthAPI) GetUserInfo(ctx context.Context, request *GetUserInfoReq, options ...MethodOptionFunc) (*GetUserInfoResp, *Response, error) {
+func (r *AuthService) GetUserInfo(ctx context.Context, request *GetUserInfoReq, options ...MethodOptionFunc) (*GetUserInfoResp, *Response, error) {
 	if r.cli.mock.mockAuthGetUserInfo != nil {
 		r.cli.logDebug(ctx, "[lark] Auth#GetUserInfo mock enable")
 		return r.cli.mock.mockAuthGetUserInfo(ctx, request, options...)

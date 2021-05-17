@@ -9,7 +9,7 @@ import (
 // CreatePublicMailbox 创建一个公共邮箱
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/mail-v1/public_mailbox/create
-func (r *MailAPI) CreatePublicMailbox(ctx context.Context, request *CreatePublicMailboxReq, options ...MethodOptionFunc) (*CreatePublicMailboxResp, *Response, error) {
+func (r *MailService) CreatePublicMailbox(ctx context.Context, request *CreatePublicMailboxReq, options ...MethodOptionFunc) (*CreatePublicMailboxResp, *Response, error) {
 	if r.cli.mock.mockMailCreatePublicMailbox != nil {
 		r.cli.logDebug(ctx, "[lark] Mail#CreatePublicMailbox mock enable")
 		return r.cli.mock.mockMailCreatePublicMailbox(ctx, request, options...)

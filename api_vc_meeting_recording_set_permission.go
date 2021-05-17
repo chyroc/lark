@@ -11,7 +11,7 @@ import (
 // 会议结束后并且收到了"录制完成"的事件方可进行授权；会议owner（通过开放平台预约的会议即为预约人）才有权限操作
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/vc-v1/meeting-recording/set_permission
-func (r *VCAPI) SetPermissionMeetingRecording(ctx context.Context, request *SetPermissionMeetingRecordingReq, options ...MethodOptionFunc) (*SetPermissionMeetingRecordingResp, *Response, error) {
+func (r *VCService) SetPermissionMeetingRecording(ctx context.Context, request *SetPermissionMeetingRecordingReq, options ...MethodOptionFunc) (*SetPermissionMeetingRecordingResp, *Response, error) {
 	if r.cli.mock.mockVCSetPermissionMeetingRecording != nil {
 		r.cli.logDebug(ctx, "[lark] VC#SetPermissionMeetingRecording mock enable")
 		return r.cli.mock.mockVCSetPermissionMeetingRecording(ctx, request, options...)

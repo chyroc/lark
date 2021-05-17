@@ -9,7 +9,7 @@ import (
 // GetRecordList 该接口用于列出数据表中的现有记录
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table-record/list
-func (r *BitableAPI) GetRecordList(ctx context.Context, request *GetRecordListReq, options ...MethodOptionFunc) (*GetRecordListResp, *Response, error) {
+func (r *BitableService) GetRecordList(ctx context.Context, request *GetRecordListReq, options ...MethodOptionFunc) (*GetRecordListResp, *Response, error) {
 	if r.cli.mock.mockBitableGetRecordList != nil {
 		r.cli.logDebug(ctx, "[lark] Bitable#GetRecordList mock enable")
 		return r.cli.mock.mockBitableGetRecordList(ctx, request, options...)

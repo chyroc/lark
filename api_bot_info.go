@@ -11,7 +11,7 @@ import (
 // 需要启用机器人能力
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uAjMxEjLwITMx4CMyETM
-func (r *BotAPI) GetBotInfo(ctx context.Context, request *GetBotInfoReq, options ...MethodOptionFunc) (*GetBotInfoResp, *Response, error) {
+func (r *BotService) GetBotInfo(ctx context.Context, request *GetBotInfoReq, options ...MethodOptionFunc) (*GetBotInfoResp, *Response, error) {
 	r.cli.logInfo(ctx, "[lark][Bot][GetBotInfo] call api")
 	r.cli.logDebug(ctx, "[lark][Bot][GetBotInfo] request: %s", jsonString(request))
 

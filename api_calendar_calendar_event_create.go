@@ -13,7 +13,7 @@ import (
 // 当前身份必须对日历有 writer 或 owner 权限，并且日历的类型只能为 primary 或 shared。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar-event/create-event
-func (r *CalendarAPI) CreateCalendarEvent(ctx context.Context, request *CreateCalendarEventReq, options ...MethodOptionFunc) (*CreateCalendarEventResp, *Response, error) {
+func (r *CalendarService) CreateCalendarEvent(ctx context.Context, request *CreateCalendarEventReq, options ...MethodOptionFunc) (*CreateCalendarEventResp, *Response, error) {
 	if r.cli.mock.mockCalendarCreateCalendarEvent != nil {
 		r.cli.logDebug(ctx, "[lark] Calendar#CreateCalendarEvent mock enable")
 		return r.cli.mock.mockCalendarCreateCalendarEvent(ctx, request, options...)

@@ -9,7 +9,7 @@ import (
 // TransferMemberPermission 该接口用于根据文档信息和用户信息转移文档的所有者。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uQzNzUjL0czM14CN3MTN
-func (r *DriveAPI) TransferMemberPermission(ctx context.Context, request *TransferMemberPermissionReq, options ...MethodOptionFunc) (*TransferMemberPermissionResp, *Response, error) {
+func (r *DriveService) TransferMemberPermission(ctx context.Context, request *TransferMemberPermissionReq, options ...MethodOptionFunc) (*TransferMemberPermissionResp, *Response, error) {
 	if r.cli.mock.mockDriveTransferMemberPermission != nil {
 		r.cli.logDebug(ctx, "[lark] Drive#TransferMemberPermission mock enable")
 		return r.cli.mock.mockDriveTransferMemberPermission(ctx, request, options...)

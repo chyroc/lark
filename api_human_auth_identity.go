@@ -11,7 +11,7 @@ import (
 // 实名认证接口会有计费管理，接入前请联系飞书开放平台工作人员，邮箱：openplatform@bytedance.com。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/human_authentication-v1/identity/create
-func (r *HumanAuthAPI) CreateIdentity(ctx context.Context, request *CreateIdentityReq, options ...MethodOptionFunc) (*CreateIdentityResp, *Response, error) {
+func (r *HumanAuthService) CreateIdentity(ctx context.Context, request *CreateIdentityReq, options ...MethodOptionFunc) (*CreateIdentityResp, *Response, error) {
 	if r.cli.mock.mockHumanAuthCreateIdentity != nil {
 		r.cli.logDebug(ctx, "[lark] HumanAuth#CreateIdentity mock enable")
 		return r.cli.mock.mockHumanAuthCreateIdentity(ctx, request, options...)

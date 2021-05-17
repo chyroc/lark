@@ -9,7 +9,7 @@ import (
 // DeleteShift
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/Attendance//shift_delete
-func (r *AttendanceAPI) DeleteShift(ctx context.Context, request *DeleteShiftReq, options ...MethodOptionFunc) (*DeleteShiftResp, *Response, error) {
+func (r *AttendanceService) DeleteShift(ctx context.Context, request *DeleteShiftReq, options ...MethodOptionFunc) (*DeleteShiftResp, *Response, error) {
 	if r.cli.mock.mockAttendanceDeleteShift != nil {
 		r.cli.logDebug(ctx, "[lark] Attendance#DeleteShift mock enable")
 		return r.cli.mock.mockAttendanceDeleteShift(ctx, request, options...)

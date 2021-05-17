@@ -11,7 +11,7 @@ import (
 // 飞书每隔 1 小时会给应用推送一次最新的 app_ticket，应用也可以主动调用此接口，触发飞书进行及时的重新推送。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uQjNz4CN2MjL0YzM
-func (r *AuthAPI) ResendAppTicket(ctx context.Context, request *ResendAppTicketReq, options ...MethodOptionFunc) (*ResendAppTicketResp, *Response, error) {
+func (r *AuthService) ResendAppTicket(ctx context.Context, request *ResendAppTicketReq, options ...MethodOptionFunc) (*ResendAppTicketResp, *Response, error) {
 	if r.cli.mock.mockAuthResendAppTicket != nil {
 		r.cli.logDebug(ctx, "[lark] Auth#ResendAppTicket mock enable")
 		return r.cli.mock.mockAuthResendAppTicket(ctx, request, options...)

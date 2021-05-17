@@ -9,7 +9,7 @@ import (
 // RefreshAccessToken 该接口用于在 access_token 过期时用 refresh_token 重新获取 access_token。此时会返回新的 refresh_token，再次刷新 access_token 时需要使用新的 refresh_token。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uQDO4UjL0gDO14CN4gTN
-func (r *AuthAPI) RefreshAccessToken(ctx context.Context, request *RefreshAccessTokenReq, options ...MethodOptionFunc) (*RefreshAccessTokenResp, *Response, error) {
+func (r *AuthService) RefreshAccessToken(ctx context.Context, request *RefreshAccessTokenReq, options ...MethodOptionFunc) (*RefreshAccessTokenResp, *Response, error) {
 	if r.cli.mock.mockAuthRefreshAccessToken != nil {
 		r.cli.logDebug(ctx, "[lark] Auth#RefreshAccessToken mock enable")
 		return r.cli.mock.mockAuthRefreshAccessToken(ctx, request, options...)

@@ -9,7 +9,7 @@ import (
 // DeleteCategory 该接口用于删除知识库分类详情。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/category/delete
-func (r *HelpdeskAPI) DeleteCategory(ctx context.Context, request *DeleteCategoryReq, options ...MethodOptionFunc) (*DeleteCategoryResp, *Response, error) {
+func (r *HelpdeskService) DeleteCategory(ctx context.Context, request *DeleteCategoryReq, options ...MethodOptionFunc) (*DeleteCategoryResp, *Response, error) {
 	if r.cli.mock.mockHelpdeskDeleteCategory != nil {
 		r.cli.logDebug(ctx, "[lark] Helpdesk#DeleteCategory mock enable")
 		return r.cli.mock.mockHelpdeskDeleteCategory(ctx, request, options...)

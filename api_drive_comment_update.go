@@ -11,7 +11,7 @@ import (
 // 只能更新归属于自己的预约，不需要更新的字段不传（如果传空则会被更新为空）；可用于续期操作，到期时间距离当前时间不超过30天
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file-comment/update
-func (r *DriveAPI) UpdateComment(ctx context.Context, request *UpdateCommentReq, options ...MethodOptionFunc) (*UpdateCommentResp, *Response, error) {
+func (r *DriveService) UpdateComment(ctx context.Context, request *UpdateCommentReq, options ...MethodOptionFunc) (*UpdateCommentResp, *Response, error) {
 	if r.cli.mock.mockDriveUpdateComment != nil {
 		r.cli.logDebug(ctx, "[lark] Drive#UpdateComment mock enable")
 		return r.cli.mock.mockDriveUpdateComment(ctx, request, options...)

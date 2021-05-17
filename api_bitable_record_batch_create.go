@@ -9,7 +9,7 @@ import (
 // BatchCreateRecord 该接口用于在数据表中新增多条记录
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table-record/batch_create
-func (r *BitableAPI) BatchCreateRecord(ctx context.Context, request *BatchCreateRecordReq, options ...MethodOptionFunc) (*BatchCreateRecordResp, *Response, error) {
+func (r *BitableService) BatchCreateRecord(ctx context.Context, request *BatchCreateRecordReq, options ...MethodOptionFunc) (*BatchCreateRecordResp, *Response, error) {
 	if r.cli.mock.mockBitableBatchCreateRecord != nil {
 		r.cli.logDebug(ctx, "[lark] Bitable#BatchCreateRecord mock enable")
 		return r.cli.mock.mockBitableBatchCreateRecord(ctx, request, options...)

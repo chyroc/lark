@@ -9,7 +9,7 @@ import (
 // GetRoomList 该接口用于获取指定建筑下的会议室。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uADOyUjLwgjM14CM4ITN
-func (r *MeetingRoomAPI) GetRoomList(ctx context.Context, request *GetRoomListReq, options ...MethodOptionFunc) (*GetRoomListResp, *Response, error) {
+func (r *MeetingRoomService) GetRoomList(ctx context.Context, request *GetRoomListReq, options ...MethodOptionFunc) (*GetRoomListResp, *Response, error) {
 	if r.cli.mock.mockMeetingRoomGetRoomList != nil {
 		r.cli.logDebug(ctx, "[lark] MeetingRoom#GetRoomList mock enable")
 		return r.cli.mock.mockMeetingRoomGetRoomList(ctx, request, options...)

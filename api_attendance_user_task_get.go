@@ -13,7 +13,7 @@ import (
 // * 如果要获取打卡的详细数据，如打卡位置等信息，可使用“获取打卡流水记录”或“批量查询打卡流水记录”的接口。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/Attendance//GetCheckinResults
-func (r *AttendanceAPI) GetUserTask(ctx context.Context, request *GetUserTaskReq, options ...MethodOptionFunc) (*GetUserTaskResp, *Response, error) {
+func (r *AttendanceService) GetUserTask(ctx context.Context, request *GetUserTaskReq, options ...MethodOptionFunc) (*GetUserTaskResp, *Response, error) {
 	if r.cli.mock.mockAttendanceGetUserTask != nil {
 		r.cli.logDebug(ctx, "[lark] Attendance#GetUserTask mock enable")
 		return r.cli.mock.mockAttendanceGetUserTask(ctx, request, options...)

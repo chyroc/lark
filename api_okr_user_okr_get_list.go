@@ -11,7 +11,7 @@ import (
 // 使用<md-tag mode="inline" type="token-tenant">tenant_access_token</md-tag>需要额外申请权限以应用身份访问OKR信息
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/okr-v1/user-okr/list
-func (r *OKRAPI) GetUserOKRList(ctx context.Context, request *GetUserOKRListReq, options ...MethodOptionFunc) (*GetUserOKRListResp, *Response, error) {
+func (r *OKRService) GetUserOKRList(ctx context.Context, request *GetUserOKRListReq, options ...MethodOptionFunc) (*GetUserOKRListResp, *Response, error) {
 	if r.cli.mock.mockOKRGetUserOKRList != nil {
 		r.cli.logDebug(ctx, "[lark] OKR#GetUserOKRList mock enable")
 		return r.cli.mock.mockOKRGetUserOKRList(ctx, request, options...)

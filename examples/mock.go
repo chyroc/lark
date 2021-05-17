@@ -18,7 +18,7 @@ func ExampleMock() {
 
 	// get bot info
 	{
-		resp, _, err := cli.Chat().CreateChat(ctx, &lark.CreateChatReq{})
+		resp, _, err := cli.Chat.CreateChat(ctx, &lark.CreateChatReq{})
 		fmt.Println(resp, err)
 	}
 }

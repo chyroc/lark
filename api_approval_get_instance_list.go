@@ -12,7 +12,7 @@ import (
 // 默认以审批创建时间排序。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uQDOyUjL0gjM14CN4ITN
-func (r *ApprovalAPI) GetInstanceList(ctx context.Context, request *GetInstanceListReq, options ...MethodOptionFunc) (*GetInstanceListResp, *Response, error) {
+func (r *ApprovalService) GetInstanceList(ctx context.Context, request *GetInstanceListReq, options ...MethodOptionFunc) (*GetInstanceListResp, *Response, error) {
 	if r.cli.mock.mockApprovalGetInstanceList != nil {
 		r.cli.logDebug(ctx, "[lark] Approval#GetInstanceList mock enable")
 		return r.cli.mock.mockApprovalGetInstanceList(ctx, request, options...)

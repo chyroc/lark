@@ -19,7 +19,7 @@ func Test_Attendance_Sample_Failed(t *testing.T) {
 		cli := AppALLPermission.Ins()
 		cli.Mock().MockGetTenantAccessToken(mockGetTenantAccessTokenFailed)
 		cli.Mock().MockGetAppAccessToken(mockGetTenantAccessTokenFailed)
-		moduleCli := cli.Attendance()
+		moduleCli := cli.Attendance
 
 		t.Run("", func(t *testing.T) {
 			_, _, err := moduleCli.UpdateUserSettings(ctx, &lark.UpdateUserSettingsReq{})
@@ -156,7 +156,7 @@ func Test_Attendance_Sample_Failed(t *testing.T) {
 
 	t.Run("request mock failed", func(t *testing.T) {
 		cli := AppALLPermission.Ins()
-		moduleCli := cli.Attendance()
+		moduleCli := cli.Attendance
 
 		t.Run("", func(t *testing.T) {
 			cli.Mock().MockAttendanceUpdateUserSettings(func(ctx context.Context, request *lark.UpdateUserSettingsReq, options ...lark.MethodOptionFunc) (*lark.UpdateUserSettingsResp, *lark.Response, error) {
@@ -403,7 +403,7 @@ func Test_Attendance_Sample_Failed(t *testing.T) {
 
 	t.Run("response is failed", func(t *testing.T) {
 		cli := AppNoPermission.Ins()
-		moduleCli := cli.Attendance()
+		moduleCli := cli.Attendance
 
 		t.Run("", func(t *testing.T) {
 			_, _, err := moduleCli.UpdateUserSettings(ctx, &lark.UpdateUserSettingsReq{})

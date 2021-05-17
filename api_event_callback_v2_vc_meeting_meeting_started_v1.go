@@ -11,7 +11,7 @@ import (
 // 发生在会议开始时
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/vc-v1/meeting/events/meeting_started
-func (r *EventCallbackAPI) HandlerEventV2VCMeetingMeetingStartedV1(f eventV2VCMeetingMeetingStartedV1Handler) {
+func (r *EventCallbackService) HandlerEventV2VCMeetingMeetingStartedV1(f eventV2VCMeetingMeetingStartedV1Handler) {
 	r.cli.eventHandler.eventV2VCMeetingMeetingStartedV1Handler = f
 }
 

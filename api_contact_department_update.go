@@ -12,7 +12,7 @@ import (
 // - 没有填写的字段会被置为空值（order字段除外）。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/update
-func (r *ContactAPI) UpdateDepartment(ctx context.Context, request *UpdateDepartmentReq, options ...MethodOptionFunc) (*UpdateDepartmentResp, *Response, error) {
+func (r *ContactService) UpdateDepartment(ctx context.Context, request *UpdateDepartmentReq, options ...MethodOptionFunc) (*UpdateDepartmentResp, *Response, error) {
 	if r.cli.mock.mockContactUpdateDepartment != nil {
 		r.cli.logDebug(ctx, "[lark] Contact#UpdateDepartment mock enable")
 		return r.cli.mock.mockContactUpdateDepartment(ctx, request, options...)

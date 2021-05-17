@@ -9,7 +9,7 @@ import (
 // UpdateCommentPatch 解决或恢复云文档中的评论。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file-comment/patch
-func (r *DriveAPI) UpdateCommentPatch(ctx context.Context, request *UpdateCommentPatchReq, options ...MethodOptionFunc) (*UpdateCommentPatchResp, *Response, error) {
+func (r *DriveService) UpdateCommentPatch(ctx context.Context, request *UpdateCommentPatchReq, options ...MethodOptionFunc) (*UpdateCommentPatchResp, *Response, error) {
 	if r.cli.mock.mockDriveUpdateCommentPatch != nil {
 		r.cli.logDebug(ctx, "[lark] Drive#UpdateCommentPatch mock enable")
 		return r.cli.mock.mockDriveUpdateCommentPatch(ctx, request, options...)

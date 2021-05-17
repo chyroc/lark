@@ -9,7 +9,7 @@ import (
 // DeleteTable 删除一个数据表
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table/delete
-func (r *BitableAPI) DeleteTable(ctx context.Context, request *DeleteTableReq, options ...MethodOptionFunc) (*DeleteTableResp, *Response, error) {
+func (r *BitableService) DeleteTable(ctx context.Context, request *DeleteTableReq, options ...MethodOptionFunc) (*DeleteTableResp, *Response, error) {
 	if r.cli.mock.mockBitableDeleteTable != nil {
 		r.cli.logDebug(ctx, "[lark] Bitable#DeleteTable mock enable")
 		return r.cli.mock.mockBitableDeleteTable(ctx, request, options...)

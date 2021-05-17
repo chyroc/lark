@@ -14,7 +14,7 @@ import (
 // - 获取群组消息时，应用必须拥有 获取群组中所有的消息 权限
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/list
-func (r *MessageAPI) GetMessageList(ctx context.Context, request *GetMessageListReq, options ...MethodOptionFunc) (*GetMessageListResp, *Response, error) {
+func (r *MessageService) GetMessageList(ctx context.Context, request *GetMessageListReq, options ...MethodOptionFunc) (*GetMessageListResp, *Response, error) {
 	if r.cli.mock.mockMessageGetMessageList != nil {
 		r.cli.logDebug(ctx, "[lark] Message#GetMessageList mock enable")
 		return r.cli.mock.mockMessageGetMessageList(ctx, request, options...)

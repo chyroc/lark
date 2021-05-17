@@ -9,7 +9,7 @@ import (
 // CreateMemberPermission 该接口用于根据 filetoken 给用户增加文档的权限。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uMzNzUjLzczM14yM3MTN
-func (r *DriveAPI) CreateMemberPermission(ctx context.Context, request *CreateMemberPermissionReq, options ...MethodOptionFunc) (*CreateMemberPermissionResp, *Response, error) {
+func (r *DriveService) CreateMemberPermission(ctx context.Context, request *CreateMemberPermissionReq, options ...MethodOptionFunc) (*CreateMemberPermissionResp, *Response, error) {
 	if r.cli.mock.mockDriveCreateMemberPermission != nil {
 		r.cli.logDebug(ctx, "[lark] Drive#CreateMemberPermission mock enable")
 		return r.cli.mock.mockDriveCreateMemberPermission(ctx, request, options...)

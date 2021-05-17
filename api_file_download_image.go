@@ -14,7 +14,7 @@ import (
 // - 只能下载机器人自己上传且图片类型为message的图片，avatar类型暂不支持下载；
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/image/get
-func (r *FileAPI) DownloadImage(ctx context.Context, request *DownloadImageReq, options ...MethodOptionFunc) (*DownloadImageResp, *Response, error) {
+func (r *FileService) DownloadImage(ctx context.Context, request *DownloadImageReq, options ...MethodOptionFunc) (*DownloadImageResp, *Response, error) {
 	if r.cli.mock.mockFileDownloadImage != nil {
 		r.cli.logDebug(ctx, "[lark] File#DownloadImage mock enable")
 		return r.cli.mock.mockFileDownloadImage(ctx, request, options...)

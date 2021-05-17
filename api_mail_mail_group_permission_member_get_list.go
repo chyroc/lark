@@ -9,7 +9,7 @@ import (
 // GetMailGroupPermissionMemberList 分页批量获取邮件组权限成员列表
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/mail-v1/mailgroup-permission_member/list
-func (r *MailAPI) GetMailGroupPermissionMemberList(ctx context.Context, request *GetMailGroupPermissionMemberListReq, options ...MethodOptionFunc) (*GetMailGroupPermissionMemberListResp, *Response, error) {
+func (r *MailService) GetMailGroupPermissionMemberList(ctx context.Context, request *GetMailGroupPermissionMemberListReq, options ...MethodOptionFunc) (*GetMailGroupPermissionMemberListResp, *Response, error) {
 	if r.cli.mock.mockMailGetMailGroupPermissionMemberList != nil {
 		r.cli.logDebug(ctx, "[lark] Mail#GetMailGroupPermissionMemberList mock enable")
 		return r.cli.mock.mockMailGetMailGroupPermissionMemberList(ctx, request, options...)

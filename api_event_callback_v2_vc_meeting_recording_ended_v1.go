@@ -11,7 +11,7 @@ import (
 // 发生在录制结束时
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/vc-v1/meeting/events/recording_ended
-func (r *EventCallbackAPI) HandlerEventV2VCMeetingRecordingEndedV1(f eventV2VCMeetingRecordingEndedV1Handler) {
+func (r *EventCallbackService) HandlerEventV2VCMeetingRecordingEndedV1(f eventV2VCMeetingRecordingEndedV1Handler) {
 	r.cli.eventHandler.eventV2VCMeetingRecordingEndedV1Handler = f
 }
 

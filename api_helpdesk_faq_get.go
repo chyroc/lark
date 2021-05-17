@@ -9,7 +9,7 @@ import (
 // GetFAQ 该接口用于获取服务台知识库详情。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/faq/get
-func (r *HelpdeskAPI) GetFAQ(ctx context.Context, request *GetFAQReq, options ...MethodOptionFunc) (*GetFAQResp, *Response, error) {
+func (r *HelpdeskService) GetFAQ(ctx context.Context, request *GetFAQReq, options ...MethodOptionFunc) (*GetFAQResp, *Response, error) {
 	if r.cli.mock.mockHelpdeskGetFAQ != nil {
 		r.cli.logDebug(ctx, "[lark] Helpdesk#GetFAQ mock enable")
 		return r.cli.mock.mockHelpdeskGetFAQ(ctx, request, options...)

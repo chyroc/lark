@@ -17,7 +17,7 @@ import (
 // 3. 撤销加人 - revoke_add_user_from_chat
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/ukjNxYjL5YTM24SO2EjN
-func (r *EventCallbackAPI) HandlerEventV1AddUserToChat(f eventV1AddUserToChatHandler) {
+func (r *EventCallbackService) HandlerEventV1AddUserToChat(f eventV1AddUserToChatHandler) {
 	r.cli.eventHandler.eventV1AddUserToChatHandler = f
 }
 

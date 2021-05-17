@@ -11,7 +11,7 @@ import (
 // 该接口仅适用于通过网页应用登录方式获取的预授权码，小程序登录中用户身份的获取，请使用[小程序 code2session 接口](/ssl:ttdoc/uYjL24iN/ukjM04SOyQjL5IDN)
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uEDO4UjLxgDO14SM4gTN
-func (r *AuthAPI) GetAccessToken(ctx context.Context, request *GetAccessTokenReq, options ...MethodOptionFunc) (*GetAccessTokenResp, *Response, error) {
+func (r *AuthService) GetAccessToken(ctx context.Context, request *GetAccessTokenReq, options ...MethodOptionFunc) (*GetAccessTokenResp, *Response, error) {
 	if r.cli.mock.mockAuthGetAccessToken != nil {
 		r.cli.logDebug(ctx, "[lark] Auth#GetAccessToken mock enable")
 		return r.cli.mock.mockAuthGetAccessToken(ctx, request, options...)

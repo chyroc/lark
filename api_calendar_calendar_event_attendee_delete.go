@@ -12,7 +12,7 @@ import (
 // - 当前身份需要是日程的组织者。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar-event-attendee/batch_delete
-func (r *CalendarAPI) DeleteCalendarEventAttendee(ctx context.Context, request *DeleteCalendarEventAttendeeReq, options ...MethodOptionFunc) (*DeleteCalendarEventAttendeeResp, *Response, error) {
+func (r *CalendarService) DeleteCalendarEventAttendee(ctx context.Context, request *DeleteCalendarEventAttendeeReq, options ...MethodOptionFunc) (*DeleteCalendarEventAttendeeResp, *Response, error) {
 	if r.cli.mock.mockCalendarDeleteCalendarEventAttendee != nil {
 		r.cli.logDebug(ctx, "[lark] Calendar#DeleteCalendarEventAttendee mock enable")
 		return r.cli.mock.mockCalendarDeleteCalendarEventAttendee(ctx, request, options...)

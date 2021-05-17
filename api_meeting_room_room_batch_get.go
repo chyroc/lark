@@ -9,7 +9,7 @@ import (
 // BatchGetRoom 该接口用于获取指定会议室的详细信息。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uEDOyUjLxgjM14SM4ITN
-func (r *MeetingRoomAPI) BatchGetRoom(ctx context.Context, request *BatchGetRoomReq, options ...MethodOptionFunc) (*BatchGetRoomResp, *Response, error) {
+func (r *MeetingRoomService) BatchGetRoom(ctx context.Context, request *BatchGetRoomReq, options ...MethodOptionFunc) (*BatchGetRoomResp, *Response, error) {
 	if r.cli.mock.mockMeetingRoomBatchGetRoom != nil {
 		r.cli.logDebug(ctx, "[lark] MeetingRoom#BatchGetRoom mock enable")
 		return r.cli.mock.mockMeetingRoomBatchGetRoom(ctx, request, options...)

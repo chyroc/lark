@@ -15,7 +15,7 @@ import (
 // - 当授权用户或机器人非群主，但群主设置了 [仅群主可编辑群信息] 时，无法更新公告信息
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-announcement/patch
-func (r *ChatAPI) UpdateAnnouncement(ctx context.Context, request *UpdateAnnouncementReq, options ...MethodOptionFunc) (*UpdateAnnouncementResp, *Response, error) {
+func (r *ChatService) UpdateAnnouncement(ctx context.Context, request *UpdateAnnouncementReq, options ...MethodOptionFunc) (*UpdateAnnouncementResp, *Response, error) {
 	if r.cli.mock.mockChatUpdateAnnouncement != nil {
 		r.cli.logDebug(ctx, "[lark] Chat#UpdateAnnouncement mock enable")
 		return r.cli.mock.mockChatUpdateAnnouncement(ctx, request, options...)

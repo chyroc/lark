@@ -9,7 +9,7 @@ import (
 // CreateComment 往云文档添加一条评论。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file-comment/create
-func (r *DriveAPI) CreateComment(ctx context.Context, request *CreateCommentReq, options ...MethodOptionFunc) (*CreateCommentResp, *Response, error) {
+func (r *DriveService) CreateComment(ctx context.Context, request *CreateCommentReq, options ...MethodOptionFunc) (*CreateCommentResp, *Response, error) {
 	if r.cli.mock.mockDriveCreateComment != nil {
 		r.cli.logDebug(ctx, "[lark] Drive#CreateComment mock enable")
 		return r.cli.mock.mockDriveCreateComment(ctx, request, options...)

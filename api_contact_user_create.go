@@ -11,7 +11,7 @@ import (
 // 新增用户的所有部门必须都在当前应用的通讯录授权范围内才允许新增用户，如果想要在根部门下新增用户，必须要有全员权限。 应用商店应用无权限调用此接口。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/create
-func (r *ContactAPI) CreateUser(ctx context.Context, request *CreateUserReq, options ...MethodOptionFunc) (*CreateUserResp, *Response, error) {
+func (r *ContactService) CreateUser(ctx context.Context, request *CreateUserReq, options ...MethodOptionFunc) (*CreateUserResp, *Response, error) {
 	if r.cli.mock.mockContactCreateUser != nil {
 		r.cli.logDebug(ctx, "[lark] Contact#CreateUser mock enable")
 		return r.cli.mock.mockContactCreateUser(ctx, request, options...)

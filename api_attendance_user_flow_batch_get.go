@@ -12,7 +12,7 @@ import (
 // 如果只需获取打卡结果，而不需要打卡的详细数据，可使用“获取打卡结果”的接口。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/Attendance//BatchQueryCheckinFlowHistory
-func (r *AttendanceAPI) BatchGetUserFlow(ctx context.Context, request *BatchGetUserFlowReq, options ...MethodOptionFunc) (*BatchGetUserFlowResp, *Response, error) {
+func (r *AttendanceService) BatchGetUserFlow(ctx context.Context, request *BatchGetUserFlowReq, options ...MethodOptionFunc) (*BatchGetUserFlowResp, *Response, error) {
 	if r.cli.mock.mockAttendanceBatchGetUserFlow != nil {
 		r.cli.logDebug(ctx, "[lark] Attendance#BatchGetUserFlow mock enable")
 		return r.cli.mock.mockAttendanceBatchGetUserFlow(ctx, request, options...)

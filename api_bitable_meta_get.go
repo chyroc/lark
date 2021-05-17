@@ -9,7 +9,7 @@ import (
 // GetMeta 通过 app_token 获取多维表格元数据
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app/get
-func (r *BitableAPI) GetMeta(ctx context.Context, request *GetMetaReq, options ...MethodOptionFunc) (*GetMetaResp, *Response, error) {
+func (r *BitableService) GetMeta(ctx context.Context, request *GetMetaReq, options ...MethodOptionFunc) (*GetMetaResp, *Response, error) {
 	if r.cli.mock.mockBitableGetMeta != nil {
 		r.cli.logDebug(ctx, "[lark] Bitable#GetMeta mock enable")
 		return r.cli.mock.mockBitableGetMeta(ctx, request, options...)

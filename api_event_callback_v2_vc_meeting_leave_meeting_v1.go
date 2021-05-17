@@ -11,7 +11,7 @@ import (
 // 发生在有人离开会议时
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/vc-v1/meeting/events/leave_meeting
-func (r *EventCallbackAPI) HandlerEventV2VCMeetingLeaveMeetingV1(f eventV2VCMeetingLeaveMeetingV1Handler) {
+func (r *EventCallbackService) HandlerEventV2VCMeetingLeaveMeetingV1(f eventV2VCMeetingLeaveMeetingV1Handler) {
 	r.cli.eventHandler.eventV2VCMeetingLeaveMeetingV1Handler = f
 }
 

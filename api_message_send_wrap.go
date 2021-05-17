@@ -7,12 +7,12 @@ import (
 
 type MessageSendAPI struct {
 	cli           *Lark
-	msgAPI        *MessageAPI
+	msgAPI        *MessageService
 	receiveID     string
 	receiveIDType IDType
 }
 
-func (r *MessageAPI) Send() *MessageSendAPI {
+func (r *MessageService) Send() *MessageSendAPI {
 	return &MessageSendAPI{
 		cli:    r.cli,
 		msgAPI: r,

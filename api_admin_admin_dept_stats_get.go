@@ -13,7 +13,7 @@ import (
 // - 部门维度的数据最多查询最近366天（包含366天）的数据
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/admin-v1/admin_dept_stat/list
-func (r *AdminAPI) GetAdminDeptStats(ctx context.Context, request *GetAdminDeptStatsReq, options ...MethodOptionFunc) (*GetAdminDeptStatsResp, *Response, error) {
+func (r *AdminService) GetAdminDeptStats(ctx context.Context, request *GetAdminDeptStatsReq, options ...MethodOptionFunc) (*GetAdminDeptStatsResp, *Response, error) {
 	if r.cli.mock.mockAdminGetAdminDeptStats != nil {
 		r.cli.logDebug(ctx, "[lark] Admin#GetAdminDeptStats mock enable")
 		return r.cli.mock.mockAdminGetAdminDeptStats(ctx, request, options...)

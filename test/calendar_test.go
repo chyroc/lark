@@ -16,7 +16,7 @@ func Test_CalendarACL_Failed(t *testing.T) {
 	t.Run("request failed", func(t *testing.T) {
 		cli := AppALLPermission.Ins()
 		cli.Mock().MockGetTenantAccessToken(mockGetTenantAccessTokenFailed)
-		moduleCli := cli.Calendar()
+		moduleCli := cli.Calendar
 
 		t.Run("", func(t *testing.T) {
 			_, _, err := moduleCli.CreateCalendarACL(ctx, &lark.CreateCalendarACLReq{})
@@ -47,7 +47,7 @@ func Test_CalendarACL_Failed(t *testing.T) {
 
 	t.Run("response failed", func(t *testing.T) {
 		cli := AppNoPermission.Ins()
-		moduleCli := cli.Calendar()
+		moduleCli := cli.Calendar
 
 		t.Run("", func(t *testing.T) {
 			_, _, err := moduleCli.CreateCalendarACL(ctx, &lark.CreateCalendarACLReq{
@@ -88,7 +88,7 @@ func Test_CalendarEventAttendee_Failed(t *testing.T) {
 	t.Run("request failed", func(t *testing.T) {
 		cli := AppALLPermission.Ins()
 		cli.Mock().MockGetTenantAccessToken(mockGetTenantAccessTokenFailed)
-		moduleCli := cli.Calendar()
+		moduleCli := cli.Calendar
 
 		t.Run("", func(t *testing.T) {
 			_, _, err := moduleCli.CreateCalendarEventAttendee(ctx, &lark.CreateCalendarEventAttendeeReq{})
@@ -111,7 +111,7 @@ func Test_CalendarEventAttendee_Failed(t *testing.T) {
 
 	t.Run("response failed", func(t *testing.T) {
 		cli := AppNoPermission.Ins()
-		moduleCli := cli.Calendar()
+		moduleCli := cli.Calendar
 
 		t.Run("", func(t *testing.T) {
 			_, _, err := moduleCli.CreateCalendarEventAttendee(ctx, &lark.CreateCalendarEventAttendeeReq{
@@ -144,7 +144,7 @@ func Test_CalendarEventAttendee_Failed(t *testing.T) {
 
 func Test_Calendar(t *testing.T) {
 	as := assert.New(t)
-	moduleCli := AppALLPermission.Ins().Calendar()
+	moduleCli := AppALLPermission.Ins().Calendar
 
 	t.Run("", func(t *testing.T) {
 		calendarID := ""
@@ -215,7 +215,7 @@ func Test_Calendar(t *testing.T) {
 
 func Test_CalendarEvent(t *testing.T) {
 	as := assert.New(t)
-	moduleCli := AppALLPermission.Ins().Calendar()
+	moduleCli := AppALLPermission.Ins().Calendar
 
 	t.Run("", func(t *testing.T) {
 		calendarID := ""
@@ -306,7 +306,7 @@ func Test_CalendarEvent(t *testing.T) {
 
 func Test_CalendarACL(t *testing.T) {
 	as := assert.New(t)
-	moduleCli := AppALLPermission.Ins().Calendar()
+	moduleCli := AppALLPermission.Ins().Calendar
 
 	t.Run("", func(t *testing.T) {
 		calendarID := ""

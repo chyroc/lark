@@ -9,7 +9,7 @@ import (
 // ReplyInstance 该接口用于回复会议室日程实例，包括未签到释放和提前结束释放。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uYzN4UjL2cDO14iN3gTN
-func (r *MeetingRoomAPI) ReplyInstance(ctx context.Context, request *ReplyInstanceReq, options ...MethodOptionFunc) (*ReplyInstanceResp, *Response, error) {
+func (r *MeetingRoomService) ReplyInstance(ctx context.Context, request *ReplyInstanceReq, options ...MethodOptionFunc) (*ReplyInstanceResp, *Response, error) {
 	if r.cli.mock.mockMeetingRoomReplyInstance != nil {
 		r.cli.logDebug(ctx, "[lark] MeetingRoom#ReplyInstance mock enable")
 		return r.cli.mock.mockMeetingRoomReplyInstance(ctx, request, options...)

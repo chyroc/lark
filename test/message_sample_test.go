@@ -19,7 +19,7 @@ func Test_Message_Sample_Failed(t *testing.T) {
 		cli := AppALLPermission.Ins()
 		cli.Mock().MockGetTenantAccessToken(mockGetTenantAccessTokenFailed)
 		cli.Mock().MockGetAppAccessToken(mockGetTenantAccessTokenFailed)
-		moduleCli := cli.Message()
+		moduleCli := cli.Message
 
 		t.Run("", func(t *testing.T) {
 			_, _, err := moduleCli.SendRawMessage(ctx, &lark.SendRawMessageReq{})
@@ -72,7 +72,7 @@ func Test_Message_Sample_Failed(t *testing.T) {
 
 	t.Run("request mock failed", func(t *testing.T) {
 		cli := AppALLPermission.Ins()
-		moduleCli := cli.Message()
+		moduleCli := cli.Message
 
 		t.Run("", func(t *testing.T) {
 			cli.Mock().MockMessageSendRawMessage(func(ctx context.Context, request *lark.SendRawMessageReq, options ...lark.MethodOptionFunc) (*lark.SendRawMessageResp, *lark.Response, error) {
@@ -165,7 +165,7 @@ func Test_Message_Sample_Failed(t *testing.T) {
 
 	t.Run("response is failed", func(t *testing.T) {
 		cli := AppNoPermission.Ins()
-		moduleCli := cli.Message()
+		moduleCli := cli.Message
 
 		t.Run("", func(t *testing.T) {
 			_, _, err := moduleCli.SendRawMessage(ctx, &lark.SendRawMessageReq{})

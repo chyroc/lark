@@ -20,7 +20,7 @@ func example() {
 	if err != nil {
 		panic(err)
 	}
-	resp, _, err := cli.File().UploadFile(ctx, &lark.UploadFileReq{
+	resp, _, err := cli.File.UploadFile(ctx, &lark.UploadFileReq{
 		FileType: lark.FileTypeXls,
 		FileName: "test.xlsx",
 		File:     f,
@@ -29,7 +29,7 @@ func example() {
 		panic(err)
 	}
 
-	_, _, err = cli.Message().Send().ToChatID(chatID).SendFile(ctx, resp.FileKey)
+	_, _, err = cli.Message.Send().ToChatID(chatID).SendFile(ctx, resp.FileKey)
 	if err != nil {
 		panic(err)
 	}

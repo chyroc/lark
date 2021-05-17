@@ -9,7 +9,7 @@ import (
 // BatchDeleteTable 删除多个数据表
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table/batch_delete
-func (r *BitableAPI) BatchDeleteTable(ctx context.Context, request *BatchDeleteTableReq, options ...MethodOptionFunc) (*BatchDeleteTableResp, *Response, error) {
+func (r *BitableService) BatchDeleteTable(ctx context.Context, request *BatchDeleteTableReq, options ...MethodOptionFunc) (*BatchDeleteTableResp, *Response, error) {
 	if r.cli.mock.mockBitableBatchDeleteTable != nil {
 		r.cli.logDebug(ctx, "[lark] Bitable#BatchDeleteTable mock enable")
 		return r.cli.mock.mockBitableBatchDeleteTable(ctx, request, options...)

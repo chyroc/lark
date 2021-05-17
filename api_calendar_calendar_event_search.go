@@ -13,7 +13,7 @@ import (
 // 当前身份必须对日历有访问权限。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar-event/search
-func (r *CalendarAPI) SearchCalendarEvent(ctx context.Context, request *SearchCalendarEventReq, options ...MethodOptionFunc) (*SearchCalendarEventResp, *Response, error) {
+func (r *CalendarService) SearchCalendarEvent(ctx context.Context, request *SearchCalendarEventReq, options ...MethodOptionFunc) (*SearchCalendarEventResp, *Response, error) {
 	if r.cli.mock.mockCalendarSearchCalendarEvent != nil {
 		r.cli.logDebug(ctx, "[lark] Calendar#SearchCalendarEvent mock enable")
 		return r.cli.mock.mockCalendarSearchCalendarEvent(ctx, request, options...)

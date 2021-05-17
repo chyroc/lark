@@ -11,7 +11,7 @@ import (
 
 // https://open.feishu.cn/document/ukTMukTMukTM/uUTNz4SN1MjL1UzM#8f960a4b
 
-func (r *EventCallbackAPI) listenCallback(ctx context.Context, reader io.Reader, writer http.ResponseWriter) {
+func (r *EventCallbackService) listenCallback(ctx context.Context, reader io.Reader, writer http.ResponseWriter) {
 	bs, err := ioutil.ReadAll(reader)
 	if err != nil {
 		writer.WriteHeader(500)
@@ -37,7 +37,7 @@ func (r *EventCallbackAPI) listenCallback(ctx context.Context, reader io.Reader,
 	return
 }
 
-func (r *EventCallbackAPI) parserReq(ctx context.Context, body []byte) (*eventReq, error) {
+func (r *EventCallbackService) parserReq(ctx context.Context, body []byte) (*eventReq, error) {
 	req := new(eventReq)
 	req.eventBody = new(eventBody)
 
@@ -76,7 +76,7 @@ func (r *EventCallbackAPI) parserReq(ctx context.Context, body []byte) (*eventRe
 	return req, nil
 }
 
-func (r *EventCallbackAPI) handlerReq(ctx context.Context, writer io.Writer, req *eventReq) (string, error) {
+func (r *EventCallbackService) handlerReq(ctx context.Context, writer io.Writer, req *eventReq) (string, error) {
 	if r.cli.verificationToken == "" {
 		return "", fmt.Errorf("must set verification token")
 	}

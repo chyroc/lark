@@ -9,7 +9,7 @@ import (
 // GetBuildingList 该接口用于获取本企业下的建筑物（办公大楼）。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/ugzNyUjL4cjM14CO3ITN
-func (r *MeetingRoomAPI) GetBuildingList(ctx context.Context, request *GetBuildingListReq, options ...MethodOptionFunc) (*GetBuildingListResp, *Response, error) {
+func (r *MeetingRoomService) GetBuildingList(ctx context.Context, request *GetBuildingListReq, options ...MethodOptionFunc) (*GetBuildingListResp, *Response, error) {
 	if r.cli.mock.mockMeetingRoomGetBuildingList != nil {
 		r.cli.logDebug(ctx, "[lark] MeetingRoom#GetBuildingList mock enable")
 		return r.cli.mock.mockMeetingRoomGetBuildingList(ctx, request, options...)

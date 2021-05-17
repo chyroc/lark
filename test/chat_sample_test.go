@@ -19,7 +19,7 @@ func Test_Chat_Sample_Failed(t *testing.T) {
 		cli := AppALLPermission.Ins()
 		cli.Mock().MockGetTenantAccessToken(mockGetTenantAccessTokenFailed)
 		cli.Mock().MockGetAppAccessToken(mockGetTenantAccessTokenFailed)
-		moduleCli := cli.Chat()
+		moduleCli := cli.Chat
 
 		t.Run("", func(t *testing.T) {
 			_, _, err := moduleCli.CreateChat(ctx, &lark.CreateChatReq{})
@@ -96,7 +96,7 @@ func Test_Chat_Sample_Failed(t *testing.T) {
 
 	t.Run("request mock failed", func(t *testing.T) {
 		cli := AppALLPermission.Ins()
-		moduleCli := cli.Chat()
+		moduleCli := cli.Chat
 
 		t.Run("", func(t *testing.T) {
 			cli.Mock().MockChatCreateChat(func(ctx context.Context, request *lark.CreateChatReq, options ...lark.MethodOptionFunc) (*lark.CreateChatResp, *lark.Response, error) {
@@ -233,7 +233,7 @@ func Test_Chat_Sample_Failed(t *testing.T) {
 
 	t.Run("response is failed", func(t *testing.T) {
 		cli := AppNoPermission.Ins()
-		moduleCli := cli.Chat()
+		moduleCli := cli.Chat
 
 		t.Run("", func(t *testing.T) {
 			_, _, err := moduleCli.CreateChat(ctx, &lark.CreateChatReq{})

@@ -15,7 +15,7 @@ import (
 // - 请求的 file_key 和 message_id 需要匹配
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message-resource/get
-func (r *MessageAPI) GetMessageFile(ctx context.Context, request *GetMessageFileReq, options ...MethodOptionFunc) (*GetMessageFileResp, *Response, error) {
+func (r *MessageService) GetMessageFile(ctx context.Context, request *GetMessageFileReq, options ...MethodOptionFunc) (*GetMessageFileResp, *Response, error) {
 	if r.cli.mock.mockMessageGetMessageFile != nil {
 		r.cli.logDebug(ctx, "[lark] Message#GetMessageFile mock enable")
 		return r.cli.mock.mockMessageGetMessageFile(ctx, request, options...)

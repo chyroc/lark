@@ -9,7 +9,7 @@ import (
 // GetCommentList 通过分页方式获取云文档中的评论列表。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file-comment/list
-func (r *DriveAPI) GetCommentList(ctx context.Context, request *GetCommentListReq, options ...MethodOptionFunc) (*GetCommentListResp, *Response, error) {
+func (r *DriveService) GetCommentList(ctx context.Context, request *GetCommentListReq, options ...MethodOptionFunc) (*GetCommentListResp, *Response, error) {
 	if r.cli.mock.mockDriveGetCommentList != nil {
 		r.cli.logDebug(ctx, "[lark] Drive#GetCommentList mock enable")
 		return r.cli.mock.mockDriveGetCommentList(ctx, request, options...)

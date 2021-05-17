@@ -9,7 +9,7 @@ import (
 // BatchGetBuilding 该接口用于获取指定建筑物的详细信息。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/ukzNyUjL5cjM14SO3ITN
-func (r *MeetingRoomAPI) BatchGetBuilding(ctx context.Context, request *BatchGetBuildingReq, options ...MethodOptionFunc) (*BatchGetBuildingResp, *Response, error) {
+func (r *MeetingRoomService) BatchGetBuilding(ctx context.Context, request *BatchGetBuildingReq, options ...MethodOptionFunc) (*BatchGetBuildingResp, *Response, error) {
 	if r.cli.mock.mockMeetingRoomBatchGetBuilding != nil {
 		r.cli.logDebug(ctx, "[lark] MeetingRoom#BatchGetBuilding mock enable")
 		return r.cli.mock.mockMeetingRoomBatchGetBuilding(ctx, request, options...)

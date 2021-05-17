@@ -9,7 +9,7 @@ import (
 // UpdateMailGroupPatch 更新邮件组部分字段，没有填写的字段不会被更新
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/mail-v1/mailgroup/patch
-func (r *MailAPI) UpdateMailGroupPatch(ctx context.Context, request *UpdateMailGroupPatchReq, options ...MethodOptionFunc) (*UpdateMailGroupPatchResp, *Response, error) {
+func (r *MailService) UpdateMailGroupPatch(ctx context.Context, request *UpdateMailGroupPatchReq, options ...MethodOptionFunc) (*UpdateMailGroupPatchResp, *Response, error) {
 	if r.cli.mock.mockMailUpdateMailGroupPatch != nil {
 		r.cli.logDebug(ctx, "[lark] Mail#UpdateMailGroupPatch mock enable")
 		return r.cli.mock.mockMailUpdateMailGroupPatch(ctx, request, options...)

@@ -13,7 +13,7 @@ import (
 // - 依赖条件：应用必须开启了[机器人能力](/ssl:ttdoc/uQjL04CN/uYTMuYTMuYTM)。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uMTNxYjLzUTM24yM1EjN
-func (r *EventCallbackAPI) HandlerEventV1RemoveBot(f eventV1RemoveBotHandler) {
+func (r *EventCallbackService) HandlerEventV1RemoveBot(f eventV1RemoveBotHandler) {
 	r.cli.eventHandler.eventV1RemoveBotHandler = f
 }
 

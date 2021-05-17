@@ -9,7 +9,7 @@ import (
 // GetTicketMessageList 该接口用于获取服务台工单消息详情。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/ticket-message/list
-func (r *HelpdeskAPI) GetTicketMessageList(ctx context.Context, request *GetTicketMessageListReq, options ...MethodOptionFunc) (*GetTicketMessageListResp, *Response, error) {
+func (r *HelpdeskService) GetTicketMessageList(ctx context.Context, request *GetTicketMessageListReq, options ...MethodOptionFunc) (*GetTicketMessageListResp, *Response, error) {
 	if r.cli.mock.mockHelpdeskGetTicketMessageList != nil {
 		r.cli.logDebug(ctx, "[lark] Helpdesk#GetTicketMessageList mock enable")
 		return r.cli.mock.mockHelpdeskGetTicketMessageList(ctx, request, options...)

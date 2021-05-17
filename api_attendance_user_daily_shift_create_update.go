@@ -11,7 +11,7 @@ import (
 // 班表是用来描述考勤组内人员每天按哪个班次进行上班。目前班表支持按一个整月对一位或多位人员进行排班。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/Attendance//CreateandEditShifts
-func (r *AttendanceAPI) CreateUpdateUserDailyShift(ctx context.Context, request *CreateUpdateUserDailyShiftReq, options ...MethodOptionFunc) (*CreateUpdateUserDailyShiftResp, *Response, error) {
+func (r *AttendanceService) CreateUpdateUserDailyShift(ctx context.Context, request *CreateUpdateUserDailyShiftReq, options ...MethodOptionFunc) (*CreateUpdateUserDailyShiftResp, *Response, error) {
 	if r.cli.mock.mockAttendanceCreateUpdateUserDailyShift != nil {
 		r.cli.logDebug(ctx, "[lark] Attendance#CreateUpdateUserDailyShift mock enable")
 		return r.cli.mock.mockAttendanceCreateUpdateUserDailyShift(ctx, request, options...)

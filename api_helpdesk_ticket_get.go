@@ -9,7 +9,7 @@ import (
 // GetTicket 该接口用于获取单个服务台工单详情。仅支持自建应用。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/ticket/get
-func (r *HelpdeskAPI) GetTicket(ctx context.Context, request *GetTicketReq, options ...MethodOptionFunc) (*GetTicketResp, *Response, error) {
+func (r *HelpdeskService) GetTicket(ctx context.Context, request *GetTicketReq, options ...MethodOptionFunc) (*GetTicketResp, *Response, error) {
 	if r.cli.mock.mockHelpdeskGetTicket != nil {
 		r.cli.logDebug(ctx, "[lark] Helpdesk#GetTicket mock enable")
 		return r.cli.mock.mockHelpdeskGetTicket(ctx, request, options...)

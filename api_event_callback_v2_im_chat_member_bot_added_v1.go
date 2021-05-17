@@ -15,7 +15,7 @@ import (
 // - 事件会向进群的机器人进行推送
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-member-bot/events/added
-func (r *EventCallbackAPI) HandlerEventV2IMChatMemberBotAddedV1(f eventV2IMChatMemberBotAddedV1Handler) {
+func (r *EventCallbackService) HandlerEventV2IMChatMemberBotAddedV1(f eventV2IMChatMemberBotAddedV1Handler) {
 	r.cli.eventHandler.eventV2IMChatMemberBotAddedV1Handler = f
 }
 

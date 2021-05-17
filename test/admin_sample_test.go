@@ -19,7 +19,7 @@ func Test_Admin_Sample_Failed(t *testing.T) {
 		cli := AppALLPermission.Ins()
 		cli.Mock().MockGetTenantAccessToken(mockGetTenantAccessTokenFailed)
 		cli.Mock().MockGetAppAccessToken(mockGetTenantAccessTokenFailed)
-		moduleCli := cli.Admin()
+		moduleCli := cli.Admin
 
 		t.Run("", func(t *testing.T) {
 			_, _, err := moduleCli.GetAdminDeptStats(ctx, &lark.GetAdminDeptStatsReq{})
@@ -36,7 +36,7 @@ func Test_Admin_Sample_Failed(t *testing.T) {
 
 	t.Run("request mock failed", func(t *testing.T) {
 		cli := AppALLPermission.Ins()
-		moduleCli := cli.Admin()
+		moduleCli := cli.Admin
 
 		t.Run("", func(t *testing.T) {
 			cli.Mock().MockAdminGetAdminDeptStats(func(ctx context.Context, request *lark.GetAdminDeptStatsReq, options ...lark.MethodOptionFunc) (*lark.GetAdminDeptStatsResp, *lark.Response, error) {
@@ -63,7 +63,7 @@ func Test_Admin_Sample_Failed(t *testing.T) {
 
 	t.Run("response is failed", func(t *testing.T) {
 		cli := AppNoPermission.Ins()
-		moduleCli := cli.Admin()
+		moduleCli := cli.Admin
 
 		t.Run("", func(t *testing.T) {
 			_, _, err := moduleCli.GetAdminDeptStats(ctx, &lark.GetAdminDeptStatsReq{})

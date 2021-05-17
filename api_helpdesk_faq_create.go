@@ -9,7 +9,7 @@ import (
 // CreateFAQ 该接口用于创建知识库。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/faq/create
-func (r *HelpdeskAPI) CreateFAQ(ctx context.Context, request *CreateFAQReq, options ...MethodOptionFunc) (*CreateFAQResp, *Response, error) {
+func (r *HelpdeskService) CreateFAQ(ctx context.Context, request *CreateFAQReq, options ...MethodOptionFunc) (*CreateFAQResp, *Response, error) {
 	if r.cli.mock.mockHelpdeskCreateFAQ != nil {
 		r.cli.logDebug(ctx, "[lark] Helpdesk#CreateFAQ mock enable")
 		return r.cli.mock.mockHelpdeskCreateFAQ(ctx, request, options...)

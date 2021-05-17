@@ -9,7 +9,7 @@ import (
 // GetUser 该接口用于获取通讯录中单个用户的信息。只能访问有数据权限的字段，具体的数据权限与字段的关系请参考[应用权限](/ssl:ttdoc/ukTMukTMukTM/uQjN3QjL0YzN04CN2cDN)
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/get
-func (r *ContactAPI) GetUser(ctx context.Context, request *GetUserReq, options ...MethodOptionFunc) (*GetUserResp, *Response, error) {
+func (r *ContactService) GetUser(ctx context.Context, request *GetUserReq, options ...MethodOptionFunc) (*GetUserResp, *Response, error) {
 	if r.cli.mock.mockContactGetUser != nil {
 		r.cli.logDebug(ctx, "[lark] Contact#GetUser mock enable")
 		return r.cli.mock.mockContactGetUser(ctx, request, options...)

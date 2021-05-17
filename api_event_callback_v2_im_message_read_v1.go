@@ -14,7 +14,7 @@ import (
 // - 需要订阅 [即时通讯] 分类下的 [消息已读] 事件
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/events/message_read
-func (r *EventCallbackAPI) HandlerEventV2IMMessageReadV1(f eventV2IMMessageReadV1Handler) {
+func (r *EventCallbackService) HandlerEventV2IMMessageReadV1(f eventV2IMMessageReadV1Handler) {
 	r.cli.eventHandler.eventV2IMMessageReadV1Handler = f
 }
 

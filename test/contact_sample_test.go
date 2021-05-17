@@ -19,7 +19,7 @@ func Test_Contact_Sample_Failed(t *testing.T) {
 		cli := AppALLPermission.Ins()
 		cli.Mock().MockGetTenantAccessToken(mockGetTenantAccessTokenFailed)
 		cli.Mock().MockGetAppAccessToken(mockGetTenantAccessTokenFailed)
-		moduleCli := cli.Contact()
+		moduleCli := cli.Contact
 
 		t.Run("", func(t *testing.T) {
 			_, _, err := moduleCli.CreateUser(ctx, &lark.CreateUserReq{})
@@ -102,7 +102,7 @@ func Test_Contact_Sample_Failed(t *testing.T) {
 
 	t.Run("request mock failed", func(t *testing.T) {
 		cli := AppALLPermission.Ins()
-		moduleCli := cli.Contact()
+		moduleCli := cli.Contact
 
 		t.Run("", func(t *testing.T) {
 			cli.Mock().MockContactCreateUser(func(ctx context.Context, request *lark.CreateUserReq, options ...lark.MethodOptionFunc) (*lark.CreateUserResp, *lark.Response, error) {
@@ -250,7 +250,7 @@ func Test_Contact_Sample_Failed(t *testing.T) {
 
 	t.Run("response is failed", func(t *testing.T) {
 		cli := AppNoPermission.Ins()
-		moduleCli := cli.Contact()
+		moduleCli := cli.Contact
 
 		t.Run("", func(t *testing.T) {
 			_, _, err := moduleCli.CreateUser(ctx, &lark.CreateUserReq{})

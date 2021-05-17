@@ -12,7 +12,7 @@ import (
 // - 应用需要开启[机器人能力](https://open.feishu.cn/document/uQjL04CN/uYTMuYTMuYTM)
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat/create
-func (r *ChatAPI) CreateChat(ctx context.Context, request *CreateChatReq, options ...MethodOptionFunc) (*CreateChatResp, *Response, error) {
+func (r *ChatService) CreateChat(ctx context.Context, request *CreateChatReq, options ...MethodOptionFunc) (*CreateChatResp, *Response, error) {
 	if r.cli.mock.mockChatCreateChat != nil {
 		r.cli.logDebug(ctx, "[lark] Chat#CreateChat mock enable")
 		return r.cli.mock.mockChatCreateChat(ctx, request, options...)

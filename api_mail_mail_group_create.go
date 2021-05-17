@@ -9,7 +9,7 @@ import (
 // CreateMailGroup 创建一个邮件组
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/mail-v1/mailgroup/create
-func (r *MailAPI) CreateMailGroup(ctx context.Context, request *CreateMailGroupReq, options ...MethodOptionFunc) (*CreateMailGroupResp, *Response, error) {
+func (r *MailService) CreateMailGroup(ctx context.Context, request *CreateMailGroupReq, options ...MethodOptionFunc) (*CreateMailGroupResp, *Response, error) {
 	if r.cli.mock.mockMailCreateMailGroup != nil {
 		r.cli.logDebug(ctx, "[lark] Mail#CreateMailGroup mock enable")
 		return r.cli.mock.mockMailCreateMailGroup(ctx, request, options...)

@@ -9,7 +9,7 @@ import (
 // SubscribeEvent 用于订阅服务台事件
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/event/subscribe
-func (r *HelpdeskAPI) SubscribeEvent(ctx context.Context, request *SubscribeEventReq, options ...MethodOptionFunc) (*SubscribeEventResp, *Response, error) {
+func (r *HelpdeskService) SubscribeEvent(ctx context.Context, request *SubscribeEventReq, options ...MethodOptionFunc) (*SubscribeEventResp, *Response, error) {
 	if r.cli.mock.mockHelpdeskSubscribeEvent != nil {
 		r.cli.logDebug(ctx, "[lark] Helpdesk#SubscribeEvent mock enable")
 		return r.cli.mock.mockHelpdeskSubscribeEvent(ctx, request, options...)

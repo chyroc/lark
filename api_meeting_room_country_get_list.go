@@ -9,7 +9,7 @@ import (
 // GetCountryList 新建建筑时需要标明所处国家/地区，该接口用于获得系统预先提供的可供选择的国家 /地区列表。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uQTNwYjL0UDM24CN1AjN
-func (r *MeetingRoomAPI) GetCountryList(ctx context.Context, request *GetCountryListReq, options ...MethodOptionFunc) (*GetCountryListResp, *Response, error) {
+func (r *MeetingRoomService) GetCountryList(ctx context.Context, request *GetCountryListReq, options ...MethodOptionFunc) (*GetCountryListResp, *Response, error) {
 	if r.cli.mock.mockMeetingRoomGetCountryList != nil {
 		r.cli.logDebug(ctx, "[lark] MeetingRoom#GetCountryList mock enable")
 		return r.cli.mock.mockMeetingRoomGetCountryList(ctx, request, options...)

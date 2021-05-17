@@ -13,7 +13,7 @@ import (
 // 目前支持加班、请假、出差和外出这四种审批结果的写入。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/Attendance//AddApprovalsInLarkAttendance
-func (r *AttendanceAPI) CreateUserApproval(ctx context.Context, request *CreateUserApprovalReq, options ...MethodOptionFunc) (*CreateUserApprovalResp, *Response, error) {
+func (r *AttendanceService) CreateUserApproval(ctx context.Context, request *CreateUserApprovalReq, options ...MethodOptionFunc) (*CreateUserApprovalResp, *Response, error) {
 	if r.cli.mock.mockAttendanceCreateUserApproval != nil {
 		r.cli.logDebug(ctx, "[lark] Attendance#CreateUserApproval mock enable")
 		return r.cli.mock.mockAttendanceCreateUserApproval(ctx, request, options...)

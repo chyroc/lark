@@ -11,7 +11,7 @@ import (
 // 调用该接口需要具有该部门以及更新操作涉及的部门的通讯录权限。应用商店应用无权限调用此接口。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/patch
-func (r *ContactAPI) UpdateDepartmentPatch(ctx context.Context, request *UpdateDepartmentPatchReq, options ...MethodOptionFunc) (*UpdateDepartmentPatchResp, *Response, error) {
+func (r *ContactService) UpdateDepartmentPatch(ctx context.Context, request *UpdateDepartmentPatchReq, options ...MethodOptionFunc) (*UpdateDepartmentPatchResp, *Response, error) {
 	if r.cli.mock.mockContactUpdateDepartmentPatch != nil {
 		r.cli.logDebug(ctx, "[lark] Contact#UpdateDepartmentPatch mock enable")
 		return r.cli.mock.mockContactUpdateDepartmentPatch(ctx, request, options...)

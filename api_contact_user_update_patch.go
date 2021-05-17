@@ -9,7 +9,7 @@ import (
 // UpdateUserPatch 该接口用于更新通讯录中用户的字段，未传递的参数不会更新。接口只会返回应用有数据权限的字段，具体的数据权限与字段的关系请参考[应用权限](/ssl:ttdoc/ukTMukTMukTM/uQjN3QjL0YzN04CN2cDN)
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/patch
-func (r *ContactAPI) UpdateUserPatch(ctx context.Context, request *UpdateUserPatchReq, options ...MethodOptionFunc) (*UpdateUserPatchResp, *Response, error) {
+func (r *ContactService) UpdateUserPatch(ctx context.Context, request *UpdateUserPatchReq, options ...MethodOptionFunc) (*UpdateUserPatchResp, *Response, error) {
 	if r.cli.mock.mockContactUpdateUserPatch != nil {
 		r.cli.logDebug(ctx, "[lark] Contact#UpdateUserPatch mock enable")
 		return r.cli.mock.mockContactUpdateUserPatch(ctx, request, options...)

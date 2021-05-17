@@ -39,7 +39,7 @@ import (
 // - 加班设置：支持配置加班时间的计算规则。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/Attendance//group_create_update
-func (r *AttendanceAPI) CreateUpdateGroup(ctx context.Context, request *CreateUpdateGroupReq, options ...MethodOptionFunc) (*CreateUpdateGroupResp, *Response, error) {
+func (r *AttendanceService) CreateUpdateGroup(ctx context.Context, request *CreateUpdateGroupReq, options ...MethodOptionFunc) (*CreateUpdateGroupResp, *Response, error) {
 	if r.cli.mock.mockAttendanceCreateUpdateGroup != nil {
 		r.cli.logDebug(ctx, "[lark] Attendance#CreateUpdateGroup mock enable")
 		return r.cli.mock.mockAttendanceCreateUpdateGroup(ctx, request, options...)

@@ -13,7 +13,7 @@ func ExampleOtherMessage() {
 
 	// delete message
 	{
-		resp, _, err := cli.Message().DeleteMessage(ctx, &lark.DeleteMessageReq{
+		resp, _, err := cli.Message.DeleteMessage(ctx, &lark.DeleteMessageReq{
 			MessageID: "<MESSAGE_ID>",
 		})
 		fmt.Println(resp, err)
@@ -21,7 +21,7 @@ func ExampleOtherMessage() {
 
 	// get message
 	{
-		resp, _, err := cli.Message().GetMessage(ctx, &lark.GetMessageReq{
+		resp, _, err := cli.Message.GetMessage(ctx, &lark.GetMessageReq{
 			MessageID: "<MESSAGE_ID>",
 		})
 		fmt.Println(resp, err)
@@ -29,7 +29,7 @@ func ExampleOtherMessage() {
 
 	// get message file
 	{
-		resp, _, err := cli.Message().GetMessageFile(ctx, &lark.GetMessageFileReq{
+		resp, _, err := cli.Message.GetMessageFile(ctx, &lark.GetMessageFileReq{
 			Type:      "image",
 			MessageID: "<MESSAGE_ID>",
 			FileKey:   "<FILE_KEY>",
@@ -39,7 +39,7 @@ func ExampleOtherMessage() {
 
 	// get message list
 	{
-		resp, _, err := cli.Message().GetMessageList(ctx, &lark.GetMessageListReq{
+		resp, _, err := cli.Message.GetMessageList(ctx, &lark.GetMessageListReq{
 			ContainerIDType: lark.ContainerIDTypeChat,
 			ContainerID:     "<CHAT_ID>",
 		})
@@ -48,14 +48,14 @@ func ExampleOtherMessage() {
 
 	// get message read users
 	{
-		resp, _, err := cli.Message().GetMessageReadUserList(ctx, &lark.GetMessageReadUserListReq{
+		resp, _, err := cli.Message.GetMessageReadUserList(ctx, &lark.GetMessageReadUserListReq{
 			MessageID: "<MESSAGE_ID>",
 		})
 		fmt.Println(resp, err)
 	}
 
 	{
-		resp, _, err := cli.Message().ReplyRawMessage(ctx, &lark.ReplyRawMessageReq{
+		resp, _, err := cli.Message.ReplyRawMessage(ctx, &lark.ReplyRawMessageReq{
 			MessageID: "<MESSAGE_ID>",
 			Content:   `{"text":"reply"}`,
 			MsgType:   lark.MsgTypeText,
@@ -64,7 +64,7 @@ func ExampleOtherMessage() {
 	}
 	// update card message
 	{
-		resp, _, err := cli.Message().UpdateMessage(ctx, &lark.UpdateMessageReq{
+		resp, _, err := cli.Message.UpdateMessage(ctx, &lark.UpdateMessageReq{
 			MessageID: "<MESSAGE_ID>",
 			Content:   "<CARD>",
 		})

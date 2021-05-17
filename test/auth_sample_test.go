@@ -19,7 +19,7 @@ func Test_Auth_Sample_Failed(t *testing.T) {
 		cli := AppALLPermission.Ins()
 		cli.Mock().MockGetTenantAccessToken(mockGetTenantAccessTokenFailed)
 		cli.Mock().MockGetAppAccessToken(mockGetTenantAccessTokenFailed)
-		moduleCli := cli.Auth()
+		moduleCli := cli.Auth
 
 		t.Run("", func(t *testing.T) {
 			_, _, err := moduleCli.GetAccessToken(ctx, &lark.GetAccessTokenReq{})
@@ -36,7 +36,7 @@ func Test_Auth_Sample_Failed(t *testing.T) {
 
 	t.Run("request mock failed", func(t *testing.T) {
 		cli := AppALLPermission.Ins()
-		moduleCli := cli.Auth()
+		moduleCli := cli.Auth
 
 		t.Run("", func(t *testing.T) {
 			cli.Mock().MockAuthGetAccessToken(func(ctx context.Context, request *lark.GetAccessTokenReq, options ...lark.MethodOptionFunc) (*lark.GetAccessTokenResp, *lark.Response, error) {
@@ -63,7 +63,7 @@ func Test_Auth_Sample_Failed(t *testing.T) {
 
 	t.Run("response is failed", func(t *testing.T) {
 		cli := AppNoPermission.Ins()
-		moduleCli := cli.Auth()
+		moduleCli := cli.Auth
 
 		t.Run("", func(t *testing.T) {
 			_, _, err := moduleCli.GetAccessToken(ctx, &lark.GetAccessTokenReq{})

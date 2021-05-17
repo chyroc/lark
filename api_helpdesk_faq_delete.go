@@ -9,7 +9,7 @@ import (
 // DeleteFAQ 该接口用于删除知识库。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/faq/delete
-func (r *HelpdeskAPI) DeleteFAQ(ctx context.Context, request *DeleteFAQReq, options ...MethodOptionFunc) (*DeleteFAQResp, *Response, error) {
+func (r *HelpdeskService) DeleteFAQ(ctx context.Context, request *DeleteFAQReq, options ...MethodOptionFunc) (*DeleteFAQResp, *Response, error) {
 	if r.cli.mock.mockHelpdeskDeleteFAQ != nil {
 		r.cli.logDebug(ctx, "[lark] Helpdesk#DeleteFAQ mock enable")
 		return r.cli.mock.mockHelpdeskDeleteFAQ(ctx, request, options...)

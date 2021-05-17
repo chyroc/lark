@@ -13,7 +13,7 @@ import (
 // 仅可操作已经被当前身份订阅的日历。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar/unsubscribe
-func (r *CalendarAPI) UnsubscribeCalendar(ctx context.Context, request *UnsubscribeCalendarReq, options ...MethodOptionFunc) (*UnsubscribeCalendarResp, *Response, error) {
+func (r *CalendarService) UnsubscribeCalendar(ctx context.Context, request *UnsubscribeCalendarReq, options ...MethodOptionFunc) (*UnsubscribeCalendarResp, *Response, error) {
 	if r.cli.mock.mockCalendarUnsubscribeCalendar != nil {
 		r.cli.logDebug(ctx, "[lark] Calendar#UnsubscribeCalendar mock enable")
 		return r.cli.mock.mockCalendarUnsubscribeCalendar(ctx, request, options...)

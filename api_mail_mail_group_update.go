@@ -9,7 +9,7 @@ import (
 // UpdateMailGroup 更新邮件组所有信息
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/mail-v1/mailgroup/update
-func (r *MailAPI) UpdateMailGroup(ctx context.Context, request *UpdateMailGroupReq, options ...MethodOptionFunc) (*UpdateMailGroupResp, *Response, error) {
+func (r *MailService) UpdateMailGroup(ctx context.Context, request *UpdateMailGroupReq, options ...MethodOptionFunc) (*UpdateMailGroupResp, *Response, error) {
 	if r.cli.mock.mockMailUpdateMailGroup != nil {
 		r.cli.logDebug(ctx, "[lark] Mail#UpdateMailGroup mock enable")
 		return r.cli.mock.mockMailUpdateMailGroup(ctx, request, options...)

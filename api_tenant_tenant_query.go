@@ -11,7 +11,7 @@ import (
 // 如果ISV应用是预装的并且180天内企业未使用过此应用，则无法通过此接口获取到企业信息
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/tenant-v2/tenant/query
-func (r *TenantAPI) QueryTenant(ctx context.Context, request *QueryTenantReq, options ...MethodOptionFunc) (*QueryTenantResp, *Response, error) {
+func (r *TenantService) QueryTenant(ctx context.Context, request *QueryTenantReq, options ...MethodOptionFunc) (*QueryTenantResp, *Response, error) {
 	if r.cli.mock.mockTenantQueryTenant != nil {
 		r.cli.logDebug(ctx, "[lark] Tenant#QueryTenant mock enable")
 		return r.cli.mock.mockTenantQueryTenant(ctx, request, options...)

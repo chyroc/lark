@@ -11,7 +11,7 @@ import (
 // 发生在开始录制时
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/vc-v1/meeting/events/recording_started
-func (r *EventCallbackAPI) HandlerEventV2VCMeetingRecordingStartedV1(f eventV2VCMeetingRecordingStartedV1Handler) {
+func (r *EventCallbackService) HandlerEventV2VCMeetingRecordingStartedV1(f eventV2VCMeetingRecordingStartedV1Handler) {
 	r.cli.eventHandler.eventV2VCMeetingRecordingStartedV1Handler = f
 }
 

@@ -11,7 +11,7 @@ import (
 // 该接口用于获取全部工单自定义字段。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/ticket_customized_field/list-ticket-customized-fields
-func (r *HelpdeskAPI) GetTicketCustomizedFieldList(ctx context.Context, request *GetTicketCustomizedFieldListReq, options ...MethodOptionFunc) (*GetTicketCustomizedFieldListResp, *Response, error) {
+func (r *HelpdeskService) GetTicketCustomizedFieldList(ctx context.Context, request *GetTicketCustomizedFieldListReq, options ...MethodOptionFunc) (*GetTicketCustomizedFieldListResp, *Response, error) {
 	if r.cli.mock.mockHelpdeskGetTicketCustomizedFieldList != nil {
 		r.cli.logDebug(ctx, "[lark] Helpdesk#GetTicketCustomizedFieldList mock enable")
 		return r.cli.mock.mockHelpdeskGetTicketCustomizedFieldList(ctx, request, options...)

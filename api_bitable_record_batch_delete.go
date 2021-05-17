@@ -9,7 +9,7 @@ import (
 // BatchDeleteRecord 该接口用于删除数据表中现有的多条记录
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table-record/batch_delete
-func (r *BitableAPI) BatchDeleteRecord(ctx context.Context, request *BatchDeleteRecordReq, options ...MethodOptionFunc) (*BatchDeleteRecordResp, *Response, error) {
+func (r *BitableService) BatchDeleteRecord(ctx context.Context, request *BatchDeleteRecordReq, options ...MethodOptionFunc) (*BatchDeleteRecordResp, *Response, error) {
 	if r.cli.mock.mockBitableBatchDeleteRecord != nil {
 		r.cli.logDebug(ctx, "[lark] Bitable#BatchDeleteRecord mock enable")
 		return r.cli.mock.mockBitableBatchDeleteRecord(ctx, request, options...)

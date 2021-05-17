@@ -11,7 +11,7 @@ import (
 // 单租户限流：20 路（一个 stream_id 称为一路会话），同租户下的应用没有限流，共享本租户的 20路限流
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/ai/speech_to_text-v1/speech/stream_recognize
-func (r *AIAPI) RecognizeSpeechStream(ctx context.Context, request *RecognizeSpeechStreamReq, options ...MethodOptionFunc) (*RecognizeSpeechStreamResp, *Response, error) {
+func (r *AIService) RecognizeSpeechStream(ctx context.Context, request *RecognizeSpeechStreamReq, options ...MethodOptionFunc) (*RecognizeSpeechStreamResp, *Response, error) {
 	if r.cli.mock.mockAIRecognizeSpeechStream != nil {
 		r.cli.logDebug(ctx, "[lark] AI#RecognizeSpeechStream mock enable")
 		return r.cli.mock.mockAIRecognizeSpeechStream(ctx, request, options...)

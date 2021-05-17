@@ -15,7 +15,7 @@ import (
 // 无源人脸比对流程，开发者后台通过调用此接口将基准图片上传到飞书后台，做检测时的对比使用。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/human_authentication-v1/face/upload-facial-reference-image
-func (r *HumanAuthAPI) UploadFaceVerifyImage(ctx context.Context, request *UploadFaceVerifyImageReq, options ...MethodOptionFunc) (*UploadFaceVerifyImageResp, *Response, error) {
+func (r *HumanAuthService) UploadFaceVerifyImage(ctx context.Context, request *UploadFaceVerifyImageReq, options ...MethodOptionFunc) (*UploadFaceVerifyImageResp, *Response, error) {
 	if r.cli.mock.mockHumanAuthUploadFaceVerifyImage != nil {
 		r.cli.logDebug(ctx, "[lark] HumanAuth#UploadFaceVerifyImage mock enable")
 		return r.cli.mock.mockHumanAuthUploadFaceVerifyImage(ctx, request, options...)

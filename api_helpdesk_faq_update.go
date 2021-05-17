@@ -9,7 +9,7 @@ import (
 // UpdateFAQ 该接口用于修改知识库。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/faq/patch
-func (r *HelpdeskAPI) UpdateFAQ(ctx context.Context, request *UpdateFAQReq, options ...MethodOptionFunc) (*UpdateFAQResp, *Response, error) {
+func (r *HelpdeskService) UpdateFAQ(ctx context.Context, request *UpdateFAQReq, options ...MethodOptionFunc) (*UpdateFAQResp, *Response, error) {
 	if r.cli.mock.mockHelpdeskUpdateFAQ != nil {
 		r.cli.logDebug(ctx, "[lark] Helpdesk#UpdateFAQ mock enable")
 		return r.cli.mock.mockHelpdeskUpdateFAQ(ctx, request, options...)

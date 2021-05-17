@@ -9,7 +9,7 @@ import (
 // CreateCategory 该接口用于创建知识库分类。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/category/create
-func (r *HelpdeskAPI) CreateCategory(ctx context.Context, request *CreateCategoryReq, options ...MethodOptionFunc) (*CreateCategoryResp, *Response, error) {
+func (r *HelpdeskService) CreateCategory(ctx context.Context, request *CreateCategoryReq, options ...MethodOptionFunc) (*CreateCategoryResp, *Response, error) {
 	if r.cli.mock.mockHelpdeskCreateCategory != nil {
 		r.cli.logDebug(ctx, "[lark] Helpdesk#CreateCategory mock enable")
 		return r.cli.mock.mockHelpdeskCreateCategory(ctx, request, options...)

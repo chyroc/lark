@@ -14,7 +14,7 @@ import (
 // - 回复群组消息，需要机器人在群中
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/reply
-func (r *MessageAPI) ReplyRawMessage(ctx context.Context, request *ReplyRawMessageReq, options ...MethodOptionFunc) (*ReplyRawMessageResp, *Response, error) {
+func (r *MessageService) ReplyRawMessage(ctx context.Context, request *ReplyRawMessageReq, options ...MethodOptionFunc) (*ReplyRawMessageResp, *Response, error) {
 	if r.cli.mock.mockMessageReplyRawMessage != nil {
 		r.cli.logDebug(ctx, "[lark] Message#ReplyRawMessage mock enable")
 		return r.cli.mock.mockMessageReplyRawMessage(ctx, request, options...)

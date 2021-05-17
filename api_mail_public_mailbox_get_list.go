@@ -9,7 +9,7 @@ import (
 // GetPublicMailboxList 分页批量获取公共邮箱列表
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/mail-v1/public_mailbox/list
-func (r *MailAPI) GetPublicMailboxList(ctx context.Context, request *GetPublicMailboxListReq, options ...MethodOptionFunc) (*GetPublicMailboxListResp, *Response, error) {
+func (r *MailService) GetPublicMailboxList(ctx context.Context, request *GetPublicMailboxListReq, options ...MethodOptionFunc) (*GetPublicMailboxListResp, *Response, error) {
 	if r.cli.mock.mockMailGetPublicMailboxList != nil {
 		r.cli.logDebug(ctx, "[lark] Mail#GetPublicMailboxList mock enable")
 		return r.cli.mock.mockMailGetPublicMailboxList(ctx, request, options...)

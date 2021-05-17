@@ -15,7 +15,7 @@ import (
 // 当前身份为日程参与者时，仅可编辑部分字段。（如：visibility, free_busy_status, color, reminders）
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar-event/patch
-func (r *CalendarAPI) UpdateCalendarEvent(ctx context.Context, request *UpdateCalendarEventReq, options ...MethodOptionFunc) (*UpdateCalendarEventResp, *Response, error) {
+func (r *CalendarService) UpdateCalendarEvent(ctx context.Context, request *UpdateCalendarEventReq, options ...MethodOptionFunc) (*UpdateCalendarEventResp, *Response, error) {
 	if r.cli.mock.mockCalendarUpdateCalendarEvent != nil {
 		r.cli.logDebug(ctx, "[lark] Calendar#UpdateCalendarEvent mock enable")
 		return r.cli.mock.mockCalendarUpdateCalendarEvent(ctx, request, options...)

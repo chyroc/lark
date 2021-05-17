@@ -9,7 +9,7 @@ import (
 // CreateTable 新增一个数据表
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table/create
-func (r *BitableAPI) CreateTable(ctx context.Context, request *CreateTableReq, options ...MethodOptionFunc) (*CreateTableResp, *Response, error) {
+func (r *BitableService) CreateTable(ctx context.Context, request *CreateTableReq, options ...MethodOptionFunc) (*CreateTableResp, *Response, error) {
 	if r.cli.mock.mockBitableCreateTable != nil {
 		r.cli.logDebug(ctx, "[lark] Bitable#CreateTable mock enable")
 		return r.cli.mock.mockBitableCreateTable(ctx, request, options...)

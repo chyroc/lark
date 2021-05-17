@@ -9,7 +9,7 @@ import (
 // UpdateTicket 该接口用于更新服务台工单详情。只会更新数据，不会触发相关操作。如修改工单状态到关单，不会关闭聊天页面。仅支持自建应用。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/ticket/update
-func (r *HelpdeskAPI) UpdateTicket(ctx context.Context, request *UpdateTicketReq, options ...MethodOptionFunc) (*UpdateTicketResp, *Response, error) {
+func (r *HelpdeskService) UpdateTicket(ctx context.Context, request *UpdateTicketReq, options ...MethodOptionFunc) (*UpdateTicketResp, *Response, error) {
 	if r.cli.mock.mockHelpdeskUpdateTicket != nil {
 		r.cli.logDebug(ctx, "[lark] Helpdesk#UpdateTicket mock enable")
 		return r.cli.mock.mockHelpdeskUpdateTicket(ctx, request, options...)

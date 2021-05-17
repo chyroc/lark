@@ -9,7 +9,7 @@ import (
 // DeleteTicketCustomizedField 该接口用于删除工单自定义字段。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/ticket_customized_field/delete
-func (r *HelpdeskAPI) DeleteTicketCustomizedField(ctx context.Context, request *DeleteTicketCustomizedFieldReq, options ...MethodOptionFunc) (*DeleteTicketCustomizedFieldResp, *Response, error) {
+func (r *HelpdeskService) DeleteTicketCustomizedField(ctx context.Context, request *DeleteTicketCustomizedFieldReq, options ...MethodOptionFunc) (*DeleteTicketCustomizedFieldResp, *Response, error) {
 	if r.cli.mock.mockHelpdeskDeleteTicketCustomizedField != nil {
 		r.cli.logDebug(ctx, "[lark] Helpdesk#DeleteTicketCustomizedField mock enable")
 		return r.cli.mock.mockHelpdeskDeleteTicketCustomizedField(ctx, request, options...)

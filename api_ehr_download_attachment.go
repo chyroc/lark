@@ -14,7 +14,7 @@ import (
 // ![image.png](//sf1-ttcdn-tos.pstatp.com/obj/open-platform-opendoc/bed391d2a8ce6ed2d5985ea69bf92850_9GY1mnuDXP.png)
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/ehr/ehr-v1/attachment/get
-func (r *EHRAPI) DownloadAttachments(ctx context.Context, request *DownloadAttachmentsReq, options ...MethodOptionFunc) (*DownloadAttachmentsResp, *Response, error) {
+func (r *EHRService) DownloadAttachments(ctx context.Context, request *DownloadAttachmentsReq, options ...MethodOptionFunc) (*DownloadAttachmentsResp, *Response, error) {
 	if r.cli.mock.mockEHRDownloadAttachments != nil {
 		r.cli.logDebug(ctx, "[lark] EHR#DownloadAttachments mock enable")
 		return r.cli.mock.mockEHRDownloadAttachments(ctx, request, options...)

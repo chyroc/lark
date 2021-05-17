@@ -9,7 +9,7 @@ import (
 // AppendSheetValue 该接口用于根据 spreadsheetToken 和 range 遇到空行则进行覆盖追加或新增行追加数据。 空行：默认该行第一个格子是空，则认为是空行；单次写入不超过5000行，100列，每个格子大小为0.5M。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uMjMzUjLzIzM14yMyMTN
-func (r *DriveAPI) AppendSheetValue(ctx context.Context, request *AppendSheetValueReq, options ...MethodOptionFunc) (*AppendSheetValueResp, *Response, error) {
+func (r *DriveService) AppendSheetValue(ctx context.Context, request *AppendSheetValueReq, options ...MethodOptionFunc) (*AppendSheetValueResp, *Response, error) {
 	if r.cli.mock.mockDriveAppendSheetValue != nil {
 		r.cli.logDebug(ctx, "[lark] Drive#AppendSheetValue mock enable")
 		return r.cli.mock.mockDriveAppendSheetValue(ctx, request, options...)

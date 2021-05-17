@@ -11,7 +11,7 @@ import (
 // 应用需要拥有待新增部门的父部门的通讯录授权。如果需要在根部门上新增部门，则需要全员权限。 应用商店应用无权限调用接口。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/create
-func (r *ContactAPI) CreateDepartment(ctx context.Context, request *CreateDepartmentReq, options ...MethodOptionFunc) (*CreateDepartmentResp, *Response, error) {
+func (r *ContactService) CreateDepartment(ctx context.Context, request *CreateDepartmentReq, options ...MethodOptionFunc) (*CreateDepartmentResp, *Response, error) {
 	if r.cli.mock.mockContactCreateDepartment != nil {
 		r.cli.logDebug(ctx, "[lark] Contact#CreateDepartment mock enable")
 		return r.cli.mock.mockContactCreateDepartment(ctx, request, options...)

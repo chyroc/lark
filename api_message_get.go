@@ -13,7 +13,7 @@ import (
 // - 机器人必须在群组中
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/get
-func (r *MessageAPI) GetMessage(ctx context.Context, request *GetMessageReq, options ...MethodOptionFunc) (*GetMessageResp, *Response, error) {
+func (r *MessageService) GetMessage(ctx context.Context, request *GetMessageReq, options ...MethodOptionFunc) (*GetMessageResp, *Response, error) {
 	if r.cli.mock.mockMessageGetMessage != nil {
 		r.cli.logDebug(ctx, "[lark] Message#GetMessage mock enable")
 		return r.cli.mock.mockMessageGetMessage(ctx, request, options...)

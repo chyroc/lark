@@ -11,7 +11,7 @@ import (
 // 当前身份必须对日历有访问权限。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar-event/get
-func (r *CalendarAPI) GetCalendarEvent(ctx context.Context, request *GetCalendarEventReq, options ...MethodOptionFunc) (*GetCalendarEventResp, *Response, error) {
+func (r *CalendarService) GetCalendarEvent(ctx context.Context, request *GetCalendarEventReq, options ...MethodOptionFunc) (*GetCalendarEventResp, *Response, error) {
 	if r.cli.mock.mockCalendarGetCalendarEvent != nil {
 		r.cli.logDebug(ctx, "[lark] Calendar#GetCalendarEvent mock enable")
 		return r.cli.mock.mockCalendarGetCalendarEvent(ctx, request, options...)

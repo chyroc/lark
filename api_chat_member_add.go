@@ -16,7 +16,7 @@ import (
 // - 每次请求，最多拉50个用户或者5个机器人，并且群组最多容纳15个机器人
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-members/create
-func (r *ChatAPI) AddMember(ctx context.Context, request *AddMemberReq, options ...MethodOptionFunc) (*AddMemberResp, *Response, error) {
+func (r *ChatService) AddMember(ctx context.Context, request *AddMemberReq, options ...MethodOptionFunc) (*AddMemberResp, *Response, error) {
 	if r.cli.mock.mockChatAddMember != nil {
 		r.cli.logDebug(ctx, "[lark] Chat#AddMember mock enable")
 		return r.cli.mock.mockChatAddMember(ctx, request, options...)

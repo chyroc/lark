@@ -11,7 +11,7 @@ import (
 // 用户必须对日历有访问权限。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar-event/subscription
-func (r *CalendarAPI) SubscribeCalendarEvent(ctx context.Context, request *SubscribeCalendarEventReq, options ...MethodOptionFunc) (*SubscribeCalendarEventResp, *Response, error) {
+func (r *CalendarService) SubscribeCalendarEvent(ctx context.Context, request *SubscribeCalendarEventReq, options ...MethodOptionFunc) (*SubscribeCalendarEventResp, *Response, error) {
 	if r.cli.mock.mockCalendarSubscribeCalendarEvent != nil {
 		r.cli.logDebug(ctx, "[lark] Calendar#SubscribeCalendarEvent mock enable")
 		return r.cli.mock.mockCalendarSubscribeCalendarEvent(ctx, request, options...)

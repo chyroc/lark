@@ -9,7 +9,7 @@ import (
 // DeleteRecord 该接口用于删除数据表中的一条记录
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table-record/delete
-func (r *BitableAPI) DeleteRecord(ctx context.Context, request *DeleteRecordReq, options ...MethodOptionFunc) (*DeleteRecordResp, *Response, error) {
+func (r *BitableService) DeleteRecord(ctx context.Context, request *DeleteRecordReq, options ...MethodOptionFunc) (*DeleteRecordResp, *Response, error) {
 	if r.cli.mock.mockBitableDeleteRecord != nil {
 		r.cli.logDebug(ctx, "[lark] Bitable#DeleteRecord mock enable")
 		return r.cli.mock.mockBitableDeleteRecord(ctx, request, options...)

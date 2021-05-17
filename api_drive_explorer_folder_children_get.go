@@ -9,7 +9,7 @@ import (
 // GetFolderChildren 该接口用于根据 folderToken 获取该文件夹的文档清单，如 doc、sheet、folder。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uEjNzUjLxYzM14SM2MTN
-func (r *DriveAPI) GetFolderChildren(ctx context.Context, request *GetFolderChildrenReq, options ...MethodOptionFunc) (*GetFolderChildrenResp, *Response, error) {
+func (r *DriveService) GetFolderChildren(ctx context.Context, request *GetFolderChildrenReq, options ...MethodOptionFunc) (*GetFolderChildrenResp, *Response, error) {
 	if r.cli.mock.mockDriveGetFolderChildren != nil {
 		r.cli.logDebug(ctx, "[lark] Drive#GetFolderChildren mock enable")
 		return r.cli.mock.mockDriveGetFolderChildren(ctx, request, options...)

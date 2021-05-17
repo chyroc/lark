@@ -6,7 +6,7 @@ import (
 )
 
 // https://open.feishu.cn/document/ukTMukTMukTM/uIjNz4iM2MjLyYzM
-func (r *AuthAPI) GetTenantAccessToken(ctx context.Context) (*TokenExpire, *Response, error) {
+func (r *AuthService) GetTenantAccessToken(ctx context.Context) (*TokenExpire, *Response, error) {
 	if r.cli.mock.mockGetTenantAccessToken != nil {
 		r.cli.logDebug(ctx, "[lark] Auth#GetTenantAccessToken mock enable")
 		return r.cli.mock.mockGetTenantAccessToken(ctx)
