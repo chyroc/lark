@@ -1,4 +1,4 @@
-name: github pages
+name: deploy-docs
 
 on:
   push:
@@ -26,7 +26,7 @@ jobs:
           sudo npm install -g vuepress
           sudo vuepress build
           ls .vuepress/dist
-          mv .vuepress/dist ../
+          sudo mv .vuepress/dist ../
 
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
