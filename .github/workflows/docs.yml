@@ -24,7 +24,8 @@ jobs:
         run: |
           cd docs
           sudo npm install -g vuepress
-          vuepress build
+          sudo vuepress build
+          ls .vuepress
 
       # - name: Deploy
       #   uses: peaceiris/actions-gh-pages@v3
