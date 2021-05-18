@@ -207,9 +207,9 @@ func (r *Lark) request(ctx context.Context, cli *http.Client, requestParam *RawR
 	r.log(ctx, LogLevelDebug, "%s %s, got: %s", realReq.Method, realReq.URL, bs)
 
 	if resp != nil && resp.StatusCode == http.StatusOK {
-		respFileSetter, ok := realResponse.(fileSetter)
+		respFileSetter, ok := realResponse.(readerSetter)
 		if ok {
-			respFileSetter.SetFile(bytes.NewReader(bs))
+			respFileSetter.SetReader(bytes.NewReader(bs))
 			return response, nil
 		}
 	}
@@ -244,9 +244,8 @@ func newFileUploadRequest(params map[string]string, filekey string, reader io.Re
 	return writer.FormDataContentType(), body, nil
 }
 
-type fileSetter interface {
-	IsFileType() bool
-	SetFile(file io.Reader)
+type readerSetter interface {
+	SetReader(file io.Reader)
 }
 
 func getResponseRequestID(response *Response) (requestID string, statusCode int) {

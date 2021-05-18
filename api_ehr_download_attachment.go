@@ -66,11 +66,7 @@ type downloadAttachmentsResp struct {
 	Data   *DownloadAttachmentsResp `json:"data,omitempty"`
 }
 
-func (r *downloadAttachmentsResp) IsFileType() bool {
-	return r.IsFile
-}
-
-func (r *downloadAttachmentsResp) SetFile(file io.Reader) {
+func (r *downloadAttachmentsResp) SetReader(file io.Reader) {
 	r.Data = &DownloadAttachmentsResp{
 		File: file,
 	}

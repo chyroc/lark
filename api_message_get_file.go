@@ -69,11 +69,7 @@ type getMessageFileResp struct {
 	Data   *GetMessageFileResp `json:"data,omitempty"`
 }
 
-func (r *getMessageFileResp) IsFileType() bool {
-	return r.IsFile
-}
-
-func (r *getMessageFileResp) SetFile(file io.Reader) {
+func (r *getMessageFileResp) SetReader(file io.Reader) {
 	r.Data = &GetMessageFileResp{
 		File: file,
 	}
