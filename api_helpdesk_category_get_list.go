@@ -13,12 +13,12 @@ import (
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/category/list-categories
 func (r *HelpdeskService) GetCategoryList(ctx context.Context, request *GetCategoryListReq, options ...MethodOptionFunc) (*GetCategoryListResp, *Response, error) {
 	if r.cli.mock.mockHelpdeskGetCategoryList != nil {
-		r.cli.logDebug(ctx, "[lark] Helpdesk#GetCategoryList mock enable")
+		r.cli.log(ctx, LogLevelDebug, "[lark] Helpdesk#GetCategoryList mock enable")
 		return r.cli.mock.mockHelpdeskGetCategoryList(ctx, request, options...)
 	}
 
-	r.cli.logInfo(ctx, "[lark] Helpdesk#GetCategoryList call api")
-	r.cli.logDebug(ctx, "[lark] Helpdesk#GetCategoryList request: %s", jsonString(request))
+	r.cli.log(ctx, LogLevelInfo, "[lark] Helpdesk#GetCategoryList call api")
+	r.cli.log(ctx, LogLevelDebug, "[lark] Helpdesk#GetCategoryList request: %s", jsonString(request))
 
 	req := &RawRequestReq{
 		Method:                "GET",
@@ -26,20 +26,22 @@ func (r *HelpdeskService) GetCategoryList(ctx context.Context, request *GetCateg
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
-		NeedHelpdeskAuth:      true,
+
+		NeedHelpdeskAuth: true,
 	}
 	resp := new(getCategoryListResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
+	requestID, statusCode := getResponseRequestID(response)
 	if err != nil {
-		r.cli.logError(ctx, "[lark] Helpdesk#GetCategoryList GET https://open.feishu.cn/open-apis/helpdesk/v1/categories failed: %s", err)
+		r.cli.log(ctx, LogLevelError, "[lark] Helpdesk#GetCategoryList GET https://open.feishu.cn/open-apis/helpdesk/v1/categories failed, request_id: %s, status_code: %d, error: %s", requestID, statusCode, err)
 		return nil, response, err
 	} else if resp.Code != 0 {
-		r.cli.logError(ctx, "[lark] Helpdesk#GetCategoryList GET https://open.feishu.cn/open-apis/helpdesk/v1/categories failed, code: %d, msg: %s", resp.Code, resp.Msg)
+		r.cli.log(ctx, LogLevelError, "[lark] Helpdesk#GetCategoryList GET https://open.feishu.cn/open-apis/helpdesk/v1/categories failed, request_id: %s, status_code: %d, code: %d, msg: %s", requestID, statusCode, resp.Code, resp.Msg)
 		return nil, response, NewError("Helpdesk", "GetCategoryList", resp.Code, resp.Msg)
 	}
 
-	r.cli.logDebug(ctx, "[lark] Helpdesk#GetCategoryList request_id: %s, response: %s", response.RequestID, jsonString(resp.Data))
+	r.cli.log(ctx, LogLevelDebug, "[lark] Helpdesk#GetCategoryList success, request_id: %s, status_code: %d, response: %s", requestID, statusCode, jsonString(resp.Data))
 
 	return resp.Data, response, nil
 }

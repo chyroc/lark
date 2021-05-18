@@ -11,12 +11,12 @@ import (
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uYTN3UjL2UzN14iN1cTN
 func (r *DriveService) DeleteMemberPermission(ctx context.Context, request *DeleteMemberPermissionReq, options ...MethodOptionFunc) (*DeleteMemberPermissionResp, *Response, error) {
 	if r.cli.mock.mockDriveDeleteMemberPermission != nil {
-		r.cli.logDebug(ctx, "[lark] Drive#DeleteMemberPermission mock enable")
+		r.cli.log(ctx, LogLevelDebug, "[lark] Drive#DeleteMemberPermission mock enable")
 		return r.cli.mock.mockDriveDeleteMemberPermission(ctx, request, options...)
 	}
 
-	r.cli.logInfo(ctx, "[lark] Drive#DeleteMemberPermission call api")
-	r.cli.logDebug(ctx, "[lark] Drive#DeleteMemberPermission request: %s", jsonString(request))
+	r.cli.log(ctx, LogLevelInfo, "[lark] Drive#DeleteMemberPermission call api")
+	r.cli.log(ctx, LogLevelDebug, "[lark] Drive#DeleteMemberPermission request: %s", jsonString(request))
 
 	req := &RawRequestReq{
 		Method:                "POST",
@@ -24,20 +24,22 @@ func (r *DriveService) DeleteMemberPermission(ctx context.Context, request *Dele
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
-		NeedUserAccessToken:   true,
+
+		NeedUserAccessToken: true,
 	}
 	resp := new(deleteMemberPermissionResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
+	requestID, statusCode := getResponseRequestID(response)
 	if err != nil {
-		r.cli.logError(ctx, "[lark] Drive#DeleteMemberPermission POST https://open.feishu.cn/open-apis/drive/permission/member/delete failed: %s", err)
+		r.cli.log(ctx, LogLevelError, "[lark] Drive#DeleteMemberPermission POST https://open.feishu.cn/open-apis/drive/permission/member/delete failed, request_id: %s, status_code: %d, error: %s", requestID, statusCode, err)
 		return nil, response, err
 	} else if resp.Code != 0 {
-		r.cli.logError(ctx, "[lark] Drive#DeleteMemberPermission POST https://open.feishu.cn/open-apis/drive/permission/member/delete failed, code: %d, msg: %s", resp.Code, resp.Msg)
+		r.cli.log(ctx, LogLevelError, "[lark] Drive#DeleteMemberPermission POST https://open.feishu.cn/open-apis/drive/permission/member/delete failed, request_id: %s, status_code: %d, code: %d, msg: %s", requestID, statusCode, resp.Code, resp.Msg)
 		return nil, response, NewError("Drive", "DeleteMemberPermission", resp.Code, resp.Msg)
 	}
 
-	r.cli.logDebug(ctx, "[lark] Drive#DeleteMemberPermission request_id: %s, response: %s", response.RequestID, jsonString(resp.Data))
+	r.cli.log(ctx, LogLevelDebug, "[lark] Drive#DeleteMemberPermission success, request_id: %s, status_code: %d, response: %s", requestID, statusCode, jsonString(resp.Data))
 
 	return resp.Data, response, nil
 }

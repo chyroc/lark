@@ -16,12 +16,12 @@ import (
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/file/get
 func (r *FileService) DownloadFile(ctx context.Context, request *DownloadFileReq, options ...MethodOptionFunc) (*DownloadFileResp, *Response, error) {
 	if r.cli.mock.mockFileDownloadFile != nil {
-		r.cli.logDebug(ctx, "[lark] File#DownloadFile mock enable")
+		r.cli.log(ctx, LogLevelDebug, "[lark] File#DownloadFile mock enable")
 		return r.cli.mock.mockFileDownloadFile(ctx, request, options...)
 	}
 
-	r.cli.logInfo(ctx, "[lark] File#DownloadFile call api")
-	r.cli.logDebug(ctx, "[lark] File#DownloadFile request: %s", jsonString(request))
+	r.cli.log(ctx, LogLevelInfo, "[lark] File#DownloadFile call api")
+	r.cli.log(ctx, LogLevelDebug, "[lark] File#DownloadFile request: %s", jsonString(request))
 
 	req := &RawRequestReq{
 		Method:                "GET",
@@ -33,15 +33,16 @@ func (r *FileService) DownloadFile(ctx context.Context, request *DownloadFileReq
 	resp := new(downloadFileResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
+	requestID, statusCode := getResponseRequestID(response)
 	if err != nil {
-		r.cli.logError(ctx, "[lark] File#DownloadFile GET https://open.feishu.cn/open-apis/im/v1/files/:file_key failed: %s", err)
+		r.cli.log(ctx, LogLevelError, "[lark] File#DownloadFile GET https://open.feishu.cn/open-apis/im/v1/files/:file_key failed, request_id: %s, status_code: %d, error: %s", requestID, statusCode, err)
 		return nil, response, err
 	} else if resp.Code != 0 {
-		r.cli.logError(ctx, "[lark] File#DownloadFile GET https://open.feishu.cn/open-apis/im/v1/files/:file_key failed, code: %d, msg: %s", resp.Code, resp.Msg)
+		r.cli.log(ctx, LogLevelError, "[lark] File#DownloadFile GET https://open.feishu.cn/open-apis/im/v1/files/:file_key failed, request_id: %s, status_code: %d, code: %d, msg: %s", requestID, statusCode, resp.Code, resp.Msg)
 		return nil, response, NewError("File", "DownloadFile", resp.Code, resp.Msg)
 	}
 
-	r.cli.logDebug(ctx, "[lark] File#DownloadFile request_id: %s, response: %s", response.RequestID, jsonString(resp.Data))
+	r.cli.log(ctx, LogLevelDebug, "[lark] File#DownloadFile success, request_id: %s, status_code: %d, response: %s", requestID, statusCode, jsonString(resp.Data))
 
 	return resp.Data, response, nil
 }

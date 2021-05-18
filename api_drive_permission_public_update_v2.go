@@ -11,12 +11,12 @@ import (
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uITN5UjLyUTO14iM1kTN
 func (r *DriveService) UpdatePublicPermissionV2(ctx context.Context, request *UpdatePublicPermissionV2Req, options ...MethodOptionFunc) (*UpdatePublicPermissionV2Resp, *Response, error) {
 	if r.cli.mock.mockDriveUpdatePublicPermissionV2 != nil {
-		r.cli.logDebug(ctx, "[lark] Drive#UpdatePublicPermissionV2 mock enable")
+		r.cli.log(ctx, LogLevelDebug, "[lark] Drive#UpdatePublicPermissionV2 mock enable")
 		return r.cli.mock.mockDriveUpdatePublicPermissionV2(ctx, request, options...)
 	}
 
-	r.cli.logInfo(ctx, "[lark] Drive#UpdatePublicPermissionV2 call api")
-	r.cli.logDebug(ctx, "[lark] Drive#UpdatePublicPermissionV2 request: %s", jsonString(request))
+	r.cli.log(ctx, LogLevelInfo, "[lark] Drive#UpdatePublicPermissionV2 call api")
+	r.cli.log(ctx, LogLevelDebug, "[lark] Drive#UpdatePublicPermissionV2 request: %s", jsonString(request))
 
 	req := &RawRequestReq{
 		Method:                "POST",
@@ -24,20 +24,22 @@ func (r *DriveService) UpdatePublicPermissionV2(ctx context.Context, request *Up
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
-		NeedUserAccessToken:   true,
+
+		NeedUserAccessToken: true,
 	}
 	resp := new(updatePublicPermissionV2Resp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
+	requestID, statusCode := getResponseRequestID(response)
 	if err != nil {
-		r.cli.logError(ctx, "[lark] Drive#UpdatePublicPermissionV2 POST https://open.feishu.cn/open-apis/drive/permission/v2/public/update/ failed: %s", err)
+		r.cli.log(ctx, LogLevelError, "[lark] Drive#UpdatePublicPermissionV2 POST https://open.feishu.cn/open-apis/drive/permission/v2/public/update/ failed, request_id: %s, status_code: %d, error: %s", requestID, statusCode, err)
 		return nil, response, err
 	} else if resp.Code != 0 {
-		r.cli.logError(ctx, "[lark] Drive#UpdatePublicPermissionV2 POST https://open.feishu.cn/open-apis/drive/permission/v2/public/update/ failed, code: %d, msg: %s", resp.Code, resp.Msg)
+		r.cli.log(ctx, LogLevelError, "[lark] Drive#UpdatePublicPermissionV2 POST https://open.feishu.cn/open-apis/drive/permission/v2/public/update/ failed, request_id: %s, status_code: %d, code: %d, msg: %s", requestID, statusCode, resp.Code, resp.Msg)
 		return nil, response, NewError("Drive", "UpdatePublicPermissionV2", resp.Code, resp.Msg)
 	}
 
-	r.cli.logDebug(ctx, "[lark] Drive#UpdatePublicPermissionV2 request_id: %s, response: %s", response.RequestID, jsonString(resp.Data))
+	r.cli.log(ctx, LogLevelDebug, "[lark] Drive#UpdatePublicPermissionV2 success, request_id: %s, status_code: %d, response: %s", requestID, statusCode, jsonString(resp.Data))
 
 	return resp.Data, response, nil
 }

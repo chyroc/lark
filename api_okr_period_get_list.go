@@ -13,12 +13,12 @@ import (
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/okr-v1/period/list
 func (r *OKRService) GetPeriodList(ctx context.Context, request *GetPeriodListReq, options ...MethodOptionFunc) (*GetPeriodListResp, *Response, error) {
 	if r.cli.mock.mockOKRGetPeriodList != nil {
-		r.cli.logDebug(ctx, "[lark] OKR#GetPeriodList mock enable")
+		r.cli.log(ctx, LogLevelDebug, "[lark] OKR#GetPeriodList mock enable")
 		return r.cli.mock.mockOKRGetPeriodList(ctx, request, options...)
 	}
 
-	r.cli.logInfo(ctx, "[lark] OKR#GetPeriodList call api")
-	r.cli.logDebug(ctx, "[lark] OKR#GetPeriodList request: %s", jsonString(request))
+	r.cli.log(ctx, LogLevelInfo, "[lark] OKR#GetPeriodList call api")
+	r.cli.log(ctx, LogLevelDebug, "[lark] OKR#GetPeriodList request: %s", jsonString(request))
 
 	req := &RawRequestReq{
 		Method:                "GET",
@@ -30,15 +30,16 @@ func (r *OKRService) GetPeriodList(ctx context.Context, request *GetPeriodListRe
 	resp := new(getPeriodListResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
+	requestID, statusCode := getResponseRequestID(response)
 	if err != nil {
-		r.cli.logError(ctx, "[lark] OKR#GetPeriodList GET https://open.feishu.cn/open-apis/okr/v1/periods failed: %s", err)
+		r.cli.log(ctx, LogLevelError, "[lark] OKR#GetPeriodList GET https://open.feishu.cn/open-apis/okr/v1/periods failed, request_id: %s, status_code: %d, error: %s", requestID, statusCode, err)
 		return nil, response, err
 	} else if resp.Code != 0 {
-		r.cli.logError(ctx, "[lark] OKR#GetPeriodList GET https://open.feishu.cn/open-apis/okr/v1/periods failed, code: %d, msg: %s", resp.Code, resp.Msg)
+		r.cli.log(ctx, LogLevelError, "[lark] OKR#GetPeriodList GET https://open.feishu.cn/open-apis/okr/v1/periods failed, request_id: %s, status_code: %d, code: %d, msg: %s", requestID, statusCode, resp.Code, resp.Msg)
 		return nil, response, NewError("OKR", "GetPeriodList", resp.Code, resp.Msg)
 	}
 
-	r.cli.logDebug(ctx, "[lark] OKR#GetPeriodList request_id: %s, response: %s", response.RequestID, jsonString(resp.Data))
+	r.cli.log(ctx, LogLevelDebug, "[lark] OKR#GetPeriodList success, request_id: %s, status_code: %d, response: %s", requestID, statusCode, jsonString(resp.Data))
 
 	return resp.Data, response, nil
 }

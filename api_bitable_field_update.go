@@ -11,32 +11,34 @@ import (
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table-field/update
 func (r *BitableService) UpdateField(ctx context.Context, request *UpdateFieldReq, options ...MethodOptionFunc) (*UpdateFieldResp, *Response, error) {
 	if r.cli.mock.mockBitableUpdateField != nil {
-		r.cli.logDebug(ctx, "[lark] Bitable#UpdateField mock enable")
+		r.cli.log(ctx, LogLevelDebug, "[lark] Bitable#UpdateField mock enable")
 		return r.cli.mock.mockBitableUpdateField(ctx, request, options...)
 	}
 
-	r.cli.logInfo(ctx, "[lark] Bitable#UpdateField call api")
-	r.cli.logDebug(ctx, "[lark] Bitable#UpdateField request: %s", jsonString(request))
+	r.cli.log(ctx, LogLevelInfo, "[lark] Bitable#UpdateField call api")
+	r.cli.log(ctx, LogLevelDebug, "[lark] Bitable#UpdateField request: %s", jsonString(request))
 
 	req := &RawRequestReq{
-		Method:              "PUT",
-		URL:                 "https://open.feishu.cn/open-apis/bitable/v1/apps/:app_token/tables/:table_id/fields/:field_id",
-		Body:                request,
-		MethodOption:        newMethodOption(options),
+		Method:       "PUT",
+		URL:          "https://open.feishu.cn/open-apis/bitable/v1/apps/:app_token/tables/:table_id/fields/:field_id",
+		Body:         request,
+		MethodOption: newMethodOption(options),
+
 		NeedUserAccessToken: true,
 	}
 	resp := new(updateFieldResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
+	requestID, statusCode := getResponseRequestID(response)
 	if err != nil {
-		r.cli.logError(ctx, "[lark] Bitable#UpdateField PUT https://open.feishu.cn/open-apis/bitable/v1/apps/:app_token/tables/:table_id/fields/:field_id failed: %s", err)
+		r.cli.log(ctx, LogLevelError, "[lark] Bitable#UpdateField PUT https://open.feishu.cn/open-apis/bitable/v1/apps/:app_token/tables/:table_id/fields/:field_id failed, request_id: %s, status_code: %d, error: %s", requestID, statusCode, err)
 		return nil, response, err
 	} else if resp.Code != 0 {
-		r.cli.logError(ctx, "[lark] Bitable#UpdateField PUT https://open.feishu.cn/open-apis/bitable/v1/apps/:app_token/tables/:table_id/fields/:field_id failed, code: %d, msg: %s", resp.Code, resp.Msg)
+		r.cli.log(ctx, LogLevelError, "[lark] Bitable#UpdateField PUT https://open.feishu.cn/open-apis/bitable/v1/apps/:app_token/tables/:table_id/fields/:field_id failed, request_id: %s, status_code: %d, code: %d, msg: %s", requestID, statusCode, resp.Code, resp.Msg)
 		return nil, response, NewError("Bitable", "UpdateField", resp.Code, resp.Msg)
 	}
 
-	r.cli.logDebug(ctx, "[lark] Bitable#UpdateField request_id: %s, response: %s", response.RequestID, jsonString(resp.Data))
+	r.cli.log(ctx, LogLevelDebug, "[lark] Bitable#UpdateField success, request_id: %s, status_code: %d, response: %s", requestID, statusCode, jsonString(resp.Data))
 
 	return resp.Data, response, nil
 }

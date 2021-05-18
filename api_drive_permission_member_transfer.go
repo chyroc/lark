@@ -11,12 +11,12 @@ import (
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uQzNzUjL0czM14CN3MTN
 func (r *DriveService) TransferMemberPermission(ctx context.Context, request *TransferMemberPermissionReq, options ...MethodOptionFunc) (*TransferMemberPermissionResp, *Response, error) {
 	if r.cli.mock.mockDriveTransferMemberPermission != nil {
-		r.cli.logDebug(ctx, "[lark] Drive#TransferMemberPermission mock enable")
+		r.cli.log(ctx, LogLevelDebug, "[lark] Drive#TransferMemberPermission mock enable")
 		return r.cli.mock.mockDriveTransferMemberPermission(ctx, request, options...)
 	}
 
-	r.cli.logInfo(ctx, "[lark] Drive#TransferMemberPermission call api")
-	r.cli.logDebug(ctx, "[lark] Drive#TransferMemberPermission request: %s", jsonString(request))
+	r.cli.log(ctx, LogLevelInfo, "[lark] Drive#TransferMemberPermission call api")
+	r.cli.log(ctx, LogLevelDebug, "[lark] Drive#TransferMemberPermission request: %s", jsonString(request))
 
 	req := &RawRequestReq{
 		Method:                "POST",
@@ -24,20 +24,22 @@ func (r *DriveService) TransferMemberPermission(ctx context.Context, request *Tr
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
-		NeedUserAccessToken:   true,
+
+		NeedUserAccessToken: true,
 	}
 	resp := new(transferMemberPermissionResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
+	requestID, statusCode := getResponseRequestID(response)
 	if err != nil {
-		r.cli.logError(ctx, "[lark] Drive#TransferMemberPermission POST https://open.feishu.cn/open-apis/drive/permission/member/transfer failed: %s", err)
+		r.cli.log(ctx, LogLevelError, "[lark] Drive#TransferMemberPermission POST https://open.feishu.cn/open-apis/drive/permission/member/transfer failed, request_id: %s, status_code: %d, error: %s", requestID, statusCode, err)
 		return nil, response, err
 	} else if resp.Code != 0 {
-		r.cli.logError(ctx, "[lark] Drive#TransferMemberPermission POST https://open.feishu.cn/open-apis/drive/permission/member/transfer failed, code: %d, msg: %s", resp.Code, resp.Msg)
+		r.cli.log(ctx, LogLevelError, "[lark] Drive#TransferMemberPermission POST https://open.feishu.cn/open-apis/drive/permission/member/transfer failed, request_id: %s, status_code: %d, code: %d, msg: %s", requestID, statusCode, resp.Code, resp.Msg)
 		return nil, response, NewError("Drive", "TransferMemberPermission", resp.Code, resp.Msg)
 	}
 
-	r.cli.logDebug(ctx, "[lark] Drive#TransferMemberPermission request_id: %s, response: %s", response.RequestID, jsonString(resp.Data))
+	r.cli.log(ctx, LogLevelDebug, "[lark] Drive#TransferMemberPermission success, request_id: %s, status_code: %d, response: %s", requestID, statusCode, jsonString(resp.Data))
 
 	return resp.Data, response, nil
 }

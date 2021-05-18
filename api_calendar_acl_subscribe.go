@@ -13,32 +13,34 @@ import (
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar-acl/subscription
 func (r *CalendarService) SubscribeCalendarACL(ctx context.Context, request *SubscribeCalendarACLReq, options ...MethodOptionFunc) (*SubscribeCalendarACLResp, *Response, error) {
 	if r.cli.mock.mockCalendarSubscribeCalendarACL != nil {
-		r.cli.logDebug(ctx, "[lark] Calendar#SubscribeCalendarACL mock enable")
+		r.cli.log(ctx, LogLevelDebug, "[lark] Calendar#SubscribeCalendarACL mock enable")
 		return r.cli.mock.mockCalendarSubscribeCalendarACL(ctx, request, options...)
 	}
 
-	r.cli.logInfo(ctx, "[lark] Calendar#SubscribeCalendarACL call api")
-	r.cli.logDebug(ctx, "[lark] Calendar#SubscribeCalendarACL request: %s", jsonString(request))
+	r.cli.log(ctx, LogLevelInfo, "[lark] Calendar#SubscribeCalendarACL call api")
+	r.cli.log(ctx, LogLevelDebug, "[lark] Calendar#SubscribeCalendarACL request: %s", jsonString(request))
 
 	req := &RawRequestReq{
-		Method:              "POST",
-		URL:                 "https://open.feishu.cn/open-apis/calendar/v4/calendars/:calendar_id/acls/subscription",
-		Body:                request,
-		MethodOption:        newMethodOption(options),
+		Method:       "POST",
+		URL:          "https://open.feishu.cn/open-apis/calendar/v4/calendars/:calendar_id/acls/subscription",
+		Body:         request,
+		MethodOption: newMethodOption(options),
+
 		NeedUserAccessToken: true,
 	}
 	resp := new(subscribeCalendarACLResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
+	requestID, statusCode := getResponseRequestID(response)
 	if err != nil {
-		r.cli.logError(ctx, "[lark] Calendar#SubscribeCalendarACL POST https://open.feishu.cn/open-apis/calendar/v4/calendars/:calendar_id/acls/subscription failed: %s", err)
+		r.cli.log(ctx, LogLevelError, "[lark] Calendar#SubscribeCalendarACL POST https://open.feishu.cn/open-apis/calendar/v4/calendars/:calendar_id/acls/subscription failed, request_id: %s, status_code: %d, error: %s", requestID, statusCode, err)
 		return nil, response, err
 	} else if resp.Code != 0 {
-		r.cli.logError(ctx, "[lark] Calendar#SubscribeCalendarACL POST https://open.feishu.cn/open-apis/calendar/v4/calendars/:calendar_id/acls/subscription failed, code: %d, msg: %s", resp.Code, resp.Msg)
+		r.cli.log(ctx, LogLevelError, "[lark] Calendar#SubscribeCalendarACL POST https://open.feishu.cn/open-apis/calendar/v4/calendars/:calendar_id/acls/subscription failed, request_id: %s, status_code: %d, code: %d, msg: %s", requestID, statusCode, resp.Code, resp.Msg)
 		return nil, response, NewError("Calendar", "SubscribeCalendarACL", resp.Code, resp.Msg)
 	}
 
-	r.cli.logDebug(ctx, "[lark] Calendar#SubscribeCalendarACL request_id: %s, response: %s", response.RequestID, jsonString(resp.Data))
+	r.cli.log(ctx, LogLevelDebug, "[lark] Calendar#SubscribeCalendarACL success, request_id: %s, status_code: %d, response: %s", requestID, statusCode, jsonString(resp.Data))
 
 	return resp.Data, response, nil
 }

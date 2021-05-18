@@ -11,32 +11,34 @@ import (
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table-record/update
 func (r *BitableService) UpdateRecord(ctx context.Context, request *UpdateRecordReq, options ...MethodOptionFunc) (*UpdateRecordResp, *Response, error) {
 	if r.cli.mock.mockBitableUpdateRecord != nil {
-		r.cli.logDebug(ctx, "[lark] Bitable#UpdateRecord mock enable")
+		r.cli.log(ctx, LogLevelDebug, "[lark] Bitable#UpdateRecord mock enable")
 		return r.cli.mock.mockBitableUpdateRecord(ctx, request, options...)
 	}
 
-	r.cli.logInfo(ctx, "[lark] Bitable#UpdateRecord call api")
-	r.cli.logDebug(ctx, "[lark] Bitable#UpdateRecord request: %s", jsonString(request))
+	r.cli.log(ctx, LogLevelInfo, "[lark] Bitable#UpdateRecord call api")
+	r.cli.log(ctx, LogLevelDebug, "[lark] Bitable#UpdateRecord request: %s", jsonString(request))
 
 	req := &RawRequestReq{
-		Method:              "PUT",
-		URL:                 "https://open.feishu.cn/open-apis/bitable/v1/apps/:app_token/tables/:table_id/records/:record_id",
-		Body:                request,
-		MethodOption:        newMethodOption(options),
+		Method:       "PUT",
+		URL:          "https://open.feishu.cn/open-apis/bitable/v1/apps/:app_token/tables/:table_id/records/:record_id",
+		Body:         request,
+		MethodOption: newMethodOption(options),
+
 		NeedUserAccessToken: true,
 	}
 	resp := new(updateRecordResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
+	requestID, statusCode := getResponseRequestID(response)
 	if err != nil {
-		r.cli.logError(ctx, "[lark] Bitable#UpdateRecord PUT https://open.feishu.cn/open-apis/bitable/v1/apps/:app_token/tables/:table_id/records/:record_id failed: %s", err)
+		r.cli.log(ctx, LogLevelError, "[lark] Bitable#UpdateRecord PUT https://open.feishu.cn/open-apis/bitable/v1/apps/:app_token/tables/:table_id/records/:record_id failed, request_id: %s, status_code: %d, error: %s", requestID, statusCode, err)
 		return nil, response, err
 	} else if resp.Code != 0 {
-		r.cli.logError(ctx, "[lark] Bitable#UpdateRecord PUT https://open.feishu.cn/open-apis/bitable/v1/apps/:app_token/tables/:table_id/records/:record_id failed, code: %d, msg: %s", resp.Code, resp.Msg)
+		r.cli.log(ctx, LogLevelError, "[lark] Bitable#UpdateRecord PUT https://open.feishu.cn/open-apis/bitable/v1/apps/:app_token/tables/:table_id/records/:record_id failed, request_id: %s, status_code: %d, code: %d, msg: %s", requestID, statusCode, resp.Code, resp.Msg)
 		return nil, response, NewError("Bitable", "UpdateRecord", resp.Code, resp.Msg)
 	}
 
-	r.cli.logDebug(ctx, "[lark] Bitable#UpdateRecord request_id: %s, response: %s", response.RequestID, jsonString(resp.Data))
+	r.cli.log(ctx, LogLevelDebug, "[lark] Bitable#UpdateRecord success, request_id: %s, status_code: %d, response: %s", requestID, statusCode, jsonString(resp.Data))
 
 	return resp.Data, response, nil
 }

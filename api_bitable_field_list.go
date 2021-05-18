@@ -11,32 +11,34 @@ import (
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table-field/list
 func (r *BitableService) GetFieldList(ctx context.Context, request *GetFieldListReq, options ...MethodOptionFunc) (*GetFieldListResp, *Response, error) {
 	if r.cli.mock.mockBitableGetFieldList != nil {
-		r.cli.logDebug(ctx, "[lark] Bitable#GetFieldList mock enable")
+		r.cli.log(ctx, LogLevelDebug, "[lark] Bitable#GetFieldList mock enable")
 		return r.cli.mock.mockBitableGetFieldList(ctx, request, options...)
 	}
 
-	r.cli.logInfo(ctx, "[lark] Bitable#GetFieldList call api")
-	r.cli.logDebug(ctx, "[lark] Bitable#GetFieldList request: %s", jsonString(request))
+	r.cli.log(ctx, LogLevelInfo, "[lark] Bitable#GetFieldList call api")
+	r.cli.log(ctx, LogLevelDebug, "[lark] Bitable#GetFieldList request: %s", jsonString(request))
 
 	req := &RawRequestReq{
-		Method:              "GET",
-		URL:                 "https://open.feishu.cn/open-apis/bitable/v1/apps/:app_token/tables/:table_id/fields",
-		Body:                request,
-		MethodOption:        newMethodOption(options),
+		Method:       "GET",
+		URL:          "https://open.feishu.cn/open-apis/bitable/v1/apps/:app_token/tables/:table_id/fields",
+		Body:         request,
+		MethodOption: newMethodOption(options),
+
 		NeedUserAccessToken: true,
 	}
 	resp := new(getFieldListResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
+	requestID, statusCode := getResponseRequestID(response)
 	if err != nil {
-		r.cli.logError(ctx, "[lark] Bitable#GetFieldList GET https://open.feishu.cn/open-apis/bitable/v1/apps/:app_token/tables/:table_id/fields failed: %s", err)
+		r.cli.log(ctx, LogLevelError, "[lark] Bitable#GetFieldList GET https://open.feishu.cn/open-apis/bitable/v1/apps/:app_token/tables/:table_id/fields failed, request_id: %s, status_code: %d, error: %s", requestID, statusCode, err)
 		return nil, response, err
 	} else if resp.Code != 0 {
-		r.cli.logError(ctx, "[lark] Bitable#GetFieldList GET https://open.feishu.cn/open-apis/bitable/v1/apps/:app_token/tables/:table_id/fields failed, code: %d, msg: %s", resp.Code, resp.Msg)
+		r.cli.log(ctx, LogLevelError, "[lark] Bitable#GetFieldList GET https://open.feishu.cn/open-apis/bitable/v1/apps/:app_token/tables/:table_id/fields failed, request_id: %s, status_code: %d, code: %d, msg: %s", requestID, statusCode, resp.Code, resp.Msg)
 		return nil, response, NewError("Bitable", "GetFieldList", resp.Code, resp.Msg)
 	}
 
-	r.cli.logDebug(ctx, "[lark] Bitable#GetFieldList request_id: %s, response: %s", response.RequestID, jsonString(resp.Data))
+	r.cli.log(ctx, LogLevelDebug, "[lark] Bitable#GetFieldList success, request_id: %s, status_code: %d, response: %s", requestID, statusCode, jsonString(resp.Data))
 
 	return resp.Data, response, nil
 }

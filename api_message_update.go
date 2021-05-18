@@ -16,12 +16,12 @@ import (
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/patch
 func (r *MessageService) UpdateMessage(ctx context.Context, request *UpdateMessageReq, options ...MethodOptionFunc) (*UpdateMessageResp, *Response, error) {
 	if r.cli.mock.mockMessageUpdateMessage != nil {
-		r.cli.logDebug(ctx, "[lark] Message#UpdateMessage mock enable")
+		r.cli.log(ctx, LogLevelDebug, "[lark] Message#UpdateMessage mock enable")
 		return r.cli.mock.mockMessageUpdateMessage(ctx, request, options...)
 	}
 
-	r.cli.logInfo(ctx, "[lark] Message#UpdateMessage call api")
-	r.cli.logDebug(ctx, "[lark] Message#UpdateMessage request: %s", jsonString(request))
+	r.cli.log(ctx, LogLevelInfo, "[lark] Message#UpdateMessage call api")
+	r.cli.log(ctx, LogLevelDebug, "[lark] Message#UpdateMessage request: %s", jsonString(request))
 
 	req := &RawRequestReq{
 		Method:                "PATCH",
@@ -29,20 +29,22 @@ func (r *MessageService) UpdateMessage(ctx context.Context, request *UpdateMessa
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
-		NeedUserAccessToken:   true,
+
+		NeedUserAccessToken: true,
 	}
 	resp := new(updateMessageResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
+	requestID, statusCode := getResponseRequestID(response)
 	if err != nil {
-		r.cli.logError(ctx, "[lark] Message#UpdateMessage PATCH https://open.feishu.cn/open-apis/im/v1/messages/:message_id failed: %s", err)
+		r.cli.log(ctx, LogLevelError, "[lark] Message#UpdateMessage PATCH https://open.feishu.cn/open-apis/im/v1/messages/:message_id failed, request_id: %s, status_code: %d, error: %s", requestID, statusCode, err)
 		return nil, response, err
 	} else if resp.Code != 0 {
-		r.cli.logError(ctx, "[lark] Message#UpdateMessage PATCH https://open.feishu.cn/open-apis/im/v1/messages/:message_id failed, code: %d, msg: %s", resp.Code, resp.Msg)
+		r.cli.log(ctx, LogLevelError, "[lark] Message#UpdateMessage PATCH https://open.feishu.cn/open-apis/im/v1/messages/:message_id failed, request_id: %s, status_code: %d, code: %d, msg: %s", requestID, statusCode, resp.Code, resp.Msg)
 		return nil, response, NewError("Message", "UpdateMessage", resp.Code, resp.Msg)
 	}
 
-	r.cli.logDebug(ctx, "[lark] Message#UpdateMessage request_id: %s, response: %s", response.RequestID, jsonString(resp.Data))
+	r.cli.log(ctx, LogLevelDebug, "[lark] Message#UpdateMessage success, request_id: %s, status_code: %d, response: %s", requestID, statusCode, jsonString(resp.Data))
 
 	return resp.Data, response, nil
 }

@@ -11,12 +11,12 @@ import (
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/faq/search
 func (r *HelpdeskService) SearchFAQ(ctx context.Context, request *SearchFAQReq, options ...MethodOptionFunc) (*SearchFAQResp, *Response, error) {
 	if r.cli.mock.mockHelpdeskSearchFAQ != nil {
-		r.cli.logDebug(ctx, "[lark] Helpdesk#SearchFAQ mock enable")
+		r.cli.log(ctx, LogLevelDebug, "[lark] Helpdesk#SearchFAQ mock enable")
 		return r.cli.mock.mockHelpdeskSearchFAQ(ctx, request, options...)
 	}
 
-	r.cli.logInfo(ctx, "[lark] Helpdesk#SearchFAQ call api")
-	r.cli.logDebug(ctx, "[lark] Helpdesk#SearchFAQ request: %s", jsonString(request))
+	r.cli.log(ctx, LogLevelInfo, "[lark] Helpdesk#SearchFAQ call api")
+	r.cli.log(ctx, LogLevelDebug, "[lark] Helpdesk#SearchFAQ request: %s", jsonString(request))
 
 	req := &RawRequestReq{
 		Method:                "GET",
@@ -24,20 +24,22 @@ func (r *HelpdeskService) SearchFAQ(ctx context.Context, request *SearchFAQReq, 
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
-		NeedHelpdeskAuth:      true,
+
+		NeedHelpdeskAuth: true,
 	}
 	resp := new(searchFAQResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
+	requestID, statusCode := getResponseRequestID(response)
 	if err != nil {
-		r.cli.logError(ctx, "[lark] Helpdesk#SearchFAQ GET https://open.feishu.cn/open-apis/helpdesk/v1/faqs/search failed: %s", err)
+		r.cli.log(ctx, LogLevelError, "[lark] Helpdesk#SearchFAQ GET https://open.feishu.cn/open-apis/helpdesk/v1/faqs/search failed, request_id: %s, status_code: %d, error: %s", requestID, statusCode, err)
 		return nil, response, err
 	} else if resp.Code != 0 {
-		r.cli.logError(ctx, "[lark] Helpdesk#SearchFAQ GET https://open.feishu.cn/open-apis/helpdesk/v1/faqs/search failed, code: %d, msg: %s", resp.Code, resp.Msg)
+		r.cli.log(ctx, LogLevelError, "[lark] Helpdesk#SearchFAQ GET https://open.feishu.cn/open-apis/helpdesk/v1/faqs/search failed, request_id: %s, status_code: %d, code: %d, msg: %s", requestID, statusCode, resp.Code, resp.Msg)
 		return nil, response, NewError("Helpdesk", "SearchFAQ", resp.Code, resp.Msg)
 	}
 
-	r.cli.logDebug(ctx, "[lark] Helpdesk#SearchFAQ request_id: %s, response: %s", response.RequestID, jsonString(resp.Data))
+	r.cli.log(ctx, LogLevelDebug, "[lark] Helpdesk#SearchFAQ success, request_id: %s, status_code: %d, response: %s", requestID, statusCode, jsonString(resp.Data))
 
 	return resp.Data, response, nil
 }

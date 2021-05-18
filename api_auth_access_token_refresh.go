@@ -11,33 +11,35 @@ import (
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uQDO4UjL0gDO14CN4gTN
 func (r *AuthService) RefreshAccessToken(ctx context.Context, request *RefreshAccessTokenReq, options ...MethodOptionFunc) (*RefreshAccessTokenResp, *Response, error) {
 	if r.cli.mock.mockAuthRefreshAccessToken != nil {
-		r.cli.logDebug(ctx, "[lark] Auth#RefreshAccessToken mock enable")
+		r.cli.log(ctx, LogLevelDebug, "[lark] Auth#RefreshAccessToken mock enable")
 		return r.cli.mock.mockAuthRefreshAccessToken(ctx, request, options...)
 	}
 
-	r.cli.logInfo(ctx, "[lark] Auth#RefreshAccessToken call api")
-	r.cli.logDebug(ctx, "[lark] Auth#RefreshAccessToken request: %s", jsonString(request))
+	r.cli.log(ctx, LogLevelInfo, "[lark] Auth#RefreshAccessToken call api")
+	r.cli.log(ctx, LogLevelDebug, "[lark] Auth#RefreshAccessToken request: %s", jsonString(request))
 
 	req := &RawRequestReq{
-		Method:              "POST",
-		URL:                 "https://open.feishu.cn/open-apis/authen/v1/refresh_access_token",
-		Body:                request,
-		MethodOption:        newMethodOption(options),
+		Method:       "POST",
+		URL:          "https://open.feishu.cn/open-apis/authen/v1/refresh_access_token",
+		Body:         request,
+		MethodOption: newMethodOption(options),
+
 		NeedAppAccessToken:  true,
 		NeedUserAccessToken: true,
 	}
 	resp := new(refreshAccessTokenResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
+	requestID, statusCode := getResponseRequestID(response)
 	if err != nil {
-		r.cli.logError(ctx, "[lark] Auth#RefreshAccessToken POST https://open.feishu.cn/open-apis/authen/v1/refresh_access_token failed: %s", err)
+		r.cli.log(ctx, LogLevelError, "[lark] Auth#RefreshAccessToken POST https://open.feishu.cn/open-apis/authen/v1/refresh_access_token failed, request_id: %s, status_code: %d, error: %s", requestID, statusCode, err)
 		return nil, response, err
 	} else if resp.Code != 0 {
-		r.cli.logError(ctx, "[lark] Auth#RefreshAccessToken POST https://open.feishu.cn/open-apis/authen/v1/refresh_access_token failed, code: %d, msg: %s", resp.Code, resp.Msg)
+		r.cli.log(ctx, LogLevelError, "[lark] Auth#RefreshAccessToken POST https://open.feishu.cn/open-apis/authen/v1/refresh_access_token failed, request_id: %s, status_code: %d, code: %d, msg: %s", requestID, statusCode, resp.Code, resp.Msg)
 		return nil, response, NewError("Auth", "RefreshAccessToken", resp.Code, resp.Msg)
 	}
 
-	r.cli.logDebug(ctx, "[lark] Auth#RefreshAccessToken request_id: %s, response: %s", response.RequestID, jsonString(resp.Data))
+	r.cli.log(ctx, LogLevelDebug, "[lark] Auth#RefreshAccessToken success, request_id: %s, status_code: %d, response: %s", requestID, statusCode, jsonString(resp.Data))
 
 	return resp.Data, response, nil
 }

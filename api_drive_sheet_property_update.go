@@ -11,12 +11,12 @@ import (
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/ucTMzUjL3EzM14yNxMTN
 func (r *DriveService) UpdateSheetProperty(ctx context.Context, request *UpdateSheetPropertyReq, options ...MethodOptionFunc) (*UpdateSheetPropertyResp, *Response, error) {
 	if r.cli.mock.mockDriveUpdateSheetProperty != nil {
-		r.cli.logDebug(ctx, "[lark] Drive#UpdateSheetProperty mock enable")
+		r.cli.log(ctx, LogLevelDebug, "[lark] Drive#UpdateSheetProperty mock enable")
 		return r.cli.mock.mockDriveUpdateSheetProperty(ctx, request, options...)
 	}
 
-	r.cli.logInfo(ctx, "[lark] Drive#UpdateSheetProperty call api")
-	r.cli.logDebug(ctx, "[lark] Drive#UpdateSheetProperty request: %s", jsonString(request))
+	r.cli.log(ctx, LogLevelInfo, "[lark] Drive#UpdateSheetProperty call api")
+	r.cli.log(ctx, LogLevelDebug, "[lark] Drive#UpdateSheetProperty request: %s", jsonString(request))
 
 	req := &RawRequestReq{
 		Method:                "PUT",
@@ -24,20 +24,22 @@ func (r *DriveService) UpdateSheetProperty(ctx context.Context, request *UpdateS
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
-		NeedUserAccessToken:   true,
+
+		NeedUserAccessToken: true,
 	}
 	resp := new(updateSheetPropertyResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
+	requestID, statusCode := getResponseRequestID(response)
 	if err != nil {
-		r.cli.logError(ctx, "[lark] Drive#UpdateSheetProperty PUT https://open.feishu.cn/open-apis/sheets/v2/spreadsheets/:spreadsheetToken/properties failed: %s", err)
+		r.cli.log(ctx, LogLevelError, "[lark] Drive#UpdateSheetProperty PUT https://open.feishu.cn/open-apis/sheets/v2/spreadsheets/:spreadsheetToken/properties failed, request_id: %s, status_code: %d, error: %s", requestID, statusCode, err)
 		return nil, response, err
 	} else if resp.Code != 0 {
-		r.cli.logError(ctx, "[lark] Drive#UpdateSheetProperty PUT https://open.feishu.cn/open-apis/sheets/v2/spreadsheets/:spreadsheetToken/properties failed, code: %d, msg: %s", resp.Code, resp.Msg)
+		r.cli.log(ctx, LogLevelError, "[lark] Drive#UpdateSheetProperty PUT https://open.feishu.cn/open-apis/sheets/v2/spreadsheets/:spreadsheetToken/properties failed, request_id: %s, status_code: %d, code: %d, msg: %s", requestID, statusCode, resp.Code, resp.Msg)
 		return nil, response, NewError("Drive", "UpdateSheetProperty", resp.Code, resp.Msg)
 	}
 
-	r.cli.logDebug(ctx, "[lark] Drive#UpdateSheetProperty request_id: %s, response: %s", response.RequestID, jsonString(resp.Data))
+	r.cli.log(ctx, LogLevelDebug, "[lark] Drive#UpdateSheetProperty success, request_id: %s, status_code: %d, response: %s", requestID, statusCode, jsonString(resp.Data))
 
 	return resp.Data, response, nil
 }

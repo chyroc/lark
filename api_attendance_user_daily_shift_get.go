@@ -13,12 +13,12 @@ import (
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/Attendance//task/GetScheduledShifts
 func (r *AttendanceService) GetUserDailyShift(ctx context.Context, request *GetUserDailyShiftReq, options ...MethodOptionFunc) (*GetUserDailyShiftResp, *Response, error) {
 	if r.cli.mock.mockAttendanceGetUserDailyShift != nil {
-		r.cli.logDebug(ctx, "[lark] Attendance#GetUserDailyShift mock enable")
+		r.cli.log(ctx, LogLevelDebug, "[lark] Attendance#GetUserDailyShift mock enable")
 		return r.cli.mock.mockAttendanceGetUserDailyShift(ctx, request, options...)
 	}
 
-	r.cli.logInfo(ctx, "[lark] Attendance#GetUserDailyShift call api")
-	r.cli.logDebug(ctx, "[lark] Attendance#GetUserDailyShift request: %s", jsonString(request))
+	r.cli.log(ctx, LogLevelInfo, "[lark] Attendance#GetUserDailyShift call api")
+	r.cli.log(ctx, LogLevelDebug, "[lark] Attendance#GetUserDailyShift request: %s", jsonString(request))
 
 	req := &RawRequestReq{
 		Method:                "POST",
@@ -30,15 +30,16 @@ func (r *AttendanceService) GetUserDailyShift(ctx context.Context, request *GetU
 	resp := new(getUserDailyShiftResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
+	requestID, statusCode := getResponseRequestID(response)
 	if err != nil {
-		r.cli.logError(ctx, "[lark] Attendance#GetUserDailyShift POST https://open.feishu.cn/open-apis/attendance/v1/user_daily_shifts/query failed: %s", err)
+		r.cli.log(ctx, LogLevelError, "[lark] Attendance#GetUserDailyShift POST https://open.feishu.cn/open-apis/attendance/v1/user_daily_shifts/query failed, request_id: %s, status_code: %d, error: %s", requestID, statusCode, err)
 		return nil, response, err
 	} else if resp.Code != 0 {
-		r.cli.logError(ctx, "[lark] Attendance#GetUserDailyShift POST https://open.feishu.cn/open-apis/attendance/v1/user_daily_shifts/query failed, code: %d, msg: %s", resp.Code, resp.Msg)
+		r.cli.log(ctx, LogLevelError, "[lark] Attendance#GetUserDailyShift POST https://open.feishu.cn/open-apis/attendance/v1/user_daily_shifts/query failed, request_id: %s, status_code: %d, code: %d, msg: %s", requestID, statusCode, resp.Code, resp.Msg)
 		return nil, response, NewError("Attendance", "GetUserDailyShift", resp.Code, resp.Msg)
 	}
 
-	r.cli.logDebug(ctx, "[lark] Attendance#GetUserDailyShift request_id: %s, response: %s", response.RequestID, jsonString(resp.Data))
+	r.cli.log(ctx, LogLevelDebug, "[lark] Attendance#GetUserDailyShift success, request_id: %s, status_code: %d, response: %s", requestID, statusCode, jsonString(resp.Data))
 
 	return resp.Data, response, nil
 }

@@ -15,32 +15,34 @@ import (
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar-event/search
 func (r *CalendarService) SearchCalendarEvent(ctx context.Context, request *SearchCalendarEventReq, options ...MethodOptionFunc) (*SearchCalendarEventResp, *Response, error) {
 	if r.cli.mock.mockCalendarSearchCalendarEvent != nil {
-		r.cli.logDebug(ctx, "[lark] Calendar#SearchCalendarEvent mock enable")
+		r.cli.log(ctx, LogLevelDebug, "[lark] Calendar#SearchCalendarEvent mock enable")
 		return r.cli.mock.mockCalendarSearchCalendarEvent(ctx, request, options...)
 	}
 
-	r.cli.logInfo(ctx, "[lark] Calendar#SearchCalendarEvent call api")
-	r.cli.logDebug(ctx, "[lark] Calendar#SearchCalendarEvent request: %s", jsonString(request))
+	r.cli.log(ctx, LogLevelInfo, "[lark] Calendar#SearchCalendarEvent call api")
+	r.cli.log(ctx, LogLevelDebug, "[lark] Calendar#SearchCalendarEvent request: %s", jsonString(request))
 
 	req := &RawRequestReq{
-		Method:              "POST",
-		URL:                 "https://open.feishu.cn/open-apis/calendar/v4/calendars/:calendar_id/events/search",
-		Body:                request,
-		MethodOption:        newMethodOption(options),
+		Method:       "POST",
+		URL:          "https://open.feishu.cn/open-apis/calendar/v4/calendars/:calendar_id/events/search",
+		Body:         request,
+		MethodOption: newMethodOption(options),
+
 		NeedUserAccessToken: true,
 	}
 	resp := new(searchCalendarEventResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
+	requestID, statusCode := getResponseRequestID(response)
 	if err != nil {
-		r.cli.logError(ctx, "[lark] Calendar#SearchCalendarEvent POST https://open.feishu.cn/open-apis/calendar/v4/calendars/:calendar_id/events/search failed: %s", err)
+		r.cli.log(ctx, LogLevelError, "[lark] Calendar#SearchCalendarEvent POST https://open.feishu.cn/open-apis/calendar/v4/calendars/:calendar_id/events/search failed, request_id: %s, status_code: %d, error: %s", requestID, statusCode, err)
 		return nil, response, err
 	} else if resp.Code != 0 {
-		r.cli.logError(ctx, "[lark] Calendar#SearchCalendarEvent POST https://open.feishu.cn/open-apis/calendar/v4/calendars/:calendar_id/events/search failed, code: %d, msg: %s", resp.Code, resp.Msg)
+		r.cli.log(ctx, LogLevelError, "[lark] Calendar#SearchCalendarEvent POST https://open.feishu.cn/open-apis/calendar/v4/calendars/:calendar_id/events/search failed, request_id: %s, status_code: %d, code: %d, msg: %s", requestID, statusCode, resp.Code, resp.Msg)
 		return nil, response, NewError("Calendar", "SearchCalendarEvent", resp.Code, resp.Msg)
 	}
 
-	r.cli.logDebug(ctx, "[lark] Calendar#SearchCalendarEvent request_id: %s, response: %s", response.RequestID, jsonString(resp.Data))
+	r.cli.log(ctx, LogLevelDebug, "[lark] Calendar#SearchCalendarEvent success, request_id: %s, status_code: %d, response: %s", requestID, statusCode, jsonString(resp.Data))
 
 	return resp.Data, response, nil
 }

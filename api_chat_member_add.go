@@ -18,12 +18,12 @@ import (
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-members/create
 func (r *ChatService) AddMember(ctx context.Context, request *AddMemberReq, options ...MethodOptionFunc) (*AddMemberResp, *Response, error) {
 	if r.cli.mock.mockChatAddMember != nil {
-		r.cli.logDebug(ctx, "[lark] Chat#AddMember mock enable")
+		r.cli.log(ctx, LogLevelDebug, "[lark] Chat#AddMember mock enable")
 		return r.cli.mock.mockChatAddMember(ctx, request, options...)
 	}
 
-	r.cli.logInfo(ctx, "[lark] Chat#AddMember call api")
-	r.cli.logDebug(ctx, "[lark] Chat#AddMember request: %s", jsonString(request))
+	r.cli.log(ctx, LogLevelInfo, "[lark] Chat#AddMember call api")
+	r.cli.log(ctx, LogLevelDebug, "[lark] Chat#AddMember request: %s", jsonString(request))
 
 	req := &RawRequestReq{
 		Method:                "POST",
@@ -31,20 +31,22 @@ func (r *ChatService) AddMember(ctx context.Context, request *AddMemberReq, opti
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
-		NeedUserAccessToken:   true,
+
+		NeedUserAccessToken: true,
 	}
 	resp := new(addMemberResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
+	requestID, statusCode := getResponseRequestID(response)
 	if err != nil {
-		r.cli.logError(ctx, "[lark] Chat#AddMember POST https://open.feishu.cn/open-apis/im/v1/chats/:chat_id/members failed: %s", err)
+		r.cli.log(ctx, LogLevelError, "[lark] Chat#AddMember POST https://open.feishu.cn/open-apis/im/v1/chats/:chat_id/members failed, request_id: %s, status_code: %d, error: %s", requestID, statusCode, err)
 		return nil, response, err
 	} else if resp.Code != 0 {
-		r.cli.logError(ctx, "[lark] Chat#AddMember POST https://open.feishu.cn/open-apis/im/v1/chats/:chat_id/members failed, code: %d, msg: %s", resp.Code, resp.Msg)
+		r.cli.log(ctx, LogLevelError, "[lark] Chat#AddMember POST https://open.feishu.cn/open-apis/im/v1/chats/:chat_id/members failed, request_id: %s, status_code: %d, code: %d, msg: %s", requestID, statusCode, resp.Code, resp.Msg)
 		return nil, response, NewError("Chat", "AddMember", resp.Code, resp.Msg)
 	}
 
-	r.cli.logDebug(ctx, "[lark] Chat#AddMember request_id: %s, response: %s", response.RequestID, jsonString(resp.Data))
+	r.cli.log(ctx, LogLevelDebug, "[lark] Chat#AddMember success, request_id: %s, status_code: %d, response: %s", requestID, statusCode, jsonString(resp.Data))
 
 	return resp.Data, response, nil
 }

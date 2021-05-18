@@ -11,33 +11,35 @@ import (
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/category/delete
 func (r *HelpdeskService) DeleteCategory(ctx context.Context, request *DeleteCategoryReq, options ...MethodOptionFunc) (*DeleteCategoryResp, *Response, error) {
 	if r.cli.mock.mockHelpdeskDeleteCategory != nil {
-		r.cli.logDebug(ctx, "[lark] Helpdesk#DeleteCategory mock enable")
+		r.cli.log(ctx, LogLevelDebug, "[lark] Helpdesk#DeleteCategory mock enable")
 		return r.cli.mock.mockHelpdeskDeleteCategory(ctx, request, options...)
 	}
 
-	r.cli.logInfo(ctx, "[lark] Helpdesk#DeleteCategory call api")
-	r.cli.logDebug(ctx, "[lark] Helpdesk#DeleteCategory request: %s", jsonString(request))
+	r.cli.log(ctx, LogLevelInfo, "[lark] Helpdesk#DeleteCategory call api")
+	r.cli.log(ctx, LogLevelDebug, "[lark] Helpdesk#DeleteCategory request: %s", jsonString(request))
 
 	req := &RawRequestReq{
-		Method:              "DELETE",
-		URL:                 "https://open.feishu.cn/open-apis/helpdesk/v1/categories/:id",
-		Body:                request,
-		MethodOption:        newMethodOption(options),
+		Method:       "DELETE",
+		URL:          "https://open.feishu.cn/open-apis/helpdesk/v1/categories/:id",
+		Body:         request,
+		MethodOption: newMethodOption(options),
+
 		NeedUserAccessToken: true,
 		NeedHelpdeskAuth:    true,
 	}
 	resp := new(deleteCategoryResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
+	requestID, statusCode := getResponseRequestID(response)
 	if err != nil {
-		r.cli.logError(ctx, "[lark] Helpdesk#DeleteCategory DELETE https://open.feishu.cn/open-apis/helpdesk/v1/categories/:id failed: %s", err)
+		r.cli.log(ctx, LogLevelError, "[lark] Helpdesk#DeleteCategory DELETE https://open.feishu.cn/open-apis/helpdesk/v1/categories/:id failed, request_id: %s, status_code: %d, error: %s", requestID, statusCode, err)
 		return nil, response, err
 	} else if resp.Code != 0 {
-		r.cli.logError(ctx, "[lark] Helpdesk#DeleteCategory DELETE https://open.feishu.cn/open-apis/helpdesk/v1/categories/:id failed, code: %d, msg: %s", resp.Code, resp.Msg)
+		r.cli.log(ctx, LogLevelError, "[lark] Helpdesk#DeleteCategory DELETE https://open.feishu.cn/open-apis/helpdesk/v1/categories/:id failed, request_id: %s, status_code: %d, code: %d, msg: %s", requestID, statusCode, resp.Code, resp.Msg)
 		return nil, response, NewError("Helpdesk", "DeleteCategory", resp.Code, resp.Msg)
 	}
 
-	r.cli.logDebug(ctx, "[lark] Helpdesk#DeleteCategory request_id: %s, response: %s", response.RequestID, jsonString(resp.Data))
+	r.cli.log(ctx, LogLevelDebug, "[lark] Helpdesk#DeleteCategory success, request_id: %s, status_code: %d, response: %s", requestID, statusCode, jsonString(resp.Data))
 
 	return resp.Data, response, nil
 }

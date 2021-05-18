@@ -13,12 +13,12 @@ import (
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/delete
 func (r *ContactService) DeleteDepartment(ctx context.Context, request *DeleteDepartmentReq, options ...MethodOptionFunc) (*DeleteDepartmentResp, *Response, error) {
 	if r.cli.mock.mockContactDeleteDepartment != nil {
-		r.cli.logDebug(ctx, "[lark] Contact#DeleteDepartment mock enable")
+		r.cli.log(ctx, LogLevelDebug, "[lark] Contact#DeleteDepartment mock enable")
 		return r.cli.mock.mockContactDeleteDepartment(ctx, request, options...)
 	}
 
-	r.cli.logInfo(ctx, "[lark] Contact#DeleteDepartment call api")
-	r.cli.logDebug(ctx, "[lark] Contact#DeleteDepartment request: %s", jsonString(request))
+	r.cli.log(ctx, LogLevelInfo, "[lark] Contact#DeleteDepartment call api")
+	r.cli.log(ctx, LogLevelDebug, "[lark] Contact#DeleteDepartment request: %s", jsonString(request))
 
 	req := &RawRequestReq{
 		Method:                "DELETE",
@@ -30,15 +30,16 @@ func (r *ContactService) DeleteDepartment(ctx context.Context, request *DeleteDe
 	resp := new(deleteDepartmentResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
+	requestID, statusCode := getResponseRequestID(response)
 	if err != nil {
-		r.cli.logError(ctx, "[lark] Contact#DeleteDepartment DELETE https://open.feishu.cn/open-apis/contact/v3/departments/:department_id failed: %s", err)
+		r.cli.log(ctx, LogLevelError, "[lark] Contact#DeleteDepartment DELETE https://open.feishu.cn/open-apis/contact/v3/departments/:department_id failed, request_id: %s, status_code: %d, error: %s", requestID, statusCode, err)
 		return nil, response, err
 	} else if resp.Code != 0 {
-		r.cli.logError(ctx, "[lark] Contact#DeleteDepartment DELETE https://open.feishu.cn/open-apis/contact/v3/departments/:department_id failed, code: %d, msg: %s", resp.Code, resp.Msg)
+		r.cli.log(ctx, LogLevelError, "[lark] Contact#DeleteDepartment DELETE https://open.feishu.cn/open-apis/contact/v3/departments/:department_id failed, request_id: %s, status_code: %d, code: %d, msg: %s", requestID, statusCode, resp.Code, resp.Msg)
 		return nil, response, NewError("Contact", "DeleteDepartment", resp.Code, resp.Msg)
 	}
 
-	r.cli.logDebug(ctx, "[lark] Contact#DeleteDepartment request_id: %s, response: %s", response.RequestID, jsonString(resp.Data))
+	r.cli.log(ctx, LogLevelDebug, "[lark] Contact#DeleteDepartment success, request_id: %s, status_code: %d, response: %s", requestID, statusCode, jsonString(resp.Data))
 
 	return resp.Data, response, nil
 }

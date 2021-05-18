@@ -13,12 +13,12 @@ import (
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uATN3UjLwUzN14CM1cTN
 func (r *DriveService) GetMemberPermissionList(ctx context.Context, request *GetMemberPermissionListReq, options ...MethodOptionFunc) (*GetMemberPermissionListResp, *Response, error) {
 	if r.cli.mock.mockDriveGetMemberPermissionList != nil {
-		r.cli.logDebug(ctx, "[lark] Drive#GetMemberPermissionList mock enable")
+		r.cli.log(ctx, LogLevelDebug, "[lark] Drive#GetMemberPermissionList mock enable")
 		return r.cli.mock.mockDriveGetMemberPermissionList(ctx, request, options...)
 	}
 
-	r.cli.logInfo(ctx, "[lark] Drive#GetMemberPermissionList call api")
-	r.cli.logDebug(ctx, "[lark] Drive#GetMemberPermissionList request: %s", jsonString(request))
+	r.cli.log(ctx, LogLevelInfo, "[lark] Drive#GetMemberPermissionList call api")
+	r.cli.log(ctx, LogLevelDebug, "[lark] Drive#GetMemberPermissionList request: %s", jsonString(request))
 
 	req := &RawRequestReq{
 		Method:                "POST",
@@ -26,20 +26,22 @@ func (r *DriveService) GetMemberPermissionList(ctx context.Context, request *Get
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
-		NeedUserAccessToken:   true,
+
+		NeedUserAccessToken: true,
 	}
 	resp := new(getMemberPermissionListResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
+	requestID, statusCode := getResponseRequestID(response)
 	if err != nil {
-		r.cli.logError(ctx, "[lark] Drive#GetMemberPermissionList POST https://open.feishu.cn/open-apis/drive/permission/member/list failed: %s", err)
+		r.cli.log(ctx, LogLevelError, "[lark] Drive#GetMemberPermissionList POST https://open.feishu.cn/open-apis/drive/permission/member/list failed, request_id: %s, status_code: %d, error: %s", requestID, statusCode, err)
 		return nil, response, err
 	} else if resp.Code != 0 {
-		r.cli.logError(ctx, "[lark] Drive#GetMemberPermissionList POST https://open.feishu.cn/open-apis/drive/permission/member/list failed, code: %d, msg: %s", resp.Code, resp.Msg)
+		r.cli.log(ctx, LogLevelError, "[lark] Drive#GetMemberPermissionList POST https://open.feishu.cn/open-apis/drive/permission/member/list failed, request_id: %s, status_code: %d, code: %d, msg: %s", requestID, statusCode, resp.Code, resp.Msg)
 		return nil, response, NewError("Drive", "GetMemberPermissionList", resp.Code, resp.Msg)
 	}
 
-	r.cli.logDebug(ctx, "[lark] Drive#GetMemberPermissionList request_id: %s, response: %s", response.RequestID, jsonString(resp.Data))
+	r.cli.log(ctx, LogLevelDebug, "[lark] Drive#GetMemberPermissionList success, request_id: %s, status_code: %d, response: %s", requestID, statusCode, jsonString(resp.Data))
 
 	return resp.Data, response, nil
 }

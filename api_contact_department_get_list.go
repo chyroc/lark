@@ -16,12 +16,12 @@ import (
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/list
 func (r *ContactService) GetDepartmentList(ctx context.Context, request *GetDepartmentListReq, options ...MethodOptionFunc) (*GetDepartmentListResp, *Response, error) {
 	if r.cli.mock.mockContactGetDepartmentList != nil {
-		r.cli.logDebug(ctx, "[lark] Contact#GetDepartmentList mock enable")
+		r.cli.log(ctx, LogLevelDebug, "[lark] Contact#GetDepartmentList mock enable")
 		return r.cli.mock.mockContactGetDepartmentList(ctx, request, options...)
 	}
 
-	r.cli.logInfo(ctx, "[lark] Contact#GetDepartmentList call api")
-	r.cli.logDebug(ctx, "[lark] Contact#GetDepartmentList request: %s", jsonString(request))
+	r.cli.log(ctx, LogLevelInfo, "[lark] Contact#GetDepartmentList call api")
+	r.cli.log(ctx, LogLevelDebug, "[lark] Contact#GetDepartmentList request: %s", jsonString(request))
 
 	req := &RawRequestReq{
 		Method:                "GET",
@@ -29,20 +29,22 @@ func (r *ContactService) GetDepartmentList(ctx context.Context, request *GetDepa
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
-		NeedUserAccessToken:   true,
+
+		NeedUserAccessToken: true,
 	}
 	resp := new(getDepartmentListResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
+	requestID, statusCode := getResponseRequestID(response)
 	if err != nil {
-		r.cli.logError(ctx, "[lark] Contact#GetDepartmentList GET https://open.feishu.cn/open-apis/contact/v3/departments failed: %s", err)
+		r.cli.log(ctx, LogLevelError, "[lark] Contact#GetDepartmentList GET https://open.feishu.cn/open-apis/contact/v3/departments failed, request_id: %s, status_code: %d, error: %s", requestID, statusCode, err)
 		return nil, response, err
 	} else if resp.Code != 0 {
-		r.cli.logError(ctx, "[lark] Contact#GetDepartmentList GET https://open.feishu.cn/open-apis/contact/v3/departments failed, code: %d, msg: %s", resp.Code, resp.Msg)
+		r.cli.log(ctx, LogLevelError, "[lark] Contact#GetDepartmentList GET https://open.feishu.cn/open-apis/contact/v3/departments failed, request_id: %s, status_code: %d, code: %d, msg: %s", requestID, statusCode, resp.Code, resp.Msg)
 		return nil, response, NewError("Contact", "GetDepartmentList", resp.Code, resp.Msg)
 	}
 
-	r.cli.logDebug(ctx, "[lark] Contact#GetDepartmentList request_id: %s, response: %s", response.RequestID, jsonString(resp.Data))
+	r.cli.log(ctx, LogLevelDebug, "[lark] Contact#GetDepartmentList success, request_id: %s, status_code: %d, response: %s", requestID, statusCode, jsonString(resp.Data))
 
 	return resp.Data, response, nil
 }

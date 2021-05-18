@@ -12,11 +12,11 @@ import (
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uAjMxEjLwITMx4CMyETM
 func (r *BotService) GetBotInfo(ctx context.Context, request *GetBotInfoReq, options ...MethodOptionFunc) (*GetBotInfoResp, *Response, error) {
-	r.cli.logInfo(ctx, "[lark][Bot][GetBotInfo] call api")
-	r.cli.logDebug(ctx, "[lark][Bot][GetBotInfo] request: %s", jsonString(request))
+	r.cli.log(ctx, LogLevelInfo, "[lark][Bot][GetBotInfo] call api")
+	r.cli.log(ctx, LogLevelDebug, "[lark][Bot][GetBotInfo] request: %s", jsonString(request))
 
 	if r.cli.mock.mockBotGetBotInfo != nil {
-		r.cli.logDebug(ctx, "[lark][Bot][GetBotInfo] mock enable")
+		r.cli.log(ctx, LogLevelDebug, "[lark][Bot][GetBotInfo] mock enable")
 		return r.cli.mock.mockBotGetBotInfo(ctx, request, options...)
 	}
 
@@ -31,14 +31,14 @@ func (r *BotService) GetBotInfo(ctx context.Context, request *GetBotInfoReq, opt
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
 	if err != nil {
-		r.cli.logError(ctx, "[lark][Bot][GetBotInfo] GET https://open.feishu.cn/open-apis/bot/v3/info failed: %s", err)
+		r.cli.log(ctx, LogLevelError, "[lark][Bot][GetBotInfo] GET https://open.feishu.cn/open-apis/bot/v3/info failed: %s", err)
 		return nil, response, err
 	} else if resp.Code != 0 {
-		r.cli.logError(ctx, "[lark][Bot][GetBotInfo] GET https://open.feishu.cn/open-apis/bot/v3/info failed, code: %d, msg: %s", resp.Code, resp.Msg)
+		r.cli.log(ctx, LogLevelError, "[lark][Bot][GetBotInfo] GET https://open.feishu.cn/open-apis/bot/v3/info failed, code: %d, msg: %s", resp.Code, resp.Msg)
 		return nil, response, NewError("Bot", "GetBotInfo", resp.Code, resp.Msg)
 	}
 
-	r.cli.logDebug(ctx, "[lark][Bot][GetBotInfo] request_id: %s, response: %s", response.RequestID, jsonString(resp.Data))
+	r.cli.log(ctx, LogLevelDebug, "[lark][Bot][GetBotInfo] request_id: %s, response: %s", response.RequestID, jsonString(resp.Data))
 
 	return resp.Data, response, nil
 }

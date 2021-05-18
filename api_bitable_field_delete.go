@@ -11,32 +11,34 @@ import (
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table-field/delete
 func (r *BitableService) DeleteField(ctx context.Context, request *DeleteFieldReq, options ...MethodOptionFunc) (*DeleteFieldResp, *Response, error) {
 	if r.cli.mock.mockBitableDeleteField != nil {
-		r.cli.logDebug(ctx, "[lark] Bitable#DeleteField mock enable")
+		r.cli.log(ctx, LogLevelDebug, "[lark] Bitable#DeleteField mock enable")
 		return r.cli.mock.mockBitableDeleteField(ctx, request, options...)
 	}
 
-	r.cli.logInfo(ctx, "[lark] Bitable#DeleteField call api")
-	r.cli.logDebug(ctx, "[lark] Bitable#DeleteField request: %s", jsonString(request))
+	r.cli.log(ctx, LogLevelInfo, "[lark] Bitable#DeleteField call api")
+	r.cli.log(ctx, LogLevelDebug, "[lark] Bitable#DeleteField request: %s", jsonString(request))
 
 	req := &RawRequestReq{
-		Method:              "DELETE",
-		URL:                 "https://open.feishu.cn/open-apis/bitable/v1/apps/:app_token/tables/:table_id/fields/:field_id",
-		Body:                request,
-		MethodOption:        newMethodOption(options),
+		Method:       "DELETE",
+		URL:          "https://open.feishu.cn/open-apis/bitable/v1/apps/:app_token/tables/:table_id/fields/:field_id",
+		Body:         request,
+		MethodOption: newMethodOption(options),
+
 		NeedUserAccessToken: true,
 	}
 	resp := new(deleteFieldResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
+	requestID, statusCode := getResponseRequestID(response)
 	if err != nil {
-		r.cli.logError(ctx, "[lark] Bitable#DeleteField DELETE https://open.feishu.cn/open-apis/bitable/v1/apps/:app_token/tables/:table_id/fields/:field_id failed: %s", err)
+		r.cli.log(ctx, LogLevelError, "[lark] Bitable#DeleteField DELETE https://open.feishu.cn/open-apis/bitable/v1/apps/:app_token/tables/:table_id/fields/:field_id failed, request_id: %s, status_code: %d, error: %s", requestID, statusCode, err)
 		return nil, response, err
 	} else if resp.Code != 0 {
-		r.cli.logError(ctx, "[lark] Bitable#DeleteField DELETE https://open.feishu.cn/open-apis/bitable/v1/apps/:app_token/tables/:table_id/fields/:field_id failed, code: %d, msg: %s", resp.Code, resp.Msg)
+		r.cli.log(ctx, LogLevelError, "[lark] Bitable#DeleteField DELETE https://open.feishu.cn/open-apis/bitable/v1/apps/:app_token/tables/:table_id/fields/:field_id failed, request_id: %s, status_code: %d, code: %d, msg: %s", requestID, statusCode, resp.Code, resp.Msg)
 		return nil, response, NewError("Bitable", "DeleteField", resp.Code, resp.Msg)
 	}
 
-	r.cli.logDebug(ctx, "[lark] Bitable#DeleteField request_id: %s, response: %s", response.RequestID, jsonString(resp.Data))
+	r.cli.log(ctx, LogLevelDebug, "[lark] Bitable#DeleteField success, request_id: %s, status_code: %d, response: %s", requestID, statusCode, jsonString(resp.Data))
 
 	return resp.Data, response, nil
 }

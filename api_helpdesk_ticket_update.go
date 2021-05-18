@@ -11,33 +11,35 @@ import (
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/ticket/update
 func (r *HelpdeskService) UpdateTicket(ctx context.Context, request *UpdateTicketReq, options ...MethodOptionFunc) (*UpdateTicketResp, *Response, error) {
 	if r.cli.mock.mockHelpdeskUpdateTicket != nil {
-		r.cli.logDebug(ctx, "[lark] Helpdesk#UpdateTicket mock enable")
+		r.cli.log(ctx, LogLevelDebug, "[lark] Helpdesk#UpdateTicket mock enable")
 		return r.cli.mock.mockHelpdeskUpdateTicket(ctx, request, options...)
 	}
 
-	r.cli.logInfo(ctx, "[lark] Helpdesk#UpdateTicket call api")
-	r.cli.logDebug(ctx, "[lark] Helpdesk#UpdateTicket request: %s", jsonString(request))
+	r.cli.log(ctx, LogLevelInfo, "[lark] Helpdesk#UpdateTicket call api")
+	r.cli.log(ctx, LogLevelDebug, "[lark] Helpdesk#UpdateTicket request: %s", jsonString(request))
 
 	req := &RawRequestReq{
-		Method:              "PUT",
-		URL:                 "https://open.feishu.cn/open-apis/helpdesk/v1/tickets/:ticket_id",
-		Body:                request,
-		MethodOption:        newMethodOption(options),
+		Method:       "PUT",
+		URL:          "https://open.feishu.cn/open-apis/helpdesk/v1/tickets/:ticket_id",
+		Body:         request,
+		MethodOption: newMethodOption(options),
+
 		NeedUserAccessToken: true,
 		NeedHelpdeskAuth:    true,
 	}
 	resp := new(updateTicketResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
+	requestID, statusCode := getResponseRequestID(response)
 	if err != nil {
-		r.cli.logError(ctx, "[lark] Helpdesk#UpdateTicket PUT https://open.feishu.cn/open-apis/helpdesk/v1/tickets/:ticket_id failed: %s", err)
+		r.cli.log(ctx, LogLevelError, "[lark] Helpdesk#UpdateTicket PUT https://open.feishu.cn/open-apis/helpdesk/v1/tickets/:ticket_id failed, request_id: %s, status_code: %d, error: %s", requestID, statusCode, err)
 		return nil, response, err
 	} else if resp.Code != 0 {
-		r.cli.logError(ctx, "[lark] Helpdesk#UpdateTicket PUT https://open.feishu.cn/open-apis/helpdesk/v1/tickets/:ticket_id failed, code: %d, msg: %s", resp.Code, resp.Msg)
+		r.cli.log(ctx, LogLevelError, "[lark] Helpdesk#UpdateTicket PUT https://open.feishu.cn/open-apis/helpdesk/v1/tickets/:ticket_id failed, request_id: %s, status_code: %d, code: %d, msg: %s", requestID, statusCode, resp.Code, resp.Msg)
 		return nil, response, NewError("Helpdesk", "UpdateTicket", resp.Code, resp.Msg)
 	}
 
-	r.cli.logDebug(ctx, "[lark] Helpdesk#UpdateTicket request_id: %s, response: %s", response.RequestID, jsonString(resp.Data))
+	r.cli.log(ctx, LogLevelDebug, "[lark] Helpdesk#UpdateTicket success, request_id: %s, status_code: %d, response: %s", requestID, statusCode, jsonString(resp.Data))
 
 	return resp.Data, response, nil
 }

@@ -11,12 +11,12 @@ import (
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/category/get
 func (r *HelpdeskService) GetCategory(ctx context.Context, request *GetCategoryReq, options ...MethodOptionFunc) (*GetCategoryResp, *Response, error) {
 	if r.cli.mock.mockHelpdeskGetCategory != nil {
-		r.cli.logDebug(ctx, "[lark] Helpdesk#GetCategory mock enable")
+		r.cli.log(ctx, LogLevelDebug, "[lark] Helpdesk#GetCategory mock enable")
 		return r.cli.mock.mockHelpdeskGetCategory(ctx, request, options...)
 	}
 
-	r.cli.logInfo(ctx, "[lark] Helpdesk#GetCategory call api")
-	r.cli.logDebug(ctx, "[lark] Helpdesk#GetCategory request: %s", jsonString(request))
+	r.cli.log(ctx, LogLevelInfo, "[lark] Helpdesk#GetCategory call api")
+	r.cli.log(ctx, LogLevelDebug, "[lark] Helpdesk#GetCategory request: %s", jsonString(request))
 
 	req := &RawRequestReq{
 		Method:                "GET",
@@ -24,20 +24,22 @@ func (r *HelpdeskService) GetCategory(ctx context.Context, request *GetCategoryR
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
-		NeedHelpdeskAuth:      true,
+
+		NeedHelpdeskAuth: true,
 	}
 	resp := new(getCategoryResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
+	requestID, statusCode := getResponseRequestID(response)
 	if err != nil {
-		r.cli.logError(ctx, "[lark] Helpdesk#GetCategory GET https://open.feishu.cn/open-apis/helpdesk/v1/categories/:id failed: %s", err)
+		r.cli.log(ctx, LogLevelError, "[lark] Helpdesk#GetCategory GET https://open.feishu.cn/open-apis/helpdesk/v1/categories/:id failed, request_id: %s, status_code: %d, error: %s", requestID, statusCode, err)
 		return nil, response, err
 	} else if resp.Code != 0 {
-		r.cli.logError(ctx, "[lark] Helpdesk#GetCategory GET https://open.feishu.cn/open-apis/helpdesk/v1/categories/:id failed, code: %d, msg: %s", resp.Code, resp.Msg)
+		r.cli.log(ctx, LogLevelError, "[lark] Helpdesk#GetCategory GET https://open.feishu.cn/open-apis/helpdesk/v1/categories/:id failed, request_id: %s, status_code: %d, code: %d, msg: %s", requestID, statusCode, resp.Code, resp.Msg)
 		return nil, response, NewError("Helpdesk", "GetCategory", resp.Code, resp.Msg)
 	}
 
-	r.cli.logDebug(ctx, "[lark] Helpdesk#GetCategory request_id: %s, response: %s", response.RequestID, jsonString(resp.Data))
+	r.cli.log(ctx, LogLevelDebug, "[lark] Helpdesk#GetCategory success, request_id: %s, status_code: %d, response: %s", requestID, statusCode, jsonString(resp.Data))
 
 	return resp.Data, response, nil
 }

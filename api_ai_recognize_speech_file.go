@@ -13,12 +13,12 @@ import (
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/ai/speech_to_text-v1/speech/file_recognize
 func (r *AIService) RecognizeSpeechFile(ctx context.Context, request *RecognizeSpeechFileReq, options ...MethodOptionFunc) (*RecognizeSpeechFileResp, *Response, error) {
 	if r.cli.mock.mockAIRecognizeSpeechFile != nil {
-		r.cli.logDebug(ctx, "[lark] AI#RecognizeSpeechFile mock enable")
+		r.cli.log(ctx, LogLevelDebug, "[lark] AI#RecognizeSpeechFile mock enable")
 		return r.cli.mock.mockAIRecognizeSpeechFile(ctx, request, options...)
 	}
 
-	r.cli.logInfo(ctx, "[lark] AI#RecognizeSpeechFile call api")
-	r.cli.logDebug(ctx, "[lark] AI#RecognizeSpeechFile request: %s", jsonString(request))
+	r.cli.log(ctx, LogLevelInfo, "[lark] AI#RecognizeSpeechFile call api")
+	r.cli.log(ctx, LogLevelDebug, "[lark] AI#RecognizeSpeechFile request: %s", jsonString(request))
 
 	req := &RawRequestReq{
 		Method:                "POST",
@@ -30,15 +30,16 @@ func (r *AIService) RecognizeSpeechFile(ctx context.Context, request *RecognizeS
 	resp := new(recognizeSpeechFileResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
+	requestID, statusCode := getResponseRequestID(response)
 	if err != nil {
-		r.cli.logError(ctx, "[lark] AI#RecognizeSpeechFile POST https://open.feishu.cn/open-apis/speech_to_text/v1/speech/file_recognize failed: %s", err)
+		r.cli.log(ctx, LogLevelError, "[lark] AI#RecognizeSpeechFile POST https://open.feishu.cn/open-apis/speech_to_text/v1/speech/file_recognize failed, request_id: %s, status_code: %d, error: %s", requestID, statusCode, err)
 		return nil, response, err
 	} else if resp.Code != 0 {
-		r.cli.logError(ctx, "[lark] AI#RecognizeSpeechFile POST https://open.feishu.cn/open-apis/speech_to_text/v1/speech/file_recognize failed, code: %d, msg: %s", resp.Code, resp.Msg)
+		r.cli.log(ctx, LogLevelError, "[lark] AI#RecognizeSpeechFile POST https://open.feishu.cn/open-apis/speech_to_text/v1/speech/file_recognize failed, request_id: %s, status_code: %d, code: %d, msg: %s", requestID, statusCode, resp.Code, resp.Msg)
 		return nil, response, NewError("AI", "RecognizeSpeechFile", resp.Code, resp.Msg)
 	}
 
-	r.cli.logDebug(ctx, "[lark] AI#RecognizeSpeechFile request_id: %s, response: %s", response.RequestID, jsonString(resp.Data))
+	r.cli.log(ctx, LogLevelDebug, "[lark] AI#RecognizeSpeechFile success, request_id: %s, status_code: %d, response: %s", requestID, statusCode, jsonString(resp.Data))
 
 	return resp.Data, response, nil
 }

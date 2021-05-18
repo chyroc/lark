@@ -15,12 +15,12 @@ import (
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat/get
 func (r *ChatService) GetChat(ctx context.Context, request *GetChatReq, options ...MethodOptionFunc) (*GetChatResp, *Response, error) {
 	if r.cli.mock.mockChatGetChat != nil {
-		r.cli.logDebug(ctx, "[lark] Chat#GetChat mock enable")
+		r.cli.log(ctx, LogLevelDebug, "[lark] Chat#GetChat mock enable")
 		return r.cli.mock.mockChatGetChat(ctx, request, options...)
 	}
 
-	r.cli.logInfo(ctx, "[lark] Chat#GetChat call api")
-	r.cli.logDebug(ctx, "[lark] Chat#GetChat request: %s", jsonString(request))
+	r.cli.log(ctx, LogLevelInfo, "[lark] Chat#GetChat call api")
+	r.cli.log(ctx, LogLevelDebug, "[lark] Chat#GetChat request: %s", jsonString(request))
 
 	req := &RawRequestReq{
 		Method:                "GET",
@@ -28,20 +28,22 @@ func (r *ChatService) GetChat(ctx context.Context, request *GetChatReq, options 
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
-		NeedUserAccessToken:   true,
+
+		NeedUserAccessToken: true,
 	}
 	resp := new(getChatResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
+	requestID, statusCode := getResponseRequestID(response)
 	if err != nil {
-		r.cli.logError(ctx, "[lark] Chat#GetChat GET https://open.feishu.cn/open-apis/im/v1/chats/:chat_id failed: %s", err)
+		r.cli.log(ctx, LogLevelError, "[lark] Chat#GetChat GET https://open.feishu.cn/open-apis/im/v1/chats/:chat_id failed, request_id: %s, status_code: %d, error: %s", requestID, statusCode, err)
 		return nil, response, err
 	} else if resp.Code != 0 {
-		r.cli.logError(ctx, "[lark] Chat#GetChat GET https://open.feishu.cn/open-apis/im/v1/chats/:chat_id failed, code: %d, msg: %s", resp.Code, resp.Msg)
+		r.cli.log(ctx, LogLevelError, "[lark] Chat#GetChat GET https://open.feishu.cn/open-apis/im/v1/chats/:chat_id failed, request_id: %s, status_code: %d, code: %d, msg: %s", requestID, statusCode, resp.Code, resp.Msg)
 		return nil, response, NewError("Chat", "GetChat", resp.Code, resp.Msg)
 	}
 
-	r.cli.logDebug(ctx, "[lark] Chat#GetChat request_id: %s, response: %s", response.RequestID, jsonString(resp.Data))
+	r.cli.log(ctx, LogLevelDebug, "[lark] Chat#GetChat success, request_id: %s, status_code: %d, response: %s", requestID, statusCode, jsonString(resp.Data))
 
 	return resp.Data, response, nil
 }

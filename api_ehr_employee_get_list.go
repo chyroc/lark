@@ -11,12 +11,12 @@ import (
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/ehr/ehr-v1/employee/list
 func (r *EHRService) GetEmployeeList(ctx context.Context, request *GetEmployeeListReq, options ...MethodOptionFunc) (*GetEmployeeListResp, *Response, error) {
 	if r.cli.mock.mockEHRGetEmployeeList != nil {
-		r.cli.logDebug(ctx, "[lark] EHR#GetEmployeeList mock enable")
+		r.cli.log(ctx, LogLevelDebug, "[lark] EHR#GetEmployeeList mock enable")
 		return r.cli.mock.mockEHRGetEmployeeList(ctx, request, options...)
 	}
 
-	r.cli.logInfo(ctx, "[lark] EHR#GetEmployeeList call api")
-	r.cli.logDebug(ctx, "[lark] EHR#GetEmployeeList request: %s", jsonString(request))
+	r.cli.log(ctx, LogLevelInfo, "[lark] EHR#GetEmployeeList call api")
+	r.cli.log(ctx, LogLevelDebug, "[lark] EHR#GetEmployeeList request: %s", jsonString(request))
 
 	req := &RawRequestReq{
 		Method:                "GET",
@@ -28,15 +28,16 @@ func (r *EHRService) GetEmployeeList(ctx context.Context, request *GetEmployeeLi
 	resp := new(getEmployeeListResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
+	requestID, statusCode := getResponseRequestID(response)
 	if err != nil {
-		r.cli.logError(ctx, "[lark] EHR#GetEmployeeList GET https://open.feishu.cn/open-apis/ehr/v1/employees failed: %s", err)
+		r.cli.log(ctx, LogLevelError, "[lark] EHR#GetEmployeeList GET https://open.feishu.cn/open-apis/ehr/v1/employees failed, request_id: %s, status_code: %d, error: %s", requestID, statusCode, err)
 		return nil, response, err
 	} else if resp.Code != 0 {
-		r.cli.logError(ctx, "[lark] EHR#GetEmployeeList GET https://open.feishu.cn/open-apis/ehr/v1/employees failed, code: %d, msg: %s", resp.Code, resp.Msg)
+		r.cli.log(ctx, LogLevelError, "[lark] EHR#GetEmployeeList GET https://open.feishu.cn/open-apis/ehr/v1/employees failed, request_id: %s, status_code: %d, code: %d, msg: %s", requestID, statusCode, resp.Code, resp.Msg)
 		return nil, response, NewError("EHR", "GetEmployeeList", resp.Code, resp.Msg)
 	}
 
-	r.cli.logDebug(ctx, "[lark] EHR#GetEmployeeList request_id: %s, response: %s", response.RequestID, jsonString(resp.Data))
+	r.cli.log(ctx, LogLevelDebug, "[lark] EHR#GetEmployeeList success, request_id: %s, status_code: %d, response: %s", requestID, statusCode, jsonString(resp.Data))
 
 	return resp.Data, response, nil
 }

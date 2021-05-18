@@ -11,12 +11,12 @@ import (
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/mail-v1/mailgroup/list
 func (r *MailService) GetMailGroupList(ctx context.Context, request *GetMailGroupListReq, options ...MethodOptionFunc) (*GetMailGroupListResp, *Response, error) {
 	if r.cli.mock.mockMailGetMailGroupList != nil {
-		r.cli.logDebug(ctx, "[lark] Mail#GetMailGroupList mock enable")
+		r.cli.log(ctx, LogLevelDebug, "[lark] Mail#GetMailGroupList mock enable")
 		return r.cli.mock.mockMailGetMailGroupList(ctx, request, options...)
 	}
 
-	r.cli.logInfo(ctx, "[lark] Mail#GetMailGroupList call api")
-	r.cli.logDebug(ctx, "[lark] Mail#GetMailGroupList request: %s", jsonString(request))
+	r.cli.log(ctx, LogLevelInfo, "[lark] Mail#GetMailGroupList call api")
+	r.cli.log(ctx, LogLevelDebug, "[lark] Mail#GetMailGroupList request: %s", jsonString(request))
 
 	req := &RawRequestReq{
 		Method:                "GET",
@@ -28,15 +28,16 @@ func (r *MailService) GetMailGroupList(ctx context.Context, request *GetMailGrou
 	resp := new(getMailGroupListResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
+	requestID, statusCode := getResponseRequestID(response)
 	if err != nil {
-		r.cli.logError(ctx, "[lark] Mail#GetMailGroupList GET https://open.feishu.cn/open-apis/mail/v1/mailgroups failed: %s", err)
+		r.cli.log(ctx, LogLevelError, "[lark] Mail#GetMailGroupList GET https://open.feishu.cn/open-apis/mail/v1/mailgroups failed, request_id: %s, status_code: %d, error: %s", requestID, statusCode, err)
 		return nil, response, err
 	} else if resp.Code != 0 {
-		r.cli.logError(ctx, "[lark] Mail#GetMailGroupList GET https://open.feishu.cn/open-apis/mail/v1/mailgroups failed, code: %d, msg: %s", resp.Code, resp.Msg)
+		r.cli.log(ctx, LogLevelError, "[lark] Mail#GetMailGroupList GET https://open.feishu.cn/open-apis/mail/v1/mailgroups failed, request_id: %s, status_code: %d, code: %d, msg: %s", requestID, statusCode, resp.Code, resp.Msg)
 		return nil, response, NewError("Mail", "GetMailGroupList", resp.Code, resp.Msg)
 	}
 
-	r.cli.logDebug(ctx, "[lark] Mail#GetMailGroupList request_id: %s, response: %s", response.RequestID, jsonString(resp.Data))
+	r.cli.log(ctx, LogLevelDebug, "[lark] Mail#GetMailGroupList success, request_id: %s, status_code: %d, response: %s", requestID, statusCode, jsonString(resp.Data))
 
 	return resp.Data, response, nil
 }

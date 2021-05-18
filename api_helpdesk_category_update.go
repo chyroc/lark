@@ -11,33 +11,35 @@ import (
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/category/patch
 func (r *HelpdeskService) UpdateCategory(ctx context.Context, request *UpdateCategoryReq, options ...MethodOptionFunc) (*UpdateCategoryResp, *Response, error) {
 	if r.cli.mock.mockHelpdeskUpdateCategory != nil {
-		r.cli.logDebug(ctx, "[lark] Helpdesk#UpdateCategory mock enable")
+		r.cli.log(ctx, LogLevelDebug, "[lark] Helpdesk#UpdateCategory mock enable")
 		return r.cli.mock.mockHelpdeskUpdateCategory(ctx, request, options...)
 	}
 
-	r.cli.logInfo(ctx, "[lark] Helpdesk#UpdateCategory call api")
-	r.cli.logDebug(ctx, "[lark] Helpdesk#UpdateCategory request: %s", jsonString(request))
+	r.cli.log(ctx, LogLevelInfo, "[lark] Helpdesk#UpdateCategory call api")
+	r.cli.log(ctx, LogLevelDebug, "[lark] Helpdesk#UpdateCategory request: %s", jsonString(request))
 
 	req := &RawRequestReq{
-		Method:              "PATCH",
-		URL:                 "https://open.feishu.cn/open-apis/helpdesk/v1/categories/:id",
-		Body:                request,
-		MethodOption:        newMethodOption(options),
+		Method:       "PATCH",
+		URL:          "https://open.feishu.cn/open-apis/helpdesk/v1/categories/:id",
+		Body:         request,
+		MethodOption: newMethodOption(options),
+
 		NeedUserAccessToken: true,
 		NeedHelpdeskAuth:    true,
 	}
 	resp := new(updateCategoryResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
+	requestID, statusCode := getResponseRequestID(response)
 	if err != nil {
-		r.cli.logError(ctx, "[lark] Helpdesk#UpdateCategory PATCH https://open.feishu.cn/open-apis/helpdesk/v1/categories/:id failed: %s", err)
+		r.cli.log(ctx, LogLevelError, "[lark] Helpdesk#UpdateCategory PATCH https://open.feishu.cn/open-apis/helpdesk/v1/categories/:id failed, request_id: %s, status_code: %d, error: %s", requestID, statusCode, err)
 		return nil, response, err
 	} else if resp.Code != 0 {
-		r.cli.logError(ctx, "[lark] Helpdesk#UpdateCategory PATCH https://open.feishu.cn/open-apis/helpdesk/v1/categories/:id failed, code: %d, msg: %s", resp.Code, resp.Msg)
+		r.cli.log(ctx, LogLevelError, "[lark] Helpdesk#UpdateCategory PATCH https://open.feishu.cn/open-apis/helpdesk/v1/categories/:id failed, request_id: %s, status_code: %d, code: %d, msg: %s", requestID, statusCode, resp.Code, resp.Msg)
 		return nil, response, NewError("Helpdesk", "UpdateCategory", resp.Code, resp.Msg)
 	}
 
-	r.cli.logDebug(ctx, "[lark] Helpdesk#UpdateCategory request_id: %s, response: %s", response.RequestID, jsonString(resp.Data))
+	r.cli.log(ctx, LogLevelDebug, "[lark] Helpdesk#UpdateCategory success, request_id: %s, status_code: %d, response: %s", requestID, statusCode, jsonString(resp.Data))
 
 	return resp.Data, response, nil
 }

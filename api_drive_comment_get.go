@@ -11,12 +11,12 @@ import (
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file-comment/get
 func (r *DriveService) GetComment(ctx context.Context, request *GetCommentReq, options ...MethodOptionFunc) (*GetCommentResp, *Response, error) {
 	if r.cli.mock.mockDriveGetComment != nil {
-		r.cli.logDebug(ctx, "[lark] Drive#GetComment mock enable")
+		r.cli.log(ctx, LogLevelDebug, "[lark] Drive#GetComment mock enable")
 		return r.cli.mock.mockDriveGetComment(ctx, request, options...)
 	}
 
-	r.cli.logInfo(ctx, "[lark] Drive#GetComment call api")
-	r.cli.logDebug(ctx, "[lark] Drive#GetComment request: %s", jsonString(request))
+	r.cli.log(ctx, LogLevelInfo, "[lark] Drive#GetComment call api")
+	r.cli.log(ctx, LogLevelDebug, "[lark] Drive#GetComment request: %s", jsonString(request))
 
 	req := &RawRequestReq{
 		Method:                "GET",
@@ -24,20 +24,22 @@ func (r *DriveService) GetComment(ctx context.Context, request *GetCommentReq, o
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
-		NeedUserAccessToken:   true,
+
+		NeedUserAccessToken: true,
 	}
 	resp := new(getCommentResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
+	requestID, statusCode := getResponseRequestID(response)
 	if err != nil {
-		r.cli.logError(ctx, "[lark] Drive#GetComment GET https://open.feishu.cn/open-apis/drive/v1/files/:file_token/comments/:comment_id failed: %s", err)
+		r.cli.log(ctx, LogLevelError, "[lark] Drive#GetComment GET https://open.feishu.cn/open-apis/drive/v1/files/:file_token/comments/:comment_id failed, request_id: %s, status_code: %d, error: %s", requestID, statusCode, err)
 		return nil, response, err
 	} else if resp.Code != 0 {
-		r.cli.logError(ctx, "[lark] Drive#GetComment GET https://open.feishu.cn/open-apis/drive/v1/files/:file_token/comments/:comment_id failed, code: %d, msg: %s", resp.Code, resp.Msg)
+		r.cli.log(ctx, LogLevelError, "[lark] Drive#GetComment GET https://open.feishu.cn/open-apis/drive/v1/files/:file_token/comments/:comment_id failed, request_id: %s, status_code: %d, code: %d, msg: %s", requestID, statusCode, resp.Code, resp.Msg)
 		return nil, response, NewError("Drive", "GetComment", resp.Code, resp.Msg)
 	}
 
-	r.cli.logDebug(ctx, "[lark] Drive#GetComment request_id: %s, response: %s", response.RequestID, jsonString(resp.Data))
+	r.cli.log(ctx, LogLevelDebug, "[lark] Drive#GetComment success, request_id: %s, status_code: %d, response: %s", requestID, statusCode, jsonString(resp.Data))
 
 	return resp.Data, response, nil
 }

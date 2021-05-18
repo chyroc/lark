@@ -17,12 +17,12 @@ import (
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/delete
 func (r *MessageService) DeleteMessage(ctx context.Context, request *DeleteMessageReq, options ...MethodOptionFunc) (*DeleteMessageResp, *Response, error) {
 	if r.cli.mock.mockMessageDeleteMessage != nil {
-		r.cli.logDebug(ctx, "[lark] Message#DeleteMessage mock enable")
+		r.cli.log(ctx, LogLevelDebug, "[lark] Message#DeleteMessage mock enable")
 		return r.cli.mock.mockMessageDeleteMessage(ctx, request, options...)
 	}
 
-	r.cli.logInfo(ctx, "[lark] Message#DeleteMessage call api")
-	r.cli.logDebug(ctx, "[lark] Message#DeleteMessage request: %s", jsonString(request))
+	r.cli.log(ctx, LogLevelInfo, "[lark] Message#DeleteMessage call api")
+	r.cli.log(ctx, LogLevelDebug, "[lark] Message#DeleteMessage request: %s", jsonString(request))
 
 	req := &RawRequestReq{
 		Method:                "DELETE",
@@ -30,20 +30,22 @@ func (r *MessageService) DeleteMessage(ctx context.Context, request *DeleteMessa
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
-		NeedUserAccessToken:   true,
+
+		NeedUserAccessToken: true,
 	}
 	resp := new(deleteMessageResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
+	requestID, statusCode := getResponseRequestID(response)
 	if err != nil {
-		r.cli.logError(ctx, "[lark] Message#DeleteMessage DELETE https://open.feishu.cn/open-apis/im/v1/messages/:message_id failed: %s", err)
+		r.cli.log(ctx, LogLevelError, "[lark] Message#DeleteMessage DELETE https://open.feishu.cn/open-apis/im/v1/messages/:message_id failed, request_id: %s, status_code: %d, error: %s", requestID, statusCode, err)
 		return nil, response, err
 	} else if resp.Code != 0 {
-		r.cli.logError(ctx, "[lark] Message#DeleteMessage DELETE https://open.feishu.cn/open-apis/im/v1/messages/:message_id failed, code: %d, msg: %s", resp.Code, resp.Msg)
+		r.cli.log(ctx, LogLevelError, "[lark] Message#DeleteMessage DELETE https://open.feishu.cn/open-apis/im/v1/messages/:message_id failed, request_id: %s, status_code: %d, code: %d, msg: %s", requestID, statusCode, resp.Code, resp.Msg)
 		return nil, response, NewError("Message", "DeleteMessage", resp.Code, resp.Msg)
 	}
 
-	r.cli.logDebug(ctx, "[lark] Message#DeleteMessage request_id: %s, response: %s", response.RequestID, jsonString(resp.Data))
+	r.cli.log(ctx, LogLevelDebug, "[lark] Message#DeleteMessage success, request_id: %s, status_code: %d, response: %s", requestID, statusCode, jsonString(resp.Data))
 
 	return resp.Data, response, nil
 }

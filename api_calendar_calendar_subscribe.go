@@ -15,12 +15,12 @@ import (
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar/subscribe
 func (r *CalendarService) SubscribeCalendar(ctx context.Context, request *SubscribeCalendarReq, options ...MethodOptionFunc) (*SubscribeCalendarResp, *Response, error) {
 	if r.cli.mock.mockCalendarSubscribeCalendar != nil {
-		r.cli.logDebug(ctx, "[lark] Calendar#SubscribeCalendar mock enable")
+		r.cli.log(ctx, LogLevelDebug, "[lark] Calendar#SubscribeCalendar mock enable")
 		return r.cli.mock.mockCalendarSubscribeCalendar(ctx, request, options...)
 	}
 
-	r.cli.logInfo(ctx, "[lark] Calendar#SubscribeCalendar call api")
-	r.cli.logDebug(ctx, "[lark] Calendar#SubscribeCalendar request: %s", jsonString(request))
+	r.cli.log(ctx, LogLevelInfo, "[lark] Calendar#SubscribeCalendar call api")
+	r.cli.log(ctx, LogLevelDebug, "[lark] Calendar#SubscribeCalendar request: %s", jsonString(request))
 
 	req := &RawRequestReq{
 		Method:                "POST",
@@ -28,20 +28,22 @@ func (r *CalendarService) SubscribeCalendar(ctx context.Context, request *Subscr
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
-		NeedUserAccessToken:   true,
+
+		NeedUserAccessToken: true,
 	}
 	resp := new(subscribeCalendarResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
+	requestID, statusCode := getResponseRequestID(response)
 	if err != nil {
-		r.cli.logError(ctx, "[lark] Calendar#SubscribeCalendar POST https://open.feishu.cn/open-apis/calendar/v4/calendars/:calendar_id/subscribe failed: %s", err)
+		r.cli.log(ctx, LogLevelError, "[lark] Calendar#SubscribeCalendar POST https://open.feishu.cn/open-apis/calendar/v4/calendars/:calendar_id/subscribe failed, request_id: %s, status_code: %d, error: %s", requestID, statusCode, err)
 		return nil, response, err
 	} else if resp.Code != 0 {
-		r.cli.logError(ctx, "[lark] Calendar#SubscribeCalendar POST https://open.feishu.cn/open-apis/calendar/v4/calendars/:calendar_id/subscribe failed, code: %d, msg: %s", resp.Code, resp.Msg)
+		r.cli.log(ctx, LogLevelError, "[lark] Calendar#SubscribeCalendar POST https://open.feishu.cn/open-apis/calendar/v4/calendars/:calendar_id/subscribe failed, request_id: %s, status_code: %d, code: %d, msg: %s", requestID, statusCode, resp.Code, resp.Msg)
 		return nil, response, NewError("Calendar", "SubscribeCalendar", resp.Code, resp.Msg)
 	}
 
-	r.cli.logDebug(ctx, "[lark] Calendar#SubscribeCalendar request_id: %s, response: %s", response.RequestID, jsonString(resp.Data))
+	r.cli.log(ctx, LogLevelDebug, "[lark] Calendar#SubscribeCalendar success, request_id: %s, status_code: %d, response: %s", requestID, statusCode, jsonString(resp.Data))
 
 	return resp.Data, response, nil
 }

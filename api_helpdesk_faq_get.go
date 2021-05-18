@@ -11,12 +11,12 @@ import (
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/faq/get
 func (r *HelpdeskService) GetFAQ(ctx context.Context, request *GetFAQReq, options ...MethodOptionFunc) (*GetFAQResp, *Response, error) {
 	if r.cli.mock.mockHelpdeskGetFAQ != nil {
-		r.cli.logDebug(ctx, "[lark] Helpdesk#GetFAQ mock enable")
+		r.cli.log(ctx, LogLevelDebug, "[lark] Helpdesk#GetFAQ mock enable")
 		return r.cli.mock.mockHelpdeskGetFAQ(ctx, request, options...)
 	}
 
-	r.cli.logInfo(ctx, "[lark] Helpdesk#GetFAQ call api")
-	r.cli.logDebug(ctx, "[lark] Helpdesk#GetFAQ request: %s", jsonString(request))
+	r.cli.log(ctx, LogLevelInfo, "[lark] Helpdesk#GetFAQ call api")
+	r.cli.log(ctx, LogLevelDebug, "[lark] Helpdesk#GetFAQ request: %s", jsonString(request))
 
 	req := &RawRequestReq{
 		Method:                "GET",
@@ -24,20 +24,22 @@ func (r *HelpdeskService) GetFAQ(ctx context.Context, request *GetFAQReq, option
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
-		NeedHelpdeskAuth:      true,
+
+		NeedHelpdeskAuth: true,
 	}
 	resp := new(getFAQResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
+	requestID, statusCode := getResponseRequestID(response)
 	if err != nil {
-		r.cli.logError(ctx, "[lark] Helpdesk#GetFAQ GET https://open.feishu.cn/open-apis/helpdesk/v1/faqs/:id failed: %s", err)
+		r.cli.log(ctx, LogLevelError, "[lark] Helpdesk#GetFAQ GET https://open.feishu.cn/open-apis/helpdesk/v1/faqs/:id failed, request_id: %s, status_code: %d, error: %s", requestID, statusCode, err)
 		return nil, response, err
 	} else if resp.Code != 0 {
-		r.cli.logError(ctx, "[lark] Helpdesk#GetFAQ GET https://open.feishu.cn/open-apis/helpdesk/v1/faqs/:id failed, code: %d, msg: %s", resp.Code, resp.Msg)
+		r.cli.log(ctx, LogLevelError, "[lark] Helpdesk#GetFAQ GET https://open.feishu.cn/open-apis/helpdesk/v1/faqs/:id failed, request_id: %s, status_code: %d, code: %d, msg: %s", requestID, statusCode, resp.Code, resp.Msg)
 		return nil, response, NewError("Helpdesk", "GetFAQ", resp.Code, resp.Msg)
 	}
 
-	r.cli.logDebug(ctx, "[lark] Helpdesk#GetFAQ request_id: %s, response: %s", response.RequestID, jsonString(resp.Data))
+	r.cli.log(ctx, LogLevelDebug, "[lark] Helpdesk#GetFAQ success, request_id: %s, status_code: %d, response: %s", requestID, statusCode, jsonString(resp.Data))
 
 	return resp.Data, response, nil
 }

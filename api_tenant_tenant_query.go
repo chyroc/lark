@@ -13,12 +13,12 @@ import (
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/tenant-v2/tenant/query
 func (r *TenantService) QueryTenant(ctx context.Context, request *QueryTenantReq, options ...MethodOptionFunc) (*QueryTenantResp, *Response, error) {
 	if r.cli.mock.mockTenantQueryTenant != nil {
-		r.cli.logDebug(ctx, "[lark] Tenant#QueryTenant mock enable")
+		r.cli.log(ctx, LogLevelDebug, "[lark] Tenant#QueryTenant mock enable")
 		return r.cli.mock.mockTenantQueryTenant(ctx, request, options...)
 	}
 
-	r.cli.logInfo(ctx, "[lark] Tenant#QueryTenant call api")
-	r.cli.logDebug(ctx, "[lark] Tenant#QueryTenant request: %s", jsonString(request))
+	r.cli.log(ctx, LogLevelInfo, "[lark] Tenant#QueryTenant call api")
+	r.cli.log(ctx, LogLevelDebug, "[lark] Tenant#QueryTenant request: %s", jsonString(request))
 
 	req := &RawRequestReq{
 		Method:                "GET",
@@ -30,15 +30,16 @@ func (r *TenantService) QueryTenant(ctx context.Context, request *QueryTenantReq
 	resp := new(queryTenantResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
+	requestID, statusCode := getResponseRequestID(response)
 	if err != nil {
-		r.cli.logError(ctx, "[lark] Tenant#QueryTenant GET https://open.feishu.cn/open-apis/tenant/v2/tenant/query failed: %s", err)
+		r.cli.log(ctx, LogLevelError, "[lark] Tenant#QueryTenant GET https://open.feishu.cn/open-apis/tenant/v2/tenant/query failed, request_id: %s, status_code: %d, error: %s", requestID, statusCode, err)
 		return nil, response, err
 	} else if resp.Code != 0 {
-		r.cli.logError(ctx, "[lark] Tenant#QueryTenant GET https://open.feishu.cn/open-apis/tenant/v2/tenant/query failed, code: %d, msg: %s", resp.Code, resp.Msg)
+		r.cli.log(ctx, LogLevelError, "[lark] Tenant#QueryTenant GET https://open.feishu.cn/open-apis/tenant/v2/tenant/query failed, request_id: %s, status_code: %d, code: %d, msg: %s", requestID, statusCode, resp.Code, resp.Msg)
 		return nil, response, NewError("Tenant", "QueryTenant", resp.Code, resp.Msg)
 	}
 
-	r.cli.logDebug(ctx, "[lark] Tenant#QueryTenant request_id: %s, response: %s", response.RequestID, jsonString(resp.Data))
+	r.cli.log(ctx, LogLevelDebug, "[lark] Tenant#QueryTenant success, request_id: %s, status_code: %d, response: %s", requestID, statusCode, jsonString(resp.Data))
 
 	return resp.Data, response, nil
 }

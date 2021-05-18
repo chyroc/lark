@@ -13,33 +13,35 @@ import (
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/ticket_customized_field/update-ticket-customized-field
 func (r *HelpdeskService) UpdateTicketCustomizedField(ctx context.Context, request *UpdateTicketCustomizedFieldReq, options ...MethodOptionFunc) (*UpdateTicketCustomizedFieldResp, *Response, error) {
 	if r.cli.mock.mockHelpdeskUpdateTicketCustomizedField != nil {
-		r.cli.logDebug(ctx, "[lark] Helpdesk#UpdateTicketCustomizedField mock enable")
+		r.cli.log(ctx, LogLevelDebug, "[lark] Helpdesk#UpdateTicketCustomizedField mock enable")
 		return r.cli.mock.mockHelpdeskUpdateTicketCustomizedField(ctx, request, options...)
 	}
 
-	r.cli.logInfo(ctx, "[lark] Helpdesk#UpdateTicketCustomizedField call api")
-	r.cli.logDebug(ctx, "[lark] Helpdesk#UpdateTicketCustomizedField request: %s", jsonString(request))
+	r.cli.log(ctx, LogLevelInfo, "[lark] Helpdesk#UpdateTicketCustomizedField call api")
+	r.cli.log(ctx, LogLevelDebug, "[lark] Helpdesk#UpdateTicketCustomizedField request: %s", jsonString(request))
 
 	req := &RawRequestReq{
-		Method:              "PATCH",
-		URL:                 "https://open.feishu.cn/open-apis/helpdesk/v1/ticket_customized_fields/:ticket_customized_field_id",
-		Body:                request,
-		MethodOption:        newMethodOption(options),
+		Method:       "PATCH",
+		URL:          "https://open.feishu.cn/open-apis/helpdesk/v1/ticket_customized_fields/:ticket_customized_field_id",
+		Body:         request,
+		MethodOption: newMethodOption(options),
+
 		NeedUserAccessToken: true,
 		NeedHelpdeskAuth:    true,
 	}
 	resp := new(updateTicketCustomizedFieldResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
+	requestID, statusCode := getResponseRequestID(response)
 	if err != nil {
-		r.cli.logError(ctx, "[lark] Helpdesk#UpdateTicketCustomizedField PATCH https://open.feishu.cn/open-apis/helpdesk/v1/ticket_customized_fields/:ticket_customized_field_id failed: %s", err)
+		r.cli.log(ctx, LogLevelError, "[lark] Helpdesk#UpdateTicketCustomizedField PATCH https://open.feishu.cn/open-apis/helpdesk/v1/ticket_customized_fields/:ticket_customized_field_id failed, request_id: %s, status_code: %d, error: %s", requestID, statusCode, err)
 		return nil, response, err
 	} else if resp.Code != 0 {
-		r.cli.logError(ctx, "[lark] Helpdesk#UpdateTicketCustomizedField PATCH https://open.feishu.cn/open-apis/helpdesk/v1/ticket_customized_fields/:ticket_customized_field_id failed, code: %d, msg: %s", resp.Code, resp.Msg)
+		r.cli.log(ctx, LogLevelError, "[lark] Helpdesk#UpdateTicketCustomizedField PATCH https://open.feishu.cn/open-apis/helpdesk/v1/ticket_customized_fields/:ticket_customized_field_id failed, request_id: %s, status_code: %d, code: %d, msg: %s", requestID, statusCode, resp.Code, resp.Msg)
 		return nil, response, NewError("Helpdesk", "UpdateTicketCustomizedField", resp.Code, resp.Msg)
 	}
 
-	r.cli.logDebug(ctx, "[lark] Helpdesk#UpdateTicketCustomizedField request_id: %s, response: %s", response.RequestID, jsonString(resp.Data))
+	r.cli.log(ctx, LogLevelDebug, "[lark] Helpdesk#UpdateTicketCustomizedField success, request_id: %s, status_code: %d, response: %s", requestID, statusCode, jsonString(resp.Data))
 
 	return resp.Data, response, nil
 }

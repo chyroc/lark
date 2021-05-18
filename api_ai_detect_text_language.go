@@ -13,12 +13,12 @@ import (
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/ai/translation-v1/text/detect
 func (r *AIService) DetectTextLanguage(ctx context.Context, request *DetectTextLanguageReq, options ...MethodOptionFunc) (*DetectTextLanguageResp, *Response, error) {
 	if r.cli.mock.mockAIDetectTextLanguage != nil {
-		r.cli.logDebug(ctx, "[lark] AI#DetectTextLanguage mock enable")
+		r.cli.log(ctx, LogLevelDebug, "[lark] AI#DetectTextLanguage mock enable")
 		return r.cli.mock.mockAIDetectTextLanguage(ctx, request, options...)
 	}
 
-	r.cli.logInfo(ctx, "[lark] AI#DetectTextLanguage call api")
-	r.cli.logDebug(ctx, "[lark] AI#DetectTextLanguage request: %s", jsonString(request))
+	r.cli.log(ctx, LogLevelInfo, "[lark] AI#DetectTextLanguage call api")
+	r.cli.log(ctx, LogLevelDebug, "[lark] AI#DetectTextLanguage request: %s", jsonString(request))
 
 	req := &RawRequestReq{
 		Method:                "POST",
@@ -30,15 +30,16 @@ func (r *AIService) DetectTextLanguage(ctx context.Context, request *DetectTextL
 	resp := new(detectTextLanguageResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
+	requestID, statusCode := getResponseRequestID(response)
 	if err != nil {
-		r.cli.logError(ctx, "[lark] AI#DetectTextLanguage POST https://open.feishu.cn/open-apis/translation/v1/text/detect failed: %s", err)
+		r.cli.log(ctx, LogLevelError, "[lark] AI#DetectTextLanguage POST https://open.feishu.cn/open-apis/translation/v1/text/detect failed, request_id: %s, status_code: %d, error: %s", requestID, statusCode, err)
 		return nil, response, err
 	} else if resp.Code != 0 {
-		r.cli.logError(ctx, "[lark] AI#DetectTextLanguage POST https://open.feishu.cn/open-apis/translation/v1/text/detect failed, code: %d, msg: %s", resp.Code, resp.Msg)
+		r.cli.log(ctx, LogLevelError, "[lark] AI#DetectTextLanguage POST https://open.feishu.cn/open-apis/translation/v1/text/detect failed, request_id: %s, status_code: %d, code: %d, msg: %s", requestID, statusCode, resp.Code, resp.Msg)
 		return nil, response, NewError("AI", "DetectTextLanguage", resp.Code, resp.Msg)
 	}
 
-	r.cli.logDebug(ctx, "[lark] AI#DetectTextLanguage request_id: %s, response: %s", response.RequestID, jsonString(resp.Data))
+	r.cli.log(ctx, LogLevelDebug, "[lark] AI#DetectTextLanguage success, request_id: %s, status_code: %d, response: %s", requestID, statusCode, jsonString(resp.Data))
 
 	return resp.Data, response, nil
 }

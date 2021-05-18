@@ -13,12 +13,12 @@ import (
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/ai/translation-v1/text/translate
 func (r *AIService) TranslateText(ctx context.Context, request *TranslateTextReq, options ...MethodOptionFunc) (*TranslateTextResp, *Response, error) {
 	if r.cli.mock.mockAITranslateText != nil {
-		r.cli.logDebug(ctx, "[lark] AI#TranslateText mock enable")
+		r.cli.log(ctx, LogLevelDebug, "[lark] AI#TranslateText mock enable")
 		return r.cli.mock.mockAITranslateText(ctx, request, options...)
 	}
 
-	r.cli.logInfo(ctx, "[lark] AI#TranslateText call api")
-	r.cli.logDebug(ctx, "[lark] AI#TranslateText request: %s", jsonString(request))
+	r.cli.log(ctx, LogLevelInfo, "[lark] AI#TranslateText call api")
+	r.cli.log(ctx, LogLevelDebug, "[lark] AI#TranslateText request: %s", jsonString(request))
 
 	req := &RawRequestReq{
 		Method:                "POST",
@@ -30,15 +30,16 @@ func (r *AIService) TranslateText(ctx context.Context, request *TranslateTextReq
 	resp := new(translateTextResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
+	requestID, statusCode := getResponseRequestID(response)
 	if err != nil {
-		r.cli.logError(ctx, "[lark] AI#TranslateText POST https://open.feishu.cn/open-apis/translation/v1/text/translate failed: %s", err)
+		r.cli.log(ctx, LogLevelError, "[lark] AI#TranslateText POST https://open.feishu.cn/open-apis/translation/v1/text/translate failed, request_id: %s, status_code: %d, error: %s", requestID, statusCode, err)
 		return nil, response, err
 	} else if resp.Code != 0 {
-		r.cli.logError(ctx, "[lark] AI#TranslateText POST https://open.feishu.cn/open-apis/translation/v1/text/translate failed, code: %d, msg: %s", resp.Code, resp.Msg)
+		r.cli.log(ctx, LogLevelError, "[lark] AI#TranslateText POST https://open.feishu.cn/open-apis/translation/v1/text/translate failed, request_id: %s, status_code: %d, code: %d, msg: %s", requestID, statusCode, resp.Code, resp.Msg)
 		return nil, response, NewError("AI", "TranslateText", resp.Code, resp.Msg)
 	}
 
-	r.cli.logDebug(ctx, "[lark] AI#TranslateText request_id: %s, response: %s", response.RequestID, jsonString(resp.Data))
+	r.cli.log(ctx, LogLevelDebug, "[lark] AI#TranslateText success, request_id: %s, status_code: %d, response: %s", requestID, statusCode, jsonString(resp.Data))
 
 	return resp.Data, response, nil
 }

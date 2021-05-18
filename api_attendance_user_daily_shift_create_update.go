@@ -13,12 +13,12 @@ import (
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/Attendance//CreateandEditShifts
 func (r *AttendanceService) CreateUpdateUserDailyShift(ctx context.Context, request *CreateUpdateUserDailyShiftReq, options ...MethodOptionFunc) (*CreateUpdateUserDailyShiftResp, *Response, error) {
 	if r.cli.mock.mockAttendanceCreateUpdateUserDailyShift != nil {
-		r.cli.logDebug(ctx, "[lark] Attendance#CreateUpdateUserDailyShift mock enable")
+		r.cli.log(ctx, LogLevelDebug, "[lark] Attendance#CreateUpdateUserDailyShift mock enable")
 		return r.cli.mock.mockAttendanceCreateUpdateUserDailyShift(ctx, request, options...)
 	}
 
-	r.cli.logInfo(ctx, "[lark] Attendance#CreateUpdateUserDailyShift call api")
-	r.cli.logDebug(ctx, "[lark] Attendance#CreateUpdateUserDailyShift request: %s", jsonString(request))
+	r.cli.log(ctx, LogLevelInfo, "[lark] Attendance#CreateUpdateUserDailyShift call api")
+	r.cli.log(ctx, LogLevelDebug, "[lark] Attendance#CreateUpdateUserDailyShift request: %s", jsonString(request))
 
 	req := &RawRequestReq{
 		Method:                "POST",
@@ -30,15 +30,16 @@ func (r *AttendanceService) CreateUpdateUserDailyShift(ctx context.Context, requ
 	resp := new(createUpdateUserDailyShiftResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
+	requestID, statusCode := getResponseRequestID(response)
 	if err != nil {
-		r.cli.logError(ctx, "[lark] Attendance#CreateUpdateUserDailyShift POST https://open.feishu.cn/open-apis/attendance/v1/user_daily_shifts/batch_create failed: %s", err)
+		r.cli.log(ctx, LogLevelError, "[lark] Attendance#CreateUpdateUserDailyShift POST https://open.feishu.cn/open-apis/attendance/v1/user_daily_shifts/batch_create failed, request_id: %s, status_code: %d, error: %s", requestID, statusCode, err)
 		return nil, response, err
 	} else if resp.Code != 0 {
-		r.cli.logError(ctx, "[lark] Attendance#CreateUpdateUserDailyShift POST https://open.feishu.cn/open-apis/attendance/v1/user_daily_shifts/batch_create failed, code: %d, msg: %s", resp.Code, resp.Msg)
+		r.cli.log(ctx, LogLevelError, "[lark] Attendance#CreateUpdateUserDailyShift POST https://open.feishu.cn/open-apis/attendance/v1/user_daily_shifts/batch_create failed, request_id: %s, status_code: %d, code: %d, msg: %s", requestID, statusCode, resp.Code, resp.Msg)
 		return nil, response, NewError("Attendance", "CreateUpdateUserDailyShift", resp.Code, resp.Msg)
 	}
 
-	r.cli.logDebug(ctx, "[lark] Attendance#CreateUpdateUserDailyShift request_id: %s, response: %s", response.RequestID, jsonString(resp.Data))
+	r.cli.log(ctx, LogLevelDebug, "[lark] Attendance#CreateUpdateUserDailyShift success, request_id: %s, status_code: %d, response: %s", requestID, statusCode, jsonString(resp.Data))
 
 	return resp.Data, response, nil
 }

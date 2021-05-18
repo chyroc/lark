@@ -13,32 +13,34 @@ import (
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/ukTNzUjL5UzM14SO1MTN
 func (r *DriveService) CreateFolder(ctx context.Context, request *CreateFolderReq, options ...MethodOptionFunc) (*CreateFolderResp, *Response, error) {
 	if r.cli.mock.mockDriveCreateFolder != nil {
-		r.cli.logDebug(ctx, "[lark] Drive#CreateFolder mock enable")
+		r.cli.log(ctx, LogLevelDebug, "[lark] Drive#CreateFolder mock enable")
 		return r.cli.mock.mockDriveCreateFolder(ctx, request, options...)
 	}
 
-	r.cli.logInfo(ctx, "[lark] Drive#CreateFolder call api")
-	r.cli.logDebug(ctx, "[lark] Drive#CreateFolder request: %s", jsonString(request))
+	r.cli.log(ctx, LogLevelInfo, "[lark] Drive#CreateFolder call api")
+	r.cli.log(ctx, LogLevelDebug, "[lark] Drive#CreateFolder request: %s", jsonString(request))
 
 	req := &RawRequestReq{
-		Method:              "POST",
-		URL:                 "https://open.feishu.cn/open-apis/drive/explorer/v2/folder/{folderToken}",
-		Body:                request,
-		MethodOption:        newMethodOption(options),
+		Method:       "POST",
+		URL:          "https://open.feishu.cn/open-apis/drive/explorer/v2/folder/{folderToken}",
+		Body:         request,
+		MethodOption: newMethodOption(options),
+
 		NeedUserAccessToken: true,
 	}
 	resp := new(createFolderResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
+	requestID, statusCode := getResponseRequestID(response)
 	if err != nil {
-		r.cli.logError(ctx, "[lark] Drive#CreateFolder POST https://open.feishu.cn/open-apis/drive/explorer/v2/folder/{folderToken} failed: %s", err)
+		r.cli.log(ctx, LogLevelError, "[lark] Drive#CreateFolder POST https://open.feishu.cn/open-apis/drive/explorer/v2/folder/{folderToken} failed, request_id: %s, status_code: %d, error: %s", requestID, statusCode, err)
 		return nil, response, err
 	} else if resp.Code != 0 {
-		r.cli.logError(ctx, "[lark] Drive#CreateFolder POST https://open.feishu.cn/open-apis/drive/explorer/v2/folder/{folderToken} failed, code: %d, msg: %s", resp.Code, resp.Msg)
+		r.cli.log(ctx, LogLevelError, "[lark] Drive#CreateFolder POST https://open.feishu.cn/open-apis/drive/explorer/v2/folder/{folderToken} failed, request_id: %s, status_code: %d, code: %d, msg: %s", requestID, statusCode, resp.Code, resp.Msg)
 		return nil, response, NewError("Drive", "CreateFolder", resp.Code, resp.Msg)
 	}
 
-	r.cli.logDebug(ctx, "[lark] Drive#CreateFolder request_id: %s, response: %s", response.RequestID, jsonString(resp.Data))
+	r.cli.log(ctx, LogLevelDebug, "[lark] Drive#CreateFolder success, request_id: %s, status_code: %d, response: %s", requestID, statusCode, jsonString(resp.Data))
 
 	return resp.Data, response, nil
 }

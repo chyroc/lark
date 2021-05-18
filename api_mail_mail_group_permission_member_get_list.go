@@ -11,12 +11,12 @@ import (
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/mail-v1/mailgroup-permission_member/list
 func (r *MailService) GetMailGroupPermissionMemberList(ctx context.Context, request *GetMailGroupPermissionMemberListReq, options ...MethodOptionFunc) (*GetMailGroupPermissionMemberListResp, *Response, error) {
 	if r.cli.mock.mockMailGetMailGroupPermissionMemberList != nil {
-		r.cli.logDebug(ctx, "[lark] Mail#GetMailGroupPermissionMemberList mock enable")
+		r.cli.log(ctx, LogLevelDebug, "[lark] Mail#GetMailGroupPermissionMemberList mock enable")
 		return r.cli.mock.mockMailGetMailGroupPermissionMemberList(ctx, request, options...)
 	}
 
-	r.cli.logInfo(ctx, "[lark] Mail#GetMailGroupPermissionMemberList call api")
-	r.cli.logDebug(ctx, "[lark] Mail#GetMailGroupPermissionMemberList request: %s", jsonString(request))
+	r.cli.log(ctx, LogLevelInfo, "[lark] Mail#GetMailGroupPermissionMemberList call api")
+	r.cli.log(ctx, LogLevelDebug, "[lark] Mail#GetMailGroupPermissionMemberList request: %s", jsonString(request))
 
 	req := &RawRequestReq{
 		Method:                "GET",
@@ -28,15 +28,16 @@ func (r *MailService) GetMailGroupPermissionMemberList(ctx context.Context, requ
 	resp := new(getMailGroupPermissionMemberListResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
+	requestID, statusCode := getResponseRequestID(response)
 	if err != nil {
-		r.cli.logError(ctx, "[lark] Mail#GetMailGroupPermissionMemberList GET https://open.feishu.cn/open-apis/mail/v1/mailgroups/:mailgroup_id/permission_members failed: %s", err)
+		r.cli.log(ctx, LogLevelError, "[lark] Mail#GetMailGroupPermissionMemberList GET https://open.feishu.cn/open-apis/mail/v1/mailgroups/:mailgroup_id/permission_members failed, request_id: %s, status_code: %d, error: %s", requestID, statusCode, err)
 		return nil, response, err
 	} else if resp.Code != 0 {
-		r.cli.logError(ctx, "[lark] Mail#GetMailGroupPermissionMemberList GET https://open.feishu.cn/open-apis/mail/v1/mailgroups/:mailgroup_id/permission_members failed, code: %d, msg: %s", resp.Code, resp.Msg)
+		r.cli.log(ctx, LogLevelError, "[lark] Mail#GetMailGroupPermissionMemberList GET https://open.feishu.cn/open-apis/mail/v1/mailgroups/:mailgroup_id/permission_members failed, request_id: %s, status_code: %d, code: %d, msg: %s", requestID, statusCode, resp.Code, resp.Msg)
 		return nil, response, NewError("Mail", "GetMailGroupPermissionMemberList", resp.Code, resp.Msg)
 	}
 
-	r.cli.logDebug(ctx, "[lark] Mail#GetMailGroupPermissionMemberList request_id: %s, response: %s", response.RequestID, jsonString(resp.Data))
+	r.cli.log(ctx, LogLevelDebug, "[lark] Mail#GetMailGroupPermissionMemberList success, request_id: %s, status_code: %d, response: %s", requestID, statusCode, jsonString(resp.Data))
 
 	return resp.Data, response, nil
 }

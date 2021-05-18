@@ -13,32 +13,34 @@ import (
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/vc-v1/meeting-recording/set_permission
 func (r *VCService) SetPermissionMeetingRecording(ctx context.Context, request *SetPermissionMeetingRecordingReq, options ...MethodOptionFunc) (*SetPermissionMeetingRecordingResp, *Response, error) {
 	if r.cli.mock.mockVCSetPermissionMeetingRecording != nil {
-		r.cli.logDebug(ctx, "[lark] VC#SetPermissionMeetingRecording mock enable")
+		r.cli.log(ctx, LogLevelDebug, "[lark] VC#SetPermissionMeetingRecording mock enable")
 		return r.cli.mock.mockVCSetPermissionMeetingRecording(ctx, request, options...)
 	}
 
-	r.cli.logInfo(ctx, "[lark] VC#SetPermissionMeetingRecording call api")
-	r.cli.logDebug(ctx, "[lark] VC#SetPermissionMeetingRecording request: %s", jsonString(request))
+	r.cli.log(ctx, LogLevelInfo, "[lark] VC#SetPermissionMeetingRecording call api")
+	r.cli.log(ctx, LogLevelDebug, "[lark] VC#SetPermissionMeetingRecording request: %s", jsonString(request))
 
 	req := &RawRequestReq{
-		Method:              "PATCH",
-		URL:                 "https://open.feishu.cn/open-apis/vc/v1/meetings/:meeting_id/recording/set_permission",
-		Body:                request,
-		MethodOption:        newMethodOption(options),
+		Method:       "PATCH",
+		URL:          "https://open.feishu.cn/open-apis/vc/v1/meetings/:meeting_id/recording/set_permission",
+		Body:         request,
+		MethodOption: newMethodOption(options),
+
 		NeedUserAccessToken: true,
 	}
 	resp := new(setPermissionMeetingRecordingResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
+	requestID, statusCode := getResponseRequestID(response)
 	if err != nil {
-		r.cli.logError(ctx, "[lark] VC#SetPermissionMeetingRecording PATCH https://open.feishu.cn/open-apis/vc/v1/meetings/:meeting_id/recording/set_permission failed: %s", err)
+		r.cli.log(ctx, LogLevelError, "[lark] VC#SetPermissionMeetingRecording PATCH https://open.feishu.cn/open-apis/vc/v1/meetings/:meeting_id/recording/set_permission failed, request_id: %s, status_code: %d, error: %s", requestID, statusCode, err)
 		return nil, response, err
 	} else if resp.Code != 0 {
-		r.cli.logError(ctx, "[lark] VC#SetPermissionMeetingRecording PATCH https://open.feishu.cn/open-apis/vc/v1/meetings/:meeting_id/recording/set_permission failed, code: %d, msg: %s", resp.Code, resp.Msg)
+		r.cli.log(ctx, LogLevelError, "[lark] VC#SetPermissionMeetingRecording PATCH https://open.feishu.cn/open-apis/vc/v1/meetings/:meeting_id/recording/set_permission failed, request_id: %s, status_code: %d, code: %d, msg: %s", requestID, statusCode, resp.Code, resp.Msg)
 		return nil, response, NewError("VC", "SetPermissionMeetingRecording", resp.Code, resp.Msg)
 	}
 
-	r.cli.logDebug(ctx, "[lark] VC#SetPermissionMeetingRecording request_id: %s, response: %s", response.RequestID, jsonString(resp.Data))
+	r.cli.log(ctx, LogLevelDebug, "[lark] VC#SetPermissionMeetingRecording success, request_id: %s, status_code: %d, response: %s", requestID, statusCode, jsonString(resp.Data))
 
 	return resp.Data, response, nil
 }

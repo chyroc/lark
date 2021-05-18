@@ -15,12 +15,12 @@ import (
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/Attendance//AddApprovalsInLarkAttendance
 func (r *AttendanceService) CreateUserApproval(ctx context.Context, request *CreateUserApprovalReq, options ...MethodOptionFunc) (*CreateUserApprovalResp, *Response, error) {
 	if r.cli.mock.mockAttendanceCreateUserApproval != nil {
-		r.cli.logDebug(ctx, "[lark] Attendance#CreateUserApproval mock enable")
+		r.cli.log(ctx, LogLevelDebug, "[lark] Attendance#CreateUserApproval mock enable")
 		return r.cli.mock.mockAttendanceCreateUserApproval(ctx, request, options...)
 	}
 
-	r.cli.logInfo(ctx, "[lark] Attendance#CreateUserApproval call api")
-	r.cli.logDebug(ctx, "[lark] Attendance#CreateUserApproval request: %s", jsonString(request))
+	r.cli.log(ctx, LogLevelInfo, "[lark] Attendance#CreateUserApproval call api")
+	r.cli.log(ctx, LogLevelDebug, "[lark] Attendance#CreateUserApproval request: %s", jsonString(request))
 
 	req := &RawRequestReq{
 		Method:                "POST",
@@ -32,15 +32,16 @@ func (r *AttendanceService) CreateUserApproval(ctx context.Context, request *Cre
 	resp := new(createUserApprovalResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
+	requestID, statusCode := getResponseRequestID(response)
 	if err != nil {
-		r.cli.logError(ctx, "[lark] Attendance#CreateUserApproval POST https://open.feishu.cn/open-apis/attendance/v1/user_approvals failed: %s", err)
+		r.cli.log(ctx, LogLevelError, "[lark] Attendance#CreateUserApproval POST https://open.feishu.cn/open-apis/attendance/v1/user_approvals failed, request_id: %s, status_code: %d, error: %s", requestID, statusCode, err)
 		return nil, response, err
 	} else if resp.Code != 0 {
-		r.cli.logError(ctx, "[lark] Attendance#CreateUserApproval POST https://open.feishu.cn/open-apis/attendance/v1/user_approvals failed, code: %d, msg: %s", resp.Code, resp.Msg)
+		r.cli.log(ctx, LogLevelError, "[lark] Attendance#CreateUserApproval POST https://open.feishu.cn/open-apis/attendance/v1/user_approvals failed, request_id: %s, status_code: %d, code: %d, msg: %s", requestID, statusCode, resp.Code, resp.Msg)
 		return nil, response, NewError("Attendance", "CreateUserApproval", resp.Code, resp.Msg)
 	}
 
-	r.cli.logDebug(ctx, "[lark] Attendance#CreateUserApproval request_id: %s, response: %s", response.RequestID, jsonString(resp.Data))
+	r.cli.log(ctx, LogLevelDebug, "[lark] Attendance#CreateUserApproval success, request_id: %s, status_code: %d, response: %s", requestID, statusCode, jsonString(resp.Data))
 
 	return resp.Data, response, nil
 }

@@ -11,12 +11,12 @@ import (
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/ticket/start_service
 func (r *HelpdeskService) StartService(ctx context.Context, request *StartServiceReq, options ...MethodOptionFunc) (*StartServiceResp, *Response, error) {
 	if r.cli.mock.mockHelpdeskStartService != nil {
-		r.cli.logDebug(ctx, "[lark] Helpdesk#StartService mock enable")
+		r.cli.log(ctx, LogLevelDebug, "[lark] Helpdesk#StartService mock enable")
 		return r.cli.mock.mockHelpdeskStartService(ctx, request, options...)
 	}
 
-	r.cli.logInfo(ctx, "[lark] Helpdesk#StartService call api")
-	r.cli.logDebug(ctx, "[lark] Helpdesk#StartService request: %s", jsonString(request))
+	r.cli.log(ctx, LogLevelInfo, "[lark] Helpdesk#StartService call api")
+	r.cli.log(ctx, LogLevelDebug, "[lark] Helpdesk#StartService request: %s", jsonString(request))
 
 	req := &RawRequestReq{
 		Method:                "POST",
@@ -24,20 +24,22 @@ func (r *HelpdeskService) StartService(ctx context.Context, request *StartServic
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
-		NeedHelpdeskAuth:      true,
+
+		NeedHelpdeskAuth: true,
 	}
 	resp := new(startServiceResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
+	requestID, statusCode := getResponseRequestID(response)
 	if err != nil {
-		r.cli.logError(ctx, "[lark] Helpdesk#StartService POST https://open.feishu.cn/open-apis/helpdesk/v1/start_service failed: %s", err)
+		r.cli.log(ctx, LogLevelError, "[lark] Helpdesk#StartService POST https://open.feishu.cn/open-apis/helpdesk/v1/start_service failed, request_id: %s, status_code: %d, error: %s", requestID, statusCode, err)
 		return nil, response, err
 	} else if resp.Code != 0 {
-		r.cli.logError(ctx, "[lark] Helpdesk#StartService POST https://open.feishu.cn/open-apis/helpdesk/v1/start_service failed, code: %d, msg: %s", resp.Code, resp.Msg)
+		r.cli.log(ctx, LogLevelError, "[lark] Helpdesk#StartService POST https://open.feishu.cn/open-apis/helpdesk/v1/start_service failed, request_id: %s, status_code: %d, code: %d, msg: %s", requestID, statusCode, resp.Code, resp.Msg)
 		return nil, response, NewError("Helpdesk", "StartService", resp.Code, resp.Msg)
 	}
 
-	r.cli.logDebug(ctx, "[lark] Helpdesk#StartService request_id: %s, response: %s", response.RequestID, jsonString(resp.Data))
+	r.cli.log(ctx, LogLevelDebug, "[lark] Helpdesk#StartService success, request_id: %s, status_code: %d, response: %s", requestID, statusCode, jsonString(resp.Data))
 
 	return resp.Data, response, nil
 }

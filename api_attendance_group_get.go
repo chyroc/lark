@@ -13,12 +13,12 @@ import (
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/Attendance//group
 func (r *AttendanceService) GetGroup(ctx context.Context, request *GetGroupReq, options ...MethodOptionFunc) (*GetGroupResp, *Response, error) {
 	if r.cli.mock.mockAttendanceGetGroup != nil {
-		r.cli.logDebug(ctx, "[lark] Attendance#GetGroup mock enable")
+		r.cli.log(ctx, LogLevelDebug, "[lark] Attendance#GetGroup mock enable")
 		return r.cli.mock.mockAttendanceGetGroup(ctx, request, options...)
 	}
 
-	r.cli.logInfo(ctx, "[lark] Attendance#GetGroup call api")
-	r.cli.logDebug(ctx, "[lark] Attendance#GetGroup request: %s", jsonString(request))
+	r.cli.log(ctx, LogLevelInfo, "[lark] Attendance#GetGroup call api")
+	r.cli.log(ctx, LogLevelDebug, "[lark] Attendance#GetGroup request: %s", jsonString(request))
 
 	req := &RawRequestReq{
 		Method:                "GET",
@@ -30,15 +30,16 @@ func (r *AttendanceService) GetGroup(ctx context.Context, request *GetGroupReq, 
 	resp := new(getGroupResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
+	requestID, statusCode := getResponseRequestID(response)
 	if err != nil {
-		r.cli.logError(ctx, "[lark] Attendance#GetGroup GET https://open.feishu.cn/open-apis/attendance/v1/groups/:group_id failed: %s", err)
+		r.cli.log(ctx, LogLevelError, "[lark] Attendance#GetGroup GET https://open.feishu.cn/open-apis/attendance/v1/groups/:group_id failed, request_id: %s, status_code: %d, error: %s", requestID, statusCode, err)
 		return nil, response, err
 	} else if resp.Code != 0 {
-		r.cli.logError(ctx, "[lark] Attendance#GetGroup GET https://open.feishu.cn/open-apis/attendance/v1/groups/:group_id failed, code: %d, msg: %s", resp.Code, resp.Msg)
+		r.cli.log(ctx, LogLevelError, "[lark] Attendance#GetGroup GET https://open.feishu.cn/open-apis/attendance/v1/groups/:group_id failed, request_id: %s, status_code: %d, code: %d, msg: %s", requestID, statusCode, resp.Code, resp.Msg)
 		return nil, response, NewError("Attendance", "GetGroup", resp.Code, resp.Msg)
 	}
 
-	r.cli.logDebug(ctx, "[lark] Attendance#GetGroup request_id: %s, response: %s", response.RequestID, jsonString(resp.Data))
+	r.cli.log(ctx, LogLevelDebug, "[lark] Attendance#GetGroup success, request_id: %s, status_code: %d, response: %s", requestID, statusCode, jsonString(resp.Data))
 
 	return resp.Data, response, nil
 }

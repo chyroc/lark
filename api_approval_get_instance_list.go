@@ -14,12 +14,12 @@ import (
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uQDOyUjL0gjM14CN4ITN
 func (r *ApprovalService) GetInstanceList(ctx context.Context, request *GetInstanceListReq, options ...MethodOptionFunc) (*GetInstanceListResp, *Response, error) {
 	if r.cli.mock.mockApprovalGetInstanceList != nil {
-		r.cli.logDebug(ctx, "[lark] Approval#GetInstanceList mock enable")
+		r.cli.log(ctx, LogLevelDebug, "[lark] Approval#GetInstanceList mock enable")
 		return r.cli.mock.mockApprovalGetInstanceList(ctx, request, options...)
 	}
 
-	r.cli.logInfo(ctx, "[lark] Approval#GetInstanceList call api")
-	r.cli.logDebug(ctx, "[lark] Approval#GetInstanceList request: %s", jsonString(request))
+	r.cli.log(ctx, LogLevelInfo, "[lark] Approval#GetInstanceList call api")
+	r.cli.log(ctx, LogLevelDebug, "[lark] Approval#GetInstanceList request: %s", jsonString(request))
 
 	req := &RawRequestReq{
 		Method:                "POST",
@@ -31,15 +31,16 @@ func (r *ApprovalService) GetInstanceList(ctx context.Context, request *GetInsta
 	resp := new(getInstanceListResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
+	requestID, statusCode := getResponseRequestID(response)
 	if err != nil {
-		r.cli.logError(ctx, "[lark] Approval#GetInstanceList POST https://www.feishu.cn/approval/openapi/v2/instance/list failed: %s", err)
+		r.cli.log(ctx, LogLevelError, "[lark] Approval#GetInstanceList POST https://www.feishu.cn/approval/openapi/v2/instance/list failed, request_id: %s, status_code: %d, error: %s", requestID, statusCode, err)
 		return nil, response, err
 	} else if resp.Code != 0 {
-		r.cli.logError(ctx, "[lark] Approval#GetInstanceList POST https://www.feishu.cn/approval/openapi/v2/instance/list failed, code: %d, msg: %s", resp.Code, resp.Msg)
+		r.cli.log(ctx, LogLevelError, "[lark] Approval#GetInstanceList POST https://www.feishu.cn/approval/openapi/v2/instance/list failed, request_id: %s, status_code: %d, code: %d, msg: %s", requestID, statusCode, resp.Code, resp.Msg)
 		return nil, response, NewError("Approval", "GetInstanceList", resp.Code, resp.Msg)
 	}
 
-	r.cli.logDebug(ctx, "[lark] Approval#GetInstanceList request_id: %s, response: %s", response.RequestID, jsonString(resp.Data))
+	r.cli.log(ctx, LogLevelDebug, "[lark] Approval#GetInstanceList success, request_id: %s, status_code: %d, response: %s", requestID, statusCode, jsonString(resp.Data))
 
 	return resp.Data, response, nil
 }

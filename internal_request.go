@@ -246,3 +246,12 @@ type fileSetter interface {
 	IsFileType() bool
 	SetFile(file io.Reader)
 }
+
+func getResponseRequestID(response *Response) (requestID string, statusCode int) {
+	if response == nil {
+		return
+	}
+	requestID = response.RequestID
+	statusCode = response.StatusCode
+	return
+}

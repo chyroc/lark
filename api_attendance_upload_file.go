@@ -12,12 +12,12 @@ import (
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/Attendance//rule/file_upload
 func (r *AttendanceService) UploadAttendanceFile(ctx context.Context, request *UploadAttendanceFileReq, options ...MethodOptionFunc) (*UploadAttendanceFileResp, *Response, error) {
 	if r.cli.mock.mockAttendanceUploadAttendanceFile != nil {
-		r.cli.logDebug(ctx, "[lark] Attendance#UploadAttendanceFile mock enable")
+		r.cli.log(ctx, LogLevelDebug, "[lark] Attendance#UploadAttendanceFile mock enable")
 		return r.cli.mock.mockAttendanceUploadAttendanceFile(ctx, request, options...)
 	}
 
-	r.cli.logInfo(ctx, "[lark] Attendance#UploadAttendanceFile call api")
-	r.cli.logDebug(ctx, "[lark] Attendance#UploadAttendanceFile request: %s", jsonString(request))
+	r.cli.log(ctx, LogLevelInfo, "[lark] Attendance#UploadAttendanceFile call api")
+	r.cli.log(ctx, LogLevelDebug, "[lark] Attendance#UploadAttendanceFile request: %s", jsonString(request))
 
 	req := &RawRequestReq{
 		Method:                "POST",
@@ -25,20 +25,22 @@ func (r *AttendanceService) UploadAttendanceFile(ctx context.Context, request *U
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
-		IsFile:                true,
+
+		IsFile: true,
 	}
 	resp := new(uploadAttendanceFileResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
+	requestID, statusCode := getResponseRequestID(response)
 	if err != nil {
-		r.cli.logError(ctx, "[lark] Attendance#UploadAttendanceFile POST https://open.feishu.cn/open-apis/attendance/v1/files/upload failed: %s", err)
+		r.cli.log(ctx, LogLevelError, "[lark] Attendance#UploadAttendanceFile POST https://open.feishu.cn/open-apis/attendance/v1/files/upload failed, request_id: %s, status_code: %d, error: %s", requestID, statusCode, err)
 		return nil, response, err
 	} else if resp.Code != 0 {
-		r.cli.logError(ctx, "[lark] Attendance#UploadAttendanceFile POST https://open.feishu.cn/open-apis/attendance/v1/files/upload failed, code: %d, msg: %s", resp.Code, resp.Msg)
+		r.cli.log(ctx, LogLevelError, "[lark] Attendance#UploadAttendanceFile POST https://open.feishu.cn/open-apis/attendance/v1/files/upload failed, request_id: %s, status_code: %d, code: %d, msg: %s", requestID, statusCode, resp.Code, resp.Msg)
 		return nil, response, NewError("Attendance", "UploadAttendanceFile", resp.Code, resp.Msg)
 	}
 
-	r.cli.logDebug(ctx, "[lark] Attendance#UploadAttendanceFile request_id: %s, response: %s", response.RequestID, jsonString(resp.Data))
+	r.cli.log(ctx, LogLevelDebug, "[lark] Attendance#UploadAttendanceFile success, request_id: %s, status_code: %d, response: %s", requestID, statusCode, jsonString(resp.Data))
 
 	return resp.Data, response, nil
 }

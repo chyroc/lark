@@ -13,12 +13,12 @@ import (
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/Attendance//shift_by_name
 func (r *AttendanceService) GetShiftByName(ctx context.Context, request *GetShiftByNameReq, options ...MethodOptionFunc) (*GetShiftByNameResp, *Response, error) {
 	if r.cli.mock.mockAttendanceGetShiftByName != nil {
-		r.cli.logDebug(ctx, "[lark] Attendance#GetShiftByName mock enable")
+		r.cli.log(ctx, LogLevelDebug, "[lark] Attendance#GetShiftByName mock enable")
 		return r.cli.mock.mockAttendanceGetShiftByName(ctx, request, options...)
 	}
 
-	r.cli.logInfo(ctx, "[lark] Attendance#GetShiftByName call api")
-	r.cli.logDebug(ctx, "[lark] Attendance#GetShiftByName request: %s", jsonString(request))
+	r.cli.log(ctx, LogLevelInfo, "[lark] Attendance#GetShiftByName call api")
+	r.cli.log(ctx, LogLevelDebug, "[lark] Attendance#GetShiftByName request: %s", jsonString(request))
 
 	req := &RawRequestReq{
 		Method:                "POST",
@@ -30,15 +30,16 @@ func (r *AttendanceService) GetShiftByName(ctx context.Context, request *GetShif
 	resp := new(getShiftByNameResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
+	requestID, statusCode := getResponseRequestID(response)
 	if err != nil {
-		r.cli.logError(ctx, "[lark] Attendance#GetShiftByName POST https://open.feishu.cn/open-apis/attendance/v1/shifts/query failed: %s", err)
+		r.cli.log(ctx, LogLevelError, "[lark] Attendance#GetShiftByName POST https://open.feishu.cn/open-apis/attendance/v1/shifts/query failed, request_id: %s, status_code: %d, error: %s", requestID, statusCode, err)
 		return nil, response, err
 	} else if resp.Code != 0 {
-		r.cli.logError(ctx, "[lark] Attendance#GetShiftByName POST https://open.feishu.cn/open-apis/attendance/v1/shifts/query failed, code: %d, msg: %s", resp.Code, resp.Msg)
+		r.cli.log(ctx, LogLevelError, "[lark] Attendance#GetShiftByName POST https://open.feishu.cn/open-apis/attendance/v1/shifts/query failed, request_id: %s, status_code: %d, code: %d, msg: %s", requestID, statusCode, resp.Code, resp.Msg)
 		return nil, response, NewError("Attendance", "GetShiftByName", resp.Code, resp.Msg)
 	}
 
-	r.cli.logDebug(ctx, "[lark] Attendance#GetShiftByName request_id: %s, response: %s", response.RequestID, jsonString(resp.Data))
+	r.cli.log(ctx, LogLevelDebug, "[lark] Attendance#GetShiftByName success, request_id: %s, status_code: %d, response: %s", requestID, statusCode, jsonString(resp.Data))
 
 	return resp.Data, response, nil
 }

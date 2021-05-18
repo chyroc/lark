@@ -11,12 +11,12 @@ import (
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uUTNwYjL1UDM24SN1AjN
 func (r *MeetingRoomService) GetDistrictList(ctx context.Context, request *GetDistrictListReq, options ...MethodOptionFunc) (*GetDistrictListResp, *Response, error) {
 	if r.cli.mock.mockMeetingRoomGetDistrictList != nil {
-		r.cli.logDebug(ctx, "[lark] MeetingRoom#GetDistrictList mock enable")
+		r.cli.log(ctx, LogLevelDebug, "[lark] MeetingRoom#GetDistrictList mock enable")
 		return r.cli.mock.mockMeetingRoomGetDistrictList(ctx, request, options...)
 	}
 
-	r.cli.logInfo(ctx, "[lark] MeetingRoom#GetDistrictList call api")
-	r.cli.logDebug(ctx, "[lark] MeetingRoom#GetDistrictList request: %s", jsonString(request))
+	r.cli.log(ctx, LogLevelInfo, "[lark] MeetingRoom#GetDistrictList call api")
+	r.cli.log(ctx, LogLevelDebug, "[lark] MeetingRoom#GetDistrictList request: %s", jsonString(request))
 
 	req := &RawRequestReq{
 		Method:                "GET",
@@ -28,15 +28,16 @@ func (r *MeetingRoomService) GetDistrictList(ctx context.Context, request *GetDi
 	resp := new(getDistrictListResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
+	requestID, statusCode := getResponseRequestID(response)
 	if err != nil {
-		r.cli.logError(ctx, "[lark] MeetingRoom#GetDistrictList GET https://open.feishu.cn/open-apis/meeting_room/district/list?country_id=1814991 failed: %s", err)
+		r.cli.log(ctx, LogLevelError, "[lark] MeetingRoom#GetDistrictList GET https://open.feishu.cn/open-apis/meeting_room/district/list?country_id=1814991 failed, request_id: %s, status_code: %d, error: %s", requestID, statusCode, err)
 		return nil, response, err
 	} else if resp.Code != 0 {
-		r.cli.logError(ctx, "[lark] MeetingRoom#GetDistrictList GET https://open.feishu.cn/open-apis/meeting_room/district/list?country_id=1814991 failed, code: %d, msg: %s", resp.Code, resp.Msg)
+		r.cli.log(ctx, LogLevelError, "[lark] MeetingRoom#GetDistrictList GET https://open.feishu.cn/open-apis/meeting_room/district/list?country_id=1814991 failed, request_id: %s, status_code: %d, code: %d, msg: %s", requestID, statusCode, resp.Code, resp.Msg)
 		return nil, response, NewError("MeetingRoom", "GetDistrictList", resp.Code, resp.Msg)
 	}
 
-	r.cli.logDebug(ctx, "[lark] MeetingRoom#GetDistrictList request_id: %s, response: %s", response.RequestID, jsonString(resp.Data))
+	r.cli.log(ctx, LogLevelDebug, "[lark] MeetingRoom#GetDistrictList success, request_id: %s, status_code: %d, response: %s", requestID, statusCode, jsonString(resp.Data))
 
 	return resp.Data, response, nil
 }

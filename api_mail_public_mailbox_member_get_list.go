@@ -11,12 +11,12 @@ import (
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/mail-v1/public_mailbox-member/list
 func (r *MailService) GetPublicMailboxMemberList(ctx context.Context, request *GetPublicMailboxMemberListReq, options ...MethodOptionFunc) (*GetPublicMailboxMemberListResp, *Response, error) {
 	if r.cli.mock.mockMailGetPublicMailboxMemberList != nil {
-		r.cli.logDebug(ctx, "[lark] Mail#GetPublicMailboxMemberList mock enable")
+		r.cli.log(ctx, LogLevelDebug, "[lark] Mail#GetPublicMailboxMemberList mock enable")
 		return r.cli.mock.mockMailGetPublicMailboxMemberList(ctx, request, options...)
 	}
 
-	r.cli.logInfo(ctx, "[lark] Mail#GetPublicMailboxMemberList call api")
-	r.cli.logDebug(ctx, "[lark] Mail#GetPublicMailboxMemberList request: %s", jsonString(request))
+	r.cli.log(ctx, LogLevelInfo, "[lark] Mail#GetPublicMailboxMemberList call api")
+	r.cli.log(ctx, LogLevelDebug, "[lark] Mail#GetPublicMailboxMemberList request: %s", jsonString(request))
 
 	req := &RawRequestReq{
 		Method:                "GET",
@@ -28,15 +28,16 @@ func (r *MailService) GetPublicMailboxMemberList(ctx context.Context, request *G
 	resp := new(getPublicMailboxMemberListResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
+	requestID, statusCode := getResponseRequestID(response)
 	if err != nil {
-		r.cli.logError(ctx, "[lark] Mail#GetPublicMailboxMemberList GET https://open.feishu.cn/open-apis/mail/v1/public_mailboxes/:public_mailbox_id/members failed: %s", err)
+		r.cli.log(ctx, LogLevelError, "[lark] Mail#GetPublicMailboxMemberList GET https://open.feishu.cn/open-apis/mail/v1/public_mailboxes/:public_mailbox_id/members failed, request_id: %s, status_code: %d, error: %s", requestID, statusCode, err)
 		return nil, response, err
 	} else if resp.Code != 0 {
-		r.cli.logError(ctx, "[lark] Mail#GetPublicMailboxMemberList GET https://open.feishu.cn/open-apis/mail/v1/public_mailboxes/:public_mailbox_id/members failed, code: %d, msg: %s", resp.Code, resp.Msg)
+		r.cli.log(ctx, LogLevelError, "[lark] Mail#GetPublicMailboxMemberList GET https://open.feishu.cn/open-apis/mail/v1/public_mailboxes/:public_mailbox_id/members failed, request_id: %s, status_code: %d, code: %d, msg: %s", requestID, statusCode, resp.Code, resp.Msg)
 		return nil, response, NewError("Mail", "GetPublicMailboxMemberList", resp.Code, resp.Msg)
 	}
 
-	r.cli.logDebug(ctx, "[lark] Mail#GetPublicMailboxMemberList request_id: %s, response: %s", response.RequestID, jsonString(resp.Data))
+	r.cli.log(ctx, LogLevelDebug, "[lark] Mail#GetPublicMailboxMemberList success, request_id: %s, status_code: %d, response: %s", requestID, statusCode, jsonString(resp.Data))
 
 	return resp.Data, response, nil
 }

@@ -15,12 +15,12 @@ import (
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar-acl/delete
 func (r *CalendarService) DeleteCalendarACL(ctx context.Context, request *DeleteCalendarACLReq, options ...MethodOptionFunc) (*DeleteCalendarACLResp, *Response, error) {
 	if r.cli.mock.mockCalendarDeleteCalendarACL != nil {
-		r.cli.logDebug(ctx, "[lark] Calendar#DeleteCalendarACL mock enable")
+		r.cli.log(ctx, LogLevelDebug, "[lark] Calendar#DeleteCalendarACL mock enable")
 		return r.cli.mock.mockCalendarDeleteCalendarACL(ctx, request, options...)
 	}
 
-	r.cli.logInfo(ctx, "[lark] Calendar#DeleteCalendarACL call api")
-	r.cli.logDebug(ctx, "[lark] Calendar#DeleteCalendarACL request: %s", jsonString(request))
+	r.cli.log(ctx, LogLevelInfo, "[lark] Calendar#DeleteCalendarACL call api")
+	r.cli.log(ctx, LogLevelDebug, "[lark] Calendar#DeleteCalendarACL request: %s", jsonString(request))
 
 	req := &RawRequestReq{
 		Method:                "DELETE",
@@ -28,20 +28,22 @@ func (r *CalendarService) DeleteCalendarACL(ctx context.Context, request *Delete
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
-		NeedUserAccessToken:   true,
+
+		NeedUserAccessToken: true,
 	}
 	resp := new(deleteCalendarACLResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
+	requestID, statusCode := getResponseRequestID(response)
 	if err != nil {
-		r.cli.logError(ctx, "[lark] Calendar#DeleteCalendarACL DELETE https://open.feishu.cn/open-apis/calendar/v4/calendars/:calendar_id/acls/:acl_id failed: %s", err)
+		r.cli.log(ctx, LogLevelError, "[lark] Calendar#DeleteCalendarACL DELETE https://open.feishu.cn/open-apis/calendar/v4/calendars/:calendar_id/acls/:acl_id failed, request_id: %s, status_code: %d, error: %s", requestID, statusCode, err)
 		return nil, response, err
 	} else if resp.Code != 0 {
-		r.cli.logError(ctx, "[lark] Calendar#DeleteCalendarACL DELETE https://open.feishu.cn/open-apis/calendar/v4/calendars/:calendar_id/acls/:acl_id failed, code: %d, msg: %s", resp.Code, resp.Msg)
+		r.cli.log(ctx, LogLevelError, "[lark] Calendar#DeleteCalendarACL DELETE https://open.feishu.cn/open-apis/calendar/v4/calendars/:calendar_id/acls/:acl_id failed, request_id: %s, status_code: %d, code: %d, msg: %s", requestID, statusCode, resp.Code, resp.Msg)
 		return nil, response, NewError("Calendar", "DeleteCalendarACL", resp.Code, resp.Msg)
 	}
 
-	r.cli.logDebug(ctx, "[lark] Calendar#DeleteCalendarACL request_id: %s, response: %s", response.RequestID, jsonString(resp.Data))
+	r.cli.log(ctx, LogLevelDebug, "[lark] Calendar#DeleteCalendarACL success, request_id: %s, status_code: %d, response: %s", requestID, statusCode, jsonString(resp.Data))
 
 	return resp.Data, response, nil
 }
