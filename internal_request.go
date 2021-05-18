@@ -31,7 +31,7 @@ func (r *Lark) RawRequest(ctx context.Context, req *RawRequestReq, resp interfac
 	if err != nil {
 		return nil, err
 	}
-	return request(ctx, r.httpClient, req, headers, resp)
+	return r.request(ctx, r.httpClient, req, headers, resp)
 }
 
 type RawRequestReq struct {
@@ -166,7 +166,7 @@ type realRequestParam struct {
 	Headers map[string]string
 }
 
-func request(ctx context.Context, cli *http.Client, requestParam *RawRequestReq, headers map[string]string, realResponse interface{}) (*Response, error) {
+func (r *Lark) request(ctx context.Context, cli *http.Client, requestParam *RawRequestReq, headers map[string]string, realResponse interface{}) (*Response, error) {
 	response := new(Response)
 	realReq, err := parseRequestParam(requestParam)
 	if err != nil {
@@ -203,6 +203,8 @@ func request(ctx context.Context, cli *http.Client, requestParam *RawRequestReq,
 	if err != nil {
 		return response, err
 	}
+
+	r.log(ctx, LogLevelDebug, "%s %s, got: %s", realReq.Method, realReq.URL, bs)
 
 	if resp != nil && resp.StatusCode == http.StatusOK {
 		respFileSetter, ok := realResponse.(fileSetter)
