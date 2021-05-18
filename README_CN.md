@@ -31,7 +31,7 @@ https://godoc.org/github.com/chyroc/lark
 
 ## 支持的接口
 
-API 总数: 240, 事件总数: 28
+API 总数: 241, 事件总数: 28
 
 <details>
   <summary>
@@ -131,6 +131,7 @@ API 总数: 240, 事件总数: 28
   - UpdateDriveCommentPatch
   - GetSheetMeta
   - UpdateSheetProperty
+  - BatchUpdateSheet
   - ImportSheet
   - PrependSheetValue
   - AppendSheetValue

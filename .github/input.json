@@ -463,6 +463,11 @@
         "doc_url": "https://open.feishu.cn/document/ukTMukTMukTM/ucTMzUjL3EzM14yNxMTN"
       },
       {
+        "file_name": "api_drive_sheet_batch_update.go",
+        "func_name": "BatchUpdateSheet",
+        "doc_url": "https://open.feishu.cn/document/ukTMukTMukTM/uYTMzUjL2EzM14iNxMTN"
+      },
+      {
         "file_name": "api_drive_sheet_import.go",
         "func_name": "ImportSheet",
         "doc_url": "https://open.feishu.cn/document/ukTMukTMukTM/uATO2YjLwkjN24CM5YjN"

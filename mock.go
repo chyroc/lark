@@ -95,6 +95,7 @@ type Mock struct {
 	mockDriveUpdateDriveCommentPatch                   func(ctx context.Context, request *UpdateDriveCommentPatchReq, options ...MethodOptionFunc) (*UpdateDriveCommentPatchResp, *Response, error)
 	mockDriveGetSheetMeta                              func(ctx context.Context, request *GetSheetMetaReq, options ...MethodOptionFunc) (*GetSheetMetaResp, *Response, error)
 	mockDriveUpdateSheetProperty                       func(ctx context.Context, request *UpdateSheetPropertyReq, options ...MethodOptionFunc) (*UpdateSheetPropertyResp, *Response, error)
+	mockDriveBatchUpdateSheet                          func(ctx context.Context, request *BatchUpdateSheetReq, options ...MethodOptionFunc) (*BatchUpdateSheetResp, *Response, error)
 	mockDriveImportSheet                               func(ctx context.Context, request *ImportSheetReq, options ...MethodOptionFunc) (*ImportSheetResp, *Response, error)
 	mockDrivePrependSheetValue                         func(ctx context.Context, request *PrependSheetValueReq, options ...MethodOptionFunc) (*PrependSheetValueResp, *Response, error)
 	mockDriveAppendSheetValue                          func(ctx context.Context, request *AppendSheetValueReq, options ...MethodOptionFunc) (*AppendSheetValueResp, *Response, error)
