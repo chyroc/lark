@@ -50,7 +50,7 @@ func (r *Mock) UnMockMeetingRoomGetDistrictList() {
 }
 
 type GetDistrictListReq struct {
-	CountryID string `query:"country_id" json:"-"` // 国家地区ID
+	CountryID int `query:"country_id" json:"-"` // 国家地区ID
 }
 
 type getDistrictListResp struct {

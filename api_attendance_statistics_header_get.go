@@ -74,13 +74,13 @@ type GetStatisticsHeaderRespUserStatsField struct {
 }
 
 type GetStatisticsHeaderRespUserStatsFieldField struct {
-	Code        int                                                     `json:"code,omitempty"`         // 字段编号
+	Code        string                                                  `json:"code,omitempty"`         // 字段编号
 	Title       string                                                  `json:"title,omitempty"`        // 字段标题
 	ChildFields []*GetStatisticsHeaderRespUserStatsFieldFieldChildField `json:"child_fields,omitempty"` // 子字段列表
 }
 
 type GetStatisticsHeaderRespUserStatsFieldFieldChildField struct {
-	Code     int    `json:"code,omitempty"`      // 字段编号
+	Code     string `json:"code,omitempty"`      // 字段编号
 	Title    string `json:"title,omitempty"`     // 字段名称
 	TimeUnit string `json:"time_unit,omitempty"` // 时间类型
 }

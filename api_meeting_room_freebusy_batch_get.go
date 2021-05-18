@@ -68,5 +68,18 @@ type BatchGetFreebusyResp struct {
 }
 
 type BatchGetFreebusyRespFreeBusy struct {
-	RoomID string `json:"room_id,omitempty"` // 与请求合法参数相同，表示之后是对应会议室的忙闲状态
+	RoomID *BatchGetFreebusyRespFreeBusyRoomID `json:"room_id,omitempty"` // 与请求合法参数相同，表示之后是对应会议室的忙闲状态
+}
+
+type BatchGetFreebusyRespFreeBusyRoomID struct {
+	StartTime     string                                           `json:"start_time,omitempty"`     // 忙碌起始时间
+	EndTime       string                                           `json:"end_time,omitempty"`       // 忙碌结束时间
+	Uid           string                                           `json:"uid,omitempty"`            // 日程 ID
+	OriginalTime  int                                              `json:"original_time,omitempty"`  // 日程实例的原始时间, 非重复日程为0，重复日程为非0
+	OrganizerInfo *BatchGetFreebusyRespFreeBusyRoomIDOrganizerInfo `json:"organizer_info,omitempty"` // 组织者信息, 私密日程不返回该信息
+}
+
+type BatchGetFreebusyRespFreeBusyRoomIDOrganizerInfo struct {
+	Name   string `json:"name,omitempty"`    // 组织者姓名
+	OpenID string `json:"open_id,omitempty"` // 组织者 open_id
 }

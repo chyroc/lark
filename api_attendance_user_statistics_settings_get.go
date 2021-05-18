@@ -73,13 +73,13 @@ type GetUserStatisticsSettingsRespView struct {
 }
 
 type GetUserStatisticsSettingsRespViewItem struct {
-	Code       int                                               `json:"code,omitempty"`        // 标题编号
+	Code       string                                            `json:"code,omitempty"`        // 标题编号
 	Title      string                                            `json:"title,omitempty"`       // 标题名称
 	ChildItems []*GetUserStatisticsSettingsRespViewItemChildItem `json:"child_items,omitempty"` // 子标题
 }
 
 type GetUserStatisticsSettingsRespViewItemChildItem struct {
-	Code       int    `json:"code,omitempty"`        // 标题编号
+	Code       string `json:"code,omitempty"`        // 标题编号
 	Value      string `json:"value,omitempty"`       // 是否开启,      , 可选值有: `0`：关闭, `1`：开启
 	Title      string `json:"title,omitempty"`       // 标题名称
 	ColumnType int    `json:"column_type,omitempty"` // 标题类型

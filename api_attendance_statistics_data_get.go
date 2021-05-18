@@ -77,7 +77,7 @@ type GetStatisticsDataRespUserData struct {
 }
 
 type GetStatisticsDataRespUserDataData struct {
-	Code     int                                         `json:"code,omitempty"`     // 字段编号
+	Code     string                                      `json:"code,omitempty"`     // 字段编号
 	Value    string                                      `json:"value,omitempty"`    // 数据值
 	Features []*GetStatisticsDataRespUserDataDataFeature `json:"features,omitempty"` // 数据属性
 }

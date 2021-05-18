@@ -54,11 +54,11 @@ func (r *Mock) UnMockAuthGetAccessToken() {
 
 type GetAccessTokenReq struct {
 	GrantType string `json:"grant_type,omitempty"` // 在本流程中，此值为 authorization_code
-	Code      int    `json:"code,omitempty"`       // 来自[请求身份验证(新)](/ssl:ttdoc/ukTMukTMukTM/ukzN4UjL5cDO14SO3gTN)流程，用户扫码登录后会自动302到redirect_uri并带上此参数
+	Code      string `json:"code,omitempty"`       // 来自[请求身份验证(新)](/ssl:ttdoc/ukTMukTMukTM/ukzN4UjL5cDO14SO3gTN)流程，用户扫码登录后会自动302到redirect_uri并带上此参数
 }
 
 type getAccessTokenResp struct {
-	Code int                 `json:"code,omitempty"` // 返回码，0表示请求成功，其他表示请求失败
+	Code string              `json:"code,omitempty"` // 返回码，0表示请求成功，其他表示请求失败
 	Msg  string              `json:"msg,omitempty"`  // 返回信息
 	Data *GetAccessTokenResp `json:"data,omitempty"` // 返回业务数据
 }

@@ -63,13 +63,13 @@ type UpdateUserStatisticsSettingsReqView struct {
 }
 
 type UpdateUserStatisticsSettingsReqViewItem struct {
-	Code       int                                                 `json:"code,omitempty"`        // 编号, 示例值："501"
+	Code       string                                              `json:"code,omitempty"`        // 编号, 示例值："501"
 	Title      *string                                             `json:"title,omitempty"`       // 标题名称, 示例值："基本信息"
 	ChildItems []*UpdateUserStatisticsSettingsReqViewItemChildItem `json:"child_items,omitempty"` // 子标题
 }
 
 type UpdateUserStatisticsSettingsReqViewItemChildItem struct {
-	Code  int    `json:"code,omitempty"`  // 标题编号, 示例值："50101"
+	Code  string `json:"code,omitempty"`  // 标题编号, 示例值："50101"
 	Value string `json:"value,omitempty"` // 开关字段,      , 可选值有: `0`：关闭, `1`：开启,非开关字段场景,  code = 51501  **可选值为1～6**
 }
 
@@ -91,12 +91,12 @@ type UpdateUserStatisticsSettingsRespView struct {
 }
 
 type UpdateUserStatisticsSettingsRespViewItem struct {
-	Code       int                                                  `json:"code,omitempty"`        // 标题编码
+	Code       string                                               `json:"code,omitempty"`        // 标题编码
 	Title      string                                               `json:"title,omitempty"`       // 标题名称
 	ChildItems []*UpdateUserStatisticsSettingsRespViewItemChildItem `json:"child_items,omitempty"` // 子标题
 }
 
 type UpdateUserStatisticsSettingsRespViewItemChildItem struct {
-	Code  int    `json:"code,omitempty"`  // 标题编号
+	Code  string `json:"code,omitempty"`  // 标题编号
 	Value string `json:"value,omitempty"` // 是否开启,      , 可选值有: `0`：关闭, `1`：开启
 }
