@@ -13,32 +13,34 @@ import (
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/search
 func (r *ContactService) SearchDepartment(ctx context.Context, request *SearchDepartmentReq, options ...MethodOptionFunc) (*SearchDepartmentResp, *Response, error) {
 	if r.cli.mock.mockContactSearchDepartment != nil {
-		r.cli.logDebug(ctx, "[lark] Contact#SearchDepartment mock enable")
+		r.cli.log(ctx, LogLevelDebug, "[lark] Contact#SearchDepartment mock enable")
 		return r.cli.mock.mockContactSearchDepartment(ctx, request, options...)
 	}
 
-	r.cli.logInfo(ctx, "[lark] Contact#SearchDepartment call api")
-	r.cli.logDebug(ctx, "[lark] Contact#SearchDepartment request: %s", jsonString(request))
+	r.cli.log(ctx, LogLevelInfo, "[lark] Contact#SearchDepartment call api")
+	r.cli.log(ctx, LogLevelDebug, "[lark] Contact#SearchDepartment request: %s", jsonString(request))
 
 	req := &RawRequestReq{
-		Method:              "POST",
-		URL:                 "https://open.feishu.cn/open-apis/contact/v3/departments/search",
-		Body:                request,
-		MethodOption:        newMethodOption(options),
+		Method:       "POST",
+		URL:          "https://open.feishu.cn/open-apis/contact/v3/departments/search",
+		Body:         request,
+		MethodOption: newMethodOption(options),
+
 		NeedUserAccessToken: true,
 	}
 	resp := new(searchDepartmentResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
+	requestID, statusCode := getResponseRequestID(response)
 	if err != nil {
-		r.cli.logError(ctx, "[lark] Contact#SearchDepartment POST https://open.feishu.cn/open-apis/contact/v3/departments/search failed: %s", err)
+		r.cli.log(ctx, LogLevelError, "[lark] Contact#SearchDepartment POST https://open.feishu.cn/open-apis/contact/v3/departments/search failed, request_id: %s, status_code: %d, error: %s", requestID, statusCode, err)
 		return nil, response, err
 	} else if resp.Code != 0 {
-		r.cli.logError(ctx, "[lark] Contact#SearchDepartment POST https://open.feishu.cn/open-apis/contact/v3/departments/search failed, code: %d, msg: %s", resp.Code, resp.Msg)
+		r.cli.log(ctx, LogLevelError, "[lark] Contact#SearchDepartment POST https://open.feishu.cn/open-apis/contact/v3/departments/search failed, request_id: %s, status_code: %d, code: %d, msg: %s", requestID, statusCode, resp.Code, resp.Msg)
 		return nil, response, NewError("Contact", "SearchDepartment", resp.Code, resp.Msg)
 	}
 
-	r.cli.logDebug(ctx, "[lark] Contact#SearchDepartment request_id: %s, response: %s", response.RequestID, jsonString(resp.Data))
+	r.cli.log(ctx, LogLevelDebug, "[lark] Contact#SearchDepartment success, request_id: %s, status_code: %d, response: %s", requestID, statusCode, jsonString(resp.Data))
 
 	return resp.Data, response, nil
 }

@@ -11,12 +11,12 @@ import (
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file-comment/patch
 func (r *DriveService) UpdateCommentPatch(ctx context.Context, request *UpdateCommentPatchReq, options ...MethodOptionFunc) (*UpdateCommentPatchResp, *Response, error) {
 	if r.cli.mock.mockDriveUpdateCommentPatch != nil {
-		r.cli.logDebug(ctx, "[lark] Drive#UpdateCommentPatch mock enable")
+		r.cli.log(ctx, LogLevelDebug, "[lark] Drive#UpdateCommentPatch mock enable")
 		return r.cli.mock.mockDriveUpdateCommentPatch(ctx, request, options...)
 	}
 
-	r.cli.logInfo(ctx, "[lark] Drive#UpdateCommentPatch call api")
-	r.cli.logDebug(ctx, "[lark] Drive#UpdateCommentPatch request: %s", jsonString(request))
+	r.cli.log(ctx, LogLevelInfo, "[lark] Drive#UpdateCommentPatch call api")
+	r.cli.log(ctx, LogLevelDebug, "[lark] Drive#UpdateCommentPatch request: %s", jsonString(request))
 
 	req := &RawRequestReq{
 		Method:                "PATCH",
@@ -24,20 +24,22 @@ func (r *DriveService) UpdateCommentPatch(ctx context.Context, request *UpdateCo
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
-		NeedUserAccessToken:   true,
+
+		NeedUserAccessToken: true,
 	}
 	resp := new(updateCommentPatchResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
+	requestID, statusCode := getResponseRequestID(response)
 	if err != nil {
-		r.cli.logError(ctx, "[lark] Drive#UpdateCommentPatch PATCH https://open.feishu.cn/open-apis/drive/v1/files/:file_token/comments/:comment_id failed: %s", err)
+		r.cli.log(ctx, LogLevelError, "[lark] Drive#UpdateCommentPatch PATCH https://open.feishu.cn/open-apis/drive/v1/files/:file_token/comments/:comment_id failed, request_id: %s, status_code: %d, error: %s", requestID, statusCode, err)
 		return nil, response, err
 	} else if resp.Code != 0 {
-		r.cli.logError(ctx, "[lark] Drive#UpdateCommentPatch PATCH https://open.feishu.cn/open-apis/drive/v1/files/:file_token/comments/:comment_id failed, code: %d, msg: %s", resp.Code, resp.Msg)
+		r.cli.log(ctx, LogLevelError, "[lark] Drive#UpdateCommentPatch PATCH https://open.feishu.cn/open-apis/drive/v1/files/:file_token/comments/:comment_id failed, request_id: %s, status_code: %d, code: %d, msg: %s", requestID, statusCode, resp.Code, resp.Msg)
 		return nil, response, NewError("Drive", "UpdateCommentPatch", resp.Code, resp.Msg)
 	}
 
-	r.cli.logDebug(ctx, "[lark] Drive#UpdateCommentPatch request_id: %s, response: %s", response.RequestID, jsonString(resp.Data))
+	r.cli.log(ctx, LogLevelDebug, "[lark] Drive#UpdateCommentPatch success, request_id: %s, status_code: %d, response: %s", requestID, statusCode, jsonString(resp.Data))
 
 	return resp.Data, response, nil
 }

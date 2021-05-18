@@ -11,32 +11,34 @@ import (
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uIDO4UjLygDO14iM4gTN
 func (r *AuthService) GetUserInfo(ctx context.Context, request *GetUserInfoReq, options ...MethodOptionFunc) (*GetUserInfoResp, *Response, error) {
 	if r.cli.mock.mockAuthGetUserInfo != nil {
-		r.cli.logDebug(ctx, "[lark] Auth#GetUserInfo mock enable")
+		r.cli.log(ctx, LogLevelDebug, "[lark] Auth#GetUserInfo mock enable")
 		return r.cli.mock.mockAuthGetUserInfo(ctx, request, options...)
 	}
 
-	r.cli.logInfo(ctx, "[lark] Auth#GetUserInfo call api")
-	r.cli.logDebug(ctx, "[lark] Auth#GetUserInfo request: %s", jsonString(request))
+	r.cli.log(ctx, LogLevelInfo, "[lark] Auth#GetUserInfo call api")
+	r.cli.log(ctx, LogLevelDebug, "[lark] Auth#GetUserInfo request: %s", jsonString(request))
 
 	req := &RawRequestReq{
-		Method:              "GET",
-		URL:                 "https://open.feishu.cn/open-apis/authen/v1/user_info",
-		Body:                request,
-		MethodOption:        newMethodOption(options),
+		Method:       "GET",
+		URL:          "https://open.feishu.cn/open-apis/authen/v1/user_info",
+		Body:         request,
+		MethodOption: newMethodOption(options),
+
 		NeedUserAccessToken: true,
 	}
 	resp := new(getUserInfoResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
+	requestID, statusCode := getResponseRequestID(response)
 	if err != nil {
-		r.cli.logError(ctx, "[lark] Auth#GetUserInfo GET https://open.feishu.cn/open-apis/authen/v1/user_info failed: %s", err)
+		r.cli.log(ctx, LogLevelError, "[lark] Auth#GetUserInfo GET https://open.feishu.cn/open-apis/authen/v1/user_info failed, request_id: %s, status_code: %d, error: %s", requestID, statusCode, err)
 		return nil, response, err
 	} else if resp.Code != 0 {
-		r.cli.logError(ctx, "[lark] Auth#GetUserInfo GET https://open.feishu.cn/open-apis/authen/v1/user_info failed, code: %d, msg: %s", resp.Code, resp.Msg)
+		r.cli.log(ctx, LogLevelError, "[lark] Auth#GetUserInfo GET https://open.feishu.cn/open-apis/authen/v1/user_info failed, request_id: %s, status_code: %d, code: %d, msg: %s", requestID, statusCode, resp.Code, resp.Msg)
 		return nil, response, NewError("Auth", "GetUserInfo", resp.Code, resp.Msg)
 	}
 
-	r.cli.logDebug(ctx, "[lark] Auth#GetUserInfo request_id: %s, response: %s", response.RequestID, jsonString(resp.Data))
+	r.cli.log(ctx, LogLevelDebug, "[lark] Auth#GetUserInfo success, request_id: %s, status_code: %d, response: %s", requestID, statusCode, jsonString(resp.Data))
 
 	return resp.Data, response, nil
 }

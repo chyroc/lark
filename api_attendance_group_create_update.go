@@ -41,12 +41,12 @@ import (
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/Attendance//group_create_update
 func (r *AttendanceService) CreateUpdateGroup(ctx context.Context, request *CreateUpdateGroupReq, options ...MethodOptionFunc) (*CreateUpdateGroupResp, *Response, error) {
 	if r.cli.mock.mockAttendanceCreateUpdateGroup != nil {
-		r.cli.logDebug(ctx, "[lark] Attendance#CreateUpdateGroup mock enable")
+		r.cli.log(ctx, LogLevelDebug, "[lark] Attendance#CreateUpdateGroup mock enable")
 		return r.cli.mock.mockAttendanceCreateUpdateGroup(ctx, request, options...)
 	}
 
-	r.cli.logInfo(ctx, "[lark] Attendance#CreateUpdateGroup call api")
-	r.cli.logDebug(ctx, "[lark] Attendance#CreateUpdateGroup request: %s", jsonString(request))
+	r.cli.log(ctx, LogLevelInfo, "[lark] Attendance#CreateUpdateGroup call api")
+	r.cli.log(ctx, LogLevelDebug, "[lark] Attendance#CreateUpdateGroup request: %s", jsonString(request))
 
 	req := &RawRequestReq{
 		Method:                "POST",
@@ -58,15 +58,16 @@ func (r *AttendanceService) CreateUpdateGroup(ctx context.Context, request *Crea
 	resp := new(createUpdateGroupResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
+	requestID, statusCode := getResponseRequestID(response)
 	if err != nil {
-		r.cli.logError(ctx, "[lark] Attendance#CreateUpdateGroup POST https://open.feishu.cn/open-apis/attendance/v1/groups failed: %s", err)
+		r.cli.log(ctx, LogLevelError, "[lark] Attendance#CreateUpdateGroup POST https://open.feishu.cn/open-apis/attendance/v1/groups failed, request_id: %s, status_code: %d, error: %s", requestID, statusCode, err)
 		return nil, response, err
 	} else if resp.Code != 0 {
-		r.cli.logError(ctx, "[lark] Attendance#CreateUpdateGroup POST https://open.feishu.cn/open-apis/attendance/v1/groups failed, code: %d, msg: %s", resp.Code, resp.Msg)
+		r.cli.log(ctx, LogLevelError, "[lark] Attendance#CreateUpdateGroup POST https://open.feishu.cn/open-apis/attendance/v1/groups failed, request_id: %s, status_code: %d, code: %d, msg: %s", requestID, statusCode, resp.Code, resp.Msg)
 		return nil, response, NewError("Attendance", "CreateUpdateGroup", resp.Code, resp.Msg)
 	}
 
-	r.cli.logDebug(ctx, "[lark] Attendance#CreateUpdateGroup request_id: %s, response: %s", response.RequestID, jsonString(resp.Data))
+	r.cli.log(ctx, LogLevelDebug, "[lark] Attendance#CreateUpdateGroup success, request_id: %s, status_code: %d, response: %s", requestID, statusCode, jsonString(resp.Data))
 
 	return resp.Data, response, nil
 }

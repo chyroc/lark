@@ -17,12 +17,12 @@ import (
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/human_authentication-v1/face/upload-facial-reference-image
 func (r *HumanAuthService) UploadFaceVerifyImage(ctx context.Context, request *UploadFaceVerifyImageReq, options ...MethodOptionFunc) (*UploadFaceVerifyImageResp, *Response, error) {
 	if r.cli.mock.mockHumanAuthUploadFaceVerifyImage != nil {
-		r.cli.logDebug(ctx, "[lark] HumanAuth#UploadFaceVerifyImage mock enable")
+		r.cli.log(ctx, LogLevelDebug, "[lark] HumanAuth#UploadFaceVerifyImage mock enable")
 		return r.cli.mock.mockHumanAuthUploadFaceVerifyImage(ctx, request, options...)
 	}
 
-	r.cli.logInfo(ctx, "[lark] HumanAuth#UploadFaceVerifyImage call api")
-	r.cli.logDebug(ctx, "[lark] HumanAuth#UploadFaceVerifyImage request: %s", jsonString(request))
+	r.cli.log(ctx, LogLevelInfo, "[lark] HumanAuth#UploadFaceVerifyImage call api")
+	r.cli.log(ctx, LogLevelDebug, "[lark] HumanAuth#UploadFaceVerifyImage request: %s", jsonString(request))
 
 	req := &RawRequestReq{
 		Method:                "POST",
@@ -30,20 +30,22 @@ func (r *HumanAuthService) UploadFaceVerifyImage(ctx context.Context, request *U
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
-		IsFile:                true,
+
+		IsFile: true,
 	}
 	resp := new(uploadFaceVerifyImageResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
+	requestID, statusCode := getResponseRequestID(response)
 	if err != nil {
-		r.cli.logError(ctx, "[lark] HumanAuth#UploadFaceVerifyImage POST https://open.feishu.cn/open-apis/face_verify/v1/upload_face_image failed: %s", err)
+		r.cli.log(ctx, LogLevelError, "[lark] HumanAuth#UploadFaceVerifyImage POST https://open.feishu.cn/open-apis/face_verify/v1/upload_face_image failed, request_id: %s, status_code: %d, error: %s", requestID, statusCode, err)
 		return nil, response, err
 	} else if resp.Code != 0 {
-		r.cli.logError(ctx, "[lark] HumanAuth#UploadFaceVerifyImage POST https://open.feishu.cn/open-apis/face_verify/v1/upload_face_image failed, code: %d, msg: %s", resp.Code, resp.Msg)
+		r.cli.log(ctx, LogLevelError, "[lark] HumanAuth#UploadFaceVerifyImage POST https://open.feishu.cn/open-apis/face_verify/v1/upload_face_image failed, request_id: %s, status_code: %d, code: %d, msg: %s", requestID, statusCode, resp.Code, resp.Msg)
 		return nil, response, NewError("HumanAuth", "UploadFaceVerifyImage", resp.Code, resp.Msg)
 	}
 
-	r.cli.logDebug(ctx, "[lark] HumanAuth#UploadFaceVerifyImage request_id: %s, response: %s", response.RequestID, jsonString(resp.Data))
+	r.cli.log(ctx, LogLevelDebug, "[lark] HumanAuth#UploadFaceVerifyImage success, request_id: %s, status_code: %d, response: %s", requestID, statusCode, jsonString(resp.Data))
 
 	return resp.Data, response, nil
 }

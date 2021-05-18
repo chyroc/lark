@@ -11,12 +11,12 @@ import (
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uUzMxYjL1MTM24SNzEjN
 func (r *MeetingRoomService) DeleteRoom(ctx context.Context, request *DeleteRoomReq, options ...MethodOptionFunc) (*DeleteRoomResp, *Response, error) {
 	if r.cli.mock.mockMeetingRoomDeleteRoom != nil {
-		r.cli.logDebug(ctx, "[lark] MeetingRoom#DeleteRoom mock enable")
+		r.cli.log(ctx, LogLevelDebug, "[lark] MeetingRoom#DeleteRoom mock enable")
 		return r.cli.mock.mockMeetingRoomDeleteRoom(ctx, request, options...)
 	}
 
-	r.cli.logInfo(ctx, "[lark] MeetingRoom#DeleteRoom call api")
-	r.cli.logDebug(ctx, "[lark] MeetingRoom#DeleteRoom request: %s", jsonString(request))
+	r.cli.log(ctx, LogLevelInfo, "[lark] MeetingRoom#DeleteRoom call api")
+	r.cli.log(ctx, LogLevelDebug, "[lark] MeetingRoom#DeleteRoom request: %s", jsonString(request))
 
 	req := &RawRequestReq{
 		Method:                "POST",
@@ -28,15 +28,16 @@ func (r *MeetingRoomService) DeleteRoom(ctx context.Context, request *DeleteRoom
 	resp := new(deleteRoomResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
+	requestID, statusCode := getResponseRequestID(response)
 	if err != nil {
-		r.cli.logError(ctx, "[lark] MeetingRoom#DeleteRoom POST https://open.feishu.cn/open-apis/meeting_room/room/delete failed: %s", err)
+		r.cli.log(ctx, LogLevelError, "[lark] MeetingRoom#DeleteRoom POST https://open.feishu.cn/open-apis/meeting_room/room/delete failed, request_id: %s, status_code: %d, error: %s", requestID, statusCode, err)
 		return nil, response, err
 	} else if resp.Code != 0 {
-		r.cli.logError(ctx, "[lark] MeetingRoom#DeleteRoom POST https://open.feishu.cn/open-apis/meeting_room/room/delete failed, code: %d, msg: %s", resp.Code, resp.Msg)
+		r.cli.log(ctx, LogLevelError, "[lark] MeetingRoom#DeleteRoom POST https://open.feishu.cn/open-apis/meeting_room/room/delete failed, request_id: %s, status_code: %d, code: %d, msg: %s", requestID, statusCode, resp.Code, resp.Msg)
 		return nil, response, NewError("MeetingRoom", "DeleteRoom", resp.Code, resp.Msg)
 	}
 
-	r.cli.logDebug(ctx, "[lark] MeetingRoom#DeleteRoom request_id: %s, response: %s", response.RequestID, jsonString(resp.Data))
+	r.cli.log(ctx, LogLevelDebug, "[lark] MeetingRoom#DeleteRoom success, request_id: %s, status_code: %d, response: %s", requestID, statusCode, jsonString(resp.Data))
 
 	return resp.Data, response, nil
 }

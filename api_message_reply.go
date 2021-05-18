@@ -16,12 +16,12 @@ import (
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/reply
 func (r *MessageService) ReplyRawMessage(ctx context.Context, request *ReplyRawMessageReq, options ...MethodOptionFunc) (*ReplyRawMessageResp, *Response, error) {
 	if r.cli.mock.mockMessageReplyRawMessage != nil {
-		r.cli.logDebug(ctx, "[lark] Message#ReplyRawMessage mock enable")
+		r.cli.log(ctx, LogLevelDebug, "[lark] Message#ReplyRawMessage mock enable")
 		return r.cli.mock.mockMessageReplyRawMessage(ctx, request, options...)
 	}
 
-	r.cli.logInfo(ctx, "[lark] Message#ReplyRawMessage call api")
-	r.cli.logDebug(ctx, "[lark] Message#ReplyRawMessage request: %s", jsonString(request))
+	r.cli.log(ctx, LogLevelInfo, "[lark] Message#ReplyRawMessage call api")
+	r.cli.log(ctx, LogLevelDebug, "[lark] Message#ReplyRawMessage request: %s", jsonString(request))
 
 	req := &RawRequestReq{
 		Method:                "POST",
@@ -33,15 +33,16 @@ func (r *MessageService) ReplyRawMessage(ctx context.Context, request *ReplyRawM
 	resp := new(replyRawMessageResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
+	requestID, statusCode := getResponseRequestID(response)
 	if err != nil {
-		r.cli.logError(ctx, "[lark] Message#ReplyRawMessage POST https://open.feishu.cn/open-apis/im/v1/messages/:message_id/reply failed: %s", err)
+		r.cli.log(ctx, LogLevelError, "[lark] Message#ReplyRawMessage POST https://open.feishu.cn/open-apis/im/v1/messages/:message_id/reply failed, request_id: %s, status_code: %d, error: %s", requestID, statusCode, err)
 		return nil, response, err
 	} else if resp.Code != 0 {
-		r.cli.logError(ctx, "[lark] Message#ReplyRawMessage POST https://open.feishu.cn/open-apis/im/v1/messages/:message_id/reply failed, code: %d, msg: %s", resp.Code, resp.Msg)
+		r.cli.log(ctx, LogLevelError, "[lark] Message#ReplyRawMessage POST https://open.feishu.cn/open-apis/im/v1/messages/:message_id/reply failed, request_id: %s, status_code: %d, code: %d, msg: %s", requestID, statusCode, resp.Code, resp.Msg)
 		return nil, response, NewError("Message", "ReplyRawMessage", resp.Code, resp.Msg)
 	}
 
-	r.cli.logDebug(ctx, "[lark] Message#ReplyRawMessage request_id: %s, response: %s", response.RequestID, jsonString(resp.Data))
+	r.cli.log(ctx, LogLevelDebug, "[lark] Message#ReplyRawMessage success, request_id: %s, status_code: %d, response: %s", requestID, statusCode, jsonString(resp.Data))
 
 	return resp.Data, response, nil
 }

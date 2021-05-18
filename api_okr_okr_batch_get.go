@@ -13,12 +13,12 @@ import (
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/okr-v1/okr/batch_get
 func (r *OKRService) BatchGetOKR(ctx context.Context, request *BatchGetOKRReq, options ...MethodOptionFunc) (*BatchGetOKRResp, *Response, error) {
 	if r.cli.mock.mockOKRBatchGetOKR != nil {
-		r.cli.logDebug(ctx, "[lark] OKR#BatchGetOKR mock enable")
+		r.cli.log(ctx, LogLevelDebug, "[lark] OKR#BatchGetOKR mock enable")
 		return r.cli.mock.mockOKRBatchGetOKR(ctx, request, options...)
 	}
 
-	r.cli.logInfo(ctx, "[lark] OKR#BatchGetOKR call api")
-	r.cli.logDebug(ctx, "[lark] OKR#BatchGetOKR request: %s", jsonString(request))
+	r.cli.log(ctx, LogLevelInfo, "[lark] OKR#BatchGetOKR call api")
+	r.cli.log(ctx, LogLevelDebug, "[lark] OKR#BatchGetOKR request: %s", jsonString(request))
 
 	req := &RawRequestReq{
 		Method:                "GET",
@@ -26,20 +26,22 @@ func (r *OKRService) BatchGetOKR(ctx context.Context, request *BatchGetOKRReq, o
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
-		NeedUserAccessToken:   true,
+
+		NeedUserAccessToken: true,
 	}
 	resp := new(batchGetOKRResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
+	requestID, statusCode := getResponseRequestID(response)
 	if err != nil {
-		r.cli.logError(ctx, "[lark] OKR#BatchGetOKR GET https://open.feishu.cn/open-apis/okr/v1/okrs/batch_get failed: %s", err)
+		r.cli.log(ctx, LogLevelError, "[lark] OKR#BatchGetOKR GET https://open.feishu.cn/open-apis/okr/v1/okrs/batch_get failed, request_id: %s, status_code: %d, error: %s", requestID, statusCode, err)
 		return nil, response, err
 	} else if resp.Code != 0 {
-		r.cli.logError(ctx, "[lark] OKR#BatchGetOKR GET https://open.feishu.cn/open-apis/okr/v1/okrs/batch_get failed, code: %d, msg: %s", resp.Code, resp.Msg)
+		r.cli.log(ctx, LogLevelError, "[lark] OKR#BatchGetOKR GET https://open.feishu.cn/open-apis/okr/v1/okrs/batch_get failed, request_id: %s, status_code: %d, code: %d, msg: %s", requestID, statusCode, resp.Code, resp.Msg)
 		return nil, response, NewError("OKR", "BatchGetOKR", resp.Code, resp.Msg)
 	}
 
-	r.cli.logDebug(ctx, "[lark] OKR#BatchGetOKR request_id: %s, response: %s", response.RequestID, jsonString(resp.Data))
+	r.cli.log(ctx, LogLevelDebug, "[lark] OKR#BatchGetOKR success, request_id: %s, status_code: %d, response: %s", requestID, statusCode, jsonString(resp.Data))
 
 	return resp.Data, response, nil
 }

@@ -11,32 +11,34 @@ import (
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table-field/create
 func (r *BitableService) CreateField(ctx context.Context, request *CreateFieldReq, options ...MethodOptionFunc) (*CreateFieldResp, *Response, error) {
 	if r.cli.mock.mockBitableCreateField != nil {
-		r.cli.logDebug(ctx, "[lark] Bitable#CreateField mock enable")
+		r.cli.log(ctx, LogLevelDebug, "[lark] Bitable#CreateField mock enable")
 		return r.cli.mock.mockBitableCreateField(ctx, request, options...)
 	}
 
-	r.cli.logInfo(ctx, "[lark] Bitable#CreateField call api")
-	r.cli.logDebug(ctx, "[lark] Bitable#CreateField request: %s", jsonString(request))
+	r.cli.log(ctx, LogLevelInfo, "[lark] Bitable#CreateField call api")
+	r.cli.log(ctx, LogLevelDebug, "[lark] Bitable#CreateField request: %s", jsonString(request))
 
 	req := &RawRequestReq{
-		Method:              "POST",
-		URL:                 "https://open.feishu.cn/open-apis/bitable/v1/apps/:app_token/tables/:table_id/fields",
-		Body:                request,
-		MethodOption:        newMethodOption(options),
+		Method:       "POST",
+		URL:          "https://open.feishu.cn/open-apis/bitable/v1/apps/:app_token/tables/:table_id/fields",
+		Body:         request,
+		MethodOption: newMethodOption(options),
+
 		NeedUserAccessToken: true,
 	}
 	resp := new(createFieldResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
+	requestID, statusCode := getResponseRequestID(response)
 	if err != nil {
-		r.cli.logError(ctx, "[lark] Bitable#CreateField POST https://open.feishu.cn/open-apis/bitable/v1/apps/:app_token/tables/:table_id/fields failed: %s", err)
+		r.cli.log(ctx, LogLevelError, "[lark] Bitable#CreateField POST https://open.feishu.cn/open-apis/bitable/v1/apps/:app_token/tables/:table_id/fields failed, request_id: %s, status_code: %d, error: %s", requestID, statusCode, err)
 		return nil, response, err
 	} else if resp.Code != 0 {
-		r.cli.logError(ctx, "[lark] Bitable#CreateField POST https://open.feishu.cn/open-apis/bitable/v1/apps/:app_token/tables/:table_id/fields failed, code: %d, msg: %s", resp.Code, resp.Msg)
+		r.cli.log(ctx, LogLevelError, "[lark] Bitable#CreateField POST https://open.feishu.cn/open-apis/bitable/v1/apps/:app_token/tables/:table_id/fields failed, request_id: %s, status_code: %d, code: %d, msg: %s", requestID, statusCode, resp.Code, resp.Msg)
 		return nil, response, NewError("Bitable", "CreateField", resp.Code, resp.Msg)
 	}
 
-	r.cli.logDebug(ctx, "[lark] Bitable#CreateField request_id: %s, response: %s", response.RequestID, jsonString(resp.Data))
+	r.cli.log(ctx, LogLevelDebug, "[lark] Bitable#CreateField success, request_id: %s, status_code: %d, response: %s", requestID, statusCode, jsonString(resp.Data))
 
 	return resp.Data, response, nil
 }

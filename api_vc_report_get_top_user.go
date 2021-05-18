@@ -13,12 +13,12 @@ import (
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/vc-v1/report/get_top_user
 func (r *VCService) GetTopUserReport(ctx context.Context, request *GetTopUserReportReq, options ...MethodOptionFunc) (*GetTopUserReportResp, *Response, error) {
 	if r.cli.mock.mockVCGetTopUserReport != nil {
-		r.cli.logDebug(ctx, "[lark] VC#GetTopUserReport mock enable")
+		r.cli.log(ctx, LogLevelDebug, "[lark] VC#GetTopUserReport mock enable")
 		return r.cli.mock.mockVCGetTopUserReport(ctx, request, options...)
 	}
 
-	r.cli.logInfo(ctx, "[lark] VC#GetTopUserReport call api")
-	r.cli.logDebug(ctx, "[lark] VC#GetTopUserReport request: %s", jsonString(request))
+	r.cli.log(ctx, LogLevelInfo, "[lark] VC#GetTopUserReport call api")
+	r.cli.log(ctx, LogLevelDebug, "[lark] VC#GetTopUserReport request: %s", jsonString(request))
 
 	req := &RawRequestReq{
 		Method:                "GET",
@@ -30,15 +30,16 @@ func (r *VCService) GetTopUserReport(ctx context.Context, request *GetTopUserRep
 	resp := new(getTopUserReportResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
+	requestID, statusCode := getResponseRequestID(response)
 	if err != nil {
-		r.cli.logError(ctx, "[lark] VC#GetTopUserReport GET https://open.feishu.cn/open-apis/vc/v1/reports/get_top_user failed: %s", err)
+		r.cli.log(ctx, LogLevelError, "[lark] VC#GetTopUserReport GET https://open.feishu.cn/open-apis/vc/v1/reports/get_top_user failed, request_id: %s, status_code: %d, error: %s", requestID, statusCode, err)
 		return nil, response, err
 	} else if resp.Code != 0 {
-		r.cli.logError(ctx, "[lark] VC#GetTopUserReport GET https://open.feishu.cn/open-apis/vc/v1/reports/get_top_user failed, code: %d, msg: %s", resp.Code, resp.Msg)
+		r.cli.log(ctx, LogLevelError, "[lark] VC#GetTopUserReport GET https://open.feishu.cn/open-apis/vc/v1/reports/get_top_user failed, request_id: %s, status_code: %d, code: %d, msg: %s", requestID, statusCode, resp.Code, resp.Msg)
 		return nil, response, NewError("VC", "GetTopUserReport", resp.Code, resp.Msg)
 	}
 
-	r.cli.logDebug(ctx, "[lark] VC#GetTopUserReport request_id: %s, response: %s", response.RequestID, jsonString(resp.Data))
+	r.cli.log(ctx, LogLevelDebug, "[lark] VC#GetTopUserReport success, request_id: %s, status_code: %d, response: %s", requestID, statusCode, jsonString(resp.Data))
 
 	return resp.Data, response, nil
 }

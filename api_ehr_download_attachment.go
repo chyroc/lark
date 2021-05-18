@@ -16,12 +16,12 @@ import (
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/ehr/ehr-v1/attachment/get
 func (r *EHRService) DownloadAttachments(ctx context.Context, request *DownloadAttachmentsReq, options ...MethodOptionFunc) (*DownloadAttachmentsResp, *Response, error) {
 	if r.cli.mock.mockEHRDownloadAttachments != nil {
-		r.cli.logDebug(ctx, "[lark] EHR#DownloadAttachments mock enable")
+		r.cli.log(ctx, LogLevelDebug, "[lark] EHR#DownloadAttachments mock enable")
 		return r.cli.mock.mockEHRDownloadAttachments(ctx, request, options...)
 	}
 
-	r.cli.logInfo(ctx, "[lark] EHR#DownloadAttachments call api")
-	r.cli.logDebug(ctx, "[lark] EHR#DownloadAttachments request: %s", jsonString(request))
+	r.cli.log(ctx, LogLevelInfo, "[lark] EHR#DownloadAttachments call api")
+	r.cli.log(ctx, LogLevelDebug, "[lark] EHR#DownloadAttachments request: %s", jsonString(request))
 
 	req := &RawRequestReq{
 		Method:                "GET",
@@ -33,15 +33,16 @@ func (r *EHRService) DownloadAttachments(ctx context.Context, request *DownloadA
 	resp := new(downloadAttachmentsResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
+	requestID, statusCode := getResponseRequestID(response)
 	if err != nil {
-		r.cli.logError(ctx, "[lark] EHR#DownloadAttachments GET https://open.feishu.cn/open-apis/ehr/v1/attachments/:token failed: %s", err)
+		r.cli.log(ctx, LogLevelError, "[lark] EHR#DownloadAttachments GET https://open.feishu.cn/open-apis/ehr/v1/attachments/:token failed, request_id: %s, status_code: %d, error: %s", requestID, statusCode, err)
 		return nil, response, err
 	} else if resp.Code != 0 {
-		r.cli.logError(ctx, "[lark] EHR#DownloadAttachments GET https://open.feishu.cn/open-apis/ehr/v1/attachments/:token failed, code: %d, msg: %s", resp.Code, resp.Msg)
+		r.cli.log(ctx, LogLevelError, "[lark] EHR#DownloadAttachments GET https://open.feishu.cn/open-apis/ehr/v1/attachments/:token failed, request_id: %s, status_code: %d, code: %d, msg: %s", requestID, statusCode, resp.Code, resp.Msg)
 		return nil, response, NewError("EHR", "DownloadAttachments", resp.Code, resp.Msg)
 	}
 
-	r.cli.logDebug(ctx, "[lark] EHR#DownloadAttachments request_id: %s, response: %s", response.RequestID, jsonString(resp.Data))
+	r.cli.log(ctx, LogLevelDebug, "[lark] EHR#DownloadAttachments success, request_id: %s, status_code: %d, response: %s", requestID, statusCode, jsonString(resp.Data))
 
 	return resp.Data, response, nil
 }

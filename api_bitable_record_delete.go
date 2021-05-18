@@ -11,32 +11,34 @@ import (
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table-record/delete
 func (r *BitableService) DeleteRecord(ctx context.Context, request *DeleteRecordReq, options ...MethodOptionFunc) (*DeleteRecordResp, *Response, error) {
 	if r.cli.mock.mockBitableDeleteRecord != nil {
-		r.cli.logDebug(ctx, "[lark] Bitable#DeleteRecord mock enable")
+		r.cli.log(ctx, LogLevelDebug, "[lark] Bitable#DeleteRecord mock enable")
 		return r.cli.mock.mockBitableDeleteRecord(ctx, request, options...)
 	}
 
-	r.cli.logInfo(ctx, "[lark] Bitable#DeleteRecord call api")
-	r.cli.logDebug(ctx, "[lark] Bitable#DeleteRecord request: %s", jsonString(request))
+	r.cli.log(ctx, LogLevelInfo, "[lark] Bitable#DeleteRecord call api")
+	r.cli.log(ctx, LogLevelDebug, "[lark] Bitable#DeleteRecord request: %s", jsonString(request))
 
 	req := &RawRequestReq{
-		Method:              "DELETE",
-		URL:                 "https://open.feishu.cn/open-apis/bitable/v1/apps/:app_token/tables/:table_id/records/:record_id",
-		Body:                request,
-		MethodOption:        newMethodOption(options),
+		Method:       "DELETE",
+		URL:          "https://open.feishu.cn/open-apis/bitable/v1/apps/:app_token/tables/:table_id/records/:record_id",
+		Body:         request,
+		MethodOption: newMethodOption(options),
+
 		NeedUserAccessToken: true,
 	}
 	resp := new(deleteRecordResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
+	requestID, statusCode := getResponseRequestID(response)
 	if err != nil {
-		r.cli.logError(ctx, "[lark] Bitable#DeleteRecord DELETE https://open.feishu.cn/open-apis/bitable/v1/apps/:app_token/tables/:table_id/records/:record_id failed: %s", err)
+		r.cli.log(ctx, LogLevelError, "[lark] Bitable#DeleteRecord DELETE https://open.feishu.cn/open-apis/bitable/v1/apps/:app_token/tables/:table_id/records/:record_id failed, request_id: %s, status_code: %d, error: %s", requestID, statusCode, err)
 		return nil, response, err
 	} else if resp.Code != 0 {
-		r.cli.logError(ctx, "[lark] Bitable#DeleteRecord DELETE https://open.feishu.cn/open-apis/bitable/v1/apps/:app_token/tables/:table_id/records/:record_id failed, code: %d, msg: %s", resp.Code, resp.Msg)
+		r.cli.log(ctx, LogLevelError, "[lark] Bitable#DeleteRecord DELETE https://open.feishu.cn/open-apis/bitable/v1/apps/:app_token/tables/:table_id/records/:record_id failed, request_id: %s, status_code: %d, code: %d, msg: %s", requestID, statusCode, resp.Code, resp.Msg)
 		return nil, response, NewError("Bitable", "DeleteRecord", resp.Code, resp.Msg)
 	}
 
-	r.cli.logDebug(ctx, "[lark] Bitable#DeleteRecord request_id: %s, response: %s", response.RequestID, jsonString(resp.Data))
+	r.cli.log(ctx, LogLevelDebug, "[lark] Bitable#DeleteRecord success, request_id: %s, status_code: %d, response: %s", requestID, statusCode, jsonString(resp.Data))
 
 	return resp.Data, response, nil
 }

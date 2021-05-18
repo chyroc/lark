@@ -15,12 +15,12 @@ import (
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/Attendance//GetCheckinResults
 func (r *AttendanceService) GetUserTask(ctx context.Context, request *GetUserTaskReq, options ...MethodOptionFunc) (*GetUserTaskResp, *Response, error) {
 	if r.cli.mock.mockAttendanceGetUserTask != nil {
-		r.cli.logDebug(ctx, "[lark] Attendance#GetUserTask mock enable")
+		r.cli.log(ctx, LogLevelDebug, "[lark] Attendance#GetUserTask mock enable")
 		return r.cli.mock.mockAttendanceGetUserTask(ctx, request, options...)
 	}
 
-	r.cli.logInfo(ctx, "[lark] Attendance#GetUserTask call api")
-	r.cli.logDebug(ctx, "[lark] Attendance#GetUserTask request: %s", jsonString(request))
+	r.cli.log(ctx, LogLevelInfo, "[lark] Attendance#GetUserTask call api")
+	r.cli.log(ctx, LogLevelDebug, "[lark] Attendance#GetUserTask request: %s", jsonString(request))
 
 	req := &RawRequestReq{
 		Method:                "POST",
@@ -32,15 +32,16 @@ func (r *AttendanceService) GetUserTask(ctx context.Context, request *GetUserTas
 	resp := new(getUserTaskResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
+	requestID, statusCode := getResponseRequestID(response)
 	if err != nil {
-		r.cli.logError(ctx, "[lark] Attendance#GetUserTask POST https://open.feishu.cn/open-apis/attendance/v1/user_tasks/query failed: %s", err)
+		r.cli.log(ctx, LogLevelError, "[lark] Attendance#GetUserTask POST https://open.feishu.cn/open-apis/attendance/v1/user_tasks/query failed, request_id: %s, status_code: %d, error: %s", requestID, statusCode, err)
 		return nil, response, err
 	} else if resp.Code != 0 {
-		r.cli.logError(ctx, "[lark] Attendance#GetUserTask POST https://open.feishu.cn/open-apis/attendance/v1/user_tasks/query failed, code: %d, msg: %s", resp.Code, resp.Msg)
+		r.cli.log(ctx, LogLevelError, "[lark] Attendance#GetUserTask POST https://open.feishu.cn/open-apis/attendance/v1/user_tasks/query failed, request_id: %s, status_code: %d, code: %d, msg: %s", requestID, statusCode, resp.Code, resp.Msg)
 		return nil, response, NewError("Attendance", "GetUserTask", resp.Code, resp.Msg)
 	}
 
-	r.cli.logDebug(ctx, "[lark] Attendance#GetUserTask request_id: %s, response: %s", response.RequestID, jsonString(resp.Data))
+	r.cli.log(ctx, LogLevelDebug, "[lark] Attendance#GetUserTask success, request_id: %s, status_code: %d, response: %s", requestID, statusCode, jsonString(resp.Data))
 
 	return resp.Data, response, nil
 }

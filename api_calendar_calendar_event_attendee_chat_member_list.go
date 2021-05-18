@@ -14,12 +14,12 @@ import (
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar-event-attendee-chat_member/list
 func (r *CalendarService) GetCalendarEventAttendeeChatMemberList(ctx context.Context, request *GetCalendarEventAttendeeChatMemberListReq, options ...MethodOptionFunc) (*GetCalendarEventAttendeeChatMemberListResp, *Response, error) {
 	if r.cli.mock.mockCalendarGetCalendarEventAttendeeChatMemberList != nil {
-		r.cli.logDebug(ctx, "[lark] Calendar#GetCalendarEventAttendeeChatMemberList mock enable")
+		r.cli.log(ctx, LogLevelDebug, "[lark] Calendar#GetCalendarEventAttendeeChatMemberList mock enable")
 		return r.cli.mock.mockCalendarGetCalendarEventAttendeeChatMemberList(ctx, request, options...)
 	}
 
-	r.cli.logInfo(ctx, "[lark] Calendar#GetCalendarEventAttendeeChatMemberList call api")
-	r.cli.logDebug(ctx, "[lark] Calendar#GetCalendarEventAttendeeChatMemberList request: %s", jsonString(request))
+	r.cli.log(ctx, LogLevelInfo, "[lark] Calendar#GetCalendarEventAttendeeChatMemberList call api")
+	r.cli.log(ctx, LogLevelDebug, "[lark] Calendar#GetCalendarEventAttendeeChatMemberList request: %s", jsonString(request))
 
 	req := &RawRequestReq{
 		Method:                "GET",
@@ -27,20 +27,22 @@ func (r *CalendarService) GetCalendarEventAttendeeChatMemberList(ctx context.Con
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
-		NeedUserAccessToken:   true,
+
+		NeedUserAccessToken: true,
 	}
 	resp := new(getCalendarEventAttendeeChatMemberListResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
+	requestID, statusCode := getResponseRequestID(response)
 	if err != nil {
-		r.cli.logError(ctx, "[lark] Calendar#GetCalendarEventAttendeeChatMemberList GET https://open.feishu.cn/open-apis/calendar/v4/calendars/:calendar_id/events/:event_id/attendees/:attendee_id/chat_members failed: %s", err)
+		r.cli.log(ctx, LogLevelError, "[lark] Calendar#GetCalendarEventAttendeeChatMemberList GET https://open.feishu.cn/open-apis/calendar/v4/calendars/:calendar_id/events/:event_id/attendees/:attendee_id/chat_members failed, request_id: %s, status_code: %d, error: %s", requestID, statusCode, err)
 		return nil, response, err
 	} else if resp.Code != 0 {
-		r.cli.logError(ctx, "[lark] Calendar#GetCalendarEventAttendeeChatMemberList GET https://open.feishu.cn/open-apis/calendar/v4/calendars/:calendar_id/events/:event_id/attendees/:attendee_id/chat_members failed, code: %d, msg: %s", resp.Code, resp.Msg)
+		r.cli.log(ctx, LogLevelError, "[lark] Calendar#GetCalendarEventAttendeeChatMemberList GET https://open.feishu.cn/open-apis/calendar/v4/calendars/:calendar_id/events/:event_id/attendees/:attendee_id/chat_members failed, request_id: %s, status_code: %d, code: %d, msg: %s", requestID, statusCode, resp.Code, resp.Msg)
 		return nil, response, NewError("Calendar", "GetCalendarEventAttendeeChatMemberList", resp.Code, resp.Msg)
 	}
 
-	r.cli.logDebug(ctx, "[lark] Calendar#GetCalendarEventAttendeeChatMemberList request_id: %s, response: %s", response.RequestID, jsonString(resp.Data))
+	r.cli.log(ctx, LogLevelDebug, "[lark] Calendar#GetCalendarEventAttendeeChatMemberList success, request_id: %s, status_code: %d, response: %s", requestID, statusCode, jsonString(resp.Data))
 
 	return resp.Data, response, nil
 }

@@ -13,32 +13,34 @@ import (
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/vc-v1/reserve/apply
 func (r *VCService) ApplyReserve(ctx context.Context, request *ApplyReserveReq, options ...MethodOptionFunc) (*ApplyReserveResp, *Response, error) {
 	if r.cli.mock.mockVCApplyReserve != nil {
-		r.cli.logDebug(ctx, "[lark] VC#ApplyReserve mock enable")
+		r.cli.log(ctx, LogLevelDebug, "[lark] VC#ApplyReserve mock enable")
 		return r.cli.mock.mockVCApplyReserve(ctx, request, options...)
 	}
 
-	r.cli.logInfo(ctx, "[lark] VC#ApplyReserve call api")
-	r.cli.logDebug(ctx, "[lark] VC#ApplyReserve request: %s", jsonString(request))
+	r.cli.log(ctx, LogLevelInfo, "[lark] VC#ApplyReserve call api")
+	r.cli.log(ctx, LogLevelDebug, "[lark] VC#ApplyReserve request: %s", jsonString(request))
 
 	req := &RawRequestReq{
-		Method:              "POST",
-		URL:                 "https://open.feishu.cn/open-apis/vc/v1/reserves/apply",
-		Body:                request,
-		MethodOption:        newMethodOption(options),
+		Method:       "POST",
+		URL:          "https://open.feishu.cn/open-apis/vc/v1/reserves/apply",
+		Body:         request,
+		MethodOption: newMethodOption(options),
+
 		NeedUserAccessToken: true,
 	}
 	resp := new(applyReserveResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
+	requestID, statusCode := getResponseRequestID(response)
 	if err != nil {
-		r.cli.logError(ctx, "[lark] VC#ApplyReserve POST https://open.feishu.cn/open-apis/vc/v1/reserves/apply failed: %s", err)
+		r.cli.log(ctx, LogLevelError, "[lark] VC#ApplyReserve POST https://open.feishu.cn/open-apis/vc/v1/reserves/apply failed, request_id: %s, status_code: %d, error: %s", requestID, statusCode, err)
 		return nil, response, err
 	} else if resp.Code != 0 {
-		r.cli.logError(ctx, "[lark] VC#ApplyReserve POST https://open.feishu.cn/open-apis/vc/v1/reserves/apply failed, code: %d, msg: %s", resp.Code, resp.Msg)
+		r.cli.log(ctx, LogLevelError, "[lark] VC#ApplyReserve POST https://open.feishu.cn/open-apis/vc/v1/reserves/apply failed, request_id: %s, status_code: %d, code: %d, msg: %s", requestID, statusCode, resp.Code, resp.Msg)
 		return nil, response, NewError("VC", "ApplyReserve", resp.Code, resp.Msg)
 	}
 
-	r.cli.logDebug(ctx, "[lark] VC#ApplyReserve request_id: %s, response: %s", response.RequestID, jsonString(resp.Data))
+	r.cli.log(ctx, LogLevelDebug, "[lark] VC#ApplyReserve success, request_id: %s, status_code: %d, response: %s", requestID, statusCode, jsonString(resp.Data))
 
 	return resp.Data, response, nil
 }

@@ -11,12 +11,12 @@ import (
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uATNwYjLwUDM24CM1AjN
 func (r *MeetingRoomService) CreateBuilding(ctx context.Context, request *CreateBuildingReq, options ...MethodOptionFunc) (*CreateBuildingResp, *Response, error) {
 	if r.cli.mock.mockMeetingRoomCreateBuilding != nil {
-		r.cli.logDebug(ctx, "[lark] MeetingRoom#CreateBuilding mock enable")
+		r.cli.log(ctx, LogLevelDebug, "[lark] MeetingRoom#CreateBuilding mock enable")
 		return r.cli.mock.mockMeetingRoomCreateBuilding(ctx, request, options...)
 	}
 
-	r.cli.logInfo(ctx, "[lark] MeetingRoom#CreateBuilding call api")
-	r.cli.logDebug(ctx, "[lark] MeetingRoom#CreateBuilding request: %s", jsonString(request))
+	r.cli.log(ctx, LogLevelInfo, "[lark] MeetingRoom#CreateBuilding call api")
+	r.cli.log(ctx, LogLevelDebug, "[lark] MeetingRoom#CreateBuilding request: %s", jsonString(request))
 
 	req := &RawRequestReq{
 		Method:                "POST",
@@ -28,15 +28,16 @@ func (r *MeetingRoomService) CreateBuilding(ctx context.Context, request *Create
 	resp := new(createBuildingResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
+	requestID, statusCode := getResponseRequestID(response)
 	if err != nil {
-		r.cli.logError(ctx, "[lark] MeetingRoom#CreateBuilding POST https://open.feishu.cn/open-apis/meeting_room/building/create failed: %s", err)
+		r.cli.log(ctx, LogLevelError, "[lark] MeetingRoom#CreateBuilding POST https://open.feishu.cn/open-apis/meeting_room/building/create failed, request_id: %s, status_code: %d, error: %s", requestID, statusCode, err)
 		return nil, response, err
 	} else if resp.Code != 0 {
-		r.cli.logError(ctx, "[lark] MeetingRoom#CreateBuilding POST https://open.feishu.cn/open-apis/meeting_room/building/create failed, code: %d, msg: %s", resp.Code, resp.Msg)
+		r.cli.log(ctx, LogLevelError, "[lark] MeetingRoom#CreateBuilding POST https://open.feishu.cn/open-apis/meeting_room/building/create failed, request_id: %s, status_code: %d, code: %d, msg: %s", requestID, statusCode, resp.Code, resp.Msg)
 		return nil, response, NewError("MeetingRoom", "CreateBuilding", resp.Code, resp.Msg)
 	}
 
-	r.cli.logDebug(ctx, "[lark] MeetingRoom#CreateBuilding request_id: %s, response: %s", response.RequestID, jsonString(resp.Data))
+	r.cli.log(ctx, LogLevelDebug, "[lark] MeetingRoom#CreateBuilding success, request_id: %s, status_code: %d, response: %s", requestID, statusCode, jsonString(resp.Data))
 
 	return resp.Data, response, nil
 }

@@ -11,32 +11,34 @@ import (
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table/batch_delete
 func (r *BitableService) BatchDeleteTable(ctx context.Context, request *BatchDeleteTableReq, options ...MethodOptionFunc) (*BatchDeleteTableResp, *Response, error) {
 	if r.cli.mock.mockBitableBatchDeleteTable != nil {
-		r.cli.logDebug(ctx, "[lark] Bitable#BatchDeleteTable mock enable")
+		r.cli.log(ctx, LogLevelDebug, "[lark] Bitable#BatchDeleteTable mock enable")
 		return r.cli.mock.mockBitableBatchDeleteTable(ctx, request, options...)
 	}
 
-	r.cli.logInfo(ctx, "[lark] Bitable#BatchDeleteTable call api")
-	r.cli.logDebug(ctx, "[lark] Bitable#BatchDeleteTable request: %s", jsonString(request))
+	r.cli.log(ctx, LogLevelInfo, "[lark] Bitable#BatchDeleteTable call api")
+	r.cli.log(ctx, LogLevelDebug, "[lark] Bitable#BatchDeleteTable request: %s", jsonString(request))
 
 	req := &RawRequestReq{
-		Method:              "POST",
-		URL:                 "https://open.feishu.cn/open-apis/bitable/v1/apps/:app_token/tables/batch_delete",
-		Body:                request,
-		MethodOption:        newMethodOption(options),
+		Method:       "POST",
+		URL:          "https://open.feishu.cn/open-apis/bitable/v1/apps/:app_token/tables/batch_delete",
+		Body:         request,
+		MethodOption: newMethodOption(options),
+
 		NeedUserAccessToken: true,
 	}
 	resp := new(batchDeleteTableResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
+	requestID, statusCode := getResponseRequestID(response)
 	if err != nil {
-		r.cli.logError(ctx, "[lark] Bitable#BatchDeleteTable POST https://open.feishu.cn/open-apis/bitable/v1/apps/:app_token/tables/batch_delete failed: %s", err)
+		r.cli.log(ctx, LogLevelError, "[lark] Bitable#BatchDeleteTable POST https://open.feishu.cn/open-apis/bitable/v1/apps/:app_token/tables/batch_delete failed, request_id: %s, status_code: %d, error: %s", requestID, statusCode, err)
 		return nil, response, err
 	} else if resp.Code != 0 {
-		r.cli.logError(ctx, "[lark] Bitable#BatchDeleteTable POST https://open.feishu.cn/open-apis/bitable/v1/apps/:app_token/tables/batch_delete failed, code: %d, msg: %s", resp.Code, resp.Msg)
+		r.cli.log(ctx, LogLevelError, "[lark] Bitable#BatchDeleteTable POST https://open.feishu.cn/open-apis/bitable/v1/apps/:app_token/tables/batch_delete failed, request_id: %s, status_code: %d, code: %d, msg: %s", requestID, statusCode, resp.Code, resp.Msg)
 		return nil, response, NewError("Bitable", "BatchDeleteTable", resp.Code, resp.Msg)
 	}
 
-	r.cli.logDebug(ctx, "[lark] Bitable#BatchDeleteTable request_id: %s, response: %s", response.RequestID, jsonString(resp.Data))
+	r.cli.log(ctx, LogLevelDebug, "[lark] Bitable#BatchDeleteTable success, request_id: %s, status_code: %d, response: %s", requestID, statusCode, jsonString(resp.Data))
 
 	return resp.Data, response, nil
 }

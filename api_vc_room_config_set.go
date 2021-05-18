@@ -13,12 +13,12 @@ import (
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/vc-v1/room_config/set
 func (r *VCService) SetRoomConfig(ctx context.Context, request *SetRoomConfigReq, options ...MethodOptionFunc) (*SetRoomConfigResp, *Response, error) {
 	if r.cli.mock.mockVCSetRoomConfig != nil {
-		r.cli.logDebug(ctx, "[lark] VC#SetRoomConfig mock enable")
+		r.cli.log(ctx, LogLevelDebug, "[lark] VC#SetRoomConfig mock enable")
 		return r.cli.mock.mockVCSetRoomConfig(ctx, request, options...)
 	}
 
-	r.cli.logInfo(ctx, "[lark] VC#SetRoomConfig call api")
-	r.cli.logDebug(ctx, "[lark] VC#SetRoomConfig request: %s", jsonString(request))
+	r.cli.log(ctx, LogLevelInfo, "[lark] VC#SetRoomConfig call api")
+	r.cli.log(ctx, LogLevelDebug, "[lark] VC#SetRoomConfig request: %s", jsonString(request))
 
 	req := &RawRequestReq{
 		Method:                "POST",
@@ -30,15 +30,16 @@ func (r *VCService) SetRoomConfig(ctx context.Context, request *SetRoomConfigReq
 	resp := new(setRoomConfigResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
+	requestID, statusCode := getResponseRequestID(response)
 	if err != nil {
-		r.cli.logError(ctx, "[lark] VC#SetRoomConfig POST https://open.feishu.cn/open-apis/vc/v1/room_configs/set failed: %s", err)
+		r.cli.log(ctx, LogLevelError, "[lark] VC#SetRoomConfig POST https://open.feishu.cn/open-apis/vc/v1/room_configs/set failed, request_id: %s, status_code: %d, error: %s", requestID, statusCode, err)
 		return nil, response, err
 	} else if resp.Code != 0 {
-		r.cli.logError(ctx, "[lark] VC#SetRoomConfig POST https://open.feishu.cn/open-apis/vc/v1/room_configs/set failed, code: %d, msg: %s", resp.Code, resp.Msg)
+		r.cli.log(ctx, LogLevelError, "[lark] VC#SetRoomConfig POST https://open.feishu.cn/open-apis/vc/v1/room_configs/set failed, request_id: %s, status_code: %d, code: %d, msg: %s", requestID, statusCode, resp.Code, resp.Msg)
 		return nil, response, NewError("VC", "SetRoomConfig", resp.Code, resp.Msg)
 	}
 
-	r.cli.logDebug(ctx, "[lark] VC#SetRoomConfig request_id: %s, response: %s", response.RequestID, jsonString(resp.Data))
+	r.cli.log(ctx, LogLevelDebug, "[lark] VC#SetRoomConfig success, request_id: %s, status_code: %d, response: %s", requestID, statusCode, jsonString(resp.Data))
 
 	return resp.Data, response, nil
 }

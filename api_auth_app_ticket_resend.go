@@ -13,12 +13,12 @@ import (
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uQjNz4CN2MjL0YzM
 func (r *AuthService) ResendAppTicket(ctx context.Context, request *ResendAppTicketReq, options ...MethodOptionFunc) (*ResendAppTicketResp, *Response, error) {
 	if r.cli.mock.mockAuthResendAppTicket != nil {
-		r.cli.logDebug(ctx, "[lark] Auth#ResendAppTicket mock enable")
+		r.cli.log(ctx, LogLevelDebug, "[lark] Auth#ResendAppTicket mock enable")
 		return r.cli.mock.mockAuthResendAppTicket(ctx, request, options...)
 	}
 
-	r.cli.logInfo(ctx, "[lark] Auth#ResendAppTicket call api")
-	r.cli.logDebug(ctx, "[lark] Auth#ResendAppTicket request: %s", jsonString(request))
+	r.cli.log(ctx, LogLevelInfo, "[lark] Auth#ResendAppTicket call api")
+	r.cli.log(ctx, LogLevelDebug, "[lark] Auth#ResendAppTicket request: %s", jsonString(request))
 
 	req := &RawRequestReq{
 		Method:       "POST",
@@ -29,15 +29,16 @@ func (r *AuthService) ResendAppTicket(ctx context.Context, request *ResendAppTic
 	resp := new(resendAppTicketResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
+	requestID, statusCode := getResponseRequestID(response)
 	if err != nil {
-		r.cli.logError(ctx, "[lark] Auth#ResendAppTicket POST https://open.feishu.cn/open-apis/auth/v3/app_ticket/resend/ failed: %s", err)
+		r.cli.log(ctx, LogLevelError, "[lark] Auth#ResendAppTicket POST https://open.feishu.cn/open-apis/auth/v3/app_ticket/resend/ failed, request_id: %s, status_code: %d, error: %s", requestID, statusCode, err)
 		return nil, response, err
 	} else if resp.Code != 0 {
-		r.cli.logError(ctx, "[lark] Auth#ResendAppTicket POST https://open.feishu.cn/open-apis/auth/v3/app_ticket/resend/ failed, code: %d, msg: %s", resp.Code, resp.Msg)
+		r.cli.log(ctx, LogLevelError, "[lark] Auth#ResendAppTicket POST https://open.feishu.cn/open-apis/auth/v3/app_ticket/resend/ failed, request_id: %s, status_code: %d, code: %d, msg: %s", requestID, statusCode, resp.Code, resp.Msg)
 		return nil, response, NewError("Auth", "ResendAppTicket", resp.Code, resp.Msg)
 	}
 
-	r.cli.logDebug(ctx, "[lark] Auth#ResendAppTicket request_id: %s, response: %s", response.RequestID, jsonString(resp.Data))
+	r.cli.log(ctx, LogLevelDebug, "[lark] Auth#ResendAppTicket success, request_id: %s, status_code: %d, response: %s", requestID, statusCode, jsonString(resp.Data))
 
 	return resp.Data, response, nil
 }

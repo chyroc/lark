@@ -11,12 +11,12 @@ import (
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/mail-v1/public_mailbox/patch
 func (r *MailService) UpdatePublicMailboxPatch(ctx context.Context, request *UpdatePublicMailboxPatchReq, options ...MethodOptionFunc) (*UpdatePublicMailboxPatchResp, *Response, error) {
 	if r.cli.mock.mockMailUpdatePublicMailboxPatch != nil {
-		r.cli.logDebug(ctx, "[lark] Mail#UpdatePublicMailboxPatch mock enable")
+		r.cli.log(ctx, LogLevelDebug, "[lark] Mail#UpdatePublicMailboxPatch mock enable")
 		return r.cli.mock.mockMailUpdatePublicMailboxPatch(ctx, request, options...)
 	}
 
-	r.cli.logInfo(ctx, "[lark] Mail#UpdatePublicMailboxPatch call api")
-	r.cli.logDebug(ctx, "[lark] Mail#UpdatePublicMailboxPatch request: %s", jsonString(request))
+	r.cli.log(ctx, LogLevelInfo, "[lark] Mail#UpdatePublicMailboxPatch call api")
+	r.cli.log(ctx, LogLevelDebug, "[lark] Mail#UpdatePublicMailboxPatch request: %s", jsonString(request))
 
 	req := &RawRequestReq{
 		Method:                "PATCH",
@@ -28,15 +28,16 @@ func (r *MailService) UpdatePublicMailboxPatch(ctx context.Context, request *Upd
 	resp := new(updatePublicMailboxPatchResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
+	requestID, statusCode := getResponseRequestID(response)
 	if err != nil {
-		r.cli.logError(ctx, "[lark] Mail#UpdatePublicMailboxPatch PATCH https://open.feishu.cn/open-apis/mail/v1/public_mailboxes/:public_mailbox_id failed: %s", err)
+		r.cli.log(ctx, LogLevelError, "[lark] Mail#UpdatePublicMailboxPatch PATCH https://open.feishu.cn/open-apis/mail/v1/public_mailboxes/:public_mailbox_id failed, request_id: %s, status_code: %d, error: %s", requestID, statusCode, err)
 		return nil, response, err
 	} else if resp.Code != 0 {
-		r.cli.logError(ctx, "[lark] Mail#UpdatePublicMailboxPatch PATCH https://open.feishu.cn/open-apis/mail/v1/public_mailboxes/:public_mailbox_id failed, code: %d, msg: %s", resp.Code, resp.Msg)
+		r.cli.log(ctx, LogLevelError, "[lark] Mail#UpdatePublicMailboxPatch PATCH https://open.feishu.cn/open-apis/mail/v1/public_mailboxes/:public_mailbox_id failed, request_id: %s, status_code: %d, code: %d, msg: %s", requestID, statusCode, resp.Code, resp.Msg)
 		return nil, response, NewError("Mail", "UpdatePublicMailboxPatch", resp.Code, resp.Msg)
 	}
 
-	r.cli.logDebug(ctx, "[lark] Mail#UpdatePublicMailboxPatch request_id: %s, response: %s", response.RequestID, jsonString(resp.Data))
+	r.cli.log(ctx, LogLevelDebug, "[lark] Mail#UpdatePublicMailboxPatch success, request_id: %s, status_code: %d, response: %s", requestID, statusCode, jsonString(resp.Data))
 
 	return resp.Data, response, nil
 }

@@ -11,12 +11,12 @@ import (
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file-comment/create
 func (r *DriveService) CreateComment(ctx context.Context, request *CreateCommentReq, options ...MethodOptionFunc) (*CreateCommentResp, *Response, error) {
 	if r.cli.mock.mockDriveCreateComment != nil {
-		r.cli.logDebug(ctx, "[lark] Drive#CreateComment mock enable")
+		r.cli.log(ctx, LogLevelDebug, "[lark] Drive#CreateComment mock enable")
 		return r.cli.mock.mockDriveCreateComment(ctx, request, options...)
 	}
 
-	r.cli.logInfo(ctx, "[lark] Drive#CreateComment call api")
-	r.cli.logDebug(ctx, "[lark] Drive#CreateComment request: %s", jsonString(request))
+	r.cli.log(ctx, LogLevelInfo, "[lark] Drive#CreateComment call api")
+	r.cli.log(ctx, LogLevelDebug, "[lark] Drive#CreateComment request: %s", jsonString(request))
 
 	req := &RawRequestReq{
 		Method:                "POST",
@@ -24,20 +24,22 @@ func (r *DriveService) CreateComment(ctx context.Context, request *CreateComment
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
-		NeedUserAccessToken:   true,
+
+		NeedUserAccessToken: true,
 	}
 	resp := new(createCommentResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
+	requestID, statusCode := getResponseRequestID(response)
 	if err != nil {
-		r.cli.logError(ctx, "[lark] Drive#CreateComment POST https://open.feishu.cn/open-apis/drive/v1/files/:file_token/comments failed: %s", err)
+		r.cli.log(ctx, LogLevelError, "[lark] Drive#CreateComment POST https://open.feishu.cn/open-apis/drive/v1/files/:file_token/comments failed, request_id: %s, status_code: %d, error: %s", requestID, statusCode, err)
 		return nil, response, err
 	} else if resp.Code != 0 {
-		r.cli.logError(ctx, "[lark] Drive#CreateComment POST https://open.feishu.cn/open-apis/drive/v1/files/:file_token/comments failed, code: %d, msg: %s", resp.Code, resp.Msg)
+		r.cli.log(ctx, LogLevelError, "[lark] Drive#CreateComment POST https://open.feishu.cn/open-apis/drive/v1/files/:file_token/comments failed, request_id: %s, status_code: %d, code: %d, msg: %s", requestID, statusCode, resp.Code, resp.Msg)
 		return nil, response, NewError("Drive", "CreateComment", resp.Code, resp.Msg)
 	}
 
-	r.cli.logDebug(ctx, "[lark] Drive#CreateComment request_id: %s, response: %s", response.RequestID, jsonString(resp.Data))
+	r.cli.log(ctx, LogLevelDebug, "[lark] Drive#CreateComment success, request_id: %s, status_code: %d, response: %s", requestID, statusCode, jsonString(resp.Data))
 
 	return resp.Data, response, nil
 }

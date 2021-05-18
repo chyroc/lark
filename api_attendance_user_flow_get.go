@@ -13,12 +13,12 @@ import (
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/Attendance//GetCardSwipeHistory
 func (r *AttendanceService) GetUserFlow(ctx context.Context, request *GetUserFlowReq, options ...MethodOptionFunc) (*GetUserFlowResp, *Response, error) {
 	if r.cli.mock.mockAttendanceGetUserFlow != nil {
-		r.cli.logDebug(ctx, "[lark] Attendance#GetUserFlow mock enable")
+		r.cli.log(ctx, LogLevelDebug, "[lark] Attendance#GetUserFlow mock enable")
 		return r.cli.mock.mockAttendanceGetUserFlow(ctx, request, options...)
 	}
 
-	r.cli.logInfo(ctx, "[lark] Attendance#GetUserFlow call api")
-	r.cli.logDebug(ctx, "[lark] Attendance#GetUserFlow request: %s", jsonString(request))
+	r.cli.log(ctx, LogLevelInfo, "[lark] Attendance#GetUserFlow call api")
+	r.cli.log(ctx, LogLevelDebug, "[lark] Attendance#GetUserFlow request: %s", jsonString(request))
 
 	req := &RawRequestReq{
 		Method:                "GET",
@@ -30,15 +30,16 @@ func (r *AttendanceService) GetUserFlow(ctx context.Context, request *GetUserFlo
 	resp := new(getUserFlowResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
+	requestID, statusCode := getResponseRequestID(response)
 	if err != nil {
-		r.cli.logError(ctx, "[lark] Attendance#GetUserFlow GET https://open.feishu.cn/open-apis/attendance/v1/user_flows/:user_flow_id failed: %s", err)
+		r.cli.log(ctx, LogLevelError, "[lark] Attendance#GetUserFlow GET https://open.feishu.cn/open-apis/attendance/v1/user_flows/:user_flow_id failed, request_id: %s, status_code: %d, error: %s", requestID, statusCode, err)
 		return nil, response, err
 	} else if resp.Code != 0 {
-		r.cli.logError(ctx, "[lark] Attendance#GetUserFlow GET https://open.feishu.cn/open-apis/attendance/v1/user_flows/:user_flow_id failed, code: %d, msg: %s", resp.Code, resp.Msg)
+		r.cli.log(ctx, LogLevelError, "[lark] Attendance#GetUserFlow GET https://open.feishu.cn/open-apis/attendance/v1/user_flows/:user_flow_id failed, request_id: %s, status_code: %d, code: %d, msg: %s", requestID, statusCode, resp.Code, resp.Msg)
 		return nil, response, NewError("Attendance", "GetUserFlow", resp.Code, resp.Msg)
 	}
 
-	r.cli.logDebug(ctx, "[lark] Attendance#GetUserFlow request_id: %s, response: %s", response.RequestID, jsonString(resp.Data))
+	r.cli.log(ctx, LogLevelDebug, "[lark] Attendance#GetUserFlow success, request_id: %s, status_code: %d, response: %s", requestID, statusCode, jsonString(resp.Data))
 
 	return resp.Data, response, nil
 }

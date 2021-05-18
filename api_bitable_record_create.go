@@ -11,32 +11,34 @@ import (
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table-record/create
 func (r *BitableService) CreateRecord(ctx context.Context, request *CreateRecordReq, options ...MethodOptionFunc) (*CreateRecordResp, *Response, error) {
 	if r.cli.mock.mockBitableCreateRecord != nil {
-		r.cli.logDebug(ctx, "[lark] Bitable#CreateRecord mock enable")
+		r.cli.log(ctx, LogLevelDebug, "[lark] Bitable#CreateRecord mock enable")
 		return r.cli.mock.mockBitableCreateRecord(ctx, request, options...)
 	}
 
-	r.cli.logInfo(ctx, "[lark] Bitable#CreateRecord call api")
-	r.cli.logDebug(ctx, "[lark] Bitable#CreateRecord request: %s", jsonString(request))
+	r.cli.log(ctx, LogLevelInfo, "[lark] Bitable#CreateRecord call api")
+	r.cli.log(ctx, LogLevelDebug, "[lark] Bitable#CreateRecord request: %s", jsonString(request))
 
 	req := &RawRequestReq{
-		Method:              "POST",
-		URL:                 "https://open.feishu.cn/open-apis/bitable/v1/apps/:app_token/tables/:table_id/records",
-		Body:                request,
-		MethodOption:        newMethodOption(options),
+		Method:       "POST",
+		URL:          "https://open.feishu.cn/open-apis/bitable/v1/apps/:app_token/tables/:table_id/records",
+		Body:         request,
+		MethodOption: newMethodOption(options),
+
 		NeedUserAccessToken: true,
 	}
 	resp := new(createRecordResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
+	requestID, statusCode := getResponseRequestID(response)
 	if err != nil {
-		r.cli.logError(ctx, "[lark] Bitable#CreateRecord POST https://open.feishu.cn/open-apis/bitable/v1/apps/:app_token/tables/:table_id/records failed: %s", err)
+		r.cli.log(ctx, LogLevelError, "[lark] Bitable#CreateRecord POST https://open.feishu.cn/open-apis/bitable/v1/apps/:app_token/tables/:table_id/records failed, request_id: %s, status_code: %d, error: %s", requestID, statusCode, err)
 		return nil, response, err
 	} else if resp.Code != 0 {
-		r.cli.logError(ctx, "[lark] Bitable#CreateRecord POST https://open.feishu.cn/open-apis/bitable/v1/apps/:app_token/tables/:table_id/records failed, code: %d, msg: %s", resp.Code, resp.Msg)
+		r.cli.log(ctx, LogLevelError, "[lark] Bitable#CreateRecord POST https://open.feishu.cn/open-apis/bitable/v1/apps/:app_token/tables/:table_id/records failed, request_id: %s, status_code: %d, code: %d, msg: %s", requestID, statusCode, resp.Code, resp.Msg)
 		return nil, response, NewError("Bitable", "CreateRecord", resp.Code, resp.Msg)
 	}
 
-	r.cli.logDebug(ctx, "[lark] Bitable#CreateRecord request_id: %s, response: %s", response.RequestID, jsonString(resp.Data))
+	r.cli.log(ctx, LogLevelDebug, "[lark] Bitable#CreateRecord success, request_id: %s, status_code: %d, response: %s", requestID, statusCode, jsonString(resp.Data))
 
 	return resp.Data, response, nil
 }

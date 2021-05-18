@@ -13,12 +13,12 @@ import (
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/Attendance//GetUsersRemedyRecords
 func (r *AttendanceService) GetUserTaskRemedy(ctx context.Context, request *GetUserTaskRemedyReq, options ...MethodOptionFunc) (*GetUserTaskRemedyResp, *Response, error) {
 	if r.cli.mock.mockAttendanceGetUserTaskRemedy != nil {
-		r.cli.logDebug(ctx, "[lark] Attendance#GetUserTaskRemedy mock enable")
+		r.cli.log(ctx, LogLevelDebug, "[lark] Attendance#GetUserTaskRemedy mock enable")
 		return r.cli.mock.mockAttendanceGetUserTaskRemedy(ctx, request, options...)
 	}
 
-	r.cli.logInfo(ctx, "[lark] Attendance#GetUserTaskRemedy call api")
-	r.cli.logDebug(ctx, "[lark] Attendance#GetUserTaskRemedy request: %s", jsonString(request))
+	r.cli.log(ctx, LogLevelInfo, "[lark] Attendance#GetUserTaskRemedy call api")
+	r.cli.log(ctx, LogLevelDebug, "[lark] Attendance#GetUserTaskRemedy request: %s", jsonString(request))
 
 	req := &RawRequestReq{
 		Method:                "POST",
@@ -30,15 +30,16 @@ func (r *AttendanceService) GetUserTaskRemedy(ctx context.Context, request *GetU
 	resp := new(getUserTaskRemedyResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
+	requestID, statusCode := getResponseRequestID(response)
 	if err != nil {
-		r.cli.logError(ctx, "[lark] Attendance#GetUserTaskRemedy POST https://open.feishu.cn/open-apis/attendance/v1/user_task_remedys/query failed: %s", err)
+		r.cli.log(ctx, LogLevelError, "[lark] Attendance#GetUserTaskRemedy POST https://open.feishu.cn/open-apis/attendance/v1/user_task_remedys/query failed, request_id: %s, status_code: %d, error: %s", requestID, statusCode, err)
 		return nil, response, err
 	} else if resp.Code != 0 {
-		r.cli.logError(ctx, "[lark] Attendance#GetUserTaskRemedy POST https://open.feishu.cn/open-apis/attendance/v1/user_task_remedys/query failed, code: %d, msg: %s", resp.Code, resp.Msg)
+		r.cli.log(ctx, LogLevelError, "[lark] Attendance#GetUserTaskRemedy POST https://open.feishu.cn/open-apis/attendance/v1/user_task_remedys/query failed, request_id: %s, status_code: %d, code: %d, msg: %s", requestID, statusCode, resp.Code, resp.Msg)
 		return nil, response, NewError("Attendance", "GetUserTaskRemedy", resp.Code, resp.Msg)
 	}
 
-	r.cli.logDebug(ctx, "[lark] Attendance#GetUserTaskRemedy request_id: %s, response: %s", response.RequestID, jsonString(resp.Data))
+	r.cli.log(ctx, LogLevelDebug, "[lark] Attendance#GetUserTaskRemedy success, request_id: %s, status_code: %d, response: %s", requestID, statusCode, jsonString(resp.Data))
 
 	return resp.Data, response, nil
 }

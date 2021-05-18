@@ -15,12 +15,12 @@ import (
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/get
 func (r *MessageService) GetMessage(ctx context.Context, request *GetMessageReq, options ...MethodOptionFunc) (*GetMessageResp, *Response, error) {
 	if r.cli.mock.mockMessageGetMessage != nil {
-		r.cli.logDebug(ctx, "[lark] Message#GetMessage mock enable")
+		r.cli.log(ctx, LogLevelDebug, "[lark] Message#GetMessage mock enable")
 		return r.cli.mock.mockMessageGetMessage(ctx, request, options...)
 	}
 
-	r.cli.logInfo(ctx, "[lark] Message#GetMessage call api")
-	r.cli.logDebug(ctx, "[lark] Message#GetMessage request: %s", jsonString(request))
+	r.cli.log(ctx, LogLevelInfo, "[lark] Message#GetMessage call api")
+	r.cli.log(ctx, LogLevelDebug, "[lark] Message#GetMessage request: %s", jsonString(request))
 
 	req := &RawRequestReq{
 		Method:                "GET",
@@ -32,15 +32,16 @@ func (r *MessageService) GetMessage(ctx context.Context, request *GetMessageReq,
 	resp := new(getMessageResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
+	requestID, statusCode := getResponseRequestID(response)
 	if err != nil {
-		r.cli.logError(ctx, "[lark] Message#GetMessage GET https://open.feishu.cn/open-apis/im/v1/messages/:message_id failed: %s", err)
+		r.cli.log(ctx, LogLevelError, "[lark] Message#GetMessage GET https://open.feishu.cn/open-apis/im/v1/messages/:message_id failed, request_id: %s, status_code: %d, error: %s", requestID, statusCode, err)
 		return nil, response, err
 	} else if resp.Code != 0 {
-		r.cli.logError(ctx, "[lark] Message#GetMessage GET https://open.feishu.cn/open-apis/im/v1/messages/:message_id failed, code: %d, msg: %s", resp.Code, resp.Msg)
+		r.cli.log(ctx, LogLevelError, "[lark] Message#GetMessage GET https://open.feishu.cn/open-apis/im/v1/messages/:message_id failed, request_id: %s, status_code: %d, code: %d, msg: %s", requestID, statusCode, resp.Code, resp.Msg)
 		return nil, response, NewError("Message", "GetMessage", resp.Code, resp.Msg)
 	}
 
-	r.cli.logDebug(ctx, "[lark] Message#GetMessage request_id: %s, response: %s", response.RequestID, jsonString(resp.Data))
+	r.cli.log(ctx, LogLevelDebug, "[lark] Message#GetMessage success, request_id: %s, status_code: %d, response: %s", requestID, statusCode, jsonString(resp.Data))
 
 	return resp.Data, response, nil
 }

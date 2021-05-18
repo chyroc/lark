@@ -11,33 +11,35 @@ import (
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/category/create
 func (r *HelpdeskService) CreateCategory(ctx context.Context, request *CreateCategoryReq, options ...MethodOptionFunc) (*CreateCategoryResp, *Response, error) {
 	if r.cli.mock.mockHelpdeskCreateCategory != nil {
-		r.cli.logDebug(ctx, "[lark] Helpdesk#CreateCategory mock enable")
+		r.cli.log(ctx, LogLevelDebug, "[lark] Helpdesk#CreateCategory mock enable")
 		return r.cli.mock.mockHelpdeskCreateCategory(ctx, request, options...)
 	}
 
-	r.cli.logInfo(ctx, "[lark] Helpdesk#CreateCategory call api")
-	r.cli.logDebug(ctx, "[lark] Helpdesk#CreateCategory request: %s", jsonString(request))
+	r.cli.log(ctx, LogLevelInfo, "[lark] Helpdesk#CreateCategory call api")
+	r.cli.log(ctx, LogLevelDebug, "[lark] Helpdesk#CreateCategory request: %s", jsonString(request))
 
 	req := &RawRequestReq{
-		Method:              "POST",
-		URL:                 "https://open.feishu.cn/open-apis/helpdesk/v1/categories",
-		Body:                request,
-		MethodOption:        newMethodOption(options),
+		Method:       "POST",
+		URL:          "https://open.feishu.cn/open-apis/helpdesk/v1/categories",
+		Body:         request,
+		MethodOption: newMethodOption(options),
+
 		NeedUserAccessToken: true,
 		NeedHelpdeskAuth:    true,
 	}
 	resp := new(createCategoryResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
+	requestID, statusCode := getResponseRequestID(response)
 	if err != nil {
-		r.cli.logError(ctx, "[lark] Helpdesk#CreateCategory POST https://open.feishu.cn/open-apis/helpdesk/v1/categories failed: %s", err)
+		r.cli.log(ctx, LogLevelError, "[lark] Helpdesk#CreateCategory POST https://open.feishu.cn/open-apis/helpdesk/v1/categories failed, request_id: %s, status_code: %d, error: %s", requestID, statusCode, err)
 		return nil, response, err
 	} else if resp.Code != 0 {
-		r.cli.logError(ctx, "[lark] Helpdesk#CreateCategory POST https://open.feishu.cn/open-apis/helpdesk/v1/categories failed, code: %d, msg: %s", resp.Code, resp.Msg)
+		r.cli.log(ctx, LogLevelError, "[lark] Helpdesk#CreateCategory POST https://open.feishu.cn/open-apis/helpdesk/v1/categories failed, request_id: %s, status_code: %d, code: %d, msg: %s", requestID, statusCode, resp.Code, resp.Msg)
 		return nil, response, NewError("Helpdesk", "CreateCategory", resp.Code, resp.Msg)
 	}
 
-	r.cli.logDebug(ctx, "[lark] Helpdesk#CreateCategory request_id: %s, response: %s", response.RequestID, jsonString(resp.Data))
+	r.cli.log(ctx, LogLevelDebug, "[lark] Helpdesk#CreateCategory success, request_id: %s, status_code: %d, response: %s", requestID, statusCode, jsonString(resp.Data))
 
 	return resp.Data, response, nil
 }

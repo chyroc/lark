@@ -13,33 +13,35 @@ import (
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/ticket_customized_field/create-ticket-customized-field
 func (r *HelpdeskService) CreateTicketCustomizedField(ctx context.Context, request *CreateTicketCustomizedFieldReq, options ...MethodOptionFunc) (*CreateTicketCustomizedFieldResp, *Response, error) {
 	if r.cli.mock.mockHelpdeskCreateTicketCustomizedField != nil {
-		r.cli.logDebug(ctx, "[lark] Helpdesk#CreateTicketCustomizedField mock enable")
+		r.cli.log(ctx, LogLevelDebug, "[lark] Helpdesk#CreateTicketCustomizedField mock enable")
 		return r.cli.mock.mockHelpdeskCreateTicketCustomizedField(ctx, request, options...)
 	}
 
-	r.cli.logInfo(ctx, "[lark] Helpdesk#CreateTicketCustomizedField call api")
-	r.cli.logDebug(ctx, "[lark] Helpdesk#CreateTicketCustomizedField request: %s", jsonString(request))
+	r.cli.log(ctx, LogLevelInfo, "[lark] Helpdesk#CreateTicketCustomizedField call api")
+	r.cli.log(ctx, LogLevelDebug, "[lark] Helpdesk#CreateTicketCustomizedField request: %s", jsonString(request))
 
 	req := &RawRequestReq{
-		Method:              "POST",
-		URL:                 "https://open.feishu.cn/open-apis/helpdesk/v1/ticket_customized_fields",
-		Body:                request,
-		MethodOption:        newMethodOption(options),
+		Method:       "POST",
+		URL:          "https://open.feishu.cn/open-apis/helpdesk/v1/ticket_customized_fields",
+		Body:         request,
+		MethodOption: newMethodOption(options),
+
 		NeedUserAccessToken: true,
 		NeedHelpdeskAuth:    true,
 	}
 	resp := new(createTicketCustomizedFieldResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
+	requestID, statusCode := getResponseRequestID(response)
 	if err != nil {
-		r.cli.logError(ctx, "[lark] Helpdesk#CreateTicketCustomizedField POST https://open.feishu.cn/open-apis/helpdesk/v1/ticket_customized_fields failed: %s", err)
+		r.cli.log(ctx, LogLevelError, "[lark] Helpdesk#CreateTicketCustomizedField POST https://open.feishu.cn/open-apis/helpdesk/v1/ticket_customized_fields failed, request_id: %s, status_code: %d, error: %s", requestID, statusCode, err)
 		return nil, response, err
 	} else if resp.Code != 0 {
-		r.cli.logError(ctx, "[lark] Helpdesk#CreateTicketCustomizedField POST https://open.feishu.cn/open-apis/helpdesk/v1/ticket_customized_fields failed, code: %d, msg: %s", resp.Code, resp.Msg)
+		r.cli.log(ctx, LogLevelError, "[lark] Helpdesk#CreateTicketCustomizedField POST https://open.feishu.cn/open-apis/helpdesk/v1/ticket_customized_fields failed, request_id: %s, status_code: %d, code: %d, msg: %s", requestID, statusCode, resp.Code, resp.Msg)
 		return nil, response, NewError("Helpdesk", "CreateTicketCustomizedField", resp.Code, resp.Msg)
 	}
 
-	r.cli.logDebug(ctx, "[lark] Helpdesk#CreateTicketCustomizedField request_id: %s, response: %s", response.RequestID, jsonString(resp.Data))
+	r.cli.log(ctx, LogLevelDebug, "[lark] Helpdesk#CreateTicketCustomizedField success, request_id: %s, status_code: %d, response: %s", requestID, statusCode, jsonString(resp.Data))
 
 	return resp.Data, response, nil
 }

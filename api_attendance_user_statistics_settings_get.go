@@ -11,12 +11,12 @@ import (
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/Attendance//task/query-user-statistics-settings
 func (r *AttendanceService) GetUserStatisticsSettings(ctx context.Context, request *GetUserStatisticsSettingsReq, options ...MethodOptionFunc) (*GetUserStatisticsSettingsResp, *Response, error) {
 	if r.cli.mock.mockAttendanceGetUserStatisticsSettings != nil {
-		r.cli.logDebug(ctx, "[lark] Attendance#GetUserStatisticsSettings mock enable")
+		r.cli.log(ctx, LogLevelDebug, "[lark] Attendance#GetUserStatisticsSettings mock enable")
 		return r.cli.mock.mockAttendanceGetUserStatisticsSettings(ctx, request, options...)
 	}
 
-	r.cli.logInfo(ctx, "[lark] Attendance#GetUserStatisticsSettings call api")
-	r.cli.logDebug(ctx, "[lark] Attendance#GetUserStatisticsSettings request: %s", jsonString(request))
+	r.cli.log(ctx, LogLevelInfo, "[lark] Attendance#GetUserStatisticsSettings call api")
+	r.cli.log(ctx, LogLevelDebug, "[lark] Attendance#GetUserStatisticsSettings request: %s", jsonString(request))
 
 	req := &RawRequestReq{
 		Method:                "POST",
@@ -28,15 +28,16 @@ func (r *AttendanceService) GetUserStatisticsSettings(ctx context.Context, reque
 	resp := new(getUserStatisticsSettingsResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
+	requestID, statusCode := getResponseRequestID(response)
 	if err != nil {
-		r.cli.logError(ctx, "[lark] Attendance#GetUserStatisticsSettings POST https://open.feishu.cn/open-apis/attendance/v1/user_stats_views/query failed: %s", err)
+		r.cli.log(ctx, LogLevelError, "[lark] Attendance#GetUserStatisticsSettings POST https://open.feishu.cn/open-apis/attendance/v1/user_stats_views/query failed, request_id: %s, status_code: %d, error: %s", requestID, statusCode, err)
 		return nil, response, err
 	} else if resp.Code != 0 {
-		r.cli.logError(ctx, "[lark] Attendance#GetUserStatisticsSettings POST https://open.feishu.cn/open-apis/attendance/v1/user_stats_views/query failed, code: %d, msg: %s", resp.Code, resp.Msg)
+		r.cli.log(ctx, LogLevelError, "[lark] Attendance#GetUserStatisticsSettings POST https://open.feishu.cn/open-apis/attendance/v1/user_stats_views/query failed, request_id: %s, status_code: %d, code: %d, msg: %s", requestID, statusCode, resp.Code, resp.Msg)
 		return nil, response, NewError("Attendance", "GetUserStatisticsSettings", resp.Code, resp.Msg)
 	}
 
-	r.cli.logDebug(ctx, "[lark] Attendance#GetUserStatisticsSettings request_id: %s, response: %s", response.RequestID, jsonString(resp.Data))
+	r.cli.log(ctx, LogLevelDebug, "[lark] Attendance#GetUserStatisticsSettings success, request_id: %s, status_code: %d, response: %s", requestID, statusCode, jsonString(resp.Data))
 
 	return resp.Data, response, nil
 }

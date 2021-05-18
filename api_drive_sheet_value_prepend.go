@@ -11,12 +11,12 @@ import (
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uIjMzUjLyIzM14iMyMTN
 func (r *DriveService) PrependSheetValue(ctx context.Context, request *PrependSheetValueReq, options ...MethodOptionFunc) (*PrependSheetValueResp, *Response, error) {
 	if r.cli.mock.mockDrivePrependSheetValue != nil {
-		r.cli.logDebug(ctx, "[lark] Drive#PrependSheetValue mock enable")
+		r.cli.log(ctx, LogLevelDebug, "[lark] Drive#PrependSheetValue mock enable")
 		return r.cli.mock.mockDrivePrependSheetValue(ctx, request, options...)
 	}
 
-	r.cli.logInfo(ctx, "[lark] Drive#PrependSheetValue call api")
-	r.cli.logDebug(ctx, "[lark] Drive#PrependSheetValue request: %s", jsonString(request))
+	r.cli.log(ctx, LogLevelInfo, "[lark] Drive#PrependSheetValue call api")
+	r.cli.log(ctx, LogLevelDebug, "[lark] Drive#PrependSheetValue request: %s", jsonString(request))
 
 	req := &RawRequestReq{
 		Method:                "POST",
@@ -24,20 +24,22 @@ func (r *DriveService) PrependSheetValue(ctx context.Context, request *PrependSh
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
-		NeedUserAccessToken:   true,
+
+		NeedUserAccessToken: true,
 	}
 	resp := new(prependSheetValueResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
+	requestID, statusCode := getResponseRequestID(response)
 	if err != nil {
-		r.cli.logError(ctx, "[lark] Drive#PrependSheetValue POST https://open.feishu.cn/open-apis/sheets/v2/spreadsheets/:spreadsheetToken/values_prepend failed: %s", err)
+		r.cli.log(ctx, LogLevelError, "[lark] Drive#PrependSheetValue POST https://open.feishu.cn/open-apis/sheets/v2/spreadsheets/:spreadsheetToken/values_prepend failed, request_id: %s, status_code: %d, error: %s", requestID, statusCode, err)
 		return nil, response, err
 	} else if resp.Code != 0 {
-		r.cli.logError(ctx, "[lark] Drive#PrependSheetValue POST https://open.feishu.cn/open-apis/sheets/v2/spreadsheets/:spreadsheetToken/values_prepend failed, code: %d, msg: %s", resp.Code, resp.Msg)
+		r.cli.log(ctx, LogLevelError, "[lark] Drive#PrependSheetValue POST https://open.feishu.cn/open-apis/sheets/v2/spreadsheets/:spreadsheetToken/values_prepend failed, request_id: %s, status_code: %d, code: %d, msg: %s", requestID, statusCode, resp.Code, resp.Msg)
 		return nil, response, NewError("Drive", "PrependSheetValue", resp.Code, resp.Msg)
 	}
 
-	r.cli.logDebug(ctx, "[lark] Drive#PrependSheetValue request_id: %s, response: %s", response.RequestID, jsonString(resp.Data))
+	r.cli.log(ctx, LogLevelDebug, "[lark] Drive#PrependSheetValue success, request_id: %s, status_code: %d, response: %s", requestID, statusCode, jsonString(resp.Data))
 
 	return resp.Data, response, nil
 }

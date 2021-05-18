@@ -14,12 +14,12 @@ import (
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/Attendance//BatchQueryCheckinFlowHistory
 func (r *AttendanceService) BatchGetUserFlow(ctx context.Context, request *BatchGetUserFlowReq, options ...MethodOptionFunc) (*BatchGetUserFlowResp, *Response, error) {
 	if r.cli.mock.mockAttendanceBatchGetUserFlow != nil {
-		r.cli.logDebug(ctx, "[lark] Attendance#BatchGetUserFlow mock enable")
+		r.cli.log(ctx, LogLevelDebug, "[lark] Attendance#BatchGetUserFlow mock enable")
 		return r.cli.mock.mockAttendanceBatchGetUserFlow(ctx, request, options...)
 	}
 
-	r.cli.logInfo(ctx, "[lark] Attendance#BatchGetUserFlow call api")
-	r.cli.logDebug(ctx, "[lark] Attendance#BatchGetUserFlow request: %s", jsonString(request))
+	r.cli.log(ctx, LogLevelInfo, "[lark] Attendance#BatchGetUserFlow call api")
+	r.cli.log(ctx, LogLevelDebug, "[lark] Attendance#BatchGetUserFlow request: %s", jsonString(request))
 
 	req := &RawRequestReq{
 		Method:                "POST",
@@ -31,15 +31,16 @@ func (r *AttendanceService) BatchGetUserFlow(ctx context.Context, request *Batch
 	resp := new(batchGetUserFlowResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
+	requestID, statusCode := getResponseRequestID(response)
 	if err != nil {
-		r.cli.logError(ctx, "[lark] Attendance#BatchGetUserFlow POST https://open.feishu.cn/open-apis/attendance/v1/user_flows/query failed: %s", err)
+		r.cli.log(ctx, LogLevelError, "[lark] Attendance#BatchGetUserFlow POST https://open.feishu.cn/open-apis/attendance/v1/user_flows/query failed, request_id: %s, status_code: %d, error: %s", requestID, statusCode, err)
 		return nil, response, err
 	} else if resp.Code != 0 {
-		r.cli.logError(ctx, "[lark] Attendance#BatchGetUserFlow POST https://open.feishu.cn/open-apis/attendance/v1/user_flows/query failed, code: %d, msg: %s", resp.Code, resp.Msg)
+		r.cli.log(ctx, LogLevelError, "[lark] Attendance#BatchGetUserFlow POST https://open.feishu.cn/open-apis/attendance/v1/user_flows/query failed, request_id: %s, status_code: %d, code: %d, msg: %s", requestID, statusCode, resp.Code, resp.Msg)
 		return nil, response, NewError("Attendance", "BatchGetUserFlow", resp.Code, resp.Msg)
 	}
 
-	r.cli.logDebug(ctx, "[lark] Attendance#BatchGetUserFlow request_id: %s, response: %s", response.RequestID, jsonString(resp.Data))
+	r.cli.log(ctx, LogLevelDebug, "[lark] Attendance#BatchGetUserFlow success, request_id: %s, status_code: %d, response: %s", requestID, statusCode, jsonString(resp.Data))
 
 	return resp.Data, response, nil
 }

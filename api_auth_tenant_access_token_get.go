@@ -8,15 +8,15 @@ import (
 // https://open.feishu.cn/document/ukTMukTMukTM/uIjNz4iM2MjLyYzM
 func (r *AuthService) GetTenantAccessToken(ctx context.Context) (*TokenExpire, *Response, error) {
 	if r.cli.mock.mockGetTenantAccessToken != nil {
-		r.cli.logDebug(ctx, "[lark] Auth#GetTenantAccessToken mock enable")
+		r.cli.log(ctx, LogLevelDebug, "[lark] Auth#GetTenantAccessToken mock enable")
 		return r.cli.mock.mockGetTenantAccessToken(ctx)
 	}
 
-	r.cli.logInfo(ctx, "[lark] Auth#GetTenantAccessToken call api")
+	r.cli.log(ctx, LogLevelInfo, "[lark] Auth#GetTenantAccessToken call api")
 
 	val, ttl, err := r.cli.store.Get(ctx, genTenantTokenKey(r.cli.isISV, r.cli.appID, r.cli.tenantKey))
 	if err != nil && err != ErrStoreNotFound {
-		r.cli.logError(ctx, "[lark] Auth#GetTenantAccessToken get token from store failed: %s", err)
+		r.cli.log(ctx, LogLevelError, "[lark] Auth#GetTenantAccessToken get token from store failed: %s", err)
 	} else if val != "" && ttl > 0 {
 		return &TokenExpire{Token: val, Expire: int(ttl.Seconds())}, &Response{}, nil
 	}
@@ -46,18 +46,18 @@ func (r *AuthService) GetTenantAccessToken(ctx context.Context) (*TokenExpire, *
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
 	if err != nil {
-		r.cli.logError(ctx, "[lark] Auth#GetTenantAccessToken GET %s failed: %s", uri, err)
+		r.cli.log(ctx, LogLevelError, "[lark] Auth#GetTenantAccessToken GET %s failed: %s", uri, err)
 		return nil, response, err
 	} else if resp.Code != 0 {
-		r.cli.logError(ctx, "[lark] Auth#GetTenantAccessToken GET %s failed, code: %d, msg: %s", uri, resp.Code, resp.Msg)
+		r.cli.log(ctx, LogLevelError, "[lark] Auth#GetTenantAccessToken GET %s failed, code: %d, msg: %s", uri, resp.Code, resp.Msg)
 		return nil, response, NewError("Token", "GetTenantAccessToken", resp.Code, resp.Msg)
 	}
 
-	r.cli.logDebug(ctx, "[lark] Auth#GetTenantAccessToken request_id: %s, response: %s", response.RequestID, jsonString(resp))
+	r.cli.log(ctx, LogLevelDebug, "[lark] Auth#GetTenantAccessToken request_id: %s, response: %s", response.RequestID, jsonString(resp))
 
 	err = r.cli.store.Set(ctx, genTenantTokenKey(r.cli.isISV, r.cli.appID, r.cli.tenantKey), resp.AppAccessToken, time.Second*time.Duration(resp.Expire))
 	if err != nil {
-		r.cli.logError(ctx, "[lark] Auth#GetTenantAccessToken set token to store failed: %s", err)
+		r.cli.log(ctx, LogLevelError, "[lark] Auth#GetTenantAccessToken set token to store failed: %s", err)
 	}
 
 	return &TokenExpire{

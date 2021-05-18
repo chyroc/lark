@@ -11,12 +11,12 @@ import (
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uATO2YjLwkjN24CM5YjN
 func (r *DriveService) ImportSheet(ctx context.Context, request *ImportSheetReq, options ...MethodOptionFunc) (*ImportSheetResp, *Response, error) {
 	if r.cli.mock.mockDriveImportSheet != nil {
-		r.cli.logDebug(ctx, "[lark] Drive#ImportSheet mock enable")
+		r.cli.log(ctx, LogLevelDebug, "[lark] Drive#ImportSheet mock enable")
 		return r.cli.mock.mockDriveImportSheet(ctx, request, options...)
 	}
 
-	r.cli.logInfo(ctx, "[lark] Drive#ImportSheet call api")
-	r.cli.logDebug(ctx, "[lark] Drive#ImportSheet request: %s", jsonString(request))
+	r.cli.log(ctx, LogLevelInfo, "[lark] Drive#ImportSheet call api")
+	r.cli.log(ctx, LogLevelDebug, "[lark] Drive#ImportSheet request: %s", jsonString(request))
 
 	req := &RawRequestReq{
 		Method:                "POST",
@@ -24,20 +24,22 @@ func (r *DriveService) ImportSheet(ctx context.Context, request *ImportSheetReq,
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
-		NeedUserAccessToken:   true,
+
+		NeedUserAccessToken: true,
 	}
 	resp := new(importSheetResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
+	requestID, statusCode := getResponseRequestID(response)
 	if err != nil {
-		r.cli.logError(ctx, "[lark] Drive#ImportSheet POST https://open.feishu.cn/open-apis/sheets/v2/import failed: %s", err)
+		r.cli.log(ctx, LogLevelError, "[lark] Drive#ImportSheet POST https://open.feishu.cn/open-apis/sheets/v2/import failed, request_id: %s, status_code: %d, error: %s", requestID, statusCode, err)
 		return nil, response, err
 	} else if resp.Code != 0 {
-		r.cli.logError(ctx, "[lark] Drive#ImportSheet POST https://open.feishu.cn/open-apis/sheets/v2/import failed, code: %d, msg: %s", resp.Code, resp.Msg)
+		r.cli.log(ctx, LogLevelError, "[lark] Drive#ImportSheet POST https://open.feishu.cn/open-apis/sheets/v2/import failed, request_id: %s, status_code: %d, code: %d, msg: %s", requestID, statusCode, resp.Code, resp.Msg)
 		return nil, response, NewError("Drive", "ImportSheet", resp.Code, resp.Msg)
 	}
 
-	r.cli.logDebug(ctx, "[lark] Drive#ImportSheet request_id: %s, response: %s", response.RequestID, jsonString(resp.Data))
+	r.cli.log(ctx, LogLevelDebug, "[lark] Drive#ImportSheet success, request_id: %s, status_code: %d, response: %s", requestID, statusCode, jsonString(resp.Data))
 
 	return resp.Data, response, nil
 }

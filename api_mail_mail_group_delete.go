@@ -11,12 +11,12 @@ import (
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/mail-v1/mailgroup/delete
 func (r *MailService) DeleteMailGroup(ctx context.Context, request *DeleteMailGroupReq, options ...MethodOptionFunc) (*DeleteMailGroupResp, *Response, error) {
 	if r.cli.mock.mockMailDeleteMailGroup != nil {
-		r.cli.logDebug(ctx, "[lark] Mail#DeleteMailGroup mock enable")
+		r.cli.log(ctx, LogLevelDebug, "[lark] Mail#DeleteMailGroup mock enable")
 		return r.cli.mock.mockMailDeleteMailGroup(ctx, request, options...)
 	}
 
-	r.cli.logInfo(ctx, "[lark] Mail#DeleteMailGroup call api")
-	r.cli.logDebug(ctx, "[lark] Mail#DeleteMailGroup request: %s", jsonString(request))
+	r.cli.log(ctx, LogLevelInfo, "[lark] Mail#DeleteMailGroup call api")
+	r.cli.log(ctx, LogLevelDebug, "[lark] Mail#DeleteMailGroup request: %s", jsonString(request))
 
 	req := &RawRequestReq{
 		Method:                "DELETE",
@@ -28,15 +28,16 @@ func (r *MailService) DeleteMailGroup(ctx context.Context, request *DeleteMailGr
 	resp := new(deleteMailGroupResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
+	requestID, statusCode := getResponseRequestID(response)
 	if err != nil {
-		r.cli.logError(ctx, "[lark] Mail#DeleteMailGroup DELETE https://open.feishu.cn/open-apis/mail/v1/mailgroups/:mailgroup_id failed: %s", err)
+		r.cli.log(ctx, LogLevelError, "[lark] Mail#DeleteMailGroup DELETE https://open.feishu.cn/open-apis/mail/v1/mailgroups/:mailgroup_id failed, request_id: %s, status_code: %d, error: %s", requestID, statusCode, err)
 		return nil, response, err
 	} else if resp.Code != 0 {
-		r.cli.logError(ctx, "[lark] Mail#DeleteMailGroup DELETE https://open.feishu.cn/open-apis/mail/v1/mailgroups/:mailgroup_id failed, code: %d, msg: %s", resp.Code, resp.Msg)
+		r.cli.log(ctx, LogLevelError, "[lark] Mail#DeleteMailGroup DELETE https://open.feishu.cn/open-apis/mail/v1/mailgroups/:mailgroup_id failed, request_id: %s, status_code: %d, code: %d, msg: %s", requestID, statusCode, resp.Code, resp.Msg)
 		return nil, response, NewError("Mail", "DeleteMailGroup", resp.Code, resp.Msg)
 	}
 
-	r.cli.logDebug(ctx, "[lark] Mail#DeleteMailGroup request_id: %s, response: %s", response.RequestID, jsonString(resp.Data))
+	r.cli.log(ctx, LogLevelDebug, "[lark] Mail#DeleteMailGroup success, request_id: %s, status_code: %d, response: %s", requestID, statusCode, jsonString(resp.Data))
 
 	return resp.Data, response, nil
 }

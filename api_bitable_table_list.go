@@ -11,32 +11,34 @@ import (
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table/list
 func (r *BitableService) GetTableList(ctx context.Context, request *GetTableListReq, options ...MethodOptionFunc) (*GetTableListResp, *Response, error) {
 	if r.cli.mock.mockBitableGetTableList != nil {
-		r.cli.logDebug(ctx, "[lark] Bitable#GetTableList mock enable")
+		r.cli.log(ctx, LogLevelDebug, "[lark] Bitable#GetTableList mock enable")
 		return r.cli.mock.mockBitableGetTableList(ctx, request, options...)
 	}
 
-	r.cli.logInfo(ctx, "[lark] Bitable#GetTableList call api")
-	r.cli.logDebug(ctx, "[lark] Bitable#GetTableList request: %s", jsonString(request))
+	r.cli.log(ctx, LogLevelInfo, "[lark] Bitable#GetTableList call api")
+	r.cli.log(ctx, LogLevelDebug, "[lark] Bitable#GetTableList request: %s", jsonString(request))
 
 	req := &RawRequestReq{
-		Method:              "GET",
-		URL:                 "https://open.feishu.cn/open-apis/bitable/v1/apps/:app_token/tables",
-		Body:                request,
-		MethodOption:        newMethodOption(options),
+		Method:       "GET",
+		URL:          "https://open.feishu.cn/open-apis/bitable/v1/apps/:app_token/tables",
+		Body:         request,
+		MethodOption: newMethodOption(options),
+
 		NeedUserAccessToken: true,
 	}
 	resp := new(getTableListResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
+	requestID, statusCode := getResponseRequestID(response)
 	if err != nil {
-		r.cli.logError(ctx, "[lark] Bitable#GetTableList GET https://open.feishu.cn/open-apis/bitable/v1/apps/:app_token/tables failed: %s", err)
+		r.cli.log(ctx, LogLevelError, "[lark] Bitable#GetTableList GET https://open.feishu.cn/open-apis/bitable/v1/apps/:app_token/tables failed, request_id: %s, status_code: %d, error: %s", requestID, statusCode, err)
 		return nil, response, err
 	} else if resp.Code != 0 {
-		r.cli.logError(ctx, "[lark] Bitable#GetTableList GET https://open.feishu.cn/open-apis/bitable/v1/apps/:app_token/tables failed, code: %d, msg: %s", resp.Code, resp.Msg)
+		r.cli.log(ctx, LogLevelError, "[lark] Bitable#GetTableList GET https://open.feishu.cn/open-apis/bitable/v1/apps/:app_token/tables failed, request_id: %s, status_code: %d, code: %d, msg: %s", requestID, statusCode, resp.Code, resp.Msg)
 		return nil, response, NewError("Bitable", "GetTableList", resp.Code, resp.Msg)
 	}
 
-	r.cli.logDebug(ctx, "[lark] Bitable#GetTableList request_id: %s, response: %s", response.RequestID, jsonString(resp.Data))
+	r.cli.log(ctx, LogLevelDebug, "[lark] Bitable#GetTableList success, request_id: %s, status_code: %d, response: %s", requestID, statusCode, jsonString(resp.Data))
 
 	return resp.Data, response, nil
 }

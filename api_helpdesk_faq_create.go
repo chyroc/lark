@@ -11,33 +11,35 @@ import (
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/faq/create
 func (r *HelpdeskService) CreateFAQ(ctx context.Context, request *CreateFAQReq, options ...MethodOptionFunc) (*CreateFAQResp, *Response, error) {
 	if r.cli.mock.mockHelpdeskCreateFAQ != nil {
-		r.cli.logDebug(ctx, "[lark] Helpdesk#CreateFAQ mock enable")
+		r.cli.log(ctx, LogLevelDebug, "[lark] Helpdesk#CreateFAQ mock enable")
 		return r.cli.mock.mockHelpdeskCreateFAQ(ctx, request, options...)
 	}
 
-	r.cli.logInfo(ctx, "[lark] Helpdesk#CreateFAQ call api")
-	r.cli.logDebug(ctx, "[lark] Helpdesk#CreateFAQ request: %s", jsonString(request))
+	r.cli.log(ctx, LogLevelInfo, "[lark] Helpdesk#CreateFAQ call api")
+	r.cli.log(ctx, LogLevelDebug, "[lark] Helpdesk#CreateFAQ request: %s", jsonString(request))
 
 	req := &RawRequestReq{
-		Method:              "POST",
-		URL:                 "https://open.feishu.cn/open-apis/helpdesk/v1/faqs",
-		Body:                request,
-		MethodOption:        newMethodOption(options),
+		Method:       "POST",
+		URL:          "https://open.feishu.cn/open-apis/helpdesk/v1/faqs",
+		Body:         request,
+		MethodOption: newMethodOption(options),
+
 		NeedUserAccessToken: true,
 		NeedHelpdeskAuth:    true,
 	}
 	resp := new(createFAQResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
+	requestID, statusCode := getResponseRequestID(response)
 	if err != nil {
-		r.cli.logError(ctx, "[lark] Helpdesk#CreateFAQ POST https://open.feishu.cn/open-apis/helpdesk/v1/faqs failed: %s", err)
+		r.cli.log(ctx, LogLevelError, "[lark] Helpdesk#CreateFAQ POST https://open.feishu.cn/open-apis/helpdesk/v1/faqs failed, request_id: %s, status_code: %d, error: %s", requestID, statusCode, err)
 		return nil, response, err
 	} else if resp.Code != 0 {
-		r.cli.logError(ctx, "[lark] Helpdesk#CreateFAQ POST https://open.feishu.cn/open-apis/helpdesk/v1/faqs failed, code: %d, msg: %s", resp.Code, resp.Msg)
+		r.cli.log(ctx, LogLevelError, "[lark] Helpdesk#CreateFAQ POST https://open.feishu.cn/open-apis/helpdesk/v1/faqs failed, request_id: %s, status_code: %d, code: %d, msg: %s", requestID, statusCode, resp.Code, resp.Msg)
 		return nil, response, NewError("Helpdesk", "CreateFAQ", resp.Code, resp.Msg)
 	}
 
-	r.cli.logDebug(ctx, "[lark] Helpdesk#CreateFAQ request_id: %s, response: %s", response.RequestID, jsonString(resp.Data))
+	r.cli.log(ctx, LogLevelDebug, "[lark] Helpdesk#CreateFAQ success, request_id: %s, status_code: %d, response: %s", requestID, statusCode, jsonString(resp.Data))
 
 	return resp.Data, response, nil
 }

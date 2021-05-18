@@ -11,32 +11,34 @@ import (
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table/batch_create
 func (r *BitableService) BatchCreateTable(ctx context.Context, request *BatchCreateTableReq, options ...MethodOptionFunc) (*BatchCreateTableResp, *Response, error) {
 	if r.cli.mock.mockBitableBatchCreateTable != nil {
-		r.cli.logDebug(ctx, "[lark] Bitable#BatchCreateTable mock enable")
+		r.cli.log(ctx, LogLevelDebug, "[lark] Bitable#BatchCreateTable mock enable")
 		return r.cli.mock.mockBitableBatchCreateTable(ctx, request, options...)
 	}
 
-	r.cli.logInfo(ctx, "[lark] Bitable#BatchCreateTable call api")
-	r.cli.logDebug(ctx, "[lark] Bitable#BatchCreateTable request: %s", jsonString(request))
+	r.cli.log(ctx, LogLevelInfo, "[lark] Bitable#BatchCreateTable call api")
+	r.cli.log(ctx, LogLevelDebug, "[lark] Bitable#BatchCreateTable request: %s", jsonString(request))
 
 	req := &RawRequestReq{
-		Method:              "POST",
-		URL:                 "https://open.feishu.cn/open-apis/bitable/v1/apps/:app_token/tables/batch_create",
-		Body:                request,
-		MethodOption:        newMethodOption(options),
+		Method:       "POST",
+		URL:          "https://open.feishu.cn/open-apis/bitable/v1/apps/:app_token/tables/batch_create",
+		Body:         request,
+		MethodOption: newMethodOption(options),
+
 		NeedUserAccessToken: true,
 	}
 	resp := new(batchCreateTableResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
+	requestID, statusCode := getResponseRequestID(response)
 	if err != nil {
-		r.cli.logError(ctx, "[lark] Bitable#BatchCreateTable POST https://open.feishu.cn/open-apis/bitable/v1/apps/:app_token/tables/batch_create failed: %s", err)
+		r.cli.log(ctx, LogLevelError, "[lark] Bitable#BatchCreateTable POST https://open.feishu.cn/open-apis/bitable/v1/apps/:app_token/tables/batch_create failed, request_id: %s, status_code: %d, error: %s", requestID, statusCode, err)
 		return nil, response, err
 	} else if resp.Code != 0 {
-		r.cli.logError(ctx, "[lark] Bitable#BatchCreateTable POST https://open.feishu.cn/open-apis/bitable/v1/apps/:app_token/tables/batch_create failed, code: %d, msg: %s", resp.Code, resp.Msg)
+		r.cli.log(ctx, LogLevelError, "[lark] Bitable#BatchCreateTable POST https://open.feishu.cn/open-apis/bitable/v1/apps/:app_token/tables/batch_create failed, request_id: %s, status_code: %d, code: %d, msg: %s", requestID, statusCode, resp.Code, resp.Msg)
 		return nil, response, NewError("Bitable", "BatchCreateTable", resp.Code, resp.Msg)
 	}
 
-	r.cli.logDebug(ctx, "[lark] Bitable#BatchCreateTable request_id: %s, response: %s", response.RequestID, jsonString(resp.Data))
+	r.cli.log(ctx, LogLevelDebug, "[lark] Bitable#BatchCreateTable success, request_id: %s, status_code: %d, response: %s", requestID, statusCode, jsonString(resp.Data))
 
 	return resp.Data, response, nil
 }

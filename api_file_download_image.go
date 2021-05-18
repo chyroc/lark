@@ -16,12 +16,12 @@ import (
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/image/get
 func (r *FileService) DownloadImage(ctx context.Context, request *DownloadImageReq, options ...MethodOptionFunc) (*DownloadImageResp, *Response, error) {
 	if r.cli.mock.mockFileDownloadImage != nil {
-		r.cli.logDebug(ctx, "[lark] File#DownloadImage mock enable")
+		r.cli.log(ctx, LogLevelDebug, "[lark] File#DownloadImage mock enable")
 		return r.cli.mock.mockFileDownloadImage(ctx, request, options...)
 	}
 
-	r.cli.logInfo(ctx, "[lark] File#DownloadImage call api")
-	r.cli.logDebug(ctx, "[lark] File#DownloadImage request: %s", jsonString(request))
+	r.cli.log(ctx, LogLevelInfo, "[lark] File#DownloadImage call api")
+	r.cli.log(ctx, LogLevelDebug, "[lark] File#DownloadImage request: %s", jsonString(request))
 
 	req := &RawRequestReq{
 		Method:                "GET",
@@ -33,15 +33,16 @@ func (r *FileService) DownloadImage(ctx context.Context, request *DownloadImageR
 	resp := new(downloadImageResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
+	requestID, statusCode := getResponseRequestID(response)
 	if err != nil {
-		r.cli.logError(ctx, "[lark] File#DownloadImage GET https://open.feishu.cn/open-apis/im/v1/images/:image_key failed: %s", err)
+		r.cli.log(ctx, LogLevelError, "[lark] File#DownloadImage GET https://open.feishu.cn/open-apis/im/v1/images/:image_key failed, request_id: %s, status_code: %d, error: %s", requestID, statusCode, err)
 		return nil, response, err
 	} else if resp.Code != 0 {
-		r.cli.logError(ctx, "[lark] File#DownloadImage GET https://open.feishu.cn/open-apis/im/v1/images/:image_key failed, code: %d, msg: %s", resp.Code, resp.Msg)
+		r.cli.log(ctx, LogLevelError, "[lark] File#DownloadImage GET https://open.feishu.cn/open-apis/im/v1/images/:image_key failed, request_id: %s, status_code: %d, code: %d, msg: %s", requestID, statusCode, resp.Code, resp.Msg)
 		return nil, response, NewError("File", "DownloadImage", resp.Code, resp.Msg)
 	}
 
-	r.cli.logDebug(ctx, "[lark] File#DownloadImage request_id: %s, response: %s", response.RequestID, jsonString(resp.Data))
+	r.cli.log(ctx, LogLevelDebug, "[lark] File#DownloadImage success, request_id: %s, status_code: %d, response: %s", requestID, statusCode, jsonString(resp.Data))
 
 	return resp.Data, response, nil
 }

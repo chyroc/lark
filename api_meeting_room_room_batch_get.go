@@ -11,12 +11,12 @@ import (
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uEDOyUjLxgjM14SM4ITN
 func (r *MeetingRoomService) BatchGetRoom(ctx context.Context, request *BatchGetRoomReq, options ...MethodOptionFunc) (*BatchGetRoomResp, *Response, error) {
 	if r.cli.mock.mockMeetingRoomBatchGetRoom != nil {
-		r.cli.logDebug(ctx, "[lark] MeetingRoom#BatchGetRoom mock enable")
+		r.cli.log(ctx, LogLevelDebug, "[lark] MeetingRoom#BatchGetRoom mock enable")
 		return r.cli.mock.mockMeetingRoomBatchGetRoom(ctx, request, options...)
 	}
 
-	r.cli.logInfo(ctx, "[lark] MeetingRoom#BatchGetRoom call api")
-	r.cli.logDebug(ctx, "[lark] MeetingRoom#BatchGetRoom request: %s", jsonString(request))
+	r.cli.log(ctx, LogLevelInfo, "[lark] MeetingRoom#BatchGetRoom call api")
+	r.cli.log(ctx, LogLevelDebug, "[lark] MeetingRoom#BatchGetRoom request: %s", jsonString(request))
 
 	req := &RawRequestReq{
 		Method:                "GET",
@@ -28,15 +28,16 @@ func (r *MeetingRoomService) BatchGetRoom(ctx context.Context, request *BatchGet
 	resp := new(batchGetRoomResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
+	requestID, statusCode := getResponseRequestID(response)
 	if err != nil {
-		r.cli.logError(ctx, "[lark] MeetingRoom#BatchGetRoom GET https://open.feishu.cn/open-apis/meeting_room/room/batch_get?room_ids=omm_eada1d61a550955240c28757e7dec3af&room_ids=omm_83d09ad4f6896e02029a6a075f71c9d1&fields=* failed: %s", err)
+		r.cli.log(ctx, LogLevelError, "[lark] MeetingRoom#BatchGetRoom GET https://open.feishu.cn/open-apis/meeting_room/room/batch_get?room_ids=omm_eada1d61a550955240c28757e7dec3af&room_ids=omm_83d09ad4f6896e02029a6a075f71c9d1&fields=* failed, request_id: %s, status_code: %d, error: %s", requestID, statusCode, err)
 		return nil, response, err
 	} else if resp.Code != 0 {
-		r.cli.logError(ctx, "[lark] MeetingRoom#BatchGetRoom GET https://open.feishu.cn/open-apis/meeting_room/room/batch_get?room_ids=omm_eada1d61a550955240c28757e7dec3af&room_ids=omm_83d09ad4f6896e02029a6a075f71c9d1&fields=* failed, code: %d, msg: %s", resp.Code, resp.Msg)
+		r.cli.log(ctx, LogLevelError, "[lark] MeetingRoom#BatchGetRoom GET https://open.feishu.cn/open-apis/meeting_room/room/batch_get?room_ids=omm_eada1d61a550955240c28757e7dec3af&room_ids=omm_83d09ad4f6896e02029a6a075f71c9d1&fields=* failed, request_id: %s, status_code: %d, code: %d, msg: %s", requestID, statusCode, resp.Code, resp.Msg)
 		return nil, response, NewError("MeetingRoom", "BatchGetRoom", resp.Code, resp.Msg)
 	}
 
-	r.cli.logDebug(ctx, "[lark] MeetingRoom#BatchGetRoom request_id: %s, response: %s", response.RequestID, jsonString(resp.Data))
+	r.cli.log(ctx, LogLevelDebug, "[lark] MeetingRoom#BatchGetRoom success, request_id: %s, status_code: %d, response: %s", requestID, statusCode, jsonString(resp.Data))
 
 	return resp.Data, response, nil
 }

@@ -11,12 +11,12 @@ import (
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/event/subscribe
 func (r *HelpdeskService) SubscribeEvent(ctx context.Context, request *SubscribeEventReq, options ...MethodOptionFunc) (*SubscribeEventResp, *Response, error) {
 	if r.cli.mock.mockHelpdeskSubscribeEvent != nil {
-		r.cli.logDebug(ctx, "[lark] Helpdesk#SubscribeEvent mock enable")
+		r.cli.log(ctx, LogLevelDebug, "[lark] Helpdesk#SubscribeEvent mock enable")
 		return r.cli.mock.mockHelpdeskSubscribeEvent(ctx, request, options...)
 	}
 
-	r.cli.logInfo(ctx, "[lark] Helpdesk#SubscribeEvent call api")
-	r.cli.logDebug(ctx, "[lark] Helpdesk#SubscribeEvent request: %s", jsonString(request))
+	r.cli.log(ctx, LogLevelInfo, "[lark] Helpdesk#SubscribeEvent call api")
+	r.cli.log(ctx, LogLevelDebug, "[lark] Helpdesk#SubscribeEvent request: %s", jsonString(request))
 
 	req := &RawRequestReq{
 		Method:                "POST",
@@ -24,20 +24,22 @@ func (r *HelpdeskService) SubscribeEvent(ctx context.Context, request *Subscribe
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
-		NeedHelpdeskAuth:      true,
+
+		NeedHelpdeskAuth: true,
 	}
 	resp := new(subscribeEventResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
+	requestID, statusCode := getResponseRequestID(response)
 	if err != nil {
-		r.cli.logError(ctx, "[lark] Helpdesk#SubscribeEvent POST https://open.feishu.cn/open-apis/helpdesk/v1/events/subscribe failed: %s", err)
+		r.cli.log(ctx, LogLevelError, "[lark] Helpdesk#SubscribeEvent POST https://open.feishu.cn/open-apis/helpdesk/v1/events/subscribe failed, request_id: %s, status_code: %d, error: %s", requestID, statusCode, err)
 		return nil, response, err
 	} else if resp.Code != 0 {
-		r.cli.logError(ctx, "[lark] Helpdesk#SubscribeEvent POST https://open.feishu.cn/open-apis/helpdesk/v1/events/subscribe failed, code: %d, msg: %s", resp.Code, resp.Msg)
+		r.cli.log(ctx, LogLevelError, "[lark] Helpdesk#SubscribeEvent POST https://open.feishu.cn/open-apis/helpdesk/v1/events/subscribe failed, request_id: %s, status_code: %d, code: %d, msg: %s", requestID, statusCode, resp.Code, resp.Msg)
 		return nil, response, NewError("Helpdesk", "SubscribeEvent", resp.Code, resp.Msg)
 	}
 
-	r.cli.logDebug(ctx, "[lark] Helpdesk#SubscribeEvent request_id: %s, response: %s", response.RequestID, jsonString(resp.Data))
+	r.cli.log(ctx, LogLevelDebug, "[lark] Helpdesk#SubscribeEvent success, request_id: %s, status_code: %d, response: %s", requestID, statusCode, jsonString(resp.Data))
 
 	return resp.Data, response, nil
 }

@@ -11,33 +11,35 @@ import (
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/faq/patch
 func (r *HelpdeskService) UpdateFAQ(ctx context.Context, request *UpdateFAQReq, options ...MethodOptionFunc) (*UpdateFAQResp, *Response, error) {
 	if r.cli.mock.mockHelpdeskUpdateFAQ != nil {
-		r.cli.logDebug(ctx, "[lark] Helpdesk#UpdateFAQ mock enable")
+		r.cli.log(ctx, LogLevelDebug, "[lark] Helpdesk#UpdateFAQ mock enable")
 		return r.cli.mock.mockHelpdeskUpdateFAQ(ctx, request, options...)
 	}
 
-	r.cli.logInfo(ctx, "[lark] Helpdesk#UpdateFAQ call api")
-	r.cli.logDebug(ctx, "[lark] Helpdesk#UpdateFAQ request: %s", jsonString(request))
+	r.cli.log(ctx, LogLevelInfo, "[lark] Helpdesk#UpdateFAQ call api")
+	r.cli.log(ctx, LogLevelDebug, "[lark] Helpdesk#UpdateFAQ request: %s", jsonString(request))
 
 	req := &RawRequestReq{
-		Method:              "PATCH",
-		URL:                 "https://open.feishu.cn/open-apis/helpdesk/v1/faqs/:id",
-		Body:                request,
-		MethodOption:        newMethodOption(options),
+		Method:       "PATCH",
+		URL:          "https://open.feishu.cn/open-apis/helpdesk/v1/faqs/:id",
+		Body:         request,
+		MethodOption: newMethodOption(options),
+
 		NeedUserAccessToken: true,
 		NeedHelpdeskAuth:    true,
 	}
 	resp := new(updateFAQResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
+	requestID, statusCode := getResponseRequestID(response)
 	if err != nil {
-		r.cli.logError(ctx, "[lark] Helpdesk#UpdateFAQ PATCH https://open.feishu.cn/open-apis/helpdesk/v1/faqs/:id failed: %s", err)
+		r.cli.log(ctx, LogLevelError, "[lark] Helpdesk#UpdateFAQ PATCH https://open.feishu.cn/open-apis/helpdesk/v1/faqs/:id failed, request_id: %s, status_code: %d, error: %s", requestID, statusCode, err)
 		return nil, response, err
 	} else if resp.Code != 0 {
-		r.cli.logError(ctx, "[lark] Helpdesk#UpdateFAQ PATCH https://open.feishu.cn/open-apis/helpdesk/v1/faqs/:id failed, code: %d, msg: %s", resp.Code, resp.Msg)
+		r.cli.log(ctx, LogLevelError, "[lark] Helpdesk#UpdateFAQ PATCH https://open.feishu.cn/open-apis/helpdesk/v1/faqs/:id failed, request_id: %s, status_code: %d, code: %d, msg: %s", requestID, statusCode, resp.Code, resp.Msg)
 		return nil, response, NewError("Helpdesk", "UpdateFAQ", resp.Code, resp.Msg)
 	}
 
-	r.cli.logDebug(ctx, "[lark] Helpdesk#UpdateFAQ request_id: %s, response: %s", response.RequestID, jsonString(resp.Data))
+	r.cli.log(ctx, LogLevelDebug, "[lark] Helpdesk#UpdateFAQ success, request_id: %s, status_code: %d, response: %s", requestID, statusCode, jsonString(resp.Data))
 
 	return resp.Data, response, nil
 }

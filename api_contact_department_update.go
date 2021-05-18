@@ -14,12 +14,12 @@ import (
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/update
 func (r *ContactService) UpdateDepartment(ctx context.Context, request *UpdateDepartmentReq, options ...MethodOptionFunc) (*UpdateDepartmentResp, *Response, error) {
 	if r.cli.mock.mockContactUpdateDepartment != nil {
-		r.cli.logDebug(ctx, "[lark] Contact#UpdateDepartment mock enable")
+		r.cli.log(ctx, LogLevelDebug, "[lark] Contact#UpdateDepartment mock enable")
 		return r.cli.mock.mockContactUpdateDepartment(ctx, request, options...)
 	}
 
-	r.cli.logInfo(ctx, "[lark] Contact#UpdateDepartment call api")
-	r.cli.logDebug(ctx, "[lark] Contact#UpdateDepartment request: %s", jsonString(request))
+	r.cli.log(ctx, LogLevelInfo, "[lark] Contact#UpdateDepartment call api")
+	r.cli.log(ctx, LogLevelDebug, "[lark] Contact#UpdateDepartment request: %s", jsonString(request))
 
 	req := &RawRequestReq{
 		Method:                "PUT",
@@ -31,15 +31,16 @@ func (r *ContactService) UpdateDepartment(ctx context.Context, request *UpdateDe
 	resp := new(updateDepartmentResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
+	requestID, statusCode := getResponseRequestID(response)
 	if err != nil {
-		r.cli.logError(ctx, "[lark] Contact#UpdateDepartment PUT https://open.feishu.cn/open-apis/contact/v3/departments/:department_id failed: %s", err)
+		r.cli.log(ctx, LogLevelError, "[lark] Contact#UpdateDepartment PUT https://open.feishu.cn/open-apis/contact/v3/departments/:department_id failed, request_id: %s, status_code: %d, error: %s", requestID, statusCode, err)
 		return nil, response, err
 	} else if resp.Code != 0 {
-		r.cli.logError(ctx, "[lark] Contact#UpdateDepartment PUT https://open.feishu.cn/open-apis/contact/v3/departments/:department_id failed, code: %d, msg: %s", resp.Code, resp.Msg)
+		r.cli.log(ctx, LogLevelError, "[lark] Contact#UpdateDepartment PUT https://open.feishu.cn/open-apis/contact/v3/departments/:department_id failed, request_id: %s, status_code: %d, code: %d, msg: %s", requestID, statusCode, resp.Code, resp.Msg)
 		return nil, response, NewError("Contact", "UpdateDepartment", resp.Code, resp.Msg)
 	}
 
-	r.cli.logDebug(ctx, "[lark] Contact#UpdateDepartment request_id: %s, response: %s", response.RequestID, jsonString(resp.Data))
+	r.cli.log(ctx, LogLevelDebug, "[lark] Contact#UpdateDepartment success, request_id: %s, status_code: %d, response: %s", requestID, statusCode, jsonString(resp.Data))
 
 	return resp.Data, response, nil
 }

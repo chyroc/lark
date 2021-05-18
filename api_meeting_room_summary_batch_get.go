@@ -11,12 +11,12 @@ import (
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uIjM5UjLyITO14iMykTN/
 func (r *MeetingRoomService) BatchGetSummary(ctx context.Context, request *BatchGetSummaryReq, options ...MethodOptionFunc) (*BatchGetSummaryResp, *Response, error) {
 	if r.cli.mock.mockMeetingRoomBatchGetSummary != nil {
-		r.cli.logDebug(ctx, "[lark] MeetingRoom#BatchGetSummary mock enable")
+		r.cli.log(ctx, LogLevelDebug, "[lark] MeetingRoom#BatchGetSummary mock enable")
 		return r.cli.mock.mockMeetingRoomBatchGetSummary(ctx, request, options...)
 	}
 
-	r.cli.logInfo(ctx, "[lark] MeetingRoom#BatchGetSummary call api")
-	r.cli.logDebug(ctx, "[lark] MeetingRoom#BatchGetSummary request: %s", jsonString(request))
+	r.cli.log(ctx, LogLevelInfo, "[lark] MeetingRoom#BatchGetSummary call api")
+	r.cli.log(ctx, LogLevelDebug, "[lark] MeetingRoom#BatchGetSummary request: %s", jsonString(request))
 
 	req := &RawRequestReq{
 		Method:                "POST",
@@ -28,15 +28,16 @@ func (r *MeetingRoomService) BatchGetSummary(ctx context.Context, request *Batch
 	resp := new(batchGetSummaryResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
+	requestID, statusCode := getResponseRequestID(response)
 	if err != nil {
-		r.cli.logError(ctx, "[lark] MeetingRoom#BatchGetSummary POST https://open.feishu.cn/open-apis/meeting_room/summary/batch_get failed: %s", err)
+		r.cli.log(ctx, LogLevelError, "[lark] MeetingRoom#BatchGetSummary POST https://open.feishu.cn/open-apis/meeting_room/summary/batch_get failed, request_id: %s, status_code: %d, error: %s", requestID, statusCode, err)
 		return nil, response, err
 	} else if resp.Code != 0 {
-		r.cli.logError(ctx, "[lark] MeetingRoom#BatchGetSummary POST https://open.feishu.cn/open-apis/meeting_room/summary/batch_get failed, code: %d, msg: %s", resp.Code, resp.Msg)
+		r.cli.log(ctx, LogLevelError, "[lark] MeetingRoom#BatchGetSummary POST https://open.feishu.cn/open-apis/meeting_room/summary/batch_get failed, request_id: %s, status_code: %d, code: %d, msg: %s", requestID, statusCode, resp.Code, resp.Msg)
 		return nil, response, NewError("MeetingRoom", "BatchGetSummary", resp.Code, resp.Msg)
 	}
 
-	r.cli.logDebug(ctx, "[lark] MeetingRoom#BatchGetSummary request_id: %s, response: %s", response.RequestID, jsonString(resp.Data))
+	r.cli.log(ctx, LogLevelDebug, "[lark] MeetingRoom#BatchGetSummary success, request_id: %s, status_code: %d, response: %s", requestID, statusCode, jsonString(resp.Data))
 
 	return resp.Data, response, nil
 }

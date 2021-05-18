@@ -11,12 +11,12 @@ import (
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uYzN4UjL2cDO14iN3gTN
 func (r *MeetingRoomService) ReplyInstance(ctx context.Context, request *ReplyInstanceReq, options ...MethodOptionFunc) (*ReplyInstanceResp, *Response, error) {
 	if r.cli.mock.mockMeetingRoomReplyInstance != nil {
-		r.cli.logDebug(ctx, "[lark] MeetingRoom#ReplyInstance mock enable")
+		r.cli.log(ctx, LogLevelDebug, "[lark] MeetingRoom#ReplyInstance mock enable")
 		return r.cli.mock.mockMeetingRoomReplyInstance(ctx, request, options...)
 	}
 
-	r.cli.logInfo(ctx, "[lark] MeetingRoom#ReplyInstance call api")
-	r.cli.logDebug(ctx, "[lark] MeetingRoom#ReplyInstance request: %s", jsonString(request))
+	r.cli.log(ctx, LogLevelInfo, "[lark] MeetingRoom#ReplyInstance call api")
+	r.cli.log(ctx, LogLevelDebug, "[lark] MeetingRoom#ReplyInstance request: %s", jsonString(request))
 
 	req := &RawRequestReq{
 		Method:                "POST",
@@ -28,15 +28,16 @@ func (r *MeetingRoomService) ReplyInstance(ctx context.Context, request *ReplyIn
 	resp := new(replyInstanceResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
+	requestID, statusCode := getResponseRequestID(response)
 	if err != nil {
-		r.cli.logError(ctx, "[lark] MeetingRoom#ReplyInstance POST https://open.feishu.cn/open-apis/meeting_room/instance/reply failed: %s", err)
+		r.cli.log(ctx, LogLevelError, "[lark] MeetingRoom#ReplyInstance POST https://open.feishu.cn/open-apis/meeting_room/instance/reply failed, request_id: %s, status_code: %d, error: %s", requestID, statusCode, err)
 		return nil, response, err
 	} else if resp.Code != 0 {
-		r.cli.logError(ctx, "[lark] MeetingRoom#ReplyInstance POST https://open.feishu.cn/open-apis/meeting_room/instance/reply failed, code: %d, msg: %s", resp.Code, resp.Msg)
+		r.cli.log(ctx, LogLevelError, "[lark] MeetingRoom#ReplyInstance POST https://open.feishu.cn/open-apis/meeting_room/instance/reply failed, request_id: %s, status_code: %d, code: %d, msg: %s", requestID, statusCode, resp.Code, resp.Msg)
 		return nil, response, NewError("MeetingRoom", "ReplyInstance", resp.Code, resp.Msg)
 	}
 
-	r.cli.logDebug(ctx, "[lark] MeetingRoom#ReplyInstance request_id: %s, response: %s", response.RequestID, jsonString(resp.Data))
+	r.cli.log(ctx, LogLevelDebug, "[lark] MeetingRoom#ReplyInstance success, request_id: %s, status_code: %d, response: %s", requestID, statusCode, jsonString(resp.Data))
 
 	return resp.Data, response, nil
 }

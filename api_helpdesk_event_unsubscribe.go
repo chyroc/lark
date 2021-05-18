@@ -11,12 +11,12 @@ import (
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/event/unsubscribe
 func (r *HelpdeskService) UnsubscribeEvent(ctx context.Context, request *UnsubscribeEventReq, options ...MethodOptionFunc) (*UnsubscribeEventResp, *Response, error) {
 	if r.cli.mock.mockHelpdeskUnsubscribeEvent != nil {
-		r.cli.logDebug(ctx, "[lark] Helpdesk#UnsubscribeEvent mock enable")
+		r.cli.log(ctx, LogLevelDebug, "[lark] Helpdesk#UnsubscribeEvent mock enable")
 		return r.cli.mock.mockHelpdeskUnsubscribeEvent(ctx, request, options...)
 	}
 
-	r.cli.logInfo(ctx, "[lark] Helpdesk#UnsubscribeEvent call api")
-	r.cli.logDebug(ctx, "[lark] Helpdesk#UnsubscribeEvent request: %s", jsonString(request))
+	r.cli.log(ctx, LogLevelInfo, "[lark] Helpdesk#UnsubscribeEvent call api")
+	r.cli.log(ctx, LogLevelDebug, "[lark] Helpdesk#UnsubscribeEvent request: %s", jsonString(request))
 
 	req := &RawRequestReq{
 		Method:                "POST",
@@ -24,20 +24,22 @@ func (r *HelpdeskService) UnsubscribeEvent(ctx context.Context, request *Unsubsc
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
-		NeedHelpdeskAuth:      true,
+
+		NeedHelpdeskAuth: true,
 	}
 	resp := new(unsubscribeEventResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
+	requestID, statusCode := getResponseRequestID(response)
 	if err != nil {
-		r.cli.logError(ctx, "[lark] Helpdesk#UnsubscribeEvent POST https://open.feishu.cn/open-apis/helpdesk/v1/events/unsubscribe failed: %s", err)
+		r.cli.log(ctx, LogLevelError, "[lark] Helpdesk#UnsubscribeEvent POST https://open.feishu.cn/open-apis/helpdesk/v1/events/unsubscribe failed, request_id: %s, status_code: %d, error: %s", requestID, statusCode, err)
 		return nil, response, err
 	} else if resp.Code != 0 {
-		r.cli.logError(ctx, "[lark] Helpdesk#UnsubscribeEvent POST https://open.feishu.cn/open-apis/helpdesk/v1/events/unsubscribe failed, code: %d, msg: %s", resp.Code, resp.Msg)
+		r.cli.log(ctx, LogLevelError, "[lark] Helpdesk#UnsubscribeEvent POST https://open.feishu.cn/open-apis/helpdesk/v1/events/unsubscribe failed, request_id: %s, status_code: %d, code: %d, msg: %s", requestID, statusCode, resp.Code, resp.Msg)
 		return nil, response, NewError("Helpdesk", "UnsubscribeEvent", resp.Code, resp.Msg)
 	}
 
-	r.cli.logDebug(ctx, "[lark] Helpdesk#UnsubscribeEvent request_id: %s, response: %s", response.RequestID, jsonString(resp.Data))
+	r.cli.log(ctx, LogLevelDebug, "[lark] Helpdesk#UnsubscribeEvent success, request_id: %s, status_code: %d, response: %s", requestID, statusCode, jsonString(resp.Data))
 
 	return resp.Data, response, nil
 }

@@ -11,12 +11,12 @@ import (
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file-comment-reply/delete
 func (r *DriveService) DeleteComment(ctx context.Context, request *DeleteCommentReq, options ...MethodOptionFunc) (*DeleteCommentResp, *Response, error) {
 	if r.cli.mock.mockDriveDeleteComment != nil {
-		r.cli.logDebug(ctx, "[lark] Drive#DeleteComment mock enable")
+		r.cli.log(ctx, LogLevelDebug, "[lark] Drive#DeleteComment mock enable")
 		return r.cli.mock.mockDriveDeleteComment(ctx, request, options...)
 	}
 
-	r.cli.logInfo(ctx, "[lark] Drive#DeleteComment call api")
-	r.cli.logDebug(ctx, "[lark] Drive#DeleteComment request: %s", jsonString(request))
+	r.cli.log(ctx, LogLevelInfo, "[lark] Drive#DeleteComment call api")
+	r.cli.log(ctx, LogLevelDebug, "[lark] Drive#DeleteComment request: %s", jsonString(request))
 
 	req := &RawRequestReq{
 		Method:                "DELETE",
@@ -24,20 +24,22 @@ func (r *DriveService) DeleteComment(ctx context.Context, request *DeleteComment
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
-		NeedUserAccessToken:   true,
+
+		NeedUserAccessToken: true,
 	}
 	resp := new(deleteCommentResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
+	requestID, statusCode := getResponseRequestID(response)
 	if err != nil {
-		r.cli.logError(ctx, "[lark] Drive#DeleteComment DELETE https://open.feishu.cn/open-apis/drive/v1/files/:file_token/comments/:comment_id/replies/:reply_id failed: %s", err)
+		r.cli.log(ctx, LogLevelError, "[lark] Drive#DeleteComment DELETE https://open.feishu.cn/open-apis/drive/v1/files/:file_token/comments/:comment_id/replies/:reply_id failed, request_id: %s, status_code: %d, error: %s", requestID, statusCode, err)
 		return nil, response, err
 	} else if resp.Code != 0 {
-		r.cli.logError(ctx, "[lark] Drive#DeleteComment DELETE https://open.feishu.cn/open-apis/drive/v1/files/:file_token/comments/:comment_id/replies/:reply_id failed, code: %d, msg: %s", resp.Code, resp.Msg)
+		r.cli.log(ctx, LogLevelError, "[lark] Drive#DeleteComment DELETE https://open.feishu.cn/open-apis/drive/v1/files/:file_token/comments/:comment_id/replies/:reply_id failed, request_id: %s, status_code: %d, code: %d, msg: %s", requestID, statusCode, resp.Code, resp.Msg)
 		return nil, response, NewError("Drive", "DeleteComment", resp.Code, resp.Msg)
 	}
 
-	r.cli.logDebug(ctx, "[lark] Drive#DeleteComment request_id: %s, response: %s", response.RequestID, jsonString(resp.Data))
+	r.cli.log(ctx, LogLevelDebug, "[lark] Drive#DeleteComment success, request_id: %s, status_code: %d, response: %s", requestID, statusCode, jsonString(resp.Data))
 
 	return resp.Data, response, nil
 }

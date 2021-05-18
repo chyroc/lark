@@ -11,12 +11,12 @@ import (
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uMTNwYjLzUDM24yM1AjN
 func (r *MeetingRoomService) UpdateRoom(ctx context.Context, request *UpdateRoomReq, options ...MethodOptionFunc) (*UpdateRoomResp, *Response, error) {
 	if r.cli.mock.mockMeetingRoomUpdateRoom != nil {
-		r.cli.logDebug(ctx, "[lark] MeetingRoom#UpdateRoom mock enable")
+		r.cli.log(ctx, LogLevelDebug, "[lark] MeetingRoom#UpdateRoom mock enable")
 		return r.cli.mock.mockMeetingRoomUpdateRoom(ctx, request, options...)
 	}
 
-	r.cli.logInfo(ctx, "[lark] MeetingRoom#UpdateRoom call api")
-	r.cli.logDebug(ctx, "[lark] MeetingRoom#UpdateRoom request: %s", jsonString(request))
+	r.cli.log(ctx, LogLevelInfo, "[lark] MeetingRoom#UpdateRoom call api")
+	r.cli.log(ctx, LogLevelDebug, "[lark] MeetingRoom#UpdateRoom request: %s", jsonString(request))
 
 	req := &RawRequestReq{
 		Method:                "POST",
@@ -28,15 +28,16 @@ func (r *MeetingRoomService) UpdateRoom(ctx context.Context, request *UpdateRoom
 	resp := new(updateRoomResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
+	requestID, statusCode := getResponseRequestID(response)
 	if err != nil {
-		r.cli.logError(ctx, "[lark] MeetingRoom#UpdateRoom POST https://open.feishu.cn/open-apis/meeting_room/room/update failed: %s", err)
+		r.cli.log(ctx, LogLevelError, "[lark] MeetingRoom#UpdateRoom POST https://open.feishu.cn/open-apis/meeting_room/room/update failed, request_id: %s, status_code: %d, error: %s", requestID, statusCode, err)
 		return nil, response, err
 	} else if resp.Code != 0 {
-		r.cli.logError(ctx, "[lark] MeetingRoom#UpdateRoom POST https://open.feishu.cn/open-apis/meeting_room/room/update failed, code: %d, msg: %s", resp.Code, resp.Msg)
+		r.cli.log(ctx, LogLevelError, "[lark] MeetingRoom#UpdateRoom POST https://open.feishu.cn/open-apis/meeting_room/room/update failed, request_id: %s, status_code: %d, code: %d, msg: %s", requestID, statusCode, resp.Code, resp.Msg)
 		return nil, response, NewError("MeetingRoom", "UpdateRoom", resp.Code, resp.Msg)
 	}
 
-	r.cli.logDebug(ctx, "[lark] MeetingRoom#UpdateRoom request_id: %s, response: %s", response.RequestID, jsonString(resp.Data))
+	r.cli.log(ctx, LogLevelDebug, "[lark] MeetingRoom#UpdateRoom success, request_id: %s, status_code: %d, response: %s", requestID, statusCode, jsonString(resp.Data))
 
 	return resp.Data, response, nil
 }

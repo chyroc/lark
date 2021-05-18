@@ -11,32 +11,34 @@ import (
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/setting/generate_caldav_conf
 func (r *CalendarService) GenerateCaldavConf(ctx context.Context, request *GenerateCaldavConfReq, options ...MethodOptionFunc) (*GenerateCaldavConfResp, *Response, error) {
 	if r.cli.mock.mockCalendarGenerateCaldavConf != nil {
-		r.cli.logDebug(ctx, "[lark] Calendar#GenerateCaldavConf mock enable")
+		r.cli.log(ctx, LogLevelDebug, "[lark] Calendar#GenerateCaldavConf mock enable")
 		return r.cli.mock.mockCalendarGenerateCaldavConf(ctx, request, options...)
 	}
 
-	r.cli.logInfo(ctx, "[lark] Calendar#GenerateCaldavConf call api")
-	r.cli.logDebug(ctx, "[lark] Calendar#GenerateCaldavConf request: %s", jsonString(request))
+	r.cli.log(ctx, LogLevelInfo, "[lark] Calendar#GenerateCaldavConf call api")
+	r.cli.log(ctx, LogLevelDebug, "[lark] Calendar#GenerateCaldavConf request: %s", jsonString(request))
 
 	req := &RawRequestReq{
-		Method:              "POST",
-		URL:                 "https://open.feishu.cn/open-apis/calendar/v4/settings/generate_caldav_conf",
-		Body:                request,
-		MethodOption:        newMethodOption(options),
+		Method:       "POST",
+		URL:          "https://open.feishu.cn/open-apis/calendar/v4/settings/generate_caldav_conf",
+		Body:         request,
+		MethodOption: newMethodOption(options),
+
 		NeedUserAccessToken: true,
 	}
 	resp := new(generateCaldavConfResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
+	requestID, statusCode := getResponseRequestID(response)
 	if err != nil {
-		r.cli.logError(ctx, "[lark] Calendar#GenerateCaldavConf POST https://open.feishu.cn/open-apis/calendar/v4/settings/generate_caldav_conf failed: %s", err)
+		r.cli.log(ctx, LogLevelError, "[lark] Calendar#GenerateCaldavConf POST https://open.feishu.cn/open-apis/calendar/v4/settings/generate_caldav_conf failed, request_id: %s, status_code: %d, error: %s", requestID, statusCode, err)
 		return nil, response, err
 	} else if resp.Code != 0 {
-		r.cli.logError(ctx, "[lark] Calendar#GenerateCaldavConf POST https://open.feishu.cn/open-apis/calendar/v4/settings/generate_caldav_conf failed, code: %d, msg: %s", resp.Code, resp.Msg)
+		r.cli.log(ctx, LogLevelError, "[lark] Calendar#GenerateCaldavConf POST https://open.feishu.cn/open-apis/calendar/v4/settings/generate_caldav_conf failed, request_id: %s, status_code: %d, code: %d, msg: %s", requestID, statusCode, resp.Code, resp.Msg)
 		return nil, response, NewError("Calendar", "GenerateCaldavConf", resp.Code, resp.Msg)
 	}
 
-	r.cli.logDebug(ctx, "[lark] Calendar#GenerateCaldavConf request_id: %s, response: %s", response.RequestID, jsonString(resp.Data))
+	r.cli.log(ctx, LogLevelDebug, "[lark] Calendar#GenerateCaldavConf success, request_id: %s, status_code: %d, response: %s", requestID, statusCode, jsonString(resp.Data))
 
 	return resp.Data, response, nil
 }

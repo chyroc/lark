@@ -11,12 +11,12 @@ import (
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uETMzUjLxEzM14SMxMTN
 func (r *DriveService) GetSheetMeta(ctx context.Context, request *GetSheetMetaReq, options ...MethodOptionFunc) (*GetSheetMetaResp, *Response, error) {
 	if r.cli.mock.mockDriveGetSheetMeta != nil {
-		r.cli.logDebug(ctx, "[lark] Drive#GetSheetMeta mock enable")
+		r.cli.log(ctx, LogLevelDebug, "[lark] Drive#GetSheetMeta mock enable")
 		return r.cli.mock.mockDriveGetSheetMeta(ctx, request, options...)
 	}
 
-	r.cli.logInfo(ctx, "[lark] Drive#GetSheetMeta call api")
-	r.cli.logDebug(ctx, "[lark] Drive#GetSheetMeta request: %s", jsonString(request))
+	r.cli.log(ctx, LogLevelInfo, "[lark] Drive#GetSheetMeta call api")
+	r.cli.log(ctx, LogLevelDebug, "[lark] Drive#GetSheetMeta request: %s", jsonString(request))
 
 	req := &RawRequestReq{
 		Method:                "GET",
@@ -24,20 +24,22 @@ func (r *DriveService) GetSheetMeta(ctx context.Context, request *GetSheetMetaRe
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
-		NeedUserAccessToken:   true,
+
+		NeedUserAccessToken: true,
 	}
 	resp := new(getSheetMetaResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
+	requestID, statusCode := getResponseRequestID(response)
 	if err != nil {
-		r.cli.logError(ctx, "[lark] Drive#GetSheetMeta GET https://open.feishu.cn/open-apis/sheets/v2/spreadsheets/:spreadsheetToken/metainfo failed: %s", err)
+		r.cli.log(ctx, LogLevelError, "[lark] Drive#GetSheetMeta GET https://open.feishu.cn/open-apis/sheets/v2/spreadsheets/:spreadsheetToken/metainfo failed, request_id: %s, status_code: %d, error: %s", requestID, statusCode, err)
 		return nil, response, err
 	} else if resp.Code != 0 {
-		r.cli.logError(ctx, "[lark] Drive#GetSheetMeta GET https://open.feishu.cn/open-apis/sheets/v2/spreadsheets/:spreadsheetToken/metainfo failed, code: %d, msg: %s", resp.Code, resp.Msg)
+		r.cli.log(ctx, LogLevelError, "[lark] Drive#GetSheetMeta GET https://open.feishu.cn/open-apis/sheets/v2/spreadsheets/:spreadsheetToken/metainfo failed, request_id: %s, status_code: %d, code: %d, msg: %s", requestID, statusCode, resp.Code, resp.Msg)
 		return nil, response, NewError("Drive", "GetSheetMeta", resp.Code, resp.Msg)
 	}
 
-	r.cli.logDebug(ctx, "[lark] Drive#GetSheetMeta request_id: %s, response: %s", response.RequestID, jsonString(resp.Data))
+	r.cli.log(ctx, LogLevelDebug, "[lark] Drive#GetSheetMeta success, request_id: %s, status_code: %d, response: %s", requestID, statusCode, jsonString(resp.Data))
 
 	return resp.Data, response, nil
 }

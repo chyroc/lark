@@ -11,12 +11,12 @@ import (
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/ticket-message/list
 func (r *HelpdeskService) GetTicketMessageList(ctx context.Context, request *GetTicketMessageListReq, options ...MethodOptionFunc) (*GetTicketMessageListResp, *Response, error) {
 	if r.cli.mock.mockHelpdeskGetTicketMessageList != nil {
-		r.cli.logDebug(ctx, "[lark] Helpdesk#GetTicketMessageList mock enable")
+		r.cli.log(ctx, LogLevelDebug, "[lark] Helpdesk#GetTicketMessageList mock enable")
 		return r.cli.mock.mockHelpdeskGetTicketMessageList(ctx, request, options...)
 	}
 
-	r.cli.logInfo(ctx, "[lark] Helpdesk#GetTicketMessageList call api")
-	r.cli.logDebug(ctx, "[lark] Helpdesk#GetTicketMessageList request: %s", jsonString(request))
+	r.cli.log(ctx, LogLevelInfo, "[lark] Helpdesk#GetTicketMessageList call api")
+	r.cli.log(ctx, LogLevelDebug, "[lark] Helpdesk#GetTicketMessageList request: %s", jsonString(request))
 
 	req := &RawRequestReq{
 		Method:                "GET",
@@ -24,20 +24,22 @@ func (r *HelpdeskService) GetTicketMessageList(ctx context.Context, request *Get
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
-		NeedHelpdeskAuth:      true,
+
+		NeedHelpdeskAuth: true,
 	}
 	resp := new(getTicketMessageListResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
+	requestID, statusCode := getResponseRequestID(response)
 	if err != nil {
-		r.cli.logError(ctx, "[lark] Helpdesk#GetTicketMessageList GET https://open.feishu.cn/open-apis/helpdesk/v1/tickets/:ticket_id/messages failed: %s", err)
+		r.cli.log(ctx, LogLevelError, "[lark] Helpdesk#GetTicketMessageList GET https://open.feishu.cn/open-apis/helpdesk/v1/tickets/:ticket_id/messages failed, request_id: %s, status_code: %d, error: %s", requestID, statusCode, err)
 		return nil, response, err
 	} else if resp.Code != 0 {
-		r.cli.logError(ctx, "[lark] Helpdesk#GetTicketMessageList GET https://open.feishu.cn/open-apis/helpdesk/v1/tickets/:ticket_id/messages failed, code: %d, msg: %s", resp.Code, resp.Msg)
+		r.cli.log(ctx, LogLevelError, "[lark] Helpdesk#GetTicketMessageList GET https://open.feishu.cn/open-apis/helpdesk/v1/tickets/:ticket_id/messages failed, request_id: %s, status_code: %d, code: %d, msg: %s", requestID, statusCode, resp.Code, resp.Msg)
 		return nil, response, NewError("Helpdesk", "GetTicketMessageList", resp.Code, resp.Msg)
 	}
 
-	r.cli.logDebug(ctx, "[lark] Helpdesk#GetTicketMessageList request_id: %s, response: %s", response.RequestID, jsonString(resp.Data))
+	r.cli.log(ctx, LogLevelDebug, "[lark] Helpdesk#GetTicketMessageList success, request_id: %s, status_code: %d, response: %s", requestID, statusCode, jsonString(resp.Data))
 
 	return resp.Data, response, nil
 }

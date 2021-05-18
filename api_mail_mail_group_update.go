@@ -11,12 +11,12 @@ import (
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/mail-v1/mailgroup/update
 func (r *MailService) UpdateMailGroup(ctx context.Context, request *UpdateMailGroupReq, options ...MethodOptionFunc) (*UpdateMailGroupResp, *Response, error) {
 	if r.cli.mock.mockMailUpdateMailGroup != nil {
-		r.cli.logDebug(ctx, "[lark] Mail#UpdateMailGroup mock enable")
+		r.cli.log(ctx, LogLevelDebug, "[lark] Mail#UpdateMailGroup mock enable")
 		return r.cli.mock.mockMailUpdateMailGroup(ctx, request, options...)
 	}
 
-	r.cli.logInfo(ctx, "[lark] Mail#UpdateMailGroup call api")
-	r.cli.logDebug(ctx, "[lark] Mail#UpdateMailGroup request: %s", jsonString(request))
+	r.cli.log(ctx, LogLevelInfo, "[lark] Mail#UpdateMailGroup call api")
+	r.cli.log(ctx, LogLevelDebug, "[lark] Mail#UpdateMailGroup request: %s", jsonString(request))
 
 	req := &RawRequestReq{
 		Method:                "PUT",
@@ -28,15 +28,16 @@ func (r *MailService) UpdateMailGroup(ctx context.Context, request *UpdateMailGr
 	resp := new(updateMailGroupResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
+	requestID, statusCode := getResponseRequestID(response)
 	if err != nil {
-		r.cli.logError(ctx, "[lark] Mail#UpdateMailGroup PUT https://open.feishu.cn/open-apis/mail/v1/mailgroups/:mailgroup_id failed: %s", err)
+		r.cli.log(ctx, LogLevelError, "[lark] Mail#UpdateMailGroup PUT https://open.feishu.cn/open-apis/mail/v1/mailgroups/:mailgroup_id failed, request_id: %s, status_code: %d, error: %s", requestID, statusCode, err)
 		return nil, response, err
 	} else if resp.Code != 0 {
-		r.cli.logError(ctx, "[lark] Mail#UpdateMailGroup PUT https://open.feishu.cn/open-apis/mail/v1/mailgroups/:mailgroup_id failed, code: %d, msg: %s", resp.Code, resp.Msg)
+		r.cli.log(ctx, LogLevelError, "[lark] Mail#UpdateMailGroup PUT https://open.feishu.cn/open-apis/mail/v1/mailgroups/:mailgroup_id failed, request_id: %s, status_code: %d, code: %d, msg: %s", requestID, statusCode, resp.Code, resp.Msg)
 		return nil, response, NewError("Mail", "UpdateMailGroup", resp.Code, resp.Msg)
 	}
 
-	r.cli.logDebug(ctx, "[lark] Mail#UpdateMailGroup request_id: %s, response: %s", response.RequestID, jsonString(resp.Data))
+	r.cli.log(ctx, LogLevelDebug, "[lark] Mail#UpdateMailGroup success, request_id: %s, status_code: %d, response: %s", requestID, statusCode, jsonString(resp.Data))
 
 	return resp.Data, response, nil
 }

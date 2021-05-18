@@ -13,32 +13,34 @@ import (
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/vc-v1/reserve/update
 func (r *VCService) UpdateReserve(ctx context.Context, request *UpdateReserveReq, options ...MethodOptionFunc) (*UpdateReserveResp, *Response, error) {
 	if r.cli.mock.mockVCUpdateReserve != nil {
-		r.cli.logDebug(ctx, "[lark] VC#UpdateReserve mock enable")
+		r.cli.log(ctx, LogLevelDebug, "[lark] VC#UpdateReserve mock enable")
 		return r.cli.mock.mockVCUpdateReserve(ctx, request, options...)
 	}
 
-	r.cli.logInfo(ctx, "[lark] VC#UpdateReserve call api")
-	r.cli.logDebug(ctx, "[lark] VC#UpdateReserve request: %s", jsonString(request))
+	r.cli.log(ctx, LogLevelInfo, "[lark] VC#UpdateReserve call api")
+	r.cli.log(ctx, LogLevelDebug, "[lark] VC#UpdateReserve request: %s", jsonString(request))
 
 	req := &RawRequestReq{
-		Method:              "PUT",
-		URL:                 "https://open.feishu.cn/open-apis/vc/v1/reserves/:reserve_id",
-		Body:                request,
-		MethodOption:        newMethodOption(options),
+		Method:       "PUT",
+		URL:          "https://open.feishu.cn/open-apis/vc/v1/reserves/:reserve_id",
+		Body:         request,
+		MethodOption: newMethodOption(options),
+
 		NeedUserAccessToken: true,
 	}
 	resp := new(updateReserveResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
+	requestID, statusCode := getResponseRequestID(response)
 	if err != nil {
-		r.cli.logError(ctx, "[lark] VC#UpdateReserve PUT https://open.feishu.cn/open-apis/vc/v1/reserves/:reserve_id failed: %s", err)
+		r.cli.log(ctx, LogLevelError, "[lark] VC#UpdateReserve PUT https://open.feishu.cn/open-apis/vc/v1/reserves/:reserve_id failed, request_id: %s, status_code: %d, error: %s", requestID, statusCode, err)
 		return nil, response, err
 	} else if resp.Code != 0 {
-		r.cli.logError(ctx, "[lark] VC#UpdateReserve PUT https://open.feishu.cn/open-apis/vc/v1/reserves/:reserve_id failed, code: %d, msg: %s", resp.Code, resp.Msg)
+		r.cli.log(ctx, LogLevelError, "[lark] VC#UpdateReserve PUT https://open.feishu.cn/open-apis/vc/v1/reserves/:reserve_id failed, request_id: %s, status_code: %d, code: %d, msg: %s", requestID, statusCode, resp.Code, resp.Msg)
 		return nil, response, NewError("VC", "UpdateReserve", resp.Code, resp.Msg)
 	}
 
-	r.cli.logDebug(ctx, "[lark] VC#UpdateReserve request_id: %s, response: %s", response.RequestID, jsonString(resp.Data))
+	r.cli.log(ctx, LogLevelDebug, "[lark] VC#UpdateReserve success, request_id: %s, status_code: %d, response: %s", requestID, statusCode, jsonString(resp.Data))
 
 	return resp.Data, response, nil
 }

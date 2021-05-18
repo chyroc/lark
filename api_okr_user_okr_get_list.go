@@ -13,12 +13,12 @@ import (
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/okr-v1/user-okr/list
 func (r *OKRService) GetUserOKRList(ctx context.Context, request *GetUserOKRListReq, options ...MethodOptionFunc) (*GetUserOKRListResp, *Response, error) {
 	if r.cli.mock.mockOKRGetUserOKRList != nil {
-		r.cli.logDebug(ctx, "[lark] OKR#GetUserOKRList mock enable")
+		r.cli.log(ctx, LogLevelDebug, "[lark] OKR#GetUserOKRList mock enable")
 		return r.cli.mock.mockOKRGetUserOKRList(ctx, request, options...)
 	}
 
-	r.cli.logInfo(ctx, "[lark] OKR#GetUserOKRList call api")
-	r.cli.logDebug(ctx, "[lark] OKR#GetUserOKRList request: %s", jsonString(request))
+	r.cli.log(ctx, LogLevelInfo, "[lark] OKR#GetUserOKRList call api")
+	r.cli.log(ctx, LogLevelDebug, "[lark] OKR#GetUserOKRList request: %s", jsonString(request))
 
 	req := &RawRequestReq{
 		Method:                "GET",
@@ -26,20 +26,22 @@ func (r *OKRService) GetUserOKRList(ctx context.Context, request *GetUserOKRList
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
-		NeedUserAccessToken:   true,
+
+		NeedUserAccessToken: true,
 	}
 	resp := new(getUserOKRListResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
+	requestID, statusCode := getResponseRequestID(response)
 	if err != nil {
-		r.cli.logError(ctx, "[lark] OKR#GetUserOKRList GET https://open.feishu.cn/open-apis/okr/v1/users/:user_id/okrs failed: %s", err)
+		r.cli.log(ctx, LogLevelError, "[lark] OKR#GetUserOKRList GET https://open.feishu.cn/open-apis/okr/v1/users/:user_id/okrs failed, request_id: %s, status_code: %d, error: %s", requestID, statusCode, err)
 		return nil, response, err
 	} else if resp.Code != 0 {
-		r.cli.logError(ctx, "[lark] OKR#GetUserOKRList GET https://open.feishu.cn/open-apis/okr/v1/users/:user_id/okrs failed, code: %d, msg: %s", resp.Code, resp.Msg)
+		r.cli.log(ctx, LogLevelError, "[lark] OKR#GetUserOKRList GET https://open.feishu.cn/open-apis/okr/v1/users/:user_id/okrs failed, request_id: %s, status_code: %d, code: %d, msg: %s", requestID, statusCode, resp.Code, resp.Msg)
 		return nil, response, NewError("OKR", "GetUserOKRList", resp.Code, resp.Msg)
 	}
 
-	r.cli.logDebug(ctx, "[lark] OKR#GetUserOKRList request_id: %s, response: %s", response.RequestID, jsonString(resp.Data))
+	r.cli.log(ctx, LogLevelDebug, "[lark] OKR#GetUserOKRList success, request_id: %s, status_code: %d, response: %s", requestID, statusCode, jsonString(resp.Data))
 
 	return resp.Data, response, nil
 }

@@ -11,12 +11,12 @@ import (
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/timeoff_event/create
 func (r *CalendarService) CreateCalendarTimeoffEvent(ctx context.Context, request *CreateCalendarTimeoffEventReq, options ...MethodOptionFunc) (*CreateCalendarTimeoffEventResp, *Response, error) {
 	if r.cli.mock.mockCalendarCreateCalendarTimeoffEvent != nil {
-		r.cli.logDebug(ctx, "[lark] Calendar#CreateCalendarTimeoffEvent mock enable")
+		r.cli.log(ctx, LogLevelDebug, "[lark] Calendar#CreateCalendarTimeoffEvent mock enable")
 		return r.cli.mock.mockCalendarCreateCalendarTimeoffEvent(ctx, request, options...)
 	}
 
-	r.cli.logInfo(ctx, "[lark] Calendar#CreateCalendarTimeoffEvent call api")
-	r.cli.logDebug(ctx, "[lark] Calendar#CreateCalendarTimeoffEvent request: %s", jsonString(request))
+	r.cli.log(ctx, LogLevelInfo, "[lark] Calendar#CreateCalendarTimeoffEvent call api")
+	r.cli.log(ctx, LogLevelDebug, "[lark] Calendar#CreateCalendarTimeoffEvent request: %s", jsonString(request))
 
 	req := &RawRequestReq{
 		Method:                "POST",
@@ -28,15 +28,16 @@ func (r *CalendarService) CreateCalendarTimeoffEvent(ctx context.Context, reques
 	resp := new(createCalendarTimeoffEventResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
+	requestID, statusCode := getResponseRequestID(response)
 	if err != nil {
-		r.cli.logError(ctx, "[lark] Calendar#CreateCalendarTimeoffEvent POST https://open.feishu.cn/open-apis/calendar/v4/timeoff_events failed: %s", err)
+		r.cli.log(ctx, LogLevelError, "[lark] Calendar#CreateCalendarTimeoffEvent POST https://open.feishu.cn/open-apis/calendar/v4/timeoff_events failed, request_id: %s, status_code: %d, error: %s", requestID, statusCode, err)
 		return nil, response, err
 	} else if resp.Code != 0 {
-		r.cli.logError(ctx, "[lark] Calendar#CreateCalendarTimeoffEvent POST https://open.feishu.cn/open-apis/calendar/v4/timeoff_events failed, code: %d, msg: %s", resp.Code, resp.Msg)
+		r.cli.log(ctx, LogLevelError, "[lark] Calendar#CreateCalendarTimeoffEvent POST https://open.feishu.cn/open-apis/calendar/v4/timeoff_events failed, request_id: %s, status_code: %d, code: %d, msg: %s", requestID, statusCode, resp.Code, resp.Msg)
 		return nil, response, NewError("Calendar", "CreateCalendarTimeoffEvent", resp.Code, resp.Msg)
 	}
 
-	r.cli.logDebug(ctx, "[lark] Calendar#CreateCalendarTimeoffEvent request_id: %s, response: %s", response.RequestID, jsonString(resp.Data))
+	r.cli.log(ctx, LogLevelDebug, "[lark] Calendar#CreateCalendarTimeoffEvent success, request_id: %s, status_code: %d, response: %s", requestID, statusCode, jsonString(resp.Data))
 
 	return resp.Data, response, nil
 }

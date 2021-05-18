@@ -15,12 +15,12 @@ import (
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/admin-v1/admin_user_stat/list
 func (r *AdminService) GetAdminUserStats(ctx context.Context, request *GetAdminUserStatsReq, options ...MethodOptionFunc) (*GetAdminUserStatsResp, *Response, error) {
 	if r.cli.mock.mockAdminGetAdminUserStats != nil {
-		r.cli.logDebug(ctx, "[lark] Admin#GetAdminUserStats mock enable")
+		r.cli.log(ctx, LogLevelDebug, "[lark] Admin#GetAdminUserStats mock enable")
 		return r.cli.mock.mockAdminGetAdminUserStats(ctx, request, options...)
 	}
 
-	r.cli.logInfo(ctx, "[lark] Admin#GetAdminUserStats call api")
-	r.cli.logDebug(ctx, "[lark] Admin#GetAdminUserStats request: %s", jsonString(request))
+	r.cli.log(ctx, LogLevelInfo, "[lark] Admin#GetAdminUserStats call api")
+	r.cli.log(ctx, LogLevelDebug, "[lark] Admin#GetAdminUserStats request: %s", jsonString(request))
 
 	req := &RawRequestReq{
 		Method:                "GET",
@@ -32,15 +32,16 @@ func (r *AdminService) GetAdminUserStats(ctx context.Context, request *GetAdminU
 	resp := new(getAdminUserStatsResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
+	requestID, statusCode := getResponseRequestID(response)
 	if err != nil {
-		r.cli.logError(ctx, "[lark] Admin#GetAdminUserStats GET https://open.feishu.cn/open-apis/admin/v1/admin_user_stats failed: %s", err)
+		r.cli.log(ctx, LogLevelError, "[lark] Admin#GetAdminUserStats GET https://open.feishu.cn/open-apis/admin/v1/admin_user_stats failed, request_id: %s, status_code: %d, error: %s", requestID, statusCode, err)
 		return nil, response, err
 	} else if resp.Code != 0 {
-		r.cli.logError(ctx, "[lark] Admin#GetAdminUserStats GET https://open.feishu.cn/open-apis/admin/v1/admin_user_stats failed, code: %d, msg: %s", resp.Code, resp.Msg)
+		r.cli.log(ctx, LogLevelError, "[lark] Admin#GetAdminUserStats GET https://open.feishu.cn/open-apis/admin/v1/admin_user_stats failed, request_id: %s, status_code: %d, code: %d, msg: %s", requestID, statusCode, resp.Code, resp.Msg)
 		return nil, response, NewError("Admin", "GetAdminUserStats", resp.Code, resp.Msg)
 	}
 
-	r.cli.logDebug(ctx, "[lark] Admin#GetAdminUserStats request_id: %s, response: %s", response.RequestID, jsonString(resp.Data))
+	r.cli.log(ctx, LogLevelDebug, "[lark] Admin#GetAdminUserStats success, request_id: %s, status_code: %d, response: %s", requestID, statusCode, jsonString(resp.Data))
 
 	return resp.Data, response, nil
 }

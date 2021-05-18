@@ -11,12 +11,12 @@ import (
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/Attendance//rule/user-setting-modify
 func (r *AttendanceService) UpdateUserSettings(ctx context.Context, request *UpdateUserSettingsReq, options ...MethodOptionFunc) (*UpdateUserSettingsResp, *Response, error) {
 	if r.cli.mock.mockAttendanceUpdateUserSettings != nil {
-		r.cli.logDebug(ctx, "[lark] Attendance#UpdateUserSettings mock enable")
+		r.cli.log(ctx, LogLevelDebug, "[lark] Attendance#UpdateUserSettings mock enable")
 		return r.cli.mock.mockAttendanceUpdateUserSettings(ctx, request, options...)
 	}
 
-	r.cli.logInfo(ctx, "[lark] Attendance#UpdateUserSettings call api")
-	r.cli.logDebug(ctx, "[lark] Attendance#UpdateUserSettings request: %s", jsonString(request))
+	r.cli.log(ctx, LogLevelInfo, "[lark] Attendance#UpdateUserSettings call api")
+	r.cli.log(ctx, LogLevelDebug, "[lark] Attendance#UpdateUserSettings request: %s", jsonString(request))
 
 	req := &RawRequestReq{
 		Method:                "POST",
@@ -28,15 +28,16 @@ func (r *AttendanceService) UpdateUserSettings(ctx context.Context, request *Upd
 	resp := new(updateUserSettingsResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
+	requestID, statusCode := getResponseRequestID(response)
 	if err != nil {
-		r.cli.logError(ctx, "[lark] Attendance#UpdateUserSettings POST https://open.feishu.cn/open-apis/attendance/v1/user_settings/modify failed: %s", err)
+		r.cli.log(ctx, LogLevelError, "[lark] Attendance#UpdateUserSettings POST https://open.feishu.cn/open-apis/attendance/v1/user_settings/modify failed, request_id: %s, status_code: %d, error: %s", requestID, statusCode, err)
 		return nil, response, err
 	} else if resp.Code != 0 {
-		r.cli.logError(ctx, "[lark] Attendance#UpdateUserSettings POST https://open.feishu.cn/open-apis/attendance/v1/user_settings/modify failed, code: %d, msg: %s", resp.Code, resp.Msg)
+		r.cli.log(ctx, LogLevelError, "[lark] Attendance#UpdateUserSettings POST https://open.feishu.cn/open-apis/attendance/v1/user_settings/modify failed, request_id: %s, status_code: %d, code: %d, msg: %s", requestID, statusCode, resp.Code, resp.Msg)
 		return nil, response, NewError("Attendance", "UpdateUserSettings", resp.Code, resp.Msg)
 	}
 
-	r.cli.logDebug(ctx, "[lark] Attendance#UpdateUserSettings request_id: %s, response: %s", response.RequestID, jsonString(resp.Data))
+	r.cli.log(ctx, LogLevelDebug, "[lark] Attendance#UpdateUserSettings success, request_id: %s, status_code: %d, response: %s", requestID, statusCode, jsonString(resp.Data))
 
 	return resp.Data, response, nil
 }

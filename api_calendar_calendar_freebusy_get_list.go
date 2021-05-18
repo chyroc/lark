@@ -11,12 +11,12 @@ import (
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/freebusy/list
 func (r *CalendarService) GetCalendarFreeBusyList(ctx context.Context, request *GetCalendarFreeBusyListReq, options ...MethodOptionFunc) (*GetCalendarFreeBusyListResp, *Response, error) {
 	if r.cli.mock.mockCalendarGetCalendarFreeBusyList != nil {
-		r.cli.logDebug(ctx, "[lark] Calendar#GetCalendarFreeBusyList mock enable")
+		r.cli.log(ctx, LogLevelDebug, "[lark] Calendar#GetCalendarFreeBusyList mock enable")
 		return r.cli.mock.mockCalendarGetCalendarFreeBusyList(ctx, request, options...)
 	}
 
-	r.cli.logInfo(ctx, "[lark] Calendar#GetCalendarFreeBusyList call api")
-	r.cli.logDebug(ctx, "[lark] Calendar#GetCalendarFreeBusyList request: %s", jsonString(request))
+	r.cli.log(ctx, LogLevelInfo, "[lark] Calendar#GetCalendarFreeBusyList call api")
+	r.cli.log(ctx, LogLevelDebug, "[lark] Calendar#GetCalendarFreeBusyList request: %s", jsonString(request))
 
 	req := &RawRequestReq{
 		Method:                "POST",
@@ -28,15 +28,16 @@ func (r *CalendarService) GetCalendarFreeBusyList(ctx context.Context, request *
 	resp := new(getCalendarFreeBusyListResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
+	requestID, statusCode := getResponseRequestID(response)
 	if err != nil {
-		r.cli.logError(ctx, "[lark] Calendar#GetCalendarFreeBusyList POST https://open.feishu.cn/open-apis/calendar/v4/freebusy/list failed: %s", err)
+		r.cli.log(ctx, LogLevelError, "[lark] Calendar#GetCalendarFreeBusyList POST https://open.feishu.cn/open-apis/calendar/v4/freebusy/list failed, request_id: %s, status_code: %d, error: %s", requestID, statusCode, err)
 		return nil, response, err
 	} else if resp.Code != 0 {
-		r.cli.logError(ctx, "[lark] Calendar#GetCalendarFreeBusyList POST https://open.feishu.cn/open-apis/calendar/v4/freebusy/list failed, code: %d, msg: %s", resp.Code, resp.Msg)
+		r.cli.log(ctx, LogLevelError, "[lark] Calendar#GetCalendarFreeBusyList POST https://open.feishu.cn/open-apis/calendar/v4/freebusy/list failed, request_id: %s, status_code: %d, code: %d, msg: %s", requestID, statusCode, resp.Code, resp.Msg)
 		return nil, response, NewError("Calendar", "GetCalendarFreeBusyList", resp.Code, resp.Msg)
 	}
 
-	r.cli.logDebug(ctx, "[lark] Calendar#GetCalendarFreeBusyList request_id: %s, response: %s", response.RequestID, jsonString(resp.Data))
+	r.cli.log(ctx, LogLevelDebug, "[lark] Calendar#GetCalendarFreeBusyList success, request_id: %s, status_code: %d, response: %s", requestID, statusCode, jsonString(resp.Data))
 
 	return resp.Data, response, nil
 }

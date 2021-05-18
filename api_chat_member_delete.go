@@ -16,12 +16,12 @@ import (
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-members/delete
 func (r *ChatService) DeleteMember(ctx context.Context, request *DeleteMemberReq, options ...MethodOptionFunc) (*DeleteMemberResp, *Response, error) {
 	if r.cli.mock.mockChatDeleteMember != nil {
-		r.cli.logDebug(ctx, "[lark] Chat#DeleteMember mock enable")
+		r.cli.log(ctx, LogLevelDebug, "[lark] Chat#DeleteMember mock enable")
 		return r.cli.mock.mockChatDeleteMember(ctx, request, options...)
 	}
 
-	r.cli.logInfo(ctx, "[lark] Chat#DeleteMember call api")
-	r.cli.logDebug(ctx, "[lark] Chat#DeleteMember request: %s", jsonString(request))
+	r.cli.log(ctx, LogLevelInfo, "[lark] Chat#DeleteMember call api")
+	r.cli.log(ctx, LogLevelDebug, "[lark] Chat#DeleteMember request: %s", jsonString(request))
 
 	req := &RawRequestReq{
 		Method:                "DELETE",
@@ -29,20 +29,22 @@ func (r *ChatService) DeleteMember(ctx context.Context, request *DeleteMemberReq
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
-		NeedUserAccessToken:   true,
+
+		NeedUserAccessToken: true,
 	}
 	resp := new(deleteMemberResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
+	requestID, statusCode := getResponseRequestID(response)
 	if err != nil {
-		r.cli.logError(ctx, "[lark] Chat#DeleteMember DELETE https://open.feishu.cn/open-apis/im/v1/chats/:chat_id/members failed: %s", err)
+		r.cli.log(ctx, LogLevelError, "[lark] Chat#DeleteMember DELETE https://open.feishu.cn/open-apis/im/v1/chats/:chat_id/members failed, request_id: %s, status_code: %d, error: %s", requestID, statusCode, err)
 		return nil, response, err
 	} else if resp.Code != 0 {
-		r.cli.logError(ctx, "[lark] Chat#DeleteMember DELETE https://open.feishu.cn/open-apis/im/v1/chats/:chat_id/members failed, code: %d, msg: %s", resp.Code, resp.Msg)
+		r.cli.log(ctx, LogLevelError, "[lark] Chat#DeleteMember DELETE https://open.feishu.cn/open-apis/im/v1/chats/:chat_id/members failed, request_id: %s, status_code: %d, code: %d, msg: %s", requestID, statusCode, resp.Code, resp.Msg)
 		return nil, response, NewError("Chat", "DeleteMember", resp.Code, resp.Msg)
 	}
 
-	r.cli.logDebug(ctx, "[lark] Chat#DeleteMember request_id: %s, response: %s", response.RequestID, jsonString(resp.Data))
+	r.cli.log(ctx, LogLevelDebug, "[lark] Chat#DeleteMember success, request_id: %s, status_code: %d, response: %s", requestID, statusCode, jsonString(resp.Data))
 
 	return resp.Data, response, nil
 }

@@ -6,10 +6,7 @@ import (
 )
 
 type Logger interface {
-	Debug(ctx context.Context, msg string, args ...interface{}) // debug消息，多
-	Info(ctx context.Context, msg string, args ...interface{})  // 常见消息，正常
-	Warn(ctx context.Context, msg string, args ...interface{})  // 警示消息，少
-	Error(ctx context.Context, msg string, args ...interface{}) // 错误消息，出错的时候才有
+	Log(ctx context.Context, level LogLevel, msg string, args ...interface{})
 }
 
 type LogLevel int
@@ -21,27 +18,24 @@ const (
 	LogLevelError
 )
 
-func (r *Lark) logDebug(ctx context.Context, msg string, args ...interface{}) {
-	if r.logger != nil && LogLevelDebug >= r.logLevel {
-		r.logger.Debug(ctx, msg, args...)
+func (r LogLevel) String() string {
+	switch r {
+	case LogLevelDebug:
+		return "DEBUG"
+	case LogLevelInfo:
+		return "INFO"
+	case LogLevelWarn:
+		return "WARN"
+	case LogLevelError:
+		return "ERROR"
+	default:
+		return ""
 	}
 }
 
-func (r *Lark) logInfo(ctx context.Context, msg string, args ...interface{}) {
-	if r.logger != nil && LogLevelInfo >= r.logLevel {
-		r.logger.Info(ctx, msg, args...)
-	}
-}
-
-func (r *Lark) logWarn(ctx context.Context, msg string, args ...interface{}) {
-	if r.logger != nil && LogLevelWarn >= r.logLevel {
-		r.logger.Warn(ctx, msg, args...)
-	}
-}
-
-func (r *Lark) logError(ctx context.Context, msg string, args ...interface{}) {
-	if r.logger != nil && LogLevelError >= r.logLevel {
-		r.logger.Error(ctx, msg, args...)
+func (r *Lark) log(ctx context.Context, level LogLevel, msg string, args ...interface{}) {
+	if r.logger != nil && level >= r.logLevel {
+		r.logger.Log(ctx, level, msg, args...)
 	}
 }
 
@@ -51,18 +45,6 @@ func NewLoggerStdout() Logger {
 	return &LoggerStdout{}
 }
 
-func (l *LoggerStdout) Debug(ctx context.Context, msg string, args ...interface{}) {
-	fmt.Printf("[debug] "+msg+"\n", args...)
-}
-
-func (l *LoggerStdout) Info(ctx context.Context, msg string, args ...interface{}) {
-	fmt.Printf("[info] "+msg+"\n", args...)
-}
-
-func (l *LoggerStdout) Warn(ctx context.Context, msg string, args ...interface{}) {
-	fmt.Printf("[wran] "+msg+"\n", args...)
-}
-
-func (l *LoggerStdout) Error(ctx context.Context, msg string, args ...interface{}) {
-	fmt.Printf("[error] "+msg+"\n", args...)
+func (l *LoggerStdout) Log(ctx context.Context, level LogLevel, msg string, args ...interface{}) {
+	fmt.Printf("["+level.String()+"] "+msg+"\n", args...)
 }

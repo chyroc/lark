@@ -11,32 +11,34 @@ import (
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uEjNzUjLxYzM14SM2MTN
 func (r *DriveService) GetFolderChildren(ctx context.Context, request *GetFolderChildrenReq, options ...MethodOptionFunc) (*GetFolderChildrenResp, *Response, error) {
 	if r.cli.mock.mockDriveGetFolderChildren != nil {
-		r.cli.logDebug(ctx, "[lark] Drive#GetFolderChildren mock enable")
+		r.cli.log(ctx, LogLevelDebug, "[lark] Drive#GetFolderChildren mock enable")
 		return r.cli.mock.mockDriveGetFolderChildren(ctx, request, options...)
 	}
 
-	r.cli.logInfo(ctx, "[lark] Drive#GetFolderChildren call api")
-	r.cli.logDebug(ctx, "[lark] Drive#GetFolderChildren request: %s", jsonString(request))
+	r.cli.log(ctx, LogLevelInfo, "[lark] Drive#GetFolderChildren call api")
+	r.cli.log(ctx, LogLevelDebug, "[lark] Drive#GetFolderChildren request: %s", jsonString(request))
 
 	req := &RawRequestReq{
-		Method:              "GET",
-		URL:                 "https://open.feishu.cn/open-apis/drive/explorer/v2/folder/:folderToken/children",
-		Body:                request,
-		MethodOption:        newMethodOption(options),
+		Method:       "GET",
+		URL:          "https://open.feishu.cn/open-apis/drive/explorer/v2/folder/:folderToken/children",
+		Body:         request,
+		MethodOption: newMethodOption(options),
+
 		NeedUserAccessToken: true,
 	}
 	resp := new(getFolderChildrenResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
+	requestID, statusCode := getResponseRequestID(response)
 	if err != nil {
-		r.cli.logError(ctx, "[lark] Drive#GetFolderChildren GET https://open.feishu.cn/open-apis/drive/explorer/v2/folder/:folderToken/children failed: %s", err)
+		r.cli.log(ctx, LogLevelError, "[lark] Drive#GetFolderChildren GET https://open.feishu.cn/open-apis/drive/explorer/v2/folder/:folderToken/children failed, request_id: %s, status_code: %d, error: %s", requestID, statusCode, err)
 		return nil, response, err
 	} else if resp.Code != 0 {
-		r.cli.logError(ctx, "[lark] Drive#GetFolderChildren GET https://open.feishu.cn/open-apis/drive/explorer/v2/folder/:folderToken/children failed, code: %d, msg: %s", resp.Code, resp.Msg)
+		r.cli.log(ctx, LogLevelError, "[lark] Drive#GetFolderChildren GET https://open.feishu.cn/open-apis/drive/explorer/v2/folder/:folderToken/children failed, request_id: %s, status_code: %d, code: %d, msg: %s", requestID, statusCode, resp.Code, resp.Msg)
 		return nil, response, NewError("Drive", "GetFolderChildren", resp.Code, resp.Msg)
 	}
 
-	r.cli.logDebug(ctx, "[lark] Drive#GetFolderChildren request_id: %s, response: %s", response.RequestID, jsonString(resp.Data))
+	r.cli.log(ctx, LogLevelDebug, "[lark] Drive#GetFolderChildren success, request_id: %s, status_code: %d, response: %s", requestID, statusCode, jsonString(resp.Data))
 
 	return resp.Data, response, nil
 }
