@@ -6,17 +6,17 @@ import (
 	"context"
 )
 
-// DeleteComment 删除云文档中的某条回复。
+// DeleteDriveComment 删除云文档中的某条回复。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file-comment-reply/delete
-func (r *DriveService) DeleteComment(ctx context.Context, request *DeleteCommentReq, options ...MethodOptionFunc) (*DeleteCommentResp, *Response, error) {
-	if r.cli.mock.mockDriveDeleteComment != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Drive#DeleteComment mock enable")
-		return r.cli.mock.mockDriveDeleteComment(ctx, request, options...)
+func (r *DriveService) DeleteDriveComment(ctx context.Context, request *DeleteDriveCommentReq, options ...MethodOptionFunc) (*DeleteDriveCommentResp, *Response, error) {
+	if r.cli.mock.mockDriveDeleteDriveComment != nil {
+		r.cli.log(ctx, LogLevelDebug, "[lark] Drive#DeleteDriveComment mock enable")
+		return r.cli.mock.mockDriveDeleteDriveComment(ctx, request, options...)
 	}
 
-	r.cli.log(ctx, LogLevelInfo, "[lark] Drive#DeleteComment call api")
-	r.cli.log(ctx, LogLevelDebug, "[lark] Drive#DeleteComment request: %s", jsonString(request))
+	r.cli.log(ctx, LogLevelInfo, "[lark] Drive#DeleteDriveComment call api")
+	r.cli.log(ctx, LogLevelDebug, "[lark] Drive#DeleteDriveComment request: %s", jsonString(request))
 
 	req := &RawRequestReq{
 		Method:                "DELETE",
@@ -27,42 +27,42 @@ func (r *DriveService) DeleteComment(ctx context.Context, request *DeleteComment
 
 		NeedUserAccessToken: true,
 	}
-	resp := new(deleteCommentResp)
+	resp := new(deleteDriveCommentResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
 	requestID, statusCode := getResponseRequestID(response)
 	if err != nil {
-		r.cli.log(ctx, LogLevelError, "[lark] Drive#DeleteComment DELETE https://open.feishu.cn/open-apis/drive/v1/files/:file_token/comments/:comment_id/replies/:reply_id failed, request_id: %s, status_code: %d, error: %s", requestID, statusCode, err)
+		r.cli.log(ctx, LogLevelError, "[lark] Drive#DeleteDriveComment DELETE https://open.feishu.cn/open-apis/drive/v1/files/:file_token/comments/:comment_id/replies/:reply_id failed, request_id: %s, status_code: %d, error: %s", requestID, statusCode, err)
 		return nil, response, err
 	} else if resp.Code != 0 {
-		r.cli.log(ctx, LogLevelError, "[lark] Drive#DeleteComment DELETE https://open.feishu.cn/open-apis/drive/v1/files/:file_token/comments/:comment_id/replies/:reply_id failed, request_id: %s, status_code: %d, code: %d, msg: %s", requestID, statusCode, resp.Code, resp.Msg)
-		return nil, response, NewError("Drive", "DeleteComment", resp.Code, resp.Msg)
+		r.cli.log(ctx, LogLevelError, "[lark] Drive#DeleteDriveComment DELETE https://open.feishu.cn/open-apis/drive/v1/files/:file_token/comments/:comment_id/replies/:reply_id failed, request_id: %s, status_code: %d, code: %d, msg: %s", requestID, statusCode, resp.Code, resp.Msg)
+		return nil, response, NewError("Drive", "DeleteDriveComment", resp.Code, resp.Msg)
 	}
 
-	r.cli.log(ctx, LogLevelDebug, "[lark] Drive#DeleteComment success, request_id: %s, status_code: %d, response: %s", requestID, statusCode, jsonString(resp.Data))
+	r.cli.log(ctx, LogLevelDebug, "[lark] Drive#DeleteDriveComment success, request_id: %s, status_code: %d, response: %s", requestID, statusCode, jsonString(resp.Data))
 
 	return resp.Data, response, nil
 }
 
-func (r *Mock) MockDriveDeleteComment(f func(ctx context.Context, request *DeleteCommentReq, options ...MethodOptionFunc) (*DeleteCommentResp, *Response, error)) {
-	r.mockDriveDeleteComment = f
+func (r *Mock) MockDriveDeleteDriveComment(f func(ctx context.Context, request *DeleteDriveCommentReq, options ...MethodOptionFunc) (*DeleteDriveCommentResp, *Response, error)) {
+	r.mockDriveDeleteDriveComment = f
 }
 
-func (r *Mock) UnMockDriveDeleteComment() {
-	r.mockDriveDeleteComment = nil
+func (r *Mock) UnMockDriveDeleteDriveComment() {
+	r.mockDriveDeleteDriveComment = nil
 }
 
-type DeleteCommentReq struct {
+type DeleteDriveCommentReq struct {
 	FileType  FileType `query:"file_type" json:"-"` // 文档类型, 示例值："doc", 可选值有: `doc`：文档, `sheet`：表格, `file`：文件
 	FileToken string   `path:"file_token" json:"-"` // 文档token, 示例值："doccnHh7U87HOFpii5u5G*****"
 	CommentID string   `path:"comment_id" json:"-"` // 评论ID, 示例值："6916106822734578184"
 	ReplyID   string   `path:"reply_id" json:"-"`   // 回复ID, 示例值："6916106822734594568"
 }
 
-type deleteCommentResp struct {
-	Code int                `json:"code,omitempty"` // 错误码，非 0 表示失败
-	Msg  string             `json:"msg,omitempty"`  // 错误描述
-	Data *DeleteCommentResp `json:"data,omitempty"`
+type deleteDriveCommentResp struct {
+	Code int64                   `json:"code,omitempty"` // 错误码，非 0 表示失败
+	Msg  string                  `json:"msg,omitempty"`  // 错误描述
+	Data *DeleteDriveCommentResp `json:"data,omitempty"`
 }
 
-type DeleteCommentResp struct{}
+type DeleteDriveCommentResp struct{}

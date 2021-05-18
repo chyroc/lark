@@ -7,7 +7,7 @@ import (
 type Error struct {
 	Scope    string
 	FuncName string
-	Code     int
+	Code     int64
 	Msg      string
 }
 
@@ -18,7 +18,7 @@ func (r *Error) Error() string {
 	return fmt.Sprintf("request %s#%s failed: code: %d, msg: %s", r.Scope, r.FuncName, r.Code, r.Msg)
 }
 
-func NewError(scope, funcName string, code int, msg string) error {
+func NewError(scope, funcName string, code int64, msg string) error {
 	return &Error{
 		Scope:    scope,
 		FuncName: funcName,

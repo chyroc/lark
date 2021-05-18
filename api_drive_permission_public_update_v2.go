@@ -6,17 +6,17 @@ import (
 	"context"
 )
 
-// UpdatePublicPermissionV2 该接口用于根据 filetoken 更新文档的公共设置。
+// UpdateDrivePublicPermissionV2 该接口用于根据 filetoken 更新文档的公共设置。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uITN5UjLyUTO14iM1kTN
-func (r *DriveService) UpdatePublicPermissionV2(ctx context.Context, request *UpdatePublicPermissionV2Req, options ...MethodOptionFunc) (*UpdatePublicPermissionV2Resp, *Response, error) {
-	if r.cli.mock.mockDriveUpdatePublicPermissionV2 != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Drive#UpdatePublicPermissionV2 mock enable")
-		return r.cli.mock.mockDriveUpdatePublicPermissionV2(ctx, request, options...)
+func (r *DriveService) UpdateDrivePublicPermissionV2(ctx context.Context, request *UpdateDrivePublicPermissionV2Req, options ...MethodOptionFunc) (*UpdateDrivePublicPermissionV2Resp, *Response, error) {
+	if r.cli.mock.mockDriveUpdateDrivePublicPermissionV2 != nil {
+		r.cli.log(ctx, LogLevelDebug, "[lark] Drive#UpdateDrivePublicPermissionV2 mock enable")
+		return r.cli.mock.mockDriveUpdateDrivePublicPermissionV2(ctx, request, options...)
 	}
 
-	r.cli.log(ctx, LogLevelInfo, "[lark] Drive#UpdatePublicPermissionV2 call api")
-	r.cli.log(ctx, LogLevelDebug, "[lark] Drive#UpdatePublicPermissionV2 request: %s", jsonString(request))
+	r.cli.log(ctx, LogLevelInfo, "[lark] Drive#UpdateDrivePublicPermissionV2 call api")
+	r.cli.log(ctx, LogLevelDebug, "[lark] Drive#UpdateDrivePublicPermissionV2 request: %s", jsonString(request))
 
 	req := &RawRequestReq{
 		Method:                "POST",
@@ -27,32 +27,32 @@ func (r *DriveService) UpdatePublicPermissionV2(ctx context.Context, request *Up
 
 		NeedUserAccessToken: true,
 	}
-	resp := new(updatePublicPermissionV2Resp)
+	resp := new(updateDrivePublicPermissionV2Resp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
 	requestID, statusCode := getResponseRequestID(response)
 	if err != nil {
-		r.cli.log(ctx, LogLevelError, "[lark] Drive#UpdatePublicPermissionV2 POST https://open.feishu.cn/open-apis/drive/permission/v2/public/update/ failed, request_id: %s, status_code: %d, error: %s", requestID, statusCode, err)
+		r.cli.log(ctx, LogLevelError, "[lark] Drive#UpdateDrivePublicPermissionV2 POST https://open.feishu.cn/open-apis/drive/permission/v2/public/update/ failed, request_id: %s, status_code: %d, error: %s", requestID, statusCode, err)
 		return nil, response, err
 	} else if resp.Code != 0 {
-		r.cli.log(ctx, LogLevelError, "[lark] Drive#UpdatePublicPermissionV2 POST https://open.feishu.cn/open-apis/drive/permission/v2/public/update/ failed, request_id: %s, status_code: %d, code: %d, msg: %s", requestID, statusCode, resp.Code, resp.Msg)
-		return nil, response, NewError("Drive", "UpdatePublicPermissionV2", resp.Code, resp.Msg)
+		r.cli.log(ctx, LogLevelError, "[lark] Drive#UpdateDrivePublicPermissionV2 POST https://open.feishu.cn/open-apis/drive/permission/v2/public/update/ failed, request_id: %s, status_code: %d, code: %d, msg: %s", requestID, statusCode, resp.Code, resp.Msg)
+		return nil, response, NewError("Drive", "UpdateDrivePublicPermissionV2", resp.Code, resp.Msg)
 	}
 
-	r.cli.log(ctx, LogLevelDebug, "[lark] Drive#UpdatePublicPermissionV2 success, request_id: %s, status_code: %d, response: %s", requestID, statusCode, jsonString(resp.Data))
+	r.cli.log(ctx, LogLevelDebug, "[lark] Drive#UpdateDrivePublicPermissionV2 success, request_id: %s, status_code: %d, response: %s", requestID, statusCode, jsonString(resp.Data))
 
 	return resp.Data, response, nil
 }
 
-func (r *Mock) MockDriveUpdatePublicPermissionV2(f func(ctx context.Context, request *UpdatePublicPermissionV2Req, options ...MethodOptionFunc) (*UpdatePublicPermissionV2Resp, *Response, error)) {
-	r.mockDriveUpdatePublicPermissionV2 = f
+func (r *Mock) MockDriveUpdateDrivePublicPermissionV2(f func(ctx context.Context, request *UpdateDrivePublicPermissionV2Req, options ...MethodOptionFunc) (*UpdateDrivePublicPermissionV2Resp, *Response, error)) {
+	r.mockDriveUpdateDrivePublicPermissionV2 = f
 }
 
-func (r *Mock) UnMockDriveUpdatePublicPermissionV2() {
-	r.mockDriveUpdatePublicPermissionV2 = nil
+func (r *Mock) UnMockDriveUpdateDrivePublicPermissionV2() {
+	r.mockDriveUpdateDrivePublicPermissionV2 = nil
 }
 
-type UpdatePublicPermissionV2Req struct {
+type UpdateDrivePublicPermissionV2Req struct {
 	Token           string  `json:"token,omitempty"`             // 文件的 token，获取方式见 [对接前说明](/ssl:ttdoc/ukTMukTMukTM/uczNzUjL3czM14yN3MTN)的第 4 项
 	Type            string  `json:"type,omitempty"`              // 文档类型  "doc"  or  "sheet" or "file"
 	SecurityEntity  *string `json:"security_entity,omitempty"`   // 可创建副本/打印/导出/复制设置（不传则保持原值）：<br>"anyone_can_view" - 所有可访问此文档的用户<br>"anyone_can_edit" - 有编辑权限的用户
@@ -63,10 +63,10 @@ type UpdatePublicPermissionV2Req struct {
 	InviteExternal  *bool   `json:"invite_external,omitempty"`   // 非owner是否允许邀请外部人（不传则保持原值）
 }
 
-type updatePublicPermissionV2Resp struct {
-	Code int                           `json:"code,omitempty"`
-	Msg  string                        `json:"msg,omitempty"`
-	Data *UpdatePublicPermissionV2Resp `json:"data,omitempty"`
+type updateDrivePublicPermissionV2Resp struct {
+	Code int64                              `json:"code,omitempty"`
+	Msg  string                             `json:"msg,omitempty"`
+	Data *UpdateDrivePublicPermissionV2Resp `json:"data,omitempty"`
 }
 
-type UpdatePublicPermissionV2Resp struct{}
+type UpdateDrivePublicPermissionV2Resp struct{}

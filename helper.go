@@ -5,7 +5,7 @@ import (
 	"fmt"
 )
 
-func GetErrorCode(err error) int {
+func GetErrorCode(err error) int64 {
 	if err != nil {
 		if e, ok := err.(*Error); ok {
 			return e.Code

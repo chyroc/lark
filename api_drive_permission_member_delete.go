@@ -6,17 +6,17 @@ import (
 	"context"
 )
 
-// DeleteMemberPermission 该接口用于根据 filetoken 移除文档协作者的权限。
+// DeleteDriveMemberPermission 该接口用于根据 filetoken 移除文档协作者的权限。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uYTN3UjL2UzN14iN1cTN
-func (r *DriveService) DeleteMemberPermission(ctx context.Context, request *DeleteMemberPermissionReq, options ...MethodOptionFunc) (*DeleteMemberPermissionResp, *Response, error) {
-	if r.cli.mock.mockDriveDeleteMemberPermission != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Drive#DeleteMemberPermission mock enable")
-		return r.cli.mock.mockDriveDeleteMemberPermission(ctx, request, options...)
+func (r *DriveService) DeleteDriveMemberPermission(ctx context.Context, request *DeleteDriveMemberPermissionReq, options ...MethodOptionFunc) (*DeleteDriveMemberPermissionResp, *Response, error) {
+	if r.cli.mock.mockDriveDeleteDriveMemberPermission != nil {
+		r.cli.log(ctx, LogLevelDebug, "[lark] Drive#DeleteDriveMemberPermission mock enable")
+		return r.cli.mock.mockDriveDeleteDriveMemberPermission(ctx, request, options...)
 	}
 
-	r.cli.log(ctx, LogLevelInfo, "[lark] Drive#DeleteMemberPermission call api")
-	r.cli.log(ctx, LogLevelDebug, "[lark] Drive#DeleteMemberPermission request: %s", jsonString(request))
+	r.cli.log(ctx, LogLevelInfo, "[lark] Drive#DeleteDriveMemberPermission call api")
+	r.cli.log(ctx, LogLevelDebug, "[lark] Drive#DeleteDriveMemberPermission request: %s", jsonString(request))
 
 	req := &RawRequestReq{
 		Method:                "POST",
@@ -27,44 +27,44 @@ func (r *DriveService) DeleteMemberPermission(ctx context.Context, request *Dele
 
 		NeedUserAccessToken: true,
 	}
-	resp := new(deleteMemberPermissionResp)
+	resp := new(deleteDriveMemberPermissionResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
 	requestID, statusCode := getResponseRequestID(response)
 	if err != nil {
-		r.cli.log(ctx, LogLevelError, "[lark] Drive#DeleteMemberPermission POST https://open.feishu.cn/open-apis/drive/permission/member/delete failed, request_id: %s, status_code: %d, error: %s", requestID, statusCode, err)
+		r.cli.log(ctx, LogLevelError, "[lark] Drive#DeleteDriveMemberPermission POST https://open.feishu.cn/open-apis/drive/permission/member/delete failed, request_id: %s, status_code: %d, error: %s", requestID, statusCode, err)
 		return nil, response, err
 	} else if resp.Code != 0 {
-		r.cli.log(ctx, LogLevelError, "[lark] Drive#DeleteMemberPermission POST https://open.feishu.cn/open-apis/drive/permission/member/delete failed, request_id: %s, status_code: %d, code: %d, msg: %s", requestID, statusCode, resp.Code, resp.Msg)
-		return nil, response, NewError("Drive", "DeleteMemberPermission", resp.Code, resp.Msg)
+		r.cli.log(ctx, LogLevelError, "[lark] Drive#DeleteDriveMemberPermission POST https://open.feishu.cn/open-apis/drive/permission/member/delete failed, request_id: %s, status_code: %d, code: %d, msg: %s", requestID, statusCode, resp.Code, resp.Msg)
+		return nil, response, NewError("Drive", "DeleteDriveMemberPermission", resp.Code, resp.Msg)
 	}
 
-	r.cli.log(ctx, LogLevelDebug, "[lark] Drive#DeleteMemberPermission success, request_id: %s, status_code: %d, response: %s", requestID, statusCode, jsonString(resp.Data))
+	r.cli.log(ctx, LogLevelDebug, "[lark] Drive#DeleteDriveMemberPermission success, request_id: %s, status_code: %d, response: %s", requestID, statusCode, jsonString(resp.Data))
 
 	return resp.Data, response, nil
 }
 
-func (r *Mock) MockDriveDeleteMemberPermission(f func(ctx context.Context, request *DeleteMemberPermissionReq, options ...MethodOptionFunc) (*DeleteMemberPermissionResp, *Response, error)) {
-	r.mockDriveDeleteMemberPermission = f
+func (r *Mock) MockDriveDeleteDriveMemberPermission(f func(ctx context.Context, request *DeleteDriveMemberPermissionReq, options ...MethodOptionFunc) (*DeleteDriveMemberPermissionResp, *Response, error)) {
+	r.mockDriveDeleteDriveMemberPermission = f
 }
 
-func (r *Mock) UnMockDriveDeleteMemberPermission() {
-	r.mockDriveDeleteMemberPermission = nil
+func (r *Mock) UnMockDriveDeleteDriveMemberPermission() {
+	r.mockDriveDeleteDriveMemberPermission = nil
 }
 
-type DeleteMemberPermissionReq struct {
+type DeleteDriveMemberPermissionReq struct {
 	Token      string `json:"token,omitempty"`       // 文件的 token，获取方式见 [对接前说明](/ssl:ttdoc/ukTMukTMukTM/uczNzUjL3czM14yN3MTN)的第 4 项
 	Type       string `json:"type,omitempty"`        // 文档类型  "doc"  or  "sheet" or "file"
 	MemberType string `json:"member_type,omitempty"` // 用户类型，可选 **"openid"、"openchat"、"userid"**
 	MemberID   string `json:"member_id,omitempty"`   // 用户类型下的值
 }
 
-type deleteMemberPermissionResp struct {
-	Code int                         `json:"code,omitempty"`
-	Msg  string                      `json:"msg,omitempty"`
-	Data *DeleteMemberPermissionResp `json:"data,omitempty"`
+type deleteDriveMemberPermissionResp struct {
+	Code int64                            `json:"code,omitempty"`
+	Msg  string                           `json:"msg,omitempty"`
+	Data *DeleteDriveMemberPermissionResp `json:"data,omitempty"`
 }
 
-type DeleteMemberPermissionResp struct {
+type DeleteDriveMemberPermissionResp struct {
 	IsSuccess bool `json:"is_success,omitempty"` // 是否操作成功
 }

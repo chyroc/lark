@@ -57,13 +57,13 @@ func (r *Mock) UnMockCalendarGetCalendarList() {
 }
 
 type GetCalendarListReq struct {
-	PageSize  *int    `query:"page_size" json:"-"`  // 一次请求要求返回最大数量，默认500，取值范围为[50. 1000], 示例值：10, 默认值: `500`, 取值范围：`50` ～ `1000`
+	PageSize  *int64  `query:"page_size" json:"-"`  // 一次请求要求返回最大数量，默认500，取值范围为[50. 1000], 示例值：10, 默认值: `500`, 取值范围：`50` ～ `1000`
 	PageToken *string `query:"page_token" json:"-"` // 上次请求Response返回的分页标记，首次请求时为空, 示例值："xxxxx"
 	SyncToken *string `query:"sync_token" json:"-"` // 上次请求Response返回的增量同步标记，分页请求未结束时为空, 示例值："ListCalendarsSyncToken_xxx"
 }
 
 type getCalendarListResp struct {
-	Code int                  `json:"code,omitempty"` // 错误码，非 0 表示失败
+	Code int64                `json:"code,omitempty"` // 错误码，非 0 表示失败
 	Msg  string               `json:"msg,omitempty"`  // 错误描述
 	Data *GetCalendarListResp `json:"data,omitempty"` //
 }
@@ -80,7 +80,7 @@ type GetCalendarListRespCalendar struct {
 	Summary      string             `json:"summary,omitempty"`        // 日历标题, 最大长度：`255` 字符
 	Description  string             `json:"description,omitempty"`    // 日历描述, 最大长度：`255` 字符
 	Permissions  CalendarPermission `json:"permissions,omitempty"`    // 日历公开范围, 可选值有: `private`：私密, `show_only_free_busy`：仅展示忙闲信息, `public`：他人可查看日程详情
-	Color        int                `json:"color,omitempty"`          // 日历颜色，颜色RGB值的int32表示。客户端展示时会映射到色板上最接近的一种颜色。仅对当前身份生效
+	Color        int64              `json:"color,omitempty"`          // 日历颜色，颜色RGB值的int32表示。客户端展示时会映射到色板上最接近的一种颜色。仅对当前身份生效
 	Type         CalendarType       `json:"type,omitempty"`           // 日历类型, 可选值有: `unknown`：未知类型, `primary`：用户或应用的主日历, `shared`：由用户或应用创建的共享日历, `google`：用户绑定的谷歌日历, `resource`：会议室日历, `exchange`：用户绑定的Exchange日历
 	SummaryAlias string             `json:"summary_alias,omitempty"`  // 日历备注名，修改或添加后仅对当前身份生效, 最大长度：`255` 字符
 	IsDeleted    bool               `json:"is_deleted,omitempty"`     // 对于当前身份，日历是否已经被标记为删除, 默认值: `false`

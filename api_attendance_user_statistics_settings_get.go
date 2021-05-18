@@ -57,7 +57,7 @@ type GetUserStatisticsSettingsReq struct {
 }
 
 type getUserStatisticsSettingsResp struct {
-	Code int                            `json:"code,omitempty"` // 错误码，非 0 表示失败
+	Code int64                          `json:"code,omitempty"` // 错误码，非 0 表示失败
 	Msg  string                         `json:"msg,omitempty"`  // 错误描述
 	Data *GetUserStatisticsSettingsResp `json:"data,omitempty"` //
 }
@@ -83,7 +83,7 @@ type GetUserStatisticsSettingsRespViewItemChildItem struct {
 	Code       string `json:"code,omitempty"`        // 标题编号
 	Value      string `json:"value,omitempty"`       // 是否开启,      , 可选值有: `0`：关闭, `1`：开启
 	Title      string `json:"title,omitempty"`       // 标题名称
-	ColumnType int    `json:"column_type,omitempty"` // 标题类型
+	ColumnType int64  `json:"column_type,omitempty"` // 标题类型
 	ReadOnly   bool   `json:"read_only,omitempty"`   // 是否只读
 	MinValue   string `json:"min_value,omitempty"`   // 最小值
 	MaxValue   string `json:"max_value,omitempty"`   // 最大值

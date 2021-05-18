@@ -6,7 +6,7 @@ import (
 	"context"
 )
 
-// DeleteMember 将用户或机器人移出群聊。
+// DeleteChatMember 将用户或机器人移出群聊。
 //
 // 注意事项：
 // - 应用需要开启[机器人能力](https://open.feishu.cn/document/uQjL04CN/uYTMuYTMuYTM)
@@ -14,14 +14,14 @@ import (
 // - 每次请求，最多移除50个用户或者5个机器人
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-members/delete
-func (r *ChatService) DeleteMember(ctx context.Context, request *DeleteMemberReq, options ...MethodOptionFunc) (*DeleteMemberResp, *Response, error) {
-	if r.cli.mock.mockChatDeleteMember != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Chat#DeleteMember mock enable")
-		return r.cli.mock.mockChatDeleteMember(ctx, request, options...)
+func (r *ChatService) DeleteChatMember(ctx context.Context, request *DeleteChatMemberReq, options ...MethodOptionFunc) (*DeleteChatMemberResp, *Response, error) {
+	if r.cli.mock.mockChatDeleteChatMember != nil {
+		r.cli.log(ctx, LogLevelDebug, "[lark] Chat#DeleteChatMember mock enable")
+		return r.cli.mock.mockChatDeleteChatMember(ctx, request, options...)
 	}
 
-	r.cli.log(ctx, LogLevelInfo, "[lark] Chat#DeleteMember call api")
-	r.cli.log(ctx, LogLevelDebug, "[lark] Chat#DeleteMember request: %s", jsonString(request))
+	r.cli.log(ctx, LogLevelInfo, "[lark] Chat#DeleteChatMember call api")
+	r.cli.log(ctx, LogLevelDebug, "[lark] Chat#DeleteChatMember request: %s", jsonString(request))
 
 	req := &RawRequestReq{
 		Method:                "DELETE",
@@ -32,43 +32,43 @@ func (r *ChatService) DeleteMember(ctx context.Context, request *DeleteMemberReq
 
 		NeedUserAccessToken: true,
 	}
-	resp := new(deleteMemberResp)
+	resp := new(deleteChatMemberResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
 	requestID, statusCode := getResponseRequestID(response)
 	if err != nil {
-		r.cli.log(ctx, LogLevelError, "[lark] Chat#DeleteMember DELETE https://open.feishu.cn/open-apis/im/v1/chats/:chat_id/members failed, request_id: %s, status_code: %d, error: %s", requestID, statusCode, err)
+		r.cli.log(ctx, LogLevelError, "[lark] Chat#DeleteChatMember DELETE https://open.feishu.cn/open-apis/im/v1/chats/:chat_id/members failed, request_id: %s, status_code: %d, error: %s", requestID, statusCode, err)
 		return nil, response, err
 	} else if resp.Code != 0 {
-		r.cli.log(ctx, LogLevelError, "[lark] Chat#DeleteMember DELETE https://open.feishu.cn/open-apis/im/v1/chats/:chat_id/members failed, request_id: %s, status_code: %d, code: %d, msg: %s", requestID, statusCode, resp.Code, resp.Msg)
-		return nil, response, NewError("Chat", "DeleteMember", resp.Code, resp.Msg)
+		r.cli.log(ctx, LogLevelError, "[lark] Chat#DeleteChatMember DELETE https://open.feishu.cn/open-apis/im/v1/chats/:chat_id/members failed, request_id: %s, status_code: %d, code: %d, msg: %s", requestID, statusCode, resp.Code, resp.Msg)
+		return nil, response, NewError("Chat", "DeleteChatMember", resp.Code, resp.Msg)
 	}
 
-	r.cli.log(ctx, LogLevelDebug, "[lark] Chat#DeleteMember success, request_id: %s, status_code: %d, response: %s", requestID, statusCode, jsonString(resp.Data))
+	r.cli.log(ctx, LogLevelDebug, "[lark] Chat#DeleteChatMember success, request_id: %s, status_code: %d, response: %s", requestID, statusCode, jsonString(resp.Data))
 
 	return resp.Data, response, nil
 }
 
-func (r *Mock) MockChatDeleteMember(f func(ctx context.Context, request *DeleteMemberReq, options ...MethodOptionFunc) (*DeleteMemberResp, *Response, error)) {
-	r.mockChatDeleteMember = f
+func (r *Mock) MockChatDeleteChatMember(f func(ctx context.Context, request *DeleteChatMemberReq, options ...MethodOptionFunc) (*DeleteChatMemberResp, *Response, error)) {
+	r.mockChatDeleteChatMember = f
 }
 
-func (r *Mock) UnMockChatDeleteMember() {
-	r.mockChatDeleteMember = nil
+func (r *Mock) UnMockChatDeleteChatMember() {
+	r.mockChatDeleteChatMember = nil
 }
 
-type DeleteMemberReq struct {
+type DeleteChatMemberReq struct {
 	MemberIDType *IDType  `query:"member_id_type" json:"-"` // 出群成员 id 类型 open_id/user_id/union_id/app_id, 示例值："user_id", 可选值有: `user_id`：以 user_id 来识别成员, `union_id`：以 union_id 来识别成员, `open_id`：以 open_id 来识别成员, `app_id`：以 app_id 来识别成员
 	ChatID       string   `path:"chat_id" json:"-"`         // 群 ID, 示例值："oc_a0553eda9014c201e6969b478895c230"
 	IDList       []string `json:"id_list,omitempty"`        // 成员列表
 }
 
-type deleteMemberResp struct {
-	Code int               `json:"code,omitempty"` // 错误码，非 0 表示失败
-	Msg  string            `json:"msg,omitempty"`  // 错误描述
-	Data *DeleteMemberResp `json:"data,omitempty"` //
+type deleteChatMemberResp struct {
+	Code int64                 `json:"code,omitempty"` // 错误码，非 0 表示失败
+	Msg  string                `json:"msg,omitempty"`  // 错误描述
+	Data *DeleteChatMemberResp `json:"data,omitempty"` //
 }
 
-type DeleteMemberResp struct {
+type DeleteChatMemberResp struct {
 	InvalidIDList []string `json:"invalid_id_list,omitempty"` // 无效成员列表
 }

@@ -18,7 +18,7 @@ func (r *AuthService) GetAppAccessToken(ctx context.Context) (*TokenExpire, *Res
 	if err != nil && err != ErrStoreNotFound {
 		r.cli.log(ctx, LogLevelError, "[lark] Auth#GetAppAccessToken get token from store failed: %s", err)
 	} else if val != "" && ttl > 0 {
-		return &TokenExpire{Token: val, Expire: int(ttl.Seconds())}, &Response{}, nil
+		return &TokenExpire{Token: val, Expire: int64(ttl.Seconds())}, &Response{}, nil
 	}
 
 	uri := "https://open.feishu.cn/open-apis/auth/v3/app_access_token/internal/"

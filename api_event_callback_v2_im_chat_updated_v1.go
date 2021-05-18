@@ -43,14 +43,14 @@ type EventV2IMChatUpdatedV1AfterChange struct {
 	Name                   string                                    `json:"name,omitempty"`                     // 群名称
 	Description            string                                    `json:"description,omitempty"`              // 群描述
 	I18nNames              *I18nNames                                `json:"i18n_names,omitempty"`               // 群国际化名称
-	AddMemberPermission    string                                    `json:"add_member_permission,omitempty"`    // 加人入群权限(all_members/only_owner/unknown)
-	ShareCardPermission    string                                    `json:"share_card_permission,omitempty"`    // 群分享权限(allowed/not_allowed/unknown)
-	AtAllPermission        string                                    `json:"at_all_permission,omitempty"`        // at 所有人权限(all_members/only_owner/unknown)
-	EditPermission         string                                    `json:"edit_permission,omitempty"`          // 群编辑权限(all_members/only_owner/unknown)
-	MembershipApproval     string                                    `json:"membership_approval,omitempty"`      // 加群审批(no_approval_required/approval_required)
-	JoinMessageVisibility  string                                    `json:"join_message_visibility,omitempty"`  // 入群消息可见性(only_owner/all_members/not_anyone)
-	LeaveMessageVisibility string                                    `json:"leave_message_visibility,omitempty"` // 出群消息可见性(only_owner/all_members/not_anyone)
-	ModerationPermission   string                                    `json:"moderation_permission,omitempty"`    // 发言权限(all_members/only_owner)
+	AddMemberPermission    AddMemberPermission                       `json:"add_member_permission,omitempty"`    // 加人入群权限(all_members/only_owner/unknown)
+	ShareCardPermission    ShareCardPermission                       `json:"share_card_permission,omitempty"`    // 群分享权限(allowed/not_allowed/unknown)
+	AtAllPermission        AtAllPermission                           `json:"at_all_permission,omitempty"`        // at 所有人权限(all_members/only_owner/unknown)
+	EditPermission         EditPermission                            `json:"edit_permission,omitempty"`          // 群编辑权限(all_members/only_owner/unknown)
+	MembershipApproval     MembershipApproval                        `json:"membership_approval,omitempty"`      // 加群审批(no_approval_required/approval_required)
+	JoinMessageVisibility  MessageVisibility                         `json:"join_message_visibility,omitempty"`  // 入群消息可见性(only_owner/all_members/not_anyone)
+	LeaveMessageVisibility MessageVisibility                         `json:"leave_message_visibility,omitempty"` // 出群消息可见性(only_owner/all_members/not_anyone)
+	ModerationPermission   ModerationPermission                      `json:"moderation_permission,omitempty"`    // 发言权限(all_members/only_owner)
 	OwnerID                *EventV2IMChatUpdatedV1AfterChangeOwnerID `json:"owner_id,omitempty"`                 // 用户 ID
 }
 
@@ -65,14 +65,14 @@ type EventV2IMChatUpdatedV1BeforeChange struct {
 	Name                   string                                     `json:"name,omitempty"`                     // 群名称
 	Description            string                                     `json:"description,omitempty"`              // 群描述
 	I18nNames              *I18nNames                                 `json:"i18n_names,omitempty"`               // 群国际化名称
-	AddMemberPermission    string                                     `json:"add_member_permission,omitempty"`    // 加人入群权限(all_members/only_owner/unknown)
-	ShareCardPermission    string                                     `json:"share_card_permission,omitempty"`    // 群分享权限(allowed/not_allowed/unknown)
-	AtAllPermission        string                                     `json:"at_all_permission,omitempty"`        // at 所有人权限(all_members/only_owner/unknown)
-	EditPermission         string                                     `json:"edit_permission,omitempty"`          // 群编辑权限(all_members/only_owner/unknown)
-	MembershipApproval     string                                     `json:"membership_approval,omitempty"`      // 加群审批(no_approval_required/approval_required)
-	JoinMessageVisibility  string                                     `json:"join_message_visibility,omitempty"`  // 入群消息可见性(only_owner/all_members/not_anyone)
-	LeaveMessageVisibility string                                     `json:"leave_message_visibility,omitempty"` // 出群消息可见性(only_owner/all_members/not_anyone)
-	ModerationPermission   string                                     `json:"moderation_permission,omitempty"`    // 发言权限(all_members/only_owner)
+	AddMemberPermission    AddMemberPermission                        `json:"add_member_permission,omitempty"`    // 加人入群权限(all_members/only_owner/unknown)
+	ShareCardPermission    ShareCardPermission                        `json:"share_card_permission,omitempty"`    // 群分享权限(allowed/not_allowed/unknown)
+	AtAllPermission        AtAllPermission                            `json:"at_all_permission,omitempty"`        // at 所有人权限(all_members/only_owner/unknown)
+	EditPermission         EditPermission                             `json:"edit_permission,omitempty"`          // 群编辑权限(all_members/only_owner/unknown)
+	MembershipApproval     MembershipApproval                         `json:"membership_approval,omitempty"`      // 加群审批(no_approval_required/approval_required)
+	JoinMessageVisibility  MessageVisibility                          `json:"join_message_visibility,omitempty"`  // 入群消息可见性(only_owner/all_members/not_anyone)
+	LeaveMessageVisibility MessageVisibility                          `json:"leave_message_visibility,omitempty"` // 出群消息可见性(only_owner/all_members/not_anyone)
+	ModerationPermission   ModerationPermission                       `json:"moderation_permission,omitempty"`    // 发言权限(all_members/only_owner)
 	OwnerID                *EventV2IMChatUpdatedV1BeforeChangeOwnerID `json:"owner_id,omitempty"`                 // 用户 ID
 }
 

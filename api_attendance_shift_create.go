@@ -56,9 +56,9 @@ func (r *Mock) UnMockAttendanceCreateShift() {
 
 type CreateShiftReq struct {
 	ShiftName         string                           `json:"shift_name,omitempty"`            // 班次名称
-	PunchTimes        int                              `json:"punch_times,omitempty"`           // 打卡次数、，需小于等于 3 次
+	PunchTimes        int64                            `json:"punch_times,omitempty"`           // 打卡次数、，需小于等于 3 次
 	IsFlexible        *bool                            `json:"is_flexible,omitempty"`           // 是否弹性打卡
-	FlexibleMinutes   *int                             `json:"flexible_minutes,omitempty"`      // 弹性打卡时间
+	FlexibleMinutes   *int64                           `json:"flexible_minutes,omitempty"`      // 弹性打卡时间
 	NoNeedOff         *bool                            `json:"no_need_off,omitempty"`           // 是否下班免打卡
 	PunchTimeRule     *CreateShiftReqPunchTimeRule     `json:"punch_time_rule,omitempty"`       // 打卡规则
 	LateOffLateOnRule *CreateShiftReqLateOffLateOnRule `json:"late_off_late_on_rule,omitempty"` // 晚走晚到规则
@@ -68,17 +68,17 @@ type CreateShiftReq struct {
 type CreateShiftReqPunchTimeRule struct {
 	OnTime              string `json:"on_time,omitempty"`                // 上班时间，示例参数：“9:00”
 	OffTime             string `json:"off_time,omitempty"`               // 下班时间，示例参数：“18:00”，说明：第二天凌晨 2 点表示为 26:00
-	LateMinutesAsLate   int    `json:"late_minutes_as_late,omitempty"`   // 晚到多长时间记为迟到
-	LateMinutesAsLack   int    `json:"late_minutes_as_lack,omitempty"`   // 晚到多长时间记为缺卡
-	OnAdvanceMinutes    int    `json:"on_advance_minutes,omitempty"`     // 最早可提前多长时间打上班卡
-	EarlyMinutesAsEarly int    `json:"early_minutes_as_early,omitempty"` // 早走多长时间记为早退
-	EarlyMinutesAsLack  int    `json:"early_minutes_as_lack,omitempty"`  // 早走多长时间记为缺卡
-	OffDelayMinutes     int    `json:"off_delay_minutes,omitempty"`      // 最晚可延后多长时间打下班卡
+	LateMinutesAsLate   int64  `json:"late_minutes_as_late,omitempty"`   // 晚到多长时间记为迟到
+	LateMinutesAsLack   int64  `json:"late_minutes_as_lack,omitempty"`   // 晚到多长时间记为缺卡
+	OnAdvanceMinutes    int64  `json:"on_advance_minutes,omitempty"`     // 最早可提前多长时间打上班卡
+	EarlyMinutesAsEarly int64  `json:"early_minutes_as_early,omitempty"` // 早走多长时间记为早退
+	EarlyMinutesAsLack  int64  `json:"early_minutes_as_lack,omitempty"`  // 早走多长时间记为缺卡
+	OffDelayMinutes     int64  `json:"off_delay_minutes,omitempty"`      // 最晚可延后多长时间打下班卡
 }
 
 type CreateShiftReqLateOffLateOnRule struct {
-	LateOffMinutes int `json:"late_off_minutes,omitempty"` // 晚走多长时间
-	LateOnMinutes  int `json:"late_on_minutes,omitempty"`  // 晚到多长时间
+	LateOffMinutes int64 `json:"late_off_minutes,omitempty"` // 晚走多长时间
+	LateOnMinutes  int64 `json:"late_on_minutes,omitempty"`  // 晚到多长时间
 }
 
 type CreateShiftReqRestTimeRule struct {
@@ -87,7 +87,7 @@ type CreateShiftReqRestTimeRule struct {
 }
 
 type createShiftResp struct {
-	Code int              `json:"code,omitempty"` // 错误码，非 0 表示失败
+	Code int64            `json:"code,omitempty"` // 错误码，非 0 表示失败
 	Msg  string           `json:"msg,omitempty"`  // 错误描述
 	Data *CreateShiftResp `json:"data,omitempty"` // -
 }
@@ -99,9 +99,9 @@ type CreateShiftResp struct {
 type CreateShiftRespShift struct {
 	ShiftID           string                                 `json:"shift_id,omitempty"`              // 班次 ID
 	ShiftName         string                                 `json:"shift_name,omitempty"`            // 班次名称
-	PunchTimes        int                                    `json:"punch_times,omitempty"`           // 打卡次数
+	PunchTimes        int64                                  `json:"punch_times,omitempty"`           // 打卡次数
 	IsFlexible        bool                                   `json:"is_flexible,omitempty"`           // 是否弹性打卡
-	FlexibleMinutes   int                                    `json:"flexible_minutes,omitempty"`      // 弹性打卡时间
+	FlexibleMinutes   int64                                  `json:"flexible_minutes,omitempty"`      // 弹性打卡时间
 	NoNeedOff         bool                                   `json:"no_need_off,omitempty"`           // 是否下班免打卡
 	PunchTimeRule     *CreateShiftRespShiftPunchTimeRule     `json:"punch_time_rule,omitempty"`       // 打卡规则
 	LateOffLateOnRule *CreateShiftRespShiftLateOffLateOnRule `json:"late_off_late_on_rule,omitempty"` // 晚走晚到规则
@@ -111,17 +111,17 @@ type CreateShiftRespShift struct {
 type CreateShiftRespShiftPunchTimeRule struct {
 	OnTime              string `json:"on_time,omitempty"`                // 上班时间
 	OffTime             string `json:"off_time,omitempty"`               // 下班时间
-	LateMinutesAsLate   int    `json:"late_minutes_as_late,omitempty"`   // 晚到多长时间记为迟到
-	LateMinutesAsLack   int    `json:"late_minutes_as_lack,omitempty"`   // 晚到多长时间记为缺卡
-	OnAdvanceMinutes    int    `json:"on_advance_minutes,omitempty"`     // 最早可提前多长时间打上班卡
-	EarlyMinutesAsEarly int    `json:"early_minutes_as_early,omitempty"` // 早走多长时间记为早退
-	EarlyMinutesAsLack  int    `json:"early_minutes_as_lack,omitempty"`  // 早走多长时间记为缺卡
-	OffDelayMinutes     int    `json:"off_delay_minutes,omitempty"`      // 最晚可延后多长时间打下班卡
+	LateMinutesAsLate   int64  `json:"late_minutes_as_late,omitempty"`   // 晚到多长时间记为迟到
+	LateMinutesAsLack   int64  `json:"late_minutes_as_lack,omitempty"`   // 晚到多长时间记为缺卡
+	OnAdvanceMinutes    int64  `json:"on_advance_minutes,omitempty"`     // 最早可提前多长时间打上班卡
+	EarlyMinutesAsEarly int64  `json:"early_minutes_as_early,omitempty"` // 早走多长时间记为早退
+	EarlyMinutesAsLack  int64  `json:"early_minutes_as_lack,omitempty"`  // 早走多长时间记为缺卡
+	OffDelayMinutes     int64  `json:"off_delay_minutes,omitempty"`      // 最晚可延后多长时间打下班卡
 }
 
 type CreateShiftRespShiftLateOffLateOnRule struct {
-	LateOffMinutes int `json:"late_off_minutes,omitempty"` // 晚走多长时间
-	LateOnMinutes  int `json:"late_on_minutes,omitempty"`  // 晚到多长时间
+	LateOffMinutes int64 `json:"late_off_minutes,omitempty"` // 晚走多长时间
+	LateOnMinutes  int64 `json:"late_on_minutes,omitempty"`  // 晚到多长时间
 }
 
 type CreateShiftRespShiftRestTimeRule struct {

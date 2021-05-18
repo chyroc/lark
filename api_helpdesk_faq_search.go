@@ -55,11 +55,11 @@ func (r *Mock) UnMockHelpdeskSearchFAQ() {
 type SearchFAQReq struct {
 	Query     string  `query:"query" json:"-"`      // 搜索query, 示例值："点餐"
 	PageToken *string `query:"page_token" json:"-"` // 分页标记，第一次请求不填，表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token，下次遍历可采用该 page_token 获取查询结果, 示例值："6936004780707807251"
-	PageSize  *int    `query:"page_size" json:"-"`  // 分页大小, 示例值：10, 最大值：`100`
+	PageSize  *int64  `query:"page_size" json:"-"`  // 分页大小, 示例值：10, 最大值：`100`
 }
 
 type searchFAQResp struct {
-	Code int            `json:"code,omitempty"` // 错误码，非 0 表示失败
+	Code int64          `json:"code,omitempty"` // 错误码，非 0 表示失败
 	Msg  string         `json:"msg,omitempty"`  // 错误描述
 	Data *SearchFAQResp `json:"data,omitempty"` //
 }
@@ -77,9 +77,9 @@ type SearchFAQRespItem struct {
 	Question       string              `json:"question,omitempty"`        // 问题
 	Answer         string              `json:"answer,omitempty"`          // 答案
 	AnswerRichtext string              `json:"answer_richtext,omitempty"` // 富文本答案
-	CreateTime     int                 `json:"create_time,omitempty"`     // 创建时间
-	UpdateTime     int                 `json:"update_time,omitempty"`     // 修改时间
+	CreateTime     int64               `json:"create_time,omitempty"`     // 创建时间
+	UpdateTime     int64               `json:"update_time,omitempty"`     // 修改时间
 	Categories     []*HelpdeskCategory `json:"categories,omitempty"`      // 分类
 	Tags           []string            `json:"tags,omitempty"`            // 关联词列表
-	ExpireTime     int                 `json:"expire_time,omitempty"`     // 失效时间
+	ExpireTime     int64               `json:"expire_time,omitempty"`     // 失效时间
 }

@@ -6,17 +6,17 @@ import (
 	"context"
 )
 
-// BatchCreateTable 新增多个数据表
+// BatchCreateBitableTable 新增多个数据表
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table/batch_create
-func (r *BitableService) BatchCreateTable(ctx context.Context, request *BatchCreateTableReq, options ...MethodOptionFunc) (*BatchCreateTableResp, *Response, error) {
-	if r.cli.mock.mockBitableBatchCreateTable != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Bitable#BatchCreateTable mock enable")
-		return r.cli.mock.mockBitableBatchCreateTable(ctx, request, options...)
+func (r *BitableService) BatchCreateBitableTable(ctx context.Context, request *BatchCreateBitableTableReq, options ...MethodOptionFunc) (*BatchCreateBitableTableResp, *Response, error) {
+	if r.cli.mock.mockBitableBatchCreateBitableTable != nil {
+		r.cli.log(ctx, LogLevelDebug, "[lark] Bitable#BatchCreateBitableTable mock enable")
+		return r.cli.mock.mockBitableBatchCreateBitableTable(ctx, request, options...)
 	}
 
-	r.cli.log(ctx, LogLevelInfo, "[lark] Bitable#BatchCreateTable call api")
-	r.cli.log(ctx, LogLevelDebug, "[lark] Bitable#BatchCreateTable request: %s", jsonString(request))
+	r.cli.log(ctx, LogLevelInfo, "[lark] Bitable#BatchCreateBitableTable call api")
+	r.cli.log(ctx, LogLevelDebug, "[lark] Bitable#BatchCreateBitableTable request: %s", jsonString(request))
 
 	req := &RawRequestReq{
 		Method:       "POST",
@@ -26,47 +26,47 @@ func (r *BitableService) BatchCreateTable(ctx context.Context, request *BatchCre
 
 		NeedUserAccessToken: true,
 	}
-	resp := new(batchCreateTableResp)
+	resp := new(batchCreateBitableTableResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
 	requestID, statusCode := getResponseRequestID(response)
 	if err != nil {
-		r.cli.log(ctx, LogLevelError, "[lark] Bitable#BatchCreateTable POST https://open.feishu.cn/open-apis/bitable/v1/apps/:app_token/tables/batch_create failed, request_id: %s, status_code: %d, error: %s", requestID, statusCode, err)
+		r.cli.log(ctx, LogLevelError, "[lark] Bitable#BatchCreateBitableTable POST https://open.feishu.cn/open-apis/bitable/v1/apps/:app_token/tables/batch_create failed, request_id: %s, status_code: %d, error: %s", requestID, statusCode, err)
 		return nil, response, err
 	} else if resp.Code != 0 {
-		r.cli.log(ctx, LogLevelError, "[lark] Bitable#BatchCreateTable POST https://open.feishu.cn/open-apis/bitable/v1/apps/:app_token/tables/batch_create failed, request_id: %s, status_code: %d, code: %d, msg: %s", requestID, statusCode, resp.Code, resp.Msg)
-		return nil, response, NewError("Bitable", "BatchCreateTable", resp.Code, resp.Msg)
+		r.cli.log(ctx, LogLevelError, "[lark] Bitable#BatchCreateBitableTable POST https://open.feishu.cn/open-apis/bitable/v1/apps/:app_token/tables/batch_create failed, request_id: %s, status_code: %d, code: %d, msg: %s", requestID, statusCode, resp.Code, resp.Msg)
+		return nil, response, NewError("Bitable", "BatchCreateBitableTable", resp.Code, resp.Msg)
 	}
 
-	r.cli.log(ctx, LogLevelDebug, "[lark] Bitable#BatchCreateTable success, request_id: %s, status_code: %d, response: %s", requestID, statusCode, jsonString(resp.Data))
+	r.cli.log(ctx, LogLevelDebug, "[lark] Bitable#BatchCreateBitableTable success, request_id: %s, status_code: %d, response: %s", requestID, statusCode, jsonString(resp.Data))
 
 	return resp.Data, response, nil
 }
 
-func (r *Mock) MockBitableBatchCreateTable(f func(ctx context.Context, request *BatchCreateTableReq, options ...MethodOptionFunc) (*BatchCreateTableResp, *Response, error)) {
-	r.mockBitableBatchCreateTable = f
+func (r *Mock) MockBitableBatchCreateBitableTable(f func(ctx context.Context, request *BatchCreateBitableTableReq, options ...MethodOptionFunc) (*BatchCreateBitableTableResp, *Response, error)) {
+	r.mockBitableBatchCreateBitableTable = f
 }
 
-func (r *Mock) UnMockBitableBatchCreateTable() {
-	r.mockBitableBatchCreateTable = nil
+func (r *Mock) UnMockBitableBatchCreateBitableTable() {
+	r.mockBitableBatchCreateBitableTable = nil
 }
 
-type BatchCreateTableReq struct {
-	UserIDType *IDType                     `query:"user_id_type" json:"-"` // 用户 ID 类型, 示例值："open_id", 可选值有: `open_id`：用户的 open id, `union_id`：用户的 union id, `user_id`：用户的 user id, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 userid
-	AppToken   string                      `path:"app_token" json:"-"`     // bitable app token, 示例值："appbcbWCzen6D8dezhoCH2RpMAh"
-	Tables     []*BatchCreateTableReqTable `json:"tables,omitempty"`       // tables
+type BatchCreateBitableTableReq struct {
+	UserIDType *IDType                            `query:"user_id_type" json:"-"` // 用户 ID 类型, 示例值："open_id", 可选值有: `open_id`：用户的 open id, `union_id`：用户的 union id, `user_id`：用户的 user id, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 userid
+	AppToken   string                             `path:"app_token" json:"-"`     // bitable app token, 示例值："appbcbWCzen6D8dezhoCH2RpMAh"
+	Tables     []*BatchCreateBitableTableReqTable `json:"tables,omitempty"`       // tables
 }
 
-type BatchCreateTableReqTable struct {
+type BatchCreateBitableTableReqTable struct {
 	Name *string `json:"name,omitempty"` // 数据表 名字, 示例值："table1"
 }
 
-type batchCreateTableResp struct {
-	Code int                   `json:"code,omitempty"` // 错误码，非 0 表示失败
-	Msg  string                `json:"msg,omitempty"`  // 错误描述
-	Data *BatchCreateTableResp `json:"data,omitempty"` //
+type batchCreateBitableTableResp struct {
+	Code int64                        `json:"code,omitempty"` // 错误码，非 0 表示失败
+	Msg  string                       `json:"msg,omitempty"`  // 错误描述
+	Data *BatchCreateBitableTableResp `json:"data,omitempty"` //
 }
 
-type BatchCreateTableResp struct {
+type BatchCreateBitableTableResp struct {
 	TableIDs []string `json:"table_ids,omitempty"` // table ids
 }

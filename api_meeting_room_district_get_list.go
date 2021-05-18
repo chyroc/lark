@@ -51,11 +51,11 @@ func (r *Mock) UnMockMeetingRoomGetDistrictList() {
 }
 
 type GetDistrictListReq struct {
-	CountryID int `query:"country_id" json:"-"` // 国家地区ID
+	CountryID int64 `query:"country_id" json:"-"` // 国家地区ID
 }
 
 type getDistrictListResp struct {
-	Code int                  `json:"code,omitempty"` // 返回码，非 0 表示失败
+	Code int64                `json:"code,omitempty"` // 返回码，非 0 表示失败
 	Msg  string               `json:"msg,omitempty"`  // 返回码的描述，"success" 表示成功，其他为错误提示信息
 	Data *GetDistrictListResp `json:"data,omitempty"` // 返回业务信息
 }

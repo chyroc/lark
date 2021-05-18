@@ -6,17 +6,17 @@ import (
 	"context"
 )
 
-// GetPublicPermissionV2 该接口用于根据 filetoken 获取文档的公共设置。
+// GetDrivePublicPermissionV2 该接口用于根据 filetoken 获取文档的公共设置。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uITM3YjLyEzN24iMxcjN
-func (r *DriveService) GetPublicPermissionV2(ctx context.Context, request *GetPublicPermissionV2Req, options ...MethodOptionFunc) (*GetPublicPermissionV2Resp, *Response, error) {
-	if r.cli.mock.mockDriveGetPublicPermissionV2 != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Drive#GetPublicPermissionV2 mock enable")
-		return r.cli.mock.mockDriveGetPublicPermissionV2(ctx, request, options...)
+func (r *DriveService) GetDrivePublicPermissionV2(ctx context.Context, request *GetDrivePublicPermissionV2Req, options ...MethodOptionFunc) (*GetDrivePublicPermissionV2Resp, *Response, error) {
+	if r.cli.mock.mockDriveGetDrivePublicPermissionV2 != nil {
+		r.cli.log(ctx, LogLevelDebug, "[lark] Drive#GetDrivePublicPermissionV2 mock enable")
+		return r.cli.mock.mockDriveGetDrivePublicPermissionV2(ctx, request, options...)
 	}
 
-	r.cli.log(ctx, LogLevelInfo, "[lark] Drive#GetPublicPermissionV2 call api")
-	r.cli.log(ctx, LogLevelDebug, "[lark] Drive#GetPublicPermissionV2 request: %s", jsonString(request))
+	r.cli.log(ctx, LogLevelInfo, "[lark] Drive#GetDrivePublicPermissionV2 call api")
+	r.cli.log(ctx, LogLevelDebug, "[lark] Drive#GetDrivePublicPermissionV2 request: %s", jsonString(request))
 
 	req := &RawRequestReq{
 		Method:                "POST",
@@ -27,43 +27,43 @@ func (r *DriveService) GetPublicPermissionV2(ctx context.Context, request *GetPu
 
 		NeedUserAccessToken: true,
 	}
-	resp := new(getPublicPermissionV2Resp)
+	resp := new(getDrivePublicPermissionV2Resp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
 	requestID, statusCode := getResponseRequestID(response)
 	if err != nil {
-		r.cli.log(ctx, LogLevelError, "[lark] Drive#GetPublicPermissionV2 POST https://open.feishu.cn/open-apis/drive/permission/v2/public/ failed, request_id: %s, status_code: %d, error: %s", requestID, statusCode, err)
+		r.cli.log(ctx, LogLevelError, "[lark] Drive#GetDrivePublicPermissionV2 POST https://open.feishu.cn/open-apis/drive/permission/v2/public/ failed, request_id: %s, status_code: %d, error: %s", requestID, statusCode, err)
 		return nil, response, err
 	} else if resp.Code != 0 {
-		r.cli.log(ctx, LogLevelError, "[lark] Drive#GetPublicPermissionV2 POST https://open.feishu.cn/open-apis/drive/permission/v2/public/ failed, request_id: %s, status_code: %d, code: %d, msg: %s", requestID, statusCode, resp.Code, resp.Msg)
-		return nil, response, NewError("Drive", "GetPublicPermissionV2", resp.Code, resp.Msg)
+		r.cli.log(ctx, LogLevelError, "[lark] Drive#GetDrivePublicPermissionV2 POST https://open.feishu.cn/open-apis/drive/permission/v2/public/ failed, request_id: %s, status_code: %d, code: %d, msg: %s", requestID, statusCode, resp.Code, resp.Msg)
+		return nil, response, NewError("Drive", "GetDrivePublicPermissionV2", resp.Code, resp.Msg)
 	}
 
-	r.cli.log(ctx, LogLevelDebug, "[lark] Drive#GetPublicPermissionV2 success, request_id: %s, status_code: %d, response: %s", requestID, statusCode, jsonString(resp.Data))
+	r.cli.log(ctx, LogLevelDebug, "[lark] Drive#GetDrivePublicPermissionV2 success, request_id: %s, status_code: %d, response: %s", requestID, statusCode, jsonString(resp.Data))
 
 	return resp.Data, response, nil
 }
 
-func (r *Mock) MockDriveGetPublicPermissionV2(f func(ctx context.Context, request *GetPublicPermissionV2Req, options ...MethodOptionFunc) (*GetPublicPermissionV2Resp, *Response, error)) {
-	r.mockDriveGetPublicPermissionV2 = f
+func (r *Mock) MockDriveGetDrivePublicPermissionV2(f func(ctx context.Context, request *GetDrivePublicPermissionV2Req, options ...MethodOptionFunc) (*GetDrivePublicPermissionV2Resp, *Response, error)) {
+	r.mockDriveGetDrivePublicPermissionV2 = f
 }
 
-func (r *Mock) UnMockDriveGetPublicPermissionV2() {
-	r.mockDriveGetPublicPermissionV2 = nil
+func (r *Mock) UnMockDriveGetDrivePublicPermissionV2() {
+	r.mockDriveGetDrivePublicPermissionV2 = nil
 }
 
-type GetPublicPermissionV2Req struct {
+type GetDrivePublicPermissionV2Req struct {
 	Token string `json:"token,omitempty"` // 文件的 token，获取方式见 [对接前说明](/ssl:ttdoc/ukTMukTMukTM/uczNzUjL3czM14yN3MTN)的第 4 项
 	Type  string `json:"type,omitempty"`  // 文档类型 "doc", "sheet" or "isv"
 }
 
-type getPublicPermissionV2Resp struct {
-	Code int                        `json:"code,omitempty"`
-	Msg  string                     `json:"msg,omitempty"`
-	Data *GetPublicPermissionV2Resp `json:"data,omitempty"`
+type getDrivePublicPermissionV2Resp struct {
+	Code int64                           `json:"code,omitempty"`
+	Msg  string                          `json:"msg,omitempty"`
+	Data *GetDrivePublicPermissionV2Resp `json:"data,omitempty"`
 }
 
-type GetPublicPermissionV2Resp struct {
+type GetDrivePublicPermissionV2Resp struct {
 	SecurityEntity    string `json:"security_entity,omitempty"`    // 可创建副本/打印/导出/复制设置：<br>"anyone_can_view" - 所有可访问此文档的用户<br>"anyone_can_edit" - 有编辑权限的用户
 	CommentEntity     string `json:"comment_entity,omitempty"`     // 可评论设置：<br>"anyone_can_view" - 所有可访问此文档的用户<br>"anyone_can_edit" - 有编辑权限的用户
 	ShareEntity       string `json:"share_entity,omitempty"`       // 谁可以添加和管理协作者：<br>"anyone"-所有可阅读或编辑此文档的用户<br>"same_tenant"-组织内所有可阅读或编辑此文档的用户<br>"only_me"-只有我可以

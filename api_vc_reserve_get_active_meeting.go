@@ -59,7 +59,7 @@ type GetReserveActiveMeetingReq struct {
 }
 
 type getReserveActiveMeetingResp struct {
-	Code int                          `json:"code,omitempty"` // 错误码，非 0 表示失败
+	Code int64                        `json:"code,omitempty"` // 错误码，非 0 表示失败
 	Msg  string                       `json:"msg,omitempty"`  // 错误描述
 	Data *GetReserveActiveMeetingResp `json:"data,omitempty"` //
 }
@@ -76,7 +76,7 @@ type GetReserveActiveMeetingRespMeeting struct {
 	StartTime        string                                           `json:"start_time,omitempty"`        // 会议开始时间（unix时间，单位sec）
 	EndTime          string                                           `json:"end_time,omitempty"`          // 会议结束时间（unix时间，单位sec）
 	HostUser         *GetReserveActiveMeetingRespMeetingHostUser      `json:"host_user,omitempty"`         // 主持人
-	Status           int                                              `json:"status,omitempty"`            // 会议状态, 可选值有: `1`：会议呼叫中, `2`：会议进行中, `3`：会议已结束
+	Status           int64                                            `json:"status,omitempty"`            // 会议状态, 可选值有: `1`：会议呼叫中, `2`：会议进行中, `3`：会议已结束
 	ParticipantCount string                                           `json:"participant_count,omitempty"` // 参会人数
 	Participants     []*GetReserveActiveMeetingRespMeetingParticipant `json:"participants,omitempty"`      // 参会人列表
 	Ability          *GetReserveActiveMeetingRespMeetingAbility       `json:"ability,omitempty"`           // 会中使用的能力
@@ -84,16 +84,16 @@ type GetReserveActiveMeetingRespMeeting struct {
 
 type GetReserveActiveMeetingRespMeetingHostUser struct {
 	ID       string `json:"id,omitempty"`        // 用户ID
-	UserType int    `json:"user_type,omitempty"` // 用户类型, 可选值有: `1`：lark用户, `2`：rooms用户, `3`：文档用户, `4`：neo单品用户, `5`：neo单品游客用户, `6`：pstn用户, `7`：sip用户
+	UserType int64  `json:"user_type,omitempty"` // 用户类型, 可选值有: `1`：lark用户, `2`：rooms用户, `3`：文档用户, `4`：neo单品用户, `5`：neo单品游客用户, `6`：pstn用户, `7`：sip用户
 }
 
 type GetReserveActiveMeetingRespMeetingParticipant struct {
 	ID         string `json:"id,omitempty"`          // 用户ID
-	UserType   int    `json:"user_type,omitempty"`   // 用户类型, 可选值有: `1`：lark用户, `2`：rooms用户, `3`：文档用户, `4`：neo单品用户, `5`：neo单品游客用户, `6`：pstn用户, `7`：sip用户
+	UserType   int64  `json:"user_type,omitempty"`   // 用户类型, 可选值有: `1`：lark用户, `2`：rooms用户, `3`：文档用户, `4`：neo单品用户, `5`：neo单品游客用户, `6`：pstn用户, `7`：sip用户
 	IsHost     bool   `json:"is_host,omitempty"`     // 是否为主持人
 	IsCohost   bool   `json:"is_cohost,omitempty"`   // 是否为联席主持人
 	IsExternal bool   `json:"is_external,omitempty"` // 是否为外部参会人
-	Status     int    `json:"status,omitempty"`      // 参会人状态, 可选值有: `1`：呼叫中, `2`：在会中, `3`：正在响铃, `4`：不在会中或已经离开会议
+	Status     int64  `json:"status,omitempty"`      // 参会人状态, 可选值有: `1`：呼叫中, `2`：在会中, `3`：正在响铃, `4`：不在会中或已经离开会议
 }
 
 type GetReserveActiveMeetingRespMeetingAbility struct {

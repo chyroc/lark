@@ -6,17 +6,17 @@ import (
 	"context"
 )
 
-// UpdateCommentPatch 解决或恢复云文档中的评论。
+// UpdateDriveCommentPatch 解决或恢复云文档中的评论。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file-comment/patch
-func (r *DriveService) UpdateCommentPatch(ctx context.Context, request *UpdateCommentPatchReq, options ...MethodOptionFunc) (*UpdateCommentPatchResp, *Response, error) {
-	if r.cli.mock.mockDriveUpdateCommentPatch != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Drive#UpdateCommentPatch mock enable")
-		return r.cli.mock.mockDriveUpdateCommentPatch(ctx, request, options...)
+func (r *DriveService) UpdateDriveCommentPatch(ctx context.Context, request *UpdateDriveCommentPatchReq, options ...MethodOptionFunc) (*UpdateDriveCommentPatchResp, *Response, error) {
+	if r.cli.mock.mockDriveUpdateDriveCommentPatch != nil {
+		r.cli.log(ctx, LogLevelDebug, "[lark] Drive#UpdateDriveCommentPatch mock enable")
+		return r.cli.mock.mockDriveUpdateDriveCommentPatch(ctx, request, options...)
 	}
 
-	r.cli.log(ctx, LogLevelInfo, "[lark] Drive#UpdateCommentPatch call api")
-	r.cli.log(ctx, LogLevelDebug, "[lark] Drive#UpdateCommentPatch request: %s", jsonString(request))
+	r.cli.log(ctx, LogLevelInfo, "[lark] Drive#UpdateDriveCommentPatch call api")
+	r.cli.log(ctx, LogLevelDebug, "[lark] Drive#UpdateDriveCommentPatch request: %s", jsonString(request))
 
 	req := &RawRequestReq{
 		Method:                "PATCH",
@@ -27,42 +27,42 @@ func (r *DriveService) UpdateCommentPatch(ctx context.Context, request *UpdateCo
 
 		NeedUserAccessToken: true,
 	}
-	resp := new(updateCommentPatchResp)
+	resp := new(updateDriveCommentPatchResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
 	requestID, statusCode := getResponseRequestID(response)
 	if err != nil {
-		r.cli.log(ctx, LogLevelError, "[lark] Drive#UpdateCommentPatch PATCH https://open.feishu.cn/open-apis/drive/v1/files/:file_token/comments/:comment_id failed, request_id: %s, status_code: %d, error: %s", requestID, statusCode, err)
+		r.cli.log(ctx, LogLevelError, "[lark] Drive#UpdateDriveCommentPatch PATCH https://open.feishu.cn/open-apis/drive/v1/files/:file_token/comments/:comment_id failed, request_id: %s, status_code: %d, error: %s", requestID, statusCode, err)
 		return nil, response, err
 	} else if resp.Code != 0 {
-		r.cli.log(ctx, LogLevelError, "[lark] Drive#UpdateCommentPatch PATCH https://open.feishu.cn/open-apis/drive/v1/files/:file_token/comments/:comment_id failed, request_id: %s, status_code: %d, code: %d, msg: %s", requestID, statusCode, resp.Code, resp.Msg)
-		return nil, response, NewError("Drive", "UpdateCommentPatch", resp.Code, resp.Msg)
+		r.cli.log(ctx, LogLevelError, "[lark] Drive#UpdateDriveCommentPatch PATCH https://open.feishu.cn/open-apis/drive/v1/files/:file_token/comments/:comment_id failed, request_id: %s, status_code: %d, code: %d, msg: %s", requestID, statusCode, resp.Code, resp.Msg)
+		return nil, response, NewError("Drive", "UpdateDriveCommentPatch", resp.Code, resp.Msg)
 	}
 
-	r.cli.log(ctx, LogLevelDebug, "[lark] Drive#UpdateCommentPatch success, request_id: %s, status_code: %d, response: %s", requestID, statusCode, jsonString(resp.Data))
+	r.cli.log(ctx, LogLevelDebug, "[lark] Drive#UpdateDriveCommentPatch success, request_id: %s, status_code: %d, response: %s", requestID, statusCode, jsonString(resp.Data))
 
 	return resp.Data, response, nil
 }
 
-func (r *Mock) MockDriveUpdateCommentPatch(f func(ctx context.Context, request *UpdateCommentPatchReq, options ...MethodOptionFunc) (*UpdateCommentPatchResp, *Response, error)) {
-	r.mockDriveUpdateCommentPatch = f
+func (r *Mock) MockDriveUpdateDriveCommentPatch(f func(ctx context.Context, request *UpdateDriveCommentPatchReq, options ...MethodOptionFunc) (*UpdateDriveCommentPatchResp, *Response, error)) {
+	r.mockDriveUpdateDriveCommentPatch = f
 }
 
-func (r *Mock) UnMockDriveUpdateCommentPatch() {
-	r.mockDriveUpdateCommentPatch = nil
+func (r *Mock) UnMockDriveUpdateDriveCommentPatch() {
+	r.mockDriveUpdateDriveCommentPatch = nil
 }
 
-type UpdateCommentPatchReq struct {
+type UpdateDriveCommentPatchReq struct {
 	FileType  FileType `query:"file_type" json:"-"` // 文档类型, 示例值："doc", 可选值有: `doc`：文档, `sheet`：表格, `file`：文件
 	FileToken string   `path:"file_token" json:"-"` // 文档token, 示例值："doccnGp4UK1UskrOEJwBXd3****"
 	CommentID string   `path:"comment_id" json:"-"` // 评论ID, 示例值："6916106822734578184"
 	IsSolved  bool     `json:"is_solved,omitempty"` // 评论解决标志, 示例值：true
 }
 
-type updateCommentPatchResp struct {
-	Code int                     `json:"code,omitempty"` // 错误码，非 0 表示失败
-	Msg  string                  `json:"msg,omitempty"`  // 错误描述
-	Data *UpdateCommentPatchResp `json:"data,omitempty"`
+type updateDriveCommentPatchResp struct {
+	Code int64                        `json:"code,omitempty"` // 错误码，非 0 表示失败
+	Msg  string                       `json:"msg,omitempty"`  // 错误描述
+	Data *UpdateDriveCommentPatchResp `json:"data,omitempty"`
 }
 
-type UpdateCommentPatchResp struct{}
+type UpdateDriveCommentPatchResp struct{}

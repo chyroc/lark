@@ -70,8 +70,8 @@ type CreateUserApprovalReqUserApproval struct {
 
 type CreateUserApprovalReqUserApprovalOut struct {
 	UniqID        string     `json:"uniq_id,omitempty"`        // 外出类型唯一 ID，代表一种外出类型，长度小于 14
-	Unit          int        `json:"unit,omitempty"`           // 外出时长单位，可用值：【1（天），2（小时），3（半天），4（半小时）】
-	Interval      int        `json:"interval,omitempty"`       // 假期时长（单位秒）
+	Unit          int64      `json:"unit,omitempty"`           // 外出时长单位，可用值：【1（天），2（小时），3（半天），4（半小时）】
+	Interval      int64      `json:"interval,omitempty"`       // 假期时长（单位秒）
 	StartTime     string     `json:"start_time,omitempty"`     // 开始时间，时间格式为 yyyy-MM-dd HH:mm:ss
 	EndTime       string     `json:"end_time,omitempty"`       // 结束时间，时间格式为 yyyy-MM-dd HH:mm:ss
 	I18nNames     *I18nNames `json:"i18n_names,omitempty"`     // 外出多语言展示，格式为 map，key 为["ch"、"en"、"ja"]，其中 ch 代表中文，en 代表英文、ja 代表日文
@@ -81,8 +81,8 @@ type CreateUserApprovalReqUserApprovalOut struct {
 
 type CreateUserApprovalReqUserApprovalLeave struct {
 	UniqID        string     `json:"uniq_id,omitempty"`        // 假期类型唯一 ID，代表一种假期类型，长度小于 14
-	Unit          int        `json:"unit,omitempty"`           // 假期时长单位，可用值：【1（天），2（小时），3（半天），4（半小时）】
-	Interval      int        `json:"interval,omitempty"`       // 假期时长（单位秒）
+	Unit          int64      `json:"unit,omitempty"`           // 假期时长单位，可用值：【1（天），2（小时），3（半天），4（半小时）】
+	Interval      int64      `json:"interval,omitempty"`       // 假期时长（单位秒）
 	StartTime     string     `json:"start_time,omitempty"`     // 开始时间，时间格式为 yyyy-MM-dd HH:mm:ss
 	EndTime       string     `json:"end_time,omitempty"`       // 结束时间，时间格式为 yyyy-MM-dd HH:mm:ss
 	I18nNames     *I18nNames `json:"i18n_names,omitempty"`     // 假期多语言展示，格式为 map，key 为["ch"、"en"、"ja"]，其中 ch 代表中文，en 代表英文、ja 代表日文
@@ -92,9 +92,9 @@ type CreateUserApprovalReqUserApprovalLeave struct {
 
 type CreateUserApprovalReqUserApprovalOvertimeWork struct {
 	Duration  float64 `json:"duration,omitempty"`   // 加班时长
-	Unit      int     `json:"unit,omitempty"`       // 加班时长单位，可用值：【1（天），2（小时）】
-	Category  int     `json:"category,omitempty"`   // 加班日期类型，可用值：【1（工作日），2（休息日），3（节假日）】
-	Type      int     `json:"type,omitempty"`       // 加班规则类型，可用值：【0（不关联加班规则），1（调休），2（加班费）】
+	Unit      int64   `json:"unit,omitempty"`       // 加班时长单位，可用值：【1（天），2（小时）】
+	Category  int64   `json:"category,omitempty"`   // 加班日期类型，可用值：【1（工作日），2（休息日），3（节假日）】
+	Type      int64   `json:"type,omitempty"`       // 加班规则类型，可用值：【0（不关联加班规则），1（调休），2（加班费）】
 	StartTime string  `json:"start_time,omitempty"` // 开始时间，时间格式为 yyyy-MM-dd HH:mm:ss
 	EndTime   string  `json:"end_time,omitempty"`   // 结束时间，时间格式为 yyyy-MM-dd HH:mm:ss
 }
@@ -108,7 +108,7 @@ type CreateUserApprovalReqUserApprovalTrip struct {
 }
 
 type createUserApprovalResp struct {
-	Code int                     `json:"code,omitempty"` // 错误码，非 0 表示失败
+	Code int64                   `json:"code,omitempty"` // 错误码，非 0 表示失败
 	Msg  string                  `json:"msg,omitempty"`  // 错误描述
 	Data *CreateUserApprovalResp `json:"data,omitempty"` // -
 }
@@ -128,8 +128,8 @@ type CreateUserApprovalRespUserApproval struct {
 
 type CreateUserApprovalRespUserApprovalOut struct {
 	UniqID           string     `json:"uniq_id,omitempty"`            // 外出类型唯一 ID，代表一种外出类型，长度小于 14
-	Unit             int        `json:"unit,omitempty"`               // 外出时长单位，可用值：【1（天），2（小时），3（半天），4（半小时）】
-	Interval         int        `json:"interval,omitempty"`           // 假期时长（单位秒）
+	Unit             int64      `json:"unit,omitempty"`               // 外出时长单位，可用值：【1（天），2（小时），3（半天），4（半小时）】
+	Interval         int64      `json:"interval,omitempty"`           // 假期时长（单位秒）
 	StartTime        string     `json:"start_time,omitempty"`         // 开始时间，时间格式为 yyyy-MM-dd HH:mm:ss
 	EndTime          string     `json:"end_time,omitempty"`           // 结束时间，时间格式为 yyyy-MM-dd HH:mm:ss
 	I18nNames        *I18nNames `json:"i18n_names,omitempty"`         // 外出多语言展示，格式为 map，key 为["ch"、"en"、"ja"]，其中 ch 代表中文，en 代表英文、ja 代表日文
@@ -141,8 +141,8 @@ type CreateUserApprovalRespUserApprovalOut struct {
 
 type CreateUserApprovalRespUserApprovalLeave struct {
 	UniqID           string     `json:"uniq_id,omitempty"`            // 假期类型唯一 ID，代表一种假期类型，长度小于 14
-	Unit             int        `json:"unit,omitempty"`               // 假期时长单位，可用值：【1（天），2（小时），3（半天），4（半小时）】
-	Interval         int        `json:"interval,omitempty"`           // 假期时长（单位秒）
+	Unit             int64      `json:"unit,omitempty"`               // 假期时长单位，可用值：【1（天），2（小时），3（半天），4（半小时）】
+	Interval         int64      `json:"interval,omitempty"`           // 假期时长（单位秒）
 	StartTime        string     `json:"start_time,omitempty"`         // 开始时间，时间格式为 yyyy-MM-dd HH:mm:ss
 	EndTime          string     `json:"end_time,omitempty"`           // 结束时间，时间格式为 yyyy-MM-dd HH:mm:ss
 	I18nNames        *I18nNames `json:"i18n_names,omitempty"`         // 假期多语言展示，格式为 map，key 为["ch"、"en"、"ja"]，其中 ch 代表中文，en 代表英文、ja 代表日文
@@ -154,9 +154,9 @@ type CreateUserApprovalRespUserApprovalLeave struct {
 
 type CreateUserApprovalRespUserApprovalOvertimeWork struct {
 	Duration  float64 `json:"duration,omitempty"`   // 加班时长
-	Unit      int     `json:"unit,omitempty"`       // 加班时长单位，可用值：【1（天），2（小时）】
-	Category  int     `json:"category,omitempty"`   // 加班日期类型，可用值：【1（工作日），2（休息日），3（节假日）】
-	Type      int     `json:"type,omitempty"`       // 加班规则类型，可用值：【0（不关联加班规则），1（调休），2（加班费），3（关联加班规则，没有调休或加班费）】
+	Unit      int64   `json:"unit,omitempty"`       // 加班时长单位，可用值：【1（天），2（小时）】
+	Category  int64   `json:"category,omitempty"`   // 加班日期类型，可用值：【1（工作日），2（休息日），3（节假日）】
+	Type      int64   `json:"type,omitempty"`       // 加班规则类型，可用值：【0（不关联加班规则），1（调休），2（加班费），3（关联加班规则，没有调休或加班费）】
 	StartTime string  `json:"start_time,omitempty"` // 开始时间，时间格式为 yyyy-MM-dd HH:mm:ss
 	EndTime   string  `json:"end_time,omitempty"`   // 结束时间，时间格式为 yyyy-MM-dd HH:mm:ss
 }

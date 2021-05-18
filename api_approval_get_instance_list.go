@@ -55,14 +55,14 @@ func (r *Mock) UnMockApprovalGetInstanceList() {
 
 type GetInstanceListReq struct {
 	ApprovalCode string `json:"approval_code,omitempty"` // 审批定义唯一标识
-	StartTime    int    `json:"start_time,omitempty"`    // 审批实例创建时间区间（毫秒）
-	EndTime      int    `json:"end_time,omitempty"`      // 审批实例创建时间区间（毫秒）
-	Offset       int    `json:"offset,omitempty"`        // 查询偏移量
-	Limit        int    `json:"limit,omitempty"`         // 查询限制量 注:不得大于100
+	StartTime    int64  `json:"start_time,omitempty"`    // 审批实例创建时间区间（毫秒）
+	EndTime      int64  `json:"end_time,omitempty"`      // 审批实例创建时间区间（毫秒）
+	Offset       int64  `json:"offset,omitempty"`        // 查询偏移量
+	Limit        int64  `json:"limit,omitempty"`         // 查询限制量 注:不得大于100
 }
 
 type getInstanceListResp struct {
-	Code int                  `json:"code,omitempty"` // 错误码，非0表示失败
+	Code int64                `json:"code,omitempty"` // 错误码，非0表示失败
 	Msg  string               `json:"msg,omitempty"`  // 返回码的描述
 	Data *GetInstanceListResp `json:"data,omitempty"` // 返回业务信息
 }

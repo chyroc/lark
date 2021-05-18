@@ -70,7 +70,7 @@ type UpdateCalendarEventReq struct {
 	AttendeeAbility  *string                           `json:"attendee_ability,omitempty"`  // 参与人权限, 示例值："can_see_others", 可选值有: `none`：无法编辑日程、无法邀请其它参与人、无法查看参与人列表, `can_see_others`：无法编辑日程、无法邀请其它参与人、可以查看参与人列表, `can_invite_others`：无法编辑日程、可以邀请其它参与人、可以查看参与人列表, `can_modify_event`：可以编辑日程、可以邀请其它参与人、可以查看参与人列表
 	FreeBusyStatus   *string                           `json:"free_busy_status,omitempty"`  // 日程占用的忙闲状态，新建日程默认为Busy；仅新建日程时对所有参与人生效，之后修改该属性仅对当前身份生效, 示例值："busy", 可选值有: `busy`：忙碌, `free`：空闲
 	Location         *UpdateCalendarEventReqLocation   `json:"location,omitempty"`          // 日程地点
-	Color            *int                              `json:"color,omitempty"`             // 日程颜色，颜色RGB值的int32表示。仅对当前身份生效；客户端展示时会映射到色板上最接近的一种颜色；值为0或-1时默认跟随日历颜色。, 示例值：-1
+	Color            *int64                            `json:"color,omitempty"`             // 日程颜色，颜色RGB值的int32表示。仅对当前身份生效；客户端展示时会映射到色板上最接近的一种颜色；值为0或-1时默认跟随日历颜色。, 示例值：-1
 	Reminders        []*UpdateCalendarEventReqReminder `json:"reminders,omitempty"`         // 日程提醒列表
 	Recurrence       *string                           `json:"recurrence,omitempty"`        // 重复日程的重复性规则；参考[rfc5545](https://datatracker.ietf.org/doc/html/rfc5545#section-3.3.10), 示例值："xxxxx", 最大长度：`2000` 字符
 	Schemas          []*UpdateCalendarEventReqSchema   `json:"schemas,omitempty"`           // 日程自定义信息
@@ -101,7 +101,7 @@ type UpdateCalendarEventReqLocation struct {
 }
 
 type UpdateCalendarEventReqReminder struct {
-	Minutes *int `json:"minutes,omitempty"` // 日程提醒时间的偏移量，正数时表示在日程开始前X分钟提醒，负数时表示在日程开始后X分钟提醒,新建或更新日程时传入该字段，仅对当前身份生效, 示例值：5, 取值范围：`-20160` ～ `20160`
+	Minutes *int64 `json:"minutes,omitempty"` // 日程提醒时间的偏移量，正数时表示在日程开始前X分钟提醒，负数时表示在日程开始后X分钟提醒,新建或更新日程时传入该字段，仅对当前身份生效, 示例值：5, 取值范围：`-20160` ～ `20160`
 }
 
 type UpdateCalendarEventReqSchema struct {
@@ -111,7 +111,7 @@ type UpdateCalendarEventReqSchema struct {
 }
 
 type updateCalendarEventResp struct {
-	Code int                      `json:"code,omitempty"` // 错误码，非 0 表示失败
+	Code int64                    `json:"code,omitempty"` // 错误码，非 0 表示失败
 	Msg  string                   `json:"msg,omitempty"`  // 错误描述
 	Data *UpdateCalendarEventResp `json:"data,omitempty"` //
 }
@@ -131,7 +131,7 @@ type UpdateCalendarEventRespEvent struct {
 	AttendeeAbility  string                                  `json:"attendee_ability,omitempty"`   // 参与人权限, 可选值有: `none`：无法编辑日程、无法邀请其它参与人、无法查看参与人列表, `can_see_others`：无法编辑日程、无法邀请其它参与人、可以查看参与人列表, `can_invite_others`：无法编辑日程、可以邀请其它参与人、可以查看参与人列表, `can_modify_event`：可以编辑日程、可以邀请其它参与人、可以查看参与人列表
 	FreeBusyStatus   string                                  `json:"free_busy_status,omitempty"`   // 日程占用的忙闲状态，新建日程默认为Busy；仅新建日程时对所有参与人生效，之后修改该属性仅对当前身份生效, 可选值有: `busy`：忙碌, `free`：空闲
 	Location         *UpdateCalendarEventRespEventLocation   `json:"location,omitempty"`           // 日程地点
-	Color            int                                     `json:"color,omitempty"`              // 日程颜色，颜色RGB值的int32表示。仅对当前身份生效；客户端展示时会映射到色板上最接近的一种颜色；值为0或-1时默认跟随日历颜色。
+	Color            int64                                   `json:"color,omitempty"`              // 日程颜色，颜色RGB值的int32表示。仅对当前身份生效；客户端展示时会映射到色板上最接近的一种颜色；值为0或-1时默认跟随日历颜色。
 	Reminders        []*UpdateCalendarEventRespEventReminder `json:"reminders,omitempty"`          // 日程提醒列表
 	Recurrence       string                                  `json:"recurrence,omitempty"`         // 重复日程的重复性规则；参考[rfc5545](https://datatracker.ietf.org/doc/html/rfc5545#section-3.3.10), 最大长度：`2000` 字符
 	Status           string                                  `json:"status,omitempty"`             // 日程状态, 可选值有: `tentative`：未回应, `confirmed`：已确认, `cancelled`：日程已取消
@@ -164,7 +164,7 @@ type UpdateCalendarEventRespEventLocation struct {
 }
 
 type UpdateCalendarEventRespEventReminder struct {
-	Minutes int `json:"minutes,omitempty"` // 日程提醒时间的偏移量，正数时表示在日程开始前X分钟提醒，负数时表示在日程开始后X分钟提醒,新建或更新日程时传入该字段，仅对当前身份生效, 取值范围：`-20160` ～ `20160`
+	Minutes int64 `json:"minutes,omitempty"` // 日程提醒时间的偏移量，正数时表示在日程开始前X分钟提醒，负数时表示在日程开始后X分钟提醒,新建或更新日程时传入该字段，仅对当前身份生效, 取值范围：`-20160` ～ `20160`
 }
 
 type UpdateCalendarEventRespEventSchema struct {

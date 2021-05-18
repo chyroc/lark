@@ -38,7 +38,7 @@ type EventV2ContactScopeUpdatedV3AddedDepartment struct {
 	ChatID             string                                               `json:"chat_id,omitempty"`              // 部门群ID
 	Order              string                                               `json:"order,omitempty"`                // 部门的排序，即部门在其同级部门的展示顺序
 	UnitIDs            []string                                             `json:"unit_ids,omitempty"`             // 部门单位自定义ID列表，当前只支持一个
-	MemberCount        int                                                  `json:"member_count,omitempty"`         // 部门下用户的个数
+	MemberCount        int64                                                `json:"member_count,omitempty"`         // 部门下用户的个数
 	Status             *EventV2ContactScopeUpdatedV3AddedDepartmentStatus   `json:"status,omitempty"`               // 部门状态
 }
 
@@ -60,16 +60,16 @@ type EventV2ContactScopeUpdatedV3AddedUser struct {
 	EnName          string                                             `json:"en_name,omitempty"`          // 英文名
 	Email           string                                             `json:"email,omitempty"`            // 邮箱, 字段权限要求:  获取用户邮箱
 	Mobile          string                                             `json:"mobile,omitempty"`           // 手机号, 字段权限要求:  获取用户手机号
-	Gender          int                                                `json:"gender,omitempty"`           // 性别, 可选值有: `0`：保密, `1`：男, `2`：女
+	Gender          int64                                              `json:"gender,omitempty"`           // 性别, 可选值有: `0`：保密, `1`：男, `2`：女
 	Avatar          *EventV2ContactScopeUpdatedV3AddedUserAvatar       `json:"avatar,omitempty"`           // 用户头像信息
 	Status          *EventV2ContactScopeUpdatedV3AddedUserStatus       `json:"status,omitempty"`           // 用户状态
 	LeaderUserID    string                                             `json:"leader_user_id,omitempty"`   // 用户的直接主管的用户ID
 	City            string                                             `json:"city,omitempty"`             // 城市
 	Country         string                                             `json:"country,omitempty"`          // 国家
 	WorkStation     string                                             `json:"work_station,omitempty"`     // 工位
-	JoinTime        int                                                `json:"join_time,omitempty"`        // 入职时间
+	JoinTime        int64                                              `json:"join_time,omitempty"`        // 入职时间
 	EmployeeNo      string                                             `json:"employee_no,omitempty"`      // 工号
-	EmployeeType    int                                                `json:"employee_type,omitempty"`    // 员工类型, 可选值有: `1`：正式员工, `2`：实习生, `3`：外包, `4`：劳务, `5`：顾问
+	EmployeeType    int64                                              `json:"employee_type,omitempty"`    // 员工类型, 可选值有: `1`：正式员工, `2`：实习生, `3`：外包, `4`：劳务, `5`：顾问
 	CustomAttrs     []*EventV2ContactScopeUpdatedV3AddedUserCustomAttr `json:"custom_attrs,omitempty"`     // 自定义属性
 	EnterpriseEmail string                                             `json:"enterprise_email,omitempty"` // 企业邮箱，请先确保已在管理后台启用飞书邮箱服务
 }
@@ -102,9 +102,9 @@ type EventV2ContactScopeUpdatedV3AddedUserCustomAttrValue struct {
 type EventV2ContactScopeUpdatedV3AddedUserGroup struct {
 	UserGroupID string `json:"user_group_id,omitempty"` // 用户组的自定义ID, 长度范围：`1` ～ `64` 字符
 	Name        string `json:"name,omitempty"`          // 用户组的名称, 长度范围：`1` ～ `100` 字符
-	Type        int    `json:"type,omitempty"`          // 用户组的类型, 可选值有: `1`：普通用户组, `2`：动态用户组
-	MemberCount int    `json:"member_count,omitempty"`  // 成员数量
-	Status      int    `json:"status,omitempty"`        // 用户组状态, 可选值有: `0`：未知, `1`：计算完毕, `2`：计算中, `3`：计算失败
+	Type        int64  `json:"type,omitempty"`          // 用户组的类型, 可选值有: `1`：普通用户组, `2`：动态用户组
+	MemberCount int64  `json:"member_count,omitempty"`  // 成员数量
+	Status      int64  `json:"status,omitempty"`        // 用户组状态, 可选值有: `0`：未知, `1`：计算完毕, `2`：计算中, `3`：计算失败
 }
 
 type EventV2ContactScopeUpdatedV3Removed struct {
@@ -123,7 +123,7 @@ type EventV2ContactScopeUpdatedV3RemovedDepartment struct {
 	ChatID             string                                                 `json:"chat_id,omitempty"`              // 部门群ID
 	Order              string                                                 `json:"order,omitempty"`                // 部门的排序，即部门在其同级部门的展示顺序
 	UnitIDs            []string                                               `json:"unit_ids,omitempty"`             // 部门单位自定义ID列表，当前只支持一个
-	MemberCount        int                                                    `json:"member_count,omitempty"`         // 部门下用户的个数
+	MemberCount        int64                                                  `json:"member_count,omitempty"`         // 部门下用户的个数
 	Status             *EventV2ContactScopeUpdatedV3RemovedDepartmentStatus   `json:"status,omitempty"`               // 部门状态
 }
 
@@ -145,16 +145,16 @@ type EventV2ContactScopeUpdatedV3RemovedUser struct {
 	EnName          string                                               `json:"en_name,omitempty"`          // 英文名
 	Email           string                                               `json:"email,omitempty"`            // 邮箱, 字段权限要求:  获取用户邮箱
 	Mobile          string                                               `json:"mobile,omitempty"`           // 手机号, 字段权限要求:  获取用户手机号
-	Gender          int                                                  `json:"gender,omitempty"`           // 性别, 可选值有: `0`：保密, `1`：男, `2`：女
+	Gender          int64                                                `json:"gender,omitempty"`           // 性别, 可选值有: `0`：保密, `1`：男, `2`：女
 	Avatar          *EventV2ContactScopeUpdatedV3RemovedUserAvatar       `json:"avatar,omitempty"`           // 用户头像信息
 	Status          *EventV2ContactScopeUpdatedV3RemovedUserStatus       `json:"status,omitempty"`           // 用户状态
 	LeaderUserID    string                                               `json:"leader_user_id,omitempty"`   // 用户的直接主管的用户ID
 	City            string                                               `json:"city,omitempty"`             // 城市
 	Country         string                                               `json:"country,omitempty"`          // 国家
 	WorkStation     string                                               `json:"work_station,omitempty"`     // 工位
-	JoinTime        int                                                  `json:"join_time,omitempty"`        // 入职时间
+	JoinTime        int64                                                `json:"join_time,omitempty"`        // 入职时间
 	EmployeeNo      string                                               `json:"employee_no,omitempty"`      // 工号
-	EmployeeType    int                                                  `json:"employee_type,omitempty"`    // 员工类型, 可选值有: `1`：正式员工, `2`：实习生, `3`：外包, `4`：劳务, `5`：顾问
+	EmployeeType    int64                                                `json:"employee_type,omitempty"`    // 员工类型, 可选值有: `1`：正式员工, `2`：实习生, `3`：外包, `4`：劳务, `5`：顾问
 	CustomAttrs     []*EventV2ContactScopeUpdatedV3RemovedUserCustomAttr `json:"custom_attrs,omitempty"`     // 自定义属性
 	EnterpriseEmail string                                               `json:"enterprise_email,omitempty"` // 企业邮箱，请先确保已在管理后台启用飞书邮箱服务
 }
@@ -187,7 +187,7 @@ type EventV2ContactScopeUpdatedV3RemovedUserCustomAttrValue struct {
 type EventV2ContactScopeUpdatedV3RemovedUserGroup struct {
 	UserGroupID string `json:"user_group_id,omitempty"` // 用户组的自定义ID, 长度范围：`1` ～ `64` 字符
 	Name        string `json:"name,omitempty"`          // 用户组的名称, 长度范围：`1` ～ `100` 字符
-	Type        int    `json:"type,omitempty"`          // 用户组的类型, 可选值有: `1`：普通用户组, `2`：动态用户组
-	MemberCount int    `json:"member_count,omitempty"`  // 成员数量
-	Status      int    `json:"status,omitempty"`        // 用户组状态, 可选值有: `0`：未知, `1`：计算完毕, `2`：计算中, `3`：计算失败
+	Type        int64  `json:"type,omitempty"`          // 用户组的类型, 可选值有: `1`：普通用户组, `2`：动态用户组
+	MemberCount int64  `json:"member_count,omitempty"`  // 成员数量
+	Status      int64  `json:"status,omitempty"`        // 用户组状态, 可选值有: `0`：未知, `1`：计算完毕, `2`：计算中, `3`：计算失败
 }

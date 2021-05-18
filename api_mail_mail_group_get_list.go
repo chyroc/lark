@@ -52,11 +52,11 @@ func (r *Mock) UnMockMailGetMailGroupList() {
 
 type GetMailGroupListReq struct {
 	PageToken *string `query:"page_token" json:"-"` // 分页标记，第一次请求不填，表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token，下次遍历可采用该 page_token 获取查询结果, 示例值："xxx"
-	PageSize  *int    `query:"page_size" json:"-"`  // 分页大小, 示例值：10, 最大值：`200`
+	PageSize  *int64  `query:"page_size" json:"-"`  // 分页大小, 示例值：10, 最大值：`200`
 }
 
 type getMailGroupListResp struct {
-	Code int                   `json:"code,omitempty"` // 错误码，非 0 表示失败
+	Code int64                 `json:"code,omitempty"` // 错误码，非 0 表示失败
 	Msg  string                `json:"msg,omitempty"`  // 错误描述
 	Data *GetMailGroupListResp `json:"data,omitempty"` //
 }

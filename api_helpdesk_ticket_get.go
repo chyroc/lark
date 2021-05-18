@@ -57,7 +57,7 @@ type GetTicketReq struct {
 }
 
 type getTicketResp struct {
-	Code int            `json:"code,omitempty"` // 错误码，非 0 表示失败
+	Code int64          `json:"code,omitempty"` // 错误码，非 0 表示失败
 	Msg  string         `json:"msg,omitempty"`  // 错误描述
 	Data *GetTicketResp `json:"data,omitempty"` //
 }
@@ -70,15 +70,15 @@ type GetTicketRespTicket struct {
 	TicketID         string                                `json:"ticket_id,omitempty"`         // 工单ID
 	HelpdeskID       string                                `json:"helpdesk_id,omitempty"`       // 服务台ID
 	Guest            *GetTicketRespTicketGuest             `json:"guest,omitempty"`             // 工单创建用户
-	Stage            int                                   `json:"stage,omitempty"`             // 工单阶段，1：bot，2：人工
-	Status           int                                   `json:"status,omitempty"`            // 工单状态，1：已创建 2: 处理中 3: 排队中 4：待定 5：待用户响应 50: 被机器人关闭 51: 被人工关闭
-	Score            int                                   `json:"score,omitempty"`             // 工单评分，1：不满意，2:一般，3:满意
-	CreatedAt        int                                   `json:"created_at,omitempty"`        // 工单创建时间
-	UpdatedAt        int                                   `json:"updated_at,omitempty"`        // 工单更新时间，没有值时为-1
-	ClosedAt         int                                   `json:"closed_at,omitempty"`         // 工单结束时间
+	Stage            int64                                 `json:"stage,omitempty"`             // 工单阶段，1：bot，2：人工
+	Status           int64                                 `json:"status,omitempty"`            // 工单状态，1：已创建 2: 处理中 3: 排队中 4：待定 5：待用户响应 50: 被机器人关闭 51: 被人工关闭
+	Score            int64                                 `json:"score,omitempty"`             // 工单评分，1：不满意，2:一般，3:满意
+	CreatedAt        int64                                 `json:"created_at,omitempty"`        // 工单创建时间
+	UpdatedAt        int64                                 `json:"updated_at,omitempty"`        // 工单更新时间，没有值时为-1
+	ClosedAt         int64                                 `json:"closed_at,omitempty"`         // 工单结束时间
 	Agents           []*GetTicketRespTicketAgent           `json:"agents,omitempty"`            // 工单客服
-	Channel          int                                   `json:"channel,omitempty"`           // 工单渠道
-	Solve            int                                   `json:"solve,omitempty"`             // 工单是否解决 1:没解决 2:已解决
+	Channel          int64                                 `json:"channel,omitempty"`           // 工单渠道
+	Solve            int64                                 `json:"solve,omitempty"`             // 工单是否解决 1:没解决 2:已解决
 	ClosedBy         *GetTicketRespTicketClosedBy          `json:"closed_by,omitempty"`         // 关单用户ID
 	Collaborators    []*GetTicketRespTicketCollaborator    `json:"collaborators,omitempty"`     // 工单协作者
 	CustomizedFields []*GetTicketRespTicketCustomizedField `json:"customized_fields,omitempty"` // 自定义字段列表，没有值时不设置
@@ -117,7 +117,7 @@ type GetTicketRespTicketCustomizedField struct {
 	Value       string `json:"value,omitempty"`        // 自定义字段值
 	KeyName     string `json:"key_name,omitempty"`     // 键名
 	DisplayName string `json:"display_name,omitempty"` // 展示名称
-	Position    int    `json:"position,omitempty"`     // 展示位置
+	Position    int64  `json:"position,omitempty"`     // 展示位置
 	Required    bool   `json:"required,omitempty"`     // 是否必填
 	Editable    bool   `json:"editable,omitempty"`     // 是否可修改
 }

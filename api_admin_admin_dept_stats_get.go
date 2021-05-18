@@ -60,12 +60,12 @@ type GetAdminDeptStatsReq struct {
 	EndDate           string           `query:"end_date" json:"-"`            // 终止日期（包含），格式是YYYY-mm-dd，起止日期之间相差不能超过91天（包含91天）, 示例值："2020-02-15"
 	DepartmentID      string           `query:"department_id" json:"-"`       // 部门的 ID，取决于department_id_type, 示例值："od-382e2793cfc9471f892e8a672987654c"
 	ContainsChildDept bool             `query:"contains_child_dept" json:"-"` // 是否包含子部门，如果该值为false，则只查出本部门直属用户活跃和功能使用数据；如果该值为true，则查出该部门以及其子部门的用户活跃和功能使用数据（最多递归到4层子部门）, 示例值：false
-	PageSize          *int             `query:"page_size" json:"-"`           // 分页大小，默认是10, 示例值：10, 取值范围：`1` ～ `20`
+	PageSize          *int64           `query:"page_size" json:"-"`           // 分页大小，默认是10, 示例值：10, 取值范围：`1` ～ `20`
 	PageToken         *string          `query:"page_token" json:"-"`          // 分页标记，第一次请求不填，表示从头开始遍历；当返回的has_more为true时，会返回新的page_token，再次调用接口，传入这个page_token，将获得下一页数据, 示例值："2"
 }
 
 type getAdminDeptStatsResp struct {
-	Code int                    `json:"code,omitempty"` // 错误码，非 0 表示失败
+	Code int64                  `json:"code,omitempty"` // 错误码，非 0 表示失败
 	Msg  string                 `json:"msg,omitempty"`  // 错误描述
 	Data *GetAdminDeptStatsResp `json:"data,omitempty"` //
 }
@@ -81,27 +81,27 @@ type GetAdminDeptStatsRespItem struct {
 	DepartmentID         string `json:"department_id,omitempty"`           // 部门的department_id 或者open_department_id
 	DepartmentName       string `json:"department_name,omitempty"`         // 部门名字
 	DepartmentPath       string `json:"department_path,omitempty"`         // 部门路径
-	TotalUserNum         int    `json:"total_user_num,omitempty"`          // 部门总人数
-	ActiveUserNum        int    `json:"active_user_num,omitempty"`         // 激活人数
+	TotalUserNum         int64  `json:"total_user_num,omitempty"`          // 部门总人数
+	ActiveUserNum        int64  `json:"active_user_num,omitempty"`         // 激活人数
 	ActiveUserRate       string `json:"active_user_rate,omitempty"`        // 激活率
-	SuiteDau             int    `json:"suite_dau,omitempty"`               // 活跃人数
+	SuiteDau             int64  `json:"suite_dau,omitempty"`               // 活跃人数
 	SuiteActiveRate      string `json:"suite_active_rate,omitempty"`       // 活跃率
-	NewUserNum           int    `json:"new_user_num,omitempty"`            // 新用户数
-	NewActiveNum         int    `json:"new_active_num,omitempty"`          // 新激活数
-	ResignUserNum        int    `json:"resign_user_num,omitempty"`         // 离职人数
-	ImDau                int    `json:"im_dau,omitempty"`                  // 消息活跃人数
-	SendMessengerUserNum int    `json:"send_messenger_user_num,omitempty"` // 发送消息人数
-	SendMessengerNum     int    `json:"send_messenger_num,omitempty"`      // 发送消息数
+	NewUserNum           int64  `json:"new_user_num,omitempty"`            // 新用户数
+	NewActiveNum         int64  `json:"new_active_num,omitempty"`          // 新激活数
+	ResignUserNum        int64  `json:"resign_user_num,omitempty"`         // 离职人数
+	ImDau                int64  `json:"im_dau,omitempty"`                  // 消息活跃人数
+	SendMessengerUserNum int64  `json:"send_messenger_user_num,omitempty"` // 发送消息人数
+	SendMessengerNum     int64  `json:"send_messenger_num,omitempty"`      // 发送消息数
 	AvgSendMessengerNum  string `json:"avg_send_messenger_num,omitempty"`  // 人均发送消息数
-	DocsDau              int    `json:"docs_dau,omitempty"`                // 云文档活跃人数
-	CreateDocsUserNum    int    `json:"create_docs_user_num,omitempty"`    // 创建文件人数
-	CreateDocsNum        int    `json:"create_docs_num,omitempty"`         // 创建文件数
+	DocsDau              int64  `json:"docs_dau,omitempty"`                // 云文档活跃人数
+	CreateDocsUserNum    int64  `json:"create_docs_user_num,omitempty"`    // 创建文件人数
+	CreateDocsNum        int64  `json:"create_docs_num,omitempty"`         // 创建文件数
 	AvgCreateDocsNum     string `json:"avg_create_docs_num,omitempty"`     // 人均创建文件数
-	CalDau               int    `json:"cal_dau,omitempty"`                 // 日历活跃人数
-	CreateCalUserNum     int    `json:"create_cal_user_num,omitempty"`     // 创建日程人数
-	CreateCalNum         int    `json:"create_cal_num,omitempty"`          // 创建日程数
+	CalDau               int64  `json:"cal_dau,omitempty"`                 // 日历活跃人数
+	CreateCalUserNum     int64  `json:"create_cal_user_num,omitempty"`     // 创建日程人数
+	CreateCalNum         int64  `json:"create_cal_num,omitempty"`          // 创建日程数
 	AvgCreateCalNum      string `json:"avg_create_cal_num,omitempty"`      // 人均创建日程数
-	VCDau                int    `json:"vc_dau,omitempty"`                  // 音视频会议活跃人数
-	VCDuration           int    `json:"vc_duration,omitempty"`             // 会议时长（分钟）
+	VCDau                int64  `json:"vc_dau,omitempty"`                  // 音视频会议活跃人数
+	VCDuration           int64  `json:"vc_duration,omitempty"`             // 会议时长（分钟）
 	AvgVcDuration        string `json:"avg_vc_duration,omitempty"`         // 人均会议时长（分钟）
 }

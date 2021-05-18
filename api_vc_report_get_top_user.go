@@ -55,12 +55,12 @@ func (r *Mock) UnMockVCGetTopUserReport() {
 type GetTopUserReportReq struct {
 	StartTime string `query:"start_time" json:"-"` // 开始时间（unix时间，单位sec）, 示例值："1608888867"
 	EndTime   string `query:"end_time" json:"-"`   // 结束时间（unix时间，单位sec）, 示例值："1608889966"
-	Limit     int    `query:"limit" json:"-"`      // 取前多少位, 示例值：10
-	OrderBy   int    `query:"order_by" json:"-"`   // 排序依据（降序）, 示例值：1, 可选值有: `1`：会议数量, `2`：会议时长
+	Limit     int64  `query:"limit" json:"-"`      // 取前多少位, 示例值：10
+	OrderBy   int64  `query:"order_by" json:"-"`   // 排序依据（降序）, 示例值：1, 可选值有: `1`：会议数量, `2`：会议时长
 }
 
 type getTopUserReportResp struct {
-	Code int                   `json:"code,omitempty"` // 错误码，非 0 表示失败
+	Code int64                 `json:"code,omitempty"` // 错误码，非 0 表示失败
 	Msg  string                `json:"msg,omitempty"`  // 错误描述
 	Data *GetTopUserReportResp `json:"data,omitempty"` //
 }
@@ -72,7 +72,7 @@ type GetTopUserReportResp struct {
 type GetTopUserReportRespTopUserReport struct {
 	ID              string `json:"id,omitempty"`               // 用户ID
 	Name            string `json:"name,omitempty"`             // 用户名
-	UserType        int    `json:"user_type,omitempty"`        // 用户类型, 可选值有: `1`：lark用户, `2`：rooms用户, `3`：文档用户, `4`：neo单品用户, `5`：neo单品游客用户, `6`：pstn用户, `7`：sip用户
+	UserType        int64  `json:"user_type,omitempty"`        // 用户类型, 可选值有: `1`：lark用户, `2`：rooms用户, `3`：文档用户, `4`：neo单品用户, `5`：neo单品游客用户, `6`：pstn用户, `7`：sip用户
 	MeetingCount    string `json:"meeting_count,omitempty"`    // 会议数量
 	MeetingDuration string `json:"meeting_duration,omitempty"` // 会议时长（单位sec）
 }

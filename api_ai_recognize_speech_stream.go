@@ -64,20 +64,20 @@ type RecognizeSpeechStreamReqSpeech struct {
 
 type RecognizeSpeechStreamReqConfig struct {
 	StreamID   string `json:"stream_id,omitempty"`   // 16 位 String 随机串作为同一数据流的标识，用户生成, 示例值："asd1234567890ddd"
-	SequenceID int    `json:"sequence_id,omitempty"` // 数据流分片的序号，序号从 0 开始，每次请求递增 1, 示例值：1
-	Action     int    `json:"action,omitempty"`      // 数据流标记：1 首包，2 正常结束，等待结果返回，3 中断数据流不返回最终结果, 示例值：1
+	SequenceID int64  `json:"sequence_id,omitempty"` // 数据流分片的序号，序号从 0 开始，每次请求递增 1, 示例值：1
+	Action     int64  `json:"action,omitempty"`      // 数据流标记：1 首包，2 正常结束，等待结果返回，3 中断数据流不返回最终结果, 示例值：1
 	Format     string `json:"format,omitempty"`      // 语音格式，目前仅支持：pcm, 示例值："pcm"
 	EngineType string `json:"engine_type,omitempty"` // 引擎类型，目前仅支持：16k_auto 中英混合, 示例值："16k_auto"
 }
 
 type recognizeSpeechStreamResp struct {
-	Code int                        `json:"code,omitempty"` // 错误码，非 0 表示失败
+	Code int64                      `json:"code,omitempty"` // 错误码，非 0 表示失败
 	Msg  string                     `json:"msg,omitempty"`  // 错误描述
 	Data *RecognizeSpeechStreamResp `json:"data,omitempty"` //
 }
 
 type RecognizeSpeechStreamResp struct {
 	StreamID        string `json:"stream_id,omitempty"`        // 16 位 String 随机串作为同一数据流的标识
-	SequenceID      int    `json:"sequence_id,omitempty"`      // 数据流分片的序号，序号从 0 开始，每次请求递增 1
+	SequenceID      int64  `json:"sequence_id,omitempty"`      // 数据流分片的序号，序号从 0 开始，每次请求递增 1
 	RecognitionText string `json:"recognition_text,omitempty"` // 语音流识别后的文本信息
 }

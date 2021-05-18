@@ -61,11 +61,11 @@ type GetParentDepartmentReq struct {
 	DepartmentIDType *DepartmentIDType `query:"department_id_type" json:"-"` // 此次调用中使用的部门ID的类型, 示例值："open_department_id", 可选值有: `department_id`：以自定义department_id来标识部门, `open_department_id`：以open_department_id来标识部门
 	DepartmentID     *string           `query:"department_id" json:"-"`      // 部门ID, 示例值："od-4e6ac4d14bcd5071a37a39de902c7141"
 	PageToken        *string           `query:"page_token" json:"-"`         // 分页标记，第一次请求不填，表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token，下次遍历可采用该 page_token 获取查询结果, 示例值："AQD9/Rn9eij9Pm39ED40/RD/cIFmu77WxpxPB/2oHfQLZ%2BG8JG6tK7%2BZnHiT7COhD2hMSICh/eBl7cpzU6JEC3J7COKNe4jrQ8ExwBCR"
-	PageSize         *int              `query:"page_size" json:"-"`          // 分页大小, 示例值：10, 最大值：`50`
+	PageSize         *int64            `query:"page_size" json:"-"`          // 分页大小, 示例值：10, 最大值：`50`
 }
 
 type getParentDepartmentResp struct {
-	Code int                      `json:"code,omitempty"` // 错误码，非 0 表示失败
+	Code int64                    `json:"code,omitempty"` // 错误码，非 0 表示失败
 	Msg  string                   `json:"msg,omitempty"`  // 错误描述
 	Data *GetParentDepartmentResp `json:"data,omitempty"` //
 }
@@ -86,7 +86,7 @@ type GetParentDepartmentRespItem struct {
 	ChatID             string                               `json:"chat_id,omitempty"`              // 部门群ID
 	Order              string                               `json:"order,omitempty"`                // 部门的排序，即部门在其同级部门的展示顺序
 	UnitIDs            []string                             `json:"unit_ids,omitempty"`             // 部门单位自定义ID列表，当前只支持一个
-	MemberCount        int                                  `json:"member_count,omitempty"`         // 部门下用户的个数
+	MemberCount        int64                                `json:"member_count,omitempty"`         // 部门下用户的个数
 	Status             *GetParentDepartmentRespItemStatus   `json:"status,omitempty"`               // 部门状态
 }
 

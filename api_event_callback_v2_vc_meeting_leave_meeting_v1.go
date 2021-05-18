@@ -20,7 +20,7 @@ type eventV2VCMeetingLeaveMeetingV1Handler func(ctx context.Context, cli *Lark, 
 type EventV2VCMeetingLeaveMeetingV1 struct {
 	Meeting     *EventV2VCMeetingLeaveMeetingV1Meeting  `json:"meeting,omitempty"`      // 会议数据
 	Operator    *EventV2VCMeetingLeaveMeetingV1Operator `json:"operator,omitempty"`     // 事件操作人
-	LeaveReason int                                     `json:"leave_reason,omitempty"` // 离开会议原因, 可选值有: `1`：主动离会, `2`：会议结束, `3`：被踢出
+	LeaveReason int64                                   `json:"leave_reason,omitempty"` // 离开会议原因, 可选值有: `1`：主动离会, `2`：会议结束, `3`：被踢出
 }
 
 type EventV2VCMeetingLeaveMeetingV1Meeting struct {
@@ -35,8 +35,8 @@ type EventV2VCMeetingLeaveMeetingV1Meeting struct {
 
 type EventV2VCMeetingLeaveMeetingV1MeetingHostUser struct {
 	ID       *EventV2VCMeetingLeaveMeetingV1MeetingHostUserID `json:"id,omitempty"`        // 用户 ID
-	UserRole int                                              `json:"user_role,omitempty"` // 用户会中角色, 可选值有: `1`：普通参会人, `2`：主持人, `3`：联席主持人
-	UserType int                                              `json:"user_type,omitempty"` // 用户类型, 可选值有: `1`：lark用户, `2`：rooms用户, `3`：文档用户, `4`：neo单品用户, `5`：neo单品游客用户, `6`：pstn用户, `7`：sip用户
+	UserRole int64                                            `json:"user_role,omitempty"` // 用户会中角色, 可选值有: `1`：普通参会人, `2`：主持人, `3`：联席主持人
+	UserType int64                                            `json:"user_type,omitempty"` // 用户类型, 可选值有: `1`：lark用户, `2`：rooms用户, `3`：文档用户, `4`：neo单品用户, `5`：neo单品游客用户, `6`：pstn用户, `7`：sip用户
 }
 
 type EventV2VCMeetingLeaveMeetingV1MeetingHostUserID struct {
@@ -47,8 +47,8 @@ type EventV2VCMeetingLeaveMeetingV1MeetingHostUserID struct {
 
 type EventV2VCMeetingLeaveMeetingV1MeetingOwner struct {
 	ID       *EventV2VCMeetingLeaveMeetingV1MeetingOwnerID `json:"id,omitempty"`        // 用户 ID
-	UserRole int                                           `json:"user_role,omitempty"` // 用户会中角色, 可选值有: `1`：普通参会人, `2`：主持人, `3`：联席主持人
-	UserType int                                           `json:"user_type,omitempty"` // 用户类型, 可选值有: `1`：lark用户, `2`：rooms用户, `3`：文档用户, `4`：neo单品用户, `5`：neo单品游客用户, `6`：pstn用户, `7`：sip用户
+	UserRole int64                                         `json:"user_role,omitempty"` // 用户会中角色, 可选值有: `1`：普通参会人, `2`：主持人, `3`：联席主持人
+	UserType int64                                         `json:"user_type,omitempty"` // 用户类型, 可选值有: `1`：lark用户, `2`：rooms用户, `3`：文档用户, `4`：neo单品用户, `5`：neo单品游客用户, `6`：pstn用户, `7`：sip用户
 }
 
 type EventV2VCMeetingLeaveMeetingV1MeetingOwnerID struct {
@@ -59,8 +59,8 @@ type EventV2VCMeetingLeaveMeetingV1MeetingOwnerID struct {
 
 type EventV2VCMeetingLeaveMeetingV1Operator struct {
 	ID       *EventV2VCMeetingLeaveMeetingV1OperatorID `json:"id,omitempty"`        // 用户 ID
-	UserRole int                                       `json:"user_role,omitempty"` // 用户会中角色, 可选值有: `1`：普通参会人, `2`：主持人, `3`：联席主持人
-	UserType int                                       `json:"user_type,omitempty"` // 用户类型, 可选值有: `1`：lark用户, `2`：rooms用户, `3`：文档用户, `4`：neo单品用户, `5`：neo单品游客用户, `6`：pstn用户, `7`：sip用户
+	UserRole int64                                     `json:"user_role,omitempty"` // 用户会中角色, 可选值有: `1`：普通参会人, `2`：主持人, `3`：联席主持人
+	UserType int64                                     `json:"user_type,omitempty"` // 用户类型, 可选值有: `1`：lark用户, `2`：rooms用户, `3`：文档用户, `4`：neo单品用户, `5`：neo单品游客用户, `6`：pstn用户, `7`：sip用户
 }
 
 type EventV2VCMeetingLeaveMeetingV1OperatorID struct {

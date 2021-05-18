@@ -61,12 +61,12 @@ type GetAdminUserStatsReq struct {
 	EndDate          string            `query:"end_date" json:"-"`           // 终止日期（包含），格式是YYYY-mm-dd。起止日期之间相差不能超过31天（包含31天）, 示例值："2020-02-15"
 	DepartmentID     *string           `query:"department_id" json:"-"`      // 部门的 ID，取决于department_id_type, 示例值："od-382e2793cfc9471f892e8a672987654c"
 	UserID           *string           `query:"user_id" json:"-"`            // 用户的open_id，user_id或者union_id，取决于user_id_type, 示例值："ou_7dab8a3d3cdcc9da365777c7ad535d62"
-	PageSize         *int              `query:"page_size" json:"-"`          // 分页大小，默认是10, 示例值：10, 取值范围：`1` ～ `20`
+	PageSize         *int64            `query:"page_size" json:"-"`          // 分页大小，默认是10, 示例值：10, 取值范围：`1` ～ `20`
 	PageToken        *string           `query:"page_token" json:"-"`         // 分页标记，第一次请求不填，表示从头开始遍历；当返回的has_more为true时，会返回新的page_token，再次调用接口，传入这个page_token，将获得下一页数据, 示例值："2"
 }
 
 type getAdminUserStatsResp struct {
-	Code int                    `json:"code,omitempty"` // 错误码，非 0 表示失败
+	Code int64                  `json:"code,omitempty"` // 错误码，非 0 表示失败
 	Msg  string                 `json:"msg,omitempty"`  // 错误描述
 	Data *GetAdminUserStatsResp `json:"data,omitempty"` //
 }
@@ -84,17 +84,17 @@ type GetAdminUserStatsRespItem struct {
 	DepartmentName   string `json:"department_name,omitempty"`    // 部门名
 	DepartmentPath   string `json:"department_path,omitempty"`    // 部门路径
 	CreateTime       string `json:"create_time,omitempty"`        // 添加时间
-	UserActiveFlag   int    `json:"user_active_flag,omitempty"`   // 用户激活状态, 可选值有: `0`：未激活, `1`：已激活
+	UserActiveFlag   int64  `json:"user_active_flag,omitempty"`   // 用户激活状态, 可选值有: `0`：未激活, `1`：已激活
 	RegisterTime     string `json:"register_time,omitempty"`      // 激活时间
-	SuiteActiveFlag  int    `json:"suite_active_flag,omitempty"`  // 用户活跃状态, 可选值有: `0`：无活跃, `1`：活跃
+	SuiteActiveFlag  int64  `json:"suite_active_flag,omitempty"`  // 用户活跃状态, 可选值有: `0`：无活跃, `1`：活跃
 	LastActiveTime   string `json:"last_active_time,omitempty"`   // 最近活跃时间
-	ImActiveFlag     int    `json:"im_active_flag,omitempty"`     // 用户消息活跃状态, 可选值有: `0`：无活跃, `1`：活跃
-	SendMessengerNum int    `json:"send_messenger_num,omitempty"` // 发送消息数
-	DocsActiveFlag   int    `json:"docs_active_flag,omitempty"`   // 用户云文档活跃状态, 可选值有: `0`：无活跃, `1`：活跃
-	CreateDocsNum    int    `json:"create_docs_num,omitempty"`    // 创建文件数
-	CalActiveFlag    int    `json:"cal_active_flag,omitempty"`    // 用户日历活跃状态, 可选值有: `0`：无活跃, `1`：活跃
-	CreateCalNum     int    `json:"create_cal_num,omitempty"`     // 创建日程数
-	VCActiveFlag     int    `json:"vc_active_flag,omitempty"`     // 用户音视频会议活跃状态, 可选值有: `0`：无活跃, `1`：活跃
-	VCDuration       int    `json:"vc_duration,omitempty"`        // 会议时长
+	ImActiveFlag     int64  `json:"im_active_flag,omitempty"`     // 用户消息活跃状态, 可选值有: `0`：无活跃, `1`：活跃
+	SendMessengerNum int64  `json:"send_messenger_num,omitempty"` // 发送消息数
+	DocsActiveFlag   int64  `json:"docs_active_flag,omitempty"`   // 用户云文档活跃状态, 可选值有: `0`：无活跃, `1`：活跃
+	CreateDocsNum    int64  `json:"create_docs_num,omitempty"`    // 创建文件数
+	CalActiveFlag    int64  `json:"cal_active_flag,omitempty"`    // 用户日历活跃状态, 可选值有: `0`：无活跃, `1`：活跃
+	CreateCalNum     int64  `json:"create_cal_num,omitempty"`     // 创建日程数
+	VCActiveFlag     int64  `json:"vc_active_flag,omitempty"`     // 用户音视频会议活跃状态, 可选值有: `0`：无活跃, `1`：活跃
+	VCDuration       int64  `json:"vc_duration,omitempty"`        // 会议时长
 	ActiveOs         string `json:"active_os,omitempty"`          // 活跃设备
 }

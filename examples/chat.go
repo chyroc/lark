@@ -54,7 +54,7 @@ func ExampleChat() {
 
 	// add member
 	{
-		resp, _, err := cli.Chat.AddMember(ctx, &lark.AddMemberReq{
+		resp, _, err := cli.Chat.AddChatMember(ctx, &lark.AddChatMemberReq{
 			ChatID:       "<CHAT_ID>",
 			MemberIDType: lark.IDTypePtr(lark.IDTypeOpenID),
 			IDList:       []string{"<USER_OPEN_ID>"},
@@ -64,7 +64,7 @@ func ExampleChat() {
 
 	// delete member
 	{
-		resp, _, err := cli.Chat.DeleteMember(ctx, &lark.DeleteMemberReq{
+		resp, _, err := cli.Chat.DeleteChatMember(ctx, &lark.DeleteChatMemberReq{
 			ChatID:       "<CHAT_ID>",
 			MemberIDType: lark.IDTypePtr(lark.IDTypeOpenID),
 			IDList:       []string{"<USER_OPEN_ID>"},

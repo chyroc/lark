@@ -6,7 +6,7 @@ import (
 	"context"
 )
 
-// UpdateAnnouncement 更新会话中的群公告信息，更新公告信息的格式和更新[云文档](https://open.feishu.cn/document/ukTMukTMukTM/uAzM5YjLwMTO24CMzkjN)格式相同。
+// UpdateChatAnnouncement 更新会话中的群公告信息，更新公告信息的格式和更新[云文档](https://open.feishu.cn/document/ukTMukTMukTM/uAzM5YjLwMTO24CMzkjN)格式相同。
 //
 // 注意事项：
 // - 应用需要开启[机器人能力](https://open.feishu.cn/document/uQjL04CN/uYTMuYTMuYTM)
@@ -15,14 +15,14 @@ import (
 // - 当授权用户或机器人非群主，但群主设置了 [仅群主可编辑群信息] 时，无法更新公告信息
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-announcement/patch
-func (r *ChatService) UpdateAnnouncement(ctx context.Context, request *UpdateAnnouncementReq, options ...MethodOptionFunc) (*UpdateAnnouncementResp, *Response, error) {
-	if r.cli.mock.mockChatUpdateAnnouncement != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Chat#UpdateAnnouncement mock enable")
-		return r.cli.mock.mockChatUpdateAnnouncement(ctx, request, options...)
+func (r *ChatService) UpdateChatAnnouncement(ctx context.Context, request *UpdateChatAnnouncementReq, options ...MethodOptionFunc) (*UpdateChatAnnouncementResp, *Response, error) {
+	if r.cli.mock.mockChatUpdateChatAnnouncement != nil {
+		r.cli.log(ctx, LogLevelDebug, "[lark] Chat#UpdateChatAnnouncement mock enable")
+		return r.cli.mock.mockChatUpdateChatAnnouncement(ctx, request, options...)
 	}
 
-	r.cli.log(ctx, LogLevelInfo, "[lark] Chat#UpdateAnnouncement call api")
-	r.cli.log(ctx, LogLevelDebug, "[lark] Chat#UpdateAnnouncement request: %s", jsonString(request))
+	r.cli.log(ctx, LogLevelInfo, "[lark] Chat#UpdateChatAnnouncement call api")
+	r.cli.log(ctx, LogLevelDebug, "[lark] Chat#UpdateChatAnnouncement request: %s", jsonString(request))
 
 	req := &RawRequestReq{
 		Method:                "PATCH",
@@ -33,41 +33,41 @@ func (r *ChatService) UpdateAnnouncement(ctx context.Context, request *UpdateAnn
 
 		NeedUserAccessToken: true,
 	}
-	resp := new(updateAnnouncementResp)
+	resp := new(updateChatAnnouncementResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
 	requestID, statusCode := getResponseRequestID(response)
 	if err != nil {
-		r.cli.log(ctx, LogLevelError, "[lark] Chat#UpdateAnnouncement PATCH https://open.feishu.cn/open-apis/im/v1/chats/:chat_id/announcement failed, request_id: %s, status_code: %d, error: %s", requestID, statusCode, err)
+		r.cli.log(ctx, LogLevelError, "[lark] Chat#UpdateChatAnnouncement PATCH https://open.feishu.cn/open-apis/im/v1/chats/:chat_id/announcement failed, request_id: %s, status_code: %d, error: %s", requestID, statusCode, err)
 		return nil, response, err
 	} else if resp.Code != 0 {
-		r.cli.log(ctx, LogLevelError, "[lark] Chat#UpdateAnnouncement PATCH https://open.feishu.cn/open-apis/im/v1/chats/:chat_id/announcement failed, request_id: %s, status_code: %d, code: %d, msg: %s", requestID, statusCode, resp.Code, resp.Msg)
-		return nil, response, NewError("Chat", "UpdateAnnouncement", resp.Code, resp.Msg)
+		r.cli.log(ctx, LogLevelError, "[lark] Chat#UpdateChatAnnouncement PATCH https://open.feishu.cn/open-apis/im/v1/chats/:chat_id/announcement failed, request_id: %s, status_code: %d, code: %d, msg: %s", requestID, statusCode, resp.Code, resp.Msg)
+		return nil, response, NewError("Chat", "UpdateChatAnnouncement", resp.Code, resp.Msg)
 	}
 
-	r.cli.log(ctx, LogLevelDebug, "[lark] Chat#UpdateAnnouncement success, request_id: %s, status_code: %d, response: %s", requestID, statusCode, jsonString(resp.Data))
+	r.cli.log(ctx, LogLevelDebug, "[lark] Chat#UpdateChatAnnouncement success, request_id: %s, status_code: %d, response: %s", requestID, statusCode, jsonString(resp.Data))
 
 	return resp.Data, response, nil
 }
 
-func (r *Mock) MockChatUpdateAnnouncement(f func(ctx context.Context, request *UpdateAnnouncementReq, options ...MethodOptionFunc) (*UpdateAnnouncementResp, *Response, error)) {
-	r.mockChatUpdateAnnouncement = f
+func (r *Mock) MockChatUpdateChatAnnouncement(f func(ctx context.Context, request *UpdateChatAnnouncementReq, options ...MethodOptionFunc) (*UpdateChatAnnouncementResp, *Response, error)) {
+	r.mockChatUpdateChatAnnouncement = f
 }
 
-func (r *Mock) UnMockChatUpdateAnnouncement() {
-	r.mockChatUpdateAnnouncement = nil
+func (r *Mock) UnMockChatUpdateChatAnnouncement() {
+	r.mockChatUpdateChatAnnouncement = nil
 }
 
-type UpdateAnnouncementReq struct {
+type UpdateChatAnnouncementReq struct {
 	ChatID   string   `path:"chat_id" json:"-"`   // 待修改公告的群 ID, 示例值："oc_5ad11d72b830411d72b836c20"
 	Revision string   `json:"revision,omitempty"` // 文档当前版本号 int64 类型，get 接口会返回, 示例值："12"
 	Requests []string `json:"requests,omitempty"` // 修改文档请求的序列化字段
 }
 
-type updateAnnouncementResp struct {
-	Code int                     `json:"code,omitempty"` // 错误码，非 0 表示失败
-	Msg  string                  `json:"msg,omitempty"`  // 错误描述
-	Data *UpdateAnnouncementResp `json:"data,omitempty"`
+type updateChatAnnouncementResp struct {
+	Code int64                       `json:"code,omitempty"` // 错误码，非 0 表示失败
+	Msg  string                      `json:"msg,omitempty"`  // 错误描述
+	Data *UpdateChatAnnouncementResp `json:"data,omitempty"`
 }
 
-type UpdateAnnouncementResp struct{}
+type UpdateChatAnnouncementResp struct{}

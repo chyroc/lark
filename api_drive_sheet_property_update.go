@@ -62,7 +62,7 @@ type UpdateSheetPropertyReqProperties struct {
 }
 
 type updateSheetPropertyResp struct {
-	Code int                      `json:"code,omitempty"`
+	Code int64                    `json:"code,omitempty"`
 	Msg  string                   `json:"msg,omitempty"`
 	Data *UpdateSheetPropertyResp `json:"data,omitempty"`
 }

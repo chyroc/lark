@@ -6,17 +6,17 @@ import (
 	"context"
 )
 
-// GetRecord 该接口用于根据 record_id 的值检索现有记录
+// GetBitableRecord 该接口用于根据 record_id 的值检索现有记录
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table-record/get
-func (r *BitableService) GetRecord(ctx context.Context, request *GetRecordReq, options ...MethodOptionFunc) (*GetRecordResp, *Response, error) {
-	if r.cli.mock.mockBitableGetRecord != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Bitable#GetRecord mock enable")
-		return r.cli.mock.mockBitableGetRecord(ctx, request, options...)
+func (r *BitableService) GetBitableRecord(ctx context.Context, request *GetBitableRecordReq, options ...MethodOptionFunc) (*GetBitableRecordResp, *Response, error) {
+	if r.cli.mock.mockBitableGetBitableRecord != nil {
+		r.cli.log(ctx, LogLevelDebug, "[lark] Bitable#GetBitableRecord mock enable")
+		return r.cli.mock.mockBitableGetBitableRecord(ctx, request, options...)
 	}
 
-	r.cli.log(ctx, LogLevelInfo, "[lark] Bitable#GetRecord call api")
-	r.cli.log(ctx, LogLevelDebug, "[lark] Bitable#GetRecord request: %s", jsonString(request))
+	r.cli.log(ctx, LogLevelInfo, "[lark] Bitable#GetBitableRecord call api")
+	r.cli.log(ctx, LogLevelDebug, "[lark] Bitable#GetBitableRecord request: %s", jsonString(request))
 
 	req := &RawRequestReq{
 		Method:       "GET",
@@ -26,48 +26,48 @@ func (r *BitableService) GetRecord(ctx context.Context, request *GetRecordReq, o
 
 		NeedUserAccessToken: true,
 	}
-	resp := new(getRecordResp)
+	resp := new(getBitableRecordResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
 	requestID, statusCode := getResponseRequestID(response)
 	if err != nil {
-		r.cli.log(ctx, LogLevelError, "[lark] Bitable#GetRecord GET https://open.feishu.cn/open-apis/bitable/v1/apps/:app_token/tables/:table_id/records/:record_id failed, request_id: %s, status_code: %d, error: %s", requestID, statusCode, err)
+		r.cli.log(ctx, LogLevelError, "[lark] Bitable#GetBitableRecord GET https://open.feishu.cn/open-apis/bitable/v1/apps/:app_token/tables/:table_id/records/:record_id failed, request_id: %s, status_code: %d, error: %s", requestID, statusCode, err)
 		return nil, response, err
 	} else if resp.Code != 0 {
-		r.cli.log(ctx, LogLevelError, "[lark] Bitable#GetRecord GET https://open.feishu.cn/open-apis/bitable/v1/apps/:app_token/tables/:table_id/records/:record_id failed, request_id: %s, status_code: %d, code: %d, msg: %s", requestID, statusCode, resp.Code, resp.Msg)
-		return nil, response, NewError("Bitable", "GetRecord", resp.Code, resp.Msg)
+		r.cli.log(ctx, LogLevelError, "[lark] Bitable#GetBitableRecord GET https://open.feishu.cn/open-apis/bitable/v1/apps/:app_token/tables/:table_id/records/:record_id failed, request_id: %s, status_code: %d, code: %d, msg: %s", requestID, statusCode, resp.Code, resp.Msg)
+		return nil, response, NewError("Bitable", "GetBitableRecord", resp.Code, resp.Msg)
 	}
 
-	r.cli.log(ctx, LogLevelDebug, "[lark] Bitable#GetRecord success, request_id: %s, status_code: %d, response: %s", requestID, statusCode, jsonString(resp.Data))
+	r.cli.log(ctx, LogLevelDebug, "[lark] Bitable#GetBitableRecord success, request_id: %s, status_code: %d, response: %s", requestID, statusCode, jsonString(resp.Data))
 
 	return resp.Data, response, nil
 }
 
-func (r *Mock) MockBitableGetRecord(f func(ctx context.Context, request *GetRecordReq, options ...MethodOptionFunc) (*GetRecordResp, *Response, error)) {
-	r.mockBitableGetRecord = f
+func (r *Mock) MockBitableGetBitableRecord(f func(ctx context.Context, request *GetBitableRecordReq, options ...MethodOptionFunc) (*GetBitableRecordResp, *Response, error)) {
+	r.mockBitableGetBitableRecord = f
 }
 
-func (r *Mock) UnMockBitableGetRecord() {
-	r.mockBitableGetRecord = nil
+func (r *Mock) UnMockBitableGetBitableRecord() {
+	r.mockBitableGetBitableRecord = nil
 }
 
-type GetRecordReq struct {
+type GetBitableRecordReq struct {
 	AppToken string `path:"app_token" json:"-"` // bitable app token, 示例值："bascng7vrxcxpig7geggXiCtadY"
 	TableID  string `path:"table_id" json:"-"`  // table id, 示例值："tblUa9vcYjWQYJCj"
 	RecordID string `path:"record_id" json:"-"` // 单条记录的 id, 示例值："recP750ZNJ"
 }
 
-type getRecordResp struct {
-	Code int            `json:"code,omitempty"` // 错误码，非 0 表示失败
-	Msg  string         `json:"msg,omitempty"`  // 错误描述
-	Data *GetRecordResp `json:"data,omitempty"` //
+type getBitableRecordResp struct {
+	Code int64                 `json:"code,omitempty"` // 错误码，非 0 表示失败
+	Msg  string                `json:"msg,omitempty"`  // 错误描述
+	Data *GetBitableRecordResp `json:"data,omitempty"` //
 }
 
-type GetRecordResp struct {
-	Record *GetRecordRespRecord `json:"record,omitempty"` // 记录
+type GetBitableRecordResp struct {
+	Record *GetBitableRecordRespRecord `json:"record,omitempty"` // 记录
 }
 
-type GetRecordRespRecord struct {
+type GetBitableRecordRespRecord struct {
 	RecordID string                 `json:"record_id,omitempty"` // 记录 id
 	Fields   map[string]interface{} `json:"fields,omitempty"`    // 记录字段
 }

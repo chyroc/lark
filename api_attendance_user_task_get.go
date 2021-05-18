@@ -57,12 +57,12 @@ func (r *Mock) UnMockAttendanceGetUserTask() {
 type GetUserTaskReq struct {
 	EmployeeType  EmployeeType `query:"employee_type" json:"-"`   // 请求体中的 user_ids 的员工工号类型，可用值：【employee_id（员工的 employeeId），employee_no（员工工号）】，示例值：“employee_id”
 	UserIDs       []string     `json:"user_ids,omitempty"`        // employee_no 或 employee_id 列表
-	CheckDateFrom int          `json:"check_date_from,omitempty"` // 查询的起始工作日
-	CheckDateTo   int          `json:"check_date_to,omitempty"`   // 查询的结束工作日
+	CheckDateFrom int64        `json:"check_date_from,omitempty"` // 查询的起始工作日
+	CheckDateTo   int64        `json:"check_date_to,omitempty"`   // 查询的结束工作日
 }
 
 type getUserTaskResp struct {
-	Code int              `json:"code,omitempty"` // 错误码，非 0 表示失败
+	Code int64            `json:"code,omitempty"` // 错误码，非 0 表示失败
 	Msg  string           `json:"msg,omitempty"`  // 错误描述
 	Data *GetUserTaskResp `json:"data,omitempty"` // -
 }
@@ -75,7 +75,7 @@ type GetUserTaskRespUserTaskResult struct {
 	ResultID     string                                 `json:"result_id,omitempty"`     // 打卡记录 ID
 	UserID       string                                 `json:"user_id,omitempty"`       // employee ID
 	EmployeeName string                                 `json:"employee_name,omitempty"` // employee 姓名
-	Day          int                                    `json:"day,omitempty"`           // 日期
+	Day          int64                                  `json:"day,omitempty"`           // 日期
 	GroupID      string                                 `json:"group_id,omitempty"`      // 考勤组 ID
 	ShiftID      string                                 `json:"shift_id,omitempty"`      // 班次 ID
 	Records      []*GetUserTaskRespUserTaskResultRecord `json:"records,omitempty"`       // 用户考勤记录

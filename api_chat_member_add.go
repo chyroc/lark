@@ -6,7 +6,7 @@ import (
 	"context"
 )
 
-// AddMember 将用户或机器人拉入群聊。
+// AddChatMember 将用户或机器人拉入群聊。
 //
 // 注意事项：
 // - 应用需要开启[机器人能力](https://open.feishu.cn/document/uQjL04CN/uYTMuYTMuYTM)
@@ -16,14 +16,14 @@ import (
 // - 每次请求，最多拉50个用户或者5个机器人，并且群组最多容纳15个机器人
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-members/create
-func (r *ChatService) AddMember(ctx context.Context, request *AddMemberReq, options ...MethodOptionFunc) (*AddMemberResp, *Response, error) {
-	if r.cli.mock.mockChatAddMember != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Chat#AddMember mock enable")
-		return r.cli.mock.mockChatAddMember(ctx, request, options...)
+func (r *ChatService) AddChatMember(ctx context.Context, request *AddChatMemberReq, options ...MethodOptionFunc) (*AddChatMemberResp, *Response, error) {
+	if r.cli.mock.mockChatAddChatMember != nil {
+		r.cli.log(ctx, LogLevelDebug, "[lark] Chat#AddChatMember mock enable")
+		return r.cli.mock.mockChatAddChatMember(ctx, request, options...)
 	}
 
-	r.cli.log(ctx, LogLevelInfo, "[lark] Chat#AddMember call api")
-	r.cli.log(ctx, LogLevelDebug, "[lark] Chat#AddMember request: %s", jsonString(request))
+	r.cli.log(ctx, LogLevelInfo, "[lark] Chat#AddChatMember call api")
+	r.cli.log(ctx, LogLevelDebug, "[lark] Chat#AddChatMember request: %s", jsonString(request))
 
 	req := &RawRequestReq{
 		Method:                "POST",
@@ -34,43 +34,43 @@ func (r *ChatService) AddMember(ctx context.Context, request *AddMemberReq, opti
 
 		NeedUserAccessToken: true,
 	}
-	resp := new(addMemberResp)
+	resp := new(addChatMemberResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
 	requestID, statusCode := getResponseRequestID(response)
 	if err != nil {
-		r.cli.log(ctx, LogLevelError, "[lark] Chat#AddMember POST https://open.feishu.cn/open-apis/im/v1/chats/:chat_id/members failed, request_id: %s, status_code: %d, error: %s", requestID, statusCode, err)
+		r.cli.log(ctx, LogLevelError, "[lark] Chat#AddChatMember POST https://open.feishu.cn/open-apis/im/v1/chats/:chat_id/members failed, request_id: %s, status_code: %d, error: %s", requestID, statusCode, err)
 		return nil, response, err
 	} else if resp.Code != 0 {
-		r.cli.log(ctx, LogLevelError, "[lark] Chat#AddMember POST https://open.feishu.cn/open-apis/im/v1/chats/:chat_id/members failed, request_id: %s, status_code: %d, code: %d, msg: %s", requestID, statusCode, resp.Code, resp.Msg)
-		return nil, response, NewError("Chat", "AddMember", resp.Code, resp.Msg)
+		r.cli.log(ctx, LogLevelError, "[lark] Chat#AddChatMember POST https://open.feishu.cn/open-apis/im/v1/chats/:chat_id/members failed, request_id: %s, status_code: %d, code: %d, msg: %s", requestID, statusCode, resp.Code, resp.Msg)
+		return nil, response, NewError("Chat", "AddChatMember", resp.Code, resp.Msg)
 	}
 
-	r.cli.log(ctx, LogLevelDebug, "[lark] Chat#AddMember success, request_id: %s, status_code: %d, response: %s", requestID, statusCode, jsonString(resp.Data))
+	r.cli.log(ctx, LogLevelDebug, "[lark] Chat#AddChatMember success, request_id: %s, status_code: %d, response: %s", requestID, statusCode, jsonString(resp.Data))
 
 	return resp.Data, response, nil
 }
 
-func (r *Mock) MockChatAddMember(f func(ctx context.Context, request *AddMemberReq, options ...MethodOptionFunc) (*AddMemberResp, *Response, error)) {
-	r.mockChatAddMember = f
+func (r *Mock) MockChatAddChatMember(f func(ctx context.Context, request *AddChatMemberReq, options ...MethodOptionFunc) (*AddChatMemberResp, *Response, error)) {
+	r.mockChatAddChatMember = f
 }
 
-func (r *Mock) UnMockChatAddMember() {
-	r.mockChatAddMember = nil
+func (r *Mock) UnMockChatAddChatMember() {
+	r.mockChatAddChatMember = nil
 }
 
-type AddMemberReq struct {
+type AddChatMemberReq struct {
 	MemberIDType *IDType  `query:"member_id_type" json:"-"` // 进群成员 id 类型 open_id/user_id/union_id/app_id, 示例值："user_id", 可选值有: `user_id`：以 user_id 来识别成员, `union_id`：以 union_id 来识别成员, `open_id`：以 open_id 来识别成员, `app_id`：以 app_id 来识别成员
 	ChatID       string   `path:"chat_id" json:"-"`         // 群 ID, 示例值："oc_a0553eda9014c201e6969b478895c230"
 	IDList       []string `json:"id_list,omitempty"`        // 成员列表
 }
 
-type addMemberResp struct {
-	Code int            `json:"code,omitempty"` // 错误码，非 0 表示失败
-	Msg  string         `json:"msg,omitempty"`  // 错误描述
-	Data *AddMemberResp `json:"data,omitempty"` //
+type addChatMemberResp struct {
+	Code int64              `json:"code,omitempty"` // 错误码，非 0 表示失败
+	Msg  string             `json:"msg,omitempty"`  // 错误描述
+	Data *AddChatMemberResp `json:"data,omitempty"` //
 }
 
-type AddMemberResp struct {
+type AddChatMemberResp struct {
 	InvalidIDList []string `json:"invalid_id_list,omitempty"` // 无效成员列表
 }

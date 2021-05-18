@@ -61,7 +61,7 @@ type BatchGetUserFlowReq struct {
 }
 
 type batchGetUserFlowResp struct {
-	Code int                   `json:"code,omitempty"` // 错误码，非 0 表示失败
+	Code int64                 `json:"code,omitempty"` // 错误码，非 0 表示失败
 	Msg  string                `json:"msg,omitempty"`  // 错误描述
 	Data *BatchGetUserFlowResp `json:"data,omitempty"` // -
 }
@@ -83,6 +83,6 @@ type BatchGetUserFlowRespUserFlowResult struct {
 	Bssid        string   `json:"bssid,omitempty"`         // 打卡 Wi-Fi 的 MAC 地址
 	IsField      bool     `json:"is_field,omitempty"`      // 是否为外勤打卡
 	IsWifi       bool     `json:"is_wifi,omitempty"`       // 是否为 Wi-Fi 打卡
-	Type         int      `json:"type,omitempty"`          // 记录生成方式，可用值：【0（用户自己打卡），1（管理员修改），2（用户补卡），3（系统自动生成），4（下班免打卡），5（考勤机打卡），6（极速打卡），7（考勤开放平台导入）】
+	Type         int64    `json:"type,omitempty"`          // 记录生成方式，可用值：【0（用户自己打卡），1（管理员修改），2（用户补卡），3（系统自动生成），4（下班免打卡），5（考勤机打卡），6（极速打卡），7（考勤开放平台导入）】
 	PhotoURLs    []string `json:"photo_urls,omitempty"`    // 打卡照片列表
 }

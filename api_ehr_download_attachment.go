@@ -61,7 +61,7 @@ type DownloadAttachmentsReq struct {
 
 type downloadAttachmentsResp struct {
 	IsFile bool                     `json:"is_file,omitempty"`
-	Code   int                      `json:"code,omitempty"`
+	Code   int64                    `json:"code,omitempty"`
 	Msg    string                   `json:"msg,omitempty"`
 	Data   *DownloadAttachmentsResp `json:"data,omitempty"`
 }

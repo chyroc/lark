@@ -54,12 +54,12 @@ type GetStatisticsHeaderReq struct {
 	EmployeeType EmployeeType `query:"employee_type" json:"-"` // 用户 ID 类型, 可选值有: `employee_id`, `employee_no`
 	Locale       string       `json:"locale,omitempty"`        // 语言类型, 可选值有: `en`：英文, `ja`：日文, `zh`：中文
 	StatsType    string       `json:"stats_type,omitempty"`    // 统计类型,      , **可选值有**：     , `daily`：日度统计, `month`：月度统计
-	StartDate    int          `json:"start_date,omitempty"`    // 开始时间, 示例值：20210316,      ,      （时间间隔不超过 40 天）
-	EndDate      int          `json:"end_date,omitempty"`      // 结束时间, 示例值：20210323
+	StartDate    int64        `json:"start_date,omitempty"`    // 开始时间, 示例值：20210316,      ,      （时间间隔不超过 40 天）
+	EndDate      int64        `json:"end_date,omitempty"`      // 结束时间, 示例值：20210323
 }
 
 type getStatisticsHeaderResp struct {
-	Code int                      `json:"code,omitempty"` // 错误码，非 0 表示失败
+	Code int64                    `json:"code,omitempty"` // 错误码，非 0 表示失败
 	Msg  string                   `json:"msg,omitempty"`  // 错误描述
 	Data *GetStatisticsHeaderResp `json:"data,omitempty"` //
 }

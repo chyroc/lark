@@ -54,13 +54,13 @@ func (r *Mock) UnMockHelpdeskUpdateTicket() {
 
 type UpdateTicketReq struct {
 	TicketID         string                            `path:"ticket_id" json:"-"`          // 工单ID, 示例值："6945345902185807891"
-	Status           *int                              `json:"status,omitempty"`            // new status, 1: 已创建, 2: 处理中, 3: 排队中, 5: 待定, 50: 机器人关闭工单, 51: 关闭工单, 示例值：1
+	Status           *int64                            `json:"status,omitempty"`            // new status, 1: 已创建, 2: 处理中, 3: 排队中, 5: 待定, 50: 机器人关闭工单, 51: 关闭工单, 示例值：1
 	TagNames         []string                          `json:"tag_names,omitempty"`         // 新标签名
 	Comment          *string                           `json:"comment,omitempty"`           // 新评论, 示例值："good"
 	CustomizedFields []*UpdateTicketReqCustomizedField `json:"customized_fields,omitempty"` // 自定义字段
-	TicketType       *int                              `json:"ticket_type,omitempty"`       // ticket stage, 示例值：1
-	Solved           *int                              `json:"solved,omitempty"`            // 工单是否解决，1: 未解决, 2: 已解决, 示例值：1
-	Channel          *int                              `json:"channel,omitempty"`           // 工单来源渠道ID, 示例值：1
+	TicketType       *int64                            `json:"ticket_type,omitempty"`       // ticket stage, 示例值：1
+	Solved           *int64                            `json:"solved,omitempty"`            // 工单是否解决，1: 未解决, 2: 已解决, 示例值：1
+	Channel          *int64                            `json:"channel,omitempty"`           // 工单来源渠道ID, 示例值：1
 }
 
 type UpdateTicketReqCustomizedField struct {
@@ -70,7 +70,7 @@ type UpdateTicketReqCustomizedField struct {
 }
 
 type updateTicketResp struct {
-	Code int               `json:"code,omitempty"` // 错误码，非 0 表示失败
+	Code int64             `json:"code,omitempty"` // 错误码，非 0 表示失败
 	Msg  string            `json:"msg,omitempty"`  // 错误描述
 	Data *UpdateTicketResp `json:"data,omitempty"`
 }

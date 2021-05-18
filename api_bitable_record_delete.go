@@ -6,17 +6,17 @@ import (
 	"context"
 )
 
-// DeleteRecord 该接口用于删除数据表中的一条记录
+// DeleteBitableRecord 该接口用于删除数据表中的一条记录
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table-record/delete
-func (r *BitableService) DeleteRecord(ctx context.Context, request *DeleteRecordReq, options ...MethodOptionFunc) (*DeleteRecordResp, *Response, error) {
-	if r.cli.mock.mockBitableDeleteRecord != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Bitable#DeleteRecord mock enable")
-		return r.cli.mock.mockBitableDeleteRecord(ctx, request, options...)
+func (r *BitableService) DeleteBitableRecord(ctx context.Context, request *DeleteBitableRecordReq, options ...MethodOptionFunc) (*DeleteBitableRecordResp, *Response, error) {
+	if r.cli.mock.mockBitableDeleteBitableRecord != nil {
+		r.cli.log(ctx, LogLevelDebug, "[lark] Bitable#DeleteBitableRecord mock enable")
+		return r.cli.mock.mockBitableDeleteBitableRecord(ctx, request, options...)
 	}
 
-	r.cli.log(ctx, LogLevelInfo, "[lark] Bitable#DeleteRecord call api")
-	r.cli.log(ctx, LogLevelDebug, "[lark] Bitable#DeleteRecord request: %s", jsonString(request))
+	r.cli.log(ctx, LogLevelInfo, "[lark] Bitable#DeleteBitableRecord call api")
+	r.cli.log(ctx, LogLevelDebug, "[lark] Bitable#DeleteBitableRecord request: %s", jsonString(request))
 
 	req := &RawRequestReq{
 		Method:       "DELETE",
@@ -26,44 +26,44 @@ func (r *BitableService) DeleteRecord(ctx context.Context, request *DeleteRecord
 
 		NeedUserAccessToken: true,
 	}
-	resp := new(deleteRecordResp)
+	resp := new(deleteBitableRecordResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
 	requestID, statusCode := getResponseRequestID(response)
 	if err != nil {
-		r.cli.log(ctx, LogLevelError, "[lark] Bitable#DeleteRecord DELETE https://open.feishu.cn/open-apis/bitable/v1/apps/:app_token/tables/:table_id/records/:record_id failed, request_id: %s, status_code: %d, error: %s", requestID, statusCode, err)
+		r.cli.log(ctx, LogLevelError, "[lark] Bitable#DeleteBitableRecord DELETE https://open.feishu.cn/open-apis/bitable/v1/apps/:app_token/tables/:table_id/records/:record_id failed, request_id: %s, status_code: %d, error: %s", requestID, statusCode, err)
 		return nil, response, err
 	} else if resp.Code != 0 {
-		r.cli.log(ctx, LogLevelError, "[lark] Bitable#DeleteRecord DELETE https://open.feishu.cn/open-apis/bitable/v1/apps/:app_token/tables/:table_id/records/:record_id failed, request_id: %s, status_code: %d, code: %d, msg: %s", requestID, statusCode, resp.Code, resp.Msg)
-		return nil, response, NewError("Bitable", "DeleteRecord", resp.Code, resp.Msg)
+		r.cli.log(ctx, LogLevelError, "[lark] Bitable#DeleteBitableRecord DELETE https://open.feishu.cn/open-apis/bitable/v1/apps/:app_token/tables/:table_id/records/:record_id failed, request_id: %s, status_code: %d, code: %d, msg: %s", requestID, statusCode, resp.Code, resp.Msg)
+		return nil, response, NewError("Bitable", "DeleteBitableRecord", resp.Code, resp.Msg)
 	}
 
-	r.cli.log(ctx, LogLevelDebug, "[lark] Bitable#DeleteRecord success, request_id: %s, status_code: %d, response: %s", requestID, statusCode, jsonString(resp.Data))
+	r.cli.log(ctx, LogLevelDebug, "[lark] Bitable#DeleteBitableRecord success, request_id: %s, status_code: %d, response: %s", requestID, statusCode, jsonString(resp.Data))
 
 	return resp.Data, response, nil
 }
 
-func (r *Mock) MockBitableDeleteRecord(f func(ctx context.Context, request *DeleteRecordReq, options ...MethodOptionFunc) (*DeleteRecordResp, *Response, error)) {
-	r.mockBitableDeleteRecord = f
+func (r *Mock) MockBitableDeleteBitableRecord(f func(ctx context.Context, request *DeleteBitableRecordReq, options ...MethodOptionFunc) (*DeleteBitableRecordResp, *Response, error)) {
+	r.mockBitableDeleteBitableRecord = f
 }
 
-func (r *Mock) UnMockBitableDeleteRecord() {
-	r.mockBitableDeleteRecord = nil
+func (r *Mock) UnMockBitableDeleteBitableRecord() {
+	r.mockBitableDeleteBitableRecord = nil
 }
 
-type DeleteRecordReq struct {
+type DeleteBitableRecordReq struct {
 	AppToken string `path:"app_token" json:"-"` // bitable app token, 示例值："appbcbWCzen6D8dezhoCH2RpMAh"
 	TableID  string `path:"table_id" json:"-"`  // table id, 示例值："tblsRc9GRRXKqhvW"
 	RecordID string `path:"record_id" json:"-"` // 单条记录的Id, 示例值："recpCsf4ME"
 }
 
-type deleteRecordResp struct {
-	Code int               `json:"code,omitempty"` // 错误码，非 0 表示失败
-	Msg  string            `json:"msg,omitempty"`  // 错误描述
-	Data *DeleteRecordResp `json:"data,omitempty"` //
+type deleteBitableRecordResp struct {
+	Code int64                    `json:"code,omitempty"` // 错误码，非 0 表示失败
+	Msg  string                   `json:"msg,omitempty"`  // 错误描述
+	Data *DeleteBitableRecordResp `json:"data,omitempty"` //
 }
 
-type DeleteRecordResp struct {
+type DeleteBitableRecordResp struct {
 	Deleted  bool   `json:"deleted,omitempty"`   // 是否成功删除
 	RecordID string `json:"record_id,omitempty"` // 删除的记录 ID
 }

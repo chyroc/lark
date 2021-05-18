@@ -61,11 +61,11 @@ type InviteMeetingReq struct {
 
 type InviteMeetingReqInvitee struct {
 	ID       *string `json:"id,omitempty"`        // 用户ID, 示例值："ou_3ec3f6a28a0d08c45d895276e8e5e19b"
-	UserType *int    `json:"user_type,omitempty"` // 用户类型, 示例值：1, 可选值有: `1`：lark用户, `2`：rooms用户, `3`：文档用户, `4`：neo单品用户, `5`：neo单品游客用户, `6`：pstn用户, `7`：sip用户
+	UserType *int64  `json:"user_type,omitempty"` // 用户类型, 示例值：1, 可选值有: `1`：lark用户, `2`：rooms用户, `3`：文档用户, `4`：neo单品用户, `5`：neo单品游客用户, `6`：pstn用户, `7`：sip用户
 }
 
 type inviteMeetingResp struct {
-	Code int                `json:"code,omitempty"` // 错误码，非 0 表示失败
+	Code int64              `json:"code,omitempty"` // 错误码，非 0 表示失败
 	Msg  string             `json:"msg,omitempty"`  // 错误描述
 	Data *InviteMeetingResp `json:"data,omitempty"` //
 }
@@ -76,6 +76,6 @@ type InviteMeetingResp struct {
 
 type InviteMeetingRespInviteResult struct {
 	ID       string `json:"id,omitempty"`        // 用户ID
-	UserType int    `json:"user_type,omitempty"` // 用户类型, 可选值有: `1`：lark用户, `2`：rooms用户, `3`：文档用户, `4`：neo单品用户, `5`：neo单品游客用户, `6`：pstn用户, `7`：sip用户
-	Status   int    `json:"status,omitempty"`    // 邀请结果, 可选值有: `1`：邀请成功, `2`：邀请失败
+	UserType int64  `json:"user_type,omitempty"` // 用户类型, 可选值有: `1`：lark用户, `2`：rooms用户, `3`：文档用户, `4`：neo单品用户, `5`：neo单品游客用户, `6`：pstn用户, `7`：sip用户
+	Status   int64  `json:"status,omitempty"`    // 邀请结果, 可选值有: `1`：邀请成功, `2`：邀请失败
 }

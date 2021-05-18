@@ -18,7 +18,7 @@ func (r *AuthService) GetTenantAccessToken(ctx context.Context) (*TokenExpire, *
 	if err != nil && err != ErrStoreNotFound {
 		r.cli.log(ctx, LogLevelError, "[lark] Auth#GetTenantAccessToken get token from store failed: %s", err)
 	} else if val != "" && ttl > 0 {
-		return &TokenExpire{Token: val, Expire: int(ttl.Seconds())}, &Response{}, nil
+		return &TokenExpire{Token: val, Expire: int64(ttl.Seconds())}, &Response{}, nil
 	}
 
 	uri := "https://open.feishu.cn/open-apis/auth/v3/tenant_access_token/internal/"
@@ -76,7 +76,7 @@ func (r *Mock) UnMockGetTenantAccessToken() {
 
 type TokenExpire struct {
 	Token  string `json:"token"`
-	Expire int    `json:"expire"`
+	Expire int64  `json:"expire"`
 }
 
 type getTenantAccessTokenReq struct {
@@ -88,9 +88,9 @@ type getTenantAccessTokenReq struct {
 }
 
 type getTenantAccessTokenResp struct {
-	Code              int    `json:"code,omitempty"` // 错误码，非 0 表示失败
+	Code              int64  `json:"code,omitempty"` // 错误码，非 0 表示失败
 	Msg               string `json:"msg,omitempty"`  // 错误描述
 	TenantAccessToken string `json:"tenant_access_token"`
 	AppAccessToken    string `json:"app_access_token"`
-	Expire            int    `json:"expire"`
+	Expire            int64  `json:"expire"`
 }

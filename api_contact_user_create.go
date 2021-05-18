@@ -62,16 +62,16 @@ type CreateUserReq struct {
 	Email                *string                          `json:"email,omitempty"`                  // 邮箱, 示例值："zhangsan@gmail.com", 字段权限要求:  获取用户邮箱
 	Mobile               string                           `json:"mobile,omitempty"`                 // 手机号, 示例值："13011111111", 字段权限要求:  获取用户手机号
 	MobileVisible        *bool                            `json:"mobile_visible,omitempty"`         // 手机号码可见性，true 为可见，false 为不可见，目前默认为 true。不可见时，组织员工将无法查看该员工的手机号码, 示例值：false
-	Gender               *int                             `json:"gender,omitempty"`                 // 性别, 示例值：1, 可选值有: `0`：保密, `1`：男, `2`：女
+	Gender               *int64                           `json:"gender,omitempty"`                 // 性别, 示例值：1, 可选值有: `0`：保密, `1`：男, `2`：女
 	AvatarKey            *string                          `json:"avatar_key,omitempty"`             // 头像的文件Key, 示例值："2500c7a9-5fff-4d9a-a2de-3d59614ae28g"
 	DepartmentIDs        []string                         `json:"department_ids,omitempty"`         // 用户所属部门的ID列表
 	LeaderUserID         *string                          `json:"leader_user_id,omitempty"`         // 用户的直接主管的用户ID, 示例值："ou_7dab8a3d3cdcc9da365777c7ad535d62"
 	City                 *string                          `json:"city,omitempty"`                   // 城市, 示例值："杭州"
 	Country              *string                          `json:"country,omitempty"`                // 国家, 示例值："中国"
 	WorkStation          *string                          `json:"work_station,omitempty"`           // 工位, 示例值："杭州"
-	JoinTime             *int                             `json:"join_time,omitempty"`              // 入职时间, 示例值：2147483647
+	JoinTime             *int64                           `json:"join_time,omitempty"`              // 入职时间, 示例值：2147483647
 	EmployeeNo           *string                          `json:"employee_no,omitempty"`            // 工号, 示例值："1"
-	EmployeeType         int                              `json:"employee_type,omitempty"`          // 员工类型, 示例值：1
+	EmployeeType         int64                            `json:"employee_type,omitempty"`          // 员工类型, 示例值：1
 	Orders               []*CreateUserReqOrder            `json:"orders,omitempty"`                 // 用户排序信息
 	CustomAttrs          []*CreateUserReqCustomAttr       `json:"custom_attrs,omitempty"`           // 自定义属性
 	EnterpriseEmail      *string                          `json:"enterprise_email,omitempty"`       // 企业邮箱，请先确保已在管理后台启用飞书邮箱服务, 示例值："demo@mail.com"
@@ -81,8 +81,8 @@ type CreateUserReq struct {
 
 type CreateUserReqOrder struct {
 	DepartmentID    *string `json:"department_id,omitempty"`    // 排序信息对应的部门ID, 示例值："od-4e6ac4d14bcd5071a37a39de902c7141"
-	UserOrder       *int    `json:"user_order,omitempty"`       // 用户在其直属部门内的排序，数值越大，排序越靠前, 示例值：100
-	DepartmentOrder *int    `json:"department_order,omitempty"` // 用户所属的多个部门间的排序，数值越大，排序越靠前, 示例值：100
+	UserOrder       *int64  `json:"user_order,omitempty"`       // 用户在其直属部门内的排序，数值越大，排序越靠前, 示例值：100
+	DepartmentOrder *int64  `json:"department_order,omitempty"` // 用户所属的多个部门间的排序，数值越大，排序越靠前, 示例值：100
 }
 
 type CreateUserReqCustomAttr struct {
@@ -103,7 +103,7 @@ type CreateUserReqNotificationOption struct {
 }
 
 type createUserResp struct {
-	Code int             `json:"code,omitempty"` // 错误码，非 0 表示失败
+	Code int64           `json:"code,omitempty"` // 错误码，非 0 表示失败
 	Msg  string          `json:"msg,omitempty"`  // 错误描述
 	Data *CreateUserResp `json:"data,omitempty"` //
 }
@@ -121,7 +121,7 @@ type CreateUserRespUser struct {
 	Email                string                                `json:"email,omitempty"`                  // 邮箱, 字段权限要求:  获取用户邮箱
 	Mobile               string                                `json:"mobile,omitempty"`                 // 手机号, 字段权限要求:  获取用户手机号
 	MobileVisible        bool                                  `json:"mobile_visible,omitempty"`         // 手机号码可见性，true 为可见，false 为不可见，目前默认为 true。不可见时，组织员工将无法查看该员工的手机号码
-	Gender               int                                   `json:"gender,omitempty"`                 // 性别, 可选值有: `0`：保密, `1`：男, `2`：女
+	Gender               int64                                 `json:"gender,omitempty"`                 // 性别, 可选值有: `0`：保密, `1`：男, `2`：女
 	AvatarKey            string                                `json:"avatar_key,omitempty"`             // 头像的文件Key
 	Avatar               *CreateUserRespUserAvatar             `json:"avatar,omitempty"`                 // 用户头像信息
 	Status               *CreateUserRespUserStatus             `json:"status,omitempty"`                 // 用户状态
@@ -130,10 +130,10 @@ type CreateUserRespUser struct {
 	City                 string                                `json:"city,omitempty"`                   // 城市
 	Country              string                                `json:"country,omitempty"`                // 国家
 	WorkStation          string                                `json:"work_station,omitempty"`           // 工位
-	JoinTime             int                                   `json:"join_time,omitempty"`              // 入职时间
+	JoinTime             int64                                 `json:"join_time,omitempty"`              // 入职时间
 	IsTenantManager      bool                                  `json:"is_tenant_manager,omitempty"`      // 是否是租户管理员
 	EmployeeNo           string                                `json:"employee_no,omitempty"`            // 工号
-	EmployeeType         int                                   `json:"employee_type,omitempty"`          // 员工类型
+	EmployeeType         int64                                 `json:"employee_type,omitempty"`          // 员工类型
 	Orders               []*CreateUserRespUserOrder            `json:"orders,omitempty"`                 // 用户排序信息
 	CustomAttrs          []*CreateUserRespUserCustomAttr       `json:"custom_attrs,omitempty"`           // 自定义属性
 	EnterpriseEmail      string                                `json:"enterprise_email,omitempty"`       // 企业邮箱，请先确保已在管理后台启用飞书邮箱服务
@@ -156,8 +156,8 @@ type CreateUserRespUserStatus struct {
 
 type CreateUserRespUserOrder struct {
 	DepartmentID    string `json:"department_id,omitempty"`    // 排序信息对应的部门ID
-	UserOrder       int    `json:"user_order,omitempty"`       // 用户在其直属部门内的排序，数值越大，排序越靠前
-	DepartmentOrder int    `json:"department_order,omitempty"` // 用户所属的多个部门间的排序，数值越大，排序越靠前
+	UserOrder       int64  `json:"user_order,omitempty"`       // 用户在其直属部门内的排序，数值越大，排序越靠前
+	DepartmentOrder int64  `json:"department_order,omitempty"` // 用户所属的多个部门间的排序，数值越大，排序越靠前
 }
 
 type CreateUserRespUserCustomAttr struct {

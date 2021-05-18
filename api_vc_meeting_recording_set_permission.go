@@ -62,12 +62,12 @@ type SetPermissionMeetingRecordingReq struct {
 
 type SetPermissionMeetingRecordingReqPermissionObject struct {
 	ID             *string `json:"id,omitempty"`              // 授权对象ID, 示例值: "ou_3ec3f6a28a0d08c45d895276e8e5e19b"
-	PermissionType *int    `json:"permission_type,omitempty"` // 授权类型, 示例值: 0, 可选值有: `0`：用户授权, `1`：群组授权, `2`：租户内授权（id字段不填）, `3`：公网授权（id字段不填）
-	Permission     *int    `json:"permission,omitempty"`      // 权限, 示例值: 1, 可选值有: `1`：查看
+	PermissionType *int64  `json:"permission_type,omitempty"` // 授权类型, 示例值: 0, 可选值有: `0`：用户授权, `1`：群组授权, `2`：租户内授权（id字段不填）, `3`：公网授权（id字段不填）
+	Permission     *int64  `json:"permission,omitempty"`      // 权限, 示例值: 1, 可选值有: `1`：查看
 }
 
 type setPermissionMeetingRecordingResp struct {
-	Code int                                `json:"code,omitempty"` // 错误码，非 0 表示失败
+	Code int64                              `json:"code,omitempty"` // 错误码，非 0 表示失败
 	Msg  string                             `json:"msg,omitempty"`  // 错误描述
 	Data *SetPermissionMeetingRecordingResp `json:"data,omitempty"`
 }

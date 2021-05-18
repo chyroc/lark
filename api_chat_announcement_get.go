@@ -6,20 +6,20 @@ import (
 	"context"
 )
 
-// GetAnnouncement 获取会话中的群公告信息，公告信息格式与[云文档](https://open.feishu.cn/document/ukTMukTMukTM/uAzM5YjLwMTO24CMzkjN)格式相同。
+// GetChatAnnouncement 获取会话中的群公告信息，公告信息格式与[云文档](https://open.feishu.cn/document/ukTMukTMukTM/uAzM5YjLwMTO24CMzkjN)格式相同。
 //
 // 注意事项：
 // - 应用需要开启[机器人能力](https://open.feishu.cn/document/uQjL04CN/uYTMuYTMuYTM)
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-announcement/get
-func (r *ChatService) GetAnnouncement(ctx context.Context, request *GetAnnouncementReq, options ...MethodOptionFunc) (*GetAnnouncementResp, *Response, error) {
-	if r.cli.mock.mockChatGetAnnouncement != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Chat#GetAnnouncement mock enable")
-		return r.cli.mock.mockChatGetAnnouncement(ctx, request, options...)
+func (r *ChatService) GetChatAnnouncement(ctx context.Context, request *GetChatAnnouncementReq, options ...MethodOptionFunc) (*GetChatAnnouncementResp, *Response, error) {
+	if r.cli.mock.mockChatGetChatAnnouncement != nil {
+		r.cli.log(ctx, LogLevelDebug, "[lark] Chat#GetChatAnnouncement mock enable")
+		return r.cli.mock.mockChatGetChatAnnouncement(ctx, request, options...)
 	}
 
-	r.cli.log(ctx, LogLevelInfo, "[lark] Chat#GetAnnouncement call api")
-	r.cli.log(ctx, LogLevelDebug, "[lark] Chat#GetAnnouncement request: %s", jsonString(request))
+	r.cli.log(ctx, LogLevelInfo, "[lark] Chat#GetChatAnnouncement call api")
+	r.cli.log(ctx, LogLevelDebug, "[lark] Chat#GetChatAnnouncement request: %s", jsonString(request))
 
 	req := &RawRequestReq{
 		Method:                "GET",
@@ -30,43 +30,43 @@ func (r *ChatService) GetAnnouncement(ctx context.Context, request *GetAnnouncem
 
 		NeedUserAccessToken: true,
 	}
-	resp := new(getAnnouncementResp)
+	resp := new(getChatAnnouncementResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
 	requestID, statusCode := getResponseRequestID(response)
 	if err != nil {
-		r.cli.log(ctx, LogLevelError, "[lark] Chat#GetAnnouncement GET https://open.feishu.cn/open-apis/im/v1/chats/:chat_id/announcement failed, request_id: %s, status_code: %d, error: %s", requestID, statusCode, err)
+		r.cli.log(ctx, LogLevelError, "[lark] Chat#GetChatAnnouncement GET https://open.feishu.cn/open-apis/im/v1/chats/:chat_id/announcement failed, request_id: %s, status_code: %d, error: %s", requestID, statusCode, err)
 		return nil, response, err
 	} else if resp.Code != 0 {
-		r.cli.log(ctx, LogLevelError, "[lark] Chat#GetAnnouncement GET https://open.feishu.cn/open-apis/im/v1/chats/:chat_id/announcement failed, request_id: %s, status_code: %d, code: %d, msg: %s", requestID, statusCode, resp.Code, resp.Msg)
-		return nil, response, NewError("Chat", "GetAnnouncement", resp.Code, resp.Msg)
+		r.cli.log(ctx, LogLevelError, "[lark] Chat#GetChatAnnouncement GET https://open.feishu.cn/open-apis/im/v1/chats/:chat_id/announcement failed, request_id: %s, status_code: %d, code: %d, msg: %s", requestID, statusCode, resp.Code, resp.Msg)
+		return nil, response, NewError("Chat", "GetChatAnnouncement", resp.Code, resp.Msg)
 	}
 
-	r.cli.log(ctx, LogLevelDebug, "[lark] Chat#GetAnnouncement success, request_id: %s, status_code: %d, response: %s", requestID, statusCode, jsonString(resp.Data))
+	r.cli.log(ctx, LogLevelDebug, "[lark] Chat#GetChatAnnouncement success, request_id: %s, status_code: %d, response: %s", requestID, statusCode, jsonString(resp.Data))
 
 	return resp.Data, response, nil
 }
 
-func (r *Mock) MockChatGetAnnouncement(f func(ctx context.Context, request *GetAnnouncementReq, options ...MethodOptionFunc) (*GetAnnouncementResp, *Response, error)) {
-	r.mockChatGetAnnouncement = f
+func (r *Mock) MockChatGetChatAnnouncement(f func(ctx context.Context, request *GetChatAnnouncementReq, options ...MethodOptionFunc) (*GetChatAnnouncementResp, *Response, error)) {
+	r.mockChatGetChatAnnouncement = f
 }
 
-func (r *Mock) UnMockChatGetAnnouncement() {
-	r.mockChatGetAnnouncement = nil
+func (r *Mock) UnMockChatGetChatAnnouncement() {
+	r.mockChatGetChatAnnouncement = nil
 }
 
-type GetAnnouncementReq struct {
+type GetChatAnnouncementReq struct {
 	UserIDType *IDType `query:"user_id_type" json:"-"` // 用户 ID 类型, 示例值: "open_id", 可选值有: `open_id`：用户的 open id, `union_id`：用户的 union id, `user_id`：用户的 user id, 默认值: `open_id`, 当值为 `user_id`，字段权限要求: 获取用户 userid
 	ChatID     string  `path:"chat_id" json:"-"`       // 待获取公告的群 ID, 示例值: "oc_5ad11d72b830411d72b836c20"
 }
 
-type getAnnouncementResp struct {
-	Code int                  `json:"code,omitempty"` // 错误码，非 0 表示失败
-	Msg  string               `json:"msg,omitempty"`  // 错误描述
-	Data *GetAnnouncementResp `json:"data,omitempty"` //
+type getChatAnnouncementResp struct {
+	Code int64                    `json:"code,omitempty"` // 错误码，非 0 表示失败
+	Msg  string                   `json:"msg,omitempty"`  // 错误描述
+	Data *GetChatAnnouncementResp `json:"data,omitempty"` //
 }
 
-type GetAnnouncementResp struct {
+type GetChatAnnouncementResp struct {
 	Content        string `json:"content,omitempty"`          // 云文档序列化信息
 	Revision       string `json:"revision,omitempty"`         // 文档当前版本号 纯数字
 	CreateTime     string `json:"create_time,omitempty"`      // 文档生成的时间戳（秒）

@@ -56,12 +56,12 @@ func (r *Mock) UnMockHelpdeskGetTicketCustomizedFieldList() {
 
 type GetTicketCustomizedFieldListReq struct {
 	PageToken *string `query:"page_token" json:"-"` // 分页标记，第一次请求不填，表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token，下次遍历可采用该 page_token 获取查询结果, 示例值："6948728206392295444"
-	PageSize  *int    `query:"page_size" json:"-"`  // 分页大小, 示例值：10；默认为20, 最大值：`100`
+	PageSize  *int64  `query:"page_size" json:"-"`  // 分页大小, 示例值：10；默认为20, 最大值：`100`
 	Visible   *bool   `json:"visible,omitempty"`    // 是否可见, 示例值：true
 }
 
 type getTicketCustomizedFieldListResp struct {
-	Code int                               `json:"code,omitempty"` // 错误码，非 0 表示失败
+	Code int64                             `json:"code,omitempty"` // 错误码，非 0 表示失败
 	Msg  string                            `json:"msg,omitempty"`  // 错误描述
 	Data *GetTicketCustomizedFieldListResp `json:"data,omitempty"` //
 }

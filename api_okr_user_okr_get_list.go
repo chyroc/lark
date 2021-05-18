@@ -63,29 +63,29 @@ type GetUserOKRListReq struct {
 }
 
 type getUserOKRListResp struct {
-	Code int                 `json:"code,omitempty"` // 错误码，非 0 表示失败
+	Code int64               `json:"code,omitempty"` // 错误码，非 0 表示失败
 	Msg  string              `json:"msg,omitempty"`  // 错误描述
 	Data *GetUserOKRListResp `json:"data,omitempty"` //
 }
 
 type GetUserOKRListResp struct {
-	Total   int                      `json:"total,omitempty"`    // OKR周期总数
+	Total   int64                    `json:"total,omitempty"`    // OKR周期总数
 	OkrList []*GetUserOKRListRespOkr `json:"okr_list,omitempty"` // OKR 列表
 }
 
 type GetUserOKRListRespOkr struct {
 	ID            string                            `json:"id,omitempty"`             // id
-	Permission    int                               `json:"permission,omitempty"`     // OKR的访问权限, 可选值有: `0`：此时OKR只返回id, `1`：返回OKR的其他具体字段
+	Permission    int64                             `json:"permission,omitempty"`     // OKR的访问权限, 可选值有: `0`：此时OKR只返回id, `1`：返回OKR的其他具体字段
 	Name          string                            `json:"name,omitempty"`           // 名称
 	ObjectiveList []*GetUserOKRListRespOkrObjective `json:"objective_list,omitempty"` // Objective列表
 }
 
 type GetUserOKRListRespOkrObjective struct {
 	ID                    string                                             `json:"id,omitempty"`                      // Objective ID
-	Permission            int                                                `json:"permission,omitempty"`              // 权限, 可选值有: `0`：此时OKR只返回id, `1`：返回OKR的其他具体字段
+	Permission            int64                                              `json:"permission,omitempty"`              // 权限, 可选值有: `0`：此时OKR只返回id, `1`：返回OKR的其他具体字段
 	Content               string                                             `json:"content,omitempty"`                 // Objective 内容
 	ProgressReport        string                                             `json:"progress_report,omitempty"`         // Objective 进度记录内容
-	Score                 int                                                `json:"score,omitempty"`                   // Objective 分数（0 - 100）
+	Score                 int64                                              `json:"score,omitempty"`                   // Objective 分数（0 - 100）
 	Weight                float64                                            `json:"weight,omitempty"`                  // Objective的权重（0 - 100）
 	ProgressRate          *GetUserOKRListRespOkrObjectiveProgressRate        `json:"progress_rate,omitempty"`           // Objective进度
 	KrList                []*GetUserOKRListRespOkrObjectiveKr                `json:"kr_list,omitempty"`                 // Objective KeyResult 列表
@@ -94,21 +94,21 @@ type GetUserOKRListRespOkrObjective struct {
 }
 
 type GetUserOKRListRespOkrObjectiveProgressRate struct {
-	Percent int    `json:"percent,omitempty"` // Objective 进度百分比 >= 0
+	Percent int64  `json:"percent,omitempty"` // Objective 进度百分比 >= 0
 	Status  string `json:"status,omitempty"`  // Objective 进度状态, 可选值有: `-1`：未更新, `0`：正常, `1`：有风险, `2`：已延期
 }
 
 type GetUserOKRListRespOkrObjectiveKr struct {
 	ID           string                                        `json:"id,omitempty"`            // Key Result ID
 	Content      string                                        `json:"content,omitempty"`       // KeyResult 内容
-	Score        int                                           `json:"score,omitempty"`         // KeyResult打分（0 - 100）
-	Weight       int                                           `json:"weight,omitempty"`        // KeyResult权重（0 - 100）（废弃）
+	Score        int64                                         `json:"score,omitempty"`         // KeyResult打分（0 - 100）
+	Weight       int64                                         `json:"weight,omitempty"`        // KeyResult权重（0 - 100）（废弃）
 	KrWeight     float64                                       `json:"kr_weight,omitempty"`     // KeyResult的权重（0 - 100）
 	ProgressRate *GetUserOKRListRespOkrObjectiveKrProgressRate `json:"progress_rate,omitempty"` // KR进度
 }
 
 type GetUserOKRListRespOkrObjectiveKrProgressRate struct {
-	Percent int    `json:"percent,omitempty"` // Objective 进度百分比 >= 0
+	Percent int64  `json:"percent,omitempty"` // Objective 进度百分比 >= 0
 	Status  string `json:"status,omitempty"`  // Objective 进度状态, 可选值有: `-1`：未更新, `0`：正常, `1`：有风险, `2`：已延期
 }
 

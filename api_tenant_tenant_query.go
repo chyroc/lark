@@ -55,7 +55,7 @@ func (r *Mock) UnMockTenantQueryTenant() {
 type QueryTenantReq struct{}
 
 type queryTenantResp struct {
-	Code int              `json:"code,omitempty"` // 错误码，非 0 表示失败
+	Code int64            `json:"code,omitempty"` // 错误码，非 0 表示失败
 	Msg  string           `json:"msg,omitempty"`  // 错误描述
 	Data *QueryTenantResp `json:"data,omitempty"` //
 }
@@ -67,7 +67,7 @@ type QueryTenantResp struct {
 type QueryTenantRespTenant struct {
 	Name      string                       `json:"name,omitempty"`       // 企业名称
 	DisplayID string                       `json:"display_id,omitempty"` // 企业编号
-	TenantTag int                          `json:"tenant_tag,omitempty"` // 个人版/团队版标志, 可选值有: `0`：团队版, `2`：个人版
+	TenantTag int64                        `json:"tenant_tag,omitempty"` // 个人版/团队版标志, 可选值有: `0`：团队版, `2`：个人版
 	TenantKey string                       `json:"tenant_key,omitempty"` // 企业标识
 	Avatar    *QueryTenantRespTenantAvatar `json:"avatar,omitempty"`     // 企业头像
 }

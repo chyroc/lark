@@ -60,7 +60,7 @@ type GetUserTaskRemedyReq struct {
 }
 
 type getUserTaskRemedyResp struct {
-	Code int                    `json:"code,omitempty"` // 错误码，非 0 表示失败
+	Code int64                  `json:"code,omitempty"` // 错误码，非 0 表示失败
 	Msg  string                 `json:"msg,omitempty"`  // 错误描述
 	Data *GetUserTaskRemedyResp `json:"data,omitempty"` // -
 }
@@ -71,7 +71,7 @@ type GetUserTaskRemedyResp struct {
 
 type GetUserTaskRemedyRespUserRemedy struct {
 	UserID     string `json:"user_id,omitempty"`     // 员工工号
-	Status     int    `json:"status,omitempty"`      // 补卡状态，可用值：【0（pending），2（已通过），3（已取消），4（通过后撤销）】
+	Status     int64  `json:"status,omitempty"`      // 补卡状态，可用值：【0（pending），2（已通过），3（已取消），4（通过后撤销）】
 	Reason     string `json:"reason,omitempty"`      // 补卡原因
 	Time       string `json:"time,omitempty"`        // 补卡时间，精确到秒的时间戳
 	TimeZone   string `json:"time_zone,omitempty"`   // 补卡时的考勤组时区

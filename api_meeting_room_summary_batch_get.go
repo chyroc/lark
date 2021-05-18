@@ -56,11 +56,11 @@ type BatchGetSummaryReq struct {
 
 type BatchGetSummaryReqEventUids struct {
 	Uid          string `json:"uid,omitempty"`           // 日程的唯一id
-	OriginalTime int    `json:"original_time,omitempty"` // 日程实例原始时间，非重复日程必为0。重复日程若为0则表示回复其所有实例，否则表示回复单个实例。
+	OriginalTime int64  `json:"original_time,omitempty"` // 日程实例原始时间，非重复日程必为0。重复日程若为0则表示回复其所有实例，否则表示回复单个实例。
 }
 
 type batchGetSummaryResp struct {
-	Code int                  `json:"code,omitempty"` // 返回码，非 0 表示失败
+	Code int64                `json:"code,omitempty"` // 返回码，非 0 表示失败
 	Msg  string               `json:"msg,omitempty"`  // 返回码的描述，"success" 表示成功，其他为错误提示信息
 	Data *BatchGetSummaryResp `json:"data,omitempty"` // 返回业务信息
 }
@@ -72,12 +72,12 @@ type BatchGetSummaryResp struct {
 
 type BatchGetSummaryRespEventInfos struct {
 	Uid          string `json:"uid,omitempty"`           // 日程的唯一id
-	OriginalTime int    `json:"original_time,omitempty"` // 日程实例原始时间，非重复日程必为0。重复日程若为0则表示回复其所有实例，否则表示回复单个实例。
+	OriginalTime int64  `json:"original_time,omitempty"` // 日程实例原始时间，非重复日程必为0。重复日程若为0则表示回复其所有实例，否则表示回复单个实例。
 	Summary      string `json:"summary,omitempty"`       // 日程主题
 }
 
 type BatchGetSummaryRespErrorEventUids struct {
 	Uid          string `json:"uid,omitempty"`           // 日程的唯一id
-	OriginalTime int    `json:"original_time,omitempty"` // 日程实例原始时间，非重复日程必为0。重复日程若为0则表示回复其所有实例，否则表示回复单个实例。
+	OriginalTime int64  `json:"original_time,omitempty"` // 日程实例原始时间，非重复日程必为0。重复日程若为0则表示回复其所有实例，否则表示回复单个实例。
 	ErrorMsg     string `json:"error_msg,omitempty"`     // 错误信息
 }

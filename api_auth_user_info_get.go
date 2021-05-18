@@ -54,7 +54,7 @@ func (r *Mock) UnMockAuthGetUserInfo() {
 type GetUserInfoReq struct{}
 
 type getUserInfoResp struct {
-	Code int              `json:"code,omitempty"` // 返回码，0表示请求成功，其他表示请求失败
+	Code int64            `json:"code,omitempty"` // 返回码，0表示请求成功，其他表示请求失败
 	Msg  string           `json:"msg,omitempty"`  // 返回信息
 	Data *GetUserInfoResp `json:"data,omitempty"` // 返回业务数据
 }

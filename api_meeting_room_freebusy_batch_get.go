@@ -57,7 +57,7 @@ type BatchGetFreebusyReq struct {
 }
 
 type batchGetFreebusyResp struct {
-	Code int                   `json:"code,omitempty"` // 返回码，非 0 表示失败
+	Code int64                 `json:"code,omitempty"` // 返回码，非 0 表示失败
 	Msg  string                `json:"msg,omitempty"`  // 返回码的描述，"success" 表示成功，其他为错误提示信息
 	Data *BatchGetFreebusyResp `json:"data,omitempty"` // 返回业务信息
 }
@@ -76,7 +76,7 @@ type BatchGetFreebusyRespFreeBusyRoomID struct {
 	StartTime     string                                           `json:"start_time,omitempty"`     // 忙碌起始时间
 	EndTime       string                                           `json:"end_time,omitempty"`       // 忙碌结束时间
 	Uid           string                                           `json:"uid,omitempty"`            // 日程 ID
-	OriginalTime  int                                              `json:"original_time,omitempty"`  // 日程实例的原始时间, 非重复日程为0，重复日程为非0
+	OriginalTime  int64                                            `json:"original_time,omitempty"`  // 日程实例的原始时间, 非重复日程为0，重复日程为非0
 	OrganizerInfo *BatchGetFreebusyRespFreeBusyRoomIDOrganizerInfo `json:"organizer_info,omitempty"` // 组织者信息, 私密日程不返回该信息
 }
 

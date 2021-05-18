@@ -62,12 +62,12 @@ type GetFaceVerifyAuthResultReq struct {
 }
 
 type getFaceVerifyAuthResultResp struct {
-	Code int                          `json:"code,omitempty"` // 返回码，非0为失败
+	Code int64                        `json:"code,omitempty"` // 返回码，非0为失败
 	Msg  string                       `json:"msg,omitempty"`  // 返回信息，返回码的描述
 	Data *GetFaceVerifyAuthResultResp `json:"data,omitempty"` // 业务数据
 }
 
 type GetFaceVerifyAuthResultResp struct {
-	AuthState     int `json:"auth_state,omitempty"`     // 认证结果, 0: 认证中, 1: 认证成功, -1: 认证失败
-	AuthTimpstamp int `json:"auth_timpstamp,omitempty"` // 认证时间，unix 时间戳
+	AuthState     int64 `json:"auth_state,omitempty"`     // 认证结果, 0: 认证中, 1: 认证成功, -1: 认证失败
+	AuthTimpstamp int64 `json:"auth_timpstamp,omitempty"` // 认证时间，unix 时间戳
 }

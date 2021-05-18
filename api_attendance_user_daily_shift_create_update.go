@@ -60,13 +60,13 @@ type CreateUpdateUserDailyShiftReq struct {
 type CreateUpdateUserDailyShiftReqUserDailyShift struct {
 	GroupID string `json:"group_id,omitempty"` // 考勤组 ID
 	ShiftID string `json:"shift_id,omitempty"` // 班次 ID，休息为 0
-	Month   int    `json:"month,omitempty"`    // 月份
+	Month   int64  `json:"month,omitempty"`    // 月份
 	UserID  string `json:"user_id,omitempty"`  // 用户
-	DayNo   int    `json:"day_no,omitempty"`   // 日期
+	DayNo   int64  `json:"day_no,omitempty"`   // 日期
 }
 
 type createUpdateUserDailyShiftResp struct {
-	Code int                             `json:"code,omitempty"` // 错误码，非 0 表示失败
+	Code int64                           `json:"code,omitempty"` // 错误码，非 0 表示失败
 	Msg  string                          `json:"msg,omitempty"`  // 错误描述
 	Data *CreateUpdateUserDailyShiftResp `json:"data,omitempty"` // -
 }
@@ -78,7 +78,7 @@ type CreateUpdateUserDailyShiftResp struct {
 type CreateUpdateUserDailyShiftRespUserDailyShift struct {
 	GroupID string `json:"group_id,omitempty"` // 考勤组 ID
 	ShiftID string `json:"shift_id,omitempty"` // 班次 ID
-	Month   int    `json:"month,omitempty"`    // 月份
+	Month   int64  `json:"month,omitempty"`    // 月份
 	UserID  string `json:"user_id,omitempty"`  // 用户
-	DayNo   int    `json:"day_no,omitempty"`   // 日期
+	DayNo   int64  `json:"day_no,omitempty"`   // 日期
 }

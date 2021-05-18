@@ -6,17 +6,17 @@ import (
 	"context"
 )
 
-// BatchDeleteRecord 该接口用于删除数据表中现有的多条记录
+// BatchDeleteBitableRecord 该接口用于删除数据表中现有的多条记录
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table-record/batch_delete
-func (r *BitableService) BatchDeleteRecord(ctx context.Context, request *BatchDeleteRecordReq, options ...MethodOptionFunc) (*BatchDeleteRecordResp, *Response, error) {
-	if r.cli.mock.mockBitableBatchDeleteRecord != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Bitable#BatchDeleteRecord mock enable")
-		return r.cli.mock.mockBitableBatchDeleteRecord(ctx, request, options...)
+func (r *BitableService) BatchDeleteBitableRecord(ctx context.Context, request *BatchDeleteBitableRecordReq, options ...MethodOptionFunc) (*BatchDeleteBitableRecordResp, *Response, error) {
+	if r.cli.mock.mockBitableBatchDeleteBitableRecord != nil {
+		r.cli.log(ctx, LogLevelDebug, "[lark] Bitable#BatchDeleteBitableRecord mock enable")
+		return r.cli.mock.mockBitableBatchDeleteBitableRecord(ctx, request, options...)
 	}
 
-	r.cli.log(ctx, LogLevelInfo, "[lark] Bitable#BatchDeleteRecord call api")
-	r.cli.log(ctx, LogLevelDebug, "[lark] Bitable#BatchDeleteRecord request: %s", jsonString(request))
+	r.cli.log(ctx, LogLevelInfo, "[lark] Bitable#BatchDeleteBitableRecord call api")
+	r.cli.log(ctx, LogLevelDebug, "[lark] Bitable#BatchDeleteBitableRecord request: %s", jsonString(request))
 
 	req := &RawRequestReq{
 		Method:       "POST",
@@ -26,48 +26,48 @@ func (r *BitableService) BatchDeleteRecord(ctx context.Context, request *BatchDe
 
 		NeedUserAccessToken: true,
 	}
-	resp := new(batchDeleteRecordResp)
+	resp := new(batchDeleteBitableRecordResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
 	requestID, statusCode := getResponseRequestID(response)
 	if err != nil {
-		r.cli.log(ctx, LogLevelError, "[lark] Bitable#BatchDeleteRecord POST https://open.feishu.cn/open-apis/bitable/v1/apps/:app_token/tables/:table_id/records/batch_delete failed, request_id: %s, status_code: %d, error: %s", requestID, statusCode, err)
+		r.cli.log(ctx, LogLevelError, "[lark] Bitable#BatchDeleteBitableRecord POST https://open.feishu.cn/open-apis/bitable/v1/apps/:app_token/tables/:table_id/records/batch_delete failed, request_id: %s, status_code: %d, error: %s", requestID, statusCode, err)
 		return nil, response, err
 	} else if resp.Code != 0 {
-		r.cli.log(ctx, LogLevelError, "[lark] Bitable#BatchDeleteRecord POST https://open.feishu.cn/open-apis/bitable/v1/apps/:app_token/tables/:table_id/records/batch_delete failed, request_id: %s, status_code: %d, code: %d, msg: %s", requestID, statusCode, resp.Code, resp.Msg)
-		return nil, response, NewError("Bitable", "BatchDeleteRecord", resp.Code, resp.Msg)
+		r.cli.log(ctx, LogLevelError, "[lark] Bitable#BatchDeleteBitableRecord POST https://open.feishu.cn/open-apis/bitable/v1/apps/:app_token/tables/:table_id/records/batch_delete failed, request_id: %s, status_code: %d, code: %d, msg: %s", requestID, statusCode, resp.Code, resp.Msg)
+		return nil, response, NewError("Bitable", "BatchDeleteBitableRecord", resp.Code, resp.Msg)
 	}
 
-	r.cli.log(ctx, LogLevelDebug, "[lark] Bitable#BatchDeleteRecord success, request_id: %s, status_code: %d, response: %s", requestID, statusCode, jsonString(resp.Data))
+	r.cli.log(ctx, LogLevelDebug, "[lark] Bitable#BatchDeleteBitableRecord success, request_id: %s, status_code: %d, response: %s", requestID, statusCode, jsonString(resp.Data))
 
 	return resp.Data, response, nil
 }
 
-func (r *Mock) MockBitableBatchDeleteRecord(f func(ctx context.Context, request *BatchDeleteRecordReq, options ...MethodOptionFunc) (*BatchDeleteRecordResp, *Response, error)) {
-	r.mockBitableBatchDeleteRecord = f
+func (r *Mock) MockBitableBatchDeleteBitableRecord(f func(ctx context.Context, request *BatchDeleteBitableRecordReq, options ...MethodOptionFunc) (*BatchDeleteBitableRecordResp, *Response, error)) {
+	r.mockBitableBatchDeleteBitableRecord = f
 }
 
-func (r *Mock) UnMockBitableBatchDeleteRecord() {
-	r.mockBitableBatchDeleteRecord = nil
+func (r *Mock) UnMockBitableBatchDeleteBitableRecord() {
+	r.mockBitableBatchDeleteBitableRecord = nil
 }
 
-type BatchDeleteRecordReq struct {
+type BatchDeleteBitableRecordReq struct {
 	AppToken string   `path:"app_token" json:"-"` // bitable app token, 示例值："appbcbWCzen6D8dezhoCH2RpMAh"
 	TableID  string   `path:"table_id" json:"-"`  // table id, 示例值："tblsRc9GRRXKqhvW"
 	Records  []string `json:"records,omitempty"`  // 删除的多条记录id列表
 }
 
-type batchDeleteRecordResp struct {
-	Code int                    `json:"code,omitempty"` // 错误码，非 0 表示失败
-	Msg  string                 `json:"msg,omitempty"`  // 错误描述
-	Data *BatchDeleteRecordResp `json:"data,omitempty"` //
+type batchDeleteBitableRecordResp struct {
+	Code int64                         `json:"code,omitempty"` // 错误码，非 0 表示失败
+	Msg  string                        `json:"msg,omitempty"`  // 错误描述
+	Data *BatchDeleteBitableRecordResp `json:"data,omitempty"` //
 }
 
-type BatchDeleteRecordResp struct {
-	Records []*BatchDeleteRecordRespRecord `json:"records,omitempty"` // 记录
+type BatchDeleteBitableRecordResp struct {
+	Records []*BatchDeleteBitableRecordRespRecord `json:"records,omitempty"` // 记录
 }
 
-type BatchDeleteRecordRespRecord struct {
+type BatchDeleteBitableRecordRespRecord struct {
 	Deleted  bool   `json:"deleted,omitempty"`   // 是否成功删除
 	RecordID string `json:"record_id,omitempty"` // 删除的记录 ID
 }

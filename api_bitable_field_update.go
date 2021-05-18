@@ -6,17 +6,17 @@ import (
 	"context"
 )
 
-// UpdateField 该接口用于在数据表中更新一个字段
+// UpdateBitableField 该接口用于在数据表中更新一个字段
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table-field/update
-func (r *BitableService) UpdateField(ctx context.Context, request *UpdateFieldReq, options ...MethodOptionFunc) (*UpdateFieldResp, *Response, error) {
-	if r.cli.mock.mockBitableUpdateField != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Bitable#UpdateField mock enable")
-		return r.cli.mock.mockBitableUpdateField(ctx, request, options...)
+func (r *BitableService) UpdateBitableField(ctx context.Context, request *UpdateBitableFieldReq, options ...MethodOptionFunc) (*UpdateBitableFieldResp, *Response, error) {
+	if r.cli.mock.mockBitableUpdateBitableField != nil {
+		r.cli.log(ctx, LogLevelDebug, "[lark] Bitable#UpdateBitableField mock enable")
+		return r.cli.mock.mockBitableUpdateBitableField(ctx, request, options...)
 	}
 
-	r.cli.log(ctx, LogLevelInfo, "[lark] Bitable#UpdateField call api")
-	r.cli.log(ctx, LogLevelDebug, "[lark] Bitable#UpdateField request: %s", jsonString(request))
+	r.cli.log(ctx, LogLevelInfo, "[lark] Bitable#UpdateBitableField call api")
+	r.cli.log(ctx, LogLevelDebug, "[lark] Bitable#UpdateBitableField request: %s", jsonString(request))
 
 	req := &RawRequestReq{
 		Method:       "PUT",
@@ -26,53 +26,53 @@ func (r *BitableService) UpdateField(ctx context.Context, request *UpdateFieldRe
 
 		NeedUserAccessToken: true,
 	}
-	resp := new(updateFieldResp)
+	resp := new(updateBitableFieldResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
 	requestID, statusCode := getResponseRequestID(response)
 	if err != nil {
-		r.cli.log(ctx, LogLevelError, "[lark] Bitable#UpdateField PUT https://open.feishu.cn/open-apis/bitable/v1/apps/:app_token/tables/:table_id/fields/:field_id failed, request_id: %s, status_code: %d, error: %s", requestID, statusCode, err)
+		r.cli.log(ctx, LogLevelError, "[lark] Bitable#UpdateBitableField PUT https://open.feishu.cn/open-apis/bitable/v1/apps/:app_token/tables/:table_id/fields/:field_id failed, request_id: %s, status_code: %d, error: %s", requestID, statusCode, err)
 		return nil, response, err
 	} else if resp.Code != 0 {
-		r.cli.log(ctx, LogLevelError, "[lark] Bitable#UpdateField PUT https://open.feishu.cn/open-apis/bitable/v1/apps/:app_token/tables/:table_id/fields/:field_id failed, request_id: %s, status_code: %d, code: %d, msg: %s", requestID, statusCode, resp.Code, resp.Msg)
-		return nil, response, NewError("Bitable", "UpdateField", resp.Code, resp.Msg)
+		r.cli.log(ctx, LogLevelError, "[lark] Bitable#UpdateBitableField PUT https://open.feishu.cn/open-apis/bitable/v1/apps/:app_token/tables/:table_id/fields/:field_id failed, request_id: %s, status_code: %d, code: %d, msg: %s", requestID, statusCode, resp.Code, resp.Msg)
+		return nil, response, NewError("Bitable", "UpdateBitableField", resp.Code, resp.Msg)
 	}
 
-	r.cli.log(ctx, LogLevelDebug, "[lark] Bitable#UpdateField success, request_id: %s, status_code: %d, response: %s", requestID, statusCode, jsonString(resp.Data))
+	r.cli.log(ctx, LogLevelDebug, "[lark] Bitable#UpdateBitableField success, request_id: %s, status_code: %d, response: %s", requestID, statusCode, jsonString(resp.Data))
 
 	return resp.Data, response, nil
 }
 
-func (r *Mock) MockBitableUpdateField(f func(ctx context.Context, request *UpdateFieldReq, options ...MethodOptionFunc) (*UpdateFieldResp, *Response, error)) {
-	r.mockBitableUpdateField = f
+func (r *Mock) MockBitableUpdateBitableField(f func(ctx context.Context, request *UpdateBitableFieldReq, options ...MethodOptionFunc) (*UpdateBitableFieldResp, *Response, error)) {
+	r.mockBitableUpdateBitableField = f
 }
 
-func (r *Mock) UnMockBitableUpdateField() {
-	r.mockBitableUpdateField = nil
+func (r *Mock) UnMockBitableUpdateBitableField() {
+	r.mockBitableUpdateBitableField = nil
 }
 
-type UpdateFieldReq struct {
+type UpdateBitableFieldReq struct {
 	AppToken  string       `path:"app_token" json:"-"`   // bitable app token, 示例值："appbcbWCzen6D8dezhoCH2RpMAh"
 	TableID   string       `path:"table_id" json:"-"`    // table id, 示例值："tblsRc9GRRXKqhvW"
 	FieldID   string       `path:"field_id" json:"-"`    // field id, 示例值："fldPTb0U2y"
 	FieldName string       `json:"field_name,omitempty"` // 多维表格字段名, 示例值："多行文本"
-	Type      int          `json:"type,omitempty"`       // 多维表格字段类型, 示例值：1
+	Type      int64        `json:"type,omitempty"`       // 多维表格字段类型, 示例值：1
 	Property  *interface{} `json:"property,omitempty"`   // 字段属性, 示例值：[,                    {,                        "name": "选项A",                    },,                    {,                        "name": "选项B",                    },                ],
 }
 
-type updateFieldResp struct {
-	Code int              `json:"code,omitempty"` // 错误码，非 0 表示失败
-	Msg  string           `json:"msg,omitempty"`  // 错误描述
-	Data *UpdateFieldResp `json:"data,omitempty"` //
+type updateBitableFieldResp struct {
+	Code int64                   `json:"code,omitempty"` // 错误码，非 0 表示失败
+	Msg  string                  `json:"msg,omitempty"`  // 错误描述
+	Data *UpdateBitableFieldResp `json:"data,omitempty"` //
 }
 
-type UpdateFieldResp struct {
-	Field *UpdateFieldRespField `json:"field,omitempty"` // 字段
+type UpdateBitableFieldResp struct {
+	Field *UpdateBitableFieldRespField `json:"field,omitempty"` // 字段
 }
 
-type UpdateFieldRespField struct {
+type UpdateBitableFieldRespField struct {
 	FieldID   string      `json:"field_id,omitempty"`   // 多维表格字段 id
 	FieldName string      `json:"field_name,omitempty"` // 多维表格字段名
-	Type      int         `json:"type,omitempty"`       // 多维表格字段类型
+	Type      int64       `json:"type,omitempty"`       // 多维表格字段类型
 	Property  interface{} `json:"property,omitempty"`   // 字段属性
 }

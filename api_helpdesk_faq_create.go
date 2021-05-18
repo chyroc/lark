@@ -65,7 +65,7 @@ type CreateFAQReqFaq struct {
 }
 
 type createFAQResp struct {
-	Code int            `json:"code,omitempty"` // 错误码，非 0 表示失败
+	Code int64          `json:"code,omitempty"` // 错误码，非 0 表示失败
 	Msg  string         `json:"msg,omitempty"`  // 错误描述
 	Data *CreateFAQResp `json:"data,omitempty"` //
 }
@@ -81,11 +81,11 @@ type CreateFAQRespFaq struct {
 	Question       string                      `json:"question,omitempty"`        // 问题
 	Answer         string                      `json:"answer,omitempty"`          // 答案
 	AnswerRichtext string                      `json:"answer_richtext,omitempty"` // 富文本答案
-	CreateTime     int                         `json:"create_time,omitempty"`     // 创建时间
-	UpdateTime     int                         `json:"update_time,omitempty"`     // 修改时间
+	CreateTime     int64                       `json:"create_time,omitempty"`     // 创建时间
+	UpdateTime     int64                       `json:"update_time,omitempty"`     // 修改时间
 	Categories     []*HelpdeskCategory         `json:"categories,omitempty"`      // 分类
 	Tags           []string                    `json:"tags,omitempty"`            // 关联词列表
-	ExpireTime     int                         `json:"expire_time,omitempty"`     // 失效时间
+	ExpireTime     int64                       `json:"expire_time,omitempty"`     // 失效时间
 	UpdateUser     *CreateFAQRespFaqUpdateUser `json:"update_user,omitempty"`     // 更新用户
 	CreateUser     *CreateFAQRespFaqCreateUser `json:"create_user,omitempty"`     // 创建用户
 }

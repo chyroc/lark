@@ -6,17 +6,17 @@ import (
 	"context"
 )
 
-// GetTableList 根据  app_token，获取多维表格下的所有数据表
+// GetBitableTableList 根据  app_token，获取多维表格下的所有数据表
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table/list
-func (r *BitableService) GetTableList(ctx context.Context, request *GetTableListReq, options ...MethodOptionFunc) (*GetTableListResp, *Response, error) {
-	if r.cli.mock.mockBitableGetTableList != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Bitable#GetTableList mock enable")
-		return r.cli.mock.mockBitableGetTableList(ctx, request, options...)
+func (r *BitableService) GetBitableTableList(ctx context.Context, request *GetBitableTableListReq, options ...MethodOptionFunc) (*GetBitableTableListResp, *Response, error) {
+	if r.cli.mock.mockBitableGetBitableTableList != nil {
+		r.cli.log(ctx, LogLevelDebug, "[lark] Bitable#GetBitableTableList mock enable")
+		return r.cli.mock.mockBitableGetBitableTableList(ctx, request, options...)
 	}
 
-	r.cli.log(ctx, LogLevelInfo, "[lark] Bitable#GetTableList call api")
-	r.cli.log(ctx, LogLevelDebug, "[lark] Bitable#GetTableList request: %s", jsonString(request))
+	r.cli.log(ctx, LogLevelInfo, "[lark] Bitable#GetBitableTableList call api")
+	r.cli.log(ctx, LogLevelDebug, "[lark] Bitable#GetBitableTableList request: %s", jsonString(request))
 
 	req := &RawRequestReq{
 		Method:       "GET",
@@ -26,50 +26,50 @@ func (r *BitableService) GetTableList(ctx context.Context, request *GetTableList
 
 		NeedUserAccessToken: true,
 	}
-	resp := new(getTableListResp)
+	resp := new(getBitableTableListResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
 	requestID, statusCode := getResponseRequestID(response)
 	if err != nil {
-		r.cli.log(ctx, LogLevelError, "[lark] Bitable#GetTableList GET https://open.feishu.cn/open-apis/bitable/v1/apps/:app_token/tables failed, request_id: %s, status_code: %d, error: %s", requestID, statusCode, err)
+		r.cli.log(ctx, LogLevelError, "[lark] Bitable#GetBitableTableList GET https://open.feishu.cn/open-apis/bitable/v1/apps/:app_token/tables failed, request_id: %s, status_code: %d, error: %s", requestID, statusCode, err)
 		return nil, response, err
 	} else if resp.Code != 0 {
-		r.cli.log(ctx, LogLevelError, "[lark] Bitable#GetTableList GET https://open.feishu.cn/open-apis/bitable/v1/apps/:app_token/tables failed, request_id: %s, status_code: %d, code: %d, msg: %s", requestID, statusCode, resp.Code, resp.Msg)
-		return nil, response, NewError("Bitable", "GetTableList", resp.Code, resp.Msg)
+		r.cli.log(ctx, LogLevelError, "[lark] Bitable#GetBitableTableList GET https://open.feishu.cn/open-apis/bitable/v1/apps/:app_token/tables failed, request_id: %s, status_code: %d, code: %d, msg: %s", requestID, statusCode, resp.Code, resp.Msg)
+		return nil, response, NewError("Bitable", "GetBitableTableList", resp.Code, resp.Msg)
 	}
 
-	r.cli.log(ctx, LogLevelDebug, "[lark] Bitable#GetTableList success, request_id: %s, status_code: %d, response: %s", requestID, statusCode, jsonString(resp.Data))
+	r.cli.log(ctx, LogLevelDebug, "[lark] Bitable#GetBitableTableList success, request_id: %s, status_code: %d, response: %s", requestID, statusCode, jsonString(resp.Data))
 
 	return resp.Data, response, nil
 }
 
-func (r *Mock) MockBitableGetTableList(f func(ctx context.Context, request *GetTableListReq, options ...MethodOptionFunc) (*GetTableListResp, *Response, error)) {
-	r.mockBitableGetTableList = f
+func (r *Mock) MockBitableGetBitableTableList(f func(ctx context.Context, request *GetBitableTableListReq, options ...MethodOptionFunc) (*GetBitableTableListResp, *Response, error)) {
+	r.mockBitableGetBitableTableList = f
 }
 
-func (r *Mock) UnMockBitableGetTableList() {
-	r.mockBitableGetTableList = nil
+func (r *Mock) UnMockBitableGetBitableTableList() {
+	r.mockBitableGetBitableTableList = nil
 }
 
-type GetTableListReq struct {
+type GetBitableTableListReq struct {
 	PageToken *string `query:"page_token" json:"-"` // 分页标记，第一次请求不填，表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token，下次遍历可采用该 page_token 获取查询结果, 示例值："tblsRc9GRRXKqhvW"
-	PageSize  *int    `query:"page_size" json:"-"`  // 分页大小, 示例值：10, 最大值：`100`
+	PageSize  *int64  `query:"page_size" json:"-"`  // 分页大小, 示例值：10, 最大值：`100`
 	AppToken  string  `path:"app_token" json:"-"`   // bitable app token, 示例值："appbcbWCzen6D8dezhoCH2RpMAh"
 }
 
-type getTableListResp struct {
-	Code int               `json:"code,omitempty"` // 错误码，非 0 表示失败
-	Msg  string            `json:"msg,omitempty"`  // 错误描述
-	Data *GetTableListResp `json:"data,omitempty"` //
+type getBitableTableListResp struct {
+	Code int64                    `json:"code,omitempty"` // 错误码，非 0 表示失败
+	Msg  string                   `json:"msg,omitempty"`  // 错误描述
+	Data *GetBitableTableListResp `json:"data,omitempty"` //
 }
 
-type GetTableListResp struct {
-	HasMore   bool                    `json:"has_more,omitempty"`   // 是否还有更多项
-	PageToken string                  `json:"page_token,omitempty"` // 分页标记，当 has_more 为 true 时，会同时返回新的 page_token，否则不返回 page_token
-	Items     []*GetTableListRespItem `json:"items,omitempty"`      // 数据表信息
+type GetBitableTableListResp struct {
+	HasMore   bool                           `json:"has_more,omitempty"`   // 是否还有更多项
+	PageToken string                         `json:"page_token,omitempty"` // 分页标记，当 has_more 为 true 时，会同时返回新的 page_token，否则不返回 page_token
+	Items     []*GetBitableTableListRespItem `json:"items,omitempty"`      // 数据表信息
 }
 
-type GetTableListRespItem struct {
+type GetBitableTableListRespItem struct {
 	TableID  string `json:"table_id,omitempty"` // 表格表 id
-	Revision int    `json:"revision,omitempty"` // 数据表的版本号
+	Revision int64  `json:"revision,omitempty"` // 数据表的版本号
 }

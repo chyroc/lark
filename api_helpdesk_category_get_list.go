@@ -56,12 +56,12 @@ func (r *Mock) UnMockHelpdeskGetCategoryList() {
 
 type GetCategoryListReq struct {
 	Lang    *string `query:"lang" json:"-"`     // 知识库分类语言, 示例值："zh_cn"
-	OrderBy *int    `query:"order_by" json:"-"` // 排序键。1: 根据知识库分类更新时间排序, 示例值：1
+	OrderBy *int64  `query:"order_by" json:"-"` // 排序键。1: 根据知识库分类更新时间排序, 示例值：1
 	Asc     *bool   `query:"asc" json:"-"`      // 顺序。true: 正序；false：反序, 示例值：true
 }
 
 type getCategoryListResp struct {
-	Code int                  `json:"code,omitempty"` // 错误码，非 0 表示失败
+	Code int64                `json:"code,omitempty"` // 错误码，非 0 表示失败
 	Msg  string               `json:"msg,omitempty"`  // 错误描述
 	Data *GetCategoryListResp `json:"data,omitempty"` //
 }

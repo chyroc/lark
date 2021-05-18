@@ -64,7 +64,7 @@ type AppendSheetValueReqValueRange struct {
 }
 
 type appendSheetValueResp struct {
-	Code int                   `json:"code,omitempty"`
+	Code int64                 `json:"code,omitempty"`
 	Msg  string                `json:"msg,omitempty"`
 	Data *AppendSheetValueResp `json:"data,omitempty"`
 }
@@ -72,15 +72,15 @@ type appendSheetValueResp struct {
 type AppendSheetValueResp struct {
 	SpreadsheetToken string                       `json:"spreadsheetToken,omitempty"` // spreadsheet 的 token
 	TableRange       string                       `json:"tableRange,omitempty"`       // 写入的范围
-	Revision         int                          `json:"revision,omitempty"`         // sheet 的版本号
+	Revision         int64                        `json:"revision,omitempty"`         // sheet 的版本号
 	Updates          *AppendSheetValueRespUpdates `json:"updates,omitempty"`          // 插入数据的范围、行列数等
 }
 
 type AppendSheetValueRespUpdates struct {
 	SpreadsheetToken string `json:"spreadsheetToken,omitempty"` // spreadsheet 的 token
 	UpdatedRange     string `json:"updatedRange,omitempty"`     // 写入的范围
-	UpdatedRows      int    `json:"updatedRows,omitempty"`      // 写入的行数
-	UpdatedColumns   int    `json:"updatedColumns,omitempty"`   // 写入的列数
-	UpdatedCells     int    `json:"updatedCells,omitempty"`     // 写入的单元格总数
-	Revision         int    `json:"revision,omitempty"`         // sheet 的版本号
+	UpdatedRows      int64  `json:"updatedRows,omitempty"`      // 写入的行数
+	UpdatedColumns   int64  `json:"updatedColumns,omitempty"`   // 写入的列数
+	UpdatedCells     int64  `json:"updatedCells,omitempty"`     // 写入的单元格总数
+	Revision         int64  `json:"revision,omitempty"`         // sheet 的版本号
 }

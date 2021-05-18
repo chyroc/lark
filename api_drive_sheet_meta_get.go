@@ -58,7 +58,7 @@ type GetSheetMetaReq struct {
 }
 
 type getSheetMetaResp struct {
-	Code int               `json:"code,omitempty"`
+	Code int64             `json:"code,omitempty"`
 	Msg  string            `json:"msg,omitempty"`
 	Data *GetSheetMetaResp `json:"data,omitempty"`
 }
@@ -71,28 +71,28 @@ type GetSheetMetaResp struct {
 
 type GetSheetMetaRespProperties struct {
 	Title      string `json:"title,omitempty"`      // spreadsheet 的标题
-	OwnerUser  int    `json:"ownerUser,omitempty"`  // 所有者的 id
-	SheetCount int    `json:"sheetCount,omitempty"` // spreadsheet 下的 sheet 数
-	Revision   int    `json:"revision,omitempty"`   // 该 sheet 的版本
+	OwnerUser  int64  `json:"ownerUser,omitempty"`  // 所有者的 id
+	SheetCount int64  `json:"sheetCount,omitempty"` // spreadsheet 下的 sheet 数
+	Revision   int64  `json:"revision,omitempty"`   // 该 sheet 的版本
 }
 
 type GetSheetMetaRespSheets struct {
 	SheetID        string                                `json:"sheetId,omitempty"`        // sheet 的 id
 	Title          string                                `json:"title,omitempty"`          // sheet 的标题
-	Index          int                                   `json:"index,omitempty"`          // sheet 的位置
-	RowCount       int                                   `json:"rowCount,omitempty"`       // sheet 的最大行数
-	ColumnCount    int                                   `json:"columnCount,omitempty"`    // sheet 的最大列数
-	FrozenRowCount int                                   `json:"frozenRowCount,omitempty"` // 该 sheet 的冻结行数，小于等于 sheet 的最大行数，0表示未设置冻结
-	FrozenColCount int                                   `json:"frozenColCount,omitempty"` // 该 sheet 的冻结列数，小于等于 sheet 的最大列数，0表示未设置冻结
+	Index          int64                                 `json:"index,omitempty"`          // sheet 的位置
+	RowCount       int64                                 `json:"rowCount,omitempty"`       // sheet 的最大行数
+	ColumnCount    int64                                 `json:"columnCount,omitempty"`    // sheet 的最大列数
+	FrozenRowCount int64                                 `json:"frozenRowCount,omitempty"` // 该 sheet 的冻结行数，小于等于 sheet 的最大行数，0表示未设置冻结
+	FrozenColCount int64                                 `json:"frozenColCount,omitempty"` // 该 sheet 的冻结列数，小于等于 sheet 的最大列数，0表示未设置冻结
 	Merges         *GetSheetMetaRespSheetsMerges         `json:"merges,omitempty"`         // 该 sheet 中合并单元格的范围
 	ProtectedRange *GetSheetMetaRespSheetsProtectedRange `json:"protectedRange,omitempty"` // 该 sheet 中保护范围
 }
 
 type GetSheetMetaRespSheetsMerges struct {
-	StartRowIndex    int `json:"startRowIndex,omitempty"`    // 合并单元格范围的开始行下标，index 从 0 开始
-	StartColumnIndex int `json:"startColumnIndex,omitempty"` // 合并单元格范围的开始列下标，index 从 0 开始
-	RowCount         int `json:"rowCount,omitempty"`         // 合并单元格范围的行数量
-	ColumnCount      int `json:"columnCount,omitempty"`      // 合并单元格范围的列数量
+	StartRowIndex    int64 `json:"startRowIndex,omitempty"`    // 合并单元格范围的开始行下标，index 从 0 开始
+	StartColumnIndex int64 `json:"startColumnIndex,omitempty"` // 合并单元格范围的开始列下标，index 从 0 开始
+	RowCount         int64 `json:"rowCount,omitempty"`         // 合并单元格范围的行数量
+	ColumnCount      int64 `json:"columnCount,omitempty"`      // 合并单元格范围的列数量
 }
 
 type GetSheetMetaRespSheetsProtectedRange struct {
@@ -103,8 +103,8 @@ type GetSheetMetaRespSheetsProtectedRange struct {
 }
 
 type GetSheetMetaRespSheetsProtectedRangeDimension struct {
-	StartIndex     int    `json:"startIndex,omitempty"`     // 保护行列的起始位置，位置从1开始
-	EndIndex       int    `json:"endIndex,omitempty"`       // 保护行列的结束位置，位置从1开始
+	StartIndex     int64  `json:"startIndex,omitempty"`     // 保护行列的起始位置，位置从1开始
+	EndIndex       int64  `json:"endIndex,omitempty"`       // 保护行列的结束位置，位置从1开始
 	MajorDimension string `json:"majorDimension,omitempty"` // 若为ROWS，则为保护行；为COLUMNS，则为保护列
 	SheetID        string `json:"sheetId,omitempty"`        // 保护范围所在工作表 ID
 }

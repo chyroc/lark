@@ -52,14 +52,14 @@ func (r *Mock) UnMockMeetingRoomGetRoomList() {
 
 type GetRoomListReq struct {
 	BuildingID string  `query:"building_id" json:"-"` // 被查询的建筑物 ID
-	PageSize   *int    `query:"page_size" json:"-"`   // 请求期望返回的会议室数量，不足则返回全部，该值默认为 100，最大为 1000
+	PageSize   *int64  `query:"page_size" json:"-"`   // 请求期望返回的会议室数量，不足则返回全部，该值默认为 100，最大为 1000
 	PageToken  *string `query:"page_token" json:"-"`  // 用于标记当前请求的分页标记，将返回以当前分页标记开始，往后 page_size 个元素
 	OrderBy    *string `query:"order_by" json:"-"`    // 提供用于对名称/楼层进行升序/降序排序的方式查询，可选项有："name-asc,name-desc,floor_name-asc,floor_name-desc"，传入其他字符串不做处理，默认无序
 	Fields     *string `query:"fields" json:"-"`      // 用于指定返回的字段名，每个字段名之间用逗号 "," 分隔，如：“id,name”，"*" 表示返回全部字段，可选字段有："id,name,description,capacity,building_id,building_name,floor_name,is_disabled,display_id"，默认返回所有字段
 }
 
 type getRoomListResp struct {
-	Code int              `json:"code,omitempty"` // 返回码，非 0 表示失败
+	Code int64            `json:"code,omitempty"` // 返回码，非 0 表示失败
 	Msg  string           `json:"msg,omitempty"`  // 返回码的描述，"success" 表示成功，其他为错误提示信息
 	Data *GetRoomListResp `json:"data,omitempty"` // 返回业务信息
 }
@@ -74,7 +74,7 @@ type GetRoomListRespRooms struct {
 	RoomID       string `json:"room_id,omitempty"`       // 会议室 ID
 	BuildingID   string `json:"building_id,omitempty"`   // 会议室所属建筑物 ID
 	BuildingName string `json:"building_name,omitempty"` // 会议室所属建筑物名称
-	Capacity     int    `json:"capacity,omitempty"`      // 会议室能容纳的人数
+	Capacity     int64  `json:"capacity,omitempty"`      // 会议室能容纳的人数
 	Description  string `json:"description,omitempty"`   // 会议室的相关描述
 	DisplayID    string `json:"display_id,omitempty"`    // 会议室的展示 ID
 	FloorName    string `json:"floor_name,omitempty"`    // 会议室所在楼层名称

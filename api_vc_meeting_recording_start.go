@@ -55,11 +55,11 @@ func (r *Mock) UnMockVCStartMeetingRecording() {
 
 type StartMeetingRecordingReq struct {
 	MeetingID string `path:"meeting_id" json:"-"` // 会议ID, 示例值: "6911188411932033028"
-	Timezone  *int   `json:"timezone,omitempty"`  // 录制文件时间显示使用的时区[-12,12], 示例值: 8
+	Timezone  *int64 `json:"timezone,omitempty"`  // 录制文件时间显示使用的时区[-12,12], 示例值: 8
 }
 
 type startMeetingRecordingResp struct {
-	Code int                        `json:"code,omitempty"` // 错误码，非 0 表示失败
+	Code int64                      `json:"code,omitempty"` // 错误码，非 0 表示失败
 	Msg  string                     `json:"msg,omitempty"`  // 错误描述
 	Data *StartMeetingRecordingResp `json:"data,omitempty"`
 }

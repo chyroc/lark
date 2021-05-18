@@ -56,12 +56,12 @@ func (r *Mock) UnMockHelpdeskDownloadTicketImage() {
 type DownloadTicketImageReq struct {
 	TicketID string `query:"ticket_id" json:"-"` // 工单ID, 示例值："12345"
 	MsgID    string `query:"msg_id" json:"-"`    // 消息ID, 示例值："12345"
-	Index    *int   `query:"index" json:"-"`     // index，当消息类型为post时，需指定图片index，index从0开始。当消息类型为img时，无需index, 示例值：0
+	Index    *int64 `query:"index" json:"-"`     // index，当消息类型为post时，需指定图片index，index从0开始。当消息类型为img时，无需index, 示例值：0
 }
 
 type downloadTicketImageResp struct {
 	IsFile bool                     `json:"is_file,omitempty"`
-	Code   int                      `json:"code,omitempty"`
+	Code   int64                    `json:"code,omitempty"`
 	Msg    string                   `json:"msg,omitempty"`
 	Data   *DownloadTicketImageResp `json:"data,omitempty"`
 }

@@ -59,7 +59,7 @@ type GetGroupReq struct {
 }
 
 type getGroupResp struct {
-	Code int           `json:"code,omitempty"` // 错误码，非 0 表示失败
+	Code int64         `json:"code,omitempty"` // 错误码，非 0 表示失败
 	Msg  string        `json:"msg,omitempty"`  // 错误描述
 	Data *GetGroupResp `json:"data,omitempty"` // -
 }
@@ -80,23 +80,23 @@ type GetGroupRespGroupID struct {
 	AllowPcPunch           bool                                        `json:"allow_pc_punch,omitempty"`             // 是否允许 PC 端打卡
 	AllowRemedy            bool                                        `json:"allow_remedy,omitempty"`               // 是否允许补卡
 	RemedyLimit            bool                                        `json:"remedy_limit,omitempty"`               // 是否限制补卡次数
-	RemedyLimitCount       int                                         `json:"remedy_limit_count,omitempty"`         // 补卡次数
+	RemedyLimitCount       int64                                       `json:"remedy_limit_count,omitempty"`         // 补卡次数
 	RemedyDateLimit        bool                                        `json:"remedy_date_limit,omitempty"`          // 是否限制补卡时间
-	RemedyDateNum          int                                         `json:"remedy_date_num,omitempty"`            // 补卡时间
+	RemedyDateNum          int64                                       `json:"remedy_date_num,omitempty"`            // 补卡时间
 	ShowCumulativeTime     bool                                        `json:"show_cumulative_time,omitempty"`       // 是否展示上班累计时长
 	ShowOverTime           bool                                        `json:"show_over_time,omitempty"`             // 是否展示加班累计时长
 	HideStaffPunchTime     bool                                        `json:"hide_staff_punch_time,omitempty"`      // 是否隐藏员工打卡具体时间
 	FacePunch              bool                                        `json:"face_punch,omitempty"`                 // 是否开启人脸识别打卡
-	FacePunchCfg           int                                         `json:"face_punch_cfg,omitempty"`             // 人脸识别打卡规则，1：每次打卡均需人脸识别，2：疑似作弊打卡时需要人脸识别
+	FacePunchCfg           int64                                       `json:"face_punch_cfg,omitempty"`             // 人脸识别打卡规则，1：每次打卡均需人脸识别，2：疑似作弊打卡时需要人脸识别
 	FaceDowngrade          bool                                        `json:"face_downgrade,omitempty"`             // 人脸识别失败时是否允许普通拍照打卡
 	ReplaceBasicPic        bool                                        `json:"replace_basic_pic,omitempty"`          // 人脸识别失败时是否允许替换基准图片
 	Machines               []*GetGroupRespGroupIDMachine               `json:"machines,omitempty"`                   // 考勤机列表
-	GpsRange               int                                         `json:"gps_range,omitempty"`                  // GPS 打卡的有效范围
+	GpsRange               int64                                       `json:"gps_range,omitempty"`                  // GPS 打卡的有效范围
 	Locations              []*GetGroupRespGroupIDLocation              `json:"locations,omitempty"`                  // 地址列表
-	GroupType              int                                         `json:"group_type,omitempty"`                 // 考勤类型，0：固定班制，2：排班制，3：自由班制
+	GroupType              int64                                       `json:"group_type,omitempty"`                 // 考勤类型，0：固定班制，2：排班制，3：自由班制
 	PunchDayShiftIDs       []string                                    `json:"punch_day_shift_ids,omitempty"`        // 固定班制必须填
 	FreePunchCfg           *GetGroupRespGroupIDFreePunchCfg            `json:"free_punch_cfg,omitempty"`             // 配置自由班制
-	CalendarID             int                                         `json:"calendar_id,omitempty"`                // 国家法定节假日历 ID，0：不根据国家法定节假日历排休，1：中国，2：美国，3：日本，4：印度，5：新加坡，默认为 1
+	CalendarID             int64                                       `json:"calendar_id,omitempty"`                // 国家法定节假日历 ID，0：不根据国家法定节假日历排休，1：中国，2：美国，3：日本，4：印度，5：新加坡，默认为 1
 	NeedPunchSpecialDays   []*GetGroupRespGroupIDNeedPunchSpecialDay   `json:"need_punch_special_days,omitempty"`    // 必须打卡的特殊日期
 	NoNeedPunchSpecialDays []*GetGroupRespGroupIDNoNeedPunchSpecialDay `json:"no_need_punch_special_days,omitempty"` // 无需打卡的特殊日期
 	WorkDayNoPunchAsLack   bool                                        `json:"work_day_no_punch_as_lack,omitempty"`  // 自由班制下，工作日不打卡是否记为缺卡
@@ -110,12 +110,12 @@ type GetGroupRespGroupIDMachine struct {
 type GetGroupRespGroupIDLocation struct {
 	LocationID   string  `json:"location_id,omitempty"`   // 地址 ID
 	LocationName string  `json:"location_name,omitempty"` // 地址名称
-	LocationType int     `json:"location_type,omitempty"` // 地址类型，1：GPS，2：Wifi，8：IP
+	LocationType int64   `json:"location_type,omitempty"` // 地址类型，1：GPS，2：Wifi，8：IP
 	Latitude     float64 `json:"latitude,omitempty"`      // 地址纬度
 	Longitude    float64 `json:"longitude,omitempty"`     // 地址经度
 	Ssid         string  `json:"ssid,omitempty"`          // Wi-Fi 名称
 	Bssid        string  `json:"bssid,omitempty"`         // Wi-Fi 的 MAC 地址
-	MapType      int     `json:"map_type,omitempty"`      // 地图类型，1：高德，2：谷歌
+	MapType      int64   `json:"map_type,omitempty"`      // 地图类型，1：高德，2：谷歌
 	Address      string  `json:"address,omitempty"`       // 地址名称
 	Ip           string  `json:"ip,omitempty"`            // IP 地址
 	Feature      string  `json:"feature,omitempty"`       // 额外信息，例如运营商信息
@@ -124,16 +124,16 @@ type GetGroupRespGroupIDLocation struct {
 type GetGroupRespGroupIDFreePunchCfg struct {
 	FreeStartTime        string `json:"free_start_time,omitempty"`           // 自由班制的打卡开始时间
 	FreeEndTime          string `json:"free_end_time,omitempty"`             // 自由班制的打卡结束时间
-	PunchDay             int    `json:"punch_day,omitempty"`                 // 打卡时间，格式 1111100
+	PunchDay             int64  `json:"punch_day,omitempty"`                 // 打卡时间，格式 1111100
 	WorkDayNoPunchAsLack bool   `json:"work_day_no_punch_as_lack,omitempty"` // 工作日不打卡是否记为缺卡
 }
 
 type GetGroupRespGroupIDNeedPunchSpecialDay struct {
-	PunchDay int    `json:"punch_day,omitempty"` // 打卡日期，格式 20190101
+	PunchDay int64  `json:"punch_day,omitempty"` // 打卡日期，格式 20190101
 	ShiftID  string `json:"shift_id,omitempty"`  // 班次 ID
 }
 
 type GetGroupRespGroupIDNoNeedPunchSpecialDay struct {
-	PunchDay int    `json:"punch_day,omitempty"` // 打卡日期，格式 20190101
+	PunchDay int64  `json:"punch_day,omitempty"` // 打卡日期，格式 20190101
 	ShiftID  string `json:"shift_id,omitempty"`  // 班次 ID
 }

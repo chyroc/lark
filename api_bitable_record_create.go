@@ -6,17 +6,17 @@ import (
 	"context"
 )
 
-// CreateRecord 该接口用于在数据表中新增一条记录
+// CreateBitableRecord 该接口用于在数据表中新增一条记录
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table-record/create
-func (r *BitableService) CreateRecord(ctx context.Context, request *CreateRecordReq, options ...MethodOptionFunc) (*CreateRecordResp, *Response, error) {
-	if r.cli.mock.mockBitableCreateRecord != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Bitable#CreateRecord mock enable")
-		return r.cli.mock.mockBitableCreateRecord(ctx, request, options...)
+func (r *BitableService) CreateBitableRecord(ctx context.Context, request *CreateBitableRecordReq, options ...MethodOptionFunc) (*CreateBitableRecordResp, *Response, error) {
+	if r.cli.mock.mockBitableCreateBitableRecord != nil {
+		r.cli.log(ctx, LogLevelDebug, "[lark] Bitable#CreateBitableRecord mock enable")
+		return r.cli.mock.mockBitableCreateBitableRecord(ctx, request, options...)
 	}
 
-	r.cli.log(ctx, LogLevelInfo, "[lark] Bitable#CreateRecord call api")
-	r.cli.log(ctx, LogLevelDebug, "[lark] Bitable#CreateRecord request: %s", jsonString(request))
+	r.cli.log(ctx, LogLevelInfo, "[lark] Bitable#CreateBitableRecord call api")
+	r.cli.log(ctx, LogLevelDebug, "[lark] Bitable#CreateBitableRecord request: %s", jsonString(request))
 
 	req := &RawRequestReq{
 		Method:       "POST",
@@ -26,32 +26,32 @@ func (r *BitableService) CreateRecord(ctx context.Context, request *CreateRecord
 
 		NeedUserAccessToken: true,
 	}
-	resp := new(createRecordResp)
+	resp := new(createBitableRecordResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
 	requestID, statusCode := getResponseRequestID(response)
 	if err != nil {
-		r.cli.log(ctx, LogLevelError, "[lark] Bitable#CreateRecord POST https://open.feishu.cn/open-apis/bitable/v1/apps/:app_token/tables/:table_id/records failed, request_id: %s, status_code: %d, error: %s", requestID, statusCode, err)
+		r.cli.log(ctx, LogLevelError, "[lark] Bitable#CreateBitableRecord POST https://open.feishu.cn/open-apis/bitable/v1/apps/:app_token/tables/:table_id/records failed, request_id: %s, status_code: %d, error: %s", requestID, statusCode, err)
 		return nil, response, err
 	} else if resp.Code != 0 {
-		r.cli.log(ctx, LogLevelError, "[lark] Bitable#CreateRecord POST https://open.feishu.cn/open-apis/bitable/v1/apps/:app_token/tables/:table_id/records failed, request_id: %s, status_code: %d, code: %d, msg: %s", requestID, statusCode, resp.Code, resp.Msg)
-		return nil, response, NewError("Bitable", "CreateRecord", resp.Code, resp.Msg)
+		r.cli.log(ctx, LogLevelError, "[lark] Bitable#CreateBitableRecord POST https://open.feishu.cn/open-apis/bitable/v1/apps/:app_token/tables/:table_id/records failed, request_id: %s, status_code: %d, code: %d, msg: %s", requestID, statusCode, resp.Code, resp.Msg)
+		return nil, response, NewError("Bitable", "CreateBitableRecord", resp.Code, resp.Msg)
 	}
 
-	r.cli.log(ctx, LogLevelDebug, "[lark] Bitable#CreateRecord success, request_id: %s, status_code: %d, response: %s", requestID, statusCode, jsonString(resp.Data))
+	r.cli.log(ctx, LogLevelDebug, "[lark] Bitable#CreateBitableRecord success, request_id: %s, status_code: %d, response: %s", requestID, statusCode, jsonString(resp.Data))
 
 	return resp.Data, response, nil
 }
 
-func (r *Mock) MockBitableCreateRecord(f func(ctx context.Context, request *CreateRecordReq, options ...MethodOptionFunc) (*CreateRecordResp, *Response, error)) {
-	r.mockBitableCreateRecord = f
+func (r *Mock) MockBitableCreateBitableRecord(f func(ctx context.Context, request *CreateBitableRecordReq, options ...MethodOptionFunc) (*CreateBitableRecordResp, *Response, error)) {
+	r.mockBitableCreateBitableRecord = f
 }
 
-func (r *Mock) UnMockBitableCreateRecord() {
-	r.mockBitableCreateRecord = nil
+func (r *Mock) UnMockBitableCreateBitableRecord() {
+	r.mockBitableCreateBitableRecord = nil
 }
 
-type CreateRecordReq struct {
+type CreateBitableRecordReq struct {
 	UserIDType *IDType                `query:"user_id_type" json:"-"` // 用户 ID 类型, 示例值："open_id", 可选值有: `open_id`：用户的 open id, `union_id`：用户的 union id, `user_id`：用户的 user id, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 userid
 	AppToken   string                 `path:"app_token" json:"-"`     // bitable app token, 示例值："appbcbWCzen6D8dezhoCH2RpMAh"
 	TableID    string                 `path:"table_id" json:"-"`      // table id, 示例值："tblsRc9GRRXKqhvW"
@@ -59,17 +59,17 @@ type CreateRecordReq struct {
 	Fields     map[string]interface{} `json:"fields,omitempty"`       // 记录字段
 }
 
-type createRecordResp struct {
-	Code int               `json:"code,omitempty"` // 错误码，非 0 表示失败
-	Msg  string            `json:"msg,omitempty"`  // 错误描述
-	Data *CreateRecordResp `json:"data,omitempty"` //
+type createBitableRecordResp struct {
+	Code int64                    `json:"code,omitempty"` // 错误码，非 0 表示失败
+	Msg  string                   `json:"msg,omitempty"`  // 错误描述
+	Data *CreateBitableRecordResp `json:"data,omitempty"` //
 }
 
-type CreateRecordResp struct {
-	Record *CreateRecordRespRecord `json:"record,omitempty"` // 记录
+type CreateBitableRecordResp struct {
+	Record *CreateBitableRecordRespRecord `json:"record,omitempty"` // 记录
 }
 
-type CreateRecordRespRecord struct {
+type CreateBitableRecordRespRecord struct {
 	RecordID string                 `json:"record_id,omitempty"` // 记录 id
 	Fields   map[string]interface{} `json:"fields,omitempty"`    // 记录字段
 }

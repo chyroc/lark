@@ -74,12 +74,12 @@ API 总数: 240, 事件总数: 28
   - DeleteChat
   - GetChatListOfSelf
   - SearchChat
-  - GetMemberList
+  - GetChatMemberList
   - IsInChat
-  - AddMember
-  - DeleteMember
-  - GetAnnouncement
-  - UpdateAnnouncement
+  - AddChatMember
+  - DeleteChatMember
+  - GetChatAnnouncement
+  - UpdateChatAnnouncement
 - Bot
   - GetBotInfo
 - Calendar
@@ -111,48 +111,48 @@ API 总数: 240, 事件总数: 28
   - DeleteCalendarTimeoffEvent
   - GenerateCaldavConf
 - Drive
-  - GetDocMeta
-  - CreateFolder
-  - GetFolderChildren
-  - CreateMemberPermission
-  - TransferMemberPermission
-  - UpdatePublicPermission
-  - GetMemberPermissionList
-  - DeleteMemberPermission
-  - UpdateMemberPermission
-  - CheckMemberPermission
-  - UpdatePublicPermissionV2
-  - GetPublicPermissionV2
+  - GetDriveFileMeta
+  - CreateDriveFolder
+  - GetDriveFolderChildren
+  - CreateDriveMemberPermission
+  - TransferDriveMemberPermission
+  - UpdateDrivePublicPermission
+  - GetDriveMemberPermissionList
+  - DeleteDriveMemberPermission
+  - UpdateDriveMemberPermission
+  - CheckDriveMemberPermission
+  - UpdateDrivePublicPermissionV2
+  - GetDrivePublicPermissionV2
+  - GetDriveCommentList
+  - GetDriveComment
+  - CreateDriveComment
+  - UpdateDriveComment
+  - DeleteDriveComment
+  - UpdateDriveCommentPatch
   - GetSheetMeta
-  - GetCommentList
-  - GetComment
-  - CreateComment
-  - UpdateComment
-  - DeleteComment
-  - UpdateCommentPatch
   - UpdateSheetProperty
   - ImportSheet
   - PrependSheetValue
   - AppendSheetValue
 - Bitable
-  - GetRecordList
-  - GetRecord
-  - CreateRecord
-  - BatchCreateRecord
-  - UpdateRecord
-  - BatchUpdateRecord
-  - DeleteRecord
-  - BatchDeleteRecord
-  - GetFieldList
-  - CreateField
-  - UpdateField
-  - DeleteField
-  - GetTableList
-  - CreateTable
-  - BatchCreateTable
-  - DeleteTable
-  - BatchDeleteTable
-  - GetMeta
+  - GetBitableRecordList
+  - GetBitableRecord
+  - CreateBitableRecord
+  - BatchCreateBitableRecord
+  - UpdateBitableRecord
+  - BatchUpdateBitableRecord
+  - DeleteBitableRecord
+  - BatchDeleteBitableRecord
+  - GetBitableFieldList
+  - CreateBitableField
+  - UpdateBitableField
+  - DeleteBitableField
+  - GetBitableTableList
+  - CreateBitableTable
+  - BatchCreateBitableTable
+  - DeleteBitableTable
+  - BatchDeleteBitableTable
+  - GetBitableMeta
 - MeetingRoom
   - BatchGetSummary
   - GetBuildingList

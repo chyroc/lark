@@ -28,7 +28,7 @@ type EventV2ContactUserCreatedV3Object struct {
 	EnName        string                                         `json:"en_name,omitempty"`        // 英文名
 	Email         string                                         `json:"email,omitempty"`          // 邮箱, 字段权限要求:  获取用户邮箱
 	Mobile        string                                         `json:"mobile,omitempty"`         // 手机号, 字段权限要求:  获取用户手机号
-	Gender        int                                            `json:"gender,omitempty"`         // 性别, 可选值有: `0`：未知, `1`：男, `2`：女
+	Gender        int64                                          `json:"gender,omitempty"`         // 性别, 可选值有: `0`：未知, `1`：男, `2`：女
 	Avatar        *EventV2ContactUserCreatedV3ObjectAvatar       `json:"avatar,omitempty"`         // 用户头像信息
 	Status        *EventV2ContactUserCreatedV3ObjectStatus       `json:"status,omitempty"`         // 用户状态
 	DepartmentIDs []string                                       `json:"department_ids,omitempty"` // 用户所属部门的ID列表
@@ -36,9 +36,9 @@ type EventV2ContactUserCreatedV3Object struct {
 	City          string                                         `json:"city,omitempty"`           // 城市
 	Country       string                                         `json:"country,omitempty"`        // 国家
 	WorkStation   string                                         `json:"work_station,omitempty"`   // 工位
-	JoinTime      int                                            `json:"join_time,omitempty"`      // 入职时间, 取值范围：`1` ～ `2147483647`
+	JoinTime      int64                                          `json:"join_time,omitempty"`      // 入职时间, 取值范围：`1` ～ `2147483647`
 	EmployeeNo    string                                         `json:"employee_no,omitempty"`    // 工号
-	EmployeeType  int                                            `json:"employee_type,omitempty"`  // 员工类型, 可选值有: `1`：正式员工, `2`：实习生, `3`：外包, `4`：劳务, `5`：顾问
+	EmployeeType  int64                                          `json:"employee_type,omitempty"`  // 员工类型, 可选值有: `1`：正式员工, `2`：实习生, `3`：外包, `4`：劳务, `5`：顾问
 	Orders        []*EventV2ContactUserCreatedV3ObjectOrder      `json:"orders,omitempty"`         // 用户排序信息
 	CustomAttrs   []*EventV2ContactUserCreatedV3ObjectCustomAttr `json:"custom_attrs,omitempty"`   // 自定义属性
 }
@@ -58,8 +58,8 @@ type EventV2ContactUserCreatedV3ObjectStatus struct {
 
 type EventV2ContactUserCreatedV3ObjectOrder struct {
 	DepartmentID    string `json:"department_id,omitempty"`    // 排序信息对应的部门ID
-	UserOrder       int    `json:"user_order,omitempty"`       // 用户在其直属部门内的排序，数值越大，排序越靠前
-	DepartmentOrder int    `json:"department_order,omitempty"` // 用户所属的多个部门间的排序，数值越大，排序越靠前
+	UserOrder       int64  `json:"user_order,omitempty"`       // 用户在其直属部门内的排序，数值越大，排序越靠前
+	DepartmentOrder int64  `json:"department_order,omitempty"` // 用户所属的多个部门间的排序，数值越大，排序越靠前
 }
 
 type EventV2ContactUserCreatedV3ObjectCustomAttr struct {

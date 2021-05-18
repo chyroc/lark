@@ -6,17 +6,17 @@ import (
 	"context"
 )
 
-// UpdateMemberPermission 该接口用于根据 filetoken 更新文档协作者的权限。
+// UpdateDriveMemberPermission 该接口用于根据 filetoken 更新文档协作者的权限。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/ucTN3UjL3UzN14yN1cTN
-func (r *DriveService) UpdateMemberPermission(ctx context.Context, request *UpdateMemberPermissionReq, options ...MethodOptionFunc) (*UpdateMemberPermissionResp, *Response, error) {
-	if r.cli.mock.mockDriveUpdateMemberPermission != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Drive#UpdateMemberPermission mock enable")
-		return r.cli.mock.mockDriveUpdateMemberPermission(ctx, request, options...)
+func (r *DriveService) UpdateDriveMemberPermission(ctx context.Context, request *UpdateDriveMemberPermissionReq, options ...MethodOptionFunc) (*UpdateDriveMemberPermissionResp, *Response, error) {
+	if r.cli.mock.mockDriveUpdateDriveMemberPermission != nil {
+		r.cli.log(ctx, LogLevelDebug, "[lark] Drive#UpdateDriveMemberPermission mock enable")
+		return r.cli.mock.mockDriveUpdateDriveMemberPermission(ctx, request, options...)
 	}
 
-	r.cli.log(ctx, LogLevelInfo, "[lark] Drive#UpdateMemberPermission call api")
-	r.cli.log(ctx, LogLevelDebug, "[lark] Drive#UpdateMemberPermission request: %s", jsonString(request))
+	r.cli.log(ctx, LogLevelInfo, "[lark] Drive#UpdateDriveMemberPermission call api")
+	r.cli.log(ctx, LogLevelDebug, "[lark] Drive#UpdateDriveMemberPermission request: %s", jsonString(request))
 
 	req := &RawRequestReq{
 		Method:                "POST",
@@ -27,32 +27,32 @@ func (r *DriveService) UpdateMemberPermission(ctx context.Context, request *Upda
 
 		NeedUserAccessToken: true,
 	}
-	resp := new(updateMemberPermissionResp)
+	resp := new(updateDriveMemberPermissionResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
 	requestID, statusCode := getResponseRequestID(response)
 	if err != nil {
-		r.cli.log(ctx, LogLevelError, "[lark] Drive#UpdateMemberPermission POST https://open.feishu.cn/open-apis/drive/permission/member/update failed, request_id: %s, status_code: %d, error: %s", requestID, statusCode, err)
+		r.cli.log(ctx, LogLevelError, "[lark] Drive#UpdateDriveMemberPermission POST https://open.feishu.cn/open-apis/drive/permission/member/update failed, request_id: %s, status_code: %d, error: %s", requestID, statusCode, err)
 		return nil, response, err
 	} else if resp.Code != 0 {
-		r.cli.log(ctx, LogLevelError, "[lark] Drive#UpdateMemberPermission POST https://open.feishu.cn/open-apis/drive/permission/member/update failed, request_id: %s, status_code: %d, code: %d, msg: %s", requestID, statusCode, resp.Code, resp.Msg)
-		return nil, response, NewError("Drive", "UpdateMemberPermission", resp.Code, resp.Msg)
+		r.cli.log(ctx, LogLevelError, "[lark] Drive#UpdateDriveMemberPermission POST https://open.feishu.cn/open-apis/drive/permission/member/update failed, request_id: %s, status_code: %d, code: %d, msg: %s", requestID, statusCode, resp.Code, resp.Msg)
+		return nil, response, NewError("Drive", "UpdateDriveMemberPermission", resp.Code, resp.Msg)
 	}
 
-	r.cli.log(ctx, LogLevelDebug, "[lark] Drive#UpdateMemberPermission success, request_id: %s, status_code: %d, response: %s", requestID, statusCode, jsonString(resp.Data))
+	r.cli.log(ctx, LogLevelDebug, "[lark] Drive#UpdateDriveMemberPermission success, request_id: %s, status_code: %d, response: %s", requestID, statusCode, jsonString(resp.Data))
 
 	return resp.Data, response, nil
 }
 
-func (r *Mock) MockDriveUpdateMemberPermission(f func(ctx context.Context, request *UpdateMemberPermissionReq, options ...MethodOptionFunc) (*UpdateMemberPermissionResp, *Response, error)) {
-	r.mockDriveUpdateMemberPermission = f
+func (r *Mock) MockDriveUpdateDriveMemberPermission(f func(ctx context.Context, request *UpdateDriveMemberPermissionReq, options ...MethodOptionFunc) (*UpdateDriveMemberPermissionResp, *Response, error)) {
+	r.mockDriveUpdateDriveMemberPermission = f
 }
 
-func (r *Mock) UnMockDriveUpdateMemberPermission() {
-	r.mockDriveUpdateMemberPermission = nil
+func (r *Mock) UnMockDriveUpdateDriveMemberPermission() {
+	r.mockDriveUpdateDriveMemberPermission = nil
 }
 
-type UpdateMemberPermissionReq struct {
+type UpdateDriveMemberPermissionReq struct {
 	Token      string `json:"token,omitempty"`       // 文件的 token，获取方式见 [对接前说明](/ssl:ttdoc/ukTMukTMukTM/uczNzUjL3czM14yN3MTN)的第 4 项
 	Type       string `json:"type,omitempty"`        // 文档类型  "doc"  or  "sheet" or "file"
 	MemberType string `json:"member_type,omitempty"` // 用户类型，可选 **"openid"、"openchat"、"userid"**
@@ -61,12 +61,12 @@ type UpdateMemberPermissionReq struct {
 	NotifyLark *bool  `json:"notify_lark,omitempty"` // 修改权限后是否飞书/lark通知对方<br>true 通知 or false 不通知
 }
 
-type updateMemberPermissionResp struct {
-	Code int                         `json:"code,omitempty"`
-	Msg  string                      `json:"msg,omitempty"`
-	Data *UpdateMemberPermissionResp `json:"data,omitempty"`
+type updateDriveMemberPermissionResp struct {
+	Code int64                            `json:"code,omitempty"`
+	Msg  string                           `json:"msg,omitempty"`
+	Data *UpdateDriveMemberPermissionResp `json:"data,omitempty"`
 }
 
-type UpdateMemberPermissionResp struct {
+type UpdateDriveMemberPermissionResp struct {
 	IsSuccess bool `json:"is_success,omitempty"` // 是否操作成功
 }

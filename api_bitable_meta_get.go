@@ -6,17 +6,17 @@ import (
 	"context"
 )
 
-// GetMeta 通过 app_token 获取多维表格元数据
+// GetBitableMeta 通过 app_token 获取多维表格元数据
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app/get
-func (r *BitableService) GetMeta(ctx context.Context, request *GetMetaReq, options ...MethodOptionFunc) (*GetMetaResp, *Response, error) {
-	if r.cli.mock.mockBitableGetMeta != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Bitable#GetMeta mock enable")
-		return r.cli.mock.mockBitableGetMeta(ctx, request, options...)
+func (r *BitableService) GetBitableMeta(ctx context.Context, request *GetBitableMetaReq, options ...MethodOptionFunc) (*GetBitableMetaResp, *Response, error) {
+	if r.cli.mock.mockBitableGetBitableMeta != nil {
+		r.cli.log(ctx, LogLevelDebug, "[lark] Bitable#GetBitableMeta mock enable")
+		return r.cli.mock.mockBitableGetBitableMeta(ctx, request, options...)
 	}
 
-	r.cli.log(ctx, LogLevelInfo, "[lark] Bitable#GetMeta call api")
-	r.cli.log(ctx, LogLevelDebug, "[lark] Bitable#GetMeta request: %s", jsonString(request))
+	r.cli.log(ctx, LogLevelInfo, "[lark] Bitable#GetBitableMeta call api")
+	r.cli.log(ctx, LogLevelDebug, "[lark] Bitable#GetBitableMeta request: %s", jsonString(request))
 
 	req := &RawRequestReq{
 		Method:       "GET",
@@ -26,46 +26,46 @@ func (r *BitableService) GetMeta(ctx context.Context, request *GetMetaReq, optio
 
 		NeedUserAccessToken: true,
 	}
-	resp := new(getMetaResp)
+	resp := new(getBitableMetaResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
 	requestID, statusCode := getResponseRequestID(response)
 	if err != nil {
-		r.cli.log(ctx, LogLevelError, "[lark] Bitable#GetMeta GET https://open.feishu.cn/open-apis/bitable/v1/apps/:app_token failed, request_id: %s, status_code: %d, error: %s", requestID, statusCode, err)
+		r.cli.log(ctx, LogLevelError, "[lark] Bitable#GetBitableMeta GET https://open.feishu.cn/open-apis/bitable/v1/apps/:app_token failed, request_id: %s, status_code: %d, error: %s", requestID, statusCode, err)
 		return nil, response, err
 	} else if resp.Code != 0 {
-		r.cli.log(ctx, LogLevelError, "[lark] Bitable#GetMeta GET https://open.feishu.cn/open-apis/bitable/v1/apps/:app_token failed, request_id: %s, status_code: %d, code: %d, msg: %s", requestID, statusCode, resp.Code, resp.Msg)
-		return nil, response, NewError("Bitable", "GetMeta", resp.Code, resp.Msg)
+		r.cli.log(ctx, LogLevelError, "[lark] Bitable#GetBitableMeta GET https://open.feishu.cn/open-apis/bitable/v1/apps/:app_token failed, request_id: %s, status_code: %d, code: %d, msg: %s", requestID, statusCode, resp.Code, resp.Msg)
+		return nil, response, NewError("Bitable", "GetBitableMeta", resp.Code, resp.Msg)
 	}
 
-	r.cli.log(ctx, LogLevelDebug, "[lark] Bitable#GetMeta success, request_id: %s, status_code: %d, response: %s", requestID, statusCode, jsonString(resp.Data))
+	r.cli.log(ctx, LogLevelDebug, "[lark] Bitable#GetBitableMeta success, request_id: %s, status_code: %d, response: %s", requestID, statusCode, jsonString(resp.Data))
 
 	return resp.Data, response, nil
 }
 
-func (r *Mock) MockBitableGetMeta(f func(ctx context.Context, request *GetMetaReq, options ...MethodOptionFunc) (*GetMetaResp, *Response, error)) {
-	r.mockBitableGetMeta = f
+func (r *Mock) MockBitableGetBitableMeta(f func(ctx context.Context, request *GetBitableMetaReq, options ...MethodOptionFunc) (*GetBitableMetaResp, *Response, error)) {
+	r.mockBitableGetBitableMeta = f
 }
 
-func (r *Mock) UnMockBitableGetMeta() {
-	r.mockBitableGetMeta = nil
+func (r *Mock) UnMockBitableGetBitableMeta() {
+	r.mockBitableGetBitableMeta = nil
 }
 
-type GetMetaReq struct {
+type GetBitableMetaReq struct {
 	AppToken string `path:"app_token" json:"-"` // bitable app token, 示例值："appbcbWCzen6D8dezhoCH2RpMAh"
 }
 
-type getMetaResp struct {
-	Code int          `json:"code,omitempty"` // 错误码，非 0 表示失败
-	Msg  string       `json:"msg,omitempty"`  // 错误描述
-	Data *GetMetaResp `json:"data,omitempty"` //
+type getBitableMetaResp struct {
+	Code int64               `json:"code,omitempty"` // 错误码，非 0 表示失败
+	Msg  string              `json:"msg,omitempty"`  // 错误描述
+	Data *GetBitableMetaResp `json:"data,omitempty"` //
 }
 
-type GetMetaResp struct {
-	App *GetMetaRespApp `json:"app,omitempty"` // 多维表格元数据
+type GetBitableMetaResp struct {
+	App *GetBitableMetaRespApp `json:"app,omitempty"` // 多维表格元数据
 }
 
-type GetMetaRespApp struct {
+type GetBitableMetaRespApp struct {
 	AppToken string `json:"app_token,omitempty"` // 多维表格的 app_token
-	Revision int    `json:"revision,omitempty"`  // 多维表格的版本号
+	Revision int64  `json:"revision,omitempty"`  // 多维表格的版本号
 }

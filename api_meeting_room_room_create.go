@@ -54,13 +54,13 @@ type CreateRoomReq struct {
 	BuildingID   string  `json:"building_id,omitempty"`    // 会议室所在的建筑ID
 	Floor        string  `json:"floor,omitempty"`          // 会议室所在的建筑楼层
 	Name         string  `json:"name,omitempty"`           // 会议室名称
-	Capacity     int     `json:"capacity,omitempty"`       // 容量
+	Capacity     int64   `json:"capacity,omitempty"`       // 容量
 	IsDisabled   bool    `json:"is_disabled,omitempty"`    // 是否禁用
 	CustomRoomID *string `json:"custom_room_id,omitempty"` // 租户自定义会议室ID
 }
 
 type createRoomResp struct {
-	Code int             `json:"code,omitempty"` // 返回码，非 0 表示失败
+	Code int64           `json:"code,omitempty"` // 返回码，非 0 表示失败
 	Msg  string          `json:"msg,omitempty"`  // 返回码的描述，"success" 表示成功，其他为错误提示信息
 	Data *CreateRoomResp `json:"data,omitempty"` // 返回业务信息
 }

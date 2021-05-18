@@ -57,14 +57,14 @@ func (r *Mock) UnMockCalendarGetCalendarEventAttendeeChatMemberList() {
 
 type GetCalendarEventAttendeeChatMemberListReq struct {
 	PageToken  *string `query:"page_token" json:"-"` // 分页标记，第一次请求不填，表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token，下次遍历可采用该 page_token 获取查询结果, 示例值："23jhysaxxxxsysy"
-	PageSize   *int    `query:"page_size" json:"-"`  // 分页大小, 示例值：10, 最大值：`100`
+	PageSize   *int64  `query:"page_size" json:"-"`  // 分页大小, 示例值：10, 最大值：`100`
 	CalendarID string  `path:"calendar_id" json:"-"` // 日历 ID, 示例值："feishu.cn_xxxxxxxxxx@group.calendar.feishu.cn"
 	EventID    string  `path:"event_id" json:"-"`    // 日程 ID, 示例值："xxxxxxxxx_0"
 	AttendeeID string  `path:"attendee_id" json:"-"` // 参与人 ID, 示例值："oc_xxxxxxxx"
 }
 
 type getCalendarEventAttendeeChatMemberListResp struct {
-	Code int                                         `json:"code,omitempty"` // 错误码，非 0 表示失败
+	Code int64                                       `json:"code,omitempty"` // 错误码，非 0 表示失败
 	Msg  string                                      `json:"msg,omitempty"`  // 错误描述
 	Data *GetCalendarEventAttendeeChatMemberListResp `json:"data,omitempty"` //
 }

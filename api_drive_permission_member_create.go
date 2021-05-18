@@ -6,17 +6,17 @@ import (
 	"context"
 )
 
-// CreateMemberPermission 该接口用于根据 filetoken 给用户增加文档的权限。
+// CreateDriveMemberPermission 该接口用于根据 filetoken 给用户增加文档的权限。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uMzNzUjLzczM14yM3MTN
-func (r *DriveService) CreateMemberPermission(ctx context.Context, request *CreateMemberPermissionReq, options ...MethodOptionFunc) (*CreateMemberPermissionResp, *Response, error) {
-	if r.cli.mock.mockDriveCreateMemberPermission != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Drive#CreateMemberPermission mock enable")
-		return r.cli.mock.mockDriveCreateMemberPermission(ctx, request, options...)
+func (r *DriveService) CreateDriveMemberPermission(ctx context.Context, request *CreateDriveMemberPermissionReq, options ...MethodOptionFunc) (*CreateDriveMemberPermissionResp, *Response, error) {
+	if r.cli.mock.mockDriveCreateDriveMemberPermission != nil {
+		r.cli.log(ctx, LogLevelDebug, "[lark] Drive#CreateDriveMemberPermission mock enable")
+		return r.cli.mock.mockDriveCreateDriveMemberPermission(ctx, request, options...)
 	}
 
-	r.cli.log(ctx, LogLevelInfo, "[lark] Drive#CreateMemberPermission call api")
-	r.cli.log(ctx, LogLevelDebug, "[lark] Drive#CreateMemberPermission request: %s", jsonString(request))
+	r.cli.log(ctx, LogLevelInfo, "[lark] Drive#CreateDriveMemberPermission call api")
+	r.cli.log(ctx, LogLevelDebug, "[lark] Drive#CreateDriveMemberPermission request: %s", jsonString(request))
 
 	req := &RawRequestReq{
 		Method:                "POST",
@@ -27,56 +27,56 @@ func (r *DriveService) CreateMemberPermission(ctx context.Context, request *Crea
 
 		NeedUserAccessToken: true,
 	}
-	resp := new(createMemberPermissionResp)
+	resp := new(createDriveMemberPermissionResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
 	requestID, statusCode := getResponseRequestID(response)
 	if err != nil {
-		r.cli.log(ctx, LogLevelError, "[lark] Drive#CreateMemberPermission POST https://open.feishu.cn/open-apis/drive/permission/member/create failed, request_id: %s, status_code: %d, error: %s", requestID, statusCode, err)
+		r.cli.log(ctx, LogLevelError, "[lark] Drive#CreateDriveMemberPermission POST https://open.feishu.cn/open-apis/drive/permission/member/create failed, request_id: %s, status_code: %d, error: %s", requestID, statusCode, err)
 		return nil, response, err
 	} else if resp.Code != 0 {
-		r.cli.log(ctx, LogLevelError, "[lark] Drive#CreateMemberPermission POST https://open.feishu.cn/open-apis/drive/permission/member/create failed, request_id: %s, status_code: %d, code: %d, msg: %s", requestID, statusCode, resp.Code, resp.Msg)
-		return nil, response, NewError("Drive", "CreateMemberPermission", resp.Code, resp.Msg)
+		r.cli.log(ctx, LogLevelError, "[lark] Drive#CreateDriveMemberPermission POST https://open.feishu.cn/open-apis/drive/permission/member/create failed, request_id: %s, status_code: %d, code: %d, msg: %s", requestID, statusCode, resp.Code, resp.Msg)
+		return nil, response, NewError("Drive", "CreateDriveMemberPermission", resp.Code, resp.Msg)
 	}
 
-	r.cli.log(ctx, LogLevelDebug, "[lark] Drive#CreateMemberPermission success, request_id: %s, status_code: %d, response: %s", requestID, statusCode, jsonString(resp.Data))
+	r.cli.log(ctx, LogLevelDebug, "[lark] Drive#CreateDriveMemberPermission success, request_id: %s, status_code: %d, response: %s", requestID, statusCode, jsonString(resp.Data))
 
 	return resp.Data, response, nil
 }
 
-func (r *Mock) MockDriveCreateMemberPermission(f func(ctx context.Context, request *CreateMemberPermissionReq, options ...MethodOptionFunc) (*CreateMemberPermissionResp, *Response, error)) {
-	r.mockDriveCreateMemberPermission = f
+func (r *Mock) MockDriveCreateDriveMemberPermission(f func(ctx context.Context, request *CreateDriveMemberPermissionReq, options ...MethodOptionFunc) (*CreateDriveMemberPermissionResp, *Response, error)) {
+	r.mockDriveCreateDriveMemberPermission = f
 }
 
-func (r *Mock) UnMockDriveCreateMemberPermission() {
-	r.mockDriveCreateMemberPermission = nil
+func (r *Mock) UnMockDriveCreateDriveMemberPermission() {
+	r.mockDriveCreateDriveMemberPermission = nil
 }
 
-type CreateMemberPermissionReq struct {
-	Token      string                            `json:"token,omitempty"`       // 文件的 token，获取方式见 [对接前说明](/ssl:ttdoc/ukTMukTMukTM/uczNzUjL3czM14yN3MTN)的第 4 项
-	Type       string                            `json:"type,omitempty"`        // 文档类型  "doc"  or  "sheet" or "file"
-	Members    *CreateMemberPermissionReqMembers `json:"members,omitempty"`     // 用户
-	NotifyLark *bool                             `json:"notify_lark,omitempty"` // 添加权限后是否飞书/lark通知对方<br>true 通知 or false 不通知
+type CreateDriveMemberPermissionReq struct {
+	Token      string                                 `json:"token,omitempty"`       // 文件的 token，获取方式见 [对接前说明](/ssl:ttdoc/ukTMukTMukTM/uczNzUjL3czM14yN3MTN)的第 4 项
+	Type       string                                 `json:"type,omitempty"`        // 文档类型  "doc"  or  "sheet" or "file"
+	Members    *CreateDriveMemberPermissionReqMembers `json:"members,omitempty"`     // 用户
+	NotifyLark *bool                                  `json:"notify_lark,omitempty"` // 添加权限后是否飞书/lark通知对方<br>true 通知 or false 不通知
 }
 
-type CreateMemberPermissionReqMembers struct {
+type CreateDriveMemberPermissionReqMembers struct {
 	MemberType string `json:"member_type,omitempty"` // 用户类型，可选 **email 、openid、openchat、userid**
 	MemberID   string `json:"member_id,omitempty"`   // 用户类型下的值
 	Perm       string `json:"perm,omitempty"`        // 需要增加的权限，权限值："view"，"edit"
 }
 
-type createMemberPermissionResp struct {
-	Code int                         `json:"code,omitempty"`
-	Msg  string                      `json:"msg,omitempty"`
-	Data *CreateMemberPermissionResp `json:"data,omitempty"`
+type createDriveMemberPermissionResp struct {
+	Code int64                            `json:"code,omitempty"`
+	Msg  string                           `json:"msg,omitempty"`
+	Data *CreateDriveMemberPermissionResp `json:"data,omitempty"`
 }
 
-type CreateMemberPermissionResp struct {
-	IsAllSuccess bool                                   `json:"is_all_success,omitempty"` // 是否全部成功
-	FailMembers  *CreateMemberPermissionRespFailMembers `json:"fail_members,omitempty"`   // 添加权限失败的用户信息
+type CreateDriveMemberPermissionResp struct {
+	IsAllSuccess bool                                        `json:"is_all_success,omitempty"` // 是否全部成功
+	FailMembers  *CreateDriveMemberPermissionRespFailMembers `json:"fail_members,omitempty"`   // 添加权限失败的用户信息
 }
 
-type CreateMemberPermissionRespFailMembers struct {
+type CreateDriveMemberPermissionRespFailMembers struct {
 	MemberType string `json:"member_type,omitempty"` // 用户类型
 	MemberID   string `json:"member_id,omitempty"`   // 用户类型下的值
 	Perm       string `json:"perm,omitempty"`        // 需要增加的权限

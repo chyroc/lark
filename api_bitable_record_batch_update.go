@@ -6,17 +6,17 @@ import (
 	"context"
 )
 
-// BatchUpdateRecord 该接口用于更新数据表中的多条记录
+// BatchUpdateBitableRecord 该接口用于更新数据表中的多条记录
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table-record/batch_update
-func (r *BitableService) BatchUpdateRecord(ctx context.Context, request *BatchUpdateRecordReq, options ...MethodOptionFunc) (*BatchUpdateRecordResp, *Response, error) {
-	if r.cli.mock.mockBitableBatchUpdateRecord != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Bitable#BatchUpdateRecord mock enable")
-		return r.cli.mock.mockBitableBatchUpdateRecord(ctx, request, options...)
+func (r *BitableService) BatchUpdateBitableRecord(ctx context.Context, request *BatchUpdateBitableRecordReq, options ...MethodOptionFunc) (*BatchUpdateBitableRecordResp, *Response, error) {
+	if r.cli.mock.mockBitableBatchUpdateBitableRecord != nil {
+		r.cli.log(ctx, LogLevelDebug, "[lark] Bitable#BatchUpdateBitableRecord mock enable")
+		return r.cli.mock.mockBitableBatchUpdateBitableRecord(ctx, request, options...)
 	}
 
-	r.cli.log(ctx, LogLevelInfo, "[lark] Bitable#BatchUpdateRecord call api")
-	r.cli.log(ctx, LogLevelDebug, "[lark] Bitable#BatchUpdateRecord request: %s", jsonString(request))
+	r.cli.log(ctx, LogLevelInfo, "[lark] Bitable#BatchUpdateBitableRecord call api")
+	r.cli.log(ctx, LogLevelDebug, "[lark] Bitable#BatchUpdateBitableRecord request: %s", jsonString(request))
 
 	req := &RawRequestReq{
 		Method:       "POST",
@@ -26,54 +26,54 @@ func (r *BitableService) BatchUpdateRecord(ctx context.Context, request *BatchUp
 
 		NeedUserAccessToken: true,
 	}
-	resp := new(batchUpdateRecordResp)
+	resp := new(batchUpdateBitableRecordResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
 	requestID, statusCode := getResponseRequestID(response)
 	if err != nil {
-		r.cli.log(ctx, LogLevelError, "[lark] Bitable#BatchUpdateRecord POST https://open.feishu.cn/open-apis/bitable/v1/apps/:app_token/tables/:table_id/records/batch_update failed, request_id: %s, status_code: %d, error: %s", requestID, statusCode, err)
+		r.cli.log(ctx, LogLevelError, "[lark] Bitable#BatchUpdateBitableRecord POST https://open.feishu.cn/open-apis/bitable/v1/apps/:app_token/tables/:table_id/records/batch_update failed, request_id: %s, status_code: %d, error: %s", requestID, statusCode, err)
 		return nil, response, err
 	} else if resp.Code != 0 {
-		r.cli.log(ctx, LogLevelError, "[lark] Bitable#BatchUpdateRecord POST https://open.feishu.cn/open-apis/bitable/v1/apps/:app_token/tables/:table_id/records/batch_update failed, request_id: %s, status_code: %d, code: %d, msg: %s", requestID, statusCode, resp.Code, resp.Msg)
-		return nil, response, NewError("Bitable", "BatchUpdateRecord", resp.Code, resp.Msg)
+		r.cli.log(ctx, LogLevelError, "[lark] Bitable#BatchUpdateBitableRecord POST https://open.feishu.cn/open-apis/bitable/v1/apps/:app_token/tables/:table_id/records/batch_update failed, request_id: %s, status_code: %d, code: %d, msg: %s", requestID, statusCode, resp.Code, resp.Msg)
+		return nil, response, NewError("Bitable", "BatchUpdateBitableRecord", resp.Code, resp.Msg)
 	}
 
-	r.cli.log(ctx, LogLevelDebug, "[lark] Bitable#BatchUpdateRecord success, request_id: %s, status_code: %d, response: %s", requestID, statusCode, jsonString(resp.Data))
+	r.cli.log(ctx, LogLevelDebug, "[lark] Bitable#BatchUpdateBitableRecord success, request_id: %s, status_code: %d, response: %s", requestID, statusCode, jsonString(resp.Data))
 
 	return resp.Data, response, nil
 }
 
-func (r *Mock) MockBitableBatchUpdateRecord(f func(ctx context.Context, request *BatchUpdateRecordReq, options ...MethodOptionFunc) (*BatchUpdateRecordResp, *Response, error)) {
-	r.mockBitableBatchUpdateRecord = f
+func (r *Mock) MockBitableBatchUpdateBitableRecord(f func(ctx context.Context, request *BatchUpdateBitableRecordReq, options ...MethodOptionFunc) (*BatchUpdateBitableRecordResp, *Response, error)) {
+	r.mockBitableBatchUpdateBitableRecord = f
 }
 
-func (r *Mock) UnMockBitableBatchUpdateRecord() {
-	r.mockBitableBatchUpdateRecord = nil
+func (r *Mock) UnMockBitableBatchUpdateBitableRecord() {
+	r.mockBitableBatchUpdateBitableRecord = nil
 }
 
-type BatchUpdateRecordReq struct {
-	UserIDType *IDType                       `query:"user_id_type" json:"-"` // 用户 ID 类型, 示例值："open_id", 可选值有: `open_id`：用户的 open id, `union_id`：用户的 union id, `user_id`：用户的 user id, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 userid
-	AppToken   string                        `path:"app_token" json:"-"`     // bitable app token, 示例值："appbcbWCzen6D8dezhoCH2RpMAh"
-	TableID    string                        `path:"table_id" json:"-"`      // table id, 示例值："tblsRc9GRRXKqhvW"
-	Records    []*BatchUpdateRecordReqRecord `json:"records,omitempty"`      // 记录
+type BatchUpdateBitableRecordReq struct {
+	UserIDType *IDType                              `query:"user_id_type" json:"-"` // 用户 ID 类型, 示例值："open_id", 可选值有: `open_id`：用户的 open id, `union_id`：用户的 union id, `user_id`：用户的 user id, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 userid
+	AppToken   string                               `path:"app_token" json:"-"`     // bitable app token, 示例值："appbcbWCzen6D8dezhoCH2RpMAh"
+	TableID    string                               `path:"table_id" json:"-"`      // table id, 示例值："tblsRc9GRRXKqhvW"
+	Records    []*BatchUpdateBitableRecordReqRecord `json:"records,omitempty"`      // 记录
 }
 
-type BatchUpdateRecordReqRecord struct {
+type BatchUpdateBitableRecordReqRecord struct {
 	RecordID *string                `json:"record_id,omitempty"` // 记录 id, 示例值："recqwIwhc6"
 	Fields   map[string]interface{} `json:"fields,omitempty"`    // 记录字段
 }
 
-type batchUpdateRecordResp struct {
-	Code int                    `json:"code,omitempty"` // 错误码，非 0 表示失败
-	Msg  string                 `json:"msg,omitempty"`  // 错误描述
-	Data *BatchUpdateRecordResp `json:"data,omitempty"` //
+type batchUpdateBitableRecordResp struct {
+	Code int64                         `json:"code,omitempty"` // 错误码，非 0 表示失败
+	Msg  string                        `json:"msg,omitempty"`  // 错误描述
+	Data *BatchUpdateBitableRecordResp `json:"data,omitempty"` //
 }
 
-type BatchUpdateRecordResp struct {
-	Records []*BatchUpdateRecordRespRecord `json:"records,omitempty"` // 记录
+type BatchUpdateBitableRecordResp struct {
+	Records []*BatchUpdateBitableRecordRespRecord `json:"records,omitempty"` // 记录
 }
 
-type BatchUpdateRecordRespRecord struct {
+type BatchUpdateBitableRecordRespRecord struct {
 	RecordID string                 `json:"record_id,omitempty"` // 记录 id
 	Fields   map[string]interface{} `json:"fields,omitempty"`    // 记录字段
 }

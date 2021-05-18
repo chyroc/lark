@@ -6,17 +6,17 @@ import (
 	"context"
 )
 
-// GetCommentList 通过分页方式获取云文档中的评论列表。
+// GetDriveCommentList 通过分页方式获取云文档中的评论列表。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file-comment/list
-func (r *DriveService) GetCommentList(ctx context.Context, request *GetCommentListReq, options ...MethodOptionFunc) (*GetCommentListResp, *Response, error) {
-	if r.cli.mock.mockDriveGetCommentList != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Drive#GetCommentList mock enable")
-		return r.cli.mock.mockDriveGetCommentList(ctx, request, options...)
+func (r *DriveService) GetDriveCommentList(ctx context.Context, request *GetDriveCommentListReq, options ...MethodOptionFunc) (*GetDriveCommentListResp, *Response, error) {
+	if r.cli.mock.mockDriveGetDriveCommentList != nil {
+		r.cli.log(ctx, LogLevelDebug, "[lark] Drive#GetDriveCommentList mock enable")
+		return r.cli.mock.mockDriveGetDriveCommentList(ctx, request, options...)
 	}
 
-	r.cli.log(ctx, LogLevelInfo, "[lark] Drive#GetCommentList call api")
-	r.cli.log(ctx, LogLevelDebug, "[lark] Drive#GetCommentList request: %s", jsonString(request))
+	r.cli.log(ctx, LogLevelInfo, "[lark] Drive#GetDriveCommentList call api")
+	r.cli.log(ctx, LogLevelDebug, "[lark] Drive#GetDriveCommentList request: %s", jsonString(request))
 
 	req := &RawRequestReq{
 		Method:                "GET",
@@ -27,94 +27,94 @@ func (r *DriveService) GetCommentList(ctx context.Context, request *GetCommentLi
 
 		NeedUserAccessToken: true,
 	}
-	resp := new(getCommentListResp)
+	resp := new(getDriveCommentListResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
 	requestID, statusCode := getResponseRequestID(response)
 	if err != nil {
-		r.cli.log(ctx, LogLevelError, "[lark] Drive#GetCommentList GET https://open.feishu.cn/open-apis/drive/v1/files/:file_token/comments failed, request_id: %s, status_code: %d, error: %s", requestID, statusCode, err)
+		r.cli.log(ctx, LogLevelError, "[lark] Drive#GetDriveCommentList GET https://open.feishu.cn/open-apis/drive/v1/files/:file_token/comments failed, request_id: %s, status_code: %d, error: %s", requestID, statusCode, err)
 		return nil, response, err
 	} else if resp.Code != 0 {
-		r.cli.log(ctx, LogLevelError, "[lark] Drive#GetCommentList GET https://open.feishu.cn/open-apis/drive/v1/files/:file_token/comments failed, request_id: %s, status_code: %d, code: %d, msg: %s", requestID, statusCode, resp.Code, resp.Msg)
-		return nil, response, NewError("Drive", "GetCommentList", resp.Code, resp.Msg)
+		r.cli.log(ctx, LogLevelError, "[lark] Drive#GetDriveCommentList GET https://open.feishu.cn/open-apis/drive/v1/files/:file_token/comments failed, request_id: %s, status_code: %d, code: %d, msg: %s", requestID, statusCode, resp.Code, resp.Msg)
+		return nil, response, NewError("Drive", "GetDriveCommentList", resp.Code, resp.Msg)
 	}
 
-	r.cli.log(ctx, LogLevelDebug, "[lark] Drive#GetCommentList success, request_id: %s, status_code: %d, response: %s", requestID, statusCode, jsonString(resp.Data))
+	r.cli.log(ctx, LogLevelDebug, "[lark] Drive#GetDriveCommentList success, request_id: %s, status_code: %d, response: %s", requestID, statusCode, jsonString(resp.Data))
 
 	return resp.Data, response, nil
 }
 
-func (r *Mock) MockDriveGetCommentList(f func(ctx context.Context, request *GetCommentListReq, options ...MethodOptionFunc) (*GetCommentListResp, *Response, error)) {
-	r.mockDriveGetCommentList = f
+func (r *Mock) MockDriveGetDriveCommentList(f func(ctx context.Context, request *GetDriveCommentListReq, options ...MethodOptionFunc) (*GetDriveCommentListResp, *Response, error)) {
+	r.mockDriveGetDriveCommentList = f
 }
 
-func (r *Mock) UnMockDriveGetCommentList() {
-	r.mockDriveGetCommentList = nil
+func (r *Mock) UnMockDriveGetDriveCommentList() {
+	r.mockDriveGetDriveCommentList = nil
 }
 
-type GetCommentListReq struct {
+type GetDriveCommentListReq struct {
 	FileType   FileType `query:"file_type" json:"-"`    // 文档类型, 示例值："doc", 可选值有: `doc`：文档, `sheet`：表格, `file`：文件
 	UserIDType *IDType  `query:"user_id_type" json:"-"` // 用户 ID 类型, 示例值："open_id", 可选值有: `open_id`：用户的 open id, `union_id`：用户的 union id, `user_id`：用户的 user id, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 userid
 	IsSolved   *bool    `query:"is_solved" json:"-"`    // 是否已解决（可选）, 示例值：false
 	PageToken  *string  `query:"page_token" json:"-"`   // 分页标记，第一次请求不填，表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token，下次遍历可采用该 page_token 获取查询结果, 示例值："6916106822734578184"
-	PageSize   *int     `query:"page_size" json:"-"`    // 分页大小, 示例值：10, 最大值：`100`
+	PageSize   *int64   `query:"page_size" json:"-"`    // 分页大小, 示例值：10, 最大值：`100`
 	FileToken  string   `path:"file_token" json:"-"`    // 文档token, 示例值："doccnHh7U87HOFpii5u5G*****"
 }
 
-type getCommentListResp struct {
-	Code int                 `json:"code,omitempty"` // 错误码，非 0 表示失败
-	Msg  string              `json:"msg,omitempty"`  // 错误描述
-	Data *GetCommentListResp `json:"data,omitempty"` //
+type getDriveCommentListResp struct {
+	Code int64                    `json:"code,omitempty"` // 错误码，非 0 表示失败
+	Msg  string                   `json:"msg,omitempty"`  // 错误描述
+	Data *GetDriveCommentListResp `json:"data,omitempty"` //
 }
 
-type GetCommentListResp struct {
-	HasMore   bool                      `json:"has_more,omitempty"`   // 是否还有更多项
-	PageToken string                    `json:"page_token,omitempty"` // 分页标记，当 has_more 为 true 时，会同时返回新的 page_token，否则不返回 page_token
-	Items     []*GetCommentListRespItem `json:"items,omitempty"`      // 评论列表
+type GetDriveCommentListResp struct {
+	HasMore   bool                           `json:"has_more,omitempty"`   // 是否还有更多项
+	PageToken string                         `json:"page_token,omitempty"` // 分页标记，当 has_more 为 true 时，会同时返回新的 page_token，否则不返回 page_token
+	Items     []*GetDriveCommentListRespItem `json:"items,omitempty"`      // 评论列表
 }
 
-type GetCommentListRespItem struct {
-	CommentID    string                           `json:"comment_id,omitempty"`     // 评论ID
-	UserID       string                           `json:"user_id,omitempty"`        // 用户ID
-	CreateTime   int                              `json:"create_time,omitempty"`    // 创建时间
-	UpdateTime   int                              `json:"update_time,omitempty"`    // 更新时间
-	IsSolved     bool                             `json:"is_solved,omitempty"`      // 是否已解决
-	SolvedTime   int                              `json:"solved_time,omitempty"`    // 解决评论时间
-	SolverUserID string                           `json:"solver_user_id,omitempty"` // 解决评论者的用户ID
-	ReplyList    *GetCommentListRespItemReplyList `json:"reply_list,omitempty"`     // 评论里的回复列表
+type GetDriveCommentListRespItem struct {
+	CommentID    string                                `json:"comment_id,omitempty"`     // 评论ID
+	UserID       string                                `json:"user_id,omitempty"`        // 用户ID
+	CreateTime   int64                                 `json:"create_time,omitempty"`    // 创建时间
+	UpdateTime   int64                                 `json:"update_time,omitempty"`    // 更新时间
+	IsSolved     bool                                  `json:"is_solved,omitempty"`      // 是否已解决
+	SolvedTime   int64                                 `json:"solved_time,omitempty"`    // 解决评论时间
+	SolverUserID string                                `json:"solver_user_id,omitempty"` // 解决评论者的用户ID
+	ReplyList    *GetDriveCommentListRespItemReplyList `json:"reply_list,omitempty"`     // 评论里的回复列表
 }
 
-type GetCommentListRespItemReplyList struct {
-	Replies []*GetCommentListRespItemReplyListReplie `json:"replies,omitempty"` // 回复列表
+type GetDriveCommentListRespItemReplyList struct {
+	Replies []*GetDriveCommentListRespItemReplyListReplie `json:"replies,omitempty"` // 回复列表
 }
 
-type GetCommentListRespItemReplyListReplie struct {
-	ReplyID    string                                        `json:"reply_id,omitempty"`    // 回复ID
-	UserID     string                                        `json:"user_id,omitempty"`     // 用户ID
-	CreateTime int                                           `json:"create_time,omitempty"` // 创建时间
-	UpdateTime int                                           `json:"update_time,omitempty"` // 更新时间
-	Content    *GetCommentListRespItemReplyListReplieContent `json:"content,omitempty"`     // 回复内容
+type GetDriveCommentListRespItemReplyListReplie struct {
+	ReplyID    string                                             `json:"reply_id,omitempty"`    // 回复ID
+	UserID     string                                             `json:"user_id,omitempty"`     // 用户ID
+	CreateTime int64                                              `json:"create_time,omitempty"` // 创建时间
+	UpdateTime int64                                              `json:"update_time,omitempty"` // 更新时间
+	Content    *GetDriveCommentListRespItemReplyListReplieContent `json:"content,omitempty"`     // 回复内容
 }
 
-type GetCommentListRespItemReplyListReplieContent struct {
-	Elements []*GetCommentListRespItemReplyListReplieContentElement `json:"elements,omitempty"` // 回复的内容
+type GetDriveCommentListRespItemReplyListReplieContent struct {
+	Elements []*GetDriveCommentListRespItemReplyListReplieContentElement `json:"elements,omitempty"` // 回复的内容
 }
 
-type GetCommentListRespItemReplyListReplieContentElement struct {
-	Type     string                                                       `json:"type,omitempty"`      // 回复的内容元素, 可选值有: `text_run`：普通文本, `docs_link`：at 云文档链接, `person`：at 联系人
-	TextRun  *GetCommentListRespItemReplyListReplieContentElementTextRun  `json:"text_run,omitempty"`  // 文本内容
-	DocsLink *GetCommentListRespItemReplyListReplieContentElementDocsLink `json:"docs_link,omitempty"` // 文本内容
-	Person   *GetCommentListRespItemReplyListReplieContentElementPerson   `json:"person,omitempty"`    // 文本内容
+type GetDriveCommentListRespItemReplyListReplieContentElement struct {
+	Type     string                                                            `json:"type,omitempty"`      // 回复的内容元素, 可选值有: `text_run`：普通文本, `docs_link`：at 云文档链接, `person`：at 联系人
+	TextRun  *GetDriveCommentListRespItemReplyListReplieContentElementTextRun  `json:"text_run,omitempty"`  // 文本内容
+	DocsLink *GetDriveCommentListRespItemReplyListReplieContentElementDocsLink `json:"docs_link,omitempty"` // 文本内容
+	Person   *GetDriveCommentListRespItemReplyListReplieContentElementPerson   `json:"person,omitempty"`    // 文本内容
 }
 
-type GetCommentListRespItemReplyListReplieContentElementTextRun struct {
+type GetDriveCommentListRespItemReplyListReplieContentElementTextRun struct {
 	Text string `json:"text,omitempty"` // 回复 普通文本
 }
 
-type GetCommentListRespItemReplyListReplieContentElementDocsLink struct {
+type GetDriveCommentListRespItemReplyListReplieContentElementDocsLink struct {
 	URL string `json:"url,omitempty"` // 回复 at云文档
 }
 
-type GetCommentListRespItemReplyListReplieContentElementPerson struct {
+type GetDriveCommentListRespItemReplyListReplieContentElementPerson struct {
 	UserID string `json:"user_id,omitempty"` // 回复 at联系人
 }

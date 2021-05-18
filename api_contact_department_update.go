@@ -73,7 +73,7 @@ type UpdateDepartmentReqI18nName struct {
 }
 
 type updateDepartmentResp struct {
-	Code int                   `json:"code,omitempty"` // 错误码，非 0 表示失败
+	Code int64                 `json:"code,omitempty"` // 错误码，非 0 表示失败
 	Msg  string                `json:"msg,omitempty"`  // 错误描述
 	Data *UpdateDepartmentResp `json:"data,omitempty"` //
 }
@@ -92,7 +92,7 @@ type UpdateDepartmentRespDepartment struct {
 	ChatID             string                                  `json:"chat_id,omitempty"`              // 部门群ID
 	Order              string                                  `json:"order,omitempty"`                // 部门的排序，即部门在其同级部门的展示顺序
 	UnitIDs            []string                                `json:"unit_ids,omitempty"`             // 部门单位自定义ID列表，当前只支持一个
-	MemberCount        int                                     `json:"member_count,omitempty"`         // 部门下用户的个数
+	MemberCount        int64                                   `json:"member_count,omitempty"`         // 部门下用户的个数
 	Status             *UpdateDepartmentRespDepartmentStatus   `json:"status,omitempty"`               // 部门状态
 }
 

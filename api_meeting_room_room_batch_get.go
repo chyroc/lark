@@ -56,7 +56,7 @@ type BatchGetRoomReq struct {
 }
 
 type batchGetRoomResp struct {
-	Code int               `json:"code,omitempty"` // 返回码，非 0 表示失败
+	Code int64             `json:"code,omitempty"` // 返回码，非 0 表示失败
 	Msg  string            `json:"msg,omitempty"`  // 返回码的描述，"success" 表示成功，其他为错误提示信息
 	Data *BatchGetRoomResp `json:"data,omitempty"` // 返回业务信息
 }
@@ -69,7 +69,7 @@ type BatchGetRoomRespRooms struct {
 	RoomID       string `json:"room_id,omitempty"`       // 会议室 ID
 	BuildingID   string `json:"building_id,omitempty"`   // 会议室所属建筑物 ID
 	BuildingName string `json:"building_name,omitempty"` // 会议室所属建筑物名称
-	Capacity     int    `json:"capacity,omitempty"`      // 会议室能容纳的人数
+	Capacity     int64  `json:"capacity,omitempty"`      // 会议室能容纳的人数
 	Description  string `json:"description,omitempty"`   // 会议室的相关描述
 	DisplayID    string `json:"display_id,omitempty"`    // 会议室的展示 ID
 	FloorName    string `json:"floor_name,omitempty"`    // 会议室所在楼层名称

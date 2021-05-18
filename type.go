@@ -245,6 +245,92 @@ type MessageContentSystem struct {
 	ToChatters []string `json:"to_chatters"`
 }
 
+// AddMemberPermission 加 user/bot 入群权限
+type AddMemberPermission string
+
+const (
+	AddMemberPermissionAllMembers AddMemberPermission = "all_members"
+	AddMemberPermissionOnlyOwner  AddMemberPermission = "only_owner"
+)
+
+func AddMemberPermissionPtr(v AddMemberPermission) *AddMemberPermission {
+	return &v
+}
+
+// MessageVisibility 入群消息可见性
+type MessageVisibility string
+
+const (
+	MessageVisibilityOnlyOwner  MessageVisibility = "only_owner"
+	MessageVisibilityAllMembers MessageVisibility = "all_members"
+	MessageVisibilityNotAnyone  MessageVisibility = "not_anyone"
+)
+
+func MessageVisibilityPtr(v MessageVisibility) *MessageVisibility {
+	return &v
+}
+
+// MembershipApproval 加群审批
+type MembershipApproval string
+
+const (
+	MembershipApprovalNoApprovalRequired MembershipApproval = "no_approval_required"
+	MembershipApprovalApprovalRequired   MembershipApproval = "approval_required"
+)
+
+func MembershipApprovalPtr(v MembershipApproval) *MembershipApproval {
+	return &v
+}
+
+// ModerationPermission 发言权限
+type ModerationPermission string
+
+const (
+	ModerationPermissionAllMembers    ModerationPermission = "all_members"
+	ModerationPermissionOnlyOwner     ModerationPermission = "only_owner"
+	ModerationPermissionModeratorList ModerationPermission = "moderator_list"
+)
+
+func ModerationPermissionPtr(v ModerationPermission) *ModerationPermission {
+	return &v
+}
+
+// ShareCardPermission 群分享权限
+type ShareCardPermission string
+
+const (
+	ShareCardPermissionAllowed    ShareCardPermission = "allowed"
+	ShareCardPermissionNotAllowed ShareCardPermission = "not_allowed"
+)
+
+func ShareCardPermissionPtr(v ShareCardPermission) *ShareCardPermission {
+	return &v
+}
+
+// AtAllPermission at 所有人权限
+type AtAllPermission string
+
+const (
+	AtAllPermissionAllMembers AtAllPermission = "all_members"
+	AtAllPermissionOnlyOwner  AtAllPermission = "only_owner"
+)
+
+func AtAllPermissionPtr(v AtAllPermission) *AtAllPermission {
+	return &v
+}
+
+// EditPermission 群编辑权限
+type EditPermission string
+
+const (
+	EditPermissionAllMembers EditPermission = "all_members"
+	EditPermissionOnlyOwner  EditPermission = "only_owner"
+)
+
+func EditPermissionPtr(v EditPermission) *EditPermission {
+	return &v
+}
+
 // 位置消息
 type MessageContentLocation struct {
 	Name      string `json:"name"`
