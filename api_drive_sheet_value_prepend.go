@@ -58,8 +58,8 @@ type PrependSheetValueReq struct {
 }
 
 type PrependSheetValueReqValueRange struct {
-	Range  string         `json:"range,omitempty"`  // ⁣查询范围，包含 sheetId 与单元格范围两部分，目前支持四种索引方式，详见 ⁣[对接前说明](/ssl:ttdoc/ukTMukTMukTM/uczNzUjL3czM14yN3MTN)  的第 5 项
-	Values []SheetContent `json:"values,omitempty"` // 需要写入的值，如要写入公式、超链接、email、@人等，可详看附录[sheet 支持写入数据类型](/ssl:ttdoc/ukTMukTMukTM/ugjN1UjL4YTN14CO2UTN)
+	Range  string           `json:"range,omitempty"`  // ⁣查询范围，包含 sheetId 与单元格范围两部分，目前支持四种索引方式，详见 ⁣[对接前说明](/ssl:ttdoc/ukTMukTMukTM/uczNzUjL3czM14yN3MTN)  的第 5 项
+	Values [][]SheetContent `json:"values,omitempty"` // 需要写入的值，如要写入公式、超链接、email、@人等，可详看附录[sheet 支持写入数据类型](/ssl:ttdoc/ukTMukTMukTM/ugjN1UjL4YTN14CO2UTN)
 }
 
 type prependSheetValueResp struct {
