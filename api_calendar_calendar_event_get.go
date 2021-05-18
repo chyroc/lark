@@ -76,13 +76,13 @@ type GetCalendarEventRespEvent struct {
 	StartTime        *GetCalendarEventRespEventStartTime  `json:"start_time,omitempty"`         // 日程开始时间
 	EndTime          *GetCalendarEventRespEventEndTime    `json:"end_time,omitempty"`           // 日程结束时间
 	Vchat            *GetCalendarEventRespEventVchat      `json:"vchat,omitempty"`              // 视频会议信息，仅当日程至少有一位attendee时生效
-	Visibility       string                               `json:"visibility,omitempty"`         // 日程公开范围，新建日程默认为Default；仅新建日程时对所有参与人生效，之后修改该属性仅对当前身份生效, 可选值有: `default`：默认权限，仅向他人显示是否“忙碌”, `public`：公开，显示日程详情, `private`：私密，仅自己可见
+	Visibility       string                               `json:"visibility,omitempty"`         // 日程公开范围，新建日程默认为Default；仅新建日程时对所有参与人生效，之后修改该属性仅对当前身份生效, 可选值有: `default`：默认权限，跟随日历权限，默认仅向他人显示是否“忙碌”, `public`：公开，显示日程详情, `private`：私密，仅自己可见详情
 	AttendeeAbility  string                               `json:"attendee_ability,omitempty"`   // 参与人权限, 可选值有: `none`：无法编辑日程、无法邀请其它参与人、无法查看参与人列表, `can_see_others`：无法编辑日程、无法邀请其它参与人、可以查看参与人列表, `can_invite_others`：无法编辑日程、可以邀请其它参与人、可以查看参与人列表, `can_modify_event`：可以编辑日程、可以邀请其它参与人、可以查看参与人列表
 	FreeBusyStatus   string                               `json:"free_busy_status,omitempty"`   // 日程占用的忙闲状态，新建日程默认为Busy；仅新建日程时对所有参与人生效，之后修改该属性仅对当前身份生效, 可选值有: `busy`：忙碌, `free`：空闲
 	Location         *GetCalendarEventRespEventLocation   `json:"location,omitempty"`           // 日程地点
 	Color            int                                  `json:"color,omitempty"`              // 日程颜色，颜色RGB值的int32表示。仅对当前身份生效；客户端展示时会映射到色板上最接近的一种颜色；值为0或-1时默认跟随日历颜色。
 	Reminders        []*GetCalendarEventRespEventReminder `json:"reminders,omitempty"`          // 日程提醒列表
-	Recurrence       string                               `json:"recurrence,omitempty"`         // 重复日程的重复性规则, 最大长度：`2000` 字符
+	Recurrence       string                               `json:"recurrence,omitempty"`         // 重复日程的重复性规则；参考[rfc5545](https://datatracker.ietf.org/doc/html/rfc5545#section-3.3.10), 最大长度：`2000` 字符
 	Status           string                               `json:"status,omitempty"`             // 日程状态, 可选值有: `tentative`：未回应, `confirmed`：已确认, `cancelled`：日程已取消
 	IsException      bool                                 `json:"is_exception,omitempty"`       // 日程是否是一个重复日程的例外日程
 	RecurringEventID string                               `json:"recurring_event_id,omitempty"` // 例外日程的原重复日程的event_id

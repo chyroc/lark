@@ -69,7 +69,7 @@ type CreateCalendarEventReq struct {
 	Location        *CreateCalendarEventReqLocation   `json:"location,omitempty"`         // 日程地点
 	Color           *int                              `json:"color,omitempty"`            // 日程颜色，颜色RGB值的int32表示。仅对当前身份生效；客户端展示时会映射到色板上最接近的一种颜色；值为0或-1时默认跟随日历颜色。, 示例值：-1
 	Reminders       []*CreateCalendarEventReqReminder `json:"reminders,omitempty"`        // 日程提醒列表
-	Recurrence      *string                           `json:"recurrence,omitempty"`       // 重复日程的重复性规则, 示例值："xxxxx", 最大长度：`2000` 字符
+	Recurrence      *string                           `json:"recurrence,omitempty"`       // 重复日程的重复性规则；参考[rfc5545](https://datatracker.ietf.org/doc/html/rfc5545#section-3.3.10), 示例值："xxxxx", 最大长度：`2000` 字符
 	Schemas         []*CreateCalendarEventReqSchema   `json:"schemas,omitempty"`          // 日程自定义信息
 }
 
@@ -117,7 +117,7 @@ type CreateCalendarEventResp struct {
 }
 
 type CreateCalendarEventRespEvent struct {
-	EventID          string                                  `json:"event_id,omitempty"`           // 日程ID
+	EventID          string                                  `json:"event_id,omitempty"`           // 日程ID，格式是uid_originalTime，originalTime是例外日程的时间戳
 	Summary          string                                  `json:"summary,omitempty"`            // 日程标题, 最大长度：`1000` 字符
 	Description      string                                  `json:"description,omitempty"`        // 日程描述, 最大长度：`8192` 字符
 	StartTime        *CreateCalendarEventRespEventStartTime  `json:"start_time,omitempty"`         // 日程开始时间

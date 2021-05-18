@@ -589,7 +589,7 @@
 	否
 	</md-td>
 	<md-td>
-	重复日程的重复性规则
+	重复日程的重复性规则；参考[rfc5545](https://datatracker.ietf.org/doc/html/rfc5545#section-3.3.10)
 
 **示例值**："xxxxx"
 
@@ -800,7 +800,7 @@
 	<md-text type="field-type" >string</md-text>
 	</md-td>
 	<md-td>
-	日程ID
+	日程ID，格式是uid_originalTime，originalTime是例外日程的时间戳
 	</md-td>
 </md-tr>
 

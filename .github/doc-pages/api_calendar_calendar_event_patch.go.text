@@ -398,9 +398,9 @@
 **示例值**："default"
 
 **可选值有**：
-- `default`：默认权限，仅向他人显示是否“忙碌”
+- `default`：默认权限，跟随日历权限，默认仅向他人显示是否“忙碌”
 - `public`：公开，显示日程详情
-- `private`：私密，仅自己可见
+- `private`：私密，仅自己可见详情
 	</md-td>
 </md-tr>
 
@@ -615,7 +615,7 @@
 	否
 	</md-td>
 	<md-td>
-	重复日程的重复性规则
+	重复日程的重复性规则；参考[rfc5545](https://datatracker.ietf.org/doc/html/rfc5545#section-3.3.10)
 
 **示例值**："xxxxx"
 
@@ -1037,9 +1037,9 @@
 	日程公开范围，新建日程默认为Default；仅新建日程时对所有参与人生效，之后修改该属性仅对当前身份生效
 
 **可选值有**：
-- `default`：默认权限，仅向他人显示是否“忙碌”
+- `default`：默认权限，跟随日历权限，默认仅向他人显示是否“忙碌”
 - `public`：公开，显示日程详情
-- `private`：私密，仅自己可见
+- `private`：私密，仅自己可见详情
 	</md-td>
 </md-tr>
 
@@ -1205,7 +1205,7 @@
 	<md-text type="field-type" >string</md-text>
 	</md-td>
 	<md-td>
-	重复日程的重复性规则
+	重复日程的重复性规则；参考[rfc5545](https://datatracker.ietf.org/doc/html/rfc5545#section-3.3.10)
 
 **数据校验规则**：
 

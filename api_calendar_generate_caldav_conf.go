@@ -6,7 +6,7 @@ import (
 	"context"
 )
 
-// GenerateCaldavConf 用于为当前用户生成一个CalDAV账号密码。
+// GenerateCaldavConf 用于为当前用户生成一个CalDAV账号密码，用于将飞书日历信息同步到本地设备日历。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/setting/generate_caldav_conf
 func (r *CalendarService) GenerateCaldavConf(ctx context.Context, request *GenerateCaldavConfReq, options ...MethodOptionFunc) (*GenerateCaldavConfResp, *Response, error) {
