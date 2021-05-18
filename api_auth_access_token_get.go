@@ -58,7 +58,7 @@ type GetAccessTokenReq struct {
 }
 
 type getAccessTokenResp struct {
-	Code string              `json:"code,omitempty"` // 返回码，0表示请求成功，其他表示请求失败
+	Code int                 `json:"code,omitempty"` // 返回码，0表示请求成功，其他表示请求失败
 	Msg  string              `json:"msg,omitempty"`  // 返回信息
 	Data *GetAccessTokenResp `json:"data,omitempty"` // 返回业务数据
 }
