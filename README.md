@@ -364,7 +364,7 @@ cli := lark.New(lark.WithAppCredential("<APP_ID>", "<APP_SECRET>"))
 ```go
 cli := lark.New(
     lark.WithAppCredential("<APP_ID>", "<APP_SECRET>"),
-    lark.WithEventCallbackVerify("<ENCRYPY_KEY>", "<VERIFICATION_TOKEN>"),
+    lark.WithEventCallbackVerify("<ENCRYPT_KEY>", "<VERIFICATION_TOKEN>"),
 )
 ```
 
@@ -386,7 +386,7 @@ handle message callback example:
 ```go
 cli := lark.New(
     lark.WithAppCredential("<APP_ID>", "<APP_SECRET>"),
-    lark.WithEventCallbackVerify("<ENCRYPY_KEY>", "<VERIFICATION_TOKEN>"),
+    lark.WithEventCallbackVerify("<ENCRYPT_KEY>", "<VERIFICATION_TOKEN>"),
 )
 
 // handle message callback
