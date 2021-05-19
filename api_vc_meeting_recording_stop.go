@@ -18,13 +18,12 @@ func (r *VCService) StopMeetingRecording(ctx context.Context, request *StopMeeti
 	}
 
 	req := &RawRequestReq{
-		Scope:        "VC",
-		API:          "StopMeetingRecording",
-		Method:       "PATCH",
-		URL:          "https://open.feishu.cn/open-apis/vc/v1/meetings/:meeting_id/recording/stop",
-		Body:         request,
-		MethodOption: newMethodOption(options),
-
+		Scope:               "VC",
+		API:                 "StopMeetingRecording",
+		Method:              "PATCH",
+		URL:                 "https://open.feishu.cn/open-apis/vc/v1/meetings/:meeting_id/recording/stop",
+		Body:                request,
+		MethodOption:        newMethodOption(options),
 		NeedUserAccessToken: true,
 	}
 	resp := new(stopMeetingRecordingResp)

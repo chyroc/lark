@@ -27,8 +27,7 @@ func (r *CalendarService) UnsubscribeCalendar(ctx context.Context, request *Unsu
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
-
-		NeedUserAccessToken: true,
+		NeedUserAccessToken:   true,
 	}
 	resp := new(unsubscribeCalendarResp)
 

@@ -23,8 +23,7 @@ func (r *DriveService) MergeSheetCell(ctx context.Context, request *MergeSheetCe
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
-
-		NeedUserAccessToken: true,
+		NeedUserAccessToken:   true,
 	}
 	resp := new(mergeSheetCellResp)
 

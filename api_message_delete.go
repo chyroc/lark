@@ -29,8 +29,7 @@ func (r *MessageService) DeleteMessage(ctx context.Context, request *DeleteMessa
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
-
-		NeedUserAccessToken: true,
+		NeedUserAccessToken:   true,
 	}
 	resp := new(deleteMessageResp)
 

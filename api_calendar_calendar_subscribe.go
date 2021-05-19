@@ -27,8 +27,7 @@ func (r *CalendarService) SubscribeCalendar(ctx context.Context, request *Subscr
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
-
-		NeedUserAccessToken: true,
+		NeedUserAccessToken:   true,
 	}
 	resp := new(subscribeCalendarResp)
 

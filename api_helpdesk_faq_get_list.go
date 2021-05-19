@@ -23,8 +23,7 @@ func (r *HelpdeskService) GetFAQList(ctx context.Context, request *GetFAQListReq
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
-
-		NeedHelpdeskAuth: true,
+		NeedHelpdeskAuth:      true,
 	}
 	resp := new(getFAQListResp)
 

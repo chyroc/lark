@@ -29,8 +29,7 @@ func (r *HumanAuthService) UploadFaceVerifyImage(ctx context.Context, request *U
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
-
-		IsFile: true,
+		IsFile:                true,
 	}
 	resp := new(uploadFaceVerifyImageResp)
 

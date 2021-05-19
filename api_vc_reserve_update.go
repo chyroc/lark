@@ -18,13 +18,12 @@ func (r *VCService) UpdateReserve(ctx context.Context, request *UpdateReserveReq
 	}
 
 	req := &RawRequestReq{
-		Scope:        "VC",
-		API:          "UpdateReserve",
-		Method:       "PUT",
-		URL:          "https://open.feishu.cn/open-apis/vc/v1/reserves/:reserve_id",
-		Body:         request,
-		MethodOption: newMethodOption(options),
-
+		Scope:               "VC",
+		API:                 "UpdateReserve",
+		Method:              "PUT",
+		URL:                 "https://open.feishu.cn/open-apis/vc/v1/reserves/:reserve_id",
+		Body:                request,
+		MethodOption:        newMethodOption(options),
 		NeedUserAccessToken: true,
 	}
 	resp := new(updateReserveResp)

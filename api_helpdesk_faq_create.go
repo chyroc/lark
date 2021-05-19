@@ -16,13 +16,12 @@ func (r *HelpdeskService) CreateFAQ(ctx context.Context, request *CreateFAQReq, 
 	}
 
 	req := &RawRequestReq{
-		Scope:        "Helpdesk",
-		API:          "CreateFAQ",
-		Method:       "POST",
-		URL:          "https://open.feishu.cn/open-apis/helpdesk/v1/faqs",
-		Body:         request,
-		MethodOption: newMethodOption(options),
-
+		Scope:               "Helpdesk",
+		API:                 "CreateFAQ",
+		Method:              "POST",
+		URL:                 "https://open.feishu.cn/open-apis/helpdesk/v1/faqs",
+		Body:                request,
+		MethodOption:        newMethodOption(options),
 		NeedUserAccessToken: true,
 		NeedHelpdeskAuth:    true,
 	}

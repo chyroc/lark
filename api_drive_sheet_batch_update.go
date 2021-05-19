@@ -23,8 +23,7 @@ func (r *DriveService) BatchUpdateSheet(ctx context.Context, request *BatchUpdat
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
-
-		NeedUserAccessToken: true,
+		NeedUserAccessToken:   true,
 	}
 	resp := new(batchUpdateSheetResp)
 

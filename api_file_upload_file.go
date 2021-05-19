@@ -27,8 +27,7 @@ func (r *FileService) UploadFile(ctx context.Context, request *UploadFileReq, op
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
-
-		IsFile: true,
+		IsFile:                true,
 	}
 	resp := new(uploadFileResp)
 

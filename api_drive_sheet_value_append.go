@@ -23,8 +23,7 @@ func (r *DriveService) AppendSheetValue(ctx context.Context, request *AppendShee
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
-
-		NeedUserAccessToken: true,
+		NeedUserAccessToken:   true,
 	}
 	resp := new(appendSheetValueResp)
 

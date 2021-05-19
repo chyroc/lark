@@ -18,13 +18,12 @@ func (r *DriveService) CreateDriveFolder(ctx context.Context, request *CreateDri
 	}
 
 	req := &RawRequestReq{
-		Scope:        "Drive",
-		API:          "CreateDriveFolder",
-		Method:       "POST",
-		URL:          "https://open.feishu.cn/open-apis/drive/explorer/v2/folder/{folderToken}",
-		Body:         request,
-		MethodOption: newMethodOption(options),
-
+		Scope:               "Drive",
+		API:                 "CreateDriveFolder",
+		Method:              "POST",
+		URL:                 "https://open.feishu.cn/open-apis/drive/explorer/v2/folder/{folderToken}",
+		Body:                request,
+		MethodOption:        newMethodOption(options),
 		NeedUserAccessToken: true,
 	}
 	resp := new(createDriveFolderResp)

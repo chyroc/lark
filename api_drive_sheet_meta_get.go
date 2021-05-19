@@ -23,8 +23,7 @@ func (r *DriveService) GetSheetMeta(ctx context.Context, request *GetSheetMetaRe
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
-
-		NeedUserAccessToken: true,
+		NeedUserAccessToken:   true,
 	}
 	resp := new(getSheetMetaResp)
 

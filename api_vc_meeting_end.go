@@ -18,13 +18,12 @@ func (r *VCService) EndMeeting(ctx context.Context, request *EndMeetingReq, opti
 	}
 
 	req := &RawRequestReq{
-		Scope:        "VC",
-		API:          "EndMeeting",
-		Method:       "PATCH",
-		URL:          "https://open.feishu.cn/open-apis/vc/v1/meetings/:meeting_id/end",
-		Body:         request,
-		MethodOption: newMethodOption(options),
-
+		Scope:               "VC",
+		API:                 "EndMeeting",
+		Method:              "PATCH",
+		URL:                 "https://open.feishu.cn/open-apis/vc/v1/meetings/:meeting_id/end",
+		Body:                request,
+		MethodOption:        newMethodOption(options),
 		NeedUserAccessToken: true,
 	}
 	resp := new(endMeetingResp)

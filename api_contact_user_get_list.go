@@ -27,8 +27,7 @@ func (r *ContactService) GetUserList(ctx context.Context, request *GetUserListRe
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
-
-		NeedUserAccessToken: true,
+		NeedUserAccessToken:   true,
 	}
 	resp := new(getUserListResp)
 

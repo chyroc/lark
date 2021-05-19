@@ -18,13 +18,12 @@ func (r *AuthService) GetAccessToken(ctx context.Context, request *GetAccessToke
 	}
 
 	req := &RawRequestReq{
-		Scope:        "Auth",
-		API:          "GetAccessToken",
-		Method:       "POST",
-		URL:          "https://open.feishu.cn/open-apis/authen/v1/access_token",
-		Body:         request,
-		MethodOption: newMethodOption(options),
-
+		Scope:               "Auth",
+		API:                 "GetAccessToken",
+		Method:              "POST",
+		URL:                 "https://open.feishu.cn/open-apis/authen/v1/access_token",
+		Body:                request,
+		MethodOption:        newMethodOption(options),
 		NeedAppAccessToken:  true,
 		NeedUserAccessToken: true,
 	}

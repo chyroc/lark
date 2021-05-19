@@ -26,8 +26,7 @@ func (r *ChatService) GetChatAnnouncement(ctx context.Context, request *GetChatA
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
-
-		NeedUserAccessToken: true,
+		NeedUserAccessToken:   true,
 	}
 	resp := new(getChatAnnouncementResp)
 

@@ -18,13 +18,12 @@ func (r *DriveService) GetDriveFileMeta(ctx context.Context, request *GetDriveFi
 	}
 
 	req := &RawRequestReq{
-		Scope:        "Drive",
-		API:          "GetDriveFileMeta",
-		Method:       "POST",
-		URL:          "https://open.feishu.cn/open-apis/suite/docs-api/meta",
-		Body:         request,
-		MethodOption: newMethodOption(options),
-
+		Scope:               "Drive",
+		API:                 "GetDriveFileMeta",
+		Method:              "POST",
+		URL:                 "https://open.feishu.cn/open-apis/suite/docs-api/meta",
+		Body:                request,
+		MethodOption:        newMethodOption(options),
 		NeedUserAccessToken: true,
 	}
 	resp := new(getDriveFileMetaResp)

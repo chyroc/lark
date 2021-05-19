@@ -16,13 +16,12 @@ func (r *BitableService) BatchDeleteBitableTable(ctx context.Context, request *B
 	}
 
 	req := &RawRequestReq{
-		Scope:        "Bitable",
-		API:          "BatchDeleteBitableTable",
-		Method:       "POST",
-		URL:          "https://open.feishu.cn/open-apis/bitable/v1/apps/:app_token/tables/batch_delete",
-		Body:         request,
-		MethodOption: newMethodOption(options),
-
+		Scope:               "Bitable",
+		API:                 "BatchDeleteBitableTable",
+		Method:              "POST",
+		URL:                 "https://open.feishu.cn/open-apis/bitable/v1/apps/:app_token/tables/batch_delete",
+		Body:                request,
+		MethodOption:        newMethodOption(options),
 		NeedUserAccessToken: true,
 	}
 	resp := new(batchDeleteBitableTableResp)

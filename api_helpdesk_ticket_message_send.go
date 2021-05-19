@@ -23,8 +23,7 @@ func (r *HelpdeskService) SendTicketMessage(ctx context.Context, request *SendTi
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
-
-		NeedHelpdeskAuth: true,
+		NeedHelpdeskAuth:      true,
 	}
 	resp := new(sendTicketMessageResp)
 

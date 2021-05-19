@@ -16,13 +16,12 @@ func (r *HelpdeskService) UpdateFAQ(ctx context.Context, request *UpdateFAQReq, 
 	}
 
 	req := &RawRequestReq{
-		Scope:        "Helpdesk",
-		API:          "UpdateFAQ",
-		Method:       "PATCH",
-		URL:          "https://open.feishu.cn/open-apis/helpdesk/v1/faqs/:id",
-		Body:         request,
-		MethodOption: newMethodOption(options),
-
+		Scope:               "Helpdesk",
+		API:                 "UpdateFAQ",
+		Method:              "PATCH",
+		URL:                 "https://open.feishu.cn/open-apis/helpdesk/v1/faqs/:id",
+		Body:                request,
+		MethodOption:        newMethodOption(options),
 		NeedUserAccessToken: true,
 		NeedHelpdeskAuth:    true,
 	}

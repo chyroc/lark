@@ -16,13 +16,12 @@ func (r *HelpdeskService) DeleteFAQ(ctx context.Context, request *DeleteFAQReq, 
 	}
 
 	req := &RawRequestReq{
-		Scope:        "Helpdesk",
-		API:          "DeleteFAQ",
-		Method:       "DELETE",
-		URL:          "https://open.feishu.cn/open-apis/helpdesk/v1/faqs/:id",
-		Body:         request,
-		MethodOption: newMethodOption(options),
-
+		Scope:               "Helpdesk",
+		API:                 "DeleteFAQ",
+		Method:              "DELETE",
+		URL:                 "https://open.feishu.cn/open-apis/helpdesk/v1/faqs/:id",
+		Body:                request,
+		MethodOption:        newMethodOption(options),
 		NeedUserAccessToken: true,
 		NeedHelpdeskAuth:    true,
 	}

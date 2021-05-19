@@ -23,8 +23,7 @@ func (r *DriveService) UpdateSheetDimensionRange(ctx context.Context, request *U
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
-
-		NeedUserAccessToken: true,
+		NeedUserAccessToken:   true,
 	}
 	resp := new(updateSheetDimensionRangeResp)
 

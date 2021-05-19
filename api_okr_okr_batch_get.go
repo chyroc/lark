@@ -25,8 +25,7 @@ func (r *OKRService) BatchGetOKR(ctx context.Context, request *BatchGetOKRReq, o
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
-
-		NeedUserAccessToken: true,
+		NeedUserAccessToken:   true,
 	}
 	resp := new(batchGetOKRResp)
 

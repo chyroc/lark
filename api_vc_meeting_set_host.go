@@ -18,13 +18,12 @@ func (r *VCService) SetHostMeeting(ctx context.Context, request *SetHostMeetingR
 	}
 
 	req := &RawRequestReq{
-		Scope:        "VC",
-		API:          "SetHostMeeting",
-		Method:       "PATCH",
-		URL:          "https://open.feishu.cn/open-apis/vc/v1/meetings/:meeting_id/set_host",
-		Body:         request,
-		MethodOption: newMethodOption(options),
-
+		Scope:               "VC",
+		API:                 "SetHostMeeting",
+		Method:              "PATCH",
+		URL:                 "https://open.feishu.cn/open-apis/vc/v1/meetings/:meeting_id/set_host",
+		Body:                request,
+		MethodOption:        newMethodOption(options),
 		NeedUserAccessToken: true,
 	}
 	resp := new(setHostMeetingResp)

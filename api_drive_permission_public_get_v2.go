@@ -23,8 +23,7 @@ func (r *DriveService) GetDrivePublicPermissionV2(ctx context.Context, request *
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
-
-		NeedUserAccessToken: true,
+		NeedUserAccessToken:   true,
 	}
 	resp := new(getDrivePublicPermissionV2Resp)
 

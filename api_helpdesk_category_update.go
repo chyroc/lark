@@ -16,13 +16,12 @@ func (r *HelpdeskService) UpdateCategory(ctx context.Context, request *UpdateCat
 	}
 
 	req := &RawRequestReq{
-		Scope:        "Helpdesk",
-		API:          "UpdateCategory",
-		Method:       "PATCH",
-		URL:          "https://open.feishu.cn/open-apis/helpdesk/v1/categories/:id",
-		Body:         request,
-		MethodOption: newMethodOption(options),
-
+		Scope:               "Helpdesk",
+		API:                 "UpdateCategory",
+		Method:              "PATCH",
+		URL:                 "https://open.feishu.cn/open-apis/helpdesk/v1/categories/:id",
+		Body:                request,
+		MethodOption:        newMethodOption(options),
 		NeedUserAccessToken: true,
 		NeedHelpdeskAuth:    true,
 	}

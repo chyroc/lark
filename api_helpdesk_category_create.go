@@ -16,13 +16,12 @@ func (r *HelpdeskService) CreateCategory(ctx context.Context, request *CreateCat
 	}
 
 	req := &RawRequestReq{
-		Scope:        "Helpdesk",
-		API:          "CreateCategory",
-		Method:       "POST",
-		URL:          "https://open.feishu.cn/open-apis/helpdesk/v1/categories",
-		Body:         request,
-		MethodOption: newMethodOption(options),
-
+		Scope:               "Helpdesk",
+		API:                 "CreateCategory",
+		Method:              "POST",
+		URL:                 "https://open.feishu.cn/open-apis/helpdesk/v1/categories",
+		Body:                request,
+		MethodOption:        newMethodOption(options),
 		NeedUserAccessToken: true,
 		NeedHelpdeskAuth:    true,
 	}

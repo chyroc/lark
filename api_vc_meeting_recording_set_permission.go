@@ -18,13 +18,12 @@ func (r *VCService) SetPermissionMeetingRecording(ctx context.Context, request *
 	}
 
 	req := &RawRequestReq{
-		Scope:        "VC",
-		API:          "SetPermissionMeetingRecording",
-		Method:       "PATCH",
-		URL:          "https://open.feishu.cn/open-apis/vc/v1/meetings/:meeting_id/recording/set_permission",
-		Body:         request,
-		MethodOption: newMethodOption(options),
-
+		Scope:               "VC",
+		API:                 "SetPermissionMeetingRecording",
+		Method:              "PATCH",
+		URL:                 "https://open.feishu.cn/open-apis/vc/v1/meetings/:meeting_id/recording/set_permission",
+		Body:                request,
+		MethodOption:        newMethodOption(options),
 		NeedUserAccessToken: true,
 	}
 	resp := new(setPermissionMeetingRecordingResp)

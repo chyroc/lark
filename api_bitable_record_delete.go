@@ -16,13 +16,12 @@ func (r *BitableService) DeleteBitableRecord(ctx context.Context, request *Delet
 	}
 
 	req := &RawRequestReq{
-		Scope:        "Bitable",
-		API:          "DeleteBitableRecord",
-		Method:       "DELETE",
-		URL:          "https://open.feishu.cn/open-apis/bitable/v1/apps/:app_token/tables/:table_id/records/:record_id",
-		Body:         request,
-		MethodOption: newMethodOption(options),
-
+		Scope:               "Bitable",
+		API:                 "DeleteBitableRecord",
+		Method:              "DELETE",
+		URL:                 "https://open.feishu.cn/open-apis/bitable/v1/apps/:app_token/tables/:table_id/records/:record_id",
+		Body:                request,
+		MethodOption:        newMethodOption(options),
 		NeedUserAccessToken: true,
 	}
 	resp := new(deleteBitableRecordResp)

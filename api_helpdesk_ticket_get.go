@@ -23,8 +23,7 @@ func (r *HelpdeskService) GetTicket(ctx context.Context, request *GetTicketReq, 
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
-
-		NeedHelpdeskAuth: true,
+		NeedHelpdeskAuth:      true,
 	}
 	resp := new(getTicketResp)
 

@@ -23,8 +23,7 @@ func (r *DriveService) SetSheetStyle(ctx context.Context, request *SetSheetStyle
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
-
-		NeedUserAccessToken: true,
+		NeedUserAccessToken:   true,
 	}
 	resp := new(setSheetStyleResp)
 

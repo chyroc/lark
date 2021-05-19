@@ -23,8 +23,7 @@ func (r *ContactService) UpdateUserPatch(ctx context.Context, request *UpdateUse
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
-
-		NeedUserAccessToken: true,
+		NeedUserAccessToken:   true,
 	}
 	resp := new(updateUserPatchResp)
 

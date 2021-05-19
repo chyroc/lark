@@ -23,8 +23,7 @@ func (r *DriveService) BatchSetSheetValue(ctx context.Context, request *BatchSet
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
-
-		NeedUserAccessToken: true,
+		NeedUserAccessToken:   true,
 	}
 	resp := new(batchSetSheetValueResp)
 

@@ -23,8 +23,7 @@ func (r *DriveService) GetDriveCommentList(ctx context.Context, request *GetDriv
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
-
-		NeedUserAccessToken: true,
+		NeedUserAccessToken:   true,
 	}
 	resp := new(getDriveCommentListResp)
 

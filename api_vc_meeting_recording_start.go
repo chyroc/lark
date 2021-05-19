@@ -18,13 +18,12 @@ func (r *VCService) StartMeetingRecording(ctx context.Context, request *StartMee
 	}
 
 	req := &RawRequestReq{
-		Scope:        "VC",
-		API:          "StartMeetingRecording",
-		Method:       "PATCH",
-		URL:          "https://open.feishu.cn/open-apis/vc/v1/meetings/:meeting_id/recording/start",
-		Body:         request,
-		MethodOption: newMethodOption(options),
-
+		Scope:               "VC",
+		API:                 "StartMeetingRecording",
+		Method:              "PATCH",
+		URL:                 "https://open.feishu.cn/open-apis/vc/v1/meetings/:meeting_id/recording/start",
+		Body:                request,
+		MethodOption:        newMethodOption(options),
 		NeedUserAccessToken: true,
 	}
 	resp := new(startMeetingRecordingResp)

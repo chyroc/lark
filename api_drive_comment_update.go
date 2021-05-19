@@ -18,13 +18,12 @@ func (r *DriveService) UpdateDriveComment(ctx context.Context, request *UpdateDr
 	}
 
 	req := &RawRequestReq{
-		Scope:        "Drive",
-		API:          "UpdateDriveComment",
-		Method:       "PUT",
-		URL:          "https://open.feishu.cn/open-apis/vc/v1/reserves/:reserve_id",
-		Body:         request,
-		MethodOption: newMethodOption(options),
-
+		Scope:               "Drive",
+		API:                 "UpdateDriveComment",
+		Method:              "PUT",
+		URL:                 "https://open.feishu.cn/open-apis/vc/v1/reserves/:reserve_id",
+		Body:                request,
+		MethodOption:        newMethodOption(options),
 		NeedUserAccessToken: true,
 	}
 	resp := new(updateDriveCommentResp)

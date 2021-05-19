@@ -28,8 +28,7 @@ func (r *ContactService) GetDepartmentList(ctx context.Context, request *GetDepa
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
-
-		NeedUserAccessToken: true,
+		NeedUserAccessToken:   true,
 	}
 	resp := new(getDepartmentListResp)
 

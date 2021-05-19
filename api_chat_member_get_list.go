@@ -27,8 +27,7 @@ func (r *ChatService) GetChatMemberList(ctx context.Context, request *GetChatMem
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
-
-		NeedUserAccessToken: true,
+		NeedUserAccessToken:   true,
 	}
 	resp := new(getChatMemberListResp)
 

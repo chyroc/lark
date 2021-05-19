@@ -23,8 +23,7 @@ func (r *DriveService) ImportSheet(ctx context.Context, request *ImportSheetReq,
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
-
-		NeedUserAccessToken: true,
+		NeedUserAccessToken:   true,
 	}
 	resp := new(importSheetResp)
 

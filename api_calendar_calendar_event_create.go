@@ -27,8 +27,7 @@ func (r *CalendarService) CreateCalendarEvent(ctx context.Context, request *Crea
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
-
-		NeedUserAccessToken: true,
+		NeedUserAccessToken:   true,
 	}
 	resp := new(createCalendarEventResp)
 

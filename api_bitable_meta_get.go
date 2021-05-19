@@ -16,13 +16,12 @@ func (r *BitableService) GetBitableMeta(ctx context.Context, request *GetBitable
 	}
 
 	req := &RawRequestReq{
-		Scope:        "Bitable",
-		API:          "GetBitableMeta",
-		Method:       "GET",
-		URL:          "https://open.feishu.cn/open-apis/bitable/v1/apps/:app_token",
-		Body:         request,
-		MethodOption: newMethodOption(options),
-
+		Scope:               "Bitable",
+		API:                 "GetBitableMeta",
+		Method:              "GET",
+		URL:                 "https://open.feishu.cn/open-apis/bitable/v1/apps/:app_token",
+		Body:                request,
+		MethodOption:        newMethodOption(options),
 		NeedUserAccessToken: true,
 	}
 	resp := new(getBitableMetaResp)

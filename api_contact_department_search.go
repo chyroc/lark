@@ -18,13 +18,12 @@ func (r *ContactService) SearchDepartment(ctx context.Context, request *SearchDe
 	}
 
 	req := &RawRequestReq{
-		Scope:        "Contact",
-		API:          "SearchDepartment",
-		Method:       "POST",
-		URL:          "https://open.feishu.cn/open-apis/contact/v3/departments/search",
-		Body:         request,
-		MethodOption: newMethodOption(options),
-
+		Scope:               "Contact",
+		API:                 "SearchDepartment",
+		Method:              "POST",
+		URL:                 "https://open.feishu.cn/open-apis/contact/v3/departments/search",
+		Body:                request,
+		MethodOption:        newMethodOption(options),
 		NeedUserAccessToken: true,
 	}
 	resp := new(searchDepartmentResp)

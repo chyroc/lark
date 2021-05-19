@@ -25,8 +25,7 @@ func (r *HelpdeskService) GetCategoryList(ctx context.Context, request *GetCateg
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
-
-		NeedHelpdeskAuth: true,
+		NeedHelpdeskAuth:      true,
 	}
 	resp := new(getCategoryListResp)
 

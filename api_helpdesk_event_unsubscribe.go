@@ -23,8 +23,7 @@ func (r *HelpdeskService) UnsubscribeEvent(ctx context.Context, request *Unsubsc
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
-
-		NeedHelpdeskAuth: true,
+		NeedHelpdeskAuth:      true,
 	}
 	resp := new(unsubscribeEventResp)
 

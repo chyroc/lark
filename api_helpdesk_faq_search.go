@@ -23,8 +23,7 @@ func (r *HelpdeskService) SearchFAQ(ctx context.Context, request *SearchFAQReq, 
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
-
-		NeedHelpdeskAuth: true,
+		NeedHelpdeskAuth:      true,
 	}
 	resp := new(searchFAQResp)
 

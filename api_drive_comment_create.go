@@ -23,8 +23,7 @@ func (r *DriveService) CreateDriveComment(ctx context.Context, request *CreateDr
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
-
-		NeedUserAccessToken: true,
+		NeedUserAccessToken:   true,
 	}
 	resp := new(createDriveCommentResp)
 

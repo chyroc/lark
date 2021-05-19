@@ -32,8 +32,7 @@ func (r *ChatService) UpdateChat(ctx context.Context, request *UpdateChatReq, op
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
-
-		NeedUserAccessToken: true,
+		NeedUserAccessToken:   true,
 	}
 	resp := new(updateChatResp)
 

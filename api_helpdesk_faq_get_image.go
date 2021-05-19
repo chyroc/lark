@@ -24,8 +24,7 @@ func (r *HelpdeskService) GetFAQImage(ctx context.Context, request *GetFAQImageR
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
-
-		NeedHelpdeskAuth: true,
+		NeedHelpdeskAuth:      true,
 	}
 	resp := new(getFAQImageResp)
 

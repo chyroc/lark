@@ -20,13 +20,12 @@ func (r *CalendarService) SearchCalendarEvent(ctx context.Context, request *Sear
 	}
 
 	req := &RawRequestReq{
-		Scope:        "Calendar",
-		API:          "SearchCalendarEvent",
-		Method:       "POST",
-		URL:          "https://open.feishu.cn/open-apis/calendar/v4/calendars/:calendar_id/events/search",
-		Body:         request,
-		MethodOption: newMethodOption(options),
-
+		Scope:               "Calendar",
+		API:                 "SearchCalendarEvent",
+		Method:              "POST",
+		URL:                 "https://open.feishu.cn/open-apis/calendar/v4/calendars/:calendar_id/events/search",
+		Body:                request,
+		MethodOption:        newMethodOption(options),
 		NeedUserAccessToken: true,
 	}
 	resp := new(searchCalendarEventResp)

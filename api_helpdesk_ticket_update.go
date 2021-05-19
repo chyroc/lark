@@ -16,13 +16,12 @@ func (r *HelpdeskService) UpdateTicket(ctx context.Context, request *UpdateTicke
 	}
 
 	req := &RawRequestReq{
-		Scope:        "Helpdesk",
-		API:          "UpdateTicket",
-		Method:       "PUT",
-		URL:          "https://open.feishu.cn/open-apis/helpdesk/v1/tickets/:ticket_id",
-		Body:         request,
-		MethodOption: newMethodOption(options),
-
+		Scope:               "Helpdesk",
+		API:                 "UpdateTicket",
+		Method:              "PUT",
+		URL:                 "https://open.feishu.cn/open-apis/helpdesk/v1/tickets/:ticket_id",
+		Body:                request,
+		MethodOption:        newMethodOption(options),
 		NeedUserAccessToken: true,
 		NeedHelpdeskAuth:    true,
 	}

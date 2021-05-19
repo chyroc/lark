@@ -25,8 +25,7 @@ func (r *DriveService) BatchGetSheetValue(ctx context.Context, request *BatchGet
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
-
-		NeedUserAccessToken: true,
+		NeedUserAccessToken:   true,
 	}
 	resp := new(batchGetSheetValueResp)
 

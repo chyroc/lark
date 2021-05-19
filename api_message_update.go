@@ -28,8 +28,7 @@ func (r *MessageService) UpdateMessage(ctx context.Context, request *UpdateMessa
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
-
-		NeedUserAccessToken: true,
+		NeedUserAccessToken:   true,
 	}
 	resp := new(updateMessageResp)
 

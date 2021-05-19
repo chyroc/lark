@@ -16,13 +16,12 @@ func (r *HelpdeskService) DeleteCategory(ctx context.Context, request *DeleteCat
 	}
 
 	req := &RawRequestReq{
-		Scope:        "Helpdesk",
-		API:          "DeleteCategory",
-		Method:       "DELETE",
-		URL:          "https://open.feishu.cn/open-apis/helpdesk/v1/categories/:id",
-		Body:         request,
-		MethodOption: newMethodOption(options),
-
+		Scope:               "Helpdesk",
+		API:                 "DeleteCategory",
+		Method:              "DELETE",
+		URL:                 "https://open.feishu.cn/open-apis/helpdesk/v1/categories/:id",
+		Body:                request,
+		MethodOption:        newMethodOption(options),
 		NeedUserAccessToken: true,
 		NeedHelpdeskAuth:    true,
 	}

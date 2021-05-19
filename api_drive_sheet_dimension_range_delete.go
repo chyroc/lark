@@ -23,8 +23,7 @@ func (r *DriveService) DeleteSheetDimensionRange(ctx context.Context, request *D
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
-
-		NeedUserAccessToken: true,
+		NeedUserAccessToken:   true,
 	}
 	resp := new(deleteSheetDimensionRangeResp)
 

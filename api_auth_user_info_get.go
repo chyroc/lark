@@ -16,13 +16,12 @@ func (r *AuthService) GetUserInfo(ctx context.Context, request *GetUserInfoReq, 
 	}
 
 	req := &RawRequestReq{
-		Scope:        "Auth",
-		API:          "GetUserInfo",
-		Method:       "GET",
-		URL:          "https://open.feishu.cn/open-apis/authen/v1/user_info",
-		Body:         request,
-		MethodOption: newMethodOption(options),
-
+		Scope:               "Auth",
+		API:                 "GetUserInfo",
+		Method:              "GET",
+		URL:                 "https://open.feishu.cn/open-apis/authen/v1/user_info",
+		Body:                request,
+		MethodOption:        newMethodOption(options),
 		NeedUserAccessToken: true,
 	}
 	resp := new(getUserInfoResp)

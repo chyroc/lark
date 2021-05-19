@@ -16,13 +16,12 @@ func (r *BitableService) CreateBitableTable(ctx context.Context, request *Create
 	}
 
 	req := &RawRequestReq{
-		Scope:        "Bitable",
-		API:          "CreateBitableTable",
-		Method:       "POST",
-		URL:          "https://open.feishu.cn/open-apis/bitable/v1/apps/:app_token/tables",
-		Body:         request,
-		MethodOption: newMethodOption(options),
-
+		Scope:               "Bitable",
+		API:                 "CreateBitableTable",
+		Method:              "POST",
+		URL:                 "https://open.feishu.cn/open-apis/bitable/v1/apps/:app_token/tables",
+		Body:                request,
+		MethodOption:        newMethodOption(options),
 		NeedUserAccessToken: true,
 	}
 	resp := new(createBitableTableResp)

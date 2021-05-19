@@ -23,8 +23,7 @@ func (r *DriveService) CreateSheetProtectedDimension(ctx context.Context, reques
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
-
-		NeedUserAccessToken: true,
+		NeedUserAccessToken:   true,
 	}
 	resp := new(createSheetProtectedDimensionResp)
 

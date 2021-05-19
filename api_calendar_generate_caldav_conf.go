@@ -16,13 +16,12 @@ func (r *CalendarService) GenerateCaldavConf(ctx context.Context, request *Gener
 	}
 
 	req := &RawRequestReq{
-		Scope:        "Calendar",
-		API:          "GenerateCaldavConf",
-		Method:       "POST",
-		URL:          "https://open.feishu.cn/open-apis/calendar/v4/settings/generate_caldav_conf",
-		Body:         request,
-		MethodOption: newMethodOption(options),
-
+		Scope:               "Calendar",
+		API:                 "GenerateCaldavConf",
+		Method:              "POST",
+		URL:                 "https://open.feishu.cn/open-apis/calendar/v4/settings/generate_caldav_conf",
+		Body:                request,
+		MethodOption:        newMethodOption(options),
 		NeedUserAccessToken: true,
 	}
 	resp := new(generateCaldavConfResp)

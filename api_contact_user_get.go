@@ -23,8 +23,7 @@ func (r *ContactService) GetUser(ctx context.Context, request *GetUserReq, optio
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
-
-		NeedUserAccessToken: true,
+		NeedUserAccessToken:   true,
 	}
 	resp := new(getUserResp)
 

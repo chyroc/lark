@@ -18,13 +18,12 @@ func (r *VCService) GetReserveActiveMeeting(ctx context.Context, request *GetRes
 	}
 
 	req := &RawRequestReq{
-		Scope:        "VC",
-		API:          "GetReserveActiveMeeting",
-		Method:       "GET",
-		URL:          "https://open.feishu.cn/open-apis/vc/v1/reserves/:reserve_id/get_active_meeting",
-		Body:         request,
-		MethodOption: newMethodOption(options),
-
+		Scope:               "VC",
+		API:                 "GetReserveActiveMeeting",
+		Method:              "GET",
+		URL:                 "https://open.feishu.cn/open-apis/vc/v1/reserves/:reserve_id/get_active_meeting",
+		Body:                request,
+		MethodOption:        newMethodOption(options),
 		NeedUserAccessToken: true,
 	}
 	resp := new(getReserveActiveMeetingResp)

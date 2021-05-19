@@ -23,8 +23,7 @@ func (r *ChatService) IsInChat(ctx context.Context, request *IsInChatReq, option
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
-
-		NeedUserAccessToken: true,
+		NeedUserAccessToken:   true,
 	}
 	resp := new(isInChatResp)
 

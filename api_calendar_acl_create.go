@@ -27,8 +27,7 @@ func (r *CalendarService) CreateCalendarACL(ctx context.Context, request *Create
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
-
-		NeedUserAccessToken: true,
+		NeedUserAccessToken:   true,
 	}
 	resp := new(createCalendarACLResp)
 

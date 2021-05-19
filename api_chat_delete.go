@@ -27,8 +27,7 @@ func (r *ChatService) DeleteChat(ctx context.Context, request *DeleteChatReq, op
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
-
-		NeedUserAccessToken: true,
+		NeedUserAccessToken:   true,
 	}
 	resp := new(deleteChatResp)
 

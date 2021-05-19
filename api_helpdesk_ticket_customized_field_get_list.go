@@ -25,8 +25,7 @@ func (r *HelpdeskService) GetTicketCustomizedFieldList(ctx context.Context, requ
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
-
-		NeedHelpdeskAuth: true,
+		NeedHelpdeskAuth:      true,
 	}
 	resp := new(getTicketCustomizedFieldListResp)
 

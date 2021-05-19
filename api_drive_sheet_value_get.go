@@ -25,8 +25,7 @@ func (r *DriveService) GetSheetValue(ctx context.Context, request *GetSheetValue
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
-
-		NeedUserAccessToken: true,
+		NeedUserAccessToken:   true,
 	}
 	resp := new(getSheetValueResp)
 

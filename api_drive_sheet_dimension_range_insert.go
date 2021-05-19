@@ -23,8 +23,7 @@ func (r *DriveService) InsertSheetDimensionRange(ctx context.Context, request *I
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
-
-		NeedUserAccessToken: true,
+		NeedUserAccessToken:   true,
 	}
 	resp := new(insertSheetDimensionRangeResp)
 

@@ -16,13 +16,12 @@ func (r *BitableService) UpdateBitableRecord(ctx context.Context, request *Updat
 	}
 
 	req := &RawRequestReq{
-		Scope:        "Bitable",
-		API:          "UpdateBitableRecord",
-		Method:       "PUT",
-		URL:          "https://open.feishu.cn/open-apis/bitable/v1/apps/:app_token/tables/:table_id/records/:record_id",
-		Body:         request,
-		MethodOption: newMethodOption(options),
-
+		Scope:               "Bitable",
+		API:                 "UpdateBitableRecord",
+		Method:              "PUT",
+		URL:                 "https://open.feishu.cn/open-apis/bitable/v1/apps/:app_token/tables/:table_id/records/:record_id",
+		Body:                request,
+		MethodOption:        newMethodOption(options),
 		NeedUserAccessToken: true,
 	}
 	resp := new(updateBitableRecordResp)

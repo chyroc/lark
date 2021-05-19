@@ -25,8 +25,7 @@ func (r *OKRService) GetUserOKRList(ctx context.Context, request *GetUserOKRList
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
-
-		NeedUserAccessToken: true,
+		NeedUserAccessToken:   true,
 	}
 	resp := new(getUserOKRListResp)
 

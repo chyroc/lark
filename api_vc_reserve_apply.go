@@ -18,13 +18,12 @@ func (r *VCService) ApplyReserve(ctx context.Context, request *ApplyReserveReq, 
 	}
 
 	req := &RawRequestReq{
-		Scope:        "VC",
-		API:          "ApplyReserve",
-		Method:       "POST",
-		URL:          "https://open.feishu.cn/open-apis/vc/v1/reserves/apply",
-		Body:         request,
-		MethodOption: newMethodOption(options),
-
+		Scope:               "VC",
+		API:                 "ApplyReserve",
+		Method:              "POST",
+		URL:                 "https://open.feishu.cn/open-apis/vc/v1/reserves/apply",
+		Body:                request,
+		MethodOption:        newMethodOption(options),
 		NeedUserAccessToken: true,
 	}
 	resp := new(applyReserveResp)

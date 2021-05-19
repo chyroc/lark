@@ -23,8 +23,7 @@ func (r *HelpdeskService) SubscribeEvent(ctx context.Context, request *Subscribe
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
-
-		NeedHelpdeskAuth: true,
+		NeedHelpdeskAuth:      true,
 	}
 	resp := new(subscribeEventResp)
 

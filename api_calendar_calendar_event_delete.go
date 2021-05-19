@@ -28,8 +28,7 @@ func (r *CalendarService) DeleteCalendarEvent(ctx context.Context, request *Dele
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
-
-		NeedUserAccessToken: true,
+		NeedUserAccessToken:   true,
 	}
 	resp := new(deleteCalendarEventResp)
 

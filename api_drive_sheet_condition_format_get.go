@@ -23,8 +23,7 @@ func (r *DriveService) GetSheetConditionFormat(ctx context.Context, request *Get
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
-
-		NeedUserAccessToken: true,
+		NeedUserAccessToken:   true,
 	}
 	resp := new(getSheetConditionFormatResp)
 

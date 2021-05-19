@@ -27,8 +27,7 @@ func (r *ContactService) GetParentDepartment(ctx context.Context, request *GetPa
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
-
-		NeedUserAccessToken: true,
+		NeedUserAccessToken:   true,
 	}
 	resp := new(getParentDepartmentResp)
 

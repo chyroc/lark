@@ -18,13 +18,12 @@ func (r *VCService) InviteMeeting(ctx context.Context, request *InviteMeetingReq
 	}
 
 	req := &RawRequestReq{
-		Scope:        "VC",
-		API:          "InviteMeeting",
-		Method:       "PATCH",
-		URL:          "https://open.feishu.cn/open-apis/vc/v1/meetings/:meeting_id/invite",
-		Body:         request,
-		MethodOption: newMethodOption(options),
-
+		Scope:               "VC",
+		API:                 "InviteMeeting",
+		Method:              "PATCH",
+		URL:                 "https://open.feishu.cn/open-apis/vc/v1/meetings/:meeting_id/invite",
+		Body:                request,
+		MethodOption:        newMethodOption(options),
 		NeedUserAccessToken: true,
 	}
 	resp := new(inviteMeetingResp)

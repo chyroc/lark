@@ -30,8 +30,7 @@ func (r *ChatService) AddChatMember(ctx context.Context, request *AddChatMemberR
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
-
-		NeedUserAccessToken: true,
+		NeedUserAccessToken:   true,
 	}
 	resp := new(addChatMemberResp)
 

@@ -29,8 +29,7 @@ func (r *HumanAuthService) CropFaceVerifyImage(ctx context.Context, request *Cro
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
-
-		IsFile: true,
+		IsFile:                true,
 	}
 	resp := new(cropFaceVerifyImageResp)
 

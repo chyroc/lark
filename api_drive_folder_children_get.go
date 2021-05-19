@@ -16,13 +16,12 @@ func (r *DriveService) GetDriveFolderChildren(ctx context.Context, request *GetD
 	}
 
 	req := &RawRequestReq{
-		Scope:        "Drive",
-		API:          "GetDriveFolderChildren",
-		Method:       "GET",
-		URL:          "https://open.feishu.cn/open-apis/drive/explorer/v2/folder/:folderToken/children",
-		Body:         request,
-		MethodOption: newMethodOption(options),
-
+		Scope:               "Drive",
+		API:                 "GetDriveFolderChildren",
+		Method:              "GET",
+		URL:                 "https://open.feishu.cn/open-apis/drive/explorer/v2/folder/:folderToken/children",
+		Body:                request,
+		MethodOption:        newMethodOption(options),
 		NeedUserAccessToken: true,
 	}
 	resp := new(getDriveFolderChildrenResp)

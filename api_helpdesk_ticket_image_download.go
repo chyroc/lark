@@ -24,8 +24,7 @@ func (r *HelpdeskService) DownloadTicketImage(ctx context.Context, request *Down
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
-
-		NeedHelpdeskAuth: true,
+		NeedHelpdeskAuth:      true,
 	}
 	resp := new(downloadTicketImageResp)
 

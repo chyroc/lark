@@ -23,8 +23,7 @@ func (r *HelpdeskService) StartService(ctx context.Context, request *StartServic
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
-
-		NeedHelpdeskAuth: true,
+		NeedHelpdeskAuth:      true,
 	}
 	resp := new(startServiceResp)
 

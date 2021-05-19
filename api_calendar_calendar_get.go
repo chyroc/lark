@@ -27,8 +27,7 @@ func (r *CalendarService) GetCalendar(ctx context.Context, request *GetCalendarR
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
-
-		NeedUserAccessToken: true,
+		NeedUserAccessToken:   true,
 	}
 	resp := new(getCalendarResp)
 

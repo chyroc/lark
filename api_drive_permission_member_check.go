@@ -23,8 +23,7 @@ func (r *DriveService) CheckDriveMemberPermission(ctx context.Context, request *
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
-
-		NeedUserAccessToken: true,
+		NeedUserAccessToken:   true,
 	}
 	resp := new(checkDriveMemberPermissionResp)
 

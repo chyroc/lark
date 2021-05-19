@@ -16,13 +16,12 @@ func (r *HelpdeskService) DeleteTicketCustomizedField(ctx context.Context, reque
 	}
 
 	req := &RawRequestReq{
-		Scope:        "Helpdesk",
-		API:          "DeleteTicketCustomizedField",
-		Method:       "DELETE",
-		URL:          "https://open.feishu.cn/open-apis/helpdesk/v1/ticket_customized_fields/:ticket_customized_field_id",
-		Body:         request,
-		MethodOption: newMethodOption(options),
-
+		Scope:               "Helpdesk",
+		API:                 "DeleteTicketCustomizedField",
+		Method:              "DELETE",
+		URL:                 "https://open.feishu.cn/open-apis/helpdesk/v1/ticket_customized_fields/:ticket_customized_field_id",
+		Body:                request,
+		MethodOption:        newMethodOption(options),
 		NeedUserAccessToken: true,
 		NeedHelpdeskAuth:    true,
 	}

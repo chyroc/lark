@@ -23,8 +23,7 @@ func (r *DriveService) UpdateDriveCommentPatch(ctx context.Context, request *Upd
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
-
-		NeedUserAccessToken: true,
+		NeedUserAccessToken:   true,
 	}
 	resp := new(updateDriveCommentPatchResp)
 

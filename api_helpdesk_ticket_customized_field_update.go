@@ -18,13 +18,12 @@ func (r *HelpdeskService) UpdateTicketCustomizedField(ctx context.Context, reque
 	}
 
 	req := &RawRequestReq{
-		Scope:        "Helpdesk",
-		API:          "UpdateTicketCustomizedField",
-		Method:       "PATCH",
-		URL:          "https://open.feishu.cn/open-apis/helpdesk/v1/ticket_customized_fields/:ticket_customized_field_id",
-		Body:         request,
-		MethodOption: newMethodOption(options),
-
+		Scope:               "Helpdesk",
+		API:                 "UpdateTicketCustomizedField",
+		Method:              "PATCH",
+		URL:                 "https://open.feishu.cn/open-apis/helpdesk/v1/ticket_customized_fields/:ticket_customized_field_id",
+		Body:                request,
+		MethodOption:        newMethodOption(options),
 		NeedUserAccessToken: true,
 		NeedHelpdeskAuth:    true,
 	}

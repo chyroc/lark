@@ -27,8 +27,7 @@ func (r *CalendarService) DeleteCalendarACL(ctx context.Context, request *Delete
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
-
-		NeedUserAccessToken: true,
+		NeedUserAccessToken:   true,
 	}
 	resp := new(deleteCalendarACLResp)
 
