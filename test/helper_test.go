@@ -79,7 +79,7 @@ func Test_Helper(t *testing.T) {
 	as := assert.New(t)
 
 	t.Run("GetErrorCode", func(t *testing.T) {
-		as.Equal(-1, lark.GetErrorCode(fmt.Errorf("x")))
+		as.Equal(int64(-1), lark.GetErrorCode(fmt.Errorf("x")))
 	})
 
 	t.Run("UnwrapMessageContent", func(t *testing.T) {
