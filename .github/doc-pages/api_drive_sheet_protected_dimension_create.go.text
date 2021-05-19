@@ -1,0 +1,177 @@
+# 增加保护范围
+
+
+该接口用于根据 spreadsheetToken 和维度信息增加多个保护范围；单次操作不超过5000行或列。{尝试一下}(url=/api/tools/api_explore/api_explore_config?project=sheets&version=v2&resource=spreadsheets&method=protected_range_batch_create)
+
+
+## 请求
+:::html
+<md-table>
+  <md-thead>
+  <tr>
+      <md-th>基本</md-th>
+      <md-th></md-th>
+  </tr>
+  </md-thead>
+  <md-tbody>
+    <md-tr>
+      <md-th>HTTP URL</md-th>
+      <md-td>https://open.feishu.cn/open-apis/sheets/v2/spreadsheets/:spreadsheetToken/protected_dimension</md-td>
+    </md-tr>
+    <md-tr>
+      <md-th>HTTP Method</md-th>
+      <md-td>POST</md-td>
+    </md-tr>
+      	<md-tr>
+      <md-th>权限要求</md-th>
+      <md-td>
+        <md-perm href="/ssl:ttdoc/ukTMukTMukTM/uQjN3QjL0YzN04CN2cDN">查看、评论、编辑和管理云文档所有文件</md-perm>
+        <md-perm href="/ssl:ttdoc/ukTMukTMukTM/uQjN3QjL0YzN04CN2cDN">查看、评论、编辑和管理表格</md-perm></md-td>
+    </md-tr>
+  </md-tbody>
+</md-table>
+:::
+### 请求头
+:::html
+<md-table> 
+  <md-thead> 
+    <md-tr> 
+      <md-th style="width: 18%;">名称</md-th>  
+      <md-th style="width: 15%;">类型</md-th>  
+       <md-th style="width: 15%;">必填</md-th>  
+      <md-th>描述</md-th> 
+    </md-tr> 
+  </md-thead>  
+  <md-tbody> 
+    <md-tr> 
+      <md-td>Authorization</md-td>  
+      <md-td>string</md-td>  
+      <md-td> 是 </md-td> 
+      	<md-td>
+<md-tag mode="inline" type="token-user">user_access_token</md-tag> 或 <md-tag mode="inline" type="token-tenant">tenant_access_token</md-tag>
+ 
+**值格式**："Bearer `access_token`"
+
+**示例值**："Bearer u-7f1bcd13fc57d46bac21793a18e560"
+          
+ [了解更多：获取与使用access_token](/ssl:ttdoc/ukTMukTMukTM/uMTNz4yM1MjLzUzM)
+	</md-td>
+</md-tr>
+     <md-tr> 
+      <md-td>Content-Type</md-td>  
+      <md-td>string</md-td>  
+      <md-td> 是 </md-td> 
+     <md-td>**固定值**："application/json; charset=utf-8"</md-td>
+</md-tr>
+   
+  </md-tbody> 
+</md-table>
+:::
+
+### 路径参数
+|参数|类型|必须|说明|
+|--|-----|--|----|
+|spreadsheetToken|string|是|spreadsheet 的 token，获取方式见 [对接前说明](/ssl:ttdoc/ukTMukTMukTM/uczNzUjL3czM14yN3MTN) 的第 4 项| 
+
+### 请求体
+|参数|类型|必须|说明|
+|--|-----|--|----|
+|addProtectedDimension||是|需要增加保护范围的维度信息，可多个范围| 
+|&emsp;∟dimension||是|需要保护行列的维度信息| 
+|&emsp;&emsp;∟sheetId|string|是|sheetId| 
+|&emsp;&emsp;∟majorDimension|string|否|默认 ROWS ，可选 ROWS、COLUMNS| 
+|&emsp;&emsp;∟startIndex|int|是|开始的位置|
+|&emsp;&emsp;∟endIndex|int|是|结束的位置| 
+|&emsp;∟editors|array<int>|否|允许编辑保护范围的用户的 userID| 
+|&emsp;∟lockInfo|string|否|保护范围的信息|
+
+### 请求体示例
+
+```json
+{
+    "addProtectedDimension":[
+        {
+            "dimension":{
+                "sheetId":"string",
+                "majorDimension":"COLUMNS",
+                "startIndex":10,
+                "endIndex":13
+            },
+            "editors":[
+                6673389xxxx3723404
+            ],
+            "lockInfo":"你能编辑"
+        }
+    ]
+}
+```
+  
+###  cURL 请求示例
+```
+curl --location --request POST 'https://open.feishu.cn/open-apis/sheets/v2/spreadsheets/shtcngNygNfuqhxTBf588jwgWbJ/protected_dimension' \
+--header 'Authorization: Bearer t-e346617a4acfc3a11d4ed24dca0d0c0fc8e0067e' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "addProtectedDimension":[
+        {
+            "dimension":{
+                "sheetId":"Q7PlXT",
+                "majorDimension":"COLUMNS",
+                "startIndex":10,
+                "endIndex":13
+            },
+            "editors":[
+              667338922291111404
+            ],
+            "lockInfo":"你能编辑"
+        }
+    ]
+}'
+```
+  
+ ## 响应
+
+### 响应体
+  
+|参数|类型|说明|
+|--|-----|--|
+|addProtectedDimension|array<interface>|需要增加保护范围的维度信息，可多个范围| 
+|&emsp;∟dimension||需要保护行列的维度信息| 
+|&emsp;&emsp;∟sheetId|string|sheetId| 
+|&emsp;&emsp;∟majorDimension|string|默认 ROWS ，可选 ROWS、COLUMNS| 
+|&emsp;&emsp;∟startIndex|int|开始的位置|
+|&emsp;&emsp;∟endIndex|int|结束的位置| 
+|&emsp;∟editors|array<int>|允许编辑保护范围的用户的 userID| 
+|&emsp;∟lockInfo|string|保护范围的信息|
+|&emsp;∟protectId|string|保护区域的唯一 uid ，可用做后续解除保护|
+  
+### 响应体示例  
+
+```json
+{
+    "code": 0,
+    "data": {
+        "addProtectedDimension": [
+            {
+                "dimension": {
+                    "endIndex": 0,
+                    "majorDimension": "COLUMNS",
+                    "sheetId": "***",
+                    "startIndex": 0
+                },
+                "editors": [
+                    0
+                ],
+                "lockInfo": "***",
+                "protectId": "***"
+            }
+        ]
+    },
+    "msg": "Success"
+}
+
+```  
+  
+### 错误码
+
+具体可参考：[云文档请求错误码列表](/ssl:ttdoc/ukTMukTMukTM/uIzM0UjLyMDN14iMzQTN)

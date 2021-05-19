@@ -481,6 +481,26 @@
         "file_name": "api_drive_sheet_value_append.go",
         "func_name": "AppendSheetValue",
         "doc_url": "https://open.feishu.cn/document/ukTMukTMukTM/uMjMzUjLzIzM14yMyMTN"
+      },
+      {
+        "file_name": "api_drive_sheet_protected_dimension_create.go",
+        "func_name": "CreateSheetProtectedDimension",
+        "doc_url": "https://open.feishu.cn/document/ukTMukTMukTM/ugDNzUjL4QzM14CO0MTN"
+      },
+      {
+        "file_name": "api_drive_sheet_protected_dimension_get.go",
+        "func_name": "GetSheetProtectedDimension",
+        "doc_url": "https://open.feishu.cn/document/ukTMukTMukTM/uQTM5YjL0ETO24CNxkjN"
+      },
+      {
+        "file_name": "api_drive_sheet_protected_dimension_update.go",
+        "func_name": "UpdateSheetProtectedDimension",
+        "doc_url": "https://open.feishu.cn/document/ukTMukTMukTM/uUTM5YjL1ETO24SNxkjN"
+      },
+      {
+        "file_name": "api_drive_sheet_protected_dimension_delete.go",
+        "func_name": "DeleteSheetProtectedDimension",
+        "doc_url": "https://open.feishu.cn/document/ukTMukTMukTM/uYTM5YjL2ETO24iNxkjN"
       }
     ]
   },
