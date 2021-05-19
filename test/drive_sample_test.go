@@ -142,6 +142,30 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.CreateSheetConditionFormat(ctx, &lark.CreateSheetConditionFormatReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.GetSheetConditionFormat(ctx, &lark.GetSheetConditionFormatReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.UpdateSheetConditionFormat(ctx, &lark.UpdateSheetConditionFormatReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.DeleteSheetConditionFormat(ctx, &lark.DeleteSheetConditionFormatReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "failed")
+		})
+
+		t.Run("", func(t *testing.T) {
 			_, _, err := moduleCli.CreateSheetProtectedDimension(ctx, &lark.CreateSheetProtectedDimensionReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "failed")
@@ -391,6 +415,50 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
+			cli.Mock().MockDriveCreateSheetConditionFormat(func(ctx context.Context, request *lark.CreateSheetConditionFormatReq, options ...lark.MethodOptionFunc) (*lark.CreateSheetConditionFormatResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockDriveCreateSheetConditionFormat()
+
+			_, _, err := moduleCli.CreateSheetConditionFormat(ctx, &lark.CreateSheetConditionFormatReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+			cli.Mock().MockDriveGetSheetConditionFormat(func(ctx context.Context, request *lark.GetSheetConditionFormatReq, options ...lark.MethodOptionFunc) (*lark.GetSheetConditionFormatResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockDriveGetSheetConditionFormat()
+
+			_, _, err := moduleCli.GetSheetConditionFormat(ctx, &lark.GetSheetConditionFormatReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+			cli.Mock().MockDriveUpdateSheetConditionFormat(func(ctx context.Context, request *lark.UpdateSheetConditionFormatReq, options ...lark.MethodOptionFunc) (*lark.UpdateSheetConditionFormatResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockDriveUpdateSheetConditionFormat()
+
+			_, _, err := moduleCli.UpdateSheetConditionFormat(ctx, &lark.UpdateSheetConditionFormatReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+			cli.Mock().MockDriveDeleteSheetConditionFormat(func(ctx context.Context, request *lark.DeleteSheetConditionFormatReq, options ...lark.MethodOptionFunc) (*lark.DeleteSheetConditionFormatResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockDriveDeleteSheetConditionFormat()
+
+			_, _, err := moduleCli.DeleteSheetConditionFormat(ctx, &lark.DeleteSheetConditionFormatReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
 			cli.Mock().MockDriveCreateSheetProtectedDimension(func(ctx context.Context, request *lark.CreateSheetProtectedDimensionReq, options ...lark.MethodOptionFunc) (*lark.CreateSheetProtectedDimensionResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -577,6 +645,38 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 			_, _, err := moduleCli.AppendSheetValue(ctx, &lark.AppendSheetValueReq{
+				SpreadsheetToken: "x",
+			})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.CreateSheetConditionFormat(ctx, &lark.CreateSheetConditionFormatReq{
+				SpreadsheetToken: "x",
+			})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.GetSheetConditionFormat(ctx, &lark.GetSheetConditionFormatReq{
+				SpreadsheetToken: "x",
+			})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.UpdateSheetConditionFormat(ctx, &lark.UpdateSheetConditionFormatReq{
+				SpreadsheetToken: "x",
+			})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.DeleteSheetConditionFormat(ctx, &lark.DeleteSheetConditionFormatReq{
 				SpreadsheetToken: "x",
 			})
 			as.NotNil(err)

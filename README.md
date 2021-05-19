@@ -31,7 +31,7 @@ https://godoc.org/github.com/chyroc/lark
 
 ## Support APIs
 
-API Count: 245, Event Count: 28
+API Count: 249, Event Count: 28
 
 <details>
   <summary>
@@ -135,6 +135,10 @@ API Count: 245, Event Count: 28
   - ImportSheet
   - PrependSheetValue
   - AppendSheetValue
+  - CreateSheetConditionFormat
+  - GetSheetConditionFormat
+  - UpdateSheetConditionFormat
+  - DeleteSheetConditionFormat
   - CreateSheetProtectedDimension
   - GetSheetProtectedDimension
   - UpdateSheetProtectedDimension

@@ -483,6 +483,26 @@
         "doc_url": "https://open.feishu.cn/document/ukTMukTMukTM/uMjMzUjLzIzM14yMyMTN"
       },
       {
+        "file_name": "api_drive_sheet_condition_format_create.go",
+        "func_name": "CreateSheetConditionFormat",
+        "doc_url": "https://open.feishu.cn/document/ukTMukTMukTM/uATMzUjLwEzM14CMxMTN/conditionformat/condition-format-set"
+      },
+      {
+        "file_name": "api_drive_sheet_condition_format_get.go",
+        "func_name": "GetSheetConditionFormat",
+        "doc_url": "https://open.feishu.cn/document/ukTMukTMukTM/uATMzUjLwEzM14CMxMTN/conditionformat/condition-format-get"
+      },
+      {
+        "file_name": "api_drive_sheet_condition_format_update.go",
+        "func_name": "UpdateSheetConditionFormat",
+        "doc_url": "https://open.feishu.cn/document/ukTMukTMukTM/uATMzUjLwEzM14CMxMTN/conditionformat/condition-format-update"
+      },
+      {
+        "file_name": "api_drive_sheet_condition_format_delete.go",
+        "func_name": "DeleteSheetConditionFormat",
+        "doc_url": "https://open.feishu.cn/document/ukTMukTMukTM/uATMzUjLwEzM14CMxMTN/conditionformat/condition-format-delete"
+      },
+      {
         "file_name": "api_drive_sheet_protected_dimension_create.go",
         "func_name": "CreateSheetProtectedDimension",
         "doc_url": "https://open.feishu.cn/document/ukTMukTMukTM/ugDNzUjL4QzM14CO0MTN"
