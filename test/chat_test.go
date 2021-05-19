@@ -33,7 +33,7 @@ func Test_CreateChat(t *testing.T) {
 		}
 
 		{
-			resp, _, err := cli.Chat.AddMember(ctx, &lark.AddMemberReq{
+			resp, _, err := cli.Chat.AddChatMember(ctx, &lark.AddChatMemberReq{
 				MemberIDType: lark.IDTypePtr(lark.IDTypeUserID),
 				ChatID:       chatID,
 				IDList:       []string{UserAdmin.UserID},
@@ -43,7 +43,7 @@ func Test_CreateChat(t *testing.T) {
 		}
 
 		{
-			resp, _, err := cli.Chat.GetMemberList(ctx, &lark.GetMemberListReq{
+			resp, _, err := cli.Chat.GetChatMemberList(ctx, &lark.GetChatMemberListReq{
 				MemberIDType: lark.IDTypePtr(lark.IDTypeUserID),
 				ChatID:       chatID,
 			})
@@ -54,7 +54,7 @@ func Test_CreateChat(t *testing.T) {
 		}
 
 		{
-			resp, _, err := cli.Chat.DeleteMember(ctx, &lark.DeleteMemberReq{
+			resp, _, err := cli.Chat.DeleteChatMember(ctx, &lark.DeleteChatMemberReq{
 				MemberIDType: lark.IDTypePtr(lark.IDTypeUserID),
 				ChatID:       chatID,
 				IDList:       []string{UserAdmin.UserID},
@@ -154,7 +154,7 @@ func Test_ChatAnnouncement(t *testing.T) {
 	as := assert.New(t)
 
 	t.Run("GetAnnouncement, all-permission", func(t *testing.T) {
-		resp, _, err := AppALLPermission.Ins().Chat.GetAnnouncement(ctx, &lark.GetAnnouncementReq{
+		resp, _, err := AppALLPermission.Ins().Chat.GetChatAnnouncement(ctx, &lark.GetChatAnnouncementReq{
 			ChatID: ChatContainALLPermissionApp.ChatID,
 		})
 		printData(resp, err)
