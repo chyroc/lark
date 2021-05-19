@@ -19,6 +19,10 @@
 - 支持 UserAccessToken
 - 使用代码生成创建，接口和文档更新及时
 
+## 讨论
+
+⁣点击 [飞书群聊](https://applink.feishu.cn/client/chat/chatter/add_by_link?link_token=985n4cf0-70d7-444c-909f-98885892c233) 一起讨论。
+
 ## 安装
 
 ```shell
