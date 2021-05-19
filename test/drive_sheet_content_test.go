@@ -48,6 +48,11 @@ func Test_SheetContent(t *testing.T) {
 	}
 	bs, err := json.Marshal(content)
 	as.Nil(err)
-	need := `[["text",123.456,{"link":"https://github.com/","text":"text","type":"url"},"a@b.com",{"grantReadPermission":true,"notify":false,"text":"a@b.com","text_type":"email","type":"mention"}],[{"text":"=A1","type":"formula"},{"objType":"doc","text":"doc-token","textType":"fileToken","type":"mention"},{"type":"multipleValue","values":["1",123]}]]`
-	as.Equal(need, string(bs))
+	as.Contains(string(bs), `"text"`)
+	as.Contains(string(bs), `123.456`)
+	as.Contains(string(bs), `"link":"https://github.com/"`)
+	as.Contains(string(bs), `"a@b.com"`)
+	as.Contains(string(bs), `"grantReadPermission":true`)
+	as.Contains(string(bs), `"text":"=A1"`)
+	as.Contains(string(bs), `"values":["1",123]`)
 }

@@ -26,6 +26,14 @@ func Test_CardContent(t *testing.T) {
 	}
 	bs, err := action.MarshalJSON()
 	as.Nil(err)
-	need := `{"actions":[{"tag":"button","text":{"tag":"lark_md","content":"click-me","lines":1},"type":"default","url":"https://www.baidu.com"}],"layout":"bisected","tag":"action"}`
-	as.Equal(need, string(bs))
+	s := string(bs)
+	as.Contains(s, `{"actions":[{`)
+	as.Contains(s, `"tag":"button"`)
+	as.Contains(s, `"text":{`)
+	as.Contains(s, `"tag":"lark_md"`)
+	as.Contains(s, `"content":"click-me"`)
+	as.Contains(s, `"lines":1`)
+	as.Contains(s, `"type":"default"`)
+	as.Contains(s, `"url":"https://www.baidu.com"`)
+	as.Contains(s, `"tag":"action"`)
 }
