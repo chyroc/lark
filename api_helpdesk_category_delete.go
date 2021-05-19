@@ -15,10 +15,9 @@ func (r *HelpdeskService) DeleteCategory(ctx context.Context, request *DeleteCat
 		return r.cli.mock.mockHelpdeskDeleteCategory(ctx, request, options...)
 	}
 
-	r.cli.log(ctx, LogLevelInfo, "[lark] Helpdesk#DeleteCategory call api")
-	r.cli.log(ctx, LogLevelDebug, "[lark] Helpdesk#DeleteCategory request: %s", jsonString(request))
-
 	req := &RawRequestReq{
+		Scope:        "Helpdesk",
+		API:          "DeleteCategory",
 		Method:       "DELETE",
 		URL:          "https://open.feishu.cn/open-apis/helpdesk/v1/categories/:id",
 		Body:         request,
@@ -30,18 +29,7 @@ func (r *HelpdeskService) DeleteCategory(ctx context.Context, request *DeleteCat
 	resp := new(deleteCategoryResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
-	requestID, statusCode := getResponseRequestID(response)
-	if err != nil {
-		r.cli.log(ctx, LogLevelError, "[lark] Helpdesk#DeleteCategory DELETE https://open.feishu.cn/open-apis/helpdesk/v1/categories/:id failed, request_id: %s, status_code: %d, error: %s", requestID, statusCode, err)
-		return nil, response, err
-	} else if resp.Code != 0 {
-		r.cli.log(ctx, LogLevelError, "[lark] Helpdesk#DeleteCategory DELETE https://open.feishu.cn/open-apis/helpdesk/v1/categories/:id failed, request_id: %s, status_code: %d, code: %d, msg: %s", requestID, statusCode, resp.Code, resp.Msg)
-		return nil, response, NewError("Helpdesk", "DeleteCategory", resp.Code, resp.Msg)
-	}
-
-	r.cli.log(ctx, LogLevelDebug, "[lark] Helpdesk#DeleteCategory success, request_id: %s, status_code: %d, response: %s", requestID, statusCode, jsonString(resp.Data))
-
-	return resp.Data, response, nil
+	return resp.Data, response, err
 }
 
 func (r *Mock) MockHelpdeskDeleteCategory(f func(ctx context.Context, request *DeleteCategoryReq, options ...MethodOptionFunc) (*DeleteCategoryResp, *Response, error)) {

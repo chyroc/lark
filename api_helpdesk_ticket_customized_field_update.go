@@ -17,10 +17,9 @@ func (r *HelpdeskService) UpdateTicketCustomizedField(ctx context.Context, reque
 		return r.cli.mock.mockHelpdeskUpdateTicketCustomizedField(ctx, request, options...)
 	}
 
-	r.cli.log(ctx, LogLevelInfo, "[lark] Helpdesk#UpdateTicketCustomizedField call api")
-	r.cli.log(ctx, LogLevelDebug, "[lark] Helpdesk#UpdateTicketCustomizedField request: %s", jsonString(request))
-
 	req := &RawRequestReq{
+		Scope:        "Helpdesk",
+		API:          "UpdateTicketCustomizedField",
 		Method:       "PATCH",
 		URL:          "https://open.feishu.cn/open-apis/helpdesk/v1/ticket_customized_fields/:ticket_customized_field_id",
 		Body:         request,
@@ -32,18 +31,7 @@ func (r *HelpdeskService) UpdateTicketCustomizedField(ctx context.Context, reque
 	resp := new(updateTicketCustomizedFieldResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
-	requestID, statusCode := getResponseRequestID(response)
-	if err != nil {
-		r.cli.log(ctx, LogLevelError, "[lark] Helpdesk#UpdateTicketCustomizedField PATCH https://open.feishu.cn/open-apis/helpdesk/v1/ticket_customized_fields/:ticket_customized_field_id failed, request_id: %s, status_code: %d, error: %s", requestID, statusCode, err)
-		return nil, response, err
-	} else if resp.Code != 0 {
-		r.cli.log(ctx, LogLevelError, "[lark] Helpdesk#UpdateTicketCustomizedField PATCH https://open.feishu.cn/open-apis/helpdesk/v1/ticket_customized_fields/:ticket_customized_field_id failed, request_id: %s, status_code: %d, code: %d, msg: %s", requestID, statusCode, resp.Code, resp.Msg)
-		return nil, response, NewError("Helpdesk", "UpdateTicketCustomizedField", resp.Code, resp.Msg)
-	}
-
-	r.cli.log(ctx, LogLevelDebug, "[lark] Helpdesk#UpdateTicketCustomizedField success, request_id: %s, status_code: %d, response: %s", requestID, statusCode, jsonString(resp.Data))
-
-	return resp.Data, response, nil
+	return resp.Data, response, err
 }
 
 func (r *Mock) MockHelpdeskUpdateTicketCustomizedField(f func(ctx context.Context, request *UpdateTicketCustomizedFieldReq, options ...MethodOptionFunc) (*UpdateTicketCustomizedFieldResp, *Response, error)) {

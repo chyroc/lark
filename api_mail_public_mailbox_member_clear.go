@@ -15,10 +15,9 @@ func (r *MailService) ClearPublicMailboxMember(ctx context.Context, request *Cle
 		return r.cli.mock.mockMailClearPublicMailboxMember(ctx, request, options...)
 	}
 
-	r.cli.log(ctx, LogLevelInfo, "[lark] Mail#ClearPublicMailboxMember call api")
-	r.cli.log(ctx, LogLevelDebug, "[lark] Mail#ClearPublicMailboxMember request: %s", jsonString(request))
-
 	req := &RawRequestReq{
+		Scope:                 "Mail",
+		API:                   "ClearPublicMailboxMember",
 		Method:                "POST",
 		URL:                   "https://open.feishu.cn/open-apis/mail/v1/public_mailboxes/:public_mailbox_id/members/clear",
 		Body:                  request,
@@ -28,18 +27,7 @@ func (r *MailService) ClearPublicMailboxMember(ctx context.Context, request *Cle
 	resp := new(clearPublicMailboxMemberResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
-	requestID, statusCode := getResponseRequestID(response)
-	if err != nil {
-		r.cli.log(ctx, LogLevelError, "[lark] Mail#ClearPublicMailboxMember POST https://open.feishu.cn/open-apis/mail/v1/public_mailboxes/:public_mailbox_id/members/clear failed, request_id: %s, status_code: %d, error: %s", requestID, statusCode, err)
-		return nil, response, err
-	} else if resp.Code != 0 {
-		r.cli.log(ctx, LogLevelError, "[lark] Mail#ClearPublicMailboxMember POST https://open.feishu.cn/open-apis/mail/v1/public_mailboxes/:public_mailbox_id/members/clear failed, request_id: %s, status_code: %d, code: %d, msg: %s", requestID, statusCode, resp.Code, resp.Msg)
-		return nil, response, NewError("Mail", "ClearPublicMailboxMember", resp.Code, resp.Msg)
-	}
-
-	r.cli.log(ctx, LogLevelDebug, "[lark] Mail#ClearPublicMailboxMember success, request_id: %s, status_code: %d, response: %s", requestID, statusCode, jsonString(resp.Data))
-
-	return resp.Data, response, nil
+	return resp.Data, response, err
 }
 
 func (r *Mock) MockMailClearPublicMailboxMember(f func(ctx context.Context, request *ClearPublicMailboxMemberReq, options ...MethodOptionFunc) (*ClearPublicMailboxMemberResp, *Response, error)) {

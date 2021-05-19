@@ -15,10 +15,9 @@ func (r *DriveService) AppendSheetValue(ctx context.Context, request *AppendShee
 		return r.cli.mock.mockDriveAppendSheetValue(ctx, request, options...)
 	}
 
-	r.cli.log(ctx, LogLevelInfo, "[lark] Drive#AppendSheetValue call api")
-	r.cli.log(ctx, LogLevelDebug, "[lark] Drive#AppendSheetValue request: %s", jsonString(request))
-
 	req := &RawRequestReq{
+		Scope:                 "Drive",
+		API:                   "AppendSheetValue",
 		Method:                "POST",
 		URL:                   "https://open.feishu.cn/open-apis/sheets/v2/spreadsheets/:spreadsheetToken/values_append",
 		Body:                  request,
@@ -30,18 +29,7 @@ func (r *DriveService) AppendSheetValue(ctx context.Context, request *AppendShee
 	resp := new(appendSheetValueResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
-	requestID, statusCode := getResponseRequestID(response)
-	if err != nil {
-		r.cli.log(ctx, LogLevelError, "[lark] Drive#AppendSheetValue POST https://open.feishu.cn/open-apis/sheets/v2/spreadsheets/:spreadsheetToken/values_append failed, request_id: %s, status_code: %d, error: %s", requestID, statusCode, err)
-		return nil, response, err
-	} else if resp.Code != 0 {
-		r.cli.log(ctx, LogLevelError, "[lark] Drive#AppendSheetValue POST https://open.feishu.cn/open-apis/sheets/v2/spreadsheets/:spreadsheetToken/values_append failed, request_id: %s, status_code: %d, code: %d, msg: %s", requestID, statusCode, resp.Code, resp.Msg)
-		return nil, response, NewError("Drive", "AppendSheetValue", resp.Code, resp.Msg)
-	}
-
-	r.cli.log(ctx, LogLevelDebug, "[lark] Drive#AppendSheetValue success, request_id: %s, status_code: %d, response: %s", requestID, statusCode, jsonString(resp.Data))
-
-	return resp.Data, response, nil
+	return resp.Data, response, err
 }
 
 func (r *Mock) MockDriveAppendSheetValue(f func(ctx context.Context, request *AppendSheetValueReq, options ...MethodOptionFunc) (*AppendSheetValueResp, *Response, error)) {

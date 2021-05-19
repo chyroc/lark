@@ -21,10 +21,9 @@ func (r *CalendarService) UpdateCalendarEvent(ctx context.Context, request *Upda
 		return r.cli.mock.mockCalendarUpdateCalendarEvent(ctx, request, options...)
 	}
 
-	r.cli.log(ctx, LogLevelInfo, "[lark] Calendar#UpdateCalendarEvent call api")
-	r.cli.log(ctx, LogLevelDebug, "[lark] Calendar#UpdateCalendarEvent request: %s", jsonString(request))
-
 	req := &RawRequestReq{
+		Scope:                 "Calendar",
+		API:                   "UpdateCalendarEvent",
 		Method:                "PATCH",
 		URL:                   "https://open.feishu.cn/open-apis/calendar/v4/calendars/:calendar_id/events/:event_id",
 		Body:                  request,
@@ -36,18 +35,7 @@ func (r *CalendarService) UpdateCalendarEvent(ctx context.Context, request *Upda
 	resp := new(updateCalendarEventResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
-	requestID, statusCode := getResponseRequestID(response)
-	if err != nil {
-		r.cli.log(ctx, LogLevelError, "[lark] Calendar#UpdateCalendarEvent PATCH https://open.feishu.cn/open-apis/calendar/v4/calendars/:calendar_id/events/:event_id failed, request_id: %s, status_code: %d, error: %s", requestID, statusCode, err)
-		return nil, response, err
-	} else if resp.Code != 0 {
-		r.cli.log(ctx, LogLevelError, "[lark] Calendar#UpdateCalendarEvent PATCH https://open.feishu.cn/open-apis/calendar/v4/calendars/:calendar_id/events/:event_id failed, request_id: %s, status_code: %d, code: %d, msg: %s", requestID, statusCode, resp.Code, resp.Msg)
-		return nil, response, NewError("Calendar", "UpdateCalendarEvent", resp.Code, resp.Msg)
-	}
-
-	r.cli.log(ctx, LogLevelDebug, "[lark] Calendar#UpdateCalendarEvent success, request_id: %s, status_code: %d, response: %s", requestID, statusCode, jsonString(resp.Data))
-
-	return resp.Data, response, nil
+	return resp.Data, response, err
 }
 
 func (r *Mock) MockCalendarUpdateCalendarEvent(f func(ctx context.Context, request *UpdateCalendarEventReq, options ...MethodOptionFunc) (*UpdateCalendarEventResp, *Response, error)) {

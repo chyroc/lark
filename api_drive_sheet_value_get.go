@@ -17,10 +17,9 @@ func (r *DriveService) GetSheetValue(ctx context.Context, request *GetSheetValue
 		return r.cli.mock.mockDriveGetSheetValue(ctx, request, options...)
 	}
 
-	r.cli.log(ctx, LogLevelInfo, "[lark] Drive#GetSheetValue call api")
-	r.cli.log(ctx, LogLevelDebug, "[lark] Drive#GetSheetValue request: %s", jsonString(request))
-
 	req := &RawRequestReq{
+		Scope:                 "Drive",
+		API:                   "GetSheetValue",
 		Method:                "GET",
 		URL:                   "https://open.feishu.cn/open-apis/sheets/v2/spreadsheets/:spreadsheetToken/values/:range",
 		Body:                  request,
@@ -32,18 +31,7 @@ func (r *DriveService) GetSheetValue(ctx context.Context, request *GetSheetValue
 	resp := new(getSheetValueResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
-	requestID, statusCode := getResponseRequestID(response)
-	if err != nil {
-		r.cli.log(ctx, LogLevelError, "[lark] Drive#GetSheetValue GET https://open.feishu.cn/open-apis/sheets/v2/spreadsheets/:spreadsheetToken/values/:range failed, request_id: %s, status_code: %d, error: %s", requestID, statusCode, err)
-		return nil, response, err
-	} else if resp.Code != 0 {
-		r.cli.log(ctx, LogLevelError, "[lark] Drive#GetSheetValue GET https://open.feishu.cn/open-apis/sheets/v2/spreadsheets/:spreadsheetToken/values/:range failed, request_id: %s, status_code: %d, code: %d, msg: %s", requestID, statusCode, resp.Code, resp.Msg)
-		return nil, response, NewError("Drive", "GetSheetValue", resp.Code, resp.Msg)
-	}
-
-	r.cli.log(ctx, LogLevelDebug, "[lark] Drive#GetSheetValue success, request_id: %s, status_code: %d, response: %s", requestID, statusCode, jsonString(resp.Data))
-
-	return resp.Data, response, nil
+	return resp.Data, response, err
 }
 
 func (r *Mock) MockDriveGetSheetValue(f func(ctx context.Context, request *GetSheetValueReq, options ...MethodOptionFunc) (*GetSheetValueResp, *Response, error)) {

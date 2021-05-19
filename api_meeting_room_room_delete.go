@@ -15,10 +15,9 @@ func (r *MeetingRoomService) DeleteRoom(ctx context.Context, request *DeleteRoom
 		return r.cli.mock.mockMeetingRoomDeleteRoom(ctx, request, options...)
 	}
 
-	r.cli.log(ctx, LogLevelInfo, "[lark] MeetingRoom#DeleteRoom call api")
-	r.cli.log(ctx, LogLevelDebug, "[lark] MeetingRoom#DeleteRoom request: %s", jsonString(request))
-
 	req := &RawRequestReq{
+		Scope:                 "MeetingRoom",
+		API:                   "DeleteRoom",
 		Method:                "POST",
 		URL:                   "https://open.feishu.cn/open-apis/meeting_room/room/delete",
 		Body:                  request,
@@ -28,18 +27,7 @@ func (r *MeetingRoomService) DeleteRoom(ctx context.Context, request *DeleteRoom
 	resp := new(deleteRoomResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
-	requestID, statusCode := getResponseRequestID(response)
-	if err != nil {
-		r.cli.log(ctx, LogLevelError, "[lark] MeetingRoom#DeleteRoom POST https://open.feishu.cn/open-apis/meeting_room/room/delete failed, request_id: %s, status_code: %d, error: %s", requestID, statusCode, err)
-		return nil, response, err
-	} else if resp.Code != 0 {
-		r.cli.log(ctx, LogLevelError, "[lark] MeetingRoom#DeleteRoom POST https://open.feishu.cn/open-apis/meeting_room/room/delete failed, request_id: %s, status_code: %d, code: %d, msg: %s", requestID, statusCode, resp.Code, resp.Msg)
-		return nil, response, NewError("MeetingRoom", "DeleteRoom", resp.Code, resp.Msg)
-	}
-
-	r.cli.log(ctx, LogLevelDebug, "[lark] MeetingRoom#DeleteRoom success, request_id: %s, status_code: %d, response: %s", requestID, statusCode, jsonString(resp.Data))
-
-	return resp.Data, response, nil
+	return resp.Data, response, err
 }
 
 func (r *Mock) MockMeetingRoomDeleteRoom(f func(ctx context.Context, request *DeleteRoomReq, options ...MethodOptionFunc) (*DeleteRoomResp, *Response, error)) {

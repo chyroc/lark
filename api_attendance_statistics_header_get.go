@@ -15,10 +15,9 @@ func (r *AttendanceService) GetStatisticsHeader(ctx context.Context, request *Ge
 		return r.cli.mock.mockAttendanceGetStatisticsHeader(ctx, request, options...)
 	}
 
-	r.cli.log(ctx, LogLevelInfo, "[lark] Attendance#GetStatisticsHeader call api")
-	r.cli.log(ctx, LogLevelDebug, "[lark] Attendance#GetStatisticsHeader request: %s", jsonString(request))
-
 	req := &RawRequestReq{
+		Scope:                 "Attendance",
+		API:                   "GetStatisticsHeader",
 		Method:                "POST",
 		URL:                   "https://open.feishu.cn/open-apis/attendance/v1/user_stats_fields/query",
 		Body:                  request,
@@ -28,18 +27,7 @@ func (r *AttendanceService) GetStatisticsHeader(ctx context.Context, request *Ge
 	resp := new(getStatisticsHeaderResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
-	requestID, statusCode := getResponseRequestID(response)
-	if err != nil {
-		r.cli.log(ctx, LogLevelError, "[lark] Attendance#GetStatisticsHeader POST https://open.feishu.cn/open-apis/attendance/v1/user_stats_fields/query failed, request_id: %s, status_code: %d, error: %s", requestID, statusCode, err)
-		return nil, response, err
-	} else if resp.Code != 0 {
-		r.cli.log(ctx, LogLevelError, "[lark] Attendance#GetStatisticsHeader POST https://open.feishu.cn/open-apis/attendance/v1/user_stats_fields/query failed, request_id: %s, status_code: %d, code: %d, msg: %s", requestID, statusCode, resp.Code, resp.Msg)
-		return nil, response, NewError("Attendance", "GetStatisticsHeader", resp.Code, resp.Msg)
-	}
-
-	r.cli.log(ctx, LogLevelDebug, "[lark] Attendance#GetStatisticsHeader success, request_id: %s, status_code: %d, response: %s", requestID, statusCode, jsonString(resp.Data))
-
-	return resp.Data, response, nil
+	return resp.Data, response, err
 }
 
 func (r *Mock) MockAttendanceGetStatisticsHeader(f func(ctx context.Context, request *GetStatisticsHeaderReq, options ...MethodOptionFunc) (*GetStatisticsHeaderResp, *Response, error)) {

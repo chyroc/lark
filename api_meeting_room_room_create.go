@@ -15,10 +15,9 @@ func (r *MeetingRoomService) CreateRoom(ctx context.Context, request *CreateRoom
 		return r.cli.mock.mockMeetingRoomCreateRoom(ctx, request, options...)
 	}
 
-	r.cli.log(ctx, LogLevelInfo, "[lark] MeetingRoom#CreateRoom call api")
-	r.cli.log(ctx, LogLevelDebug, "[lark] MeetingRoom#CreateRoom request: %s", jsonString(request))
-
 	req := &RawRequestReq{
+		Scope:                 "MeetingRoom",
+		API:                   "CreateRoom",
 		Method:                "POST",
 		URL:                   "https://open.feishu.cn/open-apis/meeting_room/room/create",
 		Body:                  request,
@@ -28,18 +27,7 @@ func (r *MeetingRoomService) CreateRoom(ctx context.Context, request *CreateRoom
 	resp := new(createRoomResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
-	requestID, statusCode := getResponseRequestID(response)
-	if err != nil {
-		r.cli.log(ctx, LogLevelError, "[lark] MeetingRoom#CreateRoom POST https://open.feishu.cn/open-apis/meeting_room/room/create failed, request_id: %s, status_code: %d, error: %s", requestID, statusCode, err)
-		return nil, response, err
-	} else if resp.Code != 0 {
-		r.cli.log(ctx, LogLevelError, "[lark] MeetingRoom#CreateRoom POST https://open.feishu.cn/open-apis/meeting_room/room/create failed, request_id: %s, status_code: %d, code: %d, msg: %s", requestID, statusCode, resp.Code, resp.Msg)
-		return nil, response, NewError("MeetingRoom", "CreateRoom", resp.Code, resp.Msg)
-	}
-
-	r.cli.log(ctx, LogLevelDebug, "[lark] MeetingRoom#CreateRoom success, request_id: %s, status_code: %d, response: %s", requestID, statusCode, jsonString(resp.Data))
-
-	return resp.Data, response, nil
+	return resp.Data, response, err
 }
 
 func (r *Mock) MockMeetingRoomCreateRoom(f func(ctx context.Context, request *CreateRoomReq, options ...MethodOptionFunc) (*CreateRoomResp, *Response, error)) {

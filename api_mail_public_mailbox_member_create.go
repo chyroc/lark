@@ -15,10 +15,9 @@ func (r *MailService) CreatePublicMailboxMember(ctx context.Context, request *Cr
 		return r.cli.mock.mockMailCreatePublicMailboxMember(ctx, request, options...)
 	}
 
-	r.cli.log(ctx, LogLevelInfo, "[lark] Mail#CreatePublicMailboxMember call api")
-	r.cli.log(ctx, LogLevelDebug, "[lark] Mail#CreatePublicMailboxMember request: %s", jsonString(request))
-
 	req := &RawRequestReq{
+		Scope:                 "Mail",
+		API:                   "CreatePublicMailboxMember",
 		Method:                "POST",
 		URL:                   "https://open.feishu.cn/open-apis/mail/v1/public_mailboxes/:public_mailbox_id/members",
 		Body:                  request,
@@ -28,18 +27,7 @@ func (r *MailService) CreatePublicMailboxMember(ctx context.Context, request *Cr
 	resp := new(createPublicMailboxMemberResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
-	requestID, statusCode := getResponseRequestID(response)
-	if err != nil {
-		r.cli.log(ctx, LogLevelError, "[lark] Mail#CreatePublicMailboxMember POST https://open.feishu.cn/open-apis/mail/v1/public_mailboxes/:public_mailbox_id/members failed, request_id: %s, status_code: %d, error: %s", requestID, statusCode, err)
-		return nil, response, err
-	} else if resp.Code != 0 {
-		r.cli.log(ctx, LogLevelError, "[lark] Mail#CreatePublicMailboxMember POST https://open.feishu.cn/open-apis/mail/v1/public_mailboxes/:public_mailbox_id/members failed, request_id: %s, status_code: %d, code: %d, msg: %s", requestID, statusCode, resp.Code, resp.Msg)
-		return nil, response, NewError("Mail", "CreatePublicMailboxMember", resp.Code, resp.Msg)
-	}
-
-	r.cli.log(ctx, LogLevelDebug, "[lark] Mail#CreatePublicMailboxMember success, request_id: %s, status_code: %d, response: %s", requestID, statusCode, jsonString(resp.Data))
-
-	return resp.Data, response, nil
+	return resp.Data, response, err
 }
 
 func (r *Mock) MockMailCreatePublicMailboxMember(f func(ctx context.Context, request *CreatePublicMailboxMemberReq, options ...MethodOptionFunc) (*CreatePublicMailboxMemberResp, *Response, error)) {

@@ -17,10 +17,9 @@ func (r *VCService) ApplyReserve(ctx context.Context, request *ApplyReserveReq, 
 		return r.cli.mock.mockVCApplyReserve(ctx, request, options...)
 	}
 
-	r.cli.log(ctx, LogLevelInfo, "[lark] VC#ApplyReserve call api")
-	r.cli.log(ctx, LogLevelDebug, "[lark] VC#ApplyReserve request: %s", jsonString(request))
-
 	req := &RawRequestReq{
+		Scope:        "VC",
+		API:          "ApplyReserve",
 		Method:       "POST",
 		URL:          "https://open.feishu.cn/open-apis/vc/v1/reserves/apply",
 		Body:         request,
@@ -31,18 +30,7 @@ func (r *VCService) ApplyReserve(ctx context.Context, request *ApplyReserveReq, 
 	resp := new(applyReserveResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
-	requestID, statusCode := getResponseRequestID(response)
-	if err != nil {
-		r.cli.log(ctx, LogLevelError, "[lark] VC#ApplyReserve POST https://open.feishu.cn/open-apis/vc/v1/reserves/apply failed, request_id: %s, status_code: %d, error: %s", requestID, statusCode, err)
-		return nil, response, err
-	} else if resp.Code != 0 {
-		r.cli.log(ctx, LogLevelError, "[lark] VC#ApplyReserve POST https://open.feishu.cn/open-apis/vc/v1/reserves/apply failed, request_id: %s, status_code: %d, code: %d, msg: %s", requestID, statusCode, resp.Code, resp.Msg)
-		return nil, response, NewError("VC", "ApplyReserve", resp.Code, resp.Msg)
-	}
-
-	r.cli.log(ctx, LogLevelDebug, "[lark] VC#ApplyReserve success, request_id: %s, status_code: %d, response: %s", requestID, statusCode, jsonString(resp.Data))
-
-	return resp.Data, response, nil
+	return resp.Data, response, err
 }
 
 func (r *Mock) MockVCApplyReserve(f func(ctx context.Context, request *ApplyReserveReq, options ...MethodOptionFunc) (*ApplyReserveResp, *Response, error)) {

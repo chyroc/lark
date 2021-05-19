@@ -18,10 +18,9 @@ func (r *AttendanceService) BatchCreateUserFlow(ctx context.Context, request *Ba
 		return r.cli.mock.mockAttendanceBatchCreateUserFlow(ctx, request, options...)
 	}
 
-	r.cli.log(ctx, LogLevelInfo, "[lark] Attendance#BatchCreateUserFlow call api")
-	r.cli.log(ctx, LogLevelDebug, "[lark] Attendance#BatchCreateUserFlow request: %s", jsonString(request))
-
 	req := &RawRequestReq{
+		Scope:                 "Attendance",
+		API:                   "BatchCreateUserFlow",
 		Method:                "POST",
 		URL:                   "https://open.feishu.cn/open-apis/attendance/v1/user_flows/batch_create",
 		Body:                  request,
@@ -31,18 +30,7 @@ func (r *AttendanceService) BatchCreateUserFlow(ctx context.Context, request *Ba
 	resp := new(batchCreateUserFlowResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
-	requestID, statusCode := getResponseRequestID(response)
-	if err != nil {
-		r.cli.log(ctx, LogLevelError, "[lark] Attendance#BatchCreateUserFlow POST https://open.feishu.cn/open-apis/attendance/v1/user_flows/batch_create failed, request_id: %s, status_code: %d, error: %s", requestID, statusCode, err)
-		return nil, response, err
-	} else if resp.Code != 0 {
-		r.cli.log(ctx, LogLevelError, "[lark] Attendance#BatchCreateUserFlow POST https://open.feishu.cn/open-apis/attendance/v1/user_flows/batch_create failed, request_id: %s, status_code: %d, code: %d, msg: %s", requestID, statusCode, resp.Code, resp.Msg)
-		return nil, response, NewError("Attendance", "BatchCreateUserFlow", resp.Code, resp.Msg)
-	}
-
-	r.cli.log(ctx, LogLevelDebug, "[lark] Attendance#BatchCreateUserFlow success, request_id: %s, status_code: %d, response: %s", requestID, statusCode, jsonString(resp.Data))
-
-	return resp.Data, response, nil
+	return resp.Data, response, err
 }
 
 func (r *Mock) MockAttendanceBatchCreateUserFlow(f func(ctx context.Context, request *BatchCreateUserFlowReq, options ...MethodOptionFunc) (*BatchCreateUserFlowResp, *Response, error)) {

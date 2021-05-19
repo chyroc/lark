@@ -15,10 +15,9 @@ func (r *CalendarService) GetCalendarFreeBusyList(ctx context.Context, request *
 		return r.cli.mock.mockCalendarGetCalendarFreeBusyList(ctx, request, options...)
 	}
 
-	r.cli.log(ctx, LogLevelInfo, "[lark] Calendar#GetCalendarFreeBusyList call api")
-	r.cli.log(ctx, LogLevelDebug, "[lark] Calendar#GetCalendarFreeBusyList request: %s", jsonString(request))
-
 	req := &RawRequestReq{
+		Scope:                 "Calendar",
+		API:                   "GetCalendarFreeBusyList",
 		Method:                "POST",
 		URL:                   "https://open.feishu.cn/open-apis/calendar/v4/freebusy/list",
 		Body:                  request,
@@ -28,18 +27,7 @@ func (r *CalendarService) GetCalendarFreeBusyList(ctx context.Context, request *
 	resp := new(getCalendarFreeBusyListResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
-	requestID, statusCode := getResponseRequestID(response)
-	if err != nil {
-		r.cli.log(ctx, LogLevelError, "[lark] Calendar#GetCalendarFreeBusyList POST https://open.feishu.cn/open-apis/calendar/v4/freebusy/list failed, request_id: %s, status_code: %d, error: %s", requestID, statusCode, err)
-		return nil, response, err
-	} else if resp.Code != 0 {
-		r.cli.log(ctx, LogLevelError, "[lark] Calendar#GetCalendarFreeBusyList POST https://open.feishu.cn/open-apis/calendar/v4/freebusy/list failed, request_id: %s, status_code: %d, code: %d, msg: %s", requestID, statusCode, resp.Code, resp.Msg)
-		return nil, response, NewError("Calendar", "GetCalendarFreeBusyList", resp.Code, resp.Msg)
-	}
-
-	r.cli.log(ctx, LogLevelDebug, "[lark] Calendar#GetCalendarFreeBusyList success, request_id: %s, status_code: %d, response: %s", requestID, statusCode, jsonString(resp.Data))
-
-	return resp.Data, response, nil
+	return resp.Data, response, err
 }
 
 func (r *Mock) MockCalendarGetCalendarFreeBusyList(f func(ctx context.Context, request *GetCalendarFreeBusyListReq, options ...MethodOptionFunc) (*GetCalendarFreeBusyListResp, *Response, error)) {

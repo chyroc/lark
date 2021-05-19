@@ -18,10 +18,9 @@ func (r *CalendarService) GetCalendarEventAttendeeList(ctx context.Context, requ
 		return r.cli.mock.mockCalendarGetCalendarEventAttendeeList(ctx, request, options...)
 	}
 
-	r.cli.log(ctx, LogLevelInfo, "[lark] Calendar#GetCalendarEventAttendeeList call api")
-	r.cli.log(ctx, LogLevelDebug, "[lark] Calendar#GetCalendarEventAttendeeList request: %s", jsonString(request))
-
 	req := &RawRequestReq{
+		Scope:                 "Calendar",
+		API:                   "GetCalendarEventAttendeeList",
 		Method:                "GET",
 		URL:                   "https://open.feishu.cn/open-apis/calendar/v4/calendars/:calendar_id/events/:event_id/attendees",
 		Body:                  request,
@@ -33,18 +32,7 @@ func (r *CalendarService) GetCalendarEventAttendeeList(ctx context.Context, requ
 	resp := new(getCalendarEventAttendeeListResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
-	requestID, statusCode := getResponseRequestID(response)
-	if err != nil {
-		r.cli.log(ctx, LogLevelError, "[lark] Calendar#GetCalendarEventAttendeeList GET https://open.feishu.cn/open-apis/calendar/v4/calendars/:calendar_id/events/:event_id/attendees failed, request_id: %s, status_code: %d, error: %s", requestID, statusCode, err)
-		return nil, response, err
-	} else if resp.Code != 0 {
-		r.cli.log(ctx, LogLevelError, "[lark] Calendar#GetCalendarEventAttendeeList GET https://open.feishu.cn/open-apis/calendar/v4/calendars/:calendar_id/events/:event_id/attendees failed, request_id: %s, status_code: %d, code: %d, msg: %s", requestID, statusCode, resp.Code, resp.Msg)
-		return nil, response, NewError("Calendar", "GetCalendarEventAttendeeList", resp.Code, resp.Msg)
-	}
-
-	r.cli.log(ctx, LogLevelDebug, "[lark] Calendar#GetCalendarEventAttendeeList success, request_id: %s, status_code: %d, response: %s", requestID, statusCode, jsonString(resp.Data))
-
-	return resp.Data, response, nil
+	return resp.Data, response, err
 }
 
 func (r *Mock) MockCalendarGetCalendarEventAttendeeList(f func(ctx context.Context, request *GetCalendarEventAttendeeListReq, options ...MethodOptionFunc) (*GetCalendarEventAttendeeListResp, *Response, error)) {

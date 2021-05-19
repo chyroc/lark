@@ -17,10 +17,9 @@ func (r *OKRService) GetUserOKRList(ctx context.Context, request *GetUserOKRList
 		return r.cli.mock.mockOKRGetUserOKRList(ctx, request, options...)
 	}
 
-	r.cli.log(ctx, LogLevelInfo, "[lark] OKR#GetUserOKRList call api")
-	r.cli.log(ctx, LogLevelDebug, "[lark] OKR#GetUserOKRList request: %s", jsonString(request))
-
 	req := &RawRequestReq{
+		Scope:                 "OKR",
+		API:                   "GetUserOKRList",
 		Method:                "GET",
 		URL:                   "https://open.feishu.cn/open-apis/okr/v1/users/:user_id/okrs",
 		Body:                  request,
@@ -32,18 +31,7 @@ func (r *OKRService) GetUserOKRList(ctx context.Context, request *GetUserOKRList
 	resp := new(getUserOKRListResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
-	requestID, statusCode := getResponseRequestID(response)
-	if err != nil {
-		r.cli.log(ctx, LogLevelError, "[lark] OKR#GetUserOKRList GET https://open.feishu.cn/open-apis/okr/v1/users/:user_id/okrs failed, request_id: %s, status_code: %d, error: %s", requestID, statusCode, err)
-		return nil, response, err
-	} else if resp.Code != 0 {
-		r.cli.log(ctx, LogLevelError, "[lark] OKR#GetUserOKRList GET https://open.feishu.cn/open-apis/okr/v1/users/:user_id/okrs failed, request_id: %s, status_code: %d, code: %d, msg: %s", requestID, statusCode, resp.Code, resp.Msg)
-		return nil, response, NewError("OKR", "GetUserOKRList", resp.Code, resp.Msg)
-	}
-
-	r.cli.log(ctx, LogLevelDebug, "[lark] OKR#GetUserOKRList success, request_id: %s, status_code: %d, response: %s", requestID, statusCode, jsonString(resp.Data))
-
-	return resp.Data, response, nil
+	return resp.Data, response, err
 }
 
 func (r *Mock) MockOKRGetUserOKRList(f func(ctx context.Context, request *GetUserOKRListReq, options ...MethodOptionFunc) (*GetUserOKRListResp, *Response, error)) {

@@ -15,10 +15,9 @@ func (r *DriveService) CheckDriveMemberPermission(ctx context.Context, request *
 		return r.cli.mock.mockDriveCheckDriveMemberPermission(ctx, request, options...)
 	}
 
-	r.cli.log(ctx, LogLevelInfo, "[lark] Drive#CheckDriveMemberPermission call api")
-	r.cli.log(ctx, LogLevelDebug, "[lark] Drive#CheckDriveMemberPermission request: %s", jsonString(request))
-
 	req := &RawRequestReq{
+		Scope:                 "Drive",
+		API:                   "CheckDriveMemberPermission",
 		Method:                "POST",
 		URL:                   "https://open.feishu.cn/open-apis/drive/permission/member/permitted",
 		Body:                  request,
@@ -30,18 +29,7 @@ func (r *DriveService) CheckDriveMemberPermission(ctx context.Context, request *
 	resp := new(checkDriveMemberPermissionResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
-	requestID, statusCode := getResponseRequestID(response)
-	if err != nil {
-		r.cli.log(ctx, LogLevelError, "[lark] Drive#CheckDriveMemberPermission POST https://open.feishu.cn/open-apis/drive/permission/member/permitted failed, request_id: %s, status_code: %d, error: %s", requestID, statusCode, err)
-		return nil, response, err
-	} else if resp.Code != 0 {
-		r.cli.log(ctx, LogLevelError, "[lark] Drive#CheckDriveMemberPermission POST https://open.feishu.cn/open-apis/drive/permission/member/permitted failed, request_id: %s, status_code: %d, code: %d, msg: %s", requestID, statusCode, resp.Code, resp.Msg)
-		return nil, response, NewError("Drive", "CheckDriveMemberPermission", resp.Code, resp.Msg)
-	}
-
-	r.cli.log(ctx, LogLevelDebug, "[lark] Drive#CheckDriveMemberPermission success, request_id: %s, status_code: %d, response: %s", requestID, statusCode, jsonString(resp.Data))
-
-	return resp.Data, response, nil
+	return resp.Data, response, err
 }
 
 func (r *Mock) MockDriveCheckDriveMemberPermission(f func(ctx context.Context, request *CheckDriveMemberPermissionReq, options ...MethodOptionFunc) (*CheckDriveMemberPermissionResp, *Response, error)) {

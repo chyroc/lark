@@ -15,10 +15,9 @@ func (r *DriveService) UpdateSheetConditionFormat(ctx context.Context, request *
 		return r.cli.mock.mockDriveUpdateSheetConditionFormat(ctx, request, options...)
 	}
 
-	r.cli.log(ctx, LogLevelInfo, "[lark] Drive#UpdateSheetConditionFormat call api")
-	r.cli.log(ctx, LogLevelDebug, "[lark] Drive#UpdateSheetConditionFormat request: %s", jsonString(request))
-
 	req := &RawRequestReq{
+		Scope:                 "Drive",
+		API:                   "UpdateSheetConditionFormat",
 		Method:                "POST",
 		URL:                   "https://open.feishu.cn/open-apis/sheets/v2/spreadsheets/:spreadsheetToken/condition_formats/batch_update",
 		Body:                  request,
@@ -30,18 +29,7 @@ func (r *DriveService) UpdateSheetConditionFormat(ctx context.Context, request *
 	resp := new(updateSheetConditionFormatResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
-	requestID, statusCode := getResponseRequestID(response)
-	if err != nil {
-		r.cli.log(ctx, LogLevelError, "[lark] Drive#UpdateSheetConditionFormat POST https://open.feishu.cn/open-apis/sheets/v2/spreadsheets/:spreadsheetToken/condition_formats/batch_update failed, request_id: %s, status_code: %d, error: %s", requestID, statusCode, err)
-		return nil, response, err
-	} else if resp.Code != 0 {
-		r.cli.log(ctx, LogLevelError, "[lark] Drive#UpdateSheetConditionFormat POST https://open.feishu.cn/open-apis/sheets/v2/spreadsheets/:spreadsheetToken/condition_formats/batch_update failed, request_id: %s, status_code: %d, code: %d, msg: %s", requestID, statusCode, resp.Code, resp.Msg)
-		return nil, response, NewError("Drive", "UpdateSheetConditionFormat", resp.Code, resp.Msg)
-	}
-
-	r.cli.log(ctx, LogLevelDebug, "[lark] Drive#UpdateSheetConditionFormat success, request_id: %s, status_code: %d, response: %s", requestID, statusCode, jsonString(resp.Data))
-
-	return resp.Data, response, nil
+	return resp.Data, response, err
 }
 
 func (r *Mock) MockDriveUpdateSheetConditionFormat(f func(ctx context.Context, request *UpdateSheetConditionFormatReq, options ...MethodOptionFunc) (*UpdateSheetConditionFormatResp, *Response, error)) {

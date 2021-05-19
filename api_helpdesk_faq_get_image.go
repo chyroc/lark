@@ -16,10 +16,9 @@ func (r *HelpdeskService) GetFAQImage(ctx context.Context, request *GetFAQImageR
 		return r.cli.mock.mockHelpdeskGetFAQImage(ctx, request, options...)
 	}
 
-	r.cli.log(ctx, LogLevelInfo, "[lark] Helpdesk#GetFAQImage call api")
-	r.cli.log(ctx, LogLevelDebug, "[lark] Helpdesk#GetFAQImage request: %s", jsonString(request))
-
 	req := &RawRequestReq{
+		Scope:                 "Helpdesk",
+		API:                   "GetFAQImage",
 		Method:                "GET",
 		URL:                   "https://open.feishu.cn/open-apis/helpdesk/v1/faqs/:id/image/:image_key",
 		Body:                  request,
@@ -31,18 +30,7 @@ func (r *HelpdeskService) GetFAQImage(ctx context.Context, request *GetFAQImageR
 	resp := new(getFAQImageResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
-	requestID, statusCode := getResponseRequestID(response)
-	if err != nil {
-		r.cli.log(ctx, LogLevelError, "[lark] Helpdesk#GetFAQImage GET https://open.feishu.cn/open-apis/helpdesk/v1/faqs/:id/image/:image_key failed, request_id: %s, status_code: %d, error: %s", requestID, statusCode, err)
-		return nil, response, err
-	} else if resp.Code != 0 {
-		r.cli.log(ctx, LogLevelError, "[lark] Helpdesk#GetFAQImage GET https://open.feishu.cn/open-apis/helpdesk/v1/faqs/:id/image/:image_key failed, request_id: %s, status_code: %d, code: %d, msg: %s", requestID, statusCode, resp.Code, resp.Msg)
-		return nil, response, NewError("Helpdesk", "GetFAQImage", resp.Code, resp.Msg)
-	}
-
-	r.cli.log(ctx, LogLevelDebug, "[lark] Helpdesk#GetFAQImage success, request_id: %s, status_code: %d, response: %s", requestID, statusCode, jsonString(resp.Data))
-
-	return resp.Data, response, nil
+	return resp.Data, response, err
 }
 
 func (r *Mock) MockHelpdeskGetFAQImage(f func(ctx context.Context, request *GetFAQImageReq, options ...MethodOptionFunc) (*GetFAQImageResp, *Response, error)) {

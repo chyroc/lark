@@ -15,10 +15,9 @@ func (r *DriveService) GetDriveComment(ctx context.Context, request *GetDriveCom
 		return r.cli.mock.mockDriveGetDriveComment(ctx, request, options...)
 	}
 
-	r.cli.log(ctx, LogLevelInfo, "[lark] Drive#GetDriveComment call api")
-	r.cli.log(ctx, LogLevelDebug, "[lark] Drive#GetDriveComment request: %s", jsonString(request))
-
 	req := &RawRequestReq{
+		Scope:                 "Drive",
+		API:                   "GetDriveComment",
 		Method:                "GET",
 		URL:                   "https://open.feishu.cn/open-apis/drive/v1/files/:file_token/comments/:comment_id",
 		Body:                  request,
@@ -30,18 +29,7 @@ func (r *DriveService) GetDriveComment(ctx context.Context, request *GetDriveCom
 	resp := new(getDriveCommentResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
-	requestID, statusCode := getResponseRequestID(response)
-	if err != nil {
-		r.cli.log(ctx, LogLevelError, "[lark] Drive#GetDriveComment GET https://open.feishu.cn/open-apis/drive/v1/files/:file_token/comments/:comment_id failed, request_id: %s, status_code: %d, error: %s", requestID, statusCode, err)
-		return nil, response, err
-	} else if resp.Code != 0 {
-		r.cli.log(ctx, LogLevelError, "[lark] Drive#GetDriveComment GET https://open.feishu.cn/open-apis/drive/v1/files/:file_token/comments/:comment_id failed, request_id: %s, status_code: %d, code: %d, msg: %s", requestID, statusCode, resp.Code, resp.Msg)
-		return nil, response, NewError("Drive", "GetDriveComment", resp.Code, resp.Msg)
-	}
-
-	r.cli.log(ctx, LogLevelDebug, "[lark] Drive#GetDriveComment success, request_id: %s, status_code: %d, response: %s", requestID, statusCode, jsonString(resp.Data))
-
-	return resp.Data, response, nil
+	return resp.Data, response, err
 }
 
 func (r *Mock) MockDriveGetDriveComment(f func(ctx context.Context, request *GetDriveCommentReq, options ...MethodOptionFunc) (*GetDriveCommentResp, *Response, error)) {

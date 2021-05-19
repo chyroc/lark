@@ -15,10 +15,9 @@ func (r *HelpdeskService) DeleteTicketCustomizedField(ctx context.Context, reque
 		return r.cli.mock.mockHelpdeskDeleteTicketCustomizedField(ctx, request, options...)
 	}
 
-	r.cli.log(ctx, LogLevelInfo, "[lark] Helpdesk#DeleteTicketCustomizedField call api")
-	r.cli.log(ctx, LogLevelDebug, "[lark] Helpdesk#DeleteTicketCustomizedField request: %s", jsonString(request))
-
 	req := &RawRequestReq{
+		Scope:        "Helpdesk",
+		API:          "DeleteTicketCustomizedField",
 		Method:       "DELETE",
 		URL:          "https://open.feishu.cn/open-apis/helpdesk/v1/ticket_customized_fields/:ticket_customized_field_id",
 		Body:         request,
@@ -30,18 +29,7 @@ func (r *HelpdeskService) DeleteTicketCustomizedField(ctx context.Context, reque
 	resp := new(deleteTicketCustomizedFieldResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
-	requestID, statusCode := getResponseRequestID(response)
-	if err != nil {
-		r.cli.log(ctx, LogLevelError, "[lark] Helpdesk#DeleteTicketCustomizedField DELETE https://open.feishu.cn/open-apis/helpdesk/v1/ticket_customized_fields/:ticket_customized_field_id failed, request_id: %s, status_code: %d, error: %s", requestID, statusCode, err)
-		return nil, response, err
-	} else if resp.Code != 0 {
-		r.cli.log(ctx, LogLevelError, "[lark] Helpdesk#DeleteTicketCustomizedField DELETE https://open.feishu.cn/open-apis/helpdesk/v1/ticket_customized_fields/:ticket_customized_field_id failed, request_id: %s, status_code: %d, code: %d, msg: %s", requestID, statusCode, resp.Code, resp.Msg)
-		return nil, response, NewError("Helpdesk", "DeleteTicketCustomizedField", resp.Code, resp.Msg)
-	}
-
-	r.cli.log(ctx, LogLevelDebug, "[lark] Helpdesk#DeleteTicketCustomizedField success, request_id: %s, status_code: %d, response: %s", requestID, statusCode, jsonString(resp.Data))
-
-	return resp.Data, response, nil
+	return resp.Data, response, err
 }
 
 func (r *Mock) MockHelpdeskDeleteTicketCustomizedField(f func(ctx context.Context, request *DeleteTicketCustomizedFieldReq, options ...MethodOptionFunc) (*DeleteTicketCustomizedFieldResp, *Response, error)) {

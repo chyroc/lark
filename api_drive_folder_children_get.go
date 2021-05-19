@@ -15,10 +15,9 @@ func (r *DriveService) GetDriveFolderChildren(ctx context.Context, request *GetD
 		return r.cli.mock.mockDriveGetDriveFolderChildren(ctx, request, options...)
 	}
 
-	r.cli.log(ctx, LogLevelInfo, "[lark] Drive#GetDriveFolderChildren call api")
-	r.cli.log(ctx, LogLevelDebug, "[lark] Drive#GetDriveFolderChildren request: %s", jsonString(request))
-
 	req := &RawRequestReq{
+		Scope:        "Drive",
+		API:          "GetDriveFolderChildren",
 		Method:       "GET",
 		URL:          "https://open.feishu.cn/open-apis/drive/explorer/v2/folder/:folderToken/children",
 		Body:         request,
@@ -29,18 +28,7 @@ func (r *DriveService) GetDriveFolderChildren(ctx context.Context, request *GetD
 	resp := new(getDriveFolderChildrenResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
-	requestID, statusCode := getResponseRequestID(response)
-	if err != nil {
-		r.cli.log(ctx, LogLevelError, "[lark] Drive#GetDriveFolderChildren GET https://open.feishu.cn/open-apis/drive/explorer/v2/folder/:folderToken/children failed, request_id: %s, status_code: %d, error: %s", requestID, statusCode, err)
-		return nil, response, err
-	} else if resp.Code != 0 {
-		r.cli.log(ctx, LogLevelError, "[lark] Drive#GetDriveFolderChildren GET https://open.feishu.cn/open-apis/drive/explorer/v2/folder/:folderToken/children failed, request_id: %s, status_code: %d, code: %d, msg: %s", requestID, statusCode, resp.Code, resp.Msg)
-		return nil, response, NewError("Drive", "GetDriveFolderChildren", resp.Code, resp.Msg)
-	}
-
-	r.cli.log(ctx, LogLevelDebug, "[lark] Drive#GetDriveFolderChildren success, request_id: %s, status_code: %d, response: %s", requestID, statusCode, jsonString(resp.Data))
-
-	return resp.Data, response, nil
+	return resp.Data, response, err
 }
 
 func (r *Mock) MockDriveGetDriveFolderChildren(f func(ctx context.Context, request *GetDriveFolderChildrenReq, options ...MethodOptionFunc) (*GetDriveFolderChildrenResp, *Response, error)) {

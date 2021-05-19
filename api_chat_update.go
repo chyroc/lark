@@ -24,10 +24,9 @@ func (r *ChatService) UpdateChat(ctx context.Context, request *UpdateChatReq, op
 		return r.cli.mock.mockChatUpdateChat(ctx, request, options...)
 	}
 
-	r.cli.log(ctx, LogLevelInfo, "[lark] Chat#UpdateChat call api")
-	r.cli.log(ctx, LogLevelDebug, "[lark] Chat#UpdateChat request: %s", jsonString(request))
-
 	req := &RawRequestReq{
+		Scope:                 "Chat",
+		API:                   "UpdateChat",
 		Method:                "PUT",
 		URL:                   "https://open.feishu.cn/open-apis/im/v1/chats/:chat_id",
 		Body:                  request,
@@ -39,18 +38,7 @@ func (r *ChatService) UpdateChat(ctx context.Context, request *UpdateChatReq, op
 	resp := new(updateChatResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
-	requestID, statusCode := getResponseRequestID(response)
-	if err != nil {
-		r.cli.log(ctx, LogLevelError, "[lark] Chat#UpdateChat PUT https://open.feishu.cn/open-apis/im/v1/chats/:chat_id failed, request_id: %s, status_code: %d, error: %s", requestID, statusCode, err)
-		return nil, response, err
-	} else if resp.Code != 0 {
-		r.cli.log(ctx, LogLevelError, "[lark] Chat#UpdateChat PUT https://open.feishu.cn/open-apis/im/v1/chats/:chat_id failed, request_id: %s, status_code: %d, code: %d, msg: %s", requestID, statusCode, resp.Code, resp.Msg)
-		return nil, response, NewError("Chat", "UpdateChat", resp.Code, resp.Msg)
-	}
-
-	r.cli.log(ctx, LogLevelDebug, "[lark] Chat#UpdateChat success, request_id: %s, status_code: %d, response: %s", requestID, statusCode, jsonString(resp.Data))
-
-	return resp.Data, response, nil
+	return resp.Data, response, err
 }
 
 func (r *Mock) MockChatUpdateChat(f func(ctx context.Context, request *UpdateChatReq, options ...MethodOptionFunc) (*UpdateChatResp, *Response, error)) {

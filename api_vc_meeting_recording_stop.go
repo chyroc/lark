@@ -17,10 +17,9 @@ func (r *VCService) StopMeetingRecording(ctx context.Context, request *StopMeeti
 		return r.cli.mock.mockVCStopMeetingRecording(ctx, request, options...)
 	}
 
-	r.cli.log(ctx, LogLevelInfo, "[lark] VC#StopMeetingRecording call api")
-	r.cli.log(ctx, LogLevelDebug, "[lark] VC#StopMeetingRecording request: %s", jsonString(request))
-
 	req := &RawRequestReq{
+		Scope:        "VC",
+		API:          "StopMeetingRecording",
 		Method:       "PATCH",
 		URL:          "https://open.feishu.cn/open-apis/vc/v1/meetings/:meeting_id/recording/stop",
 		Body:         request,
@@ -31,18 +30,7 @@ func (r *VCService) StopMeetingRecording(ctx context.Context, request *StopMeeti
 	resp := new(stopMeetingRecordingResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
-	requestID, statusCode := getResponseRequestID(response)
-	if err != nil {
-		r.cli.log(ctx, LogLevelError, "[lark] VC#StopMeetingRecording PATCH https://open.feishu.cn/open-apis/vc/v1/meetings/:meeting_id/recording/stop failed, request_id: %s, status_code: %d, error: %s", requestID, statusCode, err)
-		return nil, response, err
-	} else if resp.Code != 0 {
-		r.cli.log(ctx, LogLevelError, "[lark] VC#StopMeetingRecording PATCH https://open.feishu.cn/open-apis/vc/v1/meetings/:meeting_id/recording/stop failed, request_id: %s, status_code: %d, code: %d, msg: %s", requestID, statusCode, resp.Code, resp.Msg)
-		return nil, response, NewError("VC", "StopMeetingRecording", resp.Code, resp.Msg)
-	}
-
-	r.cli.log(ctx, LogLevelDebug, "[lark] VC#StopMeetingRecording success, request_id: %s, status_code: %d, response: %s", requestID, statusCode, jsonString(resp.Data))
-
-	return resp.Data, response, nil
+	return resp.Data, response, err
 }
 
 func (r *Mock) MockVCStopMeetingRecording(f func(ctx context.Context, request *StopMeetingRecordingReq, options ...MethodOptionFunc) (*StopMeetingRecordingResp, *Response, error)) {

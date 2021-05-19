@@ -15,10 +15,9 @@ func (r *DriveService) UpdateSheetDimensionRange(ctx context.Context, request *U
 		return r.cli.mock.mockDriveUpdateSheetDimensionRange(ctx, request, options...)
 	}
 
-	r.cli.log(ctx, LogLevelInfo, "[lark] Drive#UpdateSheetDimensionRange call api")
-	r.cli.log(ctx, LogLevelDebug, "[lark] Drive#UpdateSheetDimensionRange request: %s", jsonString(request))
-
 	req := &RawRequestReq{
+		Scope:                 "Drive",
+		API:                   "UpdateSheetDimensionRange",
 		Method:                "PUT",
 		URL:                   "https://open.feishu.cn/open-apis/sheets/v2/spreadsheets/:spreadsheetToken/dimension_range",
 		Body:                  request,
@@ -30,18 +29,7 @@ func (r *DriveService) UpdateSheetDimensionRange(ctx context.Context, request *U
 	resp := new(updateSheetDimensionRangeResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
-	requestID, statusCode := getResponseRequestID(response)
-	if err != nil {
-		r.cli.log(ctx, LogLevelError, "[lark] Drive#UpdateSheetDimensionRange PUT https://open.feishu.cn/open-apis/sheets/v2/spreadsheets/:spreadsheetToken/dimension_range failed, request_id: %s, status_code: %d, error: %s", requestID, statusCode, err)
-		return nil, response, err
-	} else if resp.Code != 0 {
-		r.cli.log(ctx, LogLevelError, "[lark] Drive#UpdateSheetDimensionRange PUT https://open.feishu.cn/open-apis/sheets/v2/spreadsheets/:spreadsheetToken/dimension_range failed, request_id: %s, status_code: %d, code: %d, msg: %s", requestID, statusCode, resp.Code, resp.Msg)
-		return nil, response, NewError("Drive", "UpdateSheetDimensionRange", resp.Code, resp.Msg)
-	}
-
-	r.cli.log(ctx, LogLevelDebug, "[lark] Drive#UpdateSheetDimensionRange success, request_id: %s, status_code: %d, response: %s", requestID, statusCode, jsonString(resp.Data))
-
-	return resp.Data, response, nil
+	return resp.Data, response, err
 }
 
 func (r *Mock) MockDriveUpdateSheetDimensionRange(f func(ctx context.Context, request *UpdateSheetDimensionRangeReq, options ...MethodOptionFunc) (*UpdateSheetDimensionRangeResp, *Response, error)) {

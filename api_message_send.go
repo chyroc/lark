@@ -20,10 +20,9 @@ func (r *MessageService) SendRawMessage(ctx context.Context, request *SendRawMes
 		return r.cli.mock.mockMessageSendRawMessage(ctx, request, options...)
 	}
 
-	r.cli.log(ctx, LogLevelInfo, "[lark] Message#SendRawMessage call api")
-	r.cli.log(ctx, LogLevelDebug, "[lark] Message#SendRawMessage request: %s", jsonString(request))
-
 	req := &RawRequestReq{
+		Scope:                 "Message",
+		API:                   "SendRawMessage",
 		Method:                "POST",
 		URL:                   "https://open.feishu.cn/open-apis/im/v1/messages",
 		Body:                  request,
@@ -33,18 +32,7 @@ func (r *MessageService) SendRawMessage(ctx context.Context, request *SendRawMes
 	resp := new(sendRawMessageResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
-	requestID, statusCode := getResponseRequestID(response)
-	if err != nil {
-		r.cli.log(ctx, LogLevelError, "[lark] Message#SendRawMessage POST https://open.feishu.cn/open-apis/im/v1/messages failed, request_id: %s, status_code: %d, error: %s", requestID, statusCode, err)
-		return nil, response, err
-	} else if resp.Code != 0 {
-		r.cli.log(ctx, LogLevelError, "[lark] Message#SendRawMessage POST https://open.feishu.cn/open-apis/im/v1/messages failed, request_id: %s, status_code: %d, code: %d, msg: %s", requestID, statusCode, resp.Code, resp.Msg)
-		return nil, response, NewError("Message", "SendRawMessage", resp.Code, resp.Msg)
-	}
-
-	r.cli.log(ctx, LogLevelDebug, "[lark] Message#SendRawMessage success, request_id: %s, status_code: %d, response: %s", requestID, statusCode, jsonString(resp.Data))
-
-	return resp.Data, response, nil
+	return resp.Data, response, err
 }
 
 func (r *Mock) MockMessageSendRawMessage(f func(ctx context.Context, request *SendRawMessageReq, options ...MethodOptionFunc) (*SendRawMessageResp, *Response, error)) {

@@ -15,10 +15,9 @@ func (r *DriveService) MergeSheetCell(ctx context.Context, request *MergeSheetCe
 		return r.cli.mock.mockDriveMergeSheetCell(ctx, request, options...)
 	}
 
-	r.cli.log(ctx, LogLevelInfo, "[lark] Drive#MergeSheetCell call api")
-	r.cli.log(ctx, LogLevelDebug, "[lark] Drive#MergeSheetCell request: %s", jsonString(request))
-
 	req := &RawRequestReq{
+		Scope:                 "Drive",
+		API:                   "MergeSheetCell",
 		Method:                "POST",
 		URL:                   "https://open.feishu.cn/open-apis/sheets/v2/spreadsheets/:spreadsheetToken/merge_cells",
 		Body:                  request,
@@ -30,18 +29,7 @@ func (r *DriveService) MergeSheetCell(ctx context.Context, request *MergeSheetCe
 	resp := new(mergeSheetCellResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
-	requestID, statusCode := getResponseRequestID(response)
-	if err != nil {
-		r.cli.log(ctx, LogLevelError, "[lark] Drive#MergeSheetCell POST https://open.feishu.cn/open-apis/sheets/v2/spreadsheets/:spreadsheetToken/merge_cells failed, request_id: %s, status_code: %d, error: %s", requestID, statusCode, err)
-		return nil, response, err
-	} else if resp.Code != 0 {
-		r.cli.log(ctx, LogLevelError, "[lark] Drive#MergeSheetCell POST https://open.feishu.cn/open-apis/sheets/v2/spreadsheets/:spreadsheetToken/merge_cells failed, request_id: %s, status_code: %d, code: %d, msg: %s", requestID, statusCode, resp.Code, resp.Msg)
-		return nil, response, NewError("Drive", "MergeSheetCell", resp.Code, resp.Msg)
-	}
-
-	r.cli.log(ctx, LogLevelDebug, "[lark] Drive#MergeSheetCell success, request_id: %s, status_code: %d, response: %s", requestID, statusCode, jsonString(resp.Data))
-
-	return resp.Data, response, nil
+	return resp.Data, response, err
 }
 
 func (r *Mock) MockDriveMergeSheetCell(f func(ctx context.Context, request *MergeSheetCellReq, options ...MethodOptionFunc) (*MergeSheetCellResp, *Response, error)) {

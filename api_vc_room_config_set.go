@@ -17,10 +17,9 @@ func (r *VCService) SetRoomConfig(ctx context.Context, request *SetRoomConfigReq
 		return r.cli.mock.mockVCSetRoomConfig(ctx, request, options...)
 	}
 
-	r.cli.log(ctx, LogLevelInfo, "[lark] VC#SetRoomConfig call api")
-	r.cli.log(ctx, LogLevelDebug, "[lark] VC#SetRoomConfig request: %s", jsonString(request))
-
 	req := &RawRequestReq{
+		Scope:                 "VC",
+		API:                   "SetRoomConfig",
 		Method:                "POST",
 		URL:                   "https://open.feishu.cn/open-apis/vc/v1/room_configs/set",
 		Body:                  request,
@@ -30,18 +29,7 @@ func (r *VCService) SetRoomConfig(ctx context.Context, request *SetRoomConfigReq
 	resp := new(setRoomConfigResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
-	requestID, statusCode := getResponseRequestID(response)
-	if err != nil {
-		r.cli.log(ctx, LogLevelError, "[lark] VC#SetRoomConfig POST https://open.feishu.cn/open-apis/vc/v1/room_configs/set failed, request_id: %s, status_code: %d, error: %s", requestID, statusCode, err)
-		return nil, response, err
-	} else if resp.Code != 0 {
-		r.cli.log(ctx, LogLevelError, "[lark] VC#SetRoomConfig POST https://open.feishu.cn/open-apis/vc/v1/room_configs/set failed, request_id: %s, status_code: %d, code: %d, msg: %s", requestID, statusCode, resp.Code, resp.Msg)
-		return nil, response, NewError("VC", "SetRoomConfig", resp.Code, resp.Msg)
-	}
-
-	r.cli.log(ctx, LogLevelDebug, "[lark] VC#SetRoomConfig success, request_id: %s, status_code: %d, response: %s", requestID, statusCode, jsonString(resp.Data))
-
-	return resp.Data, response, nil
+	return resp.Data, response, err
 }
 
 func (r *Mock) MockVCSetRoomConfig(f func(ctx context.Context, request *SetRoomConfigReq, options ...MethodOptionFunc) (*SetRoomConfigResp, *Response, error)) {

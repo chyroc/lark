@@ -17,10 +17,9 @@ func (r *AttendanceService) GetShiftByName(ctx context.Context, request *GetShif
 		return r.cli.mock.mockAttendanceGetShiftByName(ctx, request, options...)
 	}
 
-	r.cli.log(ctx, LogLevelInfo, "[lark] Attendance#GetShiftByName call api")
-	r.cli.log(ctx, LogLevelDebug, "[lark] Attendance#GetShiftByName request: %s", jsonString(request))
-
 	req := &RawRequestReq{
+		Scope:                 "Attendance",
+		API:                   "GetShiftByName",
 		Method:                "POST",
 		URL:                   "https://open.feishu.cn/open-apis/attendance/v1/shifts/query",
 		Body:                  request,
@@ -30,18 +29,7 @@ func (r *AttendanceService) GetShiftByName(ctx context.Context, request *GetShif
 	resp := new(getShiftByNameResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
-	requestID, statusCode := getResponseRequestID(response)
-	if err != nil {
-		r.cli.log(ctx, LogLevelError, "[lark] Attendance#GetShiftByName POST https://open.feishu.cn/open-apis/attendance/v1/shifts/query failed, request_id: %s, status_code: %d, error: %s", requestID, statusCode, err)
-		return nil, response, err
-	} else if resp.Code != 0 {
-		r.cli.log(ctx, LogLevelError, "[lark] Attendance#GetShiftByName POST https://open.feishu.cn/open-apis/attendance/v1/shifts/query failed, request_id: %s, status_code: %d, code: %d, msg: %s", requestID, statusCode, resp.Code, resp.Msg)
-		return nil, response, NewError("Attendance", "GetShiftByName", resp.Code, resp.Msg)
-	}
-
-	r.cli.log(ctx, LogLevelDebug, "[lark] Attendance#GetShiftByName success, request_id: %s, status_code: %d, response: %s", requestID, statusCode, jsonString(resp.Data))
-
-	return resp.Data, response, nil
+	return resp.Data, response, err
 }
 
 func (r *Mock) MockAttendanceGetShiftByName(f func(ctx context.Context, request *GetShiftByNameReq, options ...MethodOptionFunc) (*GetShiftByNameResp, *Response, error)) {

@@ -15,10 +15,9 @@ func (r *HelpdeskService) DeleteFAQ(ctx context.Context, request *DeleteFAQReq, 
 		return r.cli.mock.mockHelpdeskDeleteFAQ(ctx, request, options...)
 	}
 
-	r.cli.log(ctx, LogLevelInfo, "[lark] Helpdesk#DeleteFAQ call api")
-	r.cli.log(ctx, LogLevelDebug, "[lark] Helpdesk#DeleteFAQ request: %s", jsonString(request))
-
 	req := &RawRequestReq{
+		Scope:        "Helpdesk",
+		API:          "DeleteFAQ",
 		Method:       "DELETE",
 		URL:          "https://open.feishu.cn/open-apis/helpdesk/v1/faqs/:id",
 		Body:         request,
@@ -30,18 +29,7 @@ func (r *HelpdeskService) DeleteFAQ(ctx context.Context, request *DeleteFAQReq, 
 	resp := new(deleteFAQResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
-	requestID, statusCode := getResponseRequestID(response)
-	if err != nil {
-		r.cli.log(ctx, LogLevelError, "[lark] Helpdesk#DeleteFAQ DELETE https://open.feishu.cn/open-apis/helpdesk/v1/faqs/:id failed, request_id: %s, status_code: %d, error: %s", requestID, statusCode, err)
-		return nil, response, err
-	} else if resp.Code != 0 {
-		r.cli.log(ctx, LogLevelError, "[lark] Helpdesk#DeleteFAQ DELETE https://open.feishu.cn/open-apis/helpdesk/v1/faqs/:id failed, request_id: %s, status_code: %d, code: %d, msg: %s", requestID, statusCode, resp.Code, resp.Msg)
-		return nil, response, NewError("Helpdesk", "DeleteFAQ", resp.Code, resp.Msg)
-	}
-
-	r.cli.log(ctx, LogLevelDebug, "[lark] Helpdesk#DeleteFAQ success, request_id: %s, status_code: %d, response: %s", requestID, statusCode, jsonString(resp.Data))
-
-	return resp.Data, response, nil
+	return resp.Data, response, err
 }
 
 func (r *Mock) MockHelpdeskDeleteFAQ(f func(ctx context.Context, request *DeleteFAQReq, options ...MethodOptionFunc) (*DeleteFAQResp, *Response, error)) {

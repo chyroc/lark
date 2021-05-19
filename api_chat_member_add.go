@@ -22,10 +22,9 @@ func (r *ChatService) AddChatMember(ctx context.Context, request *AddChatMemberR
 		return r.cli.mock.mockChatAddChatMember(ctx, request, options...)
 	}
 
-	r.cli.log(ctx, LogLevelInfo, "[lark] Chat#AddChatMember call api")
-	r.cli.log(ctx, LogLevelDebug, "[lark] Chat#AddChatMember request: %s", jsonString(request))
-
 	req := &RawRequestReq{
+		Scope:                 "Chat",
+		API:                   "AddChatMember",
 		Method:                "POST",
 		URL:                   "https://open.feishu.cn/open-apis/im/v1/chats/:chat_id/members",
 		Body:                  request,
@@ -37,18 +36,7 @@ func (r *ChatService) AddChatMember(ctx context.Context, request *AddChatMemberR
 	resp := new(addChatMemberResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
-	requestID, statusCode := getResponseRequestID(response)
-	if err != nil {
-		r.cli.log(ctx, LogLevelError, "[lark] Chat#AddChatMember POST https://open.feishu.cn/open-apis/im/v1/chats/:chat_id/members failed, request_id: %s, status_code: %d, error: %s", requestID, statusCode, err)
-		return nil, response, err
-	} else if resp.Code != 0 {
-		r.cli.log(ctx, LogLevelError, "[lark] Chat#AddChatMember POST https://open.feishu.cn/open-apis/im/v1/chats/:chat_id/members failed, request_id: %s, status_code: %d, code: %d, msg: %s", requestID, statusCode, resp.Code, resp.Msg)
-		return nil, response, NewError("Chat", "AddChatMember", resp.Code, resp.Msg)
-	}
-
-	r.cli.log(ctx, LogLevelDebug, "[lark] Chat#AddChatMember success, request_id: %s, status_code: %d, response: %s", requestID, statusCode, jsonString(resp.Data))
-
-	return resp.Data, response, nil
+	return resp.Data, response, err
 }
 
 func (r *Mock) MockChatAddChatMember(f func(ctx context.Context, request *AddChatMemberReq, options ...MethodOptionFunc) (*AddChatMemberResp, *Response, error)) {

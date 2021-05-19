@@ -15,10 +15,9 @@ func (r *AttendanceService) UpdateUserStatisticsSettings(ctx context.Context, re
 		return r.cli.mock.mockAttendanceUpdateUserStatisticsSettings(ctx, request, options...)
 	}
 
-	r.cli.log(ctx, LogLevelInfo, "[lark] Attendance#UpdateUserStatisticsSettings call api")
-	r.cli.log(ctx, LogLevelDebug, "[lark] Attendance#UpdateUserStatisticsSettings request: %s", jsonString(request))
-
 	req := &RawRequestReq{
+		Scope:                 "Attendance",
+		API:                   "UpdateUserStatisticsSettings",
 		Method:                "PUT",
 		URL:                   "https://open.feishu.cn/open-apis/attendance/v1/user_stats_views/:user_stats_view_id",
 		Body:                  request,
@@ -28,18 +27,7 @@ func (r *AttendanceService) UpdateUserStatisticsSettings(ctx context.Context, re
 	resp := new(updateUserStatisticsSettingsResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
-	requestID, statusCode := getResponseRequestID(response)
-	if err != nil {
-		r.cli.log(ctx, LogLevelError, "[lark] Attendance#UpdateUserStatisticsSettings PUT https://open.feishu.cn/open-apis/attendance/v1/user_stats_views/:user_stats_view_id failed, request_id: %s, status_code: %d, error: %s", requestID, statusCode, err)
-		return nil, response, err
-	} else if resp.Code != 0 {
-		r.cli.log(ctx, LogLevelError, "[lark] Attendance#UpdateUserStatisticsSettings PUT https://open.feishu.cn/open-apis/attendance/v1/user_stats_views/:user_stats_view_id failed, request_id: %s, status_code: %d, code: %d, msg: %s", requestID, statusCode, resp.Code, resp.Msg)
-		return nil, response, NewError("Attendance", "UpdateUserStatisticsSettings", resp.Code, resp.Msg)
-	}
-
-	r.cli.log(ctx, LogLevelDebug, "[lark] Attendance#UpdateUserStatisticsSettings success, request_id: %s, status_code: %d, response: %s", requestID, statusCode, jsonString(resp.Data))
-
-	return resp.Data, response, nil
+	return resp.Data, response, err
 }
 
 func (r *Mock) MockAttendanceUpdateUserStatisticsSettings(f func(ctx context.Context, request *UpdateUserStatisticsSettingsReq, options ...MethodOptionFunc) (*UpdateUserStatisticsSettingsResp, *Response, error)) {

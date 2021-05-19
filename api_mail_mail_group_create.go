@@ -15,10 +15,9 @@ func (r *MailService) CreateMailGroup(ctx context.Context, request *CreateMailGr
 		return r.cli.mock.mockMailCreateMailGroup(ctx, request, options...)
 	}
 
-	r.cli.log(ctx, LogLevelInfo, "[lark] Mail#CreateMailGroup call api")
-	r.cli.log(ctx, LogLevelDebug, "[lark] Mail#CreateMailGroup request: %s", jsonString(request))
-
 	req := &RawRequestReq{
+		Scope:                 "Mail",
+		API:                   "CreateMailGroup",
 		Method:                "POST",
 		URL:                   "https://open.feishu.cn/open-apis/mail/v1/mailgroups",
 		Body:                  request,
@@ -28,18 +27,7 @@ func (r *MailService) CreateMailGroup(ctx context.Context, request *CreateMailGr
 	resp := new(createMailGroupResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
-	requestID, statusCode := getResponseRequestID(response)
-	if err != nil {
-		r.cli.log(ctx, LogLevelError, "[lark] Mail#CreateMailGroup POST https://open.feishu.cn/open-apis/mail/v1/mailgroups failed, request_id: %s, status_code: %d, error: %s", requestID, statusCode, err)
-		return nil, response, err
-	} else if resp.Code != 0 {
-		r.cli.log(ctx, LogLevelError, "[lark] Mail#CreateMailGroup POST https://open.feishu.cn/open-apis/mail/v1/mailgroups failed, request_id: %s, status_code: %d, code: %d, msg: %s", requestID, statusCode, resp.Code, resp.Msg)
-		return nil, response, NewError("Mail", "CreateMailGroup", resp.Code, resp.Msg)
-	}
-
-	r.cli.log(ctx, LogLevelDebug, "[lark] Mail#CreateMailGroup success, request_id: %s, status_code: %d, response: %s", requestID, statusCode, jsonString(resp.Data))
-
-	return resp.Data, response, nil
+	return resp.Data, response, err
 }
 
 func (r *Mock) MockMailCreateMailGroup(f func(ctx context.Context, request *CreateMailGroupReq, options ...MethodOptionFunc) (*CreateMailGroupResp, *Response, error)) {

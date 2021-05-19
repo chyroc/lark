@@ -15,10 +15,9 @@ func (r *DriveService) GetSheetProtectedDimension(ctx context.Context, request *
 		return r.cli.mock.mockDriveGetSheetProtectedDimension(ctx, request, options...)
 	}
 
-	r.cli.log(ctx, LogLevelInfo, "[lark] Drive#GetSheetProtectedDimension call api")
-	r.cli.log(ctx, LogLevelDebug, "[lark] Drive#GetSheetProtectedDimension request: %s", jsonString(request))
-
 	req := &RawRequestReq{
+		Scope:                 "Drive",
+		API:                   "GetSheetProtectedDimension",
 		Method:                "GET",
 		URL:                   "https://open.feishu.cn/open-apis/sheets/v2/spreadsheets/:spreadsheetToken/protected_range_batch_get",
 		Body:                  request,
@@ -30,18 +29,7 @@ func (r *DriveService) GetSheetProtectedDimension(ctx context.Context, request *
 	resp := new(getSheetProtectedDimensionResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
-	requestID, statusCode := getResponseRequestID(response)
-	if err != nil {
-		r.cli.log(ctx, LogLevelError, "[lark] Drive#GetSheetProtectedDimension GET https://open.feishu.cn/open-apis/sheets/v2/spreadsheets/:spreadsheetToken/protected_range_batch_get failed, request_id: %s, status_code: %d, error: %s", requestID, statusCode, err)
-		return nil, response, err
-	} else if resp.Code != 0 {
-		r.cli.log(ctx, LogLevelError, "[lark] Drive#GetSheetProtectedDimension GET https://open.feishu.cn/open-apis/sheets/v2/spreadsheets/:spreadsheetToken/protected_range_batch_get failed, request_id: %s, status_code: %d, code: %d, msg: %s", requestID, statusCode, resp.Code, resp.Msg)
-		return nil, response, NewError("Drive", "GetSheetProtectedDimension", resp.Code, resp.Msg)
-	}
-
-	r.cli.log(ctx, LogLevelDebug, "[lark] Drive#GetSheetProtectedDimension success, request_id: %s, status_code: %d, response: %s", requestID, statusCode, jsonString(resp.Data))
-
-	return resp.Data, response, nil
+	return resp.Data, response, err
 }
 
 func (r *Mock) MockDriveGetSheetProtectedDimension(f func(ctx context.Context, request *GetSheetProtectedDimensionReq, options ...MethodOptionFunc) (*GetSheetProtectedDimensionResp, *Response, error)) {

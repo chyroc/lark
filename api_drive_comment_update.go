@@ -17,10 +17,9 @@ func (r *DriveService) UpdateDriveComment(ctx context.Context, request *UpdateDr
 		return r.cli.mock.mockDriveUpdateDriveComment(ctx, request, options...)
 	}
 
-	r.cli.log(ctx, LogLevelInfo, "[lark] Drive#UpdateDriveComment call api")
-	r.cli.log(ctx, LogLevelDebug, "[lark] Drive#UpdateDriveComment request: %s", jsonString(request))
-
 	req := &RawRequestReq{
+		Scope:        "Drive",
+		API:          "UpdateDriveComment",
 		Method:       "PUT",
 		URL:          "https://open.feishu.cn/open-apis/vc/v1/reserves/:reserve_id",
 		Body:         request,
@@ -31,18 +30,7 @@ func (r *DriveService) UpdateDriveComment(ctx context.Context, request *UpdateDr
 	resp := new(updateDriveCommentResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
-	requestID, statusCode := getResponseRequestID(response)
-	if err != nil {
-		r.cli.log(ctx, LogLevelError, "[lark] Drive#UpdateDriveComment PUT https://open.feishu.cn/open-apis/vc/v1/reserves/:reserve_id failed, request_id: %s, status_code: %d, error: %s", requestID, statusCode, err)
-		return nil, response, err
-	} else if resp.Code != 0 {
-		r.cli.log(ctx, LogLevelError, "[lark] Drive#UpdateDriveComment PUT https://open.feishu.cn/open-apis/vc/v1/reserves/:reserve_id failed, request_id: %s, status_code: %d, code: %d, msg: %s", requestID, statusCode, resp.Code, resp.Msg)
-		return nil, response, NewError("Drive", "UpdateDriveComment", resp.Code, resp.Msg)
-	}
-
-	r.cli.log(ctx, LogLevelDebug, "[lark] Drive#UpdateDriveComment success, request_id: %s, status_code: %d, response: %s", requestID, statusCode, jsonString(resp.Data))
-
-	return resp.Data, response, nil
+	return resp.Data, response, err
 }
 
 func (r *Mock) MockDriveUpdateDriveComment(f func(ctx context.Context, request *UpdateDriveCommentReq, options ...MethodOptionFunc) (*UpdateDriveCommentResp, *Response, error)) {

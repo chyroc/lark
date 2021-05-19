@@ -17,10 +17,9 @@ func (r *VCService) GetMeetingRecording(ctx context.Context, request *GetMeeting
 		return r.cli.mock.mockVCGetMeetingRecording(ctx, request, options...)
 	}
 
-	r.cli.log(ctx, LogLevelInfo, "[lark] VC#GetMeetingRecording call api")
-	r.cli.log(ctx, LogLevelDebug, "[lark] VC#GetMeetingRecording request: %s", jsonString(request))
-
 	req := &RawRequestReq{
+		Scope:        "VC",
+		API:          "GetMeetingRecording",
 		Method:       "GET",
 		URL:          "https://open.feishu.cn/open-apis/vc/v1/meetings/:meeting_id/recording",
 		Body:         request,
@@ -31,18 +30,7 @@ func (r *VCService) GetMeetingRecording(ctx context.Context, request *GetMeeting
 	resp := new(getMeetingRecordingResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
-	requestID, statusCode := getResponseRequestID(response)
-	if err != nil {
-		r.cli.log(ctx, LogLevelError, "[lark] VC#GetMeetingRecording GET https://open.feishu.cn/open-apis/vc/v1/meetings/:meeting_id/recording failed, request_id: %s, status_code: %d, error: %s", requestID, statusCode, err)
-		return nil, response, err
-	} else if resp.Code != 0 {
-		r.cli.log(ctx, LogLevelError, "[lark] VC#GetMeetingRecording GET https://open.feishu.cn/open-apis/vc/v1/meetings/:meeting_id/recording failed, request_id: %s, status_code: %d, code: %d, msg: %s", requestID, statusCode, resp.Code, resp.Msg)
-		return nil, response, NewError("VC", "GetMeetingRecording", resp.Code, resp.Msg)
-	}
-
-	r.cli.log(ctx, LogLevelDebug, "[lark] VC#GetMeetingRecording success, request_id: %s, status_code: %d, response: %s", requestID, statusCode, jsonString(resp.Data))
-
-	return resp.Data, response, nil
+	return resp.Data, response, err
 }
 
 func (r *Mock) MockVCGetMeetingRecording(f func(ctx context.Context, request *GetMeetingRecordingReq, options ...MethodOptionFunc) (*GetMeetingRecordingResp, *Response, error)) {

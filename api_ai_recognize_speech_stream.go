@@ -17,10 +17,9 @@ func (r *AIService) RecognizeSpeechStream(ctx context.Context, request *Recogniz
 		return r.cli.mock.mockAIRecognizeSpeechStream(ctx, request, options...)
 	}
 
-	r.cli.log(ctx, LogLevelInfo, "[lark] AI#RecognizeSpeechStream call api")
-	r.cli.log(ctx, LogLevelDebug, "[lark] AI#RecognizeSpeechStream request: %s", jsonString(request))
-
 	req := &RawRequestReq{
+		Scope:                 "AI",
+		API:                   "RecognizeSpeechStream",
 		Method:                "POST",
 		URL:                   "https://open.feishu.cn/open-apis/speech_to_text/v1/speech/stream_recognize",
 		Body:                  request,
@@ -30,18 +29,7 @@ func (r *AIService) RecognizeSpeechStream(ctx context.Context, request *Recogniz
 	resp := new(recognizeSpeechStreamResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
-	requestID, statusCode := getResponseRequestID(response)
-	if err != nil {
-		r.cli.log(ctx, LogLevelError, "[lark] AI#RecognizeSpeechStream POST https://open.feishu.cn/open-apis/speech_to_text/v1/speech/stream_recognize failed, request_id: %s, status_code: %d, error: %s", requestID, statusCode, err)
-		return nil, response, err
-	} else if resp.Code != 0 {
-		r.cli.log(ctx, LogLevelError, "[lark] AI#RecognizeSpeechStream POST https://open.feishu.cn/open-apis/speech_to_text/v1/speech/stream_recognize failed, request_id: %s, status_code: %d, code: %d, msg: %s", requestID, statusCode, resp.Code, resp.Msg)
-		return nil, response, NewError("AI", "RecognizeSpeechStream", resp.Code, resp.Msg)
-	}
-
-	r.cli.log(ctx, LogLevelDebug, "[lark] AI#RecognizeSpeechStream success, request_id: %s, status_code: %d, response: %s", requestID, statusCode, jsonString(resp.Data))
-
-	return resp.Data, response, nil
+	return resp.Data, response, err
 }
 
 func (r *Mock) MockAIRecognizeSpeechStream(f func(ctx context.Context, request *RecognizeSpeechStreamReq, options ...MethodOptionFunc) (*RecognizeSpeechStreamResp, *Response, error)) {

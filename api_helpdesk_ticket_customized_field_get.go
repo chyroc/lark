@@ -17,10 +17,9 @@ func (r *HelpdeskService) GetTicketCustomizedField(ctx context.Context, request 
 		return r.cli.mock.mockHelpdeskGetTicketCustomizedField(ctx, request, options...)
 	}
 
-	r.cli.log(ctx, LogLevelInfo, "[lark] Helpdesk#GetTicketCustomizedField call api")
-	r.cli.log(ctx, LogLevelDebug, "[lark] Helpdesk#GetTicketCustomizedField request: %s", jsonString(request))
-
 	req := &RawRequestReq{
+		Scope:                 "Helpdesk",
+		API:                   "GetTicketCustomizedField",
 		Method:                "GET",
 		URL:                   "https://open.feishu.cn/open-apis/helpdesk/v1/ticket_customized_fields/:ticket_customized_field_id",
 		Body:                  request,
@@ -32,18 +31,7 @@ func (r *HelpdeskService) GetTicketCustomizedField(ctx context.Context, request 
 	resp := new(getTicketCustomizedFieldResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
-	requestID, statusCode := getResponseRequestID(response)
-	if err != nil {
-		r.cli.log(ctx, LogLevelError, "[lark] Helpdesk#GetTicketCustomizedField GET https://open.feishu.cn/open-apis/helpdesk/v1/ticket_customized_fields/:ticket_customized_field_id failed, request_id: %s, status_code: %d, error: %s", requestID, statusCode, err)
-		return nil, response, err
-	} else if resp.Code != 0 {
-		r.cli.log(ctx, LogLevelError, "[lark] Helpdesk#GetTicketCustomizedField GET https://open.feishu.cn/open-apis/helpdesk/v1/ticket_customized_fields/:ticket_customized_field_id failed, request_id: %s, status_code: %d, code: %d, msg: %s", requestID, statusCode, resp.Code, resp.Msg)
-		return nil, response, NewError("Helpdesk", "GetTicketCustomizedField", resp.Code, resp.Msg)
-	}
-
-	r.cli.log(ctx, LogLevelDebug, "[lark] Helpdesk#GetTicketCustomizedField success, request_id: %s, status_code: %d, response: %s", requestID, statusCode, jsonString(resp.Data))
-
-	return resp.Data, response, nil
+	return resp.Data, response, err
 }
 
 func (r *Mock) MockHelpdeskGetTicketCustomizedField(f func(ctx context.Context, request *GetTicketCustomizedFieldReq, options ...MethodOptionFunc) (*GetTicketCustomizedFieldResp, *Response, error)) {

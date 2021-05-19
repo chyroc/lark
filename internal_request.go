@@ -27,14 +27,33 @@ type Response struct {
 }
 
 func (r *Lark) RawRequest(ctx context.Context, req *RawRequestReq, resp interface{}) (*Response, error) {
+	r.log(ctx, LogLevelInfo, "[lark] %s#%s call api", req.Scope, req.API)
+	r.log(ctx, LogLevelDebug, "[lark] %s#%s request: %s", req.Scope, req.API, jsonString(req))
+
 	headers, err := r.prepareHeaders(ctx, req)
 	if err != nil {
 		return nil, err
 	}
-	return r.request(ctx, r.httpClient, req, headers, resp)
+	response, err := r.doRequest(ctx, r.httpClient, req, headers, resp)
+	requestID, statusCode := getResponseRequestID(response)
+	if err != nil {
+		r.log(ctx, LogLevelError, "[lark] %s#%s %s %s failed, request_id: %s, status_code: %d, error: %s", req.Scope, req.API, req.Method, req.URL, requestID, statusCode, err)
+		return response, err
+	}
+	code, msg := getCodeMsg(resp)
+	if code != 0 {
+		r.log(ctx, LogLevelError, "[lark] %s#%s %s %s failed, request_id: %s, status_code: %d, code: %d, msg: %s", req.Scope, req.API, req.Method, req.URL, requestID, statusCode, code, msg)
+		return response, NewError(req.Scope, req.API, code, msg)
+	}
+
+	r.log(ctx, LogLevelDebug, "[lark] %s#%s success, request_id: %s, status_code: %d, response: %s", req.Scope, req.API, requestID, statusCode, "TODO")
+
+	return response, nil
 }
 
 type RawRequestReq struct {
+	Scope                 string
+	API                   string
 	Method                string
 	URL                   string
 	Body                  interface{}
@@ -166,7 +185,7 @@ type realRequestParam struct {
 	Headers map[string]string
 }
 
-func (r *Lark) request(ctx context.Context, cli *http.Client, requestParam *RawRequestReq, headers map[string]string, realResponse interface{}) (*Response, error) {
+func (r *Lark) doRequest(ctx context.Context, cli *http.Client, requestParam *RawRequestReq, headers map[string]string, realResponse interface{}) (*Response, error) {
 	response := new(Response)
 	realReq, err := parseRequestParam(requestParam)
 	if err != nil {
@@ -193,7 +212,7 @@ func (r *Lark) request(ctx context.Context, cli *http.Client, requestParam *RawR
 	}
 	// response.HTTPResponse = resp
 	response.StatusCode = resp.StatusCode
-	response.RequestID = resp.Header.Get("x-request-id")
+	response.RequestID = resp.Header.Get("x-doRequest-id")
 
 	if resp.Body != nil {
 		defer resp.Body.Close()
@@ -206,17 +225,20 @@ func (r *Lark) request(ctx context.Context, cli *http.Client, requestParam *RawR
 
 	r.log(ctx, LogLevelDebug, "%s %s, got: %s", realReq.Method, realReq.URL, bs)
 
-	if resp != nil && resp.StatusCode == http.StatusOK {
-		respFileSetter, ok := realResponse.(readerSetter)
-		if ok {
-			respFileSetter.SetReader(bytes.NewReader(bs))
-			return response, nil
+	if realResponse != nil {
+		if resp != nil && resp.StatusCode == http.StatusOK {
+			respFileSetter, ok := realResponse.(readerSetter)
+			if ok {
+				respFileSetter.SetReader(bytes.NewReader(bs))
+				return response, nil
+			}
+		}
+
+		if err = json.Unmarshal(bs, realResponse); err != nil {
+			return response, fmt.Errorf("invalid json: %s", bs)
 		}
 	}
 
-	if err = json.Unmarshal(bs, realResponse); err != nil {
-		return response, fmt.Errorf("invalid json: %s", bs)
-	}
 	return response, nil
 }
 
@@ -246,6 +268,47 @@ func newFileUploadRequest(params map[string]string, filekey string, reader io.Re
 
 type readerSetter interface {
 	SetReader(file io.Reader)
+}
+
+func getCodeMsg(v interface{}) (code int64, msg string) {
+	if v == nil {
+		return 0, ""
+	}
+	vv := reflect.ValueOf(v)
+	if vv.Kind() == reflect.Ptr {
+		vv = vv.Elem()
+	}
+	if vv.Kind() != reflect.Struct {
+		return 0, ""
+	}
+	codeField := vv.FieldByName("Code")
+	if codeField.IsValid() {
+		if internal.IsInReflectKind(codeField.Kind(), []reflect.Kind{
+			reflect.Int,
+			reflect.Int8,
+			reflect.Int16,
+			reflect.Int32,
+			reflect.Int64,
+		}) {
+			code = int64(codeField.Int())
+		} else if internal.IsInReflectKind(codeField.Kind(), []reflect.Kind{
+			reflect.Uint,
+			reflect.Uint8,
+			reflect.Uint16,
+			reflect.Uint32,
+			reflect.Uint64,
+		}) {
+			code = int64(codeField.Uint())
+		}
+	}
+
+	codeMsg := vv.FieldByName("Msg")
+	if codeField.IsValid() {
+		if codeMsg.Kind() == reflect.String {
+			msg = codeMsg.String()
+		}
+	}
+	return
 }
 
 func getResponseRequestID(response *Response) (requestID string, statusCode int) {

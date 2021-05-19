@@ -19,10 +19,9 @@ func (r *FileService) UploadFile(ctx context.Context, request *UploadFileReq, op
 		return r.cli.mock.mockFileUploadFile(ctx, request, options...)
 	}
 
-	r.cli.log(ctx, LogLevelInfo, "[lark] File#UploadFile call api")
-	r.cli.log(ctx, LogLevelDebug, "[lark] File#UploadFile request: %s", jsonString(request))
-
 	req := &RawRequestReq{
+		Scope:                 "File",
+		API:                   "UploadFile",
 		Method:                "POST",
 		URL:                   "https://open.feishu.cn/open-apis/im/v1/files",
 		Body:                  request,
@@ -34,18 +33,7 @@ func (r *FileService) UploadFile(ctx context.Context, request *UploadFileReq, op
 	resp := new(uploadFileResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
-	requestID, statusCode := getResponseRequestID(response)
-	if err != nil {
-		r.cli.log(ctx, LogLevelError, "[lark] File#UploadFile POST https://open.feishu.cn/open-apis/im/v1/files failed, request_id: %s, status_code: %d, error: %s", requestID, statusCode, err)
-		return nil, response, err
-	} else if resp.Code != 0 {
-		r.cli.log(ctx, LogLevelError, "[lark] File#UploadFile POST https://open.feishu.cn/open-apis/im/v1/files failed, request_id: %s, status_code: %d, code: %d, msg: %s", requestID, statusCode, resp.Code, resp.Msg)
-		return nil, response, NewError("File", "UploadFile", resp.Code, resp.Msg)
-	}
-
-	r.cli.log(ctx, LogLevelDebug, "[lark] File#UploadFile success, request_id: %s, status_code: %d, response: %s", requestID, statusCode, jsonString(resp.Data))
-
-	return resp.Data, response, nil
+	return resp.Data, response, err
 }
 
 func (r *Mock) MockFileUploadFile(f func(ctx context.Context, request *UploadFileReq, options ...MethodOptionFunc) (*UploadFileResp, *Response, error)) {

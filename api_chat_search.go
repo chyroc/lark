@@ -21,10 +21,9 @@ func (r *ChatService) SearchChat(ctx context.Context, request *SearchChatReq, op
 		return r.cli.mock.mockChatSearchChat(ctx, request, options...)
 	}
 
-	r.cli.log(ctx, LogLevelInfo, "[lark] Chat#SearchChat call api")
-	r.cli.log(ctx, LogLevelDebug, "[lark] Chat#SearchChat request: %s", jsonString(request))
-
 	req := &RawRequestReq{
+		Scope:                 "Chat",
+		API:                   "SearchChat",
 		Method:                "GET",
 		URL:                   "https://open.feishu.cn/open-apis/im/v1/chats/search",
 		Body:                  request,
@@ -36,18 +35,7 @@ func (r *ChatService) SearchChat(ctx context.Context, request *SearchChatReq, op
 	resp := new(searchChatResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
-	requestID, statusCode := getResponseRequestID(response)
-	if err != nil {
-		r.cli.log(ctx, LogLevelError, "[lark] Chat#SearchChat GET https://open.feishu.cn/open-apis/im/v1/chats/search failed, request_id: %s, status_code: %d, error: %s", requestID, statusCode, err)
-		return nil, response, err
-	} else if resp.Code != 0 {
-		r.cli.log(ctx, LogLevelError, "[lark] Chat#SearchChat GET https://open.feishu.cn/open-apis/im/v1/chats/search failed, request_id: %s, status_code: %d, code: %d, msg: %s", requestID, statusCode, resp.Code, resp.Msg)
-		return nil, response, NewError("Chat", "SearchChat", resp.Code, resp.Msg)
-	}
-
-	r.cli.log(ctx, LogLevelDebug, "[lark] Chat#SearchChat success, request_id: %s, status_code: %d, response: %s", requestID, statusCode, jsonString(resp.Data))
-
-	return resp.Data, response, nil
+	return resp.Data, response, err
 }
 
 func (r *Mock) MockChatSearchChat(f func(ctx context.Context, request *SearchChatReq, options ...MethodOptionFunc) (*SearchChatResp, *Response, error)) {

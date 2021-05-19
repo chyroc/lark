@@ -15,10 +15,9 @@ func (r *BitableService) DeleteBitableField(ctx context.Context, request *Delete
 		return r.cli.mock.mockBitableDeleteBitableField(ctx, request, options...)
 	}
 
-	r.cli.log(ctx, LogLevelInfo, "[lark] Bitable#DeleteBitableField call api")
-	r.cli.log(ctx, LogLevelDebug, "[lark] Bitable#DeleteBitableField request: %s", jsonString(request))
-
 	req := &RawRequestReq{
+		Scope:        "Bitable",
+		API:          "DeleteBitableField",
 		Method:       "DELETE",
 		URL:          "https://open.feishu.cn/open-apis/bitable/v1/apps/:app_token/tables/:table_id/fields/:field_id",
 		Body:         request,
@@ -29,18 +28,7 @@ func (r *BitableService) DeleteBitableField(ctx context.Context, request *Delete
 	resp := new(deleteBitableFieldResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
-	requestID, statusCode := getResponseRequestID(response)
-	if err != nil {
-		r.cli.log(ctx, LogLevelError, "[lark] Bitable#DeleteBitableField DELETE https://open.feishu.cn/open-apis/bitable/v1/apps/:app_token/tables/:table_id/fields/:field_id failed, request_id: %s, status_code: %d, error: %s", requestID, statusCode, err)
-		return nil, response, err
-	} else if resp.Code != 0 {
-		r.cli.log(ctx, LogLevelError, "[lark] Bitable#DeleteBitableField DELETE https://open.feishu.cn/open-apis/bitable/v1/apps/:app_token/tables/:table_id/fields/:field_id failed, request_id: %s, status_code: %d, code: %d, msg: %s", requestID, statusCode, resp.Code, resp.Msg)
-		return nil, response, NewError("Bitable", "DeleteBitableField", resp.Code, resp.Msg)
-	}
-
-	r.cli.log(ctx, LogLevelDebug, "[lark] Bitable#DeleteBitableField success, request_id: %s, status_code: %d, response: %s", requestID, statusCode, jsonString(resp.Data))
-
-	return resp.Data, response, nil
+	return resp.Data, response, err
 }
 
 func (r *Mock) MockBitableDeleteBitableField(f func(ctx context.Context, request *DeleteBitableFieldReq, options ...MethodOptionFunc) (*DeleteBitableFieldResp, *Response, error)) {

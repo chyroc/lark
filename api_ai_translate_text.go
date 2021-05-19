@@ -17,10 +17,9 @@ func (r *AIService) TranslateText(ctx context.Context, request *TranslateTextReq
 		return r.cli.mock.mockAITranslateText(ctx, request, options...)
 	}
 
-	r.cli.log(ctx, LogLevelInfo, "[lark] AI#TranslateText call api")
-	r.cli.log(ctx, LogLevelDebug, "[lark] AI#TranslateText request: %s", jsonString(request))
-
 	req := &RawRequestReq{
+		Scope:                 "AI",
+		API:                   "TranslateText",
 		Method:                "POST",
 		URL:                   "https://open.feishu.cn/open-apis/translation/v1/text/translate",
 		Body:                  request,
@@ -30,18 +29,7 @@ func (r *AIService) TranslateText(ctx context.Context, request *TranslateTextReq
 	resp := new(translateTextResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
-	requestID, statusCode := getResponseRequestID(response)
-	if err != nil {
-		r.cli.log(ctx, LogLevelError, "[lark] AI#TranslateText POST https://open.feishu.cn/open-apis/translation/v1/text/translate failed, request_id: %s, status_code: %d, error: %s", requestID, statusCode, err)
-		return nil, response, err
-	} else if resp.Code != 0 {
-		r.cli.log(ctx, LogLevelError, "[lark] AI#TranslateText POST https://open.feishu.cn/open-apis/translation/v1/text/translate failed, request_id: %s, status_code: %d, code: %d, msg: %s", requestID, statusCode, resp.Code, resp.Msg)
-		return nil, response, NewError("AI", "TranslateText", resp.Code, resp.Msg)
-	}
-
-	r.cli.log(ctx, LogLevelDebug, "[lark] AI#TranslateText success, request_id: %s, status_code: %d, response: %s", requestID, statusCode, jsonString(resp.Data))
-
-	return resp.Data, response, nil
+	return resp.Data, response, err
 }
 
 func (r *Mock) MockAITranslateText(f func(ctx context.Context, request *TranslateTextReq, options ...MethodOptionFunc) (*TranslateTextResp, *Response, error)) {

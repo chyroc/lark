@@ -17,10 +17,9 @@ func (r *HumanAuthService) CreateIdentity(ctx context.Context, request *CreateId
 		return r.cli.mock.mockHumanAuthCreateIdentity(ctx, request, options...)
 	}
 
-	r.cli.log(ctx, LogLevelInfo, "[lark] HumanAuth#CreateIdentity call api")
-	r.cli.log(ctx, LogLevelDebug, "[lark] HumanAuth#CreateIdentity request: %s", jsonString(request))
-
 	req := &RawRequestReq{
+		Scope:                 "HumanAuth",
+		API:                   "CreateIdentity",
 		Method:                "POST",
 		URL:                   "https://open.feishu.cn/open-apis/human_authentication/v1/identities",
 		Body:                  request,
@@ -30,18 +29,7 @@ func (r *HumanAuthService) CreateIdentity(ctx context.Context, request *CreateId
 	resp := new(createIdentityResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
-	requestID, statusCode := getResponseRequestID(response)
-	if err != nil {
-		r.cli.log(ctx, LogLevelError, "[lark] HumanAuth#CreateIdentity POST https://open.feishu.cn/open-apis/human_authentication/v1/identities failed, request_id: %s, status_code: %d, error: %s", requestID, statusCode, err)
-		return nil, response, err
-	} else if resp.Code != 0 {
-		r.cli.log(ctx, LogLevelError, "[lark] HumanAuth#CreateIdentity POST https://open.feishu.cn/open-apis/human_authentication/v1/identities failed, request_id: %s, status_code: %d, code: %d, msg: %s", requestID, statusCode, resp.Code, resp.Msg)
-		return nil, response, NewError("HumanAuth", "CreateIdentity", resp.Code, resp.Msg)
-	}
-
-	r.cli.log(ctx, LogLevelDebug, "[lark] HumanAuth#CreateIdentity success, request_id: %s, status_code: %d, response: %s", requestID, statusCode, jsonString(resp.Data))
-
-	return resp.Data, response, nil
+	return resp.Data, response, err
 }
 
 func (r *Mock) MockHumanAuthCreateIdentity(f func(ctx context.Context, request *CreateIdentityReq, options ...MethodOptionFunc) (*CreateIdentityResp, *Response, error)) {

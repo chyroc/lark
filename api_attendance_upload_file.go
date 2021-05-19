@@ -16,10 +16,9 @@ func (r *AttendanceService) UploadAttendanceFile(ctx context.Context, request *U
 		return r.cli.mock.mockAttendanceUploadAttendanceFile(ctx, request, options...)
 	}
 
-	r.cli.log(ctx, LogLevelInfo, "[lark] Attendance#UploadAttendanceFile call api")
-	r.cli.log(ctx, LogLevelDebug, "[lark] Attendance#UploadAttendanceFile request: %s", jsonString(request))
-
 	req := &RawRequestReq{
+		Scope:                 "Attendance",
+		API:                   "UploadAttendanceFile",
 		Method:                "POST",
 		URL:                   "https://open.feishu.cn/open-apis/attendance/v1/files/upload",
 		Body:                  request,
@@ -31,18 +30,7 @@ func (r *AttendanceService) UploadAttendanceFile(ctx context.Context, request *U
 	resp := new(uploadAttendanceFileResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
-	requestID, statusCode := getResponseRequestID(response)
-	if err != nil {
-		r.cli.log(ctx, LogLevelError, "[lark] Attendance#UploadAttendanceFile POST https://open.feishu.cn/open-apis/attendance/v1/files/upload failed, request_id: %s, status_code: %d, error: %s", requestID, statusCode, err)
-		return nil, response, err
-	} else if resp.Code != 0 {
-		r.cli.log(ctx, LogLevelError, "[lark] Attendance#UploadAttendanceFile POST https://open.feishu.cn/open-apis/attendance/v1/files/upload failed, request_id: %s, status_code: %d, code: %d, msg: %s", requestID, statusCode, resp.Code, resp.Msg)
-		return nil, response, NewError("Attendance", "UploadAttendanceFile", resp.Code, resp.Msg)
-	}
-
-	r.cli.log(ctx, LogLevelDebug, "[lark] Attendance#UploadAttendanceFile success, request_id: %s, status_code: %d, response: %s", requestID, statusCode, jsonString(resp.Data))
-
-	return resp.Data, response, nil
+	return resp.Data, response, err
 }
 
 func (r *Mock) MockAttendanceUploadAttendanceFile(f func(ctx context.Context, request *UploadAttendanceFileReq, options ...MethodOptionFunc) (*UploadAttendanceFileResp, *Response, error)) {

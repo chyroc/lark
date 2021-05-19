@@ -19,10 +19,9 @@ func (r *CalendarService) CreateCalendarACL(ctx context.Context, request *Create
 		return r.cli.mock.mockCalendarCreateCalendarACL(ctx, request, options...)
 	}
 
-	r.cli.log(ctx, LogLevelInfo, "[lark] Calendar#CreateCalendarACL call api")
-	r.cli.log(ctx, LogLevelDebug, "[lark] Calendar#CreateCalendarACL request: %s", jsonString(request))
-
 	req := &RawRequestReq{
+		Scope:                 "Calendar",
+		API:                   "CreateCalendarACL",
 		Method:                "POST",
 		URL:                   "https://open.feishu.cn/open-apis/calendar/v4/calendars/:calendar_id/acls",
 		Body:                  request,
@@ -34,18 +33,7 @@ func (r *CalendarService) CreateCalendarACL(ctx context.Context, request *Create
 	resp := new(createCalendarACLResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
-	requestID, statusCode := getResponseRequestID(response)
-	if err != nil {
-		r.cli.log(ctx, LogLevelError, "[lark] Calendar#CreateCalendarACL POST https://open.feishu.cn/open-apis/calendar/v4/calendars/:calendar_id/acls failed, request_id: %s, status_code: %d, error: %s", requestID, statusCode, err)
-		return nil, response, err
-	} else if resp.Code != 0 {
-		r.cli.log(ctx, LogLevelError, "[lark] Calendar#CreateCalendarACL POST https://open.feishu.cn/open-apis/calendar/v4/calendars/:calendar_id/acls failed, request_id: %s, status_code: %d, code: %d, msg: %s", requestID, statusCode, resp.Code, resp.Msg)
-		return nil, response, NewError("Calendar", "CreateCalendarACL", resp.Code, resp.Msg)
-	}
-
-	r.cli.log(ctx, LogLevelDebug, "[lark] Calendar#CreateCalendarACL success, request_id: %s, status_code: %d, response: %s", requestID, statusCode, jsonString(resp.Data))
-
-	return resp.Data, response, nil
+	return resp.Data, response, err
 }
 
 func (r *Mock) MockCalendarCreateCalendarACL(f func(ctx context.Context, request *CreateCalendarACLReq, options ...MethodOptionFunc) (*CreateCalendarACLResp, *Response, error)) {

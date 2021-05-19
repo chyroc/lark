@@ -15,10 +15,9 @@ func (r *MeetingRoomService) ReplyInstance(ctx context.Context, request *ReplyIn
 		return r.cli.mock.mockMeetingRoomReplyInstance(ctx, request, options...)
 	}
 
-	r.cli.log(ctx, LogLevelInfo, "[lark] MeetingRoom#ReplyInstance call api")
-	r.cli.log(ctx, LogLevelDebug, "[lark] MeetingRoom#ReplyInstance request: %s", jsonString(request))
-
 	req := &RawRequestReq{
+		Scope:                 "MeetingRoom",
+		API:                   "ReplyInstance",
 		Method:                "POST",
 		URL:                   "https://open.feishu.cn/open-apis/meeting_room/instance/reply",
 		Body:                  request,
@@ -28,18 +27,7 @@ func (r *MeetingRoomService) ReplyInstance(ctx context.Context, request *ReplyIn
 	resp := new(replyInstanceResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
-	requestID, statusCode := getResponseRequestID(response)
-	if err != nil {
-		r.cli.log(ctx, LogLevelError, "[lark] MeetingRoom#ReplyInstance POST https://open.feishu.cn/open-apis/meeting_room/instance/reply failed, request_id: %s, status_code: %d, error: %s", requestID, statusCode, err)
-		return nil, response, err
-	} else if resp.Code != 0 {
-		r.cli.log(ctx, LogLevelError, "[lark] MeetingRoom#ReplyInstance POST https://open.feishu.cn/open-apis/meeting_room/instance/reply failed, request_id: %s, status_code: %d, code: %d, msg: %s", requestID, statusCode, resp.Code, resp.Msg)
-		return nil, response, NewError("MeetingRoom", "ReplyInstance", resp.Code, resp.Msg)
-	}
-
-	r.cli.log(ctx, LogLevelDebug, "[lark] MeetingRoom#ReplyInstance success, request_id: %s, status_code: %d, response: %s", requestID, statusCode, jsonString(resp.Data))
-
-	return resp.Data, response, nil
+	return resp.Data, response, err
 }
 
 func (r *Mock) MockMeetingRoomReplyInstance(f func(ctx context.Context, request *ReplyInstanceReq, options ...MethodOptionFunc) (*ReplyInstanceResp, *Response, error)) {

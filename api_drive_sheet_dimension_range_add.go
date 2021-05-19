@@ -15,10 +15,9 @@ func (r *DriveService) AddSheetDimensionRange(ctx context.Context, request *AddS
 		return r.cli.mock.mockDriveAddSheetDimensionRange(ctx, request, options...)
 	}
 
-	r.cli.log(ctx, LogLevelInfo, "[lark] Drive#AddSheetDimensionRange call api")
-	r.cli.log(ctx, LogLevelDebug, "[lark] Drive#AddSheetDimensionRange request: %s", jsonString(request))
-
 	req := &RawRequestReq{
+		Scope:                 "Drive",
+		API:                   "AddSheetDimensionRange",
 		Method:                "POST",
 		URL:                   "https://open.feishu.cn/open-apis/sheets/v2/spreadsheets/:spreadsheetToken/dimension_range",
 		Body:                  request,
@@ -30,18 +29,7 @@ func (r *DriveService) AddSheetDimensionRange(ctx context.Context, request *AddS
 	resp := new(addSheetDimensionRangeResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
-	requestID, statusCode := getResponseRequestID(response)
-	if err != nil {
-		r.cli.log(ctx, LogLevelError, "[lark] Drive#AddSheetDimensionRange POST https://open.feishu.cn/open-apis/sheets/v2/spreadsheets/:spreadsheetToken/dimension_range failed, request_id: %s, status_code: %d, error: %s", requestID, statusCode, err)
-		return nil, response, err
-	} else if resp.Code != 0 {
-		r.cli.log(ctx, LogLevelError, "[lark] Drive#AddSheetDimensionRange POST https://open.feishu.cn/open-apis/sheets/v2/spreadsheets/:spreadsheetToken/dimension_range failed, request_id: %s, status_code: %d, code: %d, msg: %s", requestID, statusCode, resp.Code, resp.Msg)
-		return nil, response, NewError("Drive", "AddSheetDimensionRange", resp.Code, resp.Msg)
-	}
-
-	r.cli.log(ctx, LogLevelDebug, "[lark] Drive#AddSheetDimensionRange success, request_id: %s, status_code: %d, response: %s", requestID, statusCode, jsonString(resp.Data))
-
-	return resp.Data, response, nil
+	return resp.Data, response, err
 }
 
 func (r *Mock) MockDriveAddSheetDimensionRange(f func(ctx context.Context, request *AddSheetDimensionRangeReq, options ...MethodOptionFunc) (*AddSheetDimensionRangeResp, *Response, error)) {

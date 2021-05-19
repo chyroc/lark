@@ -15,10 +15,9 @@ func (r *MeetingRoomService) GetBuildingList(ctx context.Context, request *GetBu
 		return r.cli.mock.mockMeetingRoomGetBuildingList(ctx, request, options...)
 	}
 
-	r.cli.log(ctx, LogLevelInfo, "[lark] MeetingRoom#GetBuildingList call api")
-	r.cli.log(ctx, LogLevelDebug, "[lark] MeetingRoom#GetBuildingList request: %s", jsonString(request))
-
 	req := &RawRequestReq{
+		Scope:                 "MeetingRoom",
+		API:                   "GetBuildingList",
 		Method:                "GET",
 		URL:                   "https://open.feishu.cn/open-apis/meeting_room/building/list?page_size=1&page_token=0&order_by=name-asc&fields=*",
 		Body:                  request,
@@ -28,18 +27,7 @@ func (r *MeetingRoomService) GetBuildingList(ctx context.Context, request *GetBu
 	resp := new(getBuildingListResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
-	requestID, statusCode := getResponseRequestID(response)
-	if err != nil {
-		r.cli.log(ctx, LogLevelError, "[lark] MeetingRoom#GetBuildingList GET https://open.feishu.cn/open-apis/meeting_room/building/list?page_size=1&page_token=0&order_by=name-asc&fields=* failed, request_id: %s, status_code: %d, error: %s", requestID, statusCode, err)
-		return nil, response, err
-	} else if resp.Code != 0 {
-		r.cli.log(ctx, LogLevelError, "[lark] MeetingRoom#GetBuildingList GET https://open.feishu.cn/open-apis/meeting_room/building/list?page_size=1&page_token=0&order_by=name-asc&fields=* failed, request_id: %s, status_code: %d, code: %d, msg: %s", requestID, statusCode, resp.Code, resp.Msg)
-		return nil, response, NewError("MeetingRoom", "GetBuildingList", resp.Code, resp.Msg)
-	}
-
-	r.cli.log(ctx, LogLevelDebug, "[lark] MeetingRoom#GetBuildingList success, request_id: %s, status_code: %d, response: %s", requestID, statusCode, jsonString(resp.Data))
-
-	return resp.Data, response, nil
+	return resp.Data, response, err
 }
 
 func (r *Mock) MockMeetingRoomGetBuildingList(f func(ctx context.Context, request *GetBuildingListReq, options ...MethodOptionFunc) (*GetBuildingListResp, *Response, error)) {

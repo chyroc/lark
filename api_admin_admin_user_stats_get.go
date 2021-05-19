@@ -19,10 +19,9 @@ func (r *AdminService) GetAdminUserStats(ctx context.Context, request *GetAdminU
 		return r.cli.mock.mockAdminGetAdminUserStats(ctx, request, options...)
 	}
 
-	r.cli.log(ctx, LogLevelInfo, "[lark] Admin#GetAdminUserStats call api")
-	r.cli.log(ctx, LogLevelDebug, "[lark] Admin#GetAdminUserStats request: %s", jsonString(request))
-
 	req := &RawRequestReq{
+		Scope:                 "Admin",
+		API:                   "GetAdminUserStats",
 		Method:                "GET",
 		URL:                   "https://open.feishu.cn/open-apis/admin/v1/admin_user_stats",
 		Body:                  request,
@@ -32,18 +31,7 @@ func (r *AdminService) GetAdminUserStats(ctx context.Context, request *GetAdminU
 	resp := new(getAdminUserStatsResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
-	requestID, statusCode := getResponseRequestID(response)
-	if err != nil {
-		r.cli.log(ctx, LogLevelError, "[lark] Admin#GetAdminUserStats GET https://open.feishu.cn/open-apis/admin/v1/admin_user_stats failed, request_id: %s, status_code: %d, error: %s", requestID, statusCode, err)
-		return nil, response, err
-	} else if resp.Code != 0 {
-		r.cli.log(ctx, LogLevelError, "[lark] Admin#GetAdminUserStats GET https://open.feishu.cn/open-apis/admin/v1/admin_user_stats failed, request_id: %s, status_code: %d, code: %d, msg: %s", requestID, statusCode, resp.Code, resp.Msg)
-		return nil, response, NewError("Admin", "GetAdminUserStats", resp.Code, resp.Msg)
-	}
-
-	r.cli.log(ctx, LogLevelDebug, "[lark] Admin#GetAdminUserStats success, request_id: %s, status_code: %d, response: %s", requestID, statusCode, jsonString(resp.Data))
-
-	return resp.Data, response, nil
+	return resp.Data, response, err
 }
 
 func (r *Mock) MockAdminGetAdminUserStats(f func(ctx context.Context, request *GetAdminUserStatsReq, options ...MethodOptionFunc) (*GetAdminUserStatsResp, *Response, error)) {

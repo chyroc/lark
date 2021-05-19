@@ -21,10 +21,9 @@ func (r *HumanAuthService) UploadFaceVerifyImage(ctx context.Context, request *U
 		return r.cli.mock.mockHumanAuthUploadFaceVerifyImage(ctx, request, options...)
 	}
 
-	r.cli.log(ctx, LogLevelInfo, "[lark] HumanAuth#UploadFaceVerifyImage call api")
-	r.cli.log(ctx, LogLevelDebug, "[lark] HumanAuth#UploadFaceVerifyImage request: %s", jsonString(request))
-
 	req := &RawRequestReq{
+		Scope:                 "HumanAuth",
+		API:                   "UploadFaceVerifyImage",
 		Method:                "POST",
 		URL:                   "https://open.feishu.cn/open-apis/face_verify/v1/upload_face_image",
 		Body:                  request,
@@ -36,18 +35,7 @@ func (r *HumanAuthService) UploadFaceVerifyImage(ctx context.Context, request *U
 	resp := new(uploadFaceVerifyImageResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
-	requestID, statusCode := getResponseRequestID(response)
-	if err != nil {
-		r.cli.log(ctx, LogLevelError, "[lark] HumanAuth#UploadFaceVerifyImage POST https://open.feishu.cn/open-apis/face_verify/v1/upload_face_image failed, request_id: %s, status_code: %d, error: %s", requestID, statusCode, err)
-		return nil, response, err
-	} else if resp.Code != 0 {
-		r.cli.log(ctx, LogLevelError, "[lark] HumanAuth#UploadFaceVerifyImage POST https://open.feishu.cn/open-apis/face_verify/v1/upload_face_image failed, request_id: %s, status_code: %d, code: %d, msg: %s", requestID, statusCode, resp.Code, resp.Msg)
-		return nil, response, NewError("HumanAuth", "UploadFaceVerifyImage", resp.Code, resp.Msg)
-	}
-
-	r.cli.log(ctx, LogLevelDebug, "[lark] HumanAuth#UploadFaceVerifyImage success, request_id: %s, status_code: %d, response: %s", requestID, statusCode, jsonString(resp.Data))
-
-	return resp.Data, response, nil
+	return resp.Data, response, err
 }
 
 func (r *Mock) MockHumanAuthUploadFaceVerifyImage(f func(ctx context.Context, request *UploadFaceVerifyImageReq, options ...MethodOptionFunc) (*UploadFaceVerifyImageResp, *Response, error)) {

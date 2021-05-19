@@ -17,10 +17,9 @@ func (r *AuthService) GetAccessToken(ctx context.Context, request *GetAccessToke
 		return r.cli.mock.mockAuthGetAccessToken(ctx, request, options...)
 	}
 
-	r.cli.log(ctx, LogLevelInfo, "[lark] Auth#GetAccessToken call api")
-	r.cli.log(ctx, LogLevelDebug, "[lark] Auth#GetAccessToken request: %s", jsonString(request))
-
 	req := &RawRequestReq{
+		Scope:        "Auth",
+		API:          "GetAccessToken",
 		Method:       "POST",
 		URL:          "https://open.feishu.cn/open-apis/authen/v1/access_token",
 		Body:         request,
@@ -32,18 +31,7 @@ func (r *AuthService) GetAccessToken(ctx context.Context, request *GetAccessToke
 	resp := new(getAccessTokenResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
-	requestID, statusCode := getResponseRequestID(response)
-	if err != nil {
-		r.cli.log(ctx, LogLevelError, "[lark] Auth#GetAccessToken POST https://open.feishu.cn/open-apis/authen/v1/access_token failed, request_id: %s, status_code: %d, error: %s", requestID, statusCode, err)
-		return nil, response, err
-	} else if resp.Code != 0 {
-		r.cli.log(ctx, LogLevelError, "[lark] Auth#GetAccessToken POST https://open.feishu.cn/open-apis/authen/v1/access_token failed, request_id: %s, status_code: %d, code: %d, msg: %s", requestID, statusCode, resp.Code, resp.Msg)
-		return nil, response, NewError("Auth", "GetAccessToken", resp.Code, resp.Msg)
-	}
-
-	r.cli.log(ctx, LogLevelDebug, "[lark] Auth#GetAccessToken success, request_id: %s, status_code: %d, response: %s", requestID, statusCode, jsonString(resp.Data))
-
-	return resp.Data, response, nil
+	return resp.Data, response, err
 }
 
 func (r *Mock) MockAuthGetAccessToken(f func(ctx context.Context, request *GetAccessTokenReq, options ...MethodOptionFunc) (*GetAccessTokenResp, *Response, error)) {

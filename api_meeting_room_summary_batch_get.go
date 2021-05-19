@@ -15,10 +15,9 @@ func (r *MeetingRoomService) BatchGetSummary(ctx context.Context, request *Batch
 		return r.cli.mock.mockMeetingRoomBatchGetSummary(ctx, request, options...)
 	}
 
-	r.cli.log(ctx, LogLevelInfo, "[lark] MeetingRoom#BatchGetSummary call api")
-	r.cli.log(ctx, LogLevelDebug, "[lark] MeetingRoom#BatchGetSummary request: %s", jsonString(request))
-
 	req := &RawRequestReq{
+		Scope:                 "MeetingRoom",
+		API:                   "BatchGetSummary",
 		Method:                "POST",
 		URL:                   "https://open.feishu.cn/open-apis/meeting_room/summary/batch_get",
 		Body:                  request,
@@ -28,18 +27,7 @@ func (r *MeetingRoomService) BatchGetSummary(ctx context.Context, request *Batch
 	resp := new(batchGetSummaryResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
-	requestID, statusCode := getResponseRequestID(response)
-	if err != nil {
-		r.cli.log(ctx, LogLevelError, "[lark] MeetingRoom#BatchGetSummary POST https://open.feishu.cn/open-apis/meeting_room/summary/batch_get failed, request_id: %s, status_code: %d, error: %s", requestID, statusCode, err)
-		return nil, response, err
-	} else if resp.Code != 0 {
-		r.cli.log(ctx, LogLevelError, "[lark] MeetingRoom#BatchGetSummary POST https://open.feishu.cn/open-apis/meeting_room/summary/batch_get failed, request_id: %s, status_code: %d, code: %d, msg: %s", requestID, statusCode, resp.Code, resp.Msg)
-		return nil, response, NewError("MeetingRoom", "BatchGetSummary", resp.Code, resp.Msg)
-	}
-
-	r.cli.log(ctx, LogLevelDebug, "[lark] MeetingRoom#BatchGetSummary success, request_id: %s, status_code: %d, response: %s", requestID, statusCode, jsonString(resp.Data))
-
-	return resp.Data, response, nil
+	return resp.Data, response, err
 }
 
 func (r *Mock) MockMeetingRoomBatchGetSummary(f func(ctx context.Context, request *BatchGetSummaryReq, options ...MethodOptionFunc) (*BatchGetSummaryResp, *Response, error)) {

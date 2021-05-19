@@ -15,10 +15,9 @@ func (r *BitableService) UpdateBitableRecord(ctx context.Context, request *Updat
 		return r.cli.mock.mockBitableUpdateBitableRecord(ctx, request, options...)
 	}
 
-	r.cli.log(ctx, LogLevelInfo, "[lark] Bitable#UpdateBitableRecord call api")
-	r.cli.log(ctx, LogLevelDebug, "[lark] Bitable#UpdateBitableRecord request: %s", jsonString(request))
-
 	req := &RawRequestReq{
+		Scope:        "Bitable",
+		API:          "UpdateBitableRecord",
 		Method:       "PUT",
 		URL:          "https://open.feishu.cn/open-apis/bitable/v1/apps/:app_token/tables/:table_id/records/:record_id",
 		Body:         request,
@@ -29,18 +28,7 @@ func (r *BitableService) UpdateBitableRecord(ctx context.Context, request *Updat
 	resp := new(updateBitableRecordResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
-	requestID, statusCode := getResponseRequestID(response)
-	if err != nil {
-		r.cli.log(ctx, LogLevelError, "[lark] Bitable#UpdateBitableRecord PUT https://open.feishu.cn/open-apis/bitable/v1/apps/:app_token/tables/:table_id/records/:record_id failed, request_id: %s, status_code: %d, error: %s", requestID, statusCode, err)
-		return nil, response, err
-	} else if resp.Code != 0 {
-		r.cli.log(ctx, LogLevelError, "[lark] Bitable#UpdateBitableRecord PUT https://open.feishu.cn/open-apis/bitable/v1/apps/:app_token/tables/:table_id/records/:record_id failed, request_id: %s, status_code: %d, code: %d, msg: %s", requestID, statusCode, resp.Code, resp.Msg)
-		return nil, response, NewError("Bitable", "UpdateBitableRecord", resp.Code, resp.Msg)
-	}
-
-	r.cli.log(ctx, LogLevelDebug, "[lark] Bitable#UpdateBitableRecord success, request_id: %s, status_code: %d, response: %s", requestID, statusCode, jsonString(resp.Data))
-
-	return resp.Data, response, nil
+	return resp.Data, response, err
 }
 
 func (r *Mock) MockBitableUpdateBitableRecord(f func(ctx context.Context, request *UpdateBitableRecordReq, options ...MethodOptionFunc) (*UpdateBitableRecordResp, *Response, error)) {

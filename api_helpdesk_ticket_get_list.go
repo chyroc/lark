@@ -15,10 +15,9 @@ func (r *HelpdeskService) GetTicketList(ctx context.Context, request *GetTicketL
 		return r.cli.mock.mockHelpdeskGetTicketList(ctx, request, options...)
 	}
 
-	r.cli.log(ctx, LogLevelInfo, "[lark] Helpdesk#GetTicketList call api")
-	r.cli.log(ctx, LogLevelDebug, "[lark] Helpdesk#GetTicketList request: %s", jsonString(request))
-
 	req := &RawRequestReq{
+		Scope:                 "Helpdesk",
+		API:                   "GetTicketList",
 		Method:                "GET",
 		URL:                   "https://open.feishu.cn/open-apis/helpdesk/v1/tickets",
 		Body:                  request,
@@ -30,18 +29,7 @@ func (r *HelpdeskService) GetTicketList(ctx context.Context, request *GetTicketL
 	resp := new(getTicketListResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
-	requestID, statusCode := getResponseRequestID(response)
-	if err != nil {
-		r.cli.log(ctx, LogLevelError, "[lark] Helpdesk#GetTicketList GET https://open.feishu.cn/open-apis/helpdesk/v1/tickets failed, request_id: %s, status_code: %d, error: %s", requestID, statusCode, err)
-		return nil, response, err
-	} else if resp.Code != 0 {
-		r.cli.log(ctx, LogLevelError, "[lark] Helpdesk#GetTicketList GET https://open.feishu.cn/open-apis/helpdesk/v1/tickets failed, request_id: %s, status_code: %d, code: %d, msg: %s", requestID, statusCode, resp.Code, resp.Msg)
-		return nil, response, NewError("Helpdesk", "GetTicketList", resp.Code, resp.Msg)
-	}
-
-	r.cli.log(ctx, LogLevelDebug, "[lark] Helpdesk#GetTicketList success, request_id: %s, status_code: %d, response: %s", requestID, statusCode, jsonString(resp.Data))
-
-	return resp.Data, response, nil
+	return resp.Data, response, err
 }
 
 func (r *Mock) MockHelpdeskGetTicketList(f func(ctx context.Context, request *GetTicketListReq, options ...MethodOptionFunc) (*GetTicketListResp, *Response, error)) {

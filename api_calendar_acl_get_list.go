@@ -19,10 +19,9 @@ func (r *CalendarService) GetCalendarACLList(ctx context.Context, request *GetCa
 		return r.cli.mock.mockCalendarGetCalendarACLList(ctx, request, options...)
 	}
 
-	r.cli.log(ctx, LogLevelInfo, "[lark] Calendar#GetCalendarACLList call api")
-	r.cli.log(ctx, LogLevelDebug, "[lark] Calendar#GetCalendarACLList request: %s", jsonString(request))
-
 	req := &RawRequestReq{
+		Scope:                 "Calendar",
+		API:                   "GetCalendarACLList",
 		Method:                "GET",
 		URL:                   "https://open.feishu.cn/open-apis/calendar/v4/calendars/:calendar_id/acls",
 		Body:                  request,
@@ -34,18 +33,7 @@ func (r *CalendarService) GetCalendarACLList(ctx context.Context, request *GetCa
 	resp := new(getCalendarACLListResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
-	requestID, statusCode := getResponseRequestID(response)
-	if err != nil {
-		r.cli.log(ctx, LogLevelError, "[lark] Calendar#GetCalendarACLList GET https://open.feishu.cn/open-apis/calendar/v4/calendars/:calendar_id/acls failed, request_id: %s, status_code: %d, error: %s", requestID, statusCode, err)
-		return nil, response, err
-	} else if resp.Code != 0 {
-		r.cli.log(ctx, LogLevelError, "[lark] Calendar#GetCalendarACLList GET https://open.feishu.cn/open-apis/calendar/v4/calendars/:calendar_id/acls failed, request_id: %s, status_code: %d, code: %d, msg: %s", requestID, statusCode, resp.Code, resp.Msg)
-		return nil, response, NewError("Calendar", "GetCalendarACLList", resp.Code, resp.Msg)
-	}
-
-	r.cli.log(ctx, LogLevelDebug, "[lark] Calendar#GetCalendarACLList success, request_id: %s, status_code: %d, response: %s", requestID, statusCode, jsonString(resp.Data))
-
-	return resp.Data, response, nil
+	return resp.Data, response, err
 }
 
 func (r *Mock) MockCalendarGetCalendarACLList(f func(ctx context.Context, request *GetCalendarACLListReq, options ...MethodOptionFunc) (*GetCalendarACLListResp, *Response, error)) {

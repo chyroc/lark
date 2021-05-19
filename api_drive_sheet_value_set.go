@@ -15,10 +15,9 @@ func (r *DriveService) SetSheetValue(ctx context.Context, request *SetSheetValue
 		return r.cli.mock.mockDriveSetSheetValue(ctx, request, options...)
 	}
 
-	r.cli.log(ctx, LogLevelInfo, "[lark] Drive#SetSheetValue call api")
-	r.cli.log(ctx, LogLevelDebug, "[lark] Drive#SetSheetValue request: %s", jsonString(request))
-
 	req := &RawRequestReq{
+		Scope:                 "Drive",
+		API:                   "SetSheetValue",
 		Method:                "PUT",
 		URL:                   "https://open.feishu.cn/open-apis/sheets/v2/spreadsheets/:spreadsheetToken/values",
 		Body:                  request,
@@ -30,18 +29,7 @@ func (r *DriveService) SetSheetValue(ctx context.Context, request *SetSheetValue
 	resp := new(setSheetValueResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
-	requestID, statusCode := getResponseRequestID(response)
-	if err != nil {
-		r.cli.log(ctx, LogLevelError, "[lark] Drive#SetSheetValue PUT https://open.feishu.cn/open-apis/sheets/v2/spreadsheets/:spreadsheetToken/values failed, request_id: %s, status_code: %d, error: %s", requestID, statusCode, err)
-		return nil, response, err
-	} else if resp.Code != 0 {
-		r.cli.log(ctx, LogLevelError, "[lark] Drive#SetSheetValue PUT https://open.feishu.cn/open-apis/sheets/v2/spreadsheets/:spreadsheetToken/values failed, request_id: %s, status_code: %d, code: %d, msg: %s", requestID, statusCode, resp.Code, resp.Msg)
-		return nil, response, NewError("Drive", "SetSheetValue", resp.Code, resp.Msg)
-	}
-
-	r.cli.log(ctx, LogLevelDebug, "[lark] Drive#SetSheetValue success, request_id: %s, status_code: %d, response: %s", requestID, statusCode, jsonString(resp.Data))
-
-	return resp.Data, response, nil
+	return resp.Data, response, err
 }
 
 func (r *Mock) MockDriveSetSheetValue(f func(ctx context.Context, request *SetSheetValueReq, options ...MethodOptionFunc) (*SetSheetValueResp, *Response, error)) {

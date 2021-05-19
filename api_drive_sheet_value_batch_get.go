@@ -17,10 +17,9 @@ func (r *DriveService) BatchGetSheetValue(ctx context.Context, request *BatchGet
 		return r.cli.mock.mockDriveBatchGetSheetValue(ctx, request, options...)
 	}
 
-	r.cli.log(ctx, LogLevelInfo, "[lark] Drive#BatchGetSheetValue call api")
-	r.cli.log(ctx, LogLevelDebug, "[lark] Drive#BatchGetSheetValue request: %s", jsonString(request))
-
 	req := &RawRequestReq{
+		Scope:                 "Drive",
+		API:                   "BatchGetSheetValue",
 		Method:                "GET",
 		URL:                   "https://open.feishu.cn/open-apis/sheets/v2/spreadsheets/:spreadsheetToken/values_batch_get",
 		Body:                  request,
@@ -32,18 +31,7 @@ func (r *DriveService) BatchGetSheetValue(ctx context.Context, request *BatchGet
 	resp := new(batchGetSheetValueResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
-	requestID, statusCode := getResponseRequestID(response)
-	if err != nil {
-		r.cli.log(ctx, LogLevelError, "[lark] Drive#BatchGetSheetValue GET https://open.feishu.cn/open-apis/sheets/v2/spreadsheets/:spreadsheetToken/values_batch_get failed, request_id: %s, status_code: %d, error: %s", requestID, statusCode, err)
-		return nil, response, err
-	} else if resp.Code != 0 {
-		r.cli.log(ctx, LogLevelError, "[lark] Drive#BatchGetSheetValue GET https://open.feishu.cn/open-apis/sheets/v2/spreadsheets/:spreadsheetToken/values_batch_get failed, request_id: %s, status_code: %d, code: %d, msg: %s", requestID, statusCode, resp.Code, resp.Msg)
-		return nil, response, NewError("Drive", "BatchGetSheetValue", resp.Code, resp.Msg)
-	}
-
-	r.cli.log(ctx, LogLevelDebug, "[lark] Drive#BatchGetSheetValue success, request_id: %s, status_code: %d, response: %s", requestID, statusCode, jsonString(resp.Data))
-
-	return resp.Data, response, nil
+	return resp.Data, response, err
 }
 
 func (r *Mock) MockDriveBatchGetSheetValue(f func(ctx context.Context, request *BatchGetSheetValueReq, options ...MethodOptionFunc) (*BatchGetSheetValueResp, *Response, error)) {

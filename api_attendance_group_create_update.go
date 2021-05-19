@@ -45,10 +45,9 @@ func (r *AttendanceService) CreateUpdateGroup(ctx context.Context, request *Crea
 		return r.cli.mock.mockAttendanceCreateUpdateGroup(ctx, request, options...)
 	}
 
-	r.cli.log(ctx, LogLevelInfo, "[lark] Attendance#CreateUpdateGroup call api")
-	r.cli.log(ctx, LogLevelDebug, "[lark] Attendance#CreateUpdateGroup request: %s", jsonString(request))
-
 	req := &RawRequestReq{
+		Scope:                 "Attendance",
+		API:                   "CreateUpdateGroup",
 		Method:                "POST",
 		URL:                   "https://open.feishu.cn/open-apis/attendance/v1/groups",
 		Body:                  request,
@@ -58,18 +57,7 @@ func (r *AttendanceService) CreateUpdateGroup(ctx context.Context, request *Crea
 	resp := new(createUpdateGroupResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
-	requestID, statusCode := getResponseRequestID(response)
-	if err != nil {
-		r.cli.log(ctx, LogLevelError, "[lark] Attendance#CreateUpdateGroup POST https://open.feishu.cn/open-apis/attendance/v1/groups failed, request_id: %s, status_code: %d, error: %s", requestID, statusCode, err)
-		return nil, response, err
-	} else if resp.Code != 0 {
-		r.cli.log(ctx, LogLevelError, "[lark] Attendance#CreateUpdateGroup POST https://open.feishu.cn/open-apis/attendance/v1/groups failed, request_id: %s, status_code: %d, code: %d, msg: %s", requestID, statusCode, resp.Code, resp.Msg)
-		return nil, response, NewError("Attendance", "CreateUpdateGroup", resp.Code, resp.Msg)
-	}
-
-	r.cli.log(ctx, LogLevelDebug, "[lark] Attendance#CreateUpdateGroup success, request_id: %s, status_code: %d, response: %s", requestID, statusCode, jsonString(resp.Data))
-
-	return resp.Data, response, nil
+	return resp.Data, response, err
 }
 
 func (r *Mock) MockAttendanceCreateUpdateGroup(f func(ctx context.Context, request *CreateUpdateGroupReq, options ...MethodOptionFunc) (*CreateUpdateGroupResp, *Response, error)) {

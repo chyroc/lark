@@ -15,10 +15,9 @@ func (r *BitableService) BatchDeleteBitableTable(ctx context.Context, request *B
 		return r.cli.mock.mockBitableBatchDeleteBitableTable(ctx, request, options...)
 	}
 
-	r.cli.log(ctx, LogLevelInfo, "[lark] Bitable#BatchDeleteBitableTable call api")
-	r.cli.log(ctx, LogLevelDebug, "[lark] Bitable#BatchDeleteBitableTable request: %s", jsonString(request))
-
 	req := &RawRequestReq{
+		Scope:        "Bitable",
+		API:          "BatchDeleteBitableTable",
 		Method:       "POST",
 		URL:          "https://open.feishu.cn/open-apis/bitable/v1/apps/:app_token/tables/batch_delete",
 		Body:         request,
@@ -29,18 +28,7 @@ func (r *BitableService) BatchDeleteBitableTable(ctx context.Context, request *B
 	resp := new(batchDeleteBitableTableResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
-	requestID, statusCode := getResponseRequestID(response)
-	if err != nil {
-		r.cli.log(ctx, LogLevelError, "[lark] Bitable#BatchDeleteBitableTable POST https://open.feishu.cn/open-apis/bitable/v1/apps/:app_token/tables/batch_delete failed, request_id: %s, status_code: %d, error: %s", requestID, statusCode, err)
-		return nil, response, err
-	} else if resp.Code != 0 {
-		r.cli.log(ctx, LogLevelError, "[lark] Bitable#BatchDeleteBitableTable POST https://open.feishu.cn/open-apis/bitable/v1/apps/:app_token/tables/batch_delete failed, request_id: %s, status_code: %d, code: %d, msg: %s", requestID, statusCode, resp.Code, resp.Msg)
-		return nil, response, NewError("Bitable", "BatchDeleteBitableTable", resp.Code, resp.Msg)
-	}
-
-	r.cli.log(ctx, LogLevelDebug, "[lark] Bitable#BatchDeleteBitableTable success, request_id: %s, status_code: %d, response: %s", requestID, statusCode, jsonString(resp.Data))
-
-	return resp.Data, response, nil
+	return resp.Data, response, err
 }
 
 func (r *Mock) MockBitableBatchDeleteBitableTable(f func(ctx context.Context, request *BatchDeleteBitableTableReq, options ...MethodOptionFunc) (*BatchDeleteBitableTableResp, *Response, error)) {

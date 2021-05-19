@@ -15,10 +15,9 @@ func (r *BitableService) BatchCreateBitableRecord(ctx context.Context, request *
 		return r.cli.mock.mockBitableBatchCreateBitableRecord(ctx, request, options...)
 	}
 
-	r.cli.log(ctx, LogLevelInfo, "[lark] Bitable#BatchCreateBitableRecord call api")
-	r.cli.log(ctx, LogLevelDebug, "[lark] Bitable#BatchCreateBitableRecord request: %s", jsonString(request))
-
 	req := &RawRequestReq{
+		Scope:        "Bitable",
+		API:          "BatchCreateBitableRecord",
 		Method:       "POST",
 		URL:          "https://open.feishu.cn/open-apis/bitable/v1/apps/:app_token/tables/:table_id/records/batch_create",
 		Body:         request,
@@ -29,18 +28,7 @@ func (r *BitableService) BatchCreateBitableRecord(ctx context.Context, request *
 	resp := new(batchCreateBitableRecordResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
-	requestID, statusCode := getResponseRequestID(response)
-	if err != nil {
-		r.cli.log(ctx, LogLevelError, "[lark] Bitable#BatchCreateBitableRecord POST https://open.feishu.cn/open-apis/bitable/v1/apps/:app_token/tables/:table_id/records/batch_create failed, request_id: %s, status_code: %d, error: %s", requestID, statusCode, err)
-		return nil, response, err
-	} else if resp.Code != 0 {
-		r.cli.log(ctx, LogLevelError, "[lark] Bitable#BatchCreateBitableRecord POST https://open.feishu.cn/open-apis/bitable/v1/apps/:app_token/tables/:table_id/records/batch_create failed, request_id: %s, status_code: %d, code: %d, msg: %s", requestID, statusCode, resp.Code, resp.Msg)
-		return nil, response, NewError("Bitable", "BatchCreateBitableRecord", resp.Code, resp.Msg)
-	}
-
-	r.cli.log(ctx, LogLevelDebug, "[lark] Bitable#BatchCreateBitableRecord success, request_id: %s, status_code: %d, response: %s", requestID, statusCode, jsonString(resp.Data))
-
-	return resp.Data, response, nil
+	return resp.Data, response, err
 }
 
 func (r *Mock) MockBitableBatchCreateBitableRecord(f func(ctx context.Context, request *BatchCreateBitableRecordReq, options ...MethodOptionFunc) (*BatchCreateBitableRecordResp, *Response, error)) {

@@ -17,10 +17,9 @@ func (r *AttendanceService) GetUserApproval(ctx context.Context, request *GetUse
 		return r.cli.mock.mockAttendanceGetUserApproval(ctx, request, options...)
 	}
 
-	r.cli.log(ctx, LogLevelInfo, "[lark] Attendance#GetUserApproval call api")
-	r.cli.log(ctx, LogLevelDebug, "[lark] Attendance#GetUserApproval request: %s", jsonString(request))
-
 	req := &RawRequestReq{
+		Scope:                 "Attendance",
+		API:                   "GetUserApproval",
 		Method:                "POST",
 		URL:                   "https://open.feishu.cn/open-apis/attendance/v1/user_approvals/query",
 		Body:                  request,
@@ -30,18 +29,7 @@ func (r *AttendanceService) GetUserApproval(ctx context.Context, request *GetUse
 	resp := new(getUserApprovalResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
-	requestID, statusCode := getResponseRequestID(response)
-	if err != nil {
-		r.cli.log(ctx, LogLevelError, "[lark] Attendance#GetUserApproval POST https://open.feishu.cn/open-apis/attendance/v1/user_approvals/query failed, request_id: %s, status_code: %d, error: %s", requestID, statusCode, err)
-		return nil, response, err
-	} else if resp.Code != 0 {
-		r.cli.log(ctx, LogLevelError, "[lark] Attendance#GetUserApproval POST https://open.feishu.cn/open-apis/attendance/v1/user_approvals/query failed, request_id: %s, status_code: %d, code: %d, msg: %s", requestID, statusCode, resp.Code, resp.Msg)
-		return nil, response, NewError("Attendance", "GetUserApproval", resp.Code, resp.Msg)
-	}
-
-	r.cli.log(ctx, LogLevelDebug, "[lark] Attendance#GetUserApproval success, request_id: %s, status_code: %d, response: %s", requestID, statusCode, jsonString(resp.Data))
-
-	return resp.Data, response, nil
+	return resp.Data, response, err
 }
 
 func (r *Mock) MockAttendanceGetUserApproval(f func(ctx context.Context, request *GetUserApprovalReq, options ...MethodOptionFunc) (*GetUserApprovalResp, *Response, error)) {

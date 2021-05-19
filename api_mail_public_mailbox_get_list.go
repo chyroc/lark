@@ -15,10 +15,9 @@ func (r *MailService) GetPublicMailboxList(ctx context.Context, request *GetPubl
 		return r.cli.mock.mockMailGetPublicMailboxList(ctx, request, options...)
 	}
 
-	r.cli.log(ctx, LogLevelInfo, "[lark] Mail#GetPublicMailboxList call api")
-	r.cli.log(ctx, LogLevelDebug, "[lark] Mail#GetPublicMailboxList request: %s", jsonString(request))
-
 	req := &RawRequestReq{
+		Scope:                 "Mail",
+		API:                   "GetPublicMailboxList",
 		Method:                "GET",
 		URL:                   "https://open.feishu.cn/open-apis/mail/v1/public_mailboxes",
 		Body:                  request,
@@ -28,18 +27,7 @@ func (r *MailService) GetPublicMailboxList(ctx context.Context, request *GetPubl
 	resp := new(getPublicMailboxListResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
-	requestID, statusCode := getResponseRequestID(response)
-	if err != nil {
-		r.cli.log(ctx, LogLevelError, "[lark] Mail#GetPublicMailboxList GET https://open.feishu.cn/open-apis/mail/v1/public_mailboxes failed, request_id: %s, status_code: %d, error: %s", requestID, statusCode, err)
-		return nil, response, err
-	} else if resp.Code != 0 {
-		r.cli.log(ctx, LogLevelError, "[lark] Mail#GetPublicMailboxList GET https://open.feishu.cn/open-apis/mail/v1/public_mailboxes failed, request_id: %s, status_code: %d, code: %d, msg: %s", requestID, statusCode, resp.Code, resp.Msg)
-		return nil, response, NewError("Mail", "GetPublicMailboxList", resp.Code, resp.Msg)
-	}
-
-	r.cli.log(ctx, LogLevelDebug, "[lark] Mail#GetPublicMailboxList success, request_id: %s, status_code: %d, response: %s", requestID, statusCode, jsonString(resp.Data))
-
-	return resp.Data, response, nil
+	return resp.Data, response, err
 }
 
 func (r *Mock) MockMailGetPublicMailboxList(f func(ctx context.Context, request *GetPublicMailboxListReq, options ...MethodOptionFunc) (*GetPublicMailboxListResp, *Response, error)) {

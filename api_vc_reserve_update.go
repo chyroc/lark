@@ -17,10 +17,9 @@ func (r *VCService) UpdateReserve(ctx context.Context, request *UpdateReserveReq
 		return r.cli.mock.mockVCUpdateReserve(ctx, request, options...)
 	}
 
-	r.cli.log(ctx, LogLevelInfo, "[lark] VC#UpdateReserve call api")
-	r.cli.log(ctx, LogLevelDebug, "[lark] VC#UpdateReserve request: %s", jsonString(request))
-
 	req := &RawRequestReq{
+		Scope:        "VC",
+		API:          "UpdateReserve",
 		Method:       "PUT",
 		URL:          "https://open.feishu.cn/open-apis/vc/v1/reserves/:reserve_id",
 		Body:         request,
@@ -31,18 +30,7 @@ func (r *VCService) UpdateReserve(ctx context.Context, request *UpdateReserveReq
 	resp := new(updateReserveResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
-	requestID, statusCode := getResponseRequestID(response)
-	if err != nil {
-		r.cli.log(ctx, LogLevelError, "[lark] VC#UpdateReserve PUT https://open.feishu.cn/open-apis/vc/v1/reserves/:reserve_id failed, request_id: %s, status_code: %d, error: %s", requestID, statusCode, err)
-		return nil, response, err
-	} else if resp.Code != 0 {
-		r.cli.log(ctx, LogLevelError, "[lark] VC#UpdateReserve PUT https://open.feishu.cn/open-apis/vc/v1/reserves/:reserve_id failed, request_id: %s, status_code: %d, code: %d, msg: %s", requestID, statusCode, resp.Code, resp.Msg)
-		return nil, response, NewError("VC", "UpdateReserve", resp.Code, resp.Msg)
-	}
-
-	r.cli.log(ctx, LogLevelDebug, "[lark] VC#UpdateReserve success, request_id: %s, status_code: %d, response: %s", requestID, statusCode, jsonString(resp.Data))
-
-	return resp.Data, response, nil
+	return resp.Data, response, err
 }
 
 func (r *Mock) MockVCUpdateReserve(f func(ctx context.Context, request *UpdateReserveReq, options ...MethodOptionFunc) (*UpdateReserveResp, *Response, error)) {

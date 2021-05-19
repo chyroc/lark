@@ -17,10 +17,9 @@ func (r *VCService) GetReserveActiveMeeting(ctx context.Context, request *GetRes
 		return r.cli.mock.mockVCGetReserveActiveMeeting(ctx, request, options...)
 	}
 
-	r.cli.log(ctx, LogLevelInfo, "[lark] VC#GetReserveActiveMeeting call api")
-	r.cli.log(ctx, LogLevelDebug, "[lark] VC#GetReserveActiveMeeting request: %s", jsonString(request))
-
 	req := &RawRequestReq{
+		Scope:        "VC",
+		API:          "GetReserveActiveMeeting",
 		Method:       "GET",
 		URL:          "https://open.feishu.cn/open-apis/vc/v1/reserves/:reserve_id/get_active_meeting",
 		Body:         request,
@@ -31,18 +30,7 @@ func (r *VCService) GetReserveActiveMeeting(ctx context.Context, request *GetRes
 	resp := new(getReserveActiveMeetingResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
-	requestID, statusCode := getResponseRequestID(response)
-	if err != nil {
-		r.cli.log(ctx, LogLevelError, "[lark] VC#GetReserveActiveMeeting GET https://open.feishu.cn/open-apis/vc/v1/reserves/:reserve_id/get_active_meeting failed, request_id: %s, status_code: %d, error: %s", requestID, statusCode, err)
-		return nil, response, err
-	} else if resp.Code != 0 {
-		r.cli.log(ctx, LogLevelError, "[lark] VC#GetReserveActiveMeeting GET https://open.feishu.cn/open-apis/vc/v1/reserves/:reserve_id/get_active_meeting failed, request_id: %s, status_code: %d, code: %d, msg: %s", requestID, statusCode, resp.Code, resp.Msg)
-		return nil, response, NewError("VC", "GetReserveActiveMeeting", resp.Code, resp.Msg)
-	}
-
-	r.cli.log(ctx, LogLevelDebug, "[lark] VC#GetReserveActiveMeeting success, request_id: %s, status_code: %d, response: %s", requestID, statusCode, jsonString(resp.Data))
-
-	return resp.Data, response, nil
+	return resp.Data, response, err
 }
 
 func (r *Mock) MockVCGetReserveActiveMeeting(f func(ctx context.Context, request *GetReserveActiveMeetingReq, options ...MethodOptionFunc) (*GetReserveActiveMeetingResp, *Response, error)) {

@@ -15,10 +15,9 @@ func (r *DriveService) ImportSheet(ctx context.Context, request *ImportSheetReq,
 		return r.cli.mock.mockDriveImportSheet(ctx, request, options...)
 	}
 
-	r.cli.log(ctx, LogLevelInfo, "[lark] Drive#ImportSheet call api")
-	r.cli.log(ctx, LogLevelDebug, "[lark] Drive#ImportSheet request: %s", jsonString(request))
-
 	req := &RawRequestReq{
+		Scope:                 "Drive",
+		API:                   "ImportSheet",
 		Method:                "POST",
 		URL:                   "https://open.feishu.cn/open-apis/sheets/v2/import",
 		Body:                  request,
@@ -30,18 +29,7 @@ func (r *DriveService) ImportSheet(ctx context.Context, request *ImportSheetReq,
 	resp := new(importSheetResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
-	requestID, statusCode := getResponseRequestID(response)
-	if err != nil {
-		r.cli.log(ctx, LogLevelError, "[lark] Drive#ImportSheet POST https://open.feishu.cn/open-apis/sheets/v2/import failed, request_id: %s, status_code: %d, error: %s", requestID, statusCode, err)
-		return nil, response, err
-	} else if resp.Code != 0 {
-		r.cli.log(ctx, LogLevelError, "[lark] Drive#ImportSheet POST https://open.feishu.cn/open-apis/sheets/v2/import failed, request_id: %s, status_code: %d, code: %d, msg: %s", requestID, statusCode, resp.Code, resp.Msg)
-		return nil, response, NewError("Drive", "ImportSheet", resp.Code, resp.Msg)
-	}
-
-	r.cli.log(ctx, LogLevelDebug, "[lark] Drive#ImportSheet success, request_id: %s, status_code: %d, response: %s", requestID, statusCode, jsonString(resp.Data))
-
-	return resp.Data, response, nil
+	return resp.Data, response, err
 }
 
 func (r *Mock) MockDriveImportSheet(f func(ctx context.Context, request *ImportSheetReq, options ...MethodOptionFunc) (*ImportSheetResp, *Response, error)) {

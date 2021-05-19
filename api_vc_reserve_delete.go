@@ -17,10 +17,9 @@ func (r *VCService) DeleteReserve(ctx context.Context, request *DeleteReserveReq
 		return r.cli.mock.mockVCDeleteReserve(ctx, request, options...)
 	}
 
-	r.cli.log(ctx, LogLevelInfo, "[lark] VC#DeleteReserve call api")
-	r.cli.log(ctx, LogLevelDebug, "[lark] VC#DeleteReserve request: %s", jsonString(request))
-
 	req := &RawRequestReq{
+		Scope:        "VC",
+		API:          "DeleteReserve",
 		Method:       "DELETE",
 		URL:          "https://open.feishu.cn/open-apis/vc/v1/reserves/:reserve_id",
 		Body:         request,
@@ -31,18 +30,7 @@ func (r *VCService) DeleteReserve(ctx context.Context, request *DeleteReserveReq
 	resp := new(deleteReserveResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
-	requestID, statusCode := getResponseRequestID(response)
-	if err != nil {
-		r.cli.log(ctx, LogLevelError, "[lark] VC#DeleteReserve DELETE https://open.feishu.cn/open-apis/vc/v1/reserves/:reserve_id failed, request_id: %s, status_code: %d, error: %s", requestID, statusCode, err)
-		return nil, response, err
-	} else if resp.Code != 0 {
-		r.cli.log(ctx, LogLevelError, "[lark] VC#DeleteReserve DELETE https://open.feishu.cn/open-apis/vc/v1/reserves/:reserve_id failed, request_id: %s, status_code: %d, code: %d, msg: %s", requestID, statusCode, resp.Code, resp.Msg)
-		return nil, response, NewError("VC", "DeleteReserve", resp.Code, resp.Msg)
-	}
-
-	r.cli.log(ctx, LogLevelDebug, "[lark] VC#DeleteReserve success, request_id: %s, status_code: %d, response: %s", requestID, statusCode, jsonString(resp.Data))
-
-	return resp.Data, response, nil
+	return resp.Data, response, err
 }
 
 func (r *Mock) MockVCDeleteReserve(f func(ctx context.Context, request *DeleteReserveReq, options ...MethodOptionFunc) (*DeleteReserveResp, *Response, error)) {

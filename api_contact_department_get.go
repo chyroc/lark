@@ -18,10 +18,9 @@ func (r *ContactService) GetDepartment(ctx context.Context, request *GetDepartme
 		return r.cli.mock.mockContactGetDepartment(ctx, request, options...)
 	}
 
-	r.cli.log(ctx, LogLevelInfo, "[lark] Contact#GetDepartment call api")
-	r.cli.log(ctx, LogLevelDebug, "[lark] Contact#GetDepartment request: %s", jsonString(request))
-
 	req := &RawRequestReq{
+		Scope:                 "Contact",
+		API:                   "GetDepartment",
 		Method:                "GET",
 		URL:                   "https://open.feishu.cn/open-apis/contact/v3/departments/:department_id",
 		Body:                  request,
@@ -33,18 +32,7 @@ func (r *ContactService) GetDepartment(ctx context.Context, request *GetDepartme
 	resp := new(getDepartmentResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
-	requestID, statusCode := getResponseRequestID(response)
-	if err != nil {
-		r.cli.log(ctx, LogLevelError, "[lark] Contact#GetDepartment GET https://open.feishu.cn/open-apis/contact/v3/departments/:department_id failed, request_id: %s, status_code: %d, error: %s", requestID, statusCode, err)
-		return nil, response, err
-	} else if resp.Code != 0 {
-		r.cli.log(ctx, LogLevelError, "[lark] Contact#GetDepartment GET https://open.feishu.cn/open-apis/contact/v3/departments/:department_id failed, request_id: %s, status_code: %d, code: %d, msg: %s", requestID, statusCode, resp.Code, resp.Msg)
-		return nil, response, NewError("Contact", "GetDepartment", resp.Code, resp.Msg)
-	}
-
-	r.cli.log(ctx, LogLevelDebug, "[lark] Contact#GetDepartment success, request_id: %s, status_code: %d, response: %s", requestID, statusCode, jsonString(resp.Data))
-
-	return resp.Data, response, nil
+	return resp.Data, response, err
 }
 
 func (r *Mock) MockContactGetDepartment(f func(ctx context.Context, request *GetDepartmentReq, options ...MethodOptionFunc) (*GetDepartmentResp, *Response, error)) {

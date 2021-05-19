@@ -19,10 +19,9 @@ func (r *CalendarService) DeleteCalendar(ctx context.Context, request *DeleteCal
 		return r.cli.mock.mockCalendarDeleteCalendar(ctx, request, options...)
 	}
 
-	r.cli.log(ctx, LogLevelInfo, "[lark] Calendar#DeleteCalendar call api")
-	r.cli.log(ctx, LogLevelDebug, "[lark] Calendar#DeleteCalendar request: %s", jsonString(request))
-
 	req := &RawRequestReq{
+		Scope:                 "Calendar",
+		API:                   "DeleteCalendar",
 		Method:                "DELETE",
 		URL:                   "https://open.feishu.cn/open-apis/calendar/v4/calendars/:calendar_id",
 		Body:                  request,
@@ -34,18 +33,7 @@ func (r *CalendarService) DeleteCalendar(ctx context.Context, request *DeleteCal
 	resp := new(deleteCalendarResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
-	requestID, statusCode := getResponseRequestID(response)
-	if err != nil {
-		r.cli.log(ctx, LogLevelError, "[lark] Calendar#DeleteCalendar DELETE https://open.feishu.cn/open-apis/calendar/v4/calendars/:calendar_id failed, request_id: %s, status_code: %d, error: %s", requestID, statusCode, err)
-		return nil, response, err
-	} else if resp.Code != 0 {
-		r.cli.log(ctx, LogLevelError, "[lark] Calendar#DeleteCalendar DELETE https://open.feishu.cn/open-apis/calendar/v4/calendars/:calendar_id failed, request_id: %s, status_code: %d, code: %d, msg: %s", requestID, statusCode, resp.Code, resp.Msg)
-		return nil, response, NewError("Calendar", "DeleteCalendar", resp.Code, resp.Msg)
-	}
-
-	r.cli.log(ctx, LogLevelDebug, "[lark] Calendar#DeleteCalendar success, request_id: %s, status_code: %d, response: %s", requestID, statusCode, jsonString(resp.Data))
-
-	return resp.Data, response, nil
+	return resp.Data, response, err
 }
 
 func (r *Mock) MockCalendarDeleteCalendar(f func(ctx context.Context, request *DeleteCalendarReq, options ...MethodOptionFunc) (*DeleteCalendarResp, *Response, error)) {

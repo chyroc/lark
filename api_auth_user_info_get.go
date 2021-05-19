@@ -15,10 +15,9 @@ func (r *AuthService) GetUserInfo(ctx context.Context, request *GetUserInfoReq, 
 		return r.cli.mock.mockAuthGetUserInfo(ctx, request, options...)
 	}
 
-	r.cli.log(ctx, LogLevelInfo, "[lark] Auth#GetUserInfo call api")
-	r.cli.log(ctx, LogLevelDebug, "[lark] Auth#GetUserInfo request: %s", jsonString(request))
-
 	req := &RawRequestReq{
+		Scope:        "Auth",
+		API:          "GetUserInfo",
 		Method:       "GET",
 		URL:          "https://open.feishu.cn/open-apis/authen/v1/user_info",
 		Body:         request,
@@ -29,18 +28,7 @@ func (r *AuthService) GetUserInfo(ctx context.Context, request *GetUserInfoReq, 
 	resp := new(getUserInfoResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
-	requestID, statusCode := getResponseRequestID(response)
-	if err != nil {
-		r.cli.log(ctx, LogLevelError, "[lark] Auth#GetUserInfo GET https://open.feishu.cn/open-apis/authen/v1/user_info failed, request_id: %s, status_code: %d, error: %s", requestID, statusCode, err)
-		return nil, response, err
-	} else if resp.Code != 0 {
-		r.cli.log(ctx, LogLevelError, "[lark] Auth#GetUserInfo GET https://open.feishu.cn/open-apis/authen/v1/user_info failed, request_id: %s, status_code: %d, code: %d, msg: %s", requestID, statusCode, resp.Code, resp.Msg)
-		return nil, response, NewError("Auth", "GetUserInfo", resp.Code, resp.Msg)
-	}
-
-	r.cli.log(ctx, LogLevelDebug, "[lark] Auth#GetUserInfo success, request_id: %s, status_code: %d, response: %s", requestID, statusCode, jsonString(resp.Data))
-
-	return resp.Data, response, nil
+	return resp.Data, response, err
 }
 
 func (r *Mock) MockAuthGetUserInfo(f func(ctx context.Context, request *GetUserInfoReq, options ...MethodOptionFunc) (*GetUserInfoResp, *Response, error)) {

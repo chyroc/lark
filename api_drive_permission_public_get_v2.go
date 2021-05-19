@@ -15,10 +15,9 @@ func (r *DriveService) GetDrivePublicPermissionV2(ctx context.Context, request *
 		return r.cli.mock.mockDriveGetDrivePublicPermissionV2(ctx, request, options...)
 	}
 
-	r.cli.log(ctx, LogLevelInfo, "[lark] Drive#GetDrivePublicPermissionV2 call api")
-	r.cli.log(ctx, LogLevelDebug, "[lark] Drive#GetDrivePublicPermissionV2 request: %s", jsonString(request))
-
 	req := &RawRequestReq{
+		Scope:                 "Drive",
+		API:                   "GetDrivePublicPermissionV2",
 		Method:                "POST",
 		URL:                   "https://open.feishu.cn/open-apis/drive/permission/v2/public/",
 		Body:                  request,
@@ -30,18 +29,7 @@ func (r *DriveService) GetDrivePublicPermissionV2(ctx context.Context, request *
 	resp := new(getDrivePublicPermissionV2Resp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
-	requestID, statusCode := getResponseRequestID(response)
-	if err != nil {
-		r.cli.log(ctx, LogLevelError, "[lark] Drive#GetDrivePublicPermissionV2 POST https://open.feishu.cn/open-apis/drive/permission/v2/public/ failed, request_id: %s, status_code: %d, error: %s", requestID, statusCode, err)
-		return nil, response, err
-	} else if resp.Code != 0 {
-		r.cli.log(ctx, LogLevelError, "[lark] Drive#GetDrivePublicPermissionV2 POST https://open.feishu.cn/open-apis/drive/permission/v2/public/ failed, request_id: %s, status_code: %d, code: %d, msg: %s", requestID, statusCode, resp.Code, resp.Msg)
-		return nil, response, NewError("Drive", "GetDrivePublicPermissionV2", resp.Code, resp.Msg)
-	}
-
-	r.cli.log(ctx, LogLevelDebug, "[lark] Drive#GetDrivePublicPermissionV2 success, request_id: %s, status_code: %d, response: %s", requestID, statusCode, jsonString(resp.Data))
-
-	return resp.Data, response, nil
+	return resp.Data, response, err
 }
 
 func (r *Mock) MockDriveGetDrivePublicPermissionV2(f func(ctx context.Context, request *GetDrivePublicPermissionV2Req, options ...MethodOptionFunc) (*GetDrivePublicPermissionV2Resp, *Response, error)) {

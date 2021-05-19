@@ -22,3 +22,12 @@ func ReflectToString(v reflect.Value) (s string) {
 		return v.String()
 	}
 }
+
+func IsInReflectKind(v reflect.Kind, list []reflect.Kind) bool {
+	for _, vv := range list {
+		if vv == v {
+			return true
+		}
+	}
+	return false
+}

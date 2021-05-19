@@ -17,10 +17,9 @@ func (r *DriveService) GetDriveFileMeta(ctx context.Context, request *GetDriveFi
 		return r.cli.mock.mockDriveGetDriveFileMeta(ctx, request, options...)
 	}
 
-	r.cli.log(ctx, LogLevelInfo, "[lark] Drive#GetDriveFileMeta call api")
-	r.cli.log(ctx, LogLevelDebug, "[lark] Drive#GetDriveFileMeta request: %s", jsonString(request))
-
 	req := &RawRequestReq{
+		Scope:        "Drive",
+		API:          "GetDriveFileMeta",
 		Method:       "POST",
 		URL:          "https://open.feishu.cn/open-apis/suite/docs-api/meta",
 		Body:         request,
@@ -31,18 +30,7 @@ func (r *DriveService) GetDriveFileMeta(ctx context.Context, request *GetDriveFi
 	resp := new(getDriveFileMetaResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
-	requestID, statusCode := getResponseRequestID(response)
-	if err != nil {
-		r.cli.log(ctx, LogLevelError, "[lark] Drive#GetDriveFileMeta POST https://open.feishu.cn/open-apis/suite/docs-api/meta failed, request_id: %s, status_code: %d, error: %s", requestID, statusCode, err)
-		return nil, response, err
-	} else if resp.Code != 0 {
-		r.cli.log(ctx, LogLevelError, "[lark] Drive#GetDriveFileMeta POST https://open.feishu.cn/open-apis/suite/docs-api/meta failed, request_id: %s, status_code: %d, code: %d, msg: %s", requestID, statusCode, resp.Code, resp.Msg)
-		return nil, response, NewError("Drive", "GetDriveFileMeta", resp.Code, resp.Msg)
-	}
-
-	r.cli.log(ctx, LogLevelDebug, "[lark] Drive#GetDriveFileMeta success, request_id: %s, status_code: %d, response: %s", requestID, statusCode, jsonString(resp.Data))
-
-	return resp.Data, response, nil
+	return resp.Data, response, err
 }
 
 func (r *Mock) MockDriveGetDriveFileMeta(f func(ctx context.Context, request *GetDriveFileMetaReq, options ...MethodOptionFunc) (*GetDriveFileMetaResp, *Response, error)) {

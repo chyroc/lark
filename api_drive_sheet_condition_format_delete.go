@@ -15,10 +15,9 @@ func (r *DriveService) DeleteSheetConditionFormat(ctx context.Context, request *
 		return r.cli.mock.mockDriveDeleteSheetConditionFormat(ctx, request, options...)
 	}
 
-	r.cli.log(ctx, LogLevelInfo, "[lark] Drive#DeleteSheetConditionFormat call api")
-	r.cli.log(ctx, LogLevelDebug, "[lark] Drive#DeleteSheetConditionFormat request: %s", jsonString(request))
-
 	req := &RawRequestReq{
+		Scope:                 "Drive",
+		API:                   "DeleteSheetConditionFormat",
 		Method:                "DELETE",
 		URL:                   "https://open.feishu.cn/open-apis/sheets/v2/spreadsheets/:spreadsheetToken/condition_formats/batch_delete",
 		Body:                  request,
@@ -30,18 +29,7 @@ func (r *DriveService) DeleteSheetConditionFormat(ctx context.Context, request *
 	resp := new(deleteSheetConditionFormatResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
-	requestID, statusCode := getResponseRequestID(response)
-	if err != nil {
-		r.cli.log(ctx, LogLevelError, "[lark] Drive#DeleteSheetConditionFormat DELETE https://open.feishu.cn/open-apis/sheets/v2/spreadsheets/:spreadsheetToken/condition_formats/batch_delete failed, request_id: %s, status_code: %d, error: %s", requestID, statusCode, err)
-		return nil, response, err
-	} else if resp.Code != 0 {
-		r.cli.log(ctx, LogLevelError, "[lark] Drive#DeleteSheetConditionFormat DELETE https://open.feishu.cn/open-apis/sheets/v2/spreadsheets/:spreadsheetToken/condition_formats/batch_delete failed, request_id: %s, status_code: %d, code: %d, msg: %s", requestID, statusCode, resp.Code, resp.Msg)
-		return nil, response, NewError("Drive", "DeleteSheetConditionFormat", resp.Code, resp.Msg)
-	}
-
-	r.cli.log(ctx, LogLevelDebug, "[lark] Drive#DeleteSheetConditionFormat success, request_id: %s, status_code: %d, response: %s", requestID, statusCode, jsonString(resp.Data))
-
-	return resp.Data, response, nil
+	return resp.Data, response, err
 }
 
 func (r *Mock) MockDriveDeleteSheetConditionFormat(f func(ctx context.Context, request *DeleteSheetConditionFormatReq, options ...MethodOptionFunc) (*DeleteSheetConditionFormatResp, *Response, error)) {

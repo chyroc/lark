@@ -15,10 +15,9 @@ func (r *CalendarService) GenerateCaldavConf(ctx context.Context, request *Gener
 		return r.cli.mock.mockCalendarGenerateCaldavConf(ctx, request, options...)
 	}
 
-	r.cli.log(ctx, LogLevelInfo, "[lark] Calendar#GenerateCaldavConf call api")
-	r.cli.log(ctx, LogLevelDebug, "[lark] Calendar#GenerateCaldavConf request: %s", jsonString(request))
-
 	req := &RawRequestReq{
+		Scope:        "Calendar",
+		API:          "GenerateCaldavConf",
 		Method:       "POST",
 		URL:          "https://open.feishu.cn/open-apis/calendar/v4/settings/generate_caldav_conf",
 		Body:         request,
@@ -29,18 +28,7 @@ func (r *CalendarService) GenerateCaldavConf(ctx context.Context, request *Gener
 	resp := new(generateCaldavConfResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
-	requestID, statusCode := getResponseRequestID(response)
-	if err != nil {
-		r.cli.log(ctx, LogLevelError, "[lark] Calendar#GenerateCaldavConf POST https://open.feishu.cn/open-apis/calendar/v4/settings/generate_caldav_conf failed, request_id: %s, status_code: %d, error: %s", requestID, statusCode, err)
-		return nil, response, err
-	} else if resp.Code != 0 {
-		r.cli.log(ctx, LogLevelError, "[lark] Calendar#GenerateCaldavConf POST https://open.feishu.cn/open-apis/calendar/v4/settings/generate_caldav_conf failed, request_id: %s, status_code: %d, code: %d, msg: %s", requestID, statusCode, resp.Code, resp.Msg)
-		return nil, response, NewError("Calendar", "GenerateCaldavConf", resp.Code, resp.Msg)
-	}
-
-	r.cli.log(ctx, LogLevelDebug, "[lark] Calendar#GenerateCaldavConf success, request_id: %s, status_code: %d, response: %s", requestID, statusCode, jsonString(resp.Data))
-
-	return resp.Data, response, nil
+	return resp.Data, response, err
 }
 
 func (r *Mock) MockCalendarGenerateCaldavConf(f func(ctx context.Context, request *GenerateCaldavConfReq, options ...MethodOptionFunc) (*GenerateCaldavConfResp, *Response, error)) {

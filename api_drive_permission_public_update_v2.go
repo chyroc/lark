@@ -15,10 +15,9 @@ func (r *DriveService) UpdateDrivePublicPermissionV2(ctx context.Context, reques
 		return r.cli.mock.mockDriveUpdateDrivePublicPermissionV2(ctx, request, options...)
 	}
 
-	r.cli.log(ctx, LogLevelInfo, "[lark] Drive#UpdateDrivePublicPermissionV2 call api")
-	r.cli.log(ctx, LogLevelDebug, "[lark] Drive#UpdateDrivePublicPermissionV2 request: %s", jsonString(request))
-
 	req := &RawRequestReq{
+		Scope:                 "Drive",
+		API:                   "UpdateDrivePublicPermissionV2",
 		Method:                "POST",
 		URL:                   "https://open.feishu.cn/open-apis/drive/permission/v2/public/update/",
 		Body:                  request,
@@ -30,18 +29,7 @@ func (r *DriveService) UpdateDrivePublicPermissionV2(ctx context.Context, reques
 	resp := new(updateDrivePublicPermissionV2Resp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
-	requestID, statusCode := getResponseRequestID(response)
-	if err != nil {
-		r.cli.log(ctx, LogLevelError, "[lark] Drive#UpdateDrivePublicPermissionV2 POST https://open.feishu.cn/open-apis/drive/permission/v2/public/update/ failed, request_id: %s, status_code: %d, error: %s", requestID, statusCode, err)
-		return nil, response, err
-	} else if resp.Code != 0 {
-		r.cli.log(ctx, LogLevelError, "[lark] Drive#UpdateDrivePublicPermissionV2 POST https://open.feishu.cn/open-apis/drive/permission/v2/public/update/ failed, request_id: %s, status_code: %d, code: %d, msg: %s", requestID, statusCode, resp.Code, resp.Msg)
-		return nil, response, NewError("Drive", "UpdateDrivePublicPermissionV2", resp.Code, resp.Msg)
-	}
-
-	r.cli.log(ctx, LogLevelDebug, "[lark] Drive#UpdateDrivePublicPermissionV2 success, request_id: %s, status_code: %d, response: %s", requestID, statusCode, jsonString(resp.Data))
-
-	return resp.Data, response, nil
+	return resp.Data, response, err
 }
 
 func (r *Mock) MockDriveUpdateDrivePublicPermissionV2(f func(ctx context.Context, request *UpdateDrivePublicPermissionV2Req, options ...MethodOptionFunc) (*UpdateDrivePublicPermissionV2Resp, *Response, error)) {

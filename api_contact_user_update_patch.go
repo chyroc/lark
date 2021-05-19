@@ -15,10 +15,9 @@ func (r *ContactService) UpdateUserPatch(ctx context.Context, request *UpdateUse
 		return r.cli.mock.mockContactUpdateUserPatch(ctx, request, options...)
 	}
 
-	r.cli.log(ctx, LogLevelInfo, "[lark] Contact#UpdateUserPatch call api")
-	r.cli.log(ctx, LogLevelDebug, "[lark] Contact#UpdateUserPatch request: %s", jsonString(request))
-
 	req := &RawRequestReq{
+		Scope:                 "Contact",
+		API:                   "UpdateUserPatch",
 		Method:                "PATCH",
 		URL:                   "https://open.feishu.cn/open-apis/contact/v3/users/:user_id",
 		Body:                  request,
@@ -30,18 +29,7 @@ func (r *ContactService) UpdateUserPatch(ctx context.Context, request *UpdateUse
 	resp := new(updateUserPatchResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
-	requestID, statusCode := getResponseRequestID(response)
-	if err != nil {
-		r.cli.log(ctx, LogLevelError, "[lark] Contact#UpdateUserPatch PATCH https://open.feishu.cn/open-apis/contact/v3/users/:user_id failed, request_id: %s, status_code: %d, error: %s", requestID, statusCode, err)
-		return nil, response, err
-	} else if resp.Code != 0 {
-		r.cli.log(ctx, LogLevelError, "[lark] Contact#UpdateUserPatch PATCH https://open.feishu.cn/open-apis/contact/v3/users/:user_id failed, request_id: %s, status_code: %d, code: %d, msg: %s", requestID, statusCode, resp.Code, resp.Msg)
-		return nil, response, NewError("Contact", "UpdateUserPatch", resp.Code, resp.Msg)
-	}
-
-	r.cli.log(ctx, LogLevelDebug, "[lark] Contact#UpdateUserPatch success, request_id: %s, status_code: %d, response: %s", requestID, statusCode, jsonString(resp.Data))
-
-	return resp.Data, response, nil
+	return resp.Data, response, err
 }
 
 func (r *Mock) MockContactUpdateUserPatch(f func(ctx context.Context, request *UpdateUserPatchReq, options ...MethodOptionFunc) (*UpdateUserPatchResp, *Response, error)) {

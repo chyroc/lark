@@ -15,10 +15,9 @@ func (r *HelpdeskService) UnsubscribeEvent(ctx context.Context, request *Unsubsc
 		return r.cli.mock.mockHelpdeskUnsubscribeEvent(ctx, request, options...)
 	}
 
-	r.cli.log(ctx, LogLevelInfo, "[lark] Helpdesk#UnsubscribeEvent call api")
-	r.cli.log(ctx, LogLevelDebug, "[lark] Helpdesk#UnsubscribeEvent request: %s", jsonString(request))
-
 	req := &RawRequestReq{
+		Scope:                 "Helpdesk",
+		API:                   "UnsubscribeEvent",
 		Method:                "POST",
 		URL:                   "https://open.feishu.cn/open-apis/helpdesk/v1/events/unsubscribe",
 		Body:                  request,
@@ -30,18 +29,7 @@ func (r *HelpdeskService) UnsubscribeEvent(ctx context.Context, request *Unsubsc
 	resp := new(unsubscribeEventResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
-	requestID, statusCode := getResponseRequestID(response)
-	if err != nil {
-		r.cli.log(ctx, LogLevelError, "[lark] Helpdesk#UnsubscribeEvent POST https://open.feishu.cn/open-apis/helpdesk/v1/events/unsubscribe failed, request_id: %s, status_code: %d, error: %s", requestID, statusCode, err)
-		return nil, response, err
-	} else if resp.Code != 0 {
-		r.cli.log(ctx, LogLevelError, "[lark] Helpdesk#UnsubscribeEvent POST https://open.feishu.cn/open-apis/helpdesk/v1/events/unsubscribe failed, request_id: %s, status_code: %d, code: %d, msg: %s", requestID, statusCode, resp.Code, resp.Msg)
-		return nil, response, NewError("Helpdesk", "UnsubscribeEvent", resp.Code, resp.Msg)
-	}
-
-	r.cli.log(ctx, LogLevelDebug, "[lark] Helpdesk#UnsubscribeEvent success, request_id: %s, status_code: %d, response: %s", requestID, statusCode, jsonString(resp.Data))
-
-	return resp.Data, response, nil
+	return resp.Data, response, err
 }
 
 func (r *Mock) MockHelpdeskUnsubscribeEvent(f func(ctx context.Context, request *UnsubscribeEventReq, options ...MethodOptionFunc) (*UnsubscribeEventResp, *Response, error)) {

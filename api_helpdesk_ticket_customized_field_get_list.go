@@ -17,10 +17,9 @@ func (r *HelpdeskService) GetTicketCustomizedFieldList(ctx context.Context, requ
 		return r.cli.mock.mockHelpdeskGetTicketCustomizedFieldList(ctx, request, options...)
 	}
 
-	r.cli.log(ctx, LogLevelInfo, "[lark] Helpdesk#GetTicketCustomizedFieldList call api")
-	r.cli.log(ctx, LogLevelDebug, "[lark] Helpdesk#GetTicketCustomizedFieldList request: %s", jsonString(request))
-
 	req := &RawRequestReq{
+		Scope:                 "Helpdesk",
+		API:                   "GetTicketCustomizedFieldList",
 		Method:                "GET",
 		URL:                   "https://open.feishu.cn/open-apis/helpdesk/v1/ticket_customized_fields",
 		Body:                  request,
@@ -32,18 +31,7 @@ func (r *HelpdeskService) GetTicketCustomizedFieldList(ctx context.Context, requ
 	resp := new(getTicketCustomizedFieldListResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
-	requestID, statusCode := getResponseRequestID(response)
-	if err != nil {
-		r.cli.log(ctx, LogLevelError, "[lark] Helpdesk#GetTicketCustomizedFieldList GET https://open.feishu.cn/open-apis/helpdesk/v1/ticket_customized_fields failed, request_id: %s, status_code: %d, error: %s", requestID, statusCode, err)
-		return nil, response, err
-	} else if resp.Code != 0 {
-		r.cli.log(ctx, LogLevelError, "[lark] Helpdesk#GetTicketCustomizedFieldList GET https://open.feishu.cn/open-apis/helpdesk/v1/ticket_customized_fields failed, request_id: %s, status_code: %d, code: %d, msg: %s", requestID, statusCode, resp.Code, resp.Msg)
-		return nil, response, NewError("Helpdesk", "GetTicketCustomizedFieldList", resp.Code, resp.Msg)
-	}
-
-	r.cli.log(ctx, LogLevelDebug, "[lark] Helpdesk#GetTicketCustomizedFieldList success, request_id: %s, status_code: %d, response: %s", requestID, statusCode, jsonString(resp.Data))
-
-	return resp.Data, response, nil
+	return resp.Data, response, err
 }
 
 func (r *Mock) MockHelpdeskGetTicketCustomizedFieldList(f func(ctx context.Context, request *GetTicketCustomizedFieldListReq, options ...MethodOptionFunc) (*GetTicketCustomizedFieldListResp, *Response, error)) {

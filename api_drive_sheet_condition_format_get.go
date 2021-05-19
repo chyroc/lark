@@ -15,10 +15,9 @@ func (r *DriveService) GetSheetConditionFormat(ctx context.Context, request *Get
 		return r.cli.mock.mockDriveGetSheetConditionFormat(ctx, request, options...)
 	}
 
-	r.cli.log(ctx, LogLevelInfo, "[lark] Drive#GetSheetConditionFormat call api")
-	r.cli.log(ctx, LogLevelDebug, "[lark] Drive#GetSheetConditionFormat request: %s", jsonString(request))
-
 	req := &RawRequestReq{
+		Scope:                 "Drive",
+		API:                   "GetSheetConditionFormat",
 		Method:                "GET",
 		URL:                   "https://open.feishu.cn/open-apis/sheets/v2/spreadsheets/:spreadsheetToken/condition_formats",
 		Body:                  request,
@@ -30,18 +29,7 @@ func (r *DriveService) GetSheetConditionFormat(ctx context.Context, request *Get
 	resp := new(getSheetConditionFormatResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
-	requestID, statusCode := getResponseRequestID(response)
-	if err != nil {
-		r.cli.log(ctx, LogLevelError, "[lark] Drive#GetSheetConditionFormat GET https://open.feishu.cn/open-apis/sheets/v2/spreadsheets/:spreadsheetToken/condition_formats failed, request_id: %s, status_code: %d, error: %s", requestID, statusCode, err)
-		return nil, response, err
-	} else if resp.Code != 0 {
-		r.cli.log(ctx, LogLevelError, "[lark] Drive#GetSheetConditionFormat GET https://open.feishu.cn/open-apis/sheets/v2/spreadsheets/:spreadsheetToken/condition_formats failed, request_id: %s, status_code: %d, code: %d, msg: %s", requestID, statusCode, resp.Code, resp.Msg)
-		return nil, response, NewError("Drive", "GetSheetConditionFormat", resp.Code, resp.Msg)
-	}
-
-	r.cli.log(ctx, LogLevelDebug, "[lark] Drive#GetSheetConditionFormat success, request_id: %s, status_code: %d, response: %s", requestID, statusCode, jsonString(resp.Data))
-
-	return resp.Data, response, nil
+	return resp.Data, response, err
 }
 
 func (r *Mock) MockDriveGetSheetConditionFormat(f func(ctx context.Context, request *GetSheetConditionFormatReq, options ...MethodOptionFunc) (*GetSheetConditionFormatResp, *Response, error)) {

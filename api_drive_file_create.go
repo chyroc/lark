@@ -19,10 +19,9 @@ func (r *DriveService) CreateDriveFile(ctx context.Context, request *CreateDrive
 		return r.cli.mock.mockDriveCreateDriveFile(ctx, request, options...)
 	}
 
-	r.cli.log(ctx, LogLevelInfo, "[lark] Drive#CreateDriveFile call api")
-	r.cli.log(ctx, LogLevelDebug, "[lark] Drive#CreateDriveFile request: %s", jsonString(request))
-
 	req := &RawRequestReq{
+		Scope:        "Drive",
+		API:          "CreateDriveFile",
 		Method:       "POST",
 		URL:          "https://open.feishu.cn/open-apis/drive/explorer/v2/file/{folderToken}",
 		Body:         request,
@@ -33,18 +32,7 @@ func (r *DriveService) CreateDriveFile(ctx context.Context, request *CreateDrive
 	resp := new(createDriveFileResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
-	requestID, statusCode := getResponseRequestID(response)
-	if err != nil {
-		r.cli.log(ctx, LogLevelError, "[lark] Drive#CreateDriveFile POST https://open.feishu.cn/open-apis/drive/explorer/v2/file/{folderToken} failed, request_id: %s, status_code: %d, error: %s", requestID, statusCode, err)
-		return nil, response, err
-	} else if resp.Code != 0 {
-		r.cli.log(ctx, LogLevelError, "[lark] Drive#CreateDriveFile POST https://open.feishu.cn/open-apis/drive/explorer/v2/file/{folderToken} failed, request_id: %s, status_code: %d, code: %d, msg: %s", requestID, statusCode, resp.Code, resp.Msg)
-		return nil, response, NewError("Drive", "CreateDriveFile", resp.Code, resp.Msg)
-	}
-
-	r.cli.log(ctx, LogLevelDebug, "[lark] Drive#CreateDriveFile success, request_id: %s, status_code: %d, response: %s", requestID, statusCode, jsonString(resp.Data))
-
-	return resp.Data, response, nil
+	return resp.Data, response, err
 }
 
 func (r *Mock) MockDriveCreateDriveFile(f func(ctx context.Context, request *CreateDriveFileReq, options ...MethodOptionFunc) (*CreateDriveFileResp, *Response, error)) {

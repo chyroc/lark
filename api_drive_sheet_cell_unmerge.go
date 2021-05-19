@@ -15,10 +15,9 @@ func (r *DriveService) UnmergeSheetCell(ctx context.Context, request *UnmergeShe
 		return r.cli.mock.mockDriveUnmergeSheetCell(ctx, request, options...)
 	}
 
-	r.cli.log(ctx, LogLevelInfo, "[lark] Drive#UnmergeSheetCell call api")
-	r.cli.log(ctx, LogLevelDebug, "[lark] Drive#UnmergeSheetCell request: %s", jsonString(request))
-
 	req := &RawRequestReq{
+		Scope:                 "Drive",
+		API:                   "UnmergeSheetCell",
 		Method:                "POST",
 		URL:                   "https://open.feishu.cn/open-apis/sheets/v2/spreadsheets/:spreadsheetToken/unmerge_cells",
 		Body:                  request,
@@ -30,18 +29,7 @@ func (r *DriveService) UnmergeSheetCell(ctx context.Context, request *UnmergeShe
 	resp := new(unmergeSheetCellResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
-	requestID, statusCode := getResponseRequestID(response)
-	if err != nil {
-		r.cli.log(ctx, LogLevelError, "[lark] Drive#UnmergeSheetCell POST https://open.feishu.cn/open-apis/sheets/v2/spreadsheets/:spreadsheetToken/unmerge_cells failed, request_id: %s, status_code: %d, error: %s", requestID, statusCode, err)
-		return nil, response, err
-	} else if resp.Code != 0 {
-		r.cli.log(ctx, LogLevelError, "[lark] Drive#UnmergeSheetCell POST https://open.feishu.cn/open-apis/sheets/v2/spreadsheets/:spreadsheetToken/unmerge_cells failed, request_id: %s, status_code: %d, code: %d, msg: %s", requestID, statusCode, resp.Code, resp.Msg)
-		return nil, response, NewError("Drive", "UnmergeSheetCell", resp.Code, resp.Msg)
-	}
-
-	r.cli.log(ctx, LogLevelDebug, "[lark] Drive#UnmergeSheetCell success, request_id: %s, status_code: %d, response: %s", requestID, statusCode, jsonString(resp.Data))
-
-	return resp.Data, response, nil
+	return resp.Data, response, err
 }
 
 func (r *Mock) MockDriveUnmergeSheetCell(f func(ctx context.Context, request *UnmergeSheetCellReq, options ...MethodOptionFunc) (*UnmergeSheetCellResp, *Response, error)) {

@@ -17,10 +17,9 @@ func (r *TenantService) QueryTenant(ctx context.Context, request *QueryTenantReq
 		return r.cli.mock.mockTenantQueryTenant(ctx, request, options...)
 	}
 
-	r.cli.log(ctx, LogLevelInfo, "[lark] Tenant#QueryTenant call api")
-	r.cli.log(ctx, LogLevelDebug, "[lark] Tenant#QueryTenant request: %s", jsonString(request))
-
 	req := &RawRequestReq{
+		Scope:                 "Tenant",
+		API:                   "QueryTenant",
 		Method:                "GET",
 		URL:                   "https://open.feishu.cn/open-apis/tenant/v2/tenant/query",
 		Body:                  request,
@@ -30,18 +29,7 @@ func (r *TenantService) QueryTenant(ctx context.Context, request *QueryTenantReq
 	resp := new(queryTenantResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
-	requestID, statusCode := getResponseRequestID(response)
-	if err != nil {
-		r.cli.log(ctx, LogLevelError, "[lark] Tenant#QueryTenant GET https://open.feishu.cn/open-apis/tenant/v2/tenant/query failed, request_id: %s, status_code: %d, error: %s", requestID, statusCode, err)
-		return nil, response, err
-	} else if resp.Code != 0 {
-		r.cli.log(ctx, LogLevelError, "[lark] Tenant#QueryTenant GET https://open.feishu.cn/open-apis/tenant/v2/tenant/query failed, request_id: %s, status_code: %d, code: %d, msg: %s", requestID, statusCode, resp.Code, resp.Msg)
-		return nil, response, NewError("Tenant", "QueryTenant", resp.Code, resp.Msg)
-	}
-
-	r.cli.log(ctx, LogLevelDebug, "[lark] Tenant#QueryTenant success, request_id: %s, status_code: %d, response: %s", requestID, statusCode, jsonString(resp.Data))
-
-	return resp.Data, response, nil
+	return resp.Data, response, err
 }
 
 func (r *Mock) MockTenantQueryTenant(f func(ctx context.Context, request *QueryTenantReq, options ...MethodOptionFunc) (*QueryTenantResp, *Response, error)) {

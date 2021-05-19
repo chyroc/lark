@@ -15,10 +15,9 @@ func (r *MailService) UpdatePublicMailbox(ctx context.Context, request *UpdatePu
 		return r.cli.mock.mockMailUpdatePublicMailbox(ctx, request, options...)
 	}
 
-	r.cli.log(ctx, LogLevelInfo, "[lark] Mail#UpdatePublicMailbox call api")
-	r.cli.log(ctx, LogLevelDebug, "[lark] Mail#UpdatePublicMailbox request: %s", jsonString(request))
-
 	req := &RawRequestReq{
+		Scope:                 "Mail",
+		API:                   "UpdatePublicMailbox",
 		Method:                "PUT",
 		URL:                   "https://open.feishu.cn/open-apis/mail/v1/public_mailboxes/:public_mailbox_id",
 		Body:                  request,
@@ -28,18 +27,7 @@ func (r *MailService) UpdatePublicMailbox(ctx context.Context, request *UpdatePu
 	resp := new(updatePublicMailboxResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
-	requestID, statusCode := getResponseRequestID(response)
-	if err != nil {
-		r.cli.log(ctx, LogLevelError, "[lark] Mail#UpdatePublicMailbox PUT https://open.feishu.cn/open-apis/mail/v1/public_mailboxes/:public_mailbox_id failed, request_id: %s, status_code: %d, error: %s", requestID, statusCode, err)
-		return nil, response, err
-	} else if resp.Code != 0 {
-		r.cli.log(ctx, LogLevelError, "[lark] Mail#UpdatePublicMailbox PUT https://open.feishu.cn/open-apis/mail/v1/public_mailboxes/:public_mailbox_id failed, request_id: %s, status_code: %d, code: %d, msg: %s", requestID, statusCode, resp.Code, resp.Msg)
-		return nil, response, NewError("Mail", "UpdatePublicMailbox", resp.Code, resp.Msg)
-	}
-
-	r.cli.log(ctx, LogLevelDebug, "[lark] Mail#UpdatePublicMailbox success, request_id: %s, status_code: %d, response: %s", requestID, statusCode, jsonString(resp.Data))
-
-	return resp.Data, response, nil
+	return resp.Data, response, err
 }
 
 func (r *Mock) MockMailUpdatePublicMailbox(f func(ctx context.Context, request *UpdatePublicMailboxReq, options ...MethodOptionFunc) (*UpdatePublicMailboxResp, *Response, error)) {

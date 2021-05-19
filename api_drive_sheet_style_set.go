@@ -15,10 +15,9 @@ func (r *DriveService) SetSheetStyle(ctx context.Context, request *SetSheetStyle
 		return r.cli.mock.mockDriveSetSheetStyle(ctx, request, options...)
 	}
 
-	r.cli.log(ctx, LogLevelInfo, "[lark] Drive#SetSheetStyle call api")
-	r.cli.log(ctx, LogLevelDebug, "[lark] Drive#SetSheetStyle request: %s", jsonString(request))
-
 	req := &RawRequestReq{
+		Scope:                 "Drive",
+		API:                   "SetSheetStyle",
 		Method:                "PUT",
 		URL:                   "https://open.feishu.cn/open-apis/sheets/v2/spreadsheets/:spreadsheetToken/style",
 		Body:                  request,
@@ -30,18 +29,7 @@ func (r *DriveService) SetSheetStyle(ctx context.Context, request *SetSheetStyle
 	resp := new(setSheetStyleResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
-	requestID, statusCode := getResponseRequestID(response)
-	if err != nil {
-		r.cli.log(ctx, LogLevelError, "[lark] Drive#SetSheetStyle PUT https://open.feishu.cn/open-apis/sheets/v2/spreadsheets/:spreadsheetToken/style failed, request_id: %s, status_code: %d, error: %s", requestID, statusCode, err)
-		return nil, response, err
-	} else if resp.Code != 0 {
-		r.cli.log(ctx, LogLevelError, "[lark] Drive#SetSheetStyle PUT https://open.feishu.cn/open-apis/sheets/v2/spreadsheets/:spreadsheetToken/style failed, request_id: %s, status_code: %d, code: %d, msg: %s", requestID, statusCode, resp.Code, resp.Msg)
-		return nil, response, NewError("Drive", "SetSheetStyle", resp.Code, resp.Msg)
-	}
-
-	r.cli.log(ctx, LogLevelDebug, "[lark] Drive#SetSheetStyle success, request_id: %s, status_code: %d, response: %s", requestID, statusCode, jsonString(resp.Data))
-
-	return resp.Data, response, nil
+	return resp.Data, response, err
 }
 
 func (r *Mock) MockDriveSetSheetStyle(f func(ctx context.Context, request *SetSheetStyleReq, options ...MethodOptionFunc) (*SetSheetStyleResp, *Response, error)) {

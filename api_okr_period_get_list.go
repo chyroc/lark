@@ -17,10 +17,9 @@ func (r *OKRService) GetPeriodList(ctx context.Context, request *GetPeriodListRe
 		return r.cli.mock.mockOKRGetPeriodList(ctx, request, options...)
 	}
 
-	r.cli.log(ctx, LogLevelInfo, "[lark] OKR#GetPeriodList call api")
-	r.cli.log(ctx, LogLevelDebug, "[lark] OKR#GetPeriodList request: %s", jsonString(request))
-
 	req := &RawRequestReq{
+		Scope:                 "OKR",
+		API:                   "GetPeriodList",
 		Method:                "GET",
 		URL:                   "https://open.feishu.cn/open-apis/okr/v1/periods",
 		Body:                  request,
@@ -30,18 +29,7 @@ func (r *OKRService) GetPeriodList(ctx context.Context, request *GetPeriodListRe
 	resp := new(getPeriodListResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
-	requestID, statusCode := getResponseRequestID(response)
-	if err != nil {
-		r.cli.log(ctx, LogLevelError, "[lark] OKR#GetPeriodList GET https://open.feishu.cn/open-apis/okr/v1/periods failed, request_id: %s, status_code: %d, error: %s", requestID, statusCode, err)
-		return nil, response, err
-	} else if resp.Code != 0 {
-		r.cli.log(ctx, LogLevelError, "[lark] OKR#GetPeriodList GET https://open.feishu.cn/open-apis/okr/v1/periods failed, request_id: %s, status_code: %d, code: %d, msg: %s", requestID, statusCode, resp.Code, resp.Msg)
-		return nil, response, NewError("OKR", "GetPeriodList", resp.Code, resp.Msg)
-	}
-
-	r.cli.log(ctx, LogLevelDebug, "[lark] OKR#GetPeriodList success, request_id: %s, status_code: %d, response: %s", requestID, statusCode, jsonString(resp.Data))
-
-	return resp.Data, response, nil
+	return resp.Data, response, err
 }
 
 func (r *Mock) MockOKRGetPeriodList(f func(ctx context.Context, request *GetPeriodListReq, options ...MethodOptionFunc) (*GetPeriodListResp, *Response, error)) {

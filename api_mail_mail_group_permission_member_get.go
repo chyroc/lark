@@ -15,10 +15,9 @@ func (r *MailService) GetMailGroupPermissionMember(ctx context.Context, request 
 		return r.cli.mock.mockMailGetMailGroupPermissionMember(ctx, request, options...)
 	}
 
-	r.cli.log(ctx, LogLevelInfo, "[lark] Mail#GetMailGroupPermissionMember call api")
-	r.cli.log(ctx, LogLevelDebug, "[lark] Mail#GetMailGroupPermissionMember request: %s", jsonString(request))
-
 	req := &RawRequestReq{
+		Scope:                 "Mail",
+		API:                   "GetMailGroupPermissionMember",
 		Method:                "GET",
 		URL:                   "https://open.feishu.cn/open-apis/mail/v1/mailgroups/:mailgroup_id/permission_members/:permission_member_id",
 		Body:                  request,
@@ -28,18 +27,7 @@ func (r *MailService) GetMailGroupPermissionMember(ctx context.Context, request 
 	resp := new(getMailGroupPermissionMemberResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
-	requestID, statusCode := getResponseRequestID(response)
-	if err != nil {
-		r.cli.log(ctx, LogLevelError, "[lark] Mail#GetMailGroupPermissionMember GET https://open.feishu.cn/open-apis/mail/v1/mailgroups/:mailgroup_id/permission_members/:permission_member_id failed, request_id: %s, status_code: %d, error: %s", requestID, statusCode, err)
-		return nil, response, err
-	} else if resp.Code != 0 {
-		r.cli.log(ctx, LogLevelError, "[lark] Mail#GetMailGroupPermissionMember GET https://open.feishu.cn/open-apis/mail/v1/mailgroups/:mailgroup_id/permission_members/:permission_member_id failed, request_id: %s, status_code: %d, code: %d, msg: %s", requestID, statusCode, resp.Code, resp.Msg)
-		return nil, response, NewError("Mail", "GetMailGroupPermissionMember", resp.Code, resp.Msg)
-	}
-
-	r.cli.log(ctx, LogLevelDebug, "[lark] Mail#GetMailGroupPermissionMember success, request_id: %s, status_code: %d, response: %s", requestID, statusCode, jsonString(resp.Data))
-
-	return resp.Data, response, nil
+	return resp.Data, response, err
 }
 
 func (r *Mock) MockMailGetMailGroupPermissionMember(f func(ctx context.Context, request *GetMailGroupPermissionMemberReq, options ...MethodOptionFunc) (*GetMailGroupPermissionMemberResp, *Response, error)) {

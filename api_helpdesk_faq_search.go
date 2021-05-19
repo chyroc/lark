@@ -15,10 +15,9 @@ func (r *HelpdeskService) SearchFAQ(ctx context.Context, request *SearchFAQReq, 
 		return r.cli.mock.mockHelpdeskSearchFAQ(ctx, request, options...)
 	}
 
-	r.cli.log(ctx, LogLevelInfo, "[lark] Helpdesk#SearchFAQ call api")
-	r.cli.log(ctx, LogLevelDebug, "[lark] Helpdesk#SearchFAQ request: %s", jsonString(request))
-
 	req := &RawRequestReq{
+		Scope:                 "Helpdesk",
+		API:                   "SearchFAQ",
 		Method:                "GET",
 		URL:                   "https://open.feishu.cn/open-apis/helpdesk/v1/faqs/search",
 		Body:                  request,
@@ -30,18 +29,7 @@ func (r *HelpdeskService) SearchFAQ(ctx context.Context, request *SearchFAQReq, 
 	resp := new(searchFAQResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
-	requestID, statusCode := getResponseRequestID(response)
-	if err != nil {
-		r.cli.log(ctx, LogLevelError, "[lark] Helpdesk#SearchFAQ GET https://open.feishu.cn/open-apis/helpdesk/v1/faqs/search failed, request_id: %s, status_code: %d, error: %s", requestID, statusCode, err)
-		return nil, response, err
-	} else if resp.Code != 0 {
-		r.cli.log(ctx, LogLevelError, "[lark] Helpdesk#SearchFAQ GET https://open.feishu.cn/open-apis/helpdesk/v1/faqs/search failed, request_id: %s, status_code: %d, code: %d, msg: %s", requestID, statusCode, resp.Code, resp.Msg)
-		return nil, response, NewError("Helpdesk", "SearchFAQ", resp.Code, resp.Msg)
-	}
-
-	r.cli.log(ctx, LogLevelDebug, "[lark] Helpdesk#SearchFAQ success, request_id: %s, status_code: %d, response: %s", requestID, statusCode, jsonString(resp.Data))
-
-	return resp.Data, response, nil
+	return resp.Data, response, err
 }
 
 func (r *Mock) MockHelpdeskSearchFAQ(f func(ctx context.Context, request *SearchFAQReq, options ...MethodOptionFunc) (*SearchFAQResp, *Response, error)) {

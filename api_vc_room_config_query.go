@@ -17,10 +17,9 @@ func (r *VCService) QueryRoomConfig(ctx context.Context, request *QueryRoomConfi
 		return r.cli.mock.mockVCQueryRoomConfig(ctx, request, options...)
 	}
 
-	r.cli.log(ctx, LogLevelInfo, "[lark] VC#QueryRoomConfig call api")
-	r.cli.log(ctx, LogLevelDebug, "[lark] VC#QueryRoomConfig request: %s", jsonString(request))
-
 	req := &RawRequestReq{
+		Scope:                 "VC",
+		API:                   "QueryRoomConfig",
 		Method:                "GET",
 		URL:                   "https://open.feishu.cn/open-apis/vc/v1/room_configs/query",
 		Body:                  request,
@@ -30,18 +29,7 @@ func (r *VCService) QueryRoomConfig(ctx context.Context, request *QueryRoomConfi
 	resp := new(queryRoomConfigResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
-	requestID, statusCode := getResponseRequestID(response)
-	if err != nil {
-		r.cli.log(ctx, LogLevelError, "[lark] VC#QueryRoomConfig GET https://open.feishu.cn/open-apis/vc/v1/room_configs/query failed, request_id: %s, status_code: %d, error: %s", requestID, statusCode, err)
-		return nil, response, err
-	} else if resp.Code != 0 {
-		r.cli.log(ctx, LogLevelError, "[lark] VC#QueryRoomConfig GET https://open.feishu.cn/open-apis/vc/v1/room_configs/query failed, request_id: %s, status_code: %d, code: %d, msg: %s", requestID, statusCode, resp.Code, resp.Msg)
-		return nil, response, NewError("VC", "QueryRoomConfig", resp.Code, resp.Msg)
-	}
-
-	r.cli.log(ctx, LogLevelDebug, "[lark] VC#QueryRoomConfig success, request_id: %s, status_code: %d, response: %s", requestID, statusCode, jsonString(resp.Data))
-
-	return resp.Data, response, nil
+	return resp.Data, response, err
 }
 
 func (r *Mock) MockVCQueryRoomConfig(f func(ctx context.Context, request *QueryRoomConfigReq, options ...MethodOptionFunc) (*QueryRoomConfigResp, *Response, error)) {

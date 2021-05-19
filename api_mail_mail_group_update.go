@@ -15,10 +15,9 @@ func (r *MailService) UpdateMailGroup(ctx context.Context, request *UpdateMailGr
 		return r.cli.mock.mockMailUpdateMailGroup(ctx, request, options...)
 	}
 
-	r.cli.log(ctx, LogLevelInfo, "[lark] Mail#UpdateMailGroup call api")
-	r.cli.log(ctx, LogLevelDebug, "[lark] Mail#UpdateMailGroup request: %s", jsonString(request))
-
 	req := &RawRequestReq{
+		Scope:                 "Mail",
+		API:                   "UpdateMailGroup",
 		Method:                "PUT",
 		URL:                   "https://open.feishu.cn/open-apis/mail/v1/mailgroups/:mailgroup_id",
 		Body:                  request,
@@ -28,18 +27,7 @@ func (r *MailService) UpdateMailGroup(ctx context.Context, request *UpdateMailGr
 	resp := new(updateMailGroupResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
-	requestID, statusCode := getResponseRequestID(response)
-	if err != nil {
-		r.cli.log(ctx, LogLevelError, "[lark] Mail#UpdateMailGroup PUT https://open.feishu.cn/open-apis/mail/v1/mailgroups/:mailgroup_id failed, request_id: %s, status_code: %d, error: %s", requestID, statusCode, err)
-		return nil, response, err
-	} else if resp.Code != 0 {
-		r.cli.log(ctx, LogLevelError, "[lark] Mail#UpdateMailGroup PUT https://open.feishu.cn/open-apis/mail/v1/mailgroups/:mailgroup_id failed, request_id: %s, status_code: %d, code: %d, msg: %s", requestID, statusCode, resp.Code, resp.Msg)
-		return nil, response, NewError("Mail", "UpdateMailGroup", resp.Code, resp.Msg)
-	}
-
-	r.cli.log(ctx, LogLevelDebug, "[lark] Mail#UpdateMailGroup success, request_id: %s, status_code: %d, response: %s", requestID, statusCode, jsonString(resp.Data))
-
-	return resp.Data, response, nil
+	return resp.Data, response, err
 }
 
 func (r *Mock) MockMailUpdateMailGroup(f func(ctx context.Context, request *UpdateMailGroupReq, options ...MethodOptionFunc) (*UpdateMailGroupResp, *Response, error)) {

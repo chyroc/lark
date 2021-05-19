@@ -15,10 +15,9 @@ func (r *BitableService) GetBitableRecordList(ctx context.Context, request *GetB
 		return r.cli.mock.mockBitableGetBitableRecordList(ctx, request, options...)
 	}
 
-	r.cli.log(ctx, LogLevelInfo, "[lark] Bitable#GetBitableRecordList call api")
-	r.cli.log(ctx, LogLevelDebug, "[lark] Bitable#GetBitableRecordList request: %s", jsonString(request))
-
 	req := &RawRequestReq{
+		Scope:        "Bitable",
+		API:          "GetBitableRecordList",
 		Method:       "GET",
 		URL:          "https://open.feishu.cn/open-apis/bitable/v1/apps/:app_token/tables/:table_id/records",
 		Body:         request,
@@ -29,18 +28,7 @@ func (r *BitableService) GetBitableRecordList(ctx context.Context, request *GetB
 	resp := new(getBitableRecordListResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
-	requestID, statusCode := getResponseRequestID(response)
-	if err != nil {
-		r.cli.log(ctx, LogLevelError, "[lark] Bitable#GetBitableRecordList GET https://open.feishu.cn/open-apis/bitable/v1/apps/:app_token/tables/:table_id/records failed, request_id: %s, status_code: %d, error: %s", requestID, statusCode, err)
-		return nil, response, err
-	} else if resp.Code != 0 {
-		r.cli.log(ctx, LogLevelError, "[lark] Bitable#GetBitableRecordList GET https://open.feishu.cn/open-apis/bitable/v1/apps/:app_token/tables/:table_id/records failed, request_id: %s, status_code: %d, code: %d, msg: %s", requestID, statusCode, resp.Code, resp.Msg)
-		return nil, response, NewError("Bitable", "GetBitableRecordList", resp.Code, resp.Msg)
-	}
-
-	r.cli.log(ctx, LogLevelDebug, "[lark] Bitable#GetBitableRecordList success, request_id: %s, status_code: %d, response: %s", requestID, statusCode, jsonString(resp.Data))
-
-	return resp.Data, response, nil
+	return resp.Data, response, err
 }
 
 func (r *Mock) MockBitableGetBitableRecordList(f func(ctx context.Context, request *GetBitableRecordListReq, options ...MethodOptionFunc) (*GetBitableRecordListResp, *Response, error)) {

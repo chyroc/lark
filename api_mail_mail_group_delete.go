@@ -15,10 +15,9 @@ func (r *MailService) DeleteMailGroup(ctx context.Context, request *DeleteMailGr
 		return r.cli.mock.mockMailDeleteMailGroup(ctx, request, options...)
 	}
 
-	r.cli.log(ctx, LogLevelInfo, "[lark] Mail#DeleteMailGroup call api")
-	r.cli.log(ctx, LogLevelDebug, "[lark] Mail#DeleteMailGroup request: %s", jsonString(request))
-
 	req := &RawRequestReq{
+		Scope:                 "Mail",
+		API:                   "DeleteMailGroup",
 		Method:                "DELETE",
 		URL:                   "https://open.feishu.cn/open-apis/mail/v1/mailgroups/:mailgroup_id",
 		Body:                  request,
@@ -28,18 +27,7 @@ func (r *MailService) DeleteMailGroup(ctx context.Context, request *DeleteMailGr
 	resp := new(deleteMailGroupResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
-	requestID, statusCode := getResponseRequestID(response)
-	if err != nil {
-		r.cli.log(ctx, LogLevelError, "[lark] Mail#DeleteMailGroup DELETE https://open.feishu.cn/open-apis/mail/v1/mailgroups/:mailgroup_id failed, request_id: %s, status_code: %d, error: %s", requestID, statusCode, err)
-		return nil, response, err
-	} else if resp.Code != 0 {
-		r.cli.log(ctx, LogLevelError, "[lark] Mail#DeleteMailGroup DELETE https://open.feishu.cn/open-apis/mail/v1/mailgroups/:mailgroup_id failed, request_id: %s, status_code: %d, code: %d, msg: %s", requestID, statusCode, resp.Code, resp.Msg)
-		return nil, response, NewError("Mail", "DeleteMailGroup", resp.Code, resp.Msg)
-	}
-
-	r.cli.log(ctx, LogLevelDebug, "[lark] Mail#DeleteMailGroup success, request_id: %s, status_code: %d, response: %s", requestID, statusCode, jsonString(resp.Data))
-
-	return resp.Data, response, nil
+	return resp.Data, response, err
 }
 
 func (r *Mock) MockMailDeleteMailGroup(f func(ctx context.Context, request *DeleteMailGroupReq, options ...MethodOptionFunc) (*DeleteMailGroupResp, *Response, error)) {

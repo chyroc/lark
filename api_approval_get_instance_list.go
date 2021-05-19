@@ -18,10 +18,9 @@ func (r *ApprovalService) GetInstanceList(ctx context.Context, request *GetInsta
 		return r.cli.mock.mockApprovalGetInstanceList(ctx, request, options...)
 	}
 
-	r.cli.log(ctx, LogLevelInfo, "[lark] Approval#GetInstanceList call api")
-	r.cli.log(ctx, LogLevelDebug, "[lark] Approval#GetInstanceList request: %s", jsonString(request))
-
 	req := &RawRequestReq{
+		Scope:                 "Approval",
+		API:                   "GetInstanceList",
 		Method:                "POST",
 		URL:                   "https://www.feishu.cn/approval/openapi/v2/instance/list",
 		Body:                  request,
@@ -31,18 +30,7 @@ func (r *ApprovalService) GetInstanceList(ctx context.Context, request *GetInsta
 	resp := new(getInstanceListResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
-	requestID, statusCode := getResponseRequestID(response)
-	if err != nil {
-		r.cli.log(ctx, LogLevelError, "[lark] Approval#GetInstanceList POST https://www.feishu.cn/approval/openapi/v2/instance/list failed, request_id: %s, status_code: %d, error: %s", requestID, statusCode, err)
-		return nil, response, err
-	} else if resp.Code != 0 {
-		r.cli.log(ctx, LogLevelError, "[lark] Approval#GetInstanceList POST https://www.feishu.cn/approval/openapi/v2/instance/list failed, request_id: %s, status_code: %d, code: %d, msg: %s", requestID, statusCode, resp.Code, resp.Msg)
-		return nil, response, NewError("Approval", "GetInstanceList", resp.Code, resp.Msg)
-	}
-
-	r.cli.log(ctx, LogLevelDebug, "[lark] Approval#GetInstanceList success, request_id: %s, status_code: %d, response: %s", requestID, statusCode, jsonString(resp.Data))
-
-	return resp.Data, response, nil
+	return resp.Data, response, err
 }
 
 func (r *Mock) MockApprovalGetInstanceList(f func(ctx context.Context, request *GetInstanceListReq, options ...MethodOptionFunc) (*GetInstanceListResp, *Response, error)) {

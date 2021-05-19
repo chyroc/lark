@@ -20,10 +20,9 @@ func (r *ChatService) DeleteChatMember(ctx context.Context, request *DeleteChatM
 		return r.cli.mock.mockChatDeleteChatMember(ctx, request, options...)
 	}
 
-	r.cli.log(ctx, LogLevelInfo, "[lark] Chat#DeleteChatMember call api")
-	r.cli.log(ctx, LogLevelDebug, "[lark] Chat#DeleteChatMember request: %s", jsonString(request))
-
 	req := &RawRequestReq{
+		Scope:                 "Chat",
+		API:                   "DeleteChatMember",
 		Method:                "DELETE",
 		URL:                   "https://open.feishu.cn/open-apis/im/v1/chats/:chat_id/members",
 		Body:                  request,
@@ -35,18 +34,7 @@ func (r *ChatService) DeleteChatMember(ctx context.Context, request *DeleteChatM
 	resp := new(deleteChatMemberResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
-	requestID, statusCode := getResponseRequestID(response)
-	if err != nil {
-		r.cli.log(ctx, LogLevelError, "[lark] Chat#DeleteChatMember DELETE https://open.feishu.cn/open-apis/im/v1/chats/:chat_id/members failed, request_id: %s, status_code: %d, error: %s", requestID, statusCode, err)
-		return nil, response, err
-	} else if resp.Code != 0 {
-		r.cli.log(ctx, LogLevelError, "[lark] Chat#DeleteChatMember DELETE https://open.feishu.cn/open-apis/im/v1/chats/:chat_id/members failed, request_id: %s, status_code: %d, code: %d, msg: %s", requestID, statusCode, resp.Code, resp.Msg)
-		return nil, response, NewError("Chat", "DeleteChatMember", resp.Code, resp.Msg)
-	}
-
-	r.cli.log(ctx, LogLevelDebug, "[lark] Chat#DeleteChatMember success, request_id: %s, status_code: %d, response: %s", requestID, statusCode, jsonString(resp.Data))
-
-	return resp.Data, response, nil
+	return resp.Data, response, err
 }
 
 func (r *Mock) MockChatDeleteChatMember(f func(ctx context.Context, request *DeleteChatMemberReq, options ...MethodOptionFunc) (*DeleteChatMemberResp, *Response, error)) {

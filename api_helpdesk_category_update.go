@@ -15,10 +15,9 @@ func (r *HelpdeskService) UpdateCategory(ctx context.Context, request *UpdateCat
 		return r.cli.mock.mockHelpdeskUpdateCategory(ctx, request, options...)
 	}
 
-	r.cli.log(ctx, LogLevelInfo, "[lark] Helpdesk#UpdateCategory call api")
-	r.cli.log(ctx, LogLevelDebug, "[lark] Helpdesk#UpdateCategory request: %s", jsonString(request))
-
 	req := &RawRequestReq{
+		Scope:        "Helpdesk",
+		API:          "UpdateCategory",
 		Method:       "PATCH",
 		URL:          "https://open.feishu.cn/open-apis/helpdesk/v1/categories/:id",
 		Body:         request,
@@ -30,18 +29,7 @@ func (r *HelpdeskService) UpdateCategory(ctx context.Context, request *UpdateCat
 	resp := new(updateCategoryResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
-	requestID, statusCode := getResponseRequestID(response)
-	if err != nil {
-		r.cli.log(ctx, LogLevelError, "[lark] Helpdesk#UpdateCategory PATCH https://open.feishu.cn/open-apis/helpdesk/v1/categories/:id failed, request_id: %s, status_code: %d, error: %s", requestID, statusCode, err)
-		return nil, response, err
-	} else if resp.Code != 0 {
-		r.cli.log(ctx, LogLevelError, "[lark] Helpdesk#UpdateCategory PATCH https://open.feishu.cn/open-apis/helpdesk/v1/categories/:id failed, request_id: %s, status_code: %d, code: %d, msg: %s", requestID, statusCode, resp.Code, resp.Msg)
-		return nil, response, NewError("Helpdesk", "UpdateCategory", resp.Code, resp.Msg)
-	}
-
-	r.cli.log(ctx, LogLevelDebug, "[lark] Helpdesk#UpdateCategory success, request_id: %s, status_code: %d, response: %s", requestID, statusCode, jsonString(resp.Data))
-
-	return resp.Data, response, nil
+	return resp.Data, response, err
 }
 
 func (r *Mock) MockHelpdeskUpdateCategory(f func(ctx context.Context, request *UpdateCategoryReq, options ...MethodOptionFunc) (*UpdateCategoryResp, *Response, error)) {

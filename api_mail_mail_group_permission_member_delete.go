@@ -15,10 +15,9 @@ func (r *MailService) DeleteMailGroupPermissionMember(ctx context.Context, reque
 		return r.cli.mock.mockMailDeleteMailGroupPermissionMember(ctx, request, options...)
 	}
 
-	r.cli.log(ctx, LogLevelInfo, "[lark] Mail#DeleteMailGroupPermissionMember call api")
-	r.cli.log(ctx, LogLevelDebug, "[lark] Mail#DeleteMailGroupPermissionMember request: %s", jsonString(request))
-
 	req := &RawRequestReq{
+		Scope:                 "Mail",
+		API:                   "DeleteMailGroupPermissionMember",
 		Method:                "DELETE",
 		URL:                   "https://open.feishu.cn/open-apis/mail/v1/mailgroups/:mailgroup_id/permission_members/:permission_member_id",
 		Body:                  request,
@@ -28,18 +27,7 @@ func (r *MailService) DeleteMailGroupPermissionMember(ctx context.Context, reque
 	resp := new(deleteMailGroupPermissionMemberResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
-	requestID, statusCode := getResponseRequestID(response)
-	if err != nil {
-		r.cli.log(ctx, LogLevelError, "[lark] Mail#DeleteMailGroupPermissionMember DELETE https://open.feishu.cn/open-apis/mail/v1/mailgroups/:mailgroup_id/permission_members/:permission_member_id failed, request_id: %s, status_code: %d, error: %s", requestID, statusCode, err)
-		return nil, response, err
-	} else if resp.Code != 0 {
-		r.cli.log(ctx, LogLevelError, "[lark] Mail#DeleteMailGroupPermissionMember DELETE https://open.feishu.cn/open-apis/mail/v1/mailgroups/:mailgroup_id/permission_members/:permission_member_id failed, request_id: %s, status_code: %d, code: %d, msg: %s", requestID, statusCode, resp.Code, resp.Msg)
-		return nil, response, NewError("Mail", "DeleteMailGroupPermissionMember", resp.Code, resp.Msg)
-	}
-
-	r.cli.log(ctx, LogLevelDebug, "[lark] Mail#DeleteMailGroupPermissionMember success, request_id: %s, status_code: %d, response: %s", requestID, statusCode, jsonString(resp.Data))
-
-	return resp.Data, response, nil
+	return resp.Data, response, err
 }
 
 func (r *Mock) MockMailDeleteMailGroupPermissionMember(f func(ctx context.Context, request *DeleteMailGroupPermissionMemberReq, options ...MethodOptionFunc) (*DeleteMailGroupPermissionMemberResp, *Response, error)) {
