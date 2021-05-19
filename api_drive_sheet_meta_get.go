@@ -54,7 +54,7 @@ func (r *Mock) UnMockDriveGetSheetMeta() {
 
 type GetSheetMetaReq struct {
 	ExtFields        *string `query:"extFields" json:"-"`       // 额外返回的字段，extFields=protectedRange时返回保护行列信息
-	SpreadsheetToken string  `path:"spreadsheetToken" json:"-"` // spreadsheet 的 token；获取方式见[对接前说明](/ssl:ttdoc/ukTMukTMukTM/uczNzUjL3czM14yN3MTN) 的第 4 项
+	SpreadSheetToken string  `path:"spreadsheetToken" json:"-"` // spreadsheet 的 token；获取方式见[对接前说明](/ssl:ttdoc/ukTMukTMukTM/uczNzUjL3czM14yN3MTN) 的第 4 项
 }
 
 type getSheetMetaResp struct {
@@ -64,7 +64,7 @@ type getSheetMetaResp struct {
 }
 
 type GetSheetMetaResp struct {
-	SpreadsheetToken string                      `json:"spreadsheetToken,omitempty"` // spreadsheet 的 token
+	SpreadSheetToken string                      `json:"spreadsheetToken,omitempty"` // spreadsheet 的 token
 	Properties       *GetSheetMetaRespProperties `json:"properties,omitempty"`       // spreadsheet 的属性
 	Sheets           *GetSheetMetaRespSheets     `json:"sheets,omitempty"`           // spreadsheet 下的sheet列表
 }

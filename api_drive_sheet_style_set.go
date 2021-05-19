@@ -53,7 +53,7 @@ func (r *Mock) UnMockDriveSetSheetStyle() {
 }
 
 type SetSheetStyleReq struct {
-	SpreadsheetToken string                       `path:"spreadsheetToken" json:"-"` // spreadsheet 的 token，详见 [对接前说明](/ssl:ttdoc/ukTMukTMukTM/uczNzUjL3czM14yN3MTN) 的第 5 项
+	SpreadSheetToken string                       `path:"spreadsheetToken" json:"-"` // spreadsheet 的 token，详见 [对接前说明](/ssl:ttdoc/ukTMukTMukTM/uczNzUjL3czM14yN3MTN) 的第 5 项
 	AppendStyle      *SetSheetStyleReqAppendStyle `json:"appendStyle,omitempty"`     // 设置单元格样式
 }
 
@@ -89,7 +89,7 @@ type setSheetStyleResp struct {
 }
 
 type SetSheetStyleResp struct {
-	SpreadsheetToken string `json:"spreadsheetToken,omitempty"` // spreadsheet 的 token
+	SpreadSheetToken string `json:"spreadsheetToken,omitempty"` // spreadsheet 的 token
 	UpdatedRange     string `json:"updatedRange,omitempty"`     // 设置样式的范围
 	UpdatedRows      int64  `json:"updatedRows,omitempty"`      // 设置样式的行数
 	UpdatedColumns   int64  `json:"updatedColumns,omitempty"`   // 设置样式的列数

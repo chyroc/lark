@@ -53,7 +53,7 @@ func (r *Mock) UnMockDriveBatchSetSheetValue() {
 }
 
 type BatchSetSheetValueReq struct {
-	SpreadsheetToken string                            `path:"spreadsheetToken" json:"-"` // spreadsheet 的 token，获取方式见 [对接前说明](/ssl:ttdoc/ukTMukTMukTM/uczNzUjL3czM14yN3MTN) 的第 4 项
+	SpreadSheetToken string                            `path:"spreadsheetToken" json:"-"` // spreadsheet 的 token，获取方式见 [对接前说明](/ssl:ttdoc/ukTMukTMukTM/uczNzUjL3czM14yN3MTN) 的第 4 项
 	ValueRanges      *BatchSetSheetValueReqValueRanges `json:"valueRanges,omitempty"`     // 需要更新的多个范围
 }
 
@@ -71,11 +71,11 @@ type batchSetSheetValueResp struct {
 type BatchSetSheetValueResp struct {
 	Responses        *BatchSetSheetValueRespResponses `json:"responses,omitempty"`        // 响应
 	Revision         int64                            `json:"revision,omitempty"`         // sheet 的版本号
-	SpreadsheetToken string                           `json:"spreadsheetToken,omitempty"` // spreadsheet 的 token
+	SpreadSheetToken string                           `json:"spreadsheetToken,omitempty"` // spreadsheet 的 token
 }
 
 type BatchSetSheetValueRespResponses struct {
-	SpreadsheetToken string `json:"spreadsheetToken,omitempty"` // spreadsheet 的 token
+	SpreadSheetToken string `json:"spreadsheetToken,omitempty"` // spreadsheet 的 token
 	UpdatedRange     string `json:"updatedRange,omitempty"`     // 写入的范围
 	UpdatedRows      int64  `json:"updatedRows,omitempty"`      // 写入的行数
 	UpdatedColumns   int64  `json:"updatedColumns,omitempty"`   // 写入的列数

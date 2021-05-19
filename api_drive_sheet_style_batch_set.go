@@ -55,7 +55,7 @@ func (r *Mock) UnMockDriveBatchSetSheetStyle() {
 }
 
 type BatchSetSheetStyleReq struct {
-	SpreadsheetToken string                     `path:"spreadsheetToken" json:"-"` // spreadsheet 的 token，获取方式见 [对接前说明](/ssl:ttdoc/ukTMukTMukTM/uczNzUjL3czM14yN3MTN) 的第 4 项
+	SpreadSheetToken string                     `path:"spreadsheetToken" json:"-"` // spreadsheet 的 token，获取方式见 [对接前说明](/ssl:ttdoc/ukTMukTMukTM/uczNzUjL3czM14yN3MTN) 的第 4 项
 	Data             *BatchSetSheetStyleReqData `json:"data,omitempty"`            // 请求数据
 }
 
@@ -90,7 +90,7 @@ type batchSetSheetStyleResp struct {
 }
 
 type BatchSetSheetStyleResp struct {
-	SpreadsheetToken    string                           `json:"spreadsheetToken,omitempty"`    // spreadsheet 的 token
+	SpreadSheetToken    string                           `json:"spreadsheetToken,omitempty"`    // spreadsheet 的 token
 	TotalUpdatedRows    int64                            `json:"totalUpdatedRows,omitempty"`    // 设置样式的总行数
 	TotalUpdatedColumns int64                            `json:"totalUpdatedColumns,omitempty"` // 设置样式的总列数
 	TotalUpdatedCells   int64                            `json:"totalUpdatedCells,omitempty"`   // 设置样式的单元格总数
@@ -99,7 +99,7 @@ type BatchSetSheetStyleResp struct {
 }
 
 type BatchSetSheetStyleRespResponses struct {
-	SpreadsheetToken string `json:"spreadsheetToken,omitempty"` // spreadsheet 的 token
+	SpreadSheetToken string `json:"spreadsheetToken,omitempty"` // spreadsheet 的 token
 	UpdatedRange     string `json:"updatedRange,omitempty"`     // 设置样式的范围
 	UpdatedRows      int64  `json:"updatedRows,omitempty"`      // 设置样式的行数
 	UpdatedColumns   int64  `json:"updatedColumns,omitempty"`   // 设置样式的列数

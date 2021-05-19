@@ -53,7 +53,7 @@ func (r *Mock) UnMockDriveUpdateSheetProperty() {
 }
 
 type UpdateSheetPropertyReq struct {
-	SpreadsheetToken string                            `path:"spreadsheetToken" json:"-"` // spreadsheet 的 token，获取方式见[ 对接前说明](/ssl:ttdoc/ukTMukTMukTM/uczNzUjL3czM14yN3MTN) 的第 4 项
+	SpreadSheetToken string                            `path:"spreadsheetToken" json:"-"` // spreadsheet 的 token，获取方式见[ 对接前说明](/ssl:ttdoc/ukTMukTMukTM/uczNzUjL3czM14yN3MTN) 的第 4 项
 	Properties       *UpdateSheetPropertyReqProperties `json:"properties,omitempty"`      // spreadsheet 的属性
 }
 
@@ -68,6 +68,6 @@ type updateSheetPropertyResp struct {
 }
 
 type UpdateSheetPropertyResp struct {
-	SpreadsheetToken string `json:"spreadsheetToken,omitempty"` // spreadsheet 的 token
+	SpreadSheetToken string `json:"spreadsheetToken,omitempty"` // spreadsheet 的 token
 	Title            string `json:"title,omitempty"`            // spreadsheet 的标题
 }

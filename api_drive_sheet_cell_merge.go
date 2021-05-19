@@ -53,7 +53,7 @@ func (r *Mock) UnMockDriveMergeSheetCell() {
 }
 
 type MergeSheetCellReq struct {
-	SpreadsheetToken string `path:"spreadsheetToken" json:"-"` // spreadsheet 的 token，获取方式见 [对接前说明](/ssl:ttdoc/ukTMukTMukTM/uczNzUjL3czM14yN3MTN) 的第 4 项
+	SpreadSheetToken string `path:"spreadsheetToken" json:"-"` // spreadsheet 的 token，获取方式见 [对接前说明](/ssl:ttdoc/ukTMukTMukTM/uczNzUjL3czM14yN3MTN) 的第 4 项
 	Range            string `json:"range,omitempty"`           // 查询范围，包含 sheetId 与单元格范围两部分，目前支持四种索引方式，详见 ⁣[对接前说明](/ssl:ttdoc/ukTMukTMukTM/uczNzUjL3czM14yN3MTN)  的第 5 项
 	MergeType        string `json:"mergeType,omitempty"`       // 可选三个类型，"MERGE_ALL"  将所选区域直接合并、"MERGE_ROWS"  将所选区域按行合并、"MERGE_COLUMNS"  将所选区域按列合并响应
 }
@@ -65,5 +65,5 @@ type mergeSheetCellResp struct {
 }
 
 type MergeSheetCellResp struct {
-	SpreadsheetToken string `json:"spreadsheetToken,omitempty"` // spreadsheet 的 token
+	SpreadSheetToken string `json:"spreadsheetToken,omitempty"` // spreadsheet 的 token
 }

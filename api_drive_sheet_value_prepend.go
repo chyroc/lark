@@ -53,7 +53,7 @@ func (r *Mock) UnMockDrivePrependSheetValue() {
 }
 
 type PrependSheetValueReq struct {
-	SpreadsheetToken string                          `path:"spreadsheetToken" json:"-"` // sheet的token，获取方式见 [对接前说明](/ssl:ttdoc/ukTMukTMukTM/uczNzUjL3czM14yN3MTN) 的第 4 项
+	SpreadSheetToken string                          `path:"spreadsheetToken" json:"-"` // sheet的token，获取方式见 [对接前说明](/ssl:ttdoc/ukTMukTMukTM/uczNzUjL3czM14yN3MTN) 的第 4 项
 	ValueRange       *PrependSheetValueReqValueRange `json:"valueRange,omitempty"`      // 值与范围
 }
 
@@ -69,14 +69,14 @@ type prependSheetValueResp struct {
 }
 
 type PrependSheetValueResp struct {
-	SpreadsheetToken string                        `json:"spreadsheetToken,omitempty"` // spreadsheet 的 token
+	SpreadSheetToken string                        `json:"spreadsheetToken,omitempty"` // spreadsheet 的 token
 	TableRange       string                        `json:"tableRange,omitempty"`       // 写入的范围
 	Revision         int64                         `json:"revision,omitempty"`         // sheet 的版本号
 	Updates          *PrependSheetValueRespUpdates `json:"updates,omitempty"`          // 插入数据的范围、行列数等
 }
 
 type PrependSheetValueRespUpdates struct {
-	SpreadsheetToken string `json:"spreadsheetToken,omitempty"` // spreadsheet 的 token
+	SpreadSheetToken string `json:"spreadsheetToken,omitempty"` // spreadsheet 的 token
 	UpdatedRange     string `json:"updatedRange,omitempty"`     // 写入的范围
 	UpdatedRows      int64  `json:"updatedRows,omitempty"`      // 写入的行数
 	UpdatedColumns   int64  `json:"updatedColumns,omitempty"`   // 写入的列数

@@ -53,7 +53,7 @@ func (r *Mock) UnMockDriveSetSheetValue() {
 }
 
 type SetSheetValueReq struct {
-	SpreadsheetToken string                      `path:"spreadsheetToken" json:"-"` // spreadsheet的token，获取方式见 [对接前说明](/ssl:ttdoc/ukTMukTMukTM/uczNzUjL3czM14yN3MTN) 的第 4 项
+	SpreadSheetToken string                      `path:"spreadsheetToken" json:"-"` // spreadsheet的token，获取方式见 [对接前说明](/ssl:ttdoc/ukTMukTMukTM/uczNzUjL3czM14yN3MTN) 的第 4 项
 	ValueRange       *SetSheetValueReqValueRange `json:"valueRange,omitempty"`      // 值与范围
 }
 
@@ -69,7 +69,7 @@ type setSheetValueResp struct {
 }
 
 type SetSheetValueResp struct {
-	SpreadsheetToken string `json:"spreadsheetToken,omitempty"` // spreadsheet 的 token
+	SpreadSheetToken string `json:"spreadsheetToken,omitempty"` // spreadsheet 的 token
 	UpdatedRange     string `json:"updatedRange,omitempty"`     // 写入的范围
 	UpdatedRows      int64  `json:"updatedRows,omitempty"`      // 写入的行数
 	UpdatedColumns   int64  `json:"updatedColumns,omitempty"`   // 写入的列数

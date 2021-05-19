@@ -53,7 +53,7 @@ func (r *Mock) UnMockDriveUpdateSheetConditionFormat() {
 }
 
 type UpdateSheetConditionFormatReq struct {
-	SpreadsheetToken      string                                              `path:"spreadsheetToken" json:"-"`         // sheet 的 token，获取方式见 [对接前说明](/ssl:ttdoc/ukTMukTMukTM/uczNzUjL3czM14yN3MTN)的第 4 项
+	SpreadSheetToken      string                                              `path:"spreadsheetToken" json:"-"`         // sheet 的 token，获取方式见 [对接前说明](/ssl:ttdoc/ukTMukTMukTM/uczNzUjL3czM14yN3MTN)的第 4 项
 	SheetConditionFormats *UpdateSheetConditionFormatReqSheetConditionFormats `json:"sheet_condition_formats,omitempty"` // 表格的条件格式信息
 }
 

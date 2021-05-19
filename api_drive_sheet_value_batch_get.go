@@ -58,7 +58,7 @@ type BatchGetSheetValueReq struct {
 	Ranges               string  `query:"ranges" json:"-"`               // 多个查询范围 如 url?ranges=range1,range2 ，⁣其中 range 包含 sheetId 与单元格范围两部分，目前支持四种索引方式，详见 ⁣[对接前说明](/ssl:ttdoc/ukTMukTMukTM/uczNzUjL3czM14yN3MTN)  的第 5 项
 	ValueRenderOption    *string `query:"valueRenderOption" json:"-"`    // valueRenderOption=ToString 可返回 toString 后的值；valueRenderOption=FormattedValue可返回格式化后的字符串；
 	DateTimeRenderOption *string `query:"dateTimeRenderOption" json:"-"` // dateTimeRenderOption=FormattedString 会将时间日期按照其格式进行格式化，但不会对数字进行格式化，返回格式化后的字符串。
-	SpreadsheetToken     string  `path:"spreadsheetToken" json:"-"`      // spreadsheet 的 token，获取方式见[ 对接前说明](/ssl:ttdoc/ukTMukTMukTM/uczNzUjL3czM14yN3MTN) 的第 4 项
+	SpreadSheetToken     string  `path:"spreadsheetToken" json:"-"`      // spreadsheet 的 token，获取方式见[ 对接前说明](/ssl:ttdoc/ukTMukTMukTM/uczNzUjL3czM14yN3MTN) 的第 4 项
 }
 
 type batchGetSheetValueResp struct {

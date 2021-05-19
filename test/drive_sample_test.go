@@ -828,7 +828,7 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 			_, _, err := moduleCli.GetSheetMeta(ctx, &lark.GetSheetMetaReq{
-				SpreadsheetToken: "x",
+				SpreadSheetToken: "x",
 			})
 			as.NotNil(err)
 			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
@@ -836,7 +836,7 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 			_, _, err := moduleCli.UpdateSheetProperty(ctx, &lark.UpdateSheetPropertyReq{
-				SpreadsheetToken: "x",
+				SpreadSheetToken: "x",
 			})
 			as.NotNil(err)
 			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
@@ -844,7 +844,7 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 			_, _, err := moduleCli.BatchUpdateSheet(ctx, &lark.BatchUpdateSheetReq{
-				SpreadsheetToken: "x",
+				SpreadSheetToken: "x",
 			})
 			as.NotNil(err)
 			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
@@ -858,7 +858,7 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 			_, _, err := moduleCli.PrependSheetValue(ctx, &lark.PrependSheetValueReq{
-				SpreadsheetToken: "x",
+				SpreadSheetToken: "x",
 			})
 			as.NotNil(err)
 			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
@@ -866,7 +866,7 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 			_, _, err := moduleCli.AppendSheetValue(ctx, &lark.AppendSheetValueReq{
-				SpreadsheetToken: "x",
+				SpreadSheetToken: "x",
 			})
 			as.NotNil(err)
 			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
@@ -874,7 +874,7 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 			_, _, err := moduleCli.InsertSheetDimensionRange(ctx, &lark.InsertSheetDimensionRangeReq{
-				SpreadsheetToken: "x",
+				SpreadSheetToken: "x",
 			})
 			as.NotNil(err)
 			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
@@ -882,7 +882,7 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 			_, _, err := moduleCli.AddSheetDimensionRange(ctx, &lark.AddSheetDimensionRangeReq{
-				SpreadsheetToken: "x",
+				SpreadSheetToken: "x",
 			})
 			as.NotNil(err)
 			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
@@ -890,7 +890,7 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 			_, _, err := moduleCli.UpdateSheetDimensionRange(ctx, &lark.UpdateSheetDimensionRangeReq{
-				SpreadsheetToken: "x",
+				SpreadSheetToken: "x",
 			})
 			as.NotNil(err)
 			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
@@ -898,7 +898,7 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 			_, _, err := moduleCli.DeleteSheetDimensionRange(ctx, &lark.DeleteSheetDimensionRangeReq{
-				SpreadsheetToken: "x",
+				SpreadSheetToken: "x",
 			})
 			as.NotNil(err)
 			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
@@ -906,7 +906,7 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 			_, _, err := moduleCli.GetSheetValue(ctx, &lark.GetSheetValueReq{
-				SpreadsheetToken: "x",
+				SpreadSheetToken: "x",
 				Range:            "x",
 			})
 			as.NotNil(err)
@@ -915,7 +915,7 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 			_, _, err := moduleCli.BatchGetSheetValue(ctx, &lark.BatchGetSheetValueReq{
-				SpreadsheetToken: "x",
+				SpreadSheetToken: "x",
 			})
 			as.NotNil(err)
 			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
@@ -923,7 +923,7 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 			_, _, err := moduleCli.SetSheetValue(ctx, &lark.SetSheetValueReq{
-				SpreadsheetToken: "x",
+				SpreadSheetToken: "x",
 			})
 			as.NotNil(err)
 			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
@@ -931,7 +931,7 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 			_, _, err := moduleCli.BatchSetSheetValue(ctx, &lark.BatchSetSheetValueReq{
-				SpreadsheetToken: "x",
+				SpreadSheetToken: "x",
 			})
 			as.NotNil(err)
 			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
@@ -939,7 +939,7 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 			_, _, err := moduleCli.SetSheetStyle(ctx, &lark.SetSheetStyleReq{
-				SpreadsheetToken: "x",
+				SpreadSheetToken: "x",
 			})
 			as.NotNil(err)
 			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
@@ -947,7 +947,7 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 			_, _, err := moduleCli.BatchSetSheetStyle(ctx, &lark.BatchSetSheetStyleReq{
-				SpreadsheetToken: "x",
+				SpreadSheetToken: "x",
 			})
 			as.NotNil(err)
 			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
@@ -955,7 +955,7 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 			_, _, err := moduleCli.MergeSheetCell(ctx, &lark.MergeSheetCellReq{
-				SpreadsheetToken: "x",
+				SpreadSheetToken: "x",
 			})
 			as.NotNil(err)
 			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
@@ -963,7 +963,7 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 			_, _, err := moduleCli.UnmergeSheetCell(ctx, &lark.UnmergeSheetCellReq{
-				SpreadsheetToken: "x",
+				SpreadSheetToken: "x",
 			})
 			as.NotNil(err)
 			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
@@ -971,7 +971,7 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 			_, _, err := moduleCli.SetSheetValueImage(ctx, &lark.SetSheetValueImageReq{
-				SpreadsheetToken: "x",
+				SpreadSheetToken: "x",
 			})
 			as.NotNil(err)
 			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
@@ -979,7 +979,7 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 			_, _, err := moduleCli.CreateSheetConditionFormat(ctx, &lark.CreateSheetConditionFormatReq{
-				SpreadsheetToken: "x",
+				SpreadSheetToken: "x",
 			})
 			as.NotNil(err)
 			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
@@ -987,7 +987,7 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 			_, _, err := moduleCli.GetSheetConditionFormat(ctx, &lark.GetSheetConditionFormatReq{
-				SpreadsheetToken: "x",
+				SpreadSheetToken: "x",
 			})
 			as.NotNil(err)
 			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
@@ -995,7 +995,7 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 			_, _, err := moduleCli.UpdateSheetConditionFormat(ctx, &lark.UpdateSheetConditionFormatReq{
-				SpreadsheetToken: "x",
+				SpreadSheetToken: "x",
 			})
 			as.NotNil(err)
 			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
@@ -1003,7 +1003,7 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 			_, _, err := moduleCli.DeleteSheetConditionFormat(ctx, &lark.DeleteSheetConditionFormatReq{
-				SpreadsheetToken: "x",
+				SpreadSheetToken: "x",
 			})
 			as.NotNil(err)
 			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
@@ -1011,7 +1011,7 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 			_, _, err := moduleCli.CreateSheetProtectedDimension(ctx, &lark.CreateSheetProtectedDimensionReq{
-				SpreadsheetToken: "x",
+				SpreadSheetToken: "x",
 			})
 			as.NotNil(err)
 			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
@@ -1019,7 +1019,7 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 			_, _, err := moduleCli.GetSheetProtectedDimension(ctx, &lark.GetSheetProtectedDimensionReq{
-				SpreadsheetToken: "x",
+				SpreadSheetToken: "x",
 			})
 			as.NotNil(err)
 			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
@@ -1027,7 +1027,7 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 			_, _, err := moduleCli.UpdateSheetProtectedDimension(ctx, &lark.UpdateSheetProtectedDimensionReq{
-				SpreadsheetToken: "x",
+				SpreadSheetToken: "x",
 			})
 			as.NotNil(err)
 			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
@@ -1035,7 +1035,7 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 			_, _, err := moduleCli.DeleteSheetProtectedDimension(ctx, &lark.DeleteSheetProtectedDimensionReq{
-				SpreadsheetToken: "x",
+				SpreadSheetToken: "x",
 			})
 			as.NotNil(err)
 			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))

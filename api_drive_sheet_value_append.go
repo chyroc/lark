@@ -54,7 +54,7 @@ func (r *Mock) UnMockDriveAppendSheetValue() {
 
 type AppendSheetValueReq struct {
 	InsertDataOption *string                        `query:"insertDataOption" json:"-"` // 遇到空行追加，默认 OVERWRITE, 若空行的数量小于追加数据的行数 则覆盖数据 append；可选 INSERT_ROWS ，会在插入足够数量的行后再 append
-	SpreadsheetToken string                         `path:"spreadsheetToken" json:"-"`  // spreadsheet 的 token，获取方式见[ 对接前说明](/ssl:ttdoc/ukTMukTMukTM/uczNzUjL3czM14yN3MTN) 的第 4 项
+	SpreadSheetToken string                         `path:"spreadsheetToken" json:"-"`  // spreadsheet 的 token，获取方式见[ 对接前说明](/ssl:ttdoc/ukTMukTMukTM/uczNzUjL3czM14yN3MTN) 的第 4 项
 	ValueRange       *AppendSheetValueReqValueRange `json:"valueRange,omitempty"`       // 值与范围
 }
 
@@ -70,14 +70,14 @@ type appendSheetValueResp struct {
 }
 
 type AppendSheetValueResp struct {
-	SpreadsheetToken string                       `json:"spreadsheetToken,omitempty"` // spreadsheet 的 token
+	SpreadSheetToken string                       `json:"spreadsheetToken,omitempty"` // spreadsheet 的 token
 	TableRange       string                       `json:"tableRange,omitempty"`       // 写入的范围
 	Revision         int64                        `json:"revision,omitempty"`         // sheet 的版本号
 	Updates          *AppendSheetValueRespUpdates `json:"updates,omitempty"`          // 插入数据的范围、行列数等
 }
 
 type AppendSheetValueRespUpdates struct {
-	SpreadsheetToken string `json:"spreadsheetToken,omitempty"` // spreadsheet 的 token
+	SpreadSheetToken string `json:"spreadsheetToken,omitempty"` // spreadsheet 的 token
 	UpdatedRange     string `json:"updatedRange,omitempty"`     // 写入的范围
 	UpdatedRows      int64  `json:"updatedRows,omitempty"`      // 写入的行数
 	UpdatedColumns   int64  `json:"updatedColumns,omitempty"`   // 写入的列数
