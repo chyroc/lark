@@ -62,7 +62,7 @@ type UpdateUserReq struct {
 	Mobile           string                     `json:"mobile,omitempty"`             // 手机号, 示例值："13011111111", 字段权限要求:  获取用户手机号
 	MobileVisible    *bool                      `json:"mobile_visible,omitempty"`     // 手机号码可见性，true 为可见，false 为不可见，目前默认为 true。不可见时，组织员工将无法查看该员工的手机号码, 示例值：false
 	Gender           *int64                     `json:"gender,omitempty"`             // 性别, 示例值：1, 可选值有: `0`：保密, `1`：男, `2`：女
-	AvatarKey        *string                    `json:"avatar_key,omitempty"`         // 头像的文件Key, 示例值："2500c7a9-5fff-4d9a-a2de-3d59614ae28g"
+	AvatarKey        *string                    `json:"avatar_key,omitempty"`         // 头像的文件Key，可通过“消息与群组/消息/图片信息”中的“上传图片”接口上传并获取头像文件 Key, 示例值："2500c7a9-5fff-4d9a-a2de-3d59614ae28g"
 	DepartmentIDs    []string                   `json:"department_ids,omitempty"`     // 用户所属部门的ID列表
 	LeaderUserID     *string                    `json:"leader_user_id,omitempty"`     // 用户的直接主管的用户ID, 示例值："ou_7dab8a3d3cdcc9da365777c7ad535d62"
 	City             *string                    `json:"city,omitempty"`               // 城市, 示例值："杭州"
@@ -116,7 +116,7 @@ type UpdateUserRespUser struct {
 	Mobile               string                                `json:"mobile,omitempty"`                 // 手机号, 字段权限要求:  获取用户手机号
 	MobileVisible        bool                                  `json:"mobile_visible,omitempty"`         // 手机号码可见性，true 为可见，false 为不可见，目前默认为 true。不可见时，组织员工将无法查看该员工的手机号码
 	Gender               int64                                 `json:"gender,omitempty"`                 // 性别, 可选值有: `0`：保密, `1`：男, `2`：女
-	AvatarKey            string                                `json:"avatar_key,omitempty"`             // 头像的文件Key
+	AvatarKey            string                                `json:"avatar_key,omitempty"`             // 头像的文件Key，可通过“消息与群组/消息/图片信息”中的“上传图片”接口上传并获取头像文件 Key
 	Avatar               *UpdateUserRespUserAvatar             `json:"avatar,omitempty"`                 // 用户头像信息
 	Status               *UpdateUserRespUserStatus             `json:"status,omitempty"`                 // 用户状态
 	DepartmentIDs        []string                              `json:"department_ids,omitempty"`         // 用户所属部门的ID列表

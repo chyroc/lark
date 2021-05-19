@@ -82,7 +82,7 @@
 |&emsp;&emsp;∟majorDimension|string|否|默认 ROWS ，可选 ROWS、COLUMNS| 
 |&emsp;&emsp;∟startIndex|int|是|开始的位置|
 |&emsp;&emsp;∟endIndex|int|是|结束的位置| 
-|&emsp;∟editors|array<int>|否|允许编辑保护范围的用户的 userID| 
+|&emsp;∟editors|array<int64>|否|允许编辑保护范围的用户的 userID| 
 |&emsp;∟lockInfo|string|否|保护范围的信息|
 
 ### 请求体示例
@@ -141,7 +141,7 @@ curl --location --request POST 'https://open.feishu.cn/open-apis/sheets/v2/sprea
 |&emsp;&emsp;∟majorDimension|string|默认 ROWS ，可选 ROWS、COLUMNS| 
 |&emsp;&emsp;∟startIndex|int|开始的位置|
 |&emsp;&emsp;∟endIndex|int|结束的位置| 
-|&emsp;∟editors|array<int>|允许编辑保护范围的用户的 userID| 
+|&emsp;∟editors|array<int64>|允许编辑保护范围的用户的 userID| 
 |&emsp;∟lockInfo|string|保护范围的信息|
 |&emsp;∟protectId|string|保护区域的唯一 uid ，可用做后续解除保护|
   

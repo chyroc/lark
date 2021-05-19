@@ -351,7 +351,7 @@
 	否
 	</md-td>
 	<md-td>
-	头像的文件Key
+	头像的文件Key，可通过“消息与群组/消息/图片信息”中的“上传图片”接口上传并获取头像文件 Key
 
 **示例值**："2500c7a9-5fff-4d9a-a2de-3d59614ae28g"
 	</md-td>
@@ -1009,7 +1009,7 @@
 	<md-text type="field-type" >string</md-text>
 	</md-td>
 	<md-td>
-	头像的文件Key
+	头像的文件Key，可通过“消息与群组/消息/图片信息”中的“上传图片”接口上传并获取头像文件 Key
 	</md-td>
 </md-tr>
 
