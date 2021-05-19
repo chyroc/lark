@@ -2,23 +2,33 @@ package lark
 
 import (
 	"encoding/json"
+	"fmt"
+	"reflect"
 )
 
 type SheetContent interface {
 	IsSheetContent()
 }
 
-type SheetContentString string
+type SheetContentString struct {
+	Text string `json:"content"`
+}
 
 func (r SheetContentString) IsSheetContent() {}
 
-type SheetContentInt64 string
+func (r SheetContentString) MarshalJSON() ([]byte, error) {
+	return []byte(fmt.Sprintf("%q", r.Text)), nil
+}
 
-func (r SheetContentInt64) IsSheetContent() {}
+type SheetContentNumber struct {
+	Number string `json:"content"`
+}
 
-type SheetContentFloat64 string
+func (r SheetContentNumber) IsSheetContent() {}
 
-func (r SheetContentFloat64) IsSheetContent() {}
+func (r SheetContentNumber) MarshalJSON() ([]byte, error) {
+	return []byte(r.Number), nil
+}
 
 type SheetContentLink struct {
 	Text string `json:"text,omitempty"`
@@ -28,12 +38,18 @@ type SheetContentLink struct {
 func (r SheetContentLink) IsSheetContent() {}
 
 func (r SheetContentLink) MarshalJSON() ([]byte, error) {
-	return json.Marshal(sheetContentLink{SheetContentLink: r, Type: "url"})
+	return marshalJSONWithMap(r, map[string]interface{}{"type": "url"})
 }
 
-type SheetContentEmail string
+type SheetContentEmail struct {
+	Email string `json:"content"`
+}
 
 func (r SheetContentEmail) IsSheetContent() {}
+
+func (r SheetContentEmail) MarshalJSON() ([]byte, error) {
+	return []byte(fmt.Sprintf("%q", r.Email)), nil
+}
 
 // 	{"type":"mention","text": "text","textType":"email","notify": true,"grantReadPermission":true }
 // 	只支持同租户@，type固定为mention，
@@ -53,7 +69,7 @@ type SheetContentUser struct {
 func (r SheetContentUser) IsSheetContent() {}
 
 func (r SheetContentUser) MarshalJSON() ([]byte, error) {
-	return json.Marshal(sheetContentUser{SheetContentUser: r, Type: "mention"})
+	return marshalJSONWithMap(r, map[string]interface{}{"type": "mention"})
 }
 
 type SheetContentFormula struct {
@@ -63,7 +79,7 @@ type SheetContentFormula struct {
 func (r SheetContentFormula) IsSheetContent() {}
 
 func (r SheetContentFormula) MarshalJSON() ([]byte, error) {
-	return json.Marshal(sheetContentFormula{SheetContentFormula: r, Type: "formula"})
+	return marshalJSONWithMap(r, map[string]interface{}{"type": "formula"})
 }
 
 type SheetContentDoc struct {
@@ -76,11 +92,7 @@ type SheetContentDoc struct {
 func (r SheetContentDoc) IsSheetContent() {}
 
 func (r SheetContentDoc) MarshalJSON() ([]byte, error) {
-	return json.Marshal(sheetContentDoc{
-		SheetContentDoc: r,
-		Type:            "mention",
-		TextType:        "fileToken",
-	})
+	return marshalJSONWithMap(r, map[string]interface{}{"type": "mention", "textType": "fileToken"})
 }
 
 type SheetContentMultipleValue struct {
@@ -90,31 +102,22 @@ type SheetContentMultipleValue struct {
 func (r SheetContentMultipleValue) IsSheetContent() {}
 
 func (r SheetContentMultipleValue) MarshalJSON() ([]byte, error) {
-	return json.Marshal(sheetContentMultipleValue{SheetContentMultipleValue: r, Type: "multipleValue"})
+	return marshalJSONWithMap(r, map[string]interface{}{"type": "multipleValue"})
 }
 
-type sheetContentLink struct {
-	SheetContentLink
-	Type string `json:"type,omitempty"`
-}
-
-type sheetContentUser struct {
-	SheetContentUser
-	Type string `json:"type,omitempty"`
-}
-
-type sheetContentFormula struct {
-	SheetContentFormula
-	Type string `json:"type"`
-}
-
-type sheetContentMultipleValue struct {
-	SheetContentMultipleValue
-	Type string `json:"type"`
-}
-
-type sheetContentDoc struct {
-	SheetContentDoc
-	Type     string `json:"type,omitempty"`
-	TextType string `json:"textType,omitempty"`
+func marshalJSONWithMap(v interface{}, m map[string]interface{}) ([]byte, error) {
+	vv := reflect.ValueOf(v)
+	vt := reflect.TypeOf(v)
+	for i := 0; i < vt.NumField(); i++ {
+		jsonTag := vt.Field(i).Tag.Get("json")
+		if len(jsonTag) > 10 && jsonTag[len(jsonTag)-10:] == ",omitempty" {
+			jsonTag = jsonTag[:len(jsonTag)-10]
+		}
+		vvf := vv.Field(i)
+		if vvf.IsZero() {
+			continue
+		}
+		m[jsonTag] = vv.Field(i).Interface()
+	}
+	return json.Marshal(m)
 }

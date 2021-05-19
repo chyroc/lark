@@ -46,7 +46,6 @@ type MessageContentCardModule interface {
 }
 
 type MessageContentCardModuleDIV struct {
-	Tag    MessageContentCardModuleTag    `json:"tag"`
 	Text   *MessageContentCardObjectText  `json:"text,omitempty"`   // 单个文本展示，和field至少要有一个
 	Fields *MessageContentCardObjectField `json:"fields,omitempty"` // 多个文本展示，和text至少要有一个
 	Extra  MessageContentCardElement      `json:"extra,omitempty"`  // 展示附加元素，最多可展示一个元素
@@ -55,21 +54,18 @@ type MessageContentCardModuleDIV struct {
 func (r MessageContentCardModuleDIV) IsMessageContentCardModule() {}
 
 func (r MessageContentCardModuleDIV) MarshalJSON() ([]byte, error) {
-	return json.Marshal(messageContentCardModuleDIV{MessageContentCardModuleDIV: r, Tag: MessageContentCardModuleTagDIV})
+	return marshalJSONWithMap(r, map[string]interface{}{"tag": MessageContentCardModuleTagDIV})
 }
 
-type MessageContentCardModuleHR struct {
-	Tag MessageContentCardModuleTag `json:"tag"`
-}
+type MessageContentCardModuleHR struct{}
 
 func (r MessageContentCardModuleHR) IsMessageContentCardModule() {}
 
 func (r MessageContentCardModuleHR) MarshalJSON() ([]byte, error) {
-	return json.Marshal(messageContentCardModuleHR{MessageContentCardModuleHR: r, Tag: MessageContentCardModuleTagHR})
+	return marshalJSONWithMap(r, map[string]interface{}{"tag": MessageContentCardModuleTagHR})
 }
 
 type MessageContentCardModuleImage struct {
-	Tag    MessageContentCardModuleTag   `json:"tag"`
 	ImgKey string                        `json:"img_key,omitempty"` // 图片资源，获取方法：上传图片
 	Alt    *MessageContentCardObjectText `json:"alt,omitempty"`     // 图片hover时展示说明，为空则不展示
 	Title  *MessageContentCardObjectText `json:"title,omitempty"`   // 图片标题
@@ -79,11 +75,10 @@ type MessageContentCardModuleImage struct {
 func (r MessageContentCardModuleImage) IsMessageContentCardModule() {}
 
 func (r MessageContentCardModuleImage) MarshalJSON() ([]byte, error) {
-	return json.Marshal(messageContentCardModuleImage{MessageContentCardModuleImage: r, Tag: MessageContentCardModuleTagImage})
+	return marshalJSONWithMap(r, map[string]interface{}{"tag": MessageContentCardModuleTagImage})
 }
 
 type MessageContentCardModuleAction struct {
-	Tag     MessageContentCardModuleTag        `json:"tag"`
 	Actions []*MessageContentCardElementButton `json:"actions,omitempty"` // 放置交互元素
 	Layout  string                             `json:"layout,omitempty"`  // 交互元素布局，窄版样式默认纵向排列，使用 bisected 为二等分布局，每行两列交互元素，使用 trisection 为三等分布局，每行三列交互元素，使用 flow 为流式布局元素会按自身大小横向排列并在空间不够的时候折行
 }
@@ -91,18 +86,17 @@ type MessageContentCardModuleAction struct {
 func (r MessageContentCardModuleAction) IsMessageContentCardModule() {}
 
 func (r MessageContentCardModuleAction) MarshalJSON() ([]byte, error) {
-	return json.Marshal(messageContentCardModuleAction{MessageContentCardModuleAction: r, Tag: MessageContentCardModuleTagAction})
+	return marshalJSONWithMap(r, map[string]interface{}{"tag": MessageContentCardModuleTagAction})
 }
 
 type MessageContentCardModuleNote struct {
-	Tag      MessageContentCardModuleTag `json:"tag"`
 	Elements []MessageContentCardElement `json:"elements,omitempty"` // text对象或image元素
 }
 
 func (r MessageContentCardModuleNote) IsMessageContentCardModule() {}
 
 func (r MessageContentCardModuleNote) MarshalJSON() ([]byte, error) {
-	return json.Marshal(messageContentCardModuleNote{MessageContentCardModuleNote: r, Tag: MessageContentCardModuleTagNote})
+	return marshalJSONWithMap(r, map[string]interface{}{"tag": MessageContentCardModuleTagNote})
 }
 
 type MessageContentCardModuleTag string
@@ -120,7 +114,6 @@ type MessageContentCardElement interface {
 }
 
 type MessageContentCardElementImage struct {
-	Tag     MessageContentCardElementTag  `json:"tag,omitempty"`     // 元素标签
 	ImgKey  string                        `json:"img_key,omitempty"` // 图片资源
 	Alt     *MessageContentCardObjectText `json:"alt,omitempty"`     // 图片hover说明
 	Preview bool                          `json:"preview,omitempty"` // 点击后是否放大图片，缺省为true。在配置 card_link 后可设置为false，使用户点击卡片上的图片也能响应card_link链接跳转
@@ -129,11 +122,10 @@ type MessageContentCardElementImage struct {
 func (r MessageContentCardElementImage) IsMessageContentCardElement() {}
 
 func (r MessageContentCardElementImage) MarshalJSON() ([]byte, error) {
-	return json.Marshal(messageContentCardElementImage{MessageContentCardElementImage: r, Tag: MessageContentCardElementTagImage})
+	return marshalJSONWithMap(r, map[string]interface{}{"tag": MessageContentCardElementTagImage})
 }
 
 type MessageContentCardElementButton struct {
-	Tag      MessageContentCardElementTag     `json:"tag,omitempty"`       // 元素标签
 	Text     *MessageContentCardObjectText    `json:"text,omitempty"`      // 按钮中的文本
 	URL      string                           `json:"url,omitempty"`       // 跳转链接，和multi_url互斥
 	MultiURL *MessageContentCardObjectURL     `json:"multi_url,omitempty"` // 多端跳转链接
@@ -145,7 +137,7 @@ type MessageContentCardElementButton struct {
 func (r MessageContentCardElementButton) IsMessageContentCardElement() {}
 
 func (r MessageContentCardElementButton) MarshalJSON() ([]byte, error) {
-	return json.Marshal(messageContentCardElementButton{MessageContentCardElementButton: r, Tag: MessageContentCardElementTagButton})
+	return marshalJSONWithMap(r, map[string]interface{}{"tag": MessageContentCardElementTagButton})
 }
 
 type MessageContentCardElementSelectMenu struct {
@@ -160,7 +152,6 @@ type MessageContentCardElementSelectMenu struct {
 func (r MessageContentCardElementSelectMenu) IsMessageContentCardElement() {}
 
 type MessageContentCardElementOverflow struct {
-	Tag     MessageContentCardElementTag      `json:"tag,omitempty"`
 	Options []*MessageContentCardObjectOption `json:"options,omitempty"` // 待选选项
 	Value   interface{}                       `json:"value,omitempty"`   // 用户选定后返回业务方的数据
 	Confirm *MessageContentCardObjectConfirm  `json:"confirm,omitempty"` // 二次确认的弹框
@@ -169,7 +160,7 @@ type MessageContentCardElementOverflow struct {
 func (r MessageContentCardElementOverflow) IsMessageContentCardElement() {}
 
 func (r MessageContentCardElementOverflow) MarshalJSON() ([]byte, error) {
-	return json.Marshal(messageContentCardElementOverflow{MessageContentCardElementOverflow: r, Tag: MessageContentCardElementTagOverflow})
+	return marshalJSONWithMap(r, map[string]interface{}{"tag": MessageContentCardElementTagOverflow})
 }
 
 type MessageContentCardElementDatePicker struct {
@@ -243,44 +234,4 @@ type MessageContentCardObjectOption struct {
 type MessageContentCardObjectConfirm struct {
 	Title *MessageContentCardObjectText `json:"title,omitempty"` // 弹框标题
 	Text  *MessageContentCardObjectText `json:"text,omitempty"`  // 弹框内容
-}
-
-type messageContentCardModuleDIV struct {
-	MessageContentCardModuleDIV
-	Tag MessageContentCardModuleTag `json:"tag"`
-}
-
-type messageContentCardModuleHR struct {
-	MessageContentCardModuleHR
-	Tag MessageContentCardModuleTag `json:"tag"`
-}
-
-type messageContentCardModuleImage struct {
-	MessageContentCardModuleImage
-	Tag MessageContentCardModuleTag `json:"tag"`
-}
-
-type messageContentCardModuleAction struct {
-	MessageContentCardModuleAction
-	Tag MessageContentCardModuleTag `json:"tag"`
-}
-
-type messageContentCardModuleNote struct {
-	MessageContentCardModuleNote
-	Tag MessageContentCardModuleTag `json:"tag"`
-}
-
-type messageContentCardElementImage struct {
-	MessageContentCardElementImage
-	Tag MessageContentCardElementTag `json:"tag"`
-}
-
-type messageContentCardElementButton struct {
-	MessageContentCardElementButton
-	Tag MessageContentCardElementTag `json:"tag"`
-}
-
-type messageContentCardElementOverflow struct {
-	MessageContentCardElementOverflow
-	Tag MessageContentCardElementTag `json:"tag"`
 }
