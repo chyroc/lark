@@ -483,6 +483,26 @@
         "doc_url": "https://open.feishu.cn/document/ukTMukTMukTM/uMjMzUjLzIzM14yMyMTN"
       },
       {
+        "file_name": "api_drive_sheet_dimension_range_insert.go",
+        "func_name": "InsertSheetDimensionRange",
+        "doc_url": "https://open.feishu.cn/document/ukTMukTMukTM/uQjMzUjL0IzM14CNyMTN"
+      },
+      {
+        "file_name": "api_drive_sheet_dimension_range_add.go",
+        "func_name": "AddSheetDimensionRange",
+        "doc_url": "https://open.feishu.cn/document/ukTMukTMukTM/uUjMzUjL1IzM14SNyMTN"
+      },
+      {
+        "file_name": "api_drive_sheet_dimension_range_update.go",
+        "func_name": "UpdateSheetDimensionRange",
+        "doc_url": "https://open.feishu.cn/document/ukTMukTMukTM/uYjMzUjL2IzM14iNyMTN"
+      },
+      {
+        "file_name": "api_drive_sheet_dimension_range_delete.go",
+        "func_name": "DeleteSheetDimensionRange",
+        "doc_url": "https://open.feishu.cn/document/ukTMukTMukTM/ucjMzUjL3IzM14yNyMTN"
+      },
+      {
         "file_name": "api_drive_sheet_condition_format_create.go",
         "func_name": "CreateSheetConditionFormat",
         "doc_url": "https://open.feishu.cn/document/ukTMukTMukTM/uATMzUjLwEzM14CMxMTN/conditionformat/condition-format-set"

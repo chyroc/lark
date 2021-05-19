@@ -142,6 +142,30 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.InsertSheetDimensionRange(ctx, &lark.InsertSheetDimensionRangeReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.AddSheetDimensionRange(ctx, &lark.AddSheetDimensionRangeReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.UpdateSheetDimensionRange(ctx, &lark.UpdateSheetDimensionRangeReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.DeleteSheetDimensionRange(ctx, &lark.DeleteSheetDimensionRangeReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "failed")
+		})
+
+		t.Run("", func(t *testing.T) {
 			_, _, err := moduleCli.CreateSheetConditionFormat(ctx, &lark.CreateSheetConditionFormatReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "failed")
@@ -415,6 +439,50 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
+			cli.Mock().MockDriveInsertSheetDimensionRange(func(ctx context.Context, request *lark.InsertSheetDimensionRangeReq, options ...lark.MethodOptionFunc) (*lark.InsertSheetDimensionRangeResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockDriveInsertSheetDimensionRange()
+
+			_, _, err := moduleCli.InsertSheetDimensionRange(ctx, &lark.InsertSheetDimensionRangeReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+			cli.Mock().MockDriveAddSheetDimensionRange(func(ctx context.Context, request *lark.AddSheetDimensionRangeReq, options ...lark.MethodOptionFunc) (*lark.AddSheetDimensionRangeResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockDriveAddSheetDimensionRange()
+
+			_, _, err := moduleCli.AddSheetDimensionRange(ctx, &lark.AddSheetDimensionRangeReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+			cli.Mock().MockDriveUpdateSheetDimensionRange(func(ctx context.Context, request *lark.UpdateSheetDimensionRangeReq, options ...lark.MethodOptionFunc) (*lark.UpdateSheetDimensionRangeResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockDriveUpdateSheetDimensionRange()
+
+			_, _, err := moduleCli.UpdateSheetDimensionRange(ctx, &lark.UpdateSheetDimensionRangeReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+			cli.Mock().MockDriveDeleteSheetDimensionRange(func(ctx context.Context, request *lark.DeleteSheetDimensionRangeReq, options ...lark.MethodOptionFunc) (*lark.DeleteSheetDimensionRangeResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockDriveDeleteSheetDimensionRange()
+
+			_, _, err := moduleCli.DeleteSheetDimensionRange(ctx, &lark.DeleteSheetDimensionRangeReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
 			cli.Mock().MockDriveCreateSheetConditionFormat(func(ctx context.Context, request *lark.CreateSheetConditionFormatReq, options ...lark.MethodOptionFunc) (*lark.CreateSheetConditionFormatResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -645,6 +713,38 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 			_, _, err := moduleCli.AppendSheetValue(ctx, &lark.AppendSheetValueReq{
+				SpreadsheetToken: "x",
+			})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.InsertSheetDimensionRange(ctx, &lark.InsertSheetDimensionRangeReq{
+				SpreadsheetToken: "x",
+			})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.AddSheetDimensionRange(ctx, &lark.AddSheetDimensionRangeReq{
+				SpreadsheetToken: "x",
+			})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.UpdateSheetDimensionRange(ctx, &lark.UpdateSheetDimensionRangeReq{
+				SpreadsheetToken: "x",
+			})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.DeleteSheetDimensionRange(ctx, &lark.DeleteSheetDimensionRangeReq{
 				SpreadsheetToken: "x",
 			})
 			as.NotNil(err)
