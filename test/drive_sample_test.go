@@ -166,6 +166,60 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.GetSheetValue(ctx, &lark.GetSheetValueReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.BatchGetSheetValue(ctx, &lark.BatchGetSheetValueReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.SetSheetValue(ctx, &lark.SetSheetValueReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.BatchSetSheetValue(ctx, &lark.BatchSetSheetValueReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.SetSheetStyle(ctx, &lark.SetSheetStyleReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.BatchSetSheetStyle(ctx, &lark.BatchSetSheetStyleReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.MergeSheetCell(ctx, &lark.MergeSheetCellReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.UnmergeSheetCell(ctx, &lark.UnmergeSheetCellReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.SetSheetValueImage(ctx, &lark.SetSheetValueImageReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "failed")
+		})
+
+		t.Run("", func(t *testing.T) {
 			_, _, err := moduleCli.CreateSheetConditionFormat(ctx, &lark.CreateSheetConditionFormatReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "failed")
@@ -483,6 +537,105 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
+			cli.Mock().MockDriveGetSheetValue(func(ctx context.Context, request *lark.GetSheetValueReq, options ...lark.MethodOptionFunc) (*lark.GetSheetValueResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockDriveGetSheetValue()
+
+			_, _, err := moduleCli.GetSheetValue(ctx, &lark.GetSheetValueReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+			cli.Mock().MockDriveBatchGetSheetValue(func(ctx context.Context, request *lark.BatchGetSheetValueReq, options ...lark.MethodOptionFunc) (*lark.BatchGetSheetValueResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockDriveBatchGetSheetValue()
+
+			_, _, err := moduleCli.BatchGetSheetValue(ctx, &lark.BatchGetSheetValueReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+			cli.Mock().MockDriveSetSheetValue(func(ctx context.Context, request *lark.SetSheetValueReq, options ...lark.MethodOptionFunc) (*lark.SetSheetValueResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockDriveSetSheetValue()
+
+			_, _, err := moduleCli.SetSheetValue(ctx, &lark.SetSheetValueReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+			cli.Mock().MockDriveBatchSetSheetValue(func(ctx context.Context, request *lark.BatchSetSheetValueReq, options ...lark.MethodOptionFunc) (*lark.BatchSetSheetValueResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockDriveBatchSetSheetValue()
+
+			_, _, err := moduleCli.BatchSetSheetValue(ctx, &lark.BatchSetSheetValueReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+			cli.Mock().MockDriveSetSheetStyle(func(ctx context.Context, request *lark.SetSheetStyleReq, options ...lark.MethodOptionFunc) (*lark.SetSheetStyleResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockDriveSetSheetStyle()
+
+			_, _, err := moduleCli.SetSheetStyle(ctx, &lark.SetSheetStyleReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+			cli.Mock().MockDriveBatchSetSheetStyle(func(ctx context.Context, request *lark.BatchSetSheetStyleReq, options ...lark.MethodOptionFunc) (*lark.BatchSetSheetStyleResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockDriveBatchSetSheetStyle()
+
+			_, _, err := moduleCli.BatchSetSheetStyle(ctx, &lark.BatchSetSheetStyleReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+			cli.Mock().MockDriveMergeSheetCell(func(ctx context.Context, request *lark.MergeSheetCellReq, options ...lark.MethodOptionFunc) (*lark.MergeSheetCellResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockDriveMergeSheetCell()
+
+			_, _, err := moduleCli.MergeSheetCell(ctx, &lark.MergeSheetCellReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+			cli.Mock().MockDriveUnmergeSheetCell(func(ctx context.Context, request *lark.UnmergeSheetCellReq, options ...lark.MethodOptionFunc) (*lark.UnmergeSheetCellResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockDriveUnmergeSheetCell()
+
+			_, _, err := moduleCli.UnmergeSheetCell(ctx, &lark.UnmergeSheetCellReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+			cli.Mock().MockDriveSetSheetValueImage(func(ctx context.Context, request *lark.SetSheetValueImageReq, options ...lark.MethodOptionFunc) (*lark.SetSheetValueImageResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockDriveSetSheetValueImage()
+
+			_, _, err := moduleCli.SetSheetValueImage(ctx, &lark.SetSheetValueImageReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
 			cli.Mock().MockDriveCreateSheetConditionFormat(func(ctx context.Context, request *lark.CreateSheetConditionFormatReq, options ...lark.MethodOptionFunc) (*lark.CreateSheetConditionFormatResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -745,6 +898,79 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 			_, _, err := moduleCli.DeleteSheetDimensionRange(ctx, &lark.DeleteSheetDimensionRangeReq{
+				SpreadsheetToken: "x",
+			})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.GetSheetValue(ctx, &lark.GetSheetValueReq{
+				SpreadsheetToken: "x",
+				Range:            "x",
+			})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.BatchGetSheetValue(ctx, &lark.BatchGetSheetValueReq{
+				SpreadsheetToken: "x",
+			})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.SetSheetValue(ctx, &lark.SetSheetValueReq{
+				SpreadsheetToken: "x",
+			})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.BatchSetSheetValue(ctx, &lark.BatchSetSheetValueReq{
+				SpreadsheetToken: "x",
+			})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.SetSheetStyle(ctx, &lark.SetSheetStyleReq{
+				SpreadsheetToken: "x",
+			})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.BatchSetSheetStyle(ctx, &lark.BatchSetSheetStyleReq{
+				SpreadsheetToken: "x",
+			})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.MergeSheetCell(ctx, &lark.MergeSheetCellReq{
+				SpreadsheetToken: "x",
+			})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.UnmergeSheetCell(ctx, &lark.UnmergeSheetCellReq{
+				SpreadsheetToken: "x",
+			})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.SetSheetValueImage(ctx, &lark.SetSheetValueImageReq{
 				SpreadsheetToken: "x",
 			})
 			as.NotNil(err)

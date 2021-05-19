@@ -503,6 +503,51 @@
         "doc_url": "https://open.feishu.cn/document/ukTMukTMukTM/ucjMzUjL3IzM14yNyMTN"
       },
       {
+        "file_name": "api_drive_sheet_value_get.go",
+        "func_name": "GetSheetValue",
+        "doc_url": "https://open.feishu.cn/document/ukTMukTMukTM/ugTMzUjL4EzM14COxMTN"
+      },
+      {
+        "file_name": "api_drive_sheet_value_batch_get.go",
+        "func_name": "BatchGetSheetValue",
+        "doc_url": "https://open.feishu.cn/document/ukTMukTMukTM/ukTMzUjL5EzM14SOxMTN"
+      },
+      {
+        "file_name": "api_drive_sheet_value_set.go",
+        "func_name": "SetSheetValue",
+        "doc_url": "https://open.feishu.cn/document/ukTMukTMukTM/uAjMzUjLwIzM14CMyMTN"
+      },
+      {
+        "file_name": "api_drive_sheet_value_batch_set.go",
+        "func_name": "BatchSetSheetValue",
+        "doc_url": "https://open.feishu.cn/document/ukTMukTMukTM/uEjMzUjLxIzM14SMyMTN"
+      },
+      {
+        "file_name": "api_drive_sheet_style_set.go",
+        "func_name": "SetSheetStyle",
+        "doc_url": "https://open.feishu.cn/document/ukTMukTMukTM/ukjMzUjL5IzM14SOyMTN"
+      },
+      {
+        "file_name": "api_drive_sheet_style_batch_set.go",
+        "func_name": "BatchSetSheetStyle",
+        "doc_url": "https://open.feishu.cn/document/ukTMukTMukTM/uAzMzUjLwMzM14CMzMTN"
+      },
+      {
+        "file_name": "api_drive_sheet_cell_merge.go",
+        "func_name": "MergeSheetCell",
+        "doc_url": "https://open.feishu.cn/document/ukTMukTMukTM/ukDNzUjL5QzM14SO0MTN"
+      },
+      {
+        "file_name": "api_drive_sheet_cell_unmerge.go",
+        "func_name": "UnmergeSheetCell",
+        "doc_url": "https://open.feishu.cn/document/ukTMukTMukTM/uATNzUjLwUzM14CM1MTN"
+      },
+      {
+        "file_name": "api_drive_sheet_image_set.go",
+        "func_name": "SetSheetValueImage",
+        "doc_url": "https://open.feishu.cn/document/ukTMukTMukTM/uUDNxYjL1QTM24SN0EjN"
+      },
+      {
         "file_name": "api_drive_sheet_condition_format_create.go",
         "func_name": "CreateSheetConditionFormat",
         "doc_url": "https://open.feishu.cn/document/ukTMukTMukTM/uATMzUjLwEzM14CMxMTN/conditionformat/condition-format-set"

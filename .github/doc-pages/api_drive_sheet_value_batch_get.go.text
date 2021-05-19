@@ -1,0 +1,148 @@
+# 读取多个范围
+
+
+该接口用于根据 spreadsheetToken 和 ranges 读取表格多个范围的值，返回数据限制为10M。
+
+## 请求
+:::html
+<md-table>
+  <md-thead>
+  <tr>
+      <md-th>基本</md-th>
+      <md-th></md-th>
+  </tr>
+  </md-thead>
+  <md-tbody>
+    <md-tr>
+      <md-th>HTTP URL</md-th>
+      <md-td>https://open.feishu.cn/open-apis/sheets/v2/spreadsheets/:spreadsheetToken/values_batch_get </md-td>
+    </md-tr>
+    <md-tr>
+      <md-th>HTTP Method</md-th>
+      <md-td>GET</md-td>
+    </md-tr>
+    <md-tr>
+      <md-th>权限要求</md-th>
+      <md-td>
+        <md-perm href="/ssl:ttdoc/ukTMukTMukTM/uQjN3QjL0YzN04CN2cDN">查看、评论、编辑和管理云文档所有文件</md-perm>
+        <md-perm href="/ssl:ttdoc/ukTMukTMukTM/uQjN3QjL0YzN04CN2cDN">查看、评论和下载云文档所有文件</md-perm><md-perm href="/ssl:ttdoc/ukTMukTMukTM/uQjN3QjL0YzN04CN2cDN">查看、评论、编辑和管理表格</md-perm>
+        <md-perm href="/ssl:ttdoc/ukTMukTMukTM/uQjN3QjL0YzN04CN2cDN">查看、评论和导出表格</md-perm></md-td>
+      
+    </md-tr>
+    
+  </md-tbody>
+</md-table>
+:::
+### 请求头
+:::html
+<md-table> 
+  <md-thead> 
+    <md-tr> 
+      <md-th style="width: 18%;">名称</md-th>  
+      <md-th style="width: 15%;">类型</md-th>  
+       <md-th style="width: 15%;">必填</md-th>  
+      <md-th>描述</md-th> 
+    </md-tr> 
+  </md-thead>  
+  <md-tbody> 
+    <md-tr> 
+      <md-td>Authorization</md-td>  
+      <md-td>string</md-td>  
+      <md-td> 是 </md-td> 
+      	<md-td>
+<md-tag mode="inline" type="token-user">user_access_token</md-tag> 或 <md-tag mode="inline" type="token-tenant">tenant_access_token</md-tag>
+ 
+**值格式**："Bearer `access_token`"
+
+**示例值**："Bearer u-7f1bcd13fc57d46bac21793a18e560"
+          
+ [了解更多：获取与使用access_token](/ssl:ttdoc/ukTMukTMukTM/uMTNz4yM1MjLzUzM)
+	</md-td>
+</md-tr>
+     <md-tr> 
+      <md-td>Content-Type</md-td>  
+      <md-td>string</md-td>  
+      <md-td> 是 </md-td> 
+     <md-td>**固定值**："application/json; charset=utf-8"</md-td>
+</md-tr>
+   
+  </md-tbody> 
+</md-table>
+:::
+
+
+### 路径参数
+:::html
+<md-table>
+  <md-thead>
+  <md-tr>
+      <md-th>参数</md-th>
+      <md-th>类型</md-th>
+      <md-th>描述</md-th>
+  </md-tr>  </md-thead>
+  <md-tbody>
+    <md-tr>
+      <md-td>spreadsheetToken</md-td>
+       <md-td>string</md-td>
+       <md-td>spreadsheet 的 token，获取方式见[ 对接前说明](/ssl:ttdoc/ukTMukTMukTM/uczNzUjL3czM14yN3MTN) 的第 4 项</md-td>
+      </md-tr>
+  </md-tbody>
+
+</md-table>
+::: 
+
+
+### 查询参数  
+| 参数                 | 类型   | 必须 | 说明                                                         | 
+| -------------------- | ------ | ---- | ------------------------------------------------------------ |
+| ranges               | string | 是   | 多个查询范围 如 url?ranges=range1,range2 ，⁣其中 range 包含 sheetId 与单元格范围两部分，目前支持四种索引方式，详见 ⁣[对接前说明](/ssl:ttdoc/ukTMukTMukTM/uczNzUjL3czM14yN3MTN)  的第 5 项 |
+| valueRenderOption    | string | 否   | valueRenderOption=ToString 可返回 toString 后的值；valueRenderOption=FormattedValue可返回格式化后的字符串；| 
+| dateTimeRenderOption | string | 否   | dateTimeRenderOption=FormattedString 会将时间日期按照其格式进行格式化，但不会对数字进行格式化，返回格式化后的字符串。 | 
+
+## 响应  
+
+### 响应体
+|参数|说明|
+|--|--|
+|range|查询范围|
+|values|查询获得的值|
+|revision|sheet 的版本号|
+  
+### 响应体示例    
+```json
+{
+  "code": 0,
+  "data": {
+    "revision": 0,
+    "spreadsheetToken": "***",
+    "totalCells": 0,
+    "valueRanges": [
+      {
+        "majorDimension": "ROWS",
+        "range": "range1",
+        "revision": 0,
+        "values": [
+          [
+            "***"
+          ]
+        ]
+      },
+      {
+        "majorDimension": "ROWS",
+        "range": "range2",
+        "revision": 0,
+        "values": [
+          [
+            "***"
+          ]
+        ]
+      }
+    ]
+  },
+  "msg": "Success"
+}
+```  
+  
+### 错误码
+
+具体可参考：[云文档错误码](/ssl:ttdoc/ukTMukTMukTM/uIzM0UjLyMDN14iMzQTN)
