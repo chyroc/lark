@@ -31,7 +31,7 @@ https://godoc.org/github.com/chyroc/lark
 
 ## Support APIs
 
-API Count: 262, Event Count: 28
+API Count: 263, Event Count: 28
 
 <details>
   <summary>
@@ -112,6 +112,7 @@ API Count: 262, Event Count: 28
   - GenerateCaldavConf
 - Drive
   - GetDriveFileMeta
+  - CreateDriveFile
   - CreateDriveFolder
   - GetDriveFolderChildren
   - CreateDriveMemberPermission

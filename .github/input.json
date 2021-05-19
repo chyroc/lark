@@ -363,9 +363,14 @@
     "scope": "Drive",
     "apis": [
       {
-        "file_name": "api_drive_file_meta.go",
+        "file_name": "api_drive_file_meta_get.go",
         "func_name": "GetDriveFileMeta",
         "doc_url": "https://open.feishu.cn/document/ukTMukTMukTM/uMjN3UjLzYzN14yM2cTN"
+      },
+      {
+        "file_name": "api_drive_file_create.go",
+        "func_name": "CreateDriveFile",
+        "doc_url": "https://open.feishu.cn/document/ukTMukTMukTM/uQTNzUjL0UzM14CN1MTN"
       },
       {
         "file_name": "api_drive_folder_create.go",
