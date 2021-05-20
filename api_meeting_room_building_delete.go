@@ -6,46 +6,46 @@ import (
 	"context"
 )
 
-// DeleteBuilding 该接口用于删除建筑物（办公大楼）。
+// DeleteMeetingRoomBuilding 该接口用于删除建筑物（办公大楼）。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uMzMxYjLzMTM24yMzEjN
-func (r *MeetingRoomService) DeleteBuilding(ctx context.Context, request *DeleteBuildingReq, options ...MethodOptionFunc) (*DeleteBuildingResp, *Response, error) {
-	if r.cli.mock.mockMeetingRoomDeleteBuilding != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] MeetingRoom#DeleteBuilding mock enable")
-		return r.cli.mock.mockMeetingRoomDeleteBuilding(ctx, request, options...)
+func (r *MeetingRoomService) DeleteMeetingRoomBuilding(ctx context.Context, request *DeleteMeetingRoomBuildingReq, options ...MethodOptionFunc) (*DeleteMeetingRoomBuildingResp, *Response, error) {
+	if r.cli.mock.mockMeetingRoomDeleteMeetingRoomBuilding != nil {
+		r.cli.log(ctx, LogLevelDebug, "[lark] MeetingRoom#DeleteMeetingRoomBuilding mock enable")
+		return r.cli.mock.mockMeetingRoomDeleteMeetingRoomBuilding(ctx, request, options...)
 	}
 
 	req := &RawRequestReq{
 		Scope:                 "MeetingRoom",
-		API:                   "DeleteBuilding",
+		API:                   "DeleteMeetingRoomBuilding",
 		Method:                "POST",
 		URL:                   "https://open.feishu.cn/open-apis/meeting_room/building/delete",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
 	}
-	resp := new(deleteBuildingResp)
+	resp := new(deleteMeetingRoomBuildingResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
 	return resp.Data, response, err
 }
 
-func (r *Mock) MockMeetingRoomDeleteBuilding(f func(ctx context.Context, request *DeleteBuildingReq, options ...MethodOptionFunc) (*DeleteBuildingResp, *Response, error)) {
-	r.mockMeetingRoomDeleteBuilding = f
+func (r *Mock) MockMeetingRoomDeleteMeetingRoomBuilding(f func(ctx context.Context, request *DeleteMeetingRoomBuildingReq, options ...MethodOptionFunc) (*DeleteMeetingRoomBuildingResp, *Response, error)) {
+	r.mockMeetingRoomDeleteMeetingRoomBuilding = f
 }
 
-func (r *Mock) UnMockMeetingRoomDeleteBuilding() {
-	r.mockMeetingRoomDeleteBuilding = nil
+func (r *Mock) UnMockMeetingRoomDeleteMeetingRoomBuilding() {
+	r.mockMeetingRoomDeleteMeetingRoomBuilding = nil
 }
 
-type DeleteBuildingReq struct {
+type DeleteMeetingRoomBuildingReq struct {
 	BuildingID string `json:"building_id,omitempty"` // 要删除的建筑ID
 }
 
-type deleteBuildingResp struct {
-	Code int64               `json:"code,omitempty"` // 返回码，非 0 表示失败
-	Msg  string              `json:"msg,omitempty"`  // 返回码的描述，"success" 表示成功，其他为错误提示信息
-	Data *DeleteBuildingResp `json:"data,omitempty"`
+type deleteMeetingRoomBuildingResp struct {
+	Code int64                          `json:"code,omitempty"` // 返回码，非 0 表示失败
+	Msg  string                         `json:"msg,omitempty"`  // 返回码的描述，"success" 表示成功，其他为错误提示信息
+	Data *DeleteMeetingRoomBuildingResp `json:"data,omitempty"`
 }
 
-type DeleteBuildingResp struct{}
+type DeleteMeetingRoomBuildingResp struct{}

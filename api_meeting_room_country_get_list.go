@@ -6,51 +6,51 @@ import (
 	"context"
 )
 
-// GetCountryList 新建建筑时需要标明所处国家/地区，该接口用于获得系统预先提供的可供选择的国家 /地区列表。
+// GetMeetingRoomCountryList 新建建筑时需要标明所处国家/地区，该接口用于获得系统预先提供的可供选择的国家 /地区列表。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uQTNwYjL0UDM24CN1AjN
-func (r *MeetingRoomService) GetCountryList(ctx context.Context, request *GetCountryListReq, options ...MethodOptionFunc) (*GetCountryListResp, *Response, error) {
-	if r.cli.mock.mockMeetingRoomGetCountryList != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] MeetingRoom#GetCountryList mock enable")
-		return r.cli.mock.mockMeetingRoomGetCountryList(ctx, request, options...)
+func (r *MeetingRoomService) GetMeetingRoomCountryList(ctx context.Context, request *GetMeetingRoomCountryListReq, options ...MethodOptionFunc) (*GetMeetingRoomCountryListResp, *Response, error) {
+	if r.cli.mock.mockMeetingRoomGetMeetingRoomCountryList != nil {
+		r.cli.log(ctx, LogLevelDebug, "[lark] MeetingRoom#GetMeetingRoomCountryList mock enable")
+		return r.cli.mock.mockMeetingRoomGetMeetingRoomCountryList(ctx, request, options...)
 	}
 
 	req := &RawRequestReq{
 		Scope:                 "MeetingRoom",
-		API:                   "GetCountryList",
+		API:                   "GetMeetingRoomCountryList",
 		Method:                "GET",
 		URL:                   "https://open.feishu.cn/open-apis/meeting_room/country/list",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
 	}
-	resp := new(getCountryListResp)
+	resp := new(getMeetingRoomCountryListResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
 	return resp.Data, response, err
 }
 
-func (r *Mock) MockMeetingRoomGetCountryList(f func(ctx context.Context, request *GetCountryListReq, options ...MethodOptionFunc) (*GetCountryListResp, *Response, error)) {
-	r.mockMeetingRoomGetCountryList = f
+func (r *Mock) MockMeetingRoomGetMeetingRoomCountryList(f func(ctx context.Context, request *GetMeetingRoomCountryListReq, options ...MethodOptionFunc) (*GetMeetingRoomCountryListResp, *Response, error)) {
+	r.mockMeetingRoomGetMeetingRoomCountryList = f
 }
 
-func (r *Mock) UnMockMeetingRoomGetCountryList() {
-	r.mockMeetingRoomGetCountryList = nil
+func (r *Mock) UnMockMeetingRoomGetMeetingRoomCountryList() {
+	r.mockMeetingRoomGetMeetingRoomCountryList = nil
 }
 
-type GetCountryListReq struct{}
+type GetMeetingRoomCountryListReq struct{}
 
-type getCountryListResp struct {
-	Code int64               `json:"code,omitempty"` // 返回码，非 0 表示失败
-	Msg  string              `json:"msg,omitempty"`  // 返回码的描述，"success" 表示成功，其他为错误提示信息
-	Data *GetCountryListResp `json:"data,omitempty"` // 返回业务信息
+type getMeetingRoomCountryListResp struct {
+	Code int64                          `json:"code,omitempty"` // 返回码，非 0 表示失败
+	Msg  string                         `json:"msg,omitempty"`  // 返回码的描述，"success" 表示成功，其他为错误提示信息
+	Data *GetMeetingRoomCountryListResp `json:"data,omitempty"` // 返回业务信息
 }
 
-type GetCountryListResp struct {
-	Countries *GetCountryListRespCountries `json:"countries,omitempty"` // 国家地区列表
+type GetMeetingRoomCountryListResp struct {
+	Countries *GetMeetingRoomCountryListRespCountries `json:"countries,omitempty"` // 国家地区列表
 }
 
-type GetCountryListRespCountries struct {
+type GetMeetingRoomCountryListRespCountries struct {
 	CountryID string `json:"country_id,omitempty"` // 国家地区ID
 	Name      string `json:"name,omitempty"`       // 国家地区名称
 }

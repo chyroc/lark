@@ -6,20 +6,20 @@ import (
 	"context"
 )
 
-// CreateTicketCustomizedField
+// CreateHelpdeskTicketCustomizedField
 //
 // 该接口用于创建自定义字段
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/ticket_customized_field/create-ticket-customized-field
-func (r *HelpdeskService) CreateTicketCustomizedField(ctx context.Context, request *CreateTicketCustomizedFieldReq, options ...MethodOptionFunc) (*CreateTicketCustomizedFieldResp, *Response, error) {
-	if r.cli.mock.mockHelpdeskCreateTicketCustomizedField != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Helpdesk#CreateTicketCustomizedField mock enable")
-		return r.cli.mock.mockHelpdeskCreateTicketCustomizedField(ctx, request, options...)
+func (r *HelpdeskService) CreateHelpdeskTicketCustomizedField(ctx context.Context, request *CreateHelpdeskTicketCustomizedFieldReq, options ...MethodOptionFunc) (*CreateHelpdeskTicketCustomizedFieldResp, *Response, error) {
+	if r.cli.mock.mockHelpdeskCreateHelpdeskTicketCustomizedField != nil {
+		r.cli.log(ctx, LogLevelDebug, "[lark] Helpdesk#CreateHelpdeskTicketCustomizedField mock enable")
+		return r.cli.mock.mockHelpdeskCreateHelpdeskTicketCustomizedField(ctx, request, options...)
 	}
 
 	req := &RawRequestReq{
 		Scope:               "Helpdesk",
-		API:                 "CreateTicketCustomizedField",
+		API:                 "CreateHelpdeskTicketCustomizedField",
 		Method:              "POST",
 		URL:                 "https://open.feishu.cn/open-apis/helpdesk/v1/ticket_customized_fields",
 		Body:                request,
@@ -27,21 +27,21 @@ func (r *HelpdeskService) CreateTicketCustomizedField(ctx context.Context, reque
 		NeedUserAccessToken: true,
 		NeedHelpdeskAuth:    true,
 	}
-	resp := new(createTicketCustomizedFieldResp)
+	resp := new(createHelpdeskTicketCustomizedFieldResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
 	return resp.Data, response, err
 }
 
-func (r *Mock) MockHelpdeskCreateTicketCustomizedField(f func(ctx context.Context, request *CreateTicketCustomizedFieldReq, options ...MethodOptionFunc) (*CreateTicketCustomizedFieldResp, *Response, error)) {
-	r.mockHelpdeskCreateTicketCustomizedField = f
+func (r *Mock) MockHelpdeskCreateHelpdeskTicketCustomizedField(f func(ctx context.Context, request *CreateHelpdeskTicketCustomizedFieldReq, options ...MethodOptionFunc) (*CreateHelpdeskTicketCustomizedFieldResp, *Response, error)) {
+	r.mockHelpdeskCreateHelpdeskTicketCustomizedField = f
 }
 
-func (r *Mock) UnMockHelpdeskCreateTicketCustomizedField() {
-	r.mockHelpdeskCreateTicketCustomizedField = nil
+func (r *Mock) UnMockHelpdeskCreateHelpdeskTicketCustomizedField() {
+	r.mockHelpdeskCreateHelpdeskTicketCustomizedField = nil
 }
 
-type CreateTicketCustomizedFieldReq struct {
+type CreateHelpdeskTicketCustomizedFieldReq struct {
 	HelpdeskID            string                  `json:"helpdesk_id,omitempty"`             // 服务台ID, 示例值："1542164574896126"
 	KeyName               string                  `json:"key_name,omitempty"`                // 键名, 示例值："test dropdown"
 	DisplayName           string                  `json:"display_name,omitempty"`            // 名称, 示例值："test dropdown"
@@ -55,10 +55,10 @@ type CreateTicketCustomizedFieldReq struct {
 	DropdownAllowMultiple *bool                   `json:"dropdown_allow_multiple,omitempty"` // 是否支持多选，仅在字段类型是dropdown的时候有效, 示例值：true
 }
 
-type createTicketCustomizedFieldResp struct {
-	Code int64                            `json:"code,omitempty"` // 错误码，非 0 表示失败
-	Msg  string                           `json:"msg,omitempty"`  // 错误描述
-	Data *CreateTicketCustomizedFieldResp `json:"data,omitempty"`
+type createHelpdeskTicketCustomizedFieldResp struct {
+	Code int64                                    `json:"code,omitempty"` // 错误码，非 0 表示失败
+	Msg  string                                   `json:"msg,omitempty"`  // 错误描述
+	Data *CreateHelpdeskTicketCustomizedFieldResp `json:"data,omitempty"`
 }
 
-type CreateTicketCustomizedFieldResp struct{}
+type CreateHelpdeskTicketCustomizedFieldResp struct{}

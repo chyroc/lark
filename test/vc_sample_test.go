@@ -22,31 +22,31 @@ func Test_VC_Sample_Failed(t *testing.T) {
 		moduleCli := cli.VC
 
 		t.Run("", func(t *testing.T) {
-			_, _, err := moduleCli.GetMeeting(ctx, &lark.GetMeetingReq{})
+			_, _, err := moduleCli.GetVCMeeting(ctx, &lark.GetVCMeetingReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "failed")
 		})
 
 		t.Run("", func(t *testing.T) {
-			_, _, err := moduleCli.GetDailyReport(ctx, &lark.GetDailyReportReq{})
+			_, _, err := moduleCli.GetVCDailyReport(ctx, &lark.GetVCDailyReportReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "failed")
 		})
 
 		t.Run("", func(t *testing.T) {
-			_, _, err := moduleCli.GetTopUserReport(ctx, &lark.GetTopUserReportReq{})
+			_, _, err := moduleCli.GetVCTopUserReport(ctx, &lark.GetVCTopUserReportReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "failed")
 		})
 
 		t.Run("", func(t *testing.T) {
-			_, _, err := moduleCli.QueryRoomConfig(ctx, &lark.QueryRoomConfigReq{})
+			_, _, err := moduleCli.QueryVCRoomConfig(ctx, &lark.QueryVCRoomConfigReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "failed")
 		})
 
 		t.Run("", func(t *testing.T) {
-			_, _, err := moduleCli.SetRoomConfig(ctx, &lark.SetRoomConfigReq{})
+			_, _, err := moduleCli.SetVCRoomConfig(ctx, &lark.SetVCRoomConfigReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "failed")
 		})
@@ -57,56 +57,56 @@ func Test_VC_Sample_Failed(t *testing.T) {
 		moduleCli := cli.VC
 
 		t.Run("", func(t *testing.T) {
-			cli.Mock().MockVCGetMeeting(func(ctx context.Context, request *lark.GetMeetingReq, options ...lark.MethodOptionFunc) (*lark.GetMeetingResp, *lark.Response, error) {
+			cli.Mock().MockVCGetVCMeeting(func(ctx context.Context, request *lark.GetVCMeetingReq, options ...lark.MethodOptionFunc) (*lark.GetVCMeetingResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
-			defer cli.Mock().UnMockVCGetMeeting()
+			defer cli.Mock().UnMockVCGetVCMeeting()
 
-			_, _, err := moduleCli.GetMeeting(ctx, &lark.GetMeetingReq{})
+			_, _, err := moduleCli.GetVCMeeting(ctx, &lark.GetVCMeetingReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "mock-failed")
 		})
 
 		t.Run("", func(t *testing.T) {
-			cli.Mock().MockVCGetDailyReport(func(ctx context.Context, request *lark.GetDailyReportReq, options ...lark.MethodOptionFunc) (*lark.GetDailyReportResp, *lark.Response, error) {
+			cli.Mock().MockVCGetVCDailyReport(func(ctx context.Context, request *lark.GetVCDailyReportReq, options ...lark.MethodOptionFunc) (*lark.GetVCDailyReportResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
-			defer cli.Mock().UnMockVCGetDailyReport()
+			defer cli.Mock().UnMockVCGetVCDailyReport()
 
-			_, _, err := moduleCli.GetDailyReport(ctx, &lark.GetDailyReportReq{})
+			_, _, err := moduleCli.GetVCDailyReport(ctx, &lark.GetVCDailyReportReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "mock-failed")
 		})
 
 		t.Run("", func(t *testing.T) {
-			cli.Mock().MockVCGetTopUserReport(func(ctx context.Context, request *lark.GetTopUserReportReq, options ...lark.MethodOptionFunc) (*lark.GetTopUserReportResp, *lark.Response, error) {
+			cli.Mock().MockVCGetVCTopUserReport(func(ctx context.Context, request *lark.GetVCTopUserReportReq, options ...lark.MethodOptionFunc) (*lark.GetVCTopUserReportResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
-			defer cli.Mock().UnMockVCGetTopUserReport()
+			defer cli.Mock().UnMockVCGetVCTopUserReport()
 
-			_, _, err := moduleCli.GetTopUserReport(ctx, &lark.GetTopUserReportReq{})
+			_, _, err := moduleCli.GetVCTopUserReport(ctx, &lark.GetVCTopUserReportReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "mock-failed")
 		})
 
 		t.Run("", func(t *testing.T) {
-			cli.Mock().MockVCQueryRoomConfig(func(ctx context.Context, request *lark.QueryRoomConfigReq, options ...lark.MethodOptionFunc) (*lark.QueryRoomConfigResp, *lark.Response, error) {
+			cli.Mock().MockVCQueryVCRoomConfig(func(ctx context.Context, request *lark.QueryVCRoomConfigReq, options ...lark.MethodOptionFunc) (*lark.QueryVCRoomConfigResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
-			defer cli.Mock().UnMockVCQueryRoomConfig()
+			defer cli.Mock().UnMockVCQueryVCRoomConfig()
 
-			_, _, err := moduleCli.QueryRoomConfig(ctx, &lark.QueryRoomConfigReq{})
+			_, _, err := moduleCli.QueryVCRoomConfig(ctx, &lark.QueryVCRoomConfigReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "mock-failed")
 		})
 
 		t.Run("", func(t *testing.T) {
-			cli.Mock().MockVCSetRoomConfig(func(ctx context.Context, request *lark.SetRoomConfigReq, options ...lark.MethodOptionFunc) (*lark.SetRoomConfigResp, *lark.Response, error) {
+			cli.Mock().MockVCSetVCRoomConfig(func(ctx context.Context, request *lark.SetVCRoomConfigReq, options ...lark.MethodOptionFunc) (*lark.SetVCRoomConfigResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
-			defer cli.Mock().UnMockVCSetRoomConfig()
+			defer cli.Mock().UnMockVCSetVCRoomConfig()
 
-			_, _, err := moduleCli.SetRoomConfig(ctx, &lark.SetRoomConfigReq{})
+			_, _, err := moduleCli.SetVCRoomConfig(ctx, &lark.SetVCRoomConfigReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "mock-failed")
 		})
@@ -117,7 +117,7 @@ func Test_VC_Sample_Failed(t *testing.T) {
 		moduleCli := cli.VC
 
 		t.Run("", func(t *testing.T) {
-			_, _, err := moduleCli.GetMeeting(ctx, &lark.GetMeetingReq{
+			_, _, err := moduleCli.GetVCMeeting(ctx, &lark.GetVCMeetingReq{
 				MeetingID: "x",
 			})
 			as.NotNil(err)
@@ -125,25 +125,25 @@ func Test_VC_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-			_, _, err := moduleCli.GetDailyReport(ctx, &lark.GetDailyReportReq{})
+			_, _, err := moduleCli.GetVCDailyReport(ctx, &lark.GetVCDailyReportReq{})
 			as.NotNil(err)
 			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
 		})
 
 		t.Run("", func(t *testing.T) {
-			_, _, err := moduleCli.GetTopUserReport(ctx, &lark.GetTopUserReportReq{})
+			_, _, err := moduleCli.GetVCTopUserReport(ctx, &lark.GetVCTopUserReportReq{})
 			as.NotNil(err)
 			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
 		})
 
 		t.Run("", func(t *testing.T) {
-			_, _, err := moduleCli.QueryRoomConfig(ctx, &lark.QueryRoomConfigReq{})
+			_, _, err := moduleCli.QueryVCRoomConfig(ctx, &lark.QueryVCRoomConfigReq{})
 			as.NotNil(err)
 			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
 		})
 
 		t.Run("", func(t *testing.T) {
-			_, _, err := moduleCli.SetRoomConfig(ctx, &lark.SetRoomConfigReq{})
+			_, _, err := moduleCli.SetVCRoomConfig(ctx, &lark.SetVCRoomConfigReq{})
 			as.NotNil(err)
 			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
 		})

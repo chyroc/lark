@@ -22,103 +22,103 @@ func Test_MeetingRoom_Sample_Failed(t *testing.T) {
 		moduleCli := cli.MeetingRoom
 
 		t.Run("", func(t *testing.T) {
-			_, _, err := moduleCli.BatchGetSummary(ctx, &lark.BatchGetSummaryReq{})
+			_, _, err := moduleCli.BatchGetMeetingRoomSummary(ctx, &lark.BatchGetMeetingRoomSummaryReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "failed")
 		})
 
 		t.Run("", func(t *testing.T) {
-			_, _, err := moduleCli.GetBuildingList(ctx, &lark.GetBuildingListReq{})
+			_, _, err := moduleCli.GetMeetingRoomBuildingList(ctx, &lark.GetMeetingRoomBuildingListReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "failed")
 		})
 
 		t.Run("", func(t *testing.T) {
-			_, _, err := moduleCli.BatchGetBuilding(ctx, &lark.BatchGetBuildingReq{})
+			_, _, err := moduleCli.BatchGetMeetingRoomBuilding(ctx, &lark.BatchGetMeetingRoomBuildingReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "failed")
 		})
 
 		t.Run("", func(t *testing.T) {
-			_, _, err := moduleCli.GetRoomList(ctx, &lark.GetRoomListReq{})
+			_, _, err := moduleCli.GetMeetingRoomRoomList(ctx, &lark.GetMeetingRoomRoomListReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "failed")
 		})
 
 		t.Run("", func(t *testing.T) {
-			_, _, err := moduleCli.BatchGetRoom(ctx, &lark.BatchGetRoomReq{})
+			_, _, err := moduleCli.BatchGetMeetingRoomRoom(ctx, &lark.BatchGetMeetingRoomRoomReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "failed")
 		})
 
 		t.Run("", func(t *testing.T) {
-			_, _, err := moduleCli.BatchGetFreebusy(ctx, &lark.BatchGetFreebusyReq{})
+			_, _, err := moduleCli.BatchGetMeetingRoomFreebusy(ctx, &lark.BatchGetMeetingRoomFreebusyReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "failed")
 		})
 
 		t.Run("", func(t *testing.T) {
-			_, _, err := moduleCli.ReplyInstance(ctx, &lark.ReplyInstanceReq{})
+			_, _, err := moduleCli.ReplyMeetingRoomInstance(ctx, &lark.ReplyMeetingRoomInstanceReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "failed")
 		})
 
 		t.Run("", func(t *testing.T) {
-			_, _, err := moduleCli.CreateBuilding(ctx, &lark.CreateBuildingReq{})
+			_, _, err := moduleCli.CreateMeetingRoomBuilding(ctx, &lark.CreateMeetingRoomBuildingReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "failed")
 		})
 
 		t.Run("", func(t *testing.T) {
-			_, _, err := moduleCli.UpdateBuilding(ctx, &lark.UpdateBuildingReq{})
+			_, _, err := moduleCli.UpdateMeetingRoomBuilding(ctx, &lark.UpdateMeetingRoomBuildingReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "failed")
 		})
 
 		t.Run("", func(t *testing.T) {
-			_, _, err := moduleCli.DeleteBuilding(ctx, &lark.DeleteBuildingReq{})
+			_, _, err := moduleCli.DeleteMeetingRoomBuilding(ctx, &lark.DeleteMeetingRoomBuildingReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "failed")
 		})
 
 		t.Run("", func(t *testing.T) {
-			_, _, err := moduleCli.BatchGetBuildingID(ctx, &lark.BatchGetBuildingIDReq{})
+			_, _, err := moduleCli.BatchGetMeetingRoomBuildingID(ctx, &lark.BatchGetMeetingRoomBuildingIDReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "failed")
 		})
 
 		t.Run("", func(t *testing.T) {
-			_, _, err := moduleCli.CreateRoom(ctx, &lark.CreateRoomReq{})
+			_, _, err := moduleCli.CreateMeetingRoomRoom(ctx, &lark.CreateMeetingRoomRoomReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "failed")
 		})
 
 		t.Run("", func(t *testing.T) {
-			_, _, err := moduleCli.UpdateRoom(ctx, &lark.UpdateRoomReq{})
+			_, _, err := moduleCli.UpdateMeetingRoomRoom(ctx, &lark.UpdateMeetingRoomRoomReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "failed")
 		})
 
 		t.Run("", func(t *testing.T) {
-			_, _, err := moduleCli.DeleteRoom(ctx, &lark.DeleteRoomReq{})
+			_, _, err := moduleCli.DeleteMeetingRoomRoom(ctx, &lark.DeleteMeetingRoomRoomReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "failed")
 		})
 
 		t.Run("", func(t *testing.T) {
-			_, _, err := moduleCli.BatchGetRoomID(ctx, &lark.BatchGetRoomIDReq{})
+			_, _, err := moduleCli.BatchGetMeetingRoomRoomID(ctx, &lark.BatchGetMeetingRoomRoomIDReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "failed")
 		})
 
 		t.Run("", func(t *testing.T) {
-			_, _, err := moduleCli.GetCountryList(ctx, &lark.GetCountryListReq{})
+			_, _, err := moduleCli.GetMeetingRoomCountryList(ctx, &lark.GetMeetingRoomCountryListReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "failed")
 		})
 
 		t.Run("", func(t *testing.T) {
-			_, _, err := moduleCli.GetDistrictList(ctx, &lark.GetDistrictListReq{})
+			_, _, err := moduleCli.GetMeetingRoomDistrictList(ctx, &lark.GetMeetingRoomDistrictListReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "failed")
 		})
@@ -129,188 +129,188 @@ func Test_MeetingRoom_Sample_Failed(t *testing.T) {
 		moduleCli := cli.MeetingRoom
 
 		t.Run("", func(t *testing.T) {
-			cli.Mock().MockMeetingRoomBatchGetSummary(func(ctx context.Context, request *lark.BatchGetSummaryReq, options ...lark.MethodOptionFunc) (*lark.BatchGetSummaryResp, *lark.Response, error) {
+			cli.Mock().MockMeetingRoomBatchGetMeetingRoomSummary(func(ctx context.Context, request *lark.BatchGetMeetingRoomSummaryReq, options ...lark.MethodOptionFunc) (*lark.BatchGetMeetingRoomSummaryResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
-			defer cli.Mock().UnMockMeetingRoomBatchGetSummary()
+			defer cli.Mock().UnMockMeetingRoomBatchGetMeetingRoomSummary()
 
-			_, _, err := moduleCli.BatchGetSummary(ctx, &lark.BatchGetSummaryReq{})
+			_, _, err := moduleCli.BatchGetMeetingRoomSummary(ctx, &lark.BatchGetMeetingRoomSummaryReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "mock-failed")
 		})
 
 		t.Run("", func(t *testing.T) {
-			cli.Mock().MockMeetingRoomGetBuildingList(func(ctx context.Context, request *lark.GetBuildingListReq, options ...lark.MethodOptionFunc) (*lark.GetBuildingListResp, *lark.Response, error) {
+			cli.Mock().MockMeetingRoomGetMeetingRoomBuildingList(func(ctx context.Context, request *lark.GetMeetingRoomBuildingListReq, options ...lark.MethodOptionFunc) (*lark.GetMeetingRoomBuildingListResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
-			defer cli.Mock().UnMockMeetingRoomGetBuildingList()
+			defer cli.Mock().UnMockMeetingRoomGetMeetingRoomBuildingList()
 
-			_, _, err := moduleCli.GetBuildingList(ctx, &lark.GetBuildingListReq{})
+			_, _, err := moduleCli.GetMeetingRoomBuildingList(ctx, &lark.GetMeetingRoomBuildingListReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "mock-failed")
 		})
 
 		t.Run("", func(t *testing.T) {
-			cli.Mock().MockMeetingRoomBatchGetBuilding(func(ctx context.Context, request *lark.BatchGetBuildingReq, options ...lark.MethodOptionFunc) (*lark.BatchGetBuildingResp, *lark.Response, error) {
+			cli.Mock().MockMeetingRoomBatchGetMeetingRoomBuilding(func(ctx context.Context, request *lark.BatchGetMeetingRoomBuildingReq, options ...lark.MethodOptionFunc) (*lark.BatchGetMeetingRoomBuildingResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
-			defer cli.Mock().UnMockMeetingRoomBatchGetBuilding()
+			defer cli.Mock().UnMockMeetingRoomBatchGetMeetingRoomBuilding()
 
-			_, _, err := moduleCli.BatchGetBuilding(ctx, &lark.BatchGetBuildingReq{})
+			_, _, err := moduleCli.BatchGetMeetingRoomBuilding(ctx, &lark.BatchGetMeetingRoomBuildingReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "mock-failed")
 		})
 
 		t.Run("", func(t *testing.T) {
-			cli.Mock().MockMeetingRoomGetRoomList(func(ctx context.Context, request *lark.GetRoomListReq, options ...lark.MethodOptionFunc) (*lark.GetRoomListResp, *lark.Response, error) {
+			cli.Mock().MockMeetingRoomGetMeetingRoomRoomList(func(ctx context.Context, request *lark.GetMeetingRoomRoomListReq, options ...lark.MethodOptionFunc) (*lark.GetMeetingRoomRoomListResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
-			defer cli.Mock().UnMockMeetingRoomGetRoomList()
+			defer cli.Mock().UnMockMeetingRoomGetMeetingRoomRoomList()
 
-			_, _, err := moduleCli.GetRoomList(ctx, &lark.GetRoomListReq{})
+			_, _, err := moduleCli.GetMeetingRoomRoomList(ctx, &lark.GetMeetingRoomRoomListReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "mock-failed")
 		})
 
 		t.Run("", func(t *testing.T) {
-			cli.Mock().MockMeetingRoomBatchGetRoom(func(ctx context.Context, request *lark.BatchGetRoomReq, options ...lark.MethodOptionFunc) (*lark.BatchGetRoomResp, *lark.Response, error) {
+			cli.Mock().MockMeetingRoomBatchGetMeetingRoomRoom(func(ctx context.Context, request *lark.BatchGetMeetingRoomRoomReq, options ...lark.MethodOptionFunc) (*lark.BatchGetMeetingRoomRoomResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
-			defer cli.Mock().UnMockMeetingRoomBatchGetRoom()
+			defer cli.Mock().UnMockMeetingRoomBatchGetMeetingRoomRoom()
 
-			_, _, err := moduleCli.BatchGetRoom(ctx, &lark.BatchGetRoomReq{})
+			_, _, err := moduleCli.BatchGetMeetingRoomRoom(ctx, &lark.BatchGetMeetingRoomRoomReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "mock-failed")
 		})
 
 		t.Run("", func(t *testing.T) {
-			cli.Mock().MockMeetingRoomBatchGetFreebusy(func(ctx context.Context, request *lark.BatchGetFreebusyReq, options ...lark.MethodOptionFunc) (*lark.BatchGetFreebusyResp, *lark.Response, error) {
+			cli.Mock().MockMeetingRoomBatchGetMeetingRoomFreebusy(func(ctx context.Context, request *lark.BatchGetMeetingRoomFreebusyReq, options ...lark.MethodOptionFunc) (*lark.BatchGetMeetingRoomFreebusyResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
-			defer cli.Mock().UnMockMeetingRoomBatchGetFreebusy()
+			defer cli.Mock().UnMockMeetingRoomBatchGetMeetingRoomFreebusy()
 
-			_, _, err := moduleCli.BatchGetFreebusy(ctx, &lark.BatchGetFreebusyReq{})
+			_, _, err := moduleCli.BatchGetMeetingRoomFreebusy(ctx, &lark.BatchGetMeetingRoomFreebusyReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "mock-failed")
 		})
 
 		t.Run("", func(t *testing.T) {
-			cli.Mock().MockMeetingRoomReplyInstance(func(ctx context.Context, request *lark.ReplyInstanceReq, options ...lark.MethodOptionFunc) (*lark.ReplyInstanceResp, *lark.Response, error) {
+			cli.Mock().MockMeetingRoomReplyMeetingRoomInstance(func(ctx context.Context, request *lark.ReplyMeetingRoomInstanceReq, options ...lark.MethodOptionFunc) (*lark.ReplyMeetingRoomInstanceResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
-			defer cli.Mock().UnMockMeetingRoomReplyInstance()
+			defer cli.Mock().UnMockMeetingRoomReplyMeetingRoomInstance()
 
-			_, _, err := moduleCli.ReplyInstance(ctx, &lark.ReplyInstanceReq{})
+			_, _, err := moduleCli.ReplyMeetingRoomInstance(ctx, &lark.ReplyMeetingRoomInstanceReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "mock-failed")
 		})
 
 		t.Run("", func(t *testing.T) {
-			cli.Mock().MockMeetingRoomCreateBuilding(func(ctx context.Context, request *lark.CreateBuildingReq, options ...lark.MethodOptionFunc) (*lark.CreateBuildingResp, *lark.Response, error) {
+			cli.Mock().MockMeetingRoomCreateMeetingRoomBuilding(func(ctx context.Context, request *lark.CreateMeetingRoomBuildingReq, options ...lark.MethodOptionFunc) (*lark.CreateMeetingRoomBuildingResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
-			defer cli.Mock().UnMockMeetingRoomCreateBuilding()
+			defer cli.Mock().UnMockMeetingRoomCreateMeetingRoomBuilding()
 
-			_, _, err := moduleCli.CreateBuilding(ctx, &lark.CreateBuildingReq{})
+			_, _, err := moduleCli.CreateMeetingRoomBuilding(ctx, &lark.CreateMeetingRoomBuildingReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "mock-failed")
 		})
 
 		t.Run("", func(t *testing.T) {
-			cli.Mock().MockMeetingRoomUpdateBuilding(func(ctx context.Context, request *lark.UpdateBuildingReq, options ...lark.MethodOptionFunc) (*lark.UpdateBuildingResp, *lark.Response, error) {
+			cli.Mock().MockMeetingRoomUpdateMeetingRoomBuilding(func(ctx context.Context, request *lark.UpdateMeetingRoomBuildingReq, options ...lark.MethodOptionFunc) (*lark.UpdateMeetingRoomBuildingResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
-			defer cli.Mock().UnMockMeetingRoomUpdateBuilding()
+			defer cli.Mock().UnMockMeetingRoomUpdateMeetingRoomBuilding()
 
-			_, _, err := moduleCli.UpdateBuilding(ctx, &lark.UpdateBuildingReq{})
+			_, _, err := moduleCli.UpdateMeetingRoomBuilding(ctx, &lark.UpdateMeetingRoomBuildingReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "mock-failed")
 		})
 
 		t.Run("", func(t *testing.T) {
-			cli.Mock().MockMeetingRoomDeleteBuilding(func(ctx context.Context, request *lark.DeleteBuildingReq, options ...lark.MethodOptionFunc) (*lark.DeleteBuildingResp, *lark.Response, error) {
+			cli.Mock().MockMeetingRoomDeleteMeetingRoomBuilding(func(ctx context.Context, request *lark.DeleteMeetingRoomBuildingReq, options ...lark.MethodOptionFunc) (*lark.DeleteMeetingRoomBuildingResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
-			defer cli.Mock().UnMockMeetingRoomDeleteBuilding()
+			defer cli.Mock().UnMockMeetingRoomDeleteMeetingRoomBuilding()
 
-			_, _, err := moduleCli.DeleteBuilding(ctx, &lark.DeleteBuildingReq{})
+			_, _, err := moduleCli.DeleteMeetingRoomBuilding(ctx, &lark.DeleteMeetingRoomBuildingReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "mock-failed")
 		})
 
 		t.Run("", func(t *testing.T) {
-			cli.Mock().MockMeetingRoomBatchGetBuildingID(func(ctx context.Context, request *lark.BatchGetBuildingIDReq, options ...lark.MethodOptionFunc) (*lark.BatchGetBuildingIDResp, *lark.Response, error) {
+			cli.Mock().MockMeetingRoomBatchGetMeetingRoomBuildingID(func(ctx context.Context, request *lark.BatchGetMeetingRoomBuildingIDReq, options ...lark.MethodOptionFunc) (*lark.BatchGetMeetingRoomBuildingIDResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
-			defer cli.Mock().UnMockMeetingRoomBatchGetBuildingID()
+			defer cli.Mock().UnMockMeetingRoomBatchGetMeetingRoomBuildingID()
 
-			_, _, err := moduleCli.BatchGetBuildingID(ctx, &lark.BatchGetBuildingIDReq{})
+			_, _, err := moduleCli.BatchGetMeetingRoomBuildingID(ctx, &lark.BatchGetMeetingRoomBuildingIDReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "mock-failed")
 		})
 
 		t.Run("", func(t *testing.T) {
-			cli.Mock().MockMeetingRoomCreateRoom(func(ctx context.Context, request *lark.CreateRoomReq, options ...lark.MethodOptionFunc) (*lark.CreateRoomResp, *lark.Response, error) {
+			cli.Mock().MockMeetingRoomCreateMeetingRoomRoom(func(ctx context.Context, request *lark.CreateMeetingRoomRoomReq, options ...lark.MethodOptionFunc) (*lark.CreateMeetingRoomRoomResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
-			defer cli.Mock().UnMockMeetingRoomCreateRoom()
+			defer cli.Mock().UnMockMeetingRoomCreateMeetingRoomRoom()
 
-			_, _, err := moduleCli.CreateRoom(ctx, &lark.CreateRoomReq{})
+			_, _, err := moduleCli.CreateMeetingRoomRoom(ctx, &lark.CreateMeetingRoomRoomReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "mock-failed")
 		})
 
 		t.Run("", func(t *testing.T) {
-			cli.Mock().MockMeetingRoomUpdateRoom(func(ctx context.Context, request *lark.UpdateRoomReq, options ...lark.MethodOptionFunc) (*lark.UpdateRoomResp, *lark.Response, error) {
+			cli.Mock().MockMeetingRoomUpdateMeetingRoomRoom(func(ctx context.Context, request *lark.UpdateMeetingRoomRoomReq, options ...lark.MethodOptionFunc) (*lark.UpdateMeetingRoomRoomResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
-			defer cli.Mock().UnMockMeetingRoomUpdateRoom()
+			defer cli.Mock().UnMockMeetingRoomUpdateMeetingRoomRoom()
 
-			_, _, err := moduleCli.UpdateRoom(ctx, &lark.UpdateRoomReq{})
+			_, _, err := moduleCli.UpdateMeetingRoomRoom(ctx, &lark.UpdateMeetingRoomRoomReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "mock-failed")
 		})
 
 		t.Run("", func(t *testing.T) {
-			cli.Mock().MockMeetingRoomDeleteRoom(func(ctx context.Context, request *lark.DeleteRoomReq, options ...lark.MethodOptionFunc) (*lark.DeleteRoomResp, *lark.Response, error) {
+			cli.Mock().MockMeetingRoomDeleteMeetingRoomRoom(func(ctx context.Context, request *lark.DeleteMeetingRoomRoomReq, options ...lark.MethodOptionFunc) (*lark.DeleteMeetingRoomRoomResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
-			defer cli.Mock().UnMockMeetingRoomDeleteRoom()
+			defer cli.Mock().UnMockMeetingRoomDeleteMeetingRoomRoom()
 
-			_, _, err := moduleCli.DeleteRoom(ctx, &lark.DeleteRoomReq{})
+			_, _, err := moduleCli.DeleteMeetingRoomRoom(ctx, &lark.DeleteMeetingRoomRoomReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "mock-failed")
 		})
 
 		t.Run("", func(t *testing.T) {
-			cli.Mock().MockMeetingRoomBatchGetRoomID(func(ctx context.Context, request *lark.BatchGetRoomIDReq, options ...lark.MethodOptionFunc) (*lark.BatchGetRoomIDResp, *lark.Response, error) {
+			cli.Mock().MockMeetingRoomBatchGetMeetingRoomRoomID(func(ctx context.Context, request *lark.BatchGetMeetingRoomRoomIDReq, options ...lark.MethodOptionFunc) (*lark.BatchGetMeetingRoomRoomIDResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
-			defer cli.Mock().UnMockMeetingRoomBatchGetRoomID()
+			defer cli.Mock().UnMockMeetingRoomBatchGetMeetingRoomRoomID()
 
-			_, _, err := moduleCli.BatchGetRoomID(ctx, &lark.BatchGetRoomIDReq{})
+			_, _, err := moduleCli.BatchGetMeetingRoomRoomID(ctx, &lark.BatchGetMeetingRoomRoomIDReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "mock-failed")
 		})
 
 		t.Run("", func(t *testing.T) {
-			cli.Mock().MockMeetingRoomGetCountryList(func(ctx context.Context, request *lark.GetCountryListReq, options ...lark.MethodOptionFunc) (*lark.GetCountryListResp, *lark.Response, error) {
+			cli.Mock().MockMeetingRoomGetMeetingRoomCountryList(func(ctx context.Context, request *lark.GetMeetingRoomCountryListReq, options ...lark.MethodOptionFunc) (*lark.GetMeetingRoomCountryListResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
-			defer cli.Mock().UnMockMeetingRoomGetCountryList()
+			defer cli.Mock().UnMockMeetingRoomGetMeetingRoomCountryList()
 
-			_, _, err := moduleCli.GetCountryList(ctx, &lark.GetCountryListReq{})
+			_, _, err := moduleCli.GetMeetingRoomCountryList(ctx, &lark.GetMeetingRoomCountryListReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "mock-failed")
 		})
 
 		t.Run("", func(t *testing.T) {
-			cli.Mock().MockMeetingRoomGetDistrictList(func(ctx context.Context, request *lark.GetDistrictListReq, options ...lark.MethodOptionFunc) (*lark.GetDistrictListResp, *lark.Response, error) {
+			cli.Mock().MockMeetingRoomGetMeetingRoomDistrictList(func(ctx context.Context, request *lark.GetMeetingRoomDistrictListReq, options ...lark.MethodOptionFunc) (*lark.GetMeetingRoomDistrictListResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
-			defer cli.Mock().UnMockMeetingRoomGetDistrictList()
+			defer cli.Mock().UnMockMeetingRoomGetMeetingRoomDistrictList()
 
-			_, _, err := moduleCli.GetDistrictList(ctx, &lark.GetDistrictListReq{})
+			_, _, err := moduleCli.GetMeetingRoomDistrictList(ctx, &lark.GetMeetingRoomDistrictListReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "mock-failed")
 		})
@@ -321,103 +321,103 @@ func Test_MeetingRoom_Sample_Failed(t *testing.T) {
 		moduleCli := cli.MeetingRoom
 
 		t.Run("", func(t *testing.T) {
-			_, _, err := moduleCli.BatchGetSummary(ctx, &lark.BatchGetSummaryReq{})
+			_, _, err := moduleCli.BatchGetMeetingRoomSummary(ctx, &lark.BatchGetMeetingRoomSummaryReq{})
 			as.NotNil(err)
 			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
 		})
 
 		t.Run("", func(t *testing.T) {
-			_, _, err := moduleCli.GetBuildingList(ctx, &lark.GetBuildingListReq{})
+			_, _, err := moduleCli.GetMeetingRoomBuildingList(ctx, &lark.GetMeetingRoomBuildingListReq{})
 			as.NotNil(err)
 			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
 		})
 
 		t.Run("", func(t *testing.T) {
-			_, _, err := moduleCli.BatchGetBuilding(ctx, &lark.BatchGetBuildingReq{})
+			_, _, err := moduleCli.BatchGetMeetingRoomBuilding(ctx, &lark.BatchGetMeetingRoomBuildingReq{})
 			as.NotNil(err)
 			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
 		})
 
 		t.Run("", func(t *testing.T) {
-			_, _, err := moduleCli.GetRoomList(ctx, &lark.GetRoomListReq{})
+			_, _, err := moduleCli.GetMeetingRoomRoomList(ctx, &lark.GetMeetingRoomRoomListReq{})
 			as.NotNil(err)
 			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
 		})
 
 		t.Run("", func(t *testing.T) {
-			_, _, err := moduleCli.BatchGetRoom(ctx, &lark.BatchGetRoomReq{})
+			_, _, err := moduleCli.BatchGetMeetingRoomRoom(ctx, &lark.BatchGetMeetingRoomRoomReq{})
 			as.NotNil(err)
 			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
 		})
 
 		t.Run("", func(t *testing.T) {
-			_, _, err := moduleCli.BatchGetFreebusy(ctx, &lark.BatchGetFreebusyReq{})
+			_, _, err := moduleCli.BatchGetMeetingRoomFreebusy(ctx, &lark.BatchGetMeetingRoomFreebusyReq{})
 			as.NotNil(err)
 			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
 		})
 
 		t.Run("", func(t *testing.T) {
-			_, _, err := moduleCli.ReplyInstance(ctx, &lark.ReplyInstanceReq{})
+			_, _, err := moduleCli.ReplyMeetingRoomInstance(ctx, &lark.ReplyMeetingRoomInstanceReq{})
 			as.NotNil(err)
 			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
 		})
 
 		t.Run("", func(t *testing.T) {
-			_, _, err := moduleCli.CreateBuilding(ctx, &lark.CreateBuildingReq{})
+			_, _, err := moduleCli.CreateMeetingRoomBuilding(ctx, &lark.CreateMeetingRoomBuildingReq{})
 			as.NotNil(err)
 			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
 		})
 
 		t.Run("", func(t *testing.T) {
-			_, _, err := moduleCli.UpdateBuilding(ctx, &lark.UpdateBuildingReq{})
+			_, _, err := moduleCli.UpdateMeetingRoomBuilding(ctx, &lark.UpdateMeetingRoomBuildingReq{})
 			as.NotNil(err)
 			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
 		})
 
 		t.Run("", func(t *testing.T) {
-			_, _, err := moduleCli.DeleteBuilding(ctx, &lark.DeleteBuildingReq{})
+			_, _, err := moduleCli.DeleteMeetingRoomBuilding(ctx, &lark.DeleteMeetingRoomBuildingReq{})
 			as.NotNil(err)
 			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
 		})
 
 		t.Run("", func(t *testing.T) {
-			_, _, err := moduleCli.BatchGetBuildingID(ctx, &lark.BatchGetBuildingIDReq{})
+			_, _, err := moduleCli.BatchGetMeetingRoomBuildingID(ctx, &lark.BatchGetMeetingRoomBuildingIDReq{})
 			as.NotNil(err)
 			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
 		})
 
 		t.Run("", func(t *testing.T) {
-			_, _, err := moduleCli.CreateRoom(ctx, &lark.CreateRoomReq{})
+			_, _, err := moduleCli.CreateMeetingRoomRoom(ctx, &lark.CreateMeetingRoomRoomReq{})
 			as.NotNil(err)
 			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
 		})
 
 		t.Run("", func(t *testing.T) {
-			_, _, err := moduleCli.UpdateRoom(ctx, &lark.UpdateRoomReq{})
+			_, _, err := moduleCli.UpdateMeetingRoomRoom(ctx, &lark.UpdateMeetingRoomRoomReq{})
 			as.NotNil(err)
 			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
 		})
 
 		t.Run("", func(t *testing.T) {
-			_, _, err := moduleCli.DeleteRoom(ctx, &lark.DeleteRoomReq{})
+			_, _, err := moduleCli.DeleteMeetingRoomRoom(ctx, &lark.DeleteMeetingRoomRoomReq{})
 			as.NotNil(err)
 			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
 		})
 
 		t.Run("", func(t *testing.T) {
-			_, _, err := moduleCli.BatchGetRoomID(ctx, &lark.BatchGetRoomIDReq{})
+			_, _, err := moduleCli.BatchGetMeetingRoomRoomID(ctx, &lark.BatchGetMeetingRoomRoomIDReq{})
 			as.NotNil(err)
 			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
 		})
 
 		t.Run("", func(t *testing.T) {
-			_, _, err := moduleCli.GetCountryList(ctx, &lark.GetCountryListReq{})
+			_, _, err := moduleCli.GetMeetingRoomCountryList(ctx, &lark.GetMeetingRoomCountryListReq{})
 			as.NotNil(err)
 			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
 		})
 
 		t.Run("", func(t *testing.T) {
-			_, _, err := moduleCli.GetDistrictList(ctx, &lark.GetDistrictListReq{})
+			_, _, err := moduleCli.GetMeetingRoomDistrictList(ctx, &lark.GetMeetingRoomDistrictListReq{})
 			as.NotNil(err)
 			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
 		})

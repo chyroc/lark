@@ -181,40 +181,40 @@ API Count: 263, Event Count: 28
   - BatchDeleteBitableTable
   - GetBitableMeta
 - MeetingRoom
-  - BatchGetSummary
-  - GetBuildingList
-  - BatchGetBuilding
-  - GetRoomList
-  - BatchGetRoom
-  - BatchGetFreebusy
-  - ReplyInstance
-  - CreateBuilding
-  - UpdateBuilding
-  - DeleteBuilding
-  - BatchGetBuildingID
-  - CreateRoom
-  - UpdateRoom
-  - DeleteRoom
-  - BatchGetRoomID
-  - GetCountryList
-  - GetDistrictList
+  - BatchGetMeetingRoomSummary
+  - GetMeetingRoomBuildingList
+  - BatchGetMeetingRoomBuilding
+  - GetMeetingRoomRoomList
+  - BatchGetMeetingRoomRoom
+  - BatchGetMeetingRoomFreebusy
+  - ReplyMeetingRoomInstance
+  - CreateMeetingRoomBuilding
+  - UpdateMeetingRoomBuilding
+  - DeleteMeetingRoomBuilding
+  - BatchGetMeetingRoomBuildingID
+  - CreateMeetingRoomRoom
+  - UpdateMeetingRoomRoom
+  - DeleteMeetingRoomRoom
+  - BatchGetMeetingRoomRoomID
+  - GetMeetingRoomCountryList
+  - GetMeetingRoomDistrictList
 - VC
-  - ApplyReserve
-  - UpdateReserve
-  - DeleteReserve
-  - GetReserveActiveMeeting
-  - GetMeeting
-  - InviteMeeting
-  - SetHostMeeting
-  - EndMeeting
-  - StartMeetingRecording
-  - StopMeetingRecording
-  - GetMeetingRecording
-  - SetPermissionMeetingRecording
-  - GetDailyReport
-  - GetTopUserReport
-  - QueryRoomConfig
-  - SetRoomConfig
+  - ApplyVCReserve
+  - UpdateVCReserve
+  - DeleteVCReserve
+  - GetVCReserveActiveMeeting
+  - GetVCMeeting
+  - InviteVCMeeting
+  - SetVCHostMeeting
+  - EndVCMeeting
+  - StartVCMeetingRecording
+  - StopVCMeetingRecording
+  - GetVCMeetingRecording
+  - SetVCPermissionMeetingRecording
+  - GetVCDailyReport
+  - GetVCTopUserReport
+  - QueryVCRoomConfig
+  - SetVCRoomConfig
 - Mail
   - CreateMailGroup
   - GetMailGroup
@@ -241,34 +241,34 @@ API Count: 263, Event Count: 28
   - DeletePublicMailboxMember
   - ClearPublicMailboxMember
 - Approval
-  - GetInstanceList
+  - GetApprovalInstanceList
 - Helpdesk
-  - StartService
-  - GetTicket
-  - UpdateTicket
-  - GetTicketList
-  - DownloadTicketImage
-  - GetTicketMessageList
-  - SendTicketMessage
-  - GetTicketCustomizedFieldList
-  - DeleteTicketCustomizedField
-  - UpdateTicketCustomizedField
-  - CreateTicketCustomizedField
-  - GetTicketCustomizedField
-  - CreateCategory
-  - GetCategory
-  - UpdateCategory
-  - DeleteCategory
-  - GetCategoryList
-  - CreateFAQ
-  - GetFAQ
-  - UpdateFAQ
-  - DeleteFAQ
-  - GetFAQList
-  - GetFAQImage
-  - SearchFAQ
-  - SubscribeEvent
-  - UnsubscribeEvent
+  - StartHelpdeskService
+  - GetHelpdeskTicket
+  - UpdateHelpdeskTicket
+  - GetHelpdeskTicketList
+  - DownloadHelpdeskTicketImage
+  - GetHelpdeskTicketMessageList
+  - SendHelpdeskTicketMessage
+  - GetHelpdeskTicketCustomizedFieldList
+  - DeleteHelpdeskTicketCustomizedField
+  - UpdateHelpdeskTicketCustomizedField
+  - CreateHelpdeskTicketCustomizedField
+  - GetHelpdeskTicketCustomizedField
+  - CreateHelpdeskCategory
+  - GetHelpdeskCategory
+  - UpdateHelpdeskCategory
+  - DeleteHelpdeskCategory
+  - GetHelpdeskCategoryList
+  - CreateHelpdeskFAQ
+  - GetHelpdeskFAQ
+  - UpdateHelpdeskFAQ
+  - DeleteHelpdeskFAQ
+  - GetHelpdeskFAQList
+  - GetHelpdeskFAQImage
+  - SearchHelpdeskFAQ
+  - SubscribeHelpdeskEvent
+  - UnsubscribeHelpdeskEvent
 - Admin
   - GetAdminDeptStats
   - GetAdminUserStats
@@ -284,28 +284,28 @@ API Count: 263, Event Count: 28
   - TranslateText
   - DetectTextLanguage
 - Attendance
-  - UpdateUserSettings
+  - UpdateAttendanceUserSettings
   - UploadAttendanceFile
-  - CreateUpdateGroup
-  - DeleteGroup
-  - GetGroup
-  - CreateShift
-  - DeleteShift
-  - GetShiftByID
-  - GetShiftByName
-  - GetStatisticsData
-  - GetStatisticsHeader
-  - UpdateUserStatisticsSettings
-  - GetUserStatisticsSettings
-  - GetUserDailyShift
-  - GetUserTask
-  - GetUserFlow
-  - BatchGetUserFlow
-  - BatchCreateUserFlow
-  - GetUserTaskRemedy
-  - CreateUpdateUserDailyShift
-  - GetUserApproval
-  - CreateUserApproval
+  - CreateUpdateAttendanceGroup
+  - DeleteAttendanceGroup
+  - GetAttendanceGroup
+  - CreateAttendanceShift
+  - DeleteAttendanceShift
+  - GetAttendanceShiftByID
+  - GetAttendanceShiftByName
+  - GetAttendanceStatisticsData
+  - GetAttendanceStatisticsHeader
+  - UpdateAttendanceUserStatisticsSettings
+  - GetAttendanceUserStatisticsSettings
+  - GetAttendanceUserDailyShift
+  - GetAttendanceUserTask
+  - GetAttendanceUserFlow
+  - BatchGetAttendanceUserFlow
+  - BatchCreateAttendanceUserFlow
+  - GetAttendanceUserTaskRemedy
+  - CreateUpdateAttendanceUserDailyShift
+  - GetAttendanceUserApproval
+  - CreateAttendanceUserApproval
 - File
   - UploadImage
   - DownloadImage
@@ -341,14 +341,14 @@ API Count: 263, Event Count: 28
   - EventV1RevokeAddUserFromChat
   - EventV1ChatDisband
 - OKR
-  - GetPeriodList
+  - GetOKRPeriodList
   - BatchGetOKR
   - GetUserOKRList
 - EHR
-  - GetEmployeeList
-  - DownloadAttachments
+  - GetEHREmployeeList
+  - DownloadEHRAttachments
 - Tenant
-  - QueryTenant
+  - GetTenant
 
 
 </details>

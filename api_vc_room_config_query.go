@@ -6,41 +6,41 @@ import (
 	"context"
 )
 
-// QueryRoomConfig 查询一个范围内的会议室配置。
+// QueryVCRoomConfig 查询一个范围内的会议室配置。
 //
 // 根据查询范围传入对应的参数
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/vc-v1/room_config/query
-func (r *VCService) QueryRoomConfig(ctx context.Context, request *QueryRoomConfigReq, options ...MethodOptionFunc) (*QueryRoomConfigResp, *Response, error) {
-	if r.cli.mock.mockVCQueryRoomConfig != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] VC#QueryRoomConfig mock enable")
-		return r.cli.mock.mockVCQueryRoomConfig(ctx, request, options...)
+func (r *VCService) QueryVCRoomConfig(ctx context.Context, request *QueryVCRoomConfigReq, options ...MethodOptionFunc) (*QueryVCRoomConfigResp, *Response, error) {
+	if r.cli.mock.mockVCQueryVCRoomConfig != nil {
+		r.cli.log(ctx, LogLevelDebug, "[lark] VC#QueryVCRoomConfig mock enable")
+		return r.cli.mock.mockVCQueryVCRoomConfig(ctx, request, options...)
 	}
 
 	req := &RawRequestReq{
 		Scope:                 "VC",
-		API:                   "QueryRoomConfig",
+		API:                   "QueryVCRoomConfig",
 		Method:                "GET",
 		URL:                   "https://open.feishu.cn/open-apis/vc/v1/room_configs/query",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
 	}
-	resp := new(queryRoomConfigResp)
+	resp := new(queryVCRoomConfigResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
 	return resp.Data, response, err
 }
 
-func (r *Mock) MockVCQueryRoomConfig(f func(ctx context.Context, request *QueryRoomConfigReq, options ...MethodOptionFunc) (*QueryRoomConfigResp, *Response, error)) {
-	r.mockVCQueryRoomConfig = f
+func (r *Mock) MockVCQueryVCRoomConfig(f func(ctx context.Context, request *QueryVCRoomConfigReq, options ...MethodOptionFunc) (*QueryVCRoomConfigResp, *Response, error)) {
+	r.mockVCQueryVCRoomConfig = f
 }
 
-func (r *Mock) UnMockVCQueryRoomConfig() {
-	r.mockVCQueryRoomConfig = nil
+func (r *Mock) UnMockVCQueryVCRoomConfig() {
+	r.mockVCQueryVCRoomConfig = nil
 }
 
-type QueryRoomConfigReq struct {
+type QueryVCRoomConfigReq struct {
 	Scope      int64   `query:"scope" json:"-"`       // 查询节点范围, 示例值：5, 可选值有: `1`：租户, `2`：国家/地区, `3`：城市, `4`：建筑, `5`：楼层, `6`：会议室
 	CountryID  *string `query:"country_id" json:"-"`  // 国家/地区ID scope为1，2时需要此参数, 示例值："1"
 	DistrictID *string `query:"district_id" json:"-"` // 城市ID scope为2时需要此参数, 示例值："2"
@@ -49,27 +49,27 @@ type QueryRoomConfigReq struct {
 	RoomID     *string `query:"room_id" json:"-"`     // 会议室ID scope为5时需要此参数, 示例值："6383786266263"
 }
 
-type queryRoomConfigResp struct {
-	Code int64                `json:"code,omitempty"` // 错误码，非 0 表示失败
-	Msg  string               `json:"msg,omitempty"`  // 错误描述
-	Data *QueryRoomConfigResp `json:"data,omitempty"` //
+type queryVCRoomConfigResp struct {
+	Code int64                  `json:"code,omitempty"` // 错误码，非 0 表示失败
+	Msg  string                 `json:"msg,omitempty"`  // 错误描述
+	Data *QueryVCRoomConfigResp `json:"data,omitempty"` //
 }
 
-type QueryRoomConfigResp struct {
-	RoomBackground    string                             `json:"room_background,omitempty"`    // 飞书会议室背景图
-	DisplayBackground string                             `json:"display_background,omitempty"` // 飞书签到板背景图
-	DigitalSignage    *QueryRoomConfigRespDigitalSignage `json:"digital_signage,omitempty"`    // 飞书会议室数字标牌
+type QueryVCRoomConfigResp struct {
+	RoomBackground    string                               `json:"room_background,omitempty"`    // 飞书会议室背景图
+	DisplayBackground string                               `json:"display_background,omitempty"` // 飞书签到板背景图
+	DigitalSignage    *QueryVCRoomConfigRespDigitalSignage `json:"digital_signage,omitempty"`    // 飞书会议室数字标牌
 }
 
-type QueryRoomConfigRespDigitalSignage struct {
-	Enable       bool                                         `json:"enable,omitempty"`        // 是否开启数字标牌功能
-	Mute         bool                                         `json:"mute,omitempty"`          // 是否静音播放
-	StartDisplay int64                                        `json:"start_display,omitempty"` // 日程会议开始前n分钟结束播放
-	StopDisplay  int64                                        `json:"stop_display,omitempty"`  // 会议结束后n分钟开始播放
-	Materials    []*QueryRoomConfigRespDigitalSignageMaterial `json:"materials,omitempty"`     // 素材列表
+type QueryVCRoomConfigRespDigitalSignage struct {
+	Enable       bool                                           `json:"enable,omitempty"`        // 是否开启数字标牌功能
+	Mute         bool                                           `json:"mute,omitempty"`          // 是否静音播放
+	StartDisplay int64                                          `json:"start_display,omitempty"` // 日程会议开始前n分钟结束播放
+	StopDisplay  int64                                          `json:"stop_display,omitempty"`  // 会议结束后n分钟开始播放
+	Materials    []*QueryVCRoomConfigRespDigitalSignageMaterial `json:"materials,omitempty"`     // 素材列表
 }
 
-type QueryRoomConfigRespDigitalSignageMaterial struct {
+type QueryVCRoomConfigRespDigitalSignageMaterial struct {
 	ID           string `json:"id,omitempty"`            // 素材ID
 	Name         string `json:"name,omitempty"`          // 素材名称
 	MaterialType int64  `json:"material_type,omitempty"` // 素材类型, 可选值有: `1`：图片, `2`：视频, `3`：GIF

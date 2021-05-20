@@ -6,39 +6,39 @@ import (
 	"context"
 )
 
-// CreateBuilding 该接口对应管理后台的添加建筑，添加楼层的功能，可用于创建建筑物和建筑物的楼层信息。
+// CreateMeetingRoomBuilding 该接口对应管理后台的添加建筑，添加楼层的功能，可用于创建建筑物和建筑物的楼层信息。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uATNwYjLwUDM24CM1AjN
-func (r *MeetingRoomService) CreateBuilding(ctx context.Context, request *CreateBuildingReq, options ...MethodOptionFunc) (*CreateBuildingResp, *Response, error) {
-	if r.cli.mock.mockMeetingRoomCreateBuilding != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] MeetingRoom#CreateBuilding mock enable")
-		return r.cli.mock.mockMeetingRoomCreateBuilding(ctx, request, options...)
+func (r *MeetingRoomService) CreateMeetingRoomBuilding(ctx context.Context, request *CreateMeetingRoomBuildingReq, options ...MethodOptionFunc) (*CreateMeetingRoomBuildingResp, *Response, error) {
+	if r.cli.mock.mockMeetingRoomCreateMeetingRoomBuilding != nil {
+		r.cli.log(ctx, LogLevelDebug, "[lark] MeetingRoom#CreateMeetingRoomBuilding mock enable")
+		return r.cli.mock.mockMeetingRoomCreateMeetingRoomBuilding(ctx, request, options...)
 	}
 
 	req := &RawRequestReq{
 		Scope:                 "MeetingRoom",
-		API:                   "CreateBuilding",
+		API:                   "CreateMeetingRoomBuilding",
 		Method:                "POST",
 		URL:                   "https://open.feishu.cn/open-apis/meeting_room/building/create",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
 	}
-	resp := new(createBuildingResp)
+	resp := new(createMeetingRoomBuildingResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
 	return resp.Data, response, err
 }
 
-func (r *Mock) MockMeetingRoomCreateBuilding(f func(ctx context.Context, request *CreateBuildingReq, options ...MethodOptionFunc) (*CreateBuildingResp, *Response, error)) {
-	r.mockMeetingRoomCreateBuilding = f
+func (r *Mock) MockMeetingRoomCreateMeetingRoomBuilding(f func(ctx context.Context, request *CreateMeetingRoomBuildingReq, options ...MethodOptionFunc) (*CreateMeetingRoomBuildingResp, *Response, error)) {
+	r.mockMeetingRoomCreateMeetingRoomBuilding = f
 }
 
-func (r *Mock) UnMockMeetingRoomCreateBuilding() {
-	r.mockMeetingRoomCreateBuilding = nil
+func (r *Mock) UnMockMeetingRoomCreateMeetingRoomBuilding() {
+	r.mockMeetingRoomCreateMeetingRoomBuilding = nil
 }
 
-type CreateBuildingReq struct {
+type CreateMeetingRoomBuildingReq struct {
 	Name             string   `json:"name,omitempty"`               // 建筑名称
 	Floors           []string `json:"floors,omitempty"`             // 楼层列表
 	CountryID        string   `json:"country_id,omitempty"`         // 国家/地区ID
@@ -46,12 +46,12 @@ type CreateBuildingReq struct {
 	CustomBuildingID *string  `json:"custom_building_id,omitempty"` // 租户自定义建筑ID
 }
 
-type createBuildingResp struct {
-	Code int64               `json:"code,omitempty"` // 返回码，非 0 表示失败
-	Msg  string              `json:"msg,omitempty"`  // 返回码的描述，"success" 表示成功，其他为错误提示信息
-	Data *CreateBuildingResp `json:"data,omitempty"` // 返回业务信息
+type createMeetingRoomBuildingResp struct {
+	Code int64                          `json:"code,omitempty"` // 返回码，非 0 表示失败
+	Msg  string                         `json:"msg,omitempty"`  // 返回码的描述，"success" 表示成功，其他为错误提示信息
+	Data *CreateMeetingRoomBuildingResp `json:"data,omitempty"` // 返回业务信息
 }
 
-type CreateBuildingResp struct {
+type CreateMeetingRoomBuildingResp struct {
 	BuildingID string `json:"building_id,omitempty"` // 成功创建的建筑ID
 }

@@ -6,18 +6,18 @@ import (
 	"context"
 )
 
-// CreateCategory 该接口用于创建知识库分类。
+// CreateHelpdeskCategory 该接口用于创建知识库分类。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/category/create
-func (r *HelpdeskService) CreateCategory(ctx context.Context, request *CreateCategoryReq, options ...MethodOptionFunc) (*CreateCategoryResp, *Response, error) {
-	if r.cli.mock.mockHelpdeskCreateCategory != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Helpdesk#CreateCategory mock enable")
-		return r.cli.mock.mockHelpdeskCreateCategory(ctx, request, options...)
+func (r *HelpdeskService) CreateHelpdeskCategory(ctx context.Context, request *CreateHelpdeskCategoryReq, options ...MethodOptionFunc) (*CreateHelpdeskCategoryResp, *Response, error) {
+	if r.cli.mock.mockHelpdeskCreateHelpdeskCategory != nil {
+		r.cli.log(ctx, LogLevelDebug, "[lark] Helpdesk#CreateHelpdeskCategory mock enable")
+		return r.cli.mock.mockHelpdeskCreateHelpdeskCategory(ctx, request, options...)
 	}
 
 	req := &RawRequestReq{
 		Scope:               "Helpdesk",
-		API:                 "CreateCategory",
+		API:                 "CreateHelpdeskCategory",
 		Method:              "POST",
 		URL:                 "https://open.feishu.cn/open-apis/helpdesk/v1/categories",
 		Body:                request,
@@ -25,32 +25,32 @@ func (r *HelpdeskService) CreateCategory(ctx context.Context, request *CreateCat
 		NeedUserAccessToken: true,
 		NeedHelpdeskAuth:    true,
 	}
-	resp := new(createCategoryResp)
+	resp := new(createHelpdeskCategoryResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
 	return resp.Data, response, err
 }
 
-func (r *Mock) MockHelpdeskCreateCategory(f func(ctx context.Context, request *CreateCategoryReq, options ...MethodOptionFunc) (*CreateCategoryResp, *Response, error)) {
-	r.mockHelpdeskCreateCategory = f
+func (r *Mock) MockHelpdeskCreateHelpdeskCategory(f func(ctx context.Context, request *CreateHelpdeskCategoryReq, options ...MethodOptionFunc) (*CreateHelpdeskCategoryResp, *Response, error)) {
+	r.mockHelpdeskCreateHelpdeskCategory = f
 }
 
-func (r *Mock) UnMockHelpdeskCreateCategory() {
-	r.mockHelpdeskCreateCategory = nil
+func (r *Mock) UnMockHelpdeskCreateHelpdeskCategory() {
+	r.mockHelpdeskCreateHelpdeskCategory = nil
 }
 
-type CreateCategoryReq struct {
+type CreateHelpdeskCategoryReq struct {
 	Name     string  `json:"name,omitempty"`      // 名称, 示例值："创建团队和邀请成员"
 	ParentID string  `json:"parent_id,omitempty"` // 父知识库分类ID, 示例值："0"
 	Language *string `json:"language,omitempty"`  // 语言, 示例值："zh_cn"
 }
 
-type createCategoryResp struct {
-	Code int64               `json:"code,omitempty"` // 错误码，非 0 表示失败
-	Msg  string              `json:"msg,omitempty"`  // 错误描述
-	Data *CreateCategoryResp `json:"data,omitempty"` //
+type createHelpdeskCategoryResp struct {
+	Code int64                       `json:"code,omitempty"` // 错误码，非 0 表示失败
+	Msg  string                      `json:"msg,omitempty"`  // 错误描述
+	Data *CreateHelpdeskCategoryResp `json:"data,omitempty"` //
 }
 
-type CreateCategoryResp struct {
+type CreateHelpdeskCategoryResp struct {
 	Category *HelpdeskCategory `json:"category,omitempty"` // 知识库分类
 }

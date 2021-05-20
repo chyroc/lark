@@ -6,58 +6,58 @@ import (
 	"context"
 )
 
-// GetPeriodList 获取OKR周期列表
+// GetOKRPeriodList 获取OKR周期列表
 //
 // 使用<md-tag mode="inline" type="token-tenant">tenant_access_token</md-tag>需要额外申请权限以应用身份访问OKR信息
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/okr-v1/period/list
-func (r *OKRService) GetPeriodList(ctx context.Context, request *GetPeriodListReq, options ...MethodOptionFunc) (*GetPeriodListResp, *Response, error) {
-	if r.cli.mock.mockOKRGetPeriodList != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] OKR#GetPeriodList mock enable")
-		return r.cli.mock.mockOKRGetPeriodList(ctx, request, options...)
+func (r *OKRService) GetOKRPeriodList(ctx context.Context, request *GetOKRPeriodListReq, options ...MethodOptionFunc) (*GetOKRPeriodListResp, *Response, error) {
+	if r.cli.mock.mockOKRGetOKRPeriodList != nil {
+		r.cli.log(ctx, LogLevelDebug, "[lark] OKR#GetOKRPeriodList mock enable")
+		return r.cli.mock.mockOKRGetOKRPeriodList(ctx, request, options...)
 	}
 
 	req := &RawRequestReq{
 		Scope:                 "OKR",
-		API:                   "GetPeriodList",
+		API:                   "GetOKRPeriodList",
 		Method:                "GET",
 		URL:                   "https://open.feishu.cn/open-apis/okr/v1/periods",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
 	}
-	resp := new(getPeriodListResp)
+	resp := new(getOKRPeriodListResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
 	return resp.Data, response, err
 }
 
-func (r *Mock) MockOKRGetPeriodList(f func(ctx context.Context, request *GetPeriodListReq, options ...MethodOptionFunc) (*GetPeriodListResp, *Response, error)) {
-	r.mockOKRGetPeriodList = f
+func (r *Mock) MockOKRGetOKRPeriodList(f func(ctx context.Context, request *GetOKRPeriodListReq, options ...MethodOptionFunc) (*GetOKRPeriodListResp, *Response, error)) {
+	r.mockOKRGetOKRPeriodList = f
 }
 
-func (r *Mock) UnMockOKRGetPeriodList() {
-	r.mockOKRGetPeriodList = nil
+func (r *Mock) UnMockOKRGetOKRPeriodList() {
+	r.mockOKRGetOKRPeriodList = nil
 }
 
-type GetPeriodListReq struct {
+type GetOKRPeriodListReq struct {
 	PageToken *string `query:"page_token" json:"-"` // 分页标志page_token, 示例值："xaasdasdax"
 	PageSize  *int64  `query:"page_size" json:"-"`  // 分页大小，默认10, 示例值：10, 默认值: `10`
 }
 
-type getPeriodListResp struct {
-	Code int64              `json:"code,omitempty"` // 错误码，非 0 表示失败
-	Msg  string             `json:"msg,omitempty"`  // 错误描述
-	Data *GetPeriodListResp `json:"data,omitempty"` //
+type getOKRPeriodListResp struct {
+	Code int64                 `json:"code,omitempty"` // 错误码，非 0 表示失败
+	Msg  string                `json:"msg,omitempty"`  // 错误描述
+	Data *GetOKRPeriodListResp `json:"data,omitempty"` //
 }
 
-type GetPeriodListResp struct {
-	PageToken string                   `json:"page_token,omitempty"` // 分页标志
-	HasMore   bool                     `json:"has_more,omitempty"`   // 是否有更多
-	Items     []*GetPeriodListRespItem `json:"items,omitempty"`      // 数据项
+type GetOKRPeriodListResp struct {
+	PageToken string                      `json:"page_token,omitempty"` // 分页标志
+	HasMore   bool                        `json:"has_more,omitempty"`   // 是否有更多
+	Items     []*GetOKRPeriodListRespItem `json:"items,omitempty"`      // 数据项
 }
 
-type GetPeriodListRespItem struct {
+type GetOKRPeriodListRespItem struct {
 	ID     string `json:"id,omitempty"`      // id
 	ZhName string `json:"zh_name,omitempty"` // 中文名称
 	EnName string `json:"en_name,omitempty"` // 英文名称

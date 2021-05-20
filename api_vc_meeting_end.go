@@ -6,48 +6,48 @@ import (
 	"context"
 )
 
-// EndMeeting 结束一个进行中的会议
+// EndVCMeeting 结束一个进行中的会议
 //
 // 会议正在进行中，且操作者须具有相应的权限（如果操作者为用户，必须是会中当前主持人）
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/vc-v1/meeting/end
-func (r *VCService) EndMeeting(ctx context.Context, request *EndMeetingReq, options ...MethodOptionFunc) (*EndMeetingResp, *Response, error) {
-	if r.cli.mock.mockVCEndMeeting != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] VC#EndMeeting mock enable")
-		return r.cli.mock.mockVCEndMeeting(ctx, request, options...)
+func (r *VCService) EndVCMeeting(ctx context.Context, request *EndVCMeetingReq, options ...MethodOptionFunc) (*EndVCMeetingResp, *Response, error) {
+	if r.cli.mock.mockVCEndVCMeeting != nil {
+		r.cli.log(ctx, LogLevelDebug, "[lark] VC#EndVCMeeting mock enable")
+		return r.cli.mock.mockVCEndVCMeeting(ctx, request, options...)
 	}
 
 	req := &RawRequestReq{
 		Scope:               "VC",
-		API:                 "EndMeeting",
+		API:                 "EndVCMeeting",
 		Method:              "PATCH",
 		URL:                 "https://open.feishu.cn/open-apis/vc/v1/meetings/:meeting_id/end",
 		Body:                request,
 		MethodOption:        newMethodOption(options),
 		NeedUserAccessToken: true,
 	}
-	resp := new(endMeetingResp)
+	resp := new(endVCMeetingResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
 	return resp.Data, response, err
 }
 
-func (r *Mock) MockVCEndMeeting(f func(ctx context.Context, request *EndMeetingReq, options ...MethodOptionFunc) (*EndMeetingResp, *Response, error)) {
-	r.mockVCEndMeeting = f
+func (r *Mock) MockVCEndVCMeeting(f func(ctx context.Context, request *EndVCMeetingReq, options ...MethodOptionFunc) (*EndVCMeetingResp, *Response, error)) {
+	r.mockVCEndVCMeeting = f
 }
 
-func (r *Mock) UnMockVCEndMeeting() {
-	r.mockVCEndMeeting = nil
+func (r *Mock) UnMockVCEndVCMeeting() {
+	r.mockVCEndVCMeeting = nil
 }
 
-type EndMeetingReq struct {
+type EndVCMeetingReq struct {
 	MeetingID string `path:"meeting_id" json:"-"` // 会议ID, 示例值："6911188411932033028"
 }
 
-type endMeetingResp struct {
-	Code int64           `json:"code,omitempty"` // 错误码，非 0 表示失败
-	Msg  string          `json:"msg,omitempty"`  // 错误描述
-	Data *EndMeetingResp `json:"data,omitempty"`
+type endVCMeetingResp struct {
+	Code int64             `json:"code,omitempty"` // 错误码，非 0 表示失败
+	Msg  string            `json:"msg,omitempty"`  // 错误描述
+	Data *EndVCMeetingResp `json:"data,omitempty"`
 }
 
-type EndMeetingResp struct{}
+type EndVCMeetingResp struct{}

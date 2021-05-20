@@ -22,7 +22,7 @@ func Test_Attendance_Sample_Failed(t *testing.T) {
 		moduleCli := cli.Attendance
 
 		t.Run("", func(t *testing.T) {
-			_, _, err := moduleCli.UpdateUserSettings(ctx, &lark.UpdateUserSettingsReq{})
+			_, _, err := moduleCli.UpdateAttendanceUserSettings(ctx, &lark.UpdateAttendanceUserSettingsReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "failed")
 		})
@@ -34,121 +34,121 @@ func Test_Attendance_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-			_, _, err := moduleCli.CreateUpdateGroup(ctx, &lark.CreateUpdateGroupReq{})
+			_, _, err := moduleCli.CreateUpdateAttendanceGroup(ctx, &lark.CreateUpdateAttendanceGroupReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "failed")
 		})
 
 		t.Run("", func(t *testing.T) {
-			_, _, err := moduleCli.DeleteGroup(ctx, &lark.DeleteGroupReq{})
+			_, _, err := moduleCli.DeleteAttendanceGroup(ctx, &lark.DeleteAttendanceGroupReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "failed")
 		})
 
 		t.Run("", func(t *testing.T) {
-			_, _, err := moduleCli.GetGroup(ctx, &lark.GetGroupReq{})
+			_, _, err := moduleCli.GetAttendanceGroup(ctx, &lark.GetAttendanceGroupReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "failed")
 		})
 
 		t.Run("", func(t *testing.T) {
-			_, _, err := moduleCli.CreateShift(ctx, &lark.CreateShiftReq{})
+			_, _, err := moduleCli.CreateAttendanceShift(ctx, &lark.CreateAttendanceShiftReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "failed")
 		})
 
 		t.Run("", func(t *testing.T) {
-			_, _, err := moduleCli.DeleteShift(ctx, &lark.DeleteShiftReq{})
+			_, _, err := moduleCli.DeleteAttendanceShift(ctx, &lark.DeleteAttendanceShiftReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "failed")
 		})
 
 		t.Run("", func(t *testing.T) {
-			_, _, err := moduleCli.GetShiftByID(ctx, &lark.GetShiftByIDReq{})
+			_, _, err := moduleCli.GetAttendanceShiftByID(ctx, &lark.GetAttendanceShiftByIDReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "failed")
 		})
 
 		t.Run("", func(t *testing.T) {
-			_, _, err := moduleCli.GetShiftByName(ctx, &lark.GetShiftByNameReq{})
+			_, _, err := moduleCli.GetAttendanceShiftByName(ctx, &lark.GetAttendanceShiftByNameReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "failed")
 		})
 
 		t.Run("", func(t *testing.T) {
-			_, _, err := moduleCli.GetStatisticsData(ctx, &lark.GetStatisticsDataReq{})
+			_, _, err := moduleCli.GetAttendanceStatisticsData(ctx, &lark.GetAttendanceStatisticsDataReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "failed")
 		})
 
 		t.Run("", func(t *testing.T) {
-			_, _, err := moduleCli.GetStatisticsHeader(ctx, &lark.GetStatisticsHeaderReq{})
+			_, _, err := moduleCli.GetAttendanceStatisticsHeader(ctx, &lark.GetAttendanceStatisticsHeaderReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "failed")
 		})
 
 		t.Run("", func(t *testing.T) {
-			_, _, err := moduleCli.UpdateUserStatisticsSettings(ctx, &lark.UpdateUserStatisticsSettingsReq{})
+			_, _, err := moduleCli.UpdateAttendanceUserStatisticsSettings(ctx, &lark.UpdateAttendanceUserStatisticsSettingsReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "failed")
 		})
 
 		t.Run("", func(t *testing.T) {
-			_, _, err := moduleCli.GetUserStatisticsSettings(ctx, &lark.GetUserStatisticsSettingsReq{})
+			_, _, err := moduleCli.GetAttendanceUserStatisticsSettings(ctx, &lark.GetAttendanceUserStatisticsSettingsReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "failed")
 		})
 
 		t.Run("", func(t *testing.T) {
-			_, _, err := moduleCli.GetUserDailyShift(ctx, &lark.GetUserDailyShiftReq{})
+			_, _, err := moduleCli.GetAttendanceUserDailyShift(ctx, &lark.GetAttendanceUserDailyShiftReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "failed")
 		})
 
 		t.Run("", func(t *testing.T) {
-			_, _, err := moduleCli.GetUserTask(ctx, &lark.GetUserTaskReq{})
+			_, _, err := moduleCli.GetAttendanceUserTask(ctx, &lark.GetAttendanceUserTaskReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "failed")
 		})
 
 		t.Run("", func(t *testing.T) {
-			_, _, err := moduleCli.GetUserFlow(ctx, &lark.GetUserFlowReq{})
+			_, _, err := moduleCli.GetAttendanceUserFlow(ctx, &lark.GetAttendanceUserFlowReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "failed")
 		})
 
 		t.Run("", func(t *testing.T) {
-			_, _, err := moduleCli.BatchGetUserFlow(ctx, &lark.BatchGetUserFlowReq{})
+			_, _, err := moduleCli.BatchGetAttendanceUserFlow(ctx, &lark.BatchGetAttendanceUserFlowReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "failed")
 		})
 
 		t.Run("", func(t *testing.T) {
-			_, _, err := moduleCli.BatchCreateUserFlow(ctx, &lark.BatchCreateUserFlowReq{})
+			_, _, err := moduleCli.BatchCreateAttendanceUserFlow(ctx, &lark.BatchCreateAttendanceUserFlowReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "failed")
 		})
 
 		t.Run("", func(t *testing.T) {
-			_, _, err := moduleCli.GetUserTaskRemedy(ctx, &lark.GetUserTaskRemedyReq{})
+			_, _, err := moduleCli.GetAttendanceUserTaskRemedy(ctx, &lark.GetAttendanceUserTaskRemedyReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "failed")
 		})
 
 		t.Run("", func(t *testing.T) {
-			_, _, err := moduleCli.CreateUpdateUserDailyShift(ctx, &lark.CreateUpdateUserDailyShiftReq{})
+			_, _, err := moduleCli.CreateUpdateAttendanceUserDailyShift(ctx, &lark.CreateUpdateAttendanceUserDailyShiftReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "failed")
 		})
 
 		t.Run("", func(t *testing.T) {
-			_, _, err := moduleCli.GetUserApproval(ctx, &lark.GetUserApprovalReq{})
+			_, _, err := moduleCli.GetAttendanceUserApproval(ctx, &lark.GetAttendanceUserApprovalReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "failed")
 		})
 
 		t.Run("", func(t *testing.T) {
-			_, _, err := moduleCli.CreateUserApproval(ctx, &lark.CreateUserApprovalReq{})
+			_, _, err := moduleCli.CreateAttendanceUserApproval(ctx, &lark.CreateAttendanceUserApprovalReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "failed")
 		})
@@ -159,12 +159,12 @@ func Test_Attendance_Sample_Failed(t *testing.T) {
 		moduleCli := cli.Attendance
 
 		t.Run("", func(t *testing.T) {
-			cli.Mock().MockAttendanceUpdateUserSettings(func(ctx context.Context, request *lark.UpdateUserSettingsReq, options ...lark.MethodOptionFunc) (*lark.UpdateUserSettingsResp, *lark.Response, error) {
+			cli.Mock().MockAttendanceUpdateAttendanceUserSettings(func(ctx context.Context, request *lark.UpdateAttendanceUserSettingsReq, options ...lark.MethodOptionFunc) (*lark.UpdateAttendanceUserSettingsResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
-			defer cli.Mock().UnMockAttendanceUpdateUserSettings()
+			defer cli.Mock().UnMockAttendanceUpdateAttendanceUserSettings()
 
-			_, _, err := moduleCli.UpdateUserSettings(ctx, &lark.UpdateUserSettingsReq{})
+			_, _, err := moduleCli.UpdateAttendanceUserSettings(ctx, &lark.UpdateAttendanceUserSettingsReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "mock-failed")
 		})
@@ -181,221 +181,221 @@ func Test_Attendance_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-			cli.Mock().MockAttendanceCreateUpdateGroup(func(ctx context.Context, request *lark.CreateUpdateGroupReq, options ...lark.MethodOptionFunc) (*lark.CreateUpdateGroupResp, *lark.Response, error) {
+			cli.Mock().MockAttendanceCreateUpdateAttendanceGroup(func(ctx context.Context, request *lark.CreateUpdateAttendanceGroupReq, options ...lark.MethodOptionFunc) (*lark.CreateUpdateAttendanceGroupResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
-			defer cli.Mock().UnMockAttendanceCreateUpdateGroup()
+			defer cli.Mock().UnMockAttendanceCreateUpdateAttendanceGroup()
 
-			_, _, err := moduleCli.CreateUpdateGroup(ctx, &lark.CreateUpdateGroupReq{})
+			_, _, err := moduleCli.CreateUpdateAttendanceGroup(ctx, &lark.CreateUpdateAttendanceGroupReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "mock-failed")
 		})
 
 		t.Run("", func(t *testing.T) {
-			cli.Mock().MockAttendanceDeleteGroup(func(ctx context.Context, request *lark.DeleteGroupReq, options ...lark.MethodOptionFunc) (*lark.DeleteGroupResp, *lark.Response, error) {
+			cli.Mock().MockAttendanceDeleteAttendanceGroup(func(ctx context.Context, request *lark.DeleteAttendanceGroupReq, options ...lark.MethodOptionFunc) (*lark.DeleteAttendanceGroupResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
-			defer cli.Mock().UnMockAttendanceDeleteGroup()
+			defer cli.Mock().UnMockAttendanceDeleteAttendanceGroup()
 
-			_, _, err := moduleCli.DeleteGroup(ctx, &lark.DeleteGroupReq{})
+			_, _, err := moduleCli.DeleteAttendanceGroup(ctx, &lark.DeleteAttendanceGroupReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "mock-failed")
 		})
 
 		t.Run("", func(t *testing.T) {
-			cli.Mock().MockAttendanceGetGroup(func(ctx context.Context, request *lark.GetGroupReq, options ...lark.MethodOptionFunc) (*lark.GetGroupResp, *lark.Response, error) {
+			cli.Mock().MockAttendanceGetAttendanceGroup(func(ctx context.Context, request *lark.GetAttendanceGroupReq, options ...lark.MethodOptionFunc) (*lark.GetAttendanceGroupResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
-			defer cli.Mock().UnMockAttendanceGetGroup()
+			defer cli.Mock().UnMockAttendanceGetAttendanceGroup()
 
-			_, _, err := moduleCli.GetGroup(ctx, &lark.GetGroupReq{})
+			_, _, err := moduleCli.GetAttendanceGroup(ctx, &lark.GetAttendanceGroupReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "mock-failed")
 		})
 
 		t.Run("", func(t *testing.T) {
-			cli.Mock().MockAttendanceCreateShift(func(ctx context.Context, request *lark.CreateShiftReq, options ...lark.MethodOptionFunc) (*lark.CreateShiftResp, *lark.Response, error) {
+			cli.Mock().MockAttendanceCreateAttendanceShift(func(ctx context.Context, request *lark.CreateAttendanceShiftReq, options ...lark.MethodOptionFunc) (*lark.CreateAttendanceShiftResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
-			defer cli.Mock().UnMockAttendanceCreateShift()
+			defer cli.Mock().UnMockAttendanceCreateAttendanceShift()
 
-			_, _, err := moduleCli.CreateShift(ctx, &lark.CreateShiftReq{})
+			_, _, err := moduleCli.CreateAttendanceShift(ctx, &lark.CreateAttendanceShiftReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "mock-failed")
 		})
 
 		t.Run("", func(t *testing.T) {
-			cli.Mock().MockAttendanceDeleteShift(func(ctx context.Context, request *lark.DeleteShiftReq, options ...lark.MethodOptionFunc) (*lark.DeleteShiftResp, *lark.Response, error) {
+			cli.Mock().MockAttendanceDeleteAttendanceShift(func(ctx context.Context, request *lark.DeleteAttendanceShiftReq, options ...lark.MethodOptionFunc) (*lark.DeleteAttendanceShiftResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
-			defer cli.Mock().UnMockAttendanceDeleteShift()
+			defer cli.Mock().UnMockAttendanceDeleteAttendanceShift()
 
-			_, _, err := moduleCli.DeleteShift(ctx, &lark.DeleteShiftReq{})
+			_, _, err := moduleCli.DeleteAttendanceShift(ctx, &lark.DeleteAttendanceShiftReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "mock-failed")
 		})
 
 		t.Run("", func(t *testing.T) {
-			cli.Mock().MockAttendanceGetShiftByID(func(ctx context.Context, request *lark.GetShiftByIDReq, options ...lark.MethodOptionFunc) (*lark.GetShiftByIDResp, *lark.Response, error) {
+			cli.Mock().MockAttendanceGetAttendanceShiftByID(func(ctx context.Context, request *lark.GetAttendanceShiftByIDReq, options ...lark.MethodOptionFunc) (*lark.GetAttendanceShiftByIDResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
-			defer cli.Mock().UnMockAttendanceGetShiftByID()
+			defer cli.Mock().UnMockAttendanceGetAttendanceShiftByID()
 
-			_, _, err := moduleCli.GetShiftByID(ctx, &lark.GetShiftByIDReq{})
+			_, _, err := moduleCli.GetAttendanceShiftByID(ctx, &lark.GetAttendanceShiftByIDReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "mock-failed")
 		})
 
 		t.Run("", func(t *testing.T) {
-			cli.Mock().MockAttendanceGetShiftByName(func(ctx context.Context, request *lark.GetShiftByNameReq, options ...lark.MethodOptionFunc) (*lark.GetShiftByNameResp, *lark.Response, error) {
+			cli.Mock().MockAttendanceGetAttendanceShiftByName(func(ctx context.Context, request *lark.GetAttendanceShiftByNameReq, options ...lark.MethodOptionFunc) (*lark.GetAttendanceShiftByNameResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
-			defer cli.Mock().UnMockAttendanceGetShiftByName()
+			defer cli.Mock().UnMockAttendanceGetAttendanceShiftByName()
 
-			_, _, err := moduleCli.GetShiftByName(ctx, &lark.GetShiftByNameReq{})
+			_, _, err := moduleCli.GetAttendanceShiftByName(ctx, &lark.GetAttendanceShiftByNameReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "mock-failed")
 		})
 
 		t.Run("", func(t *testing.T) {
-			cli.Mock().MockAttendanceGetStatisticsData(func(ctx context.Context, request *lark.GetStatisticsDataReq, options ...lark.MethodOptionFunc) (*lark.GetStatisticsDataResp, *lark.Response, error) {
+			cli.Mock().MockAttendanceGetAttendanceStatisticsData(func(ctx context.Context, request *lark.GetAttendanceStatisticsDataReq, options ...lark.MethodOptionFunc) (*lark.GetAttendanceStatisticsDataResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
-			defer cli.Mock().UnMockAttendanceGetStatisticsData()
+			defer cli.Mock().UnMockAttendanceGetAttendanceStatisticsData()
 
-			_, _, err := moduleCli.GetStatisticsData(ctx, &lark.GetStatisticsDataReq{})
+			_, _, err := moduleCli.GetAttendanceStatisticsData(ctx, &lark.GetAttendanceStatisticsDataReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "mock-failed")
 		})
 
 		t.Run("", func(t *testing.T) {
-			cli.Mock().MockAttendanceGetStatisticsHeader(func(ctx context.Context, request *lark.GetStatisticsHeaderReq, options ...lark.MethodOptionFunc) (*lark.GetStatisticsHeaderResp, *lark.Response, error) {
+			cli.Mock().MockAttendanceGetAttendanceStatisticsHeader(func(ctx context.Context, request *lark.GetAttendanceStatisticsHeaderReq, options ...lark.MethodOptionFunc) (*lark.GetAttendanceStatisticsHeaderResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
-			defer cli.Mock().UnMockAttendanceGetStatisticsHeader()
+			defer cli.Mock().UnMockAttendanceGetAttendanceStatisticsHeader()
 
-			_, _, err := moduleCli.GetStatisticsHeader(ctx, &lark.GetStatisticsHeaderReq{})
+			_, _, err := moduleCli.GetAttendanceStatisticsHeader(ctx, &lark.GetAttendanceStatisticsHeaderReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "mock-failed")
 		})
 
 		t.Run("", func(t *testing.T) {
-			cli.Mock().MockAttendanceUpdateUserStatisticsSettings(func(ctx context.Context, request *lark.UpdateUserStatisticsSettingsReq, options ...lark.MethodOptionFunc) (*lark.UpdateUserStatisticsSettingsResp, *lark.Response, error) {
+			cli.Mock().MockAttendanceUpdateAttendanceUserStatisticsSettings(func(ctx context.Context, request *lark.UpdateAttendanceUserStatisticsSettingsReq, options ...lark.MethodOptionFunc) (*lark.UpdateAttendanceUserStatisticsSettingsResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
-			defer cli.Mock().UnMockAttendanceUpdateUserStatisticsSettings()
+			defer cli.Mock().UnMockAttendanceUpdateAttendanceUserStatisticsSettings()
 
-			_, _, err := moduleCli.UpdateUserStatisticsSettings(ctx, &lark.UpdateUserStatisticsSettingsReq{})
+			_, _, err := moduleCli.UpdateAttendanceUserStatisticsSettings(ctx, &lark.UpdateAttendanceUserStatisticsSettingsReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "mock-failed")
 		})
 
 		t.Run("", func(t *testing.T) {
-			cli.Mock().MockAttendanceGetUserStatisticsSettings(func(ctx context.Context, request *lark.GetUserStatisticsSettingsReq, options ...lark.MethodOptionFunc) (*lark.GetUserStatisticsSettingsResp, *lark.Response, error) {
+			cli.Mock().MockAttendanceGetAttendanceUserStatisticsSettings(func(ctx context.Context, request *lark.GetAttendanceUserStatisticsSettingsReq, options ...lark.MethodOptionFunc) (*lark.GetAttendanceUserStatisticsSettingsResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
-			defer cli.Mock().UnMockAttendanceGetUserStatisticsSettings()
+			defer cli.Mock().UnMockAttendanceGetAttendanceUserStatisticsSettings()
 
-			_, _, err := moduleCli.GetUserStatisticsSettings(ctx, &lark.GetUserStatisticsSettingsReq{})
+			_, _, err := moduleCli.GetAttendanceUserStatisticsSettings(ctx, &lark.GetAttendanceUserStatisticsSettingsReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "mock-failed")
 		})
 
 		t.Run("", func(t *testing.T) {
-			cli.Mock().MockAttendanceGetUserDailyShift(func(ctx context.Context, request *lark.GetUserDailyShiftReq, options ...lark.MethodOptionFunc) (*lark.GetUserDailyShiftResp, *lark.Response, error) {
+			cli.Mock().MockAttendanceGetAttendanceUserDailyShift(func(ctx context.Context, request *lark.GetAttendanceUserDailyShiftReq, options ...lark.MethodOptionFunc) (*lark.GetAttendanceUserDailyShiftResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
-			defer cli.Mock().UnMockAttendanceGetUserDailyShift()
+			defer cli.Mock().UnMockAttendanceGetAttendanceUserDailyShift()
 
-			_, _, err := moduleCli.GetUserDailyShift(ctx, &lark.GetUserDailyShiftReq{})
+			_, _, err := moduleCli.GetAttendanceUserDailyShift(ctx, &lark.GetAttendanceUserDailyShiftReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "mock-failed")
 		})
 
 		t.Run("", func(t *testing.T) {
-			cli.Mock().MockAttendanceGetUserTask(func(ctx context.Context, request *lark.GetUserTaskReq, options ...lark.MethodOptionFunc) (*lark.GetUserTaskResp, *lark.Response, error) {
+			cli.Mock().MockAttendanceGetAttendanceUserTask(func(ctx context.Context, request *lark.GetAttendanceUserTaskReq, options ...lark.MethodOptionFunc) (*lark.GetAttendanceUserTaskResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
-			defer cli.Mock().UnMockAttendanceGetUserTask()
+			defer cli.Mock().UnMockAttendanceGetAttendanceUserTask()
 
-			_, _, err := moduleCli.GetUserTask(ctx, &lark.GetUserTaskReq{})
+			_, _, err := moduleCli.GetAttendanceUserTask(ctx, &lark.GetAttendanceUserTaskReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "mock-failed")
 		})
 
 		t.Run("", func(t *testing.T) {
-			cli.Mock().MockAttendanceGetUserFlow(func(ctx context.Context, request *lark.GetUserFlowReq, options ...lark.MethodOptionFunc) (*lark.GetUserFlowResp, *lark.Response, error) {
+			cli.Mock().MockAttendanceGetAttendanceUserFlow(func(ctx context.Context, request *lark.GetAttendanceUserFlowReq, options ...lark.MethodOptionFunc) (*lark.GetAttendanceUserFlowResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
-			defer cli.Mock().UnMockAttendanceGetUserFlow()
+			defer cli.Mock().UnMockAttendanceGetAttendanceUserFlow()
 
-			_, _, err := moduleCli.GetUserFlow(ctx, &lark.GetUserFlowReq{})
+			_, _, err := moduleCli.GetAttendanceUserFlow(ctx, &lark.GetAttendanceUserFlowReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "mock-failed")
 		})
 
 		t.Run("", func(t *testing.T) {
-			cli.Mock().MockAttendanceBatchGetUserFlow(func(ctx context.Context, request *lark.BatchGetUserFlowReq, options ...lark.MethodOptionFunc) (*lark.BatchGetUserFlowResp, *lark.Response, error) {
+			cli.Mock().MockAttendanceBatchGetAttendanceUserFlow(func(ctx context.Context, request *lark.BatchGetAttendanceUserFlowReq, options ...lark.MethodOptionFunc) (*lark.BatchGetAttendanceUserFlowResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
-			defer cli.Mock().UnMockAttendanceBatchGetUserFlow()
+			defer cli.Mock().UnMockAttendanceBatchGetAttendanceUserFlow()
 
-			_, _, err := moduleCli.BatchGetUserFlow(ctx, &lark.BatchGetUserFlowReq{})
+			_, _, err := moduleCli.BatchGetAttendanceUserFlow(ctx, &lark.BatchGetAttendanceUserFlowReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "mock-failed")
 		})
 
 		t.Run("", func(t *testing.T) {
-			cli.Mock().MockAttendanceBatchCreateUserFlow(func(ctx context.Context, request *lark.BatchCreateUserFlowReq, options ...lark.MethodOptionFunc) (*lark.BatchCreateUserFlowResp, *lark.Response, error) {
+			cli.Mock().MockAttendanceBatchCreateAttendanceUserFlow(func(ctx context.Context, request *lark.BatchCreateAttendanceUserFlowReq, options ...lark.MethodOptionFunc) (*lark.BatchCreateAttendanceUserFlowResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
-			defer cli.Mock().UnMockAttendanceBatchCreateUserFlow()
+			defer cli.Mock().UnMockAttendanceBatchCreateAttendanceUserFlow()
 
-			_, _, err := moduleCli.BatchCreateUserFlow(ctx, &lark.BatchCreateUserFlowReq{})
+			_, _, err := moduleCli.BatchCreateAttendanceUserFlow(ctx, &lark.BatchCreateAttendanceUserFlowReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "mock-failed")
 		})
 
 		t.Run("", func(t *testing.T) {
-			cli.Mock().MockAttendanceGetUserTaskRemedy(func(ctx context.Context, request *lark.GetUserTaskRemedyReq, options ...lark.MethodOptionFunc) (*lark.GetUserTaskRemedyResp, *lark.Response, error) {
+			cli.Mock().MockAttendanceGetAttendanceUserTaskRemedy(func(ctx context.Context, request *lark.GetAttendanceUserTaskRemedyReq, options ...lark.MethodOptionFunc) (*lark.GetAttendanceUserTaskRemedyResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
-			defer cli.Mock().UnMockAttendanceGetUserTaskRemedy()
+			defer cli.Mock().UnMockAttendanceGetAttendanceUserTaskRemedy()
 
-			_, _, err := moduleCli.GetUserTaskRemedy(ctx, &lark.GetUserTaskRemedyReq{})
+			_, _, err := moduleCli.GetAttendanceUserTaskRemedy(ctx, &lark.GetAttendanceUserTaskRemedyReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "mock-failed")
 		})
 
 		t.Run("", func(t *testing.T) {
-			cli.Mock().MockAttendanceCreateUpdateUserDailyShift(func(ctx context.Context, request *lark.CreateUpdateUserDailyShiftReq, options ...lark.MethodOptionFunc) (*lark.CreateUpdateUserDailyShiftResp, *lark.Response, error) {
+			cli.Mock().MockAttendanceCreateUpdateAttendanceUserDailyShift(func(ctx context.Context, request *lark.CreateUpdateAttendanceUserDailyShiftReq, options ...lark.MethodOptionFunc) (*lark.CreateUpdateAttendanceUserDailyShiftResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
-			defer cli.Mock().UnMockAttendanceCreateUpdateUserDailyShift()
+			defer cli.Mock().UnMockAttendanceCreateUpdateAttendanceUserDailyShift()
 
-			_, _, err := moduleCli.CreateUpdateUserDailyShift(ctx, &lark.CreateUpdateUserDailyShiftReq{})
+			_, _, err := moduleCli.CreateUpdateAttendanceUserDailyShift(ctx, &lark.CreateUpdateAttendanceUserDailyShiftReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "mock-failed")
 		})
 
 		t.Run("", func(t *testing.T) {
-			cli.Mock().MockAttendanceGetUserApproval(func(ctx context.Context, request *lark.GetUserApprovalReq, options ...lark.MethodOptionFunc) (*lark.GetUserApprovalResp, *lark.Response, error) {
+			cli.Mock().MockAttendanceGetAttendanceUserApproval(func(ctx context.Context, request *lark.GetAttendanceUserApprovalReq, options ...lark.MethodOptionFunc) (*lark.GetAttendanceUserApprovalResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
-			defer cli.Mock().UnMockAttendanceGetUserApproval()
+			defer cli.Mock().UnMockAttendanceGetAttendanceUserApproval()
 
-			_, _, err := moduleCli.GetUserApproval(ctx, &lark.GetUserApprovalReq{})
+			_, _, err := moduleCli.GetAttendanceUserApproval(ctx, &lark.GetAttendanceUserApprovalReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "mock-failed")
 		})
 
 		t.Run("", func(t *testing.T) {
-			cli.Mock().MockAttendanceCreateUserApproval(func(ctx context.Context, request *lark.CreateUserApprovalReq, options ...lark.MethodOptionFunc) (*lark.CreateUserApprovalResp, *lark.Response, error) {
+			cli.Mock().MockAttendanceCreateAttendanceUserApproval(func(ctx context.Context, request *lark.CreateAttendanceUserApprovalReq, options ...lark.MethodOptionFunc) (*lark.CreateAttendanceUserApprovalResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
-			defer cli.Mock().UnMockAttendanceCreateUserApproval()
+			defer cli.Mock().UnMockAttendanceCreateAttendanceUserApproval()
 
-			_, _, err := moduleCli.CreateUserApproval(ctx, &lark.CreateUserApprovalReq{})
+			_, _, err := moduleCli.CreateAttendanceUserApproval(ctx, &lark.CreateAttendanceUserApprovalReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "mock-failed")
 		})
@@ -406,7 +406,7 @@ func Test_Attendance_Sample_Failed(t *testing.T) {
 		moduleCli := cli.Attendance
 
 		t.Run("", func(t *testing.T) {
-			_, _, err := moduleCli.UpdateUserSettings(ctx, &lark.UpdateUserSettingsReq{})
+			_, _, err := moduleCli.UpdateAttendanceUserSettings(ctx, &lark.UpdateAttendanceUserSettingsReq{})
 			as.NotNil(err)
 			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
 		})
@@ -418,13 +418,13 @@ func Test_Attendance_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-			_, _, err := moduleCli.CreateUpdateGroup(ctx, &lark.CreateUpdateGroupReq{})
+			_, _, err := moduleCli.CreateUpdateAttendanceGroup(ctx, &lark.CreateUpdateAttendanceGroupReq{})
 			as.NotNil(err)
 			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
 		})
 
 		t.Run("", func(t *testing.T) {
-			_, _, err := moduleCli.DeleteGroup(ctx, &lark.DeleteGroupReq{
+			_, _, err := moduleCli.DeleteAttendanceGroup(ctx, &lark.DeleteAttendanceGroupReq{
 				GroupID: "x",
 			})
 			as.NotNil(err)
@@ -432,7 +432,7 @@ func Test_Attendance_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-			_, _, err := moduleCli.GetGroup(ctx, &lark.GetGroupReq{
+			_, _, err := moduleCli.GetAttendanceGroup(ctx, &lark.GetAttendanceGroupReq{
 				GroupID: "x",
 			})
 			as.NotNil(err)
@@ -440,13 +440,13 @@ func Test_Attendance_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-			_, _, err := moduleCli.CreateShift(ctx, &lark.CreateShiftReq{})
+			_, _, err := moduleCli.CreateAttendanceShift(ctx, &lark.CreateAttendanceShiftReq{})
 			as.NotNil(err)
 			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
 		})
 
 		t.Run("", func(t *testing.T) {
-			_, _, err := moduleCli.DeleteShift(ctx, &lark.DeleteShiftReq{
+			_, _, err := moduleCli.DeleteAttendanceShift(ctx, &lark.DeleteAttendanceShiftReq{
 				ShiftID: "x",
 			})
 			as.NotNil(err)
@@ -454,7 +454,7 @@ func Test_Attendance_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-			_, _, err := moduleCli.GetShiftByID(ctx, &lark.GetShiftByIDReq{
+			_, _, err := moduleCli.GetAttendanceShiftByID(ctx, &lark.GetAttendanceShiftByIDReq{
 				ShiftID: "x",
 			})
 			as.NotNil(err)
@@ -462,25 +462,25 @@ func Test_Attendance_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-			_, _, err := moduleCli.GetShiftByName(ctx, &lark.GetShiftByNameReq{})
+			_, _, err := moduleCli.GetAttendanceShiftByName(ctx, &lark.GetAttendanceShiftByNameReq{})
 			as.NotNil(err)
 			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
 		})
 
 		t.Run("", func(t *testing.T) {
-			_, _, err := moduleCli.GetStatisticsData(ctx, &lark.GetStatisticsDataReq{})
+			_, _, err := moduleCli.GetAttendanceStatisticsData(ctx, &lark.GetAttendanceStatisticsDataReq{})
 			as.NotNil(err)
 			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
 		})
 
 		t.Run("", func(t *testing.T) {
-			_, _, err := moduleCli.GetStatisticsHeader(ctx, &lark.GetStatisticsHeaderReq{})
+			_, _, err := moduleCli.GetAttendanceStatisticsHeader(ctx, &lark.GetAttendanceStatisticsHeaderReq{})
 			as.NotNil(err)
 			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
 		})
 
 		t.Run("", func(t *testing.T) {
-			_, _, err := moduleCli.UpdateUserStatisticsSettings(ctx, &lark.UpdateUserStatisticsSettingsReq{
+			_, _, err := moduleCli.UpdateAttendanceUserStatisticsSettings(ctx, &lark.UpdateAttendanceUserStatisticsSettingsReq{
 				UserStatsViewID: "x",
 			})
 			as.NotNil(err)
@@ -488,25 +488,25 @@ func Test_Attendance_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-			_, _, err := moduleCli.GetUserStatisticsSettings(ctx, &lark.GetUserStatisticsSettingsReq{})
+			_, _, err := moduleCli.GetAttendanceUserStatisticsSettings(ctx, &lark.GetAttendanceUserStatisticsSettingsReq{})
 			as.NotNil(err)
 			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
 		})
 
 		t.Run("", func(t *testing.T) {
-			_, _, err := moduleCli.GetUserDailyShift(ctx, &lark.GetUserDailyShiftReq{})
+			_, _, err := moduleCli.GetAttendanceUserDailyShift(ctx, &lark.GetAttendanceUserDailyShiftReq{})
 			as.NotNil(err)
 			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
 		})
 
 		t.Run("", func(t *testing.T) {
-			_, _, err := moduleCli.GetUserTask(ctx, &lark.GetUserTaskReq{})
+			_, _, err := moduleCli.GetAttendanceUserTask(ctx, &lark.GetAttendanceUserTaskReq{})
 			as.NotNil(err)
 			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
 		})
 
 		t.Run("", func(t *testing.T) {
-			_, _, err := moduleCli.GetUserFlow(ctx, &lark.GetUserFlowReq{
+			_, _, err := moduleCli.GetAttendanceUserFlow(ctx, &lark.GetAttendanceUserFlowReq{
 				UserFlowID: "x",
 			})
 			as.NotNil(err)
@@ -514,37 +514,37 @@ func Test_Attendance_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-			_, _, err := moduleCli.BatchGetUserFlow(ctx, &lark.BatchGetUserFlowReq{})
+			_, _, err := moduleCli.BatchGetAttendanceUserFlow(ctx, &lark.BatchGetAttendanceUserFlowReq{})
 			as.NotNil(err)
 			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
 		})
 
 		t.Run("", func(t *testing.T) {
-			_, _, err := moduleCli.BatchCreateUserFlow(ctx, &lark.BatchCreateUserFlowReq{})
+			_, _, err := moduleCli.BatchCreateAttendanceUserFlow(ctx, &lark.BatchCreateAttendanceUserFlowReq{})
 			as.NotNil(err)
 			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
 		})
 
 		t.Run("", func(t *testing.T) {
-			_, _, err := moduleCli.GetUserTaskRemedy(ctx, &lark.GetUserTaskRemedyReq{})
+			_, _, err := moduleCli.GetAttendanceUserTaskRemedy(ctx, &lark.GetAttendanceUserTaskRemedyReq{})
 			as.NotNil(err)
 			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
 		})
 
 		t.Run("", func(t *testing.T) {
-			_, _, err := moduleCli.CreateUpdateUserDailyShift(ctx, &lark.CreateUpdateUserDailyShiftReq{})
+			_, _, err := moduleCli.CreateUpdateAttendanceUserDailyShift(ctx, &lark.CreateUpdateAttendanceUserDailyShiftReq{})
 			as.NotNil(err)
 			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
 		})
 
 		t.Run("", func(t *testing.T) {
-			_, _, err := moduleCli.GetUserApproval(ctx, &lark.GetUserApprovalReq{})
+			_, _, err := moduleCli.GetAttendanceUserApproval(ctx, &lark.GetAttendanceUserApprovalReq{})
 			as.NotNil(err)
 			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
 		})
 
 		t.Run("", func(t *testing.T) {
-			_, _, err := moduleCli.CreateUserApproval(ctx, &lark.CreateUserApprovalReq{})
+			_, _, err := moduleCli.CreateAttendanceUserApproval(ctx, &lark.CreateAttendanceUserApprovalReq{})
 			as.NotNil(err)
 			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
 		})

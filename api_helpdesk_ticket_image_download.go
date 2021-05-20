@@ -7,18 +7,18 @@ import (
 	"io"
 )
 
-// DownloadTicketImage 该接口用于获取服务台工单消息图象。仅支持自建应用。
+// DownloadHelpdeskTicketImage 该接口用于获取服务台工单消息图象。仅支持自建应用。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/ticket/ticket_image
-func (r *HelpdeskService) DownloadTicketImage(ctx context.Context, request *DownloadTicketImageReq, options ...MethodOptionFunc) (*DownloadTicketImageResp, *Response, error) {
-	if r.cli.mock.mockHelpdeskDownloadTicketImage != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Helpdesk#DownloadTicketImage mock enable")
-		return r.cli.mock.mockHelpdeskDownloadTicketImage(ctx, request, options...)
+func (r *HelpdeskService) DownloadHelpdeskTicketImage(ctx context.Context, request *DownloadHelpdeskTicketImageReq, options ...MethodOptionFunc) (*DownloadHelpdeskTicketImageResp, *Response, error) {
+	if r.cli.mock.mockHelpdeskDownloadHelpdeskTicketImage != nil {
+		r.cli.log(ctx, LogLevelDebug, "[lark] Helpdesk#DownloadHelpdeskTicketImage mock enable")
+		return r.cli.mock.mockHelpdeskDownloadHelpdeskTicketImage(ctx, request, options...)
 	}
 
 	req := &RawRequestReq{
 		Scope:                 "Helpdesk",
-		API:                   "DownloadTicketImage",
+		API:                   "DownloadHelpdeskTicketImage",
 		Method:                "GET",
 		URL:                   "https://open.feishu.cn/open-apis/helpdesk/v1/ticket_images",
 		Body:                  request,
@@ -26,39 +26,39 @@ func (r *HelpdeskService) DownloadTicketImage(ctx context.Context, request *Down
 		NeedTenantAccessToken: true,
 		NeedHelpdeskAuth:      true,
 	}
-	resp := new(downloadTicketImageResp)
+	resp := new(downloadHelpdeskTicketImageResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
 	return resp.Data, response, err
 }
 
-func (r *Mock) MockHelpdeskDownloadTicketImage(f func(ctx context.Context, request *DownloadTicketImageReq, options ...MethodOptionFunc) (*DownloadTicketImageResp, *Response, error)) {
-	r.mockHelpdeskDownloadTicketImage = f
+func (r *Mock) MockHelpdeskDownloadHelpdeskTicketImage(f func(ctx context.Context, request *DownloadHelpdeskTicketImageReq, options ...MethodOptionFunc) (*DownloadHelpdeskTicketImageResp, *Response, error)) {
+	r.mockHelpdeskDownloadHelpdeskTicketImage = f
 }
 
-func (r *Mock) UnMockHelpdeskDownloadTicketImage() {
-	r.mockHelpdeskDownloadTicketImage = nil
+func (r *Mock) UnMockHelpdeskDownloadHelpdeskTicketImage() {
+	r.mockHelpdeskDownloadHelpdeskTicketImage = nil
 }
 
-type DownloadTicketImageReq struct {
+type DownloadHelpdeskTicketImageReq struct {
 	TicketID string `query:"ticket_id" json:"-"` // 工单ID, 示例值："12345"
 	MsgID    string `query:"msg_id" json:"-"`    // 消息ID, 示例值："12345"
 	Index    *int64 `query:"index" json:"-"`     // index，当消息类型为post时，需指定图片index，index从0开始。当消息类型为img时，无需index, 示例值：0
 }
 
-type downloadTicketImageResp struct {
-	IsFile bool                     `json:"is_file,omitempty"`
-	Code   int64                    `json:"code,omitempty"`
-	Msg    string                   `json:"msg,omitempty"`
-	Data   *DownloadTicketImageResp `json:"data,omitempty"`
+type downloadHelpdeskTicketImageResp struct {
+	IsFile bool                             `json:"is_file,omitempty"`
+	Code   int64                            `json:"code,omitempty"`
+	Msg    string                           `json:"msg,omitempty"`
+	Data   *DownloadHelpdeskTicketImageResp `json:"data,omitempty"`
 }
 
-func (r *downloadTicketImageResp) SetReader(file io.Reader) {
-	r.Data = &DownloadTicketImageResp{
+func (r *downloadHelpdeskTicketImageResp) SetReader(file io.Reader) {
+	r.Data = &DownloadHelpdeskTicketImageResp{
 		File: file,
 	}
 }
 
-type DownloadTicketImageResp struct {
+type DownloadHelpdeskTicketImageResp struct {
 	File io.Reader `json:"file,omitempty"`
 }

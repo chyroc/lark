@@ -6,20 +6,20 @@ import (
 	"context"
 )
 
-// UpdateTicketCustomizedField
+// UpdateHelpdeskTicketCustomizedField
 //
 // 该接口用于更新自定义字段。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/ticket_customized_field/update-ticket-customized-field
-func (r *HelpdeskService) UpdateTicketCustomizedField(ctx context.Context, request *UpdateTicketCustomizedFieldReq, options ...MethodOptionFunc) (*UpdateTicketCustomizedFieldResp, *Response, error) {
-	if r.cli.mock.mockHelpdeskUpdateTicketCustomizedField != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Helpdesk#UpdateTicketCustomizedField mock enable")
-		return r.cli.mock.mockHelpdeskUpdateTicketCustomizedField(ctx, request, options...)
+func (r *HelpdeskService) UpdateHelpdeskTicketCustomizedField(ctx context.Context, request *UpdateHelpdeskTicketCustomizedFieldReq, options ...MethodOptionFunc) (*UpdateHelpdeskTicketCustomizedFieldResp, *Response, error) {
+	if r.cli.mock.mockHelpdeskUpdateHelpdeskTicketCustomizedField != nil {
+		r.cli.log(ctx, LogLevelDebug, "[lark] Helpdesk#UpdateHelpdeskTicketCustomizedField mock enable")
+		return r.cli.mock.mockHelpdeskUpdateHelpdeskTicketCustomizedField(ctx, request, options...)
 	}
 
 	req := &RawRequestReq{
 		Scope:               "Helpdesk",
-		API:                 "UpdateTicketCustomizedField",
+		API:                 "UpdateHelpdeskTicketCustomizedField",
 		Method:              "PATCH",
 		URL:                 "https://open.feishu.cn/open-apis/helpdesk/v1/ticket_customized_fields/:ticket_customized_field_id",
 		Body:                request,
@@ -27,21 +27,21 @@ func (r *HelpdeskService) UpdateTicketCustomizedField(ctx context.Context, reque
 		NeedUserAccessToken: true,
 		NeedHelpdeskAuth:    true,
 	}
-	resp := new(updateTicketCustomizedFieldResp)
+	resp := new(updateHelpdeskTicketCustomizedFieldResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
 	return resp.Data, response, err
 }
 
-func (r *Mock) MockHelpdeskUpdateTicketCustomizedField(f func(ctx context.Context, request *UpdateTicketCustomizedFieldReq, options ...MethodOptionFunc) (*UpdateTicketCustomizedFieldResp, *Response, error)) {
-	r.mockHelpdeskUpdateTicketCustomizedField = f
+func (r *Mock) MockHelpdeskUpdateHelpdeskTicketCustomizedField(f func(ctx context.Context, request *UpdateHelpdeskTicketCustomizedFieldReq, options ...MethodOptionFunc) (*UpdateHelpdeskTicketCustomizedFieldResp, *Response, error)) {
+	r.mockHelpdeskUpdateHelpdeskTicketCustomizedField = f
 }
 
-func (r *Mock) UnMockHelpdeskUpdateTicketCustomizedField() {
-	r.mockHelpdeskUpdateTicketCustomizedField = nil
+func (r *Mock) UnMockHelpdeskUpdateHelpdeskTicketCustomizedField() {
+	r.mockHelpdeskUpdateHelpdeskTicketCustomizedField = nil
 }
 
-type UpdateTicketCustomizedFieldReq struct {
+type UpdateHelpdeskTicketCustomizedFieldReq struct {
 	TicketCustomizedFieldID string                  `path:"ticket_customized_field_id" json:"-"` // 工单自定义字段ID, 示例值："6948728206392295444"
 	DisplayName             *string                 `json:"display_name,omitempty"`              // 名称, 示例值："test dropdown"
 	Position                *string                 `json:"position,omitempty"`                  // 字段在列表后台管理列表中的位置, 示例值："3"
@@ -51,10 +51,10 @@ type UpdateTicketCustomizedFieldReq struct {
 	DropdownOptions         *HelpdeskDropdownOption `json:"dropdown_options,omitempty"`          // 下拉列表选项
 }
 
-type updateTicketCustomizedFieldResp struct {
-	Code int64                            `json:"code,omitempty"` // 错误码，非 0 表示失败
-	Msg  string                           `json:"msg,omitempty"`  // 错误描述
-	Data *UpdateTicketCustomizedFieldResp `json:"data,omitempty"`
+type updateHelpdeskTicketCustomizedFieldResp struct {
+	Code int64                                    `json:"code,omitempty"` // 错误码，非 0 表示失败
+	Msg  string                                   `json:"msg,omitempty"`  // 错误描述
+	Data *UpdateHelpdeskTicketCustomizedFieldResp `json:"data,omitempty"`
 }
 
-type UpdateTicketCustomizedFieldResp struct{}
+type UpdateHelpdeskTicketCustomizedFieldResp struct{}

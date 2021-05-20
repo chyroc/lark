@@ -6,18 +6,18 @@ import (
 	"context"
 )
 
-// UpdateFAQ 该接口用于修改知识库。
+// UpdateHelpdeskFAQ 该接口用于修改知识库。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/faq/patch
-func (r *HelpdeskService) UpdateFAQ(ctx context.Context, request *UpdateFAQReq, options ...MethodOptionFunc) (*UpdateFAQResp, *Response, error) {
-	if r.cli.mock.mockHelpdeskUpdateFAQ != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Helpdesk#UpdateFAQ mock enable")
-		return r.cli.mock.mockHelpdeskUpdateFAQ(ctx, request, options...)
+func (r *HelpdeskService) UpdateHelpdeskFAQ(ctx context.Context, request *UpdateHelpdeskFAQReq, options ...MethodOptionFunc) (*UpdateHelpdeskFAQResp, *Response, error) {
+	if r.cli.mock.mockHelpdeskUpdateHelpdeskFAQ != nil {
+		r.cli.log(ctx, LogLevelDebug, "[lark] Helpdesk#UpdateHelpdeskFAQ mock enable")
+		return r.cli.mock.mockHelpdeskUpdateHelpdeskFAQ(ctx, request, options...)
 	}
 
 	req := &RawRequestReq{
 		Scope:               "Helpdesk",
-		API:                 "UpdateFAQ",
+		API:                 "UpdateHelpdeskFAQ",
 		Method:              "PATCH",
 		URL:                 "https://open.feishu.cn/open-apis/helpdesk/v1/faqs/:id",
 		Body:                request,
@@ -25,26 +25,26 @@ func (r *HelpdeskService) UpdateFAQ(ctx context.Context, request *UpdateFAQReq, 
 		NeedUserAccessToken: true,
 		NeedHelpdeskAuth:    true,
 	}
-	resp := new(updateFAQResp)
+	resp := new(updateHelpdeskFAQResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
 	return resp.Data, response, err
 }
 
-func (r *Mock) MockHelpdeskUpdateFAQ(f func(ctx context.Context, request *UpdateFAQReq, options ...MethodOptionFunc) (*UpdateFAQResp, *Response, error)) {
-	r.mockHelpdeskUpdateFAQ = f
+func (r *Mock) MockHelpdeskUpdateHelpdeskFAQ(f func(ctx context.Context, request *UpdateHelpdeskFAQReq, options ...MethodOptionFunc) (*UpdateHelpdeskFAQResp, *Response, error)) {
+	r.mockHelpdeskUpdateHelpdeskFAQ = f
 }
 
-func (r *Mock) UnMockHelpdeskUpdateFAQ() {
-	r.mockHelpdeskUpdateFAQ = nil
+func (r *Mock) UnMockHelpdeskUpdateHelpdeskFAQ() {
+	r.mockHelpdeskUpdateHelpdeskFAQ = nil
 }
 
-type UpdateFAQReq struct {
-	ID  string           `path:"id" json:"-"`   // 知识库ID, 示例值："6856395634652479491"
-	Faq *UpdateFAQReqFaq `json:"faq,omitempty"` // 修改的知识库内容
+type UpdateHelpdeskFAQReq struct {
+	ID  string                   `path:"id" json:"-"`   // 知识库ID, 示例值："6856395634652479491"
+	Faq *UpdateHelpdeskFAQReqFaq `json:"faq,omitempty"` // 修改的知识库内容
 }
 
-type UpdateFAQReqFaq struct {
+type UpdateHelpdeskFAQReqFaq struct {
 	CategoryID     *string  `json:"category_id,omitempty"`     // 知识库分类ID, 示例值："6836004780707807251"
 	Question       string   `json:"question,omitempty"`        // 问题, 示例值："问题"
 	Answer         *string  `json:"answer,omitempty"`          // 答案, 示例值："答案"
@@ -52,10 +52,10 @@ type UpdateFAQReqFaq struct {
 	Tags           []string `json:"tags,omitempty"`            // 关联词
 }
 
-type updateFAQResp struct {
-	Code int64          `json:"code,omitempty"` // 错误码，非 0 表示失败
-	Msg  string         `json:"msg,omitempty"`  // 错误描述
-	Data *UpdateFAQResp `json:"data,omitempty"`
+type updateHelpdeskFAQResp struct {
+	Code int64                  `json:"code,omitempty"` // 错误码，非 0 表示失败
+	Msg  string                 `json:"msg,omitempty"`  // 错误描述
+	Data *UpdateHelpdeskFAQResp `json:"data,omitempty"`
 }
 
-type UpdateFAQResp struct{}
+type UpdateHelpdeskFAQResp struct{}

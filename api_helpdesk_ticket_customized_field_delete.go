@@ -6,18 +6,18 @@ import (
 	"context"
 )
 
-// DeleteTicketCustomizedField 该接口用于删除工单自定义字段。
+// DeleteHelpdeskTicketCustomizedField 该接口用于删除工单自定义字段。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/ticket_customized_field/delete
-func (r *HelpdeskService) DeleteTicketCustomizedField(ctx context.Context, request *DeleteTicketCustomizedFieldReq, options ...MethodOptionFunc) (*DeleteTicketCustomizedFieldResp, *Response, error) {
-	if r.cli.mock.mockHelpdeskDeleteTicketCustomizedField != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Helpdesk#DeleteTicketCustomizedField mock enable")
-		return r.cli.mock.mockHelpdeskDeleteTicketCustomizedField(ctx, request, options...)
+func (r *HelpdeskService) DeleteHelpdeskTicketCustomizedField(ctx context.Context, request *DeleteHelpdeskTicketCustomizedFieldReq, options ...MethodOptionFunc) (*DeleteHelpdeskTicketCustomizedFieldResp, *Response, error) {
+	if r.cli.mock.mockHelpdeskDeleteHelpdeskTicketCustomizedField != nil {
+		r.cli.log(ctx, LogLevelDebug, "[lark] Helpdesk#DeleteHelpdeskTicketCustomizedField mock enable")
+		return r.cli.mock.mockHelpdeskDeleteHelpdeskTicketCustomizedField(ctx, request, options...)
 	}
 
 	req := &RawRequestReq{
 		Scope:               "Helpdesk",
-		API:                 "DeleteTicketCustomizedField",
+		API:                 "DeleteHelpdeskTicketCustomizedField",
 		Method:              "DELETE",
 		URL:                 "https://open.feishu.cn/open-apis/helpdesk/v1/ticket_customized_fields/:ticket_customized_field_id",
 		Body:                request,
@@ -25,28 +25,28 @@ func (r *HelpdeskService) DeleteTicketCustomizedField(ctx context.Context, reque
 		NeedUserAccessToken: true,
 		NeedHelpdeskAuth:    true,
 	}
-	resp := new(deleteTicketCustomizedFieldResp)
+	resp := new(deleteHelpdeskTicketCustomizedFieldResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
 	return resp.Data, response, err
 }
 
-func (r *Mock) MockHelpdeskDeleteTicketCustomizedField(f func(ctx context.Context, request *DeleteTicketCustomizedFieldReq, options ...MethodOptionFunc) (*DeleteTicketCustomizedFieldResp, *Response, error)) {
-	r.mockHelpdeskDeleteTicketCustomizedField = f
+func (r *Mock) MockHelpdeskDeleteHelpdeskTicketCustomizedField(f func(ctx context.Context, request *DeleteHelpdeskTicketCustomizedFieldReq, options ...MethodOptionFunc) (*DeleteHelpdeskTicketCustomizedFieldResp, *Response, error)) {
+	r.mockHelpdeskDeleteHelpdeskTicketCustomizedField = f
 }
 
-func (r *Mock) UnMockHelpdeskDeleteTicketCustomizedField() {
-	r.mockHelpdeskDeleteTicketCustomizedField = nil
+func (r *Mock) UnMockHelpdeskDeleteHelpdeskTicketCustomizedField() {
+	r.mockHelpdeskDeleteHelpdeskTicketCustomizedField = nil
 }
 
-type DeleteTicketCustomizedFieldReq struct {
+type DeleteHelpdeskTicketCustomizedFieldReq struct {
 	TicketCustomizedFieldID string `path:"ticket_customized_field_id" json:"-"` // 工单自定义字段ID, 示例值："6948728206392295444"
 }
 
-type deleteTicketCustomizedFieldResp struct {
-	Code int64                            `json:"code,omitempty"` // 错误码，非 0 表示失败
-	Msg  string                           `json:"msg,omitempty"`  // 错误描述
-	Data *DeleteTicketCustomizedFieldResp `json:"data,omitempty"`
+type deleteHelpdeskTicketCustomizedFieldResp struct {
+	Code int64                                    `json:"code,omitempty"` // 错误码，非 0 表示失败
+	Msg  string                                   `json:"msg,omitempty"`  // 错误描述
+	Data *DeleteHelpdeskTicketCustomizedFieldResp `json:"data,omitempty"`
 }
 
-type DeleteTicketCustomizedFieldResp struct{}
+type DeleteHelpdeskTicketCustomizedFieldResp struct{}

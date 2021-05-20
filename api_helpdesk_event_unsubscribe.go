@@ -6,18 +6,18 @@ import (
 	"context"
 )
 
-// UnsubscribeEvent 用于取消订阅服务台事件
+// UnsubscribeHelpdeskEvent 用于取消订阅服务台事件
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/event/unsubscribe
-func (r *HelpdeskService) UnsubscribeEvent(ctx context.Context, request *UnsubscribeEventReq, options ...MethodOptionFunc) (*UnsubscribeEventResp, *Response, error) {
-	if r.cli.mock.mockHelpdeskUnsubscribeEvent != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Helpdesk#UnsubscribeEvent mock enable")
-		return r.cli.mock.mockHelpdeskUnsubscribeEvent(ctx, request, options...)
+func (r *HelpdeskService) UnsubscribeHelpdeskEvent(ctx context.Context, request *UnsubscribeHelpdeskEventReq, options ...MethodOptionFunc) (*UnsubscribeHelpdeskEventResp, *Response, error) {
+	if r.cli.mock.mockHelpdeskUnsubscribeHelpdeskEvent != nil {
+		r.cli.log(ctx, LogLevelDebug, "[lark] Helpdesk#UnsubscribeHelpdeskEvent mock enable")
+		return r.cli.mock.mockHelpdeskUnsubscribeHelpdeskEvent(ctx, request, options...)
 	}
 
 	req := &RawRequestReq{
 		Scope:                 "Helpdesk",
-		API:                   "UnsubscribeEvent",
+		API:                   "UnsubscribeHelpdeskEvent",
 		Method:                "POST",
 		URL:                   "https://open.feishu.cn/open-apis/helpdesk/v1/events/unsubscribe",
 		Body:                  request,
@@ -25,33 +25,33 @@ func (r *HelpdeskService) UnsubscribeEvent(ctx context.Context, request *Unsubsc
 		NeedTenantAccessToken: true,
 		NeedHelpdeskAuth:      true,
 	}
-	resp := new(unsubscribeEventResp)
+	resp := new(unsubscribeHelpdeskEventResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
 	return resp.Data, response, err
 }
 
-func (r *Mock) MockHelpdeskUnsubscribeEvent(f func(ctx context.Context, request *UnsubscribeEventReq, options ...MethodOptionFunc) (*UnsubscribeEventResp, *Response, error)) {
-	r.mockHelpdeskUnsubscribeEvent = f
+func (r *Mock) MockHelpdeskUnsubscribeHelpdeskEvent(f func(ctx context.Context, request *UnsubscribeHelpdeskEventReq, options ...MethodOptionFunc) (*UnsubscribeHelpdeskEventResp, *Response, error)) {
+	r.mockHelpdeskUnsubscribeHelpdeskEvent = f
 }
 
-func (r *Mock) UnMockHelpdeskUnsubscribeEvent() {
-	r.mockHelpdeskUnsubscribeEvent = nil
+func (r *Mock) UnMockHelpdeskUnsubscribeHelpdeskEvent() {
+	r.mockHelpdeskUnsubscribeHelpdeskEvent = nil
 }
 
-type UnsubscribeEventReq struct {
-	Events []*UnsubscribeEventReqEvent `json:"events,omitempty"` // event list to unsubscribe
+type UnsubscribeHelpdeskEventReq struct {
+	Events []*UnsubscribeHelpdeskEventReqEvent `json:"events,omitempty"` // event list to unsubscribe
 }
 
-type UnsubscribeEventReqEvent struct {
+type UnsubscribeHelpdeskEventReqEvent struct {
 	Type    string `json:"type,omitempty"`    // 事件类型, 示例值："helpdesk.ticket_message"
 	Subtype string `json:"subtype,omitempty"` // 事件子类型, 示例值："ticket_message.created_v1"
 }
 
-type unsubscribeEventResp struct {
-	Code int64                 `json:"code,omitempty"` // 错误码，非 0 表示失败
-	Msg  string                `json:"msg,omitempty"`  // 错误描述
-	Data *UnsubscribeEventResp `json:"data,omitempty"`
+type unsubscribeHelpdeskEventResp struct {
+	Code int64                         `json:"code,omitempty"` // 错误码，非 0 表示失败
+	Msg  string                        `json:"msg,omitempty"`  // 错误描述
+	Data *UnsubscribeHelpdeskEventResp `json:"data,omitempty"`
 }
 
-type UnsubscribeEventResp struct{}
+type UnsubscribeHelpdeskEventResp struct{}

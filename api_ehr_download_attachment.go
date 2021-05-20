@@ -7,59 +7,59 @@ import (
 	"io"
 )
 
-// DownloadAttachments
+// DownloadEHRAttachments
 //
 // 根据文件 token 下载文件。
 // 调用「[批量获取员工花名册信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/ehr/employees)」接口的返回值中，「文件」类型的字段 id，即是文件 token
 // ![image.png](//sf1-ttcdn-tos.pstatp.com/obj/open-platform-opendoc/bed391d2a8ce6ed2d5985ea69bf92850_9GY1mnuDXP.png)
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/ehr/ehr-v1/attachment/get
-func (r *EHRService) DownloadAttachments(ctx context.Context, request *DownloadAttachmentsReq, options ...MethodOptionFunc) (*DownloadAttachmentsResp, *Response, error) {
-	if r.cli.mock.mockEHRDownloadAttachments != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] EHR#DownloadAttachments mock enable")
-		return r.cli.mock.mockEHRDownloadAttachments(ctx, request, options...)
+func (r *EHRService) DownloadEHRAttachments(ctx context.Context, request *DownloadEHRAttachmentsReq, options ...MethodOptionFunc) (*DownloadEHRAttachmentsResp, *Response, error) {
+	if r.cli.mock.mockEHRDownloadEHRAttachments != nil {
+		r.cli.log(ctx, LogLevelDebug, "[lark] EHR#DownloadEHRAttachments mock enable")
+		return r.cli.mock.mockEHRDownloadEHRAttachments(ctx, request, options...)
 	}
 
 	req := &RawRequestReq{
 		Scope:                 "EHR",
-		API:                   "DownloadAttachments",
+		API:                   "DownloadEHRAttachments",
 		Method:                "GET",
 		URL:                   "https://open.feishu.cn/open-apis/ehr/v1/attachments/:token",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
 	}
-	resp := new(downloadAttachmentsResp)
+	resp := new(downloadEHRAttachmentsResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
 	return resp.Data, response, err
 }
 
-func (r *Mock) MockEHRDownloadAttachments(f func(ctx context.Context, request *DownloadAttachmentsReq, options ...MethodOptionFunc) (*DownloadAttachmentsResp, *Response, error)) {
-	r.mockEHRDownloadAttachments = f
+func (r *Mock) MockEHRDownloadEHRAttachments(f func(ctx context.Context, request *DownloadEHRAttachmentsReq, options ...MethodOptionFunc) (*DownloadEHRAttachmentsResp, *Response, error)) {
+	r.mockEHRDownloadEHRAttachments = f
 }
 
-func (r *Mock) UnMockEHRDownloadAttachments() {
-	r.mockEHRDownloadAttachments = nil
+func (r *Mock) UnMockEHRDownloadEHRAttachments() {
+	r.mockEHRDownloadEHRAttachments = nil
 }
 
-type DownloadAttachmentsReq struct {
+type DownloadEHRAttachmentsReq struct {
 	Token string `path:"token" json:"-"` // 文件 token, 示例值："09bf7b924f9a4a69875788891b5970d8"
 }
 
-type downloadAttachmentsResp struct {
-	IsFile bool                     `json:"is_file,omitempty"`
-	Code   int64                    `json:"code,omitempty"`
-	Msg    string                   `json:"msg,omitempty"`
-	Data   *DownloadAttachmentsResp `json:"data,omitempty"`
+type downloadEHRAttachmentsResp struct {
+	IsFile bool                        `json:"is_file,omitempty"`
+	Code   int64                       `json:"code,omitempty"`
+	Msg    string                      `json:"msg,omitempty"`
+	Data   *DownloadEHRAttachmentsResp `json:"data,omitempty"`
 }
 
-func (r *downloadAttachmentsResp) SetReader(file io.Reader) {
-	r.Data = &DownloadAttachmentsResp{
+func (r *downloadEHRAttachmentsResp) SetReader(file io.Reader) {
+	r.Data = &DownloadEHRAttachmentsResp{
 		File: file,
 	}
 }
 
-type DownloadAttachmentsResp struct {
+type DownloadEHRAttachmentsResp struct {
 	File io.Reader `json:"file,omitempty"`
 }

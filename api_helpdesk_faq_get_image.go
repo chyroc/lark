@@ -7,18 +7,18 @@ import (
 	"io"
 )
 
-// GetFAQImage 该接口用于获取知识库图像。
+// GetHelpdeskFAQImage 该接口用于获取知识库图像。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/faq/faq_image
-func (r *HelpdeskService) GetFAQImage(ctx context.Context, request *GetFAQImageReq, options ...MethodOptionFunc) (*GetFAQImageResp, *Response, error) {
-	if r.cli.mock.mockHelpdeskGetFAQImage != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Helpdesk#GetFAQImage mock enable")
-		return r.cli.mock.mockHelpdeskGetFAQImage(ctx, request, options...)
+func (r *HelpdeskService) GetHelpdeskFAQImage(ctx context.Context, request *GetHelpdeskFAQImageReq, options ...MethodOptionFunc) (*GetHelpdeskFAQImageResp, *Response, error) {
+	if r.cli.mock.mockHelpdeskGetHelpdeskFAQImage != nil {
+		r.cli.log(ctx, LogLevelDebug, "[lark] Helpdesk#GetHelpdeskFAQImage mock enable")
+		return r.cli.mock.mockHelpdeskGetHelpdeskFAQImage(ctx, request, options...)
 	}
 
 	req := &RawRequestReq{
 		Scope:                 "Helpdesk",
-		API:                   "GetFAQImage",
+		API:                   "GetHelpdeskFAQImage",
 		Method:                "GET",
 		URL:                   "https://open.feishu.cn/open-apis/helpdesk/v1/faqs/:id/image/:image_key",
 		Body:                  request,
@@ -26,38 +26,38 @@ func (r *HelpdeskService) GetFAQImage(ctx context.Context, request *GetFAQImageR
 		NeedTenantAccessToken: true,
 		NeedHelpdeskAuth:      true,
 	}
-	resp := new(getFAQImageResp)
+	resp := new(getHelpdeskFAQImageResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
 	return resp.Data, response, err
 }
 
-func (r *Mock) MockHelpdeskGetFAQImage(f func(ctx context.Context, request *GetFAQImageReq, options ...MethodOptionFunc) (*GetFAQImageResp, *Response, error)) {
-	r.mockHelpdeskGetFAQImage = f
+func (r *Mock) MockHelpdeskGetHelpdeskFAQImage(f func(ctx context.Context, request *GetHelpdeskFAQImageReq, options ...MethodOptionFunc) (*GetHelpdeskFAQImageResp, *Response, error)) {
+	r.mockHelpdeskGetHelpdeskFAQImage = f
 }
 
-func (r *Mock) UnMockHelpdeskGetFAQImage() {
-	r.mockHelpdeskGetFAQImage = nil
+func (r *Mock) UnMockHelpdeskGetHelpdeskFAQImage() {
+	r.mockHelpdeskGetHelpdeskFAQImage = nil
 }
 
-type GetFAQImageReq struct {
+type GetHelpdeskFAQImageReq struct {
 	ID       string `path:"id" json:"-"`        // 知识库ID, 示例值："12345"
 	ImageKey string `path:"image_key" json:"-"` // 图像key, 示例值："img_b07ffac0-19c1-48a3-afca-599f8ea825fj"
 }
 
-type getFAQImageResp struct {
-	IsFile bool             `json:"is_file,omitempty"`
-	Code   int64            `json:"code,omitempty"`
-	Msg    string           `json:"msg,omitempty"`
-	Data   *GetFAQImageResp `json:"data,omitempty"`
+type getHelpdeskFAQImageResp struct {
+	IsFile bool                     `json:"is_file,omitempty"`
+	Code   int64                    `json:"code,omitempty"`
+	Msg    string                   `json:"msg,omitempty"`
+	Data   *GetHelpdeskFAQImageResp `json:"data,omitempty"`
 }
 
-func (r *getFAQImageResp) SetReader(file io.Reader) {
-	r.Data = &GetFAQImageResp{
+func (r *getHelpdeskFAQImageResp) SetReader(file io.Reader) {
+	r.Data = &GetHelpdeskFAQImageResp{
 		File: file,
 	}
 }
 
-type GetFAQImageResp struct {
+type GetHelpdeskFAQImageResp struct {
 	File io.Reader `json:"file,omitempty"`
 }

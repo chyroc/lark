@@ -6,47 +6,47 @@ import (
 	"context"
 )
 
-// BatchCreateUserFlow
+// BatchCreateAttendanceUserFlow
 //
 // 导入授权内员工的打卡流水记录。导入后，会根据员工所在的考勤组班次规则，计算最终的打卡状态与结果。
 // 适用于考勤机数据导入等场景。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/Attendance//ImportAttendanceFlowRecords
-func (r *AttendanceService) BatchCreateUserFlow(ctx context.Context, request *BatchCreateUserFlowReq, options ...MethodOptionFunc) (*BatchCreateUserFlowResp, *Response, error) {
-	if r.cli.mock.mockAttendanceBatchCreateUserFlow != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Attendance#BatchCreateUserFlow mock enable")
-		return r.cli.mock.mockAttendanceBatchCreateUserFlow(ctx, request, options...)
+func (r *AttendanceService) BatchCreateAttendanceUserFlow(ctx context.Context, request *BatchCreateAttendanceUserFlowReq, options ...MethodOptionFunc) (*BatchCreateAttendanceUserFlowResp, *Response, error) {
+	if r.cli.mock.mockAttendanceBatchCreateAttendanceUserFlow != nil {
+		r.cli.log(ctx, LogLevelDebug, "[lark] Attendance#BatchCreateAttendanceUserFlow mock enable")
+		return r.cli.mock.mockAttendanceBatchCreateAttendanceUserFlow(ctx, request, options...)
 	}
 
 	req := &RawRequestReq{
 		Scope:                 "Attendance",
-		API:                   "BatchCreateUserFlow",
+		API:                   "BatchCreateAttendanceUserFlow",
 		Method:                "POST",
 		URL:                   "https://open.feishu.cn/open-apis/attendance/v1/user_flows/batch_create",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
 	}
-	resp := new(batchCreateUserFlowResp)
+	resp := new(batchCreateAttendanceUserFlowResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
 	return resp.Data, response, err
 }
 
-func (r *Mock) MockAttendanceBatchCreateUserFlow(f func(ctx context.Context, request *BatchCreateUserFlowReq, options ...MethodOptionFunc) (*BatchCreateUserFlowResp, *Response, error)) {
-	r.mockAttendanceBatchCreateUserFlow = f
+func (r *Mock) MockAttendanceBatchCreateAttendanceUserFlow(f func(ctx context.Context, request *BatchCreateAttendanceUserFlowReq, options ...MethodOptionFunc) (*BatchCreateAttendanceUserFlowResp, *Response, error)) {
+	r.mockAttendanceBatchCreateAttendanceUserFlow = f
 }
 
-func (r *Mock) UnMockAttendanceBatchCreateUserFlow() {
-	r.mockAttendanceBatchCreateUserFlow = nil
+func (r *Mock) UnMockAttendanceBatchCreateAttendanceUserFlow() {
+	r.mockAttendanceBatchCreateAttendanceUserFlow = nil
 }
 
-type BatchCreateUserFlowReq struct {
-	EmployeeType EmployeeType                        `query:"employee_type" json:"-"` // 请求体中的 user_id 和 creator_id 的员工工号类型，可用值：【employee_id（员工的 employeeId），employee_no（员工工号）】，示例值："employee_id"
-	FlowRecords  []*BatchCreateUserFlowReqFlowRecord `json:"flow_records,omitempty"`  // 打卡流水记录列表
+type BatchCreateAttendanceUserFlowReq struct {
+	EmployeeType EmployeeType                                  `query:"employee_type" json:"-"` // 请求体中的 user_id 和 creator_id 的员工工号类型，可用值：【employee_id（员工的 employeeId），employee_no（员工工号）】，示例值："employee_id"
+	FlowRecords  []*BatchCreateAttendanceUserFlowReqFlowRecord `json:"flow_records,omitempty"`  // 打卡流水记录列表
 }
 
-type BatchCreateUserFlowReqFlowRecord struct {
+type BatchCreateAttendanceUserFlowReqFlowRecord struct {
 	UserID       string `json:"user_id,omitempty"`       // 员工工号
 	CreatorID    string `json:"creator_id,omitempty"`    // 打卡记录创建者的工号
 	LocationName string `json:"location_name,omitempty"` // 打卡位置名称信息
@@ -54,17 +54,17 @@ type BatchCreateUserFlowReqFlowRecord struct {
 	Comment      string `json:"comment,omitempty"`       // 打卡备注
 }
 
-type batchCreateUserFlowResp struct {
-	Code int64                    `json:"code,omitempty"` // 错误码，非 0 表示失败
-	Msg  string                   `json:"msg,omitempty"`  // 错误描述
-	Data *BatchCreateUserFlowResp `json:"data,omitempty"` // -
+type batchCreateAttendanceUserFlowResp struct {
+	Code int64                              `json:"code,omitempty"` // 错误码，非 0 表示失败
+	Msg  string                             `json:"msg,omitempty"`  // 错误描述
+	Data *BatchCreateAttendanceUserFlowResp `json:"data,omitempty"` // -
 }
 
-type BatchCreateUserFlowResp struct {
-	FlowRecords []*BatchCreateUserFlowRespFlowRecord `json:"flow_records,omitempty"` // 打卡流水记录列表
+type BatchCreateAttendanceUserFlowResp struct {
+	FlowRecords []*BatchCreateAttendanceUserFlowRespFlowRecord `json:"flow_records,omitempty"` // 打卡流水记录列表
 }
 
-type BatchCreateUserFlowRespFlowRecord struct {
+type BatchCreateAttendanceUserFlowRespFlowRecord struct {
 	UserID       string   `json:"user_id,omitempty"`       // 员工工号
 	CreatorID    string   `json:"creator_id,omitempty"`    // 打卡记录创建者的 employee_no
 	LocationName string   `json:"location_name,omitempty"` // 打卡位置名称信息

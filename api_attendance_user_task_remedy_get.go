@@ -6,58 +6,58 @@ import (
 	"context"
 )
 
-// GetUserTaskRemedy
+// GetAttendanceUserTaskRemedy
 //
 // 获取授权内员工的补卡记录。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/Attendance//GetUsersRemedyRecords
-func (r *AttendanceService) GetUserTaskRemedy(ctx context.Context, request *GetUserTaskRemedyReq, options ...MethodOptionFunc) (*GetUserTaskRemedyResp, *Response, error) {
-	if r.cli.mock.mockAttendanceGetUserTaskRemedy != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Attendance#GetUserTaskRemedy mock enable")
-		return r.cli.mock.mockAttendanceGetUserTaskRemedy(ctx, request, options...)
+func (r *AttendanceService) GetAttendanceUserTaskRemedy(ctx context.Context, request *GetAttendanceUserTaskRemedyReq, options ...MethodOptionFunc) (*GetAttendanceUserTaskRemedyResp, *Response, error) {
+	if r.cli.mock.mockAttendanceGetAttendanceUserTaskRemedy != nil {
+		r.cli.log(ctx, LogLevelDebug, "[lark] Attendance#GetAttendanceUserTaskRemedy mock enable")
+		return r.cli.mock.mockAttendanceGetAttendanceUserTaskRemedy(ctx, request, options...)
 	}
 
 	req := &RawRequestReq{
 		Scope:                 "Attendance",
-		API:                   "GetUserTaskRemedy",
+		API:                   "GetAttendanceUserTaskRemedy",
 		Method:                "POST",
 		URL:                   "https://open.feishu.cn/open-apis/attendance/v1/user_task_remedys/query",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
 	}
-	resp := new(getUserTaskRemedyResp)
+	resp := new(getAttendanceUserTaskRemedyResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
 	return resp.Data, response, err
 }
 
-func (r *Mock) MockAttendanceGetUserTaskRemedy(f func(ctx context.Context, request *GetUserTaskRemedyReq, options ...MethodOptionFunc) (*GetUserTaskRemedyResp, *Response, error)) {
-	r.mockAttendanceGetUserTaskRemedy = f
+func (r *Mock) MockAttendanceGetAttendanceUserTaskRemedy(f func(ctx context.Context, request *GetAttendanceUserTaskRemedyReq, options ...MethodOptionFunc) (*GetAttendanceUserTaskRemedyResp, *Response, error)) {
+	r.mockAttendanceGetAttendanceUserTaskRemedy = f
 }
 
-func (r *Mock) UnMockAttendanceGetUserTaskRemedy() {
-	r.mockAttendanceGetUserTaskRemedy = nil
+func (r *Mock) UnMockAttendanceGetAttendanceUserTaskRemedy() {
+	r.mockAttendanceGetAttendanceUserTaskRemedy = nil
 }
 
-type GetUserTaskRemedyReq struct {
+type GetAttendanceUserTaskRemedyReq struct {
 	EmployeeType  EmployeeType `query:"employee_type" json:"-"`   // 请求体中的 user_id 的员工工号类型，可用值：【employee_id（员工的 employeeId），employee_no（员工工号）】，示例值：“employee_id”
 	UserIDs       []string     `json:"user_ids,omitempty"`        // employee_no 或 employee_id 列表
 	CheckTimeFrom string       `json:"check_time_from,omitempty"` // 查询的起始时间，精确到秒的时间戳
 	CheckTimeTo   string       `json:"check_time_to,omitempty"`   // 查询的结束时间，精确到秒的时间戳
 }
 
-type getUserTaskRemedyResp struct {
-	Code int64                  `json:"code,omitempty"` // 错误码，非 0 表示失败
-	Msg  string                 `json:"msg,omitempty"`  // 错误描述
-	Data *GetUserTaskRemedyResp `json:"data,omitempty"` // -
+type getAttendanceUserTaskRemedyResp struct {
+	Code int64                            `json:"code,omitempty"` // 错误码，非 0 表示失败
+	Msg  string                           `json:"msg,omitempty"`  // 错误描述
+	Data *GetAttendanceUserTaskRemedyResp `json:"data,omitempty"` // -
 }
 
-type GetUserTaskRemedyResp struct {
-	UserRemedys []*GetUserTaskRemedyRespUserRemedy `json:"user_remedys,omitempty"` // 补卡记录列表
+type GetAttendanceUserTaskRemedyResp struct {
+	UserRemedys []*GetAttendanceUserTaskRemedyRespUserRemedy `json:"user_remedys,omitempty"` // 补卡记录列表
 }
 
-type GetUserTaskRemedyRespUserRemedy struct {
+type GetAttendanceUserTaskRemedyRespUserRemedy struct {
 	UserID     string `json:"user_id,omitempty"`     // 员工工号
 	Status     int64  `json:"status,omitempty"`      // 补卡状态，可用值：【0（pending），2（已通过），3（已取消），4（通过后撤销）】
 	Reason     string `json:"reason,omitempty"`      // 补卡原因

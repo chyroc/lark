@@ -6,18 +6,18 @@ import (
 	"context"
 )
 
-// GetTicketMessageList 该接口用于获取服务台工单消息详情。
+// GetHelpdeskTicketMessageList 该接口用于获取服务台工单消息详情。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/ticket-message/list
-func (r *HelpdeskService) GetTicketMessageList(ctx context.Context, request *GetTicketMessageListReq, options ...MethodOptionFunc) (*GetTicketMessageListResp, *Response, error) {
-	if r.cli.mock.mockHelpdeskGetTicketMessageList != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Helpdesk#GetTicketMessageList mock enable")
-		return r.cli.mock.mockHelpdeskGetTicketMessageList(ctx, request, options...)
+func (r *HelpdeskService) GetHelpdeskTicketMessageList(ctx context.Context, request *GetHelpdeskTicketMessageListReq, options ...MethodOptionFunc) (*GetHelpdeskTicketMessageListResp, *Response, error) {
+	if r.cli.mock.mockHelpdeskGetHelpdeskTicketMessageList != nil {
+		r.cli.log(ctx, LogLevelDebug, "[lark] Helpdesk#GetHelpdeskTicketMessageList mock enable")
+		return r.cli.mock.mockHelpdeskGetHelpdeskTicketMessageList(ctx, request, options...)
 	}
 
 	req := &RawRequestReq{
 		Scope:                 "Helpdesk",
-		API:                   "GetTicketMessageList",
+		API:                   "GetHelpdeskTicketMessageList",
 		Method:                "GET",
 		URL:                   "https://open.feishu.cn/open-apis/helpdesk/v1/tickets/:ticket_id/messages",
 		Body:                  request,
@@ -25,21 +25,21 @@ func (r *HelpdeskService) GetTicketMessageList(ctx context.Context, request *Get
 		NeedTenantAccessToken: true,
 		NeedHelpdeskAuth:      true,
 	}
-	resp := new(getTicketMessageListResp)
+	resp := new(getHelpdeskTicketMessageListResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
 	return resp.Data, response, err
 }
 
-func (r *Mock) MockHelpdeskGetTicketMessageList(f func(ctx context.Context, request *GetTicketMessageListReq, options ...MethodOptionFunc) (*GetTicketMessageListResp, *Response, error)) {
-	r.mockHelpdeskGetTicketMessageList = f
+func (r *Mock) MockHelpdeskGetHelpdeskTicketMessageList(f func(ctx context.Context, request *GetHelpdeskTicketMessageListReq, options ...MethodOptionFunc) (*GetHelpdeskTicketMessageListResp, *Response, error)) {
+	r.mockHelpdeskGetHelpdeskTicketMessageList = f
 }
 
-func (r *Mock) UnMockHelpdeskGetTicketMessageList() {
-	r.mockHelpdeskGetTicketMessageList = nil
+func (r *Mock) UnMockHelpdeskGetHelpdeskTicketMessageList() {
+	r.mockHelpdeskGetHelpdeskTicketMessageList = nil
 }
 
-type GetTicketMessageListReq struct {
+type GetHelpdeskTicketMessageListReq struct {
 	TimeStart *int64 `query:"time_start" json:"-"` // 起始时间, 示例值：1617960686000
 	TimeEnd   *int64 `query:"time_end" json:"-"`   // 结束时间, 示例值：1617960687000
 	Page      *int64 `query:"page" json:"-"`       // 页数ID, 示例值：1
@@ -47,18 +47,18 @@ type GetTicketMessageListReq struct {
 	TicketID  string `path:"ticket_id" json:"-"`   // 工单ID, 示例值："6948728206392295444"
 }
 
-type getTicketMessageListResp struct {
-	Code int64                     `json:"code,omitempty"` // 错误码，非 0 表示失败
-	Msg  string                    `json:"msg,omitempty"`  // 错误描述
-	Data *GetTicketMessageListResp `json:"data,omitempty"` //
+type getHelpdeskTicketMessageListResp struct {
+	Code int64                             `json:"code,omitempty"` // 错误码，非 0 表示失败
+	Msg  string                            `json:"msg,omitempty"`  // 错误描述
+	Data *GetHelpdeskTicketMessageListResp `json:"data,omitempty"` //
 }
 
-type GetTicketMessageListResp struct {
-	Messages []*GetTicketMessageListRespMessage `json:"messages,omitempty"` // 工单消息列表
-	Total    int64                              `json:"total,omitempty"`    // 消息总数
+type GetHelpdeskTicketMessageListResp struct {
+	Messages []*GetHelpdeskTicketMessageListRespMessage `json:"messages,omitempty"` // 工单消息列表
+	Total    int64                                      `json:"total,omitempty"`    // 消息总数
 }
 
-type GetTicketMessageListRespMessage struct {
+type GetHelpdeskTicketMessageListRespMessage struct {
 	ID          string  `json:"id,omitempty"`           // 工单消息ID
 	MessageID   string  `json:"message_id,omitempty"`   // chat消息ID
 	MessageType MsgType `json:"message_type,omitempty"` // 消息类型；text：纯文本；post：富文本

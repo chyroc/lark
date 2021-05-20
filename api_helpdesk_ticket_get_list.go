@@ -6,18 +6,18 @@ import (
 	"context"
 )
 
-// GetTicketList 该接口用于获取全部工单详情。仅支持自建应用。
+// GetHelpdeskTicketList 该接口用于获取全部工单详情。仅支持自建应用。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/ticket/list
-func (r *HelpdeskService) GetTicketList(ctx context.Context, request *GetTicketListReq, options ...MethodOptionFunc) (*GetTicketListResp, *Response, error) {
-	if r.cli.mock.mockHelpdeskGetTicketList != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Helpdesk#GetTicketList mock enable")
-		return r.cli.mock.mockHelpdeskGetTicketList(ctx, request, options...)
+func (r *HelpdeskService) GetHelpdeskTicketList(ctx context.Context, request *GetHelpdeskTicketListReq, options ...MethodOptionFunc) (*GetHelpdeskTicketListResp, *Response, error) {
+	if r.cli.mock.mockHelpdeskGetHelpdeskTicketList != nil {
+		r.cli.log(ctx, LogLevelDebug, "[lark] Helpdesk#GetHelpdeskTicketList mock enable")
+		return r.cli.mock.mockHelpdeskGetHelpdeskTicketList(ctx, request, options...)
 	}
 
 	req := &RawRequestReq{
 		Scope:                 "Helpdesk",
-		API:                   "GetTicketList",
+		API:                   "GetHelpdeskTicketList",
 		Method:                "GET",
 		URL:                   "https://open.feishu.cn/open-apis/helpdesk/v1/tickets",
 		Body:                  request,
@@ -25,21 +25,21 @@ func (r *HelpdeskService) GetTicketList(ctx context.Context, request *GetTicketL
 		NeedTenantAccessToken: true,
 		NeedHelpdeskAuth:      true,
 	}
-	resp := new(getTicketListResp)
+	resp := new(getHelpdeskTicketListResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
 	return resp.Data, response, err
 }
 
-func (r *Mock) MockHelpdeskGetTicketList(f func(ctx context.Context, request *GetTicketListReq, options ...MethodOptionFunc) (*GetTicketListResp, *Response, error)) {
-	r.mockHelpdeskGetTicketList = f
+func (r *Mock) MockHelpdeskGetHelpdeskTicketList(f func(ctx context.Context, request *GetHelpdeskTicketListReq, options ...MethodOptionFunc) (*GetHelpdeskTicketListResp, *Response, error)) {
+	r.mockHelpdeskGetHelpdeskTicketList = f
 }
 
-func (r *Mock) UnMockHelpdeskGetTicketList() {
-	r.mockHelpdeskGetTicketList = nil
+func (r *Mock) UnMockHelpdeskGetHelpdeskTicketList() {
+	r.mockHelpdeskGetHelpdeskTicketList = nil
 }
 
-type GetTicketListReq struct {
+type GetHelpdeskTicketListReq struct {
 	TicketID         *string                    `query:"ticket_id" json:"-"`         // 搜索条件：工单ID, 示例值："123456"
 	AgentID          *string                    `query:"agent_id" json:"-"`          // 搜索条件: 客服id, 示例值："ou_b5de90429xxx"
 	ClosedByID       *string                    `query:"closed_by_id" json:"-"`      // 搜索条件: 关单客服id, 示例值："ou_b5de90429xxx"
@@ -60,64 +60,64 @@ type GetTicketListReq struct {
 	UpdateTimeEnd    *int64                     `query:"update_time_end" json:"-"`   // 搜索条件: 工单修改结束时间 ms, 示例值：1616920429000
 }
 
-type getTicketListResp struct {
-	Code int64              `json:"code,omitempty"` // 错误码，非 0 表示失败
-	Msg  string             `json:"msg,omitempty"`  // 错误描述
-	Data *GetTicketListResp `json:"data,omitempty"` //
+type getHelpdeskTicketListResp struct {
+	Code int64                      `json:"code,omitempty"` // 错误码，非 0 表示失败
+	Msg  string                     `json:"msg,omitempty"`  // 错误描述
+	Data *GetHelpdeskTicketListResp `json:"data,omitempty"` //
 }
 
-type GetTicketListResp struct {
-	Total   int64                      `json:"total,omitempty"`   // 工单总数
-	Tickets []*GetTicketListRespTicket `json:"tickets,omitempty"` // 工单
+type GetHelpdeskTicketListResp struct {
+	Total   int64                              `json:"total,omitempty"`   // 工单总数
+	Tickets []*GetHelpdeskTicketListRespTicket `json:"tickets,omitempty"` // 工单
 }
 
-type GetTicketListRespTicket struct {
-	TicketID         string                                    `json:"ticket_id,omitempty"`         // 工单ID
-	HelpdeskID       string                                    `json:"helpdesk_id,omitempty"`       // 服务台ID
-	Guest            *GetTicketListRespTicketGuest             `json:"guest,omitempty"`             // 工单创建用户
-	Stage            int64                                     `json:"stage,omitempty"`             // 工单阶段，1：bot，2：人工
-	Status           int64                                     `json:"status,omitempty"`            // 工单状态，1：已创建 2: 处理中 3: 排队中 4：待定 5：待用户响应 50: 被机器人关闭 51: 被人工关闭
-	Score            int64                                     `json:"score,omitempty"`             // 工单评分，1：不满意，2:一般，3:满意
-	CreatedAt        int64                                     `json:"created_at,omitempty"`        // 工单创建时间
-	UpdatedAt        int64                                     `json:"updated_at,omitempty"`        // 工单更新时间，没有值时为-1
-	ClosedAt         int64                                     `json:"closed_at,omitempty"`         // 工单结束时间
-	Agents           []*GetTicketListRespTicketAgent           `json:"agents,omitempty"`            // 工单客服
-	Channel          int64                                     `json:"channel,omitempty"`           // 工单渠道
-	Solve            int64                                     `json:"solve,omitempty"`             // 工单是否解决 1:没解决 2:已解决
-	ClosedBy         *GetTicketListRespTicketClosedBy          `json:"closed_by,omitempty"`         // 关单用户ID
-	Collaborators    []*GetTicketListRespTicketCollaborator    `json:"collaborators,omitempty"`     // 工单协作者
-	CustomizedFields []*GetTicketListRespTicketCustomizedField `json:"customized_fields,omitempty"` // 自定义字段列表，没有值时不设置
+type GetHelpdeskTicketListRespTicket struct {
+	TicketID         string                                            `json:"ticket_id,omitempty"`         // 工单ID
+	HelpdeskID       string                                            `json:"helpdesk_id,omitempty"`       // 服务台ID
+	Guest            *GetHelpdeskTicketListRespTicketGuest             `json:"guest,omitempty"`             // 工单创建用户
+	Stage            int64                                             `json:"stage,omitempty"`             // 工单阶段，1：bot，2：人工
+	Status           int64                                             `json:"status,omitempty"`            // 工单状态，1：已创建 2: 处理中 3: 排队中 4：待定 5：待用户响应 50: 被机器人关闭 51: 被人工关闭
+	Score            int64                                             `json:"score,omitempty"`             // 工单评分，1：不满意，2:一般，3:满意
+	CreatedAt        int64                                             `json:"created_at,omitempty"`        // 工单创建时间
+	UpdatedAt        int64                                             `json:"updated_at,omitempty"`        // 工单更新时间，没有值时为-1
+	ClosedAt         int64                                             `json:"closed_at,omitempty"`         // 工单结束时间
+	Agents           []*GetHelpdeskTicketListRespTicketAgent           `json:"agents,omitempty"`            // 工单客服
+	Channel          int64                                             `json:"channel,omitempty"`           // 工单渠道
+	Solve            int64                                             `json:"solve,omitempty"`             // 工单是否解决 1:没解决 2:已解决
+	ClosedBy         *GetHelpdeskTicketListRespTicketClosedBy          `json:"closed_by,omitempty"`         // 关单用户ID
+	Collaborators    []*GetHelpdeskTicketListRespTicketCollaborator    `json:"collaborators,omitempty"`     // 工单协作者
+	CustomizedFields []*GetHelpdeskTicketListRespTicketCustomizedField `json:"customized_fields,omitempty"` // 自定义字段列表，没有值时不设置
 }
 
-type GetTicketListRespTicketGuest struct {
+type GetHelpdeskTicketListRespTicketGuest struct {
 	ID        string `json:"id,omitempty"`         // 用户ID
 	AvatarURL string `json:"avatar_url,omitempty"` // 用户头像url
 	Name      string `json:"name,omitempty"`       // 用户名
 	Email     string `json:"email,omitempty"`      // 用户邮箱
 }
 
-type GetTicketListRespTicketAgent struct {
+type GetHelpdeskTicketListRespTicketAgent struct {
 	ID        string `json:"id,omitempty"`         // 用户ID
 	AvatarURL string `json:"avatar_url,omitempty"` // 用户头像url
 	Name      string `json:"name,omitempty"`       // 用户名
 	Email     string `json:"email,omitempty"`      // 用户邮箱
 }
 
-type GetTicketListRespTicketClosedBy struct {
+type GetHelpdeskTicketListRespTicketClosedBy struct {
 	ID        string `json:"id,omitempty"`         // 用户ID
 	AvatarURL string `json:"avatar_url,omitempty"` // 用户头像url
 	Name      string `json:"name,omitempty"`       // 用户名
 	Email     string `json:"email,omitempty"`      // 用户邮箱
 }
 
-type GetTicketListRespTicketCollaborator struct {
+type GetHelpdeskTicketListRespTicketCollaborator struct {
 	ID        string `json:"id,omitempty"`         // 用户ID
 	AvatarURL string `json:"avatar_url,omitempty"` // 用户头像url
 	Name      string `json:"name,omitempty"`       // 用户名
 	Email     string `json:"email,omitempty"`      // 用户邮箱
 }
 
-type GetTicketListRespTicketCustomizedField struct {
+type GetHelpdeskTicketListRespTicketCustomizedField struct {
 	ID          string `json:"id,omitempty"`           // 自定义字段ID
 	Value       string `json:"value,omitempty"`        // 自定义字段值
 	KeyName     string `json:"key_name,omitempty"`     // 键名

@@ -6,48 +6,48 @@ import (
 	"context"
 )
 
-// DeleteReserve 删除一个预约
+// DeleteVCReserve 删除一个预约
 //
 // 只能删除归属于自己的预约；删除后数据不可恢复
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/vc-v1/reserve/delete
-func (r *VCService) DeleteReserve(ctx context.Context, request *DeleteReserveReq, options ...MethodOptionFunc) (*DeleteReserveResp, *Response, error) {
-	if r.cli.mock.mockVCDeleteReserve != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] VC#DeleteReserve mock enable")
-		return r.cli.mock.mockVCDeleteReserve(ctx, request, options...)
+func (r *VCService) DeleteVCReserve(ctx context.Context, request *DeleteVCReserveReq, options ...MethodOptionFunc) (*DeleteVCReserveResp, *Response, error) {
+	if r.cli.mock.mockVCDeleteVCReserve != nil {
+		r.cli.log(ctx, LogLevelDebug, "[lark] VC#DeleteVCReserve mock enable")
+		return r.cli.mock.mockVCDeleteVCReserve(ctx, request, options...)
 	}
 
 	req := &RawRequestReq{
 		Scope:               "VC",
-		API:                 "DeleteReserve",
+		API:                 "DeleteVCReserve",
 		Method:              "DELETE",
 		URL:                 "https://open.feishu.cn/open-apis/vc/v1/reserves/:reserve_id",
 		Body:                request,
 		MethodOption:        newMethodOption(options),
 		NeedUserAccessToken: true,
 	}
-	resp := new(deleteReserveResp)
+	resp := new(deleteVCReserveResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
 	return resp.Data, response, err
 }
 
-func (r *Mock) MockVCDeleteReserve(f func(ctx context.Context, request *DeleteReserveReq, options ...MethodOptionFunc) (*DeleteReserveResp, *Response, error)) {
-	r.mockVCDeleteReserve = f
+func (r *Mock) MockVCDeleteVCReserve(f func(ctx context.Context, request *DeleteVCReserveReq, options ...MethodOptionFunc) (*DeleteVCReserveResp, *Response, error)) {
+	r.mockVCDeleteVCReserve = f
 }
 
-func (r *Mock) UnMockVCDeleteReserve() {
-	r.mockVCDeleteReserve = nil
+func (r *Mock) UnMockVCDeleteVCReserve() {
+	r.mockVCDeleteVCReserve = nil
 }
 
-type DeleteReserveReq struct {
+type DeleteVCReserveReq struct {
 	ReserveID string `path:"reserve_id" json:"-"` // 预约ID, 示例值："6911188411932033028"
 }
 
-type deleteReserveResp struct {
-	Code int64              `json:"code,omitempty"` // 错误码，非 0 表示失败
-	Msg  string             `json:"msg,omitempty"`  // 错误描述
-	Data *DeleteReserveResp `json:"data,omitempty"`
+type deleteVCReserveResp struct {
+	Code int64                `json:"code,omitempty"` // 错误码，非 0 表示失败
+	Msg  string               `json:"msg,omitempty"`  // 错误描述
+	Data *DeleteVCReserveResp `json:"data,omitempty"`
 }
 
-type DeleteReserveResp struct{}
+type DeleteVCReserveResp struct{}

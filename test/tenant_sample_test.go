@@ -22,7 +22,7 @@ func Test_Tenant_Sample_Failed(t *testing.T) {
 		moduleCli := cli.Tenant
 
 		t.Run("", func(t *testing.T) {
-			_, _, err := moduleCli.QueryTenant(ctx, &lark.QueryTenantReq{})
+			_, _, err := moduleCli.GetTenant(ctx, &lark.GetTenantReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "failed")
 		})
@@ -33,12 +33,12 @@ func Test_Tenant_Sample_Failed(t *testing.T) {
 		moduleCli := cli.Tenant
 
 		t.Run("", func(t *testing.T) {
-			cli.Mock().MockTenantQueryTenant(func(ctx context.Context, request *lark.QueryTenantReq, options ...lark.MethodOptionFunc) (*lark.QueryTenantResp, *lark.Response, error) {
+			cli.Mock().MockTenantGetTenant(func(ctx context.Context, request *lark.GetTenantReq, options ...lark.MethodOptionFunc) (*lark.GetTenantResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
-			defer cli.Mock().UnMockTenantQueryTenant()
+			defer cli.Mock().UnMockTenantGetTenant()
 
-			_, _, err := moduleCli.QueryTenant(ctx, &lark.QueryTenantReq{})
+			_, _, err := moduleCli.GetTenant(ctx, &lark.GetTenantReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "mock-failed")
 		})
@@ -49,7 +49,7 @@ func Test_Tenant_Sample_Failed(t *testing.T) {
 		moduleCli := cli.Tenant
 
 		t.Run("", func(t *testing.T) {
-			_, _, err := moduleCli.QueryTenant(ctx, &lark.QueryTenantReq{})
+			_, _, err := moduleCli.GetTenant(ctx, &lark.GetTenantReq{})
 			as.NotNil(err)
 			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
 		})

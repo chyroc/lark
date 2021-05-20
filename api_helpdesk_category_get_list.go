@@ -6,20 +6,20 @@ import (
 	"context"
 )
 
-// GetCategoryList
+// GetHelpdeskCategoryList
 //
 // 该接口用于获取服务台知识库所有分类。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/category/list-categories
-func (r *HelpdeskService) GetCategoryList(ctx context.Context, request *GetCategoryListReq, options ...MethodOptionFunc) (*GetCategoryListResp, *Response, error) {
-	if r.cli.mock.mockHelpdeskGetCategoryList != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Helpdesk#GetCategoryList mock enable")
-		return r.cli.mock.mockHelpdeskGetCategoryList(ctx, request, options...)
+func (r *HelpdeskService) GetHelpdeskCategoryList(ctx context.Context, request *GetHelpdeskCategoryListReq, options ...MethodOptionFunc) (*GetHelpdeskCategoryListResp, *Response, error) {
+	if r.cli.mock.mockHelpdeskGetHelpdeskCategoryList != nil {
+		r.cli.log(ctx, LogLevelDebug, "[lark] Helpdesk#GetHelpdeskCategoryList mock enable")
+		return r.cli.mock.mockHelpdeskGetHelpdeskCategoryList(ctx, request, options...)
 	}
 
 	req := &RawRequestReq{
 		Scope:                 "Helpdesk",
-		API:                   "GetCategoryList",
+		API:                   "GetHelpdeskCategoryList",
 		Method:                "GET",
 		URL:                   "https://open.feishu.cn/open-apis/helpdesk/v1/categories",
 		Body:                  request,
@@ -27,32 +27,32 @@ func (r *HelpdeskService) GetCategoryList(ctx context.Context, request *GetCateg
 		NeedTenantAccessToken: true,
 		NeedHelpdeskAuth:      true,
 	}
-	resp := new(getCategoryListResp)
+	resp := new(getHelpdeskCategoryListResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
 	return resp.Data, response, err
 }
 
-func (r *Mock) MockHelpdeskGetCategoryList(f func(ctx context.Context, request *GetCategoryListReq, options ...MethodOptionFunc) (*GetCategoryListResp, *Response, error)) {
-	r.mockHelpdeskGetCategoryList = f
+func (r *Mock) MockHelpdeskGetHelpdeskCategoryList(f func(ctx context.Context, request *GetHelpdeskCategoryListReq, options ...MethodOptionFunc) (*GetHelpdeskCategoryListResp, *Response, error)) {
+	r.mockHelpdeskGetHelpdeskCategoryList = f
 }
 
-func (r *Mock) UnMockHelpdeskGetCategoryList() {
-	r.mockHelpdeskGetCategoryList = nil
+func (r *Mock) UnMockHelpdeskGetHelpdeskCategoryList() {
+	r.mockHelpdeskGetHelpdeskCategoryList = nil
 }
 
-type GetCategoryListReq struct {
+type GetHelpdeskCategoryListReq struct {
 	Lang    *string `query:"lang" json:"-"`     // 知识库分类语言, 示例值："zh_cn"
 	OrderBy *int64  `query:"order_by" json:"-"` // 排序键。1: 根据知识库分类更新时间排序, 示例值：1
 	Asc     *bool   `query:"asc" json:"-"`      // 顺序。true: 正序；false：反序, 示例值：true
 }
 
-type getCategoryListResp struct {
-	Code int64                `json:"code,omitempty"` // 错误码，非 0 表示失败
-	Msg  string               `json:"msg,omitempty"`  // 错误描述
-	Data *GetCategoryListResp `json:"data,omitempty"` //
+type getHelpdeskCategoryListResp struct {
+	Code int64                        `json:"code,omitempty"` // 错误码，非 0 表示失败
+	Msg  string                       `json:"msg,omitempty"`  // 错误描述
+	Data *GetHelpdeskCategoryListResp `json:"data,omitempty"` //
 }
 
-type GetCategoryListResp struct {
+type GetHelpdeskCategoryListResp struct {
 	Categories []*HelpdeskCategory `json:"categories,omitempty"` // 知识库分类列表
 }

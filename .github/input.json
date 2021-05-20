@@ -694,87 +694,87 @@
     "apis": [
       {
         "file_name": "api_meeting_room_summary_batch_get.go",
-        "func_name": "BatchGetSummary",
+        "func_name": "BatchGetMeetingRoomSummary",
         "doc_url": "https://open.feishu.cn/document/ukTMukTMukTM/uIjM5UjLyITO14iMykTN/"
       },
       {
         "file_name": "api_meeting_room_building_get_list.go",
-        "func_name": "GetBuildingList",
+        "func_name": "GetMeetingRoomBuildingList",
         "doc_url": "https://open.feishu.cn/document/ukTMukTMukTM/ugzNyUjL4cjM14CO3ITN"
       },
       {
         "file_name": "api_meeting_room_building_batch_get.go",
-        "func_name": "BatchGetBuilding",
+        "func_name": "BatchGetMeetingRoomBuilding",
         "doc_url": "https://open.feishu.cn/document/ukTMukTMukTM/ukzNyUjL5cjM14SO3ITN"
       },
       {
         "file_name": "api_meeting_room_room_get_list.go",
-        "func_name": "GetRoomList",
+        "func_name": "GetMeetingRoomRoomList",
         "doc_url": "https://open.feishu.cn/document/ukTMukTMukTM/uADOyUjLwgjM14CM4ITN"
       },
       {
         "file_name": "api_meeting_room_room_batch_get.go",
-        "func_name": "BatchGetRoom",
+        "func_name": "BatchGetMeetingRoomRoom",
         "doc_url": "https://open.feishu.cn/document/ukTMukTMukTM/uEDOyUjLxgjM14SM4ITN"
       },
       {
         "file_name": "api_meeting_room_freebusy_batch_get.go",
-        "func_name": "BatchGetFreebusy",
+        "func_name": "BatchGetMeetingRoomFreebusy",
         "doc_url": "https://open.feishu.cn/document/ukTMukTMukTM/uIDOyUjLygjM14iM4ITN"
       },
       {
         "file_name": "api_meeting_room_instance_reply.go",
-        "func_name": "ReplyInstance",
+        "func_name": "ReplyMeetingRoomInstance",
         "doc_url": "https://open.feishu.cn/document/ukTMukTMukTM/uYzN4UjL2cDO14iN3gTN"
       },
       {
         "file_name": "api_meeting_room_building_create.go",
-        "func_name": "CreateBuilding",
+        "func_name": "CreateMeetingRoomBuilding",
         "doc_url": "https://open.feishu.cn/document/ukTMukTMukTM/uATNwYjLwUDM24CM1AjN"
       },
       {
         "file_name": "api_meeting_room_building_update.go",
-        "func_name": "UpdateBuilding",
+        "func_name": "UpdateMeetingRoomBuilding",
         "doc_url": "https://open.feishu.cn/document/ukTMukTMukTM/uETNwYjLxUDM24SM1AjN"
       },
       {
         "file_name": "api_meeting_room_building_delete.go",
-        "func_name": "DeleteBuilding",
+        "func_name": "DeleteMeetingRoomBuilding",
         "doc_url": "https://open.feishu.cn/document/ukTMukTMukTM/uMzMxYjLzMTM24yMzEjN"
       },
       {
         "file_name": "api_meeting_room_building_batch_get_id.go",
-        "func_name": "BatchGetBuildingID",
+        "func_name": "BatchGetMeetingRoomBuildingID",
         "doc_url": "https://open.feishu.cn/document/ukTMukTMukTM/uMzMxYjLzMTM24yMzEjN"
       },
       {
         "file_name": "api_meeting_room_room_create.go",
-        "func_name": "CreateRoom",
+        "func_name": "CreateMeetingRoomRoom",
         "doc_url": "https://open.feishu.cn/document/ukTMukTMukTM/uITNwYjLyUDM24iM1AjN"
       },
       {
         "file_name": "api_meeting_room_room_update.go",
-        "func_name": "UpdateRoom",
+        "func_name": "UpdateMeetingRoomRoom",
         "doc_url": "https://open.feishu.cn/document/ukTMukTMukTM/uMTNwYjLzUDM24yM1AjN"
       },
       {
         "file_name": "api_meeting_room_room_delete.go",
-        "func_name": "DeleteRoom",
+        "func_name": "DeleteMeetingRoomRoom",
         "doc_url": "https://open.feishu.cn/document/ukTMukTMukTM/uUzMxYjL1MTM24SNzEjN"
       },
       {
         "file_name": "api_meeting_room_room_batch_get_id.go",
-        "func_name": "BatchGetRoomID",
+        "func_name": "BatchGetMeetingRoomRoomID",
         "doc_url": "https://open.feishu.cn/document/ukTMukTMukTM/uYzMxYjL2MTM24iNzEjN"
       },
       {
         "file_name": "api_meeting_room_country_get_list.go",
-        "func_name": "GetCountryList",
+        "func_name": "GetMeetingRoomCountryList",
         "doc_url": "https://open.feishu.cn/document/ukTMukTMukTM/uQTNwYjL0UDM24CN1AjN"
       },
       {
         "file_name": "api_meeting_room_district_get_list.go",
-        "func_name": "GetDistrictList",
+        "func_name": "GetMeetingRoomDistrictList",
         "doc_url": "https://open.feishu.cn/document/ukTMukTMukTM/uUTNwYjL1UDM24SN1AjN"
       }
     ]
@@ -784,82 +784,82 @@
     "apis": [
       {
         "file_name": "api_vc_reserve_apply.go",
-        "func_name": "ApplyReserve",
+        "func_name": "ApplyVCReserve",
         "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/vc-v1/reserve/apply"
       },
       {
         "file_name": "api_vc_reserve_update.go",
-        "func_name": "UpdateReserve",
+        "func_name": "UpdateVCReserve",
         "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/vc-v1/reserve/update"
       },
       {
         "file_name": "api_vc_reserve_delete.go",
-        "func_name": "DeleteReserve",
+        "func_name": "DeleteVCReserve",
         "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/vc-v1/reserve/delete"
       },
       {
         "file_name": "api_vc_reserve_get_active_meeting.go",
-        "func_name": "GetReserveActiveMeeting",
+        "func_name": "GetVCReserveActiveMeeting",
         "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/vc-v1/reserve/get_active_meeting"
       },
       {
         "file_name": "api_vc_meeting_get.go",
-        "func_name": "GetMeeting",
+        "func_name": "GetVCMeeting",
         "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/vc-v1/meeting/get"
       },
       {
         "file_name": "api_vc_meeting_invite.go",
-        "func_name": "InviteMeeting",
+        "func_name": "InviteVCMeeting",
         "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/vc-v1/meeting/invite"
       },
       {
         "file_name": "api_vc_meeting_set_host.go",
-        "func_name": "SetHostMeeting",
+        "func_name": "SetVCHostMeeting",
         "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/vc-v1/meeting/set_host"
       },
       {
         "file_name": "api_vc_meeting_end.go",
-        "func_name": "EndMeeting",
+        "func_name": "EndVCMeeting",
         "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/vc-v1/meeting/end"
       },
       {
         "file_name": "api_vc_meeting_recording_start.go",
-        "func_name": "StartMeetingRecording",
+        "func_name": "StartVCMeetingRecording",
         "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/vc-v1/meeting-recording/start"
       },
       {
         "file_name": "api_vc_meeting_recording_stop.go",
-        "func_name": "StopMeetingRecording",
+        "func_name": "StopVCMeetingRecording",
         "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/vc-v1/meeting-recording/stop"
       },
       {
         "file_name": "api_vc_meeting_recording_get.go",
-        "func_name": "GetMeetingRecording",
+        "func_name": "GetVCMeetingRecording",
         "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/vc-v1/meeting-recording/get"
       },
       {
         "file_name": "api_vc_meeting_recording_set_permission.go",
-        "func_name": "SetPermissionMeetingRecording",
+        "func_name": "SetVCPermissionMeetingRecording",
         "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/vc-v1/meeting-recording/set_permission"
       },
       {
         "file_name": "api_vc_report_get_daily.go",
-        "func_name": "GetDailyReport",
+        "func_name": "GetVCDailyReport",
         "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/vc-v1/report/get_daily"
       },
       {
         "file_name": "api_vc_report_get_top_user.go",
-        "func_name": "GetTopUserReport",
+        "func_name": "GetVCTopUserReport",
         "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/vc-v1/report/get_top_user"
       },
       {
         "file_name": "api_vc_room_config_query.go",
-        "func_name": "QueryRoomConfig",
+        "func_name": "QueryVCRoomConfig",
         "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/vc-v1/room_config/query"
       },
       {
         "file_name": "api_vc_room_config_set.go",
-        "func_name": "SetRoomConfig",
+        "func_name": "SetVCRoomConfig",
         "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/vc-v1/room_config/set"
       }
     ]
@@ -994,7 +994,7 @@
     "apis": [
       {
         "file_name": "api_approval_get_instance_list.go",
-        "func_name": "GetInstanceList",
+        "func_name": "GetApprovalInstanceList",
         "doc_url": "https://open.feishu.cn/document/ukTMukTMukTM/uQDOyUjL0gjM14CN4ITN"
       }
     ]
@@ -1004,132 +1004,132 @@
     "apis": [
       {
         "file_name": "api_helpdesk_start_service.go",
-        "func_name": "StartService",
+        "func_name": "StartHelpdeskService",
         "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/ticket/start_service"
       },
       {
         "file_name": "api_helpdesk_ticket_get.go",
-        "func_name": "GetTicket",
+        "func_name": "GetHelpdeskTicket",
         "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/ticket/get"
       },
       {
         "file_name": "api_helpdesk_ticket_update.go",
-        "func_name": "UpdateTicket",
+        "func_name": "UpdateHelpdeskTicket",
         "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/ticket/update"
       },
       {
         "file_name": "api_helpdesk_ticket_get_list.go",
-        "func_name": "GetTicketList",
+        "func_name": "GetHelpdeskTicketList",
         "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/ticket/list"
       },
       {
         "file_name": "api_helpdesk_ticket_image_download.go",
-        "func_name": "DownloadTicketImage",
+        "func_name": "DownloadHelpdeskTicketImage",
         "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/ticket/ticket_image"
       },
       {
         "file_name": "api_helpdesk_ticket_message_get_list.go",
-        "func_name": "GetTicketMessageList",
+        "func_name": "GetHelpdeskTicketMessageList",
         "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/ticket-message/list"
       },
       {
         "file_name": "api_helpdesk_ticket_message_send.go",
-        "func_name": "SendTicketMessage",
+        "func_name": "SendHelpdeskTicketMessage",
         "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/ticket-message/list"
       },
       {
         "file_name": "api_helpdesk_ticket_customized_field_get_list.go",
-        "func_name": "GetTicketCustomizedFieldList",
+        "func_name": "GetHelpdeskTicketCustomizedFieldList",
         "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/ticket_customized_field/list-ticket-customized-fields"
       },
       {
         "file_name": "api_helpdesk_ticket_customized_field_delete.go",
-        "func_name": "DeleteTicketCustomizedField",
+        "func_name": "DeleteHelpdeskTicketCustomizedField",
         "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/ticket_customized_field/delete"
       },
       {
         "file_name": "api_helpdesk_ticket_customized_field_update.go",
-        "func_name": "UpdateTicketCustomizedField",
+        "func_name": "UpdateHelpdeskTicketCustomizedField",
         "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/ticket_customized_field/update-ticket-customized-field"
       },
       {
         "file_name": "api_helpdesk_ticket_customized_field_create.go",
-        "func_name": "CreateTicketCustomizedField",
+        "func_name": "CreateHelpdeskTicketCustomizedField",
         "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/ticket_customized_field/create-ticket-customized-field"
       },
       {
         "file_name": "api_helpdesk_ticket_customized_field_get.go",
-        "func_name": "GetTicketCustomizedField",
+        "func_name": "GetHelpdeskTicketCustomizedField",
         "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/ticket_customized_field/get-ticket-customized-field"
       },
       {
         "file_name": "api_helpdesk_category_create.go",
-        "func_name": "CreateCategory",
+        "func_name": "CreateHelpdeskCategory",
         "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/category/create"
       },
       {
         "file_name": "api_helpdesk_category_get.go",
-        "func_name": "GetCategory",
+        "func_name": "GetHelpdeskCategory",
         "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/category/get"
       },
       {
         "file_name": "api_helpdesk_category_update.go",
-        "func_name": "UpdateCategory",
+        "func_name": "UpdateHelpdeskCategory",
         "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/category/patch"
       },
       {
         "file_name": "api_helpdesk_category_delete.go",
-        "func_name": "DeleteCategory",
+        "func_name": "DeleteHelpdeskCategory",
         "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/category/delete"
       },
       {
         "file_name": "api_helpdesk_category_get_list.go",
-        "func_name": "GetCategoryList",
+        "func_name": "GetHelpdeskCategoryList",
         "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/category/list-categories"
       },
       {
         "file_name": "api_helpdesk_faq_create.go",
-        "func_name": "CreateFAQ",
+        "func_name": "CreateHelpdeskFAQ",
         "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/faq/create"
       },
       {
         "file_name": "api_helpdesk_faq_get.go",
-        "func_name": "GetFAQ",
+        "func_name": "GetHelpdeskFAQ",
         "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/faq/get"
       },
       {
         "file_name": "api_helpdesk_faq_update.go",
-        "func_name": "UpdateFAQ",
+        "func_name": "UpdateHelpdeskFAQ",
         "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/faq/patch"
       },
       {
         "file_name": "api_helpdesk_faq_delete.go",
-        "func_name": "DeleteFAQ",
+        "func_name": "DeleteHelpdeskFAQ",
         "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/faq/delete"
       },
       {
         "file_name": "api_helpdesk_faq_get_list.go",
-        "func_name": "GetFAQList",
+        "func_name": "GetHelpdeskFAQList",
         "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/faq/list"
       },
       {
         "file_name": "api_helpdesk_faq_get_image.go",
-        "func_name": "GetFAQImage",
+        "func_name": "GetHelpdeskFAQImage",
         "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/faq/faq_image"
       },
       {
         "file_name": "api_helpdesk_faq_search.go",
-        "func_name": "SearchFAQ",
+        "func_name": "SearchHelpdeskFAQ",
         "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/faq/search"
       },
       {
         "file_name": "api_helpdesk_event_subscribe.go",
-        "func_name": "SubscribeEvent",
+        "func_name": "SubscribeHelpdeskEvent",
         "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/event/subscribe"
       },
       {
         "file_name": "api_helpdesk_event_unsubscribe.go",
-        "func_name": "UnsubscribeEvent",
+        "func_name": "UnsubscribeHelpdeskEvent",
         "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/event/unsubscribe"
       }
     ]
@@ -1209,7 +1209,7 @@
     "apis": [
       {
         "file_name": "api_attendance_update_user_settings.go",
-        "func_name": "UpdateUserSettings",
+        "func_name": "UpdateAttendanceUserSettings",
         "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/Attendance//rule/user-setting-modify"
       },
       {
@@ -1219,102 +1219,102 @@
       },
       {
         "file_name": "api_attendance_group_create_update.go",
-        "func_name": "CreateUpdateGroup",
+        "func_name": "CreateUpdateAttendanceGroup",
         "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/Attendance//group_create_update"
       },
       {
         "file_name": "api_attendance_group_delete.go",
-        "func_name": "DeleteGroup",
+        "func_name": "DeleteAttendanceGroup",
         "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/Attendance//group_delete"
       },
       {
         "file_name": "api_attendance_group_get.go",
-        "func_name": "GetGroup",
+        "func_name": "GetAttendanceGroup",
         "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/Attendance//group"
       },
       {
         "file_name": "api_attendance_shift_create.go",
-        "func_name": "CreateShift",
+        "func_name": "CreateAttendanceShift",
         "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/Attendance//shift_create"
       },
       {
         "file_name": "api_attendance_shift_delete.go",
-        "func_name": "DeleteShift",
+        "func_name": "DeleteAttendanceShift",
         "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/Attendance//shift_delete"
       },
       {
         "file_name": "api_attendance_shift_get_by_id.go",
-        "func_name": "GetShiftByID",
+        "func_name": "GetAttendanceShiftByID",
         "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/Attendance//shift_by_id"
       },
       {
         "file_name": "api_attendance_shift_get_by_name.go",
-        "func_name": "GetShiftByName",
+        "func_name": "GetAttendanceShiftByName",
         "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/Attendance//shift_by_name"
       },
       {
         "file_name": "api_attendance_statistics_data_get.go",
-        "func_name": "GetStatisticsData",
+        "func_name": "GetAttendanceStatisticsData",
         "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/Attendance//task/query-statistics-data"
       },
       {
         "file_name": "api_attendance_statistics_header_get.go",
-        "func_name": "GetStatisticsHeader",
+        "func_name": "GetAttendanceStatisticsHeader",
         "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/Attendance//task/query-statistics-header"
       },
       {
         "file_name": "api_attendance_user_statistics_settings_update.go",
-        "func_name": "UpdateUserStatisticsSettings",
+        "func_name": "UpdateAttendanceUserStatisticsSettings",
         "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/Attendance//task/update-user-stats-settings"
       },
       {
         "file_name": "api_attendance_user_statistics_settings_get.go",
-        "func_name": "GetUserStatisticsSettings",
+        "func_name": "GetAttendanceUserStatisticsSettings",
         "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/Attendance//task/query-user-statistics-settings"
       },
       {
         "file_name": "api_attendance_user_daily_shift_get.go",
-        "func_name": "GetUserDailyShift",
+        "func_name": "GetAttendanceUserDailyShift",
         "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/Attendance//task/GetScheduledShifts"
       },
       {
         "file_name": "api_attendance_user_task_get.go",
-        "func_name": "GetUserTask",
+        "func_name": "GetAttendanceUserTask",
         "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/Attendance//GetCheckinResults"
       },
       {
         "file_name": "api_attendance_user_flow_get.go",
-        "func_name": "GetUserFlow",
+        "func_name": "GetAttendanceUserFlow",
         "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/Attendance//GetCardSwipeHistory"
       },
       {
         "file_name": "api_attendance_user_flow_batch_get.go",
-        "func_name": "BatchGetUserFlow",
+        "func_name": "BatchGetAttendanceUserFlow",
         "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/Attendance//BatchQueryCheckinFlowHistory"
       },
       {
         "file_name": "api_attendance_user_flow_batch_create.go",
-        "func_name": "BatchCreateUserFlow",
+        "func_name": "BatchCreateAttendanceUserFlow",
         "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/Attendance//ImportAttendanceFlowRecords"
       },
       {
         "file_name": "api_attendance_user_task_remedy_get.go",
-        "func_name": "GetUserTaskRemedy",
+        "func_name": "GetAttendanceUserTaskRemedy",
         "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/Attendance//GetUsersRemedyRecords"
       },
       {
         "file_name": "api_attendance_user_daily_shift_create_update.go",
-        "func_name": "CreateUpdateUserDailyShift",
+        "func_name": "CreateUpdateAttendanceUserDailyShift",
         "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/Attendance//CreateandEditShifts"
       },
       {
         "file_name": "api_attendance_user_approval_get.go",
-        "func_name": "GetUserApproval",
+        "func_name": "GetAttendanceUserApproval",
         "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/Attendance//RetrieveUserApprovals"
       },
       {
         "file_name": "api_attendance_user_approval_create.go",
-        "func_name": "CreateUserApproval",
+        "func_name": "CreateAttendanceUserApproval",
         "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/Attendance//AddApprovalsInLarkAttendance"
       }
     ]
@@ -1511,7 +1511,7 @@
     "apis": [
       {
         "file_name": "api_okr_period_get_list.go",
-        "func_name": "GetPeriodList",
+        "func_name": "GetOKRPeriodList",
         "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/okr-v1/period/list"
       },
       {
@@ -1531,12 +1531,12 @@
     "apis": [
       {
         "file_name": "api_ehr_employee_get_list.go",
-        "func_name": "GetEmployeeList",
+        "func_name": "GetEHREmployeeList",
         "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/ehr/ehr-v1/employee/list"
       },
       {
         "file_name": "api_ehr_download_attachment.go",
-        "func_name": "DownloadAttachments",
+        "func_name": "DownloadEHRAttachments",
         "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/ehr/ehr-v1/attachment/get"
       }
     ]
@@ -1545,8 +1545,8 @@
     "scope": "Tenant",
     "apis": [
       {
-        "file_name": "api_tenant_tenant_query.go",
-        "func_name": "QueryTenant",
+        "file_name": "api_tenant_tenant_get.go",
+        "func_name": "GetTenant",
         "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/tenant-v2/tenant/query"
       }
     ]

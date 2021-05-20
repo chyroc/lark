@@ -6,59 +6,59 @@ import (
 	"context"
 )
 
-// BatchGetUserFlow
+// BatchGetAttendanceUserFlow
 //
 // 批量查询授权内员工的实际打卡记录。例如，企业给一个员工设定的班次是上午 9 点和下午 6 点各打一次上下班卡，但是员工在这期间打了多次卡，该接口会把所有的打卡记录都返回。
 // 如果只需获取打卡结果，而不需要打卡的详细数据，可使用“获取打卡结果”的接口。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/Attendance//BatchQueryCheckinFlowHistory
-func (r *AttendanceService) BatchGetUserFlow(ctx context.Context, request *BatchGetUserFlowReq, options ...MethodOptionFunc) (*BatchGetUserFlowResp, *Response, error) {
-	if r.cli.mock.mockAttendanceBatchGetUserFlow != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Attendance#BatchGetUserFlow mock enable")
-		return r.cli.mock.mockAttendanceBatchGetUserFlow(ctx, request, options...)
+func (r *AttendanceService) BatchGetAttendanceUserFlow(ctx context.Context, request *BatchGetAttendanceUserFlowReq, options ...MethodOptionFunc) (*BatchGetAttendanceUserFlowResp, *Response, error) {
+	if r.cli.mock.mockAttendanceBatchGetAttendanceUserFlow != nil {
+		r.cli.log(ctx, LogLevelDebug, "[lark] Attendance#BatchGetAttendanceUserFlow mock enable")
+		return r.cli.mock.mockAttendanceBatchGetAttendanceUserFlow(ctx, request, options...)
 	}
 
 	req := &RawRequestReq{
 		Scope:                 "Attendance",
-		API:                   "BatchGetUserFlow",
+		API:                   "BatchGetAttendanceUserFlow",
 		Method:                "POST",
 		URL:                   "https://open.feishu.cn/open-apis/attendance/v1/user_flows/query",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
 	}
-	resp := new(batchGetUserFlowResp)
+	resp := new(batchGetAttendanceUserFlowResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
 	return resp.Data, response, err
 }
 
-func (r *Mock) MockAttendanceBatchGetUserFlow(f func(ctx context.Context, request *BatchGetUserFlowReq, options ...MethodOptionFunc) (*BatchGetUserFlowResp, *Response, error)) {
-	r.mockAttendanceBatchGetUserFlow = f
+func (r *Mock) MockAttendanceBatchGetAttendanceUserFlow(f func(ctx context.Context, request *BatchGetAttendanceUserFlowReq, options ...MethodOptionFunc) (*BatchGetAttendanceUserFlowResp, *Response, error)) {
+	r.mockAttendanceBatchGetAttendanceUserFlow = f
 }
 
-func (r *Mock) UnMockAttendanceBatchGetUserFlow() {
-	r.mockAttendanceBatchGetUserFlow = nil
+func (r *Mock) UnMockAttendanceBatchGetAttendanceUserFlow() {
+	r.mockAttendanceBatchGetAttendanceUserFlow = nil
 }
 
-type BatchGetUserFlowReq struct {
+type BatchGetAttendanceUserFlowReq struct {
 	EmployeeType  EmployeeType `query:"employee_type" json:"-"`   // 请求体中的 user_ids 的员工工号类型，可用值：【employee_id（员工的 employeeId），employee_no（员工工号）】，示例值：“employee_id”
 	UserIDs       []string     `json:"user_ids,omitempty"`        // employee_no 或 employee_id 列表
 	CheckTimeFrom string       `json:"check_time_from,omitempty"` // 查询的起始时间，时间戳
 	CheckTimeTo   string       `json:"check_time_to,omitempty"`   // 查询的结束时间，时间戳
 }
 
-type batchGetUserFlowResp struct {
-	Code int64                 `json:"code,omitempty"` // 错误码，非 0 表示失败
-	Msg  string                `json:"msg,omitempty"`  // 错误描述
-	Data *BatchGetUserFlowResp `json:"data,omitempty"` // -
+type batchGetAttendanceUserFlowResp struct {
+	Code int64                           `json:"code,omitempty"` // 错误码，非 0 表示失败
+	Msg  string                          `json:"msg,omitempty"`  // 错误描述
+	Data *BatchGetAttendanceUserFlowResp `json:"data,omitempty"` // -
 }
 
-type BatchGetUserFlowResp struct {
-	UserFlowResults []*BatchGetUserFlowRespUserFlowResult `json:"user_flow_results,omitempty"` // 打卡记录列表
+type BatchGetAttendanceUserFlowResp struct {
+	UserFlowResults []*BatchGetAttendanceUserFlowRespUserFlowResult `json:"user_flow_results,omitempty"` // 打卡记录列表
 }
 
-type BatchGetUserFlowRespUserFlowResult struct {
+type BatchGetAttendanceUserFlowRespUserFlowResult struct {
 	UserID       string   `json:"user_id,omitempty"`       // 员工工号
 	CreatorID    string   `json:"creator_id,omitempty"`    // 打卡记录创建者的 employee_no
 	LocationName string   `json:"location_name,omitempty"` // 打卡位置名称信息

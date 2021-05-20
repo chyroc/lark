@@ -6,18 +6,18 @@ import (
 	"context"
 )
 
-// SearchFAQ 该接口用于搜索服务台知识库。
+// SearchHelpdeskFAQ 该接口用于搜索服务台知识库。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/faq/search
-func (r *HelpdeskService) SearchFAQ(ctx context.Context, request *SearchFAQReq, options ...MethodOptionFunc) (*SearchFAQResp, *Response, error) {
-	if r.cli.mock.mockHelpdeskSearchFAQ != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Helpdesk#SearchFAQ mock enable")
-		return r.cli.mock.mockHelpdeskSearchFAQ(ctx, request, options...)
+func (r *HelpdeskService) SearchHelpdeskFAQ(ctx context.Context, request *SearchHelpdeskFAQReq, options ...MethodOptionFunc) (*SearchHelpdeskFAQResp, *Response, error) {
+	if r.cli.mock.mockHelpdeskSearchHelpdeskFAQ != nil {
+		r.cli.log(ctx, LogLevelDebug, "[lark] Helpdesk#SearchHelpdeskFAQ mock enable")
+		return r.cli.mock.mockHelpdeskSearchHelpdeskFAQ(ctx, request, options...)
 	}
 
 	req := &RawRequestReq{
 		Scope:                 "Helpdesk",
-		API:                   "SearchFAQ",
+		API:                   "SearchHelpdeskFAQ",
 		Method:                "GET",
 		URL:                   "https://open.feishu.cn/open-apis/helpdesk/v1/faqs/search",
 		Body:                  request,
@@ -25,39 +25,39 @@ func (r *HelpdeskService) SearchFAQ(ctx context.Context, request *SearchFAQReq, 
 		NeedTenantAccessToken: true,
 		NeedHelpdeskAuth:      true,
 	}
-	resp := new(searchFAQResp)
+	resp := new(searchHelpdeskFAQResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
 	return resp.Data, response, err
 }
 
-func (r *Mock) MockHelpdeskSearchFAQ(f func(ctx context.Context, request *SearchFAQReq, options ...MethodOptionFunc) (*SearchFAQResp, *Response, error)) {
-	r.mockHelpdeskSearchFAQ = f
+func (r *Mock) MockHelpdeskSearchHelpdeskFAQ(f func(ctx context.Context, request *SearchHelpdeskFAQReq, options ...MethodOptionFunc) (*SearchHelpdeskFAQResp, *Response, error)) {
+	r.mockHelpdeskSearchHelpdeskFAQ = f
 }
 
-func (r *Mock) UnMockHelpdeskSearchFAQ() {
-	r.mockHelpdeskSearchFAQ = nil
+func (r *Mock) UnMockHelpdeskSearchHelpdeskFAQ() {
+	r.mockHelpdeskSearchHelpdeskFAQ = nil
 }
 
-type SearchFAQReq struct {
+type SearchHelpdeskFAQReq struct {
 	Query     string  `query:"query" json:"-"`      // 搜索query, 示例值："点餐"
 	PageToken *string `query:"page_token" json:"-"` // 分页标记，第一次请求不填，表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token，下次遍历可采用该 page_token 获取查询结果, 示例值："6936004780707807251"
 	PageSize  *int64  `query:"page_size" json:"-"`  // 分页大小, 示例值：10, 最大值：`100`
 }
 
-type searchFAQResp struct {
-	Code int64          `json:"code,omitempty"` // 错误码，非 0 表示失败
-	Msg  string         `json:"msg,omitempty"`  // 错误描述
-	Data *SearchFAQResp `json:"data,omitempty"` //
+type searchHelpdeskFAQResp struct {
+	Code int64                  `json:"code,omitempty"` // 错误码，非 0 表示失败
+	Msg  string                 `json:"msg,omitempty"`  // 错误描述
+	Data *SearchHelpdeskFAQResp `json:"data,omitempty"` //
 }
 
-type SearchFAQResp struct {
-	HasMore   bool                 `json:"has_more,omitempty"`   // 是否还有更多项
-	PageToken string               `json:"page_token,omitempty"` // 分页标记，当 has_more 为 true 时，会同时返回新的 page_token，否则不返回 page_token
-	Items     []*SearchFAQRespItem `json:"items,omitempty"`      // 知识库列表
+type SearchHelpdeskFAQResp struct {
+	HasMore   bool                         `json:"has_more,omitempty"`   // 是否还有更多项
+	PageToken string                       `json:"page_token,omitempty"` // 分页标记，当 has_more 为 true 时，会同时返回新的 page_token，否则不返回 page_token
+	Items     []*SearchHelpdeskFAQRespItem `json:"items,omitempty"`      // 知识库列表
 }
 
-type SearchFAQRespItem struct {
+type SearchHelpdeskFAQRespItem struct {
 	FaqID          string              `json:"faq_id,omitempty"`          // 知识库ID
 	ID             string              `json:"id,omitempty"`              // 知识库旧版ID，请使用faq_id
 	HelpdeskID     string              `json:"helpdesk_id,omitempty"`     // 服务台ID

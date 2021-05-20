@@ -6,18 +6,18 @@ import (
 	"context"
 )
 
-// DeleteCategory 该接口用于删除知识库分类详情。
+// DeleteHelpdeskCategory 该接口用于删除知识库分类详情。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/category/delete
-func (r *HelpdeskService) DeleteCategory(ctx context.Context, request *DeleteCategoryReq, options ...MethodOptionFunc) (*DeleteCategoryResp, *Response, error) {
-	if r.cli.mock.mockHelpdeskDeleteCategory != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Helpdesk#DeleteCategory mock enable")
-		return r.cli.mock.mockHelpdeskDeleteCategory(ctx, request, options...)
+func (r *HelpdeskService) DeleteHelpdeskCategory(ctx context.Context, request *DeleteHelpdeskCategoryReq, options ...MethodOptionFunc) (*DeleteHelpdeskCategoryResp, *Response, error) {
+	if r.cli.mock.mockHelpdeskDeleteHelpdeskCategory != nil {
+		r.cli.log(ctx, LogLevelDebug, "[lark] Helpdesk#DeleteHelpdeskCategory mock enable")
+		return r.cli.mock.mockHelpdeskDeleteHelpdeskCategory(ctx, request, options...)
 	}
 
 	req := &RawRequestReq{
 		Scope:               "Helpdesk",
-		API:                 "DeleteCategory",
+		API:                 "DeleteHelpdeskCategory",
 		Method:              "DELETE",
 		URL:                 "https://open.feishu.cn/open-apis/helpdesk/v1/categories/:id",
 		Body:                request,
@@ -25,28 +25,28 @@ func (r *HelpdeskService) DeleteCategory(ctx context.Context, request *DeleteCat
 		NeedUserAccessToken: true,
 		NeedHelpdeskAuth:    true,
 	}
-	resp := new(deleteCategoryResp)
+	resp := new(deleteHelpdeskCategoryResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
 	return resp.Data, response, err
 }
 
-func (r *Mock) MockHelpdeskDeleteCategory(f func(ctx context.Context, request *DeleteCategoryReq, options ...MethodOptionFunc) (*DeleteCategoryResp, *Response, error)) {
-	r.mockHelpdeskDeleteCategory = f
+func (r *Mock) MockHelpdeskDeleteHelpdeskCategory(f func(ctx context.Context, request *DeleteHelpdeskCategoryReq, options ...MethodOptionFunc) (*DeleteHelpdeskCategoryResp, *Response, error)) {
+	r.mockHelpdeskDeleteHelpdeskCategory = f
 }
 
-func (r *Mock) UnMockHelpdeskDeleteCategory() {
-	r.mockHelpdeskDeleteCategory = nil
+func (r *Mock) UnMockHelpdeskDeleteHelpdeskCategory() {
+	r.mockHelpdeskDeleteHelpdeskCategory = nil
 }
 
-type DeleteCategoryReq struct {
+type DeleteHelpdeskCategoryReq struct {
 	ID string `path:"id" json:"-"` // 知识库分类ID, 示例值："6948728206392295444"
 }
 
-type deleteCategoryResp struct {
-	Code int64               `json:"code,omitempty"` // 错误码，非 0 表示失败
-	Msg  string              `json:"msg,omitempty"`  // 错误描述
-	Data *DeleteCategoryResp `json:"data,omitempty"`
+type deleteHelpdeskCategoryResp struct {
+	Code int64                       `json:"code,omitempty"` // 错误码，非 0 表示失败
+	Msg  string                      `json:"msg,omitempty"`  // 错误描述
+	Data *DeleteHelpdeskCategoryResp `json:"data,omitempty"`
 }
 
-type DeleteCategoryResp struct{}
+type DeleteHelpdeskCategoryResp struct{}

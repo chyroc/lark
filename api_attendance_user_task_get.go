@@ -6,70 +6,70 @@ import (
 	"context"
 )
 
-// GetUserTask
+// GetAttendanceUserTask
 //
 // 获取企业内员工的实际打卡结果，包括上班打卡结果和下班打卡结果。
 // * 如果企业给一个员工设定的班次是上午 9 点和下午 6 点各打一次上下班卡，即使员工在这期间打了多次卡，该接口也只会返回 1 条记录。
 // * 如果要获取打卡的详细数据，如打卡位置等信息，可使用“获取打卡流水记录”或“批量查询打卡流水记录”的接口。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/Attendance//GetCheckinResults
-func (r *AttendanceService) GetUserTask(ctx context.Context, request *GetUserTaskReq, options ...MethodOptionFunc) (*GetUserTaskResp, *Response, error) {
-	if r.cli.mock.mockAttendanceGetUserTask != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Attendance#GetUserTask mock enable")
-		return r.cli.mock.mockAttendanceGetUserTask(ctx, request, options...)
+func (r *AttendanceService) GetAttendanceUserTask(ctx context.Context, request *GetAttendanceUserTaskReq, options ...MethodOptionFunc) (*GetAttendanceUserTaskResp, *Response, error) {
+	if r.cli.mock.mockAttendanceGetAttendanceUserTask != nil {
+		r.cli.log(ctx, LogLevelDebug, "[lark] Attendance#GetAttendanceUserTask mock enable")
+		return r.cli.mock.mockAttendanceGetAttendanceUserTask(ctx, request, options...)
 	}
 
 	req := &RawRequestReq{
 		Scope:                 "Attendance",
-		API:                   "GetUserTask",
+		API:                   "GetAttendanceUserTask",
 		Method:                "POST",
 		URL:                   "https://open.feishu.cn/open-apis/attendance/v1/user_tasks/query",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
 	}
-	resp := new(getUserTaskResp)
+	resp := new(getAttendanceUserTaskResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
 	return resp.Data, response, err
 }
 
-func (r *Mock) MockAttendanceGetUserTask(f func(ctx context.Context, request *GetUserTaskReq, options ...MethodOptionFunc) (*GetUserTaskResp, *Response, error)) {
-	r.mockAttendanceGetUserTask = f
+func (r *Mock) MockAttendanceGetAttendanceUserTask(f func(ctx context.Context, request *GetAttendanceUserTaskReq, options ...MethodOptionFunc) (*GetAttendanceUserTaskResp, *Response, error)) {
+	r.mockAttendanceGetAttendanceUserTask = f
 }
 
-func (r *Mock) UnMockAttendanceGetUserTask() {
-	r.mockAttendanceGetUserTask = nil
+func (r *Mock) UnMockAttendanceGetAttendanceUserTask() {
+	r.mockAttendanceGetAttendanceUserTask = nil
 }
 
-type GetUserTaskReq struct {
+type GetAttendanceUserTaskReq struct {
 	EmployeeType  EmployeeType `query:"employee_type" json:"-"`   // 请求体中的 user_ids 的员工工号类型，可用值：【employee_id（员工的 employeeId），employee_no（员工工号）】，示例值：“employee_id”
 	UserIDs       []string     `json:"user_ids,omitempty"`        // employee_no 或 employee_id 列表
 	CheckDateFrom int64        `json:"check_date_from,omitempty"` // 查询的起始工作日
 	CheckDateTo   int64        `json:"check_date_to,omitempty"`   // 查询的结束工作日
 }
 
-type getUserTaskResp struct {
-	Code int64            `json:"code,omitempty"` // 错误码，非 0 表示失败
-	Msg  string           `json:"msg,omitempty"`  // 错误描述
-	Data *GetUserTaskResp `json:"data,omitempty"` // -
+type getAttendanceUserTaskResp struct {
+	Code int64                      `json:"code,omitempty"` // 错误码，非 0 表示失败
+	Msg  string                     `json:"msg,omitempty"`  // 错误描述
+	Data *GetAttendanceUserTaskResp `json:"data,omitempty"` // -
 }
 
-type GetUserTaskResp struct {
-	UserTaskResults []*GetUserTaskRespUserTaskResult `json:"user_task_results,omitempty"` // 打卡任务列表
+type GetAttendanceUserTaskResp struct {
+	UserTaskResults []*GetAttendanceUserTaskRespUserTaskResult `json:"user_task_results,omitempty"` // 打卡任务列表
 }
 
-type GetUserTaskRespUserTaskResult struct {
-	ResultID     string                                 `json:"result_id,omitempty"`     // 打卡记录 ID
-	UserID       string                                 `json:"user_id,omitempty"`       // employee ID
-	EmployeeName string                                 `json:"employee_name,omitempty"` // employee 姓名
-	Day          int64                                  `json:"day,omitempty"`           // 日期
-	GroupID      string                                 `json:"group_id,omitempty"`      // 考勤组 ID
-	ShiftID      string                                 `json:"shift_id,omitempty"`      // 班次 ID
-	Records      []*GetUserTaskRespUserTaskResultRecord `json:"records,omitempty"`       // 用户考勤记录
+type GetAttendanceUserTaskRespUserTaskResult struct {
+	ResultID     string                                           `json:"result_id,omitempty"`     // 打卡记录 ID
+	UserID       string                                           `json:"user_id,omitempty"`       // employee ID
+	EmployeeName string                                           `json:"employee_name,omitempty"` // employee 姓名
+	Day          int64                                            `json:"day,omitempty"`           // 日期
+	GroupID      string                                           `json:"group_id,omitempty"`      // 考勤组 ID
+	ShiftID      string                                           `json:"shift_id,omitempty"`      // 班次 ID
+	Records      []*GetAttendanceUserTaskRespUserTaskResultRecord `json:"records,omitempty"`       // 用户考勤记录
 }
 
-type GetUserTaskRespUserTaskResultRecord struct {
+type GetAttendanceUserTaskRespUserTaskResultRecord struct {
 	CheckInRecordID          string `json:"check_in_record_id,omitempty"`          // 上班打卡记录 ID
 	CheckOutRecordID         string `json:"check_out_record_id,omitempty"`         // 下班打卡记录 ID
 	CheckInResult            string `json:"check_in_result,omitempty"`             // 上班打卡结果，可用值：【NoNeedCheck（无需打卡），SystemCheck（系统打卡），Normal（正常），Early（早退），Late（迟到），Lack（缺卡）】

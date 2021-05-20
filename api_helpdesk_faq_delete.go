@@ -6,18 +6,18 @@ import (
 	"context"
 )
 
-// DeleteFAQ 该接口用于删除知识库。
+// DeleteHelpdeskFAQ 该接口用于删除知识库。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/faq/delete
-func (r *HelpdeskService) DeleteFAQ(ctx context.Context, request *DeleteFAQReq, options ...MethodOptionFunc) (*DeleteFAQResp, *Response, error) {
-	if r.cli.mock.mockHelpdeskDeleteFAQ != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Helpdesk#DeleteFAQ mock enable")
-		return r.cli.mock.mockHelpdeskDeleteFAQ(ctx, request, options...)
+func (r *HelpdeskService) DeleteHelpdeskFAQ(ctx context.Context, request *DeleteHelpdeskFAQReq, options ...MethodOptionFunc) (*DeleteHelpdeskFAQResp, *Response, error) {
+	if r.cli.mock.mockHelpdeskDeleteHelpdeskFAQ != nil {
+		r.cli.log(ctx, LogLevelDebug, "[lark] Helpdesk#DeleteHelpdeskFAQ mock enable")
+		return r.cli.mock.mockHelpdeskDeleteHelpdeskFAQ(ctx, request, options...)
 	}
 
 	req := &RawRequestReq{
 		Scope:               "Helpdesk",
-		API:                 "DeleteFAQ",
+		API:                 "DeleteHelpdeskFAQ",
 		Method:              "DELETE",
 		URL:                 "https://open.feishu.cn/open-apis/helpdesk/v1/faqs/:id",
 		Body:                request,
@@ -25,28 +25,28 @@ func (r *HelpdeskService) DeleteFAQ(ctx context.Context, request *DeleteFAQReq, 
 		NeedUserAccessToken: true,
 		NeedHelpdeskAuth:    true,
 	}
-	resp := new(deleteFAQResp)
+	resp := new(deleteHelpdeskFAQResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
 	return resp.Data, response, err
 }
 
-func (r *Mock) MockHelpdeskDeleteFAQ(f func(ctx context.Context, request *DeleteFAQReq, options ...MethodOptionFunc) (*DeleteFAQResp, *Response, error)) {
-	r.mockHelpdeskDeleteFAQ = f
+func (r *Mock) MockHelpdeskDeleteHelpdeskFAQ(f func(ctx context.Context, request *DeleteHelpdeskFAQReq, options ...MethodOptionFunc) (*DeleteHelpdeskFAQResp, *Response, error)) {
+	r.mockHelpdeskDeleteHelpdeskFAQ = f
 }
 
-func (r *Mock) UnMockHelpdeskDeleteFAQ() {
-	r.mockHelpdeskDeleteFAQ = nil
+func (r *Mock) UnMockHelpdeskDeleteHelpdeskFAQ() {
+	r.mockHelpdeskDeleteHelpdeskFAQ = nil
 }
 
-type DeleteFAQReq struct {
+type DeleteHelpdeskFAQReq struct {
 	ID string `path:"id" json:"-"` // id, 示例值："12345"
 }
 
-type deleteFAQResp struct {
-	Code int64          `json:"code,omitempty"` // 错误码，非 0 表示失败
-	Msg  string         `json:"msg,omitempty"`  // 错误描述
-	Data *DeleteFAQResp `json:"data,omitempty"`
+type deleteHelpdeskFAQResp struct {
+	Code int64                  `json:"code,omitempty"` // 错误码，非 0 表示失败
+	Msg  string                 `json:"msg,omitempty"`  // 错误描述
+	Data *DeleteHelpdeskFAQResp `json:"data,omitempty"`
 }
 
-type DeleteFAQResp struct{}
+type DeleteHelpdeskFAQResp struct{}

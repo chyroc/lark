@@ -6,18 +6,18 @@ import (
 	"context"
 )
 
-// SubscribeEvent 用于订阅服务台事件
+// SubscribeHelpdeskEvent 用于订阅服务台事件
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/event/subscribe
-func (r *HelpdeskService) SubscribeEvent(ctx context.Context, request *SubscribeEventReq, options ...MethodOptionFunc) (*SubscribeEventResp, *Response, error) {
-	if r.cli.mock.mockHelpdeskSubscribeEvent != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Helpdesk#SubscribeEvent mock enable")
-		return r.cli.mock.mockHelpdeskSubscribeEvent(ctx, request, options...)
+func (r *HelpdeskService) SubscribeHelpdeskEvent(ctx context.Context, request *SubscribeHelpdeskEventReq, options ...MethodOptionFunc) (*SubscribeHelpdeskEventResp, *Response, error) {
+	if r.cli.mock.mockHelpdeskSubscribeHelpdeskEvent != nil {
+		r.cli.log(ctx, LogLevelDebug, "[lark] Helpdesk#SubscribeHelpdeskEvent mock enable")
+		return r.cli.mock.mockHelpdeskSubscribeHelpdeskEvent(ctx, request, options...)
 	}
 
 	req := &RawRequestReq{
 		Scope:                 "Helpdesk",
-		API:                   "SubscribeEvent",
+		API:                   "SubscribeHelpdeskEvent",
 		Method:                "POST",
 		URL:                   "https://open.feishu.cn/open-apis/helpdesk/v1/events/subscribe",
 		Body:                  request,
@@ -25,33 +25,33 @@ func (r *HelpdeskService) SubscribeEvent(ctx context.Context, request *Subscribe
 		NeedTenantAccessToken: true,
 		NeedHelpdeskAuth:      true,
 	}
-	resp := new(subscribeEventResp)
+	resp := new(subscribeHelpdeskEventResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
 	return resp.Data, response, err
 }
 
-func (r *Mock) MockHelpdeskSubscribeEvent(f func(ctx context.Context, request *SubscribeEventReq, options ...MethodOptionFunc) (*SubscribeEventResp, *Response, error)) {
-	r.mockHelpdeskSubscribeEvent = f
+func (r *Mock) MockHelpdeskSubscribeHelpdeskEvent(f func(ctx context.Context, request *SubscribeHelpdeskEventReq, options ...MethodOptionFunc) (*SubscribeHelpdeskEventResp, *Response, error)) {
+	r.mockHelpdeskSubscribeHelpdeskEvent = f
 }
 
-func (r *Mock) UnMockHelpdeskSubscribeEvent() {
-	r.mockHelpdeskSubscribeEvent = nil
+func (r *Mock) UnMockHelpdeskSubscribeHelpdeskEvent() {
+	r.mockHelpdeskSubscribeHelpdeskEvent = nil
 }
 
-type SubscribeEventReq struct {
-	Events []*SubscribeEventReqEvent `json:"events,omitempty"` // 可订阅的事件列表
+type SubscribeHelpdeskEventReq struct {
+	Events []*SubscribeHelpdeskEventReqEvent `json:"events,omitempty"` // 可订阅的事件列表
 }
 
-type SubscribeEventReqEvent struct {
+type SubscribeHelpdeskEventReqEvent struct {
 	Type    string `json:"type,omitempty"`    // 事件类型, 示例值："helpdesk.ticket_message"
 	Subtype string `json:"subtype,omitempty"` // 事件子类型, 示例值："ticket_message.created_v1"
 }
 
-type subscribeEventResp struct {
-	Code int64               `json:"code,omitempty"` // 错误码，非 0 表示失败
-	Msg  string              `json:"msg,omitempty"`  // 错误描述
-	Data *SubscribeEventResp `json:"data,omitempty"`
+type subscribeHelpdeskEventResp struct {
+	Code int64                       `json:"code,omitempty"` // 错误码，非 0 表示失败
+	Msg  string                      `json:"msg,omitempty"`  // 错误描述
+	Data *SubscribeHelpdeskEventResp `json:"data,omitempty"`
 }
 
-type SubscribeEventResp struct{}
+type SubscribeHelpdeskEventResp struct{}

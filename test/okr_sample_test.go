@@ -22,7 +22,7 @@ func Test_OKR_Sample_Failed(t *testing.T) {
 		moduleCli := cli.OKR
 
 		t.Run("", func(t *testing.T) {
-			_, _, err := moduleCli.GetPeriodList(ctx, &lark.GetPeriodListReq{})
+			_, _, err := moduleCli.GetOKRPeriodList(ctx, &lark.GetOKRPeriodListReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "failed")
 		})
@@ -45,12 +45,12 @@ func Test_OKR_Sample_Failed(t *testing.T) {
 		moduleCli := cli.OKR
 
 		t.Run("", func(t *testing.T) {
-			cli.Mock().MockOKRGetPeriodList(func(ctx context.Context, request *lark.GetPeriodListReq, options ...lark.MethodOptionFunc) (*lark.GetPeriodListResp, *lark.Response, error) {
+			cli.Mock().MockOKRGetOKRPeriodList(func(ctx context.Context, request *lark.GetOKRPeriodListReq, options ...lark.MethodOptionFunc) (*lark.GetOKRPeriodListResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
-			defer cli.Mock().UnMockOKRGetPeriodList()
+			defer cli.Mock().UnMockOKRGetOKRPeriodList()
 
-			_, _, err := moduleCli.GetPeriodList(ctx, &lark.GetPeriodListReq{})
+			_, _, err := moduleCli.GetOKRPeriodList(ctx, &lark.GetOKRPeriodListReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "mock-failed")
 		})
@@ -83,7 +83,7 @@ func Test_OKR_Sample_Failed(t *testing.T) {
 		moduleCli := cli.OKR
 
 		t.Run("", func(t *testing.T) {
-			_, _, err := moduleCli.GetPeriodList(ctx, &lark.GetPeriodListReq{})
+			_, _, err := moduleCli.GetOKRPeriodList(ctx, &lark.GetOKRPeriodListReq{})
 			as.NotNil(err)
 			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
 		})

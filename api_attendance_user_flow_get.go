@@ -6,52 +6,52 @@ import (
 	"context"
 )
 
-// GetUserFlow
+// GetAttendanceUserFlow
 //
 // 通过打卡记录 ID 获取用户的打卡流水记录。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/Attendance//GetCardSwipeHistory
-func (r *AttendanceService) GetUserFlow(ctx context.Context, request *GetUserFlowReq, options ...MethodOptionFunc) (*GetUserFlowResp, *Response, error) {
-	if r.cli.mock.mockAttendanceGetUserFlow != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Attendance#GetUserFlow mock enable")
-		return r.cli.mock.mockAttendanceGetUserFlow(ctx, request, options...)
+func (r *AttendanceService) GetAttendanceUserFlow(ctx context.Context, request *GetAttendanceUserFlowReq, options ...MethodOptionFunc) (*GetAttendanceUserFlowResp, *Response, error) {
+	if r.cli.mock.mockAttendanceGetAttendanceUserFlow != nil {
+		r.cli.log(ctx, LogLevelDebug, "[lark] Attendance#GetAttendanceUserFlow mock enable")
+		return r.cli.mock.mockAttendanceGetAttendanceUserFlow(ctx, request, options...)
 	}
 
 	req := &RawRequestReq{
 		Scope:                 "Attendance",
-		API:                   "GetUserFlow",
+		API:                   "GetAttendanceUserFlow",
 		Method:                "GET",
 		URL:                   "https://open.feishu.cn/open-apis/attendance/v1/user_flows/:user_flow_id",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
 	}
-	resp := new(getUserFlowResp)
+	resp := new(getAttendanceUserFlowResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
 	return resp.Data, response, err
 }
 
-func (r *Mock) MockAttendanceGetUserFlow(f func(ctx context.Context, request *GetUserFlowReq, options ...MethodOptionFunc) (*GetUserFlowResp, *Response, error)) {
-	r.mockAttendanceGetUserFlow = f
+func (r *Mock) MockAttendanceGetAttendanceUserFlow(f func(ctx context.Context, request *GetAttendanceUserFlowReq, options ...MethodOptionFunc) (*GetAttendanceUserFlowResp, *Response, error)) {
+	r.mockAttendanceGetAttendanceUserFlow = f
 }
 
-func (r *Mock) UnMockAttendanceGetUserFlow() {
-	r.mockAttendanceGetUserFlow = nil
+func (r *Mock) UnMockAttendanceGetAttendanceUserFlow() {
+	r.mockAttendanceGetAttendanceUserFlow = nil
 }
 
-type GetUserFlowReq struct {
+type GetAttendanceUserFlowReq struct {
 	EmployeeType EmployeeType `query:"employee_type" json:"-"` // 请求体中的 user_id 和 creator_id 的员工工号类型，可用值：【employee_id（员工的 employeeId），employee_no（员工工号）】，示例值：“employee_id”
 	UserFlowID   string       `path:"user_flow_id" json:"-"`   // 打卡流水记录 ID，示例值："6708236686834352397"
 }
 
-type getUserFlowResp struct {
-	Code int64            `json:"code,omitempty"` // 错误码，非 0 表示失败
-	Msg  string           `json:"msg,omitempty"`  // 错误描述
-	Data *GetUserFlowResp `json:"data,omitempty"` // -
+type getAttendanceUserFlowResp struct {
+	Code int64                      `json:"code,omitempty"` // 错误码，非 0 表示失败
+	Msg  string                     `json:"msg,omitempty"`  // 错误描述
+	Data *GetAttendanceUserFlowResp `json:"data,omitempty"` // -
 }
 
-type GetUserFlowResp struct {
+type GetAttendanceUserFlowResp struct {
 	UserID       string   `json:"user_id,omitempty"`       // 员工工号
 	CreatorID    string   `json:"creator_id,omitempty"`    // 打卡记录创建者的 employee_no
 	LocationName string   `json:"location_name,omitempty"` // 打卡位置名称信息

@@ -22,13 +22,13 @@ func Test_EHR_Sample_Failed(t *testing.T) {
 		moduleCli := cli.EHR
 
 		t.Run("", func(t *testing.T) {
-			_, _, err := moduleCli.GetEmployeeList(ctx, &lark.GetEmployeeListReq{})
+			_, _, err := moduleCli.GetEHREmployeeList(ctx, &lark.GetEHREmployeeListReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "failed")
 		})
 
 		t.Run("", func(t *testing.T) {
-			_, _, err := moduleCli.DownloadAttachments(ctx, &lark.DownloadAttachmentsReq{})
+			_, _, err := moduleCli.DownloadEHRAttachments(ctx, &lark.DownloadEHRAttachmentsReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "failed")
 		})
@@ -39,23 +39,23 @@ func Test_EHR_Sample_Failed(t *testing.T) {
 		moduleCli := cli.EHR
 
 		t.Run("", func(t *testing.T) {
-			cli.Mock().MockEHRGetEmployeeList(func(ctx context.Context, request *lark.GetEmployeeListReq, options ...lark.MethodOptionFunc) (*lark.GetEmployeeListResp, *lark.Response, error) {
+			cli.Mock().MockEHRGetEHREmployeeList(func(ctx context.Context, request *lark.GetEHREmployeeListReq, options ...lark.MethodOptionFunc) (*lark.GetEHREmployeeListResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
-			defer cli.Mock().UnMockEHRGetEmployeeList()
+			defer cli.Mock().UnMockEHRGetEHREmployeeList()
 
-			_, _, err := moduleCli.GetEmployeeList(ctx, &lark.GetEmployeeListReq{})
+			_, _, err := moduleCli.GetEHREmployeeList(ctx, &lark.GetEHREmployeeListReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "mock-failed")
 		})
 
 		t.Run("", func(t *testing.T) {
-			cli.Mock().MockEHRDownloadAttachments(func(ctx context.Context, request *lark.DownloadAttachmentsReq, options ...lark.MethodOptionFunc) (*lark.DownloadAttachmentsResp, *lark.Response, error) {
+			cli.Mock().MockEHRDownloadEHRAttachments(func(ctx context.Context, request *lark.DownloadEHRAttachmentsReq, options ...lark.MethodOptionFunc) (*lark.DownloadEHRAttachmentsResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
-			defer cli.Mock().UnMockEHRDownloadAttachments()
+			defer cli.Mock().UnMockEHRDownloadEHRAttachments()
 
-			_, _, err := moduleCli.DownloadAttachments(ctx, &lark.DownloadAttachmentsReq{})
+			_, _, err := moduleCli.DownloadEHRAttachments(ctx, &lark.DownloadEHRAttachmentsReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "mock-failed")
 		})
@@ -66,13 +66,13 @@ func Test_EHR_Sample_Failed(t *testing.T) {
 		moduleCli := cli.EHR
 
 		t.Run("", func(t *testing.T) {
-			_, _, err := moduleCli.GetEmployeeList(ctx, &lark.GetEmployeeListReq{})
+			_, _, err := moduleCli.GetEHREmployeeList(ctx, &lark.GetEHREmployeeListReq{})
 			as.NotNil(err)
 			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
 		})
 
 		t.Run("", func(t *testing.T) {
-			_, _, err := moduleCli.DownloadAttachments(ctx, &lark.DownloadAttachmentsReq{
+			_, _, err := moduleCli.DownloadEHRAttachments(ctx, &lark.DownloadEHRAttachmentsReq{
 				Token: "x",
 			})
 			as.NotNil(err)

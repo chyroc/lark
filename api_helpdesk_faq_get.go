@@ -6,18 +6,18 @@ import (
 	"context"
 )
 
-// GetFAQ 该接口用于获取服务台知识库详情。
+// GetHelpdeskFAQ 该接口用于获取服务台知识库详情。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/faq/get
-func (r *HelpdeskService) GetFAQ(ctx context.Context, request *GetFAQReq, options ...MethodOptionFunc) (*GetFAQResp, *Response, error) {
-	if r.cli.mock.mockHelpdeskGetFAQ != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Helpdesk#GetFAQ mock enable")
-		return r.cli.mock.mockHelpdeskGetFAQ(ctx, request, options...)
+func (r *HelpdeskService) GetHelpdeskFAQ(ctx context.Context, request *GetHelpdeskFAQReq, options ...MethodOptionFunc) (*GetHelpdeskFAQResp, *Response, error) {
+	if r.cli.mock.mockHelpdeskGetHelpdeskFAQ != nil {
+		r.cli.log(ctx, LogLevelDebug, "[lark] Helpdesk#GetHelpdeskFAQ mock enable")
+		return r.cli.mock.mockHelpdeskGetHelpdeskFAQ(ctx, request, options...)
 	}
 
 	req := &RawRequestReq{
 		Scope:                 "Helpdesk",
-		API:                   "GetFAQ",
+		API:                   "GetHelpdeskFAQ",
 		Method:                "GET",
 		URL:                   "https://open.feishu.cn/open-apis/helpdesk/v1/faqs/:id",
 		Body:                  request,
@@ -25,57 +25,57 @@ func (r *HelpdeskService) GetFAQ(ctx context.Context, request *GetFAQReq, option
 		NeedTenantAccessToken: true,
 		NeedHelpdeskAuth:      true,
 	}
-	resp := new(getFAQResp)
+	resp := new(getHelpdeskFAQResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
 	return resp.Data, response, err
 }
 
-func (r *Mock) MockHelpdeskGetFAQ(f func(ctx context.Context, request *GetFAQReq, options ...MethodOptionFunc) (*GetFAQResp, *Response, error)) {
-	r.mockHelpdeskGetFAQ = f
+func (r *Mock) MockHelpdeskGetHelpdeskFAQ(f func(ctx context.Context, request *GetHelpdeskFAQReq, options ...MethodOptionFunc) (*GetHelpdeskFAQResp, *Response, error)) {
+	r.mockHelpdeskGetHelpdeskFAQ = f
 }
 
-func (r *Mock) UnMockHelpdeskGetFAQ() {
-	r.mockHelpdeskGetFAQ = nil
+func (r *Mock) UnMockHelpdeskGetHelpdeskFAQ() {
+	r.mockHelpdeskGetHelpdeskFAQ = nil
 }
 
-type GetFAQReq struct {
+type GetHelpdeskFAQReq struct {
 	ID string `path:"id" json:"-"` // 知识库ID, 示例值："6856395634652479491"
 }
 
-type getFAQResp struct {
-	Code int64       `json:"code,omitempty"` // 错误码，非 0 表示失败
-	Msg  string      `json:"msg,omitempty"`  // 错误描述
-	Data *GetFAQResp `json:"data,omitempty"` //
+type getHelpdeskFAQResp struct {
+	Code int64               `json:"code,omitempty"` // 错误码，非 0 表示失败
+	Msg  string              `json:"msg,omitempty"`  // 错误描述
+	Data *GetHelpdeskFAQResp `json:"data,omitempty"` //
 }
 
-type GetFAQResp struct {
-	Faq *GetFAQRespFaq `json:"faq,omitempty"` // 知识库详情
+type GetHelpdeskFAQResp struct {
+	Faq *GetHelpdeskFAQRespFaq `json:"faq,omitempty"` // 知识库详情
 }
 
-type GetFAQRespFaq struct {
-	FaqID          string                   `json:"faq_id,omitempty"`          // 知识库ID
-	ID             string                   `json:"id,omitempty"`              // 知识库旧版ID，请使用faq_id
-	HelpdeskID     string                   `json:"helpdesk_id,omitempty"`     // 服务台ID
-	Question       string                   `json:"question,omitempty"`        // 问题
-	Answer         string                   `json:"answer,omitempty"`          // 答案
-	AnswerRichtext string                   `json:"answer_richtext,omitempty"` // 富文本答案
-	CreateTime     int64                    `json:"create_time,omitempty"`     // 创建时间
-	UpdateTime     int64                    `json:"update_time,omitempty"`     // 修改时间
-	Categories     []*HelpdeskCategory      `json:"categories,omitempty"`      // 分类
-	Tags           []string                 `json:"tags,omitempty"`            // 关联词列表
-	ExpireTime     int64                    `json:"expire_time,omitempty"`     // 失效时间
-	UpdateUser     *GetFAQRespFaqUpdateUser `json:"update_user,omitempty"`     // 更新用户
-	CreateUser     *GetFAQRespFaqCreateUser `json:"create_user,omitempty"`     // 创建用户
+type GetHelpdeskFAQRespFaq struct {
+	FaqID          string                           `json:"faq_id,omitempty"`          // 知识库ID
+	ID             string                           `json:"id,omitempty"`              // 知识库旧版ID，请使用faq_id
+	HelpdeskID     string                           `json:"helpdesk_id,omitempty"`     // 服务台ID
+	Question       string                           `json:"question,omitempty"`        // 问题
+	Answer         string                           `json:"answer,omitempty"`          // 答案
+	AnswerRichtext string                           `json:"answer_richtext,omitempty"` // 富文本答案
+	CreateTime     int64                            `json:"create_time,omitempty"`     // 创建时间
+	UpdateTime     int64                            `json:"update_time,omitempty"`     // 修改时间
+	Categories     []*HelpdeskCategory              `json:"categories,omitempty"`      // 分类
+	Tags           []string                         `json:"tags,omitempty"`            // 关联词列表
+	ExpireTime     int64                            `json:"expire_time,omitempty"`     // 失效时间
+	UpdateUser     *GetHelpdeskFAQRespFaqUpdateUser `json:"update_user,omitempty"`     // 更新用户
+	CreateUser     *GetHelpdeskFAQRespFaqCreateUser `json:"create_user,omitempty"`     // 创建用户
 }
 
-type GetFAQRespFaqUpdateUser struct {
+type GetHelpdeskFAQRespFaqUpdateUser struct {
 	ID        string `json:"id,omitempty"`         // 用户ID
 	AvatarURL string `json:"avatar_url,omitempty"` // 用户头像url
 	Name      string `json:"name,omitempty"`       // 用户名
 }
 
-type GetFAQRespFaqCreateUser struct {
+type GetHelpdeskFAQRespFaqCreateUser struct {
 	ID        string `json:"id,omitempty"`         // 用户ID
 	AvatarURL string `json:"avatar_url,omitempty"` // 用户头像url
 	Name      string `json:"name,omitempty"`       // 用户名

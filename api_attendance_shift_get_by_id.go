@@ -6,63 +6,63 @@ import (
 	"context"
 )
 
-// GetShiftByID
+// GetAttendanceShiftByID
 //
 // 通过班次 ID 获取班次详情。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/Attendance//shift_by_id
-func (r *AttendanceService) GetShiftByID(ctx context.Context, request *GetShiftByIDReq, options ...MethodOptionFunc) (*GetShiftByIDResp, *Response, error) {
-	if r.cli.mock.mockAttendanceGetShiftByID != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Attendance#GetShiftByID mock enable")
-		return r.cli.mock.mockAttendanceGetShiftByID(ctx, request, options...)
+func (r *AttendanceService) GetAttendanceShiftByID(ctx context.Context, request *GetAttendanceShiftByIDReq, options ...MethodOptionFunc) (*GetAttendanceShiftByIDResp, *Response, error) {
+	if r.cli.mock.mockAttendanceGetAttendanceShiftByID != nil {
+		r.cli.log(ctx, LogLevelDebug, "[lark] Attendance#GetAttendanceShiftByID mock enable")
+		return r.cli.mock.mockAttendanceGetAttendanceShiftByID(ctx, request, options...)
 	}
 
 	req := &RawRequestReq{
 		Scope:                 "Attendance",
-		API:                   "GetShiftByID",
+		API:                   "GetAttendanceShiftByID",
 		Method:                "GET",
 		URL:                   "https://open.feishu.cn/open-apis/attendance/v1/shifts/:shift_id",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
 	}
-	resp := new(getShiftByIDResp)
+	resp := new(getAttendanceShiftByIDResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
 	return resp.Data, response, err
 }
 
-func (r *Mock) MockAttendanceGetShiftByID(f func(ctx context.Context, request *GetShiftByIDReq, options ...MethodOptionFunc) (*GetShiftByIDResp, *Response, error)) {
-	r.mockAttendanceGetShiftByID = f
+func (r *Mock) MockAttendanceGetAttendanceShiftByID(f func(ctx context.Context, request *GetAttendanceShiftByIDReq, options ...MethodOptionFunc) (*GetAttendanceShiftByIDResp, *Response, error)) {
+	r.mockAttendanceGetAttendanceShiftByID = f
 }
 
-func (r *Mock) UnMockAttendanceGetShiftByID() {
-	r.mockAttendanceGetShiftByID = nil
+func (r *Mock) UnMockAttendanceGetAttendanceShiftByID() {
+	r.mockAttendanceGetAttendanceShiftByID = nil
 }
 
-type GetShiftByIDReq struct {
+type GetAttendanceShiftByIDReq struct {
 	ShiftID string `path:"shift_id" json:"-"` // 班次 ID，示例值："6919358778597097404"
 }
 
-type getShiftByIDResp struct {
-	Code int64             `json:"code,omitempty"` // 错误码，非 0 表示失败
-	Msg  string            `json:"msg,omitempty"`  // 错误描述
-	Data *GetShiftByIDResp `json:"data,omitempty"` // -
+type getAttendanceShiftByIDResp struct {
+	Code int64                       `json:"code,omitempty"` // 错误码，非 0 表示失败
+	Msg  string                      `json:"msg,omitempty"`  // 错误描述
+	Data *GetAttendanceShiftByIDResp `json:"data,omitempty"` // -
 }
 
-type GetShiftByIDResp struct {
-	ShiftID           string                             `json:"shift_id,omitempty"`              // 班次 ID
-	ShiftName         string                             `json:"shift_name,omitempty"`            // 班次名称
-	PunchTimes        int64                              `json:"punch_times,omitempty"`           // 打卡次数
-	IsFlexible        bool                               `json:"is_flexible,omitempty"`           // 是否弹性打卡
-	FlexibleMinutes   int64                              `json:"flexible_minutes,omitempty"`      // 弹性打卡时间
-	NoNeedOff         bool                               `json:"no_need_off,omitempty"`           // 是否下班免打卡
-	PunchTimeRule     *GetShiftByIDRespPunchTimeRule     `json:"punch_time_rule,omitempty"`       // 打卡规则
-	LateOffLateOnRule *GetShiftByIDRespLateOffLateOnRule `json:"late_off_late_on_rule,omitempty"` // 晚走晚到规则
-	RestTimeRule      *GetShiftByIDRespRestTimeRule      `json:"rest_time_rule,omitempty"`        // 休息时间规则
+type GetAttendanceShiftByIDResp struct {
+	ShiftID           string                                       `json:"shift_id,omitempty"`              // 班次 ID
+	ShiftName         string                                       `json:"shift_name,omitempty"`            // 班次名称
+	PunchTimes        int64                                        `json:"punch_times,omitempty"`           // 打卡次数
+	IsFlexible        bool                                         `json:"is_flexible,omitempty"`           // 是否弹性打卡
+	FlexibleMinutes   int64                                        `json:"flexible_minutes,omitempty"`      // 弹性打卡时间
+	NoNeedOff         bool                                         `json:"no_need_off,omitempty"`           // 是否下班免打卡
+	PunchTimeRule     *GetAttendanceShiftByIDRespPunchTimeRule     `json:"punch_time_rule,omitempty"`       // 打卡规则
+	LateOffLateOnRule *GetAttendanceShiftByIDRespLateOffLateOnRule `json:"late_off_late_on_rule,omitempty"` // 晚走晚到规则
+	RestTimeRule      *GetAttendanceShiftByIDRespRestTimeRule      `json:"rest_time_rule,omitempty"`        // 休息时间规则
 }
 
-type GetShiftByIDRespPunchTimeRule struct {
+type GetAttendanceShiftByIDRespPunchTimeRule struct {
 	OnTime              string `json:"on_time,omitempty"`                // 上班时间
 	OffTime             string `json:"off_time,omitempty"`               // 下班时间
 	LateMinutesAsLate   int64  `json:"late_minutes_as_late,omitempty"`   // 晚到多长时间记为迟到
@@ -73,12 +73,12 @@ type GetShiftByIDRespPunchTimeRule struct {
 	OffDelayMinutes     int64  `json:"off_delay_minutes,omitempty"`      // 最晚可延后多长时间打下班卡
 }
 
-type GetShiftByIDRespLateOffLateOnRule struct {
+type GetAttendanceShiftByIDRespLateOffLateOnRule struct {
 	LateOffMinutes int64 `json:"late_off_minutes,omitempty"` // 晚走多长时间
 	LateOnMinutes  int64 `json:"late_on_minutes,omitempty"`  // 晚到多长时间
 }
 
-type GetShiftByIDRespRestTimeRule struct {
+type GetAttendanceShiftByIDRespRestTimeRule struct {
 	RestBeginTime string `json:"rest_begin_time,omitempty"` // 休息开始时间
 	RestEndTime   string `json:"rest_end_time,omitempty"`   // 休息结束时间
 }

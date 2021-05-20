@@ -22,7 +22,7 @@ func Test_Approval_Sample_Failed(t *testing.T) {
 		moduleCli := cli.Approval
 
 		t.Run("", func(t *testing.T) {
-			_, _, err := moduleCli.GetInstanceList(ctx, &lark.GetInstanceListReq{})
+			_, _, err := moduleCli.GetApprovalInstanceList(ctx, &lark.GetApprovalInstanceListReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "failed")
 		})
@@ -33,12 +33,12 @@ func Test_Approval_Sample_Failed(t *testing.T) {
 		moduleCli := cli.Approval
 
 		t.Run("", func(t *testing.T) {
-			cli.Mock().MockApprovalGetInstanceList(func(ctx context.Context, request *lark.GetInstanceListReq, options ...lark.MethodOptionFunc) (*lark.GetInstanceListResp, *lark.Response, error) {
+			cli.Mock().MockApprovalGetApprovalInstanceList(func(ctx context.Context, request *lark.GetApprovalInstanceListReq, options ...lark.MethodOptionFunc) (*lark.GetApprovalInstanceListResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
-			defer cli.Mock().UnMockApprovalGetInstanceList()
+			defer cli.Mock().UnMockApprovalGetApprovalInstanceList()
 
-			_, _, err := moduleCli.GetInstanceList(ctx, &lark.GetInstanceListReq{})
+			_, _, err := moduleCli.GetApprovalInstanceList(ctx, &lark.GetApprovalInstanceListReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "mock-failed")
 		})
@@ -49,7 +49,7 @@ func Test_Approval_Sample_Failed(t *testing.T) {
 		moduleCli := cli.Approval
 
 		t.Run("", func(t *testing.T) {
-			_, _, err := moduleCli.GetInstanceList(ctx, &lark.GetInstanceListReq{})
+			_, _, err := moduleCli.GetApprovalInstanceList(ctx, &lark.GetApprovalInstanceListReq{})
 			as.NotNil(err)
 			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
 		})
