@@ -56,12 +56,12 @@ type batchSetSheetValueResp struct {
 }
 
 type BatchSetSheetValueResp struct {
-	Responses        *BatchSetSheetValueRespResponses `json:"responses,omitempty"`        // 响应
-	Revision         int64                            `json:"revision,omitempty"`         // sheet 的版本号
-	SpreadSheetToken string                           `json:"spreadsheetToken,omitempty"` // spreadsheet 的 token
+	Responses        []*BatchSetSheetValueRespResponse `json:"responses,omitempty"`        // 响应
+	Revision         int64                             `json:"revision,omitempty"`         // sheet 的版本号
+	SpreadSheetToken string                            `json:"spreadsheetToken,omitempty"` // spreadsheet 的 token
 }
 
-type BatchSetSheetValueRespResponses struct {
+type BatchSetSheetValueRespResponse struct {
 	SpreadSheetToken string `json:"spreadsheetToken,omitempty"` // spreadsheet 的 token
 	UpdatedRange     string `json:"updatedRange,omitempty"`     // 写入的范围
 	UpdatedRows      int64  `json:"updatedRows,omitempty"`      // 写入的行数

@@ -125,7 +125,11 @@ func parseRequestParam(req *RawRequestReq) (*realRequestParam, error) {
 		}
 
 		if path := fieldVT.Tag.Get("path"); path != "" {
-			uri = strings.ReplaceAll(uri, ":"+path, internal.ReflectToString(fieldVV))
+			if strings.Contains(uri, ":"+path) {
+				uri = strings.ReplaceAll(uri, ":"+path, internal.ReflectToString(fieldVV))
+			} else {
+				uri = strings.ReplaceAll(uri, "{"+path+"}", internal.ReflectToString(fieldVV))
+			}
 			continue
 		} else if query := fieldVT.Tag.Get("query"); query != "" {
 			isNeedQuery = true

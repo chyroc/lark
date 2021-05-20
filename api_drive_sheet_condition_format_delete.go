@@ -56,10 +56,10 @@ type deleteSheetConditionFormatResp struct {
 }
 
 type DeleteSheetConditionFormatResp struct {
-	Responses *DeleteSheetConditionFormatRespResponses `json:"responses,omitempty"` // 响应
+	Responses []*DeleteSheetConditionFormatRespResponse `json:"responses,omitempty"` // 响应
 }
 
-type DeleteSheetConditionFormatRespResponses struct {
+type DeleteSheetConditionFormatRespResponse struct {
 	SheetID string `json:"sheet_id,omitempty"` // sheet的Id
 	CfID    string `json:"cf_id,omitempty"`    // 条件格式id
 	ResCode int64  `json:"res_code,omitempty"` // 条件格式删除状态码，0表示成功，非0表示失败

@@ -80,34 +80,34 @@ type updateSheetProtectedDimensionResp struct {
 }
 
 type UpdateSheetProtectedDimensionResp struct {
-	Replies *UpdateSheetProtectedDimensionRespReplies `json:"replies,omitempty"` // 响应
+	Replies []*UpdateSheetProtectedDimensionRespReplie `json:"replies,omitempty"` // 响应
 }
 
-type UpdateSheetProtectedDimensionRespReplies struct {
-	SheetID   string                                             `json:"sheetId,omitempty"`   // sheet的id
-	Dimension *UpdateSheetProtectedDimensionRespRepliesDimension `json:"dimension,omitempty"` // 成功修改的保护行列信息
-	Editors   *UpdateSheetProtectedDimensionRespRepliesEditors   `json:"editors,omitempty"`   // 可编辑保护范围的用户
-	LockInfo  string                                             `json:"lockInfo,omitempty"`  // 成功修改的保护说明
+type UpdateSheetProtectedDimensionRespReplie struct {
+	SheetID   string                                            `json:"sheetId,omitempty"`   // sheet的id
+	Dimension *UpdateSheetProtectedDimensionRespReplieDimension `json:"dimension,omitempty"` // 成功修改的保护行列信息
+	Editors   *UpdateSheetProtectedDimensionRespReplieEditors   `json:"editors,omitempty"`   // 可编辑保护范围的用户
+	LockInfo  string                                            `json:"lockInfo,omitempty"`  // 成功修改的保护说明
 }
 
-type UpdateSheetProtectedDimensionRespRepliesDimension struct {
+type UpdateSheetProtectedDimensionRespReplieDimension struct {
 	SheetID        string `json:"sheetId,omitempty"`        // sheetId
 	StartIndex     int64  `json:"startIndex,omitempty"`     // 保护行列起始下标，下标从1开始
 	EndIndex       int64  `json:"endIndex,omitempty"`       // 保护行列终止下标，下标从1开始
 	MajorDimension string `json:"majorDimension,omitempty"` // 保护范围的维度
 }
 
-type UpdateSheetProtectedDimensionRespRepliesEditors struct {
-	AddEditors *UpdateSheetProtectedDimensionRespRepliesEditorsAddEditors `json:"addEditors,omitempty"` // 成功增加的用户的列表
-	DelEditors *UpdateSheetProtectedDimensionRespRepliesEditorsDelEditors `json:"delEditors,omitempty"` // 成功删除的用户的列表
+type UpdateSheetProtectedDimensionRespReplieEditors struct {
+	AddEditors []*UpdateSheetProtectedDimensionRespReplieEditorsAddEditor `json:"addEditors,omitempty"` // 成功增加的用户的列表
+	DelEditors []*UpdateSheetProtectedDimensionRespReplieEditorsDelEditor `json:"delEditors,omitempty"` // 成功删除的用户的列表
 }
 
-type UpdateSheetProtectedDimensionRespRepliesEditorsAddEditors struct {
+type UpdateSheetProtectedDimensionRespReplieEditorsAddEditor struct {
 	MemberType string `json:"memberType,omitempty"` // 用户类型
 	MemberID   string `json:"memberId,omitempty"`   // 用户类型对应的用户ID
 }
 
-type UpdateSheetProtectedDimensionRespRepliesEditorsDelEditors struct {
+type UpdateSheetProtectedDimensionRespReplieEditorsDelEditor struct {
 	MemberType string `json:"memberType,omitempty"` // 用户类型
 	MemberID   string `json:"memberId,omitempty"`   // 用户类型对应的用户ID
 }

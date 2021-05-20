@@ -71,10 +71,10 @@ type GetSheetProtectedDimensionRespProtectedRangeDimension struct {
 }
 
 type GetSheetProtectedDimensionRespProtectedRangeEditors struct {
-	Users *GetSheetProtectedDimensionRespProtectedRangeEditorsUsers `json:"users,omitempty"` // 用户信息列表
+	Users []*GetSheetProtectedDimensionRespProtectedRangeEditorsUser `json:"users,omitempty"` // 用户信息列表
 }
 
-type GetSheetProtectedDimensionRespProtectedRangeEditorsUsers struct {
+type GetSheetProtectedDimensionRespProtectedRangeEditorsUser struct {
 	MemberType string `json:"memberType,omitempty"` // 用户类型
 	MemberID   string `json:"memberId,omitempty"`   // 用户ID
 }

@@ -51,30 +51,30 @@ type getSheetConditionFormatResp struct {
 }
 
 type GetSheetConditionFormatResp struct {
-	SheetConditionFormats *GetSheetConditionFormatRespSheetConditionFormats `json:"sheet_condition_formats,omitempty"` // 表格的条件格式信息
+	SheetConditionFormats []*GetSheetConditionFormatRespSheetConditionFormat `json:"sheet_condition_formats,omitempty"` // 表格的条件格式信息
 }
 
-type GetSheetConditionFormatRespSheetConditionFormats struct {
-	SheetID         string                                                           `json:"sheet_id,omitempty"`         // sheet的id
-	ConditionFormat *GetSheetConditionFormatRespSheetConditionFormatsConditionFormat `json:"condition_format,omitempty"` // 一个条件格式的详细信息
+type GetSheetConditionFormatRespSheetConditionFormat struct {
+	SheetID         string                                                          `json:"sheet_id,omitempty"`         // sheet的id
+	ConditionFormat *GetSheetConditionFormatRespSheetConditionFormatConditionFormat `json:"condition_format,omitempty"` // 一个条件格式的详细信息
 }
 
-type GetSheetConditionFormatRespSheetConditionFormatsConditionFormat struct {
-	CfID     string                                                                `json:"cf_id,omitempty"`     // 条件格式的id
-	Ranges   []string                                                              `json:"ranges,omitempty"`    // 条件格式应用的范围，支持：sheetId（整表）；sheetId!1:2（整行）；sheetId!A:B（整列）；sheetId!A1:B2（普通范围）；sheetId!A1:C（应用至最后一行）。应用范围不能超过表格的行总数和列总数
-	RuleType string                                                                `json:"rule_type,omitempty"` // 条件格式规则类型，目前只有7种：***containsBlanks（为空）、notContainsBlanks（不为空）、duplicateValues（重复值）、uniqueValues（唯一值）、cellIs（限定值范围）、containsText（包含内容）、timePeriod（日期）***
-	Attrs    []SheetAttr                                                           `json:"attrs,omitempty"`     // rule_type对应的具体属性信息，详见 [条件格式指南](/ssl:ttdoc/ukTMukTMukTM/uATMzUjLwEzM14CMxMTN/conditionformat/condition-format-guide)
-	Style    *GetSheetConditionFormatRespSheetConditionFormatsConditionFormatStyle `json:"style,omitempty"`     // 条件格式样式，只支持以下样式
+type GetSheetConditionFormatRespSheetConditionFormatConditionFormat struct {
+	CfID     string                                                               `json:"cf_id,omitempty"`     // 条件格式的id
+	Ranges   []string                                                             `json:"ranges,omitempty"`    // 条件格式应用的范围，支持：sheetId（整表）；sheetId!1:2（整行）；sheetId!A:B（整列）；sheetId!A1:B2（普通范围）；sheetId!A1:C（应用至最后一行）。应用范围不能超过表格的行总数和列总数
+	RuleType string                                                               `json:"rule_type,omitempty"` // 条件格式规则类型，目前只有7种：***containsBlanks（为空）、notContainsBlanks（不为空）、duplicateValues（重复值）、uniqueValues（唯一值）、cellIs（限定值范围）、containsText（包含内容）、timePeriod（日期）***
+	Attrs    []SheetAttr                                                          `json:"attrs,omitempty"`     // rule_type对应的具体属性信息，详见 [条件格式指南](/ssl:ttdoc/ukTMukTMukTM/uATMzUjLwEzM14CMxMTN/conditionformat/condition-format-guide)
+	Style    *GetSheetConditionFormatRespSheetConditionFormatConditionFormatStyle `json:"style,omitempty"`     // 条件格式样式，只支持以下样式
 }
 
-type GetSheetConditionFormatRespSheetConditionFormatsConditionFormatStyle struct {
-	Font           *GetSheetConditionFormatRespSheetConditionFormatsConditionFormatStyleFont `json:"font,omitempty"`            // 字体样式
-	TextDecoration int64                                                                     `json:"text_decoration,omitempty"` // 文本装饰 ，0 默认，1 下划线，2 删除线 ，3 下划线和删除线
-	ForeColor      string                                                                    `json:"fore_color,omitempty"`      // 字体颜色
-	BackColor      string                                                                    `json:"back_color,omitempty"`      // 背景颜色
+type GetSheetConditionFormatRespSheetConditionFormatConditionFormatStyle struct {
+	Font           *GetSheetConditionFormatRespSheetConditionFormatConditionFormatStyleFont `json:"font,omitempty"`            // 字体样式
+	TextDecoration int64                                                                    `json:"text_decoration,omitempty"` // 文本装饰 ，0 默认，1 下划线，2 删除线 ，3 下划线和删除线
+	ForeColor      string                                                                   `json:"fore_color,omitempty"`      // 字体颜色
+	BackColor      string                                                                   `json:"back_color,omitempty"`      // 背景颜色
 }
 
-type GetSheetConditionFormatRespSheetConditionFormatsConditionFormatStyleFont struct {
+type GetSheetConditionFormatRespSheetConditionFormatConditionFormatStyleFont struct {
 	Bold   bool `json:"   bold,omitempty"` // 加粗
 	Italic bool `json:" italic,omitempty"` // 斜体
 }

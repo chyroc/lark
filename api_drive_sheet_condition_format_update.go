@@ -76,10 +76,10 @@ type updateSheetConditionFormatResp struct {
 }
 
 type UpdateSheetConditionFormatResp struct {
-	Responses *UpdateSheetConditionFormatRespResponses `json:"responses,omitempty"` // 响应
+	Responses []*UpdateSheetConditionFormatRespResponse `json:"responses,omitempty"` // 响应
 }
 
-type UpdateSheetConditionFormatRespResponses struct {
+type UpdateSheetConditionFormatRespResponse struct {
 	SheetID string `json:"sheet_id,omitempty"` // sheet的Id
 	CfID    string `json:"cf_id,omitempty"`    // 更新的条件格式id
 	ResCode int64  `json:"res_code,omitempty"` // 条件格式更新状态码，0表示成功，非0表示失败
