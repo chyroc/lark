@@ -50,8 +50,8 @@ type getDriveFolderChildrenResp struct {
 }
 
 type GetDriveFolderChildrenResp struct {
-	ParentToken string                              `json:"parentToken,omitempty"` // 文件夹的 token
-	Children    *GetDriveFolderChildrenRespChildren `json:"children,omitempty"`    // 文件夹的下的文件
+	ParentToken string                                         `json:"parentToken,omitempty"` // 文件夹的 token
+	Children    map[string]*GetDriveFolderChildrenRespChildren `json:"children,omitempty"`    // 文件夹的下的文件
 }
 
 type GetDriveFolderChildrenRespChildren struct {
