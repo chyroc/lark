@@ -91,5 +91,5 @@ type GetAdminDeptStatsRespItem struct {
 	AvgCreateCalNum      string `json:"avg_create_cal_num,omitempty"`      // 人均创建日程数
 	VCDau                int64  `json:"vc_dau,omitempty"`                  // 音视频会议活跃人数
 	VCDuration           int64  `json:"vc_duration,omitempty"`             // 会议时长（分钟）
-	AvgVcDuration        string `json:"avg_vc_duration,omitempty"`         // 人均会议时长（分钟）
+	AvgVCDuration        string `json:"avg_vc_duration,omitempty"`         // 人均会议时长（分钟）
 }

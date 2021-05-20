@@ -1550,5 +1550,50 @@
         "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/tenant-v2/tenant/query"
       }
     ]
+  },
+  {
+    "scope": "Search",
+    "apis": [
+      {
+        "file_name": "api_search_data_source_item_create.go",
+        "func_name": "CreateSearchDataSourceItem",
+        "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/search-v2/data_source-item/create"
+      },
+      {
+        "file_name": "api_search_data_source_item_get.go",
+        "func_name": "GetSearchDataSourceItem",
+        "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/search-v2/data_source-item/get"
+      },
+      {
+        "file_name": "api_search_data_source_item_delete.go",
+        "func_name": "DeleteSearchDataSourceItem",
+        "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/search-v2/data_source-item/delete"
+      },
+      {
+        "file_name": "api_search_data_source_create.go",
+        "func_name": "CreateSearchDataSource",
+        "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/search-v2/data_source/create"
+      },
+      {
+        "file_name": "api_search_data_source_get.go",
+        "func_name": "GetSearchDataSource",
+        "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/search-v2/data_source/get"
+      },
+      {
+        "file_name": "api_search_data_source_patch.go",
+        "func_name": "UpdateSearchDataSource",
+        "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/search-v2/data_source/patch"
+      },
+      {
+        "file_name": "api_search_data_source_list.go",
+        "func_name": "GetSearchDataSourceList",
+        "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/search-v2/data_source/list"
+      },
+      {
+        "file_name": "api_search_data_source_delete.go",
+        "func_name": "DeleteSearchDataSource",
+        "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/search-v2/data_source/delete"
+      }
+    ]
   }
 ]

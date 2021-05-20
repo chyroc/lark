@@ -266,6 +266,14 @@ type Mock struct {
 	mockEHRGetEHREmployeeList                            func(ctx context.Context, request *GetEHREmployeeListReq, options ...MethodOptionFunc) (*GetEHREmployeeListResp, *Response, error)
 	mockEHRDownloadEHRAttachments                        func(ctx context.Context, request *DownloadEHRAttachmentsReq, options ...MethodOptionFunc) (*DownloadEHRAttachmentsResp, *Response, error)
 	mockTenantGetTenant                                  func(ctx context.Context, request *GetTenantReq, options ...MethodOptionFunc) (*GetTenantResp, *Response, error)
+	mockSearchCreateSearchDataSourceItem                 func(ctx context.Context, request *CreateSearchDataSourceItemReq, options ...MethodOptionFunc) (*CreateSearchDataSourceItemResp, *Response, error)
+	mockSearchGetSearchDataSourceItem                    func(ctx context.Context, request *GetSearchDataSourceItemReq, options ...MethodOptionFunc) (*GetSearchDataSourceItemResp, *Response, error)
+	mockSearchDeleteSearchDataSourceItem                 func(ctx context.Context, request *DeleteSearchDataSourceItemReq, options ...MethodOptionFunc) (*DeleteSearchDataSourceItemResp, *Response, error)
+	mockSearchCreateSearchDataSource                     func(ctx context.Context, request *CreateSearchDataSourceReq, options ...MethodOptionFunc) (*CreateSearchDataSourceResp, *Response, error)
+	mockSearchGetSearchDataSource                        func(ctx context.Context, request *GetSearchDataSourceReq, options ...MethodOptionFunc) (*GetSearchDataSourceResp, *Response, error)
+	mockSearchUpdateSearchDataSource                     func(ctx context.Context, request *UpdateSearchDataSourceReq, options ...MethodOptionFunc) (*UpdateSearchDataSourceResp, *Response, error)
+	mockSearchGetSearchDataSourceList                    func(ctx context.Context, request *GetSearchDataSourceListReq, options ...MethodOptionFunc) (*GetSearchDataSourceListResp, *Response, error)
+	mockSearchDeleteSearchDataSource                     func(ctx context.Context, request *DeleteSearchDataSourceReq, options ...MethodOptionFunc) (*DeleteSearchDataSourceResp, *Response, error)
 }
 
 func (r *Lark) Mock() *Mock {

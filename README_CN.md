@@ -35,7 +35,7 @@ https://godoc.org/github.com/chyroc/lark
 
 ## 支持的接口
 
-API 总数: 263, 事件总数: 28
+API 总数: 271, 事件总数: 28
 
 <details>
   <summary>
@@ -349,6 +349,15 @@ API 总数: 263, 事件总数: 28
   - DownloadEHRAttachments
 - Tenant
   - GetTenant
+- Search
+  - CreateSearchDataSourceItem
+  - GetSearchDataSourceItem
+  - DeleteSearchDataSourceItem
+  - CreateSearchDataSource
+  - GetSearchDataSource
+  - UpdateSearchDataSource
+  - GetSearchDataSourceList
+  - DeleteSearchDataSource
 
 
 </details>

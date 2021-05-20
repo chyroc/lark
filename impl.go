@@ -48,6 +48,7 @@ type Lark struct {
 	OKR           *OKRService
 	EHR           *EHRService
 	Tenant        *TenantService
+	Search        *SearchService
 }
 
 func (r *Lark) initService() {
@@ -73,6 +74,7 @@ func (r *Lark) initService() {
 	r.OKR = &OKRService{cli: r}
 	r.EHR = &EHRService{cli: r}
 	r.Tenant = &TenantService{cli: r}
+	r.Search = &SearchService{cli: r}
 }
 
 type (
@@ -98,4 +100,5 @@ type (
 	OKRService           struct{ cli *Lark }
 	EHRService           struct{ cli *Lark }
 	TenantService        struct{ cli *Lark }
+	SearchService        struct{ cli *Lark }
 )

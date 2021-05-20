@@ -35,7 +35,7 @@ https://godoc.org/github.com/chyroc/lark
 
 ## Support APIs
 
-API Count: 263, Event Count: 28
+API Count: 271, Event Count: 28
 
 <details>
   <summary>
@@ -349,6 +349,15 @@ API Count: 263, Event Count: 28
   - DownloadEHRAttachments
 - Tenant
   - GetTenant
+- Search
+  - CreateSearchDataSourceItem
+  - GetSearchDataSourceItem
+  - DeleteSearchDataSourceItem
+  - CreateSearchDataSource
+  - GetSearchDataSource
+  - UpdateSearchDataSource
+  - GetSearchDataSourceList
+  - DeleteSearchDataSource
 
 
 </details>

@@ -57,18 +57,18 @@ type getCalendarACLListResp struct {
 }
 
 type GetCalendarACLListResp struct {
-	Acls      []*GetCalendarACLListRespAcl `json:"acls,omitempty"`       // 入参日历对应的acl列表
+	Acls      []*GetCalendarACLListRespACL `json:"acls,omitempty"`       // 入参日历对应的acl列表
 	HasMore   bool                         `json:"has_more,omitempty"`   // 是否还有更多项
 	PageToken string                       `json:"page_token,omitempty"` // 分页标记，当 has_more 为 true 时，会同时返回新的 page_token，否则不返回 page_token
 }
 
-type GetCalendarACLListRespAcl struct {
+type GetCalendarACLListRespACL struct {
 	ACLID string                          `json:"acl_id,omitempty"` // acl资源ID
 	Role  CalendarRole                    `json:"role,omitempty"`   // 对日历的访问权限, 可选值有: `unknown`：未知权限, `free_busy_reader`：游客，只能看到忙碌/空闲信息, `reader`：订阅者，查看所有日程详情, `writer`：编辑者，创建及修改日程, `owner`：管理员，管理日历及共享设置
-	Scope *GetCalendarACLListRespAclScope `json:"scope,omitempty"`  // 权限范围
+	Scope *GetCalendarACLListRespACLScope `json:"scope,omitempty"`  // 权限范围
 }
 
-type GetCalendarACLListRespAclScope struct {
+type GetCalendarACLListRespACLScope struct {
 	Type   string `json:"type,omitempty"`    // 权限类型，当type为User时，值为open_id/user_id/union_id, 可选值有: `user`：用户
 	UserID string `json:"user_id,omitempty"` // 用户ID
 }

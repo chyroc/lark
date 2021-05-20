@@ -1,4 +1,25 @@
-
-
-
-
+{
+  "scope": "Application",
+  "apis": [
+    {
+      "file_name": "api_application_is_user_admin.go",
+      "func_name": "IsApplicationUserAdmin",
+      "doc_url": "https://open.feishu.cn/document/ukTMukTMukTM/uITN1EjLyUTNx4iM1UTM"
+    },
+    {
+      "file_name": "api_application_user_admin_scope_get.go",
+      "func_name": "GetApplicationUserAdminScope",
+      "doc_url": "https://open.feishu.cn/document/ukTMukTMukTM/uMzN3QjLzczN04yM3cDN"
+    },
+    {
+      "file_name": "api_application_app_visibility_get.go",
+      "func_name": "GetApplicationAppVisibility",
+      "doc_url": "https://open.feishu.cn/document/ukTMukTMukTM/uMzN3QjLzczN04yM3cDN"
+    },
+    {
+      "file_name": "api_application_user_visible_app_get.go",
+      "func_name": "GetApplicationUserVisibleApp",
+      "doc_url": "https://open.feishu.cn/document/ukTMukTMukTM/uMzN3QjLzczN04yM3cDN"
+    }
+  ]
+}

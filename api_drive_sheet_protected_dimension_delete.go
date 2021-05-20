@@ -41,7 +41,7 @@ func (r *Mock) UnMockDriveDeleteSheetProtectedDimension() {
 
 type DeleteSheetProtectedDimensionReq struct {
 	SpreadSheetToken string   `path:"spreadsheetToken" json:"-"` // sheet 的 token，获取方式见 [对接前说明](/ssl:ttdoc/ukTMukTMukTM/uczNzUjL3czM14yN3MTN)的第 4 项
-	ProtecIDs        []string `json:"protectIds,omitempty"`      // 需要删除的保护范围ID，可以通过[获取表格元数据](/ssl:ttdoc/ukTMukTMukTM/uETMzUjLxEzM14SMxMTN)接口获取
+	ProtectIDs       []string `json:"protectIds,omitempty"`      // 需要删除的保护范围ID，可以通过[获取表格元数据](/ssl:ttdoc/ukTMukTMukTM/uETMzUjLxEzM14SMxMTN)接口获取
 }
 
 type deleteSheetProtectedDimensionResp struct {
@@ -51,5 +51,5 @@ type deleteSheetProtectedDimensionResp struct {
 }
 
 type DeleteSheetProtectedDimensionResp struct {
-	DelProtecIDs []string `json:"delProtectIds,omitempty"` // 成功删除的保护范围ID
+	DelProtectIDs []string `json:"delProtectIds,omitempty"` // 成功删除的保护范围ID
 }
