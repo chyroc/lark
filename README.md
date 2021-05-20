@@ -19,6 +19,10 @@ Supported Features
 - Support UserAccessToken
 - Use code generation to create, api and document update timely
 
+## Chat
+
+⁣Click [Lark Chat Link](https://applink.feishu.cn/client/chat/chatter/add_by_link?link_token=985n4cf0-70d7-444c-909f-98885892c233) to discuss.
+
 ## Install
 
 ```shell
