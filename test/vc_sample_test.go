@@ -40,7 +40,7 @@ func Test_VC_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-			_, _, err := moduleCli.QueryVCRoomConfig(ctx, &lark.QueryVCRoomConfigReq{})
+			_, _, err := moduleCli.GetVCRoomConfig(ctx, &lark.GetVCRoomConfigReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "failed")
 		})
@@ -90,12 +90,12 @@ func Test_VC_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-			cli.Mock().MockVCQueryVCRoomConfig(func(ctx context.Context, request *lark.QueryVCRoomConfigReq, options ...lark.MethodOptionFunc) (*lark.QueryVCRoomConfigResp, *lark.Response, error) {
+			cli.Mock().MockVCGetVCRoomConfig(func(ctx context.Context, request *lark.GetVCRoomConfigReq, options ...lark.MethodOptionFunc) (*lark.GetVCRoomConfigResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
-			defer cli.Mock().UnMockVCQueryVCRoomConfig()
+			defer cli.Mock().UnMockVCGetVCRoomConfig()
 
-			_, _, err := moduleCli.QueryVCRoomConfig(ctx, &lark.QueryVCRoomConfigReq{})
+			_, _, err := moduleCli.GetVCRoomConfig(ctx, &lark.GetVCRoomConfigReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "mock-failed")
 		})
@@ -137,7 +137,7 @@ func Test_VC_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-			_, _, err := moduleCli.QueryVCRoomConfig(ctx, &lark.QueryVCRoomConfigReq{})
+			_, _, err := moduleCli.GetVCRoomConfig(ctx, &lark.GetVCRoomConfigReq{})
 			as.NotNil(err)
 			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
 		})

@@ -213,7 +213,7 @@ API Count: 263, Event Count: 28
   - SetVCPermissionMeetingRecording
   - GetVCDailyReport
   - GetVCTopUserReport
-  - QueryVCRoomConfig
+  - GetVCRoomConfig
   - SetVCRoomConfig
 - Mail
   - CreateMailGroup

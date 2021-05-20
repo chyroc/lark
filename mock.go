@@ -170,7 +170,7 @@ type Mock struct {
 	mockVCSetVCPermissionMeetingRecording                func(ctx context.Context, request *SetVCPermissionMeetingRecordingReq, options ...MethodOptionFunc) (*SetVCPermissionMeetingRecordingResp, *Response, error)
 	mockVCGetVCDailyReport                               func(ctx context.Context, request *GetVCDailyReportReq, options ...MethodOptionFunc) (*GetVCDailyReportResp, *Response, error)
 	mockVCGetVCTopUserReport                             func(ctx context.Context, request *GetVCTopUserReportReq, options ...MethodOptionFunc) (*GetVCTopUserReportResp, *Response, error)
-	mockVCQueryVCRoomConfig                              func(ctx context.Context, request *QueryVCRoomConfigReq, options ...MethodOptionFunc) (*QueryVCRoomConfigResp, *Response, error)
+	mockVCGetVCRoomConfig                                func(ctx context.Context, request *GetVCRoomConfigReq, options ...MethodOptionFunc) (*GetVCRoomConfigResp, *Response, error)
 	mockVCSetVCRoomConfig                                func(ctx context.Context, request *SetVCRoomConfigReq, options ...MethodOptionFunc) (*SetVCRoomConfigResp, *Response, error)
 	mockMailCreateMailGroup                              func(ctx context.Context, request *CreateMailGroupReq, options ...MethodOptionFunc) (*CreateMailGroupResp, *Response, error)
 	mockMailGetMailGroup                                 func(ctx context.Context, request *GetMailGroupReq, options ...MethodOptionFunc) (*GetMailGroupResp, *Response, error)

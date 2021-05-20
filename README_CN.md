@@ -213,7 +213,7 @@ API 总数: 263, 事件总数: 28
   - SetVCPermissionMeetingRecording
   - GetVCDailyReport
   - GetVCTopUserReport
-  - QueryVCRoomConfig
+  - GetVCRoomConfig
   - SetVCRoomConfig
 - Mail
   - CreateMailGroup

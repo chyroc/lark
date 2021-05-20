@@ -853,8 +853,8 @@
         "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/vc-v1/report/get_top_user"
       },
       {
-        "file_name": "api_vc_room_config_query.go",
-        "func_name": "QueryVCRoomConfig",
+        "file_name": "api_vc_room_config_get.go",
+        "func_name": "GetVCRoomConfig",
         "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/vc-v1/room_config/query"
       },
       {
