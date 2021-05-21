@@ -712,24 +712,6 @@
 
 <md-tr>
 	<md-td>
-	<md-text type="field-name" >job_title</md-text>
-	</md-td>
-	<md-td>
-	<md-text type="field-type" >string</md-text>
-	</md-td>
-	<md-td>
-	否
-	</md-td>
-	<md-td>
-	职务
-
-**示例值**："xxxxx"
-	</md-td>
-</md-tr>
-
-
-<md-tr>
-	<md-td>
 	<md-text type="field-name" >is_frozen</md-text>
 	</md-td>
 	<md-td>
@@ -791,7 +773,6 @@
         }
     ],
     "enterprise_email": "demo@mail.com",
-    "job_title": "xxxxx",
     "is_frozen": false
 }
 ```
@@ -1406,19 +1387,6 @@
 
 <md-tr>
 	<md-td>
-	&emsp;&emsp;<span style="color: #8F959E">∟</span>&nbsp;<md-text type="field-name" >job_title</md-text>
-	</md-td>
-	<md-td>
-	<md-text type="field-type" >string</md-text>
-	</md-td>
-	<md-td>
-	职务
-	</md-td>
-</md-tr>
-
-
-<md-tr>
-	<md-td>
 	&emsp;&emsp;<span style="color: #8F959E">∟</span>&nbsp;<md-text type="field-name" >need_send_notification</md-text>
 	</md-td>
 	<md-td>
@@ -1539,7 +1507,6 @@ sms（短信邀请），email（邮件邀请）
                 }
             ],
             "enterprise_email": "demo@mail.com",
-            "job_title": "xxxxx",
             "need_send_notification": false,
             "notification_option": {
                 "channels": [

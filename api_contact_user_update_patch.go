@@ -6,7 +6,7 @@ import (
 	"context"
 )
 
-// UpdateUserPatch 该接口用于更新通讯录中用户的字段，未传递的参数不会更新。接口只会返回应用有数据权限的字段，具体的数据权限与字段的关系请参考[应用权限](/ssl:ttdoc/ukTMukTMukTM/uQjN3QjL0YzN04CN2cDN)
+// UpdateUserPatch 该接口用于更新通讯录中用户的字段，未传递的参数不会更新。接口只会返回应用有数据权限的字段，具体的数据权限与字段的关系请参考[应用权限](/ssl:ttdoc/ukTMukTMukTM/uQjN3QjL0YzN04CN2cDN)。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/patch
 func (r *ContactService) UpdateUserPatch(ctx context.Context, request *UpdateUserPatchReq, options ...MethodOptionFunc) (*UpdateUserPatchResp, *Response, error) {
@@ -61,7 +61,6 @@ type UpdateUserPatchReq struct {
 	Orders           []*UpdateUserPatchReqOrder      `json:"orders,omitempty"`             // 用户排序信息
 	CustomAttrs      []*UpdateUserPatchReqCustomAttr `json:"custom_attrs,omitempty"`       // 自定义属性
 	EnterpriseEmail  *string                         `json:"enterprise_email,omitempty"`   // 企业邮箱，请先确保已在管理后台启用飞书邮箱服务, 示例值："demo@mail.com"
-	JobTitle         *string                         `json:"job_title,omitempty"`          // 职务, 示例值："xxxxx"
 	IsFrozen         *bool                           `json:"is_frozen,omitempty"`          // 是否冻结用户, 示例值：false
 }
 
@@ -118,7 +117,6 @@ type UpdateUserPatchRespUser struct {
 	Orders               []*UpdateUserPatchRespUserOrder            `json:"orders,omitempty"`                 // 用户排序信息
 	CustomAttrs          []*UpdateUserPatchRespUserCustomAttr       `json:"custom_attrs,omitempty"`           // 自定义属性
 	EnterpriseEmail      string                                     `json:"enterprise_email,omitempty"`       // 企业邮箱，请先确保已在管理后台启用飞书邮箱服务
-	JobTitle             string                                     `json:"job_title,omitempty"`              // 职务
 	NeedSendNotification bool                                       `json:"need_send_notification,omitempty"` // 是否发送提示消息
 	NotificationOption   *UpdateUserPatchRespUserNotificationOption `json:"notification_option,omitempty"`    // 创建用户的邀请方式
 }

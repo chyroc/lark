@@ -62,7 +62,6 @@ type UpdateUserReq struct {
 	Orders           []*UpdateUserReqOrder      `json:"orders,omitempty"`             // 用户排序信息
 	CustomAttrs      []*UpdateUserReqCustomAttr `json:"custom_attrs,omitempty"`       // 自定义属性
 	EnterpriseEmail  *string                    `json:"enterprise_email,omitempty"`   // 企业邮箱，请先确保已在管理后台启用飞书邮箱服务, 示例值："demo@mail.com"
-	JobTitle         *string                    `json:"job_title,omitempty"`          // 职务, 示例值："xxxxx"
 	IsFrozen         *bool                      `json:"is_frozen,omitempty"`          // 是否冻结用户, 示例值：false
 }
 
@@ -119,7 +118,6 @@ type UpdateUserRespUser struct {
 	Orders               []*UpdateUserRespUserOrder            `json:"orders,omitempty"`                 // 用户排序信息
 	CustomAttrs          []*UpdateUserRespUserCustomAttr       `json:"custom_attrs,omitempty"`           // 自定义属性
 	EnterpriseEmail      string                                `json:"enterprise_email,omitempty"`       // 企业邮箱，请先确保已在管理后台启用飞书邮箱服务
-	JobTitle             string                                `json:"job_title,omitempty"`              // 职务
 	NeedSendNotification bool                                  `json:"need_send_notification,omitempty"` // 是否发送提示消息
 	NotificationOption   *UpdateUserRespUserNotificationOption `json:"notification_option,omitempty"`    // 创建用户的邀请方式
 }
