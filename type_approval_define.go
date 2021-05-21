@@ -50,6 +50,9 @@ type ApprovalWidget struct {
 }
 
 func (r *ApprovalWidgetList) UnmarshalJSON(bs []byte) (err error) {
+	if len(bs) == 0 || string(bs) == `""` {
+		return nil
+	}
 	if strings.HasPrefix(string(bs), `"`) {
 		s := ""
 		if err = json.Unmarshal(bs, &s); err != nil {
@@ -67,6 +70,9 @@ func (r *ApprovalWidgetList) UnmarshalJSON(bs []byte) (err error) {
 }
 
 func (r *ApprovalWidgetList) MarshalJSON() ([]byte, error) {
+	if r == nil {
+		return []byte(`""`), nil
+	}
 	bs, err := json.Marshal([]*ApprovalWidget(*r))
 	if err != nil {
 		return nil, err

@@ -2,8 +2,10 @@ package test
 
 import (
 	"context"
+	"fmt"
 	"testing"
 
+	"github.com/chyroc/go-ptr"
 	"github.com/chyroc/lark"
 	"github.com/stretchr/testify/assert"
 )
@@ -58,40 +60,107 @@ func Test_GetApproval(t *testing.T) {
 	}
 }
 
-// func Test_CreateApproval(t *testing.T) {
-// 	as := assert.New(t)
-//
-// 	ctx := context.TODO()
-// 	cli := AppALLPermission.Ins()
-//
-// 	var widgetDefine lark.ApprovalWidgetList
-// 	{
-// 		resp, _, err := cli.Approval.GetApproval(ctx, &lark.GetApprovalReq{
-// 			ApprovalCode: ApprovalALLField.Code,
-// 			Locale:       nil,
-// 		})
-// 		as.Nil(err)
-// 		widgetDefine = resp.Form
-// 	}
-//
-// 	v := lark.ApprovalWidgetList{
-// 		{
-// 			ID:    widgetDefine[0].ID,
-// 			Type:  lark.ApprovalWidgetTypeInput,
-// 			Value: "test",
-// 		},
-// 	}
-//
-// 	resp, _, err := cli.Approval.CreateApprovalInstance(ctx, &lark.CreateApprovalInstanceReq{
-// 		ApprovalCode:           ApprovalALLField.Code,
-// 		UserID:                 &UserAdmin.UserID,
-// 		OpenID:                 "",
-// 		DepartmentID:           nil,
-// 		Form:                   v,
-// 		NodeApproverUserIDList: nil,
-// 		NodeApproverOpenIDList: nil,
-// 		UUID:                   nil,
-// 	})
-// 	as.Nil(err)
-// 	fmt.Println(resp.InstanceCode)
-// }
+func Test_Create_CancelApproval(t *testing.T) {
+	as := assert.New(t)
+
+	ctx := context.TODO()
+	cli := AppALLPermission.Ins()
+
+	t.Run("cancel", func(t *testing.T) {
+		instanceCode, _ := testCreateApproval(t, cli, ApprovalALLField.Code, UserAdmin.UserID)
+		_, _, err := cli.Approval.CancelApprovalInstance(ctx, &lark.CancelApprovalInstanceReq{
+			ApprovalCode: ApprovalALLField.Code,
+			InstanceCode: instanceCode,
+			UserID:       UserAdmin.UserID,
+		})
+		as.Nil(err)
+	})
+
+	t.Run("approve-reject", func(t *testing.T) {
+		taskDone := map[string]bool{}
+		instanceCode, instance := testCreateApproval(t, cli, ApprovalALLField.Code, UserAdmin.UserID)
+		for taskIdx, task := range instance.TaskList {
+			if taskDone[task.ID] {
+				continue
+			}
+			taskDone[task.ID] = true
+			fmt.Println("task", task.ID, task.NodeID)
+			_, _, err := cli.Approval.ApproveApprovalInstance(ctx, &lark.ApproveApprovalInstanceReq{
+				ApprovalCode: ApprovalALLField.Code,
+				InstanceCode: instanceCode,
+				UserID:       UserAdmin.UserID,
+				TaskID:       task.ID,
+				Comment:      ptr.String(fmt.Sprintf("task: %d, approve", taskIdx)),
+			})
+			as.Nil(err)
+		}
+
+		resp, _, err := cli.Approval.GetApprovalInstance(ctx, &lark.GetApprovalInstanceReq{
+			InstanceCode: instanceCode,
+			Locale:       nil,
+		})
+		as.Nil(err)
+		for taskIdx, task := range resp.TaskList {
+			if taskDone[task.ID] {
+				continue
+			}
+			taskDone[task.ID] = true
+			fmt.Println("task", task.ID, task.NodeID)
+			_, _, err := cli.Approval.RejectApprovalInstance(ctx, &lark.RejectApprovalInstanceReq{
+				ApprovalCode: ApprovalALLField.Code,
+				InstanceCode: instanceCode,
+				UserID:       UserAdmin.UserID,
+				TaskID:       task.ID,
+				Comment:      ptr.String(fmt.Sprintf("task: %d, approve", taskIdx)),
+			})
+			as.Nil(err)
+		}
+	})
+}
+
+func testCreateApproval(t *testing.T, cli *lark.Lark, approvalCode, userID string) (string, *lark.GetApprovalInstanceResp) {
+	as := assert.New(t)
+	ctx := context.TODO()
+
+	var widgetDefine lark.ApprovalWidgetList
+	{
+		resp, _, err := cli.Approval.GetApproval(ctx, &lark.GetApprovalReq{
+			ApprovalCode: approvalCode,
+			Locale:       nil,
+		})
+		as.Nil(err)
+		widgetDefine = resp.Form
+	}
+
+	v := lark.ApprovalWidgetList{
+		{
+			ID:    widgetDefine[0].ID,
+			Type:  lark.ApprovalWidgetTypeInput,
+			Value: "test",
+		},
+	}
+
+	instanceCode := ""
+	{
+		resp, _, err := cli.Approval.CreateApprovalInstance(ctx, &lark.CreateApprovalInstanceReq{
+			ApprovalCode:           approvalCode,
+			UserID:                 &userID,
+			OpenID:                 "",
+			DepartmentID:           nil,
+			Form:                   v,
+			NodeApproverUserIDList: nil,
+			NodeApproverOpenIDList: nil,
+			UUID:                   nil,
+		})
+		as.Nil(err)
+		instanceCode = resp.InstanceCode
+	}
+
+	resp, _, err := cli.Approval.GetApprovalInstance(ctx, &lark.GetApprovalInstanceReq{
+		InstanceCode: instanceCode,
+		Locale:       nil,
+	})
+	as.Nil(err)
+
+	return instanceCode, resp
+}
