@@ -23,3 +23,5 @@ debug.go
 node_modules/
 */.vuepress/dist/
 dist/
+venv/
+.github/internal/go.sum

@@ -1,0 +1,36 @@
+name: refresh-user-token
+
+on:
+  schedule:
+    - cron: "*/6 * * * *"
+
+jobs:
+
+  run:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Set up Py
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.x'
+
+    - name: Set up Go
+      uses: actions/setup-go@v2
+      with:
+        go-version: 1.15
+
+    - name: Test
+      run: |
+        pip install libnacl requests
+        cd ./.github/internal/ && go run ./refresh-token.go && cd ../../
+        python ./.github/internal/refresh-user-token.py
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        INTERNAL_GH_TOKEN: ${{ secrets.INTERNAL_GH_TOKEN }}
+        INTERNAL_SECRETS_JUST_FOR_FUN: ${{ secrets.INTERNAL_SECRETS_JUST_FOR_FUN }}
+        LARK_APP_ALL_PERMISSION_APP_ID: ${{ secrets.LARK_APP_ALL_PERMISSION_APP_ID }}
+        LARK_APP_ALL_PERMISSION_APP_SECRET: ${{ secrets.LARK_APP_ALL_PERMISSION_APP_SECRET }}
+        LARK_ACCESS_TOKEN_ALL_PERMISSION_APP: ${{ secrets.LARK_ACCESS_TOKEN_ALL_PERMISSION_APP }}
+        LARK_REFRESH_TOKEN_ALL_PERMISSION_APP: ${{ secrets.LARK_REFRESH_TOKEN_ALL_PERMISSION_APP }}
