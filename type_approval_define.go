@@ -66,7 +66,7 @@ func (r *ApprovalWidgetList) UnmarshalJSON(bs []byte) (err error) {
 	return nil
 }
 
-func (r *ApprovalWidgetList) MarshalJSON() ([]byte,  error) {
+func (r *ApprovalWidgetList) MarshalJSON() ([]byte, error) {
 	bs, err := json.Marshal([]*ApprovalWidget(*r))
 	if err != nil {
 		return nil, err
