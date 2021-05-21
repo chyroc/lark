@@ -43,10 +43,9 @@ func (r *Mock) UnMockDriveCreateDriveFile() {
 }
 
 type CreateDriveFileReq struct {
-	Authorization string `json:"Authorization,omitempty"` // user_access_token 通过接口 [获取登录用户身份](/ssl:ttdoc/ukTMukTMukTM/uEDO4UjLxgDO14SM4gTN) 或者 [code2session](/ssl:ttdoc/uYjL24iN/ukjM04SOyQjL5IDN) 获得；注意内容不要漏了 "Bearer "
-	FolderToken   string `json:"folderToken,omitempty"`   // 文件夹 token，用于在此文件夹下新建文档，获取方式见 [对接前说明](/ssl:ttdoc/ukTMukTMukTM/uczNzUjL3czM14yN3MTN) 的第 3 项
-	Title         string `json:"title,omitempty"`         // 创建文档的标题
-	Type          string `json:"type,omitempty"`          // 需要创建文档的类型  "doc"  or  "sheet"
+	FolderToken string `path:"folderToken" json:"-"` // 文件夹 token，用于在此文件夹下新建文档，获取方式见 [对接前说明](/ssl:ttdoc/ukTMukTMukTM/uczNzUjL3czM14yN3MTN) 的第 3 项
+	Title       string `json:"title,omitempty"`      // 创建文档的标题
+	Type        string `json:"type,omitempty"`       // 需要创建文档的类型  "doc"  or  "sheet"
 }
 
 type createDriveFileResp struct {

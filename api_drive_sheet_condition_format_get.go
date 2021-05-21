@@ -75,6 +75,6 @@ type GetSheetConditionFormatRespSheetConditionFormatConditionFormatStyle struct 
 }
 
 type GetSheetConditionFormatRespSheetConditionFormatConditionFormatStyleFont struct {
-	Bold   bool `json:"   bold,omitempty"` // 加粗
-	Italic bool `json:" italic,omitempty"` // 斜体
+	Bold   bool `json:"bold,omitempty"`   // 加粗
+	Italic bool `json:"italic,omitempty"` // 斜体
 }
