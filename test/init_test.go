@@ -119,6 +119,14 @@ var MessageAllPermissionAppSendTextInChatContainAllPermissionApp = Message{
 	ChatID:    os.Getenv("LARK_CHAT_CONTAINS_APP_PERMISSION_APP_CHAT_ID"),
 }
 
+type Approval struct {
+	Code string `json:"code"`
+}
+
+var ApprovalALLField = Approval{
+	Code: os.Getenv("LARK_APPROVAL_ALL_FIELD"),
+}
+
 func Test_Config(t *testing.T) {
 	as := assert.New(t)
 

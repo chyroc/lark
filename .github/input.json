@@ -993,9 +993,24 @@
     "scope": "Approval",
     "apis": [
       {
-        "file_name": "api_approval_get_instance_list.go",
+        "file_name": "api_approval_approval_get.go",
+        "func_name": "GetApproval",
+        "doc_url": "https://open.feishu.cn/document/ukTMukTMukTM/uADNyUjLwQjM14CM0ITN"
+      },
+      {
+        "file_name": "api_approval_instance_list.go",
         "func_name": "GetApprovalInstanceList",
         "doc_url": "https://open.feishu.cn/document/ukTMukTMukTM/uQDOyUjL0gjM14CN4ITN"
+      },
+      {
+        "file_name": "api_approval_instance_get.go",
+        "func_name": "GetApprovalInstance",
+        "doc_url": "https://open.feishu.cn/document/ukTMukTMukTM/uEDNyUjLxQjM14SM0ITN"
+      },
+      {
+        "file_name": "api_approval_instance_create.go",
+        "func_name": "CreateApprovalInstance",
+        "doc_url": "https://open.feishu.cn/document/ukTMukTMukTM/uIDNyUjLyQjM14iM0ITN"
       }
     ]
   },

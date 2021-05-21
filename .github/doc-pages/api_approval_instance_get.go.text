@@ -1,0 +1,455 @@
+# 查看实例详情
+
+通过审批实例 Instance Code  获取审批实例详情。Instance Code 由 [批量获取审批实例](/ssl:ttdoc/ukTMukTMukTM/uQDOyUjL0gjM14CN4ITN) 接口获取。
+
+
+## 请求
+:::html
+<md-table>
+  <md-thead>
+  <tr>
+      <md-th>基本</md-th>
+      <md-th></md-th>
+  </tr>
+  </md-thead>
+  <md-tbody>
+    <md-tr>
+      <md-th>HTTP URL</md-th>
+      <md-td>https://www.feishu.cn/approval/openapi/v2/instance/get</md-td>
+    </md-tr>
+    <md-tr>
+      <md-th>HTTP Method</md-th>
+      <md-td>POST</md-td>
+    </md-tr>
+    
+    
+    <md-tr>
+      <md-th>权限要求</md-th>
+      <md-td>
+        <md-perm href="/ssl:ttdoc/ukTMukTMukTM/uQjN3QjL0YzN04CN2cDN">获取审批应用</md-perm>
+      </md-td>
+    </md-tr>
+  </md-tbody>
+</md-table>
+:::
+### 请求头
+:::html
+<md-table> 
+  <md-thead> 
+    <md-tr> 
+      <md-th style="width: 18%;">名称</md-th>  
+      <md-th style="width: 15%;">类型</md-th>  
+       <md-th style="width: 15%;">必填</md-th>  
+      <md-th>描述</md-th> 
+    </md-tr> 
+  </md-thead>  
+  <md-tbody> 
+    <md-tr> 
+      <md-td>Authorization</md-td>  
+      <md-td>string</md-td>  
+      <md-td> 是 </md-td> 
+      	<md-td>
+<md-tag mode="inline" type="token-tenant">tenant_access_token</md-tag>
+ 
+**值格式**："Bearer `access_token`"
+
+**示例值**："Bearer t-7f1bcd13fc57d46bac21793a18e560"
+          
+ [了解更多：获取与使用access_token](/ssl:ttdoc/ukTMukTMukTM/uMTNz4yM1MjLzUzM)
+	</md-td>
+</md-tr>
+     <md-tr> 
+      <md-td>Content-Type</md-td>  
+      <md-td>string</md-td>  
+      <md-td> 是 </md-td> 
+     <md-td>**固定值**："application/json; charset=utf-8"</md-td>
+</md-tr>
+   
+  </md-tbody> 
+</md-table>
+:::
+
+### 请求体
+
+|参数|类型|必须|说明|
+|-|-|-|-|
+|instance_code|String|是|审批实例 Code|
+|locale|String|否|zh-CN - 中文<br>en-US - 英文|
+
+### 请求体示例
+
+```json
+{
+    "instance_code": "81D31358-93AF-92D6-7425-01A5D67C4E71",
+    "locale": "en-US"
+}
+```
+
+## 响应
+
+### 响应体
+|参数|类型|必须|说明|
+|-|-|-|-|
+|code|int|是|错误码，非 0 表示失败|
+|msg|String|是|返回码的描述|
+|data|map|是|返回业务信息|
+|&emsp;∟approval_code|String|是|审批定义 Code|
+|&emsp;∟approval_name|String|是|审批名称|
+|&emsp;∟start_time|int|是|审批创建时间|
+|&emsp;∟end_time|int|是|审批完成时间，未完成为 0|
+|&emsp;∟user_id|String|是|发起审批用户|
+|&emsp;∟open_id|String|是|发起审批用户 open id| 
+|&emsp;∟serial_number|String|是|审批单编号| 
+|&emsp;∟department_id|String|是|发起审批用户所在部门|
+|&emsp;∟status|String|是|审批实例状态<br>PENDING    - 审批中<br>APPROVED - 通过<br>REJECTED  - 拒绝<br>CANCELED -  撤回<br>DELETED    -  删除|
+|&emsp;∟form|String|是|json数组，**控件值**|
+|&emsp;&emsp;∟id|String|是|控件 id|
+|&emsp;&emsp;∟custom_id|String|否|控件自定义 id，如果没有设置自定义 id，则不返回该字段|
+|&emsp;&emsp;∟name|String|是|控件名称|
+|&emsp;&emsp;∟type|String|是|控件类型|
+|&emsp;&emsp;∟value|String|是|控件值，不同类型格式不一样|
+|&emsp;∟task_list|list|是|审批任务列表|
+|&emsp;&emsp;∟id|String|是|task id|
+|&emsp;&emsp;∟user_id|string|否|审批人<br>自动通过、自动拒绝 task user_id 为空|
+|&emsp;&emsp;∟open_id|string|否|审批人 open id|
+|&emsp;&emsp;∟status|string|是|任务状态<br>PENDING - 审批中<br>APPROVED - 同意<br>REJECTED  - 拒绝<br>TRANSFERRED - 已转交<br>DONE -  完成|
+|&emsp;&emsp;∟node_id|String|否|task 所属节点 id|
+|&emsp;&emsp;∟custom_node_id|String|否|task 所属节点自定义 id, 如果没设置自定义 id, 则不返回该字段|
+|&emsp;&emsp;∟type|String|是|审批方式<br>AND -会签<br>OR - 或签<br>AUTO_PASS -自动通过<br>AUTO_REJECT - 自动拒绝<br>SEQUENTIAL - 按顺序|
+|&emsp;&emsp;∟start_time|int|是|task 开始时间|
+|&emsp;&emsp;∟end_time|int|是|task 完成事件, 未完成为 0|
+|&emsp;∟comment_list|list|是|评论列表|
+|&emsp;&emsp;∟id|String|是|comment id|
+|&emsp;&emsp;∟user_id|String|是|发表评论用户|
+|&emsp;&emsp;∟open_id|String|是|发表评论用户 open id|
+|&emsp;&emsp;∟comment|String|是|评论内容|
+|&emsp;&emsp;∟create_time|int|是|评论时间|
+|&emsp;∟timeline|list|是|审批动态|
+|&emsp;&emsp;∟type|String|是|动态类型，不同类型 ext 内的 user_id_list 含义不一样<br>START - 审批开始<br>PASS - 通过<br>REJECT  - 拒绝<br>AUTO_PASS -  自动通过<br>AUTO_REJECT - 自动拒绝<br>REMOVE_REPEAT - 去重<br>TRANSFER - 转交 <br>ADD_APPROVER_BEFORE  - 前加签<br>ADD_APPROVER -  并加签<br>ADD_APPROVER_AFTER -  后加签 <br>DELETE_APPROVER  - 减签<br>ROLLBACK_SELECTED -  指定回退<br>ROLLBACK - 全部回退<br>CANCEL -  撤回<br>DELETE - 删除<br>CC - 抄送|
+|&emsp;&emsp;∟create_time|int|是|发生时间|
+|&emsp;&emsp;∟user_id|String|否|动态产生用户|
+|&emsp;&emsp;∟open_id|String|否|动态产生用户 open id|
+|&emsp;&emsp;∟user_id_list|string|否|被抄送人列表|
+|&emsp;&emsp;∟open_id_list|string|否|被抄送人列表|
+|&emsp;&emsp;∟task_id|String|否|产生动态关联的task_id|
+|&emsp;&emsp;∟comment|String|否|理由|
+|&emsp;&emsp;∟ext|String|是|动态其他信息，目前包括 user_id_list, user_id|
+|&emsp;&emsp;&emsp;∟user_id_list|list|否|**type类型** - **user_id_list 含义**<br>TRANSFER - 被转交人 <br>ADD_APPROVER_BEFORE  -  被加签人<br>ADD_APPROVER -   被加签人<br>ADD_APPROVER_AFTER -   被加签人 <br>DELETE_APPROVER  - 被减签人|
+|&emsp;&emsp;&emsp;∟open_id_list|list|否|user_id_list 对应的 open id|
+|&emsp;&emsp;&emsp;∟user_id|String|否|**type类型** - **user_id 含义**<br>CC - 抄送人|
+|&emsp;&emsp;&emsp;∟open_id|String|否|user_id 对应的 open_id|
+
+
+<br>
+**控件值**: 
+|类型|说明|
+|-|-|
+|input||
+|textarea||
+|date|RFC3339格式，2019-10-01T08:12:01+08:00|
+|radio/radioV2|option 中的 text 字段|
+|address|China/Beijing/Beijing/Chaoyang Qu/chang an jie<br>如果地址控件允许输入详细地址，则最后一项为用户输入的详细地址|
+```json
+{
+    "id": "widget1",
+    "custom_id": "user_info",
+    "name": "Item application",
+    "type": "input",
+    "value": "data"
+}
+```
+|类型|说明|
+|-|-|
+|number||
+|amount||
+|formula||
+```json
+{
+    "id": "widget1",
+    "name": "Item application",
+    "type": "number",
+    "value": 1234.56
+}
+```
+|类型|说明|
+|-|-|
+|contact|`user_id`|
+```json
+{
+    "id": "widget1",
+    "name": "Item application",
+    "type": "contact",
+    "value": ["f8ca557e"],
+    "open_ids": ["ou_12345"]
+}
+```
+
+|类型|说明|
+|-|-|
+|connect|`instance_code`|
+|attachmentV2|附件控件, ext:value中的附件名字, 按逗号分隔|
+|image/imageV2|图片控件, ext:value中的图片名字, 按逗号分隔|
+
+```json
+{
+    "id": "widget1",
+    "name": "Item application",
+    "type": "attachmentV2",
+    "ext": "'Item 1 name','Item 2 name'",
+    "value": ["Item 1", "Item 2"]
+}
+```
+
+|类型|说明|
+|-|-|
+|connect|`instance_code`|
+|attachment|附件控件,建议用attachmentV2|
+|checkbox/checkboxV2|option中的text字段|
+
+```json
+{
+    "id": "widget1",
+    "name": "Item application",
+    "type": "checkbox",
+    "value": ["Item 1"]
+}
+```
+|类型|说明|
+|-|-|
+|dateInterval|start和end满足RFC3339格式|
+```json
+{
+    "id": "widget1",
+    "name": "Item application",
+    "type": "dateInterval",
+    "value": {
+         "start": "2019-10-01T08:12:01+08:00",
+         "end": "2019-10-02T08:12:01+08:00",
+         "interval": 2.0
+     }
+}
+```
+
+|类型|说明|
+|-|-|
+|fieldList|value是二维数组|
+
+```json
+{
+    "id": "widget1",
+    "name": "Item application",
+    "type": "fieldList",
+    "value": [
+         [   
+            {
+                "id": "widget1",
+                "type": "checkbox",
+                "value": ["jxpsebqp-0"]
+            }
+         ]
+     ]
+}
+```
+
+
+|字段|说明|
+|-|-|
+|id|控件 ID|
+|name|控件名称|
+|type|leaveGroup|
+|value||
+|&emsp;∟name|假期名称|
+|&emsp;∟start|开始时间，满足 RFC3339 格式|
+|&emsp;∟end|结束时间，满足 RFC3339 格式|
+|&emsp;∟interval|时长，单位天，有些假期类型用户手动输入请假时长|
+
+```json
+{
+    "id": "widget1",
+    "name": "leave",
+    "type": "leaveGroup",
+    "value": {
+         "name": "annual leave"
+         "start": "2019-10-01T00:00:00+08:00",
+         "end": "2019-10-02T00:0:00+08:00",
+         "interval": 2.0
+     }
+}
+```
+
+|字段|说明|
+|-|-|
+|id|控件 ID|
+|name|控件名称|
+|type|leaveGroupV2|
+|value||
+|&emsp;∟name|假期名称|
+|&emsp;∟start|开始时间，满足 RFC3339 格式|
+|&emsp;∟end|结束时间，满足 RFC3339 格式|
+|&emsp;∟interval|时长，有些假期类型用户手动输入请假时长|
+|&emsp;∟unit|时长单位, DAY/HOUR ，有些假期类型用户手动输入请假时长|
+|&emsp;∟reason|原因|
+
+```json
+{
+    "id": "widget1",
+    "name": "leave",
+    "type": "widgetLeaveGroupV2",
+    "value": {
+         "name": "annual leave"
+         "start": "2019-10-01T00:00:00+08:00",
+         "end": "2019-10-02T00:0:00+08:00",
+         "interval": 2.0,
+         "unit": "DAY",
+         "reason": "out going"
+     }
+}
+```
+
+
+|类型|说明|
+|-|-|
+|remedyGroup|time满足RFC3339格式|
+
+```json
+{
+    "id": "widget1",
+    "name": "remedy",
+    "type": "remedyGroup",
+    "value": {
+         "time": "2019-10-01T08:12:01+08:00",
+         "reason": "forgot"
+     }
+}
+```
+
+
+|类型|说明|
+|-|-|
+|shiftGroup|shiftTime和returnTime满足RFC3339格式|
+
+```json
+{
+    "id": "widget1",
+    "name": "shift",
+    "type": "shiftGroup",
+    "value": {
+         "shiftTime": "2019-10-01T08:12:01+08:00",
+         "returnTime": "2019-10-02T08:12:01+08:00",
+         "reason": "ask for leave"
+     }
+}
+```
+
+
+|类型|说明|
+|-|-|
+|workGroup|start和end满足RFC3339格式|
+
+```json
+{
+    "id": "widget1",
+    "name": "work",
+    "type": "workGroup",
+    "value": {
+         "name": "Overtime pay"
+         "start": "2019-10-01T08:12:01+08:00",
+         "end": "2019-10-02T08:12:01+08:00",
+         "interval": 2.0,
+         "reason": "ask for leave"
+     }
+}
+```
+
+
+|类型|说明|
+|-|-|
+|tripGroup|start和end满足RFC3339格式|
+
+```json
+{
+    "id": "widget1",
+    "name": "trip",
+    "type": "tripGroup",
+    "value": {
+         "schedule": [{
+                "start": "2019-10-0T00:00:00Z+08:00",
+                "end": "2019-10-01T00:00:00Z+08:00",
+                "interval": 123.45,
+                "departure": "China/Beijing/Beijing",
+                "destination": "China/Shanghai/Shanghai",
+                "transportation": "Airplane",
+                "oneRound": "One Way",
+                "remark": "business",
+         }],
+         "interval": 2.0,
+         "reason": "business",
+         "peer": ["f7cb567e"],
+    }
+}
+```
+### 响应体示例
+
+```json
+{
+    "code": 0,
+    "msg": "success",
+    "data": {
+        "approval_code": "7C468A54-8745-2245-9675-08B7C63E7A85",
+        "approval_name": "Payment",
+        "start_time": 1564590532967,
+        "end_time": 0,
+        "user_id": "f3ta757q",
+        "open_id": "ou_123456",
+        "serial_number":"202102060002"
+        "department_id": "od-8ec33ffec336c3a39a278bc25e931676",
+        "status": "PENDING",
+        "form": "[{\"id\": \"widget1\",\"custom_id\": \"user_info\",\"name\": \"Item application\",\"type\": \"textarea\"}\,\"value\":\"aaaa\"]",
+        "task_list":[
+          {
+            "id": "1234",
+            "node_id": "46e6d96cfa756980907209209ec03b64",
+            "custom_node_id": "manager",
+            "user_id": "f7cb567e",
+            "open_id": "ou_123457",
+            "type": "AND",
+            "status": "PENDING",
+            "start_time": 1564590532967,
+            "end_time": 0
+          }
+        ],
+        "comment_list": [
+          {
+            "id": "1234",
+            "user_id": "f7cb567e",
+            "open_id": "ou_123456",
+            "comment": "ok",
+            "create_time": 1564590532967
+          }
+        ], 
+        "timeline": [
+          {
+            "type": "START",
+            "user_id": "f8ca557e",
+            "open_id": "ou_123456",
+            "create_time": 1564590532967,
+            "comment": "ok",
+            "task_id": "1234",
+            "ext": "{\"user_id_list\":[\"f7cb567e\"],\"open_id_list\":[\"ou_123456\"]}"
+         },
+         {
+            "type": "CC",
+            "user_id_list": [
+               "eea5gefe"
+            ],
+            "open_id_list": [
+               "ou_12345"
+            ]
+            "create_time": 1571913568556,
+            "comment": "ccc",
+            "ext": "{\"user_id\":\"62d4a44c\",\"open_id\":\"ou_123456\"}",
+         }
+       ]
+    }
+}
+```

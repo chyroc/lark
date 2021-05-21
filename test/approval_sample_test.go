@@ -22,7 +22,25 @@ func Test_Approval_Sample_Failed(t *testing.T) {
 		moduleCli := cli.Approval
 
 		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.GetApproval(ctx, &lark.GetApprovalReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "failed")
+		})
+
+		t.Run("", func(t *testing.T) {
 			_, _, err := moduleCli.GetApprovalInstanceList(ctx, &lark.GetApprovalInstanceListReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.GetApprovalInstance(ctx, &lark.GetApprovalInstanceReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.CreateApprovalInstance(ctx, &lark.CreateApprovalInstanceReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "failed")
 		})
@@ -31,6 +49,17 @@ func Test_Approval_Sample_Failed(t *testing.T) {
 	t.Run("request mock failed", func(t *testing.T) {
 		cli := AppALLPermission.Ins()
 		moduleCli := cli.Approval
+
+		t.Run("", func(t *testing.T) {
+			cli.Mock().MockApprovalGetApproval(func(ctx context.Context, request *lark.GetApprovalReq, options ...lark.MethodOptionFunc) (*lark.GetApprovalResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockApprovalGetApproval()
+
+			_, _, err := moduleCli.GetApproval(ctx, &lark.GetApprovalReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
 
 		t.Run("", func(t *testing.T) {
 			cli.Mock().MockApprovalGetApprovalInstanceList(func(ctx context.Context, request *lark.GetApprovalInstanceListReq, options ...lark.MethodOptionFunc) (*lark.GetApprovalInstanceListResp, *lark.Response, error) {
@@ -42,6 +71,28 @@ func Test_Approval_Sample_Failed(t *testing.T) {
 			as.NotNil(err)
 			as.Equal(err.Error(), "mock-failed")
 		})
+
+		t.Run("", func(t *testing.T) {
+			cli.Mock().MockApprovalGetApprovalInstance(func(ctx context.Context, request *lark.GetApprovalInstanceReq, options ...lark.MethodOptionFunc) (*lark.GetApprovalInstanceResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockApprovalGetApprovalInstance()
+
+			_, _, err := moduleCli.GetApprovalInstance(ctx, &lark.GetApprovalInstanceReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+			cli.Mock().MockApprovalCreateApprovalInstance(func(ctx context.Context, request *lark.CreateApprovalInstanceReq, options ...lark.MethodOptionFunc) (*lark.CreateApprovalInstanceResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockApprovalCreateApprovalInstance()
+
+			_, _, err := moduleCli.CreateApprovalInstance(ctx, &lark.CreateApprovalInstanceReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
 	})
 
 	t.Run("response is failed", func(t *testing.T) {
@@ -49,7 +100,25 @@ func Test_Approval_Sample_Failed(t *testing.T) {
 		moduleCli := cli.Approval
 
 		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.GetApproval(ctx, &lark.GetApprovalReq{})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
 			_, _, err := moduleCli.GetApprovalInstanceList(ctx, &lark.GetApprovalInstanceListReq{})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.GetApprovalInstance(ctx, &lark.GetApprovalInstanceReq{})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.CreateApprovalInstance(ctx, &lark.CreateApprovalInstanceReq{})
 			as.NotNil(err)
 			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
 		})
