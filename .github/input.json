@@ -215,6 +215,7 @@
       {
         "file_name": "api_bot_info.go",
         "func_name": "GetBotInfo",
+        "ignore": true,
         "doc_url": "https://open.feishu.cn/document/ukTMukTMukTM/uAjMxEjLwITMx4CMyETM"
       }
     ]
@@ -1011,6 +1012,50 @@
         "file_name": "api_approval_instance_create.go",
         "func_name": "CreateApprovalInstance",
         "doc_url": "https://open.feishu.cn/document/ukTMukTMukTM/uIDNyUjLyQjM14iM0ITN"
+      },
+      {
+        "file_name": "api_approval_instance_approve.go",
+        "func_name": "ApproveApprovalInstance",
+        "doc_url": "https://open.feishu.cn/document/ukTMukTMukTM/uMDNyUjLzQjM14yM0ITN"
+      },
+      {
+        "file_name": "api_approval_instance_reject.go",
+        "func_name": "RejectApprovalInstance",
+        "doc_url": "https://open.feishu.cn/document/ukTMukTMukTM/uQDNyUjL0QjM14CN0ITN"
+      },
+      {
+        "file_name": "api_approval_instance_transfer.go",
+        "func_name": "TransferApprovalInstance",
+        "doc_url": "https://open.feishu.cn/document/ukTMukTMukTM/uUDNyUjL1QjM14SN0ITN"
+      },
+      {
+        "file_name": "api_approval_instance_cancel.go",
+        "func_name": "CancelApprovalInstance",
+        "doc_url": "https://open.feishu.cn/document/ukTMukTMukTM/uYDNyUjL2QjM14iN0ITN"
+      },
+      {
+        "file_name": "api_approval_file_upload.go",
+        "func_name": "UploadApprovalFile",
+        "doc_url": "https://open.feishu.cn/document/ukTMukTMukTM/uUDOyUjL1gjM14SN4ITN"
+      },
+      {
+        "file_name": "api_approval_instance_search.go",
+        "func_name": "SearchApprovalInstance",
+        "doc_url": "https://open.feishu.cn/document/ukTMukTMukTM/uQjMxYjL0ITM24CNyEjN"
+      },
+      {
+        "file_name": "api_approval_task_search.go",
+        "func_name": "SearchApprovalTask",
+        "ignore": true,
+        "ignore_mock": true,
+        "doc_url": "https://open.feishu.cn/document/ukTMukTMukTM/uYjMxYjL2ITM24iNyEjN"
+      },
+      {
+        "file_name": "api_approval_carbon_copy_search.go",
+        "func_name": "SearchApprovalCarbonCopy",
+        "ignore": true,
+        "ignore_mock": true,
+        "doc_url": "https://open.feishu.cn/document/ukTMukTMukTM/uUjMxYjL1ITM24SNyEjN"
       }
     ]
   },

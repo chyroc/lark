@@ -1,0 +1,187 @@
+# 实例列表查询
+
+该接口通过不同条件查询审批系统中符合条件的审批实例列表。
+
+## 请求
+:::html
+<md-table>
+  <md-thead>
+  <tr>
+      <md-th>基本</md-th>
+      <md-th></md-th>
+  </tr>
+  </md-thead>
+  <md-tbody>
+    <md-tr>
+      <md-th>HTTP URL</md-th>
+      <md-td>https://www.feishu.cn/approval/openapi/v2/instance/search</md-td>
+    </md-tr>
+    <md-tr>
+      <md-th>HTTP Method</md-th>
+      <md-td>POST</md-td>
+    </md-tr>
+    
+    
+    <md-tr>
+      <md-th>权限要求</md-th>
+      <md-td>
+        <md-perm  href="/ssl:ttdoc/ukTMukTMukTM/uQjN3QjL0YzN04CN2cDN">查询审批列表</md-perm>
+      </md-td>
+    </md-tr>
+  </md-tbody>
+</md-table>
+:::
+### 请求头
+:::html
+<md-table> 
+  <md-thead> 
+    <md-tr> 
+      <md-th style="width: 18%;">名称</md-th>  
+      <md-th style="width: 15%;">类型</md-th>  
+       <md-th style="width: 15%;">必填</md-th>  
+      <md-th>描述</md-th> 
+    </md-tr> 
+  </md-thead>  
+  <md-tbody> 
+    <md-tr> 
+      <md-td>Authorization</md-td>  
+      <md-td>string</md-td>  
+      <md-td> 是 </md-td> 
+      	<md-td>
+<md-tag mode="inline" type="token-tenant">tenant_access_token</md-tag>
+ 
+**值格式**："Bearer `access_token`"
+
+**示例值**："Bearer t-7f1bcd13fc57d46bac21793a18e560"
+          
+ [了解更多：获取与使用access_token](/ssl:ttdoc/ukTMukTMukTM/uMTNz4yM1MjLzUzM)
+	</md-td>
+</md-tr>
+     <md-tr> 
+      <md-td>Content-Type</md-td>  
+      <md-td>string</md-td>  
+      <md-td> 是 </md-td> 
+     <md-td>**固定值**："application/json; charset=utf-8"</md-td>
+</md-tr>
+   
+  </md-tbody> 
+</md-table>
+:::
+
+### 请求体
+
+|参数|类型|必须|说明|
+|-|-|-|-|
+|user_id|string|否|用户 id
+|approval_code|string|否|审批定义 code
+|instance_code|string|否|审批实例 code
+|instance_external_id|string|否|审批实例第三方 id <br>注：和 approval_code 取并集
+|group_external_id|string|否|审批定义分组第三方 id <br>注：和 instance_code 取并集
+|instance_title|string|否|审批实例标题（只有第三方审批有）
+|instance_status|string|否|审批实例状态<br>REJECT：拒绝<br>PENDING：审批中<br>RECALL：撤回<br>DELETED： 已删除<br>APPROVED：通过<br>注：若不设置，查询全部状态<br>若不在集合中，报错
+|instance_start_time_from|int|否|实例查询开始时间（unix毫秒时间戳）
+|instance_start_time_to|int|否|实例查询结束时间  (unix毫秒时间戳)
+|locale|string|否|地区 （zh-CN、en-US、ja-JP）
+|offset|int|否|查询偏移量 <br>注：不得超过10000
+|limit|int|否|查询限制量 <br>注：不得超过200<br>不设置默认查询10条数据
+
+注：<br>
+1、user_id、approval_code、instance_code、instance_external_id、group_external_id 不得均为空<br>
+2、approval_code 和 group_external_id 查询结果取并集，instance_code 和 instance_external_id 查询结果取并集，其他查询条件都对应取交集<br>
+3、查询时间跨度不得大于30天，开始和结束时间必须都设置，或者都不设置
+
+### 请求体示例
+
+```json
+{
+	"user_id": "lwiu098wj",
+	"approval_code": "EB828003-9FFE-4B3F-AA50-2E199E2ED942",
+	"insatnce_code": "EB828003-9FFE-4B3F-AA50-2E199E2ED943",
+	"instance_external_id": "xxxxx",
+	"group_external_id": "xxxx",
+	"instance_title": "xxx",
+	"instance_status": "PENDING",
+	"instance_start_time_from": 1547654251506,
+	"instance_start_time_to": 1547654251506,
+	"locale": "zh-CN",
+	"offset": 0,
+	"limit": 50,
+}
+```
+
+## 响应
+
+### 响应体
+
+|参数|类型|说明|
+|-|-|-|-|
+|code |int |错误码，非0表示失败 |
+|msg | string | 返回码的描述|
+|data | map | 返回业务信息 |
+|&emsp;∟count|int|查询返回条数
+|&emsp;∟instance_list|list|审批实例列表
+|&emsp;&emsp;∟approval|map|审批定义
+|&emsp;&emsp;&emsp;∟code|string|审批定义 code
+|&emsp;&emsp;&emsp;∟name|string|审批定义名称
+|&emsp;&emsp;&emsp;∟is_external|bool|是否为第三方审批
+|&emsp;&emsp;&emsp;∟external|map|第三方审批信息
+|&emsp;&emsp;&emsp;&emsp;∟batch_cc_read |bool|是否支持批量读
+|&emsp;&emsp;&emsp;∟group|map|审批定义分组
+|&emsp;&emsp;&emsp;&emsp;∟external_id|string|审批定义分组外部 id
+|&emsp;&emsp;&emsp;&emsp;∟name|string|审批定义分组名称
+|&emsp;&emsp;∟instance|map|审批实例信息
+|&emsp;&emsp;&emsp;∟code|string|审批实例 code
+|&emsp;&emsp;&emsp;∟external_id|string|审批实例外部 id
+|&emsp;&emsp;&emsp;∟user_id|string|审批实例发起人 id
+|&emsp;&emsp;&emsp;∟start_time|int|审批实例开始时间
+|&emsp;&emsp;&emsp;∟end_time|int|审批实例结束时间
+|&emsp;&emsp;&emsp;∟status|string|审批实例状态
+|&emsp;&emsp;&emsp;∟title|string|审批实例名称（只有第三方审批有）
+|&emsp;&emsp;&emsp;∟extra|string|审批实例扩展字段
+|&emsp;&emsp;&emsp;∟serial_id|string|审批流水号
+|&emsp;&emsp;&emsp;∟link|map|审批实例链接（只有第三方审批有）
+|&emsp;&emsp;&emsp;&emsp;∟pc_link|string|审批实例 pc 端链接
+|&emsp;&emsp;&emsp;&emsp;∟mobile_link|string|审批实例移动端链接
+
+### 响应体示例
+
+```json
+{
+	"code": 0,
+	"msg": "success",
+	"data": {
+		"count": 10,
+		"instance_list": [
+			{
+				"approval": {
+					"code": "EB828003-9FFE-4B3F-AA50-2E199E2ED943",
+					"name": "approval",
+					"is_external": true,
+					"external": {
+						 "batch_cc_read": false,
+					}
+				},
+				"group": {
+					 "external_id": "0004",
+				 	"name": "groupA",
+				},
+				"instance": {
+					"code": "EB828003-9FFE-4B3F-AA50-2E199E2ED943",
+					"external_id": "0004_3ED52DC1-AA6C",
+					"user_id": "lwiu098wj",
+					"start_time": 1547654251506,
+					"end_time": 1547654251506,
+					"status": "PENDING",
+					"title": "",
+					"extra": "{}",
+					"serial_id": "201902020001",
+			 		"link": {
+						"pc_link": "",
+						"mobile_link": "",
+					}
+				}
+			}
+		]
+	}
+}
+```

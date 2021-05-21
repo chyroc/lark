@@ -8,7 +8,7 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-func Test_Approval(t *testing.T) {
+func Test_GetApproval(t *testing.T) {
 	as := assert.New(t)
 
 	ctx := context.TODO()
@@ -57,3 +57,41 @@ func Test_Approval(t *testing.T) {
 		}
 	}
 }
+
+// func Test_CreateApproval(t *testing.T) {
+// 	as := assert.New(t)
+//
+// 	ctx := context.TODO()
+// 	cli := AppALLPermission.Ins()
+//
+// 	var widgetDefine lark.ApprovalWidgetList
+// 	{
+// 		resp, _, err := cli.Approval.GetApproval(ctx, &lark.GetApprovalReq{
+// 			ApprovalCode: ApprovalALLField.Code,
+// 			Locale:       nil,
+// 		})
+// 		as.Nil(err)
+// 		widgetDefine = resp.Form
+// 	}
+//
+// 	v := lark.ApprovalWidgetList{
+// 		{
+// 			ID:    widgetDefine[0].ID,
+// 			Type:  lark.ApprovalWidgetTypeInput,
+// 			Value: "test",
+// 		},
+// 	}
+//
+// 	resp, _, err := cli.Approval.CreateApprovalInstance(ctx, &lark.CreateApprovalInstanceReq{
+// 		ApprovalCode:           ApprovalALLField.Code,
+// 		UserID:                 &UserAdmin.UserID,
+// 		OpenID:                 "",
+// 		DepartmentID:           nil,
+// 		Form:                   v,
+// 		NodeApproverUserIDList: nil,
+// 		NodeApproverOpenIDList: nil,
+// 		UUID:                   nil,
+// 	})
+// 	as.Nil(err)
+// 	fmt.Println(resp.InstanceCode)
+// }

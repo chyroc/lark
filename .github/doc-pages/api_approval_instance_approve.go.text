@@ -1,0 +1,109 @@
+# 审批任务同意操作
+
+对于单个审批任务进行同意操作。同意后审批流程会流转到下一个审批人。
+
+## 请求
+:::html
+<md-table>
+  <md-thead>
+  <tr>
+      <md-th>基本</md-th>
+      <md-th></md-th>
+  </tr>
+  </md-thead>
+  <md-tbody>
+    <md-tr>
+      <md-th>HTTP URL</md-th>
+      <md-td>https://www.feishu.cn/approval/openapi/v2/instance/approve</md-td>
+    </md-tr>
+    <md-tr>
+      <md-th>HTTP Method</md-th>
+      <md-td>POST</md-td>
+    </md-tr>
+    
+    
+    <md-tr>
+      <md-th>权限要求</md-th>
+      <md-td>
+        <md-perm href="/ssl:ttdoc/ukTMukTMukTM/uQjN3QjL0YzN04CN2cDN">获取审批应用</md-perm>
+      </md-td>
+    </md-tr>
+  </md-tbody>
+</md-table>
+:::
+### 请求头
+:::html
+<md-table> 
+  <md-thead> 
+    <md-tr> 
+      <md-th style="width: 18%;">名称</md-th>  
+      <md-th style="width: 15%;">类型</md-th>  
+       <md-th style="width: 15%;">必填</md-th>  
+      <md-th>描述</md-th> 
+    </md-tr> 
+  </md-thead>  
+  <md-tbody> 
+    <md-tr> 
+      <md-td>Authorization</md-td>  
+      <md-td>string</md-td>  
+      <md-td> 是 </md-td> 
+      	<md-td>
+<md-tag mode="inline" type="token-tenant">tenant_access_token</md-tag>
+ 
+**值格式**："Bearer `access_token`"
+
+**示例值**："Bearer t-7f1bcd13fc57d46bac21793a18e560"
+          
+ [了解更多：获取与使用access_token](/ssl:ttdoc/ukTMukTMukTM/uMTNz4yM1MjLzUzM)
+	</md-td>
+</md-tr>
+     <md-tr> 
+      <md-td>Content-Type</md-td>  
+      <md-td>string</md-td>  
+      <md-td> 是 </md-td> 
+     <md-td>**固定值**："application/json; charset=utf-8"</md-td>
+</md-tr>
+   
+  </md-tbody> 
+</md-table>
+:::
+
+### 请求体
+
+|参数|类型|必须|说明|
+|-|-|-|-|
+|approval_code|String|是|审批定义 Code|
+|instance_code|String|是|审批实例 Code|
+|user_id|String|是|操作用户|
+|task_id|String|是|任务 ID|
+|comment|String|否|意见|
+
+### 请求体示例
+
+```
+{
+    "approval_code": "7C468A54-8745-2245-9675-08B7C63E7A85",
+    "instance_code": "81D31358-93AF-92D6-7425-01A5D67C4E71",
+    "user_id": "f7cb567e",
+    "task_id": "12345",
+    "comment": "OK"
+}
+```
+
+## 响应
+
+### 响应体
+
+|参数|类型|必须|说明|
+|-|-|-|-|
+|code|int|是|错误码，非0表示失败|
+|msg|String|是|返回码的描述|
+
+### 响应体示例
+
+```json
+{
+    "code": 0,
+    "msg": "success"
+}
+```

@@ -2,6 +2,7 @@ package lark
 
 import (
 	"encoding/json"
+	"fmt"
 	"strings"
 )
 
@@ -43,6 +44,7 @@ type ApprovalWidget struct {
 	ID       string                  `json:"id,omitempty"`
 	Name     string                  `json:"name,omitempty"`
 	Type     ApprovalWidgetType      `json:"type,omitempty"`
+	Value    interface{}             `json:"value"`
 	Option   []*ApprovalWidgetOption `json:"option,omitempty"`
 	Children []*ApprovalWidget       `json:"children,omitempty"`
 }
@@ -62,6 +64,14 @@ func (r *ApprovalWidgetList) UnmarshalJSON(bs []byte) (err error) {
 	}
 	*r = awList
 	return nil
+}
+
+func (r *ApprovalWidgetList) MarshalJSON() ([]byte,  error) {
+	bs, err := json.Marshal([]*ApprovalWidget(*r))
+	if err != nil {
+		return nil, err
+	}
+	return []byte(fmt.Sprintf("%q", bs)), nil
 }
 
 type ApprovalWidgetOption struct {

@@ -19,6 +19,7 @@ func (r *App) Ins() *lark.Lark {
 	return lark.New(
 		lark.WithAppCredential(r.AppID, r.AppSecret),
 		lark.WithTimeout(time.Second*20),
+		lark.WithLogger(lark.NewLoggerStdout(), lark.LogLevelDebug),
 	)
 }
 
