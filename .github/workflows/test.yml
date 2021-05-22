@@ -24,7 +24,9 @@ jobs:
       run: go build -v ./...
 
     - name: Test
-      run: ./.github/test.sh
+      run: |
+        export IN_CI=1
+        ./.github/test.sh
       env:
         LARK_APP_NO_PERMISSION_APP_ID: ${{ secrets.LARK_APP_NO_PERMISSION_APP_ID }}
         LARK_APP_NO_PERMISSION_APP_SECRET: ${{ secrets.LARK_APP_NO_PERMISSION_APP_SECRET }}

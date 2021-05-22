@@ -5,6 +5,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"math/rand"
+	"os"
 	"reflect"
 	"testing"
 	"time"
@@ -119,4 +120,12 @@ func Test_Helper(t *testing.T) {
 		printData(x)
 		printData(lark.SendRawMessageReq{Content: "x"}, x)
 	})
+}
+
+func IsNotInCI() bool {
+	isNotInCI := os.Getenv("IN_CI") == ""
+	if isNotInCI {
+		fmt.Println("NOT IN CI, SKIP")
+	}
+	return isNotInCI
 }

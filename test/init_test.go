@@ -46,9 +46,11 @@ var HelpdeskAllPermission = Helpdesk{
 }
 
 type User struct {
-	UserID string
-	OpenID string
-	Name   string
+	UserID       string
+	OpenID       string
+	Name         string
+	AccessToken  map[string]string
+	RefreshToken map[string]string
 }
 
 type Chat struct {
@@ -70,6 +72,12 @@ var UserAdmin = User{
 	UserID: os.Getenv("LARK_USER_ADMIN_USER_ID"),
 	OpenID: os.Getenv("LARK_USER_ADMIN_OPEN_ID"),
 	Name:   os.Getenv("LARK_USER_ADMIN_NAME"),
+	AccessToken: map[string]string{
+		os.Getenv("LARK_APP_ALL_PERMISSION_APP_ID"): os.Getenv("LARK_ACCESS_TOKEN_ALL_PERMISSION_APP"),
+	},
+	RefreshToken: map[string]string{
+		os.Getenv("LARK_APP_ALL_PERMISSION_APP_ID"): os.Getenv("LARK_REFRESH_TOKEN_ALL_PERMISSION_APP"),
+	},
 }
 
 // 这个群公共，必须设置「群公共」三个字
