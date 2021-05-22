@@ -25,3 +25,4 @@ node_modules/
 dist/
 venv/
 .github/internal/go.sum
+.github/all-api.json
