@@ -1,19 +1,18 @@
 package test
 
 import (
-	"context"
 	"fmt"
 	"testing"
 
 	"github.com/chyroc/go-ptr"
-	"github.com/chyroc/lark"
 	"github.com/stretchr/testify/assert"
+
+	"github.com/chyroc/lark"
 )
 
 func Test_GetApproval(t *testing.T) {
 	as := assert.New(t)
 
-	ctx := context.TODO()
 	cli := AppALLPermission.Ins()
 
 	resp, _, err := cli.Approval.GetApproval(ctx, &lark.GetApprovalReq{
@@ -63,7 +62,6 @@ func Test_GetApproval(t *testing.T) {
 func Test_Create_CancelApproval(t *testing.T) {
 	as := assert.New(t)
 
-	ctx := context.TODO()
 	cli := AppALLPermission.Ins()
 
 	t.Run("cancel", func(t *testing.T) {
@@ -120,7 +118,6 @@ func Test_Create_CancelApproval(t *testing.T) {
 
 func testCreateApproval(t *testing.T, cli *lark.Lark, approvalCode, userID string) (string, *lark.GetApprovalInstanceResp) {
 	as := assert.New(t)
-	ctx := context.TODO()
 
 	var widgetDefine lark.ApprovalWidgetList
 	{

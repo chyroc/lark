@@ -69,8 +69,6 @@ func Test_Contact_Failed(t *testing.T) {
 			as.Nil(err)
 			as.NotNil(resp)
 			printData(resp)
-			as.Len(resp.Items, 1)
-			as.Equal("0", resp.Items[0].OpenDepartmentID)
 		})
 	}
 
