@@ -35,7 +35,7 @@ https://godoc.org/github.com/chyroc/lark
 
 ## Support APIs
 
-API Count: 286, Event Count: 28
+API Count: 287, Event Count: 28
 
 <details>
   <summary>
@@ -220,6 +220,7 @@ API Count: 286, Event Count: 28
   - SetVCRoomConfig
 - Application
   - IsApplicationUserAdmin
+  - GetApplicationUserAdminScope
 - Mail
   - CreateMailGroup
   - GetMailGroup

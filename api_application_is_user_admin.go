@@ -41,8 +41,8 @@ func (r *Mock) UnMockApplicationIsApplicationUserAdmin() {
 }
 
 type IsApplicationUserAdminReq struct {
-	OpenID     *string `json:"open_id,omitempty"`     // 用户 open_id，open_id 和 employee_id 两个参数必须包含其一，若同时传入取 open_id
-	EmployeeID *string `json:"employee_id,omitempty"` // 用户 employee_id（同通讯录 v3 版本中的 user_id），open_id 和 employee_id 两个参数必须包含其一，若同时传入取 open_id
+	OpenID     *string `query:"open_id" json:"-"`     // 用户 open_id，open_id 和 employee_id 两个参数必须包含其一，若同时传入取 open_id
+	EmployeeID *string `query:"employee_id" json:"-"` // 用户 employee_id（同通讯录 v3 版本中的 user_id），open_id 和 employee_id 两个参数必须包含其一，若同时传入取 open_id
 }
 
 type isApplicationUserAdminResp struct {
