@@ -1,8 +1,8 @@
-name: refresh-user-token
+name: refresh-token
 
 on:
   schedule:
-    - cron: "0,25,50 * * * *"
+    - cron: "3,10 * * * *"
 
 jobs:
 
