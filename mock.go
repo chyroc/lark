@@ -177,6 +177,7 @@ type Mock struct {
 	mockVCSetVCRoomConfig                                func(ctx context.Context, request *SetVCRoomConfigReq, options ...MethodOptionFunc) (*SetVCRoomConfigResp, *Response, error)
 	mockApplicationIsApplicationUserAdmin                func(ctx context.Context, request *IsApplicationUserAdminReq, options ...MethodOptionFunc) (*IsApplicationUserAdminResp, *Response, error)
 	mockApplicationGetApplicationUserAdminScope          func(ctx context.Context, request *GetApplicationUserAdminScopeReq, options ...MethodOptionFunc) (*GetApplicationUserAdminScopeResp, *Response, error)
+	mockApplicationGetApplicationAppVisibility           func(ctx context.Context, request *GetApplicationAppVisibilityReq, options ...MethodOptionFunc) (*GetApplicationAppVisibilityResp, *Response, error)
 	mockMailCreateMailGroup                              func(ctx context.Context, request *CreateMailGroupReq, options ...MethodOptionFunc) (*CreateMailGroupResp, *Response, error)
 	mockMailGetMailGroup                                 func(ctx context.Context, request *GetMailGroupReq, options ...MethodOptionFunc) (*GetMailGroupResp, *Response, error)
 	mockMailGetMailGroupList                             func(ctx context.Context, request *GetMailGroupListReq, options ...MethodOptionFunc) (*GetMailGroupListResp, *Response, error)

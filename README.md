@@ -35,7 +35,7 @@ https://godoc.org/github.com/chyroc/lark
 
 ## Support APIs
 
-API Count: 287, Event Count: 28
+API Count: 288, Event Count: 28
 
 <details>
   <summary>
@@ -221,6 +221,7 @@ API Count: 287, Event Count: 28
 - Application
   - IsApplicationUserAdmin
   - GetApplicationUserAdminScope
+  - GetApplicationAppVisibility
 - Mail
   - CreateMailGroup
   - GetMailGroup

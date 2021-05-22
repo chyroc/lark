@@ -9,11 +9,7 @@
 "apis": [
 
 
-{
-"file_name": "api_application_app_visibility_get.go",
-"func_name": "GetApplicationAppVisibility",
-"doc_url": "https://open.feishu.cn/document/ukTMukTMukTM/uMzN3QjLzczN04yM3cDN"
-},
+
 {
 "file_name": "api_application_user_visible_app_get.go",
 "func_name": "GetApplicationUserVisibleApp",
