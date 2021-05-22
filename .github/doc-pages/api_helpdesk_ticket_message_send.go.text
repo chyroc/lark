@@ -1,6 +1,6 @@
-# 获取服务台工单消息详情
+# 工单发送消息
 
-该接口用于获取服务台工单消息详情。{尝试一下}(url=/api/tools/api_explore/api_explore_config?project=helpdesk&version=v1&resource=ticket.message&method=list)
+该接口用于工单发送消息。{尝试一下}(url=/api/tools/api_explore/api_explore_config?project=helpdesk&version=v1&resource=ticket.message&method=create)
 
 :::html
 <md-alert type="error">
@@ -38,12 +38,12 @@
     </md-tr>
     <md-tr>
       <md-th>HTTP Method</md-th>
-      <md-td>GET</md-td>
+      <md-td>POST</md-td>
     </md-tr>
     <md-tr>
       <md-th>权限要求</md-th>
       <md-td>
-            <md-perm href="/ssl:ttdoc/ukTMukTMukTM/uQjN3QjL0YzN04CN2cDN">获取服务台资源详情</md-perm>
+            <md-perm href="/ssl:ttdoc/ukTMukTMukTM/uQjN3QjL0YzN04CN2cDN">更新服务台相关资源详情</md-perm>
       </md-td>
     </md-tr>
   </md-tbody>
@@ -131,87 +131,81 @@
 
 
 
-### 查询参数
+### 请求体
 :::html
 <md-table>
   <md-thead>
-      <tr>
-      <md-th style="width: 30%;">名称</md-th>
-      <md-th style="width: 15%;">类型</md-th>
-      <md-th style="width: 15%;">必填</md-th>
-      <md-th >描述</md-th>
-      </tr>
+      <md-tr>
+      <md-th style="width: 40%;">名称</md-th>
+      <md-th style="width: 20%;">类型</md-th>
+      <md-th style="width: 10%;">必填</md-th>
+      <md-th style="width: 30%;">描述</md-th>
+      </md-tr>
   </md-thead>
   <md-tbody>
 
 <md-tr>
 	<md-td>
-	<md-text type="field-name" >time_start</md-text>
+	<md-text type="field-name" >msg_type</md-text>
 	</md-td>
 	<md-td>
-	<md-text type="field-type" >int</md-text>
+	<md-text type="field-type" >string</md-text>
 	</md-td>
 	<md-td>
-	否
+	是
 	</md-td>
 	<md-td>
-	起始时间
+	消息类型；text：纯文本；post：富文本
 
-**示例值**：1617960686000
+**示例值**："post"
 	</md-td>
 </md-tr>
 
 
 <md-tr>
 	<md-td>
-	<md-text type="field-name" >time_end</md-text>
+	<md-text type="field-name" >content</md-text>
 	</md-td>
 	<md-td>
-	<md-text type="field-type" >int</md-text>
+	<md-text type="field-type" >string</md-text>
 	</md-td>
 	<md-td>
-	否
+	是
 	</md-td>
 	<md-td>
-	结束时间
+	纯文本，参考开放平台文档里的content：https://open.feishu.cn/document/ukTMukTMukTM/uUjNz4SN2MjL1YzM；富文本，参考开放平台文档里的content：https://open.feishu.cn/document/ukTMukTMukTM/uMDMxEjLzATMx4yMwETM
 
-**示例值**：1617960687000
-	</md-td>
-</md-tr>
-
-
-<md-tr>
-	<md-td>
-	<md-text type="field-name" >page</md-text>
-	</md-td>
-	<md-td>
-	<md-text type="field-type" >int</md-text>
-	</md-td>
-	<md-td>
-	否
-	</md-td>
-	<md-td>
-	页数ID
-
-**示例值**：1
-	</md-td>
-</md-tr>
-
-
-<md-tr>
-	<md-td>
-	<md-text type="field-name" >page_size</md-text>
-	</md-td>
-	<md-td>
-	<md-text type="field-type" >int</md-text>
-	</md-td>
-	<md-td>
-	否
-	</md-td>
-	<md-td>
-	消息数量，最大200，默认20
-
-**示例值**：10
+**示例值**："{
+        "post": {
+            "zh_cn": {
+                "title": "this is title",
+                "content": [
+                    [
+                        {
+                            "tag": "text",
+                            "un_escape": true,
+                            "text": "第一行&nbsp;:"
+                        },
+                        {
+                            "tag": "a",
+                            "text": "超链接",
+                            "href": "http://www.feishu.cn"
+                        }
+                    ],
+                    [
+                        {
+                            "tag": "text",
+                            "text": "第二行 :"
+                        },
+                        {
+                            "tag": "text",
+                            "text": "文本测试"
+                        }
+                    ]
+                ]
+            }
+        }
+    }"
 	</md-td>
 </md-tr>
 
@@ -220,6 +214,45 @@
 :::
 
 
+
+### 请求体示例
+
+```json
+{
+    "msg_type": "post",
+    "content": "{
+        "post": {
+            "zh_cn": {
+                "title": "this is title",
+                "content": [
+                    [
+                        {
+                            "tag": "text",
+                            "un_escape": true,
+                            "text": "第一行&nbsp;:"
+                        },
+                        {
+                            "tag": "a",
+                            "text": "超链接",
+                            "href": "http://www.feishu.cn"
+                        }
+                    ],
+                    [
+                        {
+                            "tag": "text",
+                            "text": "第二行 :"
+                        },
+                        {
+                            "tag": "text",
+                            "text": "文本测试"
+                        }
+                    ]
+                ]
+            }
+        }
+    }"
+}
+```
 
 
 
@@ -280,130 +313,13 @@
 
 <md-tr>
 	<md-td>
-	&emsp;<span style="color: #8F959E">∟</span>&nbsp;<md-text type="field-name" >messages</md-text>
-	</md-td>
-	<md-td>
-	<md-text type="field-type" >ticket.message\[\]</md-text>
-	</md-td>
-	<md-td>
-	工单消息列表
-	</md-td>
-</md-tr>
-
-
-<md-tr>
-	<md-td>
-	&emsp;&emsp;<span style="color: #8F959E">∟</span>&nbsp;<md-text type="field-name" >id</md-text>
+	&emsp;<span style="color: #8F959E">∟</span>&nbsp;<md-text type="field-name" >message_id</md-text>
 	</md-td>
 	<md-td>
 	<md-text type="field-type" >string</md-text>
 	</md-td>
 	<md-td>
-	工单消息ID
-	</md-td>
-</md-tr>
-
-
-<md-tr>
-	<md-td>
-	&emsp;&emsp;<span style="color: #8F959E">∟</span>&nbsp;<md-text type="field-name" >message_id</md-text>
-	</md-td>
-	<md-td>
-	<md-text type="field-type" >string</md-text>
-	</md-td>
-	<md-td>
-	chat消息ID
-	</md-td>
-</md-tr>
-
-
-<md-tr>
-	<md-td>
-	&emsp;&emsp;<span style="color: #8F959E">∟</span>&nbsp;<md-text type="field-name" >message_type</md-text>
-	</md-td>
-	<md-td>
-	<md-text type="field-type" >string</md-text>
-	</md-td>
-	<md-td>
-	消息类型；text：纯文本；post：富文本
-	</md-td>
-</md-tr>
-
-
-<md-tr>
-	<md-td>
-	&emsp;&emsp;<span style="color: #8F959E">∟</span>&nbsp;<md-text type="field-name" >created_at</md-text>
-	</md-td>
-	<md-td>
-	<md-text type="field-type" >int</md-text>
-	</md-td>
-	<md-td>
-	创建时间
-	</md-td>
-</md-tr>
-
-
-<md-tr>
-	<md-td>
-	&emsp;&emsp;<span style="color: #8F959E">∟</span>&nbsp;<md-text type="field-name" >content</md-text>
-	</md-td>
-	<md-td>
-	<md-text type="field-type" >string</md-text>
-	</md-td>
-	<md-td>
-	内容
-	</md-td>
-</md-tr>
-
-
-<md-tr>
-	<md-td>
-	&emsp;&emsp;<span style="color: #8F959E">∟</span>&nbsp;<md-text type="field-name" >user_name</md-text>
-	</md-td>
-	<md-td>
-	<md-text type="field-type" >string</md-text>
-	</md-td>
-	<md-td>
-	用户名
-	</md-td>
-</md-tr>
-
-
-<md-tr>
-	<md-td>
-	&emsp;&emsp;<span style="color: #8F959E">∟</span>&nbsp;<md-text type="field-name" >avatar_url</md-text>
-	</md-td>
-	<md-td>
-	<md-text type="field-type" >string</md-text>
-	</md-td>
-	<md-td>
-	用户图片url
-	</md-td>
-</md-tr>
-
-
-<md-tr>
-	<md-td>
-	&emsp;&emsp;<span style="color: #8F959E">∟</span>&nbsp;<md-text type="field-name" >user_id</md-text>
-	</md-td>
-	<md-td>
-	<md-text type="field-type" >string</md-text>
-	</md-td>
-	<md-td>
-	用户open ID
-	</md-td>
-</md-tr>
-
-
-<md-tr>
-	<md-td>
-	&emsp;<span style="color: #8F959E">∟</span>&nbsp;<md-text type="field-name" >total</md-text>
-	</md-td>
-	<md-td>
-	<md-text type="field-type" >int</md-text>
-	</md-td>
-	<md-td>
-	消息总数
+	chat消息open ID
 	</md-td>
 </md-tr>
 
@@ -420,19 +336,7 @@
     "code": 0,
     "msg": "success",
     "data": {
-        "messages": [
-            {
-                "id": "6948728206392295444",
-                "message_id": "6949088236610273307",
-                "message_type": "text",
-                "created_at": 1617960686000,
-                "content": ""{\"content\":\"进入人工服务。 @李宁  为你提供服务，开始聊起来吧~\",\"msg_type\":\"text\"}"",
-                "user_name": "李宁",
-                "avatar_url": "https://internal-api-lark-file.feishu-boe.cn/static-resource/v1/3e73cdce-54b0-4c6a-8226-b131fb2825dj~?image_size=72x72&cut_type=&quality=&format=image&sticker_format=.webp",
-                "user_id": "ou_37019b7c830210acd88fdce886e25c71"
-            }
-        ],
-        "total": 100
+        "message_id": "om_8baa3656c7b41900d29bf9104bf5310b"
     }
 }
 ```

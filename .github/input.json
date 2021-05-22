@@ -1105,7 +1105,7 @@
       {
         "file_name": "api_helpdesk_ticket_message_send.go",
         "func_name": "SendHelpdeskTicketMessage",
-        "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/ticket-message/list"
+        "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/ticket-message/create"
       },
       {
         "file_name": "api_helpdesk_ticket_customized_field_get_list.go",

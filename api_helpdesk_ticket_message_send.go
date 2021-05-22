@@ -6,9 +6,9 @@ import (
 	"context"
 )
 
-// SendHelpdeskTicketMessage 该接口用于获取服务台工单消息详情。
+// SendHelpdeskTicketMessage 该接口用于工单发送消息。
 //
-// doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/ticket-message/list
+// doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/ticket-message/create
 func (r *HelpdeskService) SendHelpdeskTicketMessage(ctx context.Context, request *SendHelpdeskTicketMessageReq, options ...MethodOptionFunc) (*SendHelpdeskTicketMessageResp, *Response, error) {
 	if r.cli.mock.mockHelpdeskSendHelpdeskTicketMessage != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Helpdesk#SendHelpdeskTicketMessage mock enable")
@@ -18,7 +18,7 @@ func (r *HelpdeskService) SendHelpdeskTicketMessage(ctx context.Context, request
 	req := &RawRequestReq{
 		Scope:                 "Helpdesk",
 		API:                   "SendHelpdeskTicketMessage",
-		Method:                "GET",
+		Method:                "POST",
 		URL:                   "https://open.feishu.cn/open-apis/helpdesk/v1/tickets/:ticket_id/messages",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
@@ -40,11 +40,9 @@ func (r *Mock) UnMockHelpdeskSendHelpdeskTicketMessage() {
 }
 
 type SendHelpdeskTicketMessageReq struct {
-	TimeStart *int64 `query:"time_start" json:"-"` // 起始时间, 示例值：1617960686000
-	TimeEnd   *int64 `query:"time_end" json:"-"`   // 结束时间, 示例值：1617960687000
-	Page      *int64 `query:"page" json:"-"`       // 页数ID, 示例值：1
-	PageSize  *int64 `query:"page_size" json:"-"`  // 消息数量，最大200，默认20, 示例值：10
-	TicketID  string `path:"ticket_id" json:"-"`   // 工单ID, 示例值："6948728206392295444"
+	TicketID string  `path:"ticket_id" json:"-"` // 工单ID, 示例值："6948728206392295444"
+	MsgType  MsgType `json:"msg_type,omitempty"` // 消息类型；text：纯文本；post：富文本, 示例值："post"
+	Content  string  `json:"content,omitempty"`  // 纯文本，参考开放平台文档里的content：https://open.feishu.cn/document/ukTMukTMukTM/uUjNz4SN2MjL1YzM；富文本，参考开放平台文档里的content：https://open.feishu.cn/document/ukTMukTMukTM/uMDMxEjLzATMx4yMwETM, 示例值："{,        "post": {,            "zh_cn": {,                "title": "this is title",,                "content": [,                    [,                        {,                            "tag": "text",,                            "un_escape": true,,                            "text": "第一行&nbsp;:",                        },,                        {,                            "tag": "a",,                            "text": "超链接",,                            "href": "http://www.feishu.cn",                        },                    ],,                    [,                        {,                            "tag": "text",,                            "text": "第二行 :",                        },,                        {,                            "tag": "text",,                            "text": "文本测试",                        },                    ],                ],            },        },    }"
 }
 
 type sendHelpdeskTicketMessageResp struct {
@@ -54,17 +52,5 @@ type sendHelpdeskTicketMessageResp struct {
 }
 
 type SendHelpdeskTicketMessageResp struct {
-	Messages []*SendHelpdeskTicketMessageRespMessage `json:"messages,omitempty"` // 工单消息列表
-	Total    int64                                   `json:"total,omitempty"`    // 消息总数
-}
-
-type SendHelpdeskTicketMessageRespMessage struct {
-	ID          string  `json:"id,omitempty"`           // 工单消息ID
-	MessageID   string  `json:"message_id,omitempty"`   // chat消息ID
-	MessageType MsgType `json:"message_type,omitempty"` // 消息类型；text：纯文本；post：富文本
-	CreatedAt   int64   `json:"created_at,omitempty"`   // 创建时间
-	Content     string  `json:"content,omitempty"`      // 内容
-	UserName    string  `json:"user_name,omitempty"`    // 用户名
-	AvatarURL   string  `json:"avatar_url,omitempty"`   // 用户图片url
-	UserID      string  `json:"user_id,omitempty"`      // 用户open ID
+	MessageID string `json:"message_id,omitempty"` // chat消息open ID
 }
