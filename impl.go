@@ -36,6 +36,7 @@ type Lark struct {
 	Bitable       *BitableService
 	MeetingRoom   *MeetingRoomService
 	VC            *VCService
+	Application   *ApplicationService
 	Mail          *MailService
 	Approval      *ApprovalService
 	Helpdesk      *HelpdeskService
@@ -62,6 +63,7 @@ func (r *Lark) initService() {
 	r.Bitable = &BitableService{cli: r}
 	r.MeetingRoom = &MeetingRoomService{cli: r}
 	r.VC = &VCService{cli: r}
+	r.Application = &ApplicationService{cli: r}
 	r.Mail = &MailService{cli: r}
 	r.Approval = &ApprovalService{cli: r}
 	r.Helpdesk = &HelpdeskService{cli: r}
@@ -88,6 +90,7 @@ type (
 	BitableService       struct{ cli *Lark }
 	MeetingRoomService   struct{ cli *Lark }
 	VCService            struct{ cli *Lark }
+	ApplicationService   struct{ cli *Lark }
 	MailService          struct{ cli *Lark }
 	ApprovalService      struct{ cli *Lark }
 	HelpdeskService      struct{ cli *Lark }
