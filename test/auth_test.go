@@ -1,7 +1,7 @@
 package test
 
 import (
-	"context"
+	"fmt"
 	"testing"
 
 	"github.com/stretchr/testify/assert"
@@ -11,16 +11,24 @@ import (
 
 func Test_Auth(t *testing.T) {
 	as := assert.New(t)
-	if IsNotInCI() {
-		return
+
+	if IsInCI() {
+		cli := AppALLPermission.Ins()
+
+		resp, _, err := cli.Auth.GetUserInfo(ctx, &lark.GetUserInfoReq{}, lark.WithUserAccessToken(UserAdmin.AccessToken[AppALLPermission.AppID]))
+		as.Nil(err)
+		as.NotNil(resp)
+		as.Equal(UserAdmin.OpenID, resp.OpenID)
+		printData(resp)
 	}
+}
 
-	ctx := context.Background()
-	cli := AppALLPermission.Ins()
+func Test_GenOauth(t *testing.T) {
+	fmt.Println(AppALLPermission.Ins().Auth.GenOAuthURL(ctx, &lark.GenOAuthURLReq{
+		RedirectURI: "http://127.0.0.1:5000/",
+		State:       "",
+	}))
 
-	resp, _, err := cli.Auth.GetUserInfo(ctx, &lark.GetUserInfoReq{}, lark.WithUserAccessToken(UserAdmin.AccessToken[AppALLPermission.AppID]))
-	as.Nil(err)
-	as.NotNil(resp)
-	as.Equal(UserAdmin.OpenID, resp.OpenID)
-	printData(resp)
+	return
+	// AppALLPermission.Ins().Auth.GetAccessToken(ctx,&lark.)
 }

@@ -7,6 +7,7 @@ import (
 	"math/rand"
 	"os"
 	"reflect"
+	"strconv"
 	"testing"
 	"time"
 
@@ -21,6 +22,10 @@ func init() {
 
 func randInt64() int64 {
 	return rand.Int63()
+}
+
+func randInt64String() string {
+	return strconv.FormatInt(randInt64(), 10)
 }
 
 func mockGetTenantAccessTokenFailed(ctx context.Context) (*lark.TokenExpire, *lark.Response, error) {
@@ -128,4 +133,8 @@ func IsNotInCI() bool {
 		fmt.Println("NOT IN CI, SKIP")
 	}
 	return isNotInCI
+}
+
+func IsInCI() bool {
+	return os.Getenv("IN_CI") != ""
 }

@@ -19,7 +19,7 @@ func (r *App) Ins() *lark.Lark {
 	return lark.New(
 		lark.WithAppCredential(r.AppID, r.AppSecret),
 		lark.WithTimeout(time.Second*20),
-		lark.WithLogger(lark.NewLoggerStdout(), lark.LogLevelDebug),
+		lark.WithLogger(lark.NewLoggerStdout(), lark.LogLevelInfo),
 	)
 }
 
@@ -51,6 +51,13 @@ type User struct {
 	Name         string
 	AccessToken  map[string]string
 	RefreshToken map[string]string
+}
+
+func (r User) OneAccessToken() string {
+	for _, v := range r.AccessToken {
+		return v
+	}
+	return ""
 }
 
 type Chat struct {

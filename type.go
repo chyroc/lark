@@ -45,6 +45,10 @@ const (
 	DepartmentIDTypeOpenDepartmentID DepartmentIDType = "open_department_id" // 以 open_department_id 来识别
 )
 
+func DepartmentIDTypePtr(v DepartmentIDType) *DepartmentIDType {
+	return &v
+}
+
 type MailUserType string
 
 const (

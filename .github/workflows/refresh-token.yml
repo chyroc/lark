@@ -2,7 +2,7 @@ name: refresh-token
 
 on:
   schedule:
-    - cron: "3,10 * * * *"
+    - cron: "* */1 * * *"
 
 jobs:
 
