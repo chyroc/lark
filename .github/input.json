@@ -1098,6 +1098,11 @@
         "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/ticket/ticket_image"
       },
       {
+        "file_name": "api_helpdesk_ticket_answer_user_query.go",
+        "func_name": "AnswerHelpdeskTicketUserQuery",
+        "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/ticket/answer_user_query"
+      },
+      {
         "file_name": "api_helpdesk_ticket_message_get_list.go",
         "func_name": "GetHelpdeskTicketMessageList",
         "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/ticket-message/list"

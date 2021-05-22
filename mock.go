@@ -213,6 +213,7 @@ type Mock struct {
 	mockHelpdeskUpdateHelpdeskTicket                     func(ctx context.Context, request *UpdateHelpdeskTicketReq, options ...MethodOptionFunc) (*UpdateHelpdeskTicketResp, *Response, error)
 	mockHelpdeskGetHelpdeskTicketList                    func(ctx context.Context, request *GetHelpdeskTicketListReq, options ...MethodOptionFunc) (*GetHelpdeskTicketListResp, *Response, error)
 	mockHelpdeskDownloadHelpdeskTicketImage              func(ctx context.Context, request *DownloadHelpdeskTicketImageReq, options ...MethodOptionFunc) (*DownloadHelpdeskTicketImageResp, *Response, error)
+	mockHelpdeskAnswerHelpdeskTicketUserQuery            func(ctx context.Context, request *AnswerHelpdeskTicketUserQueryReq, options ...MethodOptionFunc) (*AnswerHelpdeskTicketUserQueryResp, *Response, error)
 	mockHelpdeskGetHelpdeskTicketMessageList             func(ctx context.Context, request *GetHelpdeskTicketMessageListReq, options ...MethodOptionFunc) (*GetHelpdeskTicketMessageListResp, *Response, error)
 	mockHelpdeskSendHelpdeskTicketMessage                func(ctx context.Context, request *SendHelpdeskTicketMessageReq, options ...MethodOptionFunc) (*SendHelpdeskTicketMessageResp, *Response, error)
 	mockHelpdeskGetHelpdeskTicketCustomizedFieldList     func(ctx context.Context, request *GetHelpdeskTicketCustomizedFieldListReq, options ...MethodOptionFunc) (*GetHelpdeskTicketCustomizedFieldListResp, *Response, error)
