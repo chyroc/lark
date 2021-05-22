@@ -804,6 +804,11 @@
         "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/vc-v1/reserve/delete"
       },
       {
+        "file_name": "api_vc_reserve_get.go",
+        "func_name": "GetVCReserve",
+        "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/vc-v1/reserve/get"
+      },
+      {
         "file_name": "api_vc_reserve_get_active_meeting.go",
         "func_name": "GetVCReserveActiveMeeting",
         "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/vc-v1/reserve/get_active_meeting"

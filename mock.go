@@ -160,6 +160,7 @@ type Mock struct {
 	mockVCApplyVCReserve                                 func(ctx context.Context, request *ApplyVCReserveReq, options ...MethodOptionFunc) (*ApplyVCReserveResp, *Response, error)
 	mockVCUpdateVCReserve                                func(ctx context.Context, request *UpdateVCReserveReq, options ...MethodOptionFunc) (*UpdateVCReserveResp, *Response, error)
 	mockVCDeleteVCReserve                                func(ctx context.Context, request *DeleteVCReserveReq, options ...MethodOptionFunc) (*DeleteVCReserveResp, *Response, error)
+	mockVCGetVCReserve                                   func(ctx context.Context, request *GetVCReserveReq, options ...MethodOptionFunc) (*GetVCReserveResp, *Response, error)
 	mockVCGetVCReserveActiveMeeting                      func(ctx context.Context, request *GetVCReserveActiveMeetingReq, options ...MethodOptionFunc) (*GetVCReserveActiveMeetingResp, *Response, error)
 	mockVCGetVCMeeting                                   func(ctx context.Context, request *GetVCMeetingReq, options ...MethodOptionFunc) (*GetVCMeetingResp, *Response, error)
 	mockVCInviteVCMeeting                                func(ctx context.Context, request *InviteVCMeetingReq, options ...MethodOptionFunc) (*InviteVCMeetingResp, *Response, error)
