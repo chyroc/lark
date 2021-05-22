@@ -106,6 +106,12 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.GetDocRawContent(ctx, &lark.GetDocRawContentReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "failed")
+		})
+
+		t.Run("", func(t *testing.T) {
 			_, _, err := moduleCli.GetSheetMeta(ctx, &lark.GetSheetMetaReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "failed")
@@ -422,6 +428,17 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 			defer cli.Mock().UnMockDriveUpdateDriveCommentPatch()
 
 			_, _, err := moduleCli.UpdateDriveCommentPatch(ctx, &lark.UpdateDriveCommentPatchReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+			cli.Mock().MockDriveGetDocRawContent(func(ctx context.Context, request *lark.GetDocRawContentReq, options ...lark.MethodOptionFunc) (*lark.GetDocRawContentResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockDriveGetDocRawContent()
+
+			_, _, err := moduleCli.GetDocRawContent(ctx, &lark.GetDocRawContentReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "mock-failed")
 		})
@@ -821,6 +838,14 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 			_, _, err := moduleCli.UpdateDriveCommentPatch(ctx, &lark.UpdateDriveCommentPatchReq{
 				FileToken: "x",
 				CommentID: "x",
+			})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.GetDocRawContent(ctx, &lark.GetDocRawContentReq{
+				DocToken: "x",
 			})
 			as.NotNil(err)
 			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))

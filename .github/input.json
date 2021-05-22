@@ -459,6 +459,11 @@
         "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file-comment/patch"
       },
       {
+        "file_name": "api_drive_doc_raw_content_get.go",
+        "func_name": "GetDocRawContent",
+        "doc_url": "https://open.feishu.cn/document/ukTMukTMukTM/ukzNzUjL5czM14SO3MTN"
+      },
+      {
         "file_name": "api_drive_sheet_meta_get.go",
         "func_name": "GetSheetMeta",
         "doc_url": "https://open.feishu.cn/document/ukTMukTMukTM/uETMzUjLxEzM14SMxMTN"

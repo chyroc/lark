@@ -88,15 +88,15 @@ type GetApprovalInstanceRespComment struct {
 }
 
 type GetApprovalInstanceRespTimeline struct {
-	Type       string  `json:"type,omitempty"`         // 动态类型，不同类型 ext 内的 user_id_list 含义不一样<br>START - 审批开始<br>PASS - 通过<br>REJECT  - 拒绝<br>AUTO_PASS -  自动通过<br>AUTO_REJECT - 自动拒绝<br>REMOVE_REPEAT - 去重<br>TRANSFER - 转交 <br>ADD_APPROVER_BEFORE  - 前加签<br>ADD_APPROVER -  并加签<br>ADD_APPROVER_AFTER -  后加签 <br>DELETE_APPROVER  - 减签<br>ROLLBACK_SELECTED -  指定回退<br>ROLLBACK - 全部回退<br>CANCEL -  撤回<br>DELETE - 删除<br>CC - 抄送
-	CreateTime int64   `json:"create_time,omitempty"`  // 发生时间
-	UserID     *string `json:"user_id,omitempty"`      // 动态产生用户
-	OpenID     *string `json:"open_id,omitempty"`      // 动态产生用户 open id
-	UserIDList *string `json:"user_id_list,omitempty"` // 被抄送人列表
-	OpenIDList *string `json:"open_id_list,omitempty"` // 被抄送人列表
-	TaskID     *string `json:"task_id,omitempty"`      // 产生动态关联的task_id
-	Comment    *string `json:"comment,omitempty"`      // 理由
-	// Ext        *GetApprovalInstanceRespTimelineExt `json:"ext,omitempty"`          // 动态其他信息，目前包括 user_id_list, user_id
+	Type       string                              `json:"type,omitempty"`         // 动态类型，不同类型 ext 内的 user_id_list 含义不一样<br>START - 审批开始<br>PASS - 通过<br>REJECT  - 拒绝<br>AUTO_PASS -  自动通过<br>AUTO_REJECT - 自动拒绝<br>REMOVE_REPEAT - 去重<br>TRANSFER - 转交 <br>ADD_APPROVER_BEFORE  - 前加签<br>ADD_APPROVER -  并加签<br>ADD_APPROVER_AFTER -  后加签 <br>DELETE_APPROVER  - 减签<br>ROLLBACK_SELECTED -  指定回退<br>ROLLBACK - 全部回退<br>CANCEL -  撤回<br>DELETE - 删除<br>CC - 抄送
+	CreateTime int64                               `json:"create_time,omitempty"`  // 发生时间
+	UserID     *string                             `json:"user_id,omitempty"`      // 动态产生用户
+	OpenID     *string                             `json:"open_id,omitempty"`      // 动态产生用户 open id
+	UserIDList *string                             `json:"user_id_list,omitempty"` // 被抄送人列表
+	OpenIDList *string                             `json:"open_id_list,omitempty"` // 被抄送人列表
+	TaskID     *string                             `json:"task_id,omitempty"`      // 产生动态关联的task_id
+	Comment    *string                             `json:"comment,omitempty"`      // 理由
+	Ext        *GetApprovalInstanceRespTimelineExt `json:"ext,omitempty"`          // 动态其他信息，目前包括 user_id_list, user_id
 }
 
 type GetApprovalInstanceRespTimelineExt struct {

@@ -35,7 +35,7 @@ https://godoc.org/github.com/chyroc/lark
 
 ## Support APIs
 
-API Count: 280, Event Count: 28
+API Count: 281, Event Count: 28
 
 <details>
   <summary>
@@ -134,6 +134,7 @@ API Count: 280, Event Count: 28
   - UpdateDriveComment
   - DeleteDriveComment
   - UpdateDriveCommentPatch
+  - GetDocRawContent
   - GetSheetMeta
   - UpdateSheetProperty
   - BatchUpdateSheet
