@@ -1071,6 +1071,11 @@
         "ignore": true,
         "ignore_mock": true,
         "doc_url": "https://open.feishu.cn/document/ukTMukTMukTM/uUjMxYjL1ITM24SNyEjN"
+      },
+      {
+        "file_name": "api_approval_carbon_copy_create.go",
+        "func_name": "CreateApprovalCarbonCopy",
+        "doc_url": "https://open.feishu.cn/document/ukTMukTMukTM/uADOzYjLwgzM24CM4MjN"
       }
     ]
   },

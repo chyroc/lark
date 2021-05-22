@@ -209,6 +209,7 @@ type Mock struct {
 	mockApprovalCancelApprovalInstance                   func(ctx context.Context, request *CancelApprovalInstanceReq, options ...MethodOptionFunc) (*CancelApprovalInstanceResp, *Response, error)
 	mockApprovalUploadApprovalFile                       func(ctx context.Context, request *UploadApprovalFileReq, options ...MethodOptionFunc) (*UploadApprovalFileResp, *Response, error)
 	mockApprovalSearchApprovalInstance                   func(ctx context.Context, request *SearchApprovalInstanceReq, options ...MethodOptionFunc) (*SearchApprovalInstanceResp, *Response, error)
+	mockApprovalCreateApprovalCarbonCopy                 func(ctx context.Context, request *CreateApprovalCarbonCopyReq, options ...MethodOptionFunc) (*CreateApprovalCarbonCopyResp, *Response, error)
 	mockHelpdeskStartHelpdeskService                     func(ctx context.Context, request *StartHelpdeskServiceReq, options ...MethodOptionFunc) (*StartHelpdeskServiceResp, *Response, error)
 	mockHelpdeskGetHelpdeskTicket                        func(ctx context.Context, request *GetHelpdeskTicketReq, options ...MethodOptionFunc) (*GetHelpdeskTicketResp, *Response, error)
 	mockHelpdeskUpdateHelpdeskTicket                     func(ctx context.Context, request *UpdateHelpdeskTicketReq, options ...MethodOptionFunc) (*UpdateHelpdeskTicketResp, *Response, error)
