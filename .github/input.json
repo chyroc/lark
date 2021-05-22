@@ -198,6 +198,11 @@
         "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-members/delete"
       },
       {
+        "file_name": "api_chat_join.go",
+        "func_name": "JoinChat",
+        "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-members/me_join"
+      },
+      {
         "file_name": "api_chat_announcement_get.go",
         "func_name": "GetChatAnnouncement",
         "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-announcement/get"
