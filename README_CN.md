@@ -35,7 +35,7 @@ https://godoc.org/github.com/chyroc/lark
 
 ## 支持的接口
 
-API 总数: 290, 事件总数: 28
+API 总数: 291, 事件总数: 28
 
 <details>
   <summary>
@@ -224,6 +224,7 @@ API 总数: 290, 事件总数: 28
   - GetApplicationAppVisibility
   - GetApplicationUserVisibleApp
   - GetApplicationAppList
+  - UpdateApplicationAppVisibility
 - Mail
   - CreateMailGroup
   - GetMailGroup

@@ -907,6 +907,11 @@
         "file_name": "api_application_app_list.go",
         "func_name": "GetApplicationAppList",
         "doc_url": "https://open.feishu.cn/document/ukTMukTMukTM/uYDN3UjL2QzN14iN0cTN"
+      },
+      {
+        "file_name": "api_application_app_visibility_update.go",
+        "func_name": "UpdateApplicationAppVisibility",
+        "doc_url": "https://open.feishu.cn/document/ukTMukTMukTM/ucDN3UjL3QzN14yN0cTN"
       }
     ]
   },
