@@ -1,6 +1,6 @@
-# 更新预约
+# 更新回复
 
-更新一个预约{尝试一下}(url=/api/tools/api_explore/api_explore_config?project=vc&version=v1&resource=reserve&method=update)
+更新云文档中的某条回复。{尝试一下}(url=/api/tools/api_explore/api_explore_config?project=drive&version=v1&resource=file.comment.reply&method=update)
 
 :::html
 <md-alert type="error">
@@ -10,7 +10,7 @@
 
 :::html
 <md-alert type="warn">
-只能更新归属于自己的预约，不需要更新的字段不传（如果传空则会被更新为空）；可用于续期操作，到期时间距离当前时间不超过30天
+
 </md-alert>
 :::
 
@@ -34,7 +34,7 @@
   <md-tbody>
     <md-tr>
       <md-th>HTTP URL</md-th>
-      <md-td>https://open.feishu.cn/open-apis/vc/v1/reserves/:reserve_id</md-td>
+      <md-td>https://open.feishu.cn/open-apis/drive/v1/files/:file_token/comments/:comment_id/replies/:reply_id</md-td>
     </md-tr>
     <md-tr>
       <md-th>HTTP Method</md-th>
@@ -43,13 +43,12 @@
     <md-tr>
       <md-th>权限要求</md-th>
       <md-td>
-            <md-perm href="/ssl:ttdoc/ukTMukTMukTM/uQjN3QjL0YzN04CN2cDN">更新会议预约</md-perm>
-      </md-td>
-    </md-tr>
-    <md-tr>
-      <md-th>字段权限要求</md-th>
-      <md-td>
-        <md-perm href="/ssl:ttdoc/ukTMukTMukTM/uQjN3QjL0YzN04CN2cDN">获取用户 userid</md-perm>
+            <md-perm href="/ssl:ttdoc/ukTMukTMukTM/uQjN3QjL0YzN04CN2cDN">查看、评论、编辑和管理电子表格</md-perm>
+            <md-perm href="/ssl:ttdoc/ukTMukTMukTM/uQjN3QjL0YzN04CN2cDN">查看、评论和下载云文档所有文件</md-perm>
+            <md-perm href="/ssl:ttdoc/ukTMukTMukTM/uQjN3QjL0YzN04CN2cDN">查看、评论和导出文档</md-perm>
+            <md-perm href="/ssl:ttdoc/ukTMukTMukTM/uQjN3QjL0YzN04CN2cDN">查看、评论和导出电子表格</md-perm>
+            <md-perm href="/ssl:ttdoc/ukTMukTMukTM/uQjN3QjL0YzN04CN2cDN">查看、评论、编辑和管理云文档所有文件</md-perm>
+            <md-perm href="/ssl:ttdoc/ukTMukTMukTM/uQjN3QjL0YzN04CN2cDN">查看、评论、编辑和管理文档</md-perm>
       </md-td>
     </md-tr>
   </md-tbody>
@@ -74,6 +73,8 @@
       <md-td>string</md-td>
       <md-td>是</md-td>
       	<md-td>
+<md-tag mode="inline" type="token-tenant">tenant_access_token</md-tag>
+或
 <md-tag mode="inline" type="token-user">user_access_token</md-tag>
 
 **值格式**："Bearer `access_token`"
@@ -109,15 +110,45 @@
 
 <md-tr>
 	<md-td>
-	<md-text type="field-name" >reserve_id</md-text>
+	<md-text type="field-name" >file_token</md-text>
 	</md-td>
 	<md-td>
 	<md-text type="field-type" >string</md-text>
 	</md-td>
 	<md-td>
-	预约ID
+	文档token
 
-**示例值**："6911188411932033028"
+**示例值**："doccnHh7U87HOFpii5u5G*****"
+	</md-td>
+</md-tr>
+
+
+<md-tr>
+	<md-td>
+	<md-text type="field-name" >comment_id</md-text>
+	</md-td>
+	<md-td>
+	<md-text type="field-type" >string</md-text>
+	</md-td>
+	<md-td>
+	评论ID
+
+**示例值**："6916106822734578184"
+	</md-td>
+</md-tr>
+
+
+<md-tr>
+	<md-td>
+	<md-text type="field-name" >reply_id</md-text>
+	</md-td>
+	<md-td>
+	<md-text type="field-type" >string</md-text>
+	</md-td>
+	<md-td>
+	回复ID
+
+**示例值**："6916106822734594568"
 	</md-td>
 </md-tr>
 
@@ -142,29 +173,23 @@
 
 <md-tr>
 	<md-td>
-	<md-text type="field-name" >user_id_type</md-text>
+	<md-text type="field-name" >file_type</md-text>
 	</md-td>
 	<md-td>
 	<md-text type="field-type" >string</md-text>
 	</md-td>
 	<md-td>
-	否
+	是
 	</md-td>
 	<md-td>
-	
-用户 ID 类型
+	文档类型
 
-**示例值**："open_id"
+**示例值**："doc"
 
 **可选值有**：
-- `open_id`：用户的 open id
-- `union_id`：用户的 union id
-- `user_id`：用户的 user id
-
-**默认值**：`open_id`
-
-**当值为 `user_id`，字段权限要求**：
-<md-perm href="/ssl:ttdoc/ukTMukTMukTM/uQjN3QjL0YzN04CN2cDN">获取用户 userid</md-perm>
+- `doc`：文档
+- `sheet`：表格
+- `file`：文件
 	</md-td>
 </md-tr>
 
@@ -182,315 +207,46 @@
       <md-th style="width: 40%;">名称</md-th>
       <md-th style="width: 20%;">类型</md-th>
       <md-th style="width: 10%;">必填</md-th>
-      <md-th style="width: 40%;">描述</md-th>
+      <md-th style="width: 30%;">描述</md-th>
       </md-tr>
   </md-thead>
   <md-tbody>
 
 <md-tr>
 	<md-td>
-	<md-text type="field-name" >end_time</md-text>
+	<md-text type="field-name" >content</md-text>
 	</md-td>
 	<md-td>
-	<md-text type="field-type" >string</md-text>
-	</md-td>
-	<md-td>
-	否
-	</md-td>
-	<md-td>
-	预约到期时间（unix时间，单位sec）
-
-**示例值**："1608888867"
-	</md-td>
-</md-tr>
-
-
-<md-tr>
-	<md-td>
-	<md-text type="field-name" >meeting_settings</md-text>
-	</md-td>
-	<md-td>
-	<md-text type="field-type" >reserve_meeting_setting</md-text>
-	</md-td>
-	<md-td>
-	否
-	</md-td>
-	<md-td>
-	会议设置
-	</md-td>
-</md-tr>
-
-
-<md-tr>
-	<md-td>
-	&emsp;<span style="color: #8F959E">∟</span>&nbsp;<md-text type="field-name" >topic</md-text>
-	</md-td>
-	<md-td>
-	<md-text type="field-type" >string</md-text>
-	</md-td>
-	<md-td>
-	否
-	</md-td>
-	<md-td>
-	会议主题
-
-**示例值**："my meeting"
-	</md-td>
-</md-tr>
-
-
-<md-tr>
-	<md-td>
-	&emsp;<span style="color: #8F959E">∟</span>&nbsp;<md-text type="field-name" >action_permissions</md-text>
-	</md-td>
-	<md-td>
-	<md-text type="field-type" >reserve_action_permission\[\]</md-text>
-	</md-td>
-	<md-td>
-	否
-	</md-td>
-	<md-td>
-	会议权限配置列表，如果存在相同的权限配置项则它们之间为"逻辑或"的关系（即 有一个为true则拥有该权限）
-	</md-td>
-</md-tr>
-
-
-<md-tr>
-	<md-td>
-	&emsp;&emsp;<span style="color: #8F959E">∟</span>&nbsp;<md-text type="field-name" >permission</md-text>
-	</md-td>
-	<md-td>
-	<md-text type="field-type" >int</md-text>
+	<md-text type="field-type" >reply_content</md-text>
 	</md-td>
 	<md-td>
 	是
 	</md-td>
 	<md-td>
-	权限项
-
-**示例值**：1
-
-**可选值有**：
-- `1`：是否能成为主持人
-- `2`：是否能邀请参会人
-- `3`：是否能加入会议
+	回复内容
 	</md-td>
 </md-tr>
 
 
 <md-tr>
 	<md-td>
-	&emsp;&emsp;<span style="color: #8F959E">∟</span>&nbsp;<md-text type="field-name" >permission_checkers</md-text>
+	&emsp;<span style="color: #8F959E">∟</span>&nbsp;<md-text type="field-name" >elements</md-text>
 	</md-td>
 	<md-td>
-	<md-text type="field-type" >reserve_permission_checker\[\]</md-text>
+	<md-text type="field-type" >reply_element\[\]</md-text>
 	</md-td>
 	<md-td>
 	是
 	</md-td>
 	<md-td>
-	权限检查器列表，权限检查器之间为"逻辑或"的关系（即 有一个为true则拥有该权限）
+	回复的内容
 	</md-td>
 </md-tr>
 
 
 <md-tr>
 	<md-td>
-	&emsp;&emsp;&emsp;<span style="color: #8F959E">∟</span>&nbsp;<md-text type="field-name" >check_field</md-text>
-	</md-td>
-	<md-td>
-	<md-text type="field-type" >int</md-text>
-	</md-td>
-	<md-td>
-	是
-	</md-td>
-	<md-td>
-	检查字段类型
-
-**示例值**：1
-
-**可选值有**：
-- `1`：用户ID
-- `2`：用户类型
-- `3`：租户ID
-	</md-td>
-</md-tr>
-
-
-<md-tr>
-	<md-td>
-	&emsp;&emsp;&emsp;<span style="color: #8F959E">∟</span>&nbsp;<md-text type="field-name" >check_mode</md-text>
-	</md-td>
-	<md-td>
-	<md-text type="field-type" >int</md-text>
-	</md-td>
-	<md-td>
-	是
-	</md-td>
-	<md-td>
-	检查方式
-
-**示例值**：1
-
-**可选值有**：
-- `1`：在check_list中为有权限（白名单）
-- `2`：不在check_list中为有权限（黑名单）
-	</md-td>
-</md-tr>
-
-
-<md-tr>
-	<md-td>
-	&emsp;&emsp;&emsp;<span style="color: #8F959E">∟</span>&nbsp;<md-text type="field-name" >check_list</md-text>
-	</md-td>
-	<md-td>
-	<md-text type="field-type" >string\[\]</md-text>
-	</md-td>
-	<md-td>
-	是
-	</md-td>
-	<md-td>
-	检查字段列表
-	</md-td>
-</md-tr>
-
-
-<md-tr>
-	<md-td>
-	&emsp;<span style="color: #8F959E">∟</span>&nbsp;<md-text type="field-name" >meeting_initial_type</md-text>
-	</md-td>
-	<md-td>
-	<md-text type="field-type" >int</md-text>
-	</md-td>
-	<md-td>
-	否
-	</md-td>
-	<md-td>
-	会议初始类型
-
-**示例值**：1
-
-**可选值有**：
-- `1`：多人会议
-- `2`：1v1呼叫
-	</md-td>
-</md-tr>
-
-
-<md-tr>
-	<md-td>
-	&emsp;<span style="color: #8F959E">∟</span>&nbsp;<md-text type="field-name" >call_setting</md-text>
-	</md-td>
-	<md-td>
-	<md-text type="field-type" >reserve_call_setting</md-text>
-	</md-td>
-	<md-td>
-	否
-	</md-td>
-	<md-td>
-	1v1呼叫相关参数
-	</md-td>
-</md-tr>
-
-
-<md-tr>
-	<md-td>
-	&emsp;&emsp;<span style="color: #8F959E">∟</span>&nbsp;<md-text type="field-name" >callee</md-text>
-	</md-td>
-	<md-td>
-	<md-text type="field-type" >reserve_callee</md-text>
-	</md-td>
-	<md-td>
-	是
-	</md-td>
-	<md-td>
-	被呼叫的用户
-	</md-td>
-</md-tr>
-
-
-<md-tr>
-	<md-td>
-	&emsp;&emsp;&emsp;<span style="color: #8F959E">∟</span>&nbsp;<md-text type="field-name" >id</md-text>
-	</md-td>
-	<md-td>
-	<md-text type="field-type" >string</md-text>
-	</md-td>
-	<md-td>
-	否
-	</md-td>
-	<md-td>
-	用户ID
-
-**示例值**："ou_3ec3f6a28a0d08c45d895276e8e5e19b"
-	</md-td>
-</md-tr>
-
-
-<md-tr>
-	<md-td>
-	&emsp;&emsp;&emsp;<span style="color: #8F959E">∟</span>&nbsp;<md-text type="field-name" >user_type</md-text>
-	</md-td>
-	<md-td>
-	<md-text type="field-type" >int</md-text>
-	</md-td>
-	<md-td>
-	是
-	</md-td>
-	<md-td>
-	用户类型
-
-**示例值**：1
-
-**可选值有**：
-- `1`：lark用户
-- `2`：rooms用户
-- `3`：文档用户
-- `4`：neo单品用户
-- `5`：neo单品游客用户
-- `6`：pstn用户
-- `7`：sip用户
-	</md-td>
-</md-tr>
-
-
-<md-tr>
-	<md-td>
-	&emsp;&emsp;&emsp;<span style="color: #8F959E">∟</span>&nbsp;<md-text type="field-name" >pstn_sip_info</md-text>
-	</md-td>
-	<md-td>
-	<md-text type="field-type" >pstn_sip_info</md-text>
-	</md-td>
-	<md-td>
-	否
-	</md-td>
-	<md-td>
-	pstn/sip信息
-	</md-td>
-</md-tr>
-
-
-<md-tr>
-	<md-td>
-	&emsp;&emsp;&emsp;&emsp;<span style="color: #8F959E">∟</span>&nbsp;<md-text type="field-name" >nickname</md-text>
-	</md-td>
-	<md-td>
-	<md-text type="field-type" >string</md-text>
-	</md-td>
-	<md-td>
-	否
-	</md-td>
-	<md-td>
-	给pstn/sip用户设置的临时昵称
-
-**示例值**："dodo"
-	</md-td>
-</md-tr>
-
-
-<md-tr>
-	<md-td>
-	&emsp;&emsp;&emsp;&emsp;<span style="color: #8F959E">∟</span>&nbsp;<md-text type="field-name" >main_address</md-text>
+	&emsp;&emsp;<span style="color: #8F959E">∟</span>&nbsp;<md-text type="field-name" >type</md-text>
 	</md-td>
 	<md-td>
 	<md-text type="field-type" >string</md-text>
@@ -499,9 +255,116 @@
 	是
 	</md-td>
 	<md-td>
-	pstn/sip主机号
+	回复的内容元素
 
-**示例值**："1234"
+**示例值**："text_run"
+
+**可选值有**：
+- `text_run`：普通文本
+- `docs_link`：at 云文档链接
+- `person`：at 联系人
+	</md-td>
+</md-tr>
+
+
+<md-tr>
+	<md-td>
+	&emsp;&emsp;<span style="color: #8F959E">∟</span>&nbsp;<md-text type="field-name" >text_run</md-text>
+	</md-td>
+	<md-td>
+	<md-text type="field-type" >text_run</md-text>
+	</md-td>
+	<md-td>
+	否
+	</md-td>
+	<md-td>
+	文本内容
+	</md-td>
+</md-tr>
+
+
+<md-tr>
+	<md-td>
+	&emsp;&emsp;&emsp;<span style="color: #8F959E">∟</span>&nbsp;<md-text type="field-name" >text</md-text>
+	</md-td>
+	<md-td>
+	<md-text type="field-type" >string</md-text>
+	</md-td>
+	<md-td>
+	是
+	</md-td>
+	<md-td>
+	回复 普通文本
+
+**示例值**："comment text"
+	</md-td>
+</md-tr>
+
+
+<md-tr>
+	<md-td>
+	&emsp;&emsp;<span style="color: #8F959E">∟</span>&nbsp;<md-text type="field-name" >docs_link</md-text>
+	</md-td>
+	<md-td>
+	<md-text type="field-type" >docs_link</md-text>
+	</md-td>
+	<md-td>
+	否
+	</md-td>
+	<md-td>
+	文本内容
+	</md-td>
+</md-tr>
+
+
+<md-tr>
+	<md-td>
+	&emsp;&emsp;&emsp;<span style="color: #8F959E">∟</span>&nbsp;<md-text type="field-name" >url</md-text>
+	</md-td>
+	<md-td>
+	<md-text type="field-type" >string</md-text>
+	</md-td>
+	<md-td>
+	是
+	</md-td>
+	<md-td>
+	回复 at云文档
+
+**示例值**："https://bytedance.feishu.cn/docs/doccnHh7U87HOFpii5u5G*****"
+	</md-td>
+</md-tr>
+
+
+<md-tr>
+	<md-td>
+	&emsp;&emsp;<span style="color: #8F959E">∟</span>&nbsp;<md-text type="field-name" >person</md-text>
+	</md-td>
+	<md-td>
+	<md-text type="field-type" >person</md-text>
+	</md-td>
+	<md-td>
+	否
+	</md-td>
+	<md-td>
+	文本内容
+	</md-td>
+</md-tr>
+
+
+<md-tr>
+	<md-td>
+	&emsp;&emsp;&emsp;<span style="color: #8F959E">∟</span>&nbsp;<md-text type="field-name" >user_id</md-text>
+	</md-td>
+	<md-td>
+	<md-text type="field-type" >string</md-text>
+	</md-td>
+	<md-td>
+	是
+	</md-td>
+	<md-td>
+	回复 at联系人
+
+**示例值**："ou_cc19b2bfb93f8a44db4b4d6eab*****"
 	</md-td>
 </md-tr>
 
@@ -515,34 +378,21 @@
 
 ```json
 {
-    "end_time": "1608888867",
-    "meeting_settings": {
-        "topic": "my meeting",
-        "action_permissions": [
+    "content": {
+        "elements": [
             {
-                "permission": 1,
-                "permission_checkers": [
-                    {
-                        "check_field": 1,
-                        "check_mode": 1,
-                        "check_list": [
-                            "ou_3ec3f6a28a0d08c45d895276e8e5e19b"
-                        ]
-                    }
-                ]
-            }
-        ],
-        "meeting_initial_type": 1,
-        "call_setting": {
-            "callee": {
-                "id": "ou_3ec3f6a28a0d08c45d895276e8e5e19b",
-                "user_type": 1,
-                "pstn_sip_info": {
-                    "nickname": "dodo",
-                    "main_address": "1234"
+                "type": "text_run",
+                "text_run": {
+                    "text": "comment text"
+                },
+                "docs_link": {
+                    "url": "https://bytedance.feishu.cn/docs/doccnHh7U87HOFpii5u5G*****"
+                },
+                "person": {
+                    "user_id": "ou_cc19b2bfb93f8a44db4b4d6eab*****"
                 }
             }
-        }
+        ]
     }
 }
 ```
@@ -560,7 +410,7 @@
       <md-tr>
       <md-th style="width: 40%;">名称</md-th>
       <md-th style="width: 20%;">类型</md-th>
-      <md-th style="width: 40%;">描述</md-th>
+      <md-th style="width: 30%;">描述</md-th>
       </md-tr>
   </md-thead>
   <md-tbody>
@@ -590,101 +440,6 @@
 	</md-td>
 </md-tr>
 
-
-<md-tr>
-	<md-td>
-	<md-text type="field-name" >data</md-text>
-	</md-td>
-	<md-td>
-	<md-text type="field-type" >\-</md-text>
-	</md-td>
-	<md-td>
-	\-
-	</md-td>
-</md-tr>
-
-
-<md-tr>
-	<md-td>
-	&emsp;<span style="color: #8F959E">∟</span>&nbsp;<md-text type="field-name" >reserve</md-text>
-	</md-td>
-	<md-td>
-	<md-text type="field-type" >reserve</md-text>
-	</md-td>
-	<md-td>
-	预约数据
-	</md-td>
-</md-tr>
-
-
-<md-tr>
-	<md-td>
-	&emsp;&emsp;<span style="color: #8F959E">∟</span>&nbsp;<md-text type="field-name" >id</md-text>
-	</md-td>
-	<md-td>
-	<md-text type="field-type" >string</md-text>
-	</md-td>
-	<md-td>
-	预约ID
-	</md-td>
-</md-tr>
-
-
-<md-tr>
-	<md-td>
-	&emsp;&emsp;<span style="color: #8F959E">∟</span>&nbsp;<md-text type="field-name" >meeting_no</md-text>
-	</md-td>
-	<md-td>
-	<md-text type="field-type" >string</md-text>
-	</md-td>
-	<md-td>
-	9位会议号
-	</md-td>
-</md-tr>
-
-
-<md-tr>
-	<md-td>
-	&emsp;&emsp;<span style="color: #8F959E">∟</span>&nbsp;<md-text type="field-name" >url</md-text>
-	</md-td>
-	<md-td>
-	<md-text type="field-type" >string</md-text>
-	</md-td>
-	<md-td>
-	会议链接
-	</md-td>
-</md-tr>
-
-
-<md-tr>
-	<md-td>
-	&emsp;&emsp;<span style="color: #8F959E">∟</span>&nbsp;<md-text type="field-name" >end_time</md-text>
-	</md-td>
-	<md-td>
-	<md-text type="field-type" >string</md-text>
-	</md-td>
-	<md-td>
-	预约到期时间（unix时间，单位sec）
-	</md-td>
-</md-tr>
-
-
-<md-tr>
-	<md-td>
-	&emsp;&emsp;<span style="color: #8F959E">∟</span>&nbsp;<md-text type="field-name" >expire_status</md-text>
-	</md-td>
-	<md-td>
-	<md-text type="field-type" >int</md-text>
-	</md-td>
-	<md-td>
-	过期状态
-
-**可选值有**：
-- `1`：未过期
-- `2`：已过期
-	</md-td>
-</md-tr>
-
   </md-tbody>
 </md-table>
 :::
@@ -696,16 +451,7 @@
 ```json
 {
     "code": 0,
-    "msg": "success",
-    "data": {
-        "reserve": {
-            "id": "6911188411934973028",
-            "meeting_no": "112000358",
-            "url": "https://vc.feishu.cn/j/337736498",
-            "end_time": "1608883322",
-            "expire_status": 0
-        }
-    }
+    "msg": "success"
 }
 ```
 
@@ -718,49 +464,81 @@
         <md-tr>
             <md-th style="width: 15%;">HTTP状态码</md-th>
             <md-th style="width: 15%;">错误码</md-th>
-            <md-th style="width: 20%;">描述</md-th>
-            <md-th style="width: 40%;">排查建议</md-th>
+            <md-th style="width: 30%;">描述</md-th>
+            <md-th style="width: 30%;">排查建议</md-th>
         </md-tr>
     </md-thead>
   <md-tbody>
 
 <md-tr>
-  <md-td>500</md-td>
-  <md-td>121001</md-td>
-  <md-td>internal error</md-td>
-  <md-td>服务器内部错误，如果重试无效可联系管理员</md-td>
+  <md-td>400</md-td>
+  <md-td>1069301</md-td>
+  <md-td>fail</md-td>
+  <md-td>重试，若稳定失败请联系相关业务方oncall人员</md-td>
 </md-tr>
 
 
 <md-tr>
   <md-td>400</md-td>
-  <md-td>121002</md-td>
-  <md-td>not support</md-td>
-  <md-td>暂不支持该功能</md-td>
-</md-tr>
-
-
-<md-tr>
-  <md-td>400</md-td>
-  <md-td>121003</md-td>
+  <md-td>1069302</md-td>
   <md-td>param error</md-td>
-  <md-td>参数错误，检查参数的取值范围（例如：时间超过允许范围）</md-td>
-</md-tr>
-
-
-<md-tr>
-  <md-td>404</md-td>
-  <md-td>121004</md-td>
-  <md-td>data not exist</md-td>
-  <md-td>请求的数据不存在</md-td>
+  <md-td>检查参数有效性</md-td>
 </md-tr>
 
 
 <md-tr>
   <md-td>403</md-td>
-  <md-td>121005</md-td>
-  <md-td>no permission</md-td>
-  <md-td>无权限进行该操作，建议检查token类型、操作者身份以及资源的归属</md-td>
+  <md-td>1069303</md-td>
+  <md-td>forbidden</md-td>
+  <md-td>检查是否有待评论文档的评论权限</md-td>
+</md-tr>
+
+
+<md-tr>
+  <md-td>400</md-td>
+  <md-td>1069304</md-td>
+  <md-td>docs had been deleted</md-td>
+  <md-td>检查待评论文档是否已被删除</md-td>
+</md-tr>
+
+
+<md-tr>
+  <md-td>400</md-td>
+  <md-td>1069305</md-td>
+  <md-td>docs not exist</md-td>
+  <md-td>检查待评论文档是否能正常访问</md-td>
+</md-tr>
+
+
+<md-tr>
+  <md-td>400</md-td>
+  <md-td>1069306</md-td>
+  <md-td>content review not pass</md-td>
+  <md-td>排查评论内容是否存在不合法内容</md-td>
+</md-tr>
+
+
+<md-tr>
+  <md-td>404</md-td>
+  <md-td>1069307</md-td>
+  <md-td>not exist</md-td>
+  <md-td>检查待评论文档是否能正常访问、检查评论内容at人或云文档是否存在</md-td>
+</md-tr>
+
+
+<md-tr>
+  <md-td>400</md-td>
+  <md-td>1069308</md-td>
+  <md-td>exceeded limit</md-td>
+  <md-td>评论数据超过上限限制，详情请咨询客服</md-td>
+</md-tr>
+
+
+<md-tr>
+  <md-td>400</md-td>
+  <md-td>1069399</md-td>
+  <md-td>internal error</md-td>
+  <md-td>重试，若稳定失败请联系相关业务方oncall人员</md-td>
 </md-tr>
 
   </md-tbody>

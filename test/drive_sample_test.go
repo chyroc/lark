@@ -94,6 +94,12 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.UpdateDriveComment(ctx, &lark.UpdateDriveCommentReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "failed")
+		})
+
+		t.Run("", func(t *testing.T) {
 			_, _, err := moduleCli.DeleteDriveComment(ctx, &lark.DeleteDriveCommentReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "failed")
@@ -406,6 +412,17 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 			defer cli.Mock().UnMockDriveCreateDriveComment()
 
 			_, _, err := moduleCli.CreateDriveComment(ctx, &lark.CreateDriveCommentReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+			cli.Mock().MockDriveUpdateDriveComment(func(ctx context.Context, request *lark.UpdateDriveCommentReq, options ...lark.MethodOptionFunc) (*lark.UpdateDriveCommentResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockDriveUpdateDriveComment()
+
+			_, _, err := moduleCli.UpdateDriveComment(ctx, &lark.UpdateDriveCommentReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "mock-failed")
 		})
@@ -819,6 +836,16 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		t.Run("", func(t *testing.T) {
 			_, _, err := moduleCli.CreateDriveComment(ctx, &lark.CreateDriveCommentReq{
 				FileToken: "x",
+			})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.UpdateDriveComment(ctx, &lark.UpdateDriveCommentReq{
+				FileToken: "x",
+				CommentID: "x",
+				ReplyID:   "x",
 			})
 			as.NotNil(err)
 			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))

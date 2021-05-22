@@ -446,7 +446,7 @@
       {
         "file_name": "api_drive_comment_update.go",
         "func_name": "UpdateDriveComment",
-        "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file-comment/update"
+        "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file-comment-reply/update"
       },
       {
         "file_name": "api_drive_comment_delete.go",
