@@ -69,13 +69,13 @@
 ### 路径参数
 |参数|类型|必须|说明|
 |--|-----|--|----|
-|spreadsheetToken|string|是| spreadsheet 的 token，详见 [对接前说明](/ssl:ttdoc/ukTMukTMukTM/uczNzUjL3czM14yN3MTN) 的第 5 项|
+|spreadsheetToken|string|是| spreadsheet 的 token，详见 [在线表格开发指南](/ssl:ttdoc/ukTMukTMukTM/uATMzUjLwEzM14CMxMTN/overview)|
 ### 请求体
 **请求参数说明** :  <br>
 |参数|类型|必须|说明|
 |--|-----|--|----|
 |appendStyle||是|设置单元格样式
-|&emsp;∟range|string|是|查询范围，包含 sheetId 与单元格范围两部分，目前支持四种索引方式，详见 ⁣[对接前说明](/ssl:ttdoc/ukTMukTMukTM/uczNzUjL3czM14yN3MTN)  的第 5 项|
+|&emsp;∟range|string|是|查询范围，包含 sheetId 与单元格范围两部分，目前支持四种索引方式，详见[在线表格开发指南](/ssl:ttdoc/ukTMukTMukTM/uATMzUjLwEzM14CMxMTN/overview)|
 |&emsp;∟style||是|需要更新的样式| 
 |&emsp;&emsp;∟font| |否|字体相关样式|
 |&emsp;&emsp;&emsp;∟bold|bool|否|是否加粗|

@@ -70,11 +70,11 @@
 ### 路径参数
 |参数|类型|必须|说明|
 |--|-----|--|----|
-|spreadsheetToken|string|是|spreadsheet 的 token，获取方式见 [对接前说明](/ssl:ttdoc/ukTMukTMukTM/uczNzUjL3czM14yN3MTN) 的第 4 项|
+|spreadsheetToken|string|是|spreadsheet 的 token，获取方式见[在线表格开发指南](/ssl:ttdoc/ukTMukTMukTM/uATMzUjLwEzM14CMxMTN/overview)|
 ### 请求体
 |参数|类型|必须|说明|
 |--|-----|--|----|
-|range|string|是|查询范围，包含 sheetId 与单元格范围两部分，目前支持四种索引方式，详见 ⁣[对接前说明](/ssl:ttdoc/ukTMukTMukTM/uczNzUjL3czM14yN3MTN)  的第 5 项|
+|range|string|是|查询范围，包含 sheetId 与单元格范围两部分，目前支持四种索引方式，详见[在线表格开发指南](/ssl:ttdoc/ukTMukTMukTM/uATMzUjLwEzM14CMxMTN/overview)|
 ### 请求体示例
 ```json
   {

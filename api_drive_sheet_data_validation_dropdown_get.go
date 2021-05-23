@@ -40,8 +40,8 @@ func (r *Mock) UnMockDriveGetSheetDataValidationDropdown() {
 }
 
 type GetSheetDataValidationDropdownReq struct {
-	SpreadSheetToken   string `path:"spreadsheetToken" json:"-"`   // spreadsheet 的 token，获取方式见 [对接前说明](/ssl:ttdoc/ukTMukTMukTM/uczNzUjL3czM14yN3MTN) 的第 4 项
-	Range              string `path:"range" json:"-"`              // 查询范围，包含 sheetId 与单元格范围两部分，目前支持四种索引方式，详见 [对接前说明](/ssl:ttdoc/ukTMukTMukTM/uczNzUjL3czM14yN3MTN)的第 5 项
+	SpreadSheetToken   string `path:"spreadsheetToken" json:"-"`   // spreadsheet 的 token，获取方式见 [在线表格开发指南](/ssl:ttdoc/ukTMukTMukTM/uATMzUjLwEzM14CMxMTN/overview)
+	Range              string `path:"range" json:"-"`              // 查询范围，包含 sheetId 与单元格范围两部分，目前支持四种索引方式，详见[在线表格开发指南](/ssl:ttdoc/ukTMukTMukTM/uATMzUjLwEzM14CMxMTN/overview)
 	DataValidationType string `path:"dataValidationType" json:"-"` // 下拉列表填"list"
 }
 

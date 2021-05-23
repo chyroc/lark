@@ -68,7 +68,7 @@
 ### 路径参数
 |参数|类型|必须|说明|
 |--|-----|--|----|
-|spreadsheetToken|string|是|spreadsheet 的 token，获取方式见 [对接前说明](/ssl:ttdoc/ukTMukTMukTM/uczNzUjL3czM14yN3MTN) 的第 4 项| 
+|spreadsheetToken|string|是|spreadsheet 的 token，获取方式见[在线表格开发指南](/ssl:ttdoc/ukTMukTMukTM/uATMzUjLwEzM14CMxMTN/overview)| 
 
 
 
@@ -76,7 +76,7 @@
 |参数|类型|必须|说明|
 |--|-----|--|----|
 |dataValidationRanges|array||范围数组，每个range 最大单元格数量5000，每个range独立执行，一个range的失败不影响其他range的执行。返回结果会返回每个range的执行结果
-|&emsp;∟range|string|是|查询范围，包含 sheetId 与单元格范围两部分，目前支持四种索引方式，详见 [对接前说明](/ssl:ttdoc/ukTMukTMukTM/uczNzUjL3czM14yN3MTN)的第 5 项| 
+|&emsp;∟range|string|是|查询范围，包含 sheetId 与单元格范围两部分，目前支持四种索引方式，详见[在线表格开发指南](/ssl:ttdoc/ukTMukTMukTM/uATMzUjLwEzM14CMxMTN/overview)| 
 |&emsp;∟dataValidationIds|array<int>|是|指定需要删除的dataValidationIds| 
 
 ### 请求体示例

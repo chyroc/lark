@@ -77,7 +77,7 @@
 
 | 参数          | 类型   | 必须 | 说明 | 
 | ------------- | ------ | ---- | --------- | 
-| docToken      | string | 是   | doc 的 token | 
+| docToken      | string | 是   | 获取方式详见 [准备接入文档 API](/ssl:ttdoc/ukTMukTMukTM/ugzNzUjL4czM14CO3MTN/guide/getting-start) | 
 
 ### Curl 请求 Demo<br>
 ```

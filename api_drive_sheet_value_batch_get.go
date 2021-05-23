@@ -42,10 +42,10 @@ func (r *Mock) UnMockDriveBatchGetSheetValue() {
 }
 
 type BatchGetSheetValueReq struct {
-	Ranges               string  `query:"ranges" json:"-"`               // 多个查询范围 如 url?ranges=range1,range2 ，⁣其中 range 包含 sheetId 与单元格范围两部分，目前支持四种索引方式，详见 ⁣[对接前说明](/ssl:ttdoc/ukTMukTMukTM/uczNzUjL3czM14yN3MTN)  的第 5 项
-	ValueRenderOption    *string `query:"valueRenderOption" json:"-"`    // valueRenderOption=ToString 可返回 toString 后的值；valueRenderOption=FormattedValue可返回格式化后的字符串；
-	DateTimeRenderOption *string `query:"dateTimeRenderOption" json:"-"` // dateTimeRenderOption=FormattedString 会将时间日期按照其格式进行格式化，但不会对数字进行格式化，返回格式化后的字符串。
-	SpreadSheetToken     string  `path:"spreadsheetToken" json:"-"`      // spreadsheet 的 token，获取方式见[ 对接前说明](/ssl:ttdoc/ukTMukTMukTM/uczNzUjL3czM14yN3MTN) 的第 4 项
+	Ranges               []string `query:"ranges" json:"-"`               // 多个查询范围 如 url?ranges=range1,range2 ，⁣其中 range 包含 sheetId 与单元格范围两部分，目前支持四种索引方式，详见 [在线表格开发指南](/ssl:ttdoc/ukTMukTMukTM/uATMzUjLwEzM14CMxMTN/overview)
+	ValueRenderOption    *string  `query:"valueRenderOption" json:"-"`    // valueRenderOption=ToString 可返回纯文本的值；valueRenderOption=FormattedValue 计算并格式化单元格；valueRenderOption=Formula单元格中含有公式时返回公式本身；valueRenderOption=UnformattedValue计算但不对单元格进行格式化
+	DateTimeRenderOption *string  `query:"dateTimeRenderOption" json:"-"` // dateTimeRenderOption=FormattedString 计算并将时间日期按照其格式进行格式化，但不会对数字进行格式化，返回格式化后的字符串。
+	SpreadSheetToken     string   `path:"spreadsheetToken" json:"-"`      // spreadsheet 的 token，获取方式见[在线表格开发指南](/ssl:ttdoc/ukTMukTMukTM/uATMzUjLwEzM14CMxMTN/overview)
 }
 
 type batchGetSheetValueResp struct {
@@ -55,7 +55,15 @@ type batchGetSheetValueResp struct {
 }
 
 type BatchGetSheetValueResp struct {
-	Range    string        `json:"range,omitempty"`    // 查询范围
-	Values   []interface{} `json:"values,omitempty"`   // 查询获得的值
-	Revision int64         `json:"revision,omitempty"` // sheet 的版本号
+	Revision         int64                             `json:"revision,omitempty"`         // sheet 的版本号
+	SpreadSheetToken string                            `json:"spreadsheetToken,omitempty"` // spreadsheet 的 token，详见[在线表格开发指南](/ssl:ttdoc/ukTMukTMukTM/uATMzUjLwEzM14CMxMTN/overview)
+	TotalCells       int64                             `json:"totalCells,omitempty"`       // 读取的单元格总数
+	ValueRange       *BatchGetSheetValueRespValueRange `json:"valueRange,omitempty"`       // 值与范围
+}
+
+type BatchGetSheetValueRespValueRange struct {
+	MajorDimension string        `json:"majorDimension,omitempty"` // 插入维度
+	Range          string        `json:"range,omitempty"`          // 返回数据的范围，为空时表示查询范围没有数据
+	Revision       int64         `json:"revision,omitempty"`       // sheet 的版本号
+	Values         []interface{} `json:"values,omitempty"`         // 查询得到的值
 }

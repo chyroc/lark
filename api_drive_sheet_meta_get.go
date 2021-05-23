@@ -41,7 +41,7 @@ func (r *Mock) UnMockDriveGetSheetMeta() {
 
 type GetSheetMetaReq struct {
 	ExtFields        *string `query:"extFields" json:"-"`       // 额外返回的字段，extFields=protectedRange时返回保护行列信息
-	SpreadSheetToken string  `path:"spreadsheetToken" json:"-"` // spreadsheet 的 token；获取方式见[对接前说明](/ssl:ttdoc/ukTMukTMukTM/uczNzUjL3czM14yN3MTN) 的第 4 项
+	SpreadSheetToken string  `path:"spreadsheetToken" json:"-"` // spreadsheet 的 token；获取方式见[在线表格开发指南](/ssl:ttdoc/ukTMukTMukTM/uATMzUjLwEzM14CMxMTN/overview)
 }
 
 type getSheetMetaResp struct {
@@ -73,6 +73,7 @@ type GetSheetMetaRespSheet struct {
 	FrozenColCount int64                                `json:"frozenColCount,omitempty"` // 该 sheet 的冻结列数，小于等于 sheet 的最大列数，0表示未设置冻结
 	Merges         []*GetSheetMetaRespSheetMerge        `json:"merges,omitempty"`         // 该 sheet 中合并单元格的范围
 	ProtectedRange *GetSheetMetaRespSheetProtectedRange `json:"protectedRange,omitempty"` // 该 sheet 中保护范围
+	BlockInfo      *GetSheetMetaRespSheetBlockInfo      `json:"blockInfo,omitempty"`      // 若含有该字段，则此工作表不为表格
 }
 
 type GetSheetMetaRespSheetMerge struct {
@@ -94,4 +95,9 @@ type GetSheetMetaRespSheetProtectedRangeDimension struct {
 	EndIndex       int64  `json:"endIndex,omitempty"`       // 保护行列的结束位置，位置从1开始
 	MajorDimension string `json:"majorDimension,omitempty"` // 若为ROWS，则为保护行；为COLUMNS，则为保护列
 	SheetID        string `json:"sheetId,omitempty"`        // 保护范围所在工作表 ID
+}
+
+type GetSheetMetaRespSheetBlockInfo struct {
+	BlockToken string `json:"blockToken,omitempty"` // block的token
+	BlockType  string `json:"blockType,omitempty"`  // block的类型
 }

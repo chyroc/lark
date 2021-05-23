@@ -42,7 +42,7 @@ func (r *Mock) UnMockDriveGetSheetProtectedDimension() {
 type GetSheetProtectedDimensionReq struct {
 	ProtectIDs       []string `query:"protectIds" json:"-"`      // 保护范围ID，可以通过[获取表格元数据](/ssl:ttdoc/ukTMukTMukTM/uETMzUjLxEzM14SMxMTN)接口获取，多个ID用逗号分隔，如xxxID1,xxxID2
 	MemberType       *string  `query:"memberType" json:"-"`      // 返回的用户类型，可选userId,openId,unionId,默认使用userId
-	SpreadSheetToken string   `path:"spreadsheetToken" json:"-"` // spreadsheet 的 token，获取方式见[ 对接前说明](/ssl:ttdoc/ukTMukTMukTM/uczNzUjL3czM14yN3MTN) 的第 4 项
+	SpreadSheetToken string   `path:"spreadsheetToken" json:"-"` // spreadsheet 的 token，获取方式见[在线表格开发指南](/ssl:ttdoc/ukTMukTMukTM/uATMzUjLwEzM14CMxMTN/overview)
 }
 
 type getSheetProtectedDimensionResp struct {

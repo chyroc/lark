@@ -41,13 +41,13 @@ func (r *Mock) UnMockDriveAppendSheetValue() {
 
 type AppendSheetValueReq struct {
 	InsertDataOption *string                        `query:"insertDataOption" json:"-"` // 遇到空行追加，默认 OVERWRITE, 若空行的数量小于追加数据的行数 则覆盖数据 append；可选 INSERT_ROWS ，会在插入足够数量的行后再 append
-	SpreadSheetToken string                         `path:"spreadsheetToken" json:"-"`  // spreadsheet 的 token，获取方式见[ 对接前说明](/ssl:ttdoc/ukTMukTMukTM/uczNzUjL3czM14yN3MTN) 的第 4 项
+	SpreadSheetToken string                         `path:"spreadsheetToken" json:"-"`  // spreadsheet 的 token，获取方式见[在线表格开发指南](/ssl:ttdoc/ukTMukTMukTM/uATMzUjLwEzM14CMxMTN/overview)
 	ValueRange       *AppendSheetValueReqValueRange `json:"valueRange,omitempty"`       // 值与范围
 }
 
 type AppendSheetValueReqValueRange struct {
-	Range  string           `json:"range,omitempty"`  // ⁣查询范围，包含 sheetId 与单元格范围两部分，目前支持四种索引方式，详见 ⁣[对接前说明](/ssl:ttdoc/ukTMukTMukTM/uczNzUjL3czM14yN3MTN)  的第 5 项
-	Values [][]SheetContent `json:"values,omitempty"` // 需要写入的值，如要写入公式、超链接、emial、@人等，可详看附录[sheet 支持写入数据类型](/ssl:ttdoc/ukTMukTMukTM/ugjN1UjL4YTN14CO2UTN)
+	Range  string           `json:"range,omitempty"`  // ⁣查询范围，包含 sheetId 与单元格范围两部分，目前支持四种索引方式，详见 [在线表格开发指南](/ssl:ttdoc/ukTMukTMukTM/uATMzUjLwEzM14CMxMTN/overview)
+	Values [][]SheetContent `json:"values,omitempty"` // 需要写入的值，如要写入公式、超链接、email、@人等，可详看附录[sheet 支持写入数据类型](/ssl:ttdoc/ukTMukTMukTM/ugjN1UjL4YTN14CO2UTN)
 }
 
 type appendSheetValueResp struct {

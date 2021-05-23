@@ -42,12 +42,12 @@ func (r *Mock) UnMockDriveBatchSetSheetStyle() {
 }
 
 type BatchSetSheetStyleReq struct {
-	SpreadSheetToken string                     `path:"spreadsheetToken" json:"-"` // spreadsheet 的 token，获取方式见 [对接前说明](/ssl:ttdoc/ukTMukTMukTM/uczNzUjL3czM14yN3MTN) 的第 4 项
+	SpreadSheetToken string                     `path:"spreadsheetToken" json:"-"` // spreadsheet 的 token，获取方式见[在线表格开发指南](/ssl:ttdoc/ukTMukTMukTM/uATMzUjLwEzM14CMxMTN/overview)
 	Data             *BatchSetSheetStyleReqData `json:"data,omitempty"`            // 请求数据
 }
 
 type BatchSetSheetStyleReqData struct {
-	Ranges []string                        `json:"ranges,omitempty"` // 查询范围，包含 sheetId 与单元格范围两部分，目前支持四种索引方式，详见 ⁣[对接前说明](/ssl:ttdoc/ukTMukTMukTM/uczNzUjL3czM14yN3MTN)  的第 5 项
+	Ranges []string                        `json:"ranges,omitempty"` // 查询范围，包含 sheetId 与单元格范围两部分，目前支持四种索引方式，详见 [在线表格开发指南](/ssl:ttdoc/ukTMukTMukTM/uATMzUjLwEzM14CMxMTN/overview)
 	Style  *BatchSetSheetStyleReqDataStyle `json:"style,omitempty"`  // 需要更新的样式
 }
 

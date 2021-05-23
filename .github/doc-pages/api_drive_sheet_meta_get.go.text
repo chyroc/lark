@@ -26,7 +26,9 @@
         <md-perm href="/ssl:ttdoc/ukTMukTMukTM/uQjN3QjL0YzN04CN2cDN">查看、评论和下载云文档所有文件</md-perm><md-perm href="/ssl:ttdoc/ukTMukTMukTM/uQjN3QjL0YzN04CN2cDN">查看、评论、编辑和管理表格</md-perm>
         <md-perm href="/ssl:ttdoc/ukTMukTMukTM/uQjN3QjL0YzN04CN2cDN">查看、评论和导出表格</md-perm></md-td>
       
+
     </md-tr>
+
   </md-tbody>
 </md-table>
 :::
@@ -85,7 +87,7 @@
     <md-tr>
       <md-td>spreadsheetToken</md-td>
        <md-td>string</md-td>
-       <md-td>spreadsheet 的 token；获取方式见[对接前说明](/ssl:ttdoc/ukTMukTMukTM/uczNzUjL3czM14yN3MTN) 的第 4 项</md-td>
+       <md-td>spreadsheet 的 token；获取方式见[在线表格开发指南](/ssl:ttdoc/ukTMukTMukTM/uATMzUjLwEzM14CMxMTN/overview)</md-td>
       </md-tr>
 </md-tbody>
 </md-table>
@@ -114,45 +116,51 @@
 </md-tbody>
 </md-table>
 ::: 
+
 ### cURL 请求示例
+
 ```
 curl --location --request GET 'https://open.feishu.cn/open-apis/sheets/v2/spreadsheets/shtcngNygNfuqhxTBf588jwgWbJ/metainfo?extFields=protectedRange' \
 --header 'Authorization: Bearer t-e346617a4acfc3a11d4ed24dca0d0c0fc8e0067e' \
 ```
+
 ## 响应  
 
 ### 响应体
 
-| 参数                              |类型| 说明                                                         |
-| --------------------------------- |-----| ------------------------------------------------------------ |
-| spreadsheetToken                  |string| spreadsheet 的 token                                                 |
-| properties                        ||  spreadsheet 的属性                                                 |
-| &emsp;∟title                      |string|  spreadsheet 的标题                                                 |
-| &emsp;∟ownerUser                  |int| 所有者的 id                                                  |
-| &emsp;∟sheetCount                 |int| spreadsheet 下的 sheet 数                                    |
-| &emsp;∟revision                   |int| 该 sheet 的版本                                              |
-| sheets                            |array<interface>| spreadsheet 下的sheet列表                                    |
-| &emsp;∟sheetId                    |string| sheet 的 id                                                  |
-| &emsp;∟title                      |string| sheet 的标题                                                 |
-| &emsp;∟index                      |int|  sheet 的位置                                              |
-| &emsp;∟rowCount                   |int|  sheet 的最大行数                                          |
-| &emsp;∟columnCount                |int|  sheet 的最大列数                                          |
-| &emsp;∟frozenRowCount             |int| 该 sheet 的冻结行数，小于等于 sheet 的最大行数，0表示未设置冻结 |
-| &emsp;∟frozenColCount             |int| 该 sheet 的冻结列数，小于等于 sheet 的最大列数，0表示未设置冻结 |
-| &emsp;∟merges                     |array<interface>| 该 sheet 中合并单元格的范围                                  |
-| &emsp;&emsp;∟startRowIndex        |int| 合并单元格范围的开始行下标，index 从 0 开始                  |
-| &emsp;&emsp;∟startColumnIndex     |int| 合并单元格范围的开始列下标，index 从 0 开始                  |
-| &emsp;&emsp;∟rowCount             |int| 合并单元格范围的行数量                                       |
-| &emsp;&emsp;∟columnCount          |int| 合并单元格范围的列数量                                       |
-| &emsp;∟protectedRange             |array<interface>| 该 sheet 中保护范围                                            |
-| &emsp;&emsp;∟dimension            || 保护行列的信息，如果为保护工作表，则该字段为空                 |
-| &emsp;&emsp;&emsp;∟startIndex     |int| 保护行列的起始位置，位置从1开始                              |
-| &emsp;&emsp;&emsp;∟endIndex       |int| 保护行列的结束位置，位置从1开始                              |
-| &emsp;&emsp;&emsp;∟majorDimension |string| 若为ROWS，则为保护行；为COLUMNS，则为保护列                  |
-|&emsp;&emsp;&emsp;∟sheetId|string|保护范围所在工作表 ID|
-| &emsp;&emsp;∟protectId            |string| 保护范围ID                                                   |
-| &emsp;&emsp;∟lockInfo             |string| 保护说明                                                     |
-| &emsp;&emsp;∟sheetId              |string| 保护工作表 ID                                                      |
+| 参数                              | 类型             | 说明                                                         |
+| --------------------------------- | ---------------- | ------------------------------------------------------------ |
+| spreadsheetToken                  | string           | spreadsheet 的 token                                         |
+| properties                        |                  | spreadsheet 的属性                                           |
+| &emsp;∟title                      | string           | spreadsheet 的标题                                           |
+| &emsp;∟ownerUser                  | int64              | 所有者的 id                                                  |
+| &emsp;∟sheetCount                 | int              | spreadsheet 下的 sheet 数                                    |
+| &emsp;∟revision                   | int              | 该 sheet 的版本                                              |
+| sheets                            | array<interface> | spreadsheet 下的sheet列表                                    |
+| &emsp;∟sheetId                    | string           | sheet 的 id                                                  |
+| &emsp;∟title                      | string           | sheet 的标题                                                 |
+| &emsp;∟index                      | int              | sheet 的位置                                                 |
+| &emsp;∟rowCount                   | int              | sheet 的最大行数                                             |
+| &emsp;∟columnCount                | int              | sheet 的最大列数                                             |
+| &emsp;∟frozenRowCount             | int              | 该 sheet 的冻结行数，小于等于 sheet 的最大行数，0表示未设置冻结 |
+| &emsp;∟frozenColCount             | int              | 该 sheet 的冻结列数，小于等于 sheet 的最大列数，0表示未设置冻结 |
+| &emsp;∟merges                     | array<interface> | 该 sheet 中合并单元格的范围                                  |
+| &emsp;&emsp;∟startRowIndex        | int              | 合并单元格范围的开始行下标，index 从 0 开始                  |
+| &emsp;&emsp;∟startColumnIndex     | int              | 合并单元格范围的开始列下标，index 从 0 开始                  |
+| &emsp;&emsp;∟rowCount             | int              | 合并单元格范围的行数量                                       |
+| &emsp;&emsp;∟columnCount          | int              | 合并单元格范围的列数量                                       |
+| &emsp;∟protectedRange             | array<interface> | 该 sheet 中保护范围                                          |
+| &emsp;&emsp;∟dimension            |                  | 保护行列的信息，如果为保护工作表，则该字段为空               |
+| &emsp;&emsp;&emsp;∟startIndex     | int              | 保护行列的起始位置，位置从1开始                              |
+| &emsp;&emsp;&emsp;∟endIndex       | int              | 保护行列的结束位置，位置从1开始                              |
+| &emsp;&emsp;&emsp;∟majorDimension | string           | 若为ROWS，则为保护行；为COLUMNS，则为保护列                  |
+| &emsp;&emsp;&emsp;∟sheetId        | string           | 保护范围所在工作表 ID                                        |
+| &emsp;&emsp;∟protectId            | string           | 保护范围ID                                                   |
+| &emsp;&emsp;∟lockInfo             | string           | 保护说明                                                     |
+| &emsp;&emsp;∟sheetId              | string           | 保护工作表 ID                                                |
+| &emsp;∟blockInfo                  |                  | 若含有该字段，则此工作表不为表格                             |
+| &emsp;&emsp;∟blockToken           | string           | block的token                                                 |
+| &emsp;&emsp;∟blockType            | string           | block的类型                                                  |
 
 ### 响应体示例
 
@@ -197,6 +205,19 @@ curl --location --request GET 'https://open.feishu.cn/open-apis/sheets/v2/spread
                         "lockInfo": "***",
                     }
                 ]
+            },
+            {
+                "blockInfo": {
+                    "blockToken": "***",
+                    "blockType": "***"
+                },
+                "columnCount": 0,
+                "frozenColCount": 0,
+                "frozenRowCount": 0,
+                "index": 0,
+                "rowCount": 0,
+                "sheetId": "***",
+                "title": "*** "
             }
         ],
         "spreadsheetToken": "***"

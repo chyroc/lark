@@ -46,7 +46,7 @@ func (r *Mock) UnMockDriveGetDriveDocContent() {
 }
 
 type GetDriveDocContentReq struct {
-	DocToken string `path:"docToken" json:"-"` // doc 的 token
+	DocToken string `path:"docToken" json:"-"` // 获取方式详见 [准备接入文档 API](/ssl:ttdoc/ukTMukTMukTM/ugzNzUjL4czM14CO3MTN/guide/getting-start)
 }
 
 type getDriveDocContentResp struct {

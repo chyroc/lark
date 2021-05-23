@@ -40,7 +40,7 @@ func (r *Mock) UnMockDriveAddSheetDimensionRange() {
 }
 
 type AddSheetDimensionRangeReq struct {
-	SpreadSheetToken string                              `path:"spreadsheetToken" json:"-"` // spreadsheet 的 token，详见 [对接前说明](/ssl:ttdoc/ukTMukTMukTM/uczNzUjL3czM14yN3MTN) 的第 5 项
+	SpreadSheetToken string                              `path:"spreadsheetToken" json:"-"` // spreadsheet 的 token，详见 [在线表格开发指南](/ssl:ttdoc/ukTMukTMukTM/uATMzUjLwEzM14CMxMTN/overview)
 	Dimension        *AddSheetDimensionRangeReqDimension `json:"dimension,omitempty"`       // 需要增加行列的维度信息
 }
 

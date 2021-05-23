@@ -9,7 +9,7 @@ import (
 // CreateDriveDoc
 //
 // :::note
-// 在使用此接口前，请仔细阅读[概述](/ssl:ttdoc/ukTMukTMukTM/ukjM5YjL5ITO24SOykjN)和[准备接入文档 API](//ssl:ttdoc/ukTMukTMukTM/ugzNzUjL4czM14CO3MTN/guide/getting-start)了解文档调用的规则和约束，确保你的文档数据不会丢失或出错。
+// 在使用此接口前，请仔细阅读[概述](/ssl:ttdoc/ukTMukTMukTM/ukjM5YjL5ITO24SOykjN)和[准备接入文档 API](/ssl:ttdoc/ukTMukTMukTM/ugzNzUjL4czM14CO3MTN/guide/getting-start)了解文档调用的规则和约束，确保你的文档数据不会丢失或出错。
 // 文档数据结构定义可参考：[文档数据结构概述](/ssl:ttdoc/ukTMukTMukTM/uAzM5YjLwMTO24CMzkjN)
 // :::
 // 该接口用于创建并初始化文档。
@@ -46,7 +46,7 @@ func (r *Mock) UnMockDriveCreateDriveDoc() {
 }
 
 type CreateDriveDocReq struct {
-	FolderToken string  `json:"FolderToken,omitempty"` // 文件夹 token，获取方式见 [对接前说明](/ssl:ttdoc/ukTMukTMukTM/uczNzUjL3czM14yN3MTN)的第 3 项；空表示根目录
+	FolderToken *string `json:"FolderToken,omitempty"` // 文件夹 token，获取方式见[准备接入文档 API](/ssl:ttdoc/ukTMukTMukTM/ugzNzUjL4czM14CO3MTN/guide/getting-start)；空表示根目录
 	Content     *string `json:"Content,omitempty"`     // 传入符合[文档数据结构](/ssl:ttdoc/ukTMukTMukTM/uAzM5YjLwMTO24CMzkjN)的字符串，若为空表示创建空文档
 }
 

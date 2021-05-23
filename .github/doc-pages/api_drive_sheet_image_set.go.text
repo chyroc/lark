@@ -68,11 +68,11 @@
 ### 路径参数
 |参数|类型|必须|说明|
 |--|-----|--|----|
-|spreadsheetToken|string|是|spreadsheet的token，获取方式见 [对接前说明](/ssl:ttdoc/ukTMukTMukTM/uczNzUjL3czM14yN3MTN) 的第 4 项| URL Path|
+|spreadsheetToken|string|是|spreadsheet的token，获取方式见[在线表格开发指南](/ssl:ttdoc/ukTMukTMukTM/uATMzUjLwEzM14CMxMTN/overview)| URL Path|
 ### 请求体
 |参数|类型|必须|说明|
 |--|-----|--|----|
-|range|string|是|查询范围  range=<sheetId>!<开始格子>:<结束格子> 如：xxxx!A1:D5，详见 [对接前说明](/ssl:ttdoc/ukTMukTMukTM/uczNzUjL3czM14yN3MTN) 的第 5 项。此处限定为一个格子，如: xxxx!A1:A1|
+|range|string|是|查询范围  range=<sheetId>!<开始格子>:<结束格子> 如：xxxx!A1:D5，详见[在线表格开发指南](/ssl:ttdoc/ukTMukTMukTM/uATMzUjLwEzM14CMxMTN/overview)。此处限定为一个格子，如: xxxx!A1:A1|
 |image|array<byte>|是|需要写入的图片二进制流，支持  "PNG", "JPEG", "JPG", "GIF", "BMP", "JFIF", "EXIF", "TIFF", "BPG", "WEBP", "HEIC" 等图片格式|
 |name|string|是|写入的图片名字|
 ### 请求体示例

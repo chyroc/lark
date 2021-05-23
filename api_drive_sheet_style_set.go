@@ -40,12 +40,12 @@ func (r *Mock) UnMockDriveSetSheetStyle() {
 }
 
 type SetSheetStyleReq struct {
-	SpreadSheetToken string                       `path:"spreadsheetToken" json:"-"` // spreadsheet 的 token，详见 [对接前说明](/ssl:ttdoc/ukTMukTMukTM/uczNzUjL3czM14yN3MTN) 的第 5 项
+	SpreadSheetToken string                       `path:"spreadsheetToken" json:"-"` // spreadsheet 的 token，详见 [在线表格开发指南](/ssl:ttdoc/ukTMukTMukTM/uATMzUjLwEzM14CMxMTN/overview)
 	AppendStyle      *SetSheetStyleReqAppendStyle `json:"appendStyle,omitempty"`     // 设置单元格样式
 }
 
 type SetSheetStyleReqAppendStyle struct {
-	Range string                            `json:"range,omitempty"` // 查询范围，包含 sheetId 与单元格范围两部分，目前支持四种索引方式，详见 ⁣[对接前说明](/ssl:ttdoc/ukTMukTMukTM/uczNzUjL3czM14yN3MTN)  的第 5 项
+	Range string                            `json:"range,omitempty"` // 查询范围，包含 sheetId 与单元格范围两部分，目前支持四种索引方式，详见[在线表格开发指南](/ssl:ttdoc/ukTMukTMukTM/uATMzUjLwEzM14CMxMTN/overview)
 	Style *SetSheetStyleReqAppendStyleStyle `json:"style,omitempty"` // 需要更新的样式
 }
 
