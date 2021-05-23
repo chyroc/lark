@@ -55,7 +55,7 @@ type getSheetValueResp struct {
 }
 
 type GetSheetValueResp struct {
-	Revision         Int                          `json:"revision,omitempty"`         // sheet 的版本号
+	Revision         int64                        `json:"revision,omitempty"`         // sheet 的版本号
 	SpreadSheetToken string                       `json:"spreadsheetToken,omitempty"` // spreadsheet 的 token，详见 [对接前说明](/ssl:ttdoc/ukTMukTMukTM/uczNzUjL3czM14yN3MTN) 的第 4 项
 	ValueRange       *GetSheetValueRespValueRange `json:"valueRange,omitempty"`       // 值与范围
 }
