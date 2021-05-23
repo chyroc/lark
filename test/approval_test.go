@@ -1,6 +1,7 @@
 package test
 
 import (
+	"encoding/json"
 	"fmt"
 	"testing"
 
@@ -57,6 +58,54 @@ func Test_GetApproval(t *testing.T) {
 			as.Equal(expectChildren.Name, children.Name)
 		}
 	}
+}
+
+func Test_UnmarshalGetApprovalInstance(t *testing.T) {
+	as := assert.New(t)
+
+	s := `{
+    "approval_code": "96F7DAD7-5F10-416B-A50C-C3331A2B3010",
+    "approval_name": "sdk-demo",
+    "comment_list": [],
+    "department_id": "",
+    "end_time": 0,
+    "form": "[{\"id\":\"widget3\",\"name\":\"单行文本\",\"type\":\"input\",\"ext\":null,\"value\":\"test\"},{\"id\":\"widget16215623422760001\",\"name\":\"说明 1\",\"type\":\"text\",\"ext\":null,\"value\":\"说明\"}]",
+    "open_id": "ou_6e2bbe38e6551b5b2731a409ef50e8ce",
+    "serial_number": "202105230010",
+    "start_time": 1621742291784,
+    "status": "PENDING",
+    "task_list": [
+      {
+        "end_time": 0,
+        "id": "6965330108705980419",
+        "node_id": "6db614baa6d5cb208decf9efa2e3eee3",
+        "node_name": "直接主管",
+        "open_id": "ou_6e2bbe38e6551b5b2731a409ef50e8ce",
+        "start_time": 1621742292164,
+        "status": "PENDING",
+        "type": "AND",
+        "user_id": "3gg4cf3g"
+      }
+    ],
+    "timeline": [
+      {
+        "create_time": 1621742291784,
+        "ext": "{\"user_id\":\"1\"}",
+        "open_id": "ou_6e2bbe38e6551b5b2731a409ef50e8ce",
+        "type": "START",
+        "user_id": "3gg4cf3g"
+      }
+    ],
+    "user_id": "3gg4cf3g",
+    "uuid": ""
+  }
+`
+	res := new(lark.GetApprovalInstanceResp)
+	err := json.Unmarshal([]byte(s), res)
+	as.Nil(err)
+	as.NotNil(res)
+	as.Equal("1", ptr.ValueString(res.Timeline[0].Ext.UserID))
+	printData(res)
 }
 
 func Test_Create_CancelApproval(t *testing.T) {

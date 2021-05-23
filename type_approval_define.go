@@ -84,3 +84,48 @@ type ApprovalWidgetOption struct {
 	Value string `json:"value,omitempty"`
 	Text  string `json:"text,omitempty"`
 }
+
+func (r *GetApprovalInstanceRespTimelineExt) UnmarshalJSON(bs []byte) (err error) {
+	if len(bs) == 0 || string(bs) == `""` {
+		return nil
+	}
+	if strings.HasPrefix(string(bs), `"`) {
+		s := ""
+		if err = json.Unmarshal(bs, &s); err != nil {
+			return err
+		}
+		bs = []byte(s)
+	}
+
+	res := new(getApprovalInstanceRespTimelineExt)
+	if err = json.Unmarshal(bs, res); err != nil {
+		return err
+	}
+	*r = GetApprovalInstanceRespTimelineExt{
+		UserIDList: res.UserIDList,
+		OpenIDList: res.OpenIDList,
+		UserID:     res.UserID,
+		OpenID:     res.OpenID,
+	}
+	return nil
+}
+
+func (r GetApprovalInstanceRespTimelineExt) MarshalJSON() ([]byte, error) {
+	bs, err := json.Marshal(getApprovalInstanceRespTimelineExt{
+		UserIDList: r.UserIDList,
+		OpenIDList: r.OpenIDList,
+		UserID:     r.UserID,
+		OpenID:     r.OpenID,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return []byte(fmt.Sprintf("%q", bs)), nil
+}
+
+type getApprovalInstanceRespTimelineExt struct {
+	UserIDList []string `json:"user_id_list,omitempty"` // **type类型** - **user_id_list 含义**<br>TRANSFER - 被转交人 <br>ADD_APPROVER_BEFORE  -  被加签人<br>ADD_APPROVER -   被加签人<br>ADD_APPROVER_AFTER -   被加签人 <br>DELETE_APPROVER  - 被减签人
+	OpenIDList []string `json:"open_id_list,omitempty"` // user_id_list 对应的 open id
+	UserID     *string  `json:"user_id,omitempty"`      // **type类型** - **user_id 含义**<br>CC - 抄送人
+	OpenID     *string  `json:"open_id,omitempty"`      // user_id 对应的 open_id
+}
