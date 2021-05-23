@@ -602,6 +602,26 @@
         "file_name": "api_drive_sheet_protected_dimension_delete.go",
         "func_name": "DeleteSheetProtectedDimension",
         "doc_url": "https://open.feishu.cn/document/ukTMukTMukTM/uYTM5YjL2ETO24iNxkjN"
+      },
+      {
+        "file_name": "api_drive_sheet_data_validation_dropdown_create.go",
+        "func_name": "CreateSheetDataValidationDropdown",
+        "doc_url": "https://open.feishu.cn/document/ukTMukTMukTM/uATMzUjLwEzM14CMxMTN/datavalidation/set-dropdown"
+      },
+      {
+        "file_name": "api_drive_sheet_data_validation_dropdown_delete.go",
+        "func_name": "DeleteSheetDataValidationDropdown",
+        "doc_url": "https://open.feishu.cn/document/ukTMukTMukTM/uATMzUjLwEzM14CMxMTN/datavalidation/delete-datavalidation"
+      },
+      {
+        "file_name": "api_drive_sheet_data_validation_dropdown_update.go",
+        "func_name": "UpdateSheetDataValidationDropdown",
+        "doc_url": "https://open.feishu.cn/document/ukTMukTMukTM/uATMzUjLwEzM14CMxMTN/datavalidation/update-datavalidation"
+      },
+      {
+        "file_name": "api_drive_sheet_data_validation_dropdown_get.go",
+        "func_name": "GetSheetDataValidationDropdown",
+        "doc_url": "https://open.feishu.cn/document/ukTMukTMukTM/uATMzUjLwEzM14CMxMTN/datavalidation/query-datavalidation"
       }
     ]
   },

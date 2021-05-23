@@ -35,7 +35,7 @@ https://godoc.org/github.com/chyroc/lark
 
 ## Support APIs
 
-API Count: 292, Event Count: 28
+API Count: 296, Event Count: 28
 
 <details>
   <summary>
@@ -163,6 +163,10 @@ API Count: 292, Event Count: 28
   - GetSheetProtectedDimension
   - UpdateSheetProtectedDimension
   - DeleteSheetProtectedDimension
+  - CreateSheetDataValidationDropdown
+  - DeleteSheetDataValidationDropdown
+  - UpdateSheetDataValidationDropdown
+  - GetSheetDataValidationDropdown
 - Bitable
   - GetBitableRecordList
   - GetBitableRecord

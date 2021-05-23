@@ -278,6 +278,30 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 			as.NotNil(err)
 			as.Equal(err.Error(), "failed")
 		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.CreateSheetDataValidationDropdown(ctx, &lark.CreateSheetDataValidationDropdownReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.DeleteSheetDataValidationDropdown(ctx, &lark.DeleteSheetDataValidationDropdownReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.UpdateSheetDataValidationDropdown(ctx, &lark.UpdateSheetDataValidationDropdownReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.GetSheetDataValidationDropdown(ctx, &lark.GetSheetDataValidationDropdownReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "failed")
+		})
 	})
 
 	t.Run("request mock failed", func(t *testing.T) {
@@ -756,6 +780,50 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 			as.NotNil(err)
 			as.Equal(err.Error(), "mock-failed")
 		})
+
+		t.Run("", func(t *testing.T) {
+			cli.Mock().MockDriveCreateSheetDataValidationDropdown(func(ctx context.Context, request *lark.CreateSheetDataValidationDropdownReq, options ...lark.MethodOptionFunc) (*lark.CreateSheetDataValidationDropdownResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockDriveCreateSheetDataValidationDropdown()
+
+			_, _, err := moduleCli.CreateSheetDataValidationDropdown(ctx, &lark.CreateSheetDataValidationDropdownReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+			cli.Mock().MockDriveDeleteSheetDataValidationDropdown(func(ctx context.Context, request *lark.DeleteSheetDataValidationDropdownReq, options ...lark.MethodOptionFunc) (*lark.DeleteSheetDataValidationDropdownResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockDriveDeleteSheetDataValidationDropdown()
+
+			_, _, err := moduleCli.DeleteSheetDataValidationDropdown(ctx, &lark.DeleteSheetDataValidationDropdownReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+			cli.Mock().MockDriveUpdateSheetDataValidationDropdown(func(ctx context.Context, request *lark.UpdateSheetDataValidationDropdownReq, options ...lark.MethodOptionFunc) (*lark.UpdateSheetDataValidationDropdownResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockDriveUpdateSheetDataValidationDropdown()
+
+			_, _, err := moduleCli.UpdateSheetDataValidationDropdown(ctx, &lark.UpdateSheetDataValidationDropdownReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+			cli.Mock().MockDriveGetSheetDataValidationDropdown(func(ctx context.Context, request *lark.GetSheetDataValidationDropdownReq, options ...lark.MethodOptionFunc) (*lark.GetSheetDataValidationDropdownResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockDriveGetSheetDataValidationDropdown()
+
+			_, _, err := moduleCli.GetSheetDataValidationDropdown(ctx, &lark.GetSheetDataValidationDropdownReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
 	})
 
 	t.Run("response is failed", func(t *testing.T) {
@@ -1088,6 +1156,42 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		t.Run("", func(t *testing.T) {
 			_, _, err := moduleCli.DeleteSheetProtectedDimension(ctx, &lark.DeleteSheetProtectedDimensionReq{
 				SpreadSheetToken: "x",
+			})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.CreateSheetDataValidationDropdown(ctx, &lark.CreateSheetDataValidationDropdownReq{
+				SpreadSheetToken: "x",
+			})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.DeleteSheetDataValidationDropdown(ctx, &lark.DeleteSheetDataValidationDropdownReq{
+				SpreadSheetToken: "x",
+			})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.UpdateSheetDataValidationDropdown(ctx, &lark.UpdateSheetDataValidationDropdownReq{
+				SpreadSheetToken: "x",
+				SheetID:          "x",
+				DataValidationID: "x",
+			})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.GetSheetDataValidationDropdown(ctx, &lark.GetSheetDataValidationDropdownReq{
+				SpreadSheetToken:   "x",
+				Range:              "x",
+				DataValidationType: "x",
 			})
 			as.NotNil(err)
 			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
