@@ -1254,7 +1254,7 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 			_, _, err := moduleCli.UpdateSheetDataValidationDropdown(ctx, &lark.UpdateSheetDataValidationDropdownReq{
 				SpreadSheetToken: "x",
 				SheetID:          "x",
-				DataValidationID: "x",
+				DataValidationID: 1,
 			})
 			as.NotNil(err)
 			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
