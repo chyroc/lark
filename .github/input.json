@@ -776,7 +776,7 @@
       {
         "file_name": "api_meeting_room_building_batch_get_id.go",
         "func_name": "BatchGetMeetingRoomBuildingID",
-        "doc_url": "https://open.feishu.cn/document/ukTMukTMukTM/uMzMxYjLzMTM24yMzEjN"
+        "doc_url": "https://open.feishu.cn/document/ukTMukTMukTM/uQzMxYjL0MTM24CNzEjN"
       },
       {
         "file_name": "api_meeting_room_room_create.go",
@@ -916,12 +916,12 @@
       {
         "file_name": "api_application_app_visibility_get.go",
         "func_name": "GetApplicationAppVisibility",
-        "doc_url": "https://open.feishu.cn/document/ukTMukTMukTM/uMzN3QjLzczN04yM3cDN"
+        "doc_url": "https://open.feishu.cn/document/ukTMukTMukTM/uIjM3UjLyIzN14iMycTN"
       },
       {
         "file_name": "api_application_user_visible_app_get.go",
         "func_name": "GetApplicationUserVisibleApp",
-        "doc_url": "https://open.feishu.cn/document/ukTMukTMukTM/uMzN3QjLzczN04yM3cDN"
+        "doc_url": "https://open.feishu.cn/document/ukTMukTMukTM/uMjM3UjLzIzN14yMycTN"
       },
       {
         "file_name": "api_application_app_list.go",
@@ -937,6 +937,21 @@
         "file_name": "api_application_app_admin_user_list.go",
         "func_name": "GetApplicationAppAdminUserList",
         "doc_url": "https://open.feishu.cn/document/ukTMukTMukTM/ucDOwYjL3gDM24yN4AjN"
+      },
+      {
+        "file_name": "api_application_paid_scope_check_user.go",
+        "func_name": "CheckUserIsInApplicationPaidScope",
+        "doc_url": "https://open.feishu.cn/document/ukTMukTMukTM/uATNwUjLwUDM14CM1ATN"
+      },
+      {
+        "file_name": "api_application_order_list.go",
+        "func_name": "GetApplicationOrderList",
+        "doc_url": "https://open.feishu.cn/document/ukTMukTMukTM/uETNwUjLxUDM14SM1ATN"
+      },
+      {
+        "file_name": "api_application_order_get.go",
+        "func_name": "GetApplicationOrder",
+        "doc_url": "https://open.feishu.cn/document/ukTMukTMukTM/uITNwUjLyUDM14iM1ATN"
       }
     ]
   },

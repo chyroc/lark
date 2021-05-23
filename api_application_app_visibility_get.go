@@ -8,9 +8,9 @@ import (
 
 // GetApplicationAppVisibility
 //
-// 该接口用于获取应用管理员的管理范围，即该应用管理员能够管理哪些部门。
+// 该接口用于查询应用在该企业内可以被使用的范围，只能被企业自建应用调用。
 //
-// doc: https://open.feishu.cn/document/ukTMukTMukTM/uMzN3QjLzczN04yM3cDN
+// doc: https://open.feishu.cn/document/ukTMukTMukTM/uIjM3UjLyIzN14iMycTN
 func (r *ApplicationService) GetApplicationAppVisibility(ctx context.Context, request *GetApplicationAppVisibilityReq, options ...MethodOptionFunc) (*GetApplicationAppVisibilityResp, *Response, error) {
 	if r.cli.mock.mockApplicationGetApplicationAppVisibility != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Application#GetApplicationAppVisibility mock enable")
@@ -21,7 +21,7 @@ func (r *ApplicationService) GetApplicationAppVisibility(ctx context.Context, re
 		Scope:                 "Application",
 		API:                   "GetApplicationAppVisibility",
 		Method:                "GET",
-		URL:                   "https://open.feishu.cn/open-apis/contact/v1/user/admin_scope/get",
+		URL:                   "https://open.feishu.cn/open-apis/application/v2/app/visibility",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
@@ -41,17 +41,30 @@ func (r *Mock) UnMockApplicationGetApplicationAppVisibility() {
 }
 
 type GetApplicationAppVisibilityReq struct {
-	EmployeeID string `query:"employee_id" json:"-"` // 支持通过 open_id 或者 employee_id 查询，不支持混合两种 ID 进行查询，其中 employee_id 同通讯录 v3 版本中的 user_id
-	OpenID     string `query:"open_id" json:"-"`     // 支持通过 open_id 或者 employee_id 查询，不支持混合两种 ID 进行查询，其中 employee_id 同通讯录 v3 版本中的 user_id
+	AppID         string  `query:"app_id" json:"-"`          // 目标应用的 ID
+	UserPageToken *string `query:"user_page_token" json:"-"` // 分页拉取用户列表起始位置标示，不填表示从头开始
+	UserPageSize  *int64  `query:"user_page_size" json:"-"`  // 本次拉取用户列表最大个数(最大值 1000 ，0 自动最大个数 )
 }
 
 type getApplicationAppVisibilityResp struct {
 	Code int64                            `json:"code,omitempty"` // 返回码，非 0 表示失败
 	Msg  string                           `json:"msg,omitempty"`  // 返回码的描述
-	Data *GetApplicationAppVisibilityResp `json:"data,omitempty"` // 返回业务数据
+	Data *GetApplicationAppVisibilityResp `json:"data,omitempty"` // 返回的业务信息
 }
 
 type GetApplicationAppVisibilityResp struct {
-	IsAll          bool     `json:"is_all,omitempty"`          // 是否管理所有部门
-	DepartmentList []string `json:"department_list,omitempty"` // 管理的部门列表，当 is_all 为 true 时，不返回该字段
+	Departments    *GetApplicationAppVisibilityRespDepartments `json:"departments,omitempty"`       // 可用部门列表
+	Users          *GetApplicationAppVisibilityRespUsers       `json:"users,omitempty"`             // 可用用户列表（仅包含单独设置的用户，可用部门、用户组中的用户未展开）
+	IsVisibleToAll int64                                       `json:"is_visible_to_all,omitempty"` // 是否全员可见，1：是，0：否
+	HasMoreUsers   int64                                       `json:"has_more_users,omitempty"`    // 是否还有更多可见用户，1：是，0：否
+	UserPageToken  string                                      `json:"user_page_token,omitempty"`   // 拉取下一页用户列表时使用的 user_page_token
+}
+
+type GetApplicationAppVisibilityRespDepartments struct {
+	ID string `json:"id,omitempty"` // 部门 ID
+}
+
+type GetApplicationAppVisibilityRespUsers struct {
+	UserID string `json:"user_id,omitempty"` // 用户的 user_id，只返回给申请了 user_id 权限的企业自建应用
+	OpenID string `json:"open_id,omitempty"` // 用户的 open_id
 }
