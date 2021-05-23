@@ -8,15 +8,17 @@ import (
 )
 
 type Lark struct {
-	appID             string
-	appSecret         string
-	encryptKey        string
-	verificationToken string
-	helpdeskID        string
-	helpdeskToken     string
-	timeout           time.Duration
-	isISV             bool
-	tenantKey         string
+	appID               string
+	appSecret           string
+	encryptKey          string
+	verificationToken   string
+	helpdeskID          string
+	helpdeskToken       string
+	timeout             time.Duration
+	isISV               bool
+	tenantKey           string
+	customBotWebHookURL string
+	customBotSecret     string
 
 	httpClient   *http.Client
 	logger       Logger

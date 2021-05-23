@@ -2,6 +2,7 @@ package lark
 
 import (
 	"context"
+	"encoding/json"
 	"fmt"
 )
 
@@ -57,15 +58,41 @@ func (r *MessageSendAPI) SendImage(ctx context.Context, imageKey string) (*SendR
 	return r.send(ctx, MsgTypeImage, `{"image_key":%q}`, imageKey)
 }
 
-func (r *MessageSendAPI) SendPost(ctx context.Context, card string) (*SendRawMessageResp, *Response, error) {
-	return r.send(ctx, MsgTypePost, card)
+func (r *MessageSendAPI) SendPost(ctx context.Context, post string) (*SendRawMessageResp, *Response, error) {
+	if r.cli.customBotWebHookURL != "" {
+		vv := map[string]interface{}{}
+		if err := json.Unmarshal([]byte(post), &vv); err != nil {
+			return nil, nil, err
+		}
+		bs, err := json.Marshal(map[string]interface{}{
+			"post": vv,
+		})
+		if err != nil {
+			return nil, nil, err
+		}
+		return r.send(ctx, MsgTypePost, string(bs))
+	}
+	return r.send(ctx, MsgTypePost, post)
 }
 
 func (r *MessageSendAPI) SendCard(ctx context.Context, card string) (*SendRawMessageResp, *Response, error) {
+	if r.cli.customBotWebHookURL != "" {
+		vv := map[string]interface{}{}
+		if err := json.Unmarshal([]byte(card), &vv); err != nil {
+			return nil, nil, err
+		}
+		return r.msgAPI.sendCustomBotMessage(ctx, &sendCustomBotMessageReq{
+			MsgType: MsgTypeInteractive,
+			Card:    vv,
+		})
+	}
 	return r.send(ctx, MsgTypeInteractive, card)
 }
 
 func (r *MessageSendAPI) SendShareChat(ctx context.Context, chatID string) (*SendRawMessageResp, *Response, error) {
+	if r.cli.customBotWebHookURL != "" {
+		return r.send(ctx, MsgTypeShareChat, `{"share_chat_id":%q}`, chatID)
+	}
 	return r.send(ctx, MsgTypeShareChat, `{"chat_id":%q}`, chatID)
 }
 
@@ -90,6 +117,12 @@ func (r *MessageSendAPI) SendSticker(ctx context.Context, fileKey string) (*Send
 }
 
 func (r *MessageSendAPI) send(ctx context.Context, msgType MsgType, format string, args ...interface{}) (*SendRawMessageResp, *Response, error) {
+	if r.cli.customBotWebHookURL != "" {
+		return r.msgAPI.sendCustomBotMessage(ctx, &sendCustomBotMessageReq{
+			MsgType: msgType,
+			Content: fmt.Sprintf(format, args...),
+		})
+	}
 	return r.msgAPI.SendRawMessage(ctx, &SendRawMessageReq{
 		ReceiveIDType: &r.receiveIDType,
 		ReceiveID:     &r.receiveID,

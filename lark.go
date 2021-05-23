@@ -14,6 +14,13 @@ func WithAppCredential(appID, appSecret string) ClientOptionFunc {
 	}
 }
 
+func WithCustomBot(customBotWebHookURL, customBotSecret string) ClientOptionFunc {
+	return func(r *Lark) {
+		r.customBotWebHookURL = customBotWebHookURL
+		r.customBotSecret = customBotSecret
+	}
+}
+
 func WithEventCallbackVerify(encryptKey, verificationToken string) ClientOptionFunc {
 	return func(r *Lark) {
 		r.encryptKey = encryptKey

@@ -11,13 +11,23 @@ import (
 )
 
 type App struct {
-	AppID     string
-	AppSecret string
+	AppID        string
+	AppSecret    string
+	CustomURL    string
+	CustomSecret string
 }
 
 func (r *App) Ins() *lark.Lark {
 	return lark.New(
 		lark.WithAppCredential(r.AppID, r.AppSecret),
+		lark.WithTimeout(time.Second*20),
+		// lark.WithLogger(lark.NewLoggerStdout(), lark.LogLevelDebug),
+	)
+}
+
+func (r *App) CustomBot() *lark.Lark {
+	return lark.New(
+		lark.WithCustomBot(r.CustomURL, r.CustomSecret),
 		lark.WithTimeout(time.Second*20),
 		// lark.WithLogger(lark.NewLoggerStdout(), lark.LogLevelDebug),
 	)
@@ -73,6 +83,19 @@ var AppNoPermission = App{
 var AppALLPermission = App{
 	AppID:     os.Getenv("LARK_APP_ALL_PERMISSION_APP_ID"),
 	AppSecret: os.Getenv("LARK_APP_ALL_PERMISSION_APP_SECRET"),
+}
+
+var AppCustomBotNoValid = App{
+	CustomURL: os.Getenv("LARK_APP_CUSTOM_BOT_NO_VALID_WEBHOOK_URL"),
+}
+
+var AppCustomBotCheckCanSendWord = App{
+	CustomURL: os.Getenv("LARK_APP_CUSTOM_BOT_CHECK_CAN_SEND_WEBHOOK_URL"),
+}
+
+var AppCustomBotCheckSign = App{
+	CustomURL:    os.Getenv("LARK_APP_CUSTOM_BOT_CHECK_SIGN_WEBHOOK_URL"),
+	CustomSecret: os.Getenv("LARK_APP_CUSTOM_BOT_CHECK_SIGN_SIGN"),
 }
 
 var UserAdmin = User{

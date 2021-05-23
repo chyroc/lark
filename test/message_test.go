@@ -216,3 +216,254 @@ func Test_GetMessage(t *testing.T) {
 		as.True(len(resp.Items) > 0)
 	})
 }
+
+func Test_SendCustomBotMessage(t *testing.T) {
+	as := assert.New(t)
+
+	t.Run("AppCustomBotNoValid", func(t *testing.T) {
+		cli := AppCustomBotNoValid.CustomBot().Message.Send()
+		t.Run("text", func(t *testing.T) {
+			_, _, err := cli.SendText(ctx, "hi")
+			as.Nil(err)
+		})
+
+		t.Run("post", func(t *testing.T) {
+			post := lark.MessageContentPostALL{
+				ZhCn: &lark.MessageContentPost{
+					Title: "title",
+					Content: [][]lark.MessageContentPostItem{
+						{
+							lark.MessageContentPostText{
+								Text:     "text",
+								UnEscape: false,
+							},
+						},
+					},
+				},
+			}
+			_, _, err := cli.SendPost(ctx, post.String())
+			as.Nil(err)
+		})
+
+		t.Run("chat", func(t *testing.T) {
+			_, _, err := cli.SendShareChat(ctx, ChatForSendMessage.ChatID)
+			as.Nil(err)
+		})
+
+		t.Run("image", func(t *testing.T) {
+			imageKey := "img_v2_094a8a5c-ae93-4602-9416-4d875cc9a96g"
+			_, _, err := cli.SendImage(ctx, imageKey)
+			as.Nil(err)
+		})
+
+		t.Run("card", func(t *testing.T) {
+			card := lark.MessageContentCard{
+				Header: &lark.MessageContentCardHeader{
+					Template: "",
+					Title: &lark.MessageContentCardObjectText{
+						Tag:     "plain_text",
+						Content: "1",
+					},
+				},
+				Config: &lark.MessageContentCardConfig{
+					EnableForward: true,
+				},
+				Modules: []lark.MessageContentCardModule{
+					lark.MessageContentCardModuleDIV{
+						Text: &lark.MessageContentCardObjectText{
+							Tag:     "plain_text",
+							Content: "1",
+						},
+						Fields: nil,
+						Extra:  nil,
+					},
+				},
+			}
+			_, _, err := cli.SendCard(ctx, card.String())
+			as.Nil(err)
+		})
+	})
+
+	t.Run("AppCustomBotCheckCanSendWord", func(t *testing.T) {
+		cli := AppCustomBotCheckCanSendWord.CustomBot().Message.Send()
+		t.Run("text", func(t *testing.T) {
+			_, _, err := cli.SendText(ctx, "hi")
+			as.NotNil(err)
+			as.Contains(err.Error(), "Key Words Not Found")
+		})
+
+		t.Run("text", func(t *testing.T) {
+			_, _, err := cli.SendText(ctx, "hi, can-send")
+			as.Nil(err)
+		})
+
+		t.Run("post", func(t *testing.T) {
+			post := lark.MessageContentPostALL{
+				ZhCn: &lark.MessageContentPost{
+					Title: "title",
+					Content: [][]lark.MessageContentPostItem{
+						{
+							lark.MessageContentPostText{
+								Text:     "title",
+								UnEscape: false,
+							},
+						},
+					},
+				},
+			}
+			_, _, err := cli.SendPost(ctx, post.String())
+			as.NotNil(err)
+			as.Contains(err.Error(), "Key Words Not Found")
+		})
+
+		t.Run("post", func(t *testing.T) {
+			post := lark.MessageContentPostALL{
+				ZhCn: &lark.MessageContentPost{
+					Title: "title",
+					Content: [][]lark.MessageContentPostItem{
+						{
+							lark.MessageContentPostText{
+								Text:     "can-send",
+								UnEscape: false,
+							},
+						},
+					},
+				},
+			}
+			_, _, err := cli.SendPost(ctx, post.String())
+			as.Nil(err)
+		})
+
+		t.Run("chat", func(t *testing.T) {
+			_, _, err := cli.SendShareChat(ctx, ChatForSendMessage.ChatID)
+			as.NotNil(err)
+			as.Contains(err.Error(), "Key Words Not Found")
+		})
+
+		t.Run("image", func(t *testing.T) {
+			imageKey := "img_v2_094a8a5c-ae93-4602-9416-4d875cc9a96g"
+			_, _, err := cli.SendImage(ctx, imageKey)
+			as.NotNil(err)
+			as.Contains(err.Error(), "Key Words Not Found")
+		})
+
+		t.Run("card", func(t *testing.T) {
+			card := lark.MessageContentCard{
+				Header: &lark.MessageContentCardHeader{
+					Template: "",
+					Title: &lark.MessageContentCardObjectText{
+						Tag:     "plain_text",
+						Content: "1",
+					},
+				},
+				Config: &lark.MessageContentCardConfig{
+					EnableForward: true,
+				},
+				Modules: []lark.MessageContentCardModule{
+					lark.MessageContentCardModuleDIV{
+						Text: &lark.MessageContentCardObjectText{
+							Tag:     "plain_text",
+							Content: "1",
+						},
+						Fields: nil,
+						Extra:  nil,
+					},
+				},
+			}
+			_, _, err := cli.SendCard(ctx, card.String())
+			as.NotNil(err)
+			as.Contains(err.Error(), "Key Words Not Found")
+		})
+
+		t.Run("card", func(t *testing.T) {
+			card := lark.MessageContentCard{
+				Header: &lark.MessageContentCardHeader{
+					Template: "",
+					Title: &lark.MessageContentCardObjectText{
+						Tag:     "plain_text",
+						Content: "1",
+					},
+				},
+				Config: &lark.MessageContentCardConfig{
+					EnableForward: true,
+				},
+				Modules: []lark.MessageContentCardModule{
+					lark.MessageContentCardModuleDIV{
+						Text: &lark.MessageContentCardObjectText{
+							Tag:     "plain_text",
+							Content: "1, can-send",
+						},
+						Fields: nil,
+						Extra:  nil,
+					},
+				},
+			}
+			_, _, err := cli.SendCard(ctx, card.String())
+			as.Nil(err)
+		})
+	})
+
+	t.Run("AppCustomBotCheckSign", func(t *testing.T) {
+		cli := AppCustomBotCheckSign.CustomBot().Message.Send()
+		t.Run("text", func(t *testing.T) {
+			_, _, err := cli.SendText(ctx, "hi")
+			as.Nil(err)
+		})
+
+		t.Run("post", func(t *testing.T) {
+			post := lark.MessageContentPostALL{
+				ZhCn: &lark.MessageContentPost{
+					Title: "title",
+					Content: [][]lark.MessageContentPostItem{
+						{
+							lark.MessageContentPostText{
+								Text:     "text",
+								UnEscape: false,
+							},
+						},
+					},
+				},
+			}
+			_, _, err := cli.SendPost(ctx, post.String())
+			as.Nil(err)
+		})
+
+		t.Run("chat", func(t *testing.T) {
+			_, _, err := cli.SendShareChat(ctx, ChatForSendMessage.ChatID)
+			as.Nil(err)
+		})
+
+		t.Run("image", func(t *testing.T) {
+			imageKey := "img_v2_094a8a5c-ae93-4602-9416-4d875cc9a96g"
+			_, _, err := cli.SendImage(ctx, imageKey)
+			as.Nil(err)
+		})
+
+		t.Run("card", func(t *testing.T) {
+			card := lark.MessageContentCard{
+				Header: &lark.MessageContentCardHeader{
+					Template: "",
+					Title: &lark.MessageContentCardObjectText{
+						Tag:     "plain_text",
+						Content: "1",
+					},
+				},
+				Config: &lark.MessageContentCardConfig{
+					EnableForward: true,
+				},
+				Modules: []lark.MessageContentCardModule{
+					lark.MessageContentCardModuleDIV{
+						Text: &lark.MessageContentCardObjectText{
+							Tag:     "plain_text",
+							Content: "1",
+						},
+						Fields: nil,
+						Extra:  nil,
+					},
+				},
+			}
+			_, _, err := cli.SendCard(ctx, card.String())
+			as.Nil(err)
+		})
+	})
+}
