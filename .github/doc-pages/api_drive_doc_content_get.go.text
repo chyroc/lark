@@ -1,0 +1,108 @@
+# 获取文档富文本内容
+:::note 
+在使用此接口前，请仔细阅读[概述](/ssl:ttdoc/ukTMukTMukTM/ukjM5YjL5ITO24SOykjN)和[准备接入文档 API](//ssl:ttdoc/ukTMukTMukTM/ugzNzUjL4czM14CO3MTN/guide/getting-start)了解文档调用的规则和约束，确保你的文档数据不会丢失或出错。  
+文档数据结构定义可参考：[文档数据结构概述](/ssl:ttdoc/ukTMukTMukTM/uAzM5YjLwMTO24CMzkjN) 
+:::
+该接口用于获取结构化的文档内容。{尝试一下}(url=/api/tools/api_explore/api_explore_config?project=doc&version=v2&resource=doc&method=content)
+
+## 请求
+:::html
+<md-table>
+  <md-thead>
+  <tr>
+      <md-th>基本</md-th>
+      <md-th></md-th>
+  </tr>
+  </md-thead>
+  <md-tbody>
+    <md-tr>
+      <md-th>HTTP URL</md-th>
+      <md-td>https://open.feishu.cn/open-apis/doc/v2/:docToken/content</md-td>
+    </md-tr>
+    <md-tr>
+      <md-th>HTTP Method</md-th>
+      <md-td>GET</md-td>
+    </md-tr>
+    
+ <md-tr>
+	<md-th>权限要求</md-th>
+   <md-td>
+	<md-perm href="/ssl:ttdoc/ukTMukTMukTM/uQjN3QjL0YzN04CN2cDN">查看、评论、编辑和管理云文档所有文件</md-perm>
+ 	<md-perm href="/ssl:ttdoc/ukTMukTMukTM/uQjN3QjL0YzN04CN2cDN">查看、评论和下载云文档所有文件</md-perm>
+	<md-perm href="/ssl:ttdoc/ukTMukTMukTM/uQjN3QjL0YzN04CN2cDN">查看、评论、编辑和管理文档</md-perm>
+	<md-perm href="/ssl:ttdoc/ukTMukTMukTM/uQjN3QjL0YzN04CN2cDN">查看、评论和导出文档</md-perm>
+  </md-td>
+ </md-tr>
+  </md-tbody>
+</md-table>
+:::
+### 请求头
+:::html
+<md-table> 
+  <md-thead> 
+    <md-tr> 
+      <md-th style="width: 18%;">名称</md-th>  
+      <md-th style="width: 15%;">类型</md-th>  
+       <md-th style="width: 15%;">必填</md-th>  
+      <md-th>描述</md-th> 
+    </md-tr> 
+  </md-thead>  
+  <md-tbody> 
+    <md-tr> 
+      <md-td>Authorization</md-td>  
+      <md-td>string</md-td>  
+      <md-td> 是 </md-td> 
+      	<md-td>
+<md-tag mode="inline" type="token-user">user_access_token</md-tag> 或 <md-tag mode="inline" type="token-tenant">tenant_access_token</md-tag>
+ 
+**值格式**："Bearer `access_token`"
+
+**示例值**："Bearer u-7f1bcd13fc57d46bac21793a18e560"
+          
+ [了解更多：获取与使用access_token](/ssl:ttdoc/ukTMukTMukTM/uMTNz4yM1MjLzUzM)
+	</md-td>
+</md-tr>
+     <md-tr> 
+      <md-td>Content-Type</md-td>  
+      <md-td>string</md-td>  
+      <md-td> 是 </md-td> 
+     <md-td>**固定值**："application/json; charset=utf-8"</md-td>
+</md-tr>
+   
+  </md-tbody> 
+</md-table>
+:::
+
+### 路径参数
+
+| 参数          | 类型   | 必须 | 说明 | 
+| ------------- | ------ | ---- | --------- | 
+| docToken      | string | 是   | doc 的 token | 
+
+### Curl 请求 Demo<br>
+```
+curl -H 'Authorization: Bearer u-CMtIuEpUAu7NdYOI4fLNjg' 'https://open.feishu.cn/open-apis/doc/v2/doccng20xjcYZ2C4FNEoHFGQZng/content'
+```
+
+## 响应
+### 响应体
+| 参数     | 说明                              |
+| -------- | --------------------------------- |
+| content  | 详情参考[文档数据结构](/ssl:ttdoc/ukTMukTMukTM/ukDM2YjL5AjN24SOwYjN) |
+| revision | 文档当前版本号                    |
+### 响应体示例
+
+```json
+{
+    "code": 0,
+    "msg": "Success",
+    "data": {
+        "content": "{}",
+        "revision": 1000  
+    }
+}
+```
+
+### 错误码
+
+具体可参考：[云文档请求错误码列表](/ssl:ttdoc/ukTMukTMukTM/uIzM0UjLyMDN14iMzQTN)

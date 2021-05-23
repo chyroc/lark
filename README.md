@@ -35,7 +35,7 @@ https://godoc.org/github.com/chyroc/lark
 
 ## Support APIs
 
-API Count: 299, Event Count: 28
+API Count: 305, Event Count: 28
 
 <details>
   <summary>
@@ -116,8 +116,11 @@ API Count: 299, Event Count: 28
   - DeleteCalendarTimeoffEvent
   - GenerateCaldavConf
 - Drive
+  - SearchDriveFile
   - GetDriveFileMeta
   - CreateDriveFile
+  - CopyDriveFile
+  - DeleteDriveFile
   - CreateDriveFolder
   - GetDriveFolderChildren
   - CreateDriveMemberPermission
@@ -135,7 +138,10 @@ API Count: 299, Event Count: 28
   - UpdateDriveComment
   - DeleteDriveComment
   - UpdateDriveCommentPatch
-  - GetDocRawContent
+  - CreateDriveDoc
+  - GetDriveDocContent
+  - GetDriveDocRawContent
+  - GetDriveDocMeta
   - GetSheetMeta
   - UpdateSheetProperty
   - BatchUpdateSheet

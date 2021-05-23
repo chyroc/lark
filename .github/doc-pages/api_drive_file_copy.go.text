@@ -1,0 +1,57 @@
+# 复制文档
+
+该接口用于根据文件 token 复制 Doc 或 Sheet  到目标文件夹中。{尝试一下}(url=/api/tools/api_explore/api_explore_config?project=drive_explorer&version=v2&resource=file&method=copy)
+
+若没有特定的文件夹用于承载创建的文档，可以先调用「获取文件夹元信息」文档中的「获取 root folder (我的空间) meta」接口，获得我的空间的 token，然后再使用此接口。复制的文档将会在「我的空间」的「归我所有」列表里。
+
+**注意**：该接口不支持并发调用，且调用频率上限为 5QPS 且 10000 次每天
+
+**请求方式** ：POST <br> 
+**请求地址** ：https://open.feishu.cn/open-apis/drive/explorer/v2/file/copy/files/{fileToken}
+
+**请求Header**:<br>
+key|value
+--|--
+Authorization|Bearer user_access_token
+Content-Type|application/json
+**请求Body** ：
+```json
+{
+  "type":"objType",
+  "dstFolderToken":"string",
+  "dstName":"string",
+  "commentNeeded":true
+}
+```
+**请求参数说明** :  <br>
+|参数|类型|必须|说明|来源|
+|--|-----|--|----|----|
+|Authorization|string|是|user_access_token 通过接口 [获取登录用户身份](/ssl:ttdoc/ukTMukTMukTM/uEDO4UjLxgDO14SM4gTN) 或者 [code2session](/ssl:ttdoc/uYjL24iN/ukjM04SOyQjL5IDN) 获得；注意内容不要漏了 "Bearer "|请求 Header|
+|fileToken|string|是|需要复制的源文件的 token, 获取方式见 [对接前说明](/ssl:ttdoc/ukTMukTMukTM/uczNzUjL3czM14yN3MTN) 的第 4 项| URL PATH|
+|type|string|是|需要复制的文档类型，"doc" or "sheet"| 请求 body|
+|dstFolderToken|string|是|目标文件夹的 token, 获取方式见 [对接前说明](/ssl:ttdoc/ukTMukTMukTM/uczNzUjL3czM14yN3MTN) 的第 3 项| 请求 body|
+|dstName|string|是|复制的副本文件的新名称| 请求 body|
+|commentNeeded|bool|否|是否复制评论| 请求 body|
+
+**返回 Body** ：  
+```json
+{
+    "code":0,
+    "msg":"Success",
+    "data":{
+        "folderToken":"fldcne0HujIvzDmRF4Pbg0xxxxx",
+        "revision":0,
+        "token":"shtcnvJ358XqcZq87CCZHdxxxxx",
+        "type":"sheet",
+        "url":"https://bytedance.feishu.cn/space/sheet/shtcnvJ358XqcZq87CCZHdxxxxx"
+    }
+}
+```
+**返回参数说明**:
+|参数|说明|
+|--|--|
+|folderToken|目标文件夹的 token |
+|revision|新创建文档的版本号|
+|token|新创建文档的 token|
+|type|新建文档的类型，"doc" or "sheet" |
+|url|新创建文档的 url|

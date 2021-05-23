@@ -112,7 +112,25 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-			_, _, err := moduleCli.GetDocRawContent(ctx, &lark.GetDocRawContentReq{})
+			_, _, err := moduleCli.CreateDriveDoc(ctx, &lark.CreateDriveDocReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.GetDriveDocContent(ctx, &lark.GetDriveDocContentReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.GetDriveDocRawContent(ctx, &lark.GetDriveDocRawContentReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.GetDriveDocMeta(ctx, &lark.GetDriveDocMetaReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "failed")
 		})
@@ -474,12 +492,45 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-			cli.Mock().MockDriveGetDocRawContent(func(ctx context.Context, request *lark.GetDocRawContentReq, options ...lark.MethodOptionFunc) (*lark.GetDocRawContentResp, *lark.Response, error) {
+			cli.Mock().MockDriveCreateDriveDoc(func(ctx context.Context, request *lark.CreateDriveDocReq, options ...lark.MethodOptionFunc) (*lark.CreateDriveDocResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
-			defer cli.Mock().UnMockDriveGetDocRawContent()
+			defer cli.Mock().UnMockDriveCreateDriveDoc()
 
-			_, _, err := moduleCli.GetDocRawContent(ctx, &lark.GetDocRawContentReq{})
+			_, _, err := moduleCli.CreateDriveDoc(ctx, &lark.CreateDriveDocReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+			cli.Mock().MockDriveGetDriveDocContent(func(ctx context.Context, request *lark.GetDriveDocContentReq, options ...lark.MethodOptionFunc) (*lark.GetDriveDocContentResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockDriveGetDriveDocContent()
+
+			_, _, err := moduleCli.GetDriveDocContent(ctx, &lark.GetDriveDocContentReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+			cli.Mock().MockDriveGetDriveDocRawContent(func(ctx context.Context, request *lark.GetDriveDocRawContentReq, options ...lark.MethodOptionFunc) (*lark.GetDriveDocRawContentResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockDriveGetDriveDocRawContent()
+
+			_, _, err := moduleCli.GetDriveDocRawContent(ctx, &lark.GetDriveDocRawContentReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+			cli.Mock().MockDriveGetDriveDocMeta(func(ctx context.Context, request *lark.GetDriveDocMetaReq, options ...lark.MethodOptionFunc) (*lark.GetDriveDocMetaResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockDriveGetDriveDocMeta()
+
+			_, _, err := moduleCli.GetDriveDocMeta(ctx, &lark.GetDriveDocMetaReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "mock-failed")
 		})
@@ -939,7 +990,29 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-			_, _, err := moduleCli.GetDocRawContent(ctx, &lark.GetDocRawContentReq{
+			_, _, err := moduleCli.CreateDriveDoc(ctx, &lark.CreateDriveDocReq{})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.GetDriveDocContent(ctx, &lark.GetDriveDocContentReq{
+				DocToken: "x",
+			})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.GetDriveDocRawContent(ctx, &lark.GetDriveDocRawContentReq{
+				DocToken: "x",
+			})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.GetDriveDocMeta(ctx, &lark.GetDriveDocMetaReq{
 				DocToken: "x",
 			})
 			as.NotNil(err)

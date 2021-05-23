@@ -6,18 +6,18 @@ import (
 	"context"
 )
 
-// GetDocRawContent 该接口用于获取文档的纯文本内容，不包含富文本格式信息，主要用于搜索，如导入 es 等。
+// GetDriveDocRawContent 该接口用于获取文档的纯文本内容，不包含富文本格式信息，主要用于搜索，如导入 es 等。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/ukzNzUjL5czM14SO3MTN
-func (r *DriveService) GetDocRawContent(ctx context.Context, request *GetDocRawContentReq, options ...MethodOptionFunc) (*GetDocRawContentResp, *Response, error) {
-	if r.cli.mock.mockDriveGetDocRawContent != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Drive#GetDocRawContent mock enable")
-		return r.cli.mock.mockDriveGetDocRawContent(ctx, request, options...)
+func (r *DriveService) GetDriveDocRawContent(ctx context.Context, request *GetDriveDocRawContentReq, options ...MethodOptionFunc) (*GetDriveDocRawContentResp, *Response, error) {
+	if r.cli.mock.mockDriveGetDriveDocRawContent != nil {
+		r.cli.log(ctx, LogLevelDebug, "[lark] Drive#GetDriveDocRawContent mock enable")
+		return r.cli.mock.mockDriveGetDriveDocRawContent(ctx, request, options...)
 	}
 
 	req := &RawRequestReq{
 		Scope:                 "Drive",
-		API:                   "GetDocRawContent",
+		API:                   "GetDriveDocRawContent",
 		Method:                "GET",
 		URL:                   "https://open.feishu.cn/open-apis/doc/v2/:docToken/raw_content",
 		Body:                  request,
@@ -25,30 +25,30 @@ func (r *DriveService) GetDocRawContent(ctx context.Context, request *GetDocRawC
 		NeedTenantAccessToken: true,
 		NeedUserAccessToken:   true,
 	}
-	resp := new(getDocRawContentResp)
+	resp := new(getDriveDocRawContentResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
 	return resp.Data, response, err
 }
 
-func (r *Mock) MockDriveGetDocRawContent(f func(ctx context.Context, request *GetDocRawContentReq, options ...MethodOptionFunc) (*GetDocRawContentResp, *Response, error)) {
-	r.mockDriveGetDocRawContent = f
+func (r *Mock) MockDriveGetDriveDocRawContent(f func(ctx context.Context, request *GetDriveDocRawContentReq, options ...MethodOptionFunc) (*GetDriveDocRawContentResp, *Response, error)) {
+	r.mockDriveGetDriveDocRawContent = f
 }
 
-func (r *Mock) UnMockDriveGetDocRawContent() {
-	r.mockDriveGetDocRawContent = nil
+func (r *Mock) UnMockDriveGetDriveDocRawContent() {
+	r.mockDriveGetDriveDocRawContent = nil
 }
 
-type GetDocRawContentReq struct {
+type GetDriveDocRawContentReq struct {
 	DocToken string `path:"docToken" json:"-"` // doc 的 token
 }
 
-type getDocRawContentResp struct {
-	Code int64                 `json:"code,omitempty"` // 如: 0
-	Msg  string                `json:"msg,omitempty"`  // 如: Success
-	Data *GetDocRawContentResp `json:"data,omitempty"`
+type getDriveDocRawContentResp struct {
+	Code int64                      `json:"code,omitempty"` // 如: 0
+	Msg  string                     `json:"msg,omitempty"`  // 如: Success
+	Data *GetDriveDocRawContentResp `json:"data,omitempty"`
 }
 
-type GetDocRawContentResp struct {
+type GetDriveDocRawContentResp struct {
 	Content string `json:"content,omitempty"` // 如: string
 }

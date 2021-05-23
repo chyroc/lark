@@ -35,7 +35,7 @@ https://godoc.org/github.com/chyroc/lark
 
 ## 支持的接口
 
-API 总数: 299, 事件总数: 28
+API 总数: 305, 事件总数: 28
 
 <details>
   <summary>
@@ -116,8 +116,11 @@ API 总数: 299, 事件总数: 28
   - DeleteCalendarTimeoffEvent
   - GenerateCaldavConf
 - Drive
+  - SearchDriveFile
   - GetDriveFileMeta
   - CreateDriveFile
+  - CopyDriveFile
+  - DeleteDriveFile
   - CreateDriveFolder
   - GetDriveFolderChildren
   - CreateDriveMemberPermission
@@ -135,7 +138,10 @@ API 总数: 299, 事件总数: 28
   - UpdateDriveComment
   - DeleteDriveComment
   - UpdateDriveCommentPatch
-  - GetDocRawContent
+  - CreateDriveDoc
+  - GetDriveDocContent
+  - GetDriveDocRawContent
+  - GetDriveDocMeta
   - GetSheetMeta
   - UpdateSheetProperty
   - BatchUpdateSheet

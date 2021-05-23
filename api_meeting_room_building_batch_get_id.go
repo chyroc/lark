@@ -6,9 +6,9 @@ import (
 	"context"
 )
 
-// BatchGetMeetingRoomBuildingID 该接口用于删除建筑物（办公大楼）。
+// BatchGetMeetingRoomBuildingID 该接口用于根据租户自定义建筑 ID 查询建筑 ID。
 //
-// doc: https://open.feishu.cn/document/ukTMukTMukTM/uMzMxYjLzMTM24yMzEjN
+// doc: https://open.feishu.cn/document/ukTMukTMukTM/uQzMxYjL0MTM24CNzEjN
 func (r *MeetingRoomService) BatchGetMeetingRoomBuildingID(ctx context.Context, request *BatchGetMeetingRoomBuildingIDReq, options ...MethodOptionFunc) (*BatchGetMeetingRoomBuildingIDResp, *Response, error) {
 	if r.cli.mock.mockMeetingRoomBatchGetMeetingRoomBuildingID != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] MeetingRoom#BatchGetMeetingRoomBuildingID mock enable")
@@ -18,8 +18,8 @@ func (r *MeetingRoomService) BatchGetMeetingRoomBuildingID(ctx context.Context, 
 	req := &RawRequestReq{
 		Scope:                 "MeetingRoom",
 		API:                   "BatchGetMeetingRoomBuildingID",
-		Method:                "POST",
-		URL:                   "https://open.feishu.cn/open-apis/meeting_room/building/delete",
+		Method:                "GET",
+		URL:                   "https://open.feishu.cn/open-apis/meeting_room/building/batch_get_id?custom_building_ids=test01&custom_building_ids=test02",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
@@ -39,13 +39,20 @@ func (r *Mock) UnMockMeetingRoomBatchGetMeetingRoomBuildingID() {
 }
 
 type BatchGetMeetingRoomBuildingIDReq struct {
-	BuildingID string `json:"building_id,omitempty"` // 要删除的建筑ID
+	CustomBuildingIDs string `query:"custom_building_ids" json:"-"` // 用于查询指定建筑物的租户自定义建筑ID
 }
 
 type batchGetMeetingRoomBuildingIDResp struct {
 	Code int64                              `json:"code,omitempty"` // 返回码，非 0 表示失败
 	Msg  string                             `json:"msg,omitempty"`  // 返回码的描述，"success" 表示成功，其他为错误提示信息
-	Data *BatchGetMeetingRoomBuildingIDResp `json:"data,omitempty"`
+	Data *BatchGetMeetingRoomBuildingIDResp `json:"data,omitempty"` // 返回业务信息
 }
 
-type BatchGetMeetingRoomBuildingIDResp struct{}
+type BatchGetMeetingRoomBuildingIDResp struct {
+	Buildings *BatchGetMeetingRoomBuildingIDRespBuildings `json:"buildings,omitempty"` // 建筑列表
+}
+
+type BatchGetMeetingRoomBuildingIDRespBuildings struct {
+	BuildingID       string `json:"building_id,omitempty"`        // 建筑物ID
+	CustomBuildingID string `json:"custom_building_id,omitempty"` // 租户自定义建筑物ID
+}
