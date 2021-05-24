@@ -41,8 +41,9 @@ Content-Type|application/json
 |&emsp;∟bssid|string|打卡 Wi-Fi 的 MAC 地址|
 |&emsp;∟is_field|boolean|是否为外勤打卡|
 |&emsp;∟is_wifi|boolean|是否为 Wi-Fi 打卡|
-|&emsp;∟type|int|记录生成方式，可用值：【0（用户自己打卡），1（管理员修改），2（用户补卡），3（系统自动生成），4（下班免打卡），5（考勤机打卡），6（极速打卡），7（考勤开放平台导入）】|
+|&emsp;∟type|int|记录生成方式，可用值：【0（用户自己打卡），1（管理员修改），2（用户补卡），3（系统自动生成），4（下班免打卡），5（考勤机打卡），6（极速打卡），7（考勤开放平台导入），8（飞书自研考勤机）】|
 |&emsp;∟photo_urls|string\[\]|打卡照片列表|
+|&emsp;∟device_id|string|手机打卡设备ID|
 ### 响应体示例
 ```json
 {
@@ -64,7 +65,8 @@ Content-Type|application/json
         "type": 0,
         "photo_urls": [
             "https://time.clockin.biz/manage/download/6840389754748502021"
-        ]
+        ],
+        "device_id": "99e0609ee053448596502691a81428654d7ded64c7bd85acd982d26b3636c37d"
     }
 }
 ```
