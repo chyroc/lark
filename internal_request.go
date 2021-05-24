@@ -133,7 +133,9 @@ func parseRequestParam(req *RawRequestReq) (*realRequestParam, error) {
 			continue
 		} else if query := fieldVT.Tag.Get("query"); query != "" {
 			isNeedQuery = true
-			q.Set(query, internal.ReflectToString(fieldVV))
+			for _, v := range internal.ReflectToQueryString(fieldVV) {
+				q.Add(query, v)
+			}
 			continue
 		} else if j := fieldVT.Tag.Get("json"); j != "" {
 			if strings.HasSuffix(j, ",omitempty") {

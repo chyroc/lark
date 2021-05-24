@@ -136,4 +136,21 @@ func TestName(t *testing.T) {
 		// as.Nil(err)
 		// as.Equal(`{"name":"lark"}`, string(bs))
 	})
+
+	t.Run("", func(t *testing.T) {
+		type req struct {
+			Types []string `query:"types"`
+		}
+		resp, err := parseRequestParam(&RawRequestReq{
+			Method: "get",
+			URL:    "http://x.com",
+			IsFile: true,
+			Body: req{
+				Types: []string{"a", "b"},
+			},
+		})
+		as.Nil(err)
+		as.NotNil(resp)
+		as.Equal("http://x.com?types=a&types=b", resp.URL)
+	})
 }
