@@ -41,7 +41,9 @@ func (r *Mock) UnMockBotAddBotToChat() {
 	r.mockBotAddBotToChat = nil
 }
 
-type AddBotToChatReq struct{}
+type AddBotToChatReq struct {
+	ChatID string `json:"chat_id,omitempty"` // 群的id
+}
 
 type addBotToChatResp struct {
 	Code int64             `json:"code,omitempty"` // 返回码，非 0 表示失败
