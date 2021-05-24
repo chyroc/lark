@@ -7,7 +7,7 @@
 **注意**：该接口不支持并发创建，且调用频率上限为 5QPS 且 10000次每天
 
 **请求方式** ：POST <br> 
-**请求地址** ：https://open.feishu.cn/open-apis/drive/explorer/v2/file/{folderToken}
+**请求地址** ：https://open.feishu.cn/open-apis/drive/explorer/v2/file/:folderToken
 
 **请求Header**:<br>
 key|value

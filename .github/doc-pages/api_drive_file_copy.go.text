@@ -7,7 +7,7 @@
 **注意**：该接口不支持并发调用，且调用频率上限为 5QPS 且 10000 次每天
 
 **请求方式** ：POST <br> 
-**请求地址** ：https://open.feishu.cn/open-apis/drive/explorer/v2/file/copy/files/{fileToken}
+**请求地址** ：https://open.feishu.cn/open-apis/drive/explorer/v2/file/copy/files/:fileToken
 
 **请求Header**:<br>
 key|value

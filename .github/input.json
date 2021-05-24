@@ -222,6 +222,11 @@
         "func_name": "GetBotInfo",
         "ignore": true,
         "doc_url": "https://open.feishu.cn/document/ukTMukTMukTM/uAjMxEjLwITMx4CMyETM"
+      },
+      {
+        "file_name": "api_bot_add.go",
+        "func_name": "AddBotToChat",
+        "doc_url": "https://open.feishu.cn/document/ukTMukTMukTM/uYDO04iN4QjL2gDN"
       }
     ]
   },

@@ -1,0 +1,45 @@
+ # 机器人进群
+拉机器人进群<br>
+
+**权限说明** ：需要启用机器人能力；机器人的owner需要已经在群里
+
+**请求方式** ：POST<br>
+**请求地址** ：https://open.feishu.cn/open-apis/bot/v4/add<br>
+
+**请求参数说明**<br>
+**请求 Header** ：<br>
+参数|类型|必填/选填|说明|默认值|实例  
+--|--|--|--|--|--  
+Authorization|string|必填|tenant_access_token 通过接口 [获取 tenant_access_token（应用商店应用）](/ssl:ttdoc/ukTMukTMukTM/uMjNz4yM2MjLzYzM) 或者 [获取 tenant_access_token（企业自建应用）](/ssl:ttdoc/ukTMukTMukTM/uIjNz4iM2MjLyYzM) 获得<br>注意内容不要漏了 "Bearer"||Bearer t-394890fdlkfjdajfljajdkf 
+Content-Type|string|必填|Content-Type||application/json
+**请求参数** ：<br>
+参数|类型|必填/选填|说明|默认值|实例  
+--|--|--|--|--|--  
+|chat_id|string|必填| 群的id||oc_4c24bbde8572c9daedd5e67f6a8ff5e4|
+
+**请求 Body** ：
+```json
+{
+   "chat_id":"oc_4c24bbde8572c9daedd5e67f6a8ff5e4"
+}
+```
+
+**返回参数说明** : 
+|参数|类型|说明|
+|-|-|-|
+|code|int|返回码，非 0 表示失败|
+|msg|string|返回码描述|
+
+**返回 Body** ：  
+```json
+{
+    "code": 0,
+    "msg": "ok"
+}
+```
+
+
+
+
+
+

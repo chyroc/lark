@@ -23,7 +23,7 @@ func (r *DriveService) CreateDriveFile(ctx context.Context, request *CreateDrive
 		Scope:               "Drive",
 		API:                 "CreateDriveFile",
 		Method:              "POST",
-		URL:                 "https://open.feishu.cn/open-apis/drive/explorer/v2/file/{folderToken}",
+		URL:                 "https://open.feishu.cn/open-apis/drive/explorer/v2/file/:folderToken",
 		Body:                request,
 		MethodOption:        newMethodOption(options),
 		NeedUserAccessToken: true,

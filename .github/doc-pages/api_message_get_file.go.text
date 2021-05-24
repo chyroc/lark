@@ -20,6 +20,7 @@
 - 需要开启[机器人能力](https://open.feishu.cn/document/uQjL04CN/uYTMuYTMuYTM)
 - 机器人和消息需要在同一会话中
 - 请求的 file_key 和 message_id 需要匹配
+- 获取群组消息时，应用必须拥有 获取群组中所有的消息 权限
 </md-alert>
 :::
 
@@ -157,7 +158,7 @@
 	是
 	</md-td>
 	<md-td>
-	资源类型，可选"image, file“； image对应消息中的 图片资源。  file对应消息中的 文件、音频、视频、表情包 资源
+	资源类型，可选"image, file“； image对应消息中的 图片资源。  file对应消息中的 文件、音频、视频资源
 
 **示例值**："image
 "

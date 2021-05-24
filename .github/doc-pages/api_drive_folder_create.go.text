@@ -20,7 +20,7 @@
   <md-tbody>
     <md-tr>
       <md-th>HTTP URL</md-th>
-      <md-td>https://open.feishu.cn/open-apis/drive/explorer/v2/folder/{folderToken}</md-td>
+      <md-td>https://open.feishu.cn/open-apis/drive/explorer/v2/folder/:folderToken</md-td>
     </md-tr>
     <md-tr>
       <md-th>HTTP Method</md-th>

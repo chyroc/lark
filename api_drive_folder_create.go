@@ -21,7 +21,7 @@ func (r *DriveService) CreateDriveFolder(ctx context.Context, request *CreateDri
 		Scope:               "Drive",
 		API:                 "CreateDriveFolder",
 		Method:              "POST",
-		URL:                 "https://open.feishu.cn/open-apis/drive/explorer/v2/folder/{folderToken}",
+		URL:                 "https://open.feishu.cn/open-apis/drive/explorer/v2/folder/:folderToken",
 		Body:                request,
 		MethodOption:        newMethodOption(options),
 		NeedUserAccessToken: true,
