@@ -386,6 +386,7 @@
       {
         "file_name": "api_drive_file_create.go",
         "func_name": "CreateDriveFile",
+        "tenant_token": true,
         "doc_url": "https://open.feishu.cn/document/ukTMukTMukTM/uQTNzUjL0UzM14CN1MTN"
       },
       {
