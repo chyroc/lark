@@ -1150,7 +1150,7 @@ sms（短信邀请），email（邮件邀请）
 	<md-text type="field-type" >boolean</md-text>
 	</md-td>
 	<md-td>
-	是否冻结
+	是否暂停
 	</md-td>
 </md-tr>
 

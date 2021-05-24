@@ -82,7 +82,7 @@ type EventV2ContactScopeUpdatedV3AddedUserAvatar struct {
 }
 
 type EventV2ContactScopeUpdatedV3AddedUserStatus struct {
-	IsFrozen    bool `json:"is_frozen,omitempty"`    // 是否冻结
+	IsFrozen    bool `json:"is_frozen,omitempty"`    // 是否暂停
 	IsResigned  bool `json:"is_resigned,omitempty"`  // 是否离职
 	IsActivated bool `json:"is_activated,omitempty"` // 是否激活
 }
@@ -167,7 +167,7 @@ type EventV2ContactScopeUpdatedV3RemovedUserAvatar struct {
 }
 
 type EventV2ContactScopeUpdatedV3RemovedUserStatus struct {
-	IsFrozen    bool `json:"is_frozen,omitempty"`    // 是否冻结
+	IsFrozen    bool `json:"is_frozen,omitempty"`    // 是否暂停
 	IsResigned  bool `json:"is_resigned,omitempty"`  // 是否离职
 	IsActivated bool `json:"is_activated,omitempty"` // 是否激活
 }

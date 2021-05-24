@@ -406,6 +406,7 @@
       {
         "file_name": "api_drive_folder_children_get.go",
         "func_name": "GetDriveFolderChildren",
+        "tenant_token": true,
         "doc_url": "https://open.feishu.cn/document/ukTMukTMukTM/uEjNzUjLxYzM14SM2MTN"
       },
       {

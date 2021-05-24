@@ -721,7 +721,7 @@
 	否
 	</md-td>
 	<md-td>
-	是否冻结用户
+	是否暂停用户
 
 **示例值**：false
 	</md-td>
@@ -1081,7 +1081,7 @@
 	<md-text type="field-type" >boolean</md-text>
 	</md-td>
 	<md-td>
-	是否冻结
+	是否暂停
 	</md-td>
 </md-tr>
 

@@ -37,7 +37,7 @@
     <md-tr>
       <md-th>权限要求</md-th>
       <md-td>
-            <md-perm href="/ssl:ttdoc/ukTMukTMukTM/uQjN3QjL0YzN04CN2cDN">以应用身份访问通讯录</md-perm>
+            <md-perm href="/ssl:ttdoc/ukTMukTMukTM/uQjN3QjL0YzN04CN2cDN">以应用身份访问通讯录(历史版本)</md-perm>
       </md-td>
     </md-tr>
     <md-tr>
@@ -636,7 +636,7 @@
 	<md-text type="field-type" >boolean</md-text>
 	</md-td>
 	<md-td>
-	是否冻结
+	是否暂停
 	</md-td>
 </md-tr>
 
@@ -1416,7 +1416,7 @@
 	<md-text type="field-type" >boolean</md-text>
 	</md-td>
 	<md-td>
-	是否冻结
+	是否暂停
 	</md-td>
 </md-tr>
 
@@ -1771,7 +1771,7 @@
                         "en_us": "Demo Name"
                     },
                     "parent_department_id": "od-4e6ac4d14bcd5071a37a39de902c7141",
-                    "department_id": "this_is_custom_name",
+                    "department_id": "od-4e6ac4d14bcd5071a37a39de902c7141",
                     "open_department_id": "od-4e6ac4d14bcd5071a37a39de902c7141",
                     "leader_user_id": "ou_7dab8a3d3cdcc9da365777c7ad535d62",
                     "chat_id": "oc_5ad11d72b830411d72b836c20",
@@ -1847,7 +1847,7 @@
                         "en_us": "Demo Name"
                     },
                     "parent_department_id": "od-4e6ac4d14bcd5071a37a39de902c7141",
-                    "department_id": "this_is_custom_name",
+                    "department_id": "od-4e6ac4d14bcd5071a37a39de902c7141",
                     "open_department_id": "od-4e6ac4d14bcd5071a37a39de902c7141",
                     "leader_user_id": "ou_7dab8a3d3cdcc9da365777c7ad535d62",
                     "chat_id": "oc_5ad11d72b830411d72b836c20",

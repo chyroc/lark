@@ -61,7 +61,7 @@ type UpdateUserPatchReq struct {
 	Orders           []*UpdateUserPatchReqOrder      `json:"orders,omitempty"`             // 用户排序信息
 	CustomAttrs      []*UpdateUserPatchReqCustomAttr `json:"custom_attrs,omitempty"`       // 自定义属性
 	EnterpriseEmail  *string                         `json:"enterprise_email,omitempty"`   // 企业邮箱，请先确保已在管理后台启用飞书邮箱服务, 示例值："demo@mail.com"
-	IsFrozen         *bool                           `json:"is_frozen,omitempty"`          // 是否冻结用户, 示例值：false
+	IsFrozen         *bool                           `json:"is_frozen,omitempty"`          // 是否暂停用户, 示例值：false
 }
 
 type UpdateUserPatchReqOrder struct {
@@ -129,7 +129,7 @@ type UpdateUserPatchRespUserAvatar struct {
 }
 
 type UpdateUserPatchRespUserStatus struct {
-	IsFrozen    bool `json:"is_frozen,omitempty"`    // 是否冻结
+	IsFrozen    bool `json:"is_frozen,omitempty"`    // 是否暂停
 	IsResigned  bool `json:"is_resigned,omitempty"`  // 是否离职
 	IsActivated bool `json:"is_activated,omitempty"` // 是否激活
 }

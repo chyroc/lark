@@ -97,7 +97,7 @@ type GetUserListRespItemAvatar struct {
 }
 
 type GetUserListRespItemStatus struct {
-	IsFrozen    bool `json:"is_frozen,omitempty"`    // 是否冻结
+	IsFrozen    bool `json:"is_frozen,omitempty"`    // 是否暂停
 	IsResigned  bool `json:"is_resigned,omitempty"`  // 是否离职
 	IsActivated bool `json:"is_activated,omitempty"` // 是否激活
 }
