@@ -54,12 +54,12 @@ type searchDriveFileResp struct {
 }
 
 type SearchDriveFileResp struct {
-	DocsEntities *SearchDriveFileRespDocsEntities `json:"docs_entities,omitempty"` // 搜索匹配文档列表
+	DocsEntities []*SearchDriveFileRespDocsEntity `json:"docs_entities,omitempty"` // 搜索匹配文档列表
 	HasMore      bool                             `json:"has_more,omitempty"`      // 搜索偏移位结果列表后是否还有数据
 	Total        int64                            `json:"total,omitempty"`         // 搜索匹配文档总数量
 }
 
-type SearchDriveFileRespDocsEntities struct {
+type SearchDriveFileRespDocsEntity struct {
 	DocsToken string `json:"docs_token,omitempty"` // 文档token
 	DocsType  string `json:"docs_type,omitempty"`  // 文档类型
 	Title     string `json:"title,omitempty"`      // 标题
