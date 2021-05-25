@@ -83,28 +83,28 @@ type batchUpdateSheetResp struct {
 }
 
 type BatchUpdateSheetResp struct {
-	Replies *BatchUpdateSheetRespReplies `json:"replies,omitempty"` // 返回本次相关操作工作表的结果
+	Replies []*BatchUpdateSheetRespReply `json:"replies,omitempty"` // 返回本次相关操作工作表的结果
 }
 
-type BatchUpdateSheetRespReplies struct {
-	AddSheet    *BatchUpdateSheetRespRepliesAddSheet    `json:"addSheet,omitempty"`    // 增加/复制工作表的属性
-	CopySheet   *BatchUpdateSheetRespRepliesCopySheet   `json:"copySheet,omitempty"`   // 增加/复制工作表的属性
-	DeleteSheet *BatchUpdateSheetRespRepliesDeleteSheet `json:"deleteSheet,omitempty"` // 删除工作表
+type BatchUpdateSheetRespReply struct {
+	AddSheet    *BatchUpdateSheetRespReplyAddSheet    `json:"addSheet,omitempty"`    // 增加/复制工作表的属性
+	CopySheet   *BatchUpdateSheetRespReplyCopySheet   `json:"copySheet,omitempty"`   // 增加/复制工作表的属性
+	DeleteSheet *BatchUpdateSheetRespReplyDeleteSheet `json:"deleteSheet,omitempty"` // 删除工作表
 }
 
-type BatchUpdateSheetRespRepliesAddSheet struct {
+type BatchUpdateSheetRespReplyAddSheet struct {
 	SheetID string `json:"sheetId,omitempty"` // sheetId
 	Title   string `json:"title,omitempty"`   // 工作表标题
 	Index   int64  `json:"index,omitempty"`   // 工作表位置
 }
 
-type BatchUpdateSheetRespRepliesCopySheet struct {
+type BatchUpdateSheetRespReplyCopySheet struct {
 	SheetID string `json:"sheetId,omitempty"` // sheetId
 	Title   string `json:"title,omitempty"`   // 工作表标题
 	Index   int64  `json:"index,omitempty"`   // 工作表位置
 }
 
-type BatchUpdateSheetRespRepliesDeleteSheet struct {
+type BatchUpdateSheetRespReplyDeleteSheet struct {
 	Result  bool   `json:"result,omitempty"`  // 删除工作表是否成功
 	SheetID string `json:"sheetId,omitempty"` // sheetId
 }

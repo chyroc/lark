@@ -54,37 +54,37 @@ type CreateDriveCommentReq struct {
 }
 
 type CreateDriveCommentReqReplyList struct {
-	Replies []*CreateDriveCommentReqReplyListReplie `json:"replies,omitempty"` // 回复列表
+	Replies []*CreateDriveCommentReqReplyListReply `json:"replies,omitempty"` // 回复列表
 }
 
-type CreateDriveCommentReqReplyListReplie struct {
-	ReplyID    *string                                      `json:"reply_id,omitempty"`    // 回复ID, 示例值："6916106822734594568"
-	UserID     *string                                      `json:"user_id,omitempty"`     // 用户ID, 示例值："ou_cc19b2bfb93f8a44db4b4d6eab2*****"
-	CreateTime *int64                                       `json:"create_time,omitempty"` // 创建时间, 示例值：1610281603
-	UpdateTime *int64                                       `json:"update_time,omitempty"` // 更新时间, 示例值：1610281603
-	Content    *CreateDriveCommentReqReplyListReplieContent `json:"content,omitempty"`     // 回复内容
+type CreateDriveCommentReqReplyListReply struct {
+	ReplyID    *string                                     `json:"reply_id,omitempty"`    // 回复ID, 示例值："6916106822734594568"
+	UserID     *string                                     `json:"user_id,omitempty"`     // 用户ID, 示例值："ou_cc19b2bfb93f8a44db4b4d6eab2*****"
+	CreateTime *int64                                      `json:"create_time,omitempty"` // 创建时间, 示例值：1610281603
+	UpdateTime *int64                                      `json:"update_time,omitempty"` // 更新时间, 示例值：1610281603
+	Content    *CreateDriveCommentReqReplyListReplyContent `json:"content,omitempty"`     // 回复内容
 }
 
-type CreateDriveCommentReqReplyListReplieContent struct {
-	Elements []*CreateDriveCommentReqReplyListReplieContentElement `json:"elements,omitempty"` // 回复的内容
+type CreateDriveCommentReqReplyListReplyContent struct {
+	Elements []*CreateDriveCommentReqReplyListReplyContentElement `json:"elements,omitempty"` // 回复的内容
 }
 
-type CreateDriveCommentReqReplyListReplieContentElement struct {
-	Type     string                                                      `json:"type,omitempty"`      // 回复的内容元素, 示例值："text_run", 可选值有: `text_run`：普通文本, `docs_link`：at 云文档链接, `person`：at 联系人
-	TextRun  *CreateDriveCommentReqReplyListReplieContentElementTextRun  `json:"text_run,omitempty"`  // 文本内容
-	DocsLink *CreateDriveCommentReqReplyListReplieContentElementDocsLink `json:"docs_link,omitempty"` // 文本内容
-	Person   *CreateDriveCommentReqReplyListReplieContentElementPerson   `json:"person,omitempty"`    // 文本内容
+type CreateDriveCommentReqReplyListReplyContentElement struct {
+	Type     string                                                     `json:"type,omitempty"`      // 回复的内容元素, 示例值："text_run", 可选值有: `text_run`：普通文本, `docs_link`：at 云文档链接, `person`：at 联系人
+	TextRun  *CreateDriveCommentReqReplyListReplyContentElementTextRun  `json:"text_run,omitempty"`  // 文本内容
+	DocsLink *CreateDriveCommentReqReplyListReplyContentElementDocsLink `json:"docs_link,omitempty"` // 文本内容
+	Person   *CreateDriveCommentReqReplyListReplyContentElementPerson   `json:"person,omitempty"`    // 文本内容
 }
 
-type CreateDriveCommentReqReplyListReplieContentElementTextRun struct {
+type CreateDriveCommentReqReplyListReplyContentElementTextRun struct {
 	Text string `json:"text,omitempty"` // 回复 普通文本, 示例值："comment text"
 }
 
-type CreateDriveCommentReqReplyListReplieContentElementDocsLink struct {
+type CreateDriveCommentReqReplyListReplyContentElementDocsLink struct {
 	URL string `json:"url,omitempty"` // 回复 at云文档, 示例值："https://bytedance.feishu.cn/docs/doccnHh7U87HOFpii5u5G*****"
 }
 
-type CreateDriveCommentReqReplyListReplieContentElementPerson struct {
+type CreateDriveCommentReqReplyListReplyContentElementPerson struct {
 	UserID string `json:"user_id,omitempty"` // 回复 at联系人, 示例值："ou_cc19b2bfb93f8a44db4b4d6eab*****"
 }
 
@@ -106,36 +106,36 @@ type CreateDriveCommentResp struct {
 }
 
 type CreateDriveCommentRespReplyList struct {
-	Replies []*CreateDriveCommentRespReplyListReplie `json:"replies,omitempty"` // 回复列表
+	Replies []*CreateDriveCommentRespReplyListReply `json:"replies,omitempty"` // 回复列表
 }
 
-type CreateDriveCommentRespReplyListReplie struct {
-	ReplyID    string                                        `json:"reply_id,omitempty"`    // 回复ID
-	UserID     string                                        `json:"user_id,omitempty"`     // 用户ID
-	CreateTime int64                                         `json:"create_time,omitempty"` // 创建时间
-	UpdateTime int64                                         `json:"update_time,omitempty"` // 更新时间
-	Content    *CreateDriveCommentRespReplyListReplieContent `json:"content,omitempty"`     // 回复内容
+type CreateDriveCommentRespReplyListReply struct {
+	ReplyID    string                                       `json:"reply_id,omitempty"`    // 回复ID
+	UserID     string                                       `json:"user_id,omitempty"`     // 用户ID
+	CreateTime int64                                        `json:"create_time,omitempty"` // 创建时间
+	UpdateTime int64                                        `json:"update_time,omitempty"` // 更新时间
+	Content    *CreateDriveCommentRespReplyListReplyContent `json:"content,omitempty"`     // 回复内容
 }
 
-type CreateDriveCommentRespReplyListReplieContent struct {
-	Elements []*CreateDriveCommentRespReplyListReplieContentElement `json:"elements,omitempty"` // 回复的内容
+type CreateDriveCommentRespReplyListReplyContent struct {
+	Elements []*CreateDriveCommentRespReplyListReplyContentElement `json:"elements,omitempty"` // 回复的内容
 }
 
-type CreateDriveCommentRespReplyListReplieContentElement struct {
-	Type     string                                                       `json:"type,omitempty"`      // 回复的内容元素, 可选值有: `text_run`：普通文本, `docs_link`：at 云文档链接, `person`：at 联系人
-	TextRun  *CreateDriveCommentRespReplyListReplieContentElementTextRun  `json:"text_run,omitempty"`  // 文本内容
-	DocsLink *CreateDriveCommentRespReplyListReplieContentElementDocsLink `json:"docs_link,omitempty"` // 文本内容
-	Person   *CreateDriveCommentRespReplyListReplieContentElementPerson   `json:"person,omitempty"`    // 文本内容
+type CreateDriveCommentRespReplyListReplyContentElement struct {
+	Type     string                                                      `json:"type,omitempty"`      // 回复的内容元素, 可选值有: `text_run`：普通文本, `docs_link`：at 云文档链接, `person`：at 联系人
+	TextRun  *CreateDriveCommentRespReplyListReplyContentElementTextRun  `json:"text_run,omitempty"`  // 文本内容
+	DocsLink *CreateDriveCommentRespReplyListReplyContentElementDocsLink `json:"docs_link,omitempty"` // 文本内容
+	Person   *CreateDriveCommentRespReplyListReplyContentElementPerson   `json:"person,omitempty"`    // 文本内容
 }
 
-type CreateDriveCommentRespReplyListReplieContentElementTextRun struct {
+type CreateDriveCommentRespReplyListReplyContentElementTextRun struct {
 	Text string `json:"text,omitempty"` // 回复 普通文本
 }
 
-type CreateDriveCommentRespReplyListReplieContentElementDocsLink struct {
+type CreateDriveCommentRespReplyListReplyContentElementDocsLink struct {
 	URL string `json:"url,omitempty"` // 回复 at云文档
 }
 
-type CreateDriveCommentRespReplyListReplieContentElementPerson struct {
+type CreateDriveCommentRespReplyListReplyContentElementPerson struct {
 	UserID string `json:"user_id,omitempty"` // 回复 at联系人
 }
