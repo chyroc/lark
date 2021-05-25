@@ -68,12 +68,12 @@
 </md-table>
 :::
 
-### 请求体
+### 查询参数
 
 
 | **参数** | **参数类型** | **必须** | **说明**                                                     |
 | -------- | ------------ | -------- | ------------------------------------------------------------ |
-| room_ids | string       | 是       | 用于查询指定会议室的 ID                                      |
+| room_ids | array<string>        | 是       | 用于查询指定会议室的 ID                                      |
 | fields   | string       | 否       | 用于指定返回的字段名，每个字段名之间用逗号 "," 分隔，如：“id,name”，"*" 表示返回全部字段，可选字段有："id,name,description,capacity,building_id,building_name,floor_name,is_disabled,display_id"，默认返回所有字段 |
 
 ## 响应
