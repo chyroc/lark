@@ -35,7 +35,7 @@ https://godoc.org/github.com/chyroc/lark
 
 ## Support APIs
 
-API Count: 308, Event Count: 28
+API Count: 331, Event Count: 28
 
 <details>
   <summary>
@@ -396,6 +396,30 @@ API Count: 308, Event Count: 28
   - UpdateSearchDataSource
   - GetSearchDataSourceList
   - DeleteSearchDataSource
+- Hire
+  - GetHireJob
+  - GetHireJobManager
+  - GetHireTalent
+  - GetHireAttachment
+  - GetHireAttachmentPreview
+  - GetHireResumeSource
+  - CreateHireNote
+  - UpdateHireNote
+  - GetHireNote
+  - GetHireNoteList
+  - GetHireReferralByApplication
+  - GetHireJobProcessList
+  - CreateHireApplication
+  - TerminateHireApplication
+  - GetHireApplication
+  - GetHireApplicationList
+  - GetHireApplicationInterviewList
+  - GetHireOfferByApplication
+  - GetHireOfferSchema
+  - MakeHireTransferOnboardByApplication
+  - UpdateHireEmployee
+  - GetHireEmployeeByApplication
+  - GetHireEmployee
 
 
 </details>

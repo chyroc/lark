@@ -1805,5 +1805,125 @@
         "doc_url": "https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/search-v2/data_source/delete"
       }
     ]
+  },
+  {
+    "scope": "Hire",
+    "apis": [
+      {
+        "file_name": "api_hire_job_get.go",
+        "func_name": "GetHireJob",
+        "doc_url": "https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/job/get"
+      },
+      {
+        "file_name": "api_hire_job_manager_get.go",
+        "func_name": "GetHireJobManager",
+        "doc_url": "https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/job-manager/get"
+      },
+      {
+        "file_name": "api_hire_talent_get.go",
+        "func_name": "GetHireTalent",
+        "doc_url": "https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/talent/get"
+      },
+      {
+        "file_name": "api_hire_attachment_get.go",
+        "func_name": "GetHireAttachment",
+        "doc_url": "https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/attachment/get"
+      },
+      {
+        "file_name": "api_hire_attachment_preview_get.go",
+        "func_name": "GetHireAttachmentPreview",
+        "doc_url": "https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/attachment/preview"
+      },
+      {
+        "file_name": "api_hire_resume_sources_get.go",
+        "func_name": "GetHireResumeSource",
+        "doc_url": "https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/resume_source/list"
+      },
+      {
+        "file_name": "api_hire_note_create.go",
+        "func_name": "CreateHireNote",
+        "doc_url": "https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/note/create"
+      },
+      {
+        "file_name": "api_hire_note_update.go",
+        "func_name": "UpdateHireNote",
+        "doc_url": "https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/note/patch"
+      },
+      {
+        "file_name": "api_hire_note_get.go",
+        "func_name": "GetHireNote",
+        "doc_url": "https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/note/get"
+      },
+      {
+        "file_name": "api_hire_note_list.go",
+        "func_name": "GetHireNoteList",
+        "doc_url": "https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/note/list"
+      },
+      {
+        "file_name": "api_hire_referral_get_by_application.go",
+        "func_name": "GetHireReferralByApplication",
+        "doc_url": "https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/referral/get_by_application"
+      },
+      {
+        "file_name": "api_hire_job_process_list.go",
+        "func_name": "GetHireJobProcessList",
+        "doc_url": "https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/job_process/list"
+      },
+      {
+        "file_name": "api_hire_application_create.go",
+        "func_name": "CreateHireApplication",
+        "doc_url": "https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/application/create"
+      },
+      {
+        "file_name": "api_hire_application_terminate.go",
+        "func_name": "TerminateHireApplication",
+        "doc_url": "https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/application/terminate"
+      },
+      {
+        "file_name": "api_hire_application_get.go",
+        "func_name": "GetHireApplication",
+        "doc_url": "https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/application/get"
+      },
+      {
+        "file_name": "api_hire_application_list.go",
+        "func_name": "GetHireApplicationList",
+        "doc_url": "https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/application/list"
+      },
+      {
+        "file_name": "api_hire_application_interview_list.go",
+        "func_name": "GetHireApplicationInterviewList",
+        "doc_url": "https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/application-interview/list"
+      },
+      {
+        "file_name": "api_hire_offer_get_by_application.go",
+        "func_name": "GetHireOfferByApplication",
+        "doc_url": "https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/application/offer"
+      },
+      {
+        "file_name": "api_hire_offer_schema_get.go",
+        "func_name": "GetHireOfferSchema",
+        "doc_url": "https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/offer_schema/get"
+      },
+      {
+        "file_name": "api_hire_transfer_onboard_by_application.go",
+        "func_name": "MakeHireTransferOnboardByApplication",
+        "doc_url": "https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/application/transfer_onboard"
+      },
+      {
+        "file_name": "api_hire_employee_update.go",
+        "func_name": "UpdateHireEmployee",
+        "doc_url": "https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/employee/patch"
+      },
+      {
+        "file_name": "api_hire_employee_get_by_application.go",
+        "func_name": "GetHireEmployeeByApplication",
+        "doc_url": "https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/employee/get_by_application"
+      },
+      {
+        "file_name": "api_hire_employee_get.go",
+        "func_name": "GetHireEmployee",
+        "doc_url": "https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/employee/get"
+      }
+    ]
   }
 ]
