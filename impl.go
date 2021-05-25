@@ -27,7 +27,7 @@ type Lark struct {
 	mock         *Mock
 	eventHandler *eventHandler
 
-	// 	service
+	// service
 	Auth          *AuthService
 	Contact       *ContactService
 	Message       *MessageService
