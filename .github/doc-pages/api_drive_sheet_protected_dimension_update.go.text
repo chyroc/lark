@@ -159,7 +159,7 @@ curl --location --request POST 'https://open.feishu.cn/open-apis/sheets/v2/sprea
 | ----------------- |-----| ---------------------------------- |
 |replies|array<interface>|响应|
 | &emsp;∟sheetId           |string| sheet的id                          |
-| &emsp;∟dimension         |string| 成功修改的保护行列信息             |
+| &emsp;∟dimension         || 成功修改的保护行列信息             |
 | &emsp;&emsp;∟sheetId          |string| sheetId                            |
 | &emsp;&emsp;∟startIndex       |int| 保护行列起始下标，下标从1开始      |
 | &emsp;&emsp;∟endIndex         |int| 保护行列终止下标，下标从1开始      |

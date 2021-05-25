@@ -69,7 +69,11 @@
 |参数|类型|必须|说明|
 |--|-----|--|----|
 |spreadsheetToken|string|是|spreadsheet 的 token，获取方式见 [在线表格开发指南](/ssl:ttdoc/ukTMukTMukTM/uATMzUjLwEzM14CMxMTN/overview)| 
-|range|string|是|查询范围，包含 sheetId 与单元格范围两部分，目前支持四种索引方式，详见[在线表格开发指南](/ssl:ttdoc/ukTMukTMukTM/uATMzUjLwEzM14CMxMTN/overview)| 
+
+### 查询参数
+|参数|类型|必须|说明|
+|--|-----|--|----|
+|range|string|是|查询范围，包含 sheetId 与单元格范围两部分，目前支持四种索引方式，详见[在线表格开发指南](/ssl:ttdoc/ukTMukTMukTM/uATMzUjLwEzM14CMxMTN/overview)|
 |dataValidationType|string|是|下拉列表填"list"|
 
 ###  cURL 请求示例
