@@ -405,6 +405,19 @@
         "doc_url": "https://open.feishu.cn/document/ukTMukTMukTM/ukTNzUjL5UzM14SO1MTN"
       },
       {
+        "file_name": "api_drive_folder_meta.go",
+        "func_name": "GetDriveFolderMeta",
+        "doc_url": "https://open.feishu.cn/document/ukTMukTMukTM/uAjNzUjLwYzM14CM2MTN",
+        "from": "该篇文档有两个接口，一个接口用于获取指定文件夹的元信息，一个用于获取我的空间文件夹的元信息",
+        "to": "获取root folder（我的空间） meta"
+      },
+      {
+        "file_name": "api_drive_folder_root_meta.go",
+        "func_name": "GetDriveRootFolderMeta",
+        "doc_url": "https://open.feishu.cn/document/ukTMukTMukTM/uAjNzUjLwYzM14CM2MTN",
+        "from": "获取root folder（我的空间） meta"
+      },
+      {
         "file_name": "api_drive_folder_children_get.go",
         "func_name": "GetDriveFolderChildren",
         "tenant_token": true,

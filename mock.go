@@ -83,6 +83,8 @@ type Mock struct {
 	mockDriveCopyDriveFile                               func(ctx context.Context, request *CopyDriveFileReq, options ...MethodOptionFunc) (*CopyDriveFileResp, *Response, error)
 	mockDriveDeleteDriveFile                             func(ctx context.Context, request *DeleteDriveFileReq, options ...MethodOptionFunc) (*DeleteDriveFileResp, *Response, error)
 	mockDriveCreateDriveFolder                           func(ctx context.Context, request *CreateDriveFolderReq, options ...MethodOptionFunc) (*CreateDriveFolderResp, *Response, error)
+	mockDriveGetDriveFolderMeta                          func(ctx context.Context, request *GetDriveFolderMetaReq, options ...MethodOptionFunc) (*GetDriveFolderMetaResp, *Response, error)
+	mockDriveGetDriveRootFolderMeta                      func(ctx context.Context, request *GetDriveRootFolderMetaReq, options ...MethodOptionFunc) (*GetDriveRootFolderMetaResp, *Response, error)
 	mockDriveGetDriveFolderChildren                      func(ctx context.Context, request *GetDriveFolderChildrenReq, options ...MethodOptionFunc) (*GetDriveFolderChildrenResp, *Response, error)
 	mockDriveCreateDriveMemberPermission                 func(ctx context.Context, request *CreateDriveMemberPermissionReq, options ...MethodOptionFunc) (*CreateDriveMemberPermissionResp, *Response, error)
 	mockDriveTransferDriveMemberPermission               func(ctx context.Context, request *TransferDriveMemberPermissionReq, options ...MethodOptionFunc) (*TransferDriveMemberPermissionResp, *Response, error)
