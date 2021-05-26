@@ -79,8 +79,8 @@ func (r MessageContentCardModuleImage) MarshalJSON() ([]byte, error) {
 }
 
 type MessageContentCardModuleAction struct {
-	Actions []*MessageContentCardElementButton `json:"actions,omitempty"` // 放置交互元素
-	Layout  string                             `json:"layout,omitempty"`  // 交互元素布局，窄版样式默认纵向排列，使用 bisected 为二等分布局，每行两列交互元素，使用 trisection 为三等分布局，每行三列交互元素，使用 flow 为流式布局元素会按自身大小横向排列并在空间不够的时候折行
+	Actions []MessageContentCardElement `json:"actions,omitempty"` // 放置交互元素
+	Layout  string                      `json:"layout,omitempty"`  // 交互元素布局，窄版样式默认纵向排列，使用 bisected 为二等分布局，每行两列交互元素，使用 trisection 为三等分布局，每行三列交互元素，使用 flow 为流式布局元素会按自身大小横向排列并在空间不够的时候折行
 }
 
 func (r MessageContentCardModuleAction) IsMessageContentCardModule() {}
