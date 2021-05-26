@@ -145,7 +145,7 @@ type MessageContentCardElementSelectMenu struct {
 	Placeholder   *MessageContentCardObjectText     `json:"placeholder,omitempty"`    // 占位符，无默认选项时必须有
 	InitialOption string                            `json:"initial_option,omitempty"` // 默认选项的value字段值
 	Options       []*MessageContentCardObjectOption `json:"options,omitempty"`        // 待选选项
-	Value         interface{}                       `json:"value,omitempty"`          // 用户选定后返回业务方的数据
+	Value         map[string]interface{}            `json:"value,omitempty"`          // 用户选定后返回业务方的数据
 	Confirm       *MessageContentCardObjectConfirm  `json:"confirm,omitempty"`        // 二次确认的弹框
 }
 
