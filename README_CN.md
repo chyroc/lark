@@ -454,7 +454,7 @@ cli := lark.New(
 
 ### 例子：处理事件回调
 
-如果需要更多的例子，可以参考：[./examples/event_callback.go](./examples/event_callback.go) 。
+如果需要更多的例子，可以参考：[./_examples/event_callback.go](./_examples/event_callback.go) 。
 
 处理消息的事件回调：
 
@@ -480,7 +480,7 @@ log.Fatal(http.ListenAndServe(":9726", nil))
 
 ### 例子: ISV APP
 
-如果需要更多的例子，可以参考： [./examples/isv.go](./examples/isv.go) .
+如果需要更多的例子，可以参考： [./_examples/isv.go](./_examples/isv.go) .
 
 ISV 创建群聊:
 
@@ -500,7 +500,7 @@ fmt.Println(resp, err)
 
 ### 例子: 获取机器人信息
 
-如果需要更多的例子，可以参考： [./examples/bot.go](./examples/bot.go) 。
+如果需要更多的例子，可以参考： [./_examples/bot.go](./_examples/bot.go) 。
 
 获取机器人信息：
 
@@ -513,7 +513,7 @@ fmt.Println(resp, err)
 
 ### 例子: 发送消息
 
-如果需要更多的例子，可以参考： [./examples/send_message.go](./examples/send_message.go) 。
+如果需要更多的例子，可以参考： [./_examples/send_message.go](./_examples/send_message.go) 。
 
 发送文本消息：
 
@@ -526,7 +526,7 @@ fmt.Println(resp, err)
 
 ### 例子: 其他消息
 
-如果需要更多的例子，可以参考： [./examples/other_message.go](./examples/other_message.go) 。
+如果需要更多的例子，可以参考： [./_examples/other_message.go](./_examples/other_message.go) 。
 
 撤回消息：
 
@@ -541,7 +541,7 @@ fmt.Println(resp, err)
 
 ### 例子: 群聊
 
-如果需要更多的例子，可以参考： [./examples/chat.go](./examples/chat.go) 。
+如果需要更多的例子，可以参考： [./_examples/chat.go](./_examples/chat.go) 。
 
 创建群聊：
 
@@ -556,7 +556,7 @@ fmt.Println(resp, err)
 
 ### 例子: 文件
 
-如果需要更多的例子，可以参考： [./examples/file.go](./examples/file.go) 。
+如果需要更多的例子，可以参考： [./_examples/file.go](./_examples/file.go) 。
 
 上传图片
 
@@ -576,7 +576,7 @@ fmt.Println(resp, err)
 
 ### 例子: 日历
 
-如果需要更多的例子，可以参考： [./examples/calendar.go](./examples/calendar.go) 。
+如果需要更多的例子，可以参考： [./_examples/calendar.go](./_examples/calendar.go) 。
 
 创建日历
 

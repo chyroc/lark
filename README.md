@@ -454,7 +454,7 @@ cli := lark.New(
 
 ### Example: handle event callback
 
-for more about event callback example, see [./examples/event_callback.go](./examples/event_callback.go) .
+for more about event callback example, see [./_examples/event_callback.go](./_examples/event_callback.go) .
 
 handle message callback example:
 
@@ -480,7 +480,7 @@ log.Fatal(http.ListenAndServe(":9726", nil))
 
 ### Example: ISV APP
 
-for more about isv example, see [./examples/isv.go](./examples/isv.go) .
+for more about isv example, see [./_examples/isv.go](./_examples/isv.go) .
 
 create isv chat:
 
@@ -500,7 +500,7 @@ fmt.Println(resp, err)
 
 ### Example: get bot info
 
-for more about bot example, see [./examples/bot.go](./examples/bot.go) .
+for more about bot example, see [./_examples/bot.go](./_examples/bot.go) .
 
 get bot info example:
 
@@ -513,7 +513,7 @@ fmt.Println(resp, err)
 
 ### Example: send message
 
-for more about send message example, see [./examples/send_message.go](./examples/send_message.go) .
+for more about send message example, see [./_examples/send_message.go](./_examples/send_message.go) .
 
 send text message example:
 
@@ -526,7 +526,7 @@ fmt.Println(resp, err)
 
 ### Example: other message
 
-for more about other message example, see [./examples/other_message.go](./examples/other_message.go) .
+for more about other message example, see [./_examples/other_message.go](./_examples/other_message.go) .
 
 send delete message example:
 
@@ -541,7 +541,7 @@ fmt.Println(resp, err)
 
 ### Example: chat
 
-for more about chat example, see [./examples/chat.go](./examples/chat.go) .
+for more about chat example, see [./_examples/chat.go](./_examples/chat.go) .
 
 create chat example:
 
@@ -556,7 +556,7 @@ fmt.Println(resp, err)
 
 ### Example: file
 
-for more about file example, see [./examples/file.go](./examples/file.go) .
+for more about file example, see [./_examples/file.go](./_examples/file.go) .
 
 upload image example:
 
@@ -576,7 +576,7 @@ fmt.Println(resp, err)
 
 ### Example: calendar
 
-for more about calendar example, see [./examples/calendar.go](./examples/calendar.go) .
+for more about calendar example, see [./_examples/calendar.go](./_examples/calendar.go) .
 
 create calendar example:
 
