@@ -11,8 +11,8 @@ func Test_CardContent(t *testing.T) {
 	as := assert.New(t)
 
 	action := lark.MessageContentCardModuleAction{
-		Actions: []*lark.MessageContentCardElementButton{
-			{
+		Actions: []lark.MessageContentCardElement{
+			&lark.MessageContentCardElementButton{
 				Text: &lark.MessageContentCardObjectText{
 					Tag:     "lark_md",
 					Content: "click-me",
