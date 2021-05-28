@@ -50,7 +50,7 @@ type UpdateUserPatchReq struct {
 	MobileVisible    *bool                           `json:"mobile_visible,omitempty"`     // 手机号码可见性，true 为可见，false 为不可见，目前默认为 true。不可见时，组织员工将无法查看该员工的手机号码, 示例值：false
 	Gender           *int64                          `json:"gender,omitempty"`             // 性别, 示例值：1, 可选值有: `0`：保密, `1`：男, `2`：女
 	AvatarKey        *string                         `json:"avatar_key,omitempty"`         // 头像的文件Key，可通过“消息与群组/消息/图片信息”中的“上传图片”接口上传并获取头像文件 Key, 示例值："2500c7a9-5fff-4d9a-a2de-3d59614ae28g"
-	DepartmentIDs    []string                        `json:"department_ids,omitempty"`     // 用户所属部门的ID列表
+	DepartmentIDs    []string                        `json:"department_ids,omitempty"`     // 用户所属部门的ID列表, 示例值：od-4e6ac4d14bcd5071a37a39de902c7141
 	LeaderUserID     *string                         `json:"leader_user_id,omitempty"`     // 用户的直接主管的用户ID, 示例值："ou_7dab8a3d3cdcc9da365777c7ad535d62"
 	City             *string                         `json:"city,omitempty"`               // 城市, 示例值："杭州"
 	Country          *string                         `json:"country,omitempty"`            // 国家, 示例值："中国"
@@ -61,6 +61,7 @@ type UpdateUserPatchReq struct {
 	Orders           []*UpdateUserPatchReqOrder      `json:"orders,omitempty"`             // 用户排序信息
 	CustomAttrs      []*UpdateUserPatchReqCustomAttr `json:"custom_attrs,omitempty"`       // 自定义属性
 	EnterpriseEmail  *string                         `json:"enterprise_email,omitempty"`   // 企业邮箱，请先确保已在管理后台启用飞书邮箱服务, 示例值："demo@mail.com"
+	JobTitle         *string                         `json:"job_title,omitempty"`          // 职务, 示例值："xxxxx"
 	IsFrozen         *bool                           `json:"is_frozen,omitempty"`          // 是否暂停用户, 示例值：false
 }
 
@@ -117,6 +118,7 @@ type UpdateUserPatchRespUser struct {
 	Orders               []*UpdateUserPatchRespUserOrder            `json:"orders,omitempty"`                 // 用户排序信息
 	CustomAttrs          []*UpdateUserPatchRespUserCustomAttr       `json:"custom_attrs,omitempty"`           // 自定义属性
 	EnterpriseEmail      string                                     `json:"enterprise_email,omitempty"`       // 企业邮箱，请先确保已在管理后台启用飞书邮箱服务
+	JobTitle             string                                     `json:"job_title,omitempty"`              // 职务
 	NeedSendNotification bool                                       `json:"need_send_notification,omitempty"` // 是否发送提示消息
 	NotificationOption   *UpdateUserPatchRespUserNotificationOption `json:"notification_option,omitempty"`    // 创建用户的邀请方式
 }

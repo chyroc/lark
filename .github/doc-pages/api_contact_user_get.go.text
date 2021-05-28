@@ -44,6 +44,7 @@
       <md-th>权限要求</md-th>
       <md-td>
             <md-perm href="/ssl:ttdoc/ukTMukTMukTM/uQjN3QjL0YzN04CN2cDN">以应用身份读取通讯录</md-perm>
+            <md-perm href="/ssl:ttdoc/ukTMukTMukTM/uQjN3QjL0YzN04CN2cDN">以应用身份访问通讯录(历史版本)</md-perm>
       </md-td>
     </md-tr>
     <md-tr>
@@ -789,6 +790,19 @@
 	</md-td>
 </md-tr>
 
+
+<md-tr>
+	<md-td>
+	&emsp;&emsp;<span style="color: #8F959E">∟</span>&nbsp;<md-text type="field-name" >job_title</md-text>
+	</md-td>
+	<md-td>
+	<md-text type="field-type" >string</md-text>
+	</md-td>
+	<md-td>
+	职务
+	</md-td>
+</md-tr>
+
   </md-tbody>
 </md-table>
 :::
@@ -853,6 +867,7 @@
                 }
             ],
             "enterprise_email": "demo@mail.com",
+            "job_title": "xxxxx"
         }
     }
 }
@@ -878,6 +893,22 @@
   <md-td>41050</md-td>
   <md-td>no user authority error</md-td>
   <md-td>没有用户权限，检查该用户是否在通讯录权限范围内</md-td>
+</md-tr>
+
+
+<md-tr>
+  <md-td>400</md-td>
+  <md-td>41012</md-td>
+  <md-td>user id invalid error</md-td>
+  <md-td>用户ID无效。</md-td>
+</md-tr>
+
+
+<md-tr>
+  <md-td>400</md-td>
+  <md-td>40003</md-td>
+  <md-td>internal error</md-td>
+  <md-td>内部错误，请使用请求ID向客服反馈。</md-td>
 </md-tr>
 
   </md-tbody>

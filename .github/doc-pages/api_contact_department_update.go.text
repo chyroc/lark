@@ -382,6 +382,8 @@
 	</md-td>
 	<md-td>
 	部门单位自定义ID列表，当前只支持一个
+
+**示例值**：custom_unit_id
 	</md-td>
 </md-tr>
 
@@ -799,6 +801,14 @@
 
 
 <md-tr>
+  <md-td>400</md-td>
+  <md-td>40010</md-td>
+  <md-td>chat id is invalid error</md-td>
+  <md-td>部门群ID格式错误。</md-td>
+</md-tr>
+
+
+<md-tr>
   <md-td>403</md-td>
   <md-td>40014</md-td>
   <md-td>no parent dept authority error</md-td>
@@ -835,6 +845,14 @@
   <md-td>40018</md-td>
   <md-td>duplicate name error</md-td>
   <md-td>部门名必须唯一，请检查后重试。</md-td>
+</md-tr>
+
+
+<md-tr>
+  <md-td>400</md-td>
+  <md-td>43004</md-td>
+  <md-td>illegal unit error</md-td>
+  <md-td>部门unit id无效。</md-td>
 </md-tr>
 
   </md-tbody>

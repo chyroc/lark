@@ -370,6 +370,8 @@
 	</md-td>
 	<md-td>
 	用户所属部门的ID列表
+
+**示例值**：od-4e6ac4d14bcd5071a37a39de902c7141
 	</md-td>
 </md-tr>
 
@@ -712,6 +714,24 @@
 
 <md-tr>
 	<md-td>
+	<md-text type="field-name" >job_title</md-text>
+	</md-td>
+	<md-td>
+	<md-text type="field-type" >string</md-text>
+	</md-td>
+	<md-td>
+	否
+	</md-td>
+	<md-td>
+	职务
+
+**示例值**："xxxxx"
+	</md-td>
+</md-tr>
+
+
+<md-tr>
+	<md-td>
 	<md-text type="field-name" >is_frozen</md-text>
 	</md-td>
 	<md-td>
@@ -773,6 +793,7 @@
         }
     ],
     "enterprise_email": "demo@mail.com",
+    "job_title": "xxxxx",
     "is_frozen": false
 }
 ```
@@ -1387,6 +1408,19 @@
 
 <md-tr>
 	<md-td>
+	&emsp;&emsp;<span style="color: #8F959E">∟</span>&nbsp;<md-text type="field-name" >job_title</md-text>
+	</md-td>
+	<md-td>
+	<md-text type="field-type" >string</md-text>
+	</md-td>
+	<md-td>
+	职务
+	</md-td>
+</md-tr>
+
+
+<md-tr>
+	<md-td>
 	&emsp;&emsp;<span style="color: #8F959E">∟</span>&nbsp;<md-text type="field-name" >need_send_notification</md-text>
 	</md-td>
 	<md-td>
@@ -1507,6 +1541,7 @@ sms（短信邀请），email（邮件邀请）
                 }
             ],
             "enterprise_email": "demo@mail.com",
+            "job_title": "xxxxx",
             "need_send_notification": false,
             "notification_option": {
                 "channels": [
@@ -1533,6 +1568,14 @@ sms（短信邀请），email（邮件邀请）
         </md-tr>
     </md-thead>
   <md-tbody>
+
+<md-tr>
+  <md-td>400</md-td>
+  <md-td>40016</md-td>
+  <md-td>dept name can not be nul error</md-td>
+  <md-td>部门名不能为空。</md-td>
+</md-tr>
+
 
 <md-tr>
   <md-td>400</md-td>
@@ -1592,6 +1635,14 @@ sms（短信邀请），email（邮件邀请）
 
 <md-tr>
   <md-td>400</md-td>
+  <md-td>41010</md-td>
+  <md-td>no mobile error</md-td>
+  <md-td>手机号不能为空。</md-td>
+</md-tr>
+
+
+<md-tr>
+  <md-td>400</md-td>
   <md-td>41014</md-td>
   <md-td> user name sensitive error</md-td>
   <md-td>name中包含敏感信息，如有疑问，请联系客服</md-td>
@@ -1600,9 +1651,33 @@ sms（短信邀请），email（邮件邀请）
 
 <md-tr>
   <md-td>400</md-td>
+  <md-td>41013</md-td>
+  <md-td>exceed userID update limit error</md-td>
+  <md-td>用户ID更新次数超过限制。</md-td>
+</md-tr>
+
+
+<md-tr>
+  <md-td>400</md-td>
+  <md-td>41015</md-td>
+  <md-td>idp type invalid error error</md-td>
+  <md-td>登录类型无效。</md-td>
+</md-tr>
+
+
+<md-tr>
+  <md-td>400</md-td>
   <md-td>41016</md-td>
   <md-td>department has too many users  error</md-td>
   <md-td>一个部门中有过多的用户，用户数量超过了500</md-td>
+</md-tr>
+
+
+<md-tr>
+  <md-td>400</md-td>
+  <md-td>41017</md-td>
+  <md-td>department is required error</md-td>
+  <md-td>部门信息不能为空</md-td>
 </md-tr>
 
 
@@ -1736,6 +1811,22 @@ sms（短信邀请），email（邮件邀请）
 
 <md-tr>
   <md-td>400</md-td>
+  <md-td>41036</md-td>
+  <md-td>avatar key is invalid error</md-td>
+  <md-td>头像key无效</md-td>
+</md-tr>
+
+
+<md-tr>
+  <md-td>400</md-td>
+  <md-td>41037</md-td>
+  <md-td>avatar key is sensitive error</md-td>
+  <md-td>头像key存在敏感信息</md-td>
+</md-tr>
+
+
+<md-tr>
+  <md-td>400</md-td>
   <md-td>41038</md-td>
   <md-td>gender is invalid error</md-td>
   <md-td>性别不合法，请检查</md-td>
@@ -1840,25 +1931,25 @@ sms（短信邀请），email（邮件邀请）
 
 <md-tr>
   <md-td>400</md-td>
-  <md-td>41057</md-td>
-  <md-td>invalid employee type error</md-td>
-  <md-td>员工类型不合法</md-td>
-</md-tr>
-
-
-<md-tr>
-  <md-td>400</md-td>
-  <md-td>41058</md-td>
-  <md-td>inactive employee type error</md-td>
-  <md-td>员工类型未启用</md-td>
-</md-tr>
-
-
-<md-tr>
-  <md-td>400</md-td>
   <md-td>41059</md-td>
-  <md-td>job title len exceed limit error</md-td>
-  <md-td>职位数量超出限制</md-td>
+  <md-td>invalid employee type error</md-td>
+  <md-td>无效的雇员类型，请使用启用的正确类型</md-td>
+</md-tr>
+
+
+<md-tr>
+  <md-td>400</md-td>
+  <md-td>41060</md-td>
+  <md-td>inactive employee type error</md-td>
+  <md-td>雇员类型企业未使用，请咨询管理员</md-td>
+</md-tr>
+
+
+<md-tr>
+  <md-td>400</md-td>
+  <md-td>41063</md-td>
+  <md-td>job_title length exceed 100 character</md-td>
+  <md-td>职务的设置长度超过100字符，请检查字段长度</md-td>
 </md-tr>
 
   </md-tbody>

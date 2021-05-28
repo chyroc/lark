@@ -87,6 +87,7 @@ type GetUserListRespItem struct {
 	Orders          []*GetUserListRespItemOrder      `json:"orders,omitempty"`            // 用户排序信息
 	CustomAttrs     []*GetUserListRespItemCustomAttr `json:"custom_attrs,omitempty"`      // 自定义属性
 	EnterpriseEmail string                           `json:"enterprise_email,omitempty"`  // 企业邮箱，请先确保已在管理后台启用飞书邮箱服务
+	JobTitle        string                           `json:"job_title,omitempty"`         // 职务
 }
 
 type GetUserListRespItemAvatar struct {

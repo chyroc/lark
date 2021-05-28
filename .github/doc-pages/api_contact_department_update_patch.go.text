@@ -380,6 +380,8 @@
 	</md-td>
 	<md-td>
 	部门单位自定义ID列表，当前只支持一个
+
+**示例值**：custom_unit_id
 	</md-td>
 </md-tr>
 

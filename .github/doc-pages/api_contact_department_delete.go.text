@@ -20,6 +20,8 @@
 </md-alert>
 :::
 
+
+
 ## 请求
 :::html
 <md-table>
@@ -72,7 +74,7 @@
       <md-td>string</md-td>
       <md-td>是</md-td>
       	<md-td>
-<md-tag mode="inline" type="token-tenant-desc">tenant_access_token</md-tag>
+<md-tag mode="inline" type="token-tenant">tenant_access_token</md-tag>
 
 **值格式**："Bearer `access_token`"
 
@@ -80,16 +82,12 @@
 
 [了解更多：获取与使用access_token](/ssl:ttdoc/ukTMukTMukTM/uMTNz4yM1MjLzUzM)
 </md-td>
-</md-tr>
-     <md-tr>
-      <md-td>Content-Type</md-td>
-      <md-td>string</md-td>
-      <md-td>是</md-td>
-      <md-td>**固定值**："application/json; charset=utf-8"</md-td>
-</md-tr>
 </md-tbody>
 </md-table>
 :::
+
+
+
 ### 路径参数
 :::html
 <md-table>
@@ -125,6 +123,8 @@
   </md-tbody>
 </md-table>
 :::
+
+
 
 ### 查询参数
 :::html
@@ -195,7 +195,13 @@
 </md-table>
 :::
 
+
+
+
+
 ## 响应
+
+
 
 ### 响应体
 :::html
@@ -237,6 +243,9 @@
   </md-tbody>
 </md-table>
 :::
+
+
+
 ### 响应体示例
 
 ```json
@@ -245,6 +254,8 @@
     "msg": "success"
 }
 ```
+
+
 
 ### 错误码
 :::html
@@ -317,5 +328,7 @@
   </md-tbody>
 </md-table>
 :::
+
+
 
 

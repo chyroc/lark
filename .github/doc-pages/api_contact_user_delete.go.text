@@ -20,6 +20,8 @@
 </md-alert>
 :::
 
+
+
 ## 请求
 :::html
 <md-table>
@@ -90,6 +92,9 @@
 </md-tbody>
 </md-table>
 :::
+
+
+
 ### 路径参数
 :::html
 <md-table>
@@ -119,6 +124,8 @@
   </md-tbody>
 </md-table>
 :::
+
+
 
 ### 查询参数
 :::html
@@ -164,6 +171,8 @@
   </md-tbody>
 </md-table>
 :::
+
+
 
 ### 请求体
 :::html
@@ -289,6 +298,8 @@
 </md-table>
 :::
 
+
+
 ### 请求体示例
 
 ```json
@@ -302,7 +313,11 @@
 }
 ```
 
+
+
 ## 响应
+
+
 
 ### 响应体
 :::html
@@ -344,6 +359,9 @@
   </md-tbody>
 </md-table>
 :::
+
+
+
 ### 响应体示例
 
 ```json
@@ -352,6 +370,8 @@
     "msg": "success"
 }
 ```
+
+
 
 ### 错误码
 :::html
@@ -375,6 +395,14 @@
 
 
 <md-tr>
+  <md-td>403</md-td>
+  <md-td>41050</md-td>
+  <md-td>no user authority error</md-td>
+  <md-td>没有用户权限，检查该用户是否在通讯录权限范围内</md-td>
+</md-tr>
+
+
+<md-tr>
   <md-td>400</md-td>
   <md-td>41052</md-td>
   <md-td>user resign acceptor is invalid error</md-td>
@@ -384,5 +412,7 @@
   </md-tbody>
 </md-table>
 :::
+
+
 
 

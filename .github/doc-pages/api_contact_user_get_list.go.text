@@ -48,6 +48,7 @@
       <md-td>
             <md-perm href="/ssl:ttdoc/ukTMukTMukTM/uQjN3QjL0YzN04CN2cDN">以应用身份读取通讯录</md-perm>
             <md-perm href="/ssl:ttdoc/ukTMukTMukTM/uQjN3QjL0YzN04CN2cDN">获取部门组织架构信息</md-perm>
+            <md-perm href="/ssl:ttdoc/ukTMukTMukTM/uQjN3QjL0YzN04CN2cDN">以应用身份访问通讯录(历史版本)</md-perm>
       </md-td>
     </md-tr>
     <md-tr>
@@ -844,6 +845,19 @@
 	</md-td>
 </md-tr>
 
+
+<md-tr>
+	<md-td>
+	&emsp;&emsp;<span style="color: #8F959E">∟</span>&nbsp;<md-text type="field-name" >job_title</md-text>
+	</md-td>
+	<md-td>
+	<md-text type="field-type" >string</md-text>
+	</md-td>
+	<md-td>
+	职务
+	</md-td>
+</md-tr>
+
   </md-tbody>
 </md-table>
 :::
@@ -911,6 +925,7 @@
                     }
                 ],
                 "enterprise_email": "demo@mail.com",
+                "job_title": "xxxxx"
             }
         ]
     }
@@ -953,6 +968,14 @@
   <md-td>40012</md-td>
   <md-td>page token is invalid error</md-td>
   <md-td>page token已失效。</md-td>
+</md-tr>
+
+
+<md-tr>
+  <md-td>403</md-td>
+  <md-td>40004</md-td>
+  <md-td>no dept authority error</md-td>
+  <md-td>检查是否有该部门的权限</md-td>
 </md-tr>
 
   </md-tbody>
