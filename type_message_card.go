@@ -46,9 +46,9 @@ type MessageContentCardModule interface {
 }
 
 type MessageContentCardModuleDIV struct {
-	Text   *MessageContentCardObjectText  `json:"text,omitempty"`   // 单个文本展示，和field至少要有一个
-	Fields *MessageContentCardObjectField `json:"fields,omitempty"` // 多个文本展示，和text至少要有一个
-	Extra  MessageContentCardElement      `json:"extra,omitempty"`  // 展示附加元素，最多可展示一个元素
+	Text   *MessageContentCardObjectText    `json:"text,omitempty"`   // 单个文本展示，和field至少要有一个
+	Fields []*MessageContentCardObjectField `json:"fields,omitempty"` // 多个文本展示，和text至少要有一个
+	Extra  MessageContentCardElement        `json:"extra,omitempty"`  // 展示附加元素，最多可展示一个元素
 }
 
 func (r MessageContentCardModuleDIV) IsMessageContentCardModule() {}
@@ -205,8 +205,8 @@ const (
 
 // field对象可用于内容模块的field字段，通过"is_short"字段控制是否并排布局
 type MessageContentCardObjectField struct {
-	IsShort bool                         `json:"is_short,omitempty"` // 是否并排布局
-	Text    MessageContentCardObjectText `json:"text,omitempty"`     // 	国际化文本内容
+	IsShort bool                          `json:"is_short,omitempty"` // 是否并排布局
+	Text    *MessageContentCardObjectText `json:"text,omitempty"`     // 	国际化文本内容
 }
 
 // url对象用作多端差异跳转链接

@@ -40,7 +40,7 @@ func (r *Mock) UnMockDriveBatchUpdateSheet() {
 }
 
 type BatchUpdateSheetReq struct {
-	SpreadSheetToken string                        `path:"spreadsheetToken" json:"-"` // spreadsheet 的 token，获取方式见[在线表格开发指南](/ssl:ttdoc/ukTMukTMukTM/uATMzUjLwEzM14CMxMTN/overview)
+	SpreadSheetToken string                        `path:"spreadsheetToken" json:"-"` // spreadsheet 的 token，获取方式见[在线表格开发指南](https://open.feishu.cn/document/ukTMukTMukTM/uATMzUjLwEzM14CMxMTN/overview)
 	Requests         []*BatchUpdateSheetReqRequest `json:"requests,omitempty"`        // 请求操作，支持增、删、复制工作表 ，三个操作选一个
 }
 

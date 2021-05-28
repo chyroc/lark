@@ -42,9 +42,9 @@ func (r *Mock) UnMockDriveCopyDriveFile() {
 }
 
 type CopyDriveFileReq struct {
-	FileToken      string `path:"fileToken" json:"-"`       // 需要复制的源文件的 token, 获取方式见 [对接前说明](/ssl:ttdoc/ukTMukTMukTM/uczNzUjL3czM14yN3MTN) 的第 4 项
+	FileToken      string `path:"fileToken" json:"-"`       // 需要复制的源文件的 token, 获取方式见 [对接前说明](https://open.feishu.cn/document/ukTMukTMukTM/uczNzUjL3czM14yN3MTN) 的第 4 项
 	Type           string `json:"type,omitempty"`           // 需要复制的文档类型，"doc" or "sheet"
-	DstFolderToken string `json:"dstFolderToken,omitempty"` // 目标文件夹的 token, 获取方式见 [对接前说明](/ssl:ttdoc/ukTMukTMukTM/uczNzUjL3czM14yN3MTN) 的第 3 项
+	DstFolderToken string `json:"dstFolderToken,omitempty"` // 目标文件夹的 token, 获取方式见 [对接前说明](https://open.feishu.cn/document/ukTMukTMukTM/uczNzUjL3czM14yN3MTN) 的第 3 项
 	DstName        string `json:"dstName,omitempty"`        // 复制的副本文件的新名称
 	CommentNeeded  *bool  `json:"commentNeeded,omitempty"`  // 是否复制评论
 }

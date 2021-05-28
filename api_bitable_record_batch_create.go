@@ -53,7 +53,7 @@ type BatchCreateBitableRecordReqRecord struct {
 type batchCreateBitableRecordResp struct {
 	Code int64                         `json:"code,omitempty"` // 错误码，非 0 表示失败
 	Msg  string                        `json:"msg,omitempty"`  // 错误描述
-	Data *BatchCreateBitableRecordResp `json:"data,omitempty"` //
+	Data *BatchCreateBitableRecordResp `json:"data,omitempty"`
 }
 
 type BatchCreateBitableRecordResp struct {

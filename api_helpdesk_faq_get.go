@@ -46,15 +46,15 @@ type GetHelpdeskFAQReq struct {
 type getHelpdeskFAQResp struct {
 	Code int64               `json:"code,omitempty"` // 错误码，非 0 表示失败
 	Msg  string              `json:"msg,omitempty"`  // 错误描述
-	Data *GetHelpdeskFAQResp `json:"data,omitempty"` //
+	Data *GetHelpdeskFAQResp `json:"data,omitempty"`
 }
 
 type GetHelpdeskFAQResp struct {
-	Faq *GetHelpdeskFAQRespFaq `json:"faq,omitempty"` // 知识库详情
+	FAQ *GetHelpdeskFAQRespFAQ `json:"faq,omitempty"` // 知识库详情
 }
 
-type GetHelpdeskFAQRespFaq struct {
-	FaqID          string                           `json:"faq_id,omitempty"`          // 知识库ID
+type GetHelpdeskFAQRespFAQ struct {
+	FAQID          string                           `json:"faq_id,omitempty"`          // 知识库ID
 	ID             string                           `json:"id,omitempty"`              // 知识库旧版ID，请使用faq_id
 	HelpdeskID     string                           `json:"helpdesk_id,omitempty"`     // 服务台ID
 	Question       string                           `json:"question,omitempty"`        // 问题
@@ -65,17 +65,17 @@ type GetHelpdeskFAQRespFaq struct {
 	Categories     []*HelpdeskCategory              `json:"categories,omitempty"`      // 分类
 	Tags           []string                         `json:"tags,omitempty"`            // 关联词列表
 	ExpireTime     int64                            `json:"expire_time,omitempty"`     // 失效时间
-	UpdateUser     *GetHelpdeskFAQRespFaqUpdateUser `json:"update_user,omitempty"`     // 更新用户
-	CreateUser     *GetHelpdeskFAQRespFaqCreateUser `json:"create_user,omitempty"`     // 创建用户
+	UpdateUser     *GetHelpdeskFAQRespFAQUpdateUser `json:"update_user,omitempty"`     // 更新用户
+	CreateUser     *GetHelpdeskFAQRespFAQCreateUser `json:"create_user,omitempty"`     // 创建用户
 }
 
-type GetHelpdeskFAQRespFaqUpdateUser struct {
+type GetHelpdeskFAQRespFAQUpdateUser struct {
 	ID        string `json:"id,omitempty"`         // 用户ID
 	AvatarURL string `json:"avatar_url,omitempty"` // 用户头像url
 	Name      string `json:"name,omitempty"`       // 用户名
 }
 
-type GetHelpdeskFAQRespFaqCreateUser struct {
+type GetHelpdeskFAQRespFAQCreateUser struct {
 	ID        string `json:"id,omitempty"`         // 用户ID
 	AvatarURL string `json:"avatar_url,omitempty"` // 用户头像url
 	Name      string `json:"name,omitempty"`       // 用户名

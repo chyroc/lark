@@ -40,13 +40,13 @@ func (r *Mock) UnMockDriveBatchSetSheetValue() {
 }
 
 type BatchSetSheetValueReq struct {
-	SpreadSheetToken string                            `path:"spreadsheetToken" json:"-"` // spreadsheet 的 token，获取方式见[在线表格开发指南](/ssl:ttdoc/ukTMukTMukTM/uATMzUjLwEzM14CMxMTN/overview)
+	SpreadSheetToken string                            `path:"spreadsheetToken" json:"-"` // spreadsheet 的 token，获取方式见[在线表格开发指南](https://open.feishu.cn/document/ukTMukTMukTM/uATMzUjLwEzM14CMxMTN/overview)
 	ValueRanges      *BatchSetSheetValueReqValueRanges `json:"valueRanges,omitempty"`     // 需要更新的多个范围
 }
 
 type BatchSetSheetValueReqValueRanges struct {
-	Range  string           `json:"range,omitempty"`  // 更新范围，包含 sheetId 与单元格范围两部分，目前支持四种索引方式，详见[在线表格开发指南](/ssl:ttdoc/ukTMukTMukTM/uATMzUjLwEzM14CMxMTN/overview)
-	Values [][]SheetContent `json:"values,omitempty"` // 需要写入的值，如要写入公式、超链接、emial、@人等，可详看附录[sheet 支持写入数据类型](/ssl:ttdoc/ukTMukTMukTM/ugjN1UjL4YTN14CO2UTN)
+	Range  string           `json:"range,omitempty"`  // 更新范围，包含 sheetId 与单元格范围两部分，目前支持四种索引方式，详见[在线表格开发指南](https://open.feishu.cn/document/ukTMukTMukTM/uATMzUjLwEzM14CMxMTN/overview)
+	Values [][]SheetContent `json:"values,omitempty"` // 需要写入的值，如要写入公式、超链接、emial、@人等，可详看附录[sheet 支持写入数据类型](https://open.feishu.cn/document/ukTMukTMukTM/ugjN1UjL4YTN14CO2UTN)
 }
 
 type batchSetSheetValueResp struct {

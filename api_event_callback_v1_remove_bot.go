@@ -10,7 +10,7 @@ import (
 //
 // ## 机器人被移出群
 // 机器人被从群聊中移除时触发此事件。
-// - 依赖条件：应用必须开启了[机器人能力](/ssl:ttdoc/uQjL04CN/uYTMuYTMuYTM)。
+// - 依赖条件：应用必须开启了[机器人能力](https://open.feishu.cn/document/uQjL04CN/uYTMuYTMuYTM)。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uMTNxYjLzUTM24yM1EjN
 func (r *EventCallbackService) HandlerEventV1RemoveBot(f eventV1RemoveBotHandler) {

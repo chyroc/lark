@@ -47,7 +47,7 @@ type MakeHireTransferOnboardByApplicationReq struct {
 type makeHireTransferOnboardByApplicationResp struct {
 	Code int64                                     `json:"code,omitempty"` // 错误码，非 0 表示失败
 	Msg  string                                    `json:"msg,omitempty"`  // 错误描述
-	Data *MakeHireTransferOnboardByApplicationResp `json:"data,omitempty"` //
+	Data *MakeHireTransferOnboardByApplicationResp `json:"data,omitempty"`
 }
 
 type MakeHireTransferOnboardByApplicationResp struct {

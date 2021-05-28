@@ -40,7 +40,7 @@ func (r *Mock) UnMockDriveCheckDriveMemberPermission() {
 }
 
 type CheckDriveMemberPermissionReq struct {
-	Token string `json:"token,omitempty"` // 文件的 token，获取方式见 [对接前说明](/ssl:ttdoc/ukTMukTMukTM/uczNzUjL3czM14yN3MTN)的第 4 项
+	Token string `json:"token,omitempty"` // 文件的 token，获取方式见 [对接前说明](https://open.feishu.cn/document/ukTMukTMukTM/uczNzUjL3czM14yN3MTN)的第 4 项
 	Type  string `json:"type,omitempty"`  // 文档类型  "doc"  or  "sheet" or "file"
 	Perm  string `json:"perm,omitempty"`  // 权限，"view" or "edit" or "share"
 }

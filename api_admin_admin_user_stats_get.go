@@ -56,7 +56,7 @@ type GetAdminUserStatsReq struct {
 type getAdminUserStatsResp struct {
 	Code int64                  `json:"code,omitempty"` // 错误码，非 0 表示失败
 	Msg  string                 `json:"msg,omitempty"`  // 错误描述
-	Data *GetAdminUserStatsResp `json:"data,omitempty"` //
+	Data *GetAdminUserStatsResp `json:"data,omitempty"`
 }
 
 type GetAdminUserStatsResp struct {
@@ -76,7 +76,7 @@ type GetAdminUserStatsRespItem struct {
 	RegisterTime     string `json:"register_time,omitempty"`      // 激活时间
 	SuiteActiveFlag  int64  `json:"suite_active_flag,omitempty"`  // 用户活跃状态, 可选值有: `0`：无活跃, `1`：活跃
 	LastActiveTime   string `json:"last_active_time,omitempty"`   // 最近活跃时间
-	ImActiveFlag     int64  `json:"im_active_flag,omitempty"`     // 用户消息活跃状态, 可选值有: `0`：无活跃, `1`：活跃
+	IMActiveFlag     int64  `json:"im_active_flag,omitempty"`     // 用户消息活跃状态, 可选值有: `0`：无活跃, `1`：活跃
 	SendMessengerNum int64  `json:"send_messenger_num,omitempty"` // 发送消息数
 	DocsActiveFlag   int64  `json:"docs_active_flag,omitempty"`   // 用户云文档活跃状态, 可选值有: `0`：无活跃, `1`：活跃
 	CreateDocsNum    int64  `json:"create_docs_num,omitempty"`    // 创建文件数

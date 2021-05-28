@@ -52,5 +52,5 @@ type importSheetResp struct {
 }
 
 type ImportSheetResp struct {
-	Ticket string `json:"ticket,omitempty"` // 与导入文件一一对应的凭证，用于查询文件导入的进度，详见[查询导入结果的接口](/ssl:ttdoc/ukTMukTMukTM/uETO2YjLxkjN24SM5YjN)
+	Ticket string `json:"ticket,omitempty"` // 与导入文件一一对应的凭证，用于查询文件导入的进度，详见[查询导入结果的接口](https://open.feishu.cn/document/ukTMukTMukTM/uETO2YjLxkjN24SM5YjN)
 }

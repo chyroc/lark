@@ -40,7 +40,7 @@ func (r *Mock) UnMockDriveCreateSheetProtectedDimension() {
 }
 
 type CreateSheetProtectedDimensionReq struct {
-	SpreadSheetToken      string                                                 `path:"spreadsheetToken" json:"-"`       // spreadsheet 的 token，获取方式见 [在线表格开发指南](/ssl:ttdoc/ukTMukTMukTM/uATMzUjLwEzM14CMxMTN/overview)
+	SpreadSheetToken      string                                                 `path:"spreadsheetToken" json:"-"`       // spreadsheet 的 token，获取方式见 [在线表格开发指南](https://open.feishu.cn/document/ukTMukTMukTM/uATMzUjLwEzM14CMxMTN/overview)
 	AddProtectedDimension *CreateSheetProtectedDimensionReqAddProtectedDimension `json:"addProtectedDimension,omitempty"` // 需要增加保护范围的维度信息，可多个范围
 }
 

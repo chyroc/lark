@@ -40,19 +40,19 @@ func (r *Mock) UnMockDriveSetSheetStyle() {
 }
 
 type SetSheetStyleReq struct {
-	SpreadSheetToken string                       `path:"spreadsheetToken" json:"-"` // spreadsheet 的 token，详见 [在线表格开发指南](/ssl:ttdoc/ukTMukTMukTM/uATMzUjLwEzM14CMxMTN/overview)
+	SpreadSheetToken string                       `path:"spreadsheetToken" json:"-"` // spreadsheet 的 token，详见 [在线表格开发指南](https://open.feishu.cn/document/ukTMukTMukTM/uATMzUjLwEzM14CMxMTN/overview)
 	AppendStyle      *SetSheetStyleReqAppendStyle `json:"appendStyle,omitempty"`     // 设置单元格样式
 }
 
 type SetSheetStyleReqAppendStyle struct {
-	Range string                            `json:"range,omitempty"` // 查询范围，包含 sheetId 与单元格范围两部分，目前支持四种索引方式，详见[在线表格开发指南](/ssl:ttdoc/ukTMukTMukTM/uATMzUjLwEzM14CMxMTN/overview)
+	Range string                            `json:"range,omitempty"` // 查询范围，包含 sheetId 与单元格范围两部分，目前支持四种索引方式，详见[在线表格开发指南](https://open.feishu.cn/document/ukTMukTMukTM/uATMzUjLwEzM14CMxMTN/overview)
 	Style *SetSheetStyleReqAppendStyleStyle `json:"style,omitempty"` // 需要更新的样式
 }
 
 type SetSheetStyleReqAppendStyleStyle struct {
 	Font           *SetSheetStyleReqAppendStyleStyleFont `json:"font,omitempty"`           // 字体相关样式
 	TextDecoration *int64                                `json:"textDecoration,omitempty"` // 文本装饰 ，0 默认，1 下划线，2 删除线 ，3 下划线和删除线
-	Formatter      *string                               `json:"formatter,omitempty"`      // 数字格式，详见附录 [sheet支持数字格式类型](/ssl:ttdoc/ukTMukTMukTM/uMjM2UjLzIjN14yMyYTN)
+	Formatter      *string                               `json:"formatter,omitempty"`      // 数字格式，详见附录 [sheet支持数字格式类型](https://open.feishu.cn/document/ukTMukTMukTM/uMjM2UjLzIjN14yMyYTN)
 	HAlign         *int64                                `json:"hAlign,omitempty"`         // 水平对齐，0 左对齐，1 中对齐，2 右对齐
 	VAlign         *int64                                `json:"vAlign,omitempty"`         // 垂直对齐, 0 上对齐，1 中对齐, 2 下对齐
 	ForeColor      *string                               `json:"foreColor,omitempty"`      // 字体颜色

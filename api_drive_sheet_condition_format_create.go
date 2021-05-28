@@ -40,7 +40,7 @@ func (r *Mock) UnMockDriveCreateSheetConditionFormat() {
 }
 
 type CreateSheetConditionFormatReq struct {
-	SpreadSheetToken      string                                               `path:"spreadsheetToken" json:"-"`         // spreadsheet 的 token，获取方式见[在线表格开发指南](/ssl:ttdoc/ukTMukTMukTM/uATMzUjLwEzM14CMxMTN/overview)
+	SpreadSheetToken      string                                               `path:"spreadsheetToken" json:"-"`         // spreadsheet 的 token，获取方式见[在线表格开发指南](https://open.feishu.cn/document/ukTMukTMukTM/uATMzUjLwEzM14CMxMTN/overview)
 	SheetConditionFormats []*CreateSheetConditionFormatReqSheetConditionFormat `json:"sheet_condition_formats,omitempty"` // 表格的条件格式信息
 }
 
@@ -52,8 +52,15 @@ type CreateSheetConditionFormatReqSheetConditionFormat struct {
 type CreateSheetConditionFormatReqSheetConditionFormatConditionFormat struct {
 	Ranges   []string                                                               `json:"ranges,omitempty"`    // 条件格式应用的范围，支持：sheetId（整表）；sheetId!1:2（整行）；sheetId!A:B（整列）；sheetId!A1:B2（普通范围）；sheetId!A1:C（应用至最后一行）。应用范围不能超过表格的行总数和列总数，sheetId要与参数的sheetId一致
 	RuleType string                                                                 `json:"rule_type,omitempty"` // 条件格式规则类型，目前只有7种：***containsBlanks（为空）、notContainsBlanks（不为空）、duplicateValues（重复值）、uniqueValues（唯一值）、cellIs（限定值范围）、containsText（包含内容）、timePeriod（日期）***
-	Attrs    []SheetAttr                                                            `json:"attrs,omitempty"`     // rule_type对应的具体属性信息，详见 [条件格式指南](/ssl:ttdoc/ukTMukTMukTM/uATMzUjLwEzM14CMxMTN/conditionformat/condition-format-guide)
+	Attrs    *CreateSheetConditionFormatReqSheetConditionFormatConditionFormatAttrs `json:"attrs,omitempty"`     // rule_type对应的具体属性信息，详见 [条件格式指南](https://open.feishu.cn/document/ukTMukTMukTM/uATMzUjLwEzM14CMxMTN/conditionformat/condition-format-guide)
 	Style    *CreateSheetConditionFormatReqSheetConditionFormatConditionFormatStyle `json:"style,omitempty"`     // 条件格式样式，只支持以下样式，以下样式每个参数都可选，但是不能设置空的style
+}
+
+type CreateSheetConditionFormatReqSheetConditionFormatConditionFormatAttrs struct {
+	Operator   *string  `json:"operator,omitempty"`    // 操作方法
+	TimePeriod *string  `json:"time_period,omitempty"` // 时间范围
+	Formula    []string `json:"formula,omitempty"`     // 格式
+	Text       *string  `json:"text,omitempty"`        // 文本
 }
 
 type CreateSheetConditionFormatReqSheetConditionFormatConditionFormatStyle struct {

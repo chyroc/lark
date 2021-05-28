@@ -40,7 +40,7 @@ func (r *Mock) UnMockDriveGetDriveDocMeta() {
 }
 
 type GetDriveDocMetaReq struct {
-	DocToken string `path:"docToken" json:"-"` // doc 的 token，获取方式见[准备接入文档 API](/ssl:ttdoc/ukTMukTMukTM/ugzNzUjL4czM14CO3MTN/guide/getting-start)
+	DocToken string `path:"docToken" json:"-"` // doc 的 token，获取方式见[准备接入文档 API](https://open.feishu.cn/document/ukTMukTMukTM/ugzNzUjL4czM14CO3MTN/guide/getting-start)
 }
 
 type getDriveDocMetaResp struct {

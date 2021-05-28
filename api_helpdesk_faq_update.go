@@ -41,14 +41,14 @@ func (r *Mock) UnMockHelpdeskUpdateHelpdeskFAQ() {
 
 type UpdateHelpdeskFAQReq struct {
 	ID  string                   `path:"id" json:"-"`   // 知识库ID, 示例值："6856395634652479491"
-	Faq *UpdateHelpdeskFAQReqFaq `json:"faq,omitempty"` // 修改的知识库内容
+	FAQ *UpdateHelpdeskFAQReqFAQ `json:"faq,omitempty"` // 修改的知识库内容
 }
 
-type UpdateHelpdeskFAQReqFaq struct {
+type UpdateHelpdeskFAQReqFAQ struct {
 	CategoryID     *string  `json:"category_id,omitempty"`     // 知识库分类ID, 示例值："6836004780707807251"
 	Question       string   `json:"question,omitempty"`        // 问题, 示例值："问题"
 	Answer         *string  `json:"answer,omitempty"`          // 答案, 示例值："答案"
-	AnswerRichtext *string  `json:"answer_richtext,omitempty"` // 富文本答案和答案必须有一个必填。Json Array格式，富文本结构请见[了解更多: 富文本](/ssl:ttdoc/ukTMukTMukTM/uITM0YjLyEDN24iMxQjN), 示例值："[{,                        "content": "这只是一个测试，医保问题",,                        "type": "text",                    }]"
+	AnswerRichtext *string  `json:"answer_richtext,omitempty"` // 富文本答案和答案必须有一个必填。Json Array格式，富文本结构请见[了解更多: 富文本](https://open.feishu.cn/document/ukTMukTMukTM/uITM0YjLyEDN24iMxQjN), 示例值："[{,                        "content": "这只是一个测试，医保问题",,                        "type": "text",                    }]"
 	Tags           []string `json:"tags,omitempty"`            // 关联词
 }
 

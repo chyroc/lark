@@ -8,7 +8,8 @@ import (
 
 // BatchGetOKR 根据OKR id批量获取OKR
 //
-// 使用tenant_access_token需要额外申请权限以应用身份访问OKR信息
+// 使用tenant_access_token需要额外申请权限<md-perm
+// href="/ssl:ttdoc/ukTMukTMukTM/uQjN3QjL0YzN04CN2cDN">以应用身份访问OKR信息</md-perm>
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/okr-v1/okr/batch_get
 func (r *OKRService) BatchGetOKR(ctx context.Context, request *BatchGetOKRReq, options ...MethodOptionFunc) (*BatchGetOKRResp, *Response, error) {
@@ -43,75 +44,75 @@ func (r *Mock) UnMockOKRBatchGetOKR() {
 
 type BatchGetOKRReq struct {
 	UserIDType *IDType  `query:"user_id_type" json:"-"` // 用户 ID 类型, 示例值："open_id", 可选值有: `open_id`：用户的 open id, `union_id`：用户的 union id, `user_id`：用户的 user id, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 userid
-	OkrIDs     []string `query:"okr_ids" json:"-"`      // OKR ID 列表，最多10个
+	OKRIDs     []string `query:"okr_ids" json:"-"`      // OKR ID 列表，最多10个
 	Lang       *string  `query:"lang" json:"-"`         // 请求OKR的语言版本（比如@的人名），lang=en_us/zh_cn，请求 Query中, 示例值："zh_cn", 默认值: `zh_cn`
 }
 
 type batchGetOKRResp struct {
 	Code int64            `json:"code,omitempty"` // 错误码，非 0 表示失败
 	Msg  string           `json:"msg,omitempty"`  // 错误描述
-	Data *BatchGetOKRResp `json:"data,omitempty"` //
+	Data *BatchGetOKRResp `json:"data,omitempty"`
 }
 
 type BatchGetOKRResp struct {
-	OkrList []*BatchGetOKRRespOkr `json:"okr_list,omitempty"` // OKR 列表
+	OKRList []*BatchGetOKRRespOKR `json:"okr_list,omitempty"` // OKR 列表
 }
 
-type BatchGetOKRRespOkr struct {
+type BatchGetOKRRespOKR struct {
 	ID            string                         `json:"id,omitempty"`             // id
 	Permission    int64                          `json:"permission,omitempty"`     // OKR的访问权限, 可选值有: `0`：此时OKR只返回id, `1`：返回OKR的其他具体字段
 	Name          string                         `json:"name,omitempty"`           // 名称
-	ObjectiveList []*BatchGetOKRRespOkrObjective `json:"objective_list,omitempty"` // Objective列表
+	ObjectiveList []*BatchGetOKRRespOKRObjective `json:"objective_list,omitempty"` // Objective列表
 }
 
-type BatchGetOKRRespOkrObjective struct {
+type BatchGetOKRRespOKRObjective struct {
 	ID                    string                                          `json:"id,omitempty"`                      // Objective ID
 	Permission            int64                                           `json:"permission,omitempty"`              // 权限, 可选值有: `0`：此时OKR只返回id, `1`：返回OKR的其他具体字段
 	Content               string                                          `json:"content,omitempty"`                 // Objective 内容
 	ProgressReport        string                                          `json:"progress_report,omitempty"`         // Objective 进度记录内容
 	Score                 int64                                           `json:"score,omitempty"`                   // Objective 分数（0 - 100）
 	Weight                float64                                         `json:"weight,omitempty"`                  // Objective的权重（0 - 100）
-	ProgressRate          *BatchGetOKRRespOkrObjectiveProgressRate        `json:"progress_rate,omitempty"`           // Objective进度
-	KrList                []*BatchGetOKRRespOkrObjectiveKr                `json:"kr_list,omitempty"`                 // Objective KeyResult 列表
-	AlignedObjectiveList  []*BatchGetOKRRespOkrObjectiveAlignedObjective  `json:"aligned_objective_list,omitempty"`  // 对齐到该Objective的Objective列表
-	AligningObjectiveList []*BatchGetOKRRespOkrObjectiveAligningObjective `json:"aligning_objective_list,omitempty"` // 该Objective对齐到的Objective列表
+	ProgressRate          *BatchGetOKRRespOKRObjectiveProgressRate        `json:"progress_rate,omitempty"`           // Objective进度
+	KrList                []*BatchGetOKRRespOKRObjectiveKr                `json:"kr_list,omitempty"`                 // Objective KeyResult 列表
+	AlignedObjectiveList  []*BatchGetOKRRespOKRObjectiveAlignedObjective  `json:"aligned_objective_list,omitempty"`  // 对齐到该Objective的Objective列表
+	AligningObjectiveList []*BatchGetOKRRespOKRObjectiveAligningObjective `json:"aligning_objective_list,omitempty"` // 该Objective对齐到的Objective列表
 }
 
-type BatchGetOKRRespOkrObjectiveProgressRate struct {
+type BatchGetOKRRespOKRObjectiveProgressRate struct {
 	Percent int64  `json:"percent,omitempty"` // Objective 进度百分比 >= 0
 	Status  string `json:"status,omitempty"`  // Objective 进度状态, 可选值有: `-1`：未更新, `0`：正常, `1`：有风险, `2`：已延期
 }
 
-type BatchGetOKRRespOkrObjectiveKr struct {
+type BatchGetOKRRespOKRObjectiveKr struct {
 	ID           string                                     `json:"id,omitempty"`            // Key Result ID
 	Content      string                                     `json:"content,omitempty"`       // KeyResult 内容
 	Score        int64                                      `json:"score,omitempty"`         // KeyResult打分（0 - 100）
 	Weight       int64                                      `json:"weight,omitempty"`        // KeyResult权重（0 - 100）（废弃）
 	KrWeight     float64                                    `json:"kr_weight,omitempty"`     // KeyResult的权重（0 - 100）
-	ProgressRate *BatchGetOKRRespOkrObjectiveKrProgressRate `json:"progress_rate,omitempty"` // KR进度
+	ProgressRate *BatchGetOKRRespOKRObjectiveKrProgressRate `json:"progress_rate,omitempty"` // KR进度
 }
 
-type BatchGetOKRRespOkrObjectiveKrProgressRate struct {
+type BatchGetOKRRespOKRObjectiveKrProgressRate struct {
 	Percent int64  `json:"percent,omitempty"` // Objective 进度百分比 >= 0
 	Status  string `json:"status,omitempty"`  // Objective 进度状态, 可选值有: `-1`：未更新, `0`：正常, `1`：有风险, `2`：已延期
 }
 
-type BatchGetOKRRespOkrObjectiveAlignedObjective struct {
+type BatchGetOKRRespOKRObjectiveAlignedObjective struct {
 	ID    string                                            `json:"id,omitempty"`     // Objective的ID
-	OkrID string                                            `json:"okr_id,omitempty"` // OKR的ID
-	Owner *BatchGetOKRRespOkrObjectiveAlignedObjectiveOwner `json:"owner,omitempty"`  // 该Objective的Owner
+	OKRID string                                            `json:"okr_id,omitempty"` // OKR的ID
+	Owner *BatchGetOKRRespOKRObjectiveAlignedObjectiveOwner `json:"owner,omitempty"`  // 该Objective的Owner
 }
 
-type BatchGetOKRRespOkrObjectiveAlignedObjectiveOwner struct {
+type BatchGetOKRRespOKRObjectiveAlignedObjectiveOwner struct {
 	OpenID string `json:"open_id,omitempty"` // 用户的 open_id
 }
 
-type BatchGetOKRRespOkrObjectiveAligningObjective struct {
+type BatchGetOKRRespOKRObjectiveAligningObjective struct {
 	ID    string                                             `json:"id,omitempty"`     // Objective的ID
-	OkrID string                                             `json:"okr_id,omitempty"` // OKR的ID
-	Owner *BatchGetOKRRespOkrObjectiveAligningObjectiveOwner `json:"owner,omitempty"`  // 该Objective的Owner
+	OKRID string                                             `json:"okr_id,omitempty"` // OKR的ID
+	Owner *BatchGetOKRRespOKRObjectiveAligningObjectiveOwner `json:"owner,omitempty"`  // 该Objective的Owner
 }
 
-type BatchGetOKRRespOkrObjectiveAligningObjectiveOwner struct {
+type BatchGetOKRRespOKRObjectiveAligningObjectiveOwner struct {
 	OpenID string `json:"open_id,omitempty"` // 用户的 open_id
 }

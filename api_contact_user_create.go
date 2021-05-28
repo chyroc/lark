@@ -6,7 +6,7 @@ import (
 	"context"
 )
 
-// CreateUser 使用该接口向通讯录创建一个用户，可以理解为员工入职。创建部门后只返回有数据权限的数据。具体的数据权限的与字段的对应关系请参照[应用权限](/ssl:ttdoc/ukTMukTMukTM/uQjN3QjL0YzN04CN2cDN)
+// CreateUser 使用该接口向通讯录创建一个用户，可以理解为员工入职。创建部门后只返回有数据权限的数据。具体的数据权限的与字段的对应关系请参照[应用权限](https://open.feishu.cn/document/ukTMukTMukTM/uQjN3QjL0YzN04CN2cDN)
 //
 // 新增用户的所有部门必须都在当前应用的通讯录授权范围内才允许新增用户，如果想要在根部门下新增用户，必须要有全员权限。 应用商店应用无权限调用此接口。
 //
@@ -94,7 +94,7 @@ type CreateUserReqNotificationOption struct {
 type createUserResp struct {
 	Code int64           `json:"code,omitempty"` // 错误码，非 0 表示失败
 	Msg  string          `json:"msg,omitempty"`  // 错误描述
-	Data *CreateUserResp `json:"data,omitempty"` //
+	Data *CreateUserResp `json:"data,omitempty"`
 }
 
 type CreateUserResp struct {

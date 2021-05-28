@@ -40,7 +40,7 @@ func (r *Mock) UnMockDriveUpdateSheetDimensionRange() {
 }
 
 type UpdateSheetDimensionRangeReq struct {
-	SpreadSheetToken    string                                           `path:"spreadsheetToken" json:"-"`     // spreadsheet 的 token，获取方式见[在线表格开发指南](/ssl:ttdoc/ukTMukTMukTM/uATMzUjLwEzM14CMxMTN/overview)
+	SpreadSheetToken    string                                           `path:"spreadsheetToken" json:"-"`     // spreadsheet 的 token，获取方式见[在线表格开发指南](https://open.feishu.cn/document/ukTMukTMukTM/uATMzUjLwEzM14CMxMTN/overview)
 	Dimension           *UpdateSheetDimensionRangeReqDimension           `json:"dimension,omitempty"`           // 需要更新行列的维度信息
 	DimensionProperties *UpdateSheetDimensionRangeReqDimensionProperties `json:"dimensionProperties,omitempty"` // 需要更新行列的属性
 }

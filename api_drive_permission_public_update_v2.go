@@ -40,7 +40,7 @@ func (r *Mock) UnMockDriveUpdateDrivePublicPermissionV2() {
 }
 
 type UpdateDrivePublicPermissionV2Req struct {
-	Token           string  `json:"token,omitempty"`             // 文件的 token，获取方式见 [对接前说明](/ssl:ttdoc/ukTMukTMukTM/uczNzUjL3czM14yN3MTN)的第 4 项
+	Token           string  `json:"token,omitempty"`             // 文件的 token，获取方式见 [对接前说明](https://open.feishu.cn/document/ukTMukTMukTM/uczNzUjL3czM14yN3MTN)的第 4 项
 	Type            string  `json:"type,omitempty"`              // 文档类型  "doc"  or  "sheet" or "file"
 	SecurityEntity  *string `json:"security_entity,omitempty"`   // 可创建副本/打印/导出/复制设置（不传则保持原值）：<br>"anyone_can_view" - 所有可访问此文档的用户<br>"anyone_can_edit" - 有编辑权限的用户
 	CommentEntity   *string `json:"comment_entity,omitempty"`    // 可评论设置（不传则保持原值）：<br>"anyone_can_view" - 所有可访问此文档的用户<br>"anyone_can_edit" - 有编辑权限的用户

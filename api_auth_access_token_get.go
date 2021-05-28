@@ -8,7 +8,7 @@ import (
 
 // GetAccessToken 通过此接口获取登录预授权码 code 对应的登录用户身份。
 //
-// 该接口仅适用于通过网页应用登录方式获取的预授权码，小程序登录中用户身份的获取，请使用[小程序 code2session 接口](/ssl:ttdoc/uYjL24iN/ukjM04SOyQjL5IDN)
+// 该接口仅适用于通过网页应用登录方式获取的预授权码，小程序登录中用户身份的获取，请使用[小程序 code2session 接口](https://open.feishu.cn/document/uYjL24iN/ukjM04SOyQjL5IDN)
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uEDO4UjLxgDO14SM4gTN
 func (r *AuthService) GetAccessToken(ctx context.Context, request *GetAccessTokenReq, options ...MethodOptionFunc) (*GetAccessTokenResp, *Response, error) {
@@ -43,7 +43,7 @@ func (r *Mock) UnMockAuthGetAccessToken() {
 
 type GetAccessTokenReq struct {
 	GrantType string `json:"grant_type,omitempty"` // 在本流程中，此值为 authorization_code
-	Code      string `json:"code,omitempty"`       // 来自[请求身份验证(新)](/ssl:ttdoc/ukTMukTMukTM/ukzN4UjL5cDO14SO3gTN)流程，用户扫码登录后会自动302到redirect_uri并带上此参数
+	Code      string `json:"code,omitempty"`       // 来自[请求身份验证(新)](https://open.feishu.cn/document/ukTMukTMukTM/ukzN4UjL5cDO14SO3gTN)流程，用户扫码登录后会自动302到redirect_uri并带上此参数
 }
 
 type getAccessTokenResp struct {

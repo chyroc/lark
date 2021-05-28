@@ -35,7 +35,7 @@ https://godoc.org/github.com/chyroc/lark
 
 ## Support APIs
 
-API Count: 331, Event Count: 28
+API Count: 333, Event Count: 28
 
 <details>
   <summary>
@@ -278,6 +278,8 @@ API Count: 331, Event Count: 28
   - CancelApprovalInstance
   - UploadApprovalFile
   - SearchApprovalInstance
+  - SearchApprovalTask
+  - SearchApprovalCarbonCopy
   - CreateApprovalCarbonCopy
 - Helpdesk
   - StartHelpdeskService

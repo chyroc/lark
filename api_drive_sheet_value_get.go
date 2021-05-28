@@ -44,8 +44,8 @@ func (r *Mock) UnMockDriveGetSheetValue() {
 type GetSheetValueReq struct {
 	ValueRenderOption    *string `query:"valueRenderOption" json:"-"`    // valueRenderOption=ToString 可返回纯文本的值；valueRenderOption=FormattedValue 计算并格式化单元格；valueRenderOption=Formula单元格中含有公式时返回公式本身；valueRenderOption=UnformattedValue计算但不对单元格进行格式化。
 	DateTimeRenderOption *string `query:"dateTimeRenderOption" json:"-"` // dateTimeRenderOption=FormattedString 计算并对时间日期按照其格式进行格式化，但不会对数字进行格式化，返回格式化后的字符串。
-	SpreadSheetToken     string  `path:"spreadsheetToken" json:"-"`      // spreadsheet 的 token，详见[在线表格开发指南](/ssl:ttdoc/ukTMukTMukTM/uATMzUjLwEzM14CMxMTN/overview)
-	Range                string  `path:"range" json:"-"`                 // 查询范围，包含 sheetId 与单元格范围两部分，目前支持四种索引方式，详见[在线表格开发指南](/ssl:ttdoc/ukTMukTMukTM/uATMzUjLwEzM14CMxMTN/overview)
+	SpreadSheetToken     string  `path:"spreadsheetToken" json:"-"`      // spreadsheet 的 token，详见[在线表格开发指南](https://open.feishu.cn/document/ukTMukTMukTM/uATMzUjLwEzM14CMxMTN/overview)
+	Range                string  `path:"range" json:"-"`                 // 查询范围，包含 sheetId 与单元格范围两部分，目前支持四种索引方式，详见[在线表格开发指南](https://open.feishu.cn/document/ukTMukTMukTM/uATMzUjLwEzM14CMxMTN/overview)
 }
 
 type getSheetValueResp struct {
@@ -56,7 +56,7 @@ type getSheetValueResp struct {
 
 type GetSheetValueResp struct {
 	Revision         int64                        `json:"revision,omitempty"`         // sheet 的版本号
-	SpreadSheetToken string                       `json:"spreadsheetToken,omitempty"` // spreadsheet 的 token，详见 [对接前说明](/ssl:ttdoc/ukTMukTMukTM/uczNzUjL3czM14yN3MTN) 的第 4 项
+	SpreadSheetToken string                       `json:"spreadsheetToken,omitempty"` // spreadsheet 的 token，详见 [对接前说明](https://open.feishu.cn/document/ukTMukTMukTM/uczNzUjL3czM14yN3MTN) 的第 4 项
 	ValueRange       *GetSheetValueRespValueRange `json:"valueRange,omitempty"`       // 值与范围
 }
 

@@ -35,7 +35,7 @@ https://godoc.org/github.com/chyroc/lark
 
 ## 支持的接口
 
-API 总数: 331, 事件总数: 28
+API 总数: 333, 事件总数: 28
 
 <details>
   <summary>
@@ -278,6 +278,8 @@ API 总数: 331, 事件总数: 28
   - CancelApprovalInstance
   - UploadApprovalFile
   - SearchApprovalInstance
+  - SearchApprovalTask
+  - SearchApprovalCarbonCopy
   - CreateApprovalCarbonCopy
 - Helpdesk
   - StartHelpdeskService
@@ -616,4 +618,3 @@ fmt.Println(resp, err)
 - 人事
   
 https://open.feishu.cn/document/ukTMukTMukTM/ucTM5YjL3ETO24yNxkjN
-  

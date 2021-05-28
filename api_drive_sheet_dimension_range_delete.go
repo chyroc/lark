@@ -40,7 +40,7 @@ func (r *Mock) UnMockDriveDeleteSheetDimensionRange() {
 }
 
 type DeleteSheetDimensionRangeReq struct {
-	SpreadSheetToken string                                 `path:"spreadsheetToken" json:"-"` // spreadsheet的token，详见 [在线表格开发指南](/ssl:ttdoc/ukTMukTMukTM/uATMzUjLwEzM14CMxMTN/overview)
+	SpreadSheetToken string                                 `path:"spreadsheetToken" json:"-"` // spreadsheet的token，详见 [在线表格开发指南](https://open.feishu.cn/document/ukTMukTMukTM/uATMzUjLwEzM14CMxMTN/overview)
 	Dimension        *DeleteSheetDimensionRangeReqDimension `json:"dimension,omitempty"`       // 需要删除行列的维度信息
 }
 

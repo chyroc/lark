@@ -48,7 +48,7 @@ type SendHelpdeskTicketMessageReq struct {
 type sendHelpdeskTicketMessageResp struct {
 	Code int64                          `json:"code,omitempty"` // 错误码，非 0 表示失败
 	Msg  string                         `json:"msg,omitempty"`  // 错误描述
-	Data *SendHelpdeskTicketMessageResp `json:"data,omitempty"` //
+	Data *SendHelpdeskTicketMessageResp `json:"data,omitempty"`
 }
 
 type SendHelpdeskTicketMessageResp struct {

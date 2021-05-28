@@ -55,7 +55,7 @@ type GetAdminDeptStatsReq struct {
 type getAdminDeptStatsResp struct {
 	Code int64                  `json:"code,omitempty"` // 错误码，非 0 表示失败
 	Msg  string                 `json:"msg,omitempty"`  // 错误描述
-	Data *GetAdminDeptStatsResp `json:"data,omitempty"` //
+	Data *GetAdminDeptStatsResp `json:"data,omitempty"`
 }
 
 type GetAdminDeptStatsResp struct {
@@ -77,7 +77,7 @@ type GetAdminDeptStatsRespItem struct {
 	NewUserNum           int64  `json:"new_user_num,omitempty"`            // 新用户数
 	NewActiveNum         int64  `json:"new_active_num,omitempty"`          // 新激活数
 	ResignUserNum        int64  `json:"resign_user_num,omitempty"`         // 离职人数
-	ImDau                int64  `json:"im_dau,omitempty"`                  // 消息活跃人数
+	IMDau                int64  `json:"im_dau,omitempty"`                  // 消息活跃人数
 	SendMessengerUserNum int64  `json:"send_messenger_user_num,omitempty"` // 发送消息人数
 	SendMessengerNum     int64  `json:"send_messenger_num,omitempty"`      // 发送消息数
 	AvgSendMessengerNum  string `json:"avg_send_messenger_num,omitempty"`  // 人均发送消息数

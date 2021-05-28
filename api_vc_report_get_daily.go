@@ -48,7 +48,7 @@ type GetVCDailyReportReq struct {
 type getVCDailyReportResp struct {
 	Code int64                 `json:"code,omitempty"` // 错误码，非 0 表示失败
 	Msg  string                `json:"msg,omitempty"`  // 错误描述
-	Data *GetVCDailyReportResp `json:"data,omitempty"` //
+	Data *GetVCDailyReportResp `json:"data,omitempty"`
 }
 
 type GetVCDailyReportResp struct {

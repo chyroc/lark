@@ -40,7 +40,7 @@ func (r *Mock) UnMockDriveUpdateSheetDataValidationDropdown() {
 }
 
 type UpdateSheetDataValidationDropdownReq struct {
-	SpreadSheetToken   string                                              `path:"spreadsheetToken" json:"-"`    // spreadsheet 的 token，获取方式见[在线表格开发指南](/ssl:ttdoc/ukTMukTMukTM/uATMzUjLwEzM14CMxMTN/overview)
+	SpreadSheetToken   string                                              `path:"spreadsheetToken" json:"-"`    // spreadsheet 的 token，获取方式见[在线表格开发指南](https://open.feishu.cn/document/ukTMukTMukTM/uATMzUjLwEzM14CMxMTN/overview)
 	SheetID            string                                              `path:"sheetId" json:"-"`             // 子sheet唯一识别参数
 	DataValidationID   int64                                               `path:"dataValidationId" json:"-"`    // sheet中下拉列表的唯一标示id
 	DataValidationType string                                              `json:"dataValidationType,omitempty"` // 下拉列表填"list"

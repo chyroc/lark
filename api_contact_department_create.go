@@ -6,7 +6,7 @@ import (
 	"context"
 )
 
-// CreateDepartment 该接口用于向通讯录中创建部门。接口只会返回应用有数据权限的字段,具体的数据权限与字段的关系请参考[应用权限](/ssl:ttdoc/ukTMukTMukTM/uQjN3QjL0YzN04CN2cDN)
+// CreateDepartment 该接口用于向通讯录中创建部门。接口只会返回应用有数据权限的字段,具体的数据权限与字段的关系请参考[应用权限](https://open.feishu.cn/document/ukTMukTMukTM/uQjN3QjL0YzN04CN2cDN)
 //
 // 应用需要拥有待新增部门的父部门的通讯录授权。如果需要在根部门上新增部门，则需要全员权限。 应用商店应用无权限调用接口。
 //
@@ -63,7 +63,7 @@ type CreateDepartmentReqI18nName struct {
 type createDepartmentResp struct {
 	Code int64                 `json:"code,omitempty"` // 错误码，非 0 表示失败
 	Msg  string                `json:"msg,omitempty"`  // 错误描述
-	Data *CreateDepartmentResp `json:"data,omitempty"` //
+	Data *CreateDepartmentResp `json:"data,omitempty"`
 }
 
 type CreateDepartmentResp struct {

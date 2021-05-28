@@ -379,17 +379,6 @@ func Test_Calendar_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-			cli.Mock().MockCalendarGetCalendarFreeBusyList(func(ctx context.Context, request *lark.GetCalendarFreeBusyListReq, options ...lark.MethodOptionFunc) (*lark.GetCalendarFreeBusyListResp, *lark.Response, error) {
-				return nil, nil, fmt.Errorf("mock-failed")
-			})
-			defer cli.Mock().UnMockCalendarGetCalendarFreeBusyList()
-
-			_, _, err := moduleCli.GetCalendarFreeBusyList(ctx, &lark.GetCalendarFreeBusyListReq{})
-			as.NotNil(err)
-			as.Equal(err.Error(), "mock-failed")
-		})
-
-		t.Run("", func(t *testing.T) {
 			cli.Mock().MockCalendarCreateCalendarTimeoffEvent(func(ctx context.Context, request *lark.CreateCalendarTimeoffEventReq, options ...lark.MethodOptionFunc) (*lark.CreateCalendarTimeoffEventResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})

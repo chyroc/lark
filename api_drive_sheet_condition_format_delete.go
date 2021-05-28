@@ -40,7 +40,7 @@ func (r *Mock) UnMockDriveDeleteSheetConditionFormat() {
 }
 
 type DeleteSheetConditionFormatReq struct {
-	SpreadSheetToken string                                   `path:"spreadsheetToken" json:"-"` // sheet 的 token，获取方式见 [在线表格开发指南](/ssl:ttdoc/ukTMukTMukTM/uATMzUjLwEzM14CMxMTN/overview)
+	SpreadSheetToken string                                   `path:"spreadsheetToken" json:"-"` // sheet 的 token，获取方式见 [在线表格开发指南](https://open.feishu.cn/document/ukTMukTMukTM/uATMzUjLwEzM14CMxMTN/overview)
 	SheetCfIDs       *DeleteSheetConditionFormatReqSheetCfIDs `json:"sheet_cf_ids,omitempty"`    // 表格条件格式id
 }
 

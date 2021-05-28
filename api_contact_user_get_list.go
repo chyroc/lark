@@ -6,7 +6,7 @@ import (
 	"context"
 )
 
-// GetUserList 只能访问有数据权限的字段，具体的数据权限与字段的关系请参考[应用权限](/ssl:ttdoc/ukTMukTMukTM/uQjN3QjL0YzN04CN2cDN)
+// GetUserList 只能访问有数据权限的字段，具体的数据权限与字段的关系请参考[应用权限](https://open.feishu.cn/document/ukTMukTMukTM/uQjN3QjL0YzN04CN2cDN)
 //
 // 如果没有全员权限，则返回有通讯录范围的用户列表；如果有全员权限且应用可用范围为全员，将department_id字段设置为0，则可返回根部门下所有用户；如果传入一个具体的department_id,则返回该部门下的所有用户。
 // 如果没有单独设置用户的可见性，不填写具体的department_id则不会获取到用户数据
@@ -54,7 +54,7 @@ type GetUserListReq struct {
 type getUserListResp struct {
 	Code int64            `json:"code,omitempty"` // 错误码，非 0 表示失败
 	Msg  string           `json:"msg,omitempty"`  // 错误描述
-	Data *GetUserListResp `json:"data,omitempty"` //
+	Data *GetUserListResp `json:"data,omitempty"`
 }
 
 type GetUserListResp struct {

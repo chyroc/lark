@@ -48,7 +48,7 @@ type SearchHelpdeskFAQReq struct {
 type searchHelpdeskFAQResp struct {
 	Code int64                  `json:"code,omitempty"` // 错误码，非 0 表示失败
 	Msg  string                 `json:"msg,omitempty"`  // 错误描述
-	Data *SearchHelpdeskFAQResp `json:"data,omitempty"` //
+	Data *SearchHelpdeskFAQResp `json:"data,omitempty"`
 }
 
 type SearchHelpdeskFAQResp struct {
@@ -58,7 +58,7 @@ type SearchHelpdeskFAQResp struct {
 }
 
 type SearchHelpdeskFAQRespItem struct {
-	FaqID          string              `json:"faq_id,omitempty"`          // 知识库ID
+	FAQID          string              `json:"faq_id,omitempty"`          // 知识库ID
 	ID             string              `json:"id,omitempty"`              // 知识库旧版ID，请使用faq_id
 	HelpdeskID     string              `json:"helpdesk_id,omitempty"`     // 服务台ID
 	Question       string              `json:"question,omitempty"`        // 问题

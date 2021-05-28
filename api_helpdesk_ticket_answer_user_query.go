@@ -42,10 +42,10 @@ func (r *Mock) UnMockHelpdeskAnswerHelpdeskTicketUserQuery() {
 type AnswerHelpdeskTicketUserQueryReq struct {
 	TicketID string                                 `path:"ticket_id" json:"-"` // 工单ID, 示例值："6945345902185807891"
 	EventID  string                                 `json:"event_id,omitempty"` // 事件ID,可从订阅事件中提取, 示例值："abcd"
-	Faqs     []*AnswerHelpdeskTicketUserQueryReqFaq `json:"faqs,omitempty"`     // faq结果列表
+	Faqs     []*AnswerHelpdeskTicketUserQueryReqFAQ `json:"faqs,omitempty"`     // faq结果列表
 }
 
-type AnswerHelpdeskTicketUserQueryReqFaq struct {
+type AnswerHelpdeskTicketUserQueryReqFAQ struct {
 	ID    *string  `json:"id,omitempty"`    // faq服务台内唯一标识, 示例值："12345"
 	Score *float64 `json:"score,omitempty"` // faq匹配得分, 示例值：0.9
 }

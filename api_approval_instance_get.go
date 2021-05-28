@@ -8,7 +8,7 @@ import (
 
 // GetApprovalInstance
 //
-// 通过审批实例 Instance Code  获取审批实例详情。Instance Code 由 [批量获取审批实例](/ssl:ttdoc/ukTMukTMukTM/uQDOyUjL0gjM14CN4ITN) 接口获取。
+// 通过审批实例 Instance Code  获取审批实例详情。Instance Code 由 [批量获取审批实例](https://open.feishu.cn/document/ukTMukTMukTM/uQDOyUjL0gjM14CN4ITN) 接口获取。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uEDNyUjLxQjM14SM0ITN
 func (r *ApprovalService) GetApprovalInstance(ctx context.Context, request *GetApprovalInstanceReq, options ...MethodOptionFunc) (*GetApprovalInstanceResp, *Response, error) {

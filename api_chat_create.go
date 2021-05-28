@@ -42,7 +42,7 @@ func (r *Mock) UnMockChatCreateChat() {
 }
 
 type CreateChatReq struct {
-	Avatar                 *string             `json:"avatar,omitempty"`                   // 群头像对应的 Image Key，可通过[上传图片](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/image/create)获取（注意：上传图片的 ==image_type== 需要指定为 ==avatar==）, 示例值："default-avatar_44ae0ca3-e140-494b-956f-78091e348435"
+	Avatar                 *string             `json:"avatar,omitempty"`                   // 群头像对应的 Image Key，可通过[上传图片](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/image/create)获取（注意：上传图片的 [image_type] 需要指定为 [avatar]）, 示例值："default-avatar_44ae0ca3-e140-494b-956f-78091e348435"
 	Name                   *string             `json:"name,omitempty"`                     // 群名称, 示例值："测试群名称"
 	Description            *string             `json:"description,omitempty"`              // 群描述, 示例值："测试群描述"
 	I18nNames              *I18nNames          `json:"i18n_names,omitempty"`               // 群国际化名称
@@ -56,7 +56,7 @@ type CreateChatReq struct {
 type createChatResp struct {
 	Code int64           `json:"code,omitempty"` // 错误码，非 0 表示失败
 	Msg  string          `json:"msg,omitempty"`  // 错误描述
-	Data *CreateChatResp `json:"data,omitempty"` //
+	Data *CreateChatResp `json:"data,omitempty"`
 }
 
 type CreateChatResp struct {

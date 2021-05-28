@@ -51,7 +51,7 @@ type GetChatReq struct {
 type getChatResp struct {
 	Code int64        `json:"code,omitempty"` // 错误码，非 0 表示失败
 	Msg  string       `json:"msg,omitempty"`  // 错误描述
-	Data *GetChatResp `json:"data,omitempty"` //
+	Data *GetChatResp `json:"data,omitempty"`
 }
 
 type GetChatResp struct {

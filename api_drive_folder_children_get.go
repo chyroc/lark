@@ -41,7 +41,7 @@ func (r *Mock) UnMockDriveGetDriveFolderChildren() {
 
 type GetDriveFolderChildrenReq struct {
 	Types       []string `query:"types" json:"-"`      // 需要查询的文件类型，默认返回所有 children；types 可多选，可选类型有 doc、sheet、file、folder 。如 url?types=folder&types=sheet
-	FolderToken string   `path:"folderToken" json:"-"` // 文件夹的 token，获取方式见 [对接前说明](/ssl:ttdoc/ukTMukTMukTM/uczNzUjL3czM14yN3MTN) 的第 3 项
+	FolderToken string   `path:"folderToken" json:"-"` // 文件夹的 token，获取方式见 [对接前说明](https://open.feishu.cn/document/ukTMukTMukTM/uczNzUjL3czM14yN3MTN) 的第 3 项
 }
 
 type getDriveFolderChildrenResp struct {

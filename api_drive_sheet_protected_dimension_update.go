@@ -40,12 +40,12 @@ func (r *Mock) UnMockDriveUpdateSheetProtectedDimension() {
 }
 
 type UpdateSheetProtectedDimensionReq struct {
-	SpreadSheetToken string                                    `path:"spreadsheetToken" json:"-"` // sheet 的 token，获取方式见[在线表格开发指南](/ssl:ttdoc/ukTMukTMukTM/uATMzUjLwEzM14CMxMTN/overview)
+	SpreadSheetToken string                                    `path:"spreadsheetToken" json:"-"` // sheet 的 token，获取方式见[在线表格开发指南](https://open.feishu.cn/document/ukTMukTMukTM/uATMzUjLwEzM14CMxMTN/overview)
 	Requests         *UpdateSheetProtectedDimensionReqRequests `json:"requests,omitempty"`        // 请求
 }
 
 type UpdateSheetProtectedDimensionReqRequests struct {
-	ProtectID string                                             `json:"protectId,omitempty"` // 保护范围ID，可以通过[获取表格元数据](/ssl:ttdoc/ukTMukTMukTM/uETMzUjLxEzM14SMxMTN) 接口获取
+	ProtectID string                                             `json:"protectId,omitempty"` // 保护范围ID，可以通过[获取表格元数据](https://open.feishu.cn/document/ukTMukTMukTM/uETMzUjLxEzM14SMxMTN) 接口获取
 	Dimension *UpdateSheetProtectedDimensionReqRequestsDimension `json:"dimension,omitempty"` // 行列保护信息
 	Editors   *UpdateSheetProtectedDimensionReqRequestsEditors   `json:"editors,omitempty"`   // 可编辑保护范围的用户
 	LockInfo  *string                                            `json:"lockInfo,omitempty"`  // 保护说明

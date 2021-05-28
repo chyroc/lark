@@ -6,7 +6,7 @@ import (
 	"context"
 )
 
-// GetUser 该接口用于获取通讯录中单个用户的信息。只能访问有数据权限的字段，具体的数据权限与字段的关系请参考[应用权限](/ssl:ttdoc/ukTMukTMukTM/uQjN3QjL0YzN04CN2cDN)
+// GetUser 该接口用于获取通讯录中单个用户的信息。只能访问有数据权限的字段，具体的数据权限与字段的关系请参考[应用权限](https://open.feishu.cn/document/ukTMukTMukTM/uQjN3QjL0YzN04CN2cDN)
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/get
 func (r *ContactService) GetUser(ctx context.Context, request *GetUserReq, options ...MethodOptionFunc) (*GetUserResp, *Response, error) {
@@ -48,7 +48,7 @@ type GetUserReq struct {
 type getUserResp struct {
 	Code int64        `json:"code,omitempty"` // 错误码，非 0 表示失败
 	Msg  string       `json:"msg,omitempty"`  // 错误描述
-	Data *GetUserResp `json:"data,omitempty"` //
+	Data *GetUserResp `json:"data,omitempty"`
 }
 
 type GetUserResp struct {

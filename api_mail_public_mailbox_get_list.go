@@ -46,7 +46,7 @@ type GetPublicMailboxListReq struct {
 type getPublicMailboxListResp struct {
 	Code int64                     `json:"code,omitempty"` // 错误码，非 0 表示失败
 	Msg  string                    `json:"msg,omitempty"`  // 错误描述
-	Data *GetPublicMailboxListResp `json:"data,omitempty"` //
+	Data *GetPublicMailboxListResp `json:"data,omitempty"`
 }
 
 type GetPublicMailboxListResp struct {

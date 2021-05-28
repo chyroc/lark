@@ -6,7 +6,7 @@ import (
 	"context"
 )
 
-// UpdateUserPatch 该接口用于更新通讯录中用户的字段，未传递的参数不会更新。接口只会返回应用有数据权限的字段，具体的数据权限与字段的关系请参考[应用权限](/ssl:ttdoc/ukTMukTMukTM/uQjN3QjL0YzN04CN2cDN)。
+// UpdateUserPatch 该接口用于更新通讯录中用户的字段，未传递的参数不会更新。接口只会返回应用有数据权限的字段，具体的数据权限与字段的关系请参考[应用权限](https://open.feishu.cn/document/ukTMukTMukTM/uQjN3QjL0YzN04CN2cDN)。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/patch
 func (r *ContactService) UpdateUserPatch(ctx context.Context, request *UpdateUserPatchReq, options ...MethodOptionFunc) (*UpdateUserPatchResp, *Response, error) {
@@ -86,7 +86,7 @@ type UpdateUserPatchReqCustomAttrValue struct {
 type updateUserPatchResp struct {
 	Code int64                `json:"code,omitempty"` // 错误码，非 0 表示失败
 	Msg  string               `json:"msg,omitempty"`  // 错误描述
-	Data *UpdateUserPatchResp `json:"data,omitempty"` //
+	Data *UpdateUserPatchResp `json:"data,omitempty"`
 }
 
 type UpdateUserPatchResp struct {

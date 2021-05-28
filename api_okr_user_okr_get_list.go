@@ -8,7 +8,8 @@ import (
 
 // GetUserOKRList 根据用户的id获取OKR列表
 //
-// 使用tenant_access_token需要额外申请权限以应用身份访问OKR信息
+// 使用tenant_access_token需要额外申请权限<md-perm
+// href="/ssl:ttdoc/ukTMukTMukTM/uQjN3QjL0YzN04CN2cDN">以应用身份访问OKR信息</md-perm>
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/okr-v1/user-okr/list
 func (r *OKRService) GetUserOKRList(ctx context.Context, request *GetUserOKRListReq, options ...MethodOptionFunc) (*GetUserOKRListResp, *Response, error) {
@@ -52,69 +53,69 @@ type GetUserOKRListReq struct {
 type getUserOKRListResp struct {
 	Code int64               `json:"code,omitempty"` // 错误码，非 0 表示失败
 	Msg  string              `json:"msg,omitempty"`  // 错误描述
-	Data *GetUserOKRListResp `json:"data,omitempty"` //
+	Data *GetUserOKRListResp `json:"data,omitempty"`
 }
 
 type GetUserOKRListResp struct {
 	Total   int64                    `json:"total,omitempty"`    // OKR周期总数
-	OkrList []*GetUserOKRListRespOkr `json:"okr_list,omitempty"` // OKR 列表
+	OKRList []*GetUserOKRListRespOKR `json:"okr_list,omitempty"` // OKR 列表
 }
 
-type GetUserOKRListRespOkr struct {
+type GetUserOKRListRespOKR struct {
 	ID            string                            `json:"id,omitempty"`             // id
 	Permission    int64                             `json:"permission,omitempty"`     // OKR的访问权限, 可选值有: `0`：此时OKR只返回id, `1`：返回OKR的其他具体字段
 	Name          string                            `json:"name,omitempty"`           // 名称
-	ObjectiveList []*GetUserOKRListRespOkrObjective `json:"objective_list,omitempty"` // Objective列表
+	ObjectiveList []*GetUserOKRListRespOKRObjective `json:"objective_list,omitempty"` // Objective列表
 }
 
-type GetUserOKRListRespOkrObjective struct {
+type GetUserOKRListRespOKRObjective struct {
 	ID                    string                                             `json:"id,omitempty"`                      // Objective ID
 	Permission            int64                                              `json:"permission,omitempty"`              // 权限, 可选值有: `0`：此时OKR只返回id, `1`：返回OKR的其他具体字段
 	Content               string                                             `json:"content,omitempty"`                 // Objective 内容
 	ProgressReport        string                                             `json:"progress_report,omitempty"`         // Objective 进度记录内容
 	Score                 int64                                              `json:"score,omitempty"`                   // Objective 分数（0 - 100）
 	Weight                float64                                            `json:"weight,omitempty"`                  // Objective的权重（0 - 100）
-	ProgressRate          *GetUserOKRListRespOkrObjectiveProgressRate        `json:"progress_rate,omitempty"`           // Objective进度
-	KrList                []*GetUserOKRListRespOkrObjectiveKr                `json:"kr_list,omitempty"`                 // Objective KeyResult 列表
-	AlignedObjectiveList  []*GetUserOKRListRespOkrObjectiveAlignedObjective  `json:"aligned_objective_list,omitempty"`  // 对齐到该Objective的Objective列表
-	AligningObjectiveList []*GetUserOKRListRespOkrObjectiveAligningObjective `json:"aligning_objective_list,omitempty"` // 该Objective对齐到的Objective列表
+	ProgressRate          *GetUserOKRListRespOKRObjectiveProgressRate        `json:"progress_rate,omitempty"`           // Objective进度
+	KrList                []*GetUserOKRListRespOKRObjectiveKr                `json:"kr_list,omitempty"`                 // Objective KeyResult 列表
+	AlignedObjectiveList  []*GetUserOKRListRespOKRObjectiveAlignedObjective  `json:"aligned_objective_list,omitempty"`  // 对齐到该Objective的Objective列表
+	AligningObjectiveList []*GetUserOKRListRespOKRObjectiveAligningObjective `json:"aligning_objective_list,omitempty"` // 该Objective对齐到的Objective列表
 }
 
-type GetUserOKRListRespOkrObjectiveProgressRate struct {
+type GetUserOKRListRespOKRObjectiveProgressRate struct {
 	Percent int64  `json:"percent,omitempty"` // Objective 进度百分比 >= 0
 	Status  string `json:"status,omitempty"`  // Objective 进度状态, 可选值有: `-1`：未更新, `0`：正常, `1`：有风险, `2`：已延期
 }
 
-type GetUserOKRListRespOkrObjectiveKr struct {
+type GetUserOKRListRespOKRObjectiveKr struct {
 	ID           string                                        `json:"id,omitempty"`            // Key Result ID
 	Content      string                                        `json:"content,omitempty"`       // KeyResult 内容
 	Score        int64                                         `json:"score,omitempty"`         // KeyResult打分（0 - 100）
 	Weight       int64                                         `json:"weight,omitempty"`        // KeyResult权重（0 - 100）（废弃）
 	KrWeight     float64                                       `json:"kr_weight,omitempty"`     // KeyResult的权重（0 - 100）
-	ProgressRate *GetUserOKRListRespOkrObjectiveKrProgressRate `json:"progress_rate,omitempty"` // KR进度
+	ProgressRate *GetUserOKRListRespOKRObjectiveKrProgressRate `json:"progress_rate,omitempty"` // KR进度
 }
 
-type GetUserOKRListRespOkrObjectiveKrProgressRate struct {
+type GetUserOKRListRespOKRObjectiveKrProgressRate struct {
 	Percent int64  `json:"percent,omitempty"` // Objective 进度百分比 >= 0
 	Status  string `json:"status,omitempty"`  // Objective 进度状态, 可选值有: `-1`：未更新, `0`：正常, `1`：有风险, `2`：已延期
 }
 
-type GetUserOKRListRespOkrObjectiveAlignedObjective struct {
+type GetUserOKRListRespOKRObjectiveAlignedObjective struct {
 	ID    string                                               `json:"id,omitempty"`     // Objective的ID
-	OkrID string                                               `json:"okr_id,omitempty"` // OKR的ID
-	Owner *GetUserOKRListRespOkrObjectiveAlignedObjectiveOwner `json:"owner,omitempty"`  // 该Objective的Owner
+	OKRID string                                               `json:"okr_id,omitempty"` // OKR的ID
+	Owner *GetUserOKRListRespOKRObjectiveAlignedObjectiveOwner `json:"owner,omitempty"`  // 该Objective的Owner
 }
 
-type GetUserOKRListRespOkrObjectiveAlignedObjectiveOwner struct {
+type GetUserOKRListRespOKRObjectiveAlignedObjectiveOwner struct {
 	OpenID string `json:"open_id,omitempty"` // 用户的 open_id
 }
 
-type GetUserOKRListRespOkrObjectiveAligningObjective struct {
+type GetUserOKRListRespOKRObjectiveAligningObjective struct {
 	ID    string                                                `json:"id,omitempty"`     // Objective的ID
-	OkrID string                                                `json:"okr_id,omitempty"` // OKR的ID
-	Owner *GetUserOKRListRespOkrObjectiveAligningObjectiveOwner `json:"owner,omitempty"`  // 该Objective的Owner
+	OKRID string                                                `json:"okr_id,omitempty"` // OKR的ID
+	Owner *GetUserOKRListRespOKRObjectiveAligningObjectiveOwner `json:"owner,omitempty"`  // 该Objective的Owner
 }
 
-type GetUserOKRListRespOkrObjectiveAligningObjectiveOwner struct {
+type GetUserOKRListRespOKRObjectiveAligningObjectiveOwner struct {
 	OpenID string `json:"open_id,omitempty"` // 用户的 open_id
 }

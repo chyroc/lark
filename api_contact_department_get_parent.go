@@ -6,7 +6,7 @@ import (
 	"context"
 )
 
-// GetParentDepartment 该接口用来递归获取部门父部门的信息，并按照由子到父的顺序返回有权限的父部门信息列表。只能访问有数据权限的字段，具体的数据权限与字段的关系请参考[应用权限](/ssl:ttdoc/ukTMukTMukTM/uQjN3QjL0YzN04CN2cDN)
+// GetParentDepartment 该接口用来递归获取部门父部门的信息，并按照由子到父的顺序返回有权限的父部门信息列表。只能访问有数据权限的字段，具体的数据权限与字段的关系请参考[应用权限](https://open.feishu.cn/document/ukTMukTMukTM/uQjN3QjL0YzN04CN2cDN)
 //
 // 使用tenant_access_token时,该接口只返回可见性范围内的父部门信息
 // 例如：A >>B>>C>>D四级部门，通讯录权限只到B，那么查询D部门的parent，会返回B和C两级部门。
@@ -54,7 +54,7 @@ type GetParentDepartmentReq struct {
 type getParentDepartmentResp struct {
 	Code int64                    `json:"code,omitempty"` // 错误码，非 0 表示失败
 	Msg  string                   `json:"msg,omitempty"`  // 错误描述
-	Data *GetParentDepartmentResp `json:"data,omitempty"` //
+	Data *GetParentDepartmentResp `json:"data,omitempty"`
 }
 
 type GetParentDepartmentResp struct {

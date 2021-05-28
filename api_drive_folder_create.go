@@ -41,7 +41,7 @@ func (r *Mock) UnMockDriveCreateDriveFolder() {
 }
 
 type CreateDriveFolderReq struct {
-	FolderToken string `path:"folderToken" json:"-"` // 文件夹的 token，获取方式见 [对接前说明](/ssl:ttdoc/ukTMukTMukTM/uczNzUjL3czM14yN3MTN)的第 3 项
+	FolderToken string `path:"folderToken" json:"-"` // 文件夹的 token，获取方式见 [对接前说明](https://open.feishu.cn/document/ukTMukTMukTM/uczNzUjL3czM14yN3MTN)的第 3 项
 	Title       string `json:"title,omitempty"`      // 文件夹标题
 }
 

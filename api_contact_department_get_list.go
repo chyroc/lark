@@ -6,7 +6,7 @@ import (
 	"context"
 )
 
-// GetDepartmentList 该接口用于获取当前部门子部门列表。只能访问有数据权限的字段，具体的数据权限与字段的关系请参考[应用权限](/ssl:ttdoc/ukTMukTMukTM/uQjN3QjL0YzN04CN2cDN)
+// GetDepartmentList 该接口用于获取当前部门子部门列表。只能访问有数据权限的字段，具体的数据权限与字段的关系请参考[应用权限](https://open.feishu.cn/document/ukTMukTMukTM/uQjN3QjL0YzN04CN2cDN)
 //
 // - 使用tenant_access_token时,只返回权限范围内的部门。
 // - 使用user_access_token时，返回可见性范围内的所有可见部门。当进行递归查询时，只筛查最多1000个部门的可见性。
@@ -56,7 +56,7 @@ type GetDepartmentListReq struct {
 type getDepartmentListResp struct {
 	Code int64                  `json:"code,omitempty"` // 错误码，非 0 表示失败
 	Msg  string                 `json:"msg,omitempty"`  // 错误描述
-	Data *GetDepartmentListResp `json:"data,omitempty"` //
+	Data *GetDepartmentListResp `json:"data,omitempty"`
 }
 
 type GetDepartmentListResp struct {
