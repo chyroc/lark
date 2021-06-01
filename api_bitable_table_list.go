@@ -16,13 +16,14 @@ func (r *BitableService) GetBitableTableList(ctx context.Context, request *GetBi
 	}
 
 	req := &RawRequestReq{
-		Scope:               "Bitable",
-		API:                 "GetBitableTableList",
-		Method:              "GET",
-		URL:                 "https://open.feishu.cn/open-apis/bitable/v1/apps/:app_token/tables",
-		Body:                request,
-		MethodOption:        newMethodOption(options),
-		NeedUserAccessToken: true,
+		Scope:                 "Bitable",
+		API:                   "GetBitableTableList",
+		Method:                "GET",
+		URL:                   "https://open.feishu.cn/open-apis/bitable/v1/apps/:app_token/tables",
+		Body:                  request,
+		MethodOption:          newMethodOption(options),
+		NeedTenantAccessToken: true,
+		NeedUserAccessToken:   true,
 	}
 	resp := new(getBitableTableListResp)
 
@@ -59,4 +60,5 @@ type GetBitableTableListResp struct {
 type GetBitableTableListRespItem struct {
 	TableID  string `json:"table_id,omitempty"` // 表格表 id
 	Revision int64  `json:"revision,omitempty"` // 数据表的版本号
+	Name     string `json:"name,omitempty"`     // 数据表 名字
 }

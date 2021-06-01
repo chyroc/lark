@@ -43,14 +43,14 @@ type CreateSearchDataSourceItemReq struct {
 	ID             string                                 `json:"id,omitempty"`              // item 在 datasource 中的唯一标识, 示例值："01010111"
 	ACL            *CreateSearchDataSourceItemReqACL      `json:"acl,omitempty"`             // item 的访问权限控制
 	Metadata       *CreateSearchDataSourceItemReqMetadata `json:"metadata,omitempty"`        // item 的元信息
-	StructuredData string                                 `json:"structured_data,omitempty"` // 结构化数据（以 json 字符串传递）, 示例值："{\"key\":\"value\"}"
-	Content        *CreateSearchDataSourceItemReqContent  `json:"content,omitempty"`         // 非结构化数据，如文档文本
+	StructuredData string                                 `json:"structured_data,omitempty"` // 结构化数据（以 json 字符串传递），这些字段是搜索结果的展示字段（title字段无须在此另外指定）；目前支持的key为：,summary：搜索结果的摘要；,icon_url：搜索结果的icon地址；,footer：搜索结果的脚注, 示例值："{\"key\":\"value\"}"
+	Content        *CreateSearchDataSourceItemReqContent  `json:"content,omitempty"`         // 非结构化数据，如文档文本，飞书搜索会用来做召回
 }
 
 type CreateSearchDataSourceItemReqACL struct {
 	Access *string `json:"access,omitempty"` // 权限类型，优先级：Deny > Allow, 示例值："1", 可选值有: `1`：允许访问, `2`：禁止访问
 	Value  *string `json:"value,omitempty"`  // 设置的权限值，例如 userID 、groupID，依赖 type 描述, 示例值："ou_7dab8a3d3cdcc9da365777c7ad535d62"
-	Type   *string `json:"type,omitempty"`   // 权限值类型, 示例值："user", 可选值有: `1`：访问权限控制中指定用户可以访问或拒绝访问该条数据, `2`：访问权限控制中指定用户组可以访问或拒绝访问该条数据
+	Type   *string `json:"type,omitempty"`   // 权限值类型, 示例值："1", 可选值有: `1`：访问权限控制中指定用户可以访问或拒绝访问该条数据, `2`：访问权限控制中指定用户组可以访问或拒绝访问该条数据
 }
 
 type CreateSearchDataSourceItemReqMetadata struct {
@@ -61,7 +61,7 @@ type CreateSearchDataSourceItemReqMetadata struct {
 }
 
 type CreateSearchDataSourceItemReqContent struct {
-	Format      *string `json:"format,omitempty"`       // 内容的格式, 示例值："plaintext", 可选值有: `0`：html格式, `1`：纯文本格式
+	Format      *string `json:"format,omitempty"`       // 内容的格式, 示例值："1", 可选值有: `0`：html格式, `1`：纯文本格式
 	ContentData *string `json:"content_data,omitempty"` // 全文数据, 示例值："这是一个很长的文本"
 }
 

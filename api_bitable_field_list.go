@@ -16,13 +16,14 @@ func (r *BitableService) GetBitableFieldList(ctx context.Context, request *GetBi
 	}
 
 	req := &RawRequestReq{
-		Scope:               "Bitable",
-		API:                 "GetBitableFieldList",
-		Method:              "GET",
-		URL:                 "https://open.feishu.cn/open-apis/bitable/v1/apps/:app_token/tables/:table_id/fields",
-		Body:                request,
-		MethodOption:        newMethodOption(options),
-		NeedUserAccessToken: true,
+		Scope:                 "Bitable",
+		API:                   "GetBitableFieldList",
+		Method:                "GET",
+		URL:                   "https://open.feishu.cn/open-apis/bitable/v1/apps/:app_token/tables/:table_id/fields",
+		Body:                  request,
+		MethodOption:          newMethodOption(options),
+		NeedTenantAccessToken: true,
+		NeedUserAccessToken:   true,
 	}
 	resp := new(getBitableFieldListResp)
 

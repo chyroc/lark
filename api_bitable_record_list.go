@@ -16,13 +16,14 @@ func (r *BitableService) GetBitableRecordList(ctx context.Context, request *GetB
 	}
 
 	req := &RawRequestReq{
-		Scope:               "Bitable",
-		API:                 "GetBitableRecordList",
-		Method:              "GET",
-		URL:                 "https://open.feishu.cn/open-apis/bitable/v1/apps/:app_token/tables/:table_id/records",
-		Body:                request,
-		MethodOption:        newMethodOption(options),
-		NeedUserAccessToken: true,
+		Scope:                 "Bitable",
+		API:                   "GetBitableRecordList",
+		Method:                "GET",
+		URL:                   "https://open.feishu.cn/open-apis/bitable/v1/apps/:app_token/tables/:table_id/records",
+		Body:                  request,
+		MethodOption:          newMethodOption(options),
+		NeedTenantAccessToken: true,
+		NeedUserAccessToken:   true,
 	}
 	resp := new(getBitableRecordListResp)
 
