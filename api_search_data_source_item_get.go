@@ -57,8 +57,8 @@ type GetSearchDataSourceItemRespItem struct {
 	ID             string                                   `json:"id,omitempty"`              // item 在 datasource 中的唯一标识
 	ACL            *GetSearchDataSourceItemRespItemACL      `json:"acl,omitempty"`             // item 的访问权限控制
 	Metadata       *GetSearchDataSourceItemRespItemMetadata `json:"metadata,omitempty"`        // item 的元信息
-	StructuredData string                                   `json:"structured_data,omitempty"` // 结构化数据（以 json 字符串传递）
-	Content        *GetSearchDataSourceItemRespItemContent  `json:"content,omitempty"`         // 非结构化数据，如文档文本
+	StructuredData string                                   `json:"structured_data,omitempty"` // 结构化数据（以 json 字符串传递），这些字段是搜索结果的展示字段（title字段无须在此另外指定）；目前支持的key为：,summary：搜索结果的摘要；,icon_url：搜索结果的icon地址；,footer：搜索结果的脚注
+	Content        *GetSearchDataSourceItemRespItemContent  `json:"content,omitempty"`         // 非结构化数据，如文档文本，飞书搜索会用来做召回
 }
 
 type GetSearchDataSourceItemRespItemACL struct {
