@@ -26,15 +26,15 @@ type Response struct {
 	StatusCode int
 }
 
-func (r *Lark) RawRequest(ctx context.Context, req *RawRequestReq, resp interface{}) (*Response, error) {
+func (r *Lark) RawRequest(ctx context.Context, req *RawRequestReq, resp interface{}) (response *Response, err error) {
 	r.log(ctx, LogLevelInfo, "[lark] %s#%s call api", req.Scope, req.API)
-	r.log(ctx, LogLevelDebug, "[lark] %s#%s request: %s", req.Scope, req.API, jsonString(req))
 
-	headers, err := r.prepareHeaders(ctx, req)
+	req.headers, err = r.prepareHeaders(ctx, req)
 	if err != nil {
 		return nil, err
 	}
-	response, err := r.doRequest(ctx, r.httpClient, req, headers, resp)
+
+	response, err = r.doRequest(ctx, r.httpClient, req, resp)
 	requestID, statusCode := getResponseRequestID(response)
 	if err != nil {
 		r.log(ctx, LogLevelError, "[lark] %s#%s %s %s failed, request_id: %s, status_code: %d, error: %s", req.Scope, req.API, req.Method, req.URL, requestID, statusCode, err)
@@ -63,6 +63,8 @@ type RawRequestReq struct {
 	NeedUserAccessToken   bool
 	NeedHelpdeskAuth      bool
 	MethodOption          *MethodOption
+
+	headers map[string]string
 }
 
 func (r *Lark) prepareHeaders(ctx context.Context, req *RawRequestReq) (map[string]string, error) {
@@ -96,8 +98,12 @@ func (r *Lark) prepareHeaders(ctx context.Context, req *RawRequestReq) (map[stri
 func parseRequestParam(req *RawRequestReq) (*realRequestParam, error) {
 	uri := req.URL
 	var body io.Reader
+	var rawBody []byte
 	var reader io.Reader
-	headers := map[string]string{}
+	headers := req.headers
+	if headers == nil {
+		headers = map[string]string{}
+	}
 	fileKey := ""
 
 	vv := reflect.ValueOf(req.Body)
@@ -160,6 +166,7 @@ func parseRequestParam(req *RawRequestReq) (*realRequestParam, error) {
 		if err != nil {
 			return nil, err
 		}
+		rawBody = bs
 		body = bytes.NewBuffer(bs)
 	}
 
@@ -170,6 +177,7 @@ func parseRequestParam(req *RawRequestReq) (*realRequestParam, error) {
 		}
 		headers["Content-Type"] = contentType
 		body = bod
+		rawBody = []byte("<FILE>")
 	}
 
 	if isNeedQuery {
@@ -180,6 +188,7 @@ func parseRequestParam(req *RawRequestReq) (*realRequestParam, error) {
 		Method:  strings.ToUpper(req.Method),
 		URL:     uri,
 		Body:    body,
+		RawBody: rawBody,
 		Headers: headers,
 	}, nil
 }
@@ -188,10 +197,11 @@ type realRequestParam struct {
 	Method  string
 	URL     string
 	Body    io.Reader
+	RawBody []byte
 	Headers map[string]string
 }
 
-func (r *Lark) doRequest(ctx context.Context, cli *http.Client, requestParam *RawRequestReq, headers map[string]string, realResponse interface{}) (*Response, error) {
+func (r *Lark) doRequest(ctx context.Context, cli *http.Client, requestParam *RawRequestReq, realResponse interface{}) (*Response, error) {
 	response := new(Response)
 	realReq, err := parseRequestParam(requestParam)
 	if err != nil {
@@ -200,15 +210,16 @@ func (r *Lark) doRequest(ctx context.Context, cli *http.Client, requestParam *Ra
 
 	response.Method = realReq.Method
 	response.URL = realReq.URL
-	for k, v := range realReq.Headers {
-		headers[k] = v
+
+	if r.logLevel <= LogLevelTrace {
+		r.log(ctx, LogLevelTrace, "[lark] request %s#%s, %s %s, header=%s, body=%s", requestParam.Scope, requestParam.API, realReq.Method, realReq.URL, jsonString(realReq.Headers), string(realReq.RawBody))
 	}
 
 	req, err := http.NewRequest(realReq.Method, realReq.URL, realReq.Body)
 	if err != nil {
 		return response, err
 	}
-	for k, v := range headers {
+	for k, v := range realReq.Headers {
 		req.Header.Set(k, v)
 	}
 
@@ -229,7 +240,9 @@ func (r *Lark) doRequest(ctx context.Context, cli *http.Client, requestParam *Ra
 		return response, err
 	}
 
-	r.log(ctx, LogLevelDebug, "%s %s, got: %s", realReq.Method, realReq.URL, bs)
+	if r.logLevel <= LogLevelTrace {
+		r.log(ctx, LogLevelTrace, "[lark] response %s#%s, %s %s, body=%s", requestParam.Scope, requestParam.API, realReq.Method, realReq.URL, string(bs))
+	}
 
 	if realResponse != nil {
 		if resp != nil && resp.StatusCode == http.StatusOK {
