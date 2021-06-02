@@ -177,7 +177,7 @@ func parseRequestParam(req *RawRequestReq) (*realRequestParam, error) {
 		}
 		headers["Content-Type"] = contentType
 		body = bod
-		rawBody = []byte("<file >")
+		rawBody = []byte("<FILE>")
 	}
 
 	if isNeedQuery {
