@@ -12,7 +12,8 @@ type Logger interface {
 type LogLevel int
 
 const (
-	LogLevelDebug LogLevel = iota + 1
+	LogLevelTrace LogLevel = iota + 1 // 只有两个 log req 和 resp 的 文本内容
+	LogLevelDebug
 	LogLevelInfo
 	LogLevelWarn
 	LogLevelError
@@ -20,6 +21,8 @@ const (
 
 func (r LogLevel) String() string {
 	switch r {
+	case LogLevelTrace:
+		return "TRACE"
 	case LogLevelDebug:
 		return "DEBUG"
 	case LogLevelInfo:
@@ -34,7 +37,7 @@ func (r LogLevel) String() string {
 }
 
 func (r *Lark) log(ctx context.Context, level LogLevel, msg string, args ...interface{}) {
-	if r.logger != nil && level >= r.logLevel {
+	if r.logger != nil && r.logLevel <= level {
 		r.logger.Log(ctx, level, msg, args...)
 	}
 }
