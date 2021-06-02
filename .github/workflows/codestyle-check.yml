@@ -31,3 +31,4 @@ jobs:
         gofmt -s
         go vet ./...
         misspell -error
+        curl 'https://goreportcard.com/checks' -H 'Content-Type: application/x-www-form-urlencoded; charset=UTF-8' --data-raw 'repo=github.com%2Fchyroc%2Flark'
