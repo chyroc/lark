@@ -35,7 +35,7 @@ https://godoc.org/github.com/chyroc/lark
 
 ## Support APIs
 
-API Count: 334, Event Count: 28
+API Count: 335, Event Count: 28
 
 <details>
   <summary>
@@ -52,6 +52,7 @@ API Count: 334, Event Count: 28
   - DeleteUser
   - GetUser
   - BatchGetUser
+  - BatchGetUserByID
   - GetUserList
   - UpdateUserPatch
   - UpdateUser

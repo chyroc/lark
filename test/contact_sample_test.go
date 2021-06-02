@@ -46,6 +46,12 @@ func Test_Contact_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.BatchGetUserByID(ctx, &lark.BatchGetUserByIDReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "failed")
+		})
+
+		t.Run("", func(t *testing.T) {
 			_, _, err := moduleCli.GetUserList(ctx, &lark.GetUserListReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "failed")
@@ -150,6 +156,17 @@ func Test_Contact_Sample_Failed(t *testing.T) {
 			defer cli.Mock().UnMockContactBatchGetUser()
 
 			_, _, err := moduleCli.BatchGetUser(ctx, &lark.BatchGetUserReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+			cli.Mock().MockContactBatchGetUserByID(func(ctx context.Context, request *lark.BatchGetUserByIDReq, options ...lark.MethodOptionFunc) (*lark.BatchGetUserByIDResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockContactBatchGetUserByID()
+
+			_, _, err := moduleCli.BatchGetUserByID(ctx, &lark.BatchGetUserByIDReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "mock-failed")
 		})
@@ -293,6 +310,12 @@ func Test_Contact_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 			_, _, err := moduleCli.BatchGetUser(ctx, &lark.BatchGetUserReq{})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.BatchGetUserByID(ctx, &lark.BatchGetUserByIDReq{})
 			as.NotNil(err)
 			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
 		})

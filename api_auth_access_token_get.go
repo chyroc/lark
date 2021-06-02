@@ -53,21 +53,21 @@ type getAccessTokenResp struct {
 }
 
 type GetAccessTokenResp struct {
-	AccessToken      string `json:"access_token,omitempty"`       // user_access_token，用于获取用户资源
-	AvatarURL        string `json:"avatar_url,omitempty"`         // 用户头像
-	AvatarThumb      string `json:"avatar_thumb,omitempty"`       // 用户头像 72x72
-	AvatarMiddle     string `json:"avatar_middle,omitempty"`      // 用户头像 240x240
-	AvatarBig        string `json:"avatar_big,omitempty"`         // 用户头像 640x640
-	ExpiresIn        int64  `json:"expires_in,omitempty"`         // access_token 的有效期，单位: 秒
-	Name             string `json:"name,omitempty"`               // 用户姓名
-	EnName           string `json:"en_name,omitempty"`            // 用户英文名称
-	OpenID           string `json:"open_id,omitempty"`            // 用户在应用内的唯一标识
-	UnionID          string `json:"union_id,omitempty"`           // 用户统一ID
-	Email            string `json:"email,omitempty"`              // 申请了"获取用户邮箱"权限的应用返回该字段
-	UserID           string `json:"user_id,omitempty"`            // 申请了"获取用户 user_id"权限的应用返回该字段
-	Mobile           string `json:"mobile,omitempty"`             // 申请了"获取用户手机号"权限的应用返回该字段
-	TenantKey        string `json:"tenant_key,omitempty"`         // 当前企业标识
-	RefreshExpiresIn int64  `json:"refresh_expires_in,omitempty"` // refresh_token 的有效期，单位: 秒
-	RefreshToken     string `json:"refresh_token,omitempty"`      // 刷新用户 access_token 时使用的 token
-	TokenType        string `json:"token_type,omitempty"`         // 此处为 Bearer
+	AccessToken      string   `json:"access_token,omitempty"`       // user_access_token，用于获取用户资源
+	AvatarURL        string   `json:"avatar_url,omitempty"`         // 用户头像
+	AvatarThumb      string   `json:"avatar_thumb,omitempty"`       // 用户头像 72x72
+	AvatarMiddle     string   `json:"avatar_middle,omitempty"`      // 用户头像 240x240
+	AvatarBig        string   `json:"avatar_big,omitempty"`         // 用户头像 640x640
+	ExpiresIn        int64    `json:"expires_in,omitempty"`         // access_token 的有效期，单位: 秒
+	Name             string   `json:"name,omitempty"`               // 用户姓名
+	EnName           string   `json:"en_name,omitempty"`            // 用户英文名称
+	OpenID           string   `json:"open_id,omitempty"`            // 用户在应用内的唯一标识
+	UnionID          string   `json:"union_id,omitempty"`           // 用户统一ID
+	Email            []string `json:"email,omitempty"`              // 申请了"获取用户邮箱"权限的应用返回该字段
+	UserID           string   `json:"user_id,omitempty"`            // 申请了"获取用户 user_id"权限的应用返回该字段
+	Mobile           []string `json:"mobile,omitempty"`             // 申请了"获取用户手机号"权限的应用返回该字段
+	TenantKey        string   `json:"tenant_key,omitempty"`         // 当前企业标识
+	RefreshExpiresIn int64    `json:"refresh_expires_in,omitempty"` // refresh_token 的有效期，单位: 秒
+	RefreshToken     string   `json:"refresh_token,omitempty"`      // 刷新用户 access_token 时使用的 token
+	TokenType        string   `json:"token_type,omitempty"`         // 此处为 Bearer
 }
