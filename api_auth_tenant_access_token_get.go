@@ -38,6 +38,8 @@ func (r *AuthService) GetTenantAccessToken(ctx context.Context) (*TokenExpire, *
 		}
 	}
 	req := &RawRequestReq{
+		Scope:  "Auth",
+		API:    "GetTenantAccessToken",
 		Method: "POST",
 		URL:    uri,
 		Body:   body,

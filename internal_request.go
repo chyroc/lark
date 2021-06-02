@@ -212,7 +212,7 @@ func (r *Lark) doRequest(ctx context.Context, cli *http.Client, requestParam *Ra
 	response.URL = realReq.URL
 
 	if r.logLevel <= LogLevelTrace {
-		r.log(ctx, LogLevelTrace, "[lark] request %s#%s, %s %s, header=%s, body=%s", requestParam.Scope, requestParam.API, realReq.Method, realReq.URL, jsonString(realReq.Headers), realReq.RawBody)
+		r.log(ctx, LogLevelTrace, "[lark] request %s#%s, %s %s, header=%s, body=%s", requestParam.Scope, requestParam.API, realReq.Method, realReq.URL, jsonString(realReq.Headers), string(realReq.RawBody))
 	}
 
 	req, err := http.NewRequest(realReq.Method, realReq.URL, realReq.Body)
@@ -241,7 +241,7 @@ func (r *Lark) doRequest(ctx context.Context, cli *http.Client, requestParam *Ra
 	}
 
 	if r.logLevel <= LogLevelTrace {
-		r.log(ctx, LogLevelTrace, "[lark] response %s#%s, %s %s, body=%s", requestParam.Scope, requestParam.API, realReq.Method, realReq.URL, jsonString(realReq.Headers), bs)
+		r.log(ctx, LogLevelTrace, "[lark] response %s#%s, %s %s, body=%s", requestParam.Scope, requestParam.API, realReq.Method, realReq.URL, string(bs))
 	}
 
 	if realResponse != nil {

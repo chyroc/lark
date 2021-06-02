@@ -41,12 +41,12 @@ const (
 type ApprovalWidgetList []*ApprovalWidget
 
 type ApprovalWidget struct {
-	ID       string                  `json:"id,omitempty"`
-	Name     string                  `json:"name,omitempty"`
-	Type     ApprovalWidgetType      `json:"type,omitempty"`
-	Value    interface{}             `json:"value"`
-	Option   []*ApprovalWidgetOption `json:"option,omitempty"`
-	Children []*ApprovalWidget       `json:"children,omitempty"`
+	ID       string                 `json:"id,omitempty"`
+	Name     string                 `json:"name,omitempty"`
+	Type     ApprovalWidgetType     `json:"type,omitempty"`
+	Value    interface{}            `json:"value"`
+	Option   *ApprovalWidgetOptions `json:"option,omitempty"`
+	Children []*ApprovalWidget      `json:"children,omitempty"`
 }
 
 func (r *ApprovalWidgetList) UnmarshalJSON(bs []byte) (err error) {
@@ -80,7 +80,41 @@ func (r *ApprovalWidgetList) MarshalJSON() ([]byte, error) {
 	return []byte(fmt.Sprintf("%q", bs)), nil
 }
 
+type ApprovalWidgetOptions struct {
+	IsList  bool
+	Option  *ApprovalWidgetOption
+	Options []*ApprovalWidgetOption
+}
+
+func (r *ApprovalWidgetOptions) UnmarshalJSON(bs []byte) (err error) {
+	s := string(bs)
+	if strings.HasPrefix(s, "[") {
+		options := []*ApprovalWidgetOption{}
+		if err = json.Unmarshal(bs, &options); err != nil {
+			return err
+		}
+		r.IsList = true
+		r.Options = options
+	} else {
+		option := new(ApprovalWidgetOption)
+		if err = json.Unmarshal(bs, option); err != nil {
+			return err
+		}
+		r.IsList = false
+		r.Option = option
+	}
+	return nil
+}
+
+func (r *ApprovalWidgetOptions) MarshalJSON() ([]byte, error) {
+	if r.IsList {
+		return json.Marshal(r.Options)
+	}
+	return json.Marshal(r.Option)
+}
+
 type ApprovalWidgetOption struct {
+	Key   string `json:"key,omitempty"`
 	Value string `json:"value,omitempty"`
 	Text  string `json:"text,omitempty"`
 }

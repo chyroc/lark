@@ -30,8 +30,8 @@ func Test_GetApproval(t *testing.T) {
 		{Type: lark.ApprovalWidgetTypeNumber, Name: "数字"},
 		{Type: lark.ApprovalWidgetTypeAmount, Name: "金额"},
 		{Type: lark.ApprovalWidgetTypeFormula, Name: "计算公式"},
-		{Type: lark.ApprovalWidgetTypeRadioV2, Name: "单选", Option: []*lark.ApprovalWidgetOption{{Text: "1"}, {Text: "2"}}},
-		{Type: lark.ApprovalWidgetTypeCheckboxV2, Name: "多选", Option: []*lark.ApprovalWidgetOption{{Text: "1"}, {Text: "2"}, {Text: "3"}}},
+		{Type: lark.ApprovalWidgetTypeRadioV2, Name: "单选", Option: &lark.ApprovalWidgetOptions{IsList: true, Options: []*lark.ApprovalWidgetOption{{Text: "1"}, {Text: "2"}}}},
+		{Type: lark.ApprovalWidgetTypeCheckboxV2, Name: "多选", Option: &lark.ApprovalWidgetOptions{IsList: true, Options: []*lark.ApprovalWidgetOption{{Text: "1"}, {Text: "2"}, {Text: "3"}}}},
 		{Type: lark.ApprovalWidgetTypeDate, Name: "日期"},
 		{Type: lark.ApprovalWidgetTypeDateInterval, Name: "DateInterval"},
 		{Type: lark.ApprovalWidgetTypeFieldList, Name: "明细", Children: []*lark.ApprovalWidget{{Name: "单行文本"}, {Name: "多行文本"}}},
@@ -48,14 +48,16 @@ func Test_GetApproval(t *testing.T) {
 		as.Equal(expectWidget.Name, widget.Name)
 		as.Equal(expectWidget.Type, widget.Type)
 		as.Equal(len(expectWidget.Children), len(widget.Children))
-		as.Equal(len(expectWidget.Option), len(widget.Option))
-		for optionIdx, option := range widget.Option {
-			expectOption := expectWidget.Option[optionIdx]
-			as.Equal(expectOption.Text, option.Text)
-		}
-		for childrenIdx, children := range widget.Children {
-			expectChildren := expectWidget.Children[childrenIdx]
-			as.Equal(expectChildren.Name, children.Name)
+		if expectWidget.Option != nil {
+			as.Equal(len(expectWidget.Option.Options), len(widget.Option.Options))
+			for optionIdx, option := range widget.Option.Options {
+				expectOption := expectWidget.Option.Options[optionIdx]
+				as.Equal(expectOption.Text, option.Text)
+			}
+			for childrenIdx, children := range widget.Children {
+				expectChildren := expectWidget.Children[childrenIdx]
+				as.Equal(expectChildren.Name, children.Name)
+			}
 		}
 	}
 }
