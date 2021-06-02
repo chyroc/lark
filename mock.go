@@ -16,6 +16,7 @@ type Mock struct {
 	mockContactCreateUser                                func(ctx context.Context, request *CreateUserReq, options ...MethodOptionFunc) (*CreateUserResp, *Response, error)
 	mockContactDeleteUser                                func(ctx context.Context, request *DeleteUserReq, options ...MethodOptionFunc) (*DeleteUserResp, *Response, error)
 	mockContactGetUser                                   func(ctx context.Context, request *GetUserReq, options ...MethodOptionFunc) (*GetUserResp, *Response, error)
+	mockContactBatchGetUser                              func(ctx context.Context, request *BatchGetUserReq, options ...MethodOptionFunc) (*BatchGetUserResp, *Response, error)
 	mockContactGetUserList                               func(ctx context.Context, request *GetUserListReq, options ...MethodOptionFunc) (*GetUserListResp, *Response, error)
 	mockContactUpdateUserPatch                           func(ctx context.Context, request *UpdateUserPatchReq, options ...MethodOptionFunc) (*UpdateUserPatchResp, *Response, error)
 	mockContactUpdateUser                                func(ctx context.Context, request *UpdateUserReq, options ...MethodOptionFunc) (*UpdateUserResp, *Response, error)
