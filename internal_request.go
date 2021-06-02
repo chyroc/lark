@@ -101,6 +101,9 @@ func parseRequestParam(req *RawRequestReq) (*realRequestParam, error) {
 	var rawBody []byte
 	var reader io.Reader
 	headers := req.headers
+	if headers == nil {
+		headers = map[string]string{}
+	}
 	fileKey := ""
 
 	vv := reflect.ValueOf(req.Body)
