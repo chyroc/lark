@@ -19,7 +19,7 @@ func (r *MeetingRoomService) GetMeetingRoomDistrictList(ctx context.Context, req
 		Scope:                 "MeetingRoom",
 		API:                   "GetMeetingRoomDistrictList",
 		Method:                "GET",
-		URL:                   "https://open.feishu.cn/open-apis/meeting_room/district/list?country_id=1814991",
+		URL:                   "https://open.feishu.cn/open-apis/meeting_room/district/list",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,

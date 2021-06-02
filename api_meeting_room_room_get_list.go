@@ -19,7 +19,7 @@ func (r *MeetingRoomService) GetMeetingRoomRoomList(ctx context.Context, request
 		Scope:                 "MeetingRoom",
 		API:                   "GetMeetingRoomRoomList",
 		Method:                "GET",
-		URL:                   "https://open.feishu.cn/open-apis/meeting_room/room/list?building_id=omb_8ec170b937536a5d87c23b418b83f9bb&page_size=1&page_token=0&order_by=name-asc&fields=*",
+		URL:                   "https://open.feishu.cn/open-apis/meeting_room/room/list",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,

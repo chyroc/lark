@@ -19,7 +19,7 @@ func (r *MeetingRoomService) BatchGetMeetingRoomBuilding(ctx context.Context, re
 		Scope:                 "MeetingRoom",
 		API:                   "BatchGetMeetingRoomBuilding",
 		Method:                "GET",
-		URL:                   "https://open.feishu.cn/open-apis/meeting_room/building/batch_get?building_ids=omb_8ec170b937536a5d87c23b418b83f9bb&building_ids=omb_38570e4f0fd9ecf15030d3cc8b388f3a&fields=*",
+		URL:                   "https://open.feishu.cn/open-apis/meeting_room/building/batch_get",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,

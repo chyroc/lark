@@ -19,7 +19,7 @@ func (r *MeetingRoomService) BatchGetMeetingRoomRoomID(ctx context.Context, requ
 		Scope:                 "MeetingRoom",
 		API:                   "BatchGetMeetingRoomRoomID",
 		Method:                "GET",
-		URL:                   "https://open.feishu.cn/open-apis/meeting_room/room/batch_get_id?custom_room_ids=test01&custom_room_ids=test02",
+		URL:                   "https://open.feishu.cn/open-apis/meeting_room/room/batch_get_id",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
