@@ -22,6 +22,7 @@ jobs:
 
     - name: Code Style Check
       run: |
+        ls -alh
         go build -v ./...
         gofmt -s
         go vet ./...
