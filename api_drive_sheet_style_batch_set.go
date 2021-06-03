@@ -77,15 +77,15 @@ type batchSetSheetStyleResp struct {
 }
 
 type BatchSetSheetStyleResp struct {
-	SpreadSheetToken    string                           `json:"spreadsheetToken,omitempty"`    // spreadsheet 的 token
-	TotalUpdatedRows    int64                            `json:"totalUpdatedRows,omitempty"`    // 设置样式的总行数
-	TotalUpdatedColumns int64                            `json:"totalUpdatedColumns,omitempty"` // 设置样式的总列数
-	TotalUpdatedCells   int64                            `json:"totalUpdatedCells,omitempty"`   // 设置样式的单元格总数
-	Revision            int64                            `json:"revision,omitempty"`            // sheet 的版本号
-	Responses           *BatchSetSheetStyleRespResponses `json:"responses,omitempty"`           // 各个范围的设置单元格样式的范围、行列数等
+	SpreadSheetToken    string                          `json:"spreadsheetToken,omitempty"`    // spreadsheet 的 token
+	TotalUpdatedRows    int64                           `json:"totalUpdatedRows,omitempty"`    // 设置样式的总行数
+	TotalUpdatedColumns int64                           `json:"totalUpdatedColumns,omitempty"` // 设置样式的总列数
+	TotalUpdatedCells   int64                           `json:"totalUpdatedCells,omitempty"`   // 设置样式的单元格总数
+	Revision            int64                           `json:"revision,omitempty"`            // sheet 的版本号
+	Responses           *BatchSetSheetStyleRespResponse `json:"responses,omitempty"`           // 各个范围的设置单元格样式的范围、行列数等
 }
 
-type BatchSetSheetStyleRespResponses struct {
+type BatchSetSheetStyleRespResponse struct {
 	SpreadSheetToken string `json:"spreadsheetToken,omitempty"` // spreadsheet 的 token
 	UpdatedRange     string `json:"updatedRange,omitempty"`     // 设置样式的范围
 	UpdatedRows      int64  `json:"updatedRows,omitempty"`      // 设置样式的行数

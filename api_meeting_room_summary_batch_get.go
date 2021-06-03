@@ -39,10 +39,10 @@ func (r *Mock) UnMockMeetingRoomBatchGetMeetingRoomSummary() {
 }
 
 type BatchGetMeetingRoomSummaryReq struct {
-	EventUids *BatchGetMeetingRoomSummaryReqEventUids `json:"EventUids,omitempty"` // 需要查询的日程Uid和Original time
+	EventUids *BatchGetMeetingRoomSummaryReqEventUid `json:"EventUids,omitempty"` // 需要查询的日程Uid和Original time
 }
 
-type BatchGetMeetingRoomSummaryReqEventUids struct {
+type BatchGetMeetingRoomSummaryReqEventUid struct {
 	Uid          string `json:"uid,omitempty"`           // 日程的唯一id
 	OriginalTime int64  `json:"original_time,omitempty"` // 日程实例原始时间，非重复日程必为0。重复日程若为0则表示回复其所有实例，否则表示回复单个实例。
 }
@@ -54,17 +54,17 @@ type batchGetMeetingRoomSummaryResp struct {
 }
 
 type BatchGetMeetingRoomSummaryResp struct {
-	EventInfos     *BatchGetMeetingRoomSummaryRespEventInfos     `json:"EventInfos,omitempty"`     // 成功查询到的日程信息
-	ErrorEventUids *BatchGetMeetingRoomSummaryRespErrorEventUids `json:"ErrorEventUids,omitempty"` // 没有查询到的日程
+	EventInfos     *BatchGetMeetingRoomSummaryRespEventInfo     `json:"EventInfos,omitempty"`     // 成功查询到的日程信息
+	ErrorEventUids *BatchGetMeetingRoomSummaryRespErrorEventUid `json:"ErrorEventUids,omitempty"` // 没有查询到的日程
 }
 
-type BatchGetMeetingRoomSummaryRespEventInfos struct {
+type BatchGetMeetingRoomSummaryRespEventInfo struct {
 	Uid          string `json:"uid,omitempty"`           // 日程的唯一id
 	OriginalTime int64  `json:"original_time,omitempty"` // 日程实例原始时间，非重复日程必为0。重复日程若为0则表示回复其所有实例，否则表示回复单个实例。
 	Summary      string `json:"summary,omitempty"`       // 日程主题
 }
 
-type BatchGetMeetingRoomSummaryRespErrorEventUids struct {
+type BatchGetMeetingRoomSummaryRespErrorEventUid struct {
 	Uid          string `json:"uid,omitempty"`           // 日程的唯一id
 	OriginalTime int64  `json:"original_time,omitempty"` // 日程实例原始时间，非重复日程必为0。重复日程若为0则表示回复其所有实例，否则表示回复单个实例。
 	ErrorMsg     string `json:"error_msg,omitempty"`     // 错误信息

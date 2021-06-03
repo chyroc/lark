@@ -49,10 +49,10 @@ type batchGetMeetingRoomBuildingIDResp struct {
 }
 
 type BatchGetMeetingRoomBuildingIDResp struct {
-	Buildings *BatchGetMeetingRoomBuildingIDRespBuildings `json:"buildings,omitempty"` // 建筑列表
+	Buildings *BatchGetMeetingRoomBuildingIDRespBuilding `json:"buildings,omitempty"` // 建筑列表
 }
 
-type BatchGetMeetingRoomBuildingIDRespBuildings struct {
+type BatchGetMeetingRoomBuildingIDRespBuilding struct {
 	BuildingID       string `json:"building_id,omitempty"`        // 建筑物ID
 	CustomBuildingID string `json:"custom_building_id,omitempty"` // 租户自定义建筑物ID
 }

@@ -53,13 +53,13 @@ type batchGetUserByIDResp struct {
 }
 
 type BatchGetUserByIDResp struct {
-	EmailUsers      *BatchGetUserByIDRespEmailUsers `json:"email_users,omitempty"`       // 根据邮箱查询到的用户，key 为邮箱，value 为查询到用户的 array。<br>目前同一个邮箱最多只能查询到一个用户。
-	EmailsNotExist  []string                        `json:"emails_not_exist,omitempty"`  // 没有匹配记录的邮箱。
-	MobileUsers     []string                        `json:"mobile_users,omitempty"`      // 根据手机号查询到的用户，key 为手机号，value 为查询到用户的 array。<br>目前同一个手机号最多只能查询到一个用户。
-	MobilesNotExist []string                        `json:"mobiles_not_exist,omitempty"` // 没有匹配记录的手机号。
+	EmailUsers      map[string][]*BatchGetUserByIDRespEmailUser `json:"email_users,omitempty"`       // 根据邮箱查询到的用户，key 为邮箱，value 为查询到用户的 array。<br>目前同一个邮箱最多只能查询到一个用户。
+	EmailsNotExist  []string                                    `json:"emails_not_exist,omitempty"`  // 没有匹配记录的邮箱。
+	MobileUsers     map[string][]*BatchGetUserByIDRespEmailUser `json:"mobile_users,omitempty"`      // 根据手机号查询到的用户，key 为手机号，value 为查询到用户的 array。<br>目前同一个手机号最多只能查询到一个用户。
+	MobilesNotExist []string                                    `json:"mobiles_not_exist,omitempty"` // 没有匹配记录的手机号。
 }
 
-type BatchGetUserByIDRespEmailUsers struct {
+type BatchGetUserByIDRespEmailUser struct {
 	OpenID string `json:"open_id,omitempty"` // 用户的 open_id。
 	UserID string `json:"user_id,omitempty"` // 用户的 user_id。<br>只有已申请 `获取用户UserID` 权限的企业自建应用返回此字段。
 }
