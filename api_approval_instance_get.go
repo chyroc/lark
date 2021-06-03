@@ -92,8 +92,8 @@ type GetApprovalInstanceRespTimeline struct {
 	CreateTime int64                               `json:"create_time,omitempty"`  // 发生时间
 	UserID     *string                             `json:"user_id,omitempty"`      // 动态产生用户
 	OpenID     *string                             `json:"open_id,omitempty"`      // 动态产生用户 open id
-	UserIDList *string                             `json:"user_id_list,omitempty"` // 被抄送人列表
-	OpenIDList *string                             `json:"open_id_list,omitempty"` // 被抄送人列表
+	UserIDList []string                            `json:"user_id_list,omitempty"` // 被抄送人列表
+	OpenIDList []string                            `json:"open_id_list,omitempty"` // 被抄送人列表
 	TaskID     *string                             `json:"task_id,omitempty"`      // 产生动态关联的task_id
 	Comment    *string                             `json:"comment,omitempty"`      // 理由
 	Ext        *GetApprovalInstanceRespTimelineExt `json:"ext,omitempty"`          // 动态其他信息，目前包括 user_id_list, user_id
