@@ -42,8 +42,8 @@ func (r *Mock) UnMockContactBatchGetUserByID() {
 }
 
 type BatchGetUserByIDReq struct {
-	Emails  *string `query:"emails" json:"-"`  // 要查询的用户邮箱，最多 50 条。
-	Mobiles *string `query:"mobiles" json:"-"` // 要查询的用户手机号，最多 50 条。<br>非中国大陆地区的手机号需要添加以 “+” 开头的国家 / 地区代码，并且需要进行 URL 转义。<br>
+	Emails  []string `query:"emails" json:"-"`  // 要查询的用户邮箱，最多 50 条。
+	Mobiles []string `query:"mobiles" json:"-"` // 要查询的用户手机号，最多 50 条。<br>非中国大陆地区的手机号需要添加以 “+” 开头的国家 / 地区代码，并且需要进行 URL 转义。<br>
 }
 
 type batchGetUserByIDResp struct {
