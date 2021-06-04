@@ -51,7 +51,7 @@ type RecognizeSpeechStreamReqSpeech struct {
 }
 
 type RecognizeSpeechStreamReqConfig struct {
-	StreamID   string `json:"stream_id,omitempty"`   // 16 位 String 随机串作为同一数据流的标识，用户生成, 示例值："asd1234567890ddd"
+	StreamID   string `json:"stream_id,omitempty"`   // 仅包含字母数字和下划线的 16 位字符串作为同一数据流的标识，用户生成, 示例值："asd1234567890ddd"
 	SequenceID int64  `json:"sequence_id,omitempty"` // 数据流分片的序号，序号从 0 开始，每次请求递增 1, 示例值：1
 	Action     int64  `json:"action,omitempty"`      // 数据流标记：1 首包，2 正常结束，等待结果返回，3 中断数据流不返回最终结果, 示例值：1
 	Format     string `json:"format,omitempty"`      // 语音格式，目前仅支持：pcm, 示例值："pcm"

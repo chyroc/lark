@@ -51,7 +51,7 @@ type RecognizeSpeechFileReqSpeech struct {
 }
 
 type RecognizeSpeechFileReqConfig struct {
-	FileID     string `json:"file_id,omitempty"`     // 16 位 String 随机串作为文件的标识，用户生成, 示例值："qwe12dd34567890w"
+	FileID     string `json:"file_id,omitempty"`     // 仅包含字母数字和下划线的 16 位字符串作为文件的标识，用户生成, 示例值："qwe12dd34567890w"
 	Format     string `json:"format,omitempty"`      // 语音格式，目前仅支持：pcm, 示例值："pcm"
 	EngineType string `json:"engine_type,omitempty"` // 引擎类型，目前仅支持：16k_auto 中英混合, 示例值："16k_auto"
 }
