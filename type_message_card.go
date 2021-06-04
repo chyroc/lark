@@ -196,6 +196,8 @@ type MessageContentCardObjectText struct {
 	Lines   int                              `json:"lines,omitempty"`   // 内容显示行数
 }
 
+func (r MessageContentCardObjectText) IsMessageContentCardElement() {}
+
 type MessageContentCardObjectTextType string
 
 const (
