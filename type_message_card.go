@@ -201,8 +201,8 @@ func (r MessageContentCardObjectText) IsMessageContentCardElement() {}
 type MessageContentCardObjectTextType string
 
 const (
-	MessageContentCardTextTypePlainText   MessageContentCardObjectTextType = "plain_text"
-	MessageContentCardTextTypePlainLarkMd MessageContentCardObjectTextType = "lark_md"
+	MessageContentCardTextTypePlainText MessageContentCardObjectTextType = "plain_text"
+	MessageContentCardTextTypeLarkMd    MessageContentCardObjectTextType = "lark_md"
 )
 
 // field对象可用于内容模块的field字段，通过"is_short"字段控制是否并排布局
