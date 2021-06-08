@@ -42,7 +42,7 @@ func (r *Mock) UnMockDriveGetDriveFolderMeta() {
 }
 
 type GetDriveFolderMetaReq struct {
-	FolderToken string `path:"folderToken" json:"-"` // 文件夹的 token，获取方式见 [对接前说明](https://open.feishu.cn/document/ukTMukTMukTM/uczNzUjL3czM14yN3MTN) 的第 3 项
+	FolderToken string `path:"folderToken" json:"-"` // 文件夹的 token，获取方式见 [概述](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/files/guide/introduction)
 }
 
 type getDriveFolderMetaResp struct {
