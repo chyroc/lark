@@ -44,7 +44,7 @@ func (r *Mock) UnMockDriveCreateDriveFile() {
 }
 
 type CreateDriveFileReq struct {
-	FolderToken string `path:"folderToken" json:"-"` // 文件夹 token，用于在此文件夹下新建文档，获取方式见 [对接前说明](https://open.feishu.cn/document/ukTMukTMukTM/uczNzUjL3czM14yN3MTN) 的第 3 项
+	FolderToken string `path:"folderToken" json:"-"` // 文件夹 token，用于在此文件夹下新建文档，获取方式见 [概述](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/files/guide/introduction)
 	Title       string `json:"title,omitempty"`      // 创建文档的标题
 	Type        string `json:"type,omitempty"`       // 需要创建文档的类型  "doc"  or  "sheet"
 }

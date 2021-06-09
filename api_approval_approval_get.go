@@ -42,7 +42,7 @@ func (r *Mock) UnMockApprovalGetApproval() {
 
 type GetApprovalReq struct {
 	ApprovalCode string  `json:"approval_code,omitempty"` // 审批定义 Code
-	Locale       *string `json:"locale,omitempty"`        // zh-CN - 中文<br>en-US - 英文
+	Locale       *string `json:"locale,omitempty"`        // zh-CN - 中文<br>en-US - 英文  <br>ja-JP - 日文
 }
 
 type getApprovalResp struct {
@@ -52,9 +52,10 @@ type getApprovalResp struct {
 }
 
 type GetApprovalResp struct {
-	ApprovalName string                 `json:"approval_name,omitempty"` // 审批名称
-	Form         ApprovalWidgetList     `json:"form,omitempty"`          // json 数组，**控件信息**
-	NodeList     []*GetApprovalRespNode `json:"node_list,omitempty"`     // 节点信息
+	ApprovalName string                   `json:"approval_name,omitempty"` // 审批名称
+	Form         ApprovalWidgetList       `json:"form,omitempty"`          // json 数组，**控件信息**
+	NodeList     []*GetApprovalRespNode   `json:"node_list,omitempty"`     // 节点信息
+	Viewers      []*GetApprovalRespViewer `json:"viewers,omitempty"`       // 可见人列表
 }
 
 type GetApprovalRespNode struct {
@@ -63,4 +64,10 @@ type GetApprovalRespNode struct {
 	NodeID       string  `json:"node_id,omitempty"`        // 节点 ID
 	CustomNodeID *string `json:"custom_node_id,omitempty"` // 节点自定义 ID，如果没有设置则不返回
 	NodeType     string  `json:"node_type,omitempty"`      // 审批方式<br>AND -会签<br>OR - 或签
+}
+
+type GetApprovalRespViewer struct {
+	Type   string  `json:"type,omitempty"`    // 可见人类型，分别有：<br>TENANT：租户内可见<br>DEPARTMENT：指定部门<br> USER：指定用户<br>NONE：任何人都不可见
+	OpenID *string `json:"open_id,omitempty"` // 在可见人类型为DEPARTMENT时，open_id为部门的open_id<br>在可见人类型为USER时，open_id为用户的open_id
+	UserID *string `json:"user_id,omitempty"` // 在可见人类型为USER时，表示可见人用户id
 }

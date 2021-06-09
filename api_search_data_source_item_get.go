@@ -62,9 +62,9 @@ type GetSearchDataSourceItemRespItem struct {
 }
 
 type GetSearchDataSourceItemRespItemACL struct {
-	Access string `json:"access,omitempty"` // 权限类型，优先级：Deny > Allow, 可选值有: `1`：允许访问, `2`：禁止访问
-	Value  string `json:"value,omitempty"`  // 设置的权限值，例如 userID 、groupID，依赖 type 描述
-	Type   string `json:"type,omitempty"`   // 权限值类型, 可选值有: `1`：访问权限控制中指定用户可以访问或拒绝访问该条数据, `2`：访问权限控制中指定用户组可以访问或拒绝访问该条数据
+	Access string `json:"access,omitempty"` // 权限类型，优先级：Deny > Allow。默认为全员不可见，即 deny。, 可选值有: `allow`：允许访问, `deny`：禁止访问
+	Value  string `json:"value,omitempty"`  // 设置的权限值，例如 userID 、groupID，依赖 type 描述。,**注**：在 type 为 user 且 access 为 allow 时，可填 "everyone" 来表示该数据项对全员可见。
+	Type   string `json:"type,omitempty"`   // 权限值类型, 可选值有: `user`：访问权限控制中指定用户可以访问或拒绝访问该条数据, `group`：访问权限控制中指定用户组可以访问或拒绝访问该条数据
 }
 
 type GetSearchDataSourceItemRespItemMetadata struct {
@@ -75,6 +75,6 @@ type GetSearchDataSourceItemRespItemMetadata struct {
 }
 
 type GetSearchDataSourceItemRespItemContent struct {
-	Format      string `json:"format,omitempty"`       // 内容的格式, 可选值有: `0`：html格式, `1`：纯文本格式
+	Format      string `json:"format,omitempty"`       // 内容的格式, 可选值有: `html`：html格式, `plaintext`：纯文本格式
 	ContentData string `json:"content_data,omitempty"` // 全文数据
 }

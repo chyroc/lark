@@ -43,6 +43,7 @@ func (r *Mock) UnMockApprovalApproveApprovalInstance() {
 type ApproveApprovalInstanceReq struct {
 	ApprovalCode string  `json:"approval_code,omitempty"` // 审批定义 Code
 	InstanceCode string  `json:"instance_code,omitempty"` // 审批实例 Code
+	OpenID       *string `json:"open_id,omitempty"`       // 用户open_id，如果没有user_id，必须要有open_id
 	UserID       string  `json:"user_id,omitempty"`       // 操作用户
 	TaskID       string  `json:"task_id,omitempty"`       // 任务 ID
 	Comment      *string `json:"comment,omitempty"`       // 意见

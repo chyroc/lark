@@ -48,9 +48,9 @@ type CreateSearchDataSourceItemReq struct {
 }
 
 type CreateSearchDataSourceItemReqACL struct {
-	Access *string `json:"access,omitempty"` // 权限类型，优先级：Deny > Allow, 示例值："1", 可选值有: `1`：允许访问, `2`：禁止访问
-	Value  *string `json:"value,omitempty"`  // 设置的权限值，例如 userID 、groupID，依赖 type 描述, 示例值："ou_7dab8a3d3cdcc9da365777c7ad535d62"
-	Type   *string `json:"type,omitempty"`   // 权限值类型, 示例值："1", 可选值有: `1`：访问权限控制中指定用户可以访问或拒绝访问该条数据, `2`：访问权限控制中指定用户组可以访问或拒绝访问该条数据
+	Access *string `json:"access,omitempty"` // 权限类型，优先级：Deny > Allow。默认为全员不可见，即 deny。, 示例值："allow", 可选值有: `allow`：允许访问, `deny`：禁止访问
+	Value  *string `json:"value,omitempty"`  // 设置的权限值，例如 userID 、groupID，依赖 type 描述。,**注**：在 type 为 user 且 access 为 allow 时，可填 "everyone" 来表示该数据项对全员可见。, 示例值："6629468020840333501"
+	Type   *string `json:"type,omitempty"`   // 权限值类型, 示例值："user", 可选值有: `user`：访问权限控制中指定用户可以访问或拒绝访问该条数据, `group`：访问权限控制中指定用户组可以访问或拒绝访问该条数据
 }
 
 type CreateSearchDataSourceItemReqMetadata struct {
@@ -61,7 +61,7 @@ type CreateSearchDataSourceItemReqMetadata struct {
 }
 
 type CreateSearchDataSourceItemReqContent struct {
-	Format      *string `json:"format,omitempty"`       // 内容的格式, 示例值："1", 可选值有: `0`：html格式, `1`：纯文本格式
+	Format      *string `json:"format,omitempty"`       // 内容的格式, 示例值："html", 可选值有: `html`：html格式, `plaintext`：纯文本格式
 	ContentData *string `json:"content_data,omitempty"` // 全文数据, 示例值："这是一个很长的文本"
 }
 

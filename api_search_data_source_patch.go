@@ -60,7 +60,7 @@ type UpdateSearchDataSourceRespDataSource struct {
 	Name          string `json:"name,omitempty"`            // data_source的展示名称
 	State         int64  `json:"state,omitempty"`           // 数据源状态，0-未上线，1-已上线, 可选值有: `0`：未上线, `1`：已上线
 	Description   string `json:"description,omitempty"`     // 对于数据源的描述
-	CreateTime    string `json:"create_time,omitempty"`     // 创建时间，使用Unix时间戳，秒
-	UpdateTime    string `json:"update_time,omitempty"`     // 更新时间，使用Unix时间戳，秒
+	CreateTime    string `json:"create_time,omitempty"`     // 创建时间，使用Unix时间戳，单位为“秒”
+	UpdateTime    string `json:"update_time,omitempty"`     // 更新时间，使用Unix时间戳，单位为“秒”
 	IsExceedQuota bool   `json:"is_exceed_quota,omitempty"` // 是否超限
 }

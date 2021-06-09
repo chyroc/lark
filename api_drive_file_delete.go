@@ -44,7 +44,7 @@ func (r *Mock) UnMockDriveDeleteDriveFile() {
 }
 
 type DeleteDriveFileReq struct {
-	SpreadSheetToken string `path:"spreadsheetToken" json:"-"` // spreadsheet 的 token，获取方式见 [对接前说明](https://open.feishu.cn/document/ukTMukTMukTM/uczNzUjL3czM14yN3MTN) 的第 4 项
+	SpreadSheetToken string `path:"spreadsheetToken" json:"-"` // spreadsheet 的 token，获取方式见 [概述](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/files/guide/introduction)
 }
 
 type deleteDriveFileResp struct {

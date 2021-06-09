@@ -8,7 +8,7 @@ import (
 
 // EventV2ContactUserCreatedV3
 //
-// 通过该事件订阅员工入职。事件只会返回应用有数据权限的字段,具体的数据权限与字段的关系请参考[应用权限](https://open.feishu.cn/document/ukTMukTMukTM/uQjN3QjL0YzN04CN2cDN)
+// 通过该事件订阅员工入职。事件只会返回应用有数据权限的字段,具体的数据权限与字段的关系请参考[应用权限](https://open.feishu.cn/document/ukTMukTMukTM/uQjN3QjL0YzN04CN2cDN)。{使用示例}(url=/api/tools/api_explore/api_explore_config?project=contact&version=v3&resource=user&event=created)
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/events/created
 func (r *EventCallbackService) HandlerEventV2ContactUserCreatedV3(f eventV2ContactUserCreatedV3Handler) {
