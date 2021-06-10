@@ -41,6 +41,8 @@ func (r *Mock) UnMockBitableGetBitableRecordList() {
 
 type GetBitableRecordListReq struct {
 	ViewID    *string `query:"view_id" json:"-"`    // 视图 id, 示例值："vewkLhyICY"
+	Filter    *string `query:"filter" json:"-"`     // filter, 示例值："AND(currentValue.[身高]>180, currentValue.[体重]>150)"
+	Sort      *string `query:"sort" json:"-"`       // sort, 示例值："["字段1 DESC","字段2 ASC"]"
 	PageToken *string `query:"page_token" json:"-"` // 分页标记，第一次请求不填，表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token，下次遍历可采用该 page_token 获取查询结果, 示例值："recP750ZNJ"
 	PageSize  *int64  `query:"page_size" json:"-"`  // 分页大小, 示例值：10, 最大值：`100`
 	AppToken  string  `path:"app_token" json:"-"`   // bitable app token, 示例值："bascng7vrxcxpig7geggXiCtadY"

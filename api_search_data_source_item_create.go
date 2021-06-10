@@ -43,7 +43,7 @@ type CreateSearchDataSourceItemReq struct {
 	ID             string                                 `json:"id,omitempty"`              // item 在 datasource 中的唯一标识, 示例值："01010111"
 	ACL            *CreateSearchDataSourceItemReqACL      `json:"acl,omitempty"`             // item 的访问权限控制
 	Metadata       *CreateSearchDataSourceItemReqMetadata `json:"metadata,omitempty"`        // item 的元信息
-	StructuredData string                                 `json:"structured_data,omitempty"` // 结构化数据（以 json 字符串传递），这些字段是搜索结果的展示字段（title字段无须在此另外指定）；目前支持的key为：,summary：搜索结果的摘要；,icon_url：搜索结果的icon地址；,footer：搜索结果的脚注, 示例值："{\"key\":\"value\"}"
+	StructuredData string                                 `json:"structured_data,omitempty"` // 结构化数据（以 json 字符串传递），这些字段是搜索结果的展示字段（title字段无须在此另外指定）；目前支持的key为：, summary：搜索结果的摘要；, icon_url：搜索结果的icon地址；, footer：搜索结果的脚注, 示例值："{\"key\":\"value\"}"
 	Content        *CreateSearchDataSourceItemReqContent  `json:"content,omitempty"`         // 非结构化数据，如文档文本，飞书搜索会用来做召回
 }
 
@@ -56,8 +56,8 @@ type CreateSearchDataSourceItemReqACL struct {
 type CreateSearchDataSourceItemReqMetadata struct {
 	Title      string `json:"title,omitempty"`       // 该条数据记录对应的标题, 示例值："工单：无法创建文章"
 	SourceURL  string `json:"source_url,omitempty"`  // 该条数据记录对应的跳转url, 示例值："http://www.abc.com.cn"
-	CreateTime *int64 `json:"create_time,omitempty"` // 数据项的创建时间, 示例值：1618831236
-	UpdateTime *int64 `json:"update_time,omitempty"` // 数据项的更新时间, 示例值：1618831236
+	CreateTime *int64 `json:"create_time,omitempty"` // 数据项的创建时间。Unix 时间，单位为秒, 示例值：1618831236
+	UpdateTime *int64 `json:"update_time,omitempty"` // 数据项的更新时间。Unix 时间，单位为秒, 示例值：1618831236
 }
 
 type CreateSearchDataSourceItemReqContent struct {

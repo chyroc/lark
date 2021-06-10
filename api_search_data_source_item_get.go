@@ -57,7 +57,7 @@ type GetSearchDataSourceItemRespItem struct {
 	ID             string                                   `json:"id,omitempty"`              // item 在 datasource 中的唯一标识
 	ACL            *GetSearchDataSourceItemRespItemACL      `json:"acl,omitempty"`             // item 的访问权限控制
 	Metadata       *GetSearchDataSourceItemRespItemMetadata `json:"metadata,omitempty"`        // item 的元信息
-	StructuredData string                                   `json:"structured_data,omitempty"` // 结构化数据（以 json 字符串传递），这些字段是搜索结果的展示字段（title字段无须在此另外指定）；目前支持的key为：,summary：搜索结果的摘要；,icon_url：搜索结果的icon地址；,footer：搜索结果的脚注
+	StructuredData string                                   `json:"structured_data,omitempty"` // 结构化数据（以 json 字符串传递），这些字段是搜索结果的展示字段（title字段无须在此另外指定）；目前支持的key为：, summary：搜索结果的摘要；, icon_url：搜索结果的icon地址；, footer：搜索结果的脚注
 	Content        *GetSearchDataSourceItemRespItemContent  `json:"content,omitempty"`         // 非结构化数据，如文档文本，飞书搜索会用来做召回
 }
 
@@ -70,8 +70,8 @@ type GetSearchDataSourceItemRespItemACL struct {
 type GetSearchDataSourceItemRespItemMetadata struct {
 	Title      string `json:"title,omitempty"`       // 该条数据记录对应的标题
 	SourceURL  string `json:"source_url,omitempty"`  // 该条数据记录对应的跳转url
-	CreateTime int64  `json:"create_time,omitempty"` // 数据项的创建时间
-	UpdateTime int64  `json:"update_time,omitempty"` // 数据项的更新时间
+	CreateTime int64  `json:"create_time,omitempty"` // 数据项的创建时间。Unix 时间，单位为秒
+	UpdateTime int64  `json:"update_time,omitempty"` // 数据项的更新时间。Unix 时间，单位为秒
 }
 
 type GetSearchDataSourceItemRespItemContent struct {
