@@ -8,9 +8,8 @@ import (
 
 // GetUserList 只能访问有数据权限的字段，具体的数据权限与字段的关系请参考[应用权限](https://open.feishu.cn/document/ukTMukTMukTM/uQjN3QjL0YzN04CN2cDN)
 //
-// 如果没有全员权限，则返回有通讯录范围的用户列表；如果有全员权限且应用可用范围为全员，将department_id字段设置为0，则可返回根部门下所有用户；如果传入一个具体的department_id,则返回该部门下的所有用户。
-// 如果没有单独设置用户的可见性，不填写具体的department_id则不会获取到用户数据
-// 如果有全员权限，将department_id字段设置为0，但根部门下没有任何用户的情况下，不会获取到用户数据。
+// 当应用的通讯录权限范围为全员时，传入 department_id，以获取该部门下所有的直属成员。根部门的 department_id 是 0。
+// 当应用的通讯录权限范围为非全员时，传入权限范围内的 department_id，以获取该部门下所有的直属成员。不传 department_id 时，会获取到权限范围内的独立成员。（当权限范围包含了某成员，但不包含成员所在部门，则该成员视为权限范围内的独立成员）
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/list
 func (r *ContactService) GetUserList(ctx context.Context, request *GetUserListReq, options ...MethodOptionFunc) (*GetUserListResp, *Response, error) {
