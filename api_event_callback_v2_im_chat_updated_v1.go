@@ -11,7 +11,7 @@ import (
 // 群组配置被修改后触发此事件，包含：
 // - 群主转移
 // - 群基本信息修改(群头像/群名称/群描述/群国际化名称)
-// - 群权限修改(加人入群权限/群编辑权限/at所有人权限/群分享权限)
+// - 群权限修改(加人入群权限/群编辑权限/at所有人权限/群分享权限)。{使用示例}(url=/api/tools/api_explore/api_explore_config?project=im&version=v1&resource=chat&event=updated)
 // 注意事项：
 // - 需要开启[机器人能力](https://open.feishu.cn/document/uQjL04CN/uYTMuYTMuYTM)
 // - 需要订阅 [即时通讯] 分类下的 [群配置修改] 事件
@@ -25,11 +25,13 @@ func (r *EventCallbackService) HandlerEventV2IMChatUpdatedV1(f eventV2IMChatUpda
 type eventV2IMChatUpdatedV1Handler func(ctx context.Context, cli *Lark, schema string, header *EventHeaderV2, event *EventV2IMChatUpdatedV1) (string, error)
 
 type EventV2IMChatUpdatedV1 struct {
-	ChatID        string                               `json:"chat_id,omitempty"`        // 群组 ID
-	OperatorID    *EventV2IMChatUpdatedV1OperatorID    `json:"operator_id,omitempty"`    // 用户 ID
-	AfterChange   *EventV2IMChatUpdatedV1AfterChange   `json:"after_change,omitempty"`   // 更新后的群信息
-	BeforeChange  *EventV2IMChatUpdatedV1BeforeChange  `json:"before_change,omitempty"`  // 更新前的群信息
-	ModeratorList *EventV2IMChatUpdatedV1ModeratorList `json:"moderator_list,omitempty"` // 群可发言成员名单的变更信息
+	ChatID            string                               `json:"chat_id,omitempty"`             // 群组 ID
+	OperatorID        *EventV2IMChatUpdatedV1OperatorID    `json:"operator_id,omitempty"`         // 用户 ID
+	External          bool                                 `json:"external,omitempty"`            // 是否是外部群
+	OperatorTenantKey string                               `json:"operator_tenant_key,omitempty"` // 操作者租户 Key
+	AfterChange       *EventV2IMChatUpdatedV1AfterChange   `json:"after_change,omitempty"`        // 更新后的群信息
+	BeforeChange      *EventV2IMChatUpdatedV1BeforeChange  `json:"before_change,omitempty"`       // 更新前的群信息
+	ModeratorList     *EventV2IMChatUpdatedV1ModeratorList `json:"moderator_list,omitempty"`      // 群可发言成员名单的变更信息
 }
 
 type EventV2IMChatUpdatedV1OperatorID struct {
@@ -88,7 +90,8 @@ type EventV2IMChatUpdatedV1ModeratorList struct {
 }
 
 type EventV2IMChatUpdatedV1ModeratorListAddedMember struct {
-	UserID *EventV2IMChatUpdatedV1ModeratorListAddedMemberUserID `json:"user_id,omitempty"` // 用户 ID
+	TenantKey string                                                `json:"tenant_key,omitempty"` // 租户 Key
+	UserID    *EventV2IMChatUpdatedV1ModeratorListAddedMemberUserID `json:"user_id,omitempty"`    // 用户 ID
 }
 
 type EventV2IMChatUpdatedV1ModeratorListAddedMemberUserID struct {
@@ -98,7 +101,8 @@ type EventV2IMChatUpdatedV1ModeratorListAddedMemberUserID struct {
 }
 
 type EventV2IMChatUpdatedV1ModeratorListRemovedMember struct {
-	UserID *EventV2IMChatUpdatedV1ModeratorListRemovedMemberUserID `json:"user_id,omitempty"` // 用户 ID
+	TenantKey string                                                  `json:"tenant_key,omitempty"` // 租户 Key
+	UserID    *EventV2IMChatUpdatedV1ModeratorListRemovedMemberUserID `json:"user_id,omitempty"`    // 用户 ID
 }
 
 type EventV2IMChatUpdatedV1ModeratorListRemovedMemberUserID struct {

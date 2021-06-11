@@ -8,7 +8,7 @@ import (
 
 // EventV2IMMessageReadV1
 //
-// 用户阅读机器人发送的单聊消息后触发此事件。
+// 用户阅读机器人发送的单聊消息后触发此事件。{使用示例}(url=/api/tools/api_explore/api_explore_config?project=im&version=v1&resource=message&event=message_read)
 // 注意事项:
 // - 需要开启[机器人能力](https://open.feishu.cn/document/uQjL04CN/uYTMuYTMuYTM)
 // - 需要订阅 [即时通讯] 分类下的 [消息已读] 事件
@@ -26,8 +26,9 @@ type EventV2IMMessageReadV1 struct {
 }
 
 type EventV2IMMessageReadV1Reader struct {
-	ReaderID *EventV2IMMessageReadV1ReaderReaderID `json:"reader_id,omitempty"` // 用户 ID
-	ReadTime string                                `json:"read_time,omitempty"` // 阅读时间
+	ReaderID  *EventV2IMMessageReadV1ReaderReaderID `json:"reader_id,omitempty"`  // 用户 ID
+	ReadTime  string                                `json:"read_time,omitempty"`  // 阅读时间
+	TenantKey string                                `json:"tenant_key,omitempty"` // tenant key
 }
 
 type EventV2IMMessageReadV1ReaderReaderID struct {

@@ -8,7 +8,7 @@ import (
 
 // EventV2IMChatMemberUserWithdrawnV1
 //
-// 撤销拉用户进群后触发此事件。
+// 撤销拉用户进群后触发此事件。{使用示例}(url=/api/tools/api_explore/api_explore_config?project=im&version=v1&resource=chat.member.user&event=withdrawn)
 // 注意事项：
 // - 需要开启[机器人能力](https://open.feishu.cn/document/uQjL04CN/uYTMuYTMuYTM)
 // - 需要订阅 [即时通讯] 分类下的 [撤销拉用户进群] 事件
@@ -22,9 +22,11 @@ func (r *EventCallbackService) HandlerEventV2IMChatMemberUserWithdrawnV1(f event
 type eventV2IMChatMemberUserWithdrawnV1Handler func(ctx context.Context, cli *Lark, schema string, header *EventHeaderV2, event *EventV2IMChatMemberUserWithdrawnV1) (string, error)
 
 type EventV2IMChatMemberUserWithdrawnV1 struct {
-	ChatID     string                                        `json:"chat_id,omitempty"`     // 群组 ID
-	OperatorID *EventV2IMChatMemberUserWithdrawnV1OperatorID `json:"operator_id,omitempty"` // 用户 ID
-	Users      []*EventV2IMChatMemberUserWithdrawnV1User     `json:"users,omitempty"`       // 被撤销加群的用户列表
+	ChatID            string                                        `json:"chat_id,omitempty"`             // 群组 ID
+	OperatorID        *EventV2IMChatMemberUserWithdrawnV1OperatorID `json:"operator_id,omitempty"`         // 用户 ID
+	External          bool                                          `json:"external,omitempty"`            // 是否是外部群
+	OperatorTenantKey string                                        `json:"operator_tenant_key,omitempty"` // operator tenant key
+	Users             []*EventV2IMChatMemberUserWithdrawnV1User     `json:"users,omitempty"`               // 被撤销加群的用户列表
 }
 
 type EventV2IMChatMemberUserWithdrawnV1OperatorID struct {
@@ -34,8 +36,9 @@ type EventV2IMChatMemberUserWithdrawnV1OperatorID struct {
 }
 
 type EventV2IMChatMemberUserWithdrawnV1User struct {
-	Name   string                                        `json:"name,omitempty"`    // 用户名字
-	UserID *EventV2IMChatMemberUserWithdrawnV1UserUserID `json:"user_id,omitempty"` // 用户 ID
+	Name      string                                        `json:"name,omitempty"`       // 用户名字
+	TenantKey string                                        `json:"tenant_key,omitempty"` // 租户 Key
+	UserID    *EventV2IMChatMemberUserWithdrawnV1UserUserID `json:"user_id,omitempty"`    // 用户 ID
 }
 
 type EventV2IMChatMemberUserWithdrawnV1UserUserID struct {
