@@ -172,6 +172,12 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.MoveSheetDimension(ctx, &lark.MoveSheetDimensionReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "failed")
+		})
+
+		t.Run("", func(t *testing.T) {
 			_, _, err := moduleCli.PrependSheetValue(ctx, &lark.PrependSheetValueReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "failed")
@@ -329,6 +335,30 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 			_, _, err := moduleCli.GetSheetDataValidationDropdown(ctx, &lark.GetSheetDataValidationDropdownReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.CreateSheetFilter(ctx, &lark.CreateSheetFilterReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.DeleteSheetFilter(ctx, &lark.DeleteSheetFilterReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.UpdateSheetFilter(ctx, &lark.UpdateSheetFilterReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.GetSheetFilter(ctx, &lark.GetSheetFilterReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "failed")
 		})
@@ -609,6 +639,17 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 			defer cli.Mock().UnMockDriveImportSheet()
 
 			_, _, err := moduleCli.ImportSheet(ctx, &lark.ImportSheetReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+			cli.Mock().MockDriveMoveSheetDimension(func(ctx context.Context, request *lark.MoveSheetDimensionReq, options ...lark.MethodOptionFunc) (*lark.MoveSheetDimensionResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockDriveMoveSheetDimension()
+
+			_, _, err := moduleCli.MoveSheetDimension(ctx, &lark.MoveSheetDimensionReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "mock-failed")
 		})
@@ -909,6 +950,50 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 			as.NotNil(err)
 			as.Equal(err.Error(), "mock-failed")
 		})
+
+		t.Run("", func(t *testing.T) {
+			cli.Mock().MockDriveCreateSheetFilter(func(ctx context.Context, request *lark.CreateSheetFilterReq, options ...lark.MethodOptionFunc) (*lark.CreateSheetFilterResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockDriveCreateSheetFilter()
+
+			_, _, err := moduleCli.CreateSheetFilter(ctx, &lark.CreateSheetFilterReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+			cli.Mock().MockDriveDeleteSheetFilter(func(ctx context.Context, request *lark.DeleteSheetFilterReq, options ...lark.MethodOptionFunc) (*lark.DeleteSheetFilterResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockDriveDeleteSheetFilter()
+
+			_, _, err := moduleCli.DeleteSheetFilter(ctx, &lark.DeleteSheetFilterReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+			cli.Mock().MockDriveUpdateSheetFilter(func(ctx context.Context, request *lark.UpdateSheetFilterReq, options ...lark.MethodOptionFunc) (*lark.UpdateSheetFilterResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockDriveUpdateSheetFilter()
+
+			_, _, err := moduleCli.UpdateSheetFilter(ctx, &lark.UpdateSheetFilterReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+			cli.Mock().MockDriveGetSheetFilter(func(ctx context.Context, request *lark.GetSheetFilterReq, options ...lark.MethodOptionFunc) (*lark.GetSheetFilterResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockDriveGetSheetFilter()
+
+			_, _, err := moduleCli.GetSheetFilter(ctx, &lark.GetSheetFilterReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
 	})
 
 	t.Run("response is failed", func(t *testing.T) {
@@ -1095,6 +1180,15 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 			_, _, err := moduleCli.ImportSheet(ctx, &lark.ImportSheetReq{})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.MoveSheetDimension(ctx, &lark.MoveSheetDimensionReq{
+				SpreadSheetToken: "x",
+				SheetID:          "x",
+			})
 			as.NotNil(err)
 			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
 		})
@@ -1313,6 +1407,42 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		t.Run("", func(t *testing.T) {
 			_, _, err := moduleCli.GetSheetDataValidationDropdown(ctx, &lark.GetSheetDataValidationDropdownReq{
 				SpreadSheetToken: "x",
+			})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.CreateSheetFilter(ctx, &lark.CreateSheetFilterReq{
+				SpreadSheetToken: "x",
+				SheetID:          "x",
+			})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.DeleteSheetFilter(ctx, &lark.DeleteSheetFilterReq{
+				SpreadSheetToken: "x",
+				SheetID:          "x",
+			})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.UpdateSheetFilter(ctx, &lark.UpdateSheetFilterReq{
+				SpreadSheetToken: "x",
+				SheetID:          "x",
+			})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.GetSheetFilter(ctx, &lark.GetSheetFilterReq{
+				SpreadSheetToken: "x",
+				SheetID:          "x",
 			})
 			as.NotNil(err)
 			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))

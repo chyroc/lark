@@ -35,7 +35,7 @@ https://godoc.org/github.com/chyroc/lark
 
 ## Support APIs
 
-API Count: 335, Event Count: 28
+API Count: 340, Event Count: 28
 
 <details>
   <summary>
@@ -151,6 +151,7 @@ API Count: 335, Event Count: 28
   - UpdateSheetProperty
   - BatchUpdateSheet
   - ImportSheet
+  - MoveSheetDimension
   - PrependSheetValue
   - AppendSheetValue
   - InsertSheetDimensionRange
@@ -178,6 +179,10 @@ API Count: 335, Event Count: 28
   - DeleteSheetDataValidationDropdown
   - UpdateSheetDataValidationDropdown
   - GetSheetDataValidationDropdown
+  - CreateSheetFilter
+  - DeleteSheetFilter
+  - UpdateSheetFilter
+  - GetSheetFilter
 - Bitable
   - GetBitableRecordList
   - GetBitableRecord

@@ -35,7 +35,7 @@ https://godoc.org/github.com/chyroc/lark
 
 ## 支持的接口
 
-API 总数: 335, 事件总数: 28
+API 总数: 340, 事件总数: 28
 
 <details>
   <summary>
@@ -151,6 +151,7 @@ API 总数: 335, 事件总数: 28
   - UpdateSheetProperty
   - BatchUpdateSheet
   - ImportSheet
+  - MoveSheetDimension
   - PrependSheetValue
   - AppendSheetValue
   - InsertSheetDimensionRange
@@ -178,6 +179,10 @@ API 总数: 335, 事件总数: 28
   - DeleteSheetDataValidationDropdown
   - UpdateSheetDataValidationDropdown
   - GetSheetDataValidationDropdown
+  - CreateSheetFilter
+  - DeleteSheetFilter
+  - UpdateSheetFilter
+  - GetSheetFilter
 - Bitable
   - GetBitableRecordList
   - GetBitableRecord
