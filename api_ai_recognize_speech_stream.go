@@ -46,8 +46,7 @@ type RecognizeSpeechStreamReq struct {
 }
 
 type RecognizeSpeechStreamReqSpeech struct {
-	Speech    *string `json:"speech,omitempty"`     // base64 后的音频文件进行，和 speech_key 二选一, 示例值："base64 后的音频内容"
-	SpeechKey *string `json:"speech_key,omitempty"` // 上传到 drive 存储平台后获取到的 key （暂不支持）, 示例值："xxxxxxxxxxx"
+	Speech *string `json:"speech,omitempty"` // base64 后的音频文件进行, 示例值："base64 后的音频内容"
 }
 
 type RecognizeSpeechStreamReqConfig struct {

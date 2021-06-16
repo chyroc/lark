@@ -44,7 +44,7 @@ func (r *Mock) UnMockMessageSendRawMessage() {
 }
 
 type SendRawMessageReq struct {
-	ReceiveIDType *IDType `query:"receive_id_type" json:"-"` // 消息接收者id类型 open_id/user_id/union_id/email/chat_id, 示例值："open_id", 可选值有: `open_id`：以open_id来识别用户, `user_id`：以user_id来识别用户, `union_id`：以union_id来识别用户, `email`：以email来识别用户, `chat_id`：以chat_id来识别群聊
+	ReceiveIDType IDType  `query:"receive_id_type" json:"-"` // 消息接收者id类型 open_id/user_id/union_id/email/chat_id, 示例值："open_id", 可选值有: `open_id`：以open_id来识别用户, `user_id`：以user_id来识别用户, `union_id`：以union_id来识别用户, `email`：以email来识别用户, `chat_id`：以chat_id来识别群聊, 默认值: `open_id`
 	ReceiveID     *string `json:"receive_id,omitempty"`      // 依据receive_id_type的值，填写对应的消息接收者id, 示例值："ou_7d8a6e6df7621556ce0d21922b676706ccs"
 	Content       string  `json:"content,omitempty"`         // 消息内容 json格式，格式说明参考: [发送消息content说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/im-v1/message/create_json), 示例值："{\"text\":\"<at user_id=\\\"ou_155184d1e73cbfb8973e5a9e698e74f2\\\">Tom</at> test content\"}"
 	MsgType       MsgType `json:"msg_type,omitempty"`        // 消息类型，包括：text、post、image、file、audio、media、sticker、interactive、share_chat、share_user, 示例值："text"

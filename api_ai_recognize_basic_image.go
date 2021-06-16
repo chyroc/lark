@@ -41,8 +41,7 @@ func (r *Mock) UnMockAIRecognizeBasicImage() {
 }
 
 type RecognizeBasicImageReq struct {
-	Image    *string `json:"image,omitempty"`     // base64 后的图片数据, 示例值："base64后的图片二进制数据"
-	ImageKey *string `json:"image_key,omitempty"` // 上传到 drive 存储平台后获取到的 key （暂不支持）, 示例值："asd12345d6d7890d"
+	Image *string `json:"image,omitempty"` // base64 后的图片数据, 示例值："base64后的图片二进制数据"
 }
 
 type recognizeBasicImageResp struct {

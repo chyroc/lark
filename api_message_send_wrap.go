@@ -124,7 +124,7 @@ func (r *MessageSendAPI) send(ctx context.Context, msgType MsgType, format strin
 		})
 	}
 	return r.msgAPI.SendRawMessage(ctx, &SendRawMessageReq{
-		ReceiveIDType: &r.receiveIDType,
+		ReceiveIDType: r.receiveIDType,
 		ReceiveID:     &r.receiveID,
 		Content:       fmt.Sprintf(format, args...),
 		MsgType:       msgType,
