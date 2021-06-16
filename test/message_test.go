@@ -28,7 +28,7 @@ func Test_GetMessage(t *testing.T) {
 			messageID := ""
 			{
 				resp, _, err := AppALLPermission.Ins().Message.SendRawMessage(ctx, &lark.SendRawMessageReq{
-					ReceiveIDType: lark.IDTypePtr(lark.IDTypeChatID),
+					ReceiveIDType: lark.IDTypeChatID,
 					ReceiveID:     ptr.String(ChatForSendMessage.ChatID),
 					Content:       fmt.Sprintf(`{"text":"%d"}`, time.Now().Unix()),
 					MsgType:       lark.MsgTypeText,
