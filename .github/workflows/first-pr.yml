@@ -1,0 +1,16 @@
+name: firsr-pr
+
+on: [pull_request, issues]
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    permissions:
+      issues: write
+      pull-requests: write
+    steps:
+    - uses: actions/first-interaction@v1
+      with:
+        repo-token: ${{ secrets.GITHUB_TOKEN }}
+        issue-message: '🙏, thanks for your issue.'
+        pr-message: '🎉, thanks for your pr.'
