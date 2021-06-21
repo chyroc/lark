@@ -45,7 +45,7 @@ func (r *Mock) UnMockCalendarSearchCalendarEvent() {
 type SearchCalendarEventReq struct {
 	UserIDType *IDType                       `query:"user_id_type" json:"-"` // 用户 ID 类型, 示例值："open_id", 可选值有: `open_id`：用户的 open id, `union_id`：用户的 union id, `user_id`：用户的 user id, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 userid
 	PageToken  *string                       `query:"page_token" json:"-"`   // 分页标记，第一次请求不填，表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token，下次遍历可采用该 page_token 获取查询结果, 示例值："xxxxx"
-	PageSize   *int64                        `query:"page_size" json:"-"`    // 分页大小, 示例值：10, 最大值：`xxxxx`
+	PageSize   *int64                        `query:"page_size" json:"-"`    // 分页大小, 示例值：10, 最大值：`100`
 	CalendarID string                        `path:"calendar_id" json:"-"`   // 日历ID, 示例值："feishu.cn_xxxxxxxxxx@group.calendar.feishu.cn"
 	Query      string                        `json:"query,omitempty"`        // 搜索关键字, 示例值："query words", 长度范围：`1` ～ `200` 字符
 	Filter     *SearchCalendarEventReqFilter `json:"filter,omitempty"`       // 搜索过滤器
@@ -60,13 +60,13 @@ type SearchCalendarEventReqFilter struct {
 }
 
 type SearchCalendarEventReqFilterStartTime struct {
-	Date      *string `json:"date,omitempty"`      // 仅全天日程使用该字段，如2018-09-01。需满足 RFC3339 格式。不能与 time_stamp 同时指定, 示例值：" 2018-09-01"
+	Date      *string `json:"date,omitempty"`      // 仅全天日程使用该字段，如2018-09-01。需满足 RFC3339 格式。不能与 timestamp 同时指定, 示例值：" 2018-09-01"
 	Timestamp *string `json:"timestamp,omitempty"` // 秒级时间戳，如1602504000(表示2020/10/12 20:0:00 +8时区), 示例值："1605024000"
 	Timezone  *string `json:"timezone,omitempty"`  // 时区名称，使用IANA Time Zone Database标准，如Asia/Shanghai；全天日程时区固定为UTC，非全天日程时区默认为Asia/Shanghai, 示例值："Asia/Shanghai"
 }
 
 type SearchCalendarEventReqFilterEndTime struct {
-	Date      *string `json:"date,omitempty"`      // 仅全天日程使用该字段，如2018-09-01。需满足 RFC3339 格式。不能与 time_stamp 同时指定, 示例值：" 2018-09-01"
+	Date      *string `json:"date,omitempty"`      // 仅全天日程使用该字段，如2018-09-01。需满足 RFC3339 格式。不能与 timestamp 同时指定, 示例值：" 2018-09-01"
 	Timestamp *string `json:"timestamp,omitempty"` // 秒级时间戳，如1602504000(表示2020/10/12 20:0:00 +8时区), 示例值："1605024000"
 	Timezone  *string `json:"timezone,omitempty"`  // 时区名称，使用IANA Time Zone Database标准，如Asia/Shanghai；全天日程时区固定为UTC，非全天日程时区默认为Asia/Shanghai, 示例值："Asia/Shanghai"
 }
@@ -95,7 +95,7 @@ type SearchCalendarEventRespItem struct {
 	Location         *SearchCalendarEventRespItemLocation   `json:"location,omitempty"`           // 日程地点
 	Color            int64                                  `json:"color,omitempty"`              // 日程颜色，颜色RGB值的int32表示。仅对当前身份生效；客户端展示时会映射到色板上最接近的一种颜色；值为0或-1时默认跟随日历颜色。
 	Reminders        []*SearchCalendarEventRespItemReminder `json:"reminders,omitempty"`          // 日程提醒列表
-	Recurrence       string                                 `json:"recurrence,omitempty"`         // 重复日程的重复性规则；参考[rfc5545](https://datatracker.ietf.org/doc/html/rfc5545#section-3.3.10), 最大长度：`2000` 字符
+	Recurrence       string                                 `json:"recurrence,omitempty"`         // 重复日程的重复性规则；参考[rfc5545](https://datatracker.ietf.org/doc/html/rfc5545#section-3.3.10)；预定会议室重复日程长度不得超过两年。, 最大长度：`2000` 字符
 	Status           string                                 `json:"status,omitempty"`             // 日程状态, 可选值有: `tentative`：未回应, `confirmed`：已确认, `cancelled`：日程已取消
 	IsException      bool                                   `json:"is_exception,omitempty"`       // 日程是否是一个重复日程的例外日程
 	RecurringEventID string                                 `json:"recurring_event_id,omitempty"` // 例外日程的原重复日程的event_id
@@ -103,13 +103,13 @@ type SearchCalendarEventRespItem struct {
 }
 
 type SearchCalendarEventRespItemStartTime struct {
-	Date      string `json:"date,omitempty"`      // 仅全天日程使用该字段，如2018-09-01。需满足 RFC3339 格式。不能与 time_stamp 同时指定
+	Date      string `json:"date,omitempty"`      // 仅全天日程使用该字段，如2018-09-01。需满足 RFC3339 格式。不能与 timestamp 同时指定
 	Timestamp string `json:"timestamp,omitempty"` // 秒级时间戳，如1602504000(表示2020/10/12 20:0:00 +8时区)
 	Timezone  string `json:"timezone,omitempty"`  // 时区名称，使用IANA Time Zone Database标准，如Asia/Shanghai；全天日程时区固定为UTC，非全天日程时区默认为Asia/Shanghai
 }
 
 type SearchCalendarEventRespItemEndTime struct {
-	Date      string `json:"date,omitempty"`      // 仅全天日程使用该字段，如2018-09-01。需满足 RFC3339 格式。不能与 time_stamp 同时指定
+	Date      string `json:"date,omitempty"`      // 仅全天日程使用该字段，如2018-09-01。需满足 RFC3339 格式。不能与 timestamp 同时指定
 	Timestamp string `json:"timestamp,omitempty"` // 秒级时间戳，如1602504000(表示2020/10/12 20:0:00 +8时区)
 	Timezone  string `json:"timezone,omitempty"`  // 时区名称，使用IANA Time Zone Database标准，如Asia/Shanghai；全天日程时区固定为UTC，非全天日程时区默认为Asia/Shanghai
 }
@@ -130,7 +130,7 @@ type SearchCalendarEventRespItemReminder struct {
 }
 
 type SearchCalendarEventRespItemSchema struct {
-	UiName   string `json:"ui_name,omitempty"`   // UI项名称 TODO文档
+	UiName   string `json:"ui_name,omitempty"`   // UI名称。取值范围如下： \,ForwardIcon: 日程转发按钮 \,MeetingChatIcon: 会议群聊按钮 \,MeetingMinutesIcon: 会议纪要按钮 \,MeetingVideo: 视频会议区域 \,RSVP: 接受/拒绝/待定区域 \,Attendee: 参与者区域 \,OrganizerOrCreator: 组织者/创建者区域
 	UiStatus string `json:"ui_status,omitempty"` // UI项自定义状态, 可选值有: `hide`：隐藏显示, `readonly`：只读, `editable`：可编辑, `unknown`：未知UI项自定义状态，仅用于读取时兼容
 	AppLink  string `json:"app_link,omitempty"`  // 按钮点击后跳转的链接, 最大长度：`2000` 字符
 }

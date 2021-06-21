@@ -56,7 +56,7 @@ type CreateCalendarEventReq struct {
 	Location        *CreateCalendarEventReqLocation   `json:"location,omitempty"`         // 日程地点
 	Color           *int64                            `json:"color,omitempty"`            // 日程颜色，颜色RGB值的int32表示。仅对当前身份生效；客户端展示时会映射到色板上最接近的一种颜色；值为0或-1时默认跟随日历颜色。, 示例值：-1
 	Reminders       []*CreateCalendarEventReqReminder `json:"reminders,omitempty"`        // 日程提醒列表
-	Recurrence      *string                           `json:"recurrence,omitempty"`       // 重复日程的重复性规则；参考[rfc5545](https://datatracker.ietf.org/doc/html/rfc5545#section-3.3.10), 示例值："xxxxx", 最大长度：`2000` 字符
+	Recurrence      *string                           `json:"recurrence,omitempty"`       // 重复日程的重复性规则；参考[rfc5545](https://datatracker.ietf.org/doc/html/rfc5545#section-3.3.10)；预定会议室重复日程长度不得超过两年。, 示例值："FREQ=DAILY;INTERVAL=1", 最大长度：`2000` 字符
 	Schemas         []*CreateCalendarEventReqSchema   `json:"schemas,omitempty"`          // 日程自定义信息
 }
 
@@ -88,7 +88,7 @@ type CreateCalendarEventReqReminder struct {
 }
 
 type CreateCalendarEventReqSchema struct {
-	UiName   *string `json:"ui_name,omitempty"`   // UI项名称 TODO文档, 示例值："ForwardIcon"
+	UiName   *string `json:"ui_name,omitempty"`   // UI名称。取值范围如下：\,ForwardIcon: 日程转发按钮\,MeetingChatIcon: 会议群聊按钮\,MeetingMinutesIcon: 会议纪要按钮\,MeetingVideo: 视频会议区域\,RSVP: 接受/拒绝/待定区域\,Attendee: 参与者区域\,OrganizerOrCreator: 组织者/创建者区域, 示例值："ForwardIcon"
 	UiStatus *string `json:"ui_status,omitempty"` // UI项自定义状态, 示例值："hide", 可选值有: `hide`：隐藏显示, `readonly`：只读, `editable`：可编辑, `unknown`：未知UI项自定义状态，仅用于读取时兼容
 	AppLink  *string `json:"app_link,omitempty"`  // 按钮点击后跳转的链接, 示例值："xxxxx", 最大长度：`2000` 字符
 }
