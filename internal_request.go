@@ -18,12 +18,12 @@ import (
 )
 
 type Response struct {
-	// HTTPResponse *http.Response
-
-	Method     string
-	URL        string
-	RequestID  string
-	StatusCode int
+	Method        string      // request method
+	URL           string      // request url
+	RequestID     string      // request id, if you got some error and oncall lark/feishu team, please with this request id
+	StatusCode    int         // http response status code
+	Header        http.Header // http response header
+	ContentLength int64       // http response content length
 }
 
 func (r *Lark) RawRequest(ctx context.Context, req *RawRequestReq, resp interface{}) (response *Response, err error) {
@@ -210,6 +210,7 @@ func (r *Lark) doRequest(ctx context.Context, cli *http.Client, requestParam *Ra
 
 	response.Method = realReq.Method
 	response.URL = realReq.URL
+	response.Header = map[string][]string{}
 
 	if r.logLevel <= LogLevelTrace {
 		r.log(ctx, LogLevelTrace, "[lark] request %s#%s, %s %s, header=%s, body=%s", requestParam.Scope, requestParam.API, realReq.Method, realReq.URL, jsonString(realReq.Headers), string(realReq.RawBody))
@@ -227,9 +228,11 @@ func (r *Lark) doRequest(ctx context.Context, cli *http.Client, requestParam *Ra
 	if err != nil {
 		return response, err
 	}
-	// response.HTTPResponse = resp
+
 	response.StatusCode = resp.StatusCode
 	response.RequestID = resp.Header.Get("x-doRequest-id")
+	response.Header = resp.Header
+	response.ContentLength = resp.ContentLength
 
 	if resp.Body != nil {
 		defer resp.Body.Close()
