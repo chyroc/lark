@@ -16,17 +16,18 @@ func Test_AI(t *testing.T) {
 	moduleCli := cli.AI
 
 	t.Run("", func(t *testing.T) {
-		resp, _, err := moduleCli.DetectTextLanguage(ctx, &lark.DetectTextLanguageReq{
+		resp, response, err := moduleCli.DetectTextLanguage(ctx, &lark.DetectTextLanguageReq{
 			Text: "Some checks haven’t completed yet",
 		})
 		printData(resp)
 		as.Nil(err)
 		as.NotNil(resp)
 		as.Equal("en", strings.ToLower(resp.Language))
+		as.NotEmpty(response.RequestID)
 	})
 
 	t.Run("", func(t *testing.T) {
-		resp, _, err := moduleCli.TranslateText(ctx, &lark.TranslateTextReq{
+		resp, response, err := moduleCli.TranslateText(ctx, &lark.TranslateTextReq{
 			SourceLanguage: "zh",
 			Text:           "国家",
 			TargetLanguage: "en",
@@ -36,6 +37,7 @@ func Test_AI(t *testing.T) {
 		as.Nil(err)
 		as.NotNil(resp)
 		as.Equal("country", strings.ToLower(resp.Text))
+		as.NotEmpty(response.RequestID)
 	})
 
 	t.Run("", func(t *testing.T) {

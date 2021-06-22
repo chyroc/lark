@@ -230,7 +230,7 @@ func (r *Lark) doRequest(ctx context.Context, cli *http.Client, requestParam *Ra
 	}
 
 	response.StatusCode = resp.StatusCode
-	response.RequestID = resp.Header.Get("x-doRequest-id")
+	response.RequestID = resp.Header.Get("X-Request-Id")
 	response.Header = resp.Header
 	response.ContentLength = resp.ContentLength
 
