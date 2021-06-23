@@ -54,10 +54,10 @@ type GetHelpdeskTicketListReq struct {
 	Tags             []string                   `query:"tags" json:"-"`              // 搜索条件: 用户标签列表
 	Page             *int64                     `query:"page" json:"-"`              // 页数, 从1开始, 默认为1, 示例值：1
 	PageSize         *int64                     `query:"page_size" json:"-"`         // 当前页大小，最大为200, 默认为20, 示例值：20
-	CreateTimeStart  *int64                     `query:"create_time_start" json:"-"` // 搜索条件: 工单创建起始时间 ms, 示例值：1616920429000
-	CreateTimeEnd    *int64                     `query:"create_time_end" json:"-"`   // 搜索条件: 工单创建结束时间 ms, 示例值：1616920429000
-	UpdateTimeStart  *int64                     `query:"update_time_start" json:"-"` // 搜索条件: 工单修改起始时间 ms, 示例值：1616920429000
-	UpdateTimeEnd    *int64                     `query:"update_time_end" json:"-"`   // 搜索条件: 工单修改结束时间 ms, 示例值：1616920429000
+	CreateTimeStart  *int64                     `query:"create_time_start" json:"-"` // 搜索条件: 工单创建起始时间 ms (也需要填上create_time_end), 示例值：1616920429000
+	CreateTimeEnd    *int64                     `query:"create_time_end" json:"-"`   // 搜索条件: 工单创建结束时间 ms (也需要填上create_time_start), 示例值：1616920429000
+	UpdateTimeStart  *int64                     `query:"update_time_start" json:"-"` // 搜索条件: 工单修改起始时间 ms (也需要填上update_time_end), 示例值：1616920429000
+	UpdateTimeEnd    *int64                     `query:"update_time_end" json:"-"`   // 搜索条件: 工单修改结束时间 ms(也需要填上update_time_start), 示例值：1616920429000
 }
 
 type getHelpdeskTicketListResp struct {
@@ -67,7 +67,7 @@ type getHelpdeskTicketListResp struct {
 }
 
 type GetHelpdeskTicketListResp struct {
-	Total   int64                              `json:"total,omitempty"`   // 工单总数
+	Total   int64                              `json:"total,omitempty"`   // 工单总数 (单次请求最大为10000条)
 	Tickets []*GetHelpdeskTicketListRespTicket `json:"tickets,omitempty"` // 工单
 }
 
