@@ -83,6 +83,55 @@ func (r *Lark) initService() {
 	r.Hire = &HireService{cli: r}
 }
 
+func (r *Lark) clone() *Lark {
+	return &Lark{
+		appID:               r.appID,
+		appSecret:           r.appSecret,
+		encryptKey:          r.encryptKey,
+		verificationToken:   r.verificationToken,
+		helpdeskID:          r.helpdeskID,
+		helpdeskToken:       r.helpdeskToken,
+		timeout:             r.timeout,
+		isISV:               r.isISV,
+		tenantKey:           r.tenantKey,
+		customBotWebHookURL: r.customBotWebHookURL,
+		customBotSecret:     r.customBotSecret,
+		httpClient:          r.httpClient,
+		logger:              r.logger,
+		logLevel:            r.logLevel,
+		store:               r.store,
+		mock:                r.mock,
+		eventHandler:        r.eventHandler,
+
+		// service
+		Auth:          r.Auth,
+		Contact:       r.Contact,
+		Message:       r.Message,
+		Chat:          r.Chat,
+		Bot:           r.Bot,
+		Calendar:      r.Calendar,
+		Drive:         r.Drive,
+		Bitable:       r.Bitable,
+		MeetingRoom:   r.MeetingRoom,
+		VC:            r.VC,
+		Application:   r.Application,
+		Mail:          r.Mail,
+		Approval:      r.Approval,
+		Helpdesk:      r.Helpdesk,
+		Admin:         r.Admin,
+		HumanAuth:     r.HumanAuth,
+		AI:            r.AI,
+		Attendance:    r.Attendance,
+		File:          r.File,
+		EventCallback: r.EventCallback,
+		OKR:           r.OKR,
+		EHR:           r.EHR,
+		Tenant:        r.Tenant,
+		Search:        r.Search,
+		Hire:          r.Hire,
+	}
+}
+
 type (
 	AuthService          struct{ cli *Lark }
 	ContactService       struct{ cli *Lark }

@@ -8,23 +8,9 @@ import (
 // https://open.feishu.cn/document/ukTMukTMukTM/ukDNz4SO0MjL5QzM/g
 
 func (r *Lark) WithTenant(tenantKey string) *Lark {
-	return &Lark{
-		appID:             r.appID,
-		appSecret:         r.appSecret,
-		encryptKey:        r.encryptKey,
-		verificationToken: r.verificationToken,
-		helpdeskID:        r.helpdeskID,
-		helpdeskToken:     r.helpdeskToken,
-		timeout:           r.timeout,
-		isISV:             r.isISV,
-		tenantKey:         tenantKey,
-		httpClient:        r.httpClient,
-		logger:            r.logger,
-		logLevel:          r.logLevel,
-		store:             r.store,
-		mock:              r.mock,
-		eventHandler:      r.eventHandler,
-	}
+	r2 := r.clone()
+	r2.tenantKey = tenantKey
+	return r2
 }
 
 func (r *AuthService) GetAppTicket(ctx context.Context) (string, error) {
