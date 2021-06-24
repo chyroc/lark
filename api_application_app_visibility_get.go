@@ -61,7 +61,7 @@ type GetApplicationAppVisibilityResp struct {
 }
 
 type GetApplicationAppVisibilityRespDepartments struct {
-	ID string `json:"id,omitempty"` // 部门 ID
+	ID string `json:"id,omitempty"` // 自定义 department_id
 }
 
 type GetApplicationAppVisibilityRespUsers struct {
