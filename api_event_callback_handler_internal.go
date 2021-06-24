@@ -27,7 +27,7 @@ type eventReq struct {
 	Challenge string `json:"challenge"` // 配合 url_verification
 
 	// 通用字段
-	Event interface{} `json:"event"`
+	Event json.RawMessage `json:"event"`
 
 	// v2 解析后字段
 	*eventBody
