@@ -3,9 +3,13 @@ package lark
 import (
 	"encoding/json"
 	"testing"
+
+	"github.com/stretchr/testify/assert"
 )
 
 func Test_eventReq_unmarshalEvent(t *testing.T) {
+	as := assert.New(t)
+
 	body := `{
     "schema": "2.0",
     "header": {
@@ -51,14 +55,9 @@ func Test_eventReq_unmarshalEvent(t *testing.T) {
     }
 }`
 	req := &eventReq{}
-	if err := json.Unmarshal([]byte(body), &req); err != nil {
-		t.Fatal(err)
-	}
+	as.Nil(json.Unmarshal([]byte(body), &req))
+
 	event := new(EventV2IMMessageReceiveV1)
-	if err := req.unmarshalEvent(event); err != nil {
-		t.Fatal(err)
-	}
-	if event.Message.MessageID != "om_5ce6d572455d361153b7cb51da133945" {
-		t.Fatal("unmarshalEvent failed")
-	}
+	as.Nil(req.unmarshalEvent(event))
+	as.Equal("om_5ce6d572455d361153b7cb51da133945", event.Message.MessageID)
 }
