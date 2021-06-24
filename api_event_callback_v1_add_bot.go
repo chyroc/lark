@@ -10,7 +10,7 @@ import (
 //
 // ## 机器人进群
 // 机器人被邀请加入群聊时触发此事件。
-// - 依赖条件：应用必须开启了[机器人能力](https://open.feishu.cn/document/uQjL04CN/uYTMuYTMuYTM)。
+// - 依赖条件：应用必须开启了[机器人能力](https://open.feishu.cn/document/home/develop-a-bot-in-5-minutes/create-an-app)。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uMTNxYjLzUTM24yM1EjN
 func (r *EventCallbackService) HandlerEventV1AddBot(f eventV1AddBotHandler) {
