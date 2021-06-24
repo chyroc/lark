@@ -27,20 +27,16 @@ type eventReq struct {
 	Challenge string `json:"challenge"` // 配合 url_verification
 
 	// 通用字段
-	Event interface{} `json:"event"`
+	Event json.RawMessage `json:"event"`
 
 	// v2 解析后字段
 	*eventBody
 }
 
 func (r *eventReq) unmarshalEvent(e interface{}) error {
-	bs, err := json.Marshal(r.Event)
+	err := json.Unmarshal(r.Event, e)
 	if err != nil {
-		return err
-	}
-	err = json.Unmarshal(bs, e)
-	if err != nil {
-		return fmt.Errorf("lark event unmarshal event %s failed", bs)
+		return fmt.Errorf("lark event unmarshal event %s failed", err)
 	}
 	return nil
 }
