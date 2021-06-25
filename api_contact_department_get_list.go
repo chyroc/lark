@@ -6,12 +6,14 @@ import (
 	"context"
 )
 
-// GetDepartmentList 该接口用于获取当前部门子部门列表。只能访问有数据权限的字段，具体的数据权限与字段的关系请参考[应用权限](https://open.feishu.cn/document/ukTMukTMukTM/uQjN3QjL0YzN04CN2cDN)
+// GetDepartmentList 该接口用于获取当前部门子部门列表。
 //
 // - 使用tenant_access_token时,只返回权限范围内的部门。
 // - 使用user_access_token时，返回可见性范围内的所有可见部门。当进行递归查询时，只筛查最多1000个部门的可见性。
 // - fetch_child字段填写为false：如果填写具体的部门ID，则返回该部门下的一级子部门；如果没有填写部门ID, 若有全员权限，返回根部门信息，若没有全员权限则返回通讯录范围中配置的部门及其一级子部门。
 // - fetch_child字段填写为true：如果填写具体的部门ID，则返回该部门下所有子部门；如果没有填写部门ID, 若有全员权限，返回根部门信息，可以根据根部门ID获取其下的一级子部门，若没有全员权限则返回通讯录范围中配置的部门及其子部门。
+// <b>以应用身份访问通讯录</b> 权限为历史版本，不推荐申请。应用访问通讯录相关接口请申请 <b>以应用身份读取通讯录</b>
+// 该接口部分返回字段受到 <b>数据权限控制</b> ，应用要获取对应字段数据需要额外申请数据权限。具体的数据权限与字段的关系请参考[应用权限](https://open.feishu.cn/document/ukTMukTMukTM/uQjN3QjL0YzN04CN2cDN)，或查看每个接口响应体参数列表的字段描述。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/list
 func (r *ContactService) GetDepartmentList(ctx context.Context, request *GetDepartmentListReq, options ...MethodOptionFunc) (*GetDepartmentListResp, *Response, error) {
@@ -45,7 +47,7 @@ func (r *Mock) UnMockContactGetDepartmentList() {
 }
 
 type GetDepartmentListReq struct {
-	UserIDType         *IDType           `query:"user_id_type" json:"-"`         // 用户 ID 类型, 示例值："open_id", 可选值有: `open_id`：用户的 open id, `union_id`：用户的 union id, `user_id`：用户的 user id, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 userid
+	UserIDType         *IDType           `query:"user_id_type" json:"-"`         // 用户 ID 类型, 示例值："open_id", 可选值有: `open_id`：用户的 open id, `union_id`：用户的 union id, `user_id`：用户的 user id, 默认值: `open_id`,, 当值为 `user_id`, 字段权限要求: 获取用户 userid
 	DepartmentIDType   *DepartmentIDType `query:"department_id_type" json:"-"`   // 此次调用中使用的部门ID的类型, 示例值："open_department_id", 可选值有: `department_id`：以自定义department_id来标识部门, `open_department_id`：以open_department_id来标识部门, 默认值: `open_department_id`
 	ParentDepartmentID *string           `query:"parent_department_id" json:"-"` // 父部门的ID，填上获取部门下所有子部门, 示例值："od-4e6ac4d14bcd5071a37a39de902c7141"
 	FetchChild         *bool             `query:"fetch_child" json:"-"`          // 是否递归获取子部门, 示例值：是否递归获取子部门，默认值：false
@@ -66,17 +68,17 @@ type GetDepartmentListResp struct {
 }
 
 type GetDepartmentListRespItem struct {
-	Name               string                             `json:"name,omitempty"`                 // 部门名称, 最小长度：`1` 字符
-	I18nName           *GetDepartmentListRespItemI18nName `json:"i18n_name,omitempty"`            // 国际化的部门名称
-	ParentDepartmentID string                             `json:"parent_department_id,omitempty"` // 父部门的ID,* 创建根部门，该参数值为 “0”
-	DepartmentID       string                             `json:"department_id,omitempty"`        // 本部门的自定义部门ID, 最大长度：`128` 字符, 正则校验：`^0|[^od][A-Za-z0-9]*`
+	Name               string                             `json:"name,omitempty"`                 // 部门名称, 最小长度：`1` 字符,**字段权限要求（满足任一）**：, 获取部门基础信息, 以应用身份访问通讯录
+	I18nName           *GetDepartmentListRespItemI18nName `json:"i18n_name,omitempty"`            // 国际化的部门名称,**字段权限要求（满足任一）**：, 获取部门基础信息, 以应用身份访问通讯录
+	ParentDepartmentID string                             `json:"parent_department_id,omitempty"` // 父部门的ID,* 创建根部门，该参数值为 “0”,**字段权限要求（满足任一）**：, 获取部门组织架构信息, 以应用身份访问通讯录
+	DepartmentID       string                             `json:"department_id,omitempty"`        // 本部门的自定义部门ID, 最大长度：`128` 字符, 正则校验：`^0|[^od][A-Za-z0-9]*`,**字段权限要求（满足任一）**：, 获取部门基础信息, 以应用身份访问通讯录
 	OpenDepartmentID   string                             `json:"open_department_id,omitempty"`   // 部门的open_id
-	LeaderUserID       string                             `json:"leader_user_id,omitempty"`       // 部门主管用户ID
-	ChatID             string                             `json:"chat_id,omitempty"`              // 部门群ID
-	Order              string                             `json:"order,omitempty"`                // 部门的排序，即部门在其同级部门的展示顺序
-	UnitIDs            []string                           `json:"unit_ids,omitempty"`             // 部门单位自定义ID列表，当前只支持一个
-	MemberCount        int64                              `json:"member_count,omitempty"`         // 部门下用户的个数
-	Status             *GetDepartmentListRespItemStatus   `json:"status,omitempty"`               // 部门状态
+	LeaderUserID       string                             `json:"leader_user_id,omitempty"`       // 部门主管用户ID,**字段权限要求（满足任一）**：, 获取部门组织架构信息, 以应用身份访问通讯录
+	ChatID             string                             `json:"chat_id,omitempty"`              // 部门群ID,**字段权限要求（满足任一）**：, 获取部门基础信息, 以应用身份访问通讯录
+	Order              string                             `json:"order,omitempty"`                // 部门的排序，即部门在其同级部门的展示顺序,**字段权限要求（满足任一）**：, 获取部门组织架构信息, 以应用身份访问通讯录
+	UnitIDs            []string                           `json:"unit_ids,omitempty"`             // 部门单位自定义ID列表，当前只支持一个,**字段权限要求（满足任一）**：, 获取部门组织架构信息, 以应用身份访问通讯录
+	MemberCount        int64                              `json:"member_count,omitempty"`         // 部门下用户的个数,**字段权限要求（满足任一）**：, 获取部门组织架构信息, 以应用身份访问通讯录
+	Status             *GetDepartmentListRespItemStatus   `json:"status,omitempty"`               // 部门状态,**字段权限要求（满足任一）**：, 获取部门基础信息, 以应用身份访问通讯录
 }
 
 type GetDepartmentListRespItemI18nName struct {
