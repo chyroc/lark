@@ -22,6 +22,24 @@ func Test_Bitable_Sample_Failed(t *testing.T) {
 		moduleCli := cli.Bitable
 
 		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.GetBitableViewList(ctx, &lark.GetBitableViewListReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.CreateBitableView(ctx, &lark.CreateBitableViewReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.DeleteBitableView(ctx, &lark.DeleteBitableViewReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "failed")
+		})
+
+		t.Run("", func(t *testing.T) {
 			_, _, err := moduleCli.GetBitableRecordList(ctx, &lark.GetBitableRecordListReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "failed")
@@ -133,6 +151,39 @@ func Test_Bitable_Sample_Failed(t *testing.T) {
 	t.Run("request mock failed", func(t *testing.T) {
 		cli := AppALLPermission.Ins()
 		moduleCli := cli.Bitable
+
+		t.Run("", func(t *testing.T) {
+			cli.Mock().MockBitableGetBitableViewList(func(ctx context.Context, request *lark.GetBitableViewListReq, options ...lark.MethodOptionFunc) (*lark.GetBitableViewListResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockBitableGetBitableViewList()
+
+			_, _, err := moduleCli.GetBitableViewList(ctx, &lark.GetBitableViewListReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+			cli.Mock().MockBitableCreateBitableView(func(ctx context.Context, request *lark.CreateBitableViewReq, options ...lark.MethodOptionFunc) (*lark.CreateBitableViewResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockBitableCreateBitableView()
+
+			_, _, err := moduleCli.CreateBitableView(ctx, &lark.CreateBitableViewReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+			cli.Mock().MockBitableDeleteBitableView(func(ctx context.Context, request *lark.DeleteBitableViewReq, options ...lark.MethodOptionFunc) (*lark.DeleteBitableViewResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockBitableDeleteBitableView()
+
+			_, _, err := moduleCli.DeleteBitableView(ctx, &lark.DeleteBitableViewReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
 
 		t.Run("", func(t *testing.T) {
 			cli.Mock().MockBitableGetBitableRecordList(func(ctx context.Context, request *lark.GetBitableRecordListReq, options ...lark.MethodOptionFunc) (*lark.GetBitableRecordListResp, *lark.Response, error) {
@@ -336,6 +387,34 @@ func Test_Bitable_Sample_Failed(t *testing.T) {
 	t.Run("response is failed", func(t *testing.T) {
 		cli := AppNoPermission.Ins()
 		moduleCli := cli.Bitable
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.GetBitableViewList(ctx, &lark.GetBitableViewListReq{
+				AppToken: "x",
+				TableID:  "x",
+			})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.CreateBitableView(ctx, &lark.CreateBitableViewReq{
+				AppToken: "x",
+				TableID:  "x",
+			})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.DeleteBitableView(ctx, &lark.DeleteBitableViewReq{
+				AppToken: "x",
+				TableID:  "x",
+				ViewID:   "x",
+			})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
 
 		t.Run("", func(t *testing.T) {
 			_, _, err := moduleCli.GetBitableRecordList(ctx, &lark.GetBitableRecordListReq{
