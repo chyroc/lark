@@ -50,6 +50,7 @@ type UpdateCalendarEventReq struct {
 	EventID          string                            `path:"event_id" json:"-"`           // 日程ID, 示例值："xxxxxxxxx_0"
 	Summary          *string                           `json:"summary,omitempty"`           // 日程标题, 示例值："日程标题", 最大长度：`1000` 字符
 	Description      *string                           `json:"description,omitempty"`       // 日程描述, 示例值："日程描述", 最大长度：`8192` 字符
+	NeedNotification *bool                             `json:"need_notification,omitempty"` // 更新日程是否给日程参与人发送bot通知，默认为true, 示例值：false
 	StartTime        *UpdateCalendarEventReqStartTime  `json:"start_time,omitempty"`        // 日程开始时间
 	EndTime          *UpdateCalendarEventReqEndTime    `json:"end_time,omitempty"`          // 日程结束时间
 	Vchat            *UpdateCalendarEventReqVchat      `json:"vchat,omitempty"`             // 视频会议信息，仅当日程至少有一位attendee时生效
@@ -61,7 +62,6 @@ type UpdateCalendarEventReq struct {
 	Reminders        []*UpdateCalendarEventReqReminder `json:"reminders,omitempty"`         // 日程提醒列表
 	Recurrence       *string                           `json:"recurrence,omitempty"`        // 重复日程的重复性规则；参考[rfc5545](https://datatracker.ietf.org/doc/html/rfc5545#section-3.3.10)；预定会议室重复日程长度不得超过两年。, 示例值："FREQ=DAILY;INTERVAL=1", 最大长度：`2000` 字符
 	Schemas          []*UpdateCalendarEventReqSchema   `json:"schemas,omitempty"`           // 日程自定义信息
-	NeedNotification *bool                             `json:"need_notification,omitempty"` // 更新日程是否给日程参与人发送bot通知，默认为true, 示例值：false
 }
 
 type UpdateCalendarEventReqStartTime struct {
@@ -77,7 +77,10 @@ type UpdateCalendarEventReqEndTime struct {
 }
 
 type UpdateCalendarEventReqVchat struct {
-	MeetingURL *string `json:"meeting_url,omitempty"` // 视频会议URL, 示例值："https://example.com", 长度范围：`1` ～ `2000` 字符
+	VCType      *string `json:"vc_type,omitempty"`     // 视频会议类型, 示例值："third_party", 可选值有: `vc`：飞书视频会议，取该类型时，其他字段无效。, `third_party`：第三方链接视频会议，取该类型时，icon_type、description、meeting_url字段生效。, `no_meeting`：无视频会议，取该类型时，其他字段无效。, `lark_live`：Lark直播，内部类型，只读。, `unknown`：未知类型，做兼容使用，只读。
+	IconType    *string `json:"icon_type,omitempty"`   // 第三方视频会议icon类型；可以为空，为空展示默认icon。, 示例值："vc", 可选值有: `vc`：飞书视频会议icon, `live`：直播视频会议icon, `default`：默认icon
+	Description *string `json:"description,omitempty"` // 第三方视频会议文案，可以为空，为空展示默认文案, 示例值："发起视频会议", 长度范围：`0` ～ `500` 字符
+	MeetingURL  *string `json:"meeting_url,omitempty"` // 视频会议URL, 示例值："https://example.com", 长度范围：`1` ～ `2000` 字符
 }
 
 type UpdateCalendarEventReqLocation struct {
@@ -111,6 +114,7 @@ type UpdateCalendarEventRespEvent struct {
 	EventID          string                                  `json:"event_id,omitempty"`           // 日程ID
 	Summary          string                                  `json:"summary,omitempty"`            // 日程标题, 最大长度：`1000` 字符
 	Description      string                                  `json:"description,omitempty"`        // 日程描述, 最大长度：`8192` 字符
+	NeedNotification bool                                    `json:"need_notification,omitempty"`  // 更新日程是否给日程参与人发送bot通知，默认为true
 	StartTime        *UpdateCalendarEventRespEventStartTime  `json:"start_time,omitempty"`         // 日程开始时间
 	EndTime          *UpdateCalendarEventRespEventEndTime    `json:"end_time,omitempty"`           // 日程结束时间
 	Vchat            *UpdateCalendarEventRespEventVchat      `json:"vchat,omitempty"`              // 视频会议信息，仅当日程至少有一位attendee时生效
@@ -140,7 +144,10 @@ type UpdateCalendarEventRespEventEndTime struct {
 }
 
 type UpdateCalendarEventRespEventVchat struct {
-	MeetingURL string `json:"meeting_url,omitempty"` // 视频会议URL, 长度范围：`1` ～ `2000` 字符
+	VCType      string `json:"vc_type,omitempty"`     // 视频会议类型, 可选值有: `vc`：飞书视频会议，取该类型时，其他字段无效。, `third_party`：第三方链接视频会议，取该类型时，icon_type、description、meeting_url字段生效。, `no_meeting`：无视频会议，取该类型时，其他字段无效。, `lark_live`：Lark直播，内部类型，只读。, `unknown`：未知类型，做兼容使用，只读。
+	IconType    string `json:"icon_type,omitempty"`   // 第三方视频会议icon类型；可以为空，为空展示默认icon。, 可选值有: `vc`：飞书视频会议icon, `live`：直播视频会议icon, `default`：默认icon
+	Description string `json:"description,omitempty"` // 第三方视频会议文案，可以为空，为空展示默认文案, 长度范围：`0` ～ `500` 字符
+	MeetingURL  string `json:"meeting_url,omitempty"` // 视频会议URL, 长度范围：`1` ～ `2000` 字符
 }
 
 type UpdateCalendarEventRespEventLocation struct {

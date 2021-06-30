@@ -73,7 +73,10 @@ type CreateCalendarEventReqEndTime struct {
 }
 
 type CreateCalendarEventReqVchat struct {
-	MeetingURL *string `json:"meeting_url,omitempty"` // 视频会议URL, 示例值："https://example.com", 长度范围：`1` ～ `2000` 字符
+	VCType      *string `json:"vc_type,omitempty"`     // 视频会议类型。<br>, 可选值有: `vc`: 飞书视频会议，取该类型时，其他字段无效。<br>, `third_party`: 第三方链接视频会议，取该类型时，icon_type、description、meeting_url字段生效。<br>, `no_meeting`: 无视频会议，取该类型时，其他字段无效。<br>, `lark_live`: Lark直播，内部类型，只读。<br>, `unknown`: 未知类型，做兼容使用，只读。<br>, 示例值："vc"
+	IconType    *string `json:"icon_type,omitempty"`   // 第三方视频会议icon类型；可以为空，为空展示默认icon。<br>, 可选值有: `vc`: 飞书视频会议icon<br>, `live`: 直播视频会议icon<br>, `default`: 默认icon<br>, 示例值："vc"
+	Description *string `json:"description,omitempty"` // 第三方视频会议文案，可以为空，为空展示默认文案, 示例值："发起视频会议", 长度范围：`0` ～ `500` 字符
+	MeetingURL  *string `json:"meeting_url,omitempty"` // 视频会议URL, 示例值："https://example.com", 长度范围：`1` ～ `2000` 字符
 }
 
 type CreateCalendarEventReqLocation struct {

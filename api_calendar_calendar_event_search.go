@@ -43,7 +43,7 @@ func (r *Mock) UnMockCalendarSearchCalendarEvent() {
 }
 
 type SearchCalendarEventReq struct {
-	UserIDType *IDType                       `query:"user_id_type" json:"-"` // 用户 ID 类型, 示例值："open_id", 可选值有: `open_id`：用户的 open id, `union_id`：用户的 union id, `user_id`：用户的 user id, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 userid
+	UserIDType *IDType                       `query:"user_id_type" json:"-"` // 用户 ID 类型, 示例值："open_id", 可选值有: `open_id`：用户的 open id, `union_id`：用户的 union id, `user_id`：用户的 user id, 默认值: `open_id`,, 当值为 `user_id`, 字段权限要求: 获取用户 userid
 	PageToken  *string                       `query:"page_token" json:"-"`   // 分页标记，第一次请求不填，表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token，下次遍历可采用该 page_token 获取查询结果, 示例值："xxxxx"
 	PageSize   *int64                        `query:"page_size" json:"-"`    // 分页大小, 示例值：10, 最大值：`100`
 	CalendarID string                        `path:"calendar_id" json:"-"`   // 日历ID, 示例值："feishu.cn_xxxxxxxxxx@group.calendar.feishu.cn"
@@ -54,9 +54,9 @@ type SearchCalendarEventReq struct {
 type SearchCalendarEventReqFilter struct {
 	StartTime *SearchCalendarEventReqFilterStartTime `json:"start_time,omitempty"` // 搜索过滤项，日程搜索区间的开始时间，被搜索日程的事件必须与搜索区间有交集
 	EndTime   *SearchCalendarEventReqFilterEndTime   `json:"end_time,omitempty"`   // 搜索过滤项，日程搜索区间的结束时间，被搜索日程的事件必须与搜索区间有交集
-	UserIDs   []string                               `json:"user_ids,omitempty"`   // 搜索过滤项，参与人的用户ID列表，被搜索日程中必须包含至少一个其中的参与人
-	RoomIDs   []string                               `json:"room_ids,omitempty"`   // 搜索过滤项，会议室ID列表，被搜索日程中必须包含至少一个其中的会议室
-	ChatIDs   []string                               `json:"chat_ids,omitempty"`   // 搜索过滤项，群ID列表，被搜索日程的参与人中必须包含至少一个其中的群
+	UserIDs   []string                               `json:"user_ids,omitempty"`   // 搜索过滤项，参与人的用户ID列表，被搜索日程中必须包含至少一个其中的参与人, 示例值：xxxxx
+	RoomIDs   []string                               `json:"room_ids,omitempty"`   // 搜索过滤项，会议室ID列表，被搜索日程中必须包含至少一个其中的会议室, 示例值：xxxxx
+	ChatIDs   []string                               `json:"chat_ids,omitempty"`   // 搜索过滤项，群ID列表，被搜索日程的参与人中必须包含至少一个其中的群, 示例值：xxxxx
 }
 
 type SearchCalendarEventReqFilterStartTime struct {
@@ -86,6 +86,7 @@ type SearchCalendarEventRespItem struct {
 	EventID          string                                 `json:"event_id,omitempty"`           // 日程ID
 	Summary          string                                 `json:"summary,omitempty"`            // 日程标题, 最大长度：`1000` 字符
 	Description      string                                 `json:"description,omitempty"`        // 日程描述, 最大长度：`8192` 字符
+	NeedNotification bool                                   `json:"need_notification,omitempty"`  // 更新日程是否给日程参与人发送bot通知，默认为true
 	StartTime        *SearchCalendarEventRespItemStartTime  `json:"start_time,omitempty"`         // 日程开始时间
 	EndTime          *SearchCalendarEventRespItemEndTime    `json:"end_time,omitempty"`           // 日程结束时间
 	Vchat            *SearchCalendarEventRespItemVchat      `json:"vchat,omitempty"`              // 视频会议信息，仅当日程至少有一位attendee时生效
@@ -115,7 +116,10 @@ type SearchCalendarEventRespItemEndTime struct {
 }
 
 type SearchCalendarEventRespItemVchat struct {
-	MeetingURL string `json:"meeting_url,omitempty"` // 视频会议URL, 长度范围：`1` ～ `2000` 字符
+	VCType      string `json:"vc_type,omitempty"`     // 视频会议类型, 可选值有: `vc`：飞书视频会议，取该类型时，其他字段无效。, `third_party`：第三方链接视频会议，取该类型时，icon_type、description、meeting_url字段生效。, `no_meeting`：无视频会议，取该类型时，其他字段无效。, `lark_live`：Lark直播，内部类型，只读。, `unknown`：未知类型，做兼容使用，只读。
+	IconType    string `json:"icon_type,omitempty"`   // 第三方视频会议icon类型；可以为空，为空展示默认icon。, 可选值有: `vc`：飞书视频会议icon, `live`：直播视频会议icon, `default`：默认icon
+	Description string `json:"description,omitempty"` // 第三方视频会议文案，可以为空，为空展示默认文案, 长度范围：`0` ～ `500` 字符
+	MeetingURL  string `json:"meeting_url,omitempty"` // 视频会议URL, 长度范围：`1` ～ `2000` 字符
 }
 
 type SearchCalendarEventRespItemLocation struct {
