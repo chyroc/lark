@@ -6,10 +6,7 @@ import (
 	"context"
 )
 
-// GetDriveFolderMeta
-//
-// **该篇文档有两个接口，一个接口用于获取指定文件夹的元信息，一个用于获取我的空间文件夹的元信息**
-// 该接口用于根据 folderToken 获取该文件夹的元信息。
+// GetDriveFolderMeta 该接口用于根据 folderToken 获取该文件夹的元信息。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uAjNzUjLwYzM14CM2MTN
 func (r *DriveService) GetDriveFolderMeta(ctx context.Context, request *GetDriveFolderMetaReq, options ...MethodOptionFunc) (*GetDriveFolderMetaResp, *Response, error) {
@@ -19,13 +16,14 @@ func (r *DriveService) GetDriveFolderMeta(ctx context.Context, request *GetDrive
 	}
 
 	req := &RawRequestReq{
-		Scope:               "Drive",
-		API:                 "GetDriveFolderMeta",
-		Method:              "GET",
-		URL:                 "https://open.feishu.cn/open-apis/drive/explorer/v2/folder/:folderToken/meta",
-		Body:                request,
-		MethodOption:        newMethodOption(options),
-		NeedUserAccessToken: true,
+		Scope:                 "Drive",
+		API:                   "GetDriveFolderMeta",
+		Method:                "GET",
+		URL:                   "https://open.feishu.cn/open-apis/drive/explorer/v2/folder/:folderToken/meta",
+		Body:                  request,
+		MethodOption:          newMethodOption(options),
+		NeedTenantAccessToken: true,
+		NeedUserAccessToken:   true,
 	}
 	resp := new(getDriveFolderMetaResp)
 
@@ -42,7 +40,7 @@ func (r *Mock) UnMockDriveGetDriveFolderMeta() {
 }
 
 type GetDriveFolderMetaReq struct {
-	FolderToken string `path:"folderToken" json:"-"` // 文件夹的 token，获取方式见 [概述](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/files/guide/introduction)
+	FolderToken string `path:"folderToken" json:"-"` // 文件夹 token，用于在此文件夹下新建文档，获取方式见[概述](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/files/guide/introduction)
 }
 
 type getDriveFolderMetaResp struct {

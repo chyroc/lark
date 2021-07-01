@@ -6,10 +6,7 @@ import (
 	"context"
 )
 
-// GetDriveRootFolderMeta
-//
-// **该篇文档有两个接口，一个接口用于获取指定文件夹的元信息，一个用于获取我的空间文件夹的元信息**
-// 该接口用于根据 folderToken 获取该文件夹的元信息。
+// GetDriveRootFolderMeta 该接口用于根据 folderToken 获取该文件夹的元信息。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uAjNzUjLwYzM14CM2MTN
 func (r *DriveService) GetDriveRootFolderMeta(ctx context.Context, request *GetDriveRootFolderMetaReq, options ...MethodOptionFunc) (*GetDriveRootFolderMetaResp, *Response, error) {
@@ -19,13 +16,14 @@ func (r *DriveService) GetDriveRootFolderMeta(ctx context.Context, request *GetD
 	}
 
 	req := &RawRequestReq{
-		Scope:               "Drive",
-		API:                 "GetDriveRootFolderMeta",
-		Method:              "GET",
-		URL:                 "https://open.feishu.cn/open-apis/drive/explorer/v2/folder/:folderToken/meta",
-		Body:                request,
-		MethodOption:        newMethodOption(options),
-		NeedUserAccessToken: true,
+		Scope:                 "Drive",
+		API:                   "GetDriveRootFolderMeta",
+		Method:                "GET",
+		URL:                   "https://open.feishu.cn/open-apis/drive/explorer/v2/folder/:folderToken/meta",
+		Body:                  request,
+		MethodOption:          newMethodOption(options),
+		NeedTenantAccessToken: true,
+		NeedUserAccessToken:   true,
 	}
 	resp := new(getDriveRootFolderMetaResp)
 
@@ -41,7 +39,9 @@ func (r *Mock) UnMockDriveGetDriveRootFolderMeta() {
 	r.mockDriveGetDriveRootFolderMeta = nil
 }
 
-type GetDriveRootFolderMetaReq struct{}
+type GetDriveRootFolderMetaReq struct {
+	FolderToken string `path:"folderToken" json:"-"` // 文件夹 token，用于在此文件夹下新建文档，获取方式见[概述](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/files/guide/introduction)
+}
 
 type getDriveRootFolderMetaResp struct {
 	Code int64                       `json:"code,omitempty"`
@@ -50,7 +50,11 @@ type getDriveRootFolderMetaResp struct {
 }
 
 type GetDriveRootFolderMetaResp struct {
-	Token  string `json:"token,omitempty"`   // 文件夹的 token
-	ID     string `json:"id,omitempty"`      // 文件夹的 id
-	UserID string `json:"user_id,omitempty"` // 文件夹的所有者 id
+	ID        string `json:"id,omitempty"`        // 文件夹的 id
+	Name      string `json:"name,omitempty"`      // 文件夹的标题
+	Token     string `json:"token,omitempty"`     // 文件夹的 token
+	CreateUid string `json:"createUid,omitempty"` // 文件夹的创建者 id
+	EditUid   string `json:"editUid,omitempty"`   // 文件夹的最后编辑者 id
+	ParentID  string `json:"parentId,omitempty"`  // 文件夹的上级目录 id
+	OwnUid    string `json:"ownUid,omitempty"`    // 文件夹为个人文件夹时，为文件夹的所有者 id；文件夹为共享文件夹时，为文件夹树id
 }

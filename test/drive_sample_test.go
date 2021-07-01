@@ -28,6 +28,36 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.CopyDriveFile(ctx, &lark.CopyDriveFileReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.DeleteDriveFile(ctx, &lark.DeleteDriveFileReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.CreateDriveFolder(ctx, &lark.CreateDriveFolderReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.GetDriveFolderMeta(ctx, &lark.GetDriveFolderMetaReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.GetDriveRootFolderMeta(ctx, &lark.GetDriveRootFolderMetaReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "failed")
+		})
+
+		t.Run("", func(t *testing.T) {
 			_, _, err := moduleCli.GetDriveFolderChildren(ctx, &lark.GetDriveFolderChildrenReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "failed")
@@ -375,6 +405,61 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 			defer cli.Mock().UnMockDriveCreateDriveFile()
 
 			_, _, err := moduleCli.CreateDriveFile(ctx, &lark.CreateDriveFileReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+			cli.Mock().MockDriveCopyDriveFile(func(ctx context.Context, request *lark.CopyDriveFileReq, options ...lark.MethodOptionFunc) (*lark.CopyDriveFileResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockDriveCopyDriveFile()
+
+			_, _, err := moduleCli.CopyDriveFile(ctx, &lark.CopyDriveFileReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+			cli.Mock().MockDriveDeleteDriveFile(func(ctx context.Context, request *lark.DeleteDriveFileReq, options ...lark.MethodOptionFunc) (*lark.DeleteDriveFileResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockDriveDeleteDriveFile()
+
+			_, _, err := moduleCli.DeleteDriveFile(ctx, &lark.DeleteDriveFileReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+			cli.Mock().MockDriveCreateDriveFolder(func(ctx context.Context, request *lark.CreateDriveFolderReq, options ...lark.MethodOptionFunc) (*lark.CreateDriveFolderResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockDriveCreateDriveFolder()
+
+			_, _, err := moduleCli.CreateDriveFolder(ctx, &lark.CreateDriveFolderReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+			cli.Mock().MockDriveGetDriveFolderMeta(func(ctx context.Context, request *lark.GetDriveFolderMetaReq, options ...lark.MethodOptionFunc) (*lark.GetDriveFolderMetaResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockDriveGetDriveFolderMeta()
+
+			_, _, err := moduleCli.GetDriveFolderMeta(ctx, &lark.GetDriveFolderMetaReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+			cli.Mock().MockDriveGetDriveRootFolderMeta(func(ctx context.Context, request *lark.GetDriveRootFolderMetaReq, options ...lark.MethodOptionFunc) (*lark.GetDriveRootFolderMetaResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockDriveGetDriveRootFolderMeta()
+
+			_, _, err := moduleCli.GetDriveRootFolderMeta(ctx, &lark.GetDriveRootFolderMetaReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "mock-failed")
 		})
@@ -1002,6 +1087,46 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 			_, _, err := moduleCli.CreateDriveFile(ctx, &lark.CreateDriveFileReq{
+				FolderToken: "x",
+			})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.CopyDriveFile(ctx, &lark.CopyDriveFileReq{
+				FileToken: "x",
+			})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.DeleteDriveFile(ctx, &lark.DeleteDriveFileReq{
+				DocToken: "x",
+			})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.CreateDriveFolder(ctx, &lark.CreateDriveFolderReq{
+				FolderToken: "x",
+			})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.GetDriveFolderMeta(ctx, &lark.GetDriveFolderMetaReq{
+				FolderToken: "x",
+			})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.GetDriveRootFolderMeta(ctx, &lark.GetDriveRootFolderMetaReq{
 				FolderToken: "x",
 			})
 			as.NotNil(err)
