@@ -1126,9 +1126,7 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-			_, _, err := moduleCli.GetDriveRootFolderMeta(ctx, &lark.GetDriveRootFolderMetaReq{
-				FolderToken: "x",
-			})
+			_, _, err := moduleCli.GetDriveRootFolderMeta(ctx, &lark.GetDriveRootFolderMetaReq{})
 			as.NotNil(err)
 			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
 		})
