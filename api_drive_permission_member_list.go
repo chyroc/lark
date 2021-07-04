@@ -53,10 +53,10 @@ type getDriveMemberPermissionListResp struct {
 }
 
 type GetDriveMemberPermissionListResp struct {
-	Members *GetDriveMemberPermissionListRespMembers `json:"members,omitempty"` // 协作者列表
+	Members []*GetDriveMemberPermissionListRespMember `json:"members,omitempty"` // 协作者列表
 }
 
-type GetDriveMemberPermissionListRespMembers struct {
+type GetDriveMemberPermissionListRespMember struct {
 	MemberType   string `json:"member_type,omitempty"`    // 协作者类型 "user" or "chat"
 	MemberOpenID string `json:"member_open_id,omitempty"` // 协作者openid
 	MemberUserID string `json:"member_user_id,omitempty"` // 协作者userid(仅当member_type="user"时有效)
