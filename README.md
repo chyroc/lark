@@ -35,7 +35,7 @@ https://godoc.org/github.com/chyroc/lark
 
 ## Support APIs
 
-API Count: 343, Event Count: 28
+API Count: 348, Event Count: 28
 
 <details>
   <summary>
@@ -183,6 +183,11 @@ API Count: 343, Event Count: 28
   - DeleteSheetFilter
   - UpdateSheetFilter
   - GetSheetFilter
+  - CreateSheetFilterView
+  - DeleteSheetFilterView
+  - UpdateSheetFilterView
+  - GetSheetFilterView
+  - QuerySheetFilterView
 - Bitable
   - GetBitableViewList
   - CreateBitableView

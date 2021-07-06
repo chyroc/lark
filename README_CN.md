@@ -35,7 +35,7 @@ https://godoc.org/github.com/chyroc/lark
 
 ## 支持的接口
 
-API 总数: 343, 事件总数: 28
+API 总数: 348, 事件总数: 28
 
 <details>
   <summary>
@@ -183,6 +183,11 @@ API 总数: 343, 事件总数: 28
   - DeleteSheetFilter
   - UpdateSheetFilter
   - GetSheetFilter
+  - CreateSheetFilterView
+  - DeleteSheetFilterView
+  - UpdateSheetFilterView
+  - GetSheetFilterView
+  - QuerySheetFilterView
 - Bitable
   - GetBitableViewList
   - CreateBitableView
