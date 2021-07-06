@@ -422,6 +422,36 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 			as.NotNil(err)
 			as.Equal(err.Error(), "failed")
 		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.CreateSheetFilterViewCondition(ctx, &lark.CreateSheetFilterViewConditionReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.DeleteSheetFilterViewCondition(ctx, &lark.DeleteSheetFilterViewConditionReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.UpdateSheetFilterViewCondition(ctx, &lark.UpdateSheetFilterViewConditionReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.GetSheetFilterViewCondition(ctx, &lark.GetSheetFilterViewConditionReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.QuerySheetFilterViewCondition(ctx, &lark.QuerySheetFilterViewConditionReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "failed")
+		})
 	})
 
 	t.Run("request mock failed", func(t *testing.T) {
@@ -1164,6 +1194,61 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 			as.NotNil(err)
 			as.Equal(err.Error(), "mock-failed")
 		})
+
+		t.Run("", func(t *testing.T) {
+			cli.Mock().MockDriveCreateSheetFilterViewCondition(func(ctx context.Context, request *lark.CreateSheetFilterViewConditionReq, options ...lark.MethodOptionFunc) (*lark.CreateSheetFilterViewConditionResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockDriveCreateSheetFilterViewCondition()
+
+			_, _, err := moduleCli.CreateSheetFilterViewCondition(ctx, &lark.CreateSheetFilterViewConditionReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+			cli.Mock().MockDriveDeleteSheetFilterViewCondition(func(ctx context.Context, request *lark.DeleteSheetFilterViewConditionReq, options ...lark.MethodOptionFunc) (*lark.DeleteSheetFilterViewConditionResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockDriveDeleteSheetFilterViewCondition()
+
+			_, _, err := moduleCli.DeleteSheetFilterViewCondition(ctx, &lark.DeleteSheetFilterViewConditionReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+			cli.Mock().MockDriveUpdateSheetFilterViewCondition(func(ctx context.Context, request *lark.UpdateSheetFilterViewConditionReq, options ...lark.MethodOptionFunc) (*lark.UpdateSheetFilterViewConditionResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockDriveUpdateSheetFilterViewCondition()
+
+			_, _, err := moduleCli.UpdateSheetFilterViewCondition(ctx, &lark.UpdateSheetFilterViewConditionReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+			cli.Mock().MockDriveGetSheetFilterViewCondition(func(ctx context.Context, request *lark.GetSheetFilterViewConditionReq, options ...lark.MethodOptionFunc) (*lark.GetSheetFilterViewConditionResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockDriveGetSheetFilterViewCondition()
+
+			_, _, err := moduleCli.GetSheetFilterViewCondition(ctx, &lark.GetSheetFilterViewConditionReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+			cli.Mock().MockDriveQuerySheetFilterViewCondition(func(ctx context.Context, request *lark.QuerySheetFilterViewConditionReq, options ...lark.MethodOptionFunc) (*lark.QuerySheetFilterViewConditionResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockDriveQuerySheetFilterViewCondition()
+
+			_, _, err := moduleCli.QuerySheetFilterViewCondition(ctx, &lark.QuerySheetFilterViewConditionReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
 	})
 
 	t.Run("response is failed", func(t *testing.T) {
@@ -1699,6 +1784,59 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 			_, _, err := moduleCli.QuerySheetFilterView(ctx, &lark.QuerySheetFilterViewReq{
 				SpreadSheetToken: "x",
 				SheetID:          "x",
+			})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.CreateSheetFilterViewCondition(ctx, &lark.CreateSheetFilterViewConditionReq{
+				SpreadSheetToken: "x",
+				SheetID:          "x",
+				FilterViewID:     "x",
+			})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.DeleteSheetFilterViewCondition(ctx, &lark.DeleteSheetFilterViewConditionReq{
+				SpreadSheetToken: "x",
+				SheetID:          "x",
+				FilterViewID:     "x",
+				ConditionID:      "x",
+			})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.UpdateSheetFilterViewCondition(ctx, &lark.UpdateSheetFilterViewConditionReq{
+				SpreadSheetToken: "x",
+				SheetID:          "x",
+				FilterViewID:     "x",
+				ConditionID:      "x",
+			})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.GetSheetFilterViewCondition(ctx, &lark.GetSheetFilterViewConditionReq{
+				SpreadSheetToken: "x",
+				SheetID:          "x",
+				FilterViewID:     "x",
+				ConditionID:      "x",
+			})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.QuerySheetFilterViewCondition(ctx, &lark.QuerySheetFilterViewConditionReq{
+				SpreadSheetToken: "x",
+				SheetID:          "x",
+				FilterViewID:     "x",
 			})
 			as.NotNil(err)
 			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
