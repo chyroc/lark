@@ -27,6 +27,21 @@ type Response struct {
 }
 
 func (r *Lark) RawRequest(ctx context.Context, req *RawRequestReq, resp interface{}) (response *Response, err error) {
+	if r.mock.mockRawRequest != nil {
+		return r.mock.mockRawRequest(ctx, req, resp)
+	}
+	return r.rawRequest(ctx, req, resp)
+}
+
+func (r *Mock) MockRawRequest(f func(ctx context.Context, req *RawRequestReq, resp interface{}) (response *Response, err error)) {
+	r.mockRawRequest = f
+}
+
+func (r *Mock) UnMockRawRequest() {
+	r.mockRawRequest = nil
+}
+
+func (r *Lark) rawRequest(ctx context.Context, req *RawRequestReq, resp interface{}) (response *Response, err error) {
 	r.log(ctx, LogLevelInfo, "[lark] %s#%s call api", req.Scope, req.API)
 
 	req.headers, err = r.prepareHeaders(ctx, req)

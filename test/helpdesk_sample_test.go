@@ -439,4 +439,131 @@ func Test_Helpdesk_Sample_Failed(t *testing.T) {
 			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
 		})
 	})
+
+	t.Run("fake request is failed", func(t *testing.T) {
+		cli := AppALLPermission.Ins()
+		moduleCli := cli.Helpdesk
+		cli.Mock().MockRawRequest(func(ctx context.Context, req *lark.RawRequestReq, resp interface{}) (response *lark.Response, err error) {
+			return nil, fmt.Errorf("fake raw request")
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.StartHelpdeskService(ctx, &lark.StartHelpdeskServiceReq{})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.GetHelpdeskTicket(ctx, &lark.GetHelpdeskTicketReq{
+				TicketID: "x",
+			})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.GetHelpdeskTicketList(ctx, &lark.GetHelpdeskTicketListReq{})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.DownloadHelpdeskTicketImage(ctx, &lark.DownloadHelpdeskTicketImageReq{})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.AnswerHelpdeskTicketUserQuery(ctx, &lark.AnswerHelpdeskTicketUserQueryReq{
+				TicketID: "x",
+			})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.GetHelpdeskTicketMessageList(ctx, &lark.GetHelpdeskTicketMessageListReq{
+				TicketID: "x",
+			})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.SendHelpdeskTicketMessage(ctx, &lark.SendHelpdeskTicketMessageReq{
+				TicketID: "x",
+			})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.GetHelpdeskTicketCustomizedFieldList(ctx, &lark.GetHelpdeskTicketCustomizedFieldListReq{})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.GetHelpdeskTicketCustomizedField(ctx, &lark.GetHelpdeskTicketCustomizedFieldReq{
+				TicketCustomizedFieldID: "x",
+			})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.GetHelpdeskCategory(ctx, &lark.GetHelpdeskCategoryReq{
+				ID: "x",
+			})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.GetHelpdeskCategoryList(ctx, &lark.GetHelpdeskCategoryListReq{})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.GetHelpdeskFAQ(ctx, &lark.GetHelpdeskFAQReq{
+				ID: "x",
+			})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.GetHelpdeskFAQList(ctx, &lark.GetHelpdeskFAQListReq{})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.GetHelpdeskFAQImage(ctx, &lark.GetHelpdeskFAQImageReq{
+				ID:       "x",
+				ImageKey: "x",
+			})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.SearchHelpdeskFAQ(ctx, &lark.SearchHelpdeskFAQReq{})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.SubscribeHelpdeskEvent(ctx, &lark.SubscribeHelpdeskEventReq{})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.UnsubscribeHelpdeskEvent(ctx, &lark.UnsubscribeHelpdeskEventReq{})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+	})
 }

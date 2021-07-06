@@ -578,4 +578,202 @@ func Test_Bitable_Sample_Failed(t *testing.T) {
 			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
 		})
 	})
+
+	t.Run("fake request is failed", func(t *testing.T) {
+		cli := AppALLPermission.Ins()
+		moduleCli := cli.Bitable
+		cli.Mock().MockRawRequest(func(ctx context.Context, req *lark.RawRequestReq, resp interface{}) (response *lark.Response, err error) {
+			return nil, fmt.Errorf("fake raw request")
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.GetBitableViewList(ctx, &lark.GetBitableViewListReq{
+				AppToken: "x",
+				TableID:  "x",
+			})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.CreateBitableView(ctx, &lark.CreateBitableViewReq{
+				AppToken: "x",
+				TableID:  "x",
+			})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.DeleteBitableView(ctx, &lark.DeleteBitableViewReq{
+				AppToken: "x",
+				TableID:  "x",
+				ViewID:   "x",
+			})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.GetBitableRecordList(ctx, &lark.GetBitableRecordListReq{
+				AppToken: "x",
+				TableID:  "x",
+			})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.GetBitableRecord(ctx, &lark.GetBitableRecordReq{
+				AppToken: "x",
+				TableID:  "x",
+				RecordID: "x",
+			})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.CreateBitableRecord(ctx, &lark.CreateBitableRecordReq{
+				AppToken: "x",
+				TableID:  "x",
+			})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.BatchCreateBitableRecord(ctx, &lark.BatchCreateBitableRecordReq{
+				AppToken: "x",
+				TableID:  "x",
+			})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.UpdateBitableRecord(ctx, &lark.UpdateBitableRecordReq{
+				AppToken: "x",
+				TableID:  "x",
+				RecordID: "x",
+			})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.BatchUpdateBitableRecord(ctx, &lark.BatchUpdateBitableRecordReq{
+				AppToken: "x",
+				TableID:  "x",
+			})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.DeleteBitableRecord(ctx, &lark.DeleteBitableRecordReq{
+				AppToken: "x",
+				TableID:  "x",
+				RecordID: "x",
+			})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.BatchDeleteBitableRecord(ctx, &lark.BatchDeleteBitableRecordReq{
+				AppToken: "x",
+				TableID:  "x",
+			})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.GetBitableFieldList(ctx, &lark.GetBitableFieldListReq{
+				AppToken: "x",
+				TableID:  "x",
+			})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.CreateBitableField(ctx, &lark.CreateBitableFieldReq{
+				AppToken: "x",
+				TableID:  "x",
+			})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.UpdateBitableField(ctx, &lark.UpdateBitableFieldReq{
+				AppToken: "x",
+				TableID:  "x",
+				FieldID:  "x",
+			})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.DeleteBitableField(ctx, &lark.DeleteBitableFieldReq{
+				AppToken: "x",
+				TableID:  "x",
+				FieldID:  "x",
+			})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.GetBitableTableList(ctx, &lark.GetBitableTableListReq{
+				AppToken: "x",
+			})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.CreateBitableTable(ctx, &lark.CreateBitableTableReq{
+				AppToken: "x",
+			})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.BatchCreateBitableTable(ctx, &lark.BatchCreateBitableTableReq{
+				AppToken: "x",
+			})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.DeleteBitableTable(ctx, &lark.DeleteBitableTableReq{
+				AppToken: "x",
+				TableID:  "x",
+			})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.BatchDeleteBitableTable(ctx, &lark.BatchDeleteBitableTableReq{
+				AppToken: "x",
+			})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.GetBitableMeta(ctx, &lark.GetBitableMetaReq{
+				AppToken: "x",
+			})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+	})
 }

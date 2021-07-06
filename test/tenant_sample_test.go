@@ -54,4 +54,18 @@ func Test_Tenant_Sample_Failed(t *testing.T) {
 			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
 		})
 	})
+
+	t.Run("fake request is failed", func(t *testing.T) {
+		cli := AppALLPermission.Ins()
+		moduleCli := cli.Tenant
+		cli.Mock().MockRawRequest(func(ctx context.Context, req *lark.RawRequestReq, resp interface{}) (response *lark.Response, err error) {
+			return nil, fmt.Errorf("fake raw request")
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.GetTenant(ctx, &lark.GetTenantReq{})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+	})
 }

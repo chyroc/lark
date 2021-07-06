@@ -1890,4 +1890,613 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
 		})
 	})
+
+	t.Run("fake request is failed", func(t *testing.T) {
+		cli := AppALLPermission.Ins()
+		moduleCli := cli.Drive
+		cli.Mock().MockRawRequest(func(ctx context.Context, req *lark.RawRequestReq, resp interface{}) (response *lark.Response, err error) {
+			return nil, fmt.Errorf("fake raw request")
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.CreateDriveFile(ctx, &lark.CreateDriveFileReq{
+				FolderToken: "x",
+			})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.CopyDriveFile(ctx, &lark.CopyDriveFileReq{
+				FileToken: "x",
+			})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.DeleteDriveFile(ctx, &lark.DeleteDriveFileReq{
+				DocToken: "x",
+			})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.DeleteDriveSheetFile(ctx, &lark.DeleteDriveSheetFileReq{
+				SpreadSheetToken: "x",
+			})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.CreateDriveFolder(ctx, &lark.CreateDriveFolderReq{
+				FolderToken: "x",
+			})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.GetDriveFolderMeta(ctx, &lark.GetDriveFolderMetaReq{
+				FolderToken: "x",
+			})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.GetDriveRootFolderMeta(ctx, &lark.GetDriveRootFolderMetaReq{})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.GetDriveFolderChildren(ctx, &lark.GetDriveFolderChildrenReq{
+				FolderToken: "x",
+			})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.CreateDriveMemberPermission(ctx, &lark.CreateDriveMemberPermissionReq{})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.TransferDriveMemberPermission(ctx, &lark.TransferDriveMemberPermissionReq{})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.UpdateDrivePublicPermission(ctx, &lark.UpdateDrivePublicPermissionReq{})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.GetDriveMemberPermissionList(ctx, &lark.GetDriveMemberPermissionListReq{})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.DeleteDriveMemberPermission(ctx, &lark.DeleteDriveMemberPermissionReq{})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.UpdateDriveMemberPermission(ctx, &lark.UpdateDriveMemberPermissionReq{})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.CheckDriveMemberPermission(ctx, &lark.CheckDriveMemberPermissionReq{})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.UpdateDrivePublicPermissionV2(ctx, &lark.UpdateDrivePublicPermissionV2Req{})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.GetDrivePublicPermissionV2(ctx, &lark.GetDrivePublicPermissionV2Req{})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.BatchGetDriveMediaTmpDownloadURL(ctx, &lark.BatchGetDriveMediaTmpDownloadURLReq{})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.GetDriveCommentList(ctx, &lark.GetDriveCommentListReq{
+				FileToken: "x",
+			})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.GetDriveComment(ctx, &lark.GetDriveCommentReq{
+				FileToken: "x",
+				CommentID: "x",
+			})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.CreateDriveComment(ctx, &lark.CreateDriveCommentReq{
+				FileToken: "x",
+			})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.UpdateDriveComment(ctx, &lark.UpdateDriveCommentReq{
+				FileToken: "x",
+				CommentID: "x",
+				ReplyID:   "x",
+			})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.DeleteDriveComment(ctx, &lark.DeleteDriveCommentReq{
+				FileToken: "x",
+				CommentID: "x",
+				ReplyID:   "x",
+			})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.UpdateDriveCommentPatch(ctx, &lark.UpdateDriveCommentPatchReq{
+				FileToken: "x",
+				CommentID: "x",
+			})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.CreateDriveDoc(ctx, &lark.CreateDriveDocReq{})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.GetDriveDocContent(ctx, &lark.GetDriveDocContentReq{
+				DocToken: "x",
+			})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.GetDriveDocRawContent(ctx, &lark.GetDriveDocRawContentReq{
+				DocToken: "x",
+			})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.GetDriveDocMeta(ctx, &lark.GetDriveDocMetaReq{
+				DocToken: "x",
+			})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.GetSheetMeta(ctx, &lark.GetSheetMetaReq{
+				SpreadSheetToken: "x",
+			})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.UpdateSheetProperty(ctx, &lark.UpdateSheetPropertyReq{
+				SpreadSheetToken: "x",
+			})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.BatchUpdateSheet(ctx, &lark.BatchUpdateSheetReq{
+				SpreadSheetToken: "x",
+			})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.ImportSheet(ctx, &lark.ImportSheetReq{})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.MoveSheetDimension(ctx, &lark.MoveSheetDimensionReq{
+				SpreadSheetToken: "x",
+				SheetID:          "x",
+			})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.PrependSheetValue(ctx, &lark.PrependSheetValueReq{
+				SpreadSheetToken: "x",
+			})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.AppendSheetValue(ctx, &lark.AppendSheetValueReq{
+				SpreadSheetToken: "x",
+			})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.InsertSheetDimensionRange(ctx, &lark.InsertSheetDimensionRangeReq{
+				SpreadSheetToken: "x",
+			})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.AddSheetDimensionRange(ctx, &lark.AddSheetDimensionRangeReq{
+				SpreadSheetToken: "x",
+			})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.UpdateSheetDimensionRange(ctx, &lark.UpdateSheetDimensionRangeReq{
+				SpreadSheetToken: "x",
+			})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.DeleteSheetDimensionRange(ctx, &lark.DeleteSheetDimensionRangeReq{
+				SpreadSheetToken: "x",
+			})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.GetSheetValue(ctx, &lark.GetSheetValueReq{
+				SpreadSheetToken: "x",
+				Range:            "x",
+			})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.BatchGetSheetValue(ctx, &lark.BatchGetSheetValueReq{
+				SpreadSheetToken: "x",
+			})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.SetSheetValue(ctx, &lark.SetSheetValueReq{
+				SpreadSheetToken: "x",
+			})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.BatchSetSheetValue(ctx, &lark.BatchSetSheetValueReq{
+				SpreadSheetToken: "x",
+			})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.SetSheetStyle(ctx, &lark.SetSheetStyleReq{
+				SpreadSheetToken: "x",
+			})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.BatchSetSheetStyle(ctx, &lark.BatchSetSheetStyleReq{
+				SpreadSheetToken: "x",
+			})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.MergeSheetCell(ctx, &lark.MergeSheetCellReq{
+				SpreadSheetToken: "x",
+			})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.UnmergeSheetCell(ctx, &lark.UnmergeSheetCellReq{
+				SpreadSheetToken: "x",
+			})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.SetSheetValueImage(ctx, &lark.SetSheetValueImageReq{
+				SpreadSheetToken: "x",
+			})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.CreateSheetConditionFormat(ctx, &lark.CreateSheetConditionFormatReq{
+				SpreadSheetToken: "x",
+			})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.GetSheetConditionFormat(ctx, &lark.GetSheetConditionFormatReq{
+				SpreadSheetToken: "x",
+			})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.UpdateSheetConditionFormat(ctx, &lark.UpdateSheetConditionFormatReq{
+				SpreadSheetToken: "x",
+			})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.DeleteSheetConditionFormat(ctx, &lark.DeleteSheetConditionFormatReq{
+				SpreadSheetToken: "x",
+			})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.CreateSheetProtectedDimension(ctx, &lark.CreateSheetProtectedDimensionReq{
+				SpreadSheetToken: "x",
+			})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.GetSheetProtectedDimension(ctx, &lark.GetSheetProtectedDimensionReq{
+				SpreadSheetToken: "x",
+			})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.UpdateSheetProtectedDimension(ctx, &lark.UpdateSheetProtectedDimensionReq{
+				SpreadSheetToken: "x",
+			})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.DeleteSheetProtectedDimension(ctx, &lark.DeleteSheetProtectedDimensionReq{
+				SpreadSheetToken: "x",
+			})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.CreateSheetDataValidationDropdown(ctx, &lark.CreateSheetDataValidationDropdownReq{
+				SpreadSheetToken: "x",
+			})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.DeleteSheetDataValidationDropdown(ctx, &lark.DeleteSheetDataValidationDropdownReq{
+				SpreadSheetToken: "x",
+			})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.UpdateSheetDataValidationDropdown(ctx, &lark.UpdateSheetDataValidationDropdownReq{
+				SpreadSheetToken: "x",
+				SheetID:          "x",
+				DataValidationID: 1,
+			})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.GetSheetDataValidationDropdown(ctx, &lark.GetSheetDataValidationDropdownReq{
+				SpreadSheetToken: "x",
+			})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.CreateSheetFilter(ctx, &lark.CreateSheetFilterReq{
+				SpreadSheetToken: "x",
+				SheetID:          "x",
+			})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.DeleteSheetFilter(ctx, &lark.DeleteSheetFilterReq{
+				SpreadSheetToken: "x",
+				SheetID:          "x",
+			})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.UpdateSheetFilter(ctx, &lark.UpdateSheetFilterReq{
+				SpreadSheetToken: "x",
+				SheetID:          "x",
+			})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.GetSheetFilter(ctx, &lark.GetSheetFilterReq{
+				SpreadSheetToken: "x",
+				SheetID:          "x",
+			})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.CreateSheetFilterView(ctx, &lark.CreateSheetFilterViewReq{
+				SpreadSheetToken: "x",
+				SheetID:          "x",
+			})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.DeleteSheetFilterView(ctx, &lark.DeleteSheetFilterViewReq{
+				SpreadSheetToken: "x",
+				SheetID:          "x",
+				FilterViewID:     "x",
+			})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.UpdateSheetFilterView(ctx, &lark.UpdateSheetFilterViewReq{
+				SpreadSheetToken: "x",
+				SheetID:          "x",
+				FilterViewID:     "x",
+			})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.GetSheetFilterView(ctx, &lark.GetSheetFilterViewReq{
+				SpreadSheetToken: "x",
+				SheetID:          "x",
+				FilterViewID:     "x",
+			})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.QuerySheetFilterView(ctx, &lark.QuerySheetFilterViewReq{
+				SpreadSheetToken: "x",
+				SheetID:          "x",
+			})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.CreateSheetFilterViewCondition(ctx, &lark.CreateSheetFilterViewConditionReq{
+				SpreadSheetToken: "x",
+				SheetID:          "x",
+				FilterViewID:     "x",
+			})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.DeleteSheetFilterViewCondition(ctx, &lark.DeleteSheetFilterViewConditionReq{
+				SpreadSheetToken: "x",
+				SheetID:          "x",
+				FilterViewID:     "x",
+				ConditionID:      "x",
+			})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.UpdateSheetFilterViewCondition(ctx, &lark.UpdateSheetFilterViewConditionReq{
+				SpreadSheetToken: "x",
+				SheetID:          "x",
+				FilterViewID:     "x",
+				ConditionID:      "x",
+			})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.GetSheetFilterViewCondition(ctx, &lark.GetSheetFilterViewConditionReq{
+				SpreadSheetToken: "x",
+				SheetID:          "x",
+				FilterViewID:     "x",
+				ConditionID:      "x",
+			})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.QuerySheetFilterViewCondition(ctx, &lark.QuerySheetFilterViewConditionReq{
+				SpreadSheetToken: "x",
+				SheetID:          "x",
+				FilterViewID:     "x",
+			})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+	})
 }

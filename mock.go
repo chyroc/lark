@@ -7,6 +7,7 @@ import (
 )
 
 type Mock struct {
+	mockRawRequest                                       func(ctx context.Context, req *RawRequestReq, resp interface{}) (response *Response, err error)
 	mockGetTenantAccessToken                             func(ctx context.Context) (*TokenExpire, *Response, error)
 	mockGetAppAccessToken                                func(ctx context.Context) (*TokenExpire, *Response, error)
 	mockAuthResendAppTicket                              func(ctx context.Context, request *ResendAppTicketReq, options ...MethodOptionFunc) (*ResendAppTicketResp, *Response, error)
