@@ -35,7 +35,7 @@ https://godoc.org/github.com/chyroc/lark
 
 ## Support APIs
 
-API Count: 356, Event Count: 28
+API Count: 361, Event Count: 28
 
 <details>
   <summary>
@@ -196,6 +196,11 @@ API Count: 356, Event Count: 28
   - UpdateSheetFilterViewCondition
   - GetSheetFilterViewCondition
   - QuerySheetFilterViewCondition
+  - CreateSheetFloatImage
+  - DeleteSheetFloatImage
+  - UpdateSheetFloatImage
+  - GetSheetFloatImage
+  - QuerySheetFloatImage
 - Bitable
   - GetBitableViewList
   - CreateBitableView

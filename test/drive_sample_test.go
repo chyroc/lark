@@ -464,6 +464,36 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 			as.NotNil(err)
 			as.Equal(err.Error(), "failed")
 		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.CreateSheetFloatImage(ctx, &lark.CreateSheetFloatImageReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.DeleteSheetFloatImage(ctx, &lark.DeleteSheetFloatImageReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.UpdateSheetFloatImage(ctx, &lark.UpdateSheetFloatImageReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.GetSheetFloatImage(ctx, &lark.GetSheetFloatImageReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.QuerySheetFloatImage(ctx, &lark.QuerySheetFloatImageReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "failed")
+		})
 	})
 
 	t.Run("request mock failed", func(t *testing.T) {
@@ -1283,6 +1313,61 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 			as.NotNil(err)
 			as.Equal(err.Error(), "mock-failed")
 		})
+
+		t.Run("", func(t *testing.T) {
+			cli.Mock().MockDriveCreateSheetFloatImage(func(ctx context.Context, request *lark.CreateSheetFloatImageReq, options ...lark.MethodOptionFunc) (*lark.CreateSheetFloatImageResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockDriveCreateSheetFloatImage()
+
+			_, _, err := moduleCli.CreateSheetFloatImage(ctx, &lark.CreateSheetFloatImageReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+			cli.Mock().MockDriveDeleteSheetFloatImage(func(ctx context.Context, request *lark.DeleteSheetFloatImageReq, options ...lark.MethodOptionFunc) (*lark.DeleteSheetFloatImageResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockDriveDeleteSheetFloatImage()
+
+			_, _, err := moduleCli.DeleteSheetFloatImage(ctx, &lark.DeleteSheetFloatImageReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+			cli.Mock().MockDriveUpdateSheetFloatImage(func(ctx context.Context, request *lark.UpdateSheetFloatImageReq, options ...lark.MethodOptionFunc) (*lark.UpdateSheetFloatImageResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockDriveUpdateSheetFloatImage()
+
+			_, _, err := moduleCli.UpdateSheetFloatImage(ctx, &lark.UpdateSheetFloatImageReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+			cli.Mock().MockDriveGetSheetFloatImage(func(ctx context.Context, request *lark.GetSheetFloatImageReq, options ...lark.MethodOptionFunc) (*lark.GetSheetFloatImageResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockDriveGetSheetFloatImage()
+
+			_, _, err := moduleCli.GetSheetFloatImage(ctx, &lark.GetSheetFloatImageReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+			cli.Mock().MockDriveQuerySheetFloatImage(func(ctx context.Context, request *lark.QuerySheetFloatImageReq, options ...lark.MethodOptionFunc) (*lark.QuerySheetFloatImageResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockDriveQuerySheetFloatImage()
+
+			_, _, err := moduleCli.QuerySheetFloatImage(ctx, &lark.QuerySheetFloatImageReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
 	})
 
 	t.Run("response is failed", func(t *testing.T) {
@@ -1885,6 +1970,54 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 				SpreadSheetToken: "x",
 				SheetID:          "x",
 				FilterViewID:     "x",
+			})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.CreateSheetFloatImage(ctx, &lark.CreateSheetFloatImageReq{
+				SpreadSheetToken: "x",
+				SheetID:          "x",
+			})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.DeleteSheetFloatImage(ctx, &lark.DeleteSheetFloatImageReq{
+				SpreadSheetToken: "x",
+				SheetID:          "x",
+				FloatImageID:     "x",
+			})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.UpdateSheetFloatImage(ctx, &lark.UpdateSheetFloatImageReq{
+				SpreadSheetToken: "x",
+				SheetID:          "x",
+				FloatImageID:     "x",
+			})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.GetSheetFloatImage(ctx, &lark.GetSheetFloatImageReq{
+				SpreadSheetToken: "x",
+				SheetID:          "x",
+				FloatImageID:     "x",
+			})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.QuerySheetFloatImage(ctx, &lark.QuerySheetFloatImageReq{
+				SpreadSheetToken: "x",
+				SheetID:          "x",
 			})
 			as.NotNil(err)
 			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
@@ -2494,6 +2627,54 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 				SpreadSheetToken: "x",
 				SheetID:          "x",
 				FilterViewID:     "x",
+			})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.CreateSheetFloatImage(ctx, &lark.CreateSheetFloatImageReq{
+				SpreadSheetToken: "x",
+				SheetID:          "x",
+			})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.DeleteSheetFloatImage(ctx, &lark.DeleteSheetFloatImageReq{
+				SpreadSheetToken: "x",
+				SheetID:          "x",
+				FloatImageID:     "x",
+			})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.UpdateSheetFloatImage(ctx, &lark.UpdateSheetFloatImageReq{
+				SpreadSheetToken: "x",
+				SheetID:          "x",
+				FloatImageID:     "x",
+			})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.GetSheetFloatImage(ctx, &lark.GetSheetFloatImageReq{
+				SpreadSheetToken: "x",
+				SheetID:          "x",
+				FloatImageID:     "x",
+			})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.QuerySheetFloatImage(ctx, &lark.QuerySheetFloatImageReq{
+				SpreadSheetToken: "x",
+				SheetID:          "x",
 			})
 			as.NotNil(err)
 			as.Equal("fake raw request", err.Error())
