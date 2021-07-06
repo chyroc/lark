@@ -35,7 +35,7 @@ https://godoc.org/github.com/chyroc/lark
 
 ## Support APIs
 
-API Count: 353, Event Count: 28
+API Count: 356, Event Count: 28
 
 <details>
   <summary>
@@ -73,6 +73,7 @@ API Count: 353, Event Count: 28
   - GetMessageList
   - GetMessageFile
   - GetMessage
+  - DeleteEphemeralMessage
 - Chat
   - CreateChat
   - GetChat
@@ -124,6 +125,7 @@ API Count: 353, Event Count: 28
   - CreateDriveFile
   - CopyDriveFile
   - DeleteDriveFile
+  - DeleteDriveSheetFile
   - CreateDriveFolder
   - GetDriveFolderMeta
   - GetDriveRootFolderMeta
@@ -137,6 +139,7 @@ API Count: 353, Event Count: 28
   - CheckDriveMemberPermission
   - UpdateDrivePublicPermissionV2
   - GetDrivePublicPermissionV2
+  - BatchGetDriveMediaTmpDownloadURL
   - GetDriveCommentList
   - GetDriveComment
   - CreateDriveComment
