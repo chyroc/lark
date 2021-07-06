@@ -1,7 +1,9 @@
 package test
 
 import (
+	"net/http"
 	"os"
+	"sync"
 	"testing"
 	"time"
 
@@ -186,4 +188,37 @@ func Test_Config(t *testing.T) {
 	as.NotEmpty(MessageAdminSendImageInChatContainAllPermissionApp.MessageID)
 	as.NotEmpty(MessageAllPermissionAppSendTextInChatContainAllPermissionApp.ChatID)
 	as.NotEmpty(MessageAllPermissionAppSendTextInChatContainAllPermissionApp.MessageID)
+}
+
+type fakeHTTPWriter struct {
+	header http.Header
+	code   int
+	lock   sync.Mutex
+	data   []byte
+}
+
+func newFakeHTTPWriter() *fakeHTTPWriter {
+	return &fakeHTTPWriter{
+		header: map[string][]string{},
+	}
+}
+
+func (r *fakeHTTPWriter) Header() http.Header {
+	return r.header
+}
+
+func (r *fakeHTTPWriter) Write(bytes []byte) (int, error) {
+	r.lock.Lock()
+	defer r.lock.Unlock()
+
+	r.data = append(r.data, bytes...)
+	return len(bytes), nil
+}
+
+func (r *fakeHTTPWriter) WriteHeader(statusCode int) {
+	r.code = statusCode
+}
+
+func (r *fakeHTTPWriter) str() string {
+	return string(r.data)
 }
