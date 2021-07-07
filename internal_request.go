@@ -87,6 +87,8 @@ func (r *Lark) prepareHeaders(ctx context.Context, req *RawRequestReq) (map[stri
 	if req.Method != http.MethodGet {
 		headers["Content-Type"] = "application/json; charset=utf-8"
 	}
+	headers["User-Agent"] = fmt.Sprintf("chyroc-go-lark/%s (https://github.com/chyroc/lark)", version)
+
 	if req.NeedUserAccessToken && req.MethodOption.userAccessToken != "" {
 		headers["Authorization"] = "Bearer " + req.MethodOption.userAccessToken
 	} else if req.NeedTenantAccessToken {
