@@ -8,9 +8,7 @@ import (
 
 // UpdateSheetFilter
 //
-// ::: note
 // 参数值可参考[筛选指南](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/sheets-v3/spreadsheet-sheet-filter/filter-user-guide)
-// :::
 // 更新子表筛选范围中的列筛选条件。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/sheets-v3/spreadsheet-sheet-filter/update

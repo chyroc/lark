@@ -8,9 +8,7 @@ import (
 
 // GetSheetFloatImage
 //
-// ::: note
 // 浮动图片参考：[浮动图片指南](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/sheets-v3/spreadsheet-sheet-float_image/float-image-user-guide)
-// :::
 // 根据 float_image_id 获取对应浮动图片的信息。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/sheets-v3/spreadsheet-sheet-float_image/get

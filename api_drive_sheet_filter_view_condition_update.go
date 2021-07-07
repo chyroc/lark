@@ -8,9 +8,7 @@ import (
 
 // UpdateSheetFilterViewCondition
 //
-// ::: note
 // 筛选条件参数可参考 [筛选视图的筛选条件指南](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/sheets-v3/spreadsheet-sheet-filter_view-condition/filter-view-condition-user-guide)
-// :::
 // 更新筛选视图范围的某列的筛选条件，condition id 即为列的字母号。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/sheets-v3/spreadsheet-sheet-filter_view-condition/update

@@ -8,9 +8,7 @@ import (
 
 // CreateSheetFilterViewCondition
 //
-// ::: note
 // 筛选条件参考 [筛选视图的筛选条件指南](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/sheets-v3/spreadsheet-sheet-filter_view-condition/filter-view-condition-user-guide)
-// :::
 // 在筛选视图的筛选范围的某一列创建筛选条件。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/sheets-v3/spreadsheet-sheet-filter_view-condition/create
