@@ -10,7 +10,7 @@ import (
 // UploadFile 上传文件，可以上传视频，音频和常见的文件类型
 //
 // 注意事项:
-// - 需要开启[机器人能力](https://open.feishu.cn/document/uQjL04CN/uYTMuYTMuYTM)
+// - 需要开启[机器人能力](https://open.feishu.cn/document/home/develop-a-bot-in-5-minutes/create-an-app)
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/file/create
 func (r *FileService) UploadFile(ctx context.Context, request *UploadFileReq, options ...MethodOptionFunc) (*UploadFileResp, *Response, error) {

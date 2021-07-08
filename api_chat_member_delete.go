@@ -9,7 +9,7 @@ import (
 // DeleteChatMember 将用户或机器人移出群聊。
 //
 // 注意事项：
-// - 应用需要开启[机器人能力](https://open.feishu.cn/document/uQjL04CN/uYTMuYTMuYTM)
+// - 应用需要开启[机器人能力](https://open.feishu.cn/document/home/develop-a-bot-in-5-minutes/create-an-app)
 // - 用户或机器人在任何条件下均可移除自己出群（即主动退群）；但仅有群主 及 创建群组且具备[更新应用所创建群的群信息]权限的机器人，可以移除其他用户或者机器人
 // - 每次请求，最多移除50个用户或者5个机器人
 //

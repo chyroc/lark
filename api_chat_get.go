@@ -9,7 +9,7 @@ import (
 // GetChat 获取群名称、群描述、群头像、群主 ID 等群基本信息。
 //
 // 注意事项：
-// - 应用需要开启[机器人能力](https://open.feishu.cn/document/uQjL04CN/uYTMuYTMuYTM)
+// - 应用需要开启[机器人能力](https://open.feishu.cn/document/home/develop-a-bot-in-5-minutes/create-an-app)
 // - 机器人或授权用户必须在群里
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat/get

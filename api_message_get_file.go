@@ -10,7 +10,7 @@ import (
 // GetMessageFile 获取消息中的资源文件，包括音频，视频，图片和文件。当前仅支持 100M 以内的资源文件的下载。
 //
 // 注意事项:
-// - 需要开启[机器人能力](https://open.feishu.cn/document/uQjL04CN/uYTMuYTMuYTM)
+// - 需要开启[机器人能力](https://open.feishu.cn/document/home/develop-a-bot-in-5-minutes/create-an-app)
 // - 机器人和消息需要在同一会话中
 // - 请求的 file_key 和 message_id 需要匹配
 // - 获取群组消息时，应用必须拥有 获取群组中所有的消息 权限

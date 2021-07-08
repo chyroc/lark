@@ -9,7 +9,7 @@ import (
 // GetChatListOfSelf 获取用户或者机器人所在群列表。
 //
 // 注意事项：
-// - 应用需要开启[机器人能力](https://open.feishu.cn/document/uQjL04CN/uYTMuYTMuYTM)
+// - 应用需要开启[机器人能力](https://open.feishu.cn/document/home/develop-a-bot-in-5-minutes/create-an-app)
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat/list
 func (r *ChatService) GetChatListOfSelf(ctx context.Context, request *GetChatListOfSelfReq, options ...MethodOptionFunc) (*GetChatListOfSelfResp, *Response, error) {

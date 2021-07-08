@@ -9,7 +9,7 @@ import (
 // DeleteMessage 机器人撤回机器人自己发送的消息或群主撤回群内消息。
 //
 // 注意事项:
-// - 需要开启[机器人能力](https://open.feishu.cn/document/uQjL04CN/uYTMuYTMuYTM)  ，撤回消息时机器人仍需要在会话内
+// - 需要开启[机器人能力](https://open.feishu.cn/document/home/develop-a-bot-in-5-minutes/create-an-app)  ，撤回消息时机器人仍需要在会话内
 // - 机器人可以撤回单聊和群组内，自己发送 且 发送时间不超过1天(24小时)的消息
 // - 若机器人要撤回群内他人发送的消息，则机器人必须是该群的群主 或者 得到群主的授权，且消息发送时间不超过1天（24小时）
 // - 无法撤回通过「批量发送消息接口」发送的消息

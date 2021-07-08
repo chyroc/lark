@@ -9,7 +9,7 @@ import (
 // AddChatMember 将用户或机器人拉入群聊。
 //
 // 注意事项：
-// - 应用需要开启[机器人能力](https://open.feishu.cn/document/uQjL04CN/uYTMuYTMuYTM)
+// - 应用需要开启[机器人能力](https://open.feishu.cn/document/home/develop-a-bot-in-5-minutes/create-an-app)
 // - 如需拉用户进群，需要机器人对用户有可见性
 // - 在开启[仅群主可添加群成员]的设置时，仅有群主 或 创建群组且具备[更新应用所创建群的群信息]权限的机器人，可以拉用户或者机器人进群
 // - 在未开启[仅群主可添加群成员]的设置时，所有群成员都可以拉用户或机器人进群

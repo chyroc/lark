@@ -9,7 +9,7 @@ import (
 // UpdateChat 更新群头像、群名称、群描述、群配置、转让群主等。
 //
 // 注意事项：
-// - 应用需要开启[机器人能力](https://open.feishu.cn/document/uQjL04CN/uYTMuYTMuYTM)
+// - 应用需要开启[机器人能力](https://open.feishu.cn/document/home/develop-a-bot-in-5-minutes/create-an-app)
 // - 若群未开启[仅群主可编辑群信息] 配置：
 // - 群主 或 创建群组且具备[更新应用所创建群的群信息]权限的机器人，可更新所有信息
 // - 不满足上述条件的群成员或机器人，仅可更新群头像、群名称、群描述、群国际化名称信息

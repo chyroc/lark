@@ -9,7 +9,7 @@ import (
 // GetMessageReadUserList 查询消息的已读用户信息。
 //
 // 注意事项:
-// - 需要开启[机器人能力](https://open.feishu.cn/document/uQjL04CN/uYTMuYTMuYTM)
+// - 需要开启[机器人能力](https://open.feishu.cn/document/home/develop-a-bot-in-5-minutes/create-an-app)
 // - 只能查询机器人自己发送，且发送时间不超过7天的消息
 // - 查询消息已读信息时机器人仍需要在会话内
 //

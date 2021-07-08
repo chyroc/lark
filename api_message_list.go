@@ -9,7 +9,7 @@ import (
 // GetMessageList 获取会话（包括单聊、群组）的历史消息。
 //
 // 注意事项:
-// - 需要开启[机器人能力](https://open.feishu.cn/document/uQjL04CN/uYTMuYTMuYTM)
+// - 需要开启[机器人能力](https://open.feishu.cn/document/home/develop-a-bot-in-5-minutes/create-an-app)
 // - 获取消息时，机器人必须在群组中
 // - 获取群组消息时，应用必须拥有 获取群组中所有的消息 权限
 //

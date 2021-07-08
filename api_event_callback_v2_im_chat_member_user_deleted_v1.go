@@ -10,7 +10,7 @@ import (
 //
 // 用户主动退群或被移出群聊时推送事件。{使用示例}(url=/api/tools/api_explore/api_explore_config?project=im&version=v1&resource=chat.member.user&event=deleted)
 // 注意事项：
-// - 应用需要开启[机器人能力](https://open.feishu.cn/document/uQjL04CN/uYTMuYTMuYTM)并且机器人所在群发生上述变化
+// - 应用需要开启[机器人能力](https://open.feishu.cn/document/home/develop-a-bot-in-5-minutes/create-an-app)并且机器人所在群发生上述变化
 // - 机器人需要订阅 [即时通讯] 分类下的 [用户主动退群或被移出群聊] 事件
 // - 事件会向群内订阅了该事件的机器人进行推送
 //

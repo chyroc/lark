@@ -10,7 +10,7 @@ import (
 // DownloadImage 下载图片资源，只能下载应用自己上传且图片类型为message的图片
 //
 // 注意事项:
-// - 需要开启[机器人能力](https://open.feishu.cn/document/uQjL04CN/uYTMuYTMuYTM)
+// - 需要开启[机器人能力](https://open.feishu.cn/document/home/develop-a-bot-in-5-minutes/create-an-app)
 // - 只能下载机器人自己上传且图片类型为message的图片，avatar类型暂不支持下载；
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/image/get

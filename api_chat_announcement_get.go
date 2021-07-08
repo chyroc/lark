@@ -9,7 +9,7 @@ import (
 // GetChatAnnouncement 获取会话中的群公告信息，公告信息格式与[云文档](https://open.feishu.cn/document/ukTMukTMukTM/uAzM5YjLwMTO24CMzkjN)格式相同。
 //
 // 注意事项：
-// - 应用需要开启[机器人能力](https://open.feishu.cn/document/uQjL04CN/uYTMuYTMuYTM)
+// - 应用需要开启[机器人能力](https://open.feishu.cn/document/home/develop-a-bot-in-5-minutes/create-an-app)
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-announcement/get
 func (r *ChatService) GetChatAnnouncement(ctx context.Context, request *GetChatAnnouncementReq, options ...MethodOptionFunc) (*GetChatAnnouncementResp, *Response, error) {

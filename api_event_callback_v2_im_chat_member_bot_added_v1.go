@@ -10,7 +10,7 @@ import (
 //
 // 机器人被添加至群聊时触发此事件。{使用示例}(url=/api/tools/api_explore/api_explore_config?project=im&version=v1&resource=chat.member.bot&event=added)
 // 注意事项：
-// - 需要开启[机器人能力](https://open.feishu.cn/document/uQjL04CN/uYTMuYTMuYTM)
+// - 需要开启[机器人能力](https://open.feishu.cn/document/home/develop-a-bot-in-5-minutes/create-an-app)
 // - 需要订阅 [即时通讯] 分类下的 [机器人进群] 事件
 // - 事件会向进群的机器人进行推送
 //

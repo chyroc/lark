@@ -12,7 +12,7 @@ import (
 // - 用户或机器人所在的群
 // - 对用户或机器人公开的群
 // 注意事项：
-// - 应用需要开启[机器人能力](https://open.feishu.cn/document/uQjL04CN/uYTMuYTMuYTM)
+// - 应用需要开启[机器人能力](https://open.feishu.cn/document/home/develop-a-bot-in-5-minutes/create-an-app)
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat/search
 func (r *ChatService) SearchChat(ctx context.Context, request *SearchChatReq, options ...MethodOptionFunc) (*SearchChatResp, *Response, error) {

@@ -10,7 +10,7 @@ import (
 // UploadImage 上传图片接口，可以上传 JPEG、PNG、WEBP 格式图片
 //
 // 注意事项:
-// - 需要开启[机器人能力](https://open.feishu.cn/document/uQjL04CN/uYTMuYTMuYTM)
+// - 需要开启[机器人能力](https://open.feishu.cn/document/home/develop-a-bot-in-5-minutes/create-an-app)
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/image/create
 func (r *FileService) UploadImage(ctx context.Context, request *UploadImageReq, options ...MethodOptionFunc) (*UploadImageResp, *Response, error) {

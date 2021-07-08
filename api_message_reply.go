@@ -9,7 +9,7 @@ import (
 // ReplyRawMessage 回复指定消息，支持文本、富文本、卡片、群名片、个人名片、图片、视频、文件等多种消息类型。
 //
 // 注意事项:
-// - 需要开启[机器人能力](https://open.feishu.cn/document/uQjL04CN/uYTMuYTMuYTM)
+// - 需要开启[机器人能力](https://open.feishu.cn/document/home/develop-a-bot-in-5-minutes/create-an-app)
 // - 回复私聊消息，需要机器人对用户有可见性
 // - 回复群组消息，需要机器人在群中
 //
