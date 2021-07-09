@@ -6,7 +6,7 @@ import (
 	"context"
 )
 
-// GetDriveCommentList 通过分页方式获取云文档中的评论列表。
+// GetDriveCommentList 通过分页方式获取云文档中的全文评论列表。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file-comment/list
 func (r *DriveService) GetDriveCommentList(ctx context.Context, request *GetDriveCommentListReq, options ...MethodOptionFunc) (*GetDriveCommentListResp, *Response, error) {

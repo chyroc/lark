@@ -41,7 +41,7 @@ func (r *Mock) UnMockDriveTransferDriveMemberPermission() {
 
 type TransferDriveMemberPermissionReq struct {
 	Token          string                                 `json:"token,omitempty"`            // 文件的 token，获取方式见 [对接前说明](https://open.feishu.cn/document/ukTMukTMukTM/uczNzUjL3czM14yN3MTN)的第 4 项
-	Type           string                                 `json:"type,omitempty"`             // 文档类型  "doc"  or  "sheet" or "file"
+	Type           string                                 `json:"type,omitempty"`             // 文档类型  "doc"  or  "sheet" or "bitable"  or "file"
 	Owner          *TransferDriveMemberPermissionReqOwner `json:"owner,omitempty"`            // 要转移到的新的文档所有者
 	RemoveOldOwner *bool                                  `json:"remove_old_owner,omitempty"` // true 为转移后删除旧 owner 的权限，默认为false
 	CancelNotify   *bool                                  `json:"cancel_notify,omitempty"`    // true为不通知新owner，默认为false

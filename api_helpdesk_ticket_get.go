@@ -72,34 +72,40 @@ type GetHelpdeskTicketRespTicket struct {
 	AgentServiceDuration       float64                                       `json:"agent_service_duration,omitempty"`        // 客服服务时长minutes
 	AgentFirstResponseDuration int64                                         `json:"agent_first_response_duration,omitempty"` // 客服第一反应时间 seconds
 	BotServiceDuration         int64                                         `json:"bot_service_duration,omitempty"`          // 机器人服务时长 seconds
+	AgentResolutionTime        int64                                         `json:"agent_resolution_time,omitempty"`         // 解决时长(秒)
+	ActualProcessingTime       int64                                         `json:"actual_processing_time,omitempty"`        // 处理时长(秒)
 }
 
 type GetHelpdeskTicketRespTicketGuest struct {
-	ID        string `json:"id,omitempty"`         // 用户ID
-	AvatarURL string `json:"avatar_url,omitempty"` // 用户头像url
-	Name      string `json:"name,omitempty"`       // 用户名
-	Email     string `json:"email,omitempty"`      // 用户邮箱
+	ID         string `json:"id,omitempty"`         // 用户ID
+	AvatarURL  string `json:"avatar_url,omitempty"` // 用户头像url
+	Name       string `json:"name,omitempty"`       // 用户名
+	Email      string `json:"email,omitempty"`      // 用户邮箱
+	Department string `json:"department,omitempty"` // 所在部门名称
 }
 
 type GetHelpdeskTicketRespTicketAgent struct {
-	ID        string `json:"id,omitempty"`         // 用户ID
-	AvatarURL string `json:"avatar_url,omitempty"` // 用户头像url
-	Name      string `json:"name,omitempty"`       // 用户名
-	Email     string `json:"email,omitempty"`      // 用户邮箱
+	ID         string `json:"id,omitempty"`         // 用户ID
+	AvatarURL  string `json:"avatar_url,omitempty"` // 用户头像url
+	Name       string `json:"name,omitempty"`       // 用户名
+	Email      string `json:"email,omitempty"`      // 用户邮箱
+	Department string `json:"department,omitempty"` // 所在部门名称
 }
 
 type GetHelpdeskTicketRespTicketClosedBy struct {
-	ID        string `json:"id,omitempty"`         // 用户ID
-	AvatarURL string `json:"avatar_url,omitempty"` // 用户头像url
-	Name      string `json:"name,omitempty"`       // 用户名
-	Email     string `json:"email,omitempty"`      // 用户邮箱
+	ID         string `json:"id,omitempty"`         // 用户ID
+	AvatarURL  string `json:"avatar_url,omitempty"` // 用户头像url
+	Name       string `json:"name,omitempty"`       // 用户名
+	Email      string `json:"email,omitempty"`      // 用户邮箱
+	Department string `json:"department,omitempty"` // 所在部门名称
 }
 
 type GetHelpdeskTicketRespTicketCollaborator struct {
-	ID        string `json:"id,omitempty"`         // 用户ID
-	AvatarURL string `json:"avatar_url,omitempty"` // 用户头像url
-	Name      string `json:"name,omitempty"`       // 用户名
-	Email     string `json:"email,omitempty"`      // 用户邮箱
+	ID         string `json:"id,omitempty"`         // 用户ID
+	AvatarURL  string `json:"avatar_url,omitempty"` // 用户头像url
+	Name       string `json:"name,omitempty"`       // 用户名
+	Email      string `json:"email,omitempty"`      // 用户邮箱
+	Department string `json:"department,omitempty"` // 所在部门名称
 }
 
 type GetHelpdeskTicketRespTicketCustomizedField struct {
