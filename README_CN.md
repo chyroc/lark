@@ -35,7 +35,7 @@ https://godoc.org/github.com/chyroc/lark
 
 ## 支持的接口
 
-API 总数: 361, 事件总数: 29
+API 总数: 363, 事件总数: 29
 
 <details>
   <summary>
@@ -66,6 +66,7 @@ API 总数: 361, 事件总数: 29
   - DeleteDepartment
 - Message
   - SendRawMessage
+  - SendRawMessageOld
   - ReplyRawMessage
   - DeleteMessage
   - UpdateMessage
@@ -130,6 +131,7 @@ API 总数: 361, 事件总数: 29
   - GetDriveFolderMeta
   - GetDriveRootFolderMeta
   - GetDriveFolderChildren
+  - UploadDriveFile
   - CreateDriveMemberPermission
   - TransferDriveMemberPermission
   - UpdateDrivePublicPermission

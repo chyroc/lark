@@ -12,7 +12,7 @@ import (
 
 func Test_Bitable(t *testing.T) {
 	as := assert.New(t)
-	cli := AppALLPermission.Ins()
+	cli := AppAllPermission.Ins()
 
 	appToken := "bascn9T22ch7O8cfAuEza3Zv2tb"
 	tableID := "tbly5aRriIYOT5SM"

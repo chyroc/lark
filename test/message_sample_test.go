@@ -28,6 +28,12 @@ func Test_Message_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.SendRawMessageOld(ctx, &lark.SendRawMessageOldReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "failed")
+		})
+
+		t.Run("", func(t *testing.T) {
 			_, _, err := moduleCli.ReplyRawMessage(ctx, &lark.ReplyRawMessageReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "failed")
@@ -87,6 +93,17 @@ func Test_Message_Sample_Failed(t *testing.T) {
 			defer cli.Mock().UnMockMessageSendRawMessage()
 
 			_, _, err := moduleCli.SendRawMessage(ctx, &lark.SendRawMessageReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+			cli.Mock().MockMessageSendRawMessageOld(func(ctx context.Context, request *lark.SendRawMessageOldReq, options ...lark.MethodOptionFunc) (*lark.SendRawMessageOldResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockMessageSendRawMessageOld()
+
+			_, _, err := moduleCli.SendRawMessageOld(ctx, &lark.SendRawMessageOldReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "mock-failed")
 		})
@@ -191,6 +208,12 @@ func Test_Message_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.SendRawMessageOld(ctx, &lark.SendRawMessageOldReq{})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
 			_, _, err := moduleCli.ReplyRawMessage(ctx, &lark.ReplyRawMessageReq{
 				MessageID: "x",
 			})
@@ -261,6 +284,12 @@ func Test_Message_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 			_, _, err := moduleCli.SendRawMessage(ctx, &lark.SendRawMessageReq{})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.SendRawMessageOld(ctx, &lark.SendRawMessageOldReq{})
 			as.NotNil(err)
 			as.Equal("fake raw request", err.Error())
 		})

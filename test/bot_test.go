@@ -14,7 +14,7 @@ func Test_Bot(t *testing.T) {
 	as := assert.New(t)
 
 	t.Run("", func(t *testing.T) {
-		resp, _, err := AppALLPermission.Ins().Bot.GetBotInfo(ctx, &lark.GetBotInfoReq{})
+		resp, _, err := AppAllPermission.Ins().Bot.GetBotInfo(ctx, &lark.GetBotInfoReq{})
 		bs, _ := json.Marshal(resp)
 		fmt.Println(string(bs))
 		// printData(resp, err)

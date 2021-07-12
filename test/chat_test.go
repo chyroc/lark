@@ -20,7 +20,7 @@ func Test_CreateChat(t *testing.T) {
 
 	t.Run("CreateChat, AddMember, GetMemberList, DeleteMember, DeleteChat", func(t *testing.T) {
 		cli := lark.New(
-			lark.WithAppCredential(AppALLPermission.AppID, AppALLPermission.AppSecret),
+			lark.WithAppCredential(AppAllPermission.AppID, AppAllPermission.AppSecret),
 			lark.WithTimeout(time.Second*20),
 		)
 
@@ -77,7 +77,7 @@ func Test_Chat_member(t *testing.T) {
 	as := assert.New(t)
 
 	t.Run("", func(t *testing.T) {
-		resp, _, err := AppALLPermission.Ins().Chat.IsInChat(ctx, &lark.IsInChatReq{
+		resp, _, err := AppAllPermission.Ins().Chat.IsInChat(ctx, &lark.IsInChatReq{
 			ChatID: ChatContainALLPermissionApp.ChatID,
 		})
 		printData("IsInChat", resp, err)
@@ -86,7 +86,7 @@ func Test_Chat_member(t *testing.T) {
 	})
 
 	t.Run("", func(t *testing.T) {
-		resp, _, err := AppALLPermission.Ins().Chat.IsInChat(ctx, &lark.IsInChatReq{
+		resp, _, err := AppAllPermission.Ins().Chat.IsInChat(ctx, &lark.IsInChatReq{
 			ChatID: ChatNotContainALLPermissionApp.ChatID,
 		})
 		printData("IsInChat", resp, err)
@@ -99,7 +99,7 @@ func Test_GetChat(t *testing.T) {
 	as := assert.New(t)
 
 	t.Run("SearchChat, success", func(t *testing.T) {
-		resp, _, err := AppALLPermission.Ins().Chat.GetChat(ctx, &lark.GetChatReq{
+		resp, _, err := AppAllPermission.Ins().Chat.GetChat(ctx, &lark.GetChatReq{
 			ChatID: ChatContainALLPermissionApp.ChatID,
 		})
 		printData(resp, err)
@@ -111,7 +111,7 @@ func Test_GetChat(t *testing.T) {
 	})
 
 	t.Run("", func(t *testing.T) {
-		resp, _, err := AppALLPermission.Ins().Chat.UpdateChat(ctx, &lark.UpdateChatReq{
+		resp, _, err := AppAllPermission.Ins().Chat.UpdateChat(ctx, &lark.UpdateChatReq{
 			ChatID: ChatContainALLPermissionApp.ChatID,
 			Name:   ptr.String("包含「lark-sdk」的群 " + strconv.FormatInt(randInt64(), 10)),
 		})
@@ -120,7 +120,7 @@ func Test_GetChat(t *testing.T) {
 	})
 
 	t.Run("GetChatListOfSelf, success", func(t *testing.T) {
-		resp, _, err := AppALLPermission.Ins().Chat.GetChatListOfSelf(ctx, &lark.GetChatListOfSelfReq{
+		resp, _, err := AppAllPermission.Ins().Chat.GetChatListOfSelf(ctx, &lark.GetChatListOfSelfReq{
 			UserIDType: lark.IDTypePtr(lark.IDTypeOpenID),
 		})
 		as.Nil(err)
@@ -135,7 +135,7 @@ func Test_GetChat(t *testing.T) {
 	})
 
 	t.Run("SearchChat, success", func(t *testing.T) {
-		resp, _, err := AppALLPermission.Ins().Chat.SearchChat(ctx, &lark.SearchChatReq{
+		resp, _, err := AppAllPermission.Ins().Chat.SearchChat(ctx, &lark.SearchChatReq{
 			Query: ptr.String("lark-sdk"),
 		})
 		as.Nil(err)
@@ -154,7 +154,7 @@ func Test_ChatAnnouncement(t *testing.T) {
 	as := assert.New(t)
 
 	t.Run("GetAnnouncement, all-permission", func(t *testing.T) {
-		resp, _, err := AppALLPermission.Ins().Chat.GetChatAnnouncement(ctx, &lark.GetChatAnnouncementReq{
+		resp, _, err := AppAllPermission.Ins().Chat.GetChatAnnouncement(ctx, &lark.GetChatAnnouncementReq{
 			ChatID: ChatContainALLPermissionApp.ChatID,
 		})
 		printData(resp, err)

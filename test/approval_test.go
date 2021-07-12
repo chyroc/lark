@@ -14,7 +14,7 @@ import (
 func Test_GetApproval(t *testing.T) {
 	as := assert.New(t)
 
-	cli := AppALLPermission.Ins()
+	cli := AppAllPermission.Ins()
 
 	resp, _, err := cli.Approval.GetApproval(ctx, &lark.GetApprovalReq{
 		ApprovalCode: ApprovalALLField.Code,
@@ -113,7 +113,7 @@ func Test_UnmarshalGetApprovalInstance(t *testing.T) {
 func Test_Create_CancelApproval(t *testing.T) {
 	as := assert.New(t)
 
-	cli := AppALLPermission.Ins()
+	cli := AppAllPermission.Ins()
 
 	t.Run("cancel", func(t *testing.T) {
 		instanceCode, _ := testCreateApproval(t, cli, ApprovalALLField.Code, UserAdmin.UserID)

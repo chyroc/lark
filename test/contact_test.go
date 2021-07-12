@@ -12,7 +12,7 @@ import (
 func Test_Contact_Failed(t *testing.T) {
 	as := assert.New(t)
 
-	cli := AppALLPermission.Ins()
+	cli := AppAllPermission.Ins()
 	moduleCli := cli.Contact
 
 	t.Run("get-user", func(t *testing.T) {
@@ -65,7 +65,7 @@ func Test_Contact_Failed(t *testing.T) {
 				PageToken:        nil,
 				PageSize:         nil,
 				Query:            "lark-sdk",
-			}, lark.WithUserAccessToken(UserAdmin.AccessToken[AppALLPermission.AppID]))
+			}, lark.WithUserAccessToken(UserAdmin.AccessToken[AppAllPermission.AppID]))
 			as.Nil(err)
 			as.NotNil(resp)
 			printData(resp)

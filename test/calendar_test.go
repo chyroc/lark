@@ -14,7 +14,7 @@ func Test_CalendarACL_Failed(t *testing.T) {
 	as := assert.New(t)
 
 	t.Run("request failed", func(t *testing.T) {
-		cli := AppALLPermission.Ins()
+		cli := AppAllPermission.Ins()
 		cli.Mock().MockGetTenantAccessToken(mockGetTenantAccessTokenFailed)
 		moduleCli := cli.Calendar
 
@@ -86,7 +86,7 @@ func Test_CalendarEventAttendee_Failed(t *testing.T) {
 	as := assert.New(t)
 
 	t.Run("request failed", func(t *testing.T) {
-		cli := AppALLPermission.Ins()
+		cli := AppAllPermission.Ins()
 		cli.Mock().MockGetTenantAccessToken(mockGetTenantAccessTokenFailed)
 		moduleCli := cli.Calendar
 
@@ -144,7 +144,7 @@ func Test_CalendarEventAttendee_Failed(t *testing.T) {
 
 func Test_Calendar(t *testing.T) {
 	as := assert.New(t)
-	moduleCli := AppALLPermission.Ins().Calendar
+	moduleCli := AppAllPermission.Ins().Calendar
 
 	t.Run("", func(t *testing.T) {
 		calendarID := ""
@@ -215,7 +215,7 @@ func Test_Calendar(t *testing.T) {
 
 func Test_CalendarEvent(t *testing.T) {
 	as := assert.New(t)
-	moduleCli := AppALLPermission.Ins().Calendar
+	moduleCli := AppAllPermission.Ins().Calendar
 
 	t.Run("", func(t *testing.T) {
 		calendarID := ""
@@ -306,7 +306,7 @@ func Test_CalendarEvent(t *testing.T) {
 
 func Test_CalendarACL(t *testing.T) {
 	as := assert.New(t)
-	moduleCli := AppALLPermission.Ins().Calendar
+	moduleCli := AppAllPermission.Ins().Calendar
 
 	t.Run("", func(t *testing.T) {
 		calendarID := ""

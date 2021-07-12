@@ -19,7 +19,7 @@ func Test_GetMessage(t *testing.T) {
 	msgIDs := []string{}
 	defer func() {
 		for _, v := range msgIDs {
-			_, _, _ = AppALLPermission.Ins().Message.DeleteMessage(ctx, &lark.DeleteMessageReq{MessageID: v})
+			_, _, _ = AppAllPermission.Ins().Message.DeleteMessage(ctx, &lark.DeleteMessageReq{MessageID: v})
 		}
 	}()
 
@@ -27,7 +27,7 @@ func Test_GetMessage(t *testing.T) {
 		t.Run("raw", func(t *testing.T) {
 			messageID := ""
 			{
-				resp, _, err := AppALLPermission.Ins().Message.SendRawMessage(ctx, &lark.SendRawMessageReq{
+				resp, _, err := AppAllPermission.Ins().Message.SendRawMessage(ctx, &lark.SendRawMessageReq{
 					ReceiveIDType: lark.IDTypeChatID,
 					ReceiveID:     ptr.String(ChatForSendMessage.ChatID),
 					Content:       fmt.Sprintf(`{"text":"%d"}`, time.Now().Unix()),
@@ -38,7 +38,7 @@ func Test_GetMessage(t *testing.T) {
 			}
 
 			{
-				resp, _, err := AppALLPermission.Ins().Message.ReplyRawMessage(ctx, &lark.ReplyRawMessageReq{
+				resp, _, err := AppAllPermission.Ins().Message.ReplyRawMessage(ctx, &lark.ReplyRawMessageReq{
 					MessageID: messageID,
 					Content:   fmt.Sprintf(`{"text":"reply-%d"}`, time.Now().Unix()),
 					MsgType:   lark.MsgTypeText,
@@ -48,7 +48,7 @@ func Test_GetMessage(t *testing.T) {
 			}
 
 			{
-				_, _, err := AppALLPermission.Ins().Message.DeleteMessage(ctx, &lark.DeleteMessageReq{
+				_, _, err := AppAllPermission.Ins().Message.DeleteMessage(ctx, &lark.DeleteMessageReq{
 					MessageID: messageID,
 				})
 				as.Nil(err)
@@ -58,28 +58,28 @@ func Test_GetMessage(t *testing.T) {
 		t.Run("", func(t *testing.T) {
 			messageID := ""
 			{
-				resp, _, err := AppALLPermission.Ins().Message.Send().ToChatID(ChatForSendMessage.ChatID).SendText(ctx, strconv.FormatInt(time.Now().Unix(), 10))
+				resp, _, err := AppAllPermission.Ins().Message.Send().ToChatID(ChatForSendMessage.ChatID).SendText(ctx, strconv.FormatInt(time.Now().Unix(), 10))
 				as.Nil(err)
 				messageID = resp.MessageID
 				msgIDs = append(msgIDs, messageID)
 			}
 
 			t.Run("text", func(t *testing.T) {
-				resp, _, err := AppALLPermission.Ins().Message.Reply(messageID).SendText(ctx, strconv.FormatInt(time.Now().Unix(), 10))
+				resp, _, err := AppAllPermission.Ins().Message.Reply(messageID).SendText(ctx, strconv.FormatInt(time.Now().Unix(), 10))
 				as.Nil(err)
 				msgIDs = append(msgIDs, resp.MessageID)
 			})
 
 			// 这个图，竟然报：The content of the message contains sensitive information.，暂时不测这个
 			t.Run("image", func(t *testing.T) {
-				// _, _, err := AppALLPermission.Ins().Message().Reply(messageID).SendImage(ctx, File1.Key)
+				// _, _, err := AppAllPermission.Ins().Message().Reply(messageID).SendImage(ctx, File1.Key)
 				// as.Nil(err)
 				// msgIDs= append(msgIDs, resp.MessageID)
 			})
 
 			t.Run("post-1", func(t *testing.T) {
 				s := `{"zh_cn": {"title": "我是一个标题","content": [[{"tag": "text","text": "文本"}]]}}`
-				resp, _, err := AppALLPermission.Ins().Message.Reply(messageID).SendPost(ctx, s)
+				resp, _, err := AppAllPermission.Ins().Message.Reply(messageID).SendPost(ctx, s)
 				as.Nil(err)
 				msgIDs = append(msgIDs, resp.MessageID)
 			})
@@ -102,32 +102,32 @@ func Test_GetMessage(t *testing.T) {
 						},
 					},
 				}
-				resp, _, err := AppALLPermission.Ins().Message.Reply(messageID).SendPost(ctx, s2.String())
+				resp, _, err := AppAllPermission.Ins().Message.Reply(messageID).SendPost(ctx, s2.String())
 				as.Nil(err)
 				msgIDs = append(msgIDs, resp.MessageID)
 			})
 
 			t.Run("card", func(t *testing.T) {
 				s := `{"config": { "wide_screen_mode": true },"i18n_elements": {"zh_cn": [{"tag": "div","text": { "tag": "lark_md", "content": "文本"}}]}}`
-				resp, _, err := AppALLPermission.Ins().Message.Reply(messageID).SendCard(ctx, s)
+				resp, _, err := AppAllPermission.Ins().Message.Reply(messageID).SendCard(ctx, s)
 				as.Nil(err)
 				msgIDs = append(msgIDs, resp.MessageID)
 			})
 
 			t.Run("file", func(t *testing.T) {
-				resp, _, err := AppALLPermission.Ins().Message.Reply(messageID).SendFile(ctx, File2.Key)
+				resp, _, err := AppAllPermission.Ins().Message.Reply(messageID).SendFile(ctx, File2.Key)
 				as.Nil(err)
 				msgIDs = append(msgIDs, resp.MessageID)
 			})
 
 			t.Run("chat", func(t *testing.T) {
-				resp, _, err := AppALLPermission.Ins().Message.Reply(messageID).SendShareChat(ctx, ChatForSendMessage.ChatID)
+				resp, _, err := AppAllPermission.Ins().Message.Reply(messageID).SendShareChat(ctx, ChatForSendMessage.ChatID)
 				as.Nil(err)
 				msgIDs = append(msgIDs, resp.MessageID)
 			})
 
 			t.Run("user", func(t *testing.T) {
-				resp, _, err := AppALLPermission.Ins().Message.Reply(messageID).SendShareUser(ctx, UserAdmin.OpenID)
+				resp, _, err := AppAllPermission.Ins().Message.Reply(messageID).SendShareUser(ctx, UserAdmin.OpenID)
 				as.Nil(err)
 				msgIDs = append(msgIDs, resp.MessageID)
 			})
@@ -135,7 +135,7 @@ func Test_GetMessage(t *testing.T) {
 	})
 
 	t.Run("get-message-read", func(t *testing.T) {
-		resp, _, err := AppALLPermission.Ins().Message.GetMessageReadUserList(ctx, &lark.GetMessageReadUserListReq{
+		resp, _, err := AppAllPermission.Ins().Message.GetMessageReadUserList(ctx, &lark.GetMessageReadUserListReq{
 			UserIDType: lark.IDTypeUserID,
 			MessageID:  MessageAdminSendTextInChatContainAllPermissionApp.MessageID,
 		})
@@ -145,7 +145,7 @@ func Test_GetMessage(t *testing.T) {
 	})
 
 	t.Run("get-message-read", func(t *testing.T) {
-		// resp, _, err := AppALLPermission.Ins().Message().GetMessageRead(ctx, &lark.GetMessageReadReq{
+		// resp, _, err := AppAllPermission.Ins().Message().GetMessageRead(ctx, &lark.GetMessageReadReq{
 		// 	UserIDType: lark.IDTypeUserID,
 		// 	MessageID: MessageAdminSendTextInChatContainAllPermissionApp.MessageID,
 		// })
@@ -155,7 +155,7 @@ func Test_GetMessage(t *testing.T) {
 	})
 
 	t.Run("get-message-text", func(t *testing.T) {
-		resp, _, err := AppALLPermission.Ins().Message.GetMessage(ctx, &lark.GetMessageReq{
+		resp, _, err := AppAllPermission.Ins().Message.GetMessage(ctx, &lark.GetMessageReq{
 			MessageID: MessageAdminSendTextInChatContainAllPermissionApp.MessageID,
 		})
 		printData(resp, err)
@@ -172,7 +172,7 @@ func Test_GetMessage(t *testing.T) {
 	t.Run("get-message-image", func(t *testing.T) {
 		messageFile := ""
 		{
-			resp, _, err := AppALLPermission.Ins().Message.GetMessage(ctx, &lark.GetMessageReq{
+			resp, _, err := AppAllPermission.Ins().Message.GetMessage(ctx, &lark.GetMessageReq{
 				MessageID: MessageAdminSendImageInChatContainAllPermissionApp.MessageID,
 			})
 			printData(resp, err)
@@ -188,7 +188,7 @@ func Test_GetMessage(t *testing.T) {
 		}
 
 		{
-			resp, _, err := AppALLPermission.Ins().Message.GetMessageFile(ctx, &lark.GetMessageFileReq{
+			resp, _, err := AppAllPermission.Ins().Message.GetMessageFile(ctx, &lark.GetMessageFileReq{
 				Type:      "image",
 				MessageID: MessageAdminSendImageInChatContainAllPermissionApp.MessageID,
 				FileKey:   messageFile,
@@ -202,7 +202,7 @@ func Test_GetMessage(t *testing.T) {
 	})
 
 	t.Run("get-message-list", func(t *testing.T) {
-		resp, _, err := AppALLPermission.Ins().Message.GetMessageList(ctx, &lark.GetMessageListReq{
+		resp, _, err := AppAllPermission.Ins().Message.GetMessageList(ctx, &lark.GetMessageListReq{
 			ContainerIDType: lark.ContainerIDTypeChat,
 			ContainerID:     ChatContainALLPermissionApp.ChatID,
 			StartTime:       nil,

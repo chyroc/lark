@@ -12,7 +12,7 @@ import (
 func Test_AI(t *testing.T) {
 	as := assert.New(t)
 
-	cli := AppALLPermission.Ins()
+	cli := AppAllPermission.Ins()
 	moduleCli := cli.AI
 
 	t.Run("", func(t *testing.T) {

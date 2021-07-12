@@ -13,9 +13,9 @@ func Test_Auth(t *testing.T) {
 	as := assert.New(t)
 
 	if IsInCI() {
-		cli := AppALLPermission.Ins()
+		cli := AppAllPermission.Ins()
 
-		resp, _, err := cli.Auth.GetUserInfo(ctx, &lark.GetUserInfoReq{}, lark.WithUserAccessToken(UserAdmin.AccessToken[AppALLPermission.AppID]))
+		resp, _, err := cli.Auth.GetUserInfo(ctx, &lark.GetUserInfoReq{}, lark.WithUserAccessToken(UserAdmin.AccessToken[AppAllPermission.AppID]))
 		as.Nil(err)
 		as.NotNil(resp)
 		as.Equal(UserAdmin.OpenID, resp.OpenID)
@@ -24,11 +24,11 @@ func Test_Auth(t *testing.T) {
 }
 
 func Test_GenOauth(t *testing.T) {
-	fmt.Println(AppALLPermission.Ins().Auth.GenOAuthURL(ctx, &lark.GenOAuthURLReq{
+	fmt.Println(AppAllPermission.Ins().Auth.GenOAuthURL(ctx, &lark.GenOAuthURLReq{
 		RedirectURI: "http://127.0.0.1:5000/",
 		State:       "",
 	}))
 
 	return
-	// AppALLPermission.Ins().Auth.GetAccessToken(ctx,&lark.)
+	// AppAllPermission.Ins().Auth.GetAccessToken(ctx,&lark.)
 }

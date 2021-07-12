@@ -11,7 +11,7 @@ import (
 
 func Test_ContactUserUpdatedV3(t *testing.T) {
 	as := assert.New(t)
-	cli := AppALLPermission.Ins()
+	cli := AppAllPermission.Ins()
 
 	t.Run("", func(t *testing.T) {
 		cli.EventCallback.HandlerEventV2ContactUserUpdatedV3(func(ctx context.Context, cli *lark.Lark, schema string, header *lark.EventHeaderV2, event *lark.EventV2ContactUserUpdatedV3) (string, error) {
