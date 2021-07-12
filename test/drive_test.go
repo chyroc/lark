@@ -2,7 +2,9 @@ package test
 
 import (
 	"bytes"
+	"hash/adler32"
 	"io/ioutil"
+	"strconv"
 	"testing"
 
 	"github.com/chyroc/lark"
@@ -26,16 +28,18 @@ func Test_DriveFile(t *testing.T) {
 	}
 
 	{
+		x := adler32.New()
+		x.Write(bs)
 		resp, _, err := AppAllPermission.Ins().Drive.UploadDriveFile(ctx, &lark.UploadDriveFileReq{
 			FileName:   filename,
 			ParentType: "explorer",
 			ParentNode: token,
 			Size:       int64(len(bs)),
-			Checksum:   "",
+			Checksum:   strconv.FormatInt(int64(x.Sum32()), 10),
 			File:       bytes.NewReader(bs),
 		})
-		printData(resp)
-		printData(err)
 		as.Nil(err)
+		as.NotNil(resp)
+		as.NotEmpty(resp.FileToken)
 	}
 }
