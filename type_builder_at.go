@@ -8,7 +8,7 @@ var AtBuilder atBuilder
 
 type atBuilder string
 
-func (r atBuilder) AtALL() string {
+func (r atBuilder) AtAll() string {
 	return `<at user_id="all"></at>`
 }
 

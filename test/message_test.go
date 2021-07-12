@@ -85,7 +85,7 @@ func Test_GetMessage(t *testing.T) {
 			})
 
 			t.Run("post-2", func(t *testing.T) {
-				s2 := lark.MessageContentPostALL{
+				s2 := lark.MessageContentPostAll{
 					ZhCn: &lark.MessageContentPost{
 						Title: "标题",
 						Content: [][]lark.MessageContentPostItem{
@@ -228,7 +228,7 @@ func Test_SendCustomBotMessage(t *testing.T) {
 		})
 
 		t.Run("post", func(t *testing.T) {
-			post := lark.MessageContentPostALL{
+			post := lark.MessageContentPostAll{
 				ZhCn: &lark.MessageContentPost{
 					Title: "title",
 					Content: [][]lark.MessageContentPostItem{
@@ -298,7 +298,7 @@ func Test_SendCustomBotMessage(t *testing.T) {
 		})
 
 		t.Run("post", func(t *testing.T) {
-			post := lark.MessageContentPostALL{
+			post := lark.MessageContentPostAll{
 				ZhCn: &lark.MessageContentPost{
 					Title: "title",
 					Content: [][]lark.MessageContentPostItem{
@@ -317,7 +317,7 @@ func Test_SendCustomBotMessage(t *testing.T) {
 		})
 
 		t.Run("post", func(t *testing.T) {
-			post := lark.MessageContentPostALL{
+			post := lark.MessageContentPostAll{
 				ZhCn: &lark.MessageContentPost{
 					Title: "title",
 					Content: [][]lark.MessageContentPostItem{
@@ -411,7 +411,7 @@ func Test_SendCustomBotMessage(t *testing.T) {
 		})
 
 		t.Run("post", func(t *testing.T) {
-			post := lark.MessageContentPostALL{
+			post := lark.MessageContentPostAll{
 				ZhCn: &lark.MessageContentPost{
 					Title: "title",
 					Content: [][]lark.MessageContentPostItem{

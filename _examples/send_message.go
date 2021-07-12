@@ -46,7 +46,7 @@ func ExampleSendMessage() {
 
 		// send post message with struct
 		{
-			data := &lark.MessageContentPostALL{
+			data := &lark.MessageContentPostAll{
 				ZhCn: &lark.MessageContentPost{
 					Title: "<TITLE>",
 					Content: [][]lark.MessageContentPostItem{

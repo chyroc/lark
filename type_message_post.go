@@ -4,13 +4,13 @@ import (
 	"encoding/json"
 )
 
-type MessageContentPostALL struct {
+type MessageContentPostAll struct {
 	ZhCn *MessageContentPost `json:"zh_cn,omitempty"`
 	JaJp *MessageContentPost `json:"ja_jp,omitempty"`
 	EnUs *MessageContentPost `json:"en_us,omitempty"`
 }
 
-func (r *MessageContentPostALL) String() string {
+func (r *MessageContentPostAll) String() string {
 	bs, _ := json.Marshal(r)
 	return string(bs)
 }

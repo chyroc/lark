@@ -16,7 +16,7 @@ func Test_Contact_Sample_Failed(t *testing.T) {
 	as := assert.New(t)
 
 	t.Run("request failed", func(t *testing.T) {
-		cli := AppALLPermission.Ins()
+		cli := AppAllPermission.Ins()
 		cli.Mock().MockGetTenantAccessToken(mockGetTenantAccessTokenFailed)
 		cli.Mock().MockGetAppAccessToken(mockGetTenantAccessTokenFailed)
 		moduleCli := cli.Contact
@@ -113,7 +113,7 @@ func Test_Contact_Sample_Failed(t *testing.T) {
 	})
 
 	t.Run("request mock failed", func(t *testing.T) {
-		cli := AppALLPermission.Ins()
+		cli := AppAllPermission.Ins()
 		moduleCli := cli.Contact
 
 		t.Run("", func(t *testing.T) {
@@ -394,7 +394,7 @@ func Test_Contact_Sample_Failed(t *testing.T) {
 	})
 
 	t.Run("fake request is failed", func(t *testing.T) {
-		cli := AppALLPermission.Ins()
+		cli := AppAllPermission.Ins()
 		moduleCli := cli.Contact
 		cli.Mock().MockRawRequest(func(ctx context.Context, req *lark.RawRequestReq, resp interface{}) (response *lark.Response, err error) {
 			return nil, fmt.Errorf("fake raw request")

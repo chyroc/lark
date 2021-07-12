@@ -22,8 +22,8 @@ func (r mdBuilder) Strikethrough(s string) string {
 	return "~~" + s + "~~"
 }
 
-// AtALL 艾特所有人
-func (r mdBuilder) AtALL(id string) string {
+// AtAll 艾特所有人
+func (r mdBuilder) AtAll() string {
 	return "<at email=all></at>"
 }
 
