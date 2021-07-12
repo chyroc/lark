@@ -35,7 +35,7 @@ https://godoc.org/github.com/chyroc/lark
 
 ## 支持的接口
 
-API 总数: 361, 事件总数: 28
+API 总数: 361, 事件总数: 29
 
 <details>
   <summary>
@@ -404,6 +404,7 @@ API 总数: 361, 事件总数: 28
   - EventV1AddBot
   - EventV1RemoveBot
   - EventV1P2PChatCreate
+  - EventV1ReceiveMessage
   - EventV1AddUserToChat
   - EventV1RemoveUserFromChat
   - EventV1RevokeAddUserFromChat

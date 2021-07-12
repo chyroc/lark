@@ -35,6 +35,7 @@ const (
 	EventTypeV1AddBot                      EventType = "add_bot"
 	EventTypeV1RemoveBot                   EventType = "remove_bot"
 	EventTypeV1P2PChatCreate               EventType = "p2p_chat_create"
+	EventTypeV1ReceiveMessage              EventType = "message"
 	EventTypeV1AddUserToChat               EventType = "add_user_to_chat"
 	EventTypeV1RemoveUserFromChat          EventType = "remove_user_from_chat"
 	EventTypeV1RevokeAddUserFromChat       EventType = "revoke_add_user_from_chat"
@@ -66,6 +67,7 @@ type eventHandler struct {
 	eventV1AddBotHandler                      eventV1AddBotHandler
 	eventV1RemoveBotHandler                   eventV1RemoveBotHandler
 	eventV1P2PChatCreateHandler               eventV1P2PChatCreateHandler
+	eventV1ReceiveMessageHandler              eventV1ReceiveMessageHandler
 	eventV1AddUserToChatHandler               eventV1AddUserToChatHandler
 	eventV1RemoveUserFromChatHandler          eventV1RemoveUserFromChatHandler
 	eventV1RevokeAddUserFromChatHandler       eventV1RevokeAddUserFromChatHandler
@@ -98,6 +100,7 @@ func (r *eventHandler) clone() *eventHandler {
 		eventV1AddBotHandler:                      r.eventV1AddBotHandler,
 		eventV1RemoveBotHandler:                   r.eventV1RemoveBotHandler,
 		eventV1P2PChatCreateHandler:               r.eventV1P2PChatCreateHandler,
+		eventV1ReceiveMessageHandler:              r.eventV1ReceiveMessageHandler,
 		eventV1AddUserToChatHandler:               r.eventV1AddUserToChatHandler,
 		eventV1RemoveUserFromChatHandler:          r.eventV1RemoveUserFromChatHandler,
 		eventV1RevokeAddUserFromChatHandler:       r.eventV1RevokeAddUserFromChatHandler,
@@ -130,6 +133,7 @@ type eventBody struct {
 	eventV1AddBot                      *EventV1AddBot
 	eventV1RemoveBot                   *EventV1RemoveBot
 	eventV1P2PChatCreate               *EventV1P2PChatCreate
+	eventV1ReceiveMessage              *EventV1ReceiveMessage
 	eventV1AddUserToChat               *EventV1AddUserToChat
 	eventV1RemoveUserFromChat          *EventV1RemoveUserFromChat
 	eventV1RevokeAddUserFromChat       *EventV1RevokeAddUserFromChat
@@ -295,49 +299,48 @@ func (r *EventCallbackService) parserEventV1(req *eventReq) error {
 		if err := json.Unmarshal(bs, event); err != nil {
 			return fmt.Errorf("lark event unmarshal event %s failed", bs)
 		}
-
 		req.eventV1AddBot = event
 	case EventTypeV1RemoveBot:
 		event := new(EventV1RemoveBot)
 		if err := json.Unmarshal(bs, event); err != nil {
 			return fmt.Errorf("lark event unmarshal event %s failed", bs)
 		}
-
 		req.eventV1RemoveBot = event
 	case EventTypeV1P2PChatCreate:
 		event := new(EventV1P2PChatCreate)
 		if err := json.Unmarshal(bs, event); err != nil {
 			return fmt.Errorf("lark event unmarshal event %s failed", bs)
 		}
-
 		req.eventV1P2PChatCreate = event
+	case EventTypeV1ReceiveMessage:
+		event := new(EventV1ReceiveMessage)
+		if err := json.Unmarshal(bs, event); err != nil {
+			return fmt.Errorf("lark event unmarshal event %s failed", bs)
+		}
+		req.eventV1ReceiveMessage = event
 	case EventTypeV1AddUserToChat:
 		event := new(EventV1AddUserToChat)
 		if err := json.Unmarshal(bs, event); err != nil {
 			return fmt.Errorf("lark event unmarshal event %s failed", bs)
 		}
-
 		req.eventV1AddUserToChat = event
 	case EventTypeV1RemoveUserFromChat:
 		event := new(EventV1RemoveUserFromChat)
 		if err := json.Unmarshal(bs, event); err != nil {
 			return fmt.Errorf("lark event unmarshal event %s failed", bs)
 		}
-
 		req.eventV1RemoveUserFromChat = event
 	case EventTypeV1RevokeAddUserFromChat:
 		event := new(EventV1RevokeAddUserFromChat)
 		if err := json.Unmarshal(bs, event); err != nil {
 			return fmt.Errorf("lark event unmarshal event %s failed", bs)
 		}
-
 		req.eventV1RevokeAddUserFromChat = event
 	case EventTypeV1ChatDisband:
 		event := new(EventV1ChatDisband)
 		if err := json.Unmarshal(bs, event); err != nil {
 			return fmt.Errorf("lark event unmarshal event %s failed", bs)
 		}
-
 		req.eventV1ChatDisband = event
 	}
 
@@ -468,6 +471,11 @@ func (r *EventCallbackService) handlerEvent(ctx context.Context, req *eventReq) 
 	case req.eventV1P2PChatCreate != nil:
 		if r.cli.eventHandler.eventV1P2PChatCreateHandler != nil {
 			s, err = r.cli.eventHandler.eventV1P2PChatCreateHandler(ctx, r.cli, req.Schema, req.headerV1(EventTypeV1P2PChatCreate), req.eventV1P2PChatCreate)
+		}
+		return true, s, err
+	case req.eventV1ReceiveMessage != nil:
+		if r.cli.eventHandler.eventV1ReceiveMessageHandler != nil {
+			s, err = r.cli.eventHandler.eventV1ReceiveMessageHandler(ctx, r.cli, req.Schema, req.headerV1(EventTypeV1ReceiveMessage), req.eventV1ReceiveMessage)
 		}
 		return true, s, err
 	case req.eventV1AddUserToChat != nil:
