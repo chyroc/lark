@@ -41,7 +41,7 @@ func (r *Mock) UnMockVCGetVCMeetingRecording() {
 }
 
 type GetVCMeetingRecordingReq struct {
-	MeetingID string `path:"meeting_id" json:"-"` // 会议ID, 示例值："6911188411932033028"
+	MeetingID string `path:"meeting_id" json:"-"` // 会议ID（视频会议的唯一标识，视频会议开始后才会产生）, 示例值："6911188411932033028"
 }
 
 type getVCMeetingRecordingResp struct {

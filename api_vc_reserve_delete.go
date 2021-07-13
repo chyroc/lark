@@ -41,7 +41,7 @@ func (r *Mock) UnMockVCDeleteVCReserve() {
 }
 
 type DeleteVCReserveReq struct {
-	ReserveID string `path:"reserve_id" json:"-"` // 预约ID, 示例值："6911188411932033028"
+	ReserveID string `path:"reserve_id" json:"-"` // 预约ID（预约的唯一标识）, 示例值："6911188411932033028"
 }
 
 type deleteVCReserveResp struct {

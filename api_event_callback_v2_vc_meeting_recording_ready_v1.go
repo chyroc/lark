@@ -25,9 +25,9 @@ type EventV2VCMeetingRecordingReadyV1 struct {
 }
 
 type EventV2VCMeetingRecordingReadyV1Meeting struct {
-	ID        string                                        `json:"id,omitempty"`         // 会议ID
+	ID        string                                        `json:"id,omitempty"`         // 会议ID（视频会议的唯一标识，视频会议开始后才会产生）
 	Topic     string                                        `json:"topic,omitempty"`      // 会议主题
-	MeetingNo string                                        `json:"meeting_no,omitempty"` // 9位会议号
+	MeetingNo string                                        `json:"meeting_no,omitempty"` // 9位会议号（飞书用户可通过输入9位会议号快捷入会）
 	Owner     *EventV2VCMeetingRecordingReadyV1MeetingOwner `json:"owner,omitempty"`      // 会议拥有者
 }
 

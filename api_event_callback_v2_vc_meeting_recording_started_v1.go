@@ -23,9 +23,9 @@ type EventV2VCMeetingRecordingStartedV1 struct {
 }
 
 type EventV2VCMeetingRecordingStartedV1Meeting struct {
-	ID        string                                             `json:"id,omitempty"`         // 会议ID
+	ID        string                                             `json:"id,omitempty"`         // 会议ID（视频会议的唯一标识，视频会议开始后才会产生）
 	Topic     string                                             `json:"topic,omitempty"`      // 会议主题
-	MeetingNo string                                             `json:"meeting_no,omitempty"` // 9位会议号
+	MeetingNo string                                             `json:"meeting_no,omitempty"` // 9位会议号（飞书用户可通过输入9位会议号快捷入会）
 	StartTime string                                             `json:"start_time,omitempty"` // 会议开始时间（unix时间，单位sec）
 	EndTime   string                                             `json:"end_time,omitempty"`   // 会议结束时间（unix时间，单位sec）
 	HostUser  *EventV2VCMeetingRecordingStartedV1MeetingHostUser `json:"host_user,omitempty"`  // 会议主持人

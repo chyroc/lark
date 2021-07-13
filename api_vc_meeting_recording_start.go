@@ -41,8 +41,8 @@ func (r *Mock) UnMockVCStartVCMeetingRecording() {
 }
 
 type StartVCMeetingRecordingReq struct {
-	MeetingID string `path:"meeting_id" json:"-"` // 会议ID, 示例值: "6911188411932033028"
-	Timezone  *int64 `json:"timezone,omitempty"`  // 录制文件时间显示使用的时区[-12,12], 示例值: 8
+	MeetingID string `path:"meeting_id" json:"-"` // 会议ID（视频会议的唯一标识，视频会议开始后才会产生）, 示例值："6911188411932033028"
+	Timezone  *int64 `json:"timezone,omitempty"`  // 录制文件时间显示使用的时区[-12,12], 示例值：8
 }
 
 type startVCMeetingRecordingResp struct {

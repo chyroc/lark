@@ -41,8 +41,8 @@ func (r *Mock) UnMockVCInviteVCMeeting() {
 }
 
 type InviteVCMeetingReq struct {
-	UserIDType *IDType                      `query:"user_id_type" json:"-"` // 用户 ID 类型, 示例值："open_id", 可选值有: `open_id`：用户的 open id, `union_id`：用户的 union id, `user_id`：用户的 user id, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 userid
-	MeetingID  string                       `path:"meeting_id" json:"-"`    // 会议ID, 示例值："6911188411932033028"
+	UserIDType *IDType                      `query:"user_id_type" json:"-"` // 用户 ID 类型, 示例值："open_id", 可选值有: `open_id`：用户的 open id, `union_id`：用户的 union id, `user_id`：用户的 user id, 默认值: `open_id`,, 当值为 `user_id`, 字段权限要求: 获取用户 userid
+	MeetingID  string                       `path:"meeting_id" json:"-"`    // 会议ID（视频会议的唯一标识，视频会议开始后才会产生）, 示例值："6911188411932033028"
 	Invitees   []*InviteVCMeetingReqInvitee `json:"invitees,omitempty"`     // 被邀请的用户列表
 }
 

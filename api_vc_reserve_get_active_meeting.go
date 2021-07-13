@@ -42,7 +42,7 @@ func (r *Mock) UnMockVCGetVCReserveActiveMeeting() {
 
 type GetVCReserveActiveMeetingReq struct {
 	WithParticipants *bool  `query:"with_participants" json:"-"` // 是否需要参会人列表，默认为false, 示例值：false
-	ReserveID        string `path:"reserve_id" json:"-"`         // 预约ID, 示例值："6911188411932033028"
+	ReserveID        string `path:"reserve_id" json:"-"`         // 预约ID（预约的唯一标识）, 示例值："6911188411932033028"
 }
 
 type getVCReserveActiveMeetingResp struct {
@@ -56,9 +56,9 @@ type GetVCReserveActiveMeetingResp struct {
 }
 
 type GetVCReserveActiveMeetingRespMeeting struct {
-	ID               string                                             `json:"id,omitempty"`                // 会议ID
+	ID               string                                             `json:"id,omitempty"`                // 会议ID（视频会议的唯一标识，视频会议开始后才会产生）
 	Topic            string                                             `json:"topic,omitempty"`             // 会议主题
-	URL              string                                             `json:"url,omitempty"`               // 会议链接
+	URL              string                                             `json:"url,omitempty"`               // 会议链接（飞书用户可通过点击会议链接快捷入会）
 	CreateTime       string                                             `json:"create_time,omitempty"`       // 会议创建时间（unix时间，单位sec）
 	StartTime        string                                             `json:"start_time,omitempty"`        // 会议开始时间（unix时间，单位sec）
 	EndTime          string                                             `json:"end_time,omitempty"`          // 会议结束时间（unix时间，单位sec）
