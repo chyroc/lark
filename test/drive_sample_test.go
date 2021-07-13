@@ -70,13 +70,61 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.DownloadDriveFile(ctx, &lark.DownloadDriveFileReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "failed")
+		})
+
+		t.Run("", func(t *testing.T) {
 			_, _, err := moduleCli.UploadDriveFile(ctx, &lark.UploadDriveFileReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "failed")
 		})
 
 		t.Run("", func(t *testing.T) {
-			_, _, err := moduleCli.DownloadDriveFile(ctx, &lark.DownloadDriveFileReq{})
+			_, _, err := moduleCli.PrepareUploadDriveFile(ctx, &lark.PrepareUploadDriveFileReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.PartUploadDriveFile(ctx, &lark.PartUploadDriveFileReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.FinishUploadDriveFile(ctx, &lark.FinishUploadDriveFileReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.DownloadDriveMedia(ctx, &lark.DownloadDriveMediaReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.UploadDriveMedia(ctx, &lark.UploadDriveMediaReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.PrepareUploadDriveMedia(ctx, &lark.PrepareUploadDriveMediaReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.PartUploadDriveMedia(ctx, &lark.PartUploadDriveMediaReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.FinishUploadDriveMedia(ctx, &lark.FinishUploadDriveMediaReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "failed")
 		})
@@ -601,6 +649,17 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
+			cli.Mock().MockDriveDownloadDriveFile(func(ctx context.Context, request *lark.DownloadDriveFileReq, options ...lark.MethodOptionFunc) (*lark.DownloadDriveFileResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockDriveDownloadDriveFile()
+
+			_, _, err := moduleCli.DownloadDriveFile(ctx, &lark.DownloadDriveFileReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
 			cli.Mock().MockDriveUploadDriveFile(func(ctx context.Context, request *lark.UploadDriveFileReq, options ...lark.MethodOptionFunc) (*lark.UploadDriveFileResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -612,12 +671,89 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-			cli.Mock().MockDriveDownloadDriveFile(func(ctx context.Context, request *lark.DownloadDriveFileReq, options ...lark.MethodOptionFunc) (*lark.DownloadDriveFileResp, *lark.Response, error) {
+			cli.Mock().MockDrivePrepareUploadDriveFile(func(ctx context.Context, request *lark.PrepareUploadDriveFileReq, options ...lark.MethodOptionFunc) (*lark.PrepareUploadDriveFileResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
-			defer cli.Mock().UnMockDriveDownloadDriveFile()
+			defer cli.Mock().UnMockDrivePrepareUploadDriveFile()
 
-			_, _, err := moduleCli.DownloadDriveFile(ctx, &lark.DownloadDriveFileReq{})
+			_, _, err := moduleCli.PrepareUploadDriveFile(ctx, &lark.PrepareUploadDriveFileReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+			cli.Mock().MockDrivePartUploadDriveFile(func(ctx context.Context, request *lark.PartUploadDriveFileReq, options ...lark.MethodOptionFunc) (*lark.PartUploadDriveFileResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockDrivePartUploadDriveFile()
+
+			_, _, err := moduleCli.PartUploadDriveFile(ctx, &lark.PartUploadDriveFileReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+			cli.Mock().MockDriveFinishUploadDriveFile(func(ctx context.Context, request *lark.FinishUploadDriveFileReq, options ...lark.MethodOptionFunc) (*lark.FinishUploadDriveFileResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockDriveFinishUploadDriveFile()
+
+			_, _, err := moduleCli.FinishUploadDriveFile(ctx, &lark.FinishUploadDriveFileReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+			cli.Mock().MockDriveDownloadDriveMedia(func(ctx context.Context, request *lark.DownloadDriveMediaReq, options ...lark.MethodOptionFunc) (*lark.DownloadDriveMediaResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockDriveDownloadDriveMedia()
+
+			_, _, err := moduleCli.DownloadDriveMedia(ctx, &lark.DownloadDriveMediaReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+			cli.Mock().MockDriveUploadDriveMedia(func(ctx context.Context, request *lark.UploadDriveMediaReq, options ...lark.MethodOptionFunc) (*lark.UploadDriveMediaResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockDriveUploadDriveMedia()
+
+			_, _, err := moduleCli.UploadDriveMedia(ctx, &lark.UploadDriveMediaReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+			cli.Mock().MockDrivePrepareUploadDriveMedia(func(ctx context.Context, request *lark.PrepareUploadDriveMediaReq, options ...lark.MethodOptionFunc) (*lark.PrepareUploadDriveMediaResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockDrivePrepareUploadDriveMedia()
+
+			_, _, err := moduleCli.PrepareUploadDriveMedia(ctx, &lark.PrepareUploadDriveMediaReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+			cli.Mock().MockDrivePartUploadDriveMedia(func(ctx context.Context, request *lark.PartUploadDriveMediaReq, options ...lark.MethodOptionFunc) (*lark.PartUploadDriveMediaResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockDrivePartUploadDriveMedia()
+
+			_, _, err := moduleCli.PartUploadDriveMedia(ctx, &lark.PartUploadDriveMediaReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+			cli.Mock().MockDriveFinishUploadDriveMedia(func(ctx context.Context, request *lark.FinishUploadDriveMediaReq, options ...lark.MethodOptionFunc) (*lark.FinishUploadDriveMediaResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockDriveFinishUploadDriveMedia()
+
+			_, _, err := moduleCli.FinishUploadDriveMedia(ctx, &lark.FinishUploadDriveMediaReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "mock-failed")
 		})
@@ -1471,15 +1607,65 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.DownloadDriveFile(ctx, &lark.DownloadDriveFileReq{
+				FileToken: "x",
+			})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
 			_, _, err := moduleCli.UploadDriveFile(ctx, &lark.UploadDriveFileReq{})
 			as.NotNil(err)
 			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
 		})
 
 		t.Run("", func(t *testing.T) {
-			_, _, err := moduleCli.DownloadDriveFile(ctx, &lark.DownloadDriveFileReq{
+			_, _, err := moduleCli.PrepareUploadDriveFile(ctx, &lark.PrepareUploadDriveFileReq{})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.PartUploadDriveFile(ctx, &lark.PartUploadDriveFileReq{})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.FinishUploadDriveFile(ctx, &lark.FinishUploadDriveFileReq{})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.DownloadDriveMedia(ctx, &lark.DownloadDriveMediaReq{
 				FileToken: "x",
 			})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.UploadDriveMedia(ctx, &lark.UploadDriveMediaReq{})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.PrepareUploadDriveMedia(ctx, &lark.PrepareUploadDriveMediaReq{})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.PartUploadDriveMedia(ctx, &lark.PartUploadDriveMediaReq{})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.FinishUploadDriveMedia(ctx, &lark.FinishUploadDriveMediaReq{})
 			as.NotNil(err)
 			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
 		})
@@ -2142,15 +2328,65 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.DownloadDriveFile(ctx, &lark.DownloadDriveFileReq{
+				FileToken: "x",
+			})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
 			_, _, err := moduleCli.UploadDriveFile(ctx, &lark.UploadDriveFileReq{})
 			as.NotNil(err)
 			as.Equal("fake raw request", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
-			_, _, err := moduleCli.DownloadDriveFile(ctx, &lark.DownloadDriveFileReq{
+			_, _, err := moduleCli.PrepareUploadDriveFile(ctx, &lark.PrepareUploadDriveFileReq{})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.PartUploadDriveFile(ctx, &lark.PartUploadDriveFileReq{})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.FinishUploadDriveFile(ctx, &lark.FinishUploadDriveFileReq{})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.DownloadDriveMedia(ctx, &lark.DownloadDriveMediaReq{
 				FileToken: "x",
 			})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.UploadDriveMedia(ctx, &lark.UploadDriveMediaReq{})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.PrepareUploadDriveMedia(ctx, &lark.PrepareUploadDriveMediaReq{})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.PartUploadDriveMedia(ctx, &lark.PartUploadDriveMediaReq{})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.FinishUploadDriveMedia(ctx, &lark.FinishUploadDriveMediaReq{})
 			as.NotNil(err)
 			as.Equal("fake raw request", err.Error())
 		})

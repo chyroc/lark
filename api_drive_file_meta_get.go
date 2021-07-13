@@ -46,7 +46,7 @@ type GetDriveFileMetaReq struct {
 
 type GetDriveFileMetaReqRequestDocs struct {
 	DocsToken string `json:"docs_token,omitempty"` // 文件的 token，获取方式见[概述](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/files/guide/introduction)
-	DocsType  string `json:"docs_type,omitempty"`  // 文件类型  "doc"  or  "sheet" or "slide"
+	DocsType  string `json:"docs_type,omitempty"`  // 文件类型  <br>1) "doc": 飞书文档<br>2) "sheet": 飞书电子表格 <br>3) "bitable": 飞书多维表格<br>4) "mindnote": 飞书思维笔记 <br>5) "file": 飞书文件
 }
 
 type getDriveFileMetaResp struct {

@@ -35,7 +35,7 @@ https://godoc.org/github.com/chyroc/lark
 
 ## Support APIs
 
-API Count: 364, Event Count: 29
+API Count: 380, Event Count: 29
 
 <details>
   <summary>
@@ -105,6 +105,7 @@ API Count: 364, Event Count: 29
   - SearchCalendar
   - SubscribeCalendar
   - UnsubscribeCalendar
+  - SubscribeCalendarChangeEvent
   - CreateCalendarEvent
   - DeleteCalendarEvent
   - GetCalendarEvent
@@ -131,8 +132,16 @@ API Count: 364, Event Count: 29
   - GetDriveFolderMeta
   - GetDriveRootFolderMeta
   - GetDriveFolderChildren
-  - UploadDriveFile
   - DownloadDriveFile
+  - UploadDriveFile
+  - PrepareUploadDriveFile
+  - PartUploadDriveFile
+  - FinishUploadDriveFile
+  - DownloadDriveMedia
+  - UploadDriveMedia
+  - PrepareUploadDriveMedia
+  - PartUploadDriveMedia
+  - FinishUploadDriveMedia
   - CreateDriveMemberPermission
   - TransferDriveMemberPermission
   - UpdateDrivePublicPermission
@@ -273,6 +282,12 @@ API Count: 364, Event Count: 29
   - CheckUserIsInApplicationPaidScope
   - GetApplicationOrderList
   - GetApplicationOrder
+  - GetApplicationUsageOverview
+  - GetApplicationUsageTrend
+  - GetApplicationUsageDetail
+  - GetApplicationMessageOverview
+  - GetApplicationMessageTrend
+  - GetApplicationMessageDetail
 - Mail
   - CreateMailGroup
   - GetMailGroup
@@ -354,6 +369,7 @@ API Count: 364, Event Count: 29
   - RecognizeSpeechFile
   - TranslateText
   - DetectTextLanguage
+  - DetectFaceAttributes
 - Attendance
   - UpdateAttendanceUserSettings
   - UploadAttendanceFile

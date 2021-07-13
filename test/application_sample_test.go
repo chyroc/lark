@@ -80,6 +80,42 @@ func Test_Application_Sample_Failed(t *testing.T) {
 			as.NotNil(err)
 			as.Equal(err.Error(), "failed")
 		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.GetApplicationUsageOverview(ctx, &lark.GetApplicationUsageOverviewReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.GetApplicationUsageTrend(ctx, &lark.GetApplicationUsageTrendReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.GetApplicationUsageDetail(ctx, &lark.GetApplicationUsageDetailReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.GetApplicationMessageOverview(ctx, &lark.GetApplicationMessageOverviewReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.GetApplicationMessageTrend(ctx, &lark.GetApplicationMessageTrendReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.GetApplicationMessageDetail(ctx, &lark.GetApplicationMessageDetailReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "failed")
+		})
 	})
 
 	t.Run("request mock failed", func(t *testing.T) {
@@ -195,6 +231,72 @@ func Test_Application_Sample_Failed(t *testing.T) {
 			as.NotNil(err)
 			as.Equal(err.Error(), "mock-failed")
 		})
+
+		t.Run("", func(t *testing.T) {
+			cli.Mock().MockApplicationGetApplicationUsageOverview(func(ctx context.Context, request *lark.GetApplicationUsageOverviewReq, options ...lark.MethodOptionFunc) (*lark.GetApplicationUsageOverviewResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockApplicationGetApplicationUsageOverview()
+
+			_, _, err := moduleCli.GetApplicationUsageOverview(ctx, &lark.GetApplicationUsageOverviewReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+			cli.Mock().MockApplicationGetApplicationUsageTrend(func(ctx context.Context, request *lark.GetApplicationUsageTrendReq, options ...lark.MethodOptionFunc) (*lark.GetApplicationUsageTrendResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockApplicationGetApplicationUsageTrend()
+
+			_, _, err := moduleCli.GetApplicationUsageTrend(ctx, &lark.GetApplicationUsageTrendReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+			cli.Mock().MockApplicationGetApplicationUsageDetail(func(ctx context.Context, request *lark.GetApplicationUsageDetailReq, options ...lark.MethodOptionFunc) (*lark.GetApplicationUsageDetailResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockApplicationGetApplicationUsageDetail()
+
+			_, _, err := moduleCli.GetApplicationUsageDetail(ctx, &lark.GetApplicationUsageDetailReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+			cli.Mock().MockApplicationGetApplicationMessageOverview(func(ctx context.Context, request *lark.GetApplicationMessageOverviewReq, options ...lark.MethodOptionFunc) (*lark.GetApplicationMessageOverviewResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockApplicationGetApplicationMessageOverview()
+
+			_, _, err := moduleCli.GetApplicationMessageOverview(ctx, &lark.GetApplicationMessageOverviewReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+			cli.Mock().MockApplicationGetApplicationMessageTrend(func(ctx context.Context, request *lark.GetApplicationMessageTrendReq, options ...lark.MethodOptionFunc) (*lark.GetApplicationMessageTrendResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockApplicationGetApplicationMessageTrend()
+
+			_, _, err := moduleCli.GetApplicationMessageTrend(ctx, &lark.GetApplicationMessageTrendReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+			cli.Mock().MockApplicationGetApplicationMessageDetail(func(ctx context.Context, request *lark.GetApplicationMessageDetailReq, options ...lark.MethodOptionFunc) (*lark.GetApplicationMessageDetailResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockApplicationGetApplicationMessageDetail()
+
+			_, _, err := moduleCli.GetApplicationMessageDetail(ctx, &lark.GetApplicationMessageDetailReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
 	})
 
 	t.Run("response is failed", func(t *testing.T) {
@@ -257,6 +359,42 @@ func Test_Application_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 			_, _, err := moduleCli.GetApplicationOrder(ctx, &lark.GetApplicationOrderReq{})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.GetApplicationUsageOverview(ctx, &lark.GetApplicationUsageOverviewReq{})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.GetApplicationUsageTrend(ctx, &lark.GetApplicationUsageTrendReq{})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.GetApplicationUsageDetail(ctx, &lark.GetApplicationUsageDetailReq{})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.GetApplicationMessageOverview(ctx, &lark.GetApplicationMessageOverviewReq{})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.GetApplicationMessageTrend(ctx, &lark.GetApplicationMessageTrendReq{})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.GetApplicationMessageDetail(ctx, &lark.GetApplicationMessageDetailReq{})
 			as.NotNil(err)
 			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
 		})
@@ -325,6 +463,42 @@ func Test_Application_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 			_, _, err := moduleCli.GetApplicationOrder(ctx, &lark.GetApplicationOrderReq{})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.GetApplicationUsageOverview(ctx, &lark.GetApplicationUsageOverviewReq{})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.GetApplicationUsageTrend(ctx, &lark.GetApplicationUsageTrendReq{})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.GetApplicationUsageDetail(ctx, &lark.GetApplicationUsageDetailReq{})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.GetApplicationMessageOverview(ctx, &lark.GetApplicationMessageOverviewReq{})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.GetApplicationMessageTrend(ctx, &lark.GetApplicationMessageTrendReq{})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.GetApplicationMessageDetail(ctx, &lark.GetApplicationMessageDetailReq{})
 			as.NotNil(err)
 			as.Equal("fake raw request", err.Error())
 		})

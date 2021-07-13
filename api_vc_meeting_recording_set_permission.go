@@ -41,16 +41,15 @@ func (r *Mock) UnMockVCSetVCPermissionMeetingRecording() {
 }
 
 type SetVCPermissionMeetingRecordingReq struct {
-	UserIDType        *IDType                                               `query:"user_id_type" json:"-"`       // 用户ID类型, 示例值: "open_id", 可选值有: `open_id`：用户的open id, `union_id`：用户的union id, `user_id`：用户的user id, 默认值: `open_id`, 当值为 `user_id`，字段权限要求: 获取用户 userid
-	MeetingID         string                                                `path:"meeting_id" json:"-"`          // 会议ID, 示例值: "6911188411932033028"
-	Token             *string                                               `json:"token,omitempty"`              // 录指文件的token, 示例值: "obcn37dxcftoc3656rgyejm7"
+	UserIDType        *IDType                                               `query:"user_id_type" json:"-"`       // 用户 ID 类型, 示例值："open_id", 可选值有: `open_id`：用户的 open id, `union_id`：用户的 union id, `user_id`：用户的 user id, 默认值: `open_id`,, 当值为 `user_id`, 字段权限要求: 获取用户 userid
+	MeetingID         string                                                `path:"meeting_id" json:"-"`          // 会议ID（视频会议的唯一标识，视频会议开始后才会产生）, 示例值："6911188411932033028"
 	PermissionObjects []*SetVCPermissionMeetingRecordingReqPermissionObject `json:"permission_objects,omitempty"` // 授权对象列表
 }
 
 type SetVCPermissionMeetingRecordingReqPermissionObject struct {
-	ID             *string `json:"id,omitempty"`              // 授权对象ID, 示例值: "ou_3ec3f6a28a0d08c45d895276e8e5e19b"
-	PermissionType *int64  `json:"permission_type,omitempty"` // 授权类型, 示例值: 0, 可选值有: `0`：用户授权, `1`：群组授权, `2`：租户内授权（id字段不填）, `3`：公网授权（id字段不填）
-	Permission     *int64  `json:"permission,omitempty"`      // 权限, 示例值: 1, 可选值有: `1`：查看
+	ID         *string `json:"id,omitempty"`         // 授权对象ID, 示例值："ou_3ec3f6a28a0d08c45d895276e8e5e19b"
+	Type       int64   `json:"type,omitempty"`       // 授权对象类型, 示例值：1, 可选值有: `1`：用户授权, `2`：群组授权, `3`：租户内授权（id字段不填）, `4`：公网授权（id字段不填）
+	Permission int64   `json:"permission,omitempty"` // 权限, 示例值：1, 可选值有: `1`：查看
 }
 
 type setVCPermissionMeetingRecordingResp struct {

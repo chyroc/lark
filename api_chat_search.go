@@ -6,11 +6,8 @@ import (
 	"context"
 )
 
-// SearchChat
+// SearchChat 搜索对用户或机器人可见的群列表，包括：用户或机器人所在的群、对用户或机器人公开的群。
 //
-// 搜索对用户或机器人可见的群列表，包括：
-// - 用户或机器人所在的群
-// - 对用户或机器人公开的群
 // 注意事项：
 // - 应用需要开启[机器人能力](https://open.feishu.cn/document/home/develop-a-bot-in-5-minutes/create-an-app)
 //

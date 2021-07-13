@@ -35,7 +35,7 @@ https://godoc.org/github.com/chyroc/lark
 
 ## 支持的接口
 
-API 总数: 364, 事件总数: 29
+API 总数: 380, 事件总数: 29
 
 <details>
   <summary>
@@ -105,6 +105,7 @@ API 总数: 364, 事件总数: 29
   - SearchCalendar
   - SubscribeCalendar
   - UnsubscribeCalendar
+  - SubscribeCalendarChangeEvent
   - CreateCalendarEvent
   - DeleteCalendarEvent
   - GetCalendarEvent
@@ -131,8 +132,16 @@ API 总数: 364, 事件总数: 29
   - GetDriveFolderMeta
   - GetDriveRootFolderMeta
   - GetDriveFolderChildren
-  - UploadDriveFile
   - DownloadDriveFile
+  - UploadDriveFile
+  - PrepareUploadDriveFile
+  - PartUploadDriveFile
+  - FinishUploadDriveFile
+  - DownloadDriveMedia
+  - UploadDriveMedia
+  - PrepareUploadDriveMedia
+  - PartUploadDriveMedia
+  - FinishUploadDriveMedia
   - CreateDriveMemberPermission
   - TransferDriveMemberPermission
   - UpdateDrivePublicPermission
@@ -273,6 +282,12 @@ API 总数: 364, 事件总数: 29
   - CheckUserIsInApplicationPaidScope
   - GetApplicationOrderList
   - GetApplicationOrder
+  - GetApplicationUsageOverview
+  - GetApplicationUsageTrend
+  - GetApplicationUsageDetail
+  - GetApplicationMessageOverview
+  - GetApplicationMessageTrend
+  - GetApplicationMessageDetail
 - Mail
   - CreateMailGroup
   - GetMailGroup
@@ -354,6 +369,7 @@ API 总数: 364, 事件总数: 29
   - RecognizeSpeechFile
   - TranslateText
   - DetectTextLanguage
+  - DetectFaceAttributes
 - Attendance
   - UpdateAttendanceUserSettings
   - UploadAttendanceFile

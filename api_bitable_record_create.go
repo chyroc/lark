@@ -41,8 +41,8 @@ func (r *Mock) UnMockBitableCreateBitableRecord() {
 
 type CreateBitableRecordReq struct {
 	UserIDType *IDType                `query:"user_id_type" json:"-"` // 用户 ID 类型, 示例值："open_id", 可选值有: `open_id`：用户的 open id, `union_id`：用户的 union id, `user_id`：用户的 user id, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 userid
-	AppToken   string                 `path:"app_token" json:"-"`     // bitable app token, 示例值："appbcbWCzen6D8dezhoCH2RpMAh"
-	TableID    string                 `path:"table_id" json:"-"`      // table id, 示例值："tblsRc9GRRXKqhvW"
+	AppToken   string                 `path:"app_token" json:"-"`     // bitable app token, 示例值："bascng7vrxcxpig7geggXiCtadY"
+	TableID    string                 `path:"table_id" json:"-"`      // table id, 示例值："tblUa9vcYjWQYJCj"
 	RecordID   *string                `json:"record_id,omitempty"`    // 记录 id, 示例值："recqwIwhc6"
 	Fields     map[string]interface{} `json:"fields,omitempty"`       // 记录字段
 }

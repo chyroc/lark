@@ -40,9 +40,9 @@ func (r *Mock) UnMockBitableGetBitableRecord() {
 }
 
 type GetBitableRecordReq struct {
-	AppToken string `path:"app_token" json:"-"` // bitable app token, 示例值："bascng7vrxcxpig7geggXiCtadY"
-	TableID  string `path:"table_id" json:"-"`  // table id, 示例值："tblUa9vcYjWQYJCj"
-	RecordID string `path:"record_id" json:"-"` // 单条记录的 id, 示例值："recP750ZNJ"
+	AppToken string `path:"app_token" json:"-"` // bitable app token, 示例值："bascnCMII2ORej2RItqpZZUNMIe"
+	TableID  string `path:"table_id" json:"-"`  // table id, 示例值："tblxI2tWaxP5dG7p"
+	RecordID string `path:"record_id" json:"-"` // 单条记录的 id, 示例值："recn0hoyXL"
 }
 
 type getBitableRecordResp struct {
