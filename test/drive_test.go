@@ -3,7 +3,6 @@ package test
 import (
 	"bytes"
 	"hash/adler32"
-	"io/ioutil"
 	"strconv"
 	"testing"
 
@@ -15,8 +14,7 @@ func Test_DriveFile(t *testing.T) {
 	as := assert.New(t)
 
 	filename := "./_examples/bot.go"
-	bs, err := ioutil.ReadFile(filename)
-	as.Nil(err)
+	bs := readFile(filename)
 
 	ins := AppAllPermission.Ins()
 

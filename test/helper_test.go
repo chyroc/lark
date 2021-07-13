@@ -3,11 +3,14 @@ package test
 import (
 	"context"
 	"encoding/json"
+	"errors"
 	"fmt"
+	"io/ioutil"
 	"math/rand"
 	"os"
 	"reflect"
 	"strconv"
+	"strings"
 	"testing"
 	"time"
 
@@ -137,4 +140,33 @@ func IsNotInCI() bool {
 
 func IsInCI() bool {
 	return os.Getenv("IN_CI") != ""
+}
+
+func readFile(filename string) []byte {
+	filename = strings.TrimLeft(filename, ".")
+	filename = strings.TrimLeft(filename, "/")
+
+	for i := 0; i < 4; i++ {
+		tmp := filename
+		for j := 0; j < i; j++ {
+			tmp = "../" + tmp
+		}
+		bs, err := ioutil.ReadFile(tmp)
+		if err != nil {
+			if errors.Is(err, os.ErrNotExist) {
+				continue
+			}
+			panic(err)
+		}
+		return bs
+	}
+	return nil
+}
+
+func Test_ReadFile(t *testing.T) {
+	as := assert.New(t)
+
+	filename := "./_examples/bot.go"
+	bs := readFile(filename)
+	as.NotEmpty(bs)
 }
