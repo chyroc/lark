@@ -8,10 +8,12 @@ import (
 	"fmt"
 	"io"
 	"io/ioutil"
+	"mime"
 	"mime/multipart"
 	"net/http"
 	"net/url"
 	"reflect"
+	"strconv"
 	"strings"
 
 	"github.com/chyroc/lark/internal"
@@ -73,6 +75,7 @@ type RawRequestReq struct {
 	URL                   string
 	Body                  interface{}
 	IsFile                bool
+	IsResponseFile        bool
 	NeedTenantAccessToken bool
 	NeedAppAccessToken    bool
 	NeedUserAccessToken   bool
@@ -158,6 +161,19 @@ func parseRequestParam(req *RawRequestReq) (*realRequestParam, error) {
 			isNeedQuery = true
 			for _, v := range internal.ReflectToQueryString(fieldVV) {
 				q.Add(query, v)
+			}
+			continue
+		} else if header := fieldVT.Tag.Get("header"); header != "" {
+			switch header {
+			case "range":
+				if fieldVV.Kind() != reflect.Array || fieldVV.Len() != 2 || fieldVV.Index(0).Kind() != reflect.Int64 {
+					return nil, fmt.Errorf("with range header, value must be [2]int64")
+				}
+				from := fieldVV.Index(0).Int()
+				to := fieldVV.Index(1).Int()
+				if from != 0 || to != 0 {
+					headers["Range"] = "bytes=" + strconv.FormatInt(from, 10) + "-" + strconv.FormatInt(to, 10)
+				}
 			}
 			continue
 		} else if j := fieldVT.Tag.Get("json"); j != "" {
@@ -246,6 +262,12 @@ func (r *Lark) doRequest(ctx context.Context, cli *http.Client, requestParam *Ra
 		return response, err
 	}
 
+	_, media, _ := mime.ParseMediaType(resp.Header.Get("Content-Disposition"))
+	respFilename := ""
+	if media != nil {
+		respFilename = media["filename"]
+	}
+
 	response.StatusCode = resp.StatusCode
 	response.RequestID = resp.Header.Get("X-Request-Id")
 	response.Header = resp.Header
@@ -266,9 +288,16 @@ func (r *Lark) doRequest(ctx context.Context, cli *http.Client, requestParam *Ra
 
 	if realResponse != nil {
 		if resp != nil && resp.StatusCode == http.StatusOK {
-			respFileSetter, ok := realResponse.(readerSetter)
-			if ok {
-				respFileSetter.SetReader(bytes.NewReader(bs))
+			isSpecResp := false
+			if setter, ok := realResponse.(readerSetter); ok {
+				isSpecResp = true
+				setter.SetReader(bytes.NewReader(bs))
+			}
+			if setter, ok := realResponse.(filenameSetter); ok {
+				isSpecResp = true
+				setter.SetFilename(respFilename)
+			}
+			if isSpecResp {
 				return response, nil
 			}
 		}
@@ -307,6 +336,10 @@ func newFileUploadRequest(params map[string]string, filekey string, reader io.Re
 
 type readerSetter interface {
 	SetReader(file io.Reader)
+}
+
+type filenameSetter interface {
+	SetFilename(filename string)
 }
 
 func getCodeMsg(v interface{}) (code int64, msg string) {

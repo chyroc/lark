@@ -54,9 +54,10 @@ type downloadHelpdeskTicketImageResp struct {
 }
 
 func (r *downloadHelpdeskTicketImageResp) SetReader(file io.Reader) {
-	r.Data = &DownloadHelpdeskTicketImageResp{
-		File: file,
+	if r.Data == nil {
+		r.Data = &DownloadHelpdeskTicketImageResp{}
 	}
+	r.Data.File = file
 }
 
 type DownloadHelpdeskTicketImageResp struct {

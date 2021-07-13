@@ -3,6 +3,7 @@ package test
 import (
 	"bytes"
 	"hash/adler32"
+	"io/ioutil"
 	"strconv"
 	"testing"
 
@@ -18,20 +19,21 @@ func Test_DriveFile(t *testing.T) {
 
 	ins := AppAllPermission.Ins()
 
-	token := ""
+	rootFolderMetaToken := ""
 	{
 		resp, _, err := ins.Drive.GetDriveRootFolderMeta(ctx, &lark.GetDriveRootFolderMetaReq{})
 		as.Nil(err)
-		token = resp.Token
+		rootFolderMetaToken = resp.Token
 	}
 
+	fileToken := ""
 	{
 		x := adler32.New()
 		x.Write(bs)
 		resp, _, err := AppAllPermission.Ins().Drive.UploadDriveFile(ctx, &lark.UploadDriveFileReq{
 			FileName:   filename,
 			ParentType: "explorer",
-			ParentNode: token,
+			ParentNode: rootFolderMetaToken,
 			Size:       int64(len(bs)),
 			Checksum:   strconv.FormatInt(int64(x.Sum32()), 10),
 			File:       bytes.NewReader(bs),
@@ -39,5 +41,20 @@ func Test_DriveFile(t *testing.T) {
 		as.Nil(err)
 		as.NotNil(resp)
 		as.NotEmpty(resp.FileToken)
+		fileToken = resp.FileToken
+	}
+
+	{
+		resp, _, err := AppAllPermission.Ins().Drive.DownloadDriveFile(ctx, &lark.DownloadDriveFileReq{
+			FileToken: fileToken,
+			Range:     [2]int64{},
+		})
+		as.Nil(err)
+		as.NotNil(resp)
+
+		as.Equal(filename, resp.Filename)
+		bs2, err := ioutil.ReadAll(resp.File)
+		as.Nil(err)
+		as.Equal(bs, bs2)
 	}
 }

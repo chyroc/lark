@@ -55,9 +55,10 @@ type downloadFileResp struct {
 }
 
 func (r *downloadFileResp) SetReader(file io.Reader) {
-	r.Data = &DownloadFileResp{
-		File: file,
+	if r.Data == nil {
+		r.Data = &DownloadFileResp{}
 	}
+	r.Data.File = file
 }
 
 type DownloadFileResp struct {

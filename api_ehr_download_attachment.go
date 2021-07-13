@@ -55,9 +55,10 @@ type downloadEHRAttachmentsResp struct {
 }
 
 func (r *downloadEHRAttachmentsResp) SetReader(file io.Reader) {
-	r.Data = &DownloadEHRAttachmentsResp{
-		File: file,
+	if r.Data == nil {
+		r.Data = &DownloadEHRAttachmentsResp{}
 	}
+	r.Data.File = file
 }
 
 type DownloadEHRAttachmentsResp struct {

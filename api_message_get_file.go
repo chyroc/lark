@@ -59,9 +59,10 @@ type getMessageFileResp struct {
 }
 
 func (r *getMessageFileResp) SetReader(file io.Reader) {
-	r.Data = &GetMessageFileResp{
-		File: file,
+	if r.Data == nil {
+		r.Data = &GetMessageFileResp{}
 	}
+	r.Data.File = file
 }
 
 type GetMessageFileResp struct {

@@ -35,7 +35,7 @@ https://godoc.org/github.com/chyroc/lark
 
 ## Support APIs
 
-API Count: 363, Event Count: 29
+API Count: 364, Event Count: 29
 
 <details>
   <summary>
@@ -132,6 +132,7 @@ API Count: 363, Event Count: 29
   - GetDriveRootFolderMeta
   - GetDriveFolderChildren
   - UploadDriveFile
+  - DownloadDriveFile
   - CreateDriveMemberPermission
   - TransferDriveMemberPermission
   - UpdateDrivePublicPermission
