@@ -52,7 +52,8 @@ type SendRawMessageOldReq struct {
 }
 
 type SendRawMessageOldReqContent struct {
-	Text string `json:"text,omitempty"` // 文本消息内容，文本消息中可以 at 个人或全体成员<br>at 全体成员：<at user_id="all">  </at> <br> at 个人：<at user_id="ou_xxxxxxx"></at>，user_id 为用户 user_id或者open_id
+	Text string                 `json:"text,omitempty"` // 文本消息内容，文本消息中可以 at 个人或全体成员<br>at 全体成员：<at user_id="all">  </at> <br> at 个人：<at user_id="ou_xxxxxxx"></at>，user_id 为用户 user_id或者open_id
+	Post *MessageContentPostAll `json:"post,omitempty"` // 富文本消息
 }
 
 type sendRawMessageOldResp struct {
