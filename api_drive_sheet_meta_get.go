@@ -41,6 +41,7 @@ func (r *Mock) UnMockDriveGetSheetMeta() {
 
 type GetSheetMetaReq struct {
 	ExtFields        *string `query:"extFields" json:"-"`       // 额外返回的字段，extFields=protectedRange时返回保护行列信息
+	UserIDType       *IDType `query:"user_id_type" json:"-"`    // 返回的用户id类型，可选open_id,union_id
 	SpreadSheetToken string  `path:"spreadsheetToken" json:"-"` // spreadsheet 的 token；获取方式见[在线表格开发指南](https://open.feishu.cn/document/ukTMukTMukTM/uATMzUjLwEzM14CMxMTN/overview)
 }
 
@@ -57,10 +58,11 @@ type GetSheetMetaResp struct {
 }
 
 type GetSheetMetaRespProperties struct {
-	Title      string `json:"title,omitempty"`      // spreadsheet 的标题
-	OwnerUser  int64  `json:"ownerUser,omitempty"`  // 所有者的 id
-	SheetCount int64  `json:"sheetCount,omitempty"` // spreadsheet 下的 sheet 数
-	Revision   int64  `json:"revision,omitempty"`   // 该 sheet 的版本
+	Title       string `json:"title,omitempty"`       // spreadsheet 的标题
+	OwnerUser   int64  `json:"ownerUser,omitempty"`   // 所有者的 id
+	OwnerUserID string `json:"ownerUserID,omitempty"` // 所有者的 id，取决于user_id_type的值
+	SheetCount  int64  `json:"sheetCount,omitempty"`  // spreadsheet 下的 sheet 数
+	Revision    int64  `json:"revision,omitempty"`    // 该 sheet 的版本
 }
 
 type GetSheetMetaRespSheet struct {

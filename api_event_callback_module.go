@@ -11,133 +11,181 @@ import (
 type EventType string
 
 const (
-	EventTypeV2ContactUserUpdatedV3        EventType = "contact.user.updated_v3"
-	EventTypeV2ContactUserCreatedV3        EventType = "contact.user.created_v3"
-	EventTypeV2ContactScopeUpdatedV3       EventType = "contact.scope.updated_v3"
-	EventTypeV2IMMessageReceiveV1          EventType = "im.message.receive_v1"
-	EventTypeV2IMMessageReadV1             EventType = "im.message.message_read_v1"
-	EventTypeV2IMChatDisbandedV1           EventType = "im.chat.disbanded_v1"
-	EventTypeV2IMChatUpdatedV1             EventType = "im.chat.updated_v1"
-	EventTypeV2IMChatMemberBotAddedV1      EventType = "im.chat.member.bot.added_v1"
-	EventTypeV2IMChatMemberBotDeletedV1    EventType = "im.chat.member.bot.deleted_v1"
-	EventTypeV2IMChatMemberUserAddedV1     EventType = "im.chat.member.user.added_v1"
-	EventTypeV2IMChatMemberUserWithdrawnV1 EventType = "im.chat.member.user.withdrawn_v1"
-	EventTypeV2IMChatMemberUserDeletedV1   EventType = "im.chat.member.user.deleted_v1"
-	EventTypeV2VCMeetingMeetingStartedV1   EventType = "vc.meeting.meeting_started_v1"
-	EventTypeV2VCMeetingMeetingEndedV1     EventType = "vc.meeting.meeting_ended_v1"
-	EventTypeV2VCMeetingJoinMeetingV1      EventType = "vc.meeting.join_meeting_v1"
-	EventTypeV2VCMeetingLeaveMeetingV1     EventType = "vc.meeting.leave_meeting_v1"
-	EventTypeV2VCMeetingRecordingStartedV1 EventType = "vc.meeting.recording_started_v1"
-	EventTypeV2VCMeetingRecordingEndedV1   EventType = "vc.meeting.recording_ended_v1"
-	EventTypeV2VCMeetingRecordingReadyV1   EventType = "vc.meeting.recording_ready_v1"
-	EventTypeV2VCMeetingShareStartedV1     EventType = "vc.meeting.share_started_v1"
-	EventTypeV2VCMeetingShareEndedV1       EventType = "vc.meeting.share_ended_v1"
-	EventTypeV1AddBot                      EventType = "add_bot"
-	EventTypeV1RemoveBot                   EventType = "remove_bot"
-	EventTypeV1P2PChatCreate               EventType = "p2p_chat_create"
-	EventTypeV1ReceiveMessage              EventType = "message"
-	EventTypeV1AddUserToChat               EventType = "add_user_to_chat"
-	EventTypeV1RemoveUserFromChat          EventType = "remove_user_from_chat"
-	EventTypeV1RevokeAddUserFromChat       EventType = "revoke_add_user_from_chat"
-	EventTypeV1ChatDisband                 EventType = "chat_disband"
+	EventTypeV2HelpdeskTicketMessageCreatedV1       EventType = "helpdesk.ticket_message.created_v1"
+	EventTypeV2HelpdeskTicketCreatedV1              EventType = "helpdesk.ticket.created_v1"
+	EventTypeV2HelpdeskTicketMessageUpdatedV1       EventType = "helpdesk.ticket.updated_v1"
+	EventTypeV2ContactDepartmentCreatedV3           EventType = "contact.department.created_v3"
+	EventTypeV2ContactDepartmentDeletedV3           EventType = "contact.department.deleted_v3"
+	EventTypeV2ContactDepartmentUpdatedV3           EventType = "contact.department.updated_v3"
+	EventTypeV2ContactUserUpdatedV3                 EventType = "contact.user.updated_v3"
+	EventTypeV2ContactUserCreatedV3                 EventType = "contact.user.created_v3"
+	EventTypeV2ContactUserDeletedV3                 EventType = "contact.user.deleted_v3"
+	EventTypeV2ContactScopeUpdatedV3                EventType = "contact.scope.updated_v3"
+	EventTypeV2ContactEmployeeTypeEnumCreatedV3     EventType = "contact.employee_type_enum.created_v3"
+	EventTypeV2ContactEmployeeTypeEnumActivedV3     EventType = "contact.employee_type_enum.actived_v3"
+	EventTypeV2ContactEmployeeTypeEnumDeactivatedV3 EventType = "contact.employee_type_enum.deactivated_v3"
+	EventTypeV2ContactEmployeeTypeEnumUpdatedV3     EventType = "contact.employee_type_enum.updated_v3"
+	EventTypeV2ContactEmployeeTypeEnumDeletedV3     EventType = "contact.employee_type_enum.deleted_v3"
+	EventTypeV2IMMessageReceiveV1                   EventType = "im.message.receive_v1"
+	EventTypeV2IMMessageReadV1                      EventType = "im.message.message_read_v1"
+	EventTypeV2IMChatDisbandedV1                    EventType = "im.chat.disbanded_v1"
+	EventTypeV2IMChatUpdatedV1                      EventType = "im.chat.updated_v1"
+	EventTypeV2IMChatMemberBotAddedV1               EventType = "im.chat.member.bot.added_v1"
+	EventTypeV2IMChatMemberBotDeletedV1             EventType = "im.chat.member.bot.deleted_v1"
+	EventTypeV2IMChatMemberUserAddedV1              EventType = "im.chat.member.user.added_v1"
+	EventTypeV2IMChatMemberUserWithdrawnV1          EventType = "im.chat.member.user.withdrawn_v1"
+	EventTypeV2IMChatMemberUserDeletedV1            EventType = "im.chat.member.user.deleted_v1"
+	EventTypeV2VCMeetingMeetingStartedV1            EventType = "vc.meeting.meeting_started_v1"
+	EventTypeV2VCMeetingMeetingEndedV1              EventType = "vc.meeting.meeting_ended_v1"
+	EventTypeV2VCMeetingJoinMeetingV1               EventType = "vc.meeting.join_meeting_v1"
+	EventTypeV2VCMeetingLeaveMeetingV1              EventType = "vc.meeting.leave_meeting_v1"
+	EventTypeV2VCMeetingRecordingStartedV1          EventType = "vc.meeting.recording_started_v1"
+	EventTypeV2VCMeetingRecordingEndedV1            EventType = "vc.meeting.recording_ended_v1"
+	EventTypeV2VCMeetingRecordingReadyV1            EventType = "vc.meeting.recording_ready_v1"
+	EventTypeV2VCMeetingShareStartedV1              EventType = "vc.meeting.share_started_v1"
+	EventTypeV2VCMeetingShareEndedV1                EventType = "vc.meeting.share_ended_v1"
+	EventTypeV1AddBot                               EventType = "add_bot"
+	EventTypeV1RemoveBot                            EventType = "remove_bot"
+	EventTypeV1P2PChatCreate                        EventType = "p2p_chat_create"
+	EventTypeV1ReceiveMessage                       EventType = "message"
+	EventTypeV1AddUserToChat                        EventType = "add_user_to_chat"
+	EventTypeV1RemoveUserFromChat                   EventType = "remove_user_from_chat"
+	EventTypeV1RevokeAddUserFromChat                EventType = "revoke_add_user_from_chat"
+	EventTypeV1ChatDisband                          EventType = "chat_disband"
 )
 
 type eventHandler struct {
-	eventV2ContactUserUpdatedV3Handler        eventV2ContactUserUpdatedV3Handler
-	eventV2ContactUserCreatedV3Handler        eventV2ContactUserCreatedV3Handler
-	eventV2ContactScopeUpdatedV3Handler       eventV2ContactScopeUpdatedV3Handler
-	eventV2IMMessageReceiveV1Handler          eventV2IMMessageReceiveV1Handler
-	eventV2IMMessageReadV1Handler             eventV2IMMessageReadV1Handler
-	eventV2IMChatDisbandedV1Handler           eventV2IMChatDisbandedV1Handler
-	eventV2IMChatUpdatedV1Handler             eventV2IMChatUpdatedV1Handler
-	eventV2IMChatMemberBotAddedV1Handler      eventV2IMChatMemberBotAddedV1Handler
-	eventV2IMChatMemberBotDeletedV1Handler    eventV2IMChatMemberBotDeletedV1Handler
-	eventV2IMChatMemberUserAddedV1Handler     eventV2IMChatMemberUserAddedV1Handler
-	eventV2IMChatMemberUserWithdrawnV1Handler eventV2IMChatMemberUserWithdrawnV1Handler
-	eventV2IMChatMemberUserDeletedV1Handler   eventV2IMChatMemberUserDeletedV1Handler
-	eventV2VCMeetingMeetingStartedV1Handler   eventV2VCMeetingMeetingStartedV1Handler
-	eventV2VCMeetingMeetingEndedV1Handler     eventV2VCMeetingMeetingEndedV1Handler
-	eventV2VCMeetingJoinMeetingV1Handler      eventV2VCMeetingJoinMeetingV1Handler
-	eventV2VCMeetingLeaveMeetingV1Handler     eventV2VCMeetingLeaveMeetingV1Handler
-	eventV2VCMeetingRecordingStartedV1Handler eventV2VCMeetingRecordingStartedV1Handler
-	eventV2VCMeetingRecordingEndedV1Handler   eventV2VCMeetingRecordingEndedV1Handler
-	eventV2VCMeetingRecordingReadyV1Handler   eventV2VCMeetingRecordingReadyV1Handler
-	eventV2VCMeetingShareStartedV1Handler     eventV2VCMeetingShareStartedV1Handler
-	eventV2VCMeetingShareEndedV1Handler       eventV2VCMeetingShareEndedV1Handler
-	eventV1AddBotHandler                      eventV1AddBotHandler
-	eventV1RemoveBotHandler                   eventV1RemoveBotHandler
-	eventV1P2PChatCreateHandler               eventV1P2PChatCreateHandler
-	eventV1ReceiveMessageHandler              eventV1ReceiveMessageHandler
-	eventV1AddUserToChatHandler               eventV1AddUserToChatHandler
-	eventV1RemoveUserFromChatHandler          eventV1RemoveUserFromChatHandler
-	eventV1RevokeAddUserFromChatHandler       eventV1RevokeAddUserFromChatHandler
-	eventV1ChatDisbandHandler                 eventV1ChatDisbandHandler
+	eventV2HelpdeskTicketMessageCreatedV1Handler       eventV2HelpdeskTicketMessageCreatedV1Handler
+	eventV2HelpdeskTicketCreatedV1Handler              eventV2HelpdeskTicketCreatedV1Handler
+	eventV2HelpdeskTicketMessageUpdatedV1Handler       eventV2HelpdeskTicketMessageUpdatedV1Handler
+	eventV2ContactDepartmentCreatedV3Handler           eventV2ContactDepartmentCreatedV3Handler
+	eventV2ContactDepartmentDeletedV3Handler           eventV2ContactDepartmentDeletedV3Handler
+	eventV2ContactDepartmentUpdatedV3Handler           eventV2ContactDepartmentUpdatedV3Handler
+	eventV2ContactUserUpdatedV3Handler                 eventV2ContactUserUpdatedV3Handler
+	eventV2ContactUserCreatedV3Handler                 eventV2ContactUserCreatedV3Handler
+	eventV2ContactUserDeletedV3Handler                 eventV2ContactUserDeletedV3Handler
+	eventV2ContactScopeUpdatedV3Handler                eventV2ContactScopeUpdatedV3Handler
+	eventV2ContactEmployeeTypeEnumCreatedV3Handler     eventV2ContactEmployeeTypeEnumCreatedV3Handler
+	eventV2ContactEmployeeTypeEnumActivedV3Handler     eventV2ContactEmployeeTypeEnumActivedV3Handler
+	eventV2ContactEmployeeTypeEnumDeactivatedV3Handler eventV2ContactEmployeeTypeEnumDeactivatedV3Handler
+	eventV2ContactEmployeeTypeEnumUpdatedV3Handler     eventV2ContactEmployeeTypeEnumUpdatedV3Handler
+	eventV2ContactEmployeeTypeEnumDeletedV3Handler     eventV2ContactEmployeeTypeEnumDeletedV3Handler
+	eventV2IMMessageReceiveV1Handler                   eventV2IMMessageReceiveV1Handler
+	eventV2IMMessageReadV1Handler                      eventV2IMMessageReadV1Handler
+	eventV2IMChatDisbandedV1Handler                    eventV2IMChatDisbandedV1Handler
+	eventV2IMChatUpdatedV1Handler                      eventV2IMChatUpdatedV1Handler
+	eventV2IMChatMemberBotAddedV1Handler               eventV2IMChatMemberBotAddedV1Handler
+	eventV2IMChatMemberBotDeletedV1Handler             eventV2IMChatMemberBotDeletedV1Handler
+	eventV2IMChatMemberUserAddedV1Handler              eventV2IMChatMemberUserAddedV1Handler
+	eventV2IMChatMemberUserWithdrawnV1Handler          eventV2IMChatMemberUserWithdrawnV1Handler
+	eventV2IMChatMemberUserDeletedV1Handler            eventV2IMChatMemberUserDeletedV1Handler
+	eventV2VCMeetingMeetingStartedV1Handler            eventV2VCMeetingMeetingStartedV1Handler
+	eventV2VCMeetingMeetingEndedV1Handler              eventV2VCMeetingMeetingEndedV1Handler
+	eventV2VCMeetingJoinMeetingV1Handler               eventV2VCMeetingJoinMeetingV1Handler
+	eventV2VCMeetingLeaveMeetingV1Handler              eventV2VCMeetingLeaveMeetingV1Handler
+	eventV2VCMeetingRecordingStartedV1Handler          eventV2VCMeetingRecordingStartedV1Handler
+	eventV2VCMeetingRecordingEndedV1Handler            eventV2VCMeetingRecordingEndedV1Handler
+	eventV2VCMeetingRecordingReadyV1Handler            eventV2VCMeetingRecordingReadyV1Handler
+	eventV2VCMeetingShareStartedV1Handler              eventV2VCMeetingShareStartedV1Handler
+	eventV2VCMeetingShareEndedV1Handler                eventV2VCMeetingShareEndedV1Handler
+	eventV1AddBotHandler                               eventV1AddBotHandler
+	eventV1RemoveBotHandler                            eventV1RemoveBotHandler
+	eventV1P2PChatCreateHandler                        eventV1P2PChatCreateHandler
+	eventV1ReceiveMessageHandler                       eventV1ReceiveMessageHandler
+	eventV1AddUserToChatHandler                        eventV1AddUserToChatHandler
+	eventV1RemoveUserFromChatHandler                   eventV1RemoveUserFromChatHandler
+	eventV1RevokeAddUserFromChatHandler                eventV1RevokeAddUserFromChatHandler
+	eventV1ChatDisbandHandler                          eventV1ChatDisbandHandler
 }
 
 func (r *eventHandler) clone() *eventHandler {
 	return &eventHandler{
-		eventV2ContactUserUpdatedV3Handler:        r.eventV2ContactUserUpdatedV3Handler,
-		eventV2ContactUserCreatedV3Handler:        r.eventV2ContactUserCreatedV3Handler,
-		eventV2ContactScopeUpdatedV3Handler:       r.eventV2ContactScopeUpdatedV3Handler,
-		eventV2IMMessageReceiveV1Handler:          r.eventV2IMMessageReceiveV1Handler,
-		eventV2IMMessageReadV1Handler:             r.eventV2IMMessageReadV1Handler,
-		eventV2IMChatDisbandedV1Handler:           r.eventV2IMChatDisbandedV1Handler,
-		eventV2IMChatUpdatedV1Handler:             r.eventV2IMChatUpdatedV1Handler,
-		eventV2IMChatMemberBotAddedV1Handler:      r.eventV2IMChatMemberBotAddedV1Handler,
-		eventV2IMChatMemberBotDeletedV1Handler:    r.eventV2IMChatMemberBotDeletedV1Handler,
-		eventV2IMChatMemberUserAddedV1Handler:     r.eventV2IMChatMemberUserAddedV1Handler,
-		eventV2IMChatMemberUserWithdrawnV1Handler: r.eventV2IMChatMemberUserWithdrawnV1Handler,
-		eventV2IMChatMemberUserDeletedV1Handler:   r.eventV2IMChatMemberUserDeletedV1Handler,
-		eventV2VCMeetingMeetingStartedV1Handler:   r.eventV2VCMeetingMeetingStartedV1Handler,
-		eventV2VCMeetingMeetingEndedV1Handler:     r.eventV2VCMeetingMeetingEndedV1Handler,
-		eventV2VCMeetingJoinMeetingV1Handler:      r.eventV2VCMeetingJoinMeetingV1Handler,
-		eventV2VCMeetingLeaveMeetingV1Handler:     r.eventV2VCMeetingLeaveMeetingV1Handler,
-		eventV2VCMeetingRecordingStartedV1Handler: r.eventV2VCMeetingRecordingStartedV1Handler,
-		eventV2VCMeetingRecordingEndedV1Handler:   r.eventV2VCMeetingRecordingEndedV1Handler,
-		eventV2VCMeetingRecordingReadyV1Handler:   r.eventV2VCMeetingRecordingReadyV1Handler,
-		eventV2VCMeetingShareStartedV1Handler:     r.eventV2VCMeetingShareStartedV1Handler,
-		eventV2VCMeetingShareEndedV1Handler:       r.eventV2VCMeetingShareEndedV1Handler,
-		eventV1AddBotHandler:                      r.eventV1AddBotHandler,
-		eventV1RemoveBotHandler:                   r.eventV1RemoveBotHandler,
-		eventV1P2PChatCreateHandler:               r.eventV1P2PChatCreateHandler,
-		eventV1ReceiveMessageHandler:              r.eventV1ReceiveMessageHandler,
-		eventV1AddUserToChatHandler:               r.eventV1AddUserToChatHandler,
-		eventV1RemoveUserFromChatHandler:          r.eventV1RemoveUserFromChatHandler,
-		eventV1RevokeAddUserFromChatHandler:       r.eventV1RevokeAddUserFromChatHandler,
-		eventV1ChatDisbandHandler:                 r.eventV1ChatDisbandHandler,
+		eventV2HelpdeskTicketMessageCreatedV1Handler:       r.eventV2HelpdeskTicketMessageCreatedV1Handler,
+		eventV2HelpdeskTicketCreatedV1Handler:              r.eventV2HelpdeskTicketCreatedV1Handler,
+		eventV2HelpdeskTicketMessageUpdatedV1Handler:       r.eventV2HelpdeskTicketMessageUpdatedV1Handler,
+		eventV2ContactDepartmentCreatedV3Handler:           r.eventV2ContactDepartmentCreatedV3Handler,
+		eventV2ContactDepartmentDeletedV3Handler:           r.eventV2ContactDepartmentDeletedV3Handler,
+		eventV2ContactDepartmentUpdatedV3Handler:           r.eventV2ContactDepartmentUpdatedV3Handler,
+		eventV2ContactUserUpdatedV3Handler:                 r.eventV2ContactUserUpdatedV3Handler,
+		eventV2ContactUserCreatedV3Handler:                 r.eventV2ContactUserCreatedV3Handler,
+		eventV2ContactUserDeletedV3Handler:                 r.eventV2ContactUserDeletedV3Handler,
+		eventV2ContactScopeUpdatedV3Handler:                r.eventV2ContactScopeUpdatedV3Handler,
+		eventV2ContactEmployeeTypeEnumCreatedV3Handler:     r.eventV2ContactEmployeeTypeEnumCreatedV3Handler,
+		eventV2ContactEmployeeTypeEnumActivedV3Handler:     r.eventV2ContactEmployeeTypeEnumActivedV3Handler,
+		eventV2ContactEmployeeTypeEnumDeactivatedV3Handler: r.eventV2ContactEmployeeTypeEnumDeactivatedV3Handler,
+		eventV2ContactEmployeeTypeEnumUpdatedV3Handler:     r.eventV2ContactEmployeeTypeEnumUpdatedV3Handler,
+		eventV2ContactEmployeeTypeEnumDeletedV3Handler:     r.eventV2ContactEmployeeTypeEnumDeletedV3Handler,
+		eventV2IMMessageReceiveV1Handler:                   r.eventV2IMMessageReceiveV1Handler,
+		eventV2IMMessageReadV1Handler:                      r.eventV2IMMessageReadV1Handler,
+		eventV2IMChatDisbandedV1Handler:                    r.eventV2IMChatDisbandedV1Handler,
+		eventV2IMChatUpdatedV1Handler:                      r.eventV2IMChatUpdatedV1Handler,
+		eventV2IMChatMemberBotAddedV1Handler:               r.eventV2IMChatMemberBotAddedV1Handler,
+		eventV2IMChatMemberBotDeletedV1Handler:             r.eventV2IMChatMemberBotDeletedV1Handler,
+		eventV2IMChatMemberUserAddedV1Handler:              r.eventV2IMChatMemberUserAddedV1Handler,
+		eventV2IMChatMemberUserWithdrawnV1Handler:          r.eventV2IMChatMemberUserWithdrawnV1Handler,
+		eventV2IMChatMemberUserDeletedV1Handler:            r.eventV2IMChatMemberUserDeletedV1Handler,
+		eventV2VCMeetingMeetingStartedV1Handler:            r.eventV2VCMeetingMeetingStartedV1Handler,
+		eventV2VCMeetingMeetingEndedV1Handler:              r.eventV2VCMeetingMeetingEndedV1Handler,
+		eventV2VCMeetingJoinMeetingV1Handler:               r.eventV2VCMeetingJoinMeetingV1Handler,
+		eventV2VCMeetingLeaveMeetingV1Handler:              r.eventV2VCMeetingLeaveMeetingV1Handler,
+		eventV2VCMeetingRecordingStartedV1Handler:          r.eventV2VCMeetingRecordingStartedV1Handler,
+		eventV2VCMeetingRecordingEndedV1Handler:            r.eventV2VCMeetingRecordingEndedV1Handler,
+		eventV2VCMeetingRecordingReadyV1Handler:            r.eventV2VCMeetingRecordingReadyV1Handler,
+		eventV2VCMeetingShareStartedV1Handler:              r.eventV2VCMeetingShareStartedV1Handler,
+		eventV2VCMeetingShareEndedV1Handler:                r.eventV2VCMeetingShareEndedV1Handler,
+		eventV1AddBotHandler:                               r.eventV1AddBotHandler,
+		eventV1RemoveBotHandler:                            r.eventV1RemoveBotHandler,
+		eventV1P2PChatCreateHandler:                        r.eventV1P2PChatCreateHandler,
+		eventV1ReceiveMessageHandler:                       r.eventV1ReceiveMessageHandler,
+		eventV1AddUserToChatHandler:                        r.eventV1AddUserToChatHandler,
+		eventV1RemoveUserFromChatHandler:                   r.eventV1RemoveUserFromChatHandler,
+		eventV1RevokeAddUserFromChatHandler:                r.eventV1RevokeAddUserFromChatHandler,
+		eventV1ChatDisbandHandler:                          r.eventV1ChatDisbandHandler,
 	}
 }
 
 type eventBody struct {
-	eventV2ContactUserUpdatedV3        *EventV2ContactUserUpdatedV3
-	eventV2ContactUserCreatedV3        *EventV2ContactUserCreatedV3
-	eventV2ContactScopeUpdatedV3       *EventV2ContactScopeUpdatedV3
-	eventV2IMMessageReceiveV1          *EventV2IMMessageReceiveV1
-	eventV2IMMessageReadV1             *EventV2IMMessageReadV1
-	eventV2IMChatDisbandedV1           *EventV2IMChatDisbandedV1
-	eventV2IMChatUpdatedV1             *EventV2IMChatUpdatedV1
-	eventV2IMChatMemberBotAddedV1      *EventV2IMChatMemberBotAddedV1
-	eventV2IMChatMemberBotDeletedV1    *EventV2IMChatMemberBotDeletedV1
-	eventV2IMChatMemberUserAddedV1     *EventV2IMChatMemberUserAddedV1
-	eventV2IMChatMemberUserWithdrawnV1 *EventV2IMChatMemberUserWithdrawnV1
-	eventV2IMChatMemberUserDeletedV1   *EventV2IMChatMemberUserDeletedV1
-	eventV2VCMeetingMeetingStartedV1   *EventV2VCMeetingMeetingStartedV1
-	eventV2VCMeetingMeetingEndedV1     *EventV2VCMeetingMeetingEndedV1
-	eventV2VCMeetingJoinMeetingV1      *EventV2VCMeetingJoinMeetingV1
-	eventV2VCMeetingLeaveMeetingV1     *EventV2VCMeetingLeaveMeetingV1
-	eventV2VCMeetingRecordingStartedV1 *EventV2VCMeetingRecordingStartedV1
-	eventV2VCMeetingRecordingEndedV1   *EventV2VCMeetingRecordingEndedV1
-	eventV2VCMeetingRecordingReadyV1   *EventV2VCMeetingRecordingReadyV1
-	eventV2VCMeetingShareStartedV1     *EventV2VCMeetingShareStartedV1
-	eventV2VCMeetingShareEndedV1       *EventV2VCMeetingShareEndedV1
-	eventV1AddBot                      *EventV1AddBot
-	eventV1RemoveBot                   *EventV1RemoveBot
-	eventV1P2PChatCreate               *EventV1P2PChatCreate
-	eventV1ReceiveMessage              *EventV1ReceiveMessage
-	eventV1AddUserToChat               *EventV1AddUserToChat
-	eventV1RemoveUserFromChat          *EventV1RemoveUserFromChat
-	eventV1RevokeAddUserFromChat       *EventV1RevokeAddUserFromChat
-	eventV1ChatDisband                 *EventV1ChatDisband
+	eventV2HelpdeskTicketMessageCreatedV1       *EventV2HelpdeskTicketMessageCreatedV1
+	eventV2HelpdeskTicketCreatedV1              *EventV2HelpdeskTicketCreatedV1
+	eventV2HelpdeskTicketMessageUpdatedV1       *EventV2HelpdeskTicketMessageUpdatedV1
+	eventV2ContactDepartmentCreatedV3           *EventV2ContactDepartmentCreatedV3
+	eventV2ContactDepartmentDeletedV3           *EventV2ContactDepartmentDeletedV3
+	eventV2ContactDepartmentUpdatedV3           *EventV2ContactDepartmentUpdatedV3
+	eventV2ContactUserUpdatedV3                 *EventV2ContactUserUpdatedV3
+	eventV2ContactUserCreatedV3                 *EventV2ContactUserCreatedV3
+	eventV2ContactUserDeletedV3                 *EventV2ContactUserDeletedV3
+	eventV2ContactScopeUpdatedV3                *EventV2ContactScopeUpdatedV3
+	eventV2ContactEmployeeTypeEnumCreatedV3     *EventV2ContactEmployeeTypeEnumCreatedV3
+	eventV2ContactEmployeeTypeEnumActivedV3     *EventV2ContactEmployeeTypeEnumActivedV3
+	eventV2ContactEmployeeTypeEnumDeactivatedV3 *EventV2ContactEmployeeTypeEnumDeactivatedV3
+	eventV2ContactEmployeeTypeEnumUpdatedV3     *EventV2ContactEmployeeTypeEnumUpdatedV3
+	eventV2ContactEmployeeTypeEnumDeletedV3     *EventV2ContactEmployeeTypeEnumDeletedV3
+	eventV2IMMessageReceiveV1                   *EventV2IMMessageReceiveV1
+	eventV2IMMessageReadV1                      *EventV2IMMessageReadV1
+	eventV2IMChatDisbandedV1                    *EventV2IMChatDisbandedV1
+	eventV2IMChatUpdatedV1                      *EventV2IMChatUpdatedV1
+	eventV2IMChatMemberBotAddedV1               *EventV2IMChatMemberBotAddedV1
+	eventV2IMChatMemberBotDeletedV1             *EventV2IMChatMemberBotDeletedV1
+	eventV2IMChatMemberUserAddedV1              *EventV2IMChatMemberUserAddedV1
+	eventV2IMChatMemberUserWithdrawnV1          *EventV2IMChatMemberUserWithdrawnV1
+	eventV2IMChatMemberUserDeletedV1            *EventV2IMChatMemberUserDeletedV1
+	eventV2VCMeetingMeetingStartedV1            *EventV2VCMeetingMeetingStartedV1
+	eventV2VCMeetingMeetingEndedV1              *EventV2VCMeetingMeetingEndedV1
+	eventV2VCMeetingJoinMeetingV1               *EventV2VCMeetingJoinMeetingV1
+	eventV2VCMeetingLeaveMeetingV1              *EventV2VCMeetingLeaveMeetingV1
+	eventV2VCMeetingRecordingStartedV1          *EventV2VCMeetingRecordingStartedV1
+	eventV2VCMeetingRecordingEndedV1            *EventV2VCMeetingRecordingEndedV1
+	eventV2VCMeetingRecordingReadyV1            *EventV2VCMeetingRecordingReadyV1
+	eventV2VCMeetingShareStartedV1              *EventV2VCMeetingShareStartedV1
+	eventV2VCMeetingShareEndedV1                *EventV2VCMeetingShareEndedV1
+	eventV1AddBot                               *EventV1AddBot
+	eventV1RemoveBot                            *EventV1RemoveBot
+	eventV1P2PChatCreate                        *EventV1P2PChatCreate
+	eventV1ReceiveMessage                       *EventV1ReceiveMessage
+	eventV1AddUserToChat                        *EventV1AddUserToChat
+	eventV1RemoveUserFromChat                   *EventV1RemoveUserFromChat
+	eventV1RevokeAddUserFromChat                *EventV1RevokeAddUserFromChat
+	eventV1ChatDisband                          *EventV1ChatDisband
 }
 
 func (r *EventCallbackService) parserEventV2(req *eventReq) error {
@@ -146,6 +194,42 @@ func (r *EventCallbackService) parserEventV2(req *eventReq) error {
 	}
 
 	switch req.Header.EventType {
+	case EventTypeV2HelpdeskTicketMessageCreatedV1:
+		event := new(EventV2HelpdeskTicketMessageCreatedV1)
+		if err := req.unmarshalEvent(event); err != nil {
+			return err
+		}
+		req.eventV2HelpdeskTicketMessageCreatedV1 = event
+	case EventTypeV2HelpdeskTicketCreatedV1:
+		event := new(EventV2HelpdeskTicketCreatedV1)
+		if err := req.unmarshalEvent(event); err != nil {
+			return err
+		}
+		req.eventV2HelpdeskTicketCreatedV1 = event
+	case EventTypeV2HelpdeskTicketMessageUpdatedV1:
+		event := new(EventV2HelpdeskTicketMessageUpdatedV1)
+		if err := req.unmarshalEvent(event); err != nil {
+			return err
+		}
+		req.eventV2HelpdeskTicketMessageUpdatedV1 = event
+	case EventTypeV2ContactDepartmentCreatedV3:
+		event := new(EventV2ContactDepartmentCreatedV3)
+		if err := req.unmarshalEvent(event); err != nil {
+			return err
+		}
+		req.eventV2ContactDepartmentCreatedV3 = event
+	case EventTypeV2ContactDepartmentDeletedV3:
+		event := new(EventV2ContactDepartmentDeletedV3)
+		if err := req.unmarshalEvent(event); err != nil {
+			return err
+		}
+		req.eventV2ContactDepartmentDeletedV3 = event
+	case EventTypeV2ContactDepartmentUpdatedV3:
+		event := new(EventV2ContactDepartmentUpdatedV3)
+		if err := req.unmarshalEvent(event); err != nil {
+			return err
+		}
+		req.eventV2ContactDepartmentUpdatedV3 = event
 	case EventTypeV2ContactUserUpdatedV3:
 		event := new(EventV2ContactUserUpdatedV3)
 		if err := req.unmarshalEvent(event); err != nil {
@@ -158,12 +242,48 @@ func (r *EventCallbackService) parserEventV2(req *eventReq) error {
 			return err
 		}
 		req.eventV2ContactUserCreatedV3 = event
+	case EventTypeV2ContactUserDeletedV3:
+		event := new(EventV2ContactUserDeletedV3)
+		if err := req.unmarshalEvent(event); err != nil {
+			return err
+		}
+		req.eventV2ContactUserDeletedV3 = event
 	case EventTypeV2ContactScopeUpdatedV3:
 		event := new(EventV2ContactScopeUpdatedV3)
 		if err := req.unmarshalEvent(event); err != nil {
 			return err
 		}
 		req.eventV2ContactScopeUpdatedV3 = event
+	case EventTypeV2ContactEmployeeTypeEnumCreatedV3:
+		event := new(EventV2ContactEmployeeTypeEnumCreatedV3)
+		if err := req.unmarshalEvent(event); err != nil {
+			return err
+		}
+		req.eventV2ContactEmployeeTypeEnumCreatedV3 = event
+	case EventTypeV2ContactEmployeeTypeEnumActivedV3:
+		event := new(EventV2ContactEmployeeTypeEnumActivedV3)
+		if err := req.unmarshalEvent(event); err != nil {
+			return err
+		}
+		req.eventV2ContactEmployeeTypeEnumActivedV3 = event
+	case EventTypeV2ContactEmployeeTypeEnumDeactivatedV3:
+		event := new(EventV2ContactEmployeeTypeEnumDeactivatedV3)
+		if err := req.unmarshalEvent(event); err != nil {
+			return err
+		}
+		req.eventV2ContactEmployeeTypeEnumDeactivatedV3 = event
+	case EventTypeV2ContactEmployeeTypeEnumUpdatedV3:
+		event := new(EventV2ContactEmployeeTypeEnumUpdatedV3)
+		if err := req.unmarshalEvent(event); err != nil {
+			return err
+		}
+		req.eventV2ContactEmployeeTypeEnumUpdatedV3 = event
+	case EventTypeV2ContactEmployeeTypeEnumDeletedV3:
+		event := new(EventV2ContactEmployeeTypeEnumDeletedV3)
+		if err := req.unmarshalEvent(event); err != nil {
+			return err
+		}
+		req.eventV2ContactEmployeeTypeEnumDeletedV3 = event
 	case EventTypeV2IMMessageReceiveV1:
 		event := new(EventV2IMMessageReceiveV1)
 		if err := req.unmarshalEvent(event); err != nil {
@@ -353,6 +473,36 @@ type v1type struct {
 
 func (r *EventCallbackService) handlerEvent(ctx context.Context, req *eventReq) (handled bool, s string, err error) {
 	switch {
+	case req.eventV2HelpdeskTicketMessageCreatedV1 != nil:
+		if r.cli.eventHandler.eventV2HelpdeskTicketMessageCreatedV1Handler != nil {
+			s, err = r.cli.eventHandler.eventV2HelpdeskTicketMessageCreatedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2HelpdeskTicketMessageCreatedV1)
+		}
+		return true, s, err
+	case req.eventV2HelpdeskTicketCreatedV1 != nil:
+		if r.cli.eventHandler.eventV2HelpdeskTicketCreatedV1Handler != nil {
+			s, err = r.cli.eventHandler.eventV2HelpdeskTicketCreatedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2HelpdeskTicketCreatedV1)
+		}
+		return true, s, err
+	case req.eventV2HelpdeskTicketMessageUpdatedV1 != nil:
+		if r.cli.eventHandler.eventV2HelpdeskTicketMessageUpdatedV1Handler != nil {
+			s, err = r.cli.eventHandler.eventV2HelpdeskTicketMessageUpdatedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2HelpdeskTicketMessageUpdatedV1)
+		}
+		return true, s, err
+	case req.eventV2ContactDepartmentCreatedV3 != nil:
+		if r.cli.eventHandler.eventV2ContactDepartmentCreatedV3Handler != nil {
+			s, err = r.cli.eventHandler.eventV2ContactDepartmentCreatedV3Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2ContactDepartmentCreatedV3)
+		}
+		return true, s, err
+	case req.eventV2ContactDepartmentDeletedV3 != nil:
+		if r.cli.eventHandler.eventV2ContactDepartmentDeletedV3Handler != nil {
+			s, err = r.cli.eventHandler.eventV2ContactDepartmentDeletedV3Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2ContactDepartmentDeletedV3)
+		}
+		return true, s, err
+	case req.eventV2ContactDepartmentUpdatedV3 != nil:
+		if r.cli.eventHandler.eventV2ContactDepartmentUpdatedV3Handler != nil {
+			s, err = r.cli.eventHandler.eventV2ContactDepartmentUpdatedV3Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2ContactDepartmentUpdatedV3)
+		}
+		return true, s, err
 	case req.eventV2ContactUserUpdatedV3 != nil:
 		if r.cli.eventHandler.eventV2ContactUserUpdatedV3Handler != nil {
 			s, err = r.cli.eventHandler.eventV2ContactUserUpdatedV3Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2ContactUserUpdatedV3)
@@ -363,9 +513,39 @@ func (r *EventCallbackService) handlerEvent(ctx context.Context, req *eventReq) 
 			s, err = r.cli.eventHandler.eventV2ContactUserCreatedV3Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2ContactUserCreatedV3)
 		}
 		return true, s, err
+	case req.eventV2ContactUserDeletedV3 != nil:
+		if r.cli.eventHandler.eventV2ContactUserDeletedV3Handler != nil {
+			s, err = r.cli.eventHandler.eventV2ContactUserDeletedV3Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2ContactUserDeletedV3)
+		}
+		return true, s, err
 	case req.eventV2ContactScopeUpdatedV3 != nil:
 		if r.cli.eventHandler.eventV2ContactScopeUpdatedV3Handler != nil {
 			s, err = r.cli.eventHandler.eventV2ContactScopeUpdatedV3Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2ContactScopeUpdatedV3)
+		}
+		return true, s, err
+	case req.eventV2ContactEmployeeTypeEnumCreatedV3 != nil:
+		if r.cli.eventHandler.eventV2ContactEmployeeTypeEnumCreatedV3Handler != nil {
+			s, err = r.cli.eventHandler.eventV2ContactEmployeeTypeEnumCreatedV3Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2ContactEmployeeTypeEnumCreatedV3)
+		}
+		return true, s, err
+	case req.eventV2ContactEmployeeTypeEnumActivedV3 != nil:
+		if r.cli.eventHandler.eventV2ContactEmployeeTypeEnumActivedV3Handler != nil {
+			s, err = r.cli.eventHandler.eventV2ContactEmployeeTypeEnumActivedV3Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2ContactEmployeeTypeEnumActivedV3)
+		}
+		return true, s, err
+	case req.eventV2ContactEmployeeTypeEnumDeactivatedV3 != nil:
+		if r.cli.eventHandler.eventV2ContactEmployeeTypeEnumDeactivatedV3Handler != nil {
+			s, err = r.cli.eventHandler.eventV2ContactEmployeeTypeEnumDeactivatedV3Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2ContactEmployeeTypeEnumDeactivatedV3)
+		}
+		return true, s, err
+	case req.eventV2ContactEmployeeTypeEnumUpdatedV3 != nil:
+		if r.cli.eventHandler.eventV2ContactEmployeeTypeEnumUpdatedV3Handler != nil {
+			s, err = r.cli.eventHandler.eventV2ContactEmployeeTypeEnumUpdatedV3Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2ContactEmployeeTypeEnumUpdatedV3)
+		}
+		return true, s, err
+	case req.eventV2ContactEmployeeTypeEnumDeletedV3 != nil:
+		if r.cli.eventHandler.eventV2ContactEmployeeTypeEnumDeletedV3Handler != nil {
+			s, err = r.cli.eventHandler.eventV2ContactEmployeeTypeEnumDeletedV3Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2ContactEmployeeTypeEnumDeletedV3)
 		}
 		return true, s, err
 	case req.eventV2IMMessageReceiveV1 != nil:

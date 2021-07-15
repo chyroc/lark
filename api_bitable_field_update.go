@@ -40,12 +40,29 @@ func (r *Mock) UnMockBitableUpdateBitableField() {
 }
 
 type UpdateBitableFieldReq struct {
-	AppToken  string       `path:"app_token" json:"-"`   // bitable app token, 示例值："appbcbWCzen6D8dezhoCH2RpMAh"
-	TableID   string       `path:"table_id" json:"-"`    // table id, 示例值："tblsRc9GRRXKqhvW"
-	FieldID   string       `path:"field_id" json:"-"`    // field id, 示例值："fldPTb0U2y"
-	FieldName string       `json:"field_name,omitempty"` // 多维表格字段名, 示例值："多行文本"
-	Type      int64        `json:"type,omitempty"`       // 多维表格字段类型, 示例值：1
-	Property  *interface{} `json:"property,omitempty"`   // 字段属性, 示例值：[,                    {,                        "name": "选项A",                    },,                    {,                        "name": "选项B",                    },                ],
+	AppToken  string                         `path:"app_token" json:"-"`   // bitable app token, 示例值："appbcbWCzen6D8dezhoCH2RpMAh"
+	TableID   string                         `path:"table_id" json:"-"`    // table id, 示例值："tblsRc9GRRXKqhvW"
+	FieldID   string                         `path:"field_id" json:"-"`    // field id, 示例值："fldPTb0U2y"
+	FieldName string                         `json:"field_name,omitempty"` // 多维表格字段名, 示例值："多行文本"
+	Type      int64                          `json:"type,omitempty"`       // 多维表格字段类型, 示例值：1
+	Property  *UpdateBitableFieldReqProperty `json:"property,omitempty"`   // 字段属性, 具体参考: [Property说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/bitable/development-guide/bitable-structure#b286b4ee)
+}
+
+type UpdateBitableFieldReqProperty struct {
+	Options    []*UpdateBitableFieldReqPropertyOption `json:"options,omitempty"`     // 单选/多选字段的选项信息
+	Formatter  *string                                `json:"formatter,omitempty"`   // 数字字段的数字显示格式, 示例值："0"
+	DateFormat *string                                `json:"date_format,omitempty"` // 日期格式, 示例值："yyyy/MM/dd"
+	TimeFormat *string                                `json:"time_format,omitempty"` // 时间格式, 示例值："HH:mm"
+	AutoFill   *bool                                  `json:"auto_fill,omitempty"`   // 是否自动填入创建时间, 示例值：false
+	Multiple   *bool                                  `json:"multiple,omitempty"`    // 多选标记, 示例值：false
+	TableID    *string                                `json:"table_id,omitempty"`    // 关联字段中关联表的id, 示例值："tblsRc9GRRXKqhvW"
+	ViewID     *string                                `json:"view_id,omitempty"`     // 关联字段中关联表的视图id, 示例值："vewOVMEXPF"
+	Fields     []string                               `json:"fields,omitempty"`      // 关联字段要展示的字段, 示例值：["fldSiTwIqy"]
+}
+
+type UpdateBitableFieldReqPropertyOption struct {
+	Name *string `json:"name,omitempty"` // 选项名, 示例值："红色"
+	ID   *string `json:"id,omitempty"`   // 选项id, 示例值："optKl35lnG"
 }
 
 type updateBitableFieldResp struct {
@@ -59,8 +76,25 @@ type UpdateBitableFieldResp struct {
 }
 
 type UpdateBitableFieldRespField struct {
-	FieldID   string      `json:"field_id,omitempty"`   // 多维表格字段 id
-	FieldName string      `json:"field_name,omitempty"` // 多维表格字段名
-	Type      int64       `json:"type,omitempty"`       // 多维表格字段类型
-	Property  interface{} `json:"property,omitempty"`   // 字段属性
+	FieldID   string                               `json:"field_id,omitempty"`   // 多维表格字段 id
+	FieldName string                               `json:"field_name,omitempty"` // 多维表格字段名
+	Type      int64                                `json:"type,omitempty"`       // 多维表格字段类型
+	Property  *UpdateBitableFieldRespFieldProperty `json:"property,omitempty"`   // 字段属性, 具体参考: [Property说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/bitable/development-guide/bitable-structure#b286b4ee)
+}
+
+type UpdateBitableFieldRespFieldProperty struct {
+	Options    []*UpdateBitableFieldRespFieldPropertyOption `json:"options,omitempty"`     // 单选/多选字段的选项信息
+	Formatter  string                                       `json:"formatter,omitempty"`   // 数字字段的数字显示格式
+	DateFormat string                                       `json:"date_format,omitempty"` // 日期格式
+	TimeFormat string                                       `json:"time_format,omitempty"` // 时间格式
+	AutoFill   bool                                         `json:"auto_fill,omitempty"`   // 是否自动填入创建时间
+	Multiple   bool                                         `json:"multiple,omitempty"`    // 多选标记
+	TableID    string                                       `json:"table_id,omitempty"`    // 关联字段中关联表的id
+	ViewID     string                                       `json:"view_id,omitempty"`     // 关联字段中关联表的视图id
+	Fields     []string                                     `json:"fields,omitempty"`      // 关联字段要展示的字段
+}
+
+type UpdateBitableFieldRespFieldPropertyOption struct {
+	Name string `json:"name,omitempty"` // 选项名
+	ID   string `json:"id,omitempty"`   // 选项id
 }

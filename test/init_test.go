@@ -20,6 +20,12 @@ type App struct {
 }
 
 func (r *App) Ins() *lark.Lark {
+	if IsInCI() {
+		return lark.New(
+			lark.WithAppCredential(r.AppID, r.AppSecret),
+			lark.WithTimeout(time.Second*20),
+		)
+	}
 	return lark.New(
 		lark.WithAppCredential(r.AppID, r.AppSecret),
 		lark.WithTimeout(time.Second*20),

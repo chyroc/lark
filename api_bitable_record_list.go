@@ -41,7 +41,7 @@ func (r *Mock) UnMockBitableGetBitableRecordList() {
 
 type GetBitableRecordListReq struct {
 	ViewID     *string `query:"view_id" json:"-"`     // 视图 id, 示例值："vewqhz51lk"
-	Filter     *string `query:"filter" json:"-"`      // filter, 示例值："AND(currentValue.[身高]>180, currentValue.[体重]>150)"
+	Filter     *string `query:"filter" json:"-"`      // filter, 示例值："AND(CurrentValue.[身高]>180, CurrentValue.[体重]>150)"
 	Sort       *string `query:"sort" json:"-"`        // sort, 示例值："["字段1 DESC","字段2 ASC"]"
 	FieldNames *string `query:"field_names" json:"-"` // field_names, 示例值："["字段1"]"
 	PageToken  *string `query:"page_token" json:"-"`  // 分页标记，第一次请求不填，表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token，下次遍历可采用该 page_token 获取查询结果, 示例值："recn0hoyXL"

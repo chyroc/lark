@@ -35,7 +35,7 @@ https://godoc.org/github.com/chyroc/lark
 
 ## 支持的接口
 
-API 总数: 380, 事件总数: 29
+API 总数: 387, 事件总数: 41
 
 <details>
   <summary>
@@ -64,6 +64,10 @@ API 总数: 380, 事件总数: 29
   - UpdateDepartmentPatch
   - UpdateDepartment
   - DeleteDepartment
+  - GetEmployeeTypeEnumList
+  - UpdateEmployeeTypeEnumPatch
+  - DeleteEmployeeTypeEnum
+  - CreateEmployeeTypeEnum
 - Message
   - SendRawMessage
   - SendRawMessageOld
@@ -162,6 +166,7 @@ API 总数: 380, 事件总数: 29
   - GetDriveDocContent
   - GetDriveDocRawContent
   - GetDriveDocMeta
+  - CreateSheet
   - GetSheetMeta
   - UpdateSheetProperty
   - BatchUpdateSheet
@@ -182,6 +187,8 @@ API 总数: 380, 事件总数: 29
   - MergeSheetCell
   - UnmergeSheetCell
   - SetSheetValueImage
+  - FindSheet
+  - ReplaceSheet
   - CreateSheetConditionFormat
   - GetSheetConditionFormat
   - UpdateSheetConditionFormat
@@ -399,9 +406,21 @@ API 总数: 380, 事件总数: 29
   - UploadFile
   - DownloadFile
 - EventCallback
+  - EventV2HelpdeskTicketMessageCreatedV1
+  - EventV2HelpdeskTicketCreatedV1
+  - EventV2HelpdeskTicketMessageUpdatedV1
+  - EventV2ContactDepartmentCreatedV3
+  - EventV2ContactDepartmentDeletedV3
+  - EventV2ContactDepartmentUpdatedV3
   - EventV2ContactUserUpdatedV3
   - EventV2ContactUserCreatedV3
+  - EventV2ContactUserDeletedV3
   - EventV2ContactScopeUpdatedV3
+  - EventV2ContactEmployeeTypeEnumCreatedV3
+  - EventV2ContactEmployeeTypeEnumActivedV3
+  - EventV2ContactEmployeeTypeEnumDeactivatedV3
+  - EventV2ContactEmployeeTypeEnumUpdatedV3
+  - EventV2ContactEmployeeTypeEnumDeletedV3
   - EventV2IMMessageReceiveV1
   - EventV2IMMessageReadV1
   - EventV2IMChatDisbandedV1

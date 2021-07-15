@@ -45,7 +45,7 @@ type GetHelpdeskTicketListReq struct {
 	ClosedByID       *string                    `query:"closed_by_id" json:"-"`      // 搜索条件: 关单客服id, 示例值："ou_b5de90429xxx"
 	Type             *int64                     `query:"type" json:"-"`              // 搜索条件: 工单类型 1:bot 2:人工, 示例值：1
 	Channel          *int64                     `query:"channel" json:"-"`           // 搜索条件: 工单渠道, 示例值：0
-	Solved           *int64                     `query:"solved" json:"-"`            // 搜索条件: 工单是否解决 1:没解决 2:已解决	, 示例值：1
+	Solved           *int64                     `query:"solved" json:"-"`            // 搜索条件: 工单是否解决 1:没解决 2:已解决, 示例值：1
 	Score            *int64                     `query:"score" json:"-"`             // 搜索条件: 工单评分, 示例值：1
 	StatusList       []int64                    `query:"status_list" json:"-"`       // 搜索条件: 工单状态列表
 	GuestName        *string                    `query:"guest_name" json:"-"`        // 搜索条件: 用户名称, 示例值："abc"
@@ -53,9 +53,9 @@ type GetHelpdeskTicketListReq struct {
 	CustomizedFields []*HelpdeskCustomizedField `query:"customized_fields" json:"-"` // 搜索条件: 自定义字段列表
 	Tags             []string                   `query:"tags" json:"-"`              // 搜索条件: 用户标签列表
 	Page             *int64                     `query:"page" json:"-"`              // 页数, 从1开始, 默认为1, 示例值：1
-	PageSize         *int64                     `query:"page_size" json:"-"`         // 当前页大小，最大为200, 默认为20, 示例值：20
-	CreateTimeStart  *int64                     `query:"create_time_start" json:"-"` // 搜索条件: 工单创建起始时间 ms (也需要填上create_time_end), 示例值：1616920429000
-	CreateTimeEnd    *int64                     `query:"create_time_end" json:"-"`   // 搜索条件: 工单创建结束时间 ms (也需要填上create_time_start), 示例值：1616920429000
+	PageSize         *int64                     `query:"page_size" json:"-"`         // 当前页大小，最大为200, 默认为20。分页查询最多累计返回一万条数据，超过一万条请更改查询条件，推荐通过时间查询。, 示例值：20
+	CreateTimeStart  *int64                     `query:"create_time_start" json:"-"` // 搜索条件: 工单创建起始时间 ms (也需要填上create_time_end)，相当于>=create_time_start, 示例值：1616920429000
+	CreateTimeEnd    *int64                     `query:"create_time_end" json:"-"`   // 搜索条件: 工单创建结束时间 ms (也需要填上create_time_start)，相当于<=create_time_end, 示例值：1616920429000
 	UpdateTimeStart  *int64                     `query:"update_time_start" json:"-"` // 搜索条件: 工单修改起始时间 ms (也需要填上update_time_end), 示例值：1616920429000
 	UpdateTimeEnd    *int64                     `query:"update_time_end" json:"-"`   // 搜索条件: 工单修改结束时间 ms(也需要填上update_time_start), 示例值：1616920429000
 }
