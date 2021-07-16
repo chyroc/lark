@@ -9,41 +9,6 @@ import (
 // GetApplicationMessageOverview
 //
 // 查询应用在指定时间段内机器人消息概览信息。
-// # 请求
-// :::html
-// <md-table>
-// <md-thead>
-// <tr>
-// <md-th>基本</md-th>
-// <md-th></md-th>
-// </tr>
-// </md-thead>
-// <md-tbody>
-// <md-tr>
-// <md-th>HTTP URL</md-th>
-// <md-td>https://open.feishu.cn/open-apis/application/v1/app_message_overview</md-td>
-// </md-tr>
-// <md-tr>
-// <md-th>HTTP Method</md-th>
-// <md-td>POST</md-td>
-// </md-tr>
-// <md-tr>
-// <md-th>频控说明</md-th>
-// <md-td>10次/分钟</md-td>
-// </md-tr>
-// <md-tr>
-// <md-th>
-// 权限要求
-// <md-tooltip type="info">调用该 API 所需的权限。开启其中任意一项权限即可调用</md-tooltip>
-// </md-th>
-// <md-td>
-// 获取机器人发送消息概览数据
-// </md-td>
-// </md-tr>
-// </md-tbody>
-// </md-table>
-// :::
-// #
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uQTN0YjL0UDN24CN1QjN
 func (r *ApplicationService) GetApplicationMessageOverview(ctx context.Context, request *GetApplicationMessageOverviewReq, options ...MethodOptionFunc) (*GetApplicationMessageOverviewResp, *Response, error) {
@@ -55,8 +20,8 @@ func (r *ApplicationService) GetApplicationMessageOverview(ctx context.Context, 
 	req := &RawRequestReq{
 		Scope:                 "Application",
 		API:                   "GetApplicationMessageOverview",
-		Method:                "",
-		URL:                   "",
+		Method:                "POST",
+		URL:                   "https://open.feishu.cn/open-apis/application/v1/app_message_overview",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
