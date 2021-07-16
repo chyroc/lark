@@ -42,6 +42,9 @@ func printData(datas ...interface{}) {
 }
 
 func printDataSingle(v interface{}) {
+	if IsInCI() {
+		return
+	}
 	vt := reflect.TypeOf(v)
 	if vt != nil {
 		if vt.Kind() == reflect.Ptr {
