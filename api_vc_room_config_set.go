@@ -42,11 +42,11 @@ func (r *Mock) UnMockVCSetVCRoomConfig() {
 
 type SetVCRoomConfigReq struct {
 	Scope      int64                         `json:"scope,omitempty"`       // 设置节点范围, 示例值：5, 可选值有: `1`：租户, `2`：国家/地区, `3`：城市, `4`：建筑, `5`：楼层, `6`：会议室
-	CountryID  *string                       `json:"country_id,omitempty"`  // 国家/地区ID scope为1，2时需要此参数, 示例值："1"
-	DistrictID *string                       `json:"district_id,omitempty"` // 城市ID scope为2时需要此参数, 示例值："2"
-	BuildingID *string                       `json:"building_id,omitempty"` // 建筑ID scope为3，4时需要此参数, 示例值："3"
-	FloorName  *string                       `json:"floor_name,omitempty"`  // 楼层 scope为4时需要此参数, 示例值："4"
-	RoomID     *string                       `json:"room_id,omitempty"`     // 会议室ID scope为5时需要此参数, 示例值："67687262867363"
+	CountryID  *string                       `json:"country_id,omitempty"`  // 国家/地区ID scope为2，3时需要此参数, 示例值："086"
+	DistrictID *string                       `json:"district_id,omitempty"` // 城市ID scope为3时需要此参数, 示例值："223"
+	BuildingID *string                       `json:"building_id,omitempty"` // 建筑ID scope为4，5时需要此参数, 示例值："66"
+	FloorName  *string                       `json:"floor_name,omitempty"`  // 楼层 scope为5时需要此参数, 示例值："3"
+	RoomID     *string                       `json:"room_id,omitempty"`     // 会议室ID scope为6时需要此参数, 示例值："67687262867363"
 	RoomConfig *SetVCRoomConfigReqRoomConfig `json:"room_config,omitempty"` // 会议室设置
 }
 

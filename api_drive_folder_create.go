@@ -8,7 +8,7 @@ import (
 
 // CreateDriveFolder 该接口用于根据 folderToken 在该 folder 下创建文件夹。
 //
-// 该接口不支持并发创建，且调用频率上限为 5QPS 以及 10000次每天
+// 该接口不支持并发创建，且调用频率上限为 5QPS 以及 10000次/天
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/ukTNzUjL5UzM14SO1MTN
 func (r *DriveService) CreateDriveFolder(ctx context.Context, request *CreateDriveFolderReq, options ...MethodOptionFunc) (*CreateDriveFolderResp, *Response, error) {

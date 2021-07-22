@@ -6,10 +6,7 @@ import (
 	"context"
 )
 
-// UpdateSheetFloatImage
-//
-// 浮动图片更新参考：[浮动图片指南](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/sheets-v3/spreadsheet-sheet-float_image/float-image-user-guide)
-// 更新已有的浮动图片位置和宽高，包括 range、width、height、offset_x 和 offset_y，不包括 float_image_id 和 float_image_token。
+// UpdateSheetFloatImage 浮动图片更新参考：[浮动图片指南](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/sheets-v3/spreadsheet-sheet-float_image/float-image-user-guide)
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/sheets-v3/spreadsheet-sheet-float_image/patch
 func (r *DriveService) UpdateSheetFloatImage(ctx context.Context, request *UpdateSheetFloatImageReq, options ...MethodOptionFunc) (*UpdateSheetFloatImageResp, *Response, error) {

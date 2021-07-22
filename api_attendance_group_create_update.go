@@ -88,6 +88,8 @@ type CreateUpdateAttendanceGroupReqGroup struct {
 	AllowRemedy            *bool                                                       `json:"allow_remedy,omitempty"`               // 是否允许补卡
 	RemedyLimit            *bool                                                       `json:"remedy_limit,omitempty"`               // 是否限制补卡次数
 	RemedyLimitCount       *int64                                                      `json:"remedy_limit_count,omitempty"`         // 补卡次数
+	RemedyPeriodType       *int64                                                      `json:"remedy_period_type,omitempty"`         // 补卡次数周期类型，0：自然月，1：自定义周期
+	RemedyPeriodCustomDate *int64                                                      `json:"remedy_period_custom_date,omitempty"`  // 补卡自定义周期每月起始日
 	RemedyDateLimit        *bool                                                       `json:"remedy_date_limit,omitempty"`          // 是否限制补卡时间
 	RemedyDateNum          *int64                                                      `json:"remedy_date_num,omitempty"`            // 补卡时间
 	ShowCumulativeTime     *bool                                                       `json:"show_cumulative_time,omitempty"`       // 是否展示上班累计时长
@@ -98,7 +100,6 @@ type CreateUpdateAttendanceGroupReqGroup struct {
 	FaceDowngrade          *bool                                                       `json:"face_downgrade,omitempty"`             // 人脸识别失败时是否允许普通拍照打卡
 	ReplaceBasicPic        *bool                                                       `json:"replace_basic_pic,omitempty"`          // 人脸识别失败时是否允许替换基准图片
 	Machines               []*CreateUpdateAttendanceGroupReqGroupMachine               `json:"machines,omitempty"`                   // 考勤机列表
-	GpsRange               int64                                                       `json:"gps_range,omitempty"`                  // GPS 打卡的有效范围，必选字段
 	Locations              []*CreateUpdateAttendanceGroupReqGroupLocation              `json:"locations,omitempty"`                  // 地址列表
 	GroupType              int64                                                       `json:"group_type,omitempty"`                 // 考勤类型，0：固定班制，2：排班制，3：自由班制
 	PunchDayShiftIDs       []string                                                    `json:"punch_day_shift_ids,omitempty"`        // 固定班制必须填，长度必须等于7
@@ -126,6 +127,7 @@ type CreateUpdateAttendanceGroupReqGroupLocation struct {
 	Address      *string  `json:"address,omitempty"`       // 地址名称
 	Ip           *string  `json:"ip,omitempty"`            // IP 地址
 	Feature      *string  `json:"feature,omitempty"`       // 额外信息，例如运营商信息
+	GpsRange     *int64   `json:"gps_range,omitempty"`     // GPS 打卡的有效范围（默认300m）
 }
 
 type CreateUpdateAttendanceGroupReqGroupFreePunchCfg struct {
@@ -169,6 +171,8 @@ type CreateUpdateAttendanceGroupRespGroup struct {
 	AllowRemedy            bool                                                         `json:"allow_remedy,omitempty"`               // 是否允许补卡
 	RemedyLimit            bool                                                         `json:"remedy_limit,omitempty"`               // 是否限制补卡次数
 	RemedyLimitCount       int64                                                        `json:"remedy_limit_count,omitempty"`         // 补卡次数
+	RemedyPeriodType       int64                                                        `json:"remedy_period_type,omitempty"`         // 补卡次数周期类型，0：自然月，1：自定义周期
+	RemedyPeriodCustomDate int64                                                        `json:"remedy_period_custom_date,omitempty"`  // 补卡自定义周期每月起始日
 	RemedyDateLimit        bool                                                         `json:"remedy_date_limit,omitempty"`          // 是否限制补卡时间
 	RemedyDateNum          int64                                                        `json:"remedy_date_num,omitempty"`            // 补卡时间
 	ShowCumulativeTime     bool                                                         `json:"show_cumulative_time,omitempty"`       // 是否展示上班累计时长
@@ -179,7 +183,7 @@ type CreateUpdateAttendanceGroupRespGroup struct {
 	FaceDowngrade          bool                                                         `json:"face_downgrade,omitempty"`             // 人脸识别失败时是否允许普通拍照打卡
 	ReplaceBasicPic        bool                                                         `json:"replace_basic_pic,omitempty"`          // 人脸识别失败时是否允许替换基准图片
 	Machines               []*CreateUpdateAttendanceGroupRespGroupMachine               `json:"machines,omitempty"`                   // 考勤机列表
-	GpsRange               int64                                                        `json:"gps_range,omitempty"`                  // GPS 打卡的有效范围
+	GpsRange               int64                                                        `json:"gps_range,omitempty"`                  // GPS 打卡的有效范围（不建议使用）
 	Locations              []*CreateUpdateAttendanceGroupRespGroupLocation              `json:"locations,omitempty"`                  // 地址列表
 	GroupType              int64                                                        `json:"group_type,omitempty"`                 // 考勤类型，0：固定班制，2：排班制，3：自由班制
 	PunchDayShiftIDs       []string                                                     `json:"punch_day_shift_ids,omitempty"`        // 固定班制必须填
@@ -207,6 +211,7 @@ type CreateUpdateAttendanceGroupRespGroupLocation struct {
 	Address      string  `json:"address,omitempty"`       // 地址名称
 	Ip           string  `json:"ip,omitempty"`            // IP 地址
 	Feature      string  `json:"feature,omitempty"`       // 额外信息，例如运营商信息
+	GpsRange     int64   `json:"gps_range,omitempty"`     // GPS 打卡的有效范围（默认300m）
 }
 
 type CreateUpdateAttendanceGroupRespGroupFreePunchCfg struct {

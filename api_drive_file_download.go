@@ -9,7 +9,7 @@ import (
 
 // DownloadDriveFile 使用该接口可以下载在云空间目录下的文件（不含飞书文档/表格/思维导图等在线文档）。支持range下载。
 //
-// 该接口不支持太高的并发，且调用频率上限为5QPS
+// 该接口支持调用频率上限为5QPS
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file/download
 func (r *DriveService) DownloadDriveFile(ctx context.Context, request *DownloadDriveFileReq, options ...MethodOptionFunc) (*DownloadDriveFileResp, *Response, error) {

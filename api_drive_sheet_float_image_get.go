@@ -6,10 +6,7 @@ import (
 	"context"
 )
 
-// GetSheetFloatImage
-//
-// 浮动图片参考：[浮动图片指南](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/sheets-v3/spreadsheet-sheet-float_image/float-image-user-guide)
-// 根据 float_image_id 获取对应浮动图片的信息。
+// GetSheetFloatImage 浮动图片参考：[浮动图片指南](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/sheets-v3/spreadsheet-sheet-float_image/float-image-user-guide)
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/sheets-v3/spreadsheet-sheet-float_image/get
 func (r *DriveService) GetSheetFloatImage(ctx context.Context, request *GetSheetFloatImageReq, options ...MethodOptionFunc) (*GetSheetFloatImageResp, *Response, error) {

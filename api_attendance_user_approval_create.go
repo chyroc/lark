@@ -115,6 +115,7 @@ type CreateAttendanceUserApprovalRespUserApproval struct {
 }
 
 type CreateAttendanceUserApprovalRespUserApprovalOut struct {
+	ApprovalID       string     `json:"approval_id,omitempty"`        // 审批实例ID
 	UniqID           string     `json:"uniq_id,omitempty"`            // 外出类型唯一 ID，代表一种外出类型，长度小于 14
 	Unit             int64      `json:"unit,omitempty"`               // 外出时长单位，可用值：【1（天），2（小时），3（半天），4（半小时）】
 	Interval         int64      `json:"interval,omitempty"`           // 假期时长（单位秒）
@@ -128,6 +129,7 @@ type CreateAttendanceUserApprovalRespUserApprovalOut struct {
 }
 
 type CreateAttendanceUserApprovalRespUserApprovalLeave struct {
+	ApprovalID       string     `json:"approval_id,omitempty"`        // 审批实例ID
 	UniqID           string     `json:"uniq_id,omitempty"`            // 假期类型唯一 ID，代表一种假期类型，长度小于 14
 	Unit             int64      `json:"unit,omitempty"`               // 假期时长单位，可用值：【1（天），2（小时），3（半天），4（半小时）】
 	Interval         int64      `json:"interval,omitempty"`           // 假期时长（单位秒）
@@ -141,15 +143,17 @@ type CreateAttendanceUserApprovalRespUserApprovalLeave struct {
 }
 
 type CreateAttendanceUserApprovalRespUserApprovalOvertimeWork struct {
-	Duration  float64 `json:"duration,omitempty"`   // 加班时长
-	Unit      int64   `json:"unit,omitempty"`       // 加班时长单位，可用值：【1（天），2（小时）】
-	Category  int64   `json:"category,omitempty"`   // 加班日期类型，可用值：【1（工作日），2（休息日），3（节假日）】
-	Type      int64   `json:"type,omitempty"`       // 加班规则类型，可用值：【0（不关联加班规则），1（调休），2（加班费），3（关联加班规则，没有调休或加班费）】
-	StartTime string  `json:"start_time,omitempty"` // 开始时间，时间格式为 yyyy-MM-dd HH:mm:ss
-	EndTime   string  `json:"end_time,omitempty"`   // 结束时间，时间格式为 yyyy-MM-dd HH:mm:ss
+	ApprovalID string  `json:"approval_id,omitempty"` // 审批实例ID
+	Duration   float64 `json:"duration,omitempty"`    // 加班时长
+	Unit       int64   `json:"unit,omitempty"`        // 加班时长单位，可用值：【1（天），2（小时）】
+	Category   int64   `json:"category,omitempty"`    // 加班日期类型，可用值：【1（工作日），2（休息日），3（节假日）】
+	Type       int64   `json:"type,omitempty"`        // 加班规则类型，可用值：【0（不关联加班规则），1（调休），2（加班费），3（关联加班规则，没有调休或加班费）】
+	StartTime  string  `json:"start_time,omitempty"`  // 开始时间，时间格式为 yyyy-MM-dd HH:mm:ss
+	EndTime    string  `json:"end_time,omitempty"`    // 结束时间，时间格式为 yyyy-MM-dd HH:mm:ss
 }
 
 type CreateAttendanceUserApprovalRespUserApprovalTrip struct {
+	ApprovalID       string `json:"approval_id,omitempty"`        // 审批实例ID
 	StartTime        string `json:"start_time,omitempty"`         // 开始时间，时间格式为 yyyy-MM-dd HH:mm:ss
 	EndTime          string `json:"end_time,omitempty"`           // 结束时间，时间格式为 yyyy-MM-dd HH:mm:ss
 	Reason           string `json:"reason,omitempty"`             // 出差理由

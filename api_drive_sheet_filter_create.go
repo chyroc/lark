@@ -6,10 +6,7 @@ import (
 	"context"
 )
 
-// CreateSheetFilter
-//
-// 参数值可参考[筛选指南](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/sheets-v3/spreadsheet-sheet-filter/filter-user-guide)
-// 在子表内创建筛选。
+// CreateSheetFilter 参数值可参考[筛选指南](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/sheets-v3/spreadsheet-sheet-filter/filter-user-guide)
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/sheets-v3/spreadsheet-sheet-filter/create
 func (r *DriveService) CreateSheetFilter(ctx context.Context, request *CreateSheetFilterReq, options ...MethodOptionFunc) (*CreateSheetFilterResp, *Response, error) {

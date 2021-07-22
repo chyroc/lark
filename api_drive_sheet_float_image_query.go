@@ -6,10 +6,7 @@ import (
 	"context"
 )
 
-// QuerySheetFloatImage
-//
-// 浮动图片参考：[浮动图片指南](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/sheets-v3/spreadsheet-sheet-float_image/float-image-user-guide)
-// 返回子表内所有的浮动图片信息。
+// QuerySheetFloatImage 浮动图片参考：[浮动图片指南](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/sheets-v3/spreadsheet-sheet-float_image/float-image-user-guide)
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/sheets-v3/spreadsheet-sheet-float_image/query
 func (r *DriveService) QuerySheetFloatImage(ctx context.Context, request *QuerySheetFloatImageReq, options ...MethodOptionFunc) (*QuerySheetFloatImageResp, *Response, error) {

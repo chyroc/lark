@@ -9,8 +9,8 @@ import (
 
 // UploadDriveFile 向云空间指定目录下上传一个文件
 //
-// 使用此方式上传可以快速传输较小的文件（小于等于20MB）
-// 该接口不支持太高的并发，且调用频率上限为5QPS
+// 使用此方式上传可以快速传输小于等于20MB的文件
+// 该接口支持调用频率上限为5QPS
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file/upload_all
 func (r *DriveService) UploadDriveFile(ctx context.Context, request *UploadDriveFileReq, options ...MethodOptionFunc) (*UploadDriveFileResp, *Response, error) {

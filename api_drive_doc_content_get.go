@@ -8,10 +8,8 @@ import (
 
 // GetDriveDocContent
 //
-// :::note
 // 在使用此接口前，请仔细阅读[概述](https://open.feishu.cn/document/ukTMukTMukTM/ukjM5YjL5ITO24SOykjN)和[准备接入文档 API](//ssl:ttdoc/ukTMukTMukTM/ugzNzUjL4czM14CO3MTN/guide/getting-start)了解文档调用的规则和约束，确保你的文档数据不会丢失或出错。
 // 文档数据结构定义可参考：[文档数据结构概述](https://open.feishu.cn/document/ukTMukTMukTM/uAzM5YjLwMTO24CMzkjN)
-// :::
 // 该接口用于获取结构化的文档内容。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uUDM2YjL1AjN24SNwYjN

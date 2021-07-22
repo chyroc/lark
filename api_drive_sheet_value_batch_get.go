@@ -56,10 +56,10 @@ type batchGetSheetValueResp struct {
 }
 
 type BatchGetSheetValueResp struct {
-	Revision         int64                             `json:"revision,omitempty"`         // sheet 的版本号
-	SpreadSheetToken string                            `json:"spreadsheetToken,omitempty"` // spreadsheet 的 token，详见[在线表格开发指南](https://open.feishu.cn/document/ukTMukTMukTM/uATMzUjLwEzM14CMxMTN/overview)
-	TotalCells       int64                             `json:"totalCells,omitempty"`       // 读取的单元格总数
-	ValueRange       *BatchGetSheetValueRespValueRange `json:"valueRange,omitempty"`       // 值与范围
+	Revision         int64                               `json:"revision,omitempty"`         // sheet 的版本号
+	SpreadSheetToken string                              `json:"spreadsheetToken,omitempty"` // spreadsheet 的 token，详见[在线表格开发指南](https://open.feishu.cn/document/ukTMukTMukTM/uATMzUjLwEzM14CMxMTN/overview)
+	TotalCells       int64                               `json:"totalCells,omitempty"`       // 读取的单元格总数
+	ValueRanges      []*BatchGetSheetValueRespValueRange `json:"valueRanges,omitempty"`      // 值与范围
 }
 
 type BatchGetSheetValueRespValueRange struct {

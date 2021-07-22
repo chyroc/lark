@@ -16,7 +16,7 @@ func ExampleSendMessage() {
 	// send raw message
 	{
 		resp, _, err := cli.Message.SendRawMessage(ctx, &lark.SendRawMessageReq{
-			ReceiveIDType: lark.IDTypePtr(lark.IDTypeEmail),
+			ReceiveIDType: lark.IDTypeEmail,
 			ReceiveID:     ptr.String("<EMAIL>"),
 			Content:       `{"text":"text"}`,
 			MsgType:       lark.MsgTypeText,

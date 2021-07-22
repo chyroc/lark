@@ -8,7 +8,7 @@ import (
 
 // CheckUserIsInApplicationPaidScope
 //
-// 该接口用于查询用户是否在企业管理员设置的使用该应用的范围中。如果设置的付费套餐是按人收费或者限制了最大人数，开放平台会引导企业管理员设置“付费功能开通范围”，本接口用于查询用户是否在企业管理员设置的使用该应用的范围中，可以通过此接口，在付费功能点入口判断是否允许某个用户进入使用。
+// 当付费套餐是按人数收费 或者 限制最大使用人数时，开放平台会引导企业管理员设置“付费功能开通范围”。  但是受开通范围限制，部分用户就无法使用对应的付费功能。  可以通过此接口，在付费功能点入口判断是否允许某个用户进入使用。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uATNwUjLwUDM14CM1ATN
 func (r *ApplicationService) CheckUserIsInApplicationPaidScope(ctx context.Context, request *CheckUserIsInApplicationPaidScopeReq, options ...MethodOptionFunc) (*CheckUserIsInApplicationPaidScopeResp, *Response, error) {

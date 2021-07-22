@@ -6,9 +6,7 @@ import (
 	"context"
 )
 
-// ResendAppTicket
-//
-// 飞书每隔 1 小时会给应用推送一次最新的 app_ticket，应用也可以主动调用此接口，触发飞书进行及时的重新推送。
+// ResendAppTicket 飞书每隔 1 小时会给应用推送一次最新的 app_ticket，应用也可以主动调用此接口，触发飞书进行及时的重新推送。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uQjNz4CN2MjL0YzM
 func (r *AuthService) ResendAppTicket(ctx context.Context, request *ResendAppTicketReq, options ...MethodOptionFunc) (*ResendAppTicketResp, *Response, error) {

@@ -53,6 +53,7 @@ type Lark struct {
 	Tenant        *TenantService
 	Search        *SearchService
 	Hire          *HireService
+	AppLink       *AppLinkService
 }
 
 func (r *Lark) initService() {
@@ -81,6 +82,7 @@ func (r *Lark) initService() {
 	r.Tenant = &TenantService{cli: r}
 	r.Search = &SearchService{cli: r}
 	r.Hire = &HireService{cli: r}
+	r.AppLink = &AppLinkService{cli: r}
 }
 
 func (r *Lark) clone() *Lark {
@@ -129,6 +131,7 @@ func (r *Lark) clone() *Lark {
 		Tenant:        r.Tenant,
 		Search:        r.Search,
 		Hire:          r.Hire,
+		AppLink:       r.AppLink,
 	}
 }
 
@@ -158,4 +161,5 @@ type (
 	TenantService        struct{ cli *Lark }
 	SearchService        struct{ cli *Lark }
 	HireService          struct{ cli *Lark }
+	AppLinkService       struct{ cli *Lark }
 )

@@ -7,13 +7,22 @@ import (
 	"io"
 	"io/ioutil"
 	"net/http"
+
+	"github.com/chyroc/lark/internal"
 )
 
 // https://open.feishu.cn/document/ukTMukTMukTM/uUTNz4SN1MjL1UzM#8f960a4b
 
-func (r *EventCallbackService) listenCallback(ctx context.Context, reader io.Reader, writer http.ResponseWriter) {
+func (r *EventCallbackService) listenCallback(ctx context.Context, isSecurity bool, header http.Header, reader io.Reader, writer http.ResponseWriter) {
 	bs, err := ioutil.ReadAll(reader)
 	if err != nil {
+		writer.WriteHeader(500)
+		_, _ = writer.Write([]byte(fmt.Sprintf(`{"err":%q}`, err)))
+		return
+	}
+
+	// check security
+	if err := r.checkSecurity(bs, isSecurity, header); err != nil {
 		writer.WriteHeader(500)
 		_, _ = writer.Write([]byte(fmt.Sprintf(`{"err":%q}`, err)))
 		return
@@ -35,6 +44,21 @@ func (r *EventCallbackService) listenCallback(ctx context.Context, reader io.Rea
 
 	_, _ = writer.Write([]byte(s))
 	return
+}
+
+func (r *EventCallbackService) checkSecurity(body []byte, isSecurity bool, header http.Header) error {
+	if !isSecurity {
+		return nil
+	}
+
+	timestamp := header.Get("X-Lark-Request-Timestamp")
+	nonce := header.Get("X-Lark-Request-Nonce")
+	expectSignature := header.Get("X-Lark-Signature")
+	realSignature := internal.CalculateLarkCallbackSignature(timestamp, nonce, r.cli.encryptKey, body)
+	if expectSignature != realSignature {
+		return fmt.Errorf("need check security, but security check invalid")
+	}
+	return nil
 }
 
 func (r *EventCallbackService) parserReq(ctx context.Context, body []byte) (*eventReq, error) {

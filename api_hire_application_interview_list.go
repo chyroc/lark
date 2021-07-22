@@ -9,6 +9,8 @@ import (
 // GetHireApplicationInterviewList 根据投递 ID 获取面试记录列表
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/application-interview/list
+//
+// Deprecated
 func (r *HireService) GetHireApplicationInterviewList(ctx context.Context, request *GetHireApplicationInterviewListReq, options ...MethodOptionFunc) (*GetHireApplicationInterviewListResp, *Response, error) {
 	if r.cli.mock.mockHireGetHireApplicationInterviewList != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Hire#GetHireApplicationInterviewList mock enable")

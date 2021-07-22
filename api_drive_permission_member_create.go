@@ -8,7 +8,7 @@ import (
 
 // CreateDriveMemberPermission 该接口用于根据 filetoken 给用户增加文档的权限。
 //
-// doc: https://open.feishu.cn/document/ukTMukTMukTM/uMzNzUjLzczM14yM3MTN
+// doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/permission-member/create
 func (r *DriveService) CreateDriveMemberPermission(ctx context.Context, request *CreateDriveMemberPermissionReq, options ...MethodOptionFunc) (*CreateDriveMemberPermissionResp, *Response, error) {
 	if r.cli.mock.mockDriveCreateDriveMemberPermission != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Drive#CreateDriveMemberPermission mock enable")
@@ -19,7 +19,7 @@ func (r *DriveService) CreateDriveMemberPermission(ctx context.Context, request 
 		Scope:                 "Drive",
 		API:                   "CreateDriveMemberPermission",
 		Method:                "POST",
-		URL:                   "https://open.feishu.cn/open-apis/drive/permission/member/create",
+		URL:                   "https://open.feishu.cn/open-apis/drive/v1/permissions/:token/members",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
@@ -40,31 +40,26 @@ func (r *Mock) UnMockDriveCreateDriveMemberPermission() {
 }
 
 type CreateDriveMemberPermissionReq struct {
-	Token      string                                 `json:"token,omitempty"`       // 文件的 token，获取方式见 [对接前说明](https://open.feishu.cn/document/ukTMukTMukTM/uczNzUjL3czM14yN3MTN)的第 4 项
-	Type       string                                 `json:"type,omitempty"`        // 文档类型  "doc" 、"sheet" 、 "bitable" or "file"
-	Members    *CreateDriveMemberPermissionReqMembers `json:"members,omitempty"`     // 用户
-	NotifyLark *bool                                  `json:"notify_lark,omitempty"` // 添加权限后是否飞书/lark通知对方<br>true 通知 or false 不通知
-}
-
-type CreateDriveMemberPermissionReqMembers struct {
-	MemberType string `json:"member_type,omitempty"` // 用户类型，可选 **email 、openid、openchat、userid**
-	MemberID   string `json:"member_id,omitempty"`   // 用户类型下的值
-	Perm       string `json:"perm,omitempty"`        // 需要增加的权限，权限值："view"，"edit"
+	Type             string `query:"type" json:"-"`              // 权限客体类型, 示例值："doc", 可选值有: `doc`：文档, `sheet`：电子表格, `file`：云空间文件, `wiki`：知识库节点（暂不支持）, `bitable`：多维表格, `docx`：文档
+	NeedNotification *bool  `query:"need_notification" json:"-"` // 添加权限后是否通知对方, 示例值：false, 默认值: `false`
+	Token            string `path:"token" json:"-"`              // 权限客体token, 示例值："doccnBKgoMyY5OMbUG6FioTXuBe"
+	MemberType       string `json:"member_type,omitempty"`       // 用户类型，可选值有：, `email`: 飞书企业邮箱, `openid`: 开放平台ID, `openchat`: 开放平台群组, `opendepartmentid`: 开放平台部门ID, `userid`: 用户自定义ID, 示例值："openid"
+	MemberID         string `json:"member_id,omitempty"`         // 用户类型下的值, 示例值："ou_7dab8a3d3cdcc9da365777c7ad535d62"
+	Perm             string `json:"perm,omitempty"`              // 需要增加的权限，可选值有：, `view`: 可阅读, `edit`: 可编辑, `full_access`: 所有权限, 示例值："view"
 }
 
 type createDriveMemberPermissionResp struct {
-	Code int64                            `json:"code,omitempty"`
-	Msg  string                           `json:"msg,omitempty"`
+	Code int64                            `json:"code,omitempty"` // 错误码，非 0 表示失败
+	Msg  string                           `json:"msg,omitempty"`  // 错误描述
 	Data *CreateDriveMemberPermissionResp `json:"data,omitempty"`
 }
 
 type CreateDriveMemberPermissionResp struct {
-	IsAllSuccess bool                                        `json:"is_all_success,omitempty"` // 是否全部成功
-	FailMembers  *CreateDriveMemberPermissionRespFailMembers `json:"fail_members,omitempty"`   // 添加权限失败的用户信息
+	Member *CreateDriveMemberPermissionRespMember `json:"member,omitempty"` // 本次添加权限的用户信息
 }
 
-type CreateDriveMemberPermissionRespFailMembers struct {
-	MemberType string `json:"member_type,omitempty"` // 用户类型
+type CreateDriveMemberPermissionRespMember struct {
+	MemberType string `json:"member_type,omitempty"` // 用户类型，可选值有：, `email`: 飞书企业邮箱, `openid`: 开放平台ID, `openchat`: 开放平台群组, `opendepartmentid`: 开放平台部门ID, `userid`: 用户自定义ID
 	MemberID   string `json:"member_id,omitempty"`   // 用户类型下的值
-	Perm       string `json:"perm,omitempty"`        // 需要增加的权限
+	Perm       string `json:"perm,omitempty"`        // 需要增加的权限，可选值有：, `view`: 可阅读, `edit`: 可编辑, `full_access`: 所有权限
 }

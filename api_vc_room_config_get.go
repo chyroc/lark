@@ -42,11 +42,11 @@ func (r *Mock) UnMockVCGetVCRoomConfig() {
 
 type GetVCRoomConfigReq struct {
 	Scope      int64   `query:"scope" json:"-"`       // 查询节点范围, 示例值：5, 可选值有: `1`：租户, `2`：国家/地区, `3`：城市, `4`：建筑, `5`：楼层, `6`：会议室
-	CountryID  *string `query:"country_id" json:"-"`  // 国家/地区ID scope为1，2时需要此参数, 示例值："1"
-	DistrictID *string `query:"district_id" json:"-"` // 城市ID scope为2时需要此参数, 示例值："2"
-	BuildingID *string `query:"building_id" json:"-"` // 建筑ID scope为3，4时需要此参数, 示例值："3"
-	FloorName  *string `query:"floor_name" json:"-"`  // 楼层 scope为4时需要此参数, 示例值："4"
-	RoomID     *string `query:"room_id" json:"-"`     // 会议室ID scope为5时需要此参数, 示例值："6383786266263"
+	CountryID  *string `query:"country_id" json:"-"`  // 国家/地区ID scope为2，3时需要此参数, 示例值："086"
+	DistrictID *string `query:"district_id" json:"-"` // 城市ID scope为3时需要此参数, 示例值："001"
+	BuildingID *string `query:"building_id" json:"-"` // 建筑ID scope为4，5时需要此参数, 示例值："22"
+	FloorName  *string `query:"floor_name" json:"-"`  // 楼层 scope为5时需要此参数, 示例值："4"
+	RoomID     *string `query:"room_id" json:"-"`     // 会议室ID scope为6时需要此参数, 示例值："6383786266263"
 }
 
 type getVCRoomConfigResp struct {

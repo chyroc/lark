@@ -134,6 +134,12 @@ func Test_Contact_Sample_Failed(t *testing.T) {
 			as.NotNil(err)
 			as.Equal(err.Error(), "failed")
 		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.GetContactCustomAttrList(ctx, &lark.GetContactCustomAttrListReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "failed")
+		})
 	})
 
 	t.Run("request mock failed", func(t *testing.T) {
@@ -348,6 +354,17 @@ func Test_Contact_Sample_Failed(t *testing.T) {
 			as.NotNil(err)
 			as.Equal(err.Error(), "mock-failed")
 		})
+
+		t.Run("", func(t *testing.T) {
+			cli.Mock().MockContactGetContactCustomAttrList(func(ctx context.Context, request *lark.GetContactCustomAttrListReq, options ...lark.MethodOptionFunc) (*lark.GetContactCustomAttrListResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockContactGetContactCustomAttrList()
+
+			_, _, err := moduleCli.GetContactCustomAttrList(ctx, &lark.GetContactCustomAttrListReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
 	})
 
 	t.Run("response is failed", func(t *testing.T) {
@@ -484,6 +501,12 @@ func Test_Contact_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 			_, _, err := moduleCli.CreateEmployeeTypeEnum(ctx, &lark.CreateEmployeeTypeEnumReq{})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.GetContactCustomAttrList(ctx, &lark.GetContactCustomAttrListReq{})
 			as.NotNil(err)
 			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
 		})
@@ -626,6 +649,12 @@ func Test_Contact_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 			_, _, err := moduleCli.CreateEmployeeTypeEnum(ctx, &lark.CreateEmployeeTypeEnumReq{})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.GetContactCustomAttrList(ctx, &lark.GetContactCustomAttrListReq{})
 			as.NotNil(err)
 			as.Equal("fake raw request", err.Error())
 		})

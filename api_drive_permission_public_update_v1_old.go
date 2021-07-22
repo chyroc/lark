@@ -6,18 +6,20 @@ import (
 	"context"
 )
 
-// UpdateDrivePublicPermission 该接口用于根据 filetoken 更新文档的公共设置。
+// UpdateDrivePublicPermissionV1Old 该接口用于根据 filetoken 更新文档的公共设置。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/ukTM3UjL5EzN14SOxcTN
-func (r *DriveService) UpdateDrivePublicPermission(ctx context.Context, request *UpdateDrivePublicPermissionReq, options ...MethodOptionFunc) (*UpdateDrivePublicPermissionResp, *Response, error) {
-	if r.cli.mock.mockDriveUpdateDrivePublicPermission != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Drive#UpdateDrivePublicPermission mock enable")
-		return r.cli.mock.mockDriveUpdateDrivePublicPermission(ctx, request, options...)
+//
+// Deprecated
+func (r *DriveService) UpdateDrivePublicPermissionV1Old(ctx context.Context, request *UpdateDrivePublicPermissionV1OldReq, options ...MethodOptionFunc) (*UpdateDrivePublicPermissionV1OldResp, *Response, error) {
+	if r.cli.mock.mockDriveUpdateDrivePublicPermissionV1Old != nil {
+		r.cli.log(ctx, LogLevelDebug, "[lark] Drive#UpdateDrivePublicPermissionV1Old mock enable")
+		return r.cli.mock.mockDriveUpdateDrivePublicPermissionV1Old(ctx, request, options...)
 	}
 
 	req := &RawRequestReq{
 		Scope:                 "Drive",
-		API:                   "UpdateDrivePublicPermission",
+		API:                   "UpdateDrivePublicPermissionV1Old",
 		Method:                "POST",
 		URL:                   "https://open.feishu.cn/open-apis/drive/permission/public/update",
 		Body:                  request,
@@ -25,21 +27,21 @@ func (r *DriveService) UpdateDrivePublicPermission(ctx context.Context, request 
 		NeedTenantAccessToken: true,
 		NeedUserAccessToken:   true,
 	}
-	resp := new(updateDrivePublicPermissionResp)
+	resp := new(updateDrivePublicPermissionV1OldResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
 	return resp.Data, response, err
 }
 
-func (r *Mock) MockDriveUpdateDrivePublicPermission(f func(ctx context.Context, request *UpdateDrivePublicPermissionReq, options ...MethodOptionFunc) (*UpdateDrivePublicPermissionResp, *Response, error)) {
-	r.mockDriveUpdateDrivePublicPermission = f
+func (r *Mock) MockDriveUpdateDrivePublicPermissionV1Old(f func(ctx context.Context, request *UpdateDrivePublicPermissionV1OldReq, options ...MethodOptionFunc) (*UpdateDrivePublicPermissionV1OldResp, *Response, error)) {
+	r.mockDriveUpdateDrivePublicPermissionV1Old = f
 }
 
-func (r *Mock) UnMockDriveUpdateDrivePublicPermission() {
-	r.mockDriveUpdateDrivePublicPermission = nil
+func (r *Mock) UnMockDriveUpdateDrivePublicPermissionV1Old() {
+	r.mockDriveUpdateDrivePublicPermissionV1Old = nil
 }
 
-type UpdateDrivePublicPermissionReq struct {
+type UpdateDrivePublicPermissionV1OldReq struct {
 	Token                 string  `json:"token,omitempty"`                    // 文件的 token，获取方式见 [对接前说明](https://open.feishu.cn/document/ukTMukTMukTM/uczNzUjL3czM14yN3MTN)的第 4 项
 	Type                  string  `json:"type,omitempty"`                     // 文档类型  "doc"  or  "sheet"
 	CopyPrintExportStatus *bool   `json:"copy_print_export_status,omitempty"` // 可创建副本/打印/导出/复制设置（不传则保持原值）：<br>true - 所有可访问此文档的用户<br>false - 有编辑权限的用户
@@ -50,12 +52,12 @@ type UpdateDrivePublicPermissionReq struct {
 	InviteExternal        *bool   `json:"invite_external,omitempty"`          // 非owner是否允许邀请外部人（不传则保持原值）
 }
 
-type updateDrivePublicPermissionResp struct {
-	Code int64                            `json:"code,omitempty"`
-	Msg  string                           `json:"msg,omitempty"`
-	Data *UpdateDrivePublicPermissionResp `json:"data,omitempty"`
+type updateDrivePublicPermissionV1OldResp struct {
+	Code int64                                 `json:"code,omitempty"`
+	Msg  string                                `json:"msg,omitempty"`
+	Data *UpdateDrivePublicPermissionV1OldResp `json:"data,omitempty"`
 }
 
-type UpdateDrivePublicPermissionResp struct {
+type UpdateDrivePublicPermissionV1OldResp struct {
 	IsSuccess bool `json:"is_success,omitempty"` // 是否成功
 }

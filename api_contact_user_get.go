@@ -60,29 +60,29 @@ type GetUserResp struct {
 
 type GetUserRespUser struct {
 	UnionID         string                       `json:"union_id,omitempty"`          // 用户的union_id
-	UserID          string                       `json:"user_id,omitempty"`           // 租户内用户的唯一标识, 字段权限要求:  获取用户 userid
+	UserID          string                       `json:"user_id,omitempty"`           // 租户内用户的唯一标识, 字段权限要求:  获取用户 user ID
 	OpenID          string                       `json:"open_id,omitempty"`           // 用户的open_id
-	Name            string                       `json:"name,omitempty"`              // 用户名, 最小长度：`1` 字符,**字段权限要求（满足任一）**：, 获取用户基本信息, 以应用身份访问通讯录
-	EnName          string                       `json:"en_name,omitempty"`           // 英文名,**字段权限要求（满足任一）**：, 获取用户基本信息, 以应用身份访问通讯录
-	Email           string                       `json:"email,omitempty"`             // 邮箱, 字段权限要求:  获取用户邮箱
+	Name            string                       `json:"name,omitempty"`              // 用户名, 最小长度：`1` 字符,**字段权限要求（满足任一）**：, 获取用户基本信息, 以应用身份访问通讯录（历史版本）
+	EnName          string                       `json:"en_name,omitempty"`           // 英文名,**字段权限要求（满足任一）**：, 获取用户基本信息, 以应用身份访问通讯录（历史版本）
+	Email           string                       `json:"email,omitempty"`             // 邮箱, 字段权限要求:  获取用户邮箱信息
 	Mobile          string                       `json:"mobile,omitempty"`            // 手机号, 字段权限要求:  获取用户手机号
 	MobileVisible   bool                         `json:"mobile_visible,omitempty"`    // 手机号码可见性，true 为可见，false 为不可见，目前默认为 true。不可见时，组织员工将无法查看该员工的手机号码
-	Gender          int64                        `json:"gender,omitempty"`            // 性别, 可选值有: `0`：保密, `1`：男, `2`：女,**字段权限要求（满足任一）**：, 获取用户性别, 以应用身份访问通讯录
-	Avatar          *GetUserRespUserAvatar       `json:"avatar,omitempty"`            // 用户头像信息,**字段权限要求（满足任一）**：, 获取用户基本信息, 以应用身份访问通讯录
-	Status          *GetUserRespUserStatus       `json:"status,omitempty"`            // 用户状态,**字段权限要求（满足任一）**：, 获取用户雇佣信息, 以应用身份访问通讯录
-	DepartmentIDs   []string                     `json:"department_ids,omitempty"`    // 用户所属部门的ID列表,**字段权限要求（满足任一）**：, 获取用户组织架构信息, 以应用身份访问通讯录
-	LeaderUserID    string                       `json:"leader_user_id,omitempty"`    // 用户的直接主管的用户ID,**字段权限要求（满足任一）**：, 获取用户组织架构信息, 以应用身份访问通讯录
-	City            string                       `json:"city,omitempty"`              // 城市,**字段权限要求（满足任一）**：, 获取用户雇佣信息, 以应用身份访问通讯录
-	Country         string                       `json:"country,omitempty"`           // 国家,**字段权限要求（满足任一）**：, 获取用户雇佣信息, 以应用身份访问通讯录
-	WorkStation     string                       `json:"work_station,omitempty"`      // 工位,**字段权限要求（满足任一）**：, 获取用户雇佣信息, 以应用身份访问通讯录
-	JoinTime        int64                        `json:"join_time,omitempty"`         // 入职时间,**字段权限要求（满足任一）**：, 获取用户雇佣信息, 以应用身份访问通讯录
-	IsTenantManager bool                         `json:"is_tenant_manager,omitempty"` // 是否是租户管理员,**字段权限要求（满足任一）**：, 获取用户雇佣信息, 以应用身份访问通讯录
-	EmployeeNo      string                       `json:"employee_no,omitempty"`       // 工号,**字段权限要求（满足任一）**：, 获取用户雇佣信息, 以应用身份访问通讯录
-	EmployeeType    int64                        `json:"employee_type,omitempty"`     // 员工类型,**字段权限要求（满足任一）**：, 获取用户雇佣信息, 以应用身份访问通讯录
-	Orders          []*GetUserRespUserOrder      `json:"orders,omitempty"`            // 用户排序信息,**字段权限要求（满足任一）**：, 获取用户组织架构信息, 以应用身份访问通讯录
-	CustomAttrs     []*GetUserRespUserCustomAttr `json:"custom_attrs,omitempty"`      // 自定义属性,**字段权限要求（满足任一）**：, 获取用户雇佣信息, 以应用身份访问通讯录
-	EnterpriseEmail string                       `json:"enterprise_email,omitempty"`  // 企业邮箱，请先确保已在管理后台启用飞书邮箱服务,**字段权限要求（满足任一）**：, 获取用户雇佣信息, 以应用身份访问通讯录
-	JobTitle        string                       `json:"job_title,omitempty"`         // 职务,**字段权限要求（满足任一）**：, 获取用户雇佣信息, 以应用身份访问通讯录
+	Gender          int64                        `json:"gender,omitempty"`            // 性别, 可选值有: `0`：保密, `1`：男, `2`：女,**字段权限要求（满足任一）**：, 获取用户性别, 以应用身份访问通讯录（历史版本）
+	Avatar          *GetUserRespUserAvatar       `json:"avatar,omitempty"`            // 用户头像信息,**字段权限要求（满足任一）**：, 获取用户基本信息, 以应用身份访问通讯录（历史版本）
+	Status          *GetUserRespUserStatus       `json:"status,omitempty"`            // 用户状态,**字段权限要求（满足任一）**：, 获取用户雇佣信息, 以应用身份访问通讯录（历史版本）
+	DepartmentIDs   []string                     `json:"department_ids,omitempty"`    // 用户所属部门的ID列表,**字段权限要求（满足任一）**：, 获取用户组织架构信息, 以应用身份访问通讯录（历史版本）
+	LeaderUserID    string                       `json:"leader_user_id,omitempty"`    // 用户的直接主管的用户ID,**字段权限要求（满足任一）**：, 获取用户组织架构信息, 以应用身份访问通讯录（历史版本）
+	City            string                       `json:"city,omitempty"`              // 城市,**字段权限要求（满足任一）**：, 获取用户雇佣信息, 以应用身份访问通讯录（历史版本）
+	Country         string                       `json:"country,omitempty"`           // 国家或地区,**字段权限要求（满足任一）**：, 获取用户雇佣信息, 以应用身份访问通讯录（历史版本）
+	WorkStation     string                       `json:"work_station,omitempty"`      // 工位,**字段权限要求（满足任一）**：, 获取用户雇佣信息, 以应用身份访问通讯录（历史版本）
+	JoinTime        int64                        `json:"join_time,omitempty"`         // 入职时间,**字段权限要求（满足任一）**：, 获取用户雇佣信息, 以应用身份访问通讯录（历史版本）
+	IsTenantManager bool                         `json:"is_tenant_manager,omitempty"` // 是否是租户管理员,**字段权限要求（满足任一）**：, 获取用户雇佣信息, 以应用身份访问通讯录（历史版本）
+	EmployeeNo      string                       `json:"employee_no,omitempty"`       // 工号,**字段权限要求（满足任一）**：, 获取用户雇佣信息, 以应用身份访问通讯录（历史版本）
+	EmployeeType    int64                        `json:"employee_type,omitempty"`     // 员工类型，可选值有：, 1：正式员工, 2：实习生, 3：外包, 4：劳务, 5：顾问   ,同时可读取到自定义员工类型的 int 值，可通过下方接口获取到该租户的自定义员工类型的名称   ,[获取人员类型](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/employee_type_enum/list),**字段权限要求（满足任一）**：, 获取用户雇佣信息, 以应用身份访问通讯录（历史版本）
+	Orders          []*GetUserRespUserOrder      `json:"orders,omitempty"`            // 用户排序信息,**字段权限要求（满足任一）**：, 获取用户组织架构信息, 以应用身份访问通讯录（历史版本）
+	CustomAttrs     []*GetUserRespUserCustomAttr `json:"custom_attrs,omitempty"`      // 自定义字段,**字段权限要求（满足任一）**：, 获取用户雇佣信息, 以应用身份访问通讯录（历史版本）
+	EnterpriseEmail string                       `json:"enterprise_email,omitempty"`  // 企业邮箱，请先确保已在管理后台启用飞书邮箱服务,**字段权限要求（满足任一）**：, 获取用户雇佣信息, 以应用身份访问通讯录（历史版本）
+	JobTitle        string                       `json:"job_title,omitempty"`         // 职务,**字段权限要求（满足任一）**：, 获取用户雇佣信息, 以应用身份访问通讯录（历史版本）
 }
 
 type GetUserRespUserAvatar struct {
@@ -105,13 +105,22 @@ type GetUserRespUserOrder struct {
 }
 
 type GetUserRespUserCustomAttr struct {
-	Type  string                          `json:"type,omitempty"`  // 自定义属性类型
-	ID    string                          `json:"id,omitempty"`    // 自定义属性ID
-	Value *GetUserRespUserCustomAttrValue `json:"value,omitempty"` // 自定义属性取值
+	Type  string                          `json:"type,omitempty"`  // 自定义字段类型   , `TEXT`, `HREF`, `ENUMERATION`, `PICTURE_ENUM`, `GENERIC_USER`
+	ID    string                          `json:"id,omitempty"`    // 自定义字段ID
+	Value *GetUserRespUserCustomAttrValue `json:"value,omitempty"` // 自定义字段取值
 }
 
 type GetUserRespUserCustomAttrValue struct {
-	Text  string `json:"text,omitempty"`   // 属性文本
-	URL   string `json:"url,omitempty"`    // URL
-	PcURL string `json:"pc_url,omitempty"` // PC上的URL
+	Text        string                                     `json:"text,omitempty"`         // 字段类型为 TEXT 时该参数定义字段值，字段类型为 HREF 时该参数定义网页标题
+	URL         string                                     `json:"url,omitempty"`          // 字段类型为 HREF 时，该参数定义默认 URL
+	PcURL       string                                     `json:"pc_url,omitempty"`       // 字段类型为 HREF 时，该参数定义PC端 URL
+	OptionValue string                                     `json:"option_value,omitempty"` // 选项值
+	Name        string                                     `json:"name,omitempty"`         // 名称
+	PictureURL  string                                     `json:"picture_url,omitempty"`  // 图片链接
+	GenericUser *GetUserRespUserCustomAttrValueGenericUser `json:"generic_user,omitempty"` // 字段类型为 GENERIC_USER 时，该参数定义引用人员
+}
+
+type GetUserRespUserCustomAttrValueGenericUser struct {
+	ID   string `json:"id,omitempty"`   // 用户的user_id
+	Type int64  `json:"type,omitempty"` // 用户类型    1：用户
 }

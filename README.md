@@ -35,7 +35,7 @@ https://godoc.org/github.com/chyroc/lark
 
 ## Support APIs
 
-API Count: 387, Event Count: 41
+API Count: 406, Event Count: 41
 
 <details>
   <summary>
@@ -68,6 +68,7 @@ API Count: 387, Event Count: 41
   - UpdateEmployeeTypeEnumPatch
   - DeleteEmployeeTypeEnum
   - CreateEmployeeTypeEnum
+  - GetContactCustomAttrList
 - Message
   - SendRawMessage
   - SendRawMessageOld
@@ -146,15 +147,17 @@ API Count: 387, Event Count: 41
   - PrepareUploadDriveMedia
   - PartUploadDriveMedia
   - FinishUploadDriveMedia
-  - CreateDriveMemberPermission
+  - CreateDriveMemberPermissionOld
   - TransferDriveMemberPermission
-  - UpdateDrivePublicPermission
   - GetDriveMemberPermissionList
+  - CreateDriveMemberPermission
   - DeleteDriveMemberPermission
   - UpdateDriveMemberPermission
   - CheckDriveMemberPermission
-  - UpdateDrivePublicPermissionV2
+  - UpdateDrivePublicPermissionV1Old
+  - UpdateDrivePublicPermissionV2Old
   - GetDrivePublicPermissionV2
+  - UpdateDrivePublicPermission
   - BatchGetDriveMediaTmpDownloadURL
   - GetDriveCommentList
   - GetDriveComment
@@ -378,8 +381,10 @@ API Count: 387, Event Count: 41
   - DetectTextLanguage
   - DetectFaceAttributes
 - Attendance
-  - UpdateAttendanceUserSettings
+  - DownloadAttendanceFile
   - UploadAttendanceFile
+  - QueryAttendanceUserSettings
+  - UpdateAttendanceUserSettings
   - CreateUpdateAttendanceGroup
   - DeleteAttendanceGroup
   - GetAttendanceGroup
@@ -400,6 +405,8 @@ API Count: 387, Event Count: 41
   - CreateUpdateAttendanceUserDailyShift
   - GetAttendanceUserApproval
   - CreateAttendanceUserApproval
+  - GetAttendanceUserAllowedRemedy
+  - InitAttendanceRemedyApproval
 - File
   - UploadImage
   - DownloadImage
@@ -489,6 +496,19 @@ API Count: 387, Event Count: 41
   - UpdateHireEmployee
   - GetHireEmployeeByApplication
   - GetHireEmployee
+- AppLink
+  - OpenLark
+  - OpenMiniProgram
+  - OpenWebApp
+  - OpenChat
+  - OpenCalender
+  - OpenCalenderView
+  - OpenCalenderEventCreate
+  - OpenCalenderAccount
+  - OpenDocs
+  - OpenBot
+  - OpenSSOLogin
+  - OpenWebURL
 
 
 </details>

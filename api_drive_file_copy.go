@@ -9,7 +9,7 @@ import (
 // CopyDriveFile 该接口用于根据文件 token 复制 Doc 或 Sheet  到目标文件夹中。
 //
 // 若没有特定的文件夹用于承载创建的文档，可以先调用「获取文件夹元信息」文档中的「获取 root folder (我的空间) meta」接口，获得我的空间的 token，然后再使用此接口。复制的文档将会在「我的空间」的「归我所有」列表里。
-// 该接口不支持并发创建，且调用频率上限为 5QPS 且 10000次每天
+// 该接口不支持并发创建，且调用频率上限为 5QPS 且 10000次/天
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uYTNzUjL2UzM14iN1MTN
 func (r *DriveService) CopyDriveFile(ctx context.Context, request *CopyDriveFileReq, options ...MethodOptionFunc) (*CopyDriveFileResp, *Response, error) {

@@ -46,7 +46,7 @@ type GetAttendanceUserTaskReq struct {
 	EmployeeType  EmployeeType `query:"employee_type" json:"-"`   // 请求体中的 user_ids 的员工工号类型，可用值：【employee_id（员工的 employeeId），employee_no（员工工号）】，示例值：“employee_id”
 	UserIDs       []string     `json:"user_ids,omitempty"`        // employee_no 或 employee_id 列表
 	CheckDateFrom int64        `json:"check_date_from,omitempty"` // 查询的起始工作日
-	CheckDateTo   int64        `json:"check_date_to,omitempty"`   // 查询的结束工作日
+	CheckDateTo   int64        `json:"check_date_to,omitempty"`   // 查询的结束工作日，与 check_date_from 的时间间隔不超过30天
 }
 
 type getAttendanceUserTaskResp struct {

@@ -54,7 +54,7 @@ type CreateAttendanceShiftReq struct {
 }
 
 type CreateAttendanceShiftReqPunchTimeRule struct {
-	OnTime              string `json:"on_time,omitempty"`                // 上班时间，示例参数：“9:00”
+	OnTime              string `json:"on_time,omitempty"`                // 上班时间，示例参数：“09:00”
 	OffTime             string `json:"off_time,omitempty"`               // 下班时间，示例参数：“18:00”，说明：第二天凌晨 2 点表示为 26:00
 	LateMinutesAsLate   int64  `json:"late_minutes_as_late,omitempty"`   // 晚到多长时间记为迟到
 	LateMinutesAsLack   int64  `json:"late_minutes_as_lack,omitempty"`   // 晚到多长时间记为缺卡
