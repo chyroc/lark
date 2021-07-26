@@ -35,7 +35,7 @@ https://godoc.org/github.com/chyroc/lark
 
 ## Support APIs
 
-API Count: 406, Event Count: 41
+API Count: 407, Event Count: 41
 
 <details>
   <summary>
@@ -407,6 +407,7 @@ API Count: 406, Event Count: 41
   - CreateAttendanceUserApproval
   - GetAttendanceUserAllowedRemedy
   - InitAttendanceRemedyApproval
+  - UpdateAttendanceRemedyApproval
 - File
   - UploadImage
   - DownloadImage
@@ -677,6 +678,3 @@ resp, _, err := cli.Calendar.CreateCalendar(ctx, &lark.CreateCalendarReq{
 })
 fmt.Println(resp, err)
 ```
-
-
-docs tool: https://vuepress.vuejs.org/zh/guide/deploy.html#github-pages

@@ -46,7 +46,7 @@ func (r *Mock) UnMockChatDeleteChatMember() {
 
 type DeleteChatMemberReq struct {
 	MemberIDType *IDType  `query:"member_id_type" json:"-"` // 出群成员 id 类型 open_id/user_id/union_id/app_id, 示例值："user_id", 可选值有: `user_id`：以 user_id 来识别成员, `union_id`：以 union_id 来识别成员, `open_id`：以 open_id 来识别成员, `app_id`：以 app_id 来识别成员
-	ChatID       string   `path:"chat_id" json:"-"`         // 群 ID, 示例值："oc_a0553eda9014c201e6969b478895c230"
+	ChatID       string   `path:"chat_id" json:"-"`         // 群 ID，可以调用接口 [搜索对用户或机器人可见的群列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat/search) 获取chat_id, 示例值："oc_a0553eda9014c201e6969b478895c230"
 	IDList       []string `json:"id_list,omitempty"`        // 成员列表
 }
 

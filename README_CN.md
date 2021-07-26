@@ -35,7 +35,7 @@ https://godoc.org/github.com/chyroc/lark
 
 ## 支持的接口
 
-API 总数: 406, 事件总数: 41
+API 总数: 407, 事件总数: 41
 
 <details>
   <summary>
@@ -407,6 +407,7 @@ API 总数: 406, 事件总数: 41
   - CreateAttendanceUserApproval
   - GetAttendanceUserAllowedRemedy
   - InitAttendanceRemedyApproval
+  - UpdateAttendanceRemedyApproval
 - File
   - UploadImage
   - DownloadImage
@@ -677,31 +678,3 @@ Summary: ptr.String("<SUMMARY>"),
 })
 fmt.Println(resp, err)
 ```
-
-## Todo
-
-- [ ] 单侧覆盖率 >= 80%
-- [ ] 发送消息，提供helper pack
-- [ ] 收到消息，提供helper unpack
-- [ ] 生成所有 API
-- [ ] 英文注释
-- [ ] 结构化的数据
-- 自定义机器人 https://open.feishu.cn/document/ukTMukTMukTM/ucTM5YjL3ETO24yNxkjN
-- 消息卡片 builder
-- 日历
-- 文档
-- 多维表格
-- 会议室
-- 会议
-- 应用
-- 邮箱
-- 审批
-- 服务台
-- admin
-- 实名
-- ai
-- 打卡
-- okr
-- 人事
-  
-https://open.feishu.cn/document/ukTMukTMukTM/ucTM5YjL3ETO24yNxkjN

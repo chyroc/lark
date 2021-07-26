@@ -355,6 +355,7 @@ type Mock struct {
 	mockAttendanceCreateAttendanceUserApproval           func(ctx context.Context, request *CreateAttendanceUserApprovalReq, options ...MethodOptionFunc) (*CreateAttendanceUserApprovalResp, *Response, error)
 	mockAttendanceGetAttendanceUserAllowedRemedy         func(ctx context.Context, request *GetAttendanceUserAllowedRemedyReq, options ...MethodOptionFunc) (*GetAttendanceUserAllowedRemedyResp, *Response, error)
 	mockAttendanceInitAttendanceRemedyApproval           func(ctx context.Context, request *InitAttendanceRemedyApprovalReq, options ...MethodOptionFunc) (*InitAttendanceRemedyApprovalResp, *Response, error)
+	mockAttendanceUpdateAttendanceRemedyApproval         func(ctx context.Context, request *UpdateAttendanceRemedyApprovalReq, options ...MethodOptionFunc) (*UpdateAttendanceRemedyApprovalResp, *Response, error)
 	mockFileUploadImage                                  func(ctx context.Context, request *UploadImageReq, options ...MethodOptionFunc) (*UploadImageResp, *Response, error)
 	mockFileDownloadImage                                func(ctx context.Context, request *DownloadImageReq, options ...MethodOptionFunc) (*DownloadImageResp, *Response, error)
 	mockFileUploadFile                                   func(ctx context.Context, request *UploadFileReq, options ...MethodOptionFunc) (*UploadFileResp, *Response, error)
