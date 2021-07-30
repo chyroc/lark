@@ -8,6 +8,8 @@ import (
 
 // GetAttendanceUserStatisticsSettings
 //
+// 查询日度统计或月度统计的统计设置信息。
+//
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/Attendance//task/query-user-statistics-settings
 func (r *AttendanceService) GetAttendanceUserStatisticsSettings(ctx context.Context, request *GetAttendanceUserStatisticsSettingsReq, options ...MethodOptionFunc) (*GetAttendanceUserStatisticsSettingsResp, *Response, error) {
 	if r.cli.mock.mockAttendanceGetAttendanceUserStatisticsSettings != nil {

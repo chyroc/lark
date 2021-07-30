@@ -43,6 +43,7 @@ func (r *Mock) UnMockDriveBatchGetDriveMediaTmpDownloadURL() {
 
 type BatchGetDriveMediaTmpDownloadURLReq struct {
 	FileTokens []string `query:"file_tokens" json:"-"` // 文件标识符列表, 示例值：boxcnabcdefg
+	Extra      *string  `query:"extra" json:"-"`       // 拓展信息(可选), 示例值："[请参考-上传点类型及对应Extra说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/media/introduction)"
 }
 
 type batchGetDriveMediaTmpDownloadURLResp struct {

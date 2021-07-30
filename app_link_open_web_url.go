@@ -6,7 +6,7 @@ import (
 	"github.com/chyroc/lark/internal"
 )
 
-// OpenWebURL 用户在PC端点击这类applink，不必跳转外部浏览器，可以直接在聊天的侧边栏、或飞书的独立窗口中打开指定的网页。,可以配置这类applink在消息卡片的“查看详情”跳转上，使用户连贯地消费消息中的详情内容。,,![image.png](//sf1-ttcdn-tos.pstatp.com/obj/open-platform-opendoc/814bd45433ea80bba3faf7f421050ea4_dMDgWVZDOl.png)
+// OpenWebURL 用户在PC端点击这类applink，不必跳转外部浏览器，可以直接在聊天的侧边栏、或飞书的独立窗口中打开指定的网页。,可以配置这类applink在消息卡片的“查看详情”跳转上，使用户连贯地消费消息中的详情内容。,,![image.png](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/814bd45433ea80bba3faf7f421050ea4_dMDgWVZDOl.png)
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/uYjL24iN/applink-protocol/supported-protocol/open-the-web-view-in-feishu-to-access-the-specified-url
 func (r *AppLinkService) OpenWebURL(req *OpenWebURLReq) string {

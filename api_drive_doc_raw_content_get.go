@@ -6,7 +6,7 @@ import (
 	"context"
 )
 
-// GetDriveDocRawContent 该接口用于获取文档的纯文本内容，不包含富文本格式信息，主要用于搜索，如导入 es 等。
+// GetDriveDocRawContent 该接口用于获取文档的纯文本内容，不包含富文本格式信息。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/ukzNzUjL5czM14SO3MTN
 func (r *DriveService) GetDriveDocRawContent(ctx context.Context, request *GetDriveDocRawContentReq, options ...MethodOptionFunc) (*GetDriveDocRawContentResp, *Response, error) {

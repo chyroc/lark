@@ -80,7 +80,7 @@ type GetApprovalInstanceRespTask struct {
 	CustomNodeID *string `json:"custom_node_id,omitempty"` // task 所属节点自定义 id, 如果没设置自定义 id, 则不返回该字段
 	Type         string  `json:"type,omitempty"`           // 审批方式<br>AND -会签<br>OR - 或签<br>AUTO_PASS -自动通过<br>AUTO_REJECT - 自动拒绝<br>SEQUENTIAL - 按顺序
 	StartTime    int64   `json:"start_time,omitempty"`     // task 开始时间
-	EndTime      int64   `json:"end_time,omitempty"`       // task 完成事件, 未完成为 0
+	EndTime      int64   `json:"end_time,omitempty"`       // task 完成时间, 未完成为 0
 }
 
 type GetApprovalInstanceRespComment struct {

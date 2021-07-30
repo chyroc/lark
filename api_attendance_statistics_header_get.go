@@ -8,6 +8,8 @@ import (
 
 // GetAttendanceStatisticsHeader
 //
+// 查询日度统计或月度统计的统计表头。
+//
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/Attendance//task/query-statistics-header
 func (r *AttendanceService) GetAttendanceStatisticsHeader(ctx context.Context, request *GetAttendanceStatisticsHeaderReq, options ...MethodOptionFunc) (*GetAttendanceStatisticsHeaderResp, *Response, error) {
 	if r.cli.mock.mockAttendanceGetAttendanceStatisticsHeader != nil {

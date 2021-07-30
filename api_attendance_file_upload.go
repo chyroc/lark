@@ -9,6 +9,8 @@ import (
 
 // UploadAttendanceFile
 //
+// 上传文件并获取文件 ID，可用于“修改用户设置”接口的 face_key 参数。
+//
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/Attendance//rule/file_upload
 func (r *AttendanceService) UploadAttendanceFile(ctx context.Context, request *UploadAttendanceFileReq, options ...MethodOptionFunc) (*UploadAttendanceFileResp, *Response, error) {
 	if r.cli.mock.mockAttendanceUploadAttendanceFile != nil {
@@ -56,5 +58,5 @@ type UploadAttendanceFileResp struct {
 }
 
 type UploadAttendanceFileRespFile struct {
-	FileID string `json:"file_id,omitempty"` // 文件id
+	FileID string `json:"file_id,omitempty"` // 文件 ID
 }

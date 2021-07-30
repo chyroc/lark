@@ -8,6 +8,8 @@ import (
 
 // GetAttendanceStatisticsData
 //
+// 查询日度统计或月度统计的统计数据。
+//
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/Attendance//task/query-statistics-data
 func (r *AttendanceService) GetAttendanceStatisticsData(ctx context.Context, request *GetAttendanceStatisticsDataReq, options ...MethodOptionFunc) (*GetAttendanceStatisticsDataResp, *Response, error) {
 	if r.cli.mock.mockAttendanceGetAttendanceStatisticsData != nil {

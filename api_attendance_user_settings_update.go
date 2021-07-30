@@ -8,6 +8,8 @@ import (
 
 // UpdateAttendanceUserSettings
 //
+// 修改授权内员工的用户设置信息，包括人脸照片文件 ID。
+//
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/Attendance//rule/user-setting-modify
 func (r *AttendanceService) UpdateAttendanceUserSettings(ctx context.Context, request *UpdateAttendanceUserSettingsReq, options ...MethodOptionFunc) (*UpdateAttendanceUserSettingsResp, *Response, error) {
 	if r.cli.mock.mockAttendanceUpdateAttendanceUserSettings != nil {
@@ -39,13 +41,13 @@ func (r *Mock) UnMockAttendanceUpdateAttendanceUserSettings() {
 }
 
 type UpdateAttendanceUserSettingsReq struct {
-	EmployeeType EmployeeType                                `query:"employee_type" json:"-"` // 用户类型, 可选值有: `employee_id`： 员工id, `employee_no`： 员工工号
+	EmployeeType EmployeeType                                `query:"employee_type" json:"-"` // 用户类型,      , 可选值有: `employee_id`： 员工 ID, `employee_no`： 员工工号
 	UserSetting  *UpdateAttendanceUserSettingsReqUserSetting `json:"user_setting,omitempty"`  // 用户信息
 }
 
 type UpdateAttendanceUserSettingsReqUserSetting struct {
-	UserID  string `json:"user_id,omitempty"`  // 用户id
-	FaceKey string `json:"face_key,omitempty"` // 人脸照片key（通过文件上传接口得到）
+	UserID  string `json:"user_id,omitempty"`  // 用户 ID
+	FaceKey string `json:"face_key,omitempty"` // 人脸照片 key（通过文件上传接口得到）
 }
 
 type updateAttendanceUserSettingsResp struct {
@@ -59,6 +61,6 @@ type UpdateAttendanceUserSettingsResp struct {
 }
 
 type UpdateAttendanceUserSettingsRespUserSetting struct {
-	UserID  string `json:"user_id,omitempty"`  // 用户id
-	FaceKey string `json:"face_key,omitempty"` // 人脸照片key
+	UserID  string `json:"user_id,omitempty"`  // 用户 ID
+	FaceKey string `json:"face_key,omitempty"` // 人脸照片 key
 }

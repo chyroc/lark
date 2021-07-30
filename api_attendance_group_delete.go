@@ -8,6 +8,8 @@ import (
 
 // DeleteAttendanceGroup
 //
+// 通过考勤组 ID 删除考勤组。
+//
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/Attendance//group_delete
 func (r *AttendanceService) DeleteAttendanceGroup(ctx context.Context, request *DeleteAttendanceGroupReq, options ...MethodOptionFunc) (*DeleteAttendanceGroupResp, *Response, error) {
 	if r.cli.mock.mockAttendanceDeleteAttendanceGroup != nil {

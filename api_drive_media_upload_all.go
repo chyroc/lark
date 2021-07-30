@@ -45,10 +45,11 @@ func (r *Mock) UnMockDriveUploadDriveMedia() {
 
 type UploadDriveMediaReq struct {
 	FileName   string    `json:"file_name,omitempty"`   // 文件名, 示例值："test.txt", 最大长度：`250` 字符
-	ParentType string    `json:"parent_type,omitempty"` // 上传点类型, 示例值："doc_image", 可选值有: `doc_image`：docs图片, `sheet_image`：sheet图片, `doc_file`：doc文件, `sheet_file`：sheet文件, `vc_virtual_background`：vc虚拟背景(灰度中，暂未开放), `bitable_image`：bitable图片, `bitable_file`：bitable文件, `moments`：同事圈(灰度中，暂未开放)
+	ParentType string    `json:"parent_type,omitempty"` // 上传点类型, 示例值："doc_image", 可选值有: `doc_image`：docs图片, `sheet_image`：sheet图片, `doc_file`：doc文件, `sheet_file`：sheet文件, `vc_virtual_background`：vc虚拟背景(灰度中，暂未开放), `bitable_image`：bitable图片, `bitable_file`：bitable文件, `moments`：同事圈(灰度中，暂未开放), `ccm_import_open`：云文档导入文件
 	ParentNode string    `json:"parent_node,omitempty"` // 上传点的token, 示例值："doccn123456"
 	Size       int64     `json:"size,omitempty"`        // 文件大小,全量上传最大20M, 示例值：1024, 最大值：`20971520`
-	Checksum   string    `json:"checksum,omitempty"`    // 文件adler32校验和, 示例值："123423882374363525324"
+	Checksum   *string   `json:"checksum,omitempty"`    // 文件adler32校验和(可选), 示例值："12345678"
+	Extra      *string   `json:"extra,omitempty"`       // 扩展信息(可选), 示例值："{"test":"test"}"
 	File       io.Reader `json:"file,omitempty"`        // 文件内容, 示例值：file binary
 }
 

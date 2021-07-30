@@ -8,6 +8,8 @@ import (
 
 // DeleteAttendanceShift
 //
+// 通过班次 ID 删除班次。
+//
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/Attendance//shift_delete
 func (r *AttendanceService) DeleteAttendanceShift(ctx context.Context, request *DeleteAttendanceShiftReq, options ...MethodOptionFunc) (*DeleteAttendanceShiftResp, *Response, error) {
 	if r.cli.mock.mockAttendanceDeleteAttendanceShift != nil {

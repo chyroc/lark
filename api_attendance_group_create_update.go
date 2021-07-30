@@ -83,6 +83,7 @@ type CreateUpdateAttendanceGroupReqGroup struct {
 	BindUserIDs            []string                                                    `json:"bind_user_ids,omitempty"`              // 绑定的用户 ID
 	ExceptUserIDs          []string                                                    `json:"except_user_ids,omitempty"`            // 排除的用户 ID
 	GroupLeaderIDs         []string                                                    `json:"group_leader_ids,omitempty"`           // 考勤负责人 ID 列表，需至少存在一名考勤负责人
+	PunchType              *int64                                                      `json:"punch_type,omitempty"`                 // 考勤方式，0：考勤组人员可在任意地点、任意网络环境下打卡，1：GPS 打卡，2：Wi-Fi 打卡，4：考勤机打卡，8：IP 打卡。位运算，累加可支持多种考勤方式，比如，3：支持 GPS 打卡和 Wi-Fi 打卡，7：支持 GPS 打卡、Wi-Fi 打卡和考勤机打卡
 	AllowOutPunch          *bool                                                       `json:"allow_out_punch,omitempty"`            // 是否允许外勤打卡
 	AllowPcPunch           *bool                                                       `json:"allow_pc_punch,omitempty"`             // 是否允许 PC 端打卡
 	AllowRemedy            *bool                                                       `json:"allow_remedy,omitempty"`               // 是否允许补卡
@@ -166,6 +167,7 @@ type CreateUpdateAttendanceGroupRespGroup struct {
 	BindUserIDs            []string                                                     `json:"bind_user_ids,omitempty"`              // 绑定的用户 ID
 	ExceptUserIDs          []string                                                     `json:"except_user_ids,omitempty"`            // 排除的用户 ID
 	GroupLeaderIDs         []string                                                     `json:"group_leader_ids,omitempty"`           // 考勤负责人 ID 列表，必选字段
+	PunchType              int64                                                        `json:"punch_type,omitempty"`                 // 考勤方式，0：考勤组人员可在任意地点、任意网络环境下打卡，1：GPS 打卡，2：Wi-Fi 打卡，4：考勤机打卡，8：IP 打卡。位运算，累加可支持多种考勤方式，比如，3：支持 GPS 打卡和 Wi-Fi 打卡，7：支持 GPS 打卡、Wi-Fi 打卡和考勤机打卡
 	AllowOutPunch          bool                                                         `json:"allow_out_punch,omitempty"`            // 是否允许外勤打卡
 	AllowPcPunch           bool                                                         `json:"allow_pc_punch,omitempty"`             // 是否允许 PC 端打卡
 	AllowRemedy            bool                                                         `json:"allow_remedy,omitempty"`               // 是否允许补卡
