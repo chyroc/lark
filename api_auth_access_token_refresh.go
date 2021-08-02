@@ -6,7 +6,9 @@ import (
 	"context"
 )
 
-// RefreshAccessToken 该接口用于在 access_token 过期时用 refresh_token 重新获取 access_token。此时会返回新的 refresh_token，再次刷新 access_token 时需要使用新的 refresh_token。
+// RefreshAccessToken user_access_token 具有一定的时效性，默认最长有效期为7200秒。该接口用于在 user_access_token 过期时用 refresh_token 重新获取 access_token。此时会返回新的 refresh_token，再次刷新 access_token 时需要使用新的 refresh_token。
+//
+// 调用该接口之后，之前的 user_access_token 即使没有到过期时间也会马上失效
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uQDO4UjL0gDO14CN4gTN
 func (r *AuthService) RefreshAccessToken(ctx context.Context, request *RefreshAccessTokenReq, options ...MethodOptionFunc) (*RefreshAccessTokenResp, *Response, error) {
