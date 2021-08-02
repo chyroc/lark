@@ -70,6 +70,12 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.GetDriveFileStatistics(ctx, &lark.GetDriveFileStatisticsReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "failed")
+		})
+
+		t.Run("", func(t *testing.T) {
 			_, _, err := moduleCli.DownloadDriveFile(ctx, &lark.DownloadDriveFileReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "failed")
@@ -674,6 +680,17 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 			defer cli.Mock().UnMockDriveGetDriveFolderChildren()
 
 			_, _, err := moduleCli.GetDriveFolderChildren(ctx, &lark.GetDriveFolderChildrenReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+			cli.Mock().MockDriveGetDriveFileStatistics(func(ctx context.Context, request *lark.GetDriveFileStatisticsReq, options ...lark.MethodOptionFunc) (*lark.GetDriveFileStatisticsResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockDriveGetDriveFileStatistics()
+
+			_, _, err := moduleCli.GetDriveFileStatistics(ctx, &lark.GetDriveFileStatisticsReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "mock-failed")
 		})
@@ -1692,6 +1709,14 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.GetDriveFileStatistics(ctx, &lark.GetDriveFileStatisticsReq{
+				FileToken: "x",
+			})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
 			_, _, err := moduleCli.DownloadDriveFile(ctx, &lark.DownloadDriveFileReq{
 				FileToken: "x",
 			})
@@ -2447,6 +2472,14 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		t.Run("", func(t *testing.T) {
 			_, _, err := moduleCli.GetDriveFolderChildren(ctx, &lark.GetDriveFolderChildrenReq{
 				FolderToken: "x",
+			})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.GetDriveFileStatistics(ctx, &lark.GetDriveFileStatisticsReq{
+				FileToken: "x",
 			})
 			as.NotNil(err)
 			as.Equal("fake raw request", err.Error())

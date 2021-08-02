@@ -35,7 +35,7 @@ https://godoc.org/github.com/chyroc/lark
 
 ## 支持的接口
 
-API 总数: 407, 事件总数: 41
+API 总数: 421, 事件总数: 41
 
 <details>
   <summary>
@@ -137,6 +137,7 @@ API 总数: 407, 事件总数: 41
   - GetDriveFolderMeta
   - GetDriveRootFolderMeta
   - GetDriveFolderChildren
+  - GetDriveFileStatistics
   - DownloadDriveFile
   - UploadDriveFile
   - PrepareUploadDriveFile
@@ -363,6 +364,19 @@ API 总数: 407, 事件总数: 41
   - GetHelpdeskFAQList
   - GetHelpdeskFAQImage
   - SearchHelpdeskFAQ
+  - UpdateHelpdeskAgent
+  - GetHelpdeskAgentEmail
+  - CreateHelpdeskAgentSchedule
+  - DeleteHelpdeskAgentSchedule
+  - UpdateHelpdeskAgentSchedule
+  - GetHelpdeskAgentSchedule
+  - GetHelpdeskAgentScheduleList
+  - CreateHelpdeskAgentSkill
+  - GetHelpdeskAgentSkill
+  - UpdateHelpdeskAgentSkill
+  - DeleteHelpdeskAgentSkill
+  - GetHelpdeskAgentSkillList
+  - GetHelpdeskAgentSkillRuleList
   - SubscribeHelpdeskEvent
   - UnsubscribeHelpdeskEvent
 - Admin
