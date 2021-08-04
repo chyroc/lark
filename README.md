@@ -35,7 +35,7 @@ https://godoc.org/github.com/chyroc/lark
 
 ## Support APIs
 
-API Count: 436, Event Count: 41
+API Count: 438, Event Count: 41
 
 <details>
   <summary>
@@ -175,6 +175,8 @@ API Count: 436, Event Count: 41
   - UpdateSheetProperty
   - BatchUpdateSheet
   - ImportSheet
+  - CreateDriveImportTask
+  - GetDriveImportTask
   - MoveSheetDimension
   - PrependSheetValue
   - AppendSheetValue
