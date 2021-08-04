@@ -35,7 +35,7 @@ https://godoc.org/github.com/chyroc/lark
 
 ## 支持的接口
 
-API 总数: 421, 事件总数: 41
+API 总数: 436, 事件总数: 41
 
 <details>
   <summary>
@@ -487,6 +487,22 @@ API 总数: 421, 事件总数: 41
   - UpdateSearchDataSource
   - GetSearchDataSourceList
   - DeleteSearchDataSource
+- Task
+  - CreateTaskCollaborator
+  - GetTaskCollaboratorList
+  - DeleteTaskCollaborator
+  - CreateTaskFollower
+  - GetTaskFollowerList
+  - DeleteTaskFollower
+  - CreateTaskReminder
+  - GetTaskReminderList
+  - DeleteTaskReminder
+  - CreateTask
+  - GetTask
+  - DeleteTask
+  - UpdateTask
+  - CompleteTask
+  - UncompleteTask
 - Hire
   - GetHireJob
   - GetHireJobManager

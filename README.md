@@ -35,7 +35,7 @@ https://godoc.org/github.com/chyroc/lark
 
 ## Support APIs
 
-API Count: 421, Event Count: 41
+API Count: 436, Event Count: 41
 
 <details>
   <summary>
@@ -487,6 +487,22 @@ API Count: 421, Event Count: 41
   - UpdateSearchDataSource
   - GetSearchDataSourceList
   - DeleteSearchDataSource
+- Task
+  - CreateTaskCollaborator
+  - GetTaskCollaboratorList
+  - DeleteTaskCollaborator
+  - CreateTaskFollower
+  - GetTaskFollowerList
+  - DeleteTaskFollower
+  - CreateTaskReminder
+  - GetTaskReminderList
+  - DeleteTaskReminder
+  - CreateTask
+  - GetTask
+  - DeleteTask
+  - UpdateTask
+  - CompleteTask
+  - UncompleteTask
 - Hire
   - GetHireJob
   - GetHireJobManager

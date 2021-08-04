@@ -43,16 +43,16 @@ type ReplaceSheetReq struct {
 	SpreadSheetToken string                        `path:"spreadsheet_token" json:"-"` // Spreadsheet token, 示例值："shtcnmBA*****yGehy8"
 	SheetID          string                        `path:"sheet_id" json:"-"`          // Sheet id, 示例值："0b**12"
 	FindCondition    *ReplaceSheetReqFindCondition `json:"find_condition,omitempty"`   // 查找条件
-	Find             *string                       `json:"find,omitempty"`             // 查找的字符串, 示例值："hello"
-	Replacement      *string                       `json:"replacement,omitempty"`      // 替换的字符串, 示例值："world"
+	Find             string                        `json:"find,omitempty"`             // 查找的字符串, 示例值："hello"
+	Replacement      string                        `json:"replacement,omitempty"`      // 替换的字符串, 示例值："world"
 }
 
 type ReplaceSheetReqFindCondition struct {
-	Range           *string `json:"range,omitempty"`             // 查找范围, 示例值："0b**12!A1:H10"
-	MatchCase       *bool   `json:"match_case,omitempty"`        // 是否忽略大小写, 示例值：true
-	MatchEntireCell *bool   `json:"match_entire_cell,omitempty"` // 是否匹配整个单元格, 示例值：false
-	SearchByRegex   *bool   `json:"search_by_regex,omitempty"`   // 是否为正则匹配, 示例值：false
-	IncludeFormulas *bool   `json:"include_formulas,omitempty"`  // 是否搜索公式内容, 示例值：false
+	Range           string `json:"range,omitempty"`             // 查找范围, 示例值："0b**12!A1:H10"
+	MatchCase       *bool  `json:"match_case,omitempty"`        // 是否忽略大小写, 示例值：true
+	MatchEntireCell *bool  `json:"match_entire_cell,omitempty"` // 是否匹配整个单元格, 示例值：false
+	SearchByRegex   *bool  `json:"search_by_regex,omitempty"`   // 是否为正则匹配, 示例值：false
+	IncludeFormulas *bool  `json:"include_formulas,omitempty"`  // 是否搜索公式内容, 示例值：false
 }
 
 type replaceSheetResp struct {

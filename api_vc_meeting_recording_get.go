@@ -55,6 +55,6 @@ type GetVCMeetingRecordingResp struct {
 }
 
 type GetVCMeetingRecordingRespRecording struct {
-	URL      string `json:"url,omitempty"`      // 录指文件URL
+	URL      string `json:"url,omitempty"`      // 录制文件URL
 	Duration string `json:"duration,omitempty"` // 录制总时长（单位msec）
 }
