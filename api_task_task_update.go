@@ -60,7 +60,7 @@ type UpdateTaskReqTaskDue struct {
 }
 
 type UpdateTaskReqTaskOrigin struct {
-	PlatformI18nName string                       `json:"platform_i18n_name,omitempty"` // 任务导入来源的名称，用于在任务中心详情页展示。请提供一个字典，多种语言名称映射。支持的各地区语言名：it_it, th_th, ko_kr, es_es, ja_jp, zh_cn, id_id, zh_hk, pt_br, de_de, fr_fr, zh_tw, ru_ru, en_us, hi_in, vi_vn, 示例值："{"zh_cn": "IT 工作台", "en_us": "IT Workspace"}", 长度范围：`0` ～ `1024` 字符
+	PlatformI18nName string                       `json:"platform_i18n_name,omitempty"` // 任务导入来源的名称，用于在任务中心详情页展示。请提供一个字典，多种语言名称映射。支持的各地区语言名：it_it, th_th, ko_kr, es_es, ja_jp, zh_cn, id_id, zh_hk, pt_br, de_de, fr_fr, zh_tw, ru_ru, en_us, hi_in, vi_vn, 示例值：""{\"zh_cn\": \"IT 工作台\", \"en_us\": \"IT Workspace\"}"", 长度范围：`0` ～ `1024` 字符
 	Href             *UpdateTaskReqTaskOriginHref `json:"href,omitempty"`               // 任务关联的来源平台详情页链接
 }
 

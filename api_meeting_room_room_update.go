@@ -42,7 +42,6 @@ type UpdateMeetingRoomRoomReq struct {
 	RoomID       string  `json:"room_id,omitempty"`        // 要更新的会议室ID
 	Name         *string `json:"name,omitempty"`           // 会议室名称
 	Capacity     *int64  `json:"capacity,omitempty"`       // 容量
-	IsDisabled   *bool   `json:"is_disabled,omitempty"`    // 是否禁用
 	CustomRoomID *string `json:"custom_room_id,omitempty"` // 租户自定义会议室ID
 }
 
