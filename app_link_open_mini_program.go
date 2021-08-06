@@ -21,4 +21,5 @@ type OpenMiniProgramReq struct {
 	PathIos        *string `json:"path_ios,omitempty"`         // 同 path 参数，iOS 端会优先使用该参数，如果该参数不存在，则会使用 path 参数
 	PathPc         *string `json:"path_pc,omitempty"`          // 同 path 参数，PC 端会优先使用该参数，如果该参数不存在，则会使用 path 参数
 	BdpLaunchQuery *string `json:"bdp_launch_query,omitempty"` // 自定义启动参数。可通过 [getHostLaunchQuery](https://open.feishu.cn/document/uYjL24iN/ugzM4UjL4MDO14COzgTN) 接口取得
+	MinLkVer       *string `json:"min_lk_ver,omitempty"`       // 指定 AppLink 协议能够兼容的最小飞书版本，使用三位版本号 x.y.z。如果当前飞书版本号小于min_lk_ver，打开该 AppLink 会显示为兼容页面
 }

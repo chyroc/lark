@@ -35,7 +35,7 @@ https://godoc.org/github.com/chyroc/lark
 
 ## 支持的接口
 
-API 总数: 438, 事件总数: 41
+API 总数: 446, 事件总数: 43
 
 <details>
   <summary>
@@ -429,6 +429,73 @@ API 总数: 438, 事件总数: 41
   - DownloadImage
   - UploadFile
   - DownloadFile
+- OKR
+  - GetOKRPeriodList
+  - BatchGetOKR
+  - GetUserOKRList
+- EHR
+  - GetEHREmployeeList
+  - DownloadEHRAttachments
+- Tenant
+  - GetTenant
+- Search
+  - CreateSearchDataSourceItem
+  - GetSearchDataSourceItem
+  - DeleteSearchDataSourceItem
+  - CreateSearchDataSource
+  - GetSearchDataSource
+  - UpdateSearchDataSource
+  - GetSearchDataSourceList
+  - DeleteSearchDataSource
+- Hire
+  - GetHireJob
+  - GetHireJobManager
+  - GetHireTalent
+  - GetHireAttachment
+  - GetHireAttachmentPreview
+  - GetHireResumeSource
+  - CreateHireNote
+  - UpdateHireNote
+  - GetHireNote
+  - GetHireNoteList
+  - GetHireReferralByApplication
+  - GetHireJobProcessList
+  - CreateHireApplication
+  - TerminateHireApplication
+  - GetHireApplication
+  - GetHireApplicationList
+  - GetHireApplicationInterviewList
+  - GetHireOfferByApplication
+  - GetHireOfferSchema
+  - MakeHireTransferOnboardByApplication
+  - UpdateHireEmployee
+  - GetHireEmployeeByApplication
+  - GetHireEmployee
+- Task
+  - CreateTaskCollaborator
+  - GetTaskCollaboratorList
+  - DeleteTaskCollaborator
+  - CreateTaskFollower
+  - GetTaskFollowerList
+  - DeleteTaskFollower
+  - CreateTaskReminder
+  - GetTaskReminderList
+  - DeleteTaskReminder
+  - CreateTask
+  - GetTask
+  - DeleteTask
+  - UpdateTask
+  - CompleteTask
+  - UncompleteTask
+- ACS
+  - GetACSAccessRecordPhoto
+  - GetACSAccessRecordList
+  - GetACSDeviceList
+  - GetACSUserFace
+  - UpdateACSUserFace
+  - GetACSUser
+  - UpdateACSUser
+  - GetACSUserList
 - EventCallback
   - EventV2HelpdeskTicketMessageCreatedV1
   - EventV2HelpdeskTicketCreatedV1
@@ -463,6 +530,8 @@ API 总数: 438, 事件总数: 41
   - EventV2VCMeetingRecordingReadyV1
   - EventV2VCMeetingShareStartedV1
   - EventV2VCMeetingShareEndedV1
+  - EventV2ACSAccessRecordCreatedV1
+  - EventV2ACSUserUpdatedV1
   - EventV1AddBot
   - EventV1RemoveBot
   - EventV1P2PChatCreate
@@ -471,64 +540,6 @@ API 总数: 438, 事件总数: 41
   - EventV1RemoveUserFromChat
   - EventV1RevokeAddUserFromChat
   - EventV1ChatDisband
-- OKR
-  - GetOKRPeriodList
-  - BatchGetOKR
-  - GetUserOKRList
-- EHR
-  - GetEHREmployeeList
-  - DownloadEHRAttachments
-- Tenant
-  - GetTenant
-- Search
-  - CreateSearchDataSourceItem
-  - GetSearchDataSourceItem
-  - DeleteSearchDataSourceItem
-  - CreateSearchDataSource
-  - GetSearchDataSource
-  - UpdateSearchDataSource
-  - GetSearchDataSourceList
-  - DeleteSearchDataSource
-- Task
-  - CreateTaskCollaborator
-  - GetTaskCollaboratorList
-  - DeleteTaskCollaborator
-  - CreateTaskFollower
-  - GetTaskFollowerList
-  - DeleteTaskFollower
-  - CreateTaskReminder
-  - GetTaskReminderList
-  - DeleteTaskReminder
-  - CreateTask
-  - GetTask
-  - DeleteTask
-  - UpdateTask
-  - CompleteTask
-  - UncompleteTask
-- Hire
-  - GetHireJob
-  - GetHireJobManager
-  - GetHireTalent
-  - GetHireAttachment
-  - GetHireAttachmentPreview
-  - GetHireResumeSource
-  - CreateHireNote
-  - UpdateHireNote
-  - GetHireNote
-  - GetHireNoteList
-  - GetHireReferralByApplication
-  - GetHireJobProcessList
-  - CreateHireApplication
-  - TerminateHireApplication
-  - GetHireApplication
-  - GetHireApplicationList
-  - GetHireApplicationInterviewList
-  - GetHireOfferByApplication
-  - GetHireOfferSchema
-  - MakeHireTransferOnboardByApplication
-  - UpdateHireEmployee
-  - GetHireEmployeeByApplication
-  - GetHireEmployee
 - AppLink
   - OpenLark
   - OpenMiniProgram

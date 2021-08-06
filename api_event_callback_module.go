@@ -44,6 +44,8 @@ const (
 	EventTypeV2VCMeetingRecordingReadyV1            EventType = "vc.meeting.recording_ready_v1"
 	EventTypeV2VCMeetingShareStartedV1              EventType = "vc.meeting.share_started_v1"
 	EventTypeV2VCMeetingShareEndedV1                EventType = "vc.meeting.share_ended_v1"
+	EventTypeV2ACSAccessRecordCreatedV1             EventType = "acs.access_record.created_v1"
+	EventTypeV2ACSUserUpdatedV1                     EventType = "acs.user.updated_v1"
 	EventTypeV1AddBot                               EventType = "add_bot"
 	EventTypeV1RemoveBot                            EventType = "remove_bot"
 	EventTypeV1P2PChatCreate                        EventType = "p2p_chat_create"
@@ -88,6 +90,8 @@ type eventHandler struct {
 	eventV2VCMeetingRecordingReadyV1Handler            eventV2VCMeetingRecordingReadyV1Handler
 	eventV2VCMeetingShareStartedV1Handler              eventV2VCMeetingShareStartedV1Handler
 	eventV2VCMeetingShareEndedV1Handler                eventV2VCMeetingShareEndedV1Handler
+	eventV2ACSAccessRecordCreatedV1Handler             eventV2ACSAccessRecordCreatedV1Handler
+	eventV2ACSUserUpdatedV1Handler                     eventV2ACSUserUpdatedV1Handler
 	eventV1AddBotHandler                               eventV1AddBotHandler
 	eventV1RemoveBotHandler                            eventV1RemoveBotHandler
 	eventV1P2PChatCreateHandler                        eventV1P2PChatCreateHandler
@@ -133,6 +137,8 @@ func (r *eventHandler) clone() *eventHandler {
 		eventV2VCMeetingRecordingReadyV1Handler:            r.eventV2VCMeetingRecordingReadyV1Handler,
 		eventV2VCMeetingShareStartedV1Handler:              r.eventV2VCMeetingShareStartedV1Handler,
 		eventV2VCMeetingShareEndedV1Handler:                r.eventV2VCMeetingShareEndedV1Handler,
+		eventV2ACSAccessRecordCreatedV1Handler:             r.eventV2ACSAccessRecordCreatedV1Handler,
+		eventV2ACSUserUpdatedV1Handler:                     r.eventV2ACSUserUpdatedV1Handler,
 		eventV1AddBotHandler:                               r.eventV1AddBotHandler,
 		eventV1RemoveBotHandler:                            r.eventV1RemoveBotHandler,
 		eventV1P2PChatCreateHandler:                        r.eventV1P2PChatCreateHandler,
@@ -178,6 +184,8 @@ type eventBody struct {
 	eventV2VCMeetingRecordingReadyV1            *EventV2VCMeetingRecordingReadyV1
 	eventV2VCMeetingShareStartedV1              *EventV2VCMeetingShareStartedV1
 	eventV2VCMeetingShareEndedV1                *EventV2VCMeetingShareEndedV1
+	eventV2ACSAccessRecordCreatedV1             *EventV2ACSAccessRecordCreatedV1
+	eventV2ACSUserUpdatedV1                     *EventV2ACSUserUpdatedV1
 	eventV1AddBot                               *EventV1AddBot
 	eventV1RemoveBot                            *EventV1RemoveBot
 	eventV1P2PChatCreate                        *EventV1P2PChatCreate
@@ -392,6 +400,18 @@ func (r *EventCallbackService) parserEventV2(req *eventReq) error {
 			return err
 		}
 		req.eventV2VCMeetingShareEndedV1 = event
+	case EventTypeV2ACSAccessRecordCreatedV1:
+		event := new(EventV2ACSAccessRecordCreatedV1)
+		if err := req.unmarshalEvent(event); err != nil {
+			return err
+		}
+		req.eventV2ACSAccessRecordCreatedV1 = event
+	case EventTypeV2ACSUserUpdatedV1:
+		event := new(EventV2ACSUserUpdatedV1)
+		if err := req.unmarshalEvent(event); err != nil {
+			return err
+		}
+		req.eventV2ACSUserUpdatedV1 = event
 	}
 
 	return nil
@@ -636,6 +656,16 @@ func (r *EventCallbackService) handlerEvent(ctx context.Context, req *eventReq) 
 	case req.eventV2VCMeetingShareEndedV1 != nil:
 		if r.cli.eventHandler.eventV2VCMeetingShareEndedV1Handler != nil {
 			s, err = r.cli.eventHandler.eventV2VCMeetingShareEndedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2VCMeetingShareEndedV1)
+		}
+		return true, s, err
+	case req.eventV2ACSAccessRecordCreatedV1 != nil:
+		if r.cli.eventHandler.eventV2ACSAccessRecordCreatedV1Handler != nil {
+			s, err = r.cli.eventHandler.eventV2ACSAccessRecordCreatedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2ACSAccessRecordCreatedV1)
+		}
+		return true, s, err
+	case req.eventV2ACSUserUpdatedV1 != nil:
+		if r.cli.eventHandler.eventV2ACSUserUpdatedV1Handler != nil {
+			s, err = r.cli.eventHandler.eventV2ACSUserUpdatedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2ACSUserUpdatedV1)
 		}
 		return true, s, err
 	case req.eventV1AddBot != nil:

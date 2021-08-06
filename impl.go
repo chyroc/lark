@@ -47,13 +47,14 @@ type Lark struct {
 	AI            *AIService
 	Attendance    *AttendanceService
 	File          *FileService
-	EventCallback *EventCallbackService
 	OKR           *OKRService
 	EHR           *EHRService
 	Tenant        *TenantService
 	Search        *SearchService
-	Task          *TaskService
 	Hire          *HireService
+	Task          *TaskService
+	ACS           *ACSService
+	EventCallback *EventCallbackService
 	AppLink       *AppLinkService
 }
 
@@ -77,13 +78,14 @@ func (r *Lark) initService() {
 	r.AI = &AIService{cli: r}
 	r.Attendance = &AttendanceService{cli: r}
 	r.File = &FileService{cli: r}
-	r.EventCallback = &EventCallbackService{cli: r}
 	r.OKR = &OKRService{cli: r}
 	r.EHR = &EHRService{cli: r}
 	r.Tenant = &TenantService{cli: r}
 	r.Search = &SearchService{cli: r}
-	r.Task = &TaskService{cli: r}
 	r.Hire = &HireService{cli: r}
+	r.Task = &TaskService{cli: r}
+	r.ACS = &ACSService{cli: r}
+	r.EventCallback = &EventCallbackService{cli: r}
 	r.AppLink = &AppLinkService{cli: r}
 }
 
@@ -127,13 +129,14 @@ func (r *Lark) clone() *Lark {
 		AI:            r.AI,
 		Attendance:    r.Attendance,
 		File:          r.File,
-		EventCallback: r.EventCallback,
 		OKR:           r.OKR,
 		EHR:           r.EHR,
 		Tenant:        r.Tenant,
 		Search:        r.Search,
-		Task:          r.Task,
 		Hire:          r.Hire,
+		Task:          r.Task,
+		ACS:           r.ACS,
+		EventCallback: r.EventCallback,
 		AppLink:       r.AppLink,
 	}
 }
@@ -158,12 +161,13 @@ type (
 	AIService            struct{ cli *Lark }
 	AttendanceService    struct{ cli *Lark }
 	FileService          struct{ cli *Lark }
-	EventCallbackService struct{ cli *Lark }
 	OKRService           struct{ cli *Lark }
 	EHRService           struct{ cli *Lark }
 	TenantService        struct{ cli *Lark }
 	SearchService        struct{ cli *Lark }
-	TaskService          struct{ cli *Lark }
 	HireService          struct{ cli *Lark }
+	TaskService          struct{ cli *Lark }
+	ACSService           struct{ cli *Lark }
+	EventCallbackService struct{ cli *Lark }
 	AppLinkService       struct{ cli *Lark }
 )
