@@ -57,6 +57,7 @@ const (
 )
 
 type eventHandler struct {
+	eventCardHandler                                   eventCardHandler
 	eventV2HelpdeskTicketMessageCreatedV1Handler       eventV2HelpdeskTicketMessageCreatedV1Handler
 	eventV2HelpdeskTicketCreatedV1Handler              eventV2HelpdeskTicketCreatedV1Handler
 	eventV2HelpdeskTicketMessageUpdatedV1Handler       eventV2HelpdeskTicketMessageUpdatedV1Handler

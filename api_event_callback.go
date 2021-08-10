@@ -15,3 +15,8 @@ func (r *EventCallbackService) ListenCallback(ctx context.Context, reader io.Rea
 func (r *EventCallbackService) ListenSecurityCallback(ctx context.Context, header http.Header, reader io.Reader, writer http.ResponseWriter) {
 	r.listenCallback(ctx, true, header, reader, writer)
 }
+
+// ListenCardCallback 卡片消息回调监听
+func (r *EventCallbackService) ListenCardCallback(ctx context.Context, checkSecurity bool, header http.Header, reader io.Reader, writer http.ResponseWriter) {
+	r.listenCardCallback(ctx, checkSecurity, header, reader, writer)
+}
