@@ -82,6 +82,18 @@ func Test_Approval_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.SearchApprovalTask(ctx, &lark.SearchApprovalTaskReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.SearchApprovalCarbonCopy(ctx, &lark.SearchApprovalCarbonCopyReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "failed")
+		})
+
+		t.Run("", func(t *testing.T) {
 			_, _, err := moduleCli.CreateApprovalCarbonCopy(ctx, &lark.CreateApprovalCarbonCopyReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "failed")
@@ -203,6 +215,28 @@ func Test_Approval_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
+			cli.Mock().MockApprovalSearchApprovalTask(func(ctx context.Context, request *lark.SearchApprovalTaskReq, options ...lark.MethodOptionFunc) (*lark.SearchApprovalTaskResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockApprovalSearchApprovalTask()
+
+			_, _, err := moduleCli.SearchApprovalTask(ctx, &lark.SearchApprovalTaskReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+			cli.Mock().MockApprovalSearchApprovalCarbonCopy(func(ctx context.Context, request *lark.SearchApprovalCarbonCopyReq, options ...lark.MethodOptionFunc) (*lark.SearchApprovalCarbonCopyResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockApprovalSearchApprovalCarbonCopy()
+
+			_, _, err := moduleCli.SearchApprovalCarbonCopy(ctx, &lark.SearchApprovalCarbonCopyReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
 			cli.Mock().MockApprovalCreateApprovalCarbonCopy(func(ctx context.Context, request *lark.CreateApprovalCarbonCopyReq, options ...lark.MethodOptionFunc) (*lark.CreateApprovalCarbonCopyResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -279,6 +313,18 @@ func Test_Approval_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.SearchApprovalTask(ctx, &lark.SearchApprovalTaskReq{})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.SearchApprovalCarbonCopy(ctx, &lark.SearchApprovalCarbonCopyReq{})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
 			_, _, err := moduleCli.CreateApprovalCarbonCopy(ctx, &lark.CreateApprovalCarbonCopyReq{})
 			as.NotNil(err)
 			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
@@ -348,6 +394,18 @@ func Test_Approval_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 			_, _, err := moduleCli.SearchApprovalInstance(ctx, &lark.SearchApprovalInstanceReq{})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.SearchApprovalTask(ctx, &lark.SearchApprovalTaskReq{})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.SearchApprovalCarbonCopy(ctx, &lark.SearchApprovalCarbonCopyReq{})
 			as.NotNil(err)
 			as.Equal("fake raw request", err.Error())
 		})
