@@ -12,15 +12,14 @@ import (
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uAjMxEjLwITMx4CMyETM
 func (r *BotService) GetBotInfo(ctx context.Context, request *GetBotInfoReq, options ...MethodOptionFunc) (*GetBotInfoResp, *Response, error) {
-	r.cli.log(ctx, LogLevelInfo, "[lark][Bot][GetBotInfo] call api")
-	r.cli.log(ctx, LogLevelDebug, "[lark][Bot][GetBotInfo] request: %s", jsonString(request))
-
 	if r.cli.mock.mockBotGetBotInfo != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark][Bot][GetBotInfo] mock enable")
+		r.cli.log(ctx, LogLevelDebug, "[lark] Bot#GetBotInfo mock enable")
 		return r.cli.mock.mockBotGetBotInfo(ctx, request, options...)
 	}
 
 	req := &RawRequestReq{
+		Scope:                 "Bot",
+		API:                   "GetBotInfo",
 		Method:                "GET",
 		URL:                   "https://open.feishu.cn/open-apis/bot/v3/info",
 		Body:                  request,
@@ -30,17 +29,7 @@ func (r *BotService) GetBotInfo(ctx context.Context, request *GetBotInfoReq, opt
 	resp := new(getBotInfoResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
-	if err != nil {
-		r.cli.log(ctx, LogLevelError, "[lark][Bot][GetBotInfo] GET https://open.feishu.cn/open-apis/bot/v3/info failed: %s", err)
-		return nil, response, err
-	} else if resp.Code != 0 {
-		r.cli.log(ctx, LogLevelError, "[lark][Bot][GetBotInfo] GET https://open.feishu.cn/open-apis/bot/v3/info failed, code: %d, msg: %s", resp.Code, resp.Msg)
-		return nil, response, NewError("Bot", "GetBotInfo", resp.Code, resp.Msg)
-	}
-
-	r.cli.log(ctx, LogLevelDebug, "[lark][Bot][GetBotInfo] request_id: %s, response: %s", response.RequestID, jsonString(resp.Data))
-
-	return resp.Data, response, nil
+	return resp.Data, response, err
 }
 
 func (r *Mock) MockBotGetBotInfo(f func(ctx context.Context, request *GetBotInfoReq, options ...MethodOptionFunc) (*GetBotInfoResp, *Response, error)) {
@@ -62,7 +51,7 @@ type getBotInfoResp struct {
 type GetBotInfoResp struct {
 	ActivateStatus int64    `json:"activate_status,omitempty"` // app 当前状态。,0: 初始化，租户待安装,1: 租户停用,2: 租户启用,3: 安装后待启用,4: 升级待启用,5: license过期停用,6: Lark套餐到期或降级停用
 	AppName        string   `json:"app_name,omitempty"`        // app 名称
-	AvatarUrl      string   `json:"avatar_url,omitempty"`      // app 图像地址
+	AvatarURL      string   `json:"avatar_url,omitempty"`      // app 图像地址
 	IpWhiteList    []string `json:"ip_white_list,omitempty"`   // app 的 IP 白名单地址
 	OpenID         string   `json:"open_id,omitempty"`         // 机器人的open_id
 }
