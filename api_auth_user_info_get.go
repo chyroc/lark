@@ -6,9 +6,9 @@ import (
 	"context"
 )
 
-// GetUserInfo 此接口仅用于获取登录用户的信息。调用此接口需要在 Header 中带上 user_access_token。
+// GetUserInfo 通过 user_access_token 获取登录用户的信息。
 //
-// doc: https://open.feishu.cn/document/ukTMukTMukTM/uIDO4UjLygDO14iM4gTN
+// doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/authen-v1/authen/user_info
 func (r *AuthService) GetUserInfo(ctx context.Context, request *GetUserInfoReq, options ...MethodOptionFunc) (*GetUserInfoResp, *Response, error) {
 	if r.cli.mock.mockAuthGetUserInfo != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Auth#GetUserInfo mock enable")
@@ -41,9 +41,9 @@ func (r *Mock) UnMockAuthGetUserInfo() {
 type GetUserInfoReq struct{}
 
 type getUserInfoResp struct {
-	Code int64            `json:"code,omitempty"` // 返回码，0表示请求成功，其他表示请求失败
-	Msg  string           `json:"msg,omitempty"`  // 返回信息
-	Data *GetUserInfoResp `json:"data,omitempty"` // 返回业务数据
+	Code int64            `json:"code,omitempty"` // 错误码，非 0 表示失败
+	Msg  string           `json:"msg,omitempty"`  // 错误描述
+	Data *GetUserInfoResp `json:"data,omitempty"`
 }
 
 type GetUserInfoResp struct {
@@ -53,10 +53,10 @@ type GetUserInfoResp struct {
 	AvatarThumb  string `json:"avatar_thumb,omitempty"`  // 用户头像 72x72
 	AvatarMiddle string `json:"avatar_middle,omitempty"` // 用户头像 240x240
 	AvatarBig    string `json:"avatar_big,omitempty"`    // 用户头像 640x640
-	Email        string `json:"email,omitempty"`         // 用户邮箱，拥有"获取用户邮箱"权限时返回
-	UserID       string `json:"user_id,omitempty"`       // 用户的 user_id，申请了"获取用户user_id"权限的应用返回该字段
-	Mobile       string `json:"mobile,omitempty"`        // 用户手机号，申请了"获取用户手机号"权限的应用返回该字段
 	OpenID       string `json:"open_id,omitempty"`       // 用户在应用内的唯一标识
 	UnionID      string `json:"union_id,omitempty"`      // 用户对ISV的唯一标识，对于同一个ISV，用户在其名下所有应用的union_id相同
-	TenantKey    string `json:"tenant_key,omitempty"`    // 用于企业标识
+	Email        string `json:"email,omitempty"`         // 用户邮箱, 字段权限要求:  获取用户邮箱信息
+	UserID       string `json:"user_id,omitempty"`       // 用户 user_id, 字段权限要求:  获取用户 userid
+	Mobile       string `json:"mobile,omitempty"`        // 用户手机号, 字段权限要求:  获取用户手机号
+	TenantKey    string `json:"tenant_key,omitempty"`    // 当前企业标识
 }

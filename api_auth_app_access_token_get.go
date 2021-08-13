@@ -5,7 +5,8 @@ import (
 	"time"
 )
 
-// https://open.feishu.cn/document/ukTMukTMukTM/uADN14CM0UjLwQTN
+// docs: https://open.feishu.cn/document/ukTMukTMukTM/ukDNz4SO0MjL5QzM/auth-v3/auth/app_access_token_internal
+// docs: https://open.feishu.cn/document/ukTMukTMukTM/uADN14CM0UjLwQTN
 func (r *AuthService) GetAppAccessToken(ctx context.Context) (*TokenExpire, *Response, error) {
 	if r.cli.mock.mockGetAppAccessToken != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Auth#GetAppAccessToken mock enable")
@@ -21,10 +22,10 @@ func (r *AuthService) GetAppAccessToken(ctx context.Context) (*TokenExpire, *Res
 		return &TokenExpire{Token: val, Expire: int64(ttl.Seconds())}, &Response{}, nil
 	}
 
-	uri := "https://open.feishu.cn/open-apis/auth/v3/app_access_token/internal/"
+	uri := "https://open.feishu.cn/open-apis/auth/v3/app_access_token/internal"
 	appTicket := ""
 	if r.cli.isISV {
-		uri = "https://open.feishu.cn/open-apis/auth/v3/app_access_token/"
+		uri = "https://open.feishu.cn/open-apis/auth/v3/app_access_token"
 		s, err := r.GetAppTicket(ctx)
 		if err != nil {
 			return nil, nil, err

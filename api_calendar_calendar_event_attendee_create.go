@@ -46,7 +46,7 @@ func (r *Mock) UnMockCalendarCreateCalendarEventAttendee() {
 }
 
 type CreateCalendarEventAttendeeReq struct {
-	UserIDType       *IDType                                   `query:"user_id_type" json:"-"`      // 用户 ID 类型, 示例值："open_id", 可选值有: `open_id`：用户的 open id, `union_id`：用户的 union id, `user_id`：用户的 user id, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 userid
+	UserIDType       *IDType                                   `query:"user_id_type" json:"-"`      // 用户 ID 类型, 示例值："open_id", 可选值有: `open_id`：用户的 open id, `union_id`：用户的 union id, `user_id`：用户的 user id, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求:  获取用户 userid
 	CalendarID       string                                    `path:"calendar_id" json:"-"`        // 日历 ID, 示例值："feishu.cn_xxxxxxxxxx@group.calendar.feishu.cn"
 	EventID          string                                    `path:"event_id" json:"-"`           // 日程 ID, 示例值："xxxxxxxxx_0"
 	Attendees        []*CreateCalendarEventAttendeeReqAttendee `json:"attendees,omitempty"`         // 新增参与人列表
@@ -60,6 +60,7 @@ type CreateCalendarEventAttendeeReqAttendee struct {
 	ChatID          *string                    `json:"chat_id,omitempty"`           // chat类型参与人的群组chat_id, 示例值："om_xxxxxxxxx"
 	RoomID          *string                    `json:"room_id,omitempty"`           // resource类型参与人的会议室room_id, 示例值："omm_xxxxxxxx"
 	ThirdPartyEmail *string                    `json:"third_party_email,omitempty"` // third_party类型参与人的邮箱, 示例值："wangwu@email.com"
+	OperateID       *string                    `json:"operate_id,omitempty"`        // 如果日程是使用应用身份创建的，在添加会议室的时候，用来指定会议室的联系人，在会议室视图展示。, 示例值："omm_xxxxxxxx"
 }
 
 type createCalendarEventAttendeeResp struct {
@@ -76,7 +77,7 @@ type CreateCalendarEventAttendeeRespAttendee struct {
 	Type            CalendarEventAttendeeType                            `json:"type,omitempty"`              // 参与人类型, 可选值有: `user`：用户, `chat`：群组, `resource`：会议室, `third_party`：邮箱
 	AttendeeID      string                                               `json:"attendee_id,omitempty"`       // 参与人ID
 	RsvpStatus      string                                               `json:"rsvp_status,omitempty"`       // 参与人RSVP状态, 可选值有: `needs_action`：参与人尚未回复状态，或表示会议室预约中, `accept`：参与人回复接受，或表示会议室预约成功, `tentative`：参与人回复待定, `decline`：参与人回复拒绝，或表示会议室预约失败, `removed`：参与人或会议室已经从日程中被移除
-	IsOptional      bool                                                 `json:"is_optional,omitempty"`       // 参与人是否为「可选参加」，无法编辑群参与人的此字段, 默认值: `false`
+	IsOptional      bool                                                 `json:"is_optional,omitempty"`       // 参与人是否为「可选参加」，无法编辑群参与人的此字段
 	IsOrganizer     bool                                                 `json:"is_organizer,omitempty"`      // 参与人是否为日程组织者
 	IsExternal      bool                                                 `json:"is_external,omitempty"`       // 参与人是否为外部参与人；外部参与人不支持编辑
 	DisplayName     string                                               `json:"display_name,omitempty"`      // 参与人名称
@@ -85,11 +86,12 @@ type CreateCalendarEventAttendeeRespAttendee struct {
 	ChatID          string                                               `json:"chat_id,omitempty"`           // chat类型参与人的群组chat_id
 	RoomID          string                                               `json:"room_id,omitempty"`           // resource类型参与人的会议室room_id
 	ThirdPartyEmail string                                               `json:"third_party_email,omitempty"` // third_party类型参与人的邮箱
+	OperateID       string                                               `json:"operate_id,omitempty"`        // 如果日程是使用应用身份创建的，在添加会议室的时候，用来指定会议室的联系人，在会议室视图展示。
 }
 
 type CreateCalendarEventAttendeeRespAttendeeChatMember struct {
 	RsvpStatus  string `json:"rsvp_status,omitempty"`  // 参与人RSVP状态, 可选值有: `needs_action`：参与人尚未回复状态，或表示会议室预约中, `accept`：参与人回复接受，或表示会议室预约成功, `tentative`：参与人回复待定, `decline`：参与人回复拒绝，或表示会议室预约失败, `removed`：参与人或会议室已经从日程中被移除
-	IsOptional  bool   `json:"is_optional,omitempty"`  // 参与人是否为「可选参加」, 默认值: `false`
+	IsOptional  bool   `json:"is_optional,omitempty"`  // 参与人是否为「可选参加」
 	DisplayName string `json:"display_name,omitempty"` // 参与人名称
 	IsOrganizer bool   `json:"is_organizer,omitempty"` // 参与人是否为日程组织者
 	IsExternal  bool   `json:"is_external,omitempty"`  // 参与人是否为外部参与人

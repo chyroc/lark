@@ -8,7 +8,7 @@ import (
 
 // ResendAppTicket 飞书每隔 1 小时会给应用推送一次最新的 app_ticket，应用也可以主动调用此接口，触发飞书进行及时的重新推送。
 //
-// doc: https://open.feishu.cn/document/ukTMukTMukTM/uQjNz4CN2MjL0YzM
+// doc: https://open.feishu.cn/document/ukTMukTMukTM/ukDNz4SO0MjL5QzM/auth-v3/auth/app_ticket_resend
 func (r *AuthService) ResendAppTicket(ctx context.Context, request *ResendAppTicketReq, options ...MethodOptionFunc) (*ResendAppTicketResp, *Response, error) {
 	if r.cli.mock.mockAuthResendAppTicket != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Auth#ResendAppTicket mock enable")
@@ -19,7 +19,7 @@ func (r *AuthService) ResendAppTicket(ctx context.Context, request *ResendAppTic
 		Scope:        "Auth",
 		API:          "ResendAppTicket",
 		Method:       "POST",
-		URL:          "https://open.feishu.cn/open-apis/auth/v3/app_ticket/resend/",
+		URL:          "https://open.feishu.cn/open-apis/auth/v3/app_ticket/resend",
 		Body:         request,
 		MethodOption: newMethodOption(options),
 	}
@@ -38,8 +38,8 @@ func (r *Mock) UnMockAuthResendAppTicket() {
 }
 
 type ResendAppTicketReq struct {
-	AppID     string `json:"app_id,omitempty"`     // 应用唯一标识，创建应用后获得
-	AppSecret string `json:"app_secret,omitempty"` // 应用秘钥，创建应用后获得
+	AppID     string `json:"app_id,omitempty"`     // 应用唯一标识，创建应用后获得, 示例值："cli_slkdjalasdkjasd"
+	AppSecret string `json:"app_secret,omitempty"` // 应用秘钥，创建应用后获得, 示例值："dskLLdkasdjlasdKK"
 }
 
 type resendAppTicketResp struct {

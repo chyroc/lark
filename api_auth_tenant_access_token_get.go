@@ -5,7 +5,8 @@ import (
 	"time"
 )
 
-// https://open.feishu.cn/document/ukTMukTMukTM/uIjNz4iM2MjLyYzM
+// https://open.feishu.cn/document/ukTMukTMukTM/ukDNz4SO0MjL5QzM/auth-v3/auth/tenant_access_token_internal
+// https://open.feishu.cn/document/ukTMukTMukTM/ukDNz4SO0MjL5QzM/auth-v3/auth/tenant_access_token
 func (r *AuthService) GetTenantAccessToken(ctx context.Context) (*TokenExpire, *Response, error) {
 	if r.cli.mock.mockGetTenantAccessToken != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Auth#GetTenantAccessToken mock enable")
@@ -21,7 +22,7 @@ func (r *AuthService) GetTenantAccessToken(ctx context.Context) (*TokenExpire, *
 		return &TokenExpire{Token: val, Expire: int64(ttl.Seconds())}, &Response{}, nil
 	}
 
-	uri := "https://open.feishu.cn/open-apis/auth/v3/tenant_access_token/internal/"
+	uri := "https://open.feishu.cn/open-apis/auth/v3/tenant_access_token/internal"
 	body := getTenantAccessTokenReq{
 		AppID:     r.cli.appID,
 		AppSecret: r.cli.appSecret,
@@ -31,7 +32,7 @@ func (r *AuthService) GetTenantAccessToken(ctx context.Context) (*TokenExpire, *
 		if err != nil {
 			return nil, response, err
 		}
-		uri = "https://open.feishu.cn/open-apis/auth/v3/tenant_access_token/"
+		uri = "https://open.feishu.cn/open-apis/auth/v3/tenant_access_token"
 		body = getTenantAccessTokenReq{
 			AppAccessToken: appAccessToken.Token,
 			TenantKey:      r.cli.tenantKey,

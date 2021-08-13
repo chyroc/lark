@@ -7,7 +7,7 @@ import (
 	"io"
 )
 
-// GetMessageFile 获取消息中的资源文件，包括音频，视频，图片和文件。当前仅支持 100M 以内的资源文件的下载。
+// GetMessageFile 获取消息中的资源文件，包括音频，视频，图片和文件，**暂不支持表情包资源下载**。当前仅支持 100M 以内的资源文件的下载。
 //
 // 注意事项:
 // - 需要开启[机器人能力](https://open.feishu.cn/document/home/develop-a-bot-in-5-minutes/create-an-app)
@@ -46,7 +46,7 @@ func (r *Mock) UnMockMessageGetMessageFile() {
 }
 
 type GetMessageFileReq struct {
-	Type      string `query:"type" json:"-"`      // 资源类型，可选"image, file“； image对应消息中的 图片资源。  file对应消息中的 文件、音频、视频资源, 示例值："image,"
+	Type      string `query:"type" json:"-"`      // 资源类型，可选"image, file“； image对应消息中的 图片资源。  file对应消息中的 文件、音频、视频资源（**表情包资源除外**）, 示例值："image,"
 	MessageID string `path:"message_id" json:"-"` // 待查询资源对应的消息ID, 示例值："om_dc13264520392913993dd051dba21dcf"
 	FileKey   string `path:"file_key" json:"-"`   // 待查询资源的key, 示例值："file_456a92d6-c6ea-4de4-ac3f-7afcf44ac78g"
 }
