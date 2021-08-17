@@ -67,12 +67,12 @@ type EventV2ContactScopeUpdatedV3AddedUser struct {
 	Status               *EventV2ContactScopeUpdatedV3AddedUserStatus             `json:"status,omitempty"`                 // 用户状态,**字段权限要求（满足任一）**：, 获取用户雇佣信息, 以应用身份访问通讯录
 	LeaderUserID         string                                                   `json:"leader_user_id,omitempty"`         // 用户的直接主管的用户ID,**字段权限要求（满足任一）**：, 获取用户组织架构信息, 以应用身份访问通讯录
 	City                 string                                                   `json:"city,omitempty"`                   // 城市,**字段权限要求（满足任一）**：, 获取用户雇佣信息, 以应用身份访问通讯录
-	Country              string                                                   `json:"country,omitempty"`                // 国家,**字段权限要求（满足任一）**：, 获取用户雇佣信息, 以应用身份访问通讯录
+	Country              string                                                   `json:"country,omitempty"`                // 国家或地区,**字段权限要求（满足任一）**：, 获取用户雇佣信息, 以应用身份访问通讯录
 	WorkStation          string                                                   `json:"work_station,omitempty"`           // 工位,**字段权限要求（满足任一）**：, 获取用户雇佣信息, 以应用身份访问通讯录
 	JoinTime             int64                                                    `json:"join_time,omitempty"`              // 入职时间,**字段权限要求（满足任一）**：, 获取用户雇佣信息, 以应用身份访问通讯录
 	EmployeeNo           string                                                   `json:"employee_no,omitempty"`            // 工号,**字段权限要求（满足任一）**：, 获取用户雇佣信息, 以应用身份访问通讯录
-	EmployeeType         int64                                                    `json:"employee_type,omitempty"`          // 员工类型,**字段权限要求（满足任一）**：, 获取用户雇佣信息, 以应用身份访问通讯录
-	CustomAttrs          []*EventV2ContactScopeUpdatedV3AddedUserCustomAttr       `json:"custom_attrs,omitempty"`           // 自定义属性,**字段权限要求（满足任一）**：, 获取用户雇佣信息, 以应用身份访问通讯录
+	EmployeeType         int64                                                    `json:"employee_type,omitempty"`          // 员工类型，可选值有：, 1：正式员工, 2：实习生, 3：外包, 4：劳务, 5：顾问   ,同时可读取到自定义员工类型的 int 值，可通过下方接口获取到该租户的自定义员工类型的名称   ,[获取人员类型](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/employee_type_enum/list),**字段权限要求（满足任一）**：, 获取用户雇佣信息, 以应用身份访问通讯录
+	CustomAttrs          []*EventV2ContactScopeUpdatedV3AddedUserCustomAttr       `json:"custom_attrs,omitempty"`           // 自定义字段，请确保你的组织管理员已在管理后台/组织架构/成员字段管理/自定义字段管理/全局设置中开启了“允许开放平台 API 调用“，否则该字段不会生效/返回。,**字段权限要求（满足任一）**：, 获取用户雇佣信息, 以应用身份访问通讯录
 	EnterpriseEmail      string                                                   `json:"enterprise_email,omitempty"`       // 企业邮箱，请先确保已在管理后台启用飞书邮箱服务,**字段权限要求（满足任一）**：, 获取用户雇佣信息, 以应用身份访问通讯录
 	JobTitle             string                                                   `json:"job_title,omitempty"`              // 职务,**字段权限要求（满足任一）**：, 获取用户雇佣信息, 以应用身份访问通讯录
 	NeedSendNotification bool                                                     `json:"need_send_notification,omitempty"` // 是否发送提示消息
@@ -94,15 +94,15 @@ type EventV2ContactScopeUpdatedV3AddedUserStatus struct {
 }
 
 type EventV2ContactScopeUpdatedV3AddedUserCustomAttr struct {
-	Type  string                                                `json:"type,omitempty"`  // 自定义属性类型
-	ID    string                                                `json:"id,omitempty"`    // 自定义属性ID
-	Value *EventV2ContactScopeUpdatedV3AddedUserCustomAttrValue `json:"value,omitempty"` // 自定义属性取值
+	Type  string                                                `json:"type,omitempty"`  // 自定义字段类型   , `TEXT`, `HREF`, `ENUMERATION`, `PICTURE_ENUM`, `GENERIC_USER`
+	ID    string                                                `json:"id,omitempty"`    // 自定义字段ID
+	Value *EventV2ContactScopeUpdatedV3AddedUserCustomAttrValue `json:"value,omitempty"` // 自定义字段取值
 }
 
 type EventV2ContactScopeUpdatedV3AddedUserCustomAttrValue struct {
-	Text  string `json:"text,omitempty"`   // 属性文本
-	URL   string `json:"url,omitempty"`    // URL
-	PcURL string `json:"pc_url,omitempty"` // PC上的URL
+	Text  string `json:"text,omitempty"`   // 字段类型为 TEXT 时该参数定义字段值，字段类型为 HREF 时该参数定义网页标题
+	URL   string `json:"url,omitempty"`    // 字段类型为 HREF 时，该参数定义默认 URL
+	PcURL string `json:"pc_url,omitempty"` // 字段类型为 HREF 时，该参数定义PC端 URL
 }
 
 type EventV2ContactScopeUpdatedV3AddedUserNotificationOption struct {
@@ -161,12 +161,12 @@ type EventV2ContactScopeUpdatedV3RemovedUser struct {
 	Status               *EventV2ContactScopeUpdatedV3RemovedUserStatus             `json:"status,omitempty"`                 // 用户状态,**字段权限要求（满足任一）**：, 获取用户雇佣信息, 以应用身份访问通讯录
 	LeaderUserID         string                                                     `json:"leader_user_id,omitempty"`         // 用户的直接主管的用户ID,**字段权限要求（满足任一）**：, 获取用户组织架构信息, 以应用身份访问通讯录
 	City                 string                                                     `json:"city,omitempty"`                   // 城市,**字段权限要求（满足任一）**：, 获取用户雇佣信息, 以应用身份访问通讯录
-	Country              string                                                     `json:"country,omitempty"`                // 国家,**字段权限要求（满足任一）**：, 获取用户雇佣信息, 以应用身份访问通讯录
+	Country              string                                                     `json:"country,omitempty"`                // 国家或地区,**字段权限要求（满足任一）**：, 获取用户雇佣信息, 以应用身份访问通讯录
 	WorkStation          string                                                     `json:"work_station,omitempty"`           // 工位,**字段权限要求（满足任一）**：, 获取用户雇佣信息, 以应用身份访问通讯录
 	JoinTime             int64                                                      `json:"join_time,omitempty"`              // 入职时间,**字段权限要求（满足任一）**：, 获取用户雇佣信息, 以应用身份访问通讯录
 	EmployeeNo           string                                                     `json:"employee_no,omitempty"`            // 工号,**字段权限要求（满足任一）**：, 获取用户雇佣信息, 以应用身份访问通讯录
-	EmployeeType         int64                                                      `json:"employee_type,omitempty"`          // 员工类型,**字段权限要求（满足任一）**：, 获取用户雇佣信息, 以应用身份访问通讯录
-	CustomAttrs          []*EventV2ContactScopeUpdatedV3RemovedUserCustomAttr       `json:"custom_attrs,omitempty"`           // 自定义属性,**字段权限要求（满足任一）**：, 获取用户雇佣信息, 以应用身份访问通讯录
+	EmployeeType         int64                                                      `json:"employee_type,omitempty"`          // 员工类型，可选值有：, 1：正式员工, 2：实习生, 3：外包, 4：劳务, 5：顾问   ,同时可读取到自定义员工类型的 int 值，可通过下方接口获取到该租户的自定义员工类型的名称   ,[获取人员类型](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/employee_type_enum/list),**字段权限要求（满足任一）**：, 获取用户雇佣信息, 以应用身份访问通讯录
+	CustomAttrs          []*EventV2ContactScopeUpdatedV3RemovedUserCustomAttr       `json:"custom_attrs,omitempty"`           // 自定义字段，请确保你的组织管理员已在管理后台/组织架构/成员字段管理/自定义字段管理/全局设置中开启了“允许开放平台 API 调用“，否则该字段不会生效/返回。,**字段权限要求（满足任一）**：, 获取用户雇佣信息, 以应用身份访问通讯录
 	EnterpriseEmail      string                                                     `json:"enterprise_email,omitempty"`       // 企业邮箱，请先确保已在管理后台启用飞书邮箱服务,**字段权限要求（满足任一）**：, 获取用户雇佣信息, 以应用身份访问通讯录
 	JobTitle             string                                                     `json:"job_title,omitempty"`              // 职务,**字段权限要求（满足任一）**：, 获取用户雇佣信息, 以应用身份访问通讯录
 	NeedSendNotification bool                                                       `json:"need_send_notification,omitempty"` // 是否发送提示消息
@@ -188,15 +188,15 @@ type EventV2ContactScopeUpdatedV3RemovedUserStatus struct {
 }
 
 type EventV2ContactScopeUpdatedV3RemovedUserCustomAttr struct {
-	Type  string                                                  `json:"type,omitempty"`  // 自定义属性类型
-	ID    string                                                  `json:"id,omitempty"`    // 自定义属性ID
-	Value *EventV2ContactScopeUpdatedV3RemovedUserCustomAttrValue `json:"value,omitempty"` // 自定义属性取值
+	Type  string                                                  `json:"type,omitempty"`  // 自定义字段类型   , `TEXT`, `HREF`, `ENUMERATION`, `PICTURE_ENUM`, `GENERIC_USER`
+	ID    string                                                  `json:"id,omitempty"`    // 自定义字段ID
+	Value *EventV2ContactScopeUpdatedV3RemovedUserCustomAttrValue `json:"value,omitempty"` // 自定义字段取值
 }
 
 type EventV2ContactScopeUpdatedV3RemovedUserCustomAttrValue struct {
-	Text  string `json:"text,omitempty"`   // 属性文本
-	URL   string `json:"url,omitempty"`    // URL
-	PcURL string `json:"pc_url,omitempty"` // PC上的URL
+	Text  string `json:"text,omitempty"`   // 字段类型为 TEXT 时该参数定义字段值，字段类型为 HREF 时该参数定义网页标题
+	URL   string `json:"url,omitempty"`    // 字段类型为 HREF 时，该参数定义默认 URL
+	PcURL string `json:"pc_url,omitempty"` // 字段类型为 HREF 时，该参数定义PC端 URL
 }
 
 type EventV2ContactScopeUpdatedV3RemovedUserNotificationOption struct {

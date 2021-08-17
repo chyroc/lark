@@ -60,7 +60,7 @@ type CreateCalendarEventAttendeeReqAttendee struct {
 	ChatID          *string                    `json:"chat_id,omitempty"`           // chat类型参与人的群组chat_id, 示例值："om_xxxxxxxxx"
 	RoomID          *string                    `json:"room_id,omitempty"`           // resource类型参与人的会议室room_id, 示例值："omm_xxxxxxxx"
 	ThirdPartyEmail *string                    `json:"third_party_email,omitempty"` // third_party类型参与人的邮箱, 示例值："wangwu@email.com"
-	OperateID       *string                    `json:"operate_id,omitempty"`        // 如果日程是使用应用身份创建的，在添加会议室的时候，用来指定会议室的联系人，在会议室视图展示。, 示例值："omm_xxxxxxxx"
+	OperateID       *string                    `json:"operate_id,omitempty"`        // 如果日程是使用应用身份创建的，在添加会议室的时候，用来指定会议室的联系人，在会议室视图展示。, 示例值："ou_xxxxxxxx"
 }
 
 type createCalendarEventAttendeeResp struct {

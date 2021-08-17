@@ -48,7 +48,7 @@ type UpdateDepartmentReq struct {
 	DepartmentID       string                       `path:"department_id" json:"-"`         // 部门ID，需要与查询参数中传入的department_id_type类型保持一致。, 示例值："od-4e6ac4d14bcd5071a37a39de902c7141", 最大长度：`128` 字符, 正则校验：`^0|[^od][A-Za-z0-9]*`
 	Name               string                       `json:"name,omitempty"`                 // 部门名称, 示例值："DemoName", 最小长度：`1` 字符,**字段权限要求（满足任一）**：, 获取部门基础信息, 以应用身份访问通讯录
 	I18nName           *UpdateDepartmentReqI18nName `json:"i18n_name,omitempty"`            // 国际化的部门名称,**字段权限要求（满足任一）**：, 获取部门基础信息, 以应用身份访问通讯录
-	ParentDepartmentID string                       `json:"parent_department_id,omitempty"` // 父部门的ID,* 创建根部门，该参数值为 “0”, 示例值："od-4e6ac4d14bcd5071a37a39de902c7141"
+	ParentDepartmentID string                       `json:"parent_department_id,omitempty"` // 父部门的ID,* 创建根部门，该参数值为 “0”, 示例值："D067"
 	LeaderUserID       *string                      `json:"leader_user_id,omitempty"`       // 部门主管用户ID, 示例值："ou_7dab8a3d3cdcc9da365777c7ad535d62"
 	Order              *string                      `json:"order,omitempty"`                // 部门的排序，即部门在其同级部门的展示顺序, 示例值："100",**字段权限要求（满足任一）**：, 获取部门组织架构信息, 以应用身份访问通讯录
 	UnitIDs            []string                     `json:"unit_ids,omitempty"`             // 部门单位自定义ID列表，当前只支持一个, 示例值：custom_unit_id,**字段权限要求（满足任一）**：, 获取部门组织架构信息, 以应用身份访问通讯录
