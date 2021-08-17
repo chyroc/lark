@@ -8,6 +8,7 @@ import (
 	"io/ioutil"
 	"os"
 	"strconv"
+	"strings"
 	"time"
 
 	"github.com/chyroc/lark"
@@ -48,6 +49,12 @@ func main() {
 		fmt.Println("end refresh token")
 	}()
 
+	fmt.Printf("read env timestamp: ")
+	for _, v := range strings.Split(refreshTimestamp, "") {
+		fmt.Print(v, "-")
+	}
+	fmt.Println()
+	fmt.Print("now: ", time.Now().Unix())
 	timestamp := int64(0)
 	if refreshTimestamp == "" {
 		timestamp = time.Now().Unix()
