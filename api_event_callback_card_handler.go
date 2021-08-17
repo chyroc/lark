@@ -54,7 +54,7 @@ func (r *EventCallbackService) checkCardSecurity(body []byte, isSecurity bool, h
 	timestamp := header.Get("X-Lark-Request-Timestamp")
 	nonce := header.Get("X-Lark-Request-Nonce")
 	expectSignature := header.Get("X-Lark-Signature")
-	realSignature := internal.CalculateLarkCallbackSignature(timestamp, nonce, r.cli.encryptKey, body)
+	realSignature := internal.CalculateLarkCallbackSignature(timestamp, nonce, r.cli.verificationToken, body)
 	if expectSignature != realSignature {
 		return fmt.Errorf("need check security, but security check invalid")
 	}
@@ -99,16 +99,6 @@ func (r *EventCallbackService) parserCardCallbackReq(ctx context.Context, header
 }
 
 func (r *EventCallbackService) handlerCardCallbackReq(ctx context.Context, writer io.Writer, req *cardCallbackReq) (string, error) {
-	if req.Token != "" {
-		if r.cli.verificationToken == "" {
-			return "", fmt.Errorf("must set verification token")
-		}
-
-		if req.Token != r.cli.verificationToken {
-			return "", fmt.Errorf("verification token check failed")
-		}
-	}
-
 	if req.Type == "url_verification" {
 		return fmt.Sprintf(`{"challenge":%q}`, req.Challenge), nil
 	}
