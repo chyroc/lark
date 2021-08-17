@@ -63,7 +63,7 @@ def read_token_from_pre_file():
     with open('./.github/internal/token.json', 'r') as f:
         data = json.load(f)
 
-    return data['access_token'], data['refresh_token']
+    return data.get('access_token'), data.get('refresh_token'), data.get('quick'), data.get('timestamp')
 
 
 if __name__ == '__main__':
@@ -71,13 +71,19 @@ if __name__ == '__main__':
     key_internal_secret_just_for_fun = 'INTERNAL_SECRETS_JUST_FOR_FUN'
     key_access_token = 'LARK_ACCESS_TOKEN_ALL_PERMISSION_APP'
     key_refresh_token = 'LARK_REFRESH_TOKEN_ALL_PERMISSION_APP'
+    key_timestamp = 'INTERNAL_REFRESH_TIMESTAMP'
     internal_secret_just_for_fun_val = os.getenv(key_internal_secret_just_for_fun)
 
     print("hi, just-for-fun env:", get_plain_text(internal_secret_just_for_fun_val))
-    access_token, refresh_token = read_token_from_pre_file()
+    access_token, refresh_token, quick, timestamp = read_token_from_pre_file()
 
-    set_secret(token=github_token, name=key_internal_secret_just_for_fun, val=str(datetime.datetime.now().timestamp()))
-    if access_token:
-        set_secret(token=github_token, name=key_access_token, val=str(access_token))
-    if refresh_token:
-        set_secret(token=github_token, name=key_refresh_token, val=str(refresh_token))
+    if quick:
+        print('hi, too quick, skip refresh token')
+    else:
+        set_secret(token=github_token, name=key_internal_secret_just_for_fun, val=str(datetime.datetime.now().timestamp()))
+        if access_token:
+            set_secret(token=github_token, name=key_access_token, val=str(access_token))
+        if refresh_token:
+            set_secret(token=github_token, name=key_refresh_token, val=str(refresh_token))
+        if timestamp:
+            set_secret(token=github_token, name=key_timestamp, val=str(timestamp))
