@@ -44,7 +44,7 @@ func (r *Mock) UnMockVCGetVCMeeting() {
 type GetVCMeetingReq struct {
 	WithParticipants   *bool   `query:"with_participants" json:"-"`    // 是否需要参会人列表, 示例值：false
 	WithMeetingAbility *bool   `query:"with_meeting_ability" json:"-"` // 是否需要会中使用能力统计（仅限tenant_access_token）, 示例值：false
-	UserIDType         *IDType `query:"user_id_type" json:"-"`         // 用户 ID 类型, 示例值："open_id", 可选值有: `open_id`：用户的 open id, `union_id`：用户的 union id, `user_id`：用户的 user id, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 userid
+	UserIDType         *IDType `query:"user_id_type" json:"-"`         // 用户 ID 类型, 示例值："open_id", 可选值有: `open_id`：用户的 open id, `union_id`：用户的 union id, `user_id`：用户的 user id, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
 	MeetingID          string  `path:"meeting_id" json:"-"`            // 会议ID（视频会议的唯一标识，视频会议开始后才会产生）, 示例值："6911188411932033028"
 }
 

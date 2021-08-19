@@ -44,7 +44,7 @@ func (r *Mock) UnMockDriveDownloadDriveMedia() {
 
 type DownloadDriveMediaReq struct {
 	Extra     *string  `query:"extra" json:"-"`     // 扩展信息, 示例值："[请参考-上传点类型及对应Extra说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/media/introduction)"
-	FileToken string   `path:"file_token" json:"-"` // 文件标识符, 示例值："boxcnabCdefg12345"
+	FileToken string   `path:"file_token" json:"-"` // 文件的 token，获取方式见 [概述](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/files/guide/introduction), 示例值："boxcnabCdefg12345"
 	Range     [2]int64 `header:"range" json:"-"`    // 指定文件下载部分，示例:bytes=0-1024
 }
 

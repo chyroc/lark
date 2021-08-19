@@ -24,14 +24,14 @@ type EventV2ContactDepartmentCreatedV3 struct {
 }
 
 type EventV2ContactDepartmentCreatedV3Object struct {
-	Name               string                                         `json:"name,omitempty"`                 // 部门名称, 最小长度：`1` 字符,**字段权限要求（满足任一）**：, 获取部门基础信息, 以应用身份访问通讯录
-	ParentDepartmentID string                                         `json:"parent_department_id,omitempty"` // 父部门的部门ID,**字段权限要求（满足任一）**：, 获取部门组织架构信息, 以应用身份访问通讯录
-	DepartmentID       string                                         `json:"department_id,omitempty"`        // 本部门的自定义部门ID,**字段权限要求（满足任一）**：, 获取部门基础信息, 以应用身份访问通讯录
+	Name               string                                         `json:"name,omitempty"`                 // 部门名称, 最小长度：`1` 字符,**字段权限要求（满足任一）**：, 获取部门基础信息, 以应用身份访问通讯录（历史版本）
+	ParentDepartmentID string                                         `json:"parent_department_id,omitempty"` // 父部门的部门ID,**字段权限要求（满足任一）**：, 获取部门组织架构信息, 以应用身份访问通讯录（历史版本）
+	DepartmentID       string                                         `json:"department_id,omitempty"`        // 本部门的自定义部门ID,**字段权限要求（满足任一）**：, 获取部门基础信息, 以应用身份访问通讯录（历史版本）
 	OpenDepartmentID   string                                         `json:"open_department_id,omitempty"`   // 部门的open_id
-	LeaderUserID       string                                         `json:"leader_user_id,omitempty"`       // 部门主管用户ID,**字段权限要求（满足任一）**：, 获取部门基础信息, 以应用身份访问通讯录
-	ChatID             string                                         `json:"chat_id,omitempty"`              // 部门群ID,**字段权限要求（满足任一）**：, 获取部门组织架构信息, 以应用身份访问通讯录
-	Order              int64                                          `json:"order,omitempty"`                // 部门的排序,**字段权限要求（满足任一）**：, 获取部门组织架构信息, 以应用身份访问通讯录
-	Status             *EventV2ContactDepartmentCreatedV3ObjectStatus `json:"status,omitempty"`               // 部门状态,**字段权限要求（满足任一）**：, 获取部门基础信息, 以应用身份访问通讯录
+	LeaderUserID       string                                         `json:"leader_user_id,omitempty"`       // 部门主管用户ID,**字段权限要求（满足任一）**：, 获取部门基础信息, 以应用身份访问通讯录（历史版本）
+	ChatID             string                                         `json:"chat_id,omitempty"`              // 部门群ID,**字段权限要求（满足任一）**：, 获取部门组织架构信息, 以应用身份访问通讯录（历史版本）
+	Order              int64                                          `json:"order,omitempty"`                // 部门的排序,**字段权限要求（满足任一）**：, 获取部门组织架构信息, 以应用身份访问通讯录（历史版本）
+	Status             *EventV2ContactDepartmentCreatedV3ObjectStatus `json:"status,omitempty"`               // 部门状态,**字段权限要求（满足任一）**：, 获取部门基础信息, 以应用身份访问通讯录（历史版本）
 }
 
 type EventV2ContactDepartmentCreatedV3ObjectStatus struct {

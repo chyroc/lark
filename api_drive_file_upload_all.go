@@ -49,7 +49,7 @@ type UploadDriveFileReq struct {
 	ParentType string    `json:"parent_type,omitempty"` // 上传点类型, 示例值："explorer", 可选值有: `explorer`：云空间
 	ParentNode string    `json:"parent_node,omitempty"` // 文件夹token, 示例值："fldcn77hdDT5"
 	Size       int64     `json:"size,omitempty"`        // 文件大小,全量上传最大20M, 示例值：1024, 最大值：`20971520`
-	Checksum   string    `json:"checksum,omitempty"`    // 文件adler32校验和, 示例值："123423882374238957235"
+	Checksum   *string   `json:"checksum,omitempty"`    // 文件adler32校验和(可选), 示例值："123423882374238957235"
 	File       io.Reader `json:"file,omitempty"`        // 文件数据, 示例值：file binary
 }
 

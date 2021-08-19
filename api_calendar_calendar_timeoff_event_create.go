@@ -39,7 +39,7 @@ func (r *Mock) UnMockCalendarCreateCalendarTimeoffEvent() {
 }
 
 type CreateCalendarTimeoffEventReq struct {
-	UserIDType  *IDType `query:"user_id_type" json:"-"` // 用户 ID 类型, 示例值："open_id", 可选值有: `open_id`：用户的 open id, `union_id`：用户的 union id, `user_id`：用户的 user id, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 userid
+	UserIDType  *IDType `query:"user_id_type" json:"-"` // 用户 ID 类型, 示例值："open_id", 可选值有: `open_id`：用户的 open id, `union_id`：用户的 union id, `user_id`：用户的 user id, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
 	UserID      string  `json:"user_id,omitempty"`      // 用户id, 示例值："ou_XXXXXXXXXX"
 	Timezone    string  `json:"timezone,omitempty"`     // 时区, 示例值："Asia/Shanghai"
 	StartTime   string  `json:"start_time,omitempty"`   // 休假开始时间: 有时间戳(1609430400)和日期(2021-01-01)两种格式，其它格式无效；,时间戳格式是按小时休假日程，日期格式是全天休假日程；,start_time与end_time格式需保持一致，否则无效。, 示例值："2021-01-01"

@@ -14,7 +14,6 @@ import (
 // - 同时，将根据应用具备的权限，判断可推送的信息：
 // - 当具备[获取用户发给机器人的单聊消息] 权限时，可接收与机器人单聊会话中，发送给机器人的所有消息
 // - 当具备[获取群组中用户@机器人的消息] 权限，可接收机器人所在群聊中 @ 机器人的消息
-// - 当具备[获取群组中所有的消息] 权限，可接收机器人所在群聊中所有的消息
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/events/receive
 func (r *EventCallbackService) HandlerEventV2IMMessageReceiveV1(f eventV2IMMessageReceiveV1Handler) {
@@ -36,7 +35,7 @@ type EventV2IMMessageReceiveV1Sender struct {
 
 type EventV2IMMessageReceiveV1SenderSenderID struct {
 	UnionID string `json:"union_id,omitempty"` // 用户的 union id
-	UserID  string `json:"user_id,omitempty"`  // 用户的 user id, 字段权限要求: 获取用户 userid
+	UserID  string `json:"user_id,omitempty"`  // 用户的 user id, 字段权限要求: 获取用户 user ID
 	OpenID  string `json:"open_id,omitempty"`  // 用户的 open id
 }
 
@@ -61,6 +60,6 @@ type EventV2IMMessageReceiveV1MessageMention struct {
 
 type EventV2IMMessageReceiveV1MessageMentionID struct {
 	UnionID string `json:"union_id,omitempty"` // 用户的 union id
-	UserID  string `json:"user_id,omitempty"`  // 用户的 user id, 字段权限要求: 获取用户 userid
+	UserID  string `json:"user_id,omitempty"`  // 用户的 user id, 字段权限要求: 获取用户 user ID
 	OpenID  string `json:"open_id,omitempty"`  // 用户的 open id
 }

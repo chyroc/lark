@@ -42,7 +42,7 @@ func (r *Mock) UnMockHumanAuthCreateIdentity() {
 
 type CreateIdentityReq struct {
 	UserID       string  `query:"user_id" json:"-"`       // 用户的唯一标识, 示例值: "ou_2eb5483cb377daa5054bc6f86e2089a5"
-	UserIDType   *IDType `query:"user_id_type" json:"-"`  // 用户ID类型, 示例值: "open_id", 可选值有: `open_id`：用户的open id, `union_id`：用户的union id, `user_id`：用户的user id, 默认值: `open_id`, 当值为 `user_id`，字段权限要求: 获取用户 userid
+	UserIDType   *IDType `query:"user_id_type" json:"-"`  // 用户ID类型, 示例值: "open_id", 可选值有: `open_id`：用户的open id, `union_id`：用户的union id, `user_id`：用户的user id, 默认值: `open_id`, 当值为 `user_id`，字段权限要求: 获取用户 user ID
 	IdentityName string  `json:"identity_name,omitempty"` // user identity name, 示例值: "张三"
 	IdentityCode string  `json:"identity_code,omitempty"` // user identity code, 示例值: "4xxxxxxxx"
 	Mobile       *string `json:"mobile,omitempty"`        // user mobile, 示例值: "13xxxxxxx"

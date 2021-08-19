@@ -40,7 +40,7 @@ func (r *Mock) UnMockDriveTransferDriveMemberPermission() {
 }
 
 type TransferDriveMemberPermissionReq struct {
-	Token          string                                 `json:"token,omitempty"`            // 文件的 token，获取方式见 [对接前说明](https://open.feishu.cn/document/ukTMukTMukTM/uczNzUjL3czM14yN3MTN)的第 4 项
+	Token          string                                 `json:"token,omitempty"`            // 文件的 token，获取方式见 [概述](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/files/guide/introduction)
 	Type           string                                 `json:"type,omitempty"`             // 文档类型  "doc"  or  "sheet" or "bitable"  or "file"
 	Owner          *TransferDriveMemberPermissionReqOwner `json:"owner,omitempty"`            // 要转移到的新的文档所有者
 	RemoveOldOwner *bool                                  `json:"remove_old_owner,omitempty"` // true 为转移后删除旧 owner 的权限，默认为false
@@ -49,7 +49,7 @@ type TransferDriveMemberPermissionReq struct {
 
 type TransferDriveMemberPermissionReqOwner struct {
 	MemberType string `json:"member_type,omitempty"` // 用户类型，可选 **email、openid、userid**
-	MemberID   string `json:"member_id,omitempty"`   // 用户类型下的值
+	MemberID   string `json:"member_id,omitempty"`   // 用户类型下的值，获取方式见 [如何获得 User ID、Open ID 和 Union ID？](https://open.feishu.cn/document/home/user-identity-introduction/how-to-get)
 }
 
 type transferDriveMemberPermissionResp struct {

@@ -39,9 +39,9 @@ func (r *Mock) UnMockMeetingRoomBatchGetMeetingRoomFreebusy() {
 }
 
 type BatchGetMeetingRoomFreebusyReq struct {
-	RoomIDs string `query:"room_ids" json:"-"` // 用于查询指定会议室的 ID
-	TimeMin string `query:"time_min" json:"-"` // 查询会议室忙闲的起始时间，需要遵循格式 [RFC3339](https://tools.ietf.org/html/rfc3339)，需要进行URL Encode
-	TimeMax string `query:"time_max" json:"-"` // 查询会议室忙闲的结束时间，需要遵循格式 [RFC3339](https://tools.ietf.org/html/rfc3339)，需要进行URL Encode
+	RoomIDs []string `query:"room_ids" json:"-"` // 用于查询指定会议室的 ID
+	TimeMin string   `query:"time_min" json:"-"` // 查询会议室忙闲的起始时间，需要遵循格式 [RFC3339](https://tools.ietf.org/html/rfc3339)，需要进行URL Encode
+	TimeMax string   `query:"time_max" json:"-"` // 查询会议室忙闲的结束时间，需要遵循格式 [RFC3339](https://tools.ietf.org/html/rfc3339)，需要进行URL Encode
 }
 
 type batchGetMeetingRoomFreebusyResp struct {

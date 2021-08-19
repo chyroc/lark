@@ -44,7 +44,7 @@ func (r *Mock) UnMockCalendarCreateCalendarACL() {
 }
 
 type CreateCalendarACLReq struct {
-	UserIDType *IDType                    `query:"user_id_type" json:"-"` // 用户 ID 类型, 示例值："open_id", 可选值有: `open_id`：用户的 open id, `union_id`：用户的 union id, `user_id`：用户的 user id, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 userid
+	UserIDType *IDType                    `query:"user_id_type" json:"-"` // 用户 ID 类型, 示例值："open_id", 可选值有: `open_id`：用户的 open id, `union_id`：用户的 union id, `user_id`：用户的 user id, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
 	CalendarID string                     `path:"calendar_id" json:"-"`   // 日历ID, 示例值："feishu.cn_xxxxxxxxxx@group.calendar.feishu.cn"
 	Role       CalendarRole               `json:"role,omitempty"`         // 对日历的访问权限, 示例值："writer", 可选值有: `unknown`：未知权限, `free_busy_reader`：游客，只能看到忙碌/空闲信息, `reader`：订阅者，查看所有日程详情, `writer`：编辑者，创建及修改日程, `owner`：管理员，管理日历及共享设置
 	Scope      *CreateCalendarACLReqScope `json:"scope,omitempty"`        // 权限范围

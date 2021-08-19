@@ -39,8 +39,8 @@ func (r *Mock) UnMockMeetingRoomBatchGetMeetingRoomBuilding() {
 }
 
 type BatchGetMeetingRoomBuildingReq struct {
-	BuildingIDs string  `query:"building_ids" json:"-"` // 用于查询指定建筑物的 ID
-	Fields      *string `query:"fields" json:"-"`       // 用于指定返回的字段名，每个字段名之间用逗号 "," 分隔，如：“id,name”，"*" 表示返回全部字段，可选字段有："id,name,description,floors"，默认返回所有字段
+	BuildingIDs []string `query:"building_ids" json:"-"` // 用于查询指定建筑物的 ID
+	Fields      *string  `query:"fields" json:"-"`       // 用于指定返回的字段名，每个字段名之间用逗号 "," 分隔，如：“id,name”，"*" 表示返回全部字段，可选字段有："id,name,description,floors"，默认返回所有字段
 }
 
 type batchGetMeetingRoomBuildingResp struct {

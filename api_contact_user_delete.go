@@ -41,7 +41,7 @@ func (r *Mock) UnMockContactDeleteUser() {
 }
 
 type DeleteUserReq struct {
-	UserIDType                   *IDType `query:"user_id_type" json:"-"`                     // 用户 ID 类型, 示例值："open_id", 可选值有: `open_id`：用户的 open id, `union_id`：用户的 union id, `user_id`：用户的 user id, 默认值: `open_id`,, 当值为 `user_id`, 字段权限要求: 获取用户 userid
+	UserIDType                   *IDType `query:"user_id_type" json:"-"`                     // 用户 ID 类型, 示例值："open_id", 可选值有: `open_id`：用户的 open id, `union_id`：用户的 union id, `user_id`：用户的 user id, 默认值: `open_id`,, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
 	UserID                       string  `path:"user_id" json:"-"`                           // 用户ID，需要与查询参数中的user_id_type类型保持一致。, 示例值："ou_7dab8a3d3cdcc9da365777c7ad535d62"
 	DepartmentChatAcceptorUserID *string `json:"department_chat_acceptor_user_id,omitempty"` // 部门群接收者。被删除用户为部门群群主时，转让群主给指定接收者，不指定接收者则默认转让给群内第一个入群的人, 示例值："ou_7dab8a3d3cdcc9da365777c7ad535d62"
 	ExternalChatAcceptorUserID   *string `json:"external_chat_acceptor_user_id,omitempty"`   // 外部群接收者。被删除用户为外部群群主时，转让群主给指定接收者，不指定接收者则默认转让给群内与被删除用户在同一组织的第一个入群的人，如果组织内只有该用户在群里，则解散外部群, 示例值："ou_7dab8a3d3cdcc9da365777c7ad535d62"

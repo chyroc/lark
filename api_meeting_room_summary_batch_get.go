@@ -44,7 +44,7 @@ type BatchGetMeetingRoomSummaryReq struct {
 
 type BatchGetMeetingRoomSummaryReqEventUid struct {
 	Uid          string `json:"uid,omitempty"`           // 日程的唯一id
-	OriginalTime int64  `json:"original_time,omitempty"` // 日程实例原始时间，非重复日程必为0。重复日程若为0则表示回复其所有实例，否则表示回复单个实例。
+	OriginalTime int64  `json:"original_time,omitempty"` // 日程实例原始时间，非重复日程必为0。若为0则表示回复其重复日程的名字（不包含重复日程中的单个例外），否则表示回复单个实例。
 }
 
 type batchGetMeetingRoomSummaryResp struct {
@@ -66,6 +66,6 @@ type BatchGetMeetingRoomSummaryRespEventInfo struct {
 
 type BatchGetMeetingRoomSummaryRespErrorEventUid struct {
 	Uid          string `json:"uid,omitempty"`           // 日程的唯一id
-	OriginalTime int64  `json:"original_time,omitempty"` // 日程实例原始时间，非重复日程必为0。重复日程若为0则表示回复其所有实例，否则表示回复单个实例。
+	OriginalTime int64  `json:"original_time,omitempty"` // 日程实例原始时间，非重复日程必为0。若为0则表示回复其重复日程的名字（不包含重复日程中的单个例外），否则表示回复单个实例。
 	ErrorMsg     string `json:"error_msg,omitempty"`     // 错误信息
 }

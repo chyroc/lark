@@ -39,7 +39,7 @@ func (r *Mock) UnMockHireGetHireOfferByApplication() {
 }
 
 type GetHireOfferByApplicationReq struct {
-	UserIDType    *IDType `query:"user_id_type" json:"-"`  // 用户 ID 类型, 示例值："open_id", 可选值有: `open_id`：用户的 open id, `union_id`：用户的 union id, `user_id`：用户的 user id, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 userid
+	UserIDType    *IDType `query:"user_id_type" json:"-"`  // 用户 ID 类型, 示例值："open_id", 可选值有: `open_id`：用户的 open id, `union_id`：用户的 union id, `user_id`：用户的 user id, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
 	ApplicationID string  `path:"application_id" json:"-"` // 投递ID, 示例值："12312312312"
 }
 

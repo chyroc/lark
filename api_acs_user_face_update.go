@@ -41,7 +41,7 @@ func (r *Mock) UnMockACSUpdateACSUserFace() {
 }
 
 type UpdateACSUserFaceReq struct {
-	UserIDType *IDType   `query:"user_id_type" json:"-"` // 用户 ID 类型, 示例值："open_id", 可选值有: `open_id`：用户的 open id, `union_id`：用户的 union id, `user_id`：用户的 user id, 默认值: `open_id`,, 当值为 `user_id`, 字段权限要求: 获取用户 userid
+	UserIDType *IDType   `query:"user_id_type" json:"-"` // 用户 ID 类型, 示例值："open_id", 可选值有: `open_id`：用户的 open id, `union_id`：用户的 union id, `user_id`：用户的 user id, 默认值: `open_id`,, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
 	UserID     string    `path:"user_id" json:"-"`       // 用户 ID, 示例值："ou_7dab8a3d3cdcc9da365777c7ad535d62"
 	Files      io.Reader `json:"files,omitempty"`        // 人脸图片内容, 示例值：jpg图片
 	FileType   FileType  `json:"file_type,omitempty"`    // 文件类型,可选的类型有jpg,png, 示例值："jpg"

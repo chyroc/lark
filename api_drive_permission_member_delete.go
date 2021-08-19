@@ -8,7 +8,7 @@ import (
 
 // DeleteDriveMemberPermission 该接口用于根据 filetoken 移除文档协作者的权限。
 //
-// doc: https://open.feishu.cn/document/ukTMukTMukTM/uYTN3UjL2UzN14iN1cTN
+// doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/permission-member/delete
 func (r *DriveService) DeleteDriveMemberPermission(ctx context.Context, request *DeleteDriveMemberPermissionReq, options ...MethodOptionFunc) (*DeleteDriveMemberPermissionResp, *Response, error) {
 	if r.cli.mock.mockDriveDeleteDriveMemberPermission != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Drive#DeleteDriveMemberPermission mock enable")
@@ -18,8 +18,8 @@ func (r *DriveService) DeleteDriveMemberPermission(ctx context.Context, request 
 	req := &RawRequestReq{
 		Scope:                 "Drive",
 		API:                   "DeleteDriveMemberPermission",
-		Method:                "POST",
-		URL:                   "https://open.feishu.cn/open-apis/drive/permission/member/delete",
+		Method:                "DELETE",
+		URL:                   "https://open.feishu.cn/open-apis/drive/v1/permissions/:token/members/:member_id",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
@@ -40,18 +40,16 @@ func (r *Mock) UnMockDriveDeleteDriveMemberPermission() {
 }
 
 type DeleteDriveMemberPermissionReq struct {
-	Token      string `json:"token,omitempty"`       // 文件的 token，获取方式见 [对接前说明](https://open.feishu.cn/document/ukTMukTMukTM/uczNzUjL3czM14yN3MTN)的第 4 项
-	Type       string `json:"type,omitempty"`        // 文档类型 "doc"  or  "sheet" or "bitable"  or "file"
-	MemberType string `json:"member_type,omitempty"` // 用户类型，可选 **"openid"、"openchat"、"userid"**
-	MemberID   string `json:"member_id,omitempty"`   // 用户类型下的值
+	Type       string `query:"type" json:"-"`        // 文件类型，放于query参数中，如：`?type=doc`, 示例值："doc", 可选值有: `doc`：文档, `sheet`：电子表格, `file`：云空间文件, `wiki`：知识库节点, `bitable`：多维表格, `docx`：文档
+	MemberType string `query:"member_type" json:"-"` // 权限成员类型，放于query参数中，如：`?member_type=openid`, 示例值："openid", 可选值有: `email`：邮箱地址, `openid`：开放平台ID, `openchat`：开放平台群ID, `opendepartmentid`：开放平台部门ID, `userid`：自定义用户ID
+	Token      string `path:"token" json:"-"`        // 文件的 token，获取方式见 [概述](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/files/guide/introduction), 示例值："doccnBKgoMyY5OMbUG6FioTXuBe"
+	MemberID   string `path:"member_id" json:"-"`    // 权限成员的openID，获取方式见 [如何获得 User ID、Open ID 和 Union ID？](https://open.feishu.cn/document/home/user-identity-introduction/how-to-get), 示例值："ou_7dab8a3d3cdcc9da365777c7ad535d62"
 }
 
 type deleteDriveMemberPermissionResp struct {
-	Code int64                            `json:"code,omitempty"`
-	Msg  string                           `json:"msg,omitempty"`
+	Code int64                            `json:"code,omitempty"` // 错误码，非 0 表示失败
+	Msg  string                           `json:"msg,omitempty"`  // 错误描述
 	Data *DeleteDriveMemberPermissionResp `json:"data,omitempty"`
 }
 
-type DeleteDriveMemberPermissionResp struct {
-	IsSuccess bool `json:"is_success,omitempty"` // 是否操作成功
-}
+type DeleteDriveMemberPermissionResp struct{}

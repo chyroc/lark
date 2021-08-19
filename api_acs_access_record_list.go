@@ -47,7 +47,7 @@ type GetACSAccessRecordListReq struct {
 	From       int64   `query:"from" json:"-"`         // 记录开始时间，单位秒, 示例值：1624520521
 	To         int64   `query:"to" json:"-"`           // 记录结束时间，单位秒，,时间跨度不能超过30天, 示例值：1624520521
 	DeviceID   *string `query:"device_id" json:"-"`    // 门禁设备 ID, 示例值："7091146989218002577"
-	UserIDType *IDType `query:"user_id_type" json:"-"` // 用户 ID 类型, 示例值："open_id", 可选值有: `open_id`：用户的 open id, `union_id`：用户的 union id, `user_id`：用户的 user id, 默认值: `open_id`,, 当值为 `user_id`, 字段权限要求: 获取用户 userid
+	UserIDType *IDType `query:"user_id_type" json:"-"` // 用户 ID 类型, 示例值："open_id", 可选值有: `open_id`：用户的 open id, `union_id`：用户的 union id, `user_id`：用户的 user id, 默认值: `open_id`,, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
 }
 
 type getACSAccessRecordListResp struct {

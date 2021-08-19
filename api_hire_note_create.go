@@ -39,7 +39,7 @@ func (r *Mock) UnMockHireCreateHireNote() {
 }
 
 type CreateHireNoteReq struct {
-	UserIDType    *IDType `query:"user_id_type" json:"-"`   // 用户 ID 类型, 示例值："open_id", 可选值有: `open_id`：用户的 open id, `union_id`：用户的 union id, `user_id`：用户的 user id, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 userid
+	UserIDType    *IDType `query:"user_id_type" json:"-"`   // 用户 ID 类型, 示例值："open_id", 可选值有: `open_id`：用户的 open id, `union_id`：用户的 union id, `user_id`：用户的 user id, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
 	TalentID      *string `json:"talent_id,omitempty"`      // 人才ID, 示例值："6891522620127185159"
 	ApplicationID *string `json:"application_id,omitempty"` // 投递ID, 示例值："6891565231751825671"
 	CreatorID     *string `json:"creator_id,omitempty"`     // 创建人ID, 示例值："ou_0ab5d69b3848d44f4bf0751bffaa31db"

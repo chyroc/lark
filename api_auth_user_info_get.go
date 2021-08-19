@@ -56,7 +56,7 @@ type GetUserInfoResp struct {
 	OpenID       string `json:"open_id,omitempty"`       // 用户在应用内的唯一标识
 	UnionID      string `json:"union_id,omitempty"`      // 用户对ISV的唯一标识，对于同一个ISV，用户在其名下所有应用的union_id相同
 	Email        string `json:"email,omitempty"`         // 用户邮箱, 字段权限要求:  获取用户邮箱信息
-	UserID       string `json:"user_id,omitempty"`       // 用户 user_id, 字段权限要求:  获取用户 userid
+	UserID       string `json:"user_id,omitempty"`       // 用户 user_id, 字段权限要求:  获取用户 user ID
 	Mobile       string `json:"mobile,omitempty"`        // 用户手机号, 字段权限要求:  获取用户手机号
 	TenantKey    string `json:"tenant_key,omitempty"`    // 当前企业标识
 }

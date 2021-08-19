@@ -43,7 +43,7 @@ func (r *Mock) UnMockOKRGetUserOKRList() {
 }
 
 type GetUserOKRListReq struct {
-	UserIDType *IDType `query:"user_id_type" json:"-"` // 用户 ID 类型, 示例值："open_id", 可选值有: `open_id`：用户的 open id, `union_id`：用户的 union id, `user_id`：用户的 user id, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 userid
+	UserIDType *IDType `query:"user_id_type" json:"-"` // 用户 ID 类型, 示例值："open_id", 可选值有: `open_id`：用户的 open id, `union_id`：用户的 union id, `user_id`：用户的 user id, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
 	Offset     string  `query:"offset" json:"-"`       // 请求列表的偏移，offset>=0，请求Query中, 示例值："0"
 	Limit      string  `query:"limit" json:"-"`        // 请求列表的长度，0<limit<=10，请求Query中, 示例值："0"
 	Lang       *string `query:"lang" json:"-"`         // 请求OKR的语言版本（比如@的人名），lang=en_us/zh_cn，请求 Query中, 示例值："zh_cn", 默认值: `zh_cn`

@@ -36,7 +36,7 @@ https://godoc.org/github.com/chyroc/lark
 
 ## Support APIs
 
-API Count: 448, Event Count: 43
+API Count: 451, Event Count: 43
 
 <details>
   <summary>
@@ -83,6 +83,7 @@ API Count: 448, Event Count: 43
   - DeleteEphemeralMessage
 - Chat
   - CreateChat
+  - GetChatOld
   - GetChat
   - UpdateChat
   - DeleteChat
@@ -153,7 +154,9 @@ API Count: 448, Event Count: 43
   - TransferDriveMemberPermission
   - GetDriveMemberPermissionList
   - CreateDriveMemberPermission
+  - DeleteDriveMemberPermissionOld
   - DeleteDriveMemberPermission
+  - UpdateDriveMemberPermissionOld
   - UpdateDriveMemberPermission
   - CheckDriveMemberPermission
   - UpdateDrivePublicPermissionV1Old

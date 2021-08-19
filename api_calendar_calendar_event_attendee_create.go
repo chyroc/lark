@@ -46,7 +46,7 @@ func (r *Mock) UnMockCalendarCreateCalendarEventAttendee() {
 }
 
 type CreateCalendarEventAttendeeReq struct {
-	UserIDType       *IDType                                   `query:"user_id_type" json:"-"`      // 用户 ID 类型, 示例值："open_id", 可选值有: `open_id`：用户的 open id, `union_id`：用户的 union id, `user_id`：用户的 user id, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求:  获取用户 userid
+	UserIDType       *IDType                                   `query:"user_id_type" json:"-"`      // 用户 ID 类型, 示例值："open_id", 可选值有: `open_id`：用户的 open id, `union_id`：用户的 union id, `user_id`：用户的 user id, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求:  获取用户 user ID
 	CalendarID       string                                    `path:"calendar_id" json:"-"`        // 日历 ID, 示例值："feishu.cn_xxxxxxxxxx@group.calendar.feishu.cn"
 	EventID          string                                    `path:"event_id" json:"-"`           // 日程 ID, 示例值："xxxxxxxxx_0"
 	Attendees        []*CreateCalendarEventAttendeeReqAttendee `json:"attendees,omitempty"`         // 新增参与人列表

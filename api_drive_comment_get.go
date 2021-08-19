@@ -41,7 +41,7 @@ func (r *Mock) UnMockDriveGetDriveComment() {
 
 type GetDriveCommentReq struct {
 	FileType   FileType `query:"file_type" json:"-"`    // 文档类型, 示例值："doc", 可选值有: `doc`：文档, `sheet`：表格, `file`：文件
-	UserIDType *IDType  `query:"user_id_type" json:"-"` // 用户 ID 类型, 示例值："open_id", 可选值有: `open_id`：用户的 open id, `union_id`：用户的 union id, `user_id`：用户的 user id, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 userid
+	UserIDType *IDType  `query:"user_id_type" json:"-"` // 用户 ID 类型, 示例值："open_id", 可选值有: `open_id`：用户的 open id, `union_id`：用户的 union id, `user_id`：用户的 user id, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
 	FileToken  string   `path:"file_token" json:"-"`    // 文档token, 示例值："doccnHh7U87HOFpii5u5G*****"
 	CommentID  string   `path:"comment_id" json:"-"`    // 评论ID, 示例值："6916106822734578184"
 }
