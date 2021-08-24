@@ -78,6 +78,8 @@ type GetAttendanceUserTaskRespUserTaskResultRecord struct {
 	CheckOutResult           string                                                       `json:"check_out_result,omitempty"`            // 下班打卡结果，可用值：【NoNeedCheck（无需打卡），SystemCheck（系统打卡），Normal（正常），Early（早退），Late（迟到），Lack（缺卡）】
 	CheckInResultSupplement  string                                                       `json:"check_in_result_supplement,omitempty"`  // 上班打卡结果补充，可用值：【None（无），ManagerModification（管理员修改），CardReplacement（补卡通过），ShiftChange（换班），Travel（出差），Leave（请假），GoOut（外出），CardReplacementApplication（补卡申请中），FieldPunch（外勤打卡）】
 	CheckOutResultSupplement string                                                       `json:"check_out_result_supplement,omitempty"` // 下班打卡结果补充，可用值：【None（无），ManagerModification（管理员修改），CardReplacement（补卡通过），ShiftChange（换班），Travel（出差），Leave（请假），GoOut（外出），CardReplacementApplication（补卡申请中），FieldPunch（外勤打卡）】
+	CheckInShiftTime         string                                                       `json:"check_in_shift_time,omitempty"`         // 正常默认上班时间，精确到秒的时间戳
+	CheckOutShiftTime        string                                                       `json:"check_out_shift_time,omitempty"`        // 正常默认下班时间，精确到秒的时间戳
 }
 
 type GetAttendanceUserTaskRespUserTaskResultRecordCheckInRecord struct {

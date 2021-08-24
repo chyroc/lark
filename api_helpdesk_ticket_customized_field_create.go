@@ -46,7 +46,7 @@ type CreateHelpdeskTicketCustomizedFieldReq struct {
 	KeyName               string                  `json:"key_name,omitempty"`                // 键名, 示例值："test dropdown"
 	DisplayName           string                  `json:"display_name,omitempty"`            // 名称, 示例值："test dropdown"
 	Position              string                  `json:"position,omitempty"`                // 字段在列表后台管理列表中的位置, 示例值："3"
-	FieldType             string                  `json:"field_type,omitempty"`              // 类型, 示例值："dropdown"
+	FieldType             string                  `json:"field_type,omitempty"`              // 类型,string - 单行文本,multiline - 多行文本,dropdown - 下拉列表,dropdown_nested - 级联下拉,      , 示例值："dropdown"
 	Description           string                  `json:"description,omitempty"`             // 描述, 示例值："下拉示例"
 	Visible               bool                    `json:"visible,omitempty"`                 // 是否可见, 示例值：true
 	Editable              bool                    `json:"editable,omitempty"`                // 是否可以修改, 示例值：true

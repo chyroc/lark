@@ -41,7 +41,8 @@ func (r *Mock) UnMockVCGetVCReserve() {
 }
 
 type GetVCReserveReq struct {
-	ReserveID string `path:"reserve_id" json:"-"` // 预约ID（预约的唯一标识）, 示例值："6911188411932033028"
+	UserIDType *IDType `query:"user_id_type" json:"-"` // 用户 ID 类型, 示例值："open_id", 可选值有: `open_id`：用户的 open id, `union_id`：用户的 union id, `user_id`：用户的 user id, 默认值: `open_id`,, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
+	ReserveID  string  `path:"reserve_id" json:"-"`    // 预约ID（预约的唯一标识）, 示例值："6911188411932033028"
 }
 
 type getVCReserveResp struct {
@@ -59,6 +60,7 @@ type GetVCReserveRespReserve struct {
 	MeetingNo       string                                  `json:"meeting_no,omitempty"`       // 9位会议号（飞书用户可通过输入9位会议号快捷入会）
 	URL             string                                  `json:"url,omitempty"`              // 会议链接（飞书用户可通过点击会议链接快捷入会）
 	AppLink         string                                  `json:"app_link,omitempty"`         // APPLink用于唤起飞书APP入会。"{?}"为占位符，用于配置入会参数，使用时需替换具体值：0表示关闭，1表示打开。preview为入会前的设置页，mic为麦克风，speaker为扬声器，camera为摄像头
+	LiveLink        string                                  `json:"live_link,omitempty"`        // 直播链接
 	EndTime         string                                  `json:"end_time,omitempty"`         // 预约到期时间（unix时间，单位sec）
 	ExpireStatus    int64                                   `json:"expire_status,omitempty"`    // 过期状态, 可选值有: `1`：未过期, `2`：已过期
 	ReserveUserID   string                                  `json:"reserve_user_id,omitempty"`  // 预约人ID

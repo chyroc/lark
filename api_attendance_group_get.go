@@ -116,7 +116,7 @@ type GetAttendanceGroupRespGroupIDLocation struct {
 type GetAttendanceGroupRespGroupIDFreePunchCfg struct {
 	FreeStartTime        string `json:"free_start_time,omitempty"`           // 自由班制的打卡开始时间
 	FreeEndTime          string `json:"free_end_time,omitempty"`             // 自由班制的打卡结束时间
-	PunchDay             int64  `json:"punch_day,omitempty"`                 // 打卡时间，格式 1111100
+	PunchDay             int64  `json:"punch_day,omitempty"`                 // 打卡时间：7 位数字，从左到右依次代表周一到周日，0 为不上班，1 为上班。例如：周一到周五上班 1111100
 	WorkDayNoPunchAsLack bool   `json:"work_day_no_punch_as_lack,omitempty"` // 工作日不打卡是否记为缺卡
 }
 

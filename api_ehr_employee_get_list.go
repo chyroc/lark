@@ -46,7 +46,7 @@ type GetEHREmployeeListReq struct {
 	EndTime    *int64  `query:"end_time" json:"-"`     // 查询结束时间（创建时间 &lt;= 此时间）, 示例值：1608690517811
 	UserIDType *IDType `query:"user_id_type" json:"-"` // 用户 ID 类型, 示例值："open_id", 可选值有: `open_id`：用户的 open id, `union_id`：用户的 union id, `user_id`：用户的 user id, 默认值: `open_id`,, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
 	UserIDs    *string `query:"user_ids" json:"-"`     // user_id、open_id 或 union_id，默认为 open_id。,如果传入的值不是 open_id，需要一并传入 user_id_type 参数。, 示例值："ou_8ebd4f35d7101ffdeb4771d7c8ec517e"
-	PageToken  *string `query:"page_token" json:"-"`   // 分页标记，第一次请求不填，表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token，下次遍历可采用该 page_token 获取查询结果, 示例值："1cGaS5rM1F9u9g/xjVMipKrmQHo5CHYa+uE3D3OnAmc="
+	PageToken  *string `query:"page_token" json:"-"`   // 分页标记，第一次请求不填，表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token，下次遍历可采用该 page_token 获取查询结果, 示例值："10"
 	PageSize   *int64  `query:"page_size" json:"-"`    // 分页大小, 示例值：10, 最大值：`100`
 }
 

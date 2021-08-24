@@ -41,7 +41,7 @@ func (r *Mock) UnMockVCApplyVCReserve() {
 }
 
 type ApplyVCReserveReq struct {
-	UserIDType      *IDType                           `query:"user_id_type" json:"-"`     // 用户 ID 类型, 示例值："open_id", 可选值有: `open_id`：用户的 open id, `union_id`：用户的 union id, `user_id`：用户的 user id, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
+	UserIDType      *IDType                           `query:"user_id_type" json:"-"`     // 用户 ID 类型, 示例值："open_id", 可选值有: `open_id`：用户的 open id, `union_id`：用户的 union id, `user_id`：用户的 user id, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求:  获取用户 userid
 	EndTime         *string                           `json:"end_time,omitempty"`         // 预约到期时间（unix时间，单位sec），多人会议必填, 示例值："1608888867"
 	MeetingSettings *ApplyVCReserveReqMeetingSettings `json:"meeting_settings,omitempty"` // 会议设置
 }
@@ -61,7 +61,7 @@ type ApplyVCReserveReqMeetingSettingsActionPermission struct {
 type ApplyVCReserveReqMeetingSettingsActionPermissionPermissionChecker struct {
 	CheckField int64    `json:"check_field,omitempty"` // 检查字段类型, 示例值：1, 可选值有: `1`：用户ID, `2`：用户类型, `3`：租户ID
 	CheckMode  int64    `json:"check_mode,omitempty"`  // 检查方式, 示例值：1, 可选值有: `1`：在check_list中为有权限（白名单）, `2`：不在check_list中为有权限（黑名单）
-	CheckList  []string `json:"check_list,omitempty"`  // 检查字段列表
+	CheckList  []string `json:"check_list,omitempty"`  // 检查字段列表, 示例值：123
 }
 
 type ApplyVCReserveReqMeetingSettingsCallSetting struct {
@@ -94,5 +94,6 @@ type ApplyVCReserveRespReserve struct {
 	MeetingNo string `json:"meeting_no,omitempty"` // 9位会议号（飞书用户可通过输入9位会议号快捷入会）
 	URL       string `json:"url,omitempty"`        // 会议链接（飞书用户可通过点击会议链接快捷入会）
 	AppLink   string `json:"app_link,omitempty"`   // APPLink用于唤起飞书APP入会。"{?}"为占位符，用于配置入会参数，使用时需替换具体值：0表示关闭，1表示打开。preview为入会前的设置页，mic为麦克风，speaker为扬声器，camera为摄像头
+	LiveLink  string `json:"live_link,omitempty"`  // 直播链接
 	EndTime   string `json:"end_time,omitempty"`   // 预约到期时间（unix时间，单位sec）
 }

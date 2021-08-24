@@ -40,7 +40,7 @@ func (r *Mock) UnMockDriveCreateDriveMemberPermission() {
 }
 
 type CreateDriveMemberPermissionReq struct {
-	Type             string `query:"type" json:"-"`              // 文件类型，放于query参数中，如：`?type=doc`, 示例值："doc", 可选值有: `doc`：文档, `sheet`：电子表格, `file`：云空间文件, `wiki`：知识库节点, `bitable`：多维表格, `docx`：文档
+	Type             string `query:"type" json:"-"`              // 文件类型，放于query参数中，如：`?type=doc`, 示例值："doc", 可选值有: `doc`：文档, `sheet`：电子表格, `file`：云空间文件, `wiki`：知识库节点, `bitable`：多维表格, `docx`：文档（暂不支持）
 	NeedNotification *bool  `query:"need_notification" json:"-"` // 添加权限后是否通知对方, 示例值：false, 默认值: `false`
 	Token            string `path:"token" json:"-"`              // 文件的 token，获取方式见 [概述](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/files/guide/introduction), 示例值："doccnBKgoMyY5OMbUG6FioTXuBe"
 	MemberType       string `json:"member_type,omitempty"`       // 用户类型，与路径参数中的`member_id`要对应，可选值有：, `email`: 飞书企业邮箱, `openid`: 开放平台ID, `openchat`: 开放平台群组, `opendepartmentid`: 开放平台部门ID, `userid`: 用户自定义ID, 示例值："openid"

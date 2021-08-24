@@ -63,7 +63,7 @@ type GetApprovalRespNode struct {
 	NeedApprover bool    `json:"need_approver,omitempty"`  // 是否发起人自选节点<br>true - 发起审批时需要提交审批人
 	NodeID       string  `json:"node_id,omitempty"`        // 节点 ID
 	CustomNodeID *string `json:"custom_node_id,omitempty"` // 节点自定义 ID，如果没有设置则不返回
-	NodeType     string  `json:"node_type,omitempty"`      // 审批方式<br>AND -会签<br>OR - 或签
+	NodeType     string  `json:"node_type,omitempty"`      // 审批方式<br>AND -会签<br>OR - 或签<br>CC_NODE -抄送节点
 }
 
 type GetApprovalRespViewer struct {

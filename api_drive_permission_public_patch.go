@@ -40,7 +40,7 @@ func (r *Mock) UnMockDriveUpdateDrivePublicPermission() {
 }
 
 type UpdateDrivePublicPermissionReq struct {
-	Type            string  `query:"type" json:"-"`              // 权限客体类型，放于query参数中，如：`?type=doc`, 示例值："doc", 可选值有: `doc`：文档, `sheet`：电子表格, `file`：云空间文件, `wiki`：知识库节点, `bitable`：多维表格, `docx`：文档
+	Type            string  `query:"type" json:"-"`              // 权限客体类型，放于query参数中，如：`?type=doc`, 示例值："doc", 可选值有: `doc`：文档, `sheet`：电子表格, `file`：云空间文件, `wiki`：知识库节点, `bitable`：多维表格, `docx`：文档（暂不支持）
 	Token           string  `path:"token" json:"-"`              // 文件的 token，获取方式见 [概述](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/files/guide/introduction), 示例值："doccnBKgoMyY5OMbUG6FioTXuBe"
 	ExternalAccess  *bool   `json:"external_access,omitempty"`   // 是否允许分享到租户外开关, 示例值：true
 	SecurityEntity  *string `json:"security_entity,omitempty"`   // 可创建副本/打印/导出/复制设置, 示例值："anyone_can_view", 可选值有: `anyone_can_view`：所有可访问此文档的用户, `anyone_can_edit`：有编辑权限的用户

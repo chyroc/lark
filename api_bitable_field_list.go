@@ -56,6 +56,7 @@ type getBitableFieldListResp struct {
 type GetBitableFieldListResp struct {
 	HasMore   bool                           `json:"has_more,omitempty"`   // 是否还有更多项
 	PageToken string                         `json:"page_token,omitempty"` // 分页标记，当 has_more 为 true 时，会同时返回新的 page_token，否则不返回 page_token
+	Total     int64                          `json:"total,omitempty"`      // 总数
 	Items     []*GetBitableFieldListRespItem `json:"items,omitempty"`      // 字段信息
 }
 

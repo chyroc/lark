@@ -54,7 +54,7 @@ type GetHelpdeskTicketResp struct {
 }
 
 type GetHelpdeskTicketRespTicket struct {
-	TicketID                   string                                        `json:"ticket_id,omitempty"`                     // 工单ID
+	TicketID                   string                                        `json:"ticket_id,omitempty"`                     // 工单ID,[可以从工单列表里面取](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/ticket/list),[也可以订阅工单创建事件获取](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/ticket/events/created)
 	HelpdeskID                 string                                        `json:"helpdesk_id,omitempty"`                   // 服务台ID
 	Guest                      *GetHelpdeskTicketRespTicketGuest             `json:"guest,omitempty"`                         // 工单创建用户
 	Stage                      int64                                         `json:"stage,omitempty"`                         // 工单阶段，1：bot，2：人工

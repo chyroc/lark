@@ -54,11 +54,12 @@ type getBitableTableListResp struct {
 type GetBitableTableListResp struct {
 	HasMore   bool                           `json:"has_more,omitempty"`   // 是否还有更多项
 	PageToken string                         `json:"page_token,omitempty"` // 分页标记，当 has_more 为 true 时，会同时返回新的 page_token，否则不返回 page_token
+	Total     int64                          `json:"total,omitempty"`      // 总数
 	Items     []*GetBitableTableListRespItem `json:"items,omitempty"`      // 数据表信息
 }
 
 type GetBitableTableListRespItem struct {
 	TableID  string `json:"table_id,omitempty"` // 表格表 id
 	Revision int64  `json:"revision,omitempty"` // 数据表的版本号
-	Name     string `json:"name,omitempty"`     // 数据表 名字（该字段暂不返回）
+	Name     string `json:"name,omitempty"`     // 数据表名字
 }

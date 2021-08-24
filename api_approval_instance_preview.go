@@ -68,7 +68,7 @@ type PreviewApprovalInstanceResp struct {
 	EndCcIDList  []string `json:"end_cc_id_list,omitempty"` // 审批结束抄送人ie列表
 	NodeID       string   `json:"node_id,omitempty"`        // 节点id
 	NodeName     string   `json:"node_name,omitempty"`      // 节点名称
-	NodeType     string   `json:"node_type,omitempty"`      // 节点类型：AND：会签，OR: 或签
+	NodeType     string   `json:"node_type,omitempty"`      // 节点类型：<br>AND：会签<br>OR: 或签
 	CustomNodeID string   `json:"custom_node_id,omitempty"` // 用户自定义节点id
 	Comments     []string `json:"comments,omitempty"`       // 节点的说明信息
 }

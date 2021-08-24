@@ -39,7 +39,7 @@ func (r *Mock) UnMockTaskCreateTask() {
 }
 
 type CreateTaskReq struct {
-	UserIDType  *IDType              `query:"user_id_type" json:"-"` // 用户 ID 类型, 示例值："open_id", 可选值有: `open_id`：用户的 open id, `union_id`：用户的 union id, `user_id`：用户的 user id, 默认值: `open_id`,, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
+	UserIDType  *IDType              `query:"user_id_type" json:"-"` // 用户 ID 类型, 示例值："open_id", 可选值有: `open_id`：用户的 open id, `union_id`：用户的 union id, `user_id`：用户的 user id, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求:  获取用户 user ID
 	Summary     *string              `json:"summary,omitempty"`      // 任务标题。创建任务时，如果没有标题填充，飞书服务器会将其视为无主题的任务, 示例值："每天喝八杯水，保持身心愉悦", 长度范围：`1` ～ `256` 字符
 	Description *string              `json:"description,omitempty"`  // 任务备注, 示例值："多吃水果，多运动，健康生活，快乐工作。", 长度范围：`0` ～ `65536` 字符
 	Extra       *string              `json:"extra,omitempty"`        // 接入方可以自定义的附属信息二进制格式，采用 base64 编码，解析方式由接入方自己决定, 示例值："dGVzdA==", 长度范围：`0` ～ `65536` 字符
@@ -54,7 +54,7 @@ type CreateTaskReqDue struct {
 }
 
 type CreateTaskReqOrigin struct {
-	PlatformI18nName string                   `json:"platform_i18n_name,omitempty"` // 任务导入来源的名称，用于在任务中心详情页展示。请提供一个字典，多种语言名称映射。支持的各地区语言名：it_it, th_th, ko_kr, es_es, ja_jp, zh_cn, id_id, zh_hk, pt_br, de_de, fr_fr, zh_tw, ru_ru, en_us, hi_in, vi_vn, 示例值：""{\"zh_cn\": \"IT 工作台\", \"en_us\": \"IT Workspace\"}"", 长度范围：`0` ～ `1024` 字符
+	PlatformI18nName string                   `json:"platform_i18n_name,omitempty"` // 任务导入来源的名称，用于在任务中心详情页展示。请提供一个字典，多种语言名称映射。支持的各地区语言名：it_it, th_th, ko_kr, es_es, ja_jp, zh_cn, id_id, zh_hk, pt_br, de_de, fr_fr, zh_tw, ru_ru, en_us, hi_in, vi_vn, 示例值："{\"zh_cn\": \"IT 工作台\", \"en_us\": \"IT Workspace\"}", 长度范围：`0` ～ `1024` 字符
 	Href             *CreateTaskReqOriginHref `json:"href,omitempty"`               // 任务关联的来源平台详情页链接
 }
 
