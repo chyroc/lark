@@ -6,7 +6,7 @@ import (
 	"context"
 )
 
-// DetectTextLanguage 支持 100 多种语言识别，返回符合 ISO 693-1 标准
+// DetectTextLanguage 机器翻译 (MT)，支持 100 多种语言识别，返回符合 ISO 693-1 标准
 //
 // 单租户限流：20QPS，同租户下的应用没有限流，共享本租户的 20QPS 限流
 //

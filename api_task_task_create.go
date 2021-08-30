@@ -45,6 +45,7 @@ type CreateTaskReq struct {
 	Extra       *string              `json:"extra,omitempty"`        // 接入方可以自定义的附属信息二进制格式，采用 base64 编码，解析方式由接入方自己决定, 示例值："dGVzdA==", 长度范围：`0` ～ `65536` 字符
 	Due         *CreateTaskReqDue    `json:"due,omitempty"`          // 任务的截止时间设置
 	Origin      *CreateTaskReqOrigin `json:"origin,omitempty"`       // 任务关联的第三方平台来源信息
+	CanEdit     *bool                `json:"can_edit,omitempty"`     // 此字段用于控制该任务在飞书任务中心是否可编辑，默认为false，若为true则第三方需考虑是否需要接入事件来接收任务在任务中心的变更信息, 示例值：true, 默认值: `false`
 }
 
 type CreateTaskReqDue struct {
@@ -84,6 +85,7 @@ type CreateTaskRespTask struct {
 	UpdateTime   string                    `json:"update_time,omitempty"`   // 任务的更新时间戳（单位为秒）
 	Due          *CreateTaskRespTaskDue    `json:"due,omitempty"`           // 任务的截止时间设置
 	Origin       *CreateTaskRespTaskOrigin `json:"origin,omitempty"`        // 任务关联的第三方平台来源信息
+	CanEdit      bool                      `json:"can_edit,omitempty"`      // 此字段用于控制该任务在飞书任务中心是否可编辑，默认为false，若为true则第三方需考虑是否需要接入事件来接收任务在任务中心的变更信息
 }
 
 type CreateTaskRespTaskDue struct {

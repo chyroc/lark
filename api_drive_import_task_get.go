@@ -56,7 +56,7 @@ type GetDriveImportTaskResp struct {
 type GetDriveImportTaskRespResult struct {
 	Ticket      string   `json:"ticket,omitempty"`        // 任务ID
 	Type        string   `json:"type,omitempty"`          // 导入目标云文档格式
-	JobStatus   int64    `json:"job_status,omitempty"`    // 任务状态
+	JobStatus   int64    `json:"job_status,omitempty"`    // 任务状态, 可选值有: `0`：成功, `1`：初始化, `2`：处理中, `100`：导入文档已加密, `101`：内部错误, `102`：内部错误, `103`：内部错误, `104`：租户容量不足, `105`：文件夹节点太多, `106`：内部错误, `107`：导出文档过大, `108`：处理超时, `109`：内部错误, `110`：无权限, `111`：导出文档已删除, `112`：格式不支持, `113`：office格式不支持, `114`：内部错误, `115`：导入文件过大, `116`：目录无权限, `117`：目录已删除, `118`：导入文件和任务指定后缀不匹配, `119`：目录不存在, `120`：导入文件和任务指定文件类型不匹配, `121`：导入文件已过期, `122`：创建副本中禁止导出, `123`：导出文档不存在, `5000`：内部错误, `6000`：导出文档图片太多, `7000`：docx block 数量超过系统上限, `7001`：docx block 层级超过系统上线, `7002`：docx block 大小超过系统上限
 	JobErrorMsg string   `json:"job_error_msg,omitempty"` // 任务失败原因
 	Token       string   `json:"token,omitempty"`         // 导入云文档Token
 	URL         string   `json:"url,omitempty"`           // 导入云文档URL

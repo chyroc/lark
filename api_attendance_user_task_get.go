@@ -43,10 +43,11 @@ func (r *Mock) UnMockAttendanceGetAttendanceUserTask() {
 }
 
 type GetAttendanceUserTaskReq struct {
-	EmployeeType  EmployeeType `query:"employee_type" json:"-"`   // 请求体中的 user_ids 的员工工号类型，可用值：【employee_id（员工的 employeeId），employee_no（员工工号）】，示例值：“employee_id”
-	UserIDs       []string     `json:"user_ids,omitempty"`        // employee_no 或 employee_id 列表
-	CheckDateFrom int64        `json:"check_date_from,omitempty"` // 查询的起始工作日
-	CheckDateTo   int64        `json:"check_date_to,omitempty"`   // 查询的结束工作日，与 check_date_from 的时间间隔不超过30天
+	EmployeeType       EmployeeType `query:"employee_type" json:"-"`        // 请求体中的 user_ids 的员工工号类型，可用值：【employee_id（员工的 employeeId），employee_no（员工工号）】，示例值：“employee_id”
+	IgnoreInvalidUsers *bool        `query:"ignore_invalid_users" json:"-"` // 是否忽略无效和没有权限的用户。如果 true，返回有效用户的数据，并告知无效和没有权限的用户；如果 false，且 user_ids 中存在无效或没有权限的用户，返回错误
+	UserIDs            []string     `json:"user_ids,omitempty"`             // employee_no 或 employee_id 列表
+	CheckDateFrom      int64        `json:"check_date_from,omitempty"`      // 查询的起始工作日
+	CheckDateTo        int64        `json:"check_date_to,omitempty"`        // 查询的结束工作日，与 check_date_from 的时间间隔不超过30天
 }
 
 type getAttendanceUserTaskResp struct {
@@ -56,7 +57,9 @@ type getAttendanceUserTaskResp struct {
 }
 
 type GetAttendanceUserTaskResp struct {
-	UserTaskResults []*GetAttendanceUserTaskRespUserTaskResult `json:"user_task_results,omitempty"` // 打卡任务列表
+	UserTaskResults     []*GetAttendanceUserTaskRespUserTaskResult `json:"user_task_results,omitempty"`     // 打卡任务列表
+	InvalidUserIDs      []string                                   `json:"invalid_user_ids,omitempty"`      // 无效用户工号列表
+	UnauthorizedUserIDs []string                                   `json:"unauthorized_user_ids,omitempty"` // 没有权限用户工号列表
 }
 
 type GetAttendanceUserTaskRespUserTaskResult struct {

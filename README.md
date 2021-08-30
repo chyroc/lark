@@ -36,7 +36,7 @@ https://godoc.org/github.com/chyroc/lark
 
 ## Support APIs
 
-API Count: 451, Event Count: 43
+API Count: 456, Event Count: 47
 
 <details>
   <summary>
@@ -278,6 +278,7 @@ API Count: 451, Event Count: 43
   - GetVCReserveActiveMeeting
   - GetVCMeeting
   - InviteVCMeeting
+  - KickoutVCMeeting
   - SetVCHostMeeting
   - EndVCMeeting
   - StartVCMeetingRecording
@@ -493,6 +494,10 @@ API Count: 451, Event Count: 43
   - UpdateTask
   - CompleteTask
   - UncompleteTask
+  - CreateTaskComment
+  - GetTaskComment
+  - DeleteTaskComment
+  - UpdateTaskComment
 - ACS
   - GetACSAccessRecordPhoto
   - GetACSAccessRecordList
@@ -538,6 +543,10 @@ API Count: 451, Event Count: 43
   - EventV2VCMeetingShareEndedV1
   - EventV2ACSAccessRecordCreatedV1
   - EventV2ACSUserUpdatedV1
+  - EventV2CalendarCalendarACLCreatedV4
+  - EventV2CalendarCalendarACLDeletedV4
+  - EventV2CalendarCalendarEventChangedV4
+  - EventV2CalendarCalendarChangedV4
   - EventV1AddBot
   - EventV1RemoveBot
   - EventV1P2PChatCreate

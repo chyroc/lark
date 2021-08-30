@@ -39,7 +39,7 @@ func (r *Mock) UnMockTaskGetTask() {
 }
 
 type GetTaskReq struct {
-	UserIDType *IDType `query:"user_id_type" json:"-"` // 用户 ID 类型, 示例值："open_id", 可选值有: `open_id`：用户的 open id, `union_id`：用户的 union id, `user_id`：用户的 user id, 默认值: `open_id`,, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
+	UserIDType *IDType `query:"user_id_type" json:"-"` // 用户 ID 类型, 示例值："open_id", 可选值有: `open_id`：用户的 open id, `union_id`：用户的 union id, `user_id`：用户的 user id, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求:  获取用户 user ID
 	TaskID     string  `path:"task_id" json:"-"`       // 任务 ID, 示例值："83912691-2e43-47fc-94a4-d512e03984fa"
 }
 
@@ -55,29 +55,30 @@ type GetTaskResp struct {
 
 type GetTaskRespTask struct {
 	ID           string                 `json:"id,omitempty"`            // 任务 ID，由飞书任务服务器发号
-	Summary      string                 `json:"summary,omitempty"`       // 任务标题。创建任务时，如果没有标题填充，飞书服务器会将其视为无主题的任务, 长度范围：`1` ～ `256` 字符
-	Description  string                 `json:"description,omitempty"`   // 任务备注, 长度范围：`0` ～ `65536` 字符
+	Summary      string                 `json:"summary,omitempty"`       // 任务标题。创建任务时，如果没有标题填充，飞书服务器会将其视为无主题的任务
+	Description  string                 `json:"description,omitempty"`   // 任务备注
 	CompleteTime string                 `json:"complete_time,omitempty"` // 任务的完成时间戳（单位为秒），如果完成时间为 0，则表示任务尚未完成
 	CreatorID    string                 `json:"creator_id,omitempty"`    // 任务的创建者 ID。在创建任务时无需填充该字段
-	Extra        string                 `json:"extra,omitempty"`         // 接入方可以自定义的附属信息二进制格式，采用 base64 编码，解析方式由接入方自己决定, 长度范围：`0` ～ `65536` 字符
+	Extra        string                 `json:"extra,omitempty"`         // 接入方可以自定义的附属信息二进制格式，采用 base64 编码，解析方式由接入方自己决定
 	CreateTime   string                 `json:"create_time,omitempty"`   // 任务的创建时间戳（单位为秒）
 	UpdateTime   string                 `json:"update_time,omitempty"`   // 任务的更新时间戳（单位为秒）
 	Due          *GetTaskRespTaskDue    `json:"due,omitempty"`           // 任务的截止时间设置
 	Origin       *GetTaskRespTaskOrigin `json:"origin,omitempty"`        // 任务关联的第三方平台来源信息
+	CanEdit      bool                   `json:"can_edit,omitempty"`      // 此字段用于控制该任务在飞书任务中心是否可编辑，默认为false，若为true则第三方需考虑是否需要接入事件来接收任务在任务中心的变更信息
 }
 
 type GetTaskRespTaskDue struct {
 	Time     string `json:"time,omitempty"`       // 截止时间的时间戳（单位为秒）
-	Timezone string `json:"timezone,omitempty"`   // 截止时间对应的时区，完整的时区名称列表可参考：https://docs.aws.amazon.com/zh_cn/redshift/latest/dg/time-zone-names.html, 默认值: `Asia/Shanghai`
-	IsAllDay bool   `json:"is_all_day,omitempty"` // 标记任务是否为全天任务（全天任务的截止时间为当天 UTC 时间的 0 点）, 默认值: `false`
+	Timezone string `json:"timezone,omitempty"`   // 截止时间对应的时区，完整的时区名称列表可参考：https://docs.aws.amazon.com/zh_cn/redshift/latest/dg/time-zone-names.html
+	IsAllDay bool   `json:"is_all_day,omitempty"` // 标记任务是否为全天任务（全天任务的截止时间为当天 UTC 时间的 0 点）
 }
 
 type GetTaskRespTaskOrigin struct {
-	PlatformI18nName string                     `json:"platform_i18n_name,omitempty"` // 任务导入来源的名称，用于在任务中心详情页展示。请提供一个字典，多种语言名称映射。支持的各地区语言名：it_it, th_th, ko_kr, es_es, ja_jp, zh_cn, id_id, zh_hk, pt_br, de_de, fr_fr, zh_tw, ru_ru, en_us, hi_in, vi_vn, 长度范围：`0` ～ `1024` 字符
+	PlatformI18nName string                     `json:"platform_i18n_name,omitempty"` // 任务导入来源的名称，用于在任务中心详情页展示。请提供一个字典，多种语言名称映射。支持的各地区语言名：it_it, th_th, ko_kr, es_es, ja_jp, zh_cn, id_id, zh_hk, pt_br, de_de, fr_fr, zh_tw, ru_ru, en_us, hi_in, vi_vn
 	Href             *GetTaskRespTaskOriginHref `json:"href,omitempty"`               // 任务关联的来源平台详情页链接
 }
 
 type GetTaskRespTaskOriginHref struct {
-	URL   string `json:"url,omitempty"`   // 具体链接地址, 长度范围：`0` ～ `1024` 字符
-	Title string `json:"title,omitempty"` // 链接对应的标题, 长度范围：`0` ～ `512` 字符
+	URL   string `json:"url,omitempty"`   // 具体链接地址
+	Title string `json:"title,omitempty"` // 链接对应的标题
 }

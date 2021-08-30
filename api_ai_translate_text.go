@@ -6,7 +6,7 @@ import (
 	"context"
 )
 
-// TranslateText 支持中日英（zh、ja、en）三语互译
+// TranslateText 机器翻译 (MT)，支持中日英（zh、ja、en）三语互译
 //
 // 单租户限流：20QPS，同租户下的应用没有限流，共享本租户的 20QPS 限流
 //

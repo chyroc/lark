@@ -43,11 +43,12 @@ func (r *Mock) UnMockOKRGetUserOKRList() {
 }
 
 type GetUserOKRListReq struct {
-	UserIDType *IDType `query:"user_id_type" json:"-"` // 用户 ID 类型, 示例值："open_id", 可选值有: `open_id`：用户的 open id, `union_id`：用户的 union id, `user_id`：用户的 user id, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
-	Offset     string  `query:"offset" json:"-"`       // 请求列表的偏移，offset>=0，请求Query中, 示例值："0"
-	Limit      string  `query:"limit" json:"-"`        // 请求列表的长度，0<limit<=10，请求Query中, 示例值："0"
-	Lang       *string `query:"lang" json:"-"`         // 请求OKR的语言版本（比如@的人名），lang=en_us/zh_cn，请求 Query中, 示例值："zh_cn", 默认值: `zh_cn`
-	UserID     string  `path:"user_id" json:"-"`       // 目标用户id, 示例值："ou-asdasdasdasdasd"
+	UserIDType *IDType  `query:"user_id_type" json:"-"` // 用户 ID 类型, 示例值："open_id", 可选值有: `open_id`：用户的 open id, `union_id`：用户的 union id, `user_id`：用户的 user id, `people_admin_id`：以people_admin_id来识别用户, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求:  获取用户 user ID
+	Offset     string   `query:"offset" json:"-"`       // 请求列表的偏移，offset>=0，请求Query中, 示例值："0"
+	Limit      string   `query:"limit" json:"-"`        // 请求列表的长度，0<limit<=10，请求Query中, 示例值："0"
+	Lang       *string  `query:"lang" json:"-"`         // 请求OKR的语言版本（比如@的人名），lang=en_us/zh_cn，请求 Query中, 示例值："zh_cn", 默认值: `zh_cn`
+	PeriodIDs  []string `query:"period_ids" json:"-"`   // period_id列表，最多10个, 示例值：["6951461264858777132"], 最大长度：`10`
+	UserID     string   `path:"user_id" json:"-"`       // 目标用户id, 示例值："ou-asdasdasdasdasd"
 }
 
 type getUserOKRListResp struct {
@@ -64,6 +65,7 @@ type GetUserOKRListResp struct {
 type GetUserOKRListRespOKR struct {
 	ID            string                            `json:"id,omitempty"`             // id
 	Permission    int64                             `json:"permission,omitempty"`     // OKR的访问权限, 可选值有: `0`：此时OKR只返回id, `1`：返回OKR的其他具体字段
+	PeriodID      string                            `json:"period_id,omitempty"`      // period_id
 	Name          string                            `json:"name,omitempty"`           // 名称
 	ObjectiveList []*GetUserOKRListRespOKRObjective `json:"objective_list,omitempty"` // Objective列表
 }
@@ -108,6 +110,7 @@ type GetUserOKRListRespOKRObjectiveAlignedObjective struct {
 
 type GetUserOKRListRespOKRObjectiveAlignedObjectiveOwner struct {
 	OpenID string `json:"open_id,omitempty"` // 用户的 open_id
+	UserID string `json:"user_id,omitempty"` // 用户的 user_id
 }
 
 type GetUserOKRListRespOKRObjectiveAligningObjective struct {
@@ -118,4 +121,5 @@ type GetUserOKRListRespOKRObjectiveAligningObjective struct {
 
 type GetUserOKRListRespOKRObjectiveAligningObjectiveOwner struct {
 	OpenID string `json:"open_id,omitempty"` // 用户的 open_id
+	UserID string `json:"user_id,omitempty"` // 用户的 user_id
 }
