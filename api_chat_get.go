@@ -44,7 +44,7 @@ func (r *Mock) UnMockChatGetChat() {
 }
 
 type GetChatReq struct {
-	UserIDType *IDType `query:"user_id_type" json:"-"` // 用户 ID 类型, 示例值："open_id", 可选值有: `open_id`：用户的 open id, `union_id`：用户的 union id, `user_id`：用户的 user id, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
+	UserIDType *IDType `query:"user_id_type" json:"-"` // 用户 ID 类型, 示例值："open_id", 可选值有: `open_id`：用户的 open id, `union_id`：用户的 union id, `user_id`：用户的 user id, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求:  获取用户 user ID
 	ChatID     string  `path:"chat_id" json:"-"`       // 群 ID, 示例值："oc_a0553eda9014c201e6969b478895c230"
 }
 
@@ -72,4 +72,6 @@ type GetChatResp struct {
 	LeaveMessageVisibility MessageVisibility    `json:"leave_message_visibility,omitempty"` // 出群消息可见性(only_owner/all_members/not_anyone)
 	MembershipApproval     MembershipApproval   `json:"membership_approval,omitempty"`      // 加群审批(no_approval_required/approval_required)
 	ModerationPermission   ModerationPermission `json:"moderation_permission,omitempty"`    // 发言权限(all_members/only_owner/moderator_list)
+	External               bool                 `json:"external,omitempty"`                 // 是否是外部群
+	TenantKey              string               `json:"tenant_key,omitempty"`               // tenant key
 }

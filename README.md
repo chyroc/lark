@@ -36,7 +36,7 @@ https://godoc.org/github.com/chyroc/lark
 
 ## Support APIs
 
-API Count: 456, Event Count: 47
+API Count: 456, Event Count: 49
 
 <details>
   <summary>
@@ -508,6 +508,8 @@ API Count: 456, Event Count: 47
   - UpdateACSUser
   - GetACSUserList
 - EventCallback
+  - EventV2TaskTaskUpdatedV1
+  - EventV2TaskTaskCommentUpdatedV1
   - EventV2HelpdeskTicketMessageCreatedV1
   - EventV2HelpdeskTicketCreatedV1
   - EventV2HelpdeskTicketMessageUpdatedV1

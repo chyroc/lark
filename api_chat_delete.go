@@ -10,7 +10,8 @@ import (
 //
 // 注意事项：
 // - 应用需要开启[机器人能力](https://open.feishu.cn/document/home/develop-a-bot-in-5-minutes/create-an-app)
-// - 仅有 群主 或 创建群组且具备[更新应用所创建群的群信息]权限的机器人，可解散群
+// - 如果使用tenant_access_token，需要机器人是群的创建者且具备[更新应用所创建群的群信息]权限才可解散群
+// - 如果使用user_access_token，需要对应的用户是群主才可解散群
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat/delete
 func (r *ChatService) DeleteChat(ctx context.Context, request *DeleteChatReq, options ...MethodOptionFunc) (*DeleteChatResp, *Response, error) {

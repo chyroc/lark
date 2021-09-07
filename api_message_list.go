@@ -11,7 +11,7 @@ import (
 // 注意事项:
 // - 需要开启[机器人能力](https://open.feishu.cn/document/home/develop-a-bot-in-5-minutes/create-an-app)
 // - 获取消息时，机器人必须在群组中
-// - 获取群组消息时，应用必须拥有 获取群组中所有的消息 权限
+// - 接口级别权限默认只能获取单聊消息，如果需要获取群组消息，应用还必须拥有 ***获取群组中所有的消息*** 权限
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/list
 func (r *MessageService) GetMessageList(ctx context.Context, request *GetMessageListReq, options ...MethodOptionFunc) (*GetMessageListResp, *Response, error) {
@@ -69,8 +69,8 @@ type GetMessageListRespItem struct {
 	RootID         string       `json:"root_id,omitempty"`          // 根消息id open_message_id
 	ParentID       string       `json:"parent_id,omitempty"`        // 父消息的id open_message_id
 	MsgType        MsgType      `json:"msg_type,omitempty"`         // 消息类型 text post card image等等
-	CreateTime     string       `json:"create_time,omitempty"`      // 消息生成的时间戳(毫秒)
-	UpdateTime     string       `json:"update_time,omitempty"`      // 消息更新的时间戳
+	CreateTime     string       `json:"create_time,omitempty"`      // 消息生成的时间戳（毫秒）
+	UpdateTime     string       `json:"update_time,omitempty"`      // 消息更新的时间戳（毫秒）
 	Deleted        bool         `json:"deleted,omitempty"`          // 消息是否被撤回
 	Updated        bool         `json:"updated,omitempty"`          // 消息是否被更新
 	ChatID         string       `json:"chat_id,omitempty"`          // 所属的群

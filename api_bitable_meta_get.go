@@ -55,5 +55,6 @@ type GetBitableMetaResp struct {
 
 type GetBitableMetaRespApp struct {
 	AppToken string `json:"app_token,omitempty"` // 多维表格的 app_token
+	Name     string `json:"name,omitempty"`      // 多维表格的名字
 	Revision int64  `json:"revision,omitempty"`  // 多维表格的版本号
 }

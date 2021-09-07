@@ -36,7 +36,7 @@ https://godoc.org/github.com/chyroc/lark
 
 ## 支持的接口
 
-API 总数: 456, 事件总数: 47
+API 总数: 456, 事件总数: 49
 
 <details>
   <summary>
@@ -508,6 +508,8 @@ API 总数: 456, 事件总数: 47
   - UpdateACSUser
   - GetACSUserList
 - EventCallback
+  - EventV2TaskTaskUpdatedV1
+  - EventV2TaskTaskCommentUpdatedV1
   - EventV2HelpdeskTicketMessageCreatedV1
   - EventV2HelpdeskTicketCreatedV1
   - EventV2HelpdeskTicketMessageUpdatedV1

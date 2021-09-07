@@ -56,7 +56,7 @@ type UpdateTaskReqTask struct {
 
 type UpdateTaskReqTaskDue struct {
 	Time     *string `json:"time,omitempty"`       // 截止时间的时间戳（单位为秒）, 示例值："1623124318"
-	Timezone *string `json:"timezone,omitempty"`   // 截止时间对应的时区，完整的时区名称列表可参考：https://docs.aws.amazon.com/zh_cn/redshift/latest/dg/time-zone-names.html, 示例值："Asia/Shanghai", 默认值: `Asia/Shanghai`
+	Timezone *string `json:"timezone,omitempty"`   // 截止时间对应的时区，使用IANA Time Zone Database标准，如Asia/Shanghai, 示例值："Asia/Shanghai", 默认值: `Asia/Shanghai`
 	IsAllDay *bool   `json:"is_all_day,omitempty"` // 标记任务是否为全天任务（全天任务的截止时间为当天 UTC 时间的 0 点）, 示例值：false, 默认值: `false`
 }
 
@@ -96,7 +96,7 @@ type UpdateTaskRespTask struct {
 
 type UpdateTaskRespTaskDue struct {
 	Time     string `json:"time,omitempty"`       // 截止时间的时间戳（单位为秒）
-	Timezone string `json:"timezone,omitempty"`   // 截止时间对应的时区，完整的时区名称列表可参考：https://docs.aws.amazon.com/zh_cn/redshift/latest/dg/time-zone-names.html
+	Timezone string `json:"timezone,omitempty"`   // 截止时间对应的时区，使用IANA Time Zone Database标准，如Asia/Shanghai
 	IsAllDay bool   `json:"is_all_day,omitempty"` // 标记任务是否为全天任务（全天任务的截止时间为当天 UTC 时间的 0 点）
 }
 

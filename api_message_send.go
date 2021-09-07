@@ -12,6 +12,7 @@ import (
 // - 需要开启[机器人能力](https://open.feishu.cn/document/home/develop-a-bot-in-5-minutes/create-an-app)
 // - 给用户发送消息，需要机器人对用户有可见性
 // - 给群组发送消息，需要机器人在群中
+// - 该接口不支持给部门成员发消息，请使用 [批量发送消息](https://open.feishu.cn/document/ukTMukTMukTM/ucDO1EjL3gTNx4yN4UTM)
 // - 消息请求体最大不能超过30k
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/create
@@ -45,9 +46,9 @@ func (r *Mock) UnMockMessageSendRawMessage() {
 }
 
 type SendRawMessageReq struct {
-	ReceiveIDType IDType  `query:"receive_id_type" json:"-"` // 消息接收者id类型 open_id/user_id/union_id/email/chat_id, 示例值："open_id", 可选值有: `open_id`：以open_id来识别用户, `user_id`：以user_id来识别用户, `union_id`：以union_id来识别用户, `email`：以email来识别用户, `chat_id`：以chat_id来识别群聊。可以调用接口 [搜索对用户或机器人可见的群列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat/search) 获取chat_id, 默认值: `open_id`
+	ReceiveIDType IDType  `query:"receive_id_type" json:"-"` // 消息接收者id类型 open_id/user_id/union_id/email/chat_id, 示例值："open_id", 可选值有: `open_id`：以open_id来识别用户([什么是 Open ID？](https://open.feishu.cn/document/home/user-identity-introduction/open-id)), `user_id`：以user_id来识别用户。需要有获取用户 userID的权限 ([什么是 User ID？](https://open.feishu.cn/document/home/user-identity-introduction/user-id)), `union_id`：以union_id来识别用户([什么是 Union ID？](https://open.feishu.cn/document/home/user-identity-introduction/union-id)), `email`：以email来识别用户。是用户的真实邮箱, `chat_id`：以chat_id来识别群聊。可以调用接口 [搜索对用户或机器人可见的群列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat/search) 获取chat_id。群ID说明请参考：[群ID 说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-id-description), 默认值: `open_id`
 	ReceiveID     *string `json:"receive_id,omitempty"`      // 依据receive_id_type的值，填写对应的消息接收者id, 示例值："ou_7d8a6e6df7621556ce0d21922b676706ccs"
-	Content       string  `json:"content,omitempty"`         // 消息内容 json格式，格式说明参考: [发送消息content说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/im-v1/message/create_json), 示例值："{\"text\":\"<at user_id=\\\"ou_155184d1e73cbfb8973e5a9e698e74f2\\\">Tom</at> test content\"}"
+	Content       string  `json:"content,omitempty"`         // 消息内容为 json格式转义成string，格式说明参考: [发送消息content说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/im-v1/message/create_json), 示例值："{\"text\":\"<at user_id=\\\"ou_155184d1e73cbfb8973e5a9e698e74f2\\\">Tom</at> test content\"}"
 	MsgType       MsgType `json:"msg_type,omitempty"`        // 消息类型，包括：text、post、image、file、audio、media、sticker、interactive、share_chat、share_user, 示例值："text"
 }
 
@@ -62,8 +63,8 @@ type SendRawMessageResp struct {
 	RootID         string       `json:"root_id,omitempty"`          // 根消息id open_message_id
 	ParentID       string       `json:"parent_id,omitempty"`        // 父消息的id open_message_id
 	MsgType        MsgType      `json:"msg_type,omitempty"`         // 消息类型 text post card image等等
-	CreateTime     string       `json:"create_time,omitempty"`      // 消息生成的时间戳(毫秒)
-	UpdateTime     string       `json:"update_time,omitempty"`      // 消息更新的时间戳
+	CreateTime     string       `json:"create_time,omitempty"`      // 消息生成的时间戳（毫秒）
+	UpdateTime     string       `json:"update_time,omitempty"`      // 消息更新的时间戳（毫秒）
 	Deleted        bool         `json:"deleted,omitempty"`          // 消息是否被撤回
 	Updated        bool         `json:"updated,omitempty"`          // 消息是否被更新
 	ChatID         string       `json:"chat_id,omitempty"`          // 所属的群

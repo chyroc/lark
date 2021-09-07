@@ -11,6 +11,8 @@ import (
 type EventType string
 
 const (
+	EventTypeV2TaskTaskUpdatedV1                    EventType = "task.task.updated_v1"
+	EventTypeV2TaskTaskCommentUpdatedV1             EventType = "task.task.comment.updated_v1"
 	EventTypeV2HelpdeskTicketMessageCreatedV1       EventType = "helpdesk.ticket_message.created_v1"
 	EventTypeV2HelpdeskTicketCreatedV1              EventType = "helpdesk.ticket.created_v1"
 	EventTypeV2HelpdeskTicketMessageUpdatedV1       EventType = "helpdesk.ticket.updated_v1"
@@ -62,6 +64,8 @@ const (
 
 type eventHandler struct {
 	eventCardHandler                                   eventCardHandler
+	eventV2TaskTaskUpdatedV1Handler                    eventV2TaskTaskUpdatedV1Handler
+	eventV2TaskTaskCommentUpdatedV1Handler             eventV2TaskTaskCommentUpdatedV1Handler
 	eventV2HelpdeskTicketMessageCreatedV1Handler       eventV2HelpdeskTicketMessageCreatedV1Handler
 	eventV2HelpdeskTicketCreatedV1Handler              eventV2HelpdeskTicketCreatedV1Handler
 	eventV2HelpdeskTicketMessageUpdatedV1Handler       eventV2HelpdeskTicketMessageUpdatedV1Handler
@@ -113,6 +117,8 @@ type eventHandler struct {
 
 func (r *eventHandler) clone() *eventHandler {
 	return &eventHandler{
+		eventV2TaskTaskUpdatedV1Handler:                    r.eventV2TaskTaskUpdatedV1Handler,
+		eventV2TaskTaskCommentUpdatedV1Handler:             r.eventV2TaskTaskCommentUpdatedV1Handler,
 		eventV2HelpdeskTicketMessageCreatedV1Handler:       r.eventV2HelpdeskTicketMessageCreatedV1Handler,
 		eventV2HelpdeskTicketCreatedV1Handler:              r.eventV2HelpdeskTicketCreatedV1Handler,
 		eventV2HelpdeskTicketMessageUpdatedV1Handler:       r.eventV2HelpdeskTicketMessageUpdatedV1Handler,
@@ -164,6 +170,8 @@ func (r *eventHandler) clone() *eventHandler {
 }
 
 type eventBody struct {
+	eventV2TaskTaskUpdatedV1                    *EventV2TaskTaskUpdatedV1
+	eventV2TaskTaskCommentUpdatedV1             *EventV2TaskTaskCommentUpdatedV1
 	eventV2HelpdeskTicketMessageCreatedV1       *EventV2HelpdeskTicketMessageCreatedV1
 	eventV2HelpdeskTicketCreatedV1              *EventV2HelpdeskTicketCreatedV1
 	eventV2HelpdeskTicketMessageUpdatedV1       *EventV2HelpdeskTicketMessageUpdatedV1
@@ -219,6 +227,18 @@ func (r *EventCallbackService) parserEventV2(req *eventReq) error {
 	}
 
 	switch req.Header.EventType {
+	case EventTypeV2TaskTaskUpdatedV1:
+		event := new(EventV2TaskTaskUpdatedV1)
+		if err := req.unmarshalEvent(event); err != nil {
+			return err
+		}
+		req.eventV2TaskTaskUpdatedV1 = event
+	case EventTypeV2TaskTaskCommentUpdatedV1:
+		event := new(EventV2TaskTaskCommentUpdatedV1)
+		if err := req.unmarshalEvent(event); err != nil {
+			return err
+		}
+		req.eventV2TaskTaskCommentUpdatedV1 = event
 	case EventTypeV2HelpdeskTicketMessageCreatedV1:
 		event := new(EventV2HelpdeskTicketMessageCreatedV1)
 		if err := req.unmarshalEvent(event); err != nil {
@@ -534,6 +554,16 @@ type v1type struct {
 
 func (r *EventCallbackService) handlerEvent(ctx context.Context, req *eventReq) (handled bool, s string, err error) {
 	switch {
+	case req.eventV2TaskTaskUpdatedV1 != nil:
+		if r.cli.eventHandler.eventV2TaskTaskUpdatedV1Handler != nil {
+			s, err = r.cli.eventHandler.eventV2TaskTaskUpdatedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2TaskTaskUpdatedV1)
+		}
+		return true, s, err
+	case req.eventV2TaskTaskCommentUpdatedV1 != nil:
+		if r.cli.eventHandler.eventV2TaskTaskCommentUpdatedV1Handler != nil {
+			s, err = r.cli.eventHandler.eventV2TaskTaskCommentUpdatedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2TaskTaskCommentUpdatedV1)
+		}
+		return true, s, err
 	case req.eventV2HelpdeskTicketMessageCreatedV1 != nil:
 		if r.cli.eventHandler.eventV2HelpdeskTicketMessageCreatedV1Handler != nil {
 			s, err = r.cli.eventHandler.eventV2HelpdeskTicketMessageCreatedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2HelpdeskTicketMessageCreatedV1)

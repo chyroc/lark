@@ -6,7 +6,7 @@ import (
 	"context"
 )
 
-// GetMessageReadUserList 查询消息的已读用户信息。
+// GetMessageReadUserList 查询消息的已读信息。
 //
 // 注意事项:
 // - 需要开启[机器人能力](https://open.feishu.cn/document/home/develop-a-bot-in-5-minutes/create-an-app)
