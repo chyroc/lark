@@ -61,8 +61,8 @@ type GetMessageRespItem struct {
 	RootID         string       `json:"root_id,omitempty"`          // 根消息id open_message_id
 	ParentID       string       `json:"parent_id,omitempty"`        // 父消息的id open_message_id
 	MsgType        MsgType      `json:"msg_type,omitempty"`         // 消息类型 text post card image等等
-	CreateTime     string       `json:"create_time,omitempty"`      // 消息生成的时间戳(毫秒)
-	UpdateTime     string       `json:"update_time,omitempty"`      // 消息更新的时间戳
+	CreateTime     string       `json:"create_time,omitempty"`      // 消息生成的时间戳（毫秒）
+	UpdateTime     string       `json:"update_time,omitempty"`      // 消息更新的时间戳（毫秒）
 	Deleted        bool         `json:"deleted,omitempty"`          // 消息是否被撤回
 	Updated        bool         `json:"updated,omitempty"`          // 消息是否被更新
 	ChatID         string       `json:"chat_id,omitempty"`          // 所属的群
