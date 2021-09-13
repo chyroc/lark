@@ -26,7 +26,6 @@ jobs:
     - name: Test
       run: |
         export IN_CI=1
-        go get gotest.tools/gotestsum
         ./.github/test.sh
       env:
         LARK_APP_NO_PERMISSION_APP_ID: ${{ secrets.LARK_APP_NO_PERMISSION_APP_ID }}
