@@ -126,6 +126,7 @@ func Test_Create_CancelApproval(t *testing.T) {
 	})
 
 	t.Run("approve-reject", func(t *testing.T) {
+		t.SkipNow()
 		taskDone := map[string]bool{}
 		instanceCode, instance := testCreateApproval(t, cli, ApprovalALLField.Code, UserAdmin.UserID)
 		for taskIdx, task := range instance.TaskList {
