@@ -8,8 +8,9 @@ import (
 
 // BatchGetUser
 //
+// 为了更好地提升该接口的安全性，我们对其进行了升级，请尽快迁移至[新版本>>](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/list)
 // 该接口用于批量获取用户详细信息。
-// 调用该接口需要申请“以应用身份读取通讯录”以及[用户数据权限](https://open.feishu.cn/document/ukTMukTMukTM/uQjN3QjL0YzN04CN2cDN)。请求的用户如果在当前应用的通讯录授权范围内，会返回该用户的详细信息；否则不会返回。
+// - 调用该接口需要申请“以应用身份读取通讯录”以及[用户数据权限](https://open.feishu.cn/document/ukTMukTMukTM/uQjN3QjL0YzN04CN2cDN)。请求的用户如果在当前应用的通讯录授权范围内，会返回该用户的详细信息；否则不会返回。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uIzNz4iM3MjLyczM
 //
