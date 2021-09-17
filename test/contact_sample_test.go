@@ -112,6 +112,54 @@ func Test_Contact_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.CreateContactGroup(ctx, &lark.CreateContactGroupReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.UpdateContactGroup(ctx, &lark.UpdateContactGroupReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.DeleteContactGroup(ctx, &lark.DeleteContactGroupReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.GetContactGroup(ctx, &lark.GetContactGroupReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.GetContactGroupList(ctx, &lark.GetContactGroupListReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.AddContactGroupMember(ctx, &lark.AddContactGroupMemberReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.DeleteContactGroupMember(ctx, &lark.DeleteContactGroupMemberReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.GetContactGroupMember(ctx, &lark.GetContactGroupMemberReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "failed")
+		})
+
+		t.Run("", func(t *testing.T) {
 			_, _, err := moduleCli.GetEmployeeTypeEnumList(ctx, &lark.GetEmployeeTypeEnumListReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "failed")
@@ -312,6 +360,94 @@ func Test_Contact_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
+			cli.Mock().MockContactCreateContactGroup(func(ctx context.Context, request *lark.CreateContactGroupReq, options ...lark.MethodOptionFunc) (*lark.CreateContactGroupResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockContactCreateContactGroup()
+
+			_, _, err := moduleCli.CreateContactGroup(ctx, &lark.CreateContactGroupReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+			cli.Mock().MockContactUpdateContactGroup(func(ctx context.Context, request *lark.UpdateContactGroupReq, options ...lark.MethodOptionFunc) (*lark.UpdateContactGroupResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockContactUpdateContactGroup()
+
+			_, _, err := moduleCli.UpdateContactGroup(ctx, &lark.UpdateContactGroupReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+			cli.Mock().MockContactDeleteContactGroup(func(ctx context.Context, request *lark.DeleteContactGroupReq, options ...lark.MethodOptionFunc) (*lark.DeleteContactGroupResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockContactDeleteContactGroup()
+
+			_, _, err := moduleCli.DeleteContactGroup(ctx, &lark.DeleteContactGroupReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+			cli.Mock().MockContactGetContactGroup(func(ctx context.Context, request *lark.GetContactGroupReq, options ...lark.MethodOptionFunc) (*lark.GetContactGroupResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockContactGetContactGroup()
+
+			_, _, err := moduleCli.GetContactGroup(ctx, &lark.GetContactGroupReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+			cli.Mock().MockContactGetContactGroupList(func(ctx context.Context, request *lark.GetContactGroupListReq, options ...lark.MethodOptionFunc) (*lark.GetContactGroupListResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockContactGetContactGroupList()
+
+			_, _, err := moduleCli.GetContactGroupList(ctx, &lark.GetContactGroupListReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+			cli.Mock().MockContactAddContactGroupMember(func(ctx context.Context, request *lark.AddContactGroupMemberReq, options ...lark.MethodOptionFunc) (*lark.AddContactGroupMemberResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockContactAddContactGroupMember()
+
+			_, _, err := moduleCli.AddContactGroupMember(ctx, &lark.AddContactGroupMemberReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+			cli.Mock().MockContactDeleteContactGroupMember(func(ctx context.Context, request *lark.DeleteContactGroupMemberReq, options ...lark.MethodOptionFunc) (*lark.DeleteContactGroupMemberResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockContactDeleteContactGroupMember()
+
+			_, _, err := moduleCli.DeleteContactGroupMember(ctx, &lark.DeleteContactGroupMemberReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+			cli.Mock().MockContactGetContactGroupMember(func(ctx context.Context, request *lark.GetContactGroupMemberReq, options ...lark.MethodOptionFunc) (*lark.GetContactGroupMemberResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockContactGetContactGroupMember()
+
+			_, _, err := moduleCli.GetContactGroupMember(ctx, &lark.GetContactGroupMemberReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
 			cli.Mock().MockContactGetEmployeeTypeEnumList(func(ctx context.Context, request *lark.GetEmployeeTypeEnumListReq, options ...lark.MethodOptionFunc) (*lark.GetEmployeeTypeEnumListResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -478,6 +614,66 @@ func Test_Contact_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.CreateContactGroup(ctx, &lark.CreateContactGroupReq{})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.UpdateContactGroup(ctx, &lark.UpdateContactGroupReq{
+				GroupID: "x",
+			})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.DeleteContactGroup(ctx, &lark.DeleteContactGroupReq{
+				GroupID: "x",
+			})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.GetContactGroup(ctx, &lark.GetContactGroupReq{
+				GroupID: "x",
+			})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.GetContactGroupList(ctx, &lark.GetContactGroupListReq{})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.AddContactGroupMember(ctx, &lark.AddContactGroupMemberReq{
+				GroupID: "x",
+			})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.DeleteContactGroupMember(ctx, &lark.DeleteContactGroupMemberReq{
+				GroupID: "x",
+			})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.GetContactGroupMember(ctx, &lark.GetContactGroupMemberReq{
+				GroupID: "x",
+			})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
 			_, _, err := moduleCli.GetEmployeeTypeEnumList(ctx, &lark.GetEmployeeTypeEnumListReq{})
 			as.NotNil(err)
 			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
@@ -620,6 +816,66 @@ func Test_Contact_Sample_Failed(t *testing.T) {
 		t.Run("", func(t *testing.T) {
 			_, _, err := moduleCli.DeleteDepartment(ctx, &lark.DeleteDepartmentReq{
 				DepartmentID: "x",
+			})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.CreateContactGroup(ctx, &lark.CreateContactGroupReq{})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.UpdateContactGroup(ctx, &lark.UpdateContactGroupReq{
+				GroupID: "x",
+			})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.DeleteContactGroup(ctx, &lark.DeleteContactGroupReq{
+				GroupID: "x",
+			})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.GetContactGroup(ctx, &lark.GetContactGroupReq{
+				GroupID: "x",
+			})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.GetContactGroupList(ctx, &lark.GetContactGroupListReq{})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.AddContactGroupMember(ctx, &lark.AddContactGroupMemberReq{
+				GroupID: "x",
+			})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.DeleteContactGroupMember(ctx, &lark.DeleteContactGroupMemberReq{
+				GroupID: "x",
+			})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.GetContactGroupMember(ctx, &lark.GetContactGroupMemberReq{
+				GroupID: "x",
 			})
 			as.NotNil(err)
 			as.Equal("fake raw request", err.Error())

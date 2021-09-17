@@ -36,7 +36,7 @@ https://godoc.org/github.com/chyroc/lark
 
 ## 支持的接口
 
-API 总数: 456, 事件总数: 49
+API 总数: 464, 事件总数: 49
 
 <details>
   <summary>
@@ -65,6 +65,14 @@ API 总数: 456, 事件总数: 49
   - UpdateDepartmentPatch
   - UpdateDepartment
   - DeleteDepartment
+  - CreateContactGroup
+  - UpdateContactGroup
+  - DeleteContactGroup
+  - GetContactGroup
+  - GetContactGroupList
+  - AddContactGroupMember
+  - DeleteContactGroupMember
+  - GetContactGroupMember
   - GetEmployeeTypeEnumList
   - UpdateEmployeeTypeEnumPatch
   - DeleteEmployeeTypeEnum
