@@ -6,8 +6,9 @@ import (
 	"context"
 )
 
-// DeleteDriveFile 该接口用于根据 docToken 删除对应的 Docs 文档。
+// DeleteDriveFile
 //
+// 该接口用于根据 docToken 删除对应的 Docs 文档。
 // :::html
 // <md-alert type="warn">
 // 文档只能被文档所有者删除，文档被删除后将会放到回收站里

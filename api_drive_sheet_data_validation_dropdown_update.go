@@ -6,7 +6,9 @@ import (
 	"context"
 )
 
-// UpdateSheetDataValidationDropdown 该接口根据 spreadsheetToken 、sheetId、dataValidationId 更新下拉列表的属性。
+// UpdateSheetDataValidationDropdown
+//
+// 该接口根据 spreadsheetToken 、sheetId、dataValidationId 更新下拉列表的属性。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uATMzUjLwEzM14CMxMTN/datavalidation/update-datavalidation
 func (r *DriveService) UpdateSheetDataValidationDropdown(ctx context.Context, request *UpdateSheetDataValidationDropdownReq, options ...MethodOptionFunc) (*UpdateSheetDataValidationDropdownResp, *Response, error) {

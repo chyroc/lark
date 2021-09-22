@@ -6,7 +6,9 @@ import (
 	"context"
 )
 
-// BatchUpdateSheet 该接口用于根据 spreadsheetToken 操作表格，如增加工作表，复制工作表、删除工作表。
+// BatchUpdateSheet
+//
+// 该接口用于根据 spreadsheetToken 操作表格，如增加工作表，复制工作表、删除工作表。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uYTMzUjL2EzM14iNxMTN
 func (r *DriveService) BatchUpdateSheet(ctx context.Context, request *BatchUpdateSheetReq, options ...MethodOptionFunc) (*BatchUpdateSheetResp, *Response, error) {

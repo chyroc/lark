@@ -8,7 +8,7 @@ import (
 
 // PrepareUploadDriveFile 发送初始化请求获取上传事务ID和分块策略，目前是以4MB大小进行定长分片。
 //
-// 您在24小时内可保存上传事务ID和上传进度，以便可以恢复上传
+// 你在24小时内可保存上传事务ID和上传进度，以便可以恢复上传
 // 该接口不支持太高的并发，且调用频率上限为5QPS
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file/upload_prepare

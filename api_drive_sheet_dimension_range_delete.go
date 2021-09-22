@@ -6,7 +6,9 @@ import (
 	"context"
 )
 
-// DeleteSheetDimensionRange 该接口用于根据 spreadsheetToken 和维度信息删除行/列 。单次删除最大5000行/列。
+// DeleteSheetDimensionRange
+//
+// 该接口用于根据 spreadsheetToken 和维度信息删除行/列 。单次删除最大5000行/列。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/ucjMzUjL3IzM14yNyMTN
 func (r *DriveService) DeleteSheetDimensionRange(ctx context.Context, request *DeleteSheetDimensionRangeReq, options ...MethodOptionFunc) (*DeleteSheetDimensionRangeResp, *Response, error) {

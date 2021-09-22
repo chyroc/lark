@@ -6,7 +6,9 @@ import (
 	"context"
 )
 
-// UpdateSheetProtectedDimension 该接口用于根据保护范围ID修改保护范围，单次最多支持同时修改10个ID。
+// UpdateSheetProtectedDimension
+//
+// 该接口用于根据保护范围ID修改保护范围，单次最多支持同时修改10个ID。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uUTM5YjL1ETO24SNxkjN
 func (r *DriveService) UpdateSheetProtectedDimension(ctx context.Context, request *UpdateSheetProtectedDimensionReq, options ...MethodOptionFunc) (*UpdateSheetProtectedDimensionResp, *Response, error) {

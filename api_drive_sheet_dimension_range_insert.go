@@ -6,7 +6,10 @@ import (
 	"context"
 )
 
-// InsertSheetDimensionRange 该接口用于根据 spreadsheetToken 和维度信息 插入空行/列。
+// InsertSheetDimensionRange
+//
+// 该接口用于根据 spreadsheetToken 和维度信息 插入空行/列。
+// 如 startIndex=3, endIndex=7，则从第 4 行开始开始插入行列，一直到第 7 行，共插入 4 行；单次操作不超过5000行或列。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uQjMzUjL0IzM14CNyMTN
 func (r *DriveService) InsertSheetDimensionRange(ctx context.Context, request *InsertSheetDimensionRangeReq, options ...MethodOptionFunc) (*InsertSheetDimensionRangeResp, *Response, error) {

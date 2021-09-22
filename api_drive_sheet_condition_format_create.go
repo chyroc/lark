@@ -6,7 +6,9 @@ import (
 	"context"
 )
 
-// CreateSheetConditionFormat 该接口用于创建新的条件格式，单次最多支持增加10个条件格式，每个条件格式的设置会返回成功或者失败，失败的情况包括各种参数的校验。
+// CreateSheetConditionFormat
+//
+// 该接口用于创建新的条件格式，单次最多支持增加10个条件格式，每个条件格式的设置会返回成功或者失败，失败的情况包括各种参数的校验。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uATMzUjLwEzM14CMxMTN/conditionformat/condition-format-set
 func (r *DriveService) CreateSheetConditionFormat(ctx context.Context, request *CreateSheetConditionFormatReq, options ...MethodOptionFunc) (*CreateSheetConditionFormatResp, *Response, error) {

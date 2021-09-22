@@ -6,7 +6,9 @@ import (
 	"context"
 )
 
-// CreateSheetDataValidationDropdown 该接口根据 spreadsheetToken 、range 和下拉列表属性给单元格设置下拉列表规则；单次设置范围不超过5000行，100列。当一个数据区域中已有数据，支持将有效数据直接转为选项。
+// CreateSheetDataValidationDropdown
+//
+// 该接口根据 spreadsheetToken 、range 和下拉列表属性给单元格设置下拉列表规则；单次设置范围不超过5000行，100列。当一个数据区域中已有数据，支持将有效数据直接转为选项。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uATMzUjLwEzM14CMxMTN/datavalidation/set-dropdown
 func (r *DriveService) CreateSheetDataValidationDropdown(ctx context.Context, request *CreateSheetDataValidationDropdownReq, options ...MethodOptionFunc) (*CreateSheetDataValidationDropdownResp, *Response, error) {

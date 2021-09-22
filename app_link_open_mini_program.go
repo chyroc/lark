@@ -14,12 +14,11 @@ func (r *AppLinkService) OpenMiniProgram(req *OpenMiniProgramReq) string {
 }
 
 type OpenMiniProgramReq struct {
-	AppID          string  `json:"appId,omitempty"`            // 小程序 appId(可从「开发者后台-凭证与基础信息」获取)
-	Mode           *string `json:"mode,omitempty"`             // PC小程序启动模式，枚举值包括：<br>`sidebar-semi`：聊天的侧边栏打开<br>`appCenter`：工作台中打开<br>`window`：独立大窗口打开<br>`window-semi`：独立小窗口打开，3.33版本开始支持此模式
-	Path           *string `json:"path,omitempty"`             // 需要跳转的页面路径，路径后可以带参数。也可以使用 path_android、path_ios、path_pc 参数对不同的客户端指定不同的path
-	PathAndroid    *string `json:"path_android,omitempty"`     // 同 path 参数，Android 端会优先使用该参数，如果该参数不存在，则会使用 path 参数
-	PathIos        *string `json:"path_ios,omitempty"`         // 同 path 参数，iOS 端会优先使用该参数，如果该参数不存在，则会使用 path 参数
-	PathPc         *string `json:"path_pc,omitempty"`          // 同 path 参数，PC 端会优先使用该参数，如果该参数不存在，则会使用 path 参数
-	BdpLaunchQuery *string `json:"bdp_launch_query,omitempty"` // 自定义启动参数。可通过 [getHostLaunchQuery](https://open.feishu.cn/document/uYjL24iN/ugzM4UjL4MDO14COzgTN) 接口取得
-	MinLkVer       *string `json:"min_lk_ver,omitempty"`       // 指定 AppLink 协议能够兼容的最小飞书版本，使用三位版本号 x.y.z。如果当前飞书版本号小于min_lk_ver，打开该 AppLink 会显示为兼容页面
+	AppID       string  `json:"appId,omitempty"`        // 小程序 appId(可从「开发者后台-凭证与基础信息」获取)
+	Mode        *string `json:"mode,omitempty"`         // PC小程序启动模式，枚举值包括：<br>`sidebar-semi`：聊天的侧边栏打开<br>`appCenter`：工作台中打开<br>`window`：独立大窗口打开<br>`window-semi`：独立小窗口打开，3.33版本开始支持此模式
+	Path        *string `json:"path,omitempty"`         // 需要跳转的页面路径，路径后可以带参数。也可以使用 path_android、path_ios、path_pc 参数对不同的客户端指定不同的path
+	PathAndroid *string `json:"path_android,omitempty"` // 同 path 参数，Android 端会优先使用该参数，如果该参数不存在，则会使用 path 参数
+	PathIos     *string `json:"path_ios,omitempty"`     // 同 path 参数，iOS 端会优先使用该参数，如果该参数不存在，则会使用 path 参数
+	PathPc      *string `json:"path_pc,omitempty"`      // 同 path 参数，PC 端会优先使用该参数，如果该参数不存在，则会使用 path 参数
+	MinLkVer    *string `json:"min_lk_ver,omitempty"`   // 指定 AppLink 协议能够兼容的最小飞书版本，使用三位版本号 x.y.z。如果当前飞书版本号小于min_lk_ver，打开该 AppLink 会显示为兼容页面
 }

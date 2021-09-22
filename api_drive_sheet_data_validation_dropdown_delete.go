@@ -6,7 +6,9 @@ import (
 	"context"
 )
 
-// DeleteSheetDataValidationDropdown 该接口根据 spreadsheetToken 、range 移除选定数据范围单元格的下拉列表设置，但保留选项文本。单个删除范围不超过5000单元格。单次请求range最大数量100个。
+// DeleteSheetDataValidationDropdown
+//
+// 该接口根据 spreadsheetToken 、range 移除选定数据范围单元格的下拉列表设置，但保留选项文本。单个删除范围不超过5000单元格。单次请求range最大数量100个。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uATMzUjLwEzM14CMxMTN/datavalidation/delete-datavalidation
 func (r *DriveService) DeleteSheetDataValidationDropdown(ctx context.Context, request *DeleteSheetDataValidationDropdownReq, options ...MethodOptionFunc) (*DeleteSheetDataValidationDropdownResp, *Response, error) {

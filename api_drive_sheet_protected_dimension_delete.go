@@ -6,7 +6,9 @@ import (
 	"context"
 )
 
-// DeleteSheetProtectedDimension 该接口用于根据保护范围ID删除保护范围，最多支持同时删除10个ID。
+// DeleteSheetProtectedDimension
+//
+// 该接口用于根据保护范围ID删除保护范围，最多支持同时删除10个ID。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uYTM5YjL2ETO24iNxkjN
 func (r *DriveService) DeleteSheetProtectedDimension(ctx context.Context, request *DeleteSheetProtectedDimensionReq, options ...MethodOptionFunc) (*DeleteSheetProtectedDimensionResp, *Response, error) {

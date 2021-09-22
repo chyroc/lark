@@ -6,7 +6,9 @@ import (
 	"context"
 )
 
-// GetDriveFolderChildren 该接口用于根据 folderToken 获取该文件夹的文档清单，如 doc、sheet、folder。
+// GetDriveFolderChildren
+//
+// 该接口用于根据 folderToken 获取该文件夹的文档清单，如 doc、sheet、folder。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uEjNzUjLxYzM14SM2MTN
 func (r *DriveService) GetDriveFolderChildren(ctx context.Context, request *GetDriveFolderChildrenReq, options ...MethodOptionFunc) (*GetDriveFolderChildrenResp, *Response, error) {

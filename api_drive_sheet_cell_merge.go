@@ -6,7 +6,9 @@ import (
 	"context"
 )
 
-// MergeSheetCell 该接口用于根据 spreadsheetToken 和维度信息合并单元格；单次操作不超过5000行，100列。
+// MergeSheetCell
+//
+// 该接口用于根据 spreadsheetToken 和维度信息合并单元格；单次操作不超过5000行，100列。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/ukDNzUjL5QzM14SO0MTN
 func (r *DriveService) MergeSheetCell(ctx context.Context, request *MergeSheetCellReq, options ...MethodOptionFunc) (*MergeSheetCellResp, *Response, error) {

@@ -6,7 +6,9 @@ import (
 	"context"
 )
 
-// GetDriveDocMeta 该接口用于根据 docToken 获取元数据。
+// GetDriveDocMeta
+//
+// 该接口用于根据 docToken 获取元数据。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uczN3UjL3czN14yN3cTN
 func (r *DriveService) GetDriveDocMeta(ctx context.Context, request *GetDriveDocMetaReq, options ...MethodOptionFunc) (*GetDriveDocMetaResp, *Response, error) {

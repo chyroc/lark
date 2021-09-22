@@ -6,7 +6,9 @@ import (
 	"context"
 )
 
-// GetSheetProtectedDimension 该接口用于根据保护范围ID查询详细的保护行列信息，最多支持同时查询5个ID。
+// GetSheetProtectedDimension
+//
+// 该接口用于根据保护范围ID查询详细的保护行列信息，最多支持同时查询5个ID。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uQTM5YjL0ETO24CNxkjN
 func (r *DriveService) GetSheetProtectedDimension(ctx context.Context, request *GetSheetProtectedDimensionReq, options ...MethodOptionFunc) (*GetSheetProtectedDimensionResp, *Response, error) {

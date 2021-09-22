@@ -6,7 +6,9 @@ import (
 	"context"
 )
 
-// SetSheetValueImage 该接口用于根据 spreadsheetToken 和 range 向单个格子写入图片。
+// SetSheetValueImage
+//
+// 该接口用于根据 spreadsheetToken 和 range 向单个格子写入图片。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uUDNxYjL1QTM24SN0EjN
 func (r *DriveService) SetSheetValueImage(ctx context.Context, request *SetSheetValueImageReq, options ...MethodOptionFunc) (*SetSheetValueImageResp, *Response, error) {

@@ -6,7 +6,9 @@ import (
 	"context"
 )
 
-// GetDriveFolderMeta 该接口用于根据 folderToken 获取该文件夹的元信息。
+// GetDriveFolderMeta
+//
+// 该接口用于根据 folderToken 获取该文件夹的元信息。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uAjNzUjLwYzM14CM2MTN
 func (r *DriveService) GetDriveFolderMeta(ctx context.Context, request *GetDriveFolderMetaReq, options ...MethodOptionFunc) (*GetDriveFolderMetaResp, *Response, error) {
@@ -40,7 +42,7 @@ func (r *Mock) UnMockDriveGetDriveFolderMeta() {
 }
 
 type GetDriveFolderMetaReq struct {
-	FolderToken string `path:"folderToken" json:"-"` // 文件夹 token，用于在此文件夹下新建文档，获取方式见[概述](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/files/guide/introduction)
+	FolderToken string `path:"folderToken" json:"-"` // 文件夹 token，获取方式见[概述](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/files/guide/introduction)
 }
 
 type getDriveFolderMetaResp struct {

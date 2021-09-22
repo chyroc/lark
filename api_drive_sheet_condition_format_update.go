@@ -6,7 +6,9 @@ import (
 	"context"
 )
 
-// UpdateSheetConditionFormat 该接口用于更新已有的条件格式，单次最多支持更新10个条件格式，每个条件格式的更新会返回成功或者失败，失败的情况包括各种参数的校验。
+// UpdateSheetConditionFormat
+//
+// 该接口用于更新已有的条件格式，单次最多支持更新10个条件格式，每个条件格式的更新会返回成功或者失败，失败的情况包括各种参数的校验。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uATMzUjLwEzM14CMxMTN/conditionformat/condition-format-update
 func (r *DriveService) UpdateSheetConditionFormat(ctx context.Context, request *UpdateSheetConditionFormatReq, options ...MethodOptionFunc) (*UpdateSheetConditionFormatResp, *Response, error) {
