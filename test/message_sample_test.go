@@ -22,6 +22,12 @@ func Test_Message_Sample_Failed(t *testing.T) {
 		moduleCli := cli.Message
 
 		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.SendEphemeralMessage(ctx, &lark.SendEphemeralMessageReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "failed")
+		})
+
+		t.Run("", func(t *testing.T) {
 			_, _, err := moduleCli.SendRawMessage(ctx, &lark.SendRawMessageReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "failed")
@@ -85,6 +91,17 @@ func Test_Message_Sample_Failed(t *testing.T) {
 	t.Run("request mock failed", func(t *testing.T) {
 		cli := AppAllPermission.Ins()
 		moduleCli := cli.Message
+
+		t.Run("", func(t *testing.T) {
+			cli.Mock().MockMessageSendEphemeralMessage(func(ctx context.Context, request *lark.SendEphemeralMessageReq, options ...lark.MethodOptionFunc) (*lark.SendEphemeralMessageResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockMessageSendEphemeralMessage()
+
+			_, _, err := moduleCli.SendEphemeralMessage(ctx, &lark.SendEphemeralMessageReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
 
 		t.Run("", func(t *testing.T) {
 			cli.Mock().MockMessageSendRawMessage(func(ctx context.Context, request *lark.SendRawMessageReq, options ...lark.MethodOptionFunc) (*lark.SendRawMessageResp, *lark.Response, error) {
@@ -202,6 +219,12 @@ func Test_Message_Sample_Failed(t *testing.T) {
 		moduleCli := cli.Message
 
 		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.SendEphemeralMessage(ctx, &lark.SendEphemeralMessageReq{})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
 			_, _, err := moduleCli.SendRawMessage(ctx, &lark.SendRawMessageReq{})
 			as.NotNil(err)
 			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
@@ -280,6 +303,12 @@ func Test_Message_Sample_Failed(t *testing.T) {
 		moduleCli := cli.Message
 		cli.Mock().MockRawRequest(func(ctx context.Context, req *lark.RawRequestReq, resp interface{}) (response *lark.Response, err error) {
 			return nil, fmt.Errorf("fake raw request")
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.SendEphemeralMessage(ctx, &lark.SendEphemeralMessageReq{})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {

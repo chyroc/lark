@@ -43,6 +43,7 @@ type Mock struct {
 	mockContactDeleteEmployeeTypeEnum                    func(ctx context.Context, request *DeleteEmployeeTypeEnumReq, options ...MethodOptionFunc) (*DeleteEmployeeTypeEnumResp, *Response, error)
 	mockContactCreateEmployeeTypeEnum                    func(ctx context.Context, request *CreateEmployeeTypeEnumReq, options ...MethodOptionFunc) (*CreateEmployeeTypeEnumResp, *Response, error)
 	mockContactGetContactCustomAttrList                  func(ctx context.Context, request *GetContactCustomAttrListReq, options ...MethodOptionFunc) (*GetContactCustomAttrListResp, *Response, error)
+	mockMessageSendEphemeralMessage                      func(ctx context.Context, request *SendEphemeralMessageReq, options ...MethodOptionFunc) (*SendEphemeralMessageResp, *Response, error)
 	mockMessageSendRawMessage                            func(ctx context.Context, request *SendRawMessageReq, options ...MethodOptionFunc) (*SendRawMessageResp, *Response, error)
 	mockMessageSendRawMessageOld                         func(ctx context.Context, request *SendRawMessageOldReq, options ...MethodOptionFunc) (*SendRawMessageOldResp, *Response, error)
 	mockMessageReplyRawMessage                           func(ctx context.Context, request *ReplyRawMessageReq, options ...MethodOptionFunc) (*ReplyRawMessageResp, *Response, error)
@@ -456,6 +457,7 @@ type Mock struct {
 	mockACSGetACSUser                                    func(ctx context.Context, request *GetACSUserReq, options ...MethodOptionFunc) (*GetACSUserResp, *Response, error)
 	mockACSUpdateACSUser                                 func(ctx context.Context, request *UpdateACSUserReq, options ...MethodOptionFunc) (*UpdateACSUserResp, *Response, error)
 	mockACSGetACSUserList                                func(ctx context.Context, request *GetACSUserListReq, options ...MethodOptionFunc) (*GetACSUserListResp, *Response, error)
+	mockEcosystemGetEcosystemBindAwemeUser               func(ctx context.Context, request *GetEcosystemBindAwemeUserReq, options ...MethodOptionFunc) (*GetEcosystemBindAwemeUserResp, *Response, error)
 }
 
 func (r *Lark) Mock() *Mock {

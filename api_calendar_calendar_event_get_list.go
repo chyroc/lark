@@ -10,6 +10,7 @@ import (
 //
 // 当前身份必须对日历有访问权限。
 // 调用时首先使用 page_token 分页拉取存量数据，之后使用 sync_token 增量同步变更数据。
+// 为了确保调用方日程同步数据的一致性，在使用sync_token时，不能同时使用start_time和end_time，否则可能造成日程数据缺失。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar-event/list
 func (r *CalendarService) GetCalendarEventList(ctx context.Context, request *GetCalendarEventListReq, options ...MethodOptionFunc) (*GetCalendarEventListResp, *Response, error) {
@@ -45,8 +46,10 @@ func (r *Mock) UnMockCalendarGetCalendarEventList() {
 type GetCalendarEventListReq struct {
 	PageSize   *int64  `query:"page_size" json:"-"`   // 一次请求要求返回最大数量，默认500，取值范围为[50. 1000], 示例值：50, 默认值: `500`, 取值范围：`50` ～ `1000`
 	AnchorTime *string `query:"anchor_time" json:"-"` // 拉取anchor_time之后的日程，为timestamp, 示例值："1609430400"
-	PageToken  *string `query:"page_token" json:"-"`  // 上次请求Response返回的分页标记，首次请求时为空, 示例值："xxxxx"
-	SyncToken  *string `query:"sync_token" json:"-"`  // 上次请求Response返回的增量同步标记，分页请求未结束时为空, 示例值："xxxxx"
+	PageToken  *string `query:"page_token" json:"-"`  // 上次请求Response返回的分页标记，首次请求时为空, 示例值："ListCalendarsPageToken_1632452910_1632539310"
+	SyncToken  *string `query:"sync_token" json:"-"`  // 上次请求Response返回的增量同步标记，分页请求未结束时为空, 示例值："ListCalendarsSyncToken_1632452910"
+	StartTime  *string `query:"start_time" json:"-"`  // 日程开始Unix时间戳，单位为秒, 示例值："1631777271"
+	EndTime    *string `query:"end_time" json:"-"`    // 日程结束Unix时间戳，单位为秒, 示例值："1631777271"
 	CalendarID string  `path:"calendar_id" json:"-"`  // 日历ID, 示例值："feishu.cn_xxxxxxxxxx@group.calendar.feishu.cn"
 }
 
@@ -65,8 +68,8 @@ type GetCalendarEventListResp struct {
 
 type GetCalendarEventListRespItem struct {
 	EventID          string                                  `json:"event_id,omitempty"`           // 日程ID
-	Summary          string                                  `json:"summary,omitempty"`            // 日程标题, 最大长度：`1000` 字符
-	Description      string                                  `json:"description,omitempty"`        // 日程描述, 最大长度：`8192` 字符
+	Summary          string                                  `json:"summary,omitempty"`            // 日程标题
+	Description      string                                  `json:"description,omitempty"`        // 日程描述
 	StartTime        *GetCalendarEventListRespItemStartTime  `json:"start_time,omitempty"`         // 日程开始时间
 	EndTime          *GetCalendarEventListRespItemEndTime    `json:"end_time,omitempty"`           // 日程结束时间
 	Vchat            *GetCalendarEventListRespItemVchat      `json:"vchat,omitempty"`              // 视频会议信息。
@@ -76,7 +79,7 @@ type GetCalendarEventListRespItem struct {
 	Location         *GetCalendarEventListRespItemLocation   `json:"location,omitempty"`           // 日程地点
 	Color            int64                                   `json:"color,omitempty"`              // 日程颜色，颜色RGB值的int32表示。仅对当前身份生效；客户端展示时会映射到色板上最接近的一种颜色；值为0或-1时默认跟随日历颜色。
 	Reminders        []*GetCalendarEventListRespItemReminder `json:"reminders,omitempty"`          // 日程提醒列表
-	Recurrence       string                                  `json:"recurrence,omitempty"`         // 重复日程的重复性规则；参考[rfc5545](https://datatracker.ietf.org/doc/html/rfc5545#section-3.3.10)；, 不支持COUNT和UNTIL同时出现；, 预定会议室重复日程长度不得超过两年。, 最大长度：`2000` 字符
+	Recurrence       string                                  `json:"recurrence,omitempty"`         // 重复日程的重复性规则；参考[rfc5545](https://datatracker.ietf.org/doc/html/rfc5545#section-3.3.10)；, 不支持COUNT和UNTIL同时出现；, 预定会议室重复日程长度不得超过两年。
 	Status           string                                  `json:"status,omitempty"`             // 日程状态, 可选值有: `tentative`：未回应, `confirmed`：已确认, `cancelled`：日程已取消
 	IsException      bool                                    `json:"is_exception,omitempty"`       // 日程是否是一个重复日程的例外日程
 	RecurringEventID string                                  `json:"recurring_event_id,omitempty"` // 例外日程的原重复日程的event_id
@@ -98,23 +101,23 @@ type GetCalendarEventListRespItemEndTime struct {
 type GetCalendarEventListRespItemVchat struct {
 	VCType      string `json:"vc_type,omitempty"`     // 视频会议类型, 可选值有: `vc`：飞书视频会议，取该类型时，其他字段无效。, `third_party`：第三方链接视频会议，取该类型时，icon_type、description、meeting_url字段生效。, `no_meeting`：无视频会议，取该类型时，其他字段无效。, `lark_live`：Lark直播，内部类型，只读。, `unknown`：未知类型，做兼容使用，只读。
 	IconType    string `json:"icon_type,omitempty"`   // 第三方视频会议icon类型；可以为空，为空展示默认icon。, 可选值有: `vc`：飞书视频会议icon, `live`：直播视频会议icon, `default`：默认icon
-	Description string `json:"description,omitempty"` // 第三方视频会议文案，可以为空，为空展示默认文案, 长度范围：`0` ～ `500` 字符
-	MeetingURL  string `json:"meeting_url,omitempty"` // 视频会议URL, 长度范围：`1` ～ `2000` 字符
+	Description string `json:"description,omitempty"` // 第三方视频会议文案，可以为空，为空展示默认文案
+	MeetingURL  string `json:"meeting_url,omitempty"` // 视频会议URL
 }
 
 type GetCalendarEventListRespItemLocation struct {
-	Name      string  `json:"name,omitempty"`      // 地点名称, 长度范围：`1` ～ `512` 字符
-	Address   string  `json:"address,omitempty"`   // 地点地址, 长度范围：`1` ～ `255` 字符
+	Name      string  `json:"name,omitempty"`      // 地点名称
+	Address   string  `json:"address,omitempty"`   // 地点地址
 	Latitude  float64 `json:"latitude,omitempty"`  // 地点坐标纬度信息，对于国内的地点，采用GCJ-02标准，海外地点采用WGS84标准
 	Longitude float64 `json:"longitude,omitempty"` // 地点坐标经度信息，对于国内的地点，采用GCJ-02标准，海外地点采用WGS84标准
 }
 
 type GetCalendarEventListRespItemReminder struct {
-	Minutes int64 `json:"minutes,omitempty"` // 日程提醒时间的偏移量，正数时表示在日程开始前X分钟提醒，负数时表示在日程开始后X分钟提醒,新建或更新日程时传入该字段，仅对当前身份生效, 取值范围：`-20160` ～ `20160`
+	Minutes int64 `json:"minutes,omitempty"` // 日程提醒时间的偏移量，正数时表示在日程开始前X分钟提醒，负数时表示在日程开始后X分钟提醒,新建或更新日程时传入该字段，仅对当前身份生效
 }
 
 type GetCalendarEventListRespItemSchema struct {
 	UiName   string `json:"ui_name,omitempty"`   // UI名称。取值范围如下： \,ForwardIcon: 日程转发按钮 \,MeetingChatIcon: 会议群聊按钮 \,MeetingMinutesIcon: 会议纪要按钮 \,MeetingVideo: 视频会议区域 \,RSVP: 接受/拒绝/待定区域 \,Attendee: 参与者区域 \,OrganizerOrCreator: 组织者/创建者区域
 	UiStatus string `json:"ui_status,omitempty"` // UI项自定义状态。目前只支持hide, 可选值有: `hide`：隐藏显示, `readonly`：只读, `editable`：可编辑, `unknown`：未知UI项自定义状态，仅用于读取时兼容
-	AppLink  string `json:"app_link,omitempty"`  // 按钮点击后跳转的链接, 最大长度：`2000` 字符
+	AppLink  string `json:"app_link,omitempty"`  // 按钮点击后跳转的链接
 }

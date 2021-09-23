@@ -16,7 +16,7 @@ func (r *AppLinkService) OpenWebApp(req *OpenWebAppReq) string {
 type OpenWebAppReq struct {
 	AppID       string  `json:"appId,omitempty"`        // H5应用的 appId(可从「开发者后台-凭证与基础信息」获取)
 	Mode        *string `json:"mode,omitempty"`         // 打开H5应用的容器模式，枚举值包括<br> `appCenter`：在工作台打开，3.20版本开始支持（缺省值） <br> `window`：在独立窗口打开，3.20版本开始支持 <br> `sidebar`：在侧边栏打开，3.40版本开始支持
-	Path        *string `json:"path,omitempty"`         // 访问H5应用的具体某个页面，path参数将替换H5应用URL的path部分 <br>也可以使用 path_android、path_ios、path_pc 参数对不同的客户端指定不同的path <br>3.20版本开始支持
+	Path        *string `json:"path,omitempty"`         // 访问H5应用的具体某个页面，path参数将替换H5应用URL的path部分（注意：path中不应该出现#和?字符，否则会导致最终的H5页面URL结构异常） <br>也可以使用 path_android、path_ios、path_pc 参数对不同的客户端指定不同的path <br>3.20版本开始支持
 	PathAndroid *string `json:"path_android,omitempty"` // 同 path 参数，Android 端会优先使用该参数，如果该参数不存在，则会使用 path 参数。 <br>3.20版本开始支持
 	PathIos     *string `json:"path_ios,omitempty"`     // 同 path 参数，iOS 端会优先使用该参数，如果该参数不存在，则会使用 path 参数 <br>3.20版本开始支持
 	PathPc      *string `json:"path_pc,omitempty"`      // 同 path 参数，PC 端会优先使用该参数，如果该参数不存在，则会使用 path 参数 <br>3.20版本开始支持

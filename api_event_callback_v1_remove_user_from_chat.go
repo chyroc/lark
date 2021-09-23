@@ -24,20 +24,20 @@ func (r *EventCallbackService) HandlerEventV1RemoveUserFromChat(f eventV1RemoveU
 type eventV1RemoveUserFromChatHandler func(ctx context.Context, cli *Lark, schema string, header *EventHeaderV1, event *EventV1RemoveUserFromChat) (string, error)
 
 type EventV1RemoveUserFromChat struct {
-	AppID     string                             `json:"app_id,omitempty"`  // 如: cli_9c8609450f78d102
-	ChatID    string                             `json:"chat_id,omitempty"` // 群聊的id. 如: oc_9e9619b938c9571c1c3165681cdaead5
-	Operator  *EventV1RemoveUserFromChatOperator `json:"operator,omitempty"`
-	TenantKey string                             `json:"tenant_key,omitempty"` // 如: 736588c9260f175d
-	Type      string                             `json:"type,omitempty"`       // 事件类型，add_user_to_chat/remove_user_from_chat/revoke_add_user_from_chat. 如: add_user_to_chat
-	Users     []*EventV1RemoveUserFromChatUser   `json:"users,omitempty"`
+	AppID     string                                  `json:"app_id,omitempty"`  // 如: cli_9c8609450f78d102
+	ChatID    string                                  `json:"chat_id,omitempty"` // 群聊的id. 如: oc_9e9619b938c9571c1c3165681cdaead5
+	Operator  *EventV1RemoveUserFromChatEventOperator `json:"operator,omitempty"`
+	TenantKey string                                  `json:"tenant_key,omitempty"` // 如: 736588c9260f175d
+	Type      string                                  `json:"type,omitempty"`       // 事件类型，add_user_to_chat/remove_user_from_chat/revoke_add_user_from_chat. 如: add_user_to_chat
+	Users     []*EventV1RemoveUserFromChatEventUser   `json:"users,omitempty"`
 }
 
-type EventV1RemoveUserFromChatOperator struct {
+type EventV1RemoveUserFromChatEventOperator struct {
 	OpenID string `json:"open_id,omitempty"` // 员工对此应用的唯一标识，同一员工对不同应用的open_id不同. 如: ou_18eac85d35a26f989317ad4f02e8bbbb
 	UserID string `json:"user_id,omitempty"` // 即“用户ID”，仅企业自建应用会返回. 如: ca51d83b
 }
 
-type EventV1RemoveUserFromChatUser struct {
+type EventV1RemoveUserFromChatEventUser struct {
 	Name   string `json:"name,omitempty"`    // 如: James
 	OpenID string `json:"open_id,omitempty"` // 如: ou_706adeb944ab1473b9fb3e7da2a40b68
 	UserID string `json:"user_id,omitempty"` // 如: 51g97a4g
