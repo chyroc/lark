@@ -467,3 +467,43 @@ func Test_SendCustomBotMessage(t *testing.T) {
 		})
 	})
 }
+
+func Test_EphemeralMessage(t *testing.T) {
+	as := assert.New(t)
+
+	resp, res, err := AppAllPermission.Ins().Message.SendEphemeralMessage(ctx, &lark.SendEphemeralMessageReq{
+		ChatID:  ChatForSendMessage.ChatID,
+		UserID:  UserAdmin.UserID,
+		MsgType: "interactive",
+		Card: &lark.MessageContentCard{
+			Header: &lark.MessageContentCardHeader{
+				Template: lark.MessageContentCardHeaderTemplateBlue,
+				Title: &lark.MessageContentCardObjectText{
+					Tag:     "lark_md",
+					Content: "title",
+				},
+			},
+			Modules: []lark.MessageContentCardModule{
+				lark.MessageContentCardModuleDIV{
+					Text: &lark.MessageContentCardObjectText{
+						Tag:     "lark_md",
+						Content: "- text1\n- text2",
+					},
+				},
+				lark.MessageContentCardModuleNote{
+					Elements: []lark.MessageContentCardElement{
+						lark.MessageContentCardObjectText{
+							Tag:     "lark_md",
+							Content: "hi",
+						},
+					},
+				},
+			},
+		},
+	})
+	as.Nil(err)
+	as.NotNil(resp)
+	as.NotEmpty(resp.MessageID)
+	as.NotNil(res)
+	as.NotEmpty(res.RequestID)
+}

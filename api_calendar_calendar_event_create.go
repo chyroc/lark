@@ -83,8 +83,8 @@ type CreateCalendarEventReqVchat struct {
 type CreateCalendarEventReqLocation struct {
 	Name      *string  `json:"name,omitempty"`      // 地点名称, 示例值："地点名称", 长度范围：`1` ～ `512` 字符
 	Address   *string  `json:"address,omitempty"`   // 地点地址, 示例值："地点地址", 长度范围：`1` ～ `255` 字符
-	Latitude  *float64 `json:"latitude,omitempty"`  // 地点坐标纬度信息，对于国内的地点，采用GCJ-02标准，海外地点采用WGS84标准, 示例值：xxxxx
-	Longitude *float64 `json:"longitude,omitempty"` // 地点坐标经度信息，对于国内的地点，采用GCJ-02标准，海外地点采用WGS84标准, 示例值：xxxxx
+	Latitude  *float64 `json:"latitude,omitempty"`  // 地点坐标纬度信息，对于国内的地点，采用GCJ-02标准，海外地点采用WGS84标准, 示例值：1.100000023841858
+	Longitude *float64 `json:"longitude,omitempty"` // 地点坐标经度信息，对于国内的地点，采用GCJ-02标准，海外地点采用WGS84标准, 示例值：2.200000047683716
 }
 
 type CreateCalendarEventReqReminder struct {
@@ -94,7 +94,7 @@ type CreateCalendarEventReqReminder struct {
 type CreateCalendarEventReqSchema struct {
 	UiName   *string `json:"ui_name,omitempty"`   // UI名称。取值范围如下： \,ForwardIcon: 日程转发按钮 \,MeetingChatIcon: 会议群聊按钮 \,MeetingMinutesIcon: 会议纪要按钮 \,MeetingVideo: 视频会议区域 \,RSVP: 接受/拒绝/待定区域 \,Attendee: 参与者区域 \,OrganizerOrCreator: 组织者/创建者区域, 示例值："ForwardIcon"
 	UiStatus *string `json:"ui_status,omitempty"` // UI项自定义状态。目前只支持hide, 示例值："hide", 可选值有: `hide`：隐藏显示, `readonly`：只读, `editable`：可编辑, `unknown`：未知UI项自定义状态，仅用于读取时兼容
-	AppLink  *string `json:"app_link,omitempty"`  // 按钮点击后跳转的链接, 示例值："xxxxx", 最大长度：`2000` 字符
+	AppLink  *string `json:"app_link,omitempty"`  // 按钮点击后跳转的链接, 示例值："https://applink.feishu.cn/client/calendar/event/detail?calendarId=xxxxxx&key=xxxxxx&originalTime=xxxxxx&startTime=xxxxxx", 最大长度：`2000` 字符
 }
 
 type createCalendarEventResp struct {
