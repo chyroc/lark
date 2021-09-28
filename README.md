@@ -36,7 +36,7 @@ https://godoc.org/github.com/chyroc/lark
 
 ## Support APIs
 
-API Count: 466, Event Count: 50
+API Count: 469, Event Count: 50
 
 <details>
   <summary>
@@ -80,6 +80,9 @@ API Count: 466, Event Count: 50
   - GetContactCustomAttrList
 - Message
   - SendEphemeralMessage
+  - SendUrgentAppMessage
+  - SendUrgentSmsMessage
+  - SendUrgentPhoneMessage
   - SendRawMessage
   - SendRawMessageOld
   - ReplyRawMessage

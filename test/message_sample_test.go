@@ -28,6 +28,24 @@ func Test_Message_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.SendUrgentAppMessage(ctx, &lark.SendUrgentAppMessageReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.SendUrgentSmsMessage(ctx, &lark.SendUrgentSmsMessageReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.SendUrgentPhoneMessage(ctx, &lark.SendUrgentPhoneMessageReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "failed")
+		})
+
+		t.Run("", func(t *testing.T) {
 			_, _, err := moduleCli.SendRawMessage(ctx, &lark.SendRawMessageReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "failed")
@@ -99,6 +117,39 @@ func Test_Message_Sample_Failed(t *testing.T) {
 			defer cli.Mock().UnMockMessageSendEphemeralMessage()
 
 			_, _, err := moduleCli.SendEphemeralMessage(ctx, &lark.SendEphemeralMessageReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+			cli.Mock().MockMessageSendUrgentAppMessage(func(ctx context.Context, request *lark.SendUrgentAppMessageReq, options ...lark.MethodOptionFunc) (*lark.SendUrgentAppMessageResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockMessageSendUrgentAppMessage()
+
+			_, _, err := moduleCli.SendUrgentAppMessage(ctx, &lark.SendUrgentAppMessageReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+			cli.Mock().MockMessageSendUrgentSmsMessage(func(ctx context.Context, request *lark.SendUrgentSmsMessageReq, options ...lark.MethodOptionFunc) (*lark.SendUrgentSmsMessageResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockMessageSendUrgentSmsMessage()
+
+			_, _, err := moduleCli.SendUrgentSmsMessage(ctx, &lark.SendUrgentSmsMessageReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+			cli.Mock().MockMessageSendUrgentPhoneMessage(func(ctx context.Context, request *lark.SendUrgentPhoneMessageReq, options ...lark.MethodOptionFunc) (*lark.SendUrgentPhoneMessageResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockMessageSendUrgentPhoneMessage()
+
+			_, _, err := moduleCli.SendUrgentPhoneMessage(ctx, &lark.SendUrgentPhoneMessageReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "mock-failed")
 		})
@@ -225,6 +276,30 @@ func Test_Message_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.SendUrgentAppMessage(ctx, &lark.SendUrgentAppMessageReq{
+				MessageID: "x",
+			})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.SendUrgentSmsMessage(ctx, &lark.SendUrgentSmsMessageReq{
+				MessageID: "x",
+			})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.SendUrgentPhoneMessage(ctx, &lark.SendUrgentPhoneMessageReq{
+				MessageID: "x",
+			})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
 			_, _, err := moduleCli.SendRawMessage(ctx, &lark.SendRawMessageReq{})
 			as.NotNil(err)
 			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
@@ -307,6 +382,30 @@ func Test_Message_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 			_, _, err := moduleCli.SendEphemeralMessage(ctx, &lark.SendEphemeralMessageReq{})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.SendUrgentAppMessage(ctx, &lark.SendUrgentAppMessageReq{
+				MessageID: "x",
+			})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.SendUrgentSmsMessage(ctx, &lark.SendUrgentSmsMessageReq{
+				MessageID: "x",
+			})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.SendUrgentPhoneMessage(ctx, &lark.SendUrgentPhoneMessageReq{
+				MessageID: "x",
+			})
 			as.NotNil(err)
 			as.Equal("fake raw request", err.Error())
 		})

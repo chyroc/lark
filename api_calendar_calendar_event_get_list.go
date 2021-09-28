@@ -44,7 +44,7 @@ func (r *Mock) UnMockCalendarGetCalendarEventList() {
 }
 
 type GetCalendarEventListReq struct {
-	PageSize   *int64  `query:"page_size" json:"-"`   // 一次请求要求返回最大数量，默认500，取值范围为[50. 1000], 示例值：50, 默认值: `500`, 取值范围：`50` ～ `1000`
+	PageSize   *int64  `query:"page_size" json:"-"`   // 一次请求要求返回最大数量，默认500，取值范围为[50, 1000], 示例值：50, 默认值: `500`, 取值范围：`50` ～ `1000`
 	AnchorTime *string `query:"anchor_time" json:"-"` // 拉取anchor_time之后的日程，为timestamp, 示例值："1609430400"
 	PageToken  *string `query:"page_token" json:"-"`  // 上次请求Response返回的分页标记，首次请求时为空, 示例值："ListCalendarsPageToken_1632452910_1632539310"
 	SyncToken  *string `query:"sync_token" json:"-"`  // 上次请求Response返回的增量同步标记，分页请求未结束时为空, 示例值："ListCalendarsSyncToken_1632452910"

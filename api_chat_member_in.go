@@ -6,7 +6,7 @@ import (
 	"context"
 )
 
-// IsInChat 判断用户或者机器人是否在群里。
+// IsInChat 根据使用的access_token判断对应的用户或者机器人是否在群里。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-members/is_in_chat
 func (r *ChatService) IsInChat(ctx context.Context, request *IsInChatReq, options ...MethodOptionFunc) (*IsInChatResp, *Response, error) {

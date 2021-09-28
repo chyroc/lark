@@ -57,7 +57,7 @@ type CreateCalendarEventAttendeeReqAttendee struct {
 	Type            *CalendarEventAttendeeType `json:"type,omitempty"`              // 参与人类型；暂不支持创建邮箱参与人。, 示例值："user", 可选值有: `user`：用户, `chat`：群组, `resource`：会议室, `third_party`：邮箱
 	IsOptional      *bool                      `json:"is_optional,omitempty"`       // 参与人是否为「可选参加」，无法编辑群参与人的此字段, 示例值：true, 默认值: `false`
 	UserID          *string                    `json:"user_id,omitempty"`           // 参与人的用户id，依赖于user_id_type返回对应的取值，当is_external为true时，此字段只会返回open_id或者union_id, 示例值："ou_xxxxxxxx"
-	ChatID          *string                    `json:"chat_id,omitempty"`           // chat类型参与人的群组chat_id, 示例值："om_xxxxxxxxx"
+	ChatID          *string                    `json:"chat_id,omitempty"`           // chat类型参与人的群组chat_id, 示例值："oc_xxxxxxxxx"
 	RoomID          *string                    `json:"room_id,omitempty"`           // resource类型参与人的会议室room_id, 示例值："omm_xxxxxxxx"
 	ThirdPartyEmail *string                    `json:"third_party_email,omitempty"` // third_party类型参与人的邮箱, 示例值："wangwu@email.com"
 	OperateID       *string                    `json:"operate_id,omitempty"`        // 如果日程是使用应用身份创建的，在添加会议室的时候，用来指定会议室的联系人，在会议室视图展示。, 示例值："ou_xxxxxxxx"

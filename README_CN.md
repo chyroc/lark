@@ -36,7 +36,7 @@ https://godoc.org/github.com/chyroc/lark
 
 ## 支持的接口
 
-API 总数: 466, 事件总数: 50
+API 总数: 469, 事件总数: 50
 
 <details>
   <summary>
@@ -80,6 +80,9 @@ API 总数: 466, 事件总数: 50
   - GetContactCustomAttrList
 - Message
   - SendEphemeralMessage
+  - SendUrgentAppMessage
+  - SendUrgentSmsMessage
+  - SendUrgentPhoneMessage
   - SendRawMessage
   - SendRawMessageOld
   - ReplyRawMessage

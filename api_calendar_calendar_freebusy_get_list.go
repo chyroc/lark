@@ -53,7 +53,7 @@ type getCalendarFreeBusyListResp struct {
 }
 
 type GetCalendarFreeBusyListResp struct {
-	FreebusyList []*GetCalendarFreeBusyListRespFreebusy `json:"freebusy_list,omitempty"` // 日历上请求时间区间内的忙闲信息
+	FreebusyList []*GetCalendarFreeBusyListRespFreebusy `json:"freebusy_list,omitempty"` // 日历上请求时间区间内的忙碌时间段信息。
 }
 
 type GetCalendarFreeBusyListRespFreebusy struct {
