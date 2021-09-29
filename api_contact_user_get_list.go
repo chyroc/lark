@@ -84,7 +84,7 @@ type GetUserListRespItem struct {
 	JoinTime        int64                            `json:"join_time,omitempty"`         // 入职时间,**字段权限要求（满足任一）**：, 获取用户雇佣信息, 以应用身份访问通讯录（历史版本）
 	IsTenantManager bool                             `json:"is_tenant_manager,omitempty"` // 是否是租户管理员,**字段权限要求（满足任一）**：, 获取用户雇佣信息, 以应用身份访问通讯录（历史版本）
 	EmployeeNo      string                           `json:"employee_no,omitempty"`       // 工号,**字段权限要求（满足任一）**：, 获取用户雇佣信息, 以应用身份访问通讯录（历史版本）
-	EmployeeType    int64                            `json:"employee_type,omitempty"`     // 员工类型，可选值有：, 1：正式员工, 2：实习生, 3：外包, 4：劳务, 5：顾问   ,同时可读取到自定义员工类型的 int 值，可通过下方接口获取到该租户的自定义员工类型的名称   ,[获取人员类型](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/employee_type_enum/list),**字段权限要求（满足任一）**：, 获取用户雇佣信息, 以应用身份访问通讯录（历史版本）
+	EmployeeType    int64                            `json:"employee_type,omitempty"`     // 员工类型，可选值有：, `1`：正式员工, `2`：实习生, `3`：外包, `4`：劳务, `5`：顾问   ,同时可读取到自定义员工类型的 int 值，可通过下方接口获取到该租户的自定义员工类型的名称   ,[获取人员类型](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/employee_type_enum/list),**字段权限要求（满足任一）**：, 获取用户雇佣信息, 以应用身份访问通讯录（历史版本）
 	Orders          []*GetUserListRespItemOrder      `json:"orders,omitempty"`            // 用户排序信息,**字段权限要求（满足任一）**：, 获取用户组织架构信息, 以应用身份访问通讯录（历史版本）
 	CustomAttrs     []*GetUserListRespItemCustomAttr `json:"custom_attrs,omitempty"`      // 自定义字段，请确保你的组织管理员已在管理后台/组织架构/成员字段管理/自定义字段管理/全局设置中开启了“允许开放平台 API 调用“，否则该字段不会生效/返回。,**字段权限要求（满足任一）**：, 获取用户雇佣信息, 以应用身份访问通讯录（历史版本）
 	EnterpriseEmail string                           `json:"enterprise_email,omitempty"`  // 企业邮箱，请先确保已在管理后台启用飞书邮箱服务,**字段权限要求（满足任一）**：, 获取用户雇佣信息, 以应用身份访问通讯录（历史版本）
@@ -111,7 +111,7 @@ type GetUserListRespItemOrder struct {
 }
 
 type GetUserListRespItemCustomAttr struct {
-	Type  string                              `json:"type,omitempty"`  // 自定义字段类型   , `TEXT`, `HREF`, `ENUMERATION`, `PICTURE_ENUM`, `GENERIC_USER`
+	Type  string                              `json:"type,omitempty"`  // 自定义字段类型   , `TEXT`：文本, `HREF`：网页, `ENUMERATION`：枚举, `PICTURE_ENUM`：图片, `GENERIC_USER`：用户
 	ID    string                              `json:"id,omitempty"`    // 自定义字段ID
 	Value *GetUserListRespItemCustomAttrValue `json:"value,omitempty"` // 自定义字段取值
 }

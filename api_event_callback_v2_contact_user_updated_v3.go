@@ -60,21 +60,21 @@ type EventV2ContactUserUpdatedV3ObjectStatus struct {
 }
 
 type EventV2ContactUserUpdatedV3ObjectOrder struct {
-	DepartmentID    string `json:"department_id,omitempty"`    // 排序信息对应的部门ID
+	DepartmentID    string `json:"department_id,omitempty"`    // 排序信息对应的部门ID, ID值与查询参数中的department_id_type 对应。,不同 ID 的说明参见 [部门ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/field-overview#23857fe0)
 	UserOrder       int64  `json:"user_order,omitempty"`       // 用户在其直属部门内的排序，数值越大，排序越靠前
 	DepartmentOrder int64  `json:"department_order,omitempty"` // 用户所属的多个部门间的排序，数值越大，排序越靠前
 }
 
 type EventV2ContactUserUpdatedV3ObjectCustomAttr struct {
-	Type  string                                            `json:"type,omitempty"`  // 自定义属性类型
-	ID    string                                            `json:"id,omitempty"`    // 自定义属性ID
-	Value *EventV2ContactUserUpdatedV3ObjectCustomAttrValue `json:"value,omitempty"` // 自定义属性取值
+	Type  string                                            `json:"type,omitempty"`  // 自定义字段类型   , `TEXT`：文本, `HREF`：网页, `ENUMERATION`：枚举, `PICTURE_ENUM`：图片, `GENERIC_USER`：用户
+	ID    string                                            `json:"id,omitempty"`    // 自定义字段ID
+	Value *EventV2ContactUserUpdatedV3ObjectCustomAttrValue `json:"value,omitempty"` // 自定义字段取值
 }
 
 type EventV2ContactUserUpdatedV3ObjectCustomAttrValue struct {
-	Text  string `json:"text,omitempty"`   // 属性文本
-	URL   string `json:"url,omitempty"`    // URL
-	PcURL string `json:"pc_url,omitempty"` // PC上的URL
+	Text  string `json:"text,omitempty"`   // 字段类型为 TEXT 时该参数定义字段值，字段类型为 HREF 时该参数定义网页标题
+	URL   string `json:"url,omitempty"`    // 字段类型为 HREF 时，该参数定义默认 URL
+	PcURL string `json:"pc_url,omitempty"` // 字段类型为 HREF 时，该参数定义PC端 URL
 }
 
 type EventV2ContactUserUpdatedV3OldObject struct {
@@ -113,19 +113,19 @@ type EventV2ContactUserUpdatedV3OldObjectStatus struct {
 }
 
 type EventV2ContactUserUpdatedV3OldObjectOrder struct {
-	DepartmentID    string `json:"department_id,omitempty"`    // 排序信息对应的部门ID
+	DepartmentID    string `json:"department_id,omitempty"`    // 排序信息对应的部门ID, ID值与查询参数中的department_id_type 对应。,不同 ID 的说明参见 [部门ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/field-overview#23857fe0)
 	UserOrder       int64  `json:"user_order,omitempty"`       // 用户在其直属部门内的排序，数值越大，排序越靠前
 	DepartmentOrder int64  `json:"department_order,omitempty"` // 用户所属的多个部门间的排序，数值越大，排序越靠前
 }
 
 type EventV2ContactUserUpdatedV3OldObjectCustomAttr struct {
-	Type  string                                               `json:"type,omitempty"`  // 自定义属性类型
-	ID    string                                               `json:"id,omitempty"`    // 自定义属性ID
-	Value *EventV2ContactUserUpdatedV3OldObjectCustomAttrValue `json:"value,omitempty"` // 自定义属性取值
+	Type  string                                               `json:"type,omitempty"`  // 自定义字段类型   , `TEXT`：文本, `HREF`：网页, `ENUMERATION`：枚举, `PICTURE_ENUM`：图片, `GENERIC_USER`：用户
+	ID    string                                               `json:"id,omitempty"`    // 自定义字段ID
+	Value *EventV2ContactUserUpdatedV3OldObjectCustomAttrValue `json:"value,omitempty"` // 自定义字段取值
 }
 
 type EventV2ContactUserUpdatedV3OldObjectCustomAttrValue struct {
-	Text  string `json:"text,omitempty"`   // 属性文本
-	URL   string `json:"url,omitempty"`    // URL
-	PcURL string `json:"pc_url,omitempty"` // PC上的URL
+	Text  string `json:"text,omitempty"`   // 字段类型为 TEXT 时该参数定义字段值，字段类型为 HREF 时该参数定义网页标题
+	URL   string `json:"url,omitempty"`    // 字段类型为 HREF 时，该参数定义默认 URL
+	PcURL string `json:"pc_url,omitempty"` // 字段类型为 HREF 时，该参数定义PC端 URL
 }

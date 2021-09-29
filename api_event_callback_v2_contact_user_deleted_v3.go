@@ -58,15 +58,15 @@ type EventV2ContactUserDeletedV3ObjectStatus struct {
 }
 
 type EventV2ContactUserDeletedV3ObjectCustomAttr struct {
-	Type  string                                            `json:"type,omitempty"`  // 自定义属性类型
-	ID    string                                            `json:"id,omitempty"`    // 自定义属性ID
-	Value *EventV2ContactUserDeletedV3ObjectCustomAttrValue `json:"value,omitempty"` // 自定义属性取值
+	Type  string                                            `json:"type,omitempty"`  // 自定义字段类型   , `TEXT`：文本, `HREF`：网页, `ENUMERATION`：枚举, `PICTURE_ENUM`：图片, `GENERIC_USER`：用户
+	ID    string                                            `json:"id,omitempty"`    // 自定义字段ID
+	Value *EventV2ContactUserDeletedV3ObjectCustomAttrValue `json:"value,omitempty"` // 自定义字段取值
 }
 
 type EventV2ContactUserDeletedV3ObjectCustomAttrValue struct {
-	Text  string `json:"text,omitempty"`   // 属性文本
-	URL   string `json:"url,omitempty"`    // URL
-	PcURL string `json:"pc_url,omitempty"` // PC上的URL
+	Text  string `json:"text,omitempty"`   // 字段类型为 TEXT 时该参数定义字段值，字段类型为 HREF 时该参数定义网页标题
+	URL   string `json:"url,omitempty"`    // 字段类型为 HREF 时，该参数定义默认 URL
+	PcURL string `json:"pc_url,omitempty"` // 字段类型为 HREF 时，该参数定义PC端 URL
 }
 
 type EventV2ContactUserDeletedV3OldObject struct {

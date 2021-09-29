@@ -43,9 +43,9 @@ func (r *Mock) UnMockContactGetUser() {
 }
 
 type GetUserReq struct {
-	UserIDType       *IDType           `query:"user_id_type" json:"-"`       // 用户 ID 类型, 示例值："open_id", 可选值有: `open_id`：用户的 open id, `union_id`：用户的 union id, `user_id`：用户的 user id, 默认值: `open_id`,, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
+	UserIDType       *IDType           `query:"user_id_type" json:"-"`       // 用户 ID 类型, 示例值："open_id", 可选值有: `open_id`：用户的 open id, `union_id`：用户的 union id, `user_id`：用户的 user id, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求:  获取用户 user ID
 	DepartmentIDType *DepartmentIDType `query:"department_id_type" json:"-"` // 此次调用中使用的部门ID的类型, 示例值："open_department_id", 可选值有: `department_id`：以自定义department_id来标识部门, `open_department_id`：以open_department_id来标识部门, 默认值: `open_department_id`
-	UserID           string            `path:"user_id" json:"-"`             // 用户ID，需要与查询参数中的user_id_type类型保持一致。, 示例值："ou_7dab8a3d3cdcc9da365777c7ad535d62"
+	UserID           string            `path:"user_id" json:"-"`             // 用户ID，需要与查询参数中的user_id_type类型保持一致。, 示例值："7be5fg9a", 字段权限要求:  获取用户 user ID
 }
 
 type getUserResp struct {
@@ -62,7 +62,7 @@ type GetUserRespUser struct {
 	UnionID         string                       `json:"union_id,omitempty"`          // 用户的union_id，不同ID的说明参见 [用户相关的 ID 概念](https://open.feishu.cn/document/home/user-identity-introduction/introduction)
 	UserID          string                       `json:"user_id,omitempty"`           // 租户内用户的唯一标识，ID值与查询参数中的user_id_type 对应。,不同 ID 的说明参见 [用户相关的 ID 概念](https://open.feishu.cn/document/home/user-identity-introduction/introduction), 字段权限要求:  获取用户 user ID
 	OpenID          string                       `json:"open_id,omitempty"`           // 用户的open_id，不同ID的说明参见 [用户相关的 ID 概念](https://open.feishu.cn/document/home/user-identity-introduction/introduction)
-	Name            string                       `json:"name,omitempty"`              // 用户名, 最小长度：`1` 字符,**字段权限要求（满足任一）**：, 获取用户基本信息, 以应用身份访问通讯录（历史版本）
+	Name            string                       `json:"name,omitempty"`              // 用户名,**字段权限要求（满足任一）**：, 获取用户基本信息, 以应用身份访问通讯录（历史版本）
 	EnName          string                       `json:"en_name,omitempty"`           // 英文名,**字段权限要求（满足任一）**：, 获取用户基本信息, 以应用身份访问通讯录（历史版本）
 	Email           string                       `json:"email,omitempty"`             // 邮箱, 字段权限要求:  获取用户邮箱信息
 	Mobile          string                       `json:"mobile,omitempty"`            // 手机号, 字段权限要求:  获取用户手机号
@@ -78,7 +78,7 @@ type GetUserRespUser struct {
 	JoinTime        int64                        `json:"join_time,omitempty"`         // 入职时间,**字段权限要求（满足任一）**：, 获取用户雇佣信息, 以应用身份访问通讯录（历史版本）
 	IsTenantManager bool                         `json:"is_tenant_manager,omitempty"` // 是否是租户管理员,**字段权限要求（满足任一）**：, 获取用户雇佣信息, 以应用身份访问通讯录（历史版本）
 	EmployeeNo      string                       `json:"employee_no,omitempty"`       // 工号,**字段权限要求（满足任一）**：, 获取用户雇佣信息, 以应用身份访问通讯录（历史版本）
-	EmployeeType    int64                        `json:"employee_type,omitempty"`     // 员工类型，可选值有：, 1：正式员工, 2：实习生, 3：外包, 4：劳务, 5：顾问   ,同时可读取到自定义员工类型的 int 值，可通过下方接口获取到该租户的自定义员工类型的名称   ,[获取人员类型](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/employee_type_enum/list),**字段权限要求（满足任一）**：, 获取用户雇佣信息, 以应用身份访问通讯录（历史版本）
+	EmployeeType    int64                        `json:"employee_type,omitempty"`     // 员工类型，可选值有：, `1`：正式员工, `2`：实习生, `3`：外包, `4`：劳务, `5`：顾问   ,同时可读取到自定义员工类型的 int 值，可通过下方接口获取到该租户的自定义员工类型的名称   ,[获取人员类型](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/employee_type_enum/list),**字段权限要求（满足任一）**：, 获取用户雇佣信息, 以应用身份访问通讯录（历史版本）
 	Orders          []*GetUserRespUserOrder      `json:"orders,omitempty"`            // 用户排序信息,**字段权限要求（满足任一）**：, 获取用户组织架构信息, 以应用身份访问通讯录（历史版本）
 	CustomAttrs     []*GetUserRespUserCustomAttr `json:"custom_attrs,omitempty"`      // 自定义字段，请确保你的组织管理员已在管理后台/组织架构/成员字段管理/自定义字段管理/全局设置中开启了“允许开放平台 API 调用“，否则该字段不会生效/返回。,**字段权限要求（满足任一）**：, 获取用户雇佣信息, 以应用身份访问通讯录（历史版本）
 	EnterpriseEmail string                       `json:"enterprise_email,omitempty"`  // 企业邮箱，请先确保已在管理后台启用飞书邮箱服务,**字段权限要求（满足任一）**：, 获取用户雇佣信息, 以应用身份访问通讯录（历史版本）
@@ -105,7 +105,7 @@ type GetUserRespUserOrder struct {
 }
 
 type GetUserRespUserCustomAttr struct {
-	Type  string                          `json:"type,omitempty"`  // 自定义字段类型   , `TEXT`, `HREF`, `ENUMERATION`, `PICTURE_ENUM`, `GENERIC_USER`
+	Type  string                          `json:"type,omitempty"`  // 自定义字段类型   , `TEXT`：文本, `HREF`：网页, `ENUMERATION`：枚举, `PICTURE_ENUM`：图片, `GENERIC_USER`：用户
 	ID    string                          `json:"id,omitempty"`    // 自定义字段ID
 	Value *GetUserRespUserCustomAttrValue `json:"value,omitempty"` // 自定义字段取值
 }

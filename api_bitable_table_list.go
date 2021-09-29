@@ -59,7 +59,7 @@ type GetBitableTableListResp struct {
 }
 
 type GetBitableTableListRespItem struct {
-	TableID  string `json:"table_id,omitempty"` // 表格表 id
+	TableID  string `json:"table_id,omitempty"` // 数据表 id
 	Revision int64  `json:"revision,omitempty"` // 数据表的版本号
 	Name     string `json:"name,omitempty"`     // 数据表名字
 }

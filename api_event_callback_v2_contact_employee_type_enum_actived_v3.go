@@ -27,13 +27,13 @@ type EventV2ContactEmployeeTypeEnumActivedV3OldEnum struct {
 	EnumValue   string                                                     `json:"enum_value,omitempty"`   // 枚举值
 	Content     string                                                     `json:"content,omitempty"`      // 枚举内容, 长度范围：`1` ～ `100` 字符
 	EnumType    int64                                                      `json:"enum_type,omitempty"`    // 类型, 可选值有: `1`：内置类型, `2`：自定义
-	EnumStatus  int64                                                      `json:"enum_status,omitempty"`  // 类型, 可选值有: `1`：激活, `2`：未激活
+	EnumStatus  int64                                                      `json:"enum_status,omitempty"`  // 使用状态, 可选值有: `1`：激活, `2`：未激活
 	I18nContent *EventV2ContactEmployeeTypeEnumActivedV3OldEnumI18nContent `json:"i18n_content,omitempty"` // i18n定义
 }
 
 type EventV2ContactEmployeeTypeEnumActivedV3OldEnumI18nContent struct {
-	Locale string `json:"locale,omitempty"` // 语言
-	Value  string `json:"value,omitempty"`  // i18n内容
+	Locale string `json:"locale,omitempty"` // 语言版本
+	Value  string `json:"value,omitempty"`  // 字段名
 }
 
 type EventV2ContactEmployeeTypeEnumActivedV3NewEnum struct {
@@ -41,11 +41,11 @@ type EventV2ContactEmployeeTypeEnumActivedV3NewEnum struct {
 	EnumValue   string                                                     `json:"enum_value,omitempty"`   // 枚举值
 	Content     string                                                     `json:"content,omitempty"`      // 枚举内容, 长度范围：`1` ～ `100` 字符
 	EnumType    int64                                                      `json:"enum_type,omitempty"`    // 类型, 可选值有: `1`：内置类型, `2`：自定义
-	EnumStatus  int64                                                      `json:"enum_status,omitempty"`  // 类型, 可选值有: `1`：激活, `2`：未激活
+	EnumStatus  int64                                                      `json:"enum_status,omitempty"`  // 使用状态, 可选值有: `1`：激活, `2`：未激活
 	I18nContent *EventV2ContactEmployeeTypeEnumActivedV3NewEnumI18nContent `json:"i18n_content,omitempty"` // i18n定义
 }
 
 type EventV2ContactEmployeeTypeEnumActivedV3NewEnumI18nContent struct {
-	Locale string `json:"locale,omitempty"` // 语言
-	Value  string `json:"value,omitempty"`  // i18n内容
+	Locale string `json:"locale,omitempty"` // 语言版本
+	Value  string `json:"value,omitempty"`  // 字段名
 }

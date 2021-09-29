@@ -45,7 +45,7 @@ type SearchDepartmentReq struct {
 	DepartmentIDType *DepartmentIDType `query:"department_id_type" json:"-"` // 此次调用中使用的部门ID的类型, 示例值："open_department_id", 可选值有: `department_id`：以自定义 department_id 来标识部门, `open_department_id`：以 open_department_id 来标识部门
 	PageToken        *string           `query:"page_token" json:"-"`         // 分页标记，第一次请求不填，表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token，下次遍历可采用该 page_token 获取查询结果, 示例值："AQD9/Rn9eij9Pm39ED40/RD/cIFmu77WxpxPB/2oHfQLZ+G8JG6tK7+ZnHiT7COhD2hMSICh/eBl7cpzU6JEC3J7COKNe4jrQ8ExwBCR"
 	PageSize         *int64            `query:"page_size" json:"-"`          // 分页大小, 示例值：10, 最大值：`50`
-	Query            string            `json:"query,omitempty"`              // 搜索关键词, 示例值："DemoName"
+	Query            string            `json:"query,omitempty"`              // 搜索关键词，匹配字段为部门名称（不支持匹配部门国际化名称）, 示例值："DemoName"
 }
 
 type searchDepartmentResp struct {

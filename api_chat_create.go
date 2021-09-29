@@ -43,12 +43,15 @@ func (r *Mock) UnMockChatCreateChat() {
 }
 
 type CreateChatReq struct {
+	UserIDType             *IDType             `query:"user_id_type" json:"-"`             // 用户 ID 类型, 示例值："open_id", 可选值有: `open_id`：用户的 open id, `union_id`：用户的 union id, `user_id`：用户的 user id, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求:  获取用户 user ID
 	Avatar                 *string             `json:"avatar,omitempty"`                   // 群头像对应的 Image Key，可通过[上传图片](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/image/create)获取（注意：上传图片的 [image_type] 需要指定为 [avatar]）, 示例值："default-avatar_44ae0ca3-e140-494b-956f-78091e348435"
 	Name                   *string             `json:"name,omitempty"`                     // 群名称, 示例值："测试群名称"
 	Description            *string             `json:"description,omitempty"`              // 群描述, 示例值："测试群描述"
 	I18nNames              *I18nNames          `json:"i18n_names,omitempty"`               // 群国际化名称
+	OwnerID                *string             `json:"owner_id,omitempty"`                 // 创建群时指定的群主，不填时指定建群的机器人为群主, 示例值："4d7a3c6g"
 	ChatMode               *string             `json:"chat_mode,omitempty"`                // 群模式(group), 示例值："group"
 	ChatType               *ChatType           `json:"chat_type,omitempty"`                // 群类型(private/public), 示例值："private"
+	External               *bool               `json:"external,omitempty"`                 // 是否是外部群, 示例值：false
 	JoinMessageVisibility  *MessageVisibility  `json:"join_message_visibility,omitempty"`  // 入群消息可见性(only_owner/all_members/not_anyone), 示例值："all_members"
 	LeaveMessageVisibility *MessageVisibility  `json:"leave_message_visibility,omitempty"` // 出群消息可见性(only_owner/all_members/not_anyone), 示例值："all_members"
 	MembershipApproval     *MembershipApproval `json:"membership_approval,omitempty"`      // 加群审批(no_approval_required/approval_required), 示例值："no_approval_required"
@@ -66,6 +69,8 @@ type CreateChatResp struct {
 	Name                   string               `json:"name,omitempty"`                     // 群名称
 	Description            string               `json:"description,omitempty"`              // 群描述
 	I18nNames              *I18nNames           `json:"i18n_names,omitempty"`               // 群国际化名称
+	OwnerID                string               `json:"owner_id,omitempty"`                 // 群主 ID
+	OwnerIDType            IDType               `json:"owner_id_type,omitempty"`            // 群主 ID 类型
 	AddMemberPermission    AddMemberPermission  `json:"add_member_permission,omitempty"`    // 加 user/bot 入群权限(all_members/only_owner)
 	ShareCardPermission    ShareCardPermission  `json:"share_card_permission,omitempty"`    // 群分享权限(allowed/not_allowed)
 	AtAllPermission        AtAllPermission      `json:"at_all_permission,omitempty"`        // at 所有人权限(all_members/only_owner)
@@ -73,6 +78,8 @@ type CreateChatResp struct {
 	ChatMode               string               `json:"chat_mode,omitempty"`                // 群模式(group)
 	ChatType               ChatType             `json:"chat_type,omitempty"`                // 群类型(private/public)
 	ChatTag                string               `json:"chat_tag,omitempty"`                 // 优先级最高的一个群 tag（inner/tenant/department/edu/meeting/customer_service）
+	External               bool                 `json:"external,omitempty"`                 // 是否是外部群
+	TenantKey              string               `json:"tenant_key,omitempty"`               // tenant key
 	JoinMessageVisibility  MessageVisibility    `json:"join_message_visibility,omitempty"`  // 入群消息可见性(only_owner/all_members/not_anyone)
 	LeaveMessageVisibility MessageVisibility    `json:"leave_message_visibility,omitempty"` // 出群消息可见性(only_owner/all_members/not_anyone)
 	MembershipApproval     MembershipApproval   `json:"membership_approval,omitempty"`      // 加群审批(no_approval_required/approval_required)
