@@ -21,7 +21,7 @@ func (r *ApplicationService) CheckUserIsInApplicationPaidScope(ctx context.Conte
 		Scope:                 "Application",
 		API:                   "CheckUserIsInApplicationPaidScope",
 		Method:                "GET",
-		URL:                   "https://open.feishu.cn/open-apis/pay/v1/paid_scope/check_user",
+		URL:                   r.cli.openBaseURL + "/open-apis/pay/v1/paid_scope/check_user",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,

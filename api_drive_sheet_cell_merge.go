@@ -21,7 +21,7 @@ func (r *DriveService) MergeSheetCell(ctx context.Context, request *MergeSheetCe
 		Scope:                 "Drive",
 		API:                   "MergeSheetCell",
 		Method:                "POST",
-		URL:                   "https://open.feishu.cn/open-apis/sheets/v2/spreadsheets/:spreadsheetToken/merge_cells",
+		URL:                   r.cli.openBaseURL + "/open-apis/sheets/v2/spreadsheets/:spreadsheetToken/merge_cells",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,

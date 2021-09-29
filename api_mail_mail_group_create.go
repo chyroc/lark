@@ -19,7 +19,7 @@ func (r *MailService) CreateMailGroup(ctx context.Context, request *CreateMailGr
 		Scope:                 "Mail",
 		API:                   "CreateMailGroup",
 		Method:                "POST",
-		URL:                   "https://open.feishu.cn/open-apis/mail/v1/mailgroups",
+		URL:                   r.cli.openBaseURL + "/open-apis/mail/v1/mailgroups",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,

@@ -19,7 +19,7 @@ func (r *MeetingRoomService) GetMeetingRoomCountryList(ctx context.Context, requ
 		Scope:                 "MeetingRoom",
 		API:                   "GetMeetingRoomCountryList",
 		Method:                "GET",
-		URL:                   "https://open.feishu.cn/open-apis/meeting_room/country/list",
+		URL:                   r.cli.openBaseURL + "/open-apis/meeting_room/country/list",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,

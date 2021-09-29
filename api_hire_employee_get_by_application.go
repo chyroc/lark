@@ -19,7 +19,7 @@ func (r *HireService) GetHireEmployeeByApplication(ctx context.Context, request 
 		Scope:                 "Hire",
 		API:                   "GetHireEmployeeByApplication",
 		Method:                "GET",
-		URL:                   "https://open.feishu.cn/open-apis/hire/v1/employees/get_by_application",
+		URL:                   r.cli.openBaseURL + "/open-apis/hire/v1/employees/get_by_application",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,

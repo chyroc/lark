@@ -21,7 +21,7 @@ func (r *AttendanceService) GetAttendanceStatisticsData(ctx context.Context, req
 		Scope:                 "Attendance",
 		API:                   "GetAttendanceStatisticsData",
 		Method:                "POST",
-		URL:                   "https://open.feishu.cn/open-apis/attendance/v1/user_stats_datas/query",
+		URL:                   r.cli.openBaseURL + "/open-apis/attendance/v1/user_stats_datas/query",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,

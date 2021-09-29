@@ -19,7 +19,7 @@ func (r *HireService) GetHireNoteList(ctx context.Context, request *GetHireNoteL
 		Scope:                 "Hire",
 		API:                   "GetHireNoteList",
 		Method:                "GET",
-		URL:                   "https://open.feishu.cn/open-apis/hire/v1/notes",
+		URL:                   r.cli.openBaseURL + "/open-apis/hire/v1/notes",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,

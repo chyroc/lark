@@ -21,7 +21,7 @@ func (r *AttendanceService) DeleteAttendanceShift(ctx context.Context, request *
 		Scope:                 "Attendance",
 		API:                   "DeleteAttendanceShift",
 		Method:                "DELETE",
-		URL:                   "https://open.feishu.cn/open-apis/attendance/v1/shifts/:shift_id",
+		URL:                   r.cli.openBaseURL + "/open-apis/attendance/v1/shifts/:shift_id",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,

@@ -21,7 +21,7 @@ func (r *AIService) DetectFaceAttributes(ctx context.Context, request *DetectFac
 		Scope:                 "AI",
 		API:                   "DetectFaceAttributes",
 		Method:                "POST",
-		URL:                   "https://open.feishu.cn/open-apis/face_detection/v1/image/detect_face_attributes",
+		URL:                   r.cli.openBaseURL + "/open-apis/face_detection/v1/image/detect_face_attributes",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,

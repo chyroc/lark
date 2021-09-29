@@ -19,7 +19,7 @@ func (r *ContactService) DeleteEmployeeTypeEnum(ctx context.Context, request *De
 		Scope:                 "Contact",
 		API:                   "DeleteEmployeeTypeEnum",
 		Method:                "DELETE",
-		URL:                   "https://open.feishu.cn/open-apis/contact/v3/employee_type_enums/:enum_id",
+		URL:                   r.cli.openBaseURL + "/open-apis/contact/v3/employee_type_enums/:enum_id",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,

@@ -23,7 +23,7 @@ func (r *CalendarService) SearchCalendarEvent(ctx context.Context, request *Sear
 		Scope:               "Calendar",
 		API:                 "SearchCalendarEvent",
 		Method:              "POST",
-		URL:                 "https://open.feishu.cn/open-apis/calendar/v4/calendars/:calendar_id/events/search",
+		URL:                 r.cli.openBaseURL + "/open-apis/calendar/v4/calendars/:calendar_id/events/search",
 		Body:                request,
 		MethodOption:        newMethodOption(options),
 		NeedUserAccessToken: true,

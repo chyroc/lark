@@ -21,7 +21,7 @@ func (r *AIService) TranslateText(ctx context.Context, request *TranslateTextReq
 		Scope:                 "AI",
 		API:                   "TranslateText",
 		Method:                "POST",
-		URL:                   "https://open.feishu.cn/open-apis/translation/v1/text/translate",
+		URL:                   r.cli.openBaseURL + "/open-apis/translation/v1/text/translate",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,

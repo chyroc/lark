@@ -21,7 +21,7 @@ func (r *ApprovalService) PreviewApprovalInstance(ctx context.Context, request *
 		Scope:                 "Approval",
 		API:                   "PreviewApprovalInstance",
 		Method:                "POST",
-		URL:                   "https://open.feishu.cn/open-apis/approval/v4/instances/preview",
+		URL:                   r.cli.openBaseURL + "/open-apis/approval/v4/instances/preview",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,

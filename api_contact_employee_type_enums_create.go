@@ -19,7 +19,7 @@ func (r *ContactService) CreateEmployeeTypeEnum(ctx context.Context, request *Cr
 		Scope:                 "Contact",
 		API:                   "CreateEmployeeTypeEnum",
 		Method:                "POST",
-		URL:                   "https://open.feishu.cn/open-apis/contact/v3/employee_type_enums",
+		URL:                   r.cli.openBaseURL + "/open-apis/contact/v3/employee_type_enums",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,

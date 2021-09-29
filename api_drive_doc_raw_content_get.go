@@ -21,7 +21,7 @@ func (r *DriveService) GetDriveDocRawContent(ctx context.Context, request *GetDr
 		Scope:                 "Drive",
 		API:                   "GetDriveDocRawContent",
 		Method:                "GET",
-		URL:                   "https://open.feishu.cn/open-apis/doc/v2/:docToken/raw_content",
+		URL:                   r.cli.openBaseURL + "/open-apis/doc/v2/:docToken/raw_content",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,

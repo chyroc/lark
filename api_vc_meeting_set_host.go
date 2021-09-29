@@ -21,7 +21,7 @@ func (r *VCService) SetVCHostMeeting(ctx context.Context, request *SetVCHostMeet
 		Scope:                 "VC",
 		API:                   "SetVCHostMeeting",
 		Method:                "PATCH",
-		URL:                   "https://open.feishu.cn/open-apis/vc/v1/meetings/:meeting_id/set_host",
+		URL:                   r.cli.openBaseURL + "/open-apis/vc/v1/meetings/:meeting_id/set_host",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,

@@ -22,7 +22,7 @@ func (r *ApprovalService) UploadApprovalFile(ctx context.Context, request *Uploa
 		Scope:                 "Approval",
 		API:                   "UploadApprovalFile",
 		Method:                "POST",
-		URL:                   "https://www.feishu.cn/approval/openapi/v2/file/upload",
+		URL:                   r.cli.wwwBaseURL + "/approval/openapi/v2/file/upload",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,

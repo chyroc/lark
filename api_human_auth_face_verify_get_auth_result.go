@@ -22,7 +22,7 @@ func (r *HumanAuthService) GetFaceVerifyAuthResult(ctx context.Context, request 
 		Scope:                 "HumanAuth",
 		API:                   "GetFaceVerifyAuthResult",
 		Method:                "GET",
-		URL:                   "https://open.feishu.cn/open-apis/face_verify/v1/query_auth_result",
+		URL:                   r.cli.openBaseURL + "/open-apis/face_verify/v1/query_auth_result",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,

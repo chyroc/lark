@@ -23,7 +23,7 @@ func (r *ChatService) CreateChat(ctx context.Context, request *CreateChatReq, op
 		Scope:                 "Chat",
 		API:                   "CreateChat",
 		Method:                "POST",
-		URL:                   "https://open.feishu.cn/open-apis/im/v1/chats",
+		URL:                   r.cli.openBaseURL + "/open-apis/im/v1/chats",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,

@@ -19,7 +19,7 @@ func (r *HelpdeskService) GetHelpdeskAgentSkillRuleList(ctx context.Context, req
 		Scope:                 "Helpdesk",
 		API:                   "GetHelpdeskAgentSkillRuleList",
 		Method:                "GET",
-		URL:                   "https://open.feishu.cn/open-apis/helpdesk/v1/agent_skill_rules",
+		URL:                   r.cli.openBaseURL + "/open-apis/helpdesk/v1/agent_skill_rules",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,

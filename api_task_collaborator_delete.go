@@ -19,7 +19,7 @@ func (r *TaskService) DeleteTaskCollaborator(ctx context.Context, request *Delet
 		Scope:                 "Task",
 		API:                   "DeleteTaskCollaborator",
 		Method:                "DELETE",
-		URL:                   "https://open.feishu.cn/open-apis/task/v1/tasks/:task_id/collaborators/:collaborator_id",
+		URL:                   r.cli.openBaseURL + "/open-apis/task/v1/tasks/:task_id/collaborators/:collaborator_id",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,

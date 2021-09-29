@@ -19,7 +19,7 @@ func (r *HelpdeskService) GetHelpdeskCategory(ctx context.Context, request *GetH
 		Scope:                 "Helpdesk",
 		API:                   "GetHelpdeskCategory",
 		Method:                "GET",
-		URL:                   "https://open.feishu.cn/open-apis/helpdesk/v1/categories/:id",
+		URL:                   r.cli.openBaseURL + "/open-apis/helpdesk/v1/categories/:id",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,

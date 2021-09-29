@@ -21,7 +21,7 @@ func (r *ApplicationService) GetApplicationAppList(ctx context.Context, request 
 		Scope:                 "Application",
 		API:                   "GetApplicationAppList",
 		Method:                "GET",
-		URL:                   "https://open.feishu.cn/open-apis/application/v3/app/list",
+		URL:                   r.cli.openBaseURL + "/open-apis/application/v3/app/list",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,

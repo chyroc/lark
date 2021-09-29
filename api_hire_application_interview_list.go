@@ -21,7 +21,7 @@ func (r *HireService) GetHireApplicationInterviewList(ctx context.Context, reque
 		Scope:                 "Hire",
 		API:                   "GetHireApplicationInterviewList",
 		Method:                "GET",
-		URL:                   "https://open.feishu.cn/open-apis/hire/v1/applications/:application_id/interviews",
+		URL:                   r.cli.openBaseURL + "/open-apis/hire/v1/applications/:application_id/interviews",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,

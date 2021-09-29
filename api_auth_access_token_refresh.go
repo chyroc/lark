@@ -19,7 +19,7 @@ func (r *AuthService) RefreshAccessToken(ctx context.Context, request *RefreshAc
 		Scope:               "Auth",
 		API:                 "RefreshAccessToken",
 		Method:              "POST",
-		URL:                 "https://open.feishu.cn/open-apis/authen/v1/refresh_access_token",
+		URL:                 r.cli.openBaseURL + "/open-apis/authen/v1/refresh_access_token",
 		Body:                request,
 		MethodOption:        newMethodOption(options),
 		NeedAppAccessToken:  true,

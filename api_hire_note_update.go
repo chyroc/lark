@@ -19,7 +19,7 @@ func (r *HireService) UpdateHireNote(ctx context.Context, request *UpdateHireNot
 		Scope:                 "Hire",
 		API:                   "UpdateHireNote",
 		Method:                "PATCH",
-		URL:                   "https://open.feishu.cn/open-apis/hire/v1/notes/:note_id",
+		URL:                   r.cli.openBaseURL + "/open-apis/hire/v1/notes/:note_id",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,

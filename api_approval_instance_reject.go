@@ -21,7 +21,7 @@ func (r *ApprovalService) RejectApprovalInstance(ctx context.Context, request *R
 		Scope:                 "Approval",
 		API:                   "RejectApprovalInstance",
 		Method:                "POST",
-		URL:                   "https://www.feishu.cn/approval/openapi/v2/instance/reject",
+		URL:                   r.cli.wwwBaseURL + "/approval/openapi/v2/instance/reject",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,

@@ -19,7 +19,7 @@ func (r *TaskService) UpdateTask(ctx context.Context, request *UpdateTaskReq, op
 		Scope:                 "Task",
 		API:                   "UpdateTask",
 		Method:                "PATCH",
-		URL:                   "https://open.feishu.cn/open-apis/task/v1/tasks/:task_id",
+		URL:                   r.cli.openBaseURL + "/open-apis/task/v1/tasks/:task_id",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,

@@ -19,7 +19,7 @@ func (r *BitableService) DeleteBitableRecord(ctx context.Context, request *Delet
 		Scope:                 "Bitable",
 		API:                   "DeleteBitableRecord",
 		Method:                "DELETE",
-		URL:                   "https://open.feishu.cn/open-apis/bitable/v1/apps/:app_token/tables/:table_id/records/:record_id",
+		URL:                   r.cli.openBaseURL + "/open-apis/bitable/v1/apps/:app_token/tables/:table_id/records/:record_id",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,

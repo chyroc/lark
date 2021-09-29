@@ -21,7 +21,7 @@ func (r *VCService) GetVCDailyReport(ctx context.Context, request *GetVCDailyRep
 		Scope:                 "VC",
 		API:                   "GetVCDailyReport",
 		Method:                "GET",
-		URL:                   "https://open.feishu.cn/open-apis/vc/v1/reports/get_daily",
+		URL:                   r.cli.openBaseURL + "/open-apis/vc/v1/reports/get_daily",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,

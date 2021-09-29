@@ -19,7 +19,7 @@ func (r *TaskService) CreateTask(ctx context.Context, request *CreateTaskReq, op
 		Scope:                 "Task",
 		API:                   "CreateTask",
 		Method:                "POST",
-		URL:                   "https://open.feishu.cn/open-apis/task/v1/tasks",
+		URL:                   r.cli.openBaseURL + "/open-apis/task/v1/tasks",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,

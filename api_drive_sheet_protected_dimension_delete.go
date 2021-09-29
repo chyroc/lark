@@ -21,7 +21,7 @@ func (r *DriveService) DeleteSheetProtectedDimension(ctx context.Context, reques
 		Scope:                 "Drive",
 		API:                   "DeleteSheetProtectedDimension",
 		Method:                "DELETE",
-		URL:                   "https://open.feishu.cn/open-apis/sheets/v2/spreadsheets/:spreadsheetToken/protected_range_batch_del",
+		URL:                   r.cli.openBaseURL + "/open-apis/sheets/v2/spreadsheets/:spreadsheetToken/protected_range_batch_del",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,

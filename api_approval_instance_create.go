@@ -21,7 +21,7 @@ func (r *ApprovalService) CreateApprovalInstance(ctx context.Context, request *C
 		Scope:                 "Approval",
 		API:                   "CreateApprovalInstance",
 		Method:                "POST",
-		URL:                   "https://www.feishu.cn/approval/openapi/v2/instance/create",
+		URL:                   r.cli.wwwBaseURL + "/approval/openapi/v2/instance/create",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,

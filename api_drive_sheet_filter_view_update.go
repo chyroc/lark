@@ -19,7 +19,7 @@ func (r *DriveService) UpdateSheetFilterView(ctx context.Context, request *Updat
 		Scope:                 "Drive",
 		API:                   "UpdateSheetFilterView",
 		Method:                "PATCH",
-		URL:                   "https://open.feishu.cn/open-apis/sheets/v3/spreadsheets/:spreadsheet_token/sheets/:sheet_id/filter_views/:filter_view_id",
+		URL:                   r.cli.openBaseURL + "/open-apis/sheets/v3/spreadsheets/:spreadsheet_token/sheets/:sheet_id/filter_views/:filter_view_id",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,

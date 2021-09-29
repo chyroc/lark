@@ -19,7 +19,7 @@ func (r *HelpdeskService) SearchHelpdeskFAQ(ctx context.Context, request *Search
 		Scope:                 "Helpdesk",
 		API:                   "SearchHelpdeskFAQ",
 		Method:                "GET",
-		URL:                   "https://open.feishu.cn/open-apis/helpdesk/v1/faqs/search",
+		URL:                   r.cli.openBaseURL + "/open-apis/helpdesk/v1/faqs/search",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,

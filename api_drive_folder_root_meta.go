@@ -21,7 +21,7 @@ func (r *DriveService) GetDriveRootFolderMeta(ctx context.Context, request *GetD
 		Scope:                 "Drive",
 		API:                   "GetDriveRootFolderMeta",
 		Method:                "GET",
-		URL:                   "https://open.feishu.cn/open-apis/drive/explorer/v2/root_folder/meta",
+		URL:                   r.cli.openBaseURL + "/open-apis/drive/explorer/v2/root_folder/meta",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,

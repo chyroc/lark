@@ -19,7 +19,7 @@ func (r *HireService) GetHireAttachmentPreview(ctx context.Context, request *Get
 		Scope:                 "Hire",
 		API:                   "GetHireAttachmentPreview",
 		Method:                "GET",
-		URL:                   "https://open.feishu.cn/open-apis/hire/v1/attachments/:attachment_id/preview",
+		URL:                   r.cli.openBaseURL + "/open-apis/hire/v1/attachments/:attachment_id/preview",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,

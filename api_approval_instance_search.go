@@ -21,7 +21,7 @@ func (r *ApprovalService) SearchApprovalInstance(ctx context.Context, request *S
 		Scope:                 "Approval",
 		API:                   "SearchApprovalInstance",
 		Method:                "POST",
-		URL:                   "https://www.feishu.cn/approval/openapi/v2/instance/search",
+		URL:                   r.cli.wwwBaseURL + "/approval/openapi/v2/instance/search",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,

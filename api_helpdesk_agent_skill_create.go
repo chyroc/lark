@@ -19,7 +19,7 @@ func (r *HelpdeskService) CreateHelpdeskAgentSkill(ctx context.Context, request 
 		Scope:               "Helpdesk",
 		API:                 "CreateHelpdeskAgentSkill",
 		Method:              "POST",
-		URL:                 "https://open.feishu.cn/open-apis/helpdesk/v1/agent_skills",
+		URL:                 r.cli.openBaseURL + "/open-apis/helpdesk/v1/agent_skills",
 		Body:                request,
 		MethodOption:        newMethodOption(options),
 		NeedUserAccessToken: true,

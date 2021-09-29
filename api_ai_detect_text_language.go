@@ -21,7 +21,7 @@ func (r *AIService) DetectTextLanguage(ctx context.Context, request *DetectTextL
 		Scope:                 "AI",
 		API:                   "DetectTextLanguage",
 		Method:                "POST",
-		URL:                   "https://open.feishu.cn/open-apis/translation/v1/text/detect",
+		URL:                   r.cli.openBaseURL + "/open-apis/translation/v1/text/detect",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,

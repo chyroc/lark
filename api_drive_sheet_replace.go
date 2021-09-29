@@ -19,7 +19,7 @@ func (r *DriveService) ReplaceSheet(ctx context.Context, request *ReplaceSheetRe
 		Scope:                 "Drive",
 		API:                   "ReplaceSheet",
 		Method:                "POST",
-		URL:                   "https://open.feishu.cn/open-apis/sheets/v3/spreadsheets/:spreadsheet_token/sheets/:sheet_id/replace",
+		URL:                   r.cli.openBaseURL + "/open-apis/sheets/v3/spreadsheets/:spreadsheet_token/sheets/:sheet_id/replace",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,

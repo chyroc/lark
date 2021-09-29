@@ -21,7 +21,7 @@ func (r *HumanAuthService) CreateIdentity(ctx context.Context, request *CreateId
 		Scope:                 "HumanAuth",
 		API:                   "CreateIdentity",
 		Method:                "POST",
-		URL:                   "https://open.feishu.cn/open-apis/human_authentication/v1/identities",
+		URL:                   r.cli.openBaseURL + "/open-apis/human_authentication/v1/identities",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,

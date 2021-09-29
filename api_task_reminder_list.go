@@ -19,7 +19,7 @@ func (r *TaskService) GetTaskReminderList(ctx context.Context, request *GetTaskR
 		Scope:                 "Task",
 		API:                   "GetTaskReminderList",
 		Method:                "GET",
-		URL:                   "https://open.feishu.cn/open-apis/task/v1/tasks/:task_id/reminders",
+		URL:                   r.cli.openBaseURL + "/open-apis/task/v1/tasks/:task_id/reminders",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,

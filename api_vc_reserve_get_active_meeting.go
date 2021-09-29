@@ -21,7 +21,7 @@ func (r *VCService) GetVCReserveActiveMeeting(ctx context.Context, request *GetV
 		Scope:               "VC",
 		API:                 "GetVCReserveActiveMeeting",
 		Method:              "GET",
-		URL:                 "https://open.feishu.cn/open-apis/vc/v1/reserves/:reserve_id/get_active_meeting",
+		URL:                 r.cli.openBaseURL + "/open-apis/vc/v1/reserves/:reserve_id/get_active_meeting",
 		Body:                request,
 		MethodOption:        newMethodOption(options),
 		NeedUserAccessToken: true,

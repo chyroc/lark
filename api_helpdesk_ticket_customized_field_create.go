@@ -21,7 +21,7 @@ func (r *HelpdeskService) CreateHelpdeskTicketCustomizedField(ctx context.Contex
 		Scope:               "Helpdesk",
 		API:                 "CreateHelpdeskTicketCustomizedField",
 		Method:              "POST",
-		URL:                 "https://open.feishu.cn/open-apis/helpdesk/v1/ticket_customized_fields",
+		URL:                 r.cli.openBaseURL + "/open-apis/helpdesk/v1/ticket_customized_fields",
 		Body:                request,
 		MethodOption:        newMethodOption(options),
 		NeedUserAccessToken: true,

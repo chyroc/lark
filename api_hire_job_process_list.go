@@ -19,7 +19,7 @@ func (r *HireService) GetHireJobProcessList(ctx context.Context, request *GetHir
 		Scope:                 "Hire",
 		API:                   "GetHireJobProcessList",
 		Method:                "GET",
-		URL:                   "https://open.feishu.cn/open-apis/hire/v1/job_processes",
+		URL:                   r.cli.openBaseURL + "/open-apis/hire/v1/job_processes",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,

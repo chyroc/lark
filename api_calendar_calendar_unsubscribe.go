@@ -23,7 +23,7 @@ func (r *CalendarService) UnsubscribeCalendar(ctx context.Context, request *Unsu
 		Scope:                 "Calendar",
 		API:                   "UnsubscribeCalendar",
 		Method:                "POST",
-		URL:                   "https://open.feishu.cn/open-apis/calendar/v4/calendars/:calendar_id/unsubscribe",
+		URL:                   r.cli.openBaseURL + "/open-apis/calendar/v4/calendars/:calendar_id/unsubscribe",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,

@@ -21,7 +21,7 @@ func (r *DriveService) GetSheetConditionFormat(ctx context.Context, request *Get
 		Scope:                 "Drive",
 		API:                   "GetSheetConditionFormat",
 		Method:                "GET",
-		URL:                   "https://open.feishu.cn/open-apis/sheets/v2/spreadsheets/:spreadsheetToken/condition_formats",
+		URL:                   r.cli.openBaseURL + "/open-apis/sheets/v2/spreadsheets/:spreadsheetToken/condition_formats",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,

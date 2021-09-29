@@ -21,7 +21,7 @@ func (r *HelpdeskService) GetHelpdeskTicketCustomizedFieldList(ctx context.Conte
 		Scope:                 "Helpdesk",
 		API:                   "GetHelpdeskTicketCustomizedFieldList",
 		Method:                "GET",
-		URL:                   "https://open.feishu.cn/open-apis/helpdesk/v1/ticket_customized_fields",
+		URL:                   r.cli.openBaseURL + "/open-apis/helpdesk/v1/ticket_customized_fields",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,

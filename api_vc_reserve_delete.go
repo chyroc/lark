@@ -21,7 +21,7 @@ func (r *VCService) DeleteVCReserve(ctx context.Context, request *DeleteVCReserv
 		Scope:               "VC",
 		API:                 "DeleteVCReserve",
 		Method:              "DELETE",
-		URL:                 "https://open.feishu.cn/open-apis/vc/v1/reserves/:reserve_id",
+		URL:                 r.cli.openBaseURL + "/open-apis/vc/v1/reserves/:reserve_id",
 		Body:                request,
 		MethodOption:        newMethodOption(options),
 		NeedUserAccessToken: true,

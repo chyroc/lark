@@ -21,7 +21,7 @@ func (r *DriveService) DeleteSheetDataValidationDropdown(ctx context.Context, re
 		Scope:                 "Drive",
 		API:                   "DeleteSheetDataValidationDropdown",
 		Method:                "DELETE",
-		URL:                   "https://open.feishu.cn/open-apis/sheets/v2/spreadsheets/:spreadsheetToken/dataValidation",
+		URL:                   r.cli.openBaseURL + "/open-apis/sheets/v2/spreadsheets/:spreadsheetToken/dataValidation",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,

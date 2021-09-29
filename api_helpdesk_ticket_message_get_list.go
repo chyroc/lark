@@ -19,7 +19,7 @@ func (r *HelpdeskService) GetHelpdeskTicketMessageList(ctx context.Context, requ
 		Scope:                 "Helpdesk",
 		API:                   "GetHelpdeskTicketMessageList",
 		Method:                "GET",
-		URL:                   "https://open.feishu.cn/open-apis/helpdesk/v1/tickets/:ticket_id/messages",
+		URL:                   r.cli.openBaseURL + "/open-apis/helpdesk/v1/tickets/:ticket_id/messages",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,

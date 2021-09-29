@@ -22,7 +22,7 @@ func (r *DriveService) DownloadDriveMedia(ctx context.Context, request *Download
 		Scope:                 "Drive",
 		API:                   "DownloadDriveMedia",
 		Method:                "GET",
-		URL:                   "https://open.feishu.cn/open-apis/drive/v1/medias/:file_token/download",
+		URL:                   r.cli.openBaseURL + "/open-apis/drive/v1/medias/:file_token/download",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,

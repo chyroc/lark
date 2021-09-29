@@ -26,7 +26,7 @@ func (r *ChatService) AddChatMember(ctx context.Context, request *AddChatMemberR
 		Scope:                 "Chat",
 		API:                   "AddChatMember",
 		Method:                "POST",
-		URL:                   "https://open.feishu.cn/open-apis/im/v1/chats/:chat_id/members",
+		URL:                   r.cli.openBaseURL + "/open-apis/im/v1/chats/:chat_id/members",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,

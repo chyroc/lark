@@ -22,7 +22,7 @@ func (r *ACSService) GetACSAccessRecordList(ctx context.Context, request *GetACS
 		Scope:                 "ACS",
 		API:                   "GetACSAccessRecordList",
 		Method:                "GET",
-		URL:                   "https://open.feishu.cn/open-apis/acs/v1/access_records",
+		URL:                   r.cli.openBaseURL + "/open-apis/acs/v1/access_records",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,

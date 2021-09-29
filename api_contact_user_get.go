@@ -22,7 +22,7 @@ func (r *ContactService) GetUser(ctx context.Context, request *GetUserReq, optio
 		Scope:                 "Contact",
 		API:                   "GetUser",
 		Method:                "GET",
-		URL:                   "https://open.feishu.cn/open-apis/contact/v3/users/:user_id",
+		URL:                   r.cli.openBaseURL + "/open-apis/contact/v3/users/:user_id",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,

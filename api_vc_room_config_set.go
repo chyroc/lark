@@ -21,7 +21,7 @@ func (r *VCService) SetVCRoomConfig(ctx context.Context, request *SetVCRoomConfi
 		Scope:                 "VC",
 		API:                   "SetVCRoomConfig",
 		Method:                "POST",
-		URL:                   "https://open.feishu.cn/open-apis/vc/v1/room_configs/set",
+		URL:                   r.cli.openBaseURL + "/open-apis/vc/v1/room_configs/set",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,

@@ -19,7 +19,7 @@ func (r *DriveService) DeleteSheetFilter(ctx context.Context, request *DeleteShe
 		Scope:                 "Drive",
 		API:                   "DeleteSheetFilter",
 		Method:                "DELETE",
-		URL:                   "https://open.feishu.cn/open-apis/sheets/v3/spreadsheets/:spreadsheet_token/sheets/:sheet_id/filter",
+		URL:                   r.cli.openBaseURL + "/open-apis/sheets/v3/spreadsheets/:spreadsheet_token/sheets/:sheet_id/filter",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,

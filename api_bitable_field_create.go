@@ -19,7 +19,7 @@ func (r *BitableService) CreateBitableField(ctx context.Context, request *Create
 		Scope:                 "Bitable",
 		API:                   "CreateBitableField",
 		Method:                "POST",
-		URL:                   "https://open.feishu.cn/open-apis/bitable/v1/apps/:app_token/tables/:table_id/fields",
+		URL:                   r.cli.openBaseURL + "/open-apis/bitable/v1/apps/:app_token/tables/:table_id/fields",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,

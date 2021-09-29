@@ -19,7 +19,7 @@ func (r *ContactService) GetContactGroup(ctx context.Context, request *GetContac
 		Scope:                 "Contact",
 		API:                   "GetContactGroup",
 		Method:                "GET",
-		URL:                   "https://open.feishu.cn/open-apis/contact/v3/group/:group_id",
+		URL:                   r.cli.openBaseURL + "/open-apis/contact/v3/group/:group_id",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,

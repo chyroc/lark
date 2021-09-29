@@ -21,7 +21,7 @@ func (r *ApplicationService) GetApplicationUserAdminScope(ctx context.Context, r
 		Scope:                 "Application",
 		API:                   "GetApplicationUserAdminScope",
 		Method:                "GET",
-		URL:                   "https://open.feishu.cn/open-apis/contact/v1/user/admin_scope/get",
+		URL:                   r.cli.openBaseURL + "/open-apis/contact/v1/user/admin_scope/get",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,

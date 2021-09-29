@@ -20,7 +20,7 @@ func (r *ACSService) UpdateACSUserFace(ctx context.Context, request *UpdateACSUs
 		Scope:                 "ACS",
 		API:                   "UpdateACSUserFace",
 		Method:                "PUT",
-		URL:                   "https://open.feishu.cn/open-apis/acs/v1/users/:user_id/face",
+		URL:                   r.cli.openBaseURL + "/open-apis/acs/v1/users/:user_id/face",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,

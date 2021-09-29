@@ -21,7 +21,7 @@ func (r *DriveService) CreateDriveMemberPermissionOld(ctx context.Context, reque
 		Scope:                 "Drive",
 		API:                   "CreateDriveMemberPermissionOld",
 		Method:                "POST",
-		URL:                   "https://open.feishu.cn/open-apis/drive/permission/member/create",
+		URL:                   r.cli.openBaseURL + "/open-apis/drive/permission/member/create",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,

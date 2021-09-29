@@ -21,7 +21,7 @@ func (r *AttendanceService) InitAttendanceRemedyApproval(ctx context.Context, re
 		Scope:                 "Attendance",
 		API:                   "InitAttendanceRemedyApproval",
 		Method:                "POST",
-		URL:                   "https://open.feishu.cn/open-apis/attendance/v1/user_task_remedys",
+		URL:                   r.cli.openBaseURL + "/open-apis/attendance/v1/user_task_remedys",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,

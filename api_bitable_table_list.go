@@ -19,7 +19,7 @@ func (r *BitableService) GetBitableTableList(ctx context.Context, request *GetBi
 		Scope:                 "Bitable",
 		API:                   "GetBitableTableList",
 		Method:                "GET",
-		URL:                   "https://open.feishu.cn/open-apis/bitable/v1/apps/:app_token/tables",
+		URL:                   r.cli.openBaseURL + "/open-apis/bitable/v1/apps/:app_token/tables",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,

@@ -19,7 +19,7 @@ func (r *TaskService) CreateTaskCollaborator(ctx context.Context, request *Creat
 		Scope:                 "Task",
 		API:                   "CreateTaskCollaborator",
 		Method:                "POST",
-		URL:                   "https://open.feishu.cn/open-apis/task/v1/tasks/:task_id/collaborators",
+		URL:                   r.cli.openBaseURL + "/open-apis/task/v1/tasks/:task_id/collaborators",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,

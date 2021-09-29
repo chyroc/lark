@@ -19,7 +19,7 @@ func (r *AuthService) ResendAppTicket(ctx context.Context, request *ResendAppTic
 		Scope:        "Auth",
 		API:          "ResendAppTicket",
 		Method:       "POST",
-		URL:          "https://open.feishu.cn/open-apis/auth/v3/app_ticket/resend",
+		URL:          r.cli.openBaseURL + "/open-apis/auth/v3/app_ticket/resend",
 		Body:         request,
 		MethodOption: newMethodOption(options),
 	}

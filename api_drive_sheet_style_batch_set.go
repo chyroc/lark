@@ -21,7 +21,7 @@ func (r *DriveService) BatchSetSheetStyle(ctx context.Context, request *BatchSet
 		Scope:                 "Drive",
 		API:                   "BatchSetSheetStyle",
 		Method:                "PUT",
-		URL:                   "https://open.feishu.cn/open-apis/sheets/v2/spreadsheets/:spreadsheetToken/styles_batch_update",
+		URL:                   r.cli.openBaseURL + "/open-apis/sheets/v2/spreadsheets/:spreadsheetToken/styles_batch_update",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,

@@ -19,7 +19,7 @@ func (r *CalendarService) SearchCalendar(ctx context.Context, request *SearchCal
 		Scope:                 "Calendar",
 		API:                   "SearchCalendar",
 		Method:                "POST",
-		URL:                   "https://open.feishu.cn/open-apis/calendar/v4/calendars/search",
+		URL:                   r.cli.openBaseURL + "/open-apis/calendar/v4/calendars/search",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,

@@ -22,7 +22,7 @@ func (r *ChatService) GetChatAnnouncement(ctx context.Context, request *GetChatA
 		Scope:                 "Chat",
 		API:                   "GetChatAnnouncement",
 		Method:                "GET",
-		URL:                   "https://open.feishu.cn/open-apis/im/v1/chats/:chat_id/announcement",
+		URL:                   r.cli.openBaseURL + "/open-apis/im/v1/chats/:chat_id/announcement",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,

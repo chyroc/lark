@@ -21,7 +21,7 @@ func (r *HireService) GetHireOfferSchema(ctx context.Context, request *GetHireOf
 		Scope:                 "Hire",
 		API:                   "GetHireOfferSchema",
 		Method:                "GET",
-		URL:                   "https://open.feishu.cn/open-apis/hire/v1/offer_schemas/:offer_schema_id",
+		URL:                   r.cli.openBaseURL + "/open-apis/hire/v1/offer_schemas/:offer_schema_id",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,

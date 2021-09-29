@@ -19,7 +19,7 @@ func (r *HelpdeskService) UpdateHelpdeskCategory(ctx context.Context, request *U
 		Scope:               "Helpdesk",
 		API:                 "UpdateHelpdeskCategory",
 		Method:              "PATCH",
-		URL:                 "https://open.feishu.cn/open-apis/helpdesk/v1/categories/:id",
+		URL:                 r.cli.openBaseURL + "/open-apis/helpdesk/v1/categories/:id",
 		Body:                request,
 		MethodOption:        newMethodOption(options),
 		NeedUserAccessToken: true,

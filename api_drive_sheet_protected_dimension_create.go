@@ -21,7 +21,7 @@ func (r *DriveService) CreateSheetProtectedDimension(ctx context.Context, reques
 		Scope:                 "Drive",
 		API:                   "CreateSheetProtectedDimension",
 		Method:                "POST",
-		URL:                   "https://open.feishu.cn/open-apis/sheets/v2/spreadsheets/:spreadsheetToken/protected_dimension",
+		URL:                   r.cli.openBaseURL + "/open-apis/sheets/v2/spreadsheets/:spreadsheetToken/protected_dimension",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,

@@ -19,7 +19,7 @@ func (r *BitableService) BatchCreateBitableRecord(ctx context.Context, request *
 		Scope:                 "Bitable",
 		API:                   "BatchCreateBitableRecord",
 		Method:                "POST",
-		URL:                   "https://open.feishu.cn/open-apis/bitable/v1/apps/:app_token/tables/:table_id/records/batch_create",
+		URL:                   r.cli.openBaseURL + "/open-apis/bitable/v1/apps/:app_token/tables/:table_id/records/batch_create",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,

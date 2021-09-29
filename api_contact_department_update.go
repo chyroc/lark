@@ -23,7 +23,7 @@ func (r *ContactService) UpdateDepartment(ctx context.Context, request *UpdateDe
 		Scope:                 "Contact",
 		API:                   "UpdateDepartment",
 		Method:                "PUT",
-		URL:                   "https://open.feishu.cn/open-apis/contact/v3/departments/:department_id",
+		URL:                   r.cli.openBaseURL + "/open-apis/contact/v3/departments/:department_id",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,

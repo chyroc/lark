@@ -19,7 +19,7 @@ func (r *BitableService) DeleteBitableField(ctx context.Context, request *Delete
 		Scope:                 "Bitable",
 		API:                   "DeleteBitableField",
 		Method:                "DELETE",
-		URL:                   "https://open.feishu.cn/open-apis/bitable/v1/apps/:app_token/tables/:table_id/fields/:field_id",
+		URL:                   r.cli.openBaseURL + "/open-apis/bitable/v1/apps/:app_token/tables/:table_id/fields/:field_id",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,

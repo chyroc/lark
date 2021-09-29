@@ -24,7 +24,7 @@ func (r *CalendarService) UpdateCalendar(ctx context.Context, request *UpdateCal
 		Scope:                 "Calendar",
 		API:                   "UpdateCalendar",
 		Method:                "PATCH",
-		URL:                   "https://open.feishu.cn/open-apis/calendar/v4/calendars/:calendar_id",
+		URL:                   r.cli.openBaseURL + "/open-apis/calendar/v4/calendars/:calendar_id",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,

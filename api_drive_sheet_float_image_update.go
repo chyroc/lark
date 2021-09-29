@@ -19,7 +19,7 @@ func (r *DriveService) UpdateSheetFloatImage(ctx context.Context, request *Updat
 		Scope:                 "Drive",
 		API:                   "UpdateSheetFloatImage",
 		Method:                "PATCH",
-		URL:                   "https://open.feishu.cn/open-apis/sheets/v3/spreadsheets/:spreadsheet_token/sheets/:sheet_id/float_images/:float_image_id",
+		URL:                   r.cli.openBaseURL + "/open-apis/sheets/v3/spreadsheets/:spreadsheet_token/sheets/:sheet_id/float_images/:float_image_id",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,

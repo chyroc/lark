@@ -24,7 +24,7 @@ func (r *MessageService) ReplyRawMessage(ctx context.Context, request *ReplyRawM
 		Scope:                 "Message",
 		API:                   "ReplyRawMessage",
 		Method:                "POST",
-		URL:                   "https://open.feishu.cn/open-apis/im/v1/messages/:message_id/reply",
+		URL:                   r.cli.openBaseURL + "/open-apis/im/v1/messages/:message_id/reply",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,

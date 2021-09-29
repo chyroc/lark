@@ -19,7 +19,7 @@ func (r *ACSService) UpdateACSUser(ctx context.Context, request *UpdateACSUserRe
 		Scope:                 "ACS",
 		API:                   "UpdateACSUser",
 		Method:                "PATCH",
-		URL:                   "https://open.feishu.cn/open-apis/acs/v1/users/:user_id",
+		URL:                   r.cli.openBaseURL + "/open-apis/acs/v1/users/:user_id",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,

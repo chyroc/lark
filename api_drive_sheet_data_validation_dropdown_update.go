@@ -21,7 +21,7 @@ func (r *DriveService) UpdateSheetDataValidationDropdown(ctx context.Context, re
 		Scope:                 "Drive",
 		API:                   "UpdateSheetDataValidationDropdown",
 		Method:                "PUT",
-		URL:                   "https://open.feishu.cn/open-apis/sheets/v2/spreadsheets/:spreadsheetToken/dataValidation/:sheetId/:dataValidationId",
+		URL:                   r.cli.openBaseURL + "/open-apis/sheets/v2/spreadsheets/:spreadsheetToken/dataValidation/:sheetId/:dataValidationId",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,

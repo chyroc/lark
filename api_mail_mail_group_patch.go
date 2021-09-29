@@ -19,7 +19,7 @@ func (r *MailService) UpdateMailGroupPatch(ctx context.Context, request *UpdateM
 		Scope:                 "Mail",
 		API:                   "UpdateMailGroupPatch",
 		Method:                "PATCH",
-		URL:                   "https://open.feishu.cn/open-apis/mail/v1/mailgroups/:mailgroup_id",
+		URL:                   r.cli.openBaseURL + "/open-apis/mail/v1/mailgroups/:mailgroup_id",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,

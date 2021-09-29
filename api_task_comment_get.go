@@ -19,7 +19,7 @@ func (r *TaskService) GetTaskComment(ctx context.Context, request *GetTaskCommen
 		Scope:                 "Task",
 		API:                   "GetTaskComment",
 		Method:                "GET",
-		URL:                   "https://open.feishu.cn/open-apis/task/v1/tasks/:task_id/comments/:comment_id",
+		URL:                   r.cli.openBaseURL + "/open-apis/task/v1/tasks/:task_id/comments/:comment_id",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,

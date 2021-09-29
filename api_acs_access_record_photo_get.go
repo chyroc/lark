@@ -23,7 +23,7 @@ func (r *ACSService) GetACSAccessRecordPhoto(ctx context.Context, request *GetAC
 		Scope:                 "ACS",
 		API:                   "GetACSAccessRecordPhoto",
 		Method:                "GET",
-		URL:                   "https://open.feishu.cn/open-apis/acs/v1/access_records/:access_record_id/access_photo",
+		URL:                   r.cli.openBaseURL + "/open-apis/acs/v1/access_records/:access_record_id/access_photo",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,

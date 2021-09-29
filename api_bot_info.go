@@ -21,7 +21,7 @@ func (r *BotService) GetBotInfo(ctx context.Context, request *GetBotInfoReq, opt
 		Scope:                 "Bot",
 		API:                   "GetBotInfo",
 		Method:                "GET",
-		URL:                   "https://open.feishu.cn/open-apis/bot/v3/info",
+		URL:                   r.cli.openBaseURL + "/open-apis/bot/v3/info",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,

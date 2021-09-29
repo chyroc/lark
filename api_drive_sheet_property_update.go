@@ -21,7 +21,7 @@ func (r *DriveService) UpdateSheetProperty(ctx context.Context, request *UpdateS
 		Scope:                 "Drive",
 		API:                   "UpdateSheetProperty",
 		Method:                "PUT",
-		URL:                   "https://open.feishu.cn/open-apis/sheets/v2/spreadsheets/:spreadsheetToken/properties",
+		URL:                   r.cli.openBaseURL + "/open-apis/sheets/v2/spreadsheets/:spreadsheetToken/properties",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,

@@ -19,7 +19,7 @@ func (r *TaskService) DeleteTaskFollower(ctx context.Context, request *DeleteTas
 		Scope:                 "Task",
 		API:                   "DeleteTaskFollower",
 		Method:                "DELETE",
-		URL:                   "https://open.feishu.cn/open-apis/task/v1/tasks/:task_id/followers/:follower_id",
+		URL:                   r.cli.openBaseURL + "/open-apis/task/v1/tasks/:task_id/followers/:follower_id",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,

@@ -19,7 +19,7 @@ func (r *HelpdeskService) CreateHelpdeskFAQ(ctx context.Context, request *Create
 		Scope:               "Helpdesk",
 		API:                 "CreateHelpdeskFAQ",
 		Method:              "POST",
-		URL:                 "https://open.feishu.cn/open-apis/helpdesk/v1/faqs",
+		URL:                 r.cli.openBaseURL + "/open-apis/helpdesk/v1/faqs",
 		Body:                request,
 		MethodOption:        newMethodOption(options),
 		NeedUserAccessToken: true,

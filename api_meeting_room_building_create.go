@@ -19,7 +19,7 @@ func (r *MeetingRoomService) CreateMeetingRoomBuilding(ctx context.Context, requ
 		Scope:                 "MeetingRoom",
 		API:                   "CreateMeetingRoomBuilding",
 		Method:                "POST",
-		URL:                   "https://open.feishu.cn/open-apis/meeting_room/building/create",
+		URL:                   r.cli.openBaseURL + "/open-apis/meeting_room/building/create",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,

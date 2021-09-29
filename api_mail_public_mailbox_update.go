@@ -19,7 +19,7 @@ func (r *MailService) UpdatePublicMailbox(ctx context.Context, request *UpdatePu
 		Scope:                 "Mail",
 		API:                   "UpdatePublicMailbox",
 		Method:                "PUT",
-		URL:                   "https://open.feishu.cn/open-apis/mail/v1/public_mailboxes/:public_mailbox_id",
+		URL:                   r.cli.openBaseURL + "/open-apis/mail/v1/public_mailboxes/:public_mailbox_id",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,

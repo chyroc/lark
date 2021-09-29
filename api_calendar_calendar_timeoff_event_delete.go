@@ -19,7 +19,7 @@ func (r *CalendarService) DeleteCalendarTimeoffEvent(ctx context.Context, reques
 		Scope:                 "Calendar",
 		API:                   "DeleteCalendarTimeoffEvent",
 		Method:                "DELETE",
-		URL:                   "https://open.feishu.cn/open-apis/calendar/v4/timeoff_events/:timeoff_event_id",
+		URL:                   r.cli.openBaseURL + "/open-apis/calendar/v4/timeoff_events/:timeoff_event_id",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,

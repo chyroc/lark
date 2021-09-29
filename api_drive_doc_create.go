@@ -23,7 +23,7 @@ func (r *DriveService) CreateDriveDoc(ctx context.Context, request *CreateDriveD
 		Scope:                 "Drive",
 		API:                   "CreateDriveDoc",
 		Method:                "POST",
-		URL:                   "https://open.feishu.cn/open-apis/doc/v2/create",
+		URL:                   r.cli.openBaseURL + "/open-apis/doc/v2/create",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,

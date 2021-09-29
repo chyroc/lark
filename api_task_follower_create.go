@@ -19,7 +19,7 @@ func (r *TaskService) CreateTaskFollower(ctx context.Context, request *CreateTas
 		Scope:                 "Task",
 		API:                   "CreateTaskFollower",
 		Method:                "POST",
-		URL:                   "https://open.feishu.cn/open-apis/task/v1/tasks/:task_id/followers",
+		URL:                   r.cli.openBaseURL + "/open-apis/task/v1/tasks/:task_id/followers",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,

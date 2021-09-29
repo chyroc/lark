@@ -19,7 +19,7 @@ func (r *MeetingRoomService) ReplyMeetingRoomInstance(ctx context.Context, reque
 		Scope:                 "MeetingRoom",
 		API:                   "ReplyMeetingRoomInstance",
 		Method:                "POST",
-		URL:                   "https://open.feishu.cn/open-apis/meeting_room/instance/reply",
+		URL:                   r.cli.openBaseURL + "/open-apis/meeting_room/instance/reply",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,

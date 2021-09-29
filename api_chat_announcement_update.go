@@ -25,7 +25,7 @@ func (r *ChatService) UpdateChatAnnouncement(ctx context.Context, request *Updat
 		Scope:                 "Chat",
 		API:                   "UpdateChatAnnouncement",
 		Method:                "PATCH",
-		URL:                   "https://open.feishu.cn/open-apis/im/v1/chats/:chat_id/announcement",
+		URL:                   r.cli.openBaseURL + "/open-apis/im/v1/chats/:chat_id/announcement",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,

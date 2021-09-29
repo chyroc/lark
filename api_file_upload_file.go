@@ -23,7 +23,7 @@ func (r *FileService) UploadFile(ctx context.Context, request *UploadFileReq, op
 		Scope:                 "File",
 		API:                   "UploadFile",
 		Method:                "POST",
-		URL:                   "https://open.feishu.cn/open-apis/im/v1/files",
+		URL:                   r.cli.openBaseURL + "/open-apis/im/v1/files",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,

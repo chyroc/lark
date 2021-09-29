@@ -21,7 +21,7 @@ func (r *AttendanceService) UpdateAttendanceUserSettings(ctx context.Context, re
 		Scope:                 "Attendance",
 		API:                   "UpdateAttendanceUserSettings",
 		Method:                "POST",
-		URL:                   "https://open.feishu.cn/open-apis/attendance/v1/user_settings/modify",
+		URL:                   r.cli.openBaseURL + "/open-apis/attendance/v1/user_settings/modify",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,

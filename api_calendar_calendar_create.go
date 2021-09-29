@@ -22,7 +22,7 @@ func (r *CalendarService) CreateCalendar(ctx context.Context, request *CreateCal
 		Scope:                 "Calendar",
 		API:                   "CreateCalendar",
 		Method:                "POST",
-		URL:                   "https://open.feishu.cn/open-apis/calendar/v4/calendars",
+		URL:                   r.cli.openBaseURL + "/open-apis/calendar/v4/calendars",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,

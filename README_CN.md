@@ -599,6 +599,16 @@ API 总数: 469, 事件总数: 50
 cli := lark.New(lark.WithAppCredential("<APP_ID>", "<APP_SECRET>"))
 ```
 
+- 处理 larksuite（非中国地区）的请求域名
+
+```go
+cli := lark.New(
+    lark.WithAppCredential("<APP_ID>", "<APP_SECRET>"),
+    lark.WithOpenBaseURL("https://open.larksuite.com"),
+    lark.WithWWWBaseURL("https://www.larksuite.com"),
+)
+```
+
 - 处理事件回调
 
 ```go

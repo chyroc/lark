@@ -19,7 +19,7 @@ func (r *SearchService) GetSearchDataSourceList(ctx context.Context, request *Ge
 		Scope:                 "Search",
 		API:                   "GetSearchDataSourceList",
 		Method:                "GET",
-		URL:                   "https://open.feishu.cn/open-apis/search/v2/data_sources",
+		URL:                   r.cli.openBaseURL + "/open-apis/search/v2/data_sources",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,

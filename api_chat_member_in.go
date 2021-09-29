@@ -19,7 +19,7 @@ func (r *ChatService) IsInChat(ctx context.Context, request *IsInChatReq, option
 		Scope:                 "Chat",
 		API:                   "IsInChat",
 		Method:                "GET",
-		URL:                   "https://open.feishu.cn/open-apis/im/v1/chats/:chat_id/members/is_in_chat",
+		URL:                   r.cli.openBaseURL + "/open-apis/im/v1/chats/:chat_id/members/is_in_chat",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,

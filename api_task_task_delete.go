@@ -19,7 +19,7 @@ func (r *TaskService) DeleteTask(ctx context.Context, request *DeleteTaskReq, op
 		Scope:                 "Task",
 		API:                   "DeleteTask",
 		Method:                "DELETE",
-		URL:                   "https://open.feishu.cn/open-apis/task/v1/tasks/:task_id",
+		URL:                   r.cli.openBaseURL + "/open-apis/task/v1/tasks/:task_id",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,

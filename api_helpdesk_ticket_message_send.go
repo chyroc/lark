@@ -19,7 +19,7 @@ func (r *HelpdeskService) SendHelpdeskTicketMessage(ctx context.Context, request
 		Scope:                 "Helpdesk",
 		API:                   "SendHelpdeskTicketMessage",
 		Method:                "POST",
-		URL:                   "https://open.feishu.cn/open-apis/helpdesk/v1/tickets/:ticket_id/messages",
+		URL:                   r.cli.openBaseURL + "/open-apis/helpdesk/v1/tickets/:ticket_id/messages",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,

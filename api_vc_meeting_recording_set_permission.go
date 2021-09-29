@@ -21,7 +21,7 @@ func (r *VCService) SetVCPermissionMeetingRecording(ctx context.Context, request
 		Scope:               "VC",
 		API:                 "SetVCPermissionMeetingRecording",
 		Method:              "PATCH",
-		URL:                 "https://open.feishu.cn/open-apis/vc/v1/meetings/:meeting_id/recording/set_permission",
+		URL:                 r.cli.openBaseURL + "/open-apis/vc/v1/meetings/:meeting_id/recording/set_permission",
 		Body:                request,
 		MethodOption:        newMethodOption(options),
 		NeedUserAccessToken: true,

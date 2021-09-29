@@ -19,7 +19,7 @@ func (r *TaskService) CreateTaskComment(ctx context.Context, request *CreateTask
 		Scope:                 "Task",
 		API:                   "CreateTaskComment",
 		Method:                "POST",
-		URL:                   "https://open.feishu.cn/open-apis/task/v1/tasks/:task_id/comments",
+		URL:                   r.cli.openBaseURL + "/open-apis/task/v1/tasks/:task_id/comments",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,

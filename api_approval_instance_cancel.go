@@ -21,7 +21,7 @@ func (r *ApprovalService) CancelApprovalInstance(ctx context.Context, request *C
 		Scope:                 "Approval",
 		API:                   "CancelApprovalInstance",
 		Method:                "POST",
-		URL:                   "https://www.feishu.cn/approval/openapi/v2/instance/cancel",
+		URL:                   r.cli.wwwBaseURL + "/approval/openapi/v2/instance/cancel",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,

@@ -19,7 +19,7 @@ func (r *HireService) TerminateHireApplication(ctx context.Context, request *Ter
 		Scope:                 "Hire",
 		API:                   "TerminateHireApplication",
 		Method:                "POST",
-		URL:                   "https://open.feishu.cn/open-apis/hire/v1/applications/:application_id/terminate",
+		URL:                   r.cli.openBaseURL + "/open-apis/hire/v1/applications/:application_id/terminate",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,

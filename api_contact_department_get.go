@@ -24,7 +24,7 @@ func (r *ContactService) GetDepartment(ctx context.Context, request *GetDepartme
 		Scope:                 "Contact",
 		API:                   "GetDepartment",
 		Method:                "GET",
-		URL:                   "https://open.feishu.cn/open-apis/contact/v3/departments/:department_id",
+		URL:                   r.cli.openBaseURL + "/open-apis/contact/v3/departments/:department_id",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,

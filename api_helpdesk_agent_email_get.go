@@ -19,7 +19,7 @@ func (r *HelpdeskService) GetHelpdeskAgentEmail(ctx context.Context, request *Ge
 		Scope:                 "Helpdesk",
 		API:                   "GetHelpdeskAgentEmail",
 		Method:                "GET",
-		URL:                   "https://open.feishu.cn/open-apis/helpdesk/v1/agent_emails",
+		URL:                   r.cli.openBaseURL + "/open-apis/helpdesk/v1/agent_emails",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,

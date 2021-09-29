@@ -22,7 +22,7 @@ func (r *DriveService) PrepareUploadDriveFile(ctx context.Context, request *Prep
 		Scope:                 "Drive",
 		API:                   "PrepareUploadDriveFile",
 		Method:                "POST",
-		URL:                   "https://open.feishu.cn/open-apis/drive/v1/files/upload_prepare",
+		URL:                   r.cli.openBaseURL + "/open-apis/drive/v1/files/upload_prepare",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,

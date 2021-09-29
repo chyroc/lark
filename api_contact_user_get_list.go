@@ -24,7 +24,7 @@ func (r *ContactService) GetUserList(ctx context.Context, request *GetUserListRe
 		Scope:                 "Contact",
 		API:                   "GetUserList",
 		Method:                "GET",
-		URL:                   "https://open.feishu.cn/open-apis/contact/v3/users",
+		URL:                   r.cli.openBaseURL + "/open-apis/contact/v3/users",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,

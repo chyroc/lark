@@ -19,7 +19,7 @@ func (r *MeetingRoomService) BatchGetMeetingRoomSummary(ctx context.Context, req
 		Scope:                 "MeetingRoom",
 		API:                   "BatchGetMeetingRoomSummary",
 		Method:                "POST",
-		URL:                   "https://open.feishu.cn/open-apis/meeting_room/summary/batch_get",
+		URL:                   r.cli.openBaseURL + "/open-apis/meeting_room/summary/batch_get",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,

@@ -23,7 +23,7 @@ func (r *ChatService) GetChatListOfSelf(ctx context.Context, request *GetChatLis
 		Scope:                 "Chat",
 		API:                   "GetChatListOfSelf",
 		Method:                "GET",
-		URL:                   "https://open.feishu.cn/open-apis/im/v1/chats",
+		URL:                   r.cli.openBaseURL + "/open-apis/im/v1/chats",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,

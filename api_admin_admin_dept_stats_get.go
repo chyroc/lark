@@ -23,7 +23,7 @@ func (r *AdminService) GetAdminDeptStats(ctx context.Context, request *GetAdminD
 		Scope:                 "Admin",
 		API:                   "GetAdminDeptStats",
 		Method:                "GET",
-		URL:                   "https://open.feishu.cn/open-apis/admin/v1/admin_dept_stats",
+		URL:                   r.cli.openBaseURL + "/open-apis/admin/v1/admin_dept_stats",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,

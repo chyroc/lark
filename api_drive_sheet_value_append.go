@@ -21,7 +21,7 @@ func (r *DriveService) AppendSheetValue(ctx context.Context, request *AppendShee
 		Scope:                 "Drive",
 		API:                   "AppendSheetValue",
 		Method:                "POST",
-		URL:                   "https://open.feishu.cn/open-apis/sheets/v2/spreadsheets/:spreadsheetToken/values_append",
+		URL:                   r.cli.openBaseURL + "/open-apis/sheets/v2/spreadsheets/:spreadsheetToken/values_append",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,

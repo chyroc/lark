@@ -19,7 +19,7 @@ func (r *DriveService) GetDriveImportTask(ctx context.Context, request *GetDrive
 		Scope:                 "Drive",
 		API:                   "GetDriveImportTask",
 		Method:                "GET",
-		URL:                   "https://open.feishu.cn/open-apis/drive/v1/import_tasks/:ticket",
+		URL:                   r.cli.openBaseURL + "/open-apis/drive/v1/import_tasks/:ticket",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,

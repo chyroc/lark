@@ -22,7 +22,7 @@ func (r *DriveService) InsertSheetDimensionRange(ctx context.Context, request *I
 		Scope:                 "Drive",
 		API:                   "InsertSheetDimensionRange",
 		Method:                "POST",
-		URL:                   "https://open.feishu.cn/open-apis/sheets/v2/spreadsheets/:spreadsheetToken/insert_dimension_range",
+		URL:                   r.cli.openBaseURL + "/open-apis/sheets/v2/spreadsheets/:spreadsheetToken/insert_dimension_range",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,

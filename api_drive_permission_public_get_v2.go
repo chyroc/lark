@@ -19,7 +19,7 @@ func (r *DriveService) GetDrivePublicPermissionV2(ctx context.Context, request *
 		Scope:                 "Drive",
 		API:                   "GetDrivePublicPermissionV2",
 		Method:                "POST",
-		URL:                   "https://open.feishu.cn/open-apis/drive/permission/v2/public/",
+		URL:                   r.cli.openBaseURL + "/open-apis/drive/permission/v2/public/",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,

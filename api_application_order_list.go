@@ -21,7 +21,7 @@ func (r *ApplicationService) GetApplicationOrderList(ctx context.Context, reques
 		Scope:                 "Application",
 		API:                   "GetApplicationOrderList",
 		Method:                "GET",
-		URL:                   "https://open.feishu.cn/open-apis/pay/v1/order/list",
+		URL:                   r.cli.openBaseURL + "/open-apis/pay/v1/order/list",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,

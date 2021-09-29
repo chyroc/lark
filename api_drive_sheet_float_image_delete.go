@@ -19,7 +19,7 @@ func (r *DriveService) DeleteSheetFloatImage(ctx context.Context, request *Delet
 		Scope:                 "Drive",
 		API:                   "DeleteSheetFloatImage",
 		Method:                "DELETE",
-		URL:                   "https://open.feishu.cn/open-apis/sheets/v3/spreadsheets/:spreadsheet_token/sheets/:sheet_id/float_images/:float_image_id",
+		URL:                   r.cli.openBaseURL + "/open-apis/sheets/v3/spreadsheets/:spreadsheet_token/sheets/:sheet_id/float_images/:float_image_id",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,

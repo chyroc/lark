@@ -21,7 +21,7 @@ func (r *VCService) GetVCMeetingRecording(ctx context.Context, request *GetVCMee
 		Scope:               "VC",
 		API:                 "GetVCMeetingRecording",
 		Method:              "GET",
-		URL:                 "https://open.feishu.cn/open-apis/vc/v1/meetings/:meeting_id/recording",
+		URL:                 r.cli.openBaseURL + "/open-apis/vc/v1/meetings/:meeting_id/recording",
 		Body:                request,
 		MethodOption:        newMethodOption(options),
 		NeedUserAccessToken: true,

@@ -21,7 +21,7 @@ func (r *AttendanceService) GetAttendanceUserDailyShift(ctx context.Context, req
 		Scope:                 "Attendance",
 		API:                   "GetAttendanceUserDailyShift",
 		Method:                "POST",
-		URL:                   "https://open.feishu.cn/open-apis/attendance/v1/user_daily_shifts/query",
+		URL:                   r.cli.openBaseURL + "/open-apis/attendance/v1/user_daily_shifts/query",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,

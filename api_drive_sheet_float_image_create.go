@@ -19,7 +19,7 @@ func (r *DriveService) CreateSheetFloatImage(ctx context.Context, request *Creat
 		Scope:                 "Drive",
 		API:                   "CreateSheetFloatImage",
 		Method:                "POST",
-		URL:                   "https://open.feishu.cn/open-apis/sheets/v3/spreadsheets/:spreadsheet_token/sheets/:sheet_id/float_images",
+		URL:                   r.cli.openBaseURL + "/open-apis/sheets/v3/spreadsheets/:spreadsheet_token/sheets/:sheet_id/float_images",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,

@@ -24,7 +24,7 @@ func (r *EHRService) DownloadEHRAttachments(ctx context.Context, request *Downlo
 		Scope:                 "EHR",
 		API:                   "DownloadEHRAttachments",
 		Method:                "GET",
-		URL:                   "https://open.feishu.cn/open-apis/ehr/v1/attachments/:token",
+		URL:                   r.cli.openBaseURL + "/open-apis/ehr/v1/attachments/:token",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,

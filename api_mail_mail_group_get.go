@@ -19,7 +19,7 @@ func (r *MailService) GetMailGroup(ctx context.Context, request *GetMailGroupReq
 		Scope:                 "Mail",
 		API:                   "GetMailGroup",
 		Method:                "GET",
-		URL:                   "https://open.feishu.cn/open-apis/mail/v1/mailgroups/:mailgroup_id",
+		URL:                   r.cli.openBaseURL + "/open-apis/mail/v1/mailgroups/:mailgroup_id",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,

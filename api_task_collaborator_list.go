@@ -19,7 +19,7 @@ func (r *TaskService) GetTaskCollaboratorList(ctx context.Context, request *GetT
 		Scope:                 "Task",
 		API:                   "GetTaskCollaboratorList",
 		Method:                "GET",
-		URL:                   "https://open.feishu.cn/open-apis/task/v1/tasks/:task_id/collaborators",
+		URL:                   r.cli.openBaseURL + "/open-apis/task/v1/tasks/:task_id/collaborators",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,

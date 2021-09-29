@@ -21,7 +21,7 @@ func (r *AttendanceService) CreateUpdateAttendanceUserDailyShift(ctx context.Con
 		Scope:                 "Attendance",
 		API:                   "CreateUpdateAttendanceUserDailyShift",
 		Method:                "POST",
-		URL:                   "https://open.feishu.cn/open-apis/attendance/v1/user_daily_shifts/batch_create",
+		URL:                   r.cli.openBaseURL + "/open-apis/attendance/v1/user_daily_shifts/batch_create",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,

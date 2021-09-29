@@ -21,7 +21,7 @@ func (r *DriveService) GetDriveDocMeta(ctx context.Context, request *GetDriveDoc
 		Scope:                 "Drive",
 		API:                   "GetDriveDocMeta",
 		Method:                "GET",
-		URL:                   "https://open.feishu.cn/open-apis/doc/v2/meta/:docToken",
+		URL:                   r.cli.openBaseURL + "/open-apis/doc/v2/meta/:docToken",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,

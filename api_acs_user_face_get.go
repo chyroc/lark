@@ -20,7 +20,7 @@ func (r *ACSService) GetACSUserFace(ctx context.Context, request *GetACSUserFace
 		Scope:                 "ACS",
 		API:                   "GetACSUserFace",
 		Method:                "GET",
-		URL:                   "https://open.feishu.cn/open-apis/acs/v1/users/:user_id/face",
+		URL:                   r.cli.openBaseURL + "/open-apis/acs/v1/users/:user_id/face",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,

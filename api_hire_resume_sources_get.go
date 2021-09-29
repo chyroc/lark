@@ -19,7 +19,7 @@ func (r *HireService) GetHireResumeSource(ctx context.Context, request *GetHireR
 		Scope:                 "Hire",
 		API:                   "GetHireResumeSource",
 		Method:                "GET",
-		URL:                   "https://open.feishu.cn/open-apis/hire/v1/resume_sources",
+		URL:                   r.cli.openBaseURL + "/open-apis/hire/v1/resume_sources",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,

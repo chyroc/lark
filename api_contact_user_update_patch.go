@@ -21,7 +21,7 @@ func (r *ContactService) UpdateUserPatch(ctx context.Context, request *UpdateUse
 		Scope:                 "Contact",
 		API:                   "UpdateUserPatch",
 		Method:                "PATCH",
-		URL:                   "https://open.feishu.cn/open-apis/contact/v3/users/:user_id",
+		URL:                   r.cli.openBaseURL + "/open-apis/contact/v3/users/:user_id",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,

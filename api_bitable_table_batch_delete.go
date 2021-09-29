@@ -19,7 +19,7 @@ func (r *BitableService) BatchDeleteBitableTable(ctx context.Context, request *B
 		Scope:                 "Bitable",
 		API:                   "BatchDeleteBitableTable",
 		Method:                "POST",
-		URL:                   "https://open.feishu.cn/open-apis/bitable/v1/apps/:app_token/tables/batch_delete",
+		URL:                   r.cli.openBaseURL + "/open-apis/bitable/v1/apps/:app_token/tables/batch_delete",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,

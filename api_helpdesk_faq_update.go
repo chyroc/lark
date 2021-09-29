@@ -19,7 +19,7 @@ func (r *HelpdeskService) UpdateHelpdeskFAQ(ctx context.Context, request *Update
 		Scope:               "Helpdesk",
 		API:                 "UpdateHelpdeskFAQ",
 		Method:              "PATCH",
-		URL:                 "https://open.feishu.cn/open-apis/helpdesk/v1/faqs/:id",
+		URL:                 r.cli.openBaseURL + "/open-apis/helpdesk/v1/faqs/:id",
 		Body:                request,
 		MethodOption:        newMethodOption(options),
 		NeedUserAccessToken: true,

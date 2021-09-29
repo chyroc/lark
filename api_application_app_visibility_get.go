@@ -21,7 +21,7 @@ func (r *ApplicationService) GetApplicationAppVisibility(ctx context.Context, re
 		Scope:                 "Application",
 		API:                   "GetApplicationAppVisibility",
 		Method:                "GET",
-		URL:                   "https://open.feishu.cn/open-apis/application/v2/app/visibility",
+		URL:                   r.cli.openBaseURL + "/open-apis/application/v2/app/visibility",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,

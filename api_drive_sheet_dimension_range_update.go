@@ -21,7 +21,7 @@ func (r *DriveService) UpdateSheetDimensionRange(ctx context.Context, request *U
 		Scope:                 "Drive",
 		API:                   "UpdateSheetDimensionRange",
 		Method:                "PUT",
-		URL:                   "https://open.feishu.cn/open-apis/sheets/v2/spreadsheets/:spreadsheetToken/dimension_range",
+		URL:                   r.cli.openBaseURL + "/open-apis/sheets/v2/spreadsheets/:spreadsheetToken/dimension_range",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,

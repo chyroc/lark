@@ -21,7 +21,7 @@ func (r *DriveService) UnmergeSheetCell(ctx context.Context, request *UnmergeShe
 		Scope:                 "Drive",
 		API:                   "UnmergeSheetCell",
 		Method:                "POST",
-		URL:                   "https://open.feishu.cn/open-apis/sheets/v2/spreadsheets/:spreadsheetToken/unmerge_cells",
+		URL:                   r.cli.openBaseURL + "/open-apis/sheets/v2/spreadsheets/:spreadsheetToken/unmerge_cells",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,

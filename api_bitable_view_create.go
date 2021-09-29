@@ -19,7 +19,7 @@ func (r *BitableService) CreateBitableView(ctx context.Context, request *CreateB
 		Scope:                 "Bitable",
 		API:                   "CreateBitableView",
 		Method:                "POST",
-		URL:                   "https://open.feishu.cn/open-apis/bitable/v1/apps/:app_token/tables/:table_id/views",
+		URL:                   r.cli.openBaseURL + "/open-apis/bitable/v1/apps/:app_token/tables/:table_id/views",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,

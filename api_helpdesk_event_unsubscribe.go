@@ -19,7 +19,7 @@ func (r *HelpdeskService) UnsubscribeHelpdeskEvent(ctx context.Context, request 
 		Scope:                 "Helpdesk",
 		API:                   "UnsubscribeHelpdeskEvent",
 		Method:                "POST",
-		URL:                   "https://open.feishu.cn/open-apis/helpdesk/v1/events/unsubscribe",
+		URL:                   r.cli.openBaseURL + "/open-apis/helpdesk/v1/events/unsubscribe",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,

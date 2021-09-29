@@ -22,7 +22,7 @@ func (r *OKRService) GetOKRPeriodList(ctx context.Context, request *GetOKRPeriod
 		Scope:                 "OKR",
 		API:                   "GetOKRPeriodList",
 		Method:                "GET",
-		URL:                   "https://open.feishu.cn/open-apis/okr/v1/periods",
+		URL:                   r.cli.openBaseURL + "/open-apis/okr/v1/periods",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,

@@ -21,7 +21,7 @@ func (r *DriveService) GetDriveMemberPermissionList(ctx context.Context, request
 		Scope:                 "Drive",
 		API:                   "GetDriveMemberPermissionList",
 		Method:                "POST",
-		URL:                   "https://open.feishu.cn/open-apis/drive/permission/member/list",
+		URL:                   r.cli.openBaseURL + "/open-apis/drive/permission/member/list",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,

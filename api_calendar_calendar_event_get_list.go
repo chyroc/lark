@@ -23,7 +23,7 @@ func (r *CalendarService) GetCalendarEventList(ctx context.Context, request *Get
 		Scope:                 "Calendar",
 		API:                   "GetCalendarEventList",
 		Method:                "GET",
-		URL:                   "https://open.feishu.cn/open-apis/calendar/v4/calendars/:calendar_id/events",
+		URL:                   r.cli.openBaseURL + "/open-apis/calendar/v4/calendars/:calendar_id/events",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,

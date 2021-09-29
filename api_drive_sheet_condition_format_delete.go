@@ -21,7 +21,7 @@ func (r *DriveService) DeleteSheetConditionFormat(ctx context.Context, request *
 		Scope:                 "Drive",
 		API:                   "DeleteSheetConditionFormat",
 		Method:                "DELETE",
-		URL:                   "https://open.feishu.cn/open-apis/sheets/v2/spreadsheets/:spreadsheetToken/condition_formats/batch_delete",
+		URL:                   r.cli.openBaseURL + "/open-apis/sheets/v2/spreadsheets/:spreadsheetToken/condition_formats/batch_delete",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,

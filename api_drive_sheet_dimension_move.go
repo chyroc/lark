@@ -19,7 +19,7 @@ func (r *DriveService) MoveSheetDimension(ctx context.Context, request *MoveShee
 		Scope:                 "Drive",
 		API:                   "MoveSheetDimension",
 		Method:                "POST",
-		URL:                   "https://open.feishu.cn/open-apis/sheets/v3/spreadsheets/:spreadsheet_token/sheets/:sheet_id/move_dimension",
+		URL:                   r.cli.openBaseURL + "/open-apis/sheets/v3/spreadsheets/:spreadsheet_token/sheets/:sheet_id/move_dimension",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,

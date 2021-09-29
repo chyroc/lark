@@ -21,7 +21,7 @@ func (r *DriveService) BatchGetDriveMediaTmpDownloadURL(ctx context.Context, req
 		Scope:                 "Drive",
 		API:                   "BatchGetDriveMediaTmpDownloadURL",
 		Method:                "GET",
-		URL:                   "https://open.feishu.cn/open-apis/drive/v1/medias/batch_get_tmp_download_url",
+		URL:                   r.cli.openBaseURL + "/open-apis/drive/v1/medias/batch_get_tmp_download_url",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,

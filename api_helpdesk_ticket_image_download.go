@@ -20,7 +20,7 @@ func (r *HelpdeskService) DownloadHelpdeskTicketImage(ctx context.Context, reque
 		Scope:                 "Helpdesk",
 		API:                   "DownloadHelpdeskTicketImage",
 		Method:                "GET",
-		URL:                   "https://open.feishu.cn/open-apis/helpdesk/v1/ticket_images",
+		URL:                   r.cli.openBaseURL + "/open-apis/helpdesk/v1/ticket_images",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,

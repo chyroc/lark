@@ -21,7 +21,7 @@ func (r *AttendanceService) GetAttendanceGroup(ctx context.Context, request *Get
 		Scope:                 "Attendance",
 		API:                   "GetAttendanceGroup",
 		Method:                "GET",
-		URL:                   "https://open.feishu.cn/open-apis/attendance/v1/groups/:group_id",
+		URL:                   r.cli.openBaseURL + "/open-apis/attendance/v1/groups/:group_id",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,

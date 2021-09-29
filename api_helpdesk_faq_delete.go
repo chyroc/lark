@@ -19,7 +19,7 @@ func (r *HelpdeskService) DeleteHelpdeskFAQ(ctx context.Context, request *Delete
 		Scope:               "Helpdesk",
 		API:                 "DeleteHelpdeskFAQ",
 		Method:              "DELETE",
-		URL:                 "https://open.feishu.cn/open-apis/helpdesk/v1/faqs/:id",
+		URL:                 r.cli.openBaseURL + "/open-apis/helpdesk/v1/faqs/:id",
 		Body:                request,
 		MethodOption:        newMethodOption(options),
 		NeedUserAccessToken: true,

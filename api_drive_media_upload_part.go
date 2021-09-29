@@ -22,7 +22,7 @@ func (r *DriveService) PartUploadDriveMedia(ctx context.Context, request *PartUp
 		Scope:                 "Drive",
 		API:                   "PartUploadDriveMedia",
 		Method:                "POST",
-		URL:                   "https://open.feishu.cn/open-apis/drive/v1/medias/upload_part",
+		URL:                   r.cli.openBaseURL + "/open-apis/drive/v1/medias/upload_part",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,

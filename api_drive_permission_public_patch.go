@@ -19,7 +19,7 @@ func (r *DriveService) UpdateDrivePublicPermission(ctx context.Context, request 
 		Scope:                 "Drive",
 		API:                   "UpdateDrivePublicPermission",
 		Method:                "PATCH",
-		URL:                   "https://open.feishu.cn/open-apis/drive/v1/permissions/:token/public",
+		URL:                   r.cli.openBaseURL + "/open-apis/drive/v1/permissions/:token/public",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,

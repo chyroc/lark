@@ -25,7 +25,7 @@ func (r *MessageService) DeleteMessage(ctx context.Context, request *DeleteMessa
 		Scope:                 "Message",
 		API:                   "DeleteMessage",
 		Method:                "DELETE",
-		URL:                   "https://open.feishu.cn/open-apis/im/v1/messages/:message_id",
+		URL:                   r.cli.openBaseURL + "/open-apis/im/v1/messages/:message_id",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,

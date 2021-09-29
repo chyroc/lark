@@ -19,7 +19,7 @@ func (r *DriveService) GetSheetFilter(ctx context.Context, request *GetSheetFilt
 		Scope:                 "Drive",
 		API:                   "GetSheetFilter",
 		Method:                "GET",
-		URL:                   "https://open.feishu.cn/open-apis/sheets/v3/spreadsheets/:spreadsheet_token/sheets/:sheet_id/filter",
+		URL:                   r.cli.openBaseURL + "/open-apis/sheets/v3/spreadsheets/:spreadsheet_token/sheets/:sheet_id/filter",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,

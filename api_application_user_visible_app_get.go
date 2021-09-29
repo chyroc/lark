@@ -21,7 +21,7 @@ func (r *ApplicationService) GetApplicationUserVisibleApp(ctx context.Context, r
 		Scope:                 "Application",
 		API:                   "GetApplicationUserVisibleApp",
 		Method:                "GET",
-		URL:                   "https://open.feishu.cn/open-apis/application/v1/user/visible_apps",
+		URL:                   r.cli.openBaseURL + "/open-apis/application/v1/user/visible_apps",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,

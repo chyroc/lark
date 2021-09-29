@@ -23,7 +23,7 @@ func (r *AttendanceService) GetAttendanceUserTask(ctx context.Context, request *
 		Scope:                 "Attendance",
 		API:                   "GetAttendanceUserTask",
 		Method:                "POST",
-		URL:                   "https://open.feishu.cn/open-apis/attendance/v1/user_tasks/query",
+		URL:                   r.cli.openBaseURL + "/open-apis/attendance/v1/user_tasks/query",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,

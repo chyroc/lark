@@ -21,7 +21,7 @@ func (r *DriveService) UpdateSheetConditionFormat(ctx context.Context, request *
 		Scope:                 "Drive",
 		API:                   "UpdateSheetConditionFormat",
 		Method:                "POST",
-		URL:                   "https://open.feishu.cn/open-apis/sheets/v2/spreadsheets/:spreadsheetToken/condition_formats/batch_update",
+		URL:                   r.cli.openBaseURL + "/open-apis/sheets/v2/spreadsheets/:spreadsheetToken/condition_formats/batch_update",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,

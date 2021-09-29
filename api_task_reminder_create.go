@@ -19,7 +19,7 @@ func (r *TaskService) CreateTaskReminder(ctx context.Context, request *CreateTas
 		Scope:                 "Task",
 		API:                   "CreateTaskReminder",
 		Method:                "POST",
-		URL:                   "https://open.feishu.cn/open-apis/task/v1/tasks/:task_id/reminders",
+		URL:                   r.cli.openBaseURL + "/open-apis/task/v1/tasks/:task_id/reminders",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,

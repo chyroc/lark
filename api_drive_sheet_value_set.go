@@ -21,7 +21,7 @@ func (r *DriveService) SetSheetValue(ctx context.Context, request *SetSheetValue
 		Scope:                 "Drive",
 		API:                   "SetSheetValue",
 		Method:                "PUT",
-		URL:                   "https://open.feishu.cn/open-apis/sheets/v2/spreadsheets/:spreadsheetToken/values",
+		URL:                   r.cli.openBaseURL + "/open-apis/sheets/v2/spreadsheets/:spreadsheetToken/values",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,

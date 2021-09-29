@@ -19,7 +19,7 @@ func (r *TaskService) CompleteTask(ctx context.Context, request *CompleteTaskReq
 		Scope:                 "Task",
 		API:                   "CompleteTask",
 		Method:                "POST",
-		URL:                   "https://open.feishu.cn/open-apis/task/v1/tasks/:task_id/complete",
+		URL:                   r.cli.openBaseURL + "/open-apis/task/v1/tasks/:task_id/complete",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,

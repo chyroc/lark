@@ -19,7 +19,7 @@ func (r *HelpdeskService) StartHelpdeskService(ctx context.Context, request *Sta
 		Scope:                 "Helpdesk",
 		API:                   "StartHelpdeskService",
 		Method:                "POST",
-		URL:                   "https://open.feishu.cn/open-apis/helpdesk/v1/start_service",
+		URL:                   r.cli.openBaseURL + "/open-apis/helpdesk/v1/start_service",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,

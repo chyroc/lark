@@ -19,7 +19,7 @@ func (r *VCService) KickoutVCMeeting(ctx context.Context, request *KickoutVCMeet
 		Scope:                 "VC",
 		API:                   "KickoutVCMeeting",
 		Method:                "POST",
-		URL:                   "https://open.feishu.cn/open-apis/vc/v1/meetings/:meeting_id/kickout",
+		URL:                   r.cli.openBaseURL + "/open-apis/vc/v1/meetings/:meeting_id/kickout",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,

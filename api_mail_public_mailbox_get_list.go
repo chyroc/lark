@@ -19,7 +19,7 @@ func (r *MailService) GetPublicMailboxList(ctx context.Context, request *GetPubl
 		Scope:                 "Mail",
 		API:                   "GetPublicMailboxList",
 		Method:                "GET",
-		URL:                   "https://open.feishu.cn/open-apis/mail/v1/public_mailboxes",
+		URL:                   r.cli.openBaseURL + "/open-apis/mail/v1/public_mailboxes",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,

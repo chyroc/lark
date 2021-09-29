@@ -20,7 +20,7 @@ func (r *HelpdeskService) GetHelpdeskFAQImage(ctx context.Context, request *GetH
 		Scope:                 "Helpdesk",
 		API:                   "GetHelpdeskFAQImage",
 		Method:                "GET",
-		URL:                   "https://open.feishu.cn/open-apis/helpdesk/v1/faqs/:id/image/:image_key",
+		URL:                   r.cli.openBaseURL + "/open-apis/helpdesk/v1/faqs/:id/image/:image_key",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,

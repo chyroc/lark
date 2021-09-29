@@ -21,7 +21,7 @@ func (r *DriveService) GetDriveFolderChildren(ctx context.Context, request *GetD
 		Scope:                 "Drive",
 		API:                   "GetDriveFolderChildren",
 		Method:                "GET",
-		URL:                   "https://open.feishu.cn/open-apis/drive/explorer/v2/folder/:folderToken/children",
+		URL:                   r.cli.openBaseURL + "/open-apis/drive/explorer/v2/folder/:folderToken/children",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,

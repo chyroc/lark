@@ -19,7 +19,7 @@ func (r *MeetingRoomService) DeleteMeetingRoomRoom(ctx context.Context, request 
 		Scope:                 "MeetingRoom",
 		API:                   "DeleteMeetingRoomRoom",
 		Method:                "POST",
-		URL:                   "https://open.feishu.cn/open-apis/meeting_room/room/delete",
+		URL:                   r.cli.openBaseURL + "/open-apis/meeting_room/room/delete",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,

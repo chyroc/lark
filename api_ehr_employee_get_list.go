@@ -19,7 +19,7 @@ func (r *EHRService) GetEHREmployeeList(ctx context.Context, request *GetEHREmpl
 		Scope:                 "EHR",
 		API:                   "GetEHREmployeeList",
 		Method:                "GET",
-		URL:                   "https://open.feishu.cn/open-apis/ehr/v1/employees",
+		URL:                   r.cli.openBaseURL + "/open-apis/ehr/v1/employees",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,

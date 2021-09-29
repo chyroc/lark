@@ -19,7 +19,7 @@ func (r *DriveService) QuerySheetFilterViewCondition(ctx context.Context, reques
 		Scope:                 "Drive",
 		API:                   "QuerySheetFilterViewCondition",
 		Method:                "GET",
-		URL:                   "https://open.feishu.cn/open-apis/sheets/v3/spreadsheets/:spreadsheet_token/sheets/:sheet_id/filter_views/:filter_view_id/conditions/query",
+		URL:                   r.cli.openBaseURL + "/open-apis/sheets/v3/spreadsheets/:spreadsheet_token/sheets/:sheet_id/filter_views/:filter_view_id/conditions/query",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,

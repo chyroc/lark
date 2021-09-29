@@ -24,7 +24,7 @@ func (r *MessageService) GetMessageList(ctx context.Context, request *GetMessage
 		Scope:                 "Message",
 		API:                   "GetMessageList",
 		Method:                "GET",
-		URL:                   "https://open.feishu.cn/open-apis/im/v1/messages",
+		URL:                   r.cli.openBaseURL + "/open-apis/im/v1/messages",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,

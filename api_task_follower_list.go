@@ -19,7 +19,7 @@ func (r *TaskService) GetTaskFollowerList(ctx context.Context, request *GetTaskF
 		Scope:                 "Task",
 		API:                   "GetTaskFollowerList",
 		Method:                "GET",
-		URL:                   "https://open.feishu.cn/open-apis/task/v1/tasks/:task_id/followers",
+		URL:                   r.cli.openBaseURL + "/open-apis/task/v1/tasks/:task_id/followers",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,

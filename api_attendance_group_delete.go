@@ -21,7 +21,7 @@ func (r *AttendanceService) DeleteAttendanceGroup(ctx context.Context, request *
 		Scope:                 "Attendance",
 		API:                   "DeleteAttendanceGroup",
 		Method:                "DELETE",
-		URL:                   "https://open.feishu.cn/open-apis/attendance/v1/groups/:group_id",
+		URL:                   r.cli.openBaseURL + "/open-apis/attendance/v1/groups/:group_id",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,

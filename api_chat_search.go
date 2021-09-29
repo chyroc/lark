@@ -22,7 +22,7 @@ func (r *ChatService) SearchChat(ctx context.Context, request *SearchChatReq, op
 		Scope:                 "Chat",
 		API:                   "SearchChat",
 		Method:                "GET",
-		URL:                   "https://open.feishu.cn/open-apis/im/v1/chats/search",
+		URL:                   r.cli.openBaseURL + "/open-apis/im/v1/chats/search",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,

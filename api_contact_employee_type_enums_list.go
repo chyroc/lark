@@ -19,7 +19,7 @@ func (r *ContactService) GetEmployeeTypeEnumList(ctx context.Context, request *G
 		Scope:                 "Contact",
 		API:                   "GetEmployeeTypeEnumList",
 		Method:                "GET",
-		URL:                   "https://open.feishu.cn/open-apis/contact/v3/employee_type_enums",
+		URL:                   r.cli.openBaseURL + "/open-apis/contact/v3/employee_type_enums",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,

@@ -21,7 +21,7 @@ func (r *ApprovalService) SearchApprovalCarbonCopy(ctx context.Context, request 
 		Scope:                 "Approval",
 		API:                   "SearchApprovalCarbonCopy",
 		Method:                "POST",
-		URL:                   "https://www.feishu.cn/approval/openapi/v2/cc/search",
+		URL:                   r.cli.wwwBaseURL + "/approval/openapi/v2/cc/search",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,

@@ -21,7 +21,7 @@ func (r *VCService) ApplyVCReserve(ctx context.Context, request *ApplyVCReserveR
 		Scope:               "VC",
 		API:                 "ApplyVCReserve",
 		Method:              "POST",
-		URL:                 "https://open.feishu.cn/open-apis/vc/v1/reserves/apply",
+		URL:                 r.cli.openBaseURL + "/open-apis/vc/v1/reserves/apply",
 		Body:                request,
 		MethodOption:        newMethodOption(options),
 		NeedUserAccessToken: true,

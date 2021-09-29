@@ -19,7 +19,7 @@ func (r *EcosystemService) GetEcosystemBindAwemeUser(ctx context.Context, reques
 		Scope:                 "Ecosystem",
 		API:                   "GetEcosystemBindAwemeUser",
 		Method:                "POST",
-		URL:                   "https://open.feishu.cn/open-apis/aweme_ecosystem/v1/aweme_users/get_bind_info",
+		URL:                   r.cli.openBaseURL + "/open-apis/aweme_ecosystem/v1/aweme_users/get_bind_info",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,

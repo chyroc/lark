@@ -21,7 +21,7 @@ func (r *ACSService) GetACSUserList(ctx context.Context, request *GetACSUserList
 		Scope:                 "ACS",
 		API:                   "GetACSUserList",
 		Method:                "GET",
-		URL:                   "https://open.feishu.cn/open-apis/acs/v1/users",
+		URL:                   r.cli.openBaseURL + "/open-apis/acs/v1/users",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,

@@ -21,7 +21,7 @@ func (r *DriveService) GetSheetProtectedDimension(ctx context.Context, request *
 		Scope:                 "Drive",
 		API:                   "GetSheetProtectedDimension",
 		Method:                "GET",
-		URL:                   "https://open.feishu.cn/open-apis/sheets/v2/spreadsheets/:spreadsheetToken/protected_range_batch_get",
+		URL:                   r.cli.openBaseURL + "/open-apis/sheets/v2/spreadsheets/:spreadsheetToken/protected_range_batch_get",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,

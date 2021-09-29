@@ -21,7 +21,7 @@ func (r *DriveService) SetSheetStyle(ctx context.Context, request *SetSheetStyle
 		Scope:                 "Drive",
 		API:                   "SetSheetStyle",
 		Method:                "PUT",
-		URL:                   "https://open.feishu.cn/open-apis/sheets/v2/spreadsheets/:spreadsheetToken/style",
+		URL:                   r.cli.openBaseURL + "/open-apis/sheets/v2/spreadsheets/:spreadsheetToken/style",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,

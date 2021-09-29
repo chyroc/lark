@@ -24,7 +24,7 @@ func (r *ContactService) BatchGetUserByID(ctx context.Context, request *BatchGet
 		Scope:                 "Contact",
 		API:                   "BatchGetUserByID",
 		Method:                "GET",
-		URL:                   "https://open.feishu.cn/open-apis/user/v1/batch_get_id",
+		URL:                   r.cli.openBaseURL + "/open-apis/user/v1/batch_get_id",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,

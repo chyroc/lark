@@ -21,7 +21,7 @@ func (r *ApplicationService) IsApplicationUserAdmin(ctx context.Context, request
 		Scope:                 "Application",
 		API:                   "IsApplicationUserAdmin",
 		Method:                "GET",
-		URL:                   "https://open.feishu.cn/open-apis/application/v3/is_user_admin",
+		URL:                   r.cli.openBaseURL + "/open-apis/application/v3/is_user_admin",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,

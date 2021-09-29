@@ -19,7 +19,7 @@ func (r *HelpdeskService) UpdateHelpdeskAgentSchedule(ctx context.Context, reque
 		Scope:               "Helpdesk",
 		API:                 "UpdateHelpdeskAgentSchedule",
 		Method:              "PATCH",
-		URL:                 "https://open.feishu.cn/open-apis/helpdesk/v1/agents/:agent_id/schedules",
+		URL:                 r.cli.openBaseURL + "/open-apis/helpdesk/v1/agents/:agent_id/schedules",
 		Body:                request,
 		MethodOption:        newMethodOption(options),
 		NeedUserAccessToken: true,

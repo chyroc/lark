@@ -23,7 +23,7 @@ func (r *CalendarService) GetCalendarACLList(ctx context.Context, request *GetCa
 		Scope:                 "Calendar",
 		API:                   "GetCalendarACLList",
 		Method:                "GET",
-		URL:                   "https://open.feishu.cn/open-apis/calendar/v4/calendars/:calendar_id/acls",
+		URL:                   r.cli.openBaseURL + "/open-apis/calendar/v4/calendars/:calendar_id/acls",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,

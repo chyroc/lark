@@ -21,7 +21,7 @@ func (r *AIService) RecognizeBasicImage(ctx context.Context, request *RecognizeB
 		Scope:                 "AI",
 		API:                   "RecognizeBasicImage",
 		Method:                "POST",
-		URL:                   "https://open.feishu.cn/open-apis/optical_char_recognition/v1/image/basic_recognize",
+		URL:                   r.cli.openBaseURL + "/open-apis/optical_char_recognition/v1/image/basic_recognize",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,

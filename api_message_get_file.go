@@ -27,7 +27,7 @@ func (r *MessageService) GetMessageFile(ctx context.Context, request *GetMessage
 		Scope:                 "Message",
 		API:                   "GetMessageFile",
 		Method:                "GET",
-		URL:                   "https://open.feishu.cn/open-apis/im/v1/messages/:message_id/resources/:file_key",
+		URL:                   r.cli.openBaseURL + "/open-apis/im/v1/messages/:message_id/resources/:file_key",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,

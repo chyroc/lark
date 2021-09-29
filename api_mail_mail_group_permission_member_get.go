@@ -19,7 +19,7 @@ func (r *MailService) GetMailGroupPermissionMember(ctx context.Context, request 
 		Scope:                 "Mail",
 		API:                   "GetMailGroupPermissionMember",
 		Method:                "GET",
-		URL:                   "https://open.feishu.cn/open-apis/mail/v1/mailgroups/:mailgroup_id/permission_members/:permission_member_id",
+		URL:                   r.cli.openBaseURL + "/open-apis/mail/v1/mailgroups/:mailgroup_id/permission_members/:permission_member_id",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,

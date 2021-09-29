@@ -22,7 +22,7 @@ func (r *CalendarService) GetCalendarEventAttendeeChatMemberList(ctx context.Con
 		Scope:                 "Calendar",
 		API:                   "GetCalendarEventAttendeeChatMemberList",
 		Method:                "GET",
-		URL:                   "https://open.feishu.cn/open-apis/calendar/v4/calendars/:calendar_id/events/:event_id/attendees/:attendee_id/chat_members",
+		URL:                   r.cli.openBaseURL + "/open-apis/calendar/v4/calendars/:calendar_id/events/:event_id/attendees/:attendee_id/chat_members",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,

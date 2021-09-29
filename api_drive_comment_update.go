@@ -19,7 +19,7 @@ func (r *DriveService) UpdateDriveComment(ctx context.Context, request *UpdateDr
 		Scope:                 "Drive",
 		API:                   "UpdateDriveComment",
 		Method:                "PUT",
-		URL:                   "https://open.feishu.cn/open-apis/drive/v1/files/:file_token/comments/:comment_id/replies/:reply_id",
+		URL:                   r.cli.openBaseURL + "/open-apis/drive/v1/files/:file_token/comments/:comment_id/replies/:reply_id",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,

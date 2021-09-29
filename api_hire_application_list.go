@@ -19,7 +19,7 @@ func (r *HireService) GetHireApplicationList(ctx context.Context, request *GetHi
 		Scope:                 "Hire",
 		API:                   "GetHireApplicationList",
 		Method:                "GET",
-		URL:                   "https://open.feishu.cn/open-apis/hire/v1/applications",
+		URL:                   r.cli.openBaseURL + "/open-apis/hire/v1/applications",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,

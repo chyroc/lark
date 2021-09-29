@@ -19,7 +19,7 @@ func (r *DriveService) QuerySheetFloatImage(ctx context.Context, request *QueryS
 		Scope:                 "Drive",
 		API:                   "QuerySheetFloatImage",
 		Method:                "GET",
-		URL:                   "https://open.feishu.cn/open-apis/sheets/v3/spreadsheets/:spreadsheet_token/sheets/:sheet_id/float_images/query",
+		URL:                   r.cli.openBaseURL + "/open-apis/sheets/v3/spreadsheets/:spreadsheet_token/sheets/:sheet_id/float_images/query",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,

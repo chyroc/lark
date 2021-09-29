@@ -19,7 +19,7 @@ func (r *DriveService) GetDriveCommentList(ctx context.Context, request *GetDriv
 		Scope:                 "Drive",
 		API:                   "GetDriveCommentList",
 		Method:                "GET",
-		URL:                   "https://open.feishu.cn/open-apis/drive/v1/files/:file_token/comments",
+		URL:                   r.cli.openBaseURL + "/open-apis/drive/v1/files/:file_token/comments",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,

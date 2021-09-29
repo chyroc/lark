@@ -19,7 +19,7 @@ func (r *DriveService) CreateDriveMemberPermission(ctx context.Context, request 
 		Scope:                 "Drive",
 		API:                   "CreateDriveMemberPermission",
 		Method:                "POST",
-		URL:                   "https://open.feishu.cn/open-apis/drive/v1/permissions/:token/members",
+		URL:                   r.cli.openBaseURL + "/open-apis/drive/v1/permissions/:token/members",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,

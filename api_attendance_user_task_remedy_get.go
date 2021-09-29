@@ -21,7 +21,7 @@ func (r *AttendanceService) GetAttendanceUserTaskRemedy(ctx context.Context, req
 		Scope:                 "Attendance",
 		API:                   "GetAttendanceUserTaskRemedy",
 		Method:                "POST",
-		URL:                   "https://open.feishu.cn/open-apis/attendance/v1/user_task_remedys/query",
+		URL:                   r.cli.openBaseURL + "/open-apis/attendance/v1/user_task_remedys/query",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,

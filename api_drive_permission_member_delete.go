@@ -19,7 +19,7 @@ func (r *DriveService) DeleteDriveMemberPermission(ctx context.Context, request 
 		Scope:                 "Drive",
 		API:                   "DeleteDriveMemberPermission",
 		Method:                "DELETE",
-		URL:                   "https://open.feishu.cn/open-apis/drive/v1/permissions/:token/members/:member_id",
+		URL:                   r.cli.openBaseURL + "/open-apis/drive/v1/permissions/:token/members/:member_id",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,

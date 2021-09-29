@@ -21,7 +21,7 @@ func (r *ContactService) DeleteDepartment(ctx context.Context, request *DeleteDe
 		Scope:                 "Contact",
 		API:                   "DeleteDepartment",
 		Method:                "DELETE",
-		URL:                   "https://open.feishu.cn/open-apis/contact/v3/departments/:department_id",
+		URL:                   r.cli.openBaseURL + "/open-apis/contact/v3/departments/:department_id",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,

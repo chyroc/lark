@@ -19,7 +19,7 @@ func (r *HireService) UpdateHireEmployee(ctx context.Context, request *UpdateHir
 		Scope:                 "Hire",
 		API:                   "UpdateHireEmployee",
 		Method:                "PATCH",
-		URL:                   "https://open.feishu.cn/open-apis/hire/v1/employees/:employee_id",
+		URL:                   r.cli.openBaseURL + "/open-apis/hire/v1/employees/:employee_id",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,

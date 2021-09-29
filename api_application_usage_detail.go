@@ -24,7 +24,7 @@ func (r *ApplicationService) GetApplicationUsageDetail(ctx context.Context, requ
 		Scope:                 "Application",
 		API:                   "GetApplicationUsageDetail",
 		Method:                "POST",
-		URL:                   "https://open.feishu.cn/open-apis/application/v1/app_usage_detail",
+		URL:                   r.cli.openBaseURL + "/open-apis/application/v1/app_usage_detail",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,

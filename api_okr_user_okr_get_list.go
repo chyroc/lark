@@ -22,7 +22,7 @@ func (r *OKRService) GetUserOKRList(ctx context.Context, request *GetUserOKRList
 		Scope:                 "OKR",
 		API:                   "GetUserOKRList",
 		Method:                "GET",
-		URL:                   "https://open.feishu.cn/open-apis/okr/v1/users/:user_id/okrs",
+		URL:                   r.cli.openBaseURL + "/open-apis/okr/v1/users/:user_id/okrs",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,

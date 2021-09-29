@@ -23,7 +23,7 @@ func (r *CalendarService) DeleteCalendarACL(ctx context.Context, request *Delete
 		Scope:                 "Calendar",
 		API:                   "DeleteCalendarACL",
 		Method:                "DELETE",
-		URL:                   "https://open.feishu.cn/open-apis/calendar/v4/calendars/:calendar_id/acls/:acl_id",
+		URL:                   r.cli.openBaseURL + "/open-apis/calendar/v4/calendars/:calendar_id/acls/:acl_id",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,

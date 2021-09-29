@@ -21,7 +21,7 @@ func (r *HelpdeskService) UpdateHelpdeskTicketCustomizedField(ctx context.Contex
 		Scope:               "Helpdesk",
 		API:                 "UpdateHelpdeskTicketCustomizedField",
 		Method:              "PATCH",
-		URL:                 "https://open.feishu.cn/open-apis/helpdesk/v1/ticket_customized_fields/:ticket_customized_field_id",
+		URL:                 r.cli.openBaseURL + "/open-apis/helpdesk/v1/ticket_customized_fields/:ticket_customized_field_id",
 		Body:                request,
 		MethodOption:        newMethodOption(options),
 		NeedUserAccessToken: true,

@@ -19,7 +19,7 @@ func (r *CalendarService) GetCalendarFreeBusyList(ctx context.Context, request *
 		Scope:                 "Calendar",
 		API:                   "GetCalendarFreeBusyList",
 		Method:                "POST",
-		URL:                   "https://open.feishu.cn/open-apis/calendar/v4/freebusy/list",
+		URL:                   r.cli.openBaseURL + "/open-apis/calendar/v4/freebusy/list",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,

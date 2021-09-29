@@ -19,7 +19,7 @@ func (r *MailService) DeleteMailGroupPermissionMember(ctx context.Context, reque
 		Scope:                 "Mail",
 		API:                   "DeleteMailGroupPermissionMember",
 		Method:                "DELETE",
-		URL:                   "https://open.feishu.cn/open-apis/mail/v1/mailgroups/:mailgroup_id/permission_members/:permission_member_id",
+		URL:                   r.cli.openBaseURL + "/open-apis/mail/v1/mailgroups/:mailgroup_id/permission_members/:permission_member_id",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,

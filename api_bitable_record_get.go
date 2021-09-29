@@ -19,7 +19,7 @@ func (r *BitableService) GetBitableRecord(ctx context.Context, request *GetBitab
 		Scope:                 "Bitable",
 		API:                   "GetBitableRecord",
 		Method:                "GET",
-		URL:                   "https://open.feishu.cn/open-apis/bitable/v1/apps/:app_token/tables/:table_id/records/:record_id",
+		URL:                   r.cli.openBaseURL + "/open-apis/bitable/v1/apps/:app_token/tables/:table_id/records/:record_id",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,

@@ -19,7 +19,7 @@ func (r *DriveService) CreateSheetFilter(ctx context.Context, request *CreateShe
 		Scope:                 "Drive",
 		API:                   "CreateSheetFilter",
 		Method:                "POST",
-		URL:                   "https://open.feishu.cn/open-apis/sheets/v3/spreadsheets/:spreadsheet_token/sheets/:sheet_id/filter",
+		URL:                   r.cli.openBaseURL + "/open-apis/sheets/v3/spreadsheets/:spreadsheet_token/sheets/:sheet_id/filter",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,

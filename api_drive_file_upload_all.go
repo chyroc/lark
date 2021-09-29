@@ -23,7 +23,7 @@ func (r *DriveService) UploadDriveFile(ctx context.Context, request *UploadDrive
 		Scope:                 "Drive",
 		API:                   "UploadDriveFile",
 		Method:                "POST",
-		URL:                   "https://open.feishu.cn/open-apis/drive/v1/files/upload_all",
+		URL:                   r.cli.openBaseURL + "/open-apis/drive/v1/files/upload_all",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,

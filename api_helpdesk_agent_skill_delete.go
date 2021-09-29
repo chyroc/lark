@@ -19,7 +19,7 @@ func (r *HelpdeskService) DeleteHelpdeskAgentSkill(ctx context.Context, request 
 		Scope:               "Helpdesk",
 		API:                 "DeleteHelpdeskAgentSkill",
 		Method:              "DELETE",
-		URL:                 "https://open.feishu.cn/open-apis/helpdesk/v1/agent_skills/:agent_skill_id",
+		URL:                 r.cli.openBaseURL + "/open-apis/helpdesk/v1/agent_skills/:agent_skill_id",
 		Body:                request,
 		MethodOption:        newMethodOption(options),
 		NeedUserAccessToken: true,

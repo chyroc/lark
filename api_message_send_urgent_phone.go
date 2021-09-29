@@ -26,7 +26,7 @@ func (r *MessageService) SendUrgentPhoneMessage(ctx context.Context, request *Se
 		Scope:                 "Message",
 		API:                   "SendUrgentPhoneMessage",
 		Method:                "PATCH",
-		URL:                   "https://open.feishu.cn/open-apis/im/v1/messages/:message_id/urgent_phone",
+		URL:                   r.cli.openBaseURL + "/open-apis/im/v1/messages/:message_id/urgent_phone",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,

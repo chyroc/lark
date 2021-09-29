@@ -21,7 +21,7 @@ func (r *VCService) InviteVCMeeting(ctx context.Context, request *InviteVCMeetin
 		Scope:               "VC",
 		API:                 "InviteVCMeeting",
 		Method:              "PATCH",
-		URL:                 "https://open.feishu.cn/open-apis/vc/v1/meetings/:meeting_id/invite",
+		URL:                 r.cli.openBaseURL + "/open-apis/vc/v1/meetings/:meeting_id/invite",
 		Body:                request,
 		MethodOption:        newMethodOption(options),
 		NeedUserAccessToken: true,

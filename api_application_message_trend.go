@@ -21,7 +21,7 @@ func (r *ApplicationService) GetApplicationMessageTrend(ctx context.Context, req
 		Scope:                 "Application",
 		API:                   "GetApplicationMessageTrend",
 		Method:                "POST",
-		URL:                   "https://open.feishu.cn/open-apis/application/v1/app_message_trend",
+		URL:                   r.cli.openBaseURL + "/open-apis/application/v1/app_message_trend",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,

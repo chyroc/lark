@@ -25,7 +25,7 @@ func (r *ContactService) GetParentDepartment(ctx context.Context, request *GetPa
 		Scope:                 "Contact",
 		API:                   "GetParentDepartment",
 		Method:                "GET",
-		URL:                   "https://open.feishu.cn/open-apis/contact/v3/departments/parent",
+		URL:                   r.cli.openBaseURL + "/open-apis/contact/v3/departments/parent",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,

@@ -29,7 +29,7 @@ func (r *MessageService) SendEphemeralMessage(ctx context.Context, request *Send
 		Scope:                 "Message",
 		API:                   "SendEphemeralMessage",
 		Method:                "POST",
-		URL:                   "https://open.feishu.cn/open-apis/ephemeral/v1/send",
+		URL:                   r.cli.openBaseURL + "/open-apis/ephemeral/v1/send",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,

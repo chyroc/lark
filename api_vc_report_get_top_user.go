@@ -21,7 +21,7 @@ func (r *VCService) GetVCTopUserReport(ctx context.Context, request *GetVCTopUse
 		Scope:                 "VC",
 		API:                   "GetVCTopUserReport",
 		Method:                "GET",
-		URL:                   "https://open.feishu.cn/open-apis/vc/v1/reports/get_top_user",
+		URL:                   r.cli.openBaseURL + "/open-apis/vc/v1/reports/get_top_user",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,

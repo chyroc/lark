@@ -29,7 +29,7 @@ func (r *ChatService) GetChatOld(ctx context.Context, request *GetChatOldReq, op
 		Scope:                 "Chat",
 		API:                   "GetChatOld",
 		Method:                "GET",
-		URL:                   "https://open.feishu.cn/open-apis/chat/v4/info",
+		URL:                   r.cli.openBaseURL + "/open-apis/chat/v4/info",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,

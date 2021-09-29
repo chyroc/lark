@@ -19,7 +19,7 @@ func (r *MailService) ClearPublicMailboxMember(ctx context.Context, request *Cle
 		Scope:                 "Mail",
 		API:                   "ClearPublicMailboxMember",
 		Method:                "POST",
-		URL:                   "https://open.feishu.cn/open-apis/mail/v1/public_mailboxes/:public_mailbox_id/members/clear",
+		URL:                   r.cli.openBaseURL + "/open-apis/mail/v1/public_mailboxes/:public_mailbox_id/members/clear",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,

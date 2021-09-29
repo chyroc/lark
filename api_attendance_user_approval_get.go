@@ -21,7 +21,7 @@ func (r *AttendanceService) GetAttendanceUserApproval(ctx context.Context, reque
 		Scope:                 "Attendance",
 		API:                   "GetAttendanceUserApproval",
 		Method:                "POST",
-		URL:                   "https://open.feishu.cn/open-apis/attendance/v1/user_approvals/query",
+		URL:                   r.cli.openBaseURL + "/open-apis/attendance/v1/user_approvals/query",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,

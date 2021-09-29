@@ -23,7 +23,7 @@ func (r *AttendanceService) CreateAttendanceUserApproval(ctx context.Context, re
 		Scope:                 "Attendance",
 		API:                   "CreateAttendanceUserApproval",
 		Method:                "POST",
-		URL:                   "https://open.feishu.cn/open-apis/attendance/v1/user_approvals",
+		URL:                   r.cli.openBaseURL + "/open-apis/attendance/v1/user_approvals",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,

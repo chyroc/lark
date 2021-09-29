@@ -19,7 +19,7 @@ func (r *HireService) CreateHireApplication(ctx context.Context, request *Create
 		Scope:                 "Hire",
 		API:                   "CreateHireApplication",
 		Method:                "POST",
-		URL:                   "https://open.feishu.cn/open-apis/hire/v1/applications",
+		URL:                   r.cli.openBaseURL + "/open-apis/hire/v1/applications",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,

@@ -24,7 +24,7 @@ func (r *MessageService) GetMessageReadUserList(ctx context.Context, request *Ge
 		Scope:                 "Message",
 		API:                   "GetMessageReadUserList",
 		Method:                "GET",
-		URL:                   "https://open.feishu.cn/open-apis/im/v1/messages/:message_id/read_users",
+		URL:                   r.cli.openBaseURL + "/open-apis/im/v1/messages/:message_id/read_users",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,

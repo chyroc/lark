@@ -19,7 +19,7 @@ func (r *MeetingRoomService) BatchGetMeetingRoomFreebusy(ctx context.Context, re
 		Scope:                 "MeetingRoom",
 		API:                   "BatchGetMeetingRoomFreebusy",
 		Method:                "GET",
-		URL:                   "https://open.feishu.cn/open-apis/meeting_room/freebusy/batch_get",
+		URL:                   r.cli.openBaseURL + "/open-apis/meeting_room/freebusy/batch_get",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,

@@ -22,7 +22,7 @@ func (r *MessageService) SendRawMessageOld(ctx context.Context, request *SendRaw
 		Scope:                 "Message",
 		API:                   "SendRawMessageOld",
 		Method:                "POST",
-		URL:                   "https://open.feishu.cn/open-apis/message/v4/send/",
+		URL:                   r.cli.openBaseURL + "/open-apis/message/v4/send/",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,

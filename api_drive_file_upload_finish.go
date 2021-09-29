@@ -21,7 +21,7 @@ func (r *DriveService) FinishUploadDriveFile(ctx context.Context, request *Finis
 		Scope:                 "Drive",
 		API:                   "FinishUploadDriveFile",
 		Method:                "POST",
-		URL:                   "https://open.feishu.cn/open-apis/drive/v1/files/upload_finish",
+		URL:                   r.cli.openBaseURL + "/open-apis/drive/v1/files/upload_finish",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,

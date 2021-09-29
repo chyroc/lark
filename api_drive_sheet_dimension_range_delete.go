@@ -21,7 +21,7 @@ func (r *DriveService) DeleteSheetDimensionRange(ctx context.Context, request *D
 		Scope:                 "Drive",
 		API:                   "DeleteSheetDimensionRange",
 		Method:                "DELETE",
-		URL:                   "https://open.feishu.cn/open-apis/sheets/v2/spreadsheets/:spreadsheetToken/dimension_range",
+		URL:                   r.cli.openBaseURL + "/open-apis/sheets/v2/spreadsheets/:spreadsheetToken/dimension_range",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,

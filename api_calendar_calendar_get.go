@@ -23,7 +23,7 @@ func (r *CalendarService) GetCalendar(ctx context.Context, request *GetCalendarR
 		Scope:                 "Calendar",
 		API:                   "GetCalendar",
 		Method:                "GET",
-		URL:                   "https://open.feishu.cn/open-apis/calendar/v4/calendars/:calendar_id",
+		URL:                   r.cli.openBaseURL + "/open-apis/calendar/v4/calendars/:calendar_id",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,

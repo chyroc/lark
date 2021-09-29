@@ -24,7 +24,7 @@ func (r *ChatService) DeleteChat(ctx context.Context, request *DeleteChatReq, op
 		Scope:                 "Chat",
 		API:                   "DeleteChat",
 		Method:                "DELETE",
-		URL:                   "https://open.feishu.cn/open-apis/im/v1/chats/:chat_id",
+		URL:                   r.cli.openBaseURL + "/open-apis/im/v1/chats/:chat_id",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,

@@ -19,7 +19,7 @@ func (r *ACSService) GetACSDeviceList(ctx context.Context, request *GetACSDevice
 		Scope:                 "ACS",
 		API:                   "GetACSDeviceList",
 		Method:                "GET",
-		URL:                   "https://open.feishu.cn/open-apis/acs/v1/devices",
+		URL:                   r.cli.openBaseURL + "/open-apis/acs/v1/devices",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,

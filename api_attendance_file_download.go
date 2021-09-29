@@ -22,7 +22,7 @@ func (r *AttendanceService) DownloadAttendanceFile(ctx context.Context, request 
 		Scope:                 "Attendance",
 		API:                   "DownloadAttendanceFile",
 		Method:                "GET",
-		URL:                   "https://open.feishu.cn/open-apis/attendance/v1/files/:file_id/download",
+		URL:                   r.cli.openBaseURL + "/open-apis/attendance/v1/files/:file_id/download",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,

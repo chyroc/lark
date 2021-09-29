@@ -19,7 +19,7 @@ func (r *CalendarService) CreateCalendarTimeoffEvent(ctx context.Context, reques
 		Scope:                 "Calendar",
 		API:                   "CreateCalendarTimeoffEvent",
 		Method:                "POST",
-		URL:                   "https://open.feishu.cn/open-apis/calendar/v4/timeoff_events",
+		URL:                   r.cli.openBaseURL + "/open-apis/calendar/v4/timeoff_events",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,

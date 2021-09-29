@@ -21,7 +21,7 @@ func (r *VCService) StopVCMeetingRecording(ctx context.Context, request *StopVCM
 		Scope:               "VC",
 		API:                 "StopVCMeetingRecording",
 		Method:              "PATCH",
-		URL:                 "https://open.feishu.cn/open-apis/vc/v1/meetings/:meeting_id/recording/stop",
+		URL:                 r.cli.openBaseURL + "/open-apis/vc/v1/meetings/:meeting_id/recording/stop",
 		Body:                request,
 		MethodOption:        newMethodOption(options),
 		NeedUserAccessToken: true,

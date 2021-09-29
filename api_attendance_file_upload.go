@@ -22,7 +22,7 @@ func (r *AttendanceService) UploadAttendanceFile(ctx context.Context, request *U
 		Scope:                 "Attendance",
 		API:                   "UploadAttendanceFile",
 		Method:                "POST",
-		URL:                   "https://open.feishu.cn/open-apis/attendance/v1/files/upload",
+		URL:                   r.cli.openBaseURL + "/open-apis/attendance/v1/files/upload",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,

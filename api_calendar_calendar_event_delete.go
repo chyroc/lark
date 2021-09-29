@@ -24,7 +24,7 @@ func (r *CalendarService) DeleteCalendarEvent(ctx context.Context, request *Dele
 		Scope:                 "Calendar",
 		API:                   "DeleteCalendarEvent",
 		Method:                "DELETE",
-		URL:                   "https://open.feishu.cn/open-apis/calendar/v4/calendars/:calendar_id/events/:event_id",
+		URL:                   r.cli.openBaseURL + "/open-apis/calendar/v4/calendars/:calendar_id/events/:event_id",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,

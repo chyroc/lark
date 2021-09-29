@@ -599,6 +599,16 @@ API Count: 469, Event Count: 50
 cli := lark.New(lark.WithAppCredential("<APP_ID>", "<APP_SECRET>"))
 ```
 
+- processing larksuite (non-China region) request
+
+```go
+cli := lark.New(
+    lark.WithAppCredential("<APP_ID>", "<APP_SECRET>"),
+    lark.WithOpenBaseURL("https://open.larksuite.com"),
+    lark.WithWWWBaseURL("https://www.larksuite.com"),
+)
+```
+
 - for need handle event callback:
 
 ```go

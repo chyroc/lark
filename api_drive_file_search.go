@@ -19,7 +19,7 @@ func (r *DriveService) SearchDriveFile(ctx context.Context, request *SearchDrive
 		Scope:               "Drive",
 		API:                 "SearchDriveFile",
 		Method:              "POST",
-		URL:                 "https://open.feishu.cn/open-apis/suite/docs-api/search/object",
+		URL:                 r.cli.openBaseURL + "/open-apis/suite/docs-api/search/object",
 		Body:                request,
 		MethodOption:        newMethodOption(options),
 		NeedUserAccessToken: true,

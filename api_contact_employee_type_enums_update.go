@@ -19,7 +19,7 @@ func (r *ContactService) UpdateEmployeeTypeEnumPatch(ctx context.Context, reques
 		Scope:                 "Contact",
 		API:                   "UpdateEmployeeTypeEnumPatch",
 		Method:                "PUT",
-		URL:                   "https://open.feishu.cn/open-apis/contact/v3/employee_type_enums/:enum_id",
+		URL:                   r.cli.openBaseURL + "/open-apis/contact/v3/employee_type_enums/:enum_id",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,

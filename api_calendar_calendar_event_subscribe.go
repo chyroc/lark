@@ -21,7 +21,7 @@ func (r *CalendarService) SubscribeCalendarEvent(ctx context.Context, request *S
 		Scope:               "Calendar",
 		API:                 "SubscribeCalendarEvent",
 		Method:              "POST",
-		URL:                 "https://open.feishu.cn/open-apis/calendar/v4/calendars/:calendar_id/events/subscription",
+		URL:                 r.cli.openBaseURL + "/open-apis/calendar/v4/calendars/:calendar_id/events/subscription",
 		Body:                request,
 		MethodOption:        newMethodOption(options),
 		NeedUserAccessToken: true,

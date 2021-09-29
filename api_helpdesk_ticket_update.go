@@ -19,7 +19,7 @@ func (r *HelpdeskService) UpdateHelpdeskTicket(ctx context.Context, request *Upd
 		Scope:               "Helpdesk",
 		API:                 "UpdateHelpdeskTicket",
 		Method:              "PUT",
-		URL:                 "https://open.feishu.cn/open-apis/helpdesk/v1/tickets/:ticket_id",
+		URL:                 r.cli.openBaseURL + "/open-apis/helpdesk/v1/tickets/:ticket_id",
 		Body:                request,
 		MethodOption:        newMethodOption(options),
 		NeedUserAccessToken: true,

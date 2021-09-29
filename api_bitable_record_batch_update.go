@@ -19,7 +19,7 @@ func (r *BitableService) BatchUpdateBitableRecord(ctx context.Context, request *
 		Scope:                 "Bitable",
 		API:                   "BatchUpdateBitableRecord",
 		Method:                "POST",
-		URL:                   "https://open.feishu.cn/open-apis/bitable/v1/apps/:app_token/tables/:table_id/records/batch_update",
+		URL:                   r.cli.openBaseURL + "/open-apis/bitable/v1/apps/:app_token/tables/:table_id/records/batch_update",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,

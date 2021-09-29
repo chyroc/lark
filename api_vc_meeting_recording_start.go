@@ -21,7 +21,7 @@ func (r *VCService) StartVCMeetingRecording(ctx context.Context, request *StartV
 		Scope:               "VC",
 		API:                 "StartVCMeetingRecording",
 		Method:              "PATCH",
-		URL:                 "https://open.feishu.cn/open-apis/vc/v1/meetings/:meeting_id/recording/start",
+		URL:                 r.cli.openBaseURL + "/open-apis/vc/v1/meetings/:meeting_id/recording/start",
 		Body:                request,
 		MethodOption:        newMethodOption(options),
 		NeedUserAccessToken: true,

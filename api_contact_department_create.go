@@ -22,7 +22,7 @@ func (r *ContactService) CreateDepartment(ctx context.Context, request *CreateDe
 		Scope:                 "Contact",
 		API:                   "CreateDepartment",
 		Method:                "POST",
-		URL:                   "https://open.feishu.cn/open-apis/contact/v3/departments",
+		URL:                   r.cli.openBaseURL + "/open-apis/contact/v3/departments",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,

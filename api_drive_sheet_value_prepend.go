@@ -21,7 +21,7 @@ func (r *DriveService) PrependSheetValue(ctx context.Context, request *PrependSh
 		Scope:                 "Drive",
 		API:                   "PrependSheetValue",
 		Method:                "POST",
-		URL:                   "https://open.feishu.cn/open-apis/sheets/v2/spreadsheets/:spreadsheetToken/values_prepend",
+		URL:                   r.cli.openBaseURL + "/open-apis/sheets/v2/spreadsheets/:spreadsheetToken/values_prepend",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,

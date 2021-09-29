@@ -19,7 +19,7 @@ func (r *TaskService) DeleteTaskReminder(ctx context.Context, request *DeleteTas
 		Scope:                 "Task",
 		API:                   "DeleteTaskReminder",
 		Method:                "DELETE",
-		URL:                   "https://open.feishu.cn/open-apis/task/v1/tasks/:task_id/reminders/:reminder_id",
+		URL:                   r.cli.openBaseURL + "/open-apis/task/v1/tasks/:task_id/reminders/:reminder_id",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,

@@ -19,7 +19,7 @@ func (r *HelpdeskService) GetHelpdeskAgentScheduleList(ctx context.Context, requ
 		Scope:                 "Helpdesk",
 		API:                   "GetHelpdeskAgentScheduleList",
 		Method:                "GET",
-		URL:                   "https://open.feishu.cn/open-apis/helpdesk/v1/agent_schedules",
+		URL:                   r.cli.openBaseURL + "/open-apis/helpdesk/v1/agent_schedules",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,

@@ -19,7 +19,7 @@ func (r *MeetingRoomService) UpdateMeetingRoomBuilding(ctx context.Context, requ
 		Scope:                 "MeetingRoom",
 		API:                   "UpdateMeetingRoomBuilding",
 		Method:                "POST",
-		URL:                   "https://open.feishu.cn/open-apis/meeting_room/building/update",
+		URL:                   r.cli.openBaseURL + "/open-apis/meeting_room/building/update",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,

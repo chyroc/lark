@@ -19,7 +19,7 @@ func (r *HireService) GetHireAttachment(ctx context.Context, request *GetHireAtt
 		Scope:                 "Hire",
 		API:                   "GetHireAttachment",
 		Method:                "GET",
-		URL:                   "https://open.feishu.cn/open-apis/hire/v1/attachments/:attachment_id",
+		URL:                   r.cli.openBaseURL + "/open-apis/hire/v1/attachments/:attachment_id",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,

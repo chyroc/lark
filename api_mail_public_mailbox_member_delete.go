@@ -19,7 +19,7 @@ func (r *MailService) DeletePublicMailboxMember(ctx context.Context, request *De
 		Scope:                 "Mail",
 		API:                   "DeletePublicMailboxMember",
 		Method:                "DELETE",
-		URL:                   "https://open.feishu.cn/open-apis/mail/v1/public_mailboxes/:public_mailbox_id/members/:member_id",
+		URL:                   r.cli.openBaseURL + "/open-apis/mail/v1/public_mailboxes/:public_mailbox_id/members/:member_id",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,

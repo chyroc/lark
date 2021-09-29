@@ -19,7 +19,7 @@ func (r *ContactService) AddContactGroupMember(ctx context.Context, request *Add
 		Scope:                 "Contact",
 		API:                   "AddContactGroupMember",
 		Method:                "POST",
-		URL:                   "https://open.feishu.cn/open-apis/contact/v3/group/:group_id/member/add",
+		URL:                   r.cli.openBaseURL + "/open-apis/contact/v3/group/:group_id/member/add",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,

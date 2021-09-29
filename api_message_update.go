@@ -24,7 +24,7 @@ func (r *MessageService) UpdateMessage(ctx context.Context, request *UpdateMessa
 		Scope:                 "Message",
 		API:                   "UpdateMessage",
 		Method:                "PATCH",
-		URL:                   "https://open.feishu.cn/open-apis/im/v1/messages/:message_id",
+		URL:                   r.cli.openBaseURL + "/open-apis/im/v1/messages/:message_id",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,

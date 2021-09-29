@@ -23,7 +23,7 @@ func (r *ChatService) JoinChat(ctx context.Context, request *JoinChatReq, option
 		Scope:                 "Chat",
 		API:                   "JoinChat",
 		Method:                "PATCH",
-		URL:                   "https://open.feishu.cn/open-apis/im/v1/chats/:chat_id/members/me_join",
+		URL:                   r.cli.openBaseURL + "/open-apis/im/v1/chats/:chat_id/members/me_join",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,

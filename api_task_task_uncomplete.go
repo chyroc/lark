@@ -19,7 +19,7 @@ func (r *TaskService) UncompleteTask(ctx context.Context, request *UncompleteTas
 		Scope:                 "Task",
 		API:                   "UncompleteTask",
 		Method:                "POST",
-		URL:                   "https://open.feishu.cn/open-apis/task/v1/tasks/:task_id/uncomplete",
+		URL:                   r.cli.openBaseURL + "/open-apis/task/v1/tasks/:task_id/uncomplete",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,

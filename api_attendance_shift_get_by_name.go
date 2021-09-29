@@ -21,7 +21,7 @@ func (r *AttendanceService) GetAttendanceShiftByName(ctx context.Context, reques
 		Scope:                 "Attendance",
 		API:                   "GetAttendanceShiftByName",
 		Method:                "POST",
-		URL:                   "https://open.feishu.cn/open-apis/attendance/v1/shifts/query",
+		URL:                   r.cli.openBaseURL + "/open-apis/attendance/v1/shifts/query",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,

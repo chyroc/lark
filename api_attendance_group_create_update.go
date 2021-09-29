@@ -49,7 +49,7 @@ func (r *AttendanceService) CreateUpdateAttendanceGroup(ctx context.Context, req
 		Scope:                 "Attendance",
 		API:                   "CreateUpdateAttendanceGroup",
 		Method:                "POST",
-		URL:                   "https://open.feishu.cn/open-apis/attendance/v1/groups",
+		URL:                   r.cli.openBaseURL + "/open-apis/attendance/v1/groups",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,

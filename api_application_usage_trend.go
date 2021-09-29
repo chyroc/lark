@@ -24,7 +24,7 @@ func (r *ApplicationService) GetApplicationUsageTrend(ctx context.Context, reque
 		Scope:                 "Application",
 		API:                   "GetApplicationUsageTrend",
 		Method:                "POST",
-		URL:                   "https://open.feishu.cn/open-apis/application/v1/app_usage_trend",
+		URL:                   r.cli.openBaseURL + "/open-apis/application/v1/app_usage_trend",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,

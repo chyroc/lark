@@ -19,7 +19,7 @@ func (r *SearchService) UpdateSearchDataSource(ctx context.Context, request *Upd
 		Scope:                 "Search",
 		API:                   "UpdateSearchDataSource",
 		Method:                "PATCH",
-		URL:                   "https://open.feishu.cn/open-apis/search/v2/data_sources/:data_source_id",
+		URL:                   r.cli.openBaseURL + "/open-apis/search/v2/data_sources/:data_source_id",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,

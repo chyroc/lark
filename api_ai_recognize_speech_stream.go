@@ -21,7 +21,7 @@ func (r *AIService) RecognizeSpeechStream(ctx context.Context, request *Recogniz
 		Scope:                 "AI",
 		API:                   "RecognizeSpeechStream",
 		Method:                "POST",
-		URL:                   "https://open.feishu.cn/open-apis/speech_to_text/v1/speech/stream_recognize",
+		URL:                   r.cli.openBaseURL + "/open-apis/speech_to_text/v1/speech/stream_recognize",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,

@@ -19,7 +19,7 @@ func (r *HelpdeskService) CreateHelpdeskAgentSchedule(ctx context.Context, reque
 		Scope:               "Helpdesk",
 		API:                 "CreateHelpdeskAgentSchedule",
 		Method:              "POST",
-		URL:                 "https://open.feishu.cn/open-apis/helpdesk/v1/agent_schedules",
+		URL:                 r.cli.openBaseURL + "/open-apis/helpdesk/v1/agent_schedules",
 		Body:                request,
 		MethodOption:        newMethodOption(options),
 		NeedUserAccessToken: true,

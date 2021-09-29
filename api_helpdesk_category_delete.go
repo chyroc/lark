@@ -19,7 +19,7 @@ func (r *HelpdeskService) DeleteHelpdeskCategory(ctx context.Context, request *D
 		Scope:               "Helpdesk",
 		API:                 "DeleteHelpdeskCategory",
 		Method:              "DELETE",
-		URL:                 "https://open.feishu.cn/open-apis/helpdesk/v1/categories/:id",
+		URL:                 r.cli.openBaseURL + "/open-apis/helpdesk/v1/categories/:id",
 		Body:                request,
 		MethodOption:        newMethodOption(options),
 		NeedUserAccessToken: true,

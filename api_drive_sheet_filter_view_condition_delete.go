@@ -19,7 +19,7 @@ func (r *DriveService) DeleteSheetFilterViewCondition(ctx context.Context, reque
 		Scope:                 "Drive",
 		API:                   "DeleteSheetFilterViewCondition",
 		Method:                "DELETE",
-		URL:                   "https://open.feishu.cn/open-apis/sheets/v3/spreadsheets/:spreadsheet_token/sheets/:sheet_id/filter_views/:filter_view_id/conditions/:condition_id",
+		URL:                   r.cli.openBaseURL + "/open-apis/sheets/v3/spreadsheets/:spreadsheet_token/sheets/:sheet_id/filter_views/:filter_view_id/conditions/:condition_id",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,

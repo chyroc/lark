@@ -21,7 +21,7 @@ func (r *ApprovalService) GetApprovalInstance(ctx context.Context, request *GetA
 		Scope:                 "Approval",
 		API:                   "GetApprovalInstance",
 		Method:                "POST",
-		URL:                   "https://www.feishu.cn/approval/openapi/v2/instance/get",
+		URL:                   r.cli.wwwBaseURL + "/approval/openapi/v2/instance/get",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,

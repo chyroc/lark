@@ -19,7 +19,7 @@ func (r *DriveService) UpdateDriveMemberPermission(ctx context.Context, request 
 		Scope:                 "Drive",
 		API:                   "UpdateDriveMemberPermission",
 		Method:                "PUT",
-		URL:                   "https://open.feishu.cn/open-apis/drive/v1/permissions/:token/members/:member_id",
+		URL:                   r.cli.openBaseURL + "/open-apis/drive/v1/permissions/:token/members/:member_id",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,

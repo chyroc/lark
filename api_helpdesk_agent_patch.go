@@ -19,7 +19,7 @@ func (r *HelpdeskService) UpdateHelpdeskAgent(ctx context.Context, request *Upda
 		Scope:               "Helpdesk",
 		API:                 "UpdateHelpdeskAgent",
 		Method:              "PATCH",
-		URL:                 "https://open.feishu.cn/open-apis/helpdesk/v1/agents/:agent_id",
+		URL:                 r.cli.openBaseURL + "/open-apis/helpdesk/v1/agents/:agent_id",
 		Body:                request,
 		MethodOption:        newMethodOption(options),
 		NeedUserAccessToken: true,

@@ -19,7 +19,7 @@ func (r *DriveService) CreateDriveComment(ctx context.Context, request *CreateDr
 		Scope:                 "Drive",
 		API:                   "CreateDriveComment",
 		Method:                "POST",
-		URL:                   "https://open.feishu.cn/open-apis/drive/v1/files/:file_token/comments",
+		URL:                   r.cli.openBaseURL + "/open-apis/drive/v1/files/:file_token/comments",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,

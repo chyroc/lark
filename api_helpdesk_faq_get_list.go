@@ -19,7 +19,7 @@ func (r *HelpdeskService) GetHelpdeskFAQList(ctx context.Context, request *GetHe
 		Scope:                 "Helpdesk",
 		API:                   "GetHelpdeskFAQList",
 		Method:                "GET",
-		URL:                   "https://open.feishu.cn/open-apis/helpdesk/v1/faqs",
+		URL:                   r.cli.openBaseURL + "/open-apis/helpdesk/v1/faqs",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,

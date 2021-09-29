@@ -21,7 +21,7 @@ func (r *ContactService) SearchDepartment(ctx context.Context, request *SearchDe
 		Scope:               "Contact",
 		API:                 "SearchDepartment",
 		Method:              "POST",
-		URL:                 "https://open.feishu.cn/open-apis/contact/v3/departments/search",
+		URL:                 r.cli.openBaseURL + "/open-apis/contact/v3/departments/search",
 		Body:                request,
 		MethodOption:        newMethodOption(options),
 		NeedUserAccessToken: true,

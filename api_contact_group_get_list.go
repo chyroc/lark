@@ -19,7 +19,7 @@ func (r *ContactService) GetContactGroupList(ctx context.Context, request *GetCo
 		Scope:                 "Contact",
 		API:                   "GetContactGroupList",
 		Method:                "GET",
-		URL:                   "https://open.feishu.cn/open-apis/contact/v3/group/simplelist",
+		URL:                   r.cli.openBaseURL + "/open-apis/contact/v3/group/simplelist",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,

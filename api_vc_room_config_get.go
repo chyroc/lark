@@ -21,7 +21,7 @@ func (r *VCService) GetVCRoomConfig(ctx context.Context, request *GetVCRoomConfi
 		Scope:                 "VC",
 		API:                   "GetVCRoomConfig",
 		Method:                "GET",
-		URL:                   "https://open.feishu.cn/open-apis/vc/v1/room_configs/query",
+		URL:                   r.cli.openBaseURL + "/open-apis/vc/v1/room_configs/query",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,

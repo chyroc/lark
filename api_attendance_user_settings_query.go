@@ -21,7 +21,7 @@ func (r *AttendanceService) QueryAttendanceUserSettings(ctx context.Context, req
 		Scope:                 "Attendance",
 		API:                   "QueryAttendanceUserSettings",
 		Method:                "GET",
-		URL:                   "https://open.feishu.cn/open-apis/attendance/v1/user_settings/query",
+		URL:                   r.cli.openBaseURL + "/open-apis/attendance/v1/user_settings/query",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,

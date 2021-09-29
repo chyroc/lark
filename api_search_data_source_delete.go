@@ -19,7 +19,7 @@ func (r *SearchService) DeleteSearchDataSource(ctx context.Context, request *Del
 		Scope:                 "Search",
 		API:                   "DeleteSearchDataSource",
 		Method:                "DELETE",
-		URL:                   "https://open.feishu.cn/open-apis/search/v2/data_sources/:data_source_id",
+		URL:                   r.cli.openBaseURL + "/open-apis/search/v2/data_sources/:data_source_id",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,

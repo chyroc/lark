@@ -19,7 +19,7 @@ func (r *SearchService) CreateSearchDataSource(ctx context.Context, request *Cre
 		Scope:                 "Search",
 		API:                   "CreateSearchDataSource",
 		Method:                "POST",
-		URL:                   "https://open.feishu.cn/open-apis/search/v2/data_sources",
+		URL:                   r.cli.openBaseURL + "/open-apis/search/v2/data_sources",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,

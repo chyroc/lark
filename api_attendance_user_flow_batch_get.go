@@ -22,7 +22,7 @@ func (r *AttendanceService) BatchGetAttendanceUserFlow(ctx context.Context, requ
 		Scope:                 "Attendance",
 		API:                   "BatchGetAttendanceUserFlow",
 		Method:                "POST",
-		URL:                   "https://open.feishu.cn/open-apis/attendance/v1/user_flows/query",
+		URL:                   r.cli.openBaseURL + "/open-apis/attendance/v1/user_flows/query",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,

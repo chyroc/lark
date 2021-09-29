@@ -21,7 +21,7 @@ func (r *DriveService) BatchGetSheetValue(ctx context.Context, request *BatchGet
 		Scope:                 "Drive",
 		API:                   "BatchGetSheetValue",
 		Method:                "GET",
-		URL:                   "https://open.feishu.cn/open-apis/sheets/v2/spreadsheets/:spreadsheetToken/values_batch_get",
+		URL:                   r.cli.openBaseURL + "/open-apis/sheets/v2/spreadsheets/:spreadsheetToken/values_batch_get",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,

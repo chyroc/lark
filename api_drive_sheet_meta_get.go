@@ -21,7 +21,7 @@ func (r *DriveService) GetSheetMeta(ctx context.Context, request *GetSheetMetaRe
 		Scope:                 "Drive",
 		API:                   "GetSheetMeta",
 		Method:                "GET",
-		URL:                   "https://open.feishu.cn/open-apis/sheets/v2/spreadsheets/:spreadsheetToken/metainfo",
+		URL:                   r.cli.openBaseURL + "/open-apis/sheets/v2/spreadsheets/:spreadsheetToken/metainfo",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,

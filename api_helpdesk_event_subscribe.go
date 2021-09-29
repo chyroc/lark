@@ -19,7 +19,7 @@ func (r *HelpdeskService) SubscribeHelpdeskEvent(ctx context.Context, request *S
 		Scope:                 "Helpdesk",
 		API:                   "SubscribeHelpdeskEvent",
 		Method:                "POST",
-		URL:                   "https://open.feishu.cn/open-apis/helpdesk/v1/events/subscribe",
+		URL:                   r.cli.openBaseURL + "/open-apis/helpdesk/v1/events/subscribe",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,

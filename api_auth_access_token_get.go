@@ -21,7 +21,7 @@ func (r *AuthService) GetAccessToken(ctx context.Context, request *GetAccessToke
 		Scope:               "Auth",
 		API:                 "GetAccessToken",
 		Method:              "POST",
-		URL:                 "https://open.feishu.cn/open-apis/authen/v1/access_token",
+		URL:                 r.cli.openBaseURL + "/open-apis/authen/v1/access_token",
 		Body:                request,
 		MethodOption:        newMethodOption(options),
 		NeedAppAccessToken:  true,

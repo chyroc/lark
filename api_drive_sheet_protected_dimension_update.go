@@ -21,7 +21,7 @@ func (r *DriveService) UpdateSheetProtectedDimension(ctx context.Context, reques
 		Scope:                 "Drive",
 		API:                   "UpdateSheetProtectedDimension",
 		Method:                "POST",
-		URL:                   "https://open.feishu.cn/open-apis/sheets/v2/spreadsheets/:spreadsheetToken/protected_range_batch_update",
+		URL:                   r.cli.openBaseURL + "/open-apis/sheets/v2/spreadsheets/:spreadsheetToken/protected_range_batch_update",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,

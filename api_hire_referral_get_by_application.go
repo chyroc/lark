@@ -19,7 +19,7 @@ func (r *HireService) GetHireReferralByApplication(ctx context.Context, request 
 		Scope:                 "Hire",
 		API:                   "GetHireReferralByApplication",
 		Method:                "GET",
-		URL:                   "https://open.feishu.cn/open-apis/hire/v1/referrals/get_by_application",
+		URL:                   r.cli.openBaseURL + "/open-apis/hire/v1/referrals/get_by_application",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,

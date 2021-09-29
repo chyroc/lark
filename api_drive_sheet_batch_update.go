@@ -21,7 +21,7 @@ func (r *DriveService) BatchUpdateSheet(ctx context.Context, request *BatchUpdat
 		Scope:                 "Drive",
 		API:                   "BatchUpdateSheet",
 		Method:                "POST",
-		URL:                   "https://open.feishu.cn/open-apis/sheets/v2/spreadsheets/:spreadsheetToken/sheets_batch_update",
+		URL:                   r.cli.openBaseURL + "/open-apis/sheets/v2/spreadsheets/:spreadsheetToken/sheets_batch_update",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,

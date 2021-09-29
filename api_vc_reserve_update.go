@@ -21,7 +21,7 @@ func (r *VCService) UpdateVCReserve(ctx context.Context, request *UpdateVCReserv
 		Scope:               "VC",
 		API:                 "UpdateVCReserve",
 		Method:              "PUT",
-		URL:                 "https://open.feishu.cn/open-apis/vc/v1/reserves/:reserve_id",
+		URL:                 r.cli.openBaseURL + "/open-apis/vc/v1/reserves/:reserve_id",
 		Body:                request,
 		MethodOption:        newMethodOption(options),
 		NeedUserAccessToken: true,

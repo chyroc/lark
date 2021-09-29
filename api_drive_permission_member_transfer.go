@@ -19,7 +19,7 @@ func (r *DriveService) TransferDriveMemberPermission(ctx context.Context, reques
 		Scope:                 "Drive",
 		API:                   "TransferDriveMemberPermission",
 		Method:                "POST",
-		URL:                   "https://open.feishu.cn/open-apis/drive/permission/member/transfer",
+		URL:                   r.cli.openBaseURL + "/open-apis/drive/permission/member/transfer",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,

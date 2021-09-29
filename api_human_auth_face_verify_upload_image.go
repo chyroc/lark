@@ -23,7 +23,7 @@ func (r *HumanAuthService) UploadFaceVerifyImage(ctx context.Context, request *U
 		Scope:                 "HumanAuth",
 		API:                   "UploadFaceVerifyImage",
 		Method:                "POST",
-		URL:                   "https://open.feishu.cn/open-apis/face_verify/v1/upload_face_image",
+		URL:                   r.cli.openBaseURL + "/open-apis/face_verify/v1/upload_face_image",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,

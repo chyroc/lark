@@ -19,7 +19,7 @@ func (r *DriveService) GetDriveFileStatistics(ctx context.Context, request *GetD
 		Scope:                 "Drive",
 		API:                   "GetDriveFileStatistics",
 		Method:                "GET",
-		URL:                   "https://open.feishu.cn/open-apis/drive/v1/files/:file_token/statistics",
+		URL:                   r.cli.openBaseURL + "/open-apis/drive/v1/files/:file_token/statistics",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,

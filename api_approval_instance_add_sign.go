@@ -21,7 +21,7 @@ func (r *ApprovalService) AddApprovalInstanceSign(ctx context.Context, request *
 		Scope:                 "Approval",
 		API:                   "AddApprovalInstanceSign",
 		Method:                "POST",
-		URL:                   "https://open.feishu.cn/open-apis/approval/v4/instances/add_sign",
+		URL:                   r.cli.openBaseURL + "/open-apis/approval/v4/instances/add_sign",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,

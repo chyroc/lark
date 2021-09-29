@@ -21,7 +21,7 @@ func (r *ApprovalService) TransferApprovalInstance(ctx context.Context, request 
 		Scope:                 "Approval",
 		API:                   "TransferApprovalInstance",
 		Method:                "POST",
-		URL:                   "https://www.feishu.cn/approval/openapi/v2/instance/transfer",
+		URL:                   r.cli.wwwBaseURL + "/approval/openapi/v2/instance/transfer",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,

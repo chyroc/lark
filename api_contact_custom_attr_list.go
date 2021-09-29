@@ -22,7 +22,7 @@ func (r *ContactService) GetContactCustomAttrList(ctx context.Context, request *
 		Scope:                 "Contact",
 		API:                   "GetContactCustomAttrList",
 		Method:                "GET",
-		URL:                   "https://open.feishu.cn/open-apis/contact/v3/custom_attrs",
+		URL:                   r.cli.openBaseURL + "/open-apis/contact/v3/custom_attrs",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,

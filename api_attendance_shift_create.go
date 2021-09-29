@@ -23,7 +23,7 @@ func (r *AttendanceService) CreateAttendanceShift(ctx context.Context, request *
 		Scope:                 "Attendance",
 		API:                   "CreateAttendanceShift",
 		Method:                "POST",
-		URL:                   "https://open.feishu.cn/open-apis/attendance/v1/shifts",
+		URL:                   r.cli.openBaseURL + "/open-apis/attendance/v1/shifts",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,

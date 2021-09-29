@@ -24,7 +24,7 @@ func (r *FileService) DownloadImage(ctx context.Context, request *DownloadImageR
 		Scope:                 "File",
 		API:                   "DownloadImage",
 		Method:                "GET",
-		URL:                   "https://open.feishu.cn/open-apis/im/v1/images/:image_key",
+		URL:                   r.cli.openBaseURL + "/open-apis/im/v1/images/:image_key",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,

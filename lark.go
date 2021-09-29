@@ -2,6 +2,7 @@ package lark
 
 import (
 	"net/http"
+	"strings"
 	"time"
 )
 
@@ -60,6 +61,18 @@ func WithStore(store Store) ClientOptionFunc {
 	}
 }
 
+func WithOpenBaseURL(baseURL string) ClientOptionFunc {
+	return func(lark *Lark) {
+		lark.openBaseURL = strings.TrimRight(baseURL, "/")
+	}
+}
+
+func WithWWWBaseURL(baseURL string) ClientOptionFunc {
+	return func(lark *Lark) {
+		lark.wwwBaseURL = strings.TrimRight(baseURL, "/")
+	}
+}
+
 func New(options ...ClientOptionFunc) *Lark {
 	return newClient("", options)
 }
@@ -72,6 +85,8 @@ func newClient(tenantKey string, options []ClientOptionFunc) *Lark {
 		store:        NewStoreMemory(),
 		mock:         new(Mock),
 		eventHandler: new(eventHandler),
+		openBaseURL:  "https://open.feishu.cn",
+		wwwBaseURL:   "https://www.feishu.cn",
 	}
 	for _, v := range options {
 		if v != nil {

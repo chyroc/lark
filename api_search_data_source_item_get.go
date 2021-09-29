@@ -19,7 +19,7 @@ func (r *SearchService) GetSearchDataSourceItem(ctx context.Context, request *Ge
 		Scope:                 "Search",
 		API:                   "GetSearchDataSourceItem",
 		Method:                "GET",
-		URL:                   "https://open.feishu.cn/open-apis/search/v2/data_sources/:data_source_id/items/:item_id",
+		URL:                   r.cli.openBaseURL + "/open-apis/search/v2/data_sources/:data_source_id/items/:item_id",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,

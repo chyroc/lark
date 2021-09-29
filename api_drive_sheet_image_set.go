@@ -21,7 +21,7 @@ func (r *DriveService) SetSheetValueImage(ctx context.Context, request *SetSheet
 		Scope:                 "Drive",
 		API:                   "SetSheetValueImage",
 		Method:                "POST",
-		URL:                   "https://open.feishu.cn/open-apis/sheets/v2/spreadsheets/:spreadsheetToken/values_image",
+		URL:                   r.cli.openBaseURL + "/open-apis/sheets/v2/spreadsheets/:spreadsheetToken/values_image",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,

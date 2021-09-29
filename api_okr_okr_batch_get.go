@@ -22,7 +22,7 @@ func (r *OKRService) BatchGetOKR(ctx context.Context, request *BatchGetOKRReq, o
 		Scope:                 "OKR",
 		API:                   "BatchGetOKR",
 		Method:                "GET",
-		URL:                   "https://open.feishu.cn/open-apis/okr/v1/okrs/batch_get",
+		URL:                   r.cli.openBaseURL + "/open-apis/okr/v1/okrs/batch_get",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,

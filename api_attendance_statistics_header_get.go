@@ -21,7 +21,7 @@ func (r *AttendanceService) GetAttendanceStatisticsHeader(ctx context.Context, r
 		Scope:                 "Attendance",
 		API:                   "GetAttendanceStatisticsHeader",
 		Method:                "POST",
-		URL:                   "https://open.feishu.cn/open-apis/attendance/v1/user_stats_fields/query",
+		URL:                   r.cli.openBaseURL + "/open-apis/attendance/v1/user_stats_fields/query",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,

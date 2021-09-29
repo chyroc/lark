@@ -21,7 +21,7 @@ func (r *DriveService) GetSheetValue(ctx context.Context, request *GetSheetValue
 		Scope:                 "Drive",
 		API:                   "GetSheetValue",
 		Method:                "GET",
-		URL:                   "https://open.feishu.cn/open-apis/sheets/v2/spreadsheets/:spreadsheetToken/values/:range",
+		URL:                   r.cli.openBaseURL + "/open-apis/sheets/v2/spreadsheets/:spreadsheetToken/values/:range",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,

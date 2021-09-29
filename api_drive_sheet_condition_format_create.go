@@ -21,7 +21,7 @@ func (r *DriveService) CreateSheetConditionFormat(ctx context.Context, request *
 		Scope:                 "Drive",
 		API:                   "CreateSheetConditionFormat",
 		Method:                "POST",
-		URL:                   "https://open.feishu.cn/open-apis/sheets/v2/spreadsheets/:spreadsheetToken/condition_formats/batch_create",
+		URL:                   r.cli.openBaseURL + "/open-apis/sheets/v2/spreadsheets/:spreadsheetToken/condition_formats/batch_create",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,

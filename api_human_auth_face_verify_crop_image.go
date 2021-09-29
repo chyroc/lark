@@ -23,7 +23,7 @@ func (r *HumanAuthService) CropFaceVerifyImage(ctx context.Context, request *Cro
 		Scope:                 "HumanAuth",
 		API:                   "CropFaceVerifyImage",
 		Method:                "POST",
-		URL:                   "https://open.feishu.cn/open-apis/face_verify/v1/crop_face_image",
+		URL:                   r.cli.openBaseURL + "/open-apis/face_verify/v1/crop_face_image",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,

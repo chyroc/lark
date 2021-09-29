@@ -19,7 +19,7 @@ func (r *HireService) CreateHireNote(ctx context.Context, request *CreateHireNot
 		Scope:                 "Hire",
 		API:                   "CreateHireNote",
 		Method:                "POST",
-		URL:                   "https://open.feishu.cn/open-apis/hire/v1/notes",
+		URL:                   r.cli.openBaseURL + "/open-apis/hire/v1/notes",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,

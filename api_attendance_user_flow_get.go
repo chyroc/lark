@@ -21,7 +21,7 @@ func (r *AttendanceService) GetAttendanceUserFlow(ctx context.Context, request *
 		Scope:                 "Attendance",
 		API:                   "GetAttendanceUserFlow",
 		Method:                "GET",
-		URL:                   "https://open.feishu.cn/open-apis/attendance/v1/user_flows/:user_flow_id",
+		URL:                   r.cli.openBaseURL + "/open-apis/attendance/v1/user_flows/:user_flow_id",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,

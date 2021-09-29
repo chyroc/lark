@@ -19,7 +19,7 @@ func (r *DriveService) FindSheet(ctx context.Context, request *FindSheetReq, opt
 		Scope:                 "Drive",
 		API:                   "FindSheet",
 		Method:                "POST",
-		URL:                   "https://open.feishu.cn/open-apis/sheets/v3/spreadsheets/:spreadsheet_token/sheets/:sheet_id/find",
+		URL:                   r.cli.openBaseURL + "/open-apis/sheets/v3/spreadsheets/:spreadsheet_token/sheets/:sheet_id/find",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,

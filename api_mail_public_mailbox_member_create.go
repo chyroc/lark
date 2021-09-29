@@ -19,7 +19,7 @@ func (r *MailService) CreatePublicMailboxMember(ctx context.Context, request *Cr
 		Scope:                 "Mail",
 		API:                   "CreatePublicMailboxMember",
 		Method:                "POST",
-		URL:                   "https://open.feishu.cn/open-apis/mail/v1/public_mailboxes/:public_mailbox_id/members",
+		URL:                   r.cli.openBaseURL + "/open-apis/mail/v1/public_mailboxes/:public_mailbox_id/members",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,

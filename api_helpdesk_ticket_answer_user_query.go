@@ -19,7 +19,7 @@ func (r *HelpdeskService) AnswerHelpdeskTicketUserQuery(ctx context.Context, req
 		Scope:                 "Helpdesk",
 		API:                   "AnswerHelpdeskTicketUserQuery",
 		Method:                "POST",
-		URL:                   "https://open.feishu.cn/open-apis/helpdesk/v1/tickets/:ticket_id/answer_user_query",
+		URL:                   r.cli.openBaseURL + "/open-apis/helpdesk/v1/tickets/:ticket_id/answer_user_query",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,

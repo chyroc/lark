@@ -23,7 +23,7 @@ func (r *DriveService) CopyDriveFile(ctx context.Context, request *CopyDriveFile
 		Scope:                 "Drive",
 		API:                   "CopyDriveFile",
 		Method:                "POST",
-		URL:                   "https://open.feishu.cn/open-apis/drive/explorer/v2/file/copy/files/:fileToken",
+		URL:                   r.cli.openBaseURL + "/open-apis/drive/explorer/v2/file/copy/files/:fileToken",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,

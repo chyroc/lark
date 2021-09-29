@@ -23,7 +23,7 @@ func (r *MessageService) DeleteEphemeralMessage(ctx context.Context, request *De
 		Scope:                 "Message",
 		API:                   "DeleteEphemeralMessage",
 		Method:                "POST",
-		URL:                   "https://open.feishu.cn/open-apis/ephemeral/v1/delete",
+		URL:                   r.cli.openBaseURL + "/open-apis/ephemeral/v1/delete",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,

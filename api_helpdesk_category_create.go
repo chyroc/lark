@@ -19,7 +19,7 @@ func (r *HelpdeskService) CreateHelpdeskCategory(ctx context.Context, request *C
 		Scope:               "Helpdesk",
 		API:                 "CreateHelpdeskCategory",
 		Method:              "POST",
-		URL:                 "https://open.feishu.cn/open-apis/helpdesk/v1/categories",
+		URL:                 r.cli.openBaseURL + "/open-apis/helpdesk/v1/categories",
 		Body:                request,
 		MethodOption:        newMethodOption(options),
 		NeedUserAccessToken: true,

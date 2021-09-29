@@ -19,6 +19,8 @@ type Lark struct {
 	tenantKey           string
 	customBotWebHookURL string
 	customBotSecret     string
+	openBaseURL         string
+	wwwBaseURL          string
 
 	httpClient   *http.Client
 	logger       Logger
@@ -104,6 +106,8 @@ func (r *Lark) clone() *Lark {
 		tenantKey:           r.tenantKey,
 		customBotWebHookURL: r.customBotWebHookURL,
 		customBotSecret:     r.customBotSecret,
+		openBaseURL:         r.openBaseURL,
+		wwwBaseURL:          r.wwwBaseURL,
 		httpClient:          r.httpClient,
 		logger:              r.logger,
 		logLevel:            r.logLevel,

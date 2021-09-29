@@ -27,7 +27,7 @@ func (r *DriveService) DeleteDriveFile(ctx context.Context, request *DeleteDrive
 		Scope:                 "Drive",
 		API:                   "DeleteDriveFile",
 		Method:                "DELETE",
-		URL:                   "https://open.feishu.cn/open-apis/drive/explorer/v2/file/docs/:docToken",
+		URL:                   r.cli.openBaseURL + "/open-apis/drive/explorer/v2/file/docs/:docToken",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,

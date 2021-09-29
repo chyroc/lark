@@ -19,7 +19,7 @@ func (r *ContactService) DeleteContactGroupMember(ctx context.Context, request *
 		Scope:                 "Contact",
 		API:                   "DeleteContactGroupMember",
 		Method:                "POST",
-		URL:                   "https://open.feishu.cn/open-apis/contact/v3/group/:group_id/member/remove",
+		URL:                   r.cli.openBaseURL + "/open-apis/contact/v3/group/:group_id/member/remove",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,

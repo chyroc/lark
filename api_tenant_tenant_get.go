@@ -21,7 +21,7 @@ func (r *TenantService) GetTenant(ctx context.Context, request *GetTenantReq, op
 		Scope:                 "Tenant",
 		API:                   "GetTenant",
 		Method:                "GET",
-		URL:                   "https://open.feishu.cn/open-apis/tenant/v2/tenant/query",
+		URL:                   r.cli.openBaseURL + "/open-apis/tenant/v2/tenant/query",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
