@@ -7,7 +7,6 @@ import (
 	"testing"
 	"time"
 
-	"github.com/chyroc/go-ptr"
 	"github.com/stretchr/testify/assert"
 
 	"github.com/chyroc/lark"
@@ -29,7 +28,7 @@ func Test_GetMessage(t *testing.T) {
 			{
 				resp, _, err := AppAllPermission.Ins().Message.SendRawMessage(ctx, &lark.SendRawMessageReq{
 					ReceiveIDType: lark.IDTypeChatID,
-					ReceiveID:     ptr.String(ChatForSendMessage.ChatID),
+					ReceiveID:     ChatForSendMessage.ChatID,
 					Content:       fmt.Sprintf(`{"text":"%d"}`, time.Now().Unix()),
 					MsgType:       lark.MsgTypeText,
 				})
