@@ -53,18 +53,18 @@ type getApplicationAppVisibilityResp struct {
 }
 
 type GetApplicationAppVisibilityResp struct {
-	Departments    *GetApplicationAppVisibilityRespDepartments `json:"departments,omitempty"`       // 可用部门列表
-	Users          *GetApplicationAppVisibilityRespUsers       `json:"users,omitempty"`             // 可用用户列表（仅包含单独设置的用户，可用部门、用户组中的用户未展开）
-	IsVisibleToAll int64                                       `json:"is_visible_to_all,omitempty"` // 是否全员可见，1：是，0：否
-	HasMoreUsers   int64                                       `json:"has_more_users,omitempty"`    // 是否还有更多可见用户，1：是，0：否
-	UserPageToken  string                                      `json:"user_page_token,omitempty"`   // 拉取下一页用户列表时使用的 user_page_token
+	Departments    []*GetApplicationAppVisibilityRespDepartment `json:"departments,omitempty"`       // 可用部门列表
+	Users          []*GetApplicationAppVisibilityRespUser       `json:"users,omitempty"`             // 可用用户列表（仅包含单独设置的用户，可用部门、用户组中的用户未展开）
+	IsVisibleToAll int64                                        `json:"is_visible_to_all,omitempty"` // 是否全员可见，1：是，0：否
+	HasMoreUsers   int64                                        `json:"has_more_users,omitempty"`    // 是否还有更多可见用户，1：是，0：否
+	UserPageToken  string                                       `json:"user_page_token,omitempty"`   // 拉取下一页用户列表时使用的 user_page_token
 }
 
-type GetApplicationAppVisibilityRespDepartments struct {
+type GetApplicationAppVisibilityRespDepartment struct {
 	ID string `json:"id,omitempty"` // 自定义 department_id
 }
 
-type GetApplicationAppVisibilityRespUsers struct {
+type GetApplicationAppVisibilityRespUser struct {
 	UserID string `json:"user_id,omitempty"` // 用户的 user_id，只返回给申请了 user_id 权限的企业自建应用
 	OpenID string `json:"open_id,omitempty"` // 用户的 open_id
 }

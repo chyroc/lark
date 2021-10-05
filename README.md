@@ -36,7 +36,7 @@ https://godoc.org/github.com/chyroc/lark
 
 ## Support APIs
 
-API Count: 469, Event Count: 50
+API Count: 470, Event Count: 51
 
 <details>
   <summary>
@@ -49,6 +49,7 @@ API Count: 469, Event Count: 50
   - RefreshAccessToken
   - GetUserInfo
 - Contact
+  - SearchUserOld
   - CreateUser
   - DeleteUser
   - GetUser
@@ -522,6 +523,7 @@ API Count: 469, Event Count: 50
 - Ecosystem
   - GetEcosystemBindAwemeUser
 - EventCallback
+  - EventV2AttendanceUserFlowCreatedV1
   - EventV2AwemeEcosystemAwemeUserBindedAccountV1
   - EventV2TaskTaskUpdatedV1
   - EventV2TaskTaskCommentUpdatedV1

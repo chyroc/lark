@@ -11,6 +11,7 @@ import (
 type EventType string
 
 const (
+	EventTypeV2AttendanceUserFlowCreatedV1            EventType = ""
 	EventTypeV2AwemeEcosystemAwemeUserBindedAccountV1 EventType = "aweme_ecosystem.aweme_user.binded_account_v1"
 	EventTypeV2TaskTaskUpdatedV1                      EventType = "task.task.updated_v1"
 	EventTypeV2TaskTaskCommentUpdatedV1               EventType = "task.task.comment.updated_v1"
@@ -65,6 +66,7 @@ const (
 
 type eventHandler struct {
 	eventCardHandler                                     eventCardHandler
+	eventV2AttendanceUserFlowCreatedV1Handler            eventV2AttendanceUserFlowCreatedV1Handler
 	eventV2AwemeEcosystemAwemeUserBindedAccountV1Handler eventV2AwemeEcosystemAwemeUserBindedAccountV1Handler
 	eventV2TaskTaskUpdatedV1Handler                      eventV2TaskTaskUpdatedV1Handler
 	eventV2TaskTaskCommentUpdatedV1Handler               eventV2TaskTaskCommentUpdatedV1Handler
@@ -119,6 +121,7 @@ type eventHandler struct {
 
 func (r *eventHandler) clone() *eventHandler {
 	return &eventHandler{
+		eventV2AttendanceUserFlowCreatedV1Handler:            r.eventV2AttendanceUserFlowCreatedV1Handler,
 		eventV2AwemeEcosystemAwemeUserBindedAccountV1Handler: r.eventV2AwemeEcosystemAwemeUserBindedAccountV1Handler,
 		eventV2TaskTaskUpdatedV1Handler:                      r.eventV2TaskTaskUpdatedV1Handler,
 		eventV2TaskTaskCommentUpdatedV1Handler:               r.eventV2TaskTaskCommentUpdatedV1Handler,
@@ -173,6 +176,7 @@ func (r *eventHandler) clone() *eventHandler {
 }
 
 type eventBody struct {
+	eventV2AttendanceUserFlowCreatedV1            *EventV2AttendanceUserFlowCreatedV1
 	eventV2AwemeEcosystemAwemeUserBindedAccountV1 *EventV2AwemeEcosystemAwemeUserBindedAccountV1
 	eventV2TaskTaskUpdatedV1                      *EventV2TaskTaskUpdatedV1
 	eventV2TaskTaskCommentUpdatedV1               *EventV2TaskTaskCommentUpdatedV1
@@ -231,6 +235,12 @@ func (r *EventCallbackService) parserEventV2(req *eventReq) error {
 	}
 
 	switch req.Header.EventType {
+	case EventTypeV2AttendanceUserFlowCreatedV1:
+		event := new(EventV2AttendanceUserFlowCreatedV1)
+		if err := req.unmarshalEvent(event); err != nil {
+			return err
+		}
+		req.eventV2AttendanceUserFlowCreatedV1 = event
 	case EventTypeV2AwemeEcosystemAwemeUserBindedAccountV1:
 		event := new(EventV2AwemeEcosystemAwemeUserBindedAccountV1)
 		if err := req.unmarshalEvent(event); err != nil {
@@ -564,6 +574,11 @@ type v1type struct {
 
 func (r *EventCallbackService) handlerEvent(ctx context.Context, req *eventReq) (handled bool, s string, err error) {
 	switch {
+	case req.eventV2AttendanceUserFlowCreatedV1 != nil:
+		if r.cli.eventHandler.eventV2AttendanceUserFlowCreatedV1Handler != nil {
+			s, err = r.cli.eventHandler.eventV2AttendanceUserFlowCreatedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2AttendanceUserFlowCreatedV1)
+		}
+		return true, s, err
 	case req.eventV2AwemeEcosystemAwemeUserBindedAccountV1 != nil:
 		if r.cli.eventHandler.eventV2AwemeEcosystemAwemeUserBindedAccountV1Handler != nil {
 			s, err = r.cli.eventHandler.eventV2AwemeEcosystemAwemeUserBindedAccountV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2AwemeEcosystemAwemeUserBindedAccountV1)
