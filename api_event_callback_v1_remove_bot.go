@@ -8,11 +8,15 @@ import (
 
 // EventV1RemoveBot
 //
-// ## 机器人被移出群
+// :::html
+// <md-alert type="error">
+// 为了更好地提升该事件的安全性，我们对其进行了升级，请尽快迁移至[新版本>>](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-member-bot/events/deleted)
+// </md-alert>
+// :::
 // 机器人被从群聊中移除时触发此事件。
 // - 依赖条件：应用必须开启了[机器人能力](https://open.feishu.cn/document/home/develop-a-bot-in-5-minutes/create-an-app)。
 //
-// doc: https://open.feishu.cn/document/ukTMukTMukTM/uMTNxYjLzUTM24yM1EjN
+// doc: https://open.feishu.cn/document/ukTMukTMukTM/ugzMugzMugzM/event/bot-removed-from-group
 func (r *EventCallbackService) HandlerEventV1RemoveBot(f eventV1RemoveBotHandler) {
 	r.cli.eventHandler.eventV1RemoveBotHandler = f
 }

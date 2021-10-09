@@ -14,7 +14,7 @@ import (
 // - 其他条件：应用必须开启了[机器人能力](https://open.feishu.cn/document/home/develop-a-bot-in-5-minutes/create-an-app)。
 // ### 文本消息
 //
-// doc: https://open.feishu.cn/document/ukTMukTMukTM/uMTNxYjLzUTM24yM1EjN
+// doc: https://open.feishu.cn/document/ukTMukTMukTM/ugzMugzMugzM/event/receive-message
 func (r *EventCallbackService) HandlerEventV1ReceiveMessage(f eventV1ReceiveMessageHandler) {
 	r.cli.eventHandler.eventV1ReceiveMessageHandler = f
 }

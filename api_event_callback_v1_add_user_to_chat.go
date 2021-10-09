@@ -8,7 +8,14 @@ import (
 
 // EventV1AddUserToChat
 //
-// ## 用户进群、出群事件
+// 如果你希望订阅机器人进出群、群内有人@机器人事件，请前往[机器人进群](https://open.feishu.cn/document/ukTMukTMukTM/ugzMugzMugzM/event/bot-added-to-group) 或 [机器人退群](https://open.feishu.cn/document/ukTMukTMukTM/ucDO04yN4QjL3gDN)。
+// :::html
+// <md-alert type="error">
+// 为了更好地提升该事件的安全性，我们对其进行了升级，请尽快迁移至
+// [新版本（用户进群）](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-member-user/events/added)
+// 或[新版本（用户出群）>>](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-member-user/events/deleted)
+// </md-alert>
+// :::
 // 用户进群、出群后触发此事件。
 // * 特殊说明：只有开启机器人能力并且机器人所在的群发生上述变化时才能触发此事件。
 // 事件包括三个类型：
@@ -16,7 +23,7 @@ import (
 // 2. 用户出群 - remove_user_from_chat
 // 3. 撤销加人 - revoke_add_user_from_chat
 //
-// doc: https://open.feishu.cn/document/ukTMukTMukTM/ukjNxYjL5YTM24SO2EjN
+// doc: https://open.feishu.cn/document/ukTMukTMukTM/uQDOwUjL0gDM14CN4ATN/event/user-joins-or-leave-group
 func (r *EventCallbackService) HandlerEventV1AddUserToChat(f eventV1AddUserToChatHandler) {
 	r.cli.eventHandler.eventV1AddUserToChatHandler = f
 }

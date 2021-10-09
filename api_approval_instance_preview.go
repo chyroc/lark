@@ -63,12 +63,15 @@ type previewApprovalInstanceResp struct {
 }
 
 type PreviewApprovalInstanceResp struct {
-	PreviewNodes []string `json:"preview_nodes,omitempty"`  // 预览节点信息
-	UserIDList   []string `json:"user_id_list,omitempty"`   // 审批人id列表
-	EndCcIDList  []string `json:"end_cc_id_list,omitempty"` // 审批结束抄送人id列表
-	NodeID       string   `json:"node_id,omitempty"`        // 节点id
-	NodeName     string   `json:"node_name,omitempty"`      // 节点名称
-	NodeType     string   `json:"node_type,omitempty"`      // 节点类型：<br>AND：会签<br>OR: 或签
-	CustomNodeID string   `json:"custom_node_id,omitempty"` // 用户自定义节点id
-	Comments     []string `json:"comments,omitempty"`       // 节点的说明信息
+	PreviewNodes       []string `json:"preview_nodes,omitempty"`         // 预览节点信息
+	UserIDList         []string `json:"user_id_list,omitempty"`          // 审批人id列表
+	EndCcIDList        []string `json:"end_cc_id_list,omitempty"`        // 审批结束抄送人id列表
+	NodeID             string   `json:"node_id,omitempty"`               // 节点id
+	NodeName           string   `json:"node_name,omitempty"`             // 节点名称
+	NodeType           string   `json:"node_type,omitempty"`             // 节点类型：<br>AND：会签<br>OR: 或签
+	CustomNodeID       string   `json:"custom_node_id,omitempty"`        // 用户自定义节点id
+	Comments           []string `json:"comments,omitempty"`              // 节点的说明信息
+	IsEmptyLogic       bool     `json:"is_empty_logic,omitempty"`        // 审批人是否为空，若为空，则user_id_list为兜底审批人id列表
+	IsApproverTypeFree bool     `json:"is_approver_type_free,omitempty"` // 是否发起人自选节点
+	HasCcTypeFree      bool     `json:"has_cc_type_free,omitempty"`      // 节点是否支持抄送人自选
 }

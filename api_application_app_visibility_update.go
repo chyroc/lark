@@ -45,8 +45,8 @@ type UpdateApplicationAppVisibilityReq struct {
 	DelUsers        *UpdateApplicationAppVisibilityReqDelUsers `json:"del_users,omitempty"`          // 删除的用户列表，元素个数不超过 500，**先增加后删除**
 	AddUsers        *UpdateApplicationAppVisibilityReqAddUsers `json:"add_users,omitempty"`          // 增加的用户列表，元素个数不超过500，**先增加后删除**
 	IsVisiableToAll *int64                                     `json:"is_visiable_to_all,omitempty"` // 是否全员可见，0：否；1：是；不填：继续当前状态不改变
-	AddDepartments  *string                                    `json:"add_departments,omitempty"`    // 添加的部门列表，元素个数不超过 500，**先增加后删除**
-	DelDepartments  *string                                    `json:"del_departments,omitempty"`    // 删除的部门列表，元素个数不超过 500，**先增加后删除**
+	AddDepartments  []string                                   `json:"add_departments,omitempty"`    // 添加的部门列表，元素个数不超过 500，**先增加后删除**
+	DelDepartments  []string                                   `json:"del_departments,omitempty"`    // 删除的部门列表，元素个数不超过 500，**先增加后删除**
 }
 
 type UpdateApplicationAppVisibilityReqDelUsers struct {
