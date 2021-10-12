@@ -41,7 +41,7 @@ func (r *Mock) UnMockHelpdeskStartHelpdeskService() {
 
 type StartHelpdeskServiceReq struct {
 	HumanService    *bool    `json:"human_service,omitempty"`    // 是否直接进入人工(若appointed_agents填写了，该值为必填), 示例值：false
-	AppointedAgents []string `json:"appointed_agents,omitempty"` // 客服 open ids (获取方式参考[获取单个用户信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/get))，human_service需要为true
+	AppointedAgents []string `json:"appointed_agents,omitempty"` // 客服 open ids (获取方式参考[获取单个用户信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/get))，human_service需要为true, 示例值：[ou_7dab8a3d3cdcc9da365777c7ad535d62]
 	OpenID          string   `json:"open_id,omitempty"`          // 用户 open id,(获取方式参考[获取单个用户信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/get)), 示例值："ou_7dab8a3d3cdcc9da365777c7ad535d62"
 	CustomizedInfo  *string  `json:"customized_info,omitempty"`  // 工单来源自定义信息，长度限制1024字符，如设置，[获取工单详情](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/ticket/get)会返回此信息, 示例值："test customized info"
 }
@@ -53,6 +53,5 @@ type startHelpdeskServiceResp struct {
 }
 
 type StartHelpdeskServiceResp struct {
-	ChatID   string `json:"chat_id,omitempty"`   // 客服群open ID
-	TicketID string `json:"ticket_id,omitempty"` // 工单ID
+	ChatID string `json:"chat_id,omitempty"` // 客服群open ID
 }
