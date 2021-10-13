@@ -39,11 +39,12 @@ func (r *Mock) UnMockHireCreateHireNote() {
 }
 
 type CreateHireNoteReq struct {
-	UserIDType    *IDType `query:"user_id_type" json:"-"`   // 用户 ID 类型, 示例值："open_id", 可选值有: `open_id`：用户的 open id, `union_id`：用户的 union id, `user_id`：用户的 user id, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
-	TalentID      *string `json:"talent_id,omitempty"`      // 人才ID, 示例值："6891522620127185159"
-	ApplicationID *string `json:"application_id,omitempty"` // 投递ID, 示例值："6891565231751825671"
-	CreatorID     *string `json:"creator_id,omitempty"`     // 创建人ID, 示例值："ou_0ab5d69b3848d44f4bf0751bffaa31db"
-	Content       *string `json:"content,omitempty"`        // 内容, 示例值："111"
+	UserIDType    *IDType `query:"user_id_type" json:"-"`   // 用户 ID 类型, 示例值："open_id", 可选值有: `open_id`：用户的 open id, `union_id`：用户的 union id, `user_id`：用户的 user id, `people_admin_id`：以people_admin_id来识别用户, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求:  获取用户 user ID
+	TalentID      string  `json:"talent_id,omitempty"`      // 人才ID, 示例值："6916472453069883661"
+	ApplicationID *string `json:"application_id,omitempty"` // 投递ID, 示例值："6891565253964859661"
+	CreatorID     *string `json:"creator_id,omitempty"`     // 创建人ID, 示例值："ou_f476cb099ac9227c9bae09ce46112579"
+	Content       string  `json:"content,omitempty"`        // 内容, 示例值："测试5"
+	Privacy       *int64  `json:"privacy,omitempty"`        // 备注私密属性（默认为公开）, 示例值：1, 可选值有: `1`：私密, `2`：公开
 }
 
 type createHireNoteResp struct {
@@ -53,7 +54,7 @@ type createHireNoteResp struct {
 }
 
 type CreateHireNoteResp struct {
-	Note *CreateHireNoteRespNote `json:"note,omitempty"` // 备注数据
+	Note *CreateHireNoteRespNote `json:"note,omitempty"` // 备注信息
 }
 
 type CreateHireNoteRespNote struct {

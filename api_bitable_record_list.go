@@ -6,7 +6,7 @@ import (
 	"context"
 )
 
-// GetBitableRecordList 该接口用于列出数据表中的现有记录
+// GetBitableRecordList 该接口用于列出数据表中的现有记录，单次最多列出 100 行记录，支持分页获取。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table-record/list
 func (r *BitableService) GetBitableRecordList(ctx context.Context, request *GetBitableRecordListReq, options ...MethodOptionFunc) (*GetBitableRecordListResp, *Response, error) {
