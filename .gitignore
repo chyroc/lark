@@ -26,3 +26,4 @@ dist/
 venv/
 .github/internal/go.sum
 .github/all-api.json
+generate
