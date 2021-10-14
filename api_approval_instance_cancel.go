@@ -8,7 +8,7 @@ import (
 
 // CancelApprovalInstance
 //
-// 对于单个审批实例进行撤销操作。撤销后审批流程结束。
+// 对于单个审批实例进行撤销操作，撤销后审批流程结束。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uYDNyUjL2QjM14iN0ITN
 func (r *ApprovalService) CancelApprovalInstance(ctx context.Context, request *CancelApprovalInstanceReq, options ...MethodOptionFunc) (*CancelApprovalInstanceResp, *Response, error) {
@@ -44,7 +44,6 @@ type CancelApprovalInstanceReq struct {
 	ApprovalCode  string  `json:"approval_code,omitempty"` // 审批定义Code
 	InstanceCode  string  `json:"instance_code,omitempty"` // 审批实例Code
 	UserID        string  `json:"user_id,omitempty"`       // 操作用户
-	Comment       *string `json:"comment,omitempty"`       // 撤回的实例的时候可以添加评论
 	OpenID        string  `json:"open_id,omitempty"`       // 某个应用下用户的唯一标识，根据userID、openID、TenantId获得Lark用户。
 	NotifyStarter *string `json:"notifyStarter,omitempty"` // 如果为true，撤回实例的时候会收到一条消息提醒。
 }
