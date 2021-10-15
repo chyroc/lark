@@ -40,9 +40,11 @@ func (r *Mock) UnMockBitableGetBitableRecord() {
 }
 
 type GetBitableRecordReq struct {
-	AppToken string `path:"app_token" json:"-"` // bitable app token, 示例值："bascnCMII2ORej2RItqpZZUNMIe"
-	TableID  string `path:"table_id" json:"-"`  // table id, 示例值："tblxI2tWaxP5dG7p"
-	RecordID string `path:"record_id" json:"-"` // 单条记录的 id, 示例值："recn0hoyXL"
+	TextFieldAsArray *bool   `query:"text_field_as_array" json:"-"` // 控制多行文本字段数据的返回格式, true 表示以数组形式返回, 示例值：true
+	UserIDType       *IDType `query:"user_id_type" json:"-"`        // 用户 ID 类型, 示例值："open_id", 可选值有: `open_id`：用户的 open id, `union_id`：用户的 union id, `user_id`：用户的 user id, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求:  获取用户 user ID
+	AppToken         string  `path:"app_token" json:"-"`            // bitable app token, 示例值："bascnCMII2ORej2RItqpZZUNMIe"
+	TableID          string  `path:"table_id" json:"-"`             // table id, 示例值："tblxI2tWaxP5dG7p"
+	RecordID         string  `path:"record_id" json:"-"`            // 单条记录的 id, 示例值："recn0hoyXL"
 }
 
 type getBitableRecordResp struct {
