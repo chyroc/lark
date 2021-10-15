@@ -42,7 +42,7 @@ func (r *Mock) UnMockDriveGetDriveDocRawContent() {
 }
 
 type GetDriveDocRawContentReq struct {
-	DocToken string `path:"docToken" json:"-"` // 获取方式详见 [准备接入文档 API](https://open.feishu.cn/document/ukTMukTMukTM/ugzNzUjL4czM14CO3MTN/guide/getting-start)
+	DocToken string `path:"docToken" json:"-"` // 获取方式详见 [云文档接口快速入门](https://open.feishu.cn/document/ukTMukTMukTM/uczNzUjL3czM14yN3MTN)
 }
 
 type getDriveDocRawContentResp struct {

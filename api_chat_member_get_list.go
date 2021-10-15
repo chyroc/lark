@@ -44,10 +44,10 @@ func (r *Mock) UnMockChatGetChatMemberList() {
 }
 
 type GetChatMemberListReq struct {
-	MemberIDType *IDType `query:"member_id_type" json:"-"` // 群成员 id 类型 open_id/user_id/union_id, 示例值："user_id", 可选值有: `user_id`：以 user_id 来识别成员, `union_id`：以 union_id 来识别成员, `open_id`：以 open_id 来识别成员
+	MemberIDType *IDType `query:"member_id_type" json:"-"` // 群成员 用户 ID 类型，详情参见 [用户相关的 ID 概念](https://open.feishu.cn/document/home/user-identity-introduction/introduction), 示例值："user_id", 可选值有: `user_id`：以 user_id 来识别成员, `union_id`：以 union_id 来识别成员, `open_id`：以 open_id 来识别成员
 	PageToken    *string `query:"page_token" json:"-"`     // 分页标记，第一次请求不填，表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token，下次遍历可采用该 page_token 获取查询结果, 示例值："dmJCRHhpd3JRbGV1VEVNRFFyTitRWDY5ZFkybmYrMEUwMUFYT0VMMWdENEtuYUhsNUxGMDIwemtvdE5ORjBNQQ=="
 	PageSize     *int64  `query:"page_size" json:"-"`      // 分页大小, 示例值：10, 最大值：`100`
-	ChatID       string  `path:"chat_id" json:"-"`         // 群 ID, 示例值："oc_a0553eda9014c201e6969b478895c230"
+	ChatID       string  `path:"chat_id" json:"-"`         // 群 ID，详情参见[群ID 说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-id-description), 示例值："oc_a0553eda9014c201e6969b478895c230"
 }
 
 type getChatMemberListResp struct {
@@ -57,13 +57,13 @@ type getChatMemberListResp struct {
 }
 
 type GetChatMemberListResp struct {
-	Items     []*GetChatMemberListRespItem `json:"items,omitempty"`      // member 列表
+	Items     []*GetChatMemberListRespItem `json:"items,omitempty"`      // 成员列表
 	PageToken string                       `json:"page_token,omitempty"` // 分页标记，当 has_more 为 true 时，会同时返回新的 page_token，否则不返回 page_token
 	HasMore   bool                         `json:"has_more,omitempty"`   // 是否还有更多项
 }
 
 type GetChatMemberListRespItem struct {
-	MemberIDType IDType `json:"member_id_type,omitempty"` // member id 类型
-	MemberID     string `json:"member_id,omitempty"`      // member id
+	MemberIDType IDType `json:"member_id_type,omitempty"` // 成员的用户 ID 类型，与查询参数中的 member_id_type 相同。取值为：`open_id`、`user_id`、`union_id`其中之一。
+	MemberID     string `json:"member_id,omitempty"`      // 成员的用户ID，ID值与查询参数中的 member_id_type 对应。,不同 ID 的说明参见 [用户相关的 ID 概念](https://open.feishu.cn/document/home/user-identity-introduction/introduction)
 	Name         string `json:"name,omitempty"`           // 名字
 }

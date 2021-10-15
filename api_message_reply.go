@@ -56,17 +56,17 @@ type replyRawMessageResp struct {
 }
 
 type ReplyRawMessageResp struct {
-	MessageID      string       `json:"message_id,omitempty"`       // 消息id open_message_id
-	RootID         string       `json:"root_id,omitempty"`          // 根消息id open_message_id
-	ParentID       string       `json:"parent_id,omitempty"`        // 父消息的id open_message_id
-	MsgType        MsgType      `json:"msg_type,omitempty"`         // 消息类型 text post card image等等
+	MessageID      string       `json:"message_id,omitempty"`       // 消息id，说明参见：[消息ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/intro#ac79c1c2)
+	RootID         string       `json:"root_id,omitempty"`          // 根消息id，说明参见：[消息ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/intro#ac79c1c2)
+	ParentID       string       `json:"parent_id,omitempty"`        // 父消息的id，说明参见：[消息ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/intro#ac79c1c2)
+	MsgType        MsgType      `json:"msg_type,omitempty"`         // 消息类型 包括：text、post、image、file、audio、media、sticker、interactive、share_chat、share_user等，类型定义请参考[发送消息content说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/im-v1/message/create_json)
 	CreateTime     string       `json:"create_time,omitempty"`      // 消息生成的时间戳（毫秒）
 	UpdateTime     string       `json:"update_time,omitempty"`      // 消息更新的时间戳（毫秒）
 	Deleted        bool         `json:"deleted,omitempty"`          // 消息是否被撤回
 	Updated        bool         `json:"updated,omitempty"`          // 消息是否被更新
 	ChatID         string       `json:"chat_id,omitempty"`          // 所属的群
 	Sender         *Sender      `json:"sender,omitempty"`           // 发送者，可以是用户或应用
-	Body           *MessageBody `json:"body,omitempty"`             // 消息内容，json结构，格式说明参考： [消息content说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/im-v1/message/events/message_content)
-	Mentions       []*Mention   `json:"mentions,omitempty"`         // 被艾特的人或应用的id
-	UpperMessageID string       `json:"upper_message_id,omitempty"` // 上一层级的消息id open_message_id
+	Body           *MessageBody `json:"body,omitempty"`             // 消息内容
+	Mentions       []*Mention   `json:"mentions,omitempty"`         // 被@的用户或机器人的id列表
+	UpperMessageID string       `json:"upper_message_id,omitempty"` // 合并转发消息中，上一层级的消息id message_id，说明参见：[消息ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/intro#ac79c1c2)
 }

@@ -62,7 +62,7 @@ type GetChatListOfSelfResp struct {
 }
 
 type GetChatListOfSelfRespItem struct {
-	ChatID      string `json:"chat_id,omitempty"`       // 群组 ID
+	ChatID      string `json:"chat_id,omitempty"`       // 群组 ID，详情参见[群ID 说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-id-description)
 	Avatar      string `json:"avatar,omitempty"`        // 群头像 URL
 	Name        string `json:"name,omitempty"`          // 群名称
 	Description string `json:"description,omitempty"`   // 群描述

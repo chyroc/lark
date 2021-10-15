@@ -44,7 +44,7 @@ func (r *Mock) UnMockChatJoinChat() {
 }
 
 type JoinChatReq struct {
-	ChatID string `path:"chat_id" json:"-"` // 群 ID, 示例值："oc_a0553eda9014c201e6969b478895c230"
+	ChatID string `path:"chat_id" json:"-"` // 群 ID，详情参见[群ID 说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-id-description), 示例值："oc_a0553eda9014c201e6969b478895c230"
 }
 
 type joinChatResp struct {

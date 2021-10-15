@@ -44,7 +44,7 @@ func (r *Mock) UnMockDriveCreateDriveDoc() {
 }
 
 type CreateDriveDocReq struct {
-	FolderToken *string `json:"FolderToken,omitempty"` // 文件夹 token，获取方式见[准备接入文档 API](https://open.feishu.cn/document/ukTMukTMukTM/ugzNzUjL4czM14CO3MTN/guide/getting-start)；空表示根目录，tenant_access_token应用权限仅允许操作应用创建的目录
+	FolderToken *string `json:"FolderToken,omitempty"` // 文件夹 token，获取方式见[云文档接口快速入门](https://open.feishu.cn/document/ukTMukTMukTM/uczNzUjL3czM14yN3MTN)；空表示根目录，tenant_access_token应用权限仅允许操作应用创建的目录
 	Content     *string `json:"Content,omitempty"`     // 传入符合[文档数据结构](https://open.feishu.cn/document/ukTMukTMukTM/uAzM5YjLwMTO24CMzkjN)的字符串，若为空表示创建空文档
 }
 
