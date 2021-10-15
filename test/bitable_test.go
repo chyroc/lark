@@ -13,11 +13,12 @@ import (
 func Test_Bitable(t *testing.T) {
 	as := assert.New(t)
 	cli := AppAllPermission.Ins()
+	t.Skip()
 
 	appToken := "bascn9T22ch7O8cfAuEza3Zv2tb"
 	tableID := "tbly5aRriIYOT5SM"
 
-	t.Run("biew-list", func(t *testing.T) {
+	t.Run("view-list", func(t *testing.T) {
 		resp, response, err := cli.Bitable.GetBitableViewList(ctx, &lark.GetBitableViewListReq{
 			PageSize:  nil,
 			PageToken: nil,
