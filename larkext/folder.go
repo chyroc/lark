@@ -19,6 +19,14 @@ func NewFolder(larkClient *lark.Lark, folderToken string) *Folder {
 	return r
 }
 
+func (r *Folder) Meta(ctx context.Context) (*lark.GetDriveFolderMetaResp, error) {
+	return r.meta(ctx)
+}
+
+func (r *Folder) NewFolder(ctx context.Context, title string) (*Folder, error) {
+	return r.newFolder(ctx, title)
+}
+
 func (r *Folder) NewSheet(ctx context.Context, title string) (*Sheet, error) {
 	return r.newSheet(ctx, title)
 }

@@ -60,12 +60,12 @@ func (r *Sheet) SetSheetName(ctx context.Context, sheetID string, name string) e
 	return r.setSheetName(ctx, sheetID, name)
 }
 
-func (r *Sheet) InsertCol(ctx context.Context, sheetID string, startIndex int, count int) error {
-	return r.insertCol(ctx, sheetID, startIndex, count)
+func (r *Sheet) InsertCols(ctx context.Context, sheetID string, startIndex int, count int) error {
+	return r.insertCols(ctx, sheetID, startIndex, count)
 }
 
-func (r *Sheet) InsertRow(ctx context.Context, sheetID string, startIndex int, count int) error {
-	return r.insertRow(ctx, sheetID, startIndex, count)
+func (r *Sheet) InsertRows(ctx context.Context, sheetID string, startIndex int, count int) error {
+	return r.insertRows(ctx, sheetID, startIndex, count)
 }
 
 type Cols struct {
@@ -88,4 +88,8 @@ func (r *Sheet) Rows(sheetID string) *Rows {
 
 func (r *Sheet) SearchSheet(ctx context.Context, sheetID, value string, condition *lark.FindSheetReqFindCondition) (*lark.FindSheetRespFindResult, error) {
 	return r.searchSheet(ctx, sheetID, value, condition)
+}
+
+func (r *Sheet) MoveRows(ctx context.Context, sheetID string, fromStartIndex, count, destIndex int) error {
+	return r.moveRows(ctx, sheetID, fromStartIndex, count, destIndex)
 }

@@ -101,7 +101,7 @@ func (r *Sheet) setSheetName(ctx context.Context, sheetID, name string) error {
 	return nil
 }
 
-func (r *Sheet) insertCol(ctx context.Context, sheetID string, startIndex int, count int) error {
+func (r *Sheet) insertCols(ctx context.Context, sheetID string, startIndex int, count int) error {
 	_, _, err := r.larkClient.Drive.InsertSheetDimensionRange(ctx, &lark.InsertSheetDimensionRangeReq{
 		SpreadSheetToken: r.sheetToken,
 		Dimension: &lark.InsertSheetDimensionRangeReqDimension{
@@ -115,7 +115,7 @@ func (r *Sheet) insertCol(ctx context.Context, sheetID string, startIndex int, c
 	return err
 }
 
-func (r *Sheet) insertRow(ctx context.Context, sheetID string, startIndex int, count int) error {
+func (r *Sheet) insertRows(ctx context.Context, sheetID string, startIndex int, count int) error {
 	_, _, err := r.larkClient.Drive.InsertSheetDimensionRange(ctx, &lark.InsertSheetDimensionRangeReq{
 		SpreadSheetToken: r.sheetToken,
 		Dimension: &lark.InsertSheetDimensionRangeReqDimension{
@@ -146,4 +146,18 @@ func (r *Sheet) searchSheet(ctx context.Context, sheetID, value string, conditio
 		return nil, err
 	}
 	return resp.FindResult, nil
+}
+
+func (r *Sheet) moveRows(ctx context.Context, sheetID string, fromStartIndex, count, destIndex int) error {
+	_, _, err := r.larkClient.Drive.MoveSheetDimension(ctx, &lark.MoveSheetDimensionReq{
+		SpreadSheetToken: r.sheetToken,
+		SheetID:          sheetID,
+		Source: &lark.MoveSheetDimensionReqSource{
+			MajorDimension: ptr.String("ROWS"),
+			StartIndex:     ptr.Int64(int64(fromStartIndex)),
+			EndIndex:       ptr.Int64(int64(fromStartIndex + count)),
+		},
+		DestinationIndex: ptr.Int64(int64(destIndex)),
+	})
+	return err
 }
