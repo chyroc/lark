@@ -51,7 +51,7 @@ type InsertSheetDimensionRangeReq struct {
 type InsertSheetDimensionRangeReqDimension struct {
 	SheetID        string  `json:"sheetId,omitempty"`        // sheet 的 Id
 	MajorDimension *string `json:"majorDimension,omitempty"` // 默认 ROWS ，可选 ROWS、COLUMNS
-	StartIndex     int64   `json:"startIndex,omitempty"`     // 开始的位置
+	StartIndex     int64   `json:"startIndex"`               // 开始的位置
 	EndIndex       int64   `json:"endIndex,omitempty"`       // 结束的位置
 }
 

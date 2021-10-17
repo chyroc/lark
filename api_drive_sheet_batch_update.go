@@ -89,18 +89,26 @@ type BatchUpdateSheetResp struct {
 }
 
 type BatchUpdateSheetRespReply struct {
-	AddSheet    *BatchUpdateSheetRespReplyAddSheet    `json:"addSheet,omitempty"`    // 增加/复制工作表的属性
-	CopySheet   *BatchUpdateSheetRespReplyCopySheet   `json:"copySheet,omitempty"`   // 增加/复制工作表的属性
+	AddSheet    *BatchUpdateSheetRespReplyAddSheet    `json:"addSheet,omitempty"`
+	CopySheet   *BatchUpdateSheetRespReplyCopySheet   `json:"copySheet,omitempty"`
 	DeleteSheet *BatchUpdateSheetRespReplyDeleteSheet `json:"deleteSheet,omitempty"` // 删除工作表
 }
 
 type BatchUpdateSheetRespReplyAddSheet struct {
+	Properties *BatchUpdateSheetRespReplyAddSheetProperties `json:"properties,omitempty"` // 增加/复制工作表的属性
+}
+
+type BatchUpdateSheetRespReplyAddSheetProperties struct {
 	SheetID string `json:"sheetId,omitempty"` // sheetId
 	Title   string `json:"title,omitempty"`   // 工作表标题
 	Index   int64  `json:"index,omitempty"`   // 工作表位置
 }
 
 type BatchUpdateSheetRespReplyCopySheet struct {
+	Properties *BatchUpdateSheetRespReplyCopySheetProperties `json:"properties,omitempty"` // 增加/复制工作表的属性
+}
+
+type BatchUpdateSheetRespReplyCopySheetProperties struct {
 	SheetID string `json:"sheetId,omitempty"` // sheetId
 	Title   string `json:"title,omitempty"`   // 工作表标题
 	Index   int64  `json:"index,omitempty"`   // 工作表位置
