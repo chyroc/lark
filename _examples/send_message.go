@@ -4,8 +4,6 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/chyroc/go-ptr"
-
 	"github.com/chyroc/lark"
 )
 
@@ -17,7 +15,7 @@ func ExampleSendMessage() {
 	{
 		resp, _, err := cli.Message.SendRawMessage(ctx, &lark.SendRawMessageReq{
 			ReceiveIDType: lark.IDTypeEmail,
-			ReceiveID:     ptr.String("<EMAIL>"),
+			ReceiveID:     "<EMAIL>",
 			Content:       `{"text":"text"}`,
 			MsgType:       lark.MsgTypeText,
 		})

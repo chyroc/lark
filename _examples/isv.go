@@ -10,7 +10,7 @@ import (
 	"github.com/chyroc/lark"
 )
 
-// use this interface to mock redis client
+// RedisClient use this interface to mock redis client
 type RedisClient interface {
 	Get(ctx context.Context, key string) (string, time.Duration, error)
 	Set(ctx context.Context, key, val string, ttl time.Duration) error
