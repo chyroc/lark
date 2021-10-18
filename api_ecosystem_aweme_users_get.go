@@ -6,7 +6,10 @@ import (
 	"context"
 )
 
-// GetEcosystemBindAwemeUser 获取绑定信息
+// GetEcosystemBindAwemeUser
+//
+// 获取绑定信息
+// 适用于获取飞书账号是否为“抖音员工号”运营者。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/bytedance-open-ecosystem/aweme_ecosystem-v1/aweme_user/get_bind_info
 func (r *EcosystemService) GetEcosystemBindAwemeUser(ctx context.Context, request *GetEcosystemBindAwemeUserReq, options ...MethodOptionFunc) (*GetEcosystemBindAwemeUserResp, *Response, error) {

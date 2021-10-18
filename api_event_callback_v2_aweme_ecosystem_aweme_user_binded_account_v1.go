@@ -8,7 +8,8 @@ import (
 
 // EventV2AwemeEcosystemAwemeUserBindedAccountV1
 //
-// 绑定关系变更事件{使用示例}(url=/api/tools/api_explore/api_explore_config?project=aweme_ecosystem&version=v1&resource=aweme_user&event=binded_account)
+// 绑定关系变更事件
+// 适用于获取“抖音员工号”运营者是否发生变更，即当“抖音员工号”关联的飞书账号发生变化时，可通过该权限获知到此事件。{使用示例}(url=/api/tools/api_explore/api_explore_config?project=aweme_ecosystem&version=v1&resource=aweme_user&event=binded_account)
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/bytedance-open-ecosystem/aweme_ecosystem-v1/aweme_user/events/binded_account
 func (r *EventCallbackService) HandlerEventV2AwemeEcosystemAwemeUserBindedAccountV1(f eventV2AwemeEcosystemAwemeUserBindedAccountV1Handler) {

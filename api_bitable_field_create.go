@@ -44,7 +44,7 @@ type CreateBitableFieldReq struct {
 	AppToken   string                         `path:"app_token" json:"-"`     // bitable app token, 示例值："appbcbWCzen6D8dezhoCH2RpMAh"
 	TableID    string                         `path:"table_id" json:"-"`      // table id, 示例值："tblsRc9GRRXKqhvW"
 	FieldName  string                         `json:"field_name,omitempty"`   // 多维表格字段名, 示例值："多行文本"
-	Type       int64                          `json:"type,omitempty"`         // 多维表格字段类型, 示例值：1
+	Type       int64                          `json:"type,omitempty"`         // 多维表格字段类型, 示例值：具体参考: [Property说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/bitable/development-guide/bitable-structure#b286b4ee)
 	Property   *CreateBitableFieldReqProperty `json:"property,omitempty"`     // 字段属性, 具体参考: [Property说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/bitable/development-guide/bitable-structure#b286b4ee)
 }
 
