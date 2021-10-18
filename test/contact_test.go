@@ -113,7 +113,7 @@ func Test_Contact_Failed(t *testing.T) {
 			resp, _, err := moduleCli.GetParentDepartment(ctx, &lark.GetParentDepartmentReq{
 				// UserIDType:       nil,
 				DepartmentIDType: lark.DepartmentIDTypePtr(lark.DepartmentIDTypeOpenDepartmentID),
-				DepartmentID:     &childOpenDepartmentID,
+				DepartmentID:     childOpenDepartmentID,
 				// PageToken:        ptr.String(""),
 				// PageSize:         ptr.Int64(10),
 			})
