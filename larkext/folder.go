@@ -30,3 +30,7 @@ func (r *Folder) NewFolder(ctx context.Context, title string) (*Folder, error) {
 func (r *Folder) NewSheet(ctx context.Context, title string) (*Sheet, error) {
 	return r.newSheet(ctx, title)
 }
+
+func (r *Folder) NewDoc(ctx context.Context, title string) (*Doc, error) {
+	return r.newDoc(ctx, title)
+}

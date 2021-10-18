@@ -101,35 +101,163 @@ func (r *Sheet) setSheetName(ctx context.Context, sheetID, name string) error {
 	return nil
 }
 
-func (r *Sheet) insertCols(ctx context.Context, sheetID string, startIndex int, count int) error {
+func (r *Sheet) insertDimension(ctx context.Context, majorDimension, sheetID string, startIndex int, count int) error {
 	_, _, err := r.larkClient.Drive.InsertSheetDimensionRange(ctx, &lark.InsertSheetDimensionRangeReq{
 		SpreadSheetToken: r.sheetToken,
 		Dimension: &lark.InsertSheetDimensionRangeReqDimension{
 			SheetID:        sheetID,
-			MajorDimension: ptr.String("COLUMNS"),
+			MajorDimension: ptr.String(majorDimension),
 			StartIndex:     int64(startIndex),
-			EndIndex:       int64(startIndex + count),
+			EndIndex:       int64(count),
 		},
 		InheritStyle: nil,
 	})
 	return err
 }
 
-func (r *Sheet) insertRows(ctx context.Context, sheetID string, startIndex int, count int) error {
-	_, _, err := r.larkClient.Drive.InsertSheetDimensionRange(ctx, &lark.InsertSheetDimensionRangeReq{
+// startIndex 从 0 开始计算
+// startIndex startIndex 是: 左闭区间 右闭区间，即 [start, end]
+// 当上/左移的时候，destIndex 是上半边的 index，当下/右移的时候，destIndex 是下半边的 index
+// dest 是: 左闭区间，右开区间，即 [dest, dest)
+// -1 start end 是 左闭区间 右闭区间，dest 是做 左闭区间，右开区间
+// 上移看：左区间，下移看：右区间
+func (r *Sheet) moveDimension(ctx context.Context, majorDimension, sheetID string, startIndex, count, diff int) error {
+	if diff == 0 {
+		return nil
+	}
+
+	startIndex -= 1                    // 因为从 0 开始算
+	endIndex := startIndex + count - 1 // 结束位置，
+	destIndex := 0
+	if diff < 0 {
+		destIndex = startIndex - (-diff) // 左闭区间，不需要再+1
+	} else {
+		destIndex = endIndex + diff + 1 // 右开区间，所以需要 +1
+	}
+
+	_, _, err := r.larkClient.Drive.MoveSheetDimension(ctx, &lark.MoveSheetDimensionReq{
 		SpreadSheetToken: r.sheetToken,
-		Dimension: &lark.InsertSheetDimensionRangeReqDimension{
-			SheetID:        sheetID,
-			MajorDimension: ptr.String("ROWS"),
-			StartIndex:     int64(startIndex),
-			EndIndex:       int64(startIndex + count),
+		SheetID:          sheetID,
+		Source: &lark.MoveSheetDimensionReqSource{
+			MajorDimension: ptr.String(majorDimension),
+			StartIndex:     ptr.Int64(int64(startIndex)),
+			EndIndex:       ptr.Int64(int64(endIndex)),
 		},
-		InheritStyle: nil,
+		DestinationIndex: ptr.Int64(int64(destIndex)),
 	})
 	return err
 }
 
-func (r *Sheet) searchSheet(ctx context.Context, sheetID, value string, condition *lark.FindSheetReqFindCondition) (*lark.FindSheetRespFindResult, error) {
+func (r *Sheet) appendDimension(ctx context.Context, sheetID, ranges string, values [][]lark.SheetContent, option *string) error {
+	_, _, err := r.larkClient.Drive.AppendSheetValue(ctx, &lark.AppendSheetValueReq{
+		InsertDataOption: option,
+		SpreadSheetToken: r.sheetToken,
+		ValueRange: &lark.AppendSheetValueReqValueRange{
+			Range:  sheetID + "!" + ranges,
+			Values: values,
+		},
+	})
+	return err
+}
+
+func (r *Sheet) addDimension(ctx context.Context, dimension string, sheetID string, count int) error {
+	_, _, err := r.larkClient.Drive.AddSheetDimensionRange(ctx, &lark.AddSheetDimensionRangeReq{
+		SpreadSheetToken: r.sheetToken,
+		Dimension: &lark.AddSheetDimensionRangeReqDimension{
+			SheetID:        sheetID,
+			MajorDimension: &dimension,
+			Length:         int64(count),
+		},
+	})
+	return err
+}
+
+func (r *Sheet) updateDimension(ctx context.Context, dimension, sheetID string, startIndex, count int, visible *bool, fixedSize *int64) error {
+	_, _, err := r.larkClient.Drive.UpdateSheetDimensionRange(ctx, &lark.UpdateSheetDimensionRangeReq{
+		SpreadSheetToken: r.sheetToken,
+		Dimension: &lark.UpdateSheetDimensionRangeReqDimension{
+			SheetID:        sheetID,
+			MajorDimension: &dimension,
+			StartIndex:     int64(startIndex),
+			EndIndex:       int64(startIndex + count - 1),
+		},
+		DimensionProperties: &lark.UpdateSheetDimensionRangeReqDimensionProperties{
+			Visible:   visible,
+			FixedSize: fixedSize,
+		},
+	})
+	return err
+}
+
+func (r *Sheet) deleteDimension(ctx context.Context, dimension, sheetID string, startIndex, count int) error {
+	_, _, err := r.larkClient.Drive.DeleteSheetDimensionRange(ctx, &lark.DeleteSheetDimensionRangeReq{
+		SpreadSheetToken: r.sheetToken,
+		Dimension: &lark.DeleteSheetDimensionRangeReqDimension{
+			SheetID:        sheetID,
+			MajorDimension: &dimension,
+			StartIndex:     int64(startIndex),
+			EndIndex:       int64(startIndex + count - 1),
+		},
+	})
+	return err
+}
+
+// TODO sheet 内容解析需要完善
+func (r *Sheet) getValue(ctx context.Context, sheetID string) error {
+	res, _, err := r.larkClient.Drive.GetSheetValue(ctx, &lark.GetSheetValueReq{
+		ValueRenderOption:    nil,
+		DateTimeRenderOption: nil,
+		UserIDType:           nil,
+		SpreadSheetToken:     r.sheetToken,
+		Range:                sheetID,
+	})
+	_ = res
+	// spew.Dump(res)
+	return err
+}
+
+func (r *Sheet) setCellStyle(ctx context.Context, sheetID, ranges string, style *lark.SetSheetStyleReqAppendStyleStyle) error {
+	_, _, err := r.larkClient.Drive.SetSheetStyle(ctx, &lark.SetSheetStyleReq{
+		SpreadSheetToken: r.sheetToken,
+		AppendStyle: &lark.SetSheetStyleReqAppendStyle{
+			Range: sheetID + "!" + ranges,
+			Style: style,
+		},
+	})
+	return err
+}
+
+func (r *Sheet) mergeCell(ctx context.Context, ranges, mergeType string) error {
+	if mergeType == "" {
+		mergeType = "MERGE_ALL"
+	}
+	_, _, err := r.larkClient.Drive.MergeSheetCell(ctx, &lark.MergeSheetCellReq{
+		SpreadSheetToken: r.sheetToken,
+		Range:            ranges,
+		MergeType:        mergeType,
+	})
+	return err
+}
+
+func (r *Sheet) unmergeCell(ctx context.Context, ranges string) error {
+	_, _, err := r.larkClient.Drive.UnmergeSheetCell(ctx, &lark.UnmergeSheetCellReq{
+		SpreadSheetToken: r.sheetToken,
+		Range:            ranges,
+	})
+	return err
+}
+
+func (r *Sheet) setSheetValueImage(ctx context.Context, ranges string, image []byte) error {
+	_, _, err := r.larkClient.Drive.SetSheetValueImage(ctx, &lark.SetSheetValueImageReq{
+		SpreadSheetToken: r.sheetToken,
+		Range:            ranges,
+		Image:            image,
+		Name:             "a.png",
+	})
+	return err
+}
+
+func (r *Sheet) search(ctx context.Context, sheetID, value string, condition *lark.FindSheetReqFindCondition) (*lark.FindSheetRespFindResult, error) {
 	if condition == nil {
 		condition = new(lark.FindSheetReqFindCondition)
 	}
@@ -148,16 +276,22 @@ func (r *Sheet) searchSheet(ctx context.Context, sheetID, value string, conditio
 	return resp.FindResult, nil
 }
 
-func (r *Sheet) moveRows(ctx context.Context, sheetID string, fromStartIndex, count, destIndex int) error {
-	_, _, err := r.larkClient.Drive.MoveSheetDimension(ctx, &lark.MoveSheetDimensionReq{
+func (r *Sheet) replace(ctx context.Context, sheetID, old, new string, condition *lark.ReplaceSheetReqFindCondition) (*lark.ReplaceSheetRespReplaceResult, error) {
+	if condition == nil {
+		condition = &lark.ReplaceSheetReqFindCondition{}
+	}
+	if condition.Range == "" {
+		condition.Range = sheetID
+	}
+	resp, _, err := r.larkClient.Drive.ReplaceSheet(ctx, &lark.ReplaceSheetReq{
 		SpreadSheetToken: r.sheetToken,
 		SheetID:          sheetID,
-		Source: &lark.MoveSheetDimensionReqSource{
-			MajorDimension: ptr.String("ROWS"),
-			StartIndex:     ptr.Int64(int64(fromStartIndex)),
-			EndIndex:       ptr.Int64(int64(fromStartIndex + count)),
-		},
-		DestinationIndex: ptr.Int64(int64(destIndex)),
+		FindCondition:    condition,
+		Find:             old,
+		Replacement:      new,
 	})
-	return err
+	if err != nil {
+		return nil, err
+	}
+	return resp.ReplaceResult, nil
 }

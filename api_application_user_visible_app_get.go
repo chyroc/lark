@@ -64,11 +64,13 @@ type GetApplicationUserVisibleAppResp struct {
 }
 
 type GetApplicationUserVisibleAppRespAppList struct {
-	AppID           string `json:"app_id,omitempty"`           // 应用 ID
-	PrimaryLanguage string `json:"primary_language,omitempty"` // 应用首选语言
-	AppName         string `json:"app_name,omitempty"`         // 应用名称
-	Description     string `json:"description,omitempty"`      // 应用描述
-	AvatarURL       string `json:"avatar_url,omitempty"`       // 应用 icon
-	AppSceneType    int64  `json:"app_scene_type,omitempty"`   // 应用类型，0：企业自建应用；1：应用商店应用
-	Status          int64  `json:"status,omitempty"`           // 启停状态，0：停用；1：启用
+	AppID                string `json:"app_id,omitempty"`                 // 应用 ID
+	PrimaryLanguage      string `json:"primary_language,omitempty"`       // 应用首选语言
+	AppName              string `json:"app_name,omitempty"`               // 应用名称
+	Description          string `json:"description,omitempty"`            // 应用描述
+	AvatarURL            string `json:"avatar_url,omitempty"`             // 应用 icon
+	AppSceneType         int64  `json:"app_scene_type,omitempty"`         // 应用类型，0：企业自建应用；1：应用商店应用
+	Status               int64  `json:"status,omitempty"`                 // 启停状态，0：停用；1：启用
+	MobileDefaultAbility int64  `json:"mobile_default_ability,omitempty"` // 移动端默认的应用功能，0：未开启；1：小程序；2：H5；8：机器人
+	PcDefaultAbility     int64  `json:"pc_default_ability,omitempty"`     // PC客户端默认的应用功能，0：未开启；1：小程序；2：H5；8：机器人
 }

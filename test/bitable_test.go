@@ -13,7 +13,6 @@ import (
 func Test_Bitable(t *testing.T) {
 	as := assert.New(t)
 	cli := AppAllPermission.Ins()
-	t.Skip()
 
 	appToken := "bascn9T22ch7O8cfAuEza3Zv2tb"
 	tableID := "tbly5aRriIYOT5SM"
@@ -29,6 +28,8 @@ func Test_Bitable(t *testing.T) {
 		as.NotEmpty(response.RequestID)
 		as.True(len(resp.Items) > 0)
 	})
+
+	t.Skip()
 
 	t.Run("bitable-view", func(t *testing.T) {
 		var createResp *lark.CreateBitableViewResp

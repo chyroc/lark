@@ -62,8 +62,8 @@ type GetSheetValueResp struct {
 }
 
 type GetSheetValueRespValueRange struct {
-	MajorDimension string        `json:"majorDimension,omitempty"` // 插入维度
-	Range          string        `json:"range,omitempty"`          // 返回数据的范围，为空时表示查询范围没有数据
-	Revision       int64         `json:"revision,omitempty"`       // sheet 的版本号
-	Values         []interface{} `json:"values,omitempty"`         // 查询得到的值
+	MajorDimension string           `json:"majorDimension,omitempty"` // 插入维度
+	Range          string           `json:"range,omitempty"`          // 返回数据的范围，为空时表示查询范围没有数据
+	Revision       int64            `json:"revision,omitempty"`       // sheet 的版本号
+	Values         [][]SheetContent `json:"values,omitempty"`         // 查询得到的值
 }

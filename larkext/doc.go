@@ -1,6 +1,8 @@
 package larkext
 
 import (
+	"context"
+
 	"github.com/chyroc/lark"
 )
 
@@ -14,4 +16,24 @@ func NewDoc(larkClient *lark.Lark, docToken string) *Doc {
 	r.larkClient = larkClient
 	r.docToken = docToken
 	return r
+}
+
+// Meta 获取文档元信息
+func (r *Doc) DocToken() string {
+	return r.docToken
+}
+
+// Meta 获取文档元信息
+func (r *Doc) Meta(ctx context.Context) (*lark.GetDriveDocMetaResp, error) {
+	return r.meta(ctx)
+}
+
+// RawContent 获取文档文本内容
+func (r *Doc) RawContent(ctx context.Context) (string, error) {
+	return r.rawContent(ctx)
+}
+
+// RawContent 获取文档文本内容
+func (r *Doc) Content(ctx context.Context) (*lark.DocContent, error) {
+	return r.content(ctx)
 }

@@ -47,12 +47,8 @@ func Test_SheetExt(t *testing.T) {
 	err = sheetIns.DeleteSheet(ctx, sheetID)
 	as.Nil(err)
 
-	err = sheetIns.InsertRows(ctx, defaultSheetID, 0, 1)
+	err = sheetIns.InsertRows(ctx, defaultSheetID, 1, 1)
 	as.Nil(err)
-	err = sheetIns.InsertCols(ctx, defaultSheetID, 0, 1)
+	err = sheetIns.InsertCols(ctx, defaultSheetID, 1, 1)
 	as.Nil(err)
-
-	// spew.Dump(ins.SearchSheet(ctx, defaultSheetID, "22", nil))
-	// spew.Dump(ins.CopySheet(ctx, "3xtK6c", ptr.String("xxxxx")))
-	// spew.Dump(ins.CopySheet(ctx, "72e2fa", nil))
 }

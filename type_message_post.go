@@ -2,6 +2,7 @@ package lark
 
 import (
 	"encoding/json"
+	"reflect"
 )
 
 type MessageContentPostAll struct {
@@ -92,4 +93,21 @@ type messageContentPostInterfaceDefaultImpl struct{}
 
 func (r messageContentPostInterfaceDefaultImpl) IsMessageContentPostItem() bool {
 	return true
+}
+
+func marshalJSONWithMap(v interface{}, m map[string]interface{}) ([]byte, error) {
+	vv := reflect.ValueOf(v)
+	vt := reflect.TypeOf(v)
+	for i := 0; i < vt.NumField(); i++ {
+		jsonTag := vt.Field(i).Tag.Get("json")
+		if len(jsonTag) > 10 && jsonTag[len(jsonTag)-10:] == ",omitempty" {
+			jsonTag = jsonTag[:len(jsonTag)-10]
+		}
+		vvf := vv.Field(i)
+		if vvf.IsZero() {
+			continue
+		}
+		m[jsonTag] = vv.Field(i).Interface()
+	}
+	return json.Marshal(m)
 }
