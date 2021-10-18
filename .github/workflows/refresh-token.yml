@@ -24,7 +24,7 @@ jobs:
     - name: Test
       run: |
         pip install libnacl requests
-        cd ./.github/internal/ && go run ./refresh-token.go && cd ../../
+        cd ./.github/internal/ && go mod tidy && go run ./refresh-token.go && cd ../../
         python ./.github/internal/refresh-user-token.py
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
