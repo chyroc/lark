@@ -42,8 +42,8 @@ func (r *Mock) UnMockDriveBatchSetSheetStyle() {
 }
 
 type BatchSetSheetStyleReq struct {
-	SpreadSheetToken string                     `path:"spreadsheetToken" json:"-"` // spreadsheet 的 token，获取方式见[在线表格开发指南](https://open.feishu.cn/document/ukTMukTMukTM/uATMzUjLwEzM14CMxMTN/overview)
-	Data             *BatchSetSheetStyleReqData `json:"data,omitempty"`            // 请求数据
+	SpreadSheetToken string                       `path:"spreadsheetToken" json:"-"` // spreadsheet 的 token，获取方式见[在线表格开发指南](https://open.feishu.cn/document/ukTMukTMukTM/uATMzUjLwEzM14CMxMTN/overview)
+	Data             []*BatchSetSheetStyleReqData `json:"data,omitempty"`            // 请求数据
 }
 
 type BatchSetSheetStyleReqData struct {

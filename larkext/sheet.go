@@ -144,6 +144,22 @@ func (r *Sheet) CleanCellStyle(ctx context.Context, cellRange string) error {
 	return r.setCellStyle(ctx, cellRange, &lark.SetSheetStyleReqAppendStyleStyle{Clean: ptr.Bool(true)})
 }
 
+// 批量设置单元格样式
+func (r *Sheet) BatchSetCellStyle(ctx context.Context, styles []*lark.BatchSetSheetStyleReqData) error {
+	return r.batchSetCellStyle(ctx, styles)
+}
+
+// 批量清除单元格样式
+func (r *Sheet) BatchCleanCellStyle(ctx context.Context, cellRanges []string) error {
+	styles := []*lark.BatchSetSheetStyleReqData{{
+		Ranges: cellRanges,
+		Style: &lark.BatchSetSheetStyleReqDataStyle{
+			Clean: ptr.Bool(true),
+		},
+	}}
+	return r.batchSetCellStyle(ctx, styles)
+}
+
 // TODO：批量 style
 
 // MergeCell 合并单元格

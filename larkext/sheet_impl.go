@@ -229,6 +229,14 @@ func (r *Sheet) setCellStyle(ctx context.Context, cellRange string, style *lark.
 	return err
 }
 
+func (r *Sheet) batchSetCellStyle(ctx context.Context, styles []*lark.BatchSetSheetStyleReqData) error {
+	_, _, err := r.larkClient.Drive.BatchSetSheetStyle(ctx, &lark.BatchSetSheetStyleReq{
+		SpreadSheetToken: r.sheetToken,
+		Data:             styles,
+	})
+	return err
+}
+
 func (r *Sheet) mergeCell(ctx context.Context, cellRange, mergeType string) error {
 	if mergeType == "" {
 		mergeType = "MERGE_ALL"
