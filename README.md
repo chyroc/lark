@@ -37,7 +37,7 @@ https://godoc.org/github.com/chyroc/lark
 
 ## Support APIs
 
-API Count: 470, Event Count: 51
+API Count: 471, Event Count: 51
 
 <details>
   <summary>
@@ -284,6 +284,8 @@ API Count: 470, Event Count: 51
   - BatchGetMeetingRoomRoomID
   - GetMeetingRoomCountryList
   - GetMeetingRoomDistrictList
+- Jssdk
+  - GetJssdkTicket
 - VC
   - ApplyVCReserve
   - UpdateVCReserve

@@ -39,6 +39,7 @@ type Lark struct {
 	Drive         *DriveService
 	Bitable       *BitableService
 	MeetingRoom   *MeetingRoomService
+	Jssdk         *JssdkService
 	VC            *VCService
 	Application   *ApplicationService
 	Mail          *MailService
@@ -71,6 +72,7 @@ func (r *Lark) initService() {
 	r.Drive = &DriveService{cli: r}
 	r.Bitable = &BitableService{cli: r}
 	r.MeetingRoom = &MeetingRoomService{cli: r}
+	r.Jssdk = &JssdkService{cli: r}
 	r.VC = &VCService{cli: r}
 	r.Application = &ApplicationService{cli: r}
 	r.Mail = &MailService{cli: r}
@@ -125,6 +127,7 @@ func (r *Lark) clone() *Lark {
 		Drive:         r.Drive,
 		Bitable:       r.Bitable,
 		MeetingRoom:   r.MeetingRoom,
+		Jssdk:         r.Jssdk,
 		VC:            r.VC,
 		Application:   r.Application,
 		Mail:          r.Mail,
@@ -158,6 +161,7 @@ type (
 	DriveService         struct{ cli *Lark }
 	BitableService       struct{ cli *Lark }
 	MeetingRoomService   struct{ cli *Lark }
+	JssdkService         struct{ cli *Lark }
 	VCService            struct{ cli *Lark }
 	ApplicationService   struct{ cli *Lark }
 	MailService          struct{ cli *Lark }

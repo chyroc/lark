@@ -36,7 +36,7 @@ https://godoc.org/github.com/chyroc/lark
 
 ## 支持的接口
 
-API 总数: 470, 事件总数: 51
+API 总数: 471, 事件总数: 51
 
 <details>
   <summary>
@@ -283,6 +283,8 @@ API 总数: 470, 事件总数: 51
   - BatchGetMeetingRoomRoomID
   - GetMeetingRoomCountryList
   - GetMeetingRoomDistrictList
+- Jssdk
+  - GetJssdkTicket
 - VC
   - ApplyVCReserve
   - UpdateVCReserve

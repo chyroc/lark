@@ -241,6 +241,7 @@ type Mock struct {
 	mockMeetingRoomBatchGetMeetingRoomRoomID             func(ctx context.Context, request *BatchGetMeetingRoomRoomIDReq, options ...MethodOptionFunc) (*BatchGetMeetingRoomRoomIDResp, *Response, error)
 	mockMeetingRoomGetMeetingRoomCountryList             func(ctx context.Context, request *GetMeetingRoomCountryListReq, options ...MethodOptionFunc) (*GetMeetingRoomCountryListResp, *Response, error)
 	mockMeetingRoomGetMeetingRoomDistrictList            func(ctx context.Context, request *GetMeetingRoomDistrictListReq, options ...MethodOptionFunc) (*GetMeetingRoomDistrictListResp, *Response, error)
+	mockJssdkGetJssdkTicket                              func(ctx context.Context, request *GetJssdkTicketReq, options ...MethodOptionFunc) (*GetJssdkTicketResp, *Response, error)
 	mockVCApplyVCReserve                                 func(ctx context.Context, request *ApplyVCReserveReq, options ...MethodOptionFunc) (*ApplyVCReserveResp, *Response, error)
 	mockVCUpdateVCReserve                                func(ctx context.Context, request *UpdateVCReserveReq, options ...MethodOptionFunc) (*UpdateVCReserveResp, *Response, error)
 	mockVCDeleteVCReserve                                func(ctx context.Context, request *DeleteVCReserveReq, options ...MethodOptionFunc) (*DeleteVCReserveResp, *Response, error)
