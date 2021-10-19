@@ -96,7 +96,7 @@ func (r *Sheet) copySheet(ctx context.Context, sheetID string, title *string) (s
 	return "", fmt.Errorf("copy sheet empty response")
 }
 
-func (r *Sheet) setSheetName(ctx context.Context, sheetID, name string) error {
+func (r *Sheet) setSheetTitle(ctx context.Context, sheetID, name string) error {
 	// TODO lark sdk 还不支持
 	return nil
 }
@@ -203,16 +203,18 @@ func (r *Sheet) deleteDimension(ctx context.Context, dimension, sheetID string, 
 }
 
 // TODO sheet 内容解析需要完善
-func (r *Sheet) getValue(ctx context.Context, sheetID string) error {
+func (r *Sheet) getValue(ctx context.Context, cellRange string, option *lark.GetSheetValueReq) error {
+	if option == nil {
+		option = &lark.GetSheetValueReq{}
+	}
 	res, _, err := r.larkClient.Drive.GetSheetValue(ctx, &lark.GetSheetValueReq{
-		ValueRenderOption:    nil,
-		DateTimeRenderOption: nil,
-		UserIDType:           nil,
+		ValueRenderOption:    option.ValueRenderOption,
+		DateTimeRenderOption: option.DateTimeRenderOption,
+		UserIDType:           option.UserIDType,
 		SpreadSheetToken:     r.sheetToken,
-		Range:                sheetID,
+		Range:                cellRange,
 	})
 	_ = res
-	// spew.Dump(res)
 	return err
 }
 

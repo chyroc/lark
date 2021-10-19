@@ -55,9 +55,9 @@ func (r *Sheet) CopySheet(ctx context.Context, fromSheetID string, toTitle *stri
 	return r.copySheet(ctx, fromSheetID, toTitle)
 }
 
-// SetSheetName 设置工作表的名字
-func (r *Sheet) SetSheetName(ctx context.Context, sheetID string, name string) error {
-	return r.setSheetName(ctx, sheetID, name)
+// SetSheetTitle 设置工作表的名字
+func (r *Sheet) SetSheetTitle(ctx context.Context, sheetID string, name string) error {
+	return r.setSheetTitle(ctx, sheetID, name)
 }
 
 // MoveRows 移动行，将 sheetID 表中，从 startIndex 行后，数量为 count 的行，移动 diff 行，diff 小于 0 表示上移，diff 大于 0 ，表示下移
@@ -129,9 +129,9 @@ func (r *Sheet) DeleteCols(ctx context.Context, sheetID string, startIndex int, 
 	return r.deleteDimension(ctx, "COLUMNS", sheetID, startIndex, count)
 }
 
-// // 删除列
-// func (r *Sheet) Get(ctx context.Context, sheetID string) error {
-// 	return r.getValue(ctx, sheetID)
+// // 获取单元格内容
+// func (r *Sheet) Get(ctx context.Context, cellRange string, option *lark.GetSheetValueReq) error {
+// 	return r.getValue(ctx, cellRange, option)
 // }
 
 // 设置单元格样式

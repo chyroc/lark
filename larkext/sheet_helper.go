@@ -2,7 +2,6 @@ package larkext
 
 import (
 	"fmt"
-	"strconv"
 )
 
 // int to col
@@ -33,30 +32,6 @@ func ItoCol(index int) string {
 	}
 
 	return string(res[offset:])
-}
-
-// CellPoint 左上角第一个单元格坐标是 (1, 1) ，x 表示横坐标，y 表示纵坐标，CellPoint 会将 (1, 1) 转成 A1
-//
-// https://open.feishu.cn/document/ukTMukTMukTM/uATMzUjLwEzM14CMxMTN/overview
-//
-// range 的描述方式为 <sheetId>!<开始位置>:<结束位置> ，共有 4 种描述方法，分别为：
-// 	a. <sheetId>!<开始单元格>:<结束单元格> 如：0b**12!A1:B5 就表示 0b**12 这个工作表中 A1:B5 的区域
-// 	b. <sheetId>!<开始列>:<结束列>，如：0b**12!A:B
-// 	c. <sheetId>!<开始单元格>:<结束列>，如：0b**12!A1:B
-// 	d. <sheetId>，区域留空，如：0b**12，代表这个表格中非空的最大行列范围内的数据
-func CellPoint(x, y int) string {
-	// d 情况
-	if x <= 0 {
-		return ""
-	}
-
-	// b 情况
-	if y == 0 {
-		return ItoCol(x) // A, Z, AA
-	}
-
-	// a，c 情况
-	return ItoCol(x) + strconv.FormatInt(int64(y), 10)
 }
 
 // CellRange 将两个坐标 (x1, y1) 和 (x2, y2) 转成 sheet!A1:D5 的形式
