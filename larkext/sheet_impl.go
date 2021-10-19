@@ -148,12 +148,12 @@ func (r *Sheet) moveDimension(ctx context.Context, majorDimension, sheetID strin
 	return err
 }
 
-func (r *Sheet) appendDimension(ctx context.Context, sheetID, ranges string, values [][]lark.SheetContent, option *string) error {
+func (r *Sheet) appendDimension(ctx context.Context, cellRange string, values [][]lark.SheetContent, option *string) error {
 	_, _, err := r.larkClient.Drive.AppendSheetValue(ctx, &lark.AppendSheetValueReq{
 		InsertDataOption: option,
 		SpreadSheetToken: r.sheetToken,
 		ValueRange: &lark.AppendSheetValueReqValueRange{
-			Range:  sheetID + "!" + ranges,
+			Range:  cellRange,
 			Values: values,
 		},
 	})
@@ -216,42 +216,42 @@ func (r *Sheet) getValue(ctx context.Context, sheetID string) error {
 	return err
 }
 
-func (r *Sheet) setCellStyle(ctx context.Context, sheetID, ranges string, style *lark.SetSheetStyleReqAppendStyleStyle) error {
+func (r *Sheet) setCellStyle(ctx context.Context, cellRange string, style *lark.SetSheetStyleReqAppendStyleStyle) error {
 	_, _, err := r.larkClient.Drive.SetSheetStyle(ctx, &lark.SetSheetStyleReq{
 		SpreadSheetToken: r.sheetToken,
 		AppendStyle: &lark.SetSheetStyleReqAppendStyle{
-			Range: sheetID + "!" + ranges,
+			Range: cellRange,
 			Style: style,
 		},
 	})
 	return err
 }
 
-func (r *Sheet) mergeCell(ctx context.Context, ranges, mergeType string) error {
+func (r *Sheet) mergeCell(ctx context.Context, cellRange, mergeType string) error {
 	if mergeType == "" {
 		mergeType = "MERGE_ALL"
 	}
 	_, _, err := r.larkClient.Drive.MergeSheetCell(ctx, &lark.MergeSheetCellReq{
 		SpreadSheetToken: r.sheetToken,
-		Range:            ranges,
+		Range:            cellRange,
 		MergeType:        mergeType,
 	})
 	return err
 }
 
-func (r *Sheet) unmergeCell(ctx context.Context, ranges string) error {
+func (r *Sheet) unmergeCell(ctx context.Context, cellRange string) error {
 	_, _, err := r.larkClient.Drive.UnmergeSheetCell(ctx, &lark.UnmergeSheetCellReq{
 		SpreadSheetToken: r.sheetToken,
-		Range:            ranges,
+		Range:            cellRange,
 	})
 	return err
 }
 
-func (r *Sheet) setSheetValue(ctx context.Context, ranges string, contents [][]lark.SheetContent) error {
+func (r *Sheet) setSheetValue(ctx context.Context, cellRange string, contents [][]lark.SheetContent) error {
 	_, _, err := r.larkClient.Drive.SetSheetValue(ctx, &lark.SetSheetValueReq{
 		SpreadSheetToken: r.sheetToken,
 		ValueRange: &lark.SetSheetValueReqValueRange{
-			Range:  ranges,
+			Range:  cellRange,
 			Values: contents,
 		},
 	})
@@ -266,10 +266,10 @@ func (r *Sheet) batchSetSheetValue(ctx context.Context, values []*lark.BatchSetS
 	return err
 }
 
-func (r *Sheet) setSheetValueImage(ctx context.Context, ranges string, image []byte) error {
+func (r *Sheet) setSheetValueImage(ctx context.Context, cellRange string, image []byte) error {
 	_, _, err := r.larkClient.Drive.SetSheetValueImage(ctx, &lark.SetSheetValueImageReq{
 		SpreadSheetToken: r.sheetToken,
-		Range:            ranges,
+		Range:            cellRange,
 		Image:            image,
 		Name:             "a.png",
 	})

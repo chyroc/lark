@@ -85,8 +85,8 @@ func (r *Sheet) InsertCols(ctx context.Context, sheetID string, startIndex int, 
 // option 是追加数据模式，默认 OVERWRITE，还可以传入 INSERT_ROWS
 // 当 option == OVERWRITE 的时候，sheet 会找到 range 范围内左上角第一个空白的格子，然后将 values 写入该范围，如果除了「左上角第一个空白的格子」外有其他非空格子，这些格子会被覆盖。
 // 当 option == INSERT_ROWS 的时候，sheet 会找到 range 范围内左上角第一个空白的格子，尝试然后将 values 写入该范围，如果除了「左上角第一个空白的格子」外有其他非空格子，会先将这些格子整体下移几格，知道空间够放下 values
-func (r *Sheet) Append(ctx context.Context, sheetID, ranges string, values [][]lark.SheetContent, option *string) error {
-	return r.appendDimension(ctx, sheetID, ranges, values, option)
+func (r *Sheet) Append(ctx context.Context, cellRange string, values [][]lark.SheetContent, option *string) error {
+	return r.appendDimension(ctx, cellRange, values, option)
 }
 
 // 增加行
@@ -129,19 +129,19 @@ func (r *Sheet) DeleteCols(ctx context.Context, sheetID string, startIndex int, 
 	return r.deleteDimension(ctx, "COLUMNS", sheetID, startIndex, count)
 }
 
-// 删除列
-func (r *Sheet) Get(ctx context.Context, sheetID string) error {
-	return r.getValue(ctx, sheetID)
-}
+// // 删除列
+// func (r *Sheet) Get(ctx context.Context, sheetID string) error {
+// 	return r.getValue(ctx, sheetID)
+// }
 
 // 设置单元格样式
-func (r *Sheet) SetCellStyle(ctx context.Context, sheetID, ranges string, style *lark.SetSheetStyleReqAppendStyleStyle) error {
-	return r.setCellStyle(ctx, sheetID, ranges, style)
+func (r *Sheet) SetCellStyle(ctx context.Context, cellRange string, style *lark.SetSheetStyleReqAppendStyleStyle) error {
+	return r.setCellStyle(ctx, cellRange, style)
 }
 
 // 清除单元格样式
-func (r *Sheet) CleanCellStyle(ctx context.Context, sheetID, ranges string) error {
-	return r.setCellStyle(ctx, sheetID, ranges, &lark.SetSheetStyleReqAppendStyleStyle{Clean: ptr.Bool(true)})
+func (r *Sheet) CleanCellStyle(ctx context.Context, cellRange string) error {
+	return r.setCellStyle(ctx, cellRange, &lark.SetSheetStyleReqAppendStyleStyle{Clean: ptr.Bool(true)})
 }
 
 // TODO：批量 style
@@ -152,18 +152,18 @@ func (r *Sheet) CleanCellStyle(ctx context.Context, sheetID, ranges string) erro
 // 当 mergeType == MERGE_ALL，合并所选区域
 // 当 mergeType == MERGE_ROWS，按行合并
 // 当 mergeType == MERGE_COLUMNS，按列合并
-func (r *Sheet) MergeCell(ctx context.Context, ranges, mergeType string) error {
-	return r.mergeCell(ctx, ranges, mergeType)
+func (r *Sheet) MergeCell(ctx context.Context, cellRange, mergeType string) error {
+	return r.mergeCell(ctx, cellRange, mergeType)
 }
 
 // UnmergeCell 取消合并单元格
-func (r *Sheet) UnmergeCell(ctx context.Context, ranges string) error {
-	return r.unmergeCell(ctx, ranges)
+func (r *Sheet) UnmergeCell(ctx context.Context, cellRange string) error {
+	return r.unmergeCell(ctx, cellRange)
 }
 
 // SetSheetValue 将内容写入单元格
-func (r *Sheet) SetSheetValue(ctx context.Context, ranges string, contents [][]lark.SheetContent) error {
-	return r.setSheetValue(ctx, ranges, contents)
+func (r *Sheet) SetSheetValue(ctx context.Context, cellRange string, contents [][]lark.SheetContent) error {
+	return r.setSheetValue(ctx, cellRange, contents)
 }
 
 // BatchSetSheetValue 批量将内容写入单元格
@@ -172,8 +172,8 @@ func (r *Sheet) BatchSetSheetValue(ctx context.Context, values []*lark.BatchSetS
 }
 
 // SetSheetValueImage 将图片写入单元格
-func (r *Sheet) SetSheetValueImage(ctx context.Context, ranges string, image []byte) error {
-	return r.setSheetValueImage(ctx, ranges, image)
+func (r *Sheet) SetSheetValueImage(ctx context.Context, cellRange string, image []byte) error {
+	return r.setSheetValueImage(ctx, cellRange, image)
 }
 
 // 搜索
