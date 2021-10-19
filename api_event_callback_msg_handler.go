@@ -21,18 +21,20 @@ func (r *EventCallbackService) listenCallback(ctx context.Context, isSecurity bo
 		return
 	}
 
-	// check security
-	if err := r.checkSecurity(bs, isSecurity, header); err != nil {
-		writer.WriteHeader(500)
-		_, _ = writer.Write([]byte(fmt.Sprintf(`{"err":%q}`, err)))
-		return
-	}
-
 	req, err := r.parserReq(ctx, bs)
 	if err != nil {
 		writer.WriteHeader(500)
 		_, _ = writer.Write([]byte(fmt.Sprintf(`{"err":%q}`, err)))
 		return
+	}
+
+	// 只有类型不是 url_verification 且 设置了校验header 的情况下，才发起校验
+	if req.Type != eventTypeURLVerification && isSecurity {
+		if err := r.checkSecurity(bs, header); err != nil {
+			writer.WriteHeader(500)
+			_, _ = writer.Write([]byte(fmt.Sprintf(`{"err":%q}`, err)))
+			return
+		}
 	}
 
 	s, err := r.handlerReq(ctx, writer, req)
@@ -46,11 +48,7 @@ func (r *EventCallbackService) listenCallback(ctx context.Context, isSecurity bo
 	return
 }
 
-func (r *EventCallbackService) checkSecurity(body []byte, isSecurity bool, header http.Header) error {
-	if !isSecurity {
-		return nil
-	}
-
+func (r *EventCallbackService) checkSecurity(body []byte, header http.Header) error {
 	timestamp := header.Get("X-Lark-Request-Timestamp")
 	nonce := header.Get("X-Lark-Request-Nonce")
 	expectSignature := header.Get("X-Lark-Signature")
@@ -109,7 +107,7 @@ func (r *EventCallbackService) handlerReq(ctx context.Context, writer io.Writer,
 		return "", fmt.Errorf("verification token check failed")
 	}
 
-	if req.Type == "url_verification" {
+	if req.Type == eventTypeURLVerification {
 		return fmt.Sprintf(`{"challenge":%q}`, req.Challenge), nil
 	}
 
@@ -120,3 +118,5 @@ func (r *EventCallbackService) handlerReq(ctx context.Context, writer io.Writer,
 
 	return "{}", nil
 }
+
+const eventTypeURLVerification = "url_verification"
