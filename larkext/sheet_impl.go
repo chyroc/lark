@@ -247,6 +247,25 @@ func (r *Sheet) unmergeCell(ctx context.Context, ranges string) error {
 	return err
 }
 
+func (r *Sheet) setSheetValue(ctx context.Context, ranges string, contents [][]lark.SheetContent) error {
+	_, _, err := r.larkClient.Drive.SetSheetValue(ctx, &lark.SetSheetValueReq{
+		SpreadSheetToken: r.sheetToken,
+		ValueRange: &lark.SetSheetValueReqValueRange{
+			Range:  ranges,
+			Values: contents,
+		},
+	})
+	return err
+}
+
+func (r *Sheet) batchSetSheetValue(ctx context.Context, values []*lark.BatchSetSheetValueReqValueRange) error {
+	_, _, err := r.larkClient.Drive.BatchSetSheetValue(ctx, &lark.BatchSetSheetValueReq{
+		SpreadSheetToken: r.sheetToken,
+		ValueRanges:      values,
+	})
+	return err
+}
+
 func (r *Sheet) setSheetValueImage(ctx context.Context, ranges string, image []byte) error {
 	_, _, err := r.larkClient.Drive.SetSheetValueImage(ctx, &lark.SetSheetValueImageReq{
 		SpreadSheetToken: r.sheetToken,

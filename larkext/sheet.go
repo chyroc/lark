@@ -161,6 +161,16 @@ func (r *Sheet) UnmergeCell(ctx context.Context, ranges string) error {
 	return r.unmergeCell(ctx, ranges)
 }
 
+// SetSheetValue 将内容写入单元格
+func (r *Sheet) SetSheetValue(ctx context.Context, ranges string, contents [][]lark.SheetContent) error {
+	return r.setSheetValue(ctx, ranges, contents)
+}
+
+// BatchSetSheetValue 批量将内容写入单元格
+func (r *Sheet) BatchSetSheetValue(ctx context.Context, values []*lark.BatchSetSheetValueReqValueRange) error {
+	return r.batchSetSheetValue(ctx, values)
+}
+
 // SetSheetValueImage 将图片写入单元格
 func (r *Sheet) SetSheetValueImage(ctx context.Context, ranges string, image []byte) error {
 	return r.setSheetValueImage(ctx, ranges, image)

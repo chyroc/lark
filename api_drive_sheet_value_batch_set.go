@@ -42,8 +42,8 @@ func (r *Mock) UnMockDriveBatchSetSheetValue() {
 }
 
 type BatchSetSheetValueReq struct {
-	SpreadSheetToken string                           `path:"spreadsheetToken" json:"-"` // spreadsheet 的 token，获取方式见[在线表格开发指南](https://open.feishu.cn/document/ukTMukTMukTM/uATMzUjLwEzM14CMxMTN/overview)
-	ValueRanges      *BatchSetSheetValueReqValueRange `json:"valueRanges,omitempty"`     // 需要更新的多个范围
+	SpreadSheetToken string                             `path:"spreadsheetToken" json:"-"` // spreadsheet 的 token，获取方式见[在线表格开发指南](https://open.feishu.cn/document/ukTMukTMukTM/uATMzUjLwEzM14CMxMTN/overview)
+	ValueRanges      []*BatchSetSheetValueReqValueRange `json:"valueRanges,omitempty"`     // 需要更新的多个范围
 }
 
 type BatchSetSheetValueReqValueRange struct {
