@@ -6,6 +6,12 @@ import (
 	"time"
 )
 
+func New(options ...ClientOptionFunc) *Lark {
+	return newClient("", options)
+}
+
+var AppLink = New().AppLink
+
 type ClientOptionFunc func(*Lark)
 
 func WithAppCredential(appID, appSecret string) ClientOptionFunc {
@@ -73,8 +79,24 @@ func WithWWWBaseURL(baseURL string) ClientOptionFunc {
 	}
 }
 
-func New(options ...ClientOptionFunc) *Lark {
-	return newClient("", options)
+type MethodOptionFunc func(*MethodOption)
+
+func WithUserAccessToken(token string) MethodOptionFunc {
+	return func(option *MethodOption) {
+		option.userAccessToken = token
+	}
+}
+
+type MethodOption struct {
+	userAccessToken string
+}
+
+func newMethodOption(options []MethodOptionFunc) *MethodOption {
+	opt := new(MethodOption)
+	for _, v := range options {
+		v(opt)
+	}
+	return opt
 }
 
 func newClient(tenantKey string, options []ClientOptionFunc) *Lark {
