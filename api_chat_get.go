@@ -10,7 +10,7 @@ import (
 //
 // 注意事项：
 // - 应用需要开启[机器人能力](https://open.feishu.cn/document/home/develop-a-bot-in-5-minutes/create-an-app)
-// - 机器人或授权用户必须在群里
+// - 机器人或授权用户必须在群里（否则只会返回群名称、群头像等基本信息）
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat/get
 func (r *ChatService) GetChat(ctx context.Context, request *GetChatReq, options ...MethodOptionFunc) (*GetChatResp, *Response, error) {

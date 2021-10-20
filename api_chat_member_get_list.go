@@ -11,6 +11,8 @@ import (
 // 注意事项：
 // - 应用需要开启[机器人能力](https://open.feishu.cn/document/home/develop-a-bot-in-5-minutes/create-an-app)
 // - 该接口不会返回群内的机器人成员
+// - 由于返回的群成员列表会过滤掉机器人成员，因此返回的群成员个数可能会小于指定的page_size
+// - 如果有同一时间加入群的群成员，会一次性返回，这会导致返回的群成员个数可能会大于指定的page_size
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-members/get
 func (r *ChatService) GetChatMemberList(ctx context.Context, request *GetChatMemberListReq, options ...MethodOptionFunc) (*GetChatMemberListResp, *Response, error) {
