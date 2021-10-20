@@ -34,7 +34,7 @@ type EventV1AddBot struct {
 	OperatorEmployeeID  string                           `json:"operator_employee_id,omitempty"`   // 操作者的emplolyee_id ，仅企业自建应用返回. 如: ca51d83b
 	OperatorName        string                           `json:"operator_name,omitempty"`          // 操作者姓名. 如: yyy
 	OperatorOpenID      string                           `json:"operator_open_id,omitempty"`       // 操作者的open_id. 如: ou_18eac85d35a26f989317ad4f02e8bbbb
-	OwnerIsBot          bool                             `json:"owner_is_bot,omitempty"`           // 群主是否是机器人
+	OwnerIsBot          bool                             `json:"owner_is_bot,omitempty"`           // 群主是否是机器人. 如: false
 	TenantKey           string                           `json:"tenant_key,omitempty"`             // 企业标识. 如: 736588c9260f175d
 	Type                string                           `json:"type,omitempty"`                   // 事件类型. 如: add_bot
 }

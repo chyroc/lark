@@ -31,9 +31,9 @@ func (r *EventCallbackService) HandlerEventV1RevokeAddUserFromChat(f eventV1Revo
 type eventV1RevokeAddUserFromChatHandler func(ctx context.Context, cli *Lark, schema string, header *EventHeaderV1, event *EventV1RevokeAddUserFromChat) (string, error)
 
 type EventV1RevokeAddUserFromChat struct {
-	AppID     string                                     `json:"app_id,omitempty"`  // 如: cli_9c8609450f78d102
-	ChatID    string                                     `json:"chat_id,omitempty"` // 群聊的id. 如: oc_9e9619b938c9571c1c3165681cdaead5
-	Operator  *EventV1RevokeAddUserFromChatEventOperator `json:"operator,omitempty"`
+	AppID     string                                     `json:"app_id,omitempty"`     // 如: cli_9c8609450f78d102
+	ChatID    string                                     `json:"chat_id,omitempty"`    // 群聊的id. 如: oc_9e9619b938c9571c1c3165681cdaead5
+	Operator  *EventV1RevokeAddUserFromChatEventOperator `json:"operator,omitempty"`   // 用户进出群的操作人。用户主动退群的话，operator 就是user自己
 	TenantKey string                                     `json:"tenant_key,omitempty"` // 如: 736588c9260f175d
 	Type      string                                     `json:"type,omitempty"`       // 事件类型，add_user_to_chat/remove_user_from_chat/revoke_add_user_from_chat. 如: add_user_to_chat
 	Users     []*EventV1RevokeAddUserFromChatEventUser   `json:"users,omitempty"`
