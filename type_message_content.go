@@ -1,0 +1,94 @@
+package lark
+
+type MessageContent struct {
+	Text               *MessageContentText               // 文本消息
+	Image              *MessageContentImage              // 图片消息
+	File               *MessageContentFile               // 文件消息
+	Audio              *MessageContentAudio              // 音频消息
+	Media              *MessageContentMedia              // 视频消息
+	Sticker            *MessageContentSticker            // 表情包消息
+	RedBag             *MessageContentRedBag             // 红包消息
+	ShareCalendarEvent *MessageContentShareCalendarEvent // 分享日程消息
+	ShareChat          *MessageContentShareChat          // 分享群名片消息
+	ShareUser          *MessageContentShareUser          // 分享个人名片消息
+	System             *MessageContentSystem             // 系统消息
+	Location           *MessageContentLocation           // 位置消息
+	VideoChat          *MessageContentVideoChat          // 视频通话消息
+}
+
+// 文本消息
+type MessageContentText struct {
+	Text string `json:"text"`
+}
+
+// 图片消息
+type MessageContentImage struct {
+	ImageKey string `json:"image_key"`
+}
+
+// 文件消息
+type MessageContentFile struct {
+	FileKey  string `json:"file_key"`
+	FileName string `json:"file_name"`
+}
+
+// 音频消息
+type MessageContentAudio struct {
+	FileKey  string `json:"file_key"`
+	Duration int    `json:"duration"`
+}
+
+// 视频消息
+type MessageContentMedia struct {
+	FileKey  string `json:"file_key"`
+	ImageKey string `json:"image_key"`
+	FileName string `json:"file_name"`
+	Duration int    `json:"duration"`
+}
+
+// 表情包消息
+type MessageContentSticker struct {
+	FileKey string `json:"file_key"`
+}
+
+// 红包消息
+type MessageContentRedBag struct {
+	Text string `json:"text"`
+}
+
+// 日程卡片消息
+type MessageContentShareCalendarEvent struct {
+	Summary   string `json:"summary"`
+	StartTime string `json:"start_time"` // 毫秒级时间戳
+	EndTime   string `json:"end_time"`   // 毫秒级时间戳
+}
+
+// 群名片消息
+type MessageContentShareChat struct {
+	ChatID string `json:"chat_id"`
+}
+
+// 个人名片消息
+type MessageContentShareUser struct {
+	UserID string `json:"user_id"` // open_id
+}
+
+// 系统消息消息
+type MessageContentSystem struct {
+	Template   string   `json:"template"`
+	FromUser   []string `json:"from_user"`
+	ToChatters []string `json:"to_chatters"`
+}
+
+// 位置消息
+type MessageContentLocation struct {
+	Name      string `json:"name"`
+	Longitude string `json:"longitude"`
+	Latitude  string `json:"latitude"`
+}
+
+// 视频通话消息
+type MessageContentVideoChat struct {
+	Topic     string `json:"topic"`
+	StartTime string `json:"start_time"` // 时间戳毫秒级
+}

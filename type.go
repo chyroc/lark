@@ -1,6 +1,6 @@
 package lark
 
-// const type
+// ----- message
 
 // MsgType 消息类型
 type MsgType string
@@ -17,6 +17,8 @@ const (
 	MsgTypeShareChat   MsgType = "share_chat"  // 分享群卡片
 	MsgTypeShareUser   MsgType = "share_user"  // 分享个人卡片
 )
+
+// ----- contact
 
 // ContainerIDType 容器类型
 type ContainerIDType string
@@ -64,6 +66,25 @@ func IDTypePtr(idType IDType) *IDType {
 	return &idType
 }
 
+// EmployeeType 用户类型
+type EmployeeType string
+
+const (
+	EmployeeTypeID EmployeeType = "employee_id" // 员工id
+	EmployeeTypeNo EmployeeType = "employee_no" // 员工工号
+)
+
+// ----- chat
+
+type ChatType string
+
+const (
+	ChatTypePrivate ChatType = "private"
+	ChatTypePublic  ChatType = "public"
+)
+
+// ----- file
+
 // ImageType 图片类型
 type ImageType string
 
@@ -85,13 +106,7 @@ const (
 	FileTypeStream FileType = "stream" // 上传stream格式文件
 )
 
-// EmployeeType 用户类型
-type EmployeeType string
-
-const (
-	EmployeeTypeID EmployeeType = "employee_id" // 员工id
-	EmployeeTypeNo EmployeeType = "employee_no" // 员工工号
-)
+// ----- calendar
 
 // CalendarRole 对日历的访问权限
 type CalendarRole string
@@ -125,13 +140,6 @@ const (
 	CalendarTypeExchange CalendarType = "exchange" // 用户绑定的Exchange日历
 )
 
-type ChatType string
-
-const (
-	ChatTypePrivate ChatType = "private"
-	ChatTypePublic  ChatType = "public"
-)
-
 type CalendarPermission string
 
 const (
@@ -161,92 +169,6 @@ type Mention struct {
 	ID     string `json:"id,omitempty"`      // 用户open id
 	IDType IDType `json:"id_type,omitempty"` // id 可以是open_id，user_id或者union_id
 	Name   string `json:"name,omitempty"`    // 被at用户的姓名
-}
-
-type HelpdeskCustomizedField struct {
-	ID      string `json:"id"`       // id ,示例值："123"
-	Value   string `json:"value"`    // value ,示例值："value"
-	KeyName string `json:"key_name"` // key name ,示例值："key"
-}
-
-type MessageContent struct {
-	Text               *MessageContentText               // 文本消息
-	Image              *MessageContentImage              // 图片消息
-	File               *MessageContentFile               // 文件消息
-	Audio              *MessageContentAudio              // 音频消息
-	Media              *MessageContentMedia              // 视频消息
-	Sticker            *MessageContentSticker            // 表情包消息
-	RedBag             *MessageContentRedBag             // 红包消息
-	ShareCalendarEvent *MessageContentShareCalendarEvent // 分享日程消息
-	ShareChat          *MessageContentShareChat          // 分享群名片消息
-	ShareUser          *MessageContentShareUser          // 分享个人名片消息
-	System             *MessageContentSystem             // 系统消息
-	Location           *MessageContentLocation           // 位置消息
-	VideoChat          *MessageContentVideoChat          // 视频通话消息
-}
-
-// 文本消息
-type MessageContentText struct {
-	Text string `json:"text"`
-}
-
-// 图片消息
-type MessageContentImage struct {
-	ImageKey string `json:"image_key"`
-}
-
-// 文件消息
-type MessageContentFile struct {
-	FileKey  string `json:"file_key"`
-	FileName string `json:"file_name"`
-}
-
-// 音频消息
-type MessageContentAudio struct {
-	FileKey  string `json:"file_key"`
-	Duration int    `json:"duration"`
-}
-
-// 视频消息
-type MessageContentMedia struct {
-	FileKey  string `json:"file_key"`
-	ImageKey string `json:"image_key"`
-	FileName string `json:"file_name"`
-	Duration int    `json:"duration"`
-}
-
-// 表情包消息
-type MessageContentSticker struct {
-	FileKey string `json:"file_key"`
-}
-
-// 红包消息
-type MessageContentRedBag struct {
-	Text string `json:"text"`
-}
-
-// 日程卡片消息
-type MessageContentShareCalendarEvent struct {
-	Summary   string `json:"summary"`
-	StartTime string `json:"start_time"` // 毫秒级时间戳
-	EndTime   string `json:"end_time"`   // 毫秒级时间戳
-}
-
-// 群名片消息
-type MessageContentShareChat struct {
-	ChatID string `json:"chat_id"`
-}
-
-// 个人名片消息
-type MessageContentShareUser struct {
-	UserID string `json:"user_id"` // open_id
-}
-
-// 系统消息消息
-type MessageContentSystem struct {
-	Template   string   `json:"template"`
-	FromUser   []string `json:"from_user"`
-	ToChatters []string `json:"to_chatters"`
 }
 
 // AddMemberPermission 加 user/bot 入群权限
@@ -335,34 +257,33 @@ func EditPermissionPtr(v EditPermission) *EditPermission {
 	return &v
 }
 
-// 位置消息
-type MessageContentLocation struct {
-	Name      string `json:"name"`
-	Longitude string `json:"longitude"`
-	Latitude  string `json:"latitude"`
+// ----- helpdesk
+
+type HelpdeskCustomizedField struct {
+	ID      string `json:"id"`       // id ,示例值："123"
+	Value   string `json:"value"`    // value ,示例值："value"
+	KeyName string `json:"key_name"` // key name ,示例值："key"
 }
 
-// 视频通话消息
-type MessageContentVideoChat struct {
-	Topic     string `json:"topic"`
-	StartTime string `json:"start_time"` // 时间戳毫秒级
+// 下拉列表选项
+type HelpdeskDropdownOption struct {
+	Tag         string                    `json:"tag,omitempty"`          // 选项ID
+	DisplayName string                    `json:"display_name,omitempty"` // 展示名称
+	Children    []*HelpdeskDropdownOption `json:"children,omitempty"`     // 同上：选项列表，只适用于多层下拉列表（最多可以设置三级下拉列表）
 }
 
-type EventHeaderV2 struct {
-	EventID    string    `json:"event_id,omitempty"`    // 事件 ID
-	EventType  EventType `json:"event_type,omitempty"`  // 事件类型
-	CreateTime string    `json:"create_time,omitempty"` // 事件创建时间戳（单位：毫秒）
-	Token      string    `json:"token,omitempty"`       // 事件 Token
-	AppID      string    `json:"app_id,omitempty"`      // 应用 ID
-	TenantKey  string    `json:"tenant_key,omitempty"`  // 租户 Key
+// 知识库分类
+type HelpdeskCategory struct {
+	CategoryID string              `json:"category_id,omitempty"` // 知识库分类ID
+	ID         string              `json:"id,omitempty"`          // 知识库分类ID，（旧版，请使用category_id）
+	Name       string              `json:"name,omitempty"`        // 名称
+	ParentID   string              `json:"parent_id,omitempty"`   // 父知识库分类ID
+	HelpdeskID string              `json:"helpdesk_id,omitempty"` // 服务台ID
+	Language   string              `json:"language,omitempty"`    // 语言
+	Children   []*HelpdeskCategory `json:"children,omitempty"`    // 子分类详情
 }
 
-type EventHeaderV1 struct {
-	UUID      string    `json:"event_id,omitempty"`    // 事件 ID
-	EventType EventType `json:"event_type,omitempty"`  // 事件类型
-	TS        string    `json:"create_time,omitempty"` // 事件创建时间戳（单位：毫秒）
-	Token     string    `json:"token,omitempty"`       // 事件 Token
-}
+// ----- ehr
 
 // EHR 附件
 type EHRAttachment struct {
@@ -397,22 +318,4 @@ type EHRWorkExperience struct {
 	Start       string `json:"start,omitempty"`       // 开始日期
 	End         string `json:"end,omitempty"`         // 截止日期
 	Description string `json:"description,omitempty"` // 工作描述
-}
-
-// 下拉列表选项
-type HelpdeskDropdownOption struct {
-	Tag         string                    `json:"tag,omitempty"`          // 选项ID
-	DisplayName string                    `json:"display_name,omitempty"` // 展示名称
-	Children    []*HelpdeskDropdownOption `json:"children,omitempty"`     // 同上：选项列表，只适用于多层下拉列表（最多可以设置三级下拉列表）
-}
-
-// 知识库分类
-type HelpdeskCategory struct {
-	CategoryID string              `json:"category_id,omitempty"` // 知识库分类ID
-	ID         string              `json:"id,omitempty"`          // 知识库分类ID，（旧版，请使用category_id）
-	Name       string              `json:"name,omitempty"`        // 名称
-	ParentID   string              `json:"parent_id,omitempty"`   // 父知识库分类ID
-	HelpdeskID string              `json:"helpdesk_id,omitempty"` // 服务台ID
-	Language   string              `json:"language,omitempty"`    // 语言
-	Children   []*HelpdeskCategory `json:"children,omitempty"`    // 子分类详情
 }
