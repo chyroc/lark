@@ -11,6 +11,18 @@ import (
 type EventType string
 
 const (
+	EventTypeV2DriveFileTitleUpdatedV1                 EventType = "drive.file.title_updated_v1"
+	EventTypeV2DriveFileReadV1                         EventType = "drive.file.read_v1"
+	EventTypeV2DriveFileEditV1                         EventType = "drive.file.edit_v1"
+	EventTypeV1AppOpen                                 EventType = "app_open"
+	EventTypeV1ShiftApproval                           EventType = "shift_approval"
+	EventTypeV1LeaveApprovalV2                         EventType = "leave_approvalV2"
+	EventTypeV1OutApproval                             EventType = "out_approval"
+	EventTypeV1WorkApproval                            EventType = "work_approval"
+	EventTypeV2DriveFilePermissionMemberAddedV1        EventType = "drive.file.permission_member_added_v1"
+	EventTypeV2DriveFileTrashedV1                      EventType = "drive.file.trashed_v1"
+	EventTypeV2DriveFileDeletedV1                      EventType = "drive.file.deleted_v1"
+	EventTypeV2DriveFilePermissionMemberRemovedV1      EventType = "drive.file.permission_member_removed_v1"
 	EventTypeV2ApprovalApprovalUpdatedV4               EventType = "approval.approval.updated_v4"
 	EventTypeV1TripApproval                            EventType = "trip_approval"
 	EventTypeV1RemedyApproval                          EventType = "remedy_approval"
@@ -79,6 +91,18 @@ const (
 
 type eventHandler struct {
 	eventCardHandler                                      eventCardHandler
+	eventV2DriveFileTitleUpdatedV1Handler                 eventV2DriveFileTitleUpdatedV1Handler
+	eventV2DriveFileReadV1Handler                         eventV2DriveFileReadV1Handler
+	eventV2DriveFileEditV1Handler                         eventV2DriveFileEditV1Handler
+	eventV1AppOpenHandler                                 eventV1AppOpenHandler
+	eventV1ShiftApprovalHandler                           eventV1ShiftApprovalHandler
+	eventV1LeaveApprovalV2Handler                         eventV1LeaveApprovalV2Handler
+	eventV1OutApprovalHandler                             eventV1OutApprovalHandler
+	eventV1WorkApprovalHandler                            eventV1WorkApprovalHandler
+	eventV2DriveFilePermissionMemberAddedV1Handler        eventV2DriveFilePermissionMemberAddedV1Handler
+	eventV2DriveFileTrashedV1Handler                      eventV2DriveFileTrashedV1Handler
+	eventV2DriveFileDeletedV1Handler                      eventV2DriveFileDeletedV1Handler
+	eventV2DriveFilePermissionMemberRemovedV1Handler      eventV2DriveFilePermissionMemberRemovedV1Handler
 	eventV2ApprovalApprovalUpdatedV4Handler               eventV2ApprovalApprovalUpdatedV4Handler
 	eventV1TripApprovalHandler                            eventV1TripApprovalHandler
 	eventV1RemedyApprovalHandler                          eventV1RemedyApprovalHandler
@@ -147,6 +171,18 @@ type eventHandler struct {
 
 func (r *eventHandler) clone() *eventHandler {
 	return &eventHandler{
+		eventV2DriveFileTitleUpdatedV1Handler:                 r.eventV2DriveFileTitleUpdatedV1Handler,
+		eventV2DriveFileReadV1Handler:                         r.eventV2DriveFileReadV1Handler,
+		eventV2DriveFileEditV1Handler:                         r.eventV2DriveFileEditV1Handler,
+		eventV1AppOpenHandler:                                 r.eventV1AppOpenHandler,
+		eventV1ShiftApprovalHandler:                           r.eventV1ShiftApprovalHandler,
+		eventV1LeaveApprovalV2Handler:                         r.eventV1LeaveApprovalV2Handler,
+		eventV1OutApprovalHandler:                             r.eventV1OutApprovalHandler,
+		eventV1WorkApprovalHandler:                            r.eventV1WorkApprovalHandler,
+		eventV2DriveFilePermissionMemberAddedV1Handler:        r.eventV2DriveFilePermissionMemberAddedV1Handler,
+		eventV2DriveFileTrashedV1Handler:                      r.eventV2DriveFileTrashedV1Handler,
+		eventV2DriveFileDeletedV1Handler:                      r.eventV2DriveFileDeletedV1Handler,
+		eventV2DriveFilePermissionMemberRemovedV1Handler:      r.eventV2DriveFilePermissionMemberRemovedV1Handler,
 		eventV2ApprovalApprovalUpdatedV4Handler:               r.eventV2ApprovalApprovalUpdatedV4Handler,
 		eventV1TripApprovalHandler:                            r.eventV1TripApprovalHandler,
 		eventV1RemedyApprovalHandler:                          r.eventV1RemedyApprovalHandler,
@@ -215,6 +251,18 @@ func (r *eventHandler) clone() *eventHandler {
 }
 
 type eventBody struct {
+	eventV2DriveFileTitleUpdatedV1                 *EventV2DriveFileTitleUpdatedV1
+	eventV2DriveFileReadV1                         *EventV2DriveFileReadV1
+	eventV2DriveFileEditV1                         *EventV2DriveFileEditV1
+	eventV1AppOpen                                 *EventV1AppOpen
+	eventV1ShiftApproval                           *EventV1ShiftApproval
+	eventV1LeaveApprovalV2                         *EventV1LeaveApprovalV2
+	eventV1OutApproval                             *EventV1OutApproval
+	eventV1WorkApproval                            *EventV1WorkApproval
+	eventV2DriveFilePermissionMemberAddedV1        *EventV2DriveFilePermissionMemberAddedV1
+	eventV2DriveFileTrashedV1                      *EventV2DriveFileTrashedV1
+	eventV2DriveFileDeletedV1                      *EventV2DriveFileDeletedV1
+	eventV2DriveFilePermissionMemberRemovedV1      *EventV2DriveFilePermissionMemberRemovedV1
 	eventV2ApprovalApprovalUpdatedV4               *EventV2ApprovalApprovalUpdatedV4
 	eventV1TripApproval                            *EventV1TripApproval
 	eventV1RemedyApproval                          *EventV1RemedyApproval
@@ -287,6 +335,48 @@ func (r *EventCallbackService) parserEventV2(req *eventReq) error {
 	}
 
 	switch req.Header.EventType {
+	case EventTypeV2DriveFileTitleUpdatedV1:
+		event := new(EventV2DriveFileTitleUpdatedV1)
+		if err := req.unmarshalEvent(event); err != nil {
+			return err
+		}
+		req.eventV2DriveFileTitleUpdatedV1 = event
+	case EventTypeV2DriveFileReadV1:
+		event := new(EventV2DriveFileReadV1)
+		if err := req.unmarshalEvent(event); err != nil {
+			return err
+		}
+		req.eventV2DriveFileReadV1 = event
+	case EventTypeV2DriveFileEditV1:
+		event := new(EventV2DriveFileEditV1)
+		if err := req.unmarshalEvent(event); err != nil {
+			return err
+		}
+		req.eventV2DriveFileEditV1 = event
+	case EventTypeV2DriveFilePermissionMemberAddedV1:
+		event := new(EventV2DriveFilePermissionMemberAddedV1)
+		if err := req.unmarshalEvent(event); err != nil {
+			return err
+		}
+		req.eventV2DriveFilePermissionMemberAddedV1 = event
+	case EventTypeV2DriveFileTrashedV1:
+		event := new(EventV2DriveFileTrashedV1)
+		if err := req.unmarshalEvent(event); err != nil {
+			return err
+		}
+		req.eventV2DriveFileTrashedV1 = event
+	case EventTypeV2DriveFileDeletedV1:
+		event := new(EventV2DriveFileDeletedV1)
+		if err := req.unmarshalEvent(event); err != nil {
+			return err
+		}
+		req.eventV2DriveFileDeletedV1 = event
+	case EventTypeV2DriveFilePermissionMemberRemovedV1:
+		event := new(EventV2DriveFilePermissionMemberRemovedV1)
+		if err := req.unmarshalEvent(event); err != nil {
+			return err
+		}
+		req.eventV2DriveFilePermissionMemberRemovedV1 = event
 	case EventTypeV2ApprovalApprovalUpdatedV4:
 		event := new(EventV2ApprovalApprovalUpdatedV4)
 		if err := req.unmarshalEvent(event); err != nil {
@@ -609,6 +699,36 @@ func (r *EventCallbackService) parserEventV1(req *eventReq) error {
 	}
 
 	switch v1type.Type {
+	case EventTypeV1AppOpen:
+		event := new(EventV1AppOpen)
+		if err := json.Unmarshal(bs, event); err != nil {
+			return fmt.Errorf("lark event unmarshal event %s failed", bs)
+		}
+		req.eventV1AppOpen = event
+	case EventTypeV1ShiftApproval:
+		event := new(EventV1ShiftApproval)
+		if err := json.Unmarshal(bs, event); err != nil {
+			return fmt.Errorf("lark event unmarshal event %s failed", bs)
+		}
+		req.eventV1ShiftApproval = event
+	case EventTypeV1LeaveApprovalV2:
+		event := new(EventV1LeaveApprovalV2)
+		if err := json.Unmarshal(bs, event); err != nil {
+			return fmt.Errorf("lark event unmarshal event %s failed", bs)
+		}
+		req.eventV1LeaveApprovalV2 = event
+	case EventTypeV1OutApproval:
+		event := new(EventV1OutApproval)
+		if err := json.Unmarshal(bs, event); err != nil {
+			return fmt.Errorf("lark event unmarshal event %s failed", bs)
+		}
+		req.eventV1OutApproval = event
+	case EventTypeV1WorkApproval:
+		event := new(EventV1WorkApproval)
+		if err := json.Unmarshal(bs, event); err != nil {
+			return fmt.Errorf("lark event unmarshal event %s failed", bs)
+		}
+		req.eventV1WorkApproval = event
 	case EventTypeV1TripApproval:
 		event := new(EventV1TripApproval)
 		if err := json.Unmarshal(bs, event); err != nil {
@@ -704,6 +824,66 @@ type v1type struct {
 
 func (r *EventCallbackService) handlerEvent(ctx context.Context, req *eventReq) (handled bool, s string, err error) {
 	switch {
+	case req.eventV2DriveFileTitleUpdatedV1 != nil:
+		if r.cli.eventHandler.eventV2DriveFileTitleUpdatedV1Handler != nil {
+			s, err = r.cli.eventHandler.eventV2DriveFileTitleUpdatedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2DriveFileTitleUpdatedV1)
+		}
+		return true, s, err
+	case req.eventV2DriveFileReadV1 != nil:
+		if r.cli.eventHandler.eventV2DriveFileReadV1Handler != nil {
+			s, err = r.cli.eventHandler.eventV2DriveFileReadV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2DriveFileReadV1)
+		}
+		return true, s, err
+	case req.eventV2DriveFileEditV1 != nil:
+		if r.cli.eventHandler.eventV2DriveFileEditV1Handler != nil {
+			s, err = r.cli.eventHandler.eventV2DriveFileEditV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2DriveFileEditV1)
+		}
+		return true, s, err
+	case req.eventV1AppOpen != nil:
+		if r.cli.eventHandler.eventV1AppOpenHandler != nil {
+			s, err = r.cli.eventHandler.eventV1AppOpenHandler(ctx, r.cli, req.Schema, req.headerV1(EventTypeV1AppOpen), req.eventV1AppOpen)
+		}
+		return true, s, err
+	case req.eventV1ShiftApproval != nil:
+		if r.cli.eventHandler.eventV1ShiftApprovalHandler != nil {
+			s, err = r.cli.eventHandler.eventV1ShiftApprovalHandler(ctx, r.cli, req.Schema, req.headerV1(EventTypeV1ShiftApproval), req.eventV1ShiftApproval)
+		}
+		return true, s, err
+	case req.eventV1LeaveApprovalV2 != nil:
+		if r.cli.eventHandler.eventV1LeaveApprovalV2Handler != nil {
+			s, err = r.cli.eventHandler.eventV1LeaveApprovalV2Handler(ctx, r.cli, req.Schema, req.headerV1(EventTypeV1LeaveApprovalV2), req.eventV1LeaveApprovalV2)
+		}
+		return true, s, err
+	case req.eventV1OutApproval != nil:
+		if r.cli.eventHandler.eventV1OutApprovalHandler != nil {
+			s, err = r.cli.eventHandler.eventV1OutApprovalHandler(ctx, r.cli, req.Schema, req.headerV1(EventTypeV1OutApproval), req.eventV1OutApproval)
+		}
+		return true, s, err
+	case req.eventV1WorkApproval != nil:
+		if r.cli.eventHandler.eventV1WorkApprovalHandler != nil {
+			s, err = r.cli.eventHandler.eventV1WorkApprovalHandler(ctx, r.cli, req.Schema, req.headerV1(EventTypeV1WorkApproval), req.eventV1WorkApproval)
+		}
+		return true, s, err
+	case req.eventV2DriveFilePermissionMemberAddedV1 != nil:
+		if r.cli.eventHandler.eventV2DriveFilePermissionMemberAddedV1Handler != nil {
+			s, err = r.cli.eventHandler.eventV2DriveFilePermissionMemberAddedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2DriveFilePermissionMemberAddedV1)
+		}
+		return true, s, err
+	case req.eventV2DriveFileTrashedV1 != nil:
+		if r.cli.eventHandler.eventV2DriveFileTrashedV1Handler != nil {
+			s, err = r.cli.eventHandler.eventV2DriveFileTrashedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2DriveFileTrashedV1)
+		}
+		return true, s, err
+	case req.eventV2DriveFileDeletedV1 != nil:
+		if r.cli.eventHandler.eventV2DriveFileDeletedV1Handler != nil {
+			s, err = r.cli.eventHandler.eventV2DriveFileDeletedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2DriveFileDeletedV1)
+		}
+		return true, s, err
+	case req.eventV2DriveFilePermissionMemberRemovedV1 != nil:
+		if r.cli.eventHandler.eventV2DriveFilePermissionMemberRemovedV1Handler != nil {
+			s, err = r.cli.eventHandler.eventV2DriveFilePermissionMemberRemovedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2DriveFilePermissionMemberRemovedV1)
+		}
+		return true, s, err
 	case req.eventV2ApprovalApprovalUpdatedV4 != nil:
 		if r.cli.eventHandler.eventV2ApprovalApprovalUpdatedV4Handler != nil {
 			s, err = r.cli.eventHandler.eventV2ApprovalApprovalUpdatedV4Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2ApprovalApprovalUpdatedV4)

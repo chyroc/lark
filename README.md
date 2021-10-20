@@ -37,7 +37,7 @@ https://godoc.org/github.com/chyroc/lark
 
 ## Support APIs
 
-API Count: 471, Event Count: 64
+API Count: 471, Event Count: 76
 
 <details>
   <summary>
@@ -526,6 +526,18 @@ API Count: 471, Event Count: 64
 - Ecosystem
   - GetEcosystemBindAwemeUser
 - EventCallback
+  - EventV2DriveFileTitleUpdatedV1
+  - EventV2DriveFileReadV1
+  - EventV2DriveFileEditV1
+  - EventV1AppOpen
+  - EventV1ShiftApproval
+  - EventV1LeaveApprovalV2
+  - EventV1OutApproval
+  - EventV1WorkApproval
+  - EventV2DriveFilePermissionMemberAddedV1
+  - EventV2DriveFileTrashedV1
+  - EventV2DriveFileDeletedV1
+  - EventV2DriveFilePermissionMemberRemovedV1
   - EventV2ApprovalApprovalUpdatedV4
   - EventV1TripApproval
   - EventV1RemedyApproval
