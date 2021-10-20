@@ -42,9 +42,9 @@ func (r *Mock) UnMockDriveCreateSheetProtectedDimension() {
 }
 
 type CreateSheetProtectedDimensionReq struct {
-	UserIDType            *IDType                                                `query:"user_id_type" json:"-"`          // 请求的用户id类型，可选open_id,union_id
-	SpreadSheetToken      string                                                 `path:"spreadsheetToken" json:"-"`       // spreadsheet 的 token，获取方式见 [在线表格开发指南](https://open.feishu.cn/document/ukTMukTMukTM/uATMzUjLwEzM14CMxMTN/overview)
-	AddProtectedDimension *CreateSheetProtectedDimensionReqAddProtectedDimension `json:"addProtectedDimension,omitempty"` // 需要增加保护范围的维度信息，可多个范围
+	UserIDType            *IDType                                                  `query:"user_id_type" json:"-"`          // 请求的用户id类型，可选open_id,union_id
+	SpreadSheetToken      string                                                   `path:"spreadsheetToken" json:"-"`       // spreadsheet 的 token，获取方式见 [在线表格开发指南](https://open.feishu.cn/document/ukTMukTMukTM/uATMzUjLwEzM14CMxMTN/overview)
+	AddProtectedDimension []*CreateSheetProtectedDimensionReqAddProtectedDimension `json:"addProtectedDimension,omitempty"` // 需要增加保护范围的维度信息，可多个范围
 }
 
 type CreateSheetProtectedDimensionReqAddProtectedDimension struct {
@@ -68,7 +68,7 @@ type createSheetProtectedDimensionResp struct {
 }
 
 type CreateSheetProtectedDimensionResp struct {
-	AddProtectedDimension *CreateSheetProtectedDimensionRespAddProtectedDimension `json:"addProtectedDimension,omitempty"` // 需要增加保护范围的维度信息，可多个范围
+	AddProtectedDimension []*CreateSheetProtectedDimensionRespAddProtectedDimension `json:"addProtectedDimension,omitempty"` // 需要增加保护范围的维度信息，可多个范围
 }
 
 type CreateSheetProtectedDimensionRespAddProtectedDimension struct {
