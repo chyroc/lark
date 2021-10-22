@@ -231,8 +231,14 @@ func (r *rawHttpRequest) parseRawRequestReqBody(body interface{}, isFile bool) e
 				r.URL = strings.ReplaceAll(r.URL, "{"+path+"}", internal.ReflectToString(fieldVV))
 			}
 		} else if queryKey := fieldVT.Tag.Get("query"); queryKey != "" {
-			for _, v := range internal.ReflectToQueryString(fieldVV) {
-				query.Add(queryKey, v)
+			value := internal.ReflectToQueryString(fieldVV)
+			sep := fieldVT.Tag.Get("join_sep")
+			if sep != "" {
+				query.Add(queryKey, strings.Join(value, sep))
+			} else {
+				for _, v := range value {
+					query.Add(queryKey, v)
+				}
 			}
 		} else if header := fieldVT.Tag.Get("header"); header != "" {
 			switch header {
