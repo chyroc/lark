@@ -104,7 +104,7 @@ type getDriveCommentResp struct {
 }
 
 type GetDriveCommentResp struct {
-	CommentID    string                        `json:"comment_id,omitempty"`     // 评论ID
+	CommentID    string                        `json:"comment_id,omitempty"`     // 评论ID（创建新评论可不填；如填写，则视为回复已有评论）
 	UserID       string                        `json:"user_id,omitempty"`        // 用户ID
 	CreateTime   int64                         `json:"create_time,omitempty"`    // 创建时间
 	UpdateTime   int64                         `json:"update_time,omitempty"`    // 更新时间
@@ -208,7 +208,7 @@ type GetDriveCommentListResp struct {
 }
 
 type GetDriveCommentListRespItem struct {
-	CommentID    string                                `json:"comment_id,omitempty"`     // 评论ID
+	CommentID    string                                `json:"comment_id,omitempty"`     // 评论ID（创建新评论可不填；如填写，则视为回复已有评论）
 	UserID       string                                `json:"user_id,omitempty"`        // 用户ID
 	CreateTime   int64                                 `json:"create_time,omitempty"`    // 创建时间
 	UpdateTime   int64                                 `json:"update_time,omitempty"`    // 更新时间
@@ -727,11 +727,7 @@ type CreateDriveFileResp struct {
 // DeleteDriveFile
 //
 // 该接口用于根据 docToken 删除对应的 Docs 文档。
-// :::html
-// <md-alert type="warn">
 // 文档只能被文档所有者删除，文档被删除后将会放到回收站里
-// </md-alert>
-// :::
 // 该接口不支持并发调用，且调用频率上限为5QPS
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uATM2UjLwEjN14CMxYTN
@@ -979,11 +975,7 @@ type SearchDriveFileRespDocsEntity struct {
 
 // DeleteDriveSheetFile 该接口用于根据 spreadsheetToken 删除对应的 sheet 文档。
 //
-// :::html
-// <md-alert type="warn">
 // 文档只能被文档所有者删除，文档被删除后将会放到回收站里
-// </md-alert>
-// :::
 // 该接口不支持并发调用，且调用频率上限为5QPS
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uUTNzUjL1UzM14SN1MTN/delete-sheet

@@ -8,8 +8,7 @@ import (
 
 // GetOKRPeriodList 获取OKR周期列表
 //
-// 使用tenant_access_token需要额外申请权限<md-perm
-// href="/ssl:ttdoc/ukTMukTMukTM/uQjN3QjL0YzN04CN2cDN">以应用身份访问OKR信息</md-perm>
+// 使用tenant_access_token需要额外申请权限以应用身份访问OKR信息
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/okr-v1/period/list
 func (r *OKRService) GetOKRPeriodList(ctx context.Context, request *GetOKRPeriodListReq, options ...MethodOptionFunc) (*GetOKRPeriodListResp, *Response, error) {
@@ -69,8 +68,7 @@ type GetOKRPeriodListRespItem struct {
 
 // GetUserOKRList 根据用户的id获取OKR列表
 //
-// 使用tenant_access_token需要额外申请权限<md-perm
-// href="/ssl:ttdoc/ukTMukTMukTM/uQjN3QjL0YzN04CN2cDN">以应用身份访问OKR信息</md-perm>
+// 使用tenant_access_token需要额外申请权限以应用身份访问OKR信息
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/okr-v1/user-okr/list
 func (r *OKRService) GetUserOKRList(ctx context.Context, request *GetUserOKRListReq, options ...MethodOptionFunc) (*GetUserOKRListResp, *Response, error) {

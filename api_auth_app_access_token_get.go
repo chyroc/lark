@@ -22,10 +22,10 @@ func (r *AuthService) GetAppAccessToken(ctx context.Context) (*TokenExpire, *Res
 		return &TokenExpire{Token: val, Expire: int64(ttl.Seconds())}, &Response{}, nil
 	}
 
-	uri := "https://open.feishu.cn/open-apis/auth/v3/app_access_token/internal"
+	uri := r.cli.openBaseURL + "/open-apis/auth/v3/app_access_token/internal"
 	appTicket := ""
 	if r.cli.isISV {
-		uri = "https://open.feishu.cn/open-apis/auth/v3/app_access_token"
+		uri = r.cli.openBaseURL + "/open-apis/auth/v3/app_access_token"
 		s, err := r.GetAppTicket(ctx)
 		if err != nil {
 			return nil, nil, err

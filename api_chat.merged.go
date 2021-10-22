@@ -335,11 +335,7 @@ type GetChatListOfSelfRespItem struct {
 
 // GetChatOld
 //
-// :::html
-// <md-alert type="error">
 // 为了更好地提升该接口的安全性，我们对其进行了升级，请尽快迁移至[新版本>>](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat/get)
-// </md-alert>
-// :::
 // 获取群名称、群主 ID、成员列表 ID 等群基本信息。
 // - 需要启用机器人能力；机器人必须在群里
 //

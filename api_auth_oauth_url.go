@@ -13,7 +13,7 @@ import (
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/ukzN4UjL5cDO14SO3gTN
 func (r *AuthService) GenOAuthURL(ctx context.Context, request *GenOAuthURLReq) string {
 	return fmt.Sprintf(
-		`https://open.feishu.cn/open-apis/authen/v1/index?redirect_uri=%s&app_id=%s&state=%s`,
+		r.cli.openBaseURL+`/open-apis/authen/v1/index?redirect_uri=%s&app_id=%s&state=%s`,
 		url.QueryEscape(request.RedirectURI),
 		r.cli.appID,
 		url.QueryEscape(request.State),

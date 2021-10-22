@@ -1117,7 +1117,7 @@ type GetTenantResp struct {
 
 type GetTenantRespTenant struct {
 	Name      string                     `json:"name,omitempty"`       // 企业名称
-	DisplayID string                     `json:"display_id,omitempty"` // 企业编号
+	DisplayID string                     `json:"display_id,omitempty"` // 企业编号，平台内唯一
 	TenantTag int64                      `json:"tenant_tag,omitempty"` // 个人版/团队版标志, 可选值有: `0`：团队版, `2`：个人版
 	TenantKey string                     `json:"tenant_key,omitempty"` // 企业标识
 	Avatar    *GetTenantRespTenantAvatar `json:"avatar,omitempty"`     // 企业头像

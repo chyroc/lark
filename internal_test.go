@@ -2,7 +2,9 @@ package lark
 
 import (
 	"bytes"
+	"context"
 	"encoding/json"
+	"fmt"
 	"io"
 	"io/ioutil"
 	"testing"
@@ -12,12 +14,17 @@ import (
 
 func Test_Request(t *testing.T) {
 	as := assert.New(t)
+	ins := &Lark{}
+	ctx := context.Background()
+
+	fmt.Println(1)
 
 	t.Run("", func(t *testing.T) {
 		type req struct {
 			ID string `path:"id"`
 		}
-		resp, err := parseRawHttpRequestParam(&RawRequestReq{
+
+		resp, err := ins.parseRawHttpRequest(ctx, &RawRequestReq{
 			Method: "get",
 			URL:    "http://x.com/:id",
 			Body: req{
@@ -35,7 +42,7 @@ func Test_Request(t *testing.T) {
 		type req struct {
 			ID int `path:"id"`
 		}
-		resp, err := parseRawHttpRequestParam(&RawRequestReq{
+		resp, err := ins.parseRawHttpRequest(ctx, &RawRequestReq{
 			Method: "get",
 			URL:    "http://x.com/:id",
 			Body: req{
@@ -54,7 +61,7 @@ func Test_Request(t *testing.T) {
 			Type string `path:"type"`
 			ID   int    `path:"id"`
 		}
-		resp, err := parseRawHttpRequestParam(&RawRequestReq{
+		resp, err := ins.parseRawHttpRequest(ctx, &RawRequestReq{
 			Method: "get",
 			URL:    "http://x.com/:type/:id",
 			Body: req{
@@ -74,7 +81,7 @@ func Test_Request(t *testing.T) {
 			Type string `query:"type"`
 			ID   int    `path:"id"`
 		}
-		resp, err := parseRawHttpRequestParam(&RawRequestReq{
+		resp, err := ins.parseRawHttpRequest(ctx, &RawRequestReq{
 			Method: "get",
 			URL:    "http://x.com/:id",
 			Body: req{
@@ -95,7 +102,7 @@ func Test_Request(t *testing.T) {
 			ID   int    `path:"id" json:"-"`
 			Name string `json:"name"`
 		}
-		resp, err := parseRawHttpRequestParam(&RawRequestReq{
+		resp, err := ins.parseRawHttpRequest(ctx, &RawRequestReq{
 			Method: "get",
 			URL:    "http://x.com/:id",
 			Body: req{
@@ -119,7 +126,7 @@ func Test_Request(t *testing.T) {
 			ImageType ImageType `json:"image_type,omitempty"` // 图片类型,**示例值**："message",**可选值有**：,- `message`：用于发送消息,- `avatar`：用于设置头像
 			Image     io.Reader `json:"image,omitempty"`      // 图片内容,**示例值**：二进流
 		}
-		resp, err := parseRawHttpRequestParam(&RawRequestReq{
+		resp, err := ins.parseRawHttpRequest(ctx, &RawRequestReq{
 			Method: "get",
 			URL:    "http://x.com",
 			IsFile: true,
@@ -142,7 +149,7 @@ func Test_Request(t *testing.T) {
 		type req struct {
 			Types []string `query:"types"`
 		}
-		resp, err := parseRawHttpRequestParam(&RawRequestReq{
+		resp, err := ins.parseRawHttpRequest(ctx, &RawRequestReq{
 			Method: "get",
 			URL:    "http://x.com",
 			IsFile: true,

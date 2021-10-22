@@ -336,7 +336,7 @@ type GetCalendarEventAttendeeChatMemberListReq struct {
 	PageSize   *int64  `query:"page_size" json:"-"`  // 分页大小, 示例值：10, 最大值：`100`
 	CalendarID string  `path:"calendar_id" json:"-"` // 日历 ID, 示例值："feishu.cn_xxxxxxxxxx@group.calendar.feishu.cn"
 	EventID    string  `path:"event_id" json:"-"`    // 日程 ID, 示例值："xxxxxxxxx_0"
-	AttendeeID string  `path:"attendee_id" json:"-"` // 参与人 ID, 示例值："oc_xxxxxxxx"
+	AttendeeID string  `path:"attendee_id" json:"-"` // 参与人 ID, 示例值："user_xxxxxx"
 }
 
 type getCalendarEventAttendeeChatMemberListResp struct {
@@ -509,7 +509,7 @@ type DeleteCalendarEventAttendeeResp struct{}
 
 // GetCalendarEventAttendeeList 获取日程的参与人列表，若参与者列表中有群组，请使用 [获取参与人群成员列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar-event-attendee-chat_member/list) 。
 //
-// - 当前身份必须对日历有访问权限。
+// - 当前身份必须对日历有reader、writer或owner权限（调用[获取日历](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar/get)接口，role字段可查看权限）。
 // - 当前身份必须有权限查看日程的参与人列表。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar-event-attendee/list
@@ -804,7 +804,7 @@ type DeleteCalendarEventResp struct{}
 
 // GetCalendarEvent 该接口用于以当前身份（应用 / 用户）获取日历上的一个日程。
 //
-// 当前身份必须对日历有访问权限。
+// 当前身份必须对日历有reader、writer或owner权限才会返回日程详细信息（调用[获取日历](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar/get)接口，role字段可查看权限）。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar-event/get
 func (r *CalendarService) GetCalendarEvent(ctx context.Context, request *GetCalendarEventReq, options ...MethodOptionFunc) (*GetCalendarEventResp, *Response, error) {
@@ -912,9 +912,9 @@ type GetCalendarEventRespEventSchema struct {
 
 // GetCalendarEventList 该接口用于以当前身份（应用 / 用户）获取日历下的日程列表。
 //
-// 当前身份必须对日历有访问权限。
-// 调用时首先使用 page_token 分页拉取存量数据，之后使用 sync_token 增量同步变更数据。
-// 为了确保调用方日程同步数据的一致性，在使用sync_token时，不能同时使用start_time和end_time，否则可能造成日程数据缺失。
+// - 当前身份必须对日历有reader、writer或owner权限才会返回日程详细信息（调用[获取日历](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar/get)接口，role字段可查看权限）。
+// - 调用时首先使用 page_token 分页拉取存量数据，之后使用 sync_token 增量同步变更数据。
+// - 为了确保调用方日程同步数据的一致性，在使用sync_token时，不能同时使用start_time和end_time，否则可能造成日程数据缺失。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar-event/list
 func (r *CalendarService) GetCalendarEventList(ctx context.Context, request *GetCalendarEventListReq, options ...MethodOptionFunc) (*GetCalendarEventListResp, *Response, error) {
@@ -1195,7 +1195,7 @@ type UpdateCalendarEventRespEventSchema struct {
 //
 // 该接口用于以用户身份搜索某日历下的相关日程。
 // 身份由 Header Authorization 的 Token 类型决定。
-// 当前身份必须对日历有访问权限。
+// 当前身份必须对日历有reader、writer或owner权限（调用[获取日历](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar/get)接口，role字段可查看权限）。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar-event/search
 func (r *CalendarService) SearchCalendarEvent(ctx context.Context, request *SearchCalendarEventReq, options ...MethodOptionFunc) (*SearchCalendarEventResp, *Response, error) {
@@ -1328,7 +1328,7 @@ type SearchCalendarEventRespItemSchema struct {
 
 // SubscribeCalendarEvent 该接口用于以用户身份订阅指定日历下的日程变更事件。
 //
-// 用户必须对日历有访问权限。
+// 当前身份必须对日历有reader、writer或owner权限（调用[获取日历](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar/get)接口，role字段可查看权限）。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar-event/subscription
 func (r *CalendarService) SubscribeCalendarEvent(ctx context.Context, request *SubscribeCalendarEventReq, options ...MethodOptionFunc) (*SubscribeCalendarEventResp, *Response, error) {
