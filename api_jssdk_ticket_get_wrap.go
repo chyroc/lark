@@ -21,7 +21,7 @@ func (r *JssdkService) GenerateJssdkSignature(ctx context.Context, request *Gene
 	sha1Hash := sha1.New()
 	sha1Hash.Write([]byte(s))
 
-	return fmt.Sprintf("%x", sha1.Sum(nil)), nil
+	return fmt.Sprintf("%x", sha1Hash.Sum(nil)), nil
 }
 
 type GenerateJssdkSignatureReq struct {
