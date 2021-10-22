@@ -146,10 +146,12 @@ func Test_SheetExt(t *testing.T) {
 		as.Nil(err)
 	})
 
-	err = sheetClient.InsertRows(ctx, defaultSheetID, 1, 1)
-	as.Nil(err)
-	err = sheetClient.InsertCols(ctx, defaultSheetID, 1, 1)
-	as.Nil(err)
+	t.Run("", func(t *testing.T) {
+		err = sheetClient.InsertRows(ctx, defaultSheetID, 1, 1)
+		as.Nil(err)
+		err = sheetClient.InsertCols(ctx, defaultSheetID, 1, 1)
+		as.Nil(err)
+	})
 }
 
 func testCreateSheet(larkCli *lark.Lark) *larkext.Sheet {

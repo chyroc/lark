@@ -98,3 +98,35 @@ func jsonString(v interface{}) string {
 	bs, _ := json.Marshal(v)
 	return string(bs)
 }
+
+// mask key
+const (
+	httpRequestHeaderAuthorization = "Authorization"
+	httpRequestHeaderHelpdeskAuth  = "X-Lark-Helpdesk-Authorization"
+)
+
+func jsonHeader(headers map[string]string) string {
+	val := make(map[string]string, len(headers))
+	for k, v := range headers {
+		if k == httpRequestHeaderAuthorization || k == httpRequestHeaderHelpdeskAuth {
+			val[k] = maskString(v, 9, '*') // `Bearer xx******`
+		} else {
+			val[k] = v
+		}
+	}
+	bs, _ := json.Marshal(val)
+	return string(bs)
+}
+
+func maskString(s string, prefixCount int, mask rune) string {
+	ss := []rune(s)
+	res := make([]rune, len(ss))
+	for i, v := range ss {
+		if i < prefixCount {
+			res[i] = v
+		} else {
+			res[i] = mask
+		}
+	}
+	return string(res)
+}
