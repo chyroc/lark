@@ -11,15 +11,21 @@ import (
 
 func Test_FolderExt(t *testing.T) {
 	as := assert.New(t)
-
 	ctx := context.Background()
 	larkCli := AppAllPermission.Ins()
-
 	f := larkext.NewFolder(larkCli, "")
 
-	sheet, err := f.NewSheet(ctx, fmt.Sprintf("rand %d", randInt64()))
-	as.Nil(err)
+	t.Run("new-sheet", func(t *testing.T) {
+		sheet, err := f.NewSheet(ctx, fmt.Sprintf("rand %d", randInt64()))
+		as.Nil(err)
 
-	err = sheet.Delete(ctx)
-	as.Nil(err)
+		err = sheet.Delete(ctx)
+		as.Nil(err)
+	})
+
+	// t.Run("meta", func(t *testing.T) {
+	// 	meta, err := f.Meta(ctx)
+	// 	as.Nil(err)
+	// 	as.NotNil(meta)
+	// })
 }

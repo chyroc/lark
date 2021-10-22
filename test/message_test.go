@@ -22,6 +22,24 @@ func Test_GetMessage(t *testing.T) {
 		}
 	}()
 
+	t.Run("", func(t *testing.T) {
+		AppAllPermission.Ins().Message.Send().ToChatID(ChatForSendMessage.ChatID).SendCard(ctx, (&lark.MessageContentCard{
+			Header: nil,
+			Config: nil,
+			Modules: []lark.MessageContentCardModule{
+				&lark.MessageContentCardModuleDIV{
+					Text: &lark.MessageContentCardObjectText{
+						Tag:     lark.MessageContentCardTextTypeLarkMd,
+						Content: lark.MdBuilder.AtAll(),
+						Lines:   0,
+					},
+					Fields: nil,
+					Extra:  nil,
+				},
+			},
+		}).String())
+	})
+
 	t.Run("send-message", func(t *testing.T) {
 		t.Run("raw", func(t *testing.T) {
 			messageID := ""

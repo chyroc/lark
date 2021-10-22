@@ -421,7 +421,7 @@ type CreateApprovalInstanceReq struct {
 	UserID                 *string             `json:"user_id,omitempty"`                    // 发起审批用户
 	TenantID               *string             `json:"tenant_id,omitempty"`                  // 平台租户ID
 	OpenID                 string              `json:"open_id,omitempty"`                    // 发起审批用户 open id, 如果传了 user_id 则优先使用 user_id
-	DepartmentID           *string             `json:"department_id,omitempty"`              // 发起审批用户部门，如果用户只属于一个部门，可以不填，如果属于多个部门，默认会选择一个部门
+	DepartmentID           *string             `json:"department_id,omitempty"`              // 发起审批用户部门id，如果用户只属于一个部门，可以不填。如果属于多个部门，默认会选择部门列表第一个部门
 	Form                   ApprovalWidgetList  `json:"form,omitempty"`                       // json 数组，**控件值**
 	NodeApproverUserIDList map[string][]string `json:"node_approver_user_id_list,omitempty"` // 如果有发起人自选节点，则需要填写对应节点的审批人<br>key:  node id 或 custom node id , 通过 [查看审批定义](https://open.feishu.cn/document/ukTMukTMukTM/uADNyUjLwQjM14CM0ITN) 获取<br> value: 审批人列表
 	NodeApproverOpenIDList map[string][]string `json:"node_approver_open_id_list,omitempty"` // 审批人发起人自选 open id

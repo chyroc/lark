@@ -14,7 +14,7 @@ func ItoCol(index int) string {
 	)
 
 	if index <= 0 {
-		panic("index <= 0")
+		return ""
 	}
 
 	if index <= columnBase {

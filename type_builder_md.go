@@ -24,10 +24,12 @@ func (r mdBuilder) Strikethrough(s string) string {
 
 // AtAll 艾特所有人
 func (r mdBuilder) AtAll() string {
-	return "<at email=all></at>"
+	return "<at id=all></at>"
 }
 
 // AtUser 艾特
+//
+// id 支持 open_id，user_id
 func (r mdBuilder) AtUserID(id string) string {
 	return "<at id=" + id + "></at>"
 }
@@ -43,6 +45,10 @@ func (r mdBuilder) Link(url, title string) string {
 }
 
 // Image 图片
+//
+// hover_text 为PC端hover图片展示的tips文案
+// image_key 需上传图片到飞书后获得，格式如：img_xxxxx-xxxxx-49ca-bcf6-224624457a99
+// 不支持在text对象的lark_md类型中使用
 func (r mdBuilder) Image(imageKey, hoverText string) string {
 	return "![" + hoverText + "](" + imageKey + ")"
 }

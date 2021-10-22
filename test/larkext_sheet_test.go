@@ -11,6 +11,21 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
+func TestLarkextHelper(t *testing.T) {
+	as := assert.New(t)
+
+	as.Equal("sht!A1:A1", larkext.CellRange("sht", 1, 1, 1, 1))
+	as.Equal("sht", larkext.CellRange("sht", 0, 0, 0, 0))
+
+	as.Equal("sht!1:1", larkext.CellRange("sht", 0, 1, 0, 1))
+	as.Equal("sht!A1:1", larkext.CellRange("sht", 1, 1, 0, 1))
+	as.Equal("sht!1:A1", larkext.CellRange("sht", 0, 1, 1, 1))
+
+	as.Equal("sht!A:A", larkext.CellRange("sht", 1, 0, 1, 0))
+	as.Equal("sht!A0:A1", larkext.CellRange("sht", 1, 0, 1, 1))
+	as.Equal("sht!A1:A", larkext.CellRange("sht", 1, 1, 1, 0))
+}
+
 func Test_SheetExt(t *testing.T) {
 	as := assert.New(t)
 	imageBytes := readFile("./test/file_1.png")
