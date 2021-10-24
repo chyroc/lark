@@ -7,12 +7,14 @@ import (
 	"github.com/chyroc/lark"
 )
 
+// Sheet 封装 sheet 操作
 type Sheet struct {
 	larkClient    *lark.Lark
 	sheetToken    string
 	activeSheetID string
 }
 
+// NewSheet 创建 Sheet 客户端
 func NewSheet(larkClient *lark.Lark, sheetToken string) *Sheet {
 	r := new(Sheet)
 	r.larkClient = larkClient

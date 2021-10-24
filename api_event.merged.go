@@ -2493,7 +2493,7 @@ type EventV2IMMessageReadV1ReaderReaderID struct {
 // 注意事项:
 // - 需要开启[机器人能力](https://open.feishu.cn/document/home/develop-a-bot-in-5-minutes/create-an-app)  ，具备[获取单聊、群组消息] 或 [获取与发送单聊、群组消息]权限，并订阅 [即时通讯] 分类下的 [接收消息] 事件才可接收推送
 // - 同时，将根据应用具备的权限，判断可推送的信息：
-// - 当具备[获取群组中所有消息] 权限时，可接收与机器人单聊会话中，发送给机器人的所有消息
+// - 当具备[获取群组中所有消息] 权限时，可接收与机器人所在群聊会话中，发送给机器人的所有消息
 // - 当具备[获取群组中用户@机器人的消息] 权限，可接收机器人所在群聊中 @ 机器人的消息
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/events/receive

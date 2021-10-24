@@ -14,6 +14,13 @@ func (r *Doc) meta(ctx context.Context) (*lark.GetDriveDocMetaResp, error) {
 	return resp, err
 }
 
+func (r *Doc) delete(ctx context.Context) error {
+	_, _, err := r.larkClient.Drive.DeleteDriveFile(ctx, &lark.DeleteDriveFileReq{
+		DocToken: r.docToken,
+	})
+	return err
+}
+
 func (r *Doc) rawContent(ctx context.Context) (string, error) {
 	resp, _, err := r.larkClient.Drive.GetDriveDocRawContent(ctx, &lark.GetDriveDocRawContentReq{
 		DocToken: r.docToken,

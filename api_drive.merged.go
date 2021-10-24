@@ -2836,6 +2836,7 @@ type BatchUpdateSheetResp struct {
 type BatchUpdateSheetRespReply struct {
 	AddSheet    *BatchUpdateSheetRespReplyAddSheet    `json:"addSheet,omitempty"`
 	CopySheet   *BatchUpdateSheetRespReplyCopySheet   `json:"copySheet,omitempty"`
+	UpdateSheet *BatchUpdateSheetRespReplyUpdateSheet `json:"updateSheet,omitempty"`
 	DeleteSheet *BatchUpdateSheetRespReplyDeleteSheet `json:"deleteSheet,omitempty"` // 删除工作表
 }
 
@@ -2857,6 +2858,26 @@ type BatchUpdateSheetRespReplyCopySheetProperties struct {
 	SheetID string `json:"sheetId,omitempty"` // sheetId
 	Title   string `json:"title,omitempty"`   // 工作表标题
 	Index   int64  `json:"index,omitempty"`   // 工作表位置
+}
+
+type BatchUpdateSheetRespReplyUpdateSheet struct {
+	Properties *BatchUpdateSheetRespReplyUpdateSheetProperties `json:"properties,omitempty"` // 工作表属性
+}
+
+type BatchUpdateSheetRespReplyUpdateSheetProperties struct {
+	SheetID        string                                                 `json:"sheetId,omitempty"`        // read-only ,作为表格唯一识别参数
+	Title          *string                                                `json:"title,omitempty"`          // 更改工作表标题
+	Index          *int64                                                 `json:"index,omitempty"`          // 移动工作表的位置
+	Hidden         *bool                                                  `json:"hidden,omitempty"`         // 隐藏表格，默认 false
+	FrozenRowCount *int64                                                 `json:"frozenRowCount,omitempty"` // 冻结行数，小于等于工作表的最大行数，0表示取消冻结行
+	FrozenColCount *int64                                                 `json:"frozenColCount,omitempty"` // 该 sheet 的冻结列数，小于等于工作表的最大列数，0表示取消冻结列
+	Protect        *BatchUpdateSheetRespReplyUpdateSheetPropertiesProtect `json:"protect,omitempty"`        // 锁定表格
+}
+
+type BatchUpdateSheetRespReplyUpdateSheetPropertiesProtect struct {
+	Lock     string  `json:"lock,omitempty"`     // LOCK 、UNLOCK 上锁/解锁
+	LockInfo *string `json:"lockInfo,omitempty"` // 锁定信息
+	UserIDs  []int64 `json:"userIDs,omitempty"`  // 除了本人与所有者外，添加其他的可编辑人员,user_id_type不为空时使用该字段
 }
 
 type BatchUpdateSheetRespReplyDeleteSheet struct {
@@ -3017,13 +3038,13 @@ type CreateSheetConditionFormatReqSheetConditionFormat struct {
 }
 
 type CreateSheetConditionFormatReqSheetConditionFormatConditionFormat struct {
-	Ranges   []string                                                               `json:"ranges,omitempty"`    // 条件格式应用的范围，支持：sheetId（整表）；sheetId!1:2（整行）；sheetId!A:B（整列）；sheetId!A1:B2（普通范围）；sheetId!A1:C（应用至最后一行）。应用范围不能超过表格的行总数和列总数，sheetId要与参数的sheetId一致
-	RuleType string                                                                 `json:"rule_type,omitempty"` // 条件格式规则类型，目前只有7种：***containsBlanks（为空）、notContainsBlanks（不为空）、duplicateValues（重复值）、uniqueValues（唯一值）、cellIs（限定值范围）、containsText（包含内容）、timePeriod（日期）***
-	Attrs    *CreateSheetConditionFormatReqSheetConditionFormatConditionFormatAttrs `json:"attrs,omitempty"`     // rule_type对应的具体属性信息，详见 [条件格式指南](https://open.feishu.cn/document/ukTMukTMukTM/uATMzUjLwEzM14CMxMTN/conditionformat/condition-format-guide)
-	Style    *CreateSheetConditionFormatReqSheetConditionFormatConditionFormatStyle `json:"style,omitempty"`     // 条件格式样式，只支持以下样式，以下样式每个参数都可选，但是不能设置空的style
+	Ranges   []string                                                                `json:"ranges,omitempty"`    // 条件格式应用的范围，支持：sheetId（整表）；sheetId!1:2（整行）；sheetId!A:B（整列）；sheetId!A1:B2（普通范围）；sheetId!A1:C（应用至最后一行）。应用范围不能超过表格的行总数和列总数，sheetId要与参数的sheetId一致
+	RuleType string                                                                  `json:"rule_type,omitempty"` // 条件格式规则类型，目前只有7种：***containsBlanks（为空）、notContainsBlanks（不为空）、duplicateValues（重复值）、uniqueValues（唯一值）、cellIs（限定值范围）、containsText（包含内容）、timePeriod（日期）***
+	Attrs    []*CreateSheetConditionFormatReqSheetConditionFormatConditionFormatAttr `json:"attrs,omitempty"`     // rule_type对应的具体属性信息，详见 [条件格式指南](https://open.feishu.cn/document/ukTMukTMukTM/uATMzUjLwEzM14CMxMTN/conditionformat/condition-format-guide)
+	Style    *CreateSheetConditionFormatReqSheetConditionFormatConditionFormatStyle  `json:"style,omitempty"`     // 条件格式样式，只支持以下样式，以下样式每个参数都可选，但是不能设置空的style
 }
 
-type CreateSheetConditionFormatReqSheetConditionFormatConditionFormatAttrs struct {
+type CreateSheetConditionFormatReqSheetConditionFormatConditionFormatAttr struct {
 	Operator   *string  `json:"operator,omitempty"`    // 操作方法
 	TimePeriod *string  `json:"time_period,omitempty"` // 时间范围
 	Formula    []string `json:"formula,omitempty"`     // 格式
@@ -3248,14 +3269,14 @@ type UpdateSheetConditionFormatReqSheetConditionFormats struct {
 }
 
 type UpdateSheetConditionFormatReqSheetConditionFormatsConditionFormat struct {
-	CfID     string                                                                  `json:"cf_id,omitempty"`     // 需要更新的条件格式id，会校验id是否存在
-	Ranges   []string                                                                `json:"ranges,omitempty"`    // 条件格式应用的范围，支持：sheetId（整表）；sheetId!1:2（整行）；sheetId!A:B（整列）；sheetId!A1:B2（普通范围）；sheetId!A1:C（应用至最后一行）。应用范围不能超过表格的行总数和列总数，sheetId要与参数的sheetId一致
-	RuleType string                                                                  `json:"rule_type,omitempty"` // 条件格式规则类型，目前只有7种：***containsBlanks（为空）、notContainsBlanks（不为空）、duplicateValues（重复值）、uniqueValues（唯一值）、cellIs（限定值范围）、containsText（包含内容）、timePeriod（日期）***
-	Attrs    *UpdateSheetConditionFormatReqSheetConditionFormatsConditionFormatAttrs `json:"attrs,omitempty"`     // rule_type对应的具体属性信息，详见 [条件格式指南](https://open.feishu.cn/document/ukTMukTMukTM/uATMzUjLwEzM14CMxMTN/conditionformat/condition-format-guide)
-	Style    *UpdateSheetConditionFormatReqSheetConditionFormatsConditionFormatStyle `json:"style,omitempty"`     // 条件格式样式，只支持以下样式，以下样式每个参数都可选，但是不能设置空的style
+	CfID     string                                                                   `json:"cf_id,omitempty"`     // 需要更新的条件格式id，会校验id是否存在
+	Ranges   []string                                                                 `json:"ranges,omitempty"`    // 条件格式应用的范围，支持：sheetId（整表）；sheetId!1:2（整行）；sheetId!A:B（整列）；sheetId!A1:B2（普通范围）；sheetId!A1:C（应用至最后一行）。应用范围不能超过表格的行总数和列总数，sheetId要与参数的sheetId一致
+	RuleType string                                                                   `json:"rule_type,omitempty"` // 条件格式规则类型，目前只有7种：***containsBlanks（为空）、notContainsBlanks（不为空）、duplicateValues（重复值）、uniqueValues（唯一值）、cellIs（限定值范围）、containsText（包含内容）、timePeriod（日期）***
+	Attrs    []*UpdateSheetConditionFormatReqSheetConditionFormatsConditionFormatAttr `json:"attrs,omitempty"`     // rule_type对应的具体属性信息，详见 [条件格式指南](https://open.feishu.cn/document/ukTMukTMukTM/uATMzUjLwEzM14CMxMTN/conditionformat/condition-format-guide)
+	Style    *UpdateSheetConditionFormatReqSheetConditionFormatsConditionFormatStyle  `json:"style,omitempty"`     // 条件格式样式，只支持以下样式，以下样式每个参数都可选，但是不能设置空的style
 }
 
-type UpdateSheetConditionFormatReqSheetConditionFormatsConditionFormatAttrs struct {
+type UpdateSheetConditionFormatReqSheetConditionFormatsConditionFormatAttr struct {
 	Operator   *string  `json:"operator,omitempty"`    // 操作方法
 	TimePeriod *string  `json:"time_period,omitempty"` // 时间范围
 	Formula    []string `json:"formula,omitempty"`     // 格式

@@ -28,6 +28,11 @@ func (r *Doc) Meta(ctx context.Context) (*lark.GetDriveDocMetaResp, error) {
 	return r.meta(ctx)
 }
 
+// Delete 删除云文档
+func (r *Doc) Delete(ctx context.Context) error {
+	return r.delete(ctx)
+}
+
 // RawContent 获取文档文本内容
 func (r *Doc) RawContent(ctx context.Context) (string, error) {
 	return r.rawContent(ctx)

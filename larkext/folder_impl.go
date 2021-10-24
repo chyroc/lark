@@ -7,14 +7,43 @@ import (
 	"github.com/chyroc/lark"
 )
 
-func (r *Folder) meta(ctx context.Context) (*lark.GetDriveFolderMetaResp, error) {
+func (r *Folder) meta(ctx context.Context) (*FolderMeta, error) {
+	if r.folderToken == "" {
+		resp, _, err := r.larkClient.Drive.GetDriveRootFolderMeta(ctx, &lark.GetDriveRootFolderMetaReq{})
+		if err != nil {
+			return nil, err
+		}
+		return &FolderMeta{
+			ID:     resp.ID,
+			Token:  resp.Token,
+			OwnUid: resp.UserID,
+		}, nil
+	}
 	resp, _, err := r.larkClient.Drive.GetDriveFolderMeta(ctx, &lark.GetDriveFolderMetaReq{
 		FolderToken: r.folderToken,
 	})
 	if err != nil {
 		return nil, err
 	}
-	return resp, nil
+	return &FolderMeta{
+		ID:        resp.ID,
+		Name:      resp.Name,
+		Token:     resp.Token,
+		CreateUid: resp.CreateUid,
+		EditUid:   resp.EditUid,
+		ParentID:  resp.ParentID,
+		OwnUid:    resp.OwnUid,
+	}, nil
+}
+
+func (r *Folder) listFiles(ctx context.Context) (map[string]*lark.GetDriveFolderChildrenRespChildren, error) {
+	resp, _, err := r.larkClient.Drive.GetDriveFolderChildren(ctx, &lark.GetDriveFolderChildrenReq{
+		FolderToken: r.folderToken,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return resp.Children, nil
 }
 
 func (r *Folder) newFolder(ctx context.Context, title string) (*Folder, error) {
@@ -48,4 +77,18 @@ func (r *Folder) newDoc(ctx context.Context, title string) (*Doc, error) {
 		return nil, err
 	}
 	return NewDoc(r.larkClient, resp.ObjToken), nil
+}
+
+func (r *Folder) deleteSheet(ctx context.Context, sheetToken string) error {
+	_, _, err := r.larkClient.Drive.DeleteDriveSheetFile(ctx, &lark.DeleteDriveSheetFileReq{
+		SpreadSheetToken: sheetToken,
+	})
+	return err
+}
+
+func (r *Folder) deleteDoc(ctx context.Context, docToken string) error {
+	_, _, err := r.larkClient.Drive.DeleteDriveFile(ctx, &lark.DeleteDriveFileReq{
+		DocToken: docToken,
+	})
+	return err
 }
