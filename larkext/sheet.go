@@ -58,27 +58,52 @@ func (r *Sheet) CopySheet(ctx context.Context, fromSheetID string, toTitle *stri
 }
 
 // SetSheetTitle 设置工作表的名字
-func (r *Sheet) SetSheetTitle(ctx context.Context, sheetID string, name string) error {
-	return r.setSheetTitle(ctx, sheetID, name)
+func (r *Sheet) SetSheetTitle(ctx context.Context, sheetID string, title string) error {
+	return r.setSheetTitle(ctx, sheetID, title)
+}
+
+// SetSheetIndex 设置工作表位置
+func (r *Sheet) SetSheetIndex(ctx context.Context, sheetID string, index int64) error {
+	return r.setSheetIndex(ctx, sheetID, index)
+}
+
+// SetSheetTitle 隐藏工作表
+func (r *Sheet) HideSheet(ctx context.Context, sheetID string, hidden bool) error {
+	return r.hideSheet(ctx, sheetID, hidden)
+}
+
+// FrozenSheet 冻结工作表，0 表示取消冻结
+func (r *Sheet) FrozenSheet(ctx context.Context, sheetID string, rowCount, colCount int64) error {
+	return r.frozenSheet(ctx, sheetID, rowCount, colCount)
+}
+
+// LockSheet 锁定工作表
+func (r *Sheet) LockSheet(ctx context.Context, sheetID string, lockInfo string, editableUserIDs []string) error {
+	return r.lockSheet(ctx, sheetID, false, lockInfo, editableUserIDs)
+}
+
+// UnlockSheet 解锁工作表
+func (r *Sheet) UnlockSheet(ctx context.Context, sheetID string) error {
+	return r.lockSheet(ctx, sheetID, true, "", nil)
 }
 
 // MoveRows 移动行，将 sheetID 表中，从 startIndex 行后，数量为 count 的行，移动 diff 行，diff 小于 0 表示上移，diff 大于 0 ，表示下移
-func (r *Sheet) MoveRows(ctx context.Context, sheetID string, startIndex, count, diff int) error {
+func (r *Sheet) MoveRows(ctx context.Context, sheetID string, startIndex, count, diff int64) error {
 	return r.moveDimension(ctx, "ROWS", sheetID, startIndex, count, diff)
 }
 
 // MoveCols 移动列，将 sheetID 表中，从 startIndex 列后，数量为 count 的列，移动 diff 列，diff 小于 0 表示左移，diff 大于 0 ，表示右移
-func (r *Sheet) MoveCols(ctx context.Context, sheetID string, startIndex, count, diff int) error {
+func (r *Sheet) MoveCols(ctx context.Context, sheetID string, startIndex, count, diff int64) error {
 	return r.moveDimension(ctx, "COLUMNS", sheetID, startIndex, count, diff)
 }
 
 // InsertRows 插入行，表示从 startIndex 开始插入数量为 count 的行
-func (r *Sheet) InsertRows(ctx context.Context, sheetID string, startIndex int, count int) error {
+func (r *Sheet) InsertRows(ctx context.Context, sheetID string, startIndex, count int64) error {
 	return r.insertDimension(ctx, "ROWS", sheetID, startIndex-1, startIndex-1+count)
 }
 
 // InsertCols 插入列，表示从 startIndex 开始插入数量为 count 的列
-func (r *Sheet) InsertCols(ctx context.Context, sheetID string, startIndex int, count int) error {
+func (r *Sheet) InsertCols(ctx context.Context, sheetID string, startIndex, count int64) error {
 	return r.insertDimension(ctx, "COLUMNS", sheetID, startIndex-1, startIndex-1+count)
 }
 
@@ -92,42 +117,42 @@ func (r *Sheet) Append(ctx context.Context, cellRange string, values [][]lark.Sh
 }
 
 // 增加行
-func (r *Sheet) AddRows(ctx context.Context, sheetID string, count int) error {
+func (r *Sheet) AddRows(ctx context.Context, sheetID string, count int64) error {
 	return r.addDimension(ctx, "ROWS", sheetID, count)
 }
 
 // 增加列
-func (r *Sheet) AddCols(ctx context.Context, sheetID string, count int) error {
+func (r *Sheet) AddCols(ctx context.Context, sheetID string, count int64) error {
 	return r.addDimension(ctx, "COLUMNS", sheetID, count)
 }
 
 // 设置行的可见性
-func (r *Sheet) SetRowsVisible(ctx context.Context, sheetID string, startIndex int, count int, visible bool) error {
+func (r *Sheet) SetRowsVisible(ctx context.Context, sheetID string, startIndex, count int64, visible bool) error {
 	return r.updateDimension(ctx, "ROWS", sheetID, startIndex, count, &visible, nil)
 }
 
 // 设置列的可见性
-func (r *Sheet) SetColsVisible(ctx context.Context, sheetID string, startIndex int, count int, visible bool) error {
+func (r *Sheet) SetColsVisible(ctx context.Context, sheetID string, startIndex, count int64, visible bool) error {
 	return r.updateDimension(ctx, "COLUMNS", sheetID, startIndex, count, &visible, nil)
 }
 
 // 设置行的高度
-func (r *Sheet) SetRowsSize(ctx context.Context, sheetID string, startIndex int, count int, size int) error {
-	return r.updateDimension(ctx, "ROWS", sheetID, startIndex, count, nil, ptr.Int64(int64(size)))
+func (r *Sheet) SetRowsSize(ctx context.Context, sheetID string, startIndex, count, size int64) error {
+	return r.updateDimension(ctx, "ROWS", sheetID, startIndex, count, nil, ptr.Int64(size))
 }
 
 // 设置列的宽度
-func (r *Sheet) SetColsSize(ctx context.Context, sheetID string, startIndex int, count int, size int) error {
-	return r.updateDimension(ctx, "COLUMNS", sheetID, startIndex, count, nil, ptr.Int64(int64(size)))
+func (r *Sheet) SetColsSize(ctx context.Context, sheetID string, startIndex, count, size int64) error {
+	return r.updateDimension(ctx, "COLUMNS", sheetID, startIndex, count, nil, ptr.Int64(size))
 }
 
 // 删除行
-func (r *Sheet) DeleteRows(ctx context.Context, sheetID string, startIndex int, count int) error {
+func (r *Sheet) DeleteRows(ctx context.Context, sheetID string, startIndex, count int64) error {
 	return r.deleteDimension(ctx, "ROWS", sheetID, startIndex, count)
 }
 
 // 删除列
-func (r *Sheet) DeleteCols(ctx context.Context, sheetID string, startIndex int, count int) error {
+func (r *Sheet) DeleteCols(ctx context.Context, sheetID string, startIndex, count int64) error {
 	return r.deleteDimension(ctx, "COLUMNS", sheetID, startIndex, count)
 }
 

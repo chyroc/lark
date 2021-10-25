@@ -96,19 +96,82 @@ func (r *Sheet) copySheet(ctx context.Context, sheetID string, title *string) (s
 	return "", fmt.Errorf("copy sheet empty response")
 }
 
-func (r *Sheet) setSheetTitle(ctx context.Context, sheetID, name string) error {
-	// TODO lark sdk 还不支持
-	return nil
+func (r *Sheet) updateSheetProperty(ctx context.Context, property *lark.BatchUpdateSheetReqRequestUpdateSheetProperties) (*lark.BatchUpdateSheetRespReplyUpdateSheetProperties, error) {
+	resp, _, err := r.larkClient.Drive.BatchUpdateSheet(ctx, &lark.BatchUpdateSheetReq{
+		SpreadSheetToken: r.sheetToken,
+		Requests: []*lark.BatchUpdateSheetReqRequest{
+			{
+				UpdateSheet: &lark.BatchUpdateSheetReqRequestUpdateSheet{
+					Properties: property,
+				},
+			},
+		},
+	})
+	if err != nil {
+		return nil, err
+	} else if resp != nil && len(resp.Replies) > 0 && resp.Replies[0] != nil && resp.Replies[0].UpdateSheet != nil {
+		return resp.Replies[0].UpdateSheet.Properties, nil
+	}
+	return nil, nil
 }
 
-func (r *Sheet) insertDimension(ctx context.Context, majorDimension, sheetID string, startIndex int, count int) error {
+func (r *Sheet) setSheetTitle(ctx context.Context, sheetID, title string) error {
+	_, err := r.updateSheetProperty(ctx, &lark.BatchUpdateSheetReqRequestUpdateSheetProperties{
+		SheetID: sheetID,
+		Title:   &title,
+	})
+	return err
+}
+
+func (r *Sheet) setSheetIndex(ctx context.Context, sheetID string, index int64) error {
+	_, err := r.updateSheetProperty(ctx, &lark.BatchUpdateSheetReqRequestUpdateSheetProperties{
+		SheetID: sheetID,
+		Index:   &index,
+	})
+	return err
+}
+
+func (r *Sheet) hideSheet(ctx context.Context, sheetID string, hidden bool) error {
+	_, err := r.updateSheetProperty(ctx, &lark.BatchUpdateSheetReqRequestUpdateSheetProperties{
+		SheetID: sheetID,
+		Hidden:  &hidden,
+	})
+	return err
+}
+
+func (r *Sheet) frozenSheet(ctx context.Context, sheetID string, rowCount, colCount int64) error {
+	_, err := r.updateSheetProperty(ctx, &lark.BatchUpdateSheetReqRequestUpdateSheetProperties{
+		SheetID:        sheetID,
+		FrozenRowCount: &rowCount,
+		FrozenColCount: &colCount,
+	})
+	return err
+}
+
+func (r *Sheet) lockSheet(ctx context.Context, sheetID string, isUnlock bool, lockInfo string, editableUserIDs []string) error {
+	lock := "LOCK"
+	if isUnlock {
+		lock = "UNLOCK"
+	}
+	_, err := r.updateSheetProperty(ctx, &lark.BatchUpdateSheetReqRequestUpdateSheetProperties{
+		SheetID: sheetID,
+		Protect: &lark.BatchUpdateSheetReqRequestUpdateSheetPropertiesProtect{
+			Lock:     lock,
+			LockInfo: &lockInfo,
+			UserIDs:  editableUserIDs,
+		},
+	})
+	return err
+}
+
+func (r *Sheet) insertDimension(ctx context.Context, majorDimension, sheetID string, startIndex, count int64) error {
 	_, _, err := r.larkClient.Drive.InsertSheetDimensionRange(ctx, &lark.InsertSheetDimensionRangeReq{
 		SpreadSheetToken: r.sheetToken,
 		Dimension: &lark.InsertSheetDimensionRangeReqDimension{
 			SheetID:        sheetID,
 			MajorDimension: ptr.String(majorDimension),
-			StartIndex:     int64(startIndex),
-			EndIndex:       int64(count),
+			StartIndex:     startIndex,
+			EndIndex:       count,
 		},
 		InheritStyle: nil,
 	})
@@ -121,14 +184,14 @@ func (r *Sheet) insertDimension(ctx context.Context, majorDimension, sheetID str
 // dest 是: 左闭区间，右开区间，即 [dest, dest)
 // -1 start end 是 左闭区间 右闭区间，dest 是做 左闭区间，右开区间
 // 上移看：左区间，下移看：右区间
-func (r *Sheet) moveDimension(ctx context.Context, majorDimension, sheetID string, startIndex, count, diff int) error {
+func (r *Sheet) moveDimension(ctx context.Context, majorDimension, sheetID string, startIndex, count, diff int64) error {
 	if diff == 0 {
 		return nil
 	}
 
 	startIndex -= 1                    // 因为从 0 开始算
 	endIndex := startIndex + count - 1 // 结束位置，
-	destIndex := 0
+	destIndex := int64(0)
 	if diff < 0 {
 		destIndex = startIndex - (-diff) // 左闭区间，不需要再+1
 	} else {
@@ -160,7 +223,7 @@ func (r *Sheet) appendDimension(ctx context.Context, cellRange string, values []
 	return err
 }
 
-func (r *Sheet) addDimension(ctx context.Context, dimension string, sheetID string, count int) error {
+func (r *Sheet) addDimension(ctx context.Context, dimension string, sheetID string, count int64) error {
 	_, _, err := r.larkClient.Drive.AddSheetDimensionRange(ctx, &lark.AddSheetDimensionRangeReq{
 		SpreadSheetToken: r.sheetToken,
 		Dimension: &lark.AddSheetDimensionRangeReqDimension{
@@ -172,14 +235,14 @@ func (r *Sheet) addDimension(ctx context.Context, dimension string, sheetID stri
 	return err
 }
 
-func (r *Sheet) updateDimension(ctx context.Context, dimension, sheetID string, startIndex, count int, visible *bool, fixedSize *int64) error {
+func (r *Sheet) updateDimension(ctx context.Context, dimension, sheetID string, startIndex, count int64, visible *bool, fixedSize *int64) error {
 	_, _, err := r.larkClient.Drive.UpdateSheetDimensionRange(ctx, &lark.UpdateSheetDimensionRangeReq{
 		SpreadSheetToken: r.sheetToken,
 		Dimension: &lark.UpdateSheetDimensionRangeReqDimension{
 			SheetID:        sheetID,
 			MajorDimension: &dimension,
-			StartIndex:     int64(startIndex),
-			EndIndex:       int64(startIndex + count - 1),
+			StartIndex:     startIndex,
+			EndIndex:       startIndex + count - 1,
 		},
 		DimensionProperties: &lark.UpdateSheetDimensionRangeReqDimensionProperties{
 			Visible:   visible,
@@ -189,14 +252,14 @@ func (r *Sheet) updateDimension(ctx context.Context, dimension, sheetID string, 
 	return err
 }
 
-func (r *Sheet) deleteDimension(ctx context.Context, dimension, sheetID string, startIndex, count int) error {
+func (r *Sheet) deleteDimension(ctx context.Context, dimension, sheetID string, startIndex, count int64) error {
 	_, _, err := r.larkClient.Drive.DeleteSheetDimensionRange(ctx, &lark.DeleteSheetDimensionRangeReq{
 		SpreadSheetToken: r.sheetToken,
 		Dimension: &lark.DeleteSheetDimensionRangeReqDimension{
 			SheetID:        sheetID,
 			MajorDimension: &dimension,
-			StartIndex:     int64(startIndex),
-			EndIndex:       int64(startIndex + count - 1),
+			StartIndex:     startIndex,
+			EndIndex:       startIndex + count - 1,
 		},
 	})
 	return err

@@ -40,7 +40,7 @@ func (r *StoreMemory) Get(ctx context.Context, key string) (string, time.Duratio
 		return "", 0, ErrStoreNotFound
 	}
 
-	ttl := v.Expired.Sub(time.Now())
+	ttl := v.Expired.Sub(timeNow())
 	if ttl >= time.Second*5 {
 		return v.Data, ttl, nil
 	}
@@ -56,8 +56,10 @@ func (r *StoreMemory) Set(ctx context.Context, key, val string, ttl time.Duratio
 
 	r.data[key] = &storeMemoryElem{
 		Data:    val,
-		Expired: time.Now().Add(ttl),
+		Expired: timeNow().Add(ttl),
 	}
 
 	return nil
 }
+
+var timeNow = time.Now

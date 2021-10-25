@@ -18,6 +18,7 @@ func TestSheetValue_MarshalJSON(t *testing.T) {
 		want       string
 		errContain string
 	}{
+		{name: "0", arg: &lark.SheetContent{}, want: `null`},
 		{name: "1", arg: &lark.SheetContent{String: ptr.String("string")}, want: `"string"`},
 		{name: "2", arg: &lark.SheetContent{Int: ptr.Int64(1)}, want: `1`},
 		{name: "3", arg: &lark.SheetContent{Link: &lark.SheetValueLink{Text: "text", Link: "url"}}, want: `{"text":"text","link":"url","type":"url"}`},

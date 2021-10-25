@@ -11,7 +11,7 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-func TestLarkextHelper(t *testing.T) {
+func TestLarkExt_Helper(t *testing.T) {
 	as := assert.New(t)
 
 	as.Equal("sht!A1:A1", larkext.CellRange("sht", 1, 1, 1, 1))
@@ -61,6 +61,10 @@ func Test_SheetExt(t *testing.T) {
 		sheetID, err := sheetClient.CopySheet(ctx, defaultSheetID, ptr.String(randInt64String()))
 		as.Nil(err)
 		as.NotEmpty(sheetID)
+
+		as.Nil(sheetClient.HideSheet(ctx, sheetID, true))
+
+		as.Nil(sheetClient.HideSheet(ctx, sheetID, false))
 
 		as.Nil(sheetClient.DeleteSheet(ctx, sheetID))
 	})
@@ -115,6 +119,18 @@ func Test_SheetExt(t *testing.T) {
 		as.Nil(sheetClient.MoveCols(ctx, defaultSheetID, 1, 2, 2))
 
 		as.Nil(sheetClient.InsertRows(ctx, defaultSheetID, 1, 1))
+
+		as.Nil(sheetClient.SetSheetTitle(ctx, defaultSheetID, "title"))
+
+		as.Nil(sheetClient.SetSheetIndex(ctx, defaultSheetID, 1))
+
+		as.Nil(sheetClient.FrozenSheet(ctx, defaultSheetID, 2, 3))
+
+		as.Nil(sheetClient.FrozenSheet(ctx, defaultSheetID, 0, 0))
+
+		as.Nil(sheetClient.LockSheet(ctx, defaultSheetID, "lock-info", nil))
+
+		as.Nil(sheetClient.UnlockSheet(ctx, defaultSheetID))
 
 		as.Nil(sheetClient.InsertCols(ctx, defaultSheetID, 1, 1))
 

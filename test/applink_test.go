@@ -103,4 +103,27 @@ func Test_AppLink(t *testing.T) {
 		}))
 		// todo: min_lk_ver_pc
 	})
+
+	t.Run("open-sso", func(t *testing.T) {
+		as.Equal("https://applink.feishu.cn/client/passport/sso_login?sso_domain=sso.domain.com&tenant_name=tenant-id",
+			lark.AppLink.OpenSSOLogin(&lark.OpenSSOLoginReq{
+				SSODomain:  "sso.domain.com",
+				TenantName: "tenant-id",
+			}))
+	})
+
+	t.Run("open-web", func(t *testing.T) {
+		as.Equal("https://applink.feishu.cn/client/web_app/open?appId=app-id",
+			lark.AppLink.OpenWebApp(&lark.OpenWebAppReq{
+				AppID: "app-id",
+			}))
+	})
+
+	t.Run("open-web-url", func(t *testing.T) {
+		as.Equal("https://applink.feishu.cn/client/web_url/open?mode=window&url=google.com",
+			lark.AppLink.OpenWebURL(&lark.OpenWebURLReq{
+				URL:  "google.com",
+				Mode: "window",
+			}))
+	})
 }

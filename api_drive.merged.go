@@ -2792,9 +2792,30 @@ type BatchUpdateSheetReq struct {
 }
 
 type BatchUpdateSheetReqRequest struct {
+	UpdateSheet *BatchUpdateSheetReqRequestUpdateSheet `json:"updateSheet,omitempty"`
 	AddSheet    *BatchUpdateSheetReqRequestAddSheet    `json:"addSheet,omitempty"`    // 增加工作表
 	CopySheet   *BatchUpdateSheetReqRequestCopySheet   `json:"copySheet,omitempty"`   // 复制工作表
 	DeleteSheet *BatchUpdateSheetReqRequestDeleteSheet `json:"deleteSheet,omitempty"` // 删除 sheet
+}
+
+type BatchUpdateSheetReqRequestUpdateSheet struct {
+	Properties *BatchUpdateSheetReqRequestUpdateSheetProperties `json:"properties,omitempty"` // 工作表属性
+}
+
+type BatchUpdateSheetReqRequestUpdateSheetProperties struct {
+	SheetID        string                                                  `json:"sheetId,omitempty"`        // read-only ,作为表格唯一识别参数
+	Title          *string                                                 `json:"title,omitempty"`          // 更改工作表标题
+	Index          *int64                                                  `json:"index,omitempty"`          // 移动工作表的位置
+	Hidden         *bool                                                   `json:"hidden,omitempty"`         // 隐藏表格，默认 false
+	FrozenRowCount *int64                                                  `json:"frozenRowCount,omitempty"` // 冻结行数，小于等于工作表的最大行数，0表示取消冻结行
+	FrozenColCount *int64                                                  `json:"frozenColCount,omitempty"` // 该 sheet 的冻结列数，小于等于工作表的最大列数，0表示取消冻结列
+	Protect        *BatchUpdateSheetReqRequestUpdateSheetPropertiesProtect `json:"protect,omitempty"`        // 锁定表格
+}
+
+type BatchUpdateSheetReqRequestUpdateSheetPropertiesProtect struct {
+	Lock     string   `json:"lock,omitempty"`     // LOCK 、UNLOCK 上锁/解锁
+	LockInfo *string  `json:"lockInfo,omitempty"` // 锁定信息
+	UserIDs  []string `json:"userIDs,omitempty"`  // 除了本人与所有者外，添加其他的可编辑人员,user_id_type不为空时使用该字段
 }
 
 type BatchUpdateSheetReqRequestAddSheet struct {
@@ -2834,14 +2855,14 @@ type BatchUpdateSheetResp struct {
 }
 
 type BatchUpdateSheetRespReply struct {
-	AddSheet    *BatchUpdateSheetRespReplyAddSheet    `json:"addSheet,omitempty"`
-	CopySheet   *BatchUpdateSheetRespReplyCopySheet   `json:"copySheet,omitempty"`
+	AddSheet    *BatchUpdateSheetRespReplyAddSheet    `json:"addSheet,omitempty"`  // 增加/复制工作表的属性
+	CopySheet   *BatchUpdateSheetRespReplyCopySheet   `json:"copySheet,omitempty"` // 增加/复制工作表的属性
 	UpdateSheet *BatchUpdateSheetRespReplyUpdateSheet `json:"updateSheet,omitempty"`
 	DeleteSheet *BatchUpdateSheetRespReplyDeleteSheet `json:"deleteSheet,omitempty"` // 删除工作表
 }
 
 type BatchUpdateSheetRespReplyAddSheet struct {
-	Properties *BatchUpdateSheetRespReplyAddSheetProperties `json:"properties,omitempty"` // 增加/复制工作表的属性
+	Properties *BatchUpdateSheetRespReplyAddSheetProperties `json:"properties,omitempty"` // 表格属性
 }
 
 type BatchUpdateSheetRespReplyAddSheetProperties struct {
@@ -2851,7 +2872,7 @@ type BatchUpdateSheetRespReplyAddSheetProperties struct {
 }
 
 type BatchUpdateSheetRespReplyCopySheet struct {
-	Properties *BatchUpdateSheetRespReplyCopySheetProperties `json:"properties,omitempty"` // 增加/复制工作表的属性
+	Properties *BatchUpdateSheetRespReplyCopySheetProperties `json:"properties,omitempty"` // 表格属性
 }
 
 type BatchUpdateSheetRespReplyCopySheetProperties struct {
@@ -2865,19 +2886,19 @@ type BatchUpdateSheetRespReplyUpdateSheet struct {
 }
 
 type BatchUpdateSheetRespReplyUpdateSheetProperties struct {
-	SheetID        string                                                 `json:"sheetId,omitempty"`        // read-only ,作为表格唯一识别参数
-	Title          *string                                                `json:"title,omitempty"`          // 更改工作表标题
-	Index          *int64                                                 `json:"index,omitempty"`          // 移动工作表的位置
-	Hidden         *bool                                                  `json:"hidden,omitempty"`         // 隐藏表格，默认 false
-	FrozenRowCount *int64                                                 `json:"frozenRowCount,omitempty"` // 冻结行数，小于等于工作表的最大行数，0表示取消冻结行
-	FrozenColCount *int64                                                 `json:"frozenColCount,omitempty"` // 该 sheet 的冻结列数，小于等于工作表的最大列数，0表示取消冻结列
-	Protect        *BatchUpdateSheetRespReplyUpdateSheetPropertiesProtect `json:"protect,omitempty"`        // 锁定表格
+	SheetID        string                                                 `json:"sheetId,omitempty"`        // 表格的 sheetId
+	Title          string                                                 `json:"title,omitempty"`          // 更新的工作表标题
+	Index          int64                                                  `json:"index,omitempty"`          // 移动工作表的位置
+	Hidden         bool                                                   `json:"hidden,omitempty"`         // 是否隐藏表格
+	FrozenRowCount int64                                                  `json:"frozenRowCount,omitempty"` // 冻结行数
+	FrozenColCount int64                                                  `json:"frozenColCount,omitempty"` // 冻结列数
+	Protect        *BatchUpdateSheetRespReplyUpdateSheetPropertiesProtect `json:"protect,omitempty"`        // 保护工作表
 }
 
 type BatchUpdateSheetRespReplyUpdateSheetPropertiesProtect struct {
-	Lock     string  `json:"lock,omitempty"`     // LOCK 、UNLOCK 上锁/解锁
-	LockInfo *string `json:"lockInfo,omitempty"` // 锁定信息
-	UserIDs  []int64 `json:"userIDs,omitempty"`  // 除了本人与所有者外，添加其他的可编辑人员,user_id_type不为空时使用该字段
+	Lock     string   `json:"lock,omitempty"`     // LOCK 、UNLOCK 上锁/解锁
+	LockInfo string   `json:"lockInfo,omitempty"` // 锁定信息
+	UserIDs  []string `json:"userIDs,omitempty"`  // 除了本人与所有者外，添加其他的可编辑人员,user_id_type不为空时使用该字段
 }
 
 type BatchUpdateSheetRespReplyDeleteSheet struct {
@@ -3182,8 +3203,8 @@ func (r *Mock) UnMockDriveGetSheetConditionFormat() {
 }
 
 type GetSheetConditionFormatReq struct {
-	SheetIDs         []string `query:"sheet_ids" json:"-"`       // 工作表ID，可以通过[获取表格元数据](https://open.feishu.cn/document/ukTMukTMukTM/uETMzUjLxEzM14SMxMTN)接口获取，多个ID用逗号分隔，如xxxID1,xxxID2
-	SpreadSheetToken string   `path:"spreadsheetToken" json:"-"` // spreadsheet 的 token，获取方式见[在线表格开发指南](https://open.feishu.cn/document/ukTMukTMukTM/uATMzUjLwEzM14CMxMTN/overview)
+	SheetIDs         []string `query:"sheet_ids" join_sep:"," json:"-"` // 工作表ID，可以通过[获取表格元数据](https://open.feishu.cn/document/ukTMukTMukTM/uETMzUjLxEzM14SMxMTN)接口获取，多个ID用逗号分隔，如xxxID1,xxxID2
+	SpreadSheetToken string   `path:"spreadsheetToken" json:"-"`        // spreadsheet 的 token，获取方式见[在线表格开发指南](https://open.feishu.cn/document/ukTMukTMukTM/uATMzUjLwEzM14CMxMTN/overview)
 }
 
 type getSheetConditionFormatResp struct {
@@ -5550,9 +5571,9 @@ func (r *Mock) UnMockDriveGetSheetProtectedDimension() {
 }
 
 type GetSheetProtectedDimensionReq struct {
-	ProtectIDs       []string `query:"protectIds" json:"-"`      // 保护范围ID，可以通过[获取表格元数据](https://open.feishu.cn/document/ukTMukTMukTM/uETMzUjLxEzM14SMxMTN)接口获取，多个ID用逗号分隔，如xxxID1,xxxID2
-	MemberType       *string  `query:"memberType" json:"-"`      // 返回的用户类型，可选userId,openId,unionId,默认使用userId
-	SpreadSheetToken string   `path:"spreadsheetToken" json:"-"` // spreadsheet 的 token，获取方式见[在线表格开发指南](https://open.feishu.cn/document/ukTMukTMukTM/uATMzUjLwEzM14CMxMTN/overview)
+	ProtectIDs       []string `query:"protectIds" join_sep:"," json:"-"` // 保护范围ID，可以通过[获取表格元数据](https://open.feishu.cn/document/ukTMukTMukTM/uETMzUjLxEzM14SMxMTN)接口获取，多个ID用逗号分隔，如xxxID1,xxxID2
+	MemberType       *string  `query:"memberType" json:"-"`              // 返回的用户类型，可选userId,openId,unionId,默认使用userId
+	SpreadSheetToken string   `path:"spreadsheetToken" json:"-"`         // spreadsheet 的 token，获取方式见[在线表格开发指南](https://open.feishu.cn/document/ukTMukTMukTM/uATMzUjLwEzM14CMxMTN/overview)
 }
 
 type getSheetProtectedDimensionResp struct {
@@ -5941,7 +5962,7 @@ type SetSheetStyleResp struct {
 
 // AppendSheetValue
 //
-// 该接口用于根据 spreadsheetToken 和 range 遇到空行则进行覆盖追加或新增行追加数据。 空行：默认该行第一个格子是空，则认为是空行；单次写入不超过5000行，100列，每个格子大小为0.5M。
+// 该接口用于根据 spreadsheetToken 和 range 遇到空行则进行覆盖追加或新增行追加数据。 空行：默认该行第一个格子是空，则认为是空行；单次写入不超过5000行，100列，每个格子不超过5万字符。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uMjMzUjLzIzM14yMyMTN
 func (r *DriveService) AppendSheetValue(ctx context.Context, request *AppendSheetValueReq, options ...MethodOptionFunc) (*AppendSheetValueResp, *Response, error) {
@@ -6076,7 +6097,7 @@ type BatchGetSheetValueRespValueRange struct {
 
 // BatchSetSheetValue
 //
-// 该接口用于根据 spreadsheetToken 和 range 向多个范围写入数据，若范围内有数据，将被更新覆盖；单次写入不超过5000行，100列，每个格子大小为0.5M。
+// 该接口用于根据 spreadsheetToken 和 range 向多个范围写入数据，若范围内有数据，将被更新覆盖；单次写入不超过5000行，100列，每个格子不超过5万字符。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uEjMzUjLxIzM14SMyMTN
 func (r *DriveService) BatchSetSheetValue(ctx context.Context, request *BatchSetSheetValueReq, options ...MethodOptionFunc) (*BatchSetSheetValueResp, *Response, error) {
@@ -6207,7 +6228,7 @@ type GetSheetValueRespValueRange struct {
 
 // PrependSheetValue
 //
-// 该接口用于根据 spreadsheetToken 和 range 向范围之前增加相应数据的行和相应的数据，相当于数组的插入操作；单次写入不超过5000行，100列，每个格子大小为0.5M。
+// 该接口用于根据 spreadsheetToken 和 range 向范围之前增加相应数据的行和相应的数据，相当于数组的插入操作；单次写入不超过5000行，100列，每个格子不超过5万字符。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uIjMzUjLyIzM14iMyMTN
 func (r *DriveService) PrependSheetValue(ctx context.Context, request *PrependSheetValueReq, options ...MethodOptionFunc) (*PrependSheetValueResp, *Response, error) {
@@ -6276,7 +6297,7 @@ type PrependSheetValueRespUpdates struct {
 
 // SetSheetValue
 //
-// 该接口用于根据 spreadsheetToken 和 range 向单个范围写入数据，若范围内有数据，将被更新覆盖；单次写入不超过5000行，100列，每个格子大小为0.5M。
+// 该接口用于根据 spreadsheetToken 和 range 向单个范围写入数据，若范围内有数据，将被更新覆盖；单次写入不超过5000行，100列，每个格子不超过5万字符。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uAjMzUjLwIzM14CMyMTN
 func (r *DriveService) SetSheetValue(ctx context.Context, request *SetSheetValueReq, options ...MethodOptionFunc) (*SetSheetValueResp, *Response, error) {

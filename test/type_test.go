@@ -222,4 +222,53 @@ func Test_Type(t *testing.T) {
 		as.Equal(`<at user_id="1"></at>`, lark.AtBuilder.AtOpenID("1"))
 		as.Equal(`<at user_id="all"></at>`, lark.AtBuilder.AtAll())
 	})
+
+	t.Run("doc-content", func(t *testing.T) {
+		tests := []struct {
+			name       string
+			arg        *lark.DocContent
+			want       string
+			errContain string
+		}{
+			{name: "0", arg: &lark.DocContent{}, want: `{"title":null,"body":null}`},
+			{name: "1", arg: &lark.DocContent{Title: &lark.DocTitle{}}, want: `{"title":{"elements":null,"location":null,"lineId":""},"body":null}`},
+		}
+		for _, tt := range tests {
+			t.Run(tt.name+" marshal", func(t *testing.T) {
+				got, err := json.Marshal(tt.arg)
+				if tt.errContain != "" {
+					as.NotNil(err, tt.name)
+					as.Empty(got, tt.name)
+				} else {
+					as.Nil(err, tt.name)
+					as.NotEmpty(got, tt.name)
+					as.Equal(tt.want, string(got), tt.name)
+				}
+			})
+			t.Run(tt.name+" unmarshal", func(t *testing.T) {
+				resp := new(lark.DocContent)
+				err := json.Unmarshal([]byte(tt.want), resp)
+				if tt.errContain != "" {
+					as.NotNil(err, tt.name)
+				} else {
+					as.Nil(err, tt.name)
+					a, _ := json.Marshal(tt.arg)
+					b, _ := json.Marshal(resp)
+					as.EqualValues(string(b), string(a), tt.name)
+				}
+			})
+		}
+	})
+
+	t.Run("type-ptr", func(t *testing.T) {
+		as.Equal(lark.IDTypeOpenID, *lark.IDTypePtr(lark.IDTypeOpenID))
+		as.Equal(lark.DepartmentIDTypeOpenDepartmentID, *lark.DepartmentIDTypePtr(lark.DepartmentIDTypeOpenDepartmentID))
+		as.Equal(lark.AddMemberPermissionOnlyOwner, *lark.AddMemberPermissionPtr(lark.AddMemberPermissionOnlyOwner))
+		as.Equal(lark.AtAllPermissionOnlyOwner, *lark.AtAllPermissionPtr(lark.AtAllPermissionOnlyOwner))
+		as.Equal(lark.EditPermissionAllMembers, *lark.EditPermissionPtr(lark.EditPermissionAllMembers))
+		as.Equal(lark.ModerationPermissionAllMembers, *lark.ModerationPermissionPtr(lark.ModerationPermissionAllMembers))
+		as.Equal(lark.ShareCardPermissionNotAllowed, *lark.ShareCardPermissionPtr(lark.ShareCardPermissionNotAllowed))
+		as.Equal(lark.MembershipApprovalNoApprovalRequired, *lark.MembershipApprovalPtr(lark.MembershipApprovalNoApprovalRequired))
+		as.Equal(lark.MessageVisibilityAllMembers, *lark.MessageVisibilityPtr(lark.MessageVisibilityAllMembers))
+	})
 }

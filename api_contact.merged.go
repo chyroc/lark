@@ -1379,7 +1379,7 @@ type CreateUserReq struct {
 	DepartmentIDs        []string                         `json:"department_ids,omitempty"`         // 用户所属部门的ID列表，一个用户可属于多个部门。,ID值与查询参数中的department_id_type 对应。,不同 ID 的说明参见 [部门ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/field-overview#23857fe0), 示例值：od-4e6ac4d14bcd5071a37a39de902c7141
 	LeaderUserID         *string                          `json:"leader_user_id,omitempty"`         // 用户的直接主管的用户ID，ID值与查询参数中的user_id_type 对应。,不同 ID 的说明参见 [用户相关的 ID 概念](https://open.feishu.cn/document/home/user-identity-introduction/introduction), 示例值："ou_7dab8a3d3cdcc9da365777c7ad535d62"
 	City                 *string                          `json:"city,omitempty"`                   // 城市, 示例值："杭州"
-	Country              *string                          `json:"country,omitempty"`                // 国家或地区, 示例值："中国"
+	Country              *string                          `json:"country,omitempty"`                // 国家或地区Code缩写，具体写入格式请参考 [国家/地区码表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/country-code-description), 示例值："CN"
 	WorkStation          *string                          `json:"work_station,omitempty"`           // 工位, 示例值："北楼-H34"
 	JoinTime             *int64                           `json:"join_time,omitempty"`              // 入职时间, 示例值：2147483647
 	EmployeeNo           *string                          `json:"employee_no,omitempty"`            // 工号, 示例值："1"
@@ -1448,7 +1448,7 @@ type CreateUserRespUser struct {
 	DepartmentIDs        []string                              `json:"department_ids,omitempty"`         // 用户所属部门的ID列表，一个用户可属于多个部门。,ID值与查询参数中的department_id_type 对应。,不同 ID 的说明参见 [部门ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/field-overview#23857fe0),**字段权限要求（满足任一）**：, 获取用户组织架构信息, 以应用身份访问通讯录（历史版本）, 以应用身份读取通讯录
 	LeaderUserID         string                                `json:"leader_user_id,omitempty"`         // 用户的直接主管的用户ID，ID值与查询参数中的user_id_type 对应。,不同 ID 的说明参见 [用户相关的 ID 概念](https://open.feishu.cn/document/home/user-identity-introduction/introduction),**字段权限要求（满足任一）**：, 获取用户组织架构信息, 以应用身份访问通讯录（历史版本）, 以应用身份读取通讯录
 	City                 string                                `json:"city,omitempty"`                   // 城市,**字段权限要求（满足任一）**：, 获取用户雇佣信息, 以应用身份访问通讯录（历史版本）, 以应用身份读取通讯录
-	Country              string                                `json:"country,omitempty"`                // 国家或地区,**字段权限要求（满足任一）**：, 获取用户雇佣信息, 以应用身份访问通讯录（历史版本）, 以应用身份读取通讯录
+	Country              string                                `json:"country,omitempty"`                // 国家或地区Code缩写，具体写入格式请参考 [国家/地区码表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/country-code-description),**字段权限要求（满足任一）**：, 获取用户雇佣信息, 以应用身份访问通讯录（历史版本）, 以应用身份读取通讯录
 	WorkStation          string                                `json:"work_station,omitempty"`           // 工位,**字段权限要求（满足任一）**：, 获取用户雇佣信息, 以应用身份访问通讯录（历史版本）, 以应用身份读取通讯录
 	JoinTime             int64                                 `json:"join_time,omitempty"`              // 入职时间,**字段权限要求（满足任一）**：, 获取用户雇佣信息, 以应用身份访问通讯录（历史版本）, 以应用身份读取通讯录
 	IsTenantManager      bool                                  `json:"is_tenant_manager,omitempty"`      // 是否是租户超级管理员,**字段权限要求（满足任一）**：, 获取用户雇佣信息, 以应用身份访问通讯录（历史版本）, 以应用身份读取通讯录
@@ -1633,7 +1633,7 @@ type GetUserRespUser struct {
 	DepartmentIDs   []string                     `json:"department_ids,omitempty"`    // 用户所属部门的ID列表，一个用户可属于多个部门。,ID值与查询参数中的department_id_type 对应。,不同 ID 的说明参见 [部门ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/field-overview#23857fe0),**字段权限要求（满足任一）**：, 获取用户组织架构信息, 以应用身份访问通讯录（历史版本）, 以应用身份读取通讯录
 	LeaderUserID    string                       `json:"leader_user_id,omitempty"`    // 用户的直接主管的用户ID，ID值与查询参数中的user_id_type 对应。,不同 ID 的说明参见 [用户相关的 ID 概念](https://open.feishu.cn/document/home/user-identity-introduction/introduction),**字段权限要求（满足任一）**：, 获取用户组织架构信息, 以应用身份访问通讯录（历史版本）, 以应用身份读取通讯录
 	City            string                       `json:"city,omitempty"`              // 城市,**字段权限要求（满足任一）**：, 获取用户雇佣信息, 以应用身份访问通讯录（历史版本）, 以应用身份读取通讯录
-	Country         string                       `json:"country,omitempty"`           // 国家或地区,**字段权限要求（满足任一）**：, 获取用户雇佣信息, 以应用身份访问通讯录（历史版本）, 以应用身份读取通讯录
+	Country         string                       `json:"country,omitempty"`           // 国家或地区Code缩写，具体写入格式请参考 [国家/地区码表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/country-code-description),**字段权限要求（满足任一）**：, 获取用户雇佣信息, 以应用身份访问通讯录（历史版本）, 以应用身份读取通讯录
 	WorkStation     string                       `json:"work_station,omitempty"`      // 工位,**字段权限要求（满足任一）**：, 获取用户雇佣信息, 以应用身份访问通讯录（历史版本）, 以应用身份读取通讯录
 	JoinTime        int64                        `json:"join_time,omitempty"`         // 入职时间,**字段权限要求（满足任一）**：, 获取用户雇佣信息, 以应用身份访问通讯录（历史版本）, 以应用身份读取通讯录
 	IsTenantManager bool                         `json:"is_tenant_manager,omitempty"` // 是否是租户超级管理员,**字段权限要求（满足任一）**：, 获取用户雇佣信息, 以应用身份访问通讯录（历史版本）, 以应用身份读取通讯录
@@ -1836,10 +1836,8 @@ type BatchGetUserByIDRespEmailUser struct {
 
 // Code generated by lark_sdk_gen. DO NOT EDIT.
 
-// GetUserList
+// GetUserList 基于部门ID获取部门下直属用户列表。由于department_id 是非必填参数，在tenant_access_token 情况下存在两种数据权限校验与返回情况：1、请求设置了department_id（包含根部门0），会检验所带部门ID是否具有通讯录权限（如果带上department_id=0会校验是否有全员权限），有则返回部门下直属的成员列表, 否则提示无部门权限的错误码返回。2、请求未带department_id参数，则会返回权限范围内的独立成员（当权限范围包含了某成员，但不包含成员所在部门，则该成员视为权限范围内的独立成员。在user_access_token则情况下根据个人组织架构的通讯录可见范围进行权限过滤。[常见问题答疑](https://open.feishu.cn/document/ugTN1YjL4UTN24CO1UjN/uQzN1YjL0cTN24CN3UjN)。
 //
-// 当应用的通讯录权限范围为全员时，传入 department_id，以获取该部门下所有的直属成员。根部门的 department_id 是 0。
-// 当应用的通讯录权限范围为非全员时，传入权限范围内的 department_id，以获取该部门下所有的直属成员。不传 department_id 时，会获取到权限范围内的独立成员。（当权限范围包含了某成员，但不包含成员所在部门，则该成员视为权限范围内的独立成员）[常见问题答疑](https://open.feishu.cn/document/ugTN1YjL4UTN24CO1UjN/uQzN1YjL0cTN24CN3UjN)。
 // <b>以应用身份访问通讯录</b> 权限为历史版本，不推荐申请。应用访问通讯录相关接口请申请 <b>以应用身份读取通讯录</b>
 // 该接口部分返回字段受到 <b>数据权限控制</b> ，应用要获取对应字段数据需要额外申请数据权限。具体的数据权限与字段的关系请参考[应用权限](https://open.feishu.cn/document/ukTMukTMukTM/uQjN3QjL0YzN04CN2cDN)，或查看每个接口响应体参数列表的字段描述。
 //
@@ -1909,7 +1907,7 @@ type GetUserListRespItem struct {
 	DepartmentIDs   []string                         `json:"department_ids,omitempty"`    // 用户所属部门的ID列表，一个用户可属于多个部门。,ID值与查询参数中的department_id_type 对应。,不同 ID 的说明参见 [部门ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/field-overview#23857fe0),**字段权限要求（满足任一）**：, 获取用户组织架构信息, 以应用身份访问通讯录（历史版本）, 以应用身份读取通讯录
 	LeaderUserID    string                           `json:"leader_user_id,omitempty"`    // 用户的直接主管的用户ID，ID值与查询参数中的user_id_type 对应。,不同 ID 的说明参见 [用户相关的 ID 概念](https://open.feishu.cn/document/home/user-identity-introduction/introduction),**字段权限要求（满足任一）**：, 获取用户组织架构信息, 以应用身份访问通讯录（历史版本）, 以应用身份读取通讯录
 	City            string                           `json:"city,omitempty"`              // 城市,**字段权限要求（满足任一）**：, 获取用户雇佣信息, 以应用身份访问通讯录（历史版本）, 以应用身份读取通讯录
-	Country         string                           `json:"country,omitempty"`           // 国家或地区,**字段权限要求（满足任一）**：, 获取用户雇佣信息, 以应用身份访问通讯录（历史版本）, 以应用身份读取通讯录
+	Country         string                           `json:"country,omitempty"`           // 国家或地区Code缩写，具体写入格式请参考 [国家/地区码表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/country-code-description),**字段权限要求（满足任一）**：, 获取用户雇佣信息, 以应用身份访问通讯录（历史版本）, 以应用身份读取通讯录
 	WorkStation     string                           `json:"work_station,omitempty"`      // 工位,**字段权限要求（满足任一）**：, 获取用户雇佣信息, 以应用身份访问通讯录（历史版本）, 以应用身份读取通讯录
 	JoinTime        int64                            `json:"join_time,omitempty"`         // 入职时间,**字段权限要求（满足任一）**：, 获取用户雇佣信息, 以应用身份访问通讯录（历史版本）, 以应用身份读取通讯录
 	IsTenantManager bool                             `json:"is_tenant_manager,omitempty"` // 是否是租户超级管理员,**字段权限要求（满足任一）**：, 获取用户雇佣信息, 以应用身份访问通讯录（历史版本）, 以应用身份读取通讯录
@@ -2084,7 +2082,7 @@ type UpdateUserReq struct {
 	DepartmentIDs    []string                   `json:"department_ids,omitempty"`     // 用户所属部门的ID列表，一个用户可属于多个部门。,ID值与查询参数中的department_id_type 对应。,不同 ID 的说明参见 [部门ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/field-overview#23857fe0), 示例值：od-4e6ac4d14bcd5071a37a39de902c7141
 	LeaderUserID     *string                    `json:"leader_user_id,omitempty"`     // 用户的直接主管的用户ID，ID值与查询参数中的user_id_type 对应。,不同 ID 的说明参见 [用户相关的 ID 概念](https://open.feishu.cn/document/home/user-identity-introduction/introduction), 示例值："ou_7dab8a3d3cdcc9da365777c7ad535d62"
 	City             *string                    `json:"city,omitempty"`               // 城市, 示例值："杭州"
-	Country          *string                    `json:"country,omitempty"`            // 国家或地区, 示例值："中国"
+	Country          *string                    `json:"country,omitempty"`            // 国家或地区Code缩写，具体写入格式请参考 [国家/地区码表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/country-code-description), 示例值："CN"
 	WorkStation      *string                    `json:"work_station,omitempty"`       // 工位, 示例值："北楼-H34"
 	JoinTime         *int64                     `json:"join_time,omitempty"`          // 入职时间, 示例值：2147483647
 	EmployeeNo       *string                    `json:"employee_no,omitempty"`        // 工号, 示例值："1"
@@ -2147,7 +2145,7 @@ type UpdateUserRespUser struct {
 	DepartmentIDs        []string                              `json:"department_ids,omitempty"`         // 用户所属部门的ID列表，一个用户可属于多个部门。,ID值与查询参数中的department_id_type 对应。,不同 ID 的说明参见 [部门ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/field-overview#23857fe0),**字段权限要求（满足任一）**：, 获取用户组织架构信息, 以应用身份访问通讯录（历史版本）, 以应用身份读取通讯录
 	LeaderUserID         string                                `json:"leader_user_id,omitempty"`         // 用户的直接主管的用户ID，ID值与查询参数中的user_id_type 对应。,不同 ID 的说明参见 [用户相关的 ID 概念](https://open.feishu.cn/document/home/user-identity-introduction/introduction),**字段权限要求（满足任一）**：, 获取用户组织架构信息, 以应用身份访问通讯录（历史版本）, 以应用身份读取通讯录
 	City                 string                                `json:"city,omitempty"`                   // 城市,**字段权限要求（满足任一）**：, 获取用户雇佣信息, 以应用身份访问通讯录（历史版本）, 以应用身份读取通讯录
-	Country              string                                `json:"country,omitempty"`                // 国家或地区,**字段权限要求（满足任一）**：, 获取用户雇佣信息, 以应用身份访问通讯录（历史版本）, 以应用身份读取通讯录
+	Country              string                                `json:"country,omitempty"`                // 国家或地区Code缩写，具体写入格式请参考 [国家/地区码表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/country-code-description),**字段权限要求（满足任一）**：, 获取用户雇佣信息, 以应用身份访问通讯录（历史版本）, 以应用身份读取通讯录
 	WorkStation          string                                `json:"work_station,omitempty"`           // 工位,**字段权限要求（满足任一）**：, 获取用户雇佣信息, 以应用身份访问通讯录（历史版本）, 以应用身份读取通讯录
 	JoinTime             int64                                 `json:"join_time,omitempty"`              // 入职时间,**字段权限要求（满足任一）**：, 获取用户雇佣信息, 以应用身份访问通讯录（历史版本）, 以应用身份读取通讯录
 	IsTenantManager      bool                                  `json:"is_tenant_manager,omitempty"`      // 是否是租户超级管理员,**字段权限要求（满足任一）**：, 获取用户雇佣信息, 以应用身份访问通讯录（历史版本）, 以应用身份读取通讯录
@@ -2259,7 +2257,7 @@ type UpdateUserPatchReq struct {
 	DepartmentIDs    []string                        `json:"department_ids,omitempty"`     // 用户所属部门的ID列表，一个用户可属于多个部门。,ID值与查询参数中的department_id_type 对应。,不同 ID 的说明参见 [部门ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/field-overview#23857fe0), 示例值：od-4e6ac4d14bcd5071a37a39de902c7141
 	LeaderUserID     *string                         `json:"leader_user_id,omitempty"`     // 用户的直接主管的用户ID，ID值与查询参数中的user_id_type 对应。,不同 ID 的说明参见 [用户相关的 ID 概念](https://open.feishu.cn/document/home/user-identity-introduction/introduction), 示例值："ou_7dab8a3d3cdcc9da365777c7ad535d62"
 	City             *string                         `json:"city,omitempty"`               // 城市, 示例值："杭州"
-	Country          *string                         `json:"country,omitempty"`            // 国家或地区, 示例值："中国"
+	Country          *string                         `json:"country,omitempty"`            // 国家或地区Code缩写，具体写入格式请参考 [国家/地区码表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/country-code-description), 示例值："CN"
 	WorkStation      *string                         `json:"work_station,omitempty"`       // 工位, 示例值："北楼-H34"
 	JoinTime         *int64                          `json:"join_time,omitempty"`          // 入职时间, 示例值：2147483647
 	EmployeeNo       *string                         `json:"employee_no,omitempty"`        // 工号, 示例值："1"
@@ -2322,7 +2320,7 @@ type UpdateUserPatchRespUser struct {
 	DepartmentIDs        []string                                   `json:"department_ids,omitempty"`         // 用户所属部门的ID列表，一个用户可属于多个部门。,ID值与查询参数中的department_id_type 对应。,不同 ID 的说明参见 [部门ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/field-overview#23857fe0),**字段权限要求（满足任一）**：, 获取用户组织架构信息, 以应用身份访问通讯录（历史版本）, 以应用身份读取通讯录
 	LeaderUserID         string                                     `json:"leader_user_id,omitempty"`         // 用户的直接主管的用户ID，ID值与查询参数中的user_id_type 对应。,不同 ID 的说明参见 [用户相关的 ID 概念](https://open.feishu.cn/document/home/user-identity-introduction/introduction),**字段权限要求（满足任一）**：, 获取用户组织架构信息, 以应用身份访问通讯录（历史版本）, 以应用身份读取通讯录
 	City                 string                                     `json:"city,omitempty"`                   // 城市,**字段权限要求（满足任一）**：, 获取用户雇佣信息, 以应用身份访问通讯录（历史版本）, 以应用身份读取通讯录
-	Country              string                                     `json:"country,omitempty"`                // 国家或地区,**字段权限要求（满足任一）**：, 获取用户雇佣信息, 以应用身份访问通讯录（历史版本）, 以应用身份读取通讯录
+	Country              string                                     `json:"country,omitempty"`                // 国家或地区Code缩写，具体写入格式请参考 [国家/地区码表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/country-code-description),**字段权限要求（满足任一）**：, 获取用户雇佣信息, 以应用身份访问通讯录（历史版本）, 以应用身份读取通讯录
 	WorkStation          string                                     `json:"work_station,omitempty"`           // 工位,**字段权限要求（满足任一）**：, 获取用户雇佣信息, 以应用身份访问通讯录（历史版本）, 以应用身份读取通讯录
 	JoinTime             int64                                      `json:"join_time,omitempty"`              // 入职时间,**字段权限要求（满足任一）**：, 获取用户雇佣信息, 以应用身份访问通讯录（历史版本）, 以应用身份读取通讯录
 	IsTenantManager      bool                                       `json:"is_tenant_manager,omitempty"`      // 是否是租户超级管理员,**字段权限要求（满足任一）**：, 获取用户雇佣信息, 以应用身份访问通讯录（历史版本）, 以应用身份读取通讯录
