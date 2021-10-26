@@ -888,7 +888,7 @@ type CreateHireNoteResp struct {
 }
 
 type CreateHireNoteRespNote struct {
-	ID            string `json:"id,omitempty"`             // ID备注
+	ID            string `json:"id,omitempty"`             // 备注ID
 	TalentID      string `json:"talent_id,omitempty"`      // 人才ID
 	ApplicationID string `json:"application_id,omitempty"` // 投递ID
 	IsPrivate     bool   `json:"is_private,omitempty"`     // 是否私密
@@ -1145,8 +1145,8 @@ type GetHireOfferByApplicationRespOfferBasicInfo struct {
 	OfferType         int64                                                       `json:"offer_type,omitempty"`          // Offer类型 1=Social, 2=Campus, 3=Intern, 4=InternTransfer, 可选值有: `1`：Social, `2`：Campus, `3`：Intern, `4`：InternTransfer
 	Remark            string                                                      `json:"remark,omitempty"`              // 备注
 	ExpireTime        int64                                                       `json:"expire_time,omitempty"`         // Offer过期时间
-	OwnerUserID       string                                                      `json:"owner_user_id,omitempty"`       // string
-	LeaderUserID      string                                                      `json:"leader_user_id,omitempty"`      // string
+	OwnerUserID       string                                                      `json:"owner_user_id,omitempty"`       // offer 负责人 ID
+	LeaderUserID      string                                                      `json:"leader_user_id,omitempty"`      // 直属上级 ID
 	OnboardDate       string                                                      `json:"onboard_date,omitempty"`        // 入职日期
 	DepartmentID      string                                                      `json:"department_id,omitempty"`       // 入职部门
 	ProbationMonth    int64                                                       `json:"probation_month,omitempty"`     // 试用期, 比如试用期6个月
