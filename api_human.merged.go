@@ -180,9 +180,7 @@ type CreateIdentityResp struct {
 // ```html
 // <script src="https://lf1-cdn-tos.bytescm.com/goofy/locl/lark/external_js_sdk/h5-js-sdk-1.0.8.js"></script>
 // ```
-// ::: warning
 // 若要使用成员卡片组件，SDK需要在`<body>`加载后引入。
-// :::
 // ## 鉴权流程
 // ### 1. 获取 access_token
 // - 不同的 token 代表了组件使用者的身份。user_access_token代表以用户身份鉴权，app_access_token代表以应用身份授权。

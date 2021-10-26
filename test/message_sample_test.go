@@ -64,6 +64,12 @@ func Test_Message_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.BatchSendOldRawMessage(ctx, &lark.BatchSendOldRawMessageReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "failed")
+		})
+
+		t.Run("", func(t *testing.T) {
 			_, _, err := moduleCli.ReplyRawMessage(ctx, &lark.ReplyRawMessageReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "failed")
@@ -76,6 +82,12 @@ func Test_Message_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.BatchDeleteMessage(ctx, &lark.BatchDeleteMessageReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "failed")
+		})
+
+		t.Run("", func(t *testing.T) {
 			_, _, err := moduleCli.UpdateMessage(ctx, &lark.UpdateMessageReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "failed")
@@ -83,6 +95,12 @@ func Test_Message_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 			_, _, err := moduleCli.GetMessageReadUserList(ctx, &lark.GetMessageReadUserListReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.GetBatchSentMessageReadUser(ctx, &lark.GetBatchSentMessageReadUserReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "failed")
 		})
@@ -189,6 +207,17 @@ func Test_Message_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
+			cli.Mock().MockMessageBatchSendOldRawMessage(func(ctx context.Context, request *lark.BatchSendOldRawMessageReq, options ...lark.MethodOptionFunc) (*lark.BatchSendOldRawMessageResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockMessageBatchSendOldRawMessage()
+
+			_, _, err := moduleCli.BatchSendOldRawMessage(ctx, &lark.BatchSendOldRawMessageReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
 			cli.Mock().MockMessageReplyRawMessage(func(ctx context.Context, request *lark.ReplyRawMessageReq, options ...lark.MethodOptionFunc) (*lark.ReplyRawMessageResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -211,6 +240,17 @@ func Test_Message_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
+			cli.Mock().MockMessageBatchDeleteMessage(func(ctx context.Context, request *lark.BatchDeleteMessageReq, options ...lark.MethodOptionFunc) (*lark.BatchDeleteMessageResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockMessageBatchDeleteMessage()
+
+			_, _, err := moduleCli.BatchDeleteMessage(ctx, &lark.BatchDeleteMessageReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
 			cli.Mock().MockMessageUpdateMessage(func(ctx context.Context, request *lark.UpdateMessageReq, options ...lark.MethodOptionFunc) (*lark.UpdateMessageResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -228,6 +268,17 @@ func Test_Message_Sample_Failed(t *testing.T) {
 			defer cli.Mock().UnMockMessageGetMessageReadUserList()
 
 			_, _, err := moduleCli.GetMessageReadUserList(ctx, &lark.GetMessageReadUserListReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+			cli.Mock().MockMessageGetBatchSentMessageReadUser(func(ctx context.Context, request *lark.GetBatchSentMessageReadUserReq, options ...lark.MethodOptionFunc) (*lark.GetBatchSentMessageReadUserResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockMessageGetBatchSentMessageReadUser()
+
+			_, _, err := moduleCli.GetBatchSentMessageReadUser(ctx, &lark.GetBatchSentMessageReadUserReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "mock-failed")
 		})
@@ -330,6 +381,12 @@ func Test_Message_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.BatchSendOldRawMessage(ctx, &lark.BatchSendOldRawMessageReq{})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
 			_, _, err := moduleCli.ReplyRawMessage(ctx, &lark.ReplyRawMessageReq{
 				MessageID: "x",
 			})
@@ -346,6 +403,14 @@ func Test_Message_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.BatchDeleteMessage(ctx, &lark.BatchDeleteMessageReq{
+				BatchMessageID: "x",
+			})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
 			_, _, err := moduleCli.UpdateMessage(ctx, &lark.UpdateMessageReq{
 				MessageID: "x",
 			})
@@ -356,6 +421,14 @@ func Test_Message_Sample_Failed(t *testing.T) {
 		t.Run("", func(t *testing.T) {
 			_, _, err := moduleCli.GetMessageReadUserList(ctx, &lark.GetMessageReadUserListReq{
 				MessageID: "x",
+			})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.GetBatchSentMessageReadUser(ctx, &lark.GetBatchSentMessageReadUserReq{
+				BatchMessageID: "x",
 			})
 			as.NotNil(err)
 			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
@@ -447,6 +520,12 @@ func Test_Message_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.BatchSendOldRawMessage(ctx, &lark.BatchSendOldRawMessageReq{})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
 			_, _, err := moduleCli.ReplyRawMessage(ctx, &lark.ReplyRawMessageReq{
 				MessageID: "x",
 			})
@@ -463,6 +542,14 @@ func Test_Message_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.BatchDeleteMessage(ctx, &lark.BatchDeleteMessageReq{
+				BatchMessageID: "x",
+			})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
 			_, _, err := moduleCli.UpdateMessage(ctx, &lark.UpdateMessageReq{
 				MessageID: "x",
 			})
@@ -473,6 +560,14 @@ func Test_Message_Sample_Failed(t *testing.T) {
 		t.Run("", func(t *testing.T) {
 			_, _, err := moduleCli.GetMessageReadUserList(ctx, &lark.GetMessageReadUserListReq{
 				MessageID: "x",
+			})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.GetBatchSentMessageReadUser(ctx, &lark.GetBatchSentMessageReadUserReq{
+				BatchMessageID: "x",
 			})
 			as.NotNil(err)
 			as.Equal("fake raw request", err.Error())

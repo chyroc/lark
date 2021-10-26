@@ -36,7 +36,7 @@ https://godoc.org/github.com/chyroc/lark
 
 ## 支持的接口
 
-API 总数: 471, 事件总数: 76
+API 总数: 476, 事件总数: 76
 
 <details>
   <summary>
@@ -86,10 +86,13 @@ API 总数: 471, 事件总数: 76
   - SendUrgentPhoneMessage
   - SendRawMessage
   - SendRawMessageOld
+  - BatchSendOldRawMessage
   - ReplyRawMessage
   - DeleteMessage
+  - BatchDeleteMessage
   - UpdateMessage
   - GetMessageReadUserList
+  - GetBatchSentMessageReadUser
   - GetMessageList
   - GetMessageFile
   - GetMessage
@@ -355,13 +358,15 @@ API 总数: 471, 事件总数: 76
   - RejectApprovalInstance
   - TransferApprovalInstance
   - CancelApprovalInstance
-  - UploadApprovalFile
   - SearchApprovalInstance
+  - AddApprovalInstanceSign
+  - UploadApprovalFile
   - SearchApprovalTask
+  - GetApprovalUserTaskList
   - SearchApprovalCarbonCopy
   - CreateApprovalCarbonCopy
-  - AddApprovalInstanceSign
   - PreviewApprovalInstance
+  - UpdateApprovalMessage
 - Helpdesk
   - StartHelpdeskService
   - GetHelpdeskTicket

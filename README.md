@@ -37,7 +37,7 @@ https://godoc.org/github.com/chyroc/lark
 
 ## Support APIs
 
-API Count: 471, Event Count: 76
+API Count: 476, Event Count: 76
 
 <details>
   <summary>
@@ -87,10 +87,13 @@ API Count: 471, Event Count: 76
   - SendUrgentPhoneMessage
   - SendRawMessage
   - SendRawMessageOld
+  - BatchSendOldRawMessage
   - ReplyRawMessage
   - DeleteMessage
+  - BatchDeleteMessage
   - UpdateMessage
   - GetMessageReadUserList
+  - GetBatchSentMessageReadUser
   - GetMessageList
   - GetMessageFile
   - GetMessage
@@ -356,13 +359,15 @@ API Count: 471, Event Count: 76
   - RejectApprovalInstance
   - TransferApprovalInstance
   - CancelApprovalInstance
-  - UploadApprovalFile
   - SearchApprovalInstance
+  - AddApprovalInstanceSign
+  - UploadApprovalFile
   - SearchApprovalTask
+  - GetApprovalUserTaskList
   - SearchApprovalCarbonCopy
   - CreateApprovalCarbonCopy
-  - AddApprovalInstanceSign
   - PreviewApprovalInstance
+  - UpdateApprovalMessage
 - Helpdesk
   - StartHelpdeskService
   - GetHelpdeskTicket

@@ -52,6 +52,8 @@ func Test_AI_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
+			t.Skip()
+
 			_, _, err := moduleCli.DetectFaceAttributes(ctx, &lark.DetectFaceAttributesReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "failed")
@@ -118,6 +120,8 @@ func Test_AI_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
+			t.Skip()
+
 			cli.Mock().MockAIDetectFaceAttributes(func(ctx context.Context, request *lark.DetectFaceAttributesReq, options ...lark.MethodOptionFunc) (*lark.DetectFaceAttributesResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -164,6 +168,8 @@ func Test_AI_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
+			t.Skip()
+
 			_, _, err := moduleCli.DetectFaceAttributes(ctx, &lark.DetectFaceAttributesReq{})
 			as.NotNil(err)
 			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
@@ -208,6 +214,8 @@ func Test_AI_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
+			t.Skip()
+
 			_, _, err := moduleCli.DetectFaceAttributes(ctx, &lark.DetectFaceAttributesReq{})
 			as.NotNil(err)
 			as.Equal("fake raw request", err.Error())
