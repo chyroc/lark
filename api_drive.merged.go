@@ -858,13 +858,14 @@ func (r *DriveService) GetDriveFileMeta(ctx context.Context, request *GetDriveFi
 	}
 
 	req := &RawRequestReq{
-		Scope:               "Drive",
-		API:                 "GetDriveFileMeta",
-		Method:              "POST",
-		URL:                 r.cli.openBaseURL + "/open-apis/suite/docs-api/meta",
-		Body:                request,
-		MethodOption:        newMethodOption(options),
-		NeedUserAccessToken: true,
+		Scope:                 "Drive",
+		API:                   "GetDriveFileMeta",
+		Method:                "POST",
+		URL:                   r.cli.openBaseURL + "/open-apis/suite/docs-api/meta",
+		Body:                  request,
+		MethodOption:          newMethodOption(options),
+		NeedTenantAccessToken: true,
+		NeedUserAccessToken:   true,
 	}
 	resp := new(getDriveFileMetaResp)
 

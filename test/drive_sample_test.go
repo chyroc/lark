@@ -22,6 +22,12 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		moduleCli := cli.Drive
 
 		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.GetDriveFileMeta(ctx, &lark.GetDriveFileMetaReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "failed")
+		})
+
+		t.Run("", func(t *testing.T) {
 			_, _, err := moduleCli.CreateDriveFile(ctx, &lark.CreateDriveFileReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "failed")
@@ -619,6 +625,17 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 	t.Run("request mock failed", func(t *testing.T) {
 		cli := AppAllPermission.Ins()
 		moduleCli := cli.Drive
+
+		t.Run("", func(t *testing.T) {
+			cli.Mock().MockDriveGetDriveFileMeta(func(ctx context.Context, request *lark.GetDriveFileMetaReq, options ...lark.MethodOptionFunc) (*lark.GetDriveFileMetaResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockDriveGetDriveFileMeta()
+
+			_, _, err := moduleCli.GetDriveFileMeta(ctx, &lark.GetDriveFileMetaReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
 
 		t.Run("", func(t *testing.T) {
 			cli.Mock().MockDriveCreateDriveFile(func(ctx context.Context, request *lark.CreateDriveFileReq, options ...lark.MethodOptionFunc) (*lark.CreateDriveFileResp, *lark.Response, error) {
@@ -1715,6 +1732,12 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		moduleCli := cli.Drive
 
 		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.GetDriveFileMeta(ctx, &lark.GetDriveFileMetaReq{})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
 			_, _, err := moduleCli.CreateDriveFile(ctx, &lark.CreateDriveFileReq{
 				FolderToken: "x",
 			})
@@ -2513,6 +2536,12 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		moduleCli := cli.Drive
 		cli.Mock().MockRawRequest(func(ctx context.Context, req *lark.RawRequestReq, resp interface{}) (response *lark.Response, err error) {
 			return nil, fmt.Errorf("fake raw request")
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.GetDriveFileMeta(ctx, &lark.GetDriveFileMetaReq{})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
