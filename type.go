@@ -39,7 +39,7 @@ const (
 	IDTypeEmail   IDType = "email"    // 以 email 来识别成员
 )
 
-// IDType ID类型
+// DepartmentIDType ID类型
 type DepartmentIDType string
 
 const (
