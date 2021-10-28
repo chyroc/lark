@@ -1404,7 +1404,7 @@ type CreateUserReqOrder struct {
 }
 
 type CreateUserReqCustomAttr struct {
-	Type  *string                       `json:"type,omitempty"`  // 自定义字段类型   , `TEXT`：文本, `HREF`：网页, `ENUMERATION`：枚举, `PICTURE_ENUM`：图片, `GENERIC_USER`：用户, 示例值："TEXT"
+	Type  *string                       `json:"type,omitempty"`  // 自定义字段类型   , `TEXT`：文本, `HREF`：网页, `ENUMERATION`：枚举, `PICTURE_ENUM`：图片, `GENERIC_USER`：用户,[自定义字段相关常见问题](https://open.feishu.cn/document/ugTN1YjL4UTN24CO1UjN/uQzN1YjL0cTN24CN3UjN), 示例值："TEXT"
 	ID    *string                       `json:"id,omitempty"`    // 自定义字段ID, 示例值："DemoId"
 	Value *CreateUserReqCustomAttrValue `json:"value,omitempty"` // 自定义字段取值
 }
@@ -1488,7 +1488,7 @@ type CreateUserRespUserOrder struct {
 }
 
 type CreateUserRespUserCustomAttr struct {
-	Type  string                             `json:"type,omitempty"`  // 自定义字段类型   , `TEXT`：文本, `HREF`：网页, `ENUMERATION`：枚举, `PICTURE_ENUM`：图片, `GENERIC_USER`：用户
+	Type  string                             `json:"type,omitempty"`  // 自定义字段类型   , `TEXT`：文本, `HREF`：网页, `ENUMERATION`：枚举, `PICTURE_ENUM`：图片, `GENERIC_USER`：用户,[自定义字段相关常见问题](https://open.feishu.cn/document/ugTN1YjL4UTN24CO1UjN/uQzN1YjL0cTN24CN3UjN)
 	ID    string                             `json:"id,omitempty"`    // 自定义字段ID
 	Value *CreateUserRespUserCustomAttrValue `json:"value,omitempty"` // 自定义字段取值
 }
@@ -1670,7 +1670,7 @@ type GetUserRespUserOrder struct {
 }
 
 type GetUserRespUserCustomAttr struct {
-	Type  string                          `json:"type,omitempty"`  // 自定义字段类型   , `TEXT`：文本, `HREF`：网页, `ENUMERATION`：枚举, `PICTURE_ENUM`：图片, `GENERIC_USER`：用户
+	Type  string                          `json:"type,omitempty"`  // 自定义字段类型   , `TEXT`：文本, `HREF`：网页, `ENUMERATION`：枚举, `PICTURE_ENUM`：图片, `GENERIC_USER`：用户,[自定义字段相关常见问题](https://open.feishu.cn/document/ugTN1YjL4UTN24CO1UjN/uQzN1YjL0cTN24CN3UjN)
 	ID    string                          `json:"id,omitempty"`    // 自定义字段ID
 	Value *GetUserRespUserCustomAttrValue `json:"value,omitempty"` // 自定义字段取值
 }
@@ -1949,7 +1949,7 @@ type GetUserListRespItemOrder struct {
 }
 
 type GetUserListRespItemCustomAttr struct {
-	Type  string                              `json:"type,omitempty"`  // 自定义字段类型   , `TEXT`：文本, `HREF`：网页, `ENUMERATION`：枚举, `PICTURE_ENUM`：图片, `GENERIC_USER`：用户
+	Type  string                              `json:"type,omitempty"`  // 自定义字段类型   , `TEXT`：文本, `HREF`：网页, `ENUMERATION`：枚举, `PICTURE_ENUM`：图片, `GENERIC_USER`：用户,[自定义字段相关常见问题](https://open.feishu.cn/document/ugTN1YjL4UTN24CO1UjN/uQzN1YjL0cTN24CN3UjN)
 	ID    string                              `json:"id,omitempty"`    // 自定义字段ID
 	Value *GetUserListRespItemCustomAttrValue `json:"value,omitempty"` // 自定义字段取值
 }
@@ -2111,7 +2111,7 @@ type UpdateUserReqOrder struct {
 }
 
 type UpdateUserReqCustomAttr struct {
-	Type  *string                       `json:"type,omitempty"`  // 自定义字段类型   , `TEXT`：文本, `HREF`：网页, `ENUMERATION`：枚举, `PICTURE_ENUM`：图片, `GENERIC_USER`：用户, 示例值："TEXT"
+	Type  *string                       `json:"type,omitempty"`  // 自定义字段类型   , `TEXT`：文本, `HREF`：网页, `ENUMERATION`：枚举, `PICTURE_ENUM`：图片, `GENERIC_USER`：用户,[自定义字段相关常见问题](https://open.feishu.cn/document/ugTN1YjL4UTN24CO1UjN/uQzN1YjL0cTN24CN3UjN), 示例值："TEXT"
 	ID    *string                       `json:"id,omitempty"`    // 自定义字段ID, 示例值："DemoId"
 	Value *UpdateUserReqCustomAttrValue `json:"value,omitempty"` // 自定义字段取值
 }
@@ -2190,7 +2190,7 @@ type UpdateUserRespUserOrder struct {
 }
 
 type UpdateUserRespUserCustomAttr struct {
-	Type  string                             `json:"type,omitempty"`  // 自定义字段类型   , `TEXT`：文本, `HREF`：网页, `ENUMERATION`：枚举, `PICTURE_ENUM`：图片, `GENERIC_USER`：用户
+	Type  string                             `json:"type,omitempty"`  // 自定义字段类型   , `TEXT`：文本, `HREF`：网页, `ENUMERATION`：枚举, `PICTURE_ENUM`：图片, `GENERIC_USER`：用户,[自定义字段相关常见问题](https://open.feishu.cn/document/ugTN1YjL4UTN24CO1UjN/uQzN1YjL0cTN24CN3UjN)
 	ID    string                             `json:"id,omitempty"`    // 自定义字段ID
 	Value *UpdateUserRespUserCustomAttrValue `json:"value,omitempty"` // 自定义字段取值
 }
@@ -2286,7 +2286,7 @@ type UpdateUserPatchReqOrder struct {
 }
 
 type UpdateUserPatchReqCustomAttr struct {
-	Type  *string                            `json:"type,omitempty"`  // 自定义字段类型   , `TEXT`：文本, `HREF`：网页, `ENUMERATION`：枚举, `PICTURE_ENUM`：图片, `GENERIC_USER`：用户, 示例值："TEXT"
+	Type  *string                            `json:"type,omitempty"`  // 自定义字段类型   , `TEXT`：文本, `HREF`：网页, `ENUMERATION`：枚举, `PICTURE_ENUM`：图片, `GENERIC_USER`：用户,[自定义字段相关常见问题](https://open.feishu.cn/document/ugTN1YjL4UTN24CO1UjN/uQzN1YjL0cTN24CN3UjN), 示例值："TEXT"
 	ID    *string                            `json:"id,omitempty"`    // 自定义字段ID, 示例值："DemoId"
 	Value *UpdateUserPatchReqCustomAttrValue `json:"value,omitempty"` // 自定义字段取值
 }
@@ -2365,7 +2365,7 @@ type UpdateUserPatchRespUserOrder struct {
 }
 
 type UpdateUserPatchRespUserCustomAttr struct {
-	Type  string                                  `json:"type,omitempty"`  // 自定义字段类型   , `TEXT`：文本, `HREF`：网页, `ENUMERATION`：枚举, `PICTURE_ENUM`：图片, `GENERIC_USER`：用户
+	Type  string                                  `json:"type,omitempty"`  // 自定义字段类型   , `TEXT`：文本, `HREF`：网页, `ENUMERATION`：枚举, `PICTURE_ENUM`：图片, `GENERIC_USER`：用户,[自定义字段相关常见问题](https://open.feishu.cn/document/ugTN1YjL4UTN24CO1UjN/uQzN1YjL0cTN24CN3UjN)
 	ID    string                                  `json:"id,omitempty"`    // 自定义字段ID
 	Value *UpdateUserPatchRespUserCustomAttrValue `json:"value,omitempty"` // 自定义字段取值
 }

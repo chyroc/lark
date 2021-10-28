@@ -620,6 +620,54 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 			as.NotNil(err)
 			as.Equal(err.Error(), "failed")
 		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.GetWikiSpaceList(ctx, &lark.GetWikiSpaceListReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.GetWikiSpace(ctx, &lark.GetWikiSpaceReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.UpdateWikiSpaceSetting(ctx, &lark.UpdateWikiSpaceSettingReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.AddWikiSpaceMember(ctx, &lark.AddWikiSpaceMemberReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.CreateWikiNode(ctx, &lark.CreateWikiNodeReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.GetWikiNodeList(ctx, &lark.GetWikiNodeListReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.GetWikiNode(ctx, &lark.GetWikiNodeReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.MoveDocsToWiki(ctx, &lark.MoveDocsToWikiReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "failed")
+		})
 	})
 
 	t.Run("request mock failed", func(t *testing.T) {
@@ -1725,6 +1773,94 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 			as.NotNil(err)
 			as.Equal(err.Error(), "mock-failed")
 		})
+
+		t.Run("", func(t *testing.T) {
+			cli.Mock().MockDriveGetWikiSpaceList(func(ctx context.Context, request *lark.GetWikiSpaceListReq, options ...lark.MethodOptionFunc) (*lark.GetWikiSpaceListResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockDriveGetWikiSpaceList()
+
+			_, _, err := moduleCli.GetWikiSpaceList(ctx, &lark.GetWikiSpaceListReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+			cli.Mock().MockDriveGetWikiSpace(func(ctx context.Context, request *lark.GetWikiSpaceReq, options ...lark.MethodOptionFunc) (*lark.GetWikiSpaceResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockDriveGetWikiSpace()
+
+			_, _, err := moduleCli.GetWikiSpace(ctx, &lark.GetWikiSpaceReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+			cli.Mock().MockDriveUpdateWikiSpaceSetting(func(ctx context.Context, request *lark.UpdateWikiSpaceSettingReq, options ...lark.MethodOptionFunc) (*lark.UpdateWikiSpaceSettingResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockDriveUpdateWikiSpaceSetting()
+
+			_, _, err := moduleCli.UpdateWikiSpaceSetting(ctx, &lark.UpdateWikiSpaceSettingReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+			cli.Mock().MockDriveAddWikiSpaceMember(func(ctx context.Context, request *lark.AddWikiSpaceMemberReq, options ...lark.MethodOptionFunc) (*lark.AddWikiSpaceMemberResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockDriveAddWikiSpaceMember()
+
+			_, _, err := moduleCli.AddWikiSpaceMember(ctx, &lark.AddWikiSpaceMemberReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+			cli.Mock().MockDriveCreateWikiNode(func(ctx context.Context, request *lark.CreateWikiNodeReq, options ...lark.MethodOptionFunc) (*lark.CreateWikiNodeResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockDriveCreateWikiNode()
+
+			_, _, err := moduleCli.CreateWikiNode(ctx, &lark.CreateWikiNodeReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+			cli.Mock().MockDriveGetWikiNodeList(func(ctx context.Context, request *lark.GetWikiNodeListReq, options ...lark.MethodOptionFunc) (*lark.GetWikiNodeListResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockDriveGetWikiNodeList()
+
+			_, _, err := moduleCli.GetWikiNodeList(ctx, &lark.GetWikiNodeListReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+			cli.Mock().MockDriveGetWikiNode(func(ctx context.Context, request *lark.GetWikiNodeReq, options ...lark.MethodOptionFunc) (*lark.GetWikiNodeResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockDriveGetWikiNode()
+
+			_, _, err := moduleCli.GetWikiNode(ctx, &lark.GetWikiNodeReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+			cli.Mock().MockDriveMoveDocsToWiki(func(ctx context.Context, request *lark.MoveDocsToWikiReq, options ...lark.MethodOptionFunc) (*lark.MoveDocsToWikiResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockDriveMoveDocsToWiki()
+
+			_, _, err := moduleCli.MoveDocsToWiki(ctx, &lark.MoveDocsToWikiReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
 	})
 
 	t.Run("response is failed", func(t *testing.T) {
@@ -2525,6 +2661,66 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 			_, _, err := moduleCli.QuerySheetFloatImage(ctx, &lark.QuerySheetFloatImageReq{
 				SpreadSheetToken: "x",
 				SheetID:          "x",
+			})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.GetWikiSpaceList(ctx, &lark.GetWikiSpaceListReq{})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.GetWikiSpace(ctx, &lark.GetWikiSpaceReq{
+				SpaceID: "x",
+			})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.UpdateWikiSpaceSetting(ctx, &lark.UpdateWikiSpaceSettingReq{
+				SpaceID: "x",
+			})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.AddWikiSpaceMember(ctx, &lark.AddWikiSpaceMemberReq{
+				SpaceID: "x",
+			})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.CreateWikiNode(ctx, &lark.CreateWikiNodeReq{
+				SpaceID: "x",
+			})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.GetWikiNodeList(ctx, &lark.GetWikiNodeListReq{
+				SpaceID: "x",
+			})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.GetWikiNode(ctx, &lark.GetWikiNodeReq{})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.MoveDocsToWiki(ctx, &lark.MoveDocsToWikiReq{
+				SpaceID: "x",
 			})
 			as.NotNil(err)
 			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
@@ -3332,6 +3528,66 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 			_, _, err := moduleCli.QuerySheetFloatImage(ctx, &lark.QuerySheetFloatImageReq{
 				SpreadSheetToken: "x",
 				SheetID:          "x",
+			})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.GetWikiSpaceList(ctx, &lark.GetWikiSpaceListReq{})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.GetWikiSpace(ctx, &lark.GetWikiSpaceReq{
+				SpaceID: "x",
+			})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.UpdateWikiSpaceSetting(ctx, &lark.UpdateWikiSpaceSettingReq{
+				SpaceID: "x",
+			})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.AddWikiSpaceMember(ctx, &lark.AddWikiSpaceMemberReq{
+				SpaceID: "x",
+			})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.CreateWikiNode(ctx, &lark.CreateWikiNodeReq{
+				SpaceID: "x",
+			})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.GetWikiNodeList(ctx, &lark.GetWikiNodeListReq{
+				SpaceID: "x",
+			})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.GetWikiNode(ctx, &lark.GetWikiNodeReq{})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.MoveDocsToWiki(ctx, &lark.MoveDocsToWikiReq{
+				SpaceID: "x",
 			})
 			as.NotNil(err)
 			as.Equal("fake raw request", err.Error())

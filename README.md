@@ -37,7 +37,7 @@ https://godoc.org/github.com/chyroc/lark
 
 ## Support APIs
 
-API Count: 476, Event Count: 76
+API Count: 486, Event Count: 76
 
 <details>
   <summary>
@@ -247,6 +247,15 @@ API Count: 476, Event Count: 76
   - UpdateSheetFloatImage
   - GetSheetFloatImage
   - QuerySheetFloatImage
+  - CreateWikiSpace
+  - GetWikiSpaceList
+  - GetWikiSpace
+  - UpdateWikiSpaceSetting
+  - AddWikiSpaceMember
+  - CreateWikiNode
+  - GetWikiNodeList
+  - GetWikiNode
+  - MoveDocsToWiki
 - Bitable
   - GetBitableViewList
   - CreateBitableView
@@ -345,6 +354,7 @@ API Count: 476, Event Count: 76
   - GetPublicMailboxList
   - UpdatePublicMailboxPatch
   - UpdatePublicMailbox
+  - DeletePublicMailbox
   - CreatePublicMailboxMember
   - GetPublicMailboxMember
   - GetPublicMailboxMemberList

@@ -36,7 +36,7 @@ https://godoc.org/github.com/chyroc/lark
 
 ## 支持的接口
 
-API 总数: 476, 事件总数: 76
+API 总数: 486, 事件总数: 76
 
 <details>
   <summary>
@@ -246,6 +246,15 @@ API 总数: 476, 事件总数: 76
   - UpdateSheetFloatImage
   - GetSheetFloatImage
   - QuerySheetFloatImage
+  - CreateWikiSpace
+  - GetWikiSpaceList
+  - GetWikiSpace
+  - UpdateWikiSpaceSetting
+  - AddWikiSpaceMember
+  - CreateWikiNode
+  - GetWikiNodeList
+  - GetWikiNode
+  - MoveDocsToWiki
 - Bitable
   - GetBitableViewList
   - CreateBitableView
@@ -344,6 +353,7 @@ API 总数: 476, 事件总数: 76
   - GetPublicMailboxList
   - UpdatePublicMailboxPatch
   - UpdatePublicMailbox
+  - DeletePublicMailbox
   - CreatePublicMailboxMember
   - GetPublicMailboxMember
   - GetPublicMailboxMemberList

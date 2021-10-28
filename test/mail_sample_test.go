@@ -136,6 +136,12 @@ func Test_Mail_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.DeletePublicMailbox(ctx, &lark.DeletePublicMailboxReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "failed")
+		})
+
+		t.Run("", func(t *testing.T) {
 			_, _, err := moduleCli.CreatePublicMailboxMember(ctx, &lark.CreatePublicMailboxMemberReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "failed")
@@ -380,6 +386,17 @@ func Test_Mail_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
+			cli.Mock().MockMailDeletePublicMailbox(func(ctx context.Context, request *lark.DeletePublicMailboxReq, options ...lark.MethodOptionFunc) (*lark.DeletePublicMailboxResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockMailDeletePublicMailbox()
+
+			_, _, err := moduleCli.DeletePublicMailbox(ctx, &lark.DeletePublicMailboxReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
 			cli.Mock().MockMailCreatePublicMailboxMember(func(ctx context.Context, request *lark.CreatePublicMailboxMemberReq, options ...lark.MethodOptionFunc) (*lark.CreatePublicMailboxMemberResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -588,6 +605,14 @@ func Test_Mail_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.DeletePublicMailbox(ctx, &lark.DeletePublicMailboxReq{
+				PublicMailboxID: "x",
+			})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
 			_, _, err := moduleCli.CreatePublicMailboxMember(ctx, &lark.CreatePublicMailboxMemberReq{
 				PublicMailboxID: "x",
 			})
@@ -779,6 +804,14 @@ func Test_Mail_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 			_, _, err := moduleCli.UpdatePublicMailbox(ctx, &lark.UpdatePublicMailboxReq{
+				PublicMailboxID: "x",
+			})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.DeletePublicMailbox(ctx, &lark.DeletePublicMailboxReq{
 				PublicMailboxID: "x",
 			})
 			as.NotNil(err)
