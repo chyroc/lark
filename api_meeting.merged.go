@@ -49,7 +49,7 @@ type batchGetMeetingRoomBuildingIDResp struct {
 }
 
 type BatchGetMeetingRoomBuildingIDResp struct {
-	Buildings *BatchGetMeetingRoomBuildingIDRespBuilding `json:"buildings,omitempty"` // 建筑列表
+	Buildings []*BatchGetMeetingRoomBuildingIDRespBuilding `json:"buildings,omitempty"` // 建筑列表
 }
 
 type BatchGetMeetingRoomBuildingIDRespBuilding struct {
@@ -203,12 +203,12 @@ type getMeetingRoomBuildingListResp struct {
 }
 
 type GetMeetingRoomBuildingListResp struct {
-	PageToken string                                   `json:"page_token,omitempty"` // 分页标记，存在下一页时返回
-	HasMore   bool                                     `json:"has_more,omitempty"`   // 存在下一页时，该值为 true，否则为 false
-	Buildings *GetMeetingRoomBuildingListRespBuildings `json:"buildings,omitempty"`  // 建筑列表
+	PageToken string                                    `json:"page_token,omitempty"` // 分页标记，存在下一页时返回
+	HasMore   bool                                      `json:"has_more,omitempty"`   // 存在下一页时，该值为 true，否则为 false
+	Buildings []*GetMeetingRoomBuildingListRespBuilding `json:"buildings,omitempty"`  // 建筑列表
 }
 
-type GetMeetingRoomBuildingListRespBuildings struct {
+type GetMeetingRoomBuildingListRespBuilding struct {
 	BuildingID  string   `json:"building_id,omitempty"` // 建筑物 ID
 	Description string   `json:"description,omitempty"` // 建筑物的相关描述
 	Floors      []string `json:"floors,omitempty"`      // 属于当前建筑物的所有楼层列表
@@ -534,7 +534,7 @@ type batchGetMeetingRoomRoomResp struct {
 }
 
 type BatchGetMeetingRoomRoomResp struct {
-	Rooms *BatchGetMeetingRoomRoomRespRoom `json:"rooms,omitempty"` // 会议室列表
+	Rooms []*BatchGetMeetingRoomRoomRespRoom `json:"rooms,omitempty"` // 会议室列表
 }
 
 type BatchGetMeetingRoomRoomRespRoom struct {
@@ -594,7 +594,7 @@ type batchGetMeetingRoomRoomIDResp struct {
 }
 
 type BatchGetMeetingRoomRoomIDResp struct {
-	Rooms *BatchGetMeetingRoomRoomIDRespRoom `json:"rooms,omitempty"` // 会议室列表
+	Rooms []*BatchGetMeetingRoomRoomIDRespRoom `json:"rooms,omitempty"` // 会议室列表
 }
 
 type BatchGetMeetingRoomRoomIDRespRoom struct {
@@ -750,12 +750,12 @@ type getMeetingRoomRoomListResp struct {
 }
 
 type GetMeetingRoomRoomListResp struct {
-	PageToken string                           `json:"page_token,omitempty"` // 分页标记，存在下一页时返回
-	HasMore   bool                             `json:"has_more,omitempty"`   // 存在下一页时，该值为 true，否则为 false
-	Rooms     *GetMeetingRoomRoomListRespRooms `json:"rooms,omitempty"`      // 会议室列表
+	PageToken string                            `json:"page_token,omitempty"` // 分页标记，存在下一页时返回
+	HasMore   bool                              `json:"has_more,omitempty"`   // 存在下一页时，该值为 true，否则为 false
+	Rooms     []*GetMeetingRoomRoomListRespRoom `json:"rooms,omitempty"`      // 会议室列表
 }
 
-type GetMeetingRoomRoomListRespRooms struct {
+type GetMeetingRoomRoomListRespRoom struct {
 	RoomID       string `json:"room_id,omitempty"`       // 会议室 ID
 	BuildingID   string `json:"building_id,omitempty"`   // 会议室所属建筑物 ID
 	BuildingName string `json:"building_name,omitempty"` // 会议室所属建筑物名称

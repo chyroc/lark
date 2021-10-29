@@ -123,11 +123,15 @@ const (
 type CalendarEventAttendeeType string
 
 const (
-	CalendarEventAttendeeTypeUser       CalendarEventAttendeeType = "user" // 用户
-	CalendarEventAttendeeTypeChat       CalendarEventAttendeeType = "chat" // 群组
-	CalendarEventAttendeeTypeResource   CalendarEventAttendeeType = "user" // 会议室
-	CalendarEventAttendeeTypeThirdParty CalendarEventAttendeeType = "user" // 邮箱
+	CalendarEventAttendeeTypeUser       CalendarEventAttendeeType = "user"     // 用户
+	CalendarEventAttendeeTypeChat       CalendarEventAttendeeType = "chat"     // 群组
+	CalendarEventAttendeeTypeResource   CalendarEventAttendeeType = "resource" // 会议室
+	CalendarEventAttendeeTypeThirdParty CalendarEventAttendeeType = "user"     // 邮箱
 )
+
+func CalendarEventAttendeeTypePtr(v CalendarEventAttendeeType) *CalendarEventAttendeeType {
+	return &v
+}
 
 type CalendarType string
 

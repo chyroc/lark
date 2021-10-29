@@ -1390,7 +1390,7 @@ type batchGetMeetingRoomBuildingResp struct {
 }
 
 type BatchGetMeetingRoomBuildingResp struct {
-	Buildings *BatchGetMeetingRoomBuildingRespBuilding `json:"buildings,omitempty"` // 建筑列表
+	Buildings []*BatchGetMeetingRoomBuildingRespBuilding `json:"buildings,omitempty"` // 建筑列表
 }
 
 type BatchGetMeetingRoomBuildingRespBuilding struct {
