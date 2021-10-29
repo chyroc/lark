@@ -179,13 +179,13 @@ func (r *MessageSendAPI) send(ctx context.Context, msgType MsgType, format strin
 	if r.cli.customBotWebHookURL != "" {
 		return r.msgAPI.sendCustomBotMessage(ctx, &sendCustomBotMessageReq{
 			MsgType: msgType,
-			Content: fmt.Sprintf(format, args...),
+			Content: formatString(format, args...),
 		})
 	}
 	return r.msgAPI.SendRawMessage(ctx, &SendRawMessageReq{
 		ReceiveIDType: r.receiveIDType,
 		ReceiveID:     r.receiveID,
-		Content:       fmt.Sprintf(format, args...),
+		Content:       formatString(format, args...),
 		MsgType:       msgType,
 	})
 }
@@ -193,7 +193,7 @@ func (r *MessageSendAPI) send(ctx context.Context, msgType MsgType, format strin
 func (r *MessageReplyAPI) reply(ctx context.Context, msgType MsgType, format string, args ...interface{}) (*ReplyRawMessageResp, *Response, error) {
 	return r.msgAPI.ReplyRawMessage(ctx, &ReplyRawMessageReq{
 		MessageID: r.messageID,
-		Content:   fmt.Sprintf(format, args...),
+		Content:   formatString(format, args...),
 		MsgType:   msgType,
 	})
 }
@@ -240,4 +240,11 @@ func generateCustomBotMessageSign(secret string, timestamp string) (string, erro
 	}
 	signature := base64.StdEncoding.EncodeToString(h.Sum(nil))
 	return signature, nil
+}
+
+func formatString(format string, args ...interface{}) string {
+	if len(args) == 0 {
+		return format
+	}
+	return fmt.Sprintf(format, args...)
 }
