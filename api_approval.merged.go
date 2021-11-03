@@ -420,7 +420,7 @@ type ApproveApprovalInstanceResp struct{}
 
 // CancelApprovalInstance
 //
-// 对于单个审批实例进行撤销操作，撤销后审批流程结束。
+// 对于状态为“审批中”的单个审批实例进行撤销操作，撤销后审批流程结束
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uYDNyUjL2QjM14iN0ITN
 func (r *ApprovalService) CancelApprovalInstance(ctx context.Context, request *CancelApprovalInstanceReq, options ...MethodOptionFunc) (*CancelApprovalInstanceResp, *Response, error) {
@@ -885,6 +885,7 @@ type SearchApprovalInstanceResp struct {
 
 type SearchApprovalInstanceRespInstance struct {
 	Approval *SearchApprovalInstanceRespInstanceApproval `json:"approval,omitempty"` // 审批定义
+	Group    *SearchApprovalInstanceRespInstanceGroup    `json:"group,omitempty"`    // 审批定义分组
 	Instance *SearchApprovalInstanceRespInstanceInstance `json:"instance,omitempty"` // 审批实例信息
 }
 
@@ -893,16 +894,18 @@ type SearchApprovalInstanceRespInstanceApproval struct {
 	Name       string                                              `json:"name,omitempty"`        // 审批定义名称
 	IsExternal bool                                                `json:"is_external,omitempty"` // 是否为第三方审批
 	External   *SearchApprovalInstanceRespInstanceApprovalExternal `json:"external,omitempty"`    // 第三方审批信息
-	Group      *SearchApprovalInstanceRespInstanceApprovalGroup    `json:"group,omitempty"`       // 审批定义分组
 }
 
 type SearchApprovalInstanceRespInstanceApprovalExternal struct {
 	BatchCcRead bool `json:"batch_cc_read,omitempty"` // 是否支持批量读
 }
 
-type SearchApprovalInstanceRespInstanceApprovalGroup struct {
-	ExternalID string `json:"external_id,omitempty"` // 审批定义分组外部 id
-	Name       string `json:"name,omitempty"`        // 审批定义分组名称
+type SearchApprovalInstanceRespInstanceGroup struct {
+	ExternalID *SearchApprovalInstanceRespInstanceGroupExternalID `json:"external_id,omitempty"` // 审批定义分组外部 id
+}
+
+type SearchApprovalInstanceRespInstanceGroupExternalID struct {
+	Name string `json:"name,omitempty"` // 审批定义分组名称
 }
 
 type SearchApprovalInstanceRespInstanceInstance struct {
