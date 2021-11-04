@@ -166,13 +166,13 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-			_, _, err := moduleCli.DeleteDriveMemberPermissionOld(ctx, &lark.DeleteDriveMemberPermissionOldReq{})
+			_, _, err := moduleCli.DeleteDriveMemberPermission(ctx, &lark.DeleteDriveMemberPermissionReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "failed")
 		})
 
 		t.Run("", func(t *testing.T) {
-			_, _, err := moduleCli.DeleteDriveMemberPermission(ctx, &lark.DeleteDriveMemberPermissionReq{})
+			_, _, err := moduleCli.DeleteDriveMemberPermissionOld(ctx, &lark.DeleteDriveMemberPermissionOldReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "failed")
 		})
@@ -939,23 +939,23 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-			cli.Mock().MockDriveDeleteDriveMemberPermissionOld(func(ctx context.Context, request *lark.DeleteDriveMemberPermissionOldReq, options ...lark.MethodOptionFunc) (*lark.DeleteDriveMemberPermissionOldResp, *lark.Response, error) {
-				return nil, nil, fmt.Errorf("mock-failed")
-			})
-			defer cli.Mock().UnMockDriveDeleteDriveMemberPermissionOld()
-
-			_, _, err := moduleCli.DeleteDriveMemberPermissionOld(ctx, &lark.DeleteDriveMemberPermissionOldReq{})
-			as.NotNil(err)
-			as.Equal(err.Error(), "mock-failed")
-		})
-
-		t.Run("", func(t *testing.T) {
 			cli.Mock().MockDriveDeleteDriveMemberPermission(func(ctx context.Context, request *lark.DeleteDriveMemberPermissionReq, options ...lark.MethodOptionFunc) (*lark.DeleteDriveMemberPermissionResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
 			defer cli.Mock().UnMockDriveDeleteDriveMemberPermission()
 
 			_, _, err := moduleCli.DeleteDriveMemberPermission(ctx, &lark.DeleteDriveMemberPermissionReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+			cli.Mock().MockDriveDeleteDriveMemberPermissionOld(func(ctx context.Context, request *lark.DeleteDriveMemberPermissionOldReq, options ...lark.MethodOptionFunc) (*lark.DeleteDriveMemberPermissionOldResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockDriveDeleteDriveMemberPermissionOld()
+
+			_, _, err := moduleCli.DeleteDriveMemberPermissionOld(ctx, &lark.DeleteDriveMemberPermissionOldReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "mock-failed")
 		})
@@ -2034,16 +2034,16 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-			_, _, err := moduleCli.DeleteDriveMemberPermissionOld(ctx, &lark.DeleteDriveMemberPermissionOldReq{})
+			_, _, err := moduleCli.DeleteDriveMemberPermission(ctx, &lark.DeleteDriveMemberPermissionReq{
+				Token:    "x",
+				MemberID: "x",
+			})
 			as.NotNil(err)
 			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
 		})
 
 		t.Run("", func(t *testing.T) {
-			_, _, err := moduleCli.DeleteDriveMemberPermission(ctx, &lark.DeleteDriveMemberPermissionReq{
-				Token:    "x",
-				MemberID: "x",
-			})
+			_, _, err := moduleCli.DeleteDriveMemberPermissionOld(ctx, &lark.DeleteDriveMemberPermissionOldReq{})
 			as.NotNil(err)
 			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
 		})
@@ -2901,16 +2901,16 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-			_, _, err := moduleCli.DeleteDriveMemberPermissionOld(ctx, &lark.DeleteDriveMemberPermissionOldReq{})
+			_, _, err := moduleCli.DeleteDriveMemberPermission(ctx, &lark.DeleteDriveMemberPermissionReq{
+				Token:    "x",
+				MemberID: "x",
+			})
 			as.NotNil(err)
 			as.Equal("fake raw request", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
-			_, _, err := moduleCli.DeleteDriveMemberPermission(ctx, &lark.DeleteDriveMemberPermissionReq{
-				Token:    "x",
-				MemberID: "x",
-			})
+			_, _, err := moduleCli.DeleteDriveMemberPermissionOld(ctx, &lark.DeleteDriveMemberPermissionOldReq{})
 			as.NotNil(err)
 			as.Equal("fake raw request", err.Error())
 		})

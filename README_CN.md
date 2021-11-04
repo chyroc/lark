@@ -36,7 +36,7 @@ https://godoc.org/github.com/chyroc/lark
 
 ## 支持的接口
 
-API 总数: 494, 事件总数: 76
+API 总数: 496, 事件总数: 76
 
 <details>
   <summary>
@@ -53,11 +53,12 @@ API 总数: 494, 事件总数: 76
   - CreateUser
   - DeleteUser
   - GetUser
-  - BatchGetUser
-  - BatchGetUserByID
   - GetUserList
+  - BatchGetUser
   - UpdateUserPatch
   - UpdateUser
+  - BatchGetUserByID
+  - BatchGetUserByIDOld
   - CreateDepartment
   - GetDepartment
   - GetDepartmentList
@@ -87,6 +88,7 @@ API 总数: 494, 事件总数: 76
   - BindContactUnitDepartment
   - UnbindContactUnitDepartment
   - GetContactUnitDepartmentList
+  - GetContactScopeList
 - Message
   - SendEphemeralMessage
   - SendUrgentAppMessage
@@ -107,8 +109,8 @@ API 总数: 494, 事件总数: 76
   - DeleteEphemeralMessage
 - Chat
   - CreateChat
-  - GetChatOld
   - GetChat
+  - GetChatOld
   - UpdateChat
   - DeleteChat
   - GetChatListOfSelf
@@ -178,8 +180,8 @@ API 总数: 494, 事件总数: 76
   - TransferDriveMemberPermission
   - GetDriveMemberPermissionList
   - CreateDriveMemberPermission
-  - DeleteDriveMemberPermissionOld
   - DeleteDriveMemberPermission
+  - DeleteDriveMemberPermissionOld
   - UpdateDriveMemberPermissionOld
   - UpdateDriveMemberPermission
   - CheckDriveMemberPermission
