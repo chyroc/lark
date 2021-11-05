@@ -353,7 +353,7 @@ type GetCalendarEventAttendeeChatMemberListResp struct {
 
 type GetCalendarEventAttendeeChatMemberListRespItem struct {
 	RsvpStatus  string `json:"rsvp_status,omitempty"`  // 参与人RSVP状态, 可选值有: `needs_action`：参与人尚未回复状态，或表示会议室预约中, `accept`：参与人回复接受，或表示会议室预约成功, `tentative`：参与人回复待定, `decline`：参与人回复拒绝，或表示会议室预约失败, `removed`：参与人或会议室已经从日程中被移除
-	IsOptional  bool   `json:"is_optional,omitempty"`  // 参与人是否为「可选参加」, 默认值: `false`
+	IsOptional  bool   `json:"is_optional,omitempty"`  // 参与人是否为「可选参加」
 	DisplayName string `json:"display_name,omitempty"` // 参与人名称
 	IsOrganizer bool   `json:"is_organizer,omitempty"` // 参与人是否为日程组织者
 	IsExternal  bool   `json:"is_external,omitempty"`  // 参与人是否为外部参与人
@@ -854,8 +854,8 @@ type GetCalendarEventResp struct {
 
 type GetCalendarEventRespEvent struct {
 	EventID          string                               `json:"event_id,omitempty"`           // 日程ID
-	Summary          string                               `json:"summary,omitempty"`            // 日程标题, 最大长度：`1000` 字符
-	Description      string                               `json:"description,omitempty"`        // 日程描述, 最大长度：`8192` 字符
+	Summary          string                               `json:"summary,omitempty"`            // 日程标题
+	Description      string                               `json:"description,omitempty"`        // 日程描述
 	StartTime        *GetCalendarEventRespEventStartTime  `json:"start_time,omitempty"`         // 日程开始时间
 	EndTime          *GetCalendarEventRespEventEndTime    `json:"end_time,omitempty"`           // 日程结束时间
 	Vchat            *GetCalendarEventRespEventVchat      `json:"vchat,omitempty"`              // 视频会议信息。
@@ -865,7 +865,7 @@ type GetCalendarEventRespEvent struct {
 	Location         *GetCalendarEventRespEventLocation   `json:"location,omitempty"`           // 日程地点
 	Color            int64                                `json:"color,omitempty"`              // 日程颜色，颜色RGB值的int32表示。仅对当前身份生效；客户端展示时会映射到色板上最接近的一种颜色；值为0或-1时默认跟随日历颜色。
 	Reminders        []*GetCalendarEventRespEventReminder `json:"reminders,omitempty"`          // 日程提醒列表
-	Recurrence       string                               `json:"recurrence,omitempty"`         // 重复日程的重复性规则；参考[rfc5545](https://datatracker.ietf.org/doc/html/rfc5545#section-3.3.10)；, 不支持COUNT和UNTIL同时出现；, 预定会议室重复日程长度不得超过两年。, 最大长度：`2000` 字符
+	Recurrence       string                               `json:"recurrence,omitempty"`         // 重复日程的重复性规则；参考[rfc5545](https://datatracker.ietf.org/doc/html/rfc5545#section-3.3.10)；, 不支持COUNT和UNTIL同时出现；, 预定会议室重复日程长度不得超过两年。
 	Status           string                               `json:"status,omitempty"`             // 日程状态, 可选值有: `tentative`：未回应, `confirmed`：已确认, `cancelled`：日程已取消
 	IsException      bool                                 `json:"is_exception,omitempty"`       // 日程是否是一个重复日程的例外日程
 	RecurringEventID string                               `json:"recurring_event_id,omitempty"` // 例外日程的原重复日程的event_id
@@ -887,25 +887,25 @@ type GetCalendarEventRespEventEndTime struct {
 type GetCalendarEventRespEventVchat struct {
 	VCType      string `json:"vc_type,omitempty"`     // 视频会议类型, 可选值有: `vc`：飞书视频会议，取该类型时，其他字段无效。, `third_party`：第三方链接视频会议，取该类型时，icon_type、description、meeting_url字段生效。, `no_meeting`：无视频会议，取该类型时，其他字段无效。, `lark_live`：Lark直播，内部类型，只读。, `unknown`：未知类型，做兼容使用，只读。
 	IconType    string `json:"icon_type,omitempty"`   // 第三方视频会议icon类型；可以为空，为空展示默认icon。, 可选值有: `vc`：飞书视频会议icon, `live`：直播视频会议icon, `default`：默认icon
-	Description string `json:"description,omitempty"` // 第三方视频会议文案，可以为空，为空展示默认文案, 长度范围：`0` ～ `500` 字符
-	MeetingURL  string `json:"meeting_url,omitempty"` // 视频会议URL, 长度范围：`1` ～ `2000` 字符
+	Description string `json:"description,omitempty"` // 第三方视频会议文案，可以为空，为空展示默认文案
+	MeetingURL  string `json:"meeting_url,omitempty"` // 视频会议URL
 }
 
 type GetCalendarEventRespEventLocation struct {
-	Name      string  `json:"name,omitempty"`      // 地点名称, 长度范围：`1` ～ `512` 字符
-	Address   string  `json:"address,omitempty"`   // 地点地址, 长度范围：`1` ～ `255` 字符
+	Name      string  `json:"name,omitempty"`      // 地点名称
+	Address   string  `json:"address,omitempty"`   // 地点地址
 	Latitude  float64 `json:"latitude,omitempty"`  // 地点坐标纬度信息，对于国内的地点，采用GCJ-02标准，海外地点采用WGS84标准
 	Longitude float64 `json:"longitude,omitempty"` // 地点坐标经度信息，对于国内的地点，采用GCJ-02标准，海外地点采用WGS84标准
 }
 
 type GetCalendarEventRespEventReminder struct {
-	Minutes int64 `json:"minutes,omitempty"` // 日程提醒时间的偏移量，正数时表示在日程开始前X分钟提醒，负数时表示在日程开始后X分钟提醒,新建或更新日程时传入该字段，仅对当前身份生效, 取值范围：`-20160` ～ `20160`
+	Minutes int64 `json:"minutes,omitempty"` // 日程提醒时间的偏移量，正数时表示在日程开始前X分钟提醒，负数时表示在日程开始后X分钟提醒,新建或更新日程时传入该字段，仅对当前身份生效
 }
 
 type GetCalendarEventRespEventSchema struct {
 	UiName   string `json:"ui_name,omitempty"`   // UI名称。取值范围如下： , ForwardIcon: 日程转发按钮 , MeetingChatIcon: 会议群聊按钮 , MeetingMinutesIcon: 会议纪要按钮 , MeetingVideo: 视频会议区域 , RSVP: 接受/拒绝/待定区域 , Attendee: 参与者区域 , OrganizerOrCreator: 组织者/创建者区域
 	UiStatus string `json:"ui_status,omitempty"` // UI项自定义状态。目前只支持hide, 可选值有: `hide`：隐藏显示, `readonly`：只读, `editable`：可编辑, `unknown`：未知UI项自定义状态，仅用于读取时兼容
-	AppLink  string `json:"app_link,omitempty"`  // 按钮点击后跳转的链接, 最大长度：`2000` 字符
+	AppLink  string `json:"app_link,omitempty"`  // 按钮点击后跳转的链接
 }
 
 // Code generated by lark_sdk_gen. DO NOT EDIT.
@@ -1964,6 +1964,167 @@ type unsubscribeCalendarResp struct {
 }
 
 type UnsubscribeCalendarResp struct{}
+
+// Code generated by lark_sdk_gen. DO NOT EDIT.
+
+// CreateCalendarExchangeBinding 本接口将Exchange账户绑定到飞书账户，进而支持Exchange日历的导入
+//
+// 操作用户需要是企业超级管理员
+//
+// doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/exchange_binding/create
+func (r *CalendarService) CreateCalendarExchangeBinding(ctx context.Context, request *CreateCalendarExchangeBindingReq, options ...MethodOptionFunc) (*CreateCalendarExchangeBindingResp, *Response, error) {
+	if r.cli.mock.mockCalendarCreateCalendarExchangeBinding != nil {
+		r.cli.log(ctx, LogLevelDebug, "[lark] Calendar#CreateCalendarExchangeBinding mock enable")
+		return r.cli.mock.mockCalendarCreateCalendarExchangeBinding(ctx, request, options...)
+	}
+
+	req := &RawRequestReq{
+		Scope:               "Calendar",
+		API:                 "CreateCalendarExchangeBinding",
+		Method:              "POST",
+		URL:                 r.cli.openBaseURL + "/open-apis/calendar/v4/exchange_bindings",
+		Body:                request,
+		MethodOption:        newMethodOption(options),
+		NeedUserAccessToken: true,
+	}
+	resp := new(createCalendarExchangeBindingResp)
+
+	response, err := r.cli.RawRequest(ctx, req, resp)
+	return resp.Data, response, err
+}
+
+func (r *Mock) MockCalendarCreateCalendarExchangeBinding(f func(ctx context.Context, request *CreateCalendarExchangeBindingReq, options ...MethodOptionFunc) (*CreateCalendarExchangeBindingResp, *Response, error)) {
+	r.mockCalendarCreateCalendarExchangeBinding = f
+}
+
+func (r *Mock) UnMockCalendarCreateCalendarExchangeBinding() {
+	r.mockCalendarCreateCalendarExchangeBinding = nil
+}
+
+type CreateCalendarExchangeBindingReq struct {
+	UserIDType        *IDType `query:"user_id_type" json:"-"`        // 用户 ID 类型, 示例值："open_id", 可选值有: `open_id`：用户的 open id, `union_id`：用户的 union id, `user_id`：用户的 user id, 默认值: `open_id`,, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
+	AdminAccount      *string `json:"admin_account,omitempty"`       // admin账户, 示例值："email_admin_example@outlook.com", 长度范围：`1` ～ `500` 字符, 字段权限要求:  获取用户邮箱信息
+	ExchangeAccount   *string `json:"exchange_account,omitempty"`    // 用户绑定的exchange账户, 示例值："email_account_example@outlook.com", 长度范围：`1` ～ `500` 字符, 字段权限要求:  获取用户邮箱信息
+	UserID            *string `json:"user_id,omitempty"`             // exchange账户绑定user唯一标识id, 示例值："ou_xxxxxxxxxxxxxxxxxx"
+	ExchangeBindingID *string `json:"exchange_binding_id,omitempty"` // exchange绑定唯一标识id, 示例值："ZW1haWxfYWRtaW5fZXhhbXBsZUBvdXRsb29rLmNvbSBlbWFpbF9hY2NvdW50X2V4YW1wbGVAb3V0bG9vay5jb20="
+}
+
+type createCalendarExchangeBindingResp struct {
+	Code int64                              `json:"code,omitempty"` // 错误码，非 0 表示失败
+	Msg  string                             `json:"msg,omitempty"`  // 错误描述
+	Data *CreateCalendarExchangeBindingResp `json:"data,omitempty"`
+}
+
+type CreateCalendarExchangeBindingResp struct {
+	AdminAccount      string `json:"admin_account,omitempty"`       // admin账户, 长度范围：`1` ～ `500` 字符, 字段权限要求:  获取用户邮箱信息
+	ExchangeAccount   string `json:"exchange_account,omitempty"`    // 用户绑定的exchange账户, 长度范围：`1` ～ `500` 字符, 字段权限要求:  获取用户邮箱信息
+	UserID            string `json:"user_id,omitempty"`             // exchange账户绑定user唯一标识id
+	Status            string `json:"status,omitempty"`              // exchange账户同步状态, 可选值有: `doing`：日历正在同步, `cal_done`：日历同步完成, `timespan_done`：近期时间段同步完成, `done`：日程同步完成, `err`：同步错误
+	ExchangeBindingID string `json:"exchange_binding_id,omitempty"` // exchange绑定唯一标识id
+}
+
+// Code generated by lark_sdk_gen. DO NOT EDIT.
+
+// DeleteCalendarExchangeBinding 本接口解除Exchange账户和飞书账户的绑定关系，Exchange账户解除绑定后才能绑定其他飞书账户
+//
+// 操作用户需要是企业超级管理员
+//
+// doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/exchange_binding/delete
+func (r *CalendarService) DeleteCalendarExchangeBinding(ctx context.Context, request *DeleteCalendarExchangeBindingReq, options ...MethodOptionFunc) (*DeleteCalendarExchangeBindingResp, *Response, error) {
+	if r.cli.mock.mockCalendarDeleteCalendarExchangeBinding != nil {
+		r.cli.log(ctx, LogLevelDebug, "[lark] Calendar#DeleteCalendarExchangeBinding mock enable")
+		return r.cli.mock.mockCalendarDeleteCalendarExchangeBinding(ctx, request, options...)
+	}
+
+	req := &RawRequestReq{
+		Scope:               "Calendar",
+		API:                 "DeleteCalendarExchangeBinding",
+		Method:              "DELETE",
+		URL:                 r.cli.openBaseURL + "/open-apis/calendar/v4/exchange_bindings/:exchange_binding_id",
+		Body:                request,
+		MethodOption:        newMethodOption(options),
+		NeedUserAccessToken: true,
+	}
+	resp := new(deleteCalendarExchangeBindingResp)
+
+	response, err := r.cli.RawRequest(ctx, req, resp)
+	return resp.Data, response, err
+}
+
+func (r *Mock) MockCalendarDeleteCalendarExchangeBinding(f func(ctx context.Context, request *DeleteCalendarExchangeBindingReq, options ...MethodOptionFunc) (*DeleteCalendarExchangeBindingResp, *Response, error)) {
+	r.mockCalendarDeleteCalendarExchangeBinding = f
+}
+
+func (r *Mock) UnMockCalendarDeleteCalendarExchangeBinding() {
+	r.mockCalendarDeleteCalendarExchangeBinding = nil
+}
+
+type DeleteCalendarExchangeBindingReq struct {
+	ExchangeBindingID string `path:"exchange_binding_id" json:"-"` // exchange绑定唯一标识id, 示例值："ZW1haWxfYWRtaW5fZXhhbXBsZUBvdXRsb29rLmNvbSBlbWFpbF9hY2NvdW50X2V4YW1wbGVAb3V0bG9vay5jb20="
+}
+
+type deleteCalendarExchangeBindingResp struct {
+	Code int64                              `json:"code,omitempty"` // 错误码，非 0 表示失败
+	Msg  string                             `json:"msg,omitempty"`  // 错误描述
+	Data *DeleteCalendarExchangeBindingResp `json:"data,omitempty"`
+}
+
+type DeleteCalendarExchangeBindingResp struct{}
+
+// Code generated by lark_sdk_gen. DO NOT EDIT.
+
+// GetCalendarExchangeBinding 本接口获取Exchange账户的绑定状态，包括exchange日历是否同步完成。
+//
+// 操作用户需要是企业超级管理员
+//
+// doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/exchange_binding/get
+func (r *CalendarService) GetCalendarExchangeBinding(ctx context.Context, request *GetCalendarExchangeBindingReq, options ...MethodOptionFunc) (*GetCalendarExchangeBindingResp, *Response, error) {
+	if r.cli.mock.mockCalendarGetCalendarExchangeBinding != nil {
+		r.cli.log(ctx, LogLevelDebug, "[lark] Calendar#GetCalendarExchangeBinding mock enable")
+		return r.cli.mock.mockCalendarGetCalendarExchangeBinding(ctx, request, options...)
+	}
+
+	req := &RawRequestReq{
+		Scope:               "Calendar",
+		API:                 "GetCalendarExchangeBinding",
+		Method:              "GET",
+		URL:                 r.cli.openBaseURL + "/open-apis/calendar/v4/exchange_bindings/:exchange_binding_id",
+		Body:                request,
+		MethodOption:        newMethodOption(options),
+		NeedUserAccessToken: true,
+	}
+	resp := new(getCalendarExchangeBindingResp)
+
+	response, err := r.cli.RawRequest(ctx, req, resp)
+	return resp.Data, response, err
+}
+
+func (r *Mock) MockCalendarGetCalendarExchangeBinding(f func(ctx context.Context, request *GetCalendarExchangeBindingReq, options ...MethodOptionFunc) (*GetCalendarExchangeBindingResp, *Response, error)) {
+	r.mockCalendarGetCalendarExchangeBinding = f
+}
+
+func (r *Mock) UnMockCalendarGetCalendarExchangeBinding() {
+	r.mockCalendarGetCalendarExchangeBinding = nil
+}
+
+type GetCalendarExchangeBindingReq struct {
+	UserIDType        *IDType `query:"user_id_type" json:"-"`       // 用户 ID 类型, 示例值："open_id", 可选值有: `open_id`：用户的 open id, `union_id`：用户的 union id, `user_id`：用户的 user id, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
+	ExchangeBindingID string  `path:"exchange_binding_id" json:"-"` // exchange绑定唯一标识id, 示例值："ZW1haWxfYWRtaW5fZXhhbXBsZUBvdXRsb29rLmNvbSBlbWFpbF9hY2NvdW50X2V4YW1wbGVAb3V0bG9vay5jb20="
+}
+
+type getCalendarExchangeBindingResp struct {
+	Code int64                           `json:"code,omitempty"` // 错误码，非 0 表示失败
+	Msg  string                          `json:"msg,omitempty"`  // 错误描述
+	Data *GetCalendarExchangeBindingResp `json:"data,omitempty"`
+}
+
+type GetCalendarExchangeBindingResp struct {
+	AdminAccount      string `json:"admin_account,omitempty"`       // admin账户, 字段权限要求: 获取用户邮箱信息
+	ExchangeAccount   string `json:"exchange_account,omitempty"`    // 用户绑定的exchange账户, 字段权限要求: 获取用户邮箱信息
+	UserID            string `json:"user_id,omitempty"`             // exchange账户绑定user唯一标识id
+	Status            string `json:"status,omitempty"`              // exchange账户同步状态, 可选值有: `doing`：日历正在同步, `cal_done`：日历同步完成, `timespan_done`：近期时间段同步完成, `done`：日程同步完成, `err`：同步错误
+	ExchangeBindingID string `json:"exchange_binding_id,omitempty"` // exchange绑定唯一标识id
+}
 
 // Code generated by lark_sdk_gen. DO NOT EDIT.
 

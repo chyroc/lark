@@ -36,7 +36,7 @@ https://godoc.org/github.com/chyroc/lark
 
 ## 支持的接口
 
-API 总数: 496, 事件总数: 76
+API 总数: 501, 事件总数: 76
 
 <details>
   <summary>
@@ -154,6 +154,9 @@ API 总数: 496, 事件总数: 76
   - CreateCalendarTimeoffEvent
   - DeleteCalendarTimeoffEvent
   - GenerateCaldavConf
+  - CreateCalendarExchangeBinding
+  - GetCalendarExchangeBinding
+  - DeleteCalendarExchangeBinding
 - Drive
   - SearchDriveFile
   - GetDriveFileMeta
@@ -387,6 +390,8 @@ API 总数: 496, 事件总数: 76
   - CreateApprovalCarbonCopy
   - PreviewApprovalInstance
   - UpdateApprovalMessage
+  - SubscribeApprovalSubscription
+  - UnsubscribeApprovalSubscription
 - Helpdesk
   - StartHelpdeskService
   - GetHelpdeskTicket

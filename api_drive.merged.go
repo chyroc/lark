@@ -6941,7 +6941,7 @@ func (r *Mock) UnMockEcosystemGetEcosystemBindAwemeUser() {
 }
 
 type GetEcosystemBindAwemeUserReq struct {
-	UserIDType *IDType `query:"user_id_type" json:"-"` // 用户 ID 类型, 示例值："open_id", 可选值有: `open_id`：用户的 open id, `union_id`：用户的 union id, `user_id`：用户的 user id, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求:  获取用户 user ID
+	UserIDType *IDType `query:"user_id_type" json:"-"` // 用户 ID 类型, 示例值："open_id", 可选值有: `open_id`：用户的 open id, `union_id`：用户的 union id, `user_id`：用户的 user id, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
 	UserID     *string `query:"user_id" json:"-"`      // 飞书用户id，由user_id_type决定类型, 示例值："ou_7d8a6e6df7621556ce0d21922b676706ccs"
 }
 

@@ -37,7 +37,7 @@ https://godoc.org/github.com/chyroc/lark
 
 ## Support APIs
 
-API Count: 496, Event Count: 76
+API Count: 501, Event Count: 76
 
 <details>
   <summary>
@@ -155,6 +155,9 @@ API Count: 496, Event Count: 76
   - CreateCalendarTimeoffEvent
   - DeleteCalendarTimeoffEvent
   - GenerateCaldavConf
+  - CreateCalendarExchangeBinding
+  - GetCalendarExchangeBinding
+  - DeleteCalendarExchangeBinding
 - Drive
   - SearchDriveFile
   - GetDriveFileMeta
@@ -388,6 +391,8 @@ API Count: 496, Event Count: 76
   - CreateApprovalCarbonCopy
   - PreviewApprovalInstance
   - UpdateApprovalMessage
+  - SubscribeApprovalSubscription
+  - UnsubscribeApprovalSubscription
 - Helpdesk
   - StartHelpdeskService
   - GetHelpdeskTicket
