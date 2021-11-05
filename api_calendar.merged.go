@@ -640,18 +640,18 @@ type CreateCalendarEventReq struct {
 	Color            *int64                            `json:"color,omitempty"`             // 日程颜色，颜色RGB值的int32表示。仅对当前身份生效；客户端展示时会映射到色板上最接近的一种颜色；值为0或-1时默认跟随日历颜色。, 示例值：-1
 	Reminders        []*CreateCalendarEventReqReminder `json:"reminders,omitempty"`         // 日程提醒列表
 	Recurrence       *string                           `json:"recurrence,omitempty"`        // 重复日程的重复性规则；参考[rfc5545](https://datatracker.ietf.org/doc/html/rfc5545#section-3.3.10)；, 不支持COUNT和UNTIL同时出现；, 预定会议室重复日程长度不得超过两年。, 示例值："FREQ=DAILY;INTERVAL=1", 最大长度：`2000` 字符
-	Schemas          []*CreateCalendarEventReqSchema   `json:"schemas,omitempty"`           // 日程自定义信息
+	Schemas          []*CreateCalendarEventReqSchema   `json:"schemas,omitempty"`           // 日程自定义信息；控制日程详情页的ui展示。
 }
 
 type CreateCalendarEventReqStartTime struct {
 	Date      *string `json:"date,omitempty"`      // 仅全天日程使用该字段，如2018-09-01。需满足 RFC3339 格式。不能与 timestamp 同时指定, 示例值："2018-09-01"
-	Timestamp *string `json:"timestamp,omitempty"` // 秒级时间戳，如1602504000(表示2020/10/12 20:0:00 +8时区), 示例值："1605024000"
+	Timestamp *string `json:"timestamp,omitempty"` // 秒级时间戳，如1602504000(表示2020/10/12 20:0:00 +8时区), 示例值："1602504000"
 	Timezone  *string `json:"timezone,omitempty"`  // 时区名称，使用IANA Time Zone Database标准，如Asia/Shanghai；全天日程时区固定为UTC，非全天日程时区默认为Asia/Shanghai, 示例值："Asia/Shanghai"
 }
 
 type CreateCalendarEventReqEndTime struct {
 	Date      *string `json:"date,omitempty"`      // 仅全天日程使用该字段，如2018-09-01。需满足 RFC3339 格式。不能与 timestamp 同时指定, 示例值："2018-09-01"
-	Timestamp *string `json:"timestamp,omitempty"` // 秒级时间戳，如1602504000(表示2020/10/12 20:0:00 +8时区), 示例值："1605024000"
+	Timestamp *string `json:"timestamp,omitempty"` // 秒级时间戳，如1602504000(表示2020/10/12 20:0:00 +8时区), 示例值："1602504000"
 	Timezone  *string `json:"timezone,omitempty"`  // 时区名称，使用IANA Time Zone Database标准，如Asia/Shanghai；全天日程时区固定为UTC，非全天日程时区默认为Asia/Shanghai, 示例值："Asia/Shanghai"
 }
 
@@ -674,7 +674,7 @@ type CreateCalendarEventReqReminder struct {
 }
 
 type CreateCalendarEventReqSchema struct {
-	UiName   *string `json:"ui_name,omitempty"`   // UI名称。取值范围如下： \,ForwardIcon: 日程转发按钮 \,MeetingChatIcon: 会议群聊按钮 \,MeetingMinutesIcon: 会议纪要按钮 \,MeetingVideo: 视频会议区域 \,RSVP: 接受/拒绝/待定区域 \,Attendee: 参与者区域 \,OrganizerOrCreator: 组织者/创建者区域, 示例值："ForwardIcon"
+	UiName   *string `json:"ui_name,omitempty"`   // UI名称。取值范围如下： , ForwardIcon: 日程转发按钮 , MeetingChatIcon: 会议群聊按钮 , MeetingMinutesIcon: 会议纪要按钮 , MeetingVideo: 视频会议区域 , RSVP: 接受/拒绝/待定区域 , Attendee: 参与者区域 , OrganizerOrCreator: 组织者/创建者区域, 示例值："ForwardIcon"
 	UiStatus *string `json:"ui_status,omitempty"` // UI项自定义状态。目前只支持hide, 示例值："hide", 可选值有: `hide`：隐藏显示, `readonly`：只读, `editable`：可编辑, `unknown`：未知UI项自定义状态，仅用于读取时兼容
 	AppLink  *string `json:"app_link,omitempty"`  // 按钮点击后跳转的链接, 示例值："https://applink.feishu.cn/client/calendar/event/detail?calendarId=xxxxxx&key=xxxxxx&originalTime=xxxxxx&startTime=xxxxxx", 最大长度：`2000` 字符
 }
@@ -707,7 +707,7 @@ type CreateCalendarEventRespEvent struct {
 	Status           string                                  `json:"status,omitempty"`             // 日程状态, 可选值有: `tentative`：未回应, `confirmed`：已确认, `cancelled`：日程已取消
 	IsException      bool                                    `json:"is_exception,omitempty"`       // 日程是否是一个重复日程的例外日程
 	RecurringEventID string                                  `json:"recurring_event_id,omitempty"` // 例外日程的原重复日程的event_id
-	Schemas          []*CreateCalendarEventRespEventSchema   `json:"schemas,omitempty"`            // 日程自定义信息
+	Schemas          []*CreateCalendarEventRespEventSchema   `json:"schemas,omitempty"`            // 日程自定义信息；控制日程详情页的ui展示。
 }
 
 type CreateCalendarEventRespEventStartTime struct {
@@ -741,7 +741,7 @@ type CreateCalendarEventRespEventReminder struct {
 }
 
 type CreateCalendarEventRespEventSchema struct {
-	UiName   string `json:"ui_name,omitempty"`   // UI名称。取值范围如下： \,ForwardIcon: 日程转发按钮 \,MeetingChatIcon: 会议群聊按钮 \,MeetingMinutesIcon: 会议纪要按钮 \,MeetingVideo: 视频会议区域 \,RSVP: 接受/拒绝/待定区域 \,Attendee: 参与者区域 \,OrganizerOrCreator: 组织者/创建者区域
+	UiName   string `json:"ui_name,omitempty"`   // UI名称。取值范围如下： , ForwardIcon: 日程转发按钮 , MeetingChatIcon: 会议群聊按钮 , MeetingMinutesIcon: 会议纪要按钮 , MeetingVideo: 视频会议区域 , RSVP: 接受/拒绝/待定区域 , Attendee: 参与者区域 , OrganizerOrCreator: 组织者/创建者区域
 	UiStatus string `json:"ui_status,omitempty"` // UI项自定义状态。目前只支持hide, 可选值有: `hide`：隐藏显示, `readonly`：只读, `editable`：可编辑, `unknown`：未知UI项自定义状态，仅用于读取时兼容
 	AppLink  string `json:"app_link,omitempty"`  // 按钮点击后跳转的链接
 }
@@ -869,7 +869,7 @@ type GetCalendarEventRespEvent struct {
 	Status           string                               `json:"status,omitempty"`             // 日程状态, 可选值有: `tentative`：未回应, `confirmed`：已确认, `cancelled`：日程已取消
 	IsException      bool                                 `json:"is_exception,omitempty"`       // 日程是否是一个重复日程的例外日程
 	RecurringEventID string                               `json:"recurring_event_id,omitempty"` // 例外日程的原重复日程的event_id
-	Schemas          []*GetCalendarEventRespEventSchema   `json:"schemas,omitempty"`            // 日程自定义信息
+	Schemas          []*GetCalendarEventRespEventSchema   `json:"schemas,omitempty"`            // 日程自定义信息；控制日程详情页的ui展示。
 }
 
 type GetCalendarEventRespEventStartTime struct {
@@ -903,7 +903,7 @@ type GetCalendarEventRespEventReminder struct {
 }
 
 type GetCalendarEventRespEventSchema struct {
-	UiName   string `json:"ui_name,omitempty"`   // UI名称。取值范围如下： \,ForwardIcon: 日程转发按钮 \,MeetingChatIcon: 会议群聊按钮 \,MeetingMinutesIcon: 会议纪要按钮 \,MeetingVideo: 视频会议区域 \,RSVP: 接受/拒绝/待定区域 \,Attendee: 参与者区域 \,OrganizerOrCreator: 组织者/创建者区域
+	UiName   string `json:"ui_name,omitempty"`   // UI名称。取值范围如下： , ForwardIcon: 日程转发按钮 , MeetingChatIcon: 会议群聊按钮 , MeetingMinutesIcon: 会议纪要按钮 , MeetingVideo: 视频会议区域 , RSVP: 接受/拒绝/待定区域 , Attendee: 参与者区域 , OrganizerOrCreator: 组织者/创建者区域
 	UiStatus string `json:"ui_status,omitempty"` // UI项自定义状态。目前只支持hide, 可选值有: `hide`：隐藏显示, `readonly`：只读, `editable`：可编辑, `unknown`：未知UI项自定义状态，仅用于读取时兼容
 	AppLink  string `json:"app_link,omitempty"`  // 按钮点击后跳转的链接, 最大长度：`2000` 字符
 }
@@ -987,7 +987,7 @@ type GetCalendarEventListRespItem struct {
 	Status           string                                  `json:"status,omitempty"`             // 日程状态, 可选值有: `tentative`：未回应, `confirmed`：已确认, `cancelled`：日程已取消
 	IsException      bool                                    `json:"is_exception,omitempty"`       // 日程是否是一个重复日程的例外日程
 	RecurringEventID string                                  `json:"recurring_event_id,omitempty"` // 例外日程的原重复日程的event_id
-	Schemas          []*GetCalendarEventListRespItemSchema   `json:"schemas,omitempty"`            // 日程自定义信息
+	Schemas          []*GetCalendarEventListRespItemSchema   `json:"schemas,omitempty"`            // 日程自定义信息；控制日程详情页的ui展示。
 }
 
 type GetCalendarEventListRespItemStartTime struct {
@@ -1021,7 +1021,7 @@ type GetCalendarEventListRespItemReminder struct {
 }
 
 type GetCalendarEventListRespItemSchema struct {
-	UiName   string `json:"ui_name,omitempty"`   // UI名称。取值范围如下： \,ForwardIcon: 日程转发按钮 \,MeetingChatIcon: 会议群聊按钮 \,MeetingMinutesIcon: 会议纪要按钮 \,MeetingVideo: 视频会议区域 \,RSVP: 接受/拒绝/待定区域 \,Attendee: 参与者区域 \,OrganizerOrCreator: 组织者/创建者区域
+	UiName   string `json:"ui_name,omitempty"`   // UI名称。取值范围如下： , ForwardIcon: 日程转发按钮 , MeetingChatIcon: 会议群聊按钮 , MeetingMinutesIcon: 会议纪要按钮 , MeetingVideo: 视频会议区域 , RSVP: 接受/拒绝/待定区域 , Attendee: 参与者区域 , OrganizerOrCreator: 组织者/创建者区域
 	UiStatus string `json:"ui_status,omitempty"` // UI项自定义状态。目前只支持hide, 可选值有: `hide`：隐藏显示, `readonly`：只读, `editable`：可编辑, `unknown`：未知UI项自定义状态，仅用于读取时兼容
 	AppLink  string `json:"app_link,omitempty"`  // 按钮点击后跳转的链接
 }
@@ -1083,18 +1083,18 @@ type UpdateCalendarEventReq struct {
 	Color            *int64                            `json:"color,omitempty"`             // 日程颜色，颜色RGB值的int32表示。仅对当前身份生效；客户端展示时会映射到色板上最接近的一种颜色；值为0或-1时默认跟随日历颜色。, 示例值：-1
 	Reminders        []*UpdateCalendarEventReqReminder `json:"reminders,omitempty"`         // 日程提醒列表
 	Recurrence       *string                           `json:"recurrence,omitempty"`        // 重复日程的重复性规则；参考[rfc5545](https://datatracker.ietf.org/doc/html/rfc5545#section-3.3.10)；, 不支持COUNT和UNTIL同时出现；, 预定会议室重复日程长度不得超过两年。, 示例值："FREQ=DAILY;INTERVAL=1", 最大长度：`2000` 字符
-	Schemas          []*UpdateCalendarEventReqSchema   `json:"schemas,omitempty"`           // 日程自定义信息
+	Schemas          []*UpdateCalendarEventReqSchema   `json:"schemas,omitempty"`           // 日程自定义信息；控制日程详情页的ui展示。
 }
 
 type UpdateCalendarEventReqStartTime struct {
 	Date      *string `json:"date,omitempty"`      // 仅全天日程使用该字段，如2018-09-01。需满足 RFC3339 格式。不能与 timestamp 同时指定, 示例值："2018-09-01"
-	Timestamp *string `json:"timestamp,omitempty"` // 秒级时间戳，如1602504000(表示2020/10/12 20:0:00 +8时区), 示例值："1605024000"
+	Timestamp *string `json:"timestamp,omitempty"` // 秒级时间戳，如1602504000(表示2020/10/12 20:0:00 +8时区), 示例值："1602504000"
 	Timezone  *string `json:"timezone,omitempty"`  // 时区名称，使用IANA Time Zone Database标准，如Asia/Shanghai；全天日程时区固定为UTC，非全天日程时区默认为Asia/Shanghai, 示例值："Asia/Shanghai"
 }
 
 type UpdateCalendarEventReqEndTime struct {
 	Date      *string `json:"date,omitempty"`      // 仅全天日程使用该字段，如2018-09-01。需满足 RFC3339 格式。不能与 timestamp 同时指定, 示例值："2018-09-01"
-	Timestamp *string `json:"timestamp,omitempty"` // 秒级时间戳，如1602504000(表示2020/10/12 20:0:00 +8时区), 示例值："1605024000"
+	Timestamp *string `json:"timestamp,omitempty"` // 秒级时间戳，如1602504000(表示2020/10/12 20:0:00 +8时区), 示例值："1602504000"
 	Timezone  *string `json:"timezone,omitempty"`  // 时区名称，使用IANA Time Zone Database标准，如Asia/Shanghai；全天日程时区固定为UTC，非全天日程时区默认为Asia/Shanghai, 示例值："Asia/Shanghai"
 }
 
@@ -1117,7 +1117,7 @@ type UpdateCalendarEventReqReminder struct {
 }
 
 type UpdateCalendarEventReqSchema struct {
-	UiName   *string `json:"ui_name,omitempty"`   // UI名称。取值范围如下： \,ForwardIcon: 日程转发按钮 \,MeetingChatIcon: 会议群聊按钮 \,MeetingMinutesIcon: 会议纪要按钮 \,MeetingVideo: 视频会议区域 \,RSVP: 接受/拒绝/待定区域 \,Attendee: 参与者区域 \,OrganizerOrCreator: 组织者/创建者区域, 示例值："ForwardIcon"
+	UiName   *string `json:"ui_name,omitempty"`   // UI名称。取值范围如下： , ForwardIcon: 日程转发按钮 , MeetingChatIcon: 会议群聊按钮 , MeetingMinutesIcon: 会议纪要按钮 , MeetingVideo: 视频会议区域 , RSVP: 接受/拒绝/待定区域 , Attendee: 参与者区域 , OrganizerOrCreator: 组织者/创建者区域, 示例值："ForwardIcon"
 	UiStatus *string `json:"ui_status,omitempty"` // UI项自定义状态。目前只支持hide, 示例值："hide", 可选值有: `hide`：隐藏显示, `readonly`：只读, `editable`：可编辑, `unknown`：未知UI项自定义状态，仅用于读取时兼容
 	AppLink  *string `json:"app_link,omitempty"`  // 按钮点击后跳转的链接, 示例值："https://applink.feishu.cn/client/calendar/event/detail?calendarId=xxxxxx&key=xxxxxx&originalTime=xxxxxx&startTime=xxxxxx", 最大长度：`2000` 字符
 }
@@ -1150,7 +1150,7 @@ type UpdateCalendarEventRespEvent struct {
 	Status           string                                  `json:"status,omitempty"`             // 日程状态, 可选值有: `tentative`：未回应, `confirmed`：已确认, `cancelled`：日程已取消
 	IsException      bool                                    `json:"is_exception,omitempty"`       // 日程是否是一个重复日程的例外日程
 	RecurringEventID string                                  `json:"recurring_event_id,omitempty"` // 例外日程的原重复日程的event_id
-	Schemas          []*UpdateCalendarEventRespEventSchema   `json:"schemas,omitempty"`            // 日程自定义信息
+	Schemas          []*UpdateCalendarEventRespEventSchema   `json:"schemas,omitempty"`            // 日程自定义信息；控制日程详情页的ui展示。
 }
 
 type UpdateCalendarEventRespEventStartTime struct {
@@ -1184,7 +1184,7 @@ type UpdateCalendarEventRespEventReminder struct {
 }
 
 type UpdateCalendarEventRespEventSchema struct {
-	UiName   string `json:"ui_name,omitempty"`   // UI名称。取值范围如下： \,ForwardIcon: 日程转发按钮 \,MeetingChatIcon: 会议群聊按钮 \,MeetingMinutesIcon: 会议纪要按钮 \,MeetingVideo: 视频会议区域 \,RSVP: 接受/拒绝/待定区域 \,Attendee: 参与者区域 \,OrganizerOrCreator: 组织者/创建者区域
+	UiName   string `json:"ui_name,omitempty"`   // UI名称。取值范围如下： , ForwardIcon: 日程转发按钮 , MeetingChatIcon: 会议群聊按钮 , MeetingMinutesIcon: 会议纪要按钮 , MeetingVideo: 视频会议区域 , RSVP: 接受/拒绝/待定区域 , Attendee: 参与者区域 , OrganizerOrCreator: 组织者/创建者区域
 	UiStatus string `json:"ui_status,omitempty"` // UI项自定义状态。目前只支持hide, 可选值有: `hide`：隐藏显示, `readonly`：只读, `editable`：可编辑, `unknown`：未知UI项自定义状态，仅用于读取时兼容
 	AppLink  string `json:"app_link,omitempty"`  // 按钮点击后跳转的链接, 最大长度：`2000` 字符
 }
@@ -1246,13 +1246,13 @@ type SearchCalendarEventReqFilter struct {
 
 type SearchCalendarEventReqFilterStartTime struct {
 	Date      *string `json:"date,omitempty"`      // 仅全天日程使用该字段，如2018-09-01。需满足 RFC3339 格式。不能与 timestamp 同时指定, 示例值："2018-09-01"
-	Timestamp *string `json:"timestamp,omitempty"` // 秒级时间戳，如1602504000(表示2020/10/12 20:0:00 +8时区), 示例值："1605024000"
+	Timestamp *string `json:"timestamp,omitempty"` // 秒级时间戳，如1602504000(表示2020/10/12 20:0:00 +8时区), 示例值："1602504000"
 	Timezone  *string `json:"timezone,omitempty"`  // 时区名称，使用IANA Time Zone Database标准，如Asia/Shanghai；全天日程时区固定为UTC，非全天日程时区默认为Asia/Shanghai, 示例值："Asia/Shanghai"
 }
 
 type SearchCalendarEventReqFilterEndTime struct {
 	Date      *string `json:"date,omitempty"`      // 仅全天日程使用该字段，如2018-09-01。需满足 RFC3339 格式。不能与 timestamp 同时指定, 示例值："2018-09-01"
-	Timestamp *string `json:"timestamp,omitempty"` // 秒级时间戳，如1602504000(表示2020/10/12 20:0:00 +8时区), 示例值："1605024000"
+	Timestamp *string `json:"timestamp,omitempty"` // 秒级时间戳，如1602504000(表示2020/10/12 20:0:00 +8时区), 示例值："1602504000"
 	Timezone  *string `json:"timezone,omitempty"`  // 时区名称，使用IANA Time Zone Database标准，如Asia/Shanghai；全天日程时区固定为UTC，非全天日程时区默认为Asia/Shanghai, 示例值："Asia/Shanghai"
 }
 
@@ -1285,7 +1285,7 @@ type SearchCalendarEventRespItem struct {
 	Status           string                                 `json:"status,omitempty"`             // 日程状态, 可选值有: `tentative`：未回应, `confirmed`：已确认, `cancelled`：日程已取消
 	IsException      bool                                   `json:"is_exception,omitempty"`       // 日程是否是一个重复日程的例外日程
 	RecurringEventID string                                 `json:"recurring_event_id,omitempty"` // 例外日程的原重复日程的event_id
-	Schemas          []*SearchCalendarEventRespItemSchema   `json:"schemas,omitempty"`            // 日程自定义信息
+	Schemas          []*SearchCalendarEventRespItemSchema   `json:"schemas,omitempty"`            // 日程自定义信息；控制日程详情页的ui展示。
 }
 
 type SearchCalendarEventRespItemStartTime struct {
@@ -1319,7 +1319,7 @@ type SearchCalendarEventRespItemReminder struct {
 }
 
 type SearchCalendarEventRespItemSchema struct {
-	UiName   string `json:"ui_name,omitempty"`   // UI名称。取值范围如下： \,ForwardIcon: 日程转发按钮 \,MeetingChatIcon: 会议群聊按钮 \,MeetingMinutesIcon: 会议纪要按钮 \,MeetingVideo: 视频会议区域 \,RSVP: 接受/拒绝/待定区域 \,Attendee: 参与者区域 \,OrganizerOrCreator: 组织者/创建者区域
+	UiName   string `json:"ui_name,omitempty"`   // UI名称。取值范围如下： , ForwardIcon: 日程转发按钮 , MeetingChatIcon: 会议群聊按钮 , MeetingMinutesIcon: 会议纪要按钮 , MeetingVideo: 视频会议区域 , RSVP: 接受/拒绝/待定区域 , Attendee: 参与者区域 , OrganizerOrCreator: 组织者/创建者区域
 	UiStatus string `json:"ui_status,omitempty"` // UI项自定义状态。目前只支持hide, 可选值有: `hide`：隐藏显示, `readonly`：只读, `editable`：可编辑, `unknown`：未知UI项自定义状态，仅用于读取时兼容
 	AppLink  string `json:"app_link,omitempty"`  // 按钮点击后跳转的链接, 最大长度：`2000` 字符
 }
