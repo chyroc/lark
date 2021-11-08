@@ -1381,7 +1381,7 @@ type EventV2ContactScopeUpdatedV3AddedUserCustomAttr struct {
 }
 
 type EventV2ContactScopeUpdatedV3AddedUserCustomAttrValue struct {
-	Text        string                                                           `json:"text,omitempty"`         // 字段类型为 TEXT 时该参数定义字段值，字段类型为 HREF 时该参数定义网页标题
+	Text        string                                                           `json:"text,omitempty"`         // 字段类型为`TEXT`时该参数定义字段值，必填；字段类型为`HREF`时该参数定义网页标题，必填
 	URL         string                                                           `json:"url,omitempty"`          // 字段类型为 HREF 时，该参数定义默认 URL
 	PcURL       string                                                           `json:"pc_url,omitempty"`       // 字段类型为 HREF 时，该参数定义PC端 URL
 	OptionID    string                                                           `json:"option_id,omitempty"`    // 字段类型为 ENUMERATION 或 PICTURE_ENUM 时，该参数定义选项值
@@ -1485,7 +1485,7 @@ type EventV2ContactScopeUpdatedV3RemovedUserCustomAttr struct {
 }
 
 type EventV2ContactScopeUpdatedV3RemovedUserCustomAttrValue struct {
-	Text        string                                                             `json:"text,omitempty"`         // 字段类型为 TEXT 时该参数定义字段值，字段类型为 HREF 时该参数定义网页标题
+	Text        string                                                             `json:"text,omitempty"`         // 字段类型为`TEXT`时该参数定义字段值，必填；字段类型为`HREF`时该参数定义网页标题，必填
 	URL         string                                                             `json:"url,omitempty"`          // 字段类型为 HREF 时，该参数定义默认 URL
 	PcURL       string                                                             `json:"pc_url,omitempty"`       // 字段类型为 HREF 时，该参数定义PC端 URL
 	OptionID    string                                                             `json:"option_id,omitempty"`    // 字段类型为 ENUMERATION 或 PICTURE_ENUM 时，该参数定义选项值
@@ -1579,7 +1579,7 @@ type EventV2ContactUserCreatedV3ObjectCustomAttr struct {
 }
 
 type EventV2ContactUserCreatedV3ObjectCustomAttrValue struct {
-	Text        string                                                       `json:"text,omitempty"`         // 字段类型为 TEXT 时该参数定义字段值，字段类型为 HREF 时该参数定义网页标题
+	Text        string                                                       `json:"text,omitempty"`         // 字段类型为`TEXT`时该参数定义字段值，必填；字段类型为`HREF`时该参数定义网页标题，必填
 	URL         string                                                       `json:"url,omitempty"`          // 字段类型为 HREF 时，该参数定义默认 URL
 	PcURL       string                                                       `json:"pc_url,omitempty"`       // 字段类型为 HREF 时，该参数定义PC端 URL
 	OptionID    string                                                       `json:"option_id,omitempty"`    // 字段类型为 ENUMERATION 或 PICTURE_ENUM 时，该参数定义选项值
@@ -1661,7 +1661,7 @@ type EventV2ContactUserDeletedV3ObjectCustomAttr struct {
 }
 
 type EventV2ContactUserDeletedV3ObjectCustomAttrValue struct {
-	Text        string                                                       `json:"text,omitempty"`         // 字段类型为 TEXT 时该参数定义字段值，字段类型为 HREF 时该参数定义网页标题
+	Text        string                                                       `json:"text,omitempty"`         // 字段类型为`TEXT`时该参数定义字段值，必填；字段类型为`HREF`时该参数定义网页标题，必填
 	URL         string                                                       `json:"url,omitempty"`          // 字段类型为 HREF 时，该参数定义默认 URL
 	PcURL       string                                                       `json:"pc_url,omitempty"`       // 字段类型为 HREF 时，该参数定义PC端 URL
 	OptionID    string                                                       `json:"option_id,omitempty"`    // 字段类型为 ENUMERATION 或 PICTURE_ENUM 时，该参数定义选项值
@@ -1748,7 +1748,7 @@ type EventV2ContactUserUpdatedV3ObjectCustomAttr struct {
 }
 
 type EventV2ContactUserUpdatedV3ObjectCustomAttrValue struct {
-	Text        string                                                       `json:"text,omitempty"`         // 字段类型为 TEXT 时该参数定义字段值，字段类型为 HREF 时该参数定义网页标题
+	Text        string                                                       `json:"text,omitempty"`         // 字段类型为`TEXT`时该参数定义字段值，必填；字段类型为`HREF`时该参数定义网页标题，必填
 	URL         string                                                       `json:"url,omitempty"`          // 字段类型为 HREF 时，该参数定义默认 URL
 	PcURL       string                                                       `json:"pc_url,omitempty"`       // 字段类型为 HREF 时，该参数定义PC端 URL
 	OptionID    string                                                       `json:"option_id,omitempty"`    // 字段类型为 ENUMERATION 或 PICTURE_ENUM 时，该参数定义选项值
@@ -1811,7 +1811,7 @@ type EventV2ContactUserUpdatedV3OldObjectCustomAttr struct {
 }
 
 type EventV2ContactUserUpdatedV3OldObjectCustomAttrValue struct {
-	Text        string                                                          `json:"text,omitempty"`         // 字段类型为 TEXT 时该参数定义字段值，字段类型为 HREF 时该参数定义网页标题
+	Text        string                                                          `json:"text,omitempty"`         // 字段类型为`TEXT`时该参数定义字段值，必填；字段类型为`HREF`时该参数定义网页标题，必填
 	URL         string                                                          `json:"url,omitempty"`          // 字段类型为 HREF 时，该参数定义默认 URL
 	PcURL       string                                                          `json:"pc_url,omitempty"`       // 字段类型为 HREF 时，该参数定义PC端 URL
 	OptionID    string                                                          `json:"option_id,omitempty"`    // 字段类型为 ENUMERATION 或 PICTURE_ENUM 时，该参数定义选项值

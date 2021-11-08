@@ -588,7 +588,7 @@ type GetApprovalInstanceResp struct {
 	DepartmentID string                             `json:"department_id,omitempty"` // 发起审批用户所在部门
 	Status       string                             `json:"status,omitempty"`        // 审批实例状态<br>PENDING    - 审批中<br>APPROVED - 通过<br>REJECTED  - 拒绝<br>CANCELED -  撤回<br>DELETED    -  删除
 	UUID         string                             `json:"uuid,omitempty"`          // 用户的唯一标识id
-	Form         ApprovalWidgetList                 `json:"form,omitempty"`          // json数组，**控件值**
+	Form         ApprovalWidgetList                 `json:"form,omitempty"`          // json字符串，**控件值**
 	TaskList     []*GetApprovalInstanceRespTask     `json:"task_list,omitempty"`     // 审批任务列表
 	CommentList  []*GetApprovalInstanceRespComment  `json:"comment_list,omitempty"`  // 评论列表
 	Timeline     []*GetApprovalInstanceRespTimeline `json:"timeline,omitempty"`      // 审批动态
