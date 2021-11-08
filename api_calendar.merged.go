@@ -231,14 +231,14 @@ type CreateCalendarResp struct {
 
 type CreateCalendarRespCalendar struct {
 	CalendarID   string             `json:"calendar_id,omitempty"`    // 日历ID
-	Summary      string             `json:"summary,omitempty"`        // 日历标题, 最大长度：`255` 字符
-	Description  string             `json:"description,omitempty"`    // 日历描述, 最大长度：`255` 字符
+	Summary      string             `json:"summary,omitempty"`        // 日历标题
+	Description  string             `json:"description,omitempty"`    // 日历描述
 	Permissions  CalendarPermission `json:"permissions,omitempty"`    // 日历公开范围, 可选值有: `private`：私密, `show_only_free_busy`：仅展示忙闲信息, `public`：他人可查看日程详情
 	Color        int64              `json:"color,omitempty"`          // 日历颜色，颜色RGB值的int32表示。客户端展示时会映射到色板上最接近的一种颜色。仅对当前身份生效
 	Type         CalendarType       `json:"type,omitempty"`           // 日历类型, 可选值有: `unknown`：未知类型, `primary`：用户或应用的主日历, `shared`：由用户或应用创建的共享日历, `google`：用户绑定的谷歌日历, `resource`：会议室日历, `exchange`：用户绑定的Exchange日历
-	SummaryAlias string             `json:"summary_alias,omitempty"`  // 日历备注名，修改或添加后仅对当前身份生效, 最大长度：`255` 字符
-	IsDeleted    bool               `json:"is_deleted,omitempty"`     // 对于当前身份，日历是否已经被标记为删除, 默认值: `false`
-	IsThirdParty bool               `json:"is_third_party,omitempty"` // 当前日历是否是第三方数据；三方日历及日程只支持读，不支持写入, 默认值: `false`
+	SummaryAlias string             `json:"summary_alias,omitempty"`  // 日历备注名，修改或添加后仅对当前身份生效
+	IsDeleted    bool               `json:"is_deleted,omitempty"`     // 对于当前身份，日历是否已经被标记为删除
+	IsThirdParty bool               `json:"is_third_party,omitempty"` // 当前日历是否是第三方数据；三方日历及日程只支持读，不支持写入
 	Role         CalendarRole       `json:"role,omitempty"`           // 当前身份对于该日历的访问权限, 可选值有: `unknown`：未知权限, `free_busy_reader`：游客，只能看到忙碌/空闲信息, `reader`：订阅者，查看所有日程详情, `writer`：编辑者，创建及修改日程, `owner`：管理员，管理日历及共享设置
 }
 
@@ -1134,8 +1134,8 @@ type UpdateCalendarEventResp struct {
 
 type UpdateCalendarEventRespEvent struct {
 	EventID          string                                  `json:"event_id,omitempty"`           // 日程ID
-	Summary          string                                  `json:"summary,omitempty"`            // 日程标题, 最大长度：`1000` 字符
-	Description      string                                  `json:"description,omitempty"`        // 日程描述, 最大长度：`8192` 字符
+	Summary          string                                  `json:"summary,omitempty"`            // 日程标题
+	Description      string                                  `json:"description,omitempty"`        // 日程描述
 	NeedNotification bool                                    `json:"need_notification,omitempty"`  // 更新日程是否给日程参与人发送bot通知，默认为true
 	StartTime        *UpdateCalendarEventRespEventStartTime  `json:"start_time,omitempty"`         // 日程开始时间
 	EndTime          *UpdateCalendarEventRespEventEndTime    `json:"end_time,omitempty"`           // 日程结束时间
@@ -1146,7 +1146,7 @@ type UpdateCalendarEventRespEvent struct {
 	Location         *UpdateCalendarEventRespEventLocation   `json:"location,omitempty"`           // 日程地点
 	Color            int64                                   `json:"color,omitempty"`              // 日程颜色，颜色RGB值的int32表示。仅对当前身份生效；客户端展示时会映射到色板上最接近的一种颜色；值为0或-1时默认跟随日历颜色。
 	Reminders        []*UpdateCalendarEventRespEventReminder `json:"reminders,omitempty"`          // 日程提醒列表
-	Recurrence       string                                  `json:"recurrence,omitempty"`         // 重复日程的重复性规则；参考[rfc5545](https://datatracker.ietf.org/doc/html/rfc5545#section-3.3.10)；, 不支持COUNT和UNTIL同时出现；, 预定会议室重复日程长度不得超过两年。, 最大长度：`2000` 字符
+	Recurrence       string                                  `json:"recurrence,omitempty"`         // 重复日程的重复性规则；参考[rfc5545](https://datatracker.ietf.org/doc/html/rfc5545#section-3.3.10)；, 不支持COUNT和UNTIL同时出现；, 预定会议室重复日程长度不得超过两年。
 	Status           string                                  `json:"status,omitempty"`             // 日程状态, 可选值有: `tentative`：未回应, `confirmed`：已确认, `cancelled`：日程已取消
 	IsException      bool                                    `json:"is_exception,omitempty"`       // 日程是否是一个重复日程的例外日程
 	RecurringEventID string                                  `json:"recurring_event_id,omitempty"` // 例外日程的原重复日程的event_id
@@ -1168,25 +1168,25 @@ type UpdateCalendarEventRespEventEndTime struct {
 type UpdateCalendarEventRespEventVchat struct {
 	VCType      string `json:"vc_type,omitempty"`     // 视频会议类型, 可选值有: `vc`：飞书视频会议，取该类型时，其他字段无效。, `third_party`：第三方链接视频会议，取该类型时，icon_type、description、meeting_url字段生效。, `no_meeting`：无视频会议，取该类型时，其他字段无效。, `lark_live`：Lark直播，内部类型，只读。, `unknown`：未知类型，做兼容使用，只读。
 	IconType    string `json:"icon_type,omitempty"`   // 第三方视频会议icon类型；可以为空，为空展示默认icon。, 可选值有: `vc`：飞书视频会议icon, `live`：直播视频会议icon, `default`：默认icon
-	Description string `json:"description,omitempty"` // 第三方视频会议文案，可以为空，为空展示默认文案, 长度范围：`0` ～ `500` 字符
-	MeetingURL  string `json:"meeting_url,omitempty"` // 视频会议URL, 长度范围：`1` ～ `2000` 字符
+	Description string `json:"description,omitempty"` // 第三方视频会议文案，可以为空，为空展示默认文案
+	MeetingURL  string `json:"meeting_url,omitempty"` // 视频会议URL
 }
 
 type UpdateCalendarEventRespEventLocation struct {
-	Name      string  `json:"name,omitempty"`      // 地点名称, 长度范围：`1` ～ `512` 字符
-	Address   string  `json:"address,omitempty"`   // 地点地址, 长度范围：`1` ～ `255` 字符
+	Name      string  `json:"name,omitempty"`      // 地点名称
+	Address   string  `json:"address,omitempty"`   // 地点地址
 	Latitude  float64 `json:"latitude,omitempty"`  // 地点坐标纬度信息，对于国内的地点，采用GCJ-02标准，海外地点采用WGS84标准
 	Longitude float64 `json:"longitude,omitempty"` // 地点坐标经度信息，对于国内的地点，采用GCJ-02标准，海外地点采用WGS84标准
 }
 
 type UpdateCalendarEventRespEventReminder struct {
-	Minutes int64 `json:"minutes,omitempty"` // 日程提醒时间的偏移量，正数时表示在日程开始前X分钟提醒，负数时表示在日程开始后X分钟提醒,新建或更新日程时传入该字段，仅对当前身份生效, 取值范围：`-20160` ～ `20160`
+	Minutes int64 `json:"minutes,omitempty"` // 日程提醒时间的偏移量，正数时表示在日程开始前X分钟提醒，负数时表示在日程开始后X分钟提醒,新建或更新日程时传入该字段，仅对当前身份生效
 }
 
 type UpdateCalendarEventRespEventSchema struct {
 	UiName   string `json:"ui_name,omitempty"`   // UI名称。取值范围如下： , ForwardIcon: 日程转发按钮 , MeetingChatIcon: 会议群聊按钮 , MeetingMinutesIcon: 会议纪要按钮 , MeetingVideo: 视频会议区域 , RSVP: 接受/拒绝/待定区域 , Attendee: 参与者区域 , OrganizerOrCreator: 组织者/创建者区域
 	UiStatus string `json:"ui_status,omitempty"` // UI项自定义状态。目前只支持hide, 可选值有: `hide`：隐藏显示, `readonly`：只读, `editable`：可编辑, `unknown`：未知UI项自定义状态，仅用于读取时兼容
-	AppLink  string `json:"app_link,omitempty"`  // 按钮点击后跳转的链接, 最大长度：`2000` 字符
+	AppLink  string `json:"app_link,omitempty"`  // 按钮点击后跳转的链接
 }
 
 // Code generated by lark_sdk_gen. DO NOT EDIT.
@@ -1228,11 +1228,11 @@ func (r *Mock) UnMockCalendarSearchCalendarEvent() {
 }
 
 type SearchCalendarEventReq struct {
-	UserIDType *IDType                       `query:"user_id_type" json:"-"` // 用户 ID 类型, 示例值："open_id", 可选值有: `open_id`：用户的 open id, `union_id`：用户的 union id, `user_id`：用户的 user id, 默认值: `open_id`,, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
+	UserIDType *IDType                       `query:"user_id_type" json:"-"` // 用户 ID 类型, 示例值："open_id", 可选值有: `open_id`：用户的 open id, `union_id`：用户的 union id, `user_id`：用户的 user id, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
 	PageToken  *string                       `query:"page_token" json:"-"`   // 分页标记，第一次请求不填，表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token，下次遍历可采用该 page_token 获取查询结果, 示例值："xxxxx"
 	PageSize   *int64                        `query:"page_size" json:"-"`    // 分页大小, 示例值：10, 最大值：`100`
 	CalendarID string                        `path:"calendar_id" json:"-"`   // 日历ID, 示例值："feishu.cn_xxxxxxxxxx@group.calendar.feishu.cn"
-	Query      string                        `json:"query,omitempty"`        // 搜索关键字, 示例值："query words", 长度范围：`1` ～ `200` 字符
+	Query      string                        `json:"query,omitempty"`        // 搜索关键字, 示例值："query words", 长度范围：`0` ～ `200` 字符
 	Filter     *SearchCalendarEventReqFilter `json:"filter,omitempty"`       // 搜索过滤器
 }
 
@@ -1269,8 +1269,8 @@ type SearchCalendarEventResp struct {
 
 type SearchCalendarEventRespItem struct {
 	EventID          string                                 `json:"event_id,omitempty"`           // 日程ID
-	Summary          string                                 `json:"summary,omitempty"`            // 日程标题, 最大长度：`1000` 字符
-	Description      string                                 `json:"description,omitempty"`        // 日程描述, 最大长度：`8192` 字符
+	Summary          string                                 `json:"summary,omitempty"`            // 日程标题
+	Description      string                                 `json:"description,omitempty"`        // 日程描述
 	NeedNotification bool                                   `json:"need_notification,omitempty"`  // 更新日程是否给日程参与人发送bot通知，默认为true
 	StartTime        *SearchCalendarEventRespItemStartTime  `json:"start_time,omitempty"`         // 日程开始时间
 	EndTime          *SearchCalendarEventRespItemEndTime    `json:"end_time,omitempty"`           // 日程结束时间
@@ -1281,7 +1281,7 @@ type SearchCalendarEventRespItem struct {
 	Location         *SearchCalendarEventRespItemLocation   `json:"location,omitempty"`           // 日程地点
 	Color            int64                                  `json:"color,omitempty"`              // 日程颜色，颜色RGB值的int32表示。仅对当前身份生效；客户端展示时会映射到色板上最接近的一种颜色；值为0或-1时默认跟随日历颜色。
 	Reminders        []*SearchCalendarEventRespItemReminder `json:"reminders,omitempty"`          // 日程提醒列表
-	Recurrence       string                                 `json:"recurrence,omitempty"`         // 重复日程的重复性规则；参考[rfc5545](https://datatracker.ietf.org/doc/html/rfc5545#section-3.3.10)；, 不支持COUNT和UNTIL同时出现；, 预定会议室重复日程长度不得超过两年。, 最大长度：`2000` 字符
+	Recurrence       string                                 `json:"recurrence,omitempty"`         // 重复日程的重复性规则；参考[rfc5545](https://datatracker.ietf.org/doc/html/rfc5545#section-3.3.10)；, 不支持COUNT和UNTIL同时出现；, 预定会议室重复日程长度不得超过两年。
 	Status           string                                 `json:"status,omitempty"`             // 日程状态, 可选值有: `tentative`：未回应, `confirmed`：已确认, `cancelled`：日程已取消
 	IsException      bool                                   `json:"is_exception,omitempty"`       // 日程是否是一个重复日程的例外日程
 	RecurringEventID string                                 `json:"recurring_event_id,omitempty"` // 例外日程的原重复日程的event_id
@@ -1303,25 +1303,25 @@ type SearchCalendarEventRespItemEndTime struct {
 type SearchCalendarEventRespItemVchat struct {
 	VCType      string `json:"vc_type,omitempty"`     // 视频会议类型, 可选值有: `vc`：飞书视频会议，取该类型时，其他字段无效。, `third_party`：第三方链接视频会议，取该类型时，icon_type、description、meeting_url字段生效。, `no_meeting`：无视频会议，取该类型时，其他字段无效。, `lark_live`：Lark直播，内部类型，只读。, `unknown`：未知类型，做兼容使用，只读。
 	IconType    string `json:"icon_type,omitempty"`   // 第三方视频会议icon类型；可以为空，为空展示默认icon。, 可选值有: `vc`：飞书视频会议icon, `live`：直播视频会议icon, `default`：默认icon
-	Description string `json:"description,omitempty"` // 第三方视频会议文案，可以为空，为空展示默认文案, 长度范围：`0` ～ `500` 字符
-	MeetingURL  string `json:"meeting_url,omitempty"` // 视频会议URL, 长度范围：`1` ～ `2000` 字符
+	Description string `json:"description,omitempty"` // 第三方视频会议文案，可以为空，为空展示默认文案
+	MeetingURL  string `json:"meeting_url,omitempty"` // 视频会议URL
 }
 
 type SearchCalendarEventRespItemLocation struct {
-	Name      string  `json:"name,omitempty"`      // 地点名称, 长度范围：`1` ～ `512` 字符
-	Address   string  `json:"address,omitempty"`   // 地点地址, 长度范围：`1` ～ `255` 字符
+	Name      string  `json:"name,omitempty"`      // 地点名称
+	Address   string  `json:"address,omitempty"`   // 地点地址
 	Latitude  float64 `json:"latitude,omitempty"`  // 地点坐标纬度信息，对于国内的地点，采用GCJ-02标准，海外地点采用WGS84标准
 	Longitude float64 `json:"longitude,omitempty"` // 地点坐标经度信息，对于国内的地点，采用GCJ-02标准，海外地点采用WGS84标准
 }
 
 type SearchCalendarEventRespItemReminder struct {
-	Minutes int64 `json:"minutes,omitempty"` // 日程提醒时间的偏移量，正数时表示在日程开始前X分钟提醒，负数时表示在日程开始后X分钟提醒,新建或更新日程时传入该字段，仅对当前身份生效, 取值范围：`-20160` ～ `20160`
+	Minutes int64 `json:"minutes,omitempty"` // 日程提醒时间的偏移量，正数时表示在日程开始前X分钟提醒，负数时表示在日程开始后X分钟提醒,新建或更新日程时传入该字段，仅对当前身份生效
 }
 
 type SearchCalendarEventRespItemSchema struct {
 	UiName   string `json:"ui_name,omitempty"`   // UI名称。取值范围如下： , ForwardIcon: 日程转发按钮 , MeetingChatIcon: 会议群聊按钮 , MeetingMinutesIcon: 会议纪要按钮 , MeetingVideo: 视频会议区域 , RSVP: 接受/拒绝/待定区域 , Attendee: 参与者区域 , OrganizerOrCreator: 组织者/创建者区域
 	UiStatus string `json:"ui_status,omitempty"` // UI项自定义状态。目前只支持hide, 可选值有: `hide`：隐藏显示, `readonly`：只读, `editable`：可编辑, `unknown`：未知UI项自定义状态，仅用于读取时兼容
-	AppLink  string `json:"app_link,omitempty"`  // 按钮点击后跳转的链接, 最大长度：`2000` 字符
+	AppLink  string `json:"app_link,omitempty"`  // 按钮点击后跳转的链接
 }
 
 // Code generated by lark_sdk_gen. DO NOT EDIT.
@@ -1480,14 +1480,14 @@ type getCalendarResp struct {
 
 type GetCalendarResp struct {
 	CalendarID   string             `json:"calendar_id,omitempty"`    // 日历ID
-	Summary      string             `json:"summary,omitempty"`        // 日历标题, 最大长度：`255` 字符
-	Description  string             `json:"description,omitempty"`    // 日历描述, 最大长度：`255` 字符
+	Summary      string             `json:"summary,omitempty"`        // 日历标题
+	Description  string             `json:"description,omitempty"`    // 日历描述
 	Permissions  CalendarPermission `json:"permissions,omitempty"`    // 日历公开范围, 可选值有: `private`：私密, `show_only_free_busy`：仅展示忙闲信息, `public`：他人可查看日程详情
 	Color        int64              `json:"color,omitempty"`          // 日历颜色，颜色RGB值的int32表示。客户端展示时会映射到色板上最接近的一种颜色。仅对当前身份生效
 	Type         CalendarType       `json:"type,omitempty"`           // 日历类型, 可选值有: `unknown`：未知类型, `primary`：用户或应用的主日历, `shared`：由用户或应用创建的共享日历, `google`：用户绑定的谷歌日历, `resource`：会议室日历, `exchange`：用户绑定的Exchange日历
-	SummaryAlias string             `json:"summary_alias,omitempty"`  // 日历备注名，修改或添加后仅对当前身份生效, 最大长度：`255` 字符
-	IsDeleted    bool               `json:"is_deleted,omitempty"`     // 对于当前身份，日历是否已经被标记为删除, 默认值: `false`
-	IsThirdParty bool               `json:"is_third_party,omitempty"` // 当前日历是否是第三方数据；三方日历及日程只支持读，不支持写入, 默认值: `false`
+	SummaryAlias string             `json:"summary_alias,omitempty"`  // 日历备注名，修改或添加后仅对当前身份生效
+	IsDeleted    bool               `json:"is_deleted,omitempty"`     // 对于当前身份，日历是否已经被标记为删除
+	IsThirdParty bool               `json:"is_third_party,omitempty"` // 当前日历是否是第三方数据；三方日历及日程只支持读，不支持写入
 	Role         CalendarRole       `json:"role,omitempty"`           // 当前身份对于该日历的访问权限, 可选值有: `unknown`：未知权限, `free_busy_reader`：游客，只能看到忙碌/空闲信息, `reader`：订阅者，查看所有日程详情, `writer`：编辑者，创建及修改日程, `owner`：管理员，管理日历及共享设置
 }
 
@@ -1551,14 +1551,14 @@ type GetCalendarListResp struct {
 
 type GetCalendarListRespCalendar struct {
 	CalendarID   string             `json:"calendar_id,omitempty"`    // 日历ID
-	Summary      string             `json:"summary,omitempty"`        // 日历标题, 最大长度：`255` 字符
-	Description  string             `json:"description,omitempty"`    // 日历描述, 最大长度：`255` 字符
+	Summary      string             `json:"summary,omitempty"`        // 日历标题
+	Description  string             `json:"description,omitempty"`    // 日历描述
 	Permissions  CalendarPermission `json:"permissions,omitempty"`    // 日历公开范围, 可选值有: `private`：私密, `show_only_free_busy`：仅展示忙闲信息, `public`：他人可查看日程详情
 	Color        int64              `json:"color,omitempty"`          // 日历颜色，颜色RGB值的int32表示。客户端展示时会映射到色板上最接近的一种颜色。仅对当前身份生效
 	Type         CalendarType       `json:"type,omitempty"`           // 日历类型, 可选值有: `unknown`：未知类型, `primary`：用户或应用的主日历, `shared`：由用户或应用创建的共享日历, `google`：用户绑定的谷歌日历, `resource`：会议室日历, `exchange`：用户绑定的Exchange日历
-	SummaryAlias string             `json:"summary_alias,omitempty"`  // 日历备注名，修改或添加后仅对当前身份生效, 最大长度：`255` 字符
-	IsDeleted    bool               `json:"is_deleted,omitempty"`     // 对于当前身份，日历是否已经被标记为删除, 默认值: `false`
-	IsThirdParty bool               `json:"is_third_party,omitempty"` // 当前日历是否是第三方数据；三方日历及日程只支持读，不支持写入, 默认值: `false`
+	SummaryAlias string             `json:"summary_alias,omitempty"`  // 日历备注名，修改或添加后仅对当前身份生效
+	IsDeleted    bool               `json:"is_deleted,omitempty"`     // 对于当前身份，日历是否已经被标记为删除
+	IsThirdParty bool               `json:"is_third_party,omitempty"` // 当前日历是否是第三方数据；三方日历及日程只支持读，不支持写入
 	Role         CalendarRole       `json:"role,omitempty"`           // 当前身份对于该日历的访问权限, 可选值有: `unknown`：未知权限, `free_busy_reader`：游客，只能看到忙碌/空闲信息, `reader`：订阅者，查看所有日程详情, `writer`：编辑者，创建及修改日程, `owner`：管理员，管理日历及共享设置
 }
 
@@ -1623,14 +1623,14 @@ type UpdateCalendarResp struct {
 
 type UpdateCalendarRespCalendar struct {
 	CalendarID   string             `json:"calendar_id,omitempty"`    // 日历ID
-	Summary      string             `json:"summary,omitempty"`        // 日历标题, 最大长度：`255` 字符
-	Description  string             `json:"description,omitempty"`    // 日历描述, 最大长度：`255` 字符
+	Summary      string             `json:"summary,omitempty"`        // 日历标题
+	Description  string             `json:"description,omitempty"`    // 日历描述
 	Permissions  CalendarPermission `json:"permissions,omitempty"`    // 日历公开范围, 可选值有: `private`：私密, `show_only_free_busy`：仅展示忙闲信息, `public`：他人可查看日程详情
 	Color        int64              `json:"color,omitempty"`          // 日历颜色，颜色RGB值的int32表示。客户端展示时会映射到色板上最接近的一种颜色。仅对当前身份生效
 	Type         CalendarType       `json:"type,omitempty"`           // 日历类型, 可选值有: `unknown`：未知类型, `primary`：用户或应用的主日历, `shared`：由用户或应用创建的共享日历, `google`：用户绑定的谷歌日历, `resource`：会议室日历, `exchange`：用户绑定的Exchange日历
-	SummaryAlias string             `json:"summary_alias,omitempty"`  // 日历备注名，修改或添加后仅对当前身份生效, 最大长度：`255` 字符
-	IsDeleted    bool               `json:"is_deleted,omitempty"`     // 对于当前身份，日历是否已经被标记为删除, 默认值: `false`
-	IsThirdParty bool               `json:"is_third_party,omitempty"` // 当前日历是否是第三方数据；三方日历及日程只支持读，不支持写入, 默认值: `false`
+	SummaryAlias string             `json:"summary_alias,omitempty"`  // 日历备注名，修改或添加后仅对当前身份生效
+	IsDeleted    bool               `json:"is_deleted,omitempty"`     // 对于当前身份，日历是否已经被标记为删除
+	IsThirdParty bool               `json:"is_third_party,omitempty"` // 当前日历是否是第三方数据；三方日历及日程只支持读，不支持写入
 	Role         CalendarRole       `json:"role,omitempty"`           // 当前身份对于该日历的访问权限, 可选值有: `unknown`：未知权限, `free_busy_reader`：游客，只能看到忙碌/空闲信息, `reader`：订阅者，查看所有日程详情, `writer`：编辑者，创建及修改日程, `owner`：管理员，管理日历及共享设置
 }
 
@@ -1687,14 +1687,14 @@ type SearchCalendarResp struct {
 
 type SearchCalendarRespItem struct {
 	CalendarID   string             `json:"calendar_id,omitempty"`    // 日历ID
-	Summary      string             `json:"summary,omitempty"`        // 日历标题, 最大长度：`255` 字符
-	Description  string             `json:"description,omitempty"`    // 日历描述, 最大长度：`255` 字符
+	Summary      string             `json:"summary,omitempty"`        // 日历标题
+	Description  string             `json:"description,omitempty"`    // 日历描述
 	Permissions  CalendarPermission `json:"permissions,omitempty"`    // 日历公开范围, 可选值有: `private`：私密, `show_only_free_busy`：仅展示忙闲信息, `public`：他人可查看日程详情
 	Color        int64              `json:"color,omitempty"`          // 日历颜色，颜色RGB值的int32表示。客户端展示时会映射到色板上最接近的一种颜色。仅对当前身份生效
 	Type         CalendarType       `json:"type,omitempty"`           // 日历类型, 可选值有: `unknown`：未知类型, `primary`：用户或应用的主日历, `shared`：由用户或应用创建的共享日历, `google`：用户绑定的谷歌日历, `resource`：会议室日历, `exchange`：用户绑定的Exchange日历
-	SummaryAlias string             `json:"summary_alias,omitempty"`  // 日历备注名，修改或添加后仅对当前身份生效, 最大长度：`255` 字符
-	IsDeleted    bool               `json:"is_deleted,omitempty"`     // 对于当前身份，日历是否已经被标记为删除, 默认值: `false`
-	IsThirdParty bool               `json:"is_third_party,omitempty"` // 当前日历是否是第三方数据；三方日历及日程只支持读，不支持写入, 默认值: `false`
+	SummaryAlias string             `json:"summary_alias,omitempty"`  // 日历备注名，修改或添加后仅对当前身份生效
+	IsDeleted    bool               `json:"is_deleted,omitempty"`     // 对于当前身份，日历是否已经被标记为删除
+	IsThirdParty bool               `json:"is_third_party,omitempty"` // 当前日历是否是第三方数据；三方日历及日程只支持读，不支持写入
 	Role         CalendarRole       `json:"role,omitempty"`           // 当前身份对于该日历的访问权限, 可选值有: `unknown`：未知权限, `free_busy_reader`：游客，只能看到忙碌/空闲信息, `reader`：订阅者，查看所有日程详情, `writer`：编辑者，创建及修改日程, `owner`：管理员，管理日历及共享设置
 }
 
@@ -1753,14 +1753,14 @@ type SubscribeCalendarResp struct {
 
 type SubscribeCalendarRespCalendar struct {
 	CalendarID   string             `json:"calendar_id,omitempty"`    // 日历ID
-	Summary      string             `json:"summary,omitempty"`        // 日历标题, 最大长度：`255` 字符
-	Description  string             `json:"description,omitempty"`    // 日历描述, 最大长度：`255` 字符
+	Summary      string             `json:"summary,omitempty"`        // 日历标题
+	Description  string             `json:"description,omitempty"`    // 日历描述
 	Permissions  CalendarPermission `json:"permissions,omitempty"`    // 日历公开范围, 可选值有: `private`：私密, `show_only_free_busy`：仅展示忙闲信息, `public`：他人可查看日程详情
 	Color        int64              `json:"color,omitempty"`          // 日历颜色，颜色RGB值的int32表示。客户端展示时会映射到色板上最接近的一种颜色。仅对当前身份生效
 	Type         CalendarType       `json:"type,omitempty"`           // 日历类型, 可选值有: `unknown`：未知类型, `primary`：用户或应用的主日历, `shared`：由用户或应用创建的共享日历, `google`：用户绑定的谷歌日历, `resource`：会议室日历, `exchange`：用户绑定的Exchange日历
-	SummaryAlias string             `json:"summary_alias,omitempty"`  // 日历备注名，修改或添加后仅对当前身份生效, 最大长度：`255` 字符
-	IsDeleted    bool               `json:"is_deleted,omitempty"`     // 对于当前身份，日历是否已经被标记为删除, 默认值: `false`
-	IsThirdParty bool               `json:"is_third_party,omitempty"` // 当前日历是否是第三方数据；三方日历及日程只支持读，不支持写入, 默认值: `false`
+	SummaryAlias string             `json:"summary_alias,omitempty"`  // 日历备注名，修改或添加后仅对当前身份生效
+	IsDeleted    bool               `json:"is_deleted,omitempty"`     // 对于当前身份，日历是否已经被标记为删除
+	IsThirdParty bool               `json:"is_third_party,omitempty"` // 当前日历是否是第三方数据；三方日历及日程只支持读，不支持写入
 	Role         CalendarRole       `json:"role,omitempty"`           // 当前身份对于该日历的访问权限, 可选值有: `unknown`：未知权限, `free_busy_reader`：游客，只能看到忙碌/空闲信息, `reader`：订阅者，查看所有日程详情, `writer`：编辑者，创建及修改日程, `owner`：管理员，管理日历及共享设置
 }
 
@@ -2002,11 +2002,10 @@ func (r *Mock) UnMockCalendarCreateCalendarExchangeBinding() {
 }
 
 type CreateCalendarExchangeBindingReq struct {
-	UserIDType        *IDType `query:"user_id_type" json:"-"`        // 用户 ID 类型, 示例值："open_id", 可选值有: `open_id`：用户的 open id, `union_id`：用户的 union id, `user_id`：用户的 user id, 默认值: `open_id`,, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
-	AdminAccount      *string `json:"admin_account,omitempty"`       // admin账户, 示例值："email_admin_example@outlook.com", 长度范围：`1` ～ `500` 字符, 字段权限要求:  获取用户邮箱信息
-	ExchangeAccount   *string `json:"exchange_account,omitempty"`    // 用户绑定的exchange账户, 示例值："email_account_example@outlook.com", 长度范围：`1` ～ `500` 字符, 字段权限要求:  获取用户邮箱信息
-	UserID            *string `json:"user_id,omitempty"`             // exchange账户绑定user唯一标识id, 示例值："ou_xxxxxxxxxxxxxxxxxx"
-	ExchangeBindingID *string `json:"exchange_binding_id,omitempty"` // exchange绑定唯一标识id, 示例值："ZW1haWxfYWRtaW5fZXhhbXBsZUBvdXRsb29rLmNvbSBlbWFpbF9hY2NvdW50X2V4YW1wbGVAb3V0bG9vay5jb20="
+	UserIDType      *IDType `query:"user_id_type" json:"-"`     // 用户 ID 类型, 示例值："open_id", 可选值有: `open_id`：用户的 open id, `union_id`：用户的 union id, `user_id`：用户的 user id, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
+	AdminAccount    *string `json:"admin_account,omitempty"`    // admin账户, 示例值："email_admin_example@outlook.com", 长度范围：`1` ～ `500` 字符
+	ExchangeAccount *string `json:"exchange_account,omitempty"` // 用户绑定的exchange账户, 示例值："email_account_example@outlook.com", 长度范围：`1` ～ `500` 字符
+	UserID          *string `json:"user_id,omitempty"`          // exchange账户绑定user唯一标识id, 示例值："ou_xxxxxxxxxxxxxxxxxx"
 }
 
 type createCalendarExchangeBindingResp struct {
@@ -2016,8 +2015,8 @@ type createCalendarExchangeBindingResp struct {
 }
 
 type CreateCalendarExchangeBindingResp struct {
-	AdminAccount      string `json:"admin_account,omitempty"`       // admin账户, 长度范围：`1` ～ `500` 字符, 字段权限要求:  获取用户邮箱信息
-	ExchangeAccount   string `json:"exchange_account,omitempty"`    // 用户绑定的exchange账户, 长度范围：`1` ～ `500` 字符, 字段权限要求:  获取用户邮箱信息
+	AdminAccount      string `json:"admin_account,omitempty"`       // admin账户, 字段权限要求: 获取用户邮箱信息
+	ExchangeAccount   string `json:"exchange_account,omitempty"`    // 用户绑定的exchange账户, 字段权限要求: 获取用户邮箱信息
 	UserID            string `json:"user_id,omitempty"`             // exchange账户绑定user唯一标识id
 	Status            string `json:"status,omitempty"`              // exchange账户同步状态, 可选值有: `doing`：日历正在同步, `cal_done`：日历同步完成, `timespan_done`：近期时间段同步完成, `done`：日程同步完成, `err`：同步错误
 	ExchangeBindingID string `json:"exchange_binding_id,omitempty"` // exchange绑定唯一标识id
