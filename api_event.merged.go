@@ -217,14 +217,11 @@ type EventV1LeaveApprovalV2 struct {
 	LeaveUnit      string                                     `json:"leave_unit,omitempty"`       // 请假最小时长. 如: DAY
 	LeaveStartTime string                                     `json:"leave_start_time,omitempty"` // 请假开始时间. 如: 2019-10-01 00:00:00
 	LeaveEndTime   string                                     `json:"leave_end_time,omitempty"`   // 请假结束时间. 如: 2019-10-02 00:00:00
-	LeaveDetail    *EventV1LeaveApprovalV2EventLeaveDetail    `json:"leave_detail,omitempty"`     // 具体的请假明细时间
+	LeaveDetail    []string                                   `json:"leave_detail,omitempty"`     // 具体的请假明细时间
+	LeaveRange     []string                                   `json:"leave_range,omitempty"`      // 具体的请假时间范围
 	LeaveInterval  int64                                      `json:"leave_interval,omitempty"`   // 请假时长，单位（秒）. 如: 86400
 	LeaveReason    string                                     `json:"leave_reason,omitempty"`     // 请假事由. 如: abc
 	I18nResources  []*EventV1LeaveApprovalV2EventI18nResource `json:"i18n_resources,omitempty"`   // 国际化文案
-}
-
-type EventV1LeaveApprovalV2EventLeaveDetail struct {
-	string `json:",omitempty"` // 如: 2019-10-01 00:00:00
 }
 
 type EventV1LeaveApprovalV2EventI18nResource struct {

@@ -628,7 +628,7 @@ func (r *Mock) UnMockCalendarCreateCalendarEvent() {
 type CreateCalendarEventReq struct {
 	CalendarID       string                            `path:"calendar_id" json:"-"`        // 日历ID, 示例值："feishu.cn_xxxxxxxxxx@group.calendar.feishu.cn"
 	Summary          *string                           `json:"summary,omitempty"`           // 日程标题, 示例值："日程标题", 最大长度：`1000` 字符
-	Description      *string                           `json:"description,omitempty"`       // 日程描述, 示例值："日程描述", 最大长度：`8192` 字符
+	Description      *string                           `json:"description,omitempty"`       // 日程描述；目前不支持编辑富文本描述，如果日程描述通过客户端编辑过，更新描述会导致富文本格式丢失, 示例值："日程描述", 最大长度：`40960` 字符
 	NeedNotification *bool                             `json:"need_notification,omitempty"` // 更新日程是否给日程参与人发送bot通知，默认为true, 示例值：false
 	StartTime        *CreateCalendarEventReqStartTime  `json:"start_time,omitempty"`        // 日程开始时间
 	EndTime          *CreateCalendarEventReqEndTime    `json:"end_time,omitempty"`          // 日程结束时间
@@ -692,7 +692,7 @@ type CreateCalendarEventResp struct {
 type CreateCalendarEventRespEvent struct {
 	EventID          string                                  `json:"event_id,omitempty"`           // 日程ID
 	Summary          string                                  `json:"summary,omitempty"`            // 日程标题
-	Description      string                                  `json:"description,omitempty"`        // 日程描述
+	Description      string                                  `json:"description,omitempty"`        // 日程描述；目前不支持编辑富文本描述，如果日程描述通过客户端编辑过，更新描述会导致富文本格式丢失
 	NeedNotification bool                                    `json:"need_notification,omitempty"`  // 更新日程是否给日程参与人发送bot通知，默认为true
 	StartTime        *CreateCalendarEventRespEventStartTime  `json:"start_time,omitempty"`         // 日程开始时间
 	EndTime          *CreateCalendarEventRespEventEndTime    `json:"end_time,omitempty"`           // 日程结束时间
@@ -855,7 +855,7 @@ type GetCalendarEventResp struct {
 type GetCalendarEventRespEvent struct {
 	EventID          string                               `json:"event_id,omitempty"`           // 日程ID
 	Summary          string                               `json:"summary,omitempty"`            // 日程标题
-	Description      string                               `json:"description,omitempty"`        // 日程描述
+	Description      string                               `json:"description,omitempty"`        // 日程描述；目前不支持编辑富文本描述，如果日程描述通过客户端编辑过，更新描述会导致富文本格式丢失
 	StartTime        *GetCalendarEventRespEventStartTime  `json:"start_time,omitempty"`         // 日程开始时间
 	EndTime          *GetCalendarEventRespEventEndTime    `json:"end_time,omitempty"`           // 日程结束时间
 	Vchat            *GetCalendarEventRespEventVchat      `json:"vchat,omitempty"`              // 视频会议信息。
@@ -913,6 +913,7 @@ type GetCalendarEventRespEventSchema struct {
 // GetCalendarEventList 该接口用于以当前身份（应用 / 用户）获取日历下的日程列表。
 //
 // - 当前身份必须对日历有reader、writer或owner权限才会返回日程详细信息（调用[获取日历](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar/get)接口，role字段可查看权限）。
+// - 仅支持primary、shared和resource类型的日历获取日程列表。
 // - 调用时首先使用 page_token 分页拉取存量数据，之后使用 sync_token 增量同步变更数据。
 // - 为了确保调用方日程同步数据的一致性，在使用sync_token时，不能同时使用start_time和end_time，否则可能造成日程数据缺失。
 //
@@ -973,7 +974,7 @@ type GetCalendarEventListResp struct {
 type GetCalendarEventListRespItem struct {
 	EventID          string                                  `json:"event_id,omitempty"`           // 日程ID
 	Summary          string                                  `json:"summary,omitempty"`            // 日程标题
-	Description      string                                  `json:"description,omitempty"`        // 日程描述
+	Description      string                                  `json:"description,omitempty"`        // 日程描述；目前不支持编辑富文本描述，如果日程描述通过客户端编辑过，更新描述会导致富文本格式丢失
 	StartTime        *GetCalendarEventListRespItemStartTime  `json:"start_time,omitempty"`         // 日程开始时间
 	EndTime          *GetCalendarEventListRespItemEndTime    `json:"end_time,omitempty"`           // 日程结束时间
 	Vchat            *GetCalendarEventListRespItemVchat      `json:"vchat,omitempty"`              // 视频会议信息。
@@ -1071,7 +1072,7 @@ type UpdateCalendarEventReq struct {
 	CalendarID       string                            `path:"calendar_id" json:"-"`        // 日历ID, 示例值："feishu.cn_xxxxxxxxxx@group.calendar.feishu.cn"
 	EventID          string                            `path:"event_id" json:"-"`           // 日程ID, 示例值："xxxxxxxxx_0"
 	Summary          *string                           `json:"summary,omitempty"`           // 日程标题, 示例值："日程标题", 最大长度：`1000` 字符
-	Description      *string                           `json:"description,omitempty"`       // 日程描述, 示例值："日程描述", 最大长度：`8192` 字符
+	Description      *string                           `json:"description,omitempty"`       // 日程描述；目前不支持编辑富文本描述，如果日程描述通过客户端编辑过，更新描述会导致富文本格式丢失, 示例值："日程描述", 最大长度：`40960` 字符
 	NeedNotification *bool                             `json:"need_notification,omitempty"` // 更新日程是否给日程参与人发送bot通知，默认为true, 示例值：false
 	StartTime        *UpdateCalendarEventReqStartTime  `json:"start_time,omitempty"`        // 日程开始时间
 	EndTime          *UpdateCalendarEventReqEndTime    `json:"end_time,omitempty"`          // 日程结束时间
@@ -1135,7 +1136,7 @@ type UpdateCalendarEventResp struct {
 type UpdateCalendarEventRespEvent struct {
 	EventID          string                                  `json:"event_id,omitempty"`           // 日程ID
 	Summary          string                                  `json:"summary,omitempty"`            // 日程标题
-	Description      string                                  `json:"description,omitempty"`        // 日程描述
+	Description      string                                  `json:"description,omitempty"`        // 日程描述；目前不支持编辑富文本描述，如果日程描述通过客户端编辑过，更新描述会导致富文本格式丢失
 	NeedNotification bool                                    `json:"need_notification,omitempty"`  // 更新日程是否给日程参与人发送bot通知，默认为true
 	StartTime        *UpdateCalendarEventRespEventStartTime  `json:"start_time,omitempty"`         // 日程开始时间
 	EndTime          *UpdateCalendarEventRespEventEndTime    `json:"end_time,omitempty"`           // 日程结束时间
@@ -1270,7 +1271,7 @@ type SearchCalendarEventResp struct {
 type SearchCalendarEventRespItem struct {
 	EventID          string                                 `json:"event_id,omitempty"`           // 日程ID
 	Summary          string                                 `json:"summary,omitempty"`            // 日程标题
-	Description      string                                 `json:"description,omitempty"`        // 日程描述
+	Description      string                                 `json:"description,omitempty"`        // 日程描述；目前不支持编辑富文本描述，如果日程描述通过客户端编辑过，更新描述会导致富文本格式丢失
 	NeedNotification bool                                   `json:"need_notification,omitempty"`  // 更新日程是否给日程参与人发送bot通知，默认为true
 	StartTime        *SearchCalendarEventRespItemStartTime  `json:"start_time,omitempty"`         // 日程开始时间
 	EndTime          *SearchCalendarEventRespItemEndTime    `json:"end_time,omitempty"`           // 日程结束时间

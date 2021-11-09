@@ -88,7 +88,7 @@ func (r *Mock) UnMockTaskGetTaskCollaboratorList() {
 type GetTaskCollaboratorListReq struct {
 	PageSize   *int64  `query:"page_size" json:"-"`    // 分页大小, 示例值：50, 最大值：`50`
 	PageToken  *string `query:"page_token" json:"-"`   // 分页标记，第一次请求不填，表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token，下次遍历可采用该 page_token 获取查询结果, 示例值："「上次返回的page_token」"
-	UserIDType *IDType `query:"user_id_type" json:"-"` // 用户 ID 类型, 示例值："open_id", 可选值有: `open_id`：用户的 open id, `union_id`：用户的 union id, `user_id`：用户的 user id, 默认值: `open_id`,, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
+	UserIDType *IDType `query:"user_id_type" json:"-"` // 用户 ID 类型, 示例值："open_id", 可选值有: `open_id`：用户的 open id, `union_id`：用户的 union id, `user_id`：用户的 user id, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
 	TaskID     string  `path:"task_id" json:"-"`       // 任务 ID, 示例值："0d38e26e-190a-49e9-93a2-35067763ed1f"
 }
 
@@ -358,7 +358,7 @@ func (r *Mock) UnMockTaskCreateTaskFollower() {
 }
 
 type CreateTaskFollowerReq struct {
-	UserIDType *IDType `query:"user_id_type" json:"-"` // 用户 ID 类型, 示例值："open_id", 可选值有: `open_id`：用户的 open id, `union_id`：用户的 union id, `user_id`：用户的 user id, 默认值: `open_id`,, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
+	UserIDType *IDType `query:"user_id_type" json:"-"` // 用户 ID 类型, 示例值："open_id", 可选值有: `open_id`：用户的 open id, `union_id`：用户的 union id, `user_id`：用户的 user id, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
 	TaskID     string  `path:"task_id" json:"-"`       // 任务 ID, 示例值："83912691-2e43-47fc-94a4-d512e03984fa"
 	ID         string  `json:"id,omitempty"`           // 任务关注者 ID, 示例值："ou_99e1a581b36ecc4862cbfbce473f3123"
 }
@@ -461,7 +461,7 @@ func (r *Mock) UnMockTaskGetTaskFollowerList() {
 type GetTaskFollowerListReq struct {
 	PageSize   *int64  `query:"page_size" json:"-"`    // 分页大小, 示例值：10, 最大值：`50`
 	PageToken  *string `query:"page_token" json:"-"`   // 分页标记，第一次请求不填，表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token，下次遍历可采用该 page_token 获取查询结果, 示例值："「上次返回的page_token」"
-	UserIDType *IDType `query:"user_id_type" json:"-"` // 用户 ID 类型, 示例值："open_id", 可选值有: `open_id`：用户的 open id, `union_id`：用户的 union id, `user_id`：用户的 user id, 默认值: `open_id`,, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
+	UserIDType *IDType `query:"user_id_type" json:"-"` // 用户 ID 类型, 示例值："open_id", 可选值有: `open_id`：用户的 open id, `union_id`：用户的 union id, `user_id`：用户的 user id, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
 	TaskID     string  `path:"task_id" json:"-"`       // 任务 ID, 示例值："0d38e26e-190a-49e9-93a2-35067763ed1f"
 }
 

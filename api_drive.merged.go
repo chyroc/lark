@@ -2108,8 +2108,6 @@ type CreateDriveMemberPermissionRespMember struct {
 // CreateDriveMemberPermissionOld 该接口用于根据 filetoken 给用户增加文档的权限。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uMzNzUjLzczM14yM3MTN
-//
-// Deprecated
 func (r *DriveService) CreateDriveMemberPermissionOld(ctx context.Context, request *CreateDriveMemberPermissionOldReq, options ...MethodOptionFunc) (*CreateDriveMemberPermissionOldResp, *Response, error) {
 	if r.cli.mock.mockDriveCreateDriveMemberPermissionOld != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Drive#CreateDriveMemberPermissionOld mock enable")
@@ -2225,8 +2223,6 @@ type DeleteDriveMemberPermissionResp struct{}
 // DeleteDriveMemberPermissionOld 该接口用于根据 filetoken 移除文档协作者的权限。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uYTN3UjL2UzN14iN1cTN
-//
-// Deprecated
 func (r *DriveService) DeleteDriveMemberPermissionOld(ctx context.Context, request *DeleteDriveMemberPermissionOldReq, options ...MethodOptionFunc) (*DeleteDriveMemberPermissionOldResp, *Response, error) {
 	if r.cli.mock.mockDriveDeleteDriveMemberPermissionOld != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Drive#DeleteDriveMemberPermissionOld mock enable")
@@ -2464,8 +2460,6 @@ type UpdateDriveMemberPermissionRespMember struct {
 // UpdateDriveMemberPermissionOld 该接口用于根据 filetoken 更新文档协作者的权限。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/ucTN3UjL3UzN14yN1cTN
-//
-// Deprecated
 func (r *DriveService) UpdateDriveMemberPermissionOld(ctx context.Context, request *UpdateDriveMemberPermissionOldReq, options ...MethodOptionFunc) (*UpdateDriveMemberPermissionOldResp, *Response, error) {
 	if r.cli.mock.mockDriveUpdateDriveMemberPermissionOld != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Drive#UpdateDriveMemberPermissionOld mock enable")
@@ -2641,8 +2635,6 @@ type UpdateDrivePublicPermissionRespPermissionPublic struct {
 // UpdateDrivePublicPermissionV1Old 该接口用于根据 filetoken 更新文档的公共设置。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/ukTM3UjL5EzN14SOxcTN
-//
-// Deprecated
 func (r *DriveService) UpdateDrivePublicPermissionV1Old(ctx context.Context, request *UpdateDrivePublicPermissionV1OldReq, options ...MethodOptionFunc) (*UpdateDrivePublicPermissionV1OldResp, *Response, error) {
 	if r.cli.mock.mockDriveUpdateDrivePublicPermissionV1Old != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Drive#UpdateDrivePublicPermissionV1Old mock enable")
@@ -2699,8 +2691,6 @@ type UpdateDrivePublicPermissionV1OldResp struct {
 // UpdateDrivePublicPermissionV2Old 该接口用于根据 filetoken 更新文档的公共设置。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uITN5UjLyUTO14iM1kTN
-//
-// Deprecated
 func (r *DriveService) UpdateDrivePublicPermissionV2Old(ctx context.Context, request *UpdateDrivePublicPermissionV2OldReq, options ...MethodOptionFunc) (*UpdateDrivePublicPermissionV2OldResp, *Response, error) {
 	if r.cli.mock.mockDriveUpdateDrivePublicPermissionV2Old != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Drive#UpdateDrivePublicPermissionV2Old mock enable")
