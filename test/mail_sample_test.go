@@ -170,6 +170,24 @@ func Test_Mail_Sample_Failed(t *testing.T) {
 			as.NotNil(err)
 			as.Equal(err.Error(), "failed")
 		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.CreateMailUserAlias(ctx, &lark.CreateMailUserAliasReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.DeleteMailUserAlias(ctx, &lark.DeleteMailUserAliasReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.GetMailUserAliasList(ctx, &lark.GetMailUserAliasListReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "failed")
+		})
 	})
 
 	t.Run("request mock failed", func(t *testing.T) {
@@ -450,6 +468,39 @@ func Test_Mail_Sample_Failed(t *testing.T) {
 			as.NotNil(err)
 			as.Equal(err.Error(), "mock-failed")
 		})
+
+		t.Run("", func(t *testing.T) {
+			cli.Mock().MockMailCreateMailUserAlias(func(ctx context.Context, request *lark.CreateMailUserAliasReq, options ...lark.MethodOptionFunc) (*lark.CreateMailUserAliasResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockMailCreateMailUserAlias()
+
+			_, _, err := moduleCli.CreateMailUserAlias(ctx, &lark.CreateMailUserAliasReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+			cli.Mock().MockMailDeleteMailUserAlias(func(ctx context.Context, request *lark.DeleteMailUserAliasReq, options ...lark.MethodOptionFunc) (*lark.DeleteMailUserAliasResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockMailDeleteMailUserAlias()
+
+			_, _, err := moduleCli.DeleteMailUserAlias(ctx, &lark.DeleteMailUserAliasReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+			cli.Mock().MockMailGetMailUserAliasList(func(ctx context.Context, request *lark.GetMailUserAliasListReq, options ...lark.MethodOptionFunc) (*lark.GetMailUserAliasListResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockMailGetMailUserAliasList()
+
+			_, _, err := moduleCli.GetMailUserAliasList(ctx, &lark.GetMailUserAliasListReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
 	})
 
 	t.Run("response is failed", func(t *testing.T) {
@@ -649,6 +700,31 @@ func Test_Mail_Sample_Failed(t *testing.T) {
 		t.Run("", func(t *testing.T) {
 			_, _, err := moduleCli.ClearPublicMailboxMember(ctx, &lark.ClearPublicMailboxMemberReq{
 				PublicMailboxID: "x",
+			})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.CreateMailUserAlias(ctx, &lark.CreateMailUserAliasReq{
+				UserID: "x",
+			})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.DeleteMailUserAlias(ctx, &lark.DeleteMailUserAliasReq{
+				UserID:  "x",
+				AliasID: "x",
+			})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.GetMailUserAliasList(ctx, &lark.GetMailUserAliasListReq{
+				UserID: "x",
 			})
 			as.NotNil(err)
 			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
@@ -855,6 +931,31 @@ func Test_Mail_Sample_Failed(t *testing.T) {
 		t.Run("", func(t *testing.T) {
 			_, _, err := moduleCli.ClearPublicMailboxMember(ctx, &lark.ClearPublicMailboxMemberReq{
 				PublicMailboxID: "x",
+			})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.CreateMailUserAlias(ctx, &lark.CreateMailUserAliasReq{
+				UserID: "x",
+			})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.DeleteMailUserAlias(ctx, &lark.DeleteMailUserAliasReq{
+				UserID:  "x",
+				AliasID: "x",
+			})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.GetMailUserAliasList(ctx, &lark.GetMailUserAliasListReq{
+				UserID: "x",
 			})
 			as.NotNil(err)
 			as.Equal("fake raw request", err.Error())

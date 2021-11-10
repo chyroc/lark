@@ -37,7 +37,7 @@ https://godoc.org/github.com/chyroc/lark
 
 ## Support APIs
 
-API Count: 501, Event Count: 76
+API Count: 504, Event Count: 76
 
 <details>
   <summary>
@@ -373,6 +373,9 @@ API Count: 501, Event Count: 76
   - GetPublicMailboxMemberList
   - DeletePublicMailboxMember
   - ClearPublicMailboxMember
+  - CreateMailUserAlias
+  - DeleteMailUserAlias
+  - GetMailUserAliasList
 - Approval
   - GetApproval
   - GetApprovalInstanceList

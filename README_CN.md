@@ -36,7 +36,7 @@ https://godoc.org/github.com/chyroc/lark
 
 ## 支持的接口
 
-API 总数: 501, 事件总数: 76
+API 总数: 504, 事件总数: 76
 
 <details>
   <summary>
@@ -372,6 +372,9 @@ API 总数: 501, 事件总数: 76
   - GetPublicMailboxMemberList
   - DeletePublicMailboxMember
   - ClearPublicMailboxMember
+  - CreateMailUserAlias
+  - DeleteMailUserAlias
+  - GetMailUserAliasList
 - Approval
   - GetApproval
   - GetApprovalInstanceList
