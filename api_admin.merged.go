@@ -71,7 +71,7 @@ type GetAdminUserStatsRespItem struct {
 	UserName         string `json:"user_name,omitempty"`          // 用户名
 	DepartmentName   string `json:"department_name,omitempty"`    // 部门名
 	DepartmentPath   string `json:"department_path,omitempty"`    // 部门路径
-	CreateTime       string `json:"create_time,omitempty"`        // 添加时间
+	CreateTime       string `json:"create_time,omitempty"`        // 账号创建时间
 	UserActiveFlag   int64  `json:"user_active_flag,omitempty"`   // 用户激活状态, 可选值有: `0`：未激活, `1`：已激活
 	RegisterTime     string `json:"register_time,omitempty"`      // 激活时间
 	SuiteActiveFlag  int64  `json:"suite_active_flag,omitempty"`  // 用户活跃状态, 可选值有: `0`：无活跃, `1`：活跃

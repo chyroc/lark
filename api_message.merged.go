@@ -583,7 +583,8 @@ type ReplyRawMessageResp struct {
 // - 给用户发送消息，需要机器人对用户有可用性
 // - 给群组发送消息，需要机器人在群中
 // - 该接口不支持给部门成员发消息，请使用 [批量发送消息](https://open.feishu.cn/document/ukTMukTMukTM/ucDO1EjL3gTNx4yN4UTM)
-// - 消息请求体最大不能超过150k
+// - 文本消息请求体最大不能超过150KB
+// - 卡片及富文本消息请求体最大不能超过30KB
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/create
 func (r *MessageService) SendRawMessage(ctx context.Context, request *SendRawMessageReq, options ...MethodOptionFunc) (*SendRawMessageResp, *Response, error) {
@@ -809,7 +810,7 @@ func (r *Mock) UnMockMessageSendUrgentAppMessage() {
 }
 
 type SendUrgentAppMessageReq struct {
-	UserIDType IDType   `query:"user_id_type" json:"-"` // 用户 ID 类型, 示例值："open_id", 可选值有: `open_id`：用户的 open id, `union_id`：用户的 union id, `user_id`：用户的 user id, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求:  获取用户 user ID
+	UserIDType IDType   `query:"user_id_type" json:"-"` // 用户 ID 类型, 示例值："open_id", 可选值有: `open_id`：用户的 open id, `union_id`：用户的 union id, `user_id`：用户的 user id, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
 	MessageID  string   `path:"message_id" json:"-"`    // 待加急的消息ID, 示例值："om_dc13264520392913993dd051dba21dcf"
 	UserIDList []string `json:"user_id_list,omitempty"` // 目标用户的ID, 示例值：["ou_6yf8af6bgb9100449565764t3382b168"]
 }
@@ -830,6 +831,8 @@ type SendUrgentAppMessageResp struct {
 //
 // 特别说明：
 // - 通过接口产生的电话加急将消耗企业的加急额度，请慎重调用。
+// - 通过租户管理后台-费用中心-短信/电话加急 可以查看当前额度。
+// - 默认接口限流为50 QPS，请谨慎调用。
 // 注意事项:
 // - 需要开启[机器人能力](https://open.feishu.cn/document/home/develop-a-bot-in-5-minutes/create-an-app)
 // - 只能加急机器人自己发送的消息
@@ -866,7 +869,7 @@ func (r *Mock) UnMockMessageSendUrgentPhoneMessage() {
 }
 
 type SendUrgentPhoneMessageReq struct {
-	UserIDType IDType   `query:"user_id_type" json:"-"` // 用户 ID 类型, 示例值："open_id", 可选值有: `open_id`：用户的 open id, `union_id`：用户的 union id, `user_id`：用户的 user id, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求:  获取用户 user ID
+	UserIDType IDType   `query:"user_id_type" json:"-"` // 用户 ID 类型, 示例值："open_id", 可选值有: `open_id`：用户的 open id, `union_id`：用户的 union id, `user_id`：用户的 user id, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
 	MessageID  string   `path:"message_id" json:"-"`    // 待加急的消息的ID, 示例值："om_dc13264520392913993dd051dba21dcf"
 	UserIDList []string `json:"user_id_list,omitempty"` // 目标用户的ID, 示例值：["ou_6yf8af6bgb9100449565764t3382b168"]
 }
@@ -887,6 +890,8 @@ type SendUrgentPhoneMessageResp struct {
 //
 // 特别说明：
 // - 通过接口产生的短信加急将消耗企业的加急额度，请慎重调用。
+// - 通过租户管理后台-费用中心-短信/电话加急 可以查看当前额度。
+// - 默认接口限流为50 QPS，请谨慎调用。
 // 注意事项:
 // - 需要开启[机器人能力](https://open.feishu.cn/document/home/develop-a-bot-in-5-minutes/create-an-app)
 // - 只能加急机器人自己发送的消息
@@ -923,7 +928,7 @@ func (r *Mock) UnMockMessageSendUrgentSmsMessage() {
 }
 
 type SendUrgentSmsMessageReq struct {
-	UserIDType IDType   `query:"user_id_type" json:"-"` // 用户 ID 类型, 示例值："open_id", 可选值有: `open_id`：用户的 open id, `union_id`：用户的 union id, `user_id`：用户的 user id, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求:  获取用户 user ID
+	UserIDType IDType   `query:"user_id_type" json:"-"` // 用户 ID 类型, 示例值："open_id", 可选值有: `open_id`：用户的 open id, `union_id`：用户的 union id, `user_id`：用户的 user id, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
 	MessageID  string   `path:"message_id" json:"-"`    // 待加急的消息ID, 示例值："om_dc13264520392913993dd051dba21dcf"
 	UserIDList []string `json:"user_id_list,omitempty"` // 目标用户的ID, 示例值：["ou_6yf8af6bgb9100449565764t3382b168"]
 }

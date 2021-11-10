@@ -28,24 +28,18 @@ func Test_Message_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-			t.Skip()
-
 			_, _, err := moduleCli.SendUrgentAppMessage(ctx, &lark.SendUrgentAppMessageReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "failed")
 		})
 
 		t.Run("", func(t *testing.T) {
-			t.Skip()
-
 			_, _, err := moduleCli.SendUrgentSmsMessage(ctx, &lark.SendUrgentSmsMessageReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "failed")
 		})
 
 		t.Run("", func(t *testing.T) {
-			t.Skip()
-
 			_, _, err := moduleCli.SendUrgentPhoneMessage(ctx, &lark.SendUrgentPhoneMessageReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "failed")
@@ -146,8 +140,6 @@ func Test_Message_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-			t.Skip()
-
 			cli.Mock().MockMessageSendUrgentAppMessage(func(ctx context.Context, request *lark.SendUrgentAppMessageReq, options ...lark.MethodOptionFunc) (*lark.SendUrgentAppMessageResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -159,8 +151,6 @@ func Test_Message_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-			t.Skip()
-
 			cli.Mock().MockMessageSendUrgentSmsMessage(func(ctx context.Context, request *lark.SendUrgentSmsMessageReq, options ...lark.MethodOptionFunc) (*lark.SendUrgentSmsMessageResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -172,8 +162,6 @@ func Test_Message_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-			t.Skip()
-
 			cli.Mock().MockMessageSendUrgentPhoneMessage(func(ctx context.Context, request *lark.SendUrgentPhoneMessageReq, options ...lark.MethodOptionFunc) (*lark.SendUrgentPhoneMessageResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -339,8 +327,6 @@ func Test_Message_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-			t.Skip()
-
 			_, _, err := moduleCli.SendUrgentAppMessage(ctx, &lark.SendUrgentAppMessageReq{
 				MessageID: "x",
 			})
@@ -349,8 +335,6 @@ func Test_Message_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-			t.Skip()
-
 			_, _, err := moduleCli.SendUrgentSmsMessage(ctx, &lark.SendUrgentSmsMessageReq{
 				MessageID: "x",
 			})
@@ -359,8 +343,6 @@ func Test_Message_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-			t.Skip()
-
 			_, _, err := moduleCli.SendUrgentPhoneMessage(ctx, &lark.SendUrgentPhoneMessageReq{
 				MessageID: "x",
 			})
@@ -478,8 +460,6 @@ func Test_Message_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-			t.Skip()
-
 			_, _, err := moduleCli.SendUrgentAppMessage(ctx, &lark.SendUrgentAppMessageReq{
 				MessageID: "x",
 			})
@@ -488,8 +468,6 @@ func Test_Message_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-			t.Skip()
-
 			_, _, err := moduleCli.SendUrgentSmsMessage(ctx, &lark.SendUrgentSmsMessageReq{
 				MessageID: "x",
 			})
@@ -498,8 +476,6 @@ func Test_Message_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-			t.Skip()
-
 			_, _, err := moduleCli.SendUrgentPhoneMessage(ctx, &lark.SendUrgentPhoneMessageReq{
 				MessageID: "x",
 			})
