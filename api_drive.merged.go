@@ -2082,7 +2082,7 @@ type CreateDriveMemberPermissionReq struct {
 	Type             string `query:"type" json:"-"`              // 文件类型，放于query参数中，如：`?type=doc`, 示例值："doc", 可选值有: `doc`：文档, `sheet`：电子表格, `file`：云空间文件, `wiki`：知识库节点, `bitable`：多维表格, `docx`：文档（暂不支持）
 	NeedNotification *bool  `query:"need_notification" json:"-"` // 添加权限后是否通知对方, 示例值：false, 默认值: `false`
 	Token            string `path:"token" json:"-"`              // 文件的 token，获取方式见 [概述](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/files/guide/introduction), 示例值："doccnBKgoMyY5OMbUG6FioTXuBe"
-	MemberType       string `json:"member_type,omitempty"`       // 用户类型，与路径参数中的`member_id`要对应，可选值有：, `email`: 飞书企业邮箱, `openid`: 开放平台ID, `openchat`: 开放平台群组, `opendepartmentid`: 开放平台部门ID, `userid`: 用户自定义ID（支持应用身份）, 示例值："openid"
+	MemberType       string `json:"member_type,omitempty"`       // 用户类型，与路径参数中的`member_id`要对应，可选值有：, `email`: 飞书企业邮箱, `openid`: [开放平台ID](https://open.feishu.cn/document/home/user-identity-introduction/how-to-get), `openchat`: [开放平台群组](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-id-description), `opendepartmentid`:[开放平台部门ID](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/field-overview), `userid`:  [用户自定义ID（支持应用身份）](https://open.feishu.cn/document/home/user-identity-introduction/how-to-get), 示例值："openid"
 	MemberID         string `json:"member_id,omitempty"`         // 用户类型下的值, 示例值："ou_7dab8a3d3cdcc9da365777c7ad535d62"
 	Perm             string `json:"perm,omitempty"`              // 需要更新的权限，可选值有：, `view`: 可阅读, `edit`: 可编辑, `full_access`: 所有权限, 示例值："view"
 }
@@ -2098,7 +2098,7 @@ type CreateDriveMemberPermissionResp struct {
 }
 
 type CreateDriveMemberPermissionRespMember struct {
-	MemberType string `json:"member_type,omitempty"` // 用户类型，与路径参数中的`member_id`要对应，可选值有：, `email`: 飞书企业邮箱, `openid`: 开放平台ID, `openchat`: 开放平台群组, `opendepartmentid`: 开放平台部门ID, `userid`: 用户自定义ID（支持应用身份）
+	MemberType string `json:"member_type,omitempty"` // 用户类型，与路径参数中的`member_id`要对应，可选值有：, `email`: 飞书企业邮箱, `openid`: [开放平台ID](https://open.feishu.cn/document/home/user-identity-introduction/how-to-get), `openchat`: [开放平台群组](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-id-description), `opendepartmentid`:[开放平台部门ID](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/field-overview), `userid`:  [用户自定义ID（支持应用身份）](https://open.feishu.cn/document/home/user-identity-introduction/how-to-get)
 	MemberID   string `json:"member_id,omitempty"`   // 用户类型下的值
 	Perm       string `json:"perm,omitempty"`        // 需要更新的权限，可选值有：, `view`: 可阅读, `edit`: 可编辑, `full_access`: 所有权限
 }
@@ -2435,7 +2435,7 @@ type UpdateDriveMemberPermissionReq struct {
 	Type             string `query:"type" json:"-"`              // 文件类型，放于query参数中，如：`?type=doc`, 示例值："doc", 可选值有: `doc`：文档, `sheet`：电子表格, `file`：云空间文件, `wiki`：知识库节点, `bitable`：多维表格, `docx`：文档（暂不支持）
 	Token            string `path:"token" json:"-"`              // 文件的 token，获取方式见 [概述](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/files/guide/introduction), 示例值："doccnBKgoMyY5OMbUG6FioTXuBe"
 	MemberID         string `path:"member_id" json:"-"`          // 权限成员的ID，与`member_type`相对应, 示例值："ou_7dab8a3d3cdcc9da365777c7ad535d62"
-	MemberType       string `json:"member_type,omitempty"`       // 用户类型，与路径参数中的`member_id`要对应，可选值有：, `email`: 飞书企业邮箱, `openid`: 开放平台ID, `openchat`: 开放平台群组, `opendepartmentid`: 开放平台部门ID, `userid`: 用户自定义ID（支持应用身份）, 示例值："openid"
+	MemberType       string `json:"member_type,omitempty"`       // 用户类型，与路径参数中的`member_id`要对应，可选值有：, `email`: 飞书企业邮箱, `openid`: [开放平台ID](https://open.feishu.cn/document/home/user-identity-introduction/how-to-get), `openchat`: [开放平台群组](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-id-description), `opendepartmentid`:[开放平台部门ID](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/field-overview), `userid`:  [用户自定义ID（支持应用身份）](https://open.feishu.cn/document/home/user-identity-introduction/how-to-get), 示例值："openid"
 	Perm             string `json:"perm,omitempty"`              // 需要更新的权限，可选值有：, `view`: 可阅读, `edit`: 可编辑, `full_access`: 所有权限, 示例值："view"
 }
 
@@ -2450,7 +2450,7 @@ type UpdateDriveMemberPermissionResp struct {
 }
 
 type UpdateDriveMemberPermissionRespMember struct {
-	MemberType string `json:"member_type,omitempty"` // 用户类型，与路径参数中的`member_id`要对应，可选值有：, `email`: 飞书企业邮箱, `openid`: 开放平台ID, `openchat`: 开放平台群组, `opendepartmentid`: 开放平台部门ID, `userid`: 用户自定义ID（支持应用身份）
+	MemberType string `json:"member_type,omitempty"` // 用户类型，与路径参数中的`member_id`要对应，可选值有：, `email`: 飞书企业邮箱, `openid`: [开放平台ID](https://open.feishu.cn/document/home/user-identity-introduction/how-to-get), `openchat`: [开放平台群组](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-id-description), `opendepartmentid`:[开放平台部门ID](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/field-overview), `userid`:  [用户自定义ID（支持应用身份）](https://open.feishu.cn/document/home/user-identity-introduction/how-to-get)
 	MemberID   string `json:"member_id,omitempty"`   // 用户类型下的值
 	Perm       string `json:"perm,omitempty"`        // 需要更新的权限，可选值有：, `view`: 可阅读, `edit`: 可编辑, `full_access`: 所有权限
 }
