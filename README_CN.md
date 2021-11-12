@@ -162,7 +162,7 @@ API 总数: 504, 事件总数: 76
   - GetDriveFileMeta
   - CreateDriveFile
   - CopyDriveFile
-  - DeleteDriveFile
+  - DeleteDriveDocFile
   - DeleteDriveSheetFile
   - CreateDriveFolder
   - GetDriveFolderMeta

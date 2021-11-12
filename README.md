@@ -163,7 +163,7 @@ API Count: 504, Event Count: 76
   - GetDriveFileMeta
   - CreateDriveFile
   - CopyDriveFile
-  - DeleteDriveFile
+  - DeleteDriveDocFile
   - DeleteDriveSheetFile
   - CreateDriveFolder
   - GetDriveFolderMeta

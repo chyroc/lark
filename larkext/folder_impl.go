@@ -87,7 +87,7 @@ func (r *Folder) deleteSheet(ctx context.Context, sheetToken string) error {
 }
 
 func (r *Folder) deleteDoc(ctx context.Context, docToken string) error {
-	_, _, err := r.larkClient.Drive.DeleteDriveFile(ctx, &lark.DeleteDriveFileReq{
+	_, _, err := r.larkClient.Drive.DeleteDriveDocFile(ctx, &lark.DeleteDriveDocFileReq{
 		DocToken: docToken,
 	})
 	return err

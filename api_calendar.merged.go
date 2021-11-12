@@ -1070,7 +1070,7 @@ func (r *Mock) UnMockCalendarUpdateCalendarEvent() {
 
 type UpdateCalendarEventReq struct {
 	CalendarID       string                            `path:"calendar_id" json:"-"`        // 日历ID, 示例值："feishu.cn_xxxxxxxxxx@group.calendar.feishu.cn"
-	EventID          string                            `path:"event_id" json:"-"`           // 日程ID, 示例值："xxxxxxxxx_0"
+	EventID          string                            `path:"event_id" json:"-"`           // 日程ID, 示例值："00592a0e-7edf-4678-bc9d-1b77383ef08e_0"
 	Summary          *string                           `json:"summary,omitempty"`           // 日程标题, 示例值："日程标题", 最大长度：`1000` 字符
 	Description      *string                           `json:"description,omitempty"`       // 日程描述；目前不支持编辑富文本描述，如果日程描述通过客户端编辑过，更新描述会导致富文本格式丢失, 示例值："日程描述", 最大长度：`40960` 字符
 	NeedNotification *bool                             `json:"need_notification,omitempty"` // 更新日程是否给日程参与人发送bot通知，默认为true, 示例值：false
@@ -1533,7 +1533,7 @@ func (r *Mock) UnMockCalendarGetCalendarList() {
 
 type GetCalendarListReq struct {
 	PageSize  *int64  `query:"page_size" json:"-"`  // 一次请求要求返回最大数量，默认500，取值范围为[50. 1000], 示例值：10, 默认值: `500`, 取值范围：`50` ～ `1000`
-	PageToken *string `query:"page_token" json:"-"` // 上次请求Response返回的分页标记，首次请求时为空, 示例值："xxxxx"
+	PageToken *string `query:"page_token" json:"-"` // 上次请求Response返回的分页标记，首次请求时为空, 示例值："ListCalendarsPageToken_xxx"
 	SyncToken *string `query:"sync_token" json:"-"` // 上次请求Response返回的增量同步标记，分页请求未结束时为空, 示例值："ListCalendarsSyncToken_xxx"
 }
 
@@ -1670,7 +1670,7 @@ func (r *Mock) UnMockCalendarSearchCalendar() {
 }
 
 type SearchCalendarReq struct {
-	PageToken *string `query:"page_token" json:"-"` // 分页标记，第一次请求不填，表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token，下次遍历可采用该 page_token 获取查询结果, 示例值："xxxxx"
+	PageToken *string `query:"page_token" json:"-"` // 分页标记，第一次请求不填，表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token，下次遍历可采用该 page_token 获取查询结果, 示例值："10"
 	PageSize  *int64  `query:"page_size" json:"-"`  // 分页大小, 示例值：10, 最大值：`50`
 	Query     string  `json:"query,omitempty"`      // 搜索关键字, 示例值："query words", 长度范围：`1` ～ `200` 字符
 }

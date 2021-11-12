@@ -15,7 +15,7 @@ func (r *Doc) meta(ctx context.Context) (*lark.GetDriveDocMetaResp, error) {
 }
 
 func (r *Doc) delete(ctx context.Context) error {
-	_, _, err := r.larkClient.Drive.DeleteDriveFile(ctx, &lark.DeleteDriveFileReq{
+	_, _, err := r.larkClient.Drive.DeleteDriveDocFile(ctx, &lark.DeleteDriveDocFileReq{
 		DocToken: r.docToken,
 	})
 	return err
