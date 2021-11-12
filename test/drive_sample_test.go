@@ -40,6 +40,12 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.DeleteDriveFile(ctx, &lark.DeleteDriveFileReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "failed")
+		})
+
+		t.Run("", func(t *testing.T) {
 			_, _, err := moduleCli.DeleteDriveDocFile(ctx, &lark.DeleteDriveDocFileReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "failed")
@@ -703,6 +709,17 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 			defer cli.Mock().UnMockDriveCopyDriveFile()
 
 			_, _, err := moduleCli.CopyDriveFile(ctx, &lark.CopyDriveFileReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+			cli.Mock().MockDriveDeleteDriveFile(func(ctx context.Context, request *lark.DeleteDriveFileReq, options ...lark.MethodOptionFunc) (*lark.DeleteDriveFileResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockDriveDeleteDriveFile()
+
+			_, _, err := moduleCli.DeleteDriveFile(ctx, &lark.DeleteDriveFileReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "mock-failed")
 		})
@@ -1890,6 +1907,14 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.DeleteDriveFile(ctx, &lark.DeleteDriveFileReq{
+				FileToken: "x",
+			})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
 			_, _, err := moduleCli.DeleteDriveDocFile(ctx, &lark.DeleteDriveDocFileReq{
 				DocToken: "x",
 			})
@@ -2750,6 +2775,14 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 			_, _, err := moduleCli.CopyDriveFile(ctx, &lark.CopyDriveFileReq{
+				FileToken: "x",
+			})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.DeleteDriveFile(ctx, &lark.DeleteDriveFileReq{
 				FileToken: "x",
 			})
 			as.NotNil(err)
