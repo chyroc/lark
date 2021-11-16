@@ -1287,8 +1287,6 @@ type EventV2ContactEmployeeTypeEnumUpdatedV3NewEnumI18nContent struct {
 // EventV2ContactScopeUpdatedV3
 //
 // 当应用通讯录范围权限发生变更时，订阅这个事件的应用会收到事件。{使用示例}(url=/api/tools/api_explore/api_explore_config?project=contact&version=v3&resource=scope&event=updated)
-// <b>以应用身份访问通讯录</b> 权限为历史版本，不推荐申请。应用访问通讯录相关接口请申请 <b>以应用身份读取通讯录</b>
-// 只有当应用拥有被改动字段的数据权限时，才会接收到事件。具体的数据权限与字段的关系请参考[应用权限](https://open.feishu.cn/document/ukTMukTMukTM/uQjN3QjL0YzN04CN2cDN)，或查看事件体参数列表的字段描述。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/scope/events/updated
 func (r *EventCallbackService) HandlerEventV2ContactScopeUpdatedV3(f eventV2ContactScopeUpdatedV3Handler) {
