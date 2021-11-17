@@ -1,5 +1,5 @@
-github.com/chyroc/go-ptr v1.5.0 h1:7HA8cXMt7kuIFru4FzBFD/PcPFqxqBX43yijMM6wLFs=
-github.com/chyroc/go-ptr v1.5.0/go.mod h1:8x4QPkggRrkpveFHzb27gxqvqf2/ebzNS741UsxlbSQ=
+github.com/chyroc/go-ptr v1.5.1 h1:6rln+CX0u8xHxYQJe7RNHaveq8vTQ4ou+LnLVxStddI=
+github.com/chyroc/go-ptr v1.5.1/go.mod h1:8x4QPkggRrkpveFHzb27gxqvqf2/ebzNS741UsxlbSQ=
 github.com/davecgh/go-spew v1.1.0/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=
 github.com/davecgh/go-spew v1.1.1 h1:vj9j/u1bqnvCEfJOwUhtlOARqs3+rkHYY13jYWTU97c=
 github.com/davecgh/go-spew v1.1.1/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=
