@@ -3,7 +3,6 @@
 package lark
 
 import (
-	"net/http"
 	"time"
 )
 
@@ -22,7 +21,7 @@ type Lark struct {
 	openBaseURL         string
 	wwwBaseURL          string
 
-	httpClient   *http.Client
+	httpClient   HttpClient
 	logger       Logger
 	logLevel     LogLevel
 	store        Store

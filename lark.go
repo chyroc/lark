@@ -1,6 +1,7 @@
 package lark
 
 import (
+	"context"
 	"net/http"
 	"strings"
 	"time"
@@ -45,6 +46,12 @@ func WithHelpdeskCredential(helpdeskID, helpdeskToken string) ClientOptionFunc {
 func WithTimeout(timeout time.Duration) ClientOptionFunc {
 	return func(r *Lark) {
 		r.timeout = timeout
+	}
+}
+
+func WithHttpClient(cli HttpClient) ClientOptionFunc {
+	return func(r *Lark) {
+		r.httpClient = cli
 	}
 }
 
@@ -116,11 +123,15 @@ func newClient(tenantKey string, options []ClientOptionFunc) *Lark {
 		}
 	}
 
-	r.httpClient = &http.Client{
-		Timeout: r.timeout,
+	if r.httpClient == nil {
+		r.httpClient = newDefaultHttpClient(r.timeout) // 这个时候之前 timeout 可能还没有设置
 	}
 
 	r.initService()
 
 	return r
+}
+
+type HttpClient interface {
+	Do(ctx context.Context, req *http.Request) (*http.Response, error)
 }

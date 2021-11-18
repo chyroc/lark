@@ -15,6 +15,7 @@ import (
 	"reflect"
 	"strconv"
 	"strings"
+	"time"
 
 	"github.com/chyroc/lark/internal"
 )
@@ -134,7 +135,7 @@ func (r *Lark) doRequest(ctx context.Context, rawHttpReq *rawHttpRequest, realRe
 		req.Header.Set(k, v)
 	}
 
-	resp, err := r.httpClient.Do(req)
+	resp, err := r.httpClient.Do(ctx, req)
 	if err != nil {
 		return response, err
 	}
@@ -416,4 +417,21 @@ func rangeStruct(v interface{}, f func(fieldVV reflect.Value, fieldVT reflect.St
 	}
 
 	return nil
+}
+
+type defaultHttpClient struct {
+	ins *http.Client
+}
+
+func newDefaultHttpClient(timeout time.Duration) HttpClient {
+	return &defaultHttpClient{
+		ins: &http.Client{
+			Timeout: timeout,
+		},
+	}
+}
+
+func (r *defaultHttpClient) Do(ctx context.Context, req *http.Request) (*http.Response, error) {
+	req = req.WithContext(ctx)
+	return r.ins.Do(req)
 }
