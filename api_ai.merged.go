@@ -292,7 +292,7 @@ type TranslateTextResp struct {
 
 // GetApplicationAppAdminUserList
 //
-// 查询应用管理员列表，返回应用的最新10个管理员账户id列表。
+// 查询审核应用的管理员列表，返回最新10个管理员账户id列表。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/ucDOwYjL3gDM24yN4AjN
 func (r *ApplicationService) GetApplicationAppAdminUserList(ctx context.Context, request *GetApplicationAppAdminUserListReq, options ...MethodOptionFunc) (*GetApplicationAppAdminUserListResp, *Response, error) {
