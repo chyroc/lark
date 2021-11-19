@@ -2652,13 +2652,13 @@ func (r *Mock) UnMockDriveUpdateDrivePublicPermission() {
 }
 
 type UpdateDrivePublicPermissionReq struct {
-	Type            string  `query:"type" json:"-"`              // 权限客体类型，放于query参数中，如：`?type=doc`, 示例值："doc", 可选值有: `doc`：文档, `sheet`：电子表格, `file`：云空间文件, `wiki`：知识库节点, `bitable`：多维表格, `docx`：文档（暂不支持）
+	Type            string  `query:"type" json:"-"`              // 权限客体类型，放于query参数中，如：`?type=doc`, 示例值："doc", 可选值有: `doc`：文档, `sheet`：电子表格, `file`：云空间文件, `wiki`：知识库节点（部分支持）, `bitable`：多维表格, `docx`：文档（暂不支持）
 	Token           string  `path:"token" json:"-"`              // 文件的 token，获取方式见 [概述](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/files/guide/introduction), 示例值："doccnBKgoMyY5OMbUG6FioTXuBe"
 	ExternalAccess  *bool   `json:"external_access,omitempty"`   // 是否允许分享到租户外开关, 示例值：true
 	SecurityEntity  *string `json:"security_entity,omitempty"`   // 可创建副本/打印/导出/复制设置, 示例值："anyone_can_view", 可选值有: `anyone_can_view`：所有可访问此文档的用户, `anyone_can_edit`：有编辑权限的用户
 	CommentEntity   *string `json:"comment_entity,omitempty"`    // 可评论设置, 示例值："anyone_can_view", 可选值有: `anyone_can_view`：所有可访问此文档的用户, `anyone_can_edit`：有编辑权限的用户
 	ShareEntity     *string `json:"share_entity,omitempty"`      // 谁可以添加和管理协作者, 示例值："anyone", 可选值有: `anyone`：所有可阅读或编辑此文档的用户, `same_tenant`：组织内所有可阅读或编辑此文档的用户, `only_full_access`：只有所有权限者可以
-	LinkShareEntity *string `json:"link_share_entity,omitempty"` // 链接共享, 示例值："tenant_readable", 可选值有: `tenant_readable`：组织内获得链接的人可阅读, `tenant_editable`：组织内获得链接的人可编辑, `anyone_readable`：获得链接的任何人可阅读（仅external_access=“true”时有效）, `anyone_editable`：获得链接的任何人可编辑（仅external_access=“true”时有效）, `closed`：关闭链接分享
+	LinkShareEntity *string `json:"link_share_entity,omitempty"` // 链接共享, 示例值："tenant_readable", 可选值有: `tenant_readable`：组织内获得链接的人可阅读, `tenant_editable`：组织内获得链接的人可编辑, `anyone_readable`：获得链接的任何人可阅读（仅`external_access=true`时有效）, `anyone_editable`：获得链接的任何人可编辑（仅`external_access=true`时有效）, `closed`：关闭链接分享
 	InviteExternal  *bool   `json:"invite_external,omitempty"`   // 非所有权限者/所有者是否允许邀请外部人, 示例值：true
 }
 
@@ -2677,7 +2677,7 @@ type UpdateDrivePublicPermissionRespPermissionPublic struct {
 	SecurityEntity  string `json:"security_entity,omitempty"`   // 可创建副本/打印/导出/复制设置, 可选值有: `anyone_can_view`：所有可访问此文档的用户, `anyone_can_edit`：有编辑权限的用户
 	CommentEntity   string `json:"comment_entity,omitempty"`    // 可评论设置, 可选值有: `anyone_can_view`：所有可访问此文档的用户, `anyone_can_edit`：有编辑权限的用户
 	ShareEntity     string `json:"share_entity,omitempty"`      // 谁可以添加和管理协作者, 可选值有: `anyone`：所有可阅读或编辑此文档的用户, `same_tenant`：组织内所有可阅读或编辑此文档的用户, `only_full_access`：只有所有权限者可以
-	LinkShareEntity string `json:"link_share_entity,omitempty"` // 链接共享, 可选值有: `tenant_readable`：组织内获得链接的人可阅读, `tenant_editable`：组织内获得链接的人可编辑, `anyone_readable`：获得链接的任何人可阅读（仅external_access=“true”时有效）, `anyone_editable`：获得链接的任何人可编辑（仅external_access=“true”时有效）, `closed`：关闭链接分享
+	LinkShareEntity string `json:"link_share_entity,omitempty"` // 链接共享, 可选值有: `tenant_readable`：组织内获得链接的人可阅读, `tenant_editable`：组织内获得链接的人可编辑, `anyone_readable`：获得链接的任何人可阅读（仅`external_access=true`时有效）, `anyone_editable`：获得链接的任何人可编辑（仅`external_access=true`时有效）, `closed`：关闭链接分享
 	InviteExternal  bool   `json:"invite_external,omitempty"`   // 非所有权限者/所有者是否允许邀请外部人
 }
 

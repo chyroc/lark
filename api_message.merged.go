@@ -651,13 +651,14 @@ type SendRawMessageResp struct {
 //
 // 用于机器人在群会话中发送指定用户可见的消息卡片。<br>
 // ## 使用场景
-// 临时消息卡片多用于群聊中用户与机器人交互的中间态。例如在群聊中用户需要使用待办事项类bot创建一条提醒，bot 发送了可设置提醒日期和提醒内容的一张可交互的消息卡片，此卡片在没有设置为临时卡片的情况下为群内全员可见，即群内可看见该用户与 bot 交互的过程。而设置为临时卡片后，交互过程仅该用户可见，群内其他成员只会看到最终设置完成的提醒卡片。<br>临时消息卡片可降低群消息的信噪比，并间接增加 bot 通知的用户触达。
+// 临时消息卡片多用于群聊中用户与机器人交互的中间态。例如在群聊中用户需要使用待办事项类bot创建一条提醒，bot 发送了可设置提醒日期和提醒内容的一张可交互的消息卡片，此卡片在没有设置为临时卡片的情况下为群内全员可见，即群内可看见该用户与 bot 交互的过程。而设置为临时卡片后，交互过程仅该用户可见，群内其他成员只会看到最终设置完成的提醒卡片。
+// <br><br>通过临时消息卡片，可以减少消息对群聊中不相关用户的打扰，有效降低群消息的噪声。
 // 需要启用机器人能力；需要机器人在会话群里。
 // -  仅触发临时卡片的用户自己可见。
 // - 不支持转发。
 // - 只能在群聊使用。
 // - 仅在用户处于在线状态的飞书客户端上可见。
-// - 临时消息卡片的[呈现能力](https://open.feishu.cn/document/ukTMukTMukTM/ugTNwUjL4UDM14CO1ATN)、[交互能力](https://open.feishu.cn/document/ukTMukTMukTM/uYjNwUjL2YDM14iN2ATN)与消息卡片一致。
+// - 临时消息卡片的[呈现能力](https://open.feishu.cn/document/ukTMukTMukTM/uEjNwUjLxYDM14SM2ATN)、[交互能力](https://open.feishu.cn/document/ukTMukTMukTM/uYjNwUjL2YDM14iN2ATN)与消息卡片一致。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uETOyYjLxkjM24SM5IjN
 func (r *MessageService) SendEphemeralMessage(ctx context.Context, request *SendEphemeralMessageReq, options ...MethodOptionFunc) (*SendEphemeralMessageResp, *Response, error) {
@@ -695,7 +696,7 @@ type SendEphemeralMessageReq struct {
 	UserID  string              `json:"user_id,omitempty"`  // 指定发送临时消息卡片的用户，其他人将无法看到临时消息卡片，只需要填 open_id、email、user_id（id介绍详见[用户相关的 ID 概念](https://open.feishu.cn/document/home/user-identity-introduction/introduction)） 中的一个即可。服务端依次读取字段的顺序为 **open_id** > **user_id** > **email**
 	Email   string              `json:"email,omitempty"`    // 指定发送临时消息卡片的用户，其他人将无法看到临时消息卡片，只需要填 open_id、email、user_id（id介绍详见[用户相关的 ID 概念](https://open.feishu.cn/document/home/user-identity-introduction/introduction)） 中的一个即可。服务端依次读取字段的顺序为 **open_id** > **user_id** > **email**
 	MsgType MsgType             `json:"msg_type,omitempty"` // 消息的类型，此处固定填 "interactive"
-	Card    *MessageContentCard `json:"card,omitempty"`     // 消息卡片的描述内容，具体参考[卡片结构](https://open.feishu.cn/document/ukTMukTMukTM/uEjNwUjLxYDM14SM2ATN)
+	Card    *MessageContentCard `json:"card,omitempty"`     // 消息卡片的描述内容，具体参考 [基础结构](https://open.feishu.cn/document/ukTMukTMukTM/uEjNwUjLxYDM14SM2ATN)
 }
 
 type sendEphemeralMessageResp struct {
