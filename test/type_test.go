@@ -5,8 +5,9 @@ import (
 	"testing"
 
 	"github.com/chyroc/go-ptr"
-	"github.com/chyroc/lark"
 	"github.com/stretchr/testify/assert"
+
+	"github.com/chyroc/lark"
 )
 
 func Test_Type(t *testing.T) {
@@ -210,6 +211,7 @@ func Test_Type(t *testing.T) {
 	t.Run("md-builder", func(t *testing.T) {
 		as.Equal(`<at id=all></at>`, lark.MdBuilder.AtAll())
 		as.Equal(`[title](url)`, lark.MdBuilder.Link("url", "title"))
+		as.Equal(`[&gt;](&&#114;egion)`, lark.MdBuilder.LinkOrigin("&region", ">"))
 		as.Equal(`![hover](key)`, lark.MdBuilder.Image("key", "hover"))
 		as.Equal(`<at email=email></at>`, lark.MdBuilder.AtUserEmail("email"))
 		as.Equal(`**bold**`, lark.MdBuilder.Bold("bold"))
