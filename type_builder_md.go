@@ -62,18 +62,16 @@ var (
 
 // markdown保留字转义
 func escape(txt string) string {
-	ret := txt
 	for k, v := range reservedWordsMapping {
-		ret = strings.ReplaceAll(ret, k, v)
+		txt = strings.ReplaceAll(txt, k, v)
 	}
-	return ret
+	return txt
 }
 
 // url保留字转义
-func preprocessURL(URLStr string) string {
-	ret := URLStr
-	ret = strings.ReplaceAll(ret, "&reg", "&&#114;eg")
-	return ret
+func preprocessURL(urlStr string) string {
+	urlStr = strings.ReplaceAll(urlStr, "&reg", "&&#114;eg")
+	return urlStr
 }
 
 // LinkOrigin 超链接(保持原样，防止类似于 &region变成®ion 这种情况)
