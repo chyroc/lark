@@ -1,5 +1,7 @@
 package lark
 
+import "strings"
+
 // MdBuilder Markdown标签
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uADOwUjLwgDM14CM4ATN#top_anchor
@@ -42,6 +44,39 @@ func (r mdBuilder) AtUserEmail(email string) string {
 // Link 超链接
 func (r mdBuilder) Link(url, title string) string {
 	return "[" + title + "](" + url + ")"
+}
+
+var (
+	reservedWordsMapping = map[string]string{
+		"|": "&#124;",
+		"`": "&#96;",
+		"]": "&#93;",
+		"[": "&#91;",
+		">": "&gt;",
+		"<": "&lt;",
+		"@": "&#64;",
+		"#": "&#35;",
+		"-": "&#45;",
+	}
+)
+
+// markdown保留字转义
+func escape(txt string) string {
+	for k, v := range reservedWordsMapping {
+		txt = strings.ReplaceAll(txt, k, v)
+	}
+	return txt
+}
+
+// url保留字转义
+func preprocessURL(urlStr string) string {
+	urlStr = strings.ReplaceAll(urlStr, "&reg", "&&#114;eg")
+	return urlStr
+}
+
+// LinkOrigin 超链接(保持原样，防止类似于 &region变成®ion 这种情况)
+func (r mdBuilder) LinkOrigin(url, title string) string {
+	return "[" + escape(title) + "](" + preprocessURL(url) + ")"
 }
 
 // Image 图片
