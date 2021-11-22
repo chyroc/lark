@@ -240,11 +240,11 @@ type GetEHREmployeeListRespItemCustomField struct {
 // - 依赖条件：应用必须开启了[机器人能力](https://open.feishu.cn/document/home/develop-a-bot-in-5-minutes/create-an-app)。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uMTNxYjLzUTM24yM1EjN
-func (r *EventCallbackService) HandlerEventV1AddBot(f eventV1AddBotHandler) {
+func (r *EventCallbackService) HandlerEventV1AddBot(f EventV1AddBotHandler) {
 	r.cli.eventHandler.eventV1AddBotHandler = f
 }
 
-type eventV1AddBotHandler func(ctx context.Context, cli *Lark, schema string, header *EventHeaderV1, event *EventV1AddBot) (string, error)
+type EventV1AddBotHandler func(ctx context.Context, cli *Lark, schema string, header *EventHeaderV1, event *EventV1AddBot) (string, error)
 
 type EventV1AddBot struct {
 	AppID               string                           `json:"app_id,omitempty"`                 // 如: cli_9c8609450f78d102

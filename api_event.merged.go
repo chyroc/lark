@@ -21,11 +21,11 @@ import (
 // 3. 撤销加人 - revoke_add_user_from_chat
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uQDOwUjL0gDM14CN4ATN/event/user-joins-or-leave-group
-func (r *EventCallbackService) HandlerEventV1AddUserToChat(f eventV1AddUserToChatHandler) {
+func (r *EventCallbackService) HandlerEventV1AddUserToChat(f EventV1AddUserToChatHandler) {
 	r.cli.eventHandler.eventV1AddUserToChatHandler = f
 }
 
-type eventV1AddUserToChatHandler func(ctx context.Context, cli *Lark, schema string, header *EventHeaderV1, event *EventV1AddUserToChat) (string, error)
+type EventV1AddUserToChatHandler func(ctx context.Context, cli *Lark, schema string, header *EventHeaderV1, event *EventV1AddUserToChat) (string, error)
 
 type EventV1AddUserToChat struct {
 	AppID     string                             `json:"app_id,omitempty"`     // 如: cli_9c8609450f78d102
@@ -58,11 +58,11 @@ type EventV1AddUserToChatEventUser struct {
 // 只有应用商店应用才能订阅此事件。自建应用无此事件。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/application-v6/event/app-first-enabled
-func (r *EventCallbackService) HandlerEventV1AppOpen(f eventV1AppOpenHandler) {
+func (r *EventCallbackService) HandlerEventV1AppOpen(f EventV1AppOpenHandler) {
 	r.cli.eventHandler.eventV1AppOpenHandler = f
 }
 
-type eventV1AppOpenHandler func(ctx context.Context, cli *Lark, schema string, header *EventHeaderV1, event *EventV1AppOpen) (string, error)
+type EventV1AppOpenHandler func(ctx context.Context, cli *Lark, schema string, header *EventHeaderV1, event *EventV1AppOpen) (string, error)
 
 type EventV1AppOpen struct {
 	AppID             string                                `json:"app_id,omitempty"`             // 开通的应用ID. 如: cli_xxx
@@ -95,11 +95,11 @@ type EventV1AppOpenEventInstallerEmployee struct {
 // - 特殊说明：管理员手动安装应用时，也会触发启用事件。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/application-v6/event/app-enabled-or-disabled
-func (r *EventCallbackService) HandlerEventV1AppStatusChange(f eventV1AppStatusChangeHandler) {
+func (r *EventCallbackService) HandlerEventV1AppStatusChange(f EventV1AppStatusChangeHandler) {
 	r.cli.eventHandler.eventV1AppStatusChangeHandler = f
 }
 
-type eventV1AppStatusChangeHandler func(ctx context.Context, cli *Lark, schema string, header *EventHeaderV1, event *EventV1AppStatusChange) (string, error)
+type EventV1AppStatusChangeHandler func(ctx context.Context, cli *Lark, schema string, header *EventHeaderV1, event *EventV1AppStatusChange) (string, error)
 
 type EventV1AppStatusChange struct {
 	AppID     string                               `json:"app_id,omitempty"`     // 应用ID. 如: cli_xxx
@@ -127,11 +127,11 @@ type EventV1AppStatusChangeEventOperator struct {
 // ](https://open.feishu.cn/document/ukTMukTMukTM/ukDNz4SO0MjL5QzM/auth-v3/auth/app_access_token)
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/application-v6/event/app_ticket-events
-func (r *EventCallbackService) HandlerEventV1AppTicket(f eventV1AppTicketHandler) {
+func (r *EventCallbackService) HandlerEventV1AppTicket(f EventV1AppTicketHandler) {
 	r.cli.eventHandler.eventV1AppTicketHandler = f
 }
 
-type eventV1AppTicketHandler func(ctx context.Context, cli *Lark, schema string, header *EventHeaderV1, event *EventV1AppTicket) (string, error)
+type EventV1AppTicketHandler func(ctx context.Context, cli *Lark, schema string, header *EventHeaderV1, event *EventV1AppTicket) (string, error)
 
 type EventV1AppTicket struct {
 	AppID     string `json:"app_id,omitempty"`     // 如: cli_xxx
@@ -148,11 +148,11 @@ type EventV1AppTicket struct {
 // 应用商店应用开发者应订阅此事件，并在应用卸载后进行相应的账户注销、数据清理等处理。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/application-v6/event/app-uninstalled
-func (r *EventCallbackService) HandlerEventV1AppUninstalled(f eventV1AppUninstalledHandler) {
+func (r *EventCallbackService) HandlerEventV1AppUninstalled(f EventV1AppUninstalledHandler) {
 	r.cli.eventHandler.eventV1AppUninstalledHandler = f
 }
 
-type eventV1AppUninstalledHandler func(ctx context.Context, cli *Lark, schema string, header *EventHeaderV1, event *EventV1AppUninstalled) (string, error)
+type EventV1AppUninstalledHandler func(ctx context.Context, cli *Lark, schema string, header *EventHeaderV1, event *EventV1AppUninstalled) (string, error)
 
 type EventV1AppUninstalled struct {
 	AppID     string `json:"app_id,omitempty"`     // 被卸载的应用ID. 如: cli_xxx
@@ -170,11 +170,11 @@ type EventV1AppUninstalled struct {
 // * 特殊说明：只有开启机器人能力并且机器人所在的群被解散时才能触发此事件。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uQDOwUjL0gDM14CN4ATN/event/group-closed
-func (r *EventCallbackService) HandlerEventV1ChatDisband(f eventV1ChatDisbandHandler) {
+func (r *EventCallbackService) HandlerEventV1ChatDisband(f EventV1ChatDisbandHandler) {
 	r.cli.eventHandler.eventV1ChatDisbandHandler = f
 }
 
-type eventV1ChatDisbandHandler func(ctx context.Context, cli *Lark, schema string, header *EventHeaderV1, event *EventV1ChatDisband) (string, error)
+type EventV1ChatDisbandHandler func(ctx context.Context, cli *Lark, schema string, header *EventHeaderV1, event *EventV1ChatDisband) (string, error)
 
 type EventV1ChatDisband struct {
 	AppID     string                           `json:"app_id,omitempty"`  // 如: cli_9c8609450f78d102
@@ -199,11 +199,11 @@ type EventV1ChatDisbandEventOperator struct {
 // * 依赖权限：[访问审批应用]
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uIDO24iM4YjLygjN/event/leave
-func (r *EventCallbackService) HandlerEventV1LeaveApprovalV2(f eventV1LeaveApprovalV2Handler) {
+func (r *EventCallbackService) HandlerEventV1LeaveApprovalV2(f EventV1LeaveApprovalV2Handler) {
 	r.cli.eventHandler.eventV1LeaveApprovalV2Handler = f
 }
 
-type eventV1LeaveApprovalV2Handler func(ctx context.Context, cli *Lark, schema string, header *EventHeaderV1, event *EventV1LeaveApprovalV2) (string, error)
+type EventV1LeaveApprovalV2Handler func(ctx context.Context, cli *Lark, schema string, header *EventHeaderV1, event *EventV1LeaveApprovalV2) (string, error)
 
 type EventV1LeaveApprovalV2 struct {
 	AppID          string                                     `json:"app_id,omitempty"`           // 如: cli_xxx
@@ -239,11 +239,11 @@ type EventV1LeaveApprovalV2EventI18nResource struct {
 // - 订阅条件：只有应用商店应用才能订阅此事件。自建应用无此事件。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/application-v6/event/public-app-purchase
-func (r *EventCallbackService) HandlerEventV1OrderPaid(f eventV1OrderPaidHandler) {
+func (r *EventCallbackService) HandlerEventV1OrderPaid(f EventV1OrderPaidHandler) {
 	r.cli.eventHandler.eventV1OrderPaidHandler = f
 }
 
-type eventV1OrderPaidHandler func(ctx context.Context, cli *Lark, schema string, header *EventHeaderV1, event *EventV1OrderPaid) (string, error)
+type EventV1OrderPaidHandler func(ctx context.Context, cli *Lark, schema string, header *EventHeaderV1, event *EventV1OrderPaid) (string, error)
 
 type EventV1OrderPaid struct {
 	Type          string `json:"type,omitempty"`            // 事件类型. 如: order_paid
@@ -270,11 +270,11 @@ type EventV1OrderPaid struct {
 // * 依赖权限：[访问审批应用]
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uIDO24iM4YjLygjN/event/out-of-office
-func (r *EventCallbackService) HandlerEventV1OutApproval(f eventV1OutApprovalHandler) {
+func (r *EventCallbackService) HandlerEventV1OutApproval(f EventV1OutApprovalHandler) {
 	r.cli.eventHandler.eventV1OutApprovalHandler = f
 }
 
-type eventV1OutApprovalHandler func(ctx context.Context, cli *Lark, schema string, header *EventHeaderV1, event *EventV1OutApproval) (string, error)
+type EventV1OutApprovalHandler func(ctx context.Context, cli *Lark, schema string, header *EventHeaderV1, event *EventV1OutApproval) (string, error)
 
 type EventV1OutApproval struct {
 	AppID         string                                 `json:"app_id,omitempty"` // 如: cli_9e28cb7ba56a100e
@@ -308,11 +308,11 @@ type EventV1OutApprovalEventI18nResource struct {
 // 如果是应用商店应用，请务必确保订阅并响应此事件。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uYDNxYjL2QTM24iN0EjN/bot-events
-func (r *EventCallbackService) HandlerEventV1P2PChatCreate(f eventV1P2PChatCreateHandler) {
+func (r *EventCallbackService) HandlerEventV1P2PChatCreate(f EventV1P2PChatCreateHandler) {
 	r.cli.eventHandler.eventV1P2PChatCreateHandler = f
 }
 
-type eventV1P2PChatCreateHandler func(ctx context.Context, cli *Lark, schema string, header *EventHeaderV1, event *EventV1P2PChatCreate) (string, error)
+type EventV1P2PChatCreateHandler func(ctx context.Context, cli *Lark, schema string, header *EventHeaderV1, event *EventV1P2PChatCreate) (string, error)
 
 type EventV1P2PChatCreate struct {
 	AppID     string                             `json:"app_id,omitempty"`     // 如: cli_9c8609450f78d102
@@ -345,11 +345,11 @@ type EventV1P2PChatCreateEventUser struct {
 // ### 文本消息
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/ugzMugzMugzM/event/receive-message
-func (r *EventCallbackService) HandlerEventV1ReceiveMessage(f eventV1ReceiveMessageHandler) {
+func (r *EventCallbackService) HandlerEventV1ReceiveMessage(f EventV1ReceiveMessageHandler) {
 	r.cli.eventHandler.eventV1ReceiveMessageHandler = f
 }
 
-type eventV1ReceiveMessageHandler func(ctx context.Context, cli *Lark, schema string, header *EventHeaderV1, event *EventV1ReceiveMessage) (string, error)
+type EventV1ReceiveMessageHandler func(ctx context.Context, cli *Lark, schema string, header *EventHeaderV1, event *EventV1ReceiveMessage) (string, error)
 
 type EventV1ReceiveMessage struct {
 	Type             string   `json:"type,omitempty"`            // 事件类型. 如: message
@@ -382,11 +382,11 @@ type EventV1ReceiveMessage struct {
 // * 依赖权限：[访问审批应用]
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uIDO24iM4YjLygjN/event/attendance-record-correction
-func (r *EventCallbackService) HandlerEventV1RemedyApproval(f eventV1RemedyApprovalHandler) {
+func (r *EventCallbackService) HandlerEventV1RemedyApproval(f EventV1RemedyApprovalHandler) {
 	r.cli.eventHandler.eventV1RemedyApprovalHandler = f
 }
 
-type eventV1RemedyApprovalHandler func(ctx context.Context, cli *Lark, schema string, header *EventHeaderV1, event *EventV1RemedyApproval) (string, error)
+type EventV1RemedyApprovalHandler func(ctx context.Context, cli *Lark, schema string, header *EventHeaderV1, event *EventV1RemedyApproval) (string, error)
 
 type EventV1RemedyApproval struct {
 	AppID        string `json:"app_id,omitempty"`        // 如: cli_xxx
@@ -409,11 +409,11 @@ type EventV1RemedyApproval struct {
 // - 依赖条件：应用必须开启了[机器人能力](https://open.feishu.cn/document/home/develop-a-bot-in-5-minutes/create-an-app)。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/ugzMugzMugzM/event/bot-removed-from-group
-func (r *EventCallbackService) HandlerEventV1RemoveBot(f eventV1RemoveBotHandler) {
+func (r *EventCallbackService) HandlerEventV1RemoveBot(f EventV1RemoveBotHandler) {
 	r.cli.eventHandler.eventV1RemoveBotHandler = f
 }
 
-type eventV1RemoveBotHandler func(ctx context.Context, cli *Lark, schema string, header *EventHeaderV1, event *EventV1RemoveBot) (string, error)
+type EventV1RemoveBotHandler func(ctx context.Context, cli *Lark, schema string, header *EventHeaderV1, event *EventV1RemoveBot) (string, error)
 
 type EventV1RemoveBot struct {
 	AppID               string                              `json:"app_id,omitempty"`                 // 如: cli_9c8609450f78d102
@@ -452,11 +452,11 @@ type EventV1RemoveBotEventChatI18nNames struct {
 // 3. 撤销加人 - revoke_add_user_from_chat
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uQDOwUjL0gDM14CN4ATN/event/user-joins-or-leave-group
-func (r *EventCallbackService) HandlerEventV1RemoveUserFromChat(f eventV1RemoveUserFromChatHandler) {
+func (r *EventCallbackService) HandlerEventV1RemoveUserFromChat(f EventV1RemoveUserFromChatHandler) {
 	r.cli.eventHandler.eventV1RemoveUserFromChatHandler = f
 }
 
-type eventV1RemoveUserFromChatHandler func(ctx context.Context, cli *Lark, schema string, header *EventHeaderV1, event *EventV1RemoveUserFromChat) (string, error)
+type EventV1RemoveUserFromChatHandler func(ctx context.Context, cli *Lark, schema string, header *EventHeaderV1, event *EventV1RemoveUserFromChat) (string, error)
 
 type EventV1RemoveUserFromChat struct {
 	AppID     string                                  `json:"app_id,omitempty"`     // 如: cli_9c8609450f78d102
@@ -494,11 +494,11 @@ type EventV1RemoveUserFromChatEventUser struct {
 // 3. 撤销加人 - revoke_add_user_from_chat
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uQDOwUjL0gDM14CN4ATN/event/user-joins-or-leave-group
-func (r *EventCallbackService) HandlerEventV1RevokeAddUserFromChat(f eventV1RevokeAddUserFromChatHandler) {
+func (r *EventCallbackService) HandlerEventV1RevokeAddUserFromChat(f EventV1RevokeAddUserFromChatHandler) {
 	r.cli.eventHandler.eventV1RevokeAddUserFromChatHandler = f
 }
 
-type eventV1RevokeAddUserFromChatHandler func(ctx context.Context, cli *Lark, schema string, header *EventHeaderV1, event *EventV1RevokeAddUserFromChat) (string, error)
+type EventV1RevokeAddUserFromChatHandler func(ctx context.Context, cli *Lark, schema string, header *EventHeaderV1, event *EventV1RevokeAddUserFromChat) (string, error)
 
 type EventV1RevokeAddUserFromChat struct {
 	AppID     string                                     `json:"app_id,omitempty"`     // 如: cli_9c8609450f78d102
@@ -529,11 +529,11 @@ type EventV1RevokeAddUserFromChatEventUser struct {
 // * 依赖权限：[访问审批应用]
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uIDO24iM4YjLygjN/event/shift-change
-func (r *EventCallbackService) HandlerEventV1ShiftApproval(f eventV1ShiftApprovalHandler) {
+func (r *EventCallbackService) HandlerEventV1ShiftApproval(f EventV1ShiftApprovalHandler) {
 	r.cli.eventHandler.eventV1ShiftApprovalHandler = f
 }
 
-type eventV1ShiftApprovalHandler func(ctx context.Context, cli *Lark, schema string, header *EventHeaderV1, event *EventV1ShiftApproval) (string, error)
+type EventV1ShiftApprovalHandler func(ctx context.Context, cli *Lark, schema string, header *EventHeaderV1, event *EventV1ShiftApproval) (string, error)
 
 type EventV1ShiftApproval struct {
 	AppID        string `json:"app_id,omitempty"`        // 如: cli_xxx
@@ -557,11 +557,11 @@ type EventV1ShiftApproval struct {
 // * 依赖权限：[访问审批应用]
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uIDO24iM4YjLygjN/event/business-trip
-func (r *EventCallbackService) HandlerEventV1TripApproval(f eventV1TripApprovalHandler) {
+func (r *EventCallbackService) HandlerEventV1TripApproval(f EventV1TripApprovalHandler) {
 	r.cli.eventHandler.eventV1TripApprovalHandler = f
 }
 
-type eventV1TripApprovalHandler func(ctx context.Context, cli *Lark, schema string, header *EventHeaderV1, event *EventV1TripApproval) (string, error)
+type EventV1TripApprovalHandler func(ctx context.Context, cli *Lark, schema string, header *EventHeaderV1, event *EventV1TripApproval) (string, error)
 
 type EventV1TripApproval struct {
 	AppID        string                              `json:"app_id,omitempty"`        // 如: cli_xxx
@@ -601,11 +601,11 @@ type EventV1TripApprovalEventTripPeer struct {
 // * 依赖权限：[访问审批应用]
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uIDO24iM4YjLygjN/event/overtime
-func (r *EventCallbackService) HandlerEventV1WorkApproval(f eventV1WorkApprovalHandler) {
+func (r *EventCallbackService) HandlerEventV1WorkApproval(f EventV1WorkApprovalHandler) {
 	r.cli.eventHandler.eventV1WorkApprovalHandler = f
 }
 
-type eventV1WorkApprovalHandler func(ctx context.Context, cli *Lark, schema string, header *EventHeaderV1, event *EventV1WorkApproval) (string, error)
+type EventV1WorkApprovalHandler func(ctx context.Context, cli *Lark, schema string, header *EventHeaderV1, event *EventV1WorkApproval) (string, error)
 
 type EventV1WorkApproval struct {
 	AppID         string `json:"app_id,omitempty"`          // 如: cli_xxx
@@ -629,11 +629,11 @@ type EventV1WorkApproval struct {
 // 门禁设备识别用户成功后发送该事件给订阅应用{使用示例}(url=/api/tools/api_explore/api_explore_config?project=acs&version=v1&resource=access_record&event=created)
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/acs-v1/access_record/events/created
-func (r *EventCallbackService) HandlerEventV2ACSAccessRecordCreatedV1(f eventV2ACSAccessRecordCreatedV1Handler) {
+func (r *EventCallbackService) HandlerEventV2ACSAccessRecordCreatedV1(f EventV2ACSAccessRecordCreatedV1Handler) {
 	r.cli.eventHandler.eventV2ACSAccessRecordCreatedV1Handler = f
 }
 
-type eventV2ACSAccessRecordCreatedV1Handler func(ctx context.Context, cli *Lark, schema string, header *EventHeaderV2, event *EventV2ACSAccessRecordCreatedV1) (string, error)
+type EventV2ACSAccessRecordCreatedV1Handler func(ctx context.Context, cli *Lark, schema string, header *EventHeaderV2, event *EventV2ACSAccessRecordCreatedV1) (string, error)
 
 type EventV2ACSAccessRecordCreatedV1 struct {
 	AccessRecordID string                                 `json:"access_record_id,omitempty"` // 门禁记录 ID
@@ -657,11 +657,11 @@ type EventV2ACSAccessRecordCreatedV1UserID struct {
 // 智能门禁用户特征值变化时，发送此事件{使用示例}(url=/api/tools/api_explore/api_explore_config?project=acs&version=v1&resource=user&event=updated)
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/acs-v1/user/events/updated
-func (r *EventCallbackService) HandlerEventV2ACSUserUpdatedV1(f eventV2ACSUserUpdatedV1Handler) {
+func (r *EventCallbackService) HandlerEventV2ACSUserUpdatedV1(f EventV2ACSUserUpdatedV1Handler) {
 	r.cli.eventHandler.eventV2ACSUserUpdatedV1Handler = f
 }
 
-type eventV2ACSUserUpdatedV1Handler func(ctx context.Context, cli *Lark, schema string, header *EventHeaderV2, event *EventV2ACSUserUpdatedV1) (string, error)
+type EventV2ACSUserUpdatedV1Handler func(ctx context.Context, cli *Lark, schema string, header *EventHeaderV2, event *EventV2ACSUserUpdatedV1) (string, error)
 
 type EventV2ACSUserUpdatedV1 struct {
 	UserID       *EventV2ACSUserUpdatedV1UserID `json:"user_id,omitempty"`       // 用户 ID
@@ -684,11 +684,11 @@ type EventV2ACSUserUpdatedV1UserID struct {
 // - 订阅前提：需要是应用商店应用
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/application-v6/event/app-availability-scope-extended
-func (r *EventCallbackService) HandlerEventV2ApplicationApplicationVisibilityAddedV6(f eventV2ApplicationApplicationVisibilityAddedV6Handler) {
+func (r *EventCallbackService) HandlerEventV2ApplicationApplicationVisibilityAddedV6(f EventV2ApplicationApplicationVisibilityAddedV6Handler) {
 	r.cli.eventHandler.eventV2ApplicationApplicationVisibilityAddedV6Handler = f
 }
 
-type eventV2ApplicationApplicationVisibilityAddedV6Handler func(ctx context.Context, cli *Lark, schema string, header *EventHeaderV2, event *EventV2ApplicationApplicationVisibilityAddedV6) (string, error)
+type EventV2ApplicationApplicationVisibilityAddedV6Handler func(ctx context.Context, cli *Lark, schema string, header *EventHeaderV2, event *EventV2ApplicationApplicationVisibilityAddedV6) (string, error)
 
 type EventV2ApplicationApplicationVisibilityAddedV6 struct {
 	Source int64                                                 `json:"source,omitempty"` // 事件来源, 为 1 时代表通过普通成员安装增加可见性. 如: 1
@@ -718,11 +718,11 @@ type EventV2ApplicationApplicationVisibilityAddedV6UserUserID struct {
 // "header": {
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uIDO24iM4YjLygjN/event/custom-approval-event
-func (r *EventCallbackService) HandlerEventV2ApprovalApprovalUpdatedV4(f eventV2ApprovalApprovalUpdatedV4Handler) {
+func (r *EventCallbackService) HandlerEventV2ApprovalApprovalUpdatedV4(f EventV2ApprovalApprovalUpdatedV4Handler) {
 	r.cli.eventHandler.eventV2ApprovalApprovalUpdatedV4Handler = f
 }
 
-type eventV2ApprovalApprovalUpdatedV4Handler func(ctx context.Context, cli *Lark, schema string, header *EventHeaderV2, event *EventV2ApprovalApprovalUpdatedV4) (string, error)
+type EventV2ApprovalApprovalUpdatedV4Handler func(ctx context.Context, cli *Lark, schema string, header *EventHeaderV2, event *EventV2ApprovalApprovalUpdatedV4) (string, error)
 
 type EventV2ApprovalApprovalUpdatedV4 struct{}
 
@@ -761,11 +761,11 @@ type EventV2ApprovalApprovalUpdatedV4 struct{}
 // |&emsp;∟photo_urls|string\[\]|打卡照片列表|
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/Attendance/event/user-attendance-records-event
-func (r *EventCallbackService) HandlerEventV2AttendanceUserFlowCreatedV1(f eventV2AttendanceUserFlowCreatedV1Handler) {
+func (r *EventCallbackService) HandlerEventV2AttendanceUserFlowCreatedV1(f EventV2AttendanceUserFlowCreatedV1Handler) {
 	r.cli.eventHandler.eventV2AttendanceUserFlowCreatedV1Handler = f
 }
 
-type eventV2AttendanceUserFlowCreatedV1Handler func(ctx context.Context, cli *Lark, schema string, header *EventHeaderV2, event *EventV2AttendanceUserFlowCreatedV1) (string, error)
+type EventV2AttendanceUserFlowCreatedV1Handler func(ctx context.Context, cli *Lark, schema string, header *EventHeaderV2, event *EventV2AttendanceUserFlowCreatedV1) (string, error)
 
 type EventV2AttendanceUserFlowCreatedV1 struct{}
 
@@ -778,11 +778,11 @@ type EventV2AttendanceUserFlowCreatedV1 struct{}
 // 当用户任务变更后，推送该用户的任务状态变更消息。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/Attendance/event/user-task-status-change-event
-func (r *EventCallbackService) HandlerEventV2AttendanceUserTaskUpdatedV1(f eventV2AttendanceUserTaskUpdatedV1Handler) {
+func (r *EventCallbackService) HandlerEventV2AttendanceUserTaskUpdatedV1(f EventV2AttendanceUserTaskUpdatedV1Handler) {
 	r.cli.eventHandler.eventV2AttendanceUserTaskUpdatedV1Handler = f
 }
 
-type eventV2AttendanceUserTaskUpdatedV1Handler func(ctx context.Context, cli *Lark, schema string, header *EventHeaderV2, event *EventV2AttendanceUserTaskUpdatedV1) (string, error)
+type EventV2AttendanceUserTaskUpdatedV1Handler func(ctx context.Context, cli *Lark, schema string, header *EventHeaderV2, event *EventV2AttendanceUserTaskUpdatedV1) (string, error)
 
 type EventV2AttendanceUserTaskUpdatedV1 struct {
 	EmployeeID    string                                            `json:"employee_id,omitempty"`    // 员工 ID
@@ -810,11 +810,11 @@ type EventV2AttendanceUserTaskUpdatedV1StatusChange struct {
 // 适用于获取“抖音员工号”运营者是否发生变更，即当“抖音员工号”关联的飞书账号发生变化时，可通过该权限获知到此事件。{使用示例}(url=/api/tools/api_explore/api_explore_config?project=aweme_ecosystem&version=v1&resource=aweme_user&event=binded_account)
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/bytedance-open-ecosystem/aweme_ecosystem-v1/aweme_user/events/binded_account
-func (r *EventCallbackService) HandlerEventV2AwemeEcosystemAwemeUserBindedAccountV1(f eventV2AwemeEcosystemAwemeUserBindedAccountV1Handler) {
+func (r *EventCallbackService) HandlerEventV2AwemeEcosystemAwemeUserBindedAccountV1(f EventV2AwemeEcosystemAwemeUserBindedAccountV1Handler) {
 	r.cli.eventHandler.eventV2AwemeEcosystemAwemeUserBindedAccountV1Handler = f
 }
 
-type eventV2AwemeEcosystemAwemeUserBindedAccountV1Handler func(ctx context.Context, cli *Lark, schema string, header *EventHeaderV2, event *EventV2AwemeEcosystemAwemeUserBindedAccountV1) (string, error)
+type EventV2AwemeEcosystemAwemeUserBindedAccountV1Handler func(ctx context.Context, cli *Lark, schema string, header *EventHeaderV2, event *EventV2AwemeEcosystemAwemeUserBindedAccountV1) (string, error)
 
 type EventV2AwemeEcosystemAwemeUserBindedAccountV1 struct {
 	EventAwemeUser *EventV2AwemeEcosystemAwemeUserBindedAccountV1EventAwemeUser `json:"event_aweme_user,omitempty"` // 变更后绑定关系
@@ -840,11 +840,11 @@ type EventV2AwemeEcosystemAwemeUserBindedAccountV1EventAwemeUserUserID struct {
 // 特殊说明：应用首先需要调用上述接口建立订阅关系。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar-acl/events/created
-func (r *EventCallbackService) HandlerEventV2CalendarCalendarACLCreatedV4(f eventV2CalendarCalendarACLCreatedV4Handler) {
+func (r *EventCallbackService) HandlerEventV2CalendarCalendarACLCreatedV4(f EventV2CalendarCalendarACLCreatedV4Handler) {
 	r.cli.eventHandler.eventV2CalendarCalendarACLCreatedV4Handler = f
 }
 
-type eventV2CalendarCalendarACLCreatedV4Handler func(ctx context.Context, cli *Lark, schema string, header *EventHeaderV2, event *EventV2CalendarCalendarACLCreatedV4) (string, error)
+type EventV2CalendarCalendarACLCreatedV4Handler func(ctx context.Context, cli *Lark, schema string, header *EventHeaderV2, event *EventV2CalendarCalendarACLCreatedV4) (string, error)
 
 type EventV2CalendarCalendarACLCreatedV4 struct {
 	ACLID      string                                       `json:"acl_id,omitempty"`       // acl资源ID
@@ -878,11 +878,11 @@ type EventV2CalendarCalendarACLCreatedV4UserID struct {
 // 特殊说明：应用首先需要调用上述接口建立订阅关系。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar-acl/events/deleted
-func (r *EventCallbackService) HandlerEventV2CalendarCalendarACLDeletedV4(f eventV2CalendarCalendarACLDeletedV4Handler) {
+func (r *EventCallbackService) HandlerEventV2CalendarCalendarACLDeletedV4(f EventV2CalendarCalendarACLDeletedV4Handler) {
 	r.cli.eventHandler.eventV2CalendarCalendarACLDeletedV4Handler = f
 }
 
-type eventV2CalendarCalendarACLDeletedV4Handler func(ctx context.Context, cli *Lark, schema string, header *EventHeaderV2, event *EventV2CalendarCalendarACLDeletedV4) (string, error)
+type EventV2CalendarCalendarACLDeletedV4Handler func(ctx context.Context, cli *Lark, schema string, header *EventHeaderV2, event *EventV2CalendarCalendarACLDeletedV4) (string, error)
 
 type EventV2CalendarCalendarACLDeletedV4 struct {
 	ACLID      string                                       `json:"acl_id,omitempty"`       // acl资源ID
@@ -916,11 +916,11 @@ type EventV2CalendarCalendarACLDeletedV4UserID struct {
 // 应用首先需要调用上述接口建立订阅关系。应用收到该事件后，使用事件的 user_list 字段中的用户对应的 user_access_token 调用[获取日历列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar/list)接口拉取增量的变更数据
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar/events/changed
-func (r *EventCallbackService) HandlerEventV2CalendarCalendarChangedV4(f eventV2CalendarCalendarChangedV4Handler) {
+func (r *EventCallbackService) HandlerEventV2CalendarCalendarChangedV4(f EventV2CalendarCalendarChangedV4Handler) {
 	r.cli.eventHandler.eventV2CalendarCalendarChangedV4Handler = f
 }
 
-type eventV2CalendarCalendarChangedV4Handler func(ctx context.Context, cli *Lark, schema string, header *EventHeaderV2, event *EventV2CalendarCalendarChangedV4) (string, error)
+type EventV2CalendarCalendarChangedV4Handler func(ctx context.Context, cli *Lark, schema string, header *EventHeaderV2, event *EventV2CalendarCalendarChangedV4) (string, error)
 
 type EventV2CalendarCalendarChangedV4 struct {
 	UserIDList []*EventV2CalendarCalendarChangedV4UserID `json:"user_id_list,omitempty"` // 需要推送事件的用户列表
@@ -940,11 +940,11 @@ type EventV2CalendarCalendarChangedV4UserID struct {
 // 应用首先需要调用上述接口建立订阅关系。应用收到该事件后，使用事件的 user_list 字段中的用户对应的 user_access_token 调用[获取日程列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar-event/list)接口拉取事件中 calendar_id 字段对应的日历下的日程数据
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar-event/events/changed
-func (r *EventCallbackService) HandlerEventV2CalendarCalendarEventChangedV4(f eventV2CalendarCalendarEventChangedV4Handler) {
+func (r *EventCallbackService) HandlerEventV2CalendarCalendarEventChangedV4(f EventV2CalendarCalendarEventChangedV4Handler) {
 	r.cli.eventHandler.eventV2CalendarCalendarEventChangedV4Handler = f
 }
 
-type eventV2CalendarCalendarEventChangedV4Handler func(ctx context.Context, cli *Lark, schema string, header *EventHeaderV2, event *EventV2CalendarCalendarEventChangedV4) (string, error)
+type EventV2CalendarCalendarEventChangedV4Handler func(ctx context.Context, cli *Lark, schema string, header *EventHeaderV2, event *EventV2CalendarCalendarEventChangedV4) (string, error)
 
 type EventV2CalendarCalendarEventChangedV4 struct {
 	CalendarID string                                         `json:"calendar_id,omitempty"`  // 日历id
@@ -965,11 +965,11 @@ type EventV2CalendarCalendarEventChangedV4UserID struct {
 // 只有当应用拥有被改动字段的数据权限时，才会接收到事件。具体的数据权限与字段的关系请参考[应用权限](https://open.feishu.cn/document/ukTMukTMukTM/uQjN3QjL0YzN04CN2cDN)，或查看事件体参数列表的字段描述。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/events/created
-func (r *EventCallbackService) HandlerEventV2ContactDepartmentCreatedV3(f eventV2ContactDepartmentCreatedV3Handler) {
+func (r *EventCallbackService) HandlerEventV2ContactDepartmentCreatedV3(f EventV2ContactDepartmentCreatedV3Handler) {
 	r.cli.eventHandler.eventV2ContactDepartmentCreatedV3Handler = f
 }
 
-type eventV2ContactDepartmentCreatedV3Handler func(ctx context.Context, cli *Lark, schema string, header *EventHeaderV2, event *EventV2ContactDepartmentCreatedV3) (string, error)
+type EventV2ContactDepartmentCreatedV3Handler func(ctx context.Context, cli *Lark, schema string, header *EventHeaderV2, event *EventV2ContactDepartmentCreatedV3) (string, error)
 
 type EventV2ContactDepartmentCreatedV3 struct {
 	Object *EventV2ContactDepartmentCreatedV3Object `json:"object,omitempty"` // 部门信息
@@ -998,11 +998,11 @@ type EventV2ContactDepartmentCreatedV3ObjectStatus struct {
 // 只有当应用拥有被改动字段的数据权限时，才会接收到事件。具体的数据权限与字段的关系请参考[应用权限](https://open.feishu.cn/document/ukTMukTMukTM/uQjN3QjL0YzN04CN2cDN)，或查看事件体参数列表的字段描述。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/events/deleted
-func (r *EventCallbackService) HandlerEventV2ContactDepartmentDeletedV3(f eventV2ContactDepartmentDeletedV3Handler) {
+func (r *EventCallbackService) HandlerEventV2ContactDepartmentDeletedV3(f EventV2ContactDepartmentDeletedV3Handler) {
 	r.cli.eventHandler.eventV2ContactDepartmentDeletedV3Handler = f
 }
 
-type eventV2ContactDepartmentDeletedV3Handler func(ctx context.Context, cli *Lark, schema string, header *EventHeaderV2, event *EventV2ContactDepartmentDeletedV3) (string, error)
+type EventV2ContactDepartmentDeletedV3Handler func(ctx context.Context, cli *Lark, schema string, header *EventHeaderV2, event *EventV2ContactDepartmentDeletedV3) (string, error)
 
 type EventV2ContactDepartmentDeletedV3 struct {
 	Object    *EventV2ContactDepartmentDeletedV3Object    `json:"object,omitempty"`     // 部门信息
@@ -1041,11 +1041,11 @@ type EventV2ContactDepartmentDeletedV3OldObjectStatus struct {
 // 只有当应用拥有被改动字段的数据权限时，才会接收到事件。具体的数据权限与字段的关系请参考[应用权限](https://open.feishu.cn/document/ukTMukTMukTM/uQjN3QjL0YzN04CN2cDN)，或查看事件体参数列表的字段描述。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/events/updated
-func (r *EventCallbackService) HandlerEventV2ContactDepartmentUpdatedV3(f eventV2ContactDepartmentUpdatedV3Handler) {
+func (r *EventCallbackService) HandlerEventV2ContactDepartmentUpdatedV3(f EventV2ContactDepartmentUpdatedV3Handler) {
 	r.cli.eventHandler.eventV2ContactDepartmentUpdatedV3Handler = f
 }
 
-type eventV2ContactDepartmentUpdatedV3Handler func(ctx context.Context, cli *Lark, schema string, header *EventHeaderV2, event *EventV2ContactDepartmentUpdatedV3) (string, error)
+type EventV2ContactDepartmentUpdatedV3Handler func(ctx context.Context, cli *Lark, schema string, header *EventHeaderV2, event *EventV2ContactDepartmentUpdatedV3) (string, error)
 
 type EventV2ContactDepartmentUpdatedV3 struct {
 	Object    *EventV2ContactDepartmentUpdatedV3Object    `json:"object,omitempty"`     // 更新后信息
@@ -1089,11 +1089,11 @@ type EventV2ContactDepartmentUpdatedV3OldObjectStatus struct {
 // 启用人员类型会发出对应事件，需要权限为`以应用身份访问通讯录`,推送方式为`Webhook`。{使用示例}(url=/api/tools/api_explore/api_explore_config?project=contact&version=v3&resource=employee_type_enum&event=actived)
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/employee_type_enum/events/actived
-func (r *EventCallbackService) HandlerEventV2ContactEmployeeTypeEnumActivedV3(f eventV2ContactEmployeeTypeEnumActivedV3Handler) {
+func (r *EventCallbackService) HandlerEventV2ContactEmployeeTypeEnumActivedV3(f EventV2ContactEmployeeTypeEnumActivedV3Handler) {
 	r.cli.eventHandler.eventV2ContactEmployeeTypeEnumActivedV3Handler = f
 }
 
-type eventV2ContactEmployeeTypeEnumActivedV3Handler func(ctx context.Context, cli *Lark, schema string, header *EventHeaderV2, event *EventV2ContactEmployeeTypeEnumActivedV3) (string, error)
+type EventV2ContactEmployeeTypeEnumActivedV3Handler func(ctx context.Context, cli *Lark, schema string, header *EventHeaderV2, event *EventV2ContactEmployeeTypeEnumActivedV3) (string, error)
 
 type EventV2ContactEmployeeTypeEnumActivedV3 struct {
 	OldEnum *EventV2ContactEmployeeTypeEnumActivedV3OldEnum `json:"old_enum,omitempty"` // 旧枚举类型
@@ -1135,11 +1135,11 @@ type EventV2ContactEmployeeTypeEnumActivedV3NewEnumI18nContent struct {
 // 新建人员类型会发出对应事件，需要权限为`以应用身份访问通讯录`,推送方式为`Webhook`。{使用示例}(url=/api/tools/api_explore/api_explore_config?project=contact&version=v3&resource=employee_type_enum&event=created)
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/employee_type_enum/events/created
-func (r *EventCallbackService) HandlerEventV2ContactEmployeeTypeEnumCreatedV3(f eventV2ContactEmployeeTypeEnumCreatedV3Handler) {
+func (r *EventCallbackService) HandlerEventV2ContactEmployeeTypeEnumCreatedV3(f EventV2ContactEmployeeTypeEnumCreatedV3Handler) {
 	r.cli.eventHandler.eventV2ContactEmployeeTypeEnumCreatedV3Handler = f
 }
 
-type eventV2ContactEmployeeTypeEnumCreatedV3Handler func(ctx context.Context, cli *Lark, schema string, header *EventHeaderV2, event *EventV2ContactEmployeeTypeEnumCreatedV3) (string, error)
+type EventV2ContactEmployeeTypeEnumCreatedV3Handler func(ctx context.Context, cli *Lark, schema string, header *EventHeaderV2, event *EventV2ContactEmployeeTypeEnumCreatedV3) (string, error)
 
 type EventV2ContactEmployeeTypeEnumCreatedV3 struct {
 	NewEnum *EventV2ContactEmployeeTypeEnumCreatedV3NewEnum `json:"new_enum,omitempty"` // 新枚举类型
@@ -1166,11 +1166,11 @@ type EventV2ContactEmployeeTypeEnumCreatedV3NewEnumI18nContent struct {
 // 停用人员类型会发出对应事件，需要权限为`以应用身份访问通讯录`,推送方式为`Webhook`。{使用示例}(url=/api/tools/api_explore/api_explore_config?project=contact&version=v3&resource=employee_type_enum&event=deactivated)
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/employee_type_enum/events/deactivated
-func (r *EventCallbackService) HandlerEventV2ContactEmployeeTypeEnumDeactivatedV3(f eventV2ContactEmployeeTypeEnumDeactivatedV3Handler) {
+func (r *EventCallbackService) HandlerEventV2ContactEmployeeTypeEnumDeactivatedV3(f EventV2ContactEmployeeTypeEnumDeactivatedV3Handler) {
 	r.cli.eventHandler.eventV2ContactEmployeeTypeEnumDeactivatedV3Handler = f
 }
 
-type eventV2ContactEmployeeTypeEnumDeactivatedV3Handler func(ctx context.Context, cli *Lark, schema string, header *EventHeaderV2, event *EventV2ContactEmployeeTypeEnumDeactivatedV3) (string, error)
+type EventV2ContactEmployeeTypeEnumDeactivatedV3Handler func(ctx context.Context, cli *Lark, schema string, header *EventHeaderV2, event *EventV2ContactEmployeeTypeEnumDeactivatedV3) (string, error)
 
 type EventV2ContactEmployeeTypeEnumDeactivatedV3 struct {
 	OldEnum *EventV2ContactEmployeeTypeEnumDeactivatedV3OldEnum `json:"old_enum,omitempty"` // 旧枚举类型
@@ -1212,11 +1212,11 @@ type EventV2ContactEmployeeTypeEnumDeactivatedV3NewEnumI18nContent struct {
 // 删除人员类型会发出对应事件，需要权限为`以应用身份访问通讯录`,推送方式为`Webhook`。{使用示例}(url=/api/tools/api_explore/api_explore_config?project=contact&version=v3&resource=employee_type_enum&event=deleted)
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/employee_type_enum/events/deleted
-func (r *EventCallbackService) HandlerEventV2ContactEmployeeTypeEnumDeletedV3(f eventV2ContactEmployeeTypeEnumDeletedV3Handler) {
+func (r *EventCallbackService) HandlerEventV2ContactEmployeeTypeEnumDeletedV3(f EventV2ContactEmployeeTypeEnumDeletedV3Handler) {
 	r.cli.eventHandler.eventV2ContactEmployeeTypeEnumDeletedV3Handler = f
 }
 
-type eventV2ContactEmployeeTypeEnumDeletedV3Handler func(ctx context.Context, cli *Lark, schema string, header *EventHeaderV2, event *EventV2ContactEmployeeTypeEnumDeletedV3) (string, error)
+type EventV2ContactEmployeeTypeEnumDeletedV3Handler func(ctx context.Context, cli *Lark, schema string, header *EventHeaderV2, event *EventV2ContactEmployeeTypeEnumDeletedV3) (string, error)
 
 type EventV2ContactEmployeeTypeEnumDeletedV3 struct {
 	OldEnum *EventV2ContactEmployeeTypeEnumDeletedV3OldEnum `json:"old_enum,omitempty"` // 旧枚举类型
@@ -1243,11 +1243,11 @@ type EventV2ContactEmployeeTypeEnumDeletedV3OldEnumI18nContent struct {
 // 修改人员类型名称会发出对应事件，需要权限为`以应用身份访问通讯录`,推送方式为`Webhook`。{使用示例}(url=/api/tools/api_explore/api_explore_config?project=contact&version=v3&resource=employee_type_enum&event=updated)
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/employee_type_enum/events/updated
-func (r *EventCallbackService) HandlerEventV2ContactEmployeeTypeEnumUpdatedV3(f eventV2ContactEmployeeTypeEnumUpdatedV3Handler) {
+func (r *EventCallbackService) HandlerEventV2ContactEmployeeTypeEnumUpdatedV3(f EventV2ContactEmployeeTypeEnumUpdatedV3Handler) {
 	r.cli.eventHandler.eventV2ContactEmployeeTypeEnumUpdatedV3Handler = f
 }
 
-type eventV2ContactEmployeeTypeEnumUpdatedV3Handler func(ctx context.Context, cli *Lark, schema string, header *EventHeaderV2, event *EventV2ContactEmployeeTypeEnumUpdatedV3) (string, error)
+type EventV2ContactEmployeeTypeEnumUpdatedV3Handler func(ctx context.Context, cli *Lark, schema string, header *EventHeaderV2, event *EventV2ContactEmployeeTypeEnumUpdatedV3) (string, error)
 
 type EventV2ContactEmployeeTypeEnumUpdatedV3 struct {
 	OldEnum *EventV2ContactEmployeeTypeEnumUpdatedV3OldEnum `json:"old_enum,omitempty"` // 旧枚举类型
@@ -1289,11 +1289,11 @@ type EventV2ContactEmployeeTypeEnumUpdatedV3NewEnumI18nContent struct {
 // 当应用通讯录范围权限发生变更时，订阅这个事件的应用会收到事件。{使用示例}(url=/api/tools/api_explore/api_explore_config?project=contact&version=v3&resource=scope&event=updated)
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/scope/events/updated
-func (r *EventCallbackService) HandlerEventV2ContactScopeUpdatedV3(f eventV2ContactScopeUpdatedV3Handler) {
+func (r *EventCallbackService) HandlerEventV2ContactScopeUpdatedV3(f EventV2ContactScopeUpdatedV3Handler) {
 	r.cli.eventHandler.eventV2ContactScopeUpdatedV3Handler = f
 }
 
-type eventV2ContactScopeUpdatedV3Handler func(ctx context.Context, cli *Lark, schema string, header *EventHeaderV2, event *EventV2ContactScopeUpdatedV3) (string, error)
+type EventV2ContactScopeUpdatedV3Handler func(ctx context.Context, cli *Lark, schema string, header *EventHeaderV2, event *EventV2ContactScopeUpdatedV3) (string, error)
 
 type EventV2ContactScopeUpdatedV3 struct {
 	Added   *EventV2ContactScopeUpdatedV3Added   `json:"added,omitempty"`   // 当通讯录范围权限变更时，新增的对象
@@ -1516,11 +1516,11 @@ type EventV2ContactScopeUpdatedV3RemovedUserGroup struct {
 // 只有当应用拥有被改动字段的数据权限时，才会接收到事件。具体的数据权限与字段的关系请参考[应用权限](https://open.feishu.cn/document/ukTMukTMukTM/uQjN3QjL0YzN04CN2cDN)，或查看事件体参数列表的字段描述。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/events/created
-func (r *EventCallbackService) HandlerEventV2ContactUserCreatedV3(f eventV2ContactUserCreatedV3Handler) {
+func (r *EventCallbackService) HandlerEventV2ContactUserCreatedV3(f EventV2ContactUserCreatedV3Handler) {
 	r.cli.eventHandler.eventV2ContactUserCreatedV3Handler = f
 }
 
-type eventV2ContactUserCreatedV3Handler func(ctx context.Context, cli *Lark, schema string, header *EventHeaderV2, event *EventV2ContactUserCreatedV3) (string, error)
+type EventV2ContactUserCreatedV3Handler func(ctx context.Context, cli *Lark, schema string, header *EventHeaderV2, event *EventV2ContactUserCreatedV3) (string, error)
 
 type EventV2ContactUserCreatedV3 struct {
 	Object *EventV2ContactUserCreatedV3Object `json:"object,omitempty"` // 事件信息
@@ -1597,11 +1597,11 @@ type EventV2ContactUserCreatedV3ObjectCustomAttrValueGenericUser struct {
 // 只有当应用拥有被改动字段的数据权限时，才会接收到事件。具体的数据权限与字段的关系请参考[应用权限](https://open.feishu.cn/document/ukTMukTMukTM/uQjN3QjL0YzN04CN2cDN)，或查看事件体参数列表的字段描述。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/events/deleted
-func (r *EventCallbackService) HandlerEventV2ContactUserDeletedV3(f eventV2ContactUserDeletedV3Handler) {
+func (r *EventCallbackService) HandlerEventV2ContactUserDeletedV3(f EventV2ContactUserDeletedV3Handler) {
 	r.cli.eventHandler.eventV2ContactUserDeletedV3Handler = f
 }
 
-type eventV2ContactUserDeletedV3Handler func(ctx context.Context, cli *Lark, schema string, header *EventHeaderV2, event *EventV2ContactUserDeletedV3) (string, error)
+type EventV2ContactUserDeletedV3Handler func(ctx context.Context, cli *Lark, schema string, header *EventHeaderV2, event *EventV2ContactUserDeletedV3) (string, error)
 
 type EventV2ContactUserDeletedV3 struct {
 	Object    *EventV2ContactUserDeletedV3Object    `json:"object,omitempty"`     // 员工信息
@@ -1684,11 +1684,11 @@ type EventV2ContactUserDeletedV3OldObject struct {
 // 只有当应用拥有被改动字段的数据权限时，才会接收到事件。具体的数据权限与字段的关系请参考[应用权限](https://open.feishu.cn/document/ukTMukTMukTM/uQjN3QjL0YzN04CN2cDN)，或查看事件体参数列表的字段描述。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/events/updated
-func (r *EventCallbackService) HandlerEventV2ContactUserUpdatedV3(f eventV2ContactUserUpdatedV3Handler) {
+func (r *EventCallbackService) HandlerEventV2ContactUserUpdatedV3(f EventV2ContactUserUpdatedV3Handler) {
 	r.cli.eventHandler.eventV2ContactUserUpdatedV3Handler = f
 }
 
-type eventV2ContactUserUpdatedV3Handler func(ctx context.Context, cli *Lark, schema string, header *EventHeaderV2, event *EventV2ContactUserUpdatedV3) (string, error)
+type EventV2ContactUserUpdatedV3Handler func(ctx context.Context, cli *Lark, schema string, header *EventHeaderV2, event *EventV2ContactUserUpdatedV3) (string, error)
 
 type EventV2ContactUserUpdatedV3 struct {
 	Object    *EventV2ContactUserUpdatedV3Object    `json:"object,omitempty"`     // 变更后信息
@@ -1829,11 +1829,11 @@ type EventV2ContactUserUpdatedV3OldObjectCustomAttrValueGenericUser struct {
 // 文件被彻底删除将触发此事件。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/event/file-deleted-completely
-func (r *EventCallbackService) HandlerEventV2DriveFileDeletedV1(f eventV2DriveFileDeletedV1Handler) {
+func (r *EventCallbackService) HandlerEventV2DriveFileDeletedV1(f EventV2DriveFileDeletedV1Handler) {
 	r.cli.eventHandler.eventV2DriveFileDeletedV1Handler = f
 }
 
-type eventV2DriveFileDeletedV1Handler func(ctx context.Context, cli *Lark, schema string, header *EventHeaderV2, event *EventV2DriveFileDeletedV1) (string, error)
+type EventV2DriveFileDeletedV1Handler func(ctx context.Context, cli *Lark, schema string, header *EventHeaderV2, event *EventV2DriveFileDeletedV1) (string, error)
 
 type EventV2DriveFileDeletedV1 struct {
 	FileToken  string                               `json:"file_token,omitempty"`  // 文件token. 如: doccnxxxxxx
@@ -1855,11 +1855,11 @@ type EventV2DriveFileDeletedV1OperatorID struct {
 // 文件编辑将触发此事件。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/event/file-edited
-func (r *EventCallbackService) HandlerEventV2DriveFileEditV1(f eventV2DriveFileEditV1Handler) {
+func (r *EventCallbackService) HandlerEventV2DriveFileEditV1(f EventV2DriveFileEditV1Handler) {
 	r.cli.eventHandler.eventV2DriveFileEditV1Handler = f
 }
 
-type eventV2DriveFileEditV1Handler func(ctx context.Context, cli *Lark, schema string, header *EventHeaderV2, event *EventV2DriveFileEditV1) (string, error)
+type EventV2DriveFileEditV1Handler func(ctx context.Context, cli *Lark, schema string, header *EventHeaderV2, event *EventV2DriveFileEditV1) (string, error)
 
 type EventV2DriveFileEditV1 struct {
 	FileToken        string                                `json:"file_token,omitempty"`         // 出现编辑的文档token. 如: doccnxxxxxxxxxxxxxxxxxxxxxxx
@@ -1888,11 +1888,11 @@ type EventV2DriveFileEditV1SubscriberID struct {
 // 文件协作者添加用户/群时将触发此事件。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/event/file-collaborator-add
-func (r *EventCallbackService) HandlerEventV2DriveFilePermissionMemberAddedV1(f eventV2DriveFilePermissionMemberAddedV1Handler) {
+func (r *EventCallbackService) HandlerEventV2DriveFilePermissionMemberAddedV1(f EventV2DriveFilePermissionMemberAddedV1Handler) {
 	r.cli.eventHandler.eventV2DriveFilePermissionMemberAddedV1Handler = f
 }
 
-type eventV2DriveFilePermissionMemberAddedV1Handler func(ctx context.Context, cli *Lark, schema string, header *EventHeaderV2, event *EventV2DriveFilePermissionMemberAddedV1) (string, error)
+type EventV2DriveFilePermissionMemberAddedV1Handler func(ctx context.Context, cli *Lark, schema string, header *EventHeaderV2, event *EventV2DriveFilePermissionMemberAddedV1) (string, error)
 
 type EventV2DriveFilePermissionMemberAddedV1 struct{}
 
@@ -1904,11 +1904,11 @@ type EventV2DriveFilePermissionMemberAddedV1 struct{}
 // 文件协作者移除用户/群时将触发此事件。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/event/file-collaborator-remove
-func (r *EventCallbackService) HandlerEventV2DriveFilePermissionMemberRemovedV1(f eventV2DriveFilePermissionMemberRemovedV1Handler) {
+func (r *EventCallbackService) HandlerEventV2DriveFilePermissionMemberRemovedV1(f EventV2DriveFilePermissionMemberRemovedV1Handler) {
 	r.cli.eventHandler.eventV2DriveFilePermissionMemberRemovedV1Handler = f
 }
 
-type eventV2DriveFilePermissionMemberRemovedV1Handler func(ctx context.Context, cli *Lark, schema string, header *EventHeaderV2, event *EventV2DriveFilePermissionMemberRemovedV1) (string, error)
+type EventV2DriveFilePermissionMemberRemovedV1Handler func(ctx context.Context, cli *Lark, schema string, header *EventHeaderV2, event *EventV2DriveFilePermissionMemberRemovedV1) (string, error)
 
 type EventV2DriveFilePermissionMemberRemovedV1 struct{}
 
@@ -1920,11 +1920,11 @@ type EventV2DriveFilePermissionMemberRemovedV1 struct{}
 // 文件被打开将触发此事件。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/event/file-read
-func (r *EventCallbackService) HandlerEventV2DriveFileReadV1(f eventV2DriveFileReadV1Handler) {
+func (r *EventCallbackService) HandlerEventV2DriveFileReadV1(f EventV2DriveFileReadV1Handler) {
 	r.cli.eventHandler.eventV2DriveFileReadV1Handler = f
 }
 
-type eventV2DriveFileReadV1Handler func(ctx context.Context, cli *Lark, schema string, header *EventHeaderV2, event *EventV2DriveFileReadV1) (string, error)
+type EventV2DriveFileReadV1Handler func(ctx context.Context, cli *Lark, schema string, header *EventHeaderV2, event *EventV2DriveFileReadV1) (string, error)
 
 type EventV2DriveFileReadV1 struct {
 	FileToken      string                              `json:"file_token,omitempty"` // 文件token. 如: doccnxxxxxx
@@ -1946,11 +1946,11 @@ type EventV2DriveFileReadV1OperatorID struct {
 // 文件标题变更时将触发此事件。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/event/file-title-update
-func (r *EventCallbackService) HandlerEventV2DriveFileTitleUpdatedV1(f eventV2DriveFileTitleUpdatedV1Handler) {
+func (r *EventCallbackService) HandlerEventV2DriveFileTitleUpdatedV1(f EventV2DriveFileTitleUpdatedV1Handler) {
 	r.cli.eventHandler.eventV2DriveFileTitleUpdatedV1Handler = f
 }
 
-type eventV2DriveFileTitleUpdatedV1Handler func(ctx context.Context, cli *Lark, schema string, header *EventHeaderV2, event *EventV2DriveFileTitleUpdatedV1) (string, error)
+type EventV2DriveFileTitleUpdatedV1Handler func(ctx context.Context, cli *Lark, schema string, header *EventHeaderV2, event *EventV2DriveFileTitleUpdatedV1) (string, error)
 
 type EventV2DriveFileTitleUpdatedV1 struct{}
 
@@ -1962,11 +1962,11 @@ type EventV2DriveFileTitleUpdatedV1 struct{}
 // 文件被删除到回收站将触发此事件。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/event/delete-file-to-trash-can
-func (r *EventCallbackService) HandlerEventV2DriveFileTrashedV1(f eventV2DriveFileTrashedV1Handler) {
+func (r *EventCallbackService) HandlerEventV2DriveFileTrashedV1(f EventV2DriveFileTrashedV1Handler) {
 	r.cli.eventHandler.eventV2DriveFileTrashedV1Handler = f
 }
 
-type eventV2DriveFileTrashedV1Handler func(ctx context.Context, cli *Lark, schema string, header *EventHeaderV2, event *EventV2DriveFileTrashedV1) (string, error)
+type EventV2DriveFileTrashedV1Handler func(ctx context.Context, cli *Lark, schema string, header *EventHeaderV2, event *EventV2DriveFileTrashedV1) (string, error)
 
 type EventV2DriveFileTrashedV1 struct {
 	FileToken  string                               `json:"file_token,omitempty"`  // 文件token. 如: doccnxxxxxx
@@ -1987,11 +1987,11 @@ type EventV2DriveFileTrashedV1OperatorID struct {
 // 可监听服务台的工单创建事件。需使用订阅接口订阅：[事件订阅](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/event/overview)
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/ticket/events/created
-func (r *EventCallbackService) HandlerEventV2HelpdeskTicketCreatedV1(f eventV2HelpdeskTicketCreatedV1Handler) {
+func (r *EventCallbackService) HandlerEventV2HelpdeskTicketCreatedV1(f EventV2HelpdeskTicketCreatedV1Handler) {
 	r.cli.eventHandler.eventV2HelpdeskTicketCreatedV1Handler = f
 }
 
-type eventV2HelpdeskTicketCreatedV1Handler func(ctx context.Context, cli *Lark, schema string, header *EventHeaderV2, event *EventV2HelpdeskTicketCreatedV1) (string, error)
+type EventV2HelpdeskTicketCreatedV1Handler func(ctx context.Context, cli *Lark, schema string, header *EventHeaderV2, event *EventV2HelpdeskTicketCreatedV1) (string, error)
 
 type EventV2HelpdeskTicketCreatedV1 struct {
 	TicketID   string                               `json:"ticket_id,omitempty"`   // 工单ID
@@ -2026,11 +2026,11 @@ type EventV2HelpdeskTicketCreatedV1GuestID struct {
 // 该消息事件属于工单消息事件。需使用订阅接口订阅：[事件订阅](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/event/overview)
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/ticket_message/events/created
-func (r *EventCallbackService) HandlerEventV2HelpdeskTicketMessageCreatedV1(f eventV2HelpdeskTicketMessageCreatedV1Handler) {
+func (r *EventCallbackService) HandlerEventV2HelpdeskTicketMessageCreatedV1(f EventV2HelpdeskTicketMessageCreatedV1Handler) {
 	r.cli.eventHandler.eventV2HelpdeskTicketMessageCreatedV1Handler = f
 }
 
-type eventV2HelpdeskTicketMessageCreatedV1Handler func(ctx context.Context, cli *Lark, schema string, header *EventHeaderV2, event *EventV2HelpdeskTicketMessageCreatedV1) (string, error)
+type EventV2HelpdeskTicketMessageCreatedV1Handler func(ctx context.Context, cli *Lark, schema string, header *EventHeaderV2, event *EventV2HelpdeskTicketMessageCreatedV1) (string, error)
 
 type EventV2HelpdeskTicketMessageCreatedV1 struct {
 	TicketMessageID string                                         `json:"ticket_message_id,omitempty"` // 工单消息ID
@@ -2072,11 +2072,11 @@ type EventV2HelpdeskTicketMessageCreatedV1Content struct {
 // 可监听工单状态和阶段变更事件。需使用订阅接口订阅：[事件订阅](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/event/overview)
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/ticket/events/updated
-func (r *EventCallbackService) HandlerEventV2HelpdeskTicketMessageUpdatedV1(f eventV2HelpdeskTicketMessageUpdatedV1Handler) {
+func (r *EventCallbackService) HandlerEventV2HelpdeskTicketMessageUpdatedV1(f EventV2HelpdeskTicketMessageUpdatedV1Handler) {
 	r.cli.eventHandler.eventV2HelpdeskTicketMessageUpdatedV1Handler = f
 }
 
-type eventV2HelpdeskTicketMessageUpdatedV1Handler func(ctx context.Context, cli *Lark, schema string, header *EventHeaderV2, event *EventV2HelpdeskTicketMessageUpdatedV1) (string, error)
+type EventV2HelpdeskTicketMessageUpdatedV1Handler func(ctx context.Context, cli *Lark, schema string, header *EventHeaderV2, event *EventV2HelpdeskTicketMessageUpdatedV1) (string, error)
 
 type EventV2HelpdeskTicketMessageUpdatedV1 struct {
 	Object    *EventV2HelpdeskTicketMessageUpdatedV1Object    `json:"object,omitempty"`     // ticket after update
@@ -2126,11 +2126,11 @@ type EventV2HelpdeskTicketMessageUpdatedV1OldObject struct {
 // - 事件会向群内订阅了该事件的机器人进行推送
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat/events/disbanded
-func (r *EventCallbackService) HandlerEventV2IMChatDisbandedV1(f eventV2IMChatDisbandedV1Handler) {
+func (r *EventCallbackService) HandlerEventV2IMChatDisbandedV1(f EventV2IMChatDisbandedV1Handler) {
 	r.cli.eventHandler.eventV2IMChatDisbandedV1Handler = f
 }
 
-type eventV2IMChatDisbandedV1Handler func(ctx context.Context, cli *Lark, schema string, header *EventHeaderV2, event *EventV2IMChatDisbandedV1) (string, error)
+type EventV2IMChatDisbandedV1Handler func(ctx context.Context, cli *Lark, schema string, header *EventHeaderV2, event *EventV2IMChatDisbandedV1) (string, error)
 
 type EventV2IMChatDisbandedV1 struct {
 	ChatID            string                              `json:"chat_id,omitempty"`             // 群组 ID，详情参见[群ID 说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-id-description)
@@ -2157,11 +2157,11 @@ type EventV2IMChatDisbandedV1OperatorID struct {
 // - 机器人邀请机器人不会触发事件
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-member-bot/events/added
-func (r *EventCallbackService) HandlerEventV2IMChatMemberBotAddedV1(f eventV2IMChatMemberBotAddedV1Handler) {
+func (r *EventCallbackService) HandlerEventV2IMChatMemberBotAddedV1(f EventV2IMChatMemberBotAddedV1Handler) {
 	r.cli.eventHandler.eventV2IMChatMemberBotAddedV1Handler = f
 }
 
-type eventV2IMChatMemberBotAddedV1Handler func(ctx context.Context, cli *Lark, schema string, header *EventHeaderV2, event *EventV2IMChatMemberBotAddedV1) (string, error)
+type EventV2IMChatMemberBotAddedV1Handler func(ctx context.Context, cli *Lark, schema string, header *EventHeaderV2, event *EventV2IMChatMemberBotAddedV1) (string, error)
 
 type EventV2IMChatMemberBotAddedV1 struct {
 	ChatID            string                                   `json:"chat_id,omitempty"`             // 群组 ID，详情参见[群ID 说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-id-description)
@@ -2187,11 +2187,11 @@ type EventV2IMChatMemberBotAddedV1OperatorID struct {
 // - 事件会向被移出群的机器人进行推送
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-member-bot/events/deleted
-func (r *EventCallbackService) HandlerEventV2IMChatMemberBotDeletedV1(f eventV2IMChatMemberBotDeletedV1Handler) {
+func (r *EventCallbackService) HandlerEventV2IMChatMemberBotDeletedV1(f EventV2IMChatMemberBotDeletedV1Handler) {
 	r.cli.eventHandler.eventV2IMChatMemberBotDeletedV1Handler = f
 }
 
-type eventV2IMChatMemberBotDeletedV1Handler func(ctx context.Context, cli *Lark, schema string, header *EventHeaderV2, event *EventV2IMChatMemberBotDeletedV1) (string, error)
+type EventV2IMChatMemberBotDeletedV1Handler func(ctx context.Context, cli *Lark, schema string, header *EventHeaderV2, event *EventV2IMChatMemberBotDeletedV1) (string, error)
 
 type EventV2IMChatMemberBotDeletedV1 struct {
 	ChatID            string                                     `json:"chat_id,omitempty"`             // 群组 ID，详情参见[群ID 说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-id-description)
@@ -2217,11 +2217,11 @@ type EventV2IMChatMemberBotDeletedV1OperatorID struct {
 // - 事件会向群内订阅了该事件的机器人进行推送
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-member-user/events/added
-func (r *EventCallbackService) HandlerEventV2IMChatMemberUserAddedV1(f eventV2IMChatMemberUserAddedV1Handler) {
+func (r *EventCallbackService) HandlerEventV2IMChatMemberUserAddedV1(f EventV2IMChatMemberUserAddedV1Handler) {
 	r.cli.eventHandler.eventV2IMChatMemberUserAddedV1Handler = f
 }
 
-type eventV2IMChatMemberUserAddedV1Handler func(ctx context.Context, cli *Lark, schema string, header *EventHeaderV2, event *EventV2IMChatMemberUserAddedV1) (string, error)
+type EventV2IMChatMemberUserAddedV1Handler func(ctx context.Context, cli *Lark, schema string, header *EventHeaderV2, event *EventV2IMChatMemberUserAddedV1) (string, error)
 
 type EventV2IMChatMemberUserAddedV1 struct {
 	ChatID            string                                    `json:"chat_id,omitempty"`             // 群组 ID，详情参见[群ID 说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-id-description)
@@ -2260,11 +2260,11 @@ type EventV2IMChatMemberUserAddedV1UserUserID struct {
 // - 事件会向群内订阅了该事件的机器人进行推送
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-member-user/events/deleted
-func (r *EventCallbackService) HandlerEventV2IMChatMemberUserDeletedV1(f eventV2IMChatMemberUserDeletedV1Handler) {
+func (r *EventCallbackService) HandlerEventV2IMChatMemberUserDeletedV1(f EventV2IMChatMemberUserDeletedV1Handler) {
 	r.cli.eventHandler.eventV2IMChatMemberUserDeletedV1Handler = f
 }
 
-type eventV2IMChatMemberUserDeletedV1Handler func(ctx context.Context, cli *Lark, schema string, header *EventHeaderV2, event *EventV2IMChatMemberUserDeletedV1) (string, error)
+type EventV2IMChatMemberUserDeletedV1Handler func(ctx context.Context, cli *Lark, schema string, header *EventHeaderV2, event *EventV2IMChatMemberUserDeletedV1) (string, error)
 
 type EventV2IMChatMemberUserDeletedV1 struct {
 	ChatID            string                                      `json:"chat_id,omitempty"`             // 群组 ID，详情参见[群ID 说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-id-description)
@@ -2303,11 +2303,11 @@ type EventV2IMChatMemberUserDeletedV1UserUserID struct {
 // - 事件会向群内订阅了该事件的机器人进行推送
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-member-user/events/withdrawn
-func (r *EventCallbackService) HandlerEventV2IMChatMemberUserWithdrawnV1(f eventV2IMChatMemberUserWithdrawnV1Handler) {
+func (r *EventCallbackService) HandlerEventV2IMChatMemberUserWithdrawnV1(f EventV2IMChatMemberUserWithdrawnV1Handler) {
 	r.cli.eventHandler.eventV2IMChatMemberUserWithdrawnV1Handler = f
 }
 
-type eventV2IMChatMemberUserWithdrawnV1Handler func(ctx context.Context, cli *Lark, schema string, header *EventHeaderV2, event *EventV2IMChatMemberUserWithdrawnV1) (string, error)
+type EventV2IMChatMemberUserWithdrawnV1Handler func(ctx context.Context, cli *Lark, schema string, header *EventHeaderV2, event *EventV2IMChatMemberUserWithdrawnV1) (string, error)
 
 type EventV2IMChatMemberUserWithdrawnV1 struct {
 	ChatID            string                                        `json:"chat_id,omitempty"`             // 群组 ID，详情参见[群ID 说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-id-description)
@@ -2349,11 +2349,11 @@ type EventV2IMChatMemberUserWithdrawnV1UserUserID struct {
 // - 事件会向群内订阅了该事件的机器人进行推送
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat/events/updated
-func (r *EventCallbackService) HandlerEventV2IMChatUpdatedV1(f eventV2IMChatUpdatedV1Handler) {
+func (r *EventCallbackService) HandlerEventV2IMChatUpdatedV1(f EventV2IMChatUpdatedV1Handler) {
 	r.cli.eventHandler.eventV2IMChatUpdatedV1Handler = f
 }
 
-type eventV2IMChatUpdatedV1Handler func(ctx context.Context, cli *Lark, schema string, header *EventHeaderV2, event *EventV2IMChatUpdatedV1) (string, error)
+type EventV2IMChatUpdatedV1Handler func(ctx context.Context, cli *Lark, schema string, header *EventHeaderV2, event *EventV2IMChatUpdatedV1) (string, error)
 
 type EventV2IMChatUpdatedV1 struct {
 	ChatID            string                               `json:"chat_id,omitempty"`             // 群组 ID，详情参见[群ID 说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-id-description)
@@ -2452,11 +2452,11 @@ type EventV2IMChatUpdatedV1ModeratorListRemovedMemberUserID struct {
 // - 需要订阅 [即时通讯] 分类下的 [消息已读] 事件
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/events/message_read
-func (r *EventCallbackService) HandlerEventV2IMMessageReadV1(f eventV2IMMessageReadV1Handler) {
+func (r *EventCallbackService) HandlerEventV2IMMessageReadV1(f EventV2IMMessageReadV1Handler) {
 	r.cli.eventHandler.eventV2IMMessageReadV1Handler = f
 }
 
-type eventV2IMMessageReadV1Handler func(ctx context.Context, cli *Lark, schema string, header *EventHeaderV2, event *EventV2IMMessageReadV1) (string, error)
+type EventV2IMMessageReadV1Handler func(ctx context.Context, cli *Lark, schema string, header *EventHeaderV2, event *EventV2IMMessageReadV1) (string, error)
 
 type EventV2IMMessageReadV1 struct {
 	Reader        *EventV2IMMessageReadV1Reader `json:"reader,omitempty"`          // -
@@ -2488,11 +2488,11 @@ type EventV2IMMessageReadV1ReaderReaderID struct {
 // - 当具备[获取用户在群组中@机器人的消息] 权限，可接收机器人所在群聊中 @ 机器人的消息
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/events/receive
-func (r *EventCallbackService) HandlerEventV2IMMessageReceiveV1(f eventV2IMMessageReceiveV1Handler) {
+func (r *EventCallbackService) HandlerEventV2IMMessageReceiveV1(f EventV2IMMessageReceiveV1Handler) {
 	r.cli.eventHandler.eventV2IMMessageReceiveV1Handler = f
 }
 
-type eventV2IMMessageReceiveV1Handler func(ctx context.Context, cli *Lark, schema string, header *EventHeaderV2, event *EventV2IMMessageReceiveV1) (string, error)
+type EventV2IMMessageReceiveV1Handler func(ctx context.Context, cli *Lark, schema string, header *EventHeaderV2, event *EventV2IMMessageReceiveV1) (string, error)
 
 type EventV2IMMessageReceiveV1 struct {
 	Sender  *EventV2IMMessageReceiveV1Sender  `json:"sender,omitempty"`  // 事件的发送者
@@ -2544,11 +2544,11 @@ type EventV2IMMessageReceiveV1MessageMentionID struct {
 // 会议室被创建将触发此事件。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/meeting_room-v1/event/meeting-room-created
-func (r *EventCallbackService) HandlerEventV2MeetingRoomMeetingRoomCreatedV1(f eventV2MeetingRoomMeetingRoomCreatedV1Handler) {
+func (r *EventCallbackService) HandlerEventV2MeetingRoomMeetingRoomCreatedV1(f EventV2MeetingRoomMeetingRoomCreatedV1Handler) {
 	r.cli.eventHandler.eventV2MeetingRoomMeetingRoomCreatedV1Handler = f
 }
 
-type eventV2MeetingRoomMeetingRoomCreatedV1Handler func(ctx context.Context, cli *Lark, schema string, header *EventHeaderV2, event *EventV2MeetingRoomMeetingRoomCreatedV1) (string, error)
+type EventV2MeetingRoomMeetingRoomCreatedV1Handler func(ctx context.Context, cli *Lark, schema string, header *EventHeaderV2, event *EventV2MeetingRoomMeetingRoomCreatedV1) (string, error)
 
 type EventV2MeetingRoomMeetingRoomCreatedV1 struct {
 	RoomID   string `json:"room_id,omitempty"`   // 会议室的唯一标识. 如: xxx
@@ -2563,11 +2563,11 @@ type EventV2MeetingRoomMeetingRoomCreatedV1 struct {
 // 会议室被删除将触发此事件。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/meeting_room-v1/event/meeting-room-deleted
-func (r *EventCallbackService) HandlerEventV2MeetingRoomMeetingRoomDeletedV1(f eventV2MeetingRoomMeetingRoomDeletedV1Handler) {
+func (r *EventCallbackService) HandlerEventV2MeetingRoomMeetingRoomDeletedV1(f EventV2MeetingRoomMeetingRoomDeletedV1Handler) {
 	r.cli.eventHandler.eventV2MeetingRoomMeetingRoomDeletedV1Handler = f
 }
 
-type eventV2MeetingRoomMeetingRoomDeletedV1Handler func(ctx context.Context, cli *Lark, schema string, header *EventHeaderV2, event *EventV2MeetingRoomMeetingRoomDeletedV1) (string, error)
+type EventV2MeetingRoomMeetingRoomDeletedV1Handler func(ctx context.Context, cli *Lark, schema string, header *EventHeaderV2, event *EventV2MeetingRoomMeetingRoomDeletedV1) (string, error)
 
 type EventV2MeetingRoomMeetingRoomDeletedV1 struct{}
 
@@ -2579,11 +2579,11 @@ type EventV2MeetingRoomMeetingRoomDeletedV1 struct{}
 // 会议室被预定，被释放以及被修改时间时会推送此事件。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/meeting_room-v1/event/meeting-room-status-changed
-func (r *EventCallbackService) HandlerEventV2MeetingRoomMeetingRoomStatusChangedV1(f eventV2MeetingRoomMeetingRoomStatusChangedV1Handler) {
+func (r *EventCallbackService) HandlerEventV2MeetingRoomMeetingRoomStatusChangedV1(f EventV2MeetingRoomMeetingRoomStatusChangedV1Handler) {
 	r.cli.eventHandler.eventV2MeetingRoomMeetingRoomStatusChangedV1Handler = f
 }
 
-type eventV2MeetingRoomMeetingRoomStatusChangedV1Handler func(ctx context.Context, cli *Lark, schema string, header *EventHeaderV2, event *EventV2MeetingRoomMeetingRoomStatusChangedV1) (string, error)
+type EventV2MeetingRoomMeetingRoomStatusChangedV1Handler func(ctx context.Context, cli *Lark, schema string, header *EventHeaderV2, event *EventV2MeetingRoomMeetingRoomStatusChangedV1) (string, error)
 
 type EventV2MeetingRoomMeetingRoomStatusChangedV1 struct{}
 
@@ -2595,11 +2595,11 @@ type EventV2MeetingRoomMeetingRoomStatusChangedV1 struct{}
 // 会议室属性更新将触发此事件。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/meeting_room-v1/event/meeting-room-updated
-func (r *EventCallbackService) HandlerEventV2MeetingRoomMeetingRoomUpdatedV1(f eventV2MeetingRoomMeetingRoomUpdatedV1Handler) {
+func (r *EventCallbackService) HandlerEventV2MeetingRoomMeetingRoomUpdatedV1(f EventV2MeetingRoomMeetingRoomUpdatedV1Handler) {
 	r.cli.eventHandler.eventV2MeetingRoomMeetingRoomUpdatedV1Handler = f
 }
 
-type eventV2MeetingRoomMeetingRoomUpdatedV1Handler func(ctx context.Context, cli *Lark, schema string, header *EventHeaderV2, event *EventV2MeetingRoomMeetingRoomUpdatedV1) (string, error)
+type EventV2MeetingRoomMeetingRoomUpdatedV1Handler func(ctx context.Context, cli *Lark, schema string, header *EventHeaderV2, event *EventV2MeetingRoomMeetingRoomUpdatedV1) (string, error)
 
 type EventV2MeetingRoomMeetingRoomUpdatedV1 struct{}
 
@@ -2610,11 +2610,11 @@ type EventV2MeetingRoomMeetingRoomUpdatedV1 struct{}
 // 当 APP 创建的任务评论信息发生变更时触发此事件，包括任务评论的创建、回复、更新、删除。{使用示例}(url=/api/tools/api_explore/api_explore_config?project=task&version=v1&resource=task.comment&event=updated)
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/task-v1/task-comment/events/updated
-func (r *EventCallbackService) HandlerEventV2TaskTaskCommentUpdatedV1(f eventV2TaskTaskCommentUpdatedV1Handler) {
+func (r *EventCallbackService) HandlerEventV2TaskTaskCommentUpdatedV1(f EventV2TaskTaskCommentUpdatedV1Handler) {
 	r.cli.eventHandler.eventV2TaskTaskCommentUpdatedV1Handler = f
 }
 
-type eventV2TaskTaskCommentUpdatedV1Handler func(ctx context.Context, cli *Lark, schema string, header *EventHeaderV2, event *EventV2TaskTaskCommentUpdatedV1) (string, error)
+type EventV2TaskTaskCommentUpdatedV1Handler func(ctx context.Context, cli *Lark, schema string, header *EventHeaderV2, event *EventV2TaskTaskCommentUpdatedV1) (string, error)
 
 type EventV2TaskTaskCommentUpdatedV1 struct {
 	TaskID    string `json:"task_id,omitempty"`    // 任务ID
@@ -2630,11 +2630,11 @@ type EventV2TaskTaskCommentUpdatedV1 struct {
 // 当 APP 创建的任务信息发生变更时触发此事件，包括任务标题、描述、截止时间、协作者、关注者、提醒时间、状态（完成或取消完成）。{使用示例}(url=/api/tools/api_explore/api_explore_config?project=task&version=v1&resource=task&event=updated)
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/task-v1/task/events/updated
-func (r *EventCallbackService) HandlerEventV2TaskTaskUpdatedV1(f eventV2TaskTaskUpdatedV1Handler) {
+func (r *EventCallbackService) HandlerEventV2TaskTaskUpdatedV1(f EventV2TaskTaskUpdatedV1Handler) {
 	r.cli.eventHandler.eventV2TaskTaskUpdatedV1Handler = f
 }
 
-type eventV2TaskTaskUpdatedV1Handler func(ctx context.Context, cli *Lark, schema string, header *EventHeaderV2, event *EventV2TaskTaskUpdatedV1) (string, error)
+type EventV2TaskTaskUpdatedV1Handler func(ctx context.Context, cli *Lark, schema string, header *EventHeaderV2, event *EventV2TaskTaskUpdatedV1) (string, error)
 
 type EventV2TaskTaskUpdatedV1 struct {
 	TaskID  string `json:"task_id,omitempty"`  // 任务ID
@@ -2648,11 +2648,11 @@ type EventV2TaskTaskUpdatedV1 struct {
 // 发生在有人加入会议时
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/vc-v1/meeting/events/join_meeting
-func (r *EventCallbackService) HandlerEventV2VCMeetingJoinMeetingV1(f eventV2VCMeetingJoinMeetingV1Handler) {
+func (r *EventCallbackService) HandlerEventV2VCMeetingJoinMeetingV1(f EventV2VCMeetingJoinMeetingV1Handler) {
 	r.cli.eventHandler.eventV2VCMeetingJoinMeetingV1Handler = f
 }
 
-type eventV2VCMeetingJoinMeetingV1Handler func(ctx context.Context, cli *Lark, schema string, header *EventHeaderV2, event *EventV2VCMeetingJoinMeetingV1) (string, error)
+type EventV2VCMeetingJoinMeetingV1Handler func(ctx context.Context, cli *Lark, schema string, header *EventHeaderV2, event *EventV2VCMeetingJoinMeetingV1) (string, error)
 
 type EventV2VCMeetingJoinMeetingV1 struct {
 	Meeting  *EventV2VCMeetingJoinMeetingV1Meeting  `json:"meeting,omitempty"`  // 会议数据
@@ -2712,11 +2712,11 @@ type EventV2VCMeetingJoinMeetingV1OperatorID struct {
 // 发生在有人离开会议时{使用示例}(url=/api/tools/api_explore/api_explore_config?project=vc&version=v1&resource=meeting&event=leave_meeting)
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/vc-v1/meeting/events/leave_meeting
-func (r *EventCallbackService) HandlerEventV2VCMeetingLeaveMeetingV1(f eventV2VCMeetingLeaveMeetingV1Handler) {
+func (r *EventCallbackService) HandlerEventV2VCMeetingLeaveMeetingV1(f EventV2VCMeetingLeaveMeetingV1Handler) {
 	r.cli.eventHandler.eventV2VCMeetingLeaveMeetingV1Handler = f
 }
 
-type eventV2VCMeetingLeaveMeetingV1Handler func(ctx context.Context, cli *Lark, schema string, header *EventHeaderV2, event *EventV2VCMeetingLeaveMeetingV1) (string, error)
+type EventV2VCMeetingLeaveMeetingV1Handler func(ctx context.Context, cli *Lark, schema string, header *EventHeaderV2, event *EventV2VCMeetingLeaveMeetingV1) (string, error)
 
 type EventV2VCMeetingLeaveMeetingV1 struct {
 	Meeting     *EventV2VCMeetingLeaveMeetingV1Meeting  `json:"meeting,omitempty"`      // 会议数据
@@ -2777,11 +2777,11 @@ type EventV2VCMeetingLeaveMeetingV1OperatorID struct {
 // 发生在会议结束时
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/vc-v1/meeting/events/meeting_ended
-func (r *EventCallbackService) HandlerEventV2VCMeetingMeetingEndedV1(f eventV2VCMeetingMeetingEndedV1Handler) {
+func (r *EventCallbackService) HandlerEventV2VCMeetingMeetingEndedV1(f EventV2VCMeetingMeetingEndedV1Handler) {
 	r.cli.eventHandler.eventV2VCMeetingMeetingEndedV1Handler = f
 }
 
-type eventV2VCMeetingMeetingEndedV1Handler func(ctx context.Context, cli *Lark, schema string, header *EventHeaderV2, event *EventV2VCMeetingMeetingEndedV1) (string, error)
+type EventV2VCMeetingMeetingEndedV1Handler func(ctx context.Context, cli *Lark, schema string, header *EventHeaderV2, event *EventV2VCMeetingMeetingEndedV1) (string, error)
 
 type EventV2VCMeetingMeetingEndedV1 struct {
 	Meeting  *EventV2VCMeetingMeetingEndedV1Meeting  `json:"meeting,omitempty"`  // 会议数据
@@ -2841,11 +2841,11 @@ type EventV2VCMeetingMeetingEndedV1OperatorID struct {
 // 发生在会议开始时
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/vc-v1/meeting/events/meeting_started
-func (r *EventCallbackService) HandlerEventV2VCMeetingMeetingStartedV1(f eventV2VCMeetingMeetingStartedV1Handler) {
+func (r *EventCallbackService) HandlerEventV2VCMeetingMeetingStartedV1(f EventV2VCMeetingMeetingStartedV1Handler) {
 	r.cli.eventHandler.eventV2VCMeetingMeetingStartedV1Handler = f
 }
 
-type eventV2VCMeetingMeetingStartedV1Handler func(ctx context.Context, cli *Lark, schema string, header *EventHeaderV2, event *EventV2VCMeetingMeetingStartedV1) (string, error)
+type EventV2VCMeetingMeetingStartedV1Handler func(ctx context.Context, cli *Lark, schema string, header *EventHeaderV2, event *EventV2VCMeetingMeetingStartedV1) (string, error)
 
 type EventV2VCMeetingMeetingStartedV1 struct {
 	Meeting  *EventV2VCMeetingMeetingStartedV1Meeting  `json:"meeting,omitempty"`  // 会议数据
@@ -2905,11 +2905,11 @@ type EventV2VCMeetingMeetingStartedV1OperatorID struct {
 // 发生在录制结束时
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/vc-v1/meeting/events/recording_ended
-func (r *EventCallbackService) HandlerEventV2VCMeetingRecordingEndedV1(f eventV2VCMeetingRecordingEndedV1Handler) {
+func (r *EventCallbackService) HandlerEventV2VCMeetingRecordingEndedV1(f EventV2VCMeetingRecordingEndedV1Handler) {
 	r.cli.eventHandler.eventV2VCMeetingRecordingEndedV1Handler = f
 }
 
-type eventV2VCMeetingRecordingEndedV1Handler func(ctx context.Context, cli *Lark, schema string, header *EventHeaderV2, event *EventV2VCMeetingRecordingEndedV1) (string, error)
+type EventV2VCMeetingRecordingEndedV1Handler func(ctx context.Context, cli *Lark, schema string, header *EventHeaderV2, event *EventV2VCMeetingRecordingEndedV1) (string, error)
 
 type EventV2VCMeetingRecordingEndedV1 struct {
 	Meeting  *EventV2VCMeetingRecordingEndedV1Meeting  `json:"meeting,omitempty"`  // 会议数据
@@ -2970,11 +2970,11 @@ type EventV2VCMeetingRecordingEndedV1OperatorID struct {
 // 收到该事件后，方可进行录制文件获取、授权等操作
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/vc-v1/meeting/events/recording_ready
-func (r *EventCallbackService) HandlerEventV2VCMeetingRecordingReadyV1(f eventV2VCMeetingRecordingReadyV1Handler) {
+func (r *EventCallbackService) HandlerEventV2VCMeetingRecordingReadyV1(f EventV2VCMeetingRecordingReadyV1Handler) {
 	r.cli.eventHandler.eventV2VCMeetingRecordingReadyV1Handler = f
 }
 
-type eventV2VCMeetingRecordingReadyV1Handler func(ctx context.Context, cli *Lark, schema string, header *EventHeaderV2, event *EventV2VCMeetingRecordingReadyV1) (string, error)
+type EventV2VCMeetingRecordingReadyV1Handler func(ctx context.Context, cli *Lark, schema string, header *EventHeaderV2, event *EventV2VCMeetingRecordingReadyV1) (string, error)
 
 type EventV2VCMeetingRecordingReadyV1 struct {
 	Meeting  *EventV2VCMeetingRecordingReadyV1Meeting `json:"meeting,omitempty"`  // 会议数据
@@ -3006,11 +3006,11 @@ type EventV2VCMeetingRecordingReadyV1MeetingOwnerID struct {
 // 发生在开始录制时
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/vc-v1/meeting/events/recording_started
-func (r *EventCallbackService) HandlerEventV2VCMeetingRecordingStartedV1(f eventV2VCMeetingRecordingStartedV1Handler) {
+func (r *EventCallbackService) HandlerEventV2VCMeetingRecordingStartedV1(f EventV2VCMeetingRecordingStartedV1Handler) {
 	r.cli.eventHandler.eventV2VCMeetingRecordingStartedV1Handler = f
 }
 
-type eventV2VCMeetingRecordingStartedV1Handler func(ctx context.Context, cli *Lark, schema string, header *EventHeaderV2, event *EventV2VCMeetingRecordingStartedV1) (string, error)
+type EventV2VCMeetingRecordingStartedV1Handler func(ctx context.Context, cli *Lark, schema string, header *EventHeaderV2, event *EventV2VCMeetingRecordingStartedV1) (string, error)
 
 type EventV2VCMeetingRecordingStartedV1 struct {
 	Meeting  *EventV2VCMeetingRecordingStartedV1Meeting  `json:"meeting,omitempty"`  // 会议数据
@@ -3070,11 +3070,11 @@ type EventV2VCMeetingRecordingStartedV1OperatorID struct {
 // 发生在屏幕共享结束时
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/vc-v1/meeting/events/share_ended
-func (r *EventCallbackService) HandlerEventV2VCMeetingShareEndedV1(f eventV2VCMeetingShareEndedV1Handler) {
+func (r *EventCallbackService) HandlerEventV2VCMeetingShareEndedV1(f EventV2VCMeetingShareEndedV1Handler) {
 	r.cli.eventHandler.eventV2VCMeetingShareEndedV1Handler = f
 }
 
-type eventV2VCMeetingShareEndedV1Handler func(ctx context.Context, cli *Lark, schema string, header *EventHeaderV2, event *EventV2VCMeetingShareEndedV1) (string, error)
+type EventV2VCMeetingShareEndedV1Handler func(ctx context.Context, cli *Lark, schema string, header *EventHeaderV2, event *EventV2VCMeetingShareEndedV1) (string, error)
 
 type EventV2VCMeetingShareEndedV1 struct {
 	Meeting  *EventV2VCMeetingShareEndedV1Meeting  `json:"meeting,omitempty"`  // 会议数据
@@ -3134,11 +3134,11 @@ type EventV2VCMeetingShareEndedV1OperatorID struct {
 // 发生在屏幕共享开始时
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/vc-v1/meeting/events/share_started
-func (r *EventCallbackService) HandlerEventV2VCMeetingShareStartedV1(f eventV2VCMeetingShareStartedV1Handler) {
+func (r *EventCallbackService) HandlerEventV2VCMeetingShareStartedV1(f EventV2VCMeetingShareStartedV1Handler) {
 	r.cli.eventHandler.eventV2VCMeetingShareStartedV1Handler = f
 }
 
-type eventV2VCMeetingShareStartedV1Handler func(ctx context.Context, cli *Lark, schema string, header *EventHeaderV2, event *EventV2VCMeetingShareStartedV1) (string, error)
+type EventV2VCMeetingShareStartedV1Handler func(ctx context.Context, cli *Lark, schema string, header *EventHeaderV2, event *EventV2VCMeetingShareStartedV1) (string, error)
 
 type EventV2VCMeetingShareStartedV1 struct {
 	Meeting  *EventV2VCMeetingShareStartedV1Meeting  `json:"meeting,omitempty"`  // 会议数据

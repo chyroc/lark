@@ -90,87 +90,88 @@ const (
 )
 
 type eventHandler struct {
-	eventCardHandler                                      eventCardHandler
-	eventV2DriveFileTitleUpdatedV1Handler                 eventV2DriveFileTitleUpdatedV1Handler
-	eventV2DriveFileReadV1Handler                         eventV2DriveFileReadV1Handler
-	eventV2DriveFileEditV1Handler                         eventV2DriveFileEditV1Handler
-	eventV1AppOpenHandler                                 eventV1AppOpenHandler
-	eventV1ShiftApprovalHandler                           eventV1ShiftApprovalHandler
-	eventV1LeaveApprovalV2Handler                         eventV1LeaveApprovalV2Handler
-	eventV1OutApprovalHandler                             eventV1OutApprovalHandler
-	eventV1WorkApprovalHandler                            eventV1WorkApprovalHandler
-	eventV2DriveFilePermissionMemberAddedV1Handler        eventV2DriveFilePermissionMemberAddedV1Handler
-	eventV2DriveFileTrashedV1Handler                      eventV2DriveFileTrashedV1Handler
-	eventV2DriveFileDeletedV1Handler                      eventV2DriveFileDeletedV1Handler
-	eventV2DriveFilePermissionMemberRemovedV1Handler      eventV2DriveFilePermissionMemberRemovedV1Handler
-	eventV2ApprovalApprovalUpdatedV4Handler               eventV2ApprovalApprovalUpdatedV4Handler
-	eventV1TripApprovalHandler                            eventV1TripApprovalHandler
-	eventV1RemedyApprovalHandler                          eventV1RemedyApprovalHandler
-	eventV2MeetingRoomMeetingRoomUpdatedV1Handler         eventV2MeetingRoomMeetingRoomUpdatedV1Handler
-	eventV2MeetingRoomMeetingRoomStatusChangedV1Handler   eventV2MeetingRoomMeetingRoomStatusChangedV1Handler
-	eventV2MeetingRoomMeetingRoomDeletedV1Handler         eventV2MeetingRoomMeetingRoomDeletedV1Handler
-	eventV2MeetingRoomMeetingRoomCreatedV1Handler         eventV2MeetingRoomMeetingRoomCreatedV1Handler
-	eventV1OrderPaidHandler                               eventV1OrderPaidHandler
-	eventV1AppTicketHandler                               eventV1AppTicketHandler
-	eventV1AppUninstalledHandler                          eventV1AppUninstalledHandler
-	eventV1AppStatusChangeHandler                         eventV1AppStatusChangeHandler
-	eventV2ApplicationApplicationVisibilityAddedV6Handler eventV2ApplicationApplicationVisibilityAddedV6Handler
-	eventV2AttendanceUserTaskUpdatedV1Handler             eventV2AttendanceUserTaskUpdatedV1Handler
-	eventV2AttendanceUserFlowCreatedV1Handler             eventV2AttendanceUserFlowCreatedV1Handler
-	eventV2AwemeEcosystemAwemeUserBindedAccountV1Handler  eventV2AwemeEcosystemAwemeUserBindedAccountV1Handler
-	eventV2TaskTaskUpdatedV1Handler                       eventV2TaskTaskUpdatedV1Handler
-	eventV2TaskTaskCommentUpdatedV1Handler                eventV2TaskTaskCommentUpdatedV1Handler
-	eventV2HelpdeskTicketMessageCreatedV1Handler          eventV2HelpdeskTicketMessageCreatedV1Handler
-	eventV2HelpdeskTicketCreatedV1Handler                 eventV2HelpdeskTicketCreatedV1Handler
-	eventV2HelpdeskTicketMessageUpdatedV1Handler          eventV2HelpdeskTicketMessageUpdatedV1Handler
-	eventV2ContactDepartmentCreatedV3Handler              eventV2ContactDepartmentCreatedV3Handler
-	eventV2ContactDepartmentDeletedV3Handler              eventV2ContactDepartmentDeletedV3Handler
-	eventV2ContactDepartmentUpdatedV3Handler              eventV2ContactDepartmentUpdatedV3Handler
-	eventV2ContactUserUpdatedV3Handler                    eventV2ContactUserUpdatedV3Handler
-	eventV2ContactUserCreatedV3Handler                    eventV2ContactUserCreatedV3Handler
-	eventV2ContactUserDeletedV3Handler                    eventV2ContactUserDeletedV3Handler
-	eventV2ContactScopeUpdatedV3Handler                   eventV2ContactScopeUpdatedV3Handler
-	eventV2ContactEmployeeTypeEnumCreatedV3Handler        eventV2ContactEmployeeTypeEnumCreatedV3Handler
-	eventV2ContactEmployeeTypeEnumActivedV3Handler        eventV2ContactEmployeeTypeEnumActivedV3Handler
-	eventV2ContactEmployeeTypeEnumDeactivatedV3Handler    eventV2ContactEmployeeTypeEnumDeactivatedV3Handler
-	eventV2ContactEmployeeTypeEnumUpdatedV3Handler        eventV2ContactEmployeeTypeEnumUpdatedV3Handler
-	eventV2ContactEmployeeTypeEnumDeletedV3Handler        eventV2ContactEmployeeTypeEnumDeletedV3Handler
-	eventV2IMMessageReceiveV1Handler                      eventV2IMMessageReceiveV1Handler
-	eventV2IMMessageReadV1Handler                         eventV2IMMessageReadV1Handler
-	eventV2IMChatDisbandedV1Handler                       eventV2IMChatDisbandedV1Handler
-	eventV2IMChatUpdatedV1Handler                         eventV2IMChatUpdatedV1Handler
-	eventV2IMChatMemberBotAddedV1Handler                  eventV2IMChatMemberBotAddedV1Handler
-	eventV2IMChatMemberBotDeletedV1Handler                eventV2IMChatMemberBotDeletedV1Handler
-	eventV2IMChatMemberUserAddedV1Handler                 eventV2IMChatMemberUserAddedV1Handler
-	eventV2IMChatMemberUserWithdrawnV1Handler             eventV2IMChatMemberUserWithdrawnV1Handler
-	eventV2IMChatMemberUserDeletedV1Handler               eventV2IMChatMemberUserDeletedV1Handler
-	eventV2VCMeetingMeetingStartedV1Handler               eventV2VCMeetingMeetingStartedV1Handler
-	eventV2VCMeetingMeetingEndedV1Handler                 eventV2VCMeetingMeetingEndedV1Handler
-	eventV2VCMeetingJoinMeetingV1Handler                  eventV2VCMeetingJoinMeetingV1Handler
-	eventV2VCMeetingLeaveMeetingV1Handler                 eventV2VCMeetingLeaveMeetingV1Handler
-	eventV2VCMeetingRecordingStartedV1Handler             eventV2VCMeetingRecordingStartedV1Handler
-	eventV2VCMeetingRecordingEndedV1Handler               eventV2VCMeetingRecordingEndedV1Handler
-	eventV2VCMeetingRecordingReadyV1Handler               eventV2VCMeetingRecordingReadyV1Handler
-	eventV2VCMeetingShareStartedV1Handler                 eventV2VCMeetingShareStartedV1Handler
-	eventV2VCMeetingShareEndedV1Handler                   eventV2VCMeetingShareEndedV1Handler
-	eventV2ACSAccessRecordCreatedV1Handler                eventV2ACSAccessRecordCreatedV1Handler
-	eventV2ACSUserUpdatedV1Handler                        eventV2ACSUserUpdatedV1Handler
-	eventV2CalendarCalendarACLCreatedV4Handler            eventV2CalendarCalendarACLCreatedV4Handler
-	eventV2CalendarCalendarACLDeletedV4Handler            eventV2CalendarCalendarACLDeletedV4Handler
-	eventV2CalendarCalendarEventChangedV4Handler          eventV2CalendarCalendarEventChangedV4Handler
-	eventV2CalendarCalendarChangedV4Handler               eventV2CalendarCalendarChangedV4Handler
-	eventV1AddBotHandler                                  eventV1AddBotHandler
-	eventV1RemoveBotHandler                               eventV1RemoveBotHandler
-	eventV1P2PChatCreateHandler                           eventV1P2PChatCreateHandler
-	eventV1ReceiveMessageHandler                          eventV1ReceiveMessageHandler
-	eventV1AddUserToChatHandler                           eventV1AddUserToChatHandler
-	eventV1RemoveUserFromChatHandler                      eventV1RemoveUserFromChatHandler
-	eventV1RevokeAddUserFromChatHandler                   eventV1RevokeAddUserFromChatHandler
-	eventV1ChatDisbandHandler                             eventV1ChatDisbandHandler
+	eventCardHandler                                      EventCardHandler
+	eventV2DriveFileTitleUpdatedV1Handler                 EventV2DriveFileTitleUpdatedV1Handler
+	eventV2DriveFileReadV1Handler                         EventV2DriveFileReadV1Handler
+	eventV2DriveFileEditV1Handler                         EventV2DriveFileEditV1Handler
+	eventV1AppOpenHandler                                 EventV1AppOpenHandler
+	eventV1ShiftApprovalHandler                           EventV1ShiftApprovalHandler
+	eventV1LeaveApprovalV2Handler                         EventV1LeaveApprovalV2Handler
+	eventV1OutApprovalHandler                             EventV1OutApprovalHandler
+	eventV1WorkApprovalHandler                            EventV1WorkApprovalHandler
+	eventV2DriveFilePermissionMemberAddedV1Handler        EventV2DriveFilePermissionMemberAddedV1Handler
+	eventV2DriveFileTrashedV1Handler                      EventV2DriveFileTrashedV1Handler
+	eventV2DriveFileDeletedV1Handler                      EventV2DriveFileDeletedV1Handler
+	eventV2DriveFilePermissionMemberRemovedV1Handler      EventV2DriveFilePermissionMemberRemovedV1Handler
+	eventV2ApprovalApprovalUpdatedV4Handler               EventV2ApprovalApprovalUpdatedV4Handler
+	eventV1TripApprovalHandler                            EventV1TripApprovalHandler
+	eventV1RemedyApprovalHandler                          EventV1RemedyApprovalHandler
+	eventV2MeetingRoomMeetingRoomUpdatedV1Handler         EventV2MeetingRoomMeetingRoomUpdatedV1Handler
+	eventV2MeetingRoomMeetingRoomStatusChangedV1Handler   EventV2MeetingRoomMeetingRoomStatusChangedV1Handler
+	eventV2MeetingRoomMeetingRoomDeletedV1Handler         EventV2MeetingRoomMeetingRoomDeletedV1Handler
+	eventV2MeetingRoomMeetingRoomCreatedV1Handler         EventV2MeetingRoomMeetingRoomCreatedV1Handler
+	eventV1OrderPaidHandler                               EventV1OrderPaidHandler
+	eventV1AppTicketHandler                               EventV1AppTicketHandler
+	eventV1AppUninstalledHandler                          EventV1AppUninstalledHandler
+	eventV1AppStatusChangeHandler                         EventV1AppStatusChangeHandler
+	eventV2ApplicationApplicationVisibilityAddedV6Handler EventV2ApplicationApplicationVisibilityAddedV6Handler
+	eventV2AttendanceUserTaskUpdatedV1Handler             EventV2AttendanceUserTaskUpdatedV1Handler
+	eventV2AttendanceUserFlowCreatedV1Handler             EventV2AttendanceUserFlowCreatedV1Handler
+	eventV2AwemeEcosystemAwemeUserBindedAccountV1Handler  EventV2AwemeEcosystemAwemeUserBindedAccountV1Handler
+	eventV2TaskTaskUpdatedV1Handler                       EventV2TaskTaskUpdatedV1Handler
+	eventV2TaskTaskCommentUpdatedV1Handler                EventV2TaskTaskCommentUpdatedV1Handler
+	eventV2HelpdeskTicketMessageCreatedV1Handler          EventV2HelpdeskTicketMessageCreatedV1Handler
+	eventV2HelpdeskTicketCreatedV1Handler                 EventV2HelpdeskTicketCreatedV1Handler
+	eventV2HelpdeskTicketMessageUpdatedV1Handler          EventV2HelpdeskTicketMessageUpdatedV1Handler
+	eventV2ContactDepartmentCreatedV3Handler              EventV2ContactDepartmentCreatedV3Handler
+	eventV2ContactDepartmentDeletedV3Handler              EventV2ContactDepartmentDeletedV3Handler
+	eventV2ContactDepartmentUpdatedV3Handler              EventV2ContactDepartmentUpdatedV3Handler
+	eventV2ContactUserUpdatedV3Handler                    EventV2ContactUserUpdatedV3Handler
+	eventV2ContactUserCreatedV3Handler                    EventV2ContactUserCreatedV3Handler
+	eventV2ContactUserDeletedV3Handler                    EventV2ContactUserDeletedV3Handler
+	eventV2ContactScopeUpdatedV3Handler                   EventV2ContactScopeUpdatedV3Handler
+	eventV2ContactEmployeeTypeEnumCreatedV3Handler        EventV2ContactEmployeeTypeEnumCreatedV3Handler
+	eventV2ContactEmployeeTypeEnumActivedV3Handler        EventV2ContactEmployeeTypeEnumActivedV3Handler
+	eventV2ContactEmployeeTypeEnumDeactivatedV3Handler    EventV2ContactEmployeeTypeEnumDeactivatedV3Handler
+	eventV2ContactEmployeeTypeEnumUpdatedV3Handler        EventV2ContactEmployeeTypeEnumUpdatedV3Handler
+	eventV2ContactEmployeeTypeEnumDeletedV3Handler        EventV2ContactEmployeeTypeEnumDeletedV3Handler
+	eventV2IMMessageReceiveV1Handler                      EventV2IMMessageReceiveV1Handler
+	eventV2IMMessageReadV1Handler                         EventV2IMMessageReadV1Handler
+	eventV2IMChatDisbandedV1Handler                       EventV2IMChatDisbandedV1Handler
+	eventV2IMChatUpdatedV1Handler                         EventV2IMChatUpdatedV1Handler
+	eventV2IMChatMemberBotAddedV1Handler                  EventV2IMChatMemberBotAddedV1Handler
+	eventV2IMChatMemberBotDeletedV1Handler                EventV2IMChatMemberBotDeletedV1Handler
+	eventV2IMChatMemberUserAddedV1Handler                 EventV2IMChatMemberUserAddedV1Handler
+	eventV2IMChatMemberUserWithdrawnV1Handler             EventV2IMChatMemberUserWithdrawnV1Handler
+	eventV2IMChatMemberUserDeletedV1Handler               EventV2IMChatMemberUserDeletedV1Handler
+	eventV2VCMeetingMeetingStartedV1Handler               EventV2VCMeetingMeetingStartedV1Handler
+	eventV2VCMeetingMeetingEndedV1Handler                 EventV2VCMeetingMeetingEndedV1Handler
+	eventV2VCMeetingJoinMeetingV1Handler                  EventV2VCMeetingJoinMeetingV1Handler
+	eventV2VCMeetingLeaveMeetingV1Handler                 EventV2VCMeetingLeaveMeetingV1Handler
+	eventV2VCMeetingRecordingStartedV1Handler             EventV2VCMeetingRecordingStartedV1Handler
+	eventV2VCMeetingRecordingEndedV1Handler               EventV2VCMeetingRecordingEndedV1Handler
+	eventV2VCMeetingRecordingReadyV1Handler               EventV2VCMeetingRecordingReadyV1Handler
+	eventV2VCMeetingShareStartedV1Handler                 EventV2VCMeetingShareStartedV1Handler
+	eventV2VCMeetingShareEndedV1Handler                   EventV2VCMeetingShareEndedV1Handler
+	eventV2ACSAccessRecordCreatedV1Handler                EventV2ACSAccessRecordCreatedV1Handler
+	eventV2ACSUserUpdatedV1Handler                        EventV2ACSUserUpdatedV1Handler
+	eventV2CalendarCalendarACLCreatedV4Handler            EventV2CalendarCalendarACLCreatedV4Handler
+	eventV2CalendarCalendarACLDeletedV4Handler            EventV2CalendarCalendarACLDeletedV4Handler
+	eventV2CalendarCalendarEventChangedV4Handler          EventV2CalendarCalendarEventChangedV4Handler
+	eventV2CalendarCalendarChangedV4Handler               EventV2CalendarCalendarChangedV4Handler
+	eventV1AddBotHandler                                  EventV1AddBotHandler
+	eventV1RemoveBotHandler                               EventV1RemoveBotHandler
+	eventV1P2PChatCreateHandler                           EventV1P2PChatCreateHandler
+	eventV1ReceiveMessageHandler                          EventV1ReceiveMessageHandler
+	eventV1AddUserToChatHandler                           EventV1AddUserToChatHandler
+	eventV1RemoveUserFromChatHandler                      EventV1RemoveUserFromChatHandler
+	eventV1RevokeAddUserFromChatHandler                   EventV1RevokeAddUserFromChatHandler
+	eventV1ChatDisbandHandler                             EventV1ChatDisbandHandler
 }
 
 func (r *eventHandler) clone() *eventHandler {
 	return &eventHandler{
+
 		eventV2DriveFileTitleUpdatedV1Handler:                 r.eventV2DriveFileTitleUpdatedV1Handler,
 		eventV2DriveFileReadV1Handler:                         r.eventV2DriveFileReadV1Handler,
 		eventV2DriveFileEditV1Handler:                         r.eventV2DriveFileEditV1Handler,
@@ -353,6 +354,7 @@ func (r *EventCallbackService) parserEventV2(req *eventReq) error {
 			return err
 		}
 		req.eventV2DriveFileEditV1 = event
+
 	case EventTypeV2DriveFilePermissionMemberAddedV1:
 		event := new(EventV2DriveFilePermissionMemberAddedV1)
 		if err := req.unmarshalEvent(event); err != nil {
@@ -383,6 +385,7 @@ func (r *EventCallbackService) parserEventV2(req *eventReq) error {
 			return err
 		}
 		req.eventV2ApprovalApprovalUpdatedV4 = event
+
 	case EventTypeV2MeetingRoomMeetingRoomUpdatedV1:
 		event := new(EventV2MeetingRoomMeetingRoomUpdatedV1)
 		if err := req.unmarshalEvent(event); err != nil {
@@ -407,6 +410,7 @@ func (r *EventCallbackService) parserEventV2(req *eventReq) error {
 			return err
 		}
 		req.eventV2MeetingRoomMeetingRoomCreatedV1 = event
+
 	case EventTypeV2ApplicationApplicationVisibilityAddedV6:
 		event := new(EventV2ApplicationApplicationVisibilityAddedV6)
 		if err := req.unmarshalEvent(event); err != nil {
@@ -677,6 +681,7 @@ func (r *EventCallbackService) parserEventV2(req *eventReq) error {
 			return err
 		}
 		req.eventV2CalendarCalendarChangedV4 = event
+
 	}
 
 	return nil
@@ -699,6 +704,7 @@ func (r *EventCallbackService) parserEventV1(req *eventReq) error {
 	}
 
 	switch v1type.Type {
+
 	case EventTypeV1AppOpen:
 		event := new(EventV1AppOpen)
 		if err := json.Unmarshal(bs, event); err != nil {
@@ -729,6 +735,7 @@ func (r *EventCallbackService) parserEventV1(req *eventReq) error {
 			return fmt.Errorf("lark event unmarshal event %s failed", bs)
 		}
 		req.eventV1WorkApproval = event
+
 	case EventTypeV1TripApproval:
 		event := new(EventV1TripApproval)
 		if err := json.Unmarshal(bs, event); err != nil {
@@ -741,6 +748,7 @@ func (r *EventCallbackService) parserEventV1(req *eventReq) error {
 			return fmt.Errorf("lark event unmarshal event %s failed", bs)
 		}
 		req.eventV1RemedyApproval = event
+
 	case EventTypeV1OrderPaid:
 		event := new(EventV1OrderPaid)
 		if err := json.Unmarshal(bs, event); err != nil {
@@ -765,6 +773,7 @@ func (r *EventCallbackService) parserEventV1(req *eventReq) error {
 			return fmt.Errorf("lark event unmarshal event %s failed", bs)
 		}
 		req.eventV1AppStatusChange = event
+
 	case EventTypeV1AddBot:
 		event := new(EventV1AddBot)
 		if err := json.Unmarshal(bs, event); err != nil {
@@ -813,6 +822,7 @@ func (r *EventCallbackService) parserEventV1(req *eventReq) error {
 			return fmt.Errorf("lark event unmarshal event %s failed", bs)
 		}
 		req.eventV1ChatDisband = event
+
 	}
 
 	return nil
@@ -1204,6 +1214,7 @@ func (r *EventCallbackService) handlerEvent(ctx context.Context, req *eventReq) 
 			s, err = r.cli.eventHandler.eventV1ChatDisbandHandler(ctx, r.cli, req.Schema, req.headerV1(EventTypeV1ChatDisband), req.eventV1ChatDisband)
 		}
 		return true, s, err
+
 	}
 	return false, "", nil
 }

@@ -1118,6 +1118,7 @@ type getApprovalResp struct {
 
 type GetApprovalResp struct {
 	ApprovalName string                   `json:"approval_name,omitempty"` // 审批名称
+	Status       string                   `json:"status,omitempty"`        // 审批定义状态<br>ACTIVE -已启用<br>INACTIVE -已停用<br>DELETED -已删除<br>UNKNOWN -未知
 	Form         ApprovalWidgetList       `json:"form,omitempty"`          // json 数组，**控件信息**
 	NodeList     []*GetApprovalRespNode   `json:"node_list,omitempty"`     // 节点信息
 	Viewers      []*GetApprovalRespViewer `json:"viewers,omitempty"`       // 可见人列表

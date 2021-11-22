@@ -36,7 +36,7 @@ func (r *EventCallbackService) ListenCardCallback(ctx context.Context, checkSecu
 // HandlerEventCard
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uYjNwUjL2YDM14iN2ATN
-func (r *EventCallbackService) HandlerEventCard(f eventCardHandler) {
+func (r *EventCallbackService) HandlerEventCard(f EventCardHandler) {
 	r.cli.eventHandler.eventCardHandler = f
 }
 
@@ -75,7 +75,7 @@ func (r *EventCallbackService) listenCallback(ctx context.Context, isSecurity bo
 	return
 }
 
-type eventCardHandler func(ctx context.Context, cli *Lark, event *EventCardCallback) (string, error)
+type EventCardHandler func(ctx context.Context, cli *Lark, event *EventCardCallback) (string, error)
 
 type EventCardCallback struct {
 	RefreshToken string `json:"refresh_token"` // header: X-Refresh-Token
