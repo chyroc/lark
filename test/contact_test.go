@@ -45,11 +45,11 @@ func Test_Contact_Failed(t *testing.T) {
 	t.Run("get-dep-list", func(t *testing.T) {
 		resp, _, err := moduleCli.GetDepartmentList(ctx, &lark.GetDepartmentListReq{
 			// UserIDType:         nil,
-			DepartmentIDType:   nil,
-			ParentDepartmentID: nil,
-			FetchChild:         nil,
-			PageToken:          nil,
-			PageSize:           nil,
+			DepartmentIDType: nil,
+			DepartmentID:     "0",
+			FetchChild:       nil,
+			PageToken:        nil,
+			PageSize:         nil,
 		})
 		printData(resp)
 		as.Nil(err)
