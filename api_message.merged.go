@@ -131,7 +131,7 @@ type DeleteMessageResp struct{}
 
 // DeleteEphemeralMessage
 //
-// 在群会话中删除指定用户的临时消息卡片<br>
+// 在群会话中删除指定用户可见的临时消息卡片<br>
 // 临时卡片消息可以通过该接口进行显式删除，临时卡片消息删除后将不会在该设备上留下任何痕迹。
 // **权限说明** ：需要启用机器人能力；需要机器人在会话群里
 //
@@ -649,7 +649,7 @@ type SendRawMessageResp struct {
 
 // SendEphemeralMessage
 //
-// 用于机器人在群会话中发送指定用户可见的消息卡片。<br>
+// 用于机器人在群会话中发送仅指定用户可见的消息卡片。<br>
 // ## 使用场景
 // 临时消息卡片多用于群聊中用户与机器人交互的中间态。例如在群聊中用户需要使用待办事项类bot创建一条提醒，bot 发送了可设置提醒日期和提醒内容的一张可交互的消息卡片，此卡片在没有设置为临时卡片的情况下为群内全员可见，即群内可看见该用户与 bot 交互的过程。而设置为临时卡片后，交互过程仅该用户可见，群内其他成员只会看到最终设置完成的提醒卡片。
 // <br><br>通过临时消息卡片，可以减少消息对群聊中不相关用户的打扰，有效降低群消息的噪声。
@@ -986,7 +986,7 @@ func (r *Mock) UnMockMessageUpdateMessage() {
 
 type UpdateMessageReq struct {
 	MessageID string `path:"message_id" json:"-"` // 待更新的消息的ID, 示例值："om_dc13264520392913993dd051dba21dcf"
-	Content   string `json:"content,omitempty"`   // 消息内容 json 格式，[发送消息 content 说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/im-v1/message/create_json)，参考文档中的卡片格式|, 示例值："参考链接"
+	Content   string `json:"content,omitempty"`   // 消息内容 json 格式，[发送消息 content 说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/im-v1/message/create_json)，参考文档中的卡片格式, 示例值："参考链接"
 }
 
 type updateMessageResp struct {

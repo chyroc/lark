@@ -46,19 +46,17 @@ func (r mdBuilder) Link(url, title string) string {
 	return "[" + title + "](" + url + ")"
 }
 
-var (
-	reservedWordsMapping = map[string]string{
-		"|": "&#124;",
-		"`": "&#96;",
-		"]": "&#93;",
-		"[": "&#91;",
-		">": "&gt;",
-		"<": "&lt;",
-		"@": "&#64;",
-		"#": "&#35;",
-		"-": "&#45;",
-	}
-)
+var reservedWordsMapping = map[string]string{
+	"|": "&#124;",
+	"`": "&#96;",
+	"]": "&#93;",
+	"[": "&#91;",
+	">": "&gt;",
+	"<": "&lt;",
+	"@": "&#64;",
+	"#": "&#35;",
+	"-": "&#45;",
+}
 
 // markdown保留字转义
 func escape(txt string) string {

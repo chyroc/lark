@@ -178,7 +178,7 @@ type CreateIdentityResp struct {
 // - 在开发者后台[创建一个企业自建应用](https://open.feishu.cn/document/home/introduction-to-custom-app-development/self-built-application-development-process)。
 // - 引入组件库。在网页 html 中引入如下代码：
 // ```html
-// <script src="https://lf1-cdn-tos.bytescm.com/goofy/locl/lark/external_js_sdk/h5-js-sdk-1.0.9.js"></script>
+// <script src="https://lf1-cdn-tos.bytescm.com/goofy/locl/lark/external_js_sdk/h5-js-sdk-1.0.10.js"></script>
 // ```
 // 若要使用成员卡片组件，SDK需要在`<body>`加载后引入。
 // ## 鉴权流程
