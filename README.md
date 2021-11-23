@@ -37,7 +37,7 @@ https://godoc.org/github.com/chyroc/lark
 
 ## Support APIs
 
-API Count: 507, Event Count: 76
+API Count: 511, Event Count: 76
 
 <details>
   <summary>
@@ -651,6 +651,10 @@ API Count: 507, Event Count: 76
   - OpenBot
   - OpenSSOLogin
   - OpenWebURL
+  - OpenTask
+  - OpenTaskCreate
+  - OpenTaskDetail
+  - OpenTaskTab
 
 
 </details>

@@ -36,7 +36,7 @@ https://godoc.org/github.com/chyroc/lark
 
 ## 支持的接口
 
-API 总数: 507, 事件总数: 76
+API 总数: 511, 事件总数: 76
 
 <details>
   <summary>
@@ -650,6 +650,10 @@ API 总数: 507, 事件总数: 76
   - OpenBot
   - OpenSSOLogin
   - OpenWebURL
+  - OpenTask
+  - OpenTaskCreate
+  - OpenTaskDetail
+  - OpenTaskTab
 
 
 </details>
