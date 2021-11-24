@@ -36,7 +36,7 @@ https://godoc.org/github.com/chyroc/lark
 
 ## 支持的接口
 
-API 总数: 511, 事件总数: 76
+API 总数: 512, 事件总数: 76
 
 <details>
   <summary>
@@ -386,6 +386,7 @@ API 总数: 511, 事件总数: 76
   - ApproveApprovalInstance
   - RejectApprovalInstance
   - TransferApprovalInstance
+  - RollbackApprovalInstance
   - CancelApprovalInstance
   - SearchApprovalInstance
   - AddApprovalInstanceSign

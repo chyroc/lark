@@ -1360,7 +1360,7 @@ type PrepareUploadDriveFileResp struct {
 
 // GetDriveFolderChildren
 //
-// 该接口用于根据 folderToken 获取该文件夹的文档清单，如 doc、sheet、folder。
+// 该接口用于根据 folderToken 获取该文件夹的文档清单，如 doc、sheet、file、bitable、folder。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uEjNzUjLxYzM14SM2MTN
 func (r *DriveService) GetDriveFolderChildren(ctx context.Context, request *GetDriveFolderChildrenReq, options ...MethodOptionFunc) (*GetDriveFolderChildrenResp, *Response, error) {
@@ -1394,7 +1394,7 @@ func (r *Mock) UnMockDriveGetDriveFolderChildren() {
 }
 
 type GetDriveFolderChildrenReq struct {
-	Types       []string `query:"types" json:"-"`      // 需要查询的文件类型，默认返回所有 children；types 可多选，可选类型有 doc、sheet、file、folder 。如 url?types=folder&types=sheet
+	Types       []string `query:"types" json:"-"`      // 需要查询的文件类型，默认返回所有 children；types 可多选，可选类型有 doc、sheet、file、bitable、folder 。如 url?types=folder&types=sheet
 	FolderToken string   `path:"folderToken" json:"-"` // 文件夹的 token，获取方式见 [概述](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/files/guide/introduction)
 }
 
