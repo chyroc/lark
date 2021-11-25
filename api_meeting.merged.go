@@ -362,10 +362,10 @@ type getMeetingRoomDistrictListResp struct {
 }
 
 type GetMeetingRoomDistrictListResp struct {
-	Districts *GetMeetingRoomDistrictListRespDistricts `json:"districts,omitempty"` // 城市列表
+	Districts []*GetMeetingRoomDistrictListRespDistrict `json:"districts,omitempty"` // 城市列表
 }
 
-type GetMeetingRoomDistrictListRespDistricts struct {
+type GetMeetingRoomDistrictListRespDistrict struct {
 	DistrictID string `json:"district_id,omitempty"` // 城市ID
 	Name       string `json:"name,omitempty"`        // 城市名称
 }

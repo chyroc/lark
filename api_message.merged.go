@@ -580,7 +580,7 @@ type ReplyRawMessageResp struct {
 //
 // 注意事项:
 // - 需要开启[机器人能力](https://open.feishu.cn/document/home/develop-a-bot-in-5-minutes/create-an-app)
-// - 给用户发送消息，需要机器人对用户有可用性
+// - 给用户发送消息，需要机器人对用户有[可用性](https://open.feishu.cn/document/home/introduction-to-scope-and-authorization/availability)
 // - 给群组发送消息，需要机器人在群中
 // - 该接口不支持给部门成员发消息，请使用 [批量发送消息](https://open.feishu.cn/document/ukTMukTMukTM/ucDO1EjL3gTNx4yN4UTM)
 // - 文本消息请求体最大不能超过150KB
