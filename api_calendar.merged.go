@@ -401,21 +401,33 @@ func (r *Mock) UnMockCalendarCreateCalendarEventAttendee() {
 }
 
 type CreateCalendarEventAttendeeReq struct {
-	UserIDType       *IDType                                   `query:"user_id_type" json:"-"`      // 用户 ID 类型, 示例值："open_id", 可选值有: `open_id`：用户的 open id, `union_id`：用户的 union id, `user_id`：用户的 user id, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求:  获取用户 user ID
+	UserIDType       *IDType                                   `query:"user_id_type" json:"-"`      // 用户 ID 类型, 示例值："open_id", 可选值有: `open_id`：用户的 open id, `union_id`：用户的 union id, `user_id`：用户的 user id, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
 	CalendarID       string                                    `path:"calendar_id" json:"-"`        // 日历 ID, 示例值："feishu.cn_xxxxxxxxxx@group.calendar.feishu.cn"
 	EventID          string                                    `path:"event_id" json:"-"`           // 日程 ID, 示例值："xxxxxxxxx_0"
-	Attendees        []*CreateCalendarEventAttendeeReqAttendee `json:"attendees,omitempty"`         // 新增参与人列表
+	Attendees        []*CreateCalendarEventAttendeeReqAttendee `json:"attendees,omitempty"`         // 新增参与人列表；<br>, 单次请求会议室的数量限制为100。
 	NeedNotification *bool                                     `json:"need_notification,omitempty"` // 是否给参与人发送bot通知 默认为true, 示例值：false
 }
 
 type CreateCalendarEventAttendeeReqAttendee struct {
-	Type            *CalendarEventAttendeeType `json:"type,omitempty"`              // 参与人类型；暂不支持创建邮箱参与人。, 示例值："user", 可选值有: `user`：用户, `chat`：群组, `resource`：会议室, `third_party`：邮箱
-	IsOptional      *bool                      `json:"is_optional,omitempty"`       // 参与人是否为「可选参加」，无法编辑群参与人的此字段, 示例值：true, 默认值: `false`
-	UserID          *string                    `json:"user_id,omitempty"`           // 参与人的用户id，依赖于user_id_type返回对应的取值，当is_external为true时，此字段只会返回open_id或者union_id, 示例值："ou_xxxxxxxx"
-	ChatID          *string                    `json:"chat_id,omitempty"`           // chat类型参与人的群组chat_id, 示例值："oc_xxxxxxxxx"
-	RoomID          *string                    `json:"room_id,omitempty"`           // resource类型参与人的会议室room_id, 示例值："omm_xxxxxxxx"
-	ThirdPartyEmail *string                    `json:"third_party_email,omitempty"` // third_party类型参与人的邮箱, 示例值："wangwu@email.com"
-	OperateID       *string                    `json:"operate_id,omitempty"`        // 如果日程是使用应用身份创建的，在添加会议室的时候，用来指定会议室的联系人，在会议室视图展示。, 示例值："ou_xxxxxxxx"
+	Type                  *CalendarEventAttendeeType                                   `json:"type,omitempty"`                   // 参与人类型, 示例值："user", 可选值有: `user`：用户, `chat`：群组, `resource`：会议室, `third_party`：邮箱
+	IsOptional            *bool                                                        `json:"is_optional,omitempty"`            // 参与人是否为「可选参加」，无法编辑群参与人的此字段, 示例值：true, 默认值: `false`
+	UserID                *string                                                      `json:"user_id,omitempty"`                // 参与人的用户id，依赖于user_id_type返回对应的取值，当is_external为true时，此字段只会返回open_id或者union_id, 示例值："ou_xxxxxxxx"
+	ChatID                *string                                                      `json:"chat_id,omitempty"`                // chat类型参与人的群组chat_id, 示例值："oc_xxxxxxxxx"
+	RoomID                *string                                                      `json:"room_id,omitempty"`                // resource类型参与人的会议室room_id, 示例值："omm_xxxxxxxx"
+	ThirdPartyEmail       *string                                                      `json:"third_party_email,omitempty"`      // third_party类型参与人的邮箱, 示例值："wangwu@email.com"
+	OperateID             *string                                                      `json:"operate_id,omitempty"`             // 如果日程是使用应用身份创建的，在添加会议室的时候，用来指定会议室的联系人，在会议室视图展示。, 示例值："ou_xxxxxxxx"
+	ResourceCustomization *CreateCalendarEventAttendeeReqAttendeeResourceCustomization `json:"resource_customization,omitempty"` // 会议室的个性化配置
+}
+
+type CreateCalendarEventAttendeeReqAttendeeResourceCustomization struct {
+	IndexKey     string                                                               `json:"index_key,omitempty"`     // 每个配置的唯一ID, 示例值："16281481596100"
+	InputContent *string                                                              `json:"input_content,omitempty"` // 当type类型为填空时，该参数需要填入, 示例值："xxx"
+	Options      []*CreateCalendarEventAttendeeReqAttendeeResourceCustomizationOption `json:"options,omitempty"`       // 每个配置的选项
+}
+
+type CreateCalendarEventAttendeeReqAttendeeResourceCustomizationOption struct {
+	OptionKey     *string `json:"option_key,omitempty"`     // 每个选项的唯一ID, 示例值："16281481596185"
+	OthersContent *string `json:"others_content,omitempty"` // 当type类型为其它选项时，该参数需要填入, 示例值："xxx"
 }
 
 type createCalendarEventAttendeeResp struct {
@@ -429,19 +441,20 @@ type CreateCalendarEventAttendeeResp struct {
 }
 
 type CreateCalendarEventAttendeeRespAttendee struct {
-	Type            CalendarEventAttendeeType                            `json:"type,omitempty"`              // 参与人类型；暂不支持创建邮箱参与人。, 可选值有: `user`：用户, `chat`：群组, `resource`：会议室, `third_party`：邮箱
-	AttendeeID      string                                               `json:"attendee_id,omitempty"`       // 参与人ID
-	RsvpStatus      string                                               `json:"rsvp_status,omitempty"`       // 参与人RSVP状态, 可选值有: `needs_action`：参与人尚未回复状态，或表示会议室预约中, `accept`：参与人回复接受，或表示会议室预约成功, `tentative`：参与人回复待定, `decline`：参与人回复拒绝，或表示会议室预约失败, `removed`：参与人或会议室已经从日程中被移除
-	IsOptional      bool                                                 `json:"is_optional,omitempty"`       // 参与人是否为「可选参加」，无法编辑群参与人的此字段
-	IsOrganizer     bool                                                 `json:"is_organizer,omitempty"`      // 参与人是否为日程组织者
-	IsExternal      bool                                                 `json:"is_external,omitempty"`       // 参与人是否为外部参与人；外部参与人不支持编辑
-	DisplayName     string                                               `json:"display_name,omitempty"`      // 参与人名称
-	ChatMembers     []*CreateCalendarEventAttendeeRespAttendeeChatMember `json:"chat_members,omitempty"`      // 群中的群成员，当type为Chat时有效；群成员不支持编辑
-	UserID          string                                               `json:"user_id,omitempty"`           // 参与人的用户id，依赖于user_id_type返回对应的取值，当is_external为true时，此字段只会返回open_id或者union_id
-	ChatID          string                                               `json:"chat_id,omitempty"`           // chat类型参与人的群组chat_id
-	RoomID          string                                               `json:"room_id,omitempty"`           // resource类型参与人的会议室room_id
-	ThirdPartyEmail string                                               `json:"third_party_email,omitempty"` // third_party类型参与人的邮箱
-	OperateID       string                                               `json:"operate_id,omitempty"`        // 如果日程是使用应用身份创建的，在添加会议室的时候，用来指定会议室的联系人，在会议室视图展示。
+	Type                  CalendarEventAttendeeType                                     `json:"type,omitempty"`                   // 参与人类型, 可选值有: `user`：用户, `chat`：群组, `resource`：会议室, `third_party`：邮箱
+	AttendeeID            string                                                        `json:"attendee_id,omitempty"`            // 参与人ID
+	RsvpStatus            string                                                        `json:"rsvp_status,omitempty"`            // 参与人RSVP状态, 可选值有: `needs_action`：参与人尚未回复状态，或表示会议室预约中, `accept`：参与人回复接受，或表示会议室预约成功, `tentative`：参与人回复待定, `decline`：参与人回复拒绝，或表示会议室预约失败, `removed`：参与人或会议室已经从日程中被移除
+	IsOptional            bool                                                          `json:"is_optional,omitempty"`            // 参与人是否为「可选参加」，无法编辑群参与人的此字段
+	IsOrganizer           bool                                                          `json:"is_organizer,omitempty"`           // 参与人是否为日程组织者
+	IsExternal            bool                                                          `json:"is_external,omitempty"`            // 参与人是否为外部参与人；外部参与人不支持编辑
+	DisplayName           string                                                        `json:"display_name,omitempty"`           // 参与人名称
+	ChatMembers           []*CreateCalendarEventAttendeeRespAttendeeChatMember          `json:"chat_members,omitempty"`           // 群中的群成员，当type为Chat时有效；群成员不支持编辑
+	UserID                string                                                        `json:"user_id,omitempty"`                // 参与人的用户id，依赖于user_id_type返回对应的取值，当is_external为true时，此字段只会返回open_id或者union_id
+	ChatID                string                                                        `json:"chat_id,omitempty"`                // chat类型参与人的群组chat_id
+	RoomID                string                                                        `json:"room_id,omitempty"`                // resource类型参与人的会议室room_id
+	ThirdPartyEmail       string                                                        `json:"third_party_email,omitempty"`      // third_party类型参与人的邮箱
+	OperateID             string                                                        `json:"operate_id,omitempty"`             // 如果日程是使用应用身份创建的，在添加会议室的时候，用来指定会议室的联系人，在会议室视图展示。
+	ResourceCustomization *CreateCalendarEventAttendeeRespAttendeeResourceCustomization `json:"resource_customization,omitempty"` // 会议室的个性化配置
 }
 
 type CreateCalendarEventAttendeeRespAttendeeChatMember struct {
@@ -450,6 +463,17 @@ type CreateCalendarEventAttendeeRespAttendeeChatMember struct {
 	DisplayName string `json:"display_name,omitempty"` // 参与人名称
 	IsOrganizer bool   `json:"is_organizer,omitempty"` // 参与人是否为日程组织者
 	IsExternal  bool   `json:"is_external,omitempty"`  // 参与人是否为外部参与人
+}
+
+type CreateCalendarEventAttendeeRespAttendeeResourceCustomization struct {
+	IndexKey     string                                                                `json:"index_key,omitempty"`     // 每个配置的唯一ID
+	InputContent string                                                                `json:"input_content,omitempty"` // 当type类型为填空时，该参数需要填入
+	Options      []*CreateCalendarEventAttendeeRespAttendeeResourceCustomizationOption `json:"options,omitempty"`       // 每个配置的选项
+}
+
+type CreateCalendarEventAttendeeRespAttendeeResourceCustomizationOption struct {
+	OptionKey     string `json:"option_key,omitempty"`     // 每个选项的唯一ID
+	OthersContent string `json:"others_content,omitempty"` // 当type类型为其它选项时，该参数需要填入
 }
 
 // Code generated by lark_sdk_gen. DO NOT EDIT.
@@ -493,7 +517,7 @@ func (r *Mock) UnMockCalendarDeleteCalendarEventAttendee() {
 type DeleteCalendarEventAttendeeReq struct {
 	CalendarID       string   `path:"calendar_id" json:"-"`        // 日历 ID, 示例值："feishu.cn_xxxxxxxxxx@group.calendar.feishu.cn"
 	EventID          string   `path:"event_id" json:"-"`           // 日程 ID, 示例值："xxxxxxxxx_0"
-	AttendeeIDs      []string `json:"attendee_ids,omitempty"`      // 要移除的参与人 ID 列表
+	AttendeeIDs      []string `json:"attendee_ids,omitempty"`      // 要移除的参与人 ID 列表, 示例值：["user_xxxxx", "chat_xxxxx", "resource_xxxxx", "third_party_xxxxx"]
 	NeedNotification *bool    `json:"need_notification,omitempty"` // 删除日程参与人时是否要给参与人发送bot通知，默认为true, 示例值：false
 }
 
@@ -544,7 +568,7 @@ func (r *Mock) UnMockCalendarGetCalendarEventAttendeeList() {
 }
 
 type GetCalendarEventAttendeeListReq struct {
-	UserIDType *IDType `query:"user_id_type" json:"-"` // 用户 ID 类型, 示例值："open_id", 可选值有: `open_id`：用户的 open id, `union_id`：用户的 union id, `user_id`：用户的 user id, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求:  获取用户 user ID
+	UserIDType *IDType `query:"user_id_type" json:"-"` // 用户 ID 类型, 示例值："open_id", 可选值有: `open_id`：用户的 open id, `union_id`：用户的 union id, `user_id`：用户的 user id, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
 	PageToken  *string `query:"page_token" json:"-"`   // 分页标记，第一次请求不填，表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token，下次遍历可采用该 page_token 获取查询结果, 示例值："780TRhwXXXXX"
 	PageSize   *int64  `query:"page_size" json:"-"`    // 分页大小, 示例值：10, 最大值：`100`
 	CalendarID string  `path:"calendar_id" json:"-"`   // 日历 ID, 示例值："feishu.cn_xxxxxxxxxx@group.calendar.feishu.cn"
@@ -564,18 +588,20 @@ type GetCalendarEventAttendeeListResp struct {
 }
 
 type GetCalendarEventAttendeeListRespItem struct {
-	Type            CalendarEventAttendeeType                         `json:"type,omitempty"`              // 参与人类型；暂不支持创建邮箱参与人。, 可选值有: `user`：用户, `chat`：群组, `resource`：会议室, `third_party`：邮箱
-	AttendeeID      string                                            `json:"attendee_id,omitempty"`       // 参与人ID
-	RsvpStatus      string                                            `json:"rsvp_status,omitempty"`       // 参与人RSVP状态, 可选值有: `needs_action`：参与人尚未回复状态，或表示会议室预约中, `accept`：参与人回复接受，或表示会议室预约成功, `tentative`：参与人回复待定, `decline`：参与人回复拒绝，或表示会议室预约失败, `removed`：参与人或会议室已经从日程中被移除
-	IsOptional      bool                                              `json:"is_optional,omitempty"`       // 参与人是否为「可选参加」，无法编辑群参与人的此字段
-	IsOrganizer     bool                                              `json:"is_organizer,omitempty"`      // 参与人是否为日程组织者
-	IsExternal      bool                                              `json:"is_external,omitempty"`       // 参与人是否为外部参与人；外部参与人不支持编辑
-	DisplayName     string                                            `json:"display_name,omitempty"`      // 参与人名称
-	ChatMembers     []*GetCalendarEventAttendeeListRespItemChatMember `json:"chat_members,omitempty"`      // 群中的群成员，当type为Chat时有效；群成员不支持编辑
-	UserID          string                                            `json:"user_id,omitempty"`           // 参与人的用户id，依赖于user_id_type返回对应的取值，当is_external为true时，此字段只会返回open_id或者union_id
-	ChatID          string                                            `json:"chat_id,omitempty"`           // chat类型参与人的群组chat_id
-	RoomID          string                                            `json:"room_id,omitempty"`           // resource类型参与人的会议室room_id
-	ThirdPartyEmail string                                            `json:"third_party_email,omitempty"` // third_party类型参与人的邮箱
+	Type                  CalendarEventAttendeeType                                  `json:"type,omitempty"`                   // 参与人类型, 可选值有: `user`：用户, `chat`：群组, `resource`：会议室, `third_party`：邮箱
+	AttendeeID            string                                                     `json:"attendee_id,omitempty"`            // 参与人ID
+	RsvpStatus            string                                                     `json:"rsvp_status,omitempty"`            // 参与人RSVP状态, 可选值有: `needs_action`：参与人尚未回复状态，或表示会议室预约中, `accept`：参与人回复接受，或表示会议室预约成功, `tentative`：参与人回复待定, `decline`：参与人回复拒绝，或表示会议室预约失败, `removed`：参与人或会议室已经从日程中被移除
+	IsOptional            bool                                                       `json:"is_optional,omitempty"`            // 参与人是否为「可选参加」，无法编辑群参与人的此字段
+	IsOrganizer           bool                                                       `json:"is_organizer,omitempty"`           // 参与人是否为日程组织者
+	IsExternal            bool                                                       `json:"is_external,omitempty"`            // 参与人是否为外部参与人；外部参与人不支持编辑
+	DisplayName           string                                                     `json:"display_name,omitempty"`           // 参与人名称
+	ChatMembers           []*GetCalendarEventAttendeeListRespItemChatMember          `json:"chat_members,omitempty"`           // 群中的群成员，当type为Chat时有效；群成员不支持编辑
+	UserID                string                                                     `json:"user_id,omitempty"`                // 参与人的用户id，依赖于user_id_type返回对应的取值，当is_external为true时，此字段只会返回open_id或者union_id
+	ChatID                string                                                     `json:"chat_id,omitempty"`                // chat类型参与人的群组chat_id
+	RoomID                string                                                     `json:"room_id,omitempty"`                // resource类型参与人的会议室room_id
+	ThirdPartyEmail       string                                                     `json:"third_party_email,omitempty"`      // third_party类型参与人的邮箱
+	OperateID             string                                                     `json:"operate_id,omitempty"`             // 如果日程是使用应用身份创建的，在添加会议室的时候，用来指定会议室的联系人，在会议室视图展示。
+	ResourceCustomization *GetCalendarEventAttendeeListRespItemResourceCustomization `json:"resource_customization,omitempty"` // 会议室的个性化配置
 }
 
 type GetCalendarEventAttendeeListRespItemChatMember struct {
@@ -584,6 +610,17 @@ type GetCalendarEventAttendeeListRespItemChatMember struct {
 	DisplayName string `json:"display_name,omitempty"` // 参与人名称
 	IsOrganizer bool   `json:"is_organizer,omitempty"` // 参与人是否为日程组织者
 	IsExternal  bool   `json:"is_external,omitempty"`  // 参与人是否为外部参与人
+}
+
+type GetCalendarEventAttendeeListRespItemResourceCustomization struct {
+	IndexKey     string                                                             `json:"index_key,omitempty"`     // 每个配置的唯一ID
+	InputContent string                                                             `json:"input_content,omitempty"` // 当type类型为填空时，该参数需要填入
+	Options      []*GetCalendarEventAttendeeListRespItemResourceCustomizationOption `json:"options,omitempty"`       // 每个配置的选项
+}
+
+type GetCalendarEventAttendeeListRespItemResourceCustomizationOption struct {
+	OptionKey     string `json:"option_key,omitempty"`     // 每个选项的唯一ID
+	OthersContent string `json:"others_content,omitempty"` // 当type类型为其它选项时，该参数需要填入
 }
 
 // Code generated by lark_sdk_gen. DO NOT EDIT.
@@ -656,7 +693,7 @@ type CreateCalendarEventReqEndTime struct {
 }
 
 type CreateCalendarEventReqVchat struct {
-	VCType      *string `json:"vc_type,omitempty"`     // 视频会议类型, 示例值："third_party", 可选值有: `vc`：飞书视频会议，取该类型时，其他字段无效。, `third_party`：第三方链接视频会议，取该类型时，icon_type、description、meeting_url字段生效。, `no_meeting`：无视频会议，取该类型时，其他字段无效。, `lark_live`：Lark直播，内部类型，只读。, `unknown`：未知类型，做兼容使用，只读。
+	VCType      *string `json:"vc_type,omitempty"`     // 视频会议类型, 示例值："third_party", 可选值有: `vc`：飞书视频会议，取该类型时，其他字段无效。, `third_party`：第三方链接视频会议，取该类型时，icon_type、description、meeting_url字段生效。, `no_meeting`：无视频会议，取该类型时，其他字段无效。, `lark_live`：飞书直播，内部类型，飞书客户端使用，API不支持创建，只读。, `unknown`：未知类型，做兼容使用，飞书客户端使用，API不支持创建，只读。
 	IconType    *string `json:"icon_type,omitempty"`   // 第三方视频会议icon类型；可以为空，为空展示默认icon。, 示例值："vc", 可选值有: `vc`：飞书视频会议icon, `live`：直播视频会议icon, `default`：默认icon
 	Description *string `json:"description,omitempty"` // 第三方视频会议文案，可以为空，为空展示默认文案, 示例值："发起视频会议", 长度范围：`0` ～ `500` 字符
 	MeetingURL  *string `json:"meeting_url,omitempty"` // 视频会议URL, 示例值："https://example.com", 长度范围：`1` ～ `2000` 字符
@@ -723,7 +760,7 @@ type CreateCalendarEventRespEventEndTime struct {
 }
 
 type CreateCalendarEventRespEventVchat struct {
-	VCType      string `json:"vc_type,omitempty"`     // 视频会议类型, 可选值有: `vc`：飞书视频会议，取该类型时，其他字段无效。, `third_party`：第三方链接视频会议，取该类型时，icon_type、description、meeting_url字段生效。, `no_meeting`：无视频会议，取该类型时，其他字段无效。, `lark_live`：Lark直播，内部类型，只读。, `unknown`：未知类型，做兼容使用，只读。
+	VCType      string `json:"vc_type,omitempty"`     // 视频会议类型, 可选值有: `vc`：飞书视频会议，取该类型时，其他字段无效。, `third_party`：第三方链接视频会议，取该类型时，icon_type、description、meeting_url字段生效。, `no_meeting`：无视频会议，取该类型时，其他字段无效。, `lark_live`：飞书直播，内部类型，飞书客户端使用，API不支持创建，只读。, `unknown`：未知类型，做兼容使用，飞书客户端使用，API不支持创建，只读。
 	IconType    string `json:"icon_type,omitempty"`   // 第三方视频会议icon类型；可以为空，为空展示默认icon。, 可选值有: `vc`：飞书视频会议icon, `live`：直播视频会议icon, `default`：默认icon
 	Description string `json:"description,omitempty"` // 第三方视频会议文案，可以为空，为空展示默认文案
 	MeetingURL  string `json:"meeting_url,omitempty"` // 视频会议URL
@@ -885,7 +922,7 @@ type GetCalendarEventRespEventEndTime struct {
 }
 
 type GetCalendarEventRespEventVchat struct {
-	VCType      string `json:"vc_type,omitempty"`     // 视频会议类型, 可选值有: `vc`：飞书视频会议，取该类型时，其他字段无效。, `third_party`：第三方链接视频会议，取该类型时，icon_type、description、meeting_url字段生效。, `no_meeting`：无视频会议，取该类型时，其他字段无效。, `lark_live`：Lark直播，内部类型，只读。, `unknown`：未知类型，做兼容使用，只读。
+	VCType      string `json:"vc_type,omitempty"`     // 视频会议类型, 可选值有: `vc`：飞书视频会议，取该类型时，其他字段无效。, `third_party`：第三方链接视频会议，取该类型时，icon_type、description、meeting_url字段生效。, `no_meeting`：无视频会议，取该类型时，其他字段无效。, `lark_live`：飞书直播，内部类型，飞书客户端使用，API不支持创建，只读。, `unknown`：未知类型，做兼容使用，飞书客户端使用，API不支持创建，只读。
 	IconType    string `json:"icon_type,omitempty"`   // 第三方视频会议icon类型；可以为空，为空展示默认icon。, 可选值有: `vc`：飞书视频会议icon, `live`：直播视频会议icon, `default`：默认icon
 	Description string `json:"description,omitempty"` // 第三方视频会议文案，可以为空，为空展示默认文案
 	MeetingURL  string `json:"meeting_url,omitempty"` // 视频会议URL
@@ -1004,7 +1041,7 @@ type GetCalendarEventListRespItemEndTime struct {
 }
 
 type GetCalendarEventListRespItemVchat struct {
-	VCType      string `json:"vc_type,omitempty"`     // 视频会议类型, 可选值有: `vc`：飞书视频会议，取该类型时，其他字段无效。, `third_party`：第三方链接视频会议，取该类型时，icon_type、description、meeting_url字段生效。, `no_meeting`：无视频会议，取该类型时，其他字段无效。, `lark_live`：Lark直播，内部类型，只读。, `unknown`：未知类型，做兼容使用，只读。
+	VCType      string `json:"vc_type,omitempty"`     // 视频会议类型, 可选值有: `vc`：飞书视频会议，取该类型时，其他字段无效。, `third_party`：第三方链接视频会议，取该类型时，icon_type、description、meeting_url字段生效。, `no_meeting`：无视频会议，取该类型时，其他字段无效。, `lark_live`：飞书直播，内部类型，飞书客户端使用，API不支持创建，只读。, `unknown`：未知类型，做兼容使用，飞书客户端使用，API不支持创建，只读。
 	IconType    string `json:"icon_type,omitempty"`   // 第三方视频会议icon类型；可以为空，为空展示默认icon。, 可选值有: `vc`：飞书视频会议icon, `live`：直播视频会议icon, `default`：默认icon
 	Description string `json:"description,omitempty"` // 第三方视频会议文案，可以为空，为空展示默认文案
 	MeetingURL  string `json:"meeting_url,omitempty"` // 视频会议URL
@@ -1100,7 +1137,7 @@ type UpdateCalendarEventReqEndTime struct {
 }
 
 type UpdateCalendarEventReqVchat struct {
-	VCType      *string `json:"vc_type,omitempty"`     // 视频会议类型, 示例值："third_party", 可选值有: `vc`：飞书视频会议，取该类型时，其他字段无效。, `third_party`：第三方链接视频会议，取该类型时，icon_type、description、meeting_url字段生效。, `no_meeting`：无视频会议，取该类型时，其他字段无效。, `lark_live`：Lark直播，内部类型，只读。, `unknown`：未知类型，做兼容使用，只读。
+	VCType      *string `json:"vc_type,omitempty"`     // 视频会议类型, 示例值："third_party", 可选值有: `vc`：飞书视频会议，取该类型时，其他字段无效。, `third_party`：第三方链接视频会议，取该类型时，icon_type、description、meeting_url字段生效。, `no_meeting`：无视频会议，取该类型时，其他字段无效。, `lark_live`：飞书直播，内部类型，飞书客户端使用，API不支持创建，只读。, `unknown`：未知类型，做兼容使用，飞书客户端使用，API不支持创建，只读。
 	IconType    *string `json:"icon_type,omitempty"`   // 第三方视频会议icon类型；可以为空，为空展示默认icon。, 示例值："vc", 可选值有: `vc`：飞书视频会议icon, `live`：直播视频会议icon, `default`：默认icon
 	Description *string `json:"description,omitempty"` // 第三方视频会议文案，可以为空，为空展示默认文案, 示例值："发起视频会议", 长度范围：`0` ～ `500` 字符
 	MeetingURL  *string `json:"meeting_url,omitempty"` // 视频会议URL, 示例值："https://example.com", 长度范围：`1` ～ `2000` 字符
@@ -1167,7 +1204,7 @@ type UpdateCalendarEventRespEventEndTime struct {
 }
 
 type UpdateCalendarEventRespEventVchat struct {
-	VCType      string `json:"vc_type,omitempty"`     // 视频会议类型, 可选值有: `vc`：飞书视频会议，取该类型时，其他字段无效。, `third_party`：第三方链接视频会议，取该类型时，icon_type、description、meeting_url字段生效。, `no_meeting`：无视频会议，取该类型时，其他字段无效。, `lark_live`：Lark直播，内部类型，只读。, `unknown`：未知类型，做兼容使用，只读。
+	VCType      string `json:"vc_type,omitempty"`     // 视频会议类型, 可选值有: `vc`：飞书视频会议，取该类型时，其他字段无效。, `third_party`：第三方链接视频会议，取该类型时，icon_type、description、meeting_url字段生效。, `no_meeting`：无视频会议，取该类型时，其他字段无效。, `lark_live`：飞书直播，内部类型，飞书客户端使用，API不支持创建，只读。, `unknown`：未知类型，做兼容使用，飞书客户端使用，API不支持创建，只读。
 	IconType    string `json:"icon_type,omitempty"`   // 第三方视频会议icon类型；可以为空，为空展示默认icon。, 可选值有: `vc`：飞书视频会议icon, `live`：直播视频会议icon, `default`：默认icon
 	Description string `json:"description,omitempty"` // 第三方视频会议文案，可以为空，为空展示默认文案
 	MeetingURL  string `json:"meeting_url,omitempty"` // 视频会议URL
@@ -1302,7 +1339,7 @@ type SearchCalendarEventRespItemEndTime struct {
 }
 
 type SearchCalendarEventRespItemVchat struct {
-	VCType      string `json:"vc_type,omitempty"`     // 视频会议类型, 可选值有: `vc`：飞书视频会议，取该类型时，其他字段无效。, `third_party`：第三方链接视频会议，取该类型时，icon_type、description、meeting_url字段生效。, `no_meeting`：无视频会议，取该类型时，其他字段无效。, `lark_live`：Lark直播，内部类型，只读。, `unknown`：未知类型，做兼容使用，只读。
+	VCType      string `json:"vc_type,omitempty"`     // 视频会议类型, 可选值有: `vc`：飞书视频会议，取该类型时，其他字段无效。, `third_party`：第三方链接视频会议，取该类型时，icon_type、description、meeting_url字段生效。, `no_meeting`：无视频会议，取该类型时，其他字段无效。, `lark_live`：飞书直播，内部类型，飞书客户端使用，API不支持创建，只读。, `unknown`：未知类型，做兼容使用，飞书客户端使用，API不支持创建，只读。
 	IconType    string `json:"icon_type,omitempty"`   // 第三方视频会议icon类型；可以为空，为空展示默认icon。, 可选值有: `vc`：飞书视频会议icon, `live`：直播视频会议icon, `default`：默认icon
 	Description string `json:"description,omitempty"` // 第三方视频会议文案，可以为空，为空展示默认文案
 	MeetingURL  string `json:"meeting_url,omitempty"` // 视频会议URL

@@ -609,7 +609,7 @@ func (r *Mock) UnMockHireGetHireJob() {
 }
 
 type GetHireJobReq struct {
-	UserIDType *IDType `query:"user_id_type" json:"-"` // 用户 ID 类型, 示例值："open_id", 可选值有: `open_id`：用户的 open id, `union_id`：用户的 union id, `user_id`：用户的 user id, `people_admin_id`：以people_admin_id来识别用户, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求:  获取用户 user ID
+	UserIDType *IDType `query:"user_id_type" json:"-"` // 用户 ID 类型, 示例值："open_id", 可选值有: `open_id`：用户的 open id, `union_id`：用户的 union id, `user_id`：用户的 user id, `people_admin_id`：以people_admin_id来识别用户, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
 	JobID      int64   `path:"job_id" json:"-"`        // 职位 ID，请求Path中, 示例值：6001
 }
 
@@ -641,6 +641,9 @@ type GetHireJobRespJob struct {
 	CreateTime         int64                              `json:"create_time,omitempty"`          // 创建时间
 	UpdateTime         int64                              `json:"update_time,omitempty"`          // 更新时间
 	ProcessType        int64                              `json:"process_type,omitempty"`         // 职位流程类型, 可选值有: `1`：社招流程, `2`：校招流程
+	ProcessID          string                             `json:"process_id,omitempty"`           // 职位流程 ID
+	ProcessName        string                             `json:"process_name,omitempty"`         // 职位流程中文名称
+	ProcessEnName      string                             `json:"process_en_name,omitempty"`      // 职位流程英文名称
 	CustomizedDataList []*GetHireJobRespJobCustomizedData `json:"customized_data_list,omitempty"` // 自定义字段列表
 	JobFunction        *GetHireJobRespJobJobFunction      `json:"job_function,omitempty"`         // 职能分类
 	Subject            *GetHireJobRespJobSubject          `json:"subject,omitempty"`              // 职位项目
