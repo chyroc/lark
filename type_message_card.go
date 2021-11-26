@@ -29,6 +29,7 @@ type MessageContentCardHeader struct {
 // https://open.feishu.cn/document/ukTMukTMukTM/uAjNwUjLwYDM14CM2ATN
 type MessageContentCardConfig struct {
 	EnableForward bool `json:"enable_forward,omitempty"` // 是否允许卡片被转发，默认 true，转发后，卡片上的“回传交互”组件将自动置为禁用态。用户不能在转发后的卡片操作提交数据
+	UpdateMulti   bool `json:"update_multi,omitempty"`   // 更新卡片的内容是否对所有收到这张卡片的人员可见。 默认为false，即仅操作用户可见卡片的更新内容。
 }
 
 // MessageContentCardHeaderTemplate 控制标题背景颜色，取值参考注意事项
