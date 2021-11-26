@@ -8,9 +8,7 @@ import (
 // https://open.feishu.cn/document/ukTMukTMukTM/ukDNz4SO0MjL5QzM/g
 
 func (r *Lark) WithTenant(tenantKey string) *Lark {
-	r2 := r.clone()
-	r2.tenantKey = tenantKey
-	return r2
+	return r.clone(tenantKey)
 }
 
 func (r *AuthService) GetAppTicket(ctx context.Context) (string, error) {

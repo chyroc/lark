@@ -94,7 +94,7 @@ func (r *Lark) initService() {
 	r.AppLink = &AppLinkService{cli: r}
 }
 
-func (r *Lark) clone() *Lark {
+func (r *Lark) clone(tenantKey string) *Lark {
 	r2 := &Lark{
 		appID:               r.appID,
 		appSecret:           r.appSecret,
@@ -104,7 +104,7 @@ func (r *Lark) clone() *Lark {
 		helpdeskToken:       r.helpdeskToken,
 		timeout:             r.timeout,
 		isISV:               r.isISV,
-		tenantKey:           r.tenantKey,
+		tenantKey:           tenantKey,
 		customBotWebHookURL: r.customBotWebHookURL,
 		customBotSecret:     r.customBotSecret,
 		openBaseURL:         r.openBaseURL,
@@ -116,7 +116,6 @@ func (r *Lark) clone() *Lark {
 		mock:                r.mock,
 		eventHandler:        r.eventHandler,
 	}
-
 	r2.initService()
 	return r2
 }
