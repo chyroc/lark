@@ -524,3 +524,40 @@ func Test_EphemeralMessage(t *testing.T) {
 	as.NotNil(res)
 	as.NotEmpty(res.RequestID)
 }
+
+func Test_BatchSend(t *testing.T) {
+	as := assert.New(t)
+
+	card := lark.MessageContentCard{
+		Header: &lark.MessageContentCardHeader{
+			Template: "",
+			Title: &lark.MessageContentCardObjectText{
+				Tag:     "plain_text",
+				Content: "1",
+			},
+		},
+		Config: &lark.MessageContentCardConfig{
+			EnableForward: true,
+		},
+		Modules: []lark.MessageContentCardModule{
+			lark.MessageContentCardModuleDIV{
+				Text: &lark.MessageContentCardObjectText{
+					Tag:     "plain_text",
+					Content: "1",
+				},
+				Fields: nil,
+				Extra:  nil,
+			},
+		},
+	}
+
+	resp, _, err := AppAllPermission.Ins().Message.BatchSendOldRawMessage(ctx, &lark.BatchSendOldRawMessageReq{
+		MsgType: lark.MsgTypeInteractive,
+		Card:    card,
+		OpenIDs: []string{UserAdmin.OpenID},
+	})
+	as.Nil(err)
+	as.NotNil(resp)
+	as.NotEmpty(resp.MessageID)
+	as.Empty(resp.InvalidOpenIDs)
+}
