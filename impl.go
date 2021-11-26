@@ -95,7 +95,7 @@ func (r *Lark) initService() {
 }
 
 func (r *Lark) clone() *Lark {
-	return &Lark{
+	r2 := &Lark{
 		appID:               r.appID,
 		appSecret:           r.appSecret,
 		encryptKey:          r.encryptKey,
@@ -115,39 +115,10 @@ func (r *Lark) clone() *Lark {
 		store:               r.store,
 		mock:                r.mock,
 		eventHandler:        r.eventHandler,
-
-		// service
-		Auth:          r.Auth,
-		Contact:       r.Contact,
-		Message:       r.Message,
-		Chat:          r.Chat,
-		Bot:           r.Bot,
-		Calendar:      r.Calendar,
-		Drive:         r.Drive,
-		Bitable:       r.Bitable,
-		MeetingRoom:   r.MeetingRoom,
-		Jssdk:         r.Jssdk,
-		VC:            r.VC,
-		Application:   r.Application,
-		Mail:          r.Mail,
-		Approval:      r.Approval,
-		Helpdesk:      r.Helpdesk,
-		Admin:         r.Admin,
-		HumanAuth:     r.HumanAuth,
-		AI:            r.AI,
-		Attendance:    r.Attendance,
-		File:          r.File,
-		OKR:           r.OKR,
-		EHR:           r.EHR,
-		Tenant:        r.Tenant,
-		Search:        r.Search,
-		Hire:          r.Hire,
-		Task:          r.Task,
-		ACS:           r.ACS,
-		Ecosystem:     r.Ecosystem,
-		EventCallback: r.EventCallback,
-		AppLink:       r.AppLink,
 	}
+
+	r2.initService()
+	return r2
 }
 
 type (
