@@ -37,7 +37,7 @@ https://godoc.org/github.com/chyroc/lark
 
 ## Support APIs
 
-API Count: 512, Event Count: 76
+API Count: 513, Event Count: 76
 
 <details>
   <summary>
@@ -104,6 +104,7 @@ API Count: 512, Event Count: 76
   - DeleteMessage
   - BatchDeleteMessage
   - UpdateMessage
+  - UpdateMessageDelay
   - GetMessageReadUserList
   - GetBatchSentMessageReadUser
   - GetMessageList

@@ -88,6 +88,12 @@ func Test_Message_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.UpdateMessageDelay(ctx, &lark.UpdateMessageDelayReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "failed")
+		})
+
+		t.Run("", func(t *testing.T) {
 			_, _, err := moduleCli.GetMessageReadUserList(ctx, &lark.GetMessageReadUserListReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "failed")
@@ -250,6 +256,17 @@ func Test_Message_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
+			cli.Mock().MockMessageUpdateMessageDelay(func(ctx context.Context, request *lark.UpdateMessageDelayReq, options ...lark.MethodOptionFunc) (*lark.UpdateMessageDelayResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockMessageUpdateMessageDelay()
+
+			_, _, err := moduleCli.UpdateMessageDelay(ctx, &lark.UpdateMessageDelayReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
 			cli.Mock().MockMessageGetMessageReadUserList(func(ctx context.Context, request *lark.GetMessageReadUserListReq, options ...lark.MethodOptionFunc) (*lark.GetMessageReadUserListResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -401,6 +418,12 @@ func Test_Message_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.UpdateMessageDelay(ctx, &lark.UpdateMessageDelayReq{})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
 			_, _, err := moduleCli.GetMessageReadUserList(ctx, &lark.GetMessageReadUserListReq{
 				MessageID: "x",
 			})
@@ -529,6 +552,12 @@ func Test_Message_Sample_Failed(t *testing.T) {
 			_, _, err := moduleCli.UpdateMessage(ctx, &lark.UpdateMessageReq{
 				MessageID: "x",
 			})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.UpdateMessageDelay(ctx, &lark.UpdateMessageDelayReq{})
 			as.NotNil(err)
 			as.Equal("fake raw request", err.Error())
 		})
