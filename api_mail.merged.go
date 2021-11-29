@@ -1552,4 +1552,6 @@ type BatchGetMeetingRoomBuildingRespBuilding struct {
 	Description string   `json:"description,omitempty"` // 建筑物的相关描述
 	Floors      []string `json:"floors,omitempty"`      // 属于当前建筑物的所有楼层列表
 	Name        string   `json:"name,omitempty"`        // 建筑物名称
+	CountryID   string   `json:"country_id,omitempty"`  // 所属国家 ID
+	DistrictID  string   `json:"district_id,omitempty"` // 所属城市 ID
 }
