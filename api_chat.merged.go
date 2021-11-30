@@ -103,7 +103,7 @@ type CreateChatReq struct {
 	Name                   *string             `json:"name,omitempty"`                     // 群名称, 示例值："测试群名称"
 	Description            *string             `json:"description,omitempty"`              // 群描述, 示例值："测试群描述"
 	I18nNames              *I18nNames          `json:"i18n_names,omitempty"`               // 群国际化名称
-	OwnerID                *string             `json:"owner_id,omitempty"`                 // 创建群时指定的群主，不填时指定建群的机器人为群主, 示例值："4d7a3c6g"
+	OwnerID                *string             `json:"owner_id,omitempty"`                 // 创建群时指定的群主，不填时指定建群的机器人为群主。,群主 ID，ID值与查询参数中的 user_id_type 对应。,不同 ID 的说明参见 [用户相关的 ID 概念](https://open.feishu.cn/document/home/user-identity-introduction/introduction), 示例值："4d7a3c6g"
 	ChatMode               *string             `json:"chat_mode,omitempty"`                // 群模式, 可选值有: `group`：群组, 示例值："group"
 	ChatType               *ChatType           `json:"chat_type,omitempty"`                // 群类型, 可选值有: `private`：私有群, `public`：公开群, 示例值："private"
 	External               *bool               `json:"external,omitempty"`                 // 是否是外部群, 示例值：false

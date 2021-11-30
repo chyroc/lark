@@ -37,7 +37,7 @@ https://godoc.org/github.com/chyroc/lark
 
 ## Support APIs
 
-API Count: 513, Event Count: 76
+API Count: 514, Event Count: 76
 
 <details>
   <summary>
@@ -410,6 +410,7 @@ API Count: 513, Event Count: 76
   - AnswerHelpdeskTicketUserQuery
   - GetHelpdeskTicketMessageList
   - SendHelpdeskTicketMessage
+  - SendHelpdeskMessage
   - GetHelpdeskTicketCustomizedFieldList
   - DeleteHelpdeskTicketCustomizedField
   - UpdateHelpdeskTicketCustomizedField

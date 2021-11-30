@@ -361,6 +361,7 @@ type Mock struct {
 	mockHelpdeskAnswerHelpdeskTicketUserQuery            func(ctx context.Context, request *AnswerHelpdeskTicketUserQueryReq, options ...MethodOptionFunc) (*AnswerHelpdeskTicketUserQueryResp, *Response, error)
 	mockHelpdeskGetHelpdeskTicketMessageList             func(ctx context.Context, request *GetHelpdeskTicketMessageListReq, options ...MethodOptionFunc) (*GetHelpdeskTicketMessageListResp, *Response, error)
 	mockHelpdeskSendHelpdeskTicketMessage                func(ctx context.Context, request *SendHelpdeskTicketMessageReq, options ...MethodOptionFunc) (*SendHelpdeskTicketMessageResp, *Response, error)
+	mockHelpdeskSendHelpdeskMessage                      func(ctx context.Context, request *SendHelpdeskMessageReq, options ...MethodOptionFunc) (*SendHelpdeskMessageResp, *Response, error)
 	mockHelpdeskGetHelpdeskTicketCustomizedFieldList     func(ctx context.Context, request *GetHelpdeskTicketCustomizedFieldListReq, options ...MethodOptionFunc) (*GetHelpdeskTicketCustomizedFieldListResp, *Response, error)
 	mockHelpdeskDeleteHelpdeskTicketCustomizedField      func(ctx context.Context, request *DeleteHelpdeskTicketCustomizedFieldReq, options ...MethodOptionFunc) (*DeleteHelpdeskTicketCustomizedFieldResp, *Response, error)
 	mockHelpdeskUpdateHelpdeskTicketCustomizedField      func(ctx context.Context, request *UpdateHelpdeskTicketCustomizedFieldReq, options ...MethodOptionFunc) (*UpdateHelpdeskTicketCustomizedFieldResp, *Response, error)

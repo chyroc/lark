@@ -144,8 +144,8 @@ type EventV1AppTicket struct {
 // EventV1AppUninstalled
 //
 // 了解事件订阅的使用场景和配置流程，请点击查看 [事件订阅概述](https://open.feishu.cn/document/ukTMukTMukTM/uUTNz4SN1MjL1UzM)
-// 接收到事件意味着企业不再使用你的应用。自建应用无此事件。
-// 应用商店应用开发者应订阅此事件，并在应用卸载后进行相应的账户注销、数据清理等处理。
+// - 自建应用无此事件。
+// - 企业解散后会推送此事件。商店应用开发者可在收到此事件后进行相应的账户注销、数据清理等处理。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/application-v6/event/app-uninstalled
 func (r *EventCallbackService) HandlerEventV1AppUninstalled(f EventV1AppUninstalledHandler) {

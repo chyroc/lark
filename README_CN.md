@@ -36,7 +36,7 @@ https://godoc.org/github.com/chyroc/lark
 
 ## 支持的接口
 
-API 总数: 513, 事件总数: 76
+API 总数: 514, 事件总数: 76
 
 <details>
   <summary>
@@ -409,6 +409,7 @@ API 总数: 513, 事件总数: 76
   - AnswerHelpdeskTicketUserQuery
   - GetHelpdeskTicketMessageList
   - SendHelpdeskTicketMessage
+  - SendHelpdeskMessage
   - GetHelpdeskTicketCustomizedFieldList
   - DeleteHelpdeskTicketCustomizedField
   - UpdateHelpdeskTicketCustomizedField
