@@ -253,6 +253,7 @@ type Mock struct {
 	mockBitableDeleteBitableTable                        func(ctx context.Context, request *DeleteBitableTableReq, options ...MethodOptionFunc) (*DeleteBitableTableResp, *Response, error)
 	mockBitableBatchDeleteBitableTable                   func(ctx context.Context, request *BatchDeleteBitableTableReq, options ...MethodOptionFunc) (*BatchDeleteBitableTableResp, *Response, error)
 	mockBitableGetBitableMeta                            func(ctx context.Context, request *GetBitableMetaReq, options ...MethodOptionFunc) (*GetBitableMetaResp, *Response, error)
+	mockMeetingRoomGetMeetingRoomCustomization           func(ctx context.Context, request *GetMeetingRoomCustomizationReq, options ...MethodOptionFunc) (*GetMeetingRoomCustomizationResp, *Response, error)
 	mockMeetingRoomBatchGetMeetingRoomSummary            func(ctx context.Context, request *BatchGetMeetingRoomSummaryReq, options ...MethodOptionFunc) (*BatchGetMeetingRoomSummaryResp, *Response, error)
 	mockMeetingRoomGetMeetingRoomBuildingList            func(ctx context.Context, request *GetMeetingRoomBuildingListReq, options ...MethodOptionFunc) (*GetMeetingRoomBuildingListResp, *Response, error)
 	mockMeetingRoomBatchGetMeetingRoomBuilding           func(ctx context.Context, request *BatchGetMeetingRoomBuildingReq, options ...MethodOptionFunc) (*BatchGetMeetingRoomBuildingResp, *Response, error)

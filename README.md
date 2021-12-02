@@ -37,7 +37,7 @@ https://godoc.org/github.com/chyroc/lark
 
 ## Support APIs
 
-API Count: 514, Event Count: 76
+API Count: 515, Event Count: 76
 
 <details>
   <summary>
@@ -296,6 +296,7 @@ API Count: 514, Event Count: 76
   - BatchDeleteBitableTable
   - GetBitableMeta
 - MeetingRoom
+  - GetMeetingRoomCustomization
   - BatchGetMeetingRoomSummary
   - GetMeetingRoomBuildingList
   - BatchGetMeetingRoomBuilding
