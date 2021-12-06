@@ -18,6 +18,10 @@ const (
 	MsgTypeShareUser   MsgType = "share_user"  // 分享个人卡片
 )
 
+func MsgTypePtr(v MsgType) *MsgType {
+	return &v
+}
+
 // ----- contact
 
 // ContainerIDType 容器类型
@@ -26,6 +30,10 @@ type ContainerIDType string
 const (
 	ContainerIDTypeChat ContainerIDType = "chat"
 )
+
+func ContainerIDTypePtr(v ContainerIDType) *ContainerIDType {
+	return &v
+}
 
 // IDType ID类型
 type IDType string
@@ -38,6 +46,10 @@ const (
 	IDTypeChatID  IDType = "chat_id"  // 以 chat_id 来识别成员
 	IDTypeEmail   IDType = "email"    // 以 email 来识别成员
 )
+
+func IDTypePtr(idType IDType) *IDType {
+	return &idType
+}
 
 // DepartmentIDType ID类型
 type DepartmentIDType string
@@ -62,8 +74,8 @@ const (
 	MailUserTypeOtherMember  MailUserType = "OTHER_MEMBER"  // 内部成员
 )
 
-func IDTypePtr(idType IDType) *IDType {
-	return &idType
+func MailUserTypePtr(v MailUserType) *MailUserType {
+	return &v
 }
 
 // EmployeeType 用户类型
@@ -74,6 +86,10 @@ const (
 	EmployeeTypeNo EmployeeType = "employee_no" // 员工工号
 )
 
+func EmployeeTypePtr(v EmployeeType) *EmployeeType {
+	return &v
+}
+
 // ----- chat
 
 type ChatType string
@@ -82,6 +98,10 @@ const (
 	ChatTypePrivate ChatType = "private"
 	ChatTypePublic  ChatType = "public"
 )
+
+func ChatTypePtr(v ChatType) *ChatType {
+	return &v
+}
 
 // ----- file
 
@@ -92,6 +112,10 @@ const (
 	ImageTypeMessage ImageType = "message" // 用于发送消息
 	ImageTypeAvatar  ImageType = "avatar"  // 用于设置头像
 )
+
+func ImageTypePtr(v ImageType) *ImageType {
+	return &v
+}
 
 // FileType 文件类型
 type FileType string
@@ -106,6 +130,10 @@ const (
 	FileTypeStream FileType = "stream" // 上传stream格式文件
 )
 
+func FileTypePtr(v FileType) *FileType {
+	return &v
+}
+
 // ----- calendar
 
 // CalendarRole 对日历的访问权限
@@ -118,6 +146,10 @@ const (
 	CalendarRoleWriter         CalendarRole = "writer"           // 编辑者，创建及修改日程
 	CalendarRoleOwner          CalendarRole = "owner"            // 管理员，管理日历及共享设置
 )
+
+func CalendarRolePtr(v CalendarRole) *CalendarRole {
+	return &v
+}
 
 // 参与人类型
 type CalendarEventAttendeeType string
@@ -144,6 +176,10 @@ const (
 	CalendarTypeExchange CalendarType = "exchange" // 用户绑定的Exchange日历
 )
 
+func CalendarTypePtr(v CalendarType) *CalendarType {
+	return &v
+}
+
 type CalendarPermission string
 
 const (
@@ -151,6 +187,10 @@ const (
 	CalendarPermissionShowOnlyFreeBusy = "show_only_free_busy" // 仅展示忙闲信息
 	CalendarPermissionPublic           = "public"              // 他人可查看日程详情
 )
+
+func CalendarPermissionPtr(v CalendarPermission) *CalendarPermission {
+	return &v
+}
 
 type I18nNames struct {
 	ZhCn string `json:"zh_cn,omitempty"` // 中文名, 示例值: "群聊"
