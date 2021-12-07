@@ -5,7 +5,7 @@ import (
 )
 
 // 回传数据按钮
-func ActionButton(text string, value interface{}) *lark.MessageContentCardElementButton {
+func Button(text string, value interface{}) *lark.MessageContentCardElementButton {
 	return &lark.MessageContentCardElementButton{
 		Text:  Text(text),
 		Type:  "default",

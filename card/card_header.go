@@ -6,6 +6,7 @@ import (
 
 func Header(title string) *lark.MessageContentCardHeader {
 	return &lark.MessageContentCardHeader{
-		Title: Text(title),
+		Title:    Text(title),
+		Template: "",
 	}
 }
