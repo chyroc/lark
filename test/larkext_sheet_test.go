@@ -193,7 +193,7 @@ func testCreateSheet(larkCli *lark.Lark) *larkext.Sheet {
 		panic(err)
 	}
 
-	_, _, err = larkCli.Drive.UpdateDriveMemberPermission(context.Background(), &lark.UpdateDriveMemberPermissionReq{
+	_, _, err = larkCli.Drive.CreateDriveMemberPermission(context.Background(), &lark.CreateDriveMemberPermissionReq{
 		NeedNotification: ptr.Bool(true),
 		Type:             "sheet",
 		Token:            sheetClient.SheetToken(),

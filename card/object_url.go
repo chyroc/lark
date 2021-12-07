@@ -6,6 +6,6 @@ import (
 
 func URL(url string) *lark.MessageContentCardObjectURL {
 	return &lark.MessageContentCardObjectURL{
-		URL:        url,
+		URL: url,
 	}
 }

@@ -6,9 +6,7 @@ import (
 
 var AtBuilder atBuilder
 
-type atBuilder struct {
-
-}
+type atBuilder struct{}
 
 func (r atBuilder) AtAll() string {
 	return `<at user_id="all"></at>`

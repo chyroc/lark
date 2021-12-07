@@ -10,7 +10,7 @@ import (
 // 卡片由三段式组成：头部: header, 配置: config, 模块: elements(i18n_elements)
 //
 // 模块: elements(i18n_elements) 支持 5 种模块的组合：
-//   内容模块: lark.MessageContentCardModuleDIV
+//   内容模块: MessageContentCardModuleDIV
 //   分割线模块: MessageContentCardModuleHR
 //   图片模块: MessageContentCardModuleImage
 //   交互模块: MessageContentCardModuleAction
@@ -36,7 +36,66 @@ func (r MessageContentCard) String() string {
 type MessageContentCardHeader struct {
 	Template MessageContentCardHeaderTemplate `json:"template,omitempty"` // 控制标题背景颜色，取值参考注意事项
 	Title    *MessageContentCardObjectText    `json:"title,omitempty"`    // 卡片标题
+}
 
+func (r MessageContentCardHeader) Blue() *MessageContentCardHeader {
+	r.Template = MessageContentCardHeaderTemplateBlue
+	return &r
+}
+
+func (r MessageContentCardHeader) Wathet() *MessageContentCardHeader {
+	r.Template = MessageContentCardHeaderTemplateWathet
+	return &r
+}
+
+func (r MessageContentCardHeader) Turquoise() *MessageContentCardHeader {
+	r.Template = MessageContentCardHeaderTemplateTurquoise
+	return &r
+}
+
+func (r MessageContentCardHeader) Green() *MessageContentCardHeader {
+	r.Template = MessageContentCardHeaderTemplateGreen
+	return &r
+}
+
+func (r MessageContentCardHeader) Yellow() *MessageContentCardHeader {
+	r.Template = MessageContentCardHeaderTemplateYellow
+	return &r
+}
+
+func (r MessageContentCardHeader) Orange() *MessageContentCardHeader {
+	r.Template = MessageContentCardHeaderTemplateOrange
+	return &r
+}
+
+func (r MessageContentCardHeader) Red() *MessageContentCardHeader {
+	r.Template = MessageContentCardHeaderTemplateRed
+	return &r
+}
+
+func (r MessageContentCardHeader) Carmine() *MessageContentCardHeader {
+	r.Template = MessageContentCardHeaderTemplateCarmine
+	return &r
+}
+
+func (r MessageContentCardHeader) Violet() *MessageContentCardHeader {
+	r.Template = MessageContentCardHeaderTemplateViolet
+	return &r
+}
+
+func (r MessageContentCardHeader) Purple() *MessageContentCardHeader {
+	r.Template = MessageContentCardHeaderTemplatePurple
+	return &r
+}
+
+func (r MessageContentCardHeader) Indigo() *MessageContentCardHeader {
+	r.Template = MessageContentCardHeaderTemplateIndigo
+	return &r
+}
+
+func (r MessageContentCardHeader) Grey() *MessageContentCardHeader {
+	r.Template = MessageContentCardHeaderTemplateGrey
+	return &r
 }
 
 // MessageContentCardConfig 配置卡片属性
@@ -45,6 +104,16 @@ type MessageContentCardHeader struct {
 type MessageContentCardConfig struct {
 	EnableForward bool `json:"enable_forward,omitempty"` // 是否允许卡片被转发，默认 true，转发后，卡片上的“回传交互”组件将自动置为禁用态。用户不能在转发后的卡片操作提交数据
 	UpdateMulti   bool `json:"update_multi,omitempty"`   // 更新卡片的内容是否对所有收到这张卡片的人员可见。 默认为false，即仅操作用户可见卡片的更新内容。
+}
+
+func (r MessageContentCardConfig) WithEnableForward(enableForward bool) *MessageContentCardConfig {
+	r.EnableForward = enableForward
+	return &r
+}
+
+func (r MessageContentCardConfig) WithUpdateMulti(updateMulti bool) *MessageContentCardConfig {
+	r.UpdateMulti = updateMulti
+	return &r
 }
 
 // MessageContentCardHeaderTemplate 控制标题背景颜色，取值参考注意事项
@@ -73,11 +142,13 @@ type MessageContentCardModule interface {
 	IsMessageContentCardModule()
 }
 
-var _ MessageContentCardModule = MessageContentCardModuleAction{}
-var _ MessageContentCardModule = MessageContentCardModuleDIV{}
-var _ MessageContentCardModule = MessageContentCardModuleImage{}
-var _ MessageContentCardModule = MessageContentCardModuleNote{}
-var _ MessageContentCardModule = MessageContentCardModuleHR{}
+var (
+	_ MessageContentCardModule = MessageContentCardModuleAction{}
+	_ MessageContentCardModule = MessageContentCardModuleDIV{}
+	_ MessageContentCardModule = MessageContentCardModuleImage{}
+	_ MessageContentCardModule = MessageContentCardModuleNote{}
+	_ MessageContentCardModule = MessageContentCardModuleHR{}
+)
 
 // MessageContentCardModuleDIV 内容模块
 //
@@ -130,15 +201,63 @@ func (r MessageContentCardModuleImage) MarshalJSON() ([]byte, error) {
 	return marshalJSONWithMap(r, map[string]interface{}{"tag": MessageContentCardModuleTagImage})
 }
 
+func (r MessageContentCardModuleImage) WithAlt(val *MessageContentCardObjectText) *MessageContentCardModuleImage {
+	r.Alt = val
+	return &r
+}
+
+func (r MessageContentCardModuleImage) WithTitle(val *MessageContentCardObjectText) *MessageContentCardModuleImage {
+	r.Title = val
+	return &r
+}
+
+func (r MessageContentCardModuleImage) WithCustomWidth(val int64) *MessageContentCardModuleImage {
+	r.CustomWidth = val
+	return &r
+}
+
+func (r MessageContentCardModuleImage) WithCompactWidth(val bool) *MessageContentCardModuleImage {
+	r.CompactWidth = val
+	return &r
+}
+
+// 居中裁剪模式，对长图会限高，并居中裁剪后展示
+func (r MessageContentCardModuleImage) CropCenter() *MessageContentCardModuleImage {
+	r.Mode = "crop_center"
+	return &r
+}
+
+// 平铺模式，宽度撑满卡片完整展示上传的图片。
+// 该属性会覆盖custom_width 属性。
+func (r MessageContentCardModuleImage) FitHorizontal() *MessageContentCardModuleImage {
+	r.Mode = "fit_horizontal"
+	return &r
+}
+
+func (r MessageContentCardModuleImage) WithPreview(val bool) *MessageContentCardModuleImage {
+	r.Preview = val
+	return &r
+}
+
 // MessageContentCardModuleAction 交互模块
 //
 // 卡片提供 4 种交互控件（button，selectMenu，overflow，datePicker），你可以通过 actions 字段添加交互元素，实现交互功能。
 // 卡片交互 有效期为30天 ，超过有效期的卡片不支持交互。
 //
+// actions 支持 4 种交互控件(MessageContentCardAction)
+//   MessageContentCardElementButton
+//   MessageContentCardElementSelectMenu
+//   MessageContentCardElementOverflow
+//   MessageContentCardElementDatePicker
+//
 // https://open.feishu.cn/document/ukTMukTMukTM/uYjNwUjL2YDM14iN2ATN
 type MessageContentCardModuleAction struct {
-	Actions []MessageContentCardElement `json:"actions,omitempty"` // 放置交互元素
-	Layout  string                      `json:"layout,omitempty"`  // 交互元素布局，窄版样式默认纵向排列，使用 bisected 为二等分布局，每行两列交互元素，使用 trisection 为三等分布局，每行三列交互元素，使用 flow 为流式布局元素会按自身大小横向排列并在空间不够的时候折行
+	Actions []MessageContentCardAction `json:"actions,omitempty"` // 放置交互元素
+	Layout  string                     `json:"layout,omitempty"`  // 交互元素布局，窄版样式默认纵向排列，使用 bisected 为二等分布局，每行两列交互元素，使用 trisection 为三等分布局，每行三列交互元素，使用 flow 为流式布局元素会按自身大小横向排列并在空间不够的时候折行
+}
+
+type MessageContentCardAction interface {
+	IsMessageContentCardAction()
 }
 
 func (r MessageContentCardModuleAction) IsMessageContentCardModule() {}
@@ -147,10 +266,29 @@ func (r MessageContentCardModuleAction) MarshalJSON() ([]byte, error) {
 	return marshalJSONWithMap(r, map[string]interface{}{"tag": MessageContentCardModuleTagAction})
 }
 
+// 使用 bisected 为二等分布局，每行两列交互元素
+func (r MessageContentCardModuleAction) Bisected() *MessageContentCardModuleAction {
+	r.Layout = "bisected"
+	return &r
+}
+
+// 使用 trisection 为三等分布局，每行三列交互元素
+func (r MessageContentCardModuleAction) Trisection() *MessageContentCardModuleAction {
+	r.Layout = "trisection"
+	return &r
+}
+
+// 使用 flow 为流式布局元素会按自身大小横向排列并在空间不够的时候折行
+func (r MessageContentCardModuleAction) Flow() *MessageContentCardModuleAction {
+	r.Layout = "flow"
+	return &r
+}
+
 // MessageContentCardModuleNote 备注模块
 //
 // 备注模块用于展示次要信息。
 // 建议使用备注模块来展示用于辅助说明或备注的次要信息，支持小尺寸的图片和文本。
+// 注意：note 只能填充 text 和 image 对象
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/ucjNwUjL3YDM14yN2ATN
 type MessageContentCardModuleNote struct {
@@ -177,18 +315,20 @@ type MessageContentCardElement interface {
 	IsMessageContentCardElement()
 }
 
-var _ MessageContentCardElement = MessageContentCardElementButton{}
-var _ MessageContentCardElement = MessageContentCardElementImage{}
-var _ MessageContentCardElement = MessageContentCardElementOverflow{}
-var _ MessageContentCardElement = MessageContentCardElementSelectMenu{}
-var _ MessageContentCardElement = MessageContentCardElementDatePicker{}
-var _ MessageContentCardElement = MessageContentCardObjectText{}
+var (
+	_ MessageContentCardElement = MessageContentCardElementButton{}
+	_ MessageContentCardElement = MessageContentCardElementImage{}
+	_ MessageContentCardElement = MessageContentCardElementOverflow{}
+	_ MessageContentCardElement = MessageContentCardElementSelectMenu{}
+	_ MessageContentCardElement = MessageContentCardElementDatePicker{}
+	_ MessageContentCardElement = MessageContentCardObjectText{}
+)
 
-// MessageContentCardElementImage 图片模块
+// MessageContentCardElementImage 图片元素
 //
 // 图片模块用于展示整张图片。建议需要着重展示的图片使用此模块，用户点击图片后可以查看大图。
 //
-// doc: https://open.feishu.cn/document/ukTMukTMukTM/uUjNwUjL1YDM14SN2ATN
+// doc: https://open.feishu.cn/document/ukTMukTMukTM/uAzNwUjLwcDM14CM3ATN
 type MessageContentCardElementImage struct {
 	ImgKey  string                        `json:"img_key,omitempty"` // 图片资源
 	Alt     *MessageContentCardObjectText `json:"alt,omitempty"`     // 图片hover说明
@@ -201,7 +341,17 @@ func (r MessageContentCardElementImage) MarshalJSON() ([]byte, error) {
 	return marshalJSONWithMap(r, map[string]interface{}{"tag": MessageContentCardElementTagImage})
 }
 
-// MessageContentCardElementButton button
+func (r MessageContentCardElementImage) WithAlt(val *MessageContentCardObjectText) *MessageContentCardElementImage {
+	r.Alt = val
+	return &r
+}
+
+func (r MessageContentCardElementImage) WithPreview(val bool) *MessageContentCardElementImage {
+	r.Preview = val
+	return &r
+}
+
+// MessageContentCardElementButton 按钮元素
 //
 // button 属于交互元素的一种，可用于内容块的extra字段和交互块的actions字段。
 //
@@ -216,9 +366,57 @@ type MessageContentCardElementButton struct {
 }
 
 func (r MessageContentCardElementButton) IsMessageContentCardElement() {}
+func (r MessageContentCardElementButton) IsMessageContentCardAction()  {}
 
 func (r MessageContentCardElementButton) MarshalJSON() ([]byte, error) {
 	return marshalJSONWithMap(r, map[string]interface{}{"tag": MessageContentCardElementTagButton})
+}
+
+func (r MessageContentCardElementButton) Default() *MessageContentCardElementButton {
+	r.Type = "default"
+	return &r
+}
+
+func (r MessageContentCardElementButton) Primary() *MessageContentCardElementButton {
+	r.Type = "primary"
+	return &r
+}
+
+func (r MessageContentCardElementButton) Danger() *MessageContentCardElementButton {
+	r.Type = "danger"
+	return &r
+}
+
+func (r MessageContentCardElementButton) WithConfirm(val *MessageContentCardObjectConfirm) *MessageContentCardElementButton {
+	r.Confirm = val
+	return &r
+}
+
+func (r MessageContentCardElementButton) WithAndroid(val string) *MessageContentCardElementButton {
+	return r.multiURL(func(m *MessageContentCardObjectURL) { m.AndroidURL = val })
+}
+
+func (r MessageContentCardElementButton) WithIOS(val string) *MessageContentCardElementButton {
+	return r.multiURL(func(m *MessageContentCardObjectURL) { m.IOSURL = val })
+}
+
+func (r MessageContentCardElementButton) WithPC(val string) *MessageContentCardElementButton {
+	return r.multiURL(func(m *MessageContentCardObjectURL) { m.PCURL = val })
+}
+
+func (r MessageContentCardElementButton) multiURL(f func(m *MessageContentCardObjectURL)) *MessageContentCardElementButton {
+	m := r.MultiURL
+	if r.MultiURL == nil {
+		m = &MessageContentCardObjectURL{URL: r.URL}
+	}
+	f(m)
+	return &MessageContentCardElementButton{
+		Text:     r.Text,
+		MultiURL: m,
+		Type:     r.Type,
+		Value:    r.Value,
+		Confirm:  r.Confirm,
+	}
 }
 
 // MessageContentCardElementSelectMenu selectMenu
@@ -240,6 +438,27 @@ type MessageContentCardElementSelectMenu struct {
 }
 
 func (r MessageContentCardElementSelectMenu) IsMessageContentCardElement() {}
+func (r MessageContentCardElementSelectMenu) IsMessageContentCardAction()  {}
+
+func (r MessageContentCardElementSelectMenu) WithPlaceholder(val *MessageContentCardObjectText) *MessageContentCardElementSelectMenu {
+	r.Placeholder = val
+	return &r
+}
+
+func (r MessageContentCardElementSelectMenu) WithInitialOption(val string) *MessageContentCardElementSelectMenu {
+	r.InitialOption = val
+	return &r
+}
+
+func (r MessageContentCardElementSelectMenu) WithConfirm(val *MessageContentCardObjectConfirm) *MessageContentCardElementSelectMenu {
+	r.Confirm = val
+	return &r
+}
+
+func (r MessageContentCardElementSelectMenu) WithValue(val map[string]interface{}) *MessageContentCardElementSelectMenu {
+	r.Value = val
+	return &r
+}
 
 // MessageContentCardElementOverflow overflow
 //
@@ -254,9 +473,20 @@ type MessageContentCardElementOverflow struct {
 }
 
 func (r MessageContentCardElementOverflow) IsMessageContentCardElement() {}
+func (r MessageContentCardElementOverflow) IsMessageContentCardAction()  {}
 
 func (r MessageContentCardElementOverflow) MarshalJSON() ([]byte, error) {
 	return marshalJSONWithMap(r, map[string]interface{}{"tag": MessageContentCardElementTagOverflow})
+}
+
+func (r MessageContentCardElementOverflow) WithConfirm(val *MessageContentCardObjectConfirm) *MessageContentCardElementOverflow {
+	r.Confirm = val
+	return &r
+}
+
+func (r MessageContentCardElementOverflow) WithValue(val interface{}) *MessageContentCardElementOverflow {
+	r.Value = val
+	return &r
 }
 
 // 作为datePicker元素被使用，提供时间选择的功能。支持三种模式的时间选择：（1）日期（2）时间（3）日期时间
@@ -273,6 +503,7 @@ type MessageContentCardElementDatePicker struct {
 }
 
 func (r MessageContentCardElementDatePicker) IsMessageContentCardElement() {}
+func (r MessageContentCardElementDatePicker) IsMessageContentCardAction()  {}
 
 type MessageContentCardElementTag string
 
@@ -329,28 +560,53 @@ type MessageContentCardObjectURL struct {
 	PCURL      string `json:"pc_url,omitempty"`
 }
 
-func (r MessageContentCardObjectURL) Android(url string) MessageContentCardObjectURL {
+func (r MessageContentCardObjectURL) WithAndroid(url string) *MessageContentCardObjectURL {
 	r.AndroidURL = url
-	return r
+	return &r
 }
 
-func (r MessageContentCardObjectURL) IOS(url string) MessageContentCardObjectURL {
+func (r MessageContentCardObjectURL) WithIOS(url string) *MessageContentCardObjectURL {
 	r.IOSURL = url
-	return r
+	return &r
 }
 
-func (r MessageContentCardObjectURL) PC(url string) MessageContentCardObjectURL {
+func (r MessageContentCardObjectURL) WithPC(url string) *MessageContentCardObjectURL {
 	r.PCURL = url
-	return r
+	return &r
 }
 
-// 作为selectMenu的选项对象
-// 作为overflow的选项对象
+// option 有三种使用方式，分别是：selectMenu选项，selectMenu选人，overflow选项
+// overflow 就是折叠的 selectMenu
 type MessageContentCardObjectOption struct {
 	Text     *MessageContentCardObjectText `json:"text,omitempty"`      // text对象	选项显示内容，非待选人员时必填
 	Value    string                        `json:"value,omitempty"`     // 选项选中后返回业务方的数据
 	URL      string                        `json:"url,omitempty"`       // *仅支持overflow，跳转指定链接，和multi_url字段互斥
 	MultiURL *MessageContentCardObjectURL  `json:"multi_url,omitempty"` // *仅支持overflow，跳转对应链接，和url字段互斥
+}
+
+func (r MessageContentCardObjectOption) WithAndroid(val string) *MessageContentCardObjectOption {
+	return r.multiURL(func(m *MessageContentCardObjectURL) { m.AndroidURL = val })
+}
+
+func (r MessageContentCardObjectOption) WithIOS(val string) *MessageContentCardObjectOption {
+	return r.multiURL(func(m *MessageContentCardObjectURL) { m.IOSURL = val })
+}
+
+func (r MessageContentCardObjectOption) WithPC(val string) *MessageContentCardObjectOption {
+	return r.multiURL(func(m *MessageContentCardObjectURL) { m.PCURL = val })
+}
+
+func (r MessageContentCardObjectOption) multiURL(f func(m *MessageContentCardObjectURL)) *MessageContentCardObjectOption {
+	m := r.MultiURL
+	if r.MultiURL == nil {
+		m = &MessageContentCardObjectURL{URL: r.URL}
+	}
+	f(m)
+	return &MessageContentCardObjectOption{
+		Text:     r.Text,
+		Value:    r.Value,
+		MultiURL: m,
+	}
 }
 
 // 用于交互元素的二次确认
