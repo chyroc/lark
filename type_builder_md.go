@@ -7,7 +7,9 @@ import "strings"
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uADOwUjLwgDM14CM4ATN#top_anchor
 var MdBuilder mdBuilder
 
-type mdBuilder string
+type mdBuilder struct {
+
+}
 
 // Italic 斜体
 func (r mdBuilder) Italic(s string) string {

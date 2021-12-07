@@ -4,6 +4,21 @@ import (
 	"encoding/json"
 )
 
+// 消息卡片介绍: https://open.feishu.cn/document/ukTMukTMukTM/uczM3QjL3MzN04yNzcDN
+// 基础结构: https://open.feishu.cn/document/ukTMukTMukTM/uEjNwUjLxYDM14SM2ATN
+//
+// 卡片由三段式组成：头部: header, 配置: config, 模块: elements(i18n_elements)
+//
+// 模块: elements(i18n_elements) 支持 5 种模块的组合：
+//   内容模块: lark.MessageContentCardModuleDIV
+//   分割线模块: MessageContentCardModuleHR
+//   图片模块: MessageContentCardModuleImage
+//   交互模块: MessageContentCardModuleAction
+//   备注模块: MessageContentCardModuleNote
+//
+// 模块支持国际化，如果要支持国际化，则将 key 从 elements 替换为 i18n_elements，并设置为一个 lang->elements 的 map
+//
+
 type MessageContentCard struct {
 	Header  *MessageContentCardHeader  `json:"header,omitempty"`   // 用于配置卡片标题内容。
 	Config  *MessageContentCardConfig  `json:"config,omitempty"`   // 配置卡片属性
@@ -57,6 +72,12 @@ const (
 type MessageContentCardModule interface {
 	IsMessageContentCardModule()
 }
+
+var _ MessageContentCardModule = MessageContentCardModuleAction{}
+var _ MessageContentCardModule = MessageContentCardModuleDIV{}
+var _ MessageContentCardModule = MessageContentCardModuleImage{}
+var _ MessageContentCardModule = MessageContentCardModuleNote{}
+var _ MessageContentCardModule = MessageContentCardModuleHR{}
 
 // MessageContentCardModuleDIV 内容模块
 //
@@ -155,6 +176,13 @@ const (
 type MessageContentCardElement interface {
 	IsMessageContentCardElement()
 }
+
+var _ MessageContentCardElement = MessageContentCardElementButton{}
+var _ MessageContentCardElement = MessageContentCardElementImage{}
+var _ MessageContentCardElement = MessageContentCardElementOverflow{}
+var _ MessageContentCardElement = MessageContentCardElementSelectMenu{}
+var _ MessageContentCardElement = MessageContentCardElementDatePicker{}
+var _ MessageContentCardElement = MessageContentCardObjectText{}
 
 // MessageContentCardElementImage 图片模块
 //
@@ -268,6 +296,11 @@ type MessageContentCardObjectText struct {
 
 func (r MessageContentCardObjectText) IsMessageContentCardElement() {}
 
+func (r MessageContentCardObjectText) Line(line int) MessageContentCardObjectText {
+	r.Lines = line
+	return r
+}
+
 type MessageContentCardObjectTextType string
 
 const (
@@ -296,6 +329,21 @@ type MessageContentCardObjectURL struct {
 	PCURL      string `json:"pc_url,omitempty"`
 }
 
+func (r MessageContentCardObjectURL) Android(url string) MessageContentCardObjectURL {
+	r.AndroidURL = url
+	return r
+}
+
+func (r MessageContentCardObjectURL) IOS(url string) MessageContentCardObjectURL {
+	r.IOSURL = url
+	return r
+}
+
+func (r MessageContentCardObjectURL) PC(url string) MessageContentCardObjectURL {
+	r.PCURL = url
+	return r
+}
+
 // 作为selectMenu的选项对象
 // 作为overflow的选项对象
 type MessageContentCardObjectOption struct {
@@ -310,4 +358,14 @@ type MessageContentCardObjectOption struct {
 type MessageContentCardObjectConfirm struct {
 	Title *MessageContentCardObjectText `json:"title,omitempty"` // 弹框标题
 	Text  *MessageContentCardObjectText `json:"text,omitempty"`  // 弹框内容
+}
+
+func (r MessageContentCardObjectConfirm) WithTitle(val *MessageContentCardObjectText) MessageContentCardObjectConfirm {
+	r.Title = val
+	return r
+}
+
+func (r MessageContentCardObjectConfirm) WithText(val *MessageContentCardObjectText) MessageContentCardObjectConfirm {
+	r.Text = val
+	return r
 }
