@@ -1121,7 +1121,7 @@ type CreateHelpdeskFAQReqFAQ struct {
 	Question       string   `json:"question,omitempty"`        // 问题, 示例值："问题"
 	Answer         *string  `json:"answer,omitempty"`          // 答案, 示例值："答案"
 	AnswerRichtext *string  `json:"answer_richtext,omitempty"` // 富文本答案和答案必须有一个必填。Json Array格式，富文本结构请见[了解更多: 富文本](https://open.feishu.cn/document/ukTMukTMukTM/uITM0YjLyEDN24iMxQjN), 示例值："[{,                        "content": "这只是一个测试，医保问题",,                        "type": "text",                    }]"
-	Tags           []string `json:"tags,omitempty"`            // 关联词
+	Tags           []string `json:"tags,omitempty"`            // 相似问
 }
 
 type createHelpdeskFAQResp struct {
@@ -1144,7 +1144,7 @@ type CreateHelpdeskFAQRespFAQ struct {
 	CreateTime     int64                               `json:"create_time,omitempty"`     // 创建时间
 	UpdateTime     int64                               `json:"update_time,omitempty"`     // 修改时间
 	Categories     []*HelpdeskCategory                 `json:"categories,omitempty"`      // 分类
-	Tags           []string                            `json:"tags,omitempty"`            // 关联词列表
+	Tags           []string                            `json:"tags,omitempty"`            // 相似问列表
 	ExpireTime     int64                               `json:"expire_time,omitempty"`     // 失效时间
 	UpdateUser     *CreateHelpdeskFAQRespFAQUpdateUser `json:"update_user,omitempty"`     // 更新用户
 	CreateUser     *CreateHelpdeskFAQRespFAQCreateUser `json:"create_user,omitempty"`     // 创建用户
@@ -1268,7 +1268,7 @@ type GetHelpdeskFAQRespFAQ struct {
 	CreateTime     int64                            `json:"create_time,omitempty"`     // 创建时间
 	UpdateTime     int64                            `json:"update_time,omitempty"`     // 修改时间
 	Categories     []*HelpdeskCategory              `json:"categories,omitempty"`      // 分类
-	Tags           []string                         `json:"tags,omitempty"`            // 关联词列表
+	Tags           []string                         `json:"tags,omitempty"`            // 相似问列表
 	ExpireTime     int64                            `json:"expire_time,omitempty"`     // 失效时间
 	UpdateUser     *GetHelpdeskFAQRespFAQUpdateUser `json:"update_user,omitempty"`     // 更新用户
 	CreateUser     *GetHelpdeskFAQRespFAQCreateUser `json:"create_user,omitempty"`     // 创建用户
@@ -1411,7 +1411,7 @@ type GetHelpdeskFAQListRespItem struct {
 	CreateTime     int64                                 `json:"create_time,omitempty"`     // 创建时间
 	UpdateTime     int64                                 `json:"update_time,omitempty"`     // 修改时间
 	Categories     []*HelpdeskCategory                   `json:"categories,omitempty"`      // 分类
-	Tags           []string                              `json:"tags,omitempty"`            // 关联词列表
+	Tags           []string                              `json:"tags,omitempty"`            // 相似问列表
 	ExpireTime     int64                                 `json:"expire_time,omitempty"`     // 失效时间
 	UpdateUser     *GetHelpdeskFAQListRespItemUpdateUser `json:"update_user,omitempty"`     // 更新用户
 	CreateUser     *GetHelpdeskFAQListRespItemCreateUser `json:"create_user,omitempty"`     // 创建用户
@@ -1493,7 +1493,7 @@ type SearchHelpdeskFAQRespItem struct {
 	CreateTime     int64                                `json:"create_time,omitempty"`     // 创建时间
 	UpdateTime     int64                                `json:"update_time,omitempty"`     // 修改时间
 	Categories     []*HelpdeskCategory                  `json:"categories,omitempty"`      // 分类
-	Tags           []string                             `json:"tags,omitempty"`            // 关联词列表
+	Tags           []string                             `json:"tags,omitempty"`            // 相似问列表
 	ExpireTime     int64                                `json:"expire_time,omitempty"`     // 失效时间
 	UpdateUser     *SearchHelpdeskFAQRespItemUpdateUser `json:"update_user,omitempty"`     // 更新用户
 	CreateUser     *SearchHelpdeskFAQRespItemCreateUser `json:"create_user,omitempty"`     // 创建用户
@@ -1558,7 +1558,7 @@ type UpdateHelpdeskFAQReqFAQ struct {
 	Question       string   `json:"question,omitempty"`        // 问题, 示例值："问题"
 	Answer         *string  `json:"answer,omitempty"`          // 答案, 示例值："答案"
 	AnswerRichtext *string  `json:"answer_richtext,omitempty"` // 富文本答案和答案必须有一个必填。Json Array格式，富文本结构请见[了解更多: 富文本](https://open.feishu.cn/document/ukTMukTMukTM/uITM0YjLyEDN24iMxQjN), 示例值："[{,                        "content": "这只是一个测试，医保问题",,                        "type": "text",                    }]"
-	Tags           []string `json:"tags,omitempty"`            // 关联词
+	Tags           []string `json:"tags,omitempty"`            // 相似问
 }
 
 type updateHelpdeskFAQResp struct {

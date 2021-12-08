@@ -741,7 +741,7 @@ type PreviewApprovalInstanceReq struct {
 	DepartmentID *string                         `json:"department_id,omitempty"` // 发起审批用户部门，如果用户只属于一个部门，可以不填，如果属于多个部门，必须填其中一个部门
 	Form         *PreviewApprovalInstanceReqForm `json:"form,omitempty"`          // JSON字符串，控件值。提交审批之前，查看预览流程时，该字段必填
 	InstanceCode *string                         `json:"instance_code,omitempty"` // 审批实例code
-	TaskID       *string                         `json:"task_id,omitempty"`       // 若审批实例已存在，则传递当前审批任务对应的task_id
+	TaskID       *string                         `json:"task_id,omitempty"`       // 若审批实例已存在，则传递当前审批任务对应的task_id, 并且user_id需要传task的指派人
 }
 
 type PreviewApprovalInstanceReqForm struct {

@@ -505,9 +505,9 @@ func (r *Mock) UnMockChatAddChatMember() {
 }
 
 type AddChatMemberReq struct {
-	MemberIDType *IDType  `query:"member_id_type" json:"-"` // 进群成员 id 类型 open_id/user_id/union_id/app_id, 示例值："user_id", 可选值有: `user_id`：以 user_id 来识别成员，需要有获取用户UserID的权限 ([什么是 User ID？](https://open.feishu.cn/document/home/user-identity-introduction/user-id)), `union_id`：以 union_id 来识别成员([什么是 Union ID？](https://open.feishu.cn/document/home/user-identity-introduction/union-id)), `open_id`：以 open_id 来识别成员([什么是 Open ID？](https://open.feishu.cn/document/home/user-identity-introduction/open-id)), `app_id`：以 app_id 来识别成员([获取应用身份访问凭证](https://open.feishu.cn/document/ukTMukTMukTM/ukDNz4SO0MjL5QzM/g))
+	MemberIDType *IDType  `query:"member_id_type" json:"-"` // 进群成员 id 类型 open_id/user_id/union_id/app_id, 示例值："open_id", 可选值有: `user_id`：以 user_id 来识别成员，需要有获取用户UserID的权限 ([什么是 User ID？](https://open.feishu.cn/document/home/user-identity-introduction/user-id)), `union_id`：以 union_id 来识别成员([什么是 Union ID？](https://open.feishu.cn/document/home/user-identity-introduction/union-id)), `open_id`：以 open_id 来识别成员([什么是 Open ID？](https://open.feishu.cn/document/home/user-identity-introduction/open-id)), `app_id`：以 app_id 来识别成员([获取应用身份访问凭证](https://open.feishu.cn/document/ukTMukTMukTM/ukDNz4SO0MjL5QzM/g))
 	ChatID       string   `path:"chat_id" json:"-"`         // 群 ID，详情参见[群ID 说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-id-description), 示例值："oc_a0553eda9014c201e6969b478895c230"
-	IDList       []string `json:"id_list,omitempty"`        // 成员列表
+	IDList       []string `json:"id_list,omitempty"`        // 成员列表, 示例值：["ou_9204a37300b3700d61effaa439f34295"]
 }
 
 type addChatMemberResp struct {
@@ -561,7 +561,7 @@ func (r *Mock) UnMockChatDeleteChatMember() {
 }
 
 type DeleteChatMemberReq struct {
-	MemberIDType *IDType  `query:"member_id_type" json:"-"` // 出群成员 id 类型 open_id/user_id/union_id/app_id, 示例值："user_id", 可选值有: `user_id`：以 user_id 来识别成员, `union_id`：以 union_id 来识别成员, `open_id`：以 open_id 来识别成员, `app_id`：以 app_id 来识别成员
+	MemberIDType *IDType  `query:"member_id_type" json:"-"` // 出群成员 id 类型 open_id/user_id/union_id/app_id, 示例值："open_id", 可选值有: `user_id`：以 user_id 来识别成员, `union_id`：以 union_id 来识别成员, `open_id`：以 open_id 来识别成员, `app_id`：以 app_id 来识别成员
 	ChatID       string   `path:"chat_id" json:"-"`         // 群 ID，详情参见[群ID 说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-id-description), 示例值："oc_a0553eda9014c201e6969b478895c230"
 	IDList       []string `json:"id_list,omitempty"`        // 成员列表
 }
@@ -618,7 +618,7 @@ func (r *Mock) UnMockChatGetChatMemberList() {
 }
 
 type GetChatMemberListReq struct {
-	MemberIDType *IDType `query:"member_id_type" json:"-"` // 群成员 用户 ID 类型，详情参见 [用户相关的 ID 概念](https://open.feishu.cn/document/home/user-identity-introduction/introduction), 示例值："user_id", 可选值有: `user_id`：以 user_id 来识别成员, `union_id`：以 union_id 来识别成员, `open_id`：以 open_id 来识别成员
+	MemberIDType *IDType `query:"member_id_type" json:"-"` // 群成员 用户 ID 类型，详情参见 [用户相关的 ID 概念](https://open.feishu.cn/document/home/user-identity-introduction/introduction), 示例值："open_id", 可选值有: `user_id`：以 user_id 来识别成员, `union_id`：以 union_id 来识别成员, `open_id`：以 open_id 来识别成员
 	PageToken    *string `query:"page_token" json:"-"`     // 分页标记，第一次请求不填，表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token，下次遍历可采用该 page_token 获取查询结果, 示例值："dmJCRHhpd3JRbGV1VEVNRFFyTitRWDY5ZFkybmYrMEUwMUFYT0VMMWdENEtuYUhsNUxGMDIwemtvdE5ORjBNQQ=="
 	PageSize     *int64  `query:"page_size" json:"-"`      // 分页大小, 示例值：10, 最大值：`100`
 	ChatID       string  `path:"chat_id" json:"-"`         // 群 ID，详情参见[群ID 说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-id-description), 示例值："oc_a0553eda9014c201e6969b478895c230"
