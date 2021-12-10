@@ -70,6 +70,7 @@ type Mock struct {
 	mockMessageUpdateMessageDelay                        func(ctx context.Context, request *UpdateMessageDelayReq, options ...MethodOptionFunc) (*UpdateMessageDelayResp, *Response, error)
 	mockMessageGetMessageReadUserList                    func(ctx context.Context, request *GetMessageReadUserListReq, options ...MethodOptionFunc) (*GetMessageReadUserListResp, *Response, error)
 	mockMessageGetBatchSentMessageReadUser               func(ctx context.Context, request *GetBatchSentMessageReadUserReq, options ...MethodOptionFunc) (*GetBatchSentMessageReadUserResp, *Response, error)
+	mockMessageGetBatchSentMessageProgress               func(ctx context.Context, request *GetBatchSentMessageProgressReq, options ...MethodOptionFunc) (*GetBatchSentMessageProgressResp, *Response, error)
 	mockMessageGetMessageList                            func(ctx context.Context, request *GetMessageListReq, options ...MethodOptionFunc) (*GetMessageListResp, *Response, error)
 	mockMessageGetMessageFile                            func(ctx context.Context, request *GetMessageFileReq, options ...MethodOptionFunc) (*GetMessageFileResp, *Response, error)
 	mockMessageGetMessage                                func(ctx context.Context, request *GetMessageReq, options ...MethodOptionFunc) (*GetMessageResp, *Response, error)

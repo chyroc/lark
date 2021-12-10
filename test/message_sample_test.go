@@ -106,6 +106,12 @@ func Test_Message_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.GetBatchSentMessageProgress(ctx, &lark.GetBatchSentMessageProgressReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "failed")
+		})
+
+		t.Run("", func(t *testing.T) {
 			_, _, err := moduleCli.GetMessageList(ctx, &lark.GetMessageListReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "failed")
@@ -289,6 +295,17 @@ func Test_Message_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
+			cli.Mock().MockMessageGetBatchSentMessageProgress(func(ctx context.Context, request *lark.GetBatchSentMessageProgressReq, options ...lark.MethodOptionFunc) (*lark.GetBatchSentMessageProgressResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockMessageGetBatchSentMessageProgress()
+
+			_, _, err := moduleCli.GetBatchSentMessageProgress(ctx, &lark.GetBatchSentMessageProgressReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
 			cli.Mock().MockMessageGetMessageList(func(ctx context.Context, request *lark.GetMessageListReq, options ...lark.MethodOptionFunc) (*lark.GetMessageListResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -440,6 +457,14 @@ func Test_Message_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.GetBatchSentMessageProgress(ctx, &lark.GetBatchSentMessageProgressReq{
+				BatchMessageID: "x",
+			})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
 			_, _, err := moduleCli.GetMessageList(ctx, &lark.GetMessageListReq{})
 			as.NotNil(err)
 			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
@@ -572,6 +597,14 @@ func Test_Message_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 			_, _, err := moduleCli.GetBatchSentMessageReadUser(ctx, &lark.GetBatchSentMessageReadUserReq{
+				BatchMessageID: "x",
+			})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.GetBatchSentMessageProgress(ctx, &lark.GetBatchSentMessageProgressReq{
 				BatchMessageID: "x",
 			})
 			as.NotNil(err)
