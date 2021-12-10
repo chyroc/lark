@@ -1607,7 +1607,7 @@ func (r *Mock) UnMockHelpdeskSendHelpdeskMessage() {
 type SendHelpdeskMessageReq struct {
 	UserIDType  *IDType `query:"user_id_type" json:"-"` // 用户 ID 类型, 示例值："open_id", 可选值有: `open_id`：用户的 open id, `union_id`：用户的 union id, `user_id`：用户的 user id, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
 	MsgType     MsgType `json:"msg_type,omitempty"`     // 消息类型, 示例值："post", 可选值有: `text`：普通文本, `post`：富文本, `image`：图片, `interactive`：卡片消息
-	Content     string  `json:"content,omitempty"`      // 消息内容，json格式结构序列化成string。格式说明参考: [发送消息content说明](https://open.feishu.cn/document/ukTMukTMukTM/uUjNz4SN2MjL1YzM), 示例值："{\"text\":\"Tom test content\"}"
+	Content     string  `json:"content,omitempty"`      // 消息内容，json格式结构序列化成string。格式说明参考: [发送消息content说明](https://open.feishu.cn/document/ukTMukTMukTM/uUjNz4SN2MjL1YzM), 示例值："{\"post\":{\"zh_cn\":{\"title\":\"some title\",\"content\":[[{\"tag\":\"text\",\"text\":\"some content\"}]]}}}"
 	ReceiverID  string  `json:"receiver_id,omitempty"`  // 接收消息用户id, 示例值："ou_7346484524"
 	ReceiveType *string `json:"receive_type,omitempty"` // 接收消息方式，chat(服务台专属服务群)或user(服务台机器人私聊)。若选择专属服务群，用户有正在处理的工单将会发送失败。默认以chat方式发送。, 示例值："chat", 可选值有: `chat`：通过服务台专属群发送, `user`：通过服务台机器人私聊发送
 }

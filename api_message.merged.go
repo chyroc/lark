@@ -58,7 +58,7 @@ type BatchSendOldRawMessageReq struct {
 	MsgType       MsgType     `json:"msg_type,omitempty"`       // 消息类型，支持多种消息类型，详见下表。
 	Content       interface{} `json:"content,omitempty"`        // 消息内容，支持除卡片消息外的多种消息内容，详见下表。
 	Card          interface{} `json:"card,omitempty"`           // 卡片消息内容，注意card和content必须二选一
-	DepartmentIDs []string    `json:"department_ids,omitempty"` // 支持[自定义部门ID](https://open.feishu.cn/document/ukTMukTMukTM/uYTM5UjL2ETO14iNxkTN/terminology#3c3e6267)，和open_department_id，列表长度小于等于 200  <br><br>**示例值：**["3dceba33a33226","d502aaa9514059", "od-5b91c9affb665451a16b90b4be367efa"]
+	DepartmentIDs []string    `json:"department_ids,omitempty"` // 支持[自定义部门ID](https://open.feishu.cn/document/ukTMukTMukTM/uYTM5UjL2ETO14iNxkTN/terminology#3c3e6267)，和open_department_id，列表长度小于等于 200  <br><br>**注**：部门下的所有子部门包含的成员也会收到消息<br>**示例值：**["3dceba33a33226","d502aaa9514059", "od-5b91c9affb665451a16b90b4be367efa"]
 	OpenIDs       []string    `json:"open_ids,omitempty"`       // 用户 open_id 列表，长度小于等于 200 <br><br>**示例值：**["ou_18eac85d35a26f989317ad4f02e8bbbb","ou_461cf042d9eedaa60d445f26dc747d5e"]
 	UserIDs       []string    `json:"user_ids,omitempty"`       // 用户 user_id 列表，长度小于等于 200 （对应 V3 接口的 employee_ids ）<br><br>**示例值：**["7cdcc7c2","ca51d83b"]
 }
