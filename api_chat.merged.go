@@ -10,9 +10,8 @@ import (
 //
 // 注意事项：
 // - 应用需要开启[机器人能力](https://open.feishu.cn/document/home/develop-a-bot-in-5-minutes/create-an-app)
-// - 当授权用户或机器人是群主时，可更新群公告信息
-// - 当授权用户或机器人非群主，且群主未设置 [仅群主可编辑群信息] 时，可更新群公告信息
-// - 当授权用户或机器人非群主，且群主设置了 [仅群主可编辑群信息] 时，无法更新公告信息
+// - 若群开启了 [仅群主和群管理员可编辑群信息] 配置，群主/群管理员 或 创建群组且具备 [更新应用所创建群的群信息] 权限的机器人，可更新群公告
+// - 若群未开启 [仅群主和群管理员可编辑群信息] 配置，所有成员可以更新群公告
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-announcement/patch
 func (r *ChatService) UpdateChatAnnouncement(ctx context.Context, request *UpdateChatAnnouncementReq, options ...MethodOptionFunc) (*UpdateChatAnnouncementResp, *Response, error) {
@@ -343,8 +342,6 @@ type GetChatListOfSelfRespItem struct {
 // - 需要启用机器人能力；机器人必须在群里
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uMTO5QjLzkTO04yM5kDN
-//
-// Deprecated
 func (r *ChatService) GetChatOld(ctx context.Context, request *GetChatOldReq, options ...MethodOptionFunc) (*GetChatOldResp, *Response, error) {
 	if r.cli.mock.mockChatGetChatOld != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Chat#GetChatOld mock enable")
@@ -469,8 +466,8 @@ type JoinChatResp struct{}
 // 注意事项：
 // - 应用需要开启[机器人能力](https://open.feishu.cn/document/home/develop-a-bot-in-5-minutes/create-an-app)
 // - 如需拉用户进群，需要机器人对用户有可见性
-// - 在开启[仅群主可添加群成员]的设置时，仅有群主 或 创建群组且具备[更新应用所创建群的群信息]权限的机器人，可以拉用户或者机器人进群
-// - 在未开启[仅群主可添加群成员]的设置时，所有群成员都可以拉用户或机器人进群
+// - 在开启 [仅群主可添加群成员] 的设置时，仅有群主/管理员 或 创建群组且具备 [更新应用所创建群的群信息] 权限的机器人，可以拉用户或者机器人进群
+// - 在未开启 [仅群主可添加群成员] 的设置时，所有群成员都可以拉用户或机器人进群
 // - 每次请求，最多拉50个用户或者5个机器人，并且群组最多容纳15个机器人
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-members/create
@@ -526,7 +523,8 @@ type AddChatMemberResp struct {
 //
 // 注意事项：
 // - 应用需要开启[机器人能力](https://open.feishu.cn/document/home/develop-a-bot-in-5-minutes/create-an-app)
-// - 用户或机器人在任何条件下均可移除自己出群（即主动退群）；但仅有群主 及 创建群组且具备[更新应用所创建群的群信息]权限的机器人，可以移除其他用户或者机器人
+// - 用户或机器人在任何条件下均可移除自己出群（即主动退群）
+// - 仅有群主/管理员 及 创建群组且具备 [更新应用所创建群的群信息] 权限的机器人，可以移除其他用户或者机器人
 // - 每次请求，最多移除50个用户或者5个机器人
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-members/delete
@@ -765,7 +763,7 @@ type SearchChatRespItem struct {
 //
 // 注意事项：
 // - 应用需要开启[机器人能力](https://open.feishu.cn/document/home/develop-a-bot-in-5-minutes/create-an-app)
-// - 若群未开启[仅群主和群管理员可编辑群信息] 配置：
+// - 若群未开启 [仅群主和群管理员可编辑群信息] 配置：
 // - 群主/群管理员 或 创建群组且具备[更新应用所创建群的群信息]权限的机器人，可更新所有信息
 // - 不满足上述条件的群成员或机器人，仅可更新群头像、群名称、群描述、群国际化名称信息
 // - 若群开启了[仅群主和群管理员可编辑群信息]配置：

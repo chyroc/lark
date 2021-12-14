@@ -323,8 +323,6 @@ type GetDepartmentListRespItemStatus struct {
 // fetch_child 决定是否递归)。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/list
-//
-// Deprecated
 func (r *ContactService) GetDepartmentListOld(ctx context.Context, request *GetDepartmentListOldReq, options ...MethodOptionFunc) (*GetDepartmentListOldResp, *Response, error) {
 	if r.cli.mock.mockContactGetDepartmentListOld != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Contact#GetDepartmentListOld mock enable")
@@ -2295,8 +2293,6 @@ type GetUserRespUserCustomAttrValueGenericUser struct {
 // - 调用该接口需要申请“以应用身份读取通讯录”以及[用户数据权限](https://open.feishu.cn/document/ukTMukTMukTM/uQjN3QjL0YzN04CN2cDN)。请求的用户如果在当前应用的通讯录授权范围内，会返回该用户的详细信息；否则不会返回。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uIzNz4iM3MjLyczM
-//
-// Deprecated
 func (r *ContactService) BatchGetUser(ctx context.Context, request *BatchGetUserReq, options ...MethodOptionFunc) (*BatchGetUserResp, *Response, error) {
 	if r.cli.mock.mockContactBatchGetUser != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Contact#BatchGetUser mock enable")
@@ -2381,8 +2377,6 @@ type BatchGetUserRespUserInfo struct {
 // 调用该接口需要申请 `通过手机号或邮箱获取用户 ID` 权限。<br>只能查询到应用可用性范围内的用户 ID，不在范围内的用户会表现为不存在。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uUzMyUjL1MjM14SNzITN
-//
-// Deprecated
 func (r *ContactService) BatchGetUserByIDOld(ctx context.Context, request *BatchGetUserByIDOldReq, options ...MethodOptionFunc) (*BatchGetUserByIDOldResp, *Response, error) {
 	if r.cli.mock.mockContactBatchGetUserByIDOld != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Contact#BatchGetUserByIDOld mock enable")
@@ -2582,8 +2576,6 @@ type GetUserListRespItemNotificationOption struct {
 // department_id 参数，则会返回权限范围内的独立用户（权限范围直接包含了某用户，则该用户视为权限范围内的独立用户）。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/list
-//
-// Deprecated
 func (r *ContactService) GetUserListOld(ctx context.Context, request *GetUserListOldReq, options ...MethodOptionFunc) (*GetUserListOldResp, *Response, error) {
 	if r.cli.mock.mockContactGetUserListOld != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Contact#GetUserListOld mock enable")
@@ -2709,8 +2701,6 @@ type GetUserListOldRespItemCustomAttrValueGenericUser struct {
 // 调用该接口需要申请 `搜索用户` 权限。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uMTM4UjLzEDO14yMxgTN
-//
-// Deprecated
 func (r *ContactService) SearchUserOld(ctx context.Context, request *SearchUserOldReq, options ...MethodOptionFunc) (*SearchUserOldResp, *Response, error) {
 	if r.cli.mock.mockContactSearchUserOld != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Contact#SearchUserOld mock enable")
