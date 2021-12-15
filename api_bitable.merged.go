@@ -1200,6 +1200,8 @@ type GetBitableViewListRespItem struct {
 // **权限说明** ：需要启用机器人能力；机器人的owner需要已经在群里
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uYDO04iN4QjL2gDN
+//
+// Deprecated
 func (r *BotService) AddBotToChat(ctx context.Context, request *AddBotToChatReq, options ...MethodOptionFunc) (*AddBotToChatResp, *Response, error) {
 	if r.cli.mock.mockBotAddBotToChat != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Bot#AddBotToChat mock enable")

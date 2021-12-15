@@ -43,6 +43,7 @@ const (
 	EventTypeV2HelpdeskTicketMessageCreatedV1          EventType = "helpdesk.ticket_message.created_v1"
 	EventTypeV2HelpdeskTicketCreatedV1                 EventType = "helpdesk.ticket.created_v1"
 	EventTypeV2HelpdeskTicketMessageUpdatedV1          EventType = "helpdesk.ticket.updated_v1"
+	EventTypeV2HelpdeskNotificationApproveV1           EventType = "helpdesk.notification.approve_v1"
 	EventTypeV2ContactDepartmentCreatedV3              EventType = "contact.department.created_v3"
 	EventTypeV2ContactDepartmentDeletedV3              EventType = "contact.department.deleted_v3"
 	EventTypeV2ContactDepartmentUpdatedV3              EventType = "contact.department.updated_v3"
@@ -123,6 +124,7 @@ type eventHandler struct {
 	eventV2HelpdeskTicketMessageCreatedV1Handler          EventV2HelpdeskTicketMessageCreatedV1Handler
 	eventV2HelpdeskTicketCreatedV1Handler                 EventV2HelpdeskTicketCreatedV1Handler
 	eventV2HelpdeskTicketMessageUpdatedV1Handler          EventV2HelpdeskTicketMessageUpdatedV1Handler
+	eventV2HelpdeskNotificationApproveV1Handler           EventV2HelpdeskNotificationApproveV1Handler
 	eventV2ContactDepartmentCreatedV3Handler              EventV2ContactDepartmentCreatedV3Handler
 	eventV2ContactDepartmentDeletedV3Handler              EventV2ContactDepartmentDeletedV3Handler
 	eventV2ContactDepartmentUpdatedV3Handler              EventV2ContactDepartmentUpdatedV3Handler
@@ -204,6 +206,7 @@ func (r *eventHandler) clone() *eventHandler {
 		eventV2HelpdeskTicketMessageCreatedV1Handler:          r.eventV2HelpdeskTicketMessageCreatedV1Handler,
 		eventV2HelpdeskTicketCreatedV1Handler:                 r.eventV2HelpdeskTicketCreatedV1Handler,
 		eventV2HelpdeskTicketMessageUpdatedV1Handler:          r.eventV2HelpdeskTicketMessageUpdatedV1Handler,
+		eventV2HelpdeskNotificationApproveV1Handler:           r.eventV2HelpdeskNotificationApproveV1Handler,
 		eventV2ContactDepartmentCreatedV3Handler:              r.eventV2ContactDepartmentCreatedV3Handler,
 		eventV2ContactDepartmentDeletedV3Handler:              r.eventV2ContactDepartmentDeletedV3Handler,
 		eventV2ContactDepartmentUpdatedV3Handler:              r.eventV2ContactDepartmentUpdatedV3Handler,
@@ -284,6 +287,7 @@ type eventBody struct {
 	eventV2HelpdeskTicketMessageCreatedV1          *EventV2HelpdeskTicketMessageCreatedV1
 	eventV2HelpdeskTicketCreatedV1                 *EventV2HelpdeskTicketCreatedV1
 	eventV2HelpdeskTicketMessageUpdatedV1          *EventV2HelpdeskTicketMessageUpdatedV1
+	eventV2HelpdeskNotificationApproveV1           *EventV2HelpdeskNotificationApproveV1
 	eventV2ContactDepartmentCreatedV3              *EventV2ContactDepartmentCreatedV3
 	eventV2ContactDepartmentDeletedV3              *EventV2ContactDepartmentDeletedV3
 	eventV2ContactDepartmentUpdatedV3              *EventV2ContactDepartmentUpdatedV3
@@ -465,6 +469,12 @@ func (r *EventCallbackService) parserEventV2(req *eventReq) error {
 			return err
 		}
 		req.eventV2HelpdeskTicketMessageUpdatedV1 = event
+	case EventTypeV2HelpdeskNotificationApproveV1:
+		event := new(EventV2HelpdeskNotificationApproveV1)
+		if err := req.unmarshalEvent(event); err != nil {
+			return err
+		}
+		req.eventV2HelpdeskNotificationApproveV1 = event
 	case EventTypeV2ContactDepartmentCreatedV3:
 		event := new(EventV2ContactDepartmentCreatedV3)
 		if err := req.unmarshalEvent(event); err != nil {
@@ -992,6 +1002,11 @@ func (r *EventCallbackService) handlerEvent(ctx context.Context, req *eventReq) 
 	case req.eventV2HelpdeskTicketMessageUpdatedV1 != nil:
 		if r.cli.eventHandler.eventV2HelpdeskTicketMessageUpdatedV1Handler != nil {
 			s, err = r.cli.eventHandler.eventV2HelpdeskTicketMessageUpdatedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2HelpdeskTicketMessageUpdatedV1)
+		}
+		return true, s, err
+	case req.eventV2HelpdeskNotificationApproveV1 != nil:
+		if r.cli.eventHandler.eventV2HelpdeskNotificationApproveV1Handler != nil {
+			s, err = r.cli.eventHandler.eventV2HelpdeskNotificationApproveV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2HelpdeskNotificationApproveV1)
 		}
 		return true, s, err
 	case req.eventV2ContactDepartmentCreatedV3 != nil:

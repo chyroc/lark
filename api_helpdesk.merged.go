@@ -2123,7 +2123,7 @@ type GetHelpdeskTicketRespTicket struct {
 	Solve                      int64                                         `json:"solve,omitempty"`                         // 工单是否解决 1:没解决 2:已解决
 	ClosedBy                   *GetHelpdeskTicketRespTicketClosedBy          `json:"closed_by,omitempty"`                     // 关单用户ID
 	Collaborators              []*GetHelpdeskTicketRespTicketCollaborator    `json:"collaborators,omitempty"`                 // 工单协作者
-	CustomizedFields           []*GetHelpdeskTicketRespTicketCustomizedField `json:"customized_fields,omitempty"`             // 自定义字段列表，没有值时不设置
+	CustomizedFields           []*GetHelpdeskTicketRespTicketCustomizedField `json:"customized_fields,omitempty"`             // 自定义字段列表，没有值时不设置  ,下拉菜单的value对应工单字段里面的children.display_name,[获取全部工单自定义字段](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/ticket_customized_field/list-ticket-customized-fields)
 	AgentServiceDuration       float64                                       `json:"agent_service_duration,omitempty"`        // 客服服务时长，客服最后一次回复时间距离客服进入时间间隔，单位分钟
 	AgentFirstResponseDuration int64                                         `json:"agent_first_response_duration,omitempty"` // 客服首次回复时间距离客服进入时间的间隔(秒)
 	BotServiceDuration         int64                                         `json:"bot_service_duration,omitempty"`          // 机器人服务时间：客服进入时间距离工单创建时间的间隔，单位秒
@@ -2276,7 +2276,7 @@ type GetHelpdeskTicketListRespTicket struct {
 	Solve                      int64                                             `json:"solve,omitempty"`                         // 工单是否解决 1:没解决 2:已解决
 	ClosedBy                   *GetHelpdeskTicketListRespTicketClosedBy          `json:"closed_by,omitempty"`                     // 关单用户ID
 	Collaborators              []*GetHelpdeskTicketListRespTicketCollaborator    `json:"collaborators,omitempty"`                 // 工单协作者
-	CustomizedFields           []*GetHelpdeskTicketListRespTicketCustomizedField `json:"customized_fields,omitempty"`             // 自定义字段列表，没有值时不设置
+	CustomizedFields           []*GetHelpdeskTicketListRespTicketCustomizedField `json:"customized_fields,omitempty"`             // 自定义字段列表，没有值时不设置  ,下拉菜单的value对应工单字段里面的children.display_name,[获取全部工单自定义字段](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/ticket_customized_field/list-ticket-customized-fields)
 	AgentServiceDuration       float64                                           `json:"agent_service_duration,omitempty"`        // 客服服务时长，客服最后一次回复时间距离客服进入时间间隔，单位分钟
 	AgentFirstResponseDuration int64                                             `json:"agent_first_response_duration,omitempty"` // 客服首次回复时间距离客服进入时间的间隔(秒)
 	BotServiceDuration         int64                                             `json:"bot_service_duration,omitempty"`          // 机器人服务时间：客服进入时间距离工单创建时间的间隔，单位秒

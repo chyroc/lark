@@ -323,6 +323,8 @@ type GetDepartmentListRespItemStatus struct {
 // fetch_child 决定是否递归)。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/list
+//
+// Deprecated
 func (r *ContactService) GetDepartmentListOld(ctx context.Context, request *GetDepartmentListOldReq, options ...MethodOptionFunc) (*GetDepartmentListOldResp, *Response, error) {
 	if r.cli.mock.mockContactGetDepartmentListOld != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Contact#GetDepartmentListOld mock enable")
@@ -538,17 +540,17 @@ type SearchDepartmentResp struct {
 }
 
 type SearchDepartmentRespItem struct {
-	Name               string                            `json:"name,omitempty"`                 // 部门名称,**字段权限要求（满足任一）**：,以应用身份读取通讯录,获取部门基础信息,读取通讯录,以应用身份访问通讯录
-	I18nName           *SearchDepartmentRespItemI18nName `json:"i18n_name,omitempty"`            // 国际化的部门名称,**字段权限要求（满足任一）**：,以应用身份读取通讯录,获取部门基础信息,读取通讯录,以应用身份访问通讯录
-	ParentDepartmentID string                            `json:"parent_department_id,omitempty"` // 父部门的ID,* 创建根部门，该参数值为 “0”,**字段权限要求（满足任一）**：,以应用身份读取通讯录,获取部门组织架构信息,读取通讯录,以应用身份访问通讯录
-	DepartmentID       string                            `json:"department_id,omitempty"`        // 本部门的自定义部门ID,**字段权限要求（满足任一）**：,以应用身份读取通讯录,获取部门基础信息,读取通讯录,以应用身份访问通讯录
+	Name               string                            `json:"name,omitempty"`                 // 部门名称,**字段权限要求（满足任一）**：,以应用身份读取通讯录,获取部门基础信息,以应用身份访问通讯录,读取通讯录
+	I18nName           *SearchDepartmentRespItemI18nName `json:"i18n_name,omitempty"`            // 国际化的部门名称,**字段权限要求（满足任一）**：,以应用身份读取通讯录,获取部门基础信息,以应用身份访问通讯录,读取通讯录
+	ParentDepartmentID string                            `json:"parent_department_id,omitempty"` // 父部门的ID,* 创建根部门，该参数值为 “0”,**字段权限要求（满足任一）**：,以应用身份读取通讯录,获取部门组织架构信息,以应用身份访问通讯录,读取通讯录
+	DepartmentID       string                            `json:"department_id,omitempty"`        // 本部门的自定义部门ID,**字段权限要求（满足任一）**：,以应用身份读取通讯录,获取部门基础信息,以应用身份访问通讯录,读取通讯录
 	OpenDepartmentID   string                            `json:"open_department_id,omitempty"`   // 部门的open_id
-	LeaderUserID       string                            `json:"leader_user_id,omitempty"`       // 部门主管用户ID,**字段权限要求（满足任一）**：,以应用身份读取通讯录,获取部门组织架构信息,读取通讯录,以应用身份访问通讯录
-	ChatID             string                            `json:"chat_id,omitempty"`              // 部门群ID,**字段权限要求（满足任一）**：,以应用身份读取通讯录,获取部门基础信息,读取通讯录,以应用身份访问通讯录
-	Order              string                            `json:"order,omitempty"`                // 部门的排序，即部门在其同级部门的展示顺序,**字段权限要求（满足任一）**：,以应用身份读取通讯录,获取部门组织架构信息,读取通讯录,以应用身份访问通讯录
-	UnitIDs            []string                          `json:"unit_ids,omitempty"`             // 部门单位自定义ID列表，当前只支持一个,**字段权限要求（满足任一）**：,以应用身份读取通讯录,获取部门组织架构信息,读取通讯录,以应用身份访问通讯录
-	MemberCount        int64                             `json:"member_count,omitempty"`         // 部门下用户的个数,**字段权限要求（满足任一）**：,以应用身份读取通讯录,获取部门组织架构信息,读取通讯录,以应用身份访问通讯录
-	Status             *SearchDepartmentRespItemStatus   `json:"status,omitempty"`               // 部门状态,**字段权限要求（满足任一）**：,以应用身份读取通讯录,获取部门基础信息,读取通讯录,以应用身份访问通讯录
+	LeaderUserID       string                            `json:"leader_user_id,omitempty"`       // 部门主管用户ID,**字段权限要求（满足任一）**：,以应用身份读取通讯录,获取部门组织架构信息,以应用身份访问通讯录,读取通讯录
+	ChatID             string                            `json:"chat_id,omitempty"`              // 部门群ID,**字段权限要求（满足任一）**：,以应用身份读取通讯录,获取部门基础信息,以应用身份访问通讯录,读取通讯录
+	Order              string                            `json:"order,omitempty"`                // 部门的排序，即部门在其同级部门的展示顺序,**字段权限要求（满足任一）**：,以应用身份读取通讯录,获取部门组织架构信息,以应用身份访问通讯录,读取通讯录
+	UnitIDs            []string                          `json:"unit_ids,omitempty"`             // 部门单位自定义ID列表，当前只支持一个,**字段权限要求（满足任一）**：,以应用身份读取通讯录,获取部门组织架构信息,以应用身份访问通讯录,读取通讯录
+	MemberCount        int64                             `json:"member_count,omitempty"`         // 部门下用户的个数,**字段权限要求（满足任一）**：,以应用身份读取通讯录,获取部门组织架构信息,以应用身份访问通讯录,读取通讯录
+	Status             *SearchDepartmentRespItemStatus   `json:"status,omitempty"`               // 部门状态,**字段权限要求（满足任一）**：,以应用身份读取通讯录,获取部门基础信息,以应用身份访问通讯录,读取通讯录
 	CreateGroupChat    bool                              `json:"create_group_chat,omitempty"`    // 是否创建部门群，默认不创建
 }
 
@@ -2290,9 +2292,10 @@ type GetUserRespUserCustomAttrValueGenericUser struct {
 //
 // 为了更好地提升该接口的安全性，我们对其进行了升级，请尽快迁移至[新版本>>](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/list)
 // 该接口用于批量获取用户详细信息。
-// - 调用该接口需要申请“以应用身份读取通讯录”以及[用户数据权限](https://open.feishu.cn/document/ukTMukTMukTM/uQjN3QjL0YzN04CN2cDN)。请求的用户如果在当前应用的通讯录授权范围内，会返回该用户的详细信息；否则不会返回。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uIzNz4iM3MjLyczM
+//
+// Deprecated
 func (r *ContactService) BatchGetUser(ctx context.Context, request *BatchGetUserReq, options ...MethodOptionFunc) (*BatchGetUserResp, *Response, error) {
 	if r.cli.mock.mockContactBatchGetUser != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Contact#BatchGetUser mock enable")
@@ -2377,6 +2380,8 @@ type BatchGetUserRespUserInfo struct {
 // 调用该接口需要申请 `通过手机号或邮箱获取用户 ID` 权限。<br>只能查询到应用可用性范围内的用户 ID，不在范围内的用户会表现为不存在。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uUzMyUjL1MjM14SNzITN
+//
+// Deprecated
 func (r *ContactService) BatchGetUserByIDOld(ctx context.Context, request *BatchGetUserByIDOldReq, options ...MethodOptionFunc) (*BatchGetUserByIDOldResp, *Response, error) {
 	if r.cli.mock.mockContactBatchGetUserByIDOld != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Contact#BatchGetUserByIDOld mock enable")
@@ -2576,6 +2581,8 @@ type GetUserListRespItemNotificationOption struct {
 // department_id 参数，则会返回权限范围内的独立用户（权限范围直接包含了某用户，则该用户视为权限范围内的独立用户）。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/list
+//
+// Deprecated
 func (r *ContactService) GetUserListOld(ctx context.Context, request *GetUserListOldReq, options ...MethodOptionFunc) (*GetUserListOldResp, *Response, error) {
 	if r.cli.mock.mockContactGetUserListOld != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Contact#GetUserListOld mock enable")
@@ -2701,6 +2708,8 @@ type GetUserListOldRespItemCustomAttrValueGenericUser struct {
 // 调用该接口需要申请 `搜索用户` 权限。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uMTM4UjLzEDO14yMxgTN
+//
+// Deprecated
 func (r *ContactService) SearchUserOld(ctx context.Context, request *SearchUserOldReq, options ...MethodOptionFunc) (*SearchUserOldResp, *Response, error) {
 	if r.cli.mock.mockContactSearchUserOld != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Contact#SearchUserOld mock enable")

@@ -37,7 +37,7 @@ https://godoc.org/github.com/chyroc/lark
 
 ## Support APIs
 
-API Count: 516, Event Count: 76
+API Count: 519, Event Count: 77
 
 <details>
   <summary>
@@ -269,11 +269,14 @@ API Count: 516, Event Count: 76
   - GetWikiSpaceList
   - GetWikiSpace
   - UpdateWikiSpaceSetting
+  - DeleteWikiSpaceMember
   - AddWikiSpaceMember
   - CreateWikiNode
   - GetWikiNodeList
+  - MoveWikiNode
   - GetWikiNode
   - MoveDocsToWiki
+  - GetWikiTask
 - Bitable
   - GetBitableViewList
   - CreateBitableView
@@ -599,6 +602,7 @@ API Count: 516, Event Count: 76
   - EventV2HelpdeskTicketMessageCreatedV1
   - EventV2HelpdeskTicketCreatedV1
   - EventV2HelpdeskTicketMessageUpdatedV1
+  - EventV2HelpdeskNotificationApproveV1
   - EventV2ContactDepartmentCreatedV3
   - EventV2ContactDepartmentDeletedV3
   - EventV2ContactDepartmentUpdatedV3
