@@ -37,7 +37,7 @@ https://godoc.org/github.com/chyroc/lark
 
 ## Support APIs
 
-API Count: 519, Event Count: 77
+API Count: 529, Event Count: 77
 
 <details>
   <summary>
@@ -122,6 +122,8 @@ API Count: 519, Event Count: 77
   - SearchChat
   - GetChatMemberList
   - IsInChat
+  - CreateChatManager
+  - DeleteChatManager
   - AddChatMember
   - DeleteChatMember
   - JoinChat
@@ -407,6 +409,14 @@ API Count: 519, Event Count: 77
   - SubscribeApprovalSubscription
   - UnsubscribeApprovalSubscription
 - Helpdesk
+  - CreateHelpdeskNotification
+  - UpdateHelpdeskNotification
+  - GetHelpdeskNotification
+  - PreviewHelpdeskNotification
+  - SubmitApproveHelpdeskNotification
+  - CancelApproveHelpdeskNotification
+  - ExecuteSendHelpdeskNotification
+  - CancelSendHelpdeskNotification
   - StartHelpdeskService
   - GetHelpdeskTicket
   - UpdateHelpdeskTicket

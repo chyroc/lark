@@ -22,6 +22,12 @@ func Test_Helpdesk_Sample_Failed(t *testing.T) {
 		moduleCli := cli.Helpdesk
 
 		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.GetHelpdeskNotification(ctx, &lark.GetHelpdeskNotificationReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "failed")
+		})
+
+		t.Run("", func(t *testing.T) {
 			_, _, err := moduleCli.StartHelpdeskService(ctx, &lark.StartHelpdeskServiceReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "failed")
@@ -181,6 +187,17 @@ func Test_Helpdesk_Sample_Failed(t *testing.T) {
 	t.Run("request mock failed", func(t *testing.T) {
 		cli := AppAllPermission.Ins()
 		moduleCli := cli.Helpdesk
+
+		t.Run("", func(t *testing.T) {
+			cli.Mock().MockHelpdeskGetHelpdeskNotification(func(ctx context.Context, request *lark.GetHelpdeskNotificationReq, options ...lark.MethodOptionFunc) (*lark.GetHelpdeskNotificationResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockHelpdeskGetHelpdeskNotification()
+
+			_, _, err := moduleCli.GetHelpdeskNotification(ctx, &lark.GetHelpdeskNotificationReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
 
 		t.Run("", func(t *testing.T) {
 			cli.Mock().MockHelpdeskStartHelpdeskService(func(ctx context.Context, request *lark.StartHelpdeskServiceReq, options ...lark.MethodOptionFunc) (*lark.StartHelpdeskServiceResp, *lark.Response, error) {
@@ -464,6 +481,14 @@ func Test_Helpdesk_Sample_Failed(t *testing.T) {
 		moduleCli := cli.Helpdesk
 
 		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.GetHelpdeskNotification(ctx, &lark.GetHelpdeskNotificationReq{
+				NotificationID: "x",
+			})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
 			_, _, err := moduleCli.StartHelpdeskService(ctx, &lark.StartHelpdeskServiceReq{})
 			as.NotNil(err)
 			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
@@ -646,6 +671,14 @@ func Test_Helpdesk_Sample_Failed(t *testing.T) {
 		moduleCli := cli.Helpdesk
 		cli.Mock().MockRawRequest(func(ctx context.Context, req *lark.RawRequestReq, resp interface{}) (response *lark.Response, err error) {
 			return nil, fmt.Errorf("fake raw request")
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.GetHelpdeskNotification(ctx, &lark.GetHelpdeskNotificationReq{
+				NotificationID: "x",
+			})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {

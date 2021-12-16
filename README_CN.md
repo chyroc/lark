@@ -36,7 +36,7 @@ https://godoc.org/github.com/chyroc/lark
 
 ## 支持的接口
 
-API 总数: 519, 事件总数: 77
+API 总数: 529, 事件总数: 77
 
 <details>
   <summary>
@@ -121,6 +121,8 @@ API 总数: 519, 事件总数: 77
   - SearchChat
   - GetChatMemberList
   - IsInChat
+  - CreateChatManager
+  - DeleteChatManager
   - AddChatMember
   - DeleteChatMember
   - JoinChat
@@ -406,6 +408,14 @@ API 总数: 519, 事件总数: 77
   - SubscribeApprovalSubscription
   - UnsubscribeApprovalSubscription
 - Helpdesk
+  - CreateHelpdeskNotification
+  - UpdateHelpdeskNotification
+  - GetHelpdeskNotification
+  - PreviewHelpdeskNotification
+  - SubmitApproveHelpdeskNotification
+  - CancelApproveHelpdeskNotification
+  - ExecuteSendHelpdeskNotification
+  - CancelSendHelpdeskNotification
   - StartHelpdeskService
   - GetHelpdeskTicket
   - UpdateHelpdeskTicket
