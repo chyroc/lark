@@ -72,6 +72,9 @@ type GetHireApplicationRespApplication struct {
 	CreateTime               string                                             `json:"create_time,omitempty"`                 // 创建时间
 	ModifyTime               string                                             `json:"modify_time,omitempty"`                 // 修改时间
 	StageTimeList            []*GetHireApplicationRespApplicationStageTime      `json:"stage_time_list,omitempty"`             // 阶段变更时间列表
+	TerminationType          int64                                              `json:"termination_type,omitempty"`            // 终止原因的类型, 可选值有: `1`：我们拒绝了候选人, `22`：候选人拒绝了我们, `27`：其他
+	TerminationReasonList    []string                                           `json:"termination_reason_list,omitempty"`     // 终止的具体原因的id列表
+	TerminationReasonNote    string                                             `json:"termination_reason_note,omitempty"`     // 终止备注
 }
 
 // GetHireApplicationRespApplicationStage ...

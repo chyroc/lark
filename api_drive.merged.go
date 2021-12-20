@@ -3759,7 +3759,7 @@ func (r *Mock) UnMockDriveCreateSheet() {
 // CreateSheetReq ...
 type CreateSheetReq struct {
 	Title       *string `json:"title,omitempty"`        // 表格标题, 示例值："title"
-	FolderToken *string `json:"folder_token,omitempty"` // 文件夹token, 示例值："fldcnMsNb*****hIW9IjG1LVswg"
+	FolderToken *string `json:"folder_token,omitempty"` // 文件夹token，获取方式见[概述](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/files/guide/introduction), 示例值："fldcnMsNb*****hIW9IjG1LVswg"
 }
 
 // createSheetResp ...
@@ -3777,7 +3777,7 @@ type CreateSheetResp struct {
 // CreateSheetRespSpreadsheet ...
 type CreateSheetRespSpreadsheet struct {
 	Title            string `json:"title,omitempty"`             // 表格标题
-	FolderToken      string `json:"folder_token,omitempty"`      // 文件夹token
+	FolderToken      string `json:"folder_token,omitempty"`      // 文件夹token，获取方式见[概述](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/files/guide/introduction)
 	URL              string `json:"url,omitempty"`               // 文档url
 	SpreadSheetToken string `json:"spreadsheet_token,omitempty"` // 表格token
 }
