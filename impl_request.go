@@ -191,9 +191,6 @@ func (r *Lark) doRequest(ctx context.Context, rawHttpReq *rawHttpRequest, realRe
 }
 
 func (r *rawHttpRequest) parseHeader(ctx context.Context, ins *Lark, req *RawRequestReq) error {
-	if req.Method != http.MethodGet {
-		r.Headers["Content-Type"] = "application/json; charset=utf-8"
-	}
 	r.Headers["User-Agent"] = fmt.Sprintf("chyroc-go-lark/%s (https://github.com/chyroc/lark)", version)
 
 	if req.NeedUserAccessToken && req.MethodOption.userAccessToken != "" {
@@ -224,7 +221,7 @@ func (r *rawHttpRequest) parseRawRequestReqBody(body interface{}, isFile bool) e
 	fileKey := ""
 	query := url.Values{}
 	isNeedBody := false
-	filedata := map[string]string{}
+	fileData := map[string]string{}
 
 	if err := rangeStruct(body, func(fieldVV reflect.Value, fieldVT reflect.StructField) error {
 		if path := fieldVT.Tag.Get("path"); path != "" {
@@ -264,7 +261,7 @@ func (r *rawHttpRequest) parseRawRequestReqBody(body interface{}, isFile bool) e
 				if r, ok := fieldVV.Interface().(io.Reader); ok {
 					reader = r
 				} else {
-					filedata[j] = internal.ReflectToString(fieldVV)
+					fileData[j] = internal.ReflectToString(fieldVV)
 				}
 			} else {
 				isNeedBody = true
@@ -282,10 +279,11 @@ func (r *rawHttpRequest) parseRawRequestReqBody(body interface{}, isFile bool) e
 		}
 		r.Body = bytes.NewBuffer(bs)
 		r.RawBody = bs
+		r.Headers["Content-Type"] = "application/json; charset=utf-8"
 	}
 
 	if isFile {
-		contentType, bod, err := newFileUploadRequest(filedata, fileKey, reader)
+		contentType, bod, err := newFileUploadRequest(fileData, fileKey, reader)
 		if err != nil {
 			return err
 		}
