@@ -9,6 +9,7 @@ import (
 	"github.com/chyroc/lark"
 )
 
+// ExampleCalendar ...
 func ExampleCalendar() {
 	ctx := context.Background()
 	cli := lark.New(lark.WithAppCredential("<APP_ID>", "<APP_SECRET>"))

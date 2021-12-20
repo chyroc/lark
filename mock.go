@@ -6,6 +6,7 @@ import (
 	"context"
 )
 
+// Mock mock struct
 type Mock struct {
 	mockRawRequest                                       func(ctx context.Context, req *RawRequestReq, resp interface{}) (response *Response, err error)
 	mockGetTenantAccessToken                             func(ctx context.Context) (*TokenExpire, *Response, error)
@@ -519,6 +520,7 @@ type Mock struct {
 	mockEcosystemGetEcosystemBindAwemeUser               func(ctx context.Context, request *GetEcosystemBindAwemeUserReq, options ...MethodOptionFunc) (*GetEcosystemBindAwemeUserResp, *Response, error)
 }
 
+// Mock return mock client
 func (r *Lark) Mock() *Mock {
 	return r.mock
 }

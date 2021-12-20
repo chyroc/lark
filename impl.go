@@ -6,6 +6,7 @@ import (
 	"time"
 )
 
+// Lark client struct
 type Lark struct {
 	appID               string
 	appSecret           string

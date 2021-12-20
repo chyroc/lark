@@ -1,10 +1,9 @@
 package lark
 
-// https://open.feishu.cn/document/ukTMukTMukTM/uATMzUjLwEzM14CMxMTN/conditionformat/condition-format-guide
-
-// AddMemberPermission 加 user/bot 入群权限
+// SheetRuleType sheet rule 类型
 type SheetRuleType string
 
+// SheetRuleTypeContainsBlanks ...
 const (
 	SheetRuleTypeContainsBlanks    SheetRuleType = "containsBlanks"    // 为空
 	SheetRuleTypeNotContainsBlanks SheetRuleType = "notContainsBlanks" // 不为空
@@ -15,8 +14,10 @@ const (
 	SheetRuleTypeTimePeriod        SheetRuleType = "timePeriod"        // 日期
 )
 
+// SheetRuleAttrOperator sheet rule 操作符
 type SheetRuleAttrOperator string
 
+// SheetRuleAttrOperatorEqual ...
 const (
 	// cellIs
 	SheetRuleAttrOperatorEqual              SheetRuleAttrOperator = "equal"              // 限定值范围：等于
@@ -35,12 +36,12 @@ const (
 	SheetRuleAttrOperatorBeginsWith   SheetRuleAttrOperator = "beginsWith"   // 包含以下内容：开头为
 	SheetRuleAttrOperatorEndsWith     SheetRuleAttrOperator = "endsWith"     // 包含以下内容：结尾为
 
-	// is
-	// SheetRuleAttrOperatorIs 已经定义，跳过
 )
 
+// SheetRuleAttrTimePeriod sheet rule 日期范围
 type SheetRuleAttrTimePeriod string
 
+// SheetRuleAttrTimePeriodYesterday ...
 const (
 	SheetRuleAttrTimePeriodYesterday SheetRuleAttrTimePeriod = "yesterday" // 日期为：昨天
 	SheetRuleAttrTimePeriodToday     SheetRuleAttrTimePeriod = "today"     // 日期为：今天
@@ -48,6 +49,7 @@ const (
 	SheetRuleAttrTimePeriodLast7Days SheetRuleAttrTimePeriod = "last7Days" // 日期为：最近7天
 )
 
+// SheetRuleAttr sheet rule
 type SheetRuleAttr struct {
 	Operator   SheetRuleAttrOperator   `json:"operator"`
 	Formula    []string                `json:"formula"`

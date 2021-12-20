@@ -32,14 +32,17 @@ func (r *ApplicationService) GetApplicationAppList(ctx context.Context, request 
 	return resp.Data, response, err
 }
 
+// MockApplicationGetApplicationAppList mock ApplicationGetApplicationAppList method
 func (r *Mock) MockApplicationGetApplicationAppList(f func(ctx context.Context, request *GetApplicationAppListReq, options ...MethodOptionFunc) (*GetApplicationAppListResp, *Response, error)) {
 	r.mockApplicationGetApplicationAppList = f
 }
 
+// UnMockApplicationGetApplicationAppList un-mock ApplicationGetApplicationAppList method
 func (r *Mock) UnMockApplicationGetApplicationAppList() {
 	r.mockApplicationGetApplicationAppList = nil
 }
 
+// GetApplicationAppListReq ...
 type GetApplicationAppListReq struct {
 	PageToken *string `query:"page_token" json:"-"` // 分页起始位置标示，不填表示从头开始
 	PageSize  *int64  `query:"page_size" json:"-"`  // 单页需求最大个数（最大 100），0 自动最大个数
@@ -47,12 +50,14 @@ type GetApplicationAppListReq struct {
 	Status    *int64  `query:"status" json:"-"`     // 要返回的应用的状态，0:停用；1:启用；-1:全部，默认为 -1
 }
 
+// getApplicationAppListResp ...
 type getApplicationAppListResp struct {
 	Code int64                      `json:"code,omitempty"` // 返回码，非 0 表示失败
 	Msg  string                     `json:"msg,omitempty"`  // 返回码的描述
 	Data *GetApplicationAppListResp `json:"data,omitempty"` // 返回的业务信息，仅 code = 0 时有效
 }
 
+// GetApplicationAppListResp ...
 type GetApplicationAppListResp struct {
 	PageToken  string                            `json:"page_token,omitempty"`  // 下一个请求页应当给的起始位置
 	PageSize   int64                             `json:"page_size,omitempty"`   // 本次请求实际返回的页大小
@@ -62,6 +67,7 @@ type GetApplicationAppListResp struct {
 	AppList    *GetApplicationAppListRespAppList `json:"app_list,omitempty"`    // 应用列表
 }
 
+// GetApplicationAppListRespAppList ...
 type GetApplicationAppListRespAppList struct {
 	AppID                string `json:"app_id,omitempty"`                 // 应用 ID
 	PrimaryLanguage      string `json:"primary_language,omitempty"`       // 应用首选语言
@@ -102,26 +108,31 @@ func (r *ApplicationService) GetApplicationAppVisibility(ctx context.Context, re
 	return resp.Data, response, err
 }
 
+// MockApplicationGetApplicationAppVisibility mock ApplicationGetApplicationAppVisibility method
 func (r *Mock) MockApplicationGetApplicationAppVisibility(f func(ctx context.Context, request *GetApplicationAppVisibilityReq, options ...MethodOptionFunc) (*GetApplicationAppVisibilityResp, *Response, error)) {
 	r.mockApplicationGetApplicationAppVisibility = f
 }
 
+// UnMockApplicationGetApplicationAppVisibility un-mock ApplicationGetApplicationAppVisibility method
 func (r *Mock) UnMockApplicationGetApplicationAppVisibility() {
 	r.mockApplicationGetApplicationAppVisibility = nil
 }
 
+// GetApplicationAppVisibilityReq ...
 type GetApplicationAppVisibilityReq struct {
 	AppID         string  `query:"app_id" json:"-"`          // 目标应用的 ID
 	UserPageToken *string `query:"user_page_token" json:"-"` // 分页拉取用户列表起始位置标示，不填表示从头开始
 	UserPageSize  *int64  `query:"user_page_size" json:"-"`  // 本次拉取用户列表最大个数(最大值 1000 ，0 自动最大个数 )
 }
 
+// getApplicationAppVisibilityResp ...
 type getApplicationAppVisibilityResp struct {
 	Code int64                            `json:"code,omitempty"` // 返回码，非 0 表示失败
 	Msg  string                           `json:"msg,omitempty"`  // 返回码的描述
 	Data *GetApplicationAppVisibilityResp `json:"data,omitempty"` // 返回的业务信息
 }
 
+// GetApplicationAppVisibilityResp ...
 type GetApplicationAppVisibilityResp struct {
 	Departments    []*GetApplicationAppVisibilityRespDepartment `json:"departments,omitempty"`       // 可用部门列表
 	Users          []*GetApplicationAppVisibilityRespUser       `json:"users,omitempty"`             // 可用用户列表（仅包含单独设置的用户，可用部门、用户组中的用户未展开）
@@ -130,10 +141,12 @@ type GetApplicationAppVisibilityResp struct {
 	UserPageToken  string                                       `json:"user_page_token,omitempty"`   // 拉取下一页用户列表时使用的 user_page_token
 }
 
+// GetApplicationAppVisibilityRespDepartment ...
 type GetApplicationAppVisibilityRespDepartment struct {
 	ID string `json:"id,omitempty"` // 自定义 department_id
 }
 
+// GetApplicationAppVisibilityRespUser ...
 type GetApplicationAppVisibilityRespUser struct {
 	UserID string `json:"user_id,omitempty"` // 用户的 user_id，只返回给申请了 user_id 权限的企业自建应用
 	OpenID string `json:"open_id,omitempty"` // 用户的 open_id
@@ -167,14 +180,17 @@ func (r *ApplicationService) UpdateApplicationAppVisibility(ctx context.Context,
 	return resp.Data, response, err
 }
 
+// MockApplicationUpdateApplicationAppVisibility mock ApplicationUpdateApplicationAppVisibility method
 func (r *Mock) MockApplicationUpdateApplicationAppVisibility(f func(ctx context.Context, request *UpdateApplicationAppVisibilityReq, options ...MethodOptionFunc) (*UpdateApplicationAppVisibilityResp, *Response, error)) {
 	r.mockApplicationUpdateApplicationAppVisibility = f
 }
 
+// UnMockApplicationUpdateApplicationAppVisibility un-mock ApplicationUpdateApplicationAppVisibility method
 func (r *Mock) UnMockApplicationUpdateApplicationAppVisibility() {
 	r.mockApplicationUpdateApplicationAppVisibility = nil
 }
 
+// UpdateApplicationAppVisibilityReq ...
 type UpdateApplicationAppVisibilityReq struct {
 	AppID           string                                     `json:"app_id,omitempty"`             // 目标应用的 ID
 	DelUsers        *UpdateApplicationAppVisibilityReqDelUsers `json:"del_users,omitempty"`          // 删除的用户列表，元素个数不超过 500，**先增加后删除**
@@ -184,22 +200,26 @@ type UpdateApplicationAppVisibilityReq struct {
 	DelDepartments  []string                                   `json:"del_departments,omitempty"`    // 删除的部门列表，元素个数不超过 500，**先增加后删除**
 }
 
+// UpdateApplicationAppVisibilityReqDelUsers ...
 type UpdateApplicationAppVisibilityReqDelUsers struct {
 	OpenID *string `json:"open_id,omitempty"` // 与 user_id 至少给其中之一，user_id 优先于 open_id
 	UserID *string `json:"user_id,omitempty"`
 }
 
+// UpdateApplicationAppVisibilityReqAddUsers ...
 type UpdateApplicationAppVisibilityReqAddUsers struct {
 	OpenID *string `json:"open_id,omitempty"` // 与 user_id 至少给其中之一，user_id 优先于 open_id
 	UserID *string `json:"user_id,omitempty"`
 }
 
+// updateApplicationAppVisibilityResp ...
 type updateApplicationAppVisibilityResp struct {
 	Code int64                               `json:"code,omitempty"` // 返回码，非 0 表示失败
 	Msg  string                              `json:"msg,omitempty"`  // 返回码的描述
 	Data *UpdateApplicationAppVisibilityResp `json:"data,omitempty"` // 返回的业务信息
 }
 
+// UpdateApplicationAppVisibilityResp ...
 type UpdateApplicationAppVisibilityResp struct{}
 
 // Code generated by lark_sdk_gen. DO NOT EDIT.
@@ -230,25 +250,30 @@ func (r *ApplicationService) IsApplicationUserAdmin(ctx context.Context, request
 	return resp.Data, response, err
 }
 
+// MockApplicationIsApplicationUserAdmin mock ApplicationIsApplicationUserAdmin method
 func (r *Mock) MockApplicationIsApplicationUserAdmin(f func(ctx context.Context, request *IsApplicationUserAdminReq, options ...MethodOptionFunc) (*IsApplicationUserAdminResp, *Response, error)) {
 	r.mockApplicationIsApplicationUserAdmin = f
 }
 
+// UnMockApplicationIsApplicationUserAdmin un-mock ApplicationIsApplicationUserAdmin method
 func (r *Mock) UnMockApplicationIsApplicationUserAdmin() {
 	r.mockApplicationIsApplicationUserAdmin = nil
 }
 
+// IsApplicationUserAdminReq ...
 type IsApplicationUserAdminReq struct {
 	OpenID     *string `query:"open_id" json:"-"`     // 用户 open_id，open_id 和 employee_id 两个参数必须包含其一，若同时传入取 open_id
 	EmployeeID *string `query:"employee_id" json:"-"` // 用户 employee_id（同通讯录 v3 版本中的 user_id），open_id 和 employee_id 两个参数必须包含其一，若同时传入取 open_id
 }
 
+// isApplicationUserAdminResp ...
 type isApplicationUserAdminResp struct {
 	Code int64                       `json:"code,omitempty"` // 返回码，非 0 表示失败
 	Msg  string                      `json:"msg,omitempty"`  // 返回码的描述
 	Data *IsApplicationUserAdminResp `json:"data,omitempty"` // 返回的业务信息
 }
 
+// IsApplicationUserAdminResp ...
 type IsApplicationUserAdminResp struct {
 	IsAppAdmin bool `json:"is_app_admin,omitempty"` // 用户是否为管理员，true 为是，false 为否
 }
@@ -281,14 +306,17 @@ func (r *ApplicationService) GetApplicationMessageDetail(ctx context.Context, re
 	return resp.Data, response, err
 }
 
+// MockApplicationGetApplicationMessageDetail mock ApplicationGetApplicationMessageDetail method
 func (r *Mock) MockApplicationGetApplicationMessageDetail(f func(ctx context.Context, request *GetApplicationMessageDetailReq, options ...MethodOptionFunc) (*GetApplicationMessageDetailResp, *Response, error)) {
 	r.mockApplicationGetApplicationMessageDetail = f
 }
 
+// UnMockApplicationGetApplicationMessageDetail un-mock ApplicationGetApplicationMessageDetail method
 func (r *Mock) UnMockApplicationGetApplicationMessageDetail() {
 	r.mockApplicationGetApplicationMessageDetail = nil
 }
 
+// GetApplicationMessageDetailReq ...
 type GetApplicationMessageDetailReq struct {
 	AppID     string  `query:"app_id" json:"-"`     // 目标应用的 ID
 	MessageID string  `query:"message_id" json:"-"` // open_message_id
@@ -298,12 +326,14 @@ type GetApplicationMessageDetailReq struct {
 	PageSize  *int64  `query:"page_size" json:"-"`  // 分页大小，默认为512，取值区间[1,1000]
 }
 
+// getApplicationMessageDetailResp ...
 type getApplicationMessageDetailResp struct {
 	Code int64                            `json:"code,omitempty"` // 返回码，非0表示失败
 	Msg  string                           `json:"msg,omitempty"`  // 返回码的描述
 	Data *GetApplicationMessageDetailResp `json:"data,omitempty"` // 返回的业务信息，仅code = 0时有效
 }
 
+// GetApplicationMessageDetailResp ...
 type GetApplicationMessageDetailResp struct {
 	MessageID   string                                    `json:"message_id,omitempty"`   // open_message_id
 	ChatType    ChatType                                  `json:"chat_type,omitempty"`    // 聊天类型
@@ -316,10 +346,12 @@ type GetApplicationMessageDetailResp struct {
 	PageToken   string                                    `json:"page_token,omitempty"`   // 分页标记，当 has_more 为 true 时，会同时返回新的 page_token，否则不返回 page_token
 }
 
+// GetApplicationMessageDetailRespTarget ...
 type GetApplicationMessageDetailRespTarget struct {
 	OpenID string `json:"open_id,omitempty"` // open_id
 }
 
+// GetApplicationMessageDetailRespUsersRead ...
 type GetApplicationMessageDetailRespUsersRead struct {
 	OpenID string `json:"open_id,omitempty"` // open_id
 }
@@ -352,14 +384,17 @@ func (r *ApplicationService) GetApplicationMessageOverview(ctx context.Context, 
 	return resp.Data, response, err
 }
 
+// MockApplicationGetApplicationMessageOverview mock ApplicationGetApplicationMessageOverview method
 func (r *Mock) MockApplicationGetApplicationMessageOverview(f func(ctx context.Context, request *GetApplicationMessageOverviewReq, options ...MethodOptionFunc) (*GetApplicationMessageOverviewResp, *Response, error)) {
 	r.mockApplicationGetApplicationMessageOverview = f
 }
 
+// UnMockApplicationGetApplicationMessageOverview un-mock ApplicationGetApplicationMessageOverview method
 func (r *Mock) UnMockApplicationGetApplicationMessageOverview() {
 	r.mockApplicationGetApplicationMessageOverview = nil
 }
 
+// GetApplicationMessageOverviewReq ...
 type GetApplicationMessageOverviewReq struct {
 	AppID       string    `json:"app_id,omitempty"`       // 目标应用的 ID
 	TimeStart   int64     `json:"time_start,omitempty"`   // 起始时间戳（秒），时间跨度最长支持180天
@@ -368,12 +403,14 @@ type GetApplicationMessageOverviewReq struct {
 	MessageType *MsgType  `json:"message_type,omitempty"` // 消息类型，大小写不敏感，text：文本消息；image：图片消息；card：卡片消息；post：富文本消息；share_chat：群名片
 }
 
+// getApplicationMessageOverviewResp ...
 type getApplicationMessageOverviewResp struct {
 	Code int64                              `json:"code,omitempty"` // 返回码，非0表示失败
 	Msg  string                             `json:"msg,omitempty"`  // 返回码的描述
 	Data *GetApplicationMessageOverviewResp `json:"data,omitempty"` // 返回的业务信息，仅code = 0时有效
 }
 
+// GetApplicationMessageOverviewResp ...
 type GetApplicationMessageOverviewResp struct {
 	P2pSent       *GetApplicationMessageOverviewRespP2pSent       `json:"p2p_sent,omitempty"`       // 单聊发送
 	P2pReceived   *GetApplicationMessageOverviewRespP2pReceived   `json:"p2p_received,omitempty"`   // 单聊接收
@@ -383,50 +420,62 @@ type GetApplicationMessageOverviewResp struct {
 	GroupRead     *GetApplicationMessageOverviewRespGroupRead     `json:"group_read,omitempty"`     // 群聊已读
 }
 
+// GetApplicationMessageOverviewRespP2pSent ...
 type GetApplicationMessageOverviewRespP2pSent struct {
 	Pv *GetApplicationMessageOverviewRespP2pSentPv `json:"pv,omitempty"` // 消息接收用户数量
 }
 
+// GetApplicationMessageOverviewRespP2pSentPv ...
 type GetApplicationMessageOverviewRespP2pSentPv struct {
 	Uv int64 `json:"uv,omitempty"` // 去重的消息接收用户数量
 }
 
+// GetApplicationMessageOverviewRespP2pReceived ...
 type GetApplicationMessageOverviewRespP2pReceived struct {
 	Pv *GetApplicationMessageOverviewRespP2pReceivedPv `json:"pv,omitempty"` // 消息接收用户数量
 }
 
+// GetApplicationMessageOverviewRespP2pReceivedPv ...
 type GetApplicationMessageOverviewRespP2pReceivedPv struct {
 	Uv int64 `json:"uv,omitempty"` // 去重的消息接收用户数量
 }
 
+// GetApplicationMessageOverviewRespP2pRead ...
 type GetApplicationMessageOverviewRespP2pRead struct {
 	Pv *GetApplicationMessageOverviewRespP2pReadPv `json:"pv,omitempty"` // 消息已读用户数量
 }
 
+// GetApplicationMessageOverviewRespP2pReadPv ...
 type GetApplicationMessageOverviewRespP2pReadPv struct {
 	Uv int64 `json:"uv,omitempty"` // 去重的消息已读用户数量
 }
 
+// GetApplicationMessageOverviewRespGroupSent ...
 type GetApplicationMessageOverviewRespGroupSent struct {
 	Pv *GetApplicationMessageOverviewRespGroupSentPv `json:"pv,omitempty"` // 消息接收群聊数量
 }
 
+// GetApplicationMessageOverviewRespGroupSentPv ...
 type GetApplicationMessageOverviewRespGroupSentPv struct {
 	Uv int64 `json:"uv,omitempty"` // 去重的消息接收群聊数量
 }
 
+// GetApplicationMessageOverviewRespGroupReceived ...
 type GetApplicationMessageOverviewRespGroupReceived struct {
 	Pv *GetApplicationMessageOverviewRespGroupReceivedPv `json:"pv,omitempty"` // 消息接收群聊数量
 }
 
+// GetApplicationMessageOverviewRespGroupReceivedPv ...
 type GetApplicationMessageOverviewRespGroupReceivedPv struct {
 	Uv int64 `json:"uv,omitempty"` // 去重的消息接收群聊数量
 }
 
+// GetApplicationMessageOverviewRespGroupRead ...
 type GetApplicationMessageOverviewRespGroupRead struct {
 	Pv *GetApplicationMessageOverviewRespGroupReadPv `json:"pv,omitempty"` // 消息已读用户数量
 }
 
+// GetApplicationMessageOverviewRespGroupReadPv ...
 type GetApplicationMessageOverviewRespGroupReadPv struct {
 	Uv int64 `json:"uv,omitempty"` // 去重的消息已读用户数量
 }
@@ -459,14 +508,17 @@ func (r *ApplicationService) GetApplicationMessageTrend(ctx context.Context, req
 	return resp.Data, response, err
 }
 
+// MockApplicationGetApplicationMessageTrend mock ApplicationGetApplicationMessageTrend method
 func (r *Mock) MockApplicationGetApplicationMessageTrend(f func(ctx context.Context, request *GetApplicationMessageTrendReq, options ...MethodOptionFunc) (*GetApplicationMessageTrendResp, *Response, error)) {
 	r.mockApplicationGetApplicationMessageTrend = f
 }
 
+// UnMockApplicationGetApplicationMessageTrend un-mock ApplicationGetApplicationMessageTrend method
 func (r *Mock) UnMockApplicationGetApplicationMessageTrend() {
 	r.mockApplicationGetApplicationMessageTrend = nil
 }
 
+// GetApplicationMessageTrendReq ...
 type GetApplicationMessageTrendReq struct {
 	AppID        string    `json:"app_id,omitempty"`        // 目标应用的 ID
 	TimeStart    int64     `json:"time_start,omitempty"`    // 起始时间戳（秒），时间跨度最长支持180天
@@ -476,12 +528,14 @@ type GetApplicationMessageTrendReq struct {
 	MessageType  *MsgType  `json:"message_type,omitempty"`  // 消息类型，大小写不敏感，text：文本消息；image：图片消息；card：卡片消息；post：富文本消息；share_chat：群名片
 }
 
+// getApplicationMessageTrendResp ...
 type getApplicationMessageTrendResp struct {
 	Code int64                           `json:"code,omitempty"` // 返回码，非0表示失败
 	Msg  string                          `json:"msg,omitempty"`  // 返回码的描述
 	Data *GetApplicationMessageTrendResp `json:"data,omitempty"` // 返回的业务信息，仅code = 0时有效
 }
 
+// GetApplicationMessageTrendResp ...
 type GetApplicationMessageTrendResp struct {
 	P2pSent       *GetApplicationMessageTrendRespP2pSent       `json:"p2p_sent,omitempty"`       // 单聊发送
 	P2pReceived   *GetApplicationMessageTrendRespP2pReceived   `json:"p2p_received,omitempty"`   // 单聊接收
@@ -491,55 +545,67 @@ type GetApplicationMessageTrendResp struct {
 	GroupRead     *GetApplicationMessageTrendRespGroupRead     `json:"group_read,omitempty"`     // 群聊已读
 }
 
+// GetApplicationMessageTrendRespP2pSent ...
 type GetApplicationMessageTrendRespP2pSent struct {
 	Timestamp *GetApplicationMessageTrendRespP2pSentTimestamp `json:"timestamp,omitempty"` // 时间戳（秒）
 }
 
+// GetApplicationMessageTrendRespP2pSentTimestamp ...
 type GetApplicationMessageTrendRespP2pSentTimestamp struct {
 	Pv int64 `json:"pv,omitempty"` // 消息接收用户数量
 	Uv int64 `json:"uv,omitempty"` // 去重的消息接收用户数量
 }
 
+// GetApplicationMessageTrendRespP2pReceived ...
 type GetApplicationMessageTrendRespP2pReceived struct {
 	Timestamp *GetApplicationMessageTrendRespP2pReceivedTimestamp `json:"timestamp,omitempty"` // 时间戳（秒）
 }
 
+// GetApplicationMessageTrendRespP2pReceivedTimestamp ...
 type GetApplicationMessageTrendRespP2pReceivedTimestamp struct {
 	Pv int64 `json:"pv,omitempty"` // 消息接收用户数量
 	Uv int64 `json:"uv,omitempty"` // 去重的消息接收用户数量
 }
 
+// GetApplicationMessageTrendRespP2pRead ...
 type GetApplicationMessageTrendRespP2pRead struct {
 	Timestamp *GetApplicationMessageTrendRespP2pReadTimestamp `json:"timestamp,omitempty"` // 时间戳（秒）
 }
 
+// GetApplicationMessageTrendRespP2pReadTimestamp ...
 type GetApplicationMessageTrendRespP2pReadTimestamp struct {
 	Pv int64 `json:"pv,omitempty"` // 消息已读用户数量
 	Uv int64 `json:"uv,omitempty"` // 去重的消息已读用户数量
 }
 
+// GetApplicationMessageTrendRespGroupSent ...
 type GetApplicationMessageTrendRespGroupSent struct {
 	Timestamp *GetApplicationMessageTrendRespGroupSentTimestamp `json:"timestamp,omitempty"` // 时间戳（秒）
 }
 
+// GetApplicationMessageTrendRespGroupSentTimestamp ...
 type GetApplicationMessageTrendRespGroupSentTimestamp struct {
 	Pv int64 `json:"pv,omitempty"` // 消息接收群聊数量
 	Uv int64 `json:"uv,omitempty"` // 去重的消息接收群聊数量
 }
 
+// GetApplicationMessageTrendRespGroupReceived ...
 type GetApplicationMessageTrendRespGroupReceived struct {
 	Timestamp *GetApplicationMessageTrendRespGroupReceivedTimestamp `json:"timestamp,omitempty"` // 时间戳（秒）
 }
 
+// GetApplicationMessageTrendRespGroupReceivedTimestamp ...
 type GetApplicationMessageTrendRespGroupReceivedTimestamp struct {
 	Pv int64 `json:"pv,omitempty"` // 消息接收群聊数量
 	Uv int64 `json:"uv,omitempty"` // 去重的消息接收群聊数量
 }
 
+// GetApplicationMessageTrendRespGroupRead ...
 type GetApplicationMessageTrendRespGroupRead struct {
 	Timestamp *GetApplicationMessageTrendRespGroupReadTimestamp `json:"timestamp,omitempty"` // 时间戳（秒）
 }
 
+// GetApplicationMessageTrendRespGroupReadTimestamp ...
 type GetApplicationMessageTrendRespGroupReadTimestamp struct {
 	Pv int64 `json:"pv,omitempty"` // 消息已读用户数量
 	Uv int64 `json:"uv,omitempty"` // 去重的消息已读用户数量
@@ -573,28 +639,34 @@ func (r *ApplicationService) GetApplicationOrder(ctx context.Context, request *G
 	return resp.Data, response, err
 }
 
+// MockApplicationGetApplicationOrder mock ApplicationGetApplicationOrder method
 func (r *Mock) MockApplicationGetApplicationOrder(f func(ctx context.Context, request *GetApplicationOrderReq, options ...MethodOptionFunc) (*GetApplicationOrderResp, *Response, error)) {
 	r.mockApplicationGetApplicationOrder = f
 }
 
+// UnMockApplicationGetApplicationOrder un-mock ApplicationGetApplicationOrder method
 func (r *Mock) UnMockApplicationGetApplicationOrder() {
 	r.mockApplicationGetApplicationOrder = nil
 }
 
+// GetApplicationOrderReq ...
 type GetApplicationOrderReq struct {
 	OrderID string `query:"order_id" json:"-"` // 订单ID
 }
 
+// getApplicationOrderResp ...
 type getApplicationOrderResp struct {
 	Code int64                    `json:"code,omitempty"` // 返回码，非 0 表示失败
 	Msg  string                   `json:"msg,omitempty"`  // 返回码的描述
 	Data *GetApplicationOrderResp `json:"data,omitempty"` // 返回的业务信息
 }
 
+// GetApplicationOrderResp ...
 type GetApplicationOrderResp struct {
 	Order *GetApplicationOrderRespOrder `json:"order,omitempty"` // 订单信息
 }
 
+// GetApplicationOrderRespOrder ...
 type GetApplicationOrderRespOrder struct {
 	OrderID       string `json:"order_id,omitempty"`        // 订单ID，唯一标识
 	PricePlanID   string `json:"price_plan_id,omitempty"`   // 价格方案ID，唯一标识
@@ -639,14 +711,17 @@ func (r *ApplicationService) GetApplicationOrderList(ctx context.Context, reques
 	return resp.Data, response, err
 }
 
+// MockApplicationGetApplicationOrderList mock ApplicationGetApplicationOrderList method
 func (r *Mock) MockApplicationGetApplicationOrderList(f func(ctx context.Context, request *GetApplicationOrderListReq, options ...MethodOptionFunc) (*GetApplicationOrderListResp, *Response, error)) {
 	r.mockApplicationGetApplicationOrderList = f
 }
 
+// UnMockApplicationGetApplicationOrderList un-mock ApplicationGetApplicationOrderList method
 func (r *Mock) UnMockApplicationGetApplicationOrderList() {
 	r.mockApplicationGetApplicationOrderList = nil
 }
 
+// GetApplicationOrderListReq ...
 type GetApplicationOrderListReq struct {
 	Status    *string `query:"status" json:"-"`     // 获取用户购买套餐信息设置的过滤条件, normal为正常状态，refunded为已退款，该字段为空或者all表示所有，未支付的订单无法查到
 	PageSize  int64   `query:"page_size" json:"-"`  // `每页显示的订单数量`
@@ -654,12 +729,14 @@ type GetApplicationOrderListReq struct {
 	TenantKey *string `query:"tenant_key" json:"-"` // 购买应用的租户唯一标识，为空表示获取应用下所有订单，有值表示获取应用下该租户购买的订单
 }
 
+// getApplicationOrderListResp ...
 type getApplicationOrderListResp struct {
 	Code int64                        `json:"code,omitempty"` // 返回码，非 0 表示失败
 	Msg  string                       `json:"msg,omitempty"`  // 返回码的描述
 	Data *GetApplicationOrderListResp `json:"data,omitempty"` // 返回的业务信息
 }
 
+// GetApplicationOrderListResp ...
 type GetApplicationOrderListResp struct {
 	Total     int64                                 `json:"total,omitempty"`      // 总订单数
 	HasMore   bool                                  `json:"has_more,omitempty"`   // 是否还有数据，true还有数据，false没有数据
@@ -667,6 +744,7 @@ type GetApplicationOrderListResp struct {
 	OrderList *GetApplicationOrderListRespOrderList `json:"order_list,omitempty"` // 订单信息列表
 }
 
+// GetApplicationOrderListRespOrderList ...
 type GetApplicationOrderListRespOrderList struct {
 	OrderID       string `json:"order_id,omitempty"`        // 订单ID，唯一标识
 	PricePlanID   string `json:"price_plan_id,omitempty"`   // 价格方案ID，唯一标识
@@ -711,25 +789,30 @@ func (r *ApplicationService) CheckUserIsInApplicationPaidScope(ctx context.Conte
 	return resp.Data, response, err
 }
 
+// MockApplicationCheckUserIsInApplicationPaidScope mock ApplicationCheckUserIsInApplicationPaidScope method
 func (r *Mock) MockApplicationCheckUserIsInApplicationPaidScope(f func(ctx context.Context, request *CheckUserIsInApplicationPaidScopeReq, options ...MethodOptionFunc) (*CheckUserIsInApplicationPaidScopeResp, *Response, error)) {
 	r.mockApplicationCheckUserIsInApplicationPaidScope = f
 }
 
+// UnMockApplicationCheckUserIsInApplicationPaidScope un-mock ApplicationCheckUserIsInApplicationPaidScope method
 func (r *Mock) UnMockApplicationCheckUserIsInApplicationPaidScope() {
 	r.mockApplicationCheckUserIsInApplicationPaidScope = nil
 }
 
+// CheckUserIsInApplicationPaidScopeReq ...
 type CheckUserIsInApplicationPaidScopeReq struct {
 	OpenID *string `query:"open_id" json:"-"` // 用户 open_id，open_id 和 user_id 两个参数必须包含其一，若同时传入取 open_id
 	UserID *string `query:"user_id" json:"-"` // 用户 user_id，user_id 和 open_id 两个参数必须包含其一，若同时传入取 open_id
 }
 
+// checkUserIsInApplicationPaidScopeResp ...
 type checkUserIsInApplicationPaidScopeResp struct {
 	Code int64                                  `json:"code,omitempty"` // 返回码，非 0 表示失败
 	Msg  string                                 `json:"msg,omitempty"`  // 返回码的描述
 	Data *CheckUserIsInApplicationPaidScopeResp `json:"data,omitempty"` // 返回的业务信息
 }
 
+// CheckUserIsInApplicationPaidScopeResp ...
 type CheckUserIsInApplicationPaidScopeResp struct {
 	Status          string `json:"status,omitempty"`            // 用户是否在开通范围中，"valid" -该用户在开通范围中，"not_in_scope"-该用户不在开通范围中，"no_active_license"-企业未购买任何价格方案或价格方案已过期，"exceeds_maximum_limit"-企业当前配置的付费功能开通范围人数超出限制，需提醒管理员调整
 	PricePlanID     string `json:"price_plan_id,omitempty"`     // 租户当前使用的「价格方案ID」，对应开发者后台中「价格方案配置」中的「价格方案」
@@ -768,14 +851,17 @@ func (r *ApplicationService) GetApplicationUsageDetail(ctx context.Context, requ
 	return resp.Data, response, err
 }
 
+// MockApplicationGetApplicationUsageDetail mock ApplicationGetApplicationUsageDetail method
 func (r *Mock) MockApplicationGetApplicationUsageDetail(f func(ctx context.Context, request *GetApplicationUsageDetailReq, options ...MethodOptionFunc) (*GetApplicationUsageDetailResp, *Response, error)) {
 	r.mockApplicationGetApplicationUsageDetail = f
 }
 
+// UnMockApplicationGetApplicationUsageDetail un-mock ApplicationGetApplicationUsageDetail method
 func (r *Mock) UnMockApplicationGetApplicationUsageDetail() {
 	r.mockApplicationGetApplicationUsageDetail = nil
 }
 
+// GetApplicationUsageDetailReq ...
 type GetApplicationUsageDetailReq struct {
 	AppID     string                                `json:"app_id,omitempty"`     // 目标应用的 ID，支持自建应用
 	Ability   string                                `json:"ability,omitempty"`    // 应用能力，mp：小程序
@@ -788,24 +874,28 @@ type GetApplicationUsageDetailReq struct {
 	PageSize  *int64                                `json:"page_size,omitempty"`  // 分页大小，默认为512，取值区间[1,1000]
 }
 
+// GetApplicationUsageDetailReqFilter ...
 type GetApplicationUsageDetailReqFilter struct {
 	Key   string `json:"key,omitempty"`   // 过滤字段，支持`department_id`
 	Op    string `json:"op,omitempty"`    // 过滤操作，支持`in`、`=`
 	Value string `json:"value,omitempty"` // 过滤字段值，多个使用英文逗号分隔
 }
 
+// getApplicationUsageDetailResp ...
 type getApplicationUsageDetailResp struct {
 	Code int64                          `json:"code,omitempty"` // 返回码，非0表示失败
 	Msg  string                         `json:"msg,omitempty"`  // 返回码的描述
 	Data *GetApplicationUsageDetailResp `json:"data,omitempty"` // 返回的业务信息，仅code = 0时有效
 }
 
+// GetApplicationUsageDetailResp ...
 type GetApplicationUsageDetailResp struct {
 	HasMore   bool                                 `json:"has_more,omitempty"`   // 是否还有更多分页，当 has_more 为 true 时，会同时返回新的 page_token
 	PageToken string                               `json:"page_token,omitempty"` // 分页标记，当 has_more 为 true 时，会同时返回新的 page_token，否则不返回 page_token
 	Users     []*GetApplicationUsageDetailRespUser `json:"users,omitempty"`      // 用户列表
 }
 
+// GetApplicationUsageDetailRespUser ...
 type GetApplicationUsageDetailRespUser struct {
 	OpenID string `json:"open_id,omitempty"` // open_id
 }
@@ -842,14 +932,17 @@ func (r *ApplicationService) GetApplicationUsageOverview(ctx context.Context, re
 	return resp.Data, response, err
 }
 
+// MockApplicationGetApplicationUsageOverview mock ApplicationGetApplicationUsageOverview method
 func (r *Mock) MockApplicationGetApplicationUsageOverview(f func(ctx context.Context, request *GetApplicationUsageOverviewReq, options ...MethodOptionFunc) (*GetApplicationUsageOverviewResp, *Response, error)) {
 	r.mockApplicationGetApplicationUsageOverview = f
 }
 
+// UnMockApplicationGetApplicationUsageOverview un-mock ApplicationGetApplicationUsageOverview method
 func (r *Mock) UnMockApplicationGetApplicationUsageOverview() {
 	r.mockApplicationGetApplicationUsageOverview = nil
 }
 
+// GetApplicationUsageOverviewReq ...
 type GetApplicationUsageOverviewReq struct {
 	DepartmentIDType *DepartmentIDType `query:"department_id_type" json:"-"` // 调用中使用的部门ID的类型, 示例值："open_department_id", 可选值有: `department_id`：以自定义department_id来标识部门, `open_department_id`：以open_department_id来标识部门, 默认值: `open_department_id`
 	AppID            string            `path:"app_id" json:"-"`              // 目标应用 ID, 示例值："cli_9f115af860f7901b"
@@ -859,16 +952,19 @@ type GetApplicationUsageOverviewReq struct {
 	Ability          string            `json:"ability,omitempty"`            // 能力类型，按能力类型进行筛选，返回对应能力的活跃数据, 示例值："app", 可选值有: `app`：返回应用整体的数据, `mp`：返回小程序能力的数据, `h5`：返回网页能力的数据, `bot`：返回机器人能力的数据
 }
 
+// getApplicationUsageOverviewResp ...
 type getApplicationUsageOverviewResp struct {
 	Code int64                            `json:"code,omitempty"` // 错误码，非 0 表示失败
 	Msg  string                           `json:"msg,omitempty"`  // 错误描述
 	Data *GetApplicationUsageOverviewResp `json:"data,omitempty"`
 }
 
+// GetApplicationUsageOverviewResp ...
 type GetApplicationUsageOverviewResp struct {
 	Items []*GetApplicationUsageOverviewRespItem `json:"items,omitempty"` // 员工使用应用概览数据
 }
 
+// GetApplicationUsageOverviewRespItem ...
 type GetApplicationUsageOverviewRespItem struct {
 	MetricName  string `json:"metric_name,omitempty"`  // 指标名称，uv：活跃用户数，total_users：累计用户数，new_users：新增用户数
 	MetricValue int64  `json:"metric_value,omitempty"` // 指标值
@@ -903,14 +999,17 @@ func (r *ApplicationService) GetApplicationUsageTrend(ctx context.Context, reque
 	return resp.Data, response, err
 }
 
+// MockApplicationGetApplicationUsageTrend mock ApplicationGetApplicationUsageTrend method
 func (r *Mock) MockApplicationGetApplicationUsageTrend(f func(ctx context.Context, request *GetApplicationUsageTrendReq, options ...MethodOptionFunc) (*GetApplicationUsageTrendResp, *Response, error)) {
 	r.mockApplicationGetApplicationUsageTrend = f
 }
 
+// UnMockApplicationGetApplicationUsageTrend un-mock ApplicationGetApplicationUsageTrend method
 func (r *Mock) UnMockApplicationGetApplicationUsageTrend() {
 	r.mockApplicationGetApplicationUsageTrend = nil
 }
 
+// GetApplicationUsageTrendReq ...
 type GetApplicationUsageTrendReq struct {
 	AppID        string                               `json:"app_id,omitempty"`        // 目标应用的 ID，支持自建应用
 	Ability      string                               `json:"ability,omitempty"`       // 应用能力，mp：小程序
@@ -920,26 +1019,31 @@ type GetApplicationUsageTrendReq struct {
 	Filters      []*GetApplicationUsageTrendReqFilter `json:"filters,omitempty"`       // 过滤条件
 }
 
+// GetApplicationUsageTrendReqFilter ...
 type GetApplicationUsageTrendReqFilter struct {
 	Key   string `json:"key,omitempty"`   // 过滤字段，支持`department_id`
 	Op    string `json:"op,omitempty"`    // 过滤操作，支持`in`、`=`
 	Value string `json:"value,omitempty"` // 过滤字段值，多个使用英文逗号分隔
 }
 
+// getApplicationUsageTrendResp ...
 type getApplicationUsageTrendResp struct {
 	Code int64                         `json:"code,omitempty"` // 返回码，非0表示失败
 	Msg  string                        `json:"msg,omitempty"`  // 返回码的描述
 	Data *GetApplicationUsageTrendResp `json:"data,omitempty"` // 返回的业务信息，仅code = 0时有效
 }
 
+// GetApplicationUsageTrendResp ...
 type GetApplicationUsageTrendResp struct {
 	Item map[string]*GetApplicationUsageTrendRespItem `json:"item,omitempty"` // 返回项
 }
 
+// GetApplicationUsageTrendRespItem ...
 type GetApplicationUsageTrendRespItem struct {
 	Trends []*GetApplicationUsageTrendRespItemTrend `json:"trends,omitempty"` // 趋势数据
 }
 
+// GetApplicationUsageTrendRespItemTrend ...
 type GetApplicationUsageTrendRespItemTrend struct {
 	Timestamp int64 `json:"timestamp,omitempty"` // 时间戳
 	Pv        int64 `json:"pv,omitempty"`        // 应用使用pv
@@ -974,25 +1078,30 @@ func (r *ApplicationService) GetApplicationUserAdminScope(ctx context.Context, r
 	return resp.Data, response, err
 }
 
+// MockApplicationGetApplicationUserAdminScope mock ApplicationGetApplicationUserAdminScope method
 func (r *Mock) MockApplicationGetApplicationUserAdminScope(f func(ctx context.Context, request *GetApplicationUserAdminScopeReq, options ...MethodOptionFunc) (*GetApplicationUserAdminScopeResp, *Response, error)) {
 	r.mockApplicationGetApplicationUserAdminScope = f
 }
 
+// UnMockApplicationGetApplicationUserAdminScope un-mock ApplicationGetApplicationUserAdminScope method
 func (r *Mock) UnMockApplicationGetApplicationUserAdminScope() {
 	r.mockApplicationGetApplicationUserAdminScope = nil
 }
 
+// GetApplicationUserAdminScopeReq ...
 type GetApplicationUserAdminScopeReq struct {
 	EmployeeID string `query:"employee_id" json:"-"` // 支持通过 open_id 或者 employee_id 查询，不支持混合两种 ID 进行查询，其中 employee_id 同通讯录 v3 版本中的 user_id
 	OpenID     string `query:"open_id" json:"-"`     // 支持通过 open_id 或者 employee_id 查询，不支持混合两种 ID 进行查询，其中 employee_id 同通讯录 v3 版本中的 user_id
 }
 
+// getApplicationUserAdminScopeResp ...
 type getApplicationUserAdminScopeResp struct {
 	Code int64                             `json:"code,omitempty"` // 返回码，非 0 表示失败
 	Msg  string                            `json:"msg,omitempty"`  // 返回码的描述
 	Data *GetApplicationUserAdminScopeResp `json:"data,omitempty"` // 返回业务数据
 }
 
+// GetApplicationUserAdminScopeResp ...
 type GetApplicationUserAdminScopeResp struct {
 	IsAll          bool     `json:"is_all,omitempty"`          // 是否管理所有部门
 	DepartmentList []string `json:"department_list,omitempty"` // 管理的部门列表，当 is_all 为 true 时，不返回该字段
@@ -1026,14 +1135,17 @@ func (r *ApplicationService) GetApplicationUserVisibleApp(ctx context.Context, r
 	return resp.Data, response, err
 }
 
+// MockApplicationGetApplicationUserVisibleApp mock ApplicationGetApplicationUserVisibleApp method
 func (r *Mock) MockApplicationGetApplicationUserVisibleApp(f func(ctx context.Context, request *GetApplicationUserVisibleAppReq, options ...MethodOptionFunc) (*GetApplicationUserVisibleAppResp, *Response, error)) {
 	r.mockApplicationGetApplicationUserVisibleApp = f
 }
 
+// UnMockApplicationGetApplicationUserVisibleApp un-mock ApplicationGetApplicationUserVisibleApp method
 func (r *Mock) UnMockApplicationGetApplicationUserVisibleApp() {
 	r.mockApplicationGetApplicationUserVisibleApp = nil
 }
 
+// GetApplicationUserVisibleAppReq ...
 type GetApplicationUserVisibleAppReq struct {
 	PageToken *string `query:"page_token" json:"-"` // 分页起始位置标示，不填表示从头开始
 	PageSize  *int64  `query:"page_size" json:"-"`  // 单页需求最大个数（最大 100），0 自动最大个数
@@ -1042,12 +1154,14 @@ type GetApplicationUserVisibleAppReq struct {
 	UserID    *string `query:"user_id" json:"-"`    // 目标用户 user_id，与 open_id 至少给其中之一，user_id 优先于 open_id
 }
 
+// getApplicationUserVisibleAppResp ...
 type getApplicationUserVisibleAppResp struct {
 	Code int64                             `json:"code,omitempty"` // 返回码，非 0 表示失败
 	Msg  string                            `json:"msg,omitempty"`  // 返回码的描述
 	Data *GetApplicationUserVisibleAppResp `json:"data,omitempty"` // 返回的业务信息，仅 code = 0 时有效
 }
 
+// GetApplicationUserVisibleAppResp ...
 type GetApplicationUserVisibleAppResp struct {
 	PageToken  string                                   `json:"page_token,omitempty"`  // 下一个请求页应当给的起始位置
 	PageSize   int64                                    `json:"page_size,omitempty"`   // 本次请求实际返回的页大小
@@ -1057,6 +1171,7 @@ type GetApplicationUserVisibleAppResp struct {
 	AppList    *GetApplicationUserVisibleAppRespAppList `json:"app_list,omitempty"`    // 应用列表
 }
 
+// GetApplicationUserVisibleAppRespAppList ...
 type GetApplicationUserVisibleAppRespAppList struct {
 	AppID                string `json:"app_id,omitempty"`                 // 应用 ID
 	PrimaryLanguage      string `json:"primary_language,omitempty"`       // 应用首选语言
@@ -1097,25 +1212,30 @@ func (r *ApprovalService) GetApproval(ctx context.Context, request *GetApprovalR
 	return resp.Data, response, err
 }
 
+// MockApprovalGetApproval mock ApprovalGetApproval method
 func (r *Mock) MockApprovalGetApproval(f func(ctx context.Context, request *GetApprovalReq, options ...MethodOptionFunc) (*GetApprovalResp, *Response, error)) {
 	r.mockApprovalGetApproval = f
 }
 
+// UnMockApprovalGetApproval un-mock ApprovalGetApproval method
 func (r *Mock) UnMockApprovalGetApproval() {
 	r.mockApprovalGetApproval = nil
 }
 
+// GetApprovalReq ...
 type GetApprovalReq struct {
 	ApprovalCode string  `json:"approval_code,omitempty"` // 审批定义 Code
 	Locale       *string `json:"locale,omitempty"`        // zh-CN - 中文<br>en-US - 英文  <br>ja-JP - 日文
 }
 
+// getApprovalResp ...
 type getApprovalResp struct {
 	Code int64            `json:"code,omitempty"` // 错误码，非 0 表示失败
 	Msg  string           `json:"msg,omitempty"`  // 返回码的描述
 	Data *GetApprovalResp `json:"data,omitempty"` // 返回业务信息
 }
 
+// GetApprovalResp ...
 type GetApprovalResp struct {
 	ApprovalName string                   `json:"approval_name,omitempty"` // 审批名称
 	Status       string                   `json:"status,omitempty"`        // 审批定义状态<br>ACTIVE -已启用<br>INACTIVE -已停用<br>DELETED -已删除<br>UNKNOWN -未知
@@ -1124,6 +1244,7 @@ type GetApprovalResp struct {
 	Viewers      []*GetApprovalRespViewer `json:"viewers,omitempty"`       // 可见人列表
 }
 
+// GetApprovalRespNode ...
 type GetApprovalRespNode struct {
 	Name         string  `json:"name,omitempty"`           // 节点名称
 	NeedApprover bool    `json:"need_approver,omitempty"`  // 是否发起人自选节点<br>true - 发起审批时需要提交审批人
@@ -1132,6 +1253,7 @@ type GetApprovalRespNode struct {
 	NodeType     string  `json:"node_type,omitempty"`      // 审批方式<br>AND -会签<br>OR - 或签<br>CC_NODE -抄送节点
 }
 
+// GetApprovalRespViewer ...
 type GetApprovalRespViewer struct {
 	Type   string  `json:"type,omitempty"`    // 可见人类型，分别有：<br>TENANT：租户内可见<br>DEPARTMENT：指定部门<br> USER：指定用户<br>NONE：任何人都不可见
 	OpenID *string `json:"open_id,omitempty"` // 在可见人类型为DEPARTMENT时，open_id为部门的open_id<br>在可见人类型为USER时，open_id为用户的open_id

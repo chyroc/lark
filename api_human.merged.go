@@ -34,26 +34,31 @@ func (r *HumanAuthService) GetFaceVerifyAuthResult(ctx context.Context, request 
 	return resp.Data, response, err
 }
 
+// MockHumanAuthGetFaceVerifyAuthResult mock HumanAuthGetFaceVerifyAuthResult method
 func (r *Mock) MockHumanAuthGetFaceVerifyAuthResult(f func(ctx context.Context, request *GetFaceVerifyAuthResultReq, options ...MethodOptionFunc) (*GetFaceVerifyAuthResultResp, *Response, error)) {
 	r.mockHumanAuthGetFaceVerifyAuthResult = f
 }
 
+// UnMockHumanAuthGetFaceVerifyAuthResult un-mock HumanAuthGetFaceVerifyAuthResult method
 func (r *Mock) UnMockHumanAuthGetFaceVerifyAuthResult() {
 	r.mockHumanAuthGetFaceVerifyAuthResult = nil
 }
 
+// GetFaceVerifyAuthResultReq ...
 type GetFaceVerifyAuthResultReq struct {
 	ReqOrderNo string  `query:"req_order_no" json:"-"` // 人脸识别单次唯一标识，由`tt.startFaceVerify`接口返回
 	OpenID     *string `query:"open_id" json:"-"`      // 用户应用标识, 与employee_id二选其一
 	EmployeeID *string `query:"employee_id" json:"-"`  // 用户租户标识, 与open_id二选其一
 }
 
+// getFaceVerifyAuthResultResp ...
 type getFaceVerifyAuthResultResp struct {
 	Code int64                        `json:"code,omitempty"` // 返回码，非0为失败
 	Msg  string                       `json:"msg,omitempty"`  // 返回信息，返回码的描述
 	Data *GetFaceVerifyAuthResultResp `json:"data,omitempty"` // 业务数据
 }
 
+// GetFaceVerifyAuthResultResp ...
 type GetFaceVerifyAuthResultResp struct {
 	AuthState     int64 `json:"auth_state,omitempty"`     // 认证结果, 0: 认证中, 1: 认证成功, -1: 认证失败
 	AuthTimpstamp int64 `json:"auth_timpstamp,omitempty"` // 认证时间，unix 时间戳
@@ -89,26 +94,31 @@ func (r *HumanAuthService) UploadFaceVerifyImage(ctx context.Context, request *U
 	return resp.Data, response, err
 }
 
+// MockHumanAuthUploadFaceVerifyImage mock HumanAuthUploadFaceVerifyImage method
 func (r *Mock) MockHumanAuthUploadFaceVerifyImage(f func(ctx context.Context, request *UploadFaceVerifyImageReq, options ...MethodOptionFunc) (*UploadFaceVerifyImageResp, *Response, error)) {
 	r.mockHumanAuthUploadFaceVerifyImage = f
 }
 
+// UnMockHumanAuthUploadFaceVerifyImage un-mock HumanAuthUploadFaceVerifyImage method
 func (r *Mock) UnMockHumanAuthUploadFaceVerifyImage() {
 	r.mockHumanAuthUploadFaceVerifyImage = nil
 }
 
+// UploadFaceVerifyImageReq ...
 type UploadFaceVerifyImageReq struct {
 	OpenID     *string   `query:"open_id" json:"-"`     // 用户应用标识, 与employee_id二选其一
 	EmployeeID *string   `query:"employee_id" json:"-"` // 用户租户标识, 与open_id二选其一
 	Image      io.Reader `json:"image,omitempty"`       // 带有头像的人脸照片
 }
 
+// uploadFaceVerifyImageResp ...
 type uploadFaceVerifyImageResp struct {
 	Code int64                      `json:"code,omitempty"` // 返回码，非0为失败
 	Msg  string                     `json:"msg,omitempty"`  // 返回信息，返回码的描述
 	Data *UploadFaceVerifyImageResp `json:"data,omitempty"` // 业务数据
 }
 
+// UploadFaceVerifyImageResp ...
 type UploadFaceVerifyImageResp struct {
 	FaceUid string `json:"face_uid,omitempty"` // 人脸图片用户Uid，需返回给应用小程序，作为小程序调起人脸识别接口的uid参数
 }
@@ -141,14 +151,17 @@ func (r *HumanAuthService) CreateIdentity(ctx context.Context, request *CreateId
 	return resp.Data, response, err
 }
 
+// MockHumanAuthCreateIdentity mock HumanAuthCreateIdentity method
 func (r *Mock) MockHumanAuthCreateIdentity(f func(ctx context.Context, request *CreateIdentityReq, options ...MethodOptionFunc) (*CreateIdentityResp, *Response, error)) {
 	r.mockHumanAuthCreateIdentity = f
 }
 
+// UnMockHumanAuthCreateIdentity un-mock HumanAuthCreateIdentity method
 func (r *Mock) UnMockHumanAuthCreateIdentity() {
 	r.mockHumanAuthCreateIdentity = nil
 }
 
+// CreateIdentityReq ...
 type CreateIdentityReq struct {
 	UserID       string  `query:"user_id" json:"-"`       // 用户的唯一标识（使用的ID类型见下一参数描述，不同ID类型的区别和获取，参考文档：[如何获得 User ID、Open ID 和 Union ID？](https://open.feishu.cn/document/home/user-identity-introduction/how-to-get)）, 示例值: "ou_2eb5483cb377daa5054bc6f86e2089a5"
 	UserIDType   *IDType `query:"user_id_type" json:"-"`  // 用户ID类型, 示例值: "open_id", 可选值有: `open_id`：用户的open id, `union_id`：用户的union id, `user_id`：用户的user id, 默认值: `open_id`, 当值为 `user_id`，字段权限要求: 获取用户 user ID
@@ -157,12 +170,14 @@ type CreateIdentityReq struct {
 	Mobile       *string `json:"mobile,omitempty"`        // user mobile, 示例值: "13xxxxxxx"
 }
 
+// createIdentityResp ...
 type createIdentityResp struct {
 	Code int64               `json:"code,omitempty"` // 错误码，非 0 表示失败
 	Msg  string              `json:"msg,omitempty"`  // 错误描述
 	Data *CreateIdentityResp `json:"data,omitempty"`
 }
 
+// CreateIdentityResp ...
 type CreateIdentityResp struct {
 	VerifyUid string `json:"verify_uid,omitempty"` // 用户绑定实名身份的uid
 }
@@ -178,7 +193,7 @@ type CreateIdentityResp struct {
 // - 在开发者后台[创建一个企业自建应用](https://open.feishu.cn/document/home/introduction-to-custom-app-development/self-built-application-development-process)。
 // - 引入组件库。在网页 html 中引入如下代码：
 // ```html
-// <script src="https://lf1-cdn-tos.bytescm.com/goofy/locl/lark/external_js_sdk/h5-js-sdk-1.0.10.js"></script>
+// <script src="https://lf1-cdn-tos.bytescm.com/goofy/locl/lark/external_js_sdk/h5-js-sdk-1.0.11.js"></script>
 // ```
 // 若要使用成员卡片组件，SDK需要在`<body>`加载后引入。
 // ## 鉴权流程
@@ -215,22 +230,27 @@ func (r *JssdkService) GetJssdkTicket(ctx context.Context, request *GetJssdkTick
 	return resp.Data, response, err
 }
 
+// MockJssdkGetJssdkTicket mock JssdkGetJssdkTicket method
 func (r *Mock) MockJssdkGetJssdkTicket(f func(ctx context.Context, request *GetJssdkTicketReq, options ...MethodOptionFunc) (*GetJssdkTicketResp, *Response, error)) {
 	r.mockJssdkGetJssdkTicket = f
 }
 
+// UnMockJssdkGetJssdkTicket un-mock JssdkGetJssdkTicket method
 func (r *Mock) UnMockJssdkGetJssdkTicket() {
 	r.mockJssdkGetJssdkTicket = nil
 }
 
+// GetJssdkTicketReq ...
 type GetJssdkTicketReq struct{}
 
+// getJssdkTicketResp ...
 type getJssdkTicketResp struct {
 	Code int64               `json:"code,omitempty"` // `返回码，非 0 表示失败`
 	Msg  string              `json:"msg,omitempty"`  // `对返回码的文本描述`
 	Data *GetJssdkTicketResp `json:"data,omitempty"` // `返回内容`
 }
 
+// GetJssdkTicketResp ...
 type GetJssdkTicketResp struct {
 	ExpireIn int64  `json:"expire_in,omitempty"` // `jsapi_ticket 的有效时间`
 	Ticket   string `json:"ticket,omitempty"`    // `jsapi_ticket`

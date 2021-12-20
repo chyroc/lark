@@ -69,14 +69,17 @@ func (r *AuthService) GetTenantAccessToken(ctx context.Context) (*TokenExpire, *
 	}, response, nil
 }
 
+// MockGetTenantAccessToken ...
 func (r *Mock) MockGetTenantAccessToken(f func(ctx context.Context) (*TokenExpire, *Response, error)) {
 	r.mockGetTenantAccessToken = f
 }
 
+// UnMockGetTenantAccessToken ...
 func (r *Mock) UnMockGetTenantAccessToken() {
 	r.mockGetTenantAccessToken = nil
 }
 
+// TokenExpire ...
 type TokenExpire struct {
 	Token  string `json:"token"`
 	Expire int64  `json:"expire"`

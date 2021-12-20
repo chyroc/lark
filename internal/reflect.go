@@ -5,6 +5,7 @@ import (
 	"strconv"
 )
 
+// ReflectToString ...
 func ReflectToString(v reflect.Value) (s string) {
 	if v.Kind() == reflect.Ptr {
 		v = v.Elem()
@@ -23,6 +24,7 @@ func ReflectToString(v reflect.Value) (s string) {
 	}
 }
 
+// ReflectToQueryString ...
 func ReflectToQueryString(v reflect.Value) (s []string) {
 	if v.Kind() == reflect.Ptr {
 		v = v.Elem()
@@ -46,6 +48,7 @@ func ReflectToQueryString(v reflect.Value) (s []string) {
 	}
 }
 
+// IsInReflectKind ...
 func IsInReflectKind(v reflect.Kind, list []reflect.Kind) bool {
 	for _, vv := range list {
 		if vv == v {

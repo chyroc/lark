@@ -6,6 +6,7 @@ import (
 	"strconv"
 )
 
+// SheetContent ...
 type SheetContent struct {
 	Children   *[]*SheetContent      `json:"children,omitempty"`
 	String     *string               `json:"string,omitempty"`      // 字符串, `"`
@@ -18,6 +19,7 @@ type SheetContent struct {
 	EmbedImage *SheetValueEmbedImage `json:"embed_image,omitempty"` // 内嵌图片, `{
 }
 
+// SheetValueEmbedImage ...
 type SheetValueEmbedImage struct {
 	FileToken string `json:"fileToken"`
 	Height    int    `json:"height"`
@@ -27,6 +29,7 @@ type SheetValueEmbedImage struct {
 	Width     int    `json:"width"`
 }
 
+// SheetValueLink ...
 type SheetValueLink struct {
 	Text string `json:"text"`
 	Link string `json:"link"`
@@ -62,6 +65,7 @@ type SheetValueMultiValue struct {
 	Values []interface{} `json:"values"` // values为数组，可填bool,string,number类型。string类型数据不能包含","。使用前需要先使用设置下拉列表接口设置下拉列表。
 }
 
+// UnmarshalJSON ...
 func (r *SheetContent) UnmarshalJSON(bytes []byte) error {
 	if len(bytes) == 0 {
 		return nil
@@ -160,6 +164,7 @@ func (r *SheetContent) UnmarshalJSON(bytes []byte) error {
 	}
 }
 
+// MarshalJSON ...
 func (r SheetContent) MarshalJSON() ([]byte, error) {
 	if r.String != nil {
 		return []byte(fmt.Sprintf("%q", *r.String)), nil

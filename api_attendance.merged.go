@@ -34,29 +34,35 @@ func (r *AttendanceService) UploadAttendanceFile(ctx context.Context, request *U
 	return resp.Data, response, err
 }
 
+// MockAttendanceUploadAttendanceFile mock AttendanceUploadAttendanceFile method
 func (r *Mock) MockAttendanceUploadAttendanceFile(f func(ctx context.Context, request *UploadAttendanceFileReq, options ...MethodOptionFunc) (*UploadAttendanceFileResp, *Response, error)) {
 	r.mockAttendanceUploadAttendanceFile = f
 }
 
+// UnMockAttendanceUploadAttendanceFile un-mock AttendanceUploadAttendanceFile method
 func (r *Mock) UnMockAttendanceUploadAttendanceFile() {
 	r.mockAttendanceUploadAttendanceFile = nil
 }
 
+// UploadAttendanceFileReq ...
 type UploadAttendanceFileReq struct {
 	FileName string    `query:"file_name" json:"-"` // 文件名
 	File     io.Reader `json:"file,omitempty"`      // 文件
 }
 
+// uploadAttendanceFileResp ...
 type uploadAttendanceFileResp struct {
 	Code int64                     `json:"code,omitempty"` // 错误码，非 0 表示失败
 	Msg  string                    `json:"msg,omitempty"`  // 错误描述
 	Data *UploadAttendanceFileResp `json:"data,omitempty"`
 }
 
+// UploadAttendanceFileResp ...
 type UploadAttendanceFileResp struct {
 	File *UploadAttendanceFileRespFile `json:"file,omitempty"` // 文件
 }
 
+// UploadAttendanceFileRespFile ...
 type UploadAttendanceFileRespFile struct {
 	FileID string `json:"file_id,omitempty"` // 文件 ID
 }
@@ -117,20 +123,24 @@ func (r *AttendanceService) CreateUpdateAttendanceGroup(ctx context.Context, req
 	return resp.Data, response, err
 }
 
+// MockAttendanceCreateUpdateAttendanceGroup mock AttendanceCreateUpdateAttendanceGroup method
 func (r *Mock) MockAttendanceCreateUpdateAttendanceGroup(f func(ctx context.Context, request *CreateUpdateAttendanceGroupReq, options ...MethodOptionFunc) (*CreateUpdateAttendanceGroupResp, *Response, error)) {
 	r.mockAttendanceCreateUpdateAttendanceGroup = f
 }
 
+// UnMockAttendanceCreateUpdateAttendanceGroup un-mock AttendanceCreateUpdateAttendanceGroup method
 func (r *Mock) UnMockAttendanceCreateUpdateAttendanceGroup() {
 	r.mockAttendanceCreateUpdateAttendanceGroup = nil
 }
 
+// CreateUpdateAttendanceGroupReq ...
 type CreateUpdateAttendanceGroupReq struct {
 	EmployeeType EmployeeType                         `query:"employee_type" json:"-"` // 用户 ID 的类型，必选字段，可用值：【employee_id（员工的 employeeId），employee_no（员工工号）】
 	DeptType     string                               `query:"dept_type" json:"-"`     // 部门 ID 的类型，必选字段，可用值：【open_id（暂时只支持部门的 openid）】，示例值：“od-fcb45c28a45311afd441b8869541ece8”
 	Group        *CreateUpdateAttendanceGroupReqGroup `json:"group,omitempty"`         // 考勤组
 }
 
+// CreateUpdateAttendanceGroupReqGroup ...
 type CreateUpdateAttendanceGroupReqGroup struct {
 	GroupID                *string                                                     `json:"group_id,omitempty"`                   // 考勤组的 ID, 需要从获取用户打卡结果的接口中获取 groupId
 	GroupName              string                                                      `json:"group_name,omitempty"`                 // 考勤组名称
@@ -168,11 +178,13 @@ type CreateUpdateAttendanceGroupReqGroup struct {
 	EffectNow              *bool                                                       `json:"effect_now,omitempty"`                 // 是否立即生效，默认为 false
 }
 
+// CreateUpdateAttendanceGroupReqGroupMachine ...
 type CreateUpdateAttendanceGroupReqGroupMachine struct {
 	MachineSn   string `json:"machine_sn,omitempty"`   // 考勤机序列号
 	MachineName string `json:"machine_name,omitempty"` // 考勤机名称
 }
 
+// CreateUpdateAttendanceGroupReqGroupLocation ...
 type CreateUpdateAttendanceGroupReqGroupLocation struct {
 	LocationID   *string  `json:"location_id,omitempty"`   // 地址 ID
 	LocationName string   `json:"location_name,omitempty"` // 地址名称，必选字段
@@ -188,6 +200,7 @@ type CreateUpdateAttendanceGroupReqGroupLocation struct {
 	GpsRange     *int64   `json:"gps_range,omitempty"`     // GPS 打卡的有效范围（默认300m）
 }
 
+// CreateUpdateAttendanceGroupReqGroupFreePunchCfg ...
 type CreateUpdateAttendanceGroupReqGroupFreePunchCfg struct {
 	FreeStartTime        string `json:"free_start_time,omitempty"`           // 自由班制的打卡开始时间
 	FreeEndTime          string `json:"free_end_time,omitempty"`             // 自由班制的打卡结束时间
@@ -195,26 +208,31 @@ type CreateUpdateAttendanceGroupReqGroupFreePunchCfg struct {
 	WorkDayNoPunchAsLack *bool  `json:"work_day_no_punch_as_lack,omitempty"` // 工作日不打卡是否记为缺卡
 }
 
+// CreateUpdateAttendanceGroupReqGroupNeedPunchSpecialDay ...
 type CreateUpdateAttendanceGroupReqGroupNeedPunchSpecialDay struct {
 	PunchDay *int64 `json:"punch_day,omitempty"` // 打卡日期，格式 20190101
 	ShiftID  string `json:"shift_id,omitempty"`  // 班次 ID
 }
 
+// CreateUpdateAttendanceGroupReqGroupNoNeedPunchSpecialDay ...
 type CreateUpdateAttendanceGroupReqGroupNoNeedPunchSpecialDay struct {
 	PunchDay int64  `json:"punch_day,omitempty"` // 打卡日期，格式 20190101
 	ShiftID  string `json:"shift_id,omitempty"`  // 班次 ID
 }
 
+// createUpdateAttendanceGroupResp ...
 type createUpdateAttendanceGroupResp struct {
 	Code int64                            `json:"code,omitempty"` // 错误码，非 0 表示失败
 	Msg  string                           `json:"msg,omitempty"`  // 错误描述
 	Data *CreateUpdateAttendanceGroupResp `json:"data,omitempty"` // -
 }
 
+// CreateUpdateAttendanceGroupResp ...
 type CreateUpdateAttendanceGroupResp struct {
 	Group *CreateUpdateAttendanceGroupRespGroup `json:"group,omitempty"` // 考勤组
 }
 
+// CreateUpdateAttendanceGroupRespGroup ...
 type CreateUpdateAttendanceGroupRespGroup struct {
 	GroupID                string                                                       `json:"group_id,omitempty"`                   // 考勤组的 ID, 需要从获取用户打卡结果的接口中获取 groupId
 	GroupName              string                                                       `json:"group_name,omitempty"`                 // 考勤组名称
@@ -253,11 +271,13 @@ type CreateUpdateAttendanceGroupRespGroup struct {
 	WorkDayNoPunchAsLack   bool                                                         `json:"work_day_no_punch_as_lack,omitempty"`  // 自由班制下工作日不打卡是否记为缺卡
 }
 
+// CreateUpdateAttendanceGroupRespGroupMachine ...
 type CreateUpdateAttendanceGroupRespGroupMachine struct {
 	MachineSn   string `json:"machine_sn,omitempty"`   // 考勤机序列号
 	MachineName string `json:"machine_name,omitempty"` // 考勤机名称
 }
 
+// CreateUpdateAttendanceGroupRespGroupLocation ...
 type CreateUpdateAttendanceGroupRespGroupLocation struct {
 	LocationID   string  `json:"location_id,omitempty"`   // 地址 ID
 	LocationName string  `json:"location_name,omitempty"` // 地址名称
@@ -273,6 +293,7 @@ type CreateUpdateAttendanceGroupRespGroupLocation struct {
 	GpsRange     int64   `json:"gps_range,omitempty"`     // GPS 打卡的有效范围（默认300m）
 }
 
+// CreateUpdateAttendanceGroupRespGroupFreePunchCfg ...
 type CreateUpdateAttendanceGroupRespGroupFreePunchCfg struct {
 	FreeStartTime        string `json:"free_start_time,omitempty"`           // 自由班制的打卡开始时间
 	FreeEndTime          string `json:"free_end_time,omitempty"`             // 自由班制的打卡结束时间
@@ -280,11 +301,13 @@ type CreateUpdateAttendanceGroupRespGroupFreePunchCfg struct {
 	WorkDayNoPunchAsLack bool   `json:"work_day_no_punch_as_lack,omitempty"` // 工作日不打卡是否记为缺卡
 }
 
+// CreateUpdateAttendanceGroupRespGroupNeedPunchSpecialDay ...
 type CreateUpdateAttendanceGroupRespGroupNeedPunchSpecialDay struct {
 	PunchDay int64  `json:"punch_day,omitempty"` // 打卡日期，格式 20190101
 	ShiftID  string `json:"shift_id,omitempty"`  // 班次 ID
 }
 
+// CreateUpdateAttendanceGroupRespGroupNoNeedPunchSpecialDay ...
 type CreateUpdateAttendanceGroupRespGroupNoNeedPunchSpecialDay struct {
 	PunchDay int64  `json:"punch_day,omitempty"` // 打卡日期，格式 20190101
 	ShiftID  string `json:"shift_id,omitempty"`  // 班次 ID
@@ -318,24 +341,29 @@ func (r *AttendanceService) DeleteAttendanceGroup(ctx context.Context, request *
 	return resp.Data, response, err
 }
 
+// MockAttendanceDeleteAttendanceGroup mock AttendanceDeleteAttendanceGroup method
 func (r *Mock) MockAttendanceDeleteAttendanceGroup(f func(ctx context.Context, request *DeleteAttendanceGroupReq, options ...MethodOptionFunc) (*DeleteAttendanceGroupResp, *Response, error)) {
 	r.mockAttendanceDeleteAttendanceGroup = f
 }
 
+// UnMockAttendanceDeleteAttendanceGroup un-mock AttendanceDeleteAttendanceGroup method
 func (r *Mock) UnMockAttendanceDeleteAttendanceGroup() {
 	r.mockAttendanceDeleteAttendanceGroup = nil
 }
 
+// DeleteAttendanceGroupReq ...
 type DeleteAttendanceGroupReq struct {
 	GroupID string `path:"group_id" json:"-"` // 考勤组的 ID，需要从获取打卡结果的接口中获取 group_id，示例值："6919358128597097404"
 }
 
+// deleteAttendanceGroupResp ...
 type deleteAttendanceGroupResp struct {
 	Code int64                      `json:"code,omitempty"` // 错误码，非 0 表示失败
 	Msg  string                     `json:"msg,omitempty"`  // 错误描述
 	Data *DeleteAttendanceGroupResp `json:"data,omitempty"`
 }
 
+// DeleteAttendanceGroupResp ...
 type DeleteAttendanceGroupResp struct{}
 
 // Code generated by lark_sdk_gen. DO NOT EDIT.
@@ -366,30 +394,36 @@ func (r *AttendanceService) GetAttendanceGroup(ctx context.Context, request *Get
 	return resp.Data, response, err
 }
 
+// MockAttendanceGetAttendanceGroup mock AttendanceGetAttendanceGroup method
 func (r *Mock) MockAttendanceGetAttendanceGroup(f func(ctx context.Context, request *GetAttendanceGroupReq, options ...MethodOptionFunc) (*GetAttendanceGroupResp, *Response, error)) {
 	r.mockAttendanceGetAttendanceGroup = f
 }
 
+// UnMockAttendanceGetAttendanceGroup un-mock AttendanceGetAttendanceGroup method
 func (r *Mock) UnMockAttendanceGetAttendanceGroup() {
 	r.mockAttendanceGetAttendanceGroup = nil
 }
 
+// GetAttendanceGroupReq ...
 type GetAttendanceGroupReq struct {
 	EmployeeType EmployeeType `query:"employee_type" json:"-"` // 用户 ID 的类型，可用值：【employee_id（员工的 employeeId），employee_no（员工工号）】
 	DeptType     string       `query:"dept_type" json:"-"`     // 部门 ID 的类型，可用值：【open_id（暂时只支持部门的 openid）】，示例值：“od-fcb45c28a45311afd441b8869541ece8”
 	GroupID      string       `path:"group_id" json:"-"`       // 考勤组的 ID，需要从获取打卡结果的接口中获取 group_id，示例值："6919358128597097404"
 }
 
+// getAttendanceGroupResp ...
 type getAttendanceGroupResp struct {
 	Code int64                   `json:"code,omitempty"` // 错误码，非 0 表示失败
 	Msg  string                  `json:"msg,omitempty"`  // 错误描述
 	Data *GetAttendanceGroupResp `json:"data,omitempty"` // -
 }
 
+// GetAttendanceGroupResp ...
 type GetAttendanceGroupResp struct {
 	GroupID *GetAttendanceGroupRespGroupID `json:"group_id,omitempty"` // 考勤组的 ID，需要从获取用户打卡结果的接口中获取 groupId
 }
 
+// GetAttendanceGroupRespGroupID ...
 type GetAttendanceGroupRespGroupID struct {
 	GroupName              string                                                `json:"group_name,omitempty"`                 // 考勤组名称
 	TimeZone               string                                                `json:"time_zone,omitempty"`                  // 时区
@@ -427,11 +461,13 @@ type GetAttendanceGroupRespGroupID struct {
 	WorkDayNoPunchAsLack   bool                                                  `json:"work_day_no_punch_as_lack,omitempty"`  // 自由班制下，工作日不打卡是否记为缺卡
 }
 
+// GetAttendanceGroupRespGroupIDMachine ...
 type GetAttendanceGroupRespGroupIDMachine struct {
 	MachineSn   string `json:"machine_sn,omitempty"`   // 考勤机序列号
 	MachineName string `json:"machine_name,omitempty"` // 考勤机名称
 }
 
+// GetAttendanceGroupRespGroupIDLocation ...
 type GetAttendanceGroupRespGroupIDLocation struct {
 	LocationID   string  `json:"location_id,omitempty"`   // 地址 ID
 	LocationName string  `json:"location_name,omitempty"` // 地址名称
@@ -447,6 +483,7 @@ type GetAttendanceGroupRespGroupIDLocation struct {
 	GpsRange     int64   `json:"gps_range,omitempty"`     // GPS 打卡的有效范围
 }
 
+// GetAttendanceGroupRespGroupIDFreePunchCfg ...
 type GetAttendanceGroupRespGroupIDFreePunchCfg struct {
 	FreeStartTime        string `json:"free_start_time,omitempty"`           // 自由班制的打卡开始时间
 	FreeEndTime          string `json:"free_end_time,omitempty"`             // 自由班制的打卡结束时间
@@ -454,11 +491,13 @@ type GetAttendanceGroupRespGroupIDFreePunchCfg struct {
 	WorkDayNoPunchAsLack bool   `json:"work_day_no_punch_as_lack,omitempty"` // 工作日不打卡是否记为缺卡
 }
 
+// GetAttendanceGroupRespGroupIDNeedPunchSpecialDay ...
 type GetAttendanceGroupRespGroupIDNeedPunchSpecialDay struct {
 	PunchDay int64  `json:"punch_day,omitempty"` // 打卡日期，格式 20190101
 	ShiftID  string `json:"shift_id,omitempty"`  // 班次 ID
 }
 
+// GetAttendanceGroupRespGroupIDNoNeedPunchSpecialDay ...
 type GetAttendanceGroupRespGroupIDNoNeedPunchSpecialDay struct {
 	PunchDay int64  `json:"punch_day,omitempty"` // 打卡日期，格式 20190101
 	ShiftID  string `json:"shift_id,omitempty"`  // 班次 ID
@@ -492,14 +531,17 @@ func (r *AttendanceService) InitAttendanceRemedyApproval(ctx context.Context, re
 	return resp.Data, response, err
 }
 
+// MockAttendanceInitAttendanceRemedyApproval mock AttendanceInitAttendanceRemedyApproval method
 func (r *Mock) MockAttendanceInitAttendanceRemedyApproval(f func(ctx context.Context, request *InitAttendanceRemedyApprovalReq, options ...MethodOptionFunc) (*InitAttendanceRemedyApprovalResp, *Response, error)) {
 	r.mockAttendanceInitAttendanceRemedyApproval = f
 }
 
+// UnMockAttendanceInitAttendanceRemedyApproval un-mock AttendanceInitAttendanceRemedyApproval method
 func (r *Mock) UnMockAttendanceInitAttendanceRemedyApproval() {
 	r.mockAttendanceInitAttendanceRemedyApproval = nil
 }
 
+// InitAttendanceRemedyApprovalReq ...
 type InitAttendanceRemedyApprovalReq struct {
 	EmployeeType EmployeeType `query:"employee_type" json:"-"` // 请求体中的 user_id 的员工工号类型，必选字段，可用值：【employee_id（员工employeeId），employee_no（员工工号）】，示例值："employee_id"
 	UserID       string       `json:"user_id,omitempty"`       // 用户 ID
@@ -510,16 +552,19 @@ type InitAttendanceRemedyApprovalReq struct {
 	Reason       string       `json:"reason,omitempty"`        // 补卡原因
 }
 
+// initAttendanceRemedyApprovalResp ...
 type initAttendanceRemedyApprovalResp struct {
 	Code int64                             `json:"code,omitempty"` // 错误码，非 0 表示失败
 	Msg  string                            `json:"msg,omitempty"`  // 错误描述
 	Data *InitAttendanceRemedyApprovalResp `json:"data,omitempty"` // -
 }
 
+// InitAttendanceRemedyApprovalResp ...
 type InitAttendanceRemedyApprovalResp struct {
 	UserRemedy *InitAttendanceRemedyApprovalRespUserRemedy `json:"user_remedy,omitempty"`
 }
 
+// InitAttendanceRemedyApprovalRespUserRemedy ...
 type InitAttendanceRemedyApprovalRespUserRemedy struct {
 	UserID     string `json:"user_id,omitempty"`     // 用户 ID
 	ApprovalID string `json:"approval_id,omitempty"` // 审批实例 ID，可用于通知审批状态更新
@@ -559,30 +604,36 @@ func (r *AttendanceService) UpdateAttendanceRemedyApproval(ctx context.Context, 
 	return resp.Data, response, err
 }
 
+// MockAttendanceUpdateAttendanceRemedyApproval mock AttendanceUpdateAttendanceRemedyApproval method
 func (r *Mock) MockAttendanceUpdateAttendanceRemedyApproval(f func(ctx context.Context, request *UpdateAttendanceRemedyApprovalReq, options ...MethodOptionFunc) (*UpdateAttendanceRemedyApprovalResp, *Response, error)) {
 	r.mockAttendanceUpdateAttendanceRemedyApproval = f
 }
 
+// UnMockAttendanceUpdateAttendanceRemedyApproval un-mock AttendanceUpdateAttendanceRemedyApproval method
 func (r *Mock) UnMockAttendanceUpdateAttendanceRemedyApproval() {
 	r.mockAttendanceUpdateAttendanceRemedyApproval = nil
 }
 
+// UpdateAttendanceRemedyApprovalReq ...
 type UpdateAttendanceRemedyApprovalReq struct {
 	ApprovalID   string `json:"approval_id,omitempty"`   // 审批实例 ID
 	ApprovalType string `json:"approval_type,omitempty"` // 审批类型，leave：请假，out：外出，overtime：加班，trip：出差，remedy：补卡
 	Status       int64  `json:"status,omitempty"`        // 审批状态，1：不通过，2：通过，4：撤销
 }
 
+// updateAttendanceRemedyApprovalResp ...
 type updateAttendanceRemedyApprovalResp struct {
 	Code int64                               `json:"code,omitempty"` // 错误码，非 0 表示失败
 	Msg  string                              `json:"msg,omitempty"`  // 错误描述
 	Data *UpdateAttendanceRemedyApprovalResp `json:"data,omitempty"` // -
 }
 
+// UpdateAttendanceRemedyApprovalResp ...
 type UpdateAttendanceRemedyApprovalResp struct {
 	ApprovalInfo *UpdateAttendanceRemedyApprovalRespApprovalInfo `json:"approval_info,omitempty"`
 }
 
+// UpdateAttendanceRemedyApprovalRespApprovalInfo ...
 type UpdateAttendanceRemedyApprovalRespApprovalInfo struct {
 	ApprovalID   string `json:"approval_id,omitempty"`   // 审批实例 ID
 	ApprovalType string `json:"approval_type,omitempty"` // 审批类型，leave：请假，out：外出，overtime：加班，trip：出差，remedy：补卡
@@ -619,14 +670,17 @@ func (r *AttendanceService) CreateAttendanceShift(ctx context.Context, request *
 	return resp.Data, response, err
 }
 
+// MockAttendanceCreateAttendanceShift mock AttendanceCreateAttendanceShift method
 func (r *Mock) MockAttendanceCreateAttendanceShift(f func(ctx context.Context, request *CreateAttendanceShiftReq, options ...MethodOptionFunc) (*CreateAttendanceShiftResp, *Response, error)) {
 	r.mockAttendanceCreateAttendanceShift = f
 }
 
+// UnMockAttendanceCreateAttendanceShift un-mock AttendanceCreateAttendanceShift method
 func (r *Mock) UnMockAttendanceCreateAttendanceShift() {
 	r.mockAttendanceCreateAttendanceShift = nil
 }
 
+// CreateAttendanceShiftReq ...
 type CreateAttendanceShiftReq struct {
 	ShiftName         string                                     `json:"shift_name,omitempty"`            // 班次名称
 	PunchTimes        int64                                      `json:"punch_times,omitempty"`           // 打卡次数、，需小于等于 3 次
@@ -638,6 +692,7 @@ type CreateAttendanceShiftReq struct {
 	RestTimeRule      *CreateAttendanceShiftReqRestTimeRule      `json:"rest_time_rule,omitempty"`        // 休息时间规则
 }
 
+// CreateAttendanceShiftReqPunchTimeRule ...
 type CreateAttendanceShiftReqPunchTimeRule struct {
 	OnTime              string `json:"on_time,omitempty"`                // 上班时间，示例参数：“09:00”
 	OffTime             string `json:"off_time,omitempty"`               // 下班时间，示例参数：“18:00”，说明：第二天凌晨 2 点表示为 26:00
@@ -649,26 +704,31 @@ type CreateAttendanceShiftReqPunchTimeRule struct {
 	OffDelayMinutes     int64  `json:"off_delay_minutes,omitempty"`      // 最晚可延后多长时间打下班卡
 }
 
+// CreateAttendanceShiftReqLateOffLateOnRule ...
 type CreateAttendanceShiftReqLateOffLateOnRule struct {
 	LateOffMinutes int64 `json:"late_off_minutes,omitempty"` // 晚走多长时间
 	LateOnMinutes  int64 `json:"late_on_minutes,omitempty"`  // 晚到多长时间
 }
 
+// CreateAttendanceShiftReqRestTimeRule ...
 type CreateAttendanceShiftReqRestTimeRule struct {
 	RestBeginTime string `json:"rest_begin_time,omitempty"` // 休息开始时间，示例参数：“13:00”
 	RestEndTime   string `json:"rest_end_time,omitempty"`   // 休息结束时间，示例参数：“14:00”
 }
 
+// createAttendanceShiftResp ...
 type createAttendanceShiftResp struct {
 	Code int64                      `json:"code,omitempty"` // 错误码，非 0 表示失败
 	Msg  string                     `json:"msg,omitempty"`  // 错误描述
 	Data *CreateAttendanceShiftResp `json:"data,omitempty"` // -
 }
 
+// CreateAttendanceShiftResp ...
 type CreateAttendanceShiftResp struct {
 	Shift *CreateAttendanceShiftRespShift `json:"shift,omitempty"` // 班次
 }
 
+// CreateAttendanceShiftRespShift ...
 type CreateAttendanceShiftRespShift struct {
 	ShiftID           string                                           `json:"shift_id,omitempty"`              // 班次 ID
 	ShiftName         string                                           `json:"shift_name,omitempty"`            // 班次名称
@@ -681,6 +741,7 @@ type CreateAttendanceShiftRespShift struct {
 	RestTimeRule      *CreateAttendanceShiftRespShiftRestTimeRule      `json:"rest_time_rule,omitempty"`        // 休息时间规则
 }
 
+// CreateAttendanceShiftRespShiftPunchTimeRule ...
 type CreateAttendanceShiftRespShiftPunchTimeRule struct {
 	OnTime              string `json:"on_time,omitempty"`                // 上班时间
 	OffTime             string `json:"off_time,omitempty"`               // 下班时间
@@ -692,11 +753,13 @@ type CreateAttendanceShiftRespShiftPunchTimeRule struct {
 	OffDelayMinutes     int64  `json:"off_delay_minutes,omitempty"`      // 最晚可延后多长时间打下班卡
 }
 
+// CreateAttendanceShiftRespShiftLateOffLateOnRule ...
 type CreateAttendanceShiftRespShiftLateOffLateOnRule struct {
 	LateOffMinutes int64 `json:"late_off_minutes,omitempty"` // 晚走多长时间
 	LateOnMinutes  int64 `json:"late_on_minutes,omitempty"`  // 晚到多长时间
 }
 
+// CreateAttendanceShiftRespShiftRestTimeRule ...
 type CreateAttendanceShiftRespShiftRestTimeRule struct {
 	RestBeginTime string `json:"rest_begin_time,omitempty"` // 休息开始时间
 	RestEndTime   string `json:"rest_end_time,omitempty"`   // 休息结束时间
@@ -730,24 +793,29 @@ func (r *AttendanceService) DeleteAttendanceShift(ctx context.Context, request *
 	return resp.Data, response, err
 }
 
+// MockAttendanceDeleteAttendanceShift mock AttendanceDeleteAttendanceShift method
 func (r *Mock) MockAttendanceDeleteAttendanceShift(f func(ctx context.Context, request *DeleteAttendanceShiftReq, options ...MethodOptionFunc) (*DeleteAttendanceShiftResp, *Response, error)) {
 	r.mockAttendanceDeleteAttendanceShift = f
 }
 
+// UnMockAttendanceDeleteAttendanceShift un-mock AttendanceDeleteAttendanceShift method
 func (r *Mock) UnMockAttendanceDeleteAttendanceShift() {
 	r.mockAttendanceDeleteAttendanceShift = nil
 }
 
+// DeleteAttendanceShiftReq ...
 type DeleteAttendanceShiftReq struct {
 	ShiftID string `path:"shift_id" json:"-"` // 班次 ID，示例值："6919358778597097404"
 }
 
+// deleteAttendanceShiftResp ...
 type deleteAttendanceShiftResp struct {
 	Code int64                      `json:"code,omitempty"` // 错误码，非 0 表示失败
 	Msg  string                     `json:"msg,omitempty"`  // 错误描述
 	Data *DeleteAttendanceShiftResp `json:"data,omitempty"`
 }
 
+// DeleteAttendanceShiftResp ...
 type DeleteAttendanceShiftResp struct{}
 
 // Code generated by lark_sdk_gen. DO NOT EDIT.
@@ -778,24 +846,29 @@ func (r *AttendanceService) GetAttendanceShiftByID(ctx context.Context, request 
 	return resp.Data, response, err
 }
 
+// MockAttendanceGetAttendanceShiftByID mock AttendanceGetAttendanceShiftByID method
 func (r *Mock) MockAttendanceGetAttendanceShiftByID(f func(ctx context.Context, request *GetAttendanceShiftByIDReq, options ...MethodOptionFunc) (*GetAttendanceShiftByIDResp, *Response, error)) {
 	r.mockAttendanceGetAttendanceShiftByID = f
 }
 
+// UnMockAttendanceGetAttendanceShiftByID un-mock AttendanceGetAttendanceShiftByID method
 func (r *Mock) UnMockAttendanceGetAttendanceShiftByID() {
 	r.mockAttendanceGetAttendanceShiftByID = nil
 }
 
+// GetAttendanceShiftByIDReq ...
 type GetAttendanceShiftByIDReq struct {
 	ShiftID string `path:"shift_id" json:"-"` // 班次 ID，示例值："6919358778597097404"
 }
 
+// getAttendanceShiftByIDResp ...
 type getAttendanceShiftByIDResp struct {
 	Code int64                       `json:"code,omitempty"` // 错误码，非 0 表示失败
 	Msg  string                      `json:"msg,omitempty"`  // 错误描述
 	Data *GetAttendanceShiftByIDResp `json:"data,omitempty"` // -
 }
 
+// GetAttendanceShiftByIDResp ...
 type GetAttendanceShiftByIDResp struct {
 	ShiftID           string                                       `json:"shift_id,omitempty"`              // 班次 ID
 	ShiftName         string                                       `json:"shift_name,omitempty"`            // 班次名称
@@ -808,6 +881,7 @@ type GetAttendanceShiftByIDResp struct {
 	RestTimeRule      *GetAttendanceShiftByIDRespRestTimeRule      `json:"rest_time_rule,omitempty"`        // 休息时间规则
 }
 
+// GetAttendanceShiftByIDRespPunchTimeRule ...
 type GetAttendanceShiftByIDRespPunchTimeRule struct {
 	OnTime              string `json:"on_time,omitempty"`                // 上班时间
 	OffTime             string `json:"off_time,omitempty"`               // 下班时间
@@ -819,11 +893,13 @@ type GetAttendanceShiftByIDRespPunchTimeRule struct {
 	OffDelayMinutes     int64  `json:"off_delay_minutes,omitempty"`      // 最晚可延后多长时间打下班卡
 }
 
+// GetAttendanceShiftByIDRespLateOffLateOnRule ...
 type GetAttendanceShiftByIDRespLateOffLateOnRule struct {
 	LateOffMinutes int64 `json:"late_off_minutes,omitempty"` // 晚走多长时间
 	LateOnMinutes  int64 `json:"late_on_minutes,omitempty"`  // 晚到多长时间
 }
 
+// GetAttendanceShiftByIDRespRestTimeRule ...
 type GetAttendanceShiftByIDRespRestTimeRule struct {
 	RestBeginTime string `json:"rest_begin_time,omitempty"` // 休息开始时间
 	RestEndTime   string `json:"rest_end_time,omitempty"`   // 休息结束时间
@@ -857,24 +933,29 @@ func (r *AttendanceService) GetAttendanceShiftByName(ctx context.Context, reques
 	return resp.Data, response, err
 }
 
+// MockAttendanceGetAttendanceShiftByName mock AttendanceGetAttendanceShiftByName method
 func (r *Mock) MockAttendanceGetAttendanceShiftByName(f func(ctx context.Context, request *GetAttendanceShiftByNameReq, options ...MethodOptionFunc) (*GetAttendanceShiftByNameResp, *Response, error)) {
 	r.mockAttendanceGetAttendanceShiftByName = f
 }
 
+// UnMockAttendanceGetAttendanceShiftByName un-mock AttendanceGetAttendanceShiftByName method
 func (r *Mock) UnMockAttendanceGetAttendanceShiftByName() {
 	r.mockAttendanceGetAttendanceShiftByName = nil
 }
 
+// GetAttendanceShiftByNameReq ...
 type GetAttendanceShiftByNameReq struct {
 	ShiftName string `query:"shift_name" json:"-"` // 班次名称，示例值："早班"
 }
 
+// getAttendanceShiftByNameResp ...
 type getAttendanceShiftByNameResp struct {
 	Code int64                         `json:"code,omitempty"` // 错误码，非 0 表示失败
 	Msg  string                        `json:"msg,omitempty"`  // 错误描述
 	Data *GetAttendanceShiftByNameResp `json:"data,omitempty"` // -
 }
 
+// GetAttendanceShiftByNameResp ...
 type GetAttendanceShiftByNameResp struct {
 	ShiftID           string                                         `json:"shift_id,omitempty"`              // 班次 ID
 	ShiftName         string                                         `json:"shift_name,omitempty"`            // 班次名称
@@ -887,6 +968,7 @@ type GetAttendanceShiftByNameResp struct {
 	RestTimeRule      *GetAttendanceShiftByNameRespRestTimeRule      `json:"rest_time_rule,omitempty"`        // 休息时间规则
 }
 
+// GetAttendanceShiftByNameRespPunchTimeRule ...
 type GetAttendanceShiftByNameRespPunchTimeRule struct {
 	OnTime              string `json:"on_time,omitempty"`                // 上班时间
 	OffTime             string `json:"off_time,omitempty"`               // 下班时间
@@ -898,11 +980,13 @@ type GetAttendanceShiftByNameRespPunchTimeRule struct {
 	OffDelayMinutes     int64  `json:"off_delay_minutes,omitempty"`      // 最晚可延后多长时间打下班卡
 }
 
+// GetAttendanceShiftByNameRespLateOffLateOnRule ...
 type GetAttendanceShiftByNameRespLateOffLateOnRule struct {
 	LateOffMinutes int64 `json:"late_off_minutes,omitempty"` // 晚走多长时间
 	LateOnMinutes  int64 `json:"late_on_minutes,omitempty"`  // 晚到多长时间
 }
 
+// GetAttendanceShiftByNameRespRestTimeRule ...
 type GetAttendanceShiftByNameRespRestTimeRule struct {
 	RestBeginTime string `json:"rest_begin_time,omitempty"` // 休息开始时间
 	RestEndTime   string `json:"rest_end_time,omitempty"`   // 休息结束时间
@@ -936,14 +1020,17 @@ func (r *AttendanceService) GetAttendanceStatisticsData(ctx context.Context, req
 	return resp.Data, response, err
 }
 
+// MockAttendanceGetAttendanceStatisticsData mock AttendanceGetAttendanceStatisticsData method
 func (r *Mock) MockAttendanceGetAttendanceStatisticsData(f func(ctx context.Context, request *GetAttendanceStatisticsDataReq, options ...MethodOptionFunc) (*GetAttendanceStatisticsDataResp, *Response, error)) {
 	r.mockAttendanceGetAttendanceStatisticsData = f
 }
 
+// UnMockAttendanceGetAttendanceStatisticsData un-mock AttendanceGetAttendanceStatisticsData method
 func (r *Mock) UnMockAttendanceGetAttendanceStatisticsData() {
 	r.mockAttendanceGetAttendanceStatisticsData = nil
 }
 
+// GetAttendanceStatisticsDataReq ...
 type GetAttendanceStatisticsDataReq struct {
 	EmployeeType     EmployeeType `query:"employee_type" json:"-"`      // 用户 ID 类型, 可选值有: `employee_id`, `employee_no`
 	Locale           string       `json:"locale,omitempty"`             // 语言类型, 可选值有: `en`：英文, `ja`：日文, `zh`：中文
@@ -955,28 +1042,33 @@ type GetAttendanceStatisticsDataReq struct {
 	CurrentGroupOnly *bool        `json:"current_group_only,omitempty"` // 是否只包含当前考勤组, 示例值：true
 }
 
+// getAttendanceStatisticsDataResp ...
 type getAttendanceStatisticsDataResp struct {
 	Code int64                            `json:"code,omitempty"` // 错误码，非 0 表示失败
 	Msg  string                           `json:"msg,omitempty"`  // 错误描述
 	Data *GetAttendanceStatisticsDataResp `json:"data,omitempty"`
 }
 
+// GetAttendanceStatisticsDataResp ...
 type GetAttendanceStatisticsDataResp struct {
 	UserDatas []*GetAttendanceStatisticsDataRespUserData `json:"user_datas,omitempty"` // 用户统计数据
 }
 
+// GetAttendanceStatisticsDataRespUserData ...
 type GetAttendanceStatisticsDataRespUserData struct {
 	Name   string                                         `json:"name,omitempty"`    // 姓名
 	UserID string                                         `json:"user_id,omitempty"` // 用户 ID
 	Datas  []*GetAttendanceStatisticsDataRespUserDataData `json:"datas,omitempty"`   // 数据
 }
 
+// GetAttendanceStatisticsDataRespUserDataData ...
 type GetAttendanceStatisticsDataRespUserDataData struct {
 	Code     string                                                `json:"code,omitempty"`     // 字段编号
 	Value    string                                                `json:"value,omitempty"`    // 数据值
 	Features []*GetAttendanceStatisticsDataRespUserDataDataFeature `json:"features,omitempty"` // 数据属性
 }
 
+// GetAttendanceStatisticsDataRespUserDataDataFeature ...
 type GetAttendanceStatisticsDataRespUserDataDataFeature struct {
 	Key   string `json:"key,omitempty"`   // 属性名
 	Value string `json:"value,omitempty"` // 属性值
@@ -1010,14 +1102,17 @@ func (r *AttendanceService) GetAttendanceStatisticsHeader(ctx context.Context, r
 	return resp.Data, response, err
 }
 
+// MockAttendanceGetAttendanceStatisticsHeader mock AttendanceGetAttendanceStatisticsHeader method
 func (r *Mock) MockAttendanceGetAttendanceStatisticsHeader(f func(ctx context.Context, request *GetAttendanceStatisticsHeaderReq, options ...MethodOptionFunc) (*GetAttendanceStatisticsHeaderResp, *Response, error)) {
 	r.mockAttendanceGetAttendanceStatisticsHeader = f
 }
 
+// UnMockAttendanceGetAttendanceStatisticsHeader un-mock AttendanceGetAttendanceStatisticsHeader method
 func (r *Mock) UnMockAttendanceGetAttendanceStatisticsHeader() {
 	r.mockAttendanceGetAttendanceStatisticsHeader = nil
 }
 
+// GetAttendanceStatisticsHeaderReq ...
 type GetAttendanceStatisticsHeaderReq struct {
 	EmployeeType EmployeeType `query:"employee_type" json:"-"` // 用户 ID 类型, 可选值有: `employee_id`, `employee_no`
 	Locale       string       `json:"locale,omitempty"`        // 语言类型, 可选值有: `en`：英文, `ja`：日文, `zh`：中文
@@ -1026,28 +1121,33 @@ type GetAttendanceStatisticsHeaderReq struct {
 	EndDate      int64        `json:"end_date,omitempty"`      // 结束时间, 示例值：20210323
 }
 
+// getAttendanceStatisticsHeaderResp ...
 type getAttendanceStatisticsHeaderResp struct {
 	Code int64                              `json:"code,omitempty"` // 错误码，非 0 表示失败
 	Msg  string                             `json:"msg,omitempty"`  // 错误描述
 	Data *GetAttendanceStatisticsHeaderResp `json:"data,omitempty"`
 }
 
+// GetAttendanceStatisticsHeaderResp ...
 type GetAttendanceStatisticsHeaderResp struct {
 	UserStatsField *GetAttendanceStatisticsHeaderRespUserStatsField `json:"user_stats_field,omitempty"` // 统计数据表头
 }
 
+// GetAttendanceStatisticsHeaderRespUserStatsField ...
 type GetAttendanceStatisticsHeaderRespUserStatsField struct {
 	StatsType string                                                  `json:"stats_type,omitempty"` // 统计类型,    , 可选值有: `daily`：日度统计, `month`：月度统计
 	UserID    string                                                  `json:"user_id,omitempty"`    // 用户 ID
 	Fields    []*GetAttendanceStatisticsHeaderRespUserStatsFieldField `json:"fields,omitempty"`     // 字段列表
 }
 
+// GetAttendanceStatisticsHeaderRespUserStatsFieldField ...
 type GetAttendanceStatisticsHeaderRespUserStatsFieldField struct {
 	Code        string                                                            `json:"code,omitempty"`         // 字段编号
 	Title       string                                                            `json:"title,omitempty"`        // 字段标题
 	ChildFields []*GetAttendanceStatisticsHeaderRespUserStatsFieldFieldChildField `json:"child_fields,omitempty"` // 子字段列表
 }
 
+// GetAttendanceStatisticsHeaderRespUserStatsFieldFieldChildField ...
 type GetAttendanceStatisticsHeaderRespUserStatsFieldFieldChildField struct {
 	Code     string `json:"code,omitempty"`      // 字段编号
 	Title    string `json:"title,omitempty"`     // 字段名称
@@ -1082,30 +1182,36 @@ func (r *AttendanceService) GetAttendanceUserAllowedRemedy(ctx context.Context, 
 	return resp.Data, response, err
 }
 
+// MockAttendanceGetAttendanceUserAllowedRemedy mock AttendanceGetAttendanceUserAllowedRemedy method
 func (r *Mock) MockAttendanceGetAttendanceUserAllowedRemedy(f func(ctx context.Context, request *GetAttendanceUserAllowedRemedyReq, options ...MethodOptionFunc) (*GetAttendanceUserAllowedRemedyResp, *Response, error)) {
 	r.mockAttendanceGetAttendanceUserAllowedRemedy = f
 }
 
+// UnMockAttendanceGetAttendanceUserAllowedRemedy un-mock AttendanceGetAttendanceUserAllowedRemedy method
 func (r *Mock) UnMockAttendanceGetAttendanceUserAllowedRemedy() {
 	r.mockAttendanceGetAttendanceUserAllowedRemedy = nil
 }
 
+// GetAttendanceUserAllowedRemedyReq ...
 type GetAttendanceUserAllowedRemedyReq struct {
 	EmployeeType EmployeeType `query:"employee_type" json:"-"` // 请求体中的 user_id 的员工工号类型，必选字段，可用值：【employee_id（员工employeeId），employee_no（员工工号）】，示例值："employee_id"
 	UserID       string       `json:"user_id,omitempty"`       // 用户 ID
 	RemedyDate   int64        `json:"remedy_date,omitempty"`   // 查询补卡的日期
 }
 
+// getAttendanceUserAllowedRemedyResp ...
 type getAttendanceUserAllowedRemedyResp struct {
 	Code int64                               `json:"code,omitempty"` // 错误码，非 0 表示失败
 	Msg  string                              `json:"msg,omitempty"`  // 错误描述
 	Data *GetAttendanceUserAllowedRemedyResp `json:"data,omitempty"` // -
 }
 
+// GetAttendanceUserAllowedRemedyResp ...
 type GetAttendanceUserAllowedRemedyResp struct {
 	UserAllowedRemedys *GetAttendanceUserAllowedRemedyRespUserAllowedRemedys `json:"user_allowed_remedys,omitempty"`
 }
 
+// GetAttendanceUserAllowedRemedyRespUserAllowedRemedys ...
 type GetAttendanceUserAllowedRemedyRespUserAllowedRemedys struct {
 	UserID          string `json:"user_id,omitempty"`           // 用户 ID
 	RemedyDate      int64  `json:"remedy_date,omitempty"`       // 补卡日期
@@ -1148,19 +1254,23 @@ func (r *AttendanceService) CreateAttendanceUserApproval(ctx context.Context, re
 	return resp.Data, response, err
 }
 
+// MockAttendanceCreateAttendanceUserApproval mock AttendanceCreateAttendanceUserApproval method
 func (r *Mock) MockAttendanceCreateAttendanceUserApproval(f func(ctx context.Context, request *CreateAttendanceUserApprovalReq, options ...MethodOptionFunc) (*CreateAttendanceUserApprovalResp, *Response, error)) {
 	r.mockAttendanceCreateAttendanceUserApproval = f
 }
 
+// UnMockAttendanceCreateAttendanceUserApproval un-mock AttendanceCreateAttendanceUserApproval method
 func (r *Mock) UnMockAttendanceCreateAttendanceUserApproval() {
 	r.mockAttendanceCreateAttendanceUserApproval = nil
 }
 
+// CreateAttendanceUserApprovalReq ...
 type CreateAttendanceUserApprovalReq struct {
 	EmployeeType EmployeeType                                 `query:"employee_type" json:"-"` // 请求体中的 user_id 的员工工号类型，必选字段，可用值：【employee_id（员工employeeId），employee_no（员工工号）】，示例值："employee_id"
 	UserApproval *CreateAttendanceUserApprovalReqUserApproval `json:"user_approval,omitempty"` // 审批信息
 }
 
+// CreateAttendanceUserApprovalReqUserApproval ...
 type CreateAttendanceUserApprovalReqUserApproval struct {
 	UserID        string                                                     `json:"user_id,omitempty"`        // 审批用户
 	Date          string                                                     `json:"date,omitempty"`           // 审批作用时间
@@ -1170,6 +1280,7 @@ type CreateAttendanceUserApprovalReqUserApproval struct {
 	Trips         []*CreateAttendanceUserApprovalReqUserApprovalTrip         `json:"trips,omitempty"`          // 出差信息
 }
 
+// CreateAttendanceUserApprovalReqUserApprovalOut ...
 type CreateAttendanceUserApprovalReqUserApprovalOut struct {
 	UniqID        string     `json:"uniq_id,omitempty"`        // 外出类型唯一 ID，代表一种外出类型，长度小于 14
 	Unit          int64      `json:"unit,omitempty"`           // 外出时长单位，可用值：【1（天），2（小时），3（半天），4（半小时）】
@@ -1181,6 +1292,7 @@ type CreateAttendanceUserApprovalReqUserApprovalOut struct {
 	Reason        string     `json:"reason,omitempty"`         // 外出理由
 }
 
+// CreateAttendanceUserApprovalReqUserApprovalLeave ...
 type CreateAttendanceUserApprovalReqUserApprovalLeave struct {
 	UniqID        string     `json:"uniq_id,omitempty"`        // 假期类型唯一 ID，代表一种假期类型，长度小于 14
 	Unit          int64      `json:"unit,omitempty"`           // 假期时长单位，可用值：【1（天），2（小时），3（半天），4（半小时）】
@@ -1192,6 +1304,7 @@ type CreateAttendanceUserApprovalReqUserApprovalLeave struct {
 	Reason        string     `json:"reason,omitempty"`         // 请假理由，必选字段
 }
 
+// CreateAttendanceUserApprovalReqUserApprovalOvertimeWork ...
 type CreateAttendanceUserApprovalReqUserApprovalOvertimeWork struct {
 	Duration  float64 `json:"duration,omitempty"`   // 加班时长
 	Unit      int64   `json:"unit,omitempty"`       // 加班时长单位，可用值：【1（天），2（小时）】
@@ -1201,6 +1314,7 @@ type CreateAttendanceUserApprovalReqUserApprovalOvertimeWork struct {
 	EndTime   string  `json:"end_time,omitempty"`   // 结束时间，时间格式为 yyyy-MM-dd HH:mm:ss
 }
 
+// CreateAttendanceUserApprovalReqUserApprovalTrip ...
 type CreateAttendanceUserApprovalReqUserApprovalTrip struct {
 	StartTime        string `json:"start_time,omitempty"`         // 开始时间，时间格式为 yyyy-MM-dd HH:mm:ss
 	EndTime          string `json:"end_time,omitempty"`           // 结束时间，时间格式为 yyyy-MM-dd HH:mm:ss
@@ -1209,16 +1323,19 @@ type CreateAttendanceUserApprovalReqUserApprovalTrip struct {
 	ApproveApplyTime string `json:"approve_apply_time,omitempty"` // 审批申请时间，时间格式为 yyyy-MM-dd HH:mm:ss
 }
 
+// createAttendanceUserApprovalResp ...
 type createAttendanceUserApprovalResp struct {
 	Code int64                             `json:"code,omitempty"` // 错误码，非 0 表示失败
 	Msg  string                            `json:"msg,omitempty"`  // 错误描述
 	Data *CreateAttendanceUserApprovalResp `json:"data,omitempty"` // -
 }
 
+// CreateAttendanceUserApprovalResp ...
 type CreateAttendanceUserApprovalResp struct {
 	UserApprovals []*CreateAttendanceUserApprovalRespUserApproval `json:"user_approvals,omitempty"` // 审批结果列表
 }
 
+// CreateAttendanceUserApprovalRespUserApproval ...
 type CreateAttendanceUserApprovalRespUserApproval struct {
 	UserID        string                                                      `json:"user_id,omitempty"`        // 审批用户 ID
 	Date          string                                                      `json:"date,omitempty"`           // 审批作用时间
@@ -1228,6 +1345,7 @@ type CreateAttendanceUserApprovalRespUserApproval struct {
 	Trips         []*CreateAttendanceUserApprovalRespUserApprovalTrip         `json:"trips,omitempty"`          // 出差信息
 }
 
+// CreateAttendanceUserApprovalRespUserApprovalOut ...
 type CreateAttendanceUserApprovalRespUserApprovalOut struct {
 	ApprovalID       string     `json:"approval_id,omitempty"`        // 审批实例ID
 	UniqID           string     `json:"uniq_id,omitempty"`            // 外出类型唯一 ID，代表一种外出类型，长度小于 14
@@ -1242,6 +1360,7 @@ type CreateAttendanceUserApprovalRespUserApprovalOut struct {
 	ApproveApplyTime string     `json:"approve_apply_time,omitempty"` // 审批申请时间
 }
 
+// CreateAttendanceUserApprovalRespUserApprovalLeave ...
 type CreateAttendanceUserApprovalRespUserApprovalLeave struct {
 	ApprovalID       string     `json:"approval_id,omitempty"`        // 审批实例ID
 	UniqID           string     `json:"uniq_id,omitempty"`            // 假期类型唯一 ID，代表一种假期类型，长度小于 14
@@ -1256,6 +1375,7 @@ type CreateAttendanceUserApprovalRespUserApprovalLeave struct {
 	ApproveApplyTime string     `json:"approve_apply_time,omitempty"` // 审批申请时间，时间格式为 yyyy-MM-dd HH:mm:ss
 }
 
+// CreateAttendanceUserApprovalRespUserApprovalOvertimeWork ...
 type CreateAttendanceUserApprovalRespUserApprovalOvertimeWork struct {
 	ApprovalID string  `json:"approval_id,omitempty"` // 审批实例ID
 	Duration   float64 `json:"duration,omitempty"`    // 加班时长
@@ -1266,6 +1386,7 @@ type CreateAttendanceUserApprovalRespUserApprovalOvertimeWork struct {
 	EndTime    string  `json:"end_time,omitempty"`    // 结束时间，时间格式为 yyyy-MM-dd HH:mm:ss
 }
 
+// CreateAttendanceUserApprovalRespUserApprovalTrip ...
 type CreateAttendanceUserApprovalRespUserApprovalTrip struct {
 	ApprovalID       string `json:"approval_id,omitempty"`        // 审批实例ID
 	StartTime        string `json:"start_time,omitempty"`         // 开始时间，时间格式为 yyyy-MM-dd HH:mm:ss
@@ -1303,14 +1424,17 @@ func (r *AttendanceService) GetAttendanceUserApproval(ctx context.Context, reque
 	return resp.Data, response, err
 }
 
+// MockAttendanceGetAttendanceUserApproval mock AttendanceGetAttendanceUserApproval method
 func (r *Mock) MockAttendanceGetAttendanceUserApproval(f func(ctx context.Context, request *GetAttendanceUserApprovalReq, options ...MethodOptionFunc) (*GetAttendanceUserApprovalResp, *Response, error)) {
 	r.mockAttendanceGetAttendanceUserApproval = f
 }
 
+// UnMockAttendanceGetAttendanceUserApproval un-mock AttendanceGetAttendanceUserApproval method
 func (r *Mock) UnMockAttendanceGetAttendanceUserApproval() {
 	r.mockAttendanceGetAttendanceUserApproval = nil
 }
 
+// GetAttendanceUserApprovalReq ...
 type GetAttendanceUserApprovalReq struct {
 	EmployeeType  EmployeeType `query:"employee_type" json:"-"`   // 请求体中的 user_ids 的员工工号类型，必选字段，可用值：【employee_id（员工的 employeeId），employee_no（员工工号）】，示例值："employee_id"
 	UserIDs       []string     `json:"user_ids,omitempty"`        // employee_no 或 employee_id 列表
@@ -1318,16 +1442,19 @@ type GetAttendanceUserApprovalReq struct {
 	CheckDateTo   int64        `json:"check_date_to,omitempty"`   // 查询的结束工作日，与 check_date_from 的时间间隔不超过30天
 }
 
+// getAttendanceUserApprovalResp ...
 type getAttendanceUserApprovalResp struct {
 	Code int64                          `json:"code,omitempty"` // 错误码，非 0 表示失败
 	Msg  string                         `json:"msg,omitempty"`  // 错误描述
 	Data *GetAttendanceUserApprovalResp `json:"data,omitempty"` // -
 }
 
+// GetAttendanceUserApprovalResp ...
 type GetAttendanceUserApprovalResp struct {
 	UserApprovals []*GetAttendanceUserApprovalRespUserApproval `json:"user_approvals,omitempty"` // 审批结果列表
 }
 
+// GetAttendanceUserApprovalRespUserApproval ...
 type GetAttendanceUserApprovalRespUserApproval struct {
 	UserID        string                                                   `json:"user_id,omitempty"`        // 审批用户 ID
 	Date          string                                                   `json:"date,omitempty"`           // 审批作用时间
@@ -1337,6 +1464,7 @@ type GetAttendanceUserApprovalRespUserApproval struct {
 	Trips         []*GetAttendanceUserApprovalRespUserApprovalTrip         `json:"trips,omitempty"`          // 出差信息
 }
 
+// GetAttendanceUserApprovalRespUserApprovalOut ...
 type GetAttendanceUserApprovalRespUserApprovalOut struct {
 	UniqID           string     `json:"uniq_id,omitempty"`            // 外出类型唯一 ID，代表一种外出类型，长度小于 14
 	Unit             int64      `json:"unit,omitempty"`               // 外出时长单位，可用值：【1（天），2（小时），3（半天），4（半小时）】
@@ -1350,6 +1478,7 @@ type GetAttendanceUserApprovalRespUserApprovalOut struct {
 	ApproveApplyTime string     `json:"approve_apply_time,omitempty"` // 审批申请时间
 }
 
+// GetAttendanceUserApprovalRespUserApprovalLeave ...
 type GetAttendanceUserApprovalRespUserApprovalLeave struct {
 	UniqID           string     `json:"uniq_id,omitempty"`            // 假期类型唯一 ID，代表一种假期类型，长度小于 14
 	Unit             int64      `json:"unit,omitempty"`               // 假期时长单位，可用值：【1（天），0（小时），4（分钟）】
@@ -1362,6 +1491,7 @@ type GetAttendanceUserApprovalRespUserApprovalLeave struct {
 	ApproveApplyTime string     `json:"approve_apply_time,omitempty"` // 审批申请时间，时间格式为 yyyy-MM-dd HH:mm:ss
 }
 
+// GetAttendanceUserApprovalRespUserApprovalOvertimeWork ...
 type GetAttendanceUserApprovalRespUserApprovalOvertimeWork struct {
 	Duration  float64 `json:"duration,omitempty"`   // 加班时长
 	Unit      int64   `json:"unit,omitempty"`       // 加班时长单位，可用值：【1（天），2（小时）】
@@ -1371,6 +1501,7 @@ type GetAttendanceUserApprovalRespUserApprovalOvertimeWork struct {
 	EndTime   string  `json:"end_time,omitempty"`   // 结束时间，时间格式为 yyyy-MM-dd HH:mm:ss
 }
 
+// GetAttendanceUserApprovalRespUserApprovalTrip ...
 type GetAttendanceUserApprovalRespUserApprovalTrip struct {
 	StartTime        string `json:"start_time,omitempty"`         // 开始时间，时间格式为 yyyy-MM-dd HH:mm:ss
 	EndTime          string `json:"end_time,omitempty"`           // 结束时间，时间格式为 yyyy-MM-dd HH:mm:ss
@@ -1407,19 +1538,23 @@ func (r *AttendanceService) CreateUpdateAttendanceUserDailyShift(ctx context.Con
 	return resp.Data, response, err
 }
 
+// MockAttendanceCreateUpdateAttendanceUserDailyShift mock AttendanceCreateUpdateAttendanceUserDailyShift method
 func (r *Mock) MockAttendanceCreateUpdateAttendanceUserDailyShift(f func(ctx context.Context, request *CreateUpdateAttendanceUserDailyShiftReq, options ...MethodOptionFunc) (*CreateUpdateAttendanceUserDailyShiftResp, *Response, error)) {
 	r.mockAttendanceCreateUpdateAttendanceUserDailyShift = f
 }
 
+// UnMockAttendanceCreateUpdateAttendanceUserDailyShift un-mock AttendanceCreateUpdateAttendanceUserDailyShift method
 func (r *Mock) UnMockAttendanceCreateUpdateAttendanceUserDailyShift() {
 	r.mockAttendanceCreateUpdateAttendanceUserDailyShift = nil
 }
 
+// CreateUpdateAttendanceUserDailyShiftReq ...
 type CreateUpdateAttendanceUserDailyShiftReq struct {
 	EmployeeType    EmployeeType                                             `query:"employee_type" json:"-"`     // 请求体中的 user_id 的员工工号类型可用值：【employee_id（员工的 employeeId），employee_no（员工工号）】，示例值："employee_id"
 	UserDailyShifts []*CreateUpdateAttendanceUserDailyShiftReqUserDailyShift `json:"user_daily_shifts,omitempty"` // 班表信息列表
 }
 
+// CreateUpdateAttendanceUserDailyShiftReqUserDailyShift ...
 type CreateUpdateAttendanceUserDailyShiftReqUserDailyShift struct {
 	GroupID string `json:"group_id,omitempty"` // 考勤组 ID
 	ShiftID string `json:"shift_id,omitempty"` // 班次 ID，休息为 0
@@ -1428,16 +1563,19 @@ type CreateUpdateAttendanceUserDailyShiftReqUserDailyShift struct {
 	DayNo   int64  `json:"day_no,omitempty"`   // 日期
 }
 
+// createUpdateAttendanceUserDailyShiftResp ...
 type createUpdateAttendanceUserDailyShiftResp struct {
 	Code int64                                     `json:"code,omitempty"` // 错误码，非 0 表示失败
 	Msg  string                                    `json:"msg,omitempty"`  // 错误描述
 	Data *CreateUpdateAttendanceUserDailyShiftResp `json:"data,omitempty"` // -
 }
 
+// CreateUpdateAttendanceUserDailyShiftResp ...
 type CreateUpdateAttendanceUserDailyShiftResp struct {
 	UserDailyShifts []*CreateUpdateAttendanceUserDailyShiftRespUserDailyShift `json:"user_daily_shifts,omitempty"` // 班表信息列表
 }
 
+// CreateUpdateAttendanceUserDailyShiftRespUserDailyShift ...
 type CreateUpdateAttendanceUserDailyShiftRespUserDailyShift struct {
 	GroupID string `json:"group_id,omitempty"` // 考勤组 ID
 	ShiftID string `json:"shift_id,omitempty"` // 班次 ID
@@ -1474,14 +1612,17 @@ func (r *AttendanceService) GetAttendanceUserDailyShift(ctx context.Context, req
 	return resp.Data, response, err
 }
 
+// MockAttendanceGetAttendanceUserDailyShift mock AttendanceGetAttendanceUserDailyShift method
 func (r *Mock) MockAttendanceGetAttendanceUserDailyShift(f func(ctx context.Context, request *GetAttendanceUserDailyShiftReq, options ...MethodOptionFunc) (*GetAttendanceUserDailyShiftResp, *Response, error)) {
 	r.mockAttendanceGetAttendanceUserDailyShift = f
 }
 
+// UnMockAttendanceGetAttendanceUserDailyShift un-mock AttendanceGetAttendanceUserDailyShift method
 func (r *Mock) UnMockAttendanceGetAttendanceUserDailyShift() {
 	r.mockAttendanceGetAttendanceUserDailyShift = nil
 }
 
+// GetAttendanceUserDailyShiftReq ...
 type GetAttendanceUserDailyShiftReq struct {
 	EmployeeType  EmployeeType `query:"employee_type" json:"-"`   // 请求体中的 user_ids 的员工工号类型，可用值：【employee_id（员工的 employeeId），employee_no（员工工号）】，示例值：“employee_id”
 	UserIDs       []string     `json:"user_ids,omitempty"`        // employee_no 或 employee_id 列表
@@ -1489,16 +1630,19 @@ type GetAttendanceUserDailyShiftReq struct {
 	CheckDateTo   int64        `json:"check_date_to,omitempty"`   // 查询的结束工作日
 }
 
+// getAttendanceUserDailyShiftResp ...
 type getAttendanceUserDailyShiftResp struct {
 	Code int64                            `json:"code,omitempty"` // 错误码，非 0 表示失败
 	Msg  string                           `json:"msg,omitempty"`  // 错误描述
 	Data *GetAttendanceUserDailyShiftResp `json:"data,omitempty"` // -
 }
 
+// GetAttendanceUserDailyShiftResp ...
 type GetAttendanceUserDailyShiftResp struct {
 	UserDailyShifts []*GetAttendanceUserDailyShiftRespUserDailyShift `json:"user_daily_shifts,omitempty"` // 班表信息列表
 }
 
+// GetAttendanceUserDailyShiftRespUserDailyShift ...
 type GetAttendanceUserDailyShiftRespUserDailyShift struct {
 	GroupID    string `json:"group_id,omitempty"`    // 考勤组 ID
 	ShiftID    string `json:"shift_id,omitempty"`    // 班次 ID，休息为 0
@@ -1536,19 +1680,23 @@ func (r *AttendanceService) BatchCreateAttendanceUserFlow(ctx context.Context, r
 	return resp.Data, response, err
 }
 
+// MockAttendanceBatchCreateAttendanceUserFlow mock AttendanceBatchCreateAttendanceUserFlow method
 func (r *Mock) MockAttendanceBatchCreateAttendanceUserFlow(f func(ctx context.Context, request *BatchCreateAttendanceUserFlowReq, options ...MethodOptionFunc) (*BatchCreateAttendanceUserFlowResp, *Response, error)) {
 	r.mockAttendanceBatchCreateAttendanceUserFlow = f
 }
 
+// UnMockAttendanceBatchCreateAttendanceUserFlow un-mock AttendanceBatchCreateAttendanceUserFlow method
 func (r *Mock) UnMockAttendanceBatchCreateAttendanceUserFlow() {
 	r.mockAttendanceBatchCreateAttendanceUserFlow = nil
 }
 
+// BatchCreateAttendanceUserFlowReq ...
 type BatchCreateAttendanceUserFlowReq struct {
 	EmployeeType EmployeeType                                  `query:"employee_type" json:"-"` // 请求体中的 user_id 和 creator_id 的员工工号类型，可用值：【employee_id（员工的 employeeId），employee_no（员工工号）】，示例值："employee_id"
 	FlowRecords  []*BatchCreateAttendanceUserFlowReqFlowRecord `json:"flow_records,omitempty"`  // 打卡流水记录列表
 }
 
+// BatchCreateAttendanceUserFlowReqFlowRecord ...
 type BatchCreateAttendanceUserFlowReqFlowRecord struct {
 	UserID       string `json:"user_id,omitempty"`       // 员工工号
 	CreatorID    string `json:"creator_id,omitempty"`    // 打卡记录创建者的工号
@@ -1557,16 +1705,19 @@ type BatchCreateAttendanceUserFlowReqFlowRecord struct {
 	Comment      string `json:"comment,omitempty"`       // 打卡备注
 }
 
+// batchCreateAttendanceUserFlowResp ...
 type batchCreateAttendanceUserFlowResp struct {
 	Code int64                              `json:"code,omitempty"` // 错误码，非 0 表示失败
 	Msg  string                             `json:"msg,omitempty"`  // 错误描述
 	Data *BatchCreateAttendanceUserFlowResp `json:"data,omitempty"` // -
 }
 
+// BatchCreateAttendanceUserFlowResp ...
 type BatchCreateAttendanceUserFlowResp struct {
 	FlowRecords []*BatchCreateAttendanceUserFlowRespFlowRecord `json:"flow_records,omitempty"` // 打卡流水记录列表
 }
 
+// BatchCreateAttendanceUserFlowRespFlowRecord ...
 type BatchCreateAttendanceUserFlowRespFlowRecord struct {
 	UserID       string `json:"user_id,omitempty"`       // 员工工号
 	CreatorID    string `json:"creator_id,omitempty"`    // 打卡记录创建者的 employee_no
@@ -1604,14 +1755,17 @@ func (r *AttendanceService) BatchGetAttendanceUserFlow(ctx context.Context, requ
 	return resp.Data, response, err
 }
 
+// MockAttendanceBatchGetAttendanceUserFlow mock AttendanceBatchGetAttendanceUserFlow method
 func (r *Mock) MockAttendanceBatchGetAttendanceUserFlow(f func(ctx context.Context, request *BatchGetAttendanceUserFlowReq, options ...MethodOptionFunc) (*BatchGetAttendanceUserFlowResp, *Response, error)) {
 	r.mockAttendanceBatchGetAttendanceUserFlow = f
 }
 
+// UnMockAttendanceBatchGetAttendanceUserFlow un-mock AttendanceBatchGetAttendanceUserFlow method
 func (r *Mock) UnMockAttendanceBatchGetAttendanceUserFlow() {
 	r.mockAttendanceBatchGetAttendanceUserFlow = nil
 }
 
+// BatchGetAttendanceUserFlowReq ...
 type BatchGetAttendanceUserFlowReq struct {
 	EmployeeType  EmployeeType `query:"employee_type" json:"-"`   // 请求体中的 user_ids 的员工工号类型，可用值：【employee_id（员工的 employeeId），employee_no（员工工号）】，示例值：“employee_id”
 	UserIDs       []string     `json:"user_ids,omitempty"`        // employee_no 或 employee_id 列表，长度不超过50
@@ -1619,16 +1773,19 @@ type BatchGetAttendanceUserFlowReq struct {
 	CheckTimeTo   string       `json:"check_time_to,omitempty"`   // 查询的结束时间，时间戳
 }
 
+// batchGetAttendanceUserFlowResp ...
 type batchGetAttendanceUserFlowResp struct {
 	Code int64                           `json:"code,omitempty"` // 错误码，非 0 表示失败
 	Msg  string                          `json:"msg,omitempty"`  // 错误描述
 	Data *BatchGetAttendanceUserFlowResp `json:"data,omitempty"` // -
 }
 
+// BatchGetAttendanceUserFlowResp ...
 type BatchGetAttendanceUserFlowResp struct {
 	UserFlowResults []*BatchGetAttendanceUserFlowRespUserFlowResult `json:"user_flow_results,omitempty"` // 打卡记录列表
 }
 
+// BatchGetAttendanceUserFlowRespUserFlowResult ...
 type BatchGetAttendanceUserFlowRespUserFlowResult struct {
 	UserID       string   `json:"user_id,omitempty"`       // 员工工号
 	CreatorID    string   `json:"creator_id,omitempty"`    // 打卡记录创建者的 employee_no
@@ -1675,25 +1832,30 @@ func (r *AttendanceService) GetAttendanceUserFlow(ctx context.Context, request *
 	return resp.Data, response, err
 }
 
+// MockAttendanceGetAttendanceUserFlow mock AttendanceGetAttendanceUserFlow method
 func (r *Mock) MockAttendanceGetAttendanceUserFlow(f func(ctx context.Context, request *GetAttendanceUserFlowReq, options ...MethodOptionFunc) (*GetAttendanceUserFlowResp, *Response, error)) {
 	r.mockAttendanceGetAttendanceUserFlow = f
 }
 
+// UnMockAttendanceGetAttendanceUserFlow un-mock AttendanceGetAttendanceUserFlow method
 func (r *Mock) UnMockAttendanceGetAttendanceUserFlow() {
 	r.mockAttendanceGetAttendanceUserFlow = nil
 }
 
+// GetAttendanceUserFlowReq ...
 type GetAttendanceUserFlowReq struct {
 	EmployeeType EmployeeType `query:"employee_type" json:"-"` // 请求体中的 user_id 和 creator_id 的员工工号类型，可用值：【employee_id（员工的 employeeId），employee_no（员工工号）】，示例值：“employee_id”
 	UserFlowID   string       `path:"user_flow_id" json:"-"`   // 打卡流水记录 ID，示例值："6708236686834352397"
 }
 
+// getAttendanceUserFlowResp ...
 type getAttendanceUserFlowResp struct {
 	Code int64                      `json:"code,omitempty"` // 错误码，非 0 表示失败
 	Msg  string                     `json:"msg,omitempty"`  // 错误描述
 	Data *GetAttendanceUserFlowResp `json:"data,omitempty"` // -
 }
 
+// GetAttendanceUserFlowResp ...
 type GetAttendanceUserFlowResp struct {
 	UserID       string   `json:"user_id,omitempty"`       // 员工工号
 	CreatorID    string   `json:"creator_id,omitempty"`    // 打卡记录创建者的 employee_no
@@ -1740,29 +1902,35 @@ func (r *AttendanceService) QueryAttendanceUserSettings(ctx context.Context, req
 	return resp.Data, response, err
 }
 
+// MockAttendanceQueryAttendanceUserSettings mock AttendanceQueryAttendanceUserSettings method
 func (r *Mock) MockAttendanceQueryAttendanceUserSettings(f func(ctx context.Context, request *QueryAttendanceUserSettingsReq, options ...MethodOptionFunc) (*QueryAttendanceUserSettingsResp, *Response, error)) {
 	r.mockAttendanceQueryAttendanceUserSettings = f
 }
 
+// UnMockAttendanceQueryAttendanceUserSettings un-mock AttendanceQueryAttendanceUserSettings method
 func (r *Mock) UnMockAttendanceQueryAttendanceUserSettings() {
 	r.mockAttendanceQueryAttendanceUserSettings = nil
 }
 
+// QueryAttendanceUserSettingsReq ...
 type QueryAttendanceUserSettingsReq struct {
 	EmployeeType EmployeeType `query:"employee_type" json:"-"` // 请求体中的 user_ids 的员工工号类型，可用值：【employee_id（员工的 employeeId），employee_no（员工工号）】，示例值：“employee_id”
 	UserIDs      []string     `json:"user_ids,omitempty"`      // employee_no 或 employee_id 列表，长度不超过 100
 }
 
+// queryAttendanceUserSettingsResp ...
 type queryAttendanceUserSettingsResp struct {
 	Code int64                            `json:"code,omitempty"` // 错误码，非 0 表示失败
 	Msg  string                           `json:"msg,omitempty"`  // 错误描述
 	Data *QueryAttendanceUserSettingsResp `json:"data,omitempty"` // -
 }
 
+// QueryAttendanceUserSettingsResp ...
 type QueryAttendanceUserSettingsResp struct {
 	UserSettings []*QueryAttendanceUserSettingsRespUserSetting `json:"user_settings,omitempty"` // 用户设置信息列表
 }
 
+// QueryAttendanceUserSettingsRespUserSetting ...
 type QueryAttendanceUserSettingsRespUserSetting struct {
 	UserID            string `json:"user_id,omitempty"`              // 员工工号
 	FaceKey           string `json:"face_key,omitempty"`             // 人脸照片文件 ID
@@ -1797,34 +1965,41 @@ func (r *AttendanceService) UpdateAttendanceUserSettings(ctx context.Context, re
 	return resp.Data, response, err
 }
 
+// MockAttendanceUpdateAttendanceUserSettings mock AttendanceUpdateAttendanceUserSettings method
 func (r *Mock) MockAttendanceUpdateAttendanceUserSettings(f func(ctx context.Context, request *UpdateAttendanceUserSettingsReq, options ...MethodOptionFunc) (*UpdateAttendanceUserSettingsResp, *Response, error)) {
 	r.mockAttendanceUpdateAttendanceUserSettings = f
 }
 
+// UnMockAttendanceUpdateAttendanceUserSettings un-mock AttendanceUpdateAttendanceUserSettings method
 func (r *Mock) UnMockAttendanceUpdateAttendanceUserSettings() {
 	r.mockAttendanceUpdateAttendanceUserSettings = nil
 }
 
+// UpdateAttendanceUserSettingsReq ...
 type UpdateAttendanceUserSettingsReq struct {
 	EmployeeType EmployeeType                                `query:"employee_type" json:"-"` // 用户类型,      , 可选值有: `employee_id`： 员工 ID, `employee_no`： 员工工号
 	UserSetting  *UpdateAttendanceUserSettingsReqUserSetting `json:"user_setting,omitempty"`  // 用户信息
 }
 
+// UpdateAttendanceUserSettingsReqUserSetting ...
 type UpdateAttendanceUserSettingsReqUserSetting struct {
 	UserID  string `json:"user_id,omitempty"`  // 用户 ID
 	FaceKey string `json:"face_key,omitempty"` // 人脸照片 key（通过文件上传接口得到）
 }
 
+// updateAttendanceUserSettingsResp ...
 type updateAttendanceUserSettingsResp struct {
 	Code int64                             `json:"code,omitempty"` // 错误码，非 0 表示失败
 	Msg  string                            `json:"msg,omitempty"`  // 错误描述
 	Data *UpdateAttendanceUserSettingsResp `json:"data,omitempty"`
 }
 
+// UpdateAttendanceUserSettingsResp ...
 type UpdateAttendanceUserSettingsResp struct {
 	UserSetting *UpdateAttendanceUserSettingsRespUserSetting `json:"user_setting,omitempty"` // 用户设置
 }
 
+// UpdateAttendanceUserSettingsRespUserSetting ...
 type UpdateAttendanceUserSettingsRespUserSetting struct {
 	UserID  string `json:"user_id,omitempty"`  // 用户 ID
 	FaceKey string `json:"face_key,omitempty"` // 人脸照片 key
@@ -1858,30 +2033,36 @@ func (r *AttendanceService) GetAttendanceUserStatisticsSettings(ctx context.Cont
 	return resp.Data, response, err
 }
 
+// MockAttendanceGetAttendanceUserStatisticsSettings mock AttendanceGetAttendanceUserStatisticsSettings method
 func (r *Mock) MockAttendanceGetAttendanceUserStatisticsSettings(f func(ctx context.Context, request *GetAttendanceUserStatisticsSettingsReq, options ...MethodOptionFunc) (*GetAttendanceUserStatisticsSettingsResp, *Response, error)) {
 	r.mockAttendanceGetAttendanceUserStatisticsSettings = f
 }
 
+// UnMockAttendanceGetAttendanceUserStatisticsSettings un-mock AttendanceGetAttendanceUserStatisticsSettings method
 func (r *Mock) UnMockAttendanceGetAttendanceUserStatisticsSettings() {
 	r.mockAttendanceGetAttendanceUserStatisticsSettings = nil
 }
 
+// GetAttendanceUserStatisticsSettingsReq ...
 type GetAttendanceUserStatisticsSettingsReq struct {
 	EmployeeType EmployeeType `query:"employee_type" json:"-"` // 用户 ID 类型, 可选值有: `employee_id`, `employee_no`
 	Locale       string       `json:"locale,omitempty"`        // 语言类型, 可选值有: `en`：英文, `ja`：日文, `zh`：中文
 	StatsType    string       `json:"stats_type,omitempty"`    // 统计类型,      , 可选值有: `daily`：日度统计, `month`：月度统计
 }
 
+// getAttendanceUserStatisticsSettingsResp ...
 type getAttendanceUserStatisticsSettingsResp struct {
 	Code int64                                    `json:"code,omitempty"` // 错误码，非 0 表示失败
 	Msg  string                                   `json:"msg,omitempty"`  // 错误描述
 	Data *GetAttendanceUserStatisticsSettingsResp `json:"data,omitempty"`
 }
 
+// GetAttendanceUserStatisticsSettingsResp ...
 type GetAttendanceUserStatisticsSettingsResp struct {
 	View *GetAttendanceUserStatisticsSettingsRespView `json:"view,omitempty"` // 统计视图
 }
 
+// GetAttendanceUserStatisticsSettingsRespView ...
 type GetAttendanceUserStatisticsSettingsRespView struct {
 	ViewID    string                                             `json:"view_id,omitempty"`    // 视图 ID
 	StatsType string                                             `json:"stats_type,omitempty"` // 统计类型, 可选值有: `daily`：日度统计, `month`：月度统计
@@ -1889,12 +2070,14 @@ type GetAttendanceUserStatisticsSettingsRespView struct {
 	Items     []*GetAttendanceUserStatisticsSettingsRespViewItem `json:"items,omitempty"`      // 一级标题
 }
 
+// GetAttendanceUserStatisticsSettingsRespViewItem ...
 type GetAttendanceUserStatisticsSettingsRespViewItem struct {
 	Code       string                                                      `json:"code,omitempty"`        // 标题编号
 	Title      string                                                      `json:"title,omitempty"`       // 标题名称
 	ChildItems []*GetAttendanceUserStatisticsSettingsRespViewItemChildItem `json:"child_items,omitempty"` // 子标题
 }
 
+// GetAttendanceUserStatisticsSettingsRespViewItemChildItem ...
 type GetAttendanceUserStatisticsSettingsRespViewItemChildItem struct {
 	Code       string `json:"code,omitempty"`        // 标题编号
 	Value      string `json:"value,omitempty"`       // 是否开启,      , 可选值有: `0`：关闭, `1`：开启
@@ -1933,20 +2116,24 @@ func (r *AttendanceService) UpdateAttendanceUserStatisticsSettings(ctx context.C
 	return resp.Data, response, err
 }
 
+// MockAttendanceUpdateAttendanceUserStatisticsSettings mock AttendanceUpdateAttendanceUserStatisticsSettings method
 func (r *Mock) MockAttendanceUpdateAttendanceUserStatisticsSettings(f func(ctx context.Context, request *UpdateAttendanceUserStatisticsSettingsReq, options ...MethodOptionFunc) (*UpdateAttendanceUserStatisticsSettingsResp, *Response, error)) {
 	r.mockAttendanceUpdateAttendanceUserStatisticsSettings = f
 }
 
+// UnMockAttendanceUpdateAttendanceUserStatisticsSettings un-mock AttendanceUpdateAttendanceUserStatisticsSettings method
 func (r *Mock) UnMockAttendanceUpdateAttendanceUserStatisticsSettings() {
 	r.mockAttendanceUpdateAttendanceUserStatisticsSettings = nil
 }
 
+// UpdateAttendanceUserStatisticsSettingsReq ...
 type UpdateAttendanceUserStatisticsSettingsReq struct {
 	EmployeeType    EmployeeType                                   `query:"employee_type" json:"-"`     // 用户 ID 类型, 可选值有: `employee_id`：用户员工 ID, `employee_no`：用户员工工号
 	UserStatsViewID string                                         `path:"user_stats_view_id" json:"-"` // 用户视图 ID, 示例值："TmpZNU5qTTJORFF6T1RnNU5UTTNOakV6TWl0dGIyNTBhQT09"
 	View            *UpdateAttendanceUserStatisticsSettingsReqView `json:"view,omitempty"`              // 统计视图
 }
 
+// UpdateAttendanceUserStatisticsSettingsReqView ...
 type UpdateAttendanceUserStatisticsSettingsReqView struct {
 	ViewID    string                                               `json:"view_id,omitempty"`    // 视图 ID, 示例值："TmpnNU5EQXpPVGN3TmpVMU16Y3lPVEEwTXl0dGIyNTBhQT09"
 	StatsType string                                               `json:"stats_type,omitempty"` // 统计类型, 可选值有: `daily`：日度统计, `month`：月度统计
@@ -1954,27 +2141,32 @@ type UpdateAttendanceUserStatisticsSettingsReqView struct {
 	Items     []*UpdateAttendanceUserStatisticsSettingsReqViewItem `json:"items,omitempty"`      // 一级标题
 }
 
+// UpdateAttendanceUserStatisticsSettingsReqViewItem ...
 type UpdateAttendanceUserStatisticsSettingsReqViewItem struct {
 	Code       string                                                        `json:"code,omitempty"`        // 编号, 示例值："501"
 	Title      *string                                                       `json:"title,omitempty"`       // 标题名称, 示例值："基本信息"
 	ChildItems []*UpdateAttendanceUserStatisticsSettingsReqViewItemChildItem `json:"child_items,omitempty"` // 子标题
 }
 
+// UpdateAttendanceUserStatisticsSettingsReqViewItemChildItem ...
 type UpdateAttendanceUserStatisticsSettingsReqViewItemChildItem struct {
 	Code  string `json:"code,omitempty"`  // 标题编号, 示例值："50101"
 	Value string `json:"value,omitempty"` // 开关字段,      , 可选值有: `0`：关闭, `1`：开启,非开关字段场景,  code = 51501  **可选值为1～6**
 }
 
+// updateAttendanceUserStatisticsSettingsResp ...
 type updateAttendanceUserStatisticsSettingsResp struct {
 	Code int64                                       `json:"code,omitempty"` // 错误码，非 0 表示失败
 	Msg  string                                      `json:"msg,omitempty"`  // 错误描述
 	Data *UpdateAttendanceUserStatisticsSettingsResp `json:"data,omitempty"`
 }
 
+// UpdateAttendanceUserStatisticsSettingsResp ...
 type UpdateAttendanceUserStatisticsSettingsResp struct {
 	View *UpdateAttendanceUserStatisticsSettingsRespView `json:"view,omitempty"` // 用户视图
 }
 
+// UpdateAttendanceUserStatisticsSettingsRespView ...
 type UpdateAttendanceUserStatisticsSettingsRespView struct {
 	ViewID    string                                                `json:"view_id,omitempty"`    // 统计视图 ID, 示例值："TmpnNU5EQXpPVGN3TmpVMU16Y3lPVEEwTXl0dGIyNTBhQT09"
 	StatsType string                                                `json:"stats_type,omitempty"` // 统计类型, 可选值有: `daily`：日度统计, `month`：月度统计
@@ -1982,12 +2174,14 @@ type UpdateAttendanceUserStatisticsSettingsRespView struct {
 	Items     []*UpdateAttendanceUserStatisticsSettingsRespViewItem `json:"items,omitempty"`      // 一级标题
 }
 
+// UpdateAttendanceUserStatisticsSettingsRespViewItem ...
 type UpdateAttendanceUserStatisticsSettingsRespViewItem struct {
 	Code       string                                                         `json:"code,omitempty"`        // 标题编码
 	Title      string                                                         `json:"title,omitempty"`       // 标题名称
 	ChildItems []*UpdateAttendanceUserStatisticsSettingsRespViewItemChildItem `json:"child_items,omitempty"` // 子标题
 }
 
+// UpdateAttendanceUserStatisticsSettingsRespViewItemChildItem ...
 type UpdateAttendanceUserStatisticsSettingsRespViewItemChildItem struct {
 	Code  string `json:"code,omitempty"`  // 标题编号
 	Value string `json:"value,omitempty"` // 是否开启,      , 可选值有: `0`：关闭, `1`：开启
@@ -2023,14 +2217,17 @@ func (r *AttendanceService) GetAttendanceUserTask(ctx context.Context, request *
 	return resp.Data, response, err
 }
 
+// MockAttendanceGetAttendanceUserTask mock AttendanceGetAttendanceUserTask method
 func (r *Mock) MockAttendanceGetAttendanceUserTask(f func(ctx context.Context, request *GetAttendanceUserTaskReq, options ...MethodOptionFunc) (*GetAttendanceUserTaskResp, *Response, error)) {
 	r.mockAttendanceGetAttendanceUserTask = f
 }
 
+// UnMockAttendanceGetAttendanceUserTask un-mock AttendanceGetAttendanceUserTask method
 func (r *Mock) UnMockAttendanceGetAttendanceUserTask() {
 	r.mockAttendanceGetAttendanceUserTask = nil
 }
 
+// GetAttendanceUserTaskReq ...
 type GetAttendanceUserTaskReq struct {
 	EmployeeType       EmployeeType `query:"employee_type" json:"-"`        // 请求体中的 user_ids 的员工工号类型，可用值：【employee_id（员工的 employeeId），employee_no（员工工号）】，示例值：“employee_id”
 	IgnoreInvalidUsers *bool        `query:"ignore_invalid_users" json:"-"` // 是否忽略无效和没有权限的用户。如果 true，返回有效用户的数据，并告知无效和没有权限的用户；如果 false，且 user_ids 中存在无效或没有权限的用户，返回错误
@@ -2039,18 +2236,21 @@ type GetAttendanceUserTaskReq struct {
 	CheckDateTo        int64        `json:"check_date_to,omitempty"`        // 查询的结束工作日，与 check_date_from 的时间间隔不超过30天
 }
 
+// getAttendanceUserTaskResp ...
 type getAttendanceUserTaskResp struct {
 	Code int64                      `json:"code,omitempty"` // 错误码，非 0 表示失败
 	Msg  string                     `json:"msg,omitempty"`  // 错误描述
 	Data *GetAttendanceUserTaskResp `json:"data,omitempty"` // -
 }
 
+// GetAttendanceUserTaskResp ...
 type GetAttendanceUserTaskResp struct {
 	UserTaskResults     []*GetAttendanceUserTaskRespUserTaskResult `json:"user_task_results,omitempty"`     // 打卡任务列表
 	InvalidUserIDs      []string                                   `json:"invalid_user_ids,omitempty"`      // 无效用户工号列表
 	UnauthorizedUserIDs []string                                   `json:"unauthorized_user_ids,omitempty"` // 没有权限用户工号列表
 }
 
+// GetAttendanceUserTaskRespUserTaskResult ...
 type GetAttendanceUserTaskRespUserTaskResult struct {
 	ResultID     string                                           `json:"result_id,omitempty"`     // 打卡记录 ID
 	UserID       string                                           `json:"user_id,omitempty"`       // employee ID
@@ -2061,6 +2261,7 @@ type GetAttendanceUserTaskRespUserTaskResult struct {
 	Records      []*GetAttendanceUserTaskRespUserTaskResultRecord `json:"records,omitempty"`       // 用户考勤记录
 }
 
+// GetAttendanceUserTaskRespUserTaskResultRecord ...
 type GetAttendanceUserTaskRespUserTaskResultRecord struct {
 	CheckInRecordID          string                                                       `json:"check_in_record_id,omitempty"`          // 上班打卡记录 ID
 	CheckInRecord            *GetAttendanceUserTaskRespUserTaskResultRecordCheckInRecord  `json:"check_in_record,omitempty"`             // 上班打卡记录
@@ -2074,6 +2275,7 @@ type GetAttendanceUserTaskRespUserTaskResultRecord struct {
 	CheckOutShiftTime        string                                                       `json:"check_out_shift_time,omitempty"`        // 正常默认下班时间，精确到秒的时间戳
 }
 
+// GetAttendanceUserTaskRespUserTaskResultRecordCheckInRecord ...
 type GetAttendanceUserTaskRespUserTaskResultRecordCheckInRecord struct {
 	UserID       string   `json:"user_id,omitempty"`       // 员工工号
 	CreatorID    string   `json:"creator_id,omitempty"`    // 打卡记录创建者的 employee_no
@@ -2092,6 +2294,7 @@ type GetAttendanceUserTaskRespUserTaskResultRecordCheckInRecord struct {
 	DeviceID     string   `json:"device_id,omitempty"`     // 手机打卡设备ID
 }
 
+// GetAttendanceUserTaskRespUserTaskResultRecordCheckOutRecord ...
 type GetAttendanceUserTaskRespUserTaskResultRecordCheckOutRecord struct {
 	UserID       string   `json:"user_id,omitempty"`       // 员工工号
 	CreatorID    string   `json:"creator_id,omitempty"`    // 打卡记录创建者的 employee_no
@@ -2138,14 +2341,17 @@ func (r *AttendanceService) GetAttendanceUserTaskRemedy(ctx context.Context, req
 	return resp.Data, response, err
 }
 
+// MockAttendanceGetAttendanceUserTaskRemedy mock AttendanceGetAttendanceUserTaskRemedy method
 func (r *Mock) MockAttendanceGetAttendanceUserTaskRemedy(f func(ctx context.Context, request *GetAttendanceUserTaskRemedyReq, options ...MethodOptionFunc) (*GetAttendanceUserTaskRemedyResp, *Response, error)) {
 	r.mockAttendanceGetAttendanceUserTaskRemedy = f
 }
 
+// UnMockAttendanceGetAttendanceUserTaskRemedy un-mock AttendanceGetAttendanceUserTaskRemedy method
 func (r *Mock) UnMockAttendanceGetAttendanceUserTaskRemedy() {
 	r.mockAttendanceGetAttendanceUserTaskRemedy = nil
 }
 
+// GetAttendanceUserTaskRemedyReq ...
 type GetAttendanceUserTaskRemedyReq struct {
 	EmployeeType  EmployeeType `query:"employee_type" json:"-"`   // 请求体中的 user_id 的员工工号类型，可用值：【employee_id（员工的 employeeId），employee_no（员工工号）】，示例值：“employee_id”
 	UserIDs       []string     `json:"user_ids,omitempty"`        // employee_no 或 employee_id 列表
@@ -2153,16 +2359,19 @@ type GetAttendanceUserTaskRemedyReq struct {
 	CheckTimeTo   string       `json:"check_time_to,omitempty"`   // 查询的结束时间，精确到秒的时间戳
 }
 
+// getAttendanceUserTaskRemedyResp ...
 type getAttendanceUserTaskRemedyResp struct {
 	Code int64                            `json:"code,omitempty"` // 错误码，非 0 表示失败
 	Msg  string                           `json:"msg,omitempty"`  // 错误描述
 	Data *GetAttendanceUserTaskRemedyResp `json:"data,omitempty"` // -
 }
 
+// GetAttendanceUserTaskRemedyResp ...
 type GetAttendanceUserTaskRemedyResp struct {
 	UserRemedys []*GetAttendanceUserTaskRemedyRespUserRemedy `json:"user_remedys,omitempty"` // 补卡记录列表
 }
 
+// GetAttendanceUserTaskRemedyRespUserRemedy ...
 type GetAttendanceUserTaskRemedyRespUserRemedy struct {
 	UserID     string `json:"user_id,omitempty"`     // 员工工号
 	Status     int64  `json:"status,omitempty"`      // 补卡状态，可用值：【0（pending），2（已通过），3（已取消），4（通过后撤销）】
@@ -2202,25 +2411,30 @@ func (r *AuthService) GetAccessToken(ctx context.Context, request *GetAccessToke
 	return resp.Data, response, err
 }
 
+// MockAuthGetAccessToken mock AuthGetAccessToken method
 func (r *Mock) MockAuthGetAccessToken(f func(ctx context.Context, request *GetAccessTokenReq, options ...MethodOptionFunc) (*GetAccessTokenResp, *Response, error)) {
 	r.mockAuthGetAccessToken = f
 }
 
+// UnMockAuthGetAccessToken un-mock AuthGetAccessToken method
 func (r *Mock) UnMockAuthGetAccessToken() {
 	r.mockAuthGetAccessToken = nil
 }
 
+// GetAccessTokenReq ...
 type GetAccessTokenReq struct {
 	GrantType string `json:"grant_type,omitempty"` // 授权类型，本流程中，此值为："authorization_code", 示例值："authorization_code"
 	Code      string `json:"code,omitempty"`       // 来自[请求身份验证](https://open.feishu.cn/document/ukTMukTMukTM/ukzN4UjL5cDO14SO3gTN)流程，用户扫码登录后会自动302到redirect_uri并带上此参数, 示例值："xMSldislSkdK"
 }
 
+// getAccessTokenResp ...
 type getAccessTokenResp struct {
 	Code int64               `json:"code,omitempty"` // 错误码，非 0 表示失败
 	Msg  string              `json:"msg,omitempty"`  // 错误描述
 	Data *GetAccessTokenResp `json:"data,omitempty"`
 }
 
+// GetAccessTokenResp ...
 type GetAccessTokenResp struct {
 	AccessToken      string `json:"access_token,omitempty"`       // user_access_token，用于获取用户资源
 	TokenType        string `json:"token_type,omitempty"`         // token 类型

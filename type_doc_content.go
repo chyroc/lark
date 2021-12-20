@@ -5,32 +5,32 @@ import (
 	"strconv"
 )
 
-// 描述一篇文档的富文本内容，由标题和正文两部分组成
+// DocContent 描述一篇文档的富文本内容，由标题和正文两部分组成
 type DocContent struct {
 	Title *DocTitle `json:"title"`
 	Body  *DocBody  `json:"body"`
 }
 
-// 描述文档内各元素的位置
+// DocLocation 描述文档内各元素的位置
 type DocLocation struct {
 	ZoneID     string `json:"zoneId"`     // 编辑区域标识正文是 "0" 表格单元格是类似 "xr1m4jw7egd9nefz1s0mdsetenl5fbe3lygxc1azupv81i5t2rjmosw5ta0esuwtn8ksya" 的字符串
 	StartIndex int    `json:"startIndex"` // 元素起始位置偏移量，从 0 开始，范围区间 [0, EOF)
 	EndIndex   int    `json:"endIndex"`   // 元素结束位置偏移量，范围区间 [0, EOF)
 }
 
-// 文档的标题。仅支持纯文本和对齐方式。
+// DocTitle 文档的标题。仅支持纯文本和对齐方式。
 type DocTitle struct {
 	Elements []*DocParagraphElement `json:"elements"`
 	Location *DocLocation           `json:"location"`
 	LineID   string                 `json:"lineId"`
 }
 
-// 文档的正文部分，由 Block 组成。
+// DocBody 文档的正文部分，由 Block 组成。
 type DocBody struct {
 	Blocks []*DocBlock `json:"blocks"` // 文档结构是按行排列的，每行内容是一个 Block
 }
 
-// 文档的一行内容的基本元素。
+// DocBlock 文档的一行内容的基本元素。
 type DocBlock struct {
 	Type           string             `json:"type"`                     // 由下列类型组成，每个 Block 可以指定一种类型
 	Paragraph      *DocParagraph      `json:"paragraph,omitempty"`      // 文本段落
@@ -51,7 +51,7 @@ type DocBlock struct {
 	UndefinedBlock *DocUndefinedBlock `json:"undefinedBlock"`           //	未支持的block，全部用undefineBlock表示
 }
 
-// 一行文本段落，可以由多个行内元素组成。
+// DocParagraph 一行文本段落，可以由多个行内元素组成。
 type DocParagraph struct {
 	Style    *DocParagraphStyle     `json:"style"`    // 段落样式
 	Elements []*DocParagraphElement `json:"elements"` //	段落元素组成一个段落
@@ -59,7 +59,7 @@ type DocParagraph struct {
 	LineID   string                 `json:"lineId"`
 }
 
-// 一行文本段落的样式，支持定义段落标题、列表、引用、行对齐方式。
+// DocParagraphStyle 一行文本段落的样式，支持定义段落标题、列表、引用、行对齐方式。
 type DocParagraphStyle struct {
 	HeadingLevel int           `json:"headingLevel"` // 标题级别，支持 1-9 级标题，取值范围：[1,9]
 	Collapse     bool          `json:"collapse"`     // 标题是否折叠，仅headingLevel为[1,9]时有效
@@ -71,7 +71,8 @@ type DocParagraphStyle struct {
 	Align string `json:"align"` //	行对齐方式 左对齐（默认）：left 右对齐：right 居中对齐：center
 }
 
-// 列表段落，包括有序、无序列表，任务列表，旧版代码块。
+// DocStyleList 列表段落，包括有序、无序列表，任务列表，旧版代码块。
+//
 // 注意 如需插入代码块，请使用 Block.Code，Paragraph.List.Code 即将下线。
 type DocStyleList struct {
 	Type        string `json:"type"`        // 有序列表：number  无序列表：bullet 任务列表：checkBox 已完成的任务列表：checkedBox 旧版代码块：code
@@ -79,6 +80,7 @@ type DocStyleList struct {
 	Number      int    `json:"number"`      // 用于指定列表的行号，仅对有序列表和代码块生效 如果为有序列表设置了缩进，行号可能会显示为字母或者罗马数字
 }
 
+// ListTag ...
 func (r *DocStyleList) ListTag() string {
 	switch r.Type {
 	case "number":
@@ -90,7 +92,7 @@ func (r *DocStyleList) ListTag() string {
 	}
 }
 
-// 组成段落的行内元素，一行可以包含多个行内元素。
+// DocParagraphElement 组成段落的行内元素，一行可以包含多个行内元素。
 type DocParagraphElement struct {
 	Type             string               `json:"type"`             // textRun
 	TextRun          *DocTextRun          `json:"textRun"`          //	文本
@@ -103,7 +105,7 @@ type DocParagraphElement struct {
 	UndefinedElement *DocUndefinedElement `json:"undefinedElement"` // 暂未支持的行内元素，不支持写入
 }
 
-// 段落中的文本内容。
+// DocTextRun 段落中的文本内容。
 type DocTextRun struct {
 	Text     string        `json:"text"`     // 具体的文本内容
 	Style    *DocTextStyle `json:"style"`    // 文本内容的样式，支持 BIUS、颜色等
@@ -111,7 +113,7 @@ type DocTextRun struct {
 	LineID   string        `json:"lineId"`   // 仅返回，不支持写入。对于段落样式为 Heading 的，可以通过 lineId 拼接出段落的跳转链接
 }
 
-// 文本样式
+// DocTextStyle 文本样式
 type DocTextStyle struct {
 	Bold          bool         `json:"bold"`          // 加粗
 	Italic        bool         `json:"italic"`        // 斜体
@@ -123,7 +125,7 @@ type DocTextStyle struct {
 	Link          *DocLink     `json:"link"`          // 超链接
 }
 
-// 支持为文本指定颜色，会根据线上文本支持的颜色进行校验，不支持色板以外的颜色。
+// DocRGBColor 支持为文本指定颜色，会根据线上文本支持的颜色进行校验，不支持色板以外的颜色。
 //
 // 支持的字体颜色：rgb(216, 57, 49), rgb(222, 120, 2), rgb(220, 155, 4), rgb(46, 161, 33), rgb(36, 91, 219), rgb(36, 91, 219), rgb(100, 37, 208), rgb(143, 149, 158)
 //
@@ -135,23 +137,24 @@ type DocRGBColor struct {
 	Alpha float32 `json:"alpha"` //	取值范围：[0,1]
 }
 
-// 超链接。
+// DocLink 超链接
 type DocLink struct {
 	URL string `json:"url"` // 超链接的地址，读写都必须使用query escape编码。比如https%3A%2F%2Fwww.baidu.com%2Fmaps%2Fembed%2Fv1%2Fplace%3Fkey%3DAIzaSyAfJZc8JxNRe909WC_QBILdlM55NqGnI30%26q%3DCentral%2BPark%26center%3D40.7828647%2C-73.9675438%26zoom%3D17z%26language%3Den
 }
 
-// 文档链接，需要传入云文档的链接，支持所有云文档类型。有效链接示例：https://sample.feishu.cn/docs/doccnByZP6puODElAYySJkPIfUb
+// DocDocsLink 文档链接，需要传入云文档的链接，支持所有云文档类型。有效链接示例：https://sample.feishu.cn/docs/doccnByZP6puODElAYySJkPIfUb
 type DocDocsLink struct {
 	URL      string       `json:"url"`      // 云文档链接
 	Location *DocLocation `json:"location"` // 元素位置。仅返回，不支持写入
 }
 
+// DocPerson 一个人
 type DocPerson struct {
 	OpenID   string       `json:"openId"`   //	用户的 openId，比如ou_3bbe8a09c20e89cce9bff989ed840674。
 	Location *DocLocation `json:"location"` //	元素位置。仅返回，不支持写入
 }
 
-// 日期提醒，当且仅当所在行样式是 checkBox 时有效。
+// DocReminder 日期提醒，当且仅当所在行样式是 checkBox 时有效。
 type DocReminder struct {
 	IsWholeDay   bool         `json:"isWholeDay"`   //	日期还是整点小时
 	Timestamp    int          `json:"timestamp"`    //	如果设置时间，要求30分或整点；如果不设置IsWholeDay true，时间戳为H:59:59，H和时区相关
@@ -160,30 +163,30 @@ type DocReminder struct {
 	Location     *DocLocation `json:"location"`     //	元素位置。仅返回，不支持写入
 }
 
-// LaTeX 公式。
+// DocEquation LaTeX 公式
 type DocEquation struct {
 	Equation string       `json:"equation"` //	LaTeX 公式，需要遵循 LaTeX 的语法，比如"E=mc^2"
 	Location *DocLocation `json:"location"` // 元素位置。仅返回，不支持写入
 }
 
-// 未支持的行内元素
+// DocUndefinedElement 未支持的行内元素
 type DocUndefinedElement struct {
 	Location *DocLocation `json:"location"`
 }
 
-// 图片。
+// DocGallery 图片
 type DocGallery struct {
 	GalleryStyle *DocGalleryStyle `json:"galleryStyle"` // 图片样式，目前仅支持指定对齐方式
 	ImageList    []*DocImageItem  `json:"imageList"`    //	图片对象，如果同时传入多张，会显示为同行多图。一行内最多显示 6 张图片
 	Location     *DocLocation     `json:"location"`     // 元素位置。仅返回，不支持写入
 }
 
-// 图片样式，目前仅支持指定对齐方式。
+// DocGalleryStyle 图片样式，目前仅支持指定对齐方式。
 type DocGalleryStyle struct {
 	Align string `json:"align"` // 图片对齐方式，仅当一行内只有一张图片时生效。 居中（默认）：center 左对齐：left 右对齐：right
 }
 
-// 单次写操作图片和附件最多 50 个，单个图片最大 20M。本地图片需要先通过上传素材或分片上传素材进行上传，支持jpg、jpeg、bmp、png 和 gif 格式。
+// DocImageItem 单次写操作图片和附件最多 50 个，单个图片最大 20M。本地图片需要先通过上传素材或分片上传素材进行上传，支持jpg、jpeg、bmp、png 和 gif 格式。
 // 支持指定图片宽高，为了保证图片显示效果，会根据图片原始宽高比例进行校验计算，最终的显示效果可能与手动指定的宽高有一定区别。
 type DocImageItem struct {
 	FileToken string     `json:"fileToken"` //	图片 token，比如boxcnOj88GDkmWGm2zsTyCBqoLb，不支持编辑
@@ -192,7 +195,7 @@ type DocImageItem struct {
 	opt       *formatOpt `json:"-"`
 }
 
-// 单次写操作图片和附件最多 50 个。本地文件需要先通过上传素材或分片上传素材进行上传。
+// DocFile 单次写操作图片和附件最多 50 个。本地文件需要先通过上传素材或分片上传素材进行上传。
 type DocFile struct {
 	FileToken string       `json:"fileToken"` //	附件 token，比如boxcnOj88GDkmWGm2zsTyCBqoLb，不支持编辑
 	ViewType  string       `json:"viewType"`  // 文件展示样式。 预览：preview 卡片：card 行内：inline
@@ -201,12 +204,12 @@ type DocFile struct {
 	opt       *formatOpt
 }
 
-// 水平分割线。
+// DocHorizontalLine 水平分割线。
 type DocHorizontalLine struct {
 	Location *DocLocation `json:"location"` // 元素位置。仅返回，不支持写入
 }
 
-// 内嵌的网页。
+// DocEmbeddedPage 内嵌的网页。
 type DocEmbeddedPage struct {
 	Type     string       `json:"type"`     //	支持以下网页：  bilibili："bilibili" 西瓜视频："xigua" 优酷："youku" Airtable："airtable" 百度地图："baidumap"
 	Url      string       `json:"url"`      // 第三方网页链接，读写都必须使用query escape编码。
@@ -215,11 +218,13 @@ type DocEmbeddedPage struct {
 	Location *DocLocation `json:"location"` //	元素位置。仅返回，不支持写入
 }
 
+// DocChatGroup 群
 type DocChatGroup struct {
 	OpenChatID string       `json:"openChatId"` // 群聊天会话openId，比如oc_4149593da6ef5fe4de16b10cb4769c94 文档拷贝副本后，对于没有权限的群名片会替换为"none" 对于写操作，如果使用"none"或者用户不在该群都会返回无权限错误
 	Location   *DocLocation `json:"location"`   //	元素位置。仅返回，不支持写入
 }
 
+// DocTable 表格
 type DocTable struct {
 	TableID     string           `json:"tableId"`     // 表格ID，不可编辑
 	RowSize     int              `json:"rowSize"`     //	表格行数量，创建空表格时最大值 9
@@ -230,30 +235,30 @@ type DocTable struct {
 	Location    *DocLocation     `json:"location"`    // 元素位置。仅返回，不支持写入
 }
 
-// 普通表格的一行。
+// DocTableRow 普通表格的一行。
 type DocTableRow struct {
 	RowIndex   int             `json:"rowIndex"`   //	行索引，从 0 开始，第一行是 0，不可编辑
 	TableCells []*DocTableCell `json:"tableCells"` //	表格单元格内容
 }
 
-// 普通表格的一个单元格。
+// DocTableCell 普通表格的一个单元格。
 type DocTableCell struct {
 	ZoneID      string      `json:"zoneId"`      // 单元格ID
 	ColumnIndex int         `json:"columnIndex"` //	列索引，从 0 开始，第一列是 0，不可编辑
 	Body        interface{} `json:"body"`        // object	单元格内容，支持 Table、Sheet、Bitable 以外的 Block
 }
 
-// 表格样式，目前仅支持调整表格的列宽。
+// DocTableStyle 表格样式，目前仅支持调整表格的列宽。
 type DocTableStyle struct {
 	TableColumnProperties []*DocTableColumnProperty `json:"tableColumnProperties"` //	列属性
 }
 
-// 普通表格的列宽。
+// DocTableColumnProperty 普通表格的列宽。
 type DocTableColumnProperty struct {
 	Width int `json:"width"` // 列宽，单位 px，列宽最小 50，最大 1300，默认 100
 }
 
-// 合并的单元格。
+// DocMergedCell 合并的单元格。
 type DocMergedCell struct {
 	MergedCellId     string `json:"mergedCellId"`     // 合并单元格 id，不可编辑
 	RowStartIndex    int    `json:"rowStartIndex"`    //	合并单元格行起始索引，从 0 开始
@@ -262,7 +267,7 @@ type DocMergedCell struct {
 	ColumnEndIndex   int    `json:"columnEndIndex"`   // 合并单元格列截止索引
 }
 
-// 文档内的数据表格。数据表格内容读写API 创建支持两种方式，二选一：
+// DocSheet 文档内的数据表格。数据表格内容读写API 创建支持两种方式，二选一：
 //
 // 通过token深拷贝，token只允许doc内电子表格，不允许独立电子表格
 // 指定rowSize和columnSize创建空sheet
@@ -274,7 +279,7 @@ type DocSheet struct {
 	opt        *formatOpt
 }
 
-// 文档内的多维表格，创建支持两种方式，二选一：
+// DocBitable 文档内的多维表格，创建支持两种方式，二选一：
 //
 // 通过 token+viewType 深拷贝，token只允许doc内电子表格，不允许独立电子表格
 // 不带 token，通过 viewType 创建空 bitable
@@ -284,26 +289,27 @@ type DocBitable struct {
 	Location *DocLocation `json:"location"` //	元素位置。仅返回，不支持写入
 }
 
-// 绘图，包含流程图和 UML 图。目前不支持写入。
+// DocDiagram 绘图，包含流程图和 UML 图。目前不支持写入。
 type DocDiagram struct {
 	Token       string       `json:"token"`       // diagram token, 比如diacnK1MYEHBopBbIdc6A5AOVCh，不支持编辑
 	DiagramType string       `json:"diagramType"` //	绘图类型。  流程图：flowchart UML图：uml
 	Location    *DocLocation `json:"location"`    // 元素位置。仅返回，不支持写入
 }
 
-// Jira，包括 Jira filter 和 Jira issue。目前不支持写入
+// DocJira Jira，包括 Jira filter 和 Jira issue。目前不支持写入
 type DocJira struct {
 	Token    string       `json:"token"`    // jira token，比如 jftcnsA0fY8V3CzYvtRPy9XsXxf，不支持编辑
 	JiraType string       `json:"jiraType"` //	Jira 类型。  过滤器：filter 问题：issue
 	Location *DocLocation `json:"location"` // 元素位置。仅返回，不支持写入
 }
 
-// 投票。目前不支持写入。
+// DocPoll 投票。目前不支持写入。
 type DocPoll struct {
 	Token    string       `json:"token"`    // poll token，比如 jsncnxuT7beirSpf33NfcKrSwAh，不支持编辑
 	Location *DocLocation `json:"location"` // 元素位置。仅返回，不支持写入
 }
 
+// DocCode 代码
 type DocCode struct {
 	Language    string        `json:"language"`    // 代码语言 支持以下语言:Plain Text, ABAP, Ada, Apache, Apex, Assembly language, Bash, C, C#, C++, COBOL, CSS, CoffeeScript, D, Dart, Delphi, Dockerfile, Django, Erlang, Fortran, FoxPro, Go, Groovy, HTML, HTMLBars, HTTP, Haskell, JSON, Java, JavaScript, Julia, Kotlin, LaTeX, Lisp, Logo, Lua, MATLAB, Makefile, Markdown, Nginx, Objective-C, OpenEdge ABL, PHP, Perl, PostScript, PowerShell, Prolog, ProtoBuf, Python, R, RPG, Ruby, Rust, SAS, SCSS, SQL, Scala, Scheme, Scratch, Shell, Swift, Thrift, TypeScript, VBScript, Visual Basic, XML, YAML
 	WrapContent bool          `json:"wrapContent"` //	是否自动换行
@@ -312,6 +318,7 @@ type DocCode struct {
 	Location    *DocLocation  `json:"location"`    //	元素位置。仅返回，不支持写入
 }
 
+// DocCallout 高亮
 type DocCallout struct {
 	CalloutEmojiID         string       `json:"calloutEmojiId"`         //	高亮块表情支持以下：https://bytedance.feishu.cn/sheets/shtcnkDBCFZJDyGliM7IOqPuSgd?sheet=7FyRq7
 	CalloutBackgroundColor *DocRGBColor `json:"calloutBackgroundColor"` //	高亮块背景色（分为深色系和浅色系，与边框色深浅色系对应）
@@ -322,14 +329,14 @@ type DocCallout struct {
 	Location               *DocLocation `json:"location"`               //	Read only. 高亮块位置
 }
 
-// 团队互动应用。目前不支持写入。
+// DocDocsApp 团队互动应用。目前不支持写入。
 type DocDocsApp struct {
 	TypeID     string       `json:"typeId"`     // 团队互动应用类型，比如信息收集"blk_5f992038c64240015d280958"
 	InstanceId string       `json:"instanceId"` //	团队互动应用唯一ID
 	Location   *DocLocation `json:"location"`   // 元素位置。仅返回，不支持写入
 }
 
-// 未支持的 Block 类型
+// DocUndefinedBlock 未支持的 Block 类型
 type DocUndefinedBlock struct {
 	Location *DocLocation `json:"location"` // 元素位置。仅返回，不支持写入
 }

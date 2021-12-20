@@ -1,5 +1,6 @@
 package lark
 
+// MessageContent ...
 type MessageContent struct {
 	Text               *MessageContentText               // 文本消息
 	Image              *MessageContentImage              // 图片消息

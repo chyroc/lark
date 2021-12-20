@@ -34,14 +34,17 @@ func (r *ACSService) GetACSAccessRecordList(ctx context.Context, request *GetACS
 	return resp.Data, response, err
 }
 
+// MockACSGetACSAccessRecordList mock ACSGetACSAccessRecordList method
 func (r *Mock) MockACSGetACSAccessRecordList(f func(ctx context.Context, request *GetACSAccessRecordListReq, options ...MethodOptionFunc) (*GetACSAccessRecordListResp, *Response, error)) {
 	r.mockACSGetACSAccessRecordList = f
 }
 
+// UnMockACSGetACSAccessRecordList un-mock ACSGetACSAccessRecordList method
 func (r *Mock) UnMockACSGetACSAccessRecordList() {
 	r.mockACSGetACSAccessRecordList = nil
 }
 
+// GetACSAccessRecordListReq ...
 type GetACSAccessRecordListReq struct {
 	PageSize   *int64  `query:"page_size" json:"-"`    // 分页大小, 示例值：100, 最大值：`500`
 	PageToken  *string `query:"page_token" json:"-"`   // 分页标记，第一次请求不填，表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token，下次遍历可采用该 page_token 获取查询结果, 示例值："AQD9/Rn9eij9Pm39ED40/dk53s4Ebp882DYfFaPFbz00L4CMZJrqGdzNyc8BcZtDbwVUvRmQTvyMYicnGWrde9X56TgdBuS+JKiSIkdexPw="
@@ -51,18 +54,21 @@ type GetACSAccessRecordListReq struct {
 	UserIDType *IDType `query:"user_id_type" json:"-"` // 用户 ID 类型, 示例值："open_id", 可选值有: `open_id`：用户的 open id, `union_id`：用户的 union id, `user_id`：用户的 user id, 默认值: `open_id`,, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
 }
 
+// getACSAccessRecordListResp ...
 type getACSAccessRecordListResp struct {
 	Code int64                       `json:"code,omitempty"` // 错误码，非 0 表示失败
 	Msg  string                      `json:"msg,omitempty"`  // 错误描述
 	Data *GetACSAccessRecordListResp `json:"data,omitempty"`
 }
 
+// GetACSAccessRecordListResp ...
 type GetACSAccessRecordListResp struct {
 	Items     []*GetACSAccessRecordListRespItem `json:"items,omitempty"`      // -
 	PageToken string                            `json:"page_token,omitempty"` // 分页标记，当 has_more 为 true 时，会同时返回新的 page_token，否则不返回 page_token
 	HasMore   bool                              `json:"has_more,omitempty"`   // 是否还有更多项
 }
 
+// GetACSAccessRecordListRespItem ...
 type GetACSAccessRecordListRespItem struct {
 	AccessRecordID string `json:"access_record_id,omitempty"` // 门禁记录 ID
 	UserID         string `json:"user_id,omitempty"`          // 门禁记录所属用户 ID
@@ -103,18 +109,22 @@ func (r *ACSService) GetACSAccessRecordPhoto(ctx context.Context, request *GetAC
 	return resp.Data, response, err
 }
 
+// MockACSGetACSAccessRecordPhoto mock ACSGetACSAccessRecordPhoto method
 func (r *Mock) MockACSGetACSAccessRecordPhoto(f func(ctx context.Context, request *GetACSAccessRecordPhotoReq, options ...MethodOptionFunc) (*GetACSAccessRecordPhotoResp, *Response, error)) {
 	r.mockACSGetACSAccessRecordPhoto = f
 }
 
+// UnMockACSGetACSAccessRecordPhoto un-mock ACSGetACSAccessRecordPhoto method
 func (r *Mock) UnMockACSGetACSAccessRecordPhoto() {
 	r.mockACSGetACSAccessRecordPhoto = nil
 }
 
+// GetACSAccessRecordPhotoReq ...
 type GetACSAccessRecordPhotoReq struct {
 	AccessRecordID string `path:"access_record_id" json:"-"` // 门禁访问记录 ID, 示例值："6939433228970082591"
 }
 
+// getACSAccessRecordPhotoResp ...
 type getACSAccessRecordPhotoResp struct {
 	IsFile bool                         `json:"is_file,omitempty"`
 	Code   int64                        `json:"code,omitempty"`
@@ -129,6 +139,7 @@ func (r *getACSAccessRecordPhotoResp) SetReader(file io.Reader) {
 	r.Data.File = file
 }
 
+// GetACSAccessRecordPhotoResp ...
 type GetACSAccessRecordPhotoResp struct {
 	File io.Reader `json:"file,omitempty"`
 }
@@ -159,26 +170,32 @@ func (r *ACSService) GetACSDeviceList(ctx context.Context, request *GetACSDevice
 	return resp.Data, response, err
 }
 
+// MockACSGetACSDeviceList mock ACSGetACSDeviceList method
 func (r *Mock) MockACSGetACSDeviceList(f func(ctx context.Context, request *GetACSDeviceListReq, options ...MethodOptionFunc) (*GetACSDeviceListResp, *Response, error)) {
 	r.mockACSGetACSDeviceList = f
 }
 
+// UnMockACSGetACSDeviceList un-mock ACSGetACSDeviceList method
 func (r *Mock) UnMockACSGetACSDeviceList() {
 	r.mockACSGetACSDeviceList = nil
 }
 
+// GetACSDeviceListReq ...
 type GetACSDeviceListReq struct{}
 
+// getACSDeviceListResp ...
 type getACSDeviceListResp struct {
 	Code int64                 `json:"code,omitempty"` // 错误码，非 0 表示失败
 	Msg  string                `json:"msg,omitempty"`  // 错误描述
 	Data *GetACSDeviceListResp `json:"data,omitempty"`
 }
 
+// GetACSDeviceListResp ...
 type GetACSDeviceListResp struct {
 	Items []*GetACSDeviceListRespItem `json:"items,omitempty"` // -
 }
 
+// GetACSDeviceListRespItem ...
 type GetACSDeviceListRespItem struct {
 	DeviceID   string `json:"device_id,omitempty"`   // 门禁设备 ID
 	DeviceName string `json:"device_name,omitempty"` // 设备名称
@@ -211,20 +228,24 @@ func (r *ACSService) GetACSUserFace(ctx context.Context, request *GetACSUserFace
 	return resp.Data, response, err
 }
 
+// MockACSGetACSUserFace mock ACSGetACSUserFace method
 func (r *Mock) MockACSGetACSUserFace(f func(ctx context.Context, request *GetACSUserFaceReq, options ...MethodOptionFunc) (*GetACSUserFaceResp, *Response, error)) {
 	r.mockACSGetACSUserFace = f
 }
 
+// UnMockACSGetACSUserFace un-mock ACSGetACSUserFace method
 func (r *Mock) UnMockACSGetACSUserFace() {
 	r.mockACSGetACSUserFace = nil
 }
 
+// GetACSUserFaceReq ...
 type GetACSUserFaceReq struct {
 	IsCropped  *bool   `query:"is_cropped" json:"-"`   // 裁剪图, 示例值：true
 	UserIDType *IDType `query:"user_id_type" json:"-"` // 用户 ID 类型, 示例值："open_id", 可选值有: `open_id`：用户的 open id, `union_id`：用户的 union id, `user_id`：用户的 user id, 默认值: `open_id`,, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
 	UserID     string  `path:"user_id" json:"-"`       // 用户 ID, 示例值："ou_7dab8a3d3cdcc9da365777c7ad535d62"
 }
 
+// getACSUserFaceResp ...
 type getACSUserFaceResp struct {
 	IsFile bool                `json:"is_file,omitempty"`
 	Code   int64               `json:"code,omitempty"`
@@ -239,6 +260,7 @@ func (r *getACSUserFaceResp) SetReader(file io.Reader) {
 	r.Data.File = file
 }
 
+// GetACSUserFaceResp ...
 type GetACSUserFaceResp struct {
 	File io.Reader `json:"file,omitempty"`
 }
@@ -270,14 +292,17 @@ func (r *ACSService) UpdateACSUserFace(ctx context.Context, request *UpdateACSUs
 	return resp.Data, response, err
 }
 
+// MockACSUpdateACSUserFace mock ACSUpdateACSUserFace method
 func (r *Mock) MockACSUpdateACSUserFace(f func(ctx context.Context, request *UpdateACSUserFaceReq, options ...MethodOptionFunc) (*UpdateACSUserFaceResp, *Response, error)) {
 	r.mockACSUpdateACSUserFace = f
 }
 
+// UnMockACSUpdateACSUserFace un-mock ACSUpdateACSUserFace method
 func (r *Mock) UnMockACSUpdateACSUserFace() {
 	r.mockACSUpdateACSUserFace = nil
 }
 
+// UpdateACSUserFaceReq ...
 type UpdateACSUserFaceReq struct {
 	UserIDType *IDType   `query:"user_id_type" json:"-"` // 用户 ID 类型, 示例值："open_id", 可选值有: `open_id`：用户的 open id, `union_id`：用户的 union id, `user_id`：用户的 user id, 默认值: `open_id`,, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
 	UserID     string    `path:"user_id" json:"-"`       // 用户 ID, 示例值："ou_7dab8a3d3cdcc9da365777c7ad535d62"
@@ -286,12 +311,14 @@ type UpdateACSUserFaceReq struct {
 	FileName   string    `json:"file_name,omitempty"`    // 带后缀的文件名, 示例值："efeqz12f.jpg"
 }
 
+// updateACSUserFaceResp ...
 type updateACSUserFaceResp struct {
 	Code int64                  `json:"code,omitempty"` // 错误码，非 0 表示失败
 	Msg  string                 `json:"msg,omitempty"`  // 错误描述
 	Data *UpdateACSUserFaceResp `json:"data,omitempty"`
 }
 
+// UpdateACSUserFaceResp ...
 type UpdateACSUserFaceResp struct{}
 
 // Code generated by lark_sdk_gen. DO NOT EDIT.
@@ -322,34 +349,41 @@ func (r *ACSService) GetACSUser(ctx context.Context, request *GetACSUserReq, opt
 	return resp.Data, response, err
 }
 
+// MockACSGetACSUser mock ACSGetACSUser method
 func (r *Mock) MockACSGetACSUser(f func(ctx context.Context, request *GetACSUserReq, options ...MethodOptionFunc) (*GetACSUserResp, *Response, error)) {
 	r.mockACSGetACSUser = f
 }
 
+// UnMockACSGetACSUser un-mock ACSGetACSUser method
 func (r *Mock) UnMockACSGetACSUser() {
 	r.mockACSGetACSUser = nil
 }
 
+// GetACSUserReq ...
 type GetACSUserReq struct {
 	UserIDType *IDType `query:"user_id_type" json:"-"` // 用户 ID 类型, 示例值："open_id", 可选值有: `open_id`：用户的 open id, `union_id`：用户的 union id, `user_id`：用户的 user id, 默认值: `open_id`,, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
 	UserID     string  `path:"user_id" json:"-"`       // 用户 ID, 示例值："ou_7dab8a3d3cdcc9da365777c7ad535d62"
 }
 
+// getACSUserResp ...
 type getACSUserResp struct {
 	Code int64           `json:"code,omitempty"` // 错误码，非 0 表示失败
 	Msg  string          `json:"msg,omitempty"`  // 错误描述
 	Data *GetACSUserResp `json:"data,omitempty"`
 }
 
+// GetACSUserResp ...
 type GetACSUserResp struct {
 	User *GetACSUserRespUser `json:"user,omitempty"` // 门禁用户信息
 }
 
+// GetACSUserRespUser ...
 type GetACSUserRespUser struct {
 	Feature *GetACSUserRespUserFeature `json:"feature,omitempty"` // 用户特征
 	UserID  string                     `json:"user_id,omitempty"` // 用户 ID
 }
 
+// GetACSUserRespUserFeature ...
 type GetACSUserRespUserFeature struct {
 	Card         int64 `json:"card,omitempty"`          // 卡号
 	FaceUploaded bool  `json:"face_uploaded,omitempty"` // 是否已上传人脸图片
@@ -383,37 +417,44 @@ func (r *ACSService) GetACSUserList(ctx context.Context, request *GetACSUserList
 	return resp.Data, response, err
 }
 
+// MockACSGetACSUserList mock ACSGetACSUserList method
 func (r *Mock) MockACSGetACSUserList(f func(ctx context.Context, request *GetACSUserListReq, options ...MethodOptionFunc) (*GetACSUserListResp, *Response, error)) {
 	r.mockACSGetACSUserList = f
 }
 
+// UnMockACSGetACSUserList un-mock ACSGetACSUserList method
 func (r *Mock) UnMockACSGetACSUserList() {
 	r.mockACSGetACSUserList = nil
 }
 
+// GetACSUserListReq ...
 type GetACSUserListReq struct {
 	PageSize   *int64  `query:"page_size" json:"-"`    // 分页大小, 示例值：10, 最大值：`50`
 	PageToken  *string `query:"page_token" json:"-"`   // 分页标记，第一次请求不填，表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token，下次遍历可采用该 page_token 获取查询结果, 示例值："10"
 	UserIDType *IDType `query:"user_id_type" json:"-"` // 用户 ID 类型, 示例值："open_id", 可选值有: `open_id`：用户的 open id, `union_id`：用户的 union id, `user_id`：用户的 user id, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求:  获取用户 user ID
 }
 
+// getACSUserListResp ...
 type getACSUserListResp struct {
 	Code int64               `json:"code,omitempty"` // 错误码，非 0 表示失败
 	Msg  string              `json:"msg,omitempty"`  // 错误描述
 	Data *GetACSUserListResp `json:"data,omitempty"`
 }
 
+// GetACSUserListResp ...
 type GetACSUserListResp struct {
 	Items     []*GetACSUserListRespItem `json:"items,omitempty"`      // -
 	PageToken string                    `json:"page_token,omitempty"` // 分页标记，当 has_more 为 true 时，会同时返回新的 page_token，否则不返回 page_token
 	HasMore   bool                      `json:"has_more,omitempty"`   // 是否还有更多项
 }
 
+// GetACSUserListRespItem ...
 type GetACSUserListRespItem struct {
 	Feature *GetACSUserListRespItemFeature `json:"feature,omitempty"` // 用户特征
 	UserID  string                         `json:"user_id,omitempty"` // 用户 ID
 }
 
+// GetACSUserListRespItemFeature ...
 type GetACSUserListRespItemFeature struct {
 	Card         int64 `json:"card,omitempty"`          // 卡号
 	FaceUploaded bool  `json:"face_uploaded,omitempty"` // 是否已上传人脸图片
@@ -445,30 +486,36 @@ func (r *ACSService) UpdateACSUser(ctx context.Context, request *UpdateACSUserRe
 	return resp.Data, response, err
 }
 
+// MockACSUpdateACSUser mock ACSUpdateACSUser method
 func (r *Mock) MockACSUpdateACSUser(f func(ctx context.Context, request *UpdateACSUserReq, options ...MethodOptionFunc) (*UpdateACSUserResp, *Response, error)) {
 	r.mockACSUpdateACSUser = f
 }
 
+// UnMockACSUpdateACSUser un-mock ACSUpdateACSUser method
 func (r *Mock) UnMockACSUpdateACSUser() {
 	r.mockACSUpdateACSUser = nil
 }
 
+// UpdateACSUserReq ...
 type UpdateACSUserReq struct {
 	UserIDType *IDType                  `query:"user_id_type" json:"-"` // 用户 ID 类型, 示例值："open_id", 可选值有: `open_id`：用户的 open id, `union_id`：用户的 union id, `user_id`：用户的 user id, 默认值: `open_id`,, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
 	UserID     string                   `path:"user_id" json:"-"`       // 用户 ID, 示例值："ou_7dab8a3d3cdcc9da365777c7ad535d62"
 	Feature    *UpdateACSUserReqFeature `json:"feature,omitempty"`      // 用户特征
 }
 
+// UpdateACSUserReqFeature ...
 type UpdateACSUserReqFeature struct {
 	Card *int64 `json:"card,omitempty"` // 卡号, 示例值：123456
 }
 
+// updateACSUserResp ...
 type updateACSUserResp struct {
 	Code int64              `json:"code,omitempty"` // 错误码，非 0 表示失败
 	Msg  string             `json:"msg,omitempty"`  // 错误描述
 	Data *UpdateACSUserResp `json:"data,omitempty"`
 }
 
+// UpdateACSUserResp ...
 type UpdateACSUserResp struct{}
 
 // Code generated by lark_sdk_gen. DO NOT EDIT.
@@ -501,14 +548,17 @@ func (r *AdminService) GetAdminDeptStats(ctx context.Context, request *GetAdminD
 	return resp.Data, response, err
 }
 
+// MockAdminGetAdminDeptStats mock AdminGetAdminDeptStats method
 func (r *Mock) MockAdminGetAdminDeptStats(f func(ctx context.Context, request *GetAdminDeptStatsReq, options ...MethodOptionFunc) (*GetAdminDeptStatsResp, *Response, error)) {
 	r.mockAdminGetAdminDeptStats = f
 }
 
+// UnMockAdminGetAdminDeptStats un-mock AdminGetAdminDeptStats method
 func (r *Mock) UnMockAdminGetAdminDeptStats() {
 	r.mockAdminGetAdminDeptStats = nil
 }
 
+// GetAdminDeptStatsReq ...
 type GetAdminDeptStatsReq struct {
 	DepartmentIDType  DepartmentIDType `query:"department_id_type" json:"-"`  // 部门ID类型, 示例值："open_department_id", 可选值有: `department_id`：部门的 ID, `open_department_id`：部门的 Open ID
 	StartDate         string           `query:"start_date" json:"-"`          // 起始日期（包含），格式是YYYY-mm-dd, 示例值："2020-02-15"
@@ -519,18 +569,21 @@ type GetAdminDeptStatsReq struct {
 	PageToken         *string          `query:"page_token" json:"-"`          // 分页标记，第一次请求不填，表示从头开始遍历；当返回的has_more为true时，会返回新的page_token，再次调用接口，传入这个page_token，将获得下一页数据, 示例值："2"
 }
 
+// getAdminDeptStatsResp ...
 type getAdminDeptStatsResp struct {
 	Code int64                  `json:"code,omitempty"` // 错误码，非 0 表示失败
 	Msg  string                 `json:"msg,omitempty"`  // 错误描述
 	Data *GetAdminDeptStatsResp `json:"data,omitempty"`
 }
 
+// GetAdminDeptStatsResp ...
 type GetAdminDeptStatsResp struct {
 	HasMore   bool                         `json:"has_more,omitempty"`   // 分页查询时返回，代表是否还有更多数据
 	PageToken string                       `json:"page_token,omitempty"` // 分页标记，下一页分页的token
 	Items     []*GetAdminDeptStatsRespItem `json:"items,omitempty"`      // 数据报表
 }
 
+// GetAdminDeptStatsRespItem ...
 type GetAdminDeptStatsRespItem struct {
 	Date                 string `json:"date,omitempty"`                    // 日期
 	DepartmentID         string `json:"department_id,omitempty"`           // 部门的department_id 或者open_department_id

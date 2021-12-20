@@ -40,10 +40,12 @@ func (r *Lark) RawRequest(ctx context.Context, req *RawRequestReq, resp interfac
 	return r.rawRequest(ctx, req, resp)
 }
 
+// MockRawRequest mock request
 func (r *Mock) MockRawRequest(f func(ctx context.Context, req *RawRequestReq, resp interface{}) (response *Response, err error)) {
 	r.mockRawRequest = f
 }
 
+// UnMockRawRequest un mock request
 func (r *Mock) UnMockRawRequest() {
 	r.mockRawRequest = nil
 }
@@ -431,6 +433,7 @@ func newDefaultHttpClient(timeout time.Duration) HttpClient {
 	}
 }
 
+// Do ...
 func (r *defaultHttpClient) Do(ctx context.Context, req *http.Request) (*http.Response, error) {
 	req = req.WithContext(ctx)
 	return r.ins.Do(req)

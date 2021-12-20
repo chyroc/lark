@@ -35,18 +35,22 @@ func (r *FileService) DownloadImage(ctx context.Context, request *DownloadImageR
 	return resp.Data, response, err
 }
 
+// MockFileDownloadImage mock FileDownloadImage method
 func (r *Mock) MockFileDownloadImage(f func(ctx context.Context, request *DownloadImageReq, options ...MethodOptionFunc) (*DownloadImageResp, *Response, error)) {
 	r.mockFileDownloadImage = f
 }
 
+// UnMockFileDownloadImage un-mock FileDownloadImage method
 func (r *Mock) UnMockFileDownloadImage() {
 	r.mockFileDownloadImage = nil
 }
 
+// DownloadImageReq ...
 type DownloadImageReq struct {
 	ImageKey string `path:"image_key" json:"-"` // 图片的key, 示例值："img_8d5181ca-0aed-40f0-b0d1-b1452132afbg"
 }
 
+// downloadImageResp ...
 type downloadImageResp struct {
 	IsFile bool               `json:"is_file,omitempty"`
 	Code   int64              `json:"code,omitempty"`
@@ -61,6 +65,7 @@ func (r *downloadImageResp) SetReader(file io.Reader) {
 	r.Data.File = file
 }
 
+// DownloadImageResp ...
 type DownloadImageResp struct {
 	File io.Reader `json:"file,omitempty"`
 }
@@ -95,14 +100,17 @@ func (r *FileService) UploadFile(ctx context.Context, request *UploadFileReq, op
 	return resp.Data, response, err
 }
 
+// MockFileUploadFile mock FileUploadFile method
 func (r *Mock) MockFileUploadFile(f func(ctx context.Context, request *UploadFileReq, options ...MethodOptionFunc) (*UploadFileResp, *Response, error)) {
 	r.mockFileUploadFile = f
 }
 
+// UnMockFileUploadFile un-mock FileUploadFile method
 func (r *Mock) UnMockFileUploadFile() {
 	r.mockFileUploadFile = nil
 }
 
+// UploadFileReq ...
 type UploadFileReq struct {
 	FileType FileType  `json:"file_type,omitempty"` // 文件类型, 示例值："mp4", 可选值有: `opus`：上传opus音频文件；,其他格式的音频文件，请转为opus格式后上传，转换方式可参考：ffmpeg -i  SourceFile.mp3 -acodec libopus -ac 1 -ar 16000 TargetFile.opus, `mp4`：上传mp4视频文件, `pdf`：上传pdf格式文件, `doc`：上传doc格式文件, `xls`：上传xls格式文件, `ppt`：上传ppt格式文件, `stream`：上传stream格式文件。以上类型之外，可以使用stream格式
 	FileName string    `json:"file_name,omitempty"` // 带后缀的文件名, 示例值："测试视频.mp4"
@@ -110,12 +118,14 @@ type UploadFileReq struct {
 	File     io.Reader `json:"file,omitempty"`      // 文件内容, 示例值：二进制文件
 }
 
+// uploadFileResp ...
 type uploadFileResp struct {
 	Code int64           `json:"code,omitempty"` // 错误码，非 0 表示失败
 	Msg  string          `json:"msg,omitempty"`  // 错误描述
 	Data *UploadFileResp `json:"data,omitempty"`
 }
 
+// UploadFileResp ...
 type UploadFileResp struct {
 	FileKey string `json:"file_key,omitempty"` // 文件的key
 }
@@ -151,25 +161,30 @@ func (r *FileService) UploadImage(ctx context.Context, request *UploadImageReq, 
 	return resp.Data, response, err
 }
 
+// MockFileUploadImage mock FileUploadImage method
 func (r *Mock) MockFileUploadImage(f func(ctx context.Context, request *UploadImageReq, options ...MethodOptionFunc) (*UploadImageResp, *Response, error)) {
 	r.mockFileUploadImage = f
 }
 
+// UnMockFileUploadImage un-mock FileUploadImage method
 func (r *Mock) UnMockFileUploadImage() {
 	r.mockFileUploadImage = nil
 }
 
+// UploadImageReq ...
 type UploadImageReq struct {
 	ImageType ImageType `json:"image_type,omitempty"` // 图片类型, 示例值："message", 可选值有: `message`：用于发送消息, `avatar`：用于设置头像
 	Image     io.Reader `json:"image,omitempty"`      // 图片内容, 示例值：二进制文件
 }
 
+// uploadImageResp ...
 type uploadImageResp struct {
 	Code int64            `json:"code,omitempty"` // 错误码，非 0 表示失败
 	Msg  string           `json:"msg,omitempty"`  // 错误描述
 	Data *UploadImageResp `json:"data,omitempty"`
 }
 
+// UploadImageResp ...
 type UploadImageResp struct {
 	ImageKey string `json:"image_key,omitempty"` // 图片的key
 }
@@ -201,22 +216,27 @@ func (r *HelpdeskService) GetHelpdeskAgentEmail(ctx context.Context, request *Ge
 	return resp.Data, response, err
 }
 
+// MockHelpdeskGetHelpdeskAgentEmail mock HelpdeskGetHelpdeskAgentEmail method
 func (r *Mock) MockHelpdeskGetHelpdeskAgentEmail(f func(ctx context.Context, request *GetHelpdeskAgentEmailReq, options ...MethodOptionFunc) (*GetHelpdeskAgentEmailResp, *Response, error)) {
 	r.mockHelpdeskGetHelpdeskAgentEmail = f
 }
 
+// UnMockHelpdeskGetHelpdeskAgentEmail un-mock HelpdeskGetHelpdeskAgentEmail method
 func (r *Mock) UnMockHelpdeskGetHelpdeskAgentEmail() {
 	r.mockHelpdeskGetHelpdeskAgentEmail = nil
 }
 
+// GetHelpdeskAgentEmailReq ...
 type GetHelpdeskAgentEmailReq struct{}
 
+// getHelpdeskAgentEmailResp ...
 type getHelpdeskAgentEmailResp struct {
 	Code int64                      `json:"code,omitempty"` // 错误码，非 0 表示失败
 	Msg  string                     `json:"msg,omitempty"`  // 错误描述
 	Data *GetHelpdeskAgentEmailResp `json:"data,omitempty"`
 }
 
+// GetHelpdeskAgentEmailResp ...
 type GetHelpdeskAgentEmailResp struct {
 	Agents string `json:"agents,omitempty"` // agent emails
 }

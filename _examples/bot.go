@@ -7,6 +7,7 @@ import (
 	"github.com/chyroc/lark"
 )
 
+// ExampleBot ...
 func ExampleBot() {
 	ctx := context.Background()
 	cli := lark.New(lark.WithAppCredential("<APP_ID>", "<APP_SECRET>"))

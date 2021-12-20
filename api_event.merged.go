@@ -25,8 +25,10 @@ func (r *EventCallbackService) HandlerEventV1AddUserToChat(f EventV1AddUserToCha
 	r.cli.eventHandler.eventV1AddUserToChatHandler = f
 }
 
+// EventV1AddUserToChatHandler event EventV1AddUserToChat handler
 type EventV1AddUserToChatHandler func(ctx context.Context, cli *Lark, schema string, header *EventHeaderV1, event *EventV1AddUserToChat) (string, error)
 
+// EventV1AddUserToChat ...
 type EventV1AddUserToChat struct {
 	AppID     string                             `json:"app_id,omitempty"`     // 如: cli_9c8609450f78d102
 	ChatID    string                             `json:"chat_id,omitempty"`    // 群聊的id. 如: oc_9e9619b938c9571c1c3165681cdaead5
@@ -36,11 +38,13 @@ type EventV1AddUserToChat struct {
 	Users     []*EventV1AddUserToChatEventUser   `json:"users,omitempty"`
 }
 
+// EventV1AddUserToChatEventOperator ...
 type EventV1AddUserToChatEventOperator struct {
 	OpenID string `json:"open_id,omitempty"` // 员工对此应用的唯一标识，同一员工对不同应用的open_id不同. 如: ou_18eac85d35a26f989317ad4f02e8bbbb
 	UserID string `json:"user_id,omitempty"` // 即“用户ID”，仅企业自建应用会返回. 如: ca51d83b
 }
 
+// EventV1AddUserToChatEventUser ...
 type EventV1AddUserToChatEventUser struct {
 	Name   string `json:"name,omitempty"`    // 如: James
 	OpenID string `json:"open_id,omitempty"` // 如: ou_706adeb944ab1473b9fb3e7da2a40b68
@@ -62,8 +66,10 @@ func (r *EventCallbackService) HandlerEventV1AppOpen(f EventV1AppOpenHandler) {
 	r.cli.eventHandler.eventV1AppOpenHandler = f
 }
 
+// EventV1AppOpenHandler event EventV1AppOpen handler
 type EventV1AppOpenHandler func(ctx context.Context, cli *Lark, schema string, header *EventHeaderV1, event *EventV1AppOpen) (string, error)
 
+// EventV1AppOpen ...
 type EventV1AppOpen struct {
 	AppID             string                                `json:"app_id,omitempty"`             // 开通的应用ID. 如: cli_xxx
 	TenantKey         string                                `json:"tenant_key,omitempty"`         // 开通应用的企业唯一标识. 如: xxx
@@ -73,14 +79,17 @@ type EventV1AppOpen struct {
 	InstallerEmployee *EventV1AppOpenEventInstallerEmployee `json:"installer_employee,omitempty"` // 当应用被普通成员安装时，返回此字段
 }
 
+// EventV1AppOpenEventApplicant ...
 type EventV1AppOpenEventApplicant struct {
 	OpenID string `json:"open_id,omitempty"` // 用户对此应用的唯一标识，同一用户对不同应用的open_id不同. 如: xxx
 }
 
+// EventV1AppOpenEventInstaller ...
 type EventV1AppOpenEventInstaller struct {
 	OpenID string `json:"open_id,omitempty"` // 用户对此应用的唯一标识，同一用户对不同应用的open_id不同. 如: xxx
 }
 
+// EventV1AppOpenEventInstallerEmployee ...
 type EventV1AppOpenEventInstallerEmployee struct {
 	OpenID string `json:"open_id,omitempty"` // 用户对此应用的唯一标识，同一用户对不同应用的open_id不同. 如: xxx
 }
@@ -99,8 +108,10 @@ func (r *EventCallbackService) HandlerEventV1AppStatusChange(f EventV1AppStatusC
 	r.cli.eventHandler.eventV1AppStatusChangeHandler = f
 }
 
+// EventV1AppStatusChangeHandler event EventV1AppStatusChange handler
 type EventV1AppStatusChangeHandler func(ctx context.Context, cli *Lark, schema string, header *EventHeaderV1, event *EventV1AppStatusChange) (string, error)
 
+// EventV1AppStatusChange ...
 type EventV1AppStatusChange struct {
 	AppID     string                               `json:"app_id,omitempty"`     // 应用ID. 如: cli_xxx
 	TenantKey string                               `json:"tenant_key,omitempty"` // 企业唯一标识. 如: xxx
@@ -109,6 +120,7 @@ type EventV1AppStatusChange struct {
 	Operator  *EventV1AppStatusChangeEventOperator `json:"operator,omitempty"`   // 仅status=start_by_tenant时有此字段
 }
 
+// EventV1AppStatusChangeEventOperator ...
 type EventV1AppStatusChangeEventOperator struct {
 	OpenID  string `json:"open_id,omitempty"`  // 如: xxx
 	UserID  string `json:"user_id,omitempty"`  // 仅自建应用才会返回. 如: yyy
@@ -131,8 +143,10 @@ func (r *EventCallbackService) HandlerEventV1AppTicket(f EventV1AppTicketHandler
 	r.cli.eventHandler.eventV1AppTicketHandler = f
 }
 
+// EventV1AppTicketHandler event EventV1AppTicket handler
 type EventV1AppTicketHandler func(ctx context.Context, cli *Lark, schema string, header *EventHeaderV1, event *EventV1AppTicket) (string, error)
 
+// EventV1AppTicket ...
 type EventV1AppTicket struct {
 	AppID     string `json:"app_id,omitempty"`     // 如: cli_xxx
 	AppTicket string `json:"app_ticket,omitempty"` // 如: xxx
@@ -152,8 +166,10 @@ func (r *EventCallbackService) HandlerEventV1AppUninstalled(f EventV1AppUninstal
 	r.cli.eventHandler.eventV1AppUninstalledHandler = f
 }
 
+// EventV1AppUninstalledHandler event EventV1AppUninstalled handler
 type EventV1AppUninstalledHandler func(ctx context.Context, cli *Lark, schema string, header *EventHeaderV1, event *EventV1AppUninstalled) (string, error)
 
+// EventV1AppUninstalled ...
 type EventV1AppUninstalled struct {
 	AppID     string `json:"app_id,omitempty"`     // 被卸载的应用ID. 如: cli_xxx
 	TenantKey string `json:"tenant_key,omitempty"` // 卸载应用的企业ID. 如: xxx
@@ -174,8 +190,10 @@ func (r *EventCallbackService) HandlerEventV1ChatDisband(f EventV1ChatDisbandHan
 	r.cli.eventHandler.eventV1ChatDisbandHandler = f
 }
 
+// EventV1ChatDisbandHandler event EventV1ChatDisband handler
 type EventV1ChatDisbandHandler func(ctx context.Context, cli *Lark, schema string, header *EventHeaderV1, event *EventV1ChatDisband) (string, error)
 
+// EventV1ChatDisband ...
 type EventV1ChatDisband struct {
 	AppID     string                           `json:"app_id,omitempty"`  // 如: cli_9c8609450f78d102
 	ChatID    string                           `json:"chat_id,omitempty"` // 如: oc_9f2df3c095c9395334bb6e70ced0fa83
@@ -184,6 +202,7 @@ type EventV1ChatDisband struct {
 	Type      string                           `json:"type,omitempty"`       // 如: chat_disband
 }
 
+// EventV1ChatDisbandEventOperator ...
 type EventV1ChatDisbandEventOperator struct {
 	OpenID string `json:"open_id,omitempty"` // 如: ou_18eac85d35a26f989317ad4f02e8bbbb
 	UserID string `json:"user_id,omitempty"` // 如: ca51d83b
@@ -203,8 +222,10 @@ func (r *EventCallbackService) HandlerEventV1LeaveApprovalV2(f EventV1LeaveAppro
 	r.cli.eventHandler.eventV1LeaveApprovalV2Handler = f
 }
 
+// EventV1LeaveApprovalV2Handler event EventV1LeaveApprovalV2 handler
 type EventV1LeaveApprovalV2Handler func(ctx context.Context, cli *Lark, schema string, header *EventHeaderV1, event *EventV1LeaveApprovalV2) (string, error)
 
+// EventV1LeaveApprovalV2 ...
 type EventV1LeaveApprovalV2 struct {
 	AppID          string                                     `json:"app_id,omitempty"`           // 如: cli_xxx
 	TenantKey      string                                     `json:"tenant_key,omitempty"`       // 如: xxx
@@ -224,6 +245,7 @@ type EventV1LeaveApprovalV2 struct {
 	I18nResources  []*EventV1LeaveApprovalV2EventI18nResource `json:"i18n_resources,omitempty"`   // 国际化文案
 }
 
+// EventV1LeaveApprovalV2EventI18nResource ...
 type EventV1LeaveApprovalV2EventI18nResource struct {
 	Locale    string            `json:"locale,omitempty"`     // 如: en_us
 	IsDefault bool              `json:"is_default,omitempty"` // 如: true
@@ -243,8 +265,10 @@ func (r *EventCallbackService) HandlerEventV1OrderPaid(f EventV1OrderPaidHandler
 	r.cli.eventHandler.eventV1OrderPaidHandler = f
 }
 
+// EventV1OrderPaidHandler event EventV1OrderPaid handler
 type EventV1OrderPaidHandler func(ctx context.Context, cli *Lark, schema string, header *EventHeaderV1, event *EventV1OrderPaid) (string, error)
 
+// EventV1OrderPaid ...
 type EventV1OrderPaid struct {
 	Type          string `json:"type,omitempty"`            // 事件类型. 如: order_paid
 	AppID         string `json:"app_id,omitempty"`          // 应用ID. 如: cli_9daeceab98721136
@@ -274,8 +298,10 @@ func (r *EventCallbackService) HandlerEventV1OutApproval(f EventV1OutApprovalHan
 	r.cli.eventHandler.eventV1OutApprovalHandler = f
 }
 
+// EventV1OutApprovalHandler event EventV1OutApproval handler
 type EventV1OutApprovalHandler func(ctx context.Context, cli *Lark, schema string, header *EventHeaderV1, event *EventV1OutApproval) (string, error)
 
+// EventV1OutApproval ...
 type EventV1OutApproval struct {
 	AppID         string                                 `json:"app_id,omitempty"` // 如: cli_9e28cb7ba56a100e
 	I18nResources []*EventV1OutApprovalEventI18nResource `json:"i18n_resources,omitempty"`
@@ -294,6 +320,7 @@ type EventV1OutApproval struct {
 	UserID        string                                 `json:"user_id,omitempty"`        // 申请发起人. 如: g6964gd3
 }
 
+// EventV1OutApprovalEventI18nResource ...
 type EventV1OutApprovalEventI18nResource struct {
 	IsDefault bool              `json:"is_default,omitempty"` // 如: true
 	Locale    string            `json:"locale,omitempty"`     // 如: zh_cn
@@ -312,8 +339,10 @@ func (r *EventCallbackService) HandlerEventV1P2PChatCreate(f EventV1P2PChatCreat
 	r.cli.eventHandler.eventV1P2PChatCreateHandler = f
 }
 
+// EventV1P2PChatCreateHandler event EventV1P2PChatCreate handler
 type EventV1P2PChatCreateHandler func(ctx context.Context, cli *Lark, schema string, header *EventHeaderV1, event *EventV1P2PChatCreate) (string, error)
 
+// EventV1P2PChatCreate ...
 type EventV1P2PChatCreate struct {
 	AppID     string                             `json:"app_id,omitempty"`     // 如: cli_9c8609450f78d102
 	ChatID    string                             `json:"chat_id,omitempty"`    // 机器人和用户的会话id. 如: oc_26b66a5eb603162b849f91bcd8815b20
@@ -323,11 +352,13 @@ type EventV1P2PChatCreate struct {
 	User      *EventV1P2PChatCreateEventUser     `json:"user,omitempty"`       // 会话的用户
 }
 
+// EventV1P2PChatCreateEventOperator ...
 type EventV1P2PChatCreateEventOperator struct {
 	OpenID string `json:"open_id,omitempty"` // 员工对此应用的唯一标识，同一员工对不同应用的open_id不同. 如: ou_2d2c0399b53d06fd195bb393cd1e38f2
 	UserID string `json:"user_id,omitempty"` // 即“用户ID”，仅企业自建应用会返回. 如: gfa21d92
 }
 
+// EventV1P2PChatCreateEventUser ...
 type EventV1P2PChatCreateEventUser struct {
 	Name   string `json:"name,omitempty"`    // 如: 张三
 	OpenID string `json:"open_id,omitempty"` // 员工对此应用的唯一标识，同一员工对不同应用的open_id不同. 如: ou_7dede290d6a27698b969a7fd70ca53da
@@ -349,8 +380,10 @@ func (r *EventCallbackService) HandlerEventV1ReceiveMessage(f EventV1ReceiveMess
 	r.cli.eventHandler.eventV1ReceiveMessageHandler = f
 }
 
+// EventV1ReceiveMessageHandler event EventV1ReceiveMessage handler
 type EventV1ReceiveMessageHandler func(ctx context.Context, cli *Lark, schema string, header *EventHeaderV1, event *EventV1ReceiveMessage) (string, error)
 
+// EventV1ReceiveMessage ...
 type EventV1ReceiveMessage struct {
 	Type             string   `json:"type,omitempty"`            // 事件类型. 如: message
 	AppID            string   `json:"app_id,omitempty"`          // 如: cli_xxx
@@ -386,8 +419,10 @@ func (r *EventCallbackService) HandlerEventV1RemedyApproval(f EventV1RemedyAppro
 	r.cli.eventHandler.eventV1RemedyApprovalHandler = f
 }
 
+// EventV1RemedyApprovalHandler event EventV1RemedyApproval handler
 type EventV1RemedyApprovalHandler func(ctx context.Context, cli *Lark, schema string, header *EventHeaderV1, event *EventV1RemedyApproval) (string, error)
 
+// EventV1RemedyApproval ...
 type EventV1RemedyApproval struct {
 	AppID        string `json:"app_id,omitempty"`        // 如: cli_xxx
 	TenantKey    string `json:"tenant_key,omitempty"`    // 如: xxx
@@ -413,8 +448,10 @@ func (r *EventCallbackService) HandlerEventV1RemoveBot(f EventV1RemoveBotHandler
 	r.cli.eventHandler.eventV1RemoveBotHandler = f
 }
 
+// EventV1RemoveBotHandler event EventV1RemoveBot handler
 type EventV1RemoveBotHandler func(ctx context.Context, cli *Lark, schema string, header *EventHeaderV1, event *EventV1RemoveBot) (string, error)
 
+// EventV1RemoveBot ...
 type EventV1RemoveBot struct {
 	AppID               string                              `json:"app_id,omitempty"`                 // 如: cli_9c8609450f78d102
 	ChatI18nNames       *EventV1RemoveBotEventChatI18nNames `json:"chat_i18n_names,omitempty"`        // 群名称国际化字段
@@ -431,6 +468,7 @@ type EventV1RemoveBot struct {
 	Type                string                              `json:"type,omitempty"`                   // 移除机器人：remove_bot. 如: remove_bot
 }
 
+// EventV1RemoveBotEventChatI18nNames ...
 type EventV1RemoveBotEventChatI18nNames struct {
 	EnUs string `json:"en_us,omitempty"` // 如: 英文标题
 	ZhCn string `json:"zh_cn,omitempty"` // 如: 中文标题
@@ -456,8 +494,10 @@ func (r *EventCallbackService) HandlerEventV1RemoveUserFromChat(f EventV1RemoveU
 	r.cli.eventHandler.eventV1RemoveUserFromChatHandler = f
 }
 
+// EventV1RemoveUserFromChatHandler event EventV1RemoveUserFromChat handler
 type EventV1RemoveUserFromChatHandler func(ctx context.Context, cli *Lark, schema string, header *EventHeaderV1, event *EventV1RemoveUserFromChat) (string, error)
 
+// EventV1RemoveUserFromChat ...
 type EventV1RemoveUserFromChat struct {
 	AppID     string                                  `json:"app_id,omitempty"`     // 如: cli_9c8609450f78d102
 	ChatID    string                                  `json:"chat_id,omitempty"`    // 群聊的id. 如: oc_9e9619b938c9571c1c3165681cdaead5
@@ -467,11 +507,13 @@ type EventV1RemoveUserFromChat struct {
 	Users     []*EventV1RemoveUserFromChatEventUser   `json:"users,omitempty"`
 }
 
+// EventV1RemoveUserFromChatEventOperator ...
 type EventV1RemoveUserFromChatEventOperator struct {
 	OpenID string `json:"open_id,omitempty"` // 员工对此应用的唯一标识，同一员工对不同应用的open_id不同. 如: ou_18eac85d35a26f989317ad4f02e8bbbb
 	UserID string `json:"user_id,omitempty"` // 即“用户ID”，仅企业自建应用会返回. 如: ca51d83b
 }
 
+// EventV1RemoveUserFromChatEventUser ...
 type EventV1RemoveUserFromChatEventUser struct {
 	Name   string `json:"name,omitempty"`    // 如: James
 	OpenID string `json:"open_id,omitempty"` // 如: ou_706adeb944ab1473b9fb3e7da2a40b68
@@ -498,8 +540,10 @@ func (r *EventCallbackService) HandlerEventV1RevokeAddUserFromChat(f EventV1Revo
 	r.cli.eventHandler.eventV1RevokeAddUserFromChatHandler = f
 }
 
+// EventV1RevokeAddUserFromChatHandler event EventV1RevokeAddUserFromChat handler
 type EventV1RevokeAddUserFromChatHandler func(ctx context.Context, cli *Lark, schema string, header *EventHeaderV1, event *EventV1RevokeAddUserFromChat) (string, error)
 
+// EventV1RevokeAddUserFromChat ...
 type EventV1RevokeAddUserFromChat struct {
 	AppID     string                                     `json:"app_id,omitempty"`     // 如: cli_9c8609450f78d102
 	ChatID    string                                     `json:"chat_id,omitempty"`    // 群聊的id. 如: oc_9e9619b938c9571c1c3165681cdaead5
@@ -509,11 +553,13 @@ type EventV1RevokeAddUserFromChat struct {
 	Users     []*EventV1RevokeAddUserFromChatEventUser   `json:"users,omitempty"`
 }
 
+// EventV1RevokeAddUserFromChatEventOperator ...
 type EventV1RevokeAddUserFromChatEventOperator struct {
 	OpenID string `json:"open_id,omitempty"` // 员工对此应用的唯一标识，同一员工对不同应用的open_id不同. 如: ou_18eac85d35a26f989317ad4f02e8bbbb
 	UserID string `json:"user_id,omitempty"` // 即“用户ID”，仅企业自建应用会返回. 如: ca51d83b
 }
 
+// EventV1RevokeAddUserFromChatEventUser ...
 type EventV1RevokeAddUserFromChatEventUser struct {
 	Name   string `json:"name,omitempty"`    // 如: James
 	OpenID string `json:"open_id,omitempty"` // 如: ou_706adeb944ab1473b9fb3e7da2a40b68
@@ -533,8 +579,10 @@ func (r *EventCallbackService) HandlerEventV1ShiftApproval(f EventV1ShiftApprova
 	r.cli.eventHandler.eventV1ShiftApprovalHandler = f
 }
 
+// EventV1ShiftApprovalHandler event EventV1ShiftApproval handler
 type EventV1ShiftApprovalHandler func(ctx context.Context, cli *Lark, schema string, header *EventHeaderV1, event *EventV1ShiftApproval) (string, error)
 
+// EventV1ShiftApproval ...
 type EventV1ShiftApproval struct {
 	AppID        string `json:"app_id,omitempty"`        // 如: cli_xxx
 	TenantKey    string `json:"tenant_key,omitempty"`    // 如: xxx
@@ -561,8 +609,10 @@ func (r *EventCallbackService) HandlerEventV1TripApproval(f EventV1TripApprovalH
 	r.cli.eventHandler.eventV1TripApprovalHandler = f
 }
 
+// EventV1TripApprovalHandler event EventV1TripApproval handler
 type EventV1TripApprovalHandler func(ctx context.Context, cli *Lark, schema string, header *EventHeaderV1, event *EventV1TripApproval) (string, error)
 
+// EventV1TripApproval ...
 type EventV1TripApproval struct {
 	AppID        string                              `json:"app_id,omitempty"`        // 如: cli_xxx
 	TenantKey    string                              `json:"tenant_key,omitempty"`    // 如: xxx
@@ -577,6 +627,7 @@ type EventV1TripApproval struct {
 	TripPeers    []*EventV1TripApprovalEventTripPeer `json:"trip_peers,omitempty"`    // 同行人
 }
 
+// EventV1TripApprovalEventSchedule ...
 type EventV1TripApprovalEventSchedule struct {
 	TripStartTime  string `json:"trip_start_time,omitempty"` // 行程开始时间. 如: 2018-12-01 12:00:00
 	TripEndTime    string `json:"trip_end_time,omitempty"`   // 行程结束时间. 如: 2018-12-01 12:00:00
@@ -588,6 +639,7 @@ type EventV1TripApprovalEventSchedule struct {
 	Remark         string `json:"remark,omitempty"`          // 备注. 如: 备注
 }
 
+// EventV1TripApprovalEventTripPeer ...
 type EventV1TripApprovalEventTripPeer struct {
 	string `json:",omitempty"` // 如: xxx
 }
@@ -605,8 +657,10 @@ func (r *EventCallbackService) HandlerEventV1WorkApproval(f EventV1WorkApprovalH
 	r.cli.eventHandler.eventV1WorkApprovalHandler = f
 }
 
+// EventV1WorkApprovalHandler event EventV1WorkApproval handler
 type EventV1WorkApprovalHandler func(ctx context.Context, cli *Lark, schema string, header *EventHeaderV1, event *EventV1WorkApproval) (string, error)
 
+// EventV1WorkApproval ...
 type EventV1WorkApproval struct {
 	AppID         string `json:"app_id,omitempty"`          // 如: cli_xxx
 	TenantKey     string `json:"tenant_key,omitempty"`      // 如: xxx
@@ -633,8 +687,10 @@ func (r *EventCallbackService) HandlerEventV2ACSAccessRecordCreatedV1(f EventV2A
 	r.cli.eventHandler.eventV2ACSAccessRecordCreatedV1Handler = f
 }
 
+// EventV2ACSAccessRecordCreatedV1Handler event EventV2ACSAccessRecordCreatedV1 handler
 type EventV2ACSAccessRecordCreatedV1Handler func(ctx context.Context, cli *Lark, schema string, header *EventHeaderV2, event *EventV2ACSAccessRecordCreatedV1) (string, error)
 
+// EventV2ACSAccessRecordCreatedV1 ...
 type EventV2ACSAccessRecordCreatedV1 struct {
 	AccessRecordID string                                 `json:"access_record_id,omitempty"` // 门禁记录 ID
 	UserID         *EventV2ACSAccessRecordCreatedV1UserID `json:"user_id,omitempty"`          // 用户 ID
@@ -644,6 +700,7 @@ type EventV2ACSAccessRecordCreatedV1 struct {
 	AccessTime     string                                 `json:"access_time,omitempty"`      // 识别时间 （单位：秒）
 }
 
+// EventV2ACSAccessRecordCreatedV1UserID ...
 type EventV2ACSAccessRecordCreatedV1UserID struct {
 	UnionID string `json:"union_id,omitempty"` // 用户的 union id
 	UserID  string `json:"user_id,omitempty"`  // 用户的 user id, 字段权限要求: 获取用户 user ID
@@ -661,14 +718,17 @@ func (r *EventCallbackService) HandlerEventV2ACSUserUpdatedV1(f EventV2ACSUserUp
 	r.cli.eventHandler.eventV2ACSUserUpdatedV1Handler = f
 }
 
+// EventV2ACSUserUpdatedV1Handler event EventV2ACSUserUpdatedV1 handler
 type EventV2ACSUserUpdatedV1Handler func(ctx context.Context, cli *Lark, schema string, header *EventHeaderV2, event *EventV2ACSUserUpdatedV1) (string, error)
 
+// EventV2ACSUserUpdatedV1 ...
 type EventV2ACSUserUpdatedV1 struct {
 	UserID       *EventV2ACSUserUpdatedV1UserID `json:"user_id,omitempty"`       // 用户 ID
 	Card         int64                          `json:"card,omitempty"`          // 卡号
 	FaceUploaded bool                           `json:"face_uploaded,omitempty"` // 是否上传人脸图片
 }
 
+// EventV2ACSUserUpdatedV1UserID ...
 type EventV2ACSUserUpdatedV1UserID struct {
 	UnionID string `json:"union_id,omitempty"` // 用户的 union id
 	UserID  string `json:"user_id,omitempty"`  // 用户的 user id, 字段权限要求: 获取用户 user ID
@@ -688,17 +748,21 @@ func (r *EventCallbackService) HandlerEventV2ApplicationApplicationVisibilityAdd
 	r.cli.eventHandler.eventV2ApplicationApplicationVisibilityAddedV6Handler = f
 }
 
+// EventV2ApplicationApplicationVisibilityAddedV6Handler event EventV2ApplicationApplicationVisibilityAddedV6 handler
 type EventV2ApplicationApplicationVisibilityAddedV6Handler func(ctx context.Context, cli *Lark, schema string, header *EventHeaderV2, event *EventV2ApplicationApplicationVisibilityAddedV6) (string, error)
 
+// EventV2ApplicationApplicationVisibilityAddedV6 ...
 type EventV2ApplicationApplicationVisibilityAddedV6 struct {
 	Source int64                                                 `json:"source,omitempty"` // 事件来源, 为 1 时代表通过普通成员安装增加可见性. 如: 1
 	Users  []*EventV2ApplicationApplicationVisibilityAddedV6User `json:"users,omitempty"`
 }
 
+// EventV2ApplicationApplicationVisibilityAddedV6User ...
 type EventV2ApplicationApplicationVisibilityAddedV6User struct {
 	UserID *EventV2ApplicationApplicationVisibilityAddedV6UserUserID `json:"user_id,omitempty"` // 开通的用户 id
 }
 
+// EventV2ApplicationApplicationVisibilityAddedV6UserUserID ...
 type EventV2ApplicationApplicationVisibilityAddedV6UserUserID struct {
 	OpenID  string `json:"open_id,omitempty"`  // 如: ou_f370aea2baf6ffc69a6762d31cfaf96a
 	UnionID string `json:"union_id,omitempty"` // 如: on_6bc1e6c0e9ad8193fa4391278eb76891
@@ -722,8 +786,10 @@ func (r *EventCallbackService) HandlerEventV2ApprovalApprovalUpdatedV4(f EventV2
 	r.cli.eventHandler.eventV2ApprovalApprovalUpdatedV4Handler = f
 }
 
+// EventV2ApprovalApprovalUpdatedV4Handler event EventV2ApprovalApprovalUpdatedV4 handler
 type EventV2ApprovalApprovalUpdatedV4Handler func(ctx context.Context, cli *Lark, schema string, header *EventHeaderV2, event *EventV2ApprovalApprovalUpdatedV4) (string, error)
 
+// EventV2ApprovalApprovalUpdatedV4 ...
 type EventV2ApprovalApprovalUpdatedV4 struct{}
 
 // Code generated by lark_sdk_gen. DO NOT EDIT.
@@ -765,8 +831,10 @@ func (r *EventCallbackService) HandlerEventV2AttendanceUserFlowCreatedV1(f Event
 	r.cli.eventHandler.eventV2AttendanceUserFlowCreatedV1Handler = f
 }
 
+// EventV2AttendanceUserFlowCreatedV1Handler event EventV2AttendanceUserFlowCreatedV1 handler
 type EventV2AttendanceUserFlowCreatedV1Handler func(ctx context.Context, cli *Lark, schema string, header *EventHeaderV2, event *EventV2AttendanceUserFlowCreatedV1) (string, error)
 
+// EventV2AttendanceUserFlowCreatedV1 ...
 type EventV2AttendanceUserFlowCreatedV1 struct{}
 
 // Code generated by lark_sdk_gen. DO NOT EDIT.
@@ -782,8 +850,10 @@ func (r *EventCallbackService) HandlerEventV2AttendanceUserTaskUpdatedV1(f Event
 	r.cli.eventHandler.eventV2AttendanceUserTaskUpdatedV1Handler = f
 }
 
+// EventV2AttendanceUserTaskUpdatedV1Handler event EventV2AttendanceUserTaskUpdatedV1 handler
 type EventV2AttendanceUserTaskUpdatedV1Handler func(ctx context.Context, cli *Lark, schema string, header *EventHeaderV2, event *EventV2AttendanceUserTaskUpdatedV1) (string, error)
 
+// EventV2AttendanceUserTaskUpdatedV1 ...
 type EventV2AttendanceUserTaskUpdatedV1 struct {
 	EmployeeID    string                                            `json:"employee_id,omitempty"`    // 员工 ID
 	EmployeeNo    string                                            `json:"employee_no,omitempty"`    // 员工工号
@@ -793,6 +863,7 @@ type EventV2AttendanceUserTaskUpdatedV1 struct {
 	StatusChanges []*EventV2AttendanceUserTaskUpdatedV1StatusChange `json:"status_changes,omitempty"` // 状态变更数组
 }
 
+// EventV2AttendanceUserTaskUpdatedV1StatusChange ...
 type EventV2AttendanceUserTaskUpdatedV1StatusChange struct {
 	BeforeStatus      string `json:"before_status,omitempty"`      // 变更前打卡结果，值为：【NoNeedCheck（无需打卡），SystemCheck（系统打卡），Normal（正常），Early（早退），Late（迟到），Lack（缺卡）】
 	CurrentStatus     string `json:"current_status,omitempty"`     // 变更后打卡结果，值为：【NoNeedCheck（无需打卡），SystemCheck（系统打卡），Normal（正常），Early（早退），Late（迟到），Lack（缺卡）】
@@ -814,18 +885,22 @@ func (r *EventCallbackService) HandlerEventV2AwemeEcosystemAwemeUserBindedAccoun
 	r.cli.eventHandler.eventV2AwemeEcosystemAwemeUserBindedAccountV1Handler = f
 }
 
+// EventV2AwemeEcosystemAwemeUserBindedAccountV1Handler event EventV2AwemeEcosystemAwemeUserBindedAccountV1 handler
 type EventV2AwemeEcosystemAwemeUserBindedAccountV1Handler func(ctx context.Context, cli *Lark, schema string, header *EventHeaderV2, event *EventV2AwemeEcosystemAwemeUserBindedAccountV1) (string, error)
 
+// EventV2AwemeEcosystemAwemeUserBindedAccountV1 ...
 type EventV2AwemeEcosystemAwemeUserBindedAccountV1 struct {
 	EventAwemeUser *EventV2AwemeEcosystemAwemeUserBindedAccountV1EventAwemeUser `json:"event_aweme_user,omitempty"` // 变更后绑定关系
 }
 
+// EventV2AwemeEcosystemAwemeUserBindedAccountV1EventAwemeUser ...
 type EventV2AwemeEcosystemAwemeUserBindedAccountV1EventAwemeUser struct {
 	UserID      *EventV2AwemeEcosystemAwemeUserBindedAccountV1EventAwemeUserUserID `json:"user_id,omitempty"`       // 用户 ID
 	AwemeUserID string                                                             `json:"aweme_user_id,omitempty"` // 绑定的抖音用户ID
 	IsBinded    bool                                                               `json:"is_binded,omitempty"`     // 飞书账号是否有绑定关系
 }
 
+// EventV2AwemeEcosystemAwemeUserBindedAccountV1EventAwemeUserUserID ...
 type EventV2AwemeEcosystemAwemeUserBindedAccountV1EventAwemeUserUserID struct {
 	UnionID string `json:"union_id,omitempty"` // 用户的 union id
 	UserID  string `json:"user_id,omitempty"`  // 用户的 user id, 字段权限要求: 获取用户 user ID
@@ -844,8 +919,10 @@ func (r *EventCallbackService) HandlerEventV2CalendarCalendarACLCreatedV4(f Even
 	r.cli.eventHandler.eventV2CalendarCalendarACLCreatedV4Handler = f
 }
 
+// EventV2CalendarCalendarACLCreatedV4Handler event EventV2CalendarCalendarACLCreatedV4 handler
 type EventV2CalendarCalendarACLCreatedV4Handler func(ctx context.Context, cli *Lark, schema string, header *EventHeaderV2, event *EventV2CalendarCalendarACLCreatedV4) (string, error)
 
+// EventV2CalendarCalendarACLCreatedV4 ...
 type EventV2CalendarCalendarACLCreatedV4 struct {
 	ACLID      string                                       `json:"acl_id,omitempty"`       // acl资源ID
 	Role       CalendarRole                                 `json:"role,omitempty"`         // 对日历的访问权限, 可选值有: `unknown`：未知权限, `free_busy_reader`：游客，只能看到忙碌/空闲信息, `reader`：订阅者，查看所有日程详情, `writer`：编辑者，创建及修改日程, `owner`：管理员，管理日历及共享设置
@@ -853,17 +930,20 @@ type EventV2CalendarCalendarACLCreatedV4 struct {
 	UserIDList []*EventV2CalendarCalendarACLCreatedV4UserID `json:"user_id_list,omitempty"` // 需要推送事件的用户列表
 }
 
+// EventV2CalendarCalendarACLCreatedV4Scope ...
 type EventV2CalendarCalendarACLCreatedV4Scope struct {
 	Type   string                                          `json:"type,omitempty"`    // 权限类型，当type为User时，值为open_id/user_id/union_id, 可选值有: `user`：用户
 	UserID *EventV2CalendarCalendarACLCreatedV4ScopeUserID `json:"user_id,omitempty"` // 用户 ID
 }
 
+// EventV2CalendarCalendarACLCreatedV4ScopeUserID ...
 type EventV2CalendarCalendarACLCreatedV4ScopeUserID struct {
 	UnionID string `json:"union_id,omitempty"` // 用户的 union id
 	UserID  string `json:"user_id,omitempty"`  // 用户的 user id, 字段权限要求: 获取用户 user ID
 	OpenID  string `json:"open_id,omitempty"`  // 用户的 open id
 }
 
+// EventV2CalendarCalendarACLCreatedV4UserID ...
 type EventV2CalendarCalendarACLCreatedV4UserID struct {
 	UnionID string `json:"union_id,omitempty"` // 用户的 union id
 	UserID  string `json:"user_id,omitempty"`  // 用户的 user id
@@ -882,8 +962,10 @@ func (r *EventCallbackService) HandlerEventV2CalendarCalendarACLDeletedV4(f Even
 	r.cli.eventHandler.eventV2CalendarCalendarACLDeletedV4Handler = f
 }
 
+// EventV2CalendarCalendarACLDeletedV4Handler event EventV2CalendarCalendarACLDeletedV4 handler
 type EventV2CalendarCalendarACLDeletedV4Handler func(ctx context.Context, cli *Lark, schema string, header *EventHeaderV2, event *EventV2CalendarCalendarACLDeletedV4) (string, error)
 
+// EventV2CalendarCalendarACLDeletedV4 ...
 type EventV2CalendarCalendarACLDeletedV4 struct {
 	ACLID      string                                       `json:"acl_id,omitempty"`       // acl资源ID
 	Role       CalendarRole                                 `json:"role,omitempty"`         // 对日历的访问权限, 可选值有: `unknown`：未知权限, `free_busy_reader`：游客，只能看到忙碌/空闲信息, `reader`：订阅者，查看所有日程详情, `writer`：编辑者，创建及修改日程, `owner`：管理员，管理日历及共享设置
@@ -891,17 +973,20 @@ type EventV2CalendarCalendarACLDeletedV4 struct {
 	UserIDList []*EventV2CalendarCalendarACLDeletedV4UserID `json:"user_id_list,omitempty"` // 需要推送事件的用户列表
 }
 
+// EventV2CalendarCalendarACLDeletedV4Scope ...
 type EventV2CalendarCalendarACLDeletedV4Scope struct {
 	Type   string                                          `json:"type,omitempty"`    // 权限类型，当type为User时，值为open_id/user_id/union_id, 可选值有: `user`：用户
 	UserID *EventV2CalendarCalendarACLDeletedV4ScopeUserID `json:"user_id,omitempty"` // 用户 ID
 }
 
+// EventV2CalendarCalendarACLDeletedV4ScopeUserID ...
 type EventV2CalendarCalendarACLDeletedV4ScopeUserID struct {
 	UnionID string `json:"union_id,omitempty"` // 用户的 union id
 	UserID  string `json:"user_id,omitempty"`  // 用户的 user id, 字段权限要求:  获取用户 user ID
 	OpenID  string `json:"open_id,omitempty"`  // 用户的 open id
 }
 
+// EventV2CalendarCalendarACLDeletedV4UserID ...
 type EventV2CalendarCalendarACLDeletedV4UserID struct {
 	UnionID string `json:"union_id,omitempty"` // 用户的 union id
 	UserID  string `json:"user_id,omitempty"`  // 用户的 user id
@@ -920,12 +1005,15 @@ func (r *EventCallbackService) HandlerEventV2CalendarCalendarChangedV4(f EventV2
 	r.cli.eventHandler.eventV2CalendarCalendarChangedV4Handler = f
 }
 
+// EventV2CalendarCalendarChangedV4Handler event EventV2CalendarCalendarChangedV4 handler
 type EventV2CalendarCalendarChangedV4Handler func(ctx context.Context, cli *Lark, schema string, header *EventHeaderV2, event *EventV2CalendarCalendarChangedV4) (string, error)
 
+// EventV2CalendarCalendarChangedV4 ...
 type EventV2CalendarCalendarChangedV4 struct {
 	UserIDList []*EventV2CalendarCalendarChangedV4UserID `json:"user_id_list,omitempty"` // 需要推送事件的用户列表
 }
 
+// EventV2CalendarCalendarChangedV4UserID ...
 type EventV2CalendarCalendarChangedV4UserID struct {
 	UnionID string `json:"union_id,omitempty"` // 用户的 union id
 	UserID  string `json:"user_id,omitempty"`  // 用户的 user id
@@ -944,13 +1032,16 @@ func (r *EventCallbackService) HandlerEventV2CalendarCalendarEventChangedV4(f Ev
 	r.cli.eventHandler.eventV2CalendarCalendarEventChangedV4Handler = f
 }
 
+// EventV2CalendarCalendarEventChangedV4Handler event EventV2CalendarCalendarEventChangedV4 handler
 type EventV2CalendarCalendarEventChangedV4Handler func(ctx context.Context, cli *Lark, schema string, header *EventHeaderV2, event *EventV2CalendarCalendarEventChangedV4) (string, error)
 
+// EventV2CalendarCalendarEventChangedV4 ...
 type EventV2CalendarCalendarEventChangedV4 struct {
 	CalendarID string                                         `json:"calendar_id,omitempty"`  // 日历id
 	UserIDList []*EventV2CalendarCalendarEventChangedV4UserID `json:"user_id_list,omitempty"` // 需要推送事件的用户列表
 }
 
+// EventV2CalendarCalendarEventChangedV4UserID ...
 type EventV2CalendarCalendarEventChangedV4UserID struct {
 	UnionID string `json:"union_id,omitempty"` // 用户的 union id
 	UserID  string `json:"user_id,omitempty"`  // 用户的 user id
@@ -969,12 +1060,15 @@ func (r *EventCallbackService) HandlerEventV2ContactDepartmentCreatedV3(f EventV
 	r.cli.eventHandler.eventV2ContactDepartmentCreatedV3Handler = f
 }
 
+// EventV2ContactDepartmentCreatedV3Handler event EventV2ContactDepartmentCreatedV3 handler
 type EventV2ContactDepartmentCreatedV3Handler func(ctx context.Context, cli *Lark, schema string, header *EventHeaderV2, event *EventV2ContactDepartmentCreatedV3) (string, error)
 
+// EventV2ContactDepartmentCreatedV3 ...
 type EventV2ContactDepartmentCreatedV3 struct {
 	Object *EventV2ContactDepartmentCreatedV3Object `json:"object,omitempty"` // 部门信息
 }
 
+// EventV2ContactDepartmentCreatedV3Object ...
 type EventV2ContactDepartmentCreatedV3Object struct {
 	Name               string                                         `json:"name,omitempty"`                 // 部门名称, 最小长度：`1` 字符,**字段权限要求（满足任一）**：,以应用身份读取通讯录,获取部门基础信息,读取通讯录,以应用身份访问通讯录
 	ParentDepartmentID string                                         `json:"parent_department_id,omitempty"` // 父部门的部门ID,**字段权限要求（满足任一）**：,以应用身份读取通讯录,获取部门组织架构信息,读取通讯录,以应用身份访问通讯录
@@ -986,6 +1080,7 @@ type EventV2ContactDepartmentCreatedV3Object struct {
 	Status             *EventV2ContactDepartmentCreatedV3ObjectStatus `json:"status,omitempty"`               // 部门状态,**字段权限要求（满足任一）**：,以应用身份读取通讯录,获取部门基础信息,读取通讯录,以应用身份访问通讯录
 }
 
+// EventV2ContactDepartmentCreatedV3ObjectStatus ...
 type EventV2ContactDepartmentCreatedV3ObjectStatus struct {
 	IsDeleted bool `json:"is_deleted,omitempty"` // 是否被删除
 }
@@ -1002,13 +1097,16 @@ func (r *EventCallbackService) HandlerEventV2ContactDepartmentDeletedV3(f EventV
 	r.cli.eventHandler.eventV2ContactDepartmentDeletedV3Handler = f
 }
 
+// EventV2ContactDepartmentDeletedV3Handler event EventV2ContactDepartmentDeletedV3 handler
 type EventV2ContactDepartmentDeletedV3Handler func(ctx context.Context, cli *Lark, schema string, header *EventHeaderV2, event *EventV2ContactDepartmentDeletedV3) (string, error)
 
+// EventV2ContactDepartmentDeletedV3 ...
 type EventV2ContactDepartmentDeletedV3 struct {
 	Object    *EventV2ContactDepartmentDeletedV3Object    `json:"object,omitempty"`     // 部门信息
 	OldObject *EventV2ContactDepartmentDeletedV3OldObject `json:"old_object,omitempty"` // 部门被删除前的信息
 }
 
+// EventV2ContactDepartmentDeletedV3Object ...
 type EventV2ContactDepartmentDeletedV3Object struct {
 	Name               string                                         `json:"name,omitempty"`                 // 部门名称, 最小长度：`1` 字符,**字段权限要求（满足任一）**：,以应用身份读取通讯录,获取部门基础信息,读取通讯录,以应用身份访问通讯录
 	ParentDepartmentID string                                         `json:"parent_department_id,omitempty"` // 父部门的部门ID,**字段权限要求（满足任一）**：,以应用身份读取通讯录,获取部门组织架构信息,读取通讯录,以应用身份访问通讯录
@@ -1020,15 +1118,18 @@ type EventV2ContactDepartmentDeletedV3Object struct {
 	Status             *EventV2ContactDepartmentDeletedV3ObjectStatus `json:"status,omitempty"`               // 部门状态,**字段权限要求（满足任一）**：,以应用身份读取通讯录,获取部门基础信息,读取通讯录,以应用身份访问通讯录
 }
 
+// EventV2ContactDepartmentDeletedV3ObjectStatus ...
 type EventV2ContactDepartmentDeletedV3ObjectStatus struct {
 	IsDeleted bool `json:"is_deleted,omitempty"` // 是否被删除
 }
 
+// EventV2ContactDepartmentDeletedV3OldObject ...
 type EventV2ContactDepartmentDeletedV3OldObject struct {
 	Status           *EventV2ContactDepartmentDeletedV3OldObjectStatus `json:"status,omitempty"`             // 部门状态,**字段权限要求（满足任一）**：,以应用身份读取通讯录,获取部门基础信息,读取通讯录,以应用身份访问通讯录
 	OpenDepartmentID string                                            `json:"open_department_id,omitempty"` // 部门open_id
 }
 
+// EventV2ContactDepartmentDeletedV3OldObjectStatus ...
 type EventV2ContactDepartmentDeletedV3OldObjectStatus struct {
 	IsDeleted bool `json:"is_deleted,omitempty"` // 是否被删除
 }
@@ -1045,13 +1146,16 @@ func (r *EventCallbackService) HandlerEventV2ContactDepartmentUpdatedV3(f EventV
 	r.cli.eventHandler.eventV2ContactDepartmentUpdatedV3Handler = f
 }
 
+// EventV2ContactDepartmentUpdatedV3Handler event EventV2ContactDepartmentUpdatedV3 handler
 type EventV2ContactDepartmentUpdatedV3Handler func(ctx context.Context, cli *Lark, schema string, header *EventHeaderV2, event *EventV2ContactDepartmentUpdatedV3) (string, error)
 
+// EventV2ContactDepartmentUpdatedV3 ...
 type EventV2ContactDepartmentUpdatedV3 struct {
 	Object    *EventV2ContactDepartmentUpdatedV3Object    `json:"object,omitempty"`     // 更新后信息
 	OldObject *EventV2ContactDepartmentUpdatedV3OldObject `json:"old_object,omitempty"` // 更新前信息
 }
 
+// EventV2ContactDepartmentUpdatedV3Object ...
 type EventV2ContactDepartmentUpdatedV3Object struct {
 	Name               string                                         `json:"name,omitempty"`                 // 部门名称, 最小长度：`1` 字符,**字段权限要求（满足任一）**：,以应用身份读取通讯录,获取部门基础信息,读取通讯录,以应用身份访问通讯录
 	ParentDepartmentID string                                         `json:"parent_department_id,omitempty"` // 父部门的部门ID,**字段权限要求（满足任一）**：,以应用身份读取通讯录,获取部门组织架构信息,读取通讯录,以应用身份访问通讯录
@@ -1063,10 +1167,12 @@ type EventV2ContactDepartmentUpdatedV3Object struct {
 	Status             *EventV2ContactDepartmentUpdatedV3ObjectStatus `json:"status,omitempty"`               // 部门状态,**字段权限要求（满足任一）**：,以应用身份读取通讯录,获取部门基础信息,读取通讯录,以应用身份访问通讯录
 }
 
+// EventV2ContactDepartmentUpdatedV3ObjectStatus ...
 type EventV2ContactDepartmentUpdatedV3ObjectStatus struct {
 	IsDeleted bool `json:"is_deleted,omitempty"` // 是否被删除
 }
 
+// EventV2ContactDepartmentUpdatedV3OldObject ...
 type EventV2ContactDepartmentUpdatedV3OldObject struct {
 	Name               string                                            `json:"name,omitempty"`                 // 部门名称, 最小长度：`1` 字符,**字段权限要求（满足任一）**：,以应用身份读取通讯录,获取部门基础信息,读取通讯录,以应用身份访问通讯录
 	ParentDepartmentID string                                            `json:"parent_department_id,omitempty"` // 父部门的部门ID,**字段权限要求（满足任一）**：,以应用身份读取通讯录,获取部门组织架构信息,读取通讯录,以应用身份访问通讯录
@@ -1078,6 +1184,7 @@ type EventV2ContactDepartmentUpdatedV3OldObject struct {
 	Status             *EventV2ContactDepartmentUpdatedV3OldObjectStatus `json:"status,omitempty"`               // 部门状态,**字段权限要求（满足任一）**：,以应用身份读取通讯录,获取部门基础信息,读取通讯录,以应用身份访问通讯录
 }
 
+// EventV2ContactDepartmentUpdatedV3OldObjectStatus ...
 type EventV2ContactDepartmentUpdatedV3OldObjectStatus struct {
 	IsDeleted bool `json:"is_deleted,omitempty"` // 是否被删除
 }
@@ -1093,13 +1200,16 @@ func (r *EventCallbackService) HandlerEventV2ContactEmployeeTypeEnumActivedV3(f 
 	r.cli.eventHandler.eventV2ContactEmployeeTypeEnumActivedV3Handler = f
 }
 
+// EventV2ContactEmployeeTypeEnumActivedV3Handler event EventV2ContactEmployeeTypeEnumActivedV3 handler
 type EventV2ContactEmployeeTypeEnumActivedV3Handler func(ctx context.Context, cli *Lark, schema string, header *EventHeaderV2, event *EventV2ContactEmployeeTypeEnumActivedV3) (string, error)
 
+// EventV2ContactEmployeeTypeEnumActivedV3 ...
 type EventV2ContactEmployeeTypeEnumActivedV3 struct {
 	OldEnum *EventV2ContactEmployeeTypeEnumActivedV3OldEnum `json:"old_enum,omitempty"` // 旧枚举类型
 	NewEnum *EventV2ContactEmployeeTypeEnumActivedV3NewEnum `json:"new_enum,omitempty"` // 新枚举类型
 }
 
+// EventV2ContactEmployeeTypeEnumActivedV3OldEnum ...
 type EventV2ContactEmployeeTypeEnumActivedV3OldEnum struct {
 	EnumID      string                                                     `json:"enum_id,omitempty"`      // 枚举值id
 	EnumValue   string                                                     `json:"enum_value,omitempty"`   // 枚举的编号值，创建新的人员类型后，系统生成对应编号。对应[创建用户接口](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/create)中用户信息的employee_type字段值
@@ -1109,11 +1219,13 @@ type EventV2ContactEmployeeTypeEnumActivedV3OldEnum struct {
 	I18nContent *EventV2ContactEmployeeTypeEnumActivedV3OldEnumI18nContent `json:"i18n_content,omitempty"` // i18n定义
 }
 
+// EventV2ContactEmployeeTypeEnumActivedV3OldEnumI18nContent ...
 type EventV2ContactEmployeeTypeEnumActivedV3OldEnumI18nContent struct {
 	Locale string `json:"locale,omitempty"` // 语言版本
 	Value  string `json:"value,omitempty"`  // 字段名
 }
 
+// EventV2ContactEmployeeTypeEnumActivedV3NewEnum ...
 type EventV2ContactEmployeeTypeEnumActivedV3NewEnum struct {
 	EnumID      string                                                     `json:"enum_id,omitempty"`      // 枚举值id
 	EnumValue   string                                                     `json:"enum_value,omitempty"`   // 枚举的编号值，创建新的人员类型后，系统生成对应编号。对应[创建用户接口](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/create)中用户信息的employee_type字段值
@@ -1123,6 +1235,7 @@ type EventV2ContactEmployeeTypeEnumActivedV3NewEnum struct {
 	I18nContent *EventV2ContactEmployeeTypeEnumActivedV3NewEnumI18nContent `json:"i18n_content,omitempty"` // i18n定义
 }
 
+// EventV2ContactEmployeeTypeEnumActivedV3NewEnumI18nContent ...
 type EventV2ContactEmployeeTypeEnumActivedV3NewEnumI18nContent struct {
 	Locale string `json:"locale,omitempty"` // 语言版本
 	Value  string `json:"value,omitempty"`  // 字段名
@@ -1139,12 +1252,15 @@ func (r *EventCallbackService) HandlerEventV2ContactEmployeeTypeEnumCreatedV3(f 
 	r.cli.eventHandler.eventV2ContactEmployeeTypeEnumCreatedV3Handler = f
 }
 
+// EventV2ContactEmployeeTypeEnumCreatedV3Handler event EventV2ContactEmployeeTypeEnumCreatedV3 handler
 type EventV2ContactEmployeeTypeEnumCreatedV3Handler func(ctx context.Context, cli *Lark, schema string, header *EventHeaderV2, event *EventV2ContactEmployeeTypeEnumCreatedV3) (string, error)
 
+// EventV2ContactEmployeeTypeEnumCreatedV3 ...
 type EventV2ContactEmployeeTypeEnumCreatedV3 struct {
 	NewEnum *EventV2ContactEmployeeTypeEnumCreatedV3NewEnum `json:"new_enum,omitempty"` // 新枚举类型
 }
 
+// EventV2ContactEmployeeTypeEnumCreatedV3NewEnum ...
 type EventV2ContactEmployeeTypeEnumCreatedV3NewEnum struct {
 	EnumID      string                                                     `json:"enum_id,omitempty"`      // 枚举值id
 	EnumValue   string                                                     `json:"enum_value,omitempty"`   // 枚举的编号值，创建新的人员类型后，系统生成对应编号。对应[创建用户接口](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/create)中用户信息的employee_type字段值
@@ -1154,6 +1270,7 @@ type EventV2ContactEmployeeTypeEnumCreatedV3NewEnum struct {
 	I18nContent *EventV2ContactEmployeeTypeEnumCreatedV3NewEnumI18nContent `json:"i18n_content,omitempty"` // i18n定义
 }
 
+// EventV2ContactEmployeeTypeEnumCreatedV3NewEnumI18nContent ...
 type EventV2ContactEmployeeTypeEnumCreatedV3NewEnumI18nContent struct {
 	Locale string `json:"locale,omitempty"` // 语言版本
 	Value  string `json:"value,omitempty"`  // 字段名
@@ -1170,13 +1287,16 @@ func (r *EventCallbackService) HandlerEventV2ContactEmployeeTypeEnumDeactivatedV
 	r.cli.eventHandler.eventV2ContactEmployeeTypeEnumDeactivatedV3Handler = f
 }
 
+// EventV2ContactEmployeeTypeEnumDeactivatedV3Handler event EventV2ContactEmployeeTypeEnumDeactivatedV3 handler
 type EventV2ContactEmployeeTypeEnumDeactivatedV3Handler func(ctx context.Context, cli *Lark, schema string, header *EventHeaderV2, event *EventV2ContactEmployeeTypeEnumDeactivatedV3) (string, error)
 
+// EventV2ContactEmployeeTypeEnumDeactivatedV3 ...
 type EventV2ContactEmployeeTypeEnumDeactivatedV3 struct {
 	OldEnum *EventV2ContactEmployeeTypeEnumDeactivatedV3OldEnum `json:"old_enum,omitempty"` // 旧枚举类型
 	NewEnum *EventV2ContactEmployeeTypeEnumDeactivatedV3NewEnum `json:"new_enum,omitempty"` // 新枚举类型
 }
 
+// EventV2ContactEmployeeTypeEnumDeactivatedV3OldEnum ...
 type EventV2ContactEmployeeTypeEnumDeactivatedV3OldEnum struct {
 	EnumID      string                                                         `json:"enum_id,omitempty"`      // 枚举值id
 	EnumValue   string                                                         `json:"enum_value,omitempty"`   // 枚举的编号值，创建新的人员类型后，系统生成对应编号。对应[创建用户接口](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/create)中用户信息的employee_type字段值
@@ -1186,11 +1306,13 @@ type EventV2ContactEmployeeTypeEnumDeactivatedV3OldEnum struct {
 	I18nContent *EventV2ContactEmployeeTypeEnumDeactivatedV3OldEnumI18nContent `json:"i18n_content,omitempty"` // i18n定义
 }
 
+// EventV2ContactEmployeeTypeEnumDeactivatedV3OldEnumI18nContent ...
 type EventV2ContactEmployeeTypeEnumDeactivatedV3OldEnumI18nContent struct {
 	Locale string `json:"locale,omitempty"` // 语言版本
 	Value  string `json:"value,omitempty"`  // 字段名
 }
 
+// EventV2ContactEmployeeTypeEnumDeactivatedV3NewEnum ...
 type EventV2ContactEmployeeTypeEnumDeactivatedV3NewEnum struct {
 	EnumID      string                                                         `json:"enum_id,omitempty"`      // 枚举值id
 	EnumValue   string                                                         `json:"enum_value,omitempty"`   // 枚举的编号值，创建新的人员类型后，系统生成对应编号。对应[创建用户接口](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/create)中用户信息的employee_type字段值
@@ -1200,6 +1322,7 @@ type EventV2ContactEmployeeTypeEnumDeactivatedV3NewEnum struct {
 	I18nContent *EventV2ContactEmployeeTypeEnumDeactivatedV3NewEnumI18nContent `json:"i18n_content,omitempty"` // i18n定义
 }
 
+// EventV2ContactEmployeeTypeEnumDeactivatedV3NewEnumI18nContent ...
 type EventV2ContactEmployeeTypeEnumDeactivatedV3NewEnumI18nContent struct {
 	Locale string `json:"locale,omitempty"` // 语言版本
 	Value  string `json:"value,omitempty"`  // 字段名
@@ -1216,12 +1339,15 @@ func (r *EventCallbackService) HandlerEventV2ContactEmployeeTypeEnumDeletedV3(f 
 	r.cli.eventHandler.eventV2ContactEmployeeTypeEnumDeletedV3Handler = f
 }
 
+// EventV2ContactEmployeeTypeEnumDeletedV3Handler event EventV2ContactEmployeeTypeEnumDeletedV3 handler
 type EventV2ContactEmployeeTypeEnumDeletedV3Handler func(ctx context.Context, cli *Lark, schema string, header *EventHeaderV2, event *EventV2ContactEmployeeTypeEnumDeletedV3) (string, error)
 
+// EventV2ContactEmployeeTypeEnumDeletedV3 ...
 type EventV2ContactEmployeeTypeEnumDeletedV3 struct {
 	OldEnum *EventV2ContactEmployeeTypeEnumDeletedV3OldEnum `json:"old_enum,omitempty"` // 旧枚举类型
 }
 
+// EventV2ContactEmployeeTypeEnumDeletedV3OldEnum ...
 type EventV2ContactEmployeeTypeEnumDeletedV3OldEnum struct {
 	EnumID      string                                                     `json:"enum_id,omitempty"`      // 枚举值id
 	EnumValue   string                                                     `json:"enum_value,omitempty"`   // 枚举的编号值，创建新的人员类型后，系统生成对应编号。对应[创建用户接口](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/create)中用户信息的employee_type字段值
@@ -1231,6 +1357,7 @@ type EventV2ContactEmployeeTypeEnumDeletedV3OldEnum struct {
 	I18nContent *EventV2ContactEmployeeTypeEnumDeletedV3OldEnumI18nContent `json:"i18n_content,omitempty"` // i18n定义
 }
 
+// EventV2ContactEmployeeTypeEnumDeletedV3OldEnumI18nContent ...
 type EventV2ContactEmployeeTypeEnumDeletedV3OldEnumI18nContent struct {
 	Locale string `json:"locale,omitempty"` // 语言版本
 	Value  string `json:"value,omitempty"`  // 字段名
@@ -1247,13 +1374,16 @@ func (r *EventCallbackService) HandlerEventV2ContactEmployeeTypeEnumUpdatedV3(f 
 	r.cli.eventHandler.eventV2ContactEmployeeTypeEnumUpdatedV3Handler = f
 }
 
+// EventV2ContactEmployeeTypeEnumUpdatedV3Handler event EventV2ContactEmployeeTypeEnumUpdatedV3 handler
 type EventV2ContactEmployeeTypeEnumUpdatedV3Handler func(ctx context.Context, cli *Lark, schema string, header *EventHeaderV2, event *EventV2ContactEmployeeTypeEnumUpdatedV3) (string, error)
 
+// EventV2ContactEmployeeTypeEnumUpdatedV3 ...
 type EventV2ContactEmployeeTypeEnumUpdatedV3 struct {
 	OldEnum *EventV2ContactEmployeeTypeEnumUpdatedV3OldEnum `json:"old_enum,omitempty"` // 旧枚举类型
 	NewEnum *EventV2ContactEmployeeTypeEnumUpdatedV3NewEnum `json:"new_enum,omitempty"` // 新枚举类型
 }
 
+// EventV2ContactEmployeeTypeEnumUpdatedV3OldEnum ...
 type EventV2ContactEmployeeTypeEnumUpdatedV3OldEnum struct {
 	EnumID      string                                                     `json:"enum_id,omitempty"`      // 枚举值id
 	EnumValue   string                                                     `json:"enum_value,omitempty"`   // 枚举的编号值，创建新的人员类型后，系统生成对应编号。对应[创建用户接口](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/create)中用户信息的employee_type字段值
@@ -1263,11 +1393,13 @@ type EventV2ContactEmployeeTypeEnumUpdatedV3OldEnum struct {
 	I18nContent *EventV2ContactEmployeeTypeEnumUpdatedV3OldEnumI18nContent `json:"i18n_content,omitempty"` // i18n定义
 }
 
+// EventV2ContactEmployeeTypeEnumUpdatedV3OldEnumI18nContent ...
 type EventV2ContactEmployeeTypeEnumUpdatedV3OldEnumI18nContent struct {
 	Locale string `json:"locale,omitempty"` // 语言版本
 	Value  string `json:"value,omitempty"`  // 字段名
 }
 
+// EventV2ContactEmployeeTypeEnumUpdatedV3NewEnum ...
 type EventV2ContactEmployeeTypeEnumUpdatedV3NewEnum struct {
 	EnumID      string                                                     `json:"enum_id,omitempty"`      // 枚举值id
 	EnumValue   string                                                     `json:"enum_value,omitempty"`   // 枚举的编号值，创建新的人员类型后，系统生成对应编号。对应[创建用户接口](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/create)中用户信息的employee_type字段值
@@ -1277,6 +1409,7 @@ type EventV2ContactEmployeeTypeEnumUpdatedV3NewEnum struct {
 	I18nContent *EventV2ContactEmployeeTypeEnumUpdatedV3NewEnumI18nContent `json:"i18n_content,omitempty"` // i18n定义
 }
 
+// EventV2ContactEmployeeTypeEnumUpdatedV3NewEnumI18nContent ...
 type EventV2ContactEmployeeTypeEnumUpdatedV3NewEnumI18nContent struct {
 	Locale string `json:"locale,omitempty"` // 语言版本
 	Value  string `json:"value,omitempty"`  // 字段名
@@ -1293,19 +1426,23 @@ func (r *EventCallbackService) HandlerEventV2ContactScopeUpdatedV3(f EventV2Cont
 	r.cli.eventHandler.eventV2ContactScopeUpdatedV3Handler = f
 }
 
+// EventV2ContactScopeUpdatedV3Handler event EventV2ContactScopeUpdatedV3 handler
 type EventV2ContactScopeUpdatedV3Handler func(ctx context.Context, cli *Lark, schema string, header *EventHeaderV2, event *EventV2ContactScopeUpdatedV3) (string, error)
 
+// EventV2ContactScopeUpdatedV3 ...
 type EventV2ContactScopeUpdatedV3 struct {
 	Added   *EventV2ContactScopeUpdatedV3Added   `json:"added,omitempty"`   // 当通讯录范围权限变更时，新增的对象
 	Removed *EventV2ContactScopeUpdatedV3Removed `json:"removed,omitempty"` // 当通讯录范围权限发生变更时，移除的对象
 }
 
+// EventV2ContactScopeUpdatedV3Added ...
 type EventV2ContactScopeUpdatedV3Added struct {
 	Departments []*EventV2ContactScopeUpdatedV3AddedDepartment `json:"departments,omitempty"` // 部门对象
 	Users       []*EventV2ContactScopeUpdatedV3AddedUser       `json:"users,omitempty"`       // 用户对象
 	UserGroups  []*EventV2ContactScopeUpdatedV3AddedUserGroup  `json:"user_groups,omitempty"` // 用户组对象
 }
 
+// EventV2ContactScopeUpdatedV3AddedDepartment ...
 type EventV2ContactScopeUpdatedV3AddedDepartment struct {
 	Name               string                                               `json:"name,omitempty"`                 // 部门名称, 最小长度：`1` 字符,**字段权限要求（满足任一）**：,以应用身份读取通讯录,获取部门基础信息,以应用身份访问通讯录,读取通讯录
 	I18nName           *EventV2ContactScopeUpdatedV3AddedDepartmentI18nName `json:"i18n_name,omitempty"`            // 国际化的部门名称,**字段权限要求（满足任一）**：,以应用身份读取通讯录,获取部门基础信息,以应用身份访问通讯录,读取通讯录
@@ -1320,16 +1457,19 @@ type EventV2ContactScopeUpdatedV3AddedDepartment struct {
 	Status             *EventV2ContactScopeUpdatedV3AddedDepartmentStatus   `json:"status,omitempty"`               // 部门状态,**字段权限要求（满足任一）**：,以应用身份读取通讯录,获取部门基础信息,以应用身份访问通讯录,读取通讯录
 }
 
+// EventV2ContactScopeUpdatedV3AddedDepartmentI18nName ...
 type EventV2ContactScopeUpdatedV3AddedDepartmentI18nName struct {
 	ZhCn string `json:"zh_cn,omitempty"` // 部门的中文名
 	JaJp string `json:"ja_jp,omitempty"` // 部门的日文名
 	EnUs string `json:"en_us,omitempty"` // 部门的英文名
 }
 
+// EventV2ContactScopeUpdatedV3AddedDepartmentStatus ...
 type EventV2ContactScopeUpdatedV3AddedDepartmentStatus struct {
 	IsDeleted bool `json:"is_deleted,omitempty"` // 是否被删除
 }
 
+// EventV2ContactScopeUpdatedV3AddedUser ...
 type EventV2ContactScopeUpdatedV3AddedUser struct {
 	UnionID              string                                                   `json:"union_id,omitempty"`               // 用户的union_id，不同ID的说明参见 [用户相关的 ID 概念](https://open.feishu.cn/document/home/user-identity-introduction/introduction)
 	UserID               string                                                   `json:"user_id,omitempty"`                // 租户内用户的唯一标识，ID值与查询参数中的user_id_type 对应。,不同 ID 的说明参见 [用户相关的 ID 概念](https://open.feishu.cn/document/home/user-identity-introduction/introduction), 字段权限要求: 获取用户 user ID
@@ -1357,6 +1497,7 @@ type EventV2ContactScopeUpdatedV3AddedUser struct {
 	IsFrozen             bool                                                     `json:"is_frozen,omitempty"`              // 是否暂停用户
 }
 
+// EventV2ContactScopeUpdatedV3AddedUserAvatar ...
 type EventV2ContactScopeUpdatedV3AddedUserAvatar struct {
 	Avatar72     string `json:"avatar_72,omitempty"`     // 72*72像素头像链接
 	Avatar240    string `json:"avatar_240,omitempty"`    // 240*240像素头像链接
@@ -1364,6 +1505,7 @@ type EventV2ContactScopeUpdatedV3AddedUserAvatar struct {
 	AvatarOrigin string `json:"avatar_origin,omitempty"` // 原始头像链接
 }
 
+// EventV2ContactScopeUpdatedV3AddedUserStatus ...
 type EventV2ContactScopeUpdatedV3AddedUserStatus struct {
 	IsFrozen    bool `json:"is_frozen,omitempty"`    // 是否暂停
 	IsResigned  bool `json:"is_resigned,omitempty"`  // 是否离职
@@ -1372,12 +1514,14 @@ type EventV2ContactScopeUpdatedV3AddedUserStatus struct {
 	IsUnjoin    bool `json:"is_unjoin,omitempty"`    // 是否未加入，需要用户自主确认才能加入团队
 }
 
+// EventV2ContactScopeUpdatedV3AddedUserCustomAttr ...
 type EventV2ContactScopeUpdatedV3AddedUserCustomAttr struct {
 	Type  string                                                `json:"type,omitempty"`  // 自定义字段类型   , `TEXT`：文本, `HREF`：网页, `ENUMERATION`：枚举, `PICTURE_ENUM`：图片, `GENERIC_USER`：用户,[自定义字段相关常见问题](https://open.feishu.cn/document/ugTN1YjL4UTN24CO1UjN/uQzN1YjL0cTN24CN3UjN)
 	ID    string                                                `json:"id,omitempty"`    // 自定义字段ID
 	Value *EventV2ContactScopeUpdatedV3AddedUserCustomAttrValue `json:"value,omitempty"` // 自定义字段取值
 }
 
+// EventV2ContactScopeUpdatedV3AddedUserCustomAttrValue ...
 type EventV2ContactScopeUpdatedV3AddedUserCustomAttrValue struct {
 	Text        string                                                           `json:"text,omitempty"`         // 字段类型为`TEXT`时该参数定义字段值，必填；字段类型为`HREF`时该参数定义网页标题，必填
 	URL         string                                                           `json:"url,omitempty"`          // 字段类型为 HREF 时，该参数定义默认 URL
@@ -1389,16 +1533,19 @@ type EventV2ContactScopeUpdatedV3AddedUserCustomAttrValue struct {
 	GenericUser *EventV2ContactScopeUpdatedV3AddedUserCustomAttrValueGenericUser `json:"generic_user,omitempty"` // 字段类型为 GENERIC_USER 时，该参数定义引用人员
 }
 
+// EventV2ContactScopeUpdatedV3AddedUserCustomAttrValueGenericUser ...
 type EventV2ContactScopeUpdatedV3AddedUserCustomAttrValueGenericUser struct {
 	ID   string `json:"id,omitempty"`   // 用户的user_id
 	Type int64  `json:"type,omitempty"` // 用户类型    1：用户
 }
 
+// EventV2ContactScopeUpdatedV3AddedUserNotificationOption ...
 type EventV2ContactScopeUpdatedV3AddedUserNotificationOption struct {
 	Channels []string `json:"channels,omitempty"` // 通道列表，枚举值，可多选：, `sms`：短信邀请, `email`：邮件邀请
 	Language string   `json:"language,omitempty"` // 语言类型, 可选值有: `zh-CN`：中文, `en-US`：英文, `ja-JP`：日文
 }
 
+// EventV2ContactScopeUpdatedV3AddedUserGroup ...
 type EventV2ContactScopeUpdatedV3AddedUserGroup struct {
 	UserGroupID string `json:"user_group_id,omitempty"` // 用户组的自定义ID, 长度范围：`1` ～ `64` 字符
 	Name        string `json:"name,omitempty"`          // 用户组的名称, 长度范围：`1` ～ `100` 字符
@@ -1407,12 +1554,14 @@ type EventV2ContactScopeUpdatedV3AddedUserGroup struct {
 	Status      int64  `json:"status,omitempty"`        // 用户组状态, 可选值有: `0`：未知, `1`：计算完毕, `2`：计算中, `3`：计算失败
 }
 
+// EventV2ContactScopeUpdatedV3Removed ...
 type EventV2ContactScopeUpdatedV3Removed struct {
 	Departments []*EventV2ContactScopeUpdatedV3RemovedDepartment `json:"departments,omitempty"` // 部门对象
 	Users       []*EventV2ContactScopeUpdatedV3RemovedUser       `json:"users,omitempty"`       // 用户对象
 	UserGroups  []*EventV2ContactScopeUpdatedV3RemovedUserGroup  `json:"user_groups,omitempty"` // 用户组对象
 }
 
+// EventV2ContactScopeUpdatedV3RemovedDepartment ...
 type EventV2ContactScopeUpdatedV3RemovedDepartment struct {
 	Name               string                                                 `json:"name,omitempty"`                 // 部门名称, 最小长度：`1` 字符,**字段权限要求（满足任一）**：,以应用身份读取通讯录,获取部门基础信息,以应用身份访问通讯录,读取通讯录
 	I18nName           *EventV2ContactScopeUpdatedV3RemovedDepartmentI18nName `json:"i18n_name,omitempty"`            // 国际化的部门名称,**字段权限要求（满足任一）**：,以应用身份读取通讯录,获取部门基础信息,以应用身份访问通讯录,读取通讯录
@@ -1427,16 +1576,19 @@ type EventV2ContactScopeUpdatedV3RemovedDepartment struct {
 	Status             *EventV2ContactScopeUpdatedV3RemovedDepartmentStatus   `json:"status,omitempty"`               // 部门状态,**字段权限要求（满足任一）**：,以应用身份读取通讯录,获取部门基础信息,以应用身份访问通讯录,读取通讯录
 }
 
+// EventV2ContactScopeUpdatedV3RemovedDepartmentI18nName ...
 type EventV2ContactScopeUpdatedV3RemovedDepartmentI18nName struct {
 	ZhCn string `json:"zh_cn,omitempty"` // 部门的中文名
 	JaJp string `json:"ja_jp,omitempty"` // 部门的日文名
 	EnUs string `json:"en_us,omitempty"` // 部门的英文名
 }
 
+// EventV2ContactScopeUpdatedV3RemovedDepartmentStatus ...
 type EventV2ContactScopeUpdatedV3RemovedDepartmentStatus struct {
 	IsDeleted bool `json:"is_deleted,omitempty"` // 是否被删除
 }
 
+// EventV2ContactScopeUpdatedV3RemovedUser ...
 type EventV2ContactScopeUpdatedV3RemovedUser struct {
 	UnionID              string                                                     `json:"union_id,omitempty"`               // 用户的union_id，不同ID的说明参见 [用户相关的 ID 概念](https://open.feishu.cn/document/home/user-identity-introduction/introduction)
 	UserID               string                                                     `json:"user_id,omitempty"`                // 租户内用户的唯一标识，ID值与查询参数中的user_id_type 对应。,不同 ID 的说明参见 [用户相关的 ID 概念](https://open.feishu.cn/document/home/user-identity-introduction/introduction), 字段权限要求: 获取用户 user ID
@@ -1464,6 +1616,7 @@ type EventV2ContactScopeUpdatedV3RemovedUser struct {
 	IsFrozen             bool                                                       `json:"is_frozen,omitempty"`              // 是否暂停用户
 }
 
+// EventV2ContactScopeUpdatedV3RemovedUserAvatar ...
 type EventV2ContactScopeUpdatedV3RemovedUserAvatar struct {
 	Avatar72     string `json:"avatar_72,omitempty"`     // 72*72像素头像链接
 	Avatar240    string `json:"avatar_240,omitempty"`    // 240*240像素头像链接
@@ -1471,6 +1624,7 @@ type EventV2ContactScopeUpdatedV3RemovedUserAvatar struct {
 	AvatarOrigin string `json:"avatar_origin,omitempty"` // 原始头像链接
 }
 
+// EventV2ContactScopeUpdatedV3RemovedUserStatus ...
 type EventV2ContactScopeUpdatedV3RemovedUserStatus struct {
 	IsFrozen    bool `json:"is_frozen,omitempty"`    // 是否暂停
 	IsResigned  bool `json:"is_resigned,omitempty"`  // 是否离职
@@ -1479,12 +1633,14 @@ type EventV2ContactScopeUpdatedV3RemovedUserStatus struct {
 	IsUnjoin    bool `json:"is_unjoin,omitempty"`    // 是否未加入，需要用户自主确认才能加入团队
 }
 
+// EventV2ContactScopeUpdatedV3RemovedUserCustomAttr ...
 type EventV2ContactScopeUpdatedV3RemovedUserCustomAttr struct {
 	Type  string                                                  `json:"type,omitempty"`  // 自定义字段类型   , `TEXT`：文本, `HREF`：网页, `ENUMERATION`：枚举, `PICTURE_ENUM`：图片, `GENERIC_USER`：用户,[自定义字段相关常见问题](https://open.feishu.cn/document/ugTN1YjL4UTN24CO1UjN/uQzN1YjL0cTN24CN3UjN)
 	ID    string                                                  `json:"id,omitempty"`    // 自定义字段ID
 	Value *EventV2ContactScopeUpdatedV3RemovedUserCustomAttrValue `json:"value,omitempty"` // 自定义字段取值
 }
 
+// EventV2ContactScopeUpdatedV3RemovedUserCustomAttrValue ...
 type EventV2ContactScopeUpdatedV3RemovedUserCustomAttrValue struct {
 	Text        string                                                             `json:"text,omitempty"`         // 字段类型为`TEXT`时该参数定义字段值，必填；字段类型为`HREF`时该参数定义网页标题，必填
 	URL         string                                                             `json:"url,omitempty"`          // 字段类型为 HREF 时，该参数定义默认 URL
@@ -1496,16 +1652,19 @@ type EventV2ContactScopeUpdatedV3RemovedUserCustomAttrValue struct {
 	GenericUser *EventV2ContactScopeUpdatedV3RemovedUserCustomAttrValueGenericUser `json:"generic_user,omitempty"` // 字段类型为 GENERIC_USER 时，该参数定义引用人员
 }
 
+// EventV2ContactScopeUpdatedV3RemovedUserCustomAttrValueGenericUser ...
 type EventV2ContactScopeUpdatedV3RemovedUserCustomAttrValueGenericUser struct {
 	ID   string `json:"id,omitempty"`   // 用户的user_id
 	Type int64  `json:"type,omitempty"` // 用户类型    1：用户
 }
 
+// EventV2ContactScopeUpdatedV3RemovedUserNotificationOption ...
 type EventV2ContactScopeUpdatedV3RemovedUserNotificationOption struct {
 	Channels []string `json:"channels,omitempty"` // 通道列表，枚举值，可多选：, `sms`：短信邀请, `email`：邮件邀请
 	Language string   `json:"language,omitempty"` // 语言类型, 可选值有: `zh-CN`：中文, `en-US`：英文, `ja-JP`：日文
 }
 
+// EventV2ContactScopeUpdatedV3RemovedUserGroup ...
 type EventV2ContactScopeUpdatedV3RemovedUserGroup struct {
 	UserGroupID string `json:"user_group_id,omitempty"` // 用户组的自定义ID, 长度范围：`1` ～ `64` 字符
 	Name        string `json:"name,omitempty"`          // 用户组的名称, 长度范围：`1` ～ `100` 字符
@@ -1526,12 +1685,15 @@ func (r *EventCallbackService) HandlerEventV2ContactUserCreatedV3(f EventV2Conta
 	r.cli.eventHandler.eventV2ContactUserCreatedV3Handler = f
 }
 
+// EventV2ContactUserCreatedV3Handler event EventV2ContactUserCreatedV3 handler
 type EventV2ContactUserCreatedV3Handler func(ctx context.Context, cli *Lark, schema string, header *EventHeaderV2, event *EventV2ContactUserCreatedV3) (string, error)
 
+// EventV2ContactUserCreatedV3 ...
 type EventV2ContactUserCreatedV3 struct {
 	Object *EventV2ContactUserCreatedV3Object `json:"object,omitempty"` // 事件信息
 }
 
+// EventV2ContactUserCreatedV3Object ...
 type EventV2ContactUserCreatedV3Object struct {
 	OpenID        string                                         `json:"open_id,omitempty"`        // 用户的open_id
 	UserID        string                                         `json:"user_id,omitempty"`        // 租户内用户的唯一标识, 字段权限要求: 获取用户 user ID
@@ -1554,6 +1716,7 @@ type EventV2ContactUserCreatedV3Object struct {
 	CustomAttrs   []*EventV2ContactUserCreatedV3ObjectCustomAttr `json:"custom_attrs,omitempty"`   // 自定义属性,**字段权限要求（满足任一）**：,以应用身份读取通讯录,获取用户雇佣信息,以应用身份访问通讯录,读取通讯录
 }
 
+// EventV2ContactUserCreatedV3ObjectAvatar ...
 type EventV2ContactUserCreatedV3ObjectAvatar struct {
 	Avatar72     string `json:"avatar_72,omitempty"`     // 72*72像素头像链接
 	Avatar240    string `json:"avatar_240,omitempty"`    // 240*240像素头像链接
@@ -1561,6 +1724,7 @@ type EventV2ContactUserCreatedV3ObjectAvatar struct {
 	AvatarOrigin string `json:"avatar_origin,omitempty"` // 原始头像链接
 }
 
+// EventV2ContactUserCreatedV3ObjectStatus ...
 type EventV2ContactUserCreatedV3ObjectStatus struct {
 	IsFrozen    bool `json:"is_frozen,omitempty"`    // 是否暂停
 	IsResigned  bool `json:"is_resigned,omitempty"`  // 是否离职
@@ -1569,18 +1733,21 @@ type EventV2ContactUserCreatedV3ObjectStatus struct {
 	IsUnjoin    bool `json:"is_unjoin,omitempty"`    // 是否未加入，需要用户自主确认才能加入团队
 }
 
+// EventV2ContactUserCreatedV3ObjectOrder ...
 type EventV2ContactUserCreatedV3ObjectOrder struct {
 	DepartmentID    string `json:"department_id,omitempty"`    // 排序信息对应的部门ID, ID值与查询参数中的department_id_type 对应。,不同 ID 的说明参见 [部门ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/field-overview)
 	UserOrder       int64  `json:"user_order,omitempty"`       // 用户在其直属部门内的排序，数值越大，排序越靠前
 	DepartmentOrder int64  `json:"department_order,omitempty"` // 用户所属的多个部门间的排序，数值越大，排序越靠前
 }
 
+// EventV2ContactUserCreatedV3ObjectCustomAttr ...
 type EventV2ContactUserCreatedV3ObjectCustomAttr struct {
 	Type  string                                            `json:"type,omitempty"`  // 自定义字段类型   , `TEXT`：文本, `HREF`：网页, `ENUMERATION`：枚举, `PICTURE_ENUM`：图片, `GENERIC_USER`：用户,[自定义字段相关常见问题](https://open.feishu.cn/document/ugTN1YjL4UTN24CO1UjN/uQzN1YjL0cTN24CN3UjN)
 	ID    string                                            `json:"id,omitempty"`    // 自定义字段ID
 	Value *EventV2ContactUserCreatedV3ObjectCustomAttrValue `json:"value,omitempty"` // 自定义字段取值
 }
 
+// EventV2ContactUserCreatedV3ObjectCustomAttrValue ...
 type EventV2ContactUserCreatedV3ObjectCustomAttrValue struct {
 	Text        string                                                       `json:"text,omitempty"`         // 字段类型为`TEXT`时该参数定义字段值，必填；字段类型为`HREF`时该参数定义网页标题，必填
 	URL         string                                                       `json:"url,omitempty"`          // 字段类型为 HREF 时，该参数定义默认 URL
@@ -1592,6 +1759,7 @@ type EventV2ContactUserCreatedV3ObjectCustomAttrValue struct {
 	GenericUser *EventV2ContactUserCreatedV3ObjectCustomAttrValueGenericUser `json:"generic_user,omitempty"` // 字段类型为 GENERIC_USER 时，该参数定义引用人员
 }
 
+// EventV2ContactUserCreatedV3ObjectCustomAttrValueGenericUser ...
 type EventV2ContactUserCreatedV3ObjectCustomAttrValueGenericUser struct {
 	ID   string `json:"id,omitempty"`   // 用户的user_id
 	Type int64  `json:"type,omitempty"` // 用户类型    1：用户
@@ -1609,13 +1777,16 @@ func (r *EventCallbackService) HandlerEventV2ContactUserDeletedV3(f EventV2Conta
 	r.cli.eventHandler.eventV2ContactUserDeletedV3Handler = f
 }
 
+// EventV2ContactUserDeletedV3Handler event EventV2ContactUserDeletedV3 handler
 type EventV2ContactUserDeletedV3Handler func(ctx context.Context, cli *Lark, schema string, header *EventHeaderV2, event *EventV2ContactUserDeletedV3) (string, error)
 
+// EventV2ContactUserDeletedV3 ...
 type EventV2ContactUserDeletedV3 struct {
 	Object    *EventV2ContactUserDeletedV3Object    `json:"object,omitempty"`     // 员工信息
 	OldObject *EventV2ContactUserDeletedV3OldObject `json:"old_object,omitempty"` // 删除前信息
 }
 
+// EventV2ContactUserDeletedV3Object ...
 type EventV2ContactUserDeletedV3Object struct {
 	OpenID        string                                         `json:"open_id,omitempty"`        // 用户的open_id
 	UserID        string                                         `json:"user_id,omitempty"`        // 租户内用户的唯一标识, 字段权限要求: 获取用户 user ID
@@ -1638,6 +1809,7 @@ type EventV2ContactUserDeletedV3Object struct {
 	CustomAttrs   []*EventV2ContactUserDeletedV3ObjectCustomAttr `json:"custom_attrs,omitempty"`   // 自定义属性,**字段权限要求（满足任一）**：,以应用身份读取通讯录,获取用户雇佣信息,以应用身份访问通讯录,读取通讯录
 }
 
+// EventV2ContactUserDeletedV3ObjectAvatar ...
 type EventV2ContactUserDeletedV3ObjectAvatar struct {
 	Avatar72     string `json:"avatar_72,omitempty"`     // 72*72像素头像链接
 	Avatar240    string `json:"avatar_240,omitempty"`    // 240*240像素头像链接
@@ -1645,6 +1817,7 @@ type EventV2ContactUserDeletedV3ObjectAvatar struct {
 	AvatarOrigin string `json:"avatar_origin,omitempty"` // 原始头像链接
 }
 
+// EventV2ContactUserDeletedV3ObjectStatus ...
 type EventV2ContactUserDeletedV3ObjectStatus struct {
 	IsFrozen    bool `json:"is_frozen,omitempty"`    // 是否暂停
 	IsResigned  bool `json:"is_resigned,omitempty"`  // 是否离职
@@ -1653,18 +1826,21 @@ type EventV2ContactUserDeletedV3ObjectStatus struct {
 	IsUnjoin    bool `json:"is_unjoin,omitempty"`    // 是否未加入，需要用户自主确认才能加入团队
 }
 
+// EventV2ContactUserDeletedV3ObjectOrder ...
 type EventV2ContactUserDeletedV3ObjectOrder struct {
 	DepartmentID    string `json:"department_id,omitempty"`    // 排序信息对应的部门ID, ID值与查询参数中的department_id_type 对应。,不同 ID 的说明参见 [部门ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/field-overview)
 	UserOrder       int64  `json:"user_order,omitempty"`       // 用户在其直属部门内的排序，数值越大，排序越靠前
 	DepartmentOrder int64  `json:"department_order,omitempty"` // 用户所属的多个部门间的排序，数值越大，排序越靠前
 }
 
+// EventV2ContactUserDeletedV3ObjectCustomAttr ...
 type EventV2ContactUserDeletedV3ObjectCustomAttr struct {
 	Type  string                                            `json:"type,omitempty"`  // 自定义字段类型   , `TEXT`：文本, `HREF`：网页, `ENUMERATION`：枚举, `PICTURE_ENUM`：图片, `GENERIC_USER`：用户,[自定义字段相关常见问题](https://open.feishu.cn/document/ugTN1YjL4UTN24CO1UjN/uQzN1YjL0cTN24CN3UjN)
 	ID    string                                            `json:"id,omitempty"`    // 自定义字段ID
 	Value *EventV2ContactUserDeletedV3ObjectCustomAttrValue `json:"value,omitempty"` // 自定义字段取值
 }
 
+// EventV2ContactUserDeletedV3ObjectCustomAttrValue ...
 type EventV2ContactUserDeletedV3ObjectCustomAttrValue struct {
 	Text        string                                                       `json:"text,omitempty"`         // 字段类型为`TEXT`时该参数定义字段值，必填；字段类型为`HREF`时该参数定义网页标题，必填
 	URL         string                                                       `json:"url,omitempty"`          // 字段类型为 HREF 时，该参数定义默认 URL
@@ -1676,11 +1852,13 @@ type EventV2ContactUserDeletedV3ObjectCustomAttrValue struct {
 	GenericUser *EventV2ContactUserDeletedV3ObjectCustomAttrValueGenericUser `json:"generic_user,omitempty"` // 字段类型为 GENERIC_USER 时，该参数定义引用人员
 }
 
+// EventV2ContactUserDeletedV3ObjectCustomAttrValueGenericUser ...
 type EventV2ContactUserDeletedV3ObjectCustomAttrValueGenericUser struct {
 	ID   string `json:"id,omitempty"`   // 用户的user_id
 	Type int64  `json:"type,omitempty"` // 用户类型    1：用户
 }
 
+// EventV2ContactUserDeletedV3OldObject ...
 type EventV2ContactUserDeletedV3OldObject struct {
 	DepartmentIDs []string `json:"department_ids,omitempty"` // 用户所属部门的ID列表,**字段权限要求（满足任一）**：,以应用身份读取通讯录,获取用户组织架构信息,以应用身份访问通讯录,读取通讯录
 	OpenID        string   `json:"open_id,omitempty"`        // 用户open_id
@@ -1698,13 +1876,16 @@ func (r *EventCallbackService) HandlerEventV2ContactUserUpdatedV3(f EventV2Conta
 	r.cli.eventHandler.eventV2ContactUserUpdatedV3Handler = f
 }
 
+// EventV2ContactUserUpdatedV3Handler event EventV2ContactUserUpdatedV3 handler
 type EventV2ContactUserUpdatedV3Handler func(ctx context.Context, cli *Lark, schema string, header *EventHeaderV2, event *EventV2ContactUserUpdatedV3) (string, error)
 
+// EventV2ContactUserUpdatedV3 ...
 type EventV2ContactUserUpdatedV3 struct {
 	Object    *EventV2ContactUserUpdatedV3Object    `json:"object,omitempty"`     // 变更后信息
 	OldObject *EventV2ContactUserUpdatedV3OldObject `json:"old_object,omitempty"` // 变更前信息
 }
 
+// EventV2ContactUserUpdatedV3Object ...
 type EventV2ContactUserUpdatedV3Object struct {
 	OpenID        string                                         `json:"open_id,omitempty"`        // 用户的open_id
 	UserID        string                                         `json:"user_id,omitempty"`        // 租户内用户的唯一标识, 字段权限要求: 获取用户 user ID
@@ -1728,6 +1909,7 @@ type EventV2ContactUserUpdatedV3Object struct {
 	CustomAttrs   []*EventV2ContactUserUpdatedV3ObjectCustomAttr `json:"custom_attrs,omitempty"`   // 自定义属性,**字段权限要求（满足任一）**：,以应用身份读取通讯录,获取用户雇佣信息,以应用身份访问通讯录,读取通讯录
 }
 
+// EventV2ContactUserUpdatedV3ObjectAvatar ...
 type EventV2ContactUserUpdatedV3ObjectAvatar struct {
 	Avatar72     string `json:"avatar_72,omitempty"`     // 72*72像素头像链接
 	Avatar240    string `json:"avatar_240,omitempty"`    // 240*240像素头像链接
@@ -1735,6 +1917,7 @@ type EventV2ContactUserUpdatedV3ObjectAvatar struct {
 	AvatarOrigin string `json:"avatar_origin,omitempty"` // 原始头像链接
 }
 
+// EventV2ContactUserUpdatedV3ObjectStatus ...
 type EventV2ContactUserUpdatedV3ObjectStatus struct {
 	IsFrozen    bool `json:"is_frozen,omitempty"`    // 是否暂停
 	IsResigned  bool `json:"is_resigned,omitempty"`  // 是否离职
@@ -1743,18 +1926,21 @@ type EventV2ContactUserUpdatedV3ObjectStatus struct {
 	IsUnjoin    bool `json:"is_unjoin,omitempty"`    // 是否未加入，需要用户自主确认才能加入团队
 }
 
+// EventV2ContactUserUpdatedV3ObjectOrder ...
 type EventV2ContactUserUpdatedV3ObjectOrder struct {
 	DepartmentID    string `json:"department_id,omitempty"`    // 排序信息对应的部门ID, ID值与查询参数中的department_id_type 对应。,不同 ID 的说明参见 [部门ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/field-overview)
 	UserOrder       int64  `json:"user_order,omitempty"`       // 用户在其直属部门内的排序，数值越大，排序越靠前
 	DepartmentOrder int64  `json:"department_order,omitempty"` // 用户所属的多个部门间的排序，数值越大，排序越靠前
 }
 
+// EventV2ContactUserUpdatedV3ObjectCustomAttr ...
 type EventV2ContactUserUpdatedV3ObjectCustomAttr struct {
 	Type  string                                            `json:"type,omitempty"`  // 自定义字段类型   , `TEXT`：文本, `HREF`：网页, `ENUMERATION`：枚举, `PICTURE_ENUM`：图片, `GENERIC_USER`：用户,[自定义字段相关常见问题](https://open.feishu.cn/document/ugTN1YjL4UTN24CO1UjN/uQzN1YjL0cTN24CN3UjN)
 	ID    string                                            `json:"id,omitempty"`    // 自定义字段ID
 	Value *EventV2ContactUserUpdatedV3ObjectCustomAttrValue `json:"value,omitempty"` // 自定义字段取值
 }
 
+// EventV2ContactUserUpdatedV3ObjectCustomAttrValue ...
 type EventV2ContactUserUpdatedV3ObjectCustomAttrValue struct {
 	Text        string                                                       `json:"text,omitempty"`         // 字段类型为`TEXT`时该参数定义字段值，必填；字段类型为`HREF`时该参数定义网页标题，必填
 	URL         string                                                       `json:"url,omitempty"`          // 字段类型为 HREF 时，该参数定义默认 URL
@@ -1766,11 +1952,13 @@ type EventV2ContactUserUpdatedV3ObjectCustomAttrValue struct {
 	GenericUser *EventV2ContactUserUpdatedV3ObjectCustomAttrValueGenericUser `json:"generic_user,omitempty"` // 字段类型为 GENERIC_USER 时，该参数定义引用人员
 }
 
+// EventV2ContactUserUpdatedV3ObjectCustomAttrValueGenericUser ...
 type EventV2ContactUserUpdatedV3ObjectCustomAttrValueGenericUser struct {
 	ID   string `json:"id,omitempty"`   // 用户的user_id
 	Type int64  `json:"type,omitempty"` // 用户类型    1：用户
 }
 
+// EventV2ContactUserUpdatedV3OldObject ...
 type EventV2ContactUserUpdatedV3OldObject struct {
 	OpenID        string                                            `json:"open_id,omitempty"`        // 用户的open_id
 	UserID        string                                            `json:"user_id,omitempty"`        // 租户内用户的唯一标识, 字段权限要求: 获取用户 user ID
@@ -1794,6 +1982,7 @@ type EventV2ContactUserUpdatedV3OldObject struct {
 	CustomAttrs   []*EventV2ContactUserUpdatedV3OldObjectCustomAttr `json:"custom_attrs,omitempty"`   // 自定义属性,**字段权限要求（满足任一）**：,以应用身份读取通讯录,获取用户雇佣信息,以应用身份访问通讯录,读取通讯录
 }
 
+// EventV2ContactUserUpdatedV3OldObjectAvatar ...
 type EventV2ContactUserUpdatedV3OldObjectAvatar struct {
 	Avatar72     string `json:"avatar_72,omitempty"`     // 72*72像素头像链接
 	Avatar240    string `json:"avatar_240,omitempty"`    // 240*240像素头像链接
@@ -1801,6 +1990,7 @@ type EventV2ContactUserUpdatedV3OldObjectAvatar struct {
 	AvatarOrigin string `json:"avatar_origin,omitempty"` // 原始头像链接
 }
 
+// EventV2ContactUserUpdatedV3OldObjectStatus ...
 type EventV2ContactUserUpdatedV3OldObjectStatus struct {
 	IsFrozen    bool `json:"is_frozen,omitempty"`    // 是否暂停
 	IsResigned  bool `json:"is_resigned,omitempty"`  // 是否离职
@@ -1809,18 +1999,21 @@ type EventV2ContactUserUpdatedV3OldObjectStatus struct {
 	IsUnjoin    bool `json:"is_unjoin,omitempty"`    // 是否未加入，需要用户自主确认才能加入团队
 }
 
+// EventV2ContactUserUpdatedV3OldObjectOrder ...
 type EventV2ContactUserUpdatedV3OldObjectOrder struct {
 	DepartmentID    string `json:"department_id,omitempty"`    // 排序信息对应的部门ID, ID值与查询参数中的department_id_type 对应。,不同 ID 的说明参见 [部门ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/field-overview)
 	UserOrder       int64  `json:"user_order,omitempty"`       // 用户在其直属部门内的排序，数值越大，排序越靠前
 	DepartmentOrder int64  `json:"department_order,omitempty"` // 用户所属的多个部门间的排序，数值越大，排序越靠前
 }
 
+// EventV2ContactUserUpdatedV3OldObjectCustomAttr ...
 type EventV2ContactUserUpdatedV3OldObjectCustomAttr struct {
 	Type  string                                               `json:"type,omitempty"`  // 自定义字段类型   , `TEXT`：文本, `HREF`：网页, `ENUMERATION`：枚举, `PICTURE_ENUM`：图片, `GENERIC_USER`：用户,[自定义字段相关常见问题](https://open.feishu.cn/document/ugTN1YjL4UTN24CO1UjN/uQzN1YjL0cTN24CN3UjN)
 	ID    string                                               `json:"id,omitempty"`    // 自定义字段ID
 	Value *EventV2ContactUserUpdatedV3OldObjectCustomAttrValue `json:"value,omitempty"` // 自定义字段取值
 }
 
+// EventV2ContactUserUpdatedV3OldObjectCustomAttrValue ...
 type EventV2ContactUserUpdatedV3OldObjectCustomAttrValue struct {
 	Text        string                                                          `json:"text,omitempty"`         // 字段类型为`TEXT`时该参数定义字段值，必填；字段类型为`HREF`时该参数定义网页标题，必填
 	URL         string                                                          `json:"url,omitempty"`          // 字段类型为 HREF 时，该参数定义默认 URL
@@ -1832,6 +2025,7 @@ type EventV2ContactUserUpdatedV3OldObjectCustomAttrValue struct {
 	GenericUser *EventV2ContactUserUpdatedV3OldObjectCustomAttrValueGenericUser `json:"generic_user,omitempty"` // 字段类型为 GENERIC_USER 时，该参数定义引用人员
 }
 
+// EventV2ContactUserUpdatedV3OldObjectCustomAttrValueGenericUser ...
 type EventV2ContactUserUpdatedV3OldObjectCustomAttrValueGenericUser struct {
 	ID   string `json:"id,omitempty"`   // 用户的user_id
 	Type int64  `json:"type,omitempty"` // 用户类型    1：用户
@@ -1849,14 +2043,17 @@ func (r *EventCallbackService) HandlerEventV2DriveFileDeletedV1(f EventV2DriveFi
 	r.cli.eventHandler.eventV2DriveFileDeletedV1Handler = f
 }
 
+// EventV2DriveFileDeletedV1Handler event EventV2DriveFileDeletedV1 handler
 type EventV2DriveFileDeletedV1Handler func(ctx context.Context, cli *Lark, schema string, header *EventHeaderV2, event *EventV2DriveFileDeletedV1) (string, error)
 
+// EventV2DriveFileDeletedV1 ...
 type EventV2DriveFileDeletedV1 struct {
 	FileToken  string                               `json:"file_token,omitempty"`  // 文件token. 如: doccnxxxxxx
 	FileType   FileType                             `json:"file_type,omitempty"`   // 文件类型，目前有doc、sheet. 如: doc
 	OperatorID *EventV2DriveFileDeletedV1OperatorID `json:"operator_id,omitempty"` // 操作者id
 }
 
+// EventV2DriveFileDeletedV1OperatorID ...
 type EventV2DriveFileDeletedV1OperatorID struct {
 	OpenID  string `json:"open_id,omitempty"`  // 如: ou_xxxxxx
 	UnionID string `json:"union_id,omitempty"` // 如: on_xxxxxx
@@ -1875,8 +2072,10 @@ func (r *EventCallbackService) HandlerEventV2DriveFileEditV1(f EventV2DriveFileE
 	r.cli.eventHandler.eventV2DriveFileEditV1Handler = f
 }
 
+// EventV2DriveFileEditV1Handler event EventV2DriveFileEditV1 handler
 type EventV2DriveFileEditV1Handler func(ctx context.Context, cli *Lark, schema string, header *EventHeaderV2, event *EventV2DriveFileEditV1) (string, error)
 
+// EventV2DriveFileEditV1 ...
 type EventV2DriveFileEditV1 struct {
 	FileToken        string                                `json:"file_token,omitempty"`         // 出现编辑的文档token. 如: doccnxxxxxxxxxxxxxxxxxxxxxxx
 	FileType         FileType                              `json:"file_type,omitempty"`          // 出现编辑的文档类型. 如: doc
@@ -1884,12 +2083,14 @@ type EventV2DriveFileEditV1 struct {
 	SubscriberIDList []*EventV2DriveFileEditV1SubscriberID `json:"subscriber_id_list,omitempty"` // 订阅用户列表
 }
 
+// EventV2DriveFileEditV1OperatorID ...
 type EventV2DriveFileEditV1OperatorID struct {
 	OpenID  string `json:"open_id,omitempty"`  // 如: ou_xxxxxxxxxxxxxxxxxxxxxxxxx
 	UnionID string `json:"union_id,omitempty"` // 如: on_xxxxxxxxxxxxxxxxxxxxxxxxx
 	UserID  string `json:"user_id,omitempty"`  // 如: xxxxxxxx
 }
 
+// EventV2DriveFileEditV1SubscriberID ...
 type EventV2DriveFileEditV1SubscriberID struct {
 	OpenID  string `json:"open_id,omitempty"`  // 如: ou_xxxxxxxxxxxxxxxxxxxxxxxxx
 	UnionID string `json:"union_id,omitempty"` // 如: on_xxxxxxxxxxxxxxxxxxxxxxxxx
@@ -1908,8 +2109,10 @@ func (r *EventCallbackService) HandlerEventV2DriveFilePermissionMemberAddedV1(f 
 	r.cli.eventHandler.eventV2DriveFilePermissionMemberAddedV1Handler = f
 }
 
+// EventV2DriveFilePermissionMemberAddedV1Handler event EventV2DriveFilePermissionMemberAddedV1 handler
 type EventV2DriveFilePermissionMemberAddedV1Handler func(ctx context.Context, cli *Lark, schema string, header *EventHeaderV2, event *EventV2DriveFilePermissionMemberAddedV1) (string, error)
 
+// EventV2DriveFilePermissionMemberAddedV1 ...
 type EventV2DriveFilePermissionMemberAddedV1 struct{}
 
 // Code generated by lark_sdk_gen. DO NOT EDIT.
@@ -1924,8 +2127,10 @@ func (r *EventCallbackService) HandlerEventV2DriveFilePermissionMemberRemovedV1(
 	r.cli.eventHandler.eventV2DriveFilePermissionMemberRemovedV1Handler = f
 }
 
+// EventV2DriveFilePermissionMemberRemovedV1Handler event EventV2DriveFilePermissionMemberRemovedV1 handler
 type EventV2DriveFilePermissionMemberRemovedV1Handler func(ctx context.Context, cli *Lark, schema string, header *EventHeaderV2, event *EventV2DriveFilePermissionMemberRemovedV1) (string, error)
 
+// EventV2DriveFilePermissionMemberRemovedV1 ...
 type EventV2DriveFilePermissionMemberRemovedV1 struct{}
 
 // Code generated by lark_sdk_gen. DO NOT EDIT.
@@ -1940,14 +2145,17 @@ func (r *EventCallbackService) HandlerEventV2DriveFileReadV1(f EventV2DriveFileR
 	r.cli.eventHandler.eventV2DriveFileReadV1Handler = f
 }
 
+// EventV2DriveFileReadV1Handler event EventV2DriveFileReadV1 handler
 type EventV2DriveFileReadV1Handler func(ctx context.Context, cli *Lark, schema string, header *EventHeaderV2, event *EventV2DriveFileReadV1) (string, error)
 
+// EventV2DriveFileReadV1 ...
 type EventV2DriveFileReadV1 struct {
 	FileToken      string                              `json:"file_token,omitempty"` // 文件token. 如: doccnxxxxxx
 	FileType       FileType                            `json:"file_type,omitempty"`  // 文件类型，目前有doc、sheet. 如: doc
 	OperatorIDList []*EventV2DriveFileReadV1OperatorID `json:"operator_id_list,omitempty"`
 }
 
+// EventV2DriveFileReadV1OperatorID ...
 type EventV2DriveFileReadV1OperatorID struct {
 	OpenID  string `json:"open_id,omitempty"`  // 如: ou_xxxxxx
 	UnionID string `json:"union_id,omitempty"` // 如: on_xxxxxx
@@ -1966,8 +2174,10 @@ func (r *EventCallbackService) HandlerEventV2DriveFileTitleUpdatedV1(f EventV2Dr
 	r.cli.eventHandler.eventV2DriveFileTitleUpdatedV1Handler = f
 }
 
+// EventV2DriveFileTitleUpdatedV1Handler event EventV2DriveFileTitleUpdatedV1 handler
 type EventV2DriveFileTitleUpdatedV1Handler func(ctx context.Context, cli *Lark, schema string, header *EventHeaderV2, event *EventV2DriveFileTitleUpdatedV1) (string, error)
 
+// EventV2DriveFileTitleUpdatedV1 ...
 type EventV2DriveFileTitleUpdatedV1 struct{}
 
 // Code generated by lark_sdk_gen. DO NOT EDIT.
@@ -1982,14 +2192,17 @@ func (r *EventCallbackService) HandlerEventV2DriveFileTrashedV1(f EventV2DriveFi
 	r.cli.eventHandler.eventV2DriveFileTrashedV1Handler = f
 }
 
+// EventV2DriveFileTrashedV1Handler event EventV2DriveFileTrashedV1 handler
 type EventV2DriveFileTrashedV1Handler func(ctx context.Context, cli *Lark, schema string, header *EventHeaderV2, event *EventV2DriveFileTrashedV1) (string, error)
 
+// EventV2DriveFileTrashedV1 ...
 type EventV2DriveFileTrashedV1 struct {
 	FileToken  string                               `json:"file_token,omitempty"`  // 文件token. 如: doccnxxxxxx
 	FileType   FileType                             `json:"file_type,omitempty"`   // 文件类型，目前有doc、sheet. 如: doc
 	OperatorID *EventV2DriveFileTrashedV1OperatorID `json:"operator_id,omitempty"` // 操作者id
 }
 
+// EventV2DriveFileTrashedV1OperatorID ...
 type EventV2DriveFileTrashedV1OperatorID struct {
 	OpenID  string `json:"open_id,omitempty"`  // 如: ou_xxxxxx
 	UnionID string `json:"union_id,omitempty"` // 如: on_xxxxxx
@@ -2007,8 +2220,10 @@ func (r *EventCallbackService) HandlerEventV2HelpdeskNotificationApproveV1(f Eve
 	r.cli.eventHandler.eventV2HelpdeskNotificationApproveV1Handler = f
 }
 
+// EventV2HelpdeskNotificationApproveV1Handler event EventV2HelpdeskNotificationApproveV1 handler
 type EventV2HelpdeskNotificationApproveV1Handler func(ctx context.Context, cli *Lark, schema string, header *EventHeaderV2, event *EventV2HelpdeskNotificationApproveV1) (string, error)
 
+// EventV2HelpdeskNotificationApproveV1 ...
 type EventV2HelpdeskNotificationApproveV1 struct {
 	NotificationID string `json:"notification_id,omitempty"` // 推送任务唯一ID
 	HelpdeskID     string `json:"helpdesk_id,omitempty"`     // 服务台唯一ID
@@ -2026,8 +2241,10 @@ func (r *EventCallbackService) HandlerEventV2HelpdeskTicketCreatedV1(f EventV2He
 	r.cli.eventHandler.eventV2HelpdeskTicketCreatedV1Handler = f
 }
 
+// EventV2HelpdeskTicketCreatedV1Handler event EventV2HelpdeskTicketCreatedV1 handler
 type EventV2HelpdeskTicketCreatedV1Handler func(ctx context.Context, cli *Lark, schema string, header *EventHeaderV2, event *EventV2HelpdeskTicketCreatedV1) (string, error)
 
+// EventV2HelpdeskTicketCreatedV1 ...
 type EventV2HelpdeskTicketCreatedV1 struct {
 	TicketID   string                               `json:"ticket_id,omitempty"`   // 工单ID,[可以从工单列表里面取](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/ticket/list),[也可以订阅工单创建事件获取](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/ticket/events/created)
 	HelpdeskID string                               `json:"helpdesk_id,omitempty"` // 服务台ID
@@ -2043,11 +2260,13 @@ type EventV2HelpdeskTicketCreatedV1 struct {
 	ChatID     string                               `json:"chat_id,omitempty"`     // 会话Open ID
 }
 
+// EventV2HelpdeskTicketCreatedV1Guest ...
 type EventV2HelpdeskTicketCreatedV1Guest struct {
 	ID   *EventV2HelpdeskTicketCreatedV1GuestID `json:"id,omitempty"`   // 用户 ID
 	Name string                                 `json:"name,omitempty"` // 用户名
 }
 
+// EventV2HelpdeskTicketCreatedV1GuestID ...
 type EventV2HelpdeskTicketCreatedV1GuestID struct {
 	UnionID string `json:"union_id,omitempty"` // 用户的 union id
 	UserID  string `json:"user_id,omitempty"`  // 用户的 user id, 字段权限要求: 获取用户 user ID
@@ -2065,8 +2284,10 @@ func (r *EventCallbackService) HandlerEventV2HelpdeskTicketMessageCreatedV1(f Ev
 	r.cli.eventHandler.eventV2HelpdeskTicketMessageCreatedV1Handler = f
 }
 
+// EventV2HelpdeskTicketMessageCreatedV1Handler event EventV2HelpdeskTicketMessageCreatedV1 handler
 type EventV2HelpdeskTicketMessageCreatedV1Handler func(ctx context.Context, cli *Lark, schema string, header *EventHeaderV2, event *EventV2HelpdeskTicketMessageCreatedV1) (string, error)
 
+// EventV2HelpdeskTicketMessageCreatedV1 ...
 type EventV2HelpdeskTicketMessageCreatedV1 struct {
 	TicketMessageID string                                         `json:"ticket_message_id,omitempty"` // 工单消息ID
 	MessageID       string                                         `json:"message_id,omitempty"`        // chat消息open ID
@@ -2081,18 +2302,21 @@ type EventV2HelpdeskTicketMessageCreatedV1 struct {
 	Content         *EventV2HelpdeskTicketMessageCreatedV1Content  `json:"content,omitempty"`           // 内容详情
 }
 
+// EventV2HelpdeskTicketMessageCreatedV1SenderID ...
 type EventV2HelpdeskTicketMessageCreatedV1SenderID struct {
 	UnionID string `json:"union_id,omitempty"` // 用户的 union id
 	UserID  string `json:"user_id,omitempty"`  // 用户的 user id, 字段权限要求: 获取用户 user ID
 	OpenID  string `json:"open_id,omitempty"`  // 用户的 open id
 }
 
+// EventV2HelpdeskTicketMessageCreatedV1Ticket ...
 type EventV2HelpdeskTicketMessageCreatedV1Ticket struct {
 	TicketID string `json:"ticket_id,omitempty"` // 工单ID
 	Stage    int64  `json:"stage,omitempty"`     // 工单阶段，1：bot，2：人工
 	Status   int64  `json:"status,omitempty"`    // 工单状态，1：已创建 2: 处理中 3: 排队中 4：待定 5：待用户响应 50: 被机器人关闭 51: 被人工关闭
 }
 
+// EventV2HelpdeskTicketMessageCreatedV1Content ...
 type EventV2HelpdeskTicketMessageCreatedV1Content struct {
 	Content   string   `json:"content,omitempty"`    // 内容
 	MsgType   MsgType  `json:"msg_type,omitempty"`   // 消息类型；text：纯文本；post：富文本；image：图片
@@ -2111,13 +2335,16 @@ func (r *EventCallbackService) HandlerEventV2HelpdeskTicketMessageUpdatedV1(f Ev
 	r.cli.eventHandler.eventV2HelpdeskTicketMessageUpdatedV1Handler = f
 }
 
+// EventV2HelpdeskTicketMessageUpdatedV1Handler event EventV2HelpdeskTicketMessageUpdatedV1 handler
 type EventV2HelpdeskTicketMessageUpdatedV1Handler func(ctx context.Context, cli *Lark, schema string, header *EventHeaderV2, event *EventV2HelpdeskTicketMessageUpdatedV1) (string, error)
 
+// EventV2HelpdeskTicketMessageUpdatedV1 ...
 type EventV2HelpdeskTicketMessageUpdatedV1 struct {
 	Object    *EventV2HelpdeskTicketMessageUpdatedV1Object    `json:"object,omitempty"`     // ticket after update
 	OldObject *EventV2HelpdeskTicketMessageUpdatedV1OldObject `json:"old_object,omitempty"` // ticket before update, only has updated fields
 }
 
+// EventV2HelpdeskTicketMessageUpdatedV1Object ...
 type EventV2HelpdeskTicketMessageUpdatedV1Object struct {
 	TicketID   string                                            `json:"ticket_id,omitempty"`   // 工单ID,[可以从工单列表里面取](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/ticket/list),[也可以订阅工单创建事件获取](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/ticket/events/created)
 	HelpdeskID string                                            `json:"helpdesk_id,omitempty"` // 服务台ID
@@ -2133,17 +2360,20 @@ type EventV2HelpdeskTicketMessageUpdatedV1Object struct {
 	ChatID     string                                            `json:"chat_id,omitempty"`     // 会话Open ID
 }
 
+// EventV2HelpdeskTicketMessageUpdatedV1ObjectGuest ...
 type EventV2HelpdeskTicketMessageUpdatedV1ObjectGuest struct {
 	ID   *EventV2HelpdeskTicketMessageUpdatedV1ObjectGuestID `json:"id,omitempty"`   // 用户 ID
 	Name string                                              `json:"name,omitempty"` // 用户名
 }
 
+// EventV2HelpdeskTicketMessageUpdatedV1ObjectGuestID ...
 type EventV2HelpdeskTicketMessageUpdatedV1ObjectGuestID struct {
 	UnionID string `json:"union_id,omitempty"` // 用户的 union id
 	UserID  string `json:"user_id,omitempty"`  // 用户的 user id, 字段权限要求: 获取用户 user ID
 	OpenID  string `json:"open_id,omitempty"`  // 用户的 open id
 }
 
+// EventV2HelpdeskTicketMessageUpdatedV1OldObject ...
 type EventV2HelpdeskTicketMessageUpdatedV1OldObject struct {
 	Stage     int64 `json:"stage,omitempty"`      // ticket stage
 	Status    int64 `json:"status,omitempty"`     // ticket status
@@ -2165,8 +2395,10 @@ func (r *EventCallbackService) HandlerEventV2IMChatDisbandedV1(f EventV2IMChatDi
 	r.cli.eventHandler.eventV2IMChatDisbandedV1Handler = f
 }
 
+// EventV2IMChatDisbandedV1Handler event EventV2IMChatDisbandedV1 handler
 type EventV2IMChatDisbandedV1Handler func(ctx context.Context, cli *Lark, schema string, header *EventHeaderV2, event *EventV2IMChatDisbandedV1) (string, error)
 
+// EventV2IMChatDisbandedV1 ...
 type EventV2IMChatDisbandedV1 struct {
 	ChatID            string                              `json:"chat_id,omitempty"`             // 群组 ID，详情参见[群ID 说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-id-description)
 	OperatorID        *EventV2IMChatDisbandedV1OperatorID `json:"operator_id,omitempty"`         // 用户 ID
@@ -2174,6 +2406,7 @@ type EventV2IMChatDisbandedV1 struct {
 	OperatorTenantKey string                              `json:"operator_tenant_key,omitempty"` // 操作者的租户 Key
 }
 
+// EventV2IMChatDisbandedV1OperatorID ...
 type EventV2IMChatDisbandedV1OperatorID struct {
 	UnionID string `json:"union_id,omitempty"` // 用户的 union id
 	UserID  string `json:"user_id,omitempty"`  // 用户的 user id, 字段权限要求: 获取用户 user ID
@@ -2196,8 +2429,10 @@ func (r *EventCallbackService) HandlerEventV2IMChatMemberBotAddedV1(f EventV2IMC
 	r.cli.eventHandler.eventV2IMChatMemberBotAddedV1Handler = f
 }
 
+// EventV2IMChatMemberBotAddedV1Handler event EventV2IMChatMemberBotAddedV1 handler
 type EventV2IMChatMemberBotAddedV1Handler func(ctx context.Context, cli *Lark, schema string, header *EventHeaderV2, event *EventV2IMChatMemberBotAddedV1) (string, error)
 
+// EventV2IMChatMemberBotAddedV1 ...
 type EventV2IMChatMemberBotAddedV1 struct {
 	ChatID            string                                   `json:"chat_id,omitempty"`             // 群组 ID，详情参见[群ID 说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-id-description)
 	OperatorID        *EventV2IMChatMemberBotAddedV1OperatorID `json:"operator_id,omitempty"`         // 用户 ID
@@ -2205,6 +2440,7 @@ type EventV2IMChatMemberBotAddedV1 struct {
 	OperatorTenantKey string                                   `json:"operator_tenant_key,omitempty"` // operator tenant key
 }
 
+// EventV2IMChatMemberBotAddedV1OperatorID ...
 type EventV2IMChatMemberBotAddedV1OperatorID struct {
 	UnionID string `json:"union_id,omitempty"` // 用户的 union id
 	UserID  string `json:"user_id,omitempty"`  // 用户的 user id, 字段权限要求: 获取用户 user ID
@@ -2226,8 +2462,10 @@ func (r *EventCallbackService) HandlerEventV2IMChatMemberBotDeletedV1(f EventV2I
 	r.cli.eventHandler.eventV2IMChatMemberBotDeletedV1Handler = f
 }
 
+// EventV2IMChatMemberBotDeletedV1Handler event EventV2IMChatMemberBotDeletedV1 handler
 type EventV2IMChatMemberBotDeletedV1Handler func(ctx context.Context, cli *Lark, schema string, header *EventHeaderV2, event *EventV2IMChatMemberBotDeletedV1) (string, error)
 
+// EventV2IMChatMemberBotDeletedV1 ...
 type EventV2IMChatMemberBotDeletedV1 struct {
 	ChatID            string                                     `json:"chat_id,omitempty"`             // 群组 ID，详情参见[群ID 说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-id-description)
 	OperatorID        *EventV2IMChatMemberBotDeletedV1OperatorID `json:"operator_id,omitempty"`         // 用户 ID
@@ -2235,6 +2473,7 @@ type EventV2IMChatMemberBotDeletedV1 struct {
 	OperatorTenantKey string                                     `json:"operator_tenant_key,omitempty"` // 操作者租户 Key
 }
 
+// EventV2IMChatMemberBotDeletedV1OperatorID ...
 type EventV2IMChatMemberBotDeletedV1OperatorID struct {
 	UnionID string `json:"union_id,omitempty"` // 用户的 union id
 	UserID  string `json:"user_id,omitempty"`  // 用户的 user id, 字段权限要求: 获取用户 user ID
@@ -2256,8 +2495,10 @@ func (r *EventCallbackService) HandlerEventV2IMChatMemberUserAddedV1(f EventV2IM
 	r.cli.eventHandler.eventV2IMChatMemberUserAddedV1Handler = f
 }
 
+// EventV2IMChatMemberUserAddedV1Handler event EventV2IMChatMemberUserAddedV1 handler
 type EventV2IMChatMemberUserAddedV1Handler func(ctx context.Context, cli *Lark, schema string, header *EventHeaderV2, event *EventV2IMChatMemberUserAddedV1) (string, error)
 
+// EventV2IMChatMemberUserAddedV1 ...
 type EventV2IMChatMemberUserAddedV1 struct {
 	ChatID            string                                    `json:"chat_id,omitempty"`             // 群组 ID，详情参见[群ID 说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-id-description)
 	OperatorID        *EventV2IMChatMemberUserAddedV1OperatorID `json:"operator_id,omitempty"`         // 用户 ID
@@ -2266,18 +2507,21 @@ type EventV2IMChatMemberUserAddedV1 struct {
 	Users             []*EventV2IMChatMemberUserAddedV1User     `json:"users,omitempty"`               // 被添加的用户列表
 }
 
+// EventV2IMChatMemberUserAddedV1OperatorID ...
 type EventV2IMChatMemberUserAddedV1OperatorID struct {
 	UnionID string `json:"union_id,omitempty"` // 用户的 union id
 	UserID  string `json:"user_id,omitempty"`  // 用户的 user id, 字段权限要求: 获取用户 user ID
 	OpenID  string `json:"open_id,omitempty"`  // 用户的 open id
 }
 
+// EventV2IMChatMemberUserAddedV1User ...
 type EventV2IMChatMemberUserAddedV1User struct {
 	Name      string                                    `json:"name,omitempty"`       // 用户名字
 	TenantKey string                                    `json:"tenant_key,omitempty"` // 租户 Key
 	UserID    *EventV2IMChatMemberUserAddedV1UserUserID `json:"user_id,omitempty"`    // 用户 ID
 }
 
+// EventV2IMChatMemberUserAddedV1UserUserID ...
 type EventV2IMChatMemberUserAddedV1UserUserID struct {
 	UnionID string `json:"union_id,omitempty"` // 用户的 union id
 	UserID  string `json:"user_id,omitempty"`  // 用户的 user id, 字段权限要求: 获取用户 user ID
@@ -2299,8 +2543,10 @@ func (r *EventCallbackService) HandlerEventV2IMChatMemberUserDeletedV1(f EventV2
 	r.cli.eventHandler.eventV2IMChatMemberUserDeletedV1Handler = f
 }
 
+// EventV2IMChatMemberUserDeletedV1Handler event EventV2IMChatMemberUserDeletedV1 handler
 type EventV2IMChatMemberUserDeletedV1Handler func(ctx context.Context, cli *Lark, schema string, header *EventHeaderV2, event *EventV2IMChatMemberUserDeletedV1) (string, error)
 
+// EventV2IMChatMemberUserDeletedV1 ...
 type EventV2IMChatMemberUserDeletedV1 struct {
 	ChatID            string                                      `json:"chat_id,omitempty"`             // 群组 ID，详情参见[群ID 说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-id-description)
 	OperatorID        *EventV2IMChatMemberUserDeletedV1OperatorID `json:"operator_id,omitempty"`         // 用户 ID
@@ -2309,18 +2555,21 @@ type EventV2IMChatMemberUserDeletedV1 struct {
 	Users             []*EventV2IMChatMemberUserDeletedV1User     `json:"users,omitempty"`               // 被移除用户列表
 }
 
+// EventV2IMChatMemberUserDeletedV1OperatorID ...
 type EventV2IMChatMemberUserDeletedV1OperatorID struct {
 	UnionID string `json:"union_id,omitempty"` // 用户的 union id
 	UserID  string `json:"user_id,omitempty"`  // 用户的 user id, 字段权限要求: 获取用户 user ID
 	OpenID  string `json:"open_id,omitempty"`  // 用户的 open id
 }
 
+// EventV2IMChatMemberUserDeletedV1User ...
 type EventV2IMChatMemberUserDeletedV1User struct {
 	Name      string                                      `json:"name,omitempty"`       // 用户名字
 	TenantKey string                                      `json:"tenant_key,omitempty"` // 租户 Key
 	UserID    *EventV2IMChatMemberUserDeletedV1UserUserID `json:"user_id,omitempty"`    // 用户 ID
 }
 
+// EventV2IMChatMemberUserDeletedV1UserUserID ...
 type EventV2IMChatMemberUserDeletedV1UserUserID struct {
 	UnionID string `json:"union_id,omitempty"` // 用户的 union id
 	UserID  string `json:"user_id,omitempty"`  // 用户的 user id, 字段权限要求: 获取用户 user ID
@@ -2342,8 +2591,10 @@ func (r *EventCallbackService) HandlerEventV2IMChatMemberUserWithdrawnV1(f Event
 	r.cli.eventHandler.eventV2IMChatMemberUserWithdrawnV1Handler = f
 }
 
+// EventV2IMChatMemberUserWithdrawnV1Handler event EventV2IMChatMemberUserWithdrawnV1 handler
 type EventV2IMChatMemberUserWithdrawnV1Handler func(ctx context.Context, cli *Lark, schema string, header *EventHeaderV2, event *EventV2IMChatMemberUserWithdrawnV1) (string, error)
 
+// EventV2IMChatMemberUserWithdrawnV1 ...
 type EventV2IMChatMemberUserWithdrawnV1 struct {
 	ChatID            string                                        `json:"chat_id,omitempty"`             // 群组 ID，详情参见[群ID 说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-id-description)
 	OperatorID        *EventV2IMChatMemberUserWithdrawnV1OperatorID `json:"operator_id,omitempty"`         // 用户 ID
@@ -2352,18 +2603,21 @@ type EventV2IMChatMemberUserWithdrawnV1 struct {
 	Users             []*EventV2IMChatMemberUserWithdrawnV1User     `json:"users,omitempty"`               // 被撤销加群的用户列表
 }
 
+// EventV2IMChatMemberUserWithdrawnV1OperatorID ...
 type EventV2IMChatMemberUserWithdrawnV1OperatorID struct {
 	UnionID string `json:"union_id,omitempty"` // 用户的 union id
 	UserID  string `json:"user_id,omitempty"`  // 用户的 user id, 字段权限要求: 获取用户 user ID
 	OpenID  string `json:"open_id,omitempty"`  // 用户的 open id
 }
 
+// EventV2IMChatMemberUserWithdrawnV1User ...
 type EventV2IMChatMemberUserWithdrawnV1User struct {
 	Name      string                                        `json:"name,omitempty"`       // 用户名字
 	TenantKey string                                        `json:"tenant_key,omitempty"` // 租户 Key
 	UserID    *EventV2IMChatMemberUserWithdrawnV1UserUserID `json:"user_id,omitempty"`    // 用户 ID
 }
 
+// EventV2IMChatMemberUserWithdrawnV1UserUserID ...
 type EventV2IMChatMemberUserWithdrawnV1UserUserID struct {
 	UnionID string `json:"union_id,omitempty"` // 用户的 union id
 	UserID  string `json:"user_id,omitempty"`  // 用户的 user id, 字段权限要求: 获取用户 user ID
@@ -2388,8 +2642,10 @@ func (r *EventCallbackService) HandlerEventV2IMChatUpdatedV1(f EventV2IMChatUpda
 	r.cli.eventHandler.eventV2IMChatUpdatedV1Handler = f
 }
 
+// EventV2IMChatUpdatedV1Handler event EventV2IMChatUpdatedV1 handler
 type EventV2IMChatUpdatedV1Handler func(ctx context.Context, cli *Lark, schema string, header *EventHeaderV2, event *EventV2IMChatUpdatedV1) (string, error)
 
+// EventV2IMChatUpdatedV1 ...
 type EventV2IMChatUpdatedV1 struct {
 	ChatID            string                               `json:"chat_id,omitempty"`             // 群组 ID，详情参见[群ID 说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-id-description)
 	OperatorID        *EventV2IMChatUpdatedV1OperatorID    `json:"operator_id,omitempty"`         // 用户 ID
@@ -2400,12 +2656,14 @@ type EventV2IMChatUpdatedV1 struct {
 	ModeratorList     *EventV2IMChatUpdatedV1ModeratorList `json:"moderator_list,omitempty"`      // 群可发言成员名单的变更信息
 }
 
+// EventV2IMChatUpdatedV1OperatorID ...
 type EventV2IMChatUpdatedV1OperatorID struct {
 	UnionID string `json:"union_id,omitempty"` // 用户的 union id
 	UserID  string `json:"user_id,omitempty"`  // 用户的 user id, 字段权限要求: 获取用户 user ID
 	OpenID  string `json:"open_id,omitempty"`  // 用户的 open id
 }
 
+// EventV2IMChatUpdatedV1AfterChange ...
 type EventV2IMChatUpdatedV1AfterChange struct {
 	Avatar                 string                                    `json:"avatar,omitempty"`                   // 群头像
 	Name                   string                                    `json:"name,omitempty"`                     // 群名称
@@ -2422,12 +2680,14 @@ type EventV2IMChatUpdatedV1AfterChange struct {
 	OwnerID                *EventV2IMChatUpdatedV1AfterChangeOwnerID `json:"owner_id,omitempty"`                 // 用户 ID
 }
 
+// EventV2IMChatUpdatedV1AfterChangeOwnerID ...
 type EventV2IMChatUpdatedV1AfterChangeOwnerID struct {
 	UnionID string `json:"union_id,omitempty"` // 用户的 union id
 	UserID  string `json:"user_id,omitempty"`  // 用户的 user id, 字段权限要求: 获取用户 user ID
 	OpenID  string `json:"open_id,omitempty"`  // 用户的 open id
 }
 
+// EventV2IMChatUpdatedV1BeforeChange ...
 type EventV2IMChatUpdatedV1BeforeChange struct {
 	Avatar                 string                                     `json:"avatar,omitempty"`                   // 群头像
 	Name                   string                                     `json:"name,omitempty"`                     // 群名称
@@ -2444,33 +2704,39 @@ type EventV2IMChatUpdatedV1BeforeChange struct {
 	OwnerID                *EventV2IMChatUpdatedV1BeforeChangeOwnerID `json:"owner_id,omitempty"`                 // 用户 ID
 }
 
+// EventV2IMChatUpdatedV1BeforeChangeOwnerID ...
 type EventV2IMChatUpdatedV1BeforeChangeOwnerID struct {
 	UnionID string `json:"union_id,omitempty"` // 用户的 union id
 	UserID  string `json:"user_id,omitempty"`  // 用户的 user id, 字段权限要求: 获取用户 user ID
 	OpenID  string `json:"open_id,omitempty"`  // 用户的 open id
 }
 
+// EventV2IMChatUpdatedV1ModeratorList ...
 type EventV2IMChatUpdatedV1ModeratorList struct {
 	AddedMemberList   []*EventV2IMChatUpdatedV1ModeratorListAddedMember   `json:"added_member_list,omitempty"`   // 被添加进可发言名单的用户列表（列表中一定会有owner）
 	RemovedMemberList []*EventV2IMChatUpdatedV1ModeratorListRemovedMember `json:"removed_member_list,omitempty"` // 被移除出可发言名单的用户列表
 }
 
+// EventV2IMChatUpdatedV1ModeratorListAddedMember ...
 type EventV2IMChatUpdatedV1ModeratorListAddedMember struct {
 	TenantKey string                                                `json:"tenant_key,omitempty"` // 租户 Key
 	UserID    *EventV2IMChatUpdatedV1ModeratorListAddedMemberUserID `json:"user_id,omitempty"`    // 用户 ID
 }
 
+// EventV2IMChatUpdatedV1ModeratorListAddedMemberUserID ...
 type EventV2IMChatUpdatedV1ModeratorListAddedMemberUserID struct {
 	UnionID string `json:"union_id,omitempty"` // 用户的 union id
 	UserID  string `json:"user_id,omitempty"`  // 用户的 user id, 字段权限要求: 获取用户 user ID
 	OpenID  string `json:"open_id,omitempty"`  // 用户的 open id
 }
 
+// EventV2IMChatUpdatedV1ModeratorListRemovedMember ...
 type EventV2IMChatUpdatedV1ModeratorListRemovedMember struct {
 	TenantKey string                                                  `json:"tenant_key,omitempty"` // 租户 Key
 	UserID    *EventV2IMChatUpdatedV1ModeratorListRemovedMemberUserID `json:"user_id,omitempty"`    // 用户 ID
 }
 
+// EventV2IMChatUpdatedV1ModeratorListRemovedMemberUserID ...
 type EventV2IMChatUpdatedV1ModeratorListRemovedMemberUserID struct {
 	UnionID string `json:"union_id,omitempty"` // 用户的 union id
 	UserID  string `json:"user_id,omitempty"`  // 用户的 user id, 字段权限要求: 获取用户 user ID
@@ -2491,19 +2757,23 @@ func (r *EventCallbackService) HandlerEventV2IMMessageReadV1(f EventV2IMMessageR
 	r.cli.eventHandler.eventV2IMMessageReadV1Handler = f
 }
 
+// EventV2IMMessageReadV1Handler event EventV2IMMessageReadV1 handler
 type EventV2IMMessageReadV1Handler func(ctx context.Context, cli *Lark, schema string, header *EventHeaderV2, event *EventV2IMMessageReadV1) (string, error)
 
+// EventV2IMMessageReadV1 ...
 type EventV2IMMessageReadV1 struct {
 	Reader        *EventV2IMMessageReadV1Reader `json:"reader,omitempty"`          // -
 	MessageIDList []string                      `json:"message_id_list,omitempty"` // 消息列表
 }
 
+// EventV2IMMessageReadV1Reader ...
 type EventV2IMMessageReadV1Reader struct {
 	ReaderID  *EventV2IMMessageReadV1ReaderReaderID `json:"reader_id,omitempty"`  // 用户 ID
 	ReadTime  string                                `json:"read_time,omitempty"`  // 阅读时间
 	TenantKey string                                `json:"tenant_key,omitempty"` // tenant key
 }
 
+// EventV2IMMessageReadV1ReaderReaderID ...
 type EventV2IMMessageReadV1ReaderReaderID struct {
 	UnionID string `json:"union_id,omitempty"` // 用户的 union id
 	UserID  string `json:"user_id,omitempty"`  // 用户的 user id, 字段权限要求: 获取用户 user ID
@@ -2527,25 +2797,30 @@ func (r *EventCallbackService) HandlerEventV2IMMessageReceiveV1(f EventV2IMMessa
 	r.cli.eventHandler.eventV2IMMessageReceiveV1Handler = f
 }
 
+// EventV2IMMessageReceiveV1Handler event EventV2IMMessageReceiveV1 handler
 type EventV2IMMessageReceiveV1Handler func(ctx context.Context, cli *Lark, schema string, header *EventHeaderV2, event *EventV2IMMessageReceiveV1) (string, error)
 
+// EventV2IMMessageReceiveV1 ...
 type EventV2IMMessageReceiveV1 struct {
 	Sender  *EventV2IMMessageReceiveV1Sender  `json:"sender,omitempty"`  // 事件的发送者
 	Message *EventV2IMMessageReceiveV1Message `json:"message,omitempty"` // 事件中包含的消息内容
 }
 
+// EventV2IMMessageReceiveV1Sender ...
 type EventV2IMMessageReceiveV1Sender struct {
 	SenderID   *EventV2IMMessageReceiveV1SenderSenderID `json:"sender_id,omitempty"`   // 用户 ID
 	SenderType string                                   `json:"sender_type,omitempty"` // 消息发送者类型。目前只支持用户(user)发送的消息。
 	TenantKey  string                                   `json:"tenant_key,omitempty"`  // tenant key
 }
 
+// EventV2IMMessageReceiveV1SenderSenderID ...
 type EventV2IMMessageReceiveV1SenderSenderID struct {
 	UnionID string `json:"union_id,omitempty"` // 用户的 union id
 	UserID  string `json:"user_id,omitempty"`  // 用户的 user id, 字段权限要求:  获取用户 user ID
 	OpenID  string `json:"open_id,omitempty"`  // 用户的 open id
 }
 
+// EventV2IMMessageReceiveV1Message ...
 type EventV2IMMessageReceiveV1Message struct {
 	MessageID   string                                     `json:"message_id,omitempty"`   // 消息的 open_message_id
 	RootID      string                                     `json:"root_id,omitempty"`      // 回复消息 根 id
@@ -2558,6 +2833,7 @@ type EventV2IMMessageReceiveV1Message struct {
 	Mentions    []*EventV2IMMessageReceiveV1MessageMention `json:"mentions,omitempty"`     // 被提及用户的信息
 }
 
+// EventV2IMMessageReceiveV1MessageMention ...
 type EventV2IMMessageReceiveV1MessageMention struct {
 	Key       string                                     `json:"key,omitempty"`        // mention key
 	ID        *EventV2IMMessageReceiveV1MessageMentionID `json:"id,omitempty"`         // 用户 ID
@@ -2565,6 +2841,7 @@ type EventV2IMMessageReceiveV1MessageMention struct {
 	TenantKey string                                     `json:"tenant_key,omitempty"` // tenant key
 }
 
+// EventV2IMMessageReceiveV1MessageMentionID ...
 type EventV2IMMessageReceiveV1MessageMentionID struct {
 	UnionID string `json:"union_id,omitempty"` // 用户的 union id
 	UserID  string `json:"user_id,omitempty"`  // 用户的 user id, 字段权限要求:  获取用户 user ID
@@ -2583,8 +2860,10 @@ func (r *EventCallbackService) HandlerEventV2MeetingRoomMeetingRoomCreatedV1(f E
 	r.cli.eventHandler.eventV2MeetingRoomMeetingRoomCreatedV1Handler = f
 }
 
+// EventV2MeetingRoomMeetingRoomCreatedV1Handler event EventV2MeetingRoomMeetingRoomCreatedV1 handler
 type EventV2MeetingRoomMeetingRoomCreatedV1Handler func(ctx context.Context, cli *Lark, schema string, header *EventHeaderV2, event *EventV2MeetingRoomMeetingRoomCreatedV1) (string, error)
 
+// EventV2MeetingRoomMeetingRoomCreatedV1 ...
 type EventV2MeetingRoomMeetingRoomCreatedV1 struct {
 	RoomID   string `json:"room_id,omitempty"`   // 会议室的唯一标识. 如: xxx
 	RoomName string `json:"room_name,omitempty"` // 如: XXX
@@ -2602,8 +2881,10 @@ func (r *EventCallbackService) HandlerEventV2MeetingRoomMeetingRoomDeletedV1(f E
 	r.cli.eventHandler.eventV2MeetingRoomMeetingRoomDeletedV1Handler = f
 }
 
+// EventV2MeetingRoomMeetingRoomDeletedV1Handler event EventV2MeetingRoomMeetingRoomDeletedV1 handler
 type EventV2MeetingRoomMeetingRoomDeletedV1Handler func(ctx context.Context, cli *Lark, schema string, header *EventHeaderV2, event *EventV2MeetingRoomMeetingRoomDeletedV1) (string, error)
 
+// EventV2MeetingRoomMeetingRoomDeletedV1 ...
 type EventV2MeetingRoomMeetingRoomDeletedV1 struct{}
 
 // Code generated by lark_sdk_gen. DO NOT EDIT.
@@ -2618,8 +2899,10 @@ func (r *EventCallbackService) HandlerEventV2MeetingRoomMeetingRoomStatusChanged
 	r.cli.eventHandler.eventV2MeetingRoomMeetingRoomStatusChangedV1Handler = f
 }
 
+// EventV2MeetingRoomMeetingRoomStatusChangedV1Handler event EventV2MeetingRoomMeetingRoomStatusChangedV1 handler
 type EventV2MeetingRoomMeetingRoomStatusChangedV1Handler func(ctx context.Context, cli *Lark, schema string, header *EventHeaderV2, event *EventV2MeetingRoomMeetingRoomStatusChangedV1) (string, error)
 
+// EventV2MeetingRoomMeetingRoomStatusChangedV1 ...
 type EventV2MeetingRoomMeetingRoomStatusChangedV1 struct{}
 
 // Code generated by lark_sdk_gen. DO NOT EDIT.
@@ -2634,8 +2917,10 @@ func (r *EventCallbackService) HandlerEventV2MeetingRoomMeetingRoomUpdatedV1(f E
 	r.cli.eventHandler.eventV2MeetingRoomMeetingRoomUpdatedV1Handler = f
 }
 
+// EventV2MeetingRoomMeetingRoomUpdatedV1Handler event EventV2MeetingRoomMeetingRoomUpdatedV1 handler
 type EventV2MeetingRoomMeetingRoomUpdatedV1Handler func(ctx context.Context, cli *Lark, schema string, header *EventHeaderV2, event *EventV2MeetingRoomMeetingRoomUpdatedV1) (string, error)
 
+// EventV2MeetingRoomMeetingRoomUpdatedV1 ...
 type EventV2MeetingRoomMeetingRoomUpdatedV1 struct{}
 
 // Code generated by lark_sdk_gen. DO NOT EDIT.
@@ -2649,8 +2934,10 @@ func (r *EventCallbackService) HandlerEventV2TaskTaskCommentUpdatedV1(f EventV2T
 	r.cli.eventHandler.eventV2TaskTaskCommentUpdatedV1Handler = f
 }
 
+// EventV2TaskTaskCommentUpdatedV1Handler event EventV2TaskTaskCommentUpdatedV1 handler
 type EventV2TaskTaskCommentUpdatedV1Handler func(ctx context.Context, cli *Lark, schema string, header *EventHeaderV2, event *EventV2TaskTaskCommentUpdatedV1) (string, error)
 
+// EventV2TaskTaskCommentUpdatedV1 ...
 type EventV2TaskTaskCommentUpdatedV1 struct {
 	TaskID    string `json:"task_id,omitempty"`    // 任务ID
 	CommentID string `json:"comment_id,omitempty"` // 任务评论ID
@@ -2669,8 +2956,10 @@ func (r *EventCallbackService) HandlerEventV2TaskTaskUpdatedV1(f EventV2TaskTask
 	r.cli.eventHandler.eventV2TaskTaskUpdatedV1Handler = f
 }
 
+// EventV2TaskTaskUpdatedV1Handler event EventV2TaskTaskUpdatedV1 handler
 type EventV2TaskTaskUpdatedV1Handler func(ctx context.Context, cli *Lark, schema string, header *EventHeaderV2, event *EventV2TaskTaskUpdatedV1) (string, error)
 
+// EventV2TaskTaskUpdatedV1 ...
 type EventV2TaskTaskUpdatedV1 struct {
 	TaskID  string `json:"task_id,omitempty"`  // 任务ID
 	ObjType int64  `json:"obj_type,omitempty"` // 通知类型（1：任务详情发生变化，2：任务协作者发生变化，3：任务关注者发生变化，4：任务提醒时间发生变化，5：任务完成，6：任务取消完成，7：任务删除）
@@ -2687,13 +2976,16 @@ func (r *EventCallbackService) HandlerEventV2VCMeetingJoinMeetingV1(f EventV2VCM
 	r.cli.eventHandler.eventV2VCMeetingJoinMeetingV1Handler = f
 }
 
+// EventV2VCMeetingJoinMeetingV1Handler event EventV2VCMeetingJoinMeetingV1 handler
 type EventV2VCMeetingJoinMeetingV1Handler func(ctx context.Context, cli *Lark, schema string, header *EventHeaderV2, event *EventV2VCMeetingJoinMeetingV1) (string, error)
 
+// EventV2VCMeetingJoinMeetingV1 ...
 type EventV2VCMeetingJoinMeetingV1 struct {
 	Meeting  *EventV2VCMeetingJoinMeetingV1Meeting  `json:"meeting,omitempty"`  // 会议数据
 	Operator *EventV2VCMeetingJoinMeetingV1Operator `json:"operator,omitempty"` // 事件操作人
 }
 
+// EventV2VCMeetingJoinMeetingV1Meeting ...
 type EventV2VCMeetingJoinMeetingV1Meeting struct {
 	ID        string                                        `json:"id,omitempty"`         // 会议ID（视频会议的唯一标识，视频会议开始后才会产生）
 	Topic     string                                        `json:"topic,omitempty"`      // 会议主题
@@ -2704,36 +2996,42 @@ type EventV2VCMeetingJoinMeetingV1Meeting struct {
 	Owner     *EventV2VCMeetingJoinMeetingV1MeetingOwner    `json:"owner,omitempty"`      // 会议拥有者
 }
 
+// EventV2VCMeetingJoinMeetingV1MeetingHostUser ...
 type EventV2VCMeetingJoinMeetingV1MeetingHostUser struct {
 	ID       *EventV2VCMeetingJoinMeetingV1MeetingHostUserID `json:"id,omitempty"`        // 用户 ID
 	UserRole int64                                           `json:"user_role,omitempty"` // 用户会中角色, 可选值有: `1`：普通参会人, `2`：主持人, `3`：联席主持人
 	UserType int64                                           `json:"user_type,omitempty"` // 用户类型, 可选值有: `1`：lark用户, `2`：rooms用户, `3`：文档用户, `4`：neo单品用户, `5`：neo单品游客用户, `6`：pstn用户, `7`：sip用户
 }
 
+// EventV2VCMeetingJoinMeetingV1MeetingHostUserID ...
 type EventV2VCMeetingJoinMeetingV1MeetingHostUserID struct {
 	UnionID string `json:"union_id,omitempty"` // 用户的 union id
 	UserID  string `json:"user_id,omitempty"`  // 用户的 user id, 字段权限要求: 获取用户 user ID
 	OpenID  string `json:"open_id,omitempty"`  // 用户的 open id
 }
 
+// EventV2VCMeetingJoinMeetingV1MeetingOwner ...
 type EventV2VCMeetingJoinMeetingV1MeetingOwner struct {
 	ID       *EventV2VCMeetingJoinMeetingV1MeetingOwnerID `json:"id,omitempty"`        // 用户 ID
 	UserRole int64                                        `json:"user_role,omitempty"` // 用户会中角色, 可选值有: `1`：普通参会人, `2`：主持人, `3`：联席主持人
 	UserType int64                                        `json:"user_type,omitempty"` // 用户类型, 可选值有: `1`：lark用户, `2`：rooms用户, `3`：文档用户, `4`：neo单品用户, `5`：neo单品游客用户, `6`：pstn用户, `7`：sip用户
 }
 
+// EventV2VCMeetingJoinMeetingV1MeetingOwnerID ...
 type EventV2VCMeetingJoinMeetingV1MeetingOwnerID struct {
 	UnionID string `json:"union_id,omitempty"` // 用户的 union id
 	UserID  string `json:"user_id,omitempty"`  // 用户的 user id, 字段权限要求: 获取用户 user ID
 	OpenID  string `json:"open_id,omitempty"`  // 用户的 open id
 }
 
+// EventV2VCMeetingJoinMeetingV1Operator ...
 type EventV2VCMeetingJoinMeetingV1Operator struct {
 	ID       *EventV2VCMeetingJoinMeetingV1OperatorID `json:"id,omitempty"`        // 用户 ID
 	UserRole int64                                    `json:"user_role,omitempty"` // 用户会中角色, 可选值有: `1`：普通参会人, `2`：主持人, `3`：联席主持人
 	UserType int64                                    `json:"user_type,omitempty"` // 用户类型, 可选值有: `1`：lark用户, `2`：rooms用户, `3`：文档用户, `4`：neo单品用户, `5`：neo单品游客用户, `6`：pstn用户, `7`：sip用户
 }
 
+// EventV2VCMeetingJoinMeetingV1OperatorID ...
 type EventV2VCMeetingJoinMeetingV1OperatorID struct {
 	UnionID string `json:"union_id,omitempty"` // 用户的 union id
 	UserID  string `json:"user_id,omitempty"`  // 用户的 user id, 字段权限要求: 获取用户 user ID
@@ -2751,14 +3049,17 @@ func (r *EventCallbackService) HandlerEventV2VCMeetingLeaveMeetingV1(f EventV2VC
 	r.cli.eventHandler.eventV2VCMeetingLeaveMeetingV1Handler = f
 }
 
+// EventV2VCMeetingLeaveMeetingV1Handler event EventV2VCMeetingLeaveMeetingV1 handler
 type EventV2VCMeetingLeaveMeetingV1Handler func(ctx context.Context, cli *Lark, schema string, header *EventHeaderV2, event *EventV2VCMeetingLeaveMeetingV1) (string, error)
 
+// EventV2VCMeetingLeaveMeetingV1 ...
 type EventV2VCMeetingLeaveMeetingV1 struct {
 	Meeting     *EventV2VCMeetingLeaveMeetingV1Meeting  `json:"meeting,omitempty"`      // 会议数据
 	Operator    *EventV2VCMeetingLeaveMeetingV1Operator `json:"operator,omitempty"`     // 事件操作人
 	LeaveReason int64                                   `json:"leave_reason,omitempty"` // 离开会议原因, 可选值有: `1`：主动离会, `2`：会议结束, `3`：被踢出
 }
 
+// EventV2VCMeetingLeaveMeetingV1Meeting ...
 type EventV2VCMeetingLeaveMeetingV1Meeting struct {
 	ID        string                                         `json:"id,omitempty"`         // 会议ID（视频会议的唯一标识，视频会议开始后才会产生）
 	Topic     string                                         `json:"topic,omitempty"`      // 会议主题
@@ -2769,36 +3070,42 @@ type EventV2VCMeetingLeaveMeetingV1Meeting struct {
 	Owner     *EventV2VCMeetingLeaveMeetingV1MeetingOwner    `json:"owner,omitempty"`      // 会议拥有者
 }
 
+// EventV2VCMeetingLeaveMeetingV1MeetingHostUser ...
 type EventV2VCMeetingLeaveMeetingV1MeetingHostUser struct {
 	ID       *EventV2VCMeetingLeaveMeetingV1MeetingHostUserID `json:"id,omitempty"`        // 用户 ID
 	UserRole int64                                            `json:"user_role,omitempty"` // 用户会中角色, 可选值有: `1`：普通参会人, `2`：主持人, `3`：联席主持人
 	UserType int64                                            `json:"user_type,omitempty"` // 用户类型, 可选值有: `1`：lark用户, `2`：rooms用户, `3`：文档用户, `4`：neo单品用户, `5`：neo单品游客用户, `6`：pstn用户, `7`：sip用户
 }
 
+// EventV2VCMeetingLeaveMeetingV1MeetingHostUserID ...
 type EventV2VCMeetingLeaveMeetingV1MeetingHostUserID struct {
 	UnionID string `json:"union_id,omitempty"` // 用户的 union id
 	UserID  string `json:"user_id,omitempty"`  // 用户的 user id, 字段权限要求:  获取用户 userid
 	OpenID  string `json:"open_id,omitempty"`  // 用户的 open id
 }
 
+// EventV2VCMeetingLeaveMeetingV1MeetingOwner ...
 type EventV2VCMeetingLeaveMeetingV1MeetingOwner struct {
 	ID       *EventV2VCMeetingLeaveMeetingV1MeetingOwnerID `json:"id,omitempty"`        // 用户 ID
 	UserRole int64                                         `json:"user_role,omitempty"` // 用户会中角色, 可选值有: `1`：普通参会人, `2`：主持人, `3`：联席主持人
 	UserType int64                                         `json:"user_type,omitempty"` // 用户类型, 可选值有: `1`：lark用户, `2`：rooms用户, `3`：文档用户, `4`：neo单品用户, `5`：neo单品游客用户, `6`：pstn用户, `7`：sip用户
 }
 
+// EventV2VCMeetingLeaveMeetingV1MeetingOwnerID ...
 type EventV2VCMeetingLeaveMeetingV1MeetingOwnerID struct {
 	UnionID string `json:"union_id,omitempty"` // 用户的 union id
 	UserID  string `json:"user_id,omitempty"`  // 用户的 user id, 字段权限要求:  获取用户 userid
 	OpenID  string `json:"open_id,omitempty"`  // 用户的 open id
 }
 
+// EventV2VCMeetingLeaveMeetingV1Operator ...
 type EventV2VCMeetingLeaveMeetingV1Operator struct {
 	ID       *EventV2VCMeetingLeaveMeetingV1OperatorID `json:"id,omitempty"`        // 用户 ID
 	UserRole int64                                     `json:"user_role,omitempty"` // 用户会中角色, 可选值有: `1`：普通参会人, `2`：主持人, `3`：联席主持人
 	UserType int64                                     `json:"user_type,omitempty"` // 用户类型, 可选值有: `1`：lark用户, `2`：rooms用户, `3`：文档用户, `4`：neo单品用户, `5`：neo单品游客用户, `6`：pstn用户, `7`：sip用户
 }
 
+// EventV2VCMeetingLeaveMeetingV1OperatorID ...
 type EventV2VCMeetingLeaveMeetingV1OperatorID struct {
 	UnionID string `json:"union_id,omitempty"` // 用户的 union id
 	UserID  string `json:"user_id,omitempty"`  // 用户的 user id, 字段权限要求:  获取用户 userid
@@ -2816,13 +3123,16 @@ func (r *EventCallbackService) HandlerEventV2VCMeetingMeetingEndedV1(f EventV2VC
 	r.cli.eventHandler.eventV2VCMeetingMeetingEndedV1Handler = f
 }
 
+// EventV2VCMeetingMeetingEndedV1Handler event EventV2VCMeetingMeetingEndedV1 handler
 type EventV2VCMeetingMeetingEndedV1Handler func(ctx context.Context, cli *Lark, schema string, header *EventHeaderV2, event *EventV2VCMeetingMeetingEndedV1) (string, error)
 
+// EventV2VCMeetingMeetingEndedV1 ...
 type EventV2VCMeetingMeetingEndedV1 struct {
 	Meeting  *EventV2VCMeetingMeetingEndedV1Meeting  `json:"meeting,omitempty"`  // 会议数据
 	Operator *EventV2VCMeetingMeetingEndedV1Operator `json:"operator,omitempty"` // 事件操作人
 }
 
+// EventV2VCMeetingMeetingEndedV1Meeting ...
 type EventV2VCMeetingMeetingEndedV1Meeting struct {
 	ID        string                                         `json:"id,omitempty"`         // 会议ID（视频会议的唯一标识，视频会议开始后才会产生）
 	Topic     string                                         `json:"topic,omitempty"`      // 会议主题
@@ -2833,36 +3143,42 @@ type EventV2VCMeetingMeetingEndedV1Meeting struct {
 	Owner     *EventV2VCMeetingMeetingEndedV1MeetingOwner    `json:"owner,omitempty"`      // 会议拥有者
 }
 
+// EventV2VCMeetingMeetingEndedV1MeetingHostUser ...
 type EventV2VCMeetingMeetingEndedV1MeetingHostUser struct {
 	ID       *EventV2VCMeetingMeetingEndedV1MeetingHostUserID `json:"id,omitempty"`        // 用户 ID
 	UserRole int64                                            `json:"user_role,omitempty"` // 用户会中角色, 可选值有: `1`：普通参会人, `2`：主持人, `3`：联席主持人
 	UserType int64                                            `json:"user_type,omitempty"` // 用户类型, 可选值有: `1`：lark用户, `2`：rooms用户, `3`：文档用户, `4`：neo单品用户, `5`：neo单品游客用户, `6`：pstn用户, `7`：sip用户
 }
 
+// EventV2VCMeetingMeetingEndedV1MeetingHostUserID ...
 type EventV2VCMeetingMeetingEndedV1MeetingHostUserID struct {
 	UnionID string `json:"union_id,omitempty"` // 用户的 union id
 	UserID  string `json:"user_id,omitempty"`  // 用户的 user id, 字段权限要求: 获取用户 user ID
 	OpenID  string `json:"open_id,omitempty"`  // 用户的 open id
 }
 
+// EventV2VCMeetingMeetingEndedV1MeetingOwner ...
 type EventV2VCMeetingMeetingEndedV1MeetingOwner struct {
 	ID       *EventV2VCMeetingMeetingEndedV1MeetingOwnerID `json:"id,omitempty"`        // 用户 ID
 	UserRole int64                                         `json:"user_role,omitempty"` // 用户会中角色, 可选值有: `1`：普通参会人, `2`：主持人, `3`：联席主持人
 	UserType int64                                         `json:"user_type,omitempty"` // 用户类型, 可选值有: `1`：lark用户, `2`：rooms用户, `3`：文档用户, `4`：neo单品用户, `5`：neo单品游客用户, `6`：pstn用户, `7`：sip用户
 }
 
+// EventV2VCMeetingMeetingEndedV1MeetingOwnerID ...
 type EventV2VCMeetingMeetingEndedV1MeetingOwnerID struct {
 	UnionID string `json:"union_id,omitempty"` // 用户的 union id
 	UserID  string `json:"user_id,omitempty"`  // 用户的 user id, 字段权限要求: 获取用户 user ID
 	OpenID  string `json:"open_id,omitempty"`  // 用户的 open id
 }
 
+// EventV2VCMeetingMeetingEndedV1Operator ...
 type EventV2VCMeetingMeetingEndedV1Operator struct {
 	ID       *EventV2VCMeetingMeetingEndedV1OperatorID `json:"id,omitempty"`        // 用户 ID
 	UserRole int64                                     `json:"user_role,omitempty"` // 用户会中角色, 可选值有: `1`：普通参会人, `2`：主持人, `3`：联席主持人
 	UserType int64                                     `json:"user_type,omitempty"` // 用户类型, 可选值有: `1`：lark用户, `2`：rooms用户, `3`：文档用户, `4`：neo单品用户, `5`：neo单品游客用户, `6`：pstn用户, `7`：sip用户
 }
 
+// EventV2VCMeetingMeetingEndedV1OperatorID ...
 type EventV2VCMeetingMeetingEndedV1OperatorID struct {
 	UnionID string `json:"union_id,omitempty"` // 用户的 union id
 	UserID  string `json:"user_id,omitempty"`  // 用户的 user id, 字段权限要求: 获取用户 user ID
@@ -2880,13 +3196,16 @@ func (r *EventCallbackService) HandlerEventV2VCMeetingMeetingStartedV1(f EventV2
 	r.cli.eventHandler.eventV2VCMeetingMeetingStartedV1Handler = f
 }
 
+// EventV2VCMeetingMeetingStartedV1Handler event EventV2VCMeetingMeetingStartedV1 handler
 type EventV2VCMeetingMeetingStartedV1Handler func(ctx context.Context, cli *Lark, schema string, header *EventHeaderV2, event *EventV2VCMeetingMeetingStartedV1) (string, error)
 
+// EventV2VCMeetingMeetingStartedV1 ...
 type EventV2VCMeetingMeetingStartedV1 struct {
 	Meeting  *EventV2VCMeetingMeetingStartedV1Meeting  `json:"meeting,omitempty"`  // 会议数据
 	Operator *EventV2VCMeetingMeetingStartedV1Operator `json:"operator,omitempty"` // 事件操作人
 }
 
+// EventV2VCMeetingMeetingStartedV1Meeting ...
 type EventV2VCMeetingMeetingStartedV1Meeting struct {
 	ID        string                                           `json:"id,omitempty"`         // 会议ID（视频会议的唯一标识，视频会议开始后才会产生）
 	Topic     string                                           `json:"topic,omitempty"`      // 会议主题
@@ -2897,36 +3216,42 @@ type EventV2VCMeetingMeetingStartedV1Meeting struct {
 	Owner     *EventV2VCMeetingMeetingStartedV1MeetingOwner    `json:"owner,omitempty"`      // 会议拥有者
 }
 
+// EventV2VCMeetingMeetingStartedV1MeetingHostUser ...
 type EventV2VCMeetingMeetingStartedV1MeetingHostUser struct {
 	ID       *EventV2VCMeetingMeetingStartedV1MeetingHostUserID `json:"id,omitempty"`        // 用户 ID
 	UserRole int64                                              `json:"user_role,omitempty"` // 用户会中角色, 可选值有: `1`：普通参会人, `2`：主持人, `3`：联席主持人
 	UserType int64                                              `json:"user_type,omitempty"` // 用户类型, 可选值有: `1`：lark用户, `2`：rooms用户, `3`：文档用户, `4`：neo单品用户, `5`：neo单品游客用户, `6`：pstn用户, `7`：sip用户
 }
 
+// EventV2VCMeetingMeetingStartedV1MeetingHostUserID ...
 type EventV2VCMeetingMeetingStartedV1MeetingHostUserID struct {
 	UnionID string `json:"union_id,omitempty"` // 用户的 union id
 	UserID  string `json:"user_id,omitempty"`  // 用户的 user id, 字段权限要求: 获取用户 user ID
 	OpenID  string `json:"open_id,omitempty"`  // 用户的 open id
 }
 
+// EventV2VCMeetingMeetingStartedV1MeetingOwner ...
 type EventV2VCMeetingMeetingStartedV1MeetingOwner struct {
 	ID       *EventV2VCMeetingMeetingStartedV1MeetingOwnerID `json:"id,omitempty"`        // 用户 ID
 	UserRole int64                                           `json:"user_role,omitempty"` // 用户会中角色, 可选值有: `1`：普通参会人, `2`：主持人, `3`：联席主持人
 	UserType int64                                           `json:"user_type,omitempty"` // 用户类型, 可选值有: `1`：lark用户, `2`：rooms用户, `3`：文档用户, `4`：neo单品用户, `5`：neo单品游客用户, `6`：pstn用户, `7`：sip用户
 }
 
+// EventV2VCMeetingMeetingStartedV1MeetingOwnerID ...
 type EventV2VCMeetingMeetingStartedV1MeetingOwnerID struct {
 	UnionID string `json:"union_id,omitempty"` // 用户的 union id
 	UserID  string `json:"user_id,omitempty"`  // 用户的 user id, 字段权限要求: 获取用户 user ID
 	OpenID  string `json:"open_id,omitempty"`  // 用户的 open id
 }
 
+// EventV2VCMeetingMeetingStartedV1Operator ...
 type EventV2VCMeetingMeetingStartedV1Operator struct {
 	ID       *EventV2VCMeetingMeetingStartedV1OperatorID `json:"id,omitempty"`        // 用户 ID
 	UserRole int64                                       `json:"user_role,omitempty"` // 用户会中角色, 可选值有: `1`：普通参会人, `2`：主持人, `3`：联席主持人
 	UserType int64                                       `json:"user_type,omitempty"` // 用户类型, 可选值有: `1`：lark用户, `2`：rooms用户, `3`：文档用户, `4`：neo单品用户, `5`：neo单品游客用户, `6`：pstn用户, `7`：sip用户
 }
 
+// EventV2VCMeetingMeetingStartedV1OperatorID ...
 type EventV2VCMeetingMeetingStartedV1OperatorID struct {
 	UnionID string `json:"union_id,omitempty"` // 用户的 union id
 	UserID  string `json:"user_id,omitempty"`  // 用户的 user id, 字段权限要求: 获取用户 user ID
@@ -2944,13 +3269,16 @@ func (r *EventCallbackService) HandlerEventV2VCMeetingRecordingEndedV1(f EventV2
 	r.cli.eventHandler.eventV2VCMeetingRecordingEndedV1Handler = f
 }
 
+// EventV2VCMeetingRecordingEndedV1Handler event EventV2VCMeetingRecordingEndedV1 handler
 type EventV2VCMeetingRecordingEndedV1Handler func(ctx context.Context, cli *Lark, schema string, header *EventHeaderV2, event *EventV2VCMeetingRecordingEndedV1) (string, error)
 
+// EventV2VCMeetingRecordingEndedV1 ...
 type EventV2VCMeetingRecordingEndedV1 struct {
 	Meeting  *EventV2VCMeetingRecordingEndedV1Meeting  `json:"meeting,omitempty"`  // 会议数据
 	Operator *EventV2VCMeetingRecordingEndedV1Operator `json:"operator,omitempty"` // 事件操作人
 }
 
+// EventV2VCMeetingRecordingEndedV1Meeting ...
 type EventV2VCMeetingRecordingEndedV1Meeting struct {
 	ID        string                                           `json:"id,omitempty"`         // 会议ID（视频会议的唯一标识，视频会议开始后才会产生）
 	Topic     string                                           `json:"topic,omitempty"`      // 会议主题
@@ -2961,36 +3289,42 @@ type EventV2VCMeetingRecordingEndedV1Meeting struct {
 	Owner     *EventV2VCMeetingRecordingEndedV1MeetingOwner    `json:"owner,omitempty"`      // 会议拥有者
 }
 
+// EventV2VCMeetingRecordingEndedV1MeetingHostUser ...
 type EventV2VCMeetingRecordingEndedV1MeetingHostUser struct {
 	ID       *EventV2VCMeetingRecordingEndedV1MeetingHostUserID `json:"id,omitempty"`        // 用户 ID
 	UserRole int64                                              `json:"user_role,omitempty"` // 用户会中角色, 可选值有: `1`：普通参会人, `2`：主持人, `3`：联席主持人
 	UserType int64                                              `json:"user_type,omitempty"` // 用户类型, 可选值有: `1`：lark用户, `2`：rooms用户, `3`：文档用户, `4`：neo单品用户, `5`：neo单品游客用户, `6`：pstn用户, `7`：sip用户
 }
 
+// EventV2VCMeetingRecordingEndedV1MeetingHostUserID ...
 type EventV2VCMeetingRecordingEndedV1MeetingHostUserID struct {
 	UnionID string `json:"union_id,omitempty"` // 用户的 union id
 	UserID  string `json:"user_id,omitempty"`  // 用户的 user id, 字段权限要求: 获取用户 user ID
 	OpenID  string `json:"open_id,omitempty"`  // 用户的 open id
 }
 
+// EventV2VCMeetingRecordingEndedV1MeetingOwner ...
 type EventV2VCMeetingRecordingEndedV1MeetingOwner struct {
 	ID       *EventV2VCMeetingRecordingEndedV1MeetingOwnerID `json:"id,omitempty"`        // 用户 ID
 	UserRole int64                                           `json:"user_role,omitempty"` // 用户会中角色, 可选值有: `1`：普通参会人, `2`：主持人, `3`：联席主持人
 	UserType int64                                           `json:"user_type,omitempty"` // 用户类型, 可选值有: `1`：lark用户, `2`：rooms用户, `3`：文档用户, `4`：neo单品用户, `5`：neo单品游客用户, `6`：pstn用户, `7`：sip用户
 }
 
+// EventV2VCMeetingRecordingEndedV1MeetingOwnerID ...
 type EventV2VCMeetingRecordingEndedV1MeetingOwnerID struct {
 	UnionID string `json:"union_id,omitempty"` // 用户的 union id
 	UserID  string `json:"user_id,omitempty"`  // 用户的 user id, 字段权限要求: 获取用户 user ID
 	OpenID  string `json:"open_id,omitempty"`  // 用户的 open id
 }
 
+// EventV2VCMeetingRecordingEndedV1Operator ...
 type EventV2VCMeetingRecordingEndedV1Operator struct {
 	ID       *EventV2VCMeetingRecordingEndedV1OperatorID `json:"id,omitempty"`        // 用户 ID
 	UserRole int64                                       `json:"user_role,omitempty"` // 用户会中角色, 可选值有: `1`：普通参会人, `2`：主持人, `3`：联席主持人
 	UserType int64                                       `json:"user_type,omitempty"` // 用户类型, 可选值有: `1`：lark用户, `2`：rooms用户, `3`：文档用户, `4`：neo单品用户, `5`：neo单品游客用户, `6`：pstn用户, `7`：sip用户
 }
 
+// EventV2VCMeetingRecordingEndedV1OperatorID ...
 type EventV2VCMeetingRecordingEndedV1OperatorID struct {
 	UnionID string `json:"union_id,omitempty"` // 用户的 union id
 	UserID  string `json:"user_id,omitempty"`  // 用户的 user id, 字段权限要求: 获取用户 user ID
@@ -3009,14 +3343,17 @@ func (r *EventCallbackService) HandlerEventV2VCMeetingRecordingReadyV1(f EventV2
 	r.cli.eventHandler.eventV2VCMeetingRecordingReadyV1Handler = f
 }
 
+// EventV2VCMeetingRecordingReadyV1Handler event EventV2VCMeetingRecordingReadyV1 handler
 type EventV2VCMeetingRecordingReadyV1Handler func(ctx context.Context, cli *Lark, schema string, header *EventHeaderV2, event *EventV2VCMeetingRecordingReadyV1) (string, error)
 
+// EventV2VCMeetingRecordingReadyV1 ...
 type EventV2VCMeetingRecordingReadyV1 struct {
 	Meeting  *EventV2VCMeetingRecordingReadyV1Meeting `json:"meeting,omitempty"`  // 会议数据
 	URL      string                                   `json:"url,omitempty"`      // 会议录制链接
 	Duration string                                   `json:"duration,omitempty"` // 录制总时长（单位msec）
 }
 
+// EventV2VCMeetingRecordingReadyV1Meeting ...
 type EventV2VCMeetingRecordingReadyV1Meeting struct {
 	ID        string                                        `json:"id,omitempty"`         // 会议ID（视频会议的唯一标识，视频会议开始后才会产生）
 	Topic     string                                        `json:"topic,omitempty"`      // 会议主题
@@ -3024,10 +3361,12 @@ type EventV2VCMeetingRecordingReadyV1Meeting struct {
 	Owner     *EventV2VCMeetingRecordingReadyV1MeetingOwner `json:"owner,omitempty"`      // 会议拥有者
 }
 
+// EventV2VCMeetingRecordingReadyV1MeetingOwner ...
 type EventV2VCMeetingRecordingReadyV1MeetingOwner struct {
 	ID *EventV2VCMeetingRecordingReadyV1MeetingOwnerID `json:"id,omitempty"` // 用户 ID
 }
 
+// EventV2VCMeetingRecordingReadyV1MeetingOwnerID ...
 type EventV2VCMeetingRecordingReadyV1MeetingOwnerID struct {
 	UnionID string `json:"union_id,omitempty"` // 用户的 union id
 	UserID  string `json:"user_id,omitempty"`  // 用户的 user id, 字段权限要求: 获取用户 user ID
@@ -3045,13 +3384,16 @@ func (r *EventCallbackService) HandlerEventV2VCMeetingRecordingStartedV1(f Event
 	r.cli.eventHandler.eventV2VCMeetingRecordingStartedV1Handler = f
 }
 
+// EventV2VCMeetingRecordingStartedV1Handler event EventV2VCMeetingRecordingStartedV1 handler
 type EventV2VCMeetingRecordingStartedV1Handler func(ctx context.Context, cli *Lark, schema string, header *EventHeaderV2, event *EventV2VCMeetingRecordingStartedV1) (string, error)
 
+// EventV2VCMeetingRecordingStartedV1 ...
 type EventV2VCMeetingRecordingStartedV1 struct {
 	Meeting  *EventV2VCMeetingRecordingStartedV1Meeting  `json:"meeting,omitempty"`  // 会议数据
 	Operator *EventV2VCMeetingRecordingStartedV1Operator `json:"operator,omitempty"` // 事件操作人
 }
 
+// EventV2VCMeetingRecordingStartedV1Meeting ...
 type EventV2VCMeetingRecordingStartedV1Meeting struct {
 	ID        string                                             `json:"id,omitempty"`         // 会议ID（视频会议的唯一标识，视频会议开始后才会产生）
 	Topic     string                                             `json:"topic,omitempty"`      // 会议主题
@@ -3062,36 +3404,42 @@ type EventV2VCMeetingRecordingStartedV1Meeting struct {
 	Owner     *EventV2VCMeetingRecordingStartedV1MeetingOwner    `json:"owner,omitempty"`      // 会议拥有者
 }
 
+// EventV2VCMeetingRecordingStartedV1MeetingHostUser ...
 type EventV2VCMeetingRecordingStartedV1MeetingHostUser struct {
 	ID       *EventV2VCMeetingRecordingStartedV1MeetingHostUserID `json:"id,omitempty"`        // 用户 ID
 	UserRole int64                                                `json:"user_role,omitempty"` // 用户会中角色, 可选值有: `1`：普通参会人, `2`：主持人, `3`：联席主持人
 	UserType int64                                                `json:"user_type,omitempty"` // 用户类型, 可选值有: `1`：lark用户, `2`：rooms用户, `3`：文档用户, `4`：neo单品用户, `5`：neo单品游客用户, `6`：pstn用户, `7`：sip用户
 }
 
+// EventV2VCMeetingRecordingStartedV1MeetingHostUserID ...
 type EventV2VCMeetingRecordingStartedV1MeetingHostUserID struct {
 	UnionID string `json:"union_id,omitempty"` // 用户的 union id
 	UserID  string `json:"user_id,omitempty"`  // 用户的 user id, 字段权限要求: 获取用户 user ID
 	OpenID  string `json:"open_id,omitempty"`  // 用户的 open id
 }
 
+// EventV2VCMeetingRecordingStartedV1MeetingOwner ...
 type EventV2VCMeetingRecordingStartedV1MeetingOwner struct {
 	ID       *EventV2VCMeetingRecordingStartedV1MeetingOwnerID `json:"id,omitempty"`        // 用户 ID
 	UserRole int64                                             `json:"user_role,omitempty"` // 用户会中角色, 可选值有: `1`：普通参会人, `2`：主持人, `3`：联席主持人
 	UserType int64                                             `json:"user_type,omitempty"` // 用户类型, 可选值有: `1`：lark用户, `2`：rooms用户, `3`：文档用户, `4`：neo单品用户, `5`：neo单品游客用户, `6`：pstn用户, `7`：sip用户
 }
 
+// EventV2VCMeetingRecordingStartedV1MeetingOwnerID ...
 type EventV2VCMeetingRecordingStartedV1MeetingOwnerID struct {
 	UnionID string `json:"union_id,omitempty"` // 用户的 union id
 	UserID  string `json:"user_id,omitempty"`  // 用户的 user id, 字段权限要求: 获取用户 user ID
 	OpenID  string `json:"open_id,omitempty"`  // 用户的 open id
 }
 
+// EventV2VCMeetingRecordingStartedV1Operator ...
 type EventV2VCMeetingRecordingStartedV1Operator struct {
 	ID       *EventV2VCMeetingRecordingStartedV1OperatorID `json:"id,omitempty"`        // 用户 ID
 	UserRole int64                                         `json:"user_role,omitempty"` // 用户会中角色, 可选值有: `1`：普通参会人, `2`：主持人, `3`：联席主持人
 	UserType int64                                         `json:"user_type,omitempty"` // 用户类型, 可选值有: `1`：lark用户, `2`：rooms用户, `3`：文档用户, `4`：neo单品用户, `5`：neo单品游客用户, `6`：pstn用户, `7`：sip用户
 }
 
+// EventV2VCMeetingRecordingStartedV1OperatorID ...
 type EventV2VCMeetingRecordingStartedV1OperatorID struct {
 	UnionID string `json:"union_id,omitempty"` // 用户的 union id
 	UserID  string `json:"user_id,omitempty"`  // 用户的 user id, 字段权限要求: 获取用户 user ID
@@ -3109,13 +3457,16 @@ func (r *EventCallbackService) HandlerEventV2VCMeetingShareEndedV1(f EventV2VCMe
 	r.cli.eventHandler.eventV2VCMeetingShareEndedV1Handler = f
 }
 
+// EventV2VCMeetingShareEndedV1Handler event EventV2VCMeetingShareEndedV1 handler
 type EventV2VCMeetingShareEndedV1Handler func(ctx context.Context, cli *Lark, schema string, header *EventHeaderV2, event *EventV2VCMeetingShareEndedV1) (string, error)
 
+// EventV2VCMeetingShareEndedV1 ...
 type EventV2VCMeetingShareEndedV1 struct {
 	Meeting  *EventV2VCMeetingShareEndedV1Meeting  `json:"meeting,omitempty"`  // 会议数据
 	Operator *EventV2VCMeetingShareEndedV1Operator `json:"operator,omitempty"` // 事件操作人
 }
 
+// EventV2VCMeetingShareEndedV1Meeting ...
 type EventV2VCMeetingShareEndedV1Meeting struct {
 	ID        string                                       `json:"id,omitempty"`         // 会议ID（视频会议的唯一标识，视频会议开始后才会产生）
 	Topic     string                                       `json:"topic,omitempty"`      // 会议主题
@@ -3126,36 +3477,42 @@ type EventV2VCMeetingShareEndedV1Meeting struct {
 	Owner     *EventV2VCMeetingShareEndedV1MeetingOwner    `json:"owner,omitempty"`      // 会议拥有者
 }
 
+// EventV2VCMeetingShareEndedV1MeetingHostUser ...
 type EventV2VCMeetingShareEndedV1MeetingHostUser struct {
 	ID       *EventV2VCMeetingShareEndedV1MeetingHostUserID `json:"id,omitempty"`        // 用户 ID
 	UserRole int64                                          `json:"user_role,omitempty"` // 用户会中角色, 可选值有: `1`：普通参会人, `2`：主持人, `3`：联席主持人
 	UserType int64                                          `json:"user_type,omitempty"` // 用户类型, 可选值有: `1`：lark用户, `2`：rooms用户, `3`：文档用户, `4`：neo单品用户, `5`：neo单品游客用户, `6`：pstn用户, `7`：sip用户
 }
 
+// EventV2VCMeetingShareEndedV1MeetingHostUserID ...
 type EventV2VCMeetingShareEndedV1MeetingHostUserID struct {
 	UnionID string `json:"union_id,omitempty"` // 用户的 union id
 	UserID  string `json:"user_id,omitempty"`  // 用户的 user id, 字段权限要求: 获取用户 user ID
 	OpenID  string `json:"open_id,omitempty"`  // 用户的 open id
 }
 
+// EventV2VCMeetingShareEndedV1MeetingOwner ...
 type EventV2VCMeetingShareEndedV1MeetingOwner struct {
 	ID       *EventV2VCMeetingShareEndedV1MeetingOwnerID `json:"id,omitempty"`        // 用户 ID
 	UserRole int64                                       `json:"user_role,omitempty"` // 用户会中角色, 可选值有: `1`：普通参会人, `2`：主持人, `3`：联席主持人
 	UserType int64                                       `json:"user_type,omitempty"` // 用户类型, 可选值有: `1`：lark用户, `2`：rooms用户, `3`：文档用户, `4`：neo单品用户, `5`：neo单品游客用户, `6`：pstn用户, `7`：sip用户
 }
 
+// EventV2VCMeetingShareEndedV1MeetingOwnerID ...
 type EventV2VCMeetingShareEndedV1MeetingOwnerID struct {
 	UnionID string `json:"union_id,omitempty"` // 用户的 union id
 	UserID  string `json:"user_id,omitempty"`  // 用户的 user id, 字段权限要求: 获取用户 user ID
 	OpenID  string `json:"open_id,omitempty"`  // 用户的 open id
 }
 
+// EventV2VCMeetingShareEndedV1Operator ...
 type EventV2VCMeetingShareEndedV1Operator struct {
 	ID       *EventV2VCMeetingShareEndedV1OperatorID `json:"id,omitempty"`        // 用户 ID
 	UserRole int64                                   `json:"user_role,omitempty"` // 用户会中角色, 可选值有: `1`：普通参会人, `2`：主持人, `3`：联席主持人
 	UserType int64                                   `json:"user_type,omitempty"` // 用户类型, 可选值有: `1`：lark用户, `2`：rooms用户, `3`：文档用户, `4`：neo单品用户, `5`：neo单品游客用户, `6`：pstn用户, `7`：sip用户
 }
 
+// EventV2VCMeetingShareEndedV1OperatorID ...
 type EventV2VCMeetingShareEndedV1OperatorID struct {
 	UnionID string `json:"union_id,omitempty"` // 用户的 union id
 	UserID  string `json:"user_id,omitempty"`  // 用户的 user id, 字段权限要求: 获取用户 user ID
@@ -3173,13 +3530,16 @@ func (r *EventCallbackService) HandlerEventV2VCMeetingShareStartedV1(f EventV2VC
 	r.cli.eventHandler.eventV2VCMeetingShareStartedV1Handler = f
 }
 
+// EventV2VCMeetingShareStartedV1Handler event EventV2VCMeetingShareStartedV1 handler
 type EventV2VCMeetingShareStartedV1Handler func(ctx context.Context, cli *Lark, schema string, header *EventHeaderV2, event *EventV2VCMeetingShareStartedV1) (string, error)
 
+// EventV2VCMeetingShareStartedV1 ...
 type EventV2VCMeetingShareStartedV1 struct {
 	Meeting  *EventV2VCMeetingShareStartedV1Meeting  `json:"meeting,omitempty"`  // 会议数据
 	Operator *EventV2VCMeetingShareStartedV1Operator `json:"operator,omitempty"` // 事件操作人
 }
 
+// EventV2VCMeetingShareStartedV1Meeting ...
 type EventV2VCMeetingShareStartedV1Meeting struct {
 	ID        string                                         `json:"id,omitempty"`         // 会议ID（视频会议的唯一标识，视频会议开始后才会产生）
 	Topic     string                                         `json:"topic,omitempty"`      // 会议主题
@@ -3190,36 +3550,42 @@ type EventV2VCMeetingShareStartedV1Meeting struct {
 	Owner     *EventV2VCMeetingShareStartedV1MeetingOwner    `json:"owner,omitempty"`      // 会议拥有者
 }
 
+// EventV2VCMeetingShareStartedV1MeetingHostUser ...
 type EventV2VCMeetingShareStartedV1MeetingHostUser struct {
 	ID       *EventV2VCMeetingShareStartedV1MeetingHostUserID `json:"id,omitempty"`        // 用户 ID
 	UserRole int64                                            `json:"user_role,omitempty"` // 用户会中角色, 可选值有: `1`：普通参会人, `2`：主持人, `3`：联席主持人
 	UserType int64                                            `json:"user_type,omitempty"` // 用户类型, 可选值有: `1`：lark用户, `2`：rooms用户, `3`：文档用户, `4`：neo单品用户, `5`：neo单品游客用户, `6`：pstn用户, `7`：sip用户
 }
 
+// EventV2VCMeetingShareStartedV1MeetingHostUserID ...
 type EventV2VCMeetingShareStartedV1MeetingHostUserID struct {
 	UnionID string `json:"union_id,omitempty"` // 用户的 union id
 	UserID  string `json:"user_id,omitempty"`  // 用户的 user id, 字段权限要求: 获取用户 user ID
 	OpenID  string `json:"open_id,omitempty"`  // 用户的 open id
 }
 
+// EventV2VCMeetingShareStartedV1MeetingOwner ...
 type EventV2VCMeetingShareStartedV1MeetingOwner struct {
 	ID       *EventV2VCMeetingShareStartedV1MeetingOwnerID `json:"id,omitempty"`        // 用户 ID
 	UserRole int64                                         `json:"user_role,omitempty"` // 用户会中角色, 可选值有: `1`：普通参会人, `2`：主持人, `3`：联席主持人
 	UserType int64                                         `json:"user_type,omitempty"` // 用户类型, 可选值有: `1`：lark用户, `2`：rooms用户, `3`：文档用户, `4`：neo单品用户, `5`：neo单品游客用户, `6`：pstn用户, `7`：sip用户
 }
 
+// EventV2VCMeetingShareStartedV1MeetingOwnerID ...
 type EventV2VCMeetingShareStartedV1MeetingOwnerID struct {
 	UnionID string `json:"union_id,omitempty"` // 用户的 union id
 	UserID  string `json:"user_id,omitempty"`  // 用户的 user id, 字段权限要求: 获取用户 user ID
 	OpenID  string `json:"open_id,omitempty"`  // 用户的 open id
 }
 
+// EventV2VCMeetingShareStartedV1Operator ...
 type EventV2VCMeetingShareStartedV1Operator struct {
 	ID       *EventV2VCMeetingShareStartedV1OperatorID `json:"id,omitempty"`        // 用户 ID
 	UserRole int64                                     `json:"user_role,omitempty"` // 用户会中角色, 可选值有: `1`：普通参会人, `2`：主持人, `3`：联席主持人
 	UserType int64                                     `json:"user_type,omitempty"` // 用户类型, 可选值有: `1`：lark用户, `2`：rooms用户, `3`：文档用户, `4`：neo单品用户, `5`：neo单品游客用户, `6`：pstn用户, `7`：sip用户
 }
 
+// EventV2VCMeetingShareStartedV1OperatorID ...
 type EventV2VCMeetingShareStartedV1OperatorID struct {
 	UnionID string `json:"union_id,omitempty"` // 用户的 union id
 	UserID  string `json:"user_id,omitempty"`  // 用户的 user id, 字段权限要求: 获取用户 user ID
@@ -3256,18 +3622,22 @@ func (r *FileService) DownloadFile(ctx context.Context, request *DownloadFileReq
 	return resp.Data, response, err
 }
 
+// MockFileDownloadFile mock FileDownloadFile method
 func (r *Mock) MockFileDownloadFile(f func(ctx context.Context, request *DownloadFileReq, options ...MethodOptionFunc) (*DownloadFileResp, *Response, error)) {
 	r.mockFileDownloadFile = f
 }
 
+// UnMockFileDownloadFile un-mock FileDownloadFile method
 func (r *Mock) UnMockFileDownloadFile() {
 	r.mockFileDownloadFile = nil
 }
 
+// DownloadFileReq ...
 type DownloadFileReq struct {
 	FileKey string `path:"file_key" json:"-"` // 文件的key, 示例值："file_456a92d6-c6ea-4de4-ac3f-7afcf44ac78g"
 }
 
+// downloadFileResp ...
 type downloadFileResp struct {
 	IsFile bool              `json:"is_file,omitempty"`
 	Code   int64             `json:"code,omitempty"`
@@ -3282,6 +3652,7 @@ func (r *downloadFileResp) SetReader(file io.Reader) {
 	r.Data.File = file
 }
 
+// DownloadFileResp ...
 type DownloadFileResp struct {
 	File io.Reader `json:"file,omitempty"`
 }

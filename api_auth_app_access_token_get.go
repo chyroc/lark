@@ -68,10 +68,12 @@ func (r *AuthService) GetAppAccessToken(ctx context.Context) (*TokenExpire, *Res
 	}, response, nil
 }
 
+// MockGetAppAccessToken ...
 func (r *Mock) MockGetAppAccessToken(f func(ctx context.Context) (*TokenExpire, *Response, error)) {
 	r.mockGetAppAccessToken = f
 }
 
+// UnMockGetAppAccessToken ...
 func (r *Mock) UnMockGetAppAccessToken() {
 	r.mockGetTenantAccessToken = nil
 }

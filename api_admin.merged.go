@@ -34,14 +34,17 @@ func (r *AdminService) GetAdminUserStats(ctx context.Context, request *GetAdminU
 	return resp.Data, response, err
 }
 
+// MockAdminGetAdminUserStats mock AdminGetAdminUserStats method
 func (r *Mock) MockAdminGetAdminUserStats(f func(ctx context.Context, request *GetAdminUserStatsReq, options ...MethodOptionFunc) (*GetAdminUserStatsResp, *Response, error)) {
 	r.mockAdminGetAdminUserStats = f
 }
 
+// UnMockAdminGetAdminUserStats un-mock AdminGetAdminUserStats method
 func (r *Mock) UnMockAdminGetAdminUserStats() {
 	r.mockAdminGetAdminUserStats = nil
 }
 
+// GetAdminUserStatsReq ...
 type GetAdminUserStatsReq struct {
 	UserIDType       *IDType           `query:"user_id_type" json:"-"`       // 用户 ID 类型, 示例值："open_id", 可选值有: `open_id`：用户的 open id, `union_id`：用户的 union id, `user_id`：用户的 user id, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
 	DepartmentIDType *DepartmentIDType `query:"department_id_type" json:"-"` // 部门ID类型, 示例值："open_department_id", 可选值有: `department_id`：部门的 ID, `open_department_id`：部门的 Open ID
@@ -53,18 +56,21 @@ type GetAdminUserStatsReq struct {
 	PageToken        *string           `query:"page_token" json:"-"`         // 分页标记，第一次请求不填，表示从头开始遍历；当返回的has_more为true时，会返回新的page_token，再次调用接口，传入这个page_token，将获得下一页数据, 示例值："2"
 }
 
+// getAdminUserStatsResp ...
 type getAdminUserStatsResp struct {
 	Code int64                  `json:"code,omitempty"` // 错误码，非 0 表示失败
 	Msg  string                 `json:"msg,omitempty"`  // 错误描述
 	Data *GetAdminUserStatsResp `json:"data,omitempty"`
 }
 
+// GetAdminUserStatsResp ...
 type GetAdminUserStatsResp struct {
 	HasMore   bool                         `json:"has_more,omitempty"`   // 是否有下一页数据
 	PageToken string                       `json:"page_token,omitempty"` // 下一页分页的token
 	Items     []*GetAdminUserStatsRespItem `json:"items,omitempty"`      // 数据报表
 }
 
+// GetAdminUserStatsRespItem ...
 type GetAdminUserStatsRespItem struct {
 	Date             string `json:"date,omitempty"`               // 日期
 	UserID           string `json:"user_id,omitempty"`            // 用户ID
@@ -115,55 +121,66 @@ func (r *AIService) DetectFaceAttributes(ctx context.Context, request *DetectFac
 	return resp.Data, response, err
 }
 
+// MockAIDetectFaceAttributes mock AIDetectFaceAttributes method
 func (r *Mock) MockAIDetectFaceAttributes(f func(ctx context.Context, request *DetectFaceAttributesReq, options ...MethodOptionFunc) (*DetectFaceAttributesResp, *Response, error)) {
 	r.mockAIDetectFaceAttributes = f
 }
 
+// UnMockAIDetectFaceAttributes un-mock AIDetectFaceAttributes method
 func (r *Mock) UnMockAIDetectFaceAttributes() {
 	r.mockAIDetectFaceAttributes = nil
 }
 
+// DetectFaceAttributesReq ...
 type DetectFaceAttributesReq struct {
 	Image *string `json:"image,omitempty"` // 图片 base64 数据, 示例值："图片 base64 后的字符串"
 }
 
+// detectFaceAttributesResp ...
 type detectFaceAttributesResp struct {
 	Code int64                     `json:"code,omitempty"` // 错误码，非 0 表示失败
 	Msg  string                    `json:"msg,omitempty"`  // 错误描述
 	Data *DetectFaceAttributesResp `json:"data,omitempty"`
 }
 
+// DetectFaceAttributesResp ...
 type DetectFaceAttributesResp struct {
 	ImageInfo *DetectFaceAttributesRespImageInfo  `json:"image_info,omitempty"` // 图片信息
 	FaceInfos []*DetectFaceAttributesRespFaceInfo `json:"face_infos,omitempty"` // 人脸信息列表
 }
 
+// DetectFaceAttributesRespImageInfo ...
 type DetectFaceAttributesRespImageInfo struct {
 	Width  int64 `json:"width,omitempty"`  // 图片的宽度
 	Height int64 `json:"height,omitempty"` // 图片的高度
 }
 
+// DetectFaceAttributesRespFaceInfo ...
 type DetectFaceAttributesRespFaceInfo struct {
 	Position  *DetectFaceAttributesRespFaceInfoPosition  `json:"position,omitempty"`  // 人脸位置信息
 	Attribute *DetectFaceAttributesRespFaceInfoAttribute `json:"attribute,omitempty"` // 人脸属性信息
 	Quality   *DetectFaceAttributesRespFaceInfoQuality   `json:"quality,omitempty"`   // 人脸质量信息
 }
 
+// DetectFaceAttributesRespFaceInfoPosition ...
 type DetectFaceAttributesRespFaceInfoPosition struct {
 	UpperLeft  *DetectFaceAttributesRespFaceInfoPositionUpperLeft  `json:"upper_left,omitempty"`  // 人脸框的左上角坐标
 	LowerRight *DetectFaceAttributesRespFaceInfoPositionLowerRight `json:"lower_right,omitempty"` // 人脸框的右下角坐标
 }
 
+// DetectFaceAttributesRespFaceInfoPositionUpperLeft ...
 type DetectFaceAttributesRespFaceInfoPositionUpperLeft struct {
 	X float64 `json:"x,omitempty"` // 横轴坐标
 	Y float64 `json:"y,omitempty"` // 纵轴坐标
 }
 
+// DetectFaceAttributesRespFaceInfoPositionLowerRight ...
 type DetectFaceAttributesRespFaceInfoPositionLowerRight struct {
 	X float64 `json:"x,omitempty"` // 横轴坐标
 	Y float64 `json:"y,omitempty"` // 纵轴坐标
 }
 
+// DetectFaceAttributesRespFaceInfoAttribute ...
 type DetectFaceAttributesRespFaceInfoAttribute struct {
 	Gender  *DetectFaceAttributesRespFaceInfoAttributeGender  `json:"gender,omitempty"`  // 性别信息：0 男性，1 女性
 	Age     int64                                             `json:"age,omitempty"`     // 年龄大小
@@ -175,43 +192,51 @@ type DetectFaceAttributesRespFaceInfoAttribute struct {
 	Mask    *DetectFaceAttributesRespFaceInfoAttributeMask    `json:"mask,omitempty"`    // 口罩：0 未戴口罩，1 戴口罩
 }
 
+// DetectFaceAttributesRespFaceInfoAttributeGender ...
 type DetectFaceAttributesRespFaceInfoAttributeGender struct {
 	Type        int64   `json:"type,omitempty"`        // 属性
 	Probability float64 `json:"probability,omitempty"` // 识别置信度，[0, 1]，代表判断正确的概率
 }
 
+// DetectFaceAttributesRespFaceInfoAttributeEmotion ...
 type DetectFaceAttributesRespFaceInfoAttributeEmotion struct {
 	Type        int64   `json:"type,omitempty"`        // 属性
 	Probability float64 `json:"probability,omitempty"` // 识别置信度，[0, 1]，代表判断正确的概率
 }
 
+// DetectFaceAttributesRespFaceInfoAttributePose ...
 type DetectFaceAttributesRespFaceInfoAttributePose struct {
 	Pitch int64 `json:"pitch,omitempty"` // 脸部上下偏移 [-90, 90]
 	Yaw   int64 `json:"yaw,omitempty"`   // 脸部左右偏移 [-90, 90]
 	Roll  int64 `json:"roll,omitempty"`  // 平面旋转 [-90, 90]
 }
 
+// DetectFaceAttributesRespFaceInfoAttributeHat ...
 type DetectFaceAttributesRespFaceInfoAttributeHat struct {
 	Type        int64   `json:"type,omitempty"`        // 属性
 	Probability float64 `json:"probability,omitempty"` // 识别置信度，[0, 1]，代表判断正确的概率
 }
 
+// DetectFaceAttributesRespFaceInfoAttributeGlass ...
 type DetectFaceAttributesRespFaceInfoAttributeGlass struct {
 	Type        int64   `json:"type,omitempty"`        // 属性
 	Probability float64 `json:"probability,omitempty"` // 识别置信度，[0, 1]，代表判断正确的概率
 }
 
+// DetectFaceAttributesRespFaceInfoAttributeMask ...
 type DetectFaceAttributesRespFaceInfoAttributeMask struct {
 	Type        int64   `json:"type,omitempty"`        // 属性
 	Probability float64 `json:"probability,omitempty"` // 识别置信度，[0, 1]，代表判断正确的概率
 }
 
+// DetectFaceAttributesRespFaceInfoQuality ...
 type DetectFaceAttributesRespFaceInfoQuality struct {
 	Sharpness  float64                                         `json:"sharpness,omitempty"`  // 清晰度，值越高越清晰
 	Brightness float64                                         `json:"brightness,omitempty"` // 亮度
 	Occlude    *DetectFaceAttributesRespFaceInfoQualityOcclude `json:"occlude,omitempty"`    // 面部遮挡属性
 }
 
+// DetectFaceAttributesRespFaceInfoQualityOcclude ...
 type DetectFaceAttributesRespFaceInfoQualityOcclude struct {
 	Eyebrow  float64 `json:"eyebrow,omitempty"`   // 眉毛被遮挡情况：[0, 1] 值越大被遮挡的概率越高
 	Nose     float64 `json:"nose,omitempty"`      // 鼻子被遮挡情况：[0, 1] 值越大被遮挡的概率越高

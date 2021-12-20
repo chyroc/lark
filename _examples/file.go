@@ -8,6 +8,7 @@ import (
 	"github.com/chyroc/lark"
 )
 
+// ExampleFile ...
 func ExampleFile() {
 	ctx := context.Background()
 	cli := lark.New(lark.WithAppCredential("<APP_ID>", "<APP_SECRET>"))

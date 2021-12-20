@@ -4,12 +4,14 @@ import (
 	"encoding/json"
 )
 
+// MessageContentCard ...
 type MessageContentCard struct {
 	Header  *MessageContentCardHeader  `json:"header,omitempty"`   // 用于配置卡片标题内容。
 	Config  *MessageContentCardConfig  `json:"config,omitempty"`   // 配置卡片属性
 	Modules []MessageContentCardModule `json:"elements,omitempty"` // 用于定义卡片正文内容
 }
 
+// String ...
 func (r MessageContentCard) String() string {
 	bs, _ := json.Marshal(r)
 	return string(bs)
@@ -35,6 +37,7 @@ type MessageContentCardConfig struct {
 // MessageContentCardHeaderTemplate 控制标题背景颜色，取值参考注意事项
 type MessageContentCardHeaderTemplate string
 
+// MessageContentCardHeaderTemplateBlue ...
 const (
 	MessageContentCardHeaderTemplateBlue      MessageContentCardHeaderTemplate = "blue"
 	MessageContentCardHeaderTemplateWathet    MessageContentCardHeaderTemplate = "wathet"
@@ -70,8 +73,10 @@ type MessageContentCardModuleDIV struct {
 	Extra  MessageContentCardElement        `json:"extra,omitempty"`  // 附加的元素展示在文本内容右侧。 可附加的元素包括image、button、selectMenu、overflow、datePicker
 }
 
+// IsMessageContentCardModule ...
 func (r MessageContentCardModuleDIV) IsMessageContentCardModule() {}
 
+// MarshalJSON ...
 func (r MessageContentCardModuleDIV) MarshalJSON() ([]byte, error) {
 	return marshalJSONWithMap(r, map[string]interface{}{"tag": MessageContentCardModuleTagDIV})
 }
@@ -84,8 +89,10 @@ func (r MessageContentCardModuleDIV) MarshalJSON() ([]byte, error) {
 // https://open.feishu.cn/document/ukTMukTMukTM/uQjNwUjL0YDM14CN2ATN
 type MessageContentCardModuleHR struct{}
 
+// IsMessageContentCardModule ...
 func (r MessageContentCardModuleHR) IsMessageContentCardModule() {}
 
+// MarshalJSON ...
 func (r MessageContentCardModuleHR) MarshalJSON() ([]byte, error) {
 	return marshalJSONWithMap(r, map[string]interface{}{"tag": MessageContentCardModuleTagHR})
 }
@@ -103,8 +110,10 @@ type MessageContentCardModuleImage struct {
 	Preview      bool                          `json:"preview,omitempty"`       // 点击后是否放大图片，缺省为true。在配置 card_link 后可设置为false，使用户点击卡片上的图片也能响应card_link链接跳转
 }
 
+// IsMessageContentCardModule ...
 func (r MessageContentCardModuleImage) IsMessageContentCardModule() {}
 
+// MarshalJSON ...
 func (r MessageContentCardModuleImage) MarshalJSON() ([]byte, error) {
 	return marshalJSONWithMap(r, map[string]interface{}{"tag": MessageContentCardModuleTagImage})
 }
@@ -120,8 +129,10 @@ type MessageContentCardModuleAction struct {
 	Layout  string                      `json:"layout,omitempty"`  // 交互元素布局，窄版样式默认纵向排列，使用 bisected 为二等分布局，每行两列交互元素，使用 trisection 为三等分布局，每行三列交互元素，使用 flow 为流式布局元素会按自身大小横向排列并在空间不够的时候折行
 }
 
+// IsMessageContentCardModule ...
 func (r MessageContentCardModuleAction) IsMessageContentCardModule() {}
 
+// MarshalJSON ...
 func (r MessageContentCardModuleAction) MarshalJSON() ([]byte, error) {
 	return marshalJSONWithMap(r, map[string]interface{}{"tag": MessageContentCardModuleTagAction})
 }
@@ -136,14 +147,18 @@ type MessageContentCardModuleNote struct {
 	Elements []MessageContentCardElement `json:"elements,omitempty"` // text对象或image元素
 }
 
+// IsMessageContentCardModule ...
 func (r MessageContentCardModuleNote) IsMessageContentCardModule() {}
 
+// MarshalJSON ...
 func (r MessageContentCardModuleNote) MarshalJSON() ([]byte, error) {
 	return marshalJSONWithMap(r, map[string]interface{}{"tag": MessageContentCardModuleTagNote})
 }
 
+// MessageContentCardModuleTag ...
 type MessageContentCardModuleTag string
 
+// MessageContentCardModuleTagDIV ...
 const (
 	MessageContentCardModuleTagDIV    MessageContentCardModuleTag = "div"
 	MessageContentCardModuleTagHR     MessageContentCardModuleTag = "hr"
@@ -152,6 +167,7 @@ const (
 	MessageContentCardModuleTagNote   MessageContentCardModuleTag = "note"
 )
 
+// MessageContentCardElement ...
 type MessageContentCardElement interface {
 	IsMessageContentCardElement()
 }
@@ -167,8 +183,10 @@ type MessageContentCardElementImage struct {
 	Preview bool                          `json:"preview,omitempty"` // 点击后是否放大图片，缺省为true。在配置 card_link 后可设置为false，使用户点击卡片上的图片也能响应card_link链接跳转
 }
 
+// IsMessageContentCardElement ...
 func (r MessageContentCardElementImage) IsMessageContentCardElement() {}
 
+// MarshalJSON ...
 func (r MessageContentCardElementImage) MarshalJSON() ([]byte, error) {
 	return marshalJSONWithMap(r, map[string]interface{}{"tag": MessageContentCardElementTagImage})
 }
@@ -187,8 +205,10 @@ type MessageContentCardElementButton struct {
 	Confirm  *MessageContentCardObjectConfirm `json:"confirm,omitempty"`   // 二次确认的弹框
 }
 
+// IsMessageContentCardElement ...
 func (r MessageContentCardElementButton) IsMessageContentCardElement() {}
 
+// MarshalJSON ...
 func (r MessageContentCardElementButton) MarshalJSON() ([]byte, error) {
 	return marshalJSONWithMap(r, map[string]interface{}{"tag": MessageContentCardElementTagButton})
 }
@@ -211,6 +231,7 @@ type MessageContentCardElementSelectMenu struct {
 	Confirm       *MessageContentCardObjectConfirm  `json:"confirm,omitempty"`        // 二次确认的弹框
 }
 
+// IsMessageContentCardElement ...
 func (r MessageContentCardElementSelectMenu) IsMessageContentCardElement() {}
 
 // MessageContentCardElementOverflow overflow
@@ -225,8 +246,10 @@ type MessageContentCardElementOverflow struct {
 	Confirm *MessageContentCardObjectConfirm  `json:"confirm,omitempty"` // 二次确认的弹框
 }
 
+// IsMessageContentCardElement ...
 func (r MessageContentCardElementOverflow) IsMessageContentCardElement() {}
 
+// MarshalJSON ...
 func (r MessageContentCardElementOverflow) MarshalJSON() ([]byte, error) {
 	return marshalJSONWithMap(r, map[string]interface{}{"tag": MessageContentCardElementTagOverflow})
 }
@@ -244,10 +267,13 @@ type MessageContentCardElementDatePicker struct {
 
 }
 
+// IsMessageContentCardElement ...
 func (r MessageContentCardElementDatePicker) IsMessageContentCardElement() {}
 
+// MessageContentCardElementTag ...
 type MessageContentCardElementTag string
 
+// MessageContentCardElementTagImage ...
 const (
 	MessageContentCardElementTagImage          MessageContentCardElementTag = "img"
 	MessageContentCardElementTagButton         MessageContentCardElementTag = "button"
@@ -266,10 +292,13 @@ type MessageContentCardObjectText struct {
 	Lines   int                              `json:"lines,omitempty"`   // 内容显示行数
 }
 
+// IsMessageContentCardElement ...
 func (r MessageContentCardObjectText) IsMessageContentCardElement() {}
 
+// MessageContentCardObjectTextType ...
 type MessageContentCardObjectTextType string
 
+// MessageContentCardTextTypePlainText ...
 const (
 	MessageContentCardTextTypePlainText MessageContentCardObjectTextType = "plain_text"
 	MessageContentCardTextTypeLarkMd    MessageContentCardObjectTextType = "lark_md"

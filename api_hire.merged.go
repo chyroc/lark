@@ -31,28 +31,34 @@ func (r *HireService) GetHireApplication(ctx context.Context, request *GetHireAp
 	return resp.Data, response, err
 }
 
+// MockHireGetHireApplication mock HireGetHireApplication method
 func (r *Mock) MockHireGetHireApplication(f func(ctx context.Context, request *GetHireApplicationReq, options ...MethodOptionFunc) (*GetHireApplicationResp, *Response, error)) {
 	r.mockHireGetHireApplication = f
 }
 
+// UnMockHireGetHireApplication un-mock HireGetHireApplication method
 func (r *Mock) UnMockHireGetHireApplication() {
 	r.mockHireGetHireApplication = nil
 }
 
+// GetHireApplicationReq ...
 type GetHireApplicationReq struct {
 	ApplicationID string `path:"application_id" json:"-"` // 投递 ID, 示例值："6949805467799537964"
 }
 
+// getHireApplicationResp ...
 type getHireApplicationResp struct {
 	Code int64                   `json:"code,omitempty"` // 错误码，非 0 表示失败
 	Msg  string                  `json:"msg,omitempty"`  // 错误描述
 	Data *GetHireApplicationResp `json:"data,omitempty"`
 }
 
+// GetHireApplicationResp ...
 type GetHireApplicationResp struct {
 	Application *GetHireApplicationRespApplication `json:"application,omitempty"` // 投递数据
 }
 
+// GetHireApplicationRespApplication ...
 type GetHireApplicationRespApplication struct {
 	ID                       string                                             `json:"id,omitempty"`                          // 投递id
 	JobID                    string                                             `json:"job_id,omitempty"`                      // 投递的职位 ID
@@ -68,6 +74,7 @@ type GetHireApplicationRespApplication struct {
 	StageTimeList            []*GetHireApplicationRespApplicationStageTime      `json:"stage_time_list,omitempty"`             // 阶段变更时间列表
 }
 
+// GetHireApplicationRespApplicationStage ...
 type GetHireApplicationRespApplicationStage struct {
 	ID     string `json:"id,omitempty"`      // 阶段 ID
 	ZhName string `json:"zh_name,omitempty"` // 阶段中文名字
@@ -75,17 +82,20 @@ type GetHireApplicationRespApplicationStage struct {
 	Type   int64  `json:"type,omitempty"`    // 阶段类型, 可选值有: `1`：筛选型, `2`：评估型, `3`：笔试型, `4`：面试型, `5`：Offer型, `6`：待入职, `7`：已入职, `8`：其它类型, `255`：系统默认
 }
 
+// GetHireApplicationRespApplicationResumeSourceInfo ...
 type GetHireApplicationRespApplicationResumeSourceInfo struct {
 	ID               string                                                 `json:"id,omitempty"`                 // 投递来源 ID
 	Name             *GetHireApplicationRespApplicationResumeSourceInfoName `json:"name,omitempty"`               // 投递来源名称
 	ResumeSourceType int64                                                  `json:"resume_source_type,omitempty"` // 投递来源类型, 可选值有: `10000`：内推, `10001`：猎头, `10002`：内部来源, `10003`：第三方招聘网站, `10004`：社交媒体, `10005`：线下来源, `10006`：其他, `10007`：外部推荐
 }
 
+// GetHireApplicationRespApplicationResumeSourceInfoName ...
 type GetHireApplicationRespApplicationResumeSourceInfoName struct {
 	ZhCn string `json:"zh_cn,omitempty"` // 中文
 	EnUs string `json:"en_us,omitempty"` // 英文
 }
 
+// GetHireApplicationRespApplicationStageTime ...
 type GetHireApplicationRespApplicationStageTime struct {
 	StageID   string `json:"stage_id,omitempty"`   // 阶段 ID
 	EnterTime string `json:"enter_time,omitempty"` // 最近一次进入该阶段的时间
@@ -120,14 +130,17 @@ func (r *HireService) GetHireApplicationInterviewList(ctx context.Context, reque
 	return resp.Data, response, err
 }
 
+// MockHireGetHireApplicationInterviewList mock HireGetHireApplicationInterviewList method
 func (r *Mock) MockHireGetHireApplicationInterviewList(f func(ctx context.Context, request *GetHireApplicationInterviewListReq, options ...MethodOptionFunc) (*GetHireApplicationInterviewListResp, *Response, error)) {
 	r.mockHireGetHireApplicationInterviewList = f
 }
 
+// UnMockHireGetHireApplicationInterviewList un-mock HireGetHireApplicationInterviewList method
 func (r *Mock) UnMockHireGetHireApplicationInterviewList() {
 	r.mockHireGetHireApplicationInterviewList = nil
 }
 
+// GetHireApplicationInterviewListReq ...
 type GetHireApplicationInterviewListReq struct {
 	PageSize      int64   `query:"page_size" json:"-"`     // 分页大小, 示例值：10
 	PageToken     *string `query:"page_token" json:"-"`    // 分页标记，第一次请求不填，表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token，下次遍历可采用该 page_token 获取查询结果, 示例值："xx"
@@ -135,18 +148,21 @@ type GetHireApplicationInterviewListReq struct {
 	ApplicationID string  `path:"application_id" json:"-"` // 投递ID, 示例值："6949805467799537964"
 }
 
+// getHireApplicationInterviewListResp ...
 type getHireApplicationInterviewListResp struct {
 	Code int64                                `json:"code,omitempty"` // 错误码，非 0 表示失败
 	Msg  string                               `json:"msg,omitempty"`  // 错误描述
 	Data *GetHireApplicationInterviewListResp `json:"data,omitempty"`
 }
 
+// GetHireApplicationInterviewListResp ...
 type GetHireApplicationInterviewListResp struct {
 	PageToken string                                     `json:"page_token,omitempty"` // 分页标志
 	HasMore   bool                                       `json:"has_more,omitempty"`   // 是否有更多
 	Items     []*GetHireApplicationInterviewListRespItem `json:"items,omitempty"`      // 面试列表
 }
 
+// GetHireApplicationInterviewListRespItem ...
 type GetHireApplicationInterviewListRespItem struct {
 	ID                  string                                                    `json:"id,omitempty"`                    // 面试id
 	BeginTime           int64                                                     `json:"begin_time,omitempty"`            // 面试开始时间（ms）
@@ -156,6 +172,7 @@ type GetHireApplicationInterviewListRespItem struct {
 	InterviewRecordList []*GetHireApplicationInterviewListRespItemInterviewRecord `json:"interview_record_list,omitempty"` // 面试官记录列表
 }
 
+// GetHireApplicationInterviewListRespItemInterviewRecord ...
 type GetHireApplicationInterviewListRespItemInterviewRecord struct {
 	ID             string                                                                `json:"id,omitempty"`               // 面试记录id
 	UserID         string                                                                `json:"user_id,omitempty"`          // 面试官用户id
@@ -167,6 +184,7 @@ type GetHireApplicationInterviewListRespItemInterviewRecord struct {
 	InterviewScore *GetHireApplicationInterviewListRespItemInterviewRecordInterviewScore `json:"interview_score,omitempty"`  // 面试评分
 }
 
+// GetHireApplicationInterviewListRespItemInterviewRecordInterviewScore ...
 type GetHireApplicationInterviewListRespItemInterviewRecordInterviewScore struct {
 	ID            string `json:"id,omitempty"`             // 面试评分id
 	Level         int64  `json:"level,omitempty"`          // 分数级别
@@ -202,14 +220,17 @@ func (r *HireService) GetHireApplicationList(ctx context.Context, request *GetHi
 	return resp.Data, response, err
 }
 
+// MockHireGetHireApplicationList mock HireGetHireApplicationList method
 func (r *Mock) MockHireGetHireApplicationList(f func(ctx context.Context, request *GetHireApplicationListReq, options ...MethodOptionFunc) (*GetHireApplicationListResp, *Response, error)) {
 	r.mockHireGetHireApplicationList = f
 }
 
+// UnMockHireGetHireApplicationList un-mock HireGetHireApplicationList method
 func (r *Mock) UnMockHireGetHireApplicationList() {
 	r.mockHireGetHireApplicationList = nil
 }
 
+// GetHireApplicationListReq ...
 type GetHireApplicationListReq struct {
 	ProcessID       *string `query:"process_id" json:"-"`        // 按流程过滤，招聘流程 ID，枚举值通过接口「获取招聘流程信息」接口获取, 示例值："6960663240925956554"
 	StageID         *string `query:"stage_id" json:"-"`          // 按招聘阶段过滤，招聘阶段 ID，枚举值通过「获取招聘流程信息」接口获取, 示例值："614218419274131"
@@ -221,12 +242,14 @@ type GetHireApplicationListReq struct {
 	UpdateEndTime   *string `query:"update_end_time" json:"-"`   // 最晚更新时间，毫秒级时间戳, 示例值："1618500278663"
 }
 
+// getHireApplicationListResp ...
 type getHireApplicationListResp struct {
 	Code int64                       `json:"code,omitempty"` // 错误码，非 0 表示失败
 	Msg  string                      `json:"msg,omitempty"`  // 错误描述
 	Data *GetHireApplicationListResp `json:"data,omitempty"`
 }
 
+// GetHireApplicationListResp ...
 type GetHireApplicationListResp struct {
 	Items     []string `json:"items,omitempty"`      // 投递数据列表
 	PageToken string   `json:"page_token,omitempty"` // 游标, 翻下一页数据时使用
@@ -259,14 +282,17 @@ func (r *HireService) TerminateHireApplication(ctx context.Context, request *Ter
 	return resp.Data, response, err
 }
 
+// MockHireTerminateHireApplication mock HireTerminateHireApplication method
 func (r *Mock) MockHireTerminateHireApplication(f func(ctx context.Context, request *TerminateHireApplicationReq, options ...MethodOptionFunc) (*TerminateHireApplicationResp, *Response, error)) {
 	r.mockHireTerminateHireApplication = f
 }
 
+// UnMockHireTerminateHireApplication un-mock HireTerminateHireApplication method
 func (r *Mock) UnMockHireTerminateHireApplication() {
 	r.mockHireTerminateHireApplication = nil
 }
 
+// TerminateHireApplicationReq ...
 type TerminateHireApplicationReq struct {
 	ApplicationID         string   `path:"application_id" json:"-"`           // 投递ID, 示例值："12312312312"
 	TerminationType       int64    `json:"termination_type,omitempty"`        // 终止原因的类型, 示例值：1, 可选值有: `1`：我们拒绝了候选人, `22`：候选人拒绝了我们, `27`：其他
@@ -274,12 +300,14 @@ type TerminateHireApplicationReq struct {
 	TerminationReasonNote *string  `json:"termination_reason_note,omitempty"` // 终止备注, 示例值："不符合期望"
 }
 
+// terminateHireApplicationResp ...
 type terminateHireApplicationResp struct {
 	Code int64                         `json:"code,omitempty"` // 错误码，非 0 表示失败
 	Msg  string                        `json:"msg,omitempty"`  // 错误描述
 	Data *TerminateHireApplicationResp `json:"data,omitempty"`
 }
 
+// TerminateHireApplicationResp ...
 type TerminateHireApplicationResp struct{}
 
 // Code generated by lark_sdk_gen. DO NOT EDIT.
@@ -308,28 +336,34 @@ func (r *HireService) GetHireAttachment(ctx context.Context, request *GetHireAtt
 	return resp.Data, response, err
 }
 
+// MockHireGetHireAttachment mock HireGetHireAttachment method
 func (r *Mock) MockHireGetHireAttachment(f func(ctx context.Context, request *GetHireAttachmentReq, options ...MethodOptionFunc) (*GetHireAttachmentResp, *Response, error)) {
 	r.mockHireGetHireAttachment = f
 }
 
+// UnMockHireGetHireAttachment un-mock HireGetHireAttachment method
 func (r *Mock) UnMockHireGetHireAttachment() {
 	r.mockHireGetHireAttachment = nil
 }
 
+// GetHireAttachmentReq ...
 type GetHireAttachmentReq struct {
 	AttachmentID string `path:"attachment_id" json:"-"` // 附件id, 示例值："6435242341238"
 }
 
+// getHireAttachmentResp ...
 type getHireAttachmentResp struct {
 	Code int64                  `json:"code,omitempty"` // 错误码，非 0 表示失败
 	Msg  string                 `json:"msg,omitempty"`  // 错误描述
 	Data *GetHireAttachmentResp `json:"data,omitempty"`
 }
 
+// GetHireAttachmentResp ...
 type GetHireAttachmentResp struct {
 	Attachment *GetHireAttachmentRespAttachment `json:"attachment,omitempty"` // 附件信息
 }
 
+// GetHireAttachmentRespAttachment ...
 type GetHireAttachmentRespAttachment struct {
 	ID         string `json:"id,omitempty"`          // 附件id
 	URL        string `json:"url,omitempty"`         // 附件的url
@@ -364,24 +398,29 @@ func (r *HireService) GetHireAttachmentPreview(ctx context.Context, request *Get
 	return resp.Data, response, err
 }
 
+// MockHireGetHireAttachmentPreview mock HireGetHireAttachmentPreview method
 func (r *Mock) MockHireGetHireAttachmentPreview(f func(ctx context.Context, request *GetHireAttachmentPreviewReq, options ...MethodOptionFunc) (*GetHireAttachmentPreviewResp, *Response, error)) {
 	r.mockHireGetHireAttachmentPreview = f
 }
 
+// UnMockHireGetHireAttachmentPreview un-mock HireGetHireAttachmentPreview method
 func (r *Mock) UnMockHireGetHireAttachmentPreview() {
 	r.mockHireGetHireAttachmentPreview = nil
 }
 
+// GetHireAttachmentPreviewReq ...
 type GetHireAttachmentPreviewReq struct {
 	AttachmentID string `path:"attachment_id" json:"-"` // 附件id, 示例值："11111"
 }
 
+// getHireAttachmentPreviewResp ...
 type getHireAttachmentPreviewResp struct {
 	Code int64                         `json:"code,omitempty"` // 错误码，非 0 表示失败
 	Msg  string                        `json:"msg,omitempty"`  // 错误描述
 	Data *GetHireAttachmentPreviewResp `json:"data,omitempty"`
 }
 
+// GetHireAttachmentPreviewResp ...
 type GetHireAttachmentPreviewResp struct {
 	URL string `json:"url,omitempty"` // 预览链接
 }
@@ -412,28 +451,34 @@ func (r *HireService) GetHireEmployee(ctx context.Context, request *GetHireEmplo
 	return resp.Data, response, err
 }
 
+// MockHireGetHireEmployee mock HireGetHireEmployee method
 func (r *Mock) MockHireGetHireEmployee(f func(ctx context.Context, request *GetHireEmployeeReq, options ...MethodOptionFunc) (*GetHireEmployeeResp, *Response, error)) {
 	r.mockHireGetHireEmployee = f
 }
 
+// UnMockHireGetHireEmployee un-mock HireGetHireEmployee method
 func (r *Mock) UnMockHireGetHireEmployee() {
 	r.mockHireGetHireEmployee = nil
 }
 
+// GetHireEmployeeReq ...
 type GetHireEmployeeReq struct {
 	EmployeeID string `path:"employee_id" json:"-"` // 员工ID, 示例值："123"
 }
 
+// getHireEmployeeResp ...
 type getHireEmployeeResp struct {
 	Code int64                `json:"code,omitempty"` // 错误码，非 0 表示失败
 	Msg  string               `json:"msg,omitempty"`  // 错误描述
 	Data *GetHireEmployeeResp `json:"data,omitempty"`
 }
 
+// GetHireEmployeeResp ...
 type GetHireEmployeeResp struct {
 	Employee *GetHireEmployeeRespEmployee `json:"employee,omitempty"` // 员工信息
 }
 
+// GetHireEmployeeRespEmployee ...
 type GetHireEmployeeRespEmployee struct {
 	ID                     string `json:"id,omitempty"`                       // 员工ID
 	ApplicationID          string `json:"application_id,omitempty"`           // 投递ID
@@ -472,28 +517,34 @@ func (r *HireService) GetHireEmployeeByApplication(ctx context.Context, request 
 	return resp.Data, response, err
 }
 
+// MockHireGetHireEmployeeByApplication mock HireGetHireEmployeeByApplication method
 func (r *Mock) MockHireGetHireEmployeeByApplication(f func(ctx context.Context, request *GetHireEmployeeByApplicationReq, options ...MethodOptionFunc) (*GetHireEmployeeByApplicationResp, *Response, error)) {
 	r.mockHireGetHireEmployeeByApplication = f
 }
 
+// UnMockHireGetHireEmployeeByApplication un-mock HireGetHireEmployeeByApplication method
 func (r *Mock) UnMockHireGetHireEmployeeByApplication() {
 	r.mockHireGetHireEmployeeByApplication = nil
 }
 
+// GetHireEmployeeByApplicationReq ...
 type GetHireEmployeeByApplicationReq struct {
 	ApplicationID string `query:"application_id" json:"-"` // 投递ID, 示例值："123"
 }
 
+// getHireEmployeeByApplicationResp ...
 type getHireEmployeeByApplicationResp struct {
 	Code int64                             `json:"code,omitempty"` // 错误码，非 0 表示失败
 	Msg  string                            `json:"msg,omitempty"`  // 错误描述
 	Data *GetHireEmployeeByApplicationResp `json:"data,omitempty"`
 }
 
+// GetHireEmployeeByApplicationResp ...
 type GetHireEmployeeByApplicationResp struct {
 	Employee *GetHireEmployeeByApplicationRespEmployee `json:"employee,omitempty"` // 员工信息
 }
 
+// GetHireEmployeeByApplicationRespEmployee ...
 type GetHireEmployeeByApplicationRespEmployee struct {
 	ID                     string `json:"id,omitempty"`                       // 员工ID
 	ApplicationID          string `json:"application_id,omitempty"`           // 投递ID
@@ -532,14 +583,17 @@ func (r *HireService) UpdateHireEmployee(ctx context.Context, request *UpdateHir
 	return resp.Data, response, err
 }
 
+// MockHireUpdateHireEmployee mock HireUpdateHireEmployee method
 func (r *Mock) MockHireUpdateHireEmployee(f func(ctx context.Context, request *UpdateHireEmployeeReq, options ...MethodOptionFunc) (*UpdateHireEmployeeResp, *Response, error)) {
 	r.mockHireUpdateHireEmployee = f
 }
 
+// UnMockHireUpdateHireEmployee un-mock HireUpdateHireEmployee method
 func (r *Mock) UnMockHireUpdateHireEmployee() {
 	r.mockHireUpdateHireEmployee = nil
 }
 
+// UpdateHireEmployeeReq ...
 type UpdateHireEmployeeReq struct {
 	EmployeeID     string                               `path:"employee_id" json:"-"`      // 员工ID, 示例值："123"
 	Operation      int64                                `json:"operation,omitempty"`       // 修改状态操作, 示例值：1, 可选值有: `1`：转正, `2`：离职
@@ -547,25 +601,30 @@ type UpdateHireEmployeeReq struct {
 	OverboardInfo  *UpdateHireEmployeeReqOverboardInfo  `json:"overboard_info,omitempty"`  // 离职信息
 }
 
+// UpdateHireEmployeeReqConversionInfo ...
 type UpdateHireEmployeeReqConversionInfo struct {
 	ActualConversionTime *int64 `json:"actual_conversion_time,omitempty"` // 实际转正日期, 示例值：1637596800000
 }
 
+// UpdateHireEmployeeReqOverboardInfo ...
 type UpdateHireEmployeeReqOverboardInfo struct {
 	ActualOverboardTime *int64  `json:"actual_overboard_time,omitempty"` // 实际离职日期, 示例值：1637596800000
 	OverboardNote       *string `json:"overboard_note,omitempty"`        // 离职原因, 示例值："职业发展考虑"
 }
 
+// updateHireEmployeeResp ...
 type updateHireEmployeeResp struct {
 	Code int64                   `json:"code,omitempty"` // 错误码，非 0 表示失败
 	Msg  string                  `json:"msg,omitempty"`  // 错误描述
 	Data *UpdateHireEmployeeResp `json:"data,omitempty"`
 }
 
+// UpdateHireEmployeeResp ...
 type UpdateHireEmployeeResp struct {
 	Employee *UpdateHireEmployeeRespEmployee `json:"employee,omitempty"` // 员工信息
 }
 
+// UpdateHireEmployeeRespEmployee ...
 type UpdateHireEmployeeRespEmployee struct {
 	ID                     string `json:"id,omitempty"`                       // 员工ID
 	ApplicationID          string `json:"application_id,omitempty"`           // 投递ID
@@ -604,29 +663,35 @@ func (r *HireService) GetHireJob(ctx context.Context, request *GetHireJobReq, op
 	return resp.Data, response, err
 }
 
+// MockHireGetHireJob mock HireGetHireJob method
 func (r *Mock) MockHireGetHireJob(f func(ctx context.Context, request *GetHireJobReq, options ...MethodOptionFunc) (*GetHireJobResp, *Response, error)) {
 	r.mockHireGetHireJob = f
 }
 
+// UnMockHireGetHireJob un-mock HireGetHireJob method
 func (r *Mock) UnMockHireGetHireJob() {
 	r.mockHireGetHireJob = nil
 }
 
+// GetHireJobReq ...
 type GetHireJobReq struct {
 	UserIDType *IDType `query:"user_id_type" json:"-"` // 用户 ID 类型, 示例值："open_id", 可选值有: `open_id`：用户的 open id, `union_id`：用户的 union id, `user_id`：用户的 user id, `people_admin_id`：以people_admin_id来识别用户, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
 	JobID      int64   `path:"job_id" json:"-"`        // 职位 ID，请求Path中, 示例值：6001
 }
 
+// getHireJobResp ...
 type getHireJobResp struct {
 	Code int64           `json:"code,omitempty"` // 错误码，非 0 表示失败
 	Msg  string          `json:"msg,omitempty"`  // 错误描述
 	Data *GetHireJobResp `json:"data,omitempty"`
 }
 
+// GetHireJobResp ...
 type GetHireJobResp struct {
 	Job *GetHireJobRespJob `json:"job,omitempty"` // 职位数据
 }
 
+// GetHireJobRespJob ...
 type GetHireJobRespJob struct {
 	ID                 string                             `json:"id,omitempty"`                   // 职位 ID
 	Title              string                             `json:"title,omitempty"`                // 职位名称
@@ -653,6 +718,7 @@ type GetHireJobRespJob struct {
 	Subject            *GetHireJobRespJobSubject          `json:"subject,omitempty"`              // 职位项目
 }
 
+// GetHireJobRespJobRecruitmentType ...
 type GetHireJobRespJobRecruitmentType struct {
 	ID           string `json:"id,omitempty"`            // 雇佣类型 ID
 	ZhName       string `json:"zh_name,omitempty"`       // 雇佣类型中文名称
@@ -660,18 +726,21 @@ type GetHireJobRespJobRecruitmentType struct {
 	ActiveStatus int64  `json:"active_status,omitempty"` // 雇佣类型启用状态, 可选值有: `1`：启用, `2`：未启用
 }
 
+// GetHireJobRespJobDepartment ...
 type GetHireJobRespJobDepartment struct {
 	ID     string `json:"id,omitempty"`      // 部门 ID
 	ZhName string `json:"zh_name,omitempty"` // 部门中文名称
 	EnName string `json:"en_name,omitempty"` // 部门英文名称
 }
 
+// GetHireJobRespJobCity ...
 type GetHireJobRespJobCity struct {
 	CityCode string `json:"city_code,omitempty"` // 工作地点城市代码
 	ZhName   string `json:"zh_name,omitempty"`   // 工作地点中文名称
 	EnName   string `json:"en_name,omitempty"`   // 工作地点英文名称
 }
 
+// GetHireJobRespJobMinJobLevel ...
 type GetHireJobRespJobMinJobLevel struct {
 	ID           string `json:"id,omitempty"`            // 职级 ID
 	ZhName       string `json:"zh_name,omitempty"`       // 职级中文名称
@@ -679,6 +748,7 @@ type GetHireJobRespJobMinJobLevel struct {
 	ActiveStatus int64  `json:"active_status,omitempty"` // 职级启用状态, 可选值有: `1`：启用, `2`：未启用
 }
 
+// GetHireJobRespJobMaxJobLevel ...
 type GetHireJobRespJobMaxJobLevel struct {
 	ID           string `json:"id,omitempty"`            // 职级 ID
 	ZhName       string `json:"zh_name,omitempty"`       // 职级中文名称
@@ -686,12 +756,14 @@ type GetHireJobRespJobMaxJobLevel struct {
 	ActiveStatus int64  `json:"active_status,omitempty"` // 职级启用状态, 可选值有: `1`：启用, `2`：未启用
 }
 
+// GetHireJobRespJobHighlight ...
 type GetHireJobRespJobHighlight struct {
 	ID     string `json:"id,omitempty"`      // 职位亮点 ID
 	ZhName string `json:"zh_name,omitempty"` // 职位亮点中文名称
 	EnName string `json:"en_name,omitempty"` // 职位亮点英文名称
 }
 
+// GetHireJobRespJobJobCategory ...
 type GetHireJobRespJobJobCategory struct {
 	ID           string `json:"id,omitempty"`            // 职位序列 ID
 	ZhName       string `json:"zh_name,omitempty"`       // 职位序列中文名称
@@ -699,12 +771,14 @@ type GetHireJobRespJobJobCategory struct {
 	ActiveStatus int64  `json:"active_status,omitempty"` // 职位序列启用状态, 可选值有: `1`：启用, `2`：未启用
 }
 
+// GetHireJobRespJobJobType ...
 type GetHireJobRespJobJobType struct {
 	ID     string `json:"id,omitempty"`      // 职位类别 ID
 	ZhName string `json:"zh_name,omitempty"` // 职位类别中文名称
 	EnName string `json:"en_name,omitempty"` // 职位类别英文名称
 }
 
+// GetHireJobRespJobCustomizedData ...
 type GetHireJobRespJobCustomizedData struct {
 	ObjectID   string                                `json:"object_id,omitempty"`   // 自定义字段 ID
 	Name       *GetHireJobRespJobCustomizedDataName  `json:"name,omitempty"`        // 字段名称
@@ -712,11 +786,13 @@ type GetHireJobRespJobCustomizedData struct {
 	Value      *GetHireJobRespJobCustomizedDataValue `json:"value,omitempty"`       // 自定义字段值
 }
 
+// GetHireJobRespJobCustomizedDataName ...
 type GetHireJobRespJobCustomizedDataName struct {
 	ZhCn string `json:"zh_cn,omitempty"` // 中文
 	EnUs string `json:"en_us,omitempty"` // 英文
 }
 
+// GetHireJobRespJobCustomizedDataValue ...
 type GetHireJobRespJobCustomizedDataValue struct {
 	Content    string                                         `json:"content,omitempty"`     // 当字段类型为单行文本、多行文本、模块、默认字段时，从此字段取值
 	Option     *GetHireJobRespJobCustomizedDataValueOption    `json:"option,omitempty"`      // 当字段类型为单选时，从此字段取值
@@ -726,36 +802,43 @@ type GetHireJobRespJobCustomizedDataValue struct {
 	Number     string                                         `json:"number,omitempty"`      // 当字段类型为数字时，从此字段取值
 }
 
+// GetHireJobRespJobCustomizedDataValueOption ...
 type GetHireJobRespJobCustomizedDataValueOption struct {
 	Key  string                                          `json:"key,omitempty"`  // 选项 ID
 	Name *GetHireJobRespJobCustomizedDataValueOptionName `json:"name,omitempty"` // 选项名称
 }
 
+// GetHireJobRespJobCustomizedDataValueOptionName ...
 type GetHireJobRespJobCustomizedDataValueOptionName struct {
 	ZhCn string `json:"zh_cn,omitempty"` // 中文
 	EnUs string `json:"en_us,omitempty"` // 英文
 }
 
+// GetHireJobRespJobCustomizedDataValueTimeRange ...
 type GetHireJobRespJobCustomizedDataValueTimeRange struct {
 	StartTime string `json:"start_time,omitempty"` // 开始时间
 	EndTime   string `json:"end_time,omitempty"`   // 结束时间
 }
 
+// GetHireJobRespJobJobFunction ...
 type GetHireJobRespJobJobFunction struct {
 	ID   string                            `json:"id,omitempty"`   // ID
 	Name *GetHireJobRespJobJobFunctionName `json:"name,omitempty"` // 名称
 }
 
+// GetHireJobRespJobJobFunctionName ...
 type GetHireJobRespJobJobFunctionName struct {
 	ZhCn string `json:"zh_cn,omitempty"` // 中文
 	EnUs string `json:"en_us,omitempty"` // 英文
 }
 
+// GetHireJobRespJobSubject ...
 type GetHireJobRespJobSubject struct {
 	ID   string                        `json:"id,omitempty"`   // ID
 	Name *GetHireJobRespJobSubjectName `json:"name,omitempty"` // 名称
 }
 
+// GetHireJobRespJobSubjectName ...
 type GetHireJobRespJobSubjectName struct {
 	ZhCn string `json:"zh_cn,omitempty"` // 中文
 	EnUs string `json:"en_us,omitempty"` // 英文
@@ -787,30 +870,36 @@ func (r *HireService) GetHireJobManager(ctx context.Context, request *GetHireJob
 	return resp.Data, response, err
 }
 
+// MockHireGetHireJobManager mock HireGetHireJobManager method
 func (r *Mock) MockHireGetHireJobManager(f func(ctx context.Context, request *GetHireJobManagerReq, options ...MethodOptionFunc) (*GetHireJobManagerResp, *Response, error)) {
 	r.mockHireGetHireJobManager = f
 }
 
+// UnMockHireGetHireJobManager un-mock HireGetHireJobManager method
 func (r *Mock) UnMockHireGetHireJobManager() {
 	r.mockHireGetHireJobManager = nil
 }
 
+// GetHireJobManagerReq ...
 type GetHireJobManagerReq struct {
 	UserIDType *IDType `query:"user_id_type" json:"-"` // 用户 ID 类型, 示例值："open_id", 可选值有: `open_id`：用户的 open id, `union_id`：用户的 union id, `user_id`：用户的 user id, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
 	JobID      string  `path:"job_id" json:"-"`        // 职位ID, 示例值："1618209327096"
 	ManagerID  string  `path:"manager_id" json:"-"`    // 人员ID，目前传职位ID, 示例值："1618209327096"
 }
 
+// getHireJobManagerResp ...
 type getHireJobManagerResp struct {
 	Code int64                  `json:"code,omitempty"` // 错误码，非 0 表示失败
 	Msg  string                 `json:"msg,omitempty"`  // 错误描述
 	Data *GetHireJobManagerResp `json:"data,omitempty"`
 }
 
+// GetHireJobManagerResp ...
 type GetHireJobManagerResp struct {
 	Info *GetHireJobManagerRespInfo `json:"info,omitempty"` // 职位负责人
 }
 
+// GetHireJobManagerRespInfo ...
 type GetHireJobManagerRespInfo struct {
 	ID                  string   `json:"id,omitempty"`                     // 职位ID
 	RecruiterID         string   `json:"recruiter_id,omitempty"`           // 招聘负责人ID
@@ -844,31 +933,37 @@ func (r *HireService) GetHireJobProcessList(ctx context.Context, request *GetHir
 	return resp.Data, response, err
 }
 
+// MockHireGetHireJobProcessList mock HireGetHireJobProcessList method
 func (r *Mock) MockHireGetHireJobProcessList(f func(ctx context.Context, request *GetHireJobProcessListReq, options ...MethodOptionFunc) (*GetHireJobProcessListResp, *Response, error)) {
 	r.mockHireGetHireJobProcessList = f
 }
 
+// UnMockHireGetHireJobProcessList un-mock HireGetHireJobProcessList method
 func (r *Mock) UnMockHireGetHireJobProcessList() {
 	r.mockHireGetHireJobProcessList = nil
 }
 
+// GetHireJobProcessListReq ...
 type GetHireJobProcessListReq struct {
 	PageSize  *int64  `query:"page_size" json:"-"`  // 分页大小, 不能超过 100, 示例值：10
 	PageToken *string `query:"page_token" json:"-"` // 分页标记，第一次请求不填，表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token，下次遍历可采用该 page_token 获取查询结果, 示例值："1"
 }
 
+// getHireJobProcessListResp ...
 type getHireJobProcessListResp struct {
 	Code int64                      `json:"code,omitempty"` // 错误码，非 0 表示失败
 	Msg  string                     `json:"msg,omitempty"`  // 错误描述
 	Data *GetHireJobProcessListResp `json:"data,omitempty"`
 }
 
+// GetHireJobProcessListResp ...
 type GetHireJobProcessListResp struct {
 	HasMore   bool                             `json:"has_more,omitempty"`   // 是否还有更多项
 	PageToken string                           `json:"page_token,omitempty"` // 分页标记，当 has_more 为 true 时，会同时返回新的 page_token，否则不返回 page_token
 	Items     []*GetHireJobProcessListRespItem `json:"items,omitempty"`      // 列表
 }
 
+// GetHireJobProcessListRespItem ...
 type GetHireJobProcessListRespItem struct {
 	ID        string                                `json:"id,omitempty"`         // ID
 	ZhName    string                                `json:"zh_name,omitempty"`    // 中文名称
@@ -877,6 +972,7 @@ type GetHireJobProcessListRespItem struct {
 	StageList []*GetHireJobProcessListRespItemStage `json:"stage_list,omitempty"` // 阶段列表, 内部按用户设置顺序排列
 }
 
+// GetHireJobProcessListRespItemStage ...
 type GetHireJobProcessListRespItemStage struct {
 	ID     string `json:"id,omitempty"`      // ID
 	ZhName string `json:"zh_name,omitempty"` // 中文名称
@@ -910,14 +1006,17 @@ func (r *HireService) CreateHireNote(ctx context.Context, request *CreateHireNot
 	return resp.Data, response, err
 }
 
+// MockHireCreateHireNote mock HireCreateHireNote method
 func (r *Mock) MockHireCreateHireNote(f func(ctx context.Context, request *CreateHireNoteReq, options ...MethodOptionFunc) (*CreateHireNoteResp, *Response, error)) {
 	r.mockHireCreateHireNote = f
 }
 
+// UnMockHireCreateHireNote un-mock HireCreateHireNote method
 func (r *Mock) UnMockHireCreateHireNote() {
 	r.mockHireCreateHireNote = nil
 }
 
+// CreateHireNoteReq ...
 type CreateHireNoteReq struct {
 	UserIDType    *IDType `query:"user_id_type" json:"-"`   // 用户 ID 类型, 示例值："open_id", 可选值有: `open_id`：用户的 open id, `union_id`：用户的 union id, `user_id`：用户的 user id, `people_admin_id`：以people_admin_id来识别用户, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求:  获取用户 user ID
 	TalentID      string  `json:"talent_id,omitempty"`      // 人才ID, 示例值："6916472453069883661"
@@ -927,16 +1026,19 @@ type CreateHireNoteReq struct {
 	Privacy       *int64  `json:"privacy,omitempty"`        // 备注私密属性（默认为公开）, 示例值：1, 可选值有: `1`：私密, `2`：公开
 }
 
+// createHireNoteResp ...
 type createHireNoteResp struct {
 	Code int64               `json:"code,omitempty"` // 错误码，非 0 表示失败
 	Msg  string              `json:"msg,omitempty"`  // 错误描述
 	Data *CreateHireNoteResp `json:"data,omitempty"`
 }
 
+// CreateHireNoteResp ...
 type CreateHireNoteResp struct {
 	Note *CreateHireNoteRespNote `json:"note,omitempty"` // 备注信息
 }
 
+// CreateHireNoteRespNote ...
 type CreateHireNoteRespNote struct {
 	ID            string `json:"id,omitempty"`             // 备注ID
 	TalentID      string `json:"talent_id,omitempty"`      // 人才ID
@@ -974,29 +1076,35 @@ func (r *HireService) GetHireNote(ctx context.Context, request *GetHireNoteReq, 
 	return resp.Data, response, err
 }
 
+// MockHireGetHireNote mock HireGetHireNote method
 func (r *Mock) MockHireGetHireNote(f func(ctx context.Context, request *GetHireNoteReq, options ...MethodOptionFunc) (*GetHireNoteResp, *Response, error)) {
 	r.mockHireGetHireNote = f
 }
 
+// UnMockHireGetHireNote un-mock HireGetHireNote method
 func (r *Mock) UnMockHireGetHireNote() {
 	r.mockHireGetHireNote = nil
 }
 
+// GetHireNoteReq ...
 type GetHireNoteReq struct {
 	UserIDType *IDType `query:"user_id_type" json:"-"` // 用户 ID 类型, 示例值："open_id", 可选值有: `open_id`：用户的 open id, `union_id`：用户的 union id, `user_id`：用户的 user id, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
 	NoteID     string  `path:"note_id" json:"-"`       // Note ID, 示例值："6950620009265891614"
 }
 
+// getHireNoteResp ...
 type getHireNoteResp struct {
 	Code int64            `json:"code,omitempty"` // 错误码，非 0 表示失败
 	Msg  string           `json:"msg,omitempty"`  // 错误描述
 	Data *GetHireNoteResp `json:"data,omitempty"`
 }
 
+// GetHireNoteResp ...
 type GetHireNoteResp struct {
 	Note *GetHireNoteRespNote `json:"note,omitempty"` // 备注数据
 }
 
+// GetHireNoteRespNote ...
 type GetHireNoteRespNote struct {
 	ID            string `json:"id,omitempty"`             // ID备注
 	TalentID      string `json:"talent_id,omitempty"`      // 人才ID
@@ -1034,14 +1142,17 @@ func (r *HireService) GetHireNoteList(ctx context.Context, request *GetHireNoteL
 	return resp.Data, response, err
 }
 
+// MockHireGetHireNoteList mock HireGetHireNoteList method
 func (r *Mock) MockHireGetHireNoteList(f func(ctx context.Context, request *GetHireNoteListReq, options ...MethodOptionFunc) (*GetHireNoteListResp, *Response, error)) {
 	r.mockHireGetHireNoteList = f
 }
 
+// UnMockHireGetHireNoteList un-mock HireGetHireNoteList method
 func (r *Mock) UnMockHireGetHireNoteList() {
 	r.mockHireGetHireNoteList = nil
 }
 
+// GetHireNoteListReq ...
 type GetHireNoteListReq struct {
 	PageSize   *int64  `query:"page_size" json:"-"`    // 每页限制, 每页最大不超过100, 示例值：10
 	PageToken  *string `query:"page_token" json:"-"`   // 查询游标, 由上一页结果返回, 第一页不传, 示例值："1"
@@ -1049,18 +1160,21 @@ type GetHireNoteListReq struct {
 	UserIDType *IDType `query:"user_id_type" json:"-"` // 用户 ID 类型, 示例值："open_id", 可选值有: `open_id`：用户的 open id, `union_id`：用户的 union id, `user_id`：用户的 user id, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
 }
 
+// getHireNoteListResp ...
 type getHireNoteListResp struct {
 	Code int64                `json:"code,omitempty"` // 错误码，非 0 表示失败
 	Msg  string               `json:"msg,omitempty"`  // 错误描述
 	Data *GetHireNoteListResp `json:"data,omitempty"`
 }
 
+// GetHireNoteListResp ...
 type GetHireNoteListResp struct {
 	Items     []*GetHireNoteListRespItem `json:"items,omitempty"`      // 备注数据列表
 	HasMore   bool                       `json:"has_more,omitempty"`   // 是否还有下一页数据
 	PageToken string                     `json:"page_token,omitempty"` // 游标, 翻下一页数据时使用
 }
 
+// GetHireNoteListRespItem ...
 type GetHireNoteListRespItem struct {
 	ID            string `json:"id,omitempty"`             // ID备注
 	TalentID      string `json:"talent_id,omitempty"`      // 人才ID
@@ -1098,30 +1212,36 @@ func (r *HireService) UpdateHireNote(ctx context.Context, request *UpdateHireNot
 	return resp.Data, response, err
 }
 
+// MockHireUpdateHireNote mock HireUpdateHireNote method
 func (r *Mock) MockHireUpdateHireNote(f func(ctx context.Context, request *UpdateHireNoteReq, options ...MethodOptionFunc) (*UpdateHireNoteResp, *Response, error)) {
 	r.mockHireUpdateHireNote = f
 }
 
+// UnMockHireUpdateHireNote un-mock HireUpdateHireNote method
 func (r *Mock) UnMockHireUpdateHireNote() {
 	r.mockHireUpdateHireNote = nil
 }
 
+// UpdateHireNoteReq ...
 type UpdateHireNoteReq struct {
 	UserIDType *IDType `query:"user_id_type" json:"-"` // 用户 ID 类型, 示例值："open_id", 可选值有: `open_id`：用户的 open id, `union_id`：用户的 union id, `user_id`：用户的 user id, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
 	NoteID     string  `path:"note_id" json:"-"`       // Note ID, 示例值："6950620009265891614"
 	Content    string  `json:"content,omitempty"`      // 备注内容, 示例值："111"
 }
 
+// updateHireNoteResp ...
 type updateHireNoteResp struct {
 	Code int64               `json:"code,omitempty"` // 错误码，非 0 表示失败
 	Msg  string              `json:"msg,omitempty"`  // 错误描述
 	Data *UpdateHireNoteResp `json:"data,omitempty"`
 }
 
+// UpdateHireNoteResp ...
 type UpdateHireNoteResp struct {
 	Note *UpdateHireNoteRespNote `json:"note,omitempty"` // 备注数据
 }
 
+// UpdateHireNoteRespNote ...
 type UpdateHireNoteRespNote struct {
 	ID            string `json:"id,omitempty"`             // ID备注
 	TalentID      string `json:"talent_id,omitempty"`      // 人才ID
@@ -1159,29 +1279,35 @@ func (r *HireService) GetHireOfferByApplication(ctx context.Context, request *Ge
 	return resp.Data, response, err
 }
 
+// MockHireGetHireOfferByApplication mock HireGetHireOfferByApplication method
 func (r *Mock) MockHireGetHireOfferByApplication(f func(ctx context.Context, request *GetHireOfferByApplicationReq, options ...MethodOptionFunc) (*GetHireOfferByApplicationResp, *Response, error)) {
 	r.mockHireGetHireOfferByApplication = f
 }
 
+// UnMockHireGetHireOfferByApplication un-mock HireGetHireOfferByApplication method
 func (r *Mock) UnMockHireGetHireOfferByApplication() {
 	r.mockHireGetHireOfferByApplication = nil
 }
 
+// GetHireOfferByApplicationReq ...
 type GetHireOfferByApplicationReq struct {
 	UserIDType    *IDType `query:"user_id_type" json:"-"`  // 用户 ID 类型, 示例值："open_id", 可选值有: `open_id`：用户的 open id, `union_id`：用户的 union id, `user_id`：用户的 user id, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
 	ApplicationID string  `path:"application_id" json:"-"` // 投递ID, 示例值："6949805467799537964"
 }
 
+// getHireOfferByApplicationResp ...
 type getHireOfferByApplicationResp struct {
 	Code int64                          `json:"code,omitempty"` // 错误码，非 0 表示失败
 	Msg  string                         `json:"msg,omitempty"`  // 错误描述
 	Data *GetHireOfferByApplicationResp `json:"data,omitempty"`
 }
 
+// GetHireOfferByApplicationResp ...
 type GetHireOfferByApplicationResp struct {
 	Offer *GetHireOfferByApplicationRespOffer `json:"offer,omitempty"` // Offer数据
 }
 
+// GetHireOfferByApplicationRespOffer ...
 type GetHireOfferByApplicationRespOffer struct {
 	ID            string                                        `json:"id,omitempty"`             // Offer id
 	ApplicationID string                                        `json:"application_id,omitempty"` // 投递id
@@ -1191,6 +1317,7 @@ type GetHireOfferByApplicationRespOffer struct {
 	OfferStatus   int64                                         `json:"offer_status,omitempty"`   // Offer状态, 可选值有: `0`：所有, `1`：未申请, `2`：审批中, `3`：审批已撤回, `4`：审批通过, `5`：审批不通过, `6`：Offer 已发出, `7`：候选人已接受, `8`：候选人已拒绝, `9`：Offer 已失效
 }
 
+// GetHireOfferByApplicationRespOfferBasicInfo ...
 type GetHireOfferByApplicationRespOfferBasicInfo struct {
 	OfferType         int64                                                       `json:"offer_type,omitempty"`          // Offer类型 1=Social, 2=Campus, 3=Intern, 4=InternTransfer, 可选值有: `1`：Social, `2`：Campus, `3`：Intern, `4`：InternTransfer
 	Remark            string                                                      `json:"remark,omitempty"`              // 备注
@@ -1209,24 +1336,28 @@ type GetHireOfferByApplicationRespOfferBasicInfo struct {
 	CustomizeInfoList []*GetHireOfferByApplicationRespOfferBasicInfoCustomizeInfo `json:"customize_info_list,omitempty"` // 自定义字段的value信息
 }
 
+// GetHireOfferByApplicationRespOfferBasicInfoRecruitmentType ...
 type GetHireOfferByApplicationRespOfferBasicInfoRecruitmentType struct {
 	ID     string `json:"id,omitempty"`      // ID
 	ZhName string `json:"zh_name,omitempty"` // 中文名称
 	EnName string `json:"en_name,omitempty"` // 英文名称
 }
 
+// GetHireOfferByApplicationRespOfferBasicInfoSequence ...
 type GetHireOfferByApplicationRespOfferBasicInfoSequence struct {
 	ID     string `json:"id,omitempty"`      // ID
 	ZhName string `json:"zh_name,omitempty"` // 中文名称
 	EnName string `json:"en_name,omitempty"` // 英文名称
 }
 
+// GetHireOfferByApplicationRespOfferBasicInfoLevel ...
 type GetHireOfferByApplicationRespOfferBasicInfoLevel struct {
 	ID     string `json:"id,omitempty"`      // ID
 	ZhName string `json:"zh_name,omitempty"` // 中文名称
 	EnName string `json:"en_name,omitempty"` // 英文名称
 }
 
+// GetHireOfferByApplicationRespOfferBasicInfoOnboardAddress ...
 type GetHireOfferByApplicationRespOfferBasicInfoOnboardAddress struct {
 	ID       string                                                             `json:"id,omitempty"`       // ID
 	ZhName   string                                                             `json:"zh_name,omitempty"`  // 中文名称
@@ -1237,6 +1368,7 @@ type GetHireOfferByApplicationRespOfferBasicInfoOnboardAddress struct {
 	Country  *GetHireOfferByApplicationRespOfferBasicInfoOnboardAddressCountry  `json:"country,omitempty"`  // 国家信息
 }
 
+// GetHireOfferByApplicationRespOfferBasicInfoOnboardAddressDistrict ...
 type GetHireOfferByApplicationRespOfferBasicInfoOnboardAddressDistrict struct {
 	ZhName       string `json:"zh_name,omitempty"`       // 中文名称
 	EnName       string `json:"en_name,omitempty"`       // 英文名称
@@ -1244,6 +1376,7 @@ type GetHireOfferByApplicationRespOfferBasicInfoOnboardAddressDistrict struct {
 	LocationType int64  `json:"location_type,omitempty"` // 地址类型 1=COUNTRY, 2=STATE, 3=CITY, 4=DISTRICT, 5=ADDRESS,
 }
 
+// GetHireOfferByApplicationRespOfferBasicInfoOnboardAddressCity ...
 type GetHireOfferByApplicationRespOfferBasicInfoOnboardAddressCity struct {
 	ZhName       string `json:"zh_name,omitempty"`       // 中文名称
 	EnName       string `json:"en_name,omitempty"`       // 英文名称
@@ -1251,6 +1384,7 @@ type GetHireOfferByApplicationRespOfferBasicInfoOnboardAddressCity struct {
 	LocationType int64  `json:"location_type,omitempty"` // 地址类型 1=COUNTRY, 2=STATE, 3=CITY, 4=DISTRICT, 5=ADDRESS,, 可选值有: `1`：COUNTRY, `2`：STATE, `3`：CITY, `4`：DISTRICT, `5`：ADDRESS
 }
 
+// GetHireOfferByApplicationRespOfferBasicInfoOnboardAddressState ...
 type GetHireOfferByApplicationRespOfferBasicInfoOnboardAddressState struct {
 	ZhName       string `json:"zh_name,omitempty"`       // 中文名称
 	EnName       string `json:"en_name,omitempty"`       // 英文名称
@@ -1258,6 +1392,7 @@ type GetHireOfferByApplicationRespOfferBasicInfoOnboardAddressState struct {
 	LocationType int64  `json:"location_type,omitempty"` // 地址类型 1=COUNTRY, 2=STATE, 3=CITY, 4=DISTRICT, 5=ADDRESS,, 可选值有: `1`：COUNTRY, `2`：STATE, `3`：CITY, `4`：DISTRICT, `5`：ADDRESS
 }
 
+// GetHireOfferByApplicationRespOfferBasicInfoOnboardAddressCountry ...
 type GetHireOfferByApplicationRespOfferBasicInfoOnboardAddressCountry struct {
 	ZhName       string `json:"zh_name,omitempty"`       // 中文名称
 	EnName       string `json:"en_name,omitempty"`       // 英文名称
@@ -1265,6 +1400,7 @@ type GetHireOfferByApplicationRespOfferBasicInfoOnboardAddressCountry struct {
 	LocationType int64  `json:"location_type,omitempty"` // 地址类型 1=COUNTRY, 2=STATE, 3=CITY, 4=DISTRICT, 5=ADDRESS,, 可选值有: `1`：COUNTRY, `2`：STATE, `3`：CITY, `4`：DISTRICT, `5`：ADDRESS
 }
 
+// GetHireOfferByApplicationRespOfferBasicInfoWorkAddress ...
 type GetHireOfferByApplicationRespOfferBasicInfoWorkAddress struct {
 	ID       string                                                          `json:"id,omitempty"`       // ID
 	ZhName   string                                                          `json:"zh_name,omitempty"`  // 中文名称
@@ -1275,6 +1411,7 @@ type GetHireOfferByApplicationRespOfferBasicInfoWorkAddress struct {
 	Country  *GetHireOfferByApplicationRespOfferBasicInfoWorkAddressCountry  `json:"country,omitempty"`  // 国家信息
 }
 
+// GetHireOfferByApplicationRespOfferBasicInfoWorkAddressDistrict ...
 type GetHireOfferByApplicationRespOfferBasicInfoWorkAddressDistrict struct {
 	ZhName       string `json:"zh_name,omitempty"`       // 中文名称
 	EnName       string `json:"en_name,omitempty"`       // 英文名称
@@ -1282,6 +1419,7 @@ type GetHireOfferByApplicationRespOfferBasicInfoWorkAddressDistrict struct {
 	LocationType int64  `json:"location_type,omitempty"` // 地址类型 1=COUNTRY, 2=STATE, 3=CITY, 4=DISTRICT, 5=ADDRESS,
 }
 
+// GetHireOfferByApplicationRespOfferBasicInfoWorkAddressCity ...
 type GetHireOfferByApplicationRespOfferBasicInfoWorkAddressCity struct {
 	ZhName       string `json:"zh_name,omitempty"`       // 中文名称
 	EnName       string `json:"en_name,omitempty"`       // 英文名称
@@ -1289,6 +1427,7 @@ type GetHireOfferByApplicationRespOfferBasicInfoWorkAddressCity struct {
 	LocationType int64  `json:"location_type,omitempty"` // 地址类型 1=COUNTRY, 2=STATE, 3=CITY, 4=DISTRICT, 5=ADDRESS,, 可选值有: `1`：COUNTRY, `2`：STATE, `3`：CITY, `4`：DISTRICT, `5`：ADDRESS
 }
 
+// GetHireOfferByApplicationRespOfferBasicInfoWorkAddressState ...
 type GetHireOfferByApplicationRespOfferBasicInfoWorkAddressState struct {
 	ZhName       string `json:"zh_name,omitempty"`       // 中文名称
 	EnName       string `json:"en_name,omitempty"`       // 英文名称
@@ -1296,6 +1435,7 @@ type GetHireOfferByApplicationRespOfferBasicInfoWorkAddressState struct {
 	LocationType int64  `json:"location_type,omitempty"` // 地址类型 1=COUNTRY, 2=STATE, 3=CITY, 4=DISTRICT, 5=ADDRESS,, 可选值有: `1`：COUNTRY, `2`：STATE, `3`：CITY, `4`：DISTRICT, `5`：ADDRESS
 }
 
+// GetHireOfferByApplicationRespOfferBasicInfoWorkAddressCountry ...
 type GetHireOfferByApplicationRespOfferBasicInfoWorkAddressCountry struct {
 	ZhName       string `json:"zh_name,omitempty"`       // 中文名称
 	EnName       string `json:"en_name,omitempty"`       // 英文名称
@@ -1303,11 +1443,13 @@ type GetHireOfferByApplicationRespOfferBasicInfoWorkAddressCountry struct {
 	LocationType int64  `json:"location_type,omitempty"` // 地址类型 1=COUNTRY, 2=STATE, 3=CITY, 4=DISTRICT, 5=ADDRESS,, 可选值有: `1`：COUNTRY, `2`：STATE, `3`：CITY, `4`：DISTRICT, `5`：ADDRESS
 }
 
+// GetHireOfferByApplicationRespOfferBasicInfoCustomizeInfo ...
 type GetHireOfferByApplicationRespOfferBasicInfoCustomizeInfo struct {
 	ObjectID       string `json:"object_id,omitempty"`       // 自定义字段ID
 	CustomizeValue string `json:"customize_value,omitempty"` // 自定义字段Value
 }
 
+// GetHireOfferByApplicationRespOfferSalaryPlan ...
 type GetHireOfferByApplicationRespOfferSalaryPlan struct {
 	Currency                  string                                                       `json:"currency,omitempty"`                    // 币种
 	BasicSalary               string                                                       `json:"basic_salary,omitempty"`                // 基本薪资, 注意是json
@@ -1320,6 +1462,7 @@ type GetHireOfferByApplicationRespOfferSalaryPlan struct {
 	CustomizeInfoList         []*GetHireOfferByApplicationRespOfferSalaryPlanCustomizeInfo `json:"customize_info_list,omitempty"`         // 自定义字段的value信息
 }
 
+// GetHireOfferByApplicationRespOfferSalaryPlanCustomizeInfo ...
 type GetHireOfferByApplicationRespOfferSalaryPlanCustomizeInfo struct {
 	ObjectID       string `json:"object_id,omitempty"`       // 自定义字段ID
 	CustomizeValue string `json:"customize_value,omitempty"` // 自定义字段Value
@@ -1353,24 +1496,29 @@ func (r *HireService) GetHireOfferSchema(ctx context.Context, request *GetHireOf
 	return resp.Data, response, err
 }
 
+// MockHireGetHireOfferSchema mock HireGetHireOfferSchema method
 func (r *Mock) MockHireGetHireOfferSchema(f func(ctx context.Context, request *GetHireOfferSchemaReq, options ...MethodOptionFunc) (*GetHireOfferSchemaResp, *Response, error)) {
 	r.mockHireGetHireOfferSchema = f
 }
 
+// UnMockHireGetHireOfferSchema un-mock HireGetHireOfferSchema method
 func (r *Mock) UnMockHireGetHireOfferSchema() {
 	r.mockHireGetHireOfferSchema = nil
 }
 
+// GetHireOfferSchemaReq ...
 type GetHireOfferSchemaReq struct {
 	OfferSchemaID string `path:"offer_schema_id" json:"-"` // offer申请表的ID *必需属性, 示例值："1231231231231"
 }
 
+// getHireOfferSchemaResp ...
 type getHireOfferSchemaResp struct {
 	Code int64                   `json:"code,omitempty"` // 错误码，非 0 表示失败
 	Msg  string                  `json:"msg,omitempty"`  // 错误描述
 	Data *GetHireOfferSchemaResp `json:"data,omitempty"`
 }
 
+// GetHireOfferSchemaResp ...
 type GetHireOfferSchemaResp struct {
 	ID         string                          `json:"id,omitempty"`          // offer申请表ID
 	Scenario   int64                           `json:"scenario,omitempty"`    // offer申请表使用场景, 可选值有: `1`：Offer审批表
@@ -1378,6 +1526,7 @@ type GetHireOfferSchemaResp struct {
 	ObjectList []*GetHireOfferSchemaRespObject `json:"object_list,omitempty"` // 字段对象信息
 }
 
+// GetHireOfferSchemaRespObject ...
 type GetHireOfferSchemaRespObject struct {
 	ID           string                                `json:"id,omitempty"`            // 字段ID
 	Name         *GetHireOfferSchemaRespObjectName     `json:"name,omitempty"`          // 字段名称
@@ -1386,17 +1535,20 @@ type GetHireOfferSchemaRespObject struct {
 	OptionList   []*GetHireOfferSchemaRespObjectOption `json:"option_list,omitempty"`   // 单选/多选可选择字段的选项值
 }
 
+// GetHireOfferSchemaRespObjectName ...
 type GetHireOfferSchemaRespObjectName struct {
 	ZhCn string `json:"zh_cn,omitempty"` // 中文名
 	EnUs string `json:"en_us,omitempty"` // 英文名
 }
 
+// GetHireOfferSchemaRespObjectOption ...
 type GetHireOfferSchemaRespObjectOption struct {
 	Name         *GetHireOfferSchemaRespObjectOptionName `json:"name,omitempty"`          // 名字
 	Index        int64                                   `json:"index,omitempty"`         // 选项序号
 	ActiveStatus int64                                   `json:"active_status,omitempty"` // 选项当前是否启用, 可选值有: `1`：进行中, `2`：已终止
 }
 
+// GetHireOfferSchemaRespObjectOptionName ...
 type GetHireOfferSchemaRespObjectOptionName struct {
 	ZhCn string `json:"zh_cn,omitempty"` // 中文名
 	EnUs string `json:"en_us,omitempty"` // 英文名
@@ -1428,29 +1580,35 @@ func (r *HireService) GetHireReferralByApplication(ctx context.Context, request 
 	return resp.Data, response, err
 }
 
+// MockHireGetHireReferralByApplication mock HireGetHireReferralByApplication method
 func (r *Mock) MockHireGetHireReferralByApplication(f func(ctx context.Context, request *GetHireReferralByApplicationReq, options ...MethodOptionFunc) (*GetHireReferralByApplicationResp, *Response, error)) {
 	r.mockHireGetHireReferralByApplication = f
 }
 
+// UnMockHireGetHireReferralByApplication un-mock HireGetHireReferralByApplication method
 func (r *Mock) UnMockHireGetHireReferralByApplication() {
 	r.mockHireGetHireReferralByApplication = nil
 }
 
+// GetHireReferralByApplicationReq ...
 type GetHireReferralByApplicationReq struct {
 	ApplicationID string  `query:"application_id" json:"-"` // 投递的id, 示例值："6134134355464633"
 	UserIDType    *IDType `query:"user_id_type" json:"-"`   // 用户 ID 类型, 示例值："open_id", 可选值有: `open_id`：用户的 open id, `union_id`：用户的 union id, `user_id`：用户的 user id, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
 }
 
+// getHireReferralByApplicationResp ...
 type getHireReferralByApplicationResp struct {
 	Code int64                             `json:"code,omitempty"` // 错误码，非 0 表示失败
 	Msg  string                            `json:"msg,omitempty"`  // 错误描述
 	Data *GetHireReferralByApplicationResp `json:"data,omitempty"`
 }
 
+// GetHireReferralByApplicationResp ...
 type GetHireReferralByApplicationResp struct {
 	Referral *GetHireReferralByApplicationRespReferral `json:"referral,omitempty"` // 内推信息
 }
 
+// GetHireReferralByApplicationRespReferral ...
 type GetHireReferralByApplicationRespReferral struct {
 	ApplicationID  string `json:"application_id,omitempty"`   // 投递id
 	CreateTime     int64  `json:"create_time,omitempty"`      // 创建时间（ms）
@@ -1484,31 +1642,37 @@ func (r *HireService) GetHireResumeSource(ctx context.Context, request *GetHireR
 	return resp.Data, response, err
 }
 
+// MockHireGetHireResumeSource mock HireGetHireResumeSource method
 func (r *Mock) MockHireGetHireResumeSource(f func(ctx context.Context, request *GetHireResumeSourceReq, options ...MethodOptionFunc) (*GetHireResumeSourceResp, *Response, error)) {
 	r.mockHireGetHireResumeSource = f
 }
 
+// UnMockHireGetHireResumeSource un-mock HireGetHireResumeSource method
 func (r *Mock) UnMockHireGetHireResumeSource() {
 	r.mockHireGetHireResumeSource = nil
 }
 
+// GetHireResumeSourceReq ...
 type GetHireResumeSourceReq struct {
 	PageSize  *int64  `query:"page_size" json:"-"`  // 分页大小, 示例值：10, 最大值：`100`
 	PageToken *string `query:"page_token" json:"-"` // 分页标记，第一次请求不填，表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token，下次遍历可采用该 page_token 获取查询结果, 示例值："1"
 }
 
+// getHireResumeSourceResp ...
 type getHireResumeSourceResp struct {
 	Code int64                    `json:"code,omitempty"` // 错误码，非 0 表示失败
 	Msg  string                   `json:"msg,omitempty"`  // 错误描述
 	Data *GetHireResumeSourceResp `json:"data,omitempty"`
 }
 
+// GetHireResumeSourceResp ...
 type GetHireResumeSourceResp struct {
 	Items     []*GetHireResumeSourceRespItem `json:"items,omitempty"`      // 数据
 	PageToken string                         `json:"page_token,omitempty"` // 分页标记，当 has_more 为 true 时，会同时返回新的 page_token，否则不返回 page_token
 	HasMore   bool                           `json:"has_more,omitempty"`   // 是否还有更多项
 }
 
+// GetHireResumeSourceRespItem ...
 type GetHireResumeSourceRespItem struct {
 	ID               string `json:"id,omitempty"`                 // 来源 ID
 	ZhName           string `json:"zh_name,omitempty"`            // 中文名
@@ -1543,28 +1707,34 @@ func (r *HireService) GetHireTalent(ctx context.Context, request *GetHireTalentR
 	return resp.Data, response, err
 }
 
+// MockHireGetHireTalent mock HireGetHireTalent method
 func (r *Mock) MockHireGetHireTalent(f func(ctx context.Context, request *GetHireTalentReq, options ...MethodOptionFunc) (*GetHireTalentResp, *Response, error)) {
 	r.mockHireGetHireTalent = f
 }
 
+// UnMockHireGetHireTalent un-mock HireGetHireTalent method
 func (r *Mock) UnMockHireGetHireTalent() {
 	r.mockHireGetHireTalent = nil
 }
 
+// GetHireTalentReq ...
 type GetHireTalentReq struct {
 	TalentID string `path:"talent_id" json:"-"` // 人才ID, 示例值："6891560630172518670"
 }
 
+// getHireTalentResp ...
 type getHireTalentResp struct {
 	Code int64              `json:"code,omitempty"` // 错误码，非 0 表示失败
 	Msg  string             `json:"msg,omitempty"`  // 错误描述
 	Data *GetHireTalentResp `json:"data,omitempty"`
 }
 
+// GetHireTalentResp ...
 type GetHireTalentResp struct {
 	Talent *GetHireTalentRespTalent `json:"talent,omitempty"` // 人才信息
 }
 
+// GetHireTalentRespTalent ...
 type GetHireTalentRespTalent struct {
 	ID                        string                                          `json:"id,omitempty"`                          // 人才ID
 	IsInAgencyPeriod          bool                                            `json:"is_in_agency_period,omitempty"`         // 是否在猎头保护期, 可选值有: `false`：未在猎头保护期, `true`：在猎头保护期
@@ -1583,6 +1753,7 @@ type GetHireTalentRespTalent struct {
 	TopDegree                 int64                                           `json:"top_degree,omitempty"`                  // 最高学历, 可选值有: `1`：小学, `2`：初中, `3`：专职, `4`：高中, `5`：大专, `6`：本科, `7`：硕士, `8`：博士, `9`：其他
 }
 
+// GetHireTalentRespTalentBasicInfo ...
 type GetHireTalentRespTalentBasicInfo struct {
 	Name                 string                                            `json:"name,omitempty"`                  // 名字
 	Mobile               string                                            `json:"mobile,omitempty"`                // 手机
@@ -1605,30 +1776,35 @@ type GetHireTalentRespTalentBasicInfo struct {
 	ModifyTime           string                                            `json:"modify_time,omitempty"`           // 修改时间
 }
 
+// GetHireTalentRespTalentBasicInfoNationality ...
 type GetHireTalentRespTalentBasicInfoNationality struct {
 	NationalityCode string `json:"nationality_code,omitempty"` // 国家编码
 	ZhName          string `json:"zh_name,omitempty"`          // 中文名
 	EnName          string `json:"en_name,omitempty"`          // 英文名
 }
 
+// GetHireTalentRespTalentBasicInfoCurrentCity ...
 type GetHireTalentRespTalentBasicInfoCurrentCity struct {
 	CityCode string `json:"city_code,omitempty"` // 城市码
 	ZhName   string `json:"zh_name,omitempty"`   // 中文名
 	EnName   string `json:"en_name,omitempty"`   // 英文名
 }
 
+// GetHireTalentRespTalentBasicInfoHometownCity ...
 type GetHireTalentRespTalentBasicInfoHometownCity struct {
 	CityCode string `json:"city_code,omitempty"` // 城市码
 	ZhName   string `json:"zh_name,omitempty"`   // 中文名
 	EnName   string `json:"en_name,omitempty"`   // 英文名
 }
 
+// GetHireTalentRespTalentBasicInfoPreferredCity ...
 type GetHireTalentRespTalentBasicInfoPreferredCity struct {
 	CityCode string `json:"city_code,omitempty"` // 城市码
 	ZhName   string `json:"zh_name,omitempty"`   // 中文名
 	EnName   string `json:"en_name,omitempty"`   // 英文名
 }
 
+// GetHireTalentRespTalentBasicInfoCustomizedData ...
 type GetHireTalentRespTalentBasicInfoCustomizedData struct {
 	ObjectID   string                                               `json:"object_id,omitempty"`   // 自定义字段 ID
 	Name       *GetHireTalentRespTalentBasicInfoCustomizedDataName  `json:"name,omitempty"`        // 字段名称
@@ -1636,11 +1812,13 @@ type GetHireTalentRespTalentBasicInfoCustomizedData struct {
 	Value      *GetHireTalentRespTalentBasicInfoCustomizedDataValue `json:"value,omitempty"`       // 自定义字段值
 }
 
+// GetHireTalentRespTalentBasicInfoCustomizedDataName ...
 type GetHireTalentRespTalentBasicInfoCustomizedDataName struct {
 	ZhCn string `json:"zh_cn,omitempty"` // 中文
 	EnUs string `json:"en_us,omitempty"` // 英文
 }
 
+// GetHireTalentRespTalentBasicInfoCustomizedDataValue ...
 type GetHireTalentRespTalentBasicInfoCustomizedDataValue struct {
 	Content    string                                                        `json:"content,omitempty"`     // 当字段类型为单行文本、多行文本、模块、默认字段时，从此字段取值
 	Option     *GetHireTalentRespTalentBasicInfoCustomizedDataValueOption    `json:"option,omitempty"`      // 当字段类型为单选时，从此字段取值
@@ -1650,21 +1828,25 @@ type GetHireTalentRespTalentBasicInfoCustomizedDataValue struct {
 	Number     string                                                        `json:"number,omitempty"`      // 当字段类型为数字时，从此字段取值
 }
 
+// GetHireTalentRespTalentBasicInfoCustomizedDataValueOption ...
 type GetHireTalentRespTalentBasicInfoCustomizedDataValueOption struct {
 	Key  string                                                         `json:"key,omitempty"`  // 选项 ID
 	Name *GetHireTalentRespTalentBasicInfoCustomizedDataValueOptionName `json:"name,omitempty"` // 选项名称
 }
 
+// GetHireTalentRespTalentBasicInfoCustomizedDataValueOptionName ...
 type GetHireTalentRespTalentBasicInfoCustomizedDataValueOptionName struct {
 	ZhCn string `json:"zh_cn,omitempty"` // 中文
 	EnUs string `json:"en_us,omitempty"` // 英文
 }
 
+// GetHireTalentRespTalentBasicInfoCustomizedDataValueTimeRange ...
 type GetHireTalentRespTalentBasicInfoCustomizedDataValueTimeRange struct {
 	StartTime string `json:"start_time,omitempty"` // 开始时间
 	EndTime   string `json:"end_time,omitempty"`   // 结束时间，当值为至今时，返回「-」
 }
 
+// GetHireTalentRespTalentEducation ...
 type GetHireTalentRespTalentEducation struct {
 	ID                 string                                            `json:"id,omitempty"`                   // ID
 	Degree             int64                                             `json:"degree,omitempty"`               // 学位, 可选值有: `1`：小学, `2`：初中, `3`：专职, `4`：高中, `5`：大专, `6`：本科, `7`：硕士, `8`：博士, `9`：其他
@@ -1678,6 +1860,7 @@ type GetHireTalentRespTalentEducation struct {
 	CustomizedDataList []*GetHireTalentRespTalentEducationCustomizedData `json:"customized_data_list,omitempty"` // 自定义字段
 }
 
+// GetHireTalentRespTalentEducationCustomizedData ...
 type GetHireTalentRespTalentEducationCustomizedData struct {
 	ObjectID   string                                               `json:"object_id,omitempty"`   // 自定义字段 ID
 	Name       *GetHireTalentRespTalentEducationCustomizedDataName  `json:"name,omitempty"`        // 字段名称
@@ -1685,11 +1868,13 @@ type GetHireTalentRespTalentEducationCustomizedData struct {
 	Value      *GetHireTalentRespTalentEducationCustomizedDataValue `json:"value,omitempty"`       // 自定义字段值
 }
 
+// GetHireTalentRespTalentEducationCustomizedDataName ...
 type GetHireTalentRespTalentEducationCustomizedDataName struct {
 	ZhCn string `json:"zh_cn,omitempty"` // 中文
 	EnUs string `json:"en_us,omitempty"` // 英文
 }
 
+// GetHireTalentRespTalentEducationCustomizedDataValue ...
 type GetHireTalentRespTalentEducationCustomizedDataValue struct {
 	Content    string                                                        `json:"content,omitempty"`     // 当字段类型为单行文本、多行文本、模块、默认字段时，从此字段取值
 	Option     *GetHireTalentRespTalentEducationCustomizedDataValueOption    `json:"option,omitempty"`      // 当字段类型为单选时，从此字段取值
@@ -1699,21 +1884,25 @@ type GetHireTalentRespTalentEducationCustomizedDataValue struct {
 	Number     string                                                        `json:"number,omitempty"`      // 当字段类型为数字时，从此字段取值
 }
 
+// GetHireTalentRespTalentEducationCustomizedDataValueOption ...
 type GetHireTalentRespTalentEducationCustomizedDataValueOption struct {
 	Key  string                                                         `json:"key,omitempty"`  // 选项 ID
 	Name *GetHireTalentRespTalentEducationCustomizedDataValueOptionName `json:"name,omitempty"` // 选项名称
 }
 
+// GetHireTalentRespTalentEducationCustomizedDataValueOptionName ...
 type GetHireTalentRespTalentEducationCustomizedDataValueOptionName struct {
 	ZhCn string `json:"zh_cn,omitempty"` // 中文
 	EnUs string `json:"en_us,omitempty"` // 英文
 }
 
+// GetHireTalentRespTalentEducationCustomizedDataValueTimeRange ...
 type GetHireTalentRespTalentEducationCustomizedDataValueTimeRange struct {
 	StartTime string `json:"start_time,omitempty"` // 开始时间
 	EndTime   string `json:"end_time,omitempty"`   // 结束时间，当值为至今时，返回「-」
 }
 
+// GetHireTalentRespTalentCareer ...
 type GetHireTalentRespTalentCareer struct {
 	ID                 string                                         `json:"id,omitempty"`                   // ID
 	Company            string                                         `json:"company,omitempty"`              // 公司名称
@@ -1726,6 +1915,7 @@ type GetHireTalentRespTalentCareer struct {
 	CustomizedDataList []*GetHireTalentRespTalentCareerCustomizedData `json:"customized_data_list,omitempty"` // 自定义字段
 }
 
+// GetHireTalentRespTalentCareerCustomizedData ...
 type GetHireTalentRespTalentCareerCustomizedData struct {
 	ObjectID   string                                            `json:"object_id,omitempty"`   // 自定义字段 ID
 	Name       *GetHireTalentRespTalentCareerCustomizedDataName  `json:"name,omitempty"`        // 字段名称
@@ -1733,11 +1923,13 @@ type GetHireTalentRespTalentCareerCustomizedData struct {
 	Value      *GetHireTalentRespTalentCareerCustomizedDataValue `json:"value,omitempty"`       // 自定义字段值
 }
 
+// GetHireTalentRespTalentCareerCustomizedDataName ...
 type GetHireTalentRespTalentCareerCustomizedDataName struct {
 	ZhCn string `json:"zh_cn,omitempty"` // 中文
 	EnUs string `json:"en_us,omitempty"` // 英文
 }
 
+// GetHireTalentRespTalentCareerCustomizedDataValue ...
 type GetHireTalentRespTalentCareerCustomizedDataValue struct {
 	Content    string                                                     `json:"content,omitempty"`     // 当字段类型为单行文本、多行文本、模块、默认字段时，从此字段取值
 	Option     *GetHireTalentRespTalentCareerCustomizedDataValueOption    `json:"option,omitempty"`      // 当字段类型为单选时，从此字段取值
@@ -1747,21 +1939,25 @@ type GetHireTalentRespTalentCareerCustomizedDataValue struct {
 	Number     string                                                     `json:"number,omitempty"`      // 当字段类型为数字时，从此字段取值
 }
 
+// GetHireTalentRespTalentCareerCustomizedDataValueOption ...
 type GetHireTalentRespTalentCareerCustomizedDataValueOption struct {
 	Key  string                                                      `json:"key,omitempty"`  // 选项 ID
 	Name *GetHireTalentRespTalentCareerCustomizedDataValueOptionName `json:"name,omitempty"` // 选项名称
 }
 
+// GetHireTalentRespTalentCareerCustomizedDataValueOptionName ...
 type GetHireTalentRespTalentCareerCustomizedDataValueOptionName struct {
 	ZhCn string `json:"zh_cn,omitempty"` // 中文
 	EnUs string `json:"en_us,omitempty"` // 英文
 }
 
+// GetHireTalentRespTalentCareerCustomizedDataValueTimeRange ...
 type GetHireTalentRespTalentCareerCustomizedDataValueTimeRange struct {
 	StartTime string `json:"start_time,omitempty"` // 开始时间
 	EndTime   string `json:"end_time,omitempty"`   // 结束时间，当值为至今时，返回「-」
 }
 
+// GetHireTalentRespTalentProject ...
 type GetHireTalentRespTalentProject struct {
 	ID                 string                                          `json:"id,omitempty"`                   // ID
 	Name               string                                          `json:"name,omitempty"`                 // 项目名称
@@ -1773,6 +1969,7 @@ type GetHireTalentRespTalentProject struct {
 	CustomizedDataList []*GetHireTalentRespTalentProjectCustomizedData `json:"customized_data_list,omitempty"` // 自定义字段
 }
 
+// GetHireTalentRespTalentProjectCustomizedData ...
 type GetHireTalentRespTalentProjectCustomizedData struct {
 	ObjectID   string                                             `json:"object_id,omitempty"`   // 自定义字段 ID
 	Name       *GetHireTalentRespTalentProjectCustomizedDataName  `json:"name,omitempty"`        // 字段名称
@@ -1780,11 +1977,13 @@ type GetHireTalentRespTalentProjectCustomizedData struct {
 	Value      *GetHireTalentRespTalentProjectCustomizedDataValue `json:"value,omitempty"`       // 自定义字段值
 }
 
+// GetHireTalentRespTalentProjectCustomizedDataName ...
 type GetHireTalentRespTalentProjectCustomizedDataName struct {
 	ZhCn string `json:"zh_cn,omitempty"` // 中文
 	EnUs string `json:"en_us,omitempty"` // 英文
 }
 
+// GetHireTalentRespTalentProjectCustomizedDataValue ...
 type GetHireTalentRespTalentProjectCustomizedDataValue struct {
 	Content    string                                                      `json:"content,omitempty"`     // 当字段类型为单行文本、多行文本、模块、默认字段时，从此字段取值
 	Option     *GetHireTalentRespTalentProjectCustomizedDataValueOption    `json:"option,omitempty"`      // 当字段类型为单选时，从此字段取值
@@ -1794,21 +1993,25 @@ type GetHireTalentRespTalentProjectCustomizedDataValue struct {
 	Number     string                                                      `json:"number,omitempty"`      // 当字段类型为数字时，从此字段取值
 }
 
+// GetHireTalentRespTalentProjectCustomizedDataValueOption ...
 type GetHireTalentRespTalentProjectCustomizedDataValueOption struct {
 	Key  string                                                       `json:"key,omitempty"`  // 选项 ID
 	Name *GetHireTalentRespTalentProjectCustomizedDataValueOptionName `json:"name,omitempty"` // 选项名称
 }
 
+// GetHireTalentRespTalentProjectCustomizedDataValueOptionName ...
 type GetHireTalentRespTalentProjectCustomizedDataValueOptionName struct {
 	ZhCn string `json:"zh_cn,omitempty"` // 中文
 	EnUs string `json:"en_us,omitempty"` // 英文
 }
 
+// GetHireTalentRespTalentProjectCustomizedDataValueTimeRange ...
 type GetHireTalentRespTalentProjectCustomizedDataValueTimeRange struct {
 	StartTime string `json:"start_time,omitempty"` // 开始时间
 	EndTime   string `json:"end_time,omitempty"`   // 结束时间，当值为至今时，返回「-」
 }
 
+// GetHireTalentRespTalentWorks ...
 type GetHireTalentRespTalentWorks struct {
 	ID                 string                                        `json:"id,omitempty"`                   // ID
 	Link               string                                        `json:"link,omitempty"`                 // 作品链接
@@ -1817,6 +2020,7 @@ type GetHireTalentRespTalentWorks struct {
 	CustomizedDataList []*GetHireTalentRespTalentWorksCustomizedData `json:"customized_data_list,omitempty"` // 自定义字段
 }
 
+// GetHireTalentRespTalentWorksCustomizedData ...
 type GetHireTalentRespTalentWorksCustomizedData struct {
 	ObjectID   string                                           `json:"object_id,omitempty"`   // 自定义字段 ID
 	Name       *GetHireTalentRespTalentWorksCustomizedDataName  `json:"name,omitempty"`        // 字段名称
@@ -1824,11 +2028,13 @@ type GetHireTalentRespTalentWorksCustomizedData struct {
 	Value      *GetHireTalentRespTalentWorksCustomizedDataValue `json:"value,omitempty"`       // 自定义字段值
 }
 
+// GetHireTalentRespTalentWorksCustomizedDataName ...
 type GetHireTalentRespTalentWorksCustomizedDataName struct {
 	ZhCn string `json:"zh_cn,omitempty"` // 中文
 	EnUs string `json:"en_us,omitempty"` // 英文
 }
 
+// GetHireTalentRespTalentWorksCustomizedDataValue ...
 type GetHireTalentRespTalentWorksCustomizedDataValue struct {
 	Content    string                                                    `json:"content,omitempty"`     // 当字段类型为单行文本、多行文本、模块、默认字段时，从此字段取值
 	Option     *GetHireTalentRespTalentWorksCustomizedDataValueOption    `json:"option,omitempty"`      // 当字段类型为单选时，从此字段取值
@@ -1838,21 +2044,25 @@ type GetHireTalentRespTalentWorksCustomizedDataValue struct {
 	Number     string                                                    `json:"number,omitempty"`      // 当字段类型为数字时，从此字段取值
 }
 
+// GetHireTalentRespTalentWorksCustomizedDataValueOption ...
 type GetHireTalentRespTalentWorksCustomizedDataValueOption struct {
 	Key  string                                                     `json:"key,omitempty"`  // 选项 ID
 	Name *GetHireTalentRespTalentWorksCustomizedDataValueOptionName `json:"name,omitempty"` // 选项名称
 }
 
+// GetHireTalentRespTalentWorksCustomizedDataValueOptionName ...
 type GetHireTalentRespTalentWorksCustomizedDataValueOptionName struct {
 	ZhCn string `json:"zh_cn,omitempty"` // 中文
 	EnUs string `json:"en_us,omitempty"` // 英文
 }
 
+// GetHireTalentRespTalentWorksCustomizedDataValueTimeRange ...
 type GetHireTalentRespTalentWorksCustomizedDataValueTimeRange struct {
 	StartTime string `json:"start_time,omitempty"` // 开始时间
 	EndTime   string `json:"end_time,omitempty"`   // 结束时间，当值为至今时，返回「-」
 }
 
+// GetHireTalentRespTalentAward ...
 type GetHireTalentRespTalentAward struct {
 	ID                 string                                        `json:"id,omitempty"`                   // ID
 	Title              string                                        `json:"title,omitempty"`                // 获奖名称
@@ -1861,6 +2071,7 @@ type GetHireTalentRespTalentAward struct {
 	CustomizedDataList []*GetHireTalentRespTalentAwardCustomizedData `json:"customized_data_list,omitempty"` // 自定义字段
 }
 
+// GetHireTalentRespTalentAwardCustomizedData ...
 type GetHireTalentRespTalentAwardCustomizedData struct {
 	ObjectID   string                                           `json:"object_id,omitempty"`   // 自定义字段 ID
 	Name       *GetHireTalentRespTalentAwardCustomizedDataName  `json:"name,omitempty"`        // 字段名称
@@ -1868,11 +2079,13 @@ type GetHireTalentRespTalentAwardCustomizedData struct {
 	Value      *GetHireTalentRespTalentAwardCustomizedDataValue `json:"value,omitempty"`       // 自定义字段值
 }
 
+// GetHireTalentRespTalentAwardCustomizedDataName ...
 type GetHireTalentRespTalentAwardCustomizedDataName struct {
 	ZhCn string `json:"zh_cn,omitempty"` // 中文
 	EnUs string `json:"en_us,omitempty"` // 英文
 }
 
+// GetHireTalentRespTalentAwardCustomizedDataValue ...
 type GetHireTalentRespTalentAwardCustomizedDataValue struct {
 	Content    string                                                    `json:"content,omitempty"`     // 当字段类型为单行文本、多行文本、模块、默认字段时，从此字段取值
 	Option     *GetHireTalentRespTalentAwardCustomizedDataValueOption    `json:"option,omitempty"`      // 当字段类型为单选时，从此字段取值
@@ -1882,21 +2095,25 @@ type GetHireTalentRespTalentAwardCustomizedDataValue struct {
 	Number     string                                                    `json:"number,omitempty"`      // 当字段类型为数字时，从此字段取值
 }
 
+// GetHireTalentRespTalentAwardCustomizedDataValueOption ...
 type GetHireTalentRespTalentAwardCustomizedDataValueOption struct {
 	Key  string                                                     `json:"key,omitempty"`  // 选项 ID
 	Name *GetHireTalentRespTalentAwardCustomizedDataValueOptionName `json:"name,omitempty"` // 选项名称
 }
 
+// GetHireTalentRespTalentAwardCustomizedDataValueOptionName ...
 type GetHireTalentRespTalentAwardCustomizedDataValueOptionName struct {
 	ZhCn string `json:"zh_cn,omitempty"` // 中文
 	EnUs string `json:"en_us,omitempty"` // 英文
 }
 
+// GetHireTalentRespTalentAwardCustomizedDataValueTimeRange ...
 type GetHireTalentRespTalentAwardCustomizedDataValueTimeRange struct {
 	StartTime string `json:"start_time,omitempty"` // 开始时间
 	EndTime   string `json:"end_time,omitempty"`   // 结束时间，当值为至今时，返回「-」
 }
 
+// GetHireTalentRespTalentLanguage ...
 type GetHireTalentRespTalentLanguage struct {
 	ID                 string                                           `json:"id,omitempty"`                   // ID
 	Language           int64                                            `json:"language,omitempty"`             // 语言, 可选值有: `1`：英语, `2`：法语, `3`：日语, `4`：韩语, `5`：德语, `6`：俄语, `7`：西班牙语, `8`：葡萄牙语, `9`：阿拉伯语, `10`：印地语, `11`：印度斯坦语, `12`：孟加拉语, `13`：豪萨语, `14`：旁遮普语, `15`：波斯语, `16`：斯瓦西里语, `17`：泰卢固语, `18`：土耳其语, `19`：意大利语, `20`：爪哇语, `21`：泰米尔语, `22`：马拉地语, `23`：越南语, `24`：普通话, `25`：粤语
@@ -1904,6 +2121,7 @@ type GetHireTalentRespTalentLanguage struct {
 	CustomizedDataList []*GetHireTalentRespTalentLanguageCustomizedData `json:"customized_data_list,omitempty"` // 自定义字段
 }
 
+// GetHireTalentRespTalentLanguageCustomizedData ...
 type GetHireTalentRespTalentLanguageCustomizedData struct {
 	ObjectID   string                                              `json:"object_id,omitempty"`   // 自定义字段 ID
 	Name       *GetHireTalentRespTalentLanguageCustomizedDataName  `json:"name,omitempty"`        // 字段名称
@@ -1911,11 +2129,13 @@ type GetHireTalentRespTalentLanguageCustomizedData struct {
 	Value      *GetHireTalentRespTalentLanguageCustomizedDataValue `json:"value,omitempty"`       // 自定义字段值
 }
 
+// GetHireTalentRespTalentLanguageCustomizedDataName ...
 type GetHireTalentRespTalentLanguageCustomizedDataName struct {
 	ZhCn string `json:"zh_cn,omitempty"` // 中文
 	EnUs string `json:"en_us,omitempty"` // 英文
 }
 
+// GetHireTalentRespTalentLanguageCustomizedDataValue ...
 type GetHireTalentRespTalentLanguageCustomizedDataValue struct {
 	Content    string                                                       `json:"content,omitempty"`     // 当字段类型为单行文本、多行文本、模块、默认字段时，从此字段取值
 	Option     *GetHireTalentRespTalentLanguageCustomizedDataValueOption    `json:"option,omitempty"`      // 当字段类型为单选时，从此字段取值
@@ -1925,21 +2145,25 @@ type GetHireTalentRespTalentLanguageCustomizedDataValue struct {
 	Number     string                                                       `json:"number,omitempty"`      // 当字段类型为数字时，从此字段取值
 }
 
+// GetHireTalentRespTalentLanguageCustomizedDataValueOption ...
 type GetHireTalentRespTalentLanguageCustomizedDataValueOption struct {
 	Key  string                                                        `json:"key,omitempty"`  // 选项 ID
 	Name *GetHireTalentRespTalentLanguageCustomizedDataValueOptionName `json:"name,omitempty"` // 选项名称
 }
 
+// GetHireTalentRespTalentLanguageCustomizedDataValueOptionName ...
 type GetHireTalentRespTalentLanguageCustomizedDataValueOptionName struct {
 	ZhCn string `json:"zh_cn,omitempty"` // 中文
 	EnUs string `json:"en_us,omitempty"` // 英文
 }
 
+// GetHireTalentRespTalentLanguageCustomizedDataValueTimeRange ...
 type GetHireTalentRespTalentLanguageCustomizedDataValueTimeRange struct {
 	StartTime string `json:"start_time,omitempty"` // 开始时间
 	EndTime   string `json:"end_time,omitempty"`   // 结束时间，当值为至今时，返回「-」
 }
 
+// GetHireTalentRespTalentSns ...
 type GetHireTalentRespTalentSns struct {
 	ID                 string                                      `json:"id,omitempty"`                   // ID
 	SnsType            int64                                       `json:"sns_type,omitempty"`             // SNS名称, 可选值有: `1`：领英, `2`：脉脉, `3`：微信, `4`：微博, `5`：Github, `6`：知乎, `7`：脸书, `8`：推特, `9`：Whatsapp, `10`：个人网站, `11`：QQ
@@ -1947,6 +2171,7 @@ type GetHireTalentRespTalentSns struct {
 	CustomizedDataList []*GetHireTalentRespTalentSnsCustomizedData `json:"customized_data_list,omitempty"` // 自定义字段
 }
 
+// GetHireTalentRespTalentSnsCustomizedData ...
 type GetHireTalentRespTalentSnsCustomizedData struct {
 	ObjectID   string                                         `json:"object_id,omitempty"`   // 自定义字段 ID
 	Name       *GetHireTalentRespTalentSnsCustomizedDataName  `json:"name,omitempty"`        // 字段名称
@@ -1954,11 +2179,13 @@ type GetHireTalentRespTalentSnsCustomizedData struct {
 	Value      *GetHireTalentRespTalentSnsCustomizedDataValue `json:"value,omitempty"`       // 自定义字段值
 }
 
+// GetHireTalentRespTalentSnsCustomizedDataName ...
 type GetHireTalentRespTalentSnsCustomizedDataName struct {
 	ZhCn string `json:"zh_cn,omitempty"` // 中文
 	EnUs string `json:"en_us,omitempty"` // 英文
 }
 
+// GetHireTalentRespTalentSnsCustomizedDataValue ...
 type GetHireTalentRespTalentSnsCustomizedDataValue struct {
 	Content    string                                                  `json:"content,omitempty"`     // 当字段类型为单行文本、多行文本、模块、默认字段时，从此字段取值
 	Option     *GetHireTalentRespTalentSnsCustomizedDataValueOption    `json:"option,omitempty"`      // 当字段类型为单选时，从此字段取值
@@ -1968,32 +2195,38 @@ type GetHireTalentRespTalentSnsCustomizedDataValue struct {
 	Number     string                                                  `json:"number,omitempty"`      // 当字段类型为数字时，从此字段取值
 }
 
+// GetHireTalentRespTalentSnsCustomizedDataValueOption ...
 type GetHireTalentRespTalentSnsCustomizedDataValueOption struct {
 	Key  string                                                   `json:"key,omitempty"`  // 选项 ID
 	Name *GetHireTalentRespTalentSnsCustomizedDataValueOptionName `json:"name,omitempty"` // 选项名称
 }
 
+// GetHireTalentRespTalentSnsCustomizedDataValueOptionName ...
 type GetHireTalentRespTalentSnsCustomizedDataValueOptionName struct {
 	ZhCn string `json:"zh_cn,omitempty"` // 中文
 	EnUs string `json:"en_us,omitempty"` // 英文
 }
 
+// GetHireTalentRespTalentSnsCustomizedDataValueTimeRange ...
 type GetHireTalentRespTalentSnsCustomizedDataValueTimeRange struct {
 	StartTime string `json:"start_time,omitempty"` // 开始时间
 	EndTime   string `json:"end_time,omitempty"`   // 结束时间，当值为至今时，返回「-」
 }
 
+// GetHireTalentRespTalentResumeSource ...
 type GetHireTalentRespTalentResumeSource struct {
 	ID     string `json:"id,omitempty"`      // ID
 	ZhName string `json:"zh_name,omitempty"` // 中文名
 	EnName string `json:"en_name,omitempty"` // 英文名
 }
 
+// GetHireTalentRespTalentInterviewRegistration ...
 type GetHireTalentRespTalentInterviewRegistration struct {
 	ID               string `json:"id,omitempty"`                // ID
 	RegistrationTime int64  `json:"registration_time,omitempty"` // 创建时间
 }
 
+// GetHireTalentRespTalentCustomizedData ...
 type GetHireTalentRespTalentCustomizedData struct {
 	ObjectID   string                                         `json:"object_id,omitempty"`   // 模块 ID
 	Name       *GetHireTalentRespTalentCustomizedDataName     `json:"name,omitempty"`        // 模块名称
@@ -2001,11 +2234,13 @@ type GetHireTalentRespTalentCustomizedData struct {
 	Children   *GetHireTalentRespTalentCustomizedDataChildren `json:"children,omitempty"`    // 模块下的字段
 }
 
+// GetHireTalentRespTalentCustomizedDataName ...
 type GetHireTalentRespTalentCustomizedDataName struct {
 	ZhCn string `json:"zh_cn,omitempty"` // 中文
 	EnUs string `json:"en_us,omitempty"` // 英文
 }
 
+// GetHireTalentRespTalentCustomizedDataChildren ...
 type GetHireTalentRespTalentCustomizedDataChildren struct {
 	ObjectID   string                                              `json:"object_id,omitempty"`   // 自定义字段 ID
 	Name       *GetHireTalentRespTalentCustomizedDataChildrenName  `json:"name,omitempty"`        // 字段名称
@@ -2013,11 +2248,13 @@ type GetHireTalentRespTalentCustomizedDataChildren struct {
 	Value      *GetHireTalentRespTalentCustomizedDataChildrenValue `json:"value,omitempty"`       // 自定义字段值
 }
 
+// GetHireTalentRespTalentCustomizedDataChildrenName ...
 type GetHireTalentRespTalentCustomizedDataChildrenName struct {
 	ZhCn string `json:"zh_cn,omitempty"` // 中文
 	EnUs string `json:"en_us,omitempty"` // 英文
 }
 
+// GetHireTalentRespTalentCustomizedDataChildrenValue ...
 type GetHireTalentRespTalentCustomizedDataChildrenValue struct {
 	Content    string                                                       `json:"content,omitempty"`     // 当字段类型为单行文本、多行文本、模块、默认字段时，从此字段取值
 	Option     *GetHireTalentRespTalentCustomizedDataChildrenValueOption    `json:"option,omitempty"`      // 当字段类型为单选时，从此字段取值
@@ -2027,16 +2264,19 @@ type GetHireTalentRespTalentCustomizedDataChildrenValue struct {
 	Number     string                                                       `json:"number,omitempty"`      // 当字段类型为数字时，从此字段取值
 }
 
+// GetHireTalentRespTalentCustomizedDataChildrenValueOption ...
 type GetHireTalentRespTalentCustomizedDataChildrenValueOption struct {
 	Key  string                                                        `json:"key,omitempty"`  // 选项 ID
 	Name *GetHireTalentRespTalentCustomizedDataChildrenValueOptionName `json:"name,omitempty"` // 选项名称
 }
 
+// GetHireTalentRespTalentCustomizedDataChildrenValueOptionName ...
 type GetHireTalentRespTalentCustomizedDataChildrenValueOptionName struct {
 	ZhCn string `json:"zh_cn,omitempty"` // 中文
 	EnUs string `json:"en_us,omitempty"` // 英文
 }
 
+// GetHireTalentRespTalentCustomizedDataChildrenValueTimeRange ...
 type GetHireTalentRespTalentCustomizedDataChildrenValueTimeRange struct {
 	StartTime string `json:"start_time,omitempty"` // 开始时间
 	EndTime   string `json:"end_time,omitempty"`   // 结束时间，当值为至今时，返回「-」
@@ -2068,14 +2308,17 @@ func (r *HireService) MakeHireTransferOnboardByApplication(ctx context.Context, 
 	return resp.Data, response, err
 }
 
+// MockHireMakeHireTransferOnboardByApplication mock HireMakeHireTransferOnboardByApplication method
 func (r *Mock) MockHireMakeHireTransferOnboardByApplication(f func(ctx context.Context, request *MakeHireTransferOnboardByApplicationReq, options ...MethodOptionFunc) (*MakeHireTransferOnboardByApplicationResp, *Response, error)) {
 	r.mockHireMakeHireTransferOnboardByApplication = f
 }
 
+// UnMockHireMakeHireTransferOnboardByApplication un-mock HireMakeHireTransferOnboardByApplication method
 func (r *Mock) UnMockHireMakeHireTransferOnboardByApplication() {
 	r.mockHireMakeHireTransferOnboardByApplication = nil
 }
 
+// MakeHireTransferOnboardByApplicationReq ...
 type MakeHireTransferOnboardByApplicationReq struct {
 	UserIDType             *IDType `query:"user_id_type" json:"-"`             // 用户 ID 类型, 示例值："open_id", 可选值有: `open_id`：用户的 open id, `union_id`：用户的 union id, `user_id`：用户的 user id, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
 	ApplicationID          string  `path:"application_id" json:"-"`            // 投递ID, 示例值："12312312312"
@@ -2090,16 +2333,19 @@ type MakeHireTransferOnboardByApplicationReq struct {
 	Level                  *string `json:"level,omitempty"`                    // 职级, 示例值："6937934036379650311"
 }
 
+// makeHireTransferOnboardByApplicationResp ...
 type makeHireTransferOnboardByApplicationResp struct {
 	Code int64                                     `json:"code,omitempty"` // 错误码，非 0 表示失败
 	Msg  string                                    `json:"msg,omitempty"`  // 错误描述
 	Data *MakeHireTransferOnboardByApplicationResp `json:"data,omitempty"`
 }
 
+// MakeHireTransferOnboardByApplicationResp ...
 type MakeHireTransferOnboardByApplicationResp struct {
 	Employee *MakeHireTransferOnboardByApplicationRespEmployee `json:"employee,omitempty"` // employee
 }
 
+// MakeHireTransferOnboardByApplicationRespEmployee ...
 type MakeHireTransferOnboardByApplicationRespEmployee struct {
 	ID                     string `json:"id,omitempty"`                       // 员工ID
 	ApplicationID          string `json:"application_id,omitempty"`           // 投递ID
@@ -2147,24 +2393,29 @@ func (r *HumanAuthService) CropFaceVerifyImage(ctx context.Context, request *Cro
 	return resp.Data, response, err
 }
 
+// MockHumanAuthCropFaceVerifyImage mock HumanAuthCropFaceVerifyImage method
 func (r *Mock) MockHumanAuthCropFaceVerifyImage(f func(ctx context.Context, request *CropFaceVerifyImageReq, options ...MethodOptionFunc) (*CropFaceVerifyImageResp, *Response, error)) {
 	r.mockHumanAuthCropFaceVerifyImage = f
 }
 
+// UnMockHumanAuthCropFaceVerifyImage un-mock HumanAuthCropFaceVerifyImage method
 func (r *Mock) UnMockHumanAuthCropFaceVerifyImage() {
 	r.mockHumanAuthCropFaceVerifyImage = nil
 }
 
+// CropFaceVerifyImageReq ...
 type CropFaceVerifyImageReq struct {
 	RawImage io.Reader `json:"raw_image,omitempty"` // 带有头像的人脸照片文件名称
 }
 
+// cropFaceVerifyImageResp ...
 type cropFaceVerifyImageResp struct {
 	Code int64                    `json:"code,omitempty"` // 返回码，非0为失败
 	Msg  string                   `json:"msg,omitempty"`  // 返回信息，返回码的描述
 	Data *CropFaceVerifyImageResp `json:"data,omitempty"` // 业务数据
 }
 
+// CropFaceVerifyImageResp ...
 type CropFaceVerifyImageResp struct {
 	FaceImage string `json:"face_image,omitempty"` // BASE64(裁剪后的人脸基准图片)，code为0时返回
 }

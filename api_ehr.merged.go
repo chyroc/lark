@@ -35,18 +35,22 @@ func (r *EHRService) DownloadEHRAttachments(ctx context.Context, request *Downlo
 	return resp.Data, response, err
 }
 
+// MockEHRDownloadEHRAttachments mock EHRDownloadEHRAttachments method
 func (r *Mock) MockEHRDownloadEHRAttachments(f func(ctx context.Context, request *DownloadEHRAttachmentsReq, options ...MethodOptionFunc) (*DownloadEHRAttachmentsResp, *Response, error)) {
 	r.mockEHRDownloadEHRAttachments = f
 }
 
+// UnMockEHRDownloadEHRAttachments un-mock EHRDownloadEHRAttachments method
 func (r *Mock) UnMockEHRDownloadEHRAttachments() {
 	r.mockEHRDownloadEHRAttachments = nil
 }
 
+// DownloadEHRAttachmentsReq ...
 type DownloadEHRAttachmentsReq struct {
 	Token string `path:"token" json:"-"` // 文件 token, 示例值："09bf7b924f9a4a69875788891b5970d8"
 }
 
+// downloadEHRAttachmentsResp ...
 type downloadEHRAttachmentsResp struct {
 	IsFile bool                        `json:"is_file,omitempty"`
 	Code   int64                       `json:"code,omitempty"`
@@ -61,6 +65,7 @@ func (r *downloadEHRAttachmentsResp) SetReader(file io.Reader) {
 	r.Data.File = file
 }
 
+// DownloadEHRAttachmentsResp ...
 type DownloadEHRAttachmentsResp struct {
 	File io.Reader `json:"file,omitempty"`
 }
@@ -91,14 +96,17 @@ func (r *EHRService) GetEHREmployeeList(ctx context.Context, request *GetEHREmpl
 	return resp.Data, response, err
 }
 
+// MockEHRGetEHREmployeeList mock EHRGetEHREmployeeList method
 func (r *Mock) MockEHRGetEHREmployeeList(f func(ctx context.Context, request *GetEHREmployeeListReq, options ...MethodOptionFunc) (*GetEHREmployeeListResp, *Response, error)) {
 	r.mockEHRGetEHREmployeeList = f
 }
 
+// UnMockEHRGetEHREmployeeList un-mock EHRGetEHREmployeeList method
 func (r *Mock) UnMockEHRGetEHREmployeeList() {
 	r.mockEHRGetEHREmployeeList = nil
 }
 
+// GetEHREmployeeListReq ...
 type GetEHREmployeeListReq struct {
 	View       *string  `query:"view" json:"-"`         // 返回数据类型, 示例值："basic", 可选值有: `basic`：概览，只返回 id、name 等基本信息, `full`：明细，返回系统标准字段和自定义字段集合
 	Status     []int64  `query:"status" json:"-"`       // 员工状态，不传代表查询所有员工状态,实际在职 = 2&4,可同时查询多个状态的记录，如 status=2&status=4, 示例值：2
@@ -111,24 +119,28 @@ type GetEHREmployeeListReq struct {
 	PageSize   *int64   `query:"page_size" json:"-"`    // 分页大小, 示例值：10, 最大值：`100`
 }
 
+// getEHREmployeeListResp ...
 type getEHREmployeeListResp struct {
 	Code int64                   `json:"code,omitempty"` // 错误码，非 0 表示失败
 	Msg  string                  `json:"msg,omitempty"`  // 错误描述
 	Data *GetEHREmployeeListResp `json:"data,omitempty"`
 }
 
+// GetEHREmployeeListResp ...
 type GetEHREmployeeListResp struct {
 	Items     []*GetEHREmployeeListRespItem `json:"items,omitempty"`      // 员工列表
 	PageToken string                        `json:"page_token,omitempty"` // 分页标记，当 has_more 为 true 时，会同时返回新的 page_token，否则不返回 page_token
 	HasMore   bool                          `json:"has_more,omitempty"`   // 是否还有更多项
 }
 
+// GetEHREmployeeListRespItem ...
 type GetEHREmployeeListRespItem struct {
 	UserID       string                                   `json:"user_id,omitempty"`       // 员工的用户 ID,user_id_type 为 user_id 时返回 user_id；,user_id_type 为 open_id 时返回 open_id；,user_id_type 为 union_id 时返回 uion_id；,「待入职」和「已取消入职」的员工，此字段值为 null
 	SystemFields *GetEHREmployeeListRespItemSystemFields  `json:"system_fields,omitempty"` // 系统字段
 	CustomFields []*GetEHREmployeeListRespItemCustomField `json:"custom_fields,omitempty"` // 自定义字段
 }
 
+// GetEHREmployeeListRespItemSystemFields ...
 type GetEHREmployeeListRespItemSystemFields struct {
 	Name                    string                                                 `json:"name,omitempty"`                      // 中文姓名
 	EnName                  string                                                 `json:"en_name,omitempty"`                   // 英文姓名
@@ -193,37 +205,44 @@ type GetEHREmployeeListRespItemSystemFields struct {
 	UpdateTime              int64                                                  `json:"update_time,omitempty"`               // 更新时间
 }
 
+// GetEHREmployeeListRespItemSystemFieldsManager ...
 type GetEHREmployeeListRespItemSystemFieldsManager struct {
 	UserID string `json:"user_id,omitempty"` // 上级的用户 ID（user_id）
 	Name   string `json:"name,omitempty"`    // 中文名
 	EnName string `json:"en_name,omitempty"` // 英文名
 }
 
+// GetEHREmployeeListRespItemSystemFieldsJob ...
 type GetEHREmployeeListRespItemSystemFieldsJob struct {
 	ID   int64  `json:"id,omitempty"`   // 职位 ID
 	Name string `json:"name,omitempty"` // 职位名称
 }
 
+// GetEHREmployeeListRespItemSystemFieldsJobLevel ...
 type GetEHREmployeeListRespItemSystemFieldsJobLevel struct {
 	ID   int64  `json:"id,omitempty"`   // 职级 ID
 	Name string `json:"name,omitempty"` // 职级名称
 }
 
+// GetEHREmployeeListRespItemSystemFieldsWorkLocation ...
 type GetEHREmployeeListRespItemSystemFieldsWorkLocation struct {
 	ID   int64  `json:"id,omitempty"`   // 工作地点 ID
 	Name string `json:"name,omitempty"` // 工作地点名称
 }
 
+// GetEHREmployeeListRespItemSystemFieldsNativeRegion ...
 type GetEHREmployeeListRespItemSystemFieldsNativeRegion struct {
 	IsoCode string `json:"iso_code,omitempty"` // ISO 编码
 	Name    string `json:"name,omitempty"`     // 名称
 }
 
+// GetEHREmployeeListRespItemSystemFieldsContractCompany ...
 type GetEHREmployeeListRespItemSystemFieldsContractCompany struct {
 	ID   int64  `json:"id,omitempty"`   // 公司 ID
 	Name string `json:"name,omitempty"` // 公司名称
 }
 
+// GetEHREmployeeListRespItemCustomField ...
 type GetEHREmployeeListRespItemCustomField struct {
 	Key   string `json:"key,omitempty"`   // 自定义字段key
 	Label string `json:"label,omitempty"` // 自定义字段名称
@@ -244,8 +263,10 @@ func (r *EventCallbackService) HandlerEventV1AddBot(f EventV1AddBotHandler) {
 	r.cli.eventHandler.eventV1AddBotHandler = f
 }
 
+// EventV1AddBotHandler event EventV1AddBot handler
 type EventV1AddBotHandler func(ctx context.Context, cli *Lark, schema string, header *EventHeaderV1, event *EventV1AddBot) (string, error)
 
+// EventV1AddBot ...
 type EventV1AddBot struct {
 	AppID               string                           `json:"app_id,omitempty"`                 // 如: cli_9c8609450f78d102
 	ChatI18nNames       *EventV1AddBotEventChatI18nNames `json:"chat_i18n_names,omitempty"`        // 群名称国际化字段
@@ -262,6 +283,7 @@ type EventV1AddBot struct {
 	Type                string                           `json:"type,omitempty"`                   // 事件类型. 如: add_bot
 }
 
+// EventV1AddBotEventChatI18nNames ...
 type EventV1AddBotEventChatI18nNames struct {
 	EnUs string `json:"en_us,omitempty"` // 如: 英文标题
 	ZhCn string `json:"zh_cn,omitempty"` // 如: 中文标题

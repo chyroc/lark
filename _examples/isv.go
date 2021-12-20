@@ -16,28 +16,34 @@ type RedisClient interface {
 	Set(ctx context.Context, key, val string, ttl time.Duration) error
 }
 
+// NewRedisClient ...
 func NewRedisClient() RedisClient {
 	panic("no-impl")
 }
 
+// StoreRedis ...
 type StoreRedis struct {
 	redisCli RedisClient
 }
 
+// Get ...
 func (r *StoreRedis) Get(ctx context.Context, key string) (string, time.Duration, error) {
 	return r.redisCli.Get(ctx, key)
 }
 
+// Set ...
 func (r *StoreRedis) Set(ctx context.Context, key, val string, ttl time.Duration) error {
 	return r.redisCli.Set(ctx, key, val, ttl)
 }
 
+// NewStoreRedis ...
 func NewStoreRedis(redisCli RedisClient) lark.Store {
 	return &StoreRedis{
 		redisCli: redisCli,
 	}
 }
 
+// ExampleISV ...
 func ExampleISV() {
 	ctx := context.Background()
 	cli := lark.New(

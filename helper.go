@@ -5,6 +5,7 @@ import (
 	"fmt"
 )
 
+// Error ...
 type Error struct {
 	Scope    string
 	FuncName string
@@ -12,6 +13,7 @@ type Error struct {
 	Msg      string
 }
 
+// Error ...
 func (r *Error) Error() string {
 	if r.Code == 0 {
 		return ""
@@ -19,6 +21,7 @@ func (r *Error) Error() string {
 	return fmt.Sprintf("request %s#%s failed: code: %d, msg: %s", r.Scope, r.FuncName, r.Code, r.Msg)
 }
 
+// NewError ...
 func NewError(scope, funcName string, code int64, msg string) error {
 	return &Error{
 		Scope:    scope,
@@ -28,6 +31,7 @@ func NewError(scope, funcName string, code int64, msg string) error {
 	}
 }
 
+// GetErrorCode ...
 func GetErrorCode(err error) int64 {
 	if err != nil {
 		if e, ok := err.(*Error); ok {

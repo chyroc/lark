@@ -20,6 +20,7 @@ func (r *AuthService) GenOAuthURL(ctx context.Context, request *GenOAuthURLReq) 
 	)
 }
 
+// GenOAuthURLReq ...
 type GenOAuthURLReq struct {
 	RedirectURI string `json:"redirect_uri,omitempty"` // 在本流程中，此值为 authorization_code
 	State       string `json:"state,omitempty"`        // 来自[请求身份验证(新)](/ssl:ttdoc/ukTMukTMukTM/ukzN4UjL5cDO14SO3gTN)流程，用户扫码登录后会自动302到redirect_uri并带上此参数

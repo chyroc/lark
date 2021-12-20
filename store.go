@@ -7,18 +7,22 @@ import (
 	"time"
 )
 
+// ErrStoreNotFound ...
 var ErrStoreNotFound = errors.New("store not found")
 
+// Store ...
 type Store interface {
 	Get(ctx context.Context, key string) (string, time.Duration, error)
 	Set(ctx context.Context, key, val string, ttl time.Duration) error
 }
 
+// StoreMemory ...
 type StoreMemory struct {
 	data map[string]*storeMemoryElem
 	lock sync.Mutex
 }
 
+// NewStoreMemory ...
 func NewStoreMemory() Store {
 	return &StoreMemory{
 		data: map[string]*storeMemoryElem{},
@@ -31,6 +35,7 @@ type storeMemoryElem struct {
 	Expired time.Time
 }
 
+// Get ...
 func (r *StoreMemory) Get(ctx context.Context, key string) (string, time.Duration, error) {
 	r.lock.Lock()
 	defer r.lock.Unlock()
@@ -50,6 +55,7 @@ func (r *StoreMemory) Get(ctx context.Context, key string) (string, time.Duratio
 	return "", 0, ErrStoreNotFound
 }
 
+// Set ...
 func (r *StoreMemory) Set(ctx context.Context, key, val string, ttl time.Duration) error {
 	r.lock.Lock()
 	defer r.lock.Unlock()

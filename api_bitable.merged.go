@@ -31,26 +31,31 @@ func (r *BitableService) DeleteBitableField(ctx context.Context, request *Delete
 	return resp.Data, response, err
 }
 
+// MockBitableDeleteBitableField mock BitableDeleteBitableField method
 func (r *Mock) MockBitableDeleteBitableField(f func(ctx context.Context, request *DeleteBitableFieldReq, options ...MethodOptionFunc) (*DeleteBitableFieldResp, *Response, error)) {
 	r.mockBitableDeleteBitableField = f
 }
 
+// UnMockBitableDeleteBitableField un-mock BitableDeleteBitableField method
 func (r *Mock) UnMockBitableDeleteBitableField() {
 	r.mockBitableDeleteBitableField = nil
 }
 
+// DeleteBitableFieldReq ...
 type DeleteBitableFieldReq struct {
 	AppToken string `path:"app_token" json:"-"` // bitable app token, 示例值："appbcbWCzen6D8dezhoCH2RpMAh"
 	TableID  string `path:"table_id" json:"-"`  // table id, 示例值："tblsRc9GRRXKqhvW"
 	FieldID  string `path:"field_id" json:"-"`  // field id, 示例值："fldPTb0U2y"
 }
 
+// deleteBitableFieldResp ...
 type deleteBitableFieldResp struct {
 	Code int64                   `json:"code,omitempty"` // 错误码，非 0 表示失败
 	Msg  string                  `json:"msg,omitempty"`  // 错误描述
 	Data *DeleteBitableFieldResp `json:"data,omitempty"`
 }
 
+// DeleteBitableFieldResp ...
 type DeleteBitableFieldResp struct {
 	FieldID string `json:"field_id,omitempty"` // field id
 	Deleted bool   `json:"deleted,omitempty"`  // 删除标记
@@ -83,14 +88,17 @@ func (r *BitableService) GetBitableFieldList(ctx context.Context, request *GetBi
 	return resp.Data, response, err
 }
 
+// MockBitableGetBitableFieldList mock BitableGetBitableFieldList method
 func (r *Mock) MockBitableGetBitableFieldList(f func(ctx context.Context, request *GetBitableFieldListReq, options ...MethodOptionFunc) (*GetBitableFieldListResp, *Response, error)) {
 	r.mockBitableGetBitableFieldList = f
 }
 
+// UnMockBitableGetBitableFieldList un-mock BitableGetBitableFieldList method
 func (r *Mock) UnMockBitableGetBitableFieldList() {
 	r.mockBitableGetBitableFieldList = nil
 }
 
+// GetBitableFieldListReq ...
 type GetBitableFieldListReq struct {
 	ViewID    *string `query:"view_id" json:"-"`    // 视图 ID, 示例值："vewOVMEXPF"
 	PageToken *string `query:"page_token" json:"-"` // 分页标记，第一次请求不填，表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token，下次遍历可采用该 page_token 获取查询结果, 示例值："fldwJ4YrtB"
@@ -99,12 +107,14 @@ type GetBitableFieldListReq struct {
 	TableID   string  `path:"table_id" json:"-"`    // table id, 示例值："tblsRc9GRRXKqhvW"
 }
 
+// getBitableFieldListResp ...
 type getBitableFieldListResp struct {
 	Code int64                    `json:"code,omitempty"` // 错误码，非 0 表示失败
 	Msg  string                   `json:"msg,omitempty"`  // 错误描述
 	Data *GetBitableFieldListResp `json:"data,omitempty"`
 }
 
+// GetBitableFieldListResp ...
 type GetBitableFieldListResp struct {
 	HasMore   bool                           `json:"has_more,omitempty"`   // 是否还有更多项
 	PageToken string                         `json:"page_token,omitempty"` // 分页标记，当 has_more 为 true 时，会同时返回新的 page_token，否则不返回 page_token
@@ -112,6 +122,7 @@ type GetBitableFieldListResp struct {
 	Items     []*GetBitableFieldListRespItem `json:"items,omitempty"`      // 字段信息
 }
 
+// GetBitableFieldListRespItem ...
 type GetBitableFieldListRespItem struct {
 	FieldID   string                               `json:"field_id,omitempty"`   // 多维表格字段 id
 	FieldName string                               `json:"field_name,omitempty"` // 多维表格字段名
@@ -119,6 +130,7 @@ type GetBitableFieldListRespItem struct {
 	Property  *GetBitableFieldListRespItemProperty `json:"property,omitempty"`   // 字段属性, 具体参考: [Property说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/bitable/development-guide/bitable-structure#b286b4ee)
 }
 
+// GetBitableFieldListRespItemProperty ...
 type GetBitableFieldListRespItemProperty struct {
 	Options    []*GetBitableFieldListRespItemPropertyOption `json:"options,omitempty"`     // 单选/多选字段的选项信息
 	Formatter  string                                       `json:"formatter,omitempty"`   // 数字字段的数字显示格式
@@ -131,6 +143,7 @@ type GetBitableFieldListRespItemProperty struct {
 	Fields     []string                                     `json:"fields,omitempty"`      // 关联字段要展示的字段
 }
 
+// GetBitableFieldListRespItemPropertyOption ...
 type GetBitableFieldListRespItemPropertyOption struct {
 	Name string `json:"name,omitempty"` // 选项名
 	ID   string `json:"id,omitempty"`   // 选项id
@@ -163,14 +176,17 @@ func (r *BitableService) UpdateBitableField(ctx context.Context, request *Update
 	return resp.Data, response, err
 }
 
+// MockBitableUpdateBitableField mock BitableUpdateBitableField method
 func (r *Mock) MockBitableUpdateBitableField(f func(ctx context.Context, request *UpdateBitableFieldReq, options ...MethodOptionFunc) (*UpdateBitableFieldResp, *Response, error)) {
 	r.mockBitableUpdateBitableField = f
 }
 
+// UnMockBitableUpdateBitableField un-mock BitableUpdateBitableField method
 func (r *Mock) UnMockBitableUpdateBitableField() {
 	r.mockBitableUpdateBitableField = nil
 }
 
+// UpdateBitableFieldReq ...
 type UpdateBitableFieldReq struct {
 	AppToken  string                         `path:"app_token" json:"-"`   // bitable app token, 示例值："appbcbWCzen6D8dezhoCH2RpMAh"
 	TableID   string                         `path:"table_id" json:"-"`    // table id, 示例值："tblsRc9GRRXKqhvW"
@@ -180,6 +196,7 @@ type UpdateBitableFieldReq struct {
 	Property  *UpdateBitableFieldReqProperty `json:"property,omitempty"`   // 字段属性, 具体参考: [Property说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/bitable/development-guide/bitable-structure#b286b4ee)
 }
 
+// UpdateBitableFieldReqProperty ...
 type UpdateBitableFieldReqProperty struct {
 	Options    []*UpdateBitableFieldReqPropertyOption `json:"options,omitempty"`     // 单选/多选字段的选项信息
 	Formatter  *string                                `json:"formatter,omitempty"`   // 数字字段的数字显示格式, 示例值："0"
@@ -192,21 +209,25 @@ type UpdateBitableFieldReqProperty struct {
 	Fields     []string                               `json:"fields,omitempty"`      // 关联字段要展示的字段, 示例值：["fldSiTwIqy"]
 }
 
+// UpdateBitableFieldReqPropertyOption ...
 type UpdateBitableFieldReqPropertyOption struct {
 	Name *string `json:"name,omitempty"` // 选项名, 示例值："红色"
 	ID   *string `json:"id,omitempty"`   // 选项id, 示例值："optKl35lnG"
 }
 
+// updateBitableFieldResp ...
 type updateBitableFieldResp struct {
 	Code int64                   `json:"code,omitempty"` // 错误码，非 0 表示失败
 	Msg  string                  `json:"msg,omitempty"`  // 错误描述
 	Data *UpdateBitableFieldResp `json:"data,omitempty"`
 }
 
+// UpdateBitableFieldResp ...
 type UpdateBitableFieldResp struct {
 	Field *UpdateBitableFieldRespField `json:"field,omitempty"` // 字段
 }
 
+// UpdateBitableFieldRespField ...
 type UpdateBitableFieldRespField struct {
 	FieldID   string                               `json:"field_id,omitempty"`   // 多维表格字段 id
 	FieldName string                               `json:"field_name,omitempty"` // 多维表格字段名
@@ -214,6 +235,7 @@ type UpdateBitableFieldRespField struct {
 	Property  *UpdateBitableFieldRespFieldProperty `json:"property,omitempty"`   // 字段属性, 具体参考: [Property说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/bitable/development-guide/bitable-structure#b286b4ee)
 }
 
+// UpdateBitableFieldRespFieldProperty ...
 type UpdateBitableFieldRespFieldProperty struct {
 	Options    []*UpdateBitableFieldRespFieldPropertyOption `json:"options,omitempty"`     // 单选/多选字段的选项信息
 	Formatter  string                                       `json:"formatter,omitempty"`   // 数字字段的数字显示格式
@@ -226,6 +248,7 @@ type UpdateBitableFieldRespFieldProperty struct {
 	Fields     []string                                     `json:"fields,omitempty"`      // 关联字段要展示的字段
 }
 
+// UpdateBitableFieldRespFieldPropertyOption ...
 type UpdateBitableFieldRespFieldPropertyOption struct {
 	Name string `json:"name,omitempty"` // 选项名
 	ID   string `json:"id,omitempty"`   // 选项id
@@ -258,28 +281,34 @@ func (r *BitableService) GetBitableMeta(ctx context.Context, request *GetBitable
 	return resp.Data, response, err
 }
 
+// MockBitableGetBitableMeta mock BitableGetBitableMeta method
 func (r *Mock) MockBitableGetBitableMeta(f func(ctx context.Context, request *GetBitableMetaReq, options ...MethodOptionFunc) (*GetBitableMetaResp, *Response, error)) {
 	r.mockBitableGetBitableMeta = f
 }
 
+// UnMockBitableGetBitableMeta un-mock BitableGetBitableMeta method
 func (r *Mock) UnMockBitableGetBitableMeta() {
 	r.mockBitableGetBitableMeta = nil
 }
 
+// GetBitableMetaReq ...
 type GetBitableMetaReq struct {
 	AppToken string `path:"app_token" json:"-"` // bitable app token, 示例值："appbcbWCzen6D8dezhoCH2RpMAh"
 }
 
+// getBitableMetaResp ...
 type getBitableMetaResp struct {
 	Code int64               `json:"code,omitempty"` // 错误码，非 0 表示失败
 	Msg  string              `json:"msg,omitempty"`  // 错误描述
 	Data *GetBitableMetaResp `json:"data,omitempty"`
 }
 
+// GetBitableMetaResp ...
 type GetBitableMetaResp struct {
 	App *GetBitableMetaRespApp `json:"app,omitempty"` // 多维表格元数据
 }
 
+// GetBitableMetaRespApp ...
 type GetBitableMetaRespApp struct {
 	AppToken string `json:"app_token,omitempty"` // 多维表格的 app_token
 	Name     string `json:"name,omitempty"`      // 多维表格的名字
@@ -313,14 +342,17 @@ func (r *BitableService) BatchCreateBitableRecord(ctx context.Context, request *
 	return resp.Data, response, err
 }
 
+// MockBitableBatchCreateBitableRecord mock BitableBatchCreateBitableRecord method
 func (r *Mock) MockBitableBatchCreateBitableRecord(f func(ctx context.Context, request *BatchCreateBitableRecordReq, options ...MethodOptionFunc) (*BatchCreateBitableRecordResp, *Response, error)) {
 	r.mockBitableBatchCreateBitableRecord = f
 }
 
+// UnMockBitableBatchCreateBitableRecord un-mock BitableBatchCreateBitableRecord method
 func (r *Mock) UnMockBitableBatchCreateBitableRecord() {
 	r.mockBitableBatchCreateBitableRecord = nil
 }
 
+// BatchCreateBitableRecordReq ...
 type BatchCreateBitableRecordReq struct {
 	UserIDType *IDType                              `query:"user_id_type" json:"-"` // 用户 ID 类型, 示例值："open_id", 可选值有: `open_id`：用户的 open id, `union_id`：用户的 union id, `user_id`：用户的 user id, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
 	AppToken   string                               `path:"app_token" json:"-"`     // bitable app token, 示例值："appbcbWCzen6D8dezhoCH2RpMAh"
@@ -328,20 +360,24 @@ type BatchCreateBitableRecordReq struct {
 	Records    []*BatchCreateBitableRecordReqRecord `json:"records,omitempty"`      // 记录
 }
 
+// BatchCreateBitableRecordReqRecord ...
 type BatchCreateBitableRecordReqRecord struct {
 	Fields map[string]interface{} `json:"fields,omitempty"` // 记录字段
 }
 
+// batchCreateBitableRecordResp ...
 type batchCreateBitableRecordResp struct {
 	Code int64                         `json:"code,omitempty"` // 错误码，非 0 表示失败
 	Msg  string                        `json:"msg,omitempty"`  // 错误描述
 	Data *BatchCreateBitableRecordResp `json:"data,omitempty"`
 }
 
+// BatchCreateBitableRecordResp ...
 type BatchCreateBitableRecordResp struct {
 	Records []*BatchCreateBitableRecordRespRecord `json:"records,omitempty"` // 记录
 }
 
+// BatchCreateBitableRecordRespRecord ...
 type BatchCreateBitableRecordRespRecord struct {
 	RecordID string                 `json:"record_id,omitempty"` // 记录 id
 	Fields   map[string]interface{} `json:"fields,omitempty"`    // 记录字段
@@ -374,30 +410,36 @@ func (r *BitableService) BatchDeleteBitableRecord(ctx context.Context, request *
 	return resp.Data, response, err
 }
 
+// MockBitableBatchDeleteBitableRecord mock BitableBatchDeleteBitableRecord method
 func (r *Mock) MockBitableBatchDeleteBitableRecord(f func(ctx context.Context, request *BatchDeleteBitableRecordReq, options ...MethodOptionFunc) (*BatchDeleteBitableRecordResp, *Response, error)) {
 	r.mockBitableBatchDeleteBitableRecord = f
 }
 
+// UnMockBitableBatchDeleteBitableRecord un-mock BitableBatchDeleteBitableRecord method
 func (r *Mock) UnMockBitableBatchDeleteBitableRecord() {
 	r.mockBitableBatchDeleteBitableRecord = nil
 }
 
+// BatchDeleteBitableRecordReq ...
 type BatchDeleteBitableRecordReq struct {
 	AppToken string   `path:"app_token" json:"-"` // bitable app token, 示例值："appbcbWCzen6D8dezhoCH2RpMAh"
 	TableID  string   `path:"table_id" json:"-"`  // table id, 示例值："tblsRc9GRRXKqhvW"
 	Records  []string `json:"records,omitempty"`  // 删除的多条记录id列表, 示例值：[,    "recIcJBbvC",,    "recvmiCORa",]
 }
 
+// batchDeleteBitableRecordResp ...
 type batchDeleteBitableRecordResp struct {
 	Code int64                         `json:"code,omitempty"` // 错误码，非 0 表示失败
 	Msg  string                        `json:"msg,omitempty"`  // 错误描述
 	Data *BatchDeleteBitableRecordResp `json:"data,omitempty"`
 }
 
+// BatchDeleteBitableRecordResp ...
 type BatchDeleteBitableRecordResp struct {
 	Records []*BatchDeleteBitableRecordRespRecord `json:"records,omitempty"` // 记录
 }
 
+// BatchDeleteBitableRecordRespRecord ...
 type BatchDeleteBitableRecordRespRecord struct {
 	Deleted  bool   `json:"deleted,omitempty"`   // 是否成功删除
 	RecordID string `json:"record_id,omitempty"` // 删除的记录 ID
@@ -430,14 +472,17 @@ func (r *BitableService) BatchUpdateBitableRecord(ctx context.Context, request *
 	return resp.Data, response, err
 }
 
+// MockBitableBatchUpdateBitableRecord mock BitableBatchUpdateBitableRecord method
 func (r *Mock) MockBitableBatchUpdateBitableRecord(f func(ctx context.Context, request *BatchUpdateBitableRecordReq, options ...MethodOptionFunc) (*BatchUpdateBitableRecordResp, *Response, error)) {
 	r.mockBitableBatchUpdateBitableRecord = f
 }
 
+// UnMockBitableBatchUpdateBitableRecord un-mock BitableBatchUpdateBitableRecord method
 func (r *Mock) UnMockBitableBatchUpdateBitableRecord() {
 	r.mockBitableBatchUpdateBitableRecord = nil
 }
 
+// BatchUpdateBitableRecordReq ...
 type BatchUpdateBitableRecordReq struct {
 	UserIDType *IDType                              `query:"user_id_type" json:"-"` // 用户 ID 类型, 示例值："open_id", 可选值有: `open_id`：用户的 open id, `union_id`：用户的 union id, `user_id`：用户的 user id, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求:  获取用户 user ID
 	AppToken   string                               `path:"app_token" json:"-"`     // bitable app token, 示例值："appbcbWCzen6D8dezhoCH2RpMAh"
@@ -445,21 +490,25 @@ type BatchUpdateBitableRecordReq struct {
 	Records    []*BatchUpdateBitableRecordReqRecord `json:"records,omitempty"`      // 记录
 }
 
+// BatchUpdateBitableRecordReqRecord ...
 type BatchUpdateBitableRecordReqRecord struct {
 	RecordID *string                `json:"record_id,omitempty"` // 记录 id, 示例值："recqwIwhc6"
 	Fields   map[string]interface{} `json:"fields,omitempty"`    // 记录字段
 }
 
+// batchUpdateBitableRecordResp ...
 type batchUpdateBitableRecordResp struct {
 	Code int64                         `json:"code,omitempty"` // 错误码，非 0 表示失败
 	Msg  string                        `json:"msg,omitempty"`  // 错误描述
 	Data *BatchUpdateBitableRecordResp `json:"data,omitempty"`
 }
 
+// BatchUpdateBitableRecordResp ...
 type BatchUpdateBitableRecordResp struct {
 	Records []*BatchUpdateBitableRecordRespRecord `json:"records,omitempty"` // 记录
 }
 
+// BatchUpdateBitableRecordRespRecord ...
 type BatchUpdateBitableRecordRespRecord struct {
 	RecordID string                 `json:"record_id,omitempty"` // 记录 id
 	Fields   map[string]interface{} `json:"fields,omitempty"`    // 记录字段
@@ -492,14 +541,17 @@ func (r *BitableService) CreateBitableRecord(ctx context.Context, request *Creat
 	return resp.Data, response, err
 }
 
+// MockBitableCreateBitableRecord mock BitableCreateBitableRecord method
 func (r *Mock) MockBitableCreateBitableRecord(f func(ctx context.Context, request *CreateBitableRecordReq, options ...MethodOptionFunc) (*CreateBitableRecordResp, *Response, error)) {
 	r.mockBitableCreateBitableRecord = f
 }
 
+// UnMockBitableCreateBitableRecord un-mock BitableCreateBitableRecord method
 func (r *Mock) UnMockBitableCreateBitableRecord() {
 	r.mockBitableCreateBitableRecord = nil
 }
 
+// CreateBitableRecordReq ...
 type CreateBitableRecordReq struct {
 	UserIDType *IDType                `query:"user_id_type" json:"-"` // 用户 ID 类型, 示例值："open_id", 可选值有: `open_id`：用户的 open id, `union_id`：用户的 union id, `user_id`：用户的 user id, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
 	AppToken   string                 `path:"app_token" json:"-"`     // bitable app token, 示例值："bascng7vrxcxpig7geggXiCtadY"
@@ -507,16 +559,19 @@ type CreateBitableRecordReq struct {
 	Fields     map[string]interface{} `json:"fields,omitempty"`       // 记录字段
 }
 
+// createBitableRecordResp ...
 type createBitableRecordResp struct {
 	Code int64                    `json:"code,omitempty"` // 错误码，非 0 表示失败
 	Msg  string                   `json:"msg,omitempty"`  // 错误描述
 	Data *CreateBitableRecordResp `json:"data,omitempty"`
 }
 
+// CreateBitableRecordResp ...
 type CreateBitableRecordResp struct {
 	Record *CreateBitableRecordRespRecord `json:"record,omitempty"` // 记录
 }
 
+// CreateBitableRecordRespRecord ...
 type CreateBitableRecordRespRecord struct {
 	RecordID string                 `json:"record_id,omitempty"` // 记录 id
 	Fields   map[string]interface{} `json:"fields,omitempty"`    // 记录字段
@@ -549,26 +604,31 @@ func (r *BitableService) DeleteBitableRecord(ctx context.Context, request *Delet
 	return resp.Data, response, err
 }
 
+// MockBitableDeleteBitableRecord mock BitableDeleteBitableRecord method
 func (r *Mock) MockBitableDeleteBitableRecord(f func(ctx context.Context, request *DeleteBitableRecordReq, options ...MethodOptionFunc) (*DeleteBitableRecordResp, *Response, error)) {
 	r.mockBitableDeleteBitableRecord = f
 }
 
+// UnMockBitableDeleteBitableRecord un-mock BitableDeleteBitableRecord method
 func (r *Mock) UnMockBitableDeleteBitableRecord() {
 	r.mockBitableDeleteBitableRecord = nil
 }
 
+// DeleteBitableRecordReq ...
 type DeleteBitableRecordReq struct {
 	AppToken string `path:"app_token" json:"-"` // bitable app token, 示例值："appbcbWCzen6D8dezhoCH2RpMAh"
 	TableID  string `path:"table_id" json:"-"`  // table id, 示例值："tblsRc9GRRXKqhvW"
 	RecordID string `path:"record_id" json:"-"` // 单条记录的Id, 示例值："recpCsf4ME"
 }
 
+// deleteBitableRecordResp ...
 type deleteBitableRecordResp struct {
 	Code int64                    `json:"code,omitempty"` // 错误码，非 0 表示失败
 	Msg  string                   `json:"msg,omitempty"`  // 错误描述
 	Data *DeleteBitableRecordResp `json:"data,omitempty"`
 }
 
+// DeleteBitableRecordResp ...
 type DeleteBitableRecordResp struct {
 	Deleted  bool   `json:"deleted,omitempty"`   // 是否成功删除
 	RecordID string `json:"record_id,omitempty"` // 删除的记录 ID
@@ -601,14 +661,17 @@ func (r *BitableService) GetBitableRecord(ctx context.Context, request *GetBitab
 	return resp.Data, response, err
 }
 
+// MockBitableGetBitableRecord mock BitableGetBitableRecord method
 func (r *Mock) MockBitableGetBitableRecord(f func(ctx context.Context, request *GetBitableRecordReq, options ...MethodOptionFunc) (*GetBitableRecordResp, *Response, error)) {
 	r.mockBitableGetBitableRecord = f
 }
 
+// UnMockBitableGetBitableRecord un-mock BitableGetBitableRecord method
 func (r *Mock) UnMockBitableGetBitableRecord() {
 	r.mockBitableGetBitableRecord = nil
 }
 
+// GetBitableRecordReq ...
 type GetBitableRecordReq struct {
 	TextFieldAsArray *bool   `query:"text_field_as_array" json:"-"` // 控制多行文本字段数据的返回格式, true 表示以数组形式返回, 示例值：true
 	UserIDType       *IDType `query:"user_id_type" json:"-"`        // 用户 ID 类型, 示例值："open_id", 可选值有: `open_id`：用户的 open id, `union_id`：用户的 union id, `user_id`：用户的 user id, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求:  获取用户 user ID
@@ -617,16 +680,19 @@ type GetBitableRecordReq struct {
 	RecordID         string  `path:"record_id" json:"-"`            // 单条记录的 id, 示例值："recn0hoyXL"
 }
 
+// getBitableRecordResp ...
 type getBitableRecordResp struct {
 	Code int64                 `json:"code,omitempty"` // 错误码，非 0 表示失败
 	Msg  string                `json:"msg,omitempty"`  // 错误描述
 	Data *GetBitableRecordResp `json:"data,omitempty"`
 }
 
+// GetBitableRecordResp ...
 type GetBitableRecordResp struct {
 	Record *GetBitableRecordRespRecord `json:"record,omitempty"` // 记录
 }
 
+// GetBitableRecordRespRecord ...
 type GetBitableRecordRespRecord struct {
 	RecordID string                 `json:"record_id,omitempty"` // 记录 id
 	Fields   map[string]interface{} `json:"fields,omitempty"`    // 记录字段
@@ -659,14 +725,17 @@ func (r *BitableService) GetBitableRecordList(ctx context.Context, request *GetB
 	return resp.Data, response, err
 }
 
+// MockBitableGetBitableRecordList mock BitableGetBitableRecordList method
 func (r *Mock) MockBitableGetBitableRecordList(f func(ctx context.Context, request *GetBitableRecordListReq, options ...MethodOptionFunc) (*GetBitableRecordListResp, *Response, error)) {
 	r.mockBitableGetBitableRecordList = f
 }
 
+// UnMockBitableGetBitableRecordList un-mock BitableGetBitableRecordList method
 func (r *Mock) UnMockBitableGetBitableRecordList() {
 	r.mockBitableGetBitableRecordList = nil
 }
 
+// GetBitableRecordListReq ...
 type GetBitableRecordListReq struct {
 	ViewID           *string `query:"view_id" json:"-"`             // 视图 id, 如filter或sort有值, view_id会被忽略, 示例值："vewqhz51lk"
 	Filter           *string `query:"filter" json:"-"`              // filter, 不超过2000个字符, 不支持对带特殊字段(关联和公式)的表的使用, 示例值："AND(CurrentValue.[身高]>180, CurrentValue.[体重]>150)"
@@ -680,12 +749,14 @@ type GetBitableRecordListReq struct {
 	TableID          string  `path:"table_id" json:"-"`             // table id, 示例值："tblxI2tWaxP5dG7p"
 }
 
+// getBitableRecordListResp ...
 type getBitableRecordListResp struct {
 	Code int64                     `json:"code,omitempty"` // 错误码，非 0 表示失败
 	Msg  string                    `json:"msg,omitempty"`  // 错误描述
 	Data *GetBitableRecordListResp `json:"data,omitempty"`
 }
 
+// GetBitableRecordListResp ...
 type GetBitableRecordListResp struct {
 	HasMore   bool                            `json:"has_more,omitempty"`   // 是否还有更多项
 	PageToken string                          `json:"page_token,omitempty"` // 分页标记，当 has_more 为 true 时，会同时返回新的 page_token，否则不返回 page_token
@@ -693,6 +764,7 @@ type GetBitableRecordListResp struct {
 	Items     []*GetBitableRecordListRespItem `json:"items,omitempty"`      // 记录信息
 }
 
+// GetBitableRecordListRespItem ...
 type GetBitableRecordListRespItem struct {
 	RecordID string                 `json:"record_id,omitempty"` // 记录 id
 	Fields   map[string]interface{} `json:"fields,omitempty"`    // 记录字段
@@ -725,14 +797,17 @@ func (r *BitableService) UpdateBitableRecord(ctx context.Context, request *Updat
 	return resp.Data, response, err
 }
 
+// MockBitableUpdateBitableRecord mock BitableUpdateBitableRecord method
 func (r *Mock) MockBitableUpdateBitableRecord(f func(ctx context.Context, request *UpdateBitableRecordReq, options ...MethodOptionFunc) (*UpdateBitableRecordResp, *Response, error)) {
 	r.mockBitableUpdateBitableRecord = f
 }
 
+// UnMockBitableUpdateBitableRecord un-mock BitableUpdateBitableRecord method
 func (r *Mock) UnMockBitableUpdateBitableRecord() {
 	r.mockBitableUpdateBitableRecord = nil
 }
 
+// UpdateBitableRecordReq ...
 type UpdateBitableRecordReq struct {
 	UserIDType *IDType                `query:"user_id_type" json:"-"` // 用户 ID 类型, 示例值："open_id", 可选值有: `open_id`：用户的 open id, `union_id`：用户的 union id, `user_id`：用户的 user id, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求:  获取用户 user ID
 	AppToken   string                 `path:"app_token" json:"-"`     // bitable app token, 示例值："appbcbWCzen6D8dezhoCH2RpMAh"
@@ -741,16 +816,19 @@ type UpdateBitableRecordReq struct {
 	Fields     map[string]interface{} `json:"fields,omitempty"`       // 记录字段
 }
 
+// updateBitableRecordResp ...
 type updateBitableRecordResp struct {
 	Code int64                    `json:"code,omitempty"` // 错误码，非 0 表示失败
 	Msg  string                   `json:"msg,omitempty"`  // 错误描述
 	Data *UpdateBitableRecordResp `json:"data,omitempty"`
 }
 
+// UpdateBitableRecordResp ...
 type UpdateBitableRecordResp struct {
 	Record *UpdateBitableRecordRespRecord `json:"record,omitempty"` // {,    "fields": {,        "人力评估": 2,,        "任务执行人": [,            {,                "id": "ou_debc524b2d8cb187704df652b43d29de",            },        ],,        "任务描述": "多渠道收集用户反馈",,        "对应 OKR": [,            "recqwIwhc6",,            "recOuEJMvN",        ],,        "截止日期": 1609516800000,,        "是否完成": true,,        "状态": "已结束",,        "相关部门": [,            "销售",,            "客服",        ],    },}
 }
 
+// UpdateBitableRecordRespRecord ...
 type UpdateBitableRecordRespRecord struct {
 	RecordID string                 `json:"record_id,omitempty"` // 记录 id
 	Fields   map[string]interface{} `json:"fields,omitempty"`    // 记录字段
@@ -783,30 +861,36 @@ func (r *BitableService) BatchCreateBitableTable(ctx context.Context, request *B
 	return resp.Data, response, err
 }
 
+// MockBitableBatchCreateBitableTable mock BitableBatchCreateBitableTable method
 func (r *Mock) MockBitableBatchCreateBitableTable(f func(ctx context.Context, request *BatchCreateBitableTableReq, options ...MethodOptionFunc) (*BatchCreateBitableTableResp, *Response, error)) {
 	r.mockBitableBatchCreateBitableTable = f
 }
 
+// UnMockBitableBatchCreateBitableTable un-mock BitableBatchCreateBitableTable method
 func (r *Mock) UnMockBitableBatchCreateBitableTable() {
 	r.mockBitableBatchCreateBitableTable = nil
 }
 
+// BatchCreateBitableTableReq ...
 type BatchCreateBitableTableReq struct {
 	UserIDType *IDType                            `query:"user_id_type" json:"-"` // 用户 ID 类型, 示例值："open_id", 可选值有: `open_id`：用户的 open id, `union_id`：用户的 union id, `user_id`：用户的 user id, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
 	AppToken   string                             `path:"app_token" json:"-"`     // bitable app token, 示例值："appbcbWCzen6D8dezhoCH2RpMAh"
 	Tables     []*BatchCreateBitableTableReqTable `json:"tables,omitempty"`       // tables
 }
 
+// BatchCreateBitableTableReqTable ...
 type BatchCreateBitableTableReqTable struct {
 	Name *string `json:"name,omitempty"` // 数据表 名字, 示例值："table1"
 }
 
+// batchCreateBitableTableResp ...
 type batchCreateBitableTableResp struct {
 	Code int64                        `json:"code,omitempty"` // 错误码，非 0 表示失败
 	Msg  string                       `json:"msg,omitempty"`  // 错误描述
 	Data *BatchCreateBitableTableResp `json:"data,omitempty"`
 }
 
+// BatchCreateBitableTableResp ...
 type BatchCreateBitableTableResp struct {
 	TableIDs []string `json:"table_ids,omitempty"` // table ids
 }
@@ -838,25 +922,30 @@ func (r *BitableService) BatchDeleteBitableTable(ctx context.Context, request *B
 	return resp.Data, response, err
 }
 
+// MockBitableBatchDeleteBitableTable mock BitableBatchDeleteBitableTable method
 func (r *Mock) MockBitableBatchDeleteBitableTable(f func(ctx context.Context, request *BatchDeleteBitableTableReq, options ...MethodOptionFunc) (*BatchDeleteBitableTableResp, *Response, error)) {
 	r.mockBitableBatchDeleteBitableTable = f
 }
 
+// UnMockBitableBatchDeleteBitableTable un-mock BitableBatchDeleteBitableTable method
 func (r *Mock) UnMockBitableBatchDeleteBitableTable() {
 	r.mockBitableBatchDeleteBitableTable = nil
 }
 
+// BatchDeleteBitableTableReq ...
 type BatchDeleteBitableTableReq struct {
 	AppToken string   `path:"app_token" json:"-"`  // bitable app token, 示例值："appbcbWCzen6D8dezhoCH2RpMAh"
 	TableIDs []string `json:"table_ids,omitempty"` // 删除的多条tableid列表
 }
 
+// batchDeleteBitableTableResp ...
 type batchDeleteBitableTableResp struct {
 	Code int64                        `json:"code,omitempty"` // 错误码，非 0 表示失败
 	Msg  string                       `json:"msg,omitempty"`  // 错误描述
 	Data *BatchDeleteBitableTableResp `json:"data,omitempty"`
 }
 
+// BatchDeleteBitableTableResp ...
 type BatchDeleteBitableTableResp struct{}
 
 // Code generated by lark_sdk_gen. DO NOT EDIT.
@@ -886,30 +975,36 @@ func (r *BitableService) CreateBitableTable(ctx context.Context, request *Create
 	return resp.Data, response, err
 }
 
+// MockBitableCreateBitableTable mock BitableCreateBitableTable method
 func (r *Mock) MockBitableCreateBitableTable(f func(ctx context.Context, request *CreateBitableTableReq, options ...MethodOptionFunc) (*CreateBitableTableResp, *Response, error)) {
 	r.mockBitableCreateBitableTable = f
 }
 
+// UnMockBitableCreateBitableTable un-mock BitableCreateBitableTable method
 func (r *Mock) UnMockBitableCreateBitableTable() {
 	r.mockBitableCreateBitableTable = nil
 }
 
+// CreateBitableTableReq ...
 type CreateBitableTableReq struct {
 	UserIDType *IDType                     `query:"user_id_type" json:"-"` // 用户 ID 类型, 示例值："open_id", 可选值有: `open_id`：用户的 open id, `union_id`：用户的 union id, `user_id`：用户的 user id, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
 	AppToken   string                      `path:"app_token" json:"-"`     // bitable app token, 示例值："appbcbWCzen6D8dezhoCH2RpMAh"
 	Table      *CreateBitableTableReqTable `json:"table,omitempty"`        // 数据表
 }
 
+// CreateBitableTableReqTable ...
 type CreateBitableTableReqTable struct {
 	Name *string `json:"name,omitempty"` // 数据表 名字, 示例值："table1"
 }
 
+// createBitableTableResp ...
 type createBitableTableResp struct {
 	Code int64                   `json:"code,omitempty"` // 错误码，非 0 表示失败
 	Msg  string                  `json:"msg,omitempty"`  // 错误描述
 	Data *CreateBitableTableResp `json:"data,omitempty"`
 }
 
+// CreateBitableTableResp ...
 type CreateBitableTableResp struct {
 	TableID string `json:"table_id,omitempty"` // table id
 }
@@ -941,25 +1036,30 @@ func (r *BitableService) DeleteBitableTable(ctx context.Context, request *Delete
 	return resp.Data, response, err
 }
 
+// MockBitableDeleteBitableTable mock BitableDeleteBitableTable method
 func (r *Mock) MockBitableDeleteBitableTable(f func(ctx context.Context, request *DeleteBitableTableReq, options ...MethodOptionFunc) (*DeleteBitableTableResp, *Response, error)) {
 	r.mockBitableDeleteBitableTable = f
 }
 
+// UnMockBitableDeleteBitableTable un-mock BitableDeleteBitableTable method
 func (r *Mock) UnMockBitableDeleteBitableTable() {
 	r.mockBitableDeleteBitableTable = nil
 }
 
+// DeleteBitableTableReq ...
 type DeleteBitableTableReq struct {
 	AppToken string `path:"app_token" json:"-"` // bitable app token, 示例值："appbcbWCzen6D8dezhoCH2RpMAh"
 	TableID  string `path:"table_id" json:"-"`  // table id, 示例值："tblsRc9GRRXKqhvW"
 }
 
+// deleteBitableTableResp ...
 type deleteBitableTableResp struct {
 	Code int64                   `json:"code,omitempty"` // 错误码，非 0 表示失败
 	Msg  string                  `json:"msg,omitempty"`  // 错误描述
 	Data *DeleteBitableTableResp `json:"data,omitempty"`
 }
 
+// DeleteBitableTableResp ...
 type DeleteBitableTableResp struct{}
 
 // Code generated by lark_sdk_gen. DO NOT EDIT.
@@ -989,26 +1089,31 @@ func (r *BitableService) GetBitableTableList(ctx context.Context, request *GetBi
 	return resp.Data, response, err
 }
 
+// MockBitableGetBitableTableList mock BitableGetBitableTableList method
 func (r *Mock) MockBitableGetBitableTableList(f func(ctx context.Context, request *GetBitableTableListReq, options ...MethodOptionFunc) (*GetBitableTableListResp, *Response, error)) {
 	r.mockBitableGetBitableTableList = f
 }
 
+// UnMockBitableGetBitableTableList un-mock BitableGetBitableTableList method
 func (r *Mock) UnMockBitableGetBitableTableList() {
 	r.mockBitableGetBitableTableList = nil
 }
 
+// GetBitableTableListReq ...
 type GetBitableTableListReq struct {
 	PageToken *string `query:"page_token" json:"-"` // 分页标记，第一次请求不填，表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token，下次遍历可采用该 page_token 获取查询结果, 示例值："tblsRc9GRRXKqhvW"
 	PageSize  *int64  `query:"page_size" json:"-"`  // 分页大小, 示例值：10, 最大值：`100`
 	AppToken  string  `path:"app_token" json:"-"`   // bitable app token, 示例值："appbcbWCzen6D8dezhoCH2RpMAh"
 }
 
+// getBitableTableListResp ...
 type getBitableTableListResp struct {
 	Code int64                    `json:"code,omitempty"` // 错误码，非 0 表示失败
 	Msg  string                   `json:"msg,omitempty"`  // 错误描述
 	Data *GetBitableTableListResp `json:"data,omitempty"`
 }
 
+// GetBitableTableListResp ...
 type GetBitableTableListResp struct {
 	HasMore   bool                           `json:"has_more,omitempty"`   // 是否还有更多项
 	PageToken string                         `json:"page_token,omitempty"` // 分页标记，当 has_more 为 true 时，会同时返回新的 page_token，否则不返回 page_token
@@ -1016,6 +1121,7 @@ type GetBitableTableListResp struct {
 	Items     []*GetBitableTableListRespItem `json:"items,omitempty"`      // 数据表信息
 }
 
+// GetBitableTableListRespItem ...
 type GetBitableTableListRespItem struct {
 	TableID  string `json:"table_id,omitempty"` // 数据表 id
 	Revision int64  `json:"revision,omitempty"` // 数据表的版本号
@@ -1049,14 +1155,17 @@ func (r *BitableService) CreateBitableView(ctx context.Context, request *CreateB
 	return resp.Data, response, err
 }
 
+// MockBitableCreateBitableView mock BitableCreateBitableView method
 func (r *Mock) MockBitableCreateBitableView(f func(ctx context.Context, request *CreateBitableViewReq, options ...MethodOptionFunc) (*CreateBitableViewResp, *Response, error)) {
 	r.mockBitableCreateBitableView = f
 }
 
+// UnMockBitableCreateBitableView un-mock BitableCreateBitableView method
 func (r *Mock) UnMockBitableCreateBitableView() {
 	r.mockBitableCreateBitableView = nil
 }
 
+// CreateBitableViewReq ...
 type CreateBitableViewReq struct {
 	AppToken string  `path:"app_token" json:"-"`  // bitable app token, 示例值："appbcbWCzen6D8dezhoCH2RpMAh"
 	TableID  string  `path:"table_id" json:"-"`   // table id, 示例值："tblsRc9GRRXKqhvW"
@@ -1065,16 +1174,19 @@ type CreateBitableViewReq struct {
 	ViewType *string `json:"view_type,omitempty"` // 视图类型, 示例值："gantt"
 }
 
+// createBitableViewResp ...
 type createBitableViewResp struct {
 	Code int64                  `json:"code,omitempty"` // 错误码，非 0 表示失败
 	Msg  string                 `json:"msg,omitempty"`  // 错误描述
 	Data *CreateBitableViewResp `json:"data,omitempty"`
 }
 
+// CreateBitableViewResp ...
 type CreateBitableViewResp struct {
 	View *CreateBitableViewRespApptableview `json:"view,omitempty"` // 视图
 }
 
+// CreateBitableViewRespApptableview ...
 type CreateBitableViewRespApptableview struct {
 	ViewID   string `json:"view_id,omitempty"`   // 视图Id
 	ViewName string `json:"view_name,omitempty"` // 视图名字
@@ -1108,26 +1220,31 @@ func (r *BitableService) DeleteBitableView(ctx context.Context, request *DeleteB
 	return resp.Data, response, err
 }
 
+// MockBitableDeleteBitableView mock BitableDeleteBitableView method
 func (r *Mock) MockBitableDeleteBitableView(f func(ctx context.Context, request *DeleteBitableViewReq, options ...MethodOptionFunc) (*DeleteBitableViewResp, *Response, error)) {
 	r.mockBitableDeleteBitableView = f
 }
 
+// UnMockBitableDeleteBitableView un-mock BitableDeleteBitableView method
 func (r *Mock) UnMockBitableDeleteBitableView() {
 	r.mockBitableDeleteBitableView = nil
 }
 
+// DeleteBitableViewReq ...
 type DeleteBitableViewReq struct {
 	AppToken string `path:"app_token" json:"-"` // bitable app token, 示例值："appbcbWCzen6D8dezhoCH2RpMAh"
 	TableID  string `path:"table_id" json:"-"`  // table id, 示例值："tblsRc9GRRXKqhvW"
 	ViewID   string `path:"view_id" json:"-"`   // 视图Id, 示例值："vewTpR1urY"
 }
 
+// deleteBitableViewResp ...
 type deleteBitableViewResp struct {
 	Code int64                  `json:"code,omitempty"` // 错误码，非 0 表示失败
 	Msg  string                 `json:"msg,omitempty"`  // 错误描述
 	Data *DeleteBitableViewResp `json:"data,omitempty"`
 }
 
+// DeleteBitableViewResp ...
 type DeleteBitableViewResp struct{}
 
 // Code generated by lark_sdk_gen. DO NOT EDIT.
@@ -1157,14 +1274,17 @@ func (r *BitableService) GetBitableViewList(ctx context.Context, request *GetBit
 	return resp.Data, response, err
 }
 
+// MockBitableGetBitableViewList mock BitableGetBitableViewList method
 func (r *Mock) MockBitableGetBitableViewList(f func(ctx context.Context, request *GetBitableViewListReq, options ...MethodOptionFunc) (*GetBitableViewListResp, *Response, error)) {
 	r.mockBitableGetBitableViewList = f
 }
 
+// UnMockBitableGetBitableViewList un-mock BitableGetBitableViewList method
 func (r *Mock) UnMockBitableGetBitableViewList() {
 	r.mockBitableGetBitableViewList = nil
 }
 
+// GetBitableViewListReq ...
 type GetBitableViewListReq struct {
 	PageSize  *int64  `query:"page_size" json:"-"`  // 分页大小, 示例值：10, 最大值：`100`
 	PageToken *string `query:"page_token" json:"-"` // 分页标记，第一次请求不填，表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token，下次遍历可采用该 page_token 获取查询结果, 示例值："vewTpR1urY"
@@ -1172,12 +1292,14 @@ type GetBitableViewListReq struct {
 	TableID   string  `path:"table_id" json:"-"`    // table id, 示例值："tblsRc9GRRXKqhvW"
 }
 
+// getBitableViewListResp ...
 type getBitableViewListResp struct {
 	Code int64                   `json:"code,omitempty"` // 错误码，非 0 表示失败
 	Msg  string                  `json:"msg,omitempty"`  // 错误描述
 	Data *GetBitableViewListResp `json:"data,omitempty"`
 }
 
+// GetBitableViewListResp ...
 type GetBitableViewListResp struct {
 	Items     []*GetBitableViewListRespItem `json:"items,omitempty"`      // 视图信息
 	PageToken string                        `json:"page_token,omitempty"` // 分页标记，当 has_more 为 true 时，会同时返回新的 page_token，否则不返回 page_token
@@ -1185,6 +1307,7 @@ type GetBitableViewListResp struct {
 	Total     int64                         `json:"total,omitempty"`      // 总数
 }
 
+// GetBitableViewListRespItem ...
 type GetBitableViewListRespItem struct {
 	ViewID   string `json:"view_id,omitempty"`   // 视图Id
 	ViewName string `json:"view_name,omitempty"` // 视图名字
@@ -1223,22 +1346,27 @@ func (r *BotService) AddBotToChat(ctx context.Context, request *AddBotToChatReq,
 	return resp.Data, response, err
 }
 
+// MockBotAddBotToChat mock BotAddBotToChat method
 func (r *Mock) MockBotAddBotToChat(f func(ctx context.Context, request *AddBotToChatReq, options ...MethodOptionFunc) (*AddBotToChatResp, *Response, error)) {
 	r.mockBotAddBotToChat = f
 }
 
+// UnMockBotAddBotToChat un-mock BotAddBotToChat method
 func (r *Mock) UnMockBotAddBotToChat() {
 	r.mockBotAddBotToChat = nil
 }
 
+// AddBotToChatReq ...
 type AddBotToChatReq struct {
 	ChatID string `json:"chat_id,omitempty"` // 群的id
 }
 
+// addBotToChatResp ...
 type addBotToChatResp struct {
 	Code int64             `json:"code,omitempty"` // 返回码，非 0 表示失败
 	Msg  string            `json:"msg,omitempty"`  // 返回码描述
 	Data *AddBotToChatResp `json:"data,omitempty"`
 }
 
+// AddBotToChatResp ...
 type AddBotToChatResp struct{}

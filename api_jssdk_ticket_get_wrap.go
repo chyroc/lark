@@ -9,6 +9,7 @@ import (
 	"github.com/chyroc/lark/internal"
 )
 
+// GenerateJssdkSignature ...
 func (r *JssdkService) GenerateJssdkSignature(ctx context.Context, request *GenerateJssdkSignatureReq) (string, error) {
 	resp, _, err := r.GetJssdkTicket(ctx, &GetJssdkTicketReq{})
 	if err != nil {
@@ -24,6 +25,7 @@ func (r *JssdkService) GenerateJssdkSignature(ctx context.Context, request *Gene
 	return fmt.Sprintf("%x", sha1Hash.Sum(nil)), nil
 }
 
+// GenerateJssdkSignatureReq ...
 type GenerateJssdkSignatureReq struct {
 	URL string `json:"url"` // 调用飞书组件的页面的url，不要包括#、?后面的参数。 比如原url是https://m.mm.cn/ttc/3541093/3131_1.html#subtitle?foo=bar，则实际应该传入https://m.mm.cn/ttc/3541093/3131_1.html
 }

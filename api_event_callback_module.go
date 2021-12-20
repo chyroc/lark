@@ -8,6 +8,7 @@ import (
 	"fmt"
 )
 
+// EventType event type
 type EventType string
 
 const (

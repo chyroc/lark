@@ -7,14 +7,14 @@ import (
 	"github.com/chyroc/lark"
 )
 
-// Sheet 封装 sheet 操作
+// Sheet is sheet client
 type Sheet struct {
 	larkClient    *lark.Lark
 	sheetToken    string
 	activeSheetID string
 }
 
-// NewSheet 创建 Sheet 客户端
+// NewSheet new sheet client
 func NewSheet(larkClient *lark.Lark, sheetToken string) *Sheet {
 	r := new(Sheet)
 	r.larkClient = larkClient
@@ -23,66 +23,67 @@ func NewSheet(larkClient *lark.Lark, sheetToken string) *Sheet {
 	return r
 }
 
-// Meta 获取 sheet meta 信息
+// Meta get sheet meta
 func (r *Sheet) Meta(ctx context.Context) (*lark.GetSheetMetaResp, error) {
 	return r.meta(ctx)
 }
 
+// SheetToken get sheet token
 func (r *Sheet) SheetToken() string {
 	return r.sheetToken
 }
 
-// Delete 删除自己
+// Delete delete sheet
 func (r *Sheet) Delete(ctx context.Context) error {
 	return r.delete(ctx)
 }
 
-// SetTitle 设置标题
+// SetTitle set sheet title
 func (r *Sheet) SetTitle(ctx context.Context, title string) error {
 	return r.setTitle(ctx, title)
 }
 
-// NewSheet 创建新的工作表
+// NewSheet create new sheet
 func (r *Sheet) NewSheet(ctx context.Context, title string) (string, error) {
 	return r.newSheet(ctx, title)
 }
 
-// DeleteSheet 删除工作表
+// DeleteSheet delete sheet
 func (r *Sheet) DeleteSheet(ctx context.Context, sheetID string) error {
 	return r.deleteSheet(ctx, sheetID)
 }
 
-// CopySheet 复制工作表
+// CopySheet copy sheet
 func (r *Sheet) CopySheet(ctx context.Context, fromSheetID string, toTitle *string) (string, error) {
 	return r.copySheet(ctx, fromSheetID, toTitle)
 }
 
-// SetSheetTitle 设置工作表的名字
+// SetSheetTitle set sheet title
 func (r *Sheet) SetSheetTitle(ctx context.Context, sheetID string, title string) error {
 	return r.setSheetTitle(ctx, sheetID, title)
 }
 
-// SetSheetIndex 设置工作表位置
+// SetSheetIndex set sheet index
 func (r *Sheet) SetSheetIndex(ctx context.Context, sheetID string, index int64) error {
 	return r.setSheetIndex(ctx, sheetID, index)
 }
 
-// SetSheetTitle 隐藏工作表
+// SetSheetTitle hide sheet
 func (r *Sheet) HideSheet(ctx context.Context, sheetID string, hidden bool) error {
 	return r.hideSheet(ctx, sheetID, hidden)
 }
 
-// FrozenSheet 冻结工作表，0 表示取消冻结
+// FrozenSheet freeze worksheet, 0 means unfreeze
 func (r *Sheet) FrozenSheet(ctx context.Context, sheetID string, rowCount, colCount int64) error {
 	return r.frozenSheet(ctx, sheetID, rowCount, colCount)
 }
 
-// LockSheet 锁定工作表
+// LockSheet lock worksheet
 func (r *Sheet) LockSheet(ctx context.Context, sheetID string, lockInfo string, editableUserIDs []string) error {
 	return r.lockSheet(ctx, sheetID, false, lockInfo, editableUserIDs)
 }
 
-// UnlockSheet 解锁工作表
+// UnlockSheet unlock worksheet
 func (r *Sheet) UnlockSheet(ctx context.Context, sheetID string) error {
 	return r.lockSheet(ctx, sheetID, true, "", nil)
 }
@@ -116,42 +117,42 @@ func (r *Sheet) Append(ctx context.Context, cellRange string, values [][]lark.Sh
 	return r.appendDimension(ctx, cellRange, values, option)
 }
 
-// 增加行
+// AddRows 增加行
 func (r *Sheet) AddRows(ctx context.Context, sheetID string, count int64) error {
 	return r.addDimension(ctx, "ROWS", sheetID, count)
 }
 
-// 增加列
+// AddCols 增加列
 func (r *Sheet) AddCols(ctx context.Context, sheetID string, count int64) error {
 	return r.addDimension(ctx, "COLUMNS", sheetID, count)
 }
 
-// 设置行的可见性
+// SetRowsVisible 设置行的可见性
 func (r *Sheet) SetRowsVisible(ctx context.Context, sheetID string, startIndex, count int64, visible bool) error {
 	return r.updateDimension(ctx, "ROWS", sheetID, startIndex, count, &visible, nil)
 }
 
-// 设置列的可见性
+// SetColsVisible 设置列的可见性
 func (r *Sheet) SetColsVisible(ctx context.Context, sheetID string, startIndex, count int64, visible bool) error {
 	return r.updateDimension(ctx, "COLUMNS", sheetID, startIndex, count, &visible, nil)
 }
 
-// 设置行的高度
+// SetRowsSize 设置行的高度
 func (r *Sheet) SetRowsSize(ctx context.Context, sheetID string, startIndex, count, size int64) error {
 	return r.updateDimension(ctx, "ROWS", sheetID, startIndex, count, nil, ptr.Int64(size))
 }
 
-// 设置列的宽度
+// SetColsSize 设置列的宽度
 func (r *Sheet) SetColsSize(ctx context.Context, sheetID string, startIndex, count, size int64) error {
 	return r.updateDimension(ctx, "COLUMNS", sheetID, startIndex, count, nil, ptr.Int64(size))
 }
 
-// 删除行
+// DeleteRows 删除行
 func (r *Sheet) DeleteRows(ctx context.Context, sheetID string, startIndex, count int64) error {
 	return r.deleteDimension(ctx, "ROWS", sheetID, startIndex, count)
 }
 
-// 删除列
+// DeleteCols 删除列
 func (r *Sheet) DeleteCols(ctx context.Context, sheetID string, startIndex, count int64) error {
 	return r.deleteDimension(ctx, "COLUMNS", sheetID, startIndex, count)
 }
@@ -161,22 +162,22 @@ func (r *Sheet) DeleteCols(ctx context.Context, sheetID string, startIndex, coun
 // 	return r.getValue(ctx, cellRange, option)
 // }
 
-// 设置单元格样式
+// SetCellStyle 设置单元格样式
 func (r *Sheet) SetCellStyle(ctx context.Context, cellRange string, style *lark.SetSheetStyleReqAppendStyleStyle) error {
 	return r.setCellStyle(ctx, cellRange, style)
 }
 
-// 清除单元格样式
+// CleanCellStyle 清除单元格样式
 func (r *Sheet) CleanCellStyle(ctx context.Context, cellRange string) error {
 	return r.setCellStyle(ctx, cellRange, &lark.SetSheetStyleReqAppendStyleStyle{Clean: ptr.Bool(true)})
 }
 
-// 批量设置单元格样式
+// BatchSetCellStyle 批量设置单元格样式
 func (r *Sheet) BatchSetCellStyle(ctx context.Context, styles []*lark.BatchSetSheetStyleReqData) error {
 	return r.batchSetCellStyle(ctx, styles)
 }
 
-// 批量清除单元格样式
+// BatchCleanCellStyle 批量清除单元格样式
 func (r *Sheet) BatchCleanCellStyle(ctx context.Context, cellRanges []string) error {
 	styles := []*lark.BatchSetSheetStyleReqData{{
 		Ranges: cellRanges,
@@ -219,12 +220,12 @@ func (r *Sheet) SetSheetValueImage(ctx context.Context, cellRange string, image 
 	return r.setSheetValueImage(ctx, cellRange, image)
 }
 
-// 搜索
+// Search 搜索
 func (r *Sheet) Search(ctx context.Context, sheetID, value string, condition *lark.FindSheetReqFindCondition) (*lark.FindSheetRespFindResult, error) {
 	return r.search(ctx, sheetID, value, condition)
 }
 
-// 替换
+// Replace 替换
 func (r *Sheet) Replace(ctx context.Context, sheetID, old, new string, condition *lark.ReplaceSheetReqFindCondition) (*lark.ReplaceSheetRespReplaceResult, error) {
 	return r.replace(ctx, sheetID, old, new, condition)
 }

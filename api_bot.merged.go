@@ -32,22 +32,27 @@ func (r *BotService) GetBotInfo(ctx context.Context, request *GetBotInfoReq, opt
 	return resp.Data, response, err
 }
 
+// MockBotGetBotInfo mock BotGetBotInfo method
 func (r *Mock) MockBotGetBotInfo(f func(ctx context.Context, request *GetBotInfoReq, options ...MethodOptionFunc) (*GetBotInfoResp, *Response, error)) {
 	r.mockBotGetBotInfo = f
 }
 
+// UnMockBotGetBotInfo un-mock BotGetBotInfo method
 func (r *Mock) UnMockBotGetBotInfo() {
 	r.mockBotGetBotInfo = nil
 }
 
+// GetBotInfoReq ...
 type GetBotInfoReq struct{}
 
+// getBotInfoResp ...
 type getBotInfoResp struct {
 	Code int64           `json:"code,omitempty"` // 错误码，非 0 表示失败
 	Msg  string          `json:"msg,omitempty"`  // 错误描述
 	Data *GetBotInfoResp `json:"bot,omitempty"`  // 机器人信息
 }
 
+// GetBotInfoResp ...
 type GetBotInfoResp struct {
 	ActivateStatus int64    `json:"activate_status,omitempty"` // app 当前状态。,0: 初始化，租户待安装,1: 租户停用,2: 租户启用,3: 安装后待启用,4: 升级待启用,5: license过期停用,6: Lark套餐到期或降级停用
 	AppName        string   `json:"app_name,omitempty"`        // app 名称
@@ -87,14 +92,17 @@ func (r *CalendarService) CreateCalendarACL(ctx context.Context, request *Create
 	return resp.Data, response, err
 }
 
+// MockCalendarCreateCalendarACL mock CalendarCreateCalendarACL method
 func (r *Mock) MockCalendarCreateCalendarACL(f func(ctx context.Context, request *CreateCalendarACLReq, options ...MethodOptionFunc) (*CreateCalendarACLResp, *Response, error)) {
 	r.mockCalendarCreateCalendarACL = f
 }
 
+// UnMockCalendarCreateCalendarACL un-mock CalendarCreateCalendarACL method
 func (r *Mock) UnMockCalendarCreateCalendarACL() {
 	r.mockCalendarCreateCalendarACL = nil
 }
 
+// CreateCalendarACLReq ...
 type CreateCalendarACLReq struct {
 	UserIDType *IDType                    `query:"user_id_type" json:"-"` // 用户 ID 类型, 示例值："open_id", 可选值有: `open_id`：用户的 open id, `union_id`：用户的 union id, `user_id`：用户的 user id, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
 	CalendarID string                     `path:"calendar_id" json:"-"`   // 日历ID。参见[日历相关ID说明](https://open.feishu.cn/document/ukTMukTMukTM/uETM3YjLxEzN24SMxcjN#f066a96c), 示例值："feishu.cn_xxxxxxxxxx@group.calendar.feishu.cn"
@@ -102,23 +110,27 @@ type CreateCalendarACLReq struct {
 	Scope      *CreateCalendarACLReqScope `json:"scope,omitempty"`        // 权限范围
 }
 
+// CreateCalendarACLReqScope ...
 type CreateCalendarACLReqScope struct {
 	Type   string  `json:"type,omitempty"`    // 权限类型，当type为User时，值为open_id/user_id/union_id, 示例值："user", 可选值有: `user`：用户
 	UserID *string `json:"user_id,omitempty"` // 用户ID，参见[用户相关的 ID 概念](https://open.feishu.cn/document/home/user-identity-introduction/introduction), 示例值："ou_xxxxxx"
 }
 
+// createCalendarACLResp ...
 type createCalendarACLResp struct {
 	Code int64                  `json:"code,omitempty"` // 错误码，非 0 表示失败
 	Msg  string                 `json:"msg,omitempty"`  // 错误描述
 	Data *CreateCalendarACLResp `json:"data,omitempty"`
 }
 
+// CreateCalendarACLResp ...
 type CreateCalendarACLResp struct {
 	ACLID string                      `json:"acl_id,omitempty"` // acl资源ID。参见[日历相关ID说明](https://open.feishu.cn/document/ukTMukTMukTM/uETM3YjLxEzN24SMxcjN#f066a96c)
 	Role  CalendarRole                `json:"role,omitempty"`   // 对日历的访问权限, 可选值有: `unknown`：未知权限, `free_busy_reader`：游客，只能看到忙碌/空闲信息, `reader`：订阅者，查看所有日程详情, `writer`：编辑者，创建及修改日程, `owner`：管理员，管理日历及共享设置
 	Scope *CreateCalendarACLRespScope `json:"scope,omitempty"`  // 权限范围
 }
 
+// CreateCalendarACLRespScope ...
 type CreateCalendarACLRespScope struct {
 	Type   string `json:"type,omitempty"`    // 权限类型，当type为User时，值为open_id/user_id/union_id, 可选值有: `user`：用户
 	UserID string `json:"user_id,omitempty"` // 用户ID，参见[用户相关的 ID 概念](https://open.feishu.cn/document/home/user-identity-introduction/introduction)

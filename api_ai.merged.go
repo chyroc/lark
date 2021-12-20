@@ -32,24 +32,29 @@ func (r *AIService) DetectTextLanguage(ctx context.Context, request *DetectTextL
 	return resp.Data, response, err
 }
 
+// MockAIDetectTextLanguage mock AIDetectTextLanguage method
 func (r *Mock) MockAIDetectTextLanguage(f func(ctx context.Context, request *DetectTextLanguageReq, options ...MethodOptionFunc) (*DetectTextLanguageResp, *Response, error)) {
 	r.mockAIDetectTextLanguage = f
 }
 
+// UnMockAIDetectTextLanguage un-mock AIDetectTextLanguage method
 func (r *Mock) UnMockAIDetectTextLanguage() {
 	r.mockAIDetectTextLanguage = nil
 }
 
+// DetectTextLanguageReq ...
 type DetectTextLanguageReq struct {
 	Text string `json:"text,omitempty"` // 需要被识别语种的文本, 示例值："你好"
 }
 
+// detectTextLanguageResp ...
 type detectTextLanguageResp struct {
 	Code int64                   `json:"code,omitempty"` // 错误码，非 0 表示失败
 	Msg  string                  `json:"msg,omitempty"`  // 错误描述
 	Data *DetectTextLanguageResp `json:"data,omitempty"`
 }
 
+// DetectTextLanguageResp ...
 type DetectTextLanguageResp struct {
 	Language string `json:"language,omitempty"` // 识别的文本语种，返回符合 ISO 693-1 标准
 }
@@ -82,24 +87,29 @@ func (r *AIService) RecognizeBasicImage(ctx context.Context, request *RecognizeB
 	return resp.Data, response, err
 }
 
+// MockAIRecognizeBasicImage mock AIRecognizeBasicImage method
 func (r *Mock) MockAIRecognizeBasicImage(f func(ctx context.Context, request *RecognizeBasicImageReq, options ...MethodOptionFunc) (*RecognizeBasicImageResp, *Response, error)) {
 	r.mockAIRecognizeBasicImage = f
 }
 
+// UnMockAIRecognizeBasicImage un-mock AIRecognizeBasicImage method
 func (r *Mock) UnMockAIRecognizeBasicImage() {
 	r.mockAIRecognizeBasicImage = nil
 }
 
+// RecognizeBasicImageReq ...
 type RecognizeBasicImageReq struct {
 	Image *string `json:"image,omitempty"` // base64 后的图片数据, 示例值："base64后的图片二进制数据"
 }
 
+// recognizeBasicImageResp ...
 type recognizeBasicImageResp struct {
 	Code int64                    `json:"code,omitempty"` // 错误码，非 0 表示失败
 	Msg  string                   `json:"msg,omitempty"`  // 错误描述
 	Data *RecognizeBasicImageResp `json:"data,omitempty"`
 }
 
+// RecognizeBasicImageResp ...
 type RecognizeBasicImageResp struct {
 	TextList []string `json:"text_list,omitempty"` // 按区域识别，返回文本列表
 }
@@ -132,35 +142,42 @@ func (r *AIService) RecognizeSpeechFile(ctx context.Context, request *RecognizeS
 	return resp.Data, response, err
 }
 
+// MockAIRecognizeSpeechFile mock AIRecognizeSpeechFile method
 func (r *Mock) MockAIRecognizeSpeechFile(f func(ctx context.Context, request *RecognizeSpeechFileReq, options ...MethodOptionFunc) (*RecognizeSpeechFileResp, *Response, error)) {
 	r.mockAIRecognizeSpeechFile = f
 }
 
+// UnMockAIRecognizeSpeechFile un-mock AIRecognizeSpeechFile method
 func (r *Mock) UnMockAIRecognizeSpeechFile() {
 	r.mockAIRecognizeSpeechFile = nil
 }
 
+// RecognizeSpeechFileReq ...
 type RecognizeSpeechFileReq struct {
 	Speech *RecognizeSpeechFileReqSpeech `json:"speech,omitempty"` // 语音资源
 	Config *RecognizeSpeechFileReqConfig `json:"config,omitempty"` // 配置属性
 }
 
+// RecognizeSpeechFileReqSpeech ...
 type RecognizeSpeechFileReqSpeech struct {
 	Speech *string `json:"speech,omitempty"` // base64 后的音频文件进行, 示例值："base64 后的音频内容"
 }
 
+// RecognizeSpeechFileReqConfig ...
 type RecognizeSpeechFileReqConfig struct {
 	FileID     string `json:"file_id,omitempty"`     // 仅包含字母数字和下划线的 16 位字符串作为文件的标识，用户生成, 示例值："qwe12dd34567890w"
 	Format     string `json:"format,omitempty"`      // 语音格式，目前仅支持：pcm, 示例值："pcm"
 	EngineType string `json:"engine_type,omitempty"` // 引擎类型，目前仅支持：16k_auto 中英混合, 示例值："16k_auto"
 }
 
+// recognizeSpeechFileResp ...
 type recognizeSpeechFileResp struct {
 	Code int64                    `json:"code,omitempty"` // 错误码，非 0 表示失败
 	Msg  string                   `json:"msg,omitempty"`  // 错误描述
 	Data *RecognizeSpeechFileResp `json:"data,omitempty"`
 }
 
+// RecognizeSpeechFileResp ...
 type RecognizeSpeechFileResp struct {
 	RecognitionText string `json:"recognition_text,omitempty"` // 语音识别后的文本信息
 }
@@ -193,23 +210,28 @@ func (r *AIService) RecognizeSpeechStream(ctx context.Context, request *Recogniz
 	return resp.Data, response, err
 }
 
+// MockAIRecognizeSpeechStream mock AIRecognizeSpeechStream method
 func (r *Mock) MockAIRecognizeSpeechStream(f func(ctx context.Context, request *RecognizeSpeechStreamReq, options ...MethodOptionFunc) (*RecognizeSpeechStreamResp, *Response, error)) {
 	r.mockAIRecognizeSpeechStream = f
 }
 
+// UnMockAIRecognizeSpeechStream un-mock AIRecognizeSpeechStream method
 func (r *Mock) UnMockAIRecognizeSpeechStream() {
 	r.mockAIRecognizeSpeechStream = nil
 }
 
+// RecognizeSpeechStreamReq ...
 type RecognizeSpeechStreamReq struct {
 	Speech *RecognizeSpeechStreamReqSpeech `json:"speech,omitempty"` // 语音资源
 	Config *RecognizeSpeechStreamReqConfig `json:"config,omitempty"` // 配置属性
 }
 
+// RecognizeSpeechStreamReqSpeech ...
 type RecognizeSpeechStreamReqSpeech struct {
 	Speech *string `json:"speech,omitempty"` // base64 后的音频文件进行, 示例值："base64 后的音频内容"
 }
 
+// RecognizeSpeechStreamReqConfig ...
 type RecognizeSpeechStreamReqConfig struct {
 	StreamID   string `json:"stream_id,omitempty"`   // 仅包含字母数字和下划线的 16 位字符串作为同一数据流的标识，用户生成, 示例值："asd1234567890ddd"
 	SequenceID int64  `json:"sequence_id,omitempty"` // 数据流分片的序号，序号从 0 开始，每次请求递增 1, 示例值：1
@@ -218,12 +240,14 @@ type RecognizeSpeechStreamReqConfig struct {
 	EngineType string `json:"engine_type,omitempty"` // 引擎类型，目前仅支持：16k_auto 中英混合, 示例值："16k_auto"
 }
 
+// recognizeSpeechStreamResp ...
 type recognizeSpeechStreamResp struct {
 	Code int64                      `json:"code,omitempty"` // 错误码，非 0 表示失败
 	Msg  string                     `json:"msg,omitempty"`  // 错误描述
 	Data *RecognizeSpeechStreamResp `json:"data,omitempty"`
 }
 
+// RecognizeSpeechStreamResp ...
 type RecognizeSpeechStreamResp struct {
 	StreamID        string `json:"stream_id,omitempty"`        // 16 位 String 随机串作为同一数据流的标识
 	SequenceID      int64  `json:"sequence_id,omitempty"`      // 数据流分片的序号，序号从 0 开始，每次请求递增 1
@@ -258,14 +282,17 @@ func (r *AIService) TranslateText(ctx context.Context, request *TranslateTextReq
 	return resp.Data, response, err
 }
 
+// MockAITranslateText mock AITranslateText method
 func (r *Mock) MockAITranslateText(f func(ctx context.Context, request *TranslateTextReq, options ...MethodOptionFunc) (*TranslateTextResp, *Response, error)) {
 	r.mockAITranslateText = f
 }
 
+// UnMockAITranslateText un-mock AITranslateText method
 func (r *Mock) UnMockAITranslateText() {
 	r.mockAITranslateText = nil
 }
 
+// TranslateTextReq ...
 type TranslateTextReq struct {
 	SourceLanguage string                    `json:"source_language,omitempty"` // 源语言, 示例值："zh"
 	Text           string                    `json:"text,omitempty"`            // 源文本, 示例值："尝试使用一下飞书吧"
@@ -273,17 +300,20 @@ type TranslateTextReq struct {
 	Glossary       *TranslateTextReqGlossary `json:"glossary,omitempty"`        // 请求级术语表，携带术语，仅在本次翻译中生效（最多能携带 128个术语词）
 }
 
+// TranslateTextReqGlossary ...
 type TranslateTextReqGlossary struct {
 	From string `json:"from,omitempty"` // 原文, 示例值："飞书"
 	To   string `json:"to,omitempty"`   // 译文, 示例值："Lark"
 }
 
+// translateTextResp ...
 type translateTextResp struct {
 	Code int64              `json:"code,omitempty"` // 错误码，非 0 表示失败
 	Msg  string             `json:"msg,omitempty"`  // 错误描述
 	Data *TranslateTextResp `json:"data,omitempty"`
 }
 
+// TranslateTextResp ...
 type TranslateTextResp struct {
 	Text string `json:"text,omitempty"` // 翻译后的文本
 }
@@ -316,30 +346,37 @@ func (r *ApplicationService) GetApplicationAppAdminUserList(ctx context.Context,
 	return resp.Data, response, err
 }
 
+// MockApplicationGetApplicationAppAdminUserList mock ApplicationGetApplicationAppAdminUserList method
 func (r *Mock) MockApplicationGetApplicationAppAdminUserList(f func(ctx context.Context, request *GetApplicationAppAdminUserListReq, options ...MethodOptionFunc) (*GetApplicationAppAdminUserListResp, *Response, error)) {
 	r.mockApplicationGetApplicationAppAdminUserList = f
 }
 
+// UnMockApplicationGetApplicationAppAdminUserList un-mock ApplicationGetApplicationAppAdminUserList method
 func (r *Mock) UnMockApplicationGetApplicationAppAdminUserList() {
 	r.mockApplicationGetApplicationAppAdminUserList = nil
 }
 
+// GetApplicationAppAdminUserListReq ...
 type GetApplicationAppAdminUserListReq struct{}
 
+// getApplicationAppAdminUserListResp ...
 type getApplicationAppAdminUserListResp struct {
 	Code int64                               `json:"code,omitempty"` // 返回码，非 0 表示失败
 	Msg  string                              `json:"msg,omitempty"`  // 返回码描述
 	Data *GetApplicationAppAdminUserListResp `json:"data,omitempty"` // -
 }
 
+// GetApplicationAppAdminUserListResp ...
 type GetApplicationAppAdminUserListResp struct {
 	UserList []*GetApplicationAppAdminUserListRespUser `json:"user_list,omitempty"` // 管理员列表
 }
 
+// GetApplicationAppAdminUserListRespUser ...
 type GetApplicationAppAdminUserListRespUser struct {
 	OpenID *GetApplicationAppAdminUserListRespUserOpenID `json:"open_id,omitempty"` // 某管理员的open_id
 }
 
+// GetApplicationAppAdminUserListRespUserOpenID ...
 type GetApplicationAppAdminUserListRespUserOpenID struct {
 	UserID  string `json:"user_id,omitempty"`  // 某管理员的user_id
 	UnionID string `json:"union_id,omitempty"` // 某管理员的union_id

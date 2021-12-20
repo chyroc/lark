@@ -4,7 +4,7 @@ import (
 	"fmt"
 )
 
-// int to col
+// ItoCol int to col
 // index >= 1
 func ItoCol(index int) string {
 	var (

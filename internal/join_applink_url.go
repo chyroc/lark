@@ -7,6 +7,7 @@ import (
 	"strings"
 )
 
+// JoinAppLinkURL ...
 func JoinAppLinkURL(uri string, data interface{}) string {
 	x, _ := url.Parse(uri)
 	arr := toURLValues(data)

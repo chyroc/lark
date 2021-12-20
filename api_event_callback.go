@@ -75,8 +75,10 @@ func (r *EventCallbackService) listenCallback(ctx context.Context, isSecurity bo
 	return
 }
 
+// EventCardHandler ...
 type EventCardHandler func(ctx context.Context, cli *Lark, event *EventCardCallback) (string, error)
 
+// EventCardCallback ...
 type EventCardCallback struct {
 	RefreshToken string `json:"refresh_token"` // header: X-Refresh-Token
 
@@ -88,6 +90,7 @@ type EventCardCallback struct {
 	Action        *EventCardCallbackAction `json:"action"`
 }
 
+// EventCardCallbackAction ...
 type EventCardCallbackAction struct {
 	Value  json.RawMessage `json:"value"`  // 交互元素的value字段值
 	Tag    string          `json:"tag"`    // 交互元素的tag字段值

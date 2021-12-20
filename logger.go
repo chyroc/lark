@@ -5,12 +5,15 @@ import (
 	"fmt"
 )
 
+// Logger ...
 type Logger interface {
 	Log(ctx context.Context, level LogLevel, msg string, args ...interface{})
 }
 
+// LogLevel ...
 type LogLevel int
 
+// LogLevelTrace ...
 const (
 	LogLevelTrace LogLevel = iota + 1 // 只有两个 log req 和 resp 的 文本内容
 	LogLevelDebug
@@ -19,6 +22,7 @@ const (
 	LogLevelError
 )
 
+// String ...
 func (r LogLevel) String() string {
 	switch r {
 	case LogLevelTrace:
@@ -42,12 +46,15 @@ func (r *Lark) log(ctx context.Context, level LogLevel, msg string, args ...inte
 	}
 }
 
+// LoggerStdout ...
 type LoggerStdout struct{}
 
+// NewLoggerStdout ...
 func NewLoggerStdout() Logger {
 	return &LoggerStdout{}
 }
 
+// Log ...
 func (l *LoggerStdout) Log(ctx context.Context, level LogLevel, msg string, args ...interface{}) {
 	fmt.Printf("["+level.String()+"] "+msg+"\n", args...)
 }

@@ -6,6 +6,7 @@ import (
 	"time"
 )
 
+// RandString ...
 func RandString(count int) string {
 	s := strings.Builder{}
 

@@ -9,6 +9,7 @@ import (
 	"github.com/chyroc/lark"
 )
 
+// ExampleEventCallback ...
 func ExampleEventCallback() {
 	cli := lark.New(
 		lark.WithAppCredential("<APP_ID>", "<APP_SECRET>"),

@@ -11,6 +11,7 @@ import (
 	"time"
 )
 
+// MessageSendAPI ...
 type MessageSendAPI struct {
 	cli           *Lark
 	msgAPI        *MessageService
@@ -18,6 +19,7 @@ type MessageSendAPI struct {
 	receiveIDType IDType
 }
 
+// Send ...
 func (r *MessageService) Send() *MessageSendAPI {
 	return &MessageSendAPI{
 		cli:    r.cli,
@@ -25,26 +27,32 @@ func (r *MessageService) Send() *MessageSendAPI {
 	}
 }
 
+// ToUserID ...
 func (r *MessageSendAPI) ToUserID(id string) *MessageSendAPI {
 	return r.to(id, IDTypeUserID)
 }
 
+// ToUnionID ...
 func (r *MessageSendAPI) ToUnionID(id string) *MessageSendAPI {
 	return r.to(id, IDTypeUnionID)
 }
 
+// ToOpenID ...
 func (r *MessageSendAPI) ToOpenID(id string) *MessageSendAPI {
 	return r.to(id, IDTypeOpenID)
 }
 
+// ToAppID ...
 func (r *MessageSendAPI) ToAppID(id string) *MessageSendAPI {
 	return r.to(id, IDTypeAppID)
 }
 
+// ToChatID ...
 func (r *MessageSendAPI) ToChatID(id string) *MessageSendAPI {
 	return r.to(id, IDTypeChatID)
 }
 
+// ToEmail ...
 func (r *MessageSendAPI) ToEmail(id string) *MessageSendAPI {
 	return r.to(id, IDTypeEmail)
 }
@@ -55,14 +63,17 @@ func (r *MessageSendAPI) to(receiveID string, receiveIDType IDType) *MessageSend
 	return r
 }
 
+// SendText ...
 func (r *MessageSendAPI) SendText(ctx context.Context, text string) (*SendRawMessageResp, *Response, error) {
 	return r.send(ctx, MsgTypeText, `{"text":%q}`, text)
 }
 
+// SendImage ...
 func (r *MessageSendAPI) SendImage(ctx context.Context, imageKey string) (*SendRawMessageResp, *Response, error) {
 	return r.send(ctx, MsgTypeImage, `{"image_key":%q}`, imageKey)
 }
 
+// SendPost ...
 func (r *MessageSendAPI) SendPost(ctx context.Context, post string) (*SendRawMessageResp, *Response, error) {
 	if r.cli.customBotWebHookURL != "" {
 		vv := map[string]interface{}{}
@@ -80,6 +91,7 @@ func (r *MessageSendAPI) SendPost(ctx context.Context, post string) (*SendRawMes
 	return r.send(ctx, MsgTypePost, post)
 }
 
+// SendCard ...
 func (r *MessageSendAPI) SendCard(ctx context.Context, card string) (*SendRawMessageResp, *Response, error) {
 	if r.cli.customBotWebHookURL != "" {
 		vv := map[string]interface{}{}
@@ -94,6 +106,7 @@ func (r *MessageSendAPI) SendCard(ctx context.Context, card string) (*SendRawMes
 	return r.send(ctx, MsgTypeInteractive, card)
 }
 
+// SendShareChat ...
 func (r *MessageSendAPI) SendShareChat(ctx context.Context, chatID string) (*SendRawMessageResp, *Response, error) {
 	if r.cli.customBotWebHookURL != "" {
 		return r.send(ctx, MsgTypeShareChat, `{"share_chat_id":%q}`, chatID)
@@ -101,32 +114,39 @@ func (r *MessageSendAPI) SendShareChat(ctx context.Context, chatID string) (*Sen
 	return r.send(ctx, MsgTypeShareChat, `{"chat_id":%q}`, chatID)
 }
 
+// SendShareUser ...
 func (r *MessageSendAPI) SendShareUser(ctx context.Context, userID string) (*SendRawMessageResp, *Response, error) {
 	return r.send(ctx, MsgTypeShareUser, `{"user_id":%q}`, userID)
 }
 
+// SendAudio ...
 func (r *MessageSendAPI) SendAudio(ctx context.Context, fileKey string) (*SendRawMessageResp, *Response, error) {
 	return r.send(ctx, MsgTypeAudio, `{"file_key":%q}`, fileKey)
 }
 
+// SendMedia ...
 func (r *MessageSendAPI) SendMedia(ctx context.Context, imageKey, fileKey string) (*SendRawMessageResp, *Response, error) {
 	return r.send(ctx, MsgTypeMedia, `{"image_key":%q,"file_key":%q}`, imageKey, fileKey)
 }
 
+// SendFile ...
 func (r *MessageSendAPI) SendFile(ctx context.Context, fileKey string) (*SendRawMessageResp, *Response, error) {
 	return r.send(ctx, MsgTypeFile, `{"file_key":%q}`, fileKey)
 }
 
+// SendSticker ...
 func (r *MessageSendAPI) SendSticker(ctx context.Context, fileKey string) (*SendRawMessageResp, *Response, error) {
 	return r.send(ctx, MsgTypeSticker, `{"file_key":%q}`, fileKey)
 }
 
+// MessageReplyAPI ...
 type MessageReplyAPI struct {
 	cli       *Lark
 	msgAPI    *MessageService
 	messageID string
 }
 
+// Reply ...
 func (r *MessageService) Reply(messageID string) *MessageReplyAPI {
 	return &MessageReplyAPI{
 		cli:       r.cli,
@@ -135,42 +155,52 @@ func (r *MessageService) Reply(messageID string) *MessageReplyAPI {
 	}
 }
 
+// SendText ...
 func (r *MessageReplyAPI) SendText(ctx context.Context, text string) (*ReplyRawMessageResp, *Response, error) {
 	return r.reply(ctx, MsgTypeText, `{"text":%q}`, text)
 }
 
+// SendImage ...
 func (r *MessageReplyAPI) SendImage(ctx context.Context, imageKey string) (*ReplyRawMessageResp, *Response, error) {
 	return r.reply(ctx, MsgTypeImage, `{"image_key":%q}`, imageKey)
 }
 
+// SendPost ...
 func (r *MessageReplyAPI) SendPost(ctx context.Context, card string) (*ReplyRawMessageResp, *Response, error) {
 	return r.reply(ctx, MsgTypePost, card)
 }
 
+// SendCard ...
 func (r *MessageReplyAPI) SendCard(ctx context.Context, card string) (*ReplyRawMessageResp, *Response, error) {
 	return r.reply(ctx, MsgTypeInteractive, card)
 }
 
+// SendShareChat ...
 func (r *MessageReplyAPI) SendShareChat(ctx context.Context, chatID string) (*ReplyRawMessageResp, *Response, error) {
 	return r.reply(ctx, MsgTypeShareChat, `{"chat_id":%q}`, chatID)
 }
 
+// SendShareUser ...
 func (r *MessageReplyAPI) SendShareUser(ctx context.Context, userID string) (*ReplyRawMessageResp, *Response, error) {
 	return r.reply(ctx, MsgTypeShareUser, `{"user_id":%q}`, userID)
 }
 
+// SendAudio ...
 func (r *MessageReplyAPI) SendAudio(ctx context.Context, fileKey string) (*ReplyRawMessageResp, *Response, error) {
 	return r.reply(ctx, MsgTypeAudio, `{"file_key":%q}`, fileKey)
 }
 
+// SendMedia ...
 func (r *MessageReplyAPI) SendMedia(ctx context.Context, imageKey, fileKey string) (*ReplyRawMessageResp, *Response, error) {
 	return r.reply(ctx, MsgTypeMedia, `{"image_key":%q,"file_key":%q}`, imageKey, fileKey)
 }
 
+// SendFile ...
 func (r *MessageReplyAPI) SendFile(ctx context.Context, fileKey string) (*ReplyRawMessageResp, *Response, error) {
 	return r.reply(ctx, MsgTypeFile, `{"file_key":%q}`, fileKey)
 }
 
+// SendSticker ...
 func (r *MessageReplyAPI) SendSticker(ctx context.Context, fileKey string) (*ReplyRawMessageResp, *Response, error) {
 	return r.reply(ctx, MsgTypeSticker, `{"file_key":%q}`, fileKey)
 }
