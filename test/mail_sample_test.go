@@ -172,18 +172,24 @@ func Test_Mail_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
+			t.Skip()
+
 			_, _, err := moduleCli.CreateMailUserAlias(ctx, &lark.CreateMailUserAliasReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "failed")
 		})
 
 		t.Run("", func(t *testing.T) {
+			t.Skip()
+
 			_, _, err := moduleCli.DeleteMailUserAlias(ctx, &lark.DeleteMailUserAliasReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "failed")
 		})
 
 		t.Run("", func(t *testing.T) {
+			t.Skip()
+
 			_, _, err := moduleCli.GetMailUserAliasList(ctx, &lark.GetMailUserAliasListReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "failed")
@@ -470,6 +476,8 @@ func Test_Mail_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
+			t.Skip()
+
 			cli.Mock().MockMailCreateMailUserAlias(func(ctx context.Context, request *lark.CreateMailUserAliasReq, options ...lark.MethodOptionFunc) (*lark.CreateMailUserAliasResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -481,6 +489,8 @@ func Test_Mail_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
+			t.Skip()
+
 			cli.Mock().MockMailDeleteMailUserAlias(func(ctx context.Context, request *lark.DeleteMailUserAliasReq, options ...lark.MethodOptionFunc) (*lark.DeleteMailUserAliasResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -492,6 +502,8 @@ func Test_Mail_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
+			t.Skip()
+
 			cli.Mock().MockMailGetMailUserAliasList(func(ctx context.Context, request *lark.GetMailUserAliasListReq, options ...lark.MethodOptionFunc) (*lark.GetMailUserAliasListResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -706,6 +718,8 @@ func Test_Mail_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
+			t.Skip()
+
 			_, _, err := moduleCli.CreateMailUserAlias(ctx, &lark.CreateMailUserAliasReq{
 				UserID: "x",
 			})
@@ -714,6 +728,8 @@ func Test_Mail_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
+			t.Skip()
+
 			_, _, err := moduleCli.DeleteMailUserAlias(ctx, &lark.DeleteMailUserAliasReq{
 				UserID:  "x",
 				AliasID: "x",
@@ -723,6 +739,8 @@ func Test_Mail_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
+			t.Skip()
+
 			_, _, err := moduleCli.GetMailUserAliasList(ctx, &lark.GetMailUserAliasListReq{
 				UserID: "x",
 			})
@@ -937,6 +955,8 @@ func Test_Mail_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
+			t.Skip()
+
 			_, _, err := moduleCli.CreateMailUserAlias(ctx, &lark.CreateMailUserAliasReq{
 				UserID: "x",
 			})
@@ -945,6 +965,8 @@ func Test_Mail_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
+			t.Skip()
+
 			_, _, err := moduleCli.DeleteMailUserAlias(ctx, &lark.DeleteMailUserAliasReq{
 				UserID:  "x",
 				AliasID: "x",
@@ -954,6 +976,8 @@ func Test_Mail_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
+			t.Skip()
+
 			_, _, err := moduleCli.GetMailUserAliasList(ctx, &lark.GetMailUserAliasListReq{
 				UserID: "x",
 			})
