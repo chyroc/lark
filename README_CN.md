@@ -38,7 +38,7 @@ https://godoc.org/github.com/chyroc/lark
 
 ## 支持的接口
 
-API 总数: 529, 事件总数: 77
+API 总数: 532, 事件总数: 77
 
 <details>
   <summary>
@@ -113,6 +113,9 @@ API 总数: 529, 事件总数: 77
   - GetMessageFile
   - GetMessage
   - DeleteEphemeralMessage
+  - CreateMessageReaction
+  - GetMessageReactionList
+  - DeleteMessageReaction
 - Chat
   - CreateChat
   - GetChat

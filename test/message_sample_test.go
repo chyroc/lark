@@ -134,6 +134,24 @@ func Test_Message_Sample_Failed(t *testing.T) {
 			as.NotNil(err)
 			as.Equal(err.Error(), "failed")
 		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.CreateMessageReaction(ctx, &lark.CreateMessageReactionReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.GetMessageReactionList(ctx, &lark.GetMessageReactionListReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.DeleteMessageReaction(ctx, &lark.DeleteMessageReactionReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "failed")
+		})
 	})
 
 	t.Run("request mock failed", func(t *testing.T) {
@@ -348,6 +366,39 @@ func Test_Message_Sample_Failed(t *testing.T) {
 			as.NotNil(err)
 			as.Equal(err.Error(), "mock-failed")
 		})
+
+		t.Run("", func(t *testing.T) {
+			cli.Mock().MockMessageCreateMessageReaction(func(ctx context.Context, request *lark.CreateMessageReactionReq, options ...lark.MethodOptionFunc) (*lark.CreateMessageReactionResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockMessageCreateMessageReaction()
+
+			_, _, err := moduleCli.CreateMessageReaction(ctx, &lark.CreateMessageReactionReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+			cli.Mock().MockMessageGetMessageReactionList(func(ctx context.Context, request *lark.GetMessageReactionListReq, options ...lark.MethodOptionFunc) (*lark.GetMessageReactionListResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockMessageGetMessageReactionList()
+
+			_, _, err := moduleCli.GetMessageReactionList(ctx, &lark.GetMessageReactionListReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+			cli.Mock().MockMessageDeleteMessageReaction(func(ctx context.Context, request *lark.DeleteMessageReactionReq, options ...lark.MethodOptionFunc) (*lark.DeleteMessageReactionResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockMessageDeleteMessageReaction()
+
+			_, _, err := moduleCli.DeleteMessageReaction(ctx, &lark.DeleteMessageReactionReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
 	})
 
 	t.Run("response is failed", func(t *testing.T) {
@@ -489,6 +540,31 @@ func Test_Message_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 			_, _, err := moduleCli.DeleteEphemeralMessage(ctx, &lark.DeleteEphemeralMessageReq{})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.CreateMessageReaction(ctx, &lark.CreateMessageReactionReq{
+				MessageID: "x",
+			})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.GetMessageReactionList(ctx, &lark.GetMessageReactionListReq{
+				MessageID: "x",
+			})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.DeleteMessageReaction(ctx, &lark.DeleteMessageReactionReq{
+				MessageID:  "x",
+				ReactionID: "x",
+			})
 			as.NotNil(err)
 			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
 		})
@@ -636,6 +712,31 @@ func Test_Message_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 			_, _, err := moduleCli.DeleteEphemeralMessage(ctx, &lark.DeleteEphemeralMessageReq{})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.CreateMessageReaction(ctx, &lark.CreateMessageReactionReq{
+				MessageID: "x",
+			})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.GetMessageReactionList(ctx, &lark.GetMessageReactionListReq{
+				MessageID: "x",
+			})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.DeleteMessageReaction(ctx, &lark.DeleteMessageReactionReq{
+				MessageID:  "x",
+				ReactionID: "x",
+			})
 			as.NotNil(err)
 			as.Equal("fake raw request", err.Error())
 		})

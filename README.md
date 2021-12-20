@@ -38,7 +38,7 @@ https://godoc.org/github.com/chyroc/lark
 
 ## Support APIs
 
-API Count: 529, Event Count: 77
+API Count: 532, Event Count: 77
 
 <details>
   <summary>
@@ -113,6 +113,9 @@ API Count: 529, Event Count: 77
   - GetMessageFile
   - GetMessage
   - DeleteEphemeralMessage
+  - CreateMessageReaction
+  - GetMessageReactionList
+  - DeleteMessageReaction
 - Chat
   - CreateChat
   - GetChat
