@@ -7638,7 +7638,7 @@ func (r *Mock) UnMockDriveAddWikiSpaceMember() {
 type AddWikiSpaceMemberReq struct {
 	NeedNotification *bool   `query:"need_notification" json:"-"` // 添加权限后是否通知对方, 示例值：true/fasle
 	SpaceID          string  `path:"space_id" json:"-"`           // 知识空间id, 示例值："1565676577122621"
-	MemberType       *string `json:"member_type,omitempty"`       // “openchat” - 群id ,“userid” - 用户id ,“departmentid” - 部门id,“openid” - 应用openid, 示例值："userid"
+	MemberType       *string `json:"member_type,omitempty"`       // “openchat” - 群id ,“userid” - 用户id ,“departmentid” - 部门id,“openid” - 应用openid,“unionid” - unionid, 示例值："userid"
 	MemberID         *string `json:"member_id,omitempty"`         // 用户id, 示例值："1565676577122621"
 	MemberRole       *string `json:"member_role,omitempty"`       // 角色:,“admin” - 管理员,“member” - 成员, 示例值："admin"
 }
@@ -7657,7 +7657,7 @@ type AddWikiSpaceMemberResp struct {
 
 // AddWikiSpaceMemberRespMember ...
 type AddWikiSpaceMemberRespMember struct {
-	MemberType string `json:"member_type,omitempty"` // “openchat” - 群id ,“userid” - 用户id ,“departmentid” - 部门id,“openid” - 应用openid
+	MemberType string `json:"member_type,omitempty"` // “openchat” - 群id ,“userid” - 用户id ,“departmentid” - 部门id,“openid” - 应用openid,“unionid” - unionid
 	MemberID   string `json:"member_id,omitempty"`   // 用户id
 	MemberRole string `json:"member_role,omitempty"` // 角色:,“admin” - 管理员,“member” - 成员
 }
@@ -7703,7 +7703,7 @@ func (r *Mock) UnMockDriveDeleteWikiSpaceMember() {
 type DeleteWikiSpaceMemberReq struct {
 	SpaceID    string  `path:"space_id" json:"-"`     // 知识空间id, 示例值："7008061636015554580"
 	MemberID   string  `path:"member_id" json:"-"`    // 成员id, 示例值："g64fb7g7"
-	MemberType *string `json:"member_type,omitempty"` // “openchat” - 群id ,“userid” - 用户id ,“departmentid” - 部门id,“openid” - 应用openid, 示例值："userid"
+	MemberType *string `json:"member_type,omitempty"` // “openchat” - 群id ,“userid” - 用户id ,“departmentid” - 部门id,“openid” - 应用openid,“unionid” - unionid, 示例值："userid"
 	MemberRole *string `json:"member_role,omitempty"` // 角色:,“admin” - 管理员,“member” - 成员, 示例值："admin"
 }
 
@@ -7721,7 +7721,7 @@ type DeleteWikiSpaceMemberResp struct {
 
 // DeleteWikiSpaceMemberRespMember ...
 type DeleteWikiSpaceMemberRespMember struct {
-	MemberType string `json:"member_type,omitempty"` // “openchat” - 群id ,“userid” - 用户id ,“departmentid” - 部门id,“openid” - 应用openid
+	MemberType string `json:"member_type,omitempty"` // “openchat” - 群id ,“userid” - 用户id ,“departmentid” - 部门id,“openid” - 应用openid,“unionid” - unionid
 	MemberID   string `json:"member_id,omitempty"`   // 用户id
 	MemberRole string `json:"member_role,omitempty"` // 角色:,“admin” - 管理员,“member” - 成员
 }

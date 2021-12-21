@@ -524,6 +524,7 @@ func (r *ChatService) CreateChatManager(ctx context.Context, request *CreateChat
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
+		NeedUserAccessToken:   true,
 	}
 	resp := new(createChatManagerResp)
 
@@ -585,6 +586,7 @@ func (r *ChatService) DeleteChatManager(ctx context.Context, request *DeleteChat
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
+		NeedUserAccessToken:   true,
 	}
 	resp := new(deleteChatManagerResp)
 

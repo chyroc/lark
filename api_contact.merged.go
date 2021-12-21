@@ -2174,7 +2174,7 @@ type CreateUserReq struct {
 	UserIDType       *IDType                    `query:"user_id_type" json:"-"`       // 用户 ID 类型, 示例值："open_id", 可选值有: `open_id`：用户的 open id, `union_id`：用户的 union id, `user_id`：用户的 user id, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
 	DepartmentIDType *DepartmentIDType          `query:"department_id_type" json:"-"` // 此次调用中使用的部门ID的类型。,不同 ID 的说明以及获取方式参见 [部门ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/field-overview#23857fe0), 示例值："open_department_id", 可选值有: `department_id`：以自定义department_id来标识部门, `open_department_id`：以open_department_id来标识部门, 默认值: `open_department_id`
 	ClientToken      *string                    `query:"client_token" json:"-"`       // 根据client_token是否一致来判断是否为同一请求, 示例值："xxxx-xxxxx-xxx"
-	UserID           *string                    `json:"user_id,omitempty"`            // 租户内用户的唯一标识，ID值与查询参数中的user_id_type 对应。,不同 ID 的说明参见 [用户相关的 ID 概念](https://open.feishu.cn/document/home/user-identity-introduction/introduction), 示例值："3e3cf96b"
+	UserID           *string                    `json:"user_id,omitempty"`            // 租户内用户的唯一标识，用户的user_id，不同ID的说明参见 [用户相关的 ID 概念](https://open.feishu.cn/document/home/user-identity-introduction/introduction), 示例值："3e3cf96b"
 	Name             string                     `json:"name,omitempty"`               // 用户名, 示例值："张三", 最小长度：`1` 字符
 	EnName           *string                    `json:"en_name,omitempty"`            // 英文名, 示例值："San Zhang"
 	Nickname         *string                    `json:"nickname,omitempty"`           // 别名, 示例值："Alex Zhang"
@@ -2241,7 +2241,7 @@ type CreateUserResp struct {
 // CreateUserRespUser ...
 type CreateUserRespUser struct {
 	UnionID         string                          `json:"union_id,omitempty"`          // 用户的union_id，不同ID的说明参见 [用户相关的 ID 概念](https://open.feishu.cn/document/home/user-identity-introduction/introduction)
-	UserID          string                          `json:"user_id,omitempty"`           // 租户内用户的唯一标识，ID值与查询参数中的user_id_type 对应。,不同 ID 的说明参见 [用户相关的 ID 概念](https://open.feishu.cn/document/home/user-identity-introduction/introduction), 字段权限要求: 获取用户 user ID
+	UserID          string                          `json:"user_id,omitempty"`           // 租户内用户的唯一标识，用户的user_id，不同ID的说明参见 [用户相关的 ID 概念](https://open.feishu.cn/document/home/user-identity-introduction/introduction), 字段权限要求: 获取用户 user ID
 	OpenID          string                          `json:"open_id,omitempty"`           // 用户的open_id，不同ID的说明参见 [用户相关的 ID 概念](https://open.feishu.cn/document/home/user-identity-introduction/introduction)
 	Name            string                          `json:"name,omitempty"`              // 用户名,**字段权限要求（满足任一）**：,以应用身份读取通讯录,获取用户基本信息,以应用身份访问通讯录,读取通讯录
 	EnName          string                          `json:"en_name,omitempty"`           // 英文名,**字段权限要求（满足任一）**：,以应用身份读取通讯录,获取用户基本信息,以应用身份访问通讯录,读取通讯录
@@ -2437,7 +2437,7 @@ type GetUserResp struct {
 // GetUserRespUser ...
 type GetUserRespUser struct {
 	UnionID         string                       `json:"union_id,omitempty"`          // 用户的union_id，不同ID的说明参见 [用户相关的 ID 概念](https://open.feishu.cn/document/home/user-identity-introduction/introduction)
-	UserID          string                       `json:"user_id,omitempty"`           // 租户内用户的唯一标识，ID值与查询参数中的user_id_type 对应。,不同 ID 的说明参见 [用户相关的 ID 概念](https://open.feishu.cn/document/home/user-identity-introduction/introduction), 字段权限要求: 获取用户 user ID
+	UserID          string                       `json:"user_id,omitempty"`           // 租户内用户的唯一标识，用户的user_id，不同ID的说明参见 [用户相关的 ID 概念](https://open.feishu.cn/document/home/user-identity-introduction/introduction), 字段权限要求: 获取用户 user ID
 	OpenID          string                       `json:"open_id,omitempty"`           // 用户的open_id，不同ID的说明参见 [用户相关的 ID 概念](https://open.feishu.cn/document/home/user-identity-introduction/introduction)
 	Name            string                       `json:"name,omitempty"`              // 用户名,**字段权限要求（满足任一）**：,以应用身份读取通讯录,获取用户基本信息,以应用身份访问通讯录,读取通讯录
 	EnName          string                       `json:"en_name,omitempty"`           // 英文名,**字段权限要求（满足任一）**：,以应用身份读取通讯录,获取用户基本信息,以应用身份访问通讯录,读取通讯录
@@ -2738,7 +2738,7 @@ type GetUserListResp struct {
 // GetUserListRespItem ...
 type GetUserListRespItem struct {
 	UnionID         string                           `json:"union_id,omitempty"`          // 用户的union_id，不同ID的说明参见 [用户相关的 ID 概念](https://open.feishu.cn/document/home/user-identity-introduction/introduction)
-	UserID          string                           `json:"user_id,omitempty"`           // 租户内用户的唯一标识，ID值与查询参数中的user_id_type 对应。,不同 ID 的说明参见 [用户相关的 ID 概念](https://open.feishu.cn/document/home/user-identity-introduction/introduction), 字段权限要求: 获取用户 user ID
+	UserID          string                           `json:"user_id,omitempty"`           // 租户内用户的唯一标识，用户的user_id，不同ID的说明参见 [用户相关的 ID 概念](https://open.feishu.cn/document/home/user-identity-introduction/introduction), 字段权限要求: 获取用户 user ID
 	OpenID          string                           `json:"open_id,omitempty"`           // 用户的open_id，不同ID的说明参见 [用户相关的 ID 概念](https://open.feishu.cn/document/home/user-identity-introduction/introduction)
 	Name            string                           `json:"name,omitempty"`              // 用户名,**字段权限要求（满足任一）**：,以应用身份读取通讯录,获取用户基本信息,以应用身份访问通讯录,读取通讯录
 	EnName          string                           `json:"en_name,omitempty"`           // 英文名,**字段权限要求（满足任一）**：,以应用身份读取通讯录,获取用户基本信息,以应用身份访问通讯录,读取通讯录
@@ -2886,7 +2886,7 @@ type GetUserListOldResp struct {
 // GetUserListOldRespItem ...
 type GetUserListOldRespItem struct {
 	UnionID         string                              `json:"union_id,omitempty"`          // 用户的union_id，不同ID的说明参见 [用户相关的 ID 概念](https://open.feishu.cn/document/home/user-identity-introduction/introduction)
-	UserID          string                              `json:"user_id,omitempty"`           // 租户内用户的唯一标识，ID值与查询参数中的user_id_type 对应。,不同 ID 的说明参见 [用户相关的 ID 概念](https://open.feishu.cn/document/home/user-identity-introduction/introduction), 字段权限要求: 获取用户 user ID
+	UserID          string                              `json:"user_id,omitempty"`           // 租户内用户的唯一标识，用户的user_id，不同ID的说明参见 [用户相关的 ID 概念](https://open.feishu.cn/document/home/user-identity-introduction/introduction), 字段权限要求: 获取用户 user ID
 	OpenID          string                              `json:"open_id,omitempty"`           // 用户的open_id，不同ID的说明参见 [用户相关的 ID 概念](https://open.feishu.cn/document/home/user-identity-introduction/introduction)
 	Name            string                              `json:"name,omitempty"`              // 用户名,**字段权限要求（满足任一）**：,获取用户基本信息,以应用身份读取通讯录,读取通讯录,以应用身份访问通讯录
 	EnName          string                              `json:"en_name,omitempty"`           // 英文名,**字段权限要求（满足任一）**：,获取用户基本信息,以应用身份读取通讯录,读取通讯录,以应用身份访问通讯录
@@ -3146,7 +3146,7 @@ type UpdateUserResp struct {
 // UpdateUserRespUser ...
 type UpdateUserRespUser struct {
 	UnionID         string                          `json:"union_id,omitempty"`          // 用户的union_id，不同ID的说明参见 [用户相关的 ID 概念](https://open.feishu.cn/document/home/user-identity-introduction/introduction)
-	UserID          string                          `json:"user_id,omitempty"`           // 租户内用户的唯一标识，ID值与查询参数中的user_id_type 对应。,不同 ID 的说明参见 [用户相关的 ID 概念](https://open.feishu.cn/document/home/user-identity-introduction/introduction), 字段权限要求: 获取用户 user ID
+	UserID          string                          `json:"user_id,omitempty"`           // 租户内用户的唯一标识，用户的user_id，不同ID的说明参见 [用户相关的 ID 概念](https://open.feishu.cn/document/home/user-identity-introduction/introduction), 字段权限要求: 获取用户 user ID
 	OpenID          string                          `json:"open_id,omitempty"`           // 用户的open_id，不同ID的说明参见 [用户相关的 ID 概念](https://open.feishu.cn/document/home/user-identity-introduction/introduction)
 	Name            string                          `json:"name,omitempty"`              // 用户名,**字段权限要求（满足任一）**：,以应用身份读取通讯录,获取用户基本信息,以应用身份访问通讯录,读取通讯录
 	EnName          string                          `json:"en_name,omitempty"`           // 英文名,**字段权限要求（满足任一）**：,以应用身份读取通讯录,获取用户基本信息,以应用身份访问通讯录,读取通讯录
@@ -3332,7 +3332,7 @@ type UpdateUserPatchResp struct {
 // UpdateUserPatchRespUser ...
 type UpdateUserPatchRespUser struct {
 	UnionID         string                               `json:"union_id,omitempty"`          // 用户的union_id，不同ID的说明参见 [用户相关的 ID 概念](https://open.feishu.cn/document/home/user-identity-introduction/introduction)
-	UserID          string                               `json:"user_id,omitempty"`           // 租户内用户的唯一标识，ID值与查询参数中的user_id_type 对应。,不同 ID 的说明参见 [用户相关的 ID 概念](https://open.feishu.cn/document/home/user-identity-introduction/introduction), 字段权限要求: 获取用户 user ID
+	UserID          string                               `json:"user_id,omitempty"`           // 租户内用户的唯一标识，用户的user_id，不同ID的说明参见 [用户相关的 ID 概念](https://open.feishu.cn/document/home/user-identity-introduction/introduction), 字段权限要求: 获取用户 user ID
 	OpenID          string                               `json:"open_id,omitempty"`           // 用户的open_id，不同ID的说明参见 [用户相关的 ID 概念](https://open.feishu.cn/document/home/user-identity-introduction/introduction)
 	Name            string                               `json:"name,omitempty"`              // 用户名,**字段权限要求（满足任一）**：,以应用身份读取通讯录,获取用户基本信息,以应用身份访问通讯录,读取通讯录
 	EnName          string                               `json:"en_name,omitempty"`           // 英文名,**字段权限要求（满足任一）**：,以应用身份读取通讯录,获取用户基本信息,以应用身份访问通讯录,读取通讯录

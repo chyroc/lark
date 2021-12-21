@@ -2329,11 +2329,11 @@ type MakeHireTransferOnboardByApplicationReq struct {
 	ExpectedConversionTime *int64  `json:"expected_conversion_time,omitempty"` // 预期转正时间, 示例值：1616428800000
 	JobRequirementID       *string `json:"job_requirement_id,omitempty"`       // 招聘需求 ID, 示例值："6960663240925956402"
 	OperatorID             *string `json:"operator_id,omitempty"`              // 操作人 UserID, 示例值："ou-xxx"
-	OnboardCityCode        *string `json:"onboard_city_code,omitempty"`        // 办公地点, 示例值："CT_2"
-	Department             *string `json:"department,omitempty"`               // 入职部门, 示例值："6966123381141866028"
-	Leader                 *string `json:"leader,omitempty"`                   // 直属上级, 示例值："ou-xxx"
-	Sequence               *string `json:"sequence,omitempty"`                 // 序列, 示例值："7006234385490345986"
-	Level                  *string `json:"level,omitempty"`                    // 职级, 示例值："6937934036379650311"
+	OnboardCityCode        *string `json:"onboard_city_code,omitempty"`        // 候选人办公地点 ID ，枚举可通过接口「获取地址列表」获取，将用于候选人内推奖规则判断, 示例值："CT_2"
+	Department             *string `json:"department,omitempty"`               // 候选人入职部门 ID ，枚举可通过接口「获取部门信息列表」获取，将用于候选人内推奖规则判断, 示例值："6966123381141866028"
+	Leader                 *string `json:"leader,omitempty"`                   // 候选人直属上级 UserID ，将用于候选人内推奖规则判断, 示例值："ou-xxx"
+	Sequence               *string `json:"sequence,omitempty"`                 // 候选人序列 ID ，枚举可通过接口「获取职务分类列表」获取，将用于候选人内推奖规则判断, 示例值："7006234385490345986"
+	Level                  *string `json:"level,omitempty"`                    // 候选人职级 ID ，枚举可通过接口「获取职级列表」获取，将用于候选人内推奖规则判断, 示例值："6937934036379650311"
 }
 
 // makeHireTransferOnboardByApplicationResp ...
