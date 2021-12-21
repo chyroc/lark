@@ -794,6 +794,7 @@ type createDriveFileResp struct {
 // CreateDriveFileResp ...
 type CreateDriveFileResp struct {
 	URL      string `json:"url,omitempty"`      // 新创建文档的 url
+	Token    string `json:"token,omitempty"`    // 新创建文档的 token
 	Revision int64  `json:"revision,omitempty"` // 新创建文档的版本号
 }
 
