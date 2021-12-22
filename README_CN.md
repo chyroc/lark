@@ -38,7 +38,7 @@ https://godoc.org/github.com/chyroc/lark
 
 ## 支持的接口
 
-API 总数: 532, 事件总数: 77
+API 总数: 537, 事件总数: 77
 
 <details>
   <summary>
@@ -478,27 +478,31 @@ API 总数: 532, 事件总数: 77
   - DetectTextLanguage
   - DetectFaceAttributes
 - Attendance
+  - CreateAttendanceGroup
+  - SearchAttendanceGroup
+  - GetAttendanceGroup
+  - DeleteAttendanceGroup
+  - GetAttendanceShift
+  - GetAttendanceShiftDetail
+  - DeleteAttendanceShift
+  - CreateAttendanceShift
+  - GetAttendanceUserDailyShift
+  - BatchCreateAttendanceUserDailyShift
+  - GetAttendanceUserStatsField
+  - GetAttendanceUserStatsView
+  - UpdateAttendanceUserStatsView
+  - GetAttendanceUserStatsData
+  - BatchGetAttendanceUserFlow
+  - GetAttendanceUserFlow
+  - GetAttendanceUserTask
+  - BatchCreateAttendanceUserFlow
+  - GetAttendanceUserTaskRemedyAllowedRemedyList
+  - GetAttendanceUserTaskRemedy
+  - CreateAttendanceUserTaskRemedy
+  - GetAttendanceUserSettingList
+  - UpdateAttendanceUserSetting
   - DownloadAttendanceFile
   - UploadAttendanceFile
-  - QueryAttendanceUserSettings
-  - UpdateAttendanceUserSettings
-  - CreateUpdateAttendanceGroup
-  - DeleteAttendanceGroup
-  - GetAttendanceGroup
-  - CreateAttendanceShift
-  - DeleteAttendanceShift
-  - GetAttendanceShiftByID
-  - GetAttendanceShiftByName
-  - GetAttendanceStatisticsData
-  - GetAttendanceStatisticsHeader
-  - UpdateAttendanceUserStatisticsSettings
-  - GetAttendanceUserStatisticsSettings
-  - GetAttendanceUserDailyShift
-  - GetAttendanceUserTask
-  - GetAttendanceUserFlow
-  - BatchGetAttendanceUserFlow
-  - BatchCreateAttendanceUserFlow
-  - GetAttendanceUserTaskRemedy
   - CreateUpdateAttendanceUserDailyShift
   - GetAttendanceUserApproval
   - CreateAttendanceUserApproval
@@ -564,6 +568,7 @@ API 总数: 532, 事件总数: 77
   - DeleteTaskReminder
   - CreateTask
   - GetTask
+  - GetTaskList
   - DeleteTask
   - UpdateTask
   - CompleteTask
