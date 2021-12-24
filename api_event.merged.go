@@ -2387,7 +2387,7 @@ type EventV2HelpdeskTicketMessageUpdatedV1OldObject struct {
 // 群组被解散后触发此事件。{使用示例}(url=/api/tools/api_explore/api_explore_config?project=im&version=v1&resource=chat&event=disbanded)
 // 注意事项：
 // - 需要开启[机器人能力](https://open.feishu.cn/document/home/develop-a-bot-in-5-minutes/create-an-app)
-// - 需要订阅 [即时通讯] 分类下的 [解散群] 事件
+// - 需要订阅 [消息与群组] 分类下的 [解散群] 事件
 // - 事件会向群内订阅了该事件的机器人进行推送
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat/events/disbanded
@@ -2420,7 +2420,7 @@ type EventV2IMChatDisbandedV1OperatorID struct {
 // 机器人被用户添加至群聊时触发此事件。{使用示例}(url=/api/tools/api_explore/api_explore_config?project=im&version=v1&resource=chat.member.bot&event=added)
 // 注意事项：
 // - 需要开启[机器人能力](https://open.feishu.cn/document/home/develop-a-bot-in-5-minutes/create-an-app)
-// - 需要订阅 [即时通讯] 分类下的 [机器人进群] 事件
+// - 需要订阅 [消息与群组] 分类下的 [机器人进群] 事件
 // - 事件会向进群的机器人进行推送
 // - 机器人邀请机器人不会触发事件
 //
@@ -2454,7 +2454,7 @@ type EventV2IMChatMemberBotAddedV1OperatorID struct {
 // 机器人被移出群聊后触发此事件。{使用示例}(url=/api/tools/api_explore/api_explore_config?project=im&version=v1&resource=chat.member.bot&event=deleted)
 // 注意事项：
 // - 需要开启[机器人能力](https://open.feishu.cn/document/home/develop-a-bot-in-5-minutes/create-an-app)
-// - 需要订阅 [即时通讯] 分类下的 [机器人被移出群] 事件
+// - 需要订阅 [消息与群组] 分类下的 [机器人被移出群] 事件
 // - 事件会向被移出群的机器人进行推送
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-member-bot/events/deleted
@@ -2487,7 +2487,7 @@ type EventV2IMChatMemberBotDeletedV1OperatorID struct {
 // 新用户进群触发此事件。{使用示例}(url=/api/tools/api_explore/api_explore_config?project=im&version=v1&resource=chat.member.user&event=added)
 // 注意事项：
 // - 需要开启[机器人能力](https://open.feishu.cn/document/home/develop-a-bot-in-5-minutes/create-an-app)
-// - 需要订阅 [即时通讯] 分类下的 [用户进群] 事件
+// - 需要订阅 [消息与群组] 分类下的 [用户进群] 事件
 // - 事件会向群内订阅了该事件的机器人进行推送
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-member-user/events/added
@@ -2535,7 +2535,7 @@ type EventV2IMChatMemberUserAddedV1UserUserID struct {
 // 用户主动退群或被移出群聊时推送事件。{使用示例}(url=/api/tools/api_explore/api_explore_config?project=im&version=v1&resource=chat.member.user&event=deleted)
 // 注意事项：
 // - 应用需要开启[机器人能力](https://open.feishu.cn/document/home/develop-a-bot-in-5-minutes/create-an-app)并且机器人所在群发生上述变化
-// - 机器人需要订阅 [即时通讯] 分类下的 [用户主动退群或被移出群聊] 事件
+// - 机器人需要订阅 [消息与群组] 分类下的 [用户主动退群或被移出群聊] 事件
 // - 事件会向群内订阅了该事件的机器人进行推送
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-member-user/events/deleted
@@ -2583,7 +2583,7 @@ type EventV2IMChatMemberUserDeletedV1UserUserID struct {
 // 撤销拉用户进群后触发此事件。{使用示例}(url=/api/tools/api_explore/api_explore_config?project=im&version=v1&resource=chat.member.user&event=withdrawn)
 // 注意事项：
 // - 需要开启[机器人能力](https://open.feishu.cn/document/home/develop-a-bot-in-5-minutes/create-an-app)
-// - 需要订阅 [即时通讯] 分类下的 [撤销拉用户进群] 事件
+// - 需要订阅 [消息与群组] 分类下的 [撤销拉用户进群] 事件
 // - 事件会向群内订阅了该事件的机器人进行推送
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-member-user/events/withdrawn
@@ -2634,7 +2634,7 @@ type EventV2IMChatMemberUserWithdrawnV1UserUserID struct {
 // - 群权限修改(加人入群权限/群编辑权限/at所有人权限/群分享权限)。{使用示例}(url=/api/tools/api_explore/api_explore_config?project=im&version=v1&resource=chat&event=updated)
 // 注意事项：
 // - 需要开启[机器人能力](https://open.feishu.cn/document/home/develop-a-bot-in-5-minutes/create-an-app)
-// - 需要订阅 [即时通讯] 分类下的 [群配置修改] 事件
+// - 需要订阅 [消息与群组] 分类下的 [群配置修改] 事件
 // - 事件会向群内订阅了该事件的机器人进行推送
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat/events/updated
@@ -2750,7 +2750,7 @@ type EventV2IMChatUpdatedV1ModeratorListRemovedMemberUserID struct {
 // 用户阅读机器人发送的单聊消息后触发此事件。{使用示例}(url=/api/tools/api_explore/api_explore_config?project=im&version=v1&resource=message&event=message_read)
 // 注意事项:
 // - 需要开启[机器人能力](https://open.feishu.cn/document/home/develop-a-bot-in-5-minutes/create-an-app)
-// - 需要订阅 [即时通讯] 分类下的 [消息已读] 事件
+// - 需要订阅 [消息与群组] 分类下的 [消息已读] 事件
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/events/message_read
 func (r *EventCallbackService) HandlerEventV2IMMessageReadV1(f EventV2IMMessageReadV1Handler) {
