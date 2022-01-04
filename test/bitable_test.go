@@ -72,8 +72,7 @@ func Test_Bitable(t *testing.T) {
 				res, _, err := cli.Bitable.CreateBitableView(ctx, &lark.CreateBitableViewReq{
 					AppToken: appToken,
 					TableID:  tableID,
-					ViewID:   ptr.String("view-id-" + randInt64String()),
-					ViewName: ptr.String("view-name-" + randInt64String()),
+					ViewName: "view-name-" + randInt64String(),
 					ViewType: ptr.String("gantt"),
 				})
 				resp = res
