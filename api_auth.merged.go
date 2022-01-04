@@ -59,7 +59,7 @@ func (r *Mock) UnMockAuthRefreshAccessToken() {
 // RefreshAccessTokenReq ...
 type RefreshAccessTokenReq struct {
 	GrantType    string `json:"grant_type,omitempty"`    // 授权类型，本流程中，此值为："refresh_token", 示例值："refresh_token"
-	RefreshToken string `json:"refresh_token,omitempty"` // 来自[获取登录用户身份](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/authen-v1/authen/access_token) 或 本接口返回值, 示例值："ur-t9HHgRCsMqGqIU9vw5Zhof"
+	RefreshToken string `json:"refresh_token,omitempty"` // 来自[获取登录用户身份](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/authen-v1/authen/access_token) 或 本接口返回值, 示例值："ur-oQ0mMq6MCcueAv0pwx2fQQhxqv__CbLu6G8ySFwafeKww2Def2BJdOkW3.9gCFM.LBQgFri901QaqeuL"
 }
 
 // refreshAccessTokenResp ...

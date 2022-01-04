@@ -46,6 +46,9 @@ const (
 	EventTypeV2MeetingRoomMeetingRoomStatusChangedV1   EventType = "meeting_room.meeting_room.status_changed_v1"
 	EventTypeV2MeetingRoomMeetingRoomDeletedV1         EventType = "meeting_room.meeting_room.deleted_v1"
 	EventTypeV2MeetingRoomMeetingRoomCreatedV1         EventType = "meeting_room.meeting_room.created_v1"
+	EventTypeV1ThirdPartyMeetingRoomEventCreated       EventType = "third_party_meeting_room_event_created"
+	EventTypeV1ThirdPartyMeetingRoomEventUpdated       EventType = "third_party_meeting_room_event_updated"
+	EventTypeV1ThirdPartyMeetingRoomEventDeleted       EventType = "third_party_meeting_room_event_deleted"
 	EventTypeV1OrderPaid                               EventType = "order_paid"
 	EventTypeV1AppTicket                               EventType = "app_ticket"
 	EventTypeV1AppUninstalled                          EventType = "app_uninstalled"
@@ -54,6 +57,7 @@ const (
 	EventTypeV2AttendanceUserTaskUpdatedV1             EventType = "attendance.user_task.updated_v1"
 	EventTypeV2AttendanceUserFlowCreatedV1             EventType = "attendance.user_flow.created_v1"
 	EventTypeV2AwemeEcosystemAwemeUserBindedAccountV1  EventType = "aweme_ecosystem.aweme_user.binded_account_v1"
+	EventTypeV2TaskTaskUpdateTenantV1                  EventType = "task.task.update_tenant_v1"
 	EventTypeV2TaskTaskUpdatedV1                       EventType = "task.task.updated_v1"
 	EventTypeV2TaskTaskCommentUpdatedV1                EventType = "task.task.comment.updated_v1"
 	EventTypeV2HelpdeskTicketMessageCreatedV1          EventType = "helpdesk.ticket_message.created_v1"
@@ -127,6 +131,9 @@ type eventHandler struct {
 	eventV2MeetingRoomMeetingRoomStatusChangedV1Handler   EventV2MeetingRoomMeetingRoomStatusChangedV1Handler
 	eventV2MeetingRoomMeetingRoomDeletedV1Handler         EventV2MeetingRoomMeetingRoomDeletedV1Handler
 	eventV2MeetingRoomMeetingRoomCreatedV1Handler         EventV2MeetingRoomMeetingRoomCreatedV1Handler
+	eventV1ThirdPartyMeetingRoomEventCreatedHandler       EventV1ThirdPartyMeetingRoomEventCreatedHandler
+	eventV1ThirdPartyMeetingRoomEventUpdatedHandler       EventV1ThirdPartyMeetingRoomEventUpdatedHandler
+	eventV1ThirdPartyMeetingRoomEventDeletedHandler       EventV1ThirdPartyMeetingRoomEventDeletedHandler
 	eventV1OrderPaidHandler                               EventV1OrderPaidHandler
 	eventV1AppTicketHandler                               EventV1AppTicketHandler
 	eventV1AppUninstalledHandler                          EventV1AppUninstalledHandler
@@ -135,6 +142,7 @@ type eventHandler struct {
 	eventV2AttendanceUserTaskUpdatedV1Handler             EventV2AttendanceUserTaskUpdatedV1Handler
 	eventV2AttendanceUserFlowCreatedV1Handler             EventV2AttendanceUserFlowCreatedV1Handler
 	eventV2AwemeEcosystemAwemeUserBindedAccountV1Handler  EventV2AwemeEcosystemAwemeUserBindedAccountV1Handler
+	eventV2TaskTaskUpdateTenantV1Handler                  EventV2TaskTaskUpdateTenantV1Handler
 	eventV2TaskTaskUpdatedV1Handler                       EventV2TaskTaskUpdatedV1Handler
 	eventV2TaskTaskCommentUpdatedV1Handler                EventV2TaskTaskCommentUpdatedV1Handler
 	eventV2HelpdeskTicketMessageCreatedV1Handler          EventV2HelpdeskTicketMessageCreatedV1Handler
@@ -209,6 +217,9 @@ func (r *eventHandler) clone() *eventHandler {
 		eventV2MeetingRoomMeetingRoomStatusChangedV1Handler:   r.eventV2MeetingRoomMeetingRoomStatusChangedV1Handler,
 		eventV2MeetingRoomMeetingRoomDeletedV1Handler:         r.eventV2MeetingRoomMeetingRoomDeletedV1Handler,
 		eventV2MeetingRoomMeetingRoomCreatedV1Handler:         r.eventV2MeetingRoomMeetingRoomCreatedV1Handler,
+		eventV1ThirdPartyMeetingRoomEventCreatedHandler:       r.eventV1ThirdPartyMeetingRoomEventCreatedHandler,
+		eventV1ThirdPartyMeetingRoomEventUpdatedHandler:       r.eventV1ThirdPartyMeetingRoomEventUpdatedHandler,
+		eventV1ThirdPartyMeetingRoomEventDeletedHandler:       r.eventV1ThirdPartyMeetingRoomEventDeletedHandler,
 		eventV1OrderPaidHandler:                               r.eventV1OrderPaidHandler,
 		eventV1AppTicketHandler:                               r.eventV1AppTicketHandler,
 		eventV1AppUninstalledHandler:                          r.eventV1AppUninstalledHandler,
@@ -217,6 +228,7 @@ func (r *eventHandler) clone() *eventHandler {
 		eventV2AttendanceUserTaskUpdatedV1Handler:             r.eventV2AttendanceUserTaskUpdatedV1Handler,
 		eventV2AttendanceUserFlowCreatedV1Handler:             r.eventV2AttendanceUserFlowCreatedV1Handler,
 		eventV2AwemeEcosystemAwemeUserBindedAccountV1Handler:  r.eventV2AwemeEcosystemAwemeUserBindedAccountV1Handler,
+		eventV2TaskTaskUpdateTenantV1Handler:                  r.eventV2TaskTaskUpdateTenantV1Handler,
 		eventV2TaskTaskUpdatedV1Handler:                       r.eventV2TaskTaskUpdatedV1Handler,
 		eventV2TaskTaskCommentUpdatedV1Handler:                r.eventV2TaskTaskCommentUpdatedV1Handler,
 		eventV2HelpdeskTicketMessageCreatedV1Handler:          r.eventV2HelpdeskTicketMessageCreatedV1Handler,
@@ -290,6 +302,9 @@ type eventBody struct {
 	eventV2MeetingRoomMeetingRoomStatusChangedV1   *EventV2MeetingRoomMeetingRoomStatusChangedV1
 	eventV2MeetingRoomMeetingRoomDeletedV1         *EventV2MeetingRoomMeetingRoomDeletedV1
 	eventV2MeetingRoomMeetingRoomCreatedV1         *EventV2MeetingRoomMeetingRoomCreatedV1
+	eventV1ThirdPartyMeetingRoomEventCreated       *EventV1ThirdPartyMeetingRoomEventCreated
+	eventV1ThirdPartyMeetingRoomEventUpdated       *EventV1ThirdPartyMeetingRoomEventUpdated
+	eventV1ThirdPartyMeetingRoomEventDeleted       *EventV1ThirdPartyMeetingRoomEventDeleted
 	eventV1OrderPaid                               *EventV1OrderPaid
 	eventV1AppTicket                               *EventV1AppTicket
 	eventV1AppUninstalled                          *EventV1AppUninstalled
@@ -298,6 +313,7 @@ type eventBody struct {
 	eventV2AttendanceUserTaskUpdatedV1             *EventV2AttendanceUserTaskUpdatedV1
 	eventV2AttendanceUserFlowCreatedV1             *EventV2AttendanceUserFlowCreatedV1
 	eventV2AwemeEcosystemAwemeUserBindedAccountV1  *EventV2AwemeEcosystemAwemeUserBindedAccountV1
+	eventV2TaskTaskUpdateTenantV1                  *EventV2TaskTaskUpdateTenantV1
 	eventV2TaskTaskUpdatedV1                       *EventV2TaskTaskUpdatedV1
 	eventV2TaskTaskCommentUpdatedV1                *EventV2TaskTaskCommentUpdatedV1
 	eventV2HelpdeskTicketMessageCreatedV1          *EventV2HelpdeskTicketMessageCreatedV1
@@ -455,6 +471,12 @@ func (r *EventCallbackService) parserEventV2(req *eventReq) error {
 			return err
 		}
 		req.eventV2AwemeEcosystemAwemeUserBindedAccountV1 = event
+	case EventTypeV2TaskTaskUpdateTenantV1:
+		event := new(EventV2TaskTaskUpdateTenantV1)
+		if err := req.unmarshalEvent(event); err != nil {
+			return err
+		}
+		req.eventV2TaskTaskUpdateTenantV1 = event
 	case EventTypeV2TaskTaskUpdatedV1:
 		event := new(EventV2TaskTaskUpdatedV1)
 		if err := req.unmarshalEvent(event); err != nil {
@@ -775,6 +797,24 @@ func (r *EventCallbackService) parserEventV1(req *eventReq) error {
 		}
 		req.eventV1RemedyApproval = event
 
+	case EventTypeV1ThirdPartyMeetingRoomEventCreated:
+		event := new(EventV1ThirdPartyMeetingRoomEventCreated)
+		if err := json.Unmarshal(bs, event); err != nil {
+			return fmt.Errorf("lark event unmarshal event %s failed", bs)
+		}
+		req.eventV1ThirdPartyMeetingRoomEventCreated = event
+	case EventTypeV1ThirdPartyMeetingRoomEventUpdated:
+		event := new(EventV1ThirdPartyMeetingRoomEventUpdated)
+		if err := json.Unmarshal(bs, event); err != nil {
+			return fmt.Errorf("lark event unmarshal event %s failed", bs)
+		}
+		req.eventV1ThirdPartyMeetingRoomEventUpdated = event
+	case EventTypeV1ThirdPartyMeetingRoomEventDeleted:
+		event := new(EventV1ThirdPartyMeetingRoomEventDeleted)
+		if err := json.Unmarshal(bs, event); err != nil {
+			return fmt.Errorf("lark event unmarshal event %s failed", bs)
+		}
+		req.eventV1ThirdPartyMeetingRoomEventDeleted = event
 	case EventTypeV1OrderPaid:
 		event := new(EventV1OrderPaid)
 		if err := json.Unmarshal(bs, event); err != nil {
@@ -955,6 +995,21 @@ func (r *EventCallbackService) handlerEvent(ctx context.Context, req *eventReq) 
 			s, err = r.cli.eventHandler.eventV2MeetingRoomMeetingRoomCreatedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2MeetingRoomMeetingRoomCreatedV1)
 		}
 		return true, s, err
+	case req.eventV1ThirdPartyMeetingRoomEventCreated != nil:
+		if r.cli.eventHandler.eventV1ThirdPartyMeetingRoomEventCreatedHandler != nil {
+			s, err = r.cli.eventHandler.eventV1ThirdPartyMeetingRoomEventCreatedHandler(ctx, r.cli, req.Schema, req.headerV1(EventTypeV1ThirdPartyMeetingRoomEventCreated), req.eventV1ThirdPartyMeetingRoomEventCreated)
+		}
+		return true, s, err
+	case req.eventV1ThirdPartyMeetingRoomEventUpdated != nil:
+		if r.cli.eventHandler.eventV1ThirdPartyMeetingRoomEventUpdatedHandler != nil {
+			s, err = r.cli.eventHandler.eventV1ThirdPartyMeetingRoomEventUpdatedHandler(ctx, r.cli, req.Schema, req.headerV1(EventTypeV1ThirdPartyMeetingRoomEventUpdated), req.eventV1ThirdPartyMeetingRoomEventUpdated)
+		}
+		return true, s, err
+	case req.eventV1ThirdPartyMeetingRoomEventDeleted != nil:
+		if r.cli.eventHandler.eventV1ThirdPartyMeetingRoomEventDeletedHandler != nil {
+			s, err = r.cli.eventHandler.eventV1ThirdPartyMeetingRoomEventDeletedHandler(ctx, r.cli, req.Schema, req.headerV1(EventTypeV1ThirdPartyMeetingRoomEventDeleted), req.eventV1ThirdPartyMeetingRoomEventDeleted)
+		}
+		return true, s, err
 	case req.eventV1OrderPaid != nil:
 		if r.cli.eventHandler.eventV1OrderPaidHandler != nil {
 			s, err = r.cli.eventHandler.eventV1OrderPaidHandler(ctx, r.cli, req.Schema, req.headerV1(EventTypeV1OrderPaid), req.eventV1OrderPaid)
@@ -993,6 +1048,11 @@ func (r *EventCallbackService) handlerEvent(ctx context.Context, req *eventReq) 
 	case req.eventV2AwemeEcosystemAwemeUserBindedAccountV1 != nil:
 		if r.cli.eventHandler.eventV2AwemeEcosystemAwemeUserBindedAccountV1Handler != nil {
 			s, err = r.cli.eventHandler.eventV2AwemeEcosystemAwemeUserBindedAccountV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2AwemeEcosystemAwemeUserBindedAccountV1)
+		}
+		return true, s, err
+	case req.eventV2TaskTaskUpdateTenantV1 != nil:
+		if r.cli.eventHandler.eventV2TaskTaskUpdateTenantV1Handler != nil {
+			s, err = r.cli.eventHandler.eventV2TaskTaskUpdateTenantV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2TaskTaskUpdateTenantV1)
 		}
 		return true, s, err
 	case req.eventV2TaskTaskUpdatedV1 != nil:

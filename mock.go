@@ -110,6 +110,8 @@ type Mock struct {
 	mockChatJoinChat                                           func(ctx context.Context, request *JoinChatReq, options ...MethodOptionFunc) (*JoinChatResp, *Response, error)
 	mockChatGetChatAnnouncement                                func(ctx context.Context, request *GetChatAnnouncementReq, options ...MethodOptionFunc) (*GetChatAnnouncementResp, *Response, error)
 	mockChatUpdateChatAnnouncement                             func(ctx context.Context, request *UpdateChatAnnouncementReq, options ...MethodOptionFunc) (*UpdateChatAnnouncementResp, *Response, error)
+	mockChatGetChatModeration                                  func(ctx context.Context, request *GetChatModerationReq, options ...MethodOptionFunc) (*GetChatModerationResp, *Response, error)
+	mockChatUpdateChatModeration                               func(ctx context.Context, request *UpdateChatModerationReq, options ...MethodOptionFunc) (*UpdateChatModerationResp, *Response, error)
 	mockBotGetBotInfo                                          func(ctx context.Context, request *GetBotInfoReq, options ...MethodOptionFunc) (*GetBotInfoResp, *Response, error)
 	mockBotAddBotToChat                                        func(ctx context.Context, request *AddBotToChatReq, options ...MethodOptionFunc) (*AddBotToChatResp, *Response, error)
 	mockCalendarCreateCalendarACL                              func(ctx context.Context, request *CreateCalendarACLReq, options ...MethodOptionFunc) (*CreateCalendarACLResp, *Response, error)

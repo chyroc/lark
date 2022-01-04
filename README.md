@@ -38,7 +38,7 @@ https://godoc.org/github.com/chyroc/lark
 
 ## Support APIs
 
-API Count: 537, Event Count: 77
+API Count: 539, Event Count: 81
 
 <details>
   <summary>
@@ -133,6 +133,8 @@ API Count: 537, Event Count: 77
   - JoinChat
   - GetChatAnnouncement
   - UpdateChatAnnouncement
+  - GetChatModeration
+  - UpdateChatModeration
 - Bot
   - GetBotInfo
   - AddBotToChat
@@ -608,6 +610,9 @@ API Count: 537, Event Count: 77
   - EventV2MeetingRoomMeetingRoomStatusChangedV1
   - EventV2MeetingRoomMeetingRoomDeletedV1
   - EventV2MeetingRoomMeetingRoomCreatedV1
+  - EventV1ThirdPartyMeetingRoomEventCreated
+  - EventV1ThirdPartyMeetingRoomEventUpdated
+  - EventV1ThirdPartyMeetingRoomEventDeleted
   - EventV1OrderPaid
   - EventV1AppTicket
   - EventV1AppUninstalled
@@ -616,6 +621,7 @@ API Count: 537, Event Count: 77
   - EventV2AttendanceUserTaskUpdatedV1
   - EventV2AttendanceUserFlowCreatedV1
   - EventV2AwemeEcosystemAwemeUserBindedAccountV1
+  - EventV2TaskTaskUpdateTenantV1
   - EventV2TaskTaskUpdatedV1
   - EventV2TaskTaskCommentUpdatedV1
   - EventV2HelpdeskTicketMessageCreatedV1

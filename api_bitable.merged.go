@@ -1184,9 +1184,8 @@ func (r *Mock) UnMockBitableCreateBitableView() {
 type CreateBitableViewReq struct {
 	AppToken string  `path:"app_token" json:"-"`  // bitable app token, 示例值："appbcbWCzen6D8dezhoCH2RpMAh"
 	TableID  string  `path:"table_id" json:"-"`   // table id, 示例值："tblsRc9GRRXKqhvW"
-	ViewID   *string `json:"view_id,omitempty"`   // 视图Id, 示例值："vewTpR1urY"
-	ViewName *string `json:"view_name,omitempty"` // 视图名字, 示例值："甘特视图1"
-	ViewType *string `json:"view_type,omitempty"` // 视图类型, 示例值："gantt"
+	ViewName string  `json:"view_name,omitempty"` // 视图名字, 示例值："表格视图1"
+	ViewType *string `json:"view_type,omitempty"` // 视图类型, 示例值："grid", 可选值有: `grid`：表格视图, `kanban`：看板视图, `gallery`：画册视图, `gantt`：甘特视图
 }
 
 // createBitableViewResp ...
