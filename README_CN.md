@@ -38,7 +38,7 @@ https://godoc.org/github.com/chyroc/lark
 
 ## 支持的接口
 
-API 总数: 539, 事件总数: 81
+API 总数: 539, 事件总数: 83
 
 <details>
   <summary>
@@ -642,6 +642,8 @@ API 总数: 539, 事件总数: 81
   - EventV2ContactEmployeeTypeEnumDeletedV3
   - EventV2IMMessageReceiveV1
   - EventV2IMMessageReadV1
+  - EventV2IMMessageReactionDeletedV1
+  - EventV2IMMessageReactionCreatedV1
   - EventV2IMChatDisbandedV1
   - EventV2IMChatUpdatedV1
   - EventV2IMChatMemberBotAddedV1

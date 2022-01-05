@@ -38,7 +38,7 @@ https://godoc.org/github.com/chyroc/lark
 
 ## Support APIs
 
-API Count: 539, Event Count: 81
+API Count: 539, Event Count: 83
 
 <details>
   <summary>
@@ -642,6 +642,8 @@ API Count: 539, Event Count: 81
   - EventV2ContactEmployeeTypeEnumDeletedV3
   - EventV2IMMessageReceiveV1
   - EventV2IMMessageReadV1
+  - EventV2IMMessageReactionDeletedV1
+  - EventV2IMMessageReactionCreatedV1
   - EventV2IMChatDisbandedV1
   - EventV2IMChatUpdatedV1
   - EventV2IMChatMemberBotAddedV1

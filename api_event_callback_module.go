@@ -78,6 +78,8 @@ const (
 	EventTypeV2ContactEmployeeTypeEnumDeletedV3        EventType = "contact.employee_type_enum.deleted_v3"
 	EventTypeV2IMMessageReceiveV1                      EventType = "im.message.receive_v1"
 	EventTypeV2IMMessageReadV1                         EventType = "im.message.message_read_v1"
+	EventTypeV2IMMessageReactionDeletedV1              EventType = "im.message.reaction.deleted_v1"
+	EventTypeV2IMMessageReactionCreatedV1              EventType = "im.message.reaction.created_v1"
 	EventTypeV2IMChatDisbandedV1                       EventType = "im.chat.disbanded_v1"
 	EventTypeV2IMChatUpdatedV1                         EventType = "im.chat.updated_v1"
 	EventTypeV2IMChatMemberBotAddedV1                  EventType = "im.chat.member.bot.added_v1"
@@ -163,6 +165,8 @@ type eventHandler struct {
 	eventV2ContactEmployeeTypeEnumDeletedV3Handler        EventV2ContactEmployeeTypeEnumDeletedV3Handler
 	eventV2IMMessageReceiveV1Handler                      EventV2IMMessageReceiveV1Handler
 	eventV2IMMessageReadV1Handler                         EventV2IMMessageReadV1Handler
+	eventV2IMMessageReactionDeletedV1Handler              EventV2IMMessageReactionDeletedV1Handler
+	eventV2IMMessageReactionCreatedV1Handler              EventV2IMMessageReactionCreatedV1Handler
 	eventV2IMChatDisbandedV1Handler                       EventV2IMChatDisbandedV1Handler
 	eventV2IMChatUpdatedV1Handler                         EventV2IMChatUpdatedV1Handler
 	eventV2IMChatMemberBotAddedV1Handler                  EventV2IMChatMemberBotAddedV1Handler
@@ -249,6 +253,8 @@ func (r *eventHandler) clone() *eventHandler {
 		eventV2ContactEmployeeTypeEnumDeletedV3Handler:        r.eventV2ContactEmployeeTypeEnumDeletedV3Handler,
 		eventV2IMMessageReceiveV1Handler:                      r.eventV2IMMessageReceiveV1Handler,
 		eventV2IMMessageReadV1Handler:                         r.eventV2IMMessageReadV1Handler,
+		eventV2IMMessageReactionDeletedV1Handler:              r.eventV2IMMessageReactionDeletedV1Handler,
+		eventV2IMMessageReactionCreatedV1Handler:              r.eventV2IMMessageReactionCreatedV1Handler,
 		eventV2IMChatDisbandedV1Handler:                       r.eventV2IMChatDisbandedV1Handler,
 		eventV2IMChatUpdatedV1Handler:                         r.eventV2IMChatUpdatedV1Handler,
 		eventV2IMChatMemberBotAddedV1Handler:                  r.eventV2IMChatMemberBotAddedV1Handler,
@@ -334,6 +340,8 @@ type eventBody struct {
 	eventV2ContactEmployeeTypeEnumDeletedV3        *EventV2ContactEmployeeTypeEnumDeletedV3
 	eventV2IMMessageReceiveV1                      *EventV2IMMessageReceiveV1
 	eventV2IMMessageReadV1                         *EventV2IMMessageReadV1
+	eventV2IMMessageReactionDeletedV1              *EventV2IMMessageReactionDeletedV1
+	eventV2IMMessageReactionCreatedV1              *EventV2IMMessageReactionCreatedV1
 	eventV2IMChatDisbandedV1                       *EventV2IMChatDisbandedV1
 	eventV2IMChatUpdatedV1                         *EventV2IMChatUpdatedV1
 	eventV2IMChatMemberBotAddedV1                  *EventV2IMChatMemberBotAddedV1
@@ -597,6 +605,18 @@ func (r *EventCallbackService) parserEventV2(req *eventReq) error {
 			return err
 		}
 		req.eventV2IMMessageReadV1 = event
+	case EventTypeV2IMMessageReactionDeletedV1:
+		event := new(EventV2IMMessageReactionDeletedV1)
+		if err := req.unmarshalEvent(event); err != nil {
+			return err
+		}
+		req.eventV2IMMessageReactionDeletedV1 = event
+	case EventTypeV2IMMessageReactionCreatedV1:
+		event := new(EventV2IMMessageReactionCreatedV1)
+		if err := req.unmarshalEvent(event); err != nil {
+			return err
+		}
+		req.eventV2IMMessageReactionCreatedV1 = event
 	case EventTypeV2IMChatDisbandedV1:
 		event := new(EventV2IMChatDisbandedV1)
 		if err := req.unmarshalEvent(event); err != nil {
@@ -1153,6 +1173,16 @@ func (r *EventCallbackService) handlerEvent(ctx context.Context, req *eventReq) 
 	case req.eventV2IMMessageReadV1 != nil:
 		if r.cli.eventHandler.eventV2IMMessageReadV1Handler != nil {
 			s, err = r.cli.eventHandler.eventV2IMMessageReadV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2IMMessageReadV1)
+		}
+		return true, s, err
+	case req.eventV2IMMessageReactionDeletedV1 != nil:
+		if r.cli.eventHandler.eventV2IMMessageReactionDeletedV1Handler != nil {
+			s, err = r.cli.eventHandler.eventV2IMMessageReactionDeletedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2IMMessageReactionDeletedV1)
+		}
+		return true, s, err
+	case req.eventV2IMMessageReactionCreatedV1 != nil:
+		if r.cli.eventHandler.eventV2IMMessageReactionCreatedV1Handler != nil {
+			s, err = r.cli.eventHandler.eventV2IMMessageReactionCreatedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2IMMessageReactionCreatedV1)
 		}
 		return true, s, err
 	case req.eventV2IMChatDisbandedV1 != nil:
