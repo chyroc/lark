@@ -1262,7 +1262,7 @@ type EventV2ContactDepartmentUpdatedV3OldObjectStatus struct {
 
 // EventV2ContactEmployeeTypeEnumActivedV3
 //
-// 启用人员类型会发出对应事件，需要权限为`以应用身份访问通讯录`,推送方式为`Webhook`。{使用示例}(url=/api/tools/api_explore/api_explore_config?project=contact&version=v3&resource=employee_type_enum&event=actived)
+// 启用人员类型会发出对应事件。{使用示例}(url=/api/tools/api_explore/api_explore_config?project=contact&version=v3&resource=employee_type_enum&event=actived)
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/employee_type_enum/events/actived
 func (r *EventCallbackService) HandlerEventV2ContactEmployeeTypeEnumActivedV3(f EventV2ContactEmployeeTypeEnumActivedV3Handler) {
@@ -1314,7 +1314,7 @@ type EventV2ContactEmployeeTypeEnumActivedV3NewEnumI18nContent struct {
 
 // EventV2ContactEmployeeTypeEnumCreatedV3
 //
-// 新建人员类型会发出对应事件，需要权限为`以应用身份访问通讯录`,推送方式为`Webhook`。{使用示例}(url=/api/tools/api_explore/api_explore_config?project=contact&version=v3&resource=employee_type_enum&event=created)
+// 新建人员类型会发出对应事件。{使用示例}(url=/api/tools/api_explore/api_explore_config?project=contact&version=v3&resource=employee_type_enum&event=created)
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/employee_type_enum/events/created
 func (r *EventCallbackService) HandlerEventV2ContactEmployeeTypeEnumCreatedV3(f EventV2ContactEmployeeTypeEnumCreatedV3Handler) {
@@ -1349,7 +1349,7 @@ type EventV2ContactEmployeeTypeEnumCreatedV3NewEnumI18nContent struct {
 
 // EventV2ContactEmployeeTypeEnumDeactivatedV3
 //
-// 停用人员类型会发出对应事件，需要权限为`以应用身份访问通讯录`,推送方式为`Webhook`。{使用示例}(url=/api/tools/api_explore/api_explore_config?project=contact&version=v3&resource=employee_type_enum&event=deactivated)
+// 停用人员类型会发出对应事件。{使用示例}(url=/api/tools/api_explore/api_explore_config?project=contact&version=v3&resource=employee_type_enum&event=deactivated)
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/employee_type_enum/events/deactivated
 func (r *EventCallbackService) HandlerEventV2ContactEmployeeTypeEnumDeactivatedV3(f EventV2ContactEmployeeTypeEnumDeactivatedV3Handler) {
@@ -1401,7 +1401,7 @@ type EventV2ContactEmployeeTypeEnumDeactivatedV3NewEnumI18nContent struct {
 
 // EventV2ContactEmployeeTypeEnumDeletedV3
 //
-// 删除人员类型会发出对应事件，需要权限为`以应用身份访问通讯录`,推送方式为`Webhook`。{使用示例}(url=/api/tools/api_explore/api_explore_config?project=contact&version=v3&resource=employee_type_enum&event=deleted)
+// 删除人员类型会发出对应事件。{使用示例}(url=/api/tools/api_explore/api_explore_config?project=contact&version=v3&resource=employee_type_enum&event=deleted)
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/employee_type_enum/events/deleted
 func (r *EventCallbackService) HandlerEventV2ContactEmployeeTypeEnumDeletedV3(f EventV2ContactEmployeeTypeEnumDeletedV3Handler) {
@@ -1436,7 +1436,7 @@ type EventV2ContactEmployeeTypeEnumDeletedV3OldEnumI18nContent struct {
 
 // EventV2ContactEmployeeTypeEnumUpdatedV3
 //
-// 修改人员类型名称会发出对应事件，需要权限为`以应用身份访问通讯录`,推送方式为`Webhook`。{使用示例}(url=/api/tools/api_explore/api_explore_config?project=contact&version=v3&resource=employee_type_enum&event=updated)
+// 修改人员类型名称会发出对应事件。{使用示例}(url=/api/tools/api_explore/api_explore_config?project=contact&version=v3&resource=employee_type_enum&event=updated)
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/employee_type_enum/events/updated
 func (r *EventCallbackService) HandlerEventV2ContactEmployeeTypeEnumUpdatedV3(f EventV2ContactEmployeeTypeEnumUpdatedV3Handler) {

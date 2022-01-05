@@ -523,6 +523,7 @@ type JoinChatResp struct{}
 // - 对于普通群，最多指定 10 个管理员
 // - 对于超大群，最多指定 20 个管理员
 // - 每次请求最多指定 50 个用户或者 5 个机器人
+// - 指定机器人类型的管理员请使用 [app_id]
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-managers/add_managers
 func (r *ChatService) CreateChatManager(ctx context.Context, request *CreateChatManagerReq, options ...MethodOptionFunc) (*CreateChatManagerResp, *Response, error) {
@@ -585,6 +586,7 @@ type CreateChatManagerResp struct {
 // - 应用需要开启[机器人能力](https://open.feishu.cn/document/home/develop-a-bot-in-5-minutes/create-an-app)
 // - 仅有群主可以删除群管理员
 // - 每次请求最多指定 50 个用户或者 5 个机器人
+// - 删除机器人类型的管理员请使用 [app_id]
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-managers/delete_managers
 func (r *ChatService) DeleteChatManager(ctx context.Context, request *DeleteChatManagerReq, options ...MethodOptionFunc) (*DeleteChatManagerResp, *Response, error) {
@@ -646,9 +648,10 @@ type DeleteChatManagerResp struct {
 // 注意事项：
 // - 应用需要开启[机器人能力](https://open.feishu.cn/document/home/develop-a-bot-in-5-minutes/create-an-app)
 // - 如需拉用户进群，需要机器人对用户有可见性
-// - 在开启 [仅群主可添加群成员] 的设置时，仅有群主/管理员 或 创建群组且具备 [更新应用所创建群的群信息] 权限的机器人，可以拉用户或者机器人进群
-// - 在未开启 [仅群主可添加群成员] 的设置时，所有群成员都可以拉用户或机器人进群
+// - 在开启 [仅群主和群管理员可添加群成员] 的设置时，仅有群主/管理员 或 创建群组且具备 [更新应用所创建群的群信息] 权限的机器人，可以拉用户或者机器人进群
+// - 在未开启 [仅群主和群管理员可添加群成员] 的设置时，所有群成员都可以拉用户或机器人进群
 // - 每次请求，最多拉50个用户或者5个机器人，并且群组最多容纳15个机器人
+// - 拉机器人入群请使用 [app_id]
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-members/create
 func (r *ChatService) AddChatMember(ctx context.Context, request *AddChatMemberReq, options ...MethodOptionFunc) (*AddChatMemberResp, *Response, error) {
@@ -709,8 +712,9 @@ type AddChatMemberResp struct {
 // 注意事项：
 // - 应用需要开启[机器人能力](https://open.feishu.cn/document/home/develop-a-bot-in-5-minutes/create-an-app)
 // - 用户或机器人在任何条件下均可移除自己出群（即主动退群）
-// - 仅有群主/管理员 及 创建群组且具备 [更新应用所创建群的群信息] 权限的机器人，可以移除其他用户或者机器人
+// - 仅有群主/管理员 或 创建群组并且具备 [更新应用所创建群的群信息] 权限的机器人，可以移除其他用户或者机器人
 // - 每次请求，最多移除50个用户或者5个机器人
+// - 移除机器人请使用 [app_id]
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-members/delete
 func (r *ChatService) DeleteChatMember(ctx context.Context, request *DeleteChatMemberReq, options ...MethodOptionFunc) (*DeleteChatMemberResp, *Response, error) {
