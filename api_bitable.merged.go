@@ -753,7 +753,7 @@ func (r *Mock) UnMockBitableGetBitableRecordList() {
 // GetBitableRecordListReq ...
 type GetBitableRecordListReq struct {
 	ViewID           *string `query:"view_id" json:"-"`             // 视图 id, 如filter或sort有值, view_id会被忽略, 示例值："vewqhz51lk"
-	Filter           *string `query:"filter" json:"-"`              // filter, 不超过2000个字符, 不支持对带特殊字段(关联和公式)的表的使用, 示例值："AND(CurrentValue.[身高]>180, CurrentValue.[体重]>150)"
+	Filter           *string `query:"filter" json:"-"`              // filter, 不超过2000个字符, 不支持对高级字段属性(关联和公式)进行过滤筛选，仅支持字段文本值。, 示例值："AND(CurrentValue.[身高]>180, CurrentValue.[体重]>150)"
 	Sort             *string `query:"sort" json:"-"`                // sort, 不超过1000字符, 不支持对带特殊字段(关联和公式)的表的使用, 示例值："["字段1 DESC","字段2 ASC"]"
 	FieldNames       *string `query:"field_names" json:"-"`         // field_names, 示例值："["字段1"]"
 	TextFieldAsArray *bool   `query:"text_field_as_array" json:"-"` // 控制多行文本字段数据的返回格式, true 表示以数组形式返回, 示例值：true

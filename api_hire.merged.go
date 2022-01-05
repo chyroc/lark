@@ -1040,7 +1040,7 @@ type CreateHireNoteReq struct {
 	TalentID      string  `json:"talent_id,omitempty"`      // 人才ID, 示例值："6916472453069883661"
 	ApplicationID *string `json:"application_id,omitempty"` // 投递ID, 示例值："6891565253964859661"
 	CreatorID     *string `json:"creator_id,omitempty"`     // 创建人ID, 示例值："ou_f476cb099ac9227c9bae09ce46112579"
-	Content       string  `json:"content,omitempty"`        // 内容, 示例值："测试5"
+	Content       string  `json:"content,omitempty"`        // 内容, 示例值："测试"
 	Privacy       *int64  `json:"privacy,omitempty"`        // 备注私密属性（默认为公开）, 示例值：1, 可选值有: `1`：私密, `2`：公开
 }
 
@@ -1106,8 +1106,8 @@ func (r *Mock) UnMockHireGetHireNote() {
 
 // GetHireNoteReq ...
 type GetHireNoteReq struct {
-	UserIDType *IDType `query:"user_id_type" json:"-"` // 用户 ID 类型, 示例值："open_id", 可选值有: `open_id`：用户的 open id, `union_id`：用户的 union id, `user_id`：用户的 user id, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
-	NoteID     string  `path:"note_id" json:"-"`       // Note ID, 示例值："6950620009265891614"
+	UserIDType *IDType `query:"user_id_type" json:"-"` // 用户 ID 类型, 示例值："open_id", 可选值有: `open_id`：用户的 open id, `union_id`：用户的 union id, `user_id`：用户的 user id, `people_admin_id`：以people_admin_id来识别用户, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
+	NoteID     string  `path:"note_id" json:"-"`       // 备注ID, 示例值："6949805467799537964"
 }
 
 // getHireNoteResp ...
@@ -1124,7 +1124,7 @@ type GetHireNoteResp struct {
 
 // GetHireNoteRespNote ...
 type GetHireNoteRespNote struct {
-	ID            string `json:"id,omitempty"`             // ID备注
+	ID            string `json:"id,omitempty"`             // 备注ID
 	TalentID      string `json:"talent_id,omitempty"`      // 人才ID
 	ApplicationID string `json:"application_id,omitempty"` // 投递ID
 	IsPrivate     bool   `json:"is_private,omitempty"`     // 是否私密
@@ -1175,7 +1175,7 @@ type GetHireNoteListReq struct {
 	PageSize   *int64  `query:"page_size" json:"-"`    // 每页限制, 每页最大不超过100, 示例值：10
 	PageToken  *string `query:"page_token" json:"-"`   // 查询游标, 由上一页结果返回, 第一页不传, 示例值："1"
 	TalentID   string  `query:"talent_id" json:"-"`    // 人才ID, 示例值："6916472453069883661"
-	UserIDType *IDType `query:"user_id_type" json:"-"` // 用户 ID 类型, 示例值："open_id", 可选值有: `open_id`：用户的 open id, `union_id`：用户的 union id, `user_id`：用户的 user id, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
+	UserIDType *IDType `query:"user_id_type" json:"-"` // 用户 ID 类型, 示例值："open_id", 可选值有: `open_id`：用户的 open id, `union_id`：用户的 union id, `user_id`：用户的 user id, `people_admin_id`：以people_admin_id来识别用户, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
 }
 
 // getHireNoteListResp ...
@@ -1194,7 +1194,7 @@ type GetHireNoteListResp struct {
 
 // GetHireNoteListRespItem ...
 type GetHireNoteListRespItem struct {
-	ID            string `json:"id,omitempty"`             // ID备注
+	ID            string `json:"id,omitempty"`             // 备注ID
 	TalentID      string `json:"talent_id,omitempty"`      // 人才ID
 	ApplicationID string `json:"application_id,omitempty"` // 投递ID
 	IsPrivate     bool   `json:"is_private,omitempty"`     // 是否私密
@@ -1242,8 +1242,8 @@ func (r *Mock) UnMockHireUpdateHireNote() {
 
 // UpdateHireNoteReq ...
 type UpdateHireNoteReq struct {
-	UserIDType *IDType `query:"user_id_type" json:"-"` // 用户 ID 类型, 示例值："open_id", 可选值有: `open_id`：用户的 open id, `union_id`：用户的 union id, `user_id`：用户的 user id, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
-	NoteID     string  `path:"note_id" json:"-"`       // Note ID, 示例值："6950620009265891614"
+	UserIDType *IDType `query:"user_id_type" json:"-"` // 用户 ID 类型, 示例值："open_id", 可选值有: `open_id`：用户的 open id, `union_id`：用户的 union id, `user_id`：用户的 user id, `people_admin_id`：以people_admin_id来识别用户, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
+	NoteID     string  `path:"note_id" json:"-"`       // 备注 ID, 示例值："6960663240925956401"
 	Content    string  `json:"content,omitempty"`      // 备注内容, 示例值："111"
 }
 
@@ -1261,7 +1261,7 @@ type UpdateHireNoteResp struct {
 
 // UpdateHireNoteRespNote ...
 type UpdateHireNoteRespNote struct {
-	ID            string `json:"id,omitempty"`             // ID备注
+	ID            string `json:"id,omitempty"`             // 备注ID
 	TalentID      string `json:"talent_id,omitempty"`      // 人才ID
 	ApplicationID string `json:"application_id,omitempty"` // 投递ID
 	IsPrivate     bool   `json:"is_private,omitempty"`     // 是否私密
