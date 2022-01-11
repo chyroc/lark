@@ -27,351 +27,371 @@ import (
 type EventType string
 
 const (
-	EventTypeV2DriveFileTitleUpdatedV1                 EventType = "drive.file.title_updated_v1"
-	EventTypeV2DriveFileReadV1                         EventType = "drive.file.read_v1"
-	EventTypeV2DriveFileEditV1                         EventType = "drive.file.edit_v1"
-	EventTypeV1AppOpen                                 EventType = "app_open"
-	EventTypeV1ShiftApproval                           EventType = "shift_approval"
-	EventTypeV1LeaveApprovalV2                         EventType = "leave_approvalV2"
-	EventTypeV1OutApproval                             EventType = "out_approval"
-	EventTypeV1WorkApproval                            EventType = "work_approval"
-	EventTypeV2DriveFilePermissionMemberAddedV1        EventType = "drive.file.permission_member_added_v1"
-	EventTypeV2DriveFileTrashedV1                      EventType = "drive.file.trashed_v1"
-	EventTypeV2DriveFileDeletedV1                      EventType = "drive.file.deleted_v1"
-	EventTypeV2DriveFilePermissionMemberRemovedV1      EventType = "drive.file.permission_member_removed_v1"
-	EventTypeV2ApprovalApprovalUpdatedV4               EventType = "approval.approval.updated_v4"
-	EventTypeV1TripApproval                            EventType = "trip_approval"
-	EventTypeV1RemedyApproval                          EventType = "remedy_approval"
-	EventTypeV2MeetingRoomMeetingRoomUpdatedV1         EventType = "meeting_room.meeting_room.updated_v1"
-	EventTypeV2MeetingRoomMeetingRoomStatusChangedV1   EventType = "meeting_room.meeting_room.status_changed_v1"
-	EventTypeV2MeetingRoomMeetingRoomDeletedV1         EventType = "meeting_room.meeting_room.deleted_v1"
-	EventTypeV2MeetingRoomMeetingRoomCreatedV1         EventType = "meeting_room.meeting_room.created_v1"
-	EventTypeV1ThirdPartyMeetingRoomEventCreated       EventType = "third_party_meeting_room_event_created"
-	EventTypeV1ThirdPartyMeetingRoomEventUpdated       EventType = "third_party_meeting_room_event_updated"
-	EventTypeV1ThirdPartyMeetingRoomEventDeleted       EventType = "third_party_meeting_room_event_deleted"
-	EventTypeV1OrderPaid                               EventType = "order_paid"
-	EventTypeV1AppTicket                               EventType = "app_ticket"
-	EventTypeV1AppUninstalled                          EventType = "app_uninstalled"
-	EventTypeV1AppStatusChange                         EventType = "app_status_change"
-	EventTypeV2ApplicationApplicationVisibilityAddedV6 EventType = "application.application.visibility.added_v6"
-	EventTypeV2AttendanceUserTaskUpdatedV1             EventType = "attendance.user_task.updated_v1"
-	EventTypeV2AttendanceUserFlowCreatedV1             EventType = "attendance.user_flow.created_v1"
-	EventTypeV2AwemeEcosystemAwemeUserBindedAccountV1  EventType = "aweme_ecosystem.aweme_user.binded_account_v1"
-	EventTypeV2TaskTaskUpdateTenantV1                  EventType = "task.task.update_tenant_v1"
-	EventTypeV2TaskTaskUpdatedV1                       EventType = "task.task.updated_v1"
-	EventTypeV2TaskTaskCommentUpdatedV1                EventType = "task.task.comment.updated_v1"
-	EventTypeV2HelpdeskTicketMessageCreatedV1          EventType = "helpdesk.ticket_message.created_v1"
-	EventTypeV2HelpdeskTicketCreatedV1                 EventType = "helpdesk.ticket.created_v1"
-	EventTypeV2HelpdeskTicketMessageUpdatedV1          EventType = "helpdesk.ticket.updated_v1"
-	EventTypeV2HelpdeskNotificationApproveV1           EventType = "helpdesk.notification.approve_v1"
-	EventTypeV2ContactDepartmentCreatedV3              EventType = "contact.department.created_v3"
-	EventTypeV2ContactDepartmentDeletedV3              EventType = "contact.department.deleted_v3"
-	EventTypeV2ContactDepartmentUpdatedV3              EventType = "contact.department.updated_v3"
-	EventTypeV2ContactUserUpdatedV3                    EventType = "contact.user.updated_v3"
-	EventTypeV2ContactUserCreatedV3                    EventType = "contact.user.created_v3"
-	EventTypeV2ContactUserDeletedV3                    EventType = "contact.user.deleted_v3"
-	EventTypeV2ContactScopeUpdatedV3                   EventType = "contact.scope.updated_v3"
-	EventTypeV2ContactEmployeeTypeEnumCreatedV3        EventType = "contact.employee_type_enum.created_v3"
-	EventTypeV2ContactEmployeeTypeEnumActivedV3        EventType = "contact.employee_type_enum.actived_v3"
-	EventTypeV2ContactEmployeeTypeEnumDeactivatedV3    EventType = "contact.employee_type_enum.deactivated_v3"
-	EventTypeV2ContactEmployeeTypeEnumUpdatedV3        EventType = "contact.employee_type_enum.updated_v3"
-	EventTypeV2ContactEmployeeTypeEnumDeletedV3        EventType = "contact.employee_type_enum.deleted_v3"
-	EventTypeV2IMMessageReceiveV1                      EventType = "im.message.receive_v1"
-	EventTypeV2IMMessageReadV1                         EventType = "im.message.message_read_v1"
-	EventTypeV2IMMessageReactionDeletedV1              EventType = "im.message.reaction.deleted_v1"
-	EventTypeV2IMMessageReactionCreatedV1              EventType = "im.message.reaction.created_v1"
-	EventTypeV2IMChatDisbandedV1                       EventType = "im.chat.disbanded_v1"
-	EventTypeV2IMChatUpdatedV1                         EventType = "im.chat.updated_v1"
-	EventTypeV2IMChatMemberBotAddedV1                  EventType = "im.chat.member.bot.added_v1"
-	EventTypeV2IMChatMemberBotDeletedV1                EventType = "im.chat.member.bot.deleted_v1"
-	EventTypeV2IMChatMemberUserAddedV1                 EventType = "im.chat.member.user.added_v1"
-	EventTypeV2IMChatMemberUserWithdrawnV1             EventType = "im.chat.member.user.withdrawn_v1"
-	EventTypeV2IMChatMemberUserDeletedV1               EventType = "im.chat.member.user.deleted_v1"
-	EventTypeV2VCMeetingMeetingStartedV1               EventType = "vc.meeting.meeting_started_v1"
-	EventTypeV2VCMeetingMeetingEndedV1                 EventType = "vc.meeting.meeting_ended_v1"
-	EventTypeV2VCMeetingJoinMeetingV1                  EventType = "vc.meeting.join_meeting_v1"
-	EventTypeV2VCMeetingLeaveMeetingV1                 EventType = "vc.meeting.leave_meeting_v1"
-	EventTypeV2VCMeetingRecordingStartedV1             EventType = "vc.meeting.recording_started_v1"
-	EventTypeV2VCMeetingRecordingEndedV1               EventType = "vc.meeting.recording_ended_v1"
-	EventTypeV2VCMeetingRecordingReadyV1               EventType = "vc.meeting.recording_ready_v1"
-	EventTypeV2VCMeetingShareStartedV1                 EventType = "vc.meeting.share_started_v1"
-	EventTypeV2VCMeetingShareEndedV1                   EventType = "vc.meeting.share_ended_v1"
-	EventTypeV2ACSAccessRecordCreatedV1                EventType = "acs.access_record.created_v1"
-	EventTypeV2ACSUserUpdatedV1                        EventType = "acs.user.updated_v1"
-	EventTypeV2CalendarCalendarACLCreatedV4            EventType = "calendar.calendar.acl.created_v4"
-	EventTypeV2CalendarCalendarACLDeletedV4            EventType = "calendar.calendar.acl.deleted_v4"
-	EventTypeV2CalendarCalendarEventChangedV4          EventType = "calendar.calendar.event.changed_v4"
-	EventTypeV2CalendarCalendarChangedV4               EventType = "calendar.calendar.changed_v4"
-	EventTypeV1AddBot                                  EventType = "add_bot"
-	EventTypeV1RemoveBot                               EventType = "remove_bot"
-	EventTypeV1P2PChatCreate                           EventType = "p2p_chat_create"
-	EventTypeV1ReceiveMessage                          EventType = "message"
-	EventTypeV1AddUserToChat                           EventType = "add_user_to_chat"
-	EventTypeV1RemoveUserFromChat                      EventType = "remove_user_from_chat"
-	EventTypeV1RevokeAddUserFromChat                   EventType = "revoke_add_user_from_chat"
-	EventTypeV1ChatDisband                             EventType = "chat_disband"
+	EventTypeV2ApplicationApplicationAppVersionAuditV6         EventType = "application.application.app_version.audit_v6"
+	EventTypeV2ApplicationApplicationAppVersionPublishApplyV6  EventType = "application.application.app_version.publish_apply_v6"
+	EventTypeV2ApplicationApplicationAppVersionPublishRevokeV6 EventType = "application.application.app_version.publish_revoke_v6"
+	EventTypeV2ApplicationApplicationCreatedV6                 EventType = "application.application.created_v6"
+	EventTypeV2ContactCustomAttrEventUpdatedV3                 EventType = "contact.custom_attr_event.updated_v3"
+	EventTypeV2DriveFileTitleUpdatedV1                         EventType = "drive.file.title_updated_v1"
+	EventTypeV2DriveFileReadV1                                 EventType = "drive.file.read_v1"
+	EventTypeV2DriveFileEditV1                                 EventType = "drive.file.edit_v1"
+	EventTypeV1AppOpen                                         EventType = "app_open"
+	EventTypeV1ShiftApproval                                   EventType = "shift_approval"
+	EventTypeV1LeaveApprovalV2                                 EventType = "leave_approvalV2"
+	EventTypeV1OutApproval                                     EventType = "out_approval"
+	EventTypeV1WorkApproval                                    EventType = "work_approval"
+	EventTypeV2DriveFilePermissionMemberAddedV1                EventType = "drive.file.permission_member_added_v1"
+	EventTypeV2DriveFileTrashedV1                              EventType = "drive.file.trashed_v1"
+	EventTypeV2DriveFileDeletedV1                              EventType = "drive.file.deleted_v1"
+	EventTypeV2DriveFilePermissionMemberRemovedV1              EventType = "drive.file.permission_member_removed_v1"
+	EventTypeV2ApprovalApprovalUpdatedV4                       EventType = "approval.approval.updated_v4"
+	EventTypeV1TripApproval                                    EventType = "trip_approval"
+	EventTypeV1RemedyApproval                                  EventType = "remedy_approval"
+	EventTypeV2MeetingRoomMeetingRoomUpdatedV1                 EventType = "meeting_room.meeting_room.updated_v1"
+	EventTypeV2MeetingRoomMeetingRoomStatusChangedV1           EventType = "meeting_room.meeting_room.status_changed_v1"
+	EventTypeV2MeetingRoomMeetingRoomDeletedV1                 EventType = "meeting_room.meeting_room.deleted_v1"
+	EventTypeV2MeetingRoomMeetingRoomCreatedV1                 EventType = "meeting_room.meeting_room.created_v1"
+	EventTypeV1ThirdPartyMeetingRoomEventCreated               EventType = "third_party_meeting_room_event_created"
+	EventTypeV1ThirdPartyMeetingRoomEventUpdated               EventType = "third_party_meeting_room_event_updated"
+	EventTypeV1ThirdPartyMeetingRoomEventDeleted               EventType = "third_party_meeting_room_event_deleted"
+	EventTypeV1OrderPaid                                       EventType = "order_paid"
+	EventTypeV1AppTicket                                       EventType = "app_ticket"
+	EventTypeV1AppUninstalled                                  EventType = "app_uninstalled"
+	EventTypeV1AppStatusChange                                 EventType = "app_status_change"
+	EventTypeV2ApplicationApplicationVisibilityAddedV6         EventType = "application.application.visibility.added_v6"
+	EventTypeV2AttendanceUserTaskUpdatedV1                     EventType = "attendance.user_task.updated_v1"
+	EventTypeV2AttendanceUserFlowCreatedV1                     EventType = "attendance.user_flow.created_v1"
+	EventTypeV2AwemeEcosystemAwemeUserBindedAccountV1          EventType = "aweme_ecosystem.aweme_user.binded_account_v1"
+	EventTypeV2TaskTaskUpdateTenantV1                          EventType = "task.task.update_tenant_v1"
+	EventTypeV2TaskTaskUpdatedV1                               EventType = "task.task.updated_v1"
+	EventTypeV2TaskTaskCommentUpdatedV1                        EventType = "task.task.comment.updated_v1"
+	EventTypeV2HelpdeskTicketMessageCreatedV1                  EventType = "helpdesk.ticket_message.created_v1"
+	EventTypeV2HelpdeskTicketCreatedV1                         EventType = "helpdesk.ticket.created_v1"
+	EventTypeV2HelpdeskTicketMessageUpdatedV1                  EventType = "helpdesk.ticket.updated_v1"
+	EventTypeV2HelpdeskNotificationApproveV1                   EventType = "helpdesk.notification.approve_v1"
+	EventTypeV2ContactDepartmentCreatedV3                      EventType = "contact.department.created_v3"
+	EventTypeV2ContactDepartmentDeletedV3                      EventType = "contact.department.deleted_v3"
+	EventTypeV2ContactDepartmentUpdatedV3                      EventType = "contact.department.updated_v3"
+	EventTypeV2ContactUserUpdatedV3                            EventType = "contact.user.updated_v3"
+	EventTypeV2ContactUserCreatedV3                            EventType = "contact.user.created_v3"
+	EventTypeV2ContactUserDeletedV3                            EventType = "contact.user.deleted_v3"
+	EventTypeV2ContactScopeUpdatedV3                           EventType = "contact.scope.updated_v3"
+	EventTypeV2ContactEmployeeTypeEnumCreatedV3                EventType = "contact.employee_type_enum.created_v3"
+	EventTypeV2ContactEmployeeTypeEnumActivedV3                EventType = "contact.employee_type_enum.actived_v3"
+	EventTypeV2ContactEmployeeTypeEnumDeactivatedV3            EventType = "contact.employee_type_enum.deactivated_v3"
+	EventTypeV2ContactEmployeeTypeEnumUpdatedV3                EventType = "contact.employee_type_enum.updated_v3"
+	EventTypeV2ContactEmployeeTypeEnumDeletedV3                EventType = "contact.employee_type_enum.deleted_v3"
+	EventTypeV2IMMessageReceiveV1                              EventType = "im.message.receive_v1"
+	EventTypeV2IMMessageReadV1                                 EventType = "im.message.message_read_v1"
+	EventTypeV2IMMessageReactionDeletedV1                      EventType = "im.message.reaction.deleted_v1"
+	EventTypeV2IMMessageReactionCreatedV1                      EventType = "im.message.reaction.created_v1"
+	EventTypeV2IMChatDisbandedV1                               EventType = "im.chat.disbanded_v1"
+	EventTypeV2IMChatUpdatedV1                                 EventType = "im.chat.updated_v1"
+	EventTypeV2IMChatMemberBotAddedV1                          EventType = "im.chat.member.bot.added_v1"
+	EventTypeV2IMChatMemberBotDeletedV1                        EventType = "im.chat.member.bot.deleted_v1"
+	EventTypeV2IMChatMemberUserAddedV1                         EventType = "im.chat.member.user.added_v1"
+	EventTypeV2IMChatMemberUserWithdrawnV1                     EventType = "im.chat.member.user.withdrawn_v1"
+	EventTypeV2IMChatMemberUserDeletedV1                       EventType = "im.chat.member.user.deleted_v1"
+	EventTypeV2VCMeetingMeetingStartedV1                       EventType = "vc.meeting.meeting_started_v1"
+	EventTypeV2VCMeetingMeetingEndedV1                         EventType = "vc.meeting.meeting_ended_v1"
+	EventTypeV2VCMeetingJoinMeetingV1                          EventType = "vc.meeting.join_meeting_v1"
+	EventTypeV2VCMeetingLeaveMeetingV1                         EventType = "vc.meeting.leave_meeting_v1"
+	EventTypeV2VCMeetingRecordingStartedV1                     EventType = "vc.meeting.recording_started_v1"
+	EventTypeV2VCMeetingRecordingEndedV1                       EventType = "vc.meeting.recording_ended_v1"
+	EventTypeV2VCMeetingRecordingReadyV1                       EventType = "vc.meeting.recording_ready_v1"
+	EventTypeV2VCMeetingShareStartedV1                         EventType = "vc.meeting.share_started_v1"
+	EventTypeV2VCMeetingShareEndedV1                           EventType = "vc.meeting.share_ended_v1"
+	EventTypeV2ACSAccessRecordCreatedV1                        EventType = "acs.access_record.created_v1"
+	EventTypeV2ACSUserUpdatedV1                                EventType = "acs.user.updated_v1"
+	EventTypeV2CalendarCalendarACLCreatedV4                    EventType = "calendar.calendar.acl.created_v4"
+	EventTypeV2CalendarCalendarACLDeletedV4                    EventType = "calendar.calendar.acl.deleted_v4"
+	EventTypeV2CalendarCalendarEventChangedV4                  EventType = "calendar.calendar.event.changed_v4"
+	EventTypeV2CalendarCalendarChangedV4                       EventType = "calendar.calendar.changed_v4"
+	EventTypeV1AddBot                                          EventType = "add_bot"
+	EventTypeV1RemoveBot                                       EventType = "remove_bot"
+	EventTypeV1P2PChatCreate                                   EventType = "p2p_chat_create"
+	EventTypeV1ReceiveMessage                                  EventType = "message"
+	EventTypeV1AddUserToChat                                   EventType = "add_user_to_chat"
+	EventTypeV1RemoveUserFromChat                              EventType = "remove_user_from_chat"
+	EventTypeV1RevokeAddUserFromChat                           EventType = "revoke_add_user_from_chat"
+	EventTypeV1ChatDisband                                     EventType = "chat_disband"
 )
 
 type eventHandler struct {
-	eventCardHandler                                      EventCardHandler
-	eventV2DriveFileTitleUpdatedV1Handler                 EventV2DriveFileTitleUpdatedV1Handler
-	eventV2DriveFileReadV1Handler                         EventV2DriveFileReadV1Handler
-	eventV2DriveFileEditV1Handler                         EventV2DriveFileEditV1Handler
-	eventV1AppOpenHandler                                 EventV1AppOpenHandler
-	eventV1ShiftApprovalHandler                           EventV1ShiftApprovalHandler
-	eventV1LeaveApprovalV2Handler                         EventV1LeaveApprovalV2Handler
-	eventV1OutApprovalHandler                             EventV1OutApprovalHandler
-	eventV1WorkApprovalHandler                            EventV1WorkApprovalHandler
-	eventV2DriveFilePermissionMemberAddedV1Handler        EventV2DriveFilePermissionMemberAddedV1Handler
-	eventV2DriveFileTrashedV1Handler                      EventV2DriveFileTrashedV1Handler
-	eventV2DriveFileDeletedV1Handler                      EventV2DriveFileDeletedV1Handler
-	eventV2DriveFilePermissionMemberRemovedV1Handler      EventV2DriveFilePermissionMemberRemovedV1Handler
-	eventV2ApprovalApprovalUpdatedV4Handler               EventV2ApprovalApprovalUpdatedV4Handler
-	eventV1TripApprovalHandler                            EventV1TripApprovalHandler
-	eventV1RemedyApprovalHandler                          EventV1RemedyApprovalHandler
-	eventV2MeetingRoomMeetingRoomUpdatedV1Handler         EventV2MeetingRoomMeetingRoomUpdatedV1Handler
-	eventV2MeetingRoomMeetingRoomStatusChangedV1Handler   EventV2MeetingRoomMeetingRoomStatusChangedV1Handler
-	eventV2MeetingRoomMeetingRoomDeletedV1Handler         EventV2MeetingRoomMeetingRoomDeletedV1Handler
-	eventV2MeetingRoomMeetingRoomCreatedV1Handler         EventV2MeetingRoomMeetingRoomCreatedV1Handler
-	eventV1ThirdPartyMeetingRoomEventCreatedHandler       EventV1ThirdPartyMeetingRoomEventCreatedHandler
-	eventV1ThirdPartyMeetingRoomEventUpdatedHandler       EventV1ThirdPartyMeetingRoomEventUpdatedHandler
-	eventV1ThirdPartyMeetingRoomEventDeletedHandler       EventV1ThirdPartyMeetingRoomEventDeletedHandler
-	eventV1OrderPaidHandler                               EventV1OrderPaidHandler
-	eventV1AppTicketHandler                               EventV1AppTicketHandler
-	eventV1AppUninstalledHandler                          EventV1AppUninstalledHandler
-	eventV1AppStatusChangeHandler                         EventV1AppStatusChangeHandler
-	eventV2ApplicationApplicationVisibilityAddedV6Handler EventV2ApplicationApplicationVisibilityAddedV6Handler
-	eventV2AttendanceUserTaskUpdatedV1Handler             EventV2AttendanceUserTaskUpdatedV1Handler
-	eventV2AttendanceUserFlowCreatedV1Handler             EventV2AttendanceUserFlowCreatedV1Handler
-	eventV2AwemeEcosystemAwemeUserBindedAccountV1Handler  EventV2AwemeEcosystemAwemeUserBindedAccountV1Handler
-	eventV2TaskTaskUpdateTenantV1Handler                  EventV2TaskTaskUpdateTenantV1Handler
-	eventV2TaskTaskUpdatedV1Handler                       EventV2TaskTaskUpdatedV1Handler
-	eventV2TaskTaskCommentUpdatedV1Handler                EventV2TaskTaskCommentUpdatedV1Handler
-	eventV2HelpdeskTicketMessageCreatedV1Handler          EventV2HelpdeskTicketMessageCreatedV1Handler
-	eventV2HelpdeskTicketCreatedV1Handler                 EventV2HelpdeskTicketCreatedV1Handler
-	eventV2HelpdeskTicketMessageUpdatedV1Handler          EventV2HelpdeskTicketMessageUpdatedV1Handler
-	eventV2HelpdeskNotificationApproveV1Handler           EventV2HelpdeskNotificationApproveV1Handler
-	eventV2ContactDepartmentCreatedV3Handler              EventV2ContactDepartmentCreatedV3Handler
-	eventV2ContactDepartmentDeletedV3Handler              EventV2ContactDepartmentDeletedV3Handler
-	eventV2ContactDepartmentUpdatedV3Handler              EventV2ContactDepartmentUpdatedV3Handler
-	eventV2ContactUserUpdatedV3Handler                    EventV2ContactUserUpdatedV3Handler
-	eventV2ContactUserCreatedV3Handler                    EventV2ContactUserCreatedV3Handler
-	eventV2ContactUserDeletedV3Handler                    EventV2ContactUserDeletedV3Handler
-	eventV2ContactScopeUpdatedV3Handler                   EventV2ContactScopeUpdatedV3Handler
-	eventV2ContactEmployeeTypeEnumCreatedV3Handler        EventV2ContactEmployeeTypeEnumCreatedV3Handler
-	eventV2ContactEmployeeTypeEnumActivedV3Handler        EventV2ContactEmployeeTypeEnumActivedV3Handler
-	eventV2ContactEmployeeTypeEnumDeactivatedV3Handler    EventV2ContactEmployeeTypeEnumDeactivatedV3Handler
-	eventV2ContactEmployeeTypeEnumUpdatedV3Handler        EventV2ContactEmployeeTypeEnumUpdatedV3Handler
-	eventV2ContactEmployeeTypeEnumDeletedV3Handler        EventV2ContactEmployeeTypeEnumDeletedV3Handler
-	eventV2IMMessageReceiveV1Handler                      EventV2IMMessageReceiveV1Handler
-	eventV2IMMessageReadV1Handler                         EventV2IMMessageReadV1Handler
-	eventV2IMMessageReactionDeletedV1Handler              EventV2IMMessageReactionDeletedV1Handler
-	eventV2IMMessageReactionCreatedV1Handler              EventV2IMMessageReactionCreatedV1Handler
-	eventV2IMChatDisbandedV1Handler                       EventV2IMChatDisbandedV1Handler
-	eventV2IMChatUpdatedV1Handler                         EventV2IMChatUpdatedV1Handler
-	eventV2IMChatMemberBotAddedV1Handler                  EventV2IMChatMemberBotAddedV1Handler
-	eventV2IMChatMemberBotDeletedV1Handler                EventV2IMChatMemberBotDeletedV1Handler
-	eventV2IMChatMemberUserAddedV1Handler                 EventV2IMChatMemberUserAddedV1Handler
-	eventV2IMChatMemberUserWithdrawnV1Handler             EventV2IMChatMemberUserWithdrawnV1Handler
-	eventV2IMChatMemberUserDeletedV1Handler               EventV2IMChatMemberUserDeletedV1Handler
-	eventV2VCMeetingMeetingStartedV1Handler               EventV2VCMeetingMeetingStartedV1Handler
-	eventV2VCMeetingMeetingEndedV1Handler                 EventV2VCMeetingMeetingEndedV1Handler
-	eventV2VCMeetingJoinMeetingV1Handler                  EventV2VCMeetingJoinMeetingV1Handler
-	eventV2VCMeetingLeaveMeetingV1Handler                 EventV2VCMeetingLeaveMeetingV1Handler
-	eventV2VCMeetingRecordingStartedV1Handler             EventV2VCMeetingRecordingStartedV1Handler
-	eventV2VCMeetingRecordingEndedV1Handler               EventV2VCMeetingRecordingEndedV1Handler
-	eventV2VCMeetingRecordingReadyV1Handler               EventV2VCMeetingRecordingReadyV1Handler
-	eventV2VCMeetingShareStartedV1Handler                 EventV2VCMeetingShareStartedV1Handler
-	eventV2VCMeetingShareEndedV1Handler                   EventV2VCMeetingShareEndedV1Handler
-	eventV2ACSAccessRecordCreatedV1Handler                EventV2ACSAccessRecordCreatedV1Handler
-	eventV2ACSUserUpdatedV1Handler                        EventV2ACSUserUpdatedV1Handler
-	eventV2CalendarCalendarACLCreatedV4Handler            EventV2CalendarCalendarACLCreatedV4Handler
-	eventV2CalendarCalendarACLDeletedV4Handler            EventV2CalendarCalendarACLDeletedV4Handler
-	eventV2CalendarCalendarEventChangedV4Handler          EventV2CalendarCalendarEventChangedV4Handler
-	eventV2CalendarCalendarChangedV4Handler               EventV2CalendarCalendarChangedV4Handler
-	eventV1AddBotHandler                                  EventV1AddBotHandler
-	eventV1RemoveBotHandler                               EventV1RemoveBotHandler
-	eventV1P2PChatCreateHandler                           EventV1P2PChatCreateHandler
-	eventV1ReceiveMessageHandler                          EventV1ReceiveMessageHandler
-	eventV1AddUserToChatHandler                           EventV1AddUserToChatHandler
-	eventV1RemoveUserFromChatHandler                      EventV1RemoveUserFromChatHandler
-	eventV1RevokeAddUserFromChatHandler                   EventV1RevokeAddUserFromChatHandler
-	eventV1ChatDisbandHandler                             EventV1ChatDisbandHandler
+	eventCardHandler                                              EventCardHandler
+	eventV2ApplicationApplicationAppVersionAuditV6Handler         EventV2ApplicationApplicationAppVersionAuditV6Handler
+	eventV2ApplicationApplicationAppVersionPublishApplyV6Handler  EventV2ApplicationApplicationAppVersionPublishApplyV6Handler
+	eventV2ApplicationApplicationAppVersionPublishRevokeV6Handler EventV2ApplicationApplicationAppVersionPublishRevokeV6Handler
+	eventV2ApplicationApplicationCreatedV6Handler                 EventV2ApplicationApplicationCreatedV6Handler
+	eventV2ContactCustomAttrEventUpdatedV3Handler                 EventV2ContactCustomAttrEventUpdatedV3Handler
+	eventV2DriveFileTitleUpdatedV1Handler                         EventV2DriveFileTitleUpdatedV1Handler
+	eventV2DriveFileReadV1Handler                                 EventV2DriveFileReadV1Handler
+	eventV2DriveFileEditV1Handler                                 EventV2DriveFileEditV1Handler
+	eventV1AppOpenHandler                                         EventV1AppOpenHandler
+	eventV1ShiftApprovalHandler                                   EventV1ShiftApprovalHandler
+	eventV1LeaveApprovalV2Handler                                 EventV1LeaveApprovalV2Handler
+	eventV1OutApprovalHandler                                     EventV1OutApprovalHandler
+	eventV1WorkApprovalHandler                                    EventV1WorkApprovalHandler
+	eventV2DriveFilePermissionMemberAddedV1Handler                EventV2DriveFilePermissionMemberAddedV1Handler
+	eventV2DriveFileTrashedV1Handler                              EventV2DriveFileTrashedV1Handler
+	eventV2DriveFileDeletedV1Handler                              EventV2DriveFileDeletedV1Handler
+	eventV2DriveFilePermissionMemberRemovedV1Handler              EventV2DriveFilePermissionMemberRemovedV1Handler
+	eventV2ApprovalApprovalUpdatedV4Handler                       EventV2ApprovalApprovalUpdatedV4Handler
+	eventV1TripApprovalHandler                                    EventV1TripApprovalHandler
+	eventV1RemedyApprovalHandler                                  EventV1RemedyApprovalHandler
+	eventV2MeetingRoomMeetingRoomUpdatedV1Handler                 EventV2MeetingRoomMeetingRoomUpdatedV1Handler
+	eventV2MeetingRoomMeetingRoomStatusChangedV1Handler           EventV2MeetingRoomMeetingRoomStatusChangedV1Handler
+	eventV2MeetingRoomMeetingRoomDeletedV1Handler                 EventV2MeetingRoomMeetingRoomDeletedV1Handler
+	eventV2MeetingRoomMeetingRoomCreatedV1Handler                 EventV2MeetingRoomMeetingRoomCreatedV1Handler
+	eventV1ThirdPartyMeetingRoomEventCreatedHandler               EventV1ThirdPartyMeetingRoomEventCreatedHandler
+	eventV1ThirdPartyMeetingRoomEventUpdatedHandler               EventV1ThirdPartyMeetingRoomEventUpdatedHandler
+	eventV1ThirdPartyMeetingRoomEventDeletedHandler               EventV1ThirdPartyMeetingRoomEventDeletedHandler
+	eventV1OrderPaidHandler                                       EventV1OrderPaidHandler
+	eventV1AppTicketHandler                                       EventV1AppTicketHandler
+	eventV1AppUninstalledHandler                                  EventV1AppUninstalledHandler
+	eventV1AppStatusChangeHandler                                 EventV1AppStatusChangeHandler
+	eventV2ApplicationApplicationVisibilityAddedV6Handler         EventV2ApplicationApplicationVisibilityAddedV6Handler
+	eventV2AttendanceUserTaskUpdatedV1Handler                     EventV2AttendanceUserTaskUpdatedV1Handler
+	eventV2AttendanceUserFlowCreatedV1Handler                     EventV2AttendanceUserFlowCreatedV1Handler
+	eventV2AwemeEcosystemAwemeUserBindedAccountV1Handler          EventV2AwemeEcosystemAwemeUserBindedAccountV1Handler
+	eventV2TaskTaskUpdateTenantV1Handler                          EventV2TaskTaskUpdateTenantV1Handler
+	eventV2TaskTaskUpdatedV1Handler                               EventV2TaskTaskUpdatedV1Handler
+	eventV2TaskTaskCommentUpdatedV1Handler                        EventV2TaskTaskCommentUpdatedV1Handler
+	eventV2HelpdeskTicketMessageCreatedV1Handler                  EventV2HelpdeskTicketMessageCreatedV1Handler
+	eventV2HelpdeskTicketCreatedV1Handler                         EventV2HelpdeskTicketCreatedV1Handler
+	eventV2HelpdeskTicketMessageUpdatedV1Handler                  EventV2HelpdeskTicketMessageUpdatedV1Handler
+	eventV2HelpdeskNotificationApproveV1Handler                   EventV2HelpdeskNotificationApproveV1Handler
+	eventV2ContactDepartmentCreatedV3Handler                      EventV2ContactDepartmentCreatedV3Handler
+	eventV2ContactDepartmentDeletedV3Handler                      EventV2ContactDepartmentDeletedV3Handler
+	eventV2ContactDepartmentUpdatedV3Handler                      EventV2ContactDepartmentUpdatedV3Handler
+	eventV2ContactUserUpdatedV3Handler                            EventV2ContactUserUpdatedV3Handler
+	eventV2ContactUserCreatedV3Handler                            EventV2ContactUserCreatedV3Handler
+	eventV2ContactUserDeletedV3Handler                            EventV2ContactUserDeletedV3Handler
+	eventV2ContactScopeUpdatedV3Handler                           EventV2ContactScopeUpdatedV3Handler
+	eventV2ContactEmployeeTypeEnumCreatedV3Handler                EventV2ContactEmployeeTypeEnumCreatedV3Handler
+	eventV2ContactEmployeeTypeEnumActivedV3Handler                EventV2ContactEmployeeTypeEnumActivedV3Handler
+	eventV2ContactEmployeeTypeEnumDeactivatedV3Handler            EventV2ContactEmployeeTypeEnumDeactivatedV3Handler
+	eventV2ContactEmployeeTypeEnumUpdatedV3Handler                EventV2ContactEmployeeTypeEnumUpdatedV3Handler
+	eventV2ContactEmployeeTypeEnumDeletedV3Handler                EventV2ContactEmployeeTypeEnumDeletedV3Handler
+	eventV2IMMessageReceiveV1Handler                              EventV2IMMessageReceiveV1Handler
+	eventV2IMMessageReadV1Handler                                 EventV2IMMessageReadV1Handler
+	eventV2IMMessageReactionDeletedV1Handler                      EventV2IMMessageReactionDeletedV1Handler
+	eventV2IMMessageReactionCreatedV1Handler                      EventV2IMMessageReactionCreatedV1Handler
+	eventV2IMChatDisbandedV1Handler                               EventV2IMChatDisbandedV1Handler
+	eventV2IMChatUpdatedV1Handler                                 EventV2IMChatUpdatedV1Handler
+	eventV2IMChatMemberBotAddedV1Handler                          EventV2IMChatMemberBotAddedV1Handler
+	eventV2IMChatMemberBotDeletedV1Handler                        EventV2IMChatMemberBotDeletedV1Handler
+	eventV2IMChatMemberUserAddedV1Handler                         EventV2IMChatMemberUserAddedV1Handler
+	eventV2IMChatMemberUserWithdrawnV1Handler                     EventV2IMChatMemberUserWithdrawnV1Handler
+	eventV2IMChatMemberUserDeletedV1Handler                       EventV2IMChatMemberUserDeletedV1Handler
+	eventV2VCMeetingMeetingStartedV1Handler                       EventV2VCMeetingMeetingStartedV1Handler
+	eventV2VCMeetingMeetingEndedV1Handler                         EventV2VCMeetingMeetingEndedV1Handler
+	eventV2VCMeetingJoinMeetingV1Handler                          EventV2VCMeetingJoinMeetingV1Handler
+	eventV2VCMeetingLeaveMeetingV1Handler                         EventV2VCMeetingLeaveMeetingV1Handler
+	eventV2VCMeetingRecordingStartedV1Handler                     EventV2VCMeetingRecordingStartedV1Handler
+	eventV2VCMeetingRecordingEndedV1Handler                       EventV2VCMeetingRecordingEndedV1Handler
+	eventV2VCMeetingRecordingReadyV1Handler                       EventV2VCMeetingRecordingReadyV1Handler
+	eventV2VCMeetingShareStartedV1Handler                         EventV2VCMeetingShareStartedV1Handler
+	eventV2VCMeetingShareEndedV1Handler                           EventV2VCMeetingShareEndedV1Handler
+	eventV2ACSAccessRecordCreatedV1Handler                        EventV2ACSAccessRecordCreatedV1Handler
+	eventV2ACSUserUpdatedV1Handler                                EventV2ACSUserUpdatedV1Handler
+	eventV2CalendarCalendarACLCreatedV4Handler                    EventV2CalendarCalendarACLCreatedV4Handler
+	eventV2CalendarCalendarACLDeletedV4Handler                    EventV2CalendarCalendarACLDeletedV4Handler
+	eventV2CalendarCalendarEventChangedV4Handler                  EventV2CalendarCalendarEventChangedV4Handler
+	eventV2CalendarCalendarChangedV4Handler                       EventV2CalendarCalendarChangedV4Handler
+	eventV1AddBotHandler                                          EventV1AddBotHandler
+	eventV1RemoveBotHandler                                       EventV1RemoveBotHandler
+	eventV1P2PChatCreateHandler                                   EventV1P2PChatCreateHandler
+	eventV1ReceiveMessageHandler                                  EventV1ReceiveMessageHandler
+	eventV1AddUserToChatHandler                                   EventV1AddUserToChatHandler
+	eventV1RemoveUserFromChatHandler                              EventV1RemoveUserFromChatHandler
+	eventV1RevokeAddUserFromChatHandler                           EventV1RevokeAddUserFromChatHandler
+	eventV1ChatDisbandHandler                                     EventV1ChatDisbandHandler
 }
 
 func (r *eventHandler) clone() *eventHandler {
 	return &eventHandler{
 
-		eventV2DriveFileTitleUpdatedV1Handler:                 r.eventV2DriveFileTitleUpdatedV1Handler,
-		eventV2DriveFileReadV1Handler:                         r.eventV2DriveFileReadV1Handler,
-		eventV2DriveFileEditV1Handler:                         r.eventV2DriveFileEditV1Handler,
-		eventV1AppOpenHandler:                                 r.eventV1AppOpenHandler,
-		eventV1ShiftApprovalHandler:                           r.eventV1ShiftApprovalHandler,
-		eventV1LeaveApprovalV2Handler:                         r.eventV1LeaveApprovalV2Handler,
-		eventV1OutApprovalHandler:                             r.eventV1OutApprovalHandler,
-		eventV1WorkApprovalHandler:                            r.eventV1WorkApprovalHandler,
-		eventV2DriveFilePermissionMemberAddedV1Handler:        r.eventV2DriveFilePermissionMemberAddedV1Handler,
-		eventV2DriveFileTrashedV1Handler:                      r.eventV2DriveFileTrashedV1Handler,
-		eventV2DriveFileDeletedV1Handler:                      r.eventV2DriveFileDeletedV1Handler,
-		eventV2DriveFilePermissionMemberRemovedV1Handler:      r.eventV2DriveFilePermissionMemberRemovedV1Handler,
-		eventV2ApprovalApprovalUpdatedV4Handler:               r.eventV2ApprovalApprovalUpdatedV4Handler,
-		eventV1TripApprovalHandler:                            r.eventV1TripApprovalHandler,
-		eventV1RemedyApprovalHandler:                          r.eventV1RemedyApprovalHandler,
-		eventV2MeetingRoomMeetingRoomUpdatedV1Handler:         r.eventV2MeetingRoomMeetingRoomUpdatedV1Handler,
-		eventV2MeetingRoomMeetingRoomStatusChangedV1Handler:   r.eventV2MeetingRoomMeetingRoomStatusChangedV1Handler,
-		eventV2MeetingRoomMeetingRoomDeletedV1Handler:         r.eventV2MeetingRoomMeetingRoomDeletedV1Handler,
-		eventV2MeetingRoomMeetingRoomCreatedV1Handler:         r.eventV2MeetingRoomMeetingRoomCreatedV1Handler,
-		eventV1ThirdPartyMeetingRoomEventCreatedHandler:       r.eventV1ThirdPartyMeetingRoomEventCreatedHandler,
-		eventV1ThirdPartyMeetingRoomEventUpdatedHandler:       r.eventV1ThirdPartyMeetingRoomEventUpdatedHandler,
-		eventV1ThirdPartyMeetingRoomEventDeletedHandler:       r.eventV1ThirdPartyMeetingRoomEventDeletedHandler,
-		eventV1OrderPaidHandler:                               r.eventV1OrderPaidHandler,
-		eventV1AppTicketHandler:                               r.eventV1AppTicketHandler,
-		eventV1AppUninstalledHandler:                          r.eventV1AppUninstalledHandler,
-		eventV1AppStatusChangeHandler:                         r.eventV1AppStatusChangeHandler,
-		eventV2ApplicationApplicationVisibilityAddedV6Handler: r.eventV2ApplicationApplicationVisibilityAddedV6Handler,
-		eventV2AttendanceUserTaskUpdatedV1Handler:             r.eventV2AttendanceUserTaskUpdatedV1Handler,
-		eventV2AttendanceUserFlowCreatedV1Handler:             r.eventV2AttendanceUserFlowCreatedV1Handler,
-		eventV2AwemeEcosystemAwemeUserBindedAccountV1Handler:  r.eventV2AwemeEcosystemAwemeUserBindedAccountV1Handler,
-		eventV2TaskTaskUpdateTenantV1Handler:                  r.eventV2TaskTaskUpdateTenantV1Handler,
-		eventV2TaskTaskUpdatedV1Handler:                       r.eventV2TaskTaskUpdatedV1Handler,
-		eventV2TaskTaskCommentUpdatedV1Handler:                r.eventV2TaskTaskCommentUpdatedV1Handler,
-		eventV2HelpdeskTicketMessageCreatedV1Handler:          r.eventV2HelpdeskTicketMessageCreatedV1Handler,
-		eventV2HelpdeskTicketCreatedV1Handler:                 r.eventV2HelpdeskTicketCreatedV1Handler,
-		eventV2HelpdeskTicketMessageUpdatedV1Handler:          r.eventV2HelpdeskTicketMessageUpdatedV1Handler,
-		eventV2HelpdeskNotificationApproveV1Handler:           r.eventV2HelpdeskNotificationApproveV1Handler,
-		eventV2ContactDepartmentCreatedV3Handler:              r.eventV2ContactDepartmentCreatedV3Handler,
-		eventV2ContactDepartmentDeletedV3Handler:              r.eventV2ContactDepartmentDeletedV3Handler,
-		eventV2ContactDepartmentUpdatedV3Handler:              r.eventV2ContactDepartmentUpdatedV3Handler,
-		eventV2ContactUserUpdatedV3Handler:                    r.eventV2ContactUserUpdatedV3Handler,
-		eventV2ContactUserCreatedV3Handler:                    r.eventV2ContactUserCreatedV3Handler,
-		eventV2ContactUserDeletedV3Handler:                    r.eventV2ContactUserDeletedV3Handler,
-		eventV2ContactScopeUpdatedV3Handler:                   r.eventV2ContactScopeUpdatedV3Handler,
-		eventV2ContactEmployeeTypeEnumCreatedV3Handler:        r.eventV2ContactEmployeeTypeEnumCreatedV3Handler,
-		eventV2ContactEmployeeTypeEnumActivedV3Handler:        r.eventV2ContactEmployeeTypeEnumActivedV3Handler,
-		eventV2ContactEmployeeTypeEnumDeactivatedV3Handler:    r.eventV2ContactEmployeeTypeEnumDeactivatedV3Handler,
-		eventV2ContactEmployeeTypeEnumUpdatedV3Handler:        r.eventV2ContactEmployeeTypeEnumUpdatedV3Handler,
-		eventV2ContactEmployeeTypeEnumDeletedV3Handler:        r.eventV2ContactEmployeeTypeEnumDeletedV3Handler,
-		eventV2IMMessageReceiveV1Handler:                      r.eventV2IMMessageReceiveV1Handler,
-		eventV2IMMessageReadV1Handler:                         r.eventV2IMMessageReadV1Handler,
-		eventV2IMMessageReactionDeletedV1Handler:              r.eventV2IMMessageReactionDeletedV1Handler,
-		eventV2IMMessageReactionCreatedV1Handler:              r.eventV2IMMessageReactionCreatedV1Handler,
-		eventV2IMChatDisbandedV1Handler:                       r.eventV2IMChatDisbandedV1Handler,
-		eventV2IMChatUpdatedV1Handler:                         r.eventV2IMChatUpdatedV1Handler,
-		eventV2IMChatMemberBotAddedV1Handler:                  r.eventV2IMChatMemberBotAddedV1Handler,
-		eventV2IMChatMemberBotDeletedV1Handler:                r.eventV2IMChatMemberBotDeletedV1Handler,
-		eventV2IMChatMemberUserAddedV1Handler:                 r.eventV2IMChatMemberUserAddedV1Handler,
-		eventV2IMChatMemberUserWithdrawnV1Handler:             r.eventV2IMChatMemberUserWithdrawnV1Handler,
-		eventV2IMChatMemberUserDeletedV1Handler:               r.eventV2IMChatMemberUserDeletedV1Handler,
-		eventV2VCMeetingMeetingStartedV1Handler:               r.eventV2VCMeetingMeetingStartedV1Handler,
-		eventV2VCMeetingMeetingEndedV1Handler:                 r.eventV2VCMeetingMeetingEndedV1Handler,
-		eventV2VCMeetingJoinMeetingV1Handler:                  r.eventV2VCMeetingJoinMeetingV1Handler,
-		eventV2VCMeetingLeaveMeetingV1Handler:                 r.eventV2VCMeetingLeaveMeetingV1Handler,
-		eventV2VCMeetingRecordingStartedV1Handler:             r.eventV2VCMeetingRecordingStartedV1Handler,
-		eventV2VCMeetingRecordingEndedV1Handler:               r.eventV2VCMeetingRecordingEndedV1Handler,
-		eventV2VCMeetingRecordingReadyV1Handler:               r.eventV2VCMeetingRecordingReadyV1Handler,
-		eventV2VCMeetingShareStartedV1Handler:                 r.eventV2VCMeetingShareStartedV1Handler,
-		eventV2VCMeetingShareEndedV1Handler:                   r.eventV2VCMeetingShareEndedV1Handler,
-		eventV2ACSAccessRecordCreatedV1Handler:                r.eventV2ACSAccessRecordCreatedV1Handler,
-		eventV2ACSUserUpdatedV1Handler:                        r.eventV2ACSUserUpdatedV1Handler,
-		eventV2CalendarCalendarACLCreatedV4Handler:            r.eventV2CalendarCalendarACLCreatedV4Handler,
-		eventV2CalendarCalendarACLDeletedV4Handler:            r.eventV2CalendarCalendarACLDeletedV4Handler,
-		eventV2CalendarCalendarEventChangedV4Handler:          r.eventV2CalendarCalendarEventChangedV4Handler,
-		eventV2CalendarCalendarChangedV4Handler:               r.eventV2CalendarCalendarChangedV4Handler,
-		eventV1AddBotHandler:                                  r.eventV1AddBotHandler,
-		eventV1RemoveBotHandler:                               r.eventV1RemoveBotHandler,
-		eventV1P2PChatCreateHandler:                           r.eventV1P2PChatCreateHandler,
-		eventV1ReceiveMessageHandler:                          r.eventV1ReceiveMessageHandler,
-		eventV1AddUserToChatHandler:                           r.eventV1AddUserToChatHandler,
-		eventV1RemoveUserFromChatHandler:                      r.eventV1RemoveUserFromChatHandler,
-		eventV1RevokeAddUserFromChatHandler:                   r.eventV1RevokeAddUserFromChatHandler,
-		eventV1ChatDisbandHandler:                             r.eventV1ChatDisbandHandler,
+		eventV2ApplicationApplicationAppVersionAuditV6Handler:         r.eventV2ApplicationApplicationAppVersionAuditV6Handler,
+		eventV2ApplicationApplicationAppVersionPublishApplyV6Handler:  r.eventV2ApplicationApplicationAppVersionPublishApplyV6Handler,
+		eventV2ApplicationApplicationAppVersionPublishRevokeV6Handler: r.eventV2ApplicationApplicationAppVersionPublishRevokeV6Handler,
+		eventV2ApplicationApplicationCreatedV6Handler:                 r.eventV2ApplicationApplicationCreatedV6Handler,
+		eventV2ContactCustomAttrEventUpdatedV3Handler:                 r.eventV2ContactCustomAttrEventUpdatedV3Handler,
+		eventV2DriveFileTitleUpdatedV1Handler:                         r.eventV2DriveFileTitleUpdatedV1Handler,
+		eventV2DriveFileReadV1Handler:                                 r.eventV2DriveFileReadV1Handler,
+		eventV2DriveFileEditV1Handler:                                 r.eventV2DriveFileEditV1Handler,
+		eventV1AppOpenHandler:                                         r.eventV1AppOpenHandler,
+		eventV1ShiftApprovalHandler:                                   r.eventV1ShiftApprovalHandler,
+		eventV1LeaveApprovalV2Handler:                                 r.eventV1LeaveApprovalV2Handler,
+		eventV1OutApprovalHandler:                                     r.eventV1OutApprovalHandler,
+		eventV1WorkApprovalHandler:                                    r.eventV1WorkApprovalHandler,
+		eventV2DriveFilePermissionMemberAddedV1Handler:                r.eventV2DriveFilePermissionMemberAddedV1Handler,
+		eventV2DriveFileTrashedV1Handler:                              r.eventV2DriveFileTrashedV1Handler,
+		eventV2DriveFileDeletedV1Handler:                              r.eventV2DriveFileDeletedV1Handler,
+		eventV2DriveFilePermissionMemberRemovedV1Handler:              r.eventV2DriveFilePermissionMemberRemovedV1Handler,
+		eventV2ApprovalApprovalUpdatedV4Handler:                       r.eventV2ApprovalApprovalUpdatedV4Handler,
+		eventV1TripApprovalHandler:                                    r.eventV1TripApprovalHandler,
+		eventV1RemedyApprovalHandler:                                  r.eventV1RemedyApprovalHandler,
+		eventV2MeetingRoomMeetingRoomUpdatedV1Handler:                 r.eventV2MeetingRoomMeetingRoomUpdatedV1Handler,
+		eventV2MeetingRoomMeetingRoomStatusChangedV1Handler:           r.eventV2MeetingRoomMeetingRoomStatusChangedV1Handler,
+		eventV2MeetingRoomMeetingRoomDeletedV1Handler:                 r.eventV2MeetingRoomMeetingRoomDeletedV1Handler,
+		eventV2MeetingRoomMeetingRoomCreatedV1Handler:                 r.eventV2MeetingRoomMeetingRoomCreatedV1Handler,
+		eventV1ThirdPartyMeetingRoomEventCreatedHandler:               r.eventV1ThirdPartyMeetingRoomEventCreatedHandler,
+		eventV1ThirdPartyMeetingRoomEventUpdatedHandler:               r.eventV1ThirdPartyMeetingRoomEventUpdatedHandler,
+		eventV1ThirdPartyMeetingRoomEventDeletedHandler:               r.eventV1ThirdPartyMeetingRoomEventDeletedHandler,
+		eventV1OrderPaidHandler:                                       r.eventV1OrderPaidHandler,
+		eventV1AppTicketHandler:                                       r.eventV1AppTicketHandler,
+		eventV1AppUninstalledHandler:                                  r.eventV1AppUninstalledHandler,
+		eventV1AppStatusChangeHandler:                                 r.eventV1AppStatusChangeHandler,
+		eventV2ApplicationApplicationVisibilityAddedV6Handler:         r.eventV2ApplicationApplicationVisibilityAddedV6Handler,
+		eventV2AttendanceUserTaskUpdatedV1Handler:                     r.eventV2AttendanceUserTaskUpdatedV1Handler,
+		eventV2AttendanceUserFlowCreatedV1Handler:                     r.eventV2AttendanceUserFlowCreatedV1Handler,
+		eventV2AwemeEcosystemAwemeUserBindedAccountV1Handler:          r.eventV2AwemeEcosystemAwemeUserBindedAccountV1Handler,
+		eventV2TaskTaskUpdateTenantV1Handler:                          r.eventV2TaskTaskUpdateTenantV1Handler,
+		eventV2TaskTaskUpdatedV1Handler:                               r.eventV2TaskTaskUpdatedV1Handler,
+		eventV2TaskTaskCommentUpdatedV1Handler:                        r.eventV2TaskTaskCommentUpdatedV1Handler,
+		eventV2HelpdeskTicketMessageCreatedV1Handler:                  r.eventV2HelpdeskTicketMessageCreatedV1Handler,
+		eventV2HelpdeskTicketCreatedV1Handler:                         r.eventV2HelpdeskTicketCreatedV1Handler,
+		eventV2HelpdeskTicketMessageUpdatedV1Handler:                  r.eventV2HelpdeskTicketMessageUpdatedV1Handler,
+		eventV2HelpdeskNotificationApproveV1Handler:                   r.eventV2HelpdeskNotificationApproveV1Handler,
+		eventV2ContactDepartmentCreatedV3Handler:                      r.eventV2ContactDepartmentCreatedV3Handler,
+		eventV2ContactDepartmentDeletedV3Handler:                      r.eventV2ContactDepartmentDeletedV3Handler,
+		eventV2ContactDepartmentUpdatedV3Handler:                      r.eventV2ContactDepartmentUpdatedV3Handler,
+		eventV2ContactUserUpdatedV3Handler:                            r.eventV2ContactUserUpdatedV3Handler,
+		eventV2ContactUserCreatedV3Handler:                            r.eventV2ContactUserCreatedV3Handler,
+		eventV2ContactUserDeletedV3Handler:                            r.eventV2ContactUserDeletedV3Handler,
+		eventV2ContactScopeUpdatedV3Handler:                           r.eventV2ContactScopeUpdatedV3Handler,
+		eventV2ContactEmployeeTypeEnumCreatedV3Handler:                r.eventV2ContactEmployeeTypeEnumCreatedV3Handler,
+		eventV2ContactEmployeeTypeEnumActivedV3Handler:                r.eventV2ContactEmployeeTypeEnumActivedV3Handler,
+		eventV2ContactEmployeeTypeEnumDeactivatedV3Handler:            r.eventV2ContactEmployeeTypeEnumDeactivatedV3Handler,
+		eventV2ContactEmployeeTypeEnumUpdatedV3Handler:                r.eventV2ContactEmployeeTypeEnumUpdatedV3Handler,
+		eventV2ContactEmployeeTypeEnumDeletedV3Handler:                r.eventV2ContactEmployeeTypeEnumDeletedV3Handler,
+		eventV2IMMessageReceiveV1Handler:                              r.eventV2IMMessageReceiveV1Handler,
+		eventV2IMMessageReadV1Handler:                                 r.eventV2IMMessageReadV1Handler,
+		eventV2IMMessageReactionDeletedV1Handler:                      r.eventV2IMMessageReactionDeletedV1Handler,
+		eventV2IMMessageReactionCreatedV1Handler:                      r.eventV2IMMessageReactionCreatedV1Handler,
+		eventV2IMChatDisbandedV1Handler:                               r.eventV2IMChatDisbandedV1Handler,
+		eventV2IMChatUpdatedV1Handler:                                 r.eventV2IMChatUpdatedV1Handler,
+		eventV2IMChatMemberBotAddedV1Handler:                          r.eventV2IMChatMemberBotAddedV1Handler,
+		eventV2IMChatMemberBotDeletedV1Handler:                        r.eventV2IMChatMemberBotDeletedV1Handler,
+		eventV2IMChatMemberUserAddedV1Handler:                         r.eventV2IMChatMemberUserAddedV1Handler,
+		eventV2IMChatMemberUserWithdrawnV1Handler:                     r.eventV2IMChatMemberUserWithdrawnV1Handler,
+		eventV2IMChatMemberUserDeletedV1Handler:                       r.eventV2IMChatMemberUserDeletedV1Handler,
+		eventV2VCMeetingMeetingStartedV1Handler:                       r.eventV2VCMeetingMeetingStartedV1Handler,
+		eventV2VCMeetingMeetingEndedV1Handler:                         r.eventV2VCMeetingMeetingEndedV1Handler,
+		eventV2VCMeetingJoinMeetingV1Handler:                          r.eventV2VCMeetingJoinMeetingV1Handler,
+		eventV2VCMeetingLeaveMeetingV1Handler:                         r.eventV2VCMeetingLeaveMeetingV1Handler,
+		eventV2VCMeetingRecordingStartedV1Handler:                     r.eventV2VCMeetingRecordingStartedV1Handler,
+		eventV2VCMeetingRecordingEndedV1Handler:                       r.eventV2VCMeetingRecordingEndedV1Handler,
+		eventV2VCMeetingRecordingReadyV1Handler:                       r.eventV2VCMeetingRecordingReadyV1Handler,
+		eventV2VCMeetingShareStartedV1Handler:                         r.eventV2VCMeetingShareStartedV1Handler,
+		eventV2VCMeetingShareEndedV1Handler:                           r.eventV2VCMeetingShareEndedV1Handler,
+		eventV2ACSAccessRecordCreatedV1Handler:                        r.eventV2ACSAccessRecordCreatedV1Handler,
+		eventV2ACSUserUpdatedV1Handler:                                r.eventV2ACSUserUpdatedV1Handler,
+		eventV2CalendarCalendarACLCreatedV4Handler:                    r.eventV2CalendarCalendarACLCreatedV4Handler,
+		eventV2CalendarCalendarACLDeletedV4Handler:                    r.eventV2CalendarCalendarACLDeletedV4Handler,
+		eventV2CalendarCalendarEventChangedV4Handler:                  r.eventV2CalendarCalendarEventChangedV4Handler,
+		eventV2CalendarCalendarChangedV4Handler:                       r.eventV2CalendarCalendarChangedV4Handler,
+		eventV1AddBotHandler:                                          r.eventV1AddBotHandler,
+		eventV1RemoveBotHandler:                                       r.eventV1RemoveBotHandler,
+		eventV1P2PChatCreateHandler:                                   r.eventV1P2PChatCreateHandler,
+		eventV1ReceiveMessageHandler:                                  r.eventV1ReceiveMessageHandler,
+		eventV1AddUserToChatHandler:                                   r.eventV1AddUserToChatHandler,
+		eventV1RemoveUserFromChatHandler:                              r.eventV1RemoveUserFromChatHandler,
+		eventV1RevokeAddUserFromChatHandler:                           r.eventV1RevokeAddUserFromChatHandler,
+		eventV1ChatDisbandHandler:                                     r.eventV1ChatDisbandHandler,
 	}
 }
 
 type eventBody struct {
-	eventV2DriveFileTitleUpdatedV1                 *EventV2DriveFileTitleUpdatedV1
-	eventV2DriveFileReadV1                         *EventV2DriveFileReadV1
-	eventV2DriveFileEditV1                         *EventV2DriveFileEditV1
-	eventV1AppOpen                                 *EventV1AppOpen
-	eventV1ShiftApproval                           *EventV1ShiftApproval
-	eventV1LeaveApprovalV2                         *EventV1LeaveApprovalV2
-	eventV1OutApproval                             *EventV1OutApproval
-	eventV1WorkApproval                            *EventV1WorkApproval
-	eventV2DriveFilePermissionMemberAddedV1        *EventV2DriveFilePermissionMemberAddedV1
-	eventV2DriveFileTrashedV1                      *EventV2DriveFileTrashedV1
-	eventV2DriveFileDeletedV1                      *EventV2DriveFileDeletedV1
-	eventV2DriveFilePermissionMemberRemovedV1      *EventV2DriveFilePermissionMemberRemovedV1
-	eventV2ApprovalApprovalUpdatedV4               *EventV2ApprovalApprovalUpdatedV4
-	eventV1TripApproval                            *EventV1TripApproval
-	eventV1RemedyApproval                          *EventV1RemedyApproval
-	eventV2MeetingRoomMeetingRoomUpdatedV1         *EventV2MeetingRoomMeetingRoomUpdatedV1
-	eventV2MeetingRoomMeetingRoomStatusChangedV1   *EventV2MeetingRoomMeetingRoomStatusChangedV1
-	eventV2MeetingRoomMeetingRoomDeletedV1         *EventV2MeetingRoomMeetingRoomDeletedV1
-	eventV2MeetingRoomMeetingRoomCreatedV1         *EventV2MeetingRoomMeetingRoomCreatedV1
-	eventV1ThirdPartyMeetingRoomEventCreated       *EventV1ThirdPartyMeetingRoomEventCreated
-	eventV1ThirdPartyMeetingRoomEventUpdated       *EventV1ThirdPartyMeetingRoomEventUpdated
-	eventV1ThirdPartyMeetingRoomEventDeleted       *EventV1ThirdPartyMeetingRoomEventDeleted
-	eventV1OrderPaid                               *EventV1OrderPaid
-	eventV1AppTicket                               *EventV1AppTicket
-	eventV1AppUninstalled                          *EventV1AppUninstalled
-	eventV1AppStatusChange                         *EventV1AppStatusChange
-	eventV2ApplicationApplicationVisibilityAddedV6 *EventV2ApplicationApplicationVisibilityAddedV6
-	eventV2AttendanceUserTaskUpdatedV1             *EventV2AttendanceUserTaskUpdatedV1
-	eventV2AttendanceUserFlowCreatedV1             *EventV2AttendanceUserFlowCreatedV1
-	eventV2AwemeEcosystemAwemeUserBindedAccountV1  *EventV2AwemeEcosystemAwemeUserBindedAccountV1
-	eventV2TaskTaskUpdateTenantV1                  *EventV2TaskTaskUpdateTenantV1
-	eventV2TaskTaskUpdatedV1                       *EventV2TaskTaskUpdatedV1
-	eventV2TaskTaskCommentUpdatedV1                *EventV2TaskTaskCommentUpdatedV1
-	eventV2HelpdeskTicketMessageCreatedV1          *EventV2HelpdeskTicketMessageCreatedV1
-	eventV2HelpdeskTicketCreatedV1                 *EventV2HelpdeskTicketCreatedV1
-	eventV2HelpdeskTicketMessageUpdatedV1          *EventV2HelpdeskTicketMessageUpdatedV1
-	eventV2HelpdeskNotificationApproveV1           *EventV2HelpdeskNotificationApproveV1
-	eventV2ContactDepartmentCreatedV3              *EventV2ContactDepartmentCreatedV3
-	eventV2ContactDepartmentDeletedV3              *EventV2ContactDepartmentDeletedV3
-	eventV2ContactDepartmentUpdatedV3              *EventV2ContactDepartmentUpdatedV3
-	eventV2ContactUserUpdatedV3                    *EventV2ContactUserUpdatedV3
-	eventV2ContactUserCreatedV3                    *EventV2ContactUserCreatedV3
-	eventV2ContactUserDeletedV3                    *EventV2ContactUserDeletedV3
-	eventV2ContactScopeUpdatedV3                   *EventV2ContactScopeUpdatedV3
-	eventV2ContactEmployeeTypeEnumCreatedV3        *EventV2ContactEmployeeTypeEnumCreatedV3
-	eventV2ContactEmployeeTypeEnumActivedV3        *EventV2ContactEmployeeTypeEnumActivedV3
-	eventV2ContactEmployeeTypeEnumDeactivatedV3    *EventV2ContactEmployeeTypeEnumDeactivatedV3
-	eventV2ContactEmployeeTypeEnumUpdatedV3        *EventV2ContactEmployeeTypeEnumUpdatedV3
-	eventV2ContactEmployeeTypeEnumDeletedV3        *EventV2ContactEmployeeTypeEnumDeletedV3
-	eventV2IMMessageReceiveV1                      *EventV2IMMessageReceiveV1
-	eventV2IMMessageReadV1                         *EventV2IMMessageReadV1
-	eventV2IMMessageReactionDeletedV1              *EventV2IMMessageReactionDeletedV1
-	eventV2IMMessageReactionCreatedV1              *EventV2IMMessageReactionCreatedV1
-	eventV2IMChatDisbandedV1                       *EventV2IMChatDisbandedV1
-	eventV2IMChatUpdatedV1                         *EventV2IMChatUpdatedV1
-	eventV2IMChatMemberBotAddedV1                  *EventV2IMChatMemberBotAddedV1
-	eventV2IMChatMemberBotDeletedV1                *EventV2IMChatMemberBotDeletedV1
-	eventV2IMChatMemberUserAddedV1                 *EventV2IMChatMemberUserAddedV1
-	eventV2IMChatMemberUserWithdrawnV1             *EventV2IMChatMemberUserWithdrawnV1
-	eventV2IMChatMemberUserDeletedV1               *EventV2IMChatMemberUserDeletedV1
-	eventV2VCMeetingMeetingStartedV1               *EventV2VCMeetingMeetingStartedV1
-	eventV2VCMeetingMeetingEndedV1                 *EventV2VCMeetingMeetingEndedV1
-	eventV2VCMeetingJoinMeetingV1                  *EventV2VCMeetingJoinMeetingV1
-	eventV2VCMeetingLeaveMeetingV1                 *EventV2VCMeetingLeaveMeetingV1
-	eventV2VCMeetingRecordingStartedV1             *EventV2VCMeetingRecordingStartedV1
-	eventV2VCMeetingRecordingEndedV1               *EventV2VCMeetingRecordingEndedV1
-	eventV2VCMeetingRecordingReadyV1               *EventV2VCMeetingRecordingReadyV1
-	eventV2VCMeetingShareStartedV1                 *EventV2VCMeetingShareStartedV1
-	eventV2VCMeetingShareEndedV1                   *EventV2VCMeetingShareEndedV1
-	eventV2ACSAccessRecordCreatedV1                *EventV2ACSAccessRecordCreatedV1
-	eventV2ACSUserUpdatedV1                        *EventV2ACSUserUpdatedV1
-	eventV2CalendarCalendarACLCreatedV4            *EventV2CalendarCalendarACLCreatedV4
-	eventV2CalendarCalendarACLDeletedV4            *EventV2CalendarCalendarACLDeletedV4
-	eventV2CalendarCalendarEventChangedV4          *EventV2CalendarCalendarEventChangedV4
-	eventV2CalendarCalendarChangedV4               *EventV2CalendarCalendarChangedV4
-	eventV1AddBot                                  *EventV1AddBot
-	eventV1RemoveBot                               *EventV1RemoveBot
-	eventV1P2PChatCreate                           *EventV1P2PChatCreate
-	eventV1ReceiveMessage                          *EventV1ReceiveMessage
-	eventV1AddUserToChat                           *EventV1AddUserToChat
-	eventV1RemoveUserFromChat                      *EventV1RemoveUserFromChat
-	eventV1RevokeAddUserFromChat                   *EventV1RevokeAddUserFromChat
-	eventV1ChatDisband                             *EventV1ChatDisband
+	eventV2ApplicationApplicationAppVersionAuditV6         *EventV2ApplicationApplicationAppVersionAuditV6
+	eventV2ApplicationApplicationAppVersionPublishApplyV6  *EventV2ApplicationApplicationAppVersionPublishApplyV6
+	eventV2ApplicationApplicationAppVersionPublishRevokeV6 *EventV2ApplicationApplicationAppVersionPublishRevokeV6
+	eventV2ApplicationApplicationCreatedV6                 *EventV2ApplicationApplicationCreatedV6
+	eventV2ContactCustomAttrEventUpdatedV3                 *EventV2ContactCustomAttrEventUpdatedV3
+	eventV2DriveFileTitleUpdatedV1                         *EventV2DriveFileTitleUpdatedV1
+	eventV2DriveFileReadV1                                 *EventV2DriveFileReadV1
+	eventV2DriveFileEditV1                                 *EventV2DriveFileEditV1
+	eventV1AppOpen                                         *EventV1AppOpen
+	eventV1ShiftApproval                                   *EventV1ShiftApproval
+	eventV1LeaveApprovalV2                                 *EventV1LeaveApprovalV2
+	eventV1OutApproval                                     *EventV1OutApproval
+	eventV1WorkApproval                                    *EventV1WorkApproval
+	eventV2DriveFilePermissionMemberAddedV1                *EventV2DriveFilePermissionMemberAddedV1
+	eventV2DriveFileTrashedV1                              *EventV2DriveFileTrashedV1
+	eventV2DriveFileDeletedV1                              *EventV2DriveFileDeletedV1
+	eventV2DriveFilePermissionMemberRemovedV1              *EventV2DriveFilePermissionMemberRemovedV1
+	eventV2ApprovalApprovalUpdatedV4                       *EventV2ApprovalApprovalUpdatedV4
+	eventV1TripApproval                                    *EventV1TripApproval
+	eventV1RemedyApproval                                  *EventV1RemedyApproval
+	eventV2MeetingRoomMeetingRoomUpdatedV1                 *EventV2MeetingRoomMeetingRoomUpdatedV1
+	eventV2MeetingRoomMeetingRoomStatusChangedV1           *EventV2MeetingRoomMeetingRoomStatusChangedV1
+	eventV2MeetingRoomMeetingRoomDeletedV1                 *EventV2MeetingRoomMeetingRoomDeletedV1
+	eventV2MeetingRoomMeetingRoomCreatedV1                 *EventV2MeetingRoomMeetingRoomCreatedV1
+	eventV1ThirdPartyMeetingRoomEventCreated               *EventV1ThirdPartyMeetingRoomEventCreated
+	eventV1ThirdPartyMeetingRoomEventUpdated               *EventV1ThirdPartyMeetingRoomEventUpdated
+	eventV1ThirdPartyMeetingRoomEventDeleted               *EventV1ThirdPartyMeetingRoomEventDeleted
+	eventV1OrderPaid                                       *EventV1OrderPaid
+	eventV1AppTicket                                       *EventV1AppTicket
+	eventV1AppUninstalled                                  *EventV1AppUninstalled
+	eventV1AppStatusChange                                 *EventV1AppStatusChange
+	eventV2ApplicationApplicationVisibilityAddedV6         *EventV2ApplicationApplicationVisibilityAddedV6
+	eventV2AttendanceUserTaskUpdatedV1                     *EventV2AttendanceUserTaskUpdatedV1
+	eventV2AttendanceUserFlowCreatedV1                     *EventV2AttendanceUserFlowCreatedV1
+	eventV2AwemeEcosystemAwemeUserBindedAccountV1          *EventV2AwemeEcosystemAwemeUserBindedAccountV1
+	eventV2TaskTaskUpdateTenantV1                          *EventV2TaskTaskUpdateTenantV1
+	eventV2TaskTaskUpdatedV1                               *EventV2TaskTaskUpdatedV1
+	eventV2TaskTaskCommentUpdatedV1                        *EventV2TaskTaskCommentUpdatedV1
+	eventV2HelpdeskTicketMessageCreatedV1                  *EventV2HelpdeskTicketMessageCreatedV1
+	eventV2HelpdeskTicketCreatedV1                         *EventV2HelpdeskTicketCreatedV1
+	eventV2HelpdeskTicketMessageUpdatedV1                  *EventV2HelpdeskTicketMessageUpdatedV1
+	eventV2HelpdeskNotificationApproveV1                   *EventV2HelpdeskNotificationApproveV1
+	eventV2ContactDepartmentCreatedV3                      *EventV2ContactDepartmentCreatedV3
+	eventV2ContactDepartmentDeletedV3                      *EventV2ContactDepartmentDeletedV3
+	eventV2ContactDepartmentUpdatedV3                      *EventV2ContactDepartmentUpdatedV3
+	eventV2ContactUserUpdatedV3                            *EventV2ContactUserUpdatedV3
+	eventV2ContactUserCreatedV3                            *EventV2ContactUserCreatedV3
+	eventV2ContactUserDeletedV3                            *EventV2ContactUserDeletedV3
+	eventV2ContactScopeUpdatedV3                           *EventV2ContactScopeUpdatedV3
+	eventV2ContactEmployeeTypeEnumCreatedV3                *EventV2ContactEmployeeTypeEnumCreatedV3
+	eventV2ContactEmployeeTypeEnumActivedV3                *EventV2ContactEmployeeTypeEnumActivedV3
+	eventV2ContactEmployeeTypeEnumDeactivatedV3            *EventV2ContactEmployeeTypeEnumDeactivatedV3
+	eventV2ContactEmployeeTypeEnumUpdatedV3                *EventV2ContactEmployeeTypeEnumUpdatedV3
+	eventV2ContactEmployeeTypeEnumDeletedV3                *EventV2ContactEmployeeTypeEnumDeletedV3
+	eventV2IMMessageReceiveV1                              *EventV2IMMessageReceiveV1
+	eventV2IMMessageReadV1                                 *EventV2IMMessageReadV1
+	eventV2IMMessageReactionDeletedV1                      *EventV2IMMessageReactionDeletedV1
+	eventV2IMMessageReactionCreatedV1                      *EventV2IMMessageReactionCreatedV1
+	eventV2IMChatDisbandedV1                               *EventV2IMChatDisbandedV1
+	eventV2IMChatUpdatedV1                                 *EventV2IMChatUpdatedV1
+	eventV2IMChatMemberBotAddedV1                          *EventV2IMChatMemberBotAddedV1
+	eventV2IMChatMemberBotDeletedV1                        *EventV2IMChatMemberBotDeletedV1
+	eventV2IMChatMemberUserAddedV1                         *EventV2IMChatMemberUserAddedV1
+	eventV2IMChatMemberUserWithdrawnV1                     *EventV2IMChatMemberUserWithdrawnV1
+	eventV2IMChatMemberUserDeletedV1                       *EventV2IMChatMemberUserDeletedV1
+	eventV2VCMeetingMeetingStartedV1                       *EventV2VCMeetingMeetingStartedV1
+	eventV2VCMeetingMeetingEndedV1                         *EventV2VCMeetingMeetingEndedV1
+	eventV2VCMeetingJoinMeetingV1                          *EventV2VCMeetingJoinMeetingV1
+	eventV2VCMeetingLeaveMeetingV1                         *EventV2VCMeetingLeaveMeetingV1
+	eventV2VCMeetingRecordingStartedV1                     *EventV2VCMeetingRecordingStartedV1
+	eventV2VCMeetingRecordingEndedV1                       *EventV2VCMeetingRecordingEndedV1
+	eventV2VCMeetingRecordingReadyV1                       *EventV2VCMeetingRecordingReadyV1
+	eventV2VCMeetingShareStartedV1                         *EventV2VCMeetingShareStartedV1
+	eventV2VCMeetingShareEndedV1                           *EventV2VCMeetingShareEndedV1
+	eventV2ACSAccessRecordCreatedV1                        *EventV2ACSAccessRecordCreatedV1
+	eventV2ACSUserUpdatedV1                                *EventV2ACSUserUpdatedV1
+	eventV2CalendarCalendarACLCreatedV4                    *EventV2CalendarCalendarACLCreatedV4
+	eventV2CalendarCalendarACLDeletedV4                    *EventV2CalendarCalendarACLDeletedV4
+	eventV2CalendarCalendarEventChangedV4                  *EventV2CalendarCalendarEventChangedV4
+	eventV2CalendarCalendarChangedV4                       *EventV2CalendarCalendarChangedV4
+	eventV1AddBot                                          *EventV1AddBot
+	eventV1RemoveBot                                       *EventV1RemoveBot
+	eventV1P2PChatCreate                                   *EventV1P2PChatCreate
+	eventV1ReceiveMessage                                  *EventV1ReceiveMessage
+	eventV1AddUserToChat                                   *EventV1AddUserToChat
+	eventV1RemoveUserFromChat                              *EventV1RemoveUserFromChat
+	eventV1RevokeAddUserFromChat                           *EventV1RevokeAddUserFromChat
+	eventV1ChatDisband                                     *EventV1ChatDisband
 }
 
 func (r *EventCallbackService) parserEventV2(req *eventReq) error {
@@ -380,6 +400,36 @@ func (r *EventCallbackService) parserEventV2(req *eventReq) error {
 	}
 
 	switch req.Header.EventType {
+	case EventTypeV2ApplicationApplicationAppVersionAuditV6:
+		event := new(EventV2ApplicationApplicationAppVersionAuditV6)
+		if err := req.unmarshalEvent(event); err != nil {
+			return err
+		}
+		req.eventV2ApplicationApplicationAppVersionAuditV6 = event
+	case EventTypeV2ApplicationApplicationAppVersionPublishApplyV6:
+		event := new(EventV2ApplicationApplicationAppVersionPublishApplyV6)
+		if err := req.unmarshalEvent(event); err != nil {
+			return err
+		}
+		req.eventV2ApplicationApplicationAppVersionPublishApplyV6 = event
+	case EventTypeV2ApplicationApplicationAppVersionPublishRevokeV6:
+		event := new(EventV2ApplicationApplicationAppVersionPublishRevokeV6)
+		if err := req.unmarshalEvent(event); err != nil {
+			return err
+		}
+		req.eventV2ApplicationApplicationAppVersionPublishRevokeV6 = event
+	case EventTypeV2ApplicationApplicationCreatedV6:
+		event := new(EventV2ApplicationApplicationCreatedV6)
+		if err := req.unmarshalEvent(event); err != nil {
+			return err
+		}
+		req.eventV2ApplicationApplicationCreatedV6 = event
+	case EventTypeV2ContactCustomAttrEventUpdatedV3:
+		event := new(EventV2ContactCustomAttrEventUpdatedV3)
+		if err := req.unmarshalEvent(event); err != nil {
+			return err
+		}
+		req.eventV2ContactCustomAttrEventUpdatedV3 = event
 	case EventTypeV2DriveFileTitleUpdatedV1:
 		event := new(EventV2DriveFileTitleUpdatedV1)
 		if err := req.unmarshalEvent(event); err != nil {
@@ -920,6 +970,31 @@ type v1type struct {
 
 func (r *EventCallbackService) handlerEvent(ctx context.Context, req *eventReq) (handled bool, s string, err error) {
 	switch {
+	case req.eventV2ApplicationApplicationAppVersionAuditV6 != nil:
+		if r.cli.eventHandler.eventV2ApplicationApplicationAppVersionAuditV6Handler != nil {
+			s, err = r.cli.eventHandler.eventV2ApplicationApplicationAppVersionAuditV6Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2ApplicationApplicationAppVersionAuditV6)
+		}
+		return true, s, err
+	case req.eventV2ApplicationApplicationAppVersionPublishApplyV6 != nil:
+		if r.cli.eventHandler.eventV2ApplicationApplicationAppVersionPublishApplyV6Handler != nil {
+			s, err = r.cli.eventHandler.eventV2ApplicationApplicationAppVersionPublishApplyV6Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2ApplicationApplicationAppVersionPublishApplyV6)
+		}
+		return true, s, err
+	case req.eventV2ApplicationApplicationAppVersionPublishRevokeV6 != nil:
+		if r.cli.eventHandler.eventV2ApplicationApplicationAppVersionPublishRevokeV6Handler != nil {
+			s, err = r.cli.eventHandler.eventV2ApplicationApplicationAppVersionPublishRevokeV6Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2ApplicationApplicationAppVersionPublishRevokeV6)
+		}
+		return true, s, err
+	case req.eventV2ApplicationApplicationCreatedV6 != nil:
+		if r.cli.eventHandler.eventV2ApplicationApplicationCreatedV6Handler != nil {
+			s, err = r.cli.eventHandler.eventV2ApplicationApplicationCreatedV6Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2ApplicationApplicationCreatedV6)
+		}
+		return true, s, err
+	case req.eventV2ContactCustomAttrEventUpdatedV3 != nil:
+		if r.cli.eventHandler.eventV2ContactCustomAttrEventUpdatedV3Handler != nil {
+			s, err = r.cli.eventHandler.eventV2ContactCustomAttrEventUpdatedV3Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2ContactCustomAttrEventUpdatedV3)
+		}
+		return true, s, err
 	case req.eventV2DriveFileTitleUpdatedV1 != nil:
 		if r.cli.eventHandler.eventV2DriveFileTitleUpdatedV1Handler != nil {
 			s, err = r.cli.eventHandler.eventV2DriveFileTitleUpdatedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2DriveFileTitleUpdatedV1)

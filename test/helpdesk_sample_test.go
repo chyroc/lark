@@ -139,48 +139,36 @@ func Test_Helpdesk_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-			t.Skip()
-
 			_, _, err := moduleCli.GetHelpdeskAgentEmail(ctx, &lark.GetHelpdeskAgentEmailReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "failed")
 		})
 
 		t.Run("", func(t *testing.T) {
-			t.Skip()
-
 			_, _, err := moduleCli.GetHelpdeskAgentSchedule(ctx, &lark.GetHelpdeskAgentScheduleReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "failed")
 		})
 
 		t.Run("", func(t *testing.T) {
-			t.Skip()
-
 			_, _, err := moduleCli.GetHelpdeskAgentScheduleList(ctx, &lark.GetHelpdeskAgentScheduleListReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "failed")
 		})
 
 		t.Run("", func(t *testing.T) {
-			t.Skip()
-
 			_, _, err := moduleCli.GetHelpdeskAgentSkill(ctx, &lark.GetHelpdeskAgentSkillReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "failed")
 		})
 
 		t.Run("", func(t *testing.T) {
-			t.Skip()
-
 			_, _, err := moduleCli.GetHelpdeskAgentSkillList(ctx, &lark.GetHelpdeskAgentSkillListReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "failed")
 		})
 
 		t.Run("", func(t *testing.T) {
-			t.Skip()
-
 			_, _, err := moduleCli.GetHelpdeskAgentSkillRuleList(ctx, &lark.GetHelpdeskAgentSkillRuleListReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "failed")
@@ -391,8 +379,6 @@ func Test_Helpdesk_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-			t.Skip()
-
 			cli.Mock().MockHelpdeskGetHelpdeskAgentEmail(func(ctx context.Context, request *lark.GetHelpdeskAgentEmailReq, options ...lark.MethodOptionFunc) (*lark.GetHelpdeskAgentEmailResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -404,8 +390,6 @@ func Test_Helpdesk_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-			t.Skip()
-
 			cli.Mock().MockHelpdeskGetHelpdeskAgentSchedule(func(ctx context.Context, request *lark.GetHelpdeskAgentScheduleReq, options ...lark.MethodOptionFunc) (*lark.GetHelpdeskAgentScheduleResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -417,8 +401,6 @@ func Test_Helpdesk_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-			t.Skip()
-
 			cli.Mock().MockHelpdeskGetHelpdeskAgentScheduleList(func(ctx context.Context, request *lark.GetHelpdeskAgentScheduleListReq, options ...lark.MethodOptionFunc) (*lark.GetHelpdeskAgentScheduleListResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -430,8 +412,6 @@ func Test_Helpdesk_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-			t.Skip()
-
 			cli.Mock().MockHelpdeskGetHelpdeskAgentSkill(func(ctx context.Context, request *lark.GetHelpdeskAgentSkillReq, options ...lark.MethodOptionFunc) (*lark.GetHelpdeskAgentSkillResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -443,8 +423,6 @@ func Test_Helpdesk_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-			t.Skip()
-
 			cli.Mock().MockHelpdeskGetHelpdeskAgentSkillList(func(ctx context.Context, request *lark.GetHelpdeskAgentSkillListReq, options ...lark.MethodOptionFunc) (*lark.GetHelpdeskAgentSkillListResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -456,8 +434,6 @@ func Test_Helpdesk_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-			t.Skip()
-
 			cli.Mock().MockHelpdeskGetHelpdeskAgentSkillRuleList(func(ctx context.Context, request *lark.GetHelpdeskAgentSkillRuleListReq, options ...lark.MethodOptionFunc) (*lark.GetHelpdeskAgentSkillRuleListResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -617,16 +593,12 @@ func Test_Helpdesk_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-			t.Skip()
-
 			_, _, err := moduleCli.GetHelpdeskAgentEmail(ctx, &lark.GetHelpdeskAgentEmailReq{})
 			as.NotNil(err)
 			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
 		})
 
 		t.Run("", func(t *testing.T) {
-			t.Skip()
-
 			_, _, err := moduleCli.GetHelpdeskAgentSchedule(ctx, &lark.GetHelpdeskAgentScheduleReq{
 				AgentID: "x",
 			})
@@ -635,16 +607,12 @@ func Test_Helpdesk_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-			t.Skip()
-
 			_, _, err := moduleCli.GetHelpdeskAgentScheduleList(ctx, &lark.GetHelpdeskAgentScheduleListReq{})
 			as.NotNil(err)
 			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
 		})
 
 		t.Run("", func(t *testing.T) {
-			t.Skip()
-
 			_, _, err := moduleCli.GetHelpdeskAgentSkill(ctx, &lark.GetHelpdeskAgentSkillReq{
 				AgentSkillID: "x",
 			})
@@ -653,16 +621,12 @@ func Test_Helpdesk_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-			t.Skip()
-
 			_, _, err := moduleCli.GetHelpdeskAgentSkillList(ctx, &lark.GetHelpdeskAgentSkillListReq{})
 			as.NotNil(err)
 			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
 		})
 
 		t.Run("", func(t *testing.T) {
-			t.Skip()
-
 			_, _, err := moduleCli.GetHelpdeskAgentSkillRuleList(ctx, &lark.GetHelpdeskAgentSkillRuleListReq{})
 			as.NotNil(err)
 			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
@@ -810,16 +774,12 @@ func Test_Helpdesk_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-			t.Skip()
-
 			_, _, err := moduleCli.GetHelpdeskAgentEmail(ctx, &lark.GetHelpdeskAgentEmailReq{})
 			as.NotNil(err)
 			as.Equal("fake raw request", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
-			t.Skip()
-
 			_, _, err := moduleCli.GetHelpdeskAgentSchedule(ctx, &lark.GetHelpdeskAgentScheduleReq{
 				AgentID: "x",
 			})
@@ -828,16 +788,12 @@ func Test_Helpdesk_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-			t.Skip()
-
 			_, _, err := moduleCli.GetHelpdeskAgentScheduleList(ctx, &lark.GetHelpdeskAgentScheduleListReq{})
 			as.NotNil(err)
 			as.Equal("fake raw request", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
-			t.Skip()
-
 			_, _, err := moduleCli.GetHelpdeskAgentSkill(ctx, &lark.GetHelpdeskAgentSkillReq{
 				AgentSkillID: "x",
 			})
@@ -846,16 +802,12 @@ func Test_Helpdesk_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-			t.Skip()
-
 			_, _, err := moduleCli.GetHelpdeskAgentSkillList(ctx, &lark.GetHelpdeskAgentSkillListReq{})
 			as.NotNil(err)
 			as.Equal("fake raw request", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
-			t.Skip()
-
 			_, _, err := moduleCli.GetHelpdeskAgentSkillRuleList(ctx, &lark.GetHelpdeskAgentSkillRuleListReq{})
 			as.NotNil(err)
 			as.Equal("fake raw request", err.Error())

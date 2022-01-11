@@ -5812,8 +5812,6 @@ type SetSheetValueImageResp struct {
 // 该接口用于将本地表格导入到云空间上。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uATO2YjLwkjN24CM5YjN
-//
-// Deprecated
 func (r *DriveService) ImportSheet(ctx context.Context, request *ImportSheetReq, options ...MethodOptionFunc) (*ImportSheetResp, *Response, error) {
 	if r.cli.mock.mockDriveImportSheet != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Drive#ImportSheet mock enable")

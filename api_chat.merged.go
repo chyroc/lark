@@ -383,8 +383,6 @@ type GetChatListOfSelfRespItem struct {
 // - 需要启用机器人能力；机器人必须在群里
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uMTO5QjLzkTO04yM5kDN
-//
-// Deprecated
 func (r *ChatService) GetChatOld(ctx context.Context, request *GetChatOldReq, options ...MethodOptionFunc) (*GetChatOldResp, *Response, error) {
 	if r.cli.mock.mockChatGetChatOld != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Chat#GetChatOld mock enable")

@@ -38,7 +38,7 @@ https://godoc.org/github.com/chyroc/lark
 
 ## 支持的接口
 
-API 总数: 539, 事件总数: 83
+API 总数: 544, 事件总数: 88
 
 <details>
   <summary>
@@ -358,6 +358,11 @@ API 总数: 539, 事件总数: 83
   - CheckUserIsInApplicationPaidScope
   - GetApplicationOrderList
   - GetApplicationOrder
+  - GetApplicationUnderAuditList
+  - GetApplication
+  - GetApplicationVersion
+  - UpdateApplicationVersion
+  - UpdateApplication
   - GetApplicationUsageOverview
   - GetApplicationUsageTrend
   - GetApplicationUsageDetail
@@ -591,6 +596,11 @@ API 总数: 539, 事件总数: 83
 - Ecosystem
   - GetEcosystemBindAwemeUser
 - EventCallback
+  - EventV2ApplicationApplicationAppVersionAuditV6
+  - EventV2ApplicationApplicationAppVersionPublishApplyV6
+  - EventV2ApplicationApplicationAppVersionPublishRevokeV6
+  - EventV2ApplicationApplicationCreatedV6
+  - EventV2ContactCustomAttrEventUpdatedV3
   - EventV2DriveFileTitleUpdatedV1
   - EventV2DriveFileReadV1
   - EventV2DriveFileEditV1
