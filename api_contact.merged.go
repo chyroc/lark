@@ -2084,6 +2084,8 @@ type UpdateContactUnitResp struct{}
 
 // BatchGetUserByID 通过该接口，可使用手机号/邮箱获取用户的 ID 信息，具体获取支持的 ID 类型包括 open_id、user_id、union_id，可通过查询参数指定。
 //
+// 如果查询的手机号、邮箱不存在，或者无权限查看对应的用户，则返回的open_id为空。
+//
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/batch_get_id
 func (r *ContactService) BatchGetUserByID(ctx context.Context, request *BatchGetUserByIDReq, options ...MethodOptionFunc) (*BatchGetUserByIDResp, *Response, error) {
 	if r.cli.mock.mockContactBatchGetUserByID != nil {
@@ -2192,7 +2194,7 @@ type CreateUserReq struct {
 	EnName           *string                    `json:"en_name,omitempty"`            // 英文名, 示例值："San Zhang"
 	Nickname         *string                    `json:"nickname,omitempty"`           // 别名, 示例值："Alex Zhang"
 	Email            *string                    `json:"email,omitempty"`              // 邮箱, 示例值："zhangsan@gmail.com"
-	Mobile           string                     `json:"mobile,omitempty"`             // 手机号, 示例值："13011111111"
+	Mobile           string                     `json:"mobile,omitempty"`             // 手机号，中国大陆手机可不填区号，境外手机需加国际电话区号前缀。, 示例值："中国大陆手机号: 13011111111 或 +8613011111111, 境外手机号:  +41446681800"
 	MobileVisible    *bool                      `json:"mobile_visible,omitempty"`     // 手机号码可见性，true 为可见，false 为不可见，目前默认为 true。不可见时，组织员工将无法查看该员工的手机号码, 示例值：false
 	Gender           *int64                     `json:"gender,omitempty"`             // 性别, 示例值：1, 可选值有: `0`：保密, `1`：男, `2`：女
 	AvatarKey        *string                    `json:"avatar_key,omitempty"`         // 头像的文件Key，可通过“消息与群组/消息/图片信息”中的“上传图片”接口上传并获取头像文件 Key, 示例值："2500c7a9-5fff-4d9a-a2de-3d59614ae28g"
@@ -2235,7 +2237,7 @@ type CreateUserReqCustomAttrValue struct {
 
 // CreateUserReqCustomAttrValueGenericUser ...
 type CreateUserReqCustomAttrValueGenericUser struct {
-	ID   string `json:"id,omitempty"`   // 用户的user_id, 示例值："9b2fabg5"
+	ID   string `json:"id,omitempty"`   // 用户的user_id [用户相关的 ID 概念](https://open.feishu.cn/document/home/user-identity-introduction/introduction), 示例值："9b2fabg5"
 	Type int64  `json:"type,omitempty"` // 用户类型    1：用户, 示例值：1
 }
 
@@ -2260,7 +2262,7 @@ type CreateUserRespUser struct {
 	EnName          string                          `json:"en_name,omitempty"`           // 英文名,**字段权限要求（满足任一）**：,以应用身份读取通讯录,获取用户基本信息,以应用身份访问通讯录,读取通讯录
 	Nickname        string                          `json:"nickname,omitempty"`          // 别名,**字段权限要求（满足任一）**：,以应用身份读取通讯录,获取用户基本信息,以应用身份访问通讯录,读取通讯录
 	Email           string                          `json:"email,omitempty"`             // 邮箱, 字段权限要求: 获取用户邮箱信息
-	Mobile          string                          `json:"mobile,omitempty"`            // 手机号, 字段权限要求: 获取用户手机号
+	Mobile          string                          `json:"mobile,omitempty"`            // 手机号，中国大陆手机可不填区号，境外手机需加国际电话区号前缀。, 字段权限要求: 获取用户手机号
 	MobileVisible   bool                            `json:"mobile_visible,omitempty"`    // 手机号码可见性，true 为可见，false 为不可见，目前默认为 true。不可见时，组织员工将无法查看该员工的手机号码
 	Gender          int64                           `json:"gender,omitempty"`            // 性别, 可选值有: `0`：保密, `1`：男, `2`：女,**字段权限要求（满足任一）**：,以应用身份读取通讯录,获取用户性别,以应用身份访问通讯录,读取通讯录
 	AvatarKey       string                          `json:"avatar_key,omitempty"`        // 头像的文件Key，可通过“消息与群组/消息/图片信息”中的“上传图片”接口上传并获取头像文件 Key
@@ -2327,7 +2329,7 @@ type CreateUserRespUserCustomAttrValue struct {
 
 // CreateUserRespUserCustomAttrValueGenericUser ...
 type CreateUserRespUserCustomAttrValueGenericUser struct {
-	ID   string `json:"id,omitempty"`   // 用户的user_id
+	ID   string `json:"id,omitempty"`   // 用户的user_id [用户相关的 ID 概念](https://open.feishu.cn/document/home/user-identity-introduction/introduction)
 	Type int64  `json:"type,omitempty"` // 用户类型    1：用户
 }
 

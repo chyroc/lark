@@ -2058,7 +2058,7 @@ func (r *Mock) UnMockDriveUploadDriveMedia() {
 // UploadDriveMediaReq ...
 type UploadDriveMediaReq struct {
 	FileName   string    `json:"file_name,omitempty"`   // 文件名, 示例值："test.txt", 最大长度：`250` 字符
-	ParentType string    `json:"parent_type,omitempty"` // 上传点类型, 示例值："doc_image", 可选值有: `doc_image`：docs图片, `sheet_image`：sheet图片, `doc_file`：doc文件, `sheet_file`：sheet文件, `vc_virtual_background`：vc虚拟背景(灰度中，暂未开放), `bitable_image`：bitable图片, `bitable_file`：bitable文件, `moments`：同事圈(灰度中，暂未开放), `ccm_import_open`：云文档导入文件
+	ParentType string    `json:"parent_type,omitempty"` // 上传点类型, 示例值："doc_image", 可选值有: `doc_image`：docs图片, `docx_image`：docx图片(灰度中，暂未开放), `sheet_image`：sheet图片, `doc_file`：doc文件, `docx_file`：docx文件(灰度中，暂未开放), `sheet_file`：sheet文件, `vc_virtual_background`：vc虚拟背景(灰度中，暂未开放), `bitable_image`：多维表格图片, `bitable_file`：多维表格文件, `moments`：同事圈(灰度中，暂未开放), `ccm_import_open`：云文档导入文件
 	ParentNode string    `json:"parent_node,omitempty"` // 上传点的token, 示例值："doccn123456"
 	Size       int64     `json:"size,omitempty"`        // 文件大小,全量上传最大20M, 示例值：1024, 最大值：`20971520`
 	Checksum   *string   `json:"checksum,omitempty"`    // 文件adler32校验和(可选), 示例值："12345678"
@@ -2237,7 +2237,7 @@ func (r *Mock) UnMockDrivePrepareUploadDriveMedia() {
 // PrepareUploadDriveMediaReq ...
 type PrepareUploadDriveMediaReq struct {
 	FileName   string  `json:"file_name,omitempty"`   // 文件名, 示例值："test.txt", 最大长度：`250` 字符
-	ParentType string  `json:"parent_type,omitempty"` // 上传点类型, 示例值："doc_image", 可选值有: `doc_image`：docs图片, `sheet_image`：sheet图片, `doc_file`：doc文件, `sheet_file`：sheet文件, `vc_virtual_background`：vc虚拟背景(灰度中，暂未开放), `bitable_image`：bitable图片, `bitable_file`：bitable文件, `moments`：同事圈(灰度中，暂未开放), `ccm_import_open`：云文档导入文件
+	ParentType string  `json:"parent_type,omitempty"` // 上传点类型, 示例值："doc_image", 可选值有: `doc_image`：docs图片, `sheet_image`：sheet图片, `doc_file`：doc文件, `sheet_file`：sheet文件, `vc_virtual_background`：vc虚拟背景(灰度中，暂未开放), `bitable_image`：多维表格图片, `bitable_file`：多维表格文件, `moments`：同事圈(灰度中，暂未开放), `ccm_import_open`：云文档导入文件
 	ParentNode string  `json:"parent_node,omitempty"` // 上传点的标识符, 示例值："doccn123456675"
 	Size       int64   `json:"size,omitempty"`        // 文件大小, 示例值：1024, 最小值：`0`
 	Extra      *string `json:"extra,omitempty"`       // 扩展信息(可选), 示例值："{\"test\":\"test\"}"
@@ -6703,7 +6703,7 @@ func (r *Mock) UnMockDriveAppendSheetValue() {
 
 // AppendSheetValueReq ...
 type AppendSheetValueReq struct {
-	InsertDataOption *string                        `query:"insertDataOption" json:"-"` // 遇到空行追加，默认 OVERWRITE, 若空行的数量小于追加数据的行数 则覆盖数据 append；可选 INSERT_ROWS ，会在插入足够数量的行后再 append
+	InsertDataOption *string                        `query:"insertDataOption" json:"-"` // 遇到空行追加，默认 OVERWRITE，若空行的数量小于追加数据的行数，则会覆盖已有数据；可选 INSERT_ROWS ，会在插入足够数量的行后再进行数据追加
 	SpreadSheetToken string                         `path:"spreadsheetToken" json:"-"`  // spreadsheet 的 token，获取方式见[在线表格开发指南](https://open.feishu.cn/document/ukTMukTMukTM/uATMzUjLwEzM14CMxMTN/overview)
 	ValueRange       *AppendSheetValueReqValueRange `json:"valueRange,omitempty"`       // 值与范围
 }

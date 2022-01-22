@@ -1369,9 +1369,10 @@ type EventV2ApprovalApprovalUpdatedV4 struct{}
 
 // EventV2AttendanceUserFlowCreatedV1
 //
+// 为了更好地提升接口文档的的易理解性，我们对文档进行了升级，请尽快迁移至[新版本>>](https://open.feishu.cn/document/ukTMukTMukTM/uYDNxYjL2QTM24iN0EjN/event-list)
 // 了解事件订阅的使用场景和配置流程，请点击查看 [事件订阅概述](https://open.feishu.cn/document/ukTMukTMukTM/uUTNz4SN1MjL1UzM)
 // **事件**
-// 用户打卡成功后，推送该用户的打卡流水消息。
+// 用户打卡成功后，推送该用户的打卡流水消息。（不支持商店应用使用）
 // **事件体**
 // |名称|类型|描述|
 // |---|---|---|
@@ -1414,9 +1415,10 @@ type EventV2AttendanceUserFlowCreatedV1 struct{}
 
 // EventV2AttendanceUserTaskUpdatedV1
 //
+// 为了更好地提升接口文档的的易理解性，我们对文档进行了升级，请尽快迁移至[新版本>>](https://open.feishu.cn/document/ukTMukTMukTM/uYDNxYjL2QTM24iN0EjN/event-list)
 // 了解事件订阅的使用场景和配置流程，请点击查看 [事件订阅概述](https://open.feishu.cn/document/ukTMukTMukTM/uUTNz4SN1MjL1UzM)
 // **事件**
-// 当用户任务变更后，推送该用户的任务状态变更消息。
+// 当用户任务变更后，推送该用户的任务状态变更消息。（不支持商店应用）
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/Attendance/event/user-task-status-change-event
 func (r *EventCallbackService) HandlerEventV2AttendanceUserTaskUpdatedV1(f EventV2AttendanceUserTaskUpdatedV1Handler) {
