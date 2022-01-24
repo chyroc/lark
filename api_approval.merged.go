@@ -579,7 +579,7 @@ type CreateApprovalInstanceReq struct {
 	NodeApproverOpenIDList map[string][]string `json:"node_approver_open_id_list,omitempty"` // 审批人发起人自选 open id
 	NodeCcUserIDList       map[string][]string `json:"node_cc_user_id_list,omitempty"`       // 如果有发起人自选节点，则可填写对应节点的抄送人<br>key:  node id 或 custom node id , 通过 [查看审批定义](https://open.feishu.cn/document/ukTMukTMukTM/uADNyUjLwQjM14CM0ITN) 获取<br> value: 审批人列表<br>单个节点最多选择20位抄送人
 	NodeCcOpenIDList       map[string][]string `json:"node_cc_open_id_list,omitempty"`       // 抄送人发起人自选 open id<br>单个节点最多选择20位抄送人
-	UUID                   *string             `json:"uuid,omitempty"`                       // 审批实例 uuid，用于幂等操作，同一个 uuid 只能用于创建一个审批实例，如果冲突，返回错误码 60012 ，格式必须为 XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX，不区分大小写
+	UUID                   *string             `json:"uuid,omitempty"`                       // 审批实例 uuid，用于幂等操作, 每个租户下面的唯一key，同一个 uuid 只能用于创建一个审批实例，如果冲突，返回错误码 60012 ，格式建议为 XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX，不区分大小写
 }
 
 // createApprovalInstanceResp ...
