@@ -600,7 +600,7 @@ type BatchGetMeetingRoomFreebusyRespFreeBusyRoomID struct {
 	StartTime     string                                                      `json:"start_time,omitempty"`     // 忙碌起始时间
 	EndTime       string                                                      `json:"end_time,omitempty"`       // 忙碌结束时间
 	Uid           string                                                      `json:"uid,omitempty"`            // 日程 ID
-	OriginalTime  int64                                                       `json:"original_time,omitempty"`  // 日程实例的原始时间, 非重复日程为0，重复日程为非0
+	OriginalTime  int64                                                       `json:"original_time,omitempty"`  // 日程实例的原始时间, 非重复日程以及重复性日程的原日程为0，重复性日程的例外日程为非0
 	OrganizerInfo *BatchGetMeetingRoomFreebusyRespFreeBusyRoomIDOrganizerInfo `json:"organizer_info,omitempty"` // 组织者信息, 私密日程不返回该信息
 }
 
