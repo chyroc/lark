@@ -38,7 +38,7 @@ https://godoc.org/github.com/chyroc/lark
 
 ## 支持的接口
 
-API 总数: 544, 事件总数: 88
+API 总数: 545, 事件总数: 88
 
 <details>
   <summary>
@@ -335,6 +335,7 @@ API 总数: 544, 事件总数: 88
   - GetVCReserve
   - GetVCReserveActiveMeeting
   - GetVCMeeting
+  - ListVCMeetingByNo
   - InviteVCMeeting
   - KickoutVCMeeting
   - SetVCHostMeeting

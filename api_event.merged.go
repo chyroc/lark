@@ -2496,7 +2496,7 @@ type EventV2ContactUserUpdatedV3Handler func(ctx context.Context, cli *Lark, sch
 // EventV2ContactUserUpdatedV3 ...
 type EventV2ContactUserUpdatedV3 struct {
 	Object    *EventV2ContactUserUpdatedV3Object    `json:"object,omitempty"`     // 变更后信息
-	OldObject *EventV2ContactUserUpdatedV3OldObject `json:"old_object,omitempty"` // 变更前信息
+	OldObject *EventV2ContactUserUpdatedV3OldObject `json:"old_object,omitempty"` // 变更前信息，body中只包含有变更的字段
 }
 
 // EventV2ContactUserUpdatedV3Object ...

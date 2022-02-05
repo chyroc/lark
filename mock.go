@@ -305,6 +305,7 @@ type Mock struct {
 	mockVCGetVCReserve                                         func(ctx context.Context, request *GetVCReserveReq, options ...MethodOptionFunc) (*GetVCReserveResp, *Response, error)
 	mockVCGetVCReserveActiveMeeting                            func(ctx context.Context, request *GetVCReserveActiveMeetingReq, options ...MethodOptionFunc) (*GetVCReserveActiveMeetingResp, *Response, error)
 	mockVCGetVCMeeting                                         func(ctx context.Context, request *GetVCMeetingReq, options ...MethodOptionFunc) (*GetVCMeetingResp, *Response, error)
+	mockVCListVCMeetingByNo                                    func(ctx context.Context, request *ListVCMeetingByNoReq, options ...MethodOptionFunc) (*ListVCMeetingByNoResp, *Response, error)
 	mockVCInviteVCMeeting                                      func(ctx context.Context, request *InviteVCMeetingReq, options ...MethodOptionFunc) (*InviteVCMeetingResp, *Response, error)
 	mockVCKickoutVCMeeting                                     func(ctx context.Context, request *KickoutVCMeetingReq, options ...MethodOptionFunc) (*KickoutVCMeetingResp, *Response, error)
 	mockVCSetVCHostMeeting                                     func(ctx context.Context, request *SetVCHostMeetingReq, options ...MethodOptionFunc) (*SetVCHostMeetingResp, *Response, error)
