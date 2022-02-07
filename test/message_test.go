@@ -173,7 +173,8 @@ func Test_GetMessage(t *testing.T) {
 		})
 		printData(resp, err)
 		as.NotNil(err)
-		as.Contains(err.Error(), "Bot is NOT the sender of the message")
+		// as.Contains(err.Error(), "Bot is NOT the sender of the message")
+		as.Contains(err.Error(), "these ids not existed")
 	})
 
 	t.Run("get-message-read", func(t *testing.T) {
