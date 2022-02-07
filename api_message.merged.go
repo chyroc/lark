@@ -919,7 +919,7 @@ func (r *Mock) UnMockMessageReplyRawMessage() {
 // ReplyRawMessageReq ...
 type ReplyRawMessageReq struct {
 	MessageID string  `path:"message_id" json:"-"` // 待回复的消息的ID, 示例值："om_dc13264520392913993dd051dba21dcf"
-	Content   string  `json:"content,omitempty"`   // 消息内容 json 格式，格式说明参考: [发送消息content说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/im-v1/message/create_json), 示例值："{\"text\":\"<at user_id=\"ou_155184d1e73cbfb8973e5a9e698e74f2\">Tom</at> test content\"}"
+	Content   string  `json:"content,omitempty"`   // 消息内容 json 格式，格式说明参考: [发送消息content说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/im-v1/message/create_json), 示例值："{\"text\":\"<at user_id=\\\"ou_155184d1e73cbfb8973e5a9e698e74f2\\\">Tom</at> test content\"}"
 	MsgType   MsgType `json:"msg_type,omitempty"`  // 消息类型，包括：text、post、image、file、audio、media、sticker、interactive、share_card、share_user, 示例值："text"
 }
 
