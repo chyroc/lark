@@ -21,6 +21,21 @@ import (
 	"strconv"
 )
 
+type SheetContentType string
+
+const (
+	SheetContentTypeString     SheetContentType = "string"
+	SheetContentTypeInt        SheetContentType = "int"
+	SheetContentTypeLink       SheetContentType = "link"
+	SheetContentTypeAtUser     SheetContentType = "at_user"
+	SheetContentTypeFormula    SheetContentType = "formula"
+	SheetContentTypeAtDoc      SheetContentType = "at_doc"
+	SheetContentTypeMultiValue SheetContentType = "multi_value"
+	SheetContentTypeEmbedImage SheetContentType = "embed_image"
+	SheetContentTypeList       SheetContentType = "list"
+	SheetContentTypeNull       SheetContentType = "null"
+)
+
 // SheetContent ...
 type SheetContent struct {
 	Children   *[]*SheetContent      `json:"children,omitempty"`
@@ -78,6 +93,31 @@ type SheetValueAtDoc struct {
 type SheetValueMultiValue struct {
 	Type   string        `json:"type"`   // multipleValue
 	Values []interface{} `json:"values"` // values为数组，可填bool,string,number类型。string类型数据不能包含","。使用前需要先使用设置下拉列表接口设置下拉列表。
+}
+
+func (r *SheetContent) Type() SheetContentType {
+	switch {
+	case r.String != nil:
+		return SheetContentTypeString
+	case r.Int != nil:
+		return SheetContentTypeInt
+	case r.Link != nil:
+		return SheetContentTypeLink
+	case r.AtUser != nil:
+		return SheetContentTypeAtUser
+	case r.Formula != nil:
+		return SheetContentTypeFormula
+	case r.AtDoc != nil:
+		return SheetContentTypeAtDoc
+	case r.MultiValue != nil:
+		return SheetContentTypeMultiValue
+	case r.EmbedImage != nil:
+		return SheetContentTypeEmbedImage
+	case r.Children != nil:
+		return SheetContentTypeList
+	default:
+		return SheetContentTypeNull
+	}
 }
 
 // UnmarshalJSON ...

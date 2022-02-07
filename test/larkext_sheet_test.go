@@ -49,6 +49,7 @@ func Test_SheetExt(t *testing.T) {
 	sheetClient := testCreateSheet(larkCli)
 	defer func() {
 		as.Nil(sheetClient.Delete(ctx))
+		_ = sheetClient.Delete(ctx)
 	}()
 
 	meta, err := sheetClient.Meta(ctx)
@@ -190,6 +191,21 @@ func Test_SheetExt(t *testing.T) {
 		as.Nil(err)
 		_, err = sheetClient.Replace(ctx, defaultSheetID, "6", "7", nil)
 		as.Nil(err)
+
+		sheetValue, err := sheetClient.Get(ctx, larkext.CellRange(defaultSheetID, 1, 1, 20, 20), &lark.GetSheetValueReq{
+			ValueRenderOption:    nil,
+			DateTimeRenderOption: nil,
+			UserIDType:           nil,
+			SpreadSheetToken:     "",
+			Range:                "",
+		})
+		as.Nil(err)
+		as.NotNil(sheetValue)
+		for _, vv := range sheetValue.ValueRange.Values {
+			for _, v := range vv {
+				fmt.Println(v.Type(), v)
+			}
+		}
 	})
 
 	t.Run("", func(t *testing.T) {

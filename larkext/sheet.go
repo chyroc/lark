@@ -172,10 +172,10 @@ func (r *Sheet) DeleteCols(ctx context.Context, sheetID string, startIndex, coun
 	return r.deleteDimension(ctx, "COLUMNS", sheetID, startIndex, count)
 }
 
-// // 获取单元格内容
-// func (r *Sheet) Get(ctx context.Context, cellRange string, option *lark.GetSheetValueReq) error {
-// 	return r.getValue(ctx, cellRange, option)
-// }
+// 获取单元格内容
+func (r *Sheet) Get(ctx context.Context, cellRange string, option *lark.GetSheetValueReq) (*lark.GetSheetValueResp, error) {
+	return r.getValue(ctx, cellRange, option)
+}
 
 // SetCellStyle 设置单元格样式
 func (r *Sheet) SetCellStyle(ctx context.Context, cellRange string, style *lark.SetSheetStyleReqAppendStyleStyle) error {

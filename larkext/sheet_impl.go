@@ -281,7 +281,7 @@ func (r *Sheet) deleteDimension(ctx context.Context, dimension, sheetID string, 
 }
 
 // TODO sheet 内容解析需要完善
-func (r *Sheet) getValue(ctx context.Context, cellRange string, option *lark.GetSheetValueReq) error {
+func (r *Sheet) getValue(ctx context.Context, cellRange string, option *lark.GetSheetValueReq) (*lark.GetSheetValueResp, error) {
 	if option == nil {
 		option = &lark.GetSheetValueReq{}
 	}
@@ -292,8 +292,7 @@ func (r *Sheet) getValue(ctx context.Context, cellRange string, option *lark.Get
 		SpreadSheetToken:     r.sheetToken,
 		Range:                cellRange,
 	})
-	_ = res
-	return err
+	return res, err
 }
 
 func (r *Sheet) setCellStyle(ctx context.Context, cellRange string, style *lark.SetSheetStyleReqAppendStyleStyle) error {
