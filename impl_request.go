@@ -178,7 +178,11 @@ func (r *Lark) doRequest(ctx context.Context, rawHttpReq *rawHttpRequest, realRe
 	}
 
 	if r.logLevel <= LogLevelTrace {
-		r.log(ctx, LogLevelTrace, "[lark] response %s#%s, %s %s, body=%s", rawHttpReq.Scope, rawHttpReq.API, rawHttpReq.Method, rawHttpReq.URL, string(bs))
+		if respFilename == "" {
+			r.log(ctx, LogLevelTrace, "[lark] response %s#%s, %s %s, body=%s", rawHttpReq.Scope, rawHttpReq.API, rawHttpReq.Method, rawHttpReq.URL, string(bs))
+		} else {
+			r.log(ctx, LogLevelTrace, "[lark] response %s#%s, %s %s, body=<FILE: %d>", rawHttpReq.Scope, rawHttpReq.API, rawHttpReq.Method, rawHttpReq.URL, len(bs))
+		}
 	}
 
 	if realResponse != nil {
@@ -195,6 +199,10 @@ func (r *Lark) doRequest(ctx context.Context, rawHttpReq *rawHttpRequest, realRe
 			if isSpecResp {
 				return response, nil
 			}
+		}
+
+		if len(bs) == 0 && resp.StatusCode >= http.StatusBadRequest {
+			return response, fmt.Errorf("request fail: %s", resp.Status)
 		}
 
 		if err = json.Unmarshal(bs, realResponse); err != nil {

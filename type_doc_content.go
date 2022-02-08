@@ -24,8 +24,8 @@ import (
 
 // DocContent 描述一篇文档的富文本内容，由标题和正文两部分组成
 type DocContent struct {
-	Title *DocTitle `json:"title"`
-	Body  *DocBody  `json:"body"`
+	Title *DocParagraph `json:"title"`
+	Body  *DocBody      `json:"body"`
 }
 
 // DocLocation 描述文档内各元素的位置
@@ -33,13 +33,6 @@ type DocLocation struct {
 	ZoneID     string `json:"zoneId"`     // 编辑区域标识正文是 "0" 表格单元格是类似 "xr1m4jw7egd9nefz1s0mdsetenl5fbe3lygxc1azupv81i5t2rjmosw5ta0esuwtn8ksya" 的字符串
 	StartIndex int    `json:"startIndex"` // 元素起始位置偏移量，从 0 开始，范围区间 [0, EOF)
 	EndIndex   int    `json:"endIndex"`   // 元素结束位置偏移量，范围区间 [0, EOF)
-}
-
-// DocTitle 文档的标题。仅支持纯文本和对齐方式。
-type DocTitle struct {
-	Elements []*DocParagraphElement `json:"elements"`
-	Location *DocLocation           `json:"location"`
-	LineID   string                 `json:"lineId"`
 }
 
 // DocBody 文档的正文部分，由 Block 组成。
@@ -71,8 +64,8 @@ type DocBlock struct {
 // DocParagraph 一行文本段落，可以由多个行内元素组成。
 type DocParagraph struct {
 	Style    *DocParagraphStyle     `json:"style"`    // 段落样式
-	Elements []*DocParagraphElement `json:"elements"` //	段落元素组成一个段落
-	Location *DocLocation           `json:"location"` //	元素位置。仅返回，不支持写入
+	Elements []*DocParagraphElement `json:"elements"` // 段落元素组成一个段落
+	Location *DocLocation           `json:"location"` // 元素位置。仅返回，不支持写入
 	LineID   string                 `json:"lineId"`
 }
 
@@ -335,11 +328,11 @@ type DocPoll struct {
 
 // DocCode 代码
 type DocCode struct {
-	Language    string        `json:"language"`    // 代码语言 支持以下语言:Plain Text, ABAP, Ada, Apache, Apex, Assembly language, Bash, C, C#, C++, COBOL, CSS, CoffeeScript, D, Dart, Delphi, Dockerfile, Django, Erlang, Fortran, FoxPro, Go, Groovy, HTML, HTMLBars, HTTP, Haskell, JSON, Java, JavaScript, Julia, Kotlin, LaTeX, Lisp, Logo, Lua, MATLAB, Makefile, Markdown, Nginx, Objective-C, OpenEdge ABL, PHP, Perl, PostScript, PowerShell, Prolog, ProtoBuf, Python, R, RPG, Ruby, Rust, SAS, SCSS, SQL, Scala, Scheme, Scratch, Shell, Swift, Thrift, TypeScript, VBScript, Visual Basic, XML, YAML
-	WrapContent bool          `json:"wrapContent"` // 是否自动换行
-	Body        *DocParagraph `json:"body"`        // 代码块内容（只支持Paragraph block)
-	ZoneID      string        `json:"zoneId"`      // Read only. 代码块的ID，对代码块内容进行增加修改删除时需要
-	Location    *DocLocation  `json:"location"`    // 元素位置。仅返回，不支持写入
+	Language    string       `json:"language"`    // 代码语言 支持以下语言:Plain Text, ABAP, Ada, Apache, Apex, Assembly language, Bash, C, C#, C++, COBOL, CSS, CoffeeScript, D, Dart, Delphi, Dockerfile, Django, Erlang, Fortran, FoxPro, Go, Groovy, HTML, HTMLBars, HTTP, Haskell, JSON, Java, JavaScript, Julia, Kotlin, LaTeX, Lisp, Logo, Lua, MATLAB, Makefile, Markdown, Nginx, Objective-C, OpenEdge ABL, PHP, Perl, PostScript, PowerShell, Prolog, ProtoBuf, Python, R, RPG, Ruby, Rust, SAS, SCSS, SQL, Scala, Scheme, Scratch, Shell, Swift, Thrift, TypeScript, VBScript, Visual Basic, XML, YAML
+	WrapContent bool         `json:"wrapContent"` // 是否自动换行
+	Body        *DocBody     `json:"body"`        // 代码块内容（只支持Paragraph block)
+	ZoneID      string       `json:"zoneId"`      // Read only. 代码块的ID，对代码块内容进行增加修改删除时需要
+	Location    *DocLocation `json:"location"`    // 元素位置。仅返回，不支持写入
 }
 
 // DocCallout 高亮
