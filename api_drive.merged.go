@@ -1042,7 +1042,7 @@ func (r *Mock) UnMockDriveGetDriveFileMeta() {
 
 // GetDriveFileMetaReq ...
 type GetDriveFileMetaReq struct {
-	RequestDocs *GetDriveFileMetaReqRequestDocs `json:"request_docs,omitempty"` // 请求文档，一次不超过200个
+	RequestDocs []*GetDriveFileMetaReqRequestDocs `json:"request_docs,omitempty"` // 请求文档，一次不超过200个
 }
 
 // GetDriveFileMetaReqRequestDocs ...
@@ -1060,7 +1060,7 @@ type getDriveFileMetaResp struct {
 
 // GetDriveFileMetaResp ...
 type GetDriveFileMetaResp struct {
-	DocsMetas *GetDriveFileMetaRespDocsMetas `json:"docs_metas,omitempty"` // 文件元数据
+	DocsMetas []*GetDriveFileMetaRespDocsMetas `json:"docs_metas,omitempty"` // 文件元数据
 }
 
 // GetDriveFileMetaRespDocsMetas ...
