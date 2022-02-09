@@ -169,7 +169,7 @@ func Test_Type(t *testing.T) {
 
 	t.Run("DocContent", func(t *testing.T) {
 		res := lark.DocContent{
-			Title: &lark.DocTitle{
+			Title: &lark.DocParagraph{
 				Elements: []*lark.DocParagraphElement{
 					{
 						Type:             "",
@@ -248,7 +248,7 @@ func Test_Type(t *testing.T) {
 			errContain string
 		}{
 			{name: "0", arg: &lark.DocContent{}, want: `{"title":null,"body":null}`},
-			{name: "1", arg: &lark.DocContent{Title: &lark.DocTitle{}}, want: `{"title":{"elements":null,"location":null,"lineId":""},"body":null}`},
+			{name: "1", arg: &lark.DocContent{Title: &lark.DocParagraph{}}, want: `{"title":{"elements":null,"location":null,"lineId":""},"body":null}`},
 		}
 		for _, tt := range tests {
 			t.Run(tt.name+" marshal", func(t *testing.T) {
