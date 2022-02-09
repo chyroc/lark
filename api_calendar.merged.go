@@ -62,8 +62,8 @@ func (r *Mock) UnMockCalendarDeleteCalendarACL() {
 
 // DeleteCalendarACLReq ...
 type DeleteCalendarACLReq struct {
-	CalendarID string `path:"calendar_id" json:"-"` // 日历ID。参见[日历相关ID说明](https://open.feishu.cn/document/ukTMukTMukTM/uETM3YjLxEzN24SMxcjN#f066a96c), 示例值："feishu.cn_xxxxxxxxxx@group.calendar.feishu.cn"
-	ACLID      string `path:"acl_id" json:"-"`      // acl资源ID。参见[日历相关ID说明](https://open.feishu.cn/document/ukTMukTMukTM/uETM3YjLxEzN24SMxcjN#f066a96c), 示例值："user_xxxxxx"
+	CalendarID string `path:"calendar_id" json:"-"` // 日历ID。参见[日历ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar/introduction), 示例值："feishu.cn_xxxxxxxxxx@group.calendar.feishu.cn"
+	ACLID      string `path:"acl_id" json:"-"`      // acl资源ID。参见[ACL ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar-acl/introduction), 示例值："user_xxxxxx"
 }
 
 // deleteCalendarACLResp ...
@@ -122,7 +122,7 @@ type GetCalendarACLListReq struct {
 	UserIDType *IDType `query:"user_id_type" json:"-"` // 用户 ID 类型, 示例值："open_id", 可选值有: `open_id`：用户的 open id, `union_id`：用户的 union id, `user_id`：用户的 user id, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
 	PageToken  *string `query:"page_token" json:"-"`   // 分页标记，第一次请求不填，表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token，下次遍历可采用该 page_token 获取查询结果, 示例值："xxx"
 	PageSize   *int64  `query:"page_size" json:"-"`    // 分页大小, 示例值：10，小于10取10, 最大值：`50`
-	CalendarID string  `path:"calendar_id" json:"-"`   // 日历ID。参见[日历相关ID说明](https://open.feishu.cn/document/ukTMukTMukTM/uETM3YjLxEzN24SMxcjN#f066a96c), 示例值："feishu.cn_xxxxxxxxxx@group.calendar.feishu.cn"
+	CalendarID string  `path:"calendar_id" json:"-"`   // 日历ID。参见[日历ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar/introduction), 示例值："feishu.cn_xxxxxxxxxx@group.calendar.feishu.cn"
 }
 
 // getCalendarACLListResp ...
@@ -141,7 +141,7 @@ type GetCalendarACLListResp struct {
 
 // GetCalendarACLListRespACL ...
 type GetCalendarACLListRespACL struct {
-	ACLID string                          `json:"acl_id,omitempty"` // acl资源ID。参见[日历相关ID说明](https://open.feishu.cn/document/ukTMukTMukTM/uETM3YjLxEzN24SMxcjN#f066a96c)
+	ACLID string                          `json:"acl_id,omitempty"` // acl资源ID。参见[ACL ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar-acl/introduction)
 	Role  CalendarRole                    `json:"role,omitempty"`   // 对日历的访问权限, 可选值有: `unknown`：未知权限, `free_busy_reader`：游客，只能看到忙碌/空闲信息, `reader`：订阅者，查看所有日程详情, `writer`：编辑者，创建及修改日程, `owner`：管理员，管理日历及共享设置
 	Scope *GetCalendarACLListRespACLScope `json:"scope,omitempty"`  // 权限范围
 }
@@ -192,7 +192,7 @@ func (r *Mock) UnMockCalendarSubscribeCalendarACL() {
 
 // SubscribeCalendarACLReq ...
 type SubscribeCalendarACLReq struct {
-	CalendarID string `path:"calendar_id" json:"-"` // 日历ID。参见[日历相关ID说明](https://open.feishu.cn/document/ukTMukTMukTM/uETM3YjLxEzN24SMxcjN#f066a96c), 示例值："feishu.cn_xxxxxxxxxx@group.calendar.feishu.cn"
+	CalendarID string `path:"calendar_id" json:"-"` // 日历ID。参见[日历ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar/introduction), 示例值："feishu.cn_xxxxxxxxxx@group.calendar.feishu.cn"
 }
 
 // subscribeCalendarACLResp ...
@@ -268,7 +268,7 @@ type CreateCalendarResp struct {
 
 // CreateCalendarRespCalendar ...
 type CreateCalendarRespCalendar struct {
-	CalendarID   string             `json:"calendar_id,omitempty"`    // 日历ID。参见[日历相关ID说明](https://open.feishu.cn/document/ukTMukTMukTM/uETM3YjLxEzN24SMxcjN#f066a96c)
+	CalendarID   string             `json:"calendar_id,omitempty"`    // 日历ID。参见[日历ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar/introduction)
 	Summary      string             `json:"summary,omitempty"`        // 日历标题
 	Description  string             `json:"description,omitempty"`    // 日历描述
 	Permissions  CalendarPermission `json:"permissions,omitempty"`    // 日历公开范围, 可选值有: `private`：私密, `show_only_free_busy`：仅展示忙闲信息, `public`：他人可查看日程详情
@@ -323,7 +323,7 @@ func (r *Mock) UnMockCalendarDeleteCalendar() {
 
 // DeleteCalendarReq ...
 type DeleteCalendarReq struct {
-	CalendarID string `path:"calendar_id" json:"-"` // 日历ID。参见[日历相关ID说明](https://open.feishu.cn/document/ukTMukTMukTM/uETM3YjLxEzN24SMxcjN#f066a96c), 示例值："feishu.cn_xxxxxxxxxx@group.calendar.feishu.cn"
+	CalendarID string `path:"calendar_id" json:"-"` // 日历ID。参见[日历ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar/introduction), 示例值："feishu.cn_xxxxxxxxxx@group.calendar.feishu.cn"
 }
 
 // deleteCalendarResp ...
@@ -380,9 +380,9 @@ func (r *Mock) UnMockCalendarGetCalendarEventAttendeeChatMemberList() {
 type GetCalendarEventAttendeeChatMemberListReq struct {
 	PageToken  *string `query:"page_token" json:"-"` // 分页标记，第一次请求不填，表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token，下次遍历可采用该 page_token 获取查询结果, 示例值："23jhysaxxxxsysy"
 	PageSize   *int64  `query:"page_size" json:"-"`  // 分页大小, 示例值：10, 最大值：`100`
-	CalendarID string  `path:"calendar_id" json:"-"` // 日历 ID。参见[日历相关ID说明](https://open.feishu.cn/document/ukTMukTMukTM/uETM3YjLxEzN24SMxcjN#f066a96c), 示例值："feishu.cn_xxxxxxxxxx@group.calendar.feishu.cn"
-	EventID    string  `path:"event_id" json:"-"`    // 日程 ID。参见[日历相关ID说明](https://open.feishu.cn/document/ukTMukTMukTM/uETM3YjLxEzN24SMxcjN#f066a96c), 示例值："xxxxxxxxx_0"
-	AttendeeID string  `path:"attendee_id" json:"-"` // 群参与人 ID。参见[日历相关ID说明](https://open.feishu.cn/document/ukTMukTMukTM/uETM3YjLxEzN24SMxcjN#f066a96c), 示例值："chat_xxxxxx"
+	CalendarID string  `path:"calendar_id" json:"-"` // 日历ID。参见[日历ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar/introduction), 示例值："feishu.cn_xxxxxxxxxx@group.calendar.feishu.cn"
+	EventID    string  `path:"event_id" json:"-"`    // 日程ID。参见[日程ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar-event/introduction), 示例值："xxxxxxxxx_0"
+	AttendeeID string  `path:"attendee_id" json:"-"` // 群参与人 ID。参见[参与人ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar-event-attendee/introduction#4998889c), 示例值："chat_xxxxxx"
 }
 
 // getCalendarEventAttendeeChatMemberListResp ...
@@ -454,8 +454,8 @@ func (r *Mock) UnMockCalendarCreateCalendarEventAttendee() {
 // CreateCalendarEventAttendeeReq ...
 type CreateCalendarEventAttendeeReq struct {
 	UserIDType       *IDType                                   `query:"user_id_type" json:"-"`      // 用户 ID 类型, 示例值："open_id", 可选值有: `open_id`：用户的 open id, `union_id`：用户的 union id, `user_id`：用户的 user id, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
-	CalendarID       string                                    `path:"calendar_id" json:"-"`        // 日历 ID。参见[日历相关ID说明](https://open.feishu.cn/document/ukTMukTMukTM/uETM3YjLxEzN24SMxcjN#f066a96c), 示例值："feishu.cn_xxxxxxxxxx@group.calendar.feishu.cn"
-	EventID          string                                    `path:"event_id" json:"-"`           // 日程 ID。参见[日历相关ID说明](https://open.feishu.cn/document/ukTMukTMukTM/uETM3YjLxEzN24SMxcjN#f066a96c), 示例值："xxxxxxxxx_0"
+	CalendarID       string                                    `path:"calendar_id" json:"-"`        // 日历ID。参见[日历ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar/introduction), 示例值："feishu.cn_xxxxxxxxxx@group.calendar.feishu.cn"
+	EventID          string                                    `path:"event_id" json:"-"`           // 日程ID。参见[日程ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar-event/introduction), 示例值："xxxxxxxxx_0"
 	Attendees        []*CreateCalendarEventAttendeeReqAttendee `json:"attendees,omitempty"`         // 新增参与人列表；<br>, 单次请求会议室的数量限制为100。
 	NeedNotification *bool                                     `json:"need_notification,omitempty"` // 是否给参与人发送bot通知 默认为true, 示例值：false
 }
@@ -500,7 +500,7 @@ type CreateCalendarEventAttendeeResp struct {
 // CreateCalendarEventAttendeeRespAttendee ...
 type CreateCalendarEventAttendeeRespAttendee struct {
 	Type                  CalendarEventAttendeeType                                     `json:"type,omitempty"`                   // 参与人类型, 可选值有: `user`：用户, `chat`：群组, `resource`：会议室, `third_party`：邮箱
-	AttendeeID            string                                                        `json:"attendee_id,omitempty"`            // 参与人ID。参见[日历相关ID说明](https://open.feishu.cn/document/ukTMukTMukTM/uETM3YjLxEzN24SMxcjN#f066a96c)
+	AttendeeID            string                                                        `json:"attendee_id,omitempty"`            // 参与人ID。参见[参与人ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar-event-attendee/introduction#4998889c)
 	RsvpStatus            string                                                        `json:"rsvp_status,omitempty"`            // 参与人RSVP状态, 可选值有: `needs_action`：参与人尚未回复状态，或表示会议室预约中, `accept`：参与人回复接受，或表示会议室预约成功, `tentative`：参与人回复待定, `decline`：参与人回复拒绝，或表示会议室预约失败, `removed`：参与人或会议室已经从日程中被移除
 	IsOptional            bool                                                          `json:"is_optional,omitempty"`            // 参与人是否为「可选参加」，无法编辑群参与人的此字段
 	IsOrganizer           bool                                                          `json:"is_organizer,omitempty"`           // 参与人是否为日程组织者
@@ -579,9 +579,9 @@ func (r *Mock) UnMockCalendarDeleteCalendarEventAttendee() {
 
 // DeleteCalendarEventAttendeeReq ...
 type DeleteCalendarEventAttendeeReq struct {
-	CalendarID       string   `path:"calendar_id" json:"-"`        // 日历 ID。参见[日历相关ID说明](https://open.feishu.cn/document/ukTMukTMukTM/uETM3YjLxEzN24SMxcjN#f066a96c), 示例值："feishu.cn_xxxxxxxxxx@group.calendar.feishu.cn"
-	EventID          string   `path:"event_id" json:"-"`           // 日程 ID。参见[日历相关ID说明](https://open.feishu.cn/document/ukTMukTMukTM/uETM3YjLxEzN24SMxcjN#f066a96c), 示例值："xxxxxxxxx_0"
-	AttendeeIDs      []string `json:"attendee_ids,omitempty"`      // 要移除的参与人 ID 列表。参见[日历相关ID说明](https://open.feishu.cn/document/ukTMukTMukTM/uETM3YjLxEzN24SMxcjN#f066a96c), 示例值：["user_xxxxx", "chat_xxxxx", "resource_xxxxx", "third_party_xxxxx"]
+	CalendarID       string   `path:"calendar_id" json:"-"`        // 日历ID。参见[日历ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar/introduction), 示例值："feishu.cn_xxxxxxxxxx@group.calendar.feishu.cn"
+	EventID          string   `path:"event_id" json:"-"`           // 日程ID。参见[日程ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar-event/introduction), 示例值："xxxxxxxxx_0"
+	AttendeeIDs      []string `json:"attendee_ids,omitempty"`      // 要移除的参与人 ID 列表。参见[参与人ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar-event-attendee/introduction#4998889c), 示例值：["user_xxxxx", "chat_xxxxx", "resource_xxxxx", "third_party_xxxxx"]
 	NeedNotification *bool    `json:"need_notification,omitempty"` // 删除日程参与人时是否要给参与人发送bot通知，默认为true, 示例值：false
 }
 
@@ -640,8 +640,8 @@ type GetCalendarEventAttendeeListReq struct {
 	UserIDType *IDType `query:"user_id_type" json:"-"` // 用户 ID 类型, 示例值："open_id", 可选值有: `open_id`：用户的 open id, `union_id`：用户的 union id, `user_id`：用户的 user id, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
 	PageToken  *string `query:"page_token" json:"-"`   // 分页标记，第一次请求不填，表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token，下次遍历可采用该 page_token 获取查询结果, 示例值："780TRhwXXXXX"
 	PageSize   *int64  `query:"page_size" json:"-"`    // 分页大小, 示例值：10, 最大值：`100`
-	CalendarID string  `path:"calendar_id" json:"-"`   // 日历 ID。参见[日历相关ID说明](https://open.feishu.cn/document/ukTMukTMukTM/uETM3YjLxEzN24SMxcjN#f066a96c), 示例值："feishu.cn_xxxxxxxxxx@group.calendar.feishu.cn"
-	EventID    string  `path:"event_id" json:"-"`      // 日程 ID。参见[日历相关ID说明](https://open.feishu.cn/document/ukTMukTMukTM/uETM3YjLxEzN24SMxcjN#f066a96c), 示例值："xxxxxxxxx_0"
+	CalendarID string  `path:"calendar_id" json:"-"`   // 日历ID。参见[日历ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar/introduction), 示例值："feishu.cn_xxxxxxxxxx@group.calendar.feishu.cn"
+	EventID    string  `path:"event_id" json:"-"`      // 日程ID。参见[日程ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar-event/introduction), 示例值："xxxxxxxxx_0"
 }
 
 // getCalendarEventAttendeeListResp ...
@@ -661,7 +661,7 @@ type GetCalendarEventAttendeeListResp struct {
 // GetCalendarEventAttendeeListRespItem ...
 type GetCalendarEventAttendeeListRespItem struct {
 	Type                  CalendarEventAttendeeType                                  `json:"type,omitempty"`                   // 参与人类型, 可选值有: `user`：用户, `chat`：群组, `resource`：会议室, `third_party`：邮箱
-	AttendeeID            string                                                     `json:"attendee_id,omitempty"`            // 参与人ID。参见[日历相关ID说明](https://open.feishu.cn/document/ukTMukTMukTM/uETM3YjLxEzN24SMxcjN#f066a96c)
+	AttendeeID            string                                                     `json:"attendee_id,omitempty"`            // 参与人ID。参见[参与人ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar-event-attendee/introduction#4998889c)
 	RsvpStatus            string                                                     `json:"rsvp_status,omitempty"`            // 参与人RSVP状态, 可选值有: `needs_action`：参与人尚未回复状态，或表示会议室预约中, `accept`：参与人回复接受，或表示会议室预约成功, `tentative`：参与人回复待定, `decline`：参与人回复拒绝，或表示会议室预约失败, `removed`：参与人或会议室已经从日程中被移除
 	IsOptional            bool                                                       `json:"is_optional,omitempty"`            // 参与人是否为「可选参加」，无法编辑群参与人的此字段
 	IsOrganizer           bool                                                       `json:"is_organizer,omitempty"`           // 参与人是否为日程组织者
@@ -741,7 +741,7 @@ func (r *Mock) UnMockCalendarCreateCalendarEvent() {
 
 // CreateCalendarEventReq ...
 type CreateCalendarEventReq struct {
-	CalendarID       string                            `path:"calendar_id" json:"-"`        // 日历ID。参见[日历相关ID说明](https://open.feishu.cn/document/ukTMukTMukTM/uETM3YjLxEzN24SMxcjN#f066a96c), 示例值："feishu.cn_xxxxxxxxxx@group.calendar.feishu.cn"
+	CalendarID       string                            `path:"calendar_id" json:"-"`        // 日历ID。参见[日历ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar/introduction), 示例值："feishu.cn_xxxxxxxxxx@group.calendar.feishu.cn"
 	Summary          *string                           `json:"summary,omitempty"`           // 日程标题, 示例值："日程标题", 最大长度：`1000` 字符
 	Description      *string                           `json:"description,omitempty"`       // 日程描述；目前不支持编辑富文本描述，如果日程描述通过客户端编辑过，更新描述会导致富文本格式丢失, 示例值："日程描述", 最大长度：`40960` 字符
 	NeedNotification *bool                             `json:"need_notification,omitempty"` // 更新日程是否给日程参与人发送bot通知，默认为true, 示例值：false
@@ -814,8 +814,8 @@ type CreateCalendarEventResp struct {
 
 // CreateCalendarEventRespEvent ...
 type CreateCalendarEventRespEvent struct {
-	EventID             string                                  `json:"event_id,omitempty"`              // 日程ID。参见[日历相关ID说明](https://open.feishu.cn/document/ukTMukTMukTM/uETM3YjLxEzN24SMxcjN#f066a96c)
-	OrganizerCalendarID string                                  `json:"organizer_calendar_id,omitempty"` // 日程组织者日历ID。参见[日历相关ID说明](https://open.feishu.cn/document/ukTMukTMukTM/uETM3YjLxEzN24SMxcjN#f066a96c)
+	EventID             string                                  `json:"event_id,omitempty"`              // 日程ID。参见[日程ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar-event/introduction)
+	OrganizerCalendarID string                                  `json:"organizer_calendar_id,omitempty"` // 日程组织者日历ID。参见[日历ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar/introduction)
 	Summary             string                                  `json:"summary,omitempty"`               // 日程标题
 	Description         string                                  `json:"description,omitempty"`           // 日程描述；目前不支持编辑富文本描述，如果日程描述通过客户端编辑过，更新描述会导致富文本格式丢失
 	NeedNotification    bool                                    `json:"need_notification,omitempty"`     // 更新日程是否给日程参与人发送bot通知，默认为true
@@ -922,8 +922,8 @@ func (r *Mock) UnMockCalendarDeleteCalendarEvent() {
 // DeleteCalendarEventReq ...
 type DeleteCalendarEventReq struct {
 	NeedNotification *bool  `query:"need_notification" json:"-"` // 删除日程是否给日程参与人发送bot通知，默认为true, 示例值：false, 可选值有: `true`：true, `false`：false
-	CalendarID       string `path:"calendar_id" json:"-"`        // 日历ID。参见[日历相关ID说明](https://open.feishu.cn/document/ukTMukTMukTM/uETM3YjLxEzN24SMxcjN#f066a96c), 示例值："feishu.cn_xxxxxxxxxx@group.calendar.feishu.cn"
-	EventID          string `path:"event_id" json:"-"`           // 日程ID。参见[日历相关ID说明](https://open.feishu.cn/document/ukTMukTMukTM/uETM3YjLxEzN24SMxcjN#f066a96c), 示例值："xxxxxxxxx_0"
+	CalendarID       string `path:"calendar_id" json:"-"`        // 日历ID。参见[日历ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar/introduction), 示例值："feishu.cn_xxxxxxxxxx@group.calendar.feishu.cn"
+	EventID          string `path:"event_id" json:"-"`           // 日程ID。参见[日程ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar-event/introduction), 示例值："xxxxxxxxx_0"
 }
 
 // deleteCalendarEventResp ...
@@ -977,8 +977,8 @@ func (r *Mock) UnMockCalendarGetCalendarEvent() {
 
 // GetCalendarEventReq ...
 type GetCalendarEventReq struct {
-	CalendarID string `path:"calendar_id" json:"-"` // 日历ID。参见[日历相关ID说明](https://open.feishu.cn/document/ukTMukTMukTM/uETM3YjLxEzN24SMxcjN#f066a96c), 示例值："feishu.cn_xxxxxxxxxx@group.calendar.feishu.cn"
-	EventID    string `path:"event_id" json:"-"`    // 日程ID。参见[日历相关ID说明](https://open.feishu.cn/document/ukTMukTMukTM/uETM3YjLxEzN24SMxcjN#f066a96c), 示例值："xxxxxxxxx_0"
+	CalendarID string `path:"calendar_id" json:"-"` // 日历ID。参见[日历ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar/introduction), 示例值："feishu.cn_xxxxxxxxxx@group.calendar.feishu.cn"
+	EventID    string `path:"event_id" json:"-"`    // 日程ID。参见[日程ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar-event/introduction), 示例值："xxxxxxxxx_0"
 }
 
 // getCalendarEventResp ...
@@ -995,8 +995,8 @@ type GetCalendarEventResp struct {
 
 // GetCalendarEventRespEvent ...
 type GetCalendarEventRespEvent struct {
-	EventID             string                               `json:"event_id,omitempty"`              // 日程ID。参见[日历相关ID说明](https://open.feishu.cn/document/ukTMukTMukTM/uETM3YjLxEzN24SMxcjN#f066a96c)
-	OrganizerCalendarID string                               `json:"organizer_calendar_id,omitempty"` // 日程组织者日历ID。参见[日历相关ID说明](https://open.feishu.cn/document/ukTMukTMukTM/uETM3YjLxEzN24SMxcjN#f066a96c)
+	EventID             string                               `json:"event_id,omitempty"`              // 日程ID。参见[日程ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar-event/introduction)
+	OrganizerCalendarID string                               `json:"organizer_calendar_id,omitempty"` // 日程组织者日历ID。参见[日历ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar/introduction)
 	Summary             string                               `json:"summary,omitempty"`               // 日程标题
 	Description         string                               `json:"description,omitempty"`           // 日程描述；目前不支持编辑富文本描述，如果日程描述通过客户端编辑过，更新描述会导致富文本格式丢失
 	StartTime           *GetCalendarEventRespEventStartTime  `json:"start_time,omitempty"`            // 日程开始时间
@@ -1107,7 +1107,7 @@ type GetCalendarEventListReq struct {
 	SyncToken  *string `query:"sync_token" json:"-"`  // 上次请求Response返回的增量同步标记，分页请求未结束时为空, 示例值："ListCalendarsSyncToken_1632452910"
 	StartTime  *string `query:"start_time" json:"-"`  // 日程开始Unix时间戳，单位为秒, 示例值："1631777271"
 	EndTime    *string `query:"end_time" json:"-"`    // 日程结束Unix时间戳，单位为秒, 示例值："1631777271"
-	CalendarID string  `path:"calendar_id" json:"-"`  // 日历ID。参见[日历相关ID说明](https://open.feishu.cn/document/ukTMukTMukTM/uETM3YjLxEzN24SMxcjN#f066a96c), 示例值："feishu.cn_xxxxxxxxxx@group.calendar.feishu.cn"
+	CalendarID string  `path:"calendar_id" json:"-"`  // 日历ID。参见[日历ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar/introduction), 示例值："feishu.cn_xxxxxxxxxx@group.calendar.feishu.cn"
 }
 
 // getCalendarEventListResp ...
@@ -1127,8 +1127,8 @@ type GetCalendarEventListResp struct {
 
 // GetCalendarEventListRespItem ...
 type GetCalendarEventListRespItem struct {
-	EventID             string                                  `json:"event_id,omitempty"`              // 日程ID。参见[日历相关ID说明](https://open.feishu.cn/document/ukTMukTMukTM/uETM3YjLxEzN24SMxcjN#f066a96c)
-	OrganizerCalendarID string                                  `json:"organizer_calendar_id,omitempty"` // 日程组织者日历ID。参见[日历相关ID说明](https://open.feishu.cn/document/ukTMukTMukTM/uETM3YjLxEzN24SMxcjN#f066a96c)
+	EventID             string                                  `json:"event_id,omitempty"`              // 日程ID。参见[日程ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar-event/introduction)
+	OrganizerCalendarID string                                  `json:"organizer_calendar_id,omitempty"` // 日程组织者日历ID。参见[日历ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar/introduction)
 	Summary             string                                  `json:"summary,omitempty"`               // 日程标题
 	Description         string                                  `json:"description,omitempty"`           // 日程描述；目前不支持编辑富文本描述，如果日程描述通过客户端编辑过，更新描述会导致富文本格式丢失
 	StartTime           *GetCalendarEventListRespItemStartTime  `json:"start_time,omitempty"`            // 日程开始时间
@@ -1234,8 +1234,8 @@ func (r *Mock) UnMockCalendarUpdateCalendarEvent() {
 
 // UpdateCalendarEventReq ...
 type UpdateCalendarEventReq struct {
-	CalendarID       string                            `path:"calendar_id" json:"-"`        // 日历ID。参见[日历相关ID说明](https://open.feishu.cn/document/ukTMukTMukTM/uETM3YjLxEzN24SMxcjN#f066a96c), 示例值："feishu.cn_xxxxxxxxxx@group.calendar.feishu.cn"
-	EventID          string                            `path:"event_id" json:"-"`           // 日程ID。参见[日历相关ID说明](https://open.feishu.cn/document/ukTMukTMukTM/uETM3YjLxEzN24SMxcjN#f066a96c), 示例值："00592a0e-7edf-4678-bc9d-1b77383ef08e_0"
+	CalendarID       string                            `path:"calendar_id" json:"-"`        // 日历ID。参见[日历ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar/introduction), 示例值："feishu.cn_xxxxxxxxxx@group.calendar.feishu.cn"
+	EventID          string                            `path:"event_id" json:"-"`           // 日程ID。参见[日程ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar-event/introduction), 示例值："00592a0e-7edf-4678-bc9d-1b77383ef08e_0"
 	Summary          *string                           `json:"summary,omitempty"`           // 日程标题, 示例值："日程标题", 最大长度：`1000` 字符
 	Description      *string                           `json:"description,omitempty"`       // 日程描述；目前不支持编辑富文本描述，如果日程描述通过客户端编辑过，更新描述会导致富文本格式丢失, 示例值："日程描述", 最大长度：`40960` 字符
 	NeedNotification *bool                             `json:"need_notification,omitempty"` // 更新日程是否给日程参与人发送bot通知，默认为true, 示例值：false
@@ -1308,8 +1308,8 @@ type UpdateCalendarEventResp struct {
 
 // UpdateCalendarEventRespEvent ...
 type UpdateCalendarEventRespEvent struct {
-	EventID             string                                  `json:"event_id,omitempty"`              // 日程ID。参见[日历相关ID说明](https://open.feishu.cn/document/ukTMukTMukTM/uETM3YjLxEzN24SMxcjN#f066a96c)
-	OrganizerCalendarID string                                  `json:"organizer_calendar_id,omitempty"` // 日程组织者日历ID。参见[日历相关ID说明](https://open.feishu.cn/document/ukTMukTMukTM/uETM3YjLxEzN24SMxcjN#f066a96c)
+	EventID             string                                  `json:"event_id,omitempty"`              // 日程ID。参见[日程ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar-event/introduction)
+	OrganizerCalendarID string                                  `json:"organizer_calendar_id,omitempty"` // 日程组织者日历ID。参见[日历ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar/introduction)
 	Summary             string                                  `json:"summary,omitempty"`               // 日程标题
 	Description         string                                  `json:"description,omitempty"`           // 日程描述；目前不支持编辑富文本描述，如果日程描述通过客户端编辑过，更新描述会导致富文本格式丢失
 	NeedNotification    bool                                    `json:"need_notification,omitempty"`     // 更新日程是否给日程参与人发送bot通知，默认为true
@@ -1416,7 +1416,7 @@ type SearchCalendarEventReq struct {
 	UserIDType *IDType                       `query:"user_id_type" json:"-"` // 用户 ID 类型, 示例值："open_id", 可选值有: `open_id`：用户的 open id, `union_id`：用户的 union id, `user_id`：用户的 user id, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
 	PageToken  *string                       `query:"page_token" json:"-"`   // 分页标记，第一次请求不填，表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token，下次遍历可采用该 page_token 获取查询结果, 示例值："xxxxx"
 	PageSize   *int64                        `query:"page_size" json:"-"`    // 分页大小, 示例值：10, 最大值：`100`
-	CalendarID string                        `path:"calendar_id" json:"-"`   // 日历ID。参见[日历相关ID说明](https://open.feishu.cn/document/ukTMukTMukTM/uETM3YjLxEzN24SMxcjN#f066a96c), 示例值："feishu.cn_xxxxxxxxxx@group.calendar.feishu.cn"
+	CalendarID string                        `path:"calendar_id" json:"-"`   // 日历ID。参见[日历ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar/introduction), 示例值："feishu.cn_xxxxxxxxxx@group.calendar.feishu.cn"
 	Query      string                        `json:"query,omitempty"`        // 搜索关键字, 示例值："query words", 长度范围：`0` ～ `200` 字符
 	Filter     *SearchCalendarEventReqFilter `json:"filter,omitempty"`       // 搜索过滤器
 }
@@ -1459,8 +1459,8 @@ type SearchCalendarEventResp struct {
 
 // SearchCalendarEventRespItem ...
 type SearchCalendarEventRespItem struct {
-	EventID             string                                 `json:"event_id,omitempty"`              // 日程ID。参见[日历相关ID说明](https://open.feishu.cn/document/ukTMukTMukTM/uETM3YjLxEzN24SMxcjN#f066a96c)
-	OrganizerCalendarID string                                 `json:"organizer_calendar_id,omitempty"` // 日程组织者日历ID。参见[日历相关ID说明](https://open.feishu.cn/document/ukTMukTMukTM/uETM3YjLxEzN24SMxcjN#f066a96c)
+	EventID             string                                 `json:"event_id,omitempty"`              // 日程ID。参见[日程ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar-event/introduction)
+	OrganizerCalendarID string                                 `json:"organizer_calendar_id,omitempty"` // 日程组织者日历ID。参见[日历ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar/introduction)
 	Summary             string                                 `json:"summary,omitempty"`               // 日程标题
 	Description         string                                 `json:"description,omitempty"`           // 日程描述；目前不支持编辑富文本描述，如果日程描述通过客户端编辑过，更新描述会导致富文本格式丢失
 	NeedNotification    bool                                   `json:"need_notification,omitempty"`     // 更新日程是否给日程参与人发送bot通知，默认为true
@@ -1562,7 +1562,7 @@ func (r *Mock) UnMockCalendarSubscribeCalendarEvent() {
 
 // SubscribeCalendarEventReq ...
 type SubscribeCalendarEventReq struct {
-	CalendarID string `path:"calendar_id" json:"-"` // 日历ID。参见[日历相关ID说明](https://open.feishu.cn/document/ukTMukTMukTM/uETM3YjLxEzN24SMxcjN#f066a96c), 示例值："feishu.cn_xxxxxxxxxx@group.calendar.feishu.cn"
+	CalendarID string `path:"calendar_id" json:"-"` // 日历ID。参见[日历ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar/introduction), 示例值："feishu.cn_xxxxxxxxxx@group.calendar.feishu.cn"
 }
 
 // subscribeCalendarEventResp ...
@@ -1681,7 +1681,7 @@ func (r *Mock) UnMockCalendarGetCalendar() {
 
 // GetCalendarReq ...
 type GetCalendarReq struct {
-	CalendarID string `path:"calendar_id" json:"-"` // 日历ID。参见[日历相关ID说明](https://open.feishu.cn/document/ukTMukTMukTM/uETM3YjLxEzN24SMxcjN#f066a96c), 示例值："feishu.cn_xxxxxxxxxx@group.calendar.feishu.cn"
+	CalendarID string `path:"calendar_id" json:"-"` // 日历ID。参见[日历ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar/introduction), 示例值："feishu.cn_xxxxxxxxxx@group.calendar.feishu.cn"
 }
 
 // getCalendarResp ...
@@ -1693,7 +1693,7 @@ type getCalendarResp struct {
 
 // GetCalendarResp ...
 type GetCalendarResp struct {
-	CalendarID   string             `json:"calendar_id,omitempty"`    // 日历ID。参见[日历相关ID说明](https://open.feishu.cn/document/ukTMukTMukTM/uETM3YjLxEzN24SMxcjN#f066a96c)
+	CalendarID   string             `json:"calendar_id,omitempty"`    // 日历ID。参见[日历ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar/introduction)
 	Summary      string             `json:"summary,omitempty"`        // 日历标题
 	Description  string             `json:"description,omitempty"`    // 日历描述
 	Permissions  CalendarPermission `json:"permissions,omitempty"`    // 日历公开范围, 可选值有: `private`：私密, `show_only_free_busy`：仅展示忙闲信息, `public`：他人可查看日程详情
@@ -1762,7 +1762,7 @@ type getCalendarListResp struct {
 
 // GetCalendarListResp ...
 type GetCalendarListResp struct {
-	HasMore      bool                           `json:"has_more,omitempty"`      // 是否有下一页数据
+	HasMore      bool                           `json:"has_more,omitempty"`      // 是否还有更多数据
 	PageToken    string                         `json:"page_token,omitempty"`    // 下次请求需要带上的分页标记，90 天有效期
 	SyncToken    string                         `json:"sync_token,omitempty"`    // 下次请求需要带上的增量同步标记，90 天有效期
 	CalendarList []*GetCalendarListRespCalendar `json:"calendar_list,omitempty"` // 分页加载的日历数据列表
@@ -1770,7 +1770,7 @@ type GetCalendarListResp struct {
 
 // GetCalendarListRespCalendar ...
 type GetCalendarListRespCalendar struct {
-	CalendarID   string             `json:"calendar_id,omitempty"`    // 日历ID。参见[日历相关ID说明](https://open.feishu.cn/document/ukTMukTMukTM/uETM3YjLxEzN24SMxcjN#f066a96c)
+	CalendarID   string             `json:"calendar_id,omitempty"`    // 日历ID。参见[日历ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar/introduction)
 	Summary      string             `json:"summary,omitempty"`        // 日历标题
 	Description  string             `json:"description,omitempty"`    // 日历描述
 	Permissions  CalendarPermission `json:"permissions,omitempty"`    // 日历公开范围, 可选值有: `private`：私密, `show_only_free_busy`：仅展示忙闲信息, `public`：他人可查看日程详情
@@ -1826,7 +1826,7 @@ func (r *Mock) UnMockCalendarUpdateCalendar() {
 
 // UpdateCalendarReq ...
 type UpdateCalendarReq struct {
-	CalendarID   string              `path:"calendar_id" json:"-"`    // 日历ID。参见[日历相关ID说明](https://open.feishu.cn/document/ukTMukTMukTM/uETM3YjLxEzN24SMxcjN#f066a96c), 示例值："feishu.cn_xxxxxxxxxx@group.calendar.feishu.cn"
+	CalendarID   string              `path:"calendar_id" json:"-"`    // 日历ID。参见[日历ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar/introduction), 示例值："feishu.cn_xxxxxxxxxx@group.calendar.feishu.cn"
 	Summary      *string             `json:"summary,omitempty"`       // 日历标题, 示例值："测试日历", 长度范围：`1` ～ `255` 字符
 	Description  *string             `json:"description,omitempty"`   // 日历描述, 示例值："使用开放接口创建日历", 最大长度：`255` 字符
 	Permissions  *CalendarPermission `json:"permissions,omitempty"`   // 日历公开范围, 示例值："private", 可选值有: `private`：私密, `show_only_free_busy`：仅展示忙闲信息, `public`：他人可查看日程详情
@@ -1848,7 +1848,7 @@ type UpdateCalendarResp struct {
 
 // UpdateCalendarRespCalendar ...
 type UpdateCalendarRespCalendar struct {
-	CalendarID   string             `json:"calendar_id,omitempty"`    // 日历ID。参见[日历相关ID说明](https://open.feishu.cn/document/ukTMukTMukTM/uETM3YjLxEzN24SMxcjN#f066a96c)
+	CalendarID   string             `json:"calendar_id,omitempty"`    // 日历ID。参见[日历ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar/introduction)
 	Summary      string             `json:"summary,omitempty"`        // 日历标题
 	Description  string             `json:"description,omitempty"`    // 日历描述
 	Permissions  CalendarPermission `json:"permissions,omitempty"`    // 日历公开范围, 可选值有: `private`：私密, `show_only_free_busy`：仅展示忙闲信息, `public`：他人可查看日程详情
@@ -1922,7 +1922,7 @@ type GetPrimaryCalendarRespCalendar struct {
 
 // GetPrimaryCalendarRespCalendarCalendar ...
 type GetPrimaryCalendarRespCalendarCalendar struct {
-	CalendarID   string             `json:"calendar_id,omitempty"`    // 日历ID。参见[日历相关ID说明](https://open.feishu.cn/document/ukTMukTMukTM/uETM3YjLxEzN24SMxcjN#f066a96c)
+	CalendarID   string             `json:"calendar_id,omitempty"`    // 日历ID。参见[日历ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar/introduction)
 	Summary      string             `json:"summary,omitempty"`        // 日历标题
 	Description  string             `json:"description,omitempty"`    // 日历描述
 	Permissions  CalendarPermission `json:"permissions,omitempty"`    // 日历公开范围, 可选值有: `private`：私密, `show_only_free_busy`：仅展示忙闲信息, `public`：他人可查看日程详情
@@ -1992,7 +1992,7 @@ type SearchCalendarResp struct {
 
 // SearchCalendarRespItem ...
 type SearchCalendarRespItem struct {
-	CalendarID   string             `json:"calendar_id,omitempty"`    // 日历ID。参见[日历相关ID说明](https://open.feishu.cn/document/ukTMukTMukTM/uETM3YjLxEzN24SMxcjN#f066a96c)
+	CalendarID   string             `json:"calendar_id,omitempty"`    // 日历ID。参见[日历ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar/introduction)
 	Summary      string             `json:"summary,omitempty"`        // 日历标题
 	Description  string             `json:"description,omitempty"`    // 日历描述
 	Permissions  CalendarPermission `json:"permissions,omitempty"`    // 日历公开范围, 可选值有: `private`：私密, `show_only_free_busy`：仅展示忙闲信息, `public`：他人可查看日程详情
@@ -2047,7 +2047,7 @@ func (r *Mock) UnMockCalendarSubscribeCalendar() {
 
 // SubscribeCalendarReq ...
 type SubscribeCalendarReq struct {
-	CalendarID string `path:"calendar_id" json:"-"` // 日历ID。参见[日历相关ID说明](https://open.feishu.cn/document/ukTMukTMukTM/uETM3YjLxEzN24SMxcjN#f066a96c), 示例值："feishu.cn_xxxxxxxxxx@group.calendar.feishu.cn"
+	CalendarID string `path:"calendar_id" json:"-"` // 日历ID。参见[日历ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar/introduction), 示例值："feishu.cn_xxxxxxxxxx@group.calendar.feishu.cn"
 }
 
 // subscribeCalendarResp ...
@@ -2064,7 +2064,7 @@ type SubscribeCalendarResp struct {
 
 // SubscribeCalendarRespCalendar ...
 type SubscribeCalendarRespCalendar struct {
-	CalendarID   string             `json:"calendar_id,omitempty"`    // 日历ID。参见[日历相关ID说明](https://open.feishu.cn/document/ukTMukTMukTM/uETM3YjLxEzN24SMxcjN#f066a96c)
+	CalendarID   string             `json:"calendar_id,omitempty"`    // 日历ID。参见[日历ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar/introduction)
 	Summary      string             `json:"summary,omitempty"`        // 日历标题
 	Description  string             `json:"description,omitempty"`    // 日历描述
 	Permissions  CalendarPermission `json:"permissions,omitempty"`    // 日历公开范围, 可选值有: `private`：私密, `show_only_free_busy`：仅展示忙闲信息, `public`：他人可查看日程详情
@@ -2181,7 +2181,7 @@ type createCalendarTimeoffEventResp struct {
 
 // CreateCalendarTimeoffEventResp ...
 type CreateCalendarTimeoffEventResp struct {
-	TimeoffEventID string `json:"timeoff_event_id,omitempty"` // 请假日程ID。参见[日历相关ID说明](https://open.feishu.cn/document/ukTMukTMukTM/uETM3YjLxEzN24SMxcjN#f066a96c)
+	TimeoffEventID string `json:"timeoff_event_id,omitempty"` // 请假日程ID。参见[请假日程ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/timeoff_event/introduction#b6611a02)
 	UserID         string `json:"user_id,omitempty"`          // 用户id，参见[用户相关的 ID 概念](https://open.feishu.cn/document/home/user-identity-introduction/introduction)
 	Timezone       string `json:"timezone,omitempty"`         // 时区
 	StartTime      string `json:"start_time,omitempty"`       // 休假开始时间: 有时间戳(1609430400)和日期(2021-01-01)两种格式，其它格式无效；,时间戳格式是按小时休假日程，日期格式是全天休假日程；,start_time与end_time格式需保持一致，否则无效。
@@ -2228,7 +2228,7 @@ func (r *Mock) UnMockCalendarDeleteCalendarTimeoffEvent() {
 
 // DeleteCalendarTimeoffEventReq ...
 type DeleteCalendarTimeoffEventReq struct {
-	TimeoffEventID string `path:"timeoff_event_id" json:"-"` // 休假申请的唯一标识id。参见[日历相关ID说明](https://open.feishu.cn/document/ukTMukTMukTM/uETM3YjLxEzN24SMxcjN#f066a96c), 示例值："timeoff:XXXXXX-XXXX-0917-1623-aa493d591a39"
+	TimeoffEventID string `path:"timeoff_event_id" json:"-"` // 休假申请的唯一标识id。参见[请假日程ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/timeoff_event/introduction#b6611a02), 示例值："timeoff:XXXXXX-XXXX-0917-1623-aa493d591a39"
 }
 
 // deleteCalendarTimeoffEventResp ...
@@ -2284,7 +2284,7 @@ func (r *Mock) UnMockCalendarUnsubscribeCalendar() {
 
 // UnsubscribeCalendarReq ...
 type UnsubscribeCalendarReq struct {
-	CalendarID string `path:"calendar_id" json:"-"` // 日历ID。参见[日历相关ID说明](https://open.feishu.cn/document/ukTMukTMukTM/uETM3YjLxEzN24SMxcjN#f066a96c), 示例值："feishu.cn_xxxxxxxxxx@group.calendar.feishu.cn"
+	CalendarID string `path:"calendar_id" json:"-"` // 日历ID。参见[日历ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar/introduction), 示例值："feishu.cn_xxxxxxxxxx@group.calendar.feishu.cn"
 }
 
 // unsubscribeCalendarResp ...
@@ -2356,7 +2356,7 @@ type CreateCalendarExchangeBindingResp struct {
 	ExchangeAccount   string `json:"exchange_account,omitempty"`    // 用户绑定的exchange账户, 字段权限要求: 获取用户邮箱信息
 	UserID            string `json:"user_id,omitempty"`             // exchange账户绑定user唯一标识id，参见[用户相关的 ID 概念](https://open.feishu.cn/document/home/user-identity-introduction/introduction)
 	Status            string `json:"status,omitempty"`              // exchange账户同步状态, 可选值有: `doing`：日历正在同步, `cal_done`：日历同步完成, `timespan_done`：近期时间段同步完成, `done`：日程同步完成, `err`：同步错误
-	ExchangeBindingID string `json:"exchange_binding_id,omitempty"` // exchange绑定唯一标识id。参见[日历相关ID说明](https://open.feishu.cn/document/ukTMukTMukTM/uETM3YjLxEzN24SMxcjN#f066a96c)
+	ExchangeBindingID string `json:"exchange_binding_id,omitempty"` // exchange绑定唯一标识id。参见[exchange绑定ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/exchange_binding/introduction#12533d5e)
 }
 
 // Code generated by lark_sdk_gen. DO NOT EDIT.
@@ -2399,7 +2399,7 @@ func (r *Mock) UnMockCalendarDeleteCalendarExchangeBinding() {
 
 // DeleteCalendarExchangeBindingReq ...
 type DeleteCalendarExchangeBindingReq struct {
-	ExchangeBindingID string `path:"exchange_binding_id" json:"-"` // exchange绑定唯一标识id。参见[日历相关ID说明](https://open.feishu.cn/document/ukTMukTMukTM/uETM3YjLxEzN24SMxcjN#f066a96c), 示例值："ZW1haWxfYWRtaW5fZXhhbXBsZUBvdXRsb29rLmNvbSBlbWFpbF9hY2NvdW50X2V4YW1wbGVAb3V0bG9vay5jb20="
+	ExchangeBindingID string `path:"exchange_binding_id" json:"-"` // exchange绑定唯一标识id。参见[exchange绑定ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/exchange_binding/introduction#12533d5e), 示例值："ZW1haWxfYWRtaW5fZXhhbXBsZUBvdXRsb29rLmNvbSBlbWFpbF9hY2NvdW50X2V4YW1wbGVAb3V0bG9vay5jb20="
 }
 
 // deleteCalendarExchangeBindingResp ...
@@ -2453,7 +2453,7 @@ func (r *Mock) UnMockCalendarGetCalendarExchangeBinding() {
 // GetCalendarExchangeBindingReq ...
 type GetCalendarExchangeBindingReq struct {
 	UserIDType        *IDType `query:"user_id_type" json:"-"`       // 用户 ID 类型, 示例值："open_id", 可选值有: `open_id`：用户的 open id, `union_id`：用户的 union id, `user_id`：用户的 user id, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
-	ExchangeBindingID string  `path:"exchange_binding_id" json:"-"` // exchange绑定唯一标识id。参见[日历相关ID说明](https://open.feishu.cn/document/ukTMukTMukTM/uETM3YjLxEzN24SMxcjN#f066a96c), 示例值："ZW1haWxfYWRtaW5fZXhhbXBsZUBvdXRsb29rLmNvbSBlbWFpbF9hY2NvdW50X2V4YW1wbGVAb3V0bG9vay5jb20="
+	ExchangeBindingID string  `path:"exchange_binding_id" json:"-"` // exchange绑定唯一标识id。参见[exchange绑定ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/exchange_binding/introduction#12533d5e), 示例值："ZW1haWxfYWRtaW5fZXhhbXBsZUBvdXRsb29rLmNvbSBlbWFpbF9hY2NvdW50X2V4YW1wbGVAb3V0bG9vay5jb20="
 }
 
 // getCalendarExchangeBindingResp ...
@@ -2469,7 +2469,7 @@ type GetCalendarExchangeBindingResp struct {
 	ExchangeAccount   string `json:"exchange_account,omitempty"`    // 用户绑定的exchange账户, 字段权限要求: 获取用户邮箱信息
 	UserID            string `json:"user_id,omitempty"`             // exchange账户绑定user唯一标识id，参见[用户相关的 ID 概念](https://open.feishu.cn/document/home/user-identity-introduction/introduction)
 	Status            string `json:"status,omitempty"`              // exchange账户同步状态, 可选值有: `doing`：日历正在同步, `cal_done`：日历同步完成, `timespan_done`：近期时间段同步完成, `done`：日程同步完成, `err`：同步错误
-	ExchangeBindingID string `json:"exchange_binding_id,omitempty"` // exchange绑定唯一标识id。参见[日历相关ID说明](https://open.feishu.cn/document/ukTMukTMukTM/uETM3YjLxEzN24SMxcjN#f066a96c)
+	ExchangeBindingID string `json:"exchange_binding_id,omitempty"` // exchange绑定唯一标识id。参见[exchange绑定ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/exchange_binding/introduction#12533d5e)
 }
 
 // Code generated by lark_sdk_gen. DO NOT EDIT.
