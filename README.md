@@ -38,7 +38,7 @@ https://godoc.org/github.com/chyroc/lark
 
 ## Support APIs
 
-API Count: 545, Event Count: 88
+API Count: 552, Event Count: 88
 
 <details>
   <summary>
@@ -143,6 +143,7 @@ API Count: 545, Event Count: 88
   - DeleteCalendarACL
   - GetCalendarACLList
   - SubscribeCalendarACL
+  - GetPrimaryCalendar
   - CreateCalendar
   - DeleteCalendar
   - GetCalendar
@@ -594,8 +595,14 @@ API Count: 545, Event Count: 88
   - GetACSUser
   - UpdateACSUser
   - GetACSUserList
-- Ecosystem
-  - GetEcosystemBindAwemeUser
+- Baike
+  - CreateBaikeDraft
+  - CreateBaikeUpdate
+  - GetBaikeEntity
+  - GetBaikeEntityList
+  - MatchBaikeEntity
+  - SearchBaikeEntity
+  - HighlightBaikeEntity
 - EventCallback
   - EventV2ApplicationApplicationAppVersionAuditV6
   - EventV2ApplicationApplicationAppVersionPublishApplyV6
@@ -617,13 +624,13 @@ API Count: 545, Event Count: 88
   - EventV2ApprovalApprovalUpdatedV4
   - EventV1TripApproval
   - EventV1RemedyApproval
+  - EventV1ThirdPartyMeetingRoomEventUpdated
+  - EventV1ThirdPartyMeetingRoomEventDeleted
+  - EventV2MeetingRoomMeetingRoomCreatedV1
   - EventV2MeetingRoomMeetingRoomUpdatedV1
   - EventV2MeetingRoomMeetingRoomStatusChangedV1
   - EventV2MeetingRoomMeetingRoomDeletedV1
-  - EventV2MeetingRoomMeetingRoomCreatedV1
   - EventV1ThirdPartyMeetingRoomEventCreated
-  - EventV1ThirdPartyMeetingRoomEventUpdated
-  - EventV1ThirdPartyMeetingRoomEventDeleted
   - EventV1OrderPaid
   - EventV1AppTicket
   - EventV1AppUninstalled

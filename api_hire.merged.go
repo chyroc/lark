@@ -125,6 +125,8 @@ type GetHireApplicationRespApplicationStageTime struct {
 // GetHireApplicationInterviewList 根据投递 ID 获取面试记录列表
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/application-interview/list
+//
+// Deprecated
 func (r *HireService) GetHireApplicationInterviewList(ctx context.Context, request *GetHireApplicationInterviewListReq, options ...MethodOptionFunc) (*GetHireApplicationInterviewListResp, *Response, error) {
 	if r.cli.mock.mockHireGetHireApplicationInterviewList != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Hire#GetHireApplicationInterviewList mock enable")
@@ -1495,6 +1497,8 @@ type GetHireOfferByApplicationRespOfferSalaryPlanCustomizeInfo struct {
 // GetHireOfferSchema 根据 Offer 申请表 ID，获取 Offer 申请表的详细信息
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/offer_schema/get
+//
+// Deprecated
 func (r *HireService) GetHireOfferSchema(ctx context.Context, request *GetHireOfferSchemaReq, options ...MethodOptionFunc) (*GetHireOfferSchemaResp, *Response, error) {
 	if r.cli.mock.mockHireGetHireOfferSchema != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Hire#GetHireOfferSchema mock enable")

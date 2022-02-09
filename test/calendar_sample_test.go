@@ -55,6 +55,12 @@ func Test_Calendar_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.GetPrimaryCalendar(ctx, &lark.GetPrimaryCalendarReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "failed")
+		})
+
+		t.Run("", func(t *testing.T) {
 			_, _, err := moduleCli.CreateCalendar(ctx, &lark.CreateCalendarReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "failed")
@@ -202,6 +208,17 @@ func Test_Calendar_Sample_Failed(t *testing.T) {
 			defer cli.Mock().UnMockCalendarGetCalendarACLList()
 
 			_, _, err := moduleCli.GetCalendarACLList(ctx, &lark.GetCalendarACLListReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+			cli.Mock().MockCalendarGetPrimaryCalendar(func(ctx context.Context, request *lark.GetPrimaryCalendarReq, options ...lark.MethodOptionFunc) (*lark.GetPrimaryCalendarResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockCalendarGetPrimaryCalendar()
+
+			_, _, err := moduleCli.GetPrimaryCalendar(ctx, &lark.GetPrimaryCalendarReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "mock-failed")
 		})
@@ -446,6 +463,12 @@ func Test_Calendar_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.GetPrimaryCalendar(ctx, &lark.GetPrimaryCalendarReq{})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
 			_, _, err := moduleCli.CreateCalendar(ctx, &lark.CreateCalendarReq{})
 			as.NotNil(err)
 			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
@@ -626,6 +649,12 @@ func Test_Calendar_Sample_Failed(t *testing.T) {
 			_, _, err := moduleCli.GetCalendarACLList(ctx, &lark.GetCalendarACLListReq{
 				CalendarID: "x",
 			})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.GetPrimaryCalendar(ctx, &lark.GetPrimaryCalendarReq{})
 			as.NotNil(err)
 			as.Equal("fake raw request", err.Error())
 		})

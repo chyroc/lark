@@ -47,13 +47,13 @@ const (
 	EventTypeV2ApprovalApprovalUpdatedV4                       EventType = "approval.approval.updated_v4"
 	EventTypeV1TripApproval                                    EventType = "trip_approval"
 	EventTypeV1RemedyApproval                                  EventType = "remedy_approval"
+	EventTypeV1ThirdPartyMeetingRoomEventUpdated               EventType = "third_party_meeting_room_event_updated"
+	EventTypeV1ThirdPartyMeetingRoomEventDeleted               EventType = "third_party_meeting_room_event_deleted"
+	EventTypeV2MeetingRoomMeetingRoomCreatedV1                 EventType = "meeting_room.meeting_room.created_v1"
 	EventTypeV2MeetingRoomMeetingRoomUpdatedV1                 EventType = "meeting_room.meeting_room.updated_v1"
 	EventTypeV2MeetingRoomMeetingRoomStatusChangedV1           EventType = "meeting_room.meeting_room.status_changed_v1"
 	EventTypeV2MeetingRoomMeetingRoomDeletedV1                 EventType = "meeting_room.meeting_room.deleted_v1"
-	EventTypeV2MeetingRoomMeetingRoomCreatedV1                 EventType = "meeting_room.meeting_room.created_v1"
 	EventTypeV1ThirdPartyMeetingRoomEventCreated               EventType = "third_party_meeting_room_event_created"
-	EventTypeV1ThirdPartyMeetingRoomEventUpdated               EventType = "third_party_meeting_room_event_updated"
-	EventTypeV1ThirdPartyMeetingRoomEventDeleted               EventType = "third_party_meeting_room_event_deleted"
 	EventTypeV1OrderPaid                                       EventType = "order_paid"
 	EventTypeV1AppTicket                                       EventType = "app_ticket"
 	EventTypeV1AppUninstalled                                  EventType = "app_uninstalled"
@@ -139,13 +139,13 @@ type eventHandler struct {
 	eventV2ApprovalApprovalUpdatedV4Handler                       EventV2ApprovalApprovalUpdatedV4Handler
 	eventV1TripApprovalHandler                                    EventV1TripApprovalHandler
 	eventV1RemedyApprovalHandler                                  EventV1RemedyApprovalHandler
+	eventV1ThirdPartyMeetingRoomEventUpdatedHandler               EventV1ThirdPartyMeetingRoomEventUpdatedHandler
+	eventV1ThirdPartyMeetingRoomEventDeletedHandler               EventV1ThirdPartyMeetingRoomEventDeletedHandler
+	eventV2MeetingRoomMeetingRoomCreatedV1Handler                 EventV2MeetingRoomMeetingRoomCreatedV1Handler
 	eventV2MeetingRoomMeetingRoomUpdatedV1Handler                 EventV2MeetingRoomMeetingRoomUpdatedV1Handler
 	eventV2MeetingRoomMeetingRoomStatusChangedV1Handler           EventV2MeetingRoomMeetingRoomStatusChangedV1Handler
 	eventV2MeetingRoomMeetingRoomDeletedV1Handler                 EventV2MeetingRoomMeetingRoomDeletedV1Handler
-	eventV2MeetingRoomMeetingRoomCreatedV1Handler                 EventV2MeetingRoomMeetingRoomCreatedV1Handler
 	eventV1ThirdPartyMeetingRoomEventCreatedHandler               EventV1ThirdPartyMeetingRoomEventCreatedHandler
-	eventV1ThirdPartyMeetingRoomEventUpdatedHandler               EventV1ThirdPartyMeetingRoomEventUpdatedHandler
-	eventV1ThirdPartyMeetingRoomEventDeletedHandler               EventV1ThirdPartyMeetingRoomEventDeletedHandler
 	eventV1OrderPaidHandler                                       EventV1OrderPaidHandler
 	eventV1AppTicketHandler                                       EventV1AppTicketHandler
 	eventV1AppUninstalledHandler                                  EventV1AppUninstalledHandler
@@ -232,13 +232,13 @@ func (r *eventHandler) clone() *eventHandler {
 		eventV2ApprovalApprovalUpdatedV4Handler:                       r.eventV2ApprovalApprovalUpdatedV4Handler,
 		eventV1TripApprovalHandler:                                    r.eventV1TripApprovalHandler,
 		eventV1RemedyApprovalHandler:                                  r.eventV1RemedyApprovalHandler,
+		eventV1ThirdPartyMeetingRoomEventUpdatedHandler:               r.eventV1ThirdPartyMeetingRoomEventUpdatedHandler,
+		eventV1ThirdPartyMeetingRoomEventDeletedHandler:               r.eventV1ThirdPartyMeetingRoomEventDeletedHandler,
+		eventV2MeetingRoomMeetingRoomCreatedV1Handler:                 r.eventV2MeetingRoomMeetingRoomCreatedV1Handler,
 		eventV2MeetingRoomMeetingRoomUpdatedV1Handler:                 r.eventV2MeetingRoomMeetingRoomUpdatedV1Handler,
 		eventV2MeetingRoomMeetingRoomStatusChangedV1Handler:           r.eventV2MeetingRoomMeetingRoomStatusChangedV1Handler,
 		eventV2MeetingRoomMeetingRoomDeletedV1Handler:                 r.eventV2MeetingRoomMeetingRoomDeletedV1Handler,
-		eventV2MeetingRoomMeetingRoomCreatedV1Handler:                 r.eventV2MeetingRoomMeetingRoomCreatedV1Handler,
 		eventV1ThirdPartyMeetingRoomEventCreatedHandler:               r.eventV1ThirdPartyMeetingRoomEventCreatedHandler,
-		eventV1ThirdPartyMeetingRoomEventUpdatedHandler:               r.eventV1ThirdPartyMeetingRoomEventUpdatedHandler,
-		eventV1ThirdPartyMeetingRoomEventDeletedHandler:               r.eventV1ThirdPartyMeetingRoomEventDeletedHandler,
 		eventV1OrderPaidHandler:                                       r.eventV1OrderPaidHandler,
 		eventV1AppTicketHandler:                                       r.eventV1AppTicketHandler,
 		eventV1AppUninstalledHandler:                                  r.eventV1AppUninstalledHandler,
@@ -324,13 +324,13 @@ type eventBody struct {
 	eventV2ApprovalApprovalUpdatedV4                       *EventV2ApprovalApprovalUpdatedV4
 	eventV1TripApproval                                    *EventV1TripApproval
 	eventV1RemedyApproval                                  *EventV1RemedyApproval
+	eventV1ThirdPartyMeetingRoomEventUpdated               *EventV1ThirdPartyMeetingRoomEventUpdated
+	eventV1ThirdPartyMeetingRoomEventDeleted               *EventV1ThirdPartyMeetingRoomEventDeleted
+	eventV2MeetingRoomMeetingRoomCreatedV1                 *EventV2MeetingRoomMeetingRoomCreatedV1
 	eventV2MeetingRoomMeetingRoomUpdatedV1                 *EventV2MeetingRoomMeetingRoomUpdatedV1
 	eventV2MeetingRoomMeetingRoomStatusChangedV1           *EventV2MeetingRoomMeetingRoomStatusChangedV1
 	eventV2MeetingRoomMeetingRoomDeletedV1                 *EventV2MeetingRoomMeetingRoomDeletedV1
-	eventV2MeetingRoomMeetingRoomCreatedV1                 *EventV2MeetingRoomMeetingRoomCreatedV1
 	eventV1ThirdPartyMeetingRoomEventCreated               *EventV1ThirdPartyMeetingRoomEventCreated
-	eventV1ThirdPartyMeetingRoomEventUpdated               *EventV1ThirdPartyMeetingRoomEventUpdated
-	eventV1ThirdPartyMeetingRoomEventDeleted               *EventV1ThirdPartyMeetingRoomEventDeleted
 	eventV1OrderPaid                                       *EventV1OrderPaid
 	eventV1AppTicket                                       *EventV1AppTicket
 	eventV1AppUninstalled                                  *EventV1AppUninstalled
@@ -480,6 +480,12 @@ func (r *EventCallbackService) parserEventV2(req *eventReq) error {
 		}
 		req.eventV2ApprovalApprovalUpdatedV4 = event
 
+	case EventTypeV2MeetingRoomMeetingRoomCreatedV1:
+		event := new(EventV2MeetingRoomMeetingRoomCreatedV1)
+		if err := req.unmarshalEvent(event); err != nil {
+			return err
+		}
+		req.eventV2MeetingRoomMeetingRoomCreatedV1 = event
 	case EventTypeV2MeetingRoomMeetingRoomUpdatedV1:
 		event := new(EventV2MeetingRoomMeetingRoomUpdatedV1)
 		if err := req.unmarshalEvent(event); err != nil {
@@ -498,12 +504,6 @@ func (r *EventCallbackService) parserEventV2(req *eventReq) error {
 			return err
 		}
 		req.eventV2MeetingRoomMeetingRoomDeletedV1 = event
-	case EventTypeV2MeetingRoomMeetingRoomCreatedV1:
-		event := new(EventV2MeetingRoomMeetingRoomCreatedV1)
-		if err := req.unmarshalEvent(event); err != nil {
-			return err
-		}
-		req.eventV2MeetingRoomMeetingRoomCreatedV1 = event
 
 	case EventTypeV2ApplicationApplicationVisibilityAddedV6:
 		event := new(EventV2ApplicationApplicationVisibilityAddedV6)
@@ -866,13 +866,6 @@ func (r *EventCallbackService) parserEventV1(req *eventReq) error {
 			return fmt.Errorf("lark event unmarshal event %s failed", bs)
 		}
 		req.eventV1RemedyApproval = event
-
-	case EventTypeV1ThirdPartyMeetingRoomEventCreated:
-		event := new(EventV1ThirdPartyMeetingRoomEventCreated)
-		if err := json.Unmarshal(bs, event); err != nil {
-			return fmt.Errorf("lark event unmarshal event %s failed", bs)
-		}
-		req.eventV1ThirdPartyMeetingRoomEventCreated = event
 	case EventTypeV1ThirdPartyMeetingRoomEventUpdated:
 		event := new(EventV1ThirdPartyMeetingRoomEventUpdated)
 		if err := json.Unmarshal(bs, event); err != nil {
@@ -885,6 +878,13 @@ func (r *EventCallbackService) parserEventV1(req *eventReq) error {
 			return fmt.Errorf("lark event unmarshal event %s failed", bs)
 		}
 		req.eventV1ThirdPartyMeetingRoomEventDeleted = event
+
+	case EventTypeV1ThirdPartyMeetingRoomEventCreated:
+		event := new(EventV1ThirdPartyMeetingRoomEventCreated)
+		if err := json.Unmarshal(bs, event); err != nil {
+			return fmt.Errorf("lark event unmarshal event %s failed", bs)
+		}
+		req.eventV1ThirdPartyMeetingRoomEventCreated = event
 	case EventTypeV1OrderPaid:
 		event := new(EventV1OrderPaid)
 		if err := json.Unmarshal(bs, event); err != nil {
@@ -1070,6 +1070,21 @@ func (r *EventCallbackService) handlerEvent(ctx context.Context, req *eventReq) 
 			s, err = r.cli.eventHandler.eventV1RemedyApprovalHandler(ctx, r.cli, req.Schema, req.headerV1(EventTypeV1RemedyApproval), req.eventV1RemedyApproval)
 		}
 		return true, s, err
+	case req.eventV1ThirdPartyMeetingRoomEventUpdated != nil:
+		if r.cli.eventHandler.eventV1ThirdPartyMeetingRoomEventUpdatedHandler != nil {
+			s, err = r.cli.eventHandler.eventV1ThirdPartyMeetingRoomEventUpdatedHandler(ctx, r.cli, req.Schema, req.headerV1(EventTypeV1ThirdPartyMeetingRoomEventUpdated), req.eventV1ThirdPartyMeetingRoomEventUpdated)
+		}
+		return true, s, err
+	case req.eventV1ThirdPartyMeetingRoomEventDeleted != nil:
+		if r.cli.eventHandler.eventV1ThirdPartyMeetingRoomEventDeletedHandler != nil {
+			s, err = r.cli.eventHandler.eventV1ThirdPartyMeetingRoomEventDeletedHandler(ctx, r.cli, req.Schema, req.headerV1(EventTypeV1ThirdPartyMeetingRoomEventDeleted), req.eventV1ThirdPartyMeetingRoomEventDeleted)
+		}
+		return true, s, err
+	case req.eventV2MeetingRoomMeetingRoomCreatedV1 != nil:
+		if r.cli.eventHandler.eventV2MeetingRoomMeetingRoomCreatedV1Handler != nil {
+			s, err = r.cli.eventHandler.eventV2MeetingRoomMeetingRoomCreatedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2MeetingRoomMeetingRoomCreatedV1)
+		}
+		return true, s, err
 	case req.eventV2MeetingRoomMeetingRoomUpdatedV1 != nil:
 		if r.cli.eventHandler.eventV2MeetingRoomMeetingRoomUpdatedV1Handler != nil {
 			s, err = r.cli.eventHandler.eventV2MeetingRoomMeetingRoomUpdatedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2MeetingRoomMeetingRoomUpdatedV1)
@@ -1085,24 +1100,9 @@ func (r *EventCallbackService) handlerEvent(ctx context.Context, req *eventReq) 
 			s, err = r.cli.eventHandler.eventV2MeetingRoomMeetingRoomDeletedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2MeetingRoomMeetingRoomDeletedV1)
 		}
 		return true, s, err
-	case req.eventV2MeetingRoomMeetingRoomCreatedV1 != nil:
-		if r.cli.eventHandler.eventV2MeetingRoomMeetingRoomCreatedV1Handler != nil {
-			s, err = r.cli.eventHandler.eventV2MeetingRoomMeetingRoomCreatedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2MeetingRoomMeetingRoomCreatedV1)
-		}
-		return true, s, err
 	case req.eventV1ThirdPartyMeetingRoomEventCreated != nil:
 		if r.cli.eventHandler.eventV1ThirdPartyMeetingRoomEventCreatedHandler != nil {
 			s, err = r.cli.eventHandler.eventV1ThirdPartyMeetingRoomEventCreatedHandler(ctx, r.cli, req.Schema, req.headerV1(EventTypeV1ThirdPartyMeetingRoomEventCreated), req.eventV1ThirdPartyMeetingRoomEventCreated)
-		}
-		return true, s, err
-	case req.eventV1ThirdPartyMeetingRoomEventUpdated != nil:
-		if r.cli.eventHandler.eventV1ThirdPartyMeetingRoomEventUpdatedHandler != nil {
-			s, err = r.cli.eventHandler.eventV1ThirdPartyMeetingRoomEventUpdatedHandler(ctx, r.cli, req.Schema, req.headerV1(EventTypeV1ThirdPartyMeetingRoomEventUpdated), req.eventV1ThirdPartyMeetingRoomEventUpdated)
-		}
-		return true, s, err
-	case req.eventV1ThirdPartyMeetingRoomEventDeleted != nil:
-		if r.cli.eventHandler.eventV1ThirdPartyMeetingRoomEventDeletedHandler != nil {
-			s, err = r.cli.eventHandler.eventV1ThirdPartyMeetingRoomEventDeletedHandler(ctx, r.cli, req.Schema, req.headerV1(EventTypeV1ThirdPartyMeetingRoomEventDeleted), req.eventV1ThirdPartyMeetingRoomEventDeleted)
 		}
 		return true, s, err
 	case req.eventV1OrderPaid != nil:

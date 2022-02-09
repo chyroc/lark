@@ -118,6 +118,7 @@ type Mock struct {
 	mockCalendarDeleteCalendarACL                              func(ctx context.Context, request *DeleteCalendarACLReq, options ...MethodOptionFunc) (*DeleteCalendarACLResp, *Response, error)
 	mockCalendarGetCalendarACLList                             func(ctx context.Context, request *GetCalendarACLListReq, options ...MethodOptionFunc) (*GetCalendarACLListResp, *Response, error)
 	mockCalendarSubscribeCalendarACL                           func(ctx context.Context, request *SubscribeCalendarACLReq, options ...MethodOptionFunc) (*SubscribeCalendarACLResp, *Response, error)
+	mockCalendarGetPrimaryCalendar                             func(ctx context.Context, request *GetPrimaryCalendarReq, options ...MethodOptionFunc) (*GetPrimaryCalendarResp, *Response, error)
 	mockCalendarCreateCalendar                                 func(ctx context.Context, request *CreateCalendarReq, options ...MethodOptionFunc) (*CreateCalendarResp, *Response, error)
 	mockCalendarDeleteCalendar                                 func(ctx context.Context, request *DeleteCalendarReq, options ...MethodOptionFunc) (*DeleteCalendarResp, *Response, error)
 	mockCalendarGetCalendar                                    func(ctx context.Context, request *GetCalendarReq, options ...MethodOptionFunc) (*GetCalendarResp, *Response, error)
@@ -548,7 +549,13 @@ type Mock struct {
 	mockACSGetACSUser                                          func(ctx context.Context, request *GetACSUserReq, options ...MethodOptionFunc) (*GetACSUserResp, *Response, error)
 	mockACSUpdateACSUser                                       func(ctx context.Context, request *UpdateACSUserReq, options ...MethodOptionFunc) (*UpdateACSUserResp, *Response, error)
 	mockACSGetACSUserList                                      func(ctx context.Context, request *GetACSUserListReq, options ...MethodOptionFunc) (*GetACSUserListResp, *Response, error)
-	mockEcosystemGetEcosystemBindAwemeUser                     func(ctx context.Context, request *GetEcosystemBindAwemeUserReq, options ...MethodOptionFunc) (*GetEcosystemBindAwemeUserResp, *Response, error)
+	mockBaikeCreateBaikeDraft                                  func(ctx context.Context, request *CreateBaikeDraftReq, options ...MethodOptionFunc) (*CreateBaikeDraftResp, *Response, error)
+	mockBaikeCreateBaikeUpdate                                 func(ctx context.Context, request *CreateBaikeUpdateReq, options ...MethodOptionFunc) (*CreateBaikeUpdateResp, *Response, error)
+	mockBaikeGetBaikeEntity                                    func(ctx context.Context, request *GetBaikeEntityReq, options ...MethodOptionFunc) (*GetBaikeEntityResp, *Response, error)
+	mockBaikeGetBaikeEntityList                                func(ctx context.Context, request *GetBaikeEntityListReq, options ...MethodOptionFunc) (*GetBaikeEntityListResp, *Response, error)
+	mockBaikeMatchBaikeEntity                                  func(ctx context.Context, request *MatchBaikeEntityReq, options ...MethodOptionFunc) (*MatchBaikeEntityResp, *Response, error)
+	mockBaikeSearchBaikeEntity                                 func(ctx context.Context, request *SearchBaikeEntityReq, options ...MethodOptionFunc) (*SearchBaikeEntityResp, *Response, error)
+	mockBaikeHighlightBaikeEntity                              func(ctx context.Context, request *HighlightBaikeEntityReq, options ...MethodOptionFunc) (*HighlightBaikeEntityResp, *Response, error)
 }
 
 // Mock return mock client

@@ -72,7 +72,7 @@ type Lark struct {
 	Hire          *HireService
 	Task          *TaskService
 	ACS           *ACSService
-	Ecosystem     *EcosystemService
+	Baike         *BaikeService
 	EventCallback *EventCallbackService
 	AppLink       *AppLinkService
 }
@@ -105,7 +105,7 @@ func (r *Lark) initService() {
 	r.Hire = &HireService{cli: r}
 	r.Task = &TaskService{cli: r}
 	r.ACS = &ACSService{cli: r}
-	r.Ecosystem = &EcosystemService{cli: r}
+	r.Baike = &BaikeService{cli: r}
 	r.EventCallback = &EventCallbackService{cli: r}
 	r.AppLink = &AppLinkService{cli: r}
 }
@@ -164,7 +164,7 @@ type (
 	HireService          struct{ cli *Lark }
 	TaskService          struct{ cli *Lark }
 	ACSService           struct{ cli *Lark }
-	EcosystemService     struct{ cli *Lark }
+	BaikeService         struct{ cli *Lark }
 	EventCallbackService struct{ cli *Lark }
 	AppLinkService       struct{ cli *Lark }
 )
