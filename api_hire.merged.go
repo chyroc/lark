@@ -732,6 +732,12 @@ type GetHireJobRespJob struct {
 	CustomizedDataList []*GetHireJobRespJobCustomizedData `json:"customized_data_list,omitempty"` // 自定义字段列表
 	JobFunction        *GetHireJobRespJobJobFunction      `json:"job_function,omitempty"`         // 职能分类
 	Subject            *GetHireJobRespJobSubject          `json:"subject,omitempty"`              // 职位项目
+	HeadCount          int64                              `json:"head_count,omitempty"`           // 招聘数量
+	Experience         int64                              `json:"experience,omitempty"`           // 工作年限, 可选值有: `1`：不限, `2`：应届毕业生, `3`：1年以下, `4`：1-3年, `5`：3-5年, `6`：5-7年, `7`：7-10年, `8`：10年以上
+	ExpiryTime         int64                              `json:"expiry_time,omitempty"`          // 到期日期
+	MinSalary          int64                              `json:"min_salary,omitempty"`           // 最低薪资，单位:k
+	MaxSalary          int64                              `json:"max_salary,omitempty"`           // 最高薪资，单位:k
+	RequiredDegree     int64                              `json:"required_degree,omitempty"`      // 学历要求, 可选值有: `1`：小学及以上, `2`：初中及以上, `3`：专职及以上, `4`：高中及以上, `5`：大专及以上, `6`：本科及以上, `7`：硕士及以上, `8`：博士及以上, `20`：不限
 }
 
 // GetHireJobRespJobRecruitmentType ...
