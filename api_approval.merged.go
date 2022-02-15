@@ -634,7 +634,7 @@ func (r *Mock) UnMockApprovalGetApprovalInstance() {
 
 // GetApprovalInstanceReq ...
 type GetApprovalInstanceReq struct {
-	InstanceCode string  `json:"instance_code,omitempty"` // 审批实例 Code
+	InstanceCode string  `json:"instance_code,omitempty"` // 审批实例 Code, 若在创建的时候穿了uuid, 也可以通过传uuid获取
 	Locale       *string `json:"locale,omitempty"`        // zh-CN - 中文<br>en-US - 英文<br>ja-JP - 日文
 	UserID       *string `json:"user_id,omitempty"`       // 发起审批用户,平台级审批时使用
 	OpenID       *string `json:"open_id,omitempty"`       // 发起审批用户 open id

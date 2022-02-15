@@ -305,8 +305,8 @@ type GetChatResp struct {
 //
 // 注意事项：
 // - 应用需要开启[机器人能力](https://open.feishu.cn/document/home/develop-a-bot-in-5-minutes/create-an-app)
-// - 查询参数**user_id_type**用于控制响应体中owner_id的类型
-// - 请注意区分本接口和[获取群信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat/get)的请求URL。
+// - 查询参数  **user_id_type** 用于控制响应体中 owner_id 的类型，如果是获取机器人所在群列表该值可以不填
+// - 请注意区分本接口和[获取群信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat/get)的请求 URL
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat/list
 func (r *ChatService) GetChatListOfSelf(ctx context.Context, request *GetChatListOfSelfReq, options ...MethodOptionFunc) (*GetChatListOfSelfResp, *Response, error) {
@@ -755,7 +755,7 @@ func (r *Mock) UnMockChatDeleteChatMember() {
 type DeleteChatMemberReq struct {
 	MemberIDType *IDType  `query:"member_id_type" json:"-"` // 出群成员 id 类型 open_id/user_id/union_id/app_id, 示例值："open_id", 可选值有: `user_id`：以 user_id 来识别成员, `union_id`：以 union_id 来识别成员, `open_id`：以 open_id 来识别成员, `app_id`：以 app_id 来识别成员
 	ChatID       string   `path:"chat_id" json:"-"`         // 群 ID，详情参见[群ID 说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-id-description), 示例值："oc_a0553eda9014c201e6969b478895c230"
-	IDList       []string `json:"id_list,omitempty"`        // 成员列表
+	IDList       []string `json:"id_list,omitempty"`        // 成员列表, 示例值：["ou_9204a37300b3700d61effaa439f34295"]
 }
 
 // deleteChatMemberResp ...

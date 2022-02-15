@@ -763,8 +763,8 @@ type CreateAttendanceShiftReq struct {
 
 // CreateAttendanceShiftReqPunchTimeRule ...
 type CreateAttendanceShiftReqPunchTimeRule struct {
-	OnTime              string `json:"on_time,omitempty"`                // 上班时间, 示例值："9：00"
-	OffTime             string `json:"off_time,omitempty"`               // 下班时间, 示例值："18：00, 第二天凌晨2点, 26：00"
+	OnTime              string `json:"on_time,omitempty"`                // 上班时间, 示例值："9:00"
+	OffTime             string `json:"off_time,omitempty"`               // 下班时间, 示例值："18:00, 第二天凌晨2点, 26:00"
 	LateMinutesAsLate   int64  `json:"late_minutes_as_late,omitempty"`   // 晚到多久记为迟到, 示例值：30
 	LateMinutesAsLack   int64  `json:"late_minutes_as_lack,omitempty"`   // 晚到多久记为缺卡, 示例值：60
 	OnAdvanceMinutes    int64  `json:"on_advance_minutes,omitempty"`     // 最早多久可打上班卡, 示例值：60
@@ -781,8 +781,8 @@ type CreateAttendanceShiftReqLateOffLateOnRule struct {
 
 // CreateAttendanceShiftReqRestTimeRule ...
 type CreateAttendanceShiftReqRestTimeRule struct {
-	RestBeginTime string `json:"rest_begin_time,omitempty"` // 休息开始, 示例值："13：00"
-	RestEndTime   string `json:"rest_end_time,omitempty"`   // 休息结束, 示例值："14：00"
+	RestBeginTime string `json:"rest_begin_time,omitempty"` // 休息开始, 示例值："13:00"
+	RestEndTime   string `json:"rest_end_time,omitempty"`   // 休息结束, 示例值："14:00"
 }
 
 // createAttendanceShiftResp ...
