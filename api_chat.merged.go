@@ -85,6 +85,8 @@ type UpdateChatAnnouncementResp struct{}
 // 注意事项：
 // - 应用需要开启[机器人能力](https://open.feishu.cn/document/home/develop-a-bot-in-5-minutes/create-an-app)
 // - 本接口只支持创建群，如果需要拉用户或者机器人入群参考 [将用户或机器人拉入群聊](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-members/create)接口
+// - 每次请求，最多拉 50 个用户或者 5 个机器人，并且群组最多容纳 15 个机器人
+// - 拉机器人入群请使用 [app_id]
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat/create
 func (r *ChatService) CreateChat(ctx context.Context, request *CreateChatReq, options ...MethodOptionFunc) (*CreateChatResp, *Response, error) {
@@ -121,11 +123,14 @@ func (r *Mock) UnMockChatCreateChat() {
 // CreateChatReq ...
 type CreateChatReq struct {
 	UserIDType             *IDType             `query:"user_id_type" json:"-"`             // 用户 ID 类型, 示例值："open_id", 可选值有: `open_id`：用户的 open id, `union_id`：用户的 union id, `user_id`：用户的 user id, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
+	SetBotManager          *bool               `query:"set_bot_manager" json:"-"`          // 是否设置创建群的机器人为管理员, 示例值：false
 	Avatar                 *string             `json:"avatar,omitempty"`                   // 群头像对应的 Image Key，可通过[上传图片](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/image/create)获取（注意：上传图片的 [image_type] 需要指定为 [avatar]）, 示例值："default-avatar_44ae0ca3-e140-494b-956f-78091e348435"
 	Name                   *string             `json:"name,omitempty"`                     // 群名称, 示例值："测试群名称"
 	Description            *string             `json:"description,omitempty"`              // 群描述, 示例值："测试群描述"
 	I18nNames              *I18nNames          `json:"i18n_names,omitempty"`               // 群国际化名称
 	OwnerID                *string             `json:"owner_id,omitempty"`                 // 创建群时指定的群主，不填时指定建群的机器人为群主。,群主 ID，ID值与查询参数中的 user_id_type 对应。,不同 ID 的说明参见 [用户相关的 ID 概念](https://open.feishu.cn/document/home/user-identity-introduction/introduction), 示例值："4d7a3c6g"
+	UserIDList             []string            `json:"user_id_list,omitempty"`             // 创建群时邀请的群成员，id 类型为 user_id_type, 示例值：["4d7a3c6g"], 最大长度：`50`
+	BotIDList              []string            `json:"bot_id_list,omitempty"`              // 创建群时邀请的群机器人, 示例值：["cli_a10fbf7e94b8d01d"], 最大长度：`5`
 	ChatMode               *string             `json:"chat_mode,omitempty"`                // 群模式, 可选值有: `group`：群组, 示例值："group"
 	ChatType               *ChatType           `json:"chat_type,omitempty"`                // 群类型, 可选值有: `private`：私有群, `public`：公开群, 示例值："private"
 	External               *bool               `json:"external,omitempty"`                 // 是否是外部群, 示例值：false
