@@ -3589,7 +3589,7 @@ type EventV2MeetingRoomMeetingRoomDeletedV1 struct {
 
 // EventV2MeetingRoomMeetingRoomStatusChangedV1
 //
-// 会议室属性更新将触发此事件。{使用示例}(url=/api/tools/api_explore/api_explore_config?project=meeting_room&version=v1&resource=meeting_room&event=status_changed)
+// 会议室状态信息变更将触发此事件。{使用示例}(url=/api/tools/api_explore/api_explore_config?project=meeting_room&version=v1&resource=meeting_room&event=status_changed)
 // 了解事件订阅的使用场景和配置流程，请点击查看 [事件订阅概述](https://open.feishu.cn/document/ukTMukTMukTM/uUTNz4SN1MjL1UzM)
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/meeting_room-v1/meeting_room/events/status_changed

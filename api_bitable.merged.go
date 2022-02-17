@@ -756,7 +756,7 @@ type GetBitableRecordListReq struct {
 	Filter           *string `query:"filter" json:"-"`              // filter, 不超过2000个字符, 不支持对高级字段属性(关联和公式)进行过滤筛选，仅支持字段文本值。详细请参考  [记录筛选指南](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table-record/list), 示例值："AND(CurrentValue.[身高]>180, CurrentValue.[体重]>150)"
 	Sort             *string `query:"sort" json:"-"`                // sort, 不超过1000字符, 不支持对带特殊字段(关联和公式)的表的使用, 示例值："["字段1 DESC","字段2 ASC"]"
 	FieldNames       *string `query:"field_names" json:"-"`         // field_names, 示例值："["字段1"]"
-	TextFieldAsArray *bool   `query:"text_field_as_array" json:"-"` // 控制多行文本字段数据的返回格式, true 表示以数组形式返回, 示例值：true
+	TextFieldAsArray *bool   `query:"text_field_as_array" json:"-"` // 控制多行文本字段数据的返回格式, true 表示以数组形式返回（多行文本中如果有超链接部分，则会返回链接的URL）, 示例值：true
 	PageToken        *string `query:"page_token" json:"-"`          // 分页标记，第一次请求不填，表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token，下次遍历可采用该 page_token 获取查询结果, 示例值："recn0hoyXL"
 	PageSize         *int64  `query:"page_size" json:"-"`           // 分页大小, 示例值：10, 最大值：`100`
 	UserIDType       *IDType `query:"user_id_type" json:"-"`        // 用户 ID 类型, 示例值："open_id", 可选值有: `open_id`：用户的 open id, `union_id`：用户的 union id, `user_id`：用户的 user id, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求:  获取用户 user ID
