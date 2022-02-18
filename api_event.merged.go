@@ -2316,7 +2316,7 @@ type EventV2ContactUserCreatedV3Object struct {
 	Avatar          *EventV2ContactUserCreatedV3ObjectAvatar       `json:"avatar,omitempty"`           // 用户头像信息,**字段权限要求（满足任一）**：,以应用身份读取通讯录,获取用户基本信息,以应用身份访问通讯录,读取通讯录
 	Status          *EventV2ContactUserCreatedV3ObjectStatus       `json:"status,omitempty"`           // 用户状态,**字段权限要求（满足任一）**：,以应用身份读取通讯录,获取用户雇佣信息,以应用身份访问通讯录,读取通讯录
 	DepartmentIDs   []string                                       `json:"department_ids,omitempty"`   // 用户所属部门的ID列表,**字段权限要求（满足任一）**：,以应用身份读取通讯录,获取用户组织架构信息,以应用身份访问通讯录,读取通讯录
-	LeaderUserID    string                                         `json:"leader_user_id,omitempty"`   // 用户的直接主管的用户ID [用户相关的 ID 概念](https://open.feishu.cn/document/home/user-identity-introduction/introduction),**字段权限要求（满足任一）**：,以应用身份读取通讯录,获取用户雇佣信息,以应用身份访问通讯录,读取通讯录
+	LeaderUserID    string                                         `json:"leader_user_id,omitempty"`   // 用户的直接主管的用户open_id [用户相关的 ID 概念](https://open.feishu.cn/document/home/user-identity-introduction/introduction),**字段权限要求（满足任一）**：,以应用身份读取通讯录,获取用户雇佣信息,以应用身份访问通讯录,读取通讯录
 	City            string                                         `json:"city,omitempty"`             // 城市,**字段权限要求（满足任一）**：,以应用身份读取通讯录,获取用户雇佣信息,以应用身份访问通讯录,读取通讯录
 	Country         string                                         `json:"country,omitempty"`          // 国家,**字段权限要求（满足任一）**：,以应用身份读取通讯录,获取用户雇佣信息,以应用身份访问通讯录,读取通讯录
 	WorkStation     string                                         `json:"work_station,omitempty"`     // 工位,**字段权限要求（满足任一）**：,以应用身份读取通讯录,获取用户雇佣信息,以应用身份访问通讯录,读取通讯录
@@ -2412,7 +2412,7 @@ type EventV2ContactUserDeletedV3Object struct {
 	Avatar          *EventV2ContactUserDeletedV3ObjectAvatar       `json:"avatar,omitempty"`           // 用户头像信息,**字段权限要求（满足任一）**：,以应用身份读取通讯录,获取用户基本信息,以应用身份访问通讯录,读取通讯录
 	Status          *EventV2ContactUserDeletedV3ObjectStatus       `json:"status,omitempty"`           // 用户状态,**字段权限要求（满足任一）**：,以应用身份读取通讯录,获取用户雇佣信息,以应用身份访问通讯录,读取通讯录
 	DepartmentIDs   []string                                       `json:"department_ids,omitempty"`   // 用户所属部门的ID列表,**字段权限要求（满足任一）**：,以应用身份读取通讯录,获取用户组织架构信息,以应用身份访问通讯录,读取通讯录
-	LeaderUserID    string                                         `json:"leader_user_id,omitempty"`   // 用户的直接主管的用户ID [用户相关的 ID 概念](https://open.feishu.cn/document/home/user-identity-introduction/introduction),**字段权限要求（满足任一）**：,以应用身份读取通讯录,获取用户雇佣信息,以应用身份访问通讯录,读取通讯录
+	LeaderUserID    string                                         `json:"leader_user_id,omitempty"`   // 用户的直接主管的用户open_id [用户相关的 ID 概念](https://open.feishu.cn/document/home/user-identity-introduction/introduction),**字段权限要求（满足任一）**：,以应用身份读取通讯录,获取用户雇佣信息,以应用身份访问通讯录,读取通讯录
 	City            string                                         `json:"city,omitempty"`             // 城市,**字段权限要求（满足任一）**：,以应用身份读取通讯录,获取用户雇佣信息,以应用身份访问通讯录,读取通讯录
 	Country         string                                         `json:"country,omitempty"`          // 国家,**字段权限要求（满足任一）**：,以应用身份读取通讯录,获取用户雇佣信息,以应用身份访问通讯录,读取通讯录
 	WorkStation     string                                         `json:"work_station,omitempty"`     // 工位,**字段权限要求（满足任一）**：,以应用身份读取通讯录,获取用户雇佣信息,以应用身份访问通讯录,读取通讯录
@@ -2514,7 +2514,7 @@ type EventV2ContactUserUpdatedV3Object struct {
 	Avatar          *EventV2ContactUserUpdatedV3ObjectAvatar       `json:"avatar,omitempty"`           // 用户头像信息,**字段权限要求（满足任一）**：,以应用身份读取通讯录,获取用户基本信息,以应用身份访问通讯录,读取通讯录
 	Status          *EventV2ContactUserUpdatedV3ObjectStatus       `json:"status,omitempty"`           // 用户状态,**字段权限要求（满足任一）**：,以应用身份读取通讯录,获取用户雇佣信息,以应用身份访问通讯录,读取通讯录
 	DepartmentIDs   []string                                       `json:"department_ids,omitempty"`   // 用户所属部门的ID列表,**字段权限要求（满足任一）**：,以应用身份读取通讯录,获取用户组织架构信息,以应用身份访问通讯录,读取通讯录
-	LeaderUserID    string                                         `json:"leader_user_id,omitempty"`   // 用户的直接主管的用户ID [用户相关的 ID 概念](https://open.feishu.cn/document/home/user-identity-introduction/introduction),**字段权限要求（满足任一）**：,以应用身份读取通讯录,获取用户雇佣信息,以应用身份访问通讯录,读取通讯录
+	LeaderUserID    string                                         `json:"leader_user_id,omitempty"`   // 用户的直接主管的用户open_id [用户相关的 ID 概念](https://open.feishu.cn/document/home/user-identity-introduction/introduction),**字段权限要求（满足任一）**：,以应用身份读取通讯录,获取用户雇佣信息,以应用身份访问通讯录,读取通讯录
 	City            string                                         `json:"city,omitempty"`             // 城市,**字段权限要求（满足任一）**：,以应用身份读取通讯录,获取用户雇佣信息,以应用身份访问通讯录,读取通讯录
 	Country         string                                         `json:"country,omitempty"`          // 国家,**字段权限要求（满足任一）**：,以应用身份读取通讯录,获取用户雇佣信息,以应用身份访问通讯录,读取通讯录
 	WorkStation     string                                         `json:"work_station,omitempty"`     // 工位,**字段权限要求（满足任一）**：,以应用身份读取通讯录,获取用户雇佣信息,以应用身份访问通讯录,读取通讯录
@@ -2588,7 +2588,7 @@ type EventV2ContactUserUpdatedV3OldObject struct {
 	Avatar        *EventV2ContactUserUpdatedV3OldObjectAvatar       `json:"avatar,omitempty"`         // 用户头像信息,**字段权限要求（满足任一）**：,以应用身份读取通讯录,获取用户基本信息,以应用身份访问通讯录,读取通讯录
 	Status        *EventV2ContactUserUpdatedV3OldObjectStatus       `json:"status,omitempty"`         // 用户状态,**字段权限要求（满足任一）**：,以应用身份读取通讯录,获取用户雇佣信息,以应用身份访问通讯录,读取通讯录
 	DepartmentIDs []string                                          `json:"department_ids,omitempty"` // 用户所属部门的ID列表,**字段权限要求（满足任一）**：,以应用身份读取通讯录,获取用户组织架构信息,以应用身份访问通讯录,读取通讯录
-	LeaderUserID  string                                            `json:"leader_user_id,omitempty"` // 用户的直接主管的用户ID [用户相关的 ID 概念](https://open.feishu.cn/document/home/user-identity-introduction/introduction),**字段权限要求（满足任一）**：,以应用身份读取通讯录,获取用户雇佣信息,以应用身份访问通讯录,读取通讯录
+	LeaderUserID  string                                            `json:"leader_user_id,omitempty"` // 用户的直接主管的用户open_id [用户相关的 ID 概念](https://open.feishu.cn/document/home/user-identity-introduction/introduction),**字段权限要求（满足任一）**：,以应用身份读取通讯录,获取用户雇佣信息,以应用身份访问通讯录,读取通讯录
 	City          string                                            `json:"city,omitempty"`           // 城市,**字段权限要求（满足任一）**：,以应用身份读取通讯录,获取用户雇佣信息,以应用身份访问通讯录,读取通讯录
 	Country       string                                            `json:"country,omitempty"`        // 国家,**字段权限要求（满足任一）**：,以应用身份读取通讯录,获取用户雇佣信息,以应用身份访问通讯录,读取通讯录
 	WorkStation   string                                            `json:"work_station,omitempty"`   // 工位,**字段权限要求（满足任一）**：,以应用身份读取通讯录,获取用户雇佣信息,以应用身份访问通讯录,读取通讯录
