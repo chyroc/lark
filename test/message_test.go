@@ -1,3 +1,18 @@
+/**
+ * Copyright 2022 chyroc
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package test
 
 import (
@@ -21,6 +36,24 @@ func Test_GetMessage(t *testing.T) {
 			_, _, _ = AppAllPermission.Ins().Message.DeleteMessage(ctx, &lark.DeleteMessageReq{MessageID: v})
 		}
 	}()
+
+	t.Run("", func(t *testing.T) {
+		AppAllPermission.Ins().Message.Send().ToChatID(ChatForSendMessage.ChatID).SendCard(ctx, (&lark.MessageContentCard{
+			Header: nil,
+			Config: nil,
+			Modules: []lark.MessageContentCardModule{
+				&lark.MessageContentCardModuleDIV{
+					Text: &lark.MessageContentCardObjectText{
+						Tag:     lark.MessageContentCardTextTypeLarkMd,
+						Content: lark.MdBuilder.AtAll(),
+						Lines:   0,
+					},
+					Fields: nil,
+					Extra:  nil,
+				},
+			},
+		}).String())
+	})
 
 	t.Run("send-message", func(t *testing.T) {
 		t.Run("raw", func(t *testing.T) {
@@ -140,7 +173,8 @@ func Test_GetMessage(t *testing.T) {
 		})
 		printData(resp, err)
 		as.NotNil(err)
-		as.Contains(err.Error(), "Bot is NOT the sender of the message")
+		// as.Contains(err.Error(), "Bot is NOT the sender of the message")
+		as.Contains(err.Error(), "these ids not existed")
 	})
 
 	t.Run("get-message-read", func(t *testing.T) {
@@ -505,4 +539,41 @@ func Test_EphemeralMessage(t *testing.T) {
 	as.NotEmpty(resp.MessageID)
 	as.NotNil(res)
 	as.NotEmpty(res.RequestID)
+}
+
+func Test_BatchSend(t *testing.T) {
+	as := assert.New(t)
+
+	card := lark.MessageContentCard{
+		Header: &lark.MessageContentCardHeader{
+			Template: "",
+			Title: &lark.MessageContentCardObjectText{
+				Tag:     "plain_text",
+				Content: "1",
+			},
+		},
+		Config: &lark.MessageContentCardConfig{
+			EnableForward: true,
+		},
+		Modules: []lark.MessageContentCardModule{
+			lark.MessageContentCardModuleDIV{
+				Text: &lark.MessageContentCardObjectText{
+					Tag:     "plain_text",
+					Content: "1",
+				},
+				Fields: nil,
+				Extra:  nil,
+			},
+		},
+	}
+
+	resp, _, err := AppAllPermission.Ins().Message.BatchSendOldRawMessage(ctx, &lark.BatchSendOldRawMessageReq{
+		MsgType: lark.MsgTypeInteractive,
+		Card:    card,
+		OpenIDs: []string{UserAdmin.OpenID},
+	})
+	as.Nil(err)
+	as.NotNil(resp)
+	as.NotEmpty(resp.MessageID)
+	as.Empty(resp.InvalidOpenIDs)
 }

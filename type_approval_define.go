@@ -1,3 +1,18 @@
+/**
+ * Copyright 2022 chyroc
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package lark
 
 import (
@@ -6,8 +21,10 @@ import (
 	"strings"
 )
 
+// ApprovalWidgetType 审批挂件类型
 type ApprovalWidgetType string
 
+// ApprovalWidgetTypeInput ...
 const (
 	ApprovalWidgetTypeInput        ApprovalWidgetType = "input"        // 单行文本
 	ApprovalWidgetTypeTextarea     ApprovalWidgetType = "textarea"     // 多行文本
@@ -38,8 +55,10 @@ const (
 	ApprovalWidgetTypeOutGroup     ApprovalWidgetType = "outGroup"     // 外出控件组
 )
 
+// ApprovalWidgetList 审批挂件列表
 type ApprovalWidgetList []*ApprovalWidget
 
+// ApprovalWidget 审批挂件
 type ApprovalWidget struct {
 	ID       string                 `json:"id,omitempty"`
 	Name     string                 `json:"name,omitempty"`
@@ -49,6 +68,7 @@ type ApprovalWidget struct {
 	Children []*ApprovalWidget      `json:"children,omitempty"`
 }
 
+// UnmarshalJSON ...
 func (r *ApprovalWidgetList) UnmarshalJSON(bs []byte) (err error) {
 	if len(bs) == 0 || string(bs) == `""` {
 		return nil
@@ -69,23 +89,26 @@ func (r *ApprovalWidgetList) UnmarshalJSON(bs []byte) (err error) {
 	return nil
 }
 
-func (r *ApprovalWidgetList) MarshalJSON() ([]byte, error) {
+// MarshalJSON ...
+func (r ApprovalWidgetList) MarshalJSON() ([]byte, error) {
 	if r == nil {
 		return []byte(`""`), nil
 	}
-	bs, err := json.Marshal([]*ApprovalWidget(*r))
+	bs, err := json.Marshal([]*ApprovalWidget(r))
 	if err != nil {
 		return nil, err
 	}
 	return []byte(fmt.Sprintf("%q", bs)), nil
 }
 
+// ApprovalWidgetOptions 审批挂件参数
 type ApprovalWidgetOptions struct {
 	IsList  bool
 	Option  *ApprovalWidgetOption
 	Options []*ApprovalWidgetOption
 }
 
+// UnmarshalJSON ...
 func (r *ApprovalWidgetOptions) UnmarshalJSON(bs []byte) (err error) {
 	s := string(bs)
 	if strings.HasPrefix(s, "[") {
@@ -106,19 +129,22 @@ func (r *ApprovalWidgetOptions) UnmarshalJSON(bs []byte) (err error) {
 	return nil
 }
 
-func (r *ApprovalWidgetOptions) MarshalJSON() ([]byte, error) {
+// MarshalJSON ...
+func (r ApprovalWidgetOptions) MarshalJSON() ([]byte, error) {
 	if r.IsList {
 		return json.Marshal(r.Options)
 	}
 	return json.Marshal(r.Option)
 }
 
+// ApprovalWidgetOption 审批挂件参数
 type ApprovalWidgetOption struct {
 	Key   string `json:"key,omitempty"`
 	Value string `json:"value,omitempty"`
 	Text  string `json:"text,omitempty"`
 }
 
+// UnmarshalJSON ...
 func (r *GetApprovalInstanceRespTimelineExt) UnmarshalJSON(bs []byte) (err error) {
 	if len(bs) == 0 || string(bs) == `""` {
 		return nil
@@ -144,6 +170,7 @@ func (r *GetApprovalInstanceRespTimelineExt) UnmarshalJSON(bs []byte) (err error
 	return nil
 }
 
+// MarshalJSON ...
 func (r GetApprovalInstanceRespTimelineExt) MarshalJSON() ([]byte, error) {
 	bs, err := json.Marshal(getApprovalInstanceRespTimelineExt{
 		UserIDList: r.UserIDList,

@@ -1,4 +1,21 @@
+/**
+ * Copyright 2022 chyroc
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package lark
+
+import "strings"
 
 // MdBuilder Markdown标签
 //
@@ -24,10 +41,12 @@ func (r mdBuilder) Strikethrough(s string) string {
 
 // AtAll 艾特所有人
 func (r mdBuilder) AtAll() string {
-	return "<at email=all></at>"
+	return "<at id=all></at>"
 }
 
 // AtUser 艾特
+//
+// id 支持 open_id，user_id
 func (r mdBuilder) AtUserID(id string) string {
 	return "<at id=" + id + "></at>"
 }
@@ -42,7 +61,42 @@ func (r mdBuilder) Link(url, title string) string {
 	return "[" + title + "](" + url + ")"
 }
 
+var reservedWordsMapping = map[string]string{
+	"|": "&#124;",
+	"`": "&#96;",
+	"]": "&#93;",
+	"[": "&#91;",
+	">": "&gt;",
+	"<": "&lt;",
+	"@": "&#64;",
+	"#": "&#35;",
+	"-": "&#45;",
+}
+
+// markdown保留字转义
+func escape(txt string) string {
+	for k, v := range reservedWordsMapping {
+		txt = strings.ReplaceAll(txt, k, v)
+	}
+	return txt
+}
+
+// url保留字转义
+func preprocessURL(urlStr string) string {
+	urlStr = strings.ReplaceAll(urlStr, "&reg", "&&#114;eg")
+	return urlStr
+}
+
+// LinkOrigin 超链接(保持原样，防止类似于 &region变成®ion 这种情况)
+func (r mdBuilder) LinkOrigin(url, title string) string {
+	return "[" + escape(title) + "](" + preprocessURL(url) + ")"
+}
+
 // Image 图片
+//
+// hover_text 为PC端hover图片展示的tips文案
+// image_key 需上传图片到飞书后获得，格式如：img_xxxxx-xxxxx-49ca-bcf6-224624457a99
+// 不支持在text对象的lark_md类型中使用
 func (r mdBuilder) Image(imageKey, hoverText string) string {
 	return "![" + hoverText + "](" + imageKey + ")"
 }

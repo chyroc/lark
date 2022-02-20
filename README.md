@@ -5,6 +5,7 @@
 [![test status](https://github.com/chyroc/lark/actions/workflows/test.yml/badge.svg)](https://github.com/chyroc/lark/actions)
 [![Apache-2.0 license](https://img.shields.io/badge/License-Apache%202.0-brightgreen.svg)](https://opensource.org/licenses/Apache-2.0)
 [![Go.Dev reference](https://img.shields.io/badge/go.dev-reference-blue?logo=go&logoColor=white)](https://pkg.go.dev/github.com/chyroc/lark)
+[![Mentioned in Awesome Go](https://awesome.re/mentioned-badge.svg)](https://github.com/avelino/awesome-go)
 [![Go project version](https://badge.fury.io/go/github.com%2Fchyroc%2Flark.svg)](https://badge.fury.io/go/github.com%2Fchyroc%2Flark)
 [![Used by](https://github-used-by.chyroc.cn/chyroc/lark.svg)]()
 
@@ -37,7 +38,7 @@ https://godoc.org/github.com/chyroc/lark
 
 ## Support APIs
 
-API Count: 470, Event Count: 51
+API Count: 552, Event Count: 88
 
 <details>
   <summary>
@@ -54,14 +55,17 @@ API Count: 470, Event Count: 51
   - CreateUser
   - DeleteUser
   - GetUser
-  - BatchGetUser
-  - BatchGetUserByID
   - GetUserList
+  - GetUserListOld
+  - BatchGetUser
   - UpdateUserPatch
   - UpdateUser
+  - BatchGetUserByID
+  - BatchGetUserByIDOld
   - CreateDepartment
   - GetDepartment
   - GetDepartmentList
+  - GetDepartmentListOld
   - GetParentDepartment
   - SearchDepartment
   - UpdateDepartmentPatch
@@ -80,6 +84,15 @@ API Count: 470, Event Count: 51
   - DeleteEmployeeTypeEnum
   - CreateEmployeeTypeEnum
   - GetContactCustomAttrList
+  - CreateContactUnit
+  - UpdateContactUnit
+  - DeleteContactUnit
+  - GetContactUnit
+  - GetContactUnitList
+  - BindContactUnitDepartment
+  - UnbindContactUnitDepartment
+  - GetContactUnitDepartmentList
+  - GetContactScopeList
 - Message
   - SendEphemeralMessage
   - SendUrgentAppMessage
@@ -87,29 +100,41 @@ API Count: 470, Event Count: 51
   - SendUrgentPhoneMessage
   - SendRawMessage
   - SendRawMessageOld
+  - BatchSendOldRawMessage
   - ReplyRawMessage
   - DeleteMessage
+  - BatchDeleteMessage
   - UpdateMessage
+  - UpdateMessageDelay
   - GetMessageReadUserList
+  - GetBatchSentMessageReadUser
+  - GetBatchSentMessageProgress
   - GetMessageList
   - GetMessageFile
   - GetMessage
   - DeleteEphemeralMessage
+  - CreateMessageReaction
+  - GetMessageReactionList
+  - DeleteMessageReaction
 - Chat
   - CreateChat
-  - GetChatOld
   - GetChat
+  - GetChatOld
   - UpdateChat
   - DeleteChat
   - GetChatListOfSelf
   - SearchChat
   - GetChatMemberList
   - IsInChat
+  - CreateChatManager
+  - DeleteChatManager
   - AddChatMember
   - DeleteChatMember
   - JoinChat
   - GetChatAnnouncement
   - UpdateChatAnnouncement
+  - GetChatModeration
+  - UpdateChatModeration
 - Bot
   - GetBotInfo
   - AddBotToChat
@@ -118,6 +143,7 @@ API Count: 470, Event Count: 51
   - DeleteCalendarACL
   - GetCalendarACLList
   - SubscribeCalendarACL
+  - GetPrimaryCalendar
   - CreateCalendar
   - DeleteCalendar
   - GetCalendar
@@ -142,12 +168,16 @@ API Count: 470, Event Count: 51
   - CreateCalendarTimeoffEvent
   - DeleteCalendarTimeoffEvent
   - GenerateCaldavConf
+  - CreateCalendarExchangeBinding
+  - GetCalendarExchangeBinding
+  - DeleteCalendarExchangeBinding
 - Drive
   - SearchDriveFile
   - GetDriveFileMeta
   - CreateDriveFile
   - CopyDriveFile
   - DeleteDriveFile
+  - DeleteDriveDocFile
   - DeleteDriveSheetFile
   - CreateDriveFolder
   - GetDriveFolderMeta
@@ -168,8 +198,8 @@ API Count: 470, Event Count: 51
   - TransferDriveMemberPermission
   - GetDriveMemberPermissionList
   - CreateDriveMemberPermission
-  - DeleteDriveMemberPermissionOld
   - DeleteDriveMemberPermission
+  - DeleteDriveMemberPermissionOld
   - UpdateDriveMemberPermissionOld
   - UpdateDriveMemberPermission
   - CheckDriveMemberPermission
@@ -244,6 +274,18 @@ API Count: 470, Event Count: 51
   - UpdateSheetFloatImage
   - GetSheetFloatImage
   - QuerySheetFloatImage
+  - CreateWikiSpace
+  - GetWikiSpaceList
+  - GetWikiSpace
+  - UpdateWikiSpaceSetting
+  - DeleteWikiSpaceMember
+  - AddWikiSpaceMember
+  - CreateWikiNode
+  - GetWikiNodeList
+  - MoveWikiNode
+  - GetWikiNode
+  - MoveDocsToWiki
+  - GetWikiTask
 - Bitable
   - GetBitableViewList
   - CreateBitableView
@@ -267,6 +309,7 @@ API Count: 470, Event Count: 51
   - BatchDeleteBitableTable
   - GetBitableMeta
 - MeetingRoom
+  - GetMeetingRoomCustomization
   - BatchGetMeetingRoomSummary
   - GetMeetingRoomBuildingList
   - BatchGetMeetingRoomBuilding
@@ -284,6 +327,8 @@ API Count: 470, Event Count: 51
   - BatchGetMeetingRoomRoomID
   - GetMeetingRoomCountryList
   - GetMeetingRoomDistrictList
+- Jssdk
+  - GetJssdkTicket
 - VC
   - ApplyVCReserve
   - UpdateVCReserve
@@ -291,6 +336,7 @@ API Count: 470, Event Count: 51
   - GetVCReserve
   - GetVCReserveActiveMeeting
   - GetVCMeeting
+  - ListVCMeetingByNo
   - InviteVCMeeting
   - KickoutVCMeeting
   - SetVCHostMeeting
@@ -314,6 +360,11 @@ API Count: 470, Event Count: 51
   - CheckUserIsInApplicationPaidScope
   - GetApplicationOrderList
   - GetApplicationOrder
+  - GetApplicationUnderAuditList
+  - GetApplication
+  - GetApplicationVersion
+  - UpdateApplicationVersion
+  - UpdateApplication
   - GetApplicationUsageOverview
   - GetApplicationUsageTrend
   - GetApplicationUsageDetail
@@ -340,11 +391,15 @@ API Count: 470, Event Count: 51
   - GetPublicMailboxList
   - UpdatePublicMailboxPatch
   - UpdatePublicMailbox
+  - DeletePublicMailbox
   - CreatePublicMailboxMember
   - GetPublicMailboxMember
   - GetPublicMailboxMemberList
   - DeletePublicMailboxMember
   - ClearPublicMailboxMember
+  - CreateMailUserAlias
+  - DeleteMailUserAlias
+  - GetMailUserAliasList
 - Approval
   - GetApproval
   - GetApprovalInstanceList
@@ -353,15 +408,28 @@ API Count: 470, Event Count: 51
   - ApproveApprovalInstance
   - RejectApprovalInstance
   - TransferApprovalInstance
+  - RollbackApprovalInstance
   - CancelApprovalInstance
-  - UploadApprovalFile
   - SearchApprovalInstance
+  - AddApprovalInstanceSign
+  - UploadApprovalFile
   - SearchApprovalTask
+  - GetApprovalUserTaskList
   - SearchApprovalCarbonCopy
   - CreateApprovalCarbonCopy
-  - AddApprovalInstanceSign
   - PreviewApprovalInstance
+  - UpdateApprovalMessage
+  - SubscribeApprovalSubscription
+  - UnsubscribeApprovalSubscription
 - Helpdesk
+  - CreateHelpdeskNotification
+  - UpdateHelpdeskNotification
+  - GetHelpdeskNotification
+  - PreviewHelpdeskNotification
+  - SubmitApproveHelpdeskNotification
+  - CancelApproveHelpdeskNotification
+  - ExecuteSendHelpdeskNotification
+  - CancelSendHelpdeskNotification
   - StartHelpdeskService
   - GetHelpdeskTicket
   - UpdateHelpdeskTicket
@@ -370,6 +438,7 @@ API Count: 470, Event Count: 51
   - AnswerHelpdeskTicketUserQuery
   - GetHelpdeskTicketMessageList
   - SendHelpdeskTicketMessage
+  - SendHelpdeskMessage
   - GetHelpdeskTicketCustomizedFieldList
   - DeleteHelpdeskTicketCustomizedField
   - UpdateHelpdeskTicketCustomizedField
@@ -418,27 +487,31 @@ API Count: 470, Event Count: 51
   - DetectTextLanguage
   - DetectFaceAttributes
 - Attendance
+  - CreateAttendanceGroup
+  - SearchAttendanceGroup
+  - GetAttendanceGroup
+  - DeleteAttendanceGroup
+  - GetAttendanceShift
+  - GetAttendanceShiftDetail
+  - DeleteAttendanceShift
+  - CreateAttendanceShift
+  - GetAttendanceUserDailyShift
+  - BatchCreateAttendanceUserDailyShift
+  - GetAttendanceUserStatsField
+  - GetAttendanceUserStatsView
+  - UpdateAttendanceUserStatsView
+  - GetAttendanceUserStatsData
+  - BatchGetAttendanceUserFlow
+  - GetAttendanceUserFlow
+  - GetAttendanceUserTask
+  - BatchCreateAttendanceUserFlow
+  - GetAttendanceUserTaskRemedyAllowedRemedyList
+  - GetAttendanceUserTaskRemedy
+  - CreateAttendanceUserTaskRemedy
+  - GetAttendanceUserSettingList
+  - UpdateAttendanceUserSetting
   - DownloadAttendanceFile
   - UploadAttendanceFile
-  - QueryAttendanceUserSettings
-  - UpdateAttendanceUserSettings
-  - CreateUpdateAttendanceGroup
-  - DeleteAttendanceGroup
-  - GetAttendanceGroup
-  - CreateAttendanceShift
-  - DeleteAttendanceShift
-  - GetAttendanceShiftByID
-  - GetAttendanceShiftByName
-  - GetAttendanceStatisticsData
-  - GetAttendanceStatisticsHeader
-  - UpdateAttendanceUserStatisticsSettings
-  - GetAttendanceUserStatisticsSettings
-  - GetAttendanceUserDailyShift
-  - GetAttendanceUserTask
-  - GetAttendanceUserFlow
-  - BatchGetAttendanceUserFlow
-  - BatchCreateAttendanceUserFlow
-  - GetAttendanceUserTaskRemedy
   - CreateUpdateAttendanceUserDailyShift
   - GetAttendanceUserApproval
   - CreateAttendanceUserApproval
@@ -504,6 +577,7 @@ API Count: 470, Event Count: 51
   - DeleteTaskReminder
   - CreateTask
   - GetTask
+  - GetTaskList
   - DeleteTask
   - UpdateTask
   - CompleteTask
@@ -521,16 +595,57 @@ API Count: 470, Event Count: 51
   - GetACSUser
   - UpdateACSUser
   - GetACSUserList
-- Ecosystem
-  - GetEcosystemBindAwemeUser
+- Baike
+  - CreateBaikeDraft
+  - CreateBaikeUpdate
+  - GetBaikeEntity
+  - GetBaikeEntityList
+  - MatchBaikeEntity
+  - SearchBaikeEntity
+  - HighlightBaikeEntity
 - EventCallback
+  - EventV2ApplicationApplicationAppVersionAuditV6
+  - EventV2ApplicationApplicationAppVersionPublishApplyV6
+  - EventV2ApplicationApplicationAppVersionPublishRevokeV6
+  - EventV2ApplicationApplicationCreatedV6
+  - EventV2ContactCustomAttrEventUpdatedV3
+  - EventV2DriveFileTitleUpdatedV1
+  - EventV2DriveFileReadV1
+  - EventV2DriveFileEditV1
+  - EventV1AppOpen
+  - EventV1ShiftApproval
+  - EventV1LeaveApprovalV2
+  - EventV1OutApproval
+  - EventV1WorkApproval
+  - EventV2DriveFilePermissionMemberAddedV1
+  - EventV2DriveFileTrashedV1
+  - EventV2DriveFileDeletedV1
+  - EventV2DriveFilePermissionMemberRemovedV1
+  - EventV2ApprovalApprovalUpdatedV4
+  - EventV1TripApproval
+  - EventV1RemedyApproval
+  - EventV1ThirdPartyMeetingRoomEventUpdated
+  - EventV1ThirdPartyMeetingRoomEventDeleted
+  - EventV2MeetingRoomMeetingRoomCreatedV1
+  - EventV2MeetingRoomMeetingRoomUpdatedV1
+  - EventV2MeetingRoomMeetingRoomStatusChangedV1
+  - EventV2MeetingRoomMeetingRoomDeletedV1
+  - EventV1ThirdPartyMeetingRoomEventCreated
+  - EventV1OrderPaid
+  - EventV1AppTicket
+  - EventV1AppUninstalled
+  - EventV1AppStatusChange
+  - EventV2ApplicationApplicationVisibilityAddedV6
+  - EventV2AttendanceUserTaskUpdatedV1
   - EventV2AttendanceUserFlowCreatedV1
   - EventV2AwemeEcosystemAwemeUserBindedAccountV1
+  - EventV2TaskTaskUpdateTenantV1
   - EventV2TaskTaskUpdatedV1
   - EventV2TaskTaskCommentUpdatedV1
   - EventV2HelpdeskTicketMessageCreatedV1
   - EventV2HelpdeskTicketCreatedV1
   - EventV2HelpdeskTicketMessageUpdatedV1
+  - EventV2HelpdeskNotificationApproveV1
   - EventV2ContactDepartmentCreatedV3
   - EventV2ContactDepartmentDeletedV3
   - EventV2ContactDepartmentUpdatedV3
@@ -545,6 +660,8 @@ API Count: 470, Event Count: 51
   - EventV2ContactEmployeeTypeEnumDeletedV3
   - EventV2IMMessageReceiveV1
   - EventV2IMMessageReadV1
+  - EventV2IMMessageReactionDeletedV1
+  - EventV2IMMessageReactionCreatedV1
   - EventV2IMChatDisbandedV1
   - EventV2IMChatUpdatedV1
   - EventV2IMChatMemberBotAddedV1
@@ -588,6 +705,10 @@ API Count: 470, Event Count: 51
   - OpenBot
   - OpenSSOLogin
   - OpenWebURL
+  - OpenTask
+  - OpenTaskCreate
+  - OpenTaskDetail
+  - OpenTaskTab
 
 
 </details>

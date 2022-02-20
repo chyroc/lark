@@ -1,31 +1,58 @@
+/**
+ * Copyright 2022 chyroc
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package lark
 
 import (
 	"encoding/json"
 )
 
+// MessageContentCard ...
 type MessageContentCard struct {
-	Header  *MessageContentCardHeader  `json:"header,omitempty"`
-	Config  *MessageContentCardConfig  `json:"config,omitempty"`
-	Modules []MessageContentCardModule `json:"elements,omitempty"`
+	Header  *MessageContentCardHeader  `json:"header,omitempty"`   // 用于配置卡片标题内容。
+	Config  *MessageContentCardConfig  `json:"config,omitempty"`   // 配置卡片属性
+	Modules []MessageContentCardModule `json:"elements,omitempty"` // 用于定义卡片正文内容
 }
 
+// String ...
 func (r MessageContentCard) String() string {
 	bs, _ := json.Marshal(r)
 	return string(bs)
 }
 
+// MessageContentCardHeader 卡片标题
+//
+// https://open.feishu.cn/document/ukTMukTMukTM/ukTNwUjL5UDM14SO1ATN
 type MessageContentCardHeader struct {
-	Template MessageContentCardHeaderTemplate `json:"template,omitempty"`
-	Title    *MessageContentCardObjectText    `json:"title,omitempty"`
+	Template MessageContentCardHeaderTemplate `json:"template,omitempty"` // 控制标题背景颜色，取值参考注意事项
+	Title    *MessageContentCardObjectText    `json:"title,omitempty"`    // 卡片标题
+
 }
 
+// MessageContentCardConfig 配置卡片属性
+//
+// https://open.feishu.cn/document/ukTMukTMukTM/uAjNwUjLwYDM14CM2ATN
 type MessageContentCardConfig struct {
 	EnableForward bool `json:"enable_forward,omitempty"` // 是否允许卡片被转发，默认 true，转发后，卡片上的“回传交互”组件将自动置为禁用态。用户不能在转发后的卡片操作提交数据
+	UpdateMulti   bool `json:"update_multi,omitempty"`   // 更新卡片的内容是否对所有收到这张卡片的人员可见。 默认为false，即仅操作用户可见卡片的更新内容。
 }
 
+// MessageContentCardHeaderTemplate 控制标题背景颜色，取值参考注意事项
 type MessageContentCardHeaderTemplate string
 
+// MessageContentCardHeaderTemplateBlue ...
 const (
 	MessageContentCardHeaderTemplateBlue      MessageContentCardHeaderTemplate = "blue"
 	MessageContentCardHeaderTemplateWathet    MessageContentCardHeaderTemplate = "wathet"
@@ -41,66 +68,112 @@ const (
 	MessageContentCardHeaderTemplateGrey      MessageContentCardHeaderTemplate = "grey"
 )
 
+// MessageContentCardModule 卡片正文内容
+//
+// 消息卡片的正文内容由模块组成，你可以“像搭积木一样自由堆砌卡片”，即堆砌模块的方式构造卡片内容。
+// 卡片提供 5 类模块，你可以在 elements（或i18n_elements） 结构中自由堆砌生成需要的卡片内容，最多可堆叠50个模块。
 type MessageContentCardModule interface {
 	IsMessageContentCardModule()
 }
 
+// MessageContentCardModuleDIV 内容模块
+//
+// 内容模块以文本内容为主体，同时可以选择组合图片、按钮等交互组件，实现内容混排的效果。
+// 模块标签为 div , 可以单独通过 text 或 field 来展示文本内容，也可以配合一个 image 元素或一个 button, overflow, selectMenu, datePicker 等互动元素增加内容的丰富性。
+//
+// https://open.feishu.cn/document/ukTMukTMukTM/uMjNwUjLzYDM14yM2ATN
 type MessageContentCardModuleDIV struct {
 	Text   *MessageContentCardObjectText    `json:"text,omitempty"`   // 单个文本展示，和field至少要有一个
 	Fields []*MessageContentCardObjectField `json:"fields,omitempty"` // 多个文本展示，和text至少要有一个
-	Extra  MessageContentCardElement        `json:"extra,omitempty"`  // 展示附加元素，最多可展示一个元素
+	Extra  MessageContentCardElement        `json:"extra,omitempty"`  // 附加的元素展示在文本内容右侧。 可附加的元素包括image、button、selectMenu、overflow、datePicker
 }
 
+// IsMessageContentCardModule ...
 func (r MessageContentCardModuleDIV) IsMessageContentCardModule() {}
 
+// MarshalJSON ...
 func (r MessageContentCardModuleDIV) MarshalJSON() ([]byte, error) {
 	return marshalJSONWithMap(r, map[string]interface{}{"tag": MessageContentCardModuleTagDIV})
 }
 
+// MessageContentCardModuleHR 分割线模块
+//
+// 模块之间的分割线
+// 建议在内容需要明显进行分割时，使用分割线模块
+//
+// https://open.feishu.cn/document/ukTMukTMukTM/uQjNwUjL0YDM14CN2ATN
 type MessageContentCardModuleHR struct{}
 
+// IsMessageContentCardModule ...
 func (r MessageContentCardModuleHR) IsMessageContentCardModule() {}
 
+// MarshalJSON ...
 func (r MessageContentCardModuleHR) MarshalJSON() ([]byte, error) {
 	return marshalJSONWithMap(r, map[string]interface{}{"tag": MessageContentCardModuleTagHR})
 }
 
+// MessageContentCardModuleImage 图片模块
+//
+// https://open.feishu.cn/document/ukTMukTMukTM/uUjNwUjL1YDM14SN2ATN
 type MessageContentCardModuleImage struct {
-	ImgKey string                        `json:"img_key,omitempty"` // 图片资源，获取方法：上传图片
-	Alt    *MessageContentCardObjectText `json:"alt,omitempty"`     // 图片hover时展示说明，为空则不展示
-	Title  *MessageContentCardObjectText `json:"title,omitempty"`   // 图片标题
-	Mode   string                        `json:"mode,omitempty"`    // 图片显示模式。
+	ImgKey       string                        `json:"img_key,omitempty"`       // 图片资源，获取方法： https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/image/create
+	Alt          *MessageContentCardObjectText `json:"alt,omitempty"`           // hover图片时弹出的Tips文案，content取值为空时则不展示
+	Title        *MessageContentCardObjectText `json:"title,omitempty"`         // 图片标题
+	CustomWidth  int64                         `json:"custom_width,omitempty"`  // 自定义图片的最大展示宽度。 默认展示宽度撑满卡片的通栏图片，可在278px~580px范围内指定最大展示宽度。在飞书4.0以上版本生效
+	CompactWidth bool                          `json:"compact_width,omitempty"` // 是否展示为紧凑型的图片。 默认为false，若配置为true，则展示最大宽度为278px的紧凑型图片
+	Mode         string                        `json:"mode,omitempty"`          // 图片显示模式。 crop_center：居中裁剪模式，对长图会限高，并居中裁剪后展示，fit_horizontal：平铺模式，完整展示上传的图片
+	Preview      bool                          `json:"preview,omitempty"`       // 点击后是否放大图片，缺省为true。在配置 card_link 后可设置为false，使用户点击卡片上的图片也能响应card_link链接跳转
 }
 
+// IsMessageContentCardModule ...
 func (r MessageContentCardModuleImage) IsMessageContentCardModule() {}
 
+// MarshalJSON ...
 func (r MessageContentCardModuleImage) MarshalJSON() ([]byte, error) {
 	return marshalJSONWithMap(r, map[string]interface{}{"tag": MessageContentCardModuleTagImage})
 }
 
+// MessageContentCardModuleAction 交互模块
+//
+// 卡片提供 4 种交互控件（button，selectMenu，overflow，datePicker），你可以通过 actions 字段添加交互元素，实现交互功能。
+// 卡片交互 有效期为30天 ，超过有效期的卡片不支持交互。
+//
+// https://open.feishu.cn/document/ukTMukTMukTM/uYjNwUjL2YDM14iN2ATN
 type MessageContentCardModuleAction struct {
 	Actions []MessageContentCardElement `json:"actions,omitempty"` // 放置交互元素
 	Layout  string                      `json:"layout,omitempty"`  // 交互元素布局，窄版样式默认纵向排列，使用 bisected 为二等分布局，每行两列交互元素，使用 trisection 为三等分布局，每行三列交互元素，使用 flow 为流式布局元素会按自身大小横向排列并在空间不够的时候折行
 }
 
+// IsMessageContentCardModule ...
 func (r MessageContentCardModuleAction) IsMessageContentCardModule() {}
 
+// MarshalJSON ...
 func (r MessageContentCardModuleAction) MarshalJSON() ([]byte, error) {
 	return marshalJSONWithMap(r, map[string]interface{}{"tag": MessageContentCardModuleTagAction})
 }
 
+// MessageContentCardModuleNote 备注模块
+//
+// 备注模块用于展示次要信息。
+// 建议使用备注模块来展示用于辅助说明或备注的次要信息，支持小尺寸的图片和文本。
+//
+// doc: https://open.feishu.cn/document/ukTMukTMukTM/ucjNwUjL3YDM14yN2ATN
 type MessageContentCardModuleNote struct {
 	Elements []MessageContentCardElement `json:"elements,omitempty"` // text对象或image元素
 }
 
+// IsMessageContentCardModule ...
 func (r MessageContentCardModuleNote) IsMessageContentCardModule() {}
 
+// MarshalJSON ...
 func (r MessageContentCardModuleNote) MarshalJSON() ([]byte, error) {
 	return marshalJSONWithMap(r, map[string]interface{}{"tag": MessageContentCardModuleTagNote})
 }
 
+// MessageContentCardModuleTag ...
 type MessageContentCardModuleTag string
 
+// MessageContentCardModuleTagDIV ...
 const (
 	MessageContentCardModuleTagDIV    MessageContentCardModuleTag = "div"
 	MessageContentCardModuleTagHR     MessageContentCardModuleTag = "hr"
@@ -109,37 +182,61 @@ const (
 	MessageContentCardModuleTagNote   MessageContentCardModuleTag = "note"
 )
 
+// MessageContentCardElement ...
 type MessageContentCardElement interface {
 	IsMessageContentCardElement()
 }
 
+// MessageContentCardElementImage 图片模块
+//
+// 图片模块用于展示整张图片。建议需要着重展示的图片使用此模块，用户点击图片后可以查看大图。
+//
+// doc: https://open.feishu.cn/document/ukTMukTMukTM/uUjNwUjL1YDM14SN2ATN
 type MessageContentCardElementImage struct {
 	ImgKey  string                        `json:"img_key,omitempty"` // 图片资源
 	Alt     *MessageContentCardObjectText `json:"alt,omitempty"`     // 图片hover说明
 	Preview bool                          `json:"preview,omitempty"` // 点击后是否放大图片，缺省为true。在配置 card_link 后可设置为false，使用户点击卡片上的图片也能响应card_link链接跳转
 }
 
+// IsMessageContentCardElement ...
 func (r MessageContentCardElementImage) IsMessageContentCardElement() {}
 
+// MarshalJSON ...
 func (r MessageContentCardElementImage) MarshalJSON() ([]byte, error) {
 	return marshalJSONWithMap(r, map[string]interface{}{"tag": MessageContentCardElementTagImage})
 }
 
+// MessageContentCardElementButton button
+//
+// button 属于交互元素的一种，可用于内容块的extra字段和交互块的actions字段。
+//
+// https://open.feishu.cn/document/ukTMukTMukTM/uEzNwUjLxcDM14SM3ATN
 type MessageContentCardElementButton struct {
 	Text     *MessageContentCardObjectText    `json:"text,omitempty"`      // 按钮中的文本
 	URL      string                           `json:"url,omitempty"`       // 跳转链接，和multi_url互斥
 	MultiURL *MessageContentCardObjectURL     `json:"multi_url,omitempty"` // 多端跳转链接
-	Type     string                           `json:"type,omitempty"`      // 配置按钮样式，默认为"default"
-	Value    interface{}                      `json:"value,omitempty"`     // 点击后返回业务方
+	Type     string                           `json:"type,omitempty"`      // 配置按钮样式，默认为"default"，	"default"/"primary"/"danger"
+	Value    interface{}                      `json:"value,omitempty"`     // 点击后返回业务方，	仅支持key-value形式的json结构，且key为String类型。
 	Confirm  *MessageContentCardObjectConfirm `json:"confirm,omitempty"`   // 二次确认的弹框
 }
 
+// IsMessageContentCardElement ...
 func (r MessageContentCardElementButton) IsMessageContentCardElement() {}
 
+// MarshalJSON ...
 func (r MessageContentCardElementButton) MarshalJSON() ([]byte, error) {
 	return marshalJSONWithMap(r, map[string]interface{}{"tag": MessageContentCardElementTagButton})
 }
 
+// MessageContentCardElementSelectMenu selectMenu
+//
+// 作为selectMenu元素被使用，提供选项菜单的功能
+// selectMenu属于交互元素的一种，可用于内容块的extra字段和交互块的actions字段。
+//
+// 选项模式（"tag":"select_static")：通过options字段配置选项，支持对多个选项进行展示供用户选择。
+// 选人模式（"tag":"select_person")：通过options字段配置待选人员，无则使用当前群组作为待选人员。
+//
+// https://open.feishu.cn/document/ukTMukTMukTM/uIzNwUjLycDM14iM3ATN
 type MessageContentCardElementSelectMenu struct {
 	Tag           MessageContentCardElementTag      `json:"tag,omitempty"`            // select_static, select_person
 	Placeholder   *MessageContentCardObjectText     `json:"placeholder,omitempty"`    // 占位符，无默认选项时必须有
@@ -149,20 +246,31 @@ type MessageContentCardElementSelectMenu struct {
 	Confirm       *MessageContentCardObjectConfirm  `json:"confirm,omitempty"`        // 二次确认的弹框
 }
 
+// IsMessageContentCardElement ...
 func (r MessageContentCardElementSelectMenu) IsMessageContentCardElement() {}
 
+// MessageContentCardElementOverflow overflow
+//
+// 作为overflow元素被使用，提供折叠的按钮型菜单
+// overflow属于交互元素的一种，可用于内容块的extra字段和交互块的actions字段。
+//
+// 通过options字段配置选项，可用于多个按扭的折叠隐藏功能。
 type MessageContentCardElementOverflow struct {
 	Options []*MessageContentCardObjectOption `json:"options,omitempty"` // 待选选项
 	Value   interface{}                       `json:"value,omitempty"`   // 用户选定后返回业务方的数据
 	Confirm *MessageContentCardObjectConfirm  `json:"confirm,omitempty"` // 二次确认的弹框
 }
 
+// IsMessageContentCardElement ...
 func (r MessageContentCardElementOverflow) IsMessageContentCardElement() {}
 
+// MarshalJSON ...
 func (r MessageContentCardElementOverflow) MarshalJSON() ([]byte, error) {
 	return marshalJSONWithMap(r, map[string]interface{}{"tag": MessageContentCardElementTagOverflow})
 }
 
+// 作为datePicker元素被使用，提供时间选择的功能。支持三种模式的时间选择：（1）日期（2）时间（3）日期时间
+// datePicker属于交互元素的一种，可用于内容块的extra字段和交互块的actions字段。
 type MessageContentCardElementDatePicker struct {
 	Tag             MessageContentCardElementTag     `json:"tag,omitempty"`              // 如下三种取值 ：date_picker, picker_time, picker_datetime
 	InitialDate     string                           `json:"initial_date,omitempty"`     // 格式"YYYY-MM-DD"	日期模式的初始值
@@ -174,10 +282,13 @@ type MessageContentCardElementDatePicker struct {
 
 }
 
+// IsMessageContentCardElement ...
 func (r MessageContentCardElementDatePicker) IsMessageContentCardElement() {}
 
+// MessageContentCardElementTag ...
 type MessageContentCardElementTag string
 
+// MessageContentCardElementTagImage ...
 const (
 	MessageContentCardElementTagImage          MessageContentCardElementTag = "img"
 	MessageContentCardElementTagButton         MessageContentCardElementTag = "button"
@@ -196,16 +307,23 @@ type MessageContentCardObjectText struct {
 	Lines   int                              `json:"lines,omitempty"`   // 内容显示行数
 }
 
+// IsMessageContentCardElement ...
 func (r MessageContentCardObjectText) IsMessageContentCardElement() {}
 
+// MessageContentCardObjectTextType ...
 type MessageContentCardObjectTextType string
 
+// MessageContentCardTextTypePlainText ...
 const (
 	MessageContentCardTextTypePlainText MessageContentCardObjectTextType = "plain_text"
 	MessageContentCardTextTypeLarkMd    MessageContentCardObjectTextType = "lark_md"
 )
 
+// MessageContentCardObjectField field
+//
 // field对象可用于内容模块的field字段，通过"is_short"字段控制是否并排布局
+//
+// https://open.feishu.cn/document/ukTMukTMukTM/uYzNwUjL2cDM14iN3ATN
 type MessageContentCardObjectField struct {
 	IsShort bool                          `json:"is_short,omitempty"` // 是否并排布局
 	Text    *MessageContentCardObjectText `json:"text,omitempty"`     // 	国际化文本内容

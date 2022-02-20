@@ -1,3 +1,18 @@
+/**
+ * Copyright 2022 chyroc
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package lark
 
 import (
@@ -22,10 +37,10 @@ func (r *AuthService) GetAppAccessToken(ctx context.Context) (*TokenExpire, *Res
 		return &TokenExpire{Token: val, Expire: int64(ttl.Seconds())}, &Response{}, nil
 	}
 
-	uri := "https://open.feishu.cn/open-apis/auth/v3/app_access_token/internal"
+	uri := r.cli.openBaseURL + "/open-apis/auth/v3/app_access_token/internal"
 	appTicket := ""
 	if r.cli.isISV {
-		uri = "https://open.feishu.cn/open-apis/auth/v3/app_access_token"
+		uri = r.cli.openBaseURL + "/open-apis/auth/v3/app_access_token"
 		s, err := r.GetAppTicket(ctx)
 		if err != nil {
 			return nil, nil, err
@@ -68,10 +83,12 @@ func (r *AuthService) GetAppAccessToken(ctx context.Context) (*TokenExpire, *Res
 	}, response, nil
 }
 
+// MockGetAppAccessToken ...
 func (r *Mock) MockGetAppAccessToken(f func(ctx context.Context) (*TokenExpire, *Response, error)) {
 	r.mockGetAppAccessToken = f
 }
 
+// UnMockGetAppAccessToken ...
 func (r *Mock) UnMockGetAppAccessToken() {
 	r.mockGetTenantAccessToken = nil
 }

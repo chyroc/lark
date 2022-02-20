@@ -1,3 +1,18 @@
+/**
+ * Copyright 2022 chyroc
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package lark
 
 import (
@@ -22,7 +37,7 @@ func (r *AuthService) GetTenantAccessToken(ctx context.Context) (*TokenExpire, *
 		return &TokenExpire{Token: val, Expire: int64(ttl.Seconds())}, &Response{}, nil
 	}
 
-	uri := "https://open.feishu.cn/open-apis/auth/v3/tenant_access_token/internal"
+	uri := r.cli.openBaseURL + "/open-apis/auth/v3/tenant_access_token/internal"
 	body := getTenantAccessTokenReq{
 		AppID:     r.cli.appID,
 		AppSecret: r.cli.appSecret,
@@ -32,7 +47,7 @@ func (r *AuthService) GetTenantAccessToken(ctx context.Context) (*TokenExpire, *
 		if err != nil {
 			return nil, response, err
 		}
-		uri = "https://open.feishu.cn/open-apis/auth/v3/tenant_access_token"
+		uri = r.cli.openBaseURL + "/open-apis/auth/v3/tenant_access_token"
 		body = getTenantAccessTokenReq{
 			AppAccessToken: appAccessToken.Token,
 			TenantKey:      r.cli.tenantKey,
@@ -58,7 +73,7 @@ func (r *AuthService) GetTenantAccessToken(ctx context.Context) (*TokenExpire, *
 
 	r.cli.log(ctx, LogLevelDebug, "[lark] Auth#GetTenantAccessToken request_id: %s, response: %s", response.RequestID, jsonString(resp))
 
-	err = r.cli.store.Set(ctx, genTenantTokenKey(r.cli.isISV, r.cli.appID, r.cli.tenantKey), resp.AppAccessToken, time.Second*time.Duration(resp.Expire))
+	err = r.cli.store.Set(ctx, genTenantTokenKey(r.cli.isISV, r.cli.appID, r.cli.tenantKey), resp.TenantAccessToken, time.Second*time.Duration(resp.Expire))
 	if err != nil {
 		r.cli.log(ctx, LogLevelError, "[lark] Auth#GetTenantAccessToken set token to store failed: %s", err)
 	}
@@ -69,14 +84,17 @@ func (r *AuthService) GetTenantAccessToken(ctx context.Context) (*TokenExpire, *
 	}, response, nil
 }
 
+// MockGetTenantAccessToken ...
 func (r *Mock) MockGetTenantAccessToken(f func(ctx context.Context) (*TokenExpire, *Response, error)) {
 	r.mockGetTenantAccessToken = f
 }
 
+// UnMockGetTenantAccessToken ...
 func (r *Mock) UnMockGetTenantAccessToken() {
 	r.mockGetTenantAccessToken = nil
 }
 
+// TokenExpire ...
 type TokenExpire struct {
 	Token  string `json:"token"`
 	Expire int64  `json:"expire"`

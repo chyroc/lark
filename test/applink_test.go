@@ -1,3 +1,18 @@
+/**
+ * Copyright 2022 chyroc
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package test
 
 import (
@@ -102,5 +117,28 @@ func Test_AppLink(t *testing.T) {
 			PathPc: ptr.String("pages/pc_home?pid=123"),
 		}))
 		// todo: min_lk_ver_pc
+	})
+
+	t.Run("open-sso", func(t *testing.T) {
+		as.Equal("https://applink.feishu.cn/client/passport/sso_login?sso_domain=sso.domain.com&tenant_name=tenant-id",
+			lark.AppLink.OpenSSOLogin(&lark.OpenSSOLoginReq{
+				SSODomain:  "sso.domain.com",
+				TenantName: "tenant-id",
+			}))
+	})
+
+	t.Run("open-web", func(t *testing.T) {
+		as.Equal("https://applink.feishu.cn/client/web_app/open?appId=app-id",
+			lark.AppLink.OpenWebApp(&lark.OpenWebAppReq{
+				AppID: "app-id",
+			}))
+	})
+
+	t.Run("open-web-url", func(t *testing.T) {
+		as.Equal("https://applink.feishu.cn/client/web_url/open?mode=window&url=google.com",
+			lark.AppLink.OpenWebURL(&lark.OpenWebURLReq{
+				URL:  "google.com",
+				Mode: "window",
+			}))
 	})
 }

@@ -1,3 +1,18 @@
+/**
+ * Copyright 2022 chyroc
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package larkext
 
 import (
@@ -96,40 +111,259 @@ func (r *Sheet) copySheet(ctx context.Context, sheetID string, title *string) (s
 	return "", fmt.Errorf("copy sheet empty response")
 }
 
-func (r *Sheet) setSheetName(ctx context.Context, sheetID, name string) error {
-	// TODO lark sdk 还不支持
-	return nil
+func (r *Sheet) updateSheetProperty(ctx context.Context, property *lark.BatchUpdateSheetReqRequestUpdateSheetProperties) (*lark.BatchUpdateSheetRespReplyUpdateSheetProperties, error) {
+	resp, _, err := r.larkClient.Drive.BatchUpdateSheet(ctx, &lark.BatchUpdateSheetReq{
+		SpreadSheetToken: r.sheetToken,
+		Requests: []*lark.BatchUpdateSheetReqRequest{
+			{
+				UpdateSheet: &lark.BatchUpdateSheetReqRequestUpdateSheet{
+					Properties: property,
+				},
+			},
+		},
+	})
+	if err != nil {
+		return nil, err
+	} else if resp != nil && len(resp.Replies) > 0 && resp.Replies[0] != nil && resp.Replies[0].UpdateSheet != nil {
+		return resp.Replies[0].UpdateSheet.Properties, nil
+	}
+	return nil, nil
 }
 
-func (r *Sheet) insertCols(ctx context.Context, sheetID string, startIndex int, count int) error {
+func (r *Sheet) setSheetTitle(ctx context.Context, sheetID, title string) error {
+	_, err := r.updateSheetProperty(ctx, &lark.BatchUpdateSheetReqRequestUpdateSheetProperties{
+		SheetID: sheetID,
+		Title:   &title,
+	})
+	return err
+}
+
+func (r *Sheet) setSheetIndex(ctx context.Context, sheetID string, index int64) error {
+	_, err := r.updateSheetProperty(ctx, &lark.BatchUpdateSheetReqRequestUpdateSheetProperties{
+		SheetID: sheetID,
+		Index:   &index,
+	})
+	return err
+}
+
+func (r *Sheet) hideSheet(ctx context.Context, sheetID string, hidden bool) error {
+	_, err := r.updateSheetProperty(ctx, &lark.BatchUpdateSheetReqRequestUpdateSheetProperties{
+		SheetID: sheetID,
+		Hidden:  &hidden,
+	})
+	return err
+}
+
+func (r *Sheet) frozenSheet(ctx context.Context, sheetID string, rowCount, colCount int64) error {
+	_, err := r.updateSheetProperty(ctx, &lark.BatchUpdateSheetReqRequestUpdateSheetProperties{
+		SheetID:        sheetID,
+		FrozenRowCount: &rowCount,
+		FrozenColCount: &colCount,
+	})
+	return err
+}
+
+func (r *Sheet) lockSheet(ctx context.Context, sheetID string, isUnlock bool, lockInfo string, editableUserIDs []string) error {
+	lock := "LOCK"
+	if isUnlock {
+		lock = "UNLOCK"
+	}
+	_, err := r.updateSheetProperty(ctx, &lark.BatchUpdateSheetReqRequestUpdateSheetProperties{
+		SheetID: sheetID,
+		Protect: &lark.BatchUpdateSheetReqRequestUpdateSheetPropertiesProtect{
+			Lock:     lock,
+			LockInfo: &lockInfo,
+			UserIDs:  editableUserIDs,
+		},
+	})
+	return err
+}
+
+func (r *Sheet) insertDimension(ctx context.Context, majorDimension, sheetID string, startIndex, count int64) error {
 	_, _, err := r.larkClient.Drive.InsertSheetDimensionRange(ctx, &lark.InsertSheetDimensionRangeReq{
 		SpreadSheetToken: r.sheetToken,
 		Dimension: &lark.InsertSheetDimensionRangeReqDimension{
 			SheetID:        sheetID,
-			MajorDimension: ptr.String("COLUMNS"),
-			StartIndex:     int64(startIndex),
-			EndIndex:       int64(startIndex + count),
+			MajorDimension: ptr.String(majorDimension),
+			StartIndex:     startIndex,
+			EndIndex:       count,
 		},
 		InheritStyle: nil,
 	})
 	return err
 }
 
-func (r *Sheet) insertRows(ctx context.Context, sheetID string, startIndex int, count int) error {
-	_, _, err := r.larkClient.Drive.InsertSheetDimensionRange(ctx, &lark.InsertSheetDimensionRangeReq{
+// startIndex 从 0 开始计算
+// startIndex startIndex 是: 左闭区间 右闭区间，即 [start, end]
+// 当上/左移的时候，destIndex 是上半边的 index，当下/右移的时候，destIndex 是下半边的 index
+// dest 是: 左闭区间，右开区间，即 [dest, dest)
+// -1 start end 是 左闭区间 右闭区间，dest 是做 左闭区间，右开区间
+// 上移看：左区间，下移看：右区间
+func (r *Sheet) moveDimension(ctx context.Context, majorDimension, sheetID string, startIndex, count, diff int64) error {
+	if diff == 0 {
+		return nil
+	}
+
+	startIndex -= 1                    // 因为从 0 开始算
+	endIndex := startIndex + count - 1 // 结束位置，
+	destIndex := int64(0)
+	if diff < 0 {
+		destIndex = startIndex - (-diff) // 左闭区间，不需要再+1
+	} else {
+		destIndex = endIndex + diff + 1 // 右开区间，所以需要 +1
+	}
+
+	_, _, err := r.larkClient.Drive.MoveSheetDimension(ctx, &lark.MoveSheetDimensionReq{
 		SpreadSheetToken: r.sheetToken,
-		Dimension: &lark.InsertSheetDimensionRangeReqDimension{
-			SheetID:        sheetID,
-			MajorDimension: ptr.String("ROWS"),
-			StartIndex:     int64(startIndex),
-			EndIndex:       int64(startIndex + count),
+		SheetID:          sheetID,
+		Source: &lark.MoveSheetDimensionReqSource{
+			MajorDimension: ptr.String(majorDimension),
+			StartIndex:     ptr.Int64(int64(startIndex)),
+			EndIndex:       ptr.Int64(int64(endIndex)),
 		},
-		InheritStyle: nil,
+		DestinationIndex: ptr.Int64(int64(destIndex)),
 	})
 	return err
 }
 
-func (r *Sheet) searchSheet(ctx context.Context, sheetID, value string, condition *lark.FindSheetReqFindCondition) (*lark.FindSheetRespFindResult, error) {
+func (r *Sheet) appendDimension(ctx context.Context, cellRange string, values [][]lark.SheetContent, option *string) error {
+	_, _, err := r.larkClient.Drive.AppendSheetValue(ctx, &lark.AppendSheetValueReq{
+		InsertDataOption: option,
+		SpreadSheetToken: r.sheetToken,
+		ValueRange: &lark.AppendSheetValueReqValueRange{
+			Range:  cellRange,
+			Values: values,
+		},
+	})
+	return err
+}
+
+func (r *Sheet) addDimension(ctx context.Context, dimension string, sheetID string, count int64) error {
+	_, _, err := r.larkClient.Drive.AddSheetDimensionRange(ctx, &lark.AddSheetDimensionRangeReq{
+		SpreadSheetToken: r.sheetToken,
+		Dimension: &lark.AddSheetDimensionRangeReqDimension{
+			SheetID:        sheetID,
+			MajorDimension: &dimension,
+			Length:         int64(count),
+		},
+	})
+	return err
+}
+
+func (r *Sheet) updateDimension(ctx context.Context, dimension, sheetID string, startIndex, count int64, visible *bool, fixedSize *int64) error {
+	_, _, err := r.larkClient.Drive.UpdateSheetDimensionRange(ctx, &lark.UpdateSheetDimensionRangeReq{
+		SpreadSheetToken: r.sheetToken,
+		Dimension: &lark.UpdateSheetDimensionRangeReqDimension{
+			SheetID:        sheetID,
+			MajorDimension: &dimension,
+			StartIndex:     startIndex,
+			EndIndex:       startIndex + count - 1,
+		},
+		DimensionProperties: &lark.UpdateSheetDimensionRangeReqDimensionProperties{
+			Visible:   visible,
+			FixedSize: fixedSize,
+		},
+	})
+	return err
+}
+
+func (r *Sheet) deleteDimension(ctx context.Context, dimension, sheetID string, startIndex, count int64) error {
+	_, _, err := r.larkClient.Drive.DeleteSheetDimensionRange(ctx, &lark.DeleteSheetDimensionRangeReq{
+		SpreadSheetToken: r.sheetToken,
+		Dimension: &lark.DeleteSheetDimensionRangeReqDimension{
+			SheetID:        sheetID,
+			MajorDimension: &dimension,
+			StartIndex:     startIndex,
+			EndIndex:       startIndex + count - 1,
+		},
+	})
+	return err
+}
+
+// TODO sheet 内容解析需要完善
+func (r *Sheet) getValue(ctx context.Context, cellRange string, option *lark.GetSheetValueReq) (*lark.GetSheetValueResp, error) {
+	if option == nil {
+		option = &lark.GetSheetValueReq{}
+	}
+	res, _, err := r.larkClient.Drive.GetSheetValue(ctx, &lark.GetSheetValueReq{
+		ValueRenderOption:    option.ValueRenderOption,
+		DateTimeRenderOption: option.DateTimeRenderOption,
+		UserIDType:           option.UserIDType,
+		SpreadSheetToken:     r.sheetToken,
+		Range:                cellRange,
+	})
+	return res, err
+}
+
+func (r *Sheet) setCellStyle(ctx context.Context, cellRange string, style *lark.SetSheetStyleReqAppendStyleStyle) error {
+	_, _, err := r.larkClient.Drive.SetSheetStyle(ctx, &lark.SetSheetStyleReq{
+		SpreadSheetToken: r.sheetToken,
+		AppendStyle: &lark.SetSheetStyleReqAppendStyle{
+			Range: cellRange,
+			Style: style,
+		},
+	})
+	return err
+}
+
+func (r *Sheet) batchSetCellStyle(ctx context.Context, styles []*lark.BatchSetSheetStyleReqData) error {
+	_, _, err := r.larkClient.Drive.BatchSetSheetStyle(ctx, &lark.BatchSetSheetStyleReq{
+		SpreadSheetToken: r.sheetToken,
+		Data:             styles,
+	})
+	return err
+}
+
+func (r *Sheet) mergeCell(ctx context.Context, cellRange, mergeType string) error {
+	if mergeType == "" {
+		mergeType = "MERGE_ALL"
+	}
+	_, _, err := r.larkClient.Drive.MergeSheetCell(ctx, &lark.MergeSheetCellReq{
+		SpreadSheetToken: r.sheetToken,
+		Range:            cellRange,
+		MergeType:        mergeType,
+	})
+	return err
+}
+
+func (r *Sheet) unmergeCell(ctx context.Context, cellRange string) error {
+	_, _, err := r.larkClient.Drive.UnmergeSheetCell(ctx, &lark.UnmergeSheetCellReq{
+		SpreadSheetToken: r.sheetToken,
+		Range:            cellRange,
+	})
+	return err
+}
+
+func (r *Sheet) setSheetValue(ctx context.Context, cellRange string, contents [][]lark.SheetContent) error {
+	_, _, err := r.larkClient.Drive.SetSheetValue(ctx, &lark.SetSheetValueReq{
+		SpreadSheetToken: r.sheetToken,
+		ValueRange: &lark.SetSheetValueReqValueRange{
+			Range:  cellRange,
+			Values: contents,
+		},
+	})
+	return err
+}
+
+func (r *Sheet) batchSetSheetValue(ctx context.Context, values []*lark.BatchSetSheetValueReqValueRange) error {
+	_, _, err := r.larkClient.Drive.BatchSetSheetValue(ctx, &lark.BatchSetSheetValueReq{
+		SpreadSheetToken: r.sheetToken,
+		ValueRanges:      values,
+	})
+	return err
+}
+
+func (r *Sheet) setSheetValueImage(ctx context.Context, cellRange string, image []byte) error {
+	_, _, err := r.larkClient.Drive.SetSheetValueImage(ctx, &lark.SetSheetValueImageReq{
+		SpreadSheetToken: r.sheetToken,
+		Range:            cellRange,
+		Image:            image,
+		Name:             "a.png",
+	})
+	return err
+}
+
+func (r *Sheet) search(ctx context.Context, sheetID, value string, condition *lark.FindSheetReqFindCondition) (*lark.FindSheetRespFindResult, error) {
 	if condition == nil {
 		condition = new(lark.FindSheetReqFindCondition)
 	}
@@ -148,16 +382,22 @@ func (r *Sheet) searchSheet(ctx context.Context, sheetID, value string, conditio
 	return resp.FindResult, nil
 }
 
-func (r *Sheet) moveRows(ctx context.Context, sheetID string, fromStartIndex, count, destIndex int) error {
-	_, _, err := r.larkClient.Drive.MoveSheetDimension(ctx, &lark.MoveSheetDimensionReq{
+func (r *Sheet) replace(ctx context.Context, sheetID, old, new string, condition *lark.ReplaceSheetReqFindCondition) (*lark.ReplaceSheetRespReplaceResult, error) {
+	if condition == nil {
+		condition = &lark.ReplaceSheetReqFindCondition{}
+	}
+	if condition.Range == "" {
+		condition.Range = sheetID
+	}
+	resp, _, err := r.larkClient.Drive.ReplaceSheet(ctx, &lark.ReplaceSheetReq{
 		SpreadSheetToken: r.sheetToken,
 		SheetID:          sheetID,
-		Source: &lark.MoveSheetDimensionReqSource{
-			MajorDimension: ptr.String("ROWS"),
-			StartIndex:     ptr.Int64(int64(fromStartIndex)),
-			EndIndex:       ptr.Int64(int64(fromStartIndex + count)),
-		},
-		DestinationIndex: ptr.Int64(int64(destIndex)),
+		FindCondition:    condition,
+		Find:             old,
+		Replacement:      new,
 	})
-	return err
+	if err != nil {
+		return nil, err
+	}
+	return resp.ReplaceResult, nil
 }

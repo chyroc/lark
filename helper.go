@@ -1,3 +1,18 @@
+/**
+ * Copyright 2022 chyroc
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package lark
 
 import (
@@ -5,6 +20,33 @@ import (
 	"fmt"
 )
 
+// Error ...
+type Error struct {
+	Scope    string
+	FuncName string
+	Code     int64
+	Msg      string
+}
+
+// Error ...
+func (r *Error) Error() string {
+	if r.Code == 0 {
+		return ""
+	}
+	return fmt.Sprintf("request %s#%s failed: code: %d, msg: %s", r.Scope, r.FuncName, r.Code, r.Msg)
+}
+
+// NewError ...
+func NewError(scope, funcName string, code int64, msg string) error {
+	return &Error{
+		Scope:    scope,
+		FuncName: funcName,
+		Code:     code,
+		Msg:      msg,
+	}
+}
+
+// GetErrorCode ...
 func GetErrorCode(err error) int64 {
 	if err != nil {
 		if e, ok := err.(*Error); ok {
@@ -74,4 +116,36 @@ func unmarshalMessageContent(msgType MsgType, content string, res interface{}) e
 func jsonString(v interface{}) string {
 	bs, _ := json.Marshal(v)
 	return string(bs)
+}
+
+// mask key
+const (
+	httpRequestHeaderAuthorization = "Authorization"
+	httpRequestHeaderHelpdeskAuth  = "X-Lark-Helpdesk-Authorization"
+)
+
+func jsonHeader(headers map[string]string) string {
+	val := make(map[string]string, len(headers))
+	for k, v := range headers {
+		if k == httpRequestHeaderAuthorization || k == httpRequestHeaderHelpdeskAuth {
+			val[k] = maskString(v, 9, '*') // `Bearer xx******`
+		} else {
+			val[k] = v
+		}
+	}
+	bs, _ := json.Marshal(val)
+	return string(bs)
+}
+
+func maskString(s string, prefixCount int, mask rune) string {
+	ss := []rune(s)
+	res := make([]rune, len(ss))
+	for i, v := range ss {
+		if i < prefixCount {
+			res[i] = v
+		} else {
+			res[i] = mask
+		}
+	}
+	return string(res)
 }
