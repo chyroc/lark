@@ -215,10 +215,10 @@ type CreateIdentityResp struct {
 // ### 1. 获取 access_token
 // - 不同的 token 代表了组件使用者的身份。user_access_token代表以用户身份鉴权，app_access_token代表以应用身份授权。
 // - 成员名片组件仅支持以用户身份(user_access_token)鉴权
-// - 云文档组件可以同时支持以用户身份(user_access_token)和应用身份(app_access_token)授权。但是以应用身份授权云文档时，访问量受 80 次/分钟限制，且组件不支持 “编辑”、“评论”、“点赞” 等功能。
+// - 云文档组件可以同时支持以用户身份(user_access_token)和应用身份(app_access_token)授权。但是以应用身份授权云文档时，访问量受 80 次/分钟限制，且组件不支持 “编辑”、“评论”、“点赞” 等功能
 // - 开发者需要通过以下两种方式之一获取 token，再通过接口生成 ticket。
 // -  方法一：获取用户身份。通过 [第三方网站免登](https://open.feishu.cn/document/ukTMukTMukTM/uETOwYjLxkDM24SM5AjN)获得 `user_access_token`
-// - 方法二：获取应用身份。通过[服务端API](https://open.feishu.cn/document/ukTMukTMukTM/ukDNz4SO0MjL5QzM/auth-v3/auth/app_access_token_internal)获得 `app_access_token`。
+// - 方法二：获取应用身份。通过[服务端API](https://open.feishu.cn/document/ukTMukTMukTM/ukDNz4SO0MjL5QzM/auth-v3/auth/app_access_token_internal)获得 `app_access_token`
 // ### 2. 获取 jsapi_ticket
 // 为了降低泄漏风险，这一步应当在你的服务端进行。
 //

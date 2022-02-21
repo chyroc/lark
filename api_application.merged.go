@@ -59,7 +59,7 @@ func (r *Mock) UnMockApplicationGetApplicationAppList() {
 
 // GetApplicationAppListReq ...
 type GetApplicationAppListReq struct {
-	PageToken *string `query:"page_token" json:"-"` // 分页起始位置标示，不填表示从头开始
+	PageToken *string `query:"page_token" json:"-"` // 分页起始位置标示，不填表示从头开始（不保证 page_token 一定为数字，请填入上一次请求返回的 page_token）
 	PageSize  *int64  `query:"page_size" json:"-"`  // 单页需求最大个数（最大 100），0 自动最大个数
 	Lang      *string `query:"lang" json:"-"`       // 优先展示的应用信息的语言版本（zh_cn：中文，en_us：英文，ja_jp：日文）
 	Status    *int64  `query:"status" json:"-"`     // 要返回的应用的状态，0:停用；1:启用；-1:全部，默认为 -1
