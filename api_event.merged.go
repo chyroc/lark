@@ -3522,7 +3522,7 @@ type EventV2IMMessageReceiveV1Message struct {
 	ParentID    string                                     `json:"parent_id,omitempty"`    // 回复消息 父 id
 	CreateTime  string                                     `json:"create_time,omitempty"`  // 消息发送时间 毫秒
 	ChatID      string                                     `json:"chat_id,omitempty"`      // 消息所在的群组 id
-	ChatType    ChatType                                   `json:"chat_type,omitempty"`    // 消息所在的群组类型，单聊（p2p）或群聊（group）
+	ChatType    ChatMode                                   `json:"chat_type,omitempty"`    // 消息所在的群组类型，单聊（p2p）或群聊（group）
 	MessageType MsgType                                    `json:"message_type,omitempty"` // 消息类型
 	Content     string                                     `json:"content,omitempty"`      // 消息内容, json 格式 ,[各类型消息Content](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/im-v1/message/events/message_content)
 	Mentions    []*EventV2IMMessageReceiveV1MessageMention `json:"mentions,omitempty"`     // 被提及用户的信息

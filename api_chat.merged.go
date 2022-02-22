@@ -131,7 +131,7 @@ type CreateChatReq struct {
 	OwnerID                *string             `json:"owner_id,omitempty"`                 // 创建群时指定的群主，不填时指定建群的机器人为群主。,群主 ID，ID值与查询参数中的 user_id_type 对应。,不同 ID 的说明参见 [用户相关的 ID 概念](https://open.feishu.cn/document/home/user-identity-introduction/introduction), 示例值："4d7a3c6g"
 	UserIDList             []string            `json:"user_id_list,omitempty"`             // 创建群时邀请的群成员，id 类型为 user_id_type, 示例值：["4d7a3c6g"], 最大长度：`50`
 	BotIDList              []string            `json:"bot_id_list,omitempty"`              // 创建群时邀请的群机器人, 示例值：["cli_a10fbf7e94b8d01d"], 最大长度：`5`
-	ChatMode               *string             `json:"chat_mode,omitempty"`                // 群模式, 可选值有: `group`：群组, 示例值："group"
+	ChatMode               *ChatMode           `json:"chat_mode,omitempty"`                // 群模式, 可选值有: `group`：群组, 示例值："group"
 	ChatType               *ChatType           `json:"chat_type,omitempty"`                // 群类型, 可选值有: `private`：私有群, `public`：公开群, 示例值："private"
 	External               *bool               `json:"external,omitempty"`                 // 是否是外部群, 示例值：false
 	JoinMessageVisibility  *MessageVisibility  `json:"join_message_visibility,omitempty"`  // 入群消息可见性, 可选值有: `only_owner`：仅群主和管理员可见, `all_members`：所有成员可见, `not_anyone`：任何人均不可见, 示例值："all_members"
@@ -159,7 +159,7 @@ type CreateChatResp struct {
 	ShareCardPermission    ShareCardPermission  `json:"share_card_permission,omitempty"`    // 群分享权限, 可选值有: `allowed`：允许, `not_allowed`：不允许
 	AtAllPermission        AtAllPermission      `json:"at_all_permission,omitempty"`        // at 所有人权限, 可选值有: `only_owner`：仅群主和管理员, `all_members`：所有成员
 	EditPermission         EditPermission       `json:"edit_permission,omitempty"`          // 群编辑权限, 可选值有: `only_owner`：仅群主和管理员, `all_members`：所有成员
-	ChatMode               string               `json:"chat_mode,omitempty"`                // 群模式, 可选值有: `group`：群组
+	ChatMode               ChatMode             `json:"chat_mode,omitempty"`                // 群模式, 可选值有: `group`：群组
 	ChatType               ChatType             `json:"chat_type,omitempty"`                // 群类型, 可选值有: `private`：私有群, `public`：公开群
 	ChatTag                string               `json:"chat_tag,omitempty"`                 // 群标签，如有多个，则按照下列顺序返回第一个, 可选值有: `inner`：内部群, `tenant`：公司群, `department`：部门群, `edu`：教育群, `meeting`：会议群, `customer_service`：客服群
 	External               bool                 `json:"external,omitempty"`                 // 是否是外部群
@@ -293,7 +293,7 @@ type GetChatResp struct {
 	EditPermission         EditPermission       `json:"edit_permission,omitempty"`          // 群编辑权限(all_members/only_owner)
 	OwnerIDType            IDType               `json:"owner_id_type,omitempty"`            // 群主 ID 的类型(open_id/user_id/union_id)，群主是机器人时，不返回该字段。
 	OwnerID                string               `json:"owner_id,omitempty"`                 // 群主 ID，群主是机器人时，不返回该字段。
-	ChatMode               string               `json:"chat_mode,omitempty"`                // 群模式(group/topic/p2p)
+	ChatMode               ChatMode             `json:"chat_mode,omitempty"`                // 群模式(group/topic/p2p)
 	ChatType               ChatType             `json:"chat_type,omitempty"`                // 群类型(private/public)
 	ChatTag                string               `json:"chat_tag,omitempty"`                 // 优先级最高的一个群tag(inner/tenant/department/edu/meeting/customer_service)
 	JoinMessageVisibility  MessageVisibility    `json:"join_message_visibility,omitempty"`  // 入群消息可见性(only_owner/all_members/not_anyone)
