@@ -117,10 +117,10 @@ func EmployeeTypePtr(v EmployeeType) *EmployeeType {
 // ChatType ...
 type ChatType string
 
-// ChatTypePrivate ...
+// ChatTypeP2P ...
 const (
-	ChatTypePrivate ChatType = "private"
-	ChatTypePublic  ChatType = "public"
+	ChatTypeP2P   ChatType = "p2p"
+	ChatTypeGroup ChatType = "group"
 )
 
 // ChatTypePtr ...
