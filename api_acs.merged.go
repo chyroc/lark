@@ -538,7 +538,7 @@ type UpdateACSUserResp struct{}
 // GetAdminDeptStats 该接口用于获取部门维度的用户活跃和功能使用数据，即IM（即时通讯）、日历、云文档、音视频会议功能的使用数据。
 //
 // - 只有企业自建应用才有权限调用此接口
-// - 当天的数据会在第二天的凌晨五点产出（UTC+8）
+// - 当天的数据会在第二天的早上八点产出（UTC+8）
 // - 部门维度的数据最多查询最近366天（包含366天）的数据
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/admin-v1/admin_dept_stat/list
@@ -627,4 +627,9 @@ type GetAdminDeptStatsRespItem struct {
 	VCDau                int64  `json:"vc_dau,omitempty"`                  // 音视频会议活跃人数
 	VCDuration           int64  `json:"vc_duration,omitempty"`             // 会议时长（分钟）
 	AvgVCDuration        string `json:"avg_vc_duration,omitempty"`         // 人均会议时长（分钟）
+	AvgDuration          string `json:"avg_duration,omitempty"`            // 人均飞书使用时长（分钟）
+	TaskDau              int64  `json:"task_dau,omitempty"`                // 任务活跃人数
+	CreateTaskUserNum    int64  `json:"create_task_user_num,omitempty"`    // 创建任务人数
+	CreateTaskNum        int64  `json:"create_task_num,omitempty"`         // 创建任务数
+	AvgCreateTaskNum     string `json:"avg_create_task_num,omitempty"`     // 人均创建任务数
 }
