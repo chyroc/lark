@@ -283,6 +283,24 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.CreateDriveFileSubscription(ctx, &lark.CreateDriveFileSubscriptionReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.GetDriveFileSubscription(ctx, &lark.GetDriveFileSubscriptionReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.UpdateDriveFileSubscription(ctx, &lark.UpdateDriveFileSubscriptionReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "failed")
+		})
+
+		t.Run("", func(t *testing.T) {
 			_, _, err := moduleCli.CreateDriveDoc(ctx, &lark.CreateDriveDocReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "failed")
@@ -1160,6 +1178,39 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 			defer cli.Mock().UnMockDriveUpdateDriveCommentPatch()
 
 			_, _, err := moduleCli.UpdateDriveCommentPatch(ctx, &lark.UpdateDriveCommentPatchReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+			cli.Mock().MockDriveCreateDriveFileSubscription(func(ctx context.Context, request *lark.CreateDriveFileSubscriptionReq, options ...lark.MethodOptionFunc) (*lark.CreateDriveFileSubscriptionResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockDriveCreateDriveFileSubscription()
+
+			_, _, err := moduleCli.CreateDriveFileSubscription(ctx, &lark.CreateDriveFileSubscriptionReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+			cli.Mock().MockDriveGetDriveFileSubscription(func(ctx context.Context, request *lark.GetDriveFileSubscriptionReq, options ...lark.MethodOptionFunc) (*lark.GetDriveFileSubscriptionResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockDriveGetDriveFileSubscription()
+
+			_, _, err := moduleCli.GetDriveFileSubscription(ctx, &lark.GetDriveFileSubscriptionReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+			cli.Mock().MockDriveUpdateDriveFileSubscription(func(ctx context.Context, request *lark.UpdateDriveFileSubscriptionReq, options ...lark.MethodOptionFunc) (*lark.UpdateDriveFileSubscriptionResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockDriveUpdateDriveFileSubscription()
+
+			_, _, err := moduleCli.UpdateDriveFileSubscription(ctx, &lark.UpdateDriveFileSubscriptionReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "mock-failed")
 		})
@@ -2247,6 +2298,32 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.CreateDriveFileSubscription(ctx, &lark.CreateDriveFileSubscriptionReq{
+				FileToken: "x",
+			})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.GetDriveFileSubscription(ctx, &lark.GetDriveFileSubscriptionReq{
+				FileToken:      "x",
+				SubscriptionID: "x",
+			})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.UpdateDriveFileSubscription(ctx, &lark.UpdateDriveFileSubscriptionReq{
+				FileToken:      "x",
+				SubscriptionID: "x",
+			})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
 			_, _, err := moduleCli.CreateDriveDoc(ctx, &lark.CreateDriveDocReq{})
 			as.NotNil(err)
 			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
@@ -3142,6 +3219,32 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 			_, _, err := moduleCli.UpdateDriveCommentPatch(ctx, &lark.UpdateDriveCommentPatchReq{
 				FileToken: "x",
 				CommentID: "x",
+			})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.CreateDriveFileSubscription(ctx, &lark.CreateDriveFileSubscriptionReq{
+				FileToken: "x",
+			})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.GetDriveFileSubscription(ctx, &lark.GetDriveFileSubscriptionReq{
+				FileToken:      "x",
+				SubscriptionID: "x",
+			})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.UpdateDriveFileSubscription(ctx, &lark.UpdateDriveFileSubscriptionReq{
+				FileToken:      "x",
+				SubscriptionID: "x",
 			})
 			as.NotNil(err)
 			as.Equal("fake raw request", err.Error())

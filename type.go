@@ -114,7 +114,22 @@ func EmployeeTypePtr(v EmployeeType) *EmployeeType {
 	return &v
 }
 
-// ChatType ...
+// ChatMode 群模式(group/topic/p2p)
+type ChatMode string
+
+// ChatModeP2P ...
+const (
+	ChatModeP2P   ChatMode = "p2p"
+	ChatModeGroup ChatMode = "group"
+	ChatModeTopic ChatMode = "topic"
+)
+
+// ChatModePtr ...
+func ChatModePtr(v ChatMode) *ChatMode {
+	return &v
+}
+
+// ChatType 群类型(private/public)
 type ChatType string
 
 // ChatTypePrivate ...
