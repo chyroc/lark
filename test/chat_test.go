@@ -121,8 +121,8 @@ func Test_GetChat(t *testing.T) {
 		as.Nil(err)
 		as.NotNil(resp)
 		as.Contains(resp.Name, "lark-sdk")
-		as.Equal("group", resp.ChatMode)
-		as.Equal(lark.ChatModeP2P, resp.ChatType)
+		as.Equal(lark.ChatModeGroup, resp.ChatMode)
+		as.Equal(lark.ChatTypePrivate, resp.ChatType)
 	})
 
 	t.Run("", func(t *testing.T) {
