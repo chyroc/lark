@@ -175,7 +175,7 @@ type RecognizeSpeechFileReq struct {
 
 // RecognizeSpeechFileReqSpeech ...
 type RecognizeSpeechFileReqSpeech struct {
-	Speech *string `json:"speech,omitempty"` // base64 后的音频文件进行, 示例值："base64 后的音频内容"
+	Speech *string `json:"speech,omitempty"` // pcm格式音频文件（文件识别）或音频分片（流式识别）经base64编码后的内容, 示例值："YmFzZTY0IOWQjueahOmfs-mikeWGheWuuQ..."
 }
 
 // RecognizeSpeechFileReqConfig ...
@@ -243,7 +243,7 @@ type RecognizeSpeechStreamReq struct {
 
 // RecognizeSpeechStreamReqSpeech ...
 type RecognizeSpeechStreamReqSpeech struct {
-	Speech *string `json:"speech,omitempty"` // base64 后的音频文件内容, 示例值："base64 后的音频内容"
+	Speech *string `json:"speech,omitempty"` // pcm格式音频文件（文件识别）或音频分片（流式识别）经base64编码后的内容, 示例值："YmFzZTY0IOWQjueahOmfs-mikeWGheWuuQ..."
 }
 
 // RecognizeSpeechStreamReqConfig ...

@@ -643,7 +643,7 @@ API 总数: 551, 事件总数: 88
   - EventV2TaskTaskCommentUpdatedV1
   - EventV2HelpdeskTicketMessageCreatedV1
   - EventV2HelpdeskTicketCreatedV1
-  - EventV2HelpdeskTicketMessageUpdatedV1
+  - EventV2HelpdeskTicketUpdatedV1
   - EventV2HelpdeskNotificationApproveV1
   - EventV2ContactDepartmentCreatedV3
   - EventV2ContactDepartmentDeletedV3
