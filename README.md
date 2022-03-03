@@ -38,7 +38,7 @@ https://godoc.org/github.com/chyroc/lark
 
 ## Support APIs
 
-API Count: 551, Event Count: 88
+API Count: 561, Event Count: 88
 
 <details>
   <summary>
@@ -71,6 +71,7 @@ API Count: 551, Event Count: 88
   - UpdateDepartmentPatch
   - UpdateDepartment
   - DeleteDepartment
+  - UnbindDepartmentChat
   - CreateContactGroup
   - UpdateContactGroup
   - DeleteContactGroup
@@ -371,6 +372,7 @@ API Count: 551, Event Count: 88
   - GetApplicationUsageOverview
   - GetApplicationUsageTrend
 - Mail
+  - GetMailUser
   - CreateMailGroup
   - GetMailGroup
   - GetMailGroupList
@@ -385,6 +387,9 @@ API Count: 551, Event Count: 88
   - GetMailGroupPermissionMember
   - GetMailGroupPermissionMemberList
   - DeleteMailGroupPermissionMember
+  - CreateMailGroupAlias
+  - GetMailGroupAliasList
+  - DeleteMailGroupAlias
   - CreatePublicMailbox
   - GetPublicMailbox
   - GetPublicMailboxList
@@ -396,9 +401,13 @@ API Count: 551, Event Count: 88
   - GetPublicMailboxMemberList
   - DeletePublicMailboxMember
   - ClearPublicMailboxMember
-  - CreateMailUserAlias
-  - DeleteMailUserAlias
-  - GetMailUserAliasList
+  - CreateMailPublicMailboxAlias
+  - GetMailPublicMailboxAliasList
+  - DeleteMailPublicMailboxAlias
+  - CreateMailUserMailboxAlias
+  - DeleteMailUserMailboxAlias
+  - GetMailUserMailboxAliasList
+  - DeleteMailUserMailbox
 - Approval
   - GetApproval
   - GetApprovalInstanceList
@@ -435,6 +444,7 @@ API Count: 551, Event Count: 88
   - GetHelpdeskTicketList
   - DownloadHelpdeskTicketImage
   - AnswerHelpdeskTicketUserQuery
+  - GetHelpdeskTicketCustomizedFields
   - GetHelpdeskTicketMessageList
   - SendHelpdeskTicketMessage
   - SendHelpdeskMessage

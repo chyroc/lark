@@ -145,6 +145,12 @@ func Test_Contact_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.UnbindDepartmentChat(ctx, &lark.UnbindDepartmentChatReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "failed")
+		})
+
+		t.Run("", func(t *testing.T) {
 			_, _, err := moduleCli.CreateContactGroup(ctx, &lark.CreateContactGroupReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "failed")
@@ -475,6 +481,17 @@ func Test_Contact_Sample_Failed(t *testing.T) {
 			defer cli.Mock().UnMockContactDeleteDepartment()
 
 			_, _, err := moduleCli.DeleteDepartment(ctx, &lark.DeleteDepartmentReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+			cli.Mock().MockContactUnbindDepartmentChat(func(ctx context.Context, request *lark.UnbindDepartmentChatReq, options ...lark.MethodOptionFunc) (*lark.UnbindDepartmentChatResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockContactUnbindDepartmentChat()
+
+			_, _, err := moduleCli.UnbindDepartmentChat(ctx, &lark.UnbindDepartmentChatReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "mock-failed")
 		})
@@ -853,6 +870,12 @@ func Test_Contact_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.UnbindDepartmentChat(ctx, &lark.UnbindDepartmentChatReq{})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
 			_, _, err := moduleCli.CreateContactGroup(ctx, &lark.CreateContactGroupReq{})
 			as.NotNil(err)
 			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
@@ -1136,6 +1159,12 @@ func Test_Contact_Sample_Failed(t *testing.T) {
 			_, _, err := moduleCli.DeleteDepartment(ctx, &lark.DeleteDepartmentReq{
 				DepartmentID: "x",
 			})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.UnbindDepartmentChat(ctx, &lark.UnbindDepartmentChatReq{})
 			as.NotNil(err)
 			as.Equal("fake raw request", err.Error())
 		})

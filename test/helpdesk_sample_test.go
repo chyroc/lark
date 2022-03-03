@@ -73,6 +73,12 @@ func Test_Helpdesk_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.GetHelpdeskTicketCustomizedFields(ctx, &lark.GetHelpdeskTicketCustomizedFieldsReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "failed")
+		})
+
+		t.Run("", func(t *testing.T) {
 			_, _, err := moduleCli.GetHelpdeskTicketMessageList(ctx, &lark.GetHelpdeskTicketMessageListReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "failed")
@@ -253,6 +259,17 @@ func Test_Helpdesk_Sample_Failed(t *testing.T) {
 			defer cli.Mock().UnMockHelpdeskAnswerHelpdeskTicketUserQuery()
 
 			_, _, err := moduleCli.AnswerHelpdeskTicketUserQuery(ctx, &lark.AnswerHelpdeskTicketUserQueryReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+			cli.Mock().MockHelpdeskGetHelpdeskTicketCustomizedFields(func(ctx context.Context, request *lark.GetHelpdeskTicketCustomizedFieldsReq, options ...lark.MethodOptionFunc) (*lark.GetHelpdeskTicketCustomizedFieldsResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockHelpdeskGetHelpdeskTicketCustomizedFields()
+
+			_, _, err := moduleCli.GetHelpdeskTicketCustomizedFields(ctx, &lark.GetHelpdeskTicketCustomizedFieldsReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "mock-failed")
 		})
@@ -514,6 +531,12 @@ func Test_Helpdesk_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.GetHelpdeskTicketCustomizedFields(ctx, &lark.GetHelpdeskTicketCustomizedFieldsReq{})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
 			_, _, err := moduleCli.GetHelpdeskTicketMessageList(ctx, &lark.GetHelpdeskTicketMessageListReq{
 				TicketID: "x",
 			})
@@ -690,6 +713,12 @@ func Test_Helpdesk_Sample_Failed(t *testing.T) {
 			_, _, err := moduleCli.AnswerHelpdeskTicketUserQuery(ctx, &lark.AnswerHelpdeskTicketUserQueryReq{
 				TicketID: "x",
 			})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.GetHelpdeskTicketCustomizedFields(ctx, &lark.GetHelpdeskTicketCustomizedFieldsReq{})
 			as.NotNil(err)
 			as.Equal("fake raw request", err.Error())
 		})
