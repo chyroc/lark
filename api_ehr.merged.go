@@ -84,7 +84,7 @@ type GetEHREmployeeListResp struct {
 
 // GetEHREmployeeListRespItem ...
 type GetEHREmployeeListRespItem struct {
-	UserID       string                                   `json:"user_id,omitempty"`       // 员工的用户 ID,user_id_type 为 user_id 时返回 user_id；,user_id_type 为 open_id 时返回 open_id；,user_id_type 为 union_id 时返回 uion_id；,「待入职」和「已取消入职」的员工，此字段值为 null
+	UserID       string                                   `json:"user_id,omitempty"`       // 员工的用户 ID,user_id_type 为 user_id 时返回 user_id；,user_id_type 为 open_id 时返回 open_id；,user_id_type 为 union_id 时返回 union_id；,「待入职」和「已取消入职」的员工，此字段值为 null
 	SystemFields *GetEHREmployeeListRespItemSystemFields  `json:"system_fields,omitempty"` // 系统字段
 	CustomFields []*GetEHREmployeeListRespItemCustomField `json:"custom_fields,omitempty"` // 自定义字段
 }

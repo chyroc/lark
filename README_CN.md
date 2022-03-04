@@ -38,7 +38,7 @@ https://godoc.org/github.com/chyroc/lark
 
 ## 支持的接口
 
-API 总数: 561, 事件总数: 88
+API 总数: 558, 事件总数: 88
 
 <details>
   <summary>
@@ -521,11 +521,8 @@ API 总数: 561, 事件总数: 88
   - UpdateAttendanceUserSetting
   - DownloadAttendanceFile
   - UploadAttendanceFile
-  - CreateUpdateAttendanceUserDailyShift
   - GetAttendanceUserApproval
   - CreateAttendanceUserApproval
-  - GetAttendanceUserAllowedRemedy
-  - InitAttendanceRemedyApproval
   - UpdateAttendanceRemedyApproval
 - File
   - UploadImage

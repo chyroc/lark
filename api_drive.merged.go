@@ -729,7 +729,7 @@ func (r *Mock) UnMockDriveCopyDriveFile() {
 // CopyDriveFileReq ...
 type CopyDriveFileReq struct {
 	FileToken      string `path:"fileToken" json:"-"`       // 需要复制的源文件或文档的 token, 获取方式见 [概述](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/files/guide/introduction)
-	Type           string `json:"type,omitempty"`           // 需要创建文档的类型   "doc" 、"sheet" or "bitable"
+	Type           string `json:"type,omitempty"`           // 需要创建文档的类型   "doc"、"sheet"、"bitable"、"docx"
 	DstFolderToken string `json:"dstFolderToken,omitempty"` // 目标文件夹的 token, 获取方式见 [概述](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/files/guide/introduction)
 	DstName        string `json:"dstName,omitempty"`        // 复制的副本文件的新名称
 	CommentNeeded  *bool  `json:"commentNeeded,omitempty"`  // 是否复制评论
@@ -747,7 +747,7 @@ type CopyDriveFileResp struct {
 	FolderToken string `json:"folderToken,omitempty"` // 目标文件夹的 token
 	Revision    int64  `json:"revision,omitempty"`    // 新创建文档的版本号
 	Token       string `json:"token,omitempty"`       // 新创建文档的 token
-	Type        string `json:"type,omitempty"`        // 新建文档的类型，"doc" or "sheet"
+	Type        string `json:"type,omitempty"`        // 新建文档的类型，"doc"、"sheet"、"bitable"、"docx"
 	URL         string `json:"url,omitempty"`         // 新创建文档的 url
 }
 
@@ -987,7 +987,7 @@ func (r *Mock) UnMockDriveDeleteDriveFile() {
 
 // DeleteDriveFileReq ...
 type DeleteDriveFileReq struct {
-	Type      string `query:"type" json:"-"`      // 云文档类型, 示例值："file", 可选值有: `file`：box开头云文档类型
+	Type      string `query:"type" json:"-"`      // 云文档类型, 示例值："file", 可选值有: `file`：box开头云文档类型, `docx`：docx文档类型, `bitable`：多维表格类型
 	FileToken string `path:"file_token" json:"-"` // 需要删除的文件token, 示例值："boxxxxxxx"
 }
 
@@ -1707,7 +1707,7 @@ type PrepareUploadDriveFileResp struct {
 
 // GetDriveFolderChildren
 //
-// 该接口用于根据 folderToken 获取该文件夹的文档清单，如 doc、sheet、file、bitable、folder。
+// 该接口用于根据 folderToken 获取该文件夹的文档清单，如 doc、sheet、file、bitable、docx、folder。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uEjNzUjLxYzM14SM2MTN
 func (r *DriveService) GetDriveFolderChildren(ctx context.Context, request *GetDriveFolderChildrenReq, options ...MethodOptionFunc) (*GetDriveFolderChildrenResp, *Response, error) {
@@ -1744,7 +1744,7 @@ func (r *Mock) UnMockDriveGetDriveFolderChildren() {
 
 // GetDriveFolderChildrenReq ...
 type GetDriveFolderChildrenReq struct {
-	Types       []string `query:"types" json:"-"`      // 需要查询的文件类型，默认返回所有 children；types 可多选，可选类型有 doc、sheet、file、bitable、folder 。如 url?types=folder&types=sheet
+	Types       []string `query:"types" json:"-"`      // 需要查询的文件类型，默认返回所有 children；types 可多选，可选类型有 doc、sheet、file、bitable、docx、folder 。如 url?types=folder&types=sheet
 	FolderToken string   `path:"folderToken" json:"-"` // 文件夹的 token，获取方式见 [概述](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/files/guide/introduction)
 }
 
@@ -1995,7 +1995,7 @@ type CreateDriveImportTaskReq struct {
 // CreateDriveImportTaskReqPoint ...
 type CreateDriveImportTaskReqPoint struct {
 	MountType int64  `json:"mount_type,omitempty"` // 挂载类型, 示例值：1, 可选值有: `1`：挂载到云空间
-	MountKey  string `json:"mount_key,omitempty"`  // 挂载位置,对于mount_type=1, 云空间目录token，空表示根目录, 示例值：""fldxxxxxxxx""
+	MountKey  string `json:"mount_key,omitempty"`  // 挂载位置,对于mount_type=1, 云空间目录token，空表示根目录, 示例值："fldxxxxxxxx"
 }
 
 // createDriveImportTaskResp ...
@@ -7348,10 +7348,10 @@ func (r *Mock) UnMockDriveMoveDocsToWiki() {
 
 // MoveDocsToWikiReq ...
 type MoveDocsToWikiReq struct {
-	SpaceID         string `path:"space_id" json:"-"`           // 知识库id, 示例值："1565676577122621"
-	ParentWikiToken string `json:"parent_wiki_token,omitempty"` // 节点的父亲token, 示例值："wikbcOHIFxB0PJS2UTd2kF2SP6c"
-	ObjType         string `json:"obj_type,omitempty"`          // 文档类型, 示例值："doc", 可选值有: `doc`：doc（文档）, `sheet`：sheet（表格）, `bitable`：bitable（多维表格）, `mindnote`：mindnote（思维导图）
-	ObjToken        string `json:"obj_token,omitempty"`         // 文档token, 示例值："docbc6e1qBqt1O5mCBVA1QUKVEg"
+	SpaceID         string  `path:"space_id" json:"-"`           // 知识库id, 示例值："1565676577122621"
+	ParentWikiToken *string `json:"parent_wiki_token,omitempty"` // 节点的父亲token, 示例值："wikbcOHIFxB0PJS2UTd2kF2SP6c"
+	ObjType         string  `json:"obj_type,omitempty"`          // 文档类型, 示例值："doc", 可选值有: `doc`：doc（文档）, `sheet`：sheet（表格）, `bitable`：bitable（多维表格）, `mindnote`：mindnote（思维导图）, `docx`：docx
+	ObjToken        string  `json:"obj_token,omitempty"`         // 文档token, 示例值："docbc6e1qBqt1O5mCBVA1QUKVEg"
 }
 
 // moveDocsToWikiResp ...
@@ -7723,6 +7723,8 @@ type CreateWikiSpaceRespSpace struct {
 	Name        string `json:"name,omitempty"`        // 知识空间名称
 	Description string `json:"description,omitempty"` // 知识空间描述
 	SpaceID     string `json:"space_id,omitempty"`    // 知识空间id
+	SpaceType   string `json:"space_type,omitempty"`  // 表示知识空间类型（团队空间 或 个人空间）, 可选值有: `team`：团队空间, `person`：个人空间
+	Visibility  string `json:"visibility,omitempty"`  // 表示知识空间可见性（公开空间 或 私有空间）, 可选值有: `public`：公开空间, `private`：私有空间
 }
 
 // Code generated by lark_sdk_gen. DO NOT EDIT.
@@ -7784,6 +7786,8 @@ type GetWikiSpaceRespSpace struct {
 	Name        string `json:"name,omitempty"`        // 知识空间名称
 	Description string `json:"description,omitempty"` // 知识空间描述
 	SpaceID     string `json:"space_id,omitempty"`    // 知识空间id
+	SpaceType   string `json:"space_type,omitempty"`  // 表示知识空间类型（团队空间 或 个人空间）, 可选值有: `team`：团队空间, `person`：个人空间
+	Visibility  string `json:"visibility,omitempty"`  // 表示知识空间可见性（公开空间 或 私有空间）, 可选值有: `public`：公开空间, `private`：私有空间
 }
 
 // Code generated by lark_sdk_gen. DO NOT EDIT.
@@ -7848,6 +7852,8 @@ type GetWikiSpaceListRespItem struct {
 	Name        string `json:"name,omitempty"`        // 知识空间名称
 	Description string `json:"description,omitempty"` // 知识空间描述
 	SpaceID     string `json:"space_id,omitempty"`    // 知识空间id
+	SpaceType   string `json:"space_type,omitempty"`  // 表示知识空间类型（团队空间 或 个人空间）, 可选值有: `team`：团队空间, `person`：个人空间
+	Visibility  string `json:"visibility,omitempty"`  // 表示知识空间可见性（公开空间 或 私有空间）, 可选值有: `public`：公开空间, `private`：私有空间
 }
 
 // Code generated by lark_sdk_gen. DO NOT EDIT.

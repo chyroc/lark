@@ -38,7 +38,7 @@ https://godoc.org/github.com/chyroc/lark
 
 ## Support APIs
 
-API Count: 561, Event Count: 88
+API Count: 558, Event Count: 88
 
 <details>
   <summary>
@@ -521,11 +521,8 @@ API Count: 561, Event Count: 88
   - UpdateAttendanceUserSetting
   - DownloadAttendanceFile
   - UploadAttendanceFile
-  - CreateUpdateAttendanceUserDailyShift
   - GetAttendanceUserApproval
   - CreateAttendanceUserApproval
-  - GetAttendanceUserAllowedRemedy
-  - InitAttendanceRemedyApproval
   - UpdateAttendanceRemedyApproval
 - File
   - UploadImage

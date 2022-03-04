@@ -187,12 +187,6 @@ func Test_Attendance_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-			_, _, err := moduleCli.CreateUpdateAttendanceUserDailyShift(ctx, &lark.CreateUpdateAttendanceUserDailyShiftReq{})
-			as.NotNil(err)
-			as.Equal(err.Error(), "failed")
-		})
-
-		t.Run("", func(t *testing.T) {
 			_, _, err := moduleCli.GetAttendanceUserApproval(ctx, &lark.GetAttendanceUserApprovalReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "failed")
@@ -200,18 +194,6 @@ func Test_Attendance_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 			_, _, err := moduleCli.CreateAttendanceUserApproval(ctx, &lark.CreateAttendanceUserApprovalReq{})
-			as.NotNil(err)
-			as.Equal(err.Error(), "failed")
-		})
-
-		t.Run("", func(t *testing.T) {
-			_, _, err := moduleCli.GetAttendanceUserAllowedRemedy(ctx, &lark.GetAttendanceUserAllowedRemedyReq{})
-			as.NotNil(err)
-			as.Equal(err.Error(), "failed")
-		})
-
-		t.Run("", func(t *testing.T) {
-			_, _, err := moduleCli.InitAttendanceRemedyApproval(ctx, &lark.InitAttendanceRemedyApprovalReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "failed")
 		})
@@ -503,17 +485,6 @@ func Test_Attendance_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-			cli.Mock().MockAttendanceCreateUpdateAttendanceUserDailyShift(func(ctx context.Context, request *lark.CreateUpdateAttendanceUserDailyShiftReq, options ...lark.MethodOptionFunc) (*lark.CreateUpdateAttendanceUserDailyShiftResp, *lark.Response, error) {
-				return nil, nil, fmt.Errorf("mock-failed")
-			})
-			defer cli.Mock().UnMockAttendanceCreateUpdateAttendanceUserDailyShift()
-
-			_, _, err := moduleCli.CreateUpdateAttendanceUserDailyShift(ctx, &lark.CreateUpdateAttendanceUserDailyShiftReq{})
-			as.NotNil(err)
-			as.Equal(err.Error(), "mock-failed")
-		})
-
-		t.Run("", func(t *testing.T) {
 			cli.Mock().MockAttendanceGetAttendanceUserApproval(func(ctx context.Context, request *lark.GetAttendanceUserApprovalReq, options ...lark.MethodOptionFunc) (*lark.GetAttendanceUserApprovalResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -531,28 +502,6 @@ func Test_Attendance_Sample_Failed(t *testing.T) {
 			defer cli.Mock().UnMockAttendanceCreateAttendanceUserApproval()
 
 			_, _, err := moduleCli.CreateAttendanceUserApproval(ctx, &lark.CreateAttendanceUserApprovalReq{})
-			as.NotNil(err)
-			as.Equal(err.Error(), "mock-failed")
-		})
-
-		t.Run("", func(t *testing.T) {
-			cli.Mock().MockAttendanceGetAttendanceUserAllowedRemedy(func(ctx context.Context, request *lark.GetAttendanceUserAllowedRemedyReq, options ...lark.MethodOptionFunc) (*lark.GetAttendanceUserAllowedRemedyResp, *lark.Response, error) {
-				return nil, nil, fmt.Errorf("mock-failed")
-			})
-			defer cli.Mock().UnMockAttendanceGetAttendanceUserAllowedRemedy()
-
-			_, _, err := moduleCli.GetAttendanceUserAllowedRemedy(ctx, &lark.GetAttendanceUserAllowedRemedyReq{})
-			as.NotNil(err)
-			as.Equal(err.Error(), "mock-failed")
-		})
-
-		t.Run("", func(t *testing.T) {
-			cli.Mock().MockAttendanceInitAttendanceRemedyApproval(func(ctx context.Context, request *lark.InitAttendanceRemedyApprovalReq, options ...lark.MethodOptionFunc) (*lark.InitAttendanceRemedyApprovalResp, *lark.Response, error) {
-				return nil, nil, fmt.Errorf("mock-failed")
-			})
-			defer cli.Mock().UnMockAttendanceInitAttendanceRemedyApproval()
-
-			_, _, err := moduleCli.InitAttendanceRemedyApproval(ctx, &lark.InitAttendanceRemedyApprovalReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "mock-failed")
 		})
@@ -738,12 +687,6 @@ func Test_Attendance_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-			_, _, err := moduleCli.CreateUpdateAttendanceUserDailyShift(ctx, &lark.CreateUpdateAttendanceUserDailyShiftReq{})
-			as.NotNil(err)
-			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
-		})
-
-		t.Run("", func(t *testing.T) {
 			_, _, err := moduleCli.GetAttendanceUserApproval(ctx, &lark.GetAttendanceUserApprovalReq{})
 			as.NotNil(err)
 			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
@@ -751,18 +694,6 @@ func Test_Attendance_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 			_, _, err := moduleCli.CreateAttendanceUserApproval(ctx, &lark.CreateAttendanceUserApprovalReq{})
-			as.NotNil(err)
-			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
-		})
-
-		t.Run("", func(t *testing.T) {
-			_, _, err := moduleCli.GetAttendanceUserAllowedRemedy(ctx, &lark.GetAttendanceUserAllowedRemedyReq{})
-			as.NotNil(err)
-			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
-		})
-
-		t.Run("", func(t *testing.T) {
-			_, _, err := moduleCli.InitAttendanceRemedyApproval(ctx, &lark.InitAttendanceRemedyApprovalReq{})
 			as.NotNil(err)
 			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
 		})
@@ -946,12 +877,6 @@ func Test_Attendance_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-			_, _, err := moduleCli.CreateUpdateAttendanceUserDailyShift(ctx, &lark.CreateUpdateAttendanceUserDailyShiftReq{})
-			as.NotNil(err)
-			as.Equal("fake raw request", err.Error())
-		})
-
-		t.Run("", func(t *testing.T) {
 			_, _, err := moduleCli.GetAttendanceUserApproval(ctx, &lark.GetAttendanceUserApprovalReq{})
 			as.NotNil(err)
 			as.Equal("fake raw request", err.Error())
@@ -959,18 +884,6 @@ func Test_Attendance_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 			_, _, err := moduleCli.CreateAttendanceUserApproval(ctx, &lark.CreateAttendanceUserApprovalReq{})
-			as.NotNil(err)
-			as.Equal("fake raw request", err.Error())
-		})
-
-		t.Run("", func(t *testing.T) {
-			_, _, err := moduleCli.GetAttendanceUserAllowedRemedy(ctx, &lark.GetAttendanceUserAllowedRemedyReq{})
-			as.NotNil(err)
-			as.Equal("fake raw request", err.Error())
-		})
-
-		t.Run("", func(t *testing.T) {
-			_, _, err := moduleCli.InitAttendanceRemedyApproval(ctx, &lark.InitAttendanceRemedyApprovalReq{})
 			as.NotNil(err)
 			as.Equal("fake raw request", err.Error())
 		})
