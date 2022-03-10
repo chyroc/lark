@@ -2086,7 +2086,7 @@ type EventV2ContactScopeUpdatedV3AddedUser struct {
 	EnName               string                                                   `json:"en_name,omitempty"`                // 英文名,**字段权限要求（满足任一）**：,以应用身份读取通讯录,获取用户基本信息,以应用身份访问通讯录,读取通讯录
 	Nickname             string                                                   `json:"nickname,omitempty"`               // 别名,**字段权限要求（满足任一）**：,以应用身份读取通讯录,获取用户基本信息,以应用身份访问通讯录,读取通讯录
 	Email                string                                                   `json:"email,omitempty"`                  // 邮箱, 字段权限要求: 获取用户邮箱信息
-	Mobile               string                                                   `json:"mobile,omitempty"`                 // 手机号, 字段权限要求: 获取用户手机号
+	Mobile               string                                                   `json:"mobile,omitempty"`                 // 手机号，中国大陆手机可不填区号，境外手机需加国际电话区号前缀。, 字段权限要求: 获取用户手机号
 	Gender               int64                                                    `json:"gender,omitempty"`                 // 性别, 可选值有: `0`：保密, `1`：男, `2`：女,**字段权限要求（满足任一）**：,以应用身份读取通讯录,获取用户性别,以应用身份访问通讯录,读取通讯录
 	Avatar               *EventV2ContactScopeUpdatedV3AddedUserAvatar             `json:"avatar,omitempty"`                 // 用户头像信息,**字段权限要求（满足任一）**：,以应用身份读取通讯录,获取用户基本信息,以应用身份访问通讯录,读取通讯录
 	Status               *EventV2ContactScopeUpdatedV3AddedUserStatus             `json:"status,omitempty"`                 // 用户状态,**字段权限要求（满足任一）**：,以应用身份读取通讯录,获取用户雇佣信息,以应用身份访问通讯录,读取通讯录
@@ -2143,7 +2143,7 @@ type EventV2ContactScopeUpdatedV3AddedUserCustomAttrValue struct {
 
 // EventV2ContactScopeUpdatedV3AddedUserCustomAttrValueGenericUser ...
 type EventV2ContactScopeUpdatedV3AddedUserCustomAttrValueGenericUser struct {
-	ID   string `json:"id,omitempty"`   // 用户的user_id
+	ID   string `json:"id,omitempty"`   // 用户的user_id [用户相关的 ID 概念](https://open.feishu.cn/document/home/user-identity-introduction/introduction)
 	Type int64  `json:"type,omitempty"` // 用户类型    1：用户
 }
 
@@ -2205,7 +2205,7 @@ type EventV2ContactScopeUpdatedV3RemovedUser struct {
 	EnName               string                                                     `json:"en_name,omitempty"`                // 英文名,**字段权限要求（满足任一）**：,以应用身份读取通讯录,获取用户基本信息,以应用身份访问通讯录,读取通讯录
 	Nickname             string                                                     `json:"nickname,omitempty"`               // 别名,**字段权限要求（满足任一）**：,以应用身份读取通讯录,获取用户基本信息,以应用身份访问通讯录,读取通讯录
 	Email                string                                                     `json:"email,omitempty"`                  // 邮箱, 字段权限要求: 获取用户邮箱信息
-	Mobile               string                                                     `json:"mobile,omitempty"`                 // 手机号, 字段权限要求: 获取用户手机号
+	Mobile               string                                                     `json:"mobile,omitempty"`                 // 手机号，中国大陆手机可不填区号，境外手机需加国际电话区号前缀。, 字段权限要求: 获取用户手机号
 	Gender               int64                                                      `json:"gender,omitempty"`                 // 性别, 可选值有: `0`：保密, `1`：男, `2`：女,**字段权限要求（满足任一）**：,以应用身份读取通讯录,获取用户性别,以应用身份访问通讯录,读取通讯录
 	Avatar               *EventV2ContactScopeUpdatedV3RemovedUserAvatar             `json:"avatar,omitempty"`                 // 用户头像信息,**字段权限要求（满足任一）**：,以应用身份读取通讯录,获取用户基本信息,以应用身份访问通讯录,读取通讯录
 	Status               *EventV2ContactScopeUpdatedV3RemovedUserStatus             `json:"status,omitempty"`                 // 用户状态,**字段权限要求（满足任一）**：,以应用身份读取通讯录,获取用户雇佣信息,以应用身份访问通讯录,读取通讯录
@@ -2262,7 +2262,7 @@ type EventV2ContactScopeUpdatedV3RemovedUserCustomAttrValue struct {
 
 // EventV2ContactScopeUpdatedV3RemovedUserCustomAttrValueGenericUser ...
 type EventV2ContactScopeUpdatedV3RemovedUserCustomAttrValueGenericUser struct {
-	ID   string `json:"id,omitempty"`   // 用户的user_id
+	ID   string `json:"id,omitempty"`   // 用户的user_id [用户相关的 ID 概念](https://open.feishu.cn/document/home/user-identity-introduction/introduction)
 	Type int64  `json:"type,omitempty"` // 用户类型    1：用户
 }
 
@@ -2311,6 +2311,7 @@ type EventV2ContactUserCreatedV3Object struct {
 	Nickname        string                                         `json:"nickname,omitempty"`         // 别名,**字段权限要求（满足任一）**：,以应用身份读取通讯录,获取用户基本信息,以应用身份访问通讯录,读取通讯录
 	Email           string                                         `json:"email,omitempty"`            // 邮箱, 字段权限要求: 获取用户邮箱信息
 	EnterpriseEmail string                                         `json:"enterprise_email,omitempty"` // 企业邮箱
+	JobTitle        string                                         `json:"job_title,omitempty"`        // 职务
 	Mobile          string                                         `json:"mobile,omitempty"`           // 手机号, 字段权限要求: 获取用户手机号
 	Gender          int64                                          `json:"gender,omitempty"`           // 性别, 可选值有: `0`：未知, `1`：男, `2`：女,**字段权限要求（满足任一）**：,以应用身份读取通讯录,获取用户性别,以应用身份访问通讯录,读取通讯录
 	Avatar          *EventV2ContactUserCreatedV3ObjectAvatar       `json:"avatar,omitempty"`           // 用户头像信息,**字段权限要求（满足任一）**：,以应用身份读取通讯录,获取用户基本信息,以应用身份访问通讯录,读取通讯录
@@ -2407,6 +2408,7 @@ type EventV2ContactUserDeletedV3Object struct {
 	Nickname        string                                         `json:"nickname,omitempty"`         // 别名,**字段权限要求（满足任一）**：,以应用身份读取通讯录,获取用户基本信息,以应用身份访问通讯录,读取通讯录
 	Email           string                                         `json:"email,omitempty"`            // 邮箱, 字段权限要求: 获取用户邮箱信息
 	EnterpriseEmail string                                         `json:"enterprise_email,omitempty"` // 企业邮箱
+	JobTitle        string                                         `json:"job_title,omitempty"`        // 职务
 	Mobile          string                                         `json:"mobile,omitempty"`           // 手机号, 字段权限要求: 获取用户手机号
 	Gender          int64                                          `json:"gender,omitempty"`           // 性别, 可选值有: `0`：未知, `1`：男, `2`：女,**字段权限要求（满足任一）**：,以应用身份读取通讯录,获取用户性别,以应用身份访问通讯录,读取通讯录
 	Avatar          *EventV2ContactUserDeletedV3ObjectAvatar       `json:"avatar,omitempty"`           // 用户头像信息,**字段权限要求（满足任一）**：,以应用身份读取通讯录,获取用户基本信息,以应用身份访问通讯录,读取通讯录
@@ -2509,6 +2511,7 @@ type EventV2ContactUserUpdatedV3Object struct {
 	Nickname        string                                         `json:"nickname,omitempty"`         // 别名,**字段权限要求（满足任一）**：,以应用身份读取通讯录,获取用户基本信息,以应用身份访问通讯录,读取通讯录
 	Email           string                                         `json:"email,omitempty"`            // 邮箱, 字段权限要求: 获取用户邮箱信息
 	EnterpriseEmail string                                         `json:"enterprise_email,omitempty"` // 企业邮箱
+	JobTitle        string                                         `json:"job_title,omitempty"`        // 职务
 	Mobile          string                                         `json:"mobile,omitempty"`           // 手机号, 字段权限要求: 获取用户手机号
 	Gender          int64                                          `json:"gender,omitempty"`           // 性别, 可选值有: `0`：未知, `1`：男, `2`：女,**字段权限要求（满足任一）**：,以应用身份读取通讯录,获取用户性别,以应用身份访问通讯录,读取通讯录
 	Avatar          *EventV2ContactUserUpdatedV3ObjectAvatar       `json:"avatar,omitempty"`           // 用户头像信息,**字段权限要求（满足任一）**：,以应用身份读取通讯录,获取用户基本信息,以应用身份访问通讯录,读取通讯录
@@ -2583,6 +2586,7 @@ type EventV2ContactUserUpdatedV3OldObject struct {
 	EnName        string                                            `json:"en_name,omitempty"`        // 英文名,**字段权限要求（满足任一）**：,以应用身份读取通讯录,获取用户基本信息,以应用身份访问通讯录,读取通讯录
 	Nickname      string                                            `json:"nickname,omitempty"`       // 别名,**字段权限要求（满足任一）**：,以应用身份读取通讯录,获取用户基本信息,以应用身份访问通讯录,读取通讯录
 	Email         string                                            `json:"email,omitempty"`          // 邮箱, 字段权限要求: 获取用户邮箱信息
+	JobTitle      string                                            `json:"job_title,omitempty"`      // 职务
 	Mobile        string                                            `json:"mobile,omitempty"`         // 手机号, 字段权限要求: 获取用户手机号
 	Gender        int64                                             `json:"gender,omitempty"`         // 性别, 可选值有: `0`：未知, `1`：男, `2`：女,**字段权限要求（满足任一）**：,以应用身份读取通讯录,获取用户性别,以应用身份访问通讯录,读取通讯录
 	Avatar        *EventV2ContactUserUpdatedV3OldObjectAvatar       `json:"avatar,omitempty"`         // 用户头像信息,**字段权限要求（满足任一）**：,以应用身份读取通讯录,获取用户基本信息,以应用身份访问通讯录,读取通讯录

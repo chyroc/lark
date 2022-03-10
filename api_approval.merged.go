@@ -397,7 +397,7 @@ type AddApprovalInstanceSignReq struct {
 	ApprovalCode   string   `json:"approval_code,omitempty"`     // 审批定义 Code
 	InstanceCode   string   `json:"instance_code,omitempty"`     // 审批实例 Code
 	UserID         string   `json:"user_id,omitempty"`           // 操作用户
-	TaskID         string   `json:"task_id,omitempty"`           // 任务 ID
+	TaskID         string   `json:"task_id,omitempty"`           // 任务 ID<br>审批实例详情task_list中id，详情请参考[](https://open.feishu.cn/document/ukTMukTMukTM/uEDNyUjLxQjM14SM0ITN)
 	Comment        *string  `json:"comment,omitempty"`           // 意见
 	AddSignUserIDs []string `json:"add_sign_user_ids,omitempty"` // 被加签人id
 	AddSignType    string   `json:"add_sign_type,omitempty"`     // 1/2/3分别代表前加签/后加签/并加签
@@ -458,7 +458,7 @@ type ApproveApprovalInstanceReq struct {
 	InstanceCode string  `json:"instance_code,omitempty"` // 审批实例 Code
 	OpenID       *string `json:"open_id,omitempty"`       // 用户open_id，如果没有user_id，必须要有open_id
 	UserID       string  `json:"user_id,omitempty"`       // 操作用户
-	TaskID       string  `json:"task_id,omitempty"`       // 任务 ID
+	TaskID       string  `json:"task_id,omitempty"`       // 任务 ID<br>审批实例详情task_list中id，详情请参考[](https://open.feishu.cn/document/ukTMukTMukTM/uEDNyUjLxQjM14SM0ITN)
 	Comment      *string `json:"comment,omitempty"`       // 意见
 }
 
@@ -634,7 +634,7 @@ func (r *Mock) UnMockApprovalGetApprovalInstance() {
 
 // GetApprovalInstanceReq ...
 type GetApprovalInstanceReq struct {
-	InstanceCode string  `json:"instance_code,omitempty"` // 审批实例 Code, 若在创建的时候穿了uuid, 也可以通过传uuid获取
+	InstanceCode string  `json:"instance_code,omitempty"` // 审批实例 Code, 若在创建的时候传了uuid, 也可以通过传uuid获取
 	Locale       *string `json:"locale,omitempty"`        // zh-CN - 中文<br>en-US - 英文<br>ja-JP - 日文
 	UserID       *string `json:"user_id,omitempty"`       // 发起审批用户,平台级审批时使用
 	OpenID       *string `json:"open_id,omitempty"`       // 发起审批用户 open id
@@ -900,7 +900,7 @@ type RejectApprovalInstanceReq struct {
 	InstanceCode string  `json:"instance_code,omitempty"` // 审批实例 Code
 	OpenID       string  `json:"open_id,omitempty"`       // 用户open_id，如果没有user_id，必须要有open_id
 	UserID       string  `json:"user_id,omitempty"`       // 操作用户
-	TaskID       string  `json:"task_id,omitempty"`       // 任务 ID
+	TaskID       string  `json:"task_id,omitempty"`       // 任务 ID<br>审批实例详情task_list中id，详情请参考[](https://open.feishu.cn/document/ukTMukTMukTM/uEDNyUjLxQjM14SM0ITN)
 	Comment      *string `json:"comment,omitempty"`       // 意见
 }
 
@@ -1131,7 +1131,7 @@ type TransferApprovalInstanceReq struct {
 	ApprovalCode   string  `json:"approval_code,omitempty"`    // 审批定义 Code
 	InstanceCode   string  `json:"instance_code,omitempty"`    // 审批实例 Code
 	UserID         string  `json:"user_id,omitempty"`          // 操作用户
-	TaskID         string  `json:"task_id,omitempty"`          // 任务 ID
+	TaskID         string  `json:"task_id,omitempty"`          // 任务 ID<br>审批实例详情task_list中id，详情请参考[](https://open.feishu.cn/document/ukTMukTMukTM/uEDNyUjLxQjM14SM0ITN)
 	Comment        *string `json:"comment,omitempty"`          // 意见
 	TransferUserID string  `json:"transfer_user_id,omitempty"` // 被转交人唯一 ID
 	OpenID         *string `json:"open_id,omitempty"`          // 用户open_id <br>如果没有user_id，必须要有open_id
@@ -1188,8 +1188,11 @@ func (r *Mock) UnMockApprovalUpdateApprovalMessage() {
 
 // UpdateApprovalMessageReq ...
 type UpdateApprovalMessageReq struct {
-	MessageID string `json:"message_id,omitempty"` // 卡片 id，发送卡片时会拿到
-	Status    string `json:"status,omitempty"`     // 状态类型，用于更新第一个action文字内容，枚举：<br> APPROVED:-已同意<br>REJECTED:-已拒绝<br>CANCELLED:-已撤回<br>FORWARDED:-已转交<br>ROLLBACK:-已回退<br>ADD:-已加签<br>DELETED:-已删除<br>PROCESSED:-已处理
+	MessageID        string  `json:"message_id,omitempty"`         // 卡片 id，发送卡片时会拿到
+	Status           string  `json:"status,omitempty"`             // 状态类型，用于更新第一个action文字内容，枚举：<br> APPROVED:-已同意<br>REJECTED:-已拒绝<br>CANCELLED:-已撤回<br>FORWARDED:-已转交<br>ROLLBACK:-已回退<br>ADD:-已加签<br>DELETED:-已删除<br>PROCESSED:-已处理
+	StatusName       *string `json:"status_name,omitempty"`        // 审批同意/拒绝后title状态
+	DetailActionName *string `json:"detail_action_name,omitempty"` // 审批同意/拒绝后“查看详情按钮名称”
+	I18nResources    *string `json:"i18n_resources,omitempty"`     // i18n国际化文案
 }
 
 // updateApprovalMessageResp ...

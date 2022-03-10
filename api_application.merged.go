@@ -1372,7 +1372,7 @@ type GetApprovalRespNode struct {
 
 // GetApprovalRespViewer ...
 type GetApprovalRespViewer struct {
-	Type   string  `json:"type,omitempty"`    // 可见人类型，分别有：<br>TENANT：租户内可见<br>DEPARTMENT：指定部门<br> USER：指定用户<br>NONE：任何人都不可见
-	OpenID *string `json:"open_id,omitempty"` // 在可见人类型为DEPARTMENT时，open_id为部门的open_id<br>在可见人类型为USER时，open_id为用户的open_id
+	Type   string  `json:"type,omitempty"`    // 可见人类型，分别有：<br>TENANT：租户内可见<br>DEPARTMENT：指定部门<br> USER：指定用户<br> ROLE：指定角色<br> USER_GROUP：指定用户组<br>NONE：任何人都不可见
+	OpenID *string `json:"open_id,omitempty"` // 在可见人类型为DEPARTMENT时，open_id为部门的open_id<br>在可见人类型为USER时，open_id为用户的open_id<br>在可见人类型为ROLE时，open_id为角色的open_id<br>在可见人类型为USER_GROUP时，open_id为用户组的open_id
 	UserID *string `json:"user_id,omitempty"` // 在可见人类型为USER时，表示可见人用户id
 }
