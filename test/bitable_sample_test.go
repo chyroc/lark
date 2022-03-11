@@ -157,6 +157,12 @@ func Test_Bitable_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.UpdateBitableMeta(ctx, &lark.UpdateBitableMetaReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "failed")
+		})
+
+		t.Run("", func(t *testing.T) {
 			_, _, err := moduleCli.GetBitableMeta(ctx, &lark.GetBitableMetaReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "failed")
@@ -388,6 +394,17 @@ func Test_Bitable_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
+			cli.Mock().MockBitableUpdateBitableMeta(func(ctx context.Context, request *lark.UpdateBitableMetaReq, options ...lark.MethodOptionFunc) (*lark.UpdateBitableMetaResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockBitableUpdateBitableMeta()
+
+			_, _, err := moduleCli.UpdateBitableMeta(ctx, &lark.UpdateBitableMetaReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
 			cli.Mock().MockBitableGetBitableMeta(func(ctx context.Context, request *lark.GetBitableMetaReq, options ...lark.MethodOptionFunc) (*lark.GetBitableMetaResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -586,6 +603,14 @@ func Test_Bitable_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.UpdateBitableMeta(ctx, &lark.UpdateBitableMetaReq{
+				AppToken: "x",
+			})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
 			_, _, err := moduleCli.GetBitableMeta(ctx, &lark.GetBitableMetaReq{
 				AppToken: "x",
 			})
@@ -777,6 +802,14 @@ func Test_Bitable_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 			_, _, err := moduleCli.BatchDeleteBitableTable(ctx, &lark.BatchDeleteBitableTableReq{
+				AppToken: "x",
+			})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+			_, _, err := moduleCli.UpdateBitableMeta(ctx, &lark.UpdateBitableMetaReq{
 				AppToken: "x",
 			})
 			as.NotNil(err)
