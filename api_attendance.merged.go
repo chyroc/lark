@@ -2467,7 +2467,7 @@ type GetAttendanceUserTaskRemedyRespUserRemedy struct {
 
 // GetAccessToken 获取登录预授权码 code 对应的登录用户身份。
 //
-// 该接口仅适用于通过网页应用登录方式获取的预授权码，小程序登录中用户身份的获取，请使用[小程序 code2session 接口](https://open.feishu.cn/document/uYjL24iN/ukjM04SOyQjL5IDN)
+// 该接口仅适用于通过[第三方网站免登](https://open.feishu.cn/document/ukTMukTMukTM/uETOwYjLxkDM24SM5AjN)文档中的登录方式获取的预授权码，小程序登录中用户身份的获取，请使用[小程序 code2session 接口](https://open.feishu.cn/document/uYjL24iN/ukjM04SOyQjL5IDN)
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/authen-v1/authen/access_token
 func (r *AuthService) GetAccessToken(ctx context.Context, request *GetAccessTokenReq, options ...MethodOptionFunc) (*GetAccessTokenResp, *Response, error) {
