@@ -16,6 +16,7 @@
 package card_test
 
 import (
+	"encoding/json"
 	"testing"
 
 	"github.com/chyroc/lark/card"
@@ -49,4 +50,9 @@ func Test_Object(t *testing.T) {
 	as.Equal(`{"url":"url","ios_url":"val"}`, jsonString(card.URL("url").SetIOSURL("val")))
 	as.Equal(`{"url":"url","android_url":"val"}`, jsonString(card.URL("url").SetAndroidURL("val")))
 	as.Equal(`{"url":"url","pc_url":"val"}`, jsonString(card.URL("url").SetPCURL("val")))
+}
+
+func jsonString(v interface{}) string {
+	bs, _ := json.Marshal(v)
+	return string(bs)
 }
