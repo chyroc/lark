@@ -417,6 +417,7 @@ type GetCalendarEventAttendeeChatMemberListRespItem struct {
 // - 新添加的日程参与人必须与日程组织者在同一个企业内。
 // - 使用该接口添加会议室后，会议室会进入异步的预约流程，请求结束不代表会议室预约成功，需后续再查询预约状态。
 // - 每个日程最多只能有 3000 名参与人。
+// - 开启管理员能力后预约会议室可不受会议室预约范围的限制（当前不支持用管理员身份给其他人的日程预约会议室）
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar-event-attendee/create
 func (r *CalendarService) CreateCalendarEventAttendee(ctx context.Context, request *CreateCalendarEventAttendeeReq, options ...MethodOptionFunc) (*CreateCalendarEventAttendeeResp, *Response, error) {
@@ -453,11 +454,13 @@ func (r *Mock) UnMockCalendarCreateCalendarEventAttendee() {
 
 // CreateCalendarEventAttendeeReq ...
 type CreateCalendarEventAttendeeReq struct {
-	UserIDType       *IDType                                   `query:"user_id_type" json:"-"`      // 用户 ID 类型, 示例值："open_id", 可选值有: `open_id`：用户的 open id, `union_id`：用户的 union id, `user_id`：用户的 user id, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
-	CalendarID       string                                    `path:"calendar_id" json:"-"`        // 日历ID。参见[日历ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar/introduction), 示例值："feishu.cn_xxxxxxxxxx@group.calendar.feishu.cn"
-	EventID          string                                    `path:"event_id" json:"-"`           // 日程ID。参见[日程ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar-event/introduction), 示例值："xxxxxxxxx_0"
-	Attendees        []*CreateCalendarEventAttendeeReqAttendee `json:"attendees,omitempty"`         // 新增参与人列表；<br>, 单次请求会议室的数量限制为100。
-	NeedNotification *bool                                     `json:"need_notification,omitempty"` // 是否给参与人发送bot通知 默认为true, 示例值：false
+	UserIDType             *IDType                                   `query:"user_id_type" json:"-"`              // 用户 ID 类型, 示例值："open_id", 可选值有: `open_id`：用户的 open id, `union_id`：用户的 union id, `user_id`：用户的 user id, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
+	CalendarID             string                                    `path:"calendar_id" json:"-"`                // 日历ID。参见[日历ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar/introduction), 示例值："feishu.cn_xxxxxxxxxx@group.calendar.feishu.cn"
+	EventID                string                                    `path:"event_id" json:"-"`                   // 日程ID。参见[日程ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar-event/introduction), 示例值："xxxxxxxxx_0"
+	Attendees              []*CreateCalendarEventAttendeeReqAttendee `json:"attendees,omitempty"`                 // 新增参与人列表；<br>, 单次请求会议室的数量限制为100。
+	NeedNotification       *bool                                     `json:"need_notification,omitempty"`         // 是否给参与人发送bot通知 默认为true, 示例值：false
+	InstanceStartTimeAdmin *string                                   `json:"instance_start_time_admin,omitempty"` // 使用管理员身份访问时要修改的实例(仅用于重复日程修改其中的一个实例，非重复日程无需填此字段), 示例值："1647320400"
+	IsEnableAdmin          *bool                                     `json:"is_enable_admin,omitempty"`           // 是否启用管理员身份(需先在管理后台设置某人为会议室管理员), 示例值：false
 }
 
 // CreateCalendarEventAttendeeReqAttendee ...
@@ -579,10 +582,12 @@ func (r *Mock) UnMockCalendarDeleteCalendarEventAttendee() {
 
 // DeleteCalendarEventAttendeeReq ...
 type DeleteCalendarEventAttendeeReq struct {
-	CalendarID       string   `path:"calendar_id" json:"-"`        // 日历ID。参见[日历ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar/introduction), 示例值："feishu.cn_xxxxxxxxxx@group.calendar.feishu.cn"
-	EventID          string   `path:"event_id" json:"-"`           // 日程ID。参见[日程ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar-event/introduction), 示例值："xxxxxxxxx_0"
-	AttendeeIDs      []string `json:"attendee_ids,omitempty"`      // 要移除的参与人 ID 列表。参见[参与人ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar-event-attendee/introduction#4998889c), 示例值：["user_xxxxx", "chat_xxxxx", "resource_xxxxx", "third_party_xxxxx"]
-	NeedNotification *bool    `json:"need_notification,omitempty"` // 删除日程参与人时是否要给参与人发送bot通知，默认为true, 示例值：false
+	CalendarID             string   `path:"calendar_id" json:"-"`                // 日历ID。参见[日历ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar/introduction), 示例值："feishu.cn_xxxxxxxxxx@group.calendar.feishu.cn"
+	EventID                string   `path:"event_id" json:"-"`                   // 日程ID。参见[日程ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar-event/introduction), 示例值："xxxxxxxxx_0"
+	AttendeeIDs            []string `json:"attendee_ids,omitempty"`              // 要移除的参与人 ID 列表。参见[参与人ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar-event-attendee/introduction#4998889c), 示例值：["user_xxxxx", "chat_xxxxx", "resource_xxxxx", "third_party_xxxxx"]
+	NeedNotification       *bool    `json:"need_notification,omitempty"`         // 删除日程参与人时是否要给参与人发送bot通知，默认为true, 示例值：false
+	InstanceStartTimeAdmin *string  `json:"instance_start_time_admin,omitempty"` // 使用管理员身份访问时要修改的实例, 示例值："1647320400"
+	IsEnableAdmin          *bool    `json:"is_enable_admin,omitempty"`           // 是否启用管理员身份(需先在管理后台设置某人为会议室管理员), 示例值：false
 }
 
 // deleteCalendarEventAttendeeResp ...
