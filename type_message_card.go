@@ -29,6 +29,33 @@ func (r MessageContentCard) String() string {
 	return jsonString(r)
 }
 
+// // UnmarshalJSON ...
+// func (r *MessageContentCard) UnmarshalJSON(bytes []byte) error {
+// 	var post struct {
+// 		Header  *MessageContentCardHeader `json:"header,omitempty"`   // 用于配置卡片标题内容。
+// 		Config  *MessageContentCardConfig `json:"config,omitempty"`   // 配置卡片属性
+// 		Modules []json.RawMessage         `json:"elements,omitempty"` // 用于定义卡片正文内容
+// 	}
+// 	if err := json.Unmarshal(bytes, &post); err != nil {
+// 		return err
+// 	}
+//
+// 	r.Header = post.Header
+// 	r.Config = post.Config
+// 	r.Modules = make([]MessageContentCardModule, 0)
+//
+// 	for vIdx, v := range post.Modules {
+// 		_ = vIdx
+// 		var module MessageContentCardModule
+// 		if err := json.Unmarshal(v, &module); err != nil {
+// 			return err
+// 		}
+// 		r.Modules = append(r.Modules, module)
+// 	}
+//
+// 	panic("implement me")
+// }
+
 func (r *MessageContentCard) SetHeader(val *MessageContentCardHeader) *MessageContentCard {
 	r.Header = val
 	return r

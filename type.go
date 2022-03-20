@@ -20,16 +20,22 @@ type MsgType string
 
 // MsgTypeText ...
 const (
-	MsgTypeText        MsgType = "text"        // 文本
-	MsgTypePost        MsgType = "post"        // 富文本
-	MsgTypeImage       MsgType = "image"       // 图片
-	MsgTypeFile        MsgType = "file"        // 文件
-	MsgTypeAudio       MsgType = "audio"       // 语音
-	MsgTypeMedia       MsgType = "media"       // 视频
-	MsgTypeSticker     MsgType = "sticker"     // 表情包
-	MsgTypeInteractive MsgType = "interactive" // 卡片消息
-	MsgTypeShareChat   MsgType = "share_chat"  // 分享群卡片
-	MsgTypeShareUser   MsgType = "share_user"  // 分享个人卡片
+	MsgTypeText               MsgType = "text"                 // 文本
+	MsgTypePost               MsgType = "post"                 // 富文本
+	MsgTypeImage              MsgType = "image"                // 图片
+	MsgTypeFile               MsgType = "file"                 // 文件
+	MsgTypeAudio              MsgType = "audio"                // 语音
+	MsgTypeMedia              MsgType = "media"                // 视频
+	MsgTypeSticker            MsgType = "sticker"              // 表情包
+	MsgTypeInteractive        MsgType = "interactive"          // 卡片消息
+	MsgTypeRedBag             MsgType = "red_bag"              // 红包
+	MsgTypeShareCalendarEvent MsgType = "share_calendar_event" // 分享日历事件
+	MsgTypeShareChat          MsgType = "share_chat"           // 分享群卡片
+	MsgTypeShareUser          MsgType = "share_user"           // 分享个人卡片
+	MsgTypeMergeForward       MsgType = "merge_forward"        // 合并转发消息内容
+	MsgTypeSystem             MsgType = "system"               // 系统消息
+	MsgTypeLocation           MsgType = "location"             // 地理位置
+	MsgTypeVideoChat          MsgType = "video_chat"           // 视频通话
 )
 
 // MsgTypePtr ...

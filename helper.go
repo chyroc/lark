@@ -53,7 +53,7 @@ func GetErrorCode(err error) int64 {
 			return e.Code
 		}
 	}
-	return -1
+	return 0
 }
 
 // UnwrapMessageContent 接收消息解析
@@ -74,10 +74,13 @@ func UnwrapMessageContent(msgType MsgType, content string) (*MessageContent, err
 		System:             new(MessageContentSystem),
 		Location:           new(MessageContentLocation),
 		VideoChat:          new(MessageContentVideoChat),
+		Post:               new(MessageContentPost),
 	}
 	switch msgType {
 	case MsgTypeText:
 		return msg, unmarshalMessageContent(msgType, content, msg.Text)
+	case MsgTypePost:
+		return msg, unmarshalMessageContent(msgType, content, msg.Post)
 	case MsgTypeImage:
 		return msg, unmarshalMessageContent(msgType, content, msg.Image)
 	case MsgTypeFile:
@@ -88,20 +91,22 @@ func UnwrapMessageContent(msgType MsgType, content string) (*MessageContent, err
 		return msg, unmarshalMessageContent(msgType, content, msg.Media)
 	case MsgTypeSticker:
 		return msg, unmarshalMessageContent(msgType, content, msg.Sticker)
-		// case MsgTypeRedBag:
-		// 	return msg, unmarshalMessageContent(msgType,content, msg.RedBag)
-		// case MsgTypeShareCalendarEvent:
-		// 	return msg, unmarshalMessageContent(msgType,content, msg.ShareCalendarEvent)
+	// case MsgTypeInteractive:
+	// 	return msg, unmarshalMessageContent(msgType, content, msg./)
+	case MsgTypeRedBag:
+		return msg, unmarshalMessageContent(msgType, content, msg.RedBag)
+	case MsgTypeShareCalendarEvent:
+		return msg, unmarshalMessageContent(msgType, content, msg.ShareCalendarEvent)
 	case MsgTypeShareChat:
 		return msg, unmarshalMessageContent(msgType, content, msg.ShareChat)
 	case MsgTypeShareUser:
 		return msg, unmarshalMessageContent(msgType, content, msg.ShareUser)
-		// case MsgTypeSystem:
-		// 	return msg, unmarshalMessageContent(msgType,content, msg.System)
-		// case MsgTypeLocation:
-		// 	return msg, unmarshalMessageContent(msgType,content, msg.Location)
-		// case MsgTypeVideoChat:
-		// 	return msg, unmarshalMessageContent(msgType,content, msg.VideoChat)
+	case MsgTypeSystem:
+		return msg, unmarshalMessageContent(msgType, content, msg.System)
+	case MsgTypeLocation:
+		return msg, unmarshalMessageContent(msgType, content, msg.Location)
+	case MsgTypeVideoChat:
+		return msg, unmarshalMessageContent(msgType, content, msg.VideoChat)
 	}
 	return nil, fmt.Errorf("unknown message type: %s", msgType)
 }

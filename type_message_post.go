@@ -39,13 +39,68 @@ type MessageContentPost struct {
 	Content [][]MessageContentPostItem `json:"content,omitempty"`
 }
 
+func (r *MessageContentPost) UnmarshalJSON(bytes []byte) error {
+	var post struct {
+		Title   string              `json:"title,omitempty"`
+		Content [][]json.RawMessage `json:"content,omitempty"`
+	}
+	if err := json.Unmarshal(bytes, &post); err != nil {
+		return err
+	}
+
+	r.Title = post.Title
+
+	r.Content = make([][]MessageContentPostItem, len(post.Content))
+	for vvIdx, vv := range post.Content {
+		r.Content[vvIdx] = make([]MessageContentPostItem, len(vv))
+		for vIdx, v := range vv {
+			var item messageContentPostAll
+			if err := json.Unmarshal(v, &item); err != nil {
+				return err
+			}
+			switch item.Tag {
+			case messageContentPostItemTypeText:
+				r.Content[vvIdx][vIdx] = MessageContentPostText{Text: item.Text, UnEscape: item.UnEscape}
+			case messageContentPostItemTypeLink:
+				r.Content[vvIdx][vIdx] = MessageContentPostLink{Text: item.Text, UnEscape: item.UnEscape, Href: item.Href}
+			case messageContentPostItemTypeImage:
+				r.Content[vvIdx][vIdx] = MessageContentPostImage{ImageKey: item.ImageKey, Height: item.Height, Width: item.Width}
+			case messageContentPostItemTypeAt:
+				r.Content[vvIdx][vIdx] = MessageContentPostAt{UserID: item.UserID, UserName: item.UserName}
+			}
+		}
+	}
+	return nil
+}
+
 // MessageContentPostItem ...
 type MessageContentPostItem interface {
-	// json.Marshaler
 	IsMessageContentPostItem() bool
 }
 
-// MessageContentPostText ...
+const (
+	messageContentPostItemTypeText  = "text"
+	messageContentPostItemTypeLink  = "a"
+	messageContentPostItemTypeImage = "img"
+	messageContentPostItemTypeAt    = "at"
+)
+
+type messageContentPostAll struct {
+	Tag string `json:"tag"`
+
+	Text     string `json:"text"`      // 文本内容
+	UnEscape bool   `json:"un_escape"` //
+	Href     string `json:"href"`      // 默认的链接地址
+
+	UserID   string `json:"user_id"`   // open_id
+	UserName string `json:"user_name"` // 用户姓名
+
+	ImageKey string `json:"image_key"` // 图片的唯一标识
+	Height   int    `json:"height"`    // 图片的高
+	Width    int    `json:"width"`     // 图片的宽
+}
+
+// MessageContentPostText 	文本内容
 type MessageContentPostText struct {
 	messageContentPostInterfaceDefaultImpl
 	Text     string `json:"text"`      // 文本内容
@@ -57,11 +112,11 @@ func (r MessageContentPostText) MarshalJSON() ([]byte, error) {
 	return json.Marshal(map[string]interface{}{
 		"text":      r.Text,
 		"un_escape": r.UnEscape,
-		"tag":       "text",
+		"tag":       messageContentPostItemTypeText,
 	})
 }
 
-// MessageContentPostLink ...
+// MessageContentPostLink 链接
 type MessageContentPostLink struct {
 	messageContentPostInterfaceDefaultImpl
 	Text     string `json:"text"`      // 文本内容
@@ -75,11 +130,11 @@ func (r MessageContentPostLink) MarshalJSON() ([]byte, error) {
 		"text":      r.Text,
 		"un_escape": r.UnEscape,
 		"href":      r.Href,
-		"tag":       "a",
+		"tag":       messageContentPostItemTypeText,
 	})
 }
 
-// MessageContentPostAt ...
+// MessageContentPostAt At用户
 type MessageContentPostAt struct {
 	messageContentPostInterfaceDefaultImpl
 	UserID   string `json:"user_id"`   // open_id
@@ -90,7 +145,7 @@ type MessageContentPostAt struct {
 func (r MessageContentPostAt) MarshalJSON() ([]byte, error) {
 	v := map[string]interface{}{
 		"user_id": r.UserID,
-		"tag":     "at",
+		"tag":     messageContentPostItemTypeAt,
 	}
 	if r.UserName != "" {
 		v["user_name"] = r.UserName
@@ -98,7 +153,7 @@ func (r MessageContentPostAt) MarshalJSON() ([]byte, error) {
 	return json.Marshal(v)
 }
 
-// MessageContentPostImage ...
+// MessageContentPostImage 图片
 type MessageContentPostImage struct {
 	messageContentPostInterfaceDefaultImpl
 	ImageKey string `json:"image_key"` // 图片的唯一标识
@@ -112,7 +167,7 @@ func (r MessageContentPostImage) MarshalJSON() ([]byte, error) {
 		"image_key": r.ImageKey,
 		"height":    r.Height,
 		"width":     r.Width,
-		"tag":       "img",
+		"tag":       messageContentPostItemTypeImage,
 	})
 }
 
