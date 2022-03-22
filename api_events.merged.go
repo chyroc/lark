@@ -934,7 +934,7 @@ type EventV2ApplicationApplicationAppVersionPublishApplyV6OnlineVersion struct {
 type EventV2ApplicationApplicationAppVersionPublishApplyV6OnlineVersionScope struct {
 	Scope       string `json:"scope,omitempty"`       // 应用权限
 	Description string `json:"description,omitempty"` // 应用权限的国际化描述
-	Level       string `json:"level,omitempty"`       // 权限等级描述, 可选值有: `1`：普通权限, `2`：高级权限, `3`：超敏感权限, `0`：未知等级
+	Level       int64  `json:"level,omitempty"`       // 权限等级描述, 可选值有: `1`：普通权限, `2`：高级权限, `3`：超敏感权限, `0`：未知等级
 }
 
 // EventV2ApplicationApplicationAppVersionPublishApplyV6OnlineVersionI18n ...
@@ -1118,7 +1118,7 @@ type EventV2ApplicationApplicationAppVersionPublishApplyV6UnderAuditVersion stru
 type EventV2ApplicationApplicationAppVersionPublishApplyV6UnderAuditVersionScope struct {
 	Scope       string `json:"scope,omitempty"`       // 应用权限
 	Description string `json:"description,omitempty"` // 应用权限的国际化描述
-	Level       string `json:"level,omitempty"`       // 权限等级描述, 可选值有: `1`：普通权限, `2`：高级权限, `3`：超敏感权限, `0`：未知等级
+	Level       int64  `json:"level,omitempty"`       // 权限等级描述, 可选值有: `1`：普通权限, `2`：高级权限, `3`：超敏感权限, `0`：未知等级
 }
 
 // EventV2ApplicationApplicationAppVersionPublishApplyV6UnderAuditVersionI18n ...
