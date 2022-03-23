@@ -36776,8 +36776,8 @@ func (r *Mock) UnMockOKRBatchGetOKR() {
 
 // BatchGetOKRReq ...
 type BatchGetOKRReq struct {
-	UserIDType *IDType  `query:"user_id_type" json:"-"` // 用户 ID 类型, 示例值："open_id", 可选值有: `open_id`：用户的 open id, `union_id`：用户的 union id, `user_id`：用户的 user id, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
-	OKRIDs     []string `query:"okr_ids" json:"-"`      // OKR ID 列表，最多10个
+	UserIDType *IDType  `query:"user_id_type" json:"-"` // 用户 ID 类型, 示例值："open_id", 可选值有: `open_id`：用户的 open id, `union_id`：用户的 union id, `user_id`：用户的 user id, `people_admin_id`：以people_admin_id来识别用户, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
+	OKRIDs     []string `query:"okr_ids" json:"-"`      // OKR ID 列表，最多10个, 示例值：7043693679567028244, 最大长度：`10`
 	Lang       *string  `query:"lang" json:"-"`         // 请求OKR的语言版本（比如@的人名），lang=en_us/zh_cn，请求 Query中, 示例值："zh_cn", 默认值: `zh_cn`
 }
 
@@ -36797,22 +36797,32 @@ type BatchGetOKRResp struct {
 type BatchGetOKRRespOKR struct {
 	ID            string                         `json:"id,omitempty"`             // id
 	Permission    int64                          `json:"permission,omitempty"`     // OKR的访问权限, 可选值有: `0`：此时OKR只返回id, `1`：返回OKR的其他具体字段
+	PeriodID      string                         `json:"period_id,omitempty"`      // period_id
 	Name          string                         `json:"name,omitempty"`           // 名称
 	ObjectiveList []*BatchGetOKRRespOKRObjective `json:"objective_list,omitempty"` // Objective列表
+	ConfirmStatus int64                          `json:"confirm_status,omitempty"` // OKR确认状态, 可选值有: `0`：未填写 OKR, `1`：已填写未发起确认, `2`：已发起待上级确认, `3`：上级未通过, `4`：上级已通过
 }
 
 // BatchGetOKRRespOKRObjective ...
 type BatchGetOKRRespOKRObjective struct {
-	ID                    string                                          `json:"id,omitempty"`                      // Objective ID
-	Permission            int64                                           `json:"permission,omitempty"`              // 权限, 可选值有: `0`：此时OKR只返回id, `1`：返回OKR的其他具体字段
-	Content               string                                          `json:"content,omitempty"`                 // Objective 内容
-	ProgressReport        string                                          `json:"progress_report,omitempty"`         // Objective 进度记录内容
-	Score                 int64                                           `json:"score,omitempty"`                   // Objective 分数（0 - 100）
-	Weight                float64                                         `json:"weight,omitempty"`                  // Objective的权重（0 - 100）
-	ProgressRate          *BatchGetOKRRespOKRObjectiveProgressRate        `json:"progress_rate,omitempty"`           // Objective进度
-	KrList                []*BatchGetOKRRespOKRObjectiveKr                `json:"kr_list,omitempty"`                 // Objective KeyResult 列表
-	AlignedObjectiveList  []*BatchGetOKRRespOKRObjectiveAlignedObjective  `json:"aligned_objective_list,omitempty"`  // 对齐到该Objective的Objective列表
-	AligningObjectiveList []*BatchGetOKRRespOKRObjectiveAligningObjective `json:"aligning_objective_list,omitempty"` // 该Objective对齐到的Objective列表
+	ID                                 string                                          `json:"id,omitempty"`                                      // Objective ID
+	Permission                         int64                                           `json:"permission,omitempty"`                              // 权限, 可选值有: `0`：此时OKR只返回id, `1`：返回OKR的其他具体字段
+	Content                            string                                          `json:"content,omitempty"`                                 // Objective 内容
+	ProgressReport                     string                                          `json:"progress_report,omitempty"`                         // Objective 进度记录内容
+	Score                              int64                                           `json:"score,omitempty"`                                   // Objective 分数（0 - 100）
+	Weight                             float64                                         `json:"weight,omitempty"`                                  // Objective的权重（0 - 100）
+	ProgressRate                       *BatchGetOKRRespOKRObjectiveProgressRate        `json:"progress_rate,omitempty"`                           // Objective进度
+	KrList                             []*BatchGetOKRRespOKRObjectiveKr                `json:"kr_list,omitempty"`                                 // Objective KeyResult 列表
+	AlignedObjectiveList               []*BatchGetOKRRespOKRObjectiveAlignedObjective  `json:"aligned_objective_list,omitempty"`                  // 对齐到该Objective的Objective列表
+	AligningObjectiveList              []*BatchGetOKRRespOKRObjectiveAligningObjective `json:"aligning_objective_list,omitempty"`                 // 该Objective对齐到的Objective列表
+	ProgressRecordList                 []*BatchGetOKRRespOKRObjectiveProgressRecord    `json:"progress_record_list,omitempty"`                    // 该Objective的进度列表
+	ProgressRatePercentLastUpdatedTime string                                          `json:"progress_rate_percent_last_updated_time,omitempty"` // 最后一次进度百分比更新时间 毫秒
+	ProgressRateStatusLastUpdatedTime  string                                          `json:"progress_rate_status_last_updated_time,omitempty"`  // 最后一次状态更新时间 毫秒
+	ProgressRecordLastUpdatedTime      string                                          `json:"progress_record_last_updated_time,omitempty"`       // 最后一次在侧边栏新增或者编辑进展的时间 毫秒
+	ProgressReportLastUpdatedTime      string                                          `json:"progress_report_last_updated_time,omitempty"`       // 最后一次编辑进展记录/备注的时间 毫秒
+	ScoreLastUpdatedTime               string                                          `json:"score_last_updated_time,omitempty"`                 // 最后一次打分更新时间 毫秒
+	Deadline                           string                                          `json:"deadline,omitempty"`                                // 截止时间 毫秒
+	MentionedUserList                  []*BatchGetOKRRespOKRObjectiveMentionedUser     `json:"mentioned_user_list,omitempty"`                     // 该Objective提到的人员列表
 }
 
 // BatchGetOKRRespOKRObjectiveProgressRate ...
@@ -36823,18 +36833,37 @@ type BatchGetOKRRespOKRObjectiveProgressRate struct {
 
 // BatchGetOKRRespOKRObjectiveKr ...
 type BatchGetOKRRespOKRObjectiveKr struct {
-	ID           string                                     `json:"id,omitempty"`            // Key Result ID
-	Content      string                                     `json:"content,omitempty"`       // KeyResult 内容
-	Score        int64                                      `json:"score,omitempty"`         // KeyResult打分（0 - 100）
-	Weight       int64                                      `json:"weight,omitempty"`        // KeyResult权重（0 - 100）（废弃）
-	KrWeight     float64                                    `json:"kr_weight,omitempty"`     // KeyResult的权重（0 - 100）
-	ProgressRate *BatchGetOKRRespOKRObjectiveKrProgressRate `json:"progress_rate,omitempty"` // KR进度
+	ID                                 string                                         `json:"id,omitempty"`                                      // Key Result ID
+	Content                            string                                         `json:"content,omitempty"`                                 // KeyResult 内容
+	Score                              int64                                          `json:"score,omitempty"`                                   // KeyResult打分（0 - 100）
+	Weight                             int64                                          `json:"weight,omitempty"`                                  // KeyResult权重（0 - 100）（废弃）
+	KrWeight                           float64                                        `json:"kr_weight,omitempty"`                               // KeyResult的权重（0 - 100）
+	ProgressRate                       *BatchGetOKRRespOKRObjectiveKrProgressRate     `json:"progress_rate,omitempty"`                           // KR进度
+	ProgressRecordList                 []*BatchGetOKRRespOKRObjectiveKrProgressRecord `json:"progress_record_list,omitempty"`                    // 该KR的进度列表
+	ProgressRatePercentLastUpdatedTime string                                         `json:"progress_rate_percent_last_updated_time,omitempty"` // 最后一次进度百分比更新时间 毫秒
+	ProgressRateStatusLastUpdatedTime  string                                         `json:"progress_rate_status_last_updated_time,omitempty"`  // 最后一次状态更新时间 毫秒
+	ProgressRecordLastUpdatedTime      string                                         `json:"progress_record_last_updated_time,omitempty"`       // 最后一次在侧边栏新增或者编辑进展的时间 毫秒
+	ProgressReportLastUpdatedTime      string                                         `json:"progress_report_last_updated_time,omitempty"`       // 最后一次编辑进展记录/备注的时间 毫秒
+	ScoreLastUpdatedTime               string                                         `json:"score_last_updated_time,omitempty"`                 // 最后一次打分更新时间 毫秒
+	Deadline                           string                                         `json:"deadline,omitempty"`                                // 截止时间 毫秒
+	MentionedUserList                  []*BatchGetOKRRespOKRObjectiveKrMentionedUser  `json:"mentioned_user_list,omitempty"`                     // 该Objective提到的人员列表
 }
 
 // BatchGetOKRRespOKRObjectiveKrProgressRate ...
 type BatchGetOKRRespOKRObjectiveKrProgressRate struct {
 	Percent int64  `json:"percent,omitempty"` // Objective 进度百分比 >= 0
 	Status  string `json:"status,omitempty"`  // Objective 进度状态, 可选值有: `-1`：未更新, `0`：正常, `1`：有风险, `2`：已延期
+}
+
+// BatchGetOKRRespOKRObjectiveKrProgressRecord ...
+type BatchGetOKRRespOKRObjectiveKrProgressRecord struct {
+	ID string `json:"id,omitempty"` // OKR 进展记录ID
+}
+
+// BatchGetOKRRespOKRObjectiveKrMentionedUser ...
+type BatchGetOKRRespOKRObjectiveKrMentionedUser struct {
+	OpenID string `json:"open_id,omitempty"` // 用户的 open_id
+	UserID string `json:"user_id,omitempty"` // 用户的 user_id
 }
 
 // BatchGetOKRRespOKRObjectiveAlignedObjective ...
@@ -36847,6 +36876,7 @@ type BatchGetOKRRespOKRObjectiveAlignedObjective struct {
 // BatchGetOKRRespOKRObjectiveAlignedObjectiveOwner ...
 type BatchGetOKRRespOKRObjectiveAlignedObjectiveOwner struct {
 	OpenID string `json:"open_id,omitempty"` // 用户的 open_id
+	UserID string `json:"user_id,omitempty"` // 用户的 user_id
 }
 
 // BatchGetOKRRespOKRObjectiveAligningObjective ...
@@ -36859,6 +36889,18 @@ type BatchGetOKRRespOKRObjectiveAligningObjective struct {
 // BatchGetOKRRespOKRObjectiveAligningObjectiveOwner ...
 type BatchGetOKRRespOKRObjectiveAligningObjectiveOwner struct {
 	OpenID string `json:"open_id,omitempty"` // 用户的 open_id
+	UserID string `json:"user_id,omitempty"` // 用户的 user_id
+}
+
+// BatchGetOKRRespOKRObjectiveProgressRecord ...
+type BatchGetOKRRespOKRObjectiveProgressRecord struct {
+	ID string `json:"id,omitempty"` // OKR 进展记录ID
+}
+
+// BatchGetOKRRespOKRObjectiveMentionedUser ...
+type BatchGetOKRRespOKRObjectiveMentionedUser struct {
+	OpenID string `json:"open_id,omitempty"` // 用户的 open_id
+	UserID string `json:"user_id,omitempty"` // 用户的 user_id
 }
 
 // Code generated by lark_sdk_gen. DO NOT EDIT.
@@ -36968,10 +37010,10 @@ func (r *Mock) UnMockOKRGetUserOKRList() {
 
 // GetUserOKRListReq ...
 type GetUserOKRListReq struct {
-	UserIDType *IDType  `query:"user_id_type" json:"-"` // 用户 ID 类型, 示例值："open_id", 可选值有: `open_id`：用户的 open id, `union_id`：用户的 union id, `user_id`：用户的 user id, `people_admin_id`：以people_admin_id来识别用户, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求:  获取用户 user ID
-	Offset     string   `query:"offset" json:"-"`       // 请求列表的偏移，offset>=0，请求Query中, 示例值："0"
-	Limit      string   `query:"limit" json:"-"`        // 请求列表的长度，0<limit<=10，请求Query中, 示例值："0"
-	Lang       *string  `query:"lang" json:"-"`         // 请求OKR的语言版本（比如@的人名），lang=en_us/zh_cn，请求 Query中, 示例值："zh_cn", 默认值: `zh_cn`
+	UserIDType *IDType  `query:"user_id_type" json:"-"` // 用户 ID 类型, 示例值："open_id", 可选值有: `open_id`：用户的 open id, `union_id`：用户的 union id, `user_id`：用户的 user id, `people_admin_id`：以people_admin_id来识别用户, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
+	Offset     string   `query:"offset" json:"-"`       // 请求列表的偏移，offset>=0, 示例值："0"
+	Limit      string   `query:"limit" json:"-"`        // 列表长度，0-10, 示例值："5"
+	Lang       *string  `query:"lang" json:"-"`         // 请求OKR的语言版本（比如@的人名），lang=en_us/zh_cn, 示例值："zh_cn", 默认值: `zh_cn`
 	PeriodIDs  []string `query:"period_ids" json:"-"`   // period_id列表，最多10个, 示例值：["6951461264858777132"], 最大长度：`10`
 	UserID     string   `path:"user_id" json:"-"`       // 目标用户id, 示例值："ou-asdasdasdasdasd"
 }
@@ -36996,20 +37038,29 @@ type GetUserOKRListRespOKR struct {
 	PeriodID      string                            `json:"period_id,omitempty"`      // period_id
 	Name          string                            `json:"name,omitempty"`           // 名称
 	ObjectiveList []*GetUserOKRListRespOKRObjective `json:"objective_list,omitempty"` // Objective列表
+	ConfirmStatus int64                             `json:"confirm_status,omitempty"` // OKR确认状态, 可选值有: `0`：未填写 OKR, `1`：已填写未发起确认, `2`：已发起待上级确认, `3`：上级未通过, `4`：上级已通过
 }
 
 // GetUserOKRListRespOKRObjective ...
 type GetUserOKRListRespOKRObjective struct {
-	ID                    string                                             `json:"id,omitempty"`                      // Objective ID
-	Permission            int64                                              `json:"permission,omitempty"`              // 权限, 可选值有: `0`：此时OKR只返回id, `1`：返回OKR的其他具体字段
-	Content               string                                             `json:"content,omitempty"`                 // Objective 内容
-	ProgressReport        string                                             `json:"progress_report,omitempty"`         // Objective 进度记录内容
-	Score                 int64                                              `json:"score,omitempty"`                   // Objective 分数（0 - 100）
-	Weight                float64                                            `json:"weight,omitempty"`                  // Objective的权重（0 - 100）
-	ProgressRate          *GetUserOKRListRespOKRObjectiveProgressRate        `json:"progress_rate,omitempty"`           // Objective进度
-	KrList                []*GetUserOKRListRespOKRObjectiveKr                `json:"kr_list,omitempty"`                 // Objective KeyResult 列表
-	AlignedObjectiveList  []*GetUserOKRListRespOKRObjectiveAlignedObjective  `json:"aligned_objective_list,omitempty"`  // 对齐到该Objective的Objective列表
-	AligningObjectiveList []*GetUserOKRListRespOKRObjectiveAligningObjective `json:"aligning_objective_list,omitempty"` // 该Objective对齐到的Objective列表
+	ID                                 string                                             `json:"id,omitempty"`                                      // Objective ID
+	Permission                         int64                                              `json:"permission,omitempty"`                              // 权限, 可选值有: `0`：此时OKR只返回id, `1`：返回OKR的其他具体字段
+	Content                            string                                             `json:"content,omitempty"`                                 // Objective 内容
+	ProgressReport                     string                                             `json:"progress_report,omitempty"`                         // Objective 进度记录内容
+	Score                              int64                                              `json:"score,omitempty"`                                   // Objective 分数（0 - 100）
+	Weight                             float64                                            `json:"weight,omitempty"`                                  // Objective的权重（0 - 100）
+	ProgressRate                       *GetUserOKRListRespOKRObjectiveProgressRate        `json:"progress_rate,omitempty"`                           // Objective进度
+	KrList                             []*GetUserOKRListRespOKRObjectiveKr                `json:"kr_list,omitempty"`                                 // Objective KeyResult 列表
+	AlignedObjectiveList               []*GetUserOKRListRespOKRObjectiveAlignedObjective  `json:"aligned_objective_list,omitempty"`                  // 对齐到该Objective的Objective列表
+	AligningObjectiveList              []*GetUserOKRListRespOKRObjectiveAligningObjective `json:"aligning_objective_list,omitempty"`                 // 该Objective对齐到的Objective列表
+	ProgressRecordList                 []*GetUserOKRListRespOKRObjectiveProgressRecord    `json:"progress_record_list,omitempty"`                    // 该Objective的进度列表
+	ProgressRatePercentLastUpdatedTime string                                             `json:"progress_rate_percent_last_updated_time,omitempty"` // 最后一次进度百分比更新时间 毫秒
+	ProgressRateStatusLastUpdatedTime  string                                             `json:"progress_rate_status_last_updated_time,omitempty"`  // 最后一次状态更新时间 毫秒
+	ProgressRecordLastUpdatedTime      string                                             `json:"progress_record_last_updated_time,omitempty"`       // 最后一次在侧边栏新增或者编辑进展的时间 毫秒
+	ProgressReportLastUpdatedTime      string                                             `json:"progress_report_last_updated_time,omitempty"`       // 最后一次编辑进展记录/备注的时间 毫秒
+	ScoreLastUpdatedTime               string                                             `json:"score_last_updated_time,omitempty"`                 // 最后一次打分更新时间 毫秒
+	Deadline                           string                                             `json:"deadline,omitempty"`                                // 截止时间 毫秒
+	MentionedUserList                  []*GetUserOKRListRespOKRObjectiveMentionedUser     `json:"mentioned_user_list,omitempty"`                     // 该Objective提到的人员列表
 }
 
 // GetUserOKRListRespOKRObjectiveProgressRate ...
@@ -37020,18 +37071,37 @@ type GetUserOKRListRespOKRObjectiveProgressRate struct {
 
 // GetUserOKRListRespOKRObjectiveKr ...
 type GetUserOKRListRespOKRObjectiveKr struct {
-	ID           string                                        `json:"id,omitempty"`            // Key Result ID
-	Content      string                                        `json:"content,omitempty"`       // KeyResult 内容
-	Score        int64                                         `json:"score,omitempty"`         // KeyResult打分（0 - 100）
-	Weight       int64                                         `json:"weight,omitempty"`        // KeyResult权重（0 - 100）（废弃）
-	KrWeight     float64                                       `json:"kr_weight,omitempty"`     // KeyResult的权重（0 - 100）
-	ProgressRate *GetUserOKRListRespOKRObjectiveKrProgressRate `json:"progress_rate,omitempty"` // KR进度
+	ID                                 string                                            `json:"id,omitempty"`                                      // Key Result ID
+	Content                            string                                            `json:"content,omitempty"`                                 // KeyResult 内容
+	Score                              int64                                             `json:"score,omitempty"`                                   // KeyResult打分（0 - 100）
+	Weight                             int64                                             `json:"weight,omitempty"`                                  // KeyResult权重（0 - 100）（废弃）
+	KrWeight                           float64                                           `json:"kr_weight,omitempty"`                               // KeyResult的权重（0 - 100）
+	ProgressRate                       *GetUserOKRListRespOKRObjectiveKrProgressRate     `json:"progress_rate,omitempty"`                           // KR进度
+	ProgressRecordList                 []*GetUserOKRListRespOKRObjectiveKrProgressRecord `json:"progress_record_list,omitempty"`                    // 该KR的进度列表
+	ProgressRatePercentLastUpdatedTime string                                            `json:"progress_rate_percent_last_updated_time,omitempty"` // 最后一次进度百分比更新时间 毫秒
+	ProgressRateStatusLastUpdatedTime  string                                            `json:"progress_rate_status_last_updated_time,omitempty"`  // 最后一次状态更新时间 毫秒
+	ProgressRecordLastUpdatedTime      string                                            `json:"progress_record_last_updated_time,omitempty"`       // 最后一次在侧边栏新增或者编辑进展的时间 毫秒
+	ProgressReportLastUpdatedTime      string                                            `json:"progress_report_last_updated_time,omitempty"`       // 最后一次编辑进展记录/备注的时间 毫秒
+	ScoreLastUpdatedTime               string                                            `json:"score_last_updated_time,omitempty"`                 // 最后一次打分更新时间 毫秒
+	Deadline                           string                                            `json:"deadline,omitempty"`                                // 截止时间 毫秒
+	MentionedUserList                  []*GetUserOKRListRespOKRObjectiveKrMentionedUser  `json:"mentioned_user_list,omitempty"`                     // 该Objective提到的人员列表
 }
 
 // GetUserOKRListRespOKRObjectiveKrProgressRate ...
 type GetUserOKRListRespOKRObjectiveKrProgressRate struct {
 	Percent int64  `json:"percent,omitempty"` // Objective 进度百分比 >= 0
 	Status  string `json:"status,omitempty"`  // Objective 进度状态, 可选值有: `-1`：未更新, `0`：正常, `1`：有风险, `2`：已延期
+}
+
+// GetUserOKRListRespOKRObjectiveKrProgressRecord ...
+type GetUserOKRListRespOKRObjectiveKrProgressRecord struct {
+	ID string `json:"id,omitempty"` // OKR 进展记录ID
+}
+
+// GetUserOKRListRespOKRObjectiveKrMentionedUser ...
+type GetUserOKRListRespOKRObjectiveKrMentionedUser struct {
+	OpenID string `json:"open_id,omitempty"` // 用户的 open_id
+	UserID string `json:"user_id,omitempty"` // 用户的 user_id
 }
 
 // GetUserOKRListRespOKRObjectiveAlignedObjective ...
@@ -37056,6 +37126,17 @@ type GetUserOKRListRespOKRObjectiveAligningObjective struct {
 
 // GetUserOKRListRespOKRObjectiveAligningObjectiveOwner ...
 type GetUserOKRListRespOKRObjectiveAligningObjectiveOwner struct {
+	OpenID string `json:"open_id,omitempty"` // 用户的 open_id
+	UserID string `json:"user_id,omitempty"` // 用户的 user_id
+}
+
+// GetUserOKRListRespOKRObjectiveProgressRecord ...
+type GetUserOKRListRespOKRObjectiveProgressRecord struct {
+	ID string `json:"id,omitempty"` // OKR 进展记录ID
+}
+
+// GetUserOKRListRespOKRObjectiveMentionedUser ...
+type GetUserOKRListRespOKRObjectiveMentionedUser struct {
 	OpenID string `json:"open_id,omitempty"` // 用户的 open_id
 	UserID string `json:"user_id,omitempty"` // 用户的 user_id
 }
