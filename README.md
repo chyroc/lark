@@ -38,7 +38,7 @@ https://godoc.org/github.com/chyroc/lark
 
 ## Support APIs
 
-API Count: 560, Event Count: 88
+API Count: 562, Event Count: 90
 
 <details>
   <summary>
@@ -372,6 +372,8 @@ API Count: 560, Event Count: 88
   - UpdateApplication
   - GetApplicationUsageOverview
   - GetApplicationUsageTrend
+  - UpdateApplicationFeedback
+  - GetApplicationFeedbackList
 - Mail
   - GetMailUser
   - CreateMailGroup
@@ -643,6 +645,8 @@ API Count: 560, Event Count: 88
   - EventV1AppUninstalled
   - EventV1AppStatusChange
   - EventV2ApplicationApplicationVisibilityAddedV6
+  - EventV2ApplicationApplicationFeedbackCreatedV6
+  - EventV2ApplicationApplicationFeedbackUpdatedV6
   - EventV2AttendanceUserTaskUpdatedV1
   - EventV2AttendanceUserFlowCreatedV1
   - EventV2AwemeEcosystemAwemeUserBindedAccountV1

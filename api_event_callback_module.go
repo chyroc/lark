@@ -59,6 +59,8 @@ const (
 	EventTypeV1AppUninstalled                                  EventType = "app_uninstalled"
 	EventTypeV1AppStatusChange                                 EventType = "app_status_change"
 	EventTypeV2ApplicationApplicationVisibilityAddedV6         EventType = "application.application.visibility.added_v6"
+	EventTypeV2ApplicationApplicationFeedbackCreatedV6         EventType = "application.application.feedback.created_v6"
+	EventTypeV2ApplicationApplicationFeedbackUpdatedV6         EventType = "application.application.feedback.updated_v6"
 	EventTypeV2AttendanceUserTaskUpdatedV1                     EventType = "attendance.user_task.updated_v1"
 	EventTypeV2AttendanceUserFlowCreatedV1                     EventType = "attendance.user_flow.created_v1"
 	EventTypeV2AwemeEcosystemAwemeUserBindedAccountV1          EventType = "aweme_ecosystem.aweme_user.binded_account_v1"
@@ -151,6 +153,8 @@ type eventHandler struct {
 	eventV1AppUninstalledHandler                                  EventV1AppUninstalledHandler
 	eventV1AppStatusChangeHandler                                 EventV1AppStatusChangeHandler
 	eventV2ApplicationApplicationVisibilityAddedV6Handler         EventV2ApplicationApplicationVisibilityAddedV6Handler
+	eventV2ApplicationApplicationFeedbackCreatedV6Handler         EventV2ApplicationApplicationFeedbackCreatedV6Handler
+	eventV2ApplicationApplicationFeedbackUpdatedV6Handler         EventV2ApplicationApplicationFeedbackUpdatedV6Handler
 	eventV2AttendanceUserTaskUpdatedV1Handler                     EventV2AttendanceUserTaskUpdatedV1Handler
 	eventV2AttendanceUserFlowCreatedV1Handler                     EventV2AttendanceUserFlowCreatedV1Handler
 	eventV2AwemeEcosystemAwemeUserBindedAccountV1Handler          EventV2AwemeEcosystemAwemeUserBindedAccountV1Handler
@@ -244,6 +248,8 @@ func (r *eventHandler) clone() *eventHandler {
 		eventV1AppUninstalledHandler:                                  r.eventV1AppUninstalledHandler,
 		eventV1AppStatusChangeHandler:                                 r.eventV1AppStatusChangeHandler,
 		eventV2ApplicationApplicationVisibilityAddedV6Handler:         r.eventV2ApplicationApplicationVisibilityAddedV6Handler,
+		eventV2ApplicationApplicationFeedbackCreatedV6Handler:         r.eventV2ApplicationApplicationFeedbackCreatedV6Handler,
+		eventV2ApplicationApplicationFeedbackUpdatedV6Handler:         r.eventV2ApplicationApplicationFeedbackUpdatedV6Handler,
 		eventV2AttendanceUserTaskUpdatedV1Handler:                     r.eventV2AttendanceUserTaskUpdatedV1Handler,
 		eventV2AttendanceUserFlowCreatedV1Handler:                     r.eventV2AttendanceUserFlowCreatedV1Handler,
 		eventV2AwemeEcosystemAwemeUserBindedAccountV1Handler:          r.eventV2AwemeEcosystemAwemeUserBindedAccountV1Handler,
@@ -336,6 +342,8 @@ type eventBody struct {
 	eventV1AppUninstalled                                  *EventV1AppUninstalled
 	eventV1AppStatusChange                                 *EventV1AppStatusChange
 	eventV2ApplicationApplicationVisibilityAddedV6         *EventV2ApplicationApplicationVisibilityAddedV6
+	eventV2ApplicationApplicationFeedbackCreatedV6         *EventV2ApplicationApplicationFeedbackCreatedV6
+	eventV2ApplicationApplicationFeedbackUpdatedV6         *EventV2ApplicationApplicationFeedbackUpdatedV6
 	eventV2AttendanceUserTaskUpdatedV1                     *EventV2AttendanceUserTaskUpdatedV1
 	eventV2AttendanceUserFlowCreatedV1                     *EventV2AttendanceUserFlowCreatedV1
 	eventV2AwemeEcosystemAwemeUserBindedAccountV1          *EventV2AwemeEcosystemAwemeUserBindedAccountV1
@@ -511,6 +519,18 @@ func (r *EventCallbackService) parserEventV2(req *eventReq) error {
 			return err
 		}
 		req.eventV2ApplicationApplicationVisibilityAddedV6 = event
+	case EventTypeV2ApplicationApplicationFeedbackCreatedV6:
+		event := new(EventV2ApplicationApplicationFeedbackCreatedV6)
+		if err := req.unmarshalEvent(event); err != nil {
+			return err
+		}
+		req.eventV2ApplicationApplicationFeedbackCreatedV6 = event
+	case EventTypeV2ApplicationApplicationFeedbackUpdatedV6:
+		event := new(EventV2ApplicationApplicationFeedbackUpdatedV6)
+		if err := req.unmarshalEvent(event); err != nil {
+			return err
+		}
+		req.eventV2ApplicationApplicationFeedbackUpdatedV6 = event
 	case EventTypeV2AttendanceUserTaskUpdatedV1:
 		event := new(EventV2AttendanceUserTaskUpdatedV1)
 		if err := req.unmarshalEvent(event); err != nil {
@@ -1128,6 +1148,16 @@ func (r *EventCallbackService) handlerEvent(ctx context.Context, req *eventReq) 
 	case req.eventV2ApplicationApplicationVisibilityAddedV6 != nil:
 		if r.cli.eventHandler.eventV2ApplicationApplicationVisibilityAddedV6Handler != nil {
 			s, err = r.cli.eventHandler.eventV2ApplicationApplicationVisibilityAddedV6Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2ApplicationApplicationVisibilityAddedV6)
+		}
+		return true, s, err
+	case req.eventV2ApplicationApplicationFeedbackCreatedV6 != nil:
+		if r.cli.eventHandler.eventV2ApplicationApplicationFeedbackCreatedV6Handler != nil {
+			s, err = r.cli.eventHandler.eventV2ApplicationApplicationFeedbackCreatedV6Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2ApplicationApplicationFeedbackCreatedV6)
+		}
+		return true, s, err
+	case req.eventV2ApplicationApplicationFeedbackUpdatedV6 != nil:
+		if r.cli.eventHandler.eventV2ApplicationApplicationFeedbackUpdatedV6Handler != nil {
+			s, err = r.cli.eventHandler.eventV2ApplicationApplicationFeedbackUpdatedV6Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2ApplicationApplicationFeedbackUpdatedV6)
 		}
 		return true, s, err
 	case req.eventV2AttendanceUserTaskUpdatedV1 != nil:

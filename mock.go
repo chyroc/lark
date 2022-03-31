@@ -341,6 +341,8 @@ type Mock struct {
 	mockApplicationUpdateApplication                           func(ctx context.Context, request *UpdateApplicationReq, options ...MethodOptionFunc) (*UpdateApplicationResp, *Response, error)
 	mockApplicationGetApplicationUsageOverview                 func(ctx context.Context, request *GetApplicationUsageOverviewReq, options ...MethodOptionFunc) (*GetApplicationUsageOverviewResp, *Response, error)
 	mockApplicationGetApplicationUsageTrend                    func(ctx context.Context, request *GetApplicationUsageTrendReq, options ...MethodOptionFunc) (*GetApplicationUsageTrendResp, *Response, error)
+	mockApplicationUpdateApplicationFeedback                   func(ctx context.Context, request *UpdateApplicationFeedbackReq, options ...MethodOptionFunc) (*UpdateApplicationFeedbackResp, *Response, error)
+	mockApplicationGetApplicationFeedbackList                  func(ctx context.Context, request *GetApplicationFeedbackListReq, options ...MethodOptionFunc) (*GetApplicationFeedbackListResp, *Response, error)
 	mockMailGetMailUser                                        func(ctx context.Context, request *GetMailUserReq, options ...MethodOptionFunc) (*GetMailUserResp, *Response, error)
 	mockMailCreateMailGroup                                    func(ctx context.Context, request *CreateMailGroupReq, options ...MethodOptionFunc) (*CreateMailGroupResp, *Response, error)
 	mockMailGetMailGroup                                       func(ctx context.Context, request *GetMailGroupReq, options ...MethodOptionFunc) (*GetMailGroupResp, *Response, error)

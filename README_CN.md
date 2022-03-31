@@ -38,7 +38,7 @@ https://godoc.org/github.com/chyroc/lark
 
 ## 支持的接口
 
-API 总数: 560, 事件总数: 88
+API 总数: 562, 事件总数: 90
 
 <details>
   <summary>
@@ -372,6 +372,8 @@ API 总数: 560, 事件总数: 88
   - UpdateApplication
   - GetApplicationUsageOverview
   - GetApplicationUsageTrend
+  - UpdateApplicationFeedback
+  - GetApplicationFeedbackList
 - Mail
   - GetMailUser
   - CreateMailGroup
@@ -643,6 +645,8 @@ API 总数: 560, 事件总数: 88
   - EventV1AppUninstalled
   - EventV1AppStatusChange
   - EventV2ApplicationApplicationVisibilityAddedV6
+  - EventV2ApplicationApplicationFeedbackCreatedV6
+  - EventV2ApplicationApplicationFeedbackUpdatedV6
   - EventV2AttendanceUserTaskUpdatedV1
   - EventV2AttendanceUserFlowCreatedV1
   - EventV2AwemeEcosystemAwemeUserBindedAccountV1
