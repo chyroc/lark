@@ -285,6 +285,7 @@ type EventV1LeaveApprovalV2 struct {
 	Type           string                                     `json:"type,omitempty"`             // 如: leave_approvalV2
 	InstanceCode   string                                     `json:"instance_code,omitempty"`    // 审批实例Code. 如: xxx
 	UserID         string                                     `json:"user_id,omitempty"`          // 用户id. 如: xxx
+	OpenID         string                                     `json:"open_id,omitempty"`          // 用户open_id. 如: ou_xxx
 	StartTime      int64                                      `json:"start_time,omitempty"`       // 审批发起时间. 如: 1564590532
 	EndTime        int64                                      `json:"end_time,omitempty"`         // 审批结束时间. 如: 1564590532
 	LeaveName      string                                     `json:"leave_name,omitempty"`       // 假期名称. 如: @i18n@123456
@@ -370,6 +371,7 @@ type EventV1OutApproval struct {
 	EndTime       int64                                  `json:"end_time,omitempty"`       // 审批结束时间. 如: 1589527354
 	TenantKey     string                                 `json:"tenant_key,omitempty"`     // 企业唯一标识. 如: 2d520d3b434f175e
 	Type          string                                 `json:"type,omitempty"`           // 事件类型. 如: out_approval
+	OpenID        string                                 `json:"open_id,omitempty"`        // 申请发起人open_id. 如: ou_xxx
 	UserID        string                                 `json:"user_id,omitempty"`        // 申请发起人. 如: g6964gd3
 }
 
@@ -482,6 +484,7 @@ type EventV1RemedyApproval struct {
 	Type         string `json:"type,omitempty"`          // 如: remedy_approval
 	InstanceCode string `json:"instance_code,omitempty"` // 审批实例Code. 如: xxx
 	EmployeeID   string `json:"employee_id,omitempty"`   // 用户id. 如: xxx
+	OpenID       string `json:"open_id,omitempty"`       // 用户open_id. 如: ou_xxx
 	StartTime    int64  `json:"start_time,omitempty"`    // 审批发起时间. 如: 1502199207
 	EndTime      int64  `json:"end_time,omitempty"`      // 审批结束时间. 如: 1502199307
 	RemedyTime   string `json:"remedy_time,omitempty"`   // 补卡时间. 如: 2018-12-01 12:00:00
@@ -642,6 +645,7 @@ type EventV1ShiftApproval struct {
 	Type         string `json:"type,omitempty"`          // 如: shift_approval
 	InstanceCode string `json:"instance_code,omitempty"` // 审批实例Code. 如: xxx
 	EmployeeID   string `json:"employee_id,omitempty"`   // 用户id. 如: xxx
+	OpenID       string `json:"open_id,omitempty"`       // 用户open_id. 如: ou_xxx
 	StartTime    int64  `json:"start_time,omitempty"`    // 审批发起时间. 如: 1502199207
 	EndTime      int64  `json:"end_time,omitempty"`      // 审批结束时间. 如: 1502199307
 	ShiftTime    string `json:"shift_time,omitempty"`    // 换班时间. 如: 2018-12-01 12:00:00
@@ -726,6 +730,7 @@ type EventV1TripApproval struct {
 	Type         string                              `json:"type,omitempty"`          // 如: trip_approval
 	InstanceCode string                              `json:"instance_code,omitempty"` // 审批实例Code. 如: xxx
 	EmployeeID   string                              `json:"employee_id,omitempty"`   // 用户id. 如: xxx
+	OpenID       string                              `json:"open_id,omitempty"`       // 用户open_id. 如: ou_xxx
 	StartTime    int64                               `json:"start_time,omitempty"`    // 审批发起时间. 如: 1502199207
 	EndTime      int64                               `json:"end_time,omitempty"`      // 审批结束时间. 如: 1502199307
 	Schedules    []*EventV1TripApprovalEventSchedule `json:"schedules,omitempty"`
@@ -774,6 +779,7 @@ type EventV1WorkApproval struct {
 	Type          string `json:"type,omitempty"`            // 如: work_approval
 	InstanceCode  string `json:"instance_code,omitempty"`   // 审批实例Code. 如: xxx
 	EmployeeID    string `json:"employee_id,omitempty"`     // 用户id. 如: xxx
+	OpenID        string `json:"open_id,omitempty"`         // 用户open_id. 如: ou_xxx
 	StartTime     int64  `json:"start_time,omitempty"`      // 审批发起时间. 如: 1502199207
 	EndTime       int64  `json:"end_time,omitempty"`        // 审批结束时间. 如: 1502199307
 	WorkType      string `json:"work_type,omitempty"`       // 加班类型. 如: xxx
