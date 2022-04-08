@@ -37,16 +37,19 @@ func Test_Auth_Sample_Failed(t *testing.T) {
 		moduleCli := cli.Auth
 
 		t.Run("", func(t *testing.T) {
+
 			_, _, err := moduleCli.GetAccessToken(ctx, &lark.GetAccessTokenReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "failed")
 		})
 
 		t.Run("", func(t *testing.T) {
+
 			_, _, err := moduleCli.RefreshAccessToken(ctx, &lark.RefreshAccessTokenReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "failed")
 		})
+
 	})
 
 	t.Run("request mock failed", func(t *testing.T) {
@@ -54,6 +57,7 @@ func Test_Auth_Sample_Failed(t *testing.T) {
 		moduleCli := cli.Auth
 
 		t.Run("", func(t *testing.T) {
+
 			cli.Mock().MockAuthGetAccessToken(func(ctx context.Context, request *lark.GetAccessTokenReq, options ...lark.MethodOptionFunc) (*lark.GetAccessTokenResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -65,6 +69,7 @@ func Test_Auth_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
+
 			cli.Mock().MockAuthRefreshAccessToken(func(ctx context.Context, request *lark.RefreshAccessTokenReq, options ...lark.MethodOptionFunc) (*lark.RefreshAccessTokenResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -74,6 +79,7 @@ func Test_Auth_Sample_Failed(t *testing.T) {
 			as.NotNil(err)
 			as.Equal(err.Error(), "mock-failed")
 		})
+
 	})
 
 	t.Run("response is failed", func(t *testing.T) {
@@ -81,16 +87,19 @@ func Test_Auth_Sample_Failed(t *testing.T) {
 		moduleCli := cli.Auth
 
 		t.Run("", func(t *testing.T) {
+
 			_, _, err := moduleCli.GetAccessToken(ctx, &lark.GetAccessTokenReq{})
 			as.NotNil(err)
 			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
 		})
 
 		t.Run("", func(t *testing.T) {
+
 			_, _, err := moduleCli.RefreshAccessToken(ctx, &lark.RefreshAccessTokenReq{})
 			as.NotNil(err)
 			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
 		})
+
 	})
 
 	t.Run("fake request is failed", func(t *testing.T) {
@@ -101,15 +110,18 @@ func Test_Auth_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
+
 			_, _, err := moduleCli.GetAccessToken(ctx, &lark.GetAccessTokenReq{})
 			as.NotNil(err)
 			as.Equal("fake raw request", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
+
 			_, _, err := moduleCli.RefreshAccessToken(ctx, &lark.RefreshAccessTokenReq{})
 			as.NotNil(err)
 			as.Equal("fake raw request", err.Error())
 		})
+
 	})
 }

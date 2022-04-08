@@ -37,40 +37,47 @@ func Test_AI_Sample_Failed(t *testing.T) {
 		moduleCli := cli.AI
 
 		t.Run("", func(t *testing.T) {
+
 			_, _, err := moduleCli.RecognizeBasicImage(ctx, &lark.RecognizeBasicImageReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "failed")
 		})
 
 		t.Run("", func(t *testing.T) {
+
 			_, _, err := moduleCli.RecognizeSpeechStream(ctx, &lark.RecognizeSpeechStreamReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "failed")
 		})
 
 		t.Run("", func(t *testing.T) {
+
 			_, _, err := moduleCli.RecognizeSpeechFile(ctx, &lark.RecognizeSpeechFileReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "failed")
 		})
 
 		t.Run("", func(t *testing.T) {
+
 			_, _, err := moduleCli.TranslateText(ctx, &lark.TranslateTextReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "failed")
 		})
 
 		t.Run("", func(t *testing.T) {
+
 			_, _, err := moduleCli.DetectTextLanguage(ctx, &lark.DetectTextLanguageReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "failed")
 		})
 
 		t.Run("", func(t *testing.T) {
+
 			_, _, err := moduleCli.DetectFaceAttributes(ctx, &lark.DetectFaceAttributesReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "failed")
 		})
+
 	})
 
 	t.Run("request mock failed", func(t *testing.T) {
@@ -78,6 +85,7 @@ func Test_AI_Sample_Failed(t *testing.T) {
 		moduleCli := cli.AI
 
 		t.Run("", func(t *testing.T) {
+
 			cli.Mock().MockAIRecognizeBasicImage(func(ctx context.Context, request *lark.RecognizeBasicImageReq, options ...lark.MethodOptionFunc) (*lark.RecognizeBasicImageResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -89,6 +97,7 @@ func Test_AI_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
+
 			cli.Mock().MockAIRecognizeSpeechStream(func(ctx context.Context, request *lark.RecognizeSpeechStreamReq, options ...lark.MethodOptionFunc) (*lark.RecognizeSpeechStreamResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -100,6 +109,7 @@ func Test_AI_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
+
 			cli.Mock().MockAIRecognizeSpeechFile(func(ctx context.Context, request *lark.RecognizeSpeechFileReq, options ...lark.MethodOptionFunc) (*lark.RecognizeSpeechFileResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -111,6 +121,7 @@ func Test_AI_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
+
 			cli.Mock().MockAITranslateText(func(ctx context.Context, request *lark.TranslateTextReq, options ...lark.MethodOptionFunc) (*lark.TranslateTextResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -122,6 +133,7 @@ func Test_AI_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
+
 			cli.Mock().MockAIDetectTextLanguage(func(ctx context.Context, request *lark.DetectTextLanguageReq, options ...lark.MethodOptionFunc) (*lark.DetectTextLanguageResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -133,6 +145,7 @@ func Test_AI_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
+
 			cli.Mock().MockAIDetectFaceAttributes(func(ctx context.Context, request *lark.DetectFaceAttributesReq, options ...lark.MethodOptionFunc) (*lark.DetectFaceAttributesResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -142,6 +155,7 @@ func Test_AI_Sample_Failed(t *testing.T) {
 			as.NotNil(err)
 			as.Equal(err.Error(), "mock-failed")
 		})
+
 	})
 
 	t.Run("response is failed", func(t *testing.T) {
@@ -149,40 +163,47 @@ func Test_AI_Sample_Failed(t *testing.T) {
 		moduleCli := cli.AI
 
 		t.Run("", func(t *testing.T) {
+
 			_, _, err := moduleCli.RecognizeBasicImage(ctx, &lark.RecognizeBasicImageReq{})
 			as.NotNil(err)
 			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
 		})
 
 		t.Run("", func(t *testing.T) {
+
 			_, _, err := moduleCli.RecognizeSpeechStream(ctx, &lark.RecognizeSpeechStreamReq{})
 			as.NotNil(err)
 			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
 		})
 
 		t.Run("", func(t *testing.T) {
+
 			_, _, err := moduleCli.RecognizeSpeechFile(ctx, &lark.RecognizeSpeechFileReq{})
 			as.NotNil(err)
 			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
 		})
 
 		t.Run("", func(t *testing.T) {
+
 			_, _, err := moduleCli.TranslateText(ctx, &lark.TranslateTextReq{})
 			as.NotNil(err)
 			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
 		})
 
 		t.Run("", func(t *testing.T) {
+
 			_, _, err := moduleCli.DetectTextLanguage(ctx, &lark.DetectTextLanguageReq{})
 			as.NotNil(err)
 			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
 		})
 
 		t.Run("", func(t *testing.T) {
+
 			_, _, err := moduleCli.DetectFaceAttributes(ctx, &lark.DetectFaceAttributesReq{})
 			as.NotNil(err)
 			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
 		})
+
 	})
 
 	t.Run("fake request is failed", func(t *testing.T) {
@@ -193,39 +214,46 @@ func Test_AI_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
+
 			_, _, err := moduleCli.RecognizeBasicImage(ctx, &lark.RecognizeBasicImageReq{})
 			as.NotNil(err)
 			as.Equal("fake raw request", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
+
 			_, _, err := moduleCli.RecognizeSpeechStream(ctx, &lark.RecognizeSpeechStreamReq{})
 			as.NotNil(err)
 			as.Equal("fake raw request", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
+
 			_, _, err := moduleCli.RecognizeSpeechFile(ctx, &lark.RecognizeSpeechFileReq{})
 			as.NotNil(err)
 			as.Equal("fake raw request", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
+
 			_, _, err := moduleCli.TranslateText(ctx, &lark.TranslateTextReq{})
 			as.NotNil(err)
 			as.Equal("fake raw request", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
+
 			_, _, err := moduleCli.DetectTextLanguage(ctx, &lark.DetectTextLanguageReq{})
 			as.NotNil(err)
 			as.Equal("fake raw request", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
+
 			_, _, err := moduleCli.DetectFaceAttributes(ctx, &lark.DetectFaceAttributesReq{})
 			as.NotNil(err)
 			as.Equal("fake raw request", err.Error())
 		})
+
 	})
 }

@@ -37,28 +37,33 @@ func Test_File_Sample_Failed(t *testing.T) {
 		moduleCli := cli.File
 
 		t.Run("", func(t *testing.T) {
+
 			_, _, err := moduleCli.UploadImage(ctx, &lark.UploadImageReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "failed")
 		})
 
 		t.Run("", func(t *testing.T) {
+
 			_, _, err := moduleCli.DownloadImage(ctx, &lark.DownloadImageReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "failed")
 		})
 
 		t.Run("", func(t *testing.T) {
+
 			_, _, err := moduleCli.UploadFile(ctx, &lark.UploadFileReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "failed")
 		})
 
 		t.Run("", func(t *testing.T) {
+
 			_, _, err := moduleCli.DownloadFile(ctx, &lark.DownloadFileReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "failed")
 		})
+
 	})
 
 	t.Run("request mock failed", func(t *testing.T) {
@@ -66,6 +71,7 @@ func Test_File_Sample_Failed(t *testing.T) {
 		moduleCli := cli.File
 
 		t.Run("", func(t *testing.T) {
+
 			cli.Mock().MockFileUploadImage(func(ctx context.Context, request *lark.UploadImageReq, options ...lark.MethodOptionFunc) (*lark.UploadImageResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -77,6 +83,7 @@ func Test_File_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
+
 			cli.Mock().MockFileDownloadImage(func(ctx context.Context, request *lark.DownloadImageReq, options ...lark.MethodOptionFunc) (*lark.DownloadImageResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -88,6 +95,7 @@ func Test_File_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
+
 			cli.Mock().MockFileUploadFile(func(ctx context.Context, request *lark.UploadFileReq, options ...lark.MethodOptionFunc) (*lark.UploadFileResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -99,6 +107,7 @@ func Test_File_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
+
 			cli.Mock().MockFileDownloadFile(func(ctx context.Context, request *lark.DownloadFileReq, options ...lark.MethodOptionFunc) (*lark.DownloadFileResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -108,6 +117,7 @@ func Test_File_Sample_Failed(t *testing.T) {
 			as.NotNil(err)
 			as.Equal(err.Error(), "mock-failed")
 		})
+
 	})
 
 	t.Run("response is failed", func(t *testing.T) {
@@ -115,12 +125,14 @@ func Test_File_Sample_Failed(t *testing.T) {
 		moduleCli := cli.File
 
 		t.Run("", func(t *testing.T) {
+
 			_, _, err := moduleCli.UploadImage(ctx, &lark.UploadImageReq{})
 			as.NotNil(err)
 			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
 		})
 
 		t.Run("", func(t *testing.T) {
+
 			_, _, err := moduleCli.DownloadImage(ctx, &lark.DownloadImageReq{
 				ImageKey: "x",
 			})
@@ -129,18 +141,21 @@ func Test_File_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
+
 			_, _, err := moduleCli.UploadFile(ctx, &lark.UploadFileReq{})
 			as.NotNil(err)
 			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
 		})
 
 		t.Run("", func(t *testing.T) {
+
 			_, _, err := moduleCli.DownloadFile(ctx, &lark.DownloadFileReq{
 				FileKey: "x",
 			})
 			as.NotNil(err)
 			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
 		})
+
 	})
 
 	t.Run("fake request is failed", func(t *testing.T) {
@@ -151,12 +166,14 @@ func Test_File_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
+
 			_, _, err := moduleCli.UploadImage(ctx, &lark.UploadImageReq{})
 			as.NotNil(err)
 			as.Equal("fake raw request", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
+
 			_, _, err := moduleCli.DownloadImage(ctx, &lark.DownloadImageReq{
 				ImageKey: "x",
 			})
@@ -165,17 +182,20 @@ func Test_File_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
+
 			_, _, err := moduleCli.UploadFile(ctx, &lark.UploadFileReq{})
 			as.NotNil(err)
 			as.Equal("fake raw request", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
+
 			_, _, err := moduleCli.DownloadFile(ctx, &lark.DownloadFileReq{
 				FileKey: "x",
 			})
 			as.NotNil(err)
 			as.Equal("fake raw request", err.Error())
 		})
+
 	})
 }

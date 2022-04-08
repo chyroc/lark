@@ -37,22 +37,26 @@ func Test_OKR_Sample_Failed(t *testing.T) {
 		moduleCli := cli.OKR
 
 		t.Run("", func(t *testing.T) {
+
 			_, _, err := moduleCli.GetOKRPeriodList(ctx, &lark.GetOKRPeriodListReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "failed")
 		})
 
 		t.Run("", func(t *testing.T) {
+
 			_, _, err := moduleCli.BatchGetOKR(ctx, &lark.BatchGetOKRReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "failed")
 		})
 
 		t.Run("", func(t *testing.T) {
+
 			_, _, err := moduleCli.GetUserOKRList(ctx, &lark.GetUserOKRListReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "failed")
 		})
+
 	})
 
 	t.Run("request mock failed", func(t *testing.T) {
@@ -60,6 +64,7 @@ func Test_OKR_Sample_Failed(t *testing.T) {
 		moduleCli := cli.OKR
 
 		t.Run("", func(t *testing.T) {
+
 			cli.Mock().MockOKRGetOKRPeriodList(func(ctx context.Context, request *lark.GetOKRPeriodListReq, options ...lark.MethodOptionFunc) (*lark.GetOKRPeriodListResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -71,6 +76,7 @@ func Test_OKR_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
+
 			cli.Mock().MockOKRBatchGetOKR(func(ctx context.Context, request *lark.BatchGetOKRReq, options ...lark.MethodOptionFunc) (*lark.BatchGetOKRResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -82,6 +88,7 @@ func Test_OKR_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
+
 			cli.Mock().MockOKRGetUserOKRList(func(ctx context.Context, request *lark.GetUserOKRListReq, options ...lark.MethodOptionFunc) (*lark.GetUserOKRListResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -91,6 +98,7 @@ func Test_OKR_Sample_Failed(t *testing.T) {
 			as.NotNil(err)
 			as.Equal(err.Error(), "mock-failed")
 		})
+
 	})
 
 	t.Run("response is failed", func(t *testing.T) {
@@ -98,24 +106,28 @@ func Test_OKR_Sample_Failed(t *testing.T) {
 		moduleCli := cli.OKR
 
 		t.Run("", func(t *testing.T) {
+
 			_, _, err := moduleCli.GetOKRPeriodList(ctx, &lark.GetOKRPeriodListReq{})
 			as.NotNil(err)
 			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
 		})
 
 		t.Run("", func(t *testing.T) {
+
 			_, _, err := moduleCli.BatchGetOKR(ctx, &lark.BatchGetOKRReq{})
 			as.NotNil(err)
 			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
 		})
 
 		t.Run("", func(t *testing.T) {
+
 			_, _, err := moduleCli.GetUserOKRList(ctx, &lark.GetUserOKRListReq{
 				UserID: "x",
 			})
 			as.NotNil(err)
 			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
 		})
+
 	})
 
 	t.Run("fake request is failed", func(t *testing.T) {
@@ -126,23 +138,27 @@ func Test_OKR_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
+
 			_, _, err := moduleCli.GetOKRPeriodList(ctx, &lark.GetOKRPeriodListReq{})
 			as.NotNil(err)
 			as.Equal("fake raw request", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
+
 			_, _, err := moduleCli.BatchGetOKR(ctx, &lark.BatchGetOKRReq{})
 			as.NotNil(err)
 			as.Equal("fake raw request", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
+
 			_, _, err := moduleCli.GetUserOKRList(ctx, &lark.GetUserOKRListReq{
 				UserID: "x",
 			})
 			as.NotNil(err)
 			as.Equal("fake raw request", err.Error())
 		})
+
 	})
 }

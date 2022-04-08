@@ -37,28 +37,33 @@ func Test_HumanAuth_Sample_Failed(t *testing.T) {
 		moduleCli := cli.HumanAuth
 
 		t.Run("", func(t *testing.T) {
+
 			_, _, err := moduleCli.GetFaceVerifyAuthResult(ctx, &lark.GetFaceVerifyAuthResultReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "failed")
 		})
 
 		t.Run("", func(t *testing.T) {
+
 			_, _, err := moduleCli.UploadFaceVerifyImage(ctx, &lark.UploadFaceVerifyImageReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "failed")
 		})
 
 		t.Run("", func(t *testing.T) {
+
 			_, _, err := moduleCli.CropFaceVerifyImage(ctx, &lark.CropFaceVerifyImageReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "failed")
 		})
 
 		t.Run("", func(t *testing.T) {
+
 			_, _, err := moduleCli.CreateIdentity(ctx, &lark.CreateIdentityReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "failed")
 		})
+
 	})
 
 	t.Run("request mock failed", func(t *testing.T) {
@@ -66,6 +71,7 @@ func Test_HumanAuth_Sample_Failed(t *testing.T) {
 		moduleCli := cli.HumanAuth
 
 		t.Run("", func(t *testing.T) {
+
 			cli.Mock().MockHumanAuthGetFaceVerifyAuthResult(func(ctx context.Context, request *lark.GetFaceVerifyAuthResultReq, options ...lark.MethodOptionFunc) (*lark.GetFaceVerifyAuthResultResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -77,6 +83,7 @@ func Test_HumanAuth_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
+
 			cli.Mock().MockHumanAuthUploadFaceVerifyImage(func(ctx context.Context, request *lark.UploadFaceVerifyImageReq, options ...lark.MethodOptionFunc) (*lark.UploadFaceVerifyImageResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -88,6 +95,7 @@ func Test_HumanAuth_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
+
 			cli.Mock().MockHumanAuthCropFaceVerifyImage(func(ctx context.Context, request *lark.CropFaceVerifyImageReq, options ...lark.MethodOptionFunc) (*lark.CropFaceVerifyImageResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -99,6 +107,7 @@ func Test_HumanAuth_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
+
 			cli.Mock().MockHumanAuthCreateIdentity(func(ctx context.Context, request *lark.CreateIdentityReq, options ...lark.MethodOptionFunc) (*lark.CreateIdentityResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -108,6 +117,7 @@ func Test_HumanAuth_Sample_Failed(t *testing.T) {
 			as.NotNil(err)
 			as.Equal(err.Error(), "mock-failed")
 		})
+
 	})
 
 	t.Run("response is failed", func(t *testing.T) {
@@ -115,28 +125,33 @@ func Test_HumanAuth_Sample_Failed(t *testing.T) {
 		moduleCli := cli.HumanAuth
 
 		t.Run("", func(t *testing.T) {
+
 			_, _, err := moduleCli.GetFaceVerifyAuthResult(ctx, &lark.GetFaceVerifyAuthResultReq{})
 			as.NotNil(err)
 			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
 		})
 
 		t.Run("", func(t *testing.T) {
+
 			_, _, err := moduleCli.UploadFaceVerifyImage(ctx, &lark.UploadFaceVerifyImageReq{})
 			as.NotNil(err)
 			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
 		})
 
 		t.Run("", func(t *testing.T) {
+
 			_, _, err := moduleCli.CropFaceVerifyImage(ctx, &lark.CropFaceVerifyImageReq{})
 			as.NotNil(err)
 			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
 		})
 
 		t.Run("", func(t *testing.T) {
+
 			_, _, err := moduleCli.CreateIdentity(ctx, &lark.CreateIdentityReq{})
 			as.NotNil(err)
 			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
 		})
+
 	})
 
 	t.Run("fake request is failed", func(t *testing.T) {
@@ -147,27 +162,32 @@ func Test_HumanAuth_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
+
 			_, _, err := moduleCli.GetFaceVerifyAuthResult(ctx, &lark.GetFaceVerifyAuthResultReq{})
 			as.NotNil(err)
 			as.Equal("fake raw request", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
+
 			_, _, err := moduleCli.UploadFaceVerifyImage(ctx, &lark.UploadFaceVerifyImageReq{})
 			as.NotNil(err)
 			as.Equal("fake raw request", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
+
 			_, _, err := moduleCli.CropFaceVerifyImage(ctx, &lark.CropFaceVerifyImageReq{})
 			as.NotNil(err)
 			as.Equal("fake raw request", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
+
 			_, _, err := moduleCli.CreateIdentity(ctx, &lark.CreateIdentityReq{})
 			as.NotNil(err)
 			as.Equal("fake raw request", err.Error())
 		})
+
 	})
 }

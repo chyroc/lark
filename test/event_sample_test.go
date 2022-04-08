@@ -37,10 +37,12 @@ func Test_Event_Sample_Failed(t *testing.T) {
 		moduleCli := cli.Event
 
 		t.Run("", func(t *testing.T) {
+
 			_, _, err := moduleCli.GetEventOutboundIpList(ctx, &lark.GetEventOutboundIpListReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "failed")
 		})
+
 	})
 
 	t.Run("request mock failed", func(t *testing.T) {
@@ -48,6 +50,7 @@ func Test_Event_Sample_Failed(t *testing.T) {
 		moduleCli := cli.Event
 
 		t.Run("", func(t *testing.T) {
+
 			cli.Mock().MockEventGetEventOutboundIpList(func(ctx context.Context, request *lark.GetEventOutboundIpListReq, options ...lark.MethodOptionFunc) (*lark.GetEventOutboundIpListResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -57,6 +60,7 @@ func Test_Event_Sample_Failed(t *testing.T) {
 			as.NotNil(err)
 			as.Equal(err.Error(), "mock-failed")
 		})
+
 	})
 
 	t.Run("response is failed", func(t *testing.T) {
@@ -64,10 +68,12 @@ func Test_Event_Sample_Failed(t *testing.T) {
 		moduleCli := cli.Event
 
 		t.Run("", func(t *testing.T) {
+
 			_, _, err := moduleCli.GetEventOutboundIpList(ctx, &lark.GetEventOutboundIpListReq{})
 			as.NotNil(err)
 			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
 		})
+
 	})
 
 	t.Run("fake request is failed", func(t *testing.T) {
@@ -78,9 +84,11 @@ func Test_Event_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
+
 			_, _, err := moduleCli.GetEventOutboundIpList(ctx, &lark.GetEventOutboundIpListReq{})
 			as.NotNil(err)
 			as.Equal("fake raw request", err.Error())
 		})
+
 	})
 }
