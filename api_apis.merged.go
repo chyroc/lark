@@ -3322,7 +3322,7 @@ type CreateApprovalInstanceReq struct {
 	DepartmentID           *string             `json:"department_id,omitempty"`              // 发起审批用户部门id，如果用户只属于一个部门，可以不填。如果属于多个部门，默认会选择部门列表第一个部门
 	Form                   ApprovalWidgetList  `json:"form,omitempty"`                       // json 数组，**控件值**
 	NodeApproverUserIDList map[string][]string `json:"node_approver_user_id_list,omitempty"` // 如果有发起人自选节点，则需要填写对应节点的审批人<br>key:  node id 或 custom node id , 通过 [查看审批定义](https://open.feishu.cn/document/ukTMukTMukTM/uADNyUjLwQjM14CM0ITN) 获取<br> value: 审批人列表
-	NodeApproverOpenIDList map[string][]string `json:"node_approver_open_id_list,omitempty"` // 审批人发起人自选 open id
+	NodeApproverOpenIDList map[string][]string `json:"node_approver_open_id_list,omitempty"` // 审批人发起人自选 open id，与上述node_approver_user_id_list字段取并集
 	NodeCcUserIDList       map[string][]string `json:"node_cc_user_id_list,omitempty"`       // 如果有发起人自选节点，则可填写对应节点的抄送人<br>key:  node id 或 custom node id , 通过 [查看审批定义](https://open.feishu.cn/document/ukTMukTMukTM/uADNyUjLwQjM14CM0ITN) 获取<br> value: 审批人列表<br>单个节点最多选择20位抄送人
 	NodeCcOpenIDList       map[string][]string `json:"node_cc_open_id_list,omitempty"`       // 抄送人发起人自选 open id<br>单个节点最多选择20位抄送人
 	UUID                   *string             `json:"uuid,omitempty"`                       // 审批实例 uuid，用于幂等操作, 每个租户下面的唯一key，同一个 uuid 只能用于创建一个审批实例，如果冲突，返回错误码 60012 ，格式建议为 XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX，不区分大小写
@@ -10087,11 +10087,12 @@ func (r *Mock) UnMockCalendarGetCalendarEventAttendeeChatMemberList() {
 
 // GetCalendarEventAttendeeChatMemberListReq ...
 type GetCalendarEventAttendeeChatMemberListReq struct {
-	PageToken  *string `query:"page_token" json:"-"` // 分页标记，第一次请求不填，表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token，下次遍历可采用该 page_token 获取查询结果, 示例值："23jhysaxxxxsysy"
-	PageSize   *int64  `query:"page_size" json:"-"`  // 分页大小, 示例值：10, 最大值：`100`
-	CalendarID string  `path:"calendar_id" json:"-"` // 日历ID。参见[日历ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar/introduction), 示例值："feishu.cn_xxxxxxxxxx@group.calendar.feishu.cn"
-	EventID    string  `path:"event_id" json:"-"`    // 日程ID。参见[日程ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar-event/introduction), 示例值："xxxxxxxxx_0"
-	AttendeeID string  `path:"attendee_id" json:"-"` // 群参与人 ID。参见[参与人ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar-event-attendee/introduction#4998889c), 示例值："chat_xxxxxx"
+	PageToken  *string `query:"page_token" json:"-"`   // 分页标记，第一次请求不填，表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token，下次遍历可采用该 page_token 获取查询结果, 示例值："23jhysaxxxxsysy"
+	PageSize   *int64  `query:"page_size" json:"-"`    // 分页大小, 示例值：10, 最大值：`100`
+	UserIDType *IDType `query:"user_id_type" json:"-"` // 用户 ID 类型, 示例值："open_id", 可选值有: `open_id`：用户的 open id, `union_id`：用户的 union id, `user_id`：用户的 user id, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
+	CalendarID string  `path:"calendar_id" json:"-"`   // 日历ID。参见[日历ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar/introduction), 示例值："feishu.cn_xxxxxxxxxx@group.calendar.feishu.cn"
+	EventID    string  `path:"event_id" json:"-"`      // 日程ID。参见[日程ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar-event/introduction), 示例值："xxxxxxxxx_0"
+	AttendeeID string  `path:"attendee_id" json:"-"`   // 群参与人 ID。参见[参与人ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar-event-attendee/introduction#4998889c), 示例值："chat_xxxxxx"
 }
 
 // getCalendarEventAttendeeChatMemberListResp ...
@@ -10113,6 +10114,7 @@ type GetCalendarEventAttendeeChatMemberListRespItem struct {
 	RsvpStatus  string `json:"rsvp_status,omitempty"`  // 参与人RSVP状态, 可选值有: `needs_action`：参与人尚未回复状态，或表示会议室预约中, `accept`：参与人回复接受，或表示会议室预约成功, `tentative`：参与人回复待定, `decline`：参与人回复拒绝，或表示会议室预约失败, `removed`：参与人或会议室已经从日程中被移除
 	IsOptional  bool   `json:"is_optional,omitempty"`  // 参与人是否为「可选参加」
 	DisplayName string `json:"display_name,omitempty"` // 参与人名称
+	OpenID      string `json:"open_id,omitempty"`      // 参与人open_id，参见[用户相关的 ID 概念](https://open.feishu.cn/document/home/user-identity-introduction/introduction), 示例值："ou_xxxxxxxx"
 	IsOrganizer bool   `json:"is_organizer,omitempty"` // 参与人是否为日程组织者
 	IsExternal  bool   `json:"is_external,omitempty"`  // 参与人是否为外部参与人
 }
@@ -11728,7 +11730,8 @@ type SearchCalendarRespItem struct {
 //
 // 该接口用于以当前身份（应用 / 用户）订阅某个日历。
 // 身份由 Header Authorization 的 Token 类型决定。
-// 仅可订阅类型为 primary 或 shared 的公开日历。
+// - 仅可订阅类型为 primary 或 shared 的公开日历。
+// - 可订阅日历数量上限为1000。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar/subscribe
 func (r *CalendarService) SubscribeCalendar(ctx context.Context, request *SubscribeCalendarReq, options ...MethodOptionFunc) (*SubscribeCalendarResp, *Response, error) {
@@ -17998,6 +18001,10 @@ type CreateDriveFileResp struct {
 // DeleteDriveDocFile
 //
 // 该接口用于根据 docToken 删除对应的 Docs 文档。
+// 为了更好地提升该接口的安全性，我们对其进行了升级，请尽快迁移至
+// [新版本>>](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file/delete)
+// </md-alert>
+// <md-alert type="warn">
 // 文档只能被文档所有者删除，文档被删除后将会放到回收站里
 // 该接口不支持并发调用，且调用频率上限为5QPS
 //
@@ -18258,6 +18265,62 @@ type GetDriveFileMetaRespDocsMetas struct {
 
 // Code generated by lark_sdk_gen. DO NOT EDIT.
 
+// MoveDriveFile 将文件或者文件夹移动到用户云空间的其他位置。
+//
+// doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file/move
+func (r *DriveService) MoveDriveFile(ctx context.Context, request *MoveDriveFileReq, options ...MethodOptionFunc) (*MoveDriveFileResp, *Response, error) {
+	if r.cli.mock.mockDriveMoveDriveFile != nil {
+		r.cli.log(ctx, LogLevelDebug, "[lark] Drive#MoveDriveFile mock enable")
+		return r.cli.mock.mockDriveMoveDriveFile(ctx, request, options...)
+	}
+
+	req := &RawRequestReq{
+		Scope:                 "Drive",
+		API:                   "MoveDriveFile",
+		Method:                "POST",
+		URL:                   r.cli.openBaseURL + "/open-apis/drive/v1/files/:file_token/move",
+		Body:                  request,
+		MethodOption:          newMethodOption(options),
+		NeedTenantAccessToken: true,
+		NeedUserAccessToken:   true,
+	}
+	resp := new(moveDriveFileResp)
+
+	response, err := r.cli.RawRequest(ctx, req, resp)
+	return resp.Data, response, err
+}
+
+// MockDriveMoveDriveFile mock DriveMoveDriveFile method
+func (r *Mock) MockDriveMoveDriveFile(f func(ctx context.Context, request *MoveDriveFileReq, options ...MethodOptionFunc) (*MoveDriveFileResp, *Response, error)) {
+	r.mockDriveMoveDriveFile = f
+}
+
+// UnMockDriveMoveDriveFile un-mock DriveMoveDriveFile method
+func (r *Mock) UnMockDriveMoveDriveFile() {
+	r.mockDriveMoveDriveFile = nil
+}
+
+// MoveDriveFileReq ...
+type MoveDriveFileReq struct {
+	FileToken   string  `path:"file_token" json:"-"`    // 需要移动的文件token, 示例值："boxbcj55reGXM6YAS3C7Z4GWKNg"
+	Type        *string `json:"type,omitempty"`         // 文件类型，如果该值为空或者与文件实际类型不匹配，接口会返回失败。, 示例值："file", 可选值有: `file`：普通文件类型, `docx`：新版文档类型, `bitable`：多维表格类型, `doc`：doc文档类型, `sheet`：电子表格类型, `mindnote`：思维笔记类型, `folder`：文件夹类型
+	FolderToken *string `json:"folder_token,omitempty"` // 目标文件夹token, 示例值："fldbcRho46N6MQ3mJkOAuPUZR9d"
+}
+
+// moveDriveFileResp ...
+type moveDriveFileResp struct {
+	Code int64              `json:"code,omitempty"` // 错误码，非 0 表示失败
+	Msg  string             `json:"msg,omitempty"`  // 错误描述
+	Data *MoveDriveFileResp `json:"data,omitempty"`
+}
+
+// MoveDriveFileResp ...
+type MoveDriveFileResp struct {
+	TaskID string `json:"task_id,omitempty"` // 异步任务id，移动文件夹时返回
+}
+
+// Code generated by lark_sdk_gen. DO NOT EDIT.
+
 // SearchDriveFile 该接口用于根据搜索条件进行文档搜索。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/ugDM4UjL4ADO14COwgTN
@@ -18328,6 +18391,10 @@ type SearchDriveFileRespDocsEntity struct {
 
 // DeleteDriveSheetFile 该接口用于根据 spreadsheetToken 删除对应的 sheet 文档。
 //
+// 为了更好地提升该接口的安全性，我们对其进行了升级，请尽快迁移至
+// [新版本>>](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file/delete)
+// </md-alert>
+// <md-alert type="warn">
 // 文档只能被文档所有者删除，文档被删除后将会放到回收站里
 // 该接口不支持并发调用，且调用频率上限为5QPS
 //
@@ -23195,6 +23262,8 @@ type setSheetValueImageResp struct {
 // SetSheetValueImageResp ...
 type SetSheetValueImageResp struct {
 	SpreadSheetToken string `json:"spreadsheetToken,omitempty"` // spreadsheet 的 token
+	Revision         int64  `json:"revision,omitempty"`         // spreadsheet 的版本号
+	UpdateRange      string `json:"updateRange,omitempty"`      // 写入图片的range
 }
 
 // Code generated by lark_sdk_gen. DO NOT EDIT.
@@ -36395,10 +36464,10 @@ func (r *Mock) UnMockMessageGetMessageReactionList() {
 
 // GetMessageReactionListReq ...
 type GetMessageReactionListReq struct {
-	ReactionType string  `query:"reaction_type" json:"-"` // 待查询消息reaction的类型[emoji类型列举](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message-reaction/emojis-introduce), 示例值："LAUGH"
+	ReactionType *string `query:"reaction_type" json:"-"` // 待查询消息reaction的类型[emoji类型列举](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message-reaction/emojis-introduce)。, 不传入该参数，表示拉取所有类型reaction, 示例值："LAUGH"
 	PageToken    *string `query:"page_token" json:"-"`    // 分页标记，第一次请求不填，表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token，下次遍历可采用该 page_token 获取查询结果, 示例值："YhljsPiGfUgnVAg9urvRFd-BvSqRL20wMZNAWfa9xXkud6UKCybPuUgQ1vM26dj6"
 	PageSize     *int64  `query:"page_size" json:"-"`     // 分页大小, 示例值：10, 最大值：`50`
-	UserIDType   *IDType `query:"user_id_type" json:"-"`  // 用户 ID 类型, 示例值："open_id", 可选值有: `open_id`：用户的 open id, `union_id`：用户的 union id, `user_id`：用户的 user id, 默认值: `open_id`,, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
+	UserIDType   *IDType `query:"user_id_type" json:"-"`  // 用户 ID 类型, 示例值："open_id", 可选值有: `open_id`：用户的 open id, `union_id`：用户的 union id, `user_id`：用户的 user id, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
 	MessageID    string  `path:"message_id" json:"-"`     // 待获取reaction的消息ID, 示例值："om_8964d1b4*********2b31383276113"
 }
 

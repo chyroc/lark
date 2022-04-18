@@ -160,6 +160,7 @@ type Mock struct {
 	mockDriveGetDriveFolderChildren                            func(ctx context.Context, request *GetDriveFolderChildrenReq, options ...MethodOptionFunc) (*GetDriveFolderChildrenResp, *Response, error)
 	mockDriveGetDriveFileStatistics                            func(ctx context.Context, request *GetDriveFileStatisticsReq, options ...MethodOptionFunc) (*GetDriveFileStatisticsResp, *Response, error)
 	mockDriveDownloadDriveFile                                 func(ctx context.Context, request *DownloadDriveFileReq, options ...MethodOptionFunc) (*DownloadDriveFileResp, *Response, error)
+	mockDriveMoveDriveFile                                     func(ctx context.Context, request *MoveDriveFileReq, options ...MethodOptionFunc) (*MoveDriveFileResp, *Response, error)
 	mockDriveUploadDriveFile                                   func(ctx context.Context, request *UploadDriveFileReq, options ...MethodOptionFunc) (*UploadDriveFileResp, *Response, error)
 	mockDrivePrepareUploadDriveFile                            func(ctx context.Context, request *PrepareUploadDriveFileReq, options ...MethodOptionFunc) (*PrepareUploadDriveFileResp, *Response, error)
 	mockDrivePartUploadDriveFile                               func(ctx context.Context, request *PartUploadDriveFileReq, options ...MethodOptionFunc) (*PartUploadDriveFileResp, *Response, error)
