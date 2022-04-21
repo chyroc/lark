@@ -2869,8 +2869,8 @@ type SearchApprovalCarbonCopyReq struct {
 	GroupExternalID    *string `json:"group_external_id,omitempty"`    // 审批定义分组第三方 id<br>注：和 instance_code 取并集
 	CcTitle            *string `json:"cc_title,omitempty"`             // 审批抄送标题（只有第三方审批有）
 	ReadStatus         *string `json:"read_status,omitempty"`          // 审批抄送状态<br>READ:  已读<br>UNREAD: 未读<br>注：若不设置，查询全部状态<br>若不在集合中，报错
-	CcStartTimeFrom    *int64  `json:"cc_start_time_from,omitempty"`   // 抄送查询开始时间 (unix毫秒时间戳)
-	CcStartTimeTo      *int64  `json:"cc_start_time_to,omitempty"`     // 抄送查询结束时间 (unix毫秒时间戳)
+	CcCreateTimeFrom   *int64  `json:"CcCreateTimeFrom,omitempty"`     // 抄送查询开始时间 (unix毫秒时间戳)
+	CcCreateTimeTo     *int64  `json:"CcCreateTimeTo,omitempty"`       // 抄送查询结束时间 (unix毫秒时间戳)
 	Locale             *string `json:"locale,omitempty"`               // 地区 （zh-CN、en-US、ja-JP）
 	Offset             *int64  `json:"offset,omitempty"`               // 查询偏移量<br>注：不得超过10000
 	Limit              *int64  `json:"limit,omitempty"`                // 查询限制量<br>注：不得超过200<br>不设置默认查询10条数据
@@ -19742,7 +19742,7 @@ func (r *Mock) UnMockDriveCheckDriveMemberPermission() {
 
 // CheckDriveMemberPermissionReq ...
 type CheckDriveMemberPermissionReq struct {
-	Token string `json:"token,omitempty"` // 文件的 token，获取方式见 [概述](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/files/guide/introduction)
+	Token string `json:"token,omitempty"` // 文件的 token，获取方式见 [概述](https://open.feishu.cn/document/ukTMukTMukTM/uczNzUjL3czM14yN3MTN#8353e05f)
 	Type  string `json:"type,omitempty"`  // 文档类型  "doc"  or  "sheet" or "file"
 	Perm  string `json:"perm,omitempty"`  // 权限，"view" or "edit" or "share"
 }
@@ -19800,7 +19800,7 @@ func (r *Mock) UnMockDriveCreateDriveMemberPermission() {
 type CreateDriveMemberPermissionReq struct {
 	Type             string `query:"type" json:"-"`              // 文件类型，放于query参数中，如：`?type=doc`, 示例值："doc", 可选值有: `doc`：文档, `sheet`：电子表格, `file`：云空间文件, `wiki`：知识库节点（部分支持）, `bitable`：多维表格, `docx`：文档（暂不支持）
 	NeedNotification *bool  `query:"need_notification" json:"-"` // 添加权限后是否通知对方,**注意：** 使用`tenant_access_token`访问不支持该参数, 示例值：false, 默认值: `false`
-	Token            string `path:"token" json:"-"`              // 文件的 token，获取方式见 [概述](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/files/guide/introduction), 示例值："doccnBKgoMyY5OMbUG6FioTXuBe"
+	Token            string `path:"token" json:"-"`              // 文件的 token，获取方式见 [概述](https://open.feishu.cn/document/ukTMukTMukTM/uczNzUjL3czM14yN3MTN#8353e05f), 示例值："doccnBKgoMyY5OMbUG6FioTXuBe"
 	MemberType       string `json:"member_type,omitempty"`       // 用户类型，与请求体中的`member_id`要对应, 可选值有:  , `email`: 飞书邮箱, `openid`: [开放平台ID](https://open.feishu.cn/document/home/user-identity-introduction/how-to-get), `openchat`: [开放平台群组](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-id-description), `opendepartmentid`:[开放平台部门ID](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/field-overview), `userid`:  [用户自定义ID](https://open.feishu.cn/document/home/user-identity-introduction/how-to-get),**注意：** 使用`tenant_access_token`访问不支持添加`opendepartmentid`, 示例值："openid"
 	MemberID         string `json:"member_id,omitempty"`         // 用户类型下的值, 示例值："ou_7dab8a3d3cdcc9da365777c7ad535d62"
 	Perm             string `json:"perm,omitempty"`              // 需要更新的权限，可选值有：, `view`: 可阅读, `edit`: 可编辑, `full_access`: 所有权限, 示例值："view"
@@ -19938,7 +19938,7 @@ func (r *Mock) UnMockDriveDeleteDriveMemberPermission() {
 type DeleteDriveMemberPermissionReq struct {
 	Type       string `query:"type" json:"-"`        // 文件类型，放于query参数中，如：`?type=doc`, 示例值："doc", 可选值有: `doc`：文档, `sheet`：电子表格, `file`：云空间文件, `wiki`：知识库节点（部分支持）, `bitable`：多维表格, `docx`：文档（暂不支持）
 	MemberType string `query:"member_type" json:"-"` // 权限成员类型，放于query参数中，如：`?member_type=openid`, 示例值："openid", 可选值有: `email`：邮箱地址, `openid`：[开放平台ID](https://open.feishu.cn/document/home/user-identity-introduction/how-to-get), `openchat`：[开放平台群组](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-id-description), `opendepartmentid`：[开放平台部门ID](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/field-overview), `userid`：[用户自定义ID](https://open.feishu.cn/document/home/user-identity-introduction/how-to-get)
-	Token      string `path:"token" json:"-"`        // 文件的 token，获取方式见 [概述](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/files/guide/introduction), 示例值："doccnBKgoMyY5OMbUG6FioTXuBe"
+	Token      string `path:"token" json:"-"`        // 文件的 token，获取方式见 [概述](https://open.feishu.cn/document/ukTMukTMukTM/uczNzUjL3czM14yN3MTN#8353e05f), 示例值："doccnBKgoMyY5OMbUG6FioTXuBe"
 	MemberID   string `path:"member_id" json:"-"`    // 权限成员的ID，与`member_type`相对应, 示例值："ou_7dab8a3d3cdcc9da365777c7ad535d62"
 }
 
@@ -20051,7 +20051,7 @@ func (r *Mock) UnMockDriveGetDriveMemberPermissionList() {
 
 // GetDriveMemberPermissionListReq ...
 type GetDriveMemberPermissionListReq struct {
-	Token string `json:"token,omitempty"` // 文件的 token，获取方式见 [概述](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/files/guide/introduction)
+	Token string `json:"token,omitempty"` // 文件的 token，获取方式见 [概述](https://open.feishu.cn/document/ukTMukTMukTM/uczNzUjL3czM14yN3MTN#8353e05f)
 	Type  string `json:"type,omitempty"`  // 文档类型   "doc"  or  "sheet" or "bitable"  or "file"
 }
 
@@ -20114,7 +20114,7 @@ func (r *Mock) UnMockDriveTransferDriveMemberPermission() {
 
 // TransferDriveMemberPermissionReq ...
 type TransferDriveMemberPermissionReq struct {
-	Token          string                                 `json:"token,omitempty"`            // 文件的 token，获取方式见 [概述](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/files/guide/introduction)
+	Token          string                                 `json:"token,omitempty"`            // 文件的 token，获取方式见 [概述](https://open.feishu.cn/document/ukTMukTMukTM/uczNzUjL3czM14yN3MTN#8353e05f)
 	Type           string                                 `json:"type,omitempty"`             // 文档类型，可选 **doc、sheet、bitable、file**
 	Owner          *TransferDriveMemberPermissionReqOwner `json:"owner,omitempty"`            // 要转移到的新的文档所有者
 	RemoveOldOwner *bool                                  `json:"remove_old_owner,omitempty"` // true 为转移后删除旧 owner 的权限，默认为false
@@ -20191,7 +20191,7 @@ func (r *Mock) UnMockDriveUpdateDriveMemberPermission() {
 type UpdateDriveMemberPermissionReq struct {
 	NeedNotification *bool  `query:"need_notification" json:"-"` // 更新权限后是否通知对方,**注意：** 使用`tenant_access_token`访问不支持该参数, 示例值：false, 默认值: `false`
 	Type             string `query:"type" json:"-"`              // 文件类型，放于query参数中，如：`?type=doc`, 示例值："doc", 可选值有: `doc`：文档, `sheet`：电子表格, `file`：云空间文件, `wiki`：知识库节点（部分支持）, `bitable`：多维表格, `docx`：文档（暂不支持）
-	Token            string `path:"token" json:"-"`              // 文件的 token，获取方式见 [概述](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/files/guide/introduction), 示例值："doccnBKgoMyY5OMbUG6FioTXuBe"
+	Token            string `path:"token" json:"-"`              // 文件的 token，获取方式见 [概述](https://open.feishu.cn/document/ukTMukTMukTM/uczNzUjL3czM14yN3MTN#8353e05f), 示例值："doccnBKgoMyY5OMbUG6FioTXuBe"
 	MemberID         string `path:"member_id" json:"-"`          // 权限成员的ID，与`member_type`相对应, 示例值："ou_7dab8a3d3cdcc9da365777c7ad535d62"
 	MemberType       string `json:"member_type,omitempty"`       // 用户类型，与请求体中的`member_id`要对应, 可选值有:  , `email`: 飞书邮箱, `openid`: [开放平台ID](https://open.feishu.cn/document/home/user-identity-introduction/how-to-get), `openchat`: [开放平台群组](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-id-description), `opendepartmentid`:[开放平台部门ID](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/field-overview), `userid`:  [用户自定义ID](https://open.feishu.cn/document/home/user-identity-introduction/how-to-get),**注意：** 使用`tenant_access_token`访问不支持添加`opendepartmentid`, 示例值："openid"
 	Perm             string `json:"perm,omitempty"`              // 需要更新的权限，可选值有：, `view`: 可阅读, `edit`: 可编辑, `full_access`: 所有权限, 示例值："view"
@@ -20314,7 +20314,7 @@ func (r *Mock) UnMockDriveGetDrivePublicPermissionV2() {
 
 // GetDrivePublicPermissionV2Req ...
 type GetDrivePublicPermissionV2Req struct {
-	Token string `json:"token,omitempty"` // 文件的 token，获取方式见 [概述](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/files/guide/introduction)
+	Token string `json:"token,omitempty"` // 文件的 token，获取方式见 [概述](https://open.feishu.cn/document/ukTMukTMukTM/uczNzUjL3czM14yN3MTN#8353e05f)
 	Type  string `json:"type,omitempty"`  // 文档类型 "doc", "sheet" or "isv"
 }
 
@@ -20376,7 +20376,7 @@ func (r *Mock) UnMockDriveUpdateDrivePublicPermission() {
 // UpdateDrivePublicPermissionReq ...
 type UpdateDrivePublicPermissionReq struct {
 	Type            string  `query:"type" json:"-"`              // 权限客体类型，放于query参数中，如：`?type=doc`, 示例值："doc", 可选值有: `doc`：文档, `sheet`：电子表格, `file`：云空间文件, `wiki`：知识库节点（部分支持）, `bitable`：多维表格, `docx`：文档（暂不支持）
-	Token           string  `path:"token" json:"-"`              // 文件的 token，获取方式见 [概述](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/files/guide/introduction), 示例值："doccnBKgoMyY5OMbUG6FioTXuBe"
+	Token           string  `path:"token" json:"-"`              // 文件的 token，获取方式见 [概述](https://open.feishu.cn/document/ukTMukTMukTM/uczNzUjL3czM14yN3MTN#8353e05f), 示例值："doccnBKgoMyY5OMbUG6FioTXuBe"
 	ExternalAccess  *bool   `json:"external_access,omitempty"`   // 是否允许分享到租户外开关, 示例值：true
 	SecurityEntity  *string `json:"security_entity,omitempty"`   // 可创建副本/打印/导出/复制设置, 示例值："anyone_can_view", 可选值有: `anyone_can_view`：所有可访问此文档的用户, `anyone_can_edit`：有编辑权限的用户
 	CommentEntity   *string `json:"comment_entity,omitempty"`    // 可评论设置, 示例值："anyone_can_view", 可选值有: `anyone_can_view`：所有可访问此文档的用户, `anyone_can_edit`：有编辑权限的用户
@@ -29699,21 +29699,23 @@ type GetHireApplicationResp struct {
 
 // GetHireApplicationRespApplication ...
 type GetHireApplicationRespApplication struct {
-	ID                       string                                             `json:"id,omitempty"`                          // 投递id
-	JobID                    string                                             `json:"job_id,omitempty"`                      // 投递的职位 ID
-	TalentID                 string                                             `json:"talent_id,omitempty"`                   // 候选人 ID
-	ResumeResourceID         string                                             `json:"resume_resource_id,omitempty"`          // 简历来源 ID
-	Stage                    *GetHireApplicationRespApplicationStage            `json:"stage,omitempty"`                       // 投递处于的阶段
-	ActiveStatus             int64                                              `json:"active_status,omitempty"`               // 活跃状态, 可选值有: `1`：活跃, `2`：非活跃, `3`：全部
-	DeliveryType             int64                                              `json:"delivery_type,omitempty"`               // 投递方式, 可选值有: `1`：HR寻访, `2`：候选人主动投递
-	ResumeSourceInfo         *GetHireApplicationRespApplicationResumeSourceInfo `json:"resume_source_info,omitempty"`          // 投递来源信息
-	TalentAttachmentResumeID string                                             `json:"talent_attachment_resume_id,omitempty"` // 简历附件 ID
-	CreateTime               string                                             `json:"create_time,omitempty"`                 // 创建时间
-	ModifyTime               string                                             `json:"modify_time,omitempty"`                 // 修改时间
-	StageTimeList            []*GetHireApplicationRespApplicationStageTime      `json:"stage_time_list,omitempty"`             // 阶段变更时间列表
-	TerminationType          int64                                              `json:"termination_type,omitempty"`            // 终止原因的类型, 可选值有: `1`：我们拒绝了候选人, `22`：候选人拒绝了我们, `27`：其他
-	TerminationReasonList    []string                                           `json:"termination_reason_list,omitempty"`     // 终止的具体原因的id列表
-	TerminationReasonNote    string                                             `json:"termination_reason_note,omitempty"`     // 终止备注
+	ID                           string                                                       `json:"id,omitempty"`                              // 投递id
+	JobID                        string                                                       `json:"job_id,omitempty"`                          // 投递的职位 ID
+	TalentID                     string                                                       `json:"talent_id,omitempty"`                       // 候选人 ID
+	ResumeResourceID             string                                                       `json:"resume_resource_id,omitempty"`              // 简历来源 ID
+	Stage                        *GetHireApplicationRespApplicationStage                      `json:"stage,omitempty"`                           // 投递处于的阶段
+	ActiveStatus                 int64                                                        `json:"active_status,omitempty"`                   // 活跃状态, 可选值有: `1`：活跃, `2`：非活跃, `3`：全部
+	DeliveryType                 int64                                                        `json:"delivery_type,omitempty"`                   // 投递方式, 可选值有: `1`：HR寻访, `2`：候选人主动投递
+	ResumeSourceInfo             *GetHireApplicationRespApplicationResumeSourceInfo           `json:"resume_source_info,omitempty"`              // 投递来源信息
+	WebsiteResumeSource          *GetHireApplicationRespApplicationWebsiteResumeSource        `json:"website_resume_source,omitempty"`           // 官网投递来源
+	TalentAttachmentResumeID     string                                                       `json:"talent_attachment_resume_id,omitempty"`     // 简历附件 ID
+	CreateTime                   string                                                       `json:"create_time,omitempty"`                     // 创建时间
+	ModifyTime                   string                                                       `json:"modify_time,omitempty"`                     // 修改时间
+	StageTimeList                []*GetHireApplicationRespApplicationStageTime                `json:"stage_time_list,omitempty"`                 // 阶段变更时间列表
+	TerminationType              int64                                                        `json:"termination_type,omitempty"`                // 终止原因的类型, 可选值有: `1`：我们拒绝了候选人, `22`：候选人拒绝了我们, `27`：其他
+	TerminationReasonList        []string                                                     `json:"termination_reason_list,omitempty"`         // 终止的具体原因的id列表
+	TerminationReasonNote        string                                                       `json:"termination_reason_note,omitempty"`         // 终止备注
+	ApplicationPreferredCityList []*GetHireApplicationRespApplicationApplicationPreferredCity `json:"application_preferred_city_list,omitempty"` // 意向投递城市列表
 }
 
 // GetHireApplicationRespApplicationStage ...
@@ -29737,11 +29739,48 @@ type GetHireApplicationRespApplicationResumeSourceInfoName struct {
 	EnUs string `json:"en_us,omitempty"` // 英文
 }
 
+// GetHireApplicationRespApplicationWebsiteResumeSource ...
+type GetHireApplicationRespApplicationWebsiteResumeSource struct {
+	WebsiteID   string                                                           `json:"website_id,omitempty"`   // 官网站点 ID
+	WebsiteName *GetHireApplicationRespApplicationWebsiteResumeSourceWebsiteName `json:"website_name,omitempty"` // 官网站点名称
+	Channel     *GetHireApplicationRespApplicationWebsiteResumeSourceChannel     `json:"channel,omitempty"`      // 推广渠道来源
+}
+
+// GetHireApplicationRespApplicationWebsiteResumeSourceWebsiteName ...
+type GetHireApplicationRespApplicationWebsiteResumeSourceWebsiteName struct {
+	ZhCn string `json:"zh_cn,omitempty"` // 中文
+	EnUs string `json:"en_us,omitempty"` // 英文
+}
+
+// GetHireApplicationRespApplicationWebsiteResumeSourceChannel ...
+type GetHireApplicationRespApplicationWebsiteResumeSourceChannel struct {
+	ChannelID   string                                                                  `json:"channel_id,omitempty"`   // 官网推广渠道 ID
+	ChannelName *GetHireApplicationRespApplicationWebsiteResumeSourceChannelChannelName `json:"channel_name,omitempty"` // 官网推广渠道名称
+}
+
+// GetHireApplicationRespApplicationWebsiteResumeSourceChannelChannelName ...
+type GetHireApplicationRespApplicationWebsiteResumeSourceChannelChannelName struct {
+	ZhCn string `json:"zh_cn,omitempty"` // 中文
+	EnUs string `json:"en_us,omitempty"` // 英文
+}
+
 // GetHireApplicationRespApplicationStageTime ...
 type GetHireApplicationRespApplicationStageTime struct {
 	StageID   string `json:"stage_id,omitempty"`   // 阶段 ID
 	EnterTime string `json:"enter_time,omitempty"` // 最近一次进入该阶段的时间
 	ExitTime  string `json:"exit_time,omitempty"`  // 最后一次离开时间，如当前在该阶段，则为空
+}
+
+// GetHireApplicationRespApplicationApplicationPreferredCity ...
+type GetHireApplicationRespApplicationApplicationPreferredCity struct {
+	Code string                                                         `json:"code,omitempty"` // 编码
+	Name *GetHireApplicationRespApplicationApplicationPreferredCityName `json:"name,omitempty"` // 名称
+}
+
+// GetHireApplicationRespApplicationApplicationPreferredCityName ...
+type GetHireApplicationRespApplicationApplicationPreferredCityName struct {
+	ZhCn string `json:"zh_cn,omitempty"` // 中文
+	EnUs string `json:"en_us,omitempty"` // 英文
 }
 
 // Code generated by lark_sdk_gen. DO NOT EDIT.
