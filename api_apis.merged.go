@@ -29916,7 +29916,8 @@ type GetHireApplicationListReq struct {
 	ProcessID       *string `query:"process_id" json:"-"`        // 按流程过滤，招聘流程 ID，枚举值通过接口「获取招聘流程信息」接口获取, 示例值："6960663240925956554"
 	StageID         *string `query:"stage_id" json:"-"`          // 按招聘阶段过滤，招聘阶段 ID，枚举值通过「获取招聘流程信息」接口获取, 示例值："614218419274131"
 	TalentID        *string `query:"talent_id" json:"-"`         // 按人才过滤, 示例值："6891560630172518670"
-	ActiveStatus    *string `query:"active_status" json:"-"`     // 按活跃状态筛选 1=活跃投递, 2=非活跃投递, 3=全部,, 示例值："1"
+	ActiveStatus    *string `query:"active_status" json:"-"`     // 按活跃状态筛选 1=活跃投递, 2=非活跃投递, 3=全部, 示例值："1"
+	JobID           *string `query:"job_id" json:"-"`            // 职位 ID, 示例值："7334134355464633"
 	PageToken       *string `query:"page_token" json:"-"`        // 查询游标, 由上一页结果返回, 第一页不传, 示例值："1"
 	PageSize        *int64  `query:"page_size" json:"-"`         // 每页限制, 每页最大不超过100, 示例值：100
 	UpdateStartTime *string `query:"update_start_time" json:"-"` // 最早更新时间，毫秒级时间戳, 示例值："1618500278663"
@@ -30378,6 +30379,7 @@ type GetHireJobRespJob struct {
 	ID                 string                             `json:"id,omitempty"`                   // 职位 ID
 	Title              string                             `json:"title,omitempty"`                // 职位名称
 	Description        string                             `json:"description,omitempty"`          // 职位描述
+	Code               string                             `json:"code,omitempty"`                 // 职位编号
 	Requirement        string                             `json:"requirement,omitempty"`          // 职位要求
 	RecruitmentType    *GetHireJobRespJobRecruitmentType  `json:"recruitment_type,omitempty"`     // 雇佣类型
 	Department         *GetHireJobRespJobDepartment       `json:"department,omitempty"`           // 部门
@@ -30391,10 +30393,10 @@ type GetHireJobRespJob struct {
 	CreateUserID       string                             `json:"create_user_id,omitempty"`       // 创建人ID，若为空则为系统或其他对接系统创建
 	CreateTime         int64                              `json:"create_time,omitempty"`          // 创建时间
 	UpdateTime         int64                              `json:"update_time,omitempty"`          // 更新时间
-	ProcessType        int64                              `json:"process_type,omitempty"`         // 职位流程类型, 可选值有: `1`：社招流程, `2`：校招流程
-	ProcessID          string                             `json:"process_id,omitempty"`           // 职位流程 ID
-	ProcessName        string                             `json:"process_name,omitempty"`         // 职位流程中文名称
-	ProcessEnName      string                             `json:"process_en_name,omitempty"`      // 职位流程英文名称
+	ProcessType        int64                              `json:"process_type,omitempty"`         // 招聘流程类型, 可选值有: `1`：社招流程, `2`：校招流程
+	ProcessID          string                             `json:"process_id,omitempty"`           // 招聘流程 ID
+	ProcessName        string                             `json:"process_name,omitempty"`         // 招聘流程中文名称
+	ProcessEnName      string                             `json:"process_en_name,omitempty"`      // 招聘流程英文名称
 	CustomizedDataList []*GetHireJobRespJobCustomizedData `json:"customized_data_list,omitempty"` // 自定义字段列表
 	JobFunction        *GetHireJobRespJobJobFunction      `json:"job_function,omitempty"`         // 职能分类
 	Subject            *GetHireJobRespJobSubject          `json:"subject,omitempty"`              // 职位项目
@@ -30404,6 +30406,7 @@ type GetHireJobRespJob struct {
 	MinSalary          int64                              `json:"min_salary,omitempty"`           // 最低薪资，单位:k
 	MaxSalary          int64                              `json:"max_salary,omitempty"`           // 最高薪资，单位:k
 	RequiredDegree     int64                              `json:"required_degree,omitempty"`      // 学历要求, 可选值有: `1`：小学及以上, `2`：初中及以上, `3`：专职及以上, `4`：高中及以上, `5`：大专及以上, `6`：本科及以上, `7`：硕士及以上, `8`：博士及以上, `20`：不限
+	CityList           []*GetHireJobRespJobCity           `json:"city_list,omitempty"`            // 工作地点列表
 }
 
 // GetHireJobRespJobRecruitmentType ...
@@ -30423,9 +30426,8 @@ type GetHireJobRespJobDepartment struct {
 
 // GetHireJobRespJobCity ...
 type GetHireJobRespJobCity struct {
-	CityCode string `json:"city_code,omitempty"` // 工作地点城市代码
-	ZhName   string `json:"zh_name,omitempty"`   // 工作地点中文名称
-	EnName   string `json:"en_name,omitempty"`   // 工作地点英文名称
+	Code string                     `json:"code,omitempty"` // 编码
+	Name *GetHireJobRespJobCityName `json:"name,omitempty"` // 名称
 }
 
 // GetHireJobRespJobMinJobLevel ...
@@ -30528,6 +30530,12 @@ type GetHireJobRespJobSubject struct {
 
 // GetHireJobRespJobSubjectName ...
 type GetHireJobRespJobSubjectName struct {
+	ZhCn string `json:"zh_cn,omitempty"` // 中文
+	EnUs string `json:"en_us,omitempty"` // 英文
+}
+
+// GetHireJobRespJobCityName ...
+type GetHireJobRespJobCityName struct {
 	ZhCn string `json:"zh_cn,omitempty"` // 中文
 	EnUs string `json:"en_us,omitempty"` // 英文
 }
@@ -40325,7 +40333,7 @@ type GetVCTopUserReportRespTopUserReport struct {
 	Name            string `json:"name,omitempty"`             // 用户名
 	UserType        int64  `json:"user_type,omitempty"`        // 用户类型, 可选值有: `1`：lark用户, `2`：rooms用户, `3`：文档用户, `4`：neo单品用户, `5`：neo单品游客用户, `6`：pstn用户, `7`：sip用户
 	MeetingCount    string `json:"meeting_count,omitempty"`    // 会议数量
-	MeetingDuration string `json:"meeting_duration,omitempty"` // 会议时长（单位sec）
+	MeetingDuration string `json:"meeting_duration,omitempty"` // 会议时长（单位min）
 }
 
 // Code generated by lark_sdk_gen. DO NOT EDIT.
