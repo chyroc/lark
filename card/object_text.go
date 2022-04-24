@@ -27,6 +27,13 @@ func Text(text string) *lark.MessageContentCardObjectText {
 	}
 }
 
+func I18nText(text *lark.I18NText) *lark.MessageContentCardObjectText {
+	return &lark.MessageContentCardObjectText{
+		Tag:  lark.MessageContentCardTextTypePlainText,
+		I18N: text,
+	}
+}
+
 // MarkdownText lark_md
 func MarkdownText(md string) *lark.MessageContentCardObjectText {
 	return &lark.MessageContentCardObjectText{

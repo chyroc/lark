@@ -19,18 +19,7 @@ import (
 	"github.com/chyroc/lark"
 )
 
-func Field() *lark.MessageContentCardObjectField {
-	return &lark.MessageContentCardObjectField{}
-}
-
-func FieldText(text string) *lark.MessageContentCardObjectField {
-	return &lark.MessageContentCardObjectField{
-		Text: Text(text),
-	}
-}
-
-func FieldMarkdown(md string) *lark.MessageContentCardObjectField {
-	return &lark.MessageContentCardObjectField{
-		Text: MarkdownText(md),
-	}
+// Modules 构造模块列表
+func Modules(modules ...lark.MessageContentCardModule) []lark.MessageContentCardModule {
+	return modules
 }

@@ -19,9 +19,10 @@ package lark
 
 // MessageContentCard ...
 type MessageContentCard struct {
-	Header  *MessageContentCardHeader  `json:"header,omitempty"`   // 用于配置卡片标题内容。
-	Config  *MessageContentCardConfig  `json:"config,omitempty"`   // 配置卡片属性
-	Modules []MessageContentCardModule `json:"elements,omitempty"` // 用于定义卡片正文内容
+	Header      *MessageContentCardHeader     `json:"header,omitempty"`        // 用于配置卡片标题内容。
+	Config      *MessageContentCardConfig     `json:"config,omitempty"`        // 配置卡片属性
+	Modules     []MessageContentCardModule    `json:"elements,omitempty"`      // 用于定义卡片正文内容
+	I18NModules *MessageContentCardI18NModule `json:"i18n_elements,omitempty"` // 用于定义卡片正文内容，支持多语言
 }
 
 // String ...
@@ -68,6 +69,13 @@ func (r *MessageContentCard) SetConfig(val *MessageContentCardConfig) *MessageCo
 
 func (r *MessageContentCard) SetModules(val ...MessageContentCardModule) *MessageContentCard {
 	r.Modules = val
+	r.I18NModules = nil
+	return r
+}
+
+func (r *MessageContentCard) SetI18NModules(val *MessageContentCardI18NModule) *MessageContentCard {
+	r.I18NModules = val
+	r.Modules = nil
 	return r
 }
 
@@ -448,6 +456,12 @@ type MessageContentCardModule interface {
 	IsMessageContentCardModule()
 }
 
+type MessageContentCardI18NModule struct {
+	EnUs []MessageContentCardModule `json:"en_us,omitempty"`
+	ZhCn []MessageContentCardModule `json:"zh_cn,omitempty"`
+	JaJp []MessageContentCardModule `json:"ja_jp,omitempty"`
+}
+
 // MessageContentCardModuleTag ...
 type MessageContentCardModuleTag string
 
@@ -724,6 +738,7 @@ type MessageContentCardObjectText struct {
 	Tag     MessageContentCardObjectTextType `json:"tag,omitempty"`     // plain_text / lark_md
 	Content string                           `json:"content,omitempty"` // 文本内容
 	Lines   int                              `json:"lines,omitempty"`   // 内容显示行数
+	I18N    *I18NText                        `json:"i18n,omitempty"`    // 国际化文本内容
 }
 
 // IsMessageContentCardElement ...
@@ -791,3 +806,9 @@ func (r *MessageContentCardObjectURL) SetPCURL(val string) *MessageContentCardOb
 }
 
 // === MessageContentCardObjectURL ===
+
+type I18NText struct {
+	ZhCn string `json:"zh_cn"`
+	EnUs string `json:"en_us"`
+	JaJp string `json:"ja_jp"`
+}
