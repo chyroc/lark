@@ -50,6 +50,11 @@ func (r *Doc) Delete(ctx context.Context) error {
 	return r.delete(ctx)
 }
 
+// Copy copy doc file
+func (r *Doc) Copy(ctx context.Context, folderToken, name string) (*FileMeta, error) {
+	return copyFile(ctx, r.larkClient, folderToken, r.docToken, "doc", name)
+}
+
 // RawContent get doc raw content
 func (r *Doc) RawContent(ctx context.Context) (string, error) {
 	return r.rawContent(ctx)

@@ -176,16 +176,15 @@ API 总数: 564, 事件总数: 90
   - SearchDriveFile
   - GetDriveFileMeta
   - CreateDriveFile
-  - CopyDriveFile
   - DeleteDriveFile
-  - DeleteDriveDocFile
   - DeleteDriveSheetFile
-  - CreateDriveFolder
   - GetDriveFolderMeta
   - GetDriveRootFolderMeta
   - GetDriveFolderChildren
   - GetDriveFileStatistics
   - DownloadDriveFile
+  - CopyDriveFile
+  - CreateDriveFolder
   - MoveDriveFile
   - UploadDriveFile
   - PrepareUploadDriveFile
@@ -208,6 +207,7 @@ API 总数: 564, 事件总数: 90
   - UpdateDrivePublicPermissionV1Old
   - UpdateDrivePublicPermissionV2Old
   - GetDrivePublicPermissionV2
+  - GetDrivePublicPermission
   - UpdateDrivePublicPermission
   - BatchGetDriveMediaTmpDownloadURL
   - GetDriveCommentList

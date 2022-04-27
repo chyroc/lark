@@ -176,16 +176,15 @@ API Count: 564, Event Count: 90
   - SearchDriveFile
   - GetDriveFileMeta
   - CreateDriveFile
-  - CopyDriveFile
   - DeleteDriveFile
-  - DeleteDriveDocFile
   - DeleteDriveSheetFile
-  - CreateDriveFolder
   - GetDriveFolderMeta
   - GetDriveRootFolderMeta
   - GetDriveFolderChildren
   - GetDriveFileStatistics
   - DownloadDriveFile
+  - CopyDriveFile
+  - CreateDriveFolder
   - MoveDriveFile
   - UploadDriveFile
   - PrepareUploadDriveFile
@@ -208,6 +207,7 @@ API Count: 564, Event Count: 90
   - UpdateDrivePublicPermissionV1Old
   - UpdateDrivePublicPermissionV2Old
   - GetDrivePublicPermissionV2
+  - GetDrivePublicPermission
   - UpdateDrivePublicPermission
   - BatchGetDriveMediaTmpDownloadURL
   - GetDriveCommentList

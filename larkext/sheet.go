@@ -68,6 +68,11 @@ func (r *Sheet) DeleteSheet(ctx context.Context, sheetID string) error {
 	return r.deleteSheet(ctx, sheetID)
 }
 
+// Copy copy sheet file
+func (r *Sheet) Copy(ctx context.Context, folderToken, name string) (*FileMeta, error) {
+	return copyFile(ctx, r.larkClient, folderToken, r.sheetToken, "sheet", name)
+}
+
 // CopySheet copy sheet
 func (r *Sheet) CopySheet(ctx context.Context, fromSheetID string, toTitle *string) (string, error) {
 	return r.copySheet(ctx, fromSheetID, toTitle)

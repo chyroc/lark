@@ -64,7 +64,7 @@ func (r *Folder) listFiles(ctx context.Context) (map[string]*lark.GetDriveFolder
 func (r *Folder) newFolder(ctx context.Context, title string) (*Folder, error) {
 	resp, _, err := r.larkClient.Drive.CreateDriveFolder(ctx, &lark.CreateDriveFolderReq{
 		FolderToken: r.folderToken,
-		Title:       title,
+		Name:        title,
 	})
 	if err != nil {
 		return nil, err
@@ -94,16 +94,18 @@ func (r *Folder) newDoc(ctx context.Context, title string) (*Doc, error) {
 	return NewDoc(r.larkClient, resp.ObjToken), nil
 }
 
-func (r *Folder) deleteSheet(ctx context.Context, sheetToken string) error {
-	_, _, err := r.larkClient.Drive.DeleteDriveSheetFile(ctx, &lark.DeleteDriveSheetFileReq{
-		SpreadSheetToken: sheetToken,
-	})
-	return err
-}
-
-func (r *Folder) deleteDoc(ctx context.Context, docToken string) error {
-	_, _, err := r.larkClient.Drive.DeleteDriveDocFile(ctx, &lark.DeleteDriveDocFileReq{
-		DocToken: docToken,
+// file：box开头云文档类型
+// docx：docx文档类型
+// bitable：多维表格类型
+// folder：文件夹类型(新版云空间下可用)
+// doc：doc文档类型
+// sheet：电子表格类型
+// mindnote：思维笔记类型
+// shortcut：快捷方式类型(新版云空间下可用)
+func (r *Folder) deleteFile(ctx context.Context, fileToken, typ string) error {
+	_, _, err := r.larkClient.Drive.DeleteDriveFile(ctx, &lark.DeleteDriveFileReq{
+		Type:      typ,
+		FileToken: fileToken,
 	})
 	return err
 }

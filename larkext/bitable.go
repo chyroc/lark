@@ -36,3 +36,8 @@ func NewBitable(larkClient *lark.Lark, appToken string) *Bitable {
 func (r *Bitable) Meta(ctx context.Context) (*lark.GetBitableMetaRespApp, error) {
 	return r.meta(ctx)
 }
+
+// Copy copy bitable file
+func (r *Bitable) Copy(ctx context.Context, folderToken, name string) (*FileMeta, error) {
+	return copyFile(ctx, r.larkClient, folderToken, r.appToken, "bitable", name)
+}

@@ -80,14 +80,44 @@ func (r *Folder) NewDoc(ctx context.Context, title string) (*Doc, error) {
 	return r.newDoc(ctx, title)
 }
 
-// DeleteSheet delete sheet in folder
-func (r *Folder) DeleteSheet(ctx context.Context, sheetToken string) error {
-	return r.deleteSheet(ctx, sheetToken)
+// DeleteFile delete file in folder
+func (r *Folder) DeleteFile(ctx context.Context, fileToken string) error {
+	return r.deleteFile(ctx, fileToken, "file")
+}
+
+// DeleteDocx delete docx in folder
+func (r *Folder) DeleteDocx(ctx context.Context, fileToken string) error {
+	return r.deleteFile(ctx, fileToken, "docx")
+}
+
+// DeleteBitable delete bitable in folder
+func (r *Folder) DeleteBitable(ctx context.Context, fileToken string) error {
+	return r.deleteFile(ctx, fileToken, "bitable")
+}
+
+// DeleteFolder delete folder in folder
+func (r *Folder) DeleteFolder(ctx context.Context, fileToken string) error {
+	return r.deleteFile(ctx, fileToken, "folder")
 }
 
 // DeleteDoc delete doc in folder
-func (r *Folder) DeleteDoc(ctx context.Context, docToken string) error {
-	return r.deleteDoc(ctx, docToken)
+func (r *Folder) DeleteDoc(ctx context.Context, fileToken string) error {
+	return r.deleteFile(ctx, fileToken, "doc")
+}
+
+// DeleteSheet delete sheet in folder
+func (r *Folder) DeleteSheet(ctx context.Context, fileToken string) error {
+	return r.deleteFile(ctx, fileToken, "sheet")
+}
+
+// DeleteMindnote delete mindnote in folder
+func (r *Folder) DeleteMindnote(ctx context.Context, fileToken string) error {
+	return r.deleteFile(ctx, fileToken, "mindnote")
+}
+
+// DeleteShortcut delete shortcut in folder
+func (r *Folder) DeleteShortcut(ctx context.Context, fileToken string) error {
+	return r.deleteFile(ctx, fileToken, "shortcut")
 }
 
 // FolderMeta is folder meta
@@ -100,3 +130,128 @@ type FolderMeta struct {
 	ParentID  string `json:"parentId,omitempty"`  // 文件夹的上级目录 id
 	OwnUid    string `json:"ownUid,omitempty"`    // 文件夹为个人文件夹时，为文件夹的所有者 id；文件夹为共享文件夹时，为文件夹树id
 }
+
+type FileMeta struct {
+	Token       string `json:"token,omitempty"`        // 文件标识符
+	Name        string `json:"name,omitempty"`         // 文件名
+	Type        string `json:"type,omitempty"`         // 文件类型
+	ParentToken string `json:"parent_token,omitempty"` // 父文件夹标识
+	URL         string `json:"url,omitempty"`          // 在浏览器中查看的链接
+}
+
+//  - SearchDriveFile
+//  - GetDriveFileMeta
+//  - CreateDriveFile
+//  - GetDriveFolderMeta
+//  - GetDriveRootFolderMeta
+//  - GetDriveFolderChildren
+//  - GetDriveFileStatistics
+//  - DownloadDriveFile
+//  - CopyDriveFile
+//  - CreateDriveFolder
+//  - MoveDriveFile
+//  - UploadDriveFile
+//  - PrepareUploadDriveFile
+//  - PartUploadDriveFile
+//  - FinishUploadDriveFile
+//  - DownloadDriveMedia
+//  - UploadDriveMedia
+//  - PrepareUploadDriveMedia
+//  - PartUploadDriveMedia
+//  - FinishUploadDriveMedia
+//  - CreateDriveMemberPermissionOld
+//  - TransferDriveMemberPermission
+//  - GetDriveMemberPermissionList
+//  - CreateDriveMemberPermission
+//  - DeleteDriveMemberPermission
+//  - DeleteDriveMemberPermissionOld
+//  - UpdateDriveMemberPermissionOld
+//  - UpdateDriveMemberPermission
+//  - CheckDriveMemberPermission
+//  - UpdateDrivePublicPermissionV1Old
+//  - UpdateDrivePublicPermissionV2Old
+//  - GetDrivePublicPermissionV2
+//  - GetDrivePublicPermission
+//  - UpdateDrivePublicPermission
+//  - BatchGetDriveMediaTmpDownloadURL
+//  - GetDriveCommentList
+//  - GetDriveComment
+//  - CreateDriveComment
+//  - UpdateDriveComment
+//  - DeleteDriveComment
+//  - UpdateDriveCommentPatch
+//  - CreateDriveFileSubscription
+//  - GetDriveFileSubscription
+//  - UpdateDriveFileSubscription
+//  - CreateDriveDoc
+//  - GetDriveDocContent
+//  - GetDriveDocRawContent
+//  - GetDriveDocMeta
+//  - CreateSheet
+//  - GetSheetMeta
+//  - UpdateSheetProperty
+//  - BatchUpdateSheet
+//  - ImportSheet
+//  - CreateDriveImportTask
+//  - GetDriveImportTask
+//  - MoveSheetDimension
+//  - PrependSheetValue
+//  - AppendSheetValue
+//  - InsertSheetDimensionRange
+//  - AddSheetDimensionRange
+//  - UpdateSheetDimensionRange
+//  - DeleteSheetDimensionRange
+//  - GetSheetValue
+//  - BatchGetSheetValue
+//  - SetSheetValue
+//  - BatchSetSheetValue
+//  - SetSheetStyle
+//  - BatchSetSheetStyle
+//  - MergeSheetCell
+//  - UnmergeSheetCell
+//  - SetSheetValueImage
+//  - FindSheet
+//  - ReplaceSheet
+//  - CreateSheetConditionFormat
+//  - GetSheetConditionFormat
+//  - UpdateSheetConditionFormat
+//  - DeleteSheetConditionFormat
+//  - CreateSheetProtectedDimension
+//  - GetSheetProtectedDimension
+//  - UpdateSheetProtectedDimension
+//  - DeleteSheetProtectedDimension
+//  - CreateSheetDataValidationDropdown
+//  - DeleteSheetDataValidationDropdown
+//  - UpdateSheetDataValidationDropdown
+//  - GetSheetDataValidationDropdown
+//  - CreateSheetFilter
+//  - DeleteSheetFilter
+//  - UpdateSheetFilter
+//  - GetSheetFilter
+//  - CreateSheetFilterView
+//  - DeleteSheetFilterView
+//  - UpdateSheetFilterView
+//  - GetSheetFilterView
+//  - QuerySheetFilterView
+//  - CreateSheetFilterViewCondition
+//  - DeleteSheetFilterViewCondition
+//  - UpdateSheetFilterViewCondition
+//  - GetSheetFilterViewCondition
+//  - QuerySheetFilterViewCondition
+//  - CreateSheetFloatImage
+//  - DeleteSheetFloatImage
+//  - UpdateSheetFloatImage
+//  - GetSheetFloatImage
+//  - QuerySheetFloatImage
+//  - CreateWikiSpace
+//  - GetWikiSpaceList
+//  - GetWikiSpace
+//  - UpdateWikiSpaceSetting
+//  - DeleteWikiSpaceMember
+//  - AddWikiSpaceMember
+//  - CreateWikiNode
+//  - GetWikiNodeList
+//  - MoveWikiNode
+//  - GetWikiNode
+//  - MoveDocsToWiki
+//  - GetWikiTask

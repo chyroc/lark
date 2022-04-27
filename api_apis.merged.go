@@ -3317,7 +3317,6 @@ func (r *Mock) UnMockApprovalCreateApprovalInstance() {
 type CreateApprovalInstanceReq struct {
 	ApprovalCode           string              `json:"approval_code,omitempty"`              // 审批定义 code
 	UserID                 *string             `json:"user_id,omitempty"`                    // 发起审批用户
-	TenantID               *string             `json:"tenant_id,omitempty"`                  // 平台租户ID
 	OpenID                 string              `json:"open_id,omitempty"`                    // 发起审批用户 open id, 如果传了 user_id 则优先使用 user_id
 	DepartmentID           *string             `json:"department_id,omitempty"`              // 发起审批用户部门id，如果用户只属于一个部门，可以不填。如果属于多个部门，默认会选择部门列表第一个部门
 	Form                   ApprovalWidgetList  `json:"form,omitempty"`                       // json 数组，**控件值**
@@ -3940,9 +3939,9 @@ func (r *Mock) UnMockApprovalUpdateApprovalMessage() {
 // UpdateApprovalMessageReq ...
 type UpdateApprovalMessageReq struct {
 	MessageID        string  `json:"message_id,omitempty"`         // 卡片 id，发送卡片时会拿到
-	Status           string  `json:"status,omitempty"`             // 状态类型，用于更新第一个action文字内容，枚举：<br> APPROVED:-已同意<br>REJECTED:-已拒绝<br>CANCELLED:-已撤回<br>FORWARDED:-已转交<br>ROLLBACK:-已回退<br>ADD:-已加签<br>DELETED:-已删除<br>PROCESSED:-已处理
-	StatusName       *string `json:"status_name,omitempty"`        // 审批同意/拒绝后title状态
-	DetailActionName *string `json:"detail_action_name,omitempty"` // 审批同意/拒绝后“查看详情按钮名称”
+	Status           string  `json:"status,omitempty"`             // 状态类型，用于更新第一个action文字内容，枚举：<br> APPROVED:-已同意<br>REJECTED:-已拒绝<br>CANCELLED:-已撤回<br>FORWARDED:-已转交<br>ROLLBACK:-已回退<br>ADD:-已加签<br>DELETED:-已删除<br>PROCESSED:-已处理<br>CUSTOM:-自定义按钮状态
+	StatusName       *string `json:"status_name,omitempty"`        // status=CUSTOM时可以自定义审批同意/拒绝后title状态
+	DetailActionName *string `json:"detail_action_name,omitempty"` // status=CUSTOM时可以自定义审批同意/拒绝后“查看详情按钮名称”
 	I18nResources    *string `json:"i18n_resources,omitempty"`     // i18n国际化文案
 }
 
@@ -9402,11 +9401,11 @@ type createBitableViewResp struct {
 
 // CreateBitableViewResp ...
 type CreateBitableViewResp struct {
-	View *CreateBitableViewRespApptableview `json:"view,omitempty"` // 视图
+	View *CreateBitableViewRespView `json:"view,omitempty"` // 视图
 }
 
-// CreateBitableViewRespApptableview ...
-type CreateBitableViewRespApptableview struct {
+// CreateBitableViewRespView ...
+type CreateBitableViewRespView struct {
 	ViewID   string `json:"view_id,omitempty"`   // 视图Id
 	ViewName string `json:"view_name,omitempty"` // 视图名字
 	ViewType string `json:"view_type,omitempty"` // 视图类型
@@ -12365,7 +12364,7 @@ func (r *Mock) UnMockChatUpdateChatAnnouncement() {
 type UpdateChatAnnouncementReq struct {
 	ChatID   string   `path:"chat_id" json:"-"`   // 待修改公告的群 ID，详情参见[群ID 说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-id-description), 示例值："oc_5ad11d72b830411d72b836c20"
 	Revision string   `json:"revision,omitempty"` // 文档当前版本号 int64 类型，get 接口会返回, 示例值："12"
-	Requests []string `json:"requests,omitempty"` // 修改文档请求的序列化字段, 示例值：xxx
+	Requests []string `json:"requests,omitempty"` // 修改文档请求的序列化字段,更新公告信息的格式和更新[云文档](https://open.feishu.cn/document/ukTMukTMukTM/uAzM5YjLwMTO24CMzkjN)格式相同, 示例值：xxx
 }
 
 // updateChatAnnouncementResp ...
@@ -17663,7 +17662,7 @@ func (r *Mock) UnMockDriveGetDriveDocContent() {
 
 // GetDriveDocContentReq ...
 type GetDriveDocContentReq struct {
-	DocToken string `path:"docToken" json:"-"` // 获取方式详见 [云文档接口快速入门](https://open.feishu.cn/document/ukTMukTMukTM/uczNzUjL3czM14yN3MTN)
+	DocToken string `path:"docToken" json:"-"` // 获取方式详见 [云文档常见问题](https://open.feishu.cn/document/ukTMukTMukTM/uczNzUjL3czM14yN3MTN)
 }
 
 // getDriveDocContentResp ...
@@ -17722,7 +17721,7 @@ func (r *Mock) UnMockDriveCreateDriveDoc() {
 
 // CreateDriveDocReq ...
 type CreateDriveDocReq struct {
-	FolderToken *string `json:"FolderToken,omitempty"` // 文件夹 token，获取方式见[云文档接口快速入门](https://open.feishu.cn/document/ukTMukTMukTM/uczNzUjL3czM14yN3MTN)；空表示根目录，tenant_access_token应用权限仅允许操作应用创建的目录
+	FolderToken *string `json:"FolderToken,omitempty"` // 文件夹 token，获取方式见[云文档常见问题](https://open.feishu.cn/document/ukTMukTMukTM/uczNzUjL3czM14yN3MTN)；空表示根目录，tenant_access_token应用权限仅允许操作应用创建的目录
 	Content     *string `json:"Content,omitempty"`     // 传入符合[文档数据结构](https://open.feishu.cn/document/ukTMukTMukTM/uAzM5YjLwMTO24CMzkjN)的字符串，若为空表示创建空文档
 }
 
@@ -17780,7 +17779,7 @@ func (r *Mock) UnMockDriveGetDriveDocMeta() {
 
 // GetDriveDocMetaReq ...
 type GetDriveDocMetaReq struct {
-	DocToken string `path:"docToken" json:"-"` // doc 的 token，获取方式见[准备接入文档 API](https://open.feishu.cn/document/ukTMukTMukTM/ugzNzUjL4czM14CO3MTN/guide/getting-start)
+	DocToken string `path:"docToken" json:"-"` // doc 的 token，获取方式见[云文档常见问题](https://open.feishu.cn/document/ukTMukTMukTM/uczNzUjL3czM14yN3MTN)
 }
 
 // getDriveDocMetaResp ...
@@ -17853,7 +17852,7 @@ func (r *Mock) UnMockDriveGetDriveDocRawContent() {
 
 // GetDriveDocRawContentReq ...
 type GetDriveDocRawContentReq struct {
-	DocToken string `path:"docToken" json:"-"` // 获取方式详见 [云文档接口快速入门](https://open.feishu.cn/document/ukTMukTMukTM/uczNzUjL3czM14yN3MTN)
+	DocToken string `path:"docToken" json:"-"` // 获取方式详见 [云文档常见问题](https://open.feishu.cn/document/ukTMukTMukTM/uczNzUjL3czM14yN3MTN)
 }
 
 // getDriveDocRawContentResp ...
@@ -17874,9 +17873,9 @@ type GetDriveDocRawContentResp struct {
 //
 // 将文件复制到用户云空间的其他文件夹中。不支持复制文件夹。
 // 如果目标文件夹是我的空间，则复制的文件会在「我的空间」的「归我所有」列表里。
-// 该接口不支持并发创建，且调用频率上限为 5QPS 且 10000次/天
+// 该接口不支持并发拷贝多个文件，且调用频率上限为 5QPS 且 10000次/天
 //
-// doc: https://open.feishu.cn/document/ukTMukTMukTM/uYTNzUjL2UzM14iN1MTN
+// doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file/copy
 func (r *DriveService) CopyDriveFile(ctx context.Context, request *CopyDriveFileReq, options ...MethodOptionFunc) (*CopyDriveFileResp, *Response, error) {
 	if r.cli.mock.mockDriveCopyDriveFile != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Drive#CopyDriveFile mock enable")
@@ -17887,7 +17886,7 @@ func (r *DriveService) CopyDriveFile(ctx context.Context, request *CopyDriveFile
 		Scope:                 "Drive",
 		API:                   "CopyDriveFile",
 		Method:                "POST",
-		URL:                   r.cli.openBaseURL + "/open-apis/drive/explorer/v2/file/copy/files/:fileToken",
+		URL:                   r.cli.openBaseURL + "/open-apis/drive/v1/files/:file_token/copy",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
@@ -17911,27 +17910,31 @@ func (r *Mock) UnMockDriveCopyDriveFile() {
 
 // CopyDriveFileReq ...
 type CopyDriveFileReq struct {
-	FileToken      string `path:"fileToken" json:"-"`       // 被复制文件的 token, 获取方式见 [概述](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/files/guide/introduction)
-	Type           string `json:"type,omitempty"`           // 被复制文件的类型   "file"、"doc"、"sheet"、"bitable"、"docx"、"mindnote"
-	DstFolderToken string `json:"dstFolderToken,omitempty"` // 目标文件夹的 token, 获取方式见 [概述](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/files/guide/introduction)
-	DstName        string `json:"dstName,omitempty"`        // 复制的副本文件的新名称
-	CommentNeeded  *bool  `json:"commentNeeded,omitempty"`  // 是否复制评论
+	FileToken   string  `path:"file_token" json:"-"`    // 被复制的文件token, 示例值："boxbcj55reGXM6YAS3C7Z4GWKNg"
+	Name        string  `json:"name,omitempty"`         // 被复制文件的新名称, 示例值："123.txt"
+	Type        *string `json:"type,omitempty"`         // 被复制文件的类型，如果该值为空或者与文件实际类型不匹配，接口会返回失败。, 示例值："file", 可选值有: `file`：文件类型, `doc`：云文档类型, `sheet`：电子表格类型, `bitable`：多维表格类型, `docx`：新版云文档类型, `mindnote`：思维笔记类型
+	FolderToken string  `json:"folder_token,omitempty"` // 文件被复制到的目标文件夹token, 示例值："fldbcRho46N6MQ3mJkOAuPUZR9d"
 }
 
 // copyDriveFileResp ...
 type copyDriveFileResp struct {
-	Code int64              `json:"code,omitempty"`
-	Msg  string             `json:"msg,omitempty"`
+	Code int64              `json:"code,omitempty"` // 错误码，非 0 表示失败
+	Msg  string             `json:"msg,omitempty"`  // 错误描述
 	Data *CopyDriveFileResp `json:"data,omitempty"`
 }
 
 // CopyDriveFileResp ...
 type CopyDriveFileResp struct {
-	FolderToken string `json:"folderToken,omitempty"` // 目标文件夹的 token
-	Revision    int64  `json:"revision,omitempty"`    // 新创建文件的版本号
-	Token       string `json:"token,omitempty"`       // 新创建文件的 token
-	Type        string `json:"type,omitempty"`        // 新创建文件的类型，"file"、"doc"、"sheet"、"bitable"、"docx"、"mindnote"
-	URL         string `json:"url,omitempty"`         // 新创建文件的 url
+	File *CopyDriveFileRespFile `json:"file,omitempty"` // 复制后的文件资源
+}
+
+// CopyDriveFileRespFile ...
+type CopyDriveFileRespFile struct {
+	Token       string `json:"token,omitempty"`        // 文件标识符
+	Name        string `json:"name,omitempty"`         // 文件名
+	Type        string `json:"type,omitempty"`         // 文件类型
+	ParentToken string `json:"parent_token,omitempty"` // 父文件夹标识
+	URL         string `json:"url,omitempty"`          // 在浏览器中查看的链接
 }
 
 // Code generated by lark_sdk_gen. DO NOT EDIT.
@@ -17994,69 +17997,6 @@ type CreateDriveFileResp struct {
 	URL      string `json:"url,omitempty"`      // 新创建文档的 url
 	Token    string `json:"token,omitempty"`    // 新创建文档的 token
 	Revision int64  `json:"revision,omitempty"` // 新创建文档的版本号
-}
-
-// Code generated by lark_sdk_gen. DO NOT EDIT.
-
-// DeleteDriveDocFile
-//
-// 该接口用于根据 docToken 删除对应的 Docs 文档。
-// 为了更好地提升该接口的安全性，我们对其进行了升级，请尽快迁移至
-// [新版本>>](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file/delete)
-// </md-alert>
-// <md-alert type="warn">
-// 文档只能被文档所有者删除，文档被删除后将会放到回收站里
-// 该接口不支持并发调用，且调用频率上限为5QPS
-//
-// doc: https://open.feishu.cn/document/ukTMukTMukTM/uATM2UjLwEjN14CMxYTN
-func (r *DriveService) DeleteDriveDocFile(ctx context.Context, request *DeleteDriveDocFileReq, options ...MethodOptionFunc) (*DeleteDriveDocFileResp, *Response, error) {
-	if r.cli.mock.mockDriveDeleteDriveDocFile != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Drive#DeleteDriveDocFile mock enable")
-		return r.cli.mock.mockDriveDeleteDriveDocFile(ctx, request, options...)
-	}
-
-	req := &RawRequestReq{
-		Scope:                 "Drive",
-		API:                   "DeleteDriveDocFile",
-		Method:                "DELETE",
-		URL:                   r.cli.openBaseURL + "/open-apis/drive/explorer/v2/file/docs/:docToken",
-		Body:                  request,
-		MethodOption:          newMethodOption(options),
-		NeedTenantAccessToken: true,
-		NeedUserAccessToken:   true,
-	}
-	resp := new(deleteDriveDocFileResp)
-
-	response, err := r.cli.RawRequest(ctx, req, resp)
-	return resp.Data, response, err
-}
-
-// MockDriveDeleteDriveDocFile mock DriveDeleteDriveDocFile method
-func (r *Mock) MockDriveDeleteDriveDocFile(f func(ctx context.Context, request *DeleteDriveDocFileReq, options ...MethodOptionFunc) (*DeleteDriveDocFileResp, *Response, error)) {
-	r.mockDriveDeleteDriveDocFile = f
-}
-
-// UnMockDriveDeleteDriveDocFile un-mock DriveDeleteDriveDocFile method
-func (r *Mock) UnMockDriveDeleteDriveDocFile() {
-	r.mockDriveDeleteDriveDocFile = nil
-}
-
-// DeleteDriveDocFileReq ...
-type DeleteDriveDocFileReq struct {
-	DocToken string `path:"docToken" json:"-"` // doc 的 token，获取方式见 [概述](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/files/guide/introduction)
-}
-
-// deleteDriveDocFileResp ...
-type deleteDriveDocFileResp struct {
-	Code int64                   `json:"code,omitempty"`
-	Msg  string                  `json:"msg,omitempty"`
-	Data *DeleteDriveDocFileResp `json:"data,omitempty"`
-}
-
-// DeleteDriveDocFileResp ...
-type DeleteDriveDocFileResp struct {
-	ID     string `json:"id,omitempty"`     // doc 的 id「字符串类型」
-	Result bool   `json:"result,omitempty"` // 删除结果
 }
 
 // Code generated by lark_sdk_gen. DO NOT EDIT.
@@ -19017,12 +18957,11 @@ type GetDriveFolderChildrenRespChildren struct {
 
 // Code generated by lark_sdk_gen. DO NOT EDIT.
 
-// CreateDriveFolder
+// CreateDriveFolder 在用户云空间的指定文件夹中创建一个新的空文件夹。
 //
-// 该接口用于根据 folderToken 在该 folder 下创建文件夹。
 // 该接口不支持并发创建，且调用频率上限为 5QPS 以及 10000次/天
 //
-// doc: https://open.feishu.cn/document/ukTMukTMukTM/ukTNzUjL5UzM14SO1MTN
+// doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file/create_folder
 func (r *DriveService) CreateDriveFolder(ctx context.Context, request *CreateDriveFolderReq, options ...MethodOptionFunc) (*CreateDriveFolderResp, *Response, error) {
 	if r.cli.mock.mockDriveCreateDriveFolder != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Drive#CreateDriveFolder mock enable")
@@ -19033,7 +18972,7 @@ func (r *DriveService) CreateDriveFolder(ctx context.Context, request *CreateDri
 		Scope:                 "Drive",
 		API:                   "CreateDriveFolder",
 		Method:                "POST",
-		URL:                   r.cli.openBaseURL + "/open-apis/drive/explorer/v2/folder/:folderToken",
+		URL:                   r.cli.openBaseURL + "/open-apis/drive/v1/files/create_folder",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
@@ -19057,22 +18996,21 @@ func (r *Mock) UnMockDriveCreateDriveFolder() {
 
 // CreateDriveFolderReq ...
 type CreateDriveFolderReq struct {
-	FolderToken string `path:"folderToken" json:"-"` // 文件夹的 token，获取方式见 [概述](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/files/guide/introduction)
-	Title       string `json:"title,omitempty"`      // 文件夹标题
+	Name        string `json:"name,omitempty"`         // 文件夹名称, 示例值："New Folder"
+	FolderToken string `json:"folder_token,omitempty"` // 父文件夹token, 示例值："fldbcRho46N6MQ3mJkOAuPUZR9d"
 }
 
 // createDriveFolderResp ...
 type createDriveFolderResp struct {
-	Code int64                  `json:"code,omitempty"`
-	Msg  string                 `json:"msg,omitempty"`
+	Code int64                  `json:"code,omitempty"` // 错误码，非 0 表示失败
+	Msg  string                 `json:"msg,omitempty"`  // 错误描述
 	Data *CreateDriveFolderResp `json:"data,omitempty"`
 }
 
 // CreateDriveFolderResp ...
 type CreateDriveFolderResp struct {
-	URL      string `json:"url,omitempty"`      // 新创建文件夹的 url
-	Revision int64  `json:"revision,omitempty"` // 新创建文件夹的版本号
-	Token    string `json:"token,omitempty"`    // 新创建文件夹的 token
+	Token string `json:"token,omitempty"` // 创建文件夹的token
+	URL   string `json:"url,omitempty"`   // 创建文件夹的访问url
 }
 
 // Code generated by lark_sdk_gen. DO NOT EDIT.
@@ -19798,7 +19736,7 @@ func (r *Mock) UnMockDriveCreateDriveMemberPermission() {
 
 // CreateDriveMemberPermissionReq ...
 type CreateDriveMemberPermissionReq struct {
-	Type             string `query:"type" json:"-"`              // 文件类型，放于query参数中，如：`?type=doc`, 示例值："doc", 可选值有: `doc`：文档, `sheet`：电子表格, `file`：云空间文件, `wiki`：知识库节点（部分支持）, `bitable`：多维表格, `docx`：文档（暂不支持）
+	Type             string `query:"type" json:"-"`              // 文件类型，放于query参数中，如：`?type=doc`, 示例值："doc", 可选值有: `doc`：文档, `sheet`：电子表格, `file`：云空间文件, `wiki`：知识库节点, `bitable`：多维表格, `docx`：文档, `folder`：文件夹（即将支持）
 	NeedNotification *bool  `query:"need_notification" json:"-"` // 添加权限后是否通知对方,**注意：** 使用`tenant_access_token`访问不支持该参数, 示例值：false, 默认值: `false`
 	Token            string `path:"token" json:"-"`              // 文件的 token，获取方式见 [概述](https://open.feishu.cn/document/ukTMukTMukTM/uczNzUjL3czM14yN3MTN#8353e05f), 示例值："doccnBKgoMyY5OMbUG6FioTXuBe"
 	MemberType       string `json:"member_type,omitempty"`       // 用户类型，与请求体中的`member_id`要对应, 可选值有:  , `email`: 飞书邮箱, `openid`: [开放平台ID](https://open.feishu.cn/document/home/user-identity-introduction/how-to-get), `openchat`: [开放平台群组](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-id-description), `opendepartmentid`:[开放平台部门ID](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/field-overview), `userid`:  [用户自定义ID](https://open.feishu.cn/document/home/user-identity-introduction/how-to-get),**注意：** 使用`tenant_access_token`访问不支持添加`opendepartmentid`, 示例值："openid"
@@ -19936,7 +19874,7 @@ func (r *Mock) UnMockDriveDeleteDriveMemberPermission() {
 
 // DeleteDriveMemberPermissionReq ...
 type DeleteDriveMemberPermissionReq struct {
-	Type       string `query:"type" json:"-"`        // 文件类型，放于query参数中，如：`?type=doc`, 示例值："doc", 可选值有: `doc`：文档, `sheet`：电子表格, `file`：云空间文件, `wiki`：知识库节点（部分支持）, `bitable`：多维表格, `docx`：文档（暂不支持）
+	Type       string `query:"type" json:"-"`        // 文件类型，放于query参数中，如：`?type=doc`, 示例值："doc", 可选值有: `doc`：文档, `sheet`：电子表格, `file`：云空间文件, `wiki`：知识库节点, `bitable`：多维表格, `docx`：文档, `folder`：文件夹（即将支持）
 	MemberType string `query:"member_type" json:"-"` // 权限成员类型，放于query参数中，如：`?member_type=openid`, 示例值："openid", 可选值有: `email`：邮箱地址, `openid`：[开放平台ID](https://open.feishu.cn/document/home/user-identity-introduction/how-to-get), `openchat`：[开放平台群组](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-id-description), `opendepartmentid`：[开放平台部门ID](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/field-overview), `userid`：[用户自定义ID](https://open.feishu.cn/document/home/user-identity-introduction/how-to-get)
 	Token      string `path:"token" json:"-"`        // 文件的 token，获取方式见 [概述](https://open.feishu.cn/document/ukTMukTMukTM/uczNzUjL3czM14yN3MTN#8353e05f), 示例值："doccnBKgoMyY5OMbUG6FioTXuBe"
 	MemberID   string `path:"member_id" json:"-"`    // 权限成员的ID，与`member_type`相对应, 示例值："ou_7dab8a3d3cdcc9da365777c7ad535d62"
@@ -20190,7 +20128,7 @@ func (r *Mock) UnMockDriveUpdateDriveMemberPermission() {
 // UpdateDriveMemberPermissionReq ...
 type UpdateDriveMemberPermissionReq struct {
 	NeedNotification *bool  `query:"need_notification" json:"-"` // 更新权限后是否通知对方,**注意：** 使用`tenant_access_token`访问不支持该参数, 示例值：false, 默认值: `false`
-	Type             string `query:"type" json:"-"`              // 文件类型，放于query参数中，如：`?type=doc`, 示例值："doc", 可选值有: `doc`：文档, `sheet`：电子表格, `file`：云空间文件, `wiki`：知识库节点（部分支持）, `bitable`：多维表格, `docx`：文档（暂不支持）
+	Type             string `query:"type" json:"-"`              // 文件类型，放于query参数中，如：`?type=doc`, 示例值："doc", 可选值有: `doc`：文档, `sheet`：电子表格, `file`：云空间文件, `wiki`：知识库节点, `bitable`：多维表格, `docx`：新版文档
 	Token            string `path:"token" json:"-"`              // 文件的 token，获取方式见 [概述](https://open.feishu.cn/document/ukTMukTMukTM/uczNzUjL3czM14yN3MTN#8353e05f), 示例值："doccnBKgoMyY5OMbUG6FioTXuBe"
 	MemberID         string `path:"member_id" json:"-"`          // 权限成员的ID，与`member_type`相对应, 示例值："ou_7dab8a3d3cdcc9da365777c7ad535d62"
 	MemberType       string `json:"member_type,omitempty"`       // 用户类型，与请求体中的`member_id`要对应, 可选值有:  , `email`: 飞书邮箱, `openid`: [开放平台ID](https://open.feishu.cn/document/home/user-identity-introduction/how-to-get), `openchat`: [开放平台群组](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-id-description), `opendepartmentid`:[开放平台部门ID](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/field-overview), `userid`:  [用户自定义ID](https://open.feishu.cn/document/home/user-identity-introduction/how-to-get),**注意：** 使用`tenant_access_token`访问不支持添加`opendepartmentid`, 示例值："openid"
@@ -20277,9 +20215,77 @@ type UpdateDriveMemberPermissionOldResp struct {
 
 // Code generated by lark_sdk_gen. DO NOT EDIT.
 
-// GetDrivePublicPermissionV2 该接口用于根据 filetoken 获取文档的公共设置。
+// GetDrivePublicPermission 该接口用于根据 filetoken 获取云文档的权限设置。
+//
+// doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/permission-public/get
+func (r *DriveService) GetDrivePublicPermission(ctx context.Context, request *GetDrivePublicPermissionReq, options ...MethodOptionFunc) (*GetDrivePublicPermissionResp, *Response, error) {
+	if r.cli.mock.mockDriveGetDrivePublicPermission != nil {
+		r.cli.log(ctx, LogLevelDebug, "[lark] Drive#GetDrivePublicPermission mock enable")
+		return r.cli.mock.mockDriveGetDrivePublicPermission(ctx, request, options...)
+	}
+
+	req := &RawRequestReq{
+		Scope:                 "Drive",
+		API:                   "GetDrivePublicPermission",
+		Method:                "GET",
+		URL:                   r.cli.openBaseURL + "/open-apis/drive/v1/permissions/:token/public",
+		Body:                  request,
+		MethodOption:          newMethodOption(options),
+		NeedTenantAccessToken: true,
+		NeedUserAccessToken:   true,
+	}
+	resp := new(getDrivePublicPermissionResp)
+
+	response, err := r.cli.RawRequest(ctx, req, resp)
+	return resp.Data, response, err
+}
+
+// MockDriveGetDrivePublicPermission mock DriveGetDrivePublicPermission method
+func (r *Mock) MockDriveGetDrivePublicPermission(f func(ctx context.Context, request *GetDrivePublicPermissionReq, options ...MethodOptionFunc) (*GetDrivePublicPermissionResp, *Response, error)) {
+	r.mockDriveGetDrivePublicPermission = f
+}
+
+// UnMockDriveGetDrivePublicPermission un-mock DriveGetDrivePublicPermission method
+func (r *Mock) UnMockDriveGetDrivePublicPermission() {
+	r.mockDriveGetDrivePublicPermission = nil
+}
+
+// GetDrivePublicPermissionReq ...
+type GetDrivePublicPermissionReq struct {
+	Type  string `query:"type" json:"-"` // 文件类型，放于query参数中，如：`?type=doc`, 示例值："doc", 可选值有: `doc`：文档, `sheet`：电子表格, `file`：云空间文件, `wiki`：知识库节点, `bitable`：多维表格, `docx`：新版文档
+	Token string `path:"token" json:"-"` // 文件的 token，获取方式见 [概述](https://open.feishu.cn/document/ukTMukTMukTM/uczNzUjL3czM14yN3MTN#8353e05f), 示例值："doccnBKgoMyY5OMbUG6FioTXuBe"
+}
+
+// getDrivePublicPermissionResp ...
+type getDrivePublicPermissionResp struct {
+	Code int64                         `json:"code,omitempty"` // 错误码，非 0 表示失败
+	Msg  string                        `json:"msg,omitempty"`  // 错误描述
+	Data *GetDrivePublicPermissionResp `json:"data,omitempty"`
+}
+
+// GetDrivePublicPermissionResp ...
+type GetDrivePublicPermissionResp struct {
+	PermissionPublic *GetDrivePublicPermissionRespPermissionPublic `json:"permission_public,omitempty"` // 返回的文档权限设置
+}
+
+// GetDrivePublicPermissionRespPermissionPublic ...
+type GetDrivePublicPermissionRespPermissionPublic struct {
+	ExternalAccess  bool   `json:"external_access,omitempty"`   // 允许内容被分享到组织外, 可选值有:  , `true`: 允许, `false`: 不允许
+	SecurityEntity  string `json:"security_entity,omitempty"`   // 谁可以复制内容、创建副本、打印、下载, 可选值有: `anyone_can_view`：拥有可阅读权限的用户, `anyone_can_edit`：拥有可编辑权限的用户, `only_full_access`：拥有可管理权限（包括我）的用户
+	CommentEntity   string `json:"comment_entity,omitempty"`    // 可评论设置, 可选值有: `anyone_can_view`：拥有可阅读权限的用户, `anyone_can_edit`：拥有可编辑权限的用户
+	ShareEntity     string `json:"share_entity,omitempty"`      // 谁可以添加和管理协作者, 可选值有: `anyone`：所有可阅读或编辑此文档的用户, `same_tenant`：组织内所有可阅读或编辑此文档的用户, `only_full_access`：拥有可管理权限（包括我）的用户
+	LinkShareEntity string `json:"link_share_entity,omitempty"` // 链接分享设置, 可选值有: `tenant_readable`：组织内获得链接的人可阅读, `tenant_editable`：组织内获得链接的人可编辑, `anyone_readable`：互联网上获得链接的任何人可阅读,    **提示：** 仅`external_access=true`时有效, `anyone_editable`：互联网上获得链接的任何人可编辑,    **提示：** 仅`external_access=true`时有效, `closed`：关闭链接分享
+	InviteExternal  bool   `json:"invite_external,omitempty"`   // 允许非「可管理权限」的人分享到组织外,**提示：** 仅`share_entity="same_tenant"`时有效
+	LockSwitch      bool   `json:"lock_switch,omitempty"`       // 节点加锁状态
+}
+
+// Code generated by lark_sdk_gen. DO NOT EDIT.
+
+// GetDrivePublicPermissionV2 该接口用于根据 filetoken 获取云文档的权限设置。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uITM3YjLyEzN24iMxcjN
+//
+// Deprecated
 func (r *DriveService) GetDrivePublicPermissionV2(ctx context.Context, request *GetDrivePublicPermissionV2Req, options ...MethodOptionFunc) (*GetDrivePublicPermissionV2Resp, *Response, error) {
 	if r.cli.mock.mockDriveGetDrivePublicPermissionV2 != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Drive#GetDrivePublicPermissionV2 mock enable")
@@ -20338,7 +20344,7 @@ type GetDrivePublicPermissionV2Resp struct {
 
 // Code generated by lark_sdk_gen. DO NOT EDIT.
 
-// UpdateDrivePublicPermission 该接口用于根据 filetoken 更新文档的公共设置。
+// UpdateDrivePublicPermission 该接口用于根据 filetoken 更新云文档的权限设置。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/permission-public/patch
 func (r *DriveService) UpdateDrivePublicPermission(ctx context.Context, request *UpdateDrivePublicPermissionReq, options ...MethodOptionFunc) (*UpdateDrivePublicPermissionResp, *Response, error) {
@@ -20375,14 +20381,14 @@ func (r *Mock) UnMockDriveUpdateDrivePublicPermission() {
 
 // UpdateDrivePublicPermissionReq ...
 type UpdateDrivePublicPermissionReq struct {
-	Type            string  `query:"type" json:"-"`              // 权限客体类型，放于query参数中，如：`?type=doc`, 示例值："doc", 可选值有: `doc`：文档, `sheet`：电子表格, `file`：云空间文件, `wiki`：知识库节点（部分支持）, `bitable`：多维表格, `docx`：文档（暂不支持）
+	Type            string  `query:"type" json:"-"`              // 文件类型，放于query参数中，如：`?type=doc`, 示例值："doc", 可选值有: `doc`：文档, `sheet`：电子表格, `file`：云空间文件, `wiki`：知识库节点, `bitable`：多维表格, `docx`：新版文档
 	Token           string  `path:"token" json:"-"`              // 文件的 token，获取方式见 [概述](https://open.feishu.cn/document/ukTMukTMukTM/uczNzUjL3czM14yN3MTN#8353e05f), 示例值："doccnBKgoMyY5OMbUG6FioTXuBe"
-	ExternalAccess  *bool   `json:"external_access,omitempty"`   // 是否允许分享到租户外开关, 示例值：true
-	SecurityEntity  *string `json:"security_entity,omitempty"`   // 可创建副本/打印/导出/复制设置, 示例值："anyone_can_view", 可选值有: `anyone_can_view`：所有可访问此文档的用户, `anyone_can_edit`：有编辑权限的用户
-	CommentEntity   *string `json:"comment_entity,omitempty"`    // 可评论设置, 示例值："anyone_can_view", 可选值有: `anyone_can_view`：所有可访问此文档的用户, `anyone_can_edit`：有编辑权限的用户
-	ShareEntity     *string `json:"share_entity,omitempty"`      // 谁可以添加和管理协作者, 示例值："anyone", 可选值有: `anyone`：所有可阅读或编辑此文档的用户, `same_tenant`：组织内所有可阅读或编辑此文档的用户, `only_full_access`：只有所有权限者可以
-	LinkShareEntity *string `json:"link_share_entity,omitempty"` // 链接共享, 示例值："tenant_readable", 可选值有: `tenant_readable`：组织内获得链接的人可阅读, `tenant_editable`：组织内获得链接的人可编辑, `anyone_readable`：获得链接的任何人可阅读（仅`external_access=true`时有效）, `anyone_editable`：获得链接的任何人可编辑（仅`external_access=true`时有效）, `closed`：关闭链接分享
-	InviteExternal  *bool   `json:"invite_external,omitempty"`   // 非所有权限者/所有者是否允许邀请外部人, 示例值：true
+	ExternalAccess  *bool   `json:"external_access,omitempty"`   // 允许内容被分享到组织外, 示例值：true
+	SecurityEntity  *string `json:"security_entity,omitempty"`   // 谁可以复制内容、创建副本、打印、下载, 示例值："anyone_can_view", 可选值有: `anyone_can_view`：拥有可阅读权限的用户, `anyone_can_edit`：拥有可编辑权限的用户, `only_full_access`：拥有可管理权限（包括我）的用户
+	CommentEntity   *string `json:"comment_entity,omitempty"`    // 谁可以评论, 示例值："anyone_can_view", 可选值有: `anyone_can_view`：拥有可阅读权限的用户, `anyone_can_edit`：拥有可编辑权限的用户
+	ShareEntity     *string `json:"share_entity,omitempty"`      // 谁可以添加和管理协作者, 示例值："anyone", 可选值有: `anyone`：所有可阅读或编辑此文档的用户, `same_tenant`：组织内所有可阅读或编辑此文档的用户, `only_full_access`：拥有可管理权限（包括我）的用户
+	LinkShareEntity *string `json:"link_share_entity,omitempty"` // 链接分享设置, 示例值："tenant_readable", 可选值有: `tenant_readable`：组织内获得链接的人可阅读, `tenant_editable`：组织内获得链接的人可编辑, `anyone_readable`：互联网上获得链接的任何人可阅读,    **提示：** 仅`external_access=true`时有效, `anyone_editable`：互联网上获得链接的任何人可编辑,    **提示：** 仅`external_access=true`时有效, `closed`：关闭链接分享
+	InviteExternal  *bool   `json:"invite_external,omitempty"`   // 允许非「可管理权限」的人分享到组织外,**提示：** 仅`share_entity="same_tenant"`时有效, 示例值：true
 }
 
 // updateDrivePublicPermissionResp ...
@@ -20394,17 +20400,17 @@ type updateDrivePublicPermissionResp struct {
 
 // UpdateDrivePublicPermissionResp ...
 type UpdateDrivePublicPermissionResp struct {
-	PermissionPublic *UpdateDrivePublicPermissionRespPermissionPublic `json:"permission_public,omitempty"` // 本次更新后的文档公共设置
+	PermissionPublic *UpdateDrivePublicPermissionRespPermissionPublic `json:"permission_public,omitempty"` // 本次更新后的文档权限设置
 }
 
 // UpdateDrivePublicPermissionRespPermissionPublic ...
 type UpdateDrivePublicPermissionRespPermissionPublic struct {
-	ExternalAccess  bool   `json:"external_access,omitempty"`   // 是否允许分享到租户外开关
-	SecurityEntity  string `json:"security_entity,omitempty"`   // 可创建副本/打印/导出/复制设置, 可选值有: `anyone_can_view`：所有可访问此文档的用户, `anyone_can_edit`：有编辑权限的用户
-	CommentEntity   string `json:"comment_entity,omitempty"`    // 可评论设置, 可选值有: `anyone_can_view`：所有可访问此文档的用户, `anyone_can_edit`：有编辑权限的用户
-	ShareEntity     string `json:"share_entity,omitempty"`      // 谁可以添加和管理协作者, 可选值有: `anyone`：所有可阅读或编辑此文档的用户, `same_tenant`：组织内所有可阅读或编辑此文档的用户, `only_full_access`：只有所有权限者可以
-	LinkShareEntity string `json:"link_share_entity,omitempty"` // 链接共享, 可选值有: `tenant_readable`：组织内获得链接的人可阅读, `tenant_editable`：组织内获得链接的人可编辑, `anyone_readable`：获得链接的任何人可阅读（仅`external_access=true`时有效）, `anyone_editable`：获得链接的任何人可编辑（仅`external_access=true`时有效）, `closed`：关闭链接分享
-	InviteExternal  bool   `json:"invite_external,omitempty"`   // 非所有权限者/所有者是否允许邀请外部人
+	ExternalAccess  bool   `json:"external_access,omitempty"`   // 允许内容被分享到组织外, 可选值有:  , `true`: 允许, `false`: 不允许
+	SecurityEntity  string `json:"security_entity,omitempty"`   // 谁可以复制内容、创建副本、打印、下载, 可选值有: `anyone_can_view`：拥有可阅读权限的用户, `anyone_can_edit`：拥有可编辑权限的用户, `only_full_access`：拥有可管理权限（包括我）的用户
+	CommentEntity   string `json:"comment_entity,omitempty"`    // 可评论设置, 可选值有: `anyone_can_view`：拥有可阅读权限的用户, `anyone_can_edit`：拥有可编辑权限的用户
+	ShareEntity     string `json:"share_entity,omitempty"`      // 谁可以添加和管理协作者, 可选值有: `anyone`：所有可阅读或编辑此文档的用户, `same_tenant`：组织内所有可阅读或编辑此文档的用户, `only_full_access`：拥有可管理权限（包括我）的用户
+	LinkShareEntity string `json:"link_share_entity,omitempty"` // 链接分享设置, 可选值有: `tenant_readable`：组织内获得链接的人可阅读, `tenant_editable`：组织内获得链接的人可编辑, `anyone_readable`：互联网上获得链接的任何人可阅读,    **提示：** 仅`external_access=true`时有效, `anyone_editable`：互联网上获得链接的任何人可编辑,    **提示：** 仅`external_access=true`时有效, `closed`：关闭链接分享
+	InviteExternal  bool   `json:"invite_external,omitempty"`   // 允许非「可管理权限」的人分享到组织外,**提示：** 仅`share_entity="same_tenant"`时有效
 }
 
 // Code generated by lark_sdk_gen. DO NOT EDIT.
