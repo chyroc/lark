@@ -17,6 +17,7 @@ package test
 
 import (
 	"context"
+	"net/http"
 	"strings"
 	"testing"
 
@@ -38,7 +39,7 @@ func Test_ContactUserUpdatedV3(t *testing.T) {
 		cli.EventCallback.ListenCallback(ctx, strings.NewReader(req), resp)
 
 		as.Equal(500, resp.code)
-		as.Equal(`{"err":"lark event unmarshal event_req  failed"}`, resp.str())
+		as.Equal(`{"err":"lark event unmarshal req  failed"}`, resp.str())
 	})
 
 	t.Run("", func(t *testing.T) {
@@ -48,9 +49,9 @@ func Test_ContactUserUpdatedV3(t *testing.T) {
 
 		req := `{}`
 		resp := newFakeHTTPWriter()
-		cli.EventCallback.ListenCallback(ctx, strings.NewReader(req), resp)
+		cli.EventCallback.ListenSecurityCallback(ctx, http.Header{}, strings.NewReader(req), resp)
 
 		as.Equal(500, resp.code)
-		as.Equal(`{"err":"must set verification token"}`, resp.str())
+		as.Equal(`{"err":"need check security, but security check invalid"}`, resp.str())
 	})
 }

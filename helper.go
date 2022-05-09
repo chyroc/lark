@@ -52,6 +52,7 @@ func GetErrorCode(err error) int64 {
 		if e, ok := err.(*Error); ok {
 			return e.Code
 		}
+		return -1
 	}
 	return 0
 }

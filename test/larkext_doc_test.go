@@ -55,7 +55,7 @@ func Test_LarkExt_Doc(t *testing.T) {
 		as.Nil(err)
 		bs, err := json.Marshal(content)
 		as.Nil(err)
-		as.Equal(`{"title":{"elements":[],"location":{"zoneId":"0","startIndex":0,"endIndex":0},"lineId":""},"body":{"blocks":[{"type":"paragraph","paragraph":{"style":null,"elements":[],"location":{"zoneId":"0","startIndex":1,"endIndex":1},"lineId":""},"file":null,"chatGroup":null,"undefinedBlock":null}]}}`, string(bs))
+		as.Equal(`{"title":{"location":{"zoneId":"0"}},"body":{"blocks":[{"type":"paragraph","paragraph":{"location":{"zoneId":"0","startIndex":1,"endIndex":1}}}]}}`, string(bs))
 		fmt.Println(string(bs))
 	})
 }
