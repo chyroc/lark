@@ -38,7 +38,7 @@ https://godoc.org/github.com/chyroc/lark
 
 ## Support APIs
 
-API Count: 564, Event Count: 90
+API Count: 616, Event Count: 90
 
 <details>
   <summary>
@@ -173,6 +173,7 @@ API Count: 564, Event Count: 90
   - GetCalendarExchangeBinding
   - DeleteCalendarExchangeBinding
 - Drive
+  - SubscribeDriveFile
   - SearchDriveFile
   - GetDriveFileMeta
   - CreateDriveFile
@@ -613,6 +614,58 @@ API Count: 564, Event Count: 90
   - MatchBaikeEntity
   - SearchBaikeEntity
   - HighlightBaikeEntity
+- MDM
+  - CreateMDMVendor
+  - UpdateMDMVendor
+  - GetMDMVendorList
+  - GetMDMVendor
+  - GetMDMVendorListAll
+  - CreateMDMLegalEntity
+  - UpdateMDMLegalEntity
+  - GetMDMLegalEntityList
+  - GetMDMLegalEntity
+  - GetMDMLegalEntityListAll
+  - CreateMDMInternalOrder
+  - UpdateMDMInternalOrder
+  - DeleteMDMInternalOrder
+  - GetMDMInternalOrder
+  - SearchMDMInternalOrder
+  - CreateMDMCostCenter
+  - UpdateMDMCostCenter
+  - DeleteMDMCostCenter
+  - GetMDMCostCenter
+  - SearchMDMCostCenter
+  - CreateMDMDepartmentCostCenterRelationship
+  - UpdateMDMDepartmentCostCenterRelationship
+  - DeleteMDMDepartmentCostCenterRelationship
+  - GetMDMDepartmentCostCenterRelationship
+  - SearchMDMDepartmentCostCenterRelationship
+  - CreateMDMGlAccount
+  - UpdateMDMGlAccount
+  - DeleteMDMGlAccount
+  - GetMDMDepGlAccount
+  - SearchMDMGlAccount
+  - CreateMDMCompany
+  - UpdateMDMCompany
+  - DeleteMDMCompany
+  - GetMDMDepCompany
+  - SearchMDMCompany
+  - CreateMDMGlAccountCompanyRelationship
+  - UpdateMDMGlAccountCompanyRelationship
+  - DeleteMDMGlAccountCompanyRelationship
+  - GetMDMDepGlAccountCompanyRelationship
+  - SearchMDMGlAccountCompanyRelationship
+  - CreateMDMCompanyBankAccount
+  - UpdateMDMCompanyBankAccount
+  - DeleteMDMCompanyBankAccount
+  - GetMDMDepCompanyBankAccount
+  - SearchMDMCompanyBankAccount
+  - CreateMDMCompanyAsset
+  - UpdateMDMCompanyAsset
+  - DeleteMDMCompanyAsset
+  - GetMDMDepCompanyAsset
+  - SearchMDMCompanyAsset
+  - GetMDMConfigList
 - Event
   - GetEventOutboundIpList
 - EventCallback

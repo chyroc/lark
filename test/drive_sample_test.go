@@ -38,6 +38,13 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
+			_, _, err := moduleCli.SubscribeDriveFile(ctx, &lark.SubscribeDriveFileReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
 			_, _, err := moduleCli.GetDriveFileMeta(ctx, &lark.GetDriveFileMetaReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "failed")
@@ -832,6 +839,18 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 	t.Run("request mock failed", func(t *testing.T) {
 		cli := AppAllPermission.Ins()
 		moduleCli := cli.Drive
+
+		t.Run("", func(t *testing.T) {
+
+			cli.Mock().MockDriveSubscribeDriveFile(func(ctx context.Context, request *lark.SubscribeDriveFileReq, options ...lark.MethodOptionFunc) (*lark.SubscribeDriveFileResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockDriveSubscribeDriveFile()
+
+			_, _, err := moduleCli.SubscribeDriveFile(ctx, &lark.SubscribeDriveFileReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
 
 		t.Run("", func(t *testing.T) {
 
@@ -2197,6 +2216,15 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
+			_, _, err := moduleCli.SubscribeDriveFile(ctx, &lark.SubscribeDriveFileReq{
+				FileToken: "x",
+			})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+
 			_, _, err := moduleCli.GetDriveFileMeta(ctx, &lark.GetDriveFileMetaReq{})
 			as.NotNil(err)
 			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
@@ -3214,6 +3242,15 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		moduleCli := cli.Drive
 		cli.Mock().MockRawRequest(func(ctx context.Context, req *lark.RawRequestReq, resp interface{}) (response *lark.Response, err error) {
 			return nil, fmt.Errorf("fake raw request")
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.SubscribeDriveFile(ctx, &lark.SubscribeDriveFileReq{
+				FileToken: "x",
+			})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
