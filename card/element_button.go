@@ -24,6 +24,7 @@ func Button(text string, value interface{}) *lark.MessageContentCardElementButto
 	return &lark.MessageContentCardElementButton{
 		Text:  Text(text),
 		Value: value,
+		Type:  "default",
 	}
 }
 
