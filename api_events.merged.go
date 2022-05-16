@@ -328,7 +328,7 @@ type EventV1OrderPaid struct {
 	AppID         string `json:"app_id,omitempty"`          // 应用ID. 如: cli_9daeceab98721136
 	OrderID       string `json:"order_id,omitempty"`        // 用户购买付费方案时对订单ID 可作为唯一标识. 如: 6704894492631105539
 	PricePlanID   string `json:"price_plan_id,omitempty"`   // 付费方案ID. 如: price_9d86fa1333b8110c
-	PricePlanType string `json:"price_plan_type,omitempty"` // 用户购买方案类型 "trial" -试用；"permanent"-一次性付费；"per_year"-企业年付费；"per_month"-企业月付费；"per_seat_per_year"-按人按年付费；"per_seat_per_month"-按人按月付费；"permanent_count"-按次付费. 如: per_seat_per_month
+	PricePlanType string `json:"price_plan_type,omitempty"` // 用户购买方案类型 "trial" -试用；"permanent"-免费；"per_year"-企业年付费；"per_month"-企业月付费；"per_seat_per_year"-按人按年付费；"per_seat_per_month"-按人按月付费；"permanent_count"-按次付费. 如: per_seat_per_month
 	Seats         int64  `json:"seats,omitempty"`           // 表示购买了多少人份. 如: 20
 	BuyCount      int64  `json:"buy_count,omitempty"`       // 套餐购买数量 目前都为1. 如: 1
 	CreateTime    string `json:"create_time,omitempty"`     // 如: 1502199207

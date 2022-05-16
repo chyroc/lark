@@ -1841,6 +1841,7 @@ type GetApplicationOrderRespOrder struct {
 // GetApplicationOrderList
 //
 // 该接口用于分页查询应用租户下的已付费订单，每次购买对应一个唯一的订单，订单会记录购买的套餐的相关信息，业务方需要自行处理套餐的有效期和付费方案的升级。
+// >  备注：免费模式的应用不会产生订单，仅收费应用会产生订单 (含免费版)。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uETNwUjLxUDM14SM1ATN
 func (r *ApplicationService) GetApplicationOrderList(ctx context.Context, request *GetApplicationOrderListReq, options ...MethodOptionFunc) (*GetApplicationOrderListResp, *Response, error) {
@@ -1901,7 +1902,7 @@ type GetApplicationOrderListResp struct {
 type GetApplicationOrderListRespOrderList struct {
 	OrderID       string `json:"order_id,omitempty"`        // 订单ID，唯一标识
 	PricePlanID   string `json:"price_plan_id,omitempty"`   // 价格方案ID，唯一标识
-	PricePlanType string `json:"price_plan_type,omitempty"` // 价格方案类型 "trial" -试用；"permanent"-一次性付费；"per_year"-企业年付费；"per_month"-企业月付费；"per_seat_per_year"-按人按年付费；"per_seat_per_month"-按人按月付费；"permanent_count"-按次付费；
+	PricePlanType string `json:"price_plan_type,omitempty"` // 价格方案类型 。 可选值包括："trial" -试用；"permanent"-免费；"per_year"-企业年付费；"per_month"-企业月付费；"per_seat_per_year"-按人按年付费；"per_seat_per_month"-按人按月付费；"permanent_count"-按次付费；
 	Seats         int64  `json:"seats,omitempty"`           // 实际购买人数 仅对price_plan_type为per_seat_per_year和per_seat_per_month 有效
 	BuyCount      int64  `json:"buy_count,omitempty"`       // 购买数量 总是为1
 	CreateTime    string `json:"create_time,omitempty"`     // 订单创建时间戳
