@@ -206,7 +206,7 @@ func (r *Lark) doRequest(ctx context.Context, rawHttpReq *rawHttpRequest, realRe
 		}
 
 		if err = json.Unmarshal(bs, realResponse); err != nil {
-			return response, fmt.Errorf("invalid json: %s", bs)
+			return response, fmt.Errorf("invalid json: %s, err: %s", bs, err)
 		}
 	}
 
