@@ -38,7 +38,7 @@ https://godoc.org/github.com/chyroc/lark
 
 ## 支持的接口
 
-API 总数: 616, 事件总数: 90
+API 总数: 566, 事件总数: 90
 
 <details>
   <summary>
@@ -614,58 +614,8 @@ API 总数: 616, 事件总数: 90
   - MatchBaikeEntity
   - SearchBaikeEntity
   - HighlightBaikeEntity
-- MDM
-  - CreateMDMVendor
-  - UpdateMDMVendor
-  - GetMDMVendorList
-  - GetMDMVendor
-  - GetMDMVendorListAll
-  - CreateMDMLegalEntity
-  - UpdateMDMLegalEntity
-  - GetMDMLegalEntityList
-  - GetMDMLegalEntity
-  - GetMDMLegalEntityListAll
-  - CreateMDMInternalOrder
-  - UpdateMDMInternalOrder
-  - DeleteMDMInternalOrder
-  - GetMDMInternalOrder
-  - SearchMDMInternalOrder
-  - CreateMDMCostCenter
-  - UpdateMDMCostCenter
-  - DeleteMDMCostCenter
-  - GetMDMCostCenter
-  - SearchMDMCostCenter
-  - CreateMDMDepartmentCostCenterRelationship
-  - UpdateMDMDepartmentCostCenterRelationship
-  - DeleteMDMDepartmentCostCenterRelationship
-  - GetMDMDepartmentCostCenterRelationship
-  - SearchMDMDepartmentCostCenterRelationship
-  - CreateMDMGlAccount
-  - UpdateMDMGlAccount
-  - DeleteMDMGlAccount
-  - GetMDMDepGlAccount
-  - SearchMDMGlAccount
-  - CreateMDMCompany
-  - UpdateMDMCompany
-  - DeleteMDMCompany
-  - GetMDMDepCompany
-  - SearchMDMCompany
-  - CreateMDMGlAccountCompanyRelationship
-  - UpdateMDMGlAccountCompanyRelationship
-  - DeleteMDMGlAccountCompanyRelationship
-  - GetMDMDepGlAccountCompanyRelationship
-  - SearchMDMGlAccountCompanyRelationship
-  - CreateMDMCompanyBankAccount
-  - UpdateMDMCompanyBankAccount
-  - DeleteMDMCompanyBankAccount
-  - GetMDMDepCompanyBankAccount
-  - SearchMDMCompanyBankAccount
-  - CreateMDMCompanyAsset
-  - UpdateMDMCompanyAsset
-  - DeleteMDMCompanyAsset
-  - GetMDMDepCompanyAsset
-  - SearchMDMCompanyAsset
-  - GetMDMConfigList
+- Passport
+  - GetPassportSession
 - Event
   - GetEventOutboundIpList
 - EventCallback
