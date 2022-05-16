@@ -196,6 +196,7 @@ type Mock struct {
 	mockDriveUpdateDriveFileSubscription                       func(ctx context.Context, request *UpdateDriveFileSubscriptionReq, options ...MethodOptionFunc) (*UpdateDriveFileSubscriptionResp, *Response, error)
 	mockDriveCreateDriveDoc                                    func(ctx context.Context, request *CreateDriveDocReq, options ...MethodOptionFunc) (*CreateDriveDocResp, *Response, error)
 	mockDriveGetDriveDocContent                                func(ctx context.Context, request *GetDriveDocContentReq, options ...MethodOptionFunc) (*GetDriveDocContentResp, *Response, error)
+	mockDriveUpdateDriveDocContent                             func(ctx context.Context, request *UpdateDriveDocContentReq, options ...MethodOptionFunc) (*UpdateDriveDocContentResp, *Response, error)
 	mockDriveGetDriveDocRawContent                             func(ctx context.Context, request *GetDriveDocRawContentReq, options ...MethodOptionFunc) (*GetDriveDocRawContentResp, *Response, error)
 	mockDriveGetDriveDocMeta                                   func(ctx context.Context, request *GetDriveDocMetaReq, options ...MethodOptionFunc) (*GetDriveDocMetaResp, *Response, error)
 	mockDriveCreateSheet                                       func(ctx context.Context, request *CreateSheetReq, options ...MethodOptionFunc) (*CreateSheetResp, *Response, error)

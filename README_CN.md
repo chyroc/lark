@@ -38,7 +38,7 @@ https://godoc.org/github.com/chyroc/lark
 
 ## 支持的接口
 
-API 总数: 566, 事件总数: 90
+API 总数: 567, 事件总数: 90
 
 <details>
   <summary>
@@ -222,6 +222,7 @@ API 总数: 566, 事件总数: 90
   - UpdateDriveFileSubscription
   - CreateDriveDoc
   - GetDriveDocContent
+  - UpdateDriveDocContent
   - GetDriveDocRawContent
   - GetDriveDocMeta
   - CreateSheet
