@@ -25,19 +25,30 @@ import (
 type Doc struct {
 	larkClient *lark.Lark
 	docToken   string
+	docURL     string
 }
 
 // NewDoc new doc client
 func NewDoc(larkClient *lark.Lark, docToken string) *Doc {
+	return newDoc(larkClient, docToken, "")
+}
+
+func newDoc(larkClient *lark.Lark, docToken, docURL string) *Doc {
 	r := new(Doc)
 	r.larkClient = larkClient
 	r.docToken = docToken
+	r.docURL = docURL
 	return r
 }
 
 // DocToken get doc Token
 func (r *Doc) DocToken() string {
 	return r.docToken
+}
+
+// DocURL get doc URL
+func (r *Doc) DocURL() string {
+	return r.docURL
 }
 
 // Meta get doc meta
@@ -63,4 +74,42 @@ func (r *Doc) RawContent(ctx context.Context) (string, error) {
 // RawContent get doc rich content
 func (r *Doc) Content(ctx context.Context) (*lark.DocContent, error) {
 	return r.content(ctx)
+}
+
+// Update update doc
+func (r *Doc) Update(ctx context.Context, requests ...*lark.UpdateDocRequest) error {
+	return r.update(ctx, requests...)
+}
+
+// Revision get doc revision
+func (r *Doc) Revision(ctx context.Context) (int64, error) {
+	return r.revision(ctx)
+}
+
+// GetParagraphElementLocation get paragraph element location
+func (r *Doc) GetParagraphElementLocation(ctx context.Context, pe *lark.DocParagraphElement) (*lark.DocLocation, error) {
+	content, err := r.content(ctx)
+	if err != nil {
+		return nil, err
+	}
+
+	return content.GetParagraphElementLocation(pe), nil
+}
+
+func (r *Doc) GetParagraph(ctx context.Context, p *lark.DocParagraph) (*lark.DocParagraph, error) {
+	content, err := r.content(ctx)
+	if err != nil {
+		return nil, err
+	}
+
+	return content.GetParagraph(p), nil
+}
+
+func (r *Doc) GetTableBySize(ctx context.Context, p *lark.DocTable) (*lark.DocTable, error) {
+	content, err := r.content(ctx)
+	if err != nil {
+		return nil, err
+	}
+
+	return content.GetTableBySize(p), nil
 }

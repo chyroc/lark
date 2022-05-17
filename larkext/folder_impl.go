@@ -91,7 +91,7 @@ func (r *Folder) newDoc(ctx context.Context, title string) (*Doc, error) {
 	if err != nil {
 		return nil, err
 	}
-	return NewDoc(r.larkClient, resp.ObjToken), nil
+	return newDoc(r.larkClient, resp.ObjToken, resp.URL), nil
 }
 
 // file：box开头云文档类型

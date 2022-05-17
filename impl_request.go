@@ -139,6 +139,8 @@ func (r *Lark) doRequest(ctx context.Context, rawHttpReq *rawHttpRequest, realRe
 	response.URL = rawHttpReq.URL
 	response.Header = map[string][]string{}
 
+	fmt.Println(string(rawHttpReq.RawBody))
+
 	if r.logLevel <= LogLevelTrace {
 		r.log(ctx, LogLevelTrace, "[lark] request %s#%s, %s %s, header=%s, body=%s", rawHttpReq.Scope, rawHttpReq.API,
 			rawHttpReq.Method, rawHttpReq.URL, jsonHeader(rawHttpReq.Headers), string(rawHttpReq.RawBody))

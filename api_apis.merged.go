@@ -17766,8 +17766,8 @@ func (r *Mock) UnMockDriveUpdateDriveDocContent() {
 
 // UpdateDriveDocContentReq ...
 type UpdateDriveDocContentReq struct {
-	DocToken string   `json:"docToken,omitempty"` // 文件的 token，获取方式见[云文档常见问题](https://open.feishu.cn/document/ukTMukTMukTM/uczNzUjL3czM14yN3MTN)
-	Revision int64    `json:"Revision,omitempty"` // 文档的指定版本，文档新创建后版本号是0，[获取方式](https://open.feishu.cn/document/ukTMukTMukTM/uUDM2YjL1AjN24SNwYjN)，要求>=0，post body json 字段
+	DocToken string   `path:"docToken"`           // 文件的 token，获取方式见[云文档常见问题](https://open.feishu.cn/document/ukTMukTMukTM/uczNzUjL3czM14yN3MTN)
+	Revision int64    `json:"Revision"`           // 文档的指定版本，文档新创建后版本号是0，[获取方式](https://open.feishu.cn/document/ukTMukTMukTM/uUDM2YjL1AjN24SNwYjN)，要求>=0，post body json 字段
 	Requests []string `json:"Requests,omitempty"` // post body json, OperationRequest 类型序列化 string 数组
 }
 
