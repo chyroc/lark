@@ -38,6 +38,13 @@ func Test_Attendance_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
+			_, _, err := moduleCli.GetAttendanceGroupList(ctx, &lark.GetAttendanceGroupListReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
 			_, _, err := moduleCli.CreateAttendanceGroup(ctx, &lark.CreateAttendanceGroupReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "failed")
@@ -60,6 +67,13 @@ func Test_Attendance_Sample_Failed(t *testing.T) {
 		t.Run("", func(t *testing.T) {
 
 			_, _, err := moduleCli.DeleteAttendanceGroup(ctx, &lark.DeleteAttendanceGroupReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.GetAttendanceShiftList(ctx, &lark.GetAttendanceShiftListReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "failed")
 		})
@@ -240,6 +254,18 @@ func Test_Attendance_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
+			cli.Mock().MockAttendanceGetAttendanceGroupList(func(ctx context.Context, request *lark.GetAttendanceGroupListReq, options ...lark.MethodOptionFunc) (*lark.GetAttendanceGroupListResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockAttendanceGetAttendanceGroupList()
+
+			_, _, err := moduleCli.GetAttendanceGroupList(ctx, &lark.GetAttendanceGroupListReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
 			cli.Mock().MockAttendanceCreateAttendanceGroup(func(ctx context.Context, request *lark.CreateAttendanceGroupReq, options ...lark.MethodOptionFunc) (*lark.CreateAttendanceGroupResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -282,6 +308,18 @@ func Test_Attendance_Sample_Failed(t *testing.T) {
 			defer cli.Mock().UnMockAttendanceDeleteAttendanceGroup()
 
 			_, _, err := moduleCli.DeleteAttendanceGroup(ctx, &lark.DeleteAttendanceGroupReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			cli.Mock().MockAttendanceGetAttendanceShiftList(func(ctx context.Context, request *lark.GetAttendanceShiftListReq, options ...lark.MethodOptionFunc) (*lark.GetAttendanceShiftListResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockAttendanceGetAttendanceShiftList()
+
+			_, _, err := moduleCli.GetAttendanceShiftList(ctx, &lark.GetAttendanceShiftListReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "mock-failed")
 		})
@@ -582,6 +620,13 @@ func Test_Attendance_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
+			_, _, err := moduleCli.GetAttendanceGroupList(ctx, &lark.GetAttendanceGroupListReq{})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+
 			_, _, err := moduleCli.CreateAttendanceGroup(ctx, &lark.CreateAttendanceGroupReq{})
 			as.NotNil(err)
 			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
@@ -608,6 +653,13 @@ func Test_Attendance_Sample_Failed(t *testing.T) {
 			_, _, err := moduleCli.DeleteAttendanceGroup(ctx, &lark.DeleteAttendanceGroupReq{
 				GroupID: "x",
 			})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.GetAttendanceShiftList(ctx, &lark.GetAttendanceShiftListReq{})
 			as.NotNil(err)
 			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
 		})
@@ -801,6 +853,13 @@ func Test_Attendance_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
+			_, _, err := moduleCli.GetAttendanceGroupList(ctx, &lark.GetAttendanceGroupListReq{})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+
 			_, _, err := moduleCli.CreateAttendanceGroup(ctx, &lark.CreateAttendanceGroupReq{})
 			as.NotNil(err)
 			as.Equal("fake raw request", err.Error())
@@ -827,6 +886,13 @@ func Test_Attendance_Sample_Failed(t *testing.T) {
 			_, _, err := moduleCli.DeleteAttendanceGroup(ctx, &lark.DeleteAttendanceGroupReq{
 				GroupID: "x",
 			})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.GetAttendanceShiftList(ctx, &lark.GetAttendanceShiftListReq{})
 			as.NotNil(err)
 			as.Equal("fake raw request", err.Error())
 		})

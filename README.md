@@ -38,7 +38,7 @@ https://godoc.org/github.com/chyroc/lark
 
 ## Support APIs
 
-API Count: 567, Event Count: 90
+API Count: 571, Event Count: 90
 
 <details>
   <summary>
@@ -136,6 +136,8 @@ API Count: 567, Event Count: 90
   - UpdateChatAnnouncement
   - GetChatModeration
   - UpdateChatModeration
+  - UpdateChatTopNotice
+  - DeleteChatTopNotice
 - Bot
   - GetBotInfo
   - AddBotToChat
@@ -502,10 +504,12 @@ API Count: 567, Event Count: 90
   - DetectTextLanguage
   - DetectFaceAttributes
 - Attendance
+  - GetAttendanceGroupList
   - CreateAttendanceGroup
   - SearchAttendanceGroup
   - GetAttendanceGroup
   - DeleteAttendanceGroup
+  - GetAttendanceShiftList
   - GetAttendanceShift
   - GetAttendanceShiftDetail
   - DeleteAttendanceShift

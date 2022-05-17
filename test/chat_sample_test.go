@@ -162,6 +162,20 @@ func Test_Chat_Sample_Failed(t *testing.T) {
 			as.Equal(err.Error(), "failed")
 		})
 
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.UpdateChatTopNotice(ctx, &lark.UpdateChatTopNoticeReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.DeleteChatTopNotice(ctx, &lark.DeleteChatTopNoticeReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "failed")
+		})
+
 	})
 
 	t.Run("request mock failed", func(t *testing.T) {
@@ -384,6 +398,30 @@ func Test_Chat_Sample_Failed(t *testing.T) {
 			as.Equal(err.Error(), "mock-failed")
 		})
 
+		t.Run("", func(t *testing.T) {
+
+			cli.Mock().MockChatUpdateChatTopNotice(func(ctx context.Context, request *lark.UpdateChatTopNoticeReq, options ...lark.MethodOptionFunc) (*lark.UpdateChatTopNoticeResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockChatUpdateChatTopNotice()
+
+			_, _, err := moduleCli.UpdateChatTopNotice(ctx, &lark.UpdateChatTopNoticeReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			cli.Mock().MockChatDeleteChatTopNotice(func(ctx context.Context, request *lark.DeleteChatTopNoticeReq, options ...lark.MethodOptionFunc) (*lark.DeleteChatTopNoticeResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockChatDeleteChatTopNotice()
+
+			_, _, err := moduleCli.DeleteChatTopNotice(ctx, &lark.DeleteChatTopNoticeReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
 	})
 
 	t.Run("response is failed", func(t *testing.T) {
@@ -538,6 +576,24 @@ func Test_Chat_Sample_Failed(t *testing.T) {
 		t.Run("", func(t *testing.T) {
 
 			_, _, err := moduleCli.UpdateChatModeration(ctx, &lark.UpdateChatModerationReq{
+				ChatID: "x",
+			})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.UpdateChatTopNotice(ctx, &lark.UpdateChatTopNoticeReq{
+				ChatID: "x",
+			})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.DeleteChatTopNotice(ctx, &lark.DeleteChatTopNoticeReq{
 				ChatID: "x",
 			})
 			as.NotNil(err)
@@ -701,6 +757,24 @@ func Test_Chat_Sample_Failed(t *testing.T) {
 		t.Run("", func(t *testing.T) {
 
 			_, _, err := moduleCli.UpdateChatModeration(ctx, &lark.UpdateChatModerationReq{
+				ChatID: "x",
+			})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.UpdateChatTopNotice(ctx, &lark.UpdateChatTopNoticeReq{
+				ChatID: "x",
+			})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.DeleteChatTopNotice(ctx, &lark.DeleteChatTopNoticeReq{
 				ChatID: "x",
 			})
 			as.NotNil(err)
