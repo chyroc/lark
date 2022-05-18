@@ -76,8 +76,13 @@ func (r *Folder) NewSheet(ctx context.Context, title string) (*Sheet, error) {
 }
 
 // NewDoc new doc in folder
-func (r *Folder) NewDoc(ctx context.Context, title string) (*Doc, error) {
-	return r.newDoc(ctx, title)
+func (r *Folder) NewDoc(ctx context.Context, title string, blocks ...*lark.DocBlock) (*Doc, error) {
+	return r.newDoc(ctx, title, blocks...)
+}
+
+// Delete delete folder
+func (r *Folder) Delete(ctx context.Context) error {
+	return r.deleteFile(ctx, r.folderToken, "folder")
 }
 
 // DeleteFile delete file in folder
@@ -187,6 +192,19 @@ type FileMeta struct {
 //  - GetDriveDocContent
 //  - GetDriveDocRawContent
 //  - GetDriveDocMeta
+//  - CreateWikiSpace
+//  - GetWikiSpaceList
+//  - GetWikiSpace
+//  - UpdateWikiSpaceSetting
+//  - DeleteWikiSpaceMember
+//  - AddWikiSpaceMember
+//  - CreateWikiNode
+//  - GetWikiNodeList
+//  - MoveWikiNode
+//  - GetWikiNode
+//  - MoveDocsToWiki
+//  - GetWikiTask
+
 //  - CreateSheet
 //  - GetSheetMeta
 //  - UpdateSheetProperty
@@ -243,15 +261,3 @@ type FileMeta struct {
 //  - UpdateSheetFloatImage
 //  - GetSheetFloatImage
 //  - QuerySheetFloatImage
-//  - CreateWikiSpace
-//  - GetWikiSpaceList
-//  - GetWikiSpace
-//  - UpdateWikiSpaceSetting
-//  - DeleteWikiSpaceMember
-//  - AddWikiSpaceMember
-//  - CreateWikiNode
-//  - GetWikiNodeList
-//  - MoveWikiNode
-//  - GetWikiNode
-//  - MoveDocsToWiki
-//  - GetWikiTask

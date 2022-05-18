@@ -17,6 +17,7 @@ package larkext
 
 import (
 	"context"
+	"encoding/json"
 
 	"github.com/chyroc/go-ptr"
 	"github.com/chyroc/lark"
@@ -83,9 +84,14 @@ func (r *Folder) newSheet(ctx context.Context, title string) (*Sheet, error) {
 	return NewSheet(r.larkClient, resp.Spreadsheet.SpreadSheetToken), nil
 }
 
-func (r *Folder) newDoc(ctx context.Context, title string) (*Doc, error) {
+func (r *Folder) newDoc(ctx context.Context, title string, blocks ...*lark.DocBlock) (*Doc, error) {
+	b := lark.DocContent{Title: &lark.DocParagraph{Elements: []*lark.DocParagraphElement{{Type: lark.DocParagraphElementTypeTextRun, TextRun: &lark.DocTextRun{Text: title}}}}}
+	if blocks != nil {
+		b.Body = &lark.DocBody{Blocks: blocks}
+	}
+	body, _ := json.Marshal(b)
 	resp, _, err := r.larkClient.Drive.CreateDriveDoc(ctx, &lark.CreateDriveDocReq{
-		Content:     ptr.StringNoNonePtr(""), // TODO:
+		Content:     ptr.StringNoNonePtr(string(body)),
 		FolderToken: ptr.StringNoNonePtr(r.folderToken),
 	})
 	if err != nil {

@@ -172,7 +172,7 @@ const (
 	FileTypeMp4    FileType = "mp4"    // mp4视频文件
 	FileTypePdf    FileType = "pdf"    // pdf格式文件
 	FileTypeDoc    FileType = "doc"    // doc格式文件
-	FileTypeDocX   FileType = "docx"   // docx格式文件
+	FileTypeDocx   FileType = "docx"   // docx格式文件
 	FileTypeWiKi   FileType = "wiki"   // wiki格式文件
 	FileTypeXls    FileType = "xls"    // xls格式文件
 	FileTypePpt    FileType = "ppt"    // ppt格式文件
