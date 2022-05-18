@@ -26,6 +26,7 @@ type Doc struct {
 	larkClient *lark.Lark
 	docToken   string
 	docURL     string
+	typ        string
 }
 
 // NewDoc new doc client
@@ -38,6 +39,7 @@ func newDoc(larkClient *lark.Lark, docToken, docURL string) *Doc {
 	r.larkClient = larkClient
 	r.docToken = docToken
 	r.docURL = docURL
+	r.typ = "doc"
 	return r
 }
 
@@ -56,18 +58,17 @@ func (r *Doc) Meta(ctx context.Context) (*lark.GetDriveDocMetaResp, error) {
 	return r.meta(ctx)
 }
 
-// Delete delete doc
-func (r *Doc) Delete(ctx context.Context) error {
-	return r.delete(ctx)
-}
-
 // Copy copy doc file
 func (r *Doc) Copy(ctx context.Context, folderToken, name string) (*Doc, error) {
-	res, err := copyFile(ctx, r.larkClient, folderToken, r.docToken, "doc", name)
-	if err != nil {
-		return nil, err
-	}
-	return newDoc(r.larkClient, res.Token, res.URL), nil
+	return r.copy(ctx, folderToken, name)
+}
+
+func (r *Doc) Move(ctx context.Context, folderToken string) (*Task, error) {
+	return moveFile(ctx, r.larkClient, folderToken, r.docToken, r.typ)
+}
+
+func (r *Doc) Delete(ctx context.Context) (*Task, error) {
+	return deleteFile(ctx, r.larkClient, r.docToken, r.typ)
 }
 
 // RawContent get doc raw content
@@ -88,6 +89,11 @@ func (r *Doc) Update(ctx context.Context, requests ...*lark.UpdateDocRequest) er
 // Revision get doc revision
 func (r *Doc) Revision(ctx context.Context) (int64, error) {
 	return r.revision(ctx)
+}
+
+// Permission grant doc permission
+func (r *Doc) Permission() *Permission {
+	return newPermission(r.larkClient, r.docToken, r.typ)
 }
 
 // GetParagraphElementLocation get paragraph element location

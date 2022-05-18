@@ -21,20 +21,16 @@ import (
 	"github.com/chyroc/lark"
 )
 
-func (r *Bitable) meta(ctx context.Context) (*lark.GetBitableMetaRespApp, error) {
-	resp, _, err := r.larkClient.Bitable.GetBitableMeta(ctx, &lark.GetBitableMetaReq{
-		AppToken: r.token,
+func (r *Mindnote) meta(ctx context.Context) (*lark.GetDriveFileMetaRespDocsMetas, error) {
+	resp, _, err := r.larkClient.Drive.GetDriveFileMeta(ctx, &lark.GetDriveFileMetaReq{
+		RequestDocs: []*lark.GetDriveFileMetaReqRequestDocs{{
+			DocsToken: r.token, DocsType: r.typ,
+		}},
 	})
 	if err != nil {
 		return nil, err
+	} else if len(resp.DocsMetas) == 0 {
+		return nil, nil
 	}
-	return resp.App, err
-}
-
-func (r *Bitable) copy(ctx context.Context, folderToken, name string) (*Bitable, error) {
-	res, err := copyFile(ctx, r.larkClient, folderToken, r.token, r.typ, name)
-	if err != nil {
-		return nil, err
-	}
-	return newBitable(r.larkClient, res.Token, res.URL), nil
+	return resp.DocsMetas[0], nil
 }

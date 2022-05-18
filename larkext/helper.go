@@ -27,7 +27,7 @@ import (
 // bitable：多维表格类型
 // docx：新版云文档类型
 // mindnote：思维笔记类型
-func copyFile(ctx context.Context, larkClient *lark.Lark, folderToken, fileToken, typ, name string) (*FileMeta, error) {
+func copyFile(ctx context.Context, larkClient *lark.Lark, folderToken, fileToken string, typ string, name string) (*FileMeta, error) {
 	resp, _, err := larkClient.Drive.CopyDriveFile(ctx, &lark.CopyDriveFileReq{
 		FileToken:   fileToken,
 		Name:        name,
@@ -44,4 +44,28 @@ func copyFile(ctx context.Context, larkClient *lark.Lark, folderToken, fileToken
 		ParentToken: resp.File.ParentToken,
 		URL:         resp.File.URL,
 	}, nil
+}
+
+func moveFile(ctx context.Context, larkClient *lark.Lark, folderToken, fileToken string, typ string) (*Task, error) {
+	resp, _, err := larkClient.Drive.MoveDriveFile(ctx, &lark.MoveDriveFileReq{
+		FileToken:   fileToken,
+		Type:        &typ,
+		FolderToken: &folderToken,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return newTask(larkClient, resp.TaskID), nil
+}
+
+// TODO: shortcut
+func deleteFile(ctx context.Context, larkClient *lark.Lark, fileToken string, typ string) (*Task, error) {
+	resp, _, err := larkClient.Drive.DeleteDriveFile(ctx, &lark.DeleteDriveFileReq{
+		FileToken: fileToken,
+		Type:      typ,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return newTask(larkClient, resp.TaskID), nil
 }

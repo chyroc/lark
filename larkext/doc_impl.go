@@ -69,6 +69,14 @@ func (r *Doc) update(ctx context.Context, requests ...*lark.UpdateDocRequest) er
 	return err
 }
 
+func (r *Doc) copy(ctx context.Context, folderToken, name string) (*Doc, error) {
+	res, err := copyFile(ctx, r.larkClient, folderToken, r.docToken, r.typ, name)
+	if err != nil {
+		return nil, err
+	}
+	return newDoc(r.larkClient, res.Token, res.URL), nil
+}
+
 func (r *Doc) revision(ctx context.Context) (int64, error) {
 	resp, _, err := r.larkClient.Drive.GetDriveDocContent(ctx, &lark.GetDriveDocContentReq{
 		DocToken: r.docToken,

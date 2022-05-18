@@ -16,8 +16,11 @@
 package larkext
 
 import (
+	"bytes"
 	"context"
 	"encoding/json"
+	"io"
+	"io/ioutil"
 
 	"github.com/chyroc/go-ptr"
 	"github.com/chyroc/lark"
@@ -98,6 +101,79 @@ func (r *Folder) newDoc(ctx context.Context, title string, blocks ...*lark.DocBl
 		return nil, err
 	}
 	return newDoc(r.larkClient, resp.ObjToken, resp.URL), nil
+}
+
+func (r *Folder) newFile(ctx context.Context, title string, typ string) (*lark.CreateDriveFileResp, error) {
+	resp, _, err := r.larkClient.Drive.CreateDriveFile(ctx, &lark.CreateDriveFileReq{
+		FolderToken: r.folderToken,
+		Title:       title,
+		Type:        typ,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return resp, nil
+}
+
+func (r *Folder) uploadFile(ctx context.Context, file *FileInfo) (*File, error) {
+	var token string
+	if file.Size < 20*1024 {
+		resp, _, err := r.larkClient.Drive.UploadDriveFile(ctx, &lark.UploadDriveFileReq{
+			ParentType: "explorer",
+			ParentNode: r.folderToken,
+			FileName:   file.FileName,
+			Size:       file.Size,
+			Checksum:   file.Checksum,
+			File:       file.File,
+		})
+		if err != nil {
+			return nil, err
+		}
+		token = resp.FileToken
+	} else {
+		prepareResp, _, err := r.larkClient.Drive.PrepareUploadDriveFile(ctx, &lark.PrepareUploadDriveFileReq{
+			FileName:   file.FileName,
+			ParentType: "explorer",
+			ParentNode: r.folderToken,
+			Size:       file.Size,
+		})
+		if err != nil {
+			return nil, err
+		}
+
+		for seq := 0; ; seq++ {
+			bs, err := ioutil.ReadAll(io.LimitReader(file.File, prepareResp.BlockSize))
+			if err != nil {
+				return nil, err
+			}
+			if len(bs) == 0 {
+				break
+			}
+			_, _, err = r.larkClient.Drive.PartUploadDriveFile(ctx, &lark.PartUploadDriveFileReq{
+				UploadID: prepareResp.UploadID,
+				Seq:      int64(seq),
+				Size:     int64(len(bs)),
+				Checksum: nil,
+				File:     bytes.NewReader(bs),
+			})
+			if err != nil {
+				return nil, err
+			}
+			if int64(len(bs)) < prepareResp.BlockSize {
+				break
+			}
+		}
+		resp, _, err := r.larkClient.Drive.FinishUploadDriveFile(ctx, &lark.FinishUploadDriveFileReq{
+			UploadID: prepareResp.UploadID,
+			BlockNum: prepareResp.BlockNum,
+		})
+		if err != nil {
+			return nil, err
+		}
+		token = resp.FileToken
+	}
+
+	return newFile(r.larkClient, token, ""), nil
 }
 
 // file：box开头云文档类型

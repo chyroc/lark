@@ -17,6 +17,7 @@ package larkext
 
 import (
 	"context"
+	"io"
 
 	"github.com/chyroc/lark"
 )
@@ -70,6 +71,11 @@ func (r *Folder) NewFolder(ctx context.Context, title string) (*Folder, error) {
 	return r.newFolder(ctx, title)
 }
 
+// NewFile create new file in folder
+func (r *Folder) NewFile(ctx context.Context, file *FileInfo) (*File, error) {
+	return r.uploadFile(ctx, file)
+}
+
 // NewSheet new sheet in folder
 func (r *Folder) NewSheet(ctx context.Context, title string) (*Sheet, error) {
 	return r.newSheet(ctx, title)
@@ -80,9 +86,22 @@ func (r *Folder) NewDoc(ctx context.Context, title string, blocks ...*lark.DocBl
 	return r.newDoc(ctx, title, blocks...)
 }
 
-// Delete delete folder
-func (r *Folder) Delete(ctx context.Context) error {
-	return r.deleteFile(ctx, r.folderToken, "folder")
+// NewBitable new bitable in folder
+func (r *Folder) NewBitable(ctx context.Context, title string) (*Bitable, error) {
+	res, err := r.newFile(ctx, title, "bitable")
+	if err != nil {
+		return nil, err
+	}
+	return newBitable(r.larkClient, res.Token, res.URL), nil
+}
+
+// Move move file
+func (r *Folder) Move(ctx context.Context, folderToken string) (*Task, error) {
+	return moveFile(ctx, r.larkClient, folderToken, r.folderToken, "folder")
+}
+
+func (r *Folder) Delete(ctx context.Context) (*Task, error) {
+	return deleteFile(ctx, r.larkClient, r.folderToken, "folder")
 }
 
 // DeleteFile delete file in folder
@@ -125,6 +144,11 @@ func (r *Folder) DeleteShortcut(ctx context.Context, fileToken string) error {
 	return r.deleteFile(ctx, fileToken, "shortcut")
 }
 
+// Permission grant folder permission
+func (r *Folder) Permission() *Permission {
+	return newPermission(r.larkClient, r.folderToken, "folder")
+}
+
 // FolderMeta is folder meta
 type FolderMeta struct {
 	ID        string `json:"id,omitempty"`        // 文件夹的 id
@@ -142,6 +166,13 @@ type FileMeta struct {
 	Type        string `json:"type,omitempty"`         // 文件类型
 	ParentToken string `json:"parent_token,omitempty"` // 父文件夹标识
 	URL         string `json:"url,omitempty"`          // 在浏览器中查看的链接
+}
+
+type FileInfo struct {
+	FileName string    `json:"file_name,omitempty"` // 文件名。, 示例值："test.txt", 最大长度：`250` 字符
+	Size     int64     `json:"size,omitempty"`      // 文件大小（以字节为单位）。, 示例值：1024, 最大值：`20971520`
+	Checksum *string   `json:"checksum,omitempty"`  // 文件adler32校验和(可选)。, 示例值："123423882374238957235"
+	File     io.Reader `json:"file,omitempty"`      // 文件二进制内容。, 示例值：file binary
 }
 
 //  - SearchDriveFile

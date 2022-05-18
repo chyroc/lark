@@ -27,21 +27,14 @@ func (r *Sheet) meta(ctx context.Context) (*lark.GetSheetMetaResp, error) {
 	res, _, err := r.larkClient.Drive.GetSheetMeta(ctx, &lark.GetSheetMetaReq{
 		ExtFields:        nil,
 		UserIDType:       lark.IDTypePtr(lark.IDTypeOpenID),
-		SpreadSheetToken: r.sheetToken,
+		SpreadSheetToken: r.token,
 	})
 	return res, err
 }
 
-func (r *Sheet) delete(ctx context.Context) error {
-	_, _, err := r.larkClient.Drive.DeleteDriveSheetFile(ctx, &lark.DeleteDriveSheetFileReq{
-		SpreadSheetToken: r.sheetToken,
-	})
-	return err
-}
-
 func (r *Sheet) setTitle(ctx context.Context, title string) error {
 	_, _, err := r.larkClient.Drive.UpdateSheetProperty(ctx, &lark.UpdateSheetPropertyReq{
-		SpreadSheetToken: r.sheetToken,
+		SpreadSheetToken: r.token,
 		Properties: &lark.UpdateSheetPropertyReqProperties{
 			Title: title,
 		},
@@ -51,7 +44,7 @@ func (r *Sheet) setTitle(ctx context.Context, title string) error {
 
 func (r *Sheet) newSheet(ctx context.Context, title string) (string, error) {
 	res, _, err := r.larkClient.Drive.BatchUpdateSheet(ctx, &lark.BatchUpdateSheetReq{
-		SpreadSheetToken: r.sheetToken,
+		SpreadSheetToken: r.token,
 		Requests: []*lark.BatchUpdateSheetReqRequest{
 			{
 				AddSheet: &lark.BatchUpdateSheetReqRequestAddSheet{
@@ -74,7 +67,7 @@ func (r *Sheet) newSheet(ctx context.Context, title string) (string, error) {
 
 func (r *Sheet) deleteSheet(ctx context.Context, sheetID string) error {
 	_, _, err := r.larkClient.Drive.BatchUpdateSheet(ctx, &lark.BatchUpdateSheetReq{
-		SpreadSheetToken: r.sheetToken,
+		SpreadSheetToken: r.token,
 		Requests: []*lark.BatchUpdateSheetReqRequest{
 			{
 				DeleteSheet: &lark.BatchUpdateSheetReqRequestDeleteSheet{
@@ -88,7 +81,7 @@ func (r *Sheet) deleteSheet(ctx context.Context, sheetID string) error {
 
 func (r *Sheet) copySheet(ctx context.Context, sheetID string, title *string) (string, error) {
 	resp, _, err := r.larkClient.Drive.BatchUpdateSheet(ctx, &lark.BatchUpdateSheetReq{
-		SpreadSheetToken: r.sheetToken,
+		SpreadSheetToken: r.token,
 		Requests: []*lark.BatchUpdateSheetReqRequest{
 			{
 				CopySheet: &lark.BatchUpdateSheetReqRequestCopySheet{
@@ -113,7 +106,7 @@ func (r *Sheet) copySheet(ctx context.Context, sheetID string, title *string) (s
 
 func (r *Sheet) updateSheetProperty(ctx context.Context, property *lark.BatchUpdateSheetReqRequestUpdateSheetProperties) (*lark.BatchUpdateSheetRespReplyUpdateSheetProperties, error) {
 	resp, _, err := r.larkClient.Drive.BatchUpdateSheet(ctx, &lark.BatchUpdateSheetReq{
-		SpreadSheetToken: r.sheetToken,
+		SpreadSheetToken: r.token,
 		Requests: []*lark.BatchUpdateSheetReqRequest{
 			{
 				UpdateSheet: &lark.BatchUpdateSheetReqRequestUpdateSheet{
@@ -181,7 +174,7 @@ func (r *Sheet) lockSheet(ctx context.Context, sheetID string, isUnlock bool, lo
 
 func (r *Sheet) insertDimension(ctx context.Context, majorDimension, sheetID string, startIndex, count int64) error {
 	_, _, err := r.larkClient.Drive.InsertSheetDimensionRange(ctx, &lark.InsertSheetDimensionRangeReq{
-		SpreadSheetToken: r.sheetToken,
+		SpreadSheetToken: r.token,
 		Dimension: &lark.InsertSheetDimensionRangeReqDimension{
 			SheetID:        sheetID,
 			MajorDimension: ptr.String(majorDimension),
@@ -214,7 +207,7 @@ func (r *Sheet) moveDimension(ctx context.Context, majorDimension, sheetID strin
 	}
 
 	_, _, err := r.larkClient.Drive.MoveSheetDimension(ctx, &lark.MoveSheetDimensionReq{
-		SpreadSheetToken: r.sheetToken,
+		SpreadSheetToken: r.token,
 		SheetID:          sheetID,
 		Source: &lark.MoveSheetDimensionReqSource{
 			MajorDimension: ptr.String(majorDimension),
@@ -229,7 +222,7 @@ func (r *Sheet) moveDimension(ctx context.Context, majorDimension, sheetID strin
 func (r *Sheet) appendDimension(ctx context.Context, cellRange string, values [][]lark.SheetContent, option *string) error {
 	_, _, err := r.larkClient.Drive.AppendSheetValue(ctx, &lark.AppendSheetValueReq{
 		InsertDataOption: option,
-		SpreadSheetToken: r.sheetToken,
+		SpreadSheetToken: r.token,
 		ValueRange: &lark.AppendSheetValueReqValueRange{
 			Range:  cellRange,
 			Values: values,
@@ -240,7 +233,7 @@ func (r *Sheet) appendDimension(ctx context.Context, cellRange string, values []
 
 func (r *Sheet) addDimension(ctx context.Context, dimension string, sheetID string, count int64) error {
 	_, _, err := r.larkClient.Drive.AddSheetDimensionRange(ctx, &lark.AddSheetDimensionRangeReq{
-		SpreadSheetToken: r.sheetToken,
+		SpreadSheetToken: r.token,
 		Dimension: &lark.AddSheetDimensionRangeReqDimension{
 			SheetID:        sheetID,
 			MajorDimension: &dimension,
@@ -252,7 +245,7 @@ func (r *Sheet) addDimension(ctx context.Context, dimension string, sheetID stri
 
 func (r *Sheet) updateDimension(ctx context.Context, dimension, sheetID string, startIndex, count int64, visible *bool, fixedSize *int64) error {
 	_, _, err := r.larkClient.Drive.UpdateSheetDimensionRange(ctx, &lark.UpdateSheetDimensionRangeReq{
-		SpreadSheetToken: r.sheetToken,
+		SpreadSheetToken: r.token,
 		Dimension: &lark.UpdateSheetDimensionRangeReqDimension{
 			SheetID:        sheetID,
 			MajorDimension: &dimension,
@@ -269,7 +262,7 @@ func (r *Sheet) updateDimension(ctx context.Context, dimension, sheetID string, 
 
 func (r *Sheet) deleteDimension(ctx context.Context, dimension, sheetID string, startIndex, count int64) error {
 	_, _, err := r.larkClient.Drive.DeleteSheetDimensionRange(ctx, &lark.DeleteSheetDimensionRangeReq{
-		SpreadSheetToken: r.sheetToken,
+		SpreadSheetToken: r.token,
 		Dimension: &lark.DeleteSheetDimensionRangeReqDimension{
 			SheetID:        sheetID,
 			MajorDimension: &dimension,
@@ -289,7 +282,7 @@ func (r *Sheet) getValue(ctx context.Context, cellRange string, option *lark.Get
 		ValueRenderOption:    option.ValueRenderOption,
 		DateTimeRenderOption: option.DateTimeRenderOption,
 		UserIDType:           option.UserIDType,
-		SpreadSheetToken:     r.sheetToken,
+		SpreadSheetToken:     r.token,
 		Range:                cellRange,
 	})
 	return res, err
@@ -297,7 +290,7 @@ func (r *Sheet) getValue(ctx context.Context, cellRange string, option *lark.Get
 
 func (r *Sheet) setCellStyle(ctx context.Context, cellRange string, style *lark.SetSheetStyleReqAppendStyleStyle) error {
 	_, _, err := r.larkClient.Drive.SetSheetStyle(ctx, &lark.SetSheetStyleReq{
-		SpreadSheetToken: r.sheetToken,
+		SpreadSheetToken: r.token,
 		AppendStyle: &lark.SetSheetStyleReqAppendStyle{
 			Range: cellRange,
 			Style: style,
@@ -308,7 +301,7 @@ func (r *Sheet) setCellStyle(ctx context.Context, cellRange string, style *lark.
 
 func (r *Sheet) batchSetCellStyle(ctx context.Context, styles []*lark.BatchSetSheetStyleReqData) error {
 	_, _, err := r.larkClient.Drive.BatchSetSheetStyle(ctx, &lark.BatchSetSheetStyleReq{
-		SpreadSheetToken: r.sheetToken,
+		SpreadSheetToken: r.token,
 		Data:             styles,
 	})
 	return err
@@ -319,7 +312,7 @@ func (r *Sheet) mergeCell(ctx context.Context, cellRange, mergeType string) erro
 		mergeType = "MERGE_ALL"
 	}
 	_, _, err := r.larkClient.Drive.MergeSheetCell(ctx, &lark.MergeSheetCellReq{
-		SpreadSheetToken: r.sheetToken,
+		SpreadSheetToken: r.token,
 		Range:            cellRange,
 		MergeType:        mergeType,
 	})
@@ -328,7 +321,7 @@ func (r *Sheet) mergeCell(ctx context.Context, cellRange, mergeType string) erro
 
 func (r *Sheet) unmergeCell(ctx context.Context, cellRange string) error {
 	_, _, err := r.larkClient.Drive.UnmergeSheetCell(ctx, &lark.UnmergeSheetCellReq{
-		SpreadSheetToken: r.sheetToken,
+		SpreadSheetToken: r.token,
 		Range:            cellRange,
 	})
 	return err
@@ -336,7 +329,7 @@ func (r *Sheet) unmergeCell(ctx context.Context, cellRange string) error {
 
 func (r *Sheet) setSheetValue(ctx context.Context, cellRange string, contents [][]lark.SheetContent) error {
 	_, _, err := r.larkClient.Drive.SetSheetValue(ctx, &lark.SetSheetValueReq{
-		SpreadSheetToken: r.sheetToken,
+		SpreadSheetToken: r.token,
 		ValueRange: &lark.SetSheetValueReqValueRange{
 			Range:  cellRange,
 			Values: contents,
@@ -347,7 +340,7 @@ func (r *Sheet) setSheetValue(ctx context.Context, cellRange string, contents []
 
 func (r *Sheet) batchSetSheetValue(ctx context.Context, values []*lark.BatchSetSheetValueReqValueRange) error {
 	_, _, err := r.larkClient.Drive.BatchSetSheetValue(ctx, &lark.BatchSetSheetValueReq{
-		SpreadSheetToken: r.sheetToken,
+		SpreadSheetToken: r.token,
 		ValueRanges:      values,
 	})
 	return err
@@ -355,7 +348,7 @@ func (r *Sheet) batchSetSheetValue(ctx context.Context, values []*lark.BatchSetS
 
 func (r *Sheet) setSheetValueImage(ctx context.Context, cellRange string, image []byte) error {
 	_, _, err := r.larkClient.Drive.SetSheetValueImage(ctx, &lark.SetSheetValueImageReq{
-		SpreadSheetToken: r.sheetToken,
+		SpreadSheetToken: r.token,
 		Range:            cellRange,
 		Image:            image,
 		Name:             "a.png",
@@ -371,7 +364,7 @@ func (r *Sheet) search(ctx context.Context, sheetID, value string, condition *la
 		condition.Range = sheetID
 	}
 	resp, _, err := r.larkClient.Drive.FindSheet(ctx, &lark.FindSheetReq{
-		SpreadSheetToken: r.sheetToken,
+		SpreadSheetToken: r.token,
 		SheetID:          sheetID,
 		FindCondition:    condition,
 		Find:             value,
@@ -390,7 +383,7 @@ func (r *Sheet) replace(ctx context.Context, sheetID, old, new string, condition
 		condition.Range = sheetID
 	}
 	resp, _, err := r.larkClient.Drive.ReplaceSheet(ctx, &lark.ReplaceSheetReq{
-		SpreadSheetToken: r.sheetToken,
+		SpreadSheetToken: r.token,
 		SheetID:          sheetID,
 		FindCondition:    condition,
 		Find:             old,

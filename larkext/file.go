@@ -21,42 +21,35 @@ import (
 	"github.com/chyroc/lark"
 )
 
-// Bitable Bitable client
-type Bitable struct {
+// File is file client
+type File struct {
 	larkClient *lark.Lark
 	token      string
 	url        string
 	typ        string
 }
 
-// NewBitable new Bitable client
-func NewBitable(larkClient *lark.Lark, appToken string) *Bitable {
-	return newBitable(larkClient, appToken, "")
+// NewDoc new file client
+func NewFile(larkClient *lark.Lark, token string) *File {
+	return newFile(larkClient, token, "")
 }
 
-func newBitable(larkClient *lark.Lark, token, url string) *Bitable {
-	return &Bitable{larkClient: larkClient, token: token, url: url, typ: "bitable"}
-}
-
-// Meta get bitable meta
-func (r *Bitable) Meta(ctx context.Context) (*lark.GetBitableMetaRespApp, error) {
-	return r.meta(ctx)
-}
-
-// Copy copy bitable file
-func (r *Bitable) Copy(ctx context.Context, folderToken, name string) (*Bitable, error) {
+// Copy copy file
+func (r *File) Copy(ctx context.Context, folderToken, name string) (*File, error) {
 	return r.copy(ctx, folderToken, name)
 }
 
-func (r *Bitable) Move(ctx context.Context, folderToken, name string) (*Task, error) {
+func (r *File) Move(ctx context.Context, folderToken string) (*Task, error) {
 	return moveFile(ctx, r.larkClient, folderToken, r.token, r.typ)
 }
 
-func (r *Bitable) Delete(ctx context.Context) (*Task, error) {
+func (r *File) Delete(ctx context.Context) (*Task, error) {
 	return deleteFile(ctx, r.larkClient, r.token, r.typ)
 }
 
-// Permission grant bitable permission
-func (r *Bitable) Permission() *Permission {
-	return newPermission(r.larkClient, r.token, r.typ)
+func (r *File) Download(ctx context.Context) (*lark.DownloadDriveFileResp, error) {
+	resp, _, err := r.larkClient.Drive.DownloadDriveFile(ctx, &lark.DownloadDriveFileReq{
+		FileToken: r.token,
+	})
+	return resp, err
 }

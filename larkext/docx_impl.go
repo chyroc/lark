@@ -21,20 +21,19 @@ import (
 	"github.com/chyroc/lark"
 )
 
-func (r *Bitable) meta(ctx context.Context) (*lark.GetBitableMetaRespApp, error) {
-	resp, _, err := r.larkClient.Bitable.GetBitableMeta(ctx, &lark.GetBitableMetaReq{
-		AppToken: r.token,
-	})
-	if err != nil {
-		return nil, err
-	}
-	return resp.App, err
+func newFile(larkClient *lark.Lark, token, url string) *File {
+	r := new(File)
+	r.larkClient = larkClient
+	r.token = token
+	r.url = url
+	r.typ = "file"
+	return r
 }
 
-func (r *Bitable) copy(ctx context.Context, folderToken, name string) (*Bitable, error) {
+func (r *Docx) copy(ctx context.Context, folderToken, name string) (*Docx, error) {
 	res, err := copyFile(ctx, r.larkClient, folderToken, r.token, r.typ, name)
 	if err != nil {
 		return nil, err
 	}
-	return newBitable(r.larkClient, res.Token, res.URL), nil
+	return newDocx(r.larkClient, res.Token, res.URL), nil
 }

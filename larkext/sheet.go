@@ -25,16 +25,21 @@ import (
 // Sheet is sheet client
 type Sheet struct {
 	larkClient    *lark.Lark
-	sheetToken    string
+	token         string
 	activeSheetID string
+	typ           string
 }
 
 // NewSheet new sheet client
 func NewSheet(larkClient *lark.Lark, sheetToken string) *Sheet {
+	return newSheet(larkClient, sheetToken)
+}
+
+func newSheet(larkClient *lark.Lark, sheetToken string) *Sheet {
 	r := new(Sheet)
 	r.larkClient = larkClient
-	r.sheetToken = sheetToken
-
+	r.token = sheetToken
+	r.typ = "sheet"
 	return r
 }
 
@@ -45,12 +50,7 @@ func (r *Sheet) Meta(ctx context.Context) (*lark.GetSheetMetaResp, error) {
 
 // SheetToken get sheet token
 func (r *Sheet) SheetToken() string {
-	return r.sheetToken
-}
-
-// Delete delete sheet
-func (r *Sheet) Delete(ctx context.Context) error {
-	return r.delete(ctx)
+	return r.token
 }
 
 // SetTitle set sheet title
@@ -70,7 +70,16 @@ func (r *Sheet) DeleteSheet(ctx context.Context, sheetID string) error {
 
 // Copy copy sheet file
 func (r *Sheet) Copy(ctx context.Context, folderToken, name string) (*FileMeta, error) {
-	return copyFile(ctx, r.larkClient, folderToken, r.sheetToken, "sheet", name)
+	return copyFile(ctx, r.larkClient, folderToken, r.token, r.typ, name)
+}
+
+// Copy copy sheet file
+func (r *Sheet) Move(ctx context.Context, folderToken string) (*Task, error) {
+	return moveFile(ctx, r.larkClient, folderToken, r.token, r.typ)
+}
+
+func (r *Sheet) Delete(ctx context.Context) (*Task, error) {
+	return deleteFile(ctx, r.larkClient, r.token, r.typ)
 }
 
 // CopySheet copy sheet
