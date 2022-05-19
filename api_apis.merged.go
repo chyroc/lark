@@ -1173,10 +1173,10 @@ func (r *Mock) UnMockAITranslateText() {
 
 // TranslateTextReq ...
 type TranslateTextReq struct {
-	SourceLanguage string                    `json:"source_language,omitempty"` // 源语言, 示例值："zh"
-	Text           string                    `json:"text,omitempty"`            // 源文本, 示例值："尝试使用一下飞书吧"
-	TargetLanguage string                    `json:"target_language,omitempty"` // 目标语言, 示例值："en"
-	Glossary       *TranslateTextReqGlossary `json:"glossary,omitempty"`        // 请求级术语表，携带术语，仅在本次翻译中生效（最多能携带 128个术语词）
+	SourceLanguage string                      `json:"source_language,omitempty"` // 源语言, 示例值："zh"
+	Text           string                      `json:"text,omitempty"`            // 源文本, 示例值："尝试使用一下飞书吧"
+	TargetLanguage string                      `json:"target_language,omitempty"` // 目标语言, 示例值："en"
+	Glossary       []*TranslateTextReqGlossary `json:"glossary,omitempty"`        // 请求级术语表，携带术语，仅在本次翻译中生效（最多能携带 128个术语词）
 }
 
 // TranslateTextReqGlossary ...
@@ -1687,7 +1687,7 @@ type GetApplicationRespApp struct {
 	Description      string                        `json:"description,omitempty"`        // 应用默认描述
 	Scopes           []*GetApplicationRespAppScope `json:"scopes,omitempty"`             // 应用权限列表
 	BackHomeURL      string                        `json:"back_home_url,omitempty"`      // 后台主页地址
-	I18n             *GetApplicationRespAppI18n    `json:"i18n,omitempty"`               // 应用的国际化信息列表
+	I18n             []*GetApplicationRespAppI18n  `json:"i18n,omitempty"`               // 应用的国际化信息列表
 	PrimaryLanguage  string                        `json:"primary_language,omitempty"`   // 应用主语言, 可选值有: `zh_cn`：中文, `en_us`：英文, `ja_jp`：日文
 	CommonCategories []string                      `json:"common_categories,omitempty"`  // 应用分类的国际化描述
 }
@@ -2046,7 +2046,7 @@ type GetApplicationUnderAuditListRespItem struct {
 	Description      string                                       `json:"description,omitempty"`        // 应用默认描述
 	Scopes           []*GetApplicationUnderAuditListRespItemScope `json:"scopes,omitempty"`             // 应用权限列表
 	BackHomeURL      string                                       `json:"back_home_url,omitempty"`      // 后台主页地址
-	I18n             *GetApplicationUnderAuditListRespItemI18n    `json:"i18n,omitempty"`               // 应用的国际化信息列表
+	I18n             []*GetApplicationUnderAuditListRespItemI18n  `json:"i18n,omitempty"`               // 应用的国际化信息列表
 	PrimaryLanguage  string                                       `json:"primary_language,omitempty"`   // 应用主语言, 可选值有: `zh_cn`：中文, `en_us`：英文, `ja_jp`：日文
 	CommonCategories []string                                     `json:"common_categories,omitempty"`  // 应用分类的国际化描述
 }
@@ -2470,7 +2470,7 @@ type GetApplicationVersionRespAppVersion struct {
 	Description      string                                      `json:"description,omitempty"`       // 应用默认描述
 	Scopes           []*GetApplicationVersionRespAppVersionScope `json:"scopes,omitempty"`            // 应用权限列表
 	BackHomeURL      string                                      `json:"back_home_url,omitempty"`     // 后台主页地址
-	I18n             *GetApplicationVersionRespAppVersionI18n    `json:"i18n,omitempty"`              // 应用的国际化信息列表
+	I18n             []*GetApplicationVersionRespAppVersionI18n  `json:"i18n,omitempty"`              // 应用的国际化信息列表
 	CommonCategories []string                                    `json:"common_categories,omitempty"` // 应用分类的国际化描述
 	Events           []string                                    `json:"events,omitempty"`            // 应用已订阅开放平台事件列表
 	Status           int64                                       `json:"status,omitempty"`            // 版本状态, 可选值有: `0`：未知状态, `1`：审核通过, `2`：审核拒绝, `3`：审核中, `4`：未提交审核
@@ -2557,10 +2557,10 @@ type GetApplicationVersionRespAppVersionAbilityNavigateMobile struct {
 
 // GetApplicationVersionRespAppVersionAbilityCloudDoc ...
 type GetApplicationVersionRespAppVersionAbilityCloudDoc struct {
-	SpaceURL string                                                  `json:"space_url,omitempty"` // 云空间重定向 url
-	I18n     *GetApplicationVersionRespAppVersionAbilityCloudDocI18n `json:"i18n,omitempty"`      // 国际化信息
-	IconURL  string                                                  `json:"icon_url,omitempty"`  // 图标链接
-	Mode     int64                                                   `json:"mode,omitempty"`      // 云文档支持模式, 可选值有: `0`：未知, `1`：移动端
+	SpaceURL string                                                    `json:"space_url,omitempty"` // 云空间重定向 url
+	I18n     []*GetApplicationVersionRespAppVersionAbilityCloudDocI18n `json:"i18n,omitempty"`      // 国际化信息
+	IconURL  string                                                    `json:"icon_url,omitempty"`  // 图标链接
+	Mode     int64                                                     `json:"mode,omitempty"`      // 云文档支持模式, 可选值有: `0`：未知, `1`：移动端
 }
 
 // GetApplicationVersionRespAppVersionAbilityCloudDocI18n ...
@@ -2573,10 +2573,10 @@ type GetApplicationVersionRespAppVersionAbilityCloudDocI18n struct {
 
 // GetApplicationVersionRespAppVersionAbilityDocsBlock ...
 type GetApplicationVersionRespAppVersionAbilityDocsBlock struct {
-	BlockTypeID   string                                                   `json:"block_type_id,omitempty"`   // BlockTypeID
-	I18n          *GetApplicationVersionRespAppVersionAbilityDocsBlockI18n `json:"i18n,omitempty"`            // block 的国际化信息
-	MobileIconURL string                                                   `json:"mobile_icon_url,omitempty"` // 移动端 icon 链接
-	PcIconURL     string                                                   `json:"pc_icon_url,omitempty"`     // pc 端口 icon 链接
+	BlockTypeID   string                                                     `json:"block_type_id,omitempty"`   // BlockTypeID
+	I18n          []*GetApplicationVersionRespAppVersionAbilityDocsBlockI18n `json:"i18n,omitempty"`            // block 的国际化信息
+	MobileIconURL string                                                     `json:"mobile_icon_url,omitempty"` // 移动端 icon 链接
+	PcIconURL     string                                                     `json:"pc_icon_url,omitempty"`     // pc 端口 icon 链接
 }
 
 // GetApplicationVersionRespAppVersionAbilityDocsBlockI18n ...
@@ -2587,9 +2587,9 @@ type GetApplicationVersionRespAppVersionAbilityDocsBlockI18n struct {
 
 // GetApplicationVersionRespAppVersionAbilityMessageAction ...
 type GetApplicationVersionRespAppVersionAbilityMessageAction struct {
-	PcAppLink     string                                                       `json:"pc_app_link,omitempty"`     // pc 端链接
-	MobileAppLink string                                                       `json:"mobile_app_link,omitempty"` // 移动端链接
-	I18n          *GetApplicationVersionRespAppVersionAbilityMessageActionI18n `json:"i18n,omitempty"`            // 国际化信息
+	PcAppLink     string                                                         `json:"pc_app_link,omitempty"`     // pc 端链接
+	MobileAppLink string                                                         `json:"mobile_app_link,omitempty"` // 移动端链接
+	I18n          []*GetApplicationVersionRespAppVersionAbilityMessageActionI18n `json:"i18n,omitempty"`            // 国际化信息
 }
 
 // GetApplicationVersionRespAppVersionAbilityMessageActionI18n ...
@@ -4982,14 +4982,14 @@ func (r *Mock) UnMockAttendanceCreateAttendanceShift() {
 
 // CreateAttendanceShiftReq ...
 type CreateAttendanceShiftReq struct {
-	ShiftName         string                                     `json:"shift_name,omitempty"`            // 班次名称, 示例值："早班"
-	PunchTimes        int64                                      `json:"punch_times,omitempty"`           // 打卡次数, 示例值：1
-	IsFlexible        *bool                                      `json:"is_flexible,omitempty"`           // 是否弹性打卡, 示例值：false
-	FlexibleMinutes   *int64                                     `json:"flexible_minutes,omitempty"`      // 弹性打卡的时间, 示例值：60
-	NoNeedOff         *bool                                      `json:"no_need_off,omitempty"`           // 不需要打下班卡, 示例值：true
-	PunchTimeRule     *CreateAttendanceShiftReqPunchTimeRule     `json:"punch_time_rule,omitempty"`       // 打卡规则
-	LateOffLateOnRule *CreateAttendanceShiftReqLateOffLateOnRule `json:"late_off_late_on_rule,omitempty"` // 晚走晚到规则
-	RestTimeRule      *CreateAttendanceShiftReqRestTimeRule      `json:"rest_time_rule,omitempty"`        // 休息规则
+	ShiftName         string                                       `json:"shift_name,omitempty"`            // 班次名称, 示例值："早班"
+	PunchTimes        int64                                        `json:"punch_times,omitempty"`           // 打卡次数, 示例值：1
+	IsFlexible        *bool                                        `json:"is_flexible,omitempty"`           // 是否弹性打卡, 示例值：false
+	FlexibleMinutes   *int64                                       `json:"flexible_minutes,omitempty"`      // 弹性打卡的时间, 示例值：60
+	NoNeedOff         *bool                                        `json:"no_need_off,omitempty"`           // 不需要打下班卡, 示例值：true
+	PunchTimeRule     []*CreateAttendanceShiftReqPunchTimeRule     `json:"punch_time_rule,omitempty"`       // 打卡规则
+	LateOffLateOnRule []*CreateAttendanceShiftReqLateOffLateOnRule `json:"late_off_late_on_rule,omitempty"` // 晚走晚到规则
+	RestTimeRule      []*CreateAttendanceShiftReqRestTimeRule      `json:"rest_time_rule,omitempty"`        // 休息规则
 }
 
 // CreateAttendanceShiftReqPunchTimeRule ...
@@ -5030,15 +5030,15 @@ type CreateAttendanceShiftResp struct {
 
 // CreateAttendanceShiftRespShift ...
 type CreateAttendanceShiftRespShift struct {
-	ShiftID           string                                           `json:"shift_id,omitempty"`              // 班次 ID
-	ShiftName         string                                           `json:"shift_name,omitempty"`            // 班次名称
-	PunchTimes        int64                                            `json:"punch_times,omitempty"`           // 打卡次数
-	IsFlexible        bool                                             `json:"is_flexible,omitempty"`           // 是否弹性打卡
-	FlexibleMinutes   int64                                            `json:"flexible_minutes,omitempty"`      // 弹性打卡的时间
-	NoNeedOff         bool                                             `json:"no_need_off,omitempty"`           // 不需要打下班卡
-	PunchTimeRule     *CreateAttendanceShiftRespShiftPunchTimeRule     `json:"punch_time_rule,omitempty"`       // 打卡规则
-	LateOffLateOnRule *CreateAttendanceShiftRespShiftLateOffLateOnRule `json:"late_off_late_on_rule,omitempty"` // 晚走晚到规则
-	RestTimeRule      *CreateAttendanceShiftRespShiftRestTimeRule      `json:"rest_time_rule,omitempty"`        // 休息规则
+	ShiftID           string                                             `json:"shift_id,omitempty"`              // 班次 ID
+	ShiftName         string                                             `json:"shift_name,omitempty"`            // 班次名称
+	PunchTimes        int64                                              `json:"punch_times,omitempty"`           // 打卡次数
+	IsFlexible        bool                                               `json:"is_flexible,omitempty"`           // 是否弹性打卡
+	FlexibleMinutes   int64                                              `json:"flexible_minutes,omitempty"`      // 弹性打卡的时间
+	NoNeedOff         bool                                               `json:"no_need_off,omitempty"`           // 不需要打下班卡
+	PunchTimeRule     []*CreateAttendanceShiftRespShiftPunchTimeRule     `json:"punch_time_rule,omitempty"`       // 打卡规则
+	LateOffLateOnRule []*CreateAttendanceShiftRespShiftLateOffLateOnRule `json:"late_off_late_on_rule,omitempty"` // 晚走晚到规则
+	RestTimeRule      []*CreateAttendanceShiftRespShiftRestTimeRule      `json:"rest_time_rule,omitempty"`        // 休息规则
 }
 
 // CreateAttendanceShiftRespShiftPunchTimeRule ...
@@ -5167,15 +5167,15 @@ type getAttendanceShiftResp struct {
 
 // GetAttendanceShiftResp ...
 type GetAttendanceShiftResp struct {
-	ShiftID           string                                   `json:"shift_id,omitempty"`              // 班次 ID
-	ShiftName         string                                   `json:"shift_name,omitempty"`            // 班次名称
-	PunchTimes        int64                                    `json:"punch_times,omitempty"`           // 打卡次数
-	IsFlexible        bool                                     `json:"is_flexible,omitempty"`           // 是否弹性打卡
-	FlexibleMinutes   int64                                    `json:"flexible_minutes,omitempty"`      // 弹性打卡的时间
-	NoNeedOff         bool                                     `json:"no_need_off,omitempty"`           // 不需要打下班卡
-	PunchTimeRule     *GetAttendanceShiftRespPunchTimeRule     `json:"punch_time_rule,omitempty"`       // 打卡规则
-	LateOffLateOnRule *GetAttendanceShiftRespLateOffLateOnRule `json:"late_off_late_on_rule,omitempty"` // 晚走晚到规则
-	RestTimeRule      *GetAttendanceShiftRespRestTimeRule      `json:"rest_time_rule,omitempty"`        // 休息规则
+	ShiftID           string                                     `json:"shift_id,omitempty"`              // 班次 ID
+	ShiftName         string                                     `json:"shift_name,omitempty"`            // 班次名称
+	PunchTimes        int64                                      `json:"punch_times,omitempty"`           // 打卡次数
+	IsFlexible        bool                                       `json:"is_flexible,omitempty"`           // 是否弹性打卡
+	FlexibleMinutes   int64                                      `json:"flexible_minutes,omitempty"`      // 弹性打卡的时间
+	NoNeedOff         bool                                       `json:"no_need_off,omitempty"`           // 不需要打下班卡
+	PunchTimeRule     []*GetAttendanceShiftRespPunchTimeRule     `json:"punch_time_rule,omitempty"`       // 打卡规则
+	LateOffLateOnRule []*GetAttendanceShiftRespLateOffLateOnRule `json:"late_off_late_on_rule,omitempty"` // 晚走晚到规则
+	RestTimeRule      []*GetAttendanceShiftRespRestTimeRule      `json:"rest_time_rule,omitempty"`        // 休息规则
 }
 
 // GetAttendanceShiftRespPunchTimeRule ...
@@ -5252,15 +5252,15 @@ type getAttendanceShiftDetailResp struct {
 
 // GetAttendanceShiftDetailResp ...
 type GetAttendanceShiftDetailResp struct {
-	ShiftID           string                                         `json:"shift_id,omitempty"`              // 班次 ID
-	ShiftName         string                                         `json:"shift_name,omitempty"`            // 班次名称
-	PunchTimes        int64                                          `json:"punch_times,omitempty"`           // 打卡次数
-	IsFlexible        bool                                           `json:"is_flexible,omitempty"`           // 是否弹性打卡
-	FlexibleMinutes   int64                                          `json:"flexible_minutes,omitempty"`      // 弹性打卡的时间
-	NoNeedOff         bool                                           `json:"no_need_off,omitempty"`           // 不需要打下班卡
-	PunchTimeRule     *GetAttendanceShiftDetailRespPunchTimeRule     `json:"punch_time_rule,omitempty"`       // 打卡规则
-	LateOffLateOnRule *GetAttendanceShiftDetailRespLateOffLateOnRule `json:"late_off_late_on_rule,omitempty"` // 晚走晚到规则
-	RestTimeRule      *GetAttendanceShiftDetailRespRestTimeRule      `json:"rest_time_rule,omitempty"`        // 休息规则
+	ShiftID           string                                           `json:"shift_id,omitempty"`              // 班次 ID
+	ShiftName         string                                           `json:"shift_name,omitempty"`            // 班次名称
+	PunchTimes        int64                                            `json:"punch_times,omitempty"`           // 打卡次数
+	IsFlexible        bool                                             `json:"is_flexible,omitempty"`           // 是否弹性打卡
+	FlexibleMinutes   int64                                            `json:"flexible_minutes,omitempty"`      // 弹性打卡的时间
+	NoNeedOff         bool                                             `json:"no_need_off,omitempty"`           // 不需要打下班卡
+	PunchTimeRule     []*GetAttendanceShiftDetailRespPunchTimeRule     `json:"punch_time_rule,omitempty"`       // 打卡规则
+	LateOffLateOnRule []*GetAttendanceShiftDetailRespLateOffLateOnRule `json:"late_off_late_on_rule,omitempty"` // 晚走晚到规则
+	RestTimeRule      []*GetAttendanceShiftDetailRespRestTimeRule      `json:"rest_time_rule,omitempty"`        // 休息规则
 }
 
 // GetAttendanceShiftDetailRespPunchTimeRule ...
@@ -5345,15 +5345,15 @@ type GetAttendanceShiftListResp struct {
 
 // GetAttendanceShiftListRespShift ...
 type GetAttendanceShiftListRespShift struct {
-	ShiftID           string                                            `json:"shift_id,omitempty"`              // 班次 ID
-	ShiftName         string                                            `json:"shift_name,omitempty"`            // 班次名称
-	PunchTimes        int64                                             `json:"punch_times,omitempty"`           // 打卡次数
-	IsFlexible        bool                                              `json:"is_flexible,omitempty"`           // 是否弹性打卡
-	FlexibleMinutes   int64                                             `json:"flexible_minutes,omitempty"`      // 弹性打卡的时间
-	NoNeedOff         bool                                              `json:"no_need_off,omitempty"`           // 不需要打下班卡
-	PunchTimeRule     *GetAttendanceShiftListRespShiftPunchTimeRule     `json:"punch_time_rule,omitempty"`       // 打卡规则
-	LateOffLateOnRule *GetAttendanceShiftListRespShiftLateOffLateOnRule `json:"late_off_late_on_rule,omitempty"` // 晚走晚到规则
-	RestTimeRule      *GetAttendanceShiftListRespShiftRestTimeRule      `json:"rest_time_rule,omitempty"`        // 休息规则
+	ShiftID           string                                              `json:"shift_id,omitempty"`              // 班次 ID
+	ShiftName         string                                              `json:"shift_name,omitempty"`            // 班次名称
+	PunchTimes        int64                                               `json:"punch_times,omitempty"`           // 打卡次数
+	IsFlexible        bool                                                `json:"is_flexible,omitempty"`           // 是否弹性打卡
+	FlexibleMinutes   int64                                               `json:"flexible_minutes,omitempty"`      // 弹性打卡的时间
+	NoNeedOff         bool                                                `json:"no_need_off,omitempty"`           // 不需要打下班卡
+	PunchTimeRule     []*GetAttendanceShiftListRespShiftPunchTimeRule     `json:"punch_time_rule,omitempty"`       // 打卡规则
+	LateOffLateOnRule []*GetAttendanceShiftListRespShiftLateOffLateOnRule `json:"late_off_late_on_rule,omitempty"` // 晚走晚到规则
+	RestTimeRule      []*GetAttendanceShiftListRespShiftRestTimeRule      `json:"rest_time_rule,omitempty"`        // 休息规则
 }
 
 // GetAttendanceShiftListRespShiftPunchTimeRule ...
@@ -10372,14 +10372,14 @@ type CreateCalendarEventAttendeeReq struct {
 
 // CreateCalendarEventAttendeeReqAttendee ...
 type CreateCalendarEventAttendeeReqAttendee struct {
-	Type                  *CalendarEventAttendeeType                                   `json:"type,omitempty"`                   // 参与人类型, 示例值："user", 可选值有: `user`：用户, `chat`：群组, `resource`：会议室, `third_party`：邮箱
-	IsOptional            *bool                                                        `json:"is_optional,omitempty"`            // 参与人是否为「可选参加」，无法编辑群参与人的此字段, 示例值：true, 默认值: `false`
-	UserID                *string                                                      `json:"user_id,omitempty"`                // 参与人的用户id，依赖于user_id_type返回对应的取值，当is_external为true时，此字段只会返回open_id或者union_id，参见[用户相关的 ID 概念](https://open.feishu.cn/document/home/user-identity-introduction/introduction), 示例值："ou_xxxxxxxx"
-	ChatID                *string                                                      `json:"chat_id,omitempty"`                // chat类型参与人的群组chat_id，参见[群ID 说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-id-description), 示例值："oc_xxxxxxxxx"
-	RoomID                *string                                                      `json:"room_id,omitempty"`                // resource类型参与人的会议室room_id, 示例值："omm_xxxxxxxx"
-	ThirdPartyEmail       *string                                                      `json:"third_party_email,omitempty"`      // third_party类型参与人的邮箱, 示例值："wangwu@email.com"
-	OperateID             *string                                                      `json:"operate_id,omitempty"`             // 如果日程是使用应用身份创建的，在添加会议室的时候，用来指定会议室的联系人，在会议室视图展示。参见[用户相关的 ID 概念](https://open.feishu.cn/document/home/user-identity-introduction/introduction), 示例值："ou_xxxxxxxx"
-	ResourceCustomization *CreateCalendarEventAttendeeReqAttendeeResourceCustomization `json:"resource_customization,omitempty"` // 会议室的个性化配置
+	Type                  *CalendarEventAttendeeType                                     `json:"type,omitempty"`                   // 参与人类型, 示例值："user", 可选值有: `user`：用户, `chat`：群组, `resource`：会议室, `third_party`：邮箱
+	IsOptional            *bool                                                          `json:"is_optional,omitempty"`            // 参与人是否为「可选参加」，无法编辑群参与人的此字段, 示例值：true, 默认值: `false`
+	UserID                *string                                                        `json:"user_id,omitempty"`                // 参与人的用户id，依赖于user_id_type返回对应的取值，当is_external为true时，此字段只会返回open_id或者union_id，参见[用户相关的 ID 概念](https://open.feishu.cn/document/home/user-identity-introduction/introduction), 示例值："ou_xxxxxxxx"
+	ChatID                *string                                                        `json:"chat_id,omitempty"`                // chat类型参与人的群组chat_id，参见[群ID 说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-id-description), 示例值："oc_xxxxxxxxx"
+	RoomID                *string                                                        `json:"room_id,omitempty"`                // resource类型参与人的会议室room_id, 示例值："omm_xxxxxxxx"
+	ThirdPartyEmail       *string                                                        `json:"third_party_email,omitempty"`      // third_party类型参与人的邮箱, 示例值："wangwu@email.com"
+	OperateID             *string                                                        `json:"operate_id,omitempty"`             // 如果日程是使用应用身份创建的，在添加会议室的时候，用来指定会议室的联系人，在会议室视图展示。参见[用户相关的 ID 概念](https://open.feishu.cn/document/home/user-identity-introduction/introduction), 示例值："ou_xxxxxxxx"
+	ResourceCustomization []*CreateCalendarEventAttendeeReqAttendeeResourceCustomization `json:"resource_customization,omitempty"` // 会议室的个性化配置
 }
 
 // CreateCalendarEventAttendeeReqAttendeeResourceCustomization ...
@@ -10409,20 +10409,20 @@ type CreateCalendarEventAttendeeResp struct {
 
 // CreateCalendarEventAttendeeRespAttendee ...
 type CreateCalendarEventAttendeeRespAttendee struct {
-	Type                  CalendarEventAttendeeType                                     `json:"type,omitempty"`                   // 参与人类型, 可选值有: `user`：用户, `chat`：群组, `resource`：会议室, `third_party`：邮箱
-	AttendeeID            string                                                        `json:"attendee_id,omitempty"`            // 参与人ID。参见[参与人ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar-event-attendee/introduction#4998889c)
-	RsvpStatus            string                                                        `json:"rsvp_status,omitempty"`            // 参与人RSVP状态, 可选值有: `needs_action`：参与人尚未回复状态，或表示会议室预约中, `accept`：参与人回复接受，或表示会议室预约成功, `tentative`：参与人回复待定, `decline`：参与人回复拒绝，或表示会议室预约失败, `removed`：参与人或会议室已经从日程中被移除
-	IsOptional            bool                                                          `json:"is_optional,omitempty"`            // 参与人是否为「可选参加」，无法编辑群参与人的此字段
-	IsOrganizer           bool                                                          `json:"is_organizer,omitempty"`           // 参与人是否为日程组织者
-	IsExternal            bool                                                          `json:"is_external,omitempty"`            // 参与人是否为外部参与人；外部参与人不支持编辑
-	DisplayName           string                                                        `json:"display_name,omitempty"`           // 参与人名称
-	ChatMembers           []*CreateCalendarEventAttendeeRespAttendeeChatMember          `json:"chat_members,omitempty"`           // 群中的群成员，当type为Chat时有效；群成员不支持编辑
-	UserID                string                                                        `json:"user_id,omitempty"`                // 参与人的用户id，依赖于user_id_type返回对应的取值，当is_external为true时，此字段只会返回open_id或者union_id，参见[用户相关的 ID 概念](https://open.feishu.cn/document/home/user-identity-introduction/introduction)
-	ChatID                string                                                        `json:"chat_id,omitempty"`                // chat类型参与人的群组chat_id，参见[群ID 说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-id-description)
-	RoomID                string                                                        `json:"room_id,omitempty"`                // resource类型参与人的会议室room_id
-	ThirdPartyEmail       string                                                        `json:"third_party_email,omitempty"`      // third_party类型参与人的邮箱
-	OperateID             string                                                        `json:"operate_id,omitempty"`             // 如果日程是使用应用身份创建的，在添加会议室的时候，用来指定会议室的联系人，在会议室视图展示。参见[用户相关的 ID 概念](https://open.feishu.cn/document/home/user-identity-introduction/introduction)
-	ResourceCustomization *CreateCalendarEventAttendeeRespAttendeeResourceCustomization `json:"resource_customization,omitempty"` // 会议室的个性化配置
+	Type                  CalendarEventAttendeeType                                       `json:"type,omitempty"`                   // 参与人类型, 可选值有: `user`：用户, `chat`：群组, `resource`：会议室, `third_party`：邮箱
+	AttendeeID            string                                                          `json:"attendee_id,omitempty"`            // 参与人ID。参见[参与人ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar-event-attendee/introduction#4998889c)
+	RsvpStatus            string                                                          `json:"rsvp_status,omitempty"`            // 参与人RSVP状态, 可选值有: `needs_action`：参与人尚未回复状态，或表示会议室预约中, `accept`：参与人回复接受，或表示会议室预约成功, `tentative`：参与人回复待定, `decline`：参与人回复拒绝，或表示会议室预约失败, `removed`：参与人或会议室已经从日程中被移除
+	IsOptional            bool                                                            `json:"is_optional,omitempty"`            // 参与人是否为「可选参加」，无法编辑群参与人的此字段
+	IsOrganizer           bool                                                            `json:"is_organizer,omitempty"`           // 参与人是否为日程组织者
+	IsExternal            bool                                                            `json:"is_external,omitempty"`            // 参与人是否为外部参与人；外部参与人不支持编辑
+	DisplayName           string                                                          `json:"display_name,omitempty"`           // 参与人名称
+	ChatMembers           []*CreateCalendarEventAttendeeRespAttendeeChatMember            `json:"chat_members,omitempty"`           // 群中的群成员，当type为Chat时有效；群成员不支持编辑
+	UserID                string                                                          `json:"user_id,omitempty"`                // 参与人的用户id，依赖于user_id_type返回对应的取值，当is_external为true时，此字段只会返回open_id或者union_id，参见[用户相关的 ID 概念](https://open.feishu.cn/document/home/user-identity-introduction/introduction)
+	ChatID                string                                                          `json:"chat_id,omitempty"`                // chat类型参与人的群组chat_id，参见[群ID 说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-id-description)
+	RoomID                string                                                          `json:"room_id,omitempty"`                // resource类型参与人的会议室room_id
+	ThirdPartyEmail       string                                                          `json:"third_party_email,omitempty"`      // third_party类型参与人的邮箱
+	OperateID             string                                                          `json:"operate_id,omitempty"`             // 如果日程是使用应用身份创建的，在添加会议室的时候，用来指定会议室的联系人，在会议室视图展示。参见[用户相关的 ID 概念](https://open.feishu.cn/document/home/user-identity-introduction/introduction)
+	ResourceCustomization []*CreateCalendarEventAttendeeRespAttendeeResourceCustomization `json:"resource_customization,omitempty"` // 会议室的个性化配置
 }
 
 // CreateCalendarEventAttendeeRespAttendeeChatMember ...
@@ -10573,20 +10573,20 @@ type GetCalendarEventAttendeeListResp struct {
 
 // GetCalendarEventAttendeeListRespItem ...
 type GetCalendarEventAttendeeListRespItem struct {
-	Type                  CalendarEventAttendeeType                                  `json:"type,omitempty"`                   // 参与人类型, 可选值有: `user`：用户, `chat`：群组, `resource`：会议室, `third_party`：邮箱
-	AttendeeID            string                                                     `json:"attendee_id,omitempty"`            // 参与人ID。参见[参与人ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar-event-attendee/introduction#4998889c)
-	RsvpStatus            string                                                     `json:"rsvp_status,omitempty"`            // 参与人RSVP状态, 可选值有: `needs_action`：参与人尚未回复状态，或表示会议室预约中, `accept`：参与人回复接受，或表示会议室预约成功, `tentative`：参与人回复待定, `decline`：参与人回复拒绝，或表示会议室预约失败, `removed`：参与人或会议室已经从日程中被移除
-	IsOptional            bool                                                       `json:"is_optional,omitempty"`            // 参与人是否为「可选参加」，无法编辑群参与人的此字段
-	IsOrganizer           bool                                                       `json:"is_organizer,omitempty"`           // 参与人是否为日程组织者
-	IsExternal            bool                                                       `json:"is_external,omitempty"`            // 参与人是否为外部参与人；外部参与人不支持编辑
-	DisplayName           string                                                     `json:"display_name,omitempty"`           // 参与人名称
-	ChatMembers           []*GetCalendarEventAttendeeListRespItemChatMember          `json:"chat_members,omitempty"`           // 群中的群成员，当type为Chat时有效；群成员不支持编辑
-	UserID                string                                                     `json:"user_id,omitempty"`                // 参与人的用户id，依赖于user_id_type返回对应的取值，当is_external为true时，此字段只会返回open_id或者union_id，参见[用户相关的 ID 概念](https://open.feishu.cn/document/home/user-identity-introduction/introduction)
-	ChatID                string                                                     `json:"chat_id,omitempty"`                // chat类型参与人的群组chat_id，参见[群ID 说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-id-description)
-	RoomID                string                                                     `json:"room_id,omitempty"`                // resource类型参与人的会议室room_id
-	ThirdPartyEmail       string                                                     `json:"third_party_email,omitempty"`      // third_party类型参与人的邮箱
-	OperateID             string                                                     `json:"operate_id,omitempty"`             // 如果日程是使用应用身份创建的，在添加会议室的时候，用来指定会议室的联系人，在会议室视图展示。参见[用户相关的 ID 概念](https://open.feishu.cn/document/home/user-identity-introduction/introduction)
-	ResourceCustomization *GetCalendarEventAttendeeListRespItemResourceCustomization `json:"resource_customization,omitempty"` // 会议室的个性化配置
+	Type                  CalendarEventAttendeeType                                    `json:"type,omitempty"`                   // 参与人类型, 可选值有: `user`：用户, `chat`：群组, `resource`：会议室, `third_party`：邮箱
+	AttendeeID            string                                                       `json:"attendee_id,omitempty"`            // 参与人ID。参见[参与人ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar-event-attendee/introduction#4998889c)
+	RsvpStatus            string                                                       `json:"rsvp_status,omitempty"`            // 参与人RSVP状态, 可选值有: `needs_action`：参与人尚未回复状态，或表示会议室预约中, `accept`：参与人回复接受，或表示会议室预约成功, `tentative`：参与人回复待定, `decline`：参与人回复拒绝，或表示会议室预约失败, `removed`：参与人或会议室已经从日程中被移除
+	IsOptional            bool                                                         `json:"is_optional,omitempty"`            // 参与人是否为「可选参加」，无法编辑群参与人的此字段
+	IsOrganizer           bool                                                         `json:"is_organizer,omitempty"`           // 参与人是否为日程组织者
+	IsExternal            bool                                                         `json:"is_external,omitempty"`            // 参与人是否为外部参与人；外部参与人不支持编辑
+	DisplayName           string                                                       `json:"display_name,omitempty"`           // 参与人名称
+	ChatMembers           []*GetCalendarEventAttendeeListRespItemChatMember            `json:"chat_members,omitempty"`           // 群中的群成员，当type为Chat时有效；群成员不支持编辑
+	UserID                string                                                       `json:"user_id,omitempty"`                // 参与人的用户id，依赖于user_id_type返回对应的取值，当is_external为true时，此字段只会返回open_id或者union_id，参见[用户相关的 ID 概念](https://open.feishu.cn/document/home/user-identity-introduction/introduction)
+	ChatID                string                                                       `json:"chat_id,omitempty"`                // chat类型参与人的群组chat_id，参见[群ID 说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-id-description)
+	RoomID                string                                                       `json:"room_id,omitempty"`                // resource类型参与人的会议室room_id
+	ThirdPartyEmail       string                                                       `json:"third_party_email,omitempty"`      // third_party类型参与人的邮箱
+	OperateID             string                                                       `json:"operate_id,omitempty"`             // 如果日程是使用应用身份创建的，在添加会议室的时候，用来指定会议室的联系人，在会议室视图展示。参见[用户相关的 ID 概念](https://open.feishu.cn/document/home/user-identity-introduction/introduction)
+	ResourceCustomization []*GetCalendarEventAttendeeListRespItemResourceCustomization `json:"resource_customization,omitempty"` // 会议室的个性化配置
 }
 
 // GetCalendarEventAttendeeListRespItemChatMember ...
@@ -13702,8 +13702,8 @@ func (r *Mock) UnMockChatUpdateChatTopNotice() {
 
 // UpdateChatTopNoticeReq ...
 type UpdateChatTopNoticeReq struct {
-	ChatID        string                               `path:"chat_id" json:"-"`          // 待修改置顶的群 ID，详情参见[群ID 说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-id-description), 示例值："oc_5ad11d72b830411d72b836c20"
-	ChatTopNotice *UpdateChatTopNoticeReqChatTopNotice `json:"chat_top_notice,omitempty"` // 要进行发布的群置顶
+	ChatID        string                                 `path:"chat_id" json:"-"`          // 待修改置顶的群 ID，详情参见[群ID 说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-id-description), 示例值："oc_5ad11d72b830411d72b836c20"
+	ChatTopNotice []*UpdateChatTopNoticeReqChatTopNotice `json:"chat_top_notice,omitempty"` // 要进行发布的群置顶
 }
 
 // UpdateChatTopNoticeReqChatTopNotice ...
@@ -13859,10 +13859,10 @@ type GetContactCustomAttrListResp struct {
 
 // GetContactCustomAttrListRespItem ...
 type GetContactCustomAttrListRespItem struct {
-	ID       string                                    `json:"id,omitempty"`        // 自定义字段id
-	Type     string                                    `json:"type,omitempty"`      // 自定义字段类型，可选值有:, `TEXT`：纯文本，用于纯文本描述人员，如备注, `HREF`：静态 URL，用于人员 Profile 跳转链接, `ENUMERATION`：枚举，用于结构化描述人员，如民族, `GENERIC_USER`：用户，用于描述人和人关系，如 HRBP, `PICTURE_ENUM`：枚举图片，以结构化的图片描述人员，如在人员 Profile 展示荣誉徽章
-	Options  *GetContactCustomAttrListRespItemOptions  `json:"options,omitempty"`   // 选项定义，当type为`ENUMERATION`或者`PICTURE_ENUM`时此项有值，列举所有可选项
-	I18nName *GetContactCustomAttrListRespItemI18nName `json:"i18n_name,omitempty"` // 自定义字段的字段名称
+	ID       string                                      `json:"id,omitempty"`        // 自定义字段id
+	Type     string                                      `json:"type,omitempty"`      // 自定义字段类型，可选值有:, `TEXT`：纯文本，用于纯文本描述人员，如备注, `HREF`：静态 URL，用于人员 Profile 跳转链接, `ENUMERATION`：枚举，用于结构化描述人员，如民族, `GENERIC_USER`：用户，用于描述人和人关系，如 HRBP, `PICTURE_ENUM`：枚举图片，以结构化的图片描述人员，如在人员 Profile 展示荣誉徽章
+	Options  *GetContactCustomAttrListRespItemOptions    `json:"options,omitempty"`   // 选项定义，当type为`ENUMERATION`或者`PICTURE_ENUM`时此项有值，列举所有可选项
+	I18nName []*GetContactCustomAttrListRespItemI18nName `json:"i18n_name,omitempty"` // 自定义字段的字段名称
 }
 
 // GetContactCustomAttrListRespItemOptions ...
@@ -14788,10 +14788,10 @@ func (r *Mock) UnMockContactCreateEmployeeTypeEnum() {
 
 // CreateEmployeeTypeEnumReq ...
 type CreateEmployeeTypeEnumReq struct {
-	Content     string                                `json:"content,omitempty"`      // 枚举内容, 示例值："专家", 长度范围：`1` ～ `100` 字符
-	EnumType    int64                                 `json:"enum_type,omitempty"`    // 类型, 示例值：2, 可选值有: `1`：内置类型, `2`：自定义
-	EnumStatus  int64                                 `json:"enum_status,omitempty"`  // 使用状态, 示例值：1, 可选值有: `1`：激活, `2`：未激活
-	I18nContent *CreateEmployeeTypeEnumReqI18nContent `json:"i18n_content,omitempty"` // i18n定义
+	Content     string                                  `json:"content,omitempty"`      // 枚举内容, 示例值："专家", 长度范围：`1` ～ `100` 字符
+	EnumType    int64                                   `json:"enum_type,omitempty"`    // 类型, 示例值：2, 可选值有: `1`：内置类型, `2`：自定义
+	EnumStatus  int64                                   `json:"enum_status,omitempty"`  // 使用状态, 示例值：1, 可选值有: `1`：激活, `2`：未激活
+	I18nContent []*CreateEmployeeTypeEnumReqI18nContent `json:"i18n_content,omitempty"` // i18n定义
 }
 
 // CreateEmployeeTypeEnumReqI18nContent ...
@@ -14814,12 +14814,12 @@ type CreateEmployeeTypeEnumResp struct {
 
 // CreateEmployeeTypeEnumRespEmployeeTypeEnum ...
 type CreateEmployeeTypeEnumRespEmployeeTypeEnum struct {
-	EnumID      string                                                 `json:"enum_id,omitempty"`      // 枚举值id
-	EnumValue   string                                                 `json:"enum_value,omitempty"`   // 枚举的编号值，创建新的人员类型后，系统生成对应编号。对应[创建用户接口](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/create)中用户信息的employee_type字段值
-	Content     string                                                 `json:"content,omitempty"`      // 枚举内容
-	EnumType    int64                                                  `json:"enum_type,omitempty"`    // 类型, 可选值有: `1`：内置类型, `2`：自定义
-	EnumStatus  int64                                                  `json:"enum_status,omitempty"`  // 使用状态, 可选值有: `1`：激活, `2`：未激活
-	I18nContent *CreateEmployeeTypeEnumRespEmployeeTypeEnumI18nContent `json:"i18n_content,omitempty"` // i18n定义
+	EnumID      string                                                   `json:"enum_id,omitempty"`      // 枚举值id
+	EnumValue   string                                                   `json:"enum_value,omitempty"`   // 枚举的编号值，创建新的人员类型后，系统生成对应编号。对应[创建用户接口](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/create)中用户信息的employee_type字段值
+	Content     string                                                   `json:"content,omitempty"`      // 枚举内容
+	EnumType    int64                                                    `json:"enum_type,omitempty"`    // 类型, 可选值有: `1`：内置类型, `2`：自定义
+	EnumStatus  int64                                                    `json:"enum_status,omitempty"`  // 使用状态, 可选值有: `1`：激活, `2`：未激活
+	I18nContent []*CreateEmployeeTypeEnumRespEmployeeTypeEnumI18nContent `json:"i18n_content,omitempty"` // i18n定义
 }
 
 // CreateEmployeeTypeEnumRespEmployeeTypeEnumI18nContent ...
@@ -14938,12 +14938,12 @@ type GetEmployeeTypeEnumListResp struct {
 
 // GetEmployeeTypeEnumListRespItem ...
 type GetEmployeeTypeEnumListRespItem struct {
-	EnumID      string                                      `json:"enum_id,omitempty"`      // 枚举值id
-	EnumValue   string                                      `json:"enum_value,omitempty"`   // 枚举的编号值，创建新的人员类型后，系统生成对应编号。对应[创建用户接口](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/create)中用户信息的employee_type字段值
-	Content     string                                      `json:"content,omitempty"`      // 枚举内容
-	EnumType    int64                                       `json:"enum_type,omitempty"`    // 类型, 可选值有: `1`：内置类型, `2`：自定义
-	EnumStatus  int64                                       `json:"enum_status,omitempty"`  // 使用状态, 可选值有: `1`：激活, `2`：未激活
-	I18nContent *GetEmployeeTypeEnumListRespItemI18nContent `json:"i18n_content,omitempty"` // i18n定义
+	EnumID      string                                        `json:"enum_id,omitempty"`      // 枚举值id
+	EnumValue   string                                        `json:"enum_value,omitempty"`   // 枚举的编号值，创建新的人员类型后，系统生成对应编号。对应[创建用户接口](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/create)中用户信息的employee_type字段值
+	Content     string                                        `json:"content,omitempty"`      // 枚举内容
+	EnumType    int64                                         `json:"enum_type,omitempty"`    // 类型, 可选值有: `1`：内置类型, `2`：自定义
+	EnumStatus  int64                                         `json:"enum_status,omitempty"`  // 使用状态, 可选值有: `1`：激活, `2`：未激活
+	I18nContent []*GetEmployeeTypeEnumListRespItemI18nContent `json:"i18n_content,omitempty"` // i18n定义
 }
 
 // GetEmployeeTypeEnumListRespItemI18nContent ...
@@ -14990,11 +14990,11 @@ func (r *Mock) UnMockContactUpdateEmployeeTypeEnumPatch() {
 
 // UpdateEmployeeTypeEnumPatchReq ...
 type UpdateEmployeeTypeEnumPatchReq struct {
-	EnumID      string                                     `path:"enum_id" json:"-"`       // 枚举值id, 示例值："exGeIjow7zIqWMy+ONkFxA=="
-	Content     string                                     `json:"content,omitempty"`      // 枚举内容, 示例值："专家", 长度范围：`1` ～ `100` 字符
-	EnumType    int64                                      `json:"enum_type,omitempty"`    // 类型, 示例值：2, 可选值有: `1`：内置类型, `2`：自定义
-	EnumStatus  int64                                      `json:"enum_status,omitempty"`  // 使用状态, 示例值：1, 可选值有: `1`：激活, `2`：未激活
-	I18nContent *UpdateEmployeeTypeEnumPatchReqI18nContent `json:"i18n_content,omitempty"` // i18n定义
+	EnumID      string                                       `path:"enum_id" json:"-"`       // 枚举值id, 示例值："exGeIjow7zIqWMy+ONkFxA=="
+	Content     string                                       `json:"content,omitempty"`      // 枚举内容, 示例值："专家", 长度范围：`1` ～ `100` 字符
+	EnumType    int64                                        `json:"enum_type,omitempty"`    // 类型, 示例值：2, 可选值有: `1`：内置类型, `2`：自定义
+	EnumStatus  int64                                        `json:"enum_status,omitempty"`  // 使用状态, 示例值：1, 可选值有: `1`：激活, `2`：未激活
+	I18nContent []*UpdateEmployeeTypeEnumPatchReqI18nContent `json:"i18n_content,omitempty"` // i18n定义
 }
 
 // UpdateEmployeeTypeEnumPatchReqI18nContent ...
@@ -15017,12 +15017,12 @@ type UpdateEmployeeTypeEnumPatchResp struct {
 
 // UpdateEmployeeTypeEnumPatchRespEmployeeTypeEnum ...
 type UpdateEmployeeTypeEnumPatchRespEmployeeTypeEnum struct {
-	EnumID      string                                                      `json:"enum_id,omitempty"`      // 枚举值id
-	EnumValue   string                                                      `json:"enum_value,omitempty"`   // 枚举的编号值，创建新的人员类型后，系统生成对应编号。对应[创建用户接口](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/create)中用户信息的employee_type字段值
-	Content     string                                                      `json:"content,omitempty"`      // 枚举内容, 长度范围：`1` ～ `100` 字符
-	EnumType    int64                                                       `json:"enum_type,omitempty"`    // 类型, 可选值有: `1`：内置类型, `2`：自定义
-	EnumStatus  int64                                                       `json:"enum_status,omitempty"`  // 使用状态, 可选值有: `1`：激活, `2`：未激活
-	I18nContent *UpdateEmployeeTypeEnumPatchRespEmployeeTypeEnumI18nContent `json:"i18n_content,omitempty"` // i18n定义
+	EnumID      string                                                        `json:"enum_id,omitempty"`      // 枚举值id
+	EnumValue   string                                                        `json:"enum_value,omitempty"`   // 枚举的编号值，创建新的人员类型后，系统生成对应编号。对应[创建用户接口](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/create)中用户信息的employee_type字段值
+	Content     string                                                        `json:"content,omitempty"`      // 枚举内容, 长度范围：`1` ～ `100` 字符
+	EnumType    int64                                                         `json:"enum_type,omitempty"`    // 类型, 可选值有: `1`：内置类型, `2`：自定义
+	EnumStatus  int64                                                         `json:"enum_status,omitempty"`  // 使用状态, 可选值有: `1`：激活, `2`：未激活
+	I18nContent []*UpdateEmployeeTypeEnumPatchRespEmployeeTypeEnumI18nContent `json:"i18n_content,omitempty"` // i18n定义
 }
 
 // UpdateEmployeeTypeEnumPatchRespEmployeeTypeEnumI18nContent ...
@@ -26601,9 +26601,9 @@ type CreateHelpdeskAgentScheduleReq struct {
 
 // CreateHelpdeskAgentScheduleReqAgentSchedule ...
 type CreateHelpdeskAgentScheduleReqAgentSchedule struct {
-	AgentID       *string                                              `json:"agent_id,omitempty"`        // 客服id,[可以以普通用户身份在服务台发起工单，从工单详情里面获取用户guest.id](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/ticket/get), 示例值："agent-id"
-	Schedule      *CreateHelpdeskAgentScheduleReqAgentScheduleSchedule `json:"schedule,omitempty"`        // 工作日程列表
-	AgentSkillIDs []string                                             `json:"agent_skill_ids,omitempty"` // 客服技能 ids
+	AgentID       *string                                                `json:"agent_id,omitempty"`        // 客服id,[可以以普通用户身份在服务台发起工单，从工单详情里面获取用户guest.id](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/ticket/get), 示例值："agent-id"
+	Schedule      []*CreateHelpdeskAgentScheduleReqAgentScheduleSchedule `json:"schedule,omitempty"`        // 工作日程列表
+	AgentSkillIDs []string                                               `json:"agent_skill_ids,omitempty"` // 客服技能 ids
 }
 
 // CreateHelpdeskAgentScheduleReqAgentScheduleSchedule ...
@@ -26735,7 +26735,7 @@ type GetHelpdeskAgentScheduleResp struct {
 type GetHelpdeskAgentScheduleRespAgentSchedule struct {
 	Status      int64                                                  `json:"status,omitempty"`       // 客服状态, 1 - online客服, 2 - offline(手动)客服, 3 - off duty(下班)自动处于非服务时间段
 	Agent       *GetHelpdeskAgentScheduleRespAgentScheduleAgent        `json:"agent,omitempty"`        // 客服信息
-	Schedule    *GetHelpdeskAgentScheduleRespAgentScheduleSchedule     `json:"schedule,omitempty"`     // 工作日程列表
+	Schedule    []*GetHelpdeskAgentScheduleRespAgentScheduleSchedule   `json:"schedule,omitempty"`     // 工作日程列表
 	AgentSkills []*GetHelpdeskAgentScheduleRespAgentScheduleAgentSkill `json:"agent_skills,omitempty"` // 客服技能
 }
 
@@ -26821,7 +26821,7 @@ type GetHelpdeskAgentScheduleListResp struct {
 type GetHelpdeskAgentScheduleListRespAgentSchedule struct {
 	Status      int64                                                      `json:"status,omitempty"`       // 客服状态, 1 - online客服, 2 - offline(手动)客服, 3 - off duty(下班)自动处于非服务时间段
 	Agent       *GetHelpdeskAgentScheduleListRespAgentScheduleAgent        `json:"agent,omitempty"`        // 客服信息
-	Schedule    *GetHelpdeskAgentScheduleListRespAgentScheduleSchedule     `json:"schedule,omitempty"`     // 工作日程列表
+	Schedule    []*GetHelpdeskAgentScheduleListRespAgentScheduleSchedule   `json:"schedule,omitempty"`     // 工作日程列表
 	AgentSkills []*GetHelpdeskAgentScheduleListRespAgentScheduleAgentSkill `json:"agent_skills,omitempty"` // 客服技能
 }
 
@@ -26894,8 +26894,8 @@ type UpdateHelpdeskAgentScheduleReq struct {
 
 // UpdateHelpdeskAgentScheduleReqAgentSchedule ...
 type UpdateHelpdeskAgentScheduleReqAgentSchedule struct {
-	Schedule      *UpdateHelpdeskAgentScheduleReqAgentScheduleSchedule `json:"schedule,omitempty"`        // 工作日程列表
-	AgentSkillIDs []string                                             `json:"agent_skill_ids,omitempty"` // 客服技能 ids
+	Schedule      []*UpdateHelpdeskAgentScheduleReqAgentScheduleSchedule `json:"schedule,omitempty"`        // 工作日程列表
+	AgentSkillIDs []string                                               `json:"agent_skill_ids,omitempty"` // 客服技能 ids
 }
 
 // UpdateHelpdeskAgentScheduleReqAgentScheduleSchedule ...
@@ -28159,19 +28159,25 @@ type SearchHelpdeskFAQResp struct {
 
 // SearchHelpdeskFAQRespItem ...
 type SearchHelpdeskFAQRespItem struct {
-	FAQID          string                               `json:"faq_id,omitempty"`          // 知识库ID
-	ID             string                               `json:"id,omitempty"`              // 知识库旧版ID，请使用faq_id
-	HelpdeskID     string                               `json:"helpdesk_id,omitempty"`     // 服务台ID
-	Question       string                               `json:"question,omitempty"`        // 问题
-	Answer         string                               `json:"answer,omitempty"`          // 答案
-	AnswerRichtext string                               `json:"answer_richtext,omitempty"` // 富文本答案
-	CreateTime     int64                                `json:"create_time,omitempty"`     // 创建时间
-	UpdateTime     int64                                `json:"update_time,omitempty"`     // 修改时间
-	Categories     []*HelpdeskCategory                  `json:"categories,omitempty"`      // 分类
-	Tags           []string                             `json:"tags,omitempty"`            // 相似问题列表
-	ExpireTime     int64                                `json:"expire_time,omitempty"`     // 失效时间
-	UpdateUser     *SearchHelpdeskFAQRespItemUpdateUser `json:"update_user,omitempty"`     // 更新用户
-	CreateUser     *SearchHelpdeskFAQRespItemCreateUser `json:"create_user,omitempty"`     // 创建用户
+	FAQID          string                                     `json:"faq_id,omitempty"`          // 知识库ID
+	ID             string                                     `json:"id,omitempty"`              // 知识库旧版ID，请使用faq_id
+	HelpdeskID     string                                     `json:"helpdesk_id,omitempty"`     // 服务台ID
+	Question       string                                     `json:"question,omitempty"`        // 问题
+	Answer         string                                     `json:"answer,omitempty"`          // 答案
+	AnswerRichtext []*SearchHelpdeskFAQRespItemAnswerRichtext `json:"answer_richtext,omitempty"` // 富文本答案
+	CreateTime     int64                                      `json:"create_time,omitempty"`     // 创建时间
+	UpdateTime     int64                                      `json:"update_time,omitempty"`     // 修改时间
+	Categories     []*HelpdeskCategory                        `json:"categories,omitempty"`      // 分类
+	Tags           []string                                   `json:"tags,omitempty"`            // 相似问题列表
+	ExpireTime     int64                                      `json:"expire_time,omitempty"`     // 失效时间
+	UpdateUser     *SearchHelpdeskFAQRespItemUpdateUser       `json:"update_user,omitempty"`     // 更新用户
+	CreateUser     *SearchHelpdeskFAQRespItemCreateUser       `json:"create_user,omitempty"`     // 创建用户
+}
+
+// SearchHelpdeskFAQRespItemAnswerRichtext ...
+type SearchHelpdeskFAQRespItemAnswerRichtext struct {
+	Content string `json:"content,omitempty"` // 内容
+	Type    string `json:"type,omitempty"`    // 类型
 }
 
 // SearchHelpdeskFAQRespItemUpdateUser ...
@@ -28180,6 +28186,8 @@ type SearchHelpdeskFAQRespItemUpdateUser struct {
 	AvatarURL  string `json:"avatar_url,omitempty"` // 用户头像url
 	Name       string `json:"name,omitempty"`       // 用户名
 	Department string `json:"department,omitempty"` // 所在部门名称
+	City       string `json:"city,omitempty"`       // 城市
+	Country    string `json:"country,omitempty"`    // 国家代号(CountryCode)，参考：http://www.mamicode.com/info-detail-2186501.html
 }
 
 // SearchHelpdeskFAQRespItemCreateUser ...
@@ -28188,6 +28196,8 @@ type SearchHelpdeskFAQRespItemCreateUser struct {
 	AvatarURL  string `json:"avatar_url,omitempty"` // 用户头像url
 	Name       string `json:"name,omitempty"`       // 用户名
 	Department string `json:"department,omitempty"` // 所在部门名称
+	City       string `json:"city,omitempty"`       // 城市
+	Country    string `json:"country,omitempty"`    // 国家代号(CountryCode)，参考：http://www.mamicode.com/info-detail-2186501.html
 }
 
 // Code generated by lark_sdk_gen. DO NOT EDIT.
@@ -32419,10 +32429,10 @@ type GetHireTalentRespTalentInterviewRegistration struct {
 
 // GetHireTalentRespTalentCustomizedData ...
 type GetHireTalentRespTalentCustomizedData struct {
-	ObjectID   string                                         `json:"object_id,omitempty"`   // 模块 ID
-	Name       *GetHireTalentRespTalentCustomizedDataName     `json:"name,omitempty"`        // 模块名称
-	ObjectType int64                                          `json:"object_type,omitempty"` // 类型, 可选值有: `1`：单行文本, `2`：多行文本, `3`：单选, `4`：多选, `5`：日期, `6`：月份选择, `7`：年份选择, `8`：时间段, `9`：数字, `10`：默认字段, `11`：模块
-	Children   *GetHireTalentRespTalentCustomizedDataChildren `json:"children,omitempty"`    // 模块下的字段
+	ObjectID   string                                           `json:"object_id,omitempty"`   // 模块 ID
+	Name       *GetHireTalentRespTalentCustomizedDataName       `json:"name,omitempty"`        // 模块名称
+	ObjectType int64                                            `json:"object_type,omitempty"` // 类型, 可选值有: `1`：单行文本, `2`：多行文本, `3`：单选, `4`：多选, `5`：日期, `6`：月份选择, `7`：年份选择, `8`：时间段, `9`：数字, `10`：默认字段, `11`：模块
+	Children   []*GetHireTalentRespTalentCustomizedDataChildren `json:"children,omitempty"`    // 模块下的字段
 }
 
 // GetHireTalentRespTalentCustomizedDataName ...
@@ -38361,7 +38371,7 @@ func (r *Mock) UnMockSearchCreateSearchDataSourceItem() {
 type CreateSearchDataSourceItemReq struct {
 	DataSourceID   string                                 `path:"data_source_id" json:"-"`   // 数据源的ID, 示例值："service_ticket"
 	ID             string                                 `json:"id,omitempty"`              // item 在 datasource 中的唯一标识, 示例值："01010111"
-	ACL            *CreateSearchDataSourceItemReqACL      `json:"acl,omitempty"`             // item 的访问权限控制
+	ACL            []*CreateSearchDataSourceItemReqACL    `json:"acl,omitempty"`             // item 的访问权限控制
 	Metadata       *CreateSearchDataSourceItemReqMetadata `json:"metadata,omitempty"`        // item 的元信息
 	StructuredData string                                 `json:"structured_data,omitempty"` // 结构化数据（以 json 字符串传递），这些字段是搜索结果的展示字段（title字段无须在此另外指定）；目前支持的key为：, summary：搜索结果的摘要；, icon_url：搜索结果的icon地址；, footer：搜索结果的脚注, 示例值："{\"key\":\"value\"}"
 	Content        *CreateSearchDataSourceItemReqContent  `json:"content,omitempty"`         // 非结构化数据，如文档文本，飞书搜索会用来做召回
@@ -38509,7 +38519,7 @@ type GetSearchDataSourceItemResp struct {
 // GetSearchDataSourceItemRespItem ...
 type GetSearchDataSourceItemRespItem struct {
 	ID             string                                   `json:"id,omitempty"`              // item 在 datasource 中的唯一标识
-	ACL            *GetSearchDataSourceItemRespItemACL      `json:"acl,omitempty"`             // item 的访问权限控制
+	ACL            []*GetSearchDataSourceItemRespItemACL    `json:"acl,omitempty"`             // item 的访问权限控制
 	Metadata       *GetSearchDataSourceItemRespItemMetadata `json:"metadata,omitempty"`        // item 的元信息
 	StructuredData string                                   `json:"structured_data,omitempty"` // 结构化数据（以 json 字符串传递），这些字段是搜索结果的展示字段（title字段无须在此另外指定）；目前支持的key为：, summary：搜索结果的摘要；, icon_url：搜索结果的icon地址；, footer：搜索结果的脚注
 	Content        *GetSearchDataSourceItemRespItemContent  `json:"content,omitempty"`         // 非结构化数据，如文档文本，飞书搜索会用来做召回
@@ -40817,10 +40827,10 @@ type GetVCDailyReportResp struct {
 
 // GetVCDailyReportRespMeetingReport ...
 type GetVCDailyReportRespMeetingReport struct {
-	TotalMeetingCount     string                                        `json:"total_meeting_count,omitempty"`     // 总会议数量
-	TotalMeetingDuration  string                                        `json:"total_meeting_duration,omitempty"`  // 总会议时长（单位sec）
-	TotalParticipantCount string                                        `json:"total_participant_count,omitempty"` // 总参会人数
-	DailyReport           *GetVCDailyReportRespMeetingReportDailyReport `json:"daily_report,omitempty"`            // 每日会议报告列表
+	TotalMeetingCount     string                                          `json:"total_meeting_count,omitempty"`     // 总会议数量
+	TotalMeetingDuration  string                                          `json:"total_meeting_duration,omitempty"`  // 总会议时长（单位sec）
+	TotalParticipantCount string                                          `json:"total_participant_count,omitempty"` // 总参会人数
+	DailyReport           []*GetVCDailyReportRespMeetingReportDailyReport `json:"daily_report,omitempty"`            // 每日会议报告列表
 }
 
 // GetVCDailyReportRespMeetingReportDailyReport ...
@@ -40886,7 +40896,7 @@ type getVCTopUserReportResp struct {
 
 // GetVCTopUserReportResp ...
 type GetVCTopUserReportResp struct {
-	TopUserReport *GetVCTopUserReportRespTopUserReport `json:"top_user_report,omitempty"` // top用户列表
+	TopUserReport []*GetVCTopUserReportRespTopUserReport `json:"top_user_report,omitempty"` // top用户列表
 }
 
 // GetVCTopUserReportRespTopUserReport ...

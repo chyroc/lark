@@ -929,7 +929,7 @@ type EventV2ApplicationApplicationAppVersionPublishApplyV6OnlineVersion struct {
 	Description      string                                                                     `json:"description,omitempty"`       // 应用默认描述, 最小长度：`1` 字符
 	Scopes           []*EventV2ApplicationApplicationAppVersionPublishApplyV6OnlineVersionScope `json:"scopes,omitempty"`            // 应用权限列表
 	BackHomeURL      string                                                                     `json:"back_home_url,omitempty"`     // 后台主页地址
-	I18n             *EventV2ApplicationApplicationAppVersionPublishApplyV6OnlineVersionI18n    `json:"i18n,omitempty"`              // 应用的国际化信息列表, 最小长度：`1`
+	I18n             []*EventV2ApplicationApplicationAppVersionPublishApplyV6OnlineVersionI18n  `json:"i18n,omitempty"`              // 应用的国际化信息列表, 最小长度：`1`
 	CommonCategories []string                                                                   `json:"common_categories,omitempty"` // 应用分类的国际化描述, 最大长度：`3`
 	Events           []string                                                                   `json:"events,omitempty"`            // 应用已订阅开放平台事件列表
 	Status           int64                                                                      `json:"status,omitempty"`            // 版本状态, 可选值有: `0`：未知状态, `1`：审核通过, `2`：审核拒绝, `3`：审核中, `4`：未提交审核
@@ -1016,10 +1016,10 @@ type EventV2ApplicationApplicationAppVersionPublishApplyV6OnlineVersionAbilityNa
 
 // EventV2ApplicationApplicationAppVersionPublishApplyV6OnlineVersionAbilityCloudDoc ...
 type EventV2ApplicationApplicationAppVersionPublishApplyV6OnlineVersionAbilityCloudDoc struct {
-	SpaceURL string                                                                                 `json:"space_url,omitempty"` // 云空间重定向 url
-	I18n     *EventV2ApplicationApplicationAppVersionPublishApplyV6OnlineVersionAbilityCloudDocI18n `json:"i18n,omitempty"`      // 国际化信息, 最小长度：`1`
-	IconURL  string                                                                                 `json:"icon_url,omitempty"`  // 图标链接
-	Mode     int64                                                                                  `json:"mode,omitempty"`      // 云文档支持模式, 可选值有: `0`：未知, `1`：移动端
+	SpaceURL string                                                                                   `json:"space_url,omitempty"` // 云空间重定向 url
+	I18n     []*EventV2ApplicationApplicationAppVersionPublishApplyV6OnlineVersionAbilityCloudDocI18n `json:"i18n,omitempty"`      // 国际化信息, 最小长度：`1`
+	IconURL  string                                                                                   `json:"icon_url,omitempty"`  // 图标链接
+	Mode     int64                                                                                    `json:"mode,omitempty"`      // 云文档支持模式, 可选值有: `0`：未知, `1`：移动端
 }
 
 // EventV2ApplicationApplicationAppVersionPublishApplyV6OnlineVersionAbilityCloudDocI18n ...
@@ -1032,10 +1032,10 @@ type EventV2ApplicationApplicationAppVersionPublishApplyV6OnlineVersionAbilityCl
 
 // EventV2ApplicationApplicationAppVersionPublishApplyV6OnlineVersionAbilityDocsBlock ...
 type EventV2ApplicationApplicationAppVersionPublishApplyV6OnlineVersionAbilityDocsBlock struct {
-	BlockTypeID   string                                                                                  `json:"block_type_id,omitempty"`   // BlockTypeID
-	I18n          *EventV2ApplicationApplicationAppVersionPublishApplyV6OnlineVersionAbilityDocsBlockI18n `json:"i18n,omitempty"`            // block 的国际化信息, 最小长度：`1`
-	MobileIconURL string                                                                                  `json:"mobile_icon_url,omitempty"` // 移动端 icon 链接
-	PcIconURL     string                                                                                  `json:"pc_icon_url,omitempty"`     // pc 端口 icon 链接
+	BlockTypeID   string                                                                                    `json:"block_type_id,omitempty"`   // BlockTypeID
+	I18n          []*EventV2ApplicationApplicationAppVersionPublishApplyV6OnlineVersionAbilityDocsBlockI18n `json:"i18n,omitempty"`            // block 的国际化信息, 最小长度：`1`
+	MobileIconURL string                                                                                    `json:"mobile_icon_url,omitempty"` // 移动端 icon 链接
+	PcIconURL     string                                                                                    `json:"pc_icon_url,omitempty"`     // pc 端口 icon 链接
 }
 
 // EventV2ApplicationApplicationAppVersionPublishApplyV6OnlineVersionAbilityDocsBlockI18n ...
@@ -1046,9 +1046,9 @@ type EventV2ApplicationApplicationAppVersionPublishApplyV6OnlineVersionAbilityDo
 
 // EventV2ApplicationApplicationAppVersionPublishApplyV6OnlineVersionAbilityMessageAction ...
 type EventV2ApplicationApplicationAppVersionPublishApplyV6OnlineVersionAbilityMessageAction struct {
-	PcAppLink     string                                                                                      `json:"pc_app_link,omitempty"`     // pc 端链接
-	MobileAppLink string                                                                                      `json:"mobile_app_link,omitempty"` // 移动端链接
-	I18n          *EventV2ApplicationApplicationAppVersionPublishApplyV6OnlineVersionAbilityMessageActionI18n `json:"i18n,omitempty"`            // 国际化信息, 最小长度：`1`
+	PcAppLink     string                                                                                        `json:"pc_app_link,omitempty"`     // pc 端链接
+	MobileAppLink string                                                                                        `json:"mobile_app_link,omitempty"` // 移动端链接
+	I18n          []*EventV2ApplicationApplicationAppVersionPublishApplyV6OnlineVersionAbilityMessageActionI18n `json:"i18n,omitempty"`            // 国际化信息, 最小长度：`1`
 }
 
 // EventV2ApplicationApplicationAppVersionPublishApplyV6OnlineVersionAbilityMessageActionI18n ...
@@ -1113,7 +1113,7 @@ type EventV2ApplicationApplicationAppVersionPublishApplyV6UnderAuditVersion stru
 	Description      string                                                                         `json:"description,omitempty"`       // 应用默认描述, 最小长度：`1` 字符
 	Scopes           []*EventV2ApplicationApplicationAppVersionPublishApplyV6UnderAuditVersionScope `json:"scopes,omitempty"`            // 应用权限列表
 	BackHomeURL      string                                                                         `json:"back_home_url,omitempty"`     // 后台主页地址
-	I18n             *EventV2ApplicationApplicationAppVersionPublishApplyV6UnderAuditVersionI18n    `json:"i18n,omitempty"`              // 应用的国际化信息列表, 最小长度：`1`
+	I18n             []*EventV2ApplicationApplicationAppVersionPublishApplyV6UnderAuditVersionI18n  `json:"i18n,omitempty"`              // 应用的国际化信息列表, 最小长度：`1`
 	CommonCategories []string                                                                       `json:"common_categories,omitempty"` // 应用分类的国际化描述, 最大长度：`3`
 	Events           []string                                                                       `json:"events,omitempty"`            // 应用已订阅开放平台事件列表
 	Status           int64                                                                          `json:"status,omitempty"`            // 版本状态, 可选值有: `0`：未知状态, `1`：审核通过, `2`：审核拒绝, `3`：审核中, `4`：未提交审核
@@ -1200,10 +1200,10 @@ type EventV2ApplicationApplicationAppVersionPublishApplyV6UnderAuditVersionAbili
 
 // EventV2ApplicationApplicationAppVersionPublishApplyV6UnderAuditVersionAbilityCloudDoc ...
 type EventV2ApplicationApplicationAppVersionPublishApplyV6UnderAuditVersionAbilityCloudDoc struct {
-	SpaceURL string                                                                                     `json:"space_url,omitempty"` // 云空间重定向 url
-	I18n     *EventV2ApplicationApplicationAppVersionPublishApplyV6UnderAuditVersionAbilityCloudDocI18n `json:"i18n,omitempty"`      // 国际化信息, 最小长度：`1`
-	IconURL  string                                                                                     `json:"icon_url,omitempty"`  // 图标链接
-	Mode     int64                                                                                      `json:"mode,omitempty"`      // 云文档支持模式, 可选值有: `0`：未知, `1`：移动端
+	SpaceURL string                                                                                       `json:"space_url,omitempty"` // 云空间重定向 url
+	I18n     []*EventV2ApplicationApplicationAppVersionPublishApplyV6UnderAuditVersionAbilityCloudDocI18n `json:"i18n,omitempty"`      // 国际化信息, 最小长度：`1`
+	IconURL  string                                                                                       `json:"icon_url,omitempty"`  // 图标链接
+	Mode     int64                                                                                        `json:"mode,omitempty"`      // 云文档支持模式, 可选值有: `0`：未知, `1`：移动端
 }
 
 // EventV2ApplicationApplicationAppVersionPublishApplyV6UnderAuditVersionAbilityCloudDocI18n ...
@@ -1216,10 +1216,10 @@ type EventV2ApplicationApplicationAppVersionPublishApplyV6UnderAuditVersionAbili
 
 // EventV2ApplicationApplicationAppVersionPublishApplyV6UnderAuditVersionAbilityDocsBlock ...
 type EventV2ApplicationApplicationAppVersionPublishApplyV6UnderAuditVersionAbilityDocsBlock struct {
-	BlockTypeID   string                                                                                      `json:"block_type_id,omitempty"`   // BlockTypeID
-	I18n          *EventV2ApplicationApplicationAppVersionPublishApplyV6UnderAuditVersionAbilityDocsBlockI18n `json:"i18n,omitempty"`            // block 的国际化信息, 最小长度：`1`
-	MobileIconURL string                                                                                      `json:"mobile_icon_url,omitempty"` // 移动端 icon 链接
-	PcIconURL     string                                                                                      `json:"pc_icon_url,omitempty"`     // pc 端口 icon 链接
+	BlockTypeID   string                                                                                        `json:"block_type_id,omitempty"`   // BlockTypeID
+	I18n          []*EventV2ApplicationApplicationAppVersionPublishApplyV6UnderAuditVersionAbilityDocsBlockI18n `json:"i18n,omitempty"`            // block 的国际化信息, 最小长度：`1`
+	MobileIconURL string                                                                                        `json:"mobile_icon_url,omitempty"` // 移动端 icon 链接
+	PcIconURL     string                                                                                        `json:"pc_icon_url,omitempty"`     // pc 端口 icon 链接
 }
 
 // EventV2ApplicationApplicationAppVersionPublishApplyV6UnderAuditVersionAbilityDocsBlockI18n ...
@@ -1230,9 +1230,9 @@ type EventV2ApplicationApplicationAppVersionPublishApplyV6UnderAuditVersionAbili
 
 // EventV2ApplicationApplicationAppVersionPublishApplyV6UnderAuditVersionAbilityMessageAction ...
 type EventV2ApplicationApplicationAppVersionPublishApplyV6UnderAuditVersionAbilityMessageAction struct {
-	PcAppLink     string                                                                                          `json:"pc_app_link,omitempty"`     // pc 端链接
-	MobileAppLink string                                                                                          `json:"mobile_app_link,omitempty"` // 移动端链接
-	I18n          *EventV2ApplicationApplicationAppVersionPublishApplyV6UnderAuditVersionAbilityMessageActionI18n `json:"i18n,omitempty"`            // 国际化信息, 最小长度：`1`
+	PcAppLink     string                                                                                            `json:"pc_app_link,omitempty"`     // pc 端链接
+	MobileAppLink string                                                                                            `json:"mobile_app_link,omitempty"` // 移动端链接
+	I18n          []*EventV2ApplicationApplicationAppVersionPublishApplyV6UnderAuditVersionAbilityMessageActionI18n `json:"i18n,omitempty"`            // 国际化信息, 最小长度：`1`
 }
 
 // EventV2ApplicationApplicationAppVersionPublishApplyV6UnderAuditVersionAbilityMessageActionI18n ...
@@ -1935,12 +1935,12 @@ type EventV2ContactEmployeeTypeEnumActivedV3 struct {
 
 // EventV2ContactEmployeeTypeEnumActivedV3OldEnum ...
 type EventV2ContactEmployeeTypeEnumActivedV3OldEnum struct {
-	EnumID      string                                                     `json:"enum_id,omitempty"`      // 枚举值id
-	EnumValue   string                                                     `json:"enum_value,omitempty"`   // 枚举的编号值，创建新的人员类型后，系统生成对应编号。对应[创建用户接口](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/create)中用户信息的employee_type字段值
-	Content     string                                                     `json:"content,omitempty"`      // 枚举内容, 长度范围：`1` ～ `100` 字符
-	EnumType    int64                                                      `json:"enum_type,omitempty"`    // 类型, 可选值有: `1`：内置类型, `2`：自定义
-	EnumStatus  int64                                                      `json:"enum_status,omitempty"`  // 使用状态, 可选值有: `1`：激活, `2`：未激活
-	I18nContent *EventV2ContactEmployeeTypeEnumActivedV3OldEnumI18nContent `json:"i18n_content,omitempty"` // i18n定义
+	EnumID      string                                                       `json:"enum_id,omitempty"`      // 枚举值id
+	EnumValue   string                                                       `json:"enum_value,omitempty"`   // 枚举的编号值，创建新的人员类型后，系统生成对应编号。对应[创建用户接口](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/create)中用户信息的employee_type字段值
+	Content     string                                                       `json:"content,omitempty"`      // 枚举内容, 长度范围：`1` ～ `100` 字符
+	EnumType    int64                                                        `json:"enum_type,omitempty"`    // 类型, 可选值有: `1`：内置类型, `2`：自定义
+	EnumStatus  int64                                                        `json:"enum_status,omitempty"`  // 使用状态, 可选值有: `1`：激活, `2`：未激活
+	I18nContent []*EventV2ContactEmployeeTypeEnumActivedV3OldEnumI18nContent `json:"i18n_content,omitempty"` // i18n定义
 }
 
 // EventV2ContactEmployeeTypeEnumActivedV3OldEnumI18nContent ...
@@ -1951,12 +1951,12 @@ type EventV2ContactEmployeeTypeEnumActivedV3OldEnumI18nContent struct {
 
 // EventV2ContactEmployeeTypeEnumActivedV3NewEnum ...
 type EventV2ContactEmployeeTypeEnumActivedV3NewEnum struct {
-	EnumID      string                                                     `json:"enum_id,omitempty"`      // 枚举值id
-	EnumValue   string                                                     `json:"enum_value,omitempty"`   // 枚举的编号值，创建新的人员类型后，系统生成对应编号。对应[创建用户接口](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/create)中用户信息的employee_type字段值
-	Content     string                                                     `json:"content,omitempty"`      // 枚举内容, 长度范围：`1` ～ `100` 字符
-	EnumType    int64                                                      `json:"enum_type,omitempty"`    // 类型, 可选值有: `1`：内置类型, `2`：自定义
-	EnumStatus  int64                                                      `json:"enum_status,omitempty"`  // 使用状态, 可选值有: `1`：激活, `2`：未激活
-	I18nContent *EventV2ContactEmployeeTypeEnumActivedV3NewEnumI18nContent `json:"i18n_content,omitempty"` // i18n定义
+	EnumID      string                                                       `json:"enum_id,omitempty"`      // 枚举值id
+	EnumValue   string                                                       `json:"enum_value,omitempty"`   // 枚举的编号值，创建新的人员类型后，系统生成对应编号。对应[创建用户接口](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/create)中用户信息的employee_type字段值
+	Content     string                                                       `json:"content,omitempty"`      // 枚举内容, 长度范围：`1` ～ `100` 字符
+	EnumType    int64                                                        `json:"enum_type,omitempty"`    // 类型, 可选值有: `1`：内置类型, `2`：自定义
+	EnumStatus  int64                                                        `json:"enum_status,omitempty"`  // 使用状态, 可选值有: `1`：激活, `2`：未激活
+	I18nContent []*EventV2ContactEmployeeTypeEnumActivedV3NewEnumI18nContent `json:"i18n_content,omitempty"` // i18n定义
 }
 
 // EventV2ContactEmployeeTypeEnumActivedV3NewEnumI18nContent ...
@@ -1986,12 +1986,12 @@ type EventV2ContactEmployeeTypeEnumCreatedV3 struct {
 
 // EventV2ContactEmployeeTypeEnumCreatedV3NewEnum ...
 type EventV2ContactEmployeeTypeEnumCreatedV3NewEnum struct {
-	EnumID      string                                                     `json:"enum_id,omitempty"`      // 枚举值id
-	EnumValue   string                                                     `json:"enum_value,omitempty"`   // 枚举的编号值，创建新的人员类型后，系统生成对应编号。对应[创建用户接口](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/create)中用户信息的employee_type字段值
-	Content     string                                                     `json:"content,omitempty"`      // 枚举内容, 长度范围：`1` ～ `100` 字符
-	EnumType    int64                                                      `json:"enum_type,omitempty"`    // 类型, 可选值有: `1`：内置类型, `2`：自定义
-	EnumStatus  int64                                                      `json:"enum_status,omitempty"`  // 使用状态, 可选值有: `1`：激活, `2`：未激活
-	I18nContent *EventV2ContactEmployeeTypeEnumCreatedV3NewEnumI18nContent `json:"i18n_content,omitempty"` // i18n定义
+	EnumID      string                                                       `json:"enum_id,omitempty"`      // 枚举值id
+	EnumValue   string                                                       `json:"enum_value,omitempty"`   // 枚举的编号值，创建新的人员类型后，系统生成对应编号。对应[创建用户接口](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/create)中用户信息的employee_type字段值
+	Content     string                                                       `json:"content,omitempty"`      // 枚举内容, 长度范围：`1` ～ `100` 字符
+	EnumType    int64                                                        `json:"enum_type,omitempty"`    // 类型, 可选值有: `1`：内置类型, `2`：自定义
+	EnumStatus  int64                                                        `json:"enum_status,omitempty"`  // 使用状态, 可选值有: `1`：激活, `2`：未激活
+	I18nContent []*EventV2ContactEmployeeTypeEnumCreatedV3NewEnumI18nContent `json:"i18n_content,omitempty"` // i18n定义
 }
 
 // EventV2ContactEmployeeTypeEnumCreatedV3NewEnumI18nContent ...
@@ -2022,12 +2022,12 @@ type EventV2ContactEmployeeTypeEnumDeactivatedV3 struct {
 
 // EventV2ContactEmployeeTypeEnumDeactivatedV3OldEnum ...
 type EventV2ContactEmployeeTypeEnumDeactivatedV3OldEnum struct {
-	EnumID      string                                                         `json:"enum_id,omitempty"`      // 枚举值id
-	EnumValue   string                                                         `json:"enum_value,omitempty"`   // 枚举的编号值，创建新的人员类型后，系统生成对应编号。对应[创建用户接口](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/create)中用户信息的employee_type字段值
-	Content     string                                                         `json:"content,omitempty"`      // 枚举内容, 长度范围：`1` ～ `100` 字符
-	EnumType    int64                                                          `json:"enum_type,omitempty"`    // 类型, 可选值有: `1`：内置类型, `2`：自定义
-	EnumStatus  int64                                                          `json:"enum_status,omitempty"`  // 使用状态, 可选值有: `1`：激活, `2`：未激活
-	I18nContent *EventV2ContactEmployeeTypeEnumDeactivatedV3OldEnumI18nContent `json:"i18n_content,omitempty"` // i18n定义
+	EnumID      string                                                           `json:"enum_id,omitempty"`      // 枚举值id
+	EnumValue   string                                                           `json:"enum_value,omitempty"`   // 枚举的编号值，创建新的人员类型后，系统生成对应编号。对应[创建用户接口](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/create)中用户信息的employee_type字段值
+	Content     string                                                           `json:"content,omitempty"`      // 枚举内容, 长度范围：`1` ～ `100` 字符
+	EnumType    int64                                                            `json:"enum_type,omitempty"`    // 类型, 可选值有: `1`：内置类型, `2`：自定义
+	EnumStatus  int64                                                            `json:"enum_status,omitempty"`  // 使用状态, 可选值有: `1`：激活, `2`：未激活
+	I18nContent []*EventV2ContactEmployeeTypeEnumDeactivatedV3OldEnumI18nContent `json:"i18n_content,omitempty"` // i18n定义
 }
 
 // EventV2ContactEmployeeTypeEnumDeactivatedV3OldEnumI18nContent ...
@@ -2038,12 +2038,12 @@ type EventV2ContactEmployeeTypeEnumDeactivatedV3OldEnumI18nContent struct {
 
 // EventV2ContactEmployeeTypeEnumDeactivatedV3NewEnum ...
 type EventV2ContactEmployeeTypeEnumDeactivatedV3NewEnum struct {
-	EnumID      string                                                         `json:"enum_id,omitempty"`      // 枚举值id
-	EnumValue   string                                                         `json:"enum_value,omitempty"`   // 枚举的编号值，创建新的人员类型后，系统生成对应编号。对应[创建用户接口](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/create)中用户信息的employee_type字段值
-	Content     string                                                         `json:"content,omitempty"`      // 枚举内容, 长度范围：`1` ～ `100` 字符
-	EnumType    int64                                                          `json:"enum_type,omitempty"`    // 类型, 可选值有: `1`：内置类型, `2`：自定义
-	EnumStatus  int64                                                          `json:"enum_status,omitempty"`  // 使用状态, 可选值有: `1`：激活, `2`：未激活
-	I18nContent *EventV2ContactEmployeeTypeEnumDeactivatedV3NewEnumI18nContent `json:"i18n_content,omitempty"` // i18n定义
+	EnumID      string                                                           `json:"enum_id,omitempty"`      // 枚举值id
+	EnumValue   string                                                           `json:"enum_value,omitempty"`   // 枚举的编号值，创建新的人员类型后，系统生成对应编号。对应[创建用户接口](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/create)中用户信息的employee_type字段值
+	Content     string                                                           `json:"content,omitempty"`      // 枚举内容, 长度范围：`1` ～ `100` 字符
+	EnumType    int64                                                            `json:"enum_type,omitempty"`    // 类型, 可选值有: `1`：内置类型, `2`：自定义
+	EnumStatus  int64                                                            `json:"enum_status,omitempty"`  // 使用状态, 可选值有: `1`：激活, `2`：未激活
+	I18nContent []*EventV2ContactEmployeeTypeEnumDeactivatedV3NewEnumI18nContent `json:"i18n_content,omitempty"` // i18n定义
 }
 
 // EventV2ContactEmployeeTypeEnumDeactivatedV3NewEnumI18nContent ...
@@ -2073,12 +2073,12 @@ type EventV2ContactEmployeeTypeEnumDeletedV3 struct {
 
 // EventV2ContactEmployeeTypeEnumDeletedV3OldEnum ...
 type EventV2ContactEmployeeTypeEnumDeletedV3OldEnum struct {
-	EnumID      string                                                     `json:"enum_id,omitempty"`      // 枚举值id
-	EnumValue   string                                                     `json:"enum_value,omitempty"`   // 枚举的编号值，创建新的人员类型后，系统生成对应编号。对应[创建用户接口](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/create)中用户信息的employee_type字段值
-	Content     string                                                     `json:"content,omitempty"`      // 枚举内容, 长度范围：`1` ～ `100` 字符
-	EnumType    int64                                                      `json:"enum_type,omitempty"`    // 类型, 可选值有: `1`：内置类型, `2`：自定义
-	EnumStatus  int64                                                      `json:"enum_status,omitempty"`  // 使用状态, 可选值有: `1`：激活, `2`：未激活
-	I18nContent *EventV2ContactEmployeeTypeEnumDeletedV3OldEnumI18nContent `json:"i18n_content,omitempty"` // i18n定义
+	EnumID      string                                                       `json:"enum_id,omitempty"`      // 枚举值id
+	EnumValue   string                                                       `json:"enum_value,omitempty"`   // 枚举的编号值，创建新的人员类型后，系统生成对应编号。对应[创建用户接口](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/create)中用户信息的employee_type字段值
+	Content     string                                                       `json:"content,omitempty"`      // 枚举内容, 长度范围：`1` ～ `100` 字符
+	EnumType    int64                                                        `json:"enum_type,omitempty"`    // 类型, 可选值有: `1`：内置类型, `2`：自定义
+	EnumStatus  int64                                                        `json:"enum_status,omitempty"`  // 使用状态, 可选值有: `1`：激活, `2`：未激活
+	I18nContent []*EventV2ContactEmployeeTypeEnumDeletedV3OldEnumI18nContent `json:"i18n_content,omitempty"` // i18n定义
 }
 
 // EventV2ContactEmployeeTypeEnumDeletedV3OldEnumI18nContent ...
@@ -2109,12 +2109,12 @@ type EventV2ContactEmployeeTypeEnumUpdatedV3 struct {
 
 // EventV2ContactEmployeeTypeEnumUpdatedV3OldEnum ...
 type EventV2ContactEmployeeTypeEnumUpdatedV3OldEnum struct {
-	EnumID      string                                                     `json:"enum_id,omitempty"`      // 枚举值id
-	EnumValue   string                                                     `json:"enum_value,omitempty"`   // 枚举的编号值，创建新的人员类型后，系统生成对应编号。对应[创建用户接口](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/create)中用户信息的employee_type字段值
-	Content     string                                                     `json:"content,omitempty"`      // 枚举内容, 长度范围：`1` ～ `100` 字符
-	EnumType    int64                                                      `json:"enum_type,omitempty"`    // 类型, 可选值有: `1`：内置类型, `2`：自定义
-	EnumStatus  int64                                                      `json:"enum_status,omitempty"`  // 使用状态, 可选值有: `1`：激活, `2`：未激活
-	I18nContent *EventV2ContactEmployeeTypeEnumUpdatedV3OldEnumI18nContent `json:"i18n_content,omitempty"` // i18n定义
+	EnumID      string                                                       `json:"enum_id,omitempty"`      // 枚举值id
+	EnumValue   string                                                       `json:"enum_value,omitempty"`   // 枚举的编号值，创建新的人员类型后，系统生成对应编号。对应[创建用户接口](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/create)中用户信息的employee_type字段值
+	Content     string                                                       `json:"content,omitempty"`      // 枚举内容, 长度范围：`1` ～ `100` 字符
+	EnumType    int64                                                        `json:"enum_type,omitempty"`    // 类型, 可选值有: `1`：内置类型, `2`：自定义
+	EnumStatus  int64                                                        `json:"enum_status,omitempty"`  // 使用状态, 可选值有: `1`：激活, `2`：未激活
+	I18nContent []*EventV2ContactEmployeeTypeEnumUpdatedV3OldEnumI18nContent `json:"i18n_content,omitempty"` // i18n定义
 }
 
 // EventV2ContactEmployeeTypeEnumUpdatedV3OldEnumI18nContent ...
@@ -2125,12 +2125,12 @@ type EventV2ContactEmployeeTypeEnumUpdatedV3OldEnumI18nContent struct {
 
 // EventV2ContactEmployeeTypeEnumUpdatedV3NewEnum ...
 type EventV2ContactEmployeeTypeEnumUpdatedV3NewEnum struct {
-	EnumID      string                                                     `json:"enum_id,omitempty"`      // 枚举值id
-	EnumValue   string                                                     `json:"enum_value,omitempty"`   // 枚举的编号值，创建新的人员类型后，系统生成对应编号。对应[创建用户接口](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/create)中用户信息的employee_type字段值
-	Content     string                                                     `json:"content,omitempty"`      // 枚举内容, 长度范围：`1` ～ `100` 字符
-	EnumType    int64                                                      `json:"enum_type,omitempty"`    // 类型, 可选值有: `1`：内置类型, `2`：自定义
-	EnumStatus  int64                                                      `json:"enum_status,omitempty"`  // 使用状态, 可选值有: `1`：激活, `2`：未激活
-	I18nContent *EventV2ContactEmployeeTypeEnumUpdatedV3NewEnumI18nContent `json:"i18n_content,omitempty"` // i18n定义
+	EnumID      string                                                       `json:"enum_id,omitempty"`      // 枚举值id
+	EnumValue   string                                                       `json:"enum_value,omitempty"`   // 枚举的编号值，创建新的人员类型后，系统生成对应编号。对应[创建用户接口](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/create)中用户信息的employee_type字段值
+	Content     string                                                       `json:"content,omitempty"`      // 枚举内容, 长度范围：`1` ～ `100` 字符
+	EnumType    int64                                                        `json:"enum_type,omitempty"`    // 类型, 可选值有: `1`：内置类型, `2`：自定义
+	EnumStatus  int64                                                        `json:"enum_status,omitempty"`  // 使用状态, 可选值有: `1`：激活, `2`：未激活
+	I18nContent []*EventV2ContactEmployeeTypeEnumUpdatedV3NewEnumI18nContent `json:"i18n_content,omitempty"` // i18n定义
 }
 
 // EventV2ContactEmployeeTypeEnumUpdatedV3NewEnumI18nContent ...
