@@ -38,7 +38,7 @@ https://godoc.org/github.com/chyroc/lark
 
 ## Support APIs
 
-API Count: 572, Event Count: 90
+API Count: 572, Event Count: 91
 
 <details>
   <summary>
@@ -630,6 +630,7 @@ API Count: 572, Event Count: 90
   - EventV2ApplicationApplicationAppVersionPublishRevokeV6
   - EventV2ApplicationApplicationCreatedV6
   - EventV2ContactCustomAttrEventUpdatedV3
+  - EventV2DriveFileBitableRecordChangedV1
   - EventV2DriveFileTitleUpdatedV1
   - EventV2DriveFileReadV1
   - EventV2DriveFileEditV1

@@ -38,7 +38,7 @@ https://godoc.org/github.com/chyroc/lark
 
 ## 支持的接口
 
-API 总数: 572, 事件总数: 90
+API 总数: 572, 事件总数: 91
 
 <details>
   <summary>
@@ -630,6 +630,7 @@ API 总数: 572, 事件总数: 90
   - EventV2ApplicationApplicationAppVersionPublishRevokeV6
   - EventV2ApplicationApplicationCreatedV6
   - EventV2ContactCustomAttrEventUpdatedV3
+  - EventV2DriveFileBitableRecordChangedV1
   - EventV2DriveFileTitleUpdatedV1
   - EventV2DriveFileReadV1
   - EventV2DriveFileEditV1

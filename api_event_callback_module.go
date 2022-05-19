@@ -32,6 +32,7 @@ const (
 	EventTypeV2ApplicationApplicationAppVersionPublishRevokeV6 EventType = "application.application.app_version.publish_revoke_v6"
 	EventTypeV2ApplicationApplicationCreatedV6                 EventType = "application.application.created_v6"
 	EventTypeV2ContactCustomAttrEventUpdatedV3                 EventType = "contact.custom_attr_event.updated_v3"
+	EventTypeV2DriveFileBitableRecordChangedV1                 EventType = "drive.file.bitable_record_changed_v1"
 	EventTypeV2DriveFileTitleUpdatedV1                         EventType = "drive.file.title_updated_v1"
 	EventTypeV2DriveFileReadV1                                 EventType = "drive.file.read_v1"
 	EventTypeV2DriveFileEditV1                                 EventType = "drive.file.edit_v1"
@@ -126,6 +127,7 @@ type eventHandler struct {
 	eventV2ApplicationApplicationAppVersionPublishRevokeV6Handler EventV2ApplicationApplicationAppVersionPublishRevokeV6Handler
 	eventV2ApplicationApplicationCreatedV6Handler                 EventV2ApplicationApplicationCreatedV6Handler
 	eventV2ContactCustomAttrEventUpdatedV3Handler                 EventV2ContactCustomAttrEventUpdatedV3Handler
+	eventV2DriveFileBitableRecordChangedV1Handler                 EventV2DriveFileBitableRecordChangedV1Handler
 	eventV2DriveFileTitleUpdatedV1Handler                         EventV2DriveFileTitleUpdatedV1Handler
 	eventV2DriveFileReadV1Handler                                 EventV2DriveFileReadV1Handler
 	eventV2DriveFileEditV1Handler                                 EventV2DriveFileEditV1Handler
@@ -221,6 +223,7 @@ func (r *eventHandler) clone() *eventHandler {
 		eventV2ApplicationApplicationAppVersionPublishRevokeV6Handler: r.eventV2ApplicationApplicationAppVersionPublishRevokeV6Handler,
 		eventV2ApplicationApplicationCreatedV6Handler:                 r.eventV2ApplicationApplicationCreatedV6Handler,
 		eventV2ContactCustomAttrEventUpdatedV3Handler:                 r.eventV2ContactCustomAttrEventUpdatedV3Handler,
+		eventV2DriveFileBitableRecordChangedV1Handler:                 r.eventV2DriveFileBitableRecordChangedV1Handler,
 		eventV2DriveFileTitleUpdatedV1Handler:                         r.eventV2DriveFileTitleUpdatedV1Handler,
 		eventV2DriveFileReadV1Handler:                                 r.eventV2DriveFileReadV1Handler,
 		eventV2DriveFileEditV1Handler:                                 r.eventV2DriveFileEditV1Handler,
@@ -315,6 +318,7 @@ type eventBody struct {
 	eventV2ApplicationApplicationAppVersionPublishRevokeV6 *EventV2ApplicationApplicationAppVersionPublishRevokeV6
 	eventV2ApplicationApplicationCreatedV6                 *EventV2ApplicationApplicationCreatedV6
 	eventV2ContactCustomAttrEventUpdatedV3                 *EventV2ContactCustomAttrEventUpdatedV3
+	eventV2DriveFileBitableRecordChangedV1                 *EventV2DriveFileBitableRecordChangedV1
 	eventV2DriveFileTitleUpdatedV1                         *EventV2DriveFileTitleUpdatedV1
 	eventV2DriveFileReadV1                                 *EventV2DriveFileReadV1
 	eventV2DriveFileEditV1                                 *EventV2DriveFileEditV1
@@ -438,6 +442,12 @@ func (r *EventCallbackService) parserEventV2(req *eventReq) error {
 			return err
 		}
 		req.eventV2ContactCustomAttrEventUpdatedV3 = event
+	case EventTypeV2DriveFileBitableRecordChangedV1:
+		event := new(EventV2DriveFileBitableRecordChangedV1)
+		if err := req.unmarshalEvent(event); err != nil {
+			return err
+		}
+		req.eventV2DriveFileBitableRecordChangedV1 = event
 	case EventTypeV2DriveFileTitleUpdatedV1:
 		event := new(EventV2DriveFileTitleUpdatedV1)
 		if err := req.unmarshalEvent(event); err != nil {
@@ -1013,6 +1023,11 @@ func (r *EventCallbackService) handlerEvent(ctx context.Context, req *eventReq) 
 	case req.eventV2ContactCustomAttrEventUpdatedV3 != nil:
 		if r.cli.eventHandler.eventV2ContactCustomAttrEventUpdatedV3Handler != nil {
 			s, err = r.cli.eventHandler.eventV2ContactCustomAttrEventUpdatedV3Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2ContactCustomAttrEventUpdatedV3)
+		}
+		return true, s, err
+	case req.eventV2DriveFileBitableRecordChangedV1 != nil:
+		if r.cli.eventHandler.eventV2DriveFileBitableRecordChangedV1Handler != nil {
+			s, err = r.cli.eventHandler.eventV2DriveFileBitableRecordChangedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2DriveFileBitableRecordChangedV1)
 		}
 		return true, s, err
 	case req.eventV2DriveFileTitleUpdatedV1 != nil:

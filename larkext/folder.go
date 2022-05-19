@@ -49,6 +49,10 @@ func NewRootFolder(ctx context.Context, larkClient *lark.Lark) (*Folder, error) 
 	return f, nil
 }
 
+func (r *Folder) Token() string {
+	return r.folderToken
+}
+
 // Meta get folder meta
 func (r *Folder) Meta(ctx context.Context) (*FolderMeta, error) {
 	return r.meta(ctx)

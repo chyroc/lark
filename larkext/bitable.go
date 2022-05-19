@@ -48,12 +48,14 @@ func (r *Bitable) Copy(ctx context.Context, folderToken, name string) (*Bitable,
 	return r.copy(ctx, folderToken, name)
 }
 
-func (r *Bitable) Move(ctx context.Context, folderToken, name string) (*Task, error) {
-	return moveFile(ctx, r.larkClient, folderToken, r.token, r.typ)
+func (r *Bitable) Move(ctx context.Context, folderToken string) error {
+	_, err := moveFile(ctx, r.larkClient, folderToken, r.token, r.typ)
+	return err
 }
 
-func (r *Bitable) Delete(ctx context.Context) (*Task, error) {
-	return deleteFile(ctx, r.larkClient, r.token, r.typ)
+func (r *Bitable) Delete(ctx context.Context) error {
+	_, err := deleteFile(ctx, r.larkClient, r.token, r.typ)
+	return err
 }
 
 // Permission grant bitable permission

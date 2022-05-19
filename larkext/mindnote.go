@@ -44,10 +44,12 @@ func newMindnote(larkClient *lark.Lark, token, url string) *Mindnote {
 }
 
 // Move move file
-func (r *Mindnote) Move(ctx context.Context, folderToken string) (*Task, error) {
-	return moveFile(ctx, r.larkClient, folderToken, r.token, r.typ)
+func (r *Mindnote) Move(ctx context.Context, folderToken string) error {
+	_, err := moveFile(ctx, r.larkClient, folderToken, r.token, r.typ)
+	return err
 }
 
-func (r *Mindnote) Delete(ctx context.Context) (*Task, error) {
-	return deleteFile(ctx, r.larkClient, r.token, r.typ)
+func (r *Mindnote) Delete(ctx context.Context) error {
+	_, err := deleteFile(ctx, r.larkClient, r.token, r.typ)
+	return err
 }

@@ -39,14 +39,19 @@ func (r *File) Copy(ctx context.Context, folderToken, name string) (*File, error
 	return r.copy(ctx, folderToken, name)
 }
 
-func (r *File) Move(ctx context.Context, folderToken string) (*Task, error) {
-	return moveFile(ctx, r.larkClient, folderToken, r.token, r.typ)
+// Move ...
+func (r *File) Move(ctx context.Context, folderToken string) error {
+	_, err := moveFile(ctx, r.larkClient, folderToken, r.token, r.typ)
+	return err
 }
 
-func (r *File) Delete(ctx context.Context) (*Task, error) {
-	return deleteFile(ctx, r.larkClient, r.token, r.typ)
+// Delete ...
+func (r *File) Delete(ctx context.Context) error {
+	_, err := deleteFile(ctx, r.larkClient, r.token, r.typ)
+	return err
 }
 
+// Download ...
 func (r *File) Download(ctx context.Context) (*lark.DownloadDriveFileResp, error) {
 	resp, _, err := r.larkClient.Drive.DownloadDriveFile(ctx, &lark.DownloadDriveFileReq{
 		FileToken: r.token,
