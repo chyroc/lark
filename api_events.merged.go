@@ -481,7 +481,7 @@ type EventV1RemedyApprovalHandler func(ctx context.Context, cli *Lark, schema st
 type EventV1RemedyApproval struct {
 	AppID        string `json:"app_id,omitempty"`        // 如: cli_xxx
 	TenantKey    string `json:"tenant_key,omitempty"`    // 如: xxx
-	Type         string `json:"type,omitempty"`          // 如: remedy_approval
+	Type         string `json:"type,omitempty"`          // 或者remedy_approval_v2. 如: remedy_approval
 	InstanceCode string `json:"instance_code,omitempty"` // 审批实例Code. 如: xxx
 	EmployeeID   string `json:"employee_id,omitempty"`   // 用户id. 如: xxx
 	OpenID       string `json:"open_id,omitempty"`       // 用户open_id. 如: ou_xxx
