@@ -221,7 +221,7 @@ type DocParagraphStyle struct {
 	HeadingLevel int64         `json:"headingLevel,omitempty"` // 标题级别，支持 1-9 级标题，取值范围：[1,9]
 	Collapse     bool          `json:"collapse,omitempty"`     // 标题是否折叠，仅headingLevel为[1,9]时有效
 	List         *DocStyleList `json:"list,omitempty"`         // 有序列表/无序列表/任务列表/旧版代码块
-	Quote        bool          `json:"quote"`                  // 引用样式
+	Quote        bool          `json:"quote,omitempty"`        // 引用样式
 	Align        string        `json:"align,omitempty"`        //	行对齐方式 左对齐（默认）：left 右对齐：right 居中对齐：center
 }
 
