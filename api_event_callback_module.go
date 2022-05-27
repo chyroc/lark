@@ -118,6 +118,8 @@ const (
 	EventTypeV1RemoveUserFromChat                              EventType = "remove_user_from_chat"
 	EventTypeV1RevokeAddUserFromChat                           EventType = "revoke_add_user_from_chat"
 	EventTypeV1ChatDisband                                     EventType = "chat_disband"
+	EventTypeV1ApprovalTask                                    EventType = "approval_task"
+	EventTypeV1ApprovalCc                                      EventType = "approval_cc"
 )
 
 type eventHandler struct {
@@ -213,6 +215,8 @@ type eventHandler struct {
 	eventV1RemoveUserFromChatHandler                              EventV1RemoveUserFromChatHandler
 	eventV1RevokeAddUserFromChatHandler                           EventV1RevokeAddUserFromChatHandler
 	eventV1ChatDisbandHandler                                     EventV1ChatDisbandHandler
+	eventV1ApprovalTaskHandler                                    EventV1ApprovalTaskHandler
+	eventV1ApprovalCcHandler                                      EventV1ApprovalCcHandler
 }
 
 func (r *eventHandler) clone() *eventHandler {
@@ -309,6 +313,8 @@ func (r *eventHandler) clone() *eventHandler {
 		eventV1RemoveUserFromChatHandler:                              r.eventV1RemoveUserFromChatHandler,
 		eventV1RevokeAddUserFromChatHandler:                           r.eventV1RevokeAddUserFromChatHandler,
 		eventV1ChatDisbandHandler:                                     r.eventV1ChatDisbandHandler,
+		eventV1ApprovalTaskHandler:                                    r.eventV1ApprovalTaskHandler,
+		eventV1ApprovalCcHandler:                                      r.eventV1ApprovalCcHandler,
 	}
 }
 
@@ -404,6 +410,8 @@ type eventBody struct {
 	eventV1RemoveUserFromChat                              *EventV1RemoveUserFromChat
 	eventV1RevokeAddUserFromChat                           *EventV1RevokeAddUserFromChat
 	eventV1ChatDisband                                     *EventV1ChatDisband
+	eventV1ApprovalTask                                    *EventV1ApprovalTask
+	eventV1ApprovalCc                                      *EventV1ApprovalCc
 }
 
 func (r *EventCallbackService) parserEventV2(req *eventReq) error {
@@ -988,6 +996,18 @@ func (r *EventCallbackService) parserEventV1(req *eventReq) error {
 			return fmt.Errorf("lark event unmarshal event %s failed", bs)
 		}
 		req.eventV1ChatDisband = event
+	case EventTypeV1ApprovalTask:
+		event := new(EventV1ApprovalTask)
+		if err := json.Unmarshal(bs, event); err != nil {
+			return fmt.Errorf("lark event unmarshal event %s failed", bs)
+		}
+		req.eventV1ApprovalTask = event
+	case EventTypeV1ApprovalCc:
+		event := new(EventV1ApprovalCc)
+		if err := json.Unmarshal(bs, event); err != nil {
+			return fmt.Errorf("lark event unmarshal event %s failed", bs)
+		}
+		req.eventV1ApprovalCc = event
 
 	}
 
@@ -1453,6 +1473,16 @@ func (r *EventCallbackService) handlerEvent(ctx context.Context, req *eventReq) 
 	case req.eventV1ChatDisband != nil:
 		if r.cli.eventHandler.eventV1ChatDisbandHandler != nil {
 			s, err = r.cli.eventHandler.eventV1ChatDisbandHandler(ctx, r.cli, req.Schema, req.headerV1(EventTypeV1ChatDisband), req.eventV1ChatDisband)
+		}
+		return true, s, err
+	case req.eventV1ApprovalTask != nil:
+		if r.cli.eventHandler.eventV1ApprovalTaskHandler != nil {
+			s, err = r.cli.eventHandler.eventV1ApprovalTaskHandler(ctx, r.cli, req.Schema, req.headerV1(EventTypeV1ApprovalTask), req.eventV1ApprovalTask)
+		}
+		return true, s, err
+	case req.eventV1ApprovalCc != nil:
+		if r.cli.eventHandler.eventV1ApprovalCcHandler != nil {
+			s, err = r.cli.eventHandler.eventV1ApprovalCcHandler(ctx, r.cli, req.Schema, req.headerV1(EventTypeV1ApprovalCc), req.eventV1ApprovalCc)
 		}
 		return true, s, err
 

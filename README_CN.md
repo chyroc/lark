@@ -38,7 +38,7 @@ https://godoc.org/github.com/chyroc/lark
 
 ## 支持的接口
 
-API 总数: 579, 事件总数: 91
+API 总数: 579, 事件总数: 93
 
 <details>
   <summary>
@@ -723,6 +723,8 @@ API 总数: 579, 事件总数: 91
   - EventV1RemoveUserFromChat
   - EventV1RevokeAddUserFromChat
   - EventV1ChatDisband
+  - EventV1ApprovalTask
+  - EventV1ApprovalCc
 - AppLink
   - OpenLark
   - OpenMiniProgram

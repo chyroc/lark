@@ -38,7 +38,7 @@ https://godoc.org/github.com/chyroc/lark
 
 ## Support APIs
 
-API Count: 579, Event Count: 91
+API Count: 579, Event Count: 93
 
 <details>
   <summary>
@@ -723,6 +723,8 @@ API Count: 579, Event Count: 91
   - EventV1RemoveUserFromChat
   - EventV1RevokeAddUserFromChat
   - EventV1ChatDisband
+  - EventV1ApprovalTask
+  - EventV1ApprovalCc
 - AppLink
   - OpenLark
   - OpenMiniProgram
