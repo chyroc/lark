@@ -3834,7 +3834,7 @@ type EventV2TaskTaskCommentUpdatedV1 struct {
 
 // EventV2TaskTaskUpdateTenantV1
 //
-// APP 订阅此事件后可接收到该 APP 所在租户的所有来源接口创建的任务的变更事件。事件体为发生变更任务的相关用户的 open_id，可用此 open_id ，通过 ListTask 接口获取与该用户相关的所有任务。{使用示例}(url=/api/tools/api_explore/api_explore_config?project=task&version=v1&resource=task&event=update_tenant)
+// APP 订阅此事件后可接收到该 APP 所在租户的所有来源接口创建的任务的变更事件。事件体为发生变更任务的相关用户的 open_id，可用此 open_id ，通过 获取任务列表接口获取与该用户相关的所有任务。{使用示例}(url=/api/tools/api_explore/api_explore_config?project=task&version=v1&resource=task&event=update_tenant)
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/task-v1/task/events/update_tenant
 func (r *EventCallbackService) HandlerEventV2TaskTaskUpdateTenantV1(f EventV2TaskTaskUpdateTenantV1Handler) {

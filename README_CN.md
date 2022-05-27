@@ -38,7 +38,7 @@ https://godoc.org/github.com/chyroc/lark
 
 ## 支持的接口
 
-API 总数: 572, 事件总数: 91
+API 总数: 579, 事件总数: 91
 
 <details>
   <summary>
@@ -312,6 +312,13 @@ API 总数: 572, 事件总数: 91
   - CreateBitableField
   - UpdateBitableField
   - DeleteBitableField
+  - GetBitableAppRoleList
+  - CreateBitableAppRole
+  - DeleteBitableAppRole
+  - UpdateBitableAppRole
+  - GetBitableAppRoleMemberList
+  - CreateBitableAppRoleMember
+  - DeleteBitableAppRoleMember
   - GetBitableTableList
   - CreateBitableTable
   - BatchCreateBitableTable
