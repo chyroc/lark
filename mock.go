@@ -412,6 +412,8 @@ type Mock struct {
 	mockApprovalUpdateApprovalMessage                          func(ctx context.Context, request *UpdateApprovalMessageReq, options ...MethodOptionFunc) (*UpdateApprovalMessageResp, *Response, error)
 	mockApprovalSubscribeApprovalSubscription                  func(ctx context.Context, request *SubscribeApprovalSubscriptionReq, options ...MethodOptionFunc) (*SubscribeApprovalSubscriptionResp, *Response, error)
 	mockApprovalUnsubscribeApprovalSubscription                func(ctx context.Context, request *UnsubscribeApprovalSubscriptionReq, options ...MethodOptionFunc) (*UnsubscribeApprovalSubscriptionResp, *Response, error)
+	mockApprovalGetApprovalExternalList                        func(ctx context.Context, request *GetApprovalExternalListReq, options ...MethodOptionFunc) (*GetApprovalExternalListResp, *Response, error)
+	mockApprovalSendApprovalMessage                            func(ctx context.Context, request *SendApprovalMessageReq, options ...MethodOptionFunc) (*SendApprovalMessageResp, *Response, error)
 	mockHelpdeskCreateHelpdeskNotification                     func(ctx context.Context, request *CreateHelpdeskNotificationReq, options ...MethodOptionFunc) (*CreateHelpdeskNotificationResp, *Response, error)
 	mockHelpdeskUpdateHelpdeskNotification                     func(ctx context.Context, request *UpdateHelpdeskNotificationReq, options ...MethodOptionFunc) (*UpdateHelpdeskNotificationResp, *Response, error)
 	mockHelpdeskGetHelpdeskNotification                        func(ctx context.Context, request *GetHelpdeskNotificationReq, options ...MethodOptionFunc) (*GetHelpdeskNotificationResp, *Response, error)
