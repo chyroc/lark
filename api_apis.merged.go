@@ -19156,7 +19156,7 @@ func (r *Mock) UnMockDriveCopyDriveFile() {
 type CopyDriveFileReq struct {
 	FileToken   string  `path:"file_token" json:"-"`    // 被复制的文件token, 示例值："boxbcj55reGXM6YAS3C7Z4GWKNg"
 	Name        string  `json:"name,omitempty"`         // 被复制文件的新名称, 示例值："123.txt"
-	Type        *string `json:"type,omitempty"`         // 被复制文件的类型，如果该值为空或者与文件实际类型不匹配，接口会返回失败。, 示例值："file", 可选值有: `file`：文件类型, `doc`：云文档类型, `sheet`：电子表格类型, `bitable`：多维表格类型, `docx`：新版云文档类型, `mindnote`：思维笔记类型
+	Type        *string `json:"type,omitempty"`         // 被复制文件的类型，如果该值为空或者与文件实际类型不匹配，接口会返回失败。, 示例值："file", 可选值有: `file`：文件类型, `doc`：文档类型, `sheet`：电子表格类型, `bitable`：多维表格类型, `docx`：新版文档类型, `mindnote`：思维笔记类型
 	FolderToken string  `json:"folder_token,omitempty"` // 文件被复制到的目标文件夹token, 示例值："fldbcRho46N6MQ3mJkOAuPUZR9d"
 }
 
@@ -19363,7 +19363,7 @@ func (r *Mock) UnMockDriveDeleteDriveFile() {
 
 // DeleteDriveFileReq ...
 type DeleteDriveFileReq struct {
-	Type      string `query:"type" json:"-"`      // 云文档类型, 示例值："file", 可选值有: `file`：box开头云文档类型, `docx`：docx文档类型, `bitable`：多维表格类型, `folder`：文件夹类型, `doc`：doc文档类型, `sheet`：电子表格类型, `mindnote`：思维笔记类型, `shortcut`：快捷方式类型
+	Type      string `query:"type" json:"-"`      // 被删除文件的类型, 示例值："file", 可选值有: `file`：文件类型, `docx`：新版文档类型, `bitable`：多维表格类型, `folder`：文件夹类型, `doc`：文档类型, `sheet`：电子表格类型, `mindnote`：思维笔记类型, `shortcut`：快捷方式类型
 	FileToken string `path:"file_token" json:"-"` // 需要删除的文件token, 示例值："boxbcj55reGXM6YAS3C7Z4GWKNg"
 }
 
@@ -19492,7 +19492,7 @@ func (r *Mock) UnMockDriveMoveDriveFile() {
 // MoveDriveFileReq ...
 type MoveDriveFileReq struct {
 	FileToken   string  `path:"file_token" json:"-"`    // 需要移动的文件token, 示例值："boxbcj55reGXM6YAS3C7Z4GWKNg"
-	Type        *string `json:"type,omitempty"`         // 文件类型，如果该值为空或者与文件实际类型不匹配，接口会返回失败。, 示例值："file", 可选值有: `file`：普通文件类型, `docx`：新版文档类型, `bitable`：多维表格类型, `doc`：doc文档类型, `sheet`：电子表格类型, `mindnote`：思维笔记类型, `folder`：文件夹类型
+	Type        *string `json:"type,omitempty"`         // 文件类型，如果该值为空或者与文件实际类型不匹配，接口会返回失败。, 示例值："file", 可选值有: `file`：普通文件类型, `docx`：新版文档类型, `bitable`：多维表格类型, `doc`：文档类型, `sheet`：电子表格类型, `mindnote`：思维笔记类型, `folder`：文件夹类型
 	FolderToken *string `json:"folder_token,omitempty"` // 目标文件夹token, 示例值："fldbcRho46N6MQ3mJkOAuPUZR9d"
 }
 
@@ -21042,7 +21042,7 @@ func (r *Mock) UnMockDriveCheckDriveMemberPermission() {
 // CheckDriveMemberPermissionReq ...
 type CheckDriveMemberPermissionReq struct {
 	Token string `json:"token,omitempty"` // 文件的 token，获取方式见 [概述](https://open.feishu.cn/document/ukTMukTMukTM/uczNzUjL3czM14yN3MTN#8353e05f)
-	Type  string `json:"type,omitempty"`  // 文档类型  "doc"  or  "sheet" or "file"
+	Type  string `json:"type,omitempty"`  // 文档类型，可选 **doc、docx、sheet、bitable、file**
 	Perm  string `json:"perm,omitempty"`  // 权限，"view" or "edit" or "share"
 }
 
@@ -21097,7 +21097,7 @@ func (r *Mock) UnMockDriveCreateDriveMemberPermission() {
 
 // CreateDriveMemberPermissionReq ...
 type CreateDriveMemberPermissionReq struct {
-	Type             string `query:"type" json:"-"`              // 文件类型，放于query参数中，如：`?type=doc`, 示例值："doc", 可选值有: `doc`：文档, `sheet`：电子表格, `file`：云空间文件, `wiki`：知识库节点, `bitable`：多维表格, `docx`：文档, `folder`：文件夹（即将支持）
+	Type             string `query:"type" json:"-"`              // 文件类型，放于query参数中，如：`?type=doc`, 示例值："doc", 可选值有: `doc`：文档, `sheet`：电子表格, `file`：云空间文件, `wiki`：知识库节点, `bitable`：多维表格, `docx`：新版文档, `folder`：文件夹（未来支持）
 	NeedNotification *bool  `query:"need_notification" json:"-"` // 添加权限后是否通知对方,**注意：** 使用`tenant_access_token`访问不支持该参数, 示例值：false, 默认值: `false`
 	Token            string `path:"token" json:"-"`              // 文件的 token，获取方式见 [概述](https://open.feishu.cn/document/ukTMukTMukTM/uczNzUjL3czM14yN3MTN#8353e05f), 示例值："doccnBKgoMyY5OMbUG6FioTXuBe"
 	MemberType       string `json:"member_type,omitempty"`       // 用户类型，与请求体中的`member_id`要对应, 可选值有:  , `email`: 飞书邮箱, `openid`: [开放平台ID](https://open.feishu.cn/document/home/user-identity-introduction/how-to-get), `openchat`: [开放平台群组](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-id-description), `opendepartmentid`:[开放平台部门ID](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/field-overview), `userid`:  [用户自定义ID](https://open.feishu.cn/document/home/user-identity-introduction/how-to-get),**注意：** 使用`tenant_access_token`访问不支持添加`opendepartmentid`, 示例值："openid"
@@ -21235,7 +21235,7 @@ func (r *Mock) UnMockDriveDeleteDriveMemberPermission() {
 
 // DeleteDriveMemberPermissionReq ...
 type DeleteDriveMemberPermissionReq struct {
-	Type       string `query:"type" json:"-"`        // 文件类型，放于query参数中，如：`?type=doc`, 示例值："doc", 可选值有: `doc`：文档, `sheet`：电子表格, `file`：云空间文件, `wiki`：知识库节点, `bitable`：多维表格, `docx`：文档, `folder`：文件夹（即将支持）
+	Type       string `query:"type" json:"-"`        // 文件类型，放于query参数中，如：`?type=doc`, 示例值："doc", 可选值有: `doc`：文档, `sheet`：电子表格, `file`：云空间文件, `wiki`：知识库节点, `bitable`：多维表格, `docx`：新版文档, `folder`：文件夹（未来支持）
 	MemberType string `query:"member_type" json:"-"` // 权限成员类型，放于query参数中，如：`?member_type=openid`, 示例值："openid", 可选值有: `email`：邮箱地址, `openid`：[开放平台ID](https://open.feishu.cn/document/home/user-identity-introduction/how-to-get), `openchat`：[开放平台群组](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-id-description), `opendepartmentid`：[开放平台部门ID](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/field-overview), `userid`：[用户自定义ID](https://open.feishu.cn/document/home/user-identity-introduction/how-to-get)
 	Token      string `path:"token" json:"-"`        // 文件的 token，获取方式见 [概述](https://open.feishu.cn/document/ukTMukTMukTM/uczNzUjL3czM14yN3MTN#8353e05f), 示例值："doccnBKgoMyY5OMbUG6FioTXuBe"
 	MemberID   string `path:"member_id" json:"-"`    // 权限成员的ID，与`member_type`相对应, 示例值："ou_7dab8a3d3cdcc9da365777c7ad535d62"
@@ -21351,7 +21351,7 @@ func (r *Mock) UnMockDriveGetDriveMemberPermissionList() {
 // GetDriveMemberPermissionListReq ...
 type GetDriveMemberPermissionListReq struct {
 	Token string `json:"token,omitempty"` // 文件的 token，获取方式见 [概述](https://open.feishu.cn/document/ukTMukTMukTM/uczNzUjL3czM14yN3MTN#8353e05f)
-	Type  string `json:"type,omitempty"`  // 文档类型   "doc"  or  "sheet" or "bitable"  or "file"
+	Type  string `json:"type,omitempty"`  // 文档类型，可选 **doc、docx、sheet、bitable、file**
 }
 
 // getDriveMemberPermissionListResp ...
@@ -21414,7 +21414,7 @@ func (r *Mock) UnMockDriveTransferDriveMemberPermission() {
 // TransferDriveMemberPermissionReq ...
 type TransferDriveMemberPermissionReq struct {
 	Token          string                                 `json:"token,omitempty"`            // 文件的 token，获取方式见 [概述](https://open.feishu.cn/document/ukTMukTMukTM/uczNzUjL3czM14yN3MTN#8353e05f)
-	Type           string                                 `json:"type,omitempty"`             // 文档类型，可选 **doc、sheet、bitable、file**
+	Type           string                                 `json:"type,omitempty"`             // 文档类型，可选 **doc、docx、sheet、bitable、file**
 	Owner          *TransferDriveMemberPermissionReqOwner `json:"owner,omitempty"`            // 要转移到的新的文档所有者
 	RemoveOldOwner *bool                                  `json:"remove_old_owner,omitempty"` // true 为转移后删除旧 owner 的权限，默认为false
 	CancelNotify   *bool                                  `json:"cancel_notify,omitempty"`    // true为不通知新owner，默认为false
@@ -40286,7 +40286,7 @@ type CreateTaskReq struct {
 	Extra       *string              `json:"extra,omitempty"`        // 接入方可以自定义的附属信息二进制格式，采用 base64 编码，解析方式由接入方自己决定, 示例值："dGVzdA==", 长度范围：`0` ～ `65536` 字符
 	Due         *CreateTaskReqDue    `json:"due,omitempty"`          // 任务的截止时间设置
 	Origin      *CreateTaskReqOrigin `json:"origin,omitempty"`       // 任务关联的第三方平台来源信息
-	CanEdit     *bool                `json:"can_edit,omitempty"`     // 此字段用于控制该任务在飞书任务中心是否可编辑，默认为false，若为true则第三方需考虑是否需要接入事件来接收任务在任务中心的变更信息, 示例值：true, 默认值: `false`
+	CanEdit     *bool                `json:"can_edit,omitempty"`     // 此字段用于控制该任务在飞书任务中心是否可编辑，默认为false，若为true则第三方需考虑是否需要接入事件来接收任务在任务中心的变更信息,（即将废弃）, 示例值：true, 默认值: `false`
 	Custom      *string              `json:"custom,omitempty"`       // 此字段用于存储第三方需透传到端上的自定义数据，Json格式。取值举例中custom_complete字段存储「完成」按钮的跳转链接（href）或提示信息（tip），pc、ios、android三端均可自定义，其中tip字段的key为语言类型，value为提示信息，可自行增加或减少语言类型，支持的各地区语言名：it_it, th_th, ko_kr, es_es, ja_jp, zh_cn, id_id, zh_hk, pt_br, de_de, fr_fr, zh_tw, ru_ru, en_us, hi_in, vi_vn。href的优先级高于tip，href和tip同时不为空时只跳转不提示。链接和提示信息可自定义，其余的key需按举例中的结构传递, 示例值："{\"custom_complete\":{\"android\":{\"href\":\"https://www.google.com.hk/\",\"tip\":{\"zh_cn\":\"你好\",\"en_us\":\"hello\"}},\"ios\":{\"href\":\"https://www.google.com.hk/\",\"tip\":{\"zh_cn\":\"你好\",\"en_us\":\"hello\"}},\"pc\":{\"href\":\"https://www.google.com.hk/\",\"tip\":{\"zh_cn\":\"你好\",\"en_us\":\"hello\"}}}}", 长度范围：`0` ～ `65536` 字符
 }
 
@@ -40333,7 +40333,7 @@ type CreateTaskRespTask struct {
 	UpdateTime   string                    `json:"update_time,omitempty"`   // 任务的更新时间戳（单位为秒）
 	Due          *CreateTaskRespTaskDue    `json:"due,omitempty"`           // 任务的截止时间设置
 	Origin       *CreateTaskRespTaskOrigin `json:"origin,omitempty"`        // 任务关联的第三方平台来源信息
-	CanEdit      bool                      `json:"can_edit,omitempty"`      // 此字段用于控制该任务在飞书任务中心是否可编辑，默认为false，若为true则第三方需考虑是否需要接入事件来接收任务在任务中心的变更信息
+	CanEdit      bool                      `json:"can_edit,omitempty"`      // 此字段用于控制该任务在飞书任务中心是否可编辑，默认为false，若为true则第三方需考虑是否需要接入事件来接收任务在任务中心的变更信息,（即将废弃）
 	Custom       string                    `json:"custom,omitempty"`        // 此字段用于存储第三方需透传到端上的自定义数据，Json格式。取值举例中custom_complete字段存储「完成」按钮的跳转链接（href）或提示信息（tip），pc、ios、android三端均可自定义，其中tip字段的key为语言类型，value为提示信息，可自行增加或减少语言类型，支持的各地区语言名：it_it, th_th, ko_kr, es_es, ja_jp, zh_cn, id_id, zh_hk, pt_br, de_de, fr_fr, zh_tw, ru_ru, en_us, hi_in, vi_vn。href的优先级高于tip，href和tip同时不为空时只跳转不提示。链接和提示信息可自定义，其余的key需按举例中的结构传递
 	Source       int64                     `json:"source,omitempty"`        // 任务创建的来源, 可选值有: `0`：未知类型, `1`：来源任务中心创建, `2`：来源消息转任务, `3`：来源云文档, `4`：来源文档单品, `5`：来源PANO, `6`：来源tenant_access_token创建的任务, `7`：来源user_access_token创建的任务, `8`：来源新版云文档
 }
@@ -40476,7 +40476,7 @@ type GetTaskRespTask struct {
 	UpdateTime   string                 `json:"update_time,omitempty"`   // 任务的更新时间戳（单位为秒）
 	Due          *GetTaskRespTaskDue    `json:"due,omitempty"`           // 任务的截止时间设置
 	Origin       *GetTaskRespTaskOrigin `json:"origin,omitempty"`        // 任务关联的第三方平台来源信息
-	CanEdit      bool                   `json:"can_edit,omitempty"`      // 此字段用于控制该任务在飞书任务中心是否可编辑，默认为false，若为true则第三方需考虑是否需要接入事件来接收任务在任务中心的变更信息
+	CanEdit      bool                   `json:"can_edit,omitempty"`      // 此字段用于控制该任务在飞书任务中心是否可编辑，默认为false，若为true则第三方需考虑是否需要接入事件来接收任务在任务中心的变更信息,（即将废弃）
 	Custom       string                 `json:"custom,omitempty"`        // 此字段用于存储第三方需透传到端上的自定义数据，Json格式。取值举例中custom_complete字段存储「完成」按钮的跳转链接（href）或提示信息（tip），pc、ios、android三端均可自定义，其中tip字段的key为语言类型，value为提示信息，可自行增加或减少语言类型，支持的各地区语言名：it_it, th_th, ko_kr, es_es, ja_jp, zh_cn, id_id, zh_hk, pt_br, de_de, fr_fr, zh_tw, ru_ru, en_us, hi_in, vi_vn。href的优先级高于tip，href和tip同时不为空时只跳转不提示。链接和提示信息可自定义，其余的key需按举例中的结构传递
 	Source       int64                  `json:"source,omitempty"`        // 任务创建的来源, 可选值有: `0`：未知类型, `1`：来源任务中心创建, `2`：来源消息转任务, `3`：来源云文档, `4`：来源文档单品, `5`：来源PANO, `6`：来源tenant_access_token创建的任务, `7`：来源user_access_token创建的任务, `8`：来源新版云文档
 }
@@ -40502,7 +40502,7 @@ type GetTaskRespTaskOriginHref struct {
 
 // Code generated by lark_sdk_gen. DO NOT EDIT.
 
-// GetTaskList 该接口通过解析 header 中的  user_access_token 获取与该用户相关的所有任务，并支持通过任务创建时间以及任务的完成状态对任务进行过滤
+// GetTaskList 以分页的方式获取任务列表。当使用user_access_token时，获取与该用户身份相关的所有任务。当使用tenant_access_token时，获取该应用通过“创建任务“创建的任务列表。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/task-v1/task/list
 func (r *TaskService) GetTaskList(ctx context.Context, request *GetTaskListReq, options ...MethodOptionFunc) (*GetTaskListResp, *Response, error) {
@@ -40573,7 +40573,7 @@ type GetTaskListRespItem struct {
 	UpdateTime   string                     `json:"update_time,omitempty"`   // 任务的更新时间戳（单位为秒）
 	Due          *GetTaskListRespItemDue    `json:"due,omitempty"`           // 任务的截止时间设置
 	Origin       *GetTaskListRespItemOrigin `json:"origin,omitempty"`        // 任务关联的第三方平台来源信息
-	CanEdit      bool                       `json:"can_edit,omitempty"`      // 此字段用于控制该任务在飞书任务中心是否可编辑，默认为false，若为true则第三方需考虑是否需要接入事件来接收任务在任务中心的变更信息
+	CanEdit      bool                       `json:"can_edit,omitempty"`      // 此字段用于控制该任务在飞书任务中心是否可编辑，默认为false，若为true则第三方需考虑是否需要接入事件来接收任务在任务中心的变更信息,（即将废弃）
 	Custom       string                     `json:"custom,omitempty"`        // 此字段用于存储第三方需透传到端上的自定义数据，Json格式。取值举例中custom_complete字段存储「完成」按钮的跳转链接（href）或提示信息（tip），pc、ios、android三端均可自定义，其中tip字段的key为语言类型，value为提示信息，可自行增加或减少语言类型，支持的各地区语言名：it_it, th_th, ko_kr, es_es, ja_jp, zh_cn, id_id, zh_hk, pt_br, de_de, fr_fr, zh_tw, ru_ru, en_us, hi_in, vi_vn。href的优先级高于tip，href和tip同时不为空时只跳转不提示。链接和提示信息可自定义，其余的key需按举例中的结构传递
 	Source       int64                      `json:"source,omitempty"`        // 任务创建的来源, 可选值有: `0`：未知类型, `1`：来源任务中心创建, `2`：来源消息转任务, `3`：来源云文档, `4`：来源文档单品, `5`：来源PANO, `6`：来源tenant_access_token创建的任务, `7`：来源user_access_token创建的任务, `8`：来源新版云文档
 }
@@ -40702,7 +40702,7 @@ type UpdateTaskReqTask struct {
 	Extra       *string                  `json:"extra,omitempty"`       // 接入方可以自定义的附属信息二进制格式，采用 base64 编码，解析方式由接入方自己决定, 示例值："dGVzdA==", 长度范围：`0` ～ `65536` 字符
 	Due         *UpdateTaskReqTaskDue    `json:"due,omitempty"`         // 任务的截止时间设置
 	Origin      *UpdateTaskReqTaskOrigin `json:"origin,omitempty"`      // 任务关联的第三方平台来源信息
-	CanEdit     *bool                    `json:"can_edit,omitempty"`    // 此字段用于控制该任务在飞书任务中心是否可编辑，默认为false，若为true则第三方需考虑是否需要接入事件来接收任务在任务中心的变更信息, 示例值：true, 默认值: `false`
+	CanEdit     *bool                    `json:"can_edit,omitempty"`    // 此字段用于控制该任务在飞书任务中心是否可编辑，默认为false，若为true则第三方需考虑是否需要接入事件来接收任务在任务中心的变更信息,（即将废弃）, 示例值：true, 默认值: `false`
 	Custom      *string                  `json:"custom,omitempty"`      // 此字段用于存储第三方需透传到端上的自定义数据，Json格式。取值举例中custom_complete字段存储「完成」按钮的跳转链接（href）或提示信息（tip），pc、ios、android三端均可自定义，其中tip字段的key为语言类型，value为提示信息，可自行增加或减少语言类型，支持的各地区语言名：it_it, th_th, ko_kr, es_es, ja_jp, zh_cn, id_id, zh_hk, pt_br, de_de, fr_fr, zh_tw, ru_ru, en_us, hi_in, vi_vn。href的优先级高于tip，href和tip同时不为空时只跳转不提示。链接和提示信息可自定义，其余的key需按举例中的结构传递, 示例值："{\"custom_complete\":{\"android\":{\"href\":\"https://www.google.com.hk/\",\"tip\":{\"zh_cn\":\"你好\",\"en_us\":\"hello\"}},\"ios\":{\"href\":\"https://www.google.com.hk/\",\"tip\":{\"zh_cn\":\"你好\",\"en_us\":\"hello\"}},\"pc\":{\"href\":\"https://www.google.com.hk/\",\"tip\":{\"zh_cn\":\"你好\",\"en_us\":\"hello\"}}}}", 长度范围：`0` ～ `65536` 字符
 }
 
@@ -40749,7 +40749,7 @@ type UpdateTaskRespTask struct {
 	UpdateTime   string                    `json:"update_time,omitempty"`   // 任务的更新时间戳（单位为秒）
 	Due          *UpdateTaskRespTaskDue    `json:"due,omitempty"`           // 任务的截止时间设置
 	Origin       *UpdateTaskRespTaskOrigin `json:"origin,omitempty"`        // 任务关联的第三方平台来源信息
-	CanEdit      bool                      `json:"can_edit,omitempty"`      // 此字段用于控制该任务在飞书任务中心是否可编辑，默认为false，若为true则第三方需考虑是否需要接入事件来接收任务在任务中心的变更信息
+	CanEdit      bool                      `json:"can_edit,omitempty"`      // 此字段用于控制该任务在飞书任务中心是否可编辑，默认为false，若为true则第三方需考虑是否需要接入事件来接收任务在任务中心的变更信息,（即将废弃）
 	Custom       string                    `json:"custom,omitempty"`        // 此字段用于存储第三方需透传到端上的自定义数据，Json格式。取值举例中custom_complete字段存储「完成」按钮的跳转链接（href）或提示信息（tip），pc、ios、android三端均可自定义，其中tip字段的key为语言类型，value为提示信息，可自行增加或减少语言类型，支持的各地区语言名：it_it, th_th, ko_kr, es_es, ja_jp, zh_cn, id_id, zh_hk, pt_br, de_de, fr_fr, zh_tw, ru_ru, en_us, hi_in, vi_vn。href的优先级高于tip，href和tip同时不为空时只跳转不提示。链接和提示信息可自定义，其余的key需按举例中的结构传递
 	Source       int64                     `json:"source,omitempty"`        // 任务创建的来源, 可选值有: `0`：未知类型, `1`：来源任务中心创建, `2`：来源消息转任务, `3`：来源云文档, `4`：来源文档单品, `5`：来源PANO, `6`：来源tenant_access_token创建的任务, `7`：来源user_access_token创建的任务, `8`：来源新版云文档
 }
