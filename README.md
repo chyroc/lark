@@ -38,7 +38,7 @@ https://godoc.org/github.com/chyroc/lark
 
 ## Support APIs
 
-API Count: 581, Event Count: 93
+API Count: 584, Event Count: 93
 
 <details>
   <summary>
@@ -175,6 +175,8 @@ API Count: 581, Event Count: 93
   - GetCalendarExchangeBinding
   - DeleteCalendarExchangeBinding
 - Drive
+  - GetDriveDocxDocument
+  - GetDriveDocxDocumentRawContent
   - SubscribeDriveFile
   - SearchDriveFile
   - GetDriveFileMeta
@@ -499,6 +501,7 @@ API Count: 581, Event Count: 93
   - SubscribeHelpdeskEvent
   - UnsubscribeHelpdeskEvent
 - Admin
+  - AdminResetPassword
   - GetAdminDeptStats
   - GetAdminUserStats
 - HumanAuth

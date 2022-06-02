@@ -38,6 +38,13 @@ func Test_Admin_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
+			_, _, err := moduleCli.AdminResetPassword(ctx, &lark.AdminResetPasswordReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
 			_, _, err := moduleCli.GetAdminDeptStats(ctx, &lark.GetAdminDeptStatsReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "failed")
@@ -55,6 +62,18 @@ func Test_Admin_Sample_Failed(t *testing.T) {
 	t.Run("request mock failed", func(t *testing.T) {
 		cli := AppAllPermission.Ins()
 		moduleCli := cli.Admin
+
+		t.Run("", func(t *testing.T) {
+
+			cli.Mock().MockAdminAdminResetPassword(func(ctx context.Context, request *lark.AdminResetPasswordReq, options ...lark.MethodOptionFunc) (*lark.AdminResetPasswordResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockAdminAdminResetPassword()
+
+			_, _, err := moduleCli.AdminResetPassword(ctx, &lark.AdminResetPasswordReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
 
 		t.Run("", func(t *testing.T) {
 
@@ -88,6 +107,13 @@ func Test_Admin_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
+			_, _, err := moduleCli.AdminResetPassword(ctx, &lark.AdminResetPasswordReq{})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+
 			_, _, err := moduleCli.GetAdminDeptStats(ctx, &lark.GetAdminDeptStatsReq{})
 			as.NotNil(err)
 			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
@@ -107,6 +133,13 @@ func Test_Admin_Sample_Failed(t *testing.T) {
 		moduleCli := cli.Admin
 		cli.Mock().MockRawRequest(func(ctx context.Context, req *lark.RawRequestReq, resp interface{}) (response *lark.Response, err error) {
 			return nil, fmt.Errorf("fake raw request")
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.AdminResetPassword(ctx, &lark.AdminResetPasswordReq{})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
