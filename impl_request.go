@@ -30,7 +30,6 @@ import (
 	"reflect"
 	"strconv"
 	"strings"
-	"time"
 
 	"github.com/chyroc/lark/internal"
 )
@@ -446,11 +445,9 @@ type defaultHttpClient struct {
 	ins *http.Client
 }
 
-func newDefaultHttpClient(timeout time.Duration) HttpClient {
+func newDefaultHttpClient(cli *http.Client) HttpClient {
 	return &defaultHttpClient{
-		ins: &http.Client{
-			Timeout: timeout,
-		},
+		ins: cli,
 	}
 }
 

@@ -72,6 +72,13 @@ func WithTimeout(timeout time.Duration) ClientOptionFunc {
 	}
 }
 
+// WithNetHttpClient set net/http client
+func WithNetHttpClient(cli *http.Client) ClientOptionFunc {
+	return func(r *Lark) {
+		r.httpClient = newDefaultHttpClient(cli)
+	}
+}
+
 // WithHttpClient set http client
 func WithHttpClient(cli HttpClient) ClientOptionFunc {
 	return func(r *Lark) {
@@ -156,7 +163,7 @@ func newClient(tenantKey string, options []ClientOptionFunc) *Lark {
 	}
 
 	if r.httpClient == nil {
-		r.httpClient = newDefaultHttpClient(r.timeout) // 这个时候之前 timeout 可能还没有设置
+		r.httpClient = newDefaultHttpClient(&http.Client{Timeout: r.timeout}) // 这个时候之前 timeout 可能还没有设置
 	}
 
 	r.initService()
