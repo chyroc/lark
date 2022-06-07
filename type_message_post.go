@@ -130,7 +130,7 @@ func (r MessageContentPostLink) MarshalJSON() ([]byte, error) {
 		"text":      r.Text,
 		"un_escape": r.UnEscape,
 		"href":      r.Href,
-		"tag":       messageContentPostItemTypeText,
+		"tag":       messageContentPostItemTypeLink,
 	})
 }
 
