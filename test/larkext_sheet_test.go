@@ -49,7 +49,7 @@ func Test_SheetExt(t *testing.T) {
 	sheetClient := testCreateSheet(larkCli)
 	defer func() {
 		as.Nil(sheetClient.Delete(ctx))
-		_ = sheetClient.Delete(ctx)
+		_, _ = sheetClient.Delete(ctx)
 	}()
 
 	meta, err := sheetClient.Meta(ctx)
