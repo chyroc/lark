@@ -38,7 +38,7 @@ https://godoc.org/github.com/chyroc/lark
 
 ## 支持的接口
 
-API 总数: 581, 事件总数: 93
+API 总数: 584, 事件总数: 93
 
 <details>
   <summary>
@@ -175,6 +175,8 @@ API 总数: 581, 事件总数: 93
   - GetCalendarExchangeBinding
   - DeleteCalendarExchangeBinding
 - Drive
+  - GetDriveDocxDocument
+  - GetDriveDocxDocumentRawContent
   - SubscribeDriveFile
   - SearchDriveFile
   - GetDriveFileMeta
@@ -499,6 +501,7 @@ API 总数: 581, 事件总数: 93
   - SubscribeHelpdeskEvent
   - UnsubscribeHelpdeskEvent
 - Admin
+  - AdminResetPassword
   - GetAdminDeptStats
   - GetAdminUserStats
 - HumanAuth
