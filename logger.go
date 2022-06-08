@@ -13,7 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package lark
+
+// 关于本 lib 中所打印的日志说明
+// 当日志级别设置为 Trace 后, event数据, api 的 request 和 response 数据均会打印(app_secret, helpdesk_token, access_token, encrypt_key 4者会被 mask 为 *)
+// 当日志级别设置为 Debug 后, mock-enable
+// 当日志级别设置为 Debug 后, 所有接口请求的时候，会打印一个日志，包含接口名称，不包含请求体
 
 import (
 	"context"
