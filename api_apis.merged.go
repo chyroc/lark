@@ -26974,7 +26974,7 @@ type GetEHREmployeeListRespItemSystemFields struct {
 	MaritalStatus           int64                                                  `json:"marital_status,omitempty"`            // 婚姻状况, 可选值有: `1`：未婚, `2`：已婚, `3`：离异, `4`：其他
 	PoliticalStatus         int64                                                  `json:"political_status,omitempty"`          // 政治面貌, 可选值有: `1`：中共党员, `2`：中国农工民主党, `3`：中国国民党革命委员会, `4`：中国民主促进会会员, `5`：中国民主同盟成员, `6`：中国民主建国会, `7`：中国致公党党员, `8`：九三学社社员, `9`：共青团员, `10`：其它党派成员, `11`：民主人士, `12`：群众
 	EnteredWorkforceDate    string                                                 `json:"entered_workforce_date,omitempty"`    // 参加工作日期
-	IDType                  IDType                                                 `json:"id_type,omitempty"`                   // 证件类型, 可选值有: `1`：居民身份证, `2`：港澳居民来往内地通行证, `3`：台湾居民来往大陆通行证, `4`：护照, `5`：其他
+	IDType                  int64                                                 `json:"id_type,omitempty"`                   // 证件类型, 可选值有: `1`：居民身份证, `2`：港澳居民来往内地通行证, `3`：台湾居民来往大陆通行证, `4`：护照, `5`：其他
 	IDNumber                string                                                 `json:"id_number,omitempty"`                 // 证件号
 	HukouType               int64                                                  `json:"hukou_type,omitempty"`                // 户口类型, 可选值有: `1`：本市城镇, `2`：外埠城镇, `3`：本市农村, `4`：外埠农村
 	HukouLocation           string                                                 `json:"hukou_location,omitempty"`            // 户口所在地
