@@ -2972,7 +2972,9 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
-			_, _, err := moduleCli.UpdateDriveDocContent(ctx, &lark.UpdateDriveDocContentReq{})
+			_, _, err := moduleCli.UpdateDriveDocContent(ctx, &lark.UpdateDriveDocContentReq{
+				DocToken: "x",
+			})
 			as.NotNil(err)
 			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
 		})
@@ -4138,7 +4140,9 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
-			_, _, err := moduleCli.UpdateDriveDocContent(ctx, &lark.UpdateDriveDocContentReq{})
+			_, _, err := moduleCli.UpdateDriveDocContent(ctx, &lark.UpdateDriveDocContentReq{
+				DocToken: "x",
+			})
 			as.NotNil(err)
 			as.Equal("fake raw request", err.Error())
 		})
