@@ -21,16 +21,16 @@ import (
 	"github.com/chyroc/lark"
 )
 
-func (r *Mindnote) meta(ctx context.Context) (*lark.GetDriveFileMetaRespDocsMetas, error) {
+func (r *Mindnote) meta(ctx context.Context) (*lark.GetDriveFileMetaRespMeta, error) {
 	resp, _, err := r.larkClient.Drive.GetDriveFileMeta(ctx, &lark.GetDriveFileMetaReq{
 		RequestDocs: []*lark.GetDriveFileMetaReqRequestDocs{{
-			DocsToken: r.token, DocsType: r.typ,
+			DocToken: r.token, DocType: r.typ,
 		}},
 	})
 	if err != nil {
 		return nil, err
-	} else if len(resp.DocsMetas) == 0 {
+	} else if len(resp.Metas) == 0 {
 		return nil, nil
 	}
-	return resp.DocsMetas[0], nil
+	return resp.Metas[0], nil
 }
