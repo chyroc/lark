@@ -291,6 +291,7 @@ type Mock struct {
 	mockBitableCreateBitableAppRole                            func(ctx context.Context, request *CreateBitableAppRoleReq, options ...MethodOptionFunc) (*CreateBitableAppRoleResp, *Response, error)
 	mockBitableDeleteBitableAppRole                            func(ctx context.Context, request *DeleteBitableAppRoleReq, options ...MethodOptionFunc) (*DeleteBitableAppRoleResp, *Response, error)
 	mockBitableUpdateBitableAppRole                            func(ctx context.Context, request *UpdateBitableAppRoleReq, options ...MethodOptionFunc) (*UpdateBitableAppRoleResp, *Response, error)
+	mockBitableBatchDeleteBitableAppRoleMember                 func(ctx context.Context, request *BatchDeleteBitableAppRoleMemberReq, options ...MethodOptionFunc) (*BatchDeleteBitableAppRoleMemberResp, *Response, error)
 	mockBitableGetBitableAppRoleMemberList                     func(ctx context.Context, request *GetBitableAppRoleMemberListReq, options ...MethodOptionFunc) (*GetBitableAppRoleMemberListResp, *Response, error)
 	mockBitableCreateBitableAppRoleMember                      func(ctx context.Context, request *CreateBitableAppRoleMemberReq, options ...MethodOptionFunc) (*CreateBitableAppRoleMemberResp, *Response, error)
 	mockBitableDeleteBitableAppRoleMember                      func(ctx context.Context, request *DeleteBitableAppRoleMemberReq, options ...MethodOptionFunc) (*DeleteBitableAppRoleMemberResp, *Response, error)
