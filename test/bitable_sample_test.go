@@ -178,6 +178,13 @@ func Test_Bitable_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
+			_, _, err := moduleCli.BatchCreateBitableAppRoleMember(ctx, &lark.BatchCreateBitableAppRoleMemberReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
 			_, _, err := moduleCli.GetBitableAppRoleMemberList(ctx, &lark.GetBitableAppRoleMemberListReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "failed")
@@ -488,6 +495,18 @@ func Test_Bitable_Sample_Failed(t *testing.T) {
 			defer cli.Mock().UnMockBitableBatchDeleteBitableAppRoleMember()
 
 			_, _, err := moduleCli.BatchDeleteBitableAppRoleMember(ctx, &lark.BatchDeleteBitableAppRoleMemberReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			cli.Mock().MockBitableBatchCreateBitableAppRoleMember(func(ctx context.Context, request *lark.BatchCreateBitableAppRoleMemberReq, options ...lark.MethodOptionFunc) (*lark.BatchCreateBitableAppRoleMemberResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockBitableBatchCreateBitableAppRoleMember()
+
+			_, _, err := moduleCli.BatchCreateBitableAppRoleMember(ctx, &lark.BatchCreateBitableAppRoleMemberReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "mock-failed")
 		})
@@ -824,6 +843,16 @@ func Test_Bitable_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
+			_, _, err := moduleCli.BatchCreateBitableAppRoleMember(ctx, &lark.BatchCreateBitableAppRoleMemberReq{
+				AppToken: "x",
+				RoleID:   "x",
+			})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+
 			_, _, err := moduleCli.GetBitableAppRoleMemberList(ctx, &lark.GetBitableAppRoleMemberListReq{
 				AppToken: "x",
 				RoleID:   "x",
@@ -1123,6 +1152,16 @@ func Test_Bitable_Sample_Failed(t *testing.T) {
 		t.Run("", func(t *testing.T) {
 
 			_, _, err := moduleCli.BatchDeleteBitableAppRoleMember(ctx, &lark.BatchDeleteBitableAppRoleMemberReq{
+				AppToken: "x",
+				RoleID:   "x",
+			})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.BatchCreateBitableAppRoleMember(ctx, &lark.BatchCreateBitableAppRoleMemberReq{
 				AppToken: "x",
 				RoleID:   "x",
 			})

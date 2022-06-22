@@ -38,7 +38,7 @@ https://godoc.org/github.com/chyroc/lark
 
 ## Support APIs
 
-API Count: 588, Event Count: 93
+API Count: 589, Event Count: 93
 
 <details>
   <summary>
@@ -319,6 +319,7 @@ API Count: 588, Event Count: 93
   - DeleteBitableAppRole
   - UpdateBitableAppRole
   - BatchDeleteBitableAppRoleMember
+  - BatchCreateBitableAppRoleMember
   - GetBitableAppRoleMemberList
   - CreateBitableAppRoleMember
   - DeleteBitableAppRoleMember
