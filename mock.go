@@ -581,6 +581,7 @@ type Mock struct {
 	mockBaikeCreateBaikeDraft                                  func(ctx context.Context, request *CreateBaikeDraftReq, options ...MethodOptionFunc) (*CreateBaikeDraftResp, *Response, error)
 	mockBaikeCreateBaikeUpdate                                 func(ctx context.Context, request *CreateBaikeUpdateReq, options ...MethodOptionFunc) (*CreateBaikeUpdateResp, *Response, error)
 	mockBaikeCreateBaikeEntity                                 func(ctx context.Context, request *CreateBaikeEntityReq, options ...MethodOptionFunc) (*CreateBaikeEntityResp, *Response, error)
+	mockBaikeUpdateBaikeEntity                                 func(ctx context.Context, request *UpdateBaikeEntityReq, options ...MethodOptionFunc) (*UpdateBaikeEntityResp, *Response, error)
 	mockBaikeGetBaikeEntity                                    func(ctx context.Context, request *GetBaikeEntityReq, options ...MethodOptionFunc) (*GetBaikeEntityResp, *Response, error)
 	mockBaikeGetBaikeEntityList                                func(ctx context.Context, request *GetBaikeEntityListReq, options ...MethodOptionFunc) (*GetBaikeEntityListResp, *Response, error)
 	mockBaikeMatchBaikeEntity                                  func(ctx context.Context, request *MatchBaikeEntityReq, options ...MethodOptionFunc) (*MatchBaikeEntityResp, *Response, error)

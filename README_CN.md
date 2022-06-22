@@ -38,7 +38,7 @@ https://godoc.org/github.com/chyroc/lark
 
 ## 支持的接口
 
-API 总数: 586, 事件总数: 93
+API 总数: 587, 事件总数: 93
 
 <details>
   <summary>
@@ -628,6 +628,7 @@ API 总数: 586, 事件总数: 93
   - CreateBaikeDraft
   - CreateBaikeUpdate
   - CreateBaikeEntity
+  - UpdateBaikeEntity
   - GetBaikeEntity
   - GetBaikeEntityList
   - MatchBaikeEntity
