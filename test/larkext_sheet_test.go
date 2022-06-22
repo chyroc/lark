@@ -48,7 +48,8 @@ func Test_SheetExt(t *testing.T) {
 	larkCli := AppAllPermission.Ins()
 	sheetClient := testCreateSheet(larkCli)
 	defer func() {
-		as.Nil(sheetClient.Delete(ctx))
+		_, err := sheetClient.Delete(ctx)
+		as.Nil(err)
 		_, _ = sheetClient.Delete(ctx)
 	}()
 

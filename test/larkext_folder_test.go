@@ -51,7 +51,8 @@ func Test_FolderExt(t *testing.T) {
 		sheet, err := f.NewSheet(ctx, fmt.Sprintf("rand %d", randInt64()))
 		as.Nil(err)
 
-		as.Nil(sheet.Delete(ctx))
+		_, err = sheet.Delete(ctx)
+		as.Nil(err)
 	})
 
 	t.Run("new-sheet folder-delete", func(t *testing.T) {
@@ -65,7 +66,8 @@ func Test_FolderExt(t *testing.T) {
 		doc, err := f.NewDoc(ctx, fmt.Sprintf("rand %d", randInt64()))
 		as.Nil(err)
 
-		as.Nil(doc.Delete(ctx))
+		_, err = doc.Delete(ctx)
+		as.Nil(err)
 	})
 
 	t.Run("new-doc folder-delete", func(t *testing.T) {

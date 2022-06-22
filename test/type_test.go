@@ -247,8 +247,8 @@ func Test_Type(t *testing.T) {
 			want       string
 			errContain string
 		}{
-			{name: "0", arg: &lark.DocContent{}, want: `{"title":null,"body":null}`},
-			{name: "1", arg: &lark.DocContent{Title: &lark.DocParagraph{}}, want: `{"title":{"elements":null,"location":null,"lineId":""},"body":null}`},
+			{name: "0", arg: &lark.DocContent{}, want: `{}`},
+			{name: "1", arg: &lark.DocContent{Title: &lark.DocParagraph{}}, want: `{"title":{}}`},
 		}
 		for _, tt := range tests {
 			t.Run(tt.name+" marshal", func(t *testing.T) {

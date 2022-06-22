@@ -35,7 +35,8 @@ func Test_LarkExt_Doc(t *testing.T) {
 	docClient, err := folderClient.NewDoc(ctx, "doc title")
 	as.Nil(err)
 	defer func() {
-		as.Nil(docClient.Delete(ctx))
+		_, err := docClient.Delete(ctx)
+		as.Nil(err)
 	}()
 
 	t.Run("meta", func(t *testing.T) {
@@ -47,7 +48,7 @@ func Test_LarkExt_Doc(t *testing.T) {
 	t.Run("raw-content", func(t *testing.T) {
 		text, err := docClient.RawContent(ctx)
 		as.Nil(err)
-		as.Equal("", strings.TrimSpace(text))
+		as.Equal("doc title", strings.TrimSpace(text))
 	})
 
 	t.Run("content", func(t *testing.T) {
@@ -55,7 +56,7 @@ func Test_LarkExt_Doc(t *testing.T) {
 		as.Nil(err)
 		bs, err := json.Marshal(content)
 		as.Nil(err)
-		as.Equal(`{"title":{"location":{"zoneId":"0"}},"body":{"blocks":[{"type":"paragraph","paragraph":{"location":{"zoneId":"0","startIndex":1,"endIndex":1}}}]}}`, string(bs))
+		as.NotEmpty(bs)
 		fmt.Println(string(bs))
 	})
 }
