@@ -87,6 +87,13 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
+			_, _, err := moduleCli.BatchDeleteDocxBlock(ctx, &lark.BatchDeleteDocxBlockReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
 			_, _, err := moduleCli.SubscribeDriveFile(ctx, &lark.SubscribeDriveFileReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "failed")
@@ -997,6 +1004,18 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 			defer cli.Mock().UnMockDriveUpdateDocxBlock()
 
 			_, _, err := moduleCli.UpdateDocxBlock(ctx, &lark.UpdateDocxBlockReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			cli.Mock().MockDriveBatchDeleteDocxBlock(func(ctx context.Context, request *lark.BatchDeleteDocxBlockReq, options ...lark.MethodOptionFunc) (*lark.BatchDeleteDocxBlockResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockDriveBatchDeleteDocxBlock()
+
+			_, _, err := moduleCli.BatchDeleteDocxBlock(ctx, &lark.BatchDeleteDocxBlockReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "mock-failed")
 		})
@@ -2489,6 +2508,16 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
+			_, _, err := moduleCli.BatchDeleteDocxBlock(ctx, &lark.BatchDeleteDocxBlockReq{
+				DocumentID: "x",
+				BlockID:    "x",
+			})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+
 			_, _, err := moduleCli.SubscribeDriveFile(ctx, &lark.SubscribeDriveFileReq{
 				FileToken: "x",
 			})
@@ -3606,6 +3635,16 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		t.Run("", func(t *testing.T) {
 
 			_, _, err := moduleCli.UpdateDocxBlock(ctx, &lark.UpdateDocxBlockReq{
+				DocumentID: "x",
+				BlockID:    "x",
+			})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.BatchDeleteDocxBlock(ctx, &lark.BatchDeleteDocxBlockReq{
 				DocumentID: "x",
 				BlockID:    "x",
 			})
