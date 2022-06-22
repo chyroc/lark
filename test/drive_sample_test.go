@@ -52,7 +52,7 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
-			_, _, err := moduleCli.GetDocxBlockList(ctx, &lark.GetDocxBlockListReq{})
+			_, _, err := moduleCli.GetDocxBlockListOfDocument(ctx, &lark.GetDocxBlockListOfDocumentReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "failed")
 		})
@@ -88,6 +88,13 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		t.Run("", func(t *testing.T) {
 
 			_, _, err := moduleCli.BatchDeleteDocxBlock(ctx, &lark.BatchDeleteDocxBlockReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.GetDocxBlockListOfBlock(ctx, &lark.GetDocxBlockListOfBlockReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "failed")
 		})
@@ -950,12 +957,12 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
-			cli.Mock().MockDriveGetDocxBlockList(func(ctx context.Context, request *lark.GetDocxBlockListReq, options ...lark.MethodOptionFunc) (*lark.GetDocxBlockListResp, *lark.Response, error) {
+			cli.Mock().MockDriveGetDocxBlockListOfDocument(func(ctx context.Context, request *lark.GetDocxBlockListOfDocumentReq, options ...lark.MethodOptionFunc) (*lark.GetDocxBlockListOfDocumentResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
-			defer cli.Mock().UnMockDriveGetDocxBlockList()
+			defer cli.Mock().UnMockDriveGetDocxBlockListOfDocument()
 
-			_, _, err := moduleCli.GetDocxBlockList(ctx, &lark.GetDocxBlockListReq{})
+			_, _, err := moduleCli.GetDocxBlockListOfDocument(ctx, &lark.GetDocxBlockListOfDocumentReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "mock-failed")
 		})
@@ -1016,6 +1023,18 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 			defer cli.Mock().UnMockDriveBatchDeleteDocxBlock()
 
 			_, _, err := moduleCli.BatchDeleteDocxBlock(ctx, &lark.BatchDeleteDocxBlockReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			cli.Mock().MockDriveGetDocxBlockListOfBlock(func(ctx context.Context, request *lark.GetDocxBlockListOfBlockReq, options ...lark.MethodOptionFunc) (*lark.GetDocxBlockListOfBlockResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockDriveGetDocxBlockListOfBlock()
+
+			_, _, err := moduleCli.GetDocxBlockListOfBlock(ctx, &lark.GetDocxBlockListOfBlockReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "mock-failed")
 		})
@@ -2462,7 +2481,7 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
-			_, _, err := moduleCli.GetDocxBlockList(ctx, &lark.GetDocxBlockListReq{
+			_, _, err := moduleCli.GetDocxBlockListOfDocument(ctx, &lark.GetDocxBlockListOfDocumentReq{
 				DocumentID: "x",
 			})
 			as.NotNil(err)
@@ -2509,6 +2528,16 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		t.Run("", func(t *testing.T) {
 
 			_, _, err := moduleCli.BatchDeleteDocxBlock(ctx, &lark.BatchDeleteDocxBlockReq{
+				DocumentID: "x",
+				BlockID:    "x",
+			})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.GetDocxBlockListOfBlock(ctx, &lark.GetDocxBlockListOfBlockReq{
 				DocumentID: "x",
 				BlockID:    "x",
 			})
@@ -3598,7 +3627,7 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
-			_, _, err := moduleCli.GetDocxBlockList(ctx, &lark.GetDocxBlockListReq{
+			_, _, err := moduleCli.GetDocxBlockListOfDocument(ctx, &lark.GetDocxBlockListOfDocumentReq{
 				DocumentID: "x",
 			})
 			as.NotNil(err)
@@ -3645,6 +3674,16 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		t.Run("", func(t *testing.T) {
 
 			_, _, err := moduleCli.BatchDeleteDocxBlock(ctx, &lark.BatchDeleteDocxBlockReq{
+				DocumentID: "x",
+				BlockID:    "x",
+			})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.GetDocxBlockListOfBlock(ctx, &lark.GetDocxBlockListOfBlockReq{
 				DocumentID: "x",
 				BlockID:    "x",
 			})
