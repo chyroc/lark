@@ -787,6 +787,13 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
+			_, _, err := moduleCli.CreateWikiSpace(ctx, &lark.CreateWikiSpaceReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
 			_, _, err := moduleCli.GetWikiSpaceList(ctx, &lark.GetWikiSpaceListReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "failed")
@@ -2154,6 +2161,18 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
+			cli.Mock().MockDriveCreateWikiSpace(func(ctx context.Context, request *lark.CreateWikiSpaceReq, options ...lark.MethodOptionFunc) (*lark.CreateWikiSpaceResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockDriveCreateWikiSpace()
+
+			_, _, err := moduleCli.CreateWikiSpace(ctx, &lark.CreateWikiSpaceReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
 			cli.Mock().MockDriveGetWikiSpaceList(func(ctx context.Context, request *lark.GetWikiSpaceListReq, options ...lark.MethodOptionFunc) (*lark.GetWikiSpaceListResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -3252,6 +3271,13 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
+			_, _, err := moduleCli.CreateWikiSpace(ctx, &lark.CreateWikiSpaceReq{})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+
 			_, _, err := moduleCli.GetWikiSpaceList(ctx, &lark.GetWikiSpaceListReq{})
 			as.NotNil(err)
 			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
@@ -4312,6 +4338,13 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 				SpreadSheetToken: "x",
 				SheetID:          "x",
 			})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.CreateWikiSpace(ctx, &lark.CreateWikiSpaceReq{})
 			as.NotNil(err)
 			as.Equal("fake raw request", err.Error())
 		})

@@ -2830,7 +2830,7 @@ type EventV2ContactUserUpdatedV3OldObjectCustomAttrValueGenericUser struct {
 // EventV2DriveFileBitableRecordChangedV1
 //
 // 了解事件订阅的使用场景和配置流程，请点击查看 [事件订阅概述](https://open.feishu.cn/document/ukTMukTMukTM/uUTNz4SN1MjL1UzM)
-// 被订阅的多维表格记录发生变更将会触发此事件。
+// 被订阅的多维表格记录发生变更将会触发此事件，**公式字段的值变化不会触发事件**。
 // ## 概述
 // :::html
 // <md-table>
@@ -3904,6 +3904,9 @@ type EventV2TaskTaskUpdateTenantV1Handler func(ctx context.Context, cli *Lark, s
 // EventV2TaskTaskUpdateTenantV1 ...
 type EventV2TaskTaskUpdateTenantV1 struct {
 	UserIDList *EventV2TaskTaskUpdateTenantV1UserIDList `json:"user_id_list,omitempty"` // 用户 ID 列表
+	TaskID     string                                   `json:"task_id,omitempty"`      // 任务的id
+	ObjectType string                                   `json:"object_type,omitempty"`  // 变更的数据类型
+	EventType  string                                   `json:"event_type,omitempty"`   // 事件类型
 }
 
 // EventV2TaskTaskUpdateTenantV1UserIDList ...
