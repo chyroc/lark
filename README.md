@@ -533,6 +533,9 @@ API Count: 584, Event Count: 93
   - GetAttendanceUserStatsView
   - UpdateAttendanceUserStatsView
   - GetAttendanceUserStatsData
+  - GetAttendanceUserApproval
+  - CreateAttendanceUserApproval
+  - UpdateAttendanceRemedyApproval
   - BatchGetAttendanceUserFlow
   - GetAttendanceUserFlow
   - GetAttendanceUserTask
@@ -544,9 +547,6 @@ API Count: 584, Event Count: 93
   - UpdateAttendanceUserSetting
   - DownloadAttendanceFile
   - UploadAttendanceFile
-  - GetAttendanceUserApproval
-  - CreateAttendanceUserApproval
-  - UpdateAttendanceRemedyApproval
 - File
   - UploadImage
   - DownloadImage

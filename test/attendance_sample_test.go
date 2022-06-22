@@ -150,6 +150,27 @@ func Test_Attendance_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
+			_, _, err := moduleCli.GetAttendanceUserApproval(ctx, &lark.GetAttendanceUserApprovalReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.CreateAttendanceUserApproval(ctx, &lark.CreateAttendanceUserApprovalReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.UpdateAttendanceRemedyApproval(ctx, &lark.UpdateAttendanceRemedyApprovalReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
 			_, _, err := moduleCli.BatchGetAttendanceUserFlow(ctx, &lark.BatchGetAttendanceUserFlowReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "failed")
@@ -221,30 +242,6 @@ func Test_Attendance_Sample_Failed(t *testing.T) {
 		t.Run("", func(t *testing.T) {
 
 			_, _, err := moduleCli.UploadAttendanceFile(ctx, &lark.UploadAttendanceFileReq{})
-			as.NotNil(err)
-			as.Equal(err.Error(), "failed")
-		})
-
-		t.Run("", func(t *testing.T) {
-			t.Skip()
-
-			_, _, err := moduleCli.GetAttendanceUserApproval(ctx, &lark.GetAttendanceUserApprovalReq{})
-			as.NotNil(err)
-			as.Equal(err.Error(), "failed")
-		})
-
-		t.Run("", func(t *testing.T) {
-			t.Skip()
-
-			_, _, err := moduleCli.CreateAttendanceUserApproval(ctx, &lark.CreateAttendanceUserApprovalReq{})
-			as.NotNil(err)
-			as.Equal(err.Error(), "failed")
-		})
-
-		t.Run("", func(t *testing.T) {
-			t.Skip()
-
-			_, _, err := moduleCli.UpdateAttendanceRemedyApproval(ctx, &lark.UpdateAttendanceRemedyApprovalReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "failed")
 		})
@@ -449,6 +446,42 @@ func Test_Attendance_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
+			cli.Mock().MockAttendanceGetAttendanceUserApproval(func(ctx context.Context, request *lark.GetAttendanceUserApprovalReq, options ...lark.MethodOptionFunc) (*lark.GetAttendanceUserApprovalResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockAttendanceGetAttendanceUserApproval()
+
+			_, _, err := moduleCli.GetAttendanceUserApproval(ctx, &lark.GetAttendanceUserApprovalReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			cli.Mock().MockAttendanceCreateAttendanceUserApproval(func(ctx context.Context, request *lark.CreateAttendanceUserApprovalReq, options ...lark.MethodOptionFunc) (*lark.CreateAttendanceUserApprovalResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockAttendanceCreateAttendanceUserApproval()
+
+			_, _, err := moduleCli.CreateAttendanceUserApproval(ctx, &lark.CreateAttendanceUserApprovalReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			cli.Mock().MockAttendanceUpdateAttendanceRemedyApproval(func(ctx context.Context, request *lark.UpdateAttendanceRemedyApprovalReq, options ...lark.MethodOptionFunc) (*lark.UpdateAttendanceRemedyApprovalResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockAttendanceUpdateAttendanceRemedyApproval()
+
+			_, _, err := moduleCli.UpdateAttendanceRemedyApproval(ctx, &lark.UpdateAttendanceRemedyApprovalReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
 			cli.Mock().MockAttendanceBatchGetAttendanceUserFlow(func(ctx context.Context, request *lark.BatchGetAttendanceUserFlowReq, options ...lark.MethodOptionFunc) (*lark.BatchGetAttendanceUserFlowResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -575,45 +608,6 @@ func Test_Attendance_Sample_Failed(t *testing.T) {
 			defer cli.Mock().UnMockAttendanceUploadAttendanceFile()
 
 			_, _, err := moduleCli.UploadAttendanceFile(ctx, &lark.UploadAttendanceFileReq{})
-			as.NotNil(err)
-			as.Equal(err.Error(), "mock-failed")
-		})
-
-		t.Run("", func(t *testing.T) {
-			t.Skip()
-
-			cli.Mock().MockAttendanceGetAttendanceUserApproval(func(ctx context.Context, request *lark.GetAttendanceUserApprovalReq, options ...lark.MethodOptionFunc) (*lark.GetAttendanceUserApprovalResp, *lark.Response, error) {
-				return nil, nil, fmt.Errorf("mock-failed")
-			})
-			defer cli.Mock().UnMockAttendanceGetAttendanceUserApproval()
-
-			_, _, err := moduleCli.GetAttendanceUserApproval(ctx, &lark.GetAttendanceUserApprovalReq{})
-			as.NotNil(err)
-			as.Equal(err.Error(), "mock-failed")
-		})
-
-		t.Run("", func(t *testing.T) {
-			t.Skip()
-
-			cli.Mock().MockAttendanceCreateAttendanceUserApproval(func(ctx context.Context, request *lark.CreateAttendanceUserApprovalReq, options ...lark.MethodOptionFunc) (*lark.CreateAttendanceUserApprovalResp, *lark.Response, error) {
-				return nil, nil, fmt.Errorf("mock-failed")
-			})
-			defer cli.Mock().UnMockAttendanceCreateAttendanceUserApproval()
-
-			_, _, err := moduleCli.CreateAttendanceUserApproval(ctx, &lark.CreateAttendanceUserApprovalReq{})
-			as.NotNil(err)
-			as.Equal(err.Error(), "mock-failed")
-		})
-
-		t.Run("", func(t *testing.T) {
-			t.Skip()
-
-			cli.Mock().MockAttendanceUpdateAttendanceRemedyApproval(func(ctx context.Context, request *lark.UpdateAttendanceRemedyApprovalReq, options ...lark.MethodOptionFunc) (*lark.UpdateAttendanceRemedyApprovalResp, *lark.Response, error) {
-				return nil, nil, fmt.Errorf("mock-failed")
-			})
-			defer cli.Mock().UnMockAttendanceUpdateAttendanceRemedyApproval()
-
-			_, _, err := moduleCli.UpdateAttendanceRemedyApproval(ctx, &lark.UpdateAttendanceRemedyApprovalReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "mock-failed")
 		})
@@ -748,6 +742,27 @@ func Test_Attendance_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
+			_, _, err := moduleCli.GetAttendanceUserApproval(ctx, &lark.GetAttendanceUserApprovalReq{})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.CreateAttendanceUserApproval(ctx, &lark.CreateAttendanceUserApprovalReq{})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.UpdateAttendanceRemedyApproval(ctx, &lark.UpdateAttendanceRemedyApprovalReq{})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+
 			_, _, err := moduleCli.BatchGetAttendanceUserFlow(ctx, &lark.BatchGetAttendanceUserFlowReq{})
 			as.NotNil(err)
 			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
@@ -823,30 +838,6 @@ func Test_Attendance_Sample_Failed(t *testing.T) {
 		t.Run("", func(t *testing.T) {
 
 			_, _, err := moduleCli.UploadAttendanceFile(ctx, &lark.UploadAttendanceFileReq{})
-			as.NotNil(err)
-			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
-		})
-
-		t.Run("", func(t *testing.T) {
-			t.Skip()
-
-			_, _, err := moduleCli.GetAttendanceUserApproval(ctx, &lark.GetAttendanceUserApprovalReq{})
-			as.NotNil(err)
-			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
-		})
-
-		t.Run("", func(t *testing.T) {
-			t.Skip()
-
-			_, _, err := moduleCli.CreateAttendanceUserApproval(ctx, &lark.CreateAttendanceUserApprovalReq{})
-			as.NotNil(err)
-			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
-		})
-
-		t.Run("", func(t *testing.T) {
-			t.Skip()
-
-			_, _, err := moduleCli.UpdateAttendanceRemedyApproval(ctx, &lark.UpdateAttendanceRemedyApprovalReq{})
 			as.NotNil(err)
 			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
 		})
@@ -984,6 +975,27 @@ func Test_Attendance_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
+			_, _, err := moduleCli.GetAttendanceUserApproval(ctx, &lark.GetAttendanceUserApprovalReq{})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.CreateAttendanceUserApproval(ctx, &lark.CreateAttendanceUserApprovalReq{})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.UpdateAttendanceRemedyApproval(ctx, &lark.UpdateAttendanceRemedyApprovalReq{})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+
 			_, _, err := moduleCli.BatchGetAttendanceUserFlow(ctx, &lark.BatchGetAttendanceUserFlowReq{})
 			as.NotNil(err)
 			as.Equal("fake raw request", err.Error())
@@ -1059,30 +1071,6 @@ func Test_Attendance_Sample_Failed(t *testing.T) {
 		t.Run("", func(t *testing.T) {
 
 			_, _, err := moduleCli.UploadAttendanceFile(ctx, &lark.UploadAttendanceFileReq{})
-			as.NotNil(err)
-			as.Equal("fake raw request", err.Error())
-		})
-
-		t.Run("", func(t *testing.T) {
-			t.Skip()
-
-			_, _, err := moduleCli.GetAttendanceUserApproval(ctx, &lark.GetAttendanceUserApprovalReq{})
-			as.NotNil(err)
-			as.Equal("fake raw request", err.Error())
-		})
-
-		t.Run("", func(t *testing.T) {
-			t.Skip()
-
-			_, _, err := moduleCli.CreateAttendanceUserApproval(ctx, &lark.CreateAttendanceUserApprovalReq{})
-			as.NotNil(err)
-			as.Equal("fake raw request", err.Error())
-		})
-
-		t.Run("", func(t *testing.T) {
-			t.Skip()
-
-			_, _, err := moduleCli.UpdateAttendanceRemedyApproval(ctx, &lark.UpdateAttendanceRemedyApprovalReq{})
 			as.NotNil(err)
 			as.Equal("fake raw request", err.Error())
 		})

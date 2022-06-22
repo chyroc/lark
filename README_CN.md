@@ -533,6 +533,9 @@ API 总数: 584, 事件总数: 93
   - GetAttendanceUserStatsView
   - UpdateAttendanceUserStatsView
   - GetAttendanceUserStatsData
+  - GetAttendanceUserApproval
+  - CreateAttendanceUserApproval
+  - UpdateAttendanceRemedyApproval
   - BatchGetAttendanceUserFlow
   - GetAttendanceUserFlow
   - GetAttendanceUserTask
@@ -544,9 +547,6 @@ API 总数: 584, 事件总数: 93
   - UpdateAttendanceUserSetting
   - DownloadAttendanceFile
   - UploadAttendanceFile
-  - GetAttendanceUserApproval
-  - CreateAttendanceUserApproval
-  - UpdateAttendanceRemedyApproval
 - File
   - UploadImage
   - DownloadImage
