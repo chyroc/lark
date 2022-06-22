@@ -38,7 +38,7 @@ https://godoc.org/github.com/chyroc/lark
 
 ## Support APIs
 
-API Count: 584, Event Count: 93
+API Count: 585, Event Count: 93
 
 <details>
   <summary>
@@ -632,6 +632,7 @@ API Count: 584, Event Count: 93
   - MatchBaikeEntity
   - SearchBaikeEntity
   - HighlightBaikeEntity
+  - GetBaikeClassificationList
 - Passport
   - GetPassportSession
 - Event

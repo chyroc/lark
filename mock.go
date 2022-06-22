@@ -585,6 +585,7 @@ type Mock struct {
 	mockBaikeMatchBaikeEntity                                  func(ctx context.Context, request *MatchBaikeEntityReq, options ...MethodOptionFunc) (*MatchBaikeEntityResp, *Response, error)
 	mockBaikeSearchBaikeEntity                                 func(ctx context.Context, request *SearchBaikeEntityReq, options ...MethodOptionFunc) (*SearchBaikeEntityResp, *Response, error)
 	mockBaikeHighlightBaikeEntity                              func(ctx context.Context, request *HighlightBaikeEntityReq, options ...MethodOptionFunc) (*HighlightBaikeEntityResp, *Response, error)
+	mockBaikeGetBaikeClassificationList                        func(ctx context.Context, request *GetBaikeClassificationListReq, options ...MethodOptionFunc) (*GetBaikeClassificationListResp, *Response, error)
 	mockPassportGetPassportSession                             func(ctx context.Context, request *GetPassportSessionReq, options ...MethodOptionFunc) (*GetPassportSessionResp, *Response, error)
 	mockEventGetEventOutboundIpList                            func(ctx context.Context, request *GetEventOutboundIpListReq, options ...MethodOptionFunc) (*GetEventOutboundIpListResp, *Response, error)
 }

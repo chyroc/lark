@@ -85,6 +85,13 @@ func Test_Baike_Sample_Failed(t *testing.T) {
 			as.Equal(err.Error(), "failed")
 		})
 
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.GetBaikeClassificationList(ctx, &lark.GetBaikeClassificationListReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "failed")
+		})
+
 	})
 
 	t.Run("request mock failed", func(t *testing.T) {
@@ -175,6 +182,18 @@ func Test_Baike_Sample_Failed(t *testing.T) {
 			as.Equal(err.Error(), "mock-failed")
 		})
 
+		t.Run("", func(t *testing.T) {
+
+			cli.Mock().MockBaikeGetBaikeClassificationList(func(ctx context.Context, request *lark.GetBaikeClassificationListReq, options ...lark.MethodOptionFunc) (*lark.GetBaikeClassificationListResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockBaikeGetBaikeClassificationList()
+
+			_, _, err := moduleCli.GetBaikeClassificationList(ctx, &lark.GetBaikeClassificationListReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
 	})
 
 	t.Run("response is failed", func(t *testing.T) {
@@ -230,6 +249,13 @@ func Test_Baike_Sample_Failed(t *testing.T) {
 		t.Run("", func(t *testing.T) {
 
 			_, _, err := moduleCli.HighlightBaikeEntity(ctx, &lark.HighlightBaikeEntityReq{})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.GetBaikeClassificationList(ctx, &lark.GetBaikeClassificationListReq{})
 			as.NotNil(err)
 			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
 		})
@@ -292,6 +318,13 @@ func Test_Baike_Sample_Failed(t *testing.T) {
 		t.Run("", func(t *testing.T) {
 
 			_, _, err := moduleCli.HighlightBaikeEntity(ctx, &lark.HighlightBaikeEntityReq{})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.GetBaikeClassificationList(ctx, &lark.GetBaikeClassificationListReq{})
 			as.NotNil(err)
 			as.Equal("fake raw request", err.Error())
 		})
