@@ -38,7 +38,7 @@ https://godoc.org/github.com/chyroc/lark
 
 ## Support APIs
 
-API Count: 585, Event Count: 93
+API Count: 586, Event Count: 93
 
 <details>
   <summary>
@@ -627,6 +627,7 @@ API Count: 585, Event Count: 93
 - Baike
   - CreateBaikeDraft
   - CreateBaikeUpdate
+  - CreateBaikeEntity
   - GetBaikeEntity
   - GetBaikeEntityList
   - MatchBaikeEntity
