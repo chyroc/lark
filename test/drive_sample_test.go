@@ -87,7 +87,7 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
-			_, _, err := moduleCli.GetDriveFolderMeta(ctx, &lark.GetDriveFolderMetaReq{})
+			_, _, err := moduleCli.GetDriveFileList(ctx, &lark.GetDriveFileListReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "failed")
 		})
@@ -95,6 +95,13 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		t.Run("", func(t *testing.T) {
 
 			_, _, err := moduleCli.GetDriveRootFolderMeta(ctx, &lark.GetDriveRootFolderMetaReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.GetDriveFolderMeta(ctx, &lark.GetDriveFolderMetaReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "failed")
 		})
@@ -961,12 +968,12 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
-			cli.Mock().MockDriveGetDriveFolderMeta(func(ctx context.Context, request *lark.GetDriveFolderMetaReq, options ...lark.MethodOptionFunc) (*lark.GetDriveFolderMetaResp, *lark.Response, error) {
+			cli.Mock().MockDriveGetDriveFileList(func(ctx context.Context, request *lark.GetDriveFileListReq, options ...lark.MethodOptionFunc) (*lark.GetDriveFileListResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
-			defer cli.Mock().UnMockDriveGetDriveFolderMeta()
+			defer cli.Mock().UnMockDriveGetDriveFileList()
 
-			_, _, err := moduleCli.GetDriveFolderMeta(ctx, &lark.GetDriveFolderMetaReq{})
+			_, _, err := moduleCli.GetDriveFileList(ctx, &lark.GetDriveFileListReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "mock-failed")
 		})
@@ -979,6 +986,18 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 			defer cli.Mock().UnMockDriveGetDriveRootFolderMeta()
 
 			_, _, err := moduleCli.GetDriveRootFolderMeta(ctx, &lark.GetDriveRootFolderMetaReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			cli.Mock().MockDriveGetDriveFolderMeta(func(ctx context.Context, request *lark.GetDriveFolderMetaReq, options ...lark.MethodOptionFunc) (*lark.GetDriveFolderMetaResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockDriveGetDriveFolderMeta()
+
+			_, _, err := moduleCli.GetDriveFolderMeta(ctx, &lark.GetDriveFolderMetaReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "mock-failed")
 		})
@@ -2372,9 +2391,7 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
-			_, _, err := moduleCli.GetDriveFolderMeta(ctx, &lark.GetDriveFolderMetaReq{
-				FolderToken: "x",
-			})
+			_, _, err := moduleCli.GetDriveFileList(ctx, &lark.GetDriveFileListReq{})
 			as.NotNil(err)
 			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
 		})
@@ -2382,6 +2399,15 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		t.Run("", func(t *testing.T) {
 
 			_, _, err := moduleCli.GetDriveRootFolderMeta(ctx, &lark.GetDriveRootFolderMetaReq{})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.GetDriveFolderMeta(ctx, &lark.GetDriveFolderMetaReq{
+				FolderToken: "x",
+			})
 			as.NotNil(err)
 			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
 		})
@@ -3445,9 +3471,7 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
-			_, _, err := moduleCli.GetDriveFolderMeta(ctx, &lark.GetDriveFolderMetaReq{
-				FolderToken: "x",
-			})
+			_, _, err := moduleCli.GetDriveFileList(ctx, &lark.GetDriveFileListReq{})
 			as.NotNil(err)
 			as.Equal("fake raw request", err.Error())
 		})
@@ -3455,6 +3479,15 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		t.Run("", func(t *testing.T) {
 
 			_, _, err := moduleCli.GetDriveRootFolderMeta(ctx, &lark.GetDriveRootFolderMetaReq{})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.GetDriveFolderMeta(ctx, &lark.GetDriveFolderMetaReq{
+				FolderToken: "x",
+			})
 			as.NotNil(err)
 			as.Equal("fake raw request", err.Error())
 		})
