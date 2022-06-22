@@ -57,6 +57,7 @@ type Mock struct {
 	mockContactGetContactGroup                                 func(ctx context.Context, request *GetContactGroupReq, options ...MethodOptionFunc) (*GetContactGroupResp, *Response, error)
 	mockContactGetContactGroupList                             func(ctx context.Context, request *GetContactGroupListReq, options ...MethodOptionFunc) (*GetContactGroupListResp, *Response, error)
 	mockContactAddContactGroupMember                           func(ctx context.Context, request *AddContactGroupMemberReq, options ...MethodOptionFunc) (*AddContactGroupMemberResp, *Response, error)
+	mockContactBatchAddContactGroupMember                      func(ctx context.Context, request *BatchAddContactGroupMemberReq, options ...MethodOptionFunc) (*BatchAddContactGroupMemberResp, *Response, error)
 	mockContactDeleteContactGroupMember                        func(ctx context.Context, request *DeleteContactGroupMemberReq, options ...MethodOptionFunc) (*DeleteContactGroupMemberResp, *Response, error)
 	mockContactGetContactGroupMember                           func(ctx context.Context, request *GetContactGroupMemberReq, options ...MethodOptionFunc) (*GetContactGroupMemberResp, *Response, error)
 	mockContactGetEmployeeTypeEnumList                         func(ctx context.Context, request *GetEmployeeTypeEnumListReq, options ...MethodOptionFunc) (*GetEmployeeTypeEnumListResp, *Response, error)

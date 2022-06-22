@@ -38,7 +38,7 @@ https://godoc.org/github.com/chyroc/lark
 
 ## Support APIs
 
-API Count: 589, Event Count: 93
+API Count: 590, Event Count: 93
 
 <details>
   <summary>
@@ -78,6 +78,7 @@ API Count: 589, Event Count: 93
   - GetContactGroup
   - GetContactGroupList
   - AddContactGroupMember
+  - BatchAddContactGroupMember
   - DeleteContactGroupMember
   - GetContactGroupMember
   - GetEmployeeTypeEnumList
