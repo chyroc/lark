@@ -38,7 +38,7 @@ https://godoc.org/github.com/chyroc/lark
 
 ## 支持的接口
 
-API 总数: 601, 事件总数: 93
+API 总数: 602, 事件总数: 93
 
 <details>
   <summary>
@@ -306,6 +306,7 @@ API 总数: 601, 事件总数: 93
   - CreateWikiNode
   - GetWikiNodeList
   - MoveWikiNode
+  - UpdateWikiNodeTitle
   - GetWikiNode
   - MoveDocsToWiki
   - GetWikiTask
