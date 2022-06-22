@@ -913,6 +913,13 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
+			_, _, err := moduleCli.CopyWikiNode(ctx, &lark.CopyWikiNodeReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
 			_, _, err := moduleCli.GetWikiNode(ctx, &lark.GetWikiNodeReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "failed")
@@ -2440,6 +2447,18 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
+			cli.Mock().MockDriveCopyWikiNode(func(ctx context.Context, request *lark.CopyWikiNodeReq, options ...lark.MethodOptionFunc) (*lark.CopyWikiNodeResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockDriveCopyWikiNode()
+
+			_, _, err := moduleCli.CopyWikiNode(ctx, &lark.CopyWikiNodeReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
 			cli.Mock().MockDriveGetWikiNode(func(ctx context.Context, request *lark.GetWikiNodeReq, options ...lark.MethodOptionFunc) (*lark.GetWikiNodeResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -3604,6 +3623,16 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
+			_, _, err := moduleCli.CopyWikiNode(ctx, &lark.CopyWikiNodeReq{
+				SpaceID:   "x",
+				NodeToken: "x",
+			})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+
 			_, _, err := moduleCli.GetWikiNode(ctx, &lark.GetWikiNodeReq{})
 			as.NotNil(err)
 			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
@@ -4751,6 +4780,16 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		t.Run("", func(t *testing.T) {
 
 			_, _, err := moduleCli.UpdateWikiNodeTitle(ctx, &lark.UpdateWikiNodeTitleReq{
+				SpaceID:   "x",
+				NodeToken: "x",
+			})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.CopyWikiNode(ctx, &lark.CopyWikiNodeReq{
 				SpaceID:   "x",
 				NodeToken: "x",
 			})

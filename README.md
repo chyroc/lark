@@ -38,7 +38,7 @@ https://godoc.org/github.com/chyroc/lark
 
 ## Support APIs
 
-API Count: 602, Event Count: 93
+API Count: 603, Event Count: 93
 
 <details>
   <summary>
@@ -307,6 +307,7 @@ API Count: 602, Event Count: 93
   - GetWikiNodeList
   - MoveWikiNode
   - UpdateWikiNodeTitle
+  - CopyWikiNode
   - GetWikiNode
   - MoveDocsToWiki
   - GetWikiTask

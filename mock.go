@@ -281,6 +281,7 @@ type Mock struct {
 	mockDriveGetWikiNodeList                                   func(ctx context.Context, request *GetWikiNodeListReq, options ...MethodOptionFunc) (*GetWikiNodeListResp, *Response, error)
 	mockDriveMoveWikiNode                                      func(ctx context.Context, request *MoveWikiNodeReq, options ...MethodOptionFunc) (*MoveWikiNodeResp, *Response, error)
 	mockDriveUpdateWikiNodeTitle                               func(ctx context.Context, request *UpdateWikiNodeTitleReq, options ...MethodOptionFunc) (*UpdateWikiNodeTitleResp, *Response, error)
+	mockDriveCopyWikiNode                                      func(ctx context.Context, request *CopyWikiNodeReq, options ...MethodOptionFunc) (*CopyWikiNodeResp, *Response, error)
 	mockDriveGetWikiNode                                       func(ctx context.Context, request *GetWikiNodeReq, options ...MethodOptionFunc) (*GetWikiNodeResp, *Response, error)
 	mockDriveMoveDocsToWiki                                    func(ctx context.Context, request *MoveDocsToWikiReq, options ...MethodOptionFunc) (*MoveDocsToWikiResp, *Response, error)
 	mockDriveGetWikiTask                                       func(ctx context.Context, request *GetWikiTaskReq, options ...MethodOptionFunc) (*GetWikiTaskResp, *Response, error)
