@@ -38,7 +38,7 @@ https://godoc.org/github.com/chyroc/lark
 
 ## 支持的接口
 
-API 总数: 597, 事件总数: 93
+API 总数: 598, 事件总数: 93
 
 <details>
   <summary>
@@ -183,6 +183,7 @@ API 总数: 597, 事件总数: 93
   - GetDocxBlockList
   - CreateDocx
   - GetDocxBlock
+  - CreateDocxBlock
   - SubscribeDriveFile
   - SearchDriveFile
   - GetDriveFileMeta
