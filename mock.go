@@ -155,6 +155,7 @@ type Mock struct {
 	mockDriveGetDocxDocument                                   func(ctx context.Context, request *GetDocxDocumentReq, options ...MethodOptionFunc) (*GetDocxDocumentResp, *Response, error)
 	mockDriveGetDocxDocumentRawContent                         func(ctx context.Context, request *GetDocxDocumentRawContentReq, options ...MethodOptionFunc) (*GetDocxDocumentRawContentResp, *Response, error)
 	mockDriveGetDocxBlockList                                  func(ctx context.Context, request *GetDocxBlockListReq, options ...MethodOptionFunc) (*GetDocxBlockListResp, *Response, error)
+	mockDriveCreateDocx                                        func(ctx context.Context, request *CreateDocxReq, options ...MethodOptionFunc) (*CreateDocxResp, *Response, error)
 	mockDriveSubscribeDriveFile                                func(ctx context.Context, request *SubscribeDriveFileReq, options ...MethodOptionFunc) (*SubscribeDriveFileResp, *Response, error)
 	mockDriveSearchDriveFile                                   func(ctx context.Context, request *SearchDriveFileReq, options ...MethodOptionFunc) (*SearchDriveFileResp, *Response, error)
 	mockDriveGetDriveFileMeta                                  func(ctx context.Context, request *GetDriveFileMetaReq, options ...MethodOptionFunc) (*GetDriveFileMetaResp, *Response, error)

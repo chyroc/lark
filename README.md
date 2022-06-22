@@ -38,7 +38,7 @@ https://godoc.org/github.com/chyroc/lark
 
 ## Support APIs
 
-API Count: 595, Event Count: 93
+API Count: 596, Event Count: 93
 
 <details>
   <summary>
@@ -181,6 +181,7 @@ API Count: 595, Event Count: 93
   - GetDocxDocument
   - GetDocxDocumentRawContent
   - GetDocxBlockList
+  - CreateDocx
   - SubscribeDriveFile
   - SearchDriveFile
   - GetDriveFileMeta
