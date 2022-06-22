@@ -164,6 +164,13 @@ func Test_Task_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
+			_, _, err := moduleCli.GetTaskCommentList(ctx, &lark.GetTaskCommentListReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
 			_, _, err := moduleCli.DeleteTaskComment(ctx, &lark.DeleteTaskCommentReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "failed")
@@ -400,6 +407,18 @@ func Test_Task_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
+			cli.Mock().MockTaskGetTaskCommentList(func(ctx context.Context, request *lark.GetTaskCommentListReq, options ...lark.MethodOptionFunc) (*lark.GetTaskCommentListResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockTaskGetTaskCommentList()
+
+			_, _, err := moduleCli.GetTaskCommentList(ctx, &lark.GetTaskCommentListReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
 			cli.Mock().MockTaskDeleteTaskComment(func(ctx context.Context, request *lark.DeleteTaskCommentReq, options ...lark.MethodOptionFunc) (*lark.DeleteTaskCommentResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -592,6 +611,15 @@ func Test_Task_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
+			_, _, err := moduleCli.GetTaskCommentList(ctx, &lark.GetTaskCommentListReq{
+				TaskID: "x",
+			})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+
 			_, _, err := moduleCli.DeleteTaskComment(ctx, &lark.DeleteTaskCommentReq{
 				TaskID:    "x",
 				CommentID: "x",
@@ -776,6 +804,15 @@ func Test_Task_Sample_Failed(t *testing.T) {
 			_, _, err := moduleCli.GetTaskComment(ctx, &lark.GetTaskCommentReq{
 				TaskID:    "x",
 				CommentID: "x",
+			})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.GetTaskCommentList(ctx, &lark.GetTaskCommentListReq{
+				TaskID: "x",
 			})
 			as.NotNil(err)
 			as.Equal("fake raw request", err.Error())

@@ -38,7 +38,7 @@ https://godoc.org/github.com/chyroc/lark
 
 ## Support APIs
 
-API Count: 593, Event Count: 93
+API Count: 594, Event Count: 93
 
 <details>
   <summary>
@@ -619,6 +619,7 @@ API Count: 593, Event Count: 93
   - UncompleteTask
   - CreateTaskComment
   - GetTaskComment
+  - GetTaskCommentList
   - DeleteTaskComment
   - UpdateTaskComment
 - ACS

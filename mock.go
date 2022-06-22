@@ -574,6 +574,7 @@ type Mock struct {
 	mockTaskUncompleteTask                                     func(ctx context.Context, request *UncompleteTaskReq, options ...MethodOptionFunc) (*UncompleteTaskResp, *Response, error)
 	mockTaskCreateTaskComment                                  func(ctx context.Context, request *CreateTaskCommentReq, options ...MethodOptionFunc) (*CreateTaskCommentResp, *Response, error)
 	mockTaskGetTaskComment                                     func(ctx context.Context, request *GetTaskCommentReq, options ...MethodOptionFunc) (*GetTaskCommentResp, *Response, error)
+	mockTaskGetTaskCommentList                                 func(ctx context.Context, request *GetTaskCommentListReq, options ...MethodOptionFunc) (*GetTaskCommentListResp, *Response, error)
 	mockTaskDeleteTaskComment                                  func(ctx context.Context, request *DeleteTaskCommentReq, options ...MethodOptionFunc) (*DeleteTaskCommentResp, *Response, error)
 	mockTaskUpdateTaskComment                                  func(ctx context.Context, request *UpdateTaskCommentReq, options ...MethodOptionFunc) (*UpdateTaskCommentResp, *Response, error)
 	mockACSGetACSAccessRecordPhoto                             func(ctx context.Context, request *GetACSAccessRecordPhotoReq, options ...MethodOptionFunc) (*GetACSAccessRecordPhotoResp, *Response, error)
