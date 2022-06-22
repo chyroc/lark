@@ -38,14 +38,21 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
-			_, _, err := moduleCli.GetDriveDocxDocument(ctx, &lark.GetDriveDocxDocumentReq{})
+			_, _, err := moduleCli.GetDocxDocument(ctx, &lark.GetDocxDocumentReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "failed")
 		})
 
 		t.Run("", func(t *testing.T) {
 
-			_, _, err := moduleCli.GetDriveDocxDocumentRawContent(ctx, &lark.GetDriveDocxDocumentRawContentReq{})
+			_, _, err := moduleCli.GetDocxDocumentRawContent(ctx, &lark.GetDocxDocumentRawContentReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.GetDocxBlockList(ctx, &lark.GetDocxBlockListReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "failed")
 		})
@@ -884,24 +891,36 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
-			cli.Mock().MockDriveGetDriveDocxDocument(func(ctx context.Context, request *lark.GetDriveDocxDocumentReq, options ...lark.MethodOptionFunc) (*lark.GetDriveDocxDocumentResp, *lark.Response, error) {
+			cli.Mock().MockDriveGetDocxDocument(func(ctx context.Context, request *lark.GetDocxDocumentReq, options ...lark.MethodOptionFunc) (*lark.GetDocxDocumentResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
-			defer cli.Mock().UnMockDriveGetDriveDocxDocument()
+			defer cli.Mock().UnMockDriveGetDocxDocument()
 
-			_, _, err := moduleCli.GetDriveDocxDocument(ctx, &lark.GetDriveDocxDocumentReq{})
+			_, _, err := moduleCli.GetDocxDocument(ctx, &lark.GetDocxDocumentReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "mock-failed")
 		})
 
 		t.Run("", func(t *testing.T) {
 
-			cli.Mock().MockDriveGetDriveDocxDocumentRawContent(func(ctx context.Context, request *lark.GetDriveDocxDocumentRawContentReq, options ...lark.MethodOptionFunc) (*lark.GetDriveDocxDocumentRawContentResp, *lark.Response, error) {
+			cli.Mock().MockDriveGetDocxDocumentRawContent(func(ctx context.Context, request *lark.GetDocxDocumentRawContentReq, options ...lark.MethodOptionFunc) (*lark.GetDocxDocumentRawContentResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
-			defer cli.Mock().UnMockDriveGetDriveDocxDocumentRawContent()
+			defer cli.Mock().UnMockDriveGetDocxDocumentRawContent()
 
-			_, _, err := moduleCli.GetDriveDocxDocumentRawContent(ctx, &lark.GetDriveDocxDocumentRawContentReq{})
+			_, _, err := moduleCli.GetDocxDocumentRawContent(ctx, &lark.GetDocxDocumentRawContentReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			cli.Mock().MockDriveGetDocxBlockList(func(ctx context.Context, request *lark.GetDocxBlockListReq, options ...lark.MethodOptionFunc) (*lark.GetDocxBlockListResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockDriveGetDocxBlockList()
+
+			_, _, err := moduleCli.GetDocxBlockList(ctx, &lark.GetDocxBlockListReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "mock-failed")
 		})
@@ -2330,7 +2349,7 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
-			_, _, err := moduleCli.GetDriveDocxDocument(ctx, &lark.GetDriveDocxDocumentReq{
+			_, _, err := moduleCli.GetDocxDocument(ctx, &lark.GetDocxDocumentReq{
 				DocumentID: "x",
 			})
 			as.NotNil(err)
@@ -2339,7 +2358,16 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
-			_, _, err := moduleCli.GetDriveDocxDocumentRawContent(ctx, &lark.GetDriveDocxDocumentRawContentReq{
+			_, _, err := moduleCli.GetDocxDocumentRawContent(ctx, &lark.GetDocxDocumentRawContentReq{
+				DocumentID: "x",
+			})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.GetDocxBlockList(ctx, &lark.GetDocxBlockListReq{
 				DocumentID: "x",
 			})
 			as.NotNil(err)
@@ -3410,7 +3438,7 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
-			_, _, err := moduleCli.GetDriveDocxDocument(ctx, &lark.GetDriveDocxDocumentReq{
+			_, _, err := moduleCli.GetDocxDocument(ctx, &lark.GetDocxDocumentReq{
 				DocumentID: "x",
 			})
 			as.NotNil(err)
@@ -3419,7 +3447,16 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
-			_, _, err := moduleCli.GetDriveDocxDocumentRawContent(ctx, &lark.GetDriveDocxDocumentRawContentReq{
+			_, _, err := moduleCli.GetDocxDocumentRawContent(ctx, &lark.GetDocxDocumentRawContentReq{
+				DocumentID: "x",
+			})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.GetDocxBlockList(ctx, &lark.GetDocxBlockListReq{
 				DocumentID: "x",
 			})
 			as.NotNil(err)

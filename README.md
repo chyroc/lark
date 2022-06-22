@@ -38,7 +38,7 @@ https://godoc.org/github.com/chyroc/lark
 
 ## Support APIs
 
-API Count: 594, Event Count: 93
+API Count: 595, Event Count: 93
 
 <details>
   <summary>
@@ -178,8 +178,9 @@ API Count: 594, Event Count: 93
   - GetCalendarExchangeBinding
   - DeleteCalendarExchangeBinding
 - Drive
-  - GetDriveDocxDocument
-  - GetDriveDocxDocumentRawContent
+  - GetDocxDocument
+  - GetDocxDocumentRawContent
+  - GetDocxBlockList
   - SubscribeDriveFile
   - SearchDriveFile
   - GetDriveFileMeta

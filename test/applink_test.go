@@ -78,10 +78,10 @@ func Test_AppLink(t *testing.T) {
 
 	t.Run("chat", func(t *testing.T) {
 		as.Equal("https://applink.feishu.cn/client/chat/open?openId=1234567890", lark.AppLink.OpenChat(&lark.OpenChatReq{
-			OpenID: ("1234567890"),
+			OpenID: ptr.String("1234567890"),
 		}))
 		as.Equal("https://applink.feishu.cn/client/chat/open?openChatId=oc_41e7bdf4877cfc316136f4ccf6c32613", lark.AppLink.OpenChat(&lark.OpenChatReq{
-			OpenChatID: "oc_41e7bdf4877cfc316136f4ccf6c32613",
+			OpenChatID: ptr.String("oc_41e7bdf4877cfc316136f4ccf6c32613"),
 		}))
 	})
 
