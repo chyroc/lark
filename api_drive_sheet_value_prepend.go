@@ -23,7 +23,7 @@ import (
 
 // PrependSheetValue
 //
-// 该接口用于根据 spreadsheetToken 和 range 向范围之前增加相应数据的行和相应的数据，相当于数组的插入操作；单次写入不超过5000行，100列，每个格子不超过5万字符。
+// 该接口用于根据 spreadsheetToken 和 range 向范围之前增加相应数据的行和相应的数据, 相当于数组的插入操作；单次写入不超过5000行, 100列, 每个格子不超过5万字符。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uIjMzUjLyIzM14iMyMTN
 func (r *DriveService) PrependSheetValue(ctx context.Context, request *PrependSheetValueReq, options ...MethodOptionFunc) (*PrependSheetValueResp, *Response, error) {
@@ -60,21 +60,14 @@ func (r *Mock) UnMockDrivePrependSheetValue() {
 
 // PrependSheetValueReq ...
 type PrependSheetValueReq struct {
-	SpreadSheetToken string                          `path:"spreadsheetToken" json:"-"` // sheet的token，获取方式见 [在线表格开发指南](https://open.feishu.cn/document/ukTMukTMukTM/uATMzUjLwEzM14CMxMTN/overview)
+	SpreadSheetToken string                          `path:"spreadsheetToken" json:"-"` // sheet的token, 获取方式见 [在线表格开发指南](https://open.feishu.cn/document/ukTMukTMukTM/uATMzUjLwEzM14CMxMTN/overview)
 	ValueRange       *PrependSheetValueReqValueRange `json:"valueRange,omitempty"`      // 值与范围
 }
 
 // PrependSheetValueReqValueRange ...
 type PrependSheetValueReqValueRange struct {
-	Range  string           `json:"range,omitempty"`  // ⁣插入范围，包含 sheetId 与单元格范围两部分，目前支持三种索引方式，详见 [在线表格开发指南](https://open.feishu.cn/document/ukTMukTMukTM/uATMzUjLwEzM14CMxMTN/overview)，range所表示的范围需要大于等于values占用的范围。
-	Values [][]SheetContent `json:"values,omitempty"` // 需要写入的值，如要写入公式、超链接、email、@人等，可详看附录[sheet 支持写入数据类型](https://open.feishu.cn/document/ukTMukTMukTM/ugjN1UjL4YTN14CO2UTN)
-}
-
-// prependSheetValueResp ...
-type prependSheetValueResp struct {
-	Code int64                  `json:"code,omitempty"`
-	Msg  string                 `json:"msg,omitempty"`
-	Data *PrependSheetValueResp `json:"data,omitempty"`
+	Range  string           `json:"range,omitempty"`  // ⁣插入范围, 包含 sheetId 与单元格范围两部分, 目前支持三种索引方式, 详见 [在线表格开发指南](https://open.feishu.cn/document/ukTMukTMukTM/uATMzUjLwEzM14CMxMTN/overview), range所表示的范围需要大于等于values占用的范围。
+	Values [][]SheetContent `json:"values,omitempty"` // 需要写入的值, 如要写入公式、超链接、email、@人等, 可详看附录[sheet 支持写入数据类型](https://open.feishu.cn/document/ukTMukTMukTM/ugjN1UjL4YTN14CO2UTN)
 }
 
 // PrependSheetValueResp ...
@@ -93,4 +86,11 @@ type PrependSheetValueRespUpdates struct {
 	UpdatedColumns   int64  `json:"updatedColumns,omitempty"`   // 写入的列数
 	UpdatedCells     int64  `json:"updatedCells,omitempty"`     // 写入的单元格总数
 	Revision         int64  `json:"revision,omitempty"`         // sheet 的版本号
+}
+
+// prependSheetValueResp ...
+type prependSheetValueResp struct {
+	Code int64                  `json:"code,omitempty"`
+	Msg  string                 `json:"msg,omitempty"`
+	Data *PrependSheetValueResp `json:"data,omitempty"`
 }

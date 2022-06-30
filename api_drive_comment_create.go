@@ -58,16 +58,16 @@ func (r *Mock) UnMockDriveCreateDriveComment() {
 
 // CreateDriveCommentReq ...
 type CreateDriveCommentReq struct {
-	FileType     FileType                        `query:"file_type" json:"-"`      // 文档类型, 示例值："doc", 可选值有: `doc`：文档, `sheet`：表格, `file`：文件, `docx`：新版文档
-	UserIDType   *IDType                         `query:"user_id_type" json:"-"`   // 用户 ID 类型, 示例值："open_id", 可选值有: `open_id`：用户的 open id, `union_id`：用户的 union id, `user_id`：用户的 user id, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
-	FileToken    string                          `path:"file_token" json:"-"`      // 文档token, 示例值："doccnGp4UK1UskrOEJwBXd3****"
-	CommentID    *string                         `json:"comment_id,omitempty"`     // 评论ID（创建新评论可不填；如填写，则视为回复已有评论）, 示例值："6916106822734578184"
-	UserID       *string                         `json:"user_id,omitempty"`        // 用户ID, 示例值："ou_cc19b2bfb93f8a44db4b4d6eab*****"
-	CreateTime   *int64                          `json:"create_time,omitempty"`    // 创建时间, 示例值：1610281603
-	UpdateTime   *int64                          `json:"update_time,omitempty"`    // 更新时间, 示例值：1610281603
-	IsSolved     *bool                           `json:"is_solved,omitempty"`      // 是否已解决, 示例值：false
-	SolvedTime   *int64                          `json:"solved_time,omitempty"`    // 解决评论时间, 示例值：1610281603
-	SolverUserID *string                         `json:"solver_user_id,omitempty"` // 解决评论者的用户ID, 示例值："null"
+	FileToken    string                          `path:"file_token" json:"-"`      // 文档token, 示例值: "doccnGp4UK1UskrOEJwBXd3"
+	FileType     FileType                        `query:"file_type" json:"-"`      // 文档类型, 示例值: "doc", 可选值有: `doc`: 文档, `sheet`: 表格, `file`: 文件, `docx`: 新版文档
+	UserIDType   *IDType                         `query:"user_id_type" json:"-"`   // 用户 ID 类型, 示例值: "open_id", 可选值有: `open_id`: 用户的 open id, `union_id`: 用户的 union id, `user_id`: 用户的 user id, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
+	CommentID    *string                         `json:"comment_id,omitempty"`     // 评论ID（创建新评论可不填；如填写, 则视为回复已有评论）, 示例值: "6916106822734578184"
+	UserID       *string                         `json:"user_id,omitempty"`        // 用户ID, 示例值: "ou_cc19b2bfb93f8a44db4b4d6eab*"
+	CreateTime   *int64                          `json:"create_time,omitempty"`    // 创建时间, 示例值: 1610281603
+	UpdateTime   *int64                          `json:"update_time,omitempty"`    // 更新时间, 示例值: 1610281603
+	IsSolved     *bool                           `json:"is_solved,omitempty"`      // 是否已解决, 示例值: false
+	SolvedTime   *int64                          `json:"solved_time,omitempty"`    // 解决评论时间, 示例值: 1610281603
+	SolverUserID *string                         `json:"solver_user_id,omitempty"` // 解决评论者的用户ID, 示例值: "null"
 	ReplyList    *CreateDriveCommentReqReplyList `json:"reply_list,omitempty"`     // 评论里的回复列表
 }
 
@@ -78,10 +78,10 @@ type CreateDriveCommentReqReplyList struct {
 
 // CreateDriveCommentReqReplyListReply ...
 type CreateDriveCommentReqReplyListReply struct {
-	ReplyID    *string                                     `json:"reply_id,omitempty"`    // 回复ID, 示例值："6916106822734594568"
-	UserID     *string                                     `json:"user_id,omitempty"`     // 用户ID, 示例值："ou_cc19b2bfb93f8a44db4b4d6eab2*****"
-	CreateTime *int64                                      `json:"create_time,omitempty"` // 创建时间, 示例值：1610281603
-	UpdateTime *int64                                      `json:"update_time,omitempty"` // 更新时间, 示例值：1610281603
+	ReplyID    *string                                     `json:"reply_id,omitempty"`    // 回复ID, 示例值: "6916106822734594568"
+	UserID     *string                                     `json:"user_id,omitempty"`     // 用户ID, 示例值: "ou_cc19b2bfb93f8a44db4b4d6eab2*"
+	CreateTime *int64                                      `json:"create_time,omitempty"` // 创建时间, 示例值: 1610281603
+	UpdateTime *int64                                      `json:"update_time,omitempty"` // 更新时间, 示例值: 1610281603
 	Content    *CreateDriveCommentReqReplyListReplyContent `json:"content,omitempty"`     // 回复内容
 }
 
@@ -92,37 +92,30 @@ type CreateDriveCommentReqReplyListReplyContent struct {
 
 // CreateDriveCommentReqReplyListReplyContentElement ...
 type CreateDriveCommentReqReplyListReplyContentElement struct {
-	Type     string                                                     `json:"type,omitempty"`      // 回复的内容元素, 示例值："text_run", 可选值有: `text_run`：普通文本, `docs_link`：at 云文档链接, `person`：at 联系人
+	Type     string                                                     `json:"type,omitempty"`      // 回复的内容元素, 示例值: "text_run", 可选值有: `text_run`: 普通文本, `docs_link`: at 云文档链接, `person`: at 联系人
 	TextRun  *CreateDriveCommentReqReplyListReplyContentElementTextRun  `json:"text_run,omitempty"`  // 文本内容
 	DocsLink *CreateDriveCommentReqReplyListReplyContentElementDocsLink `json:"docs_link,omitempty"` // 文本内容
 	Person   *CreateDriveCommentReqReplyListReplyContentElementPerson   `json:"person,omitempty"`    // 文本内容
 }
 
-// CreateDriveCommentReqReplyListReplyContentElementTextRun ...
-type CreateDriveCommentReqReplyListReplyContentElementTextRun struct {
-	Text string `json:"text,omitempty"` // 回复 普通文本, 示例值："comment text"
-}
-
 // CreateDriveCommentReqReplyListReplyContentElementDocsLink ...
 type CreateDriveCommentReqReplyListReplyContentElementDocsLink struct {
-	URL string `json:"url,omitempty"` // 回复 at云文档, 示例值："https://bytedance.feishu.cn/docs/doccnHh7U87HOFpii5u5G*****"
+	URL string `json:"url,omitempty"` // 回复 at云文档, 示例值: "https://bytedance.feishu.cn/docs/doccnHh7U87HOFpii5u5G*"
 }
 
 // CreateDriveCommentReqReplyListReplyContentElementPerson ...
 type CreateDriveCommentReqReplyListReplyContentElementPerson struct {
-	UserID string `json:"user_id,omitempty"` // 回复 at联系人, 示例值："ou_cc19b2bfb93f8a44db4b4d6eab*****"
+	UserID string `json:"user_id,omitempty"` // 回复 at联系人, 示例值: "ou_cc19b2bfb93f8a44db4b4d6eab*"
 }
 
-// createDriveCommentResp ...
-type createDriveCommentResp struct {
-	Code int64                   `json:"code,omitempty"` // 错误码，非 0 表示失败
-	Msg  string                  `json:"msg,omitempty"`  // 错误描述
-	Data *CreateDriveCommentResp `json:"data,omitempty"`
+// CreateDriveCommentReqReplyListReplyContentElementTextRun ...
+type CreateDriveCommentReqReplyListReplyContentElementTextRun struct {
+	Text string `json:"text,omitempty"` // 回复 普通文本, 示例值: "comment text"
 }
 
 // CreateDriveCommentResp ...
 type CreateDriveCommentResp struct {
-	CommentID    string                           `json:"comment_id,omitempty"`     // 评论ID（创建新评论可不填；如填写，则视为回复已有评论）
+	CommentID    string                           `json:"comment_id,omitempty"`     // 评论ID（创建新评论可不填；如填写, 则视为回复已有评论）
 	UserID       string                           `json:"user_id,omitempty"`        // 用户ID
 	CreateTime   int64                            `json:"create_time,omitempty"`    // 创建时间
 	UpdateTime   int64                            `json:"update_time,omitempty"`    // 更新时间
@@ -153,15 +146,10 @@ type CreateDriveCommentRespReplyListReplyContent struct {
 
 // CreateDriveCommentRespReplyListReplyContentElement ...
 type CreateDriveCommentRespReplyListReplyContentElement struct {
-	Type     string                                                      `json:"type,omitempty"`      // 回复的内容元素, 可选值有: `text_run`：普通文本, `docs_link`：at 云文档链接, `person`：at 联系人
+	Type     string                                                      `json:"type,omitempty"`      // 回复的内容元素, 可选值有: `text_run`: 普通文本, `docs_link`: at 云文档链接, `person`: at 联系人
 	TextRun  *CreateDriveCommentRespReplyListReplyContentElementTextRun  `json:"text_run,omitempty"`  // 文本内容
 	DocsLink *CreateDriveCommentRespReplyListReplyContentElementDocsLink `json:"docs_link,omitempty"` // 文本内容
 	Person   *CreateDriveCommentRespReplyListReplyContentElementPerson   `json:"person,omitempty"`    // 文本内容
-}
-
-// CreateDriveCommentRespReplyListReplyContentElementTextRun ...
-type CreateDriveCommentRespReplyListReplyContentElementTextRun struct {
-	Text string `json:"text,omitempty"` // 回复 普通文本
 }
 
 // CreateDriveCommentRespReplyListReplyContentElementDocsLink ...
@@ -172,4 +160,16 @@ type CreateDriveCommentRespReplyListReplyContentElementDocsLink struct {
 // CreateDriveCommentRespReplyListReplyContentElementPerson ...
 type CreateDriveCommentRespReplyListReplyContentElementPerson struct {
 	UserID string `json:"user_id,omitempty"` // 回复 at联系人
+}
+
+// CreateDriveCommentRespReplyListReplyContentElementTextRun ...
+type CreateDriveCommentRespReplyListReplyContentElementTextRun struct {
+	Text string `json:"text,omitempty"` // 回复 普通文本
+}
+
+// createDriveCommentResp ...
+type createDriveCommentResp struct {
+	Code int64                   `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg  string                  `json:"msg,omitempty"`  // 错误描述
+	Data *CreateDriveCommentResp `json:"data,omitempty"`
 }

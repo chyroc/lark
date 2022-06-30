@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// UpdateApplicationVersion 通过接口来更新应用版本的审核结果：通过后应用可以直接上架；拒绝后则开发者可以看到拒绝理由，并在修改后再次申请发布。
+// UpdateApplicationVersion 通过接口来更新应用版本的审核结果: 通过后应用可以直接上架；拒绝后则开发者可以看到拒绝理由, 并在修改后再次申请发布。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/application-v6/application-app_version/patch
 func (r *ApplicationService) UpdateApplicationVersion(ctx context.Context, request *UpdateApplicationVersionReq, options ...MethodOptionFunc) (*UpdateApplicationVersionResp, *Response, error) {
@@ -57,21 +57,21 @@ func (r *Mock) UnMockApplicationUpdateApplicationVersion() {
 
 // UpdateApplicationVersionReq ...
 type UpdateApplicationVersionReq struct {
-	UserIDType   IDType  `query:"user_id_type" json:"-"`  // 用户 ID 类型, 示例值："open_id", 可选值有: `open_id`：用户的 open id, `union_id`：用户的 union id, `user_id`：用户的 user id, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
-	OperatorID   string  `query:"operator_id" json:"-"`   // 操作者的 open_id, 示例值："ou_4065981088f8ef67a504ba8bd6b24d85"
-	RejectReason *string `query:"reject_reason" json:"-"` // 当修改版本状态为被驳回时，这一项必填, 示例值："拒绝理由"
-	AppID        string  `path:"app_id" json:"-"`         // 应用 id, 示例值："cli_9f3ca975326b501b"
-	VersionID    string  `path:"version_id" json:"-"`     // 唯一标识应用版本的 ID, 示例值："oav_d317f090b7258ad0372aa53963cda70d"
-	Status       *int64  `json:"status,omitempty"`        // 版本状态, 示例值：1, 可选值有: `0`：未知状态, `1`：审核通过, `2`：审核拒绝, `3`：审核中, `4`：未提交审核
-}
-
-// updateApplicationVersionResp ...
-type updateApplicationVersionResp struct {
-	Code int64                         `json:"code,omitempty"` // 错误码，非 0 表示失败
-	Msg  string                        `json:"msg,omitempty"`  // 错误描述
-	Data *UpdateApplicationVersionResp `json:"data,omitempty"`
+	AppID        string  `path:"app_id" json:"-"`         // 应用 id, 示例值: "cli_9f3ca975326b501b"
+	VersionID    string  `path:"version_id" json:"-"`     // 唯一标识应用版本的 ID, 示例值: "oav_d317f090b7258ad0372aa53963cda70d"
+	UserIDType   IDType  `query:"user_id_type" json:"-"`  // 用户 ID 类型, 示例值: "open_id", 可选值有: `open_id`: 用户的 open id, `union_id`: 用户的 union id, `user_id`: 用户的 user id, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
+	OperatorID   string  `query:"operator_id" json:"-"`   // 操作者的 open_id, 示例值: "ou_4065981088f8ef67a504ba8bd6b24d85"
+	RejectReason *string `query:"reject_reason" json:"-"` // 当修改版本状态为被驳回时, 这一项必填, 示例值: "拒绝理由"
+	Status       *int64  `json:"status,omitempty"`        // 版本状态, 示例值: 1, 可选值有: `0`: 未知状态, `1`: 审核通过, `2`: 审核拒绝, `3`: 审核中, `4`: 未提交审核
 }
 
 // UpdateApplicationVersionResp ...
 type UpdateApplicationVersionResp struct {
+}
+
+// updateApplicationVersionResp ...
+type updateApplicationVersionResp struct {
+	Code int64                         `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg  string                        `json:"msg,omitempty"`  // 错误描述
+	Data *UpdateApplicationVersionResp `json:"data,omitempty"`
 }

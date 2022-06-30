@@ -60,20 +60,20 @@ func (r *Mock) UnMockBitableDeleteBitableField() {
 
 // DeleteBitableFieldReq ...
 type DeleteBitableFieldReq struct {
-	AppToken string `path:"app_token" json:"-"` // bitable app token, 示例值："appbcbWCzen6D8dezhoCH2RpMAh"
-	TableID  string `path:"table_id" json:"-"`  // table id, 示例值："tblsRc9GRRXKqhvW"
-	FieldID  string `path:"field_id" json:"-"`  // field id, 示例值："fldPTb0U2y"
-}
-
-// deleteBitableFieldResp ...
-type deleteBitableFieldResp struct {
-	Code int64                   `json:"code,omitempty"` // 错误码，非 0 表示失败
-	Msg  string                  `json:"msg,omitempty"`  // 错误描述
-	Data *DeleteBitableFieldResp `json:"data,omitempty"`
+	AppToken string `path:"app_token" json:"-"` // bitable app token, 示例值: "appbcbWCzen6D8dezhoCH2RpMAh"
+	TableID  string `path:"table_id" json:"-"`  // table id, 示例值: "tblsRc9GRRXKqhvW"
+	FieldID  string `path:"field_id" json:"-"`  // field id, 示例值: "fldPTb0U2y"
 }
 
 // DeleteBitableFieldResp ...
 type DeleteBitableFieldResp struct {
 	FieldID string `json:"field_id,omitempty"` // field id
 	Deleted bool   `json:"deleted,omitempty"`  // 删除标记
+}
+
+// deleteBitableFieldResp ...
+type deleteBitableFieldResp struct {
+	Code int64                   `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg  string                  `json:"msg,omitempty"`  // 错误描述
+	Data *DeleteBitableFieldResp `json:"data,omitempty"`
 }

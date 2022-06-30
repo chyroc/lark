@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// UpdateApplication 更新应用的分组信息（分组会影响应用在工作台中的分类情况，请谨慎更新）
+// UpdateApplication 更新应用的分组信息（分组会影响应用在工作台中的分类情况, 请谨慎更新）
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/application-v6/application/patch
 func (r *ApplicationService) UpdateApplication(ctx context.Context, request *UpdateApplicationReq, options ...MethodOptionFunc) (*UpdateApplicationResp, *Response, error) {
@@ -57,18 +57,18 @@ func (r *Mock) UnMockApplicationUpdateApplication() {
 
 // UpdateApplicationReq ...
 type UpdateApplicationReq struct {
-	Lang             string   `query:"lang" json:"-"`              // 指定返回的语言, 示例值："zh_cn", 可选值有: `zh_cn`：中文, `en_us`：英文, `ja_jp`：日文
-	AppID            string   `path:"app_id" json:"-"`             // 应用的 id, 示例值："cli_9b445f5258795107"
-	CommonCategories []string `json:"common_categories,omitempty"` // 应用分类的国际化描述, 长度范围：`1` ～ `3`
-}
-
-// updateApplicationResp ...
-type updateApplicationResp struct {
-	Code int64                  `json:"code,omitempty"` // 错误码，非 0 表示失败
-	Msg  string                 `json:"msg,omitempty"`  // 错误描述
-	Data *UpdateApplicationResp `json:"data,omitempty"`
+	AppID            string   `path:"app_id" json:"-"`             // 应用的 id, 示例值: "cli_9b445f5258795107"
+	Lang             string   `query:"lang" json:"-"`              // 指定返回的语言, 示例值: "zh_cn", 可选值有: `zh_cn`: 中文, `en_us`: 英文, `ja_jp`: 日文
+	CommonCategories []string `json:"common_categories,omitempty"` // 应用分类的国际化描述, 长度范围: `1` ～ `3`
 }
 
 // UpdateApplicationResp ...
 type UpdateApplicationResp struct {
+}
+
+// updateApplicationResp ...
+type updateApplicationResp struct {
+	Code int64                  `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg  string                 `json:"msg,omitempty"`  // 错误描述
+	Data *UpdateApplicationResp `json:"data,omitempty"`
 }

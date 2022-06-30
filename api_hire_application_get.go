@@ -57,14 +57,7 @@ func (r *Mock) UnMockHireGetHireApplication() {
 
 // GetHireApplicationReq ...
 type GetHireApplicationReq struct {
-	ApplicationID string `path:"application_id" json:"-"` // 投递 ID, 示例值："6949805467799537964"
-}
-
-// getHireApplicationResp ...
-type getHireApplicationResp struct {
-	Code int64                   `json:"code,omitempty"` // 错误码，非 0 表示失败
-	Msg  string                  `json:"msg,omitempty"`  // 错误描述
-	Data *GetHireApplicationResp `json:"data,omitempty"`
+	ApplicationID string `path:"application_id" json:"-"` // 投递 ID, 示例值: "6949805467799537964"
 }
 
 // GetHireApplicationResp ...
@@ -79,33 +72,37 @@ type GetHireApplicationRespApplication struct {
 	TalentID                     string                                                       `json:"talent_id,omitempty"`                       // 候选人 ID
 	ResumeResourceID             string                                                       `json:"resume_resource_id,omitempty"`              // 简历来源 ID
 	Stage                        *GetHireApplicationRespApplicationStage                      `json:"stage,omitempty"`                           // 投递处于的阶段
-	ActiveStatus                 int64                                                        `json:"active_status,omitempty"`                   // 活跃状态, 可选值有: `1`：活跃, `2`：非活跃，即为「已终止」, `3`：全部
-	DeliveryType                 int64                                                        `json:"delivery_type,omitempty"`                   // 投递方式, 可选值有: `1`：HR寻访, `2`：候选人主动投递
+	ActiveStatus                 int64                                                        `json:"active_status,omitempty"`                   // 活跃状态, 可选值有: `1`: 活跃, `2`: 非活跃, 即为「已终止」, `3`: 全部
+	DeliveryType                 int64                                                        `json:"delivery_type,omitempty"`                   // 投递方式, 可选值有: `1`: HR寻访, `2`: 候选人主动投递
 	ResumeSourceInfo             *GetHireApplicationRespApplicationResumeSourceInfo           `json:"resume_source_info,omitempty"`              // 投递来源信息
 	WebsiteResumeSource          *GetHireApplicationRespApplicationWebsiteResumeSource        `json:"website_resume_source,omitempty"`           // 官网投递来源
 	TalentAttachmentResumeID     string                                                       `json:"talent_attachment_resume_id,omitempty"`     // 简历附件 ID
 	CreateTime                   string                                                       `json:"create_time,omitempty"`                     // 创建时间
 	ModifyTime                   string                                                       `json:"modify_time,omitempty"`                     // 修改时间
 	StageTimeList                []*GetHireApplicationRespApplicationStageTime                `json:"stage_time_list,omitempty"`                 // 阶段变更时间列表
-	TerminationType              int64                                                        `json:"termination_type,omitempty"`                // 终止原因的类型, 可选值有: `1`：我们拒绝了候选人, `22`：候选人拒绝了我们, `27`：其他
+	TerminationType              int64                                                        `json:"termination_type,omitempty"`                // 终止原因的类型, 可选值有: `1`: 我们拒绝了候选人, `22`: 候选人拒绝了我们, `27`: 其他
 	TerminationReasonList        []string                                                     `json:"termination_reason_list,omitempty"`         // 终止的具体原因的id列表
 	TerminationReasonNote        string                                                       `json:"termination_reason_note,omitempty"`         // 终止备注
 	ApplicationPreferredCityList []*GetHireApplicationRespApplicationApplicationPreferredCity `json:"application_preferred_city_list,omitempty"` // 意向投递城市列表
 }
 
-// GetHireApplicationRespApplicationStage ...
-type GetHireApplicationRespApplicationStage struct {
-	ID     string `json:"id,omitempty"`      // 阶段 ID
-	ZhName string `json:"zh_name,omitempty"` // 阶段中文名字
-	EnName string `json:"en_name,omitempty"` // 英文名
-	Type   int64  `json:"type,omitempty"`    // 阶段类型, 可选值有: `1`：筛选型, `2`：评估型, `3`：笔试型, `4`：面试型, `5`：Offer型, `6`：待入职, `7`：已入职, `8`：其它类型, `255`：系统默认
+// GetHireApplicationRespApplicationApplicationPreferredCity ...
+type GetHireApplicationRespApplicationApplicationPreferredCity struct {
+	Code string                                                         `json:"code,omitempty"` // 编码
+	Name *GetHireApplicationRespApplicationApplicationPreferredCityName `json:"name,omitempty"` // 名称
+}
+
+// GetHireApplicationRespApplicationApplicationPreferredCityName ...
+type GetHireApplicationRespApplicationApplicationPreferredCityName struct {
+	ZhCn string `json:"zh_cn,omitempty"` // 中文
+	EnUs string `json:"en_us,omitempty"` // 英文
 }
 
 // GetHireApplicationRespApplicationResumeSourceInfo ...
 type GetHireApplicationRespApplicationResumeSourceInfo struct {
 	ID               string                                                 `json:"id,omitempty"`                 // 投递来源 ID
 	Name             *GetHireApplicationRespApplicationResumeSourceInfoName `json:"name,omitempty"`               // 投递来源名称
-	ResumeSourceType int64                                                  `json:"resume_source_type,omitempty"` // 投递来源类型, 可选值有: `10000`：内推, `10001`：猎头, `10002`：内部来源, `10003`：第三方招聘网站, `10004`：社交媒体, `10005`：线下来源, `10006`：其他, `10007`：外部推荐
+	ResumeSourceType int64                                                  `json:"resume_source_type,omitempty"` // 投递来源类型, 可选值有: `10000`: 内推, `10001`: 猎头, `10002`: 内部来源, `10003`: 第三方招聘网站, `10004`: 社交媒体, `10005`: 线下来源, `10006`: 其他, `10007`: 外部推荐
 }
 
 // GetHireApplicationRespApplicationResumeSourceInfoName ...
@@ -114,17 +111,26 @@ type GetHireApplicationRespApplicationResumeSourceInfoName struct {
 	EnUs string `json:"en_us,omitempty"` // 英文
 }
 
+// GetHireApplicationRespApplicationStage ...
+type GetHireApplicationRespApplicationStage struct {
+	ID     string `json:"id,omitempty"`      // 阶段 ID
+	ZhName string `json:"zh_name,omitempty"` // 阶段中文名字
+	EnName string `json:"en_name,omitempty"` // 英文名
+	Type   int64  `json:"type,omitempty"`    // 阶段类型, 可选值有: `1`: 筛选型, `2`: 评估型, `3`: 笔试型, `4`: 面试型, `5`: Offer型, `6`: 待入职, `7`: 已入职, `8`: 其它类型, `255`: 系统默认
+}
+
+// GetHireApplicationRespApplicationStageTime ...
+type GetHireApplicationRespApplicationStageTime struct {
+	StageID   string `json:"stage_id,omitempty"`   // 阶段 ID
+	EnterTime string `json:"enter_time,omitempty"` // 最近一次进入该阶段的时间
+	ExitTime  string `json:"exit_time,omitempty"`  // 最后一次离开时间, 如当前在该阶段, 则为空
+}
+
 // GetHireApplicationRespApplicationWebsiteResumeSource ...
 type GetHireApplicationRespApplicationWebsiteResumeSource struct {
 	WebsiteID   string                                                           `json:"website_id,omitempty"`   // 官网站点 ID
 	WebsiteName *GetHireApplicationRespApplicationWebsiteResumeSourceWebsiteName `json:"website_name,omitempty"` // 官网站点名称
 	Channel     *GetHireApplicationRespApplicationWebsiteResumeSourceChannel     `json:"channel,omitempty"`      // 推广渠道来源
-}
-
-// GetHireApplicationRespApplicationWebsiteResumeSourceWebsiteName ...
-type GetHireApplicationRespApplicationWebsiteResumeSourceWebsiteName struct {
-	ZhCn string `json:"zh_cn,omitempty"` // 中文
-	EnUs string `json:"en_us,omitempty"` // 英文
 }
 
 // GetHireApplicationRespApplicationWebsiteResumeSourceChannel ...
@@ -139,21 +145,15 @@ type GetHireApplicationRespApplicationWebsiteResumeSourceChannelChannelName stru
 	EnUs string `json:"en_us,omitempty"` // 英文
 }
 
-// GetHireApplicationRespApplicationStageTime ...
-type GetHireApplicationRespApplicationStageTime struct {
-	StageID   string `json:"stage_id,omitempty"`   // 阶段 ID
-	EnterTime string `json:"enter_time,omitempty"` // 最近一次进入该阶段的时间
-	ExitTime  string `json:"exit_time,omitempty"`  // 最后一次离开时间，如当前在该阶段，则为空
-}
-
-// GetHireApplicationRespApplicationApplicationPreferredCity ...
-type GetHireApplicationRespApplicationApplicationPreferredCity struct {
-	Code string                                                         `json:"code,omitempty"` // 编码
-	Name *GetHireApplicationRespApplicationApplicationPreferredCityName `json:"name,omitempty"` // 名称
-}
-
-// GetHireApplicationRespApplicationApplicationPreferredCityName ...
-type GetHireApplicationRespApplicationApplicationPreferredCityName struct {
+// GetHireApplicationRespApplicationWebsiteResumeSourceWebsiteName ...
+type GetHireApplicationRespApplicationWebsiteResumeSourceWebsiteName struct {
 	ZhCn string `json:"zh_cn,omitempty"` // 中文
 	EnUs string `json:"en_us,omitempty"` // 英文
+}
+
+// getHireApplicationResp ...
+type getHireApplicationResp struct {
+	Code int64                   `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg  string                  `json:"msg,omitempty"`  // 错误描述
+	Data *GetHireApplicationResp `json:"data,omitempty"`
 }

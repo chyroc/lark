@@ -23,7 +23,7 @@ import (
 
 // GetDriveCommentList 通过分页方式获取云文档中的全文评论列表。
 //
-// 注意：该接口仅可获取在线文档的全文评论，不支持获取局部评论或者在线表格中的评论。
+// 注意: 该接口仅可获取在线文档的全文评论, 不支持获取局部评论或者在线表格中的评论。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file-comment/list
 func (r *DriveService) GetDriveCommentList(ctx context.Context, request *GetDriveCommentListReq, options ...MethodOptionFunc) (*GetDriveCommentListResp, *Response, error) {
@@ -60,31 +60,24 @@ func (r *Mock) UnMockDriveGetDriveCommentList() {
 
 // GetDriveCommentListReq ...
 type GetDriveCommentListReq struct {
-	FileType   FileType `query:"file_type" json:"-"`    // 文档类型, 示例值："doc", 可选值有: `doc`：文档, `sheet`：表格, `file`：文件, `docx`：新版文档
-	UserIDType *IDType  `query:"user_id_type" json:"-"` // 用户 ID 类型, 示例值："open_id", 可选值有: `open_id`：用户的 open id, `union_id`：用户的 union id, `user_id`：用户的 user id, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
-	IsSolved   *bool    `query:"is_solved" json:"-"`    // 是否已解决（可选）, 示例值：false
-	PageToken  *string  `query:"page_token" json:"-"`   // 分页标记，第一次请求不填，表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token，下次遍历可采用该 page_token 获取查询结果, 示例值："6916106822734578184"
-	PageSize   *int64   `query:"page_size" json:"-"`    // 分页大小, 示例值：10, 最大值：`100`
-	FileToken  string   `path:"file_token" json:"-"`    // 文档token, 示例值："doccnHh7U87HOFpii5u5G*****"
-}
-
-// getDriveCommentListResp ...
-type getDriveCommentListResp struct {
-	Code int64                    `json:"code,omitempty"` // 错误码，非 0 表示失败
-	Msg  string                   `json:"msg,omitempty"`  // 错误描述
-	Data *GetDriveCommentListResp `json:"data,omitempty"`
+	FileToken  string   `path:"file_token" json:"-"`    // 文档token, 示例值: "doccnHh7U87HOFpii5u5G*"
+	FileType   FileType `query:"file_type" json:"-"`    // 文档类型, 示例值: "doc", 可选值有: `doc`: 文档, `sheet`: 表格, `file`: 文件, `docx`: 新版文档
+	UserIDType *IDType  `query:"user_id_type" json:"-"` // 用户 ID 类型, 示例值: "open_id", 可选值有: `open_id`: 用户的 open id, `union_id`: 用户的 union id, `user_id`: 用户的 user id, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
+	IsSolved   *bool    `query:"is_solved" json:"-"`    // 是否已解决（可选）, 示例值: false
+	PageToken  *string  `query:"page_token" json:"-"`   // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果, 示例值: "6916106822734578184"
+	PageSize   *int64   `query:"page_size" json:"-"`    // 分页大小, 示例值: 10, 最大值: `100`
 }
 
 // GetDriveCommentListResp ...
 type GetDriveCommentListResp struct {
 	HasMore   bool                           `json:"has_more,omitempty"`   // 是否还有更多项
-	PageToken string                         `json:"page_token,omitempty"` // 分页标记，当 has_more 为 true 时，会同时返回新的 page_token，否则不返回 page_token
+	PageToken string                         `json:"page_token,omitempty"` // 分页标记, 当 has_more 为 true 时, 会同时返回新的 page_token, 否则不返回 page_token
 	Items     []*GetDriveCommentListRespItem `json:"items,omitempty"`      // 评论列表
 }
 
 // GetDriveCommentListRespItem ...
 type GetDriveCommentListRespItem struct {
-	CommentID    string                                `json:"comment_id,omitempty"`     // 评论ID（创建新评论可不填；如填写，则视为回复已有评论）
+	CommentID    string                                `json:"comment_id,omitempty"`     // 评论ID（创建新评论可不填；如填写, 则视为回复已有评论）
 	UserID       string                                `json:"user_id,omitempty"`        // 用户ID
 	CreateTime   int64                                 `json:"create_time,omitempty"`    // 创建时间
 	UpdateTime   int64                                 `json:"update_time,omitempty"`    // 更新时间
@@ -115,15 +108,10 @@ type GetDriveCommentListRespItemReplyListReplyContent struct {
 
 // GetDriveCommentListRespItemReplyListReplyContentElement ...
 type GetDriveCommentListRespItemReplyListReplyContentElement struct {
-	Type     string                                                           `json:"type,omitempty"`      // 回复的内容元素, 可选值有: `text_run`：普通文本, `docs_link`：at 云文档链接, `person`：at 联系人
+	Type     string                                                           `json:"type,omitempty"`      // 回复的内容元素, 可选值有: `text_run`: 普通文本, `docs_link`: at 云文档链接, `person`: at 联系人
 	TextRun  *GetDriveCommentListRespItemReplyListReplyContentElementTextRun  `json:"text_run,omitempty"`  // 文本内容
 	DocsLink *GetDriveCommentListRespItemReplyListReplyContentElementDocsLink `json:"docs_link,omitempty"` // 文本内容
 	Person   *GetDriveCommentListRespItemReplyListReplyContentElementPerson   `json:"person,omitempty"`    // 文本内容
-}
-
-// GetDriveCommentListRespItemReplyListReplyContentElementTextRun ...
-type GetDriveCommentListRespItemReplyListReplyContentElementTextRun struct {
-	Text string `json:"text,omitempty"` // 回复 普通文本
 }
 
 // GetDriveCommentListRespItemReplyListReplyContentElementDocsLink ...
@@ -134,4 +122,16 @@ type GetDriveCommentListRespItemReplyListReplyContentElementDocsLink struct {
 // GetDriveCommentListRespItemReplyListReplyContentElementPerson ...
 type GetDriveCommentListRespItemReplyListReplyContentElementPerson struct {
 	UserID string `json:"user_id,omitempty"` // 回复 at联系人
+}
+
+// GetDriveCommentListRespItemReplyListReplyContentElementTextRun ...
+type GetDriveCommentListRespItemReplyListReplyContentElementTextRun struct {
+	Text string `json:"text,omitempty"` // 回复 普通文本
+}
+
+// getDriveCommentListResp ...
+type getDriveCommentListResp struct {
+	Code int64                    `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg  string                   `json:"msg,omitempty"`  // 错误描述
+	Data *GetDriveCommentListResp `json:"data,omitempty"`
 }

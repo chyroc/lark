@@ -58,19 +58,19 @@ func (r *Mock) UnMockDriveMoveDriveFile() {
 
 // MoveDriveFileReq ...
 type MoveDriveFileReq struct {
-	FileToken   string  `path:"file_token" json:"-"`    // 需要移动的文件token, 示例值："boxbcj55reGXM6YAS3C7Z4GWKNg"
-	Type        *string `json:"type,omitempty"`         // 文件类型，如果该值为空或者与文件实际类型不匹配，接口会返回失败。, 示例值："file", 可选值有: `file`：普通文件类型, `docx`：新版文档类型, `bitable`：多维表格类型, `doc`：文档类型, `sheet`：电子表格类型, `mindnote`：思维笔记类型, `folder`：文件夹类型
-	FolderToken *string `json:"folder_token,omitempty"` // 目标文件夹token, 示例值："fldbcRho46N6MQ3mJkOAuPUZR9d"
-}
-
-// moveDriveFileResp ...
-type moveDriveFileResp struct {
-	Code int64              `json:"code,omitempty"` // 错误码，非 0 表示失败
-	Msg  string             `json:"msg,omitempty"`  // 错误描述
-	Data *MoveDriveFileResp `json:"data,omitempty"`
+	FileToken   string  `path:"file_token" json:"-"`    // 需要移动的文件token, 示例值: "boxcnrHpsg1QDqXAAAyachabcef"
+	Type        *string `json:"type,omitempty"`         // 文件类型, 如果该值为空或者与文件实际类型不匹配, 接口会返回失败, 示例值: "file", 可选值有: `file`: 普通文件类型, `docx`: 新版文档类型, `bitable`: 多维表格类型, `doc`: 文档类型, `sheet`: 电子表格类型, `mindnote`: 思维笔记类型, `folder`: 文件夹类型
+	FolderToken *string `json:"folder_token,omitempty"` // 目标文件夹token, 示例值: "fldbcO1UuPz8VwnpPx5a92abcef"
 }
 
 // MoveDriveFileResp ...
 type MoveDriveFileResp struct {
-	TaskID string `json:"task_id,omitempty"` // 异步任务id，移动文件夹时返回
+	TaskID string `json:"task_id,omitempty"` // 异步任务id, 移动文件夹时返回
+}
+
+// moveDriveFileResp ...
+type moveDriveFileResp struct {
+	Code int64              `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg  string             `json:"msg,omitempty"`  // 错误描述
+	Data *MoveDriveFileResp `json:"data,omitempty"`
 }

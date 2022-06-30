@@ -58,16 +58,16 @@ func (r *Mock) UnMockHelpdeskDeleteHelpdeskAgentSchedule() {
 
 // DeleteHelpdeskAgentScheduleReq ...
 type DeleteHelpdeskAgentScheduleReq struct {
-	AgentID string `path:"agent_id" json:"-"` // agent user id, 示例值："12345"
-}
-
-// deleteHelpdeskAgentScheduleResp ...
-type deleteHelpdeskAgentScheduleResp struct {
-	Code int64                            `json:"code,omitempty"` // 错误码，非 0 表示失败
-	Msg  string                           `json:"msg,omitempty"`  // 错误描述
-	Data *DeleteHelpdeskAgentScheduleResp `json:"data,omitempty"`
+	AgentID string `path:"agent_id" json:"-"` // agent user id, 示例值: "12345"
 }
 
 // DeleteHelpdeskAgentScheduleResp ...
 type DeleteHelpdeskAgentScheduleResp struct {
+}
+
+// deleteHelpdeskAgentScheduleResp ...
+type deleteHelpdeskAgentScheduleResp struct {
+	Code int64                            `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg  string                           `json:"msg,omitempty"`  // 错误描述
+	Data *DeleteHelpdeskAgentScheduleResp `json:"data,omitempty"`
 }

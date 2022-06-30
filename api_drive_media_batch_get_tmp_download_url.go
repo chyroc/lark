@@ -21,9 +21,9 @@ import (
 	"context"
 )
 
-// BatchGetDriveMediaTmpDownloadURL 通过file_token获取素材临时下载链接，链接时效性是24小时，过期失效。
+// BatchGetDriveMediaTmpDownloadURL 通过file_token获取素材临时下载链接, 链接时效性是24小时, 过期失效。
 //
-// 该接口不支持太高的并发，且调用频率上限为5QPS
+// 该接口不支持太高的并发, 且调用频率上限为5QPS
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/media/batch_get_tmp_download_url
 func (r *DriveService) BatchGetDriveMediaTmpDownloadURL(ctx context.Context, request *BatchGetDriveMediaTmpDownloadURLReq, options ...MethodOptionFunc) (*BatchGetDriveMediaTmpDownloadURLResp, *Response, error) {
@@ -60,15 +60,8 @@ func (r *Mock) UnMockDriveBatchGetDriveMediaTmpDownloadURL() {
 
 // BatchGetDriveMediaTmpDownloadURLReq ...
 type BatchGetDriveMediaTmpDownloadURLReq struct {
-	FileTokens []string `query:"file_tokens" json:"-"` // 文件标识符列表, 示例值：boxcnabcdefg
-	Extra      *string  `query:"extra" json:"-"`       // 拓展信息(可选), 示例值："[请参考-上传点类型及对应Extra说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/media/introduction)"
-}
-
-// batchGetDriveMediaTmpDownloadURLResp ...
-type batchGetDriveMediaTmpDownloadURLResp struct {
-	Code int64                                 `json:"code,omitempty"` // 错误码，非 0 表示失败
-	Msg  string                                `json:"msg,omitempty"`  // 错误描述
-	Data *BatchGetDriveMediaTmpDownloadURLResp `json:"data,omitempty"`
+	FileTokens []string `query:"file_tokens" json:"-"` // 文件标识符列表, 示例值: boxcnrHpsg1QDqXAAAyachabcef
+	Extra      *string  `query:"extra" json:"-"`       // 拓展信息(可选), 示例值: "[请参考-上传点类型及对应Extra说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/media/introduction)"
 }
 
 // BatchGetDriveMediaTmpDownloadURLResp ...
@@ -80,4 +73,11 @@ type BatchGetDriveMediaTmpDownloadURLResp struct {
 type BatchGetDriveMediaTmpDownloadURLRespTmpDownloadURL struct {
 	FileToken      string `json:"file_token,omitempty"`       // 文件标识符
 	TmpDownloadURL string `json:"tmp_download_url,omitempty"` // 文件临时下载链接
+}
+
+// batchGetDriveMediaTmpDownloadURLResp ...
+type batchGetDriveMediaTmpDownloadURLResp struct {
+	Code int64                                 `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg  string                                `json:"msg,omitempty"`  // 错误描述
+	Data *BatchGetDriveMediaTmpDownloadURLResp `json:"data,omitempty"`
 }

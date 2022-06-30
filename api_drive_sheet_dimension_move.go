@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// MoveSheetDimension 该接口用于移动行列，行列被移动到目标位置后，原本在目标位置的行列会对应右移或下移。
+// MoveSheetDimension 该接口用于移动行列, 行列被移动到目标位置后, 原本在目标位置的行列会对应右移或下移。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/sheets-v3/spreadsheet-sheet/move_dimension
 func (r *DriveService) MoveSheetDimension(ctx context.Context, request *MoveSheetDimensionReq, options ...MethodOptionFunc) (*MoveSheetDimensionResp, *Response, error) {
@@ -58,26 +58,26 @@ func (r *Mock) UnMockDriveMoveSheetDimension() {
 
 // MoveSheetDimensionReq ...
 type MoveSheetDimensionReq struct {
-	SpreadSheetToken string                       `path:"spreadsheet_token" json:"-"`  // 表格 token, 示例值："shtcnmBA\*****yGehy8"
-	SheetID          string                       `path:"sheet_id" json:"-"`           // 子表 id, 示例值："0b\**12"
+	SpreadSheetToken string                       `path:"spreadsheet_token" json:"-"`  // 表格 token, 示例值: "shtcnmBA\*yGehy8"
+	SheetID          string                       `path:"sheet_id" json:"-"`           // 子表 id, 示例值: "0b\**12"
 	Source           *MoveSheetDimensionReqSource `json:"source,omitempty"`            // 移动源位置参数
-	DestinationIndex *int64                       `json:"destination_index,omitempty"` // 移动的目标位置行或者列号, 示例值：4
+	DestinationIndex *int64                       `json:"destination_index,omitempty"` // 移动的目标位置行或者列号, 示例值: 4
 }
 
 // MoveSheetDimensionReqSource ...
 type MoveSheetDimensionReqSource struct {
-	MajorDimension *string `json:"major_dimension,omitempty"` // 操作行还是列，取值：ROWS、COLUMNS, 示例值："ROWS"
-	StartIndex     *int64  `json:"start_index,omitempty"`     // 起始行或者列号, 示例值：0
-	EndIndex       *int64  `json:"end_index,omitempty"`       // 结束行或者列号, 示例值：1
-}
-
-// moveSheetDimensionResp ...
-type moveSheetDimensionResp struct {
-	Code int64                   `json:"code,omitempty"` // 错误码，非 0 表示失败
-	Msg  string                  `json:"msg,omitempty"`  // 错误描述
-	Data *MoveSheetDimensionResp `json:"data,omitempty"`
+	MajorDimension *string `json:"major_dimension,omitempty"` // 操作行还是列, 取值: ROWS、COLUMNS, 示例值: "ROWS"
+	StartIndex     *int64  `json:"start_index,omitempty"`     // 起始行或者列号, 示例值: 0
+	EndIndex       *int64  `json:"end_index,omitempty"`       // 结束行或者列号, 示例值: 1
 }
 
 // MoveSheetDimensionResp ...
 type MoveSheetDimensionResp struct {
+}
+
+// moveSheetDimensionResp ...
+type moveSheetDimensionResp struct {
+	Code int64                   `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg  string                  `json:"msg,omitempty"`  // 错误描述
+	Data *MoveSheetDimensionResp `json:"data,omitempty"`
 }

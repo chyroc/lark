@@ -58,16 +58,16 @@ func (r *Mock) UnMockHelpdeskDeleteHelpdeskFAQ() {
 
 // DeleteHelpdeskFAQReq ...
 type DeleteHelpdeskFAQReq struct {
-	ID string `path:"id" json:"-"` // id, 示例值："12345"
-}
-
-// deleteHelpdeskFAQResp ...
-type deleteHelpdeskFAQResp struct {
-	Code int64                  `json:"code,omitempty"` // 错误码，非 0 表示失败
-	Msg  string                 `json:"msg,omitempty"`  // 错误描述
-	Data *DeleteHelpdeskFAQResp `json:"data,omitempty"`
+	ID string `path:"id" json:"-"` // id, 示例值: "12345"
 }
 
 // DeleteHelpdeskFAQResp ...
 type DeleteHelpdeskFAQResp struct {
+}
+
+// deleteHelpdeskFAQResp ...
+type deleteHelpdeskFAQResp struct {
+	Code int64                  `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg  string                 `json:"msg,omitempty"`  // 错误描述
+	Data *DeleteHelpdeskFAQResp `json:"data,omitempty"`
 }

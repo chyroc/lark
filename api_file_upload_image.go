@@ -22,7 +22,7 @@ import (
 	"io"
 )
 
-// UploadImage 上传图片接口，可以上传 JPEG、PNG、WEBP、GIF、TIFF、BMP、ICO格式图片
+// UploadImage 上传图片接口, 可以上传 JPEG、PNG、WEBP、GIF、TIFF、BMP、ICO格式图片
 //
 // 注意事项:
 // - 需要开启[机器人能力](https://open.feishu.cn/document/home/develop-a-bot-in-5-minutes/create-an-app)
@@ -63,18 +63,18 @@ func (r *Mock) UnMockFileUploadImage() {
 
 // UploadImageReq ...
 type UploadImageReq struct {
-	ImageType ImageType `json:"image_type,omitempty"` // 图片类型, 示例值："message", 可选值有: `message`：用于发送消息, `avatar`：用于设置头像
-	Image     io.Reader `json:"image,omitempty"`      // 图片内容, 示例值：二进制文件
-}
-
-// uploadImageResp ...
-type uploadImageResp struct {
-	Code int64            `json:"code,omitempty"` // 错误码，非 0 表示失败
-	Msg  string           `json:"msg,omitempty"`  // 错误描述
-	Data *UploadImageResp `json:"data,omitempty"`
+	ImageType ImageType `json:"image_type,omitempty"` // 图片类型, 示例值: "message", 可选值有: `message`: 用于发送消息, `avatar`: 用于设置头像
+	Image     io.Reader `json:"image,omitempty"`      // 图片内容, 示例值: 二进制文件
 }
 
 // UploadImageResp ...
 type UploadImageResp struct {
 	ImageKey string `json:"image_key,omitempty"` // 图片的key
+}
+
+// uploadImageResp ...
+type uploadImageResp struct {
+	Code int64            `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg  string           `json:"msg,omitempty"`  // 错误描述
+	Data *UploadImageResp `json:"data,omitempty"`
 }

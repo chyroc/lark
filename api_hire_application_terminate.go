@@ -57,19 +57,19 @@ func (r *Mock) UnMockHireTerminateHireApplication() {
 
 // TerminateHireApplicationReq ...
 type TerminateHireApplicationReq struct {
-	ApplicationID         string   `path:"application_id" json:"-"`           // 投递ID, 示例值："12312312312"
-	TerminationType       int64    `json:"termination_type,omitempty"`        // 终止原因的类型, 示例值：1, 可选值有: `1`：我们拒绝了候选人, `22`：候选人拒绝了我们, `27`：其他
-	TerminationReasonList []string `json:"termination_reason_list,omitempty"` // 终止的具体原因的id列表, 示例值：["6891560630172518670"]
-	TerminationReasonNote *string  `json:"termination_reason_note,omitempty"` // 终止备注, 示例值："不符合期望"
-}
-
-// terminateHireApplicationResp ...
-type terminateHireApplicationResp struct {
-	Code int64                         `json:"code,omitempty"` // 错误码，非 0 表示失败
-	Msg  string                        `json:"msg,omitempty"`  // 错误描述
-	Data *TerminateHireApplicationResp `json:"data,omitempty"`
+	ApplicationID         string   `path:"application_id" json:"-"`           // 投递ID, 示例值: "12312312312"
+	TerminationType       int64    `json:"termination_type,omitempty"`        // 终止原因的类型, 示例值: 1, 可选值有: `1`: 我们拒绝了候选人, `22`: 候选人拒绝了我们, `27`: 其他
+	TerminationReasonList []string `json:"termination_reason_list,omitempty"` // 终止的具体原因的id列表, 示例值: ["6891560630172518670"]
+	TerminationReasonNote *string  `json:"termination_reason_note,omitempty"` // 终止备注, 示例值: "不符合期望"
 }
 
 // TerminateHireApplicationResp ...
 type TerminateHireApplicationResp struct {
+}
+
+// terminateHireApplicationResp ...
+type terminateHireApplicationResp struct {
+	Code int64                         `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg  string                        `json:"msg,omitempty"`  // 错误描述
+	Data *TerminateHireApplicationResp `json:"data,omitempty"`
 }

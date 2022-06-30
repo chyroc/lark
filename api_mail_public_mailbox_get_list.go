@@ -57,21 +57,14 @@ func (r *Mock) UnMockMailGetPublicMailboxList() {
 
 // GetPublicMailboxListReq ...
 type GetPublicMailboxListReq struct {
-	PageToken *string `query:"page_token" json:"-"` // 分页标记，第一次请求不填，表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token，下次遍历可采用该 page_token 获取查询结果, 示例值："xxx"
-	PageSize  *int64  `query:"page_size" json:"-"`  // 分页大小, 示例值：10, 最大值：`200`
-}
-
-// getPublicMailboxListResp ...
-type getPublicMailboxListResp struct {
-	Code int64                     `json:"code,omitempty"` // 错误码，非 0 表示失败
-	Msg  string                    `json:"msg,omitempty"`  // 错误描述
-	Data *GetPublicMailboxListResp `json:"data,omitempty"`
+	PageToken *string `query:"page_token" json:"-"` // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果, 示例值: "xxx"
+	PageSize  *int64  `query:"page_size" json:"-"`  // 分页大小, 示例值: 10, 最大值: `200`
 }
 
 // GetPublicMailboxListResp ...
 type GetPublicMailboxListResp struct {
 	HasMore   bool                            `json:"has_more,omitempty"`   // 是否还有更多项
-	PageToken string                          `json:"page_token,omitempty"` // 分页标记，当 has_more 为 true 时，会同时返回新的 page_token，否则不返回 page_token
+	PageToken string                          `json:"page_token,omitempty"` // 分页标记, 当 has_more 为 true 时, 会同时返回新的 page_token, 否则不返回 page_token
 	Items     []*GetPublicMailboxListRespItem `json:"items,omitempty"`      // 公共邮箱列表
 }
 
@@ -80,4 +73,11 @@ type GetPublicMailboxListRespItem struct {
 	PublicMailboxID string `json:"public_mailbox_id,omitempty"` // 公共邮箱唯一标识
 	Email           string `json:"email,omitempty"`             // 公共邮箱地址
 	Name            string `json:"name,omitempty"`              // 公共邮箱名称
+}
+
+// getPublicMailboxListResp ...
+type getPublicMailboxListResp struct {
+	Code int64                     `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg  string                    `json:"msg,omitempty"`  // 错误描述
+	Data *GetPublicMailboxListResp `json:"data,omitempty"`
 }

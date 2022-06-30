@@ -58,17 +58,17 @@ func (r *Mock) UnMockTaskDeleteTaskCollaborator() {
 
 // DeleteTaskCollaboratorReq ...
 type DeleteTaskCollaboratorReq struct {
-	TaskID         string `path:"task_id" json:"-"`         // 任务 ID, 示例值："83912691-2e43-47fc-94a4-d512e03984fa"
-	CollaboratorID string `path:"collaborator_id" json:"-"` // 任务协作者 ID（Open ID）, 示例值："ou_99e1a581b36ecc4862cbfbce123f346a"
-}
-
-// deleteTaskCollaboratorResp ...
-type deleteTaskCollaboratorResp struct {
-	Code int64                       `json:"code,omitempty"` // 错误码，非 0 表示失败
-	Msg  string                      `json:"msg,omitempty"`  // 错误描述
-	Data *DeleteTaskCollaboratorResp `json:"data,omitempty"`
+	TaskID         string `path:"task_id" json:"-"`         // 任务 ID, 示例值: "83912691-2e43-47fc-94a4-d512e03984fa"
+	CollaboratorID string `path:"collaborator_id" json:"-"` // 任务执行者 ID（Open ID）, 示例值: "ou_99e1a581b36ecc4862cbfbce123f346a"
 }
 
 // DeleteTaskCollaboratorResp ...
 type DeleteTaskCollaboratorResp struct {
+}
+
+// deleteTaskCollaboratorResp ...
+type deleteTaskCollaboratorResp struct {
+	Code int64                       `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg  string                      `json:"msg,omitempty"`  // 错误描述
+	Data *DeleteTaskCollaboratorResp `json:"data,omitempty"`
 }

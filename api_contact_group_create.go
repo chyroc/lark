@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// CreateContactGroup 使用该接口创建用户组，请注意创建用户组时应用的通讯录权限范围需为“全部员工”，否则会创建失败，[点击了解通讯录权限范围](https://open.feishu.cn/document/ukTMukTMukTM/uETNz4SM1MjLxUzM/v3/guides/scope_authority)。
+// CreateContactGroup 使用该接口创建用户组, 请注意创建用户组时应用的通讯录权限范围需为“全部员工”, 否则会创建失败, [点击了解通讯录权限范围](https://open.feishu.cn/document/ukTMukTMukTM/uETNz4SM1MjLxUzM/v3/guides/scope_authority)。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/group/create
 func (r *ContactService) CreateContactGroup(ctx context.Context, request *CreateContactGroupReq, options ...MethodOptionFunc) (*CreateContactGroupResp, *Response, error) {
@@ -57,20 +57,20 @@ func (r *Mock) UnMockContactCreateContactGroup() {
 
 // CreateContactGroupReq ...
 type CreateContactGroupReq struct {
-	GroupID     *string `json:"group_id,omitempty"`    // 自定义用户组ID，可在创建时自定义，不自定义则由系统自动生成，已创建用户组不允许修改 group_id 。,自定义group_id数据校验规则：,最大长度：64 字符,校验规则：数字、大小写字母的组合，不能包含空格, 示例值："g122817"
-	Name        string  `json:"name,omitempty"`        // 用户组的名字，企业内唯一，最大长度：100 字符, 示例值："IT 外包组"
-	Description *string `json:"description,omitempty"` // 用户组描述, 示例值："IT服务人员的集合"
-	Type        *int64  `json:"type,omitempty"`        // 用户组的类型。默认为1表示普通用户组, 示例值：1, 可选值有: `1`：普通用户组, 默认值: `1`
-}
-
-// createContactGroupResp ...
-type createContactGroupResp struct {
-	Code int64                   `json:"code,omitempty"` // 错误码，非 0 表示失败
-	Msg  string                  `json:"msg,omitempty"`  // 错误描述
-	Data *CreateContactGroupResp `json:"data,omitempty"`
+	GroupID     *string `json:"group_id,omitempty"`    // 自定义用户组ID, 可在创建时自定义, 不自定义则由系统自动生成, 已创建用户组不允许修改 group_id, 自定义group_id 最大长度: 64 字符, 校验规则: 数字、大小写字母的组合, 不能包含空格, 示例值: "g122817"
+	Name        string  `json:"name,omitempty"`        // 用户组的名字, 企业内唯一, 最大长度: 100 字符, 示例值: "IT 外包组"
+	Description *string `json:"description,omitempty"` // 用户组描述, 示例值: "IT服务人员的集合"
+	Type        *int64  `json:"type,omitempty"`        // 用户组的类型。默认为1表示普通用户组, 示例值: 1, 可选值有: `1`: 普通用户组, 默认值: `1`
 }
 
 // CreateContactGroupResp ...
 type CreateContactGroupResp struct {
 	GroupID string `json:"group_id,omitempty"` // 用户组ID
+}
+
+// createContactGroupResp ...
+type createContactGroupResp struct {
+	Code int64                   `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg  string                  `json:"msg,omitempty"`  // 错误描述
+	Data *CreateContactGroupResp `json:"data,omitempty"`
 }

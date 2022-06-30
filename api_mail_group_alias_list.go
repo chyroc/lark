@@ -57,14 +57,7 @@ func (r *Mock) UnMockMailGetMailGroupAliasList() {
 
 // GetMailGroupAliasListReq ...
 type GetMailGroupAliasListReq struct {
-	MailGroupID string `path:"mailgroup_id" json:"-"` // 邮件组id或邮件组邮箱地址, 示例值："xxxxxxxxxxxxxxx 或 test_mail_group@xxx.xx"
-}
-
-// getMailGroupAliasListResp ...
-type getMailGroupAliasListResp struct {
-	Code int64                      `json:"code,omitempty"` // 错误码，非 0 表示失败
-	Msg  string                     `json:"msg,omitempty"`  // 错误描述
-	Data *GetMailGroupAliasListResp `json:"data,omitempty"`
+	MailGroupID string `path:"mailgroup_id" json:"-"` // 邮件组id或邮件组邮箱地址, 示例值: "xxxxxxxxxxxxxxx 或 test_mail_group@xxx.xx"
 }
 
 // GetMailGroupAliasListResp ...
@@ -76,4 +69,11 @@ type GetMailGroupAliasListResp struct {
 type GetMailGroupAliasListRespItem struct {
 	PrimaryEmail string `json:"primary_email,omitempty"` // 主邮箱地址
 	EmailAlias   string `json:"email_alias,omitempty"`   // 邮箱别名
+}
+
+// getMailGroupAliasListResp ...
+type getMailGroupAliasListResp struct {
+	Code int64                      `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg  string                     `json:"msg,omitempty"`  // 错误描述
+	Data *GetMailGroupAliasListResp `json:"data,omitempty"`
 }

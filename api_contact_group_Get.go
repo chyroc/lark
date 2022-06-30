@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// GetContactGroup 根据用户组 ID 查询某个用户组的基本信息，支持查询普通用户组和动态用户组。请确保应用的通讯录权限范围里包括该用户组或者是“全部员工”，[点击了解通讯录权限范围](https://open.feishu.cn/document/ukTMukTMukTM/uETNz4SM1MjLxUzM/v3/guides/scope_authority)。
+// GetContactGroup 根据用户组 ID 查询某个用户组的基本信息, 支持查询普通用户组和动态用户组。请确保应用的通讯录权限范围里包括该用户组或者是“全部员工”, [点击了解通讯录权限范围](https://open.feishu.cn/document/ukTMukTMukTM/uETNz4SM1MjLxUzM/v3/guides/scope_authority)。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/group/get
 func (r *ContactService) GetContactGroup(ctx context.Context, request *GetContactGroupReq, options ...MethodOptionFunc) (*GetContactGroupResp, *Response, error) {
@@ -57,14 +57,7 @@ func (r *Mock) UnMockContactGetContactGroup() {
 
 // GetContactGroupReq ...
 type GetContactGroupReq struct {
-	GroupID string `path:"group_id" json:"-"` // 用户组ID, 示例值："g193821"
-}
-
-// getContactGroupResp ...
-type getContactGroupResp struct {
-	Code int64                `json:"code,omitempty"` // 错误码，非 0 表示失败
-	Msg  string               `json:"msg,omitempty"`  // 错误描述
-	Data *GetContactGroupResp `json:"data,omitempty"`
+	GroupID string `path:"group_id" json:"-"` // 用户组ID, 示例值: "g193821"
 }
 
 // GetContactGroupResp ...
@@ -78,5 +71,12 @@ type GetContactGroupRespGroup struct {
 	Name                  string `json:"name,omitempty"`                    // 用户组名字
 	Description           string `json:"description,omitempty"`             // 用户组描述
 	MemberUserCount       int64  `json:"member_user_count,omitempty"`       // 用户组成员中用户的数量
-	MemberDepartmentCount int64  `json:"member_department_count,omitempty"` // 普通用户组成员中部门的数量，动态用户组成员中没有部门。
+	MemberDepartmentCount int64  `json:"member_department_count,omitempty"` // 普通用户组成员中部门的数量, 动态用户组成员中没有部门。
+}
+
+// getContactGroupResp ...
+type getContactGroupResp struct {
+	Code int64                `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg  string               `json:"msg,omitempty"`  // 错误描述
+	Data *GetContactGroupResp `json:"data,omitempty"`
 }

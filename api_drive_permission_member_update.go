@@ -23,7 +23,7 @@ import (
 
 // UpdateDriveMemberPermission 该接口用于根据 filetoken 更新文档协作者的权限。
 //
-// 该接口要求文档协作者已存在，如还未对文档协作者授权请先调用[「增加权限」 ](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/permission-member/create)接口进行授权。
+// 该接口要求文档协作者已存在, 如还未对文档协作者授权请先调用[「增加权限」 ](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/permission-member/create)接口进行授权。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/permission-member/update
 func (r *DriveService) UpdateDriveMemberPermission(ctx context.Context, request *UpdateDriveMemberPermissionReq, options ...MethodOptionFunc) (*UpdateDriveMemberPermissionResp, *Response, error) {
@@ -60,19 +60,12 @@ func (r *Mock) UnMockDriveUpdateDriveMemberPermission() {
 
 // UpdateDriveMemberPermissionReq ...
 type UpdateDriveMemberPermissionReq struct {
-	NeedNotification *bool  `query:"need_notification" json:"-"` // 更新权限后是否通知对方,**注意：** 使用`tenant_access_token`访问不支持该参数, 示例值：false, 默认值: `false`
-	Type             string `query:"type" json:"-"`              // 文件类型，放于query参数中，如：`?type=doc`, 示例值："doc", 可选值有: `doc`：文档, `sheet`：电子表格, `file`：云空间文件, `wiki`：知识库节点, `bitable`：多维表格, `docx`：新版文档
-	Token            string `path:"token" json:"-"`              // 文件的 token，获取方式见 [如何获取云文档资源相关 token](https://open.feishu.cn/document/ukTMukTMukTM/uczNzUjL3czM14yN3MTN#08bb5df6), 示例值："doccnBKgoMyY5OMbUG6FioTXuBe"
-	MemberID         string `path:"member_id" json:"-"`          // 权限成员的ID，与`member_type`相对应, 示例值："ou_7dab8a3d3cdcc9da365777c7ad535d62"
-	MemberType       string `json:"member_type,omitempty"`       // 用户类型，与请求体中的`member_id`要对应, 可选值有:  , `email`: 飞书邮箱, `openid`: [开放平台ID](https://open.feishu.cn/document/home/user-identity-introduction/how-to-get), `openchat`: [开放平台群组](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-id-description), `opendepartmentid`:[开放平台部门ID](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/field-overview), `userid`:  [用户自定义ID](https://open.feishu.cn/document/home/user-identity-introduction/how-to-get),**注意：** 使用`tenant_access_token`访问不支持添加`opendepartmentid`, 示例值："openid"
-	Perm             string `json:"perm,omitempty"`              // 需要更新的权限，可选值有：, `view`: 可阅读, `edit`: 可编辑, `full_access`: 所有权限, 示例值："view"
-}
-
-// updateDriveMemberPermissionResp ...
-type updateDriveMemberPermissionResp struct {
-	Code int64                            `json:"code,omitempty"` // 错误码，非 0 表示失败
-	Msg  string                           `json:"msg,omitempty"`  // 错误描述
-	Data *UpdateDriveMemberPermissionResp `json:"data,omitempty"`
+	Token            string `path:"token" json:"-"`              // 文件的 token, 获取方式见 [如何获取云文档资源相关 token](https://open.feishu.cn/document/ukTMukTMukTM/uczNzUjL3czM14yN3MTN#08bb5df6), 示例值: "doccnBKgoMyY5OMbUG6FioTXuBe"
+	MemberID         string `path:"member_id" json:"-"`          // 权限成员的ID, 与`member_type`相对应, 示例值: "ou_7dab8a3d3cdcc9da365777c7ad535d62"
+	NeedNotification *bool  `query:"need_notification" json:"-"` // 更新权限后是否通知对方, 注意: 使用`tenant_access_token`访问不支持该参数, 示例值: false, 默认值: `false`
+	Type             string `query:"type" json:"-"`              // 文件类型, 放于query参数中, 如: `?type=doc`, 示例值: "doc", 可选值有: `doc`: 文档, `sheet`: 电子表格, `file`: 云空间文件, `wiki`: 知识库节点, `bitable`: 多维表格, `docx`: 新版文档
+	MemberType       string `json:"member_type,omitempty"`       // 用户类型, 与请求体中的`member_id`要对应, 可选值有: `email`: 飞书邮箱, `openid`: [开放平台ID](https://open.feishu.cn/document/home/user-identity-introduction/how-to-get), `openchat`: [开放平台群组](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-id-description), `opendepartmentid`:[开放平台部门ID](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/field-overview), `userid`: [用户自定义ID](https://open.feishu.cn/document/home/user-identity-introduction/how-to-get), 注意: 使用`tenant_access_token`访问不支持添加`opendepartmentid`, 示例值: "openid"
+	Perm             string `json:"perm,omitempty"`              // 需要更新的权限, 可选值有: `view`: 可阅读, `edit`: 可编辑, `full_access`: 所有权限, 示例值: "view"
 }
 
 // UpdateDriveMemberPermissionResp ...
@@ -82,7 +75,14 @@ type UpdateDriveMemberPermissionResp struct {
 
 // UpdateDriveMemberPermissionRespMember ...
 type UpdateDriveMemberPermissionRespMember struct {
-	MemberType string `json:"member_type,omitempty"` // 用户类型，与请求体中的`member_id`要对应, 可选值有:  , `email`: 飞书邮箱, `openid`: [开放平台ID](https://open.feishu.cn/document/home/user-identity-introduction/how-to-get), `openchat`: [开放平台群组](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-id-description), `opendepartmentid`:[开放平台部门ID](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/field-overview), `userid`:  [用户自定义ID](https://open.feishu.cn/document/home/user-identity-introduction/how-to-get),**注意：** 使用`tenant_access_token`访问不支持添加`opendepartmentid`
+	MemberType string `json:"member_type,omitempty"` // 用户类型, 与请求体中的`member_id`要对应, 可选值有: `email`: 飞书邮箱, `openid`: [开放平台ID](https://open.feishu.cn/document/home/user-identity-introduction/how-to-get), `openchat`: [开放平台群组](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-id-description), `opendepartmentid`:[开放平台部门ID](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/field-overview), `userid`: [用户自定义ID](https://open.feishu.cn/document/home/user-identity-introduction/how-to-get), 注意: 使用`tenant_access_token`访问不支持添加`opendepartmentid`
 	MemberID   string `json:"member_id,omitempty"`   // 用户类型下的值
-	Perm       string `json:"perm,omitempty"`        // 需要更新的权限，可选值有：, `view`: 可阅读, `edit`: 可编辑, `full_access`: 所有权限
+	Perm       string `json:"perm,omitempty"`        // 需要更新的权限, 可选值有: `view`: 可阅读, `edit`: 可编辑, `full_access`: 所有权限
+}
+
+// updateDriveMemberPermissionResp ...
+type updateDriveMemberPermissionResp struct {
+	Code int64                            `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg  string                           `json:"msg,omitempty"`  // 错误描述
+	Data *UpdateDriveMemberPermissionResp `json:"data,omitempty"`
 }

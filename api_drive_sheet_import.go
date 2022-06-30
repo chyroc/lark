@@ -23,7 +23,7 @@ import (
 
 // ImportSheet
 //
-// >  为了更好地提升该接口的安全性，我们对其进行了升级，请尽快迁移至[新版本](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/import_task/import-user-guide)
+// >  为了更好地提升该接口的安全性, 我们对其进行了升级, 请尽快迁移至[新版本](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/import_task/import-user-guide)
 // 该接口用于将本地表格导入到云空间上。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uATO2YjLwkjN24CM5YjN
@@ -63,9 +63,14 @@ func (r *Mock) UnMockDriveImportSheet() {
 
 // ImportSheetReq ...
 type ImportSheetReq struct {
-	File        []byte  `json:"file,omitempty"`        // 需要导入的文件数据，转换成字节数组的形式，支持"xlsx","csv"格式，最大不超过20M
-	Name        string  `json:"name,omitempty"`        // 文件名，带上文件拓展名，如"hello.csv"、"hello.xlsx"。导入后sheet的标题将去除文件拓展名，如"hello.xlsx"导入后标题为"hello"。
-	FolderToken *string `json:"folderToken,omitempty"` // 导入的文件夹token，默认导入到根目录下
+	File        []byte  `json:"file,omitempty"`        // 需要导入的文件数据, 转换成字节数组的形式, 支持"xlsx", "csv"格式, 最大不超过20M
+	Name        string  `json:"name,omitempty"`        // 文件名, 带上文件拓展名, 如"hello.csv"、"hello.xlsx"。导入后sheet的标题将去除文件拓展名, 如"hello.xlsx"导入后标题为"hello"。
+	FolderToken *string `json:"folderToken,omitempty"` // 导入的文件夹token, 默认导入到根目录下
+}
+
+// ImportSheetResp ...
+type ImportSheetResp struct {
+	Ticket string `json:"ticket,omitempty"` // 与导入文件一一对应的凭证, 用于查询文件导入的进度, 详见[查询导入结果的接口](https://open.feishu.cn/document/ukTMukTMukTM/uETO2YjLxkjN24SM5YjN)
 }
 
 // importSheetResp ...
@@ -73,9 +78,4 @@ type importSheetResp struct {
 	Code int64            `json:"code,omitempty"`
 	Msg  string           `json:"msg,omitempty"`
 	Data *ImportSheetResp `json:"data,omitempty"`
-}
-
-// ImportSheetResp ...
-type ImportSheetResp struct {
-	Ticket string `json:"ticket,omitempty"` // 与导入文件一一对应的凭证，用于查询文件导入的进度，详见[查询导入结果的接口](https://open.feishu.cn/document/ukTMukTMukTM/uETO2YjLxkjN24SM5YjN)
 }

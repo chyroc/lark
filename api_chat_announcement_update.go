@@ -21,12 +21,12 @@ import (
 	"context"
 )
 
-// UpdateChatAnnouncement 更新会话中的群公告信息，更新公告信息的格式和更新[云文档](https://open.feishu.cn/document/ukTMukTMukTM/uAzM5YjLwMTO24CMzkjN)格式相同。
+// UpdateChatAnnouncement 更新会话中的群公告信息, 更新公告信息的格式和更新[云文档](https://open.feishu.cn/document/ukTMukTMukTM/uAzM5YjLwMTO24CMzkjN)格式相同。
 //
-// 注意事项：
+// 注意事项:
 // - 应用需要开启[机器人能力](https://open.feishu.cn/document/home/develop-a-bot-in-5-minutes/create-an-app)
-// - 若群开启了 [仅群主和群管理员可编辑群信息] 配置，群主/群管理员 或 创建群组且具备 [更新应用所创建群的群信息] 权限的机器人，可更新群公告
-// - 若群未开启 [仅群主和群管理员可编辑群信息] 配置，所有成员可以更新群公告
+// - 若群开启了 [仅群主和群管理员可编辑群信息] 配置, 群主/群管理员 或 创建群组且具备 [更新应用所创建群的群信息] 权限的机器人, 可更新群公告
+// - 若群未开启 [仅群主和群管理员可编辑群信息] 配置, 所有成员可以更新群公告
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-announcement/patch
 func (r *ChatService) UpdateChatAnnouncement(ctx context.Context, request *UpdateChatAnnouncementReq, options ...MethodOptionFunc) (*UpdateChatAnnouncementResp, *Response, error) {
@@ -63,18 +63,18 @@ func (r *Mock) UnMockChatUpdateChatAnnouncement() {
 
 // UpdateChatAnnouncementReq ...
 type UpdateChatAnnouncementReq struct {
-	ChatID   string   `path:"chat_id" json:"-"`   // 待修改公告的群 ID，详情参见[群ID 说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-id-description), 示例值："oc_5ad11d72b830411d72b836c20"
-	Revision string   `json:"revision,omitempty"` // 文档当前版本号 int64 类型，get 接口会返回, 示例值："12"
-	Requests []string `json:"requests,omitempty"` // 修改文档请求的序列化字段,更新公告信息的格式和更新[云文档](https://open.feishu.cn/document/ukTMukTMukTM/uAzM5YjLwMTO24CMzkjN)格式相同, 示例值：xxx
-}
-
-// updateChatAnnouncementResp ...
-type updateChatAnnouncementResp struct {
-	Code int64                       `json:"code,omitempty"` // 错误码，非 0 表示失败
-	Msg  string                      `json:"msg,omitempty"`  // 错误描述
-	Data *UpdateChatAnnouncementResp `json:"data,omitempty"`
+	ChatID   string   `path:"chat_id" json:"-"`   // 待修改公告的群 ID, 详情参见[群ID 说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-id-description), 示例值: "oc_5ad11d72b830411d72b836c20"
+	Revision string   `json:"revision,omitempty"` // 文档当前版本号 int64 类型, get 接口会返回, 示例值: "12"
+	Requests []string `json:"requests,omitempty"` // 修改文档请求的序列化字段, 更新公告信息的格式和更新[云文档](https://open.feishu.cn/document/ukTMukTMukTM/uAzM5YjLwMTO24CMzkjN)格式相同, 示例值: xxx
 }
 
 // UpdateChatAnnouncementResp ...
 type UpdateChatAnnouncementResp struct {
+}
+
+// updateChatAnnouncementResp ...
+type updateChatAnnouncementResp struct {
+	Code int64                       `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg  string                      `json:"msg,omitempty"`  // 错误描述
+	Data *UpdateChatAnnouncementResp `json:"data,omitempty"`
 }

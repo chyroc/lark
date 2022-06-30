@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// GetContactUnit 调用该接口获取单位信息，需有获取单位的权限
+// GetContactUnit 调用该接口获取单位信息, 需有获取单位的权限
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/unit/get
 func (r *ContactService) GetContactUnit(ctx context.Context, request *GetContactUnitReq, options ...MethodOptionFunc) (*GetContactUnitResp, *Response, error) {
@@ -57,14 +57,7 @@ func (r *Mock) UnMockContactGetContactUnit() {
 
 // GetContactUnitReq ...
 type GetContactUnitReq struct {
-	UnitID string `path:"unit_id" json:"-"` // 单位ID, 示例值："BU121"
-}
-
-// getContactUnitResp ...
-type getContactUnitResp struct {
-	Code int64               `json:"code,omitempty"` // 错误码，非 0 表示失败
-	Msg  string              `json:"msg,omitempty"`  // 错误描述
-	Data *GetContactUnitResp `json:"data,omitempty"`
+	UnitID string `path:"unit_id" json:"-"` // 单位ID, 示例值: "BU121"
 }
 
 // GetContactUnitResp ...
@@ -77,4 +70,11 @@ type GetContactUnitRespUnit struct {
 	UnitID   string `json:"unit_id,omitempty"`   // 单位的自定义ID
 	Name     string `json:"name,omitempty"`      // 单位的名字
 	UnitType string `json:"unit_type,omitempty"` // 单位的类型
+}
+
+// getContactUnitResp ...
+type getContactUnitResp struct {
+	Code int64               `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg  string              `json:"msg,omitempty"`  // 错误描述
+	Data *GetContactUnitResp `json:"data,omitempty"`
 }

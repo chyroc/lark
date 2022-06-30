@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// GetTaskCommentList 该接口用于查询任务评论列表，支持分页，最大值为100
+// GetTaskCommentList 该接口用于查询任务评论列表, 支持分页, 最大值为100
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/task-v1/task-comment/list
 func (r *TaskService) GetTaskCommentList(ctx context.Context, request *GetTaskCommentListReq, options ...MethodOptionFunc) (*GetTaskCommentListResp, *Response, error) {
@@ -58,29 +58,29 @@ func (r *Mock) UnMockTaskGetTaskCommentList() {
 
 // GetTaskCommentListReq ...
 type GetTaskCommentListReq struct {
-	PageSize      *int64  `query:"page_size" json:"-"`      // 分页大小, 示例值：10, 最大值：`100`
-	PageToken     *string `query:"page_token" json:"-"`     // 分页标记，第一次请求不填，表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token，下次遍历可采用该 page_token 获取查询结果, 示例值：""MTYzMTg3ODUxNQ==""
-	ListDirection *int64  `query:"list_direction" json:"-"` // 评论排序标记，可按照评论时间从小到大查询，或者评论时间从大到小查询，不填默认按照从小到大, 示例值：0, 可选值有: `0`：按照回复时间从小到大查询, `1`：按照回复时间从大到小查询, 默认值: `0`
-	TaskID        string  `path:"task_id" json:"-"`         // 任务id, 示例值：""83912691-2e43-47fc-94a4-d512e03984fa""
-}
-
-// getTaskCommentListResp ...
-type getTaskCommentListResp struct {
-	Code int64                   `json:"code,omitempty"` // 错误码，非 0 表示失败
-	Msg  string                  `json:"msg,omitempty"`  // 错误描述
-	Data *GetTaskCommentListResp `json:"data,omitempty"`
+	TaskID        string  `path:"task_id" json:"-"`         // 任务id, 示例值: ""83912691-2e43-47fc-94a4-d512e03984fa""
+	PageSize      *int64  `query:"page_size" json:"-"`      // 分页大小, 示例值: 10, 最大值: `100`
+	PageToken     *string `query:"page_token" json:"-"`     // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果, 示例值: ""MTYzMTg3ODUxNQ==""
+	ListDirection *int64  `query:"list_direction" json:"-"` // 评论排序标记, 可按照评论时间从小到大查询, 或者评论时间从大到小查询, 不填默认按照从小到大, 示例值: 0, 可选值有: `0`: 按照回复时间从小到大查询, `1`: 按照回复时间从大到小查询, 默认值: `0`
 }
 
 // GetTaskCommentListResp ...
 type GetTaskCommentListResp struct {
 	Items     []*GetTaskCommentListRespItem `json:"items,omitempty"`      // 返回的评论列表
-	PageToken string                        `json:"page_token,omitempty"` // 分页标记，当 has_more 为 true 时，会同时返回新的 page_token，否则不返回 page_token
+	PageToken string                        `json:"page_token,omitempty"` // 分页标记, 当 has_more 为 true 时, 会同时返回新的 page_token, 否则不返回 page_token
 	HasMore   bool                          `json:"has_more,omitempty"`   // 是否还有更多项
 }
 
 // GetTaskCommentListRespItem ...
 type GetTaskCommentListRespItem struct {
 	Content  string `json:"content,omitempty"`   // 评论内容
-	ParentID string `json:"parent_id,omitempty"` // 评论的父ID，创建评论时若不为空则为某条评论的回复，若为空则不是回复
-	ID       string `json:"id,omitempty"`        // 评论ID，由飞书服务器发号
+	ParentID string `json:"parent_id,omitempty"` // 评论的父ID, 创建评论时若不为空则为某条评论的回复, 若为空则不是回复
+	ID       string `json:"id,omitempty"`        // 评论ID, 由飞书服务器发号
+}
+
+// getTaskCommentListResp ...
+type getTaskCommentListResp struct {
+	Code int64                   `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg  string                  `json:"msg,omitempty"`  // 错误描述
+	Data *GetTaskCommentListResp `json:"data,omitempty"`
 }

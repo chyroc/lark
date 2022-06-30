@@ -57,56 +57,56 @@ func (r *Mock) UnMockApplicationGetApplicationUnderAuditList() {
 
 // GetApplicationUnderAuditListReq ...
 type GetApplicationUnderAuditListReq struct {
-	Lang       string  `query:"lang" json:"-"`         // 指定返回的语言, 示例值："zh_cn", 可选值有: `zh_cn`：中文, `en_us`：英文, `ja_jp`：日文, 最小长度：`1` 字符
-	PageToken  *string `query:"page_token" json:"-"`   // 分页标记，第一次请求不填，表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token，下次遍历可采用该 page_token 获取查询结果, 示例值："new-e3c5a0627cdf0c2e057da7257b90376a"
-	PageSize   *int64  `query:"page_size" json:"-"`    // 分页大小, 示例值：10, 最大值：`50`
-	UserIDType *IDType `query:"user_id_type" json:"-"` // 用户 ID 类型, 示例值："open_id", 可选值有: `open_id`：用户的 open id, `union_id`：用户的 union id, `user_id`：用户的 user id, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
-}
-
-// getApplicationUnderAuditListResp ...
-type getApplicationUnderAuditListResp struct {
-	Code int64                             `json:"code,omitempty"` // 错误码，非 0 表示失败
-	Msg  string                            `json:"msg,omitempty"`  // 错误描述
-	Data *GetApplicationUnderAuditListResp `json:"data,omitempty"`
+	Lang       string  `query:"lang" json:"-"`         // 指定返回的语言, 示例值: "zh_cn", 可选值有: `zh_cn`: 中文, `en_us`: 英文, `ja_jp`: 日文, 最小长度: `1` 字符
+	PageToken  *string `query:"page_token" json:"-"`   // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果, 示例值: "new-e3c5a0627cdf0c2e057da7257b90376a"
+	PageSize   *int64  `query:"page_size" json:"-"`    // 分页大小, 示例值: 10, 最大值: `50`
+	UserIDType *IDType `query:"user_id_type" json:"-"` // 用户 ID 类型, 示例值: "open_id", 可选值有: `open_id`: 用户的 open id, `union_id`: 用户的 union id, `user_id`: 用户的 user id, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
 }
 
 // GetApplicationUnderAuditListResp ...
 type GetApplicationUnderAuditListResp struct {
 	Items     []*GetApplicationUnderAuditListRespItem `json:"items,omitempty"`      // 待审核应用列表
 	HasMore   bool                                    `json:"has_more,omitempty"`   // 是否还有更多项
-	PageToken string                                  `json:"page_token,omitempty"` // 分页标记，当 has_more 为 true 时，会同时返回新的 page_token，否则不返回 page_token
+	PageToken string                                  `json:"page_token,omitempty"` // 分页标记, 当 has_more 为 true 时, 会同时返回新的 page_token, 否则不返回 page_token
 }
 
 // GetApplicationUnderAuditListRespItem ...
 type GetApplicationUnderAuditListRespItem struct {
 	AppID            string                                       `json:"app_id,omitempty"`             // 应用的 app_id
 	CreatorID        string                                       `json:"creator_id,omitempty"`         // 应用创建者（所有者）
-	Status           int64                                        `json:"status,omitempty"`             // 应用状态, 可选值有: `0`：停用状态, `1`：启用状态, `2`：未启用状态, `3`：未知状态
-	SceneType        int64                                        `json:"scene_type,omitempty"`         // 应用类型, 可选值有: `0`：自建应用, `1`：应用商店应用, `2`：个人应用商店应用, `3`：未知应用类型
+	Status           int64                                        `json:"status,omitempty"`             // 应用状态, 可选值有: `0`: 停用状态, `1`: 启用状态, `2`: 未启用状态, `3`: 未知状态
+	SceneType        int64                                        `json:"scene_type,omitempty"`         // 应用类型, 可选值有: `0`: 自建应用, `1`: 应用商店应用, `2`: 个人应用商店应用, `3`: 未知应用类型
 	RedirectURLs     []string                                     `json:"redirect_urls,omitempty"`      // 安全设置中的重定向 URL
-	OnlineVersionID  string                                       `json:"online_version_id,omitempty"`  // 发布在线上的应用版本 ID，若没有则为空
-	UnauditVersionID string                                       `json:"unaudit_version_id,omitempty"` // 在审核中的版本 ID，若没有则为空
+	OnlineVersionID  string                                       `json:"online_version_id,omitempty"`  // 发布在线上的应用版本 ID, 若没有则为空
+	UnauditVersionID string                                       `json:"unaudit_version_id,omitempty"` // 在审核中的版本 ID, 若没有则为空
 	AppName          string                                       `json:"app_name,omitempty"`           // 应用名称
 	AvatarURL        string                                       `json:"avatar_url,omitempty"`         // 应用图标 url
 	Description      string                                       `json:"description,omitempty"`        // 应用默认描述
 	Scopes           []*GetApplicationUnderAuditListRespItemScope `json:"scopes,omitempty"`             // 应用权限列表
 	BackHomeURL      string                                       `json:"back_home_url,omitempty"`      // 后台主页地址
 	I18n             []*GetApplicationUnderAuditListRespItemI18n  `json:"i18n,omitempty"`               // 应用的国际化信息列表
-	PrimaryLanguage  string                                       `json:"primary_language,omitempty"`   // 应用主语言, 可选值有: `zh_cn`：中文, `en_us`：英文, `ja_jp`：日文
+	PrimaryLanguage  string                                       `json:"primary_language,omitempty"`   // 应用主语言, 可选值有: `zh_cn`: 中文, `en_us`: 英文, `ja_jp`: 日文
 	CommonCategories []string                                     `json:"common_categories,omitempty"`  // 应用分类的国际化描述
+}
+
+// GetApplicationUnderAuditListRespItemI18n ...
+type GetApplicationUnderAuditListRespItemI18n struct {
+	I18nKey     string `json:"i18n_key,omitempty"`    // 国际化语言的 key, 可选值有: `zh_cn`: 中文, `en_us`: 英文, `ja_jp`: 日文
+	Name        string `json:"name,omitempty"`        // 应用国际化名称
+	Description string `json:"description,omitempty"` // 应用国际化描述（副标题）
+	HelpUse     string `json:"help_use,omitempty"`    // 帮助国际化文档链接
 }
 
 // GetApplicationUnderAuditListRespItemScope ...
 type GetApplicationUnderAuditListRespItemScope struct {
 	Scope       string `json:"scope,omitempty"`       // 应用权限
 	Description string `json:"description,omitempty"` // 应用权限的国际化描述
-	Level       int64  `json:"level,omitempty"`       // 权限等级描述, 可选值有: `1`：普通权限, `2`：高级权限, `3`：超敏感权限, `0`：未知等级
+	Level       int64  `json:"level,omitempty"`       // 权限等级描述, 可选值有: `1`: 普通权限, `2`: 高级权限, `3`: 超敏感权限, `0`: 未知等级
 }
 
-// GetApplicationUnderAuditListRespItemI18n ...
-type GetApplicationUnderAuditListRespItemI18n struct {
-	I18nKey     string `json:"i18n_key,omitempty"`    // 国际化语言的 key, 可选值有: `zh_cn`：中文, `en_us`：英文, `ja_jp`：日文
-	Name        string `json:"name,omitempty"`        // 应用国际化名称
-	Description string `json:"description,omitempty"` // 应用国际化描述（副标题）
-	HelpUse     string `json:"help_use,omitempty"`    // 帮助国际化文档链接
+// getApplicationUnderAuditListResp ...
+type getApplicationUnderAuditListResp struct {
+	Code int64                             `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg  string                            `json:"msg,omitempty"`  // 错误描述
+	Data *GetApplicationUnderAuditListResp `json:"data,omitempty"`
 }

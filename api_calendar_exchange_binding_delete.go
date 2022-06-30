@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// DeleteCalendarExchangeBinding 本接口解除Exchange账户和飞书账户的绑定关系，Exchange账户解除绑定后才能绑定其他飞书账户
+// DeleteCalendarExchangeBinding 本接口解除Exchange账户和飞书账户的绑定关系, Exchange账户解除绑定后才能绑定其他飞书账户
 //
 // 操作用户需要是企业超级管理员
 //
@@ -59,16 +59,16 @@ func (r *Mock) UnMockCalendarDeleteCalendarExchangeBinding() {
 
 // DeleteCalendarExchangeBindingReq ...
 type DeleteCalendarExchangeBindingReq struct {
-	ExchangeBindingID string `path:"exchange_binding_id" json:"-"` // exchange绑定唯一标识id。参见[exchange绑定ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/exchange_binding/introduction#12533d5e), 示例值："ZW1haWxfYWRtaW5fZXhhbXBsZUBvdXRsb29rLmNvbSBlbWFpbF9hY2NvdW50X2V4YW1wbGVAb3V0bG9vay5jb20="
-}
-
-// deleteCalendarExchangeBindingResp ...
-type deleteCalendarExchangeBindingResp struct {
-	Code int64                              `json:"code,omitempty"` // 错误码，非 0 表示失败
-	Msg  string                             `json:"msg,omitempty"`  // 错误描述
-	Data *DeleteCalendarExchangeBindingResp `json:"data,omitempty"`
+	ExchangeBindingID string `path:"exchange_binding_id" json:"-"` // exchange绑定唯一标识id。参见[exchange绑定ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/exchange_binding/introduction#12533d5e), 示例值: "ZW1haWxfYWRtaW5fZXhhbXBsZUBvdXRsb29rLmNvbSBlbWFpbF9hY2NvdW50X2V4YW1wbGVAb3V0bG9vay5jb20="
 }
 
 // DeleteCalendarExchangeBindingResp ...
 type DeleteCalendarExchangeBindingResp struct {
+}
+
+// deleteCalendarExchangeBindingResp ...
+type deleteCalendarExchangeBindingResp struct {
+	Code int64                              `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg  string                             `json:"msg,omitempty"`  // 错误描述
+	Data *DeleteCalendarExchangeBindingResp `json:"data,omitempty"`
 }

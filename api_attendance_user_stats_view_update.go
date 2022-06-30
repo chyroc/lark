@@ -57,36 +57,29 @@ func (r *Mock) UnMockAttendanceUpdateAttendanceUserStatsView() {
 
 // UpdateAttendanceUserStatsViewReq ...
 type UpdateAttendanceUserStatsViewReq struct {
-	EmployeeType    EmployeeType                          `query:"employee_type" json:"-"`     // 员工工号类型, 示例值："employee_id", 可选值有: `employee_id`：员工 employee ID，即飞书管理后台 > 组织架构 > 成员与部门 > 成员详情中的用户 ID, `employee_no`：员工工号，即飞书管理后台 > 组织架构 > 成员与部门 > 成员详情中的工号
-	UserStatsViewID string                                `path:"user_stats_view_id" json:"-"` // 用户视图 ID，获取方式：1）[查询统计设置](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/user_stats_view/query), 示例值："TmpZNU5qTTJORFF6T1RnNU5UTTNOakV6TWl0dGIyNTBhQT09"
+	UserStatsViewID string                                `path:"user_stats_view_id" json:"-"` // 用户视图 ID, 获取方式: 1）[查询统计设置](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/user_stats_view/query), 示例值: "TmpZNU5qTTJORFF6T1RnNU5UTTNOakV6TWl0dGIyNTBhQT09"
+	EmployeeType    EmployeeType                          `query:"employee_type" json:"-"`     // 员工工号类型, 示例值: "employee_id", 可选值有: `employee_id`: 员工 employee ID, 即飞书管理后台 > 组织架构 > 成员与部门 > 成员详情中的用户 ID, `employee_no`: 员工工号, 即飞书管理后台 > 组织架构 > 成员与部门 > 成员详情中的工号
 	View            *UpdateAttendanceUserStatsViewReqView `json:"view,omitempty"`              // 统计设置
 }
 
 // UpdateAttendanceUserStatsViewReqView ...
 type UpdateAttendanceUserStatsViewReqView struct {
-	ViewID    string                                      `json:"view_id,omitempty"`    // 视图 ID, 示例值："TmpZNU5qTTJORFF6T1RnNU5UTTNOakV6TWl0dGIyNTBhQT09"
-	StatsType string                                      `json:"stats_type,omitempty"` // 视图类型, 示例值："month", 可选值有: `daily`：日度统计, `month`：月度统计
-	UserID    string                                      `json:"user_id,omitempty"`    // 查询用户id，同【查询统计数据】、【查询统计设置】user_id, 示例值："ec8ddg56"
+	ViewID    string                                      `json:"view_id,omitempty"`    // 视图 ID, 示例值: "TmpZNU5qTTJORFF6T1RnNU5UTTNOakV6TWl0dGIyNTBhQT09"
+	StatsType string                                      `json:"stats_type,omitempty"` // 视图类型, 示例值: "month", 可选值有: `daily`: 日度统计, `month`: 月度统计
+	UserID    string                                      `json:"user_id,omitempty"`    // 查询用户id, 同【查询统计数据】、【查询统计设置】user_id, 示例值: "ec8ddg56"
 	Items     []*UpdateAttendanceUserStatsViewReqViewItem `json:"items,omitempty"`      // 用户设置字段
 }
 
 // UpdateAttendanceUserStatsViewReqViewItem ...
 type UpdateAttendanceUserStatsViewReqViewItem struct {
-	Code       string                                               `json:"code,omitempty"`        // 标题编号, 示例值："522"
+	Code       string                                               `json:"code,omitempty"`        // 标题编号, 示例值: "522"
 	ChildItems []*UpdateAttendanceUserStatsViewReqViewItemChildItem `json:"child_items,omitempty"` // 子标题
 }
 
 // UpdateAttendanceUserStatsViewReqViewItemChildItem ...
 type UpdateAttendanceUserStatsViewReqViewItemChildItem struct {
-	Code  string `json:"code,omitempty"`  // 子标题编号, 示例值："50101"
-	Value string `json:"value,omitempty"` // 开关字段，0：关闭，1：开启（非开关字段场景：code = 51501 可选值为1-6）, 示例值："0"
-}
-
-// updateAttendanceUserStatsViewResp ...
-type updateAttendanceUserStatsViewResp struct {
-	Code int64                              `json:"code,omitempty"` // 错误码，非 0 表示失败
-	Msg  string                             `json:"msg,omitempty"`  // 错误描述
-	Data *UpdateAttendanceUserStatsViewResp `json:"data,omitempty"`
+	Code  string `json:"code,omitempty"`  // 子标题编号, 示例值: "50101"
+	Value string `json:"value,omitempty"` // 开关字段, 0: 关闭, 1: 开启（非开关字段场景: code = 51501 可选值为1-6）, 示例值: "0"
 }
 
 // UpdateAttendanceUserStatsViewResp ...
@@ -97,8 +90,8 @@ type UpdateAttendanceUserStatsViewResp struct {
 // UpdateAttendanceUserStatsViewRespView ...
 type UpdateAttendanceUserStatsViewRespView struct {
 	ViewID    string                                       `json:"view_id,omitempty"`    // 视图 ID
-	StatsType string                                       `json:"stats_type,omitempty"` // 视图类型, 可选值有: `daily`：日度统计, `month`：月度统计
-	UserID    string                                       `json:"user_id,omitempty"`    // 查询用户id，同【查询统计数据】、【查询统计设置】user_id
+	StatsType string                                       `json:"stats_type,omitempty"` // 视图类型, 可选值有: `daily`: 日度统计, `month`: 月度统计
+	UserID    string                                       `json:"user_id,omitempty"`    // 查询用户id, 同【查询统计数据】、【查询统计设置】user_id
 	Items     []*UpdateAttendanceUserStatsViewRespViewItem `json:"items,omitempty"`      // 用户设置字段
 }
 
@@ -112,10 +105,17 @@ type UpdateAttendanceUserStatsViewRespViewItem struct {
 // UpdateAttendanceUserStatsViewRespViewItemChildItem ...
 type UpdateAttendanceUserStatsViewRespViewItemChildItem struct {
 	Code       string `json:"code,omitempty"`        // 子标题编号
-	Value      string `json:"value,omitempty"`       // 开关字段，0：关闭，1：开启（非开关字段场景：code = 51501 可选值为1-6）
+	Value      string `json:"value,omitempty"`       // 开关字段, 0: 关闭, 1: 开启（非开关字段场景: code = 51501 可选值为1-6）
 	Title      string `json:"title,omitempty"`       // 子标题名称
 	ColumnType int64  `json:"column_type,omitempty"` // 列类型
 	ReadOnly   bool   `json:"read_only,omitempty"`   // 是否只读
 	MinValue   string `json:"min_value,omitempty"`   // 最小值
 	MaxValue   string `json:"max_value,omitempty"`   // 最大值
+}
+
+// updateAttendanceUserStatsViewResp ...
+type updateAttendanceUserStatsViewResp struct {
+	Code int64                              `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg  string                             `json:"msg,omitempty"`  // 错误描述
+	Data *UpdateAttendanceUserStatsViewResp `json:"data,omitempty"`
 }

@@ -58,18 +58,11 @@ func (r *Mock) UnMockDriveSearchDriveFile() {
 // SearchDriveFileReq ...
 type SearchDriveFileReq struct {
 	SearchKey string   `json:"search_key,omitempty"` // 搜索关键字
-	Count     *int64   `json:"count,omitempty"`      // 搜索返回数量，0 <= count <= 50
-	Offset    *int64   `json:"offset,omitempty"`     // 搜索偏移位，offset >= 0，offset + count < 200
+	Count     *int64   `json:"count,omitempty"`      // 搜索返回数量, 0 <= count <= 50
+	Offset    *int64   `json:"offset,omitempty"`     // 搜索偏移位, offset >= 0, offset + count < 200
 	OwnerIDs  []string `json:"owner_ids,omitempty"`  // 文档所有者的userid
 	ChatIDs   []string `json:"chat_ids,omitempty"`   // 文档所在群的chatid
-	DocsTypes []string `json:"docs_types,omitempty"` // 文档类型，支持："doc", "sheet", "slide", "bitable", "mindnote", "file"
-}
-
-// searchDriveFileResp ...
-type searchDriveFileResp struct {
-	Code int64                `json:"code,omitempty"`
-	Msg  string               `json:"msg,omitempty"`
-	Data *SearchDriveFileResp `json:"data,omitempty"`
+	DocsTypes []string `json:"docs_types,omitempty"` // 文档类型, 支持: "doc", "sheet", "slide", "bitable", "mindnote", "file"
 }
 
 // SearchDriveFileResp ...
@@ -85,4 +78,11 @@ type SearchDriveFileRespDocsEntity struct {
 	DocsType  string `json:"docs_type,omitempty"`  // 文档类型
 	Title     string `json:"title,omitempty"`      // 标题
 	OwnerID   string `json:"owner_id,omitempty"`   // 文件所有者
+}
+
+// searchDriveFileResp ...
+type searchDriveFileResp struct {
+	Code int64                `json:"code,omitempty"`
+	Msg  string               `json:"msg,omitempty"`
+	Data *SearchDriveFileResp `json:"data,omitempty"`
 }

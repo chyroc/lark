@@ -23,7 +23,7 @@ import (
 
 // FinishUploadDriveFile 触发完成上传。
 //
-// 该接口不支持太高的并发，且调用频率上限为5QPS
+// 该接口不支持太高的并发, 且调用频率上限为5QPS
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file/upload_finish
 func (r *DriveService) FinishUploadDriveFile(ctx context.Context, request *FinishUploadDriveFileReq, options ...MethodOptionFunc) (*FinishUploadDriveFileResp, *Response, error) {
@@ -60,18 +60,18 @@ func (r *Mock) UnMockDriveFinishUploadDriveFile() {
 
 // FinishUploadDriveFileReq ...
 type FinishUploadDriveFileReq struct {
-	UploadID string `json:"upload_id,omitempty"` // 分片上传事务ID, 示例值："123456"
-	BlockNum int64  `json:"block_num,omitempty"` // 分片数量, 示例值：1
-}
-
-// finishUploadDriveFileResp ...
-type finishUploadDriveFileResp struct {
-	Code int64                      `json:"code,omitempty"` // 错误码，非 0 表示失败
-	Msg  string                     `json:"msg,omitempty"`  // 错误描述
-	Data *FinishUploadDriveFileResp `json:"data,omitempty"`
+	UploadID string `json:"upload_id,omitempty"` // 分片上传事务ID, 示例值: "7111211691345512356"
+	BlockNum int64  `json:"block_num,omitempty"` // 分片数量, 示例值: 1
 }
 
 // FinishUploadDriveFileResp ...
 type FinishUploadDriveFileResp struct {
 	FileToken string `json:"file_token,omitempty"` // 新创建的文件token
+}
+
+// finishUploadDriveFileResp ...
+type finishUploadDriveFileResp struct {
+	Code int64                      `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg  string                     `json:"msg,omitempty"`  // 错误描述
+	Data *FinishUploadDriveFileResp `json:"data,omitempty"`
 }

@@ -23,7 +23,7 @@ import (
 
 // CreateSheetConditionFormat
 //
-// 该接口用于创建新的条件格式，单次最多支持增加10个条件格式，每个条件格式的设置会返回成功或者失败，失败的情况包括各种参数的校验。
+// 该接口用于创建新的条件格式, 单次最多支持增加10个条件格式, 每个条件格式的设置会返回成功或者失败, 失败的情况包括各种参数的校验。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uATMzUjLwEzM14CMxMTN/conditionformat/condition-format-set
 func (r *DriveService) CreateSheetConditionFormat(ctx context.Context, request *CreateSheetConditionFormatReq, options ...MethodOptionFunc) (*CreateSheetConditionFormatResp, *Response, error) {
@@ -60,7 +60,7 @@ func (r *Mock) UnMockDriveCreateSheetConditionFormat() {
 
 // CreateSheetConditionFormatReq ...
 type CreateSheetConditionFormatReq struct {
-	SpreadSheetToken      string                                               `path:"spreadsheetToken" json:"-"`         // spreadsheet 的 token，获取方式见[在线表格开发指南](https://open.feishu.cn/document/ukTMukTMukTM/uATMzUjLwEzM14CMxMTN/overview)
+	SpreadSheetToken      string                                               `path:"spreadsheetToken" json:"-"`         // spreadsheet 的 token, 获取方式见[在线表格开发指南](https://open.feishu.cn/document/ukTMukTMukTM/uATMzUjLwEzM14CMxMTN/overview)
 	SheetConditionFormats []*CreateSheetConditionFormatReqSheetConditionFormat `json:"sheet_condition_formats,omitempty"` // 表格的条件格式信息
 }
 
@@ -72,10 +72,10 @@ type CreateSheetConditionFormatReqSheetConditionFormat struct {
 
 // CreateSheetConditionFormatReqSheetConditionFormatConditionFormat ...
 type CreateSheetConditionFormatReqSheetConditionFormatConditionFormat struct {
-	Ranges   []string                                                                `json:"ranges,omitempty"`    // 条件格式应用的范围，支持：sheetId（整表）；sheetId!1:2（整行）；sheetId!A:B（整列）；sheetId!A1:B2（普通范围）；sheetId!A1:C（应用至最后一行）。应用范围不能超过表格的行总数和列总数，sheetId要与参数的sheetId一致
-	RuleType string                                                                  `json:"rule_type,omitempty"` // 条件格式规则类型，目前只有7种：***containsBlanks（为空）、notContainsBlanks（不为空）、duplicateValues（重复值）、uniqueValues（唯一值）、cellIs（限定值范围）、containsText（包含内容）、timePeriod（日期）***
-	Attrs    []*CreateSheetConditionFormatReqSheetConditionFormatConditionFormatAttr `json:"attrs,omitempty"`     // rule_type对应的具体属性信息，详见 [条件格式指南](https://open.feishu.cn/document/ukTMukTMukTM/uATMzUjLwEzM14CMxMTN/conditionformat/condition-format-guide)
-	Style    *CreateSheetConditionFormatReqSheetConditionFormatConditionFormatStyle  `json:"style,omitempty"`     // 条件格式样式，只支持以下样式，以下样式每个参数都可选，但是不能设置空的style
+	Ranges   []string                                                                `json:"ranges,omitempty"`    // 条件格式应用的范围, 支持: sheetId（整表）；sheetId!1:2（整行）；sheetId!A:B（整列）；sheetId!A1:B2（普通范围）；sheetId!A1:C（应用至最后一行）。应用范围不能超过表格的行总数和列总数, sheetId要与参数的sheetId一致
+	RuleType string                                                                  `json:"rule_type,omitempty"` // 条件格式规则类型, 目前只有7种: *containsBlanks（为空）、notContainsBlanks（不为空）、duplicateValues（重复值）、uniqueValues（唯一值）、cellIs（限定值范围）、containsText（包含内容）、timePeriod（日期）*
+	Attrs    []*CreateSheetConditionFormatReqSheetConditionFormatConditionFormatAttr `json:"attrs,omitempty"`     // rule_type对应的具体属性信息, 详见 [条件格式指南](https://open.feishu.cn/document/ukTMukTMukTM/uATMzUjLwEzM14CMxMTN/conditionformat/condition-format-guide)
+	Style    *CreateSheetConditionFormatReqSheetConditionFormatConditionFormatStyle  `json:"style,omitempty"`     // 条件格式样式, 只支持以下样式, 以下样式每个参数都可选, 但是不能设置空的style
 }
 
 // CreateSheetConditionFormatReqSheetConditionFormatConditionFormatAttr ...
@@ -89,7 +89,7 @@ type CreateSheetConditionFormatReqSheetConditionFormatConditionFormatAttr struct
 // CreateSheetConditionFormatReqSheetConditionFormatConditionFormatStyle ...
 type CreateSheetConditionFormatReqSheetConditionFormatConditionFormatStyle struct {
 	Font           *CreateSheetConditionFormatReqSheetConditionFormatConditionFormatStyleFont `json:"font,omitempty"`            // 字体样式
-	TextDecoration *int64                                                                     `json:"text_decoration,omitempty"` // 文本装饰 ，0 默认，1 下划线，2 删除线 ，3 下划线和删除线
+	TextDecoration *int64                                                                     `json:"text_decoration,omitempty"` // 文本装饰, 0 默认, 1 下划线, 2 删除线, 3 下划线和删除线
 	ForeColor      *string                                                                    `json:"fore_color,omitempty"`      // 字体颜色
 	BackColor      *string                                                                    `json:"back_color,omitempty"`      // 背景颜色
 }
@@ -98,13 +98,6 @@ type CreateSheetConditionFormatReqSheetConditionFormatConditionFormatStyle struc
 type CreateSheetConditionFormatReqSheetConditionFormatConditionFormatStyleFont struct {
 	Bold   *bool `json:"bold,omitempty"`   // 加粗
 	Italic *bool `json:"italic,omitempty"` // 斜体
-}
-
-// createSheetConditionFormatResp ...
-type createSheetConditionFormatResp struct {
-	Code int64                           `json:"code,omitempty"`
-	Msg  string                          `json:"msg,omitempty"`
-	Data *CreateSheetConditionFormatResp `json:"data,omitempty"`
 }
 
 // CreateSheetConditionFormatResp ...
@@ -116,6 +109,13 @@ type CreateSheetConditionFormatResp struct {
 type CreateSheetConditionFormatRespResponse struct {
 	SheetID string `json:"sheet_id,omitempty"` // sheet的Id
 	CfID    string `json:"cf_id,omitempty"`    // 设置成功的条件格式id
-	ResCode int64  `json:"res_code,omitempty"` // 条件格式设置状态码，0表示成功，非0表示失败
-	ResMsg  string `json:"res_msg,omitempty"`  // 条件格式设置返回的状态信息，空表示成功，非空表示失败原因
+	ResCode int64  `json:"res_code,omitempty"` // 条件格式设置状态码, 0表示成功, 非0表示失败
+	ResMsg  string `json:"res_msg,omitempty"`  // 条件格式设置返回的状态信息, 空表示成功, 非空表示失败原因
+}
+
+// createSheetConditionFormatResp ...
+type createSheetConditionFormatResp struct {
+	Code int64                           `json:"code,omitempty"`
+	Msg  string                          `json:"msg,omitempty"`
+	Data *CreateSheetConditionFormatResp `json:"data,omitempty"`
 }

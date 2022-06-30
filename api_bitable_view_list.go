@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// GetBitableViewList 根据 app_token 和 table_id，获取数据表的所有视图
+// GetBitableViewList 根据 app_token 和 table_id, 获取数据表的所有视图
 //
 // 该接口支持调用频率上限为 20 QPS
 //
@@ -60,23 +60,16 @@ func (r *Mock) UnMockBitableGetBitableViewList() {
 
 // GetBitableViewListReq ...
 type GetBitableViewListReq struct {
-	PageSize  *int64  `query:"page_size" json:"-"`  // 分页大小, 示例值：10, 最大值：`100`
-	PageToken *string `query:"page_token" json:"-"` // 分页标记，第一次请求不填，表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token，下次遍历可采用该 page_token 获取查询结果, 示例值："vewTpR1urY"
-	AppToken  string  `path:"app_token" json:"-"`   // bitable app token, 示例值："appbcbWCzen6D8dezhoCH2RpMAh"
-	TableID   string  `path:"table_id" json:"-"`    // table id, 示例值："tblsRc9GRRXKqhvW"
-}
-
-// getBitableViewListResp ...
-type getBitableViewListResp struct {
-	Code int64                   `json:"code,omitempty"` // 错误码，非 0 表示失败
-	Msg  string                  `json:"msg,omitempty"`  // 错误描述
-	Data *GetBitableViewListResp `json:"data,omitempty"`
+	AppToken  string  `path:"app_token" json:"-"`   // bitable app token, 示例值: "appbcbWCzen6D8dezhoCH2RpMAh"
+	TableID   string  `path:"table_id" json:"-"`    // table id, 示例值: "tblsRc9GRRXKqhvW"
+	PageSize  *int64  `query:"page_size" json:"-"`  // 分页大小, 示例值: 10, 最大值: `100`
+	PageToken *string `query:"page_token" json:"-"` // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果, 示例值: "vewTpR1urY"
 }
 
 // GetBitableViewListResp ...
 type GetBitableViewListResp struct {
 	Items     []*GetBitableViewListRespItem `json:"items,omitempty"`      // 视图信息
-	PageToken string                        `json:"page_token,omitempty"` // 分页标记，当 has_more 为 true 时，会同时返回新的 page_token，否则不返回 page_token
+	PageToken string                        `json:"page_token,omitempty"` // 分页标记, 当 has_more 为 true 时, 会同时返回新的 page_token, 否则不返回 page_token
 	HasMore   bool                          `json:"has_more,omitempty"`   // 是否还有更多项
 	Total     int64                         `json:"total,omitempty"`      // 总数
 }
@@ -86,4 +79,11 @@ type GetBitableViewListRespItem struct {
 	ViewID   string `json:"view_id,omitempty"`   // 视图Id
 	ViewName string `json:"view_name,omitempty"` // 视图名字
 	ViewType string `json:"view_type,omitempty"` // 视图类型
+}
+
+// getBitableViewListResp ...
+type getBitableViewListResp struct {
+	Code int64                   `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg  string                  `json:"msg,omitempty"`  // 错误描述
+	Data *GetBitableViewListResp `json:"data,omitempty"`
 }

@@ -24,9 +24,9 @@ import (
 // GetWikiSpaceList
 //
 // 此接口用于获取有权限访问的知识空间列表。
-// 此接口为分页接口。由于权限过滤，可能返回列表为空，但分页标记（has_more）为true，可以继续分页请求。
+// 此接口为分页接口。由于权限过滤, 可能返回列表为空, 但分页标记（has_more）为true, 可以继续分页请求。
 // 对于知识空间各项属性描述请参阅[获取知识空间信息](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/wiki-v2/space/get)
-// 使用tenant access token调用时，请确认应用/机器人拥有部分知识空间的访问权限，否则返回列表容易为空。
+// 使用tenant access token调用时, 请确认应用/机器人拥有部分知识空间的访问权限, 否则返回列表容易为空。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/wiki-v2/space/list
 func (r *DriveService) GetWikiSpaceList(ctx context.Context, request *GetWikiSpaceListReq, options ...MethodOptionFunc) (*GetWikiSpaceListResp, *Response, error) {
@@ -63,21 +63,14 @@ func (r *Mock) UnMockDriveGetWikiSpaceList() {
 
 // GetWikiSpaceListReq ...
 type GetWikiSpaceListReq struct {
-	PageSize  *int64  `query:"page_size" json:"-"`  // 分页大小, 示例值：10, 最大值：`50`
-	PageToken *string `query:"page_token" json:"-"` // 分页标记，第一次请求不填，表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token，下次遍历可采用该 page_token 获取查询结果, 示例值："1565676577122621"
-}
-
-// getWikiSpaceListResp ...
-type getWikiSpaceListResp struct {
-	Code int64                 `json:"code,omitempty"` // 错误码，非 0 表示失败
-	Msg  string                `json:"msg,omitempty"`  // 错误描述
-	Data *GetWikiSpaceListResp `json:"data,omitempty"`
+	PageSize  *int64  `query:"page_size" json:"-"`  // 分页大小, 示例值: 10, 最大值: `50`
+	PageToken *string `query:"page_token" json:"-"` // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果, 示例值: "1565676577122621"
 }
 
 // GetWikiSpaceListResp ...
 type GetWikiSpaceListResp struct {
 	Items     []*GetWikiSpaceListRespItem `json:"items,omitempty"`      // 数据列表
-	PageToken string                      `json:"page_token,omitempty"` // 分页标记，当 has_more 为 true 时，会同时返回新的 page_token，否则不返回 page_token
+	PageToken string                      `json:"page_token,omitempty"` // 分页标记, 当 has_more 为 true 时, 会同时返回新的 page_token, 否则不返回 page_token
 	HasMore   bool                        `json:"has_more,omitempty"`   // 是否还有更多项
 }
 
@@ -86,6 +79,13 @@ type GetWikiSpaceListRespItem struct {
 	Name        string `json:"name,omitempty"`        // 知识空间名称
 	Description string `json:"description,omitempty"` // 知识空间描述
 	SpaceID     string `json:"space_id,omitempty"`    // 知识空间id
-	SpaceType   string `json:"space_type,omitempty"`  // 表示知识空间类型（团队空间 或 个人空间）, 可选值有: `team`：团队空间, `person`：个人空间
-	Visibility  string `json:"visibility,omitempty"`  // 表示知识空间可见性（公开空间 或 私有空间）, 可选值有: `public`：公开空间, `private`：私有空间
+	SpaceType   string `json:"space_type,omitempty"`  // 表示知识空间类型（团队空间 或 个人空间）, 可选值有: `team`: 团队空间, `person`: 个人空间
+	Visibility  string `json:"visibility,omitempty"`  // 表示知识空间可见性（公开空间 或 私有空间）, 可选值有: `public`: 公开空间, `private`: 私有空间
+}
+
+// getWikiSpaceListResp ...
+type getWikiSpaceListResp struct {
+	Code int64                 `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg  string                `json:"msg,omitempty"`  // 错误描述
+	Data *GetWikiSpaceListResp `json:"data,omitempty"`
 }

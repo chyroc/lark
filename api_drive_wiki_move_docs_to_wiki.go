@@ -21,20 +21,20 @@ import (
 	"context"
 )
 
-// MoveDocsToWiki 该接口允许添加已有云文档至知识库，并挂载在指定父页面下
+// MoveDocsToWiki 该接口允许添加已有云文档至知识库, 并挂载在指定父页面下
 //
 // ### 移动操作 ###
-// 移动后，文档将从“我的空间”或“共享空间”转移至“知识库”，并将从以下功能入口消失：
-// - 云空间主页：最近访问、快速访问
+// 移动后, 文档将从“我的空间”或“共享空间”转移至“知识库”, 并将从以下功能入口消失:
+// - 云空间主页: 最近访问、快速访问
 // - 我的空间
 // - 共享空间
 // - 收藏
 // ### 权限变更 ###
-// 移动后，文档会向所有可查看“页面树”的用户显示，默认继承父页面的权限设置。
+// 移动后, 文档会向所有可查看“页面树”的用户显示, 默认继承父页面的权限设置。
 // </md-alert
 // 仅支持文档所有者发起请求
-// 此接口为异步接口。若移动已完成（或节点已在Wiki中），则直接返回结果（Wiki token）。若尚未完成，则返回task id。请使用[获取任务结果](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/wiki-v2/task/get)接口进行查询。
-// 知识库权限要求：
+// 此接口为异步接口。若移动已完成（或节点已在Wiki中）, 则直接返回结果（Wiki token）。若尚未完成, 则返回task id。请使用[获取任务结果](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/wiki-v2/task/get)接口进行查询。
+// 知识库权限要求:
 // - 文档可管理权限
 // - 原文件夹编辑权限
 // - 目标父节点容器编辑权限
@@ -74,18 +74,11 @@ func (r *Mock) UnMockDriveMoveDocsToWiki() {
 
 // MoveDocsToWikiReq ...
 type MoveDocsToWikiReq struct {
-	SpaceID         string  `path:"space_id" json:"-"`           // 知识库id, 示例值："1565676577122621"
-	ParentWikiToken *string `json:"parent_wiki_token,omitempty"` // 节点的父亲token, 示例值："wikbcOHIFxB0PJS2UTd2kF2SP6c"
-	ObjType         string  `json:"obj_type,omitempty"`          // 文档类型, 示例值："doc", 可选值有: `doc`：doc（文档）, `sheet`：sheet（表格）, `bitable`：bitable（多维表格）, `mindnote`：mindnote（思维导图）, `docx`：docx, `file`：file (文件)
-	ObjToken        string  `json:"obj_token,omitempty"`         // 文档token, 示例值："docbc6e1qBqt1O5mCBVA1QUKVEg"
-	Apply           *bool   `json:"apply,omitempty"`             // 没有权限时，是否申请迁入文档, 示例值：true
-}
-
-// moveDocsToWikiResp ...
-type moveDocsToWikiResp struct {
-	Code int64               `json:"code,omitempty"` // 错误码，非 0 表示失败
-	Msg  string              `json:"msg,omitempty"`  // 错误描述
-	Data *MoveDocsToWikiResp `json:"data,omitempty"`
+	SpaceID         string  `path:"space_id" json:"-"`           // 知识库id, 示例值: "1565676577122621"
+	ParentWikiToken *string `json:"parent_wiki_token,omitempty"` // 节点的父亲token, 示例值: "wikbcOHIFxB0PJS2UTd2kF2SP6c"
+	ObjType         string  `json:"obj_type,omitempty"`          // 文档类型, 示例值: "doc", 可选值有: `doc`: doc（文档）, `sheet`: sheet（表格）, `bitable`: bitable（多维表格）, `mindnote`: mindnote（思维导图）, `docx`: docx, `file`: file (文件)
+	ObjToken        string  `json:"obj_token,omitempty"`         // 文档token, 示例值: "docbc6e1qBqt1O5mCBVA1QUKVEg"
+	Apply           *bool   `json:"apply,omitempty"`             // 没有权限时, 是否申请迁入文档, 示例值: true
 }
 
 // MoveDocsToWikiResp ...
@@ -93,4 +86,11 @@ type MoveDocsToWikiResp struct {
 	WikiToken string `json:"wiki_token,omitempty"` // 移动后的知识库token
 	TaskID    string `json:"task_id,omitempty"`    // 任务id
 	Applied   bool   `json:"applied,omitempty"`    // 是否提交了文档迁入申请
+}
+
+// moveDocsToWikiResp ...
+type moveDocsToWikiResp struct {
+	Code int64               `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg  string              `json:"msg,omitempty"`  // 错误描述
+	Data *MoveDocsToWikiResp `json:"data,omitempty"`
 }

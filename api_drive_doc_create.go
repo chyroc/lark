@@ -23,9 +23,9 @@ import (
 
 // CreateDriveDoc
 //
-// 在使用此接口前，请仔细阅读[文档概述](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/docs-doc-overview)和[准备接入文档 API](https://open.feishu.cn/document/ukTMukTMukTM/ugzNzUjL4czM14CO3MTN/guide/getting-start)了解文档调用的规则和约束，确保你的文档数据不会丢失或出错。
-// 文档数据结构定义可参考：[文档数据结构概述](https://open.feishu.cn/document/ukTMukTMukTM/uAzM5YjLwMTO24CMzkjN)
-// 此接口创建出的文档为旧版文档，如果需要创建新版文档，请使用[创建新版文档](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/document-docx/docx-v1/document/create)接口。
+// 在使用此接口前, 请仔细阅读[文档概述](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/docs-doc-overview)和[准备接入文档 API](https://open.feishu.cn/document/ukTMukTMukTM/ugzNzUjL4czM14CO3MTN/guide/getting-start)了解文档调用的规则和约束, 确保你的文档数据不会丢失或出错。
+// 文档数据结构定义可参考: [文档数据结构概述](https://open.feishu.cn/document/ukTMukTMukTM/uAzM5YjLwMTO24CMzkjN)
+// 此接口创建出的文档为旧版文档, 如果需要创建新版文档, 请使用[创建新版文档](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/document-docx/docx-v1/document/create)接口。
 // 该接口用于创建并初始化文档。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/ugDM2YjL4AjN24COwYjN
@@ -63,8 +63,14 @@ func (r *Mock) UnMockDriveCreateDriveDoc() {
 
 // CreateDriveDocReq ...
 type CreateDriveDocReq struct {
-	FolderToken *string `json:"FolderToken,omitempty"` // 文件夹 token，获取方式见[如何获取云文档资源相关 token](https://open.feishu.cn/document/ukTMukTMukTM/uczNzUjL3czM14yN3MTN#08bb5df6)；空表示根目录，tenant_access_token应用权限仅允许操作应用创建的目录
-	Content     *string `json:"Content,omitempty"`     // 传入符合[文档数据结构](https://open.feishu.cn/document/ukTMukTMukTM/uAzM5YjLwMTO24CMzkjN)的字符串，若为空表示创建空文档
+	FolderToken *string `json:"FolderToken,omitempty"` // 文件夹 token, 获取方式见[如何获取云文档资源相关 token](https://open.feishu.cn/document/ukTMukTMukTM/uczNzUjL3czM14yN3MTN#08bb5df6)；空表示根目录, tenant_access_token应用权限仅允许操作应用创建的目录
+	Content     *string `json:"Content,omitempty"`     // 传入符合[文档数据结构](https://open.feishu.cn/document/ukTMukTMukTM/uAzM5YjLwMTO24CMzkjN)的字符串, 若为空表示创建空文档
+}
+
+// CreateDriveDocResp ...
+type CreateDriveDocResp struct {
+	ObjToken string `json:"objToken,omitempty"` // 新建文档的token
+	URL      string `json:"url,omitempty"`      // 新建文档的访问链接
 }
 
 // createDriveDocResp ...
@@ -72,10 +78,4 @@ type createDriveDocResp struct {
 	Code int64               `json:"code,omitempty"`
 	Msg  string              `json:"msg,omitempty"`
 	Data *CreateDriveDocResp `json:"data,omitempty"`
-}
-
-// CreateDriveDocResp ...
-type CreateDriveDocResp struct {
-	ObjToken string `json:"objToken,omitempty"` // 新建文档的token
-	URL      string `json:"url,omitempty"`      // 新建文档的访问链接
 }

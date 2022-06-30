@@ -57,15 +57,8 @@ func (r *Mock) UnMockAttendanceGetAttendanceUserFlow() {
 
 // GetAttendanceUserFlowReq ...
 type GetAttendanceUserFlowReq struct {
-	EmployeeType EmployeeType `query:"employee_type" json:"-"` // 响应体中的 user_id 和 creator_id 的员工工号类型, 示例值："employee_id", 可选值有: `open_id`：开放 openID, `employee_id`：员工 employee ID，即飞书管理后台 > 组织架构 > 成员与部门 > 成员详情中的用户 ID, `employee_no`：员工工号，即飞书管理后台 > 组织架构 > 成员与部门 > 成员详情中的工号
-	UserFlowID   string       `path:"user_flow_id" json:"-"`   // 打卡流水记录 ID，获取方式：1）[批量查询打卡流水记录](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/user_flow/query) 2）[获取打卡结果](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/user_task/query) 3）[导入打卡流水记录](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/user_flow/batch_create), 示例值："6708236686834352397"
-}
-
-// getAttendanceUserFlowResp ...
-type getAttendanceUserFlowResp struct {
-	Code int64                      `json:"code,omitempty"` // 错误码，非 0 表示失败
-	Msg  string                     `json:"msg,omitempty"`  // 错误描述
-	Data *GetAttendanceUserFlowResp `json:"data,omitempty"`
+	UserFlowID   string       `path:"user_flow_id" json:"-"`   // 打卡流水记录 ID, 获取方式: 1）[批量查询打卡流水记录](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/user_flow/query) 2）[获取打卡结果](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/user_task/query) 3）[导入打卡流水记录](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/user_flow/batch_create), 示例值: "6708236686834352397"
+	EmployeeType EmployeeType `query:"employee_type" json:"-"` // 响应体中的 user_id 和 creator_id 的员工工号类型, 示例值: "employee_id", 可选值有: `open_id`: 开放 openID, `employee_id`: 员工 employee ID, 即飞书管理后台 > 组织架构 > 成员与部门 > 成员详情中的用户 ID, `employee_no`: 员工工号, 即飞书管理后台 > 组织架构 > 成员与部门 > 成员详情中的工号
 }
 
 // GetAttendanceUserFlowResp ...
@@ -73,7 +66,7 @@ type GetAttendanceUserFlowResp struct {
 	UserID       string   `json:"user_id,omitempty"`       // 用户 ID
 	CreatorID    string   `json:"creator_id,omitempty"`    // 记录创建者 ID
 	LocationName string   `json:"location_name,omitempty"` // 打卡位置名称信息
-	CheckTime    string   `json:"check_time,omitempty"`    // 打卡时间，精确到秒的时间戳
+	CheckTime    string   `json:"check_time,omitempty"`    // 打卡时间, 精确到秒的时间戳
 	Comment      string   `json:"comment,omitempty"`       // 打卡备注
 	RecordID     string   `json:"record_id,omitempty"`     // 打卡记录 ID
 	Longitude    float64  `json:"longitude,omitempty"`     // 打卡经度
@@ -82,7 +75,14 @@ type GetAttendanceUserFlowResp struct {
 	Bssid        string   `json:"bssid,omitempty"`         // 打卡 Wi-Fi 的 MAC 地址
 	IsField      bool     `json:"is_field,omitempty"`      // 是否为外勤打卡
 	IsWifi       bool     `json:"is_wifi,omitempty"`       // 是否为 Wi-Fi 打卡
-	Type         int64    `json:"type,omitempty"`          // 记录生成方式, 可选值有: `0`：用户打卡, `1`：管理员修改, `2`：用户补卡, `3`：系统自动生成, `4`：下班免打卡, `5`：考勤机, `6`：极速打卡, `7`：考勤开放平台导入
+	Type         int64    `json:"type,omitempty"`          // 记录生成方式, 可选值有: `0`: 用户打卡, `1`: 管理员修改, `2`: 用户补卡, `3`: 系统自动生成, `4`: 下班免打卡, `5`: 考勤机, `6`: 极速打卡, `7`: 考勤开放平台导入
 	PhotoURLs    []string `json:"photo_urls,omitempty"`    // 打卡照片列表
 	DeviceID     string   `json:"device_id,omitempty"`     // 打卡设备 ID
+}
+
+// getAttendanceUserFlowResp ...
+type getAttendanceUserFlowResp struct {
+	Code int64                      `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg  string                     `json:"msg,omitempty"`  // 错误描述
+	Data *GetAttendanceUserFlowResp `json:"data,omitempty"`
 }

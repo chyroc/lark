@@ -23,14 +23,14 @@ import (
 
 // UpdateDriveDocContent
 //
-// 在使用此接口前，请仔细阅读[文档概述](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/docs-doc-overview)和[准备接入文档 API](https://open.feishu.cn/document/ukTMukTMukTM/ugzNzUjL4czM14CO3MTN/guide/getting-start)了解文档调用的规则和约束，确保你的文档数据不会丢失或出错。
-// 文档数据结构定义可参考：[文档数据结构概述](https://open.feishu.cn/document/ukTMukTMukTM/uAzM5YjLwMTO24CMzkjN)
-// 此接口只支持编辑旧版文档内容，如果需要编辑新版文档的内容，请调用新版文档相关接口：
+// 在使用此接口前, 请仔细阅读[文档概述](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/docs-doc-overview)和[准备接入文档 API](https://open.feishu.cn/document/ukTMukTMukTM/ugzNzUjL4czM14CO3MTN/guide/getting-start)了解文档调用的规则和约束, 确保你的文档数据不会丢失或出错。
+// 文档数据结构定义可参考: [文档数据结构概述](https://open.feishu.cn/document/ukTMukTMukTM/uAzM5YjLwMTO24CMzkjN)
+// 此接口只支持编辑旧版文档内容, 如果需要编辑新版文档的内容, 请调用新版文档相关接口:
 // - [创建块](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/document-docx/docx-v1/document-block-children/create)
 // - [更新块](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/document-docx/docx-v1/document-block/patch)
 // - [批量更新块](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/document-docx/docx-v1/document-block/batch_update)
 // - [删除块](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/document-docx/docx-v1/document-block-children/batch_delete)
-// 该接口用于批量编辑更新文档内容，包括更新标题、范围删除、插入内容。
+// 该接口用于批量编辑更新文档内容, 包括更新标题、范围删除、插入内容。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uYDM2YjL2AjN24iNwYjN
 func (r *DriveService) UpdateDriveDocContent(ctx context.Context, request *UpdateDriveDocContentReq, options ...MethodOptionFunc) (*UpdateDriveDocContentResp, *Response, error) {
@@ -67,9 +67,13 @@ func (r *Mock) UnMockDriveUpdateDriveDocContent() {
 
 // UpdateDriveDocContentReq ...
 type UpdateDriveDocContentReq struct {
-	DocToken string   `path:"docToken" json:"-"`  // 文件的 token，获取方式见[如何获取云文档资源相关 token](https://open.feishu.cn/document/ukTMukTMukTM/uczNzUjL3czM14yN3MTN#08bb5df6)
-	Revision int64    `json:"Revision,omitempty"` // 文档的指定版本，文档新创建后版本号是0，[获取方式](https://open.feishu.cn/document/ukTMukTMukTM/uUDM2YjL1AjN24SNwYjN)，要求>=0，post body json 字段
+	DocToken string   `path:"docToken" json:"-"`  // 文件的 token, 获取方式见[如何获取云文档资源相关 token](https://open.feishu.cn/document/ukTMukTMukTM/uczNzUjL3czM14yN3MTN#08bb5df6)
+	Revision int64    `json:"Revision,omitempty"` // 文档的指定版本, 文档新创建后版本号是0, [获取方式](https://open.feishu.cn/document/ukTMukTMukTM/uUDM2YjL1AjN24SNwYjN), 要求>=0, post body json 字段
 	Requests []string `json:"Requests,omitempty"` // post body json, OperationRequest 类型序列化 string 数组
+}
+
+// UpdateDriveDocContentResp ...
+type UpdateDriveDocContentResp struct {
 }
 
 // updateDriveDocContentResp ...
@@ -77,8 +81,4 @@ type updateDriveDocContentResp struct {
 	Code int64                      `json:"code,omitempty"`
 	Msg  string                     `json:"msg,omitempty"`
 	Data *UpdateDriveDocContentResp `json:"data,omitempty"`
-}
-
-// UpdateDriveDocContentResp ...
-type UpdateDriveDocContentResp struct {
 }

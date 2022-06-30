@@ -58,21 +58,14 @@ func (r *Mock) UnMockDriveGetSheetFilterView() {
 
 // GetSheetFilterViewReq ...
 type GetSheetFilterViewReq struct {
-	SpreadSheetToken string `path:"spreadsheet_token" json:"-"` // 表格 token, 示例值："shtcnmBA*****yGehy8"
-	SheetID          string `path:"sheet_id" json:"-"`          // 子表 id, 示例值："0b**12"
-	FilterViewID     string `path:"filter_view_id" json:"-"`    // 筛选视图 id, 示例值："pH9hbVcCXA"
-}
-
-// getSheetFilterViewResp ...
-type getSheetFilterViewResp struct {
-	Code int64                   `json:"code,omitempty"` // 错误码，非 0 表示失败
-	Msg  string                  `json:"msg,omitempty"`  // 错误描述
-	Data *GetSheetFilterViewResp `json:"data,omitempty"`
+	SpreadSheetToken string `path:"spreadsheet_token" json:"-"` // 表格 token, 示例值: "shtcnmBA*yGehy8"
+	SheetID          string `path:"sheet_id" json:"-"`          // 子表 id, 示例值: "0b**12"
+	FilterViewID     string `path:"filter_view_id" json:"-"`    // 筛选视图 id, 示例值: "pH9hbVcCXA"
 }
 
 // GetSheetFilterViewResp ...
 type GetSheetFilterViewResp struct {
-	FilterView *GetSheetFilterViewRespFilterView `json:"filter_view,omitempty"` // 筛选视图信息，包括 id、name、range
+	FilterView *GetSheetFilterViewRespFilterView `json:"filter_view,omitempty"` // 筛选视图信息, 包括 id、name、range
 }
 
 // GetSheetFilterViewRespFilterView ...
@@ -80,4 +73,11 @@ type GetSheetFilterViewRespFilterView struct {
 	FilterViewID   string `json:"filter_view_id,omitempty"`   // 筛选视图 id
 	FilterViewName string `json:"filter_view_name,omitempty"` // 筛选视图名字
 	Range          string `json:"range,omitempty"`            // 筛选视图的筛选范围
+}
+
+// getSheetFilterViewResp ...
+type getSheetFilterViewResp struct {
+	Code int64                   `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg  string                  `json:"msg,omitempty"`  // 错误描述
+	Data *GetSheetFilterViewResp `json:"data,omitempty"`
 }

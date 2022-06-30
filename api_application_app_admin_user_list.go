@@ -23,7 +23,7 @@ import (
 
 // GetApplicationAppAdminUserList
 //
-// 查询审核应用的管理员列表，返回最新10个管理员账户id列表。
+// 查询审核应用的管理员列表, 返回最新10个管理员账户id列表。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/ucDOwYjL3gDM24yN4AjN
 func (r *ApplicationService) GetApplicationAppAdminUserList(ctx context.Context, request *GetApplicationAppAdminUserListReq, options ...MethodOptionFunc) (*GetApplicationAppAdminUserListResp, *Response, error) {
@@ -61,13 +61,6 @@ func (r *Mock) UnMockApplicationGetApplicationAppAdminUserList() {
 type GetApplicationAppAdminUserListReq struct {
 }
 
-// getApplicationAppAdminUserListResp ...
-type getApplicationAppAdminUserListResp struct {
-	Code int64                               `json:"code,omitempty"` // 返回码，非 0 表示失败
-	Msg  string                              `json:"msg,omitempty"`  // 返回码描述
-	Data *GetApplicationAppAdminUserListResp `json:"data,omitempty"` // -
-}
-
 // GetApplicationAppAdminUserListResp ...
 type GetApplicationAppAdminUserListResp struct {
 	UserList []*GetApplicationAppAdminUserListRespUser `json:"user_list,omitempty"` // 管理员列表
@@ -82,4 +75,11 @@ type GetApplicationAppAdminUserListRespUser struct {
 type GetApplicationAppAdminUserListRespUserOpenID struct {
 	UserID  string `json:"user_id,omitempty"`  // 某管理员的user_id
 	UnionID string `json:"union_id,omitempty"` // 某管理员的union_id
+}
+
+// getApplicationAppAdminUserListResp ...
+type getApplicationAppAdminUserListResp struct {
+	Code int64                               `json:"code,omitempty"` // 返回码, 非 0 表示失败
+	Msg  string                              `json:"msg,omitempty"`  // 返回码描述
+	Data *GetApplicationAppAdminUserListResp `json:"data,omitempty"`
 }

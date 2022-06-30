@@ -57,19 +57,19 @@ func (r *Mock) UnMockHireCreateHireApplication() {
 
 // CreateHireApplicationReq ...
 type CreateHireApplicationReq struct {
-	TalentID                         string   `json:"talent_id,omitempty"`                            // 人才ID, 示例值："12312312312"
-	JobID                            string   `json:"job_id,omitempty"`                               // 职位ID, 示例值："12312312312"
-	ApplicationPreferredCityCodeList []string `json:"application_preferred_city_code_list,omitempty"` // 意向投递城市列表，可从「获取职位信息」返回的工作地点列表获取, 示例值：["CT_1"]
-}
-
-// createHireApplicationResp ...
-type createHireApplicationResp struct {
-	Code int64                      `json:"code,omitempty"` // 错误码，非 0 表示失败
-	Msg  string                     `json:"msg,omitempty"`  // 错误描述
-	Data *CreateHireApplicationResp `json:"data,omitempty"`
+	TalentID                         string   `json:"talent_id,omitempty"`                            // 人才ID, 示例值: "12312312312"
+	JobID                            string   `json:"job_id,omitempty"`                               // 职位ID, 示例值: "12312312312"
+	ApplicationPreferredCityCodeList []string `json:"application_preferred_city_code_list,omitempty"` // 意向投递城市列表, 可从「获取职位信息」返回的工作地点列表获取, 示例值: ["CT_1"]
 }
 
 // CreateHireApplicationResp ...
 type CreateHireApplicationResp struct {
 	ID string `json:"id,omitempty"` // 投递ID
+}
+
+// createHireApplicationResp ...
+type createHireApplicationResp struct {
+	Code int64                      `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg  string                     `json:"msg,omitempty"`  // 错误描述
+	Data *CreateHireApplicationResp `json:"data,omitempty"`
 }

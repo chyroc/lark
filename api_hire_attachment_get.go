@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// GetHireAttachment 获取招聘系统中附件的元信息，比如文件名、创建时间、文件url等
+// GetHireAttachment 获取招聘系统中附件的元信息, 比如文件名、创建时间、文件url等
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/attachment/get
 func (r *HireService) GetHireAttachment(ctx context.Context, request *GetHireAttachmentReq, options ...MethodOptionFunc) (*GetHireAttachmentResp, *Response, error) {
@@ -57,14 +57,7 @@ func (r *Mock) UnMockHireGetHireAttachment() {
 
 // GetHireAttachmentReq ...
 type GetHireAttachmentReq struct {
-	AttachmentID string `path:"attachment_id" json:"-"` // 附件id, 示例值："6435242341238"
-}
-
-// getHireAttachmentResp ...
-type getHireAttachmentResp struct {
-	Code int64                  `json:"code,omitempty"` // 错误码，非 0 表示失败
-	Msg  string                 `json:"msg,omitempty"`  // 错误描述
-	Data *GetHireAttachmentResp `json:"data,omitempty"`
+	AttachmentID string `path:"attachment_id" json:"-"` // 附件id, 示例值: "6435242341238"
 }
 
 // GetHireAttachmentResp ...
@@ -79,4 +72,11 @@ type GetHireAttachmentRespAttachment struct {
 	Name       string `json:"name,omitempty"`        // 附件文件名
 	Mime       string `json:"mime,omitempty"`        // 媒体类型/MIME
 	CreateTime int64  `json:"create_time,omitempty"` // 附件创建时间（单位ms）
+}
+
+// getHireAttachmentResp ...
+type getHireAttachmentResp struct {
+	Code int64                  `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg  string                 `json:"msg,omitempty"`  // 错误描述
+	Data *GetHireAttachmentResp `json:"data,omitempty"`
 }

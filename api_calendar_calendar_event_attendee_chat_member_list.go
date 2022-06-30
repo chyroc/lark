@@ -24,7 +24,7 @@ import (
 // GetCalendarEventAttendeeChatMemberList 获取日程的群参与人的群成员列表。
 //
 // - 当前身份必须有权限查看日程的参与人列表。
-// - 当前身份必须在群聊中，或有权限查看群成员列表。
+// - 当前身份必须在群聊中, 或有权限查看群成员列表。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar-event-attendee-chat_member/list
 func (r *CalendarService) GetCalendarEventAttendeeChatMemberList(ctx context.Context, request *GetCalendarEventAttendeeChatMemberListReq, options ...MethodOptionFunc) (*GetCalendarEventAttendeeChatMemberListResp, *Response, error) {
@@ -61,34 +61,34 @@ func (r *Mock) UnMockCalendarGetCalendarEventAttendeeChatMemberList() {
 
 // GetCalendarEventAttendeeChatMemberListReq ...
 type GetCalendarEventAttendeeChatMemberListReq struct {
-	PageToken  *string `query:"page_token" json:"-"`   // 分页标记，第一次请求不填，表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token，下次遍历可采用该 page_token 获取查询结果, 示例值："23jhysaxxxxsysy"
-	PageSize   *int64  `query:"page_size" json:"-"`    // 分页大小, 示例值：10, 最大值：`100`
-	UserIDType *IDType `query:"user_id_type" json:"-"` // 用户 ID 类型, 示例值："open_id", 可选值有: `open_id`：用户的 open id, `union_id`：用户的 union id, `user_id`：用户的 user id, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
-	CalendarID string  `path:"calendar_id" json:"-"`   // 日历ID。参见[日历ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar/introduction), 示例值："feishu.cn_xxxxxxxxxx@group.calendar.feishu.cn"
-	EventID    string  `path:"event_id" json:"-"`      // 日程ID。参见[日程ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar-event/introduction), 示例值："xxxxxxxxx_0"
-	AttendeeID string  `path:"attendee_id" json:"-"`   // 群参与人 ID。参见[参与人ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar-event-attendee/introduction#4998889c), 示例值："chat_xxxxxx"
-}
-
-// getCalendarEventAttendeeChatMemberListResp ...
-type getCalendarEventAttendeeChatMemberListResp struct {
-	Code int64                                       `json:"code,omitempty"` // 错误码，非 0 表示失败
-	Msg  string                                      `json:"msg,omitempty"`  // 错误描述
-	Data *GetCalendarEventAttendeeChatMemberListResp `json:"data,omitempty"`
+	CalendarID string  `path:"calendar_id" json:"-"`   // 日历ID。参见[日历ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar/introduction), 示例值: "feishu.cn_xxxxxxxxxx@group.calendar.feishu.cn"
+	EventID    string  `path:"event_id" json:"-"`      // 日程ID。参见[日程ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar-event/introduction), 示例值: "xxxxxxxxx_0"
+	AttendeeID string  `path:"attendee_id" json:"-"`   // 群参与人 ID。参见[参与人ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar-event-attendee/introduction#4998889c), 示例值: "chat_xxxxxx"
+	PageToken  *string `query:"page_token" json:"-"`   // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果, 示例值: "23jhysaxxxxsysy"
+	PageSize   *int64  `query:"page_size" json:"-"`    // 分页大小, 示例值: 10, 最大值: `100`
+	UserIDType *IDType `query:"user_id_type" json:"-"` // 用户 ID 类型, 示例值: "open_id", 可选值有: `open_id`: 用户的 open id, `union_id`: 用户的 union id, `user_id`: 用户的 user id, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
 }
 
 // GetCalendarEventAttendeeChatMemberListResp ...
 type GetCalendarEventAttendeeChatMemberListResp struct {
-	Items     []*GetCalendarEventAttendeeChatMemberListRespItem `json:"items,omitempty"`      // 群中的群成员，当type为chat时有效；群成员不支持编辑
+	Items     []*GetCalendarEventAttendeeChatMemberListRespItem `json:"items,omitempty"`      // 群中的群成员, 当type为chat时有效；群成员不支持编辑
 	HasMore   bool                                              `json:"has_more,omitempty"`   // 是否还有更多项
-	PageToken string                                            `json:"page_token,omitempty"` // 分页标记，当 has_more 为 true 时，会同时返回新的 page_token，否则不返回 page_token
+	PageToken string                                            `json:"page_token,omitempty"` // 分页标记, 当 has_more 为 true 时, 会同时返回新的 page_token, 否则不返回 page_token
 }
 
 // GetCalendarEventAttendeeChatMemberListRespItem ...
 type GetCalendarEventAttendeeChatMemberListRespItem struct {
-	RsvpStatus  string `json:"rsvp_status,omitempty"`  // 参与人RSVP状态, 可选值有: `needs_action`：参与人尚未回复状态，或表示会议室预约中, `accept`：参与人回复接受，或表示会议室预约成功, `tentative`：参与人回复待定, `decline`：参与人回复拒绝，或表示会议室预约失败, `removed`：参与人或会议室已经从日程中被移除
+	RsvpStatus  string `json:"rsvp_status,omitempty"`  // 参与人RSVP状态, 可选值有: `needs_action`: 参与人尚未回复状态, 或表示会议室预约中, `accept`: 参与人回复接受, 或表示会议室预约成功, `tentative`: 参与人回复待定, `decline`: 参与人回复拒绝, 或表示会议室预约失败, `removed`: 参与人或会议室已经从日程中被移除
 	IsOptional  bool   `json:"is_optional,omitempty"`  // 参与人是否为「可选参加」
 	DisplayName string `json:"display_name,omitempty"` // 参与人名称
-	OpenID      string `json:"open_id,omitempty"`      // 参与人open_id，参见[用户相关的 ID 概念](https://open.feishu.cn/document/home/user-identity-introduction/introduction), 示例值："ou_xxxxxxxx"
+	OpenID      string `json:"open_id,omitempty"`      // 参与人open_id, 参见[用户相关的 ID 概念](https://open.feishu.cn/document/home/user-identity-introduction/introduction), 示例值: "ou_xxxxxxxx"
 	IsOrganizer bool   `json:"is_organizer,omitempty"` // 参与人是否为日程组织者
 	IsExternal  bool   `json:"is_external,omitempty"`  // 参与人是否为外部参与人
+}
+
+// getCalendarEventAttendeeChatMemberListResp ...
+type getCalendarEventAttendeeChatMemberListResp struct {
+	Code int64                                       `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg  string                                      `json:"msg,omitempty"`  // 错误描述
+	Data *GetCalendarEventAttendeeChatMemberListResp `json:"data,omitempty"`
 }

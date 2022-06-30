@@ -57,15 +57,8 @@ func (r *Mock) UnMockMailCreateMailUserMailboxAlias() {
 
 // CreateMailUserMailboxAliasReq ...
 type CreateMailUserMailboxAliasReq struct {
-	UserMailboxID string  `path:"user_mailbox_id" json:"-"` // 用户邮箱地址, 示例值："user@xxx.xx"
-	EmailAlias    *string `json:"email_alias,omitempty"`    // 邮箱别名, 示例值："xxx@xx.xxx"
-}
-
-// createMailUserMailboxAliasResp ...
-type createMailUserMailboxAliasResp struct {
-	Code int64                           `json:"code,omitempty"` // 错误码，非 0 表示失败
-	Msg  string                          `json:"msg,omitempty"`  // 错误描述
-	Data *CreateMailUserMailboxAliasResp `json:"data,omitempty"`
+	UserMailboxID string  `path:"user_mailbox_id" json:"-"` // 用户邮箱地址, 示例值: "user@xxx.xx"
+	EmailAlias    *string `json:"email_alias,omitempty"`    // 邮箱别名, 示例值: "xxx@xx.xxx"
 }
 
 // CreateMailUserMailboxAliasResp ...
@@ -77,4 +70,11 @@ type CreateMailUserMailboxAliasResp struct {
 type CreateMailUserMailboxAliasRespUserMailboxAlias struct {
 	PrimaryEmail string `json:"primary_email,omitempty"` // 主邮箱地址
 	EmailAlias   string `json:"email_alias,omitempty"`   // 邮箱别名
+}
+
+// createMailUserMailboxAliasResp ...
+type createMailUserMailboxAliasResp struct {
+	Code int64                           `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg  string                          `json:"msg,omitempty"`  // 错误描述
+	Data *CreateMailUserMailboxAliasResp `json:"data,omitempty"`
 }

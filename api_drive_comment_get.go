@@ -58,22 +58,15 @@ func (r *Mock) UnMockDriveGetDriveComment() {
 
 // GetDriveCommentReq ...
 type GetDriveCommentReq struct {
-	FileType   FileType `query:"file_type" json:"-"`    // 文档类型, 示例值："doc", 可选值有: `doc`：文档, `sheet`：表格, `file`：文件, `docx`：新版文档
-	UserIDType *IDType  `query:"user_id_type" json:"-"` // 用户 ID 类型, 示例值："open_id", 可选值有: `open_id`：用户的 open id, `union_id`：用户的 union id, `user_id`：用户的 user id, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
-	FileToken  string   `path:"file_token" json:"-"`    // 文档token, 示例值："doccnHh7U87HOFpii5u5G*****"
-	CommentID  string   `path:"comment_id" json:"-"`    // 评论ID, 示例值："6916106822734578184"
-}
-
-// getDriveCommentResp ...
-type getDriveCommentResp struct {
-	Code int64                `json:"code,omitempty"` // 错误码，非 0 表示失败
-	Msg  string               `json:"msg,omitempty"`  // 错误描述
-	Data *GetDriveCommentResp `json:"data,omitempty"`
+	FileToken  string   `path:"file_token" json:"-"`    // 文档token, 示例值: "doccnHh7U87HOFpii5u5G*"
+	CommentID  string   `path:"comment_id" json:"-"`    // 评论ID, 示例值: "6916106822734578184"
+	FileType   FileType `query:"file_type" json:"-"`    // 文档类型, 示例值: "doc", 可选值有: `doc`: 文档, `sheet`: 表格, `file`: 文件, `docx`: 新版文档
+	UserIDType *IDType  `query:"user_id_type" json:"-"` // 用户 ID 类型, 示例值: "open_id", 可选值有: `open_id`: 用户的 open id, `union_id`: 用户的 union id, `user_id`: 用户的 user id, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
 }
 
 // GetDriveCommentResp ...
 type GetDriveCommentResp struct {
-	CommentID    string                        `json:"comment_id,omitempty"`     // 评论ID（创建新评论可不填；如填写，则视为回复已有评论）
+	CommentID    string                        `json:"comment_id,omitempty"`     // 评论ID（创建新评论可不填；如填写, 则视为回复已有评论）
 	UserID       string                        `json:"user_id,omitempty"`        // 用户ID
 	CreateTime   int64                         `json:"create_time,omitempty"`    // 创建时间
 	UpdateTime   int64                         `json:"update_time,omitempty"`    // 更新时间
@@ -104,15 +97,10 @@ type GetDriveCommentRespReplyListReplyContent struct {
 
 // GetDriveCommentRespReplyListReplyContentElement ...
 type GetDriveCommentRespReplyListReplyContentElement struct {
-	Type     string                                                   `json:"type,omitempty"`      // 回复的内容元素, 可选值有: `text_run`：普通文本, `docs_link`：at 云文档链接, `person`：at 联系人
+	Type     string                                                   `json:"type,omitempty"`      // 回复的内容元素, 可选值有: `text_run`: 普通文本, `docs_link`: at 云文档链接, `person`: at 联系人
 	TextRun  *GetDriveCommentRespReplyListReplyContentElementTextRun  `json:"text_run,omitempty"`  // 文本内容
 	DocsLink *GetDriveCommentRespReplyListReplyContentElementDocsLink `json:"docs_link,omitempty"` // 文本内容
 	Person   *GetDriveCommentRespReplyListReplyContentElementPerson   `json:"person,omitempty"`    // 文本内容
-}
-
-// GetDriveCommentRespReplyListReplyContentElementTextRun ...
-type GetDriveCommentRespReplyListReplyContentElementTextRun struct {
-	Text string `json:"text,omitempty"` // 回复 普通文本
 }
 
 // GetDriveCommentRespReplyListReplyContentElementDocsLink ...
@@ -123,4 +111,16 @@ type GetDriveCommentRespReplyListReplyContentElementDocsLink struct {
 // GetDriveCommentRespReplyListReplyContentElementPerson ...
 type GetDriveCommentRespReplyListReplyContentElementPerson struct {
 	UserID string `json:"user_id,omitempty"` // 回复 at联系人
+}
+
+// GetDriveCommentRespReplyListReplyContentElementTextRun ...
+type GetDriveCommentRespReplyListReplyContentElementTextRun struct {
+	Text string `json:"text,omitempty"` // 回复 普通文本
+}
+
+// getDriveCommentResp ...
+type getDriveCommentResp struct {
+	Code int64                `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg  string               `json:"msg,omitempty"`  // 错误描述
+	Data *GetDriveCommentResp `json:"data,omitempty"`
 }

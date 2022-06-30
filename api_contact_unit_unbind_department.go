@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// UnbindContactUnitDepartment 通过该接口解除部门与单位的绑定关系，需更新单位的权限，需对应部门的通讯录权限。由于单位是旗舰版付费功能，企业需开通相关功能，否则会解绑失败
+// UnbindContactUnitDepartment 通过该接口解除部门与单位的绑定关系, 需更新单位的权限, 需对应部门的通讯录权限。由于单位是旗舰版付费功能, 企业需开通相关功能, 否则会解绑失败
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/unit/unbind_department
 func (r *ContactService) UnbindContactUnitDepartment(ctx context.Context, request *UnbindContactUnitDepartmentReq, options ...MethodOptionFunc) (*UnbindContactUnitDepartmentResp, *Response, error) {
@@ -57,18 +57,18 @@ func (r *Mock) UnMockContactUnbindContactUnitDepartment() {
 
 // UnbindContactUnitDepartmentReq ...
 type UnbindContactUnitDepartmentReq struct {
-	UnitID           string            `json:"unit_id,omitempty"`            // 单位ID, 示例值："BU121"
-	DepartmentID     string            `json:"department_id,omitempty"`      // 预解除关联的部门ID, 示例值："od-4e6ac4d14bcd5071a37a39de902c7141"
-	DepartmentIDType *DepartmentIDType `json:"department_id_type,omitempty"` // 此次调用中使用的部门ID的类型, 示例值："open_department_id", 可选值有: `department_id`：以自定义department_id来标识部门, `open_department_id`：以open_department_id来标识部门, 默认值: `open_department_id`
-}
-
-// unbindContactUnitDepartmentResp ...
-type unbindContactUnitDepartmentResp struct {
-	Code int64                            `json:"code,omitempty"` // 错误码，非 0 表示失败
-	Msg  string                           `json:"msg,omitempty"`  // 错误描述
-	Data *UnbindContactUnitDepartmentResp `json:"data,omitempty"`
+	UnitID           string            `json:"unit_id,omitempty"`            // 单位ID, 示例值: "BU121"
+	DepartmentID     string            `json:"department_id,omitempty"`      // 预解除关联的部门ID, 示例值: "od-4e6ac4d14bcd5071a37a39de902c7141"
+	DepartmentIDType *DepartmentIDType `json:"department_id_type,omitempty"` // 此次调用中使用的部门ID的类型, 示例值: "open_department_id", 可选值有: `department_id`: 以自定义department_id来标识部门, `open_department_id`: 以open_department_id来标识部门, 默认值: `open_department_id`
 }
 
 // UnbindContactUnitDepartmentResp ...
 type UnbindContactUnitDepartmentResp struct {
+}
+
+// unbindContactUnitDepartmentResp ...
+type unbindContactUnitDepartmentResp struct {
+	Code int64                            `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg  string                           `json:"msg,omitempty"`  // 错误描述
+	Data *UnbindContactUnitDepartmentResp `json:"data,omitempty"`
 }

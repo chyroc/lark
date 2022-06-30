@@ -23,7 +23,7 @@ import (
 
 // AppendSheetValue
 //
-// 该接口用于根据 spreadsheetToken 和 range 遇到空行则进行覆盖追加或新增行追加数据。 空行：默认该行第一个格子是空，则认为是空行；单次写入不超过5000行，100列，每个格子不超过5万字符。
+// 该接口用于根据 spreadsheetToken 和 range 遇到空行则进行覆盖追加或新增行追加数据。 空行: 默认该行第一个格子是空, 则认为是空行；单次写入不超过5000行, 100列, 每个格子不超过5万字符。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uMjMzUjLzIzM14yMyMTN
 func (r *DriveService) AppendSheetValue(ctx context.Context, request *AppendSheetValueReq, options ...MethodOptionFunc) (*AppendSheetValueResp, *Response, error) {
@@ -60,22 +60,15 @@ func (r *Mock) UnMockDriveAppendSheetValue() {
 
 // AppendSheetValueReq ...
 type AppendSheetValueReq struct {
-	InsertDataOption *string                        `query:"insertDataOption" json:"-"` // 遇到空行追加，默认 OVERWRITE，若空行的数量小于追加数据的行数，则会覆盖已有数据；可选 INSERT_ROWS ，会在插入足够数量的行后再进行数据追加
-	SpreadSheetToken string                         `path:"spreadsheetToken" json:"-"`  // spreadsheet 的 token，获取方式见[在线表格开发指南](https://open.feishu.cn/document/ukTMukTMukTM/uATMzUjLwEzM14CMxMTN/overview)
+	SpreadSheetToken string                         `path:"spreadsheetToken" json:"-"`  // spreadsheet 的 token, 获取方式见[在线表格开发指南](https://open.feishu.cn/document/ukTMukTMukTM/uATMzUjLwEzM14CMxMTN/overview)
+	InsertDataOption *string                        `query:"insertDataOption" json:"-"` // 遇到空行追加, 默认 OVERWRITE, 若空行的数量小于追加数据的行数, 则会覆盖已有数据；可选 INSERT_ROWS, 会在插入足够数量的行后再进行数据追加
 	ValueRange       *AppendSheetValueReqValueRange `json:"valueRange,omitempty"`       // 值与范围
 }
 
 // AppendSheetValueReqValueRange ...
 type AppendSheetValueReqValueRange struct {
-	Range  string           `json:"range,omitempty"`  // ⁣查询范围，包含 sheetId 与单元格范围两部分，目前支持三种索引方式，详见 [在线表格开发指南](https://open.feishu.cn/document/ukTMukTMukTM/uATMzUjLwEzM14CMxMTN/overview)。range所表示的范围需要大于等于values占用的范围。
-	Values [][]SheetContent `json:"values,omitempty"` // 需要写入的值，如要写入公式、超链接、email、@人等，可详看附录[sheet 支持写入数据类型](https://open.feishu.cn/document/ukTMukTMukTM/ugjN1UjL4YTN14CO2UTN)
-}
-
-// appendSheetValueResp ...
-type appendSheetValueResp struct {
-	Code int64                 `json:"code,omitempty"`
-	Msg  string                `json:"msg,omitempty"`
-	Data *AppendSheetValueResp `json:"data,omitempty"`
+	Range  string           `json:"range,omitempty"`  // ⁣查询范围, 包含 sheetId 与单元格范围两部分, 目前支持三种索引方式, 详见 [在线表格开发指南](https://open.feishu.cn/document/ukTMukTMukTM/uATMzUjLwEzM14CMxMTN/overview)。range所表示的范围需要大于等于values占用的范围。
+	Values [][]SheetContent `json:"values,omitempty"` // 需要写入的值, 如要写入公式、超链接、email、@人等, 可详看附录[sheet 支持写入数据类型](https://open.feishu.cn/document/ukTMukTMukTM/ugjN1UjL4YTN14CO2UTN)
 }
 
 // AppendSheetValueResp ...
@@ -94,4 +87,11 @@ type AppendSheetValueRespUpdates struct {
 	UpdatedColumns   int64  `json:"updatedColumns,omitempty"`   // 写入的列数
 	UpdatedCells     int64  `json:"updatedCells,omitempty"`     // 写入的单元格总数
 	Revision         int64  `json:"revision,omitempty"`         // sheet 的版本号
+}
+
+// appendSheetValueResp ...
+type appendSheetValueResp struct {
+	Code int64                 `json:"code,omitempty"`
+	Msg  string                `json:"msg,omitempty"`
+	Data *AppendSheetValueResp `json:"data,omitempty"`
 }

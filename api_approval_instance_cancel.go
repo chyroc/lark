@@ -23,7 +23,7 @@ import (
 
 // CancelApprovalInstance
 //
-// 对于状态为“审批中”的单个审批实例进行撤销操作，撤销后审批流程结束
+// 对于状态为“审批中”的单个审批实例进行撤销操作, 撤销后审批流程结束
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uYDNyUjL2QjM14iN0ITN
 func (r *ApprovalService) CancelApprovalInstance(ctx context.Context, request *CancelApprovalInstanceReq, options ...MethodOptionFunc) (*CancelApprovalInstanceResp, *Response, error) {
@@ -59,20 +59,19 @@ func (r *Mock) UnMockApprovalCancelApprovalInstance() {
 
 // CancelApprovalInstanceReq ...
 type CancelApprovalInstanceReq struct {
-	ApprovalCode  string `json:"approval_code,omitempty"` // 审批定义Code
-	InstanceCode  string `json:"instance_code,omitempty"` // 审批实例Code
-	UserID        string `json:"user_id,omitempty"`       // 操作用户
-	OpenID        string `json:"open_id,omitempty"`       // 某个应用下用户的唯一标识，根据userID、openID、TenantId获得Lark用户。
-	NotifyStarter *bool  `json:"notifyStarter,omitempty"` // 如果为true，撤回实例的时候会收到一条消息提醒。
-}
-
-// cancelApprovalInstanceResp ...
-type cancelApprovalInstanceResp struct {
-	Code int64                       `json:"code,omitempty"` // 错误码，非0表示失败
-	Msg  string                      `json:"msg,omitempty"`  // 返回码的描述
-	Data *CancelApprovalInstanceResp `json:"data,omitempty"`
+	ApprovalCode string `json:"approval_code,omitempty"` // 审批定义Code
+	InstanceCode string `json:"instance_code,omitempty"` // 审批实例Code
+	UserID       string `json:"user_id,omitempty"`       // 操作用户
+	OpenID       string `json:"open_id,omitempty"`       // 某个应用下用户的唯一标识, 根据userID、openID、TenantId获得Lark用户。
 }
 
 // CancelApprovalInstanceResp ...
 type CancelApprovalInstanceResp struct {
+}
+
+// cancelApprovalInstanceResp ...
+type cancelApprovalInstanceResp struct {
+	Code int64                       `json:"code,omitempty"` // 错误码, 非0表示失败
+	Msg  string                      `json:"msg,omitempty"`  // 返回码的描述
+	Data *CancelApprovalInstanceResp `json:"data,omitempty"`
 }

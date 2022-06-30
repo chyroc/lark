@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// GetAttendanceUserDailyShift 支持查询多个用户的排班情况，查询的时间跨度不能超过 30 天。
+// GetAttendanceUserDailyShift 支持查询多个用户的排班情况, 查询的时间跨度不能超过 30 天。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/user_daily_shift/query
 func (r *AttendanceService) GetAttendanceUserDailyShift(ctx context.Context, request *GetAttendanceUserDailyShiftReq, options ...MethodOptionFunc) (*GetAttendanceUserDailyShiftResp, *Response, error) {
@@ -57,17 +57,10 @@ func (r *Mock) UnMockAttendanceGetAttendanceUserDailyShift() {
 
 // GetAttendanceUserDailyShiftReq ...
 type GetAttendanceUserDailyShiftReq struct {
-	EmployeeType  EmployeeType `query:"employee_type" json:"-"`   // 请求体中的 user_ids 和响应体中的 user_id 的员工工号类型, 示例值："employee_id", 可选值有: `employee_id`：员工 employee ID，即飞书管理后台 > 组织架构 > 成员与部门 > 成员详情中的用户 ID, `employee_no`：员工工号，即飞书管理后台 > 组织架构 > 成员与部门 > 成员详情中的工号
-	UserIDs       []string     `json:"user_ids,omitempty"`        // employee_no 或 employee_id 列表, 示例值：["abd754f7"]
-	CheckDateFrom int64        `json:"check_date_from,omitempty"` // 查询的起始工作日, 示例值：20190817
-	CheckDateTo   int64        `json:"check_date_to,omitempty"`   // 查询的结束工作日, 示例值：20190820
-}
-
-// getAttendanceUserDailyShiftResp ...
-type getAttendanceUserDailyShiftResp struct {
-	Code int64                            `json:"code,omitempty"` // 错误码，非 0 表示失败
-	Msg  string                           `json:"msg,omitempty"`  // 错误描述
-	Data *GetAttendanceUserDailyShiftResp `json:"data,omitempty"`
+	EmployeeType  EmployeeType `query:"employee_type" json:"-"`   // 请求体中的 user_ids 和响应体中的 user_id 的员工工号类型, 示例值: "employee_id", 可选值有: `employee_id`: 员工 employee ID, 即飞书管理后台 > 组织架构 > 成员与部门 > 成员详情中的用户 ID, `employee_no`: 员工工号, 即飞书管理后台 > 组织架构 > 成员与部门 > 成员详情中的工号
+	UserIDs       []string     `json:"user_ids,omitempty"`        // employee_no 或 employee_id 列表, 示例值: ["abd754f7"]
+	CheckDateFrom int64        `json:"check_date_from,omitempty"` // 查询的起始工作日, 示例值: 20190817
+	CheckDateTo   int64        `json:"check_date_to,omitempty"`   // 查询的结束工作日, 示例值: 20190820
 }
 
 // GetAttendanceUserDailyShiftResp ...
@@ -77,9 +70,16 @@ type GetAttendanceUserDailyShiftResp struct {
 
 // GetAttendanceUserDailyShiftRespUserDailyShift ...
 type GetAttendanceUserDailyShiftRespUserDailyShift struct {
-	GroupID string `json:"group_id,omitempty"` // 考勤组 ID，获取方式：1）[创建或修改考勤组](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/group/create) 2）[按名称查询考勤组](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/group/search) 3）[获取打卡结果](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/user_task/query)
-	ShiftID string `json:"shift_id,omitempty"` // 班次 ID，获取方式：1）[按名称查询班次](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/shift/query) 2）[创建班次](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/shift/create)
+	GroupID string `json:"group_id,omitempty"` // 考勤组 ID, 获取方式: 1）[创建或修改考勤组](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/group/create) 2）[按名称查询考勤组](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/group/search) 3）[获取打卡结果](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/user_task/query)
+	ShiftID string `json:"shift_id,omitempty"` // 班次 ID, 获取方式: 1）[按名称查询班次](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/shift/query) 2）[创建班次](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/shift/create)
 	Month   int64  `json:"month,omitempty"`    // 月份
 	UserID  string `json:"user_id,omitempty"`  // 用户 ID
 	DayNo   int64  `json:"day_no,omitempty"`   // 日期
+}
+
+// getAttendanceUserDailyShiftResp ...
+type getAttendanceUserDailyShiftResp struct {
+	Code int64                            `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg  string                           `json:"msg,omitempty"`  // 错误描述
+	Data *GetAttendanceUserDailyShiftResp `json:"data,omitempty"`
 }

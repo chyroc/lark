@@ -57,17 +57,17 @@ func (r *Mock) UnMockContactUnbindDepartmentChat() {
 
 // UnbindDepartmentChatReq ...
 type UnbindDepartmentChatReq struct {
-	DepartmentIDType *DepartmentIDType `query:"department_id_type" json:"-"` // 此次调用中使用的部门ID的类型，默认为"open_department_id", 示例值："open_department_id", 可选值有: `department_id`：以自定义department_id来标识部门, `open_department_id`：以open_department_id来标识部门
-	DepartmentID     string            `json:"department_id,omitempty"`      // 部门ID, 示例值："od-4e6ac4d14bcd5071a37a39de902c7141"
-}
-
-// unbindDepartmentChatResp ...
-type unbindDepartmentChatResp struct {
-	Code int64                     `json:"code,omitempty"` // 错误码，非 0 表示失败
-	Msg  string                    `json:"msg,omitempty"`  // 错误描述
-	Data *UnbindDepartmentChatResp `json:"data,omitempty"`
+	DepartmentIDType *DepartmentIDType `query:"department_id_type" json:"-"` // 此次调用中使用的部门ID的类型, 默认为"open_department_id", 示例值: "open_department_id", 可选值有: `department_id`: 以自定义department_id来标识部门, `open_department_id`: 以open_department_id来标识部门
+	DepartmentID     string            `json:"department_id,omitempty"`      // 部门ID, 示例值: "od-4e6ac4d14bcd5071a37a39de902c7141"
 }
 
 // UnbindDepartmentChatResp ...
 type UnbindDepartmentChatResp struct {
+}
+
+// unbindDepartmentChatResp ...
+type unbindDepartmentChatResp struct {
+	Code int64                     `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg  string                    `json:"msg,omitempty"`  // 错误描述
+	Data *UnbindDepartmentChatResp `json:"data,omitempty"`
 }

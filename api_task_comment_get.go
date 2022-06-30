@@ -58,15 +58,8 @@ func (r *Mock) UnMockTaskGetTaskComment() {
 
 // GetTaskCommentReq ...
 type GetTaskCommentReq struct {
-	TaskID    string `path:"task_id" json:"-"`    // 任务ID, 示例值："83912691-2e43-47fc-94a4-d512e03984fa"
-	CommentID string `path:"comment_id" json:"-"` // 评论ID, 示例值："6937231762296684564"
-}
-
-// getTaskCommentResp ...
-type getTaskCommentResp struct {
-	Code int64               `json:"code,omitempty"` // 错误码，非 0 表示失败
-	Msg  string              `json:"msg,omitempty"`  // 错误描述
-	Data *GetTaskCommentResp `json:"data,omitempty"`
+	TaskID    string `path:"task_id" json:"-"`    // 任务ID, 示例值: "83912691-2e43-47fc-94a4-d512e03984fa"
+	CommentID string `path:"comment_id" json:"-"` // 评论ID, 示例值: "6937231762296684564"
 }
 
 // GetTaskCommentResp ...
@@ -77,6 +70,13 @@ type GetTaskCommentResp struct {
 // GetTaskCommentRespComment ...
 type GetTaskCommentRespComment struct {
 	Content  string `json:"content,omitempty"`   // 评论内容
-	ParentID string `json:"parent_id,omitempty"` // 评论的父ID，创建评论时若不为空则为某条评论的回复，若为空则不是回复
-	ID       string `json:"id,omitempty"`        // 评论ID，由飞书服务器发号
+	ParentID string `json:"parent_id,omitempty"` // 评论的父ID, 创建评论时若不为空则为某条评论的回复, 若为空则不是回复
+	ID       string `json:"id,omitempty"`        // 评论ID, 由飞书服务器发号
+}
+
+// getTaskCommentResp ...
+type getTaskCommentResp struct {
+	Code int64               `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg  string              `json:"msg,omitempty"`  // 错误描述
+	Data *GetTaskCommentResp `json:"data,omitempty"`
 }

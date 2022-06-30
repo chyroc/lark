@@ -60,16 +60,9 @@ func (r *Mock) UnMockBitableBatchDeleteBitableRecord() {
 
 // BatchDeleteBitableRecordReq ...
 type BatchDeleteBitableRecordReq struct {
-	AppToken string   `path:"app_token" json:"-"` // bitable app token, 示例值："appbcbWCzen6D8dezhoCH2RpMAh"
-	TableID  string   `path:"table_id" json:"-"`  // table id, 示例值："tblsRc9GRRXKqhvW"
-	Records  []string `json:"records,omitempty"`  // 删除的多条记录id列表, 示例值：[,    "recIcJBbvC",,    "recvmiCORa",]
-}
-
-// batchDeleteBitableRecordResp ...
-type batchDeleteBitableRecordResp struct {
-	Code int64                         `json:"code,omitempty"` // 错误码，非 0 表示失败
-	Msg  string                        `json:"msg,omitempty"`  // 错误描述
-	Data *BatchDeleteBitableRecordResp `json:"data,omitempty"`
+	AppToken string   `path:"app_token" json:"-"` // bitable app token, 示例值: "appbcbWCzen6D8dezhoCH2RpMAh"
+	TableID  string   `path:"table_id" json:"-"`  // table id, 示例值: "tblsRc9GRRXKqhvW"
+	Records  []string `json:"records,omitempty"`  // 删除的多条记录id列表, 示例值: [, "recIcJBbvC", "recvmiCORa", ]
 }
 
 // BatchDeleteBitableRecordResp ...
@@ -81,4 +74,11 @@ type BatchDeleteBitableRecordResp struct {
 type BatchDeleteBitableRecordRespRecord struct {
 	Deleted  bool   `json:"deleted,omitempty"`   // 是否成功删除
 	RecordID string `json:"record_id,omitempty"` // 删除的记录 ID
+}
+
+// batchDeleteBitableRecordResp ...
+type batchDeleteBitableRecordResp struct {
+	Code int64                         `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg  string                        `json:"msg,omitempty"`  // 错误描述
+	Data *BatchDeleteBitableRecordResp `json:"data,omitempty"`
 }

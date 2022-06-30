@@ -38,7 +38,7 @@ https://godoc.org/github.com/chyroc/lark
 
 ## Support APIs
 
-API Count: 603, Event Count: 93
+API Count: 602, Event Count: 91
 
 <details>
   <summary>
@@ -530,7 +530,6 @@ API Count: 603, Event Count: 93
   - RecognizeSpeechFile
   - TranslateText
   - DetectTextLanguage
-  - DetectFaceAttributes
 - Attendance
   - GetAttendanceGroupList
   - CreateAttendanceGroup
@@ -691,9 +690,7 @@ API Count: 603, Event Count: 93
   - EventV2ApplicationApplicationVisibilityAddedV6
   - EventV2ApplicationApplicationFeedbackCreatedV6
   - EventV2ApplicationApplicationFeedbackUpdatedV6
-  - EventV2AttendanceUserTaskUpdatedV1
   - EventV2AttendanceUserFlowCreatedV1
-  - EventV2AwemeEcosystemAwemeUserBindedAccountV1
   - EventV2TaskTaskUpdateTenantV1
   - EventV2TaskTaskUpdatedV1
   - EventV2TaskTaskCommentUpdatedV1

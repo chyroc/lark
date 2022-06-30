@@ -60,27 +60,27 @@ func (r *Mock) UnMockDriveCreateSheetFilter() {
 
 // CreateSheetFilterReq ...
 type CreateSheetFilterReq struct {
-	SpreadSheetToken string                         `path:"spreadsheet_token" json:"-"` // 表格 token, 示例值："shtcnmBA\*****yGehy8"
-	SheetID          string                         `path:"sheet_id" json:"-"`          // 子表 id, 示例值："0b\**12"
-	Range            string                         `json:"range,omitempty"`            // 筛选应用范围, 示例值："xxxxxx!C1:H14"
-	Col              string                         `json:"col,omitempty"`              // 设置筛选条件的列, 示例值："E"
+	SpreadSheetToken string                         `path:"spreadsheet_token" json:"-"` // 表格 token, 示例值: "shtcnmBA\*yGehy8"
+	SheetID          string                         `path:"sheet_id" json:"-"`          // 子表 id, 示例值: "0b\**12"
+	Range            string                         `json:"range,omitempty"`            // 筛选应用范围, 示例值: "xxxxxx!C1:H14"
+	Col              string                         `json:"col,omitempty"`              // 设置筛选条件的列, 示例值: "E"
 	Condition        *CreateSheetFilterReqCondition `json:"condition,omitempty"`        // 筛选的条件
 }
 
 // CreateSheetFilterReqCondition ...
 type CreateSheetFilterReqCondition struct {
-	FilterType  string   `json:"filter_type,omitempty"`  // 筛选类型, 示例值："number"
-	CompareType *string  `json:"compare_type,omitempty"` // 比较类型, 示例值："less"
-	Expected    []string `json:"expected,omitempty"`     // 筛选参数, 示例值：6
-}
-
-// createSheetFilterResp ...
-type createSheetFilterResp struct {
-	Code int64                  `json:"code,omitempty"` // 错误码，非 0 表示失败
-	Msg  string                 `json:"msg,omitempty"`  // 错误描述
-	Data *CreateSheetFilterResp `json:"data,omitempty"`
+	FilterType  string   `json:"filter_type,omitempty"`  // 筛选类型, 示例值: "number"
+	CompareType *string  `json:"compare_type,omitempty"` // 比较类型, 示例值: "less"
+	Expected    []string `json:"expected,omitempty"`     // 筛选参数, 示例值: 6
 }
 
 // CreateSheetFilterResp ...
 type CreateSheetFilterResp struct {
+}
+
+// createSheetFilterResp ...
+type createSheetFilterResp struct {
+	Code int64                  `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg  string                 `json:"msg,omitempty"`  // 错误描述
+	Data *CreateSheetFilterResp `json:"data,omitempty"`
 }

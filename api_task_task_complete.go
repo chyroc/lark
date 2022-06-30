@@ -58,16 +58,16 @@ func (r *Mock) UnMockTaskCompleteTask() {
 
 // CompleteTaskReq ...
 type CompleteTaskReq struct {
-	TaskID string `path:"task_id" json:"-"` // 任务 ID, 示例值："bb54ab99-d360-434f-bcaa-a4cc4c05840e"
-}
-
-// completeTaskResp ...
-type completeTaskResp struct {
-	Code int64             `json:"code,omitempty"` // 错误码，非 0 表示失败
-	Msg  string            `json:"msg,omitempty"`  // 错误描述
-	Data *CompleteTaskResp `json:"data,omitempty"`
+	TaskID string `path:"task_id" json:"-"` // 任务 ID, 示例值: "bb54ab99-d360-434f-bcaa-a4cc4c05840e"
 }
 
 // CompleteTaskResp ...
 type CompleteTaskResp struct {
+}
+
+// completeTaskResp ...
+type completeTaskResp struct {
+	Code int64             `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg  string            `json:"msg,omitempty"`  // 错误描述
+	Data *CompleteTaskResp `json:"data,omitempty"`
 }

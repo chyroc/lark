@@ -59,15 +59,8 @@ func (r *Mock) UnMockOKRGetOKRPeriodList() {
 
 // GetOKRPeriodListReq ...
 type GetOKRPeriodListReq struct {
-	PageToken *string `query:"page_token" json:"-"` // 分页标志page_token, 示例值："xaasdasdax"
-	PageSize  *int64  `query:"page_size" json:"-"`  // 分页大小，默认10, 示例值：10, 默认值: `10`
-}
-
-// getOKRPeriodListResp ...
-type getOKRPeriodListResp struct {
-	Code int64                 `json:"code,omitempty"` // 错误码，非 0 表示失败
-	Msg  string                `json:"msg,omitempty"`  // 错误描述
-	Data *GetOKRPeriodListResp `json:"data,omitempty"`
+	PageToken *string `query:"page_token" json:"-"` // 分页标志page_token, 示例值: "xaasdasdax"
+	PageSize  *int64  `query:"page_size" json:"-"`  // 分页大小, 默认10, 示例值: 10, 默认值: `10`
 }
 
 // GetOKRPeriodListResp ...
@@ -82,5 +75,12 @@ type GetOKRPeriodListRespItem struct {
 	ID     string `json:"id,omitempty"`      // id
 	ZhName string `json:"zh_name,omitempty"` // 中文名称
 	EnName string `json:"en_name,omitempty"` // 英文名称
-	Status int64  `json:"status,omitempty"`  // 启用状态, 可选值有: `0`：正常状态, `1`：暂不处理, `2`：标记失效, `3`：隐藏周期
+	Status int64  `json:"status,omitempty"`  // 启用状态, 可选值有: `0`: 正常状态, `1`: 暂不处理, `2`: 标记失效, `3`: 隐藏周期
+}
+
+// getOKRPeriodListResp ...
+type getOKRPeriodListResp struct {
+	Code int64                 `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg  string                `json:"msg,omitempty"`  // 错误描述
+	Data *GetOKRPeriodListResp `json:"data,omitempty"`
 }

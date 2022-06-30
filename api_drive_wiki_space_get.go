@@ -24,13 +24,13 @@ import (
 // GetWikiSpace
 //
 // 此接口用于根据知识空间ID来查询知识空间的信息。
-// 空间类型（type）：
-// - 个人空间：归个人管理。一人仅可拥有一个个人空间，无法添加其他管理员。
-// - 团队空间：归团队（多人)管理，可添加多个管理员。
-// 空间可见性（visibility）：
-// - 公开空间：租户所有用户可见，默认为成员权限。无法额外添加成员，但可以添加管理员。
-// - 私有空间：仅对知识空间管理员、成员可见，需要手动添加管理员、成员。
-// 本接口要求知识库权限：
+// 空间类型（type）:
+// - 个人空间: 归个人管理。一人仅可拥有一个个人空间, 无法添加其他管理员。
+// - 团队空间: 归团队（多人)管理, 可添加多个管理员。
+// 空间可见性（visibility）:
+// - 公开空间: 租户所有用户可见, 默认为成员权限。无法额外添加成员, 但可以添加管理员。
+// - 私有空间: 仅对知识空间管理员、成员可见, 需要手动添加管理员、成员。
+// 本接口要求知识库权限:
 // - 需要为知识空间成员（管理员）
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/wiki-v2/space/get
@@ -68,14 +68,7 @@ func (r *Mock) UnMockDriveGetWikiSpace() {
 
 // GetWikiSpaceReq ...
 type GetWikiSpaceReq struct {
-	SpaceID string `path:"space_id" json:"-"` // 知识空间id, 示例值："6870403571079249922"
-}
-
-// getWikiSpaceResp ...
-type getWikiSpaceResp struct {
-	Code int64             `json:"code,omitempty"` // 错误码，非 0 表示失败
-	Msg  string            `json:"msg,omitempty"`  // 错误描述
-	Data *GetWikiSpaceResp `json:"data,omitempty"`
+	SpaceID string `path:"space_id" json:"-"` // 知识空间id, 示例值: "6870403571079249922"
 }
 
 // GetWikiSpaceResp ...
@@ -88,6 +81,13 @@ type GetWikiSpaceRespSpace struct {
 	Name        string `json:"name,omitempty"`        // 知识空间名称
 	Description string `json:"description,omitempty"` // 知识空间描述
 	SpaceID     string `json:"space_id,omitempty"`    // 知识空间id
-	SpaceType   string `json:"space_type,omitempty"`  // 表示知识空间类型（团队空间 或 个人空间）, 可选值有: `team`：团队空间, `person`：个人空间
-	Visibility  string `json:"visibility,omitempty"`  // 表示知识空间可见性（公开空间 或 私有空间）, 可选值有: `public`：公开空间, `private`：私有空间
+	SpaceType   string `json:"space_type,omitempty"`  // 表示知识空间类型（团队空间 或 个人空间）, 可选值有: `team`: 团队空间, `person`: 个人空间
+	Visibility  string `json:"visibility,omitempty"`  // 表示知识空间可见性（公开空间 或 私有空间）, 可选值有: `public`: 公开空间, `private`: 私有空间
+}
+
+// getWikiSpaceResp ...
+type getWikiSpaceResp struct {
+	Code int64             `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg  string            `json:"msg,omitempty"`  // 错误描述
+	Data *GetWikiSpaceResp `json:"data,omitempty"`
 }

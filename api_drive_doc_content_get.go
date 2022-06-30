@@ -23,9 +23,9 @@ import (
 
 // GetDriveDocContent
 //
-// 在使用此接口前，请仔细阅读[文档概述](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/docs-doc-overview)和[准备接入文档 API](https://open.feishu.cn/document/ukTMukTMukTM/ugzNzUjL4czM14CO3MTN/guide/getting-start)了解文档调用的规则和约束，确保你的文档数据不会丢失或出错。
-// 文档数据结构定义可参考：[文档数据结构概述](https://open.feishu.cn/document/ukTMukTMukTM/uAzM5YjLwMTO24CMzkjN)
-// 此接口只支持获取旧版文档富文本内容，如果需要获取新版文档的富文本内容，请调用新版文档相关接口：
+// 在使用此接口前, 请仔细阅读[文档概述](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/docs-doc-overview)和[准备接入文档 API](https://open.feishu.cn/document/ukTMukTMukTM/ugzNzUjL4czM14CO3MTN/guide/getting-start)了解文档调用的规则和约束, 确保你的文档数据不会丢失或出错。
+// 文档数据结构定义可参考: [文档数据结构概述](https://open.feishu.cn/document/ukTMukTMukTM/uAzM5YjLwMTO24CMzkjN)
+// 此接口只支持获取旧版文档富文本内容, 如果需要获取新版文档的富文本内容, 请调用新版文档相关接口:
 // - [获取文档所有块](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/document-docx/docx-v1/document-block/list)
 // - [获取指定块](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/document-docx/docx-v1/document-block/get)
 // - [获取指定块下所有子块](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/document-docx/docx-v1/document-block-children/get)
@@ -69,15 +69,15 @@ type GetDriveDocContentReq struct {
 	DocToken string `path:"docToken" json:"-"` // 获取方式详见[如何获取云文档资源相关 token](https://open.feishu.cn/document/ukTMukTMukTM/uczNzUjL3czM14yN3MTN#08bb5df6)
 }
 
+// GetDriveDocContentResp ...
+type GetDriveDocContentResp struct {
+	Content  string `json:"content,omitempty"`  // 详情参考[文档数据结构](https://open.feishu.cn/document/ukTMukTMukTM/ukDM2YjL5AjN24SOwYjN)
+	Revision int64  `json:"revision,omitempty"` // 文档当前版本号
+}
+
 // getDriveDocContentResp ...
 type getDriveDocContentResp struct {
 	Code int64                   `json:"code,omitempty"`
 	Msg  string                  `json:"msg,omitempty"`
 	Data *GetDriveDocContentResp `json:"data,omitempty"`
-}
-
-// GetDriveDocContentResp ...
-type GetDriveDocContentResp struct {
-	Content  string `json:"content,omitempty"`  // 详情参考[文档数据结构](https://open.feishu.cn/document/ukTMukTMukTM/ukDM2YjL5AjN24SOwYjN)
-	Revision int64  `json:"revision,omitempty"` // 文档当前版本号
 }

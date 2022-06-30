@@ -62,19 +62,19 @@ func (r *Mock) UnMockMessageSendUrgentAppMessage() {
 
 // SendUrgentAppMessageReq ...
 type SendUrgentAppMessageReq struct {
-	UserIDType IDType   `query:"user_id_type" json:"-"` // 用户 ID 类型, 示例值："open_id", 可选值有: `open_id`：用户的 open id, `union_id`：用户的 union id, `user_id`：用户的 user id, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
-	MessageID  string   `path:"message_id" json:"-"`    // 待加急的消息ID。注意不支持批量消息ID（bm_xxx）, 示例值："om_dc13264520392913993dd051dba21dcf"
-	UserIDList []string `json:"user_id_list,omitempty"` // 目标用户的ID。列表不可为空。, 示例值：["ou_6yf8af6bgb9100449565764t3382b168"]
-}
-
-// sendUrgentAppMessageResp ...
-type sendUrgentAppMessageResp struct {
-	Code int64                     `json:"code,omitempty"` // 错误码，非 0 表示失败
-	Msg  string                    `json:"msg,omitempty"`  // 错误描述
-	Data *SendUrgentAppMessageResp `json:"data,omitempty"`
+	MessageID  string   `path:"message_id" json:"-"`    // 待加急的消息ID。注意不支持批量消息ID（bm_xxx）, 示例值: "om_dc13264520392913993dd051dba21dcf"
+	UserIDType IDType   `query:"user_id_type" json:"-"` // 用户 ID 类型, 示例值: "open_id", 可选值有: `open_id`: 用户的 open id, `union_id`: 用户的 union id, `user_id`: 用户的 user id, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
+	UserIDList []string `json:"user_id_list,omitempty"` // 目标用户的ID。列表不可为空, 示例值: ["ou_6yf8af6bgb9100449565764t3382b168"]
 }
 
 // SendUrgentAppMessageResp ...
 type SendUrgentAppMessageResp struct {
 	InvalidUserIDList []string `json:"invalid_user_id_list,omitempty"` // 无效的用户ID
+}
+
+// sendUrgentAppMessageResp ...
+type sendUrgentAppMessageResp struct {
+	Code int64                     `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg  string                    `json:"msg,omitempty"`  // 错误描述
+	Data *SendUrgentAppMessageResp `json:"data,omitempty"`
 }

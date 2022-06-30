@@ -57,22 +57,15 @@ func (r *Mock) UnMockAttendanceGetAttendanceUserStatsData() {
 
 // GetAttendanceUserStatsDataReq ...
 type GetAttendanceUserStatsDataReq struct {
-	EmployeeType     EmployeeType `query:"employee_type" json:"-"`      // 请求体中的 user_ids 和响应体中的 user_id 的员工工号类型, 示例值："employee_id", 可选值有: ,<md-enum>,<md-enum-item key="employee_id" >员工 employee ID，即飞书管理后台 > 组织架构 > 成员与部门 > 成员详情中的用户 ID</md-enum-item>,<md-enum-item key="employee_no" >员工工号，即飞书管理后台 > 组织架构 > 成员与部门 > 成员详情中的工号</md-enum-item>,</md-enum>
-	Locale           string       `json:"locale,omitempty"`             // 语言类型, 示例值："zh", 可选值有: ,<md-enum>,<md-enum-item key="en" >英语</md-enum-item>,<md-enum-item key="ja" >日语</md-enum-item>,<md-enum-item key="zh" >中文</md-enum-item>,</md-enum>
-	StatsType        string       `json:"stats_type,omitempty"`         // 统计类型, 示例值："month", 可选值有: ,<md-enum>,<md-enum-item key="daily" >日度统计</md-enum-item>,<md-enum-item key="month" >月度统计</md-enum-item>,</md-enum>
-	StartDate        int64        `json:"start_date,omitempty"`         // 开始时间, 示例值：20210316
-	EndDate          int64        `json:"end_date,omitempty"`           // 结束时间,（时间间隔不超过 40 天）, 示例值：20210323
-	UserIDs          []string     `json:"user_ids,omitempty"`           // 查询的用户 ID 列表,（用户数量不超过 200）, 示例值：[,        "ec8ddg56",,        "4dbb52f2",,        "4167842e",    ]
-	NeedHistory      *bool        `json:"need_history,omitempty"`       // 是否需要历史数据, 示例值：true
-	CurrentGroupOnly *bool        `json:"current_group_only,omitempty"` // 只展示当前考勤组, 示例值：true
-	UserID           *string      `json:"user_id,omitempty"`            // 查询用户id，同【更新统计设置】、【查询统计设置】user_id, 示例值："ec8ddg56"
-}
-
-// getAttendanceUserStatsDataResp ...
-type getAttendanceUserStatsDataResp struct {
-	Code int64                           `json:"code,omitempty"` // 错误码，非 0 表示失败
-	Msg  string                          `json:"msg,omitempty"`  // 错误描述
-	Data *GetAttendanceUserStatsDataResp `json:"data,omitempty"`
+	EmployeeType     EmployeeType `query:"employee_type" json:"-"`      // 请求体中的 user_ids 和响应体中的 user_id 的员工工号类型, 示例值: "employee_id", 可选值有: <md-enum>, <md-enum-item key="employee_id" >员工 employee ID, 即飞书管理后台 > 组织架构 > 成员与部门 > 成员详情中的用户 ID</md-enum-item>, <md-enum-item key="employee_no" >员工工号, 即飞书管理后台 > 组织架构 > 成员与部门 > 成员详情中的工号</md-enum-item>, </md-enum>
+	Locale           string       `json:"locale,omitempty"`             // 语言类型, 示例值: "zh", 可选值有: <md-enum>, <md-enum-item key="en" >英语</md-enum-item>, <md-enum-item key="ja" >日语</md-enum-item>, <md-enum-item key="zh" >中文</md-enum-item>, </md-enum>
+	StatsType        string       `json:"stats_type,omitempty"`         // 统计类型, 示例值: "month", 可选值有: <md-enum>, <md-enum-item key="daily" >日度统计</md-enum-item>, <md-enum-item key="month" >月度统计</md-enum-item>, </md-enum>
+	StartDate        int64        `json:"start_date,omitempty"`         // 开始时间, 示例值: 20210316
+	EndDate          int64        `json:"end_date,omitempty"`           // 结束时间, （时间间隔不超过 40 天）, 示例值: 20210323
+	UserIDs          []string     `json:"user_ids,omitempty"`           // 查询的用户 ID 列表, （用户数量不超过 200）, 示例值: [, "ec8ddg56", "4dbb52f2", "4167842e", ]
+	NeedHistory      *bool        `json:"need_history,omitempty"`       // 是否需要历史数据, 示例值: true
+	CurrentGroupOnly *bool        `json:"current_group_only,omitempty"` // 只展示当前考勤组, 示例值: true
+	UserID           *string      `json:"user_id,omitempty"`            // 查询用户id, 同【更新统计设置】、【查询统计设置】user_id, 示例值: "ec8ddg56"
 }
 
 // GetAttendanceUserStatsDataResp ...
@@ -98,4 +91,11 @@ type GetAttendanceUserStatsDataRespUserDataData struct {
 type GetAttendanceUserStatsDataRespUserDataDataFeature struct {
 	Key   string `json:"key,omitempty"`   // 统计数据列附加属性的名称
 	Value string `json:"value,omitempty"` // 统计数据列附加属性的值
+}
+
+// getAttendanceUserStatsDataResp ...
+type getAttendanceUserStatsDataResp struct {
+	Code int64                           `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg  string                          `json:"msg,omitempty"`  // 错误描述
+	Data *GetAttendanceUserStatsDataResp `json:"data,omitempty"`
 }

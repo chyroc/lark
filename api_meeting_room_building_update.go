@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// UpdateMeetingRoomBuilding 该接口用于编辑建筑信息，添加楼层，删除楼层，编辑楼层信息。
+// UpdateMeetingRoomBuilding 该接口用于编辑建筑信息, 添加楼层, 删除楼层, 编辑楼层信息。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uETNwYjLxUDM24SM1AjN
 func (r *MeetingRoomService) UpdateMeetingRoomBuilding(ctx context.Context, request *UpdateMeetingRoomBuildingReq, options ...MethodOptionFunc) (*UpdateMeetingRoomBuildingResp, *Response, error) {
@@ -65,13 +65,13 @@ type UpdateMeetingRoomBuildingReq struct {
 	CustomBuildingID *string  `json:"custom_building_id,omitempty"` // 租户自定义建筑ID
 }
 
-// updateMeetingRoomBuildingResp ...
-type updateMeetingRoomBuildingResp struct {
-	Code int64                          `json:"code,omitempty"` // 返回码，非 0 表示失败
-	Msg  string                         `json:"msg,omitempty"`  // 返回码的描述，"success" 表示成功，其他为错误提示信息
-	Data *UpdateMeetingRoomBuildingResp `json:"data,omitempty"`
-}
-
 // UpdateMeetingRoomBuildingResp ...
 type UpdateMeetingRoomBuildingResp struct {
+}
+
+// updateMeetingRoomBuildingResp ...
+type updateMeetingRoomBuildingResp struct {
+	Code int64                          `json:"code,omitempty"` // 返回码, 非 0 表示失败
+	Msg  string                         `json:"msg,omitempty"`  // 返回码的描述, "success" 表示成功, 其他为错误提示信息
+	Data *UpdateMeetingRoomBuildingResp `json:"data,omitempty"`
 }

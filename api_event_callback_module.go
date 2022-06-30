@@ -62,9 +62,7 @@ const (
 	EventTypeV2ApplicationApplicationVisibilityAddedV6         EventType = "application.application.visibility.added_v6"
 	EventTypeV2ApplicationApplicationFeedbackCreatedV6         EventType = "application.application.feedback.created_v6"
 	EventTypeV2ApplicationApplicationFeedbackUpdatedV6         EventType = "application.application.feedback.updated_v6"
-	EventTypeV2AttendanceUserTaskUpdatedV1                     EventType = "attendance.user_task.updated_v1"
 	EventTypeV2AttendanceUserFlowCreatedV1                     EventType = "attendance.user_flow.created_v1"
-	EventTypeV2AwemeEcosystemAwemeUserBindedAccountV1          EventType = "aweme_ecosystem.aweme_user.binded_account_v1"
 	EventTypeV2TaskTaskUpdateTenantV1                          EventType = "task.task.update_tenant_v1"
 	EventTypeV2TaskTaskUpdatedV1                               EventType = "task.task.updated_v1"
 	EventTypeV2TaskTaskCommentUpdatedV1                        EventType = "task.task.comment.updated_v1"
@@ -159,9 +157,7 @@ type eventHandler struct {
 	eventV2ApplicationApplicationVisibilityAddedV6Handler         EventV2ApplicationApplicationVisibilityAddedV6Handler
 	eventV2ApplicationApplicationFeedbackCreatedV6Handler         EventV2ApplicationApplicationFeedbackCreatedV6Handler
 	eventV2ApplicationApplicationFeedbackUpdatedV6Handler         EventV2ApplicationApplicationFeedbackUpdatedV6Handler
-	eventV2AttendanceUserTaskUpdatedV1Handler                     EventV2AttendanceUserTaskUpdatedV1Handler
 	eventV2AttendanceUserFlowCreatedV1Handler                     EventV2AttendanceUserFlowCreatedV1Handler
-	eventV2AwemeEcosystemAwemeUserBindedAccountV1Handler          EventV2AwemeEcosystemAwemeUserBindedAccountV1Handler
 	eventV2TaskTaskUpdateTenantV1Handler                          EventV2TaskTaskUpdateTenantV1Handler
 	eventV2TaskTaskUpdatedV1Handler                               EventV2TaskTaskUpdatedV1Handler
 	eventV2TaskTaskCommentUpdatedV1Handler                        EventV2TaskTaskCommentUpdatedV1Handler
@@ -257,9 +253,7 @@ func (r *eventHandler) clone() *eventHandler {
 		eventV2ApplicationApplicationVisibilityAddedV6Handler:         r.eventV2ApplicationApplicationVisibilityAddedV6Handler,
 		eventV2ApplicationApplicationFeedbackCreatedV6Handler:         r.eventV2ApplicationApplicationFeedbackCreatedV6Handler,
 		eventV2ApplicationApplicationFeedbackUpdatedV6Handler:         r.eventV2ApplicationApplicationFeedbackUpdatedV6Handler,
-		eventV2AttendanceUserTaskUpdatedV1Handler:                     r.eventV2AttendanceUserTaskUpdatedV1Handler,
 		eventV2AttendanceUserFlowCreatedV1Handler:                     r.eventV2AttendanceUserFlowCreatedV1Handler,
-		eventV2AwemeEcosystemAwemeUserBindedAccountV1Handler:          r.eventV2AwemeEcosystemAwemeUserBindedAccountV1Handler,
 		eventV2TaskTaskUpdateTenantV1Handler:                          r.eventV2TaskTaskUpdateTenantV1Handler,
 		eventV2TaskTaskUpdatedV1Handler:                               r.eventV2TaskTaskUpdatedV1Handler,
 		eventV2TaskTaskCommentUpdatedV1Handler:                        r.eventV2TaskTaskCommentUpdatedV1Handler,
@@ -354,9 +348,7 @@ type eventBody struct {
 	eventV2ApplicationApplicationVisibilityAddedV6         *EventV2ApplicationApplicationVisibilityAddedV6
 	eventV2ApplicationApplicationFeedbackCreatedV6         *EventV2ApplicationApplicationFeedbackCreatedV6
 	eventV2ApplicationApplicationFeedbackUpdatedV6         *EventV2ApplicationApplicationFeedbackUpdatedV6
-	eventV2AttendanceUserTaskUpdatedV1                     *EventV2AttendanceUserTaskUpdatedV1
 	eventV2AttendanceUserFlowCreatedV1                     *EventV2AttendanceUserFlowCreatedV1
-	eventV2AwemeEcosystemAwemeUserBindedAccountV1          *EventV2AwemeEcosystemAwemeUserBindedAccountV1
 	eventV2TaskTaskUpdateTenantV1                          *EventV2TaskTaskUpdateTenantV1
 	eventV2TaskTaskUpdatedV1                               *EventV2TaskTaskUpdatedV1
 	eventV2TaskTaskCommentUpdatedV1                        *EventV2TaskTaskCommentUpdatedV1
@@ -549,24 +541,12 @@ func (r *EventCallbackService) parserEventV2(req *eventReq) error {
 			return err
 		}
 		req.eventV2ApplicationApplicationFeedbackUpdatedV6 = event
-	case EventTypeV2AttendanceUserTaskUpdatedV1:
-		event := new(EventV2AttendanceUserTaskUpdatedV1)
-		if err := req.unmarshalEvent(event); err != nil {
-			return err
-		}
-		req.eventV2AttendanceUserTaskUpdatedV1 = event
 	case EventTypeV2AttendanceUserFlowCreatedV1:
 		event := new(EventV2AttendanceUserFlowCreatedV1)
 		if err := req.unmarshalEvent(event); err != nil {
 			return err
 		}
 		req.eventV2AttendanceUserFlowCreatedV1 = event
-	case EventTypeV2AwemeEcosystemAwemeUserBindedAccountV1:
-		event := new(EventV2AwemeEcosystemAwemeUserBindedAccountV1)
-		if err := req.unmarshalEvent(event); err != nil {
-			return err
-		}
-		req.eventV2AwemeEcosystemAwemeUserBindedAccountV1 = event
 	case EventTypeV2TaskTaskUpdateTenantV1:
 		event := new(EventV2TaskTaskUpdateTenantV1)
 		if err := req.unmarshalEvent(event); err != nil {
@@ -1195,19 +1175,9 @@ func (r *EventCallbackService) handlerEvent(ctx context.Context, req *eventReq) 
 			s, err = r.cli.eventHandler.eventV2ApplicationApplicationFeedbackUpdatedV6Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2ApplicationApplicationFeedbackUpdatedV6)
 		}
 		return true, s, err
-	case req.eventV2AttendanceUserTaskUpdatedV1 != nil:
-		if r.cli.eventHandler.eventV2AttendanceUserTaskUpdatedV1Handler != nil {
-			s, err = r.cli.eventHandler.eventV2AttendanceUserTaskUpdatedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2AttendanceUserTaskUpdatedV1)
-		}
-		return true, s, err
 	case req.eventV2AttendanceUserFlowCreatedV1 != nil:
 		if r.cli.eventHandler.eventV2AttendanceUserFlowCreatedV1Handler != nil {
 			s, err = r.cli.eventHandler.eventV2AttendanceUserFlowCreatedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2AttendanceUserFlowCreatedV1)
-		}
-		return true, s, err
-	case req.eventV2AwemeEcosystemAwemeUserBindedAccountV1 != nil:
-		if r.cli.eventHandler.eventV2AwemeEcosystemAwemeUserBindedAccountV1Handler != nil {
-			s, err = r.cli.eventHandler.eventV2AwemeEcosystemAwemeUserBindedAccountV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2AwemeEcosystemAwemeUserBindedAccountV1)
 		}
 		return true, s, err
 	case req.eventV2TaskTaskUpdateTenantV1 != nil:

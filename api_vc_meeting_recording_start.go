@@ -23,7 +23,7 @@ import (
 
 // StartVCMeetingRecording 在会议中开始录制。
 //
-// 会议正在进行中，且操作者具有相应权限（如果操作者为用户，必须是会中当前主持人）
+// 会议正在进行中, 且操作者具有相应权限（如果操作者为用户, 必须是会中当前主持人）
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/vc-v1/meeting-recording/start
 func (r *VCService) StartVCMeetingRecording(ctx context.Context, request *StartVCMeetingRecordingReq, options ...MethodOptionFunc) (*StartVCMeetingRecordingResp, *Response, error) {
@@ -59,17 +59,17 @@ func (r *Mock) UnMockVCStartVCMeetingRecording() {
 
 // StartVCMeetingRecordingReq ...
 type StartVCMeetingRecordingReq struct {
-	MeetingID string `path:"meeting_id" json:"-"` // 会议ID（视频会议的唯一标识，视频会议开始后才会产生）, 示例值："6911188411932033028"
-	Timezone  *int64 `json:"timezone,omitempty"`  // 录制文件时间显示使用的时区[-12,12], 示例值：8
-}
-
-// startVCMeetingRecordingResp ...
-type startVCMeetingRecordingResp struct {
-	Code int64                        `json:"code,omitempty"` // 错误码，非 0 表示失败
-	Msg  string                       `json:"msg,omitempty"`  // 错误描述
-	Data *StartVCMeetingRecordingResp `json:"data,omitempty"`
+	MeetingID string `path:"meeting_id" json:"-"` // 会议ID（视频会议的唯一标识, 视频会议开始后才会产生）, 示例值: "6911188411932033028"
+	Timezone  *int64 `json:"timezone,omitempty"`  // 录制文件时间显示使用的时区[-12, 12], 示例值: 8
 }
 
 // StartVCMeetingRecordingResp ...
 type StartVCMeetingRecordingResp struct {
+}
+
+// startVCMeetingRecordingResp ...
+type startVCMeetingRecordingResp struct {
+	Code int64                        `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg  string                       `json:"msg,omitempty"`  // 错误描述
+	Data *StartVCMeetingRecordingResp `json:"data,omitempty"`
 }

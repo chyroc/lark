@@ -58,19 +58,19 @@ func (r *Mock) UnMockDriveUpdateDriveCommentPatch() {
 
 // UpdateDriveCommentPatchReq ...
 type UpdateDriveCommentPatchReq struct {
-	FileType  FileType `query:"file_type" json:"-"` // 文档类型, 示例值："doc", 可选值有: `doc`：文档, `sheet`：表格, `file`：文件, `docx`：新版文档
-	FileToken string   `path:"file_token" json:"-"` // 文档token, 示例值："doccnGp4UK1UskrOEJwBXd3****"
-	CommentID string   `path:"comment_id" json:"-"` // 评论ID, 示例值："6916106822734578184"
-	IsSolved  bool     `json:"is_solved,omitempty"` // 评论解决标志, 示例值：true
-}
-
-// updateDriveCommentPatchResp ...
-type updateDriveCommentPatchResp struct {
-	Code int64                        `json:"code,omitempty"` // 错误码，非 0 表示失败
-	Msg  string                       `json:"msg,omitempty"`  // 错误描述
-	Data *UpdateDriveCommentPatchResp `json:"data,omitempty"`
+	FileToken string   `path:"file_token" json:"-"` // 文档token, 示例值: "doccnGp4UK1UskrOEJwBXd3"
+	CommentID string   `path:"comment_id" json:"-"` // 评论ID, 示例值: "6916106822734578184"
+	FileType  FileType `query:"file_type" json:"-"` // 文档类型, 示例值: "doc", 可选值有: `doc`: 文档, `sheet`: 表格, `file`: 文件, `docx`: 新版文档
+	IsSolved  bool     `json:"is_solved,omitempty"` // 评论解决标志, 示例值: true
 }
 
 // UpdateDriveCommentPatchResp ...
 type UpdateDriveCommentPatchResp struct {
+}
+
+// updateDriveCommentPatchResp ...
+type updateDriveCommentPatchResp struct {
+	Code int64                        `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg  string                       `json:"msg,omitempty"`  // 错误描述
+	Data *UpdateDriveCommentPatchResp `json:"data,omitempty"`
 }

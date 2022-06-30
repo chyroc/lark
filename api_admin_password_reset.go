@@ -23,8 +23,8 @@ import (
 
 // AdminResetPassword
 //
-// 重置用户的企业邮箱密码，仅当用户的邮箱和企业邮箱(别名)一致时生效，可用于处理飞书企业邮箱登录死锁的问题。
-// 邮箱死锁：当用户的登录凭证与飞书企业邮箱一致时，目前飞书登录流程要求用户输入验证码，由于飞书邮箱无单独的帐号体系，则未登录时无法收取邮箱验证码，即陷入死锁
+// 重置用户的企业邮箱密码, 仅当用户的邮箱和企业邮箱(别名)一致时生效, 可用于处理飞书企业邮箱登录死锁的问题。
+// 邮箱死锁: 当用户的登录凭证与飞书企业邮箱一致时, 目前飞书登录流程要求用户输入验证码, 由于飞书邮箱无单独的帐号体系, 则未登录时无法收取邮箱验证码, 即陷入死锁
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/admin-v1/password/reset
 func (r *AdminService) AdminResetPassword(ctx context.Context, request *AdminResetPasswordReq, options ...MethodOptionFunc) (*AdminResetPasswordResp, *Response, error) {
@@ -60,23 +60,23 @@ func (r *Mock) UnMockAdminAdminResetPassword() {
 
 // AdminResetPasswordReq ...
 type AdminResetPasswordReq struct {
-	UserIDType IDType                         `query:"user_id_type" json:"-"` // 用户 ID 类型, 示例值："open_id", 可选值有: `open_id`：用户的 open id, `union_id`：用户的 union id, `user_id`：用户的 user id, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
-	Password   *AdminResetPasswordReqPassword `json:"password,omitempty"`     // 需要重置的密码参数，不少于8个字符，字母、数字和符号，至少三选二
-	UserID     string                         `json:"user_id,omitempty"`      // 待修改密码的用户ID，只针对邮箱登录凭证与企业邮箱(包括别名)相等的用户生效, 示例值："abc123", 长度范围：`0` ～ `200` 字符
+	UserIDType IDType                         `query:"user_id_type" json:"-"` // 用户 ID 类型, 示例值: "open_id", 可选值有: `open_id`: 用户的 open id, `union_id`: 用户的 union id, `user_id`: 用户的 user id, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
+	Password   *AdminResetPasswordReqPassword `json:"password,omitempty"`     // 需要重置的密码参数, 不少于8个字符, 字母、数字和符号, 至少三选二
+	UserID     string                         `json:"user_id,omitempty"`      // 待修改密码的用户ID, 只针对邮箱登录凭证与企业邮箱(包括别名)相等的用户生效, 示例值: "abc123", 长度范围: `0` ～ `200` 字符
 }
 
 // AdminResetPasswordReqPassword ...
 type AdminResetPasswordReqPassword struct {
-	EntEmailPassword string `json:"ent_email_password,omitempty"` // 企业邮箱密码, 示例值："abcd*efg"
-}
-
-// adminResetPasswordResp ...
-type adminResetPasswordResp struct {
-	Code int64                   `json:"code,omitempty"` // 错误码，非 0 表示失败
-	Msg  string                  `json:"msg,omitempty"`  // 错误描述
-	Data *AdminResetPasswordResp `json:"data,omitempty"`
+	EntEmailPassword string `json:"ent_email_password,omitempty"` // 企业邮箱密码, 示例值: "abcd*efg"
 }
 
 // AdminResetPasswordResp ...
 type AdminResetPasswordResp struct {
+}
+
+// adminResetPasswordResp ...
+type adminResetPasswordResp struct {
+	Code int64                   `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg  string                  `json:"msg,omitempty"`  // 错误描述
+	Data *AdminResetPasswordResp `json:"data,omitempty"`
 }

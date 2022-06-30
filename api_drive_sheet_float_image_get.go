@@ -23,7 +23,7 @@ import (
 
 // GetSheetFloatImage 根据 float_image_id 获取对应浮动图片的信息。
 //
-// 浮动图片参考：[浮动图片指南](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/sheets-v3/spreadsheet-sheet-float_image/float-image-user-guide)
+// 浮动图片参考: [浮动图片指南](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/sheets-v3/spreadsheet-sheet-float_image/float-image-user-guide)
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/sheets-v3/spreadsheet-sheet-float_image/get
 func (r *DriveService) GetSheetFloatImage(ctx context.Context, request *GetSheetFloatImageReq, options ...MethodOptionFunc) (*GetSheetFloatImageResp, *Response, error) {
@@ -60,16 +60,9 @@ func (r *Mock) UnMockDriveGetSheetFloatImage() {
 
 // GetSheetFloatImageReq ...
 type GetSheetFloatImageReq struct {
-	SpreadSheetToken string `path:"spreadsheet_token" json:"-"` // 表格 token, 示例值："shtcnmBA*****yGehy8"
-	SheetID          string `path:"sheet_id" json:"-"`          // 子表 id, 示例值："0b**12"
-	FloatImageID     string `path:"float_image_id" json:"-"`    // 浮动图片 id, 示例值："ye06SS14ph"
-}
-
-// getSheetFloatImageResp ...
-type getSheetFloatImageResp struct {
-	Code int64                   `json:"code,omitempty"` // 错误码，非 0 表示失败
-	Msg  string                  `json:"msg,omitempty"`  // 错误描述
-	Data *GetSheetFloatImageResp `json:"data,omitempty"`
+	SpreadSheetToken string `path:"spreadsheet_token" json:"-"` // 表格 token, 示例值: "shtcnmBA*yGehy8"
+	SheetID          string `path:"sheet_id" json:"-"`          // 子表 id, 示例值: "0b**12"
+	FloatImageID     string `path:"float_image_id" json:"-"`    // 浮动图片 id, 示例值: "ye06SS14ph"
 }
 
 // GetSheetFloatImageResp ...
@@ -80,10 +73,17 @@ type GetSheetFloatImageResp struct {
 // GetSheetFloatImageRespFloatImage ...
 type GetSheetFloatImageRespFloatImage struct {
 	FloatImageID    string  `json:"float_image_id,omitempty"`    // 浮动图片 id
-	FloatImageToken string  `json:"float_image_token,omitempty"` // 【更新时不用传，创建需要】浮动图片 token，需要先上传图片到表格获得此 token 之后再进行浮动图片的相关操作
-	Range           string  `json:"range,omitempty"`             // 浮动图片的左上角单元格定位，只支持一个单元格
-	Width           float64 `json:"width,omitempty"`             // 浮动图片的宽度，大于等于 20px
-	Height          float64 `json:"height,omitempty"`            // 浮动图片的高度，大于等于 20px
-	OffsetX         float64 `json:"offset_x,omitempty"`          // 浮动图片左上角所在位置相对于所在单元格左上角的横向偏移，大于等于0且小于所在单元格的宽度
-	OffsetY         float64 `json:"offset_y,omitempty"`          // 浮动图片左上角所在位置相对于所在单元格左上角的纵向偏移，大于等于0且小于所在单元格的高度
+	FloatImageToken string  `json:"float_image_token,omitempty"` // 【更新时不用传, 创建需要】浮动图片 token, 需要先上传图片到表格获得此 token 之后再进行浮动图片的相关操作
+	Range           string  `json:"range,omitempty"`             // 浮动图片的左上角单元格定位, 只支持一个单元格
+	Width           float64 `json:"width,omitempty"`             // 浮动图片的宽度, 大于等于 20px
+	Height          float64 `json:"height,omitempty"`            // 浮动图片的高度, 大于等于 20px
+	OffsetX         float64 `json:"offset_x,omitempty"`          // 浮动图片左上角所在位置相对于所在单元格左上角的横向偏移, 大于等于0且小于所在单元格的宽度
+	OffsetY         float64 `json:"offset_y,omitempty"`          // 浮动图片左上角所在位置相对于所在单元格左上角的纵向偏移, 大于等于0且小于所在单元格的高度
+}
+
+// getSheetFloatImageResp ...
+type getSheetFloatImageResp struct {
+	Code int64                   `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg  string                  `json:"msg,omitempty"`  // 错误描述
+	Data *GetSheetFloatImageResp `json:"data,omitempty"`
 }

@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// MatchBaikeEntity 将关键词与词条名、别名精准匹配，并返回对应的 词条 ID
+// MatchBaikeEntity 将关键词与词条名、别名精准匹配, 并返回对应的 词条 ID
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/baike-v1/entity/match
 func (r *BaikeService) MatchBaikeEntity(ctx context.Context, request *MatchBaikeEntityReq, options ...MethodOptionFunc) (*MatchBaikeEntityResp, *Response, error) {
@@ -58,14 +58,7 @@ func (r *Mock) UnMockBaikeMatchBaikeEntity() {
 
 // MatchBaikeEntityReq ...
 type MatchBaikeEntityReq struct {
-	Word string `json:"word,omitempty"` // 搜索关键词，将与词条名、别名进行精准匹配, 示例值："企业百科", 长度范围：`1` ～ `100` 字符
-}
-
-// matchBaikeEntityResp ...
-type matchBaikeEntityResp struct {
-	Code int64                 `json:"code,omitempty"` // 错误码，非 0 表示失败
-	Msg  string                `json:"msg,omitempty"`  // 错误描述
-	Data *MatchBaikeEntityResp `json:"data,omitempty"`
+	Word string `json:"word,omitempty"` // 搜索关键词, 将与词条名、别名进行精准匹配, 示例值: "企业百科", 长度范围: `1` ～ `100` 字符
 }
 
 // MatchBaikeEntityResp ...
@@ -76,5 +69,12 @@ type MatchBaikeEntityResp struct {
 // MatchBaikeEntityRespResult ...
 type MatchBaikeEntityRespResult struct {
 	EntityID string `json:"entity_id,omitempty"` // 词条 ID
-	Type     int64  `json:"type,omitempty"`      // 命中的字段, 可选值有: ,<md-enum>,<md-enum-item key="0" >词条名</md-enum-item>,<md-enum-item key="1" >全称</md-enum-item>,<md-enum-item key="2" >别名</md-enum-item>,</md-enum>
+	Type     int64  `json:"type,omitempty"`      // 命中的字段, 可选值有: <md-enum>, <md-enum-item key="0" >词条名</md-enum-item>, <md-enum-item key="1" >全称</md-enum-item>, <md-enum-item key="2" >别名</md-enum-item>, </md-enum>
+}
+
+// matchBaikeEntityResp ...
+type matchBaikeEntityResp struct {
+	Code int64                 `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg  string                `json:"msg,omitempty"`  // 错误描述
+	Data *MatchBaikeEntityResp `json:"data,omitempty"`
 }

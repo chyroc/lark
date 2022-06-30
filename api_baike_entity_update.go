@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// UpdateBaikeEntity 通过此接口更新已有的词条，不需要百科管理员审核可直接写入词库，请慎重使用【租户管理员请慎重审批】
+// UpdateBaikeEntity 通过此接口更新已有的词条, 不需要百科管理员审核可直接写入词库, 请慎重使用【租户管理员请慎重审批】
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/baike-v1/entity/update
 func (r *BaikeService) UpdateBaikeEntity(ctx context.Context, request *UpdateBaikeEntityReq, options ...MethodOptionFunc) (*UpdateBaikeEntityResp, *Response, error) {
@@ -58,38 +58,44 @@ func (r *Mock) UnMockBaikeUpdateBaikeEntity() {
 
 // UpdateBaikeEntityReq ...
 type UpdateBaikeEntityReq struct {
-	UserIDType  *IDType                          `query:"user_id_type" json:"-"` // 用户 ID 类型, 示例值："open_id", 可选值有: ,<md-enum>,<md-enum-item key="open_id" >用户的 open id</md-enum-item>,<md-enum-item key="union_id" >用户的 union id</md-enum-item>,<md-enum-item key="user_id" >用户的 user id</md-enum-item>,</md-enum>, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
-	EntityID    string                           `path:"entity_id" json:"-"`     // 实体词 ID, 示例值："enterprise_40217521"
-	MainKeys    []*UpdateBaikeEntityReqMainKey   `json:"main_keys,omitempty"`    // 词条名, 最大长度：`1`
-	Aliases     []*UpdateBaikeEntityReqAliase    `json:"aliases,omitempty"`      // 别名, 最大长度：`10`
-	Description *string                          `json:"description,omitempty"`  // 词条释义（纯文本格式）, 示例值："企业百科是飞书提供的一款知识管理工具，通过企业百科可以帮助企业将分散的知识信息进行聚合，并通过UGC的方式，促进企业知识的保鲜和流通", 最大长度：`5000` 字符
+	EntityID    string                           `path:"entity_id" json:"-"`     // 实体词 ID, 示例值: "enterprise_40217521"
+	UserIDType  *IDType                          `query:"user_id_type" json:"-"` // 用户 ID 类型, 示例值: "open_id", 可选值有: <md-enum>, <md-enum-item key="open_id" >用户的 open id</md-enum-item>, <md-enum-item key="union_id" >用户的 union id</md-enum-item>, <md-enum-item key="user_id" >用户的 user id</md-enum-item>, </md-enum>, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
+	MainKeys    []*UpdateBaikeEntityReqMainKey   `json:"main_keys,omitempty"`    // 词条名, 最大长度: `1`
+	Aliases     []*UpdateBaikeEntityReqAliase    `json:"aliases,omitempty"`      // 别名, 最大长度: `10`
+	Description *string                          `json:"description,omitempty"`  // 词条释义（纯文本格式）, 示例值: "企业百科是飞书提供的一款知识管理工具, 通过企业百科可以帮助企业将分散的知识信息进行聚合, 并通过UGC的方式, 促进企业知识的保鲜和流通", 最大长度: `5000` 字符
 	RelatedMeta *UpdateBaikeEntityReqRelatedMeta `json:"related_meta,omitempty"` // 更多相关信息
 	OuterInfo   *UpdateBaikeEntityReqOuterInfo   `json:"outer_info,omitempty"`   // 外部系统关联数据
-	RichText    *string                          `json:"rich_text,omitempty"`    // 富文本格式（当填写富文本内容时，description字段将会失效可不填写），支持的格式参考[企业百科指南](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/baike-v1/overview)中的释义部分, 示例值："&lt;b&gt;加粗&lt;/b&gt;&lt;i&gt;斜体&lt;/i&gt;&lt;p&gt;&lt;a href=\"https://feishu.cn\"&gt;链接&lt;/a&gt;&lt;/p&gt;&lt;p&gt;&lt;span&gt;企业百科是飞书提供的一款知识管理工具，通过企业百科可以帮助企业将分散的知识信息进行聚合，并通过UGC的方式，促进企业知识的保鲜和流通&lt;/span&gt;&lt;/p&gt;", 最大长度：`5000` 字符
-}
-
-// UpdateBaikeEntityReqMainKey ...
-type UpdateBaikeEntityReqMainKey struct {
-	Key           string                                    `json:"key,omitempty"`            // 名称的值, 示例值："企业百科"
-	DisplayStatus *UpdateBaikeEntityReqMainKeyDisplayStatus `json:"display_status,omitempty"` // 名称展示范围
-}
-
-// UpdateBaikeEntityReqMainKeyDisplayStatus ...
-type UpdateBaikeEntityReqMainKeyDisplayStatus struct {
-	AllowHighlight bool `json:"allow_highlight,omitempty"` // 对应名称是否在消息/云文档高亮, 示例值：true
-	AllowSearch    bool `json:"allow_search,omitempty"`    // 对应名称是否在搜索结果中展示, 示例值：true
+	RichText    *string                          `json:"rich_text,omitempty"`    // 富文本格式（当填写富文本内容时, description字段将会失效可不填写）, 支持的格式参考[企业百科指南](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/baike-v1/overview)中的释义部分, 示例值: "&lt;b&gt;加粗&lt;/b&gt;&lt;i&gt;斜体&lt;/i&gt;&lt;p&gt;&lt;a href=\"https://feishu.cn\"&gt;链接&lt;/a&gt;&lt;/p&gt;&lt;p&gt;&lt;span&gt;企业百科是飞书提供的一款知识管理工具, 通过企业百科可以帮助企业将分散的知识信息进行聚合, 并通过UGC的方式, 促进企业知识的保鲜和流通&lt;/span&gt;&lt;/p&gt;", 最大长度: `5000` 字符
 }
 
 // UpdateBaikeEntityReqAliase ...
 type UpdateBaikeEntityReqAliase struct {
-	Key           string                                   `json:"key,omitempty"`            // 名称的值, 示例值："企业百科"
+	Key           string                                   `json:"key,omitempty"`            // 名称的值, 示例值: "企业百科"
 	DisplayStatus *UpdateBaikeEntityReqAliaseDisplayStatus `json:"display_status,omitempty"` // 名称展示范围
 }
 
 // UpdateBaikeEntityReqAliaseDisplayStatus ...
 type UpdateBaikeEntityReqAliaseDisplayStatus struct {
-	AllowHighlight bool `json:"allow_highlight,omitempty"` // 对应名称是否在消息/云文档高亮, 示例值：true
-	AllowSearch    bool `json:"allow_search,omitempty"`    // 对应名称是否在搜索结果中展示, 示例值：true
+	AllowHighlight bool `json:"allow_highlight,omitempty"` // 对应名称是否在消息/云文档高亮, 示例值: true
+	AllowSearch    bool `json:"allow_search,omitempty"`    // 对应名称是否在搜索结果中展示, 示例值: true
+}
+
+// UpdateBaikeEntityReqMainKey ...
+type UpdateBaikeEntityReqMainKey struct {
+	Key           string                                    `json:"key,omitempty"`            // 名称的值, 示例值: "企业百科"
+	DisplayStatus *UpdateBaikeEntityReqMainKeyDisplayStatus `json:"display_status,omitempty"` // 名称展示范围
+}
+
+// UpdateBaikeEntityReqMainKeyDisplayStatus ...
+type UpdateBaikeEntityReqMainKeyDisplayStatus struct {
+	AllowHighlight bool `json:"allow_highlight,omitempty"` // 对应名称是否在消息/云文档高亮, 示例值: true
+	AllowSearch    bool `json:"allow_search,omitempty"`    // 对应名称是否在搜索结果中展示, 示例值: true
+}
+
+// UpdateBaikeEntityReqOuterInfo ...
+type UpdateBaikeEntityReqOuterInfo struct {
+	Provider string `json:"provider,omitempty"` // 外部系统（不能包含中横线 "-"）, 示例值: "星云", 长度范围: `2` ～ `32` 字符
+	OuterID  string `json:"outer_id,omitempty"` // 词条在外部系统中对应的唯一 ID（不能包含中横线 "-"）, 示例值: "client_6539i3498d", 长度范围: `1` ～ `64` 字符
 }
 
 // UpdateBaikeEntityReqRelatedMeta ...
@@ -100,59 +106,46 @@ type UpdateBaikeEntityReqRelatedMeta struct {
 	Oncalls         []*UpdateBaikeEntityReqRelatedMetaOncall         `json:"oncalls,omitempty"`         // 相关服务中的相关值班号
 	Links           []*UpdateBaikeEntityReqRelatedMetaLink           `json:"links,omitempty"`           // 相关链接
 	Abbreviations   []*UpdateBaikeEntityReqRelatedMetaAbbreviation   `json:"abbreviations,omitempty"`   // 相关词条
-	Classifications []*UpdateBaikeEntityReqRelatedMetaClassification `json:"classifications,omitempty"` // 当前词条所属分类<br>,词条只能属于二级分类，且每个一级分类下只能选择一个二级分类。
-}
-
-// UpdateBaikeEntityReqRelatedMetaUser ...
-type UpdateBaikeEntityReqRelatedMetaUser struct {
-	ID    string  `json:"id,omitempty"`    // 对应相关信息 ID, 示例值："格式请看请求体示例"
-	Title *string `json:"title,omitempty"` // 对应相关信息的描述，如相关联系人的描述、相关链接的标题, 示例值："企业百科帮助中心"
-}
-
-// UpdateBaikeEntityReqRelatedMetaChat ...
-type UpdateBaikeEntityReqRelatedMetaChat struct {
-	ID string `json:"id,omitempty"` // 对应相关信息 ID, 示例值："格式请看请求体示例"
-}
-
-// UpdateBaikeEntityReqRelatedMetaDoc ...
-type UpdateBaikeEntityReqRelatedMetaDoc struct {
-	Title *string `json:"title,omitempty"` // 对应相关信息的描述，如相关联系人的描述、相关链接的标题, 示例值："企业百科帮助中心"
-	URL   *string `json:"url,omitempty"`   // 链接地址, 示例值："https://www.feishu.cn/hc/zh-CN", 正则校验：`(https?|ftp|file)://[-A-Za-z0-9+&@#/%?=~_|!:,.;]+[-A-Za-z0-9+&@#/%=~_|]`
-}
-
-// UpdateBaikeEntityReqRelatedMetaOncall ...
-type UpdateBaikeEntityReqRelatedMetaOncall struct {
-	ID string `json:"id,omitempty"` // 对应相关信息 ID, 示例值："格式请看请求体示例"
-}
-
-// UpdateBaikeEntityReqRelatedMetaLink ...
-type UpdateBaikeEntityReqRelatedMetaLink struct {
-	Title *string `json:"title,omitempty"` // 对应相关信息的描述，如相关联系人的描述、相关链接的标题, 示例值："企业百科帮助中心"
-	URL   *string `json:"url,omitempty"`   // 链接地址, 示例值："https://www.feishu.cn/hc/zh-CN", 正则校验：`(https?|ftp|file)://[-A-Za-z0-9+&@#/%?=~_|!:,.;]+[-A-Za-z0-9+&@#/%=~_|]`
+	Classifications []*UpdateBaikeEntityReqRelatedMetaClassification `json:"classifications,omitempty"` // 当前词条所属分类, 词条只能属于二级分类, 且每个一级分类下只能选择一个二级分类。
 }
 
 // UpdateBaikeEntityReqRelatedMetaAbbreviation ...
 type UpdateBaikeEntityReqRelatedMetaAbbreviation struct {
-	ID *string `json:"id,omitempty"` // 相关词条 ID, 示例值："enterprise_51587960"
+	ID *string `json:"id,omitempty"` // 相关词条 ID, 示例值: "enterprise_51587960"
+}
+
+// UpdateBaikeEntityReqRelatedMetaChat ...
+type UpdateBaikeEntityReqRelatedMetaChat struct {
+	ID string `json:"id,omitempty"` // 对应相关信息 ID, 示例值: "格式请看请求体示例"
 }
 
 // UpdateBaikeEntityReqRelatedMetaClassification ...
 type UpdateBaikeEntityReqRelatedMetaClassification struct {
-	ID       string  `json:"id,omitempty"`        // 二级分类 ID, 示例值："7049606926702837761"
-	FatherID *string `json:"father_id,omitempty"` // 对应一级分类 ID, 示例值："7049606926702837777"
+	ID       string  `json:"id,omitempty"`        // 二级分类 ID, 示例值: "7049606926702837761"
+	FatherID *string `json:"father_id,omitempty"` // 对应一级分类 ID, 示例值: "7049606926702837777"
 }
 
-// UpdateBaikeEntityReqOuterInfo ...
-type UpdateBaikeEntityReqOuterInfo struct {
-	Provider string `json:"provider,omitempty"` // 外部系统（不能包含中横线 "-"）, 示例值："星云", 长度范围：`2` ～ `32` 字符
-	OuterID  string `json:"outer_id,omitempty"` // 词条在外部系统中对应的唯一 ID（不能包含中横线 "-"）, 示例值："client_6539i3498d", 长度范围：`1` ～ `64` 字符
+// UpdateBaikeEntityReqRelatedMetaDoc ...
+type UpdateBaikeEntityReqRelatedMetaDoc struct {
+	Title *string `json:"title,omitempty"` // 对应相关信息的描述, 如相关联系人的描述、相关链接的标题, 示例值: "企业百科帮助中心"
+	URL   *string `json:"url,omitempty"`   // 链接地址, 示例值: "https://www.feishu.cn/hc/zh-CN", 正则校验: `(https?|ftp|file)://[-A-Za-z0-9+&@#/%?=~_|!:.;]+[-A-Za-z0-9+&@#/%=~_|]`
 }
 
-// updateBaikeEntityResp ...
-type updateBaikeEntityResp struct {
-	Code int64                  `json:"code,omitempty"` // 错误码，非 0 表示失败
-	Msg  string                 `json:"msg,omitempty"`  // 错误描述
-	Data *UpdateBaikeEntityResp `json:"data,omitempty"`
+// UpdateBaikeEntityReqRelatedMetaLink ...
+type UpdateBaikeEntityReqRelatedMetaLink struct {
+	Title *string `json:"title,omitempty"` // 对应相关信息的描述, 如相关联系人的描述、相关链接的标题, 示例值: "企业百科帮助中心"
+	URL   *string `json:"url,omitempty"`   // 链接地址, 示例值: "https://www.feishu.cn/hc/zh-CN", 正则校验: `(https?|ftp|file)://[-A-Za-z0-9+&@#/%?=~_|!:.;]+[-A-Za-z0-9+&@#/%=~_|]`
+}
+
+// UpdateBaikeEntityReqRelatedMetaOncall ...
+type UpdateBaikeEntityReqRelatedMetaOncall struct {
+	ID string `json:"id,omitempty"` // 对应相关信息 ID, 示例值: "格式请看请求体示例"
+}
+
+// UpdateBaikeEntityReqRelatedMetaUser ...
+type UpdateBaikeEntityReqRelatedMetaUser struct {
+	ID    string  `json:"id,omitempty"`    // 对应相关信息 ID, 示例值: "格式请看请求体示例"
+	Title *string `json:"title,omitempty"` // 对应相关信息的描述, 如相关联系人的描述、相关链接的标题, 示例值: "企业百科帮助中心"
 }
 
 // UpdateBaikeEntityResp ...
@@ -162,7 +155,7 @@ type UpdateBaikeEntityResp struct {
 
 // UpdateBaikeEntityRespEntity ...
 type UpdateBaikeEntityRespEntity struct {
-	ID          string                                  `json:"id,omitempty"`           // 词条 ID （需要更新某个词条时填写，若是创建新词条可不填写）
+	ID          string                                  `json:"id,omitempty"`           // 词条 ID （需要更新某个词条时填写, 若是创建新词条可不填写）
 	MainKeys    []*UpdateBaikeEntityRespEntityMainKey   `json:"main_keys,omitempty"`    // 词条名
 	Aliases     []*UpdateBaikeEntityRespEntityAliase    `json:"aliases,omitempty"`      // 别名
 	Description string                                  `json:"description,omitempty"`  // 词条释义（纯文本格式）
@@ -172,19 +165,7 @@ type UpdateBaikeEntityRespEntity struct {
 	Categories  []string                                `json:"categories,omitempty"`   // 词条标签
 	Statistics  *UpdateBaikeEntityRespEntityStatistics  `json:"statistics,omitempty"`   // 当前词条收到的反馈数据
 	OuterInfo   *UpdateBaikeEntityRespEntityOuterInfo   `json:"outer_info,omitempty"`   // 外部系统关联数据
-	RichText    string                                  `json:"rich_text,omitempty"`    // 富文本格式（当填写富文本内容时，description字段将会失效可不填写），支持的格式参考[企业百科指南](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/baike-v1/overview)中的释义部分
-}
-
-// UpdateBaikeEntityRespEntityMainKey ...
-type UpdateBaikeEntityRespEntityMainKey struct {
-	Key           string                                           `json:"key,omitempty"`            // 名称的值
-	DisplayStatus *UpdateBaikeEntityRespEntityMainKeyDisplayStatus `json:"display_status,omitempty"` // 名称展示范围
-}
-
-// UpdateBaikeEntityRespEntityMainKeyDisplayStatus ...
-type UpdateBaikeEntityRespEntityMainKeyDisplayStatus struct {
-	AllowHighlight bool `json:"allow_highlight,omitempty"` // 对应名称是否在消息/云文档高亮
-	AllowSearch    bool `json:"allow_search,omitempty"`    // 对应名称是否在搜索结果中展示
+	RichText    string                                  `json:"rich_text,omitempty"`    // 富文本格式（当填写富文本内容时, description字段将会失效可不填写）, 支持的格式参考[企业百科指南](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/baike-v1/overview)中的释义部分
 }
 
 // UpdateBaikeEntityRespEntityAliase ...
@@ -199,6 +180,24 @@ type UpdateBaikeEntityRespEntityAliaseDisplayStatus struct {
 	AllowSearch    bool `json:"allow_search,omitempty"`    // 对应名称是否在搜索结果中展示
 }
 
+// UpdateBaikeEntityRespEntityMainKey ...
+type UpdateBaikeEntityRespEntityMainKey struct {
+	Key           string                                           `json:"key,omitempty"`            // 名称的值
+	DisplayStatus *UpdateBaikeEntityRespEntityMainKeyDisplayStatus `json:"display_status,omitempty"` // 名称展示范围
+}
+
+// UpdateBaikeEntityRespEntityMainKeyDisplayStatus ...
+type UpdateBaikeEntityRespEntityMainKeyDisplayStatus struct {
+	AllowHighlight bool `json:"allow_highlight,omitempty"` // 对应名称是否在消息/云文档高亮
+	AllowSearch    bool `json:"allow_search,omitempty"`    // 对应名称是否在搜索结果中展示
+}
+
+// UpdateBaikeEntityRespEntityOuterInfo ...
+type UpdateBaikeEntityRespEntityOuterInfo struct {
+	Provider string `json:"provider,omitempty"` // 外部系统（不能包含中横线 "-"）
+	OuterID  string `json:"outer_id,omitempty"` // 词条在外部系统中对应的唯一 ID（不能包含中横线 "-"）
+}
+
 // UpdateBaikeEntityRespEntityRelatedMeta ...
 type UpdateBaikeEntityRespEntityRelatedMeta struct {
 	Users           []*UpdateBaikeEntityRespEntityRelatedMetaUser           `json:"users,omitempty"`           // 相关联系人
@@ -207,45 +206,19 @@ type UpdateBaikeEntityRespEntityRelatedMeta struct {
 	Oncalls         []*UpdateBaikeEntityRespEntityRelatedMetaOncall         `json:"oncalls,omitempty"`         // 相关服务中的相关值班号
 	Links           []*UpdateBaikeEntityRespEntityRelatedMetaLink           `json:"links,omitempty"`           // 相关链接
 	Abbreviations   []*UpdateBaikeEntityRespEntityRelatedMetaAbbreviation   `json:"abbreviations,omitempty"`   // 相关词条
-	Classifications []*UpdateBaikeEntityRespEntityRelatedMetaClassification `json:"classifications,omitempty"` // 当前词条所属分类<br>,词条只能属于二级分类，且每个一级分类下只能选择一个二级分类。
-}
-
-// UpdateBaikeEntityRespEntityRelatedMetaUser ...
-type UpdateBaikeEntityRespEntityRelatedMetaUser struct {
-	ID    string `json:"id,omitempty"`    // 对应相关信息 ID
-	Title string `json:"title,omitempty"` // 对应相关信息的描述，如相关联系人的描述、相关链接的标题
-	URL   string `json:"url,omitempty"`   // 链接地址
-}
-
-// UpdateBaikeEntityRespEntityRelatedMetaChat ...
-type UpdateBaikeEntityRespEntityRelatedMetaChat struct {
-	ID    string `json:"id,omitempty"`    // 对应相关信息 ID
-	Title string `json:"title,omitempty"` // 对应相关信息的描述，如相关联系人的描述、相关链接的标题
-	URL   string `json:"url,omitempty"`   // 链接地址
-}
-
-// UpdateBaikeEntityRespEntityRelatedMetaDoc ...
-type UpdateBaikeEntityRespEntityRelatedMetaDoc struct {
-	Title string `json:"title,omitempty"` // 对应相关信息的描述，如相关联系人的描述、相关链接的标题
-	URL   string `json:"url,omitempty"`   // 链接地址
-}
-
-// UpdateBaikeEntityRespEntityRelatedMetaOncall ...
-type UpdateBaikeEntityRespEntityRelatedMetaOncall struct {
-	ID    string `json:"id,omitempty"`    // 对应相关信息 ID
-	Title string `json:"title,omitempty"` // 对应相关信息的描述，如相关联系人的描述、相关链接的标题
-	URL   string `json:"url,omitempty"`   // 链接地址
-}
-
-// UpdateBaikeEntityRespEntityRelatedMetaLink ...
-type UpdateBaikeEntityRespEntityRelatedMetaLink struct {
-	Title string `json:"title,omitempty"` // 对应相关信息的描述，如相关联系人的描述、相关链接的标题
-	URL   string `json:"url,omitempty"`   // 链接地址
+	Classifications []*UpdateBaikeEntityRespEntityRelatedMetaClassification `json:"classifications,omitempty"` // 当前词条所属分类, 词条只能属于二级分类, 且每个一级分类下只能选择一个二级分类。
 }
 
 // UpdateBaikeEntityRespEntityRelatedMetaAbbreviation ...
 type UpdateBaikeEntityRespEntityRelatedMetaAbbreviation struct {
 	ID string `json:"id,omitempty"` // 相关词条 ID
+}
+
+// UpdateBaikeEntityRespEntityRelatedMetaChat ...
+type UpdateBaikeEntityRespEntityRelatedMetaChat struct {
+	ID    string `json:"id,omitempty"`    // 对应相关信息 ID
+	Title string `json:"title,omitempty"` // 对应相关信息的描述, 如相关联系人的描述、相关链接的标题
+	URL   string `json:"url,omitempty"`   // 链接地址
 }
 
 // UpdateBaikeEntityRespEntityRelatedMetaClassification ...
@@ -255,14 +228,41 @@ type UpdateBaikeEntityRespEntityRelatedMetaClassification struct {
 	FatherID string `json:"father_id,omitempty"` // 对应一级分类 ID
 }
 
+// UpdateBaikeEntityRespEntityRelatedMetaDoc ...
+type UpdateBaikeEntityRespEntityRelatedMetaDoc struct {
+	Title string `json:"title,omitempty"` // 对应相关信息的描述, 如相关联系人的描述、相关链接的标题
+	URL   string `json:"url,omitempty"`   // 链接地址
+}
+
+// UpdateBaikeEntityRespEntityRelatedMetaLink ...
+type UpdateBaikeEntityRespEntityRelatedMetaLink struct {
+	Title string `json:"title,omitempty"` // 对应相关信息的描述, 如相关联系人的描述、相关链接的标题
+	URL   string `json:"url,omitempty"`   // 链接地址
+}
+
+// UpdateBaikeEntityRespEntityRelatedMetaOncall ...
+type UpdateBaikeEntityRespEntityRelatedMetaOncall struct {
+	ID    string `json:"id,omitempty"`    // 对应相关信息 ID
+	Title string `json:"title,omitempty"` // 对应相关信息的描述, 如相关联系人的描述、相关链接的标题
+	URL   string `json:"url,omitempty"`   // 链接地址
+}
+
+// UpdateBaikeEntityRespEntityRelatedMetaUser ...
+type UpdateBaikeEntityRespEntityRelatedMetaUser struct {
+	ID    string `json:"id,omitempty"`    // 对应相关信息 ID
+	Title string `json:"title,omitempty"` // 对应相关信息的描述, 如相关联系人的描述、相关链接的标题
+	URL   string `json:"url,omitempty"`   // 链接地址
+}
+
 // UpdateBaikeEntityRespEntityStatistics ...
 type UpdateBaikeEntityRespEntityStatistics struct {
 	LikeCount    int64 `json:"like_count,omitempty"`    // 累计点赞
 	DislikeCount int64 `json:"dislike_count,omitempty"` // 当前词条版本收到的负反馈数量
 }
 
-// UpdateBaikeEntityRespEntityOuterInfo ...
-type UpdateBaikeEntityRespEntityOuterInfo struct {
-	Provider string `json:"provider,omitempty"` // 外部系统（不能包含中横线 "-"）
-	OuterID  string `json:"outer_id,omitempty"` // 词条在外部系统中对应的唯一 ID（不能包含中横线 "-"）
+// updateBaikeEntityResp ...
+type updateBaikeEntityResp struct {
+	Code int64                  `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg  string                 `json:"msg,omitempty"`  // 错误描述
+	Data *UpdateBaikeEntityResp `json:"data,omitempty"`
 }

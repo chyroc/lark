@@ -21,9 +21,9 @@ import (
 	"context"
 )
 
-// MoveWikiNode 此方法用于在Wiki内移动节点，支持跨知识空间移动。如果有子节点，会携带子节点一起移动。
+// MoveWikiNode 此方法用于在Wiki内移动节点, 支持跨知识空间移动。如果有子节点, 会携带子节点一起移动。
 //
-// 知识库权限要求：
+// 知识库权限要求:
 // - 节点编辑权限
 // - 原父节点容器编辑权限
 // - 目的父节点容器编辑权限
@@ -63,16 +63,9 @@ func (r *Mock) UnMockDriveMoveWikiNode() {
 
 // MoveWikiNodeReq ...
 type MoveWikiNodeReq struct {
-	SpaceID           string `path:"space_id" json:"-"`             // 知识空间id, 示例值："7008061636015554580"
-	NodeToken         string `path:"node_token" json:"-"`           // 需要迁移的节点token, 示例值："wikbcd6ydSUyOEzbdlt1BfpA5Yc"
-	TargetParentToken string `json:"target_parent_token,omitempty"` // 移动到的父节点token, 示例值："wikbcd6ydSUyOEzbdlt1BfpA5Yc"
-}
-
-// moveWikiNodeResp ...
-type moveWikiNodeResp struct {
-	Code int64             `json:"code,omitempty"` // 错误码，非 0 表示失败
-	Msg  string            `json:"msg,omitempty"`  // 错误描述
-	Data *MoveWikiNodeResp `json:"data,omitempty"`
+	SpaceID           string `path:"space_id" json:"-"`             // 知识空间id, 示例值: "7008061636015554580"
+	NodeToken         string `path:"node_token" json:"-"`           // 需要迁移的节点token, 示例值: "wikbcd6ydSUyOEzbdlt1BfpA5Yc"
+	TargetParentToken string `json:"target_parent_token,omitempty"` // 移动到的父节点token, 示例值: "wikbcd6ydSUyOEzbdlt1BfpA5Yc"
 }
 
 // MoveWikiNodeResp ...
@@ -84,15 +77,22 @@ type MoveWikiNodeResp struct {
 type MoveWikiNodeRespNode struct {
 	SpaceID         string `json:"space_id,omitempty"`          // 知识库id
 	NodeToken       string `json:"node_token,omitempty"`        // 节点token
-	ObjToken        string `json:"obj_token,omitempty"`         // 文档token，可以根据obj_type判断是属于doc、sheet还是mindnote的token(对于快捷方式，该字段是对应的实体的obj_token)
-	ObjType         string `json:"obj_type,omitempty"`          // 文档类型，对于快捷方式，该字段是对应的实体的obj_type, 可选值有: `doc`：doc, `sheet`：sheet, `mindnote`：mindnote, `bitable`：bitable, `file`：file, `docx`：docx
-	ParentNodeToken string `json:"parent_node_token,omitempty"` // 节点的父亲token。当节点为一级节点时，父亲token为空。
-	NodeType        string `json:"node_type,omitempty"`         // 节点类型, 可选值有: `origin`：实体, `shortcut`：快捷方式
-	OriginNodeToken string `json:"origin_node_token,omitempty"` // 快捷方式对应的实体node_token，当创建节点为快捷方式时，需要传该值
+	ObjToken        string `json:"obj_token,omitempty"`         // 文档token, 可以根据obj_type判断是属于doc、sheet还是mindnote的token(对于快捷方式, 该字段是对应的实体的obj_token)
+	ObjType         string `json:"obj_type,omitempty"`          // 文档类型, 对于快捷方式, 该字段是对应的实体的obj_type, 可选值有: `doc`: doc, `sheet`: sheet, `mindnote`: mindnote, `bitable`: bitable, `file`: file, `docx`: docx
+	ParentNodeToken string `json:"parent_node_token,omitempty"` // 节点的父亲token。当节点为一级节点时, 父亲token为空。
+	NodeType        string `json:"node_type,omitempty"`         // 节点类型, 可选值有: `origin`: 实体, `shortcut`: 快捷方式
+	OriginNodeToken string `json:"origin_node_token,omitempty"` // 快捷方式对应的实体node_token, 当创建节点为快捷方式时, 需要传该值
 	OriginSpaceID   string `json:"origin_space_id,omitempty"`   // 快捷方式对应的实体所在的spaceid
 	HasChild        bool   `json:"has_child,omitempty"`         // 是否有子节点
 	Title           string `json:"title,omitempty"`             // 文档标题
 	ObjCreateTime   string `json:"obj_create_time,omitempty"`   // 文档创建时间
 	ObjEditTime     string `json:"obj_edit_time,omitempty"`     // 文档最近编辑时间
 	NodeCreateTime  string `json:"node_create_time,omitempty"`  // 节点创建时间
+}
+
+// moveWikiNodeResp ...
+type moveWikiNodeResp struct {
+	Code int64             `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg  string            `json:"msg,omitempty"`  // 错误描述
+	Data *MoveWikiNodeResp `json:"data,omitempty"`
 }

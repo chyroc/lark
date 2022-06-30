@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// CreateDriveExportTask 创建导出任务，将云文档导出为文件
+// CreateDriveExportTask 创建导出任务, 将云文档导出为文件
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/export_task/create
 func (r *DriveService) CreateDriveExportTask(ctx context.Context, request *CreateDriveExportTaskReq, options ...MethodOptionFunc) (*CreateDriveExportTaskResp, *Response, error) {
@@ -58,19 +58,19 @@ func (r *Mock) UnMockDriveCreateDriveExportTask() {
 
 // CreateDriveExportTaskReq ...
 type CreateDriveExportTaskReq struct {
-	FileExtension string `json:"file_extension,omitempty"` // 导出文件扩展名, 示例值："pdf", 可选值有: `docx`：Microsoft Word (DOCX) 格式, `pdf`：pdf 格式, `xlsx`：Microsoft Excel (XLSX) 格式
-	Token         string `json:"token,omitempty"`          // 导出文档 token, 示例值："doccnxe5OxxxxxxxSNdsJviENsk"
-	Type          string `json:"type,omitempty"`           // 导出文档类型, 示例值："doc", 可选值有: `doc`：旧版飞书云文档类型, `sheet`：飞书电子表格类型, `bitable`：飞书多维表格类型, `docx`：新版飞书云文档类型
-}
-
-// createDriveExportTaskResp ...
-type createDriveExportTaskResp struct {
-	Code int64                      `json:"code,omitempty"` // 错误码，非 0 表示失败
-	Msg  string                     `json:"msg,omitempty"`  // 错误描述
-	Data *CreateDriveExportTaskResp `json:"data,omitempty"`
+	FileExtension string `json:"file_extension,omitempty"` // 导出文件扩展名, 示例值: "pdf", 可选值有: `docx`: Microsoft Word (DOCX) 格式, `pdf`: pdf 格式, `xlsx`: Microsoft Excel (XLSX) 格式
+	Token         string `json:"token,omitempty"`          // 导出文档 token, 示例值: "doccnxe5OxxxxxxxSNdsJviENsk"
+	Type          string `json:"type,omitempty"`           // 导出文档类型, 示例值: "doc", 可选值有: `doc`: 旧版飞书云文档类型, `sheet`: 飞书电子表格类型, `bitable`: 飞书多维表格类型, `docx`: 新版飞书云文档类型
 }
 
 // CreateDriveExportTaskResp ...
 type CreateDriveExportTaskResp struct {
 	Ticket string `json:"ticket,omitempty"` // 导出任务ID
+}
+
+// createDriveExportTaskResp ...
+type createDriveExportTaskResp struct {
+	Code int64                      `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg  string                     `json:"msg,omitempty"`  // 错误描述
+	Data *CreateDriveExportTaskResp `json:"data,omitempty"`
 }

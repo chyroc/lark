@@ -58,37 +58,13 @@ func (r *Mock) UnMockHelpdeskGetHelpdeskTicketCustomizedFields() {
 
 // GetHelpdeskTicketCustomizedFieldsReq ...
 type GetHelpdeskTicketCustomizedFieldsReq struct {
-	VisibleOnly *bool `query:"visible_only" json:"-"` // visible only, 示例值：true
-}
-
-// getHelpdeskTicketCustomizedFieldsResp ...
-type getHelpdeskTicketCustomizedFieldsResp struct {
-	Code int64                                  `json:"code,omitempty"` // 错误码，非 0 表示失败
-	Msg  string                                 `json:"msg,omitempty"`  // 错误描述
-	Data *GetHelpdeskTicketCustomizedFieldsResp `json:"data,omitempty"`
+	VisibleOnly *bool `query:"visible_only" json:"-"` // visible only, 示例值: true
 }
 
 // GetHelpdeskTicketCustomizedFieldsResp ...
 type GetHelpdeskTicketCustomizedFieldsResp struct {
 	UserCustomizedFields   []*GetHelpdeskTicketCustomizedFieldsRespUserCustomizedField   `json:"user_customized_fields,omitempty"`   // 用户自定义字段
 	TicketCustomizedFields []*GetHelpdeskTicketCustomizedFieldsRespTicketCustomizedField `json:"ticket_customized_fields,omitempty"` // 自定义工单字段
-}
-
-// GetHelpdeskTicketCustomizedFieldsRespUserCustomizedField ...
-type GetHelpdeskTicketCustomizedFieldsRespUserCustomizedField struct {
-	UserCustomizedFieldID string `json:"user_customized_field_id,omitempty"` // 字段ID
-	ID                    string `json:"id,omitempty"`                       // 旧字段ID，向后兼容用
-	HelpdeskID            string `json:"helpdesk_id,omitempty"`              // 服务台ID
-	KeyName               string `json:"key_name,omitempty"`                 // 字段键
-	DisplayName           string `json:"display_name,omitempty"`             // 字段展示名称
-	Position              string `json:"position,omitempty"`                 // 字段在列表中的展示位置
-	FieldType             string `json:"field_type,omitempty"`               // 字段类型
-	Description           string `json:"description,omitempty"`              // 字段描述信息
-	Visible               bool   `json:"visible,omitempty"`                  // 字段是否可见
-	Editable              bool   `json:"editable,omitempty"`                 // 字段是否可编辑
-	Required              bool   `json:"required,omitempty"`                 // 字段是否必填
-	CreatedAt             string `json:"created_at,omitempty"`               // 字段创建时间
-	UpdatedAt             string `json:"updated_at,omitempty"`               // 字段修改时间
 }
 
 // GetHelpdeskTicketCustomizedFieldsRespTicketCustomizedField ...
@@ -98,7 +74,7 @@ type GetHelpdeskTicketCustomizedFieldsRespTicketCustomizedField struct {
 	KeyName                 string                                                               `json:"key_name,omitempty"`                   // 键名
 	DisplayName             string                                                               `json:"display_name,omitempty"`               // 名称
 	Position                string                                                               `json:"position,omitempty"`                   // 字段在列表后台管理列表中的位置
-	FieldType               string                                                               `json:"field_type,omitempty"`                 // 类型,string - 单行文本,multiline - 多行文本,dropdown - 下拉列表,dropdown_nested - 级联下拉
+	FieldType               string                                                               `json:"field_type,omitempty"`                 // 类型, string - 单行文本, multiline - 多行文本, dropdown - 下拉列表, dropdown_nested - 级联下拉
 	Description             string                                                               `json:"description,omitempty"`                // 描述
 	Visible                 bool                                                                 `json:"visible,omitempty"`                    // 是否可见
 	Editable                bool                                                                 `json:"editable,omitempty"`                   // 是否可以修改
@@ -107,7 +83,7 @@ type GetHelpdeskTicketCustomizedFieldsRespTicketCustomizedField struct {
 	UpdatedAt               string                                                               `json:"updated_at,omitempty"`                 // 更新时间
 	CreatedBy               *GetHelpdeskTicketCustomizedFieldsRespTicketCustomizedFieldCreatedBy `json:"created_by,omitempty"`                 // 创建用户
 	UpdatedBy               *GetHelpdeskTicketCustomizedFieldsRespTicketCustomizedFieldUpdatedBy `json:"updated_by,omitempty"`                 // 更新用户
-	DropdownAllowMultiple   bool                                                                 `json:"dropdown_allow_multiple,omitempty"`    // 是否支持多选，仅在字段类型是dropdown的时候有效
+	DropdownAllowMultiple   bool                                                                 `json:"dropdown_allow_multiple,omitempty"`    // 是否支持多选, 仅在字段类型是dropdown的时候有效
 }
 
 // GetHelpdeskTicketCustomizedFieldsRespTicketCustomizedFieldCreatedBy ...
@@ -124,4 +100,28 @@ type GetHelpdeskTicketCustomizedFieldsRespTicketCustomizedFieldUpdatedBy struct 
 	AvatarURL string `json:"avatar_url,omitempty"` // 用户头像url
 	Name      string `json:"name,omitempty"`       // 用户名
 	Email     string `json:"email,omitempty"`      // 用户邮箱
+}
+
+// GetHelpdeskTicketCustomizedFieldsRespUserCustomizedField ...
+type GetHelpdeskTicketCustomizedFieldsRespUserCustomizedField struct {
+	UserCustomizedFieldID string `json:"user_customized_field_id,omitempty"` // 字段ID
+	ID                    string `json:"id,omitempty"`                       // 旧字段ID, 向后兼容用
+	HelpdeskID            string `json:"helpdesk_id,omitempty"`              // 服务台ID
+	KeyName               string `json:"key_name,omitempty"`                 // 字段键
+	DisplayName           string `json:"display_name,omitempty"`             // 字段展示名称
+	Position              string `json:"position,omitempty"`                 // 字段在列表中的展示位置
+	FieldType             string `json:"field_type,omitempty"`               // 字段类型
+	Description           string `json:"description,omitempty"`              // 字段描述信息
+	Visible               bool   `json:"visible,omitempty"`                  // 字段是否可见
+	Editable              bool   `json:"editable,omitempty"`                 // 字段是否可编辑
+	Required              bool   `json:"required,omitempty"`                 // 字段是否必填
+	CreatedAt             string `json:"created_at,omitempty"`               // 字段创建时间
+	UpdatedAt             string `json:"updated_at,omitempty"`               // 字段修改时间
+}
+
+// getHelpdeskTicketCustomizedFieldsResp ...
+type getHelpdeskTicketCustomizedFieldsResp struct {
+	Code int64                                  `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg  string                                 `json:"msg,omitempty"`  // 错误描述
+	Data *GetHelpdeskTicketCustomizedFieldsResp `json:"data,omitempty"`
 }

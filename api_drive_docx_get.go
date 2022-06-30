@@ -23,7 +23,7 @@ import (
 
 // GetDocxDocument 获取文档最新版本号、标题等
 //
-// 在调用此接口前，请仔细阅读[新版文档 OpenAPI 接口校验规则](https://bytedance.feishu.cn/docx/doxcnby5Y0yoACL3PdfZqrJEm6f#doxcnWKAE4aSaIU4GcdLInSaVde)，了解相关规则及约束。
+// 在调用此接口前, 请仔细阅读[新版文档 OpenAPI 接口校验规则](https://bytedance.feishu.cn/docx/doxcnby5Y0yoACL3PdfZqrJEm6f#doxcnWKAE4aSaIU4GcdLInSaVde), 了解相关规则及约束。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/document-docx/docx-v1/document/get
 func (r *DriveService) GetDocxDocument(ctx context.Context, request *GetDocxDocumentReq, options ...MethodOptionFunc) (*GetDocxDocumentResp, *Response, error) {
@@ -60,14 +60,7 @@ func (r *Mock) UnMockDriveGetDocxDocument() {
 
 // GetDocxDocumentReq ...
 type GetDocxDocumentReq struct {
-	DocumentID string `path:"document_id" json:"-"` // 文档的唯一标识, 示例值："doxcnePuYufKa49ISjhD8Ih0ikh", 长度范围：`27` ～ `27` 字符
-}
-
-// getDocxDocumentResp ...
-type getDocxDocumentResp struct {
-	Code int64                `json:"code,omitempty"` // 错误码，非 0 表示失败
-	Msg  string               `json:"msg,omitempty"`  // 错误描述
-	Data *GetDocxDocumentResp `json:"data,omitempty"`
+	DocumentID string `path:"document_id" json:"-"` // 文档的唯一标识, 示例值: "doxcnePuYufKa49ISjhD8Ih0ikh", 长度范围: `27` ～ `27` 字符
 }
 
 // GetDocxDocumentResp ...
@@ -80,4 +73,11 @@ type GetDocxDocumentRespDocument struct {
 	DocumentID string `json:"document_id,omitempty"` // 文档唯一标识
 	RevisionID int64  `json:"revision_id,omitempty"` // 文档版本 ID
 	Title      string `json:"title,omitempty"`       // 文档标题
+}
+
+// getDocxDocumentResp ...
+type getDocxDocumentResp struct {
+	Code int64                `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg  string               `json:"msg,omitempty"`  // 错误描述
+	Data *GetDocxDocumentResp `json:"data,omitempty"`
 }

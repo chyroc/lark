@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// UpdateContactUnit 调用该接口，需要有更新单位的权限。注意：单位功能属于旗舰版付费功能，企业需开通对应版本才可以修改单位
+// UpdateContactUnit 调用该接口, 需要有更新单位的权限。注意: 单位功能属于旗舰版付费功能, 企业需开通对应版本才可以修改单位
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/unit/patch
 func (r *ContactService) UpdateContactUnit(ctx context.Context, request *UpdateContactUnitReq, options ...MethodOptionFunc) (*UpdateContactUnitResp, *Response, error) {
@@ -57,17 +57,17 @@ func (r *Mock) UnMockContactUpdateContactUnit() {
 
 // UpdateContactUnitReq ...
 type UpdateContactUnitReq struct {
-	UnitID string  `path:"unit_id" json:"-"` // 单位ID, 示例值："BU121"
-	Name   *string `json:"name,omitempty"`   // 单位的名字, 示例值："消费者事业部"
-}
-
-// updateContactUnitResp ...
-type updateContactUnitResp struct {
-	Code int64                  `json:"code,omitempty"` // 错误码，非 0 表示失败
-	Msg  string                 `json:"msg,omitempty"`  // 错误描述
-	Data *UpdateContactUnitResp `json:"data,omitempty"`
+	UnitID string  `path:"unit_id" json:"-"` // 单位ID, 示例值: "BU121"
+	Name   *string `json:"name,omitempty"`   // 单位的名字, 示例值: "消费者事业部"
 }
 
 // UpdateContactUnitResp ...
 type UpdateContactUnitResp struct {
+}
+
+// updateContactUnitResp ...
+type updateContactUnitResp struct {
+	Code int64                  `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg  string                 `json:"msg,omitempty"`  // 错误描述
+	Data *UpdateContactUnitResp `json:"data,omitempty"`
 }

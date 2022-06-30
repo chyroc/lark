@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// QuerySheetFilterView 查询子表内所有的筛选视图基本信息，包括 id、name 和 range
+// QuerySheetFilterView 查询子表内所有的筛选视图基本信息, 包括 id、name 和 range
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/sheets-v3/spreadsheet-sheet-filter_view/query
 func (r *DriveService) QuerySheetFilterView(ctx context.Context, request *QuerySheetFilterViewReq, options ...MethodOptionFunc) (*QuerySheetFilterViewResp, *Response, error) {
@@ -58,20 +58,13 @@ func (r *Mock) UnMockDriveQuerySheetFilterView() {
 
 // QuerySheetFilterViewReq ...
 type QuerySheetFilterViewReq struct {
-	SpreadSheetToken string `path:"spreadsheet_token" json:"-"` // 表格 token, 示例值："shtcnmBA*****yGehy8"
-	SheetID          string `path:"sheet_id" json:"-"`          // 子表 id, 示例值："0b**12"
-}
-
-// querySheetFilterViewResp ...
-type querySheetFilterViewResp struct {
-	Code int64                     `json:"code,omitempty"` // 错误码，非 0 表示失败
-	Msg  string                    `json:"msg,omitempty"`  // 错误描述
-	Data *QuerySheetFilterViewResp `json:"data,omitempty"`
+	SpreadSheetToken string `path:"spreadsheet_token" json:"-"` // 表格 token, 示例值: "shtcnmBA*yGehy8"
+	SheetID          string `path:"sheet_id" json:"-"`          // 子表 id, 示例值: "0b**12"
 }
 
 // QuerySheetFilterViewResp ...
 type QuerySheetFilterViewResp struct {
-	Items []*QuerySheetFilterViewRespItem `json:"items,omitempty"` // 子表的所有筛选视图信息，id、name、range
+	Items []*QuerySheetFilterViewRespItem `json:"items,omitempty"` // 子表的所有筛选视图信息, id、name、range
 }
 
 // QuerySheetFilterViewRespItem ...
@@ -79,4 +72,11 @@ type QuerySheetFilterViewRespItem struct {
 	FilterViewID   string `json:"filter_view_id,omitempty"`   // 筛选视图 id
 	FilterViewName string `json:"filter_view_name,omitempty"` // 筛选视图名字
 	Range          string `json:"range,omitempty"`            // 筛选视图的筛选范围
+}
+
+// querySheetFilterViewResp ...
+type querySheetFilterViewResp struct {
+	Code int64                     `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg  string                    `json:"msg,omitempty"`  // 错误描述
+	Data *QuerySheetFilterViewResp `json:"data,omitempty"`
 }

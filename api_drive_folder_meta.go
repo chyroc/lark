@@ -60,14 +60,7 @@ func (r *Mock) UnMockDriveGetDriveFolderMeta() {
 
 // GetDriveFolderMetaReq ...
 type GetDriveFolderMetaReq struct {
-	FolderToken string `path:"folderToken" json:"-"` // 文件夹 token，获取方式见[如何获取云文档资源相关 token](https://open.feishu.cn/document/ukTMukTMukTM/uczNzUjL3czM14yN3MTN#08bb5df6)
-}
-
-// getDriveFolderMetaResp ...
-type getDriveFolderMetaResp struct {
-	Code int64                   `json:"code,omitempty"`
-	Msg  string                  `json:"msg,omitempty"`
-	Data *GetDriveFolderMetaResp `json:"data,omitempty"`
+	FolderToken string `path:"folderToken" json:"-"` // 文件夹 token, 获取方式见[如何获取云文档资源相关 token](https://open.feishu.cn/document/ukTMukTMukTM/uczNzUjL3czM14yN3MTN#08bb5df6)
 }
 
 // GetDriveFolderMetaResp ...
@@ -78,5 +71,12 @@ type GetDriveFolderMetaResp struct {
 	CreateUid string `json:"createUid,omitempty"` // 文件夹的创建者 id
 	EditUid   string `json:"editUid,omitempty"`   // 文件夹的最后编辑者 id
 	ParentID  string `json:"parentId,omitempty"`  // 文件夹的上级目录 id
-	OwnUid    string `json:"ownUid,omitempty"`    // 文件夹为个人文件夹时，为文件夹的所有者 id；文件夹为共享文件夹时，为文件夹树id
+	OwnUid    string `json:"ownUid,omitempty"`    // 文件夹为个人文件夹时, 为文件夹的所有者 id；文件夹为共享文件夹时, 为文件夹树id
+}
+
+// getDriveFolderMetaResp ...
+type getDriveFolderMetaResp struct {
+	Code int64                   `json:"code,omitempty"`
+	Msg  string                  `json:"msg,omitempty"`
+	Data *GetDriveFolderMetaResp `json:"data,omitempty"`
 }

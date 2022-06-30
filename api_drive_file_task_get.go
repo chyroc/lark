@@ -58,17 +58,17 @@ func (r *Mock) UnMockDriveGetDriveFileTask() {
 
 // GetDriveFileTaskReq ...
 type GetDriveFileTaskReq struct {
-	TaskID string `query:"task_id" json:"-"` // 文件相关异步任务id, 示例值："12345"
-}
-
-// getDriveFileTaskResp ...
-type getDriveFileTaskResp struct {
-	Code int64                 `json:"code,omitempty"` // 错误码，非 0 表示失败
-	Msg  string                `json:"msg,omitempty"`  // 错误描述
-	Data *GetDriveFileTaskResp `json:"data,omitempty"`
+	TaskID string `query:"task_id" json:"-"` // 文件相关异步任务id, 示例值: "12345"
 }
 
 // GetDriveFileTaskResp ...
 type GetDriveFileTaskResp struct {
-	Status string `json:"status,omitempty"` // 异步任务的执行状态，如果任务执行成功则返回success，如果任务执行失败则返回fail，如果任务还在执行中则返回process。
+	Status string `json:"status,omitempty"` // 异步任务的执行状态, 如果任务执行成功则返回success, 如果任务执行失败则返回fail, 如果任务还在执行中则返回process。
+}
+
+// getDriveFileTaskResp ...
+type getDriveFileTaskResp struct {
+	Code int64                 `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg  string                `json:"msg,omitempty"`  // 错误描述
+	Data *GetDriveFileTaskResp `json:"data,omitempty"`
 }

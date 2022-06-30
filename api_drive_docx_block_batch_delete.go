@@ -21,9 +21,9 @@ import (
 	"context"
 )
 
-// BatchDeleteDocxBlock 指定需要操作的块，删除其指定范围的子块。如果操作成功，接口将返回应用删除操作后的文档版本号。
+// BatchDeleteDocxBlock 指定需要操作的块, 删除其指定范围的子块。如果操作成功, 接口将返回应用删除操作后的文档版本号。
 //
-// 在调用此接口前，请仔细阅读[新版文档 OpenAPI 接口校验规则](https://bytedance.feishu.cn/docx/doxcnby5Y0yoACL3PdfZqrJEm6f#doxcngCsscGk0WacO258mYDgM6b)，了解相关规则及约束。
+// 在调用此接口前, 请仔细阅读[新版文档 OpenAPI 接口校验规则](https://bytedance.feishu.cn/docx/doxcnby5Y0yoACL3PdfZqrJEm6f#doxcngCsscGk0WacO258mYDgM6b), 了解相关规则及约束。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/document-docx/docx-v1/document-block-children/batch_delete
 func (r *DriveService) BatchDeleteDocxBlock(ctx context.Context, request *BatchDeleteDocxBlockReq, options ...MethodOptionFunc) (*BatchDeleteDocxBlockResp, *Response, error) {
@@ -60,23 +60,23 @@ func (r *Mock) UnMockDriveBatchDeleteDocxBlock() {
 
 // BatchDeleteDocxBlockReq ...
 type BatchDeleteDocxBlockReq struct {
-	DocumentRevisionID *int64  `query:"document_revision_id" json:"-"` // 操作的文档版本，-1表示文档最新版本。若此时操作的版本为文档最新版本，则需要持有文档的阅读权限；若此时操作的版本为文档的历史版本，则需要持有文档的编辑权限。, 示例值：-1, 默认值: `-1`, 最小值：`-1`
-	ClientToken        *string `query:"client_token" json:"-"`         // 操作的唯一标识，与接口返回值的 client_token 相对应，用于幂等的进行更新操作。此值为空表示将发起一次新的请求，此值非空表示幂等的进行更新操作。, 示例值："fe599b60-450f-46ff-b2ef-9f6675625b97"
-	DocumentID         string  `path:"document_id" json:"-"`           // 文档的唯一标识, 示例值："doxcnePuYufKa49ISjhD8Ih0ikh"
-	BlockID            string  `path:"block_id" json:"-"`              // Block 的唯一标识, 示例值："doxcnO6UW6wAw2qIcYf4hZpFIth"
-	StartIndex         int64   `json:"start_index,omitempty"`          // 删除的起始索引（操作区间左闭右开）, 示例值：0, 最小值：`0`
-	EndIndex           int64   `json:"end_index,omitempty"`            // 删除的末尾索引（操作区间左闭右开）, 示例值：1, 最小值：`1`
-}
-
-// batchDeleteDocxBlockResp ...
-type batchDeleteDocxBlockResp struct {
-	Code int64                     `json:"code,omitempty"` // 错误码，非 0 表示失败
-	Msg  string                    `json:"msg,omitempty"`  // 错误描述
-	Data *BatchDeleteDocxBlockResp `json:"data,omitempty"`
+	DocumentID         string  `path:"document_id" json:"-"`           // 文档的唯一标识, 示例值: "doxcnePuYufKa49ISjhD8Ih0ikh"
+	BlockID            string  `path:"block_id" json:"-"`              // 父 Block 的唯一标识, 示例值: "doxcnO6UW6wAw2qIcYf4hZpFIth"
+	DocumentRevisionID *int64  `query:"document_revision_id" json:"-"` // 操作的文档版本, 1表示文档最新版本。若此时操作的版本为文档最新版本, 则需要持有文档的阅读权限；若此时操作的版本为文档的历史版本, 则需要持有文档的编辑权限, 示例值:1, 默认值: `-1`, 最小值: `-1`
+	ClientToken        *string `query:"client_token" json:"-"`         // 操作的唯一标识, 与接口返回值的 client_token 相对应, 用于幂等的进行更新操作。此值为空表示将发起一次新的请求, 此值非空表示幂等的进行更新操作, 示例值: "fe599b60-450f-46ff-b2ef-9f6675625b97"
+	StartIndex         int64   `json:"start_index,omitempty"`          // 删除的起始索引（操作区间左闭右开）, 示例值: 0, 最小值: `0`
+	EndIndex           int64   `json:"end_index,omitempty"`            // 删除的末尾索引（操作区间左闭右开）, 示例值: 1, 最小值: `1`
 }
 
 // BatchDeleteDocxBlockResp ...
 type BatchDeleteDocxBlockResp struct {
 	DocumentRevisionID int64  `json:"document_revision_id,omitempty"` // 当前删除操作成功后文档的版本号
-	ClientToken        string `json:"client_token,omitempty"`         // 操作的唯一标识，更新请求中使用此值表示幂等的进行此次更新
+	ClientToken        string `json:"client_token,omitempty"`         // 操作的唯一标识, 更新请求中使用此值表示幂等的进行此次更新
+}
+
+// batchDeleteDocxBlockResp ...
+type batchDeleteDocxBlockResp struct {
+	Code int64                     `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg  string                    `json:"msg,omitempty"`  // 错误描述
+	Data *BatchDeleteDocxBlockResp `json:"data,omitempty"`
 }

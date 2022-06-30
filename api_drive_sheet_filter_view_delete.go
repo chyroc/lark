@@ -58,18 +58,18 @@ func (r *Mock) UnMockDriveDeleteSheetFilterView() {
 
 // DeleteSheetFilterViewReq ...
 type DeleteSheetFilterViewReq struct {
-	SpreadSheetToken string `path:"spreadsheet_token" json:"-"` // 表格 token, 示例值："shtcnmBA*****yGehy8"
-	SheetID          string `path:"sheet_id" json:"-"`          // 子表 id, 示例值："0b**12"
-	FilterViewID     string `path:"filter_view_id" json:"-"`    // 筛选视图 id, 示例值："pH9hbVcCXA"
-}
-
-// deleteSheetFilterViewResp ...
-type deleteSheetFilterViewResp struct {
-	Code int64                      `json:"code,omitempty"` // 错误码，非 0 表示失败
-	Msg  string                     `json:"msg,omitempty"`  // 错误描述
-	Data *DeleteSheetFilterViewResp `json:"data,omitempty"`
+	SpreadSheetToken string `path:"spreadsheet_token" json:"-"` // 表格 token, 示例值: "shtcnmBA*yGehy8"
+	SheetID          string `path:"sheet_id" json:"-"`          // 子表 id, 示例值: "0b**12"
+	FilterViewID     string `path:"filter_view_id" json:"-"`    // 筛选视图 id, 示例值: "pH9hbVcCXA"
 }
 
 // DeleteSheetFilterViewResp ...
 type DeleteSheetFilterViewResp struct {
+}
+
+// deleteSheetFilterViewResp ...
+type deleteSheetFilterViewResp struct {
+	Code int64                      `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg  string                     `json:"msg,omitempty"`  // 错误描述
+	Data *DeleteSheetFilterViewResp `json:"data,omitempty"`
 }

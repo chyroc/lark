@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// GetMeetingRoomDistrictList 新建建筑时需要选择所处国家/地区，该接口用于获得系统预先提供的可供选择的城市列表。
+// GetMeetingRoomDistrictList 新建建筑时需要选择所处国家/地区, 该接口用于获得系统预先提供的可供选择的城市列表。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uUTNwYjL1UDM24SN1AjN
 func (r *MeetingRoomService) GetMeetingRoomDistrictList(ctx context.Context, request *GetMeetingRoomDistrictListReq, options ...MethodOptionFunc) (*GetMeetingRoomDistrictListResp, *Response, error) {
@@ -60,13 +60,6 @@ type GetMeetingRoomDistrictListReq struct {
 	CountryID int64 `query:"country_id" json:"-"` // 国家地区ID
 }
 
-// getMeetingRoomDistrictListResp ...
-type getMeetingRoomDistrictListResp struct {
-	Code int64                           `json:"code,omitempty"` // 返回码，非 0 表示失败
-	Msg  string                          `json:"msg,omitempty"`  // 返回码的描述，"success" 表示成功，其他为错误提示信息
-	Data *GetMeetingRoomDistrictListResp `json:"data,omitempty"` // 返回业务信息
-}
-
 // GetMeetingRoomDistrictListResp ...
 type GetMeetingRoomDistrictListResp struct {
 	Districts []*GetMeetingRoomDistrictListRespDistrict `json:"districts,omitempty"` // 城市列表
@@ -76,4 +69,11 @@ type GetMeetingRoomDistrictListResp struct {
 type GetMeetingRoomDistrictListRespDistrict struct {
 	DistrictID string `json:"district_id,omitempty"` // 城市ID
 	Name       string `json:"name,omitempty"`        // 城市名称
+}
+
+// getMeetingRoomDistrictListResp ...
+type getMeetingRoomDistrictListResp struct {
+	Code int64                           `json:"code,omitempty"` // 返回码, 非 0 表示失败
+	Msg  string                          `json:"msg,omitempty"`  // 返回码的描述, "success" 表示成功, 其他为错误提示信息
+	Data *GetMeetingRoomDistrictListResp `json:"data,omitempty"` // 返回业务信息
 }

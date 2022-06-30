@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// BatchGetMeetingRoomSummary 通过日程的Uid和Original time，查询会议室日程主题。
+// BatchGetMeetingRoomSummary 通过日程的Uid和Original time, 查询会议室日程主题。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uIjM5UjLyITO14iMykTN/
 func (r *MeetingRoomService) BatchGetMeetingRoomSummary(ctx context.Context, request *BatchGetMeetingRoomSummaryReq, options ...MethodOptionFunc) (*BatchGetMeetingRoomSummaryResp, *Response, error) {
@@ -63,14 +63,7 @@ type BatchGetMeetingRoomSummaryReq struct {
 // BatchGetMeetingRoomSummaryReqEventUid ...
 type BatchGetMeetingRoomSummaryReqEventUid struct {
 	Uid          string `json:"uid,omitempty"`           // 日程的唯一id
-	OriginalTime int64  `json:"original_time,omitempty"` // 日程实例原始时间。非重复性日程和重复性日程，此处传0；重复性日程的例外，传对应的original_time
-}
-
-// batchGetMeetingRoomSummaryResp ...
-type batchGetMeetingRoomSummaryResp struct {
-	Code int64                           `json:"code,omitempty"` // 返回码，非 0 表示失败
-	Msg  string                          `json:"msg,omitempty"`  // 返回码的描述，"success" 表示成功，其他为错误提示信息
-	Data *BatchGetMeetingRoomSummaryResp `json:"data,omitempty"` // 返回业务信息
+	OriginalTime int64  `json:"original_time,omitempty"` // 日程实例原始时间。非重复性日程和重复性日程, 此处传0；重复性日程的例外, 传对应的original_time
 }
 
 // BatchGetMeetingRoomSummaryResp ...
@@ -79,25 +72,32 @@ type BatchGetMeetingRoomSummaryResp struct {
 	ErrorEventUids *BatchGetMeetingRoomSummaryRespErrorEventUid `json:"ErrorEventUids,omitempty"` // 没有查询到的日程
 }
 
+// BatchGetMeetingRoomSummaryRespErrorEventUid ...
+type BatchGetMeetingRoomSummaryRespErrorEventUid struct {
+	Uid          string `json:"uid,omitempty"`           // 日程的唯一id
+	OriginalTime int64  `json:"original_time,omitempty"` // 日程实例原始时间。非重复性日程和重复性日程, 此处为0；重复性日程的例外, 为对应的original_time
+	ErrorMsg     string `json:"error_msg,omitempty"`     // 错误信息
+}
+
 // BatchGetMeetingRoomSummaryRespEventInfo ...
 type BatchGetMeetingRoomSummaryRespEventInfo struct {
 	Uid          string                                        `json:"uid,omitempty"`           // 日程的唯一id
-	OriginalTime int64                                         `json:"original_time,omitempty"` // 日程实例原始时间，非重复日程必为0。重复日程若为0则表示回复其所有实例，否则表示回复单个实例。
+	OriginalTime int64                                         `json:"original_time,omitempty"` // 日程实例原始时间。非重复性日程和重复性日程, 此处为0；重复性日程的例外, 为对应的original_time
 	Summary      string                                        `json:"summary,omitempty"`       // 日程主题
 	Vchat        *BatchGetMeetingRoomSummaryRespEventInfoVchat `json:"vchat,omitempty"`         // 视频会议信息
 }
 
 // BatchGetMeetingRoomSummaryRespEventInfoVchat ...
 type BatchGetMeetingRoomSummaryRespEventInfoVchat struct {
-	VCType      string `json:"vc_type,omitempty"`     // 视屏会议类型 <br> **可选值有：**<br> - `vc`：飞书视频会议，取该类型时，其他字段无效。<br> - `third_party`：第三方链接视频会议，取该类型时，icon_type、description、meeting_url字段生效。<br> - `no_meeting`：无视频会议，取该类型时，其他字段无效。<br>- `lark_live`：飞书直播，内部类型，飞书客户端使用，API不支持创建，只读。<br>- `unknown`：未知类型，做兼容使用，飞书客户端使用，API不支持创建，只读。
-	IconType    string `json:"icon_type,omitempty"`   // 第三方视频会议icon类型；可以为空，为空展示默认icon。<br> **可选值有：** <br>- `vc`：飞书视频会议icon<br>- `live`：直播视频会议icon <br>-  `default`：默认icon
-	Description string `json:"description,omitempty"` // 第三方视频会议文案，可以为空，为空展示默认文案
+	VCType      string `json:"vc_type,omitempty"`     // 视屏会议类型  可选值有: `vc`: 飞书视频会议, 取该类型时, 其他字段无效。 - `third_party`: 第三方链接视频会议, 取该类型时, icon_type、description、meeting_url字段生效。 - `no_meeting`: 无视频会议, 取该类型时, 其他字段无效。- `lark_live`: 飞书直播, 内部类型, 飞书客户端使用, API不支持创建, 只读。- `unknown`: 未知类型, 做兼容使用, 飞书客户端使用, API不支持创建, 只读。
+	IconType    string `json:"icon_type,omitempty"`   // 第三方视频会议icon类型；可以为空, 为空展示默认icon。 可选值有: `vc`: 飞书视频会议icon- `live`: 直播视频会议icon -  `default`: 默认icon
+	Description string `json:"description,omitempty"` // 第三方视频会议文案, 可以为空, 为空展示默认文案
 	MeetingURL  string `json:"meeting_url,omitempty"` // 视频会议URL
 }
 
-// BatchGetMeetingRoomSummaryRespErrorEventUid ...
-type BatchGetMeetingRoomSummaryRespErrorEventUid struct {
-	Uid          string `json:"uid,omitempty"`           // 日程的唯一id
-	OriginalTime int64  `json:"original_time,omitempty"` // 日程实例原始时间，非重复日程必为0。若为0则表示回复其重复日程的名字（不包含重复日程中的单个例外），否则表示回复单个实例。
-	ErrorMsg     string `json:"error_msg,omitempty"`     // 错误信息
+// batchGetMeetingRoomSummaryResp ...
+type batchGetMeetingRoomSummaryResp struct {
+	Code int64                           `json:"code,omitempty"` // 返回码, 非 0 表示失败
+	Msg  string                          `json:"msg,omitempty"`  // 返回码的描述, "success" 表示成功, 其他为错误提示信息
+	Data *BatchGetMeetingRoomSummaryResp `json:"data,omitempty"` // 返回业务信息
 }

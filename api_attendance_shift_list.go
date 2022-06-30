@@ -57,21 +57,14 @@ func (r *Mock) UnMockAttendanceGetAttendanceShiftList() {
 
 // GetAttendanceShiftListReq ...
 type GetAttendanceShiftListReq struct {
-	PageSize  *int64  `query:"page_size" json:"-"`  // 分页大小, 示例值：10, 最大值：`50`
-	PageToken *string `query:"page_token" json:"-"` // 分页标记，第一次请求不填，表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token，下次遍历可采用该 page_token 获取查询结果, 示例值："YrkvQ1wGaPVta45tkxuGiQ=="
-}
-
-// getAttendanceShiftListResp ...
-type getAttendanceShiftListResp struct {
-	Code int64                       `json:"code,omitempty"` // 错误码，非 0 表示失败
-	Msg  string                      `json:"msg,omitempty"`  // 错误描述
-	Data *GetAttendanceShiftListResp `json:"data,omitempty"`
+	PageSize  *int64  `query:"page_size" json:"-"`  // 分页大小, 示例值: 10, 最大值: `50`
+	PageToken *string `query:"page_token" json:"-"` // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果, 示例值: "YrkvQ1wGaPVta45tkxuGiQ=="
 }
 
 // GetAttendanceShiftListResp ...
 type GetAttendanceShiftListResp struct {
 	ShiftList []*GetAttendanceShiftListRespShift `json:"shift_list,omitempty"` // 班次列表
-	PageToken string                             `json:"page_token,omitempty"` // 分页标记，当 has_more 为 true 时，会同时返回新的 page_token，否则不返回 page_token
+	PageToken string                             `json:"page_token,omitempty"` // 分页标记, 当 has_more 为 true 时, 会同时返回新的 page_token, 否则不返回 page_token
 	HasMore   bool                               `json:"has_more,omitempty"`   // 是否还有更多项
 }
 
@@ -88,6 +81,12 @@ type GetAttendanceShiftListRespShift struct {
 	RestTimeRule      []*GetAttendanceShiftListRespShiftRestTimeRule      `json:"rest_time_rule,omitempty"`        // 休息规则
 }
 
+// GetAttendanceShiftListRespShiftLateOffLateOnRule ...
+type GetAttendanceShiftListRespShiftLateOffLateOnRule struct {
+	LateOffMinutes int64 `json:"late_off_minutes,omitempty"` // 晚走多久
+	LateOnMinutes  int64 `json:"late_on_minutes,omitempty"`  // 晚到多久
+}
+
 // GetAttendanceShiftListRespShiftPunchTimeRule ...
 type GetAttendanceShiftListRespShiftPunchTimeRule struct {
 	OnTime              string `json:"on_time,omitempty"`                // 上班时间
@@ -100,14 +99,15 @@ type GetAttendanceShiftListRespShiftPunchTimeRule struct {
 	OffDelayMinutes     int64  `json:"off_delay_minutes,omitempty"`      // 最晚多久可打下班卡
 }
 
-// GetAttendanceShiftListRespShiftLateOffLateOnRule ...
-type GetAttendanceShiftListRespShiftLateOffLateOnRule struct {
-	LateOffMinutes int64 `json:"late_off_minutes,omitempty"` // 晚走多久
-	LateOnMinutes  int64 `json:"late_on_minutes,omitempty"`  // 晚到多久
-}
-
 // GetAttendanceShiftListRespShiftRestTimeRule ...
 type GetAttendanceShiftListRespShiftRestTimeRule struct {
 	RestBeginTime string `json:"rest_begin_time,omitempty"` // 休息开始
 	RestEndTime   string `json:"rest_end_time,omitempty"`   // 休息结束
+}
+
+// getAttendanceShiftListResp ...
+type getAttendanceShiftListResp struct {
+	Code int64                       `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg  string                      `json:"msg,omitempty"`  // 错误描述
+	Data *GetAttendanceShiftListResp `json:"data,omitempty"`
 }

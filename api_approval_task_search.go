@@ -62,22 +62,15 @@ type SearchApprovalTaskReq struct {
 	UserID             string  `json:"user_id,omitempty"`              // 用户 id
 	ApprovalCode       *string `json:"approval_code,omitempty"`        // 审批定义 code
 	InstanceCode       *string `json:"instance_code,omitempty"`        // 审批实例 code
-	InstanceExternalID *string `json:"instance_external_id,omitempty"` // 审批实例第三方 id<br>注：和 approval_code 取并集
-	GroupExternalID    *string `json:"group_external_id,omitempty"`    // 审批定义分组第三方 id<br>注：和 instance_code 取并集
+	InstanceExternalID *string `json:"instance_external_id,omitempty"` // 审批实例第三方 id注: 和 approval_code 取并集
+	GroupExternalID    *string `json:"group_external_id,omitempty"`    // 审批定义分组第三方 id注: 和 instance_code 取并集
 	TaskTitle          *string `json:"task_title,omitempty"`           // 审批任务标题（只有第三方审批有）
-	TaskStatus         *string `json:"task_status,omitempty"`          // 审批任务状态<br>PENDING:   审批中<br>APPROVED:   通过<br>REJECTED:   拒绝<br>TRANSFERRED:转交<br> DONE:      已完成<br>RM_REPEAT:  去重<br> PROCESSED:  已处理<br>注：若不设置，查询全部状态<br>若不在集合中，报错
+	TaskStatus         *string `json:"task_status,omitempty"`          // 审批任务状态PENDING: 审批中APPROVED: 通过REJECTED: 拒绝TRANSFERRED:转交 DONE: 已完成RM_REPEAT: 去重 PROCESSED: 已处理注: 若不设置, 查询全部状态若不在集合中, 报错
 	TaskStartTimeFrom  *int64  `json:"task_start_time_from,omitempty"` // 任务查询开始时间 (unix毫秒时间戳)
 	TaskStartTimeTo    *int64  `json:"task_start_time_to,omitempty"`   // 任务查询结束时间 (unix毫秒时间戳)
 	Locale             *string `json:"locale,omitempty"`               // 地区（zh-CN、en-US、ja-JP）
-	Offset             *int64  `json:"offset,omitempty"`               // 查询偏移量<br>注：不得超过10000
-	Limit              *int64  `json:"limit,omitempty"`                // 查询限制量<br>注：不得超过200<br>不设置默认查询10条数据
-}
-
-// searchApprovalTaskResp ...
-type searchApprovalTaskResp struct {
-	Code int64                   `json:"code,omitempty"` // 错误码，非0表示失败
-	Msg  string                  `json:"msg,omitempty"`  // 返回码的描述
-	Data *SearchApprovalTaskResp `json:"data,omitempty"` // 返回业务信息
+	Offset             *int64  `json:"offset,omitempty"`               // 查询偏移量注: 不得超过10000
+	Limit              *int64  `json:"limit,omitempty"`                // 查询限制量注: 不得超过200不设置默认查询10条数据
 }
 
 // SearchApprovalTaskResp ...
@@ -148,4 +141,11 @@ type SearchApprovalTaskRespTaskTask struct {
 type SearchApprovalTaskRespTaskTaskLink struct {
 	PcLink     string `json:"pc_link,omitempty"`     // 审批任务 pc 端链接
 	MobileLink string `json:"mobile_link,omitempty"` // 审批任务移动端链接
+}
+
+// searchApprovalTaskResp ...
+type searchApprovalTaskResp struct {
+	Code int64                   `json:"code,omitempty"` // 错误码, 非0表示失败
+	Msg  string                  `json:"msg,omitempty"`  // 返回码的描述
+	Data *SearchApprovalTaskResp `json:"data,omitempty"` // 返回业务信息
 }

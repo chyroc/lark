@@ -21,9 +21,9 @@ import (
 	"context"
 )
 
-// CreateDocx 创建新版文档，文档标题和目录可选。
+// CreateDocx 创建新版文档, 文档标题和目录可选。
 //
-// 在调用此接口前，请仔细阅读[新版文档 OpenAPI 接口校验规则](https://bytedance.feishu.cn/docx/doxcnby5Y0yoACL3PdfZqrJEm6f#doxcnyoyCgwS8ywWwMtQr9yjZ2f)，了解相关规则及约束。
+// 在调用此接口前, 请仔细阅读[新版文档 OpenAPI 接口校验规则](https://bytedance.feishu.cn/docx/doxcnby5Y0yoACL3PdfZqrJEm6f#doxcnyoyCgwS8ywWwMtQr9yjZ2f), 了解相关规则及约束。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/document-docx/docx-v1/document/create
 func (r *DriveService) CreateDocx(ctx context.Context, request *CreateDocxReq, options ...MethodOptionFunc) (*CreateDocxResp, *Response, error) {
@@ -60,15 +60,8 @@ func (r *Mock) UnMockDriveCreateDocx() {
 
 // CreateDocxReq ...
 type CreateDocxReq struct {
-	FolderToken *string `json:"folder_token,omitempty"` // 文件夹 token，获取方式见云文档接口快速入门；空表示根目录，tenant_access_token应用权限仅允许操作应用创建的目录, 示例值："fldcnqquW1svRIYVT2Np6IuLCKd"
-	Title       *string `json:"title,omitempty"`        // 文档标题，只支持纯文本, 示例值："undefined", 长度范围：`1` ～ `800` 字符
-}
-
-// createDocxResp ...
-type createDocxResp struct {
-	Code int64           `json:"code,omitempty"` // 错误码，非 0 表示失败
-	Msg  string          `json:"msg,omitempty"`  // 错误描述
-	Data *CreateDocxResp `json:"data,omitempty"`
+	FolderToken *string `json:"folder_token,omitempty"` // 文件夹 token, 获取方式见云文档接口快速入门；空表示根目录, tenant_access_token应用权限仅允许操作应用创建的目录, 示例值: "fldcnqquW1svRIYVT2Np6IuLCKd"
+	Title       *string `json:"title,omitempty"`        // 文档标题, 只支持纯文本, 示例值: "undefined", 长度范围: `1` ～ `800` 字符
 }
 
 // CreateDocxResp ...
@@ -81,4 +74,11 @@ type CreateDocxRespDocument struct {
 	DocumentID string `json:"document_id,omitempty"` // 文档唯一标识
 	RevisionID int64  `json:"revision_id,omitempty"` // 文档版本 ID
 	Title      string `json:"title,omitempty"`       // 文档标题
+}
+
+// createDocxResp ...
+type createDocxResp struct {
+	Code int64           `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg  string          `json:"msg,omitempty"`  // 错误描述
+	Data *CreateDocxResp `json:"data,omitempty"`
 }

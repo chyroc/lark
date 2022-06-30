@@ -21,11 +21,11 @@ import (
 	"context"
 )
 
-// DeleteMessageReaction 删除指定消息的表情回复（reaction即表情回复，本说明文档统一用“reaction”代称）。
+// DeleteMessageReaction 删除指定消息的表情回复（reaction即表情回复, 本说明文档统一用“reaction”代称）。
 //
 // 注意事项:
 // - 需要开启[机器人能力](https://open.feishu.cn/document/home/develop-a-bot-in-5-minutes/create-an-app)
-// - 只能删除真实存在的reaction，并且删除reaction请求的操作者必须是reaction的原始添加者
+// - 只能删除真实存在的reaction, 并且删除reaction请求的操作者必须是reaction的原始添加者
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message-reaction/delete
 func (r *MessageService) DeleteMessageReaction(ctx context.Context, request *DeleteMessageReactionReq, options ...MethodOptionFunc) (*DeleteMessageReactionResp, *Response, error) {
@@ -62,15 +62,8 @@ func (r *Mock) UnMockMessageDeleteMessageReaction() {
 
 // DeleteMessageReactionReq ...
 type DeleteMessageReactionReq struct {
-	MessageID  string `path:"message_id" json:"-"`  // 待删除reaction的消息ID, 示例值："om_8964d1b4*********2b31383276113"
-	ReactionID string `path:"reaction_id" json:"-"` // 待删除reaction的资源id, 示例值："ZCaCIjUBVVWSrm5L-3ZTw*************sNa8dHVplEzzSfJVUVLMLcS_"
-}
-
-// deleteMessageReactionResp ...
-type deleteMessageReactionResp struct {
-	Code int64                      `json:"code,omitempty"` // 错误码，非 0 表示失败
-	Msg  string                     `json:"msg,omitempty"`  // 错误描述
-	Data *DeleteMessageReactionResp `json:"data,omitempty"`
+	MessageID  string `path:"message_id" json:"-"`  // 待删除reaction的消息ID, 示例值: "om_8964d1b4*2b31383276113"
+	ReactionID string `path:"reaction_id" json:"-"` // 待删除reaction的资源id, 示例值: "ZCaCIjUBVVWSrm5L-3ZTw*sNa8dHVplEzzSfJVUVLMLcS_"
 }
 
 // DeleteMessageReactionResp ...
@@ -84,10 +77,17 @@ type DeleteMessageReactionResp struct {
 // DeleteMessageReactionRespOperator ...
 type DeleteMessageReactionRespOperator struct {
 	OperatorID   string `json:"operator_id,omitempty"`   // 操作人ID
-	OperatorType string `json:"operator_type,omitempty"` // 操作人身份，用户或应用, 可选值有: `app`："app", `user`："user"
+	OperatorType string `json:"operator_type,omitempty"` // 操作人身份, 用户或应用, 可选值有: `app`: "app", `user`: "user"
 }
 
 // DeleteMessageReactionRespReactionType ...
 type DeleteMessageReactionRespReactionType struct {
 	EmojiType string `json:"emoji_type,omitempty"` // emoji类型 [emoji类型列举](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message-reaction/emojis-introduce)
+}
+
+// deleteMessageReactionResp ...
+type deleteMessageReactionResp struct {
+	Code int64                      `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg  string                     `json:"msg,omitempty"`  // 错误描述
+	Data *DeleteMessageReactionResp `json:"data,omitempty"`
 }

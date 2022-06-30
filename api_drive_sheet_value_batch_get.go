@@ -23,7 +23,7 @@ import (
 
 // BatchGetSheetValue
 //
-// 该接口用于根据 spreadsheetToken 和 ranges 读取表格多个范围的值，返回数据限制为10M。
+// 该接口用于根据 spreadsheetToken 和 ranges 读取表格多个范围的值, 返回数据限制为10M。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/ukTMzUjL5EzM14SOxMTN
 func (r *DriveService) BatchGetSheetValue(ctx context.Context, request *BatchGetSheetValueReq, options ...MethodOptionFunc) (*BatchGetSheetValueResp, *Response, error) {
@@ -60,24 +60,17 @@ func (r *Mock) UnMockDriveBatchGetSheetValue() {
 
 // BatchGetSheetValueReq ...
 type BatchGetSheetValueReq struct {
-	Ranges               []string `query:"ranges" join_sep:"," json:"-"`  // 多个查询范围 如 url?ranges=range1,range2 ，⁣其中 range 包含 sheetId 与单元格范围两部分，目前支持四种索引方式，详见 [在线表格开发指南](https://open.feishu.cn/document/ukTMukTMukTM/uATMzUjLwEzM14CMxMTN/overview)
+	SpreadSheetToken     string   `path:"spreadsheetToken" json:"-"`      // spreadsheet 的 token, 获取方式见[在线表格开发指南](https://open.feishu.cn/document/ukTMukTMukTM/uATMzUjLwEzM14CMxMTN/overview)
+	Ranges               []string `query:"ranges" join_sep:"," json:"-"`  // 多个查询范围 如 url?ranges=range1, range2, ⁣其中 range 包含 sheetId 与单元格范围两部分, 目前支持四种索引方式, 详见 [在线表格开发指南](https://open.feishu.cn/document/ukTMukTMukTM/uATMzUjLwEzM14CMxMTN/overview)
 	ValueRenderOption    *string  `query:"valueRenderOption" json:"-"`    // valueRenderOption=ToString 可返回纯文本的值(数值类型除外)；valueRenderOption=FormattedValue 计算并格式化单元格；valueRenderOption=Formula单元格中含有公式时返回公式本身；valueRenderOption=UnformattedValue计算但不对单元格进行格式化
-	DateTimeRenderOption *string  `query:"dateTimeRenderOption" json:"-"` // dateTimeRenderOption=FormattedString 计算并将时间日期按照其格式进行格式化，但不会对数字进行格式化，返回格式化后的字符串。详见[电子表格常见问题](https://open.feishu.cn/document/ukTMukTMukTM/uATMzUjLwEzM14CMxMTN/guide/sheets-faq)
-	UserIDType           *IDType  `query:"user_id_type" json:"-"`         // 返回的用户id类型，可选open_id,union_id
-	SpreadSheetToken     string   `path:"spreadsheetToken" json:"-"`      // spreadsheet 的 token，获取方式见[在线表格开发指南](https://open.feishu.cn/document/ukTMukTMukTM/uATMzUjLwEzM14CMxMTN/overview)
-}
-
-// batchGetSheetValueResp ...
-type batchGetSheetValueResp struct {
-	Code int64                   `json:"code,omitempty"`
-	Msg  string                  `json:"msg,omitempty"`
-	Data *BatchGetSheetValueResp `json:"data,omitempty"`
+	DateTimeRenderOption *string  `query:"dateTimeRenderOption" json:"-"` // dateTimeRenderOption=FormattedString 计算并将时间日期按照其格式进行格式化, 但不会对数字进行格式化, 返回格式化后的字符串。详见[电子表格常见问题](https://open.feishu.cn/document/ukTMukTMukTM/uATMzUjLwEzM14CMxMTN/guide/sheets-faq)
+	UserIDType           *IDType  `query:"user_id_type" json:"-"`         // 返回的用户id类型, 可选open_id, union_id
 }
 
 // BatchGetSheetValueResp ...
 type BatchGetSheetValueResp struct {
 	Revision         int64                               `json:"revision,omitempty"`         // sheet 的版本号
-	SpreadSheetToken string                              `json:"spreadsheetToken,omitempty"` // spreadsheet 的 token，详见[在线表格开发指南](https://open.feishu.cn/document/ukTMukTMukTM/uATMzUjLwEzM14CMxMTN/overview)
+	SpreadSheetToken string                              `json:"spreadsheetToken,omitempty"` // spreadsheet 的 token, 详见[在线表格开发指南](https://open.feishu.cn/document/ukTMukTMukTM/uATMzUjLwEzM14CMxMTN/overview)
 	TotalCells       int64                               `json:"totalCells,omitempty"`       // 读取的单元格总数
 	ValueRanges      []*BatchGetSheetValueRespValueRange `json:"valueRanges,omitempty"`      // 值与范围
 }
@@ -85,7 +78,14 @@ type BatchGetSheetValueResp struct {
 // BatchGetSheetValueRespValueRange ...
 type BatchGetSheetValueRespValueRange struct {
 	MajorDimension string           `json:"majorDimension,omitempty"` // 插入维度
-	Range          string           `json:"range,omitempty"`          // 返回数据的范围，为空时表示查询范围没有数据
+	Range          string           `json:"range,omitempty"`          // 返回数据的范围, 为空时表示查询范围没有数据
 	Revision       int64            `json:"revision,omitempty"`       // sheet 的版本号
 	Values         [][]SheetContent `json:"values,omitempty"`         // 查询得到的值
+}
+
+// batchGetSheetValueResp ...
+type batchGetSheetValueResp struct {
+	Code int64                   `json:"code,omitempty"`
+	Msg  string                  `json:"msg,omitempty"`
+	Data *BatchGetSheetValueResp `json:"data,omitempty"`
 }

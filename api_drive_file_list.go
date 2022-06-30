@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// GetDriveFileList 获取用户云空间中指定文件夹下的文件清单。清单类型包括文件、各种在线文档（文档、电子表格、多维表格、思维笔记）、文件夹和快捷方式。该接口支持分页，但是不会递归的获取子文件夹的清单。
+// GetDriveFileList 获取用户云空间中指定文件夹下的文件清单。清单类型包括文件、各种在线文档（文档、电子表格、多维表格、思维笔记）、文件夹和快捷方式。该接口支持分页, 但是不会递归的获取子文件夹的清单。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file/list
 func (r *DriveService) GetDriveFileList(ctx context.Context, request *GetDriveFileListReq, options ...MethodOptionFunc) (*GetDriveFileListResp, *Response, error) {
@@ -58,22 +58,15 @@ func (r *Mock) UnMockDriveGetDriveFileList() {
 
 // GetDriveFileListReq ...
 type GetDriveFileListReq struct {
-	PageSize    *int64  `query:"page_size" json:"-"`    // 分页大小, 示例值：10, 最大值：`200`
-	PageToken   *string `query:"page_token" json:"-"`   // 分页标记，第一次请求不填，表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token，下次遍历可采用该 page_token 获取查询结果, 示例值："MTY1NTA3MTA1OXw3MTA4NDc2MDc1NzkyOTI0NjczfDE"
-	FolderToken *string `query:"folder_token" json:"-"` // 文件夹的token, 示例值："fldbcRho46N6MQ3mJkOAuPabcef"
-}
-
-// getDriveFileListResp ...
-type getDriveFileListResp struct {
-	Code int64                 `json:"code,omitempty"` // 错误码，非 0 表示失败
-	Msg  string                `json:"msg,omitempty"`  // 错误描述
-	Data *GetDriveFileListResp `json:"data,omitempty"`
+	PageSize    *int64  `query:"page_size" json:"-"`    // 分页大小, 示例值: 10, 最大值: `200`
+	PageToken   *string `query:"page_token" json:"-"`   // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果, 示例值: "MTY1NTA3MTA1OXw3MTA4NDc2MDc1NzkyOTI0Nabcef"
+	FolderToken *string `query:"folder_token" json:"-"` // 文件夹的token, 示例值: "fldbcO1UuPz8VwnpPx5a9abcef"
 }
 
 // GetDriveFileListResp ...
 type GetDriveFileListResp struct {
 	Files         []*GetDriveFileListRespFile `json:"files,omitempty"`           // 文件夹清单列表
-	NextPageToken string                      `json:"next_page_token,omitempty"` // 分页标记，当 has_more 为 true 时，会同时返回下一次遍历的page_token，否则则不返回
+	NextPageToken string                      `json:"next_page_token,omitempty"` // 分页标记, 当 has_more 为 true 时, 会同时返回下一次遍历的page_token, 否则则不返回
 	HasMore       bool                        `json:"has_more,omitempty"`        // 是否还有更多项
 }
 
@@ -91,4 +84,11 @@ type GetDriveFileListRespFile struct {
 type GetDriveFileListRespFileShortcutInfo struct {
 	TargetType  string `json:"target_type,omitempty"`  // 快捷方式指向的原文件类型
 	TargetToken string `json:"target_token,omitempty"` // 快捷方式指向的原文件token
+}
+
+// getDriveFileListResp ...
+type getDriveFileListResp struct {
+	Code int64                 `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg  string                `json:"msg,omitempty"`  // 错误描述
+	Data *GetDriveFileListResp `json:"data,omitempty"`
 }

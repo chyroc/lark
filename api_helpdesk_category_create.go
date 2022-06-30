@@ -58,19 +58,19 @@ func (r *Mock) UnMockHelpdeskCreateHelpdeskCategory() {
 
 // CreateHelpdeskCategoryReq ...
 type CreateHelpdeskCategoryReq struct {
-	Name     string  `json:"name,omitempty"`      // 名称, 示例值："创建团队和邀请成员"
-	ParentID string  `json:"parent_id,omitempty"` // 父知识库分类ID, 示例值："0"
-	Language *string `json:"language,omitempty"`  // 语言, 示例值："zh_cn"
-}
-
-// createHelpdeskCategoryResp ...
-type createHelpdeskCategoryResp struct {
-	Code int64                       `json:"code,omitempty"` // 错误码，非 0 表示失败
-	Msg  string                      `json:"msg,omitempty"`  // 错误描述
-	Data *CreateHelpdeskCategoryResp `json:"data,omitempty"`
+	Name     string  `json:"name,omitempty"`      // 名称, 示例值: "创建团队和邀请成员"
+	ParentID string  `json:"parent_id,omitempty"` // 父知识库分类ID, 示例值: "0"
+	Language *string `json:"language,omitempty"`  // 语言, 示例值: "zh_cn"
 }
 
 // CreateHelpdeskCategoryResp ...
 type CreateHelpdeskCategoryResp struct {
 	Category *HelpdeskCategory `json:"category,omitempty"` // 知识库分类
+}
+
+// createHelpdeskCategoryResp ...
+type createHelpdeskCategoryResp struct {
+	Code int64                       `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg  string                      `json:"msg,omitempty"`  // 错误描述
+	Data *CreateHelpdeskCategoryResp `json:"data,omitempty"`
 }

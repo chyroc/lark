@@ -57,14 +57,7 @@ func (r *Mock) UnMockAttendanceGetAttendanceShift() {
 
 // GetAttendanceShiftReq ...
 type GetAttendanceShiftReq struct {
-	ShiftName string `query:"shift_name" json:"-"` // 班次名称, 示例值："早班"
-}
-
-// getAttendanceShiftResp ...
-type getAttendanceShiftResp struct {
-	Code int64                   `json:"code,omitempty"` // 错误码，非 0 表示失败
-	Msg  string                  `json:"msg,omitempty"`  // 错误描述
-	Data *GetAttendanceShiftResp `json:"data,omitempty"`
+	ShiftName string `query:"shift_name" json:"-"` // 班次名称, 示例值: "早班"
 }
 
 // GetAttendanceShiftResp ...
@@ -80,6 +73,12 @@ type GetAttendanceShiftResp struct {
 	RestTimeRule      []*GetAttendanceShiftRespRestTimeRule      `json:"rest_time_rule,omitempty"`        // 休息规则
 }
 
+// GetAttendanceShiftRespLateOffLateOnRule ...
+type GetAttendanceShiftRespLateOffLateOnRule struct {
+	LateOffMinutes int64 `json:"late_off_minutes,omitempty"` // 晚走多久
+	LateOnMinutes  int64 `json:"late_on_minutes,omitempty"`  // 晚到多久
+}
+
 // GetAttendanceShiftRespPunchTimeRule ...
 type GetAttendanceShiftRespPunchTimeRule struct {
 	OnTime              string `json:"on_time,omitempty"`                // 上班时间
@@ -92,14 +91,15 @@ type GetAttendanceShiftRespPunchTimeRule struct {
 	OffDelayMinutes     int64  `json:"off_delay_minutes,omitempty"`      // 最晚多久可打下班卡
 }
 
-// GetAttendanceShiftRespLateOffLateOnRule ...
-type GetAttendanceShiftRespLateOffLateOnRule struct {
-	LateOffMinutes int64 `json:"late_off_minutes,omitempty"` // 晚走多久
-	LateOnMinutes  int64 `json:"late_on_minutes,omitempty"`  // 晚到多久
-}
-
 // GetAttendanceShiftRespRestTimeRule ...
 type GetAttendanceShiftRespRestTimeRule struct {
 	RestBeginTime string `json:"rest_begin_time,omitempty"` // 休息开始
 	RestEndTime   string `json:"rest_end_time,omitempty"`   // 休息结束
+}
+
+// getAttendanceShiftResp ...
+type getAttendanceShiftResp struct {
+	Code int64                   `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg  string                  `json:"msg,omitempty"`  // 错误描述
+	Data *GetAttendanceShiftResp `json:"data,omitempty"`
 }

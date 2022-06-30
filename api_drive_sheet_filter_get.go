@@ -58,15 +58,8 @@ func (r *Mock) UnMockDriveGetSheetFilter() {
 
 // GetSheetFilterReq ...
 type GetSheetFilterReq struct {
-	SpreadSheetToken string `path:"spreadsheet_token" json:"-"` // 表格 token, 示例值："shtcnmBA\*****yGehy8"
-	SheetID          string `path:"sheet_id" json:"-"`          // 子表 id, 示例值："0b\**12"
-}
-
-// getSheetFilterResp ...
-type getSheetFilterResp struct {
-	Code int64               `json:"code,omitempty"` // 错误码，非 0 表示失败
-	Msg  string              `json:"msg,omitempty"`  // 错误描述
-	Data *GetSheetFilterResp `json:"data,omitempty"`
+	SpreadSheetToken string `path:"spreadsheet_token" json:"-"` // 表格 token, 示例值: "shtcnmBA\*yGehy8"
+	SheetID          string `path:"sheet_id" json:"-"`          // 子表 id, 示例值: "0b\**12"
 }
 
 // GetSheetFilterResp ...
@@ -92,4 +85,11 @@ type GetSheetFilterRespSheetFilterInfoFilterInfoCondition struct {
 	FilterType  string   `json:"filter_type,omitempty"`  // 筛选类型
 	CompareType string   `json:"compare_type,omitempty"` // 比较类型
 	Expected    []string `json:"expected,omitempty"`     // 筛选参数
+}
+
+// getSheetFilterResp ...
+type getSheetFilterResp struct {
+	Code int64               `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg  string              `json:"msg,omitempty"`  // 错误描述
+	Data *GetSheetFilterResp `json:"data,omitempty"`
 }

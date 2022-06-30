@@ -57,16 +57,9 @@ func (r *Mock) UnMockHireUpdateHireNote() {
 
 // UpdateHireNoteReq ...
 type UpdateHireNoteReq struct {
-	UserIDType *IDType `query:"user_id_type" json:"-"` // 用户 ID 类型, 示例值："open_id", 可选值有: `open_id`：用户的 open id, `union_id`：用户的 union id, `user_id`：用户的 user id, `people_admin_id`：以people_admin_id来识别用户, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
-	NoteID     string  `path:"note_id" json:"-"`       // 备注 ID, 示例值："6960663240925956401"
-	Content    string  `json:"content,omitempty"`      // 备注内容, 示例值："111"
-}
-
-// updateHireNoteResp ...
-type updateHireNoteResp struct {
-	Code int64               `json:"code,omitempty"` // 错误码，非 0 表示失败
-	Msg  string              `json:"msg,omitempty"`  // 错误描述
-	Data *UpdateHireNoteResp `json:"data,omitempty"`
+	NoteID     string  `path:"note_id" json:"-"`       // 备注 ID, 示例值: "6960663240925956401"
+	UserIDType *IDType `query:"user_id_type" json:"-"` // 用户 ID 类型, 示例值: "open_id", 可选值有: `open_id`: 用户的 open id, `union_id`: 用户的 union id, `user_id`: 用户的 user id, `people_admin_id`: 以people_admin_id来识别用户, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
+	Content    string  `json:"content,omitempty"`      // 备注内容, 示例值: "111"
 }
 
 // UpdateHireNoteResp ...
@@ -84,4 +77,11 @@ type UpdateHireNoteRespNote struct {
 	ModifyTime    int64  `json:"modify_time,omitempty"`    // 更新时间
 	CreatorID     string `json:"creator_id,omitempty"`     // 创建人ID
 	Content       string `json:"content,omitempty"`        // 内容
+}
+
+// updateHireNoteResp ...
+type updateHireNoteResp struct {
+	Code int64               `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg  string              `json:"msg,omitempty"`  // 错误描述
+	Data *UpdateHireNoteResp `json:"data,omitempty"`
 }

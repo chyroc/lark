@@ -58,18 +58,18 @@ func (r *Mock) UnMockDriveDeleteSheetFloatImage() {
 
 // DeleteSheetFloatImageReq ...
 type DeleteSheetFloatImageReq struct {
-	SpreadSheetToken string `path:"spreadsheet_token" json:"-"` // 表格 token, 示例值："shtcnmBA*****yGehy8"
-	SheetID          string `path:"sheet_id" json:"-"`          // 子表 id, 示例值："0b**12"
-	FloatImageID     string `path:"float_image_id" json:"-"`    // 浮动图片 id, 示例值："ye06SS14ph"
-}
-
-// deleteSheetFloatImageResp ...
-type deleteSheetFloatImageResp struct {
-	Code int64                      `json:"code,omitempty"` // 错误码，非 0 表示失败
-	Msg  string                     `json:"msg,omitempty"`  // 错误描述
-	Data *DeleteSheetFloatImageResp `json:"data,omitempty"`
+	SpreadSheetToken string `path:"spreadsheet_token" json:"-"` // 表格 token, 示例值: "shtcnmBA*yGehy8"
+	SheetID          string `path:"sheet_id" json:"-"`          // 子表 id, 示例值: "0b**12"
+	FloatImageID     string `path:"float_image_id" json:"-"`    // 浮动图片 id, 示例值: "ye06SS14ph"
 }
 
 // DeleteSheetFloatImageResp ...
 type DeleteSheetFloatImageResp struct {
+}
+
+// deleteSheetFloatImageResp ...
+type deleteSheetFloatImageResp struct {
+	Code int64                      `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg  string                     `json:"msg,omitempty"`  // 错误描述
+	Data *DeleteSheetFloatImageResp `json:"data,omitempty"`
 }

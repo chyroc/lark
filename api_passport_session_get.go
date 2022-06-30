@@ -57,15 +57,8 @@ func (r *Mock) UnMockPassportGetPassportSession() {
 
 // GetPassportSessionReq ...
 type GetPassportSessionReq struct {
-	UserIDType *IDType  `query:"user_id_type" json:"-"` // 用户 ID 类型, 示例值："open_id", 可选值有: `open_id`：用户的 open id, `union_id`：用户的 union id, `user_id`：用户的 user id, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
-	UserIDs    []string `json:"user_ids,omitempty"`     // 用户 ID, 示例值：["47f621ff"], 最大长度：`100`
-}
-
-// getPassportSessionResp ...
-type getPassportSessionResp struct {
-	Code int64                   `json:"code,omitempty"` // 错误码，非 0 表示失败
-	Msg  string                  `json:"msg,omitempty"`  // 错误描述
-	Data *GetPassportSessionResp `json:"data,omitempty"`
+	UserIDType *IDType  `query:"user_id_type" json:"-"` // 用户 ID 类型, 示例值: "open_id", 可选值有: `open_id`: 用户的 open id, `union_id`: 用户的 union id, `user_id`: 用户的 user id, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
+	UserIDs    []string `json:"user_ids,omitempty"`     // 用户 ID, 示例值: ["47f621ff"], 最大长度: `100`
 }
 
 // GetPassportSessionResp ...
@@ -76,6 +69,13 @@ type GetPassportSessionResp struct {
 // GetPassportSessionRespMaskSession ...
 type GetPassportSessionRespMaskSession struct {
 	CreateTime   string `json:"create_time,omitempty"`   // 创建时间
-	TerminalType int64  `json:"terminal_type,omitempty"` // 客户端类型, 可选值有: `0`：未知, `1`：个人电脑, `2`：浏览器, `3`：安卓手机, `4`：Apple手机, `5`：服务端
+	TerminalType int64  `json:"terminal_type,omitempty"` // 客户端类型, 可选值有: `0`: 未知, `1`: 个人电脑, `2`: 浏览器, `3`: 安卓手机, `4`: Apple手机, `5`: 服务端
 	UserID       string `json:"user_id,omitempty"`       // 用户ID
+}
+
+// getPassportSessionResp ...
+type getPassportSessionResp struct {
+	Code int64                   `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg  string                  `json:"msg,omitempty"`  // 错误描述
+	Data *GetPassportSessionResp `json:"data,omitempty"`
 }

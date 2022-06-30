@@ -57,22 +57,22 @@ func (r *Mock) UnMockMailCreatePublicMailboxMember() {
 
 // CreatePublicMailboxMemberReq ...
 type CreatePublicMailboxMemberReq struct {
-	UserIDType      *IDType       `query:"user_id_type" json:"-"`     // 用户 ID 类型, 示例值："open_id", 可选值有: `open_id`：用户的 open id, `union_id`：用户的 union id, `user_id`：用户的 user id, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
-	PublicMailboxID string        `path:"public_mailbox_id" json:"-"` // 公共邮箱唯一标识或公共邮箱地址, 示例值："xxxxxxxxxxxxxxx 或 test_public_mailbox@xxx.xx"
-	UserID          *string       `json:"user_id,omitempty"`          // 租户内用户的唯一标识（当成员类型是USER时有值）, 示例值："xxxxxxxxxx"
-	Type            *MailUserType `json:"type,omitempty"`             // 成员类型, 示例值："USER", 可选值有: `USER`：内部用户
-}
-
-// createPublicMailboxMemberResp ...
-type createPublicMailboxMemberResp struct {
-	Code int64                          `json:"code,omitempty"` // 错误码，非 0 表示失败
-	Msg  string                         `json:"msg,omitempty"`  // 错误描述
-	Data *CreatePublicMailboxMemberResp `json:"data,omitempty"`
+	PublicMailboxID string        `path:"public_mailbox_id" json:"-"` // 公共邮箱唯一标识或公共邮箱地址, 示例值: "xxxxxxxxxxxxxxx 或 test_public_mailbox@xxx.xx"
+	UserIDType      *IDType       `query:"user_id_type" json:"-"`     // 用户 ID 类型, 示例值: "open_id", 可选值有: `open_id`: 用户的 open id, `union_id`: 用户的 union id, `user_id`: 用户的 user id, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
+	UserID          *string       `json:"user_id,omitempty"`          // 租户内用户的唯一标识（当成员类型是USER时有值）, 示例值: "xxxxxxxxxx"
+	Type            *MailUserType `json:"type,omitempty"`             // 成员类型, 示例值: "USER", 可选值有: `USER`: 内部用户
 }
 
 // CreatePublicMailboxMemberResp ...
 type CreatePublicMailboxMemberResp struct {
 	MemberID string       `json:"member_id,omitempty"` // 公共邮箱内成员唯一标识
 	UserID   string       `json:"user_id,omitempty"`   // 租户内用户的唯一标识（当成员类型是USER时有值）
-	Type     MailUserType `json:"type,omitempty"`      // 成员类型, 可选值有: `USER`：内部用户
+	Type     MailUserType `json:"type,omitempty"`      // 成员类型, 可选值有: `USER`: 内部用户
+}
+
+// createPublicMailboxMemberResp ...
+type createPublicMailboxMemberResp struct {
+	Code int64                          `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg  string                         `json:"msg,omitempty"`  // 错误描述
+	Data *CreatePublicMailboxMemberResp `json:"data,omitempty"`
 }

@@ -23,12 +23,12 @@ import (
 
 // DeleteDriveSheetFile 该接口用于根据 spreadsheetToken 删除对应的 sheet 文档。
 //
-// 为了更好地提升该接口的安全性，我们对其进行了升级，请尽快迁移至
+// 为了更好地提升该接口的安全性, 我们对其进行了升级, 请尽快迁移至
 // [新版本>>](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file/delete)
 // </md-alert>
 // <md-alert type="warn">
-// 文档只能被文档所有者删除，文档被删除后将会放到回收站里
-// 该接口不支持并发调用，且调用频率上限为5QPS
+// 文档只能被文档所有者删除, 文档被删除后将会放到回收站里
+// 该接口不支持并发调用, 且调用频率上限为5QPS
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uUTNzUjL1UzM14SN1MTN/delete-sheet
 //
@@ -67,7 +67,13 @@ func (r *Mock) UnMockDriveDeleteDriveSheetFile() {
 
 // DeleteDriveSheetFileReq ...
 type DeleteDriveSheetFileReq struct {
-	SpreadSheetToken string `path:"spreadsheetToken" json:"-"` // spreadsheet 的 token，获取方式见 [概述](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/files/guide/introduction)
+	SpreadSheetToken string `path:"spreadsheetToken" json:"-"` // spreadsheet 的 token, 获取方式见 [概述](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/files/guide/introduction)
+}
+
+// DeleteDriveSheetFileResp ...
+type DeleteDriveSheetFileResp struct {
+	ID     string `json:"id,omitempty"`     // sheet 的 id 「字符串类型」
+	Result bool   `json:"result,omitempty"` // 删除结果
 }
 
 // deleteDriveSheetFileResp ...
@@ -75,10 +81,4 @@ type deleteDriveSheetFileResp struct {
 	Code int64                     `json:"code,omitempty"`
 	Msg  string                    `json:"msg,omitempty"`
 	Data *DeleteDriveSheetFileResp `json:"data,omitempty"`
-}
-
-// DeleteDriveSheetFileResp ...
-type DeleteDriveSheetFileResp struct {
-	ID     string `json:"id,omitempty"`     // sheet 的 id 「字符串类型」
-	Result bool   `json:"result,omitempty"` // 删除结果
 }

@@ -58,16 +58,16 @@ func (r *Mock) UnMockHelpdeskDeleteHelpdeskTicketCustomizedField() {
 
 // DeleteHelpdeskTicketCustomizedFieldReq ...
 type DeleteHelpdeskTicketCustomizedFieldReq struct {
-	TicketCustomizedFieldID string `path:"ticket_customized_field_id" json:"-"` // 工单自定义字段ID, 示例值："6948728206392295444"
-}
-
-// deleteHelpdeskTicketCustomizedFieldResp ...
-type deleteHelpdeskTicketCustomizedFieldResp struct {
-	Code int64                                    `json:"code,omitempty"` // 错误码，非 0 表示失败
-	Msg  string                                   `json:"msg,omitempty"`  // 错误描述
-	Data *DeleteHelpdeskTicketCustomizedFieldResp `json:"data,omitempty"`
+	TicketCustomizedFieldID string `path:"ticket_customized_field_id" json:"-"` // 工单自定义字段ID, 示例值: "6948728206392295444"
 }
 
 // DeleteHelpdeskTicketCustomizedFieldResp ...
 type DeleteHelpdeskTicketCustomizedFieldResp struct {
+}
+
+// deleteHelpdeskTicketCustomizedFieldResp ...
+type deleteHelpdeskTicketCustomizedFieldResp struct {
+	Code int64                                    `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg  string                                   `json:"msg,omitempty"`  // 错误描述
+	Data *DeleteHelpdeskTicketCustomizedFieldResp `json:"data,omitempty"`
 }

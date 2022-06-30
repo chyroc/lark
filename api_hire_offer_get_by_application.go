@@ -57,15 +57,8 @@ func (r *Mock) UnMockHireGetHireOfferByApplication() {
 
 // GetHireOfferByApplicationReq ...
 type GetHireOfferByApplicationReq struct {
-	UserIDType    *IDType `query:"user_id_type" json:"-"`  // 用户 ID 类型, 示例值："open_id", 可选值有: `open_id`：用户的 open id, `union_id`：用户的 union id, `user_id`：用户的 user id, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
-	ApplicationID string  `path:"application_id" json:"-"` // 投递ID, 示例值："6949805467799537964"
-}
-
-// getHireOfferByApplicationResp ...
-type getHireOfferByApplicationResp struct {
-	Code int64                          `json:"code,omitempty"` // 错误码，非 0 表示失败
-	Msg  string                         `json:"msg,omitempty"`  // 错误描述
-	Data *GetHireOfferByApplicationResp `json:"data,omitempty"`
+	ApplicationID string  `path:"application_id" json:"-"` // 投递ID, 示例值: "6949805467799537964"
+	UserIDType    *IDType `query:"user_id_type" json:"-"`  // 用户 ID 类型, 示例值: "open_id", 可选值有: `open_id`: 用户的 open id, `union_id`: 用户的 union id, `user_id`: 用户的 user id, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
 }
 
 // GetHireOfferByApplicationResp ...
@@ -80,13 +73,13 @@ type GetHireOfferByApplicationRespOffer struct {
 	BasicInfo     *GetHireOfferByApplicationRespOfferBasicInfo  `json:"basic_info,omitempty"`     // 基础信息
 	SalaryPlan    *GetHireOfferByApplicationRespOfferSalaryPlan `json:"salary_plan,omitempty"`    // 薪酬计划
 	SchemaID      string                                        `json:"schema_id,omitempty"`      // 当前 Offer 使用的 schema
-	OfferStatus   int64                                         `json:"offer_status,omitempty"`   // Offer 状态, 可选值有: `0`：所有, `1`：未申请, `2`：审批中, `3`：审批已撤回, `4`：审批通过, `5`：审批不通过, `6`：Offer 已发出, `7`：候选人已接受, `8`：候选人已拒绝, `9`：Offer 已失效
+	OfferStatus   int64                                         `json:"offer_status,omitempty"`   // Offer 状态, 可选值有: `0`: 所有, `1`: 未申请, `2`: 审批中, `3`: 审批已撤回, `4`: 审批通过, `5`: 审批不通过, `6`: Offer 已发出, `7`: 候选人已接受, `8`: 候选人已拒绝, `9`: Offer 已失效
 	JobInfo       *GetHireOfferByApplicationRespOfferJobInfo    `json:"job_info,omitempty"`       // 职位信息
 }
 
 // GetHireOfferByApplicationRespOfferBasicInfo ...
 type GetHireOfferByApplicationRespOfferBasicInfo struct {
-	OfferType         int64                                                       `json:"offer_type,omitempty"`          // Offer 类型, 可选值有: `1`：Social, `2`：Campus, `3`：Intern, `4`：InternTransfer
+	OfferType         int64                                                       `json:"offer_type,omitempty"`          // Offer 类型, 可选值有: `1`: Social, `2`: Campus, `3`: Intern, `4`: InternTransfer
 	Remark            string                                                      `json:"remark,omitempty"`              // 备注
 	ExpireTime        int64                                                       `json:"expire_time,omitempty"`         // Offer 过期时间
 	OwnerUserID       string                                                      `json:"owner_user_id,omitempty"`       // Offer 负责人 ID
@@ -106,22 +99,14 @@ type GetHireOfferByApplicationRespOfferBasicInfo struct {
 	CustomizeInfoList []*GetHireOfferByApplicationRespOfferBasicInfoCustomizeInfo `json:"customize_info_list,omitempty"` // 自定义字段信息
 }
 
+// GetHireOfferByApplicationRespOfferBasicInfoCustomizeInfo ...
+type GetHireOfferByApplicationRespOfferBasicInfoCustomizeInfo struct {
+	ObjectID       string `json:"object_id,omitempty"`       // 自定义字段 ID
+	CustomizeValue string `json:"customize_value,omitempty"` // 自定义字段 value
+}
+
 // GetHireOfferByApplicationRespOfferBasicInfoEmployeeType ...
 type GetHireOfferByApplicationRespOfferBasicInfoEmployeeType struct {
-	ID     string `json:"id,omitempty"`      // ID
-	ZhName string `json:"zh_name,omitempty"` // 中文名称
-	EnName string `json:"en_name,omitempty"` // 英文名称
-}
-
-// GetHireOfferByApplicationRespOfferBasicInfoRecruitmentType ...
-type GetHireOfferByApplicationRespOfferBasicInfoRecruitmentType struct {
-	ID     string `json:"id,omitempty"`      // ID
-	ZhName string `json:"zh_name,omitempty"` // 中文名称
-	EnName string `json:"en_name,omitempty"` // 英文名称
-}
-
-// GetHireOfferByApplicationRespOfferBasicInfoSequence ...
-type GetHireOfferByApplicationRespOfferBasicInfoSequence struct {
 	ID     string `json:"id,omitempty"`      // ID
 	ZhName string `json:"zh_name,omitempty"` // 中文名称
 	EnName string `json:"en_name,omitempty"` // 英文名称
@@ -145,6 +130,22 @@ type GetHireOfferByApplicationRespOfferBasicInfoOnboardAddress struct {
 	Country  *GetHireOfferByApplicationRespOfferBasicInfoOnboardAddressCountry  `json:"country,omitempty"`  // 国家信息
 }
 
+// GetHireOfferByApplicationRespOfferBasicInfoOnboardAddressCity ...
+type GetHireOfferByApplicationRespOfferBasicInfoOnboardAddressCity struct {
+	ZhName       string `json:"zh_name,omitempty"`       // 中文名称
+	EnName       string `json:"en_name,omitempty"`       // 英文名称
+	Code         string `json:"code,omitempty"`          // 编码
+	LocationType int64  `json:"location_type,omitempty"` // 地址类型, 可选值有: `1`: COUNTRY, `2`: STATE, `3`: CITY, `4`: DISTRICT, `5`: ADDRESS
+}
+
+// GetHireOfferByApplicationRespOfferBasicInfoOnboardAddressCountry ...
+type GetHireOfferByApplicationRespOfferBasicInfoOnboardAddressCountry struct {
+	ZhName       string `json:"zh_name,omitempty"`       // 中文名称
+	EnName       string `json:"en_name,omitempty"`       // 英文名称
+	Code         string `json:"code,omitempty"`          // 编码
+	LocationType int64  `json:"location_type,omitempty"` // 地址类型, 可选值有: `1`: COUNTRY, `2`: STATE, `3`: CITY, `4`: DISTRICT, `5`: ADDRESS
+}
+
 // GetHireOfferByApplicationRespOfferBasicInfoOnboardAddressDistrict ...
 type GetHireOfferByApplicationRespOfferBasicInfoOnboardAddressDistrict struct {
 	ZhName       string `json:"zh_name,omitempty"`       // 中文名称
@@ -153,28 +154,26 @@ type GetHireOfferByApplicationRespOfferBasicInfoOnboardAddressDistrict struct {
 	LocationType int64  `json:"location_type,omitempty"` // 地址类型
 }
 
-// GetHireOfferByApplicationRespOfferBasicInfoOnboardAddressCity ...
-type GetHireOfferByApplicationRespOfferBasicInfoOnboardAddressCity struct {
-	ZhName       string `json:"zh_name,omitempty"`       // 中文名称
-	EnName       string `json:"en_name,omitempty"`       // 英文名称
-	Code         string `json:"code,omitempty"`          // 编码
-	LocationType int64  `json:"location_type,omitempty"` // 地址类型, 可选值有: `1`：COUNTRY, `2`：STATE, `3`：CITY, `4`：DISTRICT, `5`：ADDRESS
-}
-
 // GetHireOfferByApplicationRespOfferBasicInfoOnboardAddressState ...
 type GetHireOfferByApplicationRespOfferBasicInfoOnboardAddressState struct {
 	ZhName       string `json:"zh_name,omitempty"`       // 中文名称
 	EnName       string `json:"en_name,omitempty"`       // 英文名称
 	Code         string `json:"code,omitempty"`          // 编码
-	LocationType int64  `json:"location_type,omitempty"` // 地址类型, 可选值有: `1`：COUNTRY, `2`：STATE, `3`：CITY, `4`：DISTRICT, `5`：ADDRESS
+	LocationType int64  `json:"location_type,omitempty"` // 地址类型, 可选值有: `1`: COUNTRY, `2`: STATE, `3`: CITY, `4`: DISTRICT, `5`: ADDRESS
 }
 
-// GetHireOfferByApplicationRespOfferBasicInfoOnboardAddressCountry ...
-type GetHireOfferByApplicationRespOfferBasicInfoOnboardAddressCountry struct {
-	ZhName       string `json:"zh_name,omitempty"`       // 中文名称
-	EnName       string `json:"en_name,omitempty"`       // 英文名称
-	Code         string `json:"code,omitempty"`          // 编码
-	LocationType int64  `json:"location_type,omitempty"` // 地址类型, 可选值有: `1`：COUNTRY, `2`：STATE, `3`：CITY, `4`：DISTRICT, `5`：ADDRESS
+// GetHireOfferByApplicationRespOfferBasicInfoRecruitmentType ...
+type GetHireOfferByApplicationRespOfferBasicInfoRecruitmentType struct {
+	ID     string `json:"id,omitempty"`      // ID
+	ZhName string `json:"zh_name,omitempty"` // 中文名称
+	EnName string `json:"en_name,omitempty"` // 英文名称
+}
+
+// GetHireOfferByApplicationRespOfferBasicInfoSequence ...
+type GetHireOfferByApplicationRespOfferBasicInfoSequence struct {
+	ID     string `json:"id,omitempty"`      // ID
+	ZhName string `json:"zh_name,omitempty"` // 中文名称
+	EnName string `json:"en_name,omitempty"` // 英文名称
 }
 
 // GetHireOfferByApplicationRespOfferBasicInfoWorkAddress ...
@@ -188,6 +187,22 @@ type GetHireOfferByApplicationRespOfferBasicInfoWorkAddress struct {
 	Country  *GetHireOfferByApplicationRespOfferBasicInfoWorkAddressCountry  `json:"country,omitempty"`  // 国家信息
 }
 
+// GetHireOfferByApplicationRespOfferBasicInfoWorkAddressCity ...
+type GetHireOfferByApplicationRespOfferBasicInfoWorkAddressCity struct {
+	ZhName       string `json:"zh_name,omitempty"`       // 中文名称
+	EnName       string `json:"en_name,omitempty"`       // 英文名称
+	Code         string `json:"code,omitempty"`          // 编码
+	LocationType int64  `json:"location_type,omitempty"` // 地址类型, 可选值有: `1`: COUNTRY, `2`: STATE, `3`: CITY, `4`: DISTRICT, `5`: ADDRESS
+}
+
+// GetHireOfferByApplicationRespOfferBasicInfoWorkAddressCountry ...
+type GetHireOfferByApplicationRespOfferBasicInfoWorkAddressCountry struct {
+	ZhName       string `json:"zh_name,omitempty"`       // 中文名称
+	EnName       string `json:"en_name,omitempty"`       // 英文名称
+	Code         string `json:"code,omitempty"`          // 编码
+	LocationType int64  `json:"location_type,omitempty"` // 地址类型, 可选值有: `1`: COUNTRY, `2`: STATE, `3`: CITY, `4`: DISTRICT, `5`: ADDRESS
+}
+
 // GetHireOfferByApplicationRespOfferBasicInfoWorkAddressDistrict ...
 type GetHireOfferByApplicationRespOfferBasicInfoWorkAddressDistrict struct {
 	ZhName       string `json:"zh_name,omitempty"`       // 中文名称
@@ -196,46 +211,30 @@ type GetHireOfferByApplicationRespOfferBasicInfoWorkAddressDistrict struct {
 	LocationType int64  `json:"location_type,omitempty"` // 地址类型
 }
 
-// GetHireOfferByApplicationRespOfferBasicInfoWorkAddressCity ...
-type GetHireOfferByApplicationRespOfferBasicInfoWorkAddressCity struct {
-	ZhName       string `json:"zh_name,omitempty"`       // 中文名称
-	EnName       string `json:"en_name,omitempty"`       // 英文名称
-	Code         string `json:"code,omitempty"`          // 编码
-	LocationType int64  `json:"location_type,omitempty"` // 地址类型, 可选值有: `1`：COUNTRY, `2`：STATE, `3`：CITY, `4`：DISTRICT, `5`：ADDRESS
-}
-
 // GetHireOfferByApplicationRespOfferBasicInfoWorkAddressState ...
 type GetHireOfferByApplicationRespOfferBasicInfoWorkAddressState struct {
 	ZhName       string `json:"zh_name,omitempty"`       // 中文名称
 	EnName       string `json:"en_name,omitempty"`       // 英文名称
 	Code         string `json:"code,omitempty"`          // 编码
-	LocationType int64  `json:"location_type,omitempty"` // 地址类型, 可选值有: `1`：COUNTRY, `2`：STATE, `3`：CITY, `4`：DISTRICT, `5`：ADDRESS
+	LocationType int64  `json:"location_type,omitempty"` // 地址类型, 可选值有: `1`: COUNTRY, `2`: STATE, `3`: CITY, `4`: DISTRICT, `5`: ADDRESS
 }
 
-// GetHireOfferByApplicationRespOfferBasicInfoWorkAddressCountry ...
-type GetHireOfferByApplicationRespOfferBasicInfoWorkAddressCountry struct {
-	ZhName       string `json:"zh_name,omitempty"`       // 中文名称
-	EnName       string `json:"en_name,omitempty"`       // 英文名称
-	Code         string `json:"code,omitempty"`          // 编码
-	LocationType int64  `json:"location_type,omitempty"` // 地址类型, 可选值有: `1`：COUNTRY, `2`：STATE, `3`：CITY, `4`：DISTRICT, `5`：ADDRESS
-}
-
-// GetHireOfferByApplicationRespOfferBasicInfoCustomizeInfo ...
-type GetHireOfferByApplicationRespOfferBasicInfoCustomizeInfo struct {
-	ObjectID       string `json:"object_id,omitempty"`       // 自定义字段 ID
-	CustomizeValue string `json:"customize_value,omitempty"` // 自定义字段 value
+// GetHireOfferByApplicationRespOfferJobInfo ...
+type GetHireOfferByApplicationRespOfferJobInfo struct {
+	JobID   string `json:"job_id,omitempty"`   // Offer 职位 ID
+	JobName string `json:"job_name,omitempty"` // Offer 职位名称
 }
 
 // GetHireOfferByApplicationRespOfferSalaryPlan ...
 type GetHireOfferByApplicationRespOfferSalaryPlan struct {
 	Currency                  string                                                       `json:"currency,omitempty"`                    // 币种
-	BasicSalary               string                                                       `json:"basic_salary,omitempty"`                // 基本薪资，为JSON 格式，amount 代表基本薪资的金额，peroid 代表基本薪资的周期单位，如："{"amount":"10000","period":2}"
+	BasicSalary               string                                                       `json:"basic_salary,omitempty"`                // 基本薪资, 为JSON 格式, amount 代表基本薪资的金额, peroid 代表基本薪资的周期单位, 如: "{"amount":"10000", "period":2}"
 	ProbationSalaryPercentage string                                                       `json:"probation_salary_percentage,omitempty"` // 试用期百分比
 	AwardSalaryMultiple       string                                                       `json:"award_salary_multiple,omitempty"`       // 年终奖月数
 	OptionShares              string                                                       `json:"option_shares,omitempty"`               // 期权股数
 	QuarterlyBonus            string                                                       `json:"quarterly_bonus,omitempty"`             // 季度奖金额
 	HalfYearBonus             string                                                       `json:"half_year_bonus,omitempty"`             // 半年奖金额
-	TotalAnnualCash           string                                                       `json:"total_annual_cash,omitempty"`           // 年度现金总额(数量，非公式)
+	TotalAnnualCash           string                                                       `json:"total_annual_cash,omitempty"`           // 年度现金总额(数量, 非公式)
 	CustomizeInfoList         []*GetHireOfferByApplicationRespOfferSalaryPlanCustomizeInfo `json:"customize_info_list,omitempty"`         // 自定义字段的 value 信息
 }
 
@@ -245,8 +244,9 @@ type GetHireOfferByApplicationRespOfferSalaryPlanCustomizeInfo struct {
 	CustomizeValue string `json:"customize_value,omitempty"` // 自定义字段 value
 }
 
-// GetHireOfferByApplicationRespOfferJobInfo ...
-type GetHireOfferByApplicationRespOfferJobInfo struct {
-	JobID   string `json:"job_id,omitempty"`   // Offer 职位 ID
-	JobName string `json:"job_name,omitempty"` // Offer 职位名称
+// getHireOfferByApplicationResp ...
+type getHireOfferByApplicationResp struct {
+	Code int64                          `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg  string                         `json:"msg,omitempty"`  // 错误描述
+	Data *GetHireOfferByApplicationResp `json:"data,omitempty"`
 }

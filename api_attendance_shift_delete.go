@@ -57,16 +57,16 @@ func (r *Mock) UnMockAttendanceDeleteAttendanceShift() {
 
 // DeleteAttendanceShiftReq ...
 type DeleteAttendanceShiftReq struct {
-	ShiftID string `path:"shift_id" json:"-"` // 班次 ID，获取方式：1）[按名称查询班次](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/shift/query) 2）[创建班次](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/shift/create), 示例值："6919358778597097404"
-}
-
-// deleteAttendanceShiftResp ...
-type deleteAttendanceShiftResp struct {
-	Code int64                      `json:"code,omitempty"` // 错误码，非 0 表示失败
-	Msg  string                     `json:"msg,omitempty"`  // 错误描述
-	Data *DeleteAttendanceShiftResp `json:"data,omitempty"`
+	ShiftID string `path:"shift_id" json:"-"` // 班次 ID, 获取方式: 1）[按名称查询班次](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/shift/query) 2）[创建班次](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/shift/create), 示例值: "6919358778597097404"
 }
 
 // DeleteAttendanceShiftResp ...
 type DeleteAttendanceShiftResp struct {
+}
+
+// deleteAttendanceShiftResp ...
+type deleteAttendanceShiftResp struct {
+	Code int64                      `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg  string                     `json:"msg,omitempty"`  // 错误描述
+	Data *DeleteAttendanceShiftResp `json:"data,omitempty"`
 }

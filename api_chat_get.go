@@ -23,7 +23,7 @@ import (
 
 // GetChat 获取群名称、群描述、群头像、群主 ID 等群基本信息。
 //
-// 注意事项：
+// 注意事项:
 // - 应用需要开启[机器人能力](https://open.feishu.cn/document/home/develop-a-bot-in-5-minutes/create-an-app)
 // - 机器人或授权用户必须在群里（否则只会返回群名称、群头像等基本信息）
 //
@@ -62,15 +62,8 @@ func (r *Mock) UnMockChatGetChat() {
 
 // GetChatReq ...
 type GetChatReq struct {
-	UserIDType *IDType `query:"user_id_type" json:"-"` // 用户 ID 类型, 示例值："open_id", 可选值有: `open_id`：用户的 open id, `union_id`：用户的 union id, `user_id`：用户的 user id, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
-	ChatID     string  `path:"chat_id" json:"-"`       // 群 ID，详情参见[群ID 说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-id-description), 示例值："oc_a0553eda9014c201e6969b478895c230"
-}
-
-// getChatResp ...
-type getChatResp struct {
-	Code int64        `json:"code,omitempty"` // 错误码，非 0 表示失败
-	Msg  string       `json:"msg,omitempty"`  // 错误描述
-	Data *GetChatResp `json:"data,omitempty"`
+	ChatID     string  `path:"chat_id" json:"-"`       // 群 ID, 详情参见[群ID 说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-id-description), 示例值: "oc_a0553eda9014c201e6969b478895c230"
+	UserIDType *IDType `query:"user_id_type" json:"-"` // 用户 ID 类型, 示例值: "open_id", 可选值有: `open_id`: 用户的 open id, `union_id`: 用户的 union id, `user_id`: 用户的 user id, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
 }
 
 // GetChatResp ...
@@ -83,8 +76,8 @@ type GetChatResp struct {
 	ShareCardPermission    ShareCardPermission  `json:"share_card_permission,omitempty"`    // 群分享权限(allowed/not_allowed)
 	AtAllPermission        AtAllPermission      `json:"at_all_permission,omitempty"`        // at 所有人权限(all_members/only_owner)
 	EditPermission         EditPermission       `json:"edit_permission,omitempty"`          // 群编辑权限(all_members/only_owner)
-	OwnerIDType            IDType               `json:"owner_id_type,omitempty"`            // 群主 ID 的类型(open_id/user_id/union_id)，群主是机器人时，不返回该字段。
-	OwnerID                string               `json:"owner_id,omitempty"`                 // 群主 ID，群主是机器人时，不返回该字段。
+	OwnerIDType            IDType               `json:"owner_id_type,omitempty"`            // 群主 ID 的类型(open_id/user_id/union_id), 群主是机器人时, 不返回该字段。
+	OwnerID                string               `json:"owner_id,omitempty"`                 // 群主 ID, 群主是机器人时, 不返回该字段。
 	ChatMode               ChatMode             `json:"chat_mode,omitempty"`                // 群模式(group/topic/p2p)
 	ChatType               ChatType             `json:"chat_type,omitempty"`                // 群类型(private/public)
 	ChatTag                string               `json:"chat_tag,omitempty"`                 // 优先级最高的一个群tag(inner/tenant/department/edu/meeting/customer_service)
@@ -96,4 +89,11 @@ type GetChatResp struct {
 	TenantKey              string               `json:"tenant_key,omitempty"`               // tenant key
 	UserCount              string               `json:"user_count,omitempty"`               // 群成员人数
 	BotCount               string               `json:"bot_count,omitempty"`                // 群机器人数
+}
+
+// getChatResp ...
+type getChatResp struct {
+	Code int64        `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg  string       `json:"msg,omitempty"`  // 错误描述
+	Data *GetChatResp `json:"data,omitempty"`
 }

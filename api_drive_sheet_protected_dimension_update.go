@@ -23,7 +23,7 @@ import (
 
 // UpdateSheetProtectedDimension
 //
-// 该接口用于根据保护范围ID修改保护范围，单次最多支持同时修改10个ID。
+// 该接口用于根据保护范围ID修改保护范围, 单次最多支持同时修改10个ID。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uUTM5YjL1ETO24SNxkjN
 func (r *DriveService) UpdateSheetProtectedDimension(ctx context.Context, request *UpdateSheetProtectedDimensionReq, options ...MethodOptionFunc) (*UpdateSheetProtectedDimensionResp, *Response, error) {
@@ -60,13 +60,13 @@ func (r *Mock) UnMockDriveUpdateSheetProtectedDimension() {
 
 // UpdateSheetProtectedDimensionReq ...
 type UpdateSheetProtectedDimensionReq struct {
-	SpreadSheetToken string                                    `path:"spreadsheetToken" json:"-"` // sheet 的 token，获取方式见[在线表格开发指南](https://open.feishu.cn/document/ukTMukTMukTM/uATMzUjLwEzM14CMxMTN/overview)
+	SpreadSheetToken string                                    `path:"spreadsheetToken" json:"-"` // sheet 的 token, 获取方式见[在线表格开发指南](https://open.feishu.cn/document/ukTMukTMukTM/uATMzUjLwEzM14CMxMTN/overview)
 	Requests         *UpdateSheetProtectedDimensionReqRequests `json:"requests,omitempty"`        // 请求
 }
 
 // UpdateSheetProtectedDimensionReqRequests ...
 type UpdateSheetProtectedDimensionReqRequests struct {
-	ProtectID string                                             `json:"protectId,omitempty"` // 保护范围ID，可以通过[获取表格元数据](https://open.feishu.cn/document/ukTMukTMukTM/uETMzUjLxEzM14SMxMTN) 接口获取
+	ProtectID string                                             `json:"protectId,omitempty"` // 保护范围ID, 可以通过[获取表格元数据](https://open.feishu.cn/document/ukTMukTMukTM/uETMzUjLxEzM14SMxMTN) 接口获取
 	Dimension *UpdateSheetProtectedDimensionReqRequestsDimension `json:"dimension,omitempty"` // 行列保护信息
 	Editors   *UpdateSheetProtectedDimensionReqRequestsEditors   `json:"editors,omitempty"`   // 可编辑保护范围的用户
 	LockInfo  *string                                            `json:"lockInfo,omitempty"`  // 保护说明
@@ -75,34 +75,27 @@ type UpdateSheetProtectedDimensionReqRequests struct {
 // UpdateSheetProtectedDimensionReqRequestsDimension ...
 type UpdateSheetProtectedDimensionReqRequestsDimension struct {
 	SheetID        string `json:"sheetId,omitempty"`        // sheetId
-	StartIndex     int64  `json:"startIndex,omitempty"`     // 保护行列起始下标，下标从1开始
-	EndIndex       int64  `json:"endIndex,omitempty"`       // 保护行列终止下标，下标从1开始
-	MajorDimension string `json:"majorDimension,omitempty"` // 保护范围ID对应的保护范围的维度，COLUMNS为保护列，ROWS为保护行
+	StartIndex     int64  `json:"startIndex,omitempty"`     // 保护行列起始下标, 下标从1开始
+	EndIndex       int64  `json:"endIndex,omitempty"`       // 保护行列终止下标, 下标从1开始
+	MajorDimension string `json:"majorDimension,omitempty"` // 保护范围ID对应的保护范围的维度, COLUMNS为保护列, ROWS为保护行
 }
 
 // UpdateSheetProtectedDimensionReqRequestsEditors ...
 type UpdateSheetProtectedDimensionReqRequestsEditors struct {
-	AddEditors *UpdateSheetProtectedDimensionReqRequestsEditorsAddEditors `json:"addEditors,omitempty"` // 需要增加的用户的列表，用户需要有文档的编辑权限
+	AddEditors *UpdateSheetProtectedDimensionReqRequestsEditorsAddEditors `json:"addEditors,omitempty"` // 需要增加的用户的列表, 用户需要有文档的编辑权限
 	DelEditors *UpdateSheetProtectedDimensionReqRequestsEditorsDelEditors `json:"delEditors,omitempty"` // 需要删除的用户的列表
 }
 
 // UpdateSheetProtectedDimensionReqRequestsEditorsAddEditors ...
 type UpdateSheetProtectedDimensionReqRequestsEditorsAddEditors struct {
-	MemberType string `json:"memberType,omitempty"` // 用户类型，支持userId,openId,unionId
+	MemberType string `json:"memberType,omitempty"` // 用户类型, 支持userId, openId, unionId
 	MemberID   string `json:"memberId,omitempty"`   // 用户类型对应的用户ID
 }
 
 // UpdateSheetProtectedDimensionReqRequestsEditorsDelEditors ...
 type UpdateSheetProtectedDimensionReqRequestsEditorsDelEditors struct {
-	MemberType string `json:"memberType,omitempty"` // 用户类型，支持userId,openId,unionId
+	MemberType string `json:"memberType,omitempty"` // 用户类型, 支持userId, openId, unionId
 	MemberID   string `json:"memberId,omitempty"`   // 用户类型对应的用户ID
-}
-
-// updateSheetProtectedDimensionResp ...
-type updateSheetProtectedDimensionResp struct {
-	Code int64                              `json:"code,omitempty"`
-	Msg  string                             `json:"msg,omitempty"`
-	Data *UpdateSheetProtectedDimensionResp `json:"data,omitempty"`
 }
 
 // UpdateSheetProtectedDimensionResp ...
@@ -121,8 +114,8 @@ type UpdateSheetProtectedDimensionRespReply struct {
 // UpdateSheetProtectedDimensionRespReplyDimension ...
 type UpdateSheetProtectedDimensionRespReplyDimension struct {
 	SheetID        string `json:"sheetId,omitempty"`        // sheetId
-	StartIndex     int64  `json:"startIndex,omitempty"`     // 保护行列起始下标，下标从1开始
-	EndIndex       int64  `json:"endIndex,omitempty"`       // 保护行列终止下标，下标从1开始
+	StartIndex     int64  `json:"startIndex,omitempty"`     // 保护行列起始下标, 下标从1开始
+	EndIndex       int64  `json:"endIndex,omitempty"`       // 保护行列终止下标, 下标从1开始
 	MajorDimension string `json:"majorDimension,omitempty"` // 保护范围的维度
 }
 
@@ -142,4 +135,11 @@ type UpdateSheetProtectedDimensionRespReplyEditorsAddEditor struct {
 type UpdateSheetProtectedDimensionRespReplyEditorsDelEditor struct {
 	MemberType string `json:"memberType,omitempty"` // 用户类型
 	MemberID   string `json:"memberId,omitempty"`   // 用户类型对应的用户ID
+}
+
+// updateSheetProtectedDimensionResp ...
+type updateSheetProtectedDimensionResp struct {
+	Code int64                              `json:"code,omitempty"`
+	Msg  string                             `json:"msg,omitempty"`
+	Data *UpdateSheetProtectedDimensionResp `json:"data,omitempty"`
 }

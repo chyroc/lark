@@ -58,16 +58,16 @@ func (r *Mock) UnMockChatDeleteChatTopNotice() {
 
 // DeleteChatTopNoticeReq ...
 type DeleteChatTopNoticeReq struct {
-	ChatID string `path:"chat_id" json:"-"` // 待撤销置顶的群 ID，详情参见[群ID 说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-id-description), 示例值："oc_5ad11d72b830411d72b836c20"
-}
-
-// deleteChatTopNoticeResp ...
-type deleteChatTopNoticeResp struct {
-	Code int64                    `json:"code,omitempty"` // 错误码，非 0 表示失败
-	Msg  string                   `json:"msg,omitempty"`  // 错误描述
-	Data *DeleteChatTopNoticeResp `json:"data,omitempty"`
+	ChatID string `path:"chat_id" json:"-"` // 待撤销置顶的群 ID, 详情参见[群ID 说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-id-description), 示例值: "oc_5ad11d72b830411d72b836c20"
 }
 
 // DeleteChatTopNoticeResp ...
 type DeleteChatTopNoticeResp struct {
+}
+
+// deleteChatTopNoticeResp ...
+type deleteChatTopNoticeResp struct {
+	Code int64                    `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg  string                   `json:"msg,omitempty"`  // 错误描述
+	Data *DeleteChatTopNoticeResp `json:"data,omitempty"`
 }

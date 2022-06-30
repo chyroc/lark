@@ -23,7 +23,7 @@ import (
 
 // CreateDriveFolder 在用户云空间的指定文件夹中创建一个新的空文件夹。
 //
-// 该接口不支持并发创建，且调用频率上限为 5QPS 以及 10000次/天
+// 该接口不支持并发创建, 且调用频率上限为 5QPS 以及 10000次/天
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file/create_folder
 func (r *DriveService) CreateDriveFolder(ctx context.Context, request *CreateDriveFolderReq, options ...MethodOptionFunc) (*CreateDriveFolderResp, *Response, error) {
@@ -60,19 +60,19 @@ func (r *Mock) UnMockDriveCreateDriveFolder() {
 
 // CreateDriveFolderReq ...
 type CreateDriveFolderReq struct {
-	Name        string `json:"name,omitempty"`         // 文件夹名称, 示例值："New Folder"
-	FolderToken string `json:"folder_token,omitempty"` // 父文件夹token, 示例值："fldbcRho46N6MQ3mJkOAuPUZR9d"
-}
-
-// createDriveFolderResp ...
-type createDriveFolderResp struct {
-	Code int64                  `json:"code,omitempty"` // 错误码，非 0 表示失败
-	Msg  string                 `json:"msg,omitempty"`  // 错误描述
-	Data *CreateDriveFolderResp `json:"data,omitempty"`
+	Name        string `json:"name,omitempty"`         // 文件夹名称, 示例值: "New Folder"
+	FolderToken string `json:"folder_token,omitempty"` // 父文件夹token, 示例值: "fldbcO1UuPz8VwnpPx5a92abcef"
 }
 
 // CreateDriveFolderResp ...
 type CreateDriveFolderResp struct {
 	Token string `json:"token,omitempty"` // 创建文件夹的token
 	URL   string `json:"url,omitempty"`   // 创建文件夹的访问url
+}
+
+// createDriveFolderResp ...
+type createDriveFolderResp struct {
+	Code int64                  `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg  string                 `json:"msg,omitempty"`  // 错误描述
+	Data *CreateDriveFolderResp `json:"data,omitempty"`
 }

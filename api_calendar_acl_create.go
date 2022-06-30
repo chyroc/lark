@@ -23,9 +23,9 @@ import (
 
 // CreateCalendarACL
 //
-// 该接口用于以当前身份（应用 / 用户）给日历添加访问控制权限，即日历成员。
+// 该接口用于以当前身份（应用 / 用户）给日历添加访问控制权限, 即日历成员。
 // 身份由 Header Authorization 的 Token 类型决定。
-// 当前身份需要有日历的 owner 权限，并且日历的类型只能为 primary 或 shared。
+// 当前身份需要有日历的 owner 权限, 并且日历的类型只能为 primary 或 shared。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar-acl/create
 func (r *CalendarService) CreateCalendarACL(ctx context.Context, request *CreateCalendarACLReq, options ...MethodOptionFunc) (*CreateCalendarACLResp, *Response, error) {
@@ -62,34 +62,34 @@ func (r *Mock) UnMockCalendarCreateCalendarACL() {
 
 // CreateCalendarACLReq ...
 type CreateCalendarACLReq struct {
-	UserIDType *IDType                    `query:"user_id_type" json:"-"` // 用户 ID 类型, 示例值："open_id", 可选值有: `open_id`：用户的 open id, `union_id`：用户的 union id, `user_id`：用户的 user id, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
-	CalendarID string                     `path:"calendar_id" json:"-"`   // 日历ID。参见[日历ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar/introduction), 示例值："feishu.cn_xxxxxxxxxx@group.calendar.feishu.cn"
-	Role       CalendarRole               `json:"role,omitempty"`         // 对日历的访问权限, 示例值："writer", 可选值有: `unknown`：未知权限, `free_busy_reader`：游客，只能看到忙碌/空闲信息, `reader`：订阅者，查看所有日程详情, `writer`：编辑者，创建及修改日程, `owner`：管理员，管理日历及共享设置
+	CalendarID string                     `path:"calendar_id" json:"-"`   // 日历ID。参见[日历ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar/introduction), 示例值: "feishu.cn_xxxxxxxxxx@group.calendar.feishu.cn"
+	UserIDType *IDType                    `query:"user_id_type" json:"-"` // 用户 ID 类型, 示例值: "open_id", 可选值有: `open_id`: 用户的 open id, `union_id`: 用户的 union id, `user_id`: 用户的 user id, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
+	Role       CalendarRole               `json:"role,omitempty"`         // 对日历的访问权限, 示例值: "writer", 可选值有: `unknown`: 未知权限, `free_busy_reader`: 游客, 只能看到忙碌/空闲信息, `reader`: 订阅者, 查看所有日程详情, `writer`: 编辑者, 创建及修改日程, `owner`: 管理员, 管理日历及共享设置
 	Scope      *CreateCalendarACLReqScope `json:"scope,omitempty"`        // 权限范围
 }
 
 // CreateCalendarACLReqScope ...
 type CreateCalendarACLReqScope struct {
-	Type   string  `json:"type,omitempty"`    // 权限类型，当type为User时，值为open_id/user_id/union_id, 示例值："user", 可选值有: `user`：用户
-	UserID *string `json:"user_id,omitempty"` // 用户ID，参见[用户相关的 ID 概念](https://open.feishu.cn/document/home/user-identity-introduction/introduction), 示例值："ou_xxxxxx"
-}
-
-// createCalendarACLResp ...
-type createCalendarACLResp struct {
-	Code int64                  `json:"code,omitempty"` // 错误码，非 0 表示失败
-	Msg  string                 `json:"msg,omitempty"`  // 错误描述
-	Data *CreateCalendarACLResp `json:"data,omitempty"`
+	Type   string  `json:"type,omitempty"`    // 权限类型, 当type为User时, 值为open_id/user_id/union_id, 示例值: "user", 可选值有: `user`: 用户
+	UserID *string `json:"user_id,omitempty"` // 用户ID, 参见[用户相关的 ID 概念](https://open.feishu.cn/document/home/user-identity-introduction/introduction), 示例值: "ou_xxxxxx"
 }
 
 // CreateCalendarACLResp ...
 type CreateCalendarACLResp struct {
 	ACLID string                      `json:"acl_id,omitempty"` // acl资源ID。参见[ACL ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar-acl/introduction)
-	Role  CalendarRole                `json:"role,omitempty"`   // 对日历的访问权限, 可选值有: `unknown`：未知权限, `free_busy_reader`：游客，只能看到忙碌/空闲信息, `reader`：订阅者，查看所有日程详情, `writer`：编辑者，创建及修改日程, `owner`：管理员，管理日历及共享设置
+	Role  CalendarRole                `json:"role,omitempty"`   // 对日历的访问权限, 可选值有: `unknown`: 未知权限, `free_busy_reader`: 游客, 只能看到忙碌/空闲信息, `reader`: 订阅者, 查看所有日程详情, `writer`: 编辑者, 创建及修改日程, `owner`: 管理员, 管理日历及共享设置
 	Scope *CreateCalendarACLRespScope `json:"scope,omitempty"`  // 权限范围
 }
 
 // CreateCalendarACLRespScope ...
 type CreateCalendarACLRespScope struct {
-	Type   string `json:"type,omitempty"`    // 权限类型，当type为User时，值为open_id/user_id/union_id, 可选值有: `user`：用户
-	UserID string `json:"user_id,omitempty"` // 用户ID，参见[用户相关的 ID 概念](https://open.feishu.cn/document/home/user-identity-introduction/introduction)
+	Type   string `json:"type,omitempty"`    // 权限类型, 当type为User时, 值为open_id/user_id/union_id, 可选值有: `user`: 用户
+	UserID string `json:"user_id,omitempty"` // 用户ID, 参见[用户相关的 ID 概念](https://open.feishu.cn/document/home/user-identity-introduction/introduction)
+}
+
+// createCalendarACLResp ...
+type createCalendarACLResp struct {
+	Code int64                  `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg  string                 `json:"msg,omitempty"`  // 错误描述
+	Data *CreateCalendarACLResp `json:"data,omitempty"`
 }

@@ -60,7 +60,7 @@ func (r *Mock) UnMockDriveUpdateSheetDimensionRange() {
 
 // UpdateSheetDimensionRangeReq ...
 type UpdateSheetDimensionRangeReq struct {
-	SpreadSheetToken    string                                           `path:"spreadsheetToken" json:"-"`     // spreadsheet 的 token，获取方式见[在线表格开发指南](https://open.feishu.cn/document/ukTMukTMukTM/uATMzUjLwEzM14CMxMTN/overview)
+	SpreadSheetToken    string                                           `path:"spreadsheetToken" json:"-"`     // spreadsheet 的 token, 获取方式见[在线表格开发指南](https://open.feishu.cn/document/ukTMukTMukTM/uATMzUjLwEzM14CMxMTN/overview)
 	Dimension           *UpdateSheetDimensionRangeReqDimension           `json:"dimension,omitempty"`           // 需要更新行列的维度信息
 	DimensionProperties *UpdateSheetDimensionRangeReqDimensionProperties `json:"dimensionProperties,omitempty"` // 需要更新行列的属性
 }
@@ -68,15 +68,19 @@ type UpdateSheetDimensionRangeReq struct {
 // UpdateSheetDimensionRangeReqDimension ...
 type UpdateSheetDimensionRangeReqDimension struct {
 	SheetID        string  `json:"sheetId,omitempty"`        // sheetId
-	MajorDimension *string `json:"majorDimension,omitempty"` // 默认 ROWS ，可选 ROWS、COLUMNS
+	MajorDimension *string `json:"majorDimension,omitempty"` // 默认 ROWS, 可选 ROWS、COLUMNS
 	StartIndex     int64   `json:"startIndex"`               // 开始的位置
 	EndIndex       int64   `json:"endIndex,omitempty"`       // 结束的位置
 }
 
 // UpdateSheetDimensionRangeReqDimensionProperties ...
 type UpdateSheetDimensionRangeReqDimensionProperties struct {
-	Visible   *bool  `json:"visible,omitempty"`   // true 为显示，false 为隐藏行列
+	Visible   *bool  `json:"visible,omitempty"`   // true 为显示, false 为隐藏行列
 	FixedSize *int64 `json:"fixedSize,omitempty"` // 行/列的大小
+}
+
+// UpdateSheetDimensionRangeResp ...
+type UpdateSheetDimensionRangeResp struct {
 }
 
 // updateSheetDimensionRangeResp ...
@@ -84,8 +88,4 @@ type updateSheetDimensionRangeResp struct {
 	Code int64                          `json:"code,omitempty"`
 	Msg  string                         `json:"msg,omitempty"`
 	Data *UpdateSheetDimensionRangeResp `json:"data,omitempty"`
-}
-
-// UpdateSheetDimensionRangeResp ...
-type UpdateSheetDimensionRangeResp struct {
 }

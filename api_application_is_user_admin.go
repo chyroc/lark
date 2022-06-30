@@ -24,7 +24,7 @@ import (
 // IsApplicationUserAdmin
 //
 // 该接口用于查询用户是否为应用管理员。
-// > 此处应用管理员是指可以进入企业管理后台对应用进行审核和管理的企业管理员，并不是应用的开发者。
+// > 此处应用管理员是指可以进入企业管理后台对应用进行审核和管理的企业管理员, 并不是应用的开发者。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uITN1EjLyUTNx4iM1UTM
 func (r *ApplicationService) IsApplicationUserAdmin(ctx context.Context, request *IsApplicationUserAdminReq, options ...MethodOptionFunc) (*IsApplicationUserAdminResp, *Response, error) {
@@ -60,18 +60,18 @@ func (r *Mock) UnMockApplicationIsApplicationUserAdmin() {
 
 // IsApplicationUserAdminReq ...
 type IsApplicationUserAdminReq struct {
-	OpenID     *string `query:"open_id" json:"-"`     // 用户 open_id，open_id 和 employee_id 两个参数必须包含其一，若同时传入取 open_id
-	EmployeeID *string `query:"employee_id" json:"-"` // 用户 employee_id（同通讯录 v3 版本中的 user_id），open_id 和 employee_id 两个参数必须包含其一，若同时传入取 open_id
-}
-
-// isApplicationUserAdminResp ...
-type isApplicationUserAdminResp struct {
-	Code int64                       `json:"code,omitempty"` // 返回码，非 0 表示失败
-	Msg  string                      `json:"msg,omitempty"`  // 返回码的描述
-	Data *IsApplicationUserAdminResp `json:"data,omitempty"` // 返回的业务信息
+	OpenID     *string `query:"open_id" json:"-"`     // 用户 open_id, open_id 和 employee_id 两个参数必须包含其一, 若同时传入取 open_id
+	EmployeeID *string `query:"employee_id" json:"-"` // 用户 employee_id（同通讯录 v3 版本中的 user_id）, open_id 和 employee_id 两个参数必须包含其一, 若同时传入取 open_id
 }
 
 // IsApplicationUserAdminResp ...
 type IsApplicationUserAdminResp struct {
-	IsAppAdmin bool `json:"is_app_admin,omitempty"` // 用户是否为管理员，true 为是，false 为否
+	IsAppAdmin bool `json:"is_app_admin,omitempty"` // 用户是否为管理员, true 为是, false 为否
+}
+
+// isApplicationUserAdminResp ...
+type isApplicationUserAdminResp struct {
+	Code int64                       `json:"code,omitempty"` // 返回码, 非 0 表示失败
+	Msg  string                      `json:"msg,omitempty"`  // 返回码的描述
+	Data *IsApplicationUserAdminResp `json:"data,omitempty"` // 返回的业务信息
 }

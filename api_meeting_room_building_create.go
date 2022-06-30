@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// CreateMeetingRoomBuilding 该接口对应管理后台的添加建筑，添加楼层的功能，可用于创建建筑物和建筑物的楼层信息。
+// CreateMeetingRoomBuilding 该接口对应管理后台的添加建筑, 添加楼层的功能, 可用于创建建筑物和建筑物的楼层信息。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uATNwYjLwUDM24CM1AjN
 func (r *MeetingRoomService) CreateMeetingRoomBuilding(ctx context.Context, request *CreateMeetingRoomBuildingReq, options ...MethodOptionFunc) (*CreateMeetingRoomBuildingResp, *Response, error) {
@@ -64,14 +64,14 @@ type CreateMeetingRoomBuildingReq struct {
 	CustomBuildingID *string  `json:"custom_building_id,omitempty"` // 租户自定义建筑ID
 }
 
-// createMeetingRoomBuildingResp ...
-type createMeetingRoomBuildingResp struct {
-	Code int64                          `json:"code,omitempty"` // 返回码，非 0 表示失败
-	Msg  string                         `json:"msg,omitempty"`  // 返回码的描述，"success" 表示成功，其他为错误提示信息
-	Data *CreateMeetingRoomBuildingResp `json:"data,omitempty"` // 返回业务信息
-}
-
 // CreateMeetingRoomBuildingResp ...
 type CreateMeetingRoomBuildingResp struct {
 	BuildingID string `json:"building_id,omitempty"` // 成功创建的建筑ID
+}
+
+// createMeetingRoomBuildingResp ...
+type createMeetingRoomBuildingResp struct {
+	Code int64                          `json:"code,omitempty"` // 返回码, 非 0 表示失败
+	Msg  string                         `json:"msg,omitempty"`  // 返回码的描述, "success" 表示成功, 其他为错误提示信息
+	Data *CreateMeetingRoomBuildingResp `json:"data,omitempty"` // 返回业务信息
 }

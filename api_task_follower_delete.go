@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// DeleteTaskFollower 该接口用于删除任务关注者
+// DeleteTaskFollower 该接口用于删除任务关注人
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/task-v1/task-follower/delete
 func (r *TaskService) DeleteTaskFollower(ctx context.Context, request *DeleteTaskFollowerReq, options ...MethodOptionFunc) (*DeleteTaskFollowerResp, *Response, error) {
@@ -58,17 +58,17 @@ func (r *Mock) UnMockTaskDeleteTaskFollower() {
 
 // DeleteTaskFollowerReq ...
 type DeleteTaskFollowerReq struct {
-	TaskID     string `path:"task_id" json:"-"`     // 任务 ID, 示例值："83912691-2e43-47fc-94a4-d512e03984fa"
-	FollowerID string `path:"follower_id" json:"-"` // 任务关注者 ID（Open ID）, 示例值："ou_87e1a581b36ecc4862cbfbce473f346a"
-}
-
-// deleteTaskFollowerResp ...
-type deleteTaskFollowerResp struct {
-	Code int64                   `json:"code,omitempty"` // 错误码，非 0 表示失败
-	Msg  string                  `json:"msg,omitempty"`  // 错误描述
-	Data *DeleteTaskFollowerResp `json:"data,omitempty"`
+	TaskID     string `path:"task_id" json:"-"`     // 任务 ID, 示例值: "83912691-2e43-47fc-94a4-d512e03984fa"
+	FollowerID string `path:"follower_id" json:"-"` // 任务关注人 ID（Open ID）, 示例值: "ou_87e1a581b36ecc4862cbfbce473f346a"
 }
 
 // DeleteTaskFollowerResp ...
 type DeleteTaskFollowerResp struct {
+}
+
+// deleteTaskFollowerResp ...
+type deleteTaskFollowerResp struct {
+	Code int64                   `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg  string                  `json:"msg,omitempty"`  // 错误描述
+	Data *DeleteTaskFollowerResp `json:"data,omitempty"`
 }

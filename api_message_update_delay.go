@@ -77,6 +77,14 @@ type UpdateMessageDelayReqCard struct {
 	OpenIDs []string    `json:"open_ids,omitempty"` // 指定需要更新的用户，共享卡片默认更新所有人卡片，无需填写该字段
 }
 
+// UpdateMessageDelayReqCardCard ...
+type UpdateMessageDelayReqCardCard struct {
+}
+
+// UpdateMessageDelayResp ...
+type UpdateMessageDelayResp struct {
+}
+
 func (r UpdateMessageDelayReqCard) MarshalJSON() ([]byte, error) {
 	bs, err := json.Marshal(r.Card)
 	if err != nil {
@@ -90,17 +98,9 @@ func (r UpdateMessageDelayReqCard) MarshalJSON() ([]byte, error) {
 	return json.Marshal(m)
 }
 
-// UpdateMessageDelayReqCardCard ...
-type UpdateMessageDelayReqCardCard struct {
-}
-
 // updateMessageDelayResp ...
 type updateMessageDelayResp struct {
 	Code int64                   `json:"code,omitempty"` // 返回码，非 0 表示失败
 	Msg  string                  `json:"msg,omitempty"`  // 返回码描述
 	Data *UpdateMessageDelayResp `json:"data,omitempty"`
-}
-
-// UpdateMessageDelayResp ...
-type UpdateMessageDelayResp struct {
 }

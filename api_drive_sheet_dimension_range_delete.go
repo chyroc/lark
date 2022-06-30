@@ -60,16 +60,22 @@ func (r *Mock) UnMockDriveDeleteSheetDimensionRange() {
 
 // DeleteSheetDimensionRangeReq ...
 type DeleteSheetDimensionRangeReq struct {
-	SpreadSheetToken string                                 `path:"spreadsheetToken" json:"-"` // spreadsheet的token，详见 [在线表格开发指南](https://open.feishu.cn/document/ukTMukTMukTM/uATMzUjLwEzM14CMxMTN/overview)
+	SpreadSheetToken string                                 `path:"spreadsheetToken" json:"-"` // spreadsheet的token, 详见 [在线表格开发指南](https://open.feishu.cn/document/ukTMukTMukTM/uATMzUjLwEzM14CMxMTN/overview)
 	Dimension        *DeleteSheetDimensionRangeReqDimension `json:"dimension,omitempty"`       // 需要删除行列的维度信息
 }
 
 // DeleteSheetDimensionRangeReqDimension ...
 type DeleteSheetDimensionRangeReqDimension struct {
 	SheetID        string  `json:"sheetId,omitempty"`        // sheetId
-	MajorDimension *string `json:"majorDimension,omitempty"` // 默认 ROWS ，可选 ROWS、COLUMNS
+	MajorDimension *string `json:"majorDimension,omitempty"` // 默认 ROWS, 可选 ROWS、COLUMNS
 	StartIndex     int64   `json:"startIndex"`               // 开始的位置
 	EndIndex       int64   `json:"endIndex,omitempty"`       // 结束的位置
+}
+
+// DeleteSheetDimensionRangeResp ...
+type DeleteSheetDimensionRangeResp struct {
+	DelCount       int64  `json:"delCount,omitempty"`       // 删除的行/列数
+	MajorDimension string `json:"majorDimension,omitempty"` // 插入维度
 }
 
 // deleteSheetDimensionRangeResp ...
@@ -77,10 +83,4 @@ type deleteSheetDimensionRangeResp struct {
 	Code int64                          `json:"code,omitempty"`
 	Msg  string                         `json:"msg,omitempty"`
 	Data *DeleteSheetDimensionRangeResp `json:"data,omitempty"`
-}
-
-// DeleteSheetDimensionRangeResp ...
-type DeleteSheetDimensionRangeResp struct {
-	DelCount       int64  `json:"delCount,omitempty"`       // 删除的行/列数
-	MajorDimension string `json:"majorDimension,omitempty"` // 插入维度
 }

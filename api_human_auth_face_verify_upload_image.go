@@ -24,8 +24,8 @@ import (
 
 // UploadFaceVerifyImage
 //
-// 无源人脸比对接入需申请白名单，接入前请联系飞书开放平台工作人员，邮箱：openplatform@bytedance.com。
-// 无源人脸比对流程，开发者后台通过调用此接口将基准图片上传到飞书后台，做检测时的对比使用。
+// 无源人脸比对接入需申请白名单, 接入前请联系飞书开放平台工作人员, 邮箱: openplatform@bytedance.com。
+// 无源人脸比对流程, 开发者后台通过调用此接口将基准图片上传到飞书后台, 做检测时的对比使用。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/human_authentication-v1/face/upload-facial-reference-image
 func (r *HumanAuthService) UploadFaceVerifyImage(ctx context.Context, request *UploadFaceVerifyImageReq, options ...MethodOptionFunc) (*UploadFaceVerifyImageResp, *Response, error) {
@@ -67,14 +67,14 @@ type UploadFaceVerifyImageReq struct {
 	Image      io.Reader `json:"image,omitempty"`       // 带有头像的人脸照片
 }
 
-// uploadFaceVerifyImageResp ...
-type uploadFaceVerifyImageResp struct {
-	Code int64                      `json:"code,omitempty"` // 返回码，非0为失败
-	Msg  string                     `json:"msg,omitempty"`  // 返回信息，返回码的描述
-	Data *UploadFaceVerifyImageResp `json:"data,omitempty"` // 业务数据
-}
-
 // UploadFaceVerifyImageResp ...
 type UploadFaceVerifyImageResp struct {
-	FaceUid string `json:"face_uid,omitempty"` // 人脸图片用户Uid，需返回给应用小程序，作为小程序调起人脸识别接口的uid参数
+	FaceUid string `json:"face_uid,omitempty"` // 人脸图片用户Uid, 需返回给应用小程序, 作为小程序调起人脸识别接口的uid参数
+}
+
+// uploadFaceVerifyImageResp ...
+type uploadFaceVerifyImageResp struct {
+	Code int64                      `json:"code,omitempty"` // 返回码, 非0为失败
+	Msg  string                     `json:"msg,omitempty"`  // 返回信息, 返回码的描述
+	Data *UploadFaceVerifyImageResp `json:"data,omitempty"` // 业务数据
 }

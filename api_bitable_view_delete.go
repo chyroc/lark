@@ -60,18 +60,18 @@ func (r *Mock) UnMockBitableDeleteBitableView() {
 
 // DeleteBitableViewReq ...
 type DeleteBitableViewReq struct {
-	AppToken string `path:"app_token" json:"-"` // bitable app token, 示例值："appbcbWCzen6D8dezhoCH2RpMAh"
-	TableID  string `path:"table_id" json:"-"`  // table id, 示例值："tblsRc9GRRXKqhvW"
-	ViewID   string `path:"view_id" json:"-"`   // 视图Id, 示例值："vewTpR1urY"
-}
-
-// deleteBitableViewResp ...
-type deleteBitableViewResp struct {
-	Code int64                  `json:"code,omitempty"` // 错误码，非 0 表示失败
-	Msg  string                 `json:"msg,omitempty"`  // 错误描述
-	Data *DeleteBitableViewResp `json:"data,omitempty"`
+	AppToken string `path:"app_token" json:"-"` // bitable app token, 示例值: "appbcbWCzen6D8dezhoCH2RpMAh"
+	TableID  string `path:"table_id" json:"-"`  // table id, 示例值: "tblsRc9GRRXKqhvW"
+	ViewID   string `path:"view_id" json:"-"`   // 视图Id, 示例值: "vewTpR1urY"
 }
 
 // DeleteBitableViewResp ...
 type DeleteBitableViewResp struct {
+}
+
+// deleteBitableViewResp ...
+type deleteBitableViewResp struct {
+	Code int64                  `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg  string                 `json:"msg,omitempty"`  // 错误描述
+	Data *DeleteBitableViewResp `json:"data,omitempty"`
 }

@@ -23,12 +23,12 @@ import (
 
 // AddChatMember 将用户或机器人拉入群聊。
 //
-// 注意事项：
+// 注意事项:
 // - 应用需要开启[机器人能力](https://open.feishu.cn/document/home/develop-a-bot-in-5-minutes/create-an-app)
-// - 如需拉用户进群，需要机器人对用户有可见性
-// - 在开启 [仅群主和群管理员可添加群成员] 的设置时，仅有群主/管理员 或 创建群组且具备 [更新应用所创建群的群信息] 权限的机器人，可以拉用户或者机器人进群
-// - 在未开启 [仅群主和群管理员可添加群成员] 的设置时，所有群成员都可以拉用户或机器人进群
-// - 每次请求，最多拉50个用户或者5个机器人，并且群组最多容纳15个机器人
+// - 如需拉用户进群, 需要机器人对用户有可见性
+// - 在开启 [仅群主和群管理员可添加群成员] 的设置时, 仅有群主/管理员 或 创建群组且具备 [更新应用所创建群的群信息] 权限的机器人, 可以拉用户或者机器人进群
+// - 在未开启 [仅群主和群管理员可添加群成员] 的设置时, 所有群成员都可以拉用户或机器人进群
+// - 每次请求, 最多拉50个用户或者5个机器人, 并且群组最多容纳15个机器人
 // - 拉机器人入群请使用 [app_id]
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-members/create
@@ -66,21 +66,21 @@ func (r *Mock) UnMockChatAddChatMember() {
 
 // AddChatMemberReq ...
 type AddChatMemberReq struct {
-	MemberIDType *IDType  `query:"member_id_type" json:"-"` // 进群成员 id 类型 open_id/user_id/union_id/app_id, 示例值："open_id", 可选值有: `user_id`：以 user_id 来识别成员，需要有获取用户UserID的权限 ([什么是 User ID？](https://open.feishu.cn/document/home/user-identity-introduction/user-id)), `union_id`：以 union_id 来识别成员([什么是 Union ID？](https://open.feishu.cn/document/home/user-identity-introduction/union-id)), `open_id`：以 open_id 来识别成员([什么是 Open ID？](https://open.feishu.cn/document/home/user-identity-introduction/open-id)), `app_id`：以 app_id 来识别成员([获取应用身份访问凭证](https://open.feishu.cn/document/ukTMukTMukTM/ukDNz4SO0MjL5QzM/g))
-	SucceedType  *int64   `query:"succeed_type" json:"-"`   // 出现不可用ID后的处理方式 0/1/2, 示例值：0, 可选值有: `0`：兼容之前的策略，不存在/不可见的 ID 会拉群失败，并返回错误响应。存在已离职 ID 时，会将其他可用 ID 拉入群聊，返回拉群成功的响应。, `1`：将参数中可用的 ID 全部拉入群聊，返回拉群成功的响应，并展示剩余不可用的 ID 及原因。, `2`：参数中只要存在任一不可用的 ID ，就会拉群失败，返回错误响应，并展示出不可用的 ID。
-	ChatID       string   `path:"chat_id" json:"-"`         // 群 ID，详情参见[群ID 说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-id-description), 示例值："oc_a0553eda9014c201e6969b478895c230"
-	IDList       []string `json:"id_list,omitempty"`        // 成员列表, 示例值：["ou_9204a37300b3700d61effaa439f34295"]
-}
-
-// addChatMemberResp ...
-type addChatMemberResp struct {
-	Code int64              `json:"code,omitempty"` // 错误码，非 0 表示失败
-	Msg  string             `json:"msg,omitempty"`  // 错误描述
-	Data *AddChatMemberResp `json:"data,omitempty"`
+	ChatID       string   `path:"chat_id" json:"-"`         // 群 ID, 详情参见[群ID 说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-id-description), 示例值: "oc_a0553eda9014c201e6969b478895c230"
+	MemberIDType *IDType  `query:"member_id_type" json:"-"` // 进群成员 id 类型 open_id/user_id/union_id/app_id, 示例值: "open_id", 可选值有: `user_id`: 以 user_id 来识别成员, 需要有获取用户UserID的权限 ([什么是 User ID？](https://open.feishu.cn/document/home/user-identity-introduction/user-id)), `union_id`: 以 union_id 来识别成员([什么是 Union ID？](https://open.feishu.cn/document/home/user-identity-introduction/union-id)), `open_id`: 以 open_id 来识别成员([什么是 Open ID？](https://open.feishu.cn/document/home/user-identity-introduction/open-id)), `app_id`: 以 app_id 来识别成员([获取应用身份访问凭证](https://open.feishu.cn/document/ukTMukTMukTM/ukDNz4SO0MjL5QzM/g))
+	SucceedType  *int64   `query:"succeed_type" json:"-"`   // 出现不可用ID后的处理方式 0/1/2, 示例值: 0, 可选值有: `0`: 兼容之前的策略, 不存在/不可见的 ID 会拉群失败, 并返回错误响应。存在已离职 ID 时, 会将其他可用 ID 拉入群聊, 返回拉群成功的响应, `1`: 将参数中可用的 ID 全部拉入群聊, 返回拉群成功的响应, 并展示剩余不可用的 ID 及原因, `2`: 参数中只要存在任一不可用的 ID, 就会拉群失败, 返回错误响应, 并展示出不可用的 ID。
+	IDList       []string `json:"id_list,omitempty"`        // 成员列表, 示例值: ["ou_9204a37300b3700d61effaa439f34295"]
 }
 
 // AddChatMemberResp ...
 type AddChatMemberResp struct {
 	InvalidIDList    []string `json:"invalid_id_list,omitempty"`     // 无效成员列表
 	NotExistedIDList []string `json:"not_existed_id_list,omitempty"` // ID不存在的成员列表
+}
+
+// addChatMemberResp ...
+type addChatMemberResp struct {
+	Code int64              `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg  string             `json:"msg,omitempty"`  // 错误描述
+	Data *AddChatMemberResp `json:"data,omitempty"`
 }

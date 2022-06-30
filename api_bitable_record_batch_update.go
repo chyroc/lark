@@ -60,23 +60,16 @@ func (r *Mock) UnMockBitableBatchUpdateBitableRecord() {
 
 // BatchUpdateBitableRecordReq ...
 type BatchUpdateBitableRecordReq struct {
-	UserIDType *IDType                              `query:"user_id_type" json:"-"` // 用户 ID 类型, 示例值："open_id", 可选值有: `open_id`：用户的 open id, `union_id`：用户的 union id, `user_id`：用户的 user id, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求:  获取用户 user ID
-	AppToken   string                               `path:"app_token" json:"-"`     // bitable app token, 示例值："appbcbWCzen6D8dezhoCH2RpMAh"
-	TableID    string                               `path:"table_id" json:"-"`      // table id, 示例值："tblsRc9GRRXKqhvW"
+	AppToken   string                               `path:"app_token" json:"-"`     // bitable app token, 示例值: "appbcbWCzen6D8dezhoCH2RpMAh"
+	TableID    string                               `path:"table_id" json:"-"`      // table id, 示例值: "tblsRc9GRRXKqhvW"
+	UserIDType *IDType                              `query:"user_id_type" json:"-"` // 用户 ID 类型, 示例值: "open_id", 可选值有: `open_id`: 用户的 open id, `union_id`: 用户的 union id, `user_id`: 用户的 user id, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
 	Records    []*BatchUpdateBitableRecordReqRecord `json:"records,omitempty"`      // 记录
 }
 
 // BatchUpdateBitableRecordReqRecord ...
 type BatchUpdateBitableRecordReqRecord struct {
-	RecordID *string                `json:"record_id,omitempty"` // 记录 id, 示例值："recqwIwhc6"
-	Fields   map[string]interface{} `json:"fields,omitempty"`    // 记录字段,关于支持新增的字段类型，请参考[接入指南](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/bitable/notification)
-}
-
-// batchUpdateBitableRecordResp ...
-type batchUpdateBitableRecordResp struct {
-	Code int64                         `json:"code,omitempty"` // 错误码，非 0 表示失败
-	Msg  string                        `json:"msg,omitempty"`  // 错误描述
-	Data *BatchUpdateBitableRecordResp `json:"data,omitempty"`
+	RecordID *string                `json:"record_id,omitempty"` // 记录 id, 示例值: "recqwIwhc6"
+	Fields   map[string]interface{} `json:"fields,omitempty"`    // 记录字段, 关于支持新增的字段类型, 请参考[接入指南](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/bitable/notification)
 }
 
 // BatchUpdateBitableRecordResp ...
@@ -87,5 +80,12 @@ type BatchUpdateBitableRecordResp struct {
 // BatchUpdateBitableRecordRespRecord ...
 type BatchUpdateBitableRecordRespRecord struct {
 	RecordID string                 `json:"record_id,omitempty"` // 记录 id
-	Fields   map[string]interface{} `json:"fields,omitempty"`    // 记录字段,关于支持新增的字段类型，请参考[接入指南](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/bitable/notification)
+	Fields   map[string]interface{} `json:"fields,omitempty"`    // 记录字段, 关于支持新增的字段类型, 请参考[接入指南](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/bitable/notification)
+}
+
+// batchUpdateBitableRecordResp ...
+type batchUpdateBitableRecordResp struct {
+	Code int64                         `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg  string                        `json:"msg,omitempty"`  // 错误描述
+	Data *BatchUpdateBitableRecordResp `json:"data,omitempty"`
 }

@@ -60,17 +60,17 @@ func (r *Mock) UnMockBitableBatchDeleteBitableTable() {
 
 // BatchDeleteBitableTableReq ...
 type BatchDeleteBitableTableReq struct {
-	AppToken string   `path:"app_token" json:"-"`  // bitable app token, 示例值："appbcbWCzen6D8dezhoCH2RpMAh"
-	TableIDs []string `json:"table_ids,omitempty"` // 删除的多条tableid列表, 示例值：["tblsRc9GRRXKqhvW"]
-}
-
-// batchDeleteBitableTableResp ...
-type batchDeleteBitableTableResp struct {
-	Code int64                        `json:"code,omitempty"` // 错误码，非 0 表示失败
-	Msg  string                       `json:"msg,omitempty"`  // 错误描述
-	Data *BatchDeleteBitableTableResp `json:"data,omitempty"`
+	AppToken string   `path:"app_token" json:"-"`  // bitable app token, 示例值: "appbcbWCzen6D8dezhoCH2RpMAh"
+	TableIDs []string `json:"table_ids,omitempty"` // 删除的多条tableid列表, 示例值: ["tblsRc9GRRXKqhvW"]
 }
 
 // BatchDeleteBitableTableResp ...
 type BatchDeleteBitableTableResp struct {
+}
+
+// batchDeleteBitableTableResp ...
+type batchDeleteBitableTableResp struct {
+	Code int64                        `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg  string                       `json:"msg,omitempty"`  // 错误描述
+	Data *BatchDeleteBitableTableResp `json:"data,omitempty"`
 }

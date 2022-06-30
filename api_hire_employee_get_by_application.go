@@ -57,15 +57,8 @@ func (r *Mock) UnMockHireGetHireEmployeeByApplication() {
 
 // GetHireEmployeeByApplicationReq ...
 type GetHireEmployeeByApplicationReq struct {
-	ApplicationID string  `query:"application_id" json:"-"` // 投递ID, 示例值："123"
-	UserIDType    *IDType `query:"user_id_type" json:"-"`   // 用户 ID 类型, 示例值："open_id", 可选值有: `open_id`：用户的 open id, `union_id`：用户的 union id, `user_id`：用户的 user id, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
-}
-
-// getHireEmployeeByApplicationResp ...
-type getHireEmployeeByApplicationResp struct {
-	Code int64                             `json:"code,omitempty"` // 错误码，非 0 表示失败
-	Msg  string                            `json:"msg,omitempty"`  // 错误描述
-	Data *GetHireEmployeeByApplicationResp `json:"data,omitempty"`
+	ApplicationID string  `query:"application_id" json:"-"` // 投递ID, 示例值: "123"
+	UserIDType    *IDType `query:"user_id_type" json:"-"`   // 用户 ID 类型, 示例值: "open_id", 可选值有: `open_id`: 用户的 open id, `union_id`: 用户的 union id, `user_id`: 用户的 user id, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
 }
 
 // GetHireEmployeeByApplicationResp ...
@@ -77,8 +70,8 @@ type GetHireEmployeeByApplicationResp struct {
 type GetHireEmployeeByApplicationRespEmployee struct {
 	ID                     string       `json:"id,omitempty"`                       // 员工ID
 	ApplicationID          string       `json:"application_id,omitempty"`           // 投递ID
-	OnboardStatus          int64        `json:"onboard_status,omitempty"`           // 入职状态, 可选值有: `1`：已入职, `2`：已离职
-	ConversionStatus       int64        `json:"conversion_status,omitempty"`        // 转正状态, 可选值有: `1`：未转正, `2`：已转正
+	OnboardStatus          int64        `json:"onboard_status,omitempty"`           // 入职状态, 可选值有: `1`: 已入职, `2`: 已离职
+	ConversionStatus       int64        `json:"conversion_status,omitempty"`        // 转正状态, 可选值有: `1`: 未转正, `2`: 已转正
 	OnboardTime            int64        `json:"onboard_time,omitempty"`             // 实际入职时间
 	ExpectedConversionTime int64        `json:"expected_conversion_time,omitempty"` // 预期转正时间
 	ActualConversionTime   int64        `json:"actual_conversion_time,omitempty"`   // 实际转正时间
@@ -90,4 +83,11 @@ type GetHireEmployeeByApplicationRespEmployee struct {
 	Sequence               string       `json:"sequence,omitempty"`                 // 序列
 	Level                  string       `json:"level,omitempty"`                    // 职级
 	EmployeeType           EmployeeType `json:"employee_type,omitempty"`            // 员工类型
+}
+
+// getHireEmployeeByApplicationResp ...
+type getHireEmployeeByApplicationResp struct {
+	Code int64                             `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg  string                            `json:"msg,omitempty"`  // 错误描述
+	Data *GetHireEmployeeByApplicationResp `json:"data,omitempty"`
 }

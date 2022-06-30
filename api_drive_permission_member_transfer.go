@@ -58,17 +58,31 @@ func (r *Mock) UnMockDriveTransferDriveMemberPermission() {
 
 // TransferDriveMemberPermissionReq ...
 type TransferDriveMemberPermissionReq struct {
-	Token          string                                 `json:"token,omitempty"`            // 文件的 token，获取方式见 [如何获取云文档资源相关 token](https://open.feishu.cn/document/ukTMukTMukTM/uczNzUjL3czM14yN3MTN#08bb5df6)
-	Type           string                                 `json:"type,omitempty"`             // 文档类型，可选 **doc、docx、sheet、bitable、file**
+	Token          string                                 `json:"token,omitempty"`            // 文件的 token, 获取方式见 [如何获取云文档资源相关 token](https://open.feishu.cn/document/ukTMukTMukTM/uczNzUjL3czM14yN3MTN#08bb5df6)
+	Type           string                                 `json:"type,omitempty"`             // 文档类型, 可选 doc、docx、sheet、bitable、file
 	Owner          *TransferDriveMemberPermissionReqOwner `json:"owner,omitempty"`            // 要转移到的新的文档所有者
-	RemoveOldOwner *bool                                  `json:"remove_old_owner,omitempty"` // true 为转移后删除旧 owner 的权限，默认为false
-	CancelNotify   *bool                                  `json:"cancel_notify,omitempty"`    // true为不通知新owner，默认为false
+	RemoveOldOwner *bool                                  `json:"remove_old_owner,omitempty"` // true 为转移后删除旧 owner 的权限, 默认为false
+	CancelNotify   *bool                                  `json:"cancel_notify,omitempty"`    // true为不通知新owner, 默认为false
 }
 
 // TransferDriveMemberPermissionReqOwner ...
 type TransferDriveMemberPermissionReqOwner struct {
-	MemberType string `json:"member_type,omitempty"` // 用户类型，可选 **email、openid、userid、unionid**
-	MemberID   string `json:"member_id,omitempty"`   // 用户类型下的值，获取方式见 [如何获得 User ID、Open ID 和 Union ID？](https://open.feishu.cn/document/home/user-identity-introduction/how-to-get)
+	MemberType string `json:"member_type,omitempty"` // 用户类型, 可选 email、openid、userid、unionid
+	MemberID   string `json:"member_id,omitempty"`   // 用户类型下的值, 获取方式见 [如何获得 User ID、Open ID 和 Union ID？](https://open.feishu.cn/document/home/user-identity-introduction/how-to-get)
+}
+
+// TransferDriveMemberPermissionResp ...
+type TransferDriveMemberPermissionResp struct {
+	IsSuccess bool                                    `json:"is_success,omitempty"` // 请求是否成功
+	Type      string                                  `json:"type,omitempty"`       // 文档类型, 可选 doc、sheet、bitable、file
+	Token     string                                  `json:"token,omitempty"`      // 文档的 token
+	Owner     *TransferDriveMemberPermissionRespOwner `json:"owner,omitempty"`      // 文档当前所有者
+}
+
+// TransferDriveMemberPermissionRespOwner ...
+type TransferDriveMemberPermissionRespOwner struct {
+	MemberType string `json:"member_type,omitempty"` // 用户类型, 有 email、openid、userid、unionid
+	MemberID   string `json:"member_id,omitempty"`   // 用户类型下的值
 }
 
 // transferDriveMemberPermissionResp ...
@@ -76,18 +90,4 @@ type transferDriveMemberPermissionResp struct {
 	Code int64                              `json:"code,omitempty"`
 	Msg  string                             `json:"msg,omitempty"`
 	Data *TransferDriveMemberPermissionResp `json:"data,omitempty"`
-}
-
-// TransferDriveMemberPermissionResp ...
-type TransferDriveMemberPermissionResp struct {
-	IsSuccess bool                                    `json:"is_success,omitempty"` // 请求是否成功
-	Type      string                                  `json:"type,omitempty"`       // 文档类型，可选 **doc、sheet、bitable、file**
-	Token     string                                  `json:"token,omitempty"`      // 文档的 token
-	Owner     *TransferDriveMemberPermissionRespOwner `json:"owner,omitempty"`      // 文档当前所有者
-}
-
-// TransferDriveMemberPermissionRespOwner ...
-type TransferDriveMemberPermissionRespOwner struct {
-	MemberType string `json:"member_type,omitempty"` // 用户类型，有 **email、openid、userid、unionid**
-	MemberID   string `json:"member_id,omitempty"`   // 用户类型下的值
 }

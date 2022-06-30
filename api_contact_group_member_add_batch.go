@@ -21,9 +21,9 @@ import (
 	"context"
 )
 
-// BatchAddContactGroupMember 向普通用户组中批量添加成员(目前仅支持添加用户，暂不支持添加部门），如果应用的通讯录权限范围是“全部员工”，则可将任何成员添加到任何用户组。如果应用的通讯录权限范围不是“全部员工”，则仅可将通讯录权限范围中的成员添加到通讯录权限范围的用户组中，[点击了解通讯录权限范围](https://open.feishu.cn/document/ukTMukTMukTM/uETNz4SM1MjLxUzM/v3/guides/scope_authority)。
+// BatchAddContactGroupMember 向普通用户组中批量添加成员(目前仅支持添加用户, 暂不支持添加部门）, 如果应用的通讯录权限范围是“全部员工”, 则可将任何成员添加到任何用户组。如果应用的通讯录权限范围不是“全部员工”, 则仅可将通讯录权限范围中的成员添加到通讯录权限范围的用户组中, [点击了解通讯录权限范围](https://open.feishu.cn/document/ukTMukTMukTM/uETNz4SM1MjLxUzM/v3/guides/scope_authority)。
 //
-// 请求体中的member_type，目前仅支持user, 未来将支持department。
+// 请求体中的member_type, 目前仅支持user, 未来将支持department。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/group-member/batch_add
 func (r *ContactService) BatchAddContactGroupMember(ctx context.Context, request *BatchAddContactGroupMemberReq, options ...MethodOptionFunc) (*BatchAddContactGroupMemberResp, *Response, error) {
@@ -59,22 +59,15 @@ func (r *Mock) UnMockContactBatchAddContactGroupMember() {
 
 // BatchAddContactGroupMemberReq ...
 type BatchAddContactGroupMemberReq struct {
-	GroupID string                                 `path:"group_id" json:"-"` // 用户组ID, 示例值："test_group"
-	Members []*BatchAddContactGroupMemberReqMember `json:"members,omitempty"` // 待添加成员, 长度范围：`1` ～ `100`
+	GroupID string                                 `path:"group_id" json:"-"` // 用户组ID, 示例值: "test_group"
+	Members []*BatchAddContactGroupMemberReqMember `json:"members,omitempty"` // 待添加成员, 长度范围: `1` ～ `100`
 }
 
 // BatchAddContactGroupMemberReqMember ...
 type BatchAddContactGroupMemberReqMember struct {
-	MemberID     string  `json:"member_id,omitempty"`      // 成员ID, 示例值："u287xj12"
-	MemberType   string  `json:"member_type,omitempty"`    // 用户组成员的类型，取值为 user或department。, 示例值："user"
-	MemberIDType *IDType `json:"member_id_type,omitempty"` // 当member_type为user时，member_id_type表示user_id_type，可选值为open_id, union_id, user_id。仅在请求参数中有效，响应体中不会返回此参数。, 示例值："user_id"
-}
-
-// batchAddContactGroupMemberResp ...
-type batchAddContactGroupMemberResp struct {
-	Code int64                           `json:"code,omitempty"` // 错误码，非 0 表示失败
-	Msg  string                          `json:"msg,omitempty"`  // 错误描述
-	Data *BatchAddContactGroupMemberResp `json:"data,omitempty"`
+	MemberID     string  `json:"member_id,omitempty"`      // 成员ID, 示例值: "u287xj12"
+	MemberType   string  `json:"member_type,omitempty"`    // 用户组成员的类型, 取值为 user或department, 示例值: "user"
+	MemberIDType *IDType `json:"member_id_type,omitempty"` // 当member_type为user时, member_id_type表示user_id_type, 可选值为open_id, union_id, user_id。仅在请求参数中有效, 响应体中不会返回此参数, 示例值: "user_id"
 }
 
 // BatchAddContactGroupMemberResp ...
@@ -85,5 +78,12 @@ type BatchAddContactGroupMemberResp struct {
 // BatchAddContactGroupMemberRespResult ...
 type BatchAddContactGroupMemberRespResult struct {
 	MemberID string `json:"member_id,omitempty"` // 成员ID
-	Code     int64  `json:"code,omitempty"`      // 结果响应码，0表示成功
+	Code     int64  `json:"code,omitempty"`      // 结果响应码, 0表示成功
+}
+
+// batchAddContactGroupMemberResp ...
+type batchAddContactGroupMemberResp struct {
+	Code int64                           `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg  string                          `json:"msg,omitempty"`  // 错误描述
+	Data *BatchAddContactGroupMemberResp `json:"data,omitempty"`
 }

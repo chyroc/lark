@@ -23,7 +23,7 @@ import (
 
 // JoinChat 用户或机器人主动加入群聊。
 //
-// 注意事项：
+// 注意事项:
 // - 应用需要开启[机器人能力](https://open.feishu.cn/document/home/develop-a-bot-in-5-minutes/create-an-app)
 // - 目前仅支持加入公开群
 //
@@ -62,16 +62,16 @@ func (r *Mock) UnMockChatJoinChat() {
 
 // JoinChatReq ...
 type JoinChatReq struct {
-	ChatID string `path:"chat_id" json:"-"` // 群 ID，详情参见[群ID 说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-id-description), 示例值："oc_a0553eda9014c201e6969b478895c230"
-}
-
-// joinChatResp ...
-type joinChatResp struct {
-	Code int64         `json:"code,omitempty"` // 错误码，非 0 表示失败
-	Msg  string        `json:"msg,omitempty"`  // 错误描述
-	Data *JoinChatResp `json:"data,omitempty"`
+	ChatID string `path:"chat_id" json:"-"` // 群 ID, 详情参见[群ID 说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-id-description), 示例值: "oc_a0553eda9014c201e6969b478895c230"
 }
 
 // JoinChatResp ...
 type JoinChatResp struct {
+}
+
+// joinChatResp ...
+type joinChatResp struct {
+	Code int64         `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg  string        `json:"msg,omitempty"`  // 错误描述
+	Data *JoinChatResp `json:"data,omitempty"`
 }

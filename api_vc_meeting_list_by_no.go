@@ -58,31 +58,31 @@ func (r *Mock) UnMockVCListVCMeetingByNo() {
 
 // ListVCMeetingByNoReq ...
 type ListVCMeetingByNoReq struct {
-	MeetingNo string  `query:"meeting_no" json:"-"` // 9位会议号, 示例值："123456789"
-	StartTime string  `query:"start_time" json:"-"` // 查询开始时间（unix时间，单位sec）, 示例值："1608888867"
-	EndTime   string  `query:"end_time" json:"-"`   // 查询结束时间（unix时间，单位sec）, 示例值："1608888867"
-	PageToken *string `query:"page_token" json:"-"` // 分页标记，第一次请求不填，表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token，下次遍历可采用该 page_token 获取查询结果, 示例值："5"
-	PageSize  *int64  `query:"page_size" json:"-"`  // 分页大小, 示例值：10, 最大值：`10`
-}
-
-// listVCMeetingByNoResp ...
-type listVCMeetingByNoResp struct {
-	Code int64                  `json:"code,omitempty"` // 错误码，非 0 表示失败
-	Msg  string                 `json:"msg,omitempty"`  // 错误描述
-	Data *ListVCMeetingByNoResp `json:"data,omitempty"`
+	MeetingNo string  `query:"meeting_no" json:"-"` // 9位会议号, 示例值: "123456789"
+	StartTime string  `query:"start_time" json:"-"` // 查询开始时间（unix时间, 单位sec）, 示例值: "1608888867"
+	EndTime   string  `query:"end_time" json:"-"`   // 查询结束时间（unix时间, 单位sec）, 示例值: "1608888867"
+	PageToken *string `query:"page_token" json:"-"` // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果, 示例值: "5"
+	PageSize  *int64  `query:"page_size" json:"-"`  // 分页大小, 示例值: 10, 最大值: `10`
 }
 
 // ListVCMeetingByNoResp ...
 type ListVCMeetingByNoResp struct {
 	HasMore       bool                                 `json:"has_more,omitempty"`       // 是否还有更多项
-	PageToken     string                               `json:"page_token,omitempty"`     // 分页标记，当 has_more 为 true 时，会同时返回新的 page_token，否则不返回 page_token
+	PageToken     string                               `json:"page_token,omitempty"`     // 分页标记, 当 has_more 为 true 时, 会同时返回新的 page_token, 否则不返回 page_token
 	MeetingBriefs []*ListVCMeetingByNoRespMeetingBrief `json:"meeting_briefs,omitempty"` // 会议简要信息列表
 }
 
 // ListVCMeetingByNoRespMeetingBrief ...
 type ListVCMeetingByNoRespMeetingBrief struct {
-	ID        string `json:"id,omitempty"`         // 会议ID（视频会议的唯一标识，视频会议开始后才会产生）
+	ID        string `json:"id,omitempty"`         // 会议ID（视频会议的唯一标识, 视频会议开始后才会产生）
 	Topic     string `json:"topic,omitempty"`      // 会议主题
 	URL       string `json:"url,omitempty"`        // 会议链接（飞书用户可通过点击会议链接快捷入会）
 	MeetingNo string `json:"meeting_no,omitempty"` // 会议号
+}
+
+// listVCMeetingByNoResp ...
+type listVCMeetingByNoResp struct {
+	Code int64                  `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg  string                 `json:"msg,omitempty"`  // 错误描述
+	Data *ListVCMeetingByNoResp `json:"data,omitempty"`
 }

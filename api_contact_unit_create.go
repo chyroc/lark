@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// CreateContactUnit 使用该接口创建单位，需要有更新单位的权限。注意：单位功能属于旗舰版付费功能，企业需开通对应版本才可以创建单位。
+// CreateContactUnit 使用该接口创建单位, 需要有更新单位的权限。注意: 单位功能属于旗舰版付费功能, 企业需开通对应版本才可以创建单位。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/unit/create
 func (r *ContactService) CreateContactUnit(ctx context.Context, request *CreateContactUnitReq, options ...MethodOptionFunc) (*CreateContactUnitResp, *Response, error) {
@@ -57,19 +57,19 @@ func (r *Mock) UnMockContactCreateContactUnit() {
 
 // CreateContactUnitReq ...
 type CreateContactUnitReq struct {
-	UnitID   *string `json:"unit_id,omitempty"`   // 单位自定义ID。不带默认自动生成。1-64字节范围大小，需为数字字母, 示例值："BU121"
-	Name     string  `json:"name,omitempty"`      // 单位的名字，长度范围为1-100个字, 示例值："消费者事业部"
-	UnitType string  `json:"unit_type,omitempty"` // 单位类型，长度范围为1-100个字，创建后不可修改, 示例值："事业部"
-}
-
-// createContactUnitResp ...
-type createContactUnitResp struct {
-	Code int64                  `json:"code,omitempty"` // 错误码，非 0 表示失败
-	Msg  string                 `json:"msg,omitempty"`  // 错误描述
-	Data *CreateContactUnitResp `json:"data,omitempty"`
+	UnitID   *string `json:"unit_id,omitempty"`   // 单位自定义ID。不带默认自动生成。1-64字节范围大小, 需为数字字母, 示例值: "BU121"
+	Name     string  `json:"name,omitempty"`      // 单位的名字, 长度范围为1-100个字, 示例值: "消费者事业部"
+	UnitType string  `json:"unit_type,omitempty"` // 单位类型, 长度范围为1-100个字, 创建后不可修改, 示例值: "事业部"
 }
 
 // CreateContactUnitResp ...
 type CreateContactUnitResp struct {
 	UnitID string `json:"unit_id,omitempty"` // 单位的自定义ID
+}
+
+// createContactUnitResp ...
+type createContactUnitResp struct {
+	Code int64                  `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg  string                 `json:"msg,omitempty"`  // 错误描述
+	Data *CreateContactUnitResp `json:"data,omitempty"`
 }

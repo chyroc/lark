@@ -58,17 +58,17 @@ func (r *Mock) UnMockBitableDeleteBitableAppRole() {
 
 // DeleteBitableAppRoleReq ...
 type DeleteBitableAppRoleReq struct {
-	AppToken string `path:"app_token" json:"-"` // bitable app token, 示例值："appbcbWCzen6D8dezhoCH2RpMAh"
-	RoleID   string `path:"role_id" json:"-"`   // 自定义权限的id, 示例值："roljRpwIUt"
-}
-
-// deleteBitableAppRoleResp ...
-type deleteBitableAppRoleResp struct {
-	Code int64                     `json:"code,omitempty"` // 错误码，非 0 表示失败
-	Msg  string                    `json:"msg,omitempty"`  // 错误描述
-	Data *DeleteBitableAppRoleResp `json:"data,omitempty"`
+	AppToken string `path:"app_token" json:"-"` // bitable app token, 示例值: "appbcbWCzen6D8dezhoCH2RpMAh"
+	RoleID   string `path:"role_id" json:"-"`   // 自定义权限的id, 示例值: "roljRpwIUt"
 }
 
 // DeleteBitableAppRoleResp ...
 type DeleteBitableAppRoleResp struct {
+}
+
+// deleteBitableAppRoleResp ...
+type deleteBitableAppRoleResp struct {
+	Code int64                     `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg  string                    `json:"msg,omitempty"`  // 错误描述
+	Data *DeleteBitableAppRoleResp `json:"data,omitempty"`
 }

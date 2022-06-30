@@ -57,17 +57,10 @@ func (r *Mock) UnMockAttendanceGetAttendanceUserStatsView() {
 
 // GetAttendanceUserStatsViewReq ...
 type GetAttendanceUserStatsViewReq struct {
-	EmployeeType EmployeeType `query:"employee_type" json:"-"` // 响应体中的 user_id 的员工工号类型, 示例值："employee_id", 可选值有: ,<md-enum>,<md-enum-item key="employee_id" >员工 employee ID，即飞书管理后台 > 组织架构 > 成员与部门 > 成员详情中的用户 ID</md-enum-item>,<md-enum-item key="employee_no" >员工工号，即飞书管理后台 > 组织架构 > 成员与部门 > 成员详情中的工号</md-enum-item>,</md-enum>
-	Locale       string       `json:"locale,omitempty"`        // 语言类型, 示例值："zh", 可选值有: ,<md-enum>,<md-enum-item key="en" >英语</md-enum-item>,<md-enum-item key="ja" >日语</md-enum-item>,<md-enum-item key="zh" >中文</md-enum-item>,</md-enum>
-	StatsType    string       `json:"stats_type,omitempty"`    // 统计类型, 示例值："daily", 可选值有: ,<md-enum>,<md-enum-item key="daily" >日度统计</md-enum-item>,<md-enum-item key="month" >月度统计</md-enum-item>,</md-enum>
-	UserID       *string      `json:"user_id,omitempty"`       // 查询用户id，同【查询统计数据】、【更新统计设置】user_id, 示例值："dd31248a"
-}
-
-// getAttendanceUserStatsViewResp ...
-type getAttendanceUserStatsViewResp struct {
-	Code int64                           `json:"code,omitempty"` // 错误码，非 0 表示失败
-	Msg  string                          `json:"msg,omitempty"`  // 错误描述
-	Data *GetAttendanceUserStatsViewResp `json:"data,omitempty"`
+	EmployeeType EmployeeType `query:"employee_type" json:"-"` // 响应体中的 user_id 的员工工号类型, 示例值: "employee_id", 可选值有: <md-enum>, <md-enum-item key="employee_id" >员工 employee ID, 即飞书管理后台 > 组织架构 > 成员与部门 > 成员详情中的用户 ID</md-enum-item>, <md-enum-item key="employee_no" >员工工号, 即飞书管理后台 > 组织架构 > 成员与部门 > 成员详情中的工号</md-enum-item>, </md-enum>
+	Locale       string       `json:"locale,omitempty"`        // 语言类型, 示例值: "zh", 可选值有: <md-enum>, <md-enum-item key="en" >英语</md-enum-item>, <md-enum-item key="ja" >日语</md-enum-item>, <md-enum-item key="zh" >中文</md-enum-item>, </md-enum>
+	StatsType    string       `json:"stats_type,omitempty"`    // 统计类型, 示例值: "daily", 可选值有: <md-enum>, <md-enum-item key="daily" >日度统计</md-enum-item>, <md-enum-item key="month" >月度统计</md-enum-item>, </md-enum>
+	UserID       *string      `json:"user_id,omitempty"`       // 查询用户id, 同【查询统计数据】、【更新统计设置】user_id, 示例值: "dd31248a"
 }
 
 // GetAttendanceUserStatsViewResp ...
@@ -78,8 +71,8 @@ type GetAttendanceUserStatsViewResp struct {
 // GetAttendanceUserStatsViewRespView ...
 type GetAttendanceUserStatsViewRespView struct {
 	ViewID    string                                    `json:"view_id,omitempty"`    // 视图 ID
-	StatsType string                                    `json:"stats_type,omitempty"` // 视图类型, 可选值有: ,<md-enum>,<md-enum-item key="daily" >日度统计</md-enum-item>,<md-enum-item key="month" >月度统计</md-enum-item>,</md-enum>
-	UserID    string                                    `json:"user_id,omitempty"`    // 查询用户id，同【查询统计数据】、【查询统计设置】user_id
+	StatsType string                                    `json:"stats_type,omitempty"` // 视图类型, 可选值有: <md-enum>, <md-enum-item key="daily" >日度统计</md-enum-item>, <md-enum-item key="month" >月度统计</md-enum-item>, </md-enum>
+	UserID    string                                    `json:"user_id,omitempty"`    // 查询用户id, 同【查询统计数据】、【查询统计设置】user_id
 	Items     []*GetAttendanceUserStatsViewRespViewItem `json:"items,omitempty"`      // 用户设置字段
 }
 
@@ -93,10 +86,17 @@ type GetAttendanceUserStatsViewRespViewItem struct {
 // GetAttendanceUserStatsViewRespViewItemChildItem ...
 type GetAttendanceUserStatsViewRespViewItemChildItem struct {
 	Code       string `json:"code,omitempty"`        // 子标题编号
-	Value      string `json:"value,omitempty"`       // 开关字段，0：关闭，1：开启（非开关字段场景：code = 51501 可选值为1-6）
+	Value      string `json:"value,omitempty"`       // 开关字段, 0: 关闭, 1: 开启（非开关字段场景: code = 51501 可选值为1-6）
 	Title      string `json:"title,omitempty"`       // 子标题名称
 	ColumnType int64  `json:"column_type,omitempty"` // 列类型
 	ReadOnly   bool   `json:"read_only,omitempty"`   // 是否只读
 	MinValue   string `json:"min_value,omitempty"`   // 最小值
 	MaxValue   string `json:"max_value,omitempty"`   // 最大值
+}
+
+// getAttendanceUserStatsViewResp ...
+type getAttendanceUserStatsViewResp struct {
+	Code int64                           `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg  string                          `json:"msg,omitempty"`  // 错误描述
+	Data *GetAttendanceUserStatsViewResp `json:"data,omitempty"`
 }

@@ -24,7 +24,7 @@ import (
 
 // PartUploadDriveMedia 上传对应的文件块。
 //
-// 该接口不支持太高的并发，且调用频率上限为5QPS
+// 该接口不支持太高的并发, 且调用频率上限为5QPS
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/media/upload_part
 func (r *DriveService) PartUploadDriveMedia(ctx context.Context, request *PartUploadDriveMediaReq, options ...MethodOptionFunc) (*PartUploadDriveMediaResp, *Response, error) {
@@ -62,20 +62,20 @@ func (r *Mock) UnMockDrivePartUploadDriveMedia() {
 
 // PartUploadDriveMediaReq ...
 type PartUploadDriveMediaReq struct {
-	UploadID string    `json:"upload_id,omitempty"` // 分片上传事务ID。, 示例值："123456"
-	Seq      int64     `json:"seq,omitempty"`       // 块号，从0开始计数。, 示例值：0
-	Size     int64     `json:"size,omitempty"`      // 块大小（以字节为单位）。, 示例值：4194304
-	Checksum *string   `json:"checksum,omitempty"`  // 文件分块adler32校验和(可选)。, 示例值："12345678"
-	File     io.Reader `json:"file,omitempty"`      // 文件分片二进制内容。, 示例值：file binary
-}
-
-// partUploadDriveMediaResp ...
-type partUploadDriveMediaResp struct {
-	Code int64                     `json:"code,omitempty"` // 错误码，非 0 表示失败
-	Msg  string                    `json:"msg,omitempty"`  // 错误描述
-	Data *PartUploadDriveMediaResp `json:"data,omitempty"`
+	UploadID string    `json:"upload_id,omitempty"` // 分片上传事务ID, 示例值: "7111211691345512356"
+	Seq      int64     `json:"seq,omitempty"`       // 块号, 从0开始计数, 示例值: 0
+	Size     int64     `json:"size,omitempty"`      // 块大小（以字节为单位）, 示例值: 4194304
+	Checksum *string   `json:"checksum,omitempty"`  // 文件分块adler32校验和(可选), 示例值: "12345678"
+	File     io.Reader `json:"file,omitempty"`      // 文件分片二进制内容, 示例值: file binary
 }
 
 // PartUploadDriveMediaResp ...
 type PartUploadDriveMediaResp struct {
+}
+
+// partUploadDriveMediaResp ...
+type partUploadDriveMediaResp struct {
+	Code int64                     `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg  string                    `json:"msg,omitempty"`  // 错误描述
+	Data *PartUploadDriveMediaResp `json:"data,omitempty"`
 }

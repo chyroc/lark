@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// CancelApproveHelpdeskNotification 提交审核后，如果需要取消审核，则调用此接口
+// CancelApproveHelpdeskNotification 提交审核后, 如果需要取消审核, 则调用此接口
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/notification/cancel_approve
 func (r *HelpdeskService) CancelApproveHelpdeskNotification(ctx context.Context, request *CancelApproveHelpdeskNotificationReq, options ...MethodOptionFunc) (*CancelApproveHelpdeskNotificationResp, *Response, error) {
@@ -58,16 +58,16 @@ func (r *Mock) UnMockHelpdeskCancelApproveHelpdeskNotification() {
 
 // CancelApproveHelpdeskNotificationReq ...
 type CancelApproveHelpdeskNotificationReq struct {
-	NotificationID string `path:"notification_id" json:"-"` // 唯一ID, 示例值："6981801914270744596"
-}
-
-// cancelApproveHelpdeskNotificationResp ...
-type cancelApproveHelpdeskNotificationResp struct {
-	Code int64                                  `json:"code,omitempty"` // 错误码，非 0 表示失败
-	Msg  string                                 `json:"msg,omitempty"`  // 错误描述
-	Data *CancelApproveHelpdeskNotificationResp `json:"data,omitempty"`
+	NotificationID string `path:"notification_id" json:"-"` // 唯一ID, 示例值: "6981801914270744596"
 }
 
 // CancelApproveHelpdeskNotificationResp ...
 type CancelApproveHelpdeskNotificationResp struct {
+}
+
+// cancelApproveHelpdeskNotificationResp ...
+type cancelApproveHelpdeskNotificationResp struct {
+	Code int64                                  `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg  string                                 `json:"msg,omitempty"`  // 错误描述
+	Data *CancelApproveHelpdeskNotificationResp `json:"data,omitempty"`
 }

@@ -60,15 +60,8 @@ func (r *Mock) UnMockDriveCreateWikiSpace() {
 
 // CreateWikiSpaceReq ...
 type CreateWikiSpaceReq struct {
-	Name        *string `json:"name,omitempty"`        // 知识空间名称, 示例值："知识空间"
-	Description *string `json:"description,omitempty"` // 知识空间描述, 示例值："知识空间描述"
-}
-
-// createWikiSpaceResp ...
-type createWikiSpaceResp struct {
-	Code int64                `json:"code,omitempty"` // 错误码，非 0 表示失败
-	Msg  string               `json:"msg,omitempty"`  // 错误描述
-	Data *CreateWikiSpaceResp `json:"data,omitempty"`
+	Name        *string `json:"name,omitempty"`        // 知识空间名称, 示例值: "知识空间"
+	Description *string `json:"description,omitempty"` // 知识空间描述, 示例值: "知识空间描述"
 }
 
 // CreateWikiSpaceResp ...
@@ -81,6 +74,13 @@ type CreateWikiSpaceRespSpace struct {
 	Name        string `json:"name,omitempty"`        // 知识空间名称
 	Description string `json:"description,omitempty"` // 知识空间描述
 	SpaceID     string `json:"space_id,omitempty"`    // 知识空间id
-	SpaceType   string `json:"space_type,omitempty"`  // 表示知识空间类型（团队空间 或 个人空间）, 可选值有: `team`：团队空间, `person`：个人空间
-	Visibility  string `json:"visibility,omitempty"`  // 表示知识空间可见性（公开空间 或 私有空间）, 可选值有: `public`：公开空间, `private`：私有空间
+	SpaceType   string `json:"space_type,omitempty"`  // 表示知识空间类型（团队空间 或 个人空间）, 可选值有: `team`: 团队空间, `person`: 个人空间
+	Visibility  string `json:"visibility,omitempty"`  // 表示知识空间可见性（公开空间 或 私有空间）, 可选值有: `public`: 公开空间, `private`: 私有空间
+}
+
+// createWikiSpaceResp ...
+type createWikiSpaceResp struct {
+	Code int64                `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg  string               `json:"msg,omitempty"`  // 错误描述
+	Data *CreateWikiSpaceResp `json:"data,omitempty"`
 }

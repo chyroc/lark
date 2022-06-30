@@ -58,14 +58,7 @@ func (r *Mock) UnMockHelpdeskGetHelpdeskAgentSchedule() {
 
 // GetHelpdeskAgentScheduleReq ...
 type GetHelpdeskAgentScheduleReq struct {
-	AgentID string `path:"agent_id" json:"-"` // 客服 id, 示例值："	客服 id"
-}
-
-// getHelpdeskAgentScheduleResp ...
-type getHelpdeskAgentScheduleResp struct {
-	Code int64                         `json:"code,omitempty"` // 错误码，非 0 表示失败
-	Msg  string                        `json:"msg,omitempty"`  // 错误描述
-	Data *GetHelpdeskAgentScheduleResp `json:"data,omitempty"`
+	AgentID string `path:"agent_id" json:"-"` // 客服 id, 示例值: "	客服 id"
 }
 
 // GetHelpdeskAgentScheduleResp ...
@@ -91,6 +84,13 @@ type GetHelpdeskAgentScheduleRespAgentScheduleAgent struct {
 	CompanyName string `json:"company_name,omitempty"` // 公司名
 }
 
+// GetHelpdeskAgentScheduleRespAgentScheduleAgentSkill ...
+type GetHelpdeskAgentScheduleRespAgentScheduleAgentSkill struct {
+	ID        string `json:"id,omitempty"`         // 客服技能 id
+	Name      string `json:"name,omitempty"`       // 客服技能名
+	IsDefault bool   `json:"is_default,omitempty"` // 是默认技能
+}
+
 // GetHelpdeskAgentScheduleRespAgentScheduleSchedule ...
 type GetHelpdeskAgentScheduleRespAgentScheduleSchedule struct {
 	StartTime string `json:"start_time,omitempty"` // 开始时间, format 00:00 - 23:59
@@ -98,9 +98,9 @@ type GetHelpdeskAgentScheduleRespAgentScheduleSchedule struct {
 	Weekday   int64  `json:"weekday,omitempty"`    // 星期几, 1 - Monday, 2 - Tuesday, 3 - Wednesday, 4 - Thursday, 5 - Friday, 6 - Saturday, 7 - Sunday, 9 - Everday, 10 - Weekday, 11 - Weekend
 }
 
-// GetHelpdeskAgentScheduleRespAgentScheduleAgentSkill ...
-type GetHelpdeskAgentScheduleRespAgentScheduleAgentSkill struct {
-	ID        string `json:"id,omitempty"`         // 客服技能 id
-	Name      string `json:"name,omitempty"`       // 客服技能名
-	IsDefault bool   `json:"is_default,omitempty"` // 是默认技能
+// getHelpdeskAgentScheduleResp ...
+type getHelpdeskAgentScheduleResp struct {
+	Code int64                         `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg  string                        `json:"msg,omitempty"`  // 错误描述
+	Data *GetHelpdeskAgentScheduleResp `json:"data,omitempty"`
 }

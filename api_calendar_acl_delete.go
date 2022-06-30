@@ -23,9 +23,9 @@ import (
 
 // DeleteCalendarACL
 //
-// 该接口用于以当前身份（应用 / 用户）删除日历的控制权限，即日历成员。
+// 该接口用于以当前身份（应用 / 用户）删除日历的控制权限, 即日历成员。
 // 身份由 Header Authorization 的 Token 类型决定。
-// 当前身份需要有日历的 owner 权限，并且日历的类型只能为 primary 或 shared。
+// 当前身份需要有日历的 owner 权限, 并且日历的类型只能为 primary 或 shared。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar-acl/delete
 func (r *CalendarService) DeleteCalendarACL(ctx context.Context, request *DeleteCalendarACLReq, options ...MethodOptionFunc) (*DeleteCalendarACLResp, *Response, error) {
@@ -62,17 +62,17 @@ func (r *Mock) UnMockCalendarDeleteCalendarACL() {
 
 // DeleteCalendarACLReq ...
 type DeleteCalendarACLReq struct {
-	CalendarID string `path:"calendar_id" json:"-"` // 日历ID。参见[日历ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar/introduction), 示例值："feishu.cn_xxxxxxxxxx@group.calendar.feishu.cn"
-	ACLID      string `path:"acl_id" json:"-"`      // acl资源ID。参见[ACL ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar-acl/introduction), 示例值："user_xxxxxx"
-}
-
-// deleteCalendarACLResp ...
-type deleteCalendarACLResp struct {
-	Code int64                  `json:"code,omitempty"` // 错误码，非 0 表示失败
-	Msg  string                 `json:"msg,omitempty"`  // 错误描述
-	Data *DeleteCalendarACLResp `json:"data,omitempty"`
+	CalendarID string `path:"calendar_id" json:"-"` // 日历ID。参见[日历ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar/introduction), 示例值: "feishu.cn_xxxxxxxxxx@group.calendar.feishu.cn"
+	ACLID      string `path:"acl_id" json:"-"`      // acl资源ID。参见[ACL ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar-acl/introduction), 示例值: "user_xxxxxx"
 }
 
 // DeleteCalendarACLResp ...
 type DeleteCalendarACLResp struct {
+}
+
+// deleteCalendarACLResp ...
+type deleteCalendarACLResp struct {
+	Code int64                  `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg  string                 `json:"msg,omitempty"`  // 错误描述
+	Data *DeleteCalendarACLResp `json:"data,omitempty"`
 }

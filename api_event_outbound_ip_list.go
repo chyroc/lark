@@ -21,9 +21,9 @@ import (
 	"context"
 )
 
-// GetEventOutboundIpList 飞书开放平台向应用配置的回调地址推送事件时，是通过特定的IP发送出去的。如果企业需要做防火墙配置，那么可以通过这个接口获取到所有相关的IP段。
+// GetEventOutboundIpList 飞书开放平台向应用配置的回调地址推送事件时, 是通过特定的IP发送出去的。如果企业需要做防火墙配置, 那么可以通过这个接口获取到所有相关的IP段。
 //
-// IP段有变更可能，建议企业每隔6小时定时拉取IP段更新防火墙设置，这样因IP变更导致推送失败的事件还可以通过重试解决。
+// IP段有变更可能, 建议企业每隔6小时定时拉取IP段更新防火墙设置, 这样因IP变更导致推送失败的事件还可以通过重试解决。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uYDNxYjL2QTM24iN0EjN/event-v1/outbound_ip/list
 func (r *EventService) GetEventOutboundIpList(ctx context.Context, request *GetEventOutboundIpListReq, options ...MethodOptionFunc) (*GetEventOutboundIpListResp, *Response, error) {
@@ -59,20 +59,20 @@ func (r *Mock) UnMockEventGetEventOutboundIpList() {
 
 // GetEventOutboundIpListReq ...
 type GetEventOutboundIpListReq struct {
-	PageSize  *int64  `query:"page_size" json:"-"`  // 分页大小, 示例值：10, 最大值：`50`
-	PageToken *string `query:"page_token" json:"-"` // 分页标记，第一次请求不填，表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token，下次遍历可采用该 page_token 获取查询结果, 示例值："xxx"
-}
-
-// getEventOutboundIpListResp ...
-type getEventOutboundIpListResp struct {
-	Code int64                       `json:"code,omitempty"` // 错误码，非 0 表示失败
-	Msg  string                      `json:"msg,omitempty"`  // 错误描述
-	Data *GetEventOutboundIpListResp `json:"data,omitempty"`
+	PageSize  *int64  `query:"page_size" json:"-"`  // 分页大小, 示例值: 10, 最大值: `50`
+	PageToken *string `query:"page_token" json:"-"` // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果, 示例值: "xxx"
 }
 
 // GetEventOutboundIpListResp ...
 type GetEventOutboundIpListResp struct {
 	IpList    []string `json:"ip_list,omitempty"`    // outbound ip
-	PageToken string   `json:"page_token,omitempty"` // 分页标记，当 has_more 为 true 时，会同时返回新的 page_token，否则不返回 page_token
+	PageToken string   `json:"page_token,omitempty"` // 分页标记, 当 has_more 为 true 时, 会同时返回新的 page_token, 否则不返回 page_token
 	HasMore   bool     `json:"has_more,omitempty"`   // 是否还有更多项
+}
+
+// getEventOutboundIpListResp ...
+type getEventOutboundIpListResp struct {
+	Code int64                       `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg  string                      `json:"msg,omitempty"`  // 错误描述
+	Data *GetEventOutboundIpListResp `json:"data,omitempty"`
 }

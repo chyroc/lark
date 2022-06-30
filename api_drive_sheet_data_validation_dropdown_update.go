@@ -60,7 +60,7 @@ func (r *Mock) UnMockDriveUpdateSheetDataValidationDropdown() {
 
 // UpdateSheetDataValidationDropdownReq ...
 type UpdateSheetDataValidationDropdownReq struct {
-	SpreadSheetToken   string                                              `path:"spreadsheetToken" json:"-"`    // spreadsheet 的 token，获取方式见[在线表格开发指南](https://open.feishu.cn/document/ukTMukTMukTM/uATMzUjLwEzM14CMxMTN/overview)
+	SpreadSheetToken   string                                              `path:"spreadsheetToken" json:"-"`    // spreadsheet 的 token, 获取方式见[在线表格开发指南](https://open.feishu.cn/document/ukTMukTMukTM/uATMzUjLwEzM14CMxMTN/overview)
 	SheetID            string                                              `path:"sheetId" json:"-"`             // 子sheet唯一识别参数
 	DataValidationID   int64                                               `path:"dataValidationId" json:"-"`    // sheet中下拉列表的唯一标示id
 	DataValidationType string                                              `json:"dataValidationType,omitempty"` // 下拉列表填"list"
@@ -69,22 +69,15 @@ type UpdateSheetDataValidationDropdownReq struct {
 
 // UpdateSheetDataValidationDropdownReqDataValidation ...
 type UpdateSheetDataValidationDropdownReqDataValidation struct {
-	ConditionValues []string                                                   `json:"conditionValues,omitempty"` // 下拉列表选项值, 需为字符串,不能包含","，选项值最长100字符,选项个数最多500个
+	ConditionValues []string                                                   `json:"conditionValues,omitempty"` // 下拉列表选项值, 需为字符串, 不能包含", ", 选项值最长100字符, 选项个数最多500个
 	Options         *UpdateSheetDataValidationDropdownReqDataValidationOptions `json:"options,omitempty"`         // 可选属性
 }
 
 // UpdateSheetDataValidationDropdownReqDataValidationOptions ...
 type UpdateSheetDataValidationDropdownReqDataValidationOptions struct {
-	MultipleValues     *bool    `json:"multipleValues,omitempty"`     // 单选填false, 多选填true，不填默认为false
+	MultipleValues     *bool    `json:"multipleValues,omitempty"`     // 单选填false, 多选填true, 不填默认为false
 	HighlightValidData *bool    `json:"highlightValidData,omitempty"` // 是否设置颜色和胶囊样式, 不填默认为false
-	Colors             []string `json:"colors,omitempty"`             // 当highlightValidData为true时，color需填颜色,与conditionValues中的值一一对应。需是RGB16进制格式,如"#fffd00"
-}
-
-// updateSheetDataValidationDropdownResp ...
-type updateSheetDataValidationDropdownResp struct {
-	Code int64                                  `json:"code,omitempty"` // 状态码，0代表成功
-	Msg  *string                                `json:"msg,omitempty"`  // 状态信息
-	Data *UpdateSheetDataValidationDropdownResp `json:"data,omitempty"`
+	Colors             []string `json:"colors,omitempty"`             // 当highlightValidData为true时, color需填颜色, 与conditionValues中的值一一对应。需是RGB16进制格式, 如"#fffd00"
 }
 
 // UpdateSheetDataValidationDropdownResp ...
@@ -106,5 +99,12 @@ type UpdateSheetDataValidationDropdownRespDataValidation struct {
 type UpdateSheetDataValidationDropdownRespDataValidationOptions struct {
 	MultipleValues     *bool             `json:"multipleValues,omitempty"`     // 单选填false, 多选填true
 	HighlightValidData *bool             `json:"highlightValidData,omitempty"` // 是否设置颜色和胶囊样式
-	ColorValueMap      map[string]string `json:"colorValueMap,omitempty"`      // 当highlightValidData为true时，colorValueMap的key与conditionValues中的值一一对应，value为对应的颜色参数。
+	ColorValueMap      map[string]string `json:"colorValueMap,omitempty"`      // 当highlightValidData为true时, colorValueMap的key与conditionValues中的值一一对应, value为对应的颜色参数。
+}
+
+// updateSheetDataValidationDropdownResp ...
+type updateSheetDataValidationDropdownResp struct {
+	Code int64                                  `json:"code,omitempty"` // 状态码, 0代表成功
+	Msg  *string                                `json:"msg,omitempty"`  // 状态信息
+	Data *UpdateSheetDataValidationDropdownResp `json:"data,omitempty"`
 }

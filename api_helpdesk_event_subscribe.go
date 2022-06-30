@@ -63,17 +63,17 @@ type SubscribeHelpdeskEventReq struct {
 
 // SubscribeHelpdeskEventReqEvent ...
 type SubscribeHelpdeskEventReqEvent struct {
-	Type    string `json:"type,omitempty"`    // 事件类型, 示例值："helpdesk.ticket_message"
-	Subtype string `json:"subtype,omitempty"` // 事件子类型, 示例值："ticket_message.created_v1"
-}
-
-// subscribeHelpdeskEventResp ...
-type subscribeHelpdeskEventResp struct {
-	Code int64                       `json:"code,omitempty"` // 错误码，非 0 表示失败
-	Msg  string                      `json:"msg,omitempty"`  // 错误描述
-	Data *SubscribeHelpdeskEventResp `json:"data,omitempty"`
+	Type    string `json:"type,omitempty"`    // 事件类型, 示例值: "helpdesk.ticket_message"
+	Subtype string `json:"subtype,omitempty"` // 事件子类型, 示例值: "ticket_message.created_v1"
 }
 
 // SubscribeHelpdeskEventResp ...
 type SubscribeHelpdeskEventResp struct {
+}
+
+// subscribeHelpdeskEventResp ...
+type subscribeHelpdeskEventResp struct {
+	Code int64                       `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg  string                      `json:"msg,omitempty"`  // 错误描述
+	Data *SubscribeHelpdeskEventResp `json:"data,omitempty"`
 }

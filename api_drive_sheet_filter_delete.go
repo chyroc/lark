@@ -58,17 +58,17 @@ func (r *Mock) UnMockDriveDeleteSheetFilter() {
 
 // DeleteSheetFilterReq ...
 type DeleteSheetFilterReq struct {
-	SpreadSheetToken string `path:"spreadsheet_token" json:"-"` // 表格 token, 示例值："shtcnmBA\*****yGehy8"
-	SheetID          string `path:"sheet_id" json:"-"`          // 子表 id, 示例值："0b\**12"
-}
-
-// deleteSheetFilterResp ...
-type deleteSheetFilterResp struct {
-	Code int64                  `json:"code,omitempty"` // 错误码，非 0 表示失败
-	Msg  string                 `json:"msg,omitempty"`  // 错误描述
-	Data *DeleteSheetFilterResp `json:"data,omitempty"`
+	SpreadSheetToken string `path:"spreadsheet_token" json:"-"` // 表格 token, 示例值: "shtcnmBA\*yGehy8"
+	SheetID          string `path:"sheet_id" json:"-"`          // 子表 id, 示例值: "0b\**12"
 }
 
 // DeleteSheetFilterResp ...
 type DeleteSheetFilterResp struct {
+}
+
+// deleteSheetFilterResp ...
+type deleteSheetFilterResp struct {
+	Code int64                  `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg  string                 `json:"msg,omitempty"`  // 错误描述
+	Data *DeleteSheetFilterResp `json:"data,omitempty"`
 }

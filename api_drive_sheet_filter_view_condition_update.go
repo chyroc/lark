@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// UpdateSheetFilterViewCondition 更新筛选视图范围的某列的筛选条件，condition id 即为列的字母号。
+// UpdateSheetFilterViewCondition 更新筛选视图范围的某列的筛选条件, condition id 即为列的字母号。
 //
 // 筛选条件参数可参考 [筛选视图的筛选条件指南](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/sheets-v3/spreadsheet-sheet-filter_view-condition/filter-view-condition-user-guide)
 //
@@ -60,20 +60,13 @@ func (r *Mock) UnMockDriveUpdateSheetFilterViewCondition() {
 
 // UpdateSheetFilterViewConditionReq ...
 type UpdateSheetFilterViewConditionReq struct {
-	SpreadSheetToken string   `path:"spreadsheet_token" json:"-"` // 表格 token, 示例值："shtcnmBA*****yGehy8"
-	SheetID          string   `path:"sheet_id" json:"-"`          // 子表 id, 示例值："0b**12"
-	FilterViewID     string   `path:"filter_view_id" json:"-"`    // 筛选视图 id, 示例值："pH9hbVcCXA"
-	ConditionID      string   `path:"condition_id" json:"-"`      // 列字母号, 示例值："E"
-	FilterType       *string  `json:"filter_type,omitempty"`      // 筛选类型, 示例值："number"
-	CompareType      *string  `json:"compare_type,omitempty"`     // 比较类型, 示例值："less"
-	Expected         []string `json:"expected,omitempty"`         // 筛选参数, 示例值：6
-}
-
-// updateSheetFilterViewConditionResp ...
-type updateSheetFilterViewConditionResp struct {
-	Code int64                               `json:"code,omitempty"` // 错误码，非 0 表示失败
-	Msg  string                              `json:"msg,omitempty"`  // 错误描述
-	Data *UpdateSheetFilterViewConditionResp `json:"data,omitempty"`
+	SpreadSheetToken string   `path:"spreadsheet_token" json:"-"` // 表格 token, 示例值: "shtcnmBA*yGehy8"
+	SheetID          string   `path:"sheet_id" json:"-"`          // 子表 id, 示例值: "0b**12"
+	FilterViewID     string   `path:"filter_view_id" json:"-"`    // 筛选视图 id, 示例值: "pH9hbVcCXA"
+	ConditionID      string   `path:"condition_id" json:"-"`      // 列字母号, 示例值: "E"
+	FilterType       *string  `json:"filter_type,omitempty"`      // 筛选类型, 示例值: "number"
+	CompareType      *string  `json:"compare_type,omitempty"`     // 比较类型, 示例值: "less"
+	Expected         []string `json:"expected,omitempty"`         // 筛选参数, 示例值: 6
 }
 
 // UpdateSheetFilterViewConditionResp ...
@@ -83,8 +76,15 @@ type UpdateSheetFilterViewConditionResp struct {
 
 // UpdateSheetFilterViewConditionRespCondition ...
 type UpdateSheetFilterViewConditionRespCondition struct {
-	ConditionID string   `json:"condition_id,omitempty"` // 设置筛选条件的列，使用字母号
+	ConditionID string   `json:"condition_id,omitempty"` // 设置筛选条件的列, 使用字母号
 	FilterType  string   `json:"filter_type,omitempty"`  // 筛选类型
 	CompareType string   `json:"compare_type,omitempty"` // 比较类型
 	Expected    []string `json:"expected,omitempty"`     // 筛选参数
+}
+
+// updateSheetFilterViewConditionResp ...
+type updateSheetFilterViewConditionResp struct {
+	Code int64                               `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg  string                              `json:"msg,omitempty"`  // 错误描述
+	Data *UpdateSheetFilterViewConditionResp `json:"data,omitempty"`
 }

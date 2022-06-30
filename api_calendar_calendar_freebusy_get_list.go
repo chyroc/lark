@@ -57,18 +57,11 @@ func (r *Mock) UnMockCalendarGetCalendarFreeBusyList() {
 
 // GetCalendarFreeBusyListReq ...
 type GetCalendarFreeBusyListReq struct {
-	UserIDType *IDType `query:"user_id_type" json:"-"` // 用户 ID 类型, 示例值："open_id", 可选值有: `open_id`：用户的 open id, `union_id`：用户的 union id, `user_id`：用户的 user id, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
-	TimeMin    string  `json:"time_min,omitempty"`     // 查询时段开始时间，需要url编码, 示例值："2020-10-28T12:00:00+08:00"
-	TimeMax    string  `json:"time_max,omitempty"`     // 查询时段结束时间，需要url编码, 示例值："2020-12-28T12:00:00+08:00"
-	UserID     *string `json:"user_id,omitempty"`      // 用户user_id，输入时与 room_id 二选一。参见[用户相关的 ID 概念](https://open.feishu.cn/document/home/user-identity-introduction/introduction), 示例值："ou_xxxxxxxxxx"
-	RoomID     *string `json:"room_id,omitempty"`      // 会议室room_id，输入时与 user_id 二选一, 示例值："omm_xxxxxxxxxx"
-}
-
-// getCalendarFreeBusyListResp ...
-type getCalendarFreeBusyListResp struct {
-	Code int64                        `json:"code,omitempty"` // 错误码，非 0 表示失败
-	Msg  string                       `json:"msg,omitempty"`  // 错误描述
-	Data *GetCalendarFreeBusyListResp `json:"data,omitempty"`
+	UserIDType *IDType `query:"user_id_type" json:"-"` // 用户 ID 类型, 示例值: "open_id", 可选值有: `open_id`: 用户的 open id, `union_id`: 用户的 union id, `user_id`: 用户的 user id, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
+	TimeMin    string  `json:"time_min,omitempty"`     // 查询时段开始时间, 需要url编码, 示例值: "2020-10-28T12:00:00+08:00"
+	TimeMax    string  `json:"time_max,omitempty"`     // 查询时段结束时间, 需要url编码, 示例值: "2020-12-28T12:00:00+08:00"
+	UserID     *string `json:"user_id,omitempty"`      // 用户user_id, 输入时与 room_id 二选一。参见[用户相关的 ID 概念](https://open.feishu.cn/document/home/user-identity-introduction/introduction), 示例值: "ou_xxxxxxxxxx"
+	RoomID     *string `json:"room_id,omitempty"`      // 会议室room_id, 输入时与 user_id 二选一, 示例值: "omm_xxxxxxxxxx"
 }
 
 // GetCalendarFreeBusyListResp ...
@@ -78,6 +71,13 @@ type GetCalendarFreeBusyListResp struct {
 
 // GetCalendarFreeBusyListRespFreebusy ...
 type GetCalendarFreeBusyListRespFreebusy struct {
-	StartTime string `json:"start_time,omitempty"` // 忙闲信息开始时间，RFC3339 date_time 格式
-	EndTime   string `json:"end_time,omitempty"`   // 忙闲信息结束时间，RFC3339 date_time 格式
+	StartTime string `json:"start_time,omitempty"` // 忙闲信息开始时间, RFC3339 date_time 格式
+	EndTime   string `json:"end_time,omitempty"`   // 忙闲信息结束时间, RFC3339 date_time 格式
+}
+
+// getCalendarFreeBusyListResp ...
+type getCalendarFreeBusyListResp struct {
+	Code int64                        `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg  string                       `json:"msg,omitempty"`  // 错误描述
+	Data *GetCalendarFreeBusyListResp `json:"data,omitempty"`
 }

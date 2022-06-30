@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// CreateDriveFileSubscription 订阅文档中的变更事件，当前支持文档评论订阅，订阅后文档评论更新会有“云文档助手”推送给订阅的用户
+// CreateDriveFileSubscription 订阅文档中的变更事件, 当前支持文档评论订阅, 订阅后文档评论更新会有“云文档助手”推送给订阅的用户
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file-subscription/create
 func (r *DriveService) CreateDriveFileSubscription(ctx context.Context, request *CreateDriveFileSubscriptionReq, options ...MethodOptionFunc) (*CreateDriveFileSubscriptionResp, *Response, error) {
@@ -57,18 +57,11 @@ func (r *Mock) UnMockDriveCreateDriveFileSubscription() {
 
 // CreateDriveFileSubscriptionReq ...
 type CreateDriveFileSubscriptionReq struct {
-	FileToken        string   `path:"file_token" json:"-"`         // 文档token, 示例值："doxcnxxxxxxxxxxxxxxxxxxxxxx"
-	SubscriptionID   *string  `json:"subscription_id,omitempty"`   // 订阅关系ID, 示例值："1234567890987654321"
-	SubscriptionType string   `json:"subscription_type,omitempty"` // 订阅类型, 示例值："comment_update", 可选值有: `comment_update`：评论更新
-	IsSubcribe       *bool    `json:"is_subcribe,omitempty"`       // 是否订阅, 示例值：true
-	FileType         FileType `json:"file_type,omitempty"`         // 文档类型, 示例值："doc", 可选值有: `doc`：文档, `docx`：新版文档, `wiki`：知识库wiki
-}
-
-// createDriveFileSubscriptionResp ...
-type createDriveFileSubscriptionResp struct {
-	Code int64                            `json:"code,omitempty"` // 错误码，非 0 表示失败
-	Msg  string                           `json:"msg,omitempty"`  // 错误描述
-	Data *CreateDriveFileSubscriptionResp `json:"data,omitempty"`
+	FileToken        string   `path:"file_token" json:"-"`         // 文档token, 示例值: "doxcnxxxxxxxxxxxxxxxxxxxxxx"
+	SubscriptionID   *string  `json:"subscription_id,omitempty"`   // 订阅关系ID, 示例值: "1234567890987654321"
+	SubscriptionType string   `json:"subscription_type,omitempty"` // 订阅类型, 示例值: "comment_update", 可选值有: `comment_update`: 评论更新
+	IsSubcribe       *bool    `json:"is_subcribe,omitempty"`       // 是否订阅, 示例值: true
+	FileType         FileType `json:"file_type,omitempty"`         // 文档类型, 示例值: "doc", 可选值有: `doc`: 文档, `docx`: 新版文档, `wiki`: 知识库wiki
 }
 
 // CreateDriveFileSubscriptionResp ...
@@ -79,7 +72,14 @@ type CreateDriveFileSubscriptionResp struct {
 // CreateDriveFileSubscriptionRespSubscription ...
 type CreateDriveFileSubscriptionRespSubscription struct {
 	SubscriptionID   string   `json:"subscription_id,omitempty"`   // 订阅关系ID
-	SubscriptionType string   `json:"subscription_type,omitempty"` // 订阅类型, 可选值有: `comment_update`：评论更新
+	SubscriptionType string   `json:"subscription_type,omitempty"` // 订阅类型, 可选值有: `comment_update`: 评论更新
 	IsSubcribe       bool     `json:"is_subcribe,omitempty"`       // 是否订阅
-	FileType         FileType `json:"file_type,omitempty"`         // 文档类型, 可选值有: `doc`：文档, `docx`：新版文档, `wiki`：知识库wiki
+	FileType         FileType `json:"file_type,omitempty"`         // 文档类型, 可选值有: `doc`: 文档, `docx`: 新版文档, `wiki`: 知识库wiki
+}
+
+// createDriveFileSubscriptionResp ...
+type createDriveFileSubscriptionResp struct {
+	Code int64                            `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg  string                           `json:"msg,omitempty"`  // 错误描述
+	Data *CreateDriveFileSubscriptionResp `json:"data,omitempty"`
 }

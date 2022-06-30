@@ -23,7 +23,7 @@ import (
 
 // DeleteSheetConditionFormat
 //
-// 该接口用于删除已有的条件格式，单次最多支持删除10个条件格式，每个条件格式的删除会返回成功或者失败，失败的情况包括各种参数的校验。
+// 该接口用于删除已有的条件格式, 单次最多支持删除10个条件格式, 每个条件格式的删除会返回成功或者失败, 失败的情况包括各种参数的校验。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uATMzUjLwEzM14CMxMTN/conditionformat/condition-format-delete
 func (r *DriveService) DeleteSheetConditionFormat(ctx context.Context, request *DeleteSheetConditionFormatReq, options ...MethodOptionFunc) (*DeleteSheetConditionFormatResp, *Response, error) {
@@ -60,7 +60,7 @@ func (r *Mock) UnMockDriveDeleteSheetConditionFormat() {
 
 // DeleteSheetConditionFormatReq ...
 type DeleteSheetConditionFormatReq struct {
-	SpreadSheetToken string                                   `path:"spreadsheetToken" json:"-"` // sheet 的 token，获取方式见 [在线表格开发指南](https://open.feishu.cn/document/ukTMukTMukTM/uATMzUjLwEzM14CMxMTN/overview)
+	SpreadSheetToken string                                   `path:"spreadsheetToken" json:"-"` // sheet 的 token, 获取方式见 [在线表格开发指南](https://open.feishu.cn/document/ukTMukTMukTM/uATMzUjLwEzM14CMxMTN/overview)
 	SheetCfIDs       *DeleteSheetConditionFormatReqSheetCfIDs `json:"sheet_cf_ids,omitempty"`    // 表格条件格式id
 }
 
@@ -68,13 +68,6 @@ type DeleteSheetConditionFormatReq struct {
 type DeleteSheetConditionFormatReqSheetCfIDs struct {
 	SheetID string `json:"sheet_id,omitempty"` // sheet的id
 	CfID    string `json:"cf_id,omitempty"`    // 条件格式id
-}
-
-// deleteSheetConditionFormatResp ...
-type deleteSheetConditionFormatResp struct {
-	Code int64                           `json:"code,omitempty"`
-	Msg  string                          `json:"msg,omitempty"`
-	Data *DeleteSheetConditionFormatResp `json:"data,omitempty"`
 }
 
 // DeleteSheetConditionFormatResp ...
@@ -86,6 +79,13 @@ type DeleteSheetConditionFormatResp struct {
 type DeleteSheetConditionFormatRespResponse struct {
 	SheetID string `json:"sheet_id,omitempty"` // sheet的Id
 	CfID    string `json:"cf_id,omitempty"`    // 条件格式id
-	ResCode int64  `json:"res_code,omitempty"` // 条件格式删除状态码，0表示成功，非0表示失败
-	ResMsg  string `json:"res_msg,omitempty"`  // 条件格式删除返回的状态信息，空表示成功，非空表示失败原因
+	ResCode int64  `json:"res_code,omitempty"` // 条件格式删除状态码, 0表示成功, 非0表示失败
+	ResMsg  string `json:"res_msg,omitempty"`  // 条件格式删除返回的状态信息, 空表示成功, 非空表示失败原因
+}
+
+// deleteSheetConditionFormatResp ...
+type deleteSheetConditionFormatResp struct {
+	Code int64                           `json:"code,omitempty"`
+	Msg  string                          `json:"msg,omitempty"`
+	Data *DeleteSheetConditionFormatResp `json:"data,omitempty"`
 }

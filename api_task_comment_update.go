@@ -58,16 +58,9 @@ func (r *Mock) UnMockTaskUpdateTaskComment() {
 
 // UpdateTaskCommentReq ...
 type UpdateTaskCommentReq struct {
-	TaskID    string `path:"task_id" json:"-"`    // 任务ID, 示例值："83912691-2e43-47fc-94a4-d512e03984fa"
-	CommentID string `path:"comment_id" json:"-"` // 评论 ID, 示例值："6937231762296684564"
-	Content   string `json:"content,omitempty"`   // 新的评论内容, 示例值："飞流直下三千尺，疑是银河落九天"
-}
-
-// updateTaskCommentResp ...
-type updateTaskCommentResp struct {
-	Code int64                  `json:"code,omitempty"` // 错误码，非 0 表示失败
-	Msg  string                 `json:"msg,omitempty"`  // 错误描述
-	Data *UpdateTaskCommentResp `json:"data,omitempty"`
+	TaskID    string `path:"task_id" json:"-"`    // 任务ID, 示例值: "83912691-2e43-47fc-94a4-d512e03984fa"
+	CommentID string `path:"comment_id" json:"-"` // 评论 ID, 示例值: "6937231762296684564"
+	Content   string `json:"content,omitempty"`   // 新的评论内容, 示例值: "飞流直下三千尺, 疑是银河落九天"
 }
 
 // UpdateTaskCommentResp ...
@@ -78,6 +71,13 @@ type UpdateTaskCommentResp struct {
 // UpdateTaskCommentRespComment ...
 type UpdateTaskCommentRespComment struct {
 	Content  string `json:"content,omitempty"`   // 评论内容
-	ParentID string `json:"parent_id,omitempty"` // 评论的父ID，创建评论时若不为空则为某条评论的回复，若为空则不是回复
-	ID       string `json:"id,omitempty"`        // 评论ID，由飞书服务器发号
+	ParentID string `json:"parent_id,omitempty"` // 评论的父ID, 创建评论时若不为空则为某条评论的回复, 若为空则不是回复
+	ID       string `json:"id,omitempty"`        // 评论ID, 由飞书服务器发号
+}
+
+// updateTaskCommentResp ...
+type updateTaskCommentResp struct {
+	Code int64                  `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg  string                 `json:"msg,omitempty"`  // 错误描述
+	Data *UpdateTaskCommentResp `json:"data,omitempty"`
 }

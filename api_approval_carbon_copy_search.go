@@ -62,22 +62,15 @@ type SearchApprovalCarbonCopyReq struct {
 	UserID             string  `json:"user_id,omitempty"`              // 用户 id
 	ApprovalCode       *string `json:"approval_code,omitempty"`        // 审批定义 code
 	InstanceCode       *string `json:"instance_code,omitempty"`        // 审批实例 code
-	InstanceExternalID *string `json:"instance_external_id,omitempty"` // 审批实例第三方 id<br>注：和 approval_code 取并集
-	GroupExternalID    *string `json:"group_external_id,omitempty"`    // 审批定义分组第三方 id<br>注：和 instance_code 取并集
+	InstanceExternalID *string `json:"instance_external_id,omitempty"` // 审批实例第三方 id注: 和 approval_code 取并集
+	GroupExternalID    *string `json:"group_external_id,omitempty"`    // 审批定义分组第三方 id注: 和 instance_code 取并集
 	CcTitle            *string `json:"cc_title,omitempty"`             // 审批抄送标题（只有第三方审批有）
-	ReadStatus         *string `json:"read_status,omitempty"`          // 审批抄送状态<br>READ:  已读<br>UNREAD: 未读<br>注：若不设置，查询全部状态<br>若不在集合中，报错
+	ReadStatus         *string `json:"read_status,omitempty"`          // 审批抄送状态READ: 已读UNREAD: 未读注: 若不设置, 查询全部状态若不在集合中, 报错
 	CcCreateTimeFrom   *int64  `json:"CcCreateTimeFrom,omitempty"`     // 抄送查询开始时间 (unix毫秒时间戳)
 	CcCreateTimeTo     *int64  `json:"CcCreateTimeTo,omitempty"`       // 抄送查询结束时间 (unix毫秒时间戳)
 	Locale             *string `json:"locale,omitempty"`               // 地区 （zh-CN、en-US、ja-JP）
-	Offset             *int64  `json:"offset,omitempty"`               // 查询偏移量<br>注：不得超过10000
-	Limit              *int64  `json:"limit,omitempty"`                // 查询限制量<br>注：不得超过200<br>不设置默认查询10条数据
-}
-
-// searchApprovalCarbonCopyResp ...
-type searchApprovalCarbonCopyResp struct {
-	Code int64                         `json:"code,omitempty"` // 是
-	Msg  string                        `json:"msg,omitempty"`  // 是
-	Data *SearchApprovalCarbonCopyResp `json:"data,omitempty"` // 返回业务信息
+	Offset             *int64  `json:"offset,omitempty"`               // 查询偏移量注: 不得超过10000
+	Limit              *int64  `json:"limit,omitempty"`                // 查询限制量注: 不得超过200不设置默认查询10条数据
 }
 
 // SearchApprovalCarbonCopyResp ...
@@ -95,6 +88,22 @@ type SearchApprovalCarbonCopyRespApproval struct {
 // SearchApprovalCarbonCopyRespApprovalExternal ...
 type SearchApprovalCarbonCopyRespApprovalExternal struct {
 	BatchCcRead bool `json:"batch_cc_read,omitempty"` // 是否支持批量读
+}
+
+// SearchApprovalCarbonCopyRespCc ...
+type SearchApprovalCarbonCopyRespCc struct {
+	UserID     string                              `json:"user_id,omitempty"`     // 审批抄送发起人 id
+	CreateTime int64                               `json:"create_time,omitempty"` // 审批抄送开始时间
+	ReadStatus string                              `json:"read_status,omitempty"` // 审批抄送状态
+	Title      string                              `json:"title,omitempty"`       // 审批抄送名称
+	Extra      string                              `json:"extra,omitempty"`       // 审批抄送扩展字段
+	Link       *SearchApprovalCarbonCopyRespCcLink `json:"link,omitempty"`        // 审批抄送链接
+}
+
+// SearchApprovalCarbonCopyRespCcLink ...
+type SearchApprovalCarbonCopyRespCcLink struct {
+	PcLink     string `json:"pc_link,omitempty"`     // 审批抄送 pc 端链接
+	MobileLink string `json:"mobile_link,omitempty"` // 审批抄送移动端链接
 }
 
 // SearchApprovalCarbonCopyRespGroup ...
@@ -123,18 +132,9 @@ type SearchApprovalCarbonCopyRespInstanceLink struct {
 	MobileLink string `json:"mobile_link,omitempty"` // 审批实例移动端链接
 }
 
-// SearchApprovalCarbonCopyRespCc ...
-type SearchApprovalCarbonCopyRespCc struct {
-	UserID     string                              `json:"user_id,omitempty"`     // 审批抄送发起人 id
-	CreateTime int64                               `json:"create_time,omitempty"` // 审批抄送开始时间
-	ReadStatus string                              `json:"read_status,omitempty"` // 审批抄送状态
-	Title      string                              `json:"title,omitempty"`       // 审批抄送名称
-	Extra      string                              `json:"extra,omitempty"`       // 审批抄送扩展字段
-	Link       *SearchApprovalCarbonCopyRespCcLink `json:"link,omitempty"`        // 审批抄送链接
-}
-
-// SearchApprovalCarbonCopyRespCcLink ...
-type SearchApprovalCarbonCopyRespCcLink struct {
-	PcLink     string `json:"pc_link,omitempty"`     // 审批抄送 pc 端链接
-	MobileLink string `json:"mobile_link,omitempty"` // 审批抄送移动端链接
+// searchApprovalCarbonCopyResp ...
+type searchApprovalCarbonCopyResp struct {
+	Code int64                         `json:"code,omitempty"` // 是
+	Msg  string                        `json:"msg,omitempty"`  // 是
+	Data *SearchApprovalCarbonCopyResp `json:"data,omitempty"` // 返回业务信息
 }

@@ -21,9 +21,9 @@ import (
 	"context"
 )
 
-// RecognizeBasicImage 可识别图片中的文字，按图片中的区域划分，分段返回文本列表
+// RecognizeBasicImage 可识别图片中的文字, 按图片中的区域划分, 分段返回文本列表
 //
-// 单租户限流：20QPS，同租户下的应用没有限流，共享本租户的 20QPS 限流
+// 单租户限流: 20QPS, 同租户下的应用没有限流, 共享本租户的 20QPS 限流
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/ai/optical_char_recognition-v1/image/basic_recognize
 func (r *AIService) RecognizeBasicImage(ctx context.Context, request *RecognizeBasicImageReq, options ...MethodOptionFunc) (*RecognizeBasicImageResp, *Response, error) {
@@ -59,17 +59,17 @@ func (r *Mock) UnMockAIRecognizeBasicImage() {
 
 // RecognizeBasicImageReq ...
 type RecognizeBasicImageReq struct {
-	Image *string `json:"image,omitempty"` // base64 后的图片数据, 示例值："base64后的图片二进制数据"
-}
-
-// recognizeBasicImageResp ...
-type recognizeBasicImageResp struct {
-	Code int64                    `json:"code,omitempty"` // 错误码，非 0 表示失败
-	Msg  string                   `json:"msg,omitempty"`  // 错误描述
-	Data *RecognizeBasicImageResp `json:"data,omitempty"`
+	Image *string `json:"image,omitempty"` // base64 后的图片数据, 示例值: "base64后的图片二进制数据"
 }
 
 // RecognizeBasicImageResp ...
 type RecognizeBasicImageResp struct {
-	TextList []string `json:"text_list,omitempty"` // 按区域识别，返回文本列表
+	TextList []string `json:"text_list,omitempty"` // 按区域识别, 返回文本列表
+}
+
+// recognizeBasicImageResp ...
+type recognizeBasicImageResp struct {
+	Code int64                    `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg  string                   `json:"msg,omitempty"`  // 错误描述
+	Data *RecognizeBasicImageResp `json:"data,omitempty"`
 }

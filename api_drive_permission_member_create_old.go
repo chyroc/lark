@@ -58,24 +58,17 @@ func (r *Mock) UnMockDriveCreateDriveMemberPermissionOld() {
 
 // CreateDriveMemberPermissionOldReq ...
 type CreateDriveMemberPermissionOldReq struct {
-	Token      string                                    `json:"token,omitempty"`       // 文件的 token，获取方式见 [对接前说明](https://open.feishu.cn/document/ukTMukTMukTM/uczNzUjL3czM14yN3MTN)的第 4 项
+	Token      string                                    `json:"token,omitempty"`       // 文件的 token, 获取方式见 [对接前说明](https://open.feishu.cn/document/ukTMukTMukTM/uczNzUjL3czM14yN3MTN)的第 4 项
 	Type       string                                    `json:"type,omitempty"`        // 文档类型  "doc" 、"sheet" 、 "bitable" or "file"
 	Members    *CreateDriveMemberPermissionOldReqMembers `json:"members,omitempty"`     // 用户
-	NotifyLark *bool                                     `json:"notify_lark,omitempty"` // 添加权限后是否飞书/lark通知对方<br>true 通知 or false 不通知
+	NotifyLark *bool                                     `json:"notify_lark,omitempty"` // 添加权限后是否飞书/lark通知对方true 通知 or false 不通知
 }
 
 // CreateDriveMemberPermissionOldReqMembers ...
 type CreateDriveMemberPermissionOldReqMembers struct {
-	MemberType string `json:"member_type,omitempty"` // 用户类型，可选 **email 、openid、openchat、userid**
+	MemberType string `json:"member_type,omitempty"` // 用户类型, 可选 email 、openid、openchat、userid
 	MemberID   string `json:"member_id,omitempty"`   // 用户类型下的值
-	Perm       string `json:"perm,omitempty"`        // 需要增加的权限，权限值："view"，"edit"
-}
-
-// createDriveMemberPermissionOldResp ...
-type createDriveMemberPermissionOldResp struct {
-	Code int64                               `json:"code,omitempty"`
-	Msg  string                              `json:"msg,omitempty"`
-	Data *CreateDriveMemberPermissionOldResp `json:"data,omitempty"`
+	Perm       string `json:"perm,omitempty"`        // 需要增加的权限, 权限值: "view", "edit"
 }
 
 // CreateDriveMemberPermissionOldResp ...
@@ -89,4 +82,11 @@ type CreateDriveMemberPermissionOldRespFailMembers struct {
 	MemberType string `json:"member_type,omitempty"` // 用户类型
 	MemberID   string `json:"member_id,omitempty"`   // 用户类型下的值
 	Perm       string `json:"perm,omitempty"`        // 需要增加的权限
+}
+
+// createDriveMemberPermissionOldResp ...
+type createDriveMemberPermissionOldResp struct {
+	Code int64                               `json:"code,omitempty"`
+	Msg  string                              `json:"msg,omitempty"`
+	Data *CreateDriveMemberPermissionOldResp `json:"data,omitempty"`
 }

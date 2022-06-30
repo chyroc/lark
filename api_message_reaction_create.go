@@ -21,12 +21,12 @@ import (
 	"context"
 )
 
-// CreateMessageReaction 给指定消息添加指定类型的表情回复（reaction即表情回复，本说明文档统一用“reaction”代称）。
+// CreateMessageReaction 给指定消息添加指定类型的表情回复（reaction即表情回复, 本说明文档统一用“reaction”代称）。
 //
 // 注意事项:
 // - 需要开启[机器人能力](https://open.feishu.cn/document/home/develop-a-bot-in-5-minutes/create-an-app)
-// - 待添加reaction的消息要真实存在，不能被撤回
-// - 给消息添加reaction，需要reaction的发送方（机器人或者用户）在消息所在的会话内
+// - 待添加reaction的消息要真实存在, 不能被撤回
+// - 给消息添加reaction, 需要reaction的发送方（机器人或者用户）在消息所在的会话内
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message-reaction/create
 func (r *MessageService) CreateMessageReaction(ctx context.Context, request *CreateMessageReactionReq, options ...MethodOptionFunc) (*CreateMessageReactionResp, *Response, error) {
@@ -63,20 +63,13 @@ func (r *Mock) UnMockMessageCreateMessageReaction() {
 
 // CreateMessageReactionReq ...
 type CreateMessageReactionReq struct {
-	MessageID    string                                `path:"message_id" json:"-"`     // 待添加reaction的消息ID, 示例值："om_a8f2294b************a1a38afaac9d"
+	MessageID    string                                `path:"message_id" json:"-"`     // 待添加reaction的消息ID, 示例值: "om_a8f2294ba1a38afaac9d"
 	ReactionType *CreateMessageReactionReqReactionType `json:"reaction_type,omitempty"` // reaction资源类型
 }
 
 // CreateMessageReactionReqReactionType ...
 type CreateMessageReactionReqReactionType struct {
-	EmojiType string `json:"emoji_type,omitempty"` // emoji类型 [emoji类型列举](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message-reaction/emojis-introduce), 示例值："SMILE"
-}
-
-// createMessageReactionResp ...
-type createMessageReactionResp struct {
-	Code int64                      `json:"code,omitempty"` // 错误码，非 0 表示失败
-	Msg  string                     `json:"msg,omitempty"`  // 错误描述
-	Data *CreateMessageReactionResp `json:"data,omitempty"`
+	EmojiType string `json:"emoji_type,omitempty"` // emoji类型 [emoji类型列举](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message-reaction/emojis-introduce), 示例值: "SMILE"
 }
 
 // CreateMessageReactionResp ...
@@ -90,10 +83,17 @@ type CreateMessageReactionResp struct {
 // CreateMessageReactionRespOperator ...
 type CreateMessageReactionRespOperator struct {
 	OperatorID   string `json:"operator_id,omitempty"`   // 操作人ID
-	OperatorType string `json:"operator_type,omitempty"` // 操作人身份，用户或应用, 可选值有: `app`："app", `user`："user"
+	OperatorType string `json:"operator_type,omitempty"` // 操作人身份, 用户或应用, 可选值有: `app`: "app", `user`: "user"
 }
 
 // CreateMessageReactionRespReactionType ...
 type CreateMessageReactionRespReactionType struct {
 	EmojiType string `json:"emoji_type,omitempty"` // emoji类型 [emoji类型列举](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message-reaction/emojis-introduce)
+}
+
+// createMessageReactionResp ...
+type createMessageReactionResp struct {
+	Code int64                      `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg  string                     `json:"msg,omitempty"`  // 错误描述
+	Data *CreateMessageReactionResp `json:"data,omitempty"`
 }

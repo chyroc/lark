@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// GetMailUser 使用邮箱状态查询接口，可以输入邮箱地址，查询出该邮箱地址对应的类型以及状态
+// GetMailUser 使用邮箱状态查询接口, 可以输入邮箱地址, 查询出该邮箱地址对应的类型以及状态
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/mail-v1/user/query
 func (r *MailService) GetMailUser(ctx context.Context, request *GetMailUserReq, options ...MethodOptionFunc) (*GetMailUserResp, *Response, error) {
@@ -57,14 +57,7 @@ func (r *Mock) UnMockMailGetMailUser() {
 
 // GetMailUserReq ...
 type GetMailUserReq struct {
-	EmailList []string `json:"email_list,omitempty"` // 需要查询的邮箱地址列表, 示例值：["aaa@lark.com","bbb@lark.com"]
-}
-
-// getMailUserResp ...
-type getMailUserResp struct {
-	Code int64            `json:"code,omitempty"` // 错误码，非 0 表示失败
-	Msg  string           `json:"msg,omitempty"`  // 错误描述
-	Data *GetMailUserResp `json:"data,omitempty"`
+	EmailList []string `json:"email_list,omitempty"` // 需要查询的邮箱地址列表, 示例值: ["aaa@lark.com", "bbb@lark.com"]
 }
 
 // GetMailUserResp ...
@@ -75,6 +68,13 @@ type GetMailUserResp struct {
 // GetMailUserRespUser ...
 type GetMailUserRespUser struct {
 	Email  string `json:"email,omitempty"`  // 邮箱地址
-	Status int64  `json:"status,omitempty"` // 邮箱地址状态, 可选值有: `1`：邮箱地址格式错误, `2`：邮箱地址域名不存在, `3`：邮箱地址不存在, `4`：启用, `5`：已删除（邮箱回收站中）, `6`：禁用
-	Type   int64  `json:"type,omitempty"`   // 邮箱地址类型, 可选值有: `1`：成员邮箱, `2`：成员邮箱别名, `3`：公共邮箱, `4`：公共邮箱别名, `5`：邮件组, `6`：邮件组别名
+	Status int64  `json:"status,omitempty"` // 邮箱地址状态, 可选值有: `1`: 邮箱地址格式错误, `2`: 邮箱地址域名不存在, `3`: 邮箱地址不存在, `4`: 启用, `5`: 已删除（邮箱回收站中）, `6`: 禁用
+	Type   int64  `json:"type,omitempty"`   // 邮箱地址类型, 可选值有: `1`: 成员邮箱, `2`: 成员邮箱别名, `3`: 公共邮箱, `4`: 公共邮箱别名, `5`: 邮件组, `6`: 邮件组别名
+}
+
+// getMailUserResp ...
+type getMailUserResp struct {
+	Code int64            `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg  string           `json:"msg,omitempty"`  // 错误描述
+	Data *GetMailUserResp `json:"data,omitempty"`
 }

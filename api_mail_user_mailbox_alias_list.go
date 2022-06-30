@@ -57,16 +57,9 @@ func (r *Mock) UnMockMailGetMailUserMailboxAliasList() {
 
 // GetMailUserMailboxAliasListReq ...
 type GetMailUserMailboxAliasListReq struct {
-	PageToken     *string `query:"page_token" json:"-"`     // 分页标记，第一次请求不填，表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token，下次遍历可采用该 page_token 获取查询结果, 示例值："xxx"
-	PageSize      *int64  `query:"page_size" json:"-"`      // 分页大小, 示例值：10, 最大值：`20`
-	UserMailboxID string  `path:"user_mailbox_id" json:"-"` // 用户邮箱地址, 示例值："user@xxx.xx"
-}
-
-// getMailUserMailboxAliasListResp ...
-type getMailUserMailboxAliasListResp struct {
-	Code int64                            `json:"code,omitempty"` // 错误码，非 0 表示失败
-	Msg  string                           `json:"msg,omitempty"`  // 错误描述
-	Data *GetMailUserMailboxAliasListResp `json:"data,omitempty"`
+	UserMailboxID string  `path:"user_mailbox_id" json:"-"` // 用户邮箱地址, 示例值: "user@xxx.xx"
+	PageToken     *string `query:"page_token" json:"-"`     // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果, 示例值: "xxx"
+	PageSize      *int64  `query:"page_size" json:"-"`      // 分页大小, 示例值: 10, 最大值: `20`
 }
 
 // GetMailUserMailboxAliasListResp ...
@@ -78,4 +71,11 @@ type GetMailUserMailboxAliasListResp struct {
 type GetMailUserMailboxAliasListRespItem struct {
 	PrimaryEmail string `json:"primary_email,omitempty"` // 主邮箱地址
 	EmailAlias   string `json:"email_alias,omitempty"`   // 邮箱别名
+}
+
+// getMailUserMailboxAliasListResp ...
+type getMailUserMailboxAliasListResp struct {
+	Code int64                            `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg  string                           `json:"msg,omitempty"`  // 错误描述
+	Data *GetMailUserMailboxAliasListResp `json:"data,omitempty"`
 }

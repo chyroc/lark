@@ -23,7 +23,7 @@ import (
 
 // UnsubscribeApprovalSubscription
 //
-// 取消订阅 approval_code 后，无法再收到该审批定义对应实例的事件通知。
+// 取消订阅 approval_code 后, 无法再收到该审批定义对应实例的事件通知。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/ugDOyUjL4gjM14CO4ITN
 func (r *ApprovalService) UnsubscribeApprovalSubscription(ctx context.Context, request *UnsubscribeApprovalSubscriptionReq, options ...MethodOptionFunc) (*UnsubscribeApprovalSubscriptionResp, *Response, error) {
@@ -62,13 +62,13 @@ type UnsubscribeApprovalSubscriptionReq struct {
 	ApprovalCode string `json:"approval_code,omitempty"` // 审批定义唯一标识
 }
 
-// unsubscribeApprovalSubscriptionResp ...
-type unsubscribeApprovalSubscriptionResp struct {
-	Code int64                                `json:"code,omitempty"` // 错误码，非0表示失败
-	Msg  string                               `json:"msg,omitempty"`  // 返回码的描述
-	Data *UnsubscribeApprovalSubscriptionResp `json:"data,omitempty"`
-}
-
 // UnsubscribeApprovalSubscriptionResp ...
 type UnsubscribeApprovalSubscriptionResp struct {
+}
+
+// unsubscribeApprovalSubscriptionResp ...
+type unsubscribeApprovalSubscriptionResp struct {
+	Code int64                                `json:"code,omitempty"` // 错误码, 非0表示失败
+	Msg  string                               `json:"msg,omitempty"`  // 返回码的描述
+	Data *UnsubscribeApprovalSubscriptionResp `json:"data,omitempty"`
 }

@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// UpdateACSUser 飞书智能门禁在人脸识别成功后会有韦根信号输出，输出用户的卡号。
+// UpdateACSUser 飞书智能门禁在人脸识别成功后会有韦根信号输出, 输出用户的卡号。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/acs-v1/user/patch
 func (r *ACSService) UpdateACSUser(ctx context.Context, request *UpdateACSUserReq, options ...MethodOptionFunc) (*UpdateACSUserResp, *Response, error) {
@@ -57,23 +57,23 @@ func (r *Mock) UnMockACSUpdateACSUser() {
 
 // UpdateACSUserReq ...
 type UpdateACSUserReq struct {
-	UserIDType *IDType                  `query:"user_id_type" json:"-"` // 用户 ID 类型, 示例值："open_id", 可选值有: `open_id`：用户的 open id, `union_id`：用户的 union id, `user_id`：用户的 user id, 默认值: `open_id`,, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
-	UserID     string                   `path:"user_id" json:"-"`       // 用户 ID, 示例值："ou_7dab8a3d3cdcc9da365777c7ad535d62"
+	UserID     string                   `path:"user_id" json:"-"`       // 用户 ID, 示例值: "ou_7dab8a3d3cdcc9da365777c7ad535d62"
+	UserIDType *IDType                  `query:"user_id_type" json:"-"` // 用户 ID 类型, 示例值: "open_id", 可选值有: `open_id`: 用户的 open id, `union_id`: 用户的 union id, `user_id`: 用户的 user id, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
 	Feature    *UpdateACSUserReqFeature `json:"feature,omitempty"`      // 用户特征
 }
 
 // UpdateACSUserReqFeature ...
 type UpdateACSUserReqFeature struct {
-	Card *int64 `json:"card,omitempty"` // 卡号, 示例值：123456
-}
-
-// updateACSUserResp ...
-type updateACSUserResp struct {
-	Code int64              `json:"code,omitempty"` // 错误码，非 0 表示失败
-	Msg  string             `json:"msg,omitempty"`  // 错误描述
-	Data *UpdateACSUserResp `json:"data,omitempty"`
+	Card *int64 `json:"card,omitempty"` // 卡号, 示例值: 123456
 }
 
 // UpdateACSUserResp ...
 type UpdateACSUserResp struct {
+}
+
+// updateACSUserResp ...
+type updateACSUserResp struct {
+	Code int64              `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg  string             `json:"msg,omitempty"`  // 错误描述
+	Data *UpdateACSUserResp `json:"data,omitempty"`
 }

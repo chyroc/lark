@@ -58,24 +58,24 @@ func (r *Mock) UnMockBitableBatchCreateBitableAppRoleMember() {
 
 // BatchCreateBitableAppRoleMemberReq ...
 type BatchCreateBitableAppRoleMemberReq struct {
-	AppToken   string                                      `path:"app_token" json:"-"`    // Bitable 文档 Token, 示例值："bascnnKKvcoUblgmmhZkYqabcef"
-	RoleID     string                                      `path:"role_id" json:"-"`      // 自定义权限 ID, 示例值："rolNGhPqks"
-	MemberList []*BatchCreateBitableAppRoleMemberReqMember `json:"member_list,omitempty"` // 协作者列表, 最大长度：`100`
+	AppToken   string                                      `path:"app_token" json:"-"`    // Bitable 文档 Token, 示例值: "bascnnKKvcoUblgmmhZkYqabcef"
+	RoleID     string                                      `path:"role_id" json:"-"`      // 自定义权限 ID, 示例值: "rolNGhPqks"
+	MemberList []*BatchCreateBitableAppRoleMemberReqMember `json:"member_list,omitempty"` // 协作者列表, 最大长度: `100`
 }
 
 // BatchCreateBitableAppRoleMemberReqMember ...
 type BatchCreateBitableAppRoleMemberReqMember struct {
-	Type *string `json:"type,omitempty"` // 协作者 ID 类型, 示例值："open_id", 可选值有: ,<md-enum>,<md-enum-item key="open_id" >协作者 ID 类型为 open_id</md-enum-item>,<md-enum-item key="union_id" >协作者 ID 类型为 union_id</md-enum-item>,<md-enum-item key="user_id" >协作者 ID 类型为 user_id</md-enum-item>,<md-enum-item key="chat_id" >协作者 ID 类型为 chat_id</md-enum-item>,<md-enum-item key="department_id" >协作者 ID 类型为 department_id</md-enum-item>,<md-enum-item key="open_department_id" >协作者 ID 类型为 open_department_id</md-enum-item>,</md-enum>, 默认值: `open_id`
-	ID   string  `json:"id,omitempty"`   // 协作者 ID, 示例值："ou_35990a9d9052051a2fae9b2f1afabcef"
-}
-
-// batchCreateBitableAppRoleMemberResp ...
-type batchCreateBitableAppRoleMemberResp struct {
-	Code int64                                `json:"code,omitempty"` // 错误码，非 0 表示失败
-	Msg  string                               `json:"msg,omitempty"`  // 错误描述
-	Data *BatchCreateBitableAppRoleMemberResp `json:"data,omitempty"`
+	Type *string `json:"type,omitempty"` // 协作者 ID 类型, 示例值: "open_id", 可选值有: <md-enum>, <md-enum-item key="open_id" >协作者 ID 类型为 open_id</md-enum-item>, <md-enum-item key="union_id" >协作者 ID 类型为 union_id</md-enum-item>, <md-enum-item key="user_id" >协作者 ID 类型为 user_id</md-enum-item>, <md-enum-item key="chat_id" >协作者 ID 类型为 chat_id</md-enum-item>, <md-enum-item key="department_id" >协作者 ID 类型为 department_id</md-enum-item>, <md-enum-item key="open_department_id" >协作者 ID 类型为 open_department_id</md-enum-item>, </md-enum>, 默认值: `open_id`
+	ID   string  `json:"id,omitempty"`   // 协作者 ID, 示例值: "ou_35990a9d9052051a2fae9b2f1afabcef"
 }
 
 // BatchCreateBitableAppRoleMemberResp ...
 type BatchCreateBitableAppRoleMemberResp struct {
+}
+
+// batchCreateBitableAppRoleMemberResp ...
+type batchCreateBitableAppRoleMemberResp struct {
+	Code int64                                `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg  string                               `json:"msg,omitempty"`  // 错误描述
+	Data *BatchCreateBitableAppRoleMemberResp `json:"data,omitempty"`
 }

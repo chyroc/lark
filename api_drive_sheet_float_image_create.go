@@ -21,9 +21,9 @@ import (
 	"context"
 )
 
-// CreateSheetFloatImage 根据传入的参数创建一张浮动图片。Float_image_token （[上传图片至表格后得到](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/media/upload_all)）和range（只支持一个单元格） 必填。Float_image_id 可选，不填的话会默认生成，长度为10，由 0-9、a-z、A-Z 组合生成。表格内不重复的图片（浮动图片+单元格图片）总数不超过4000。width 和 height 为图片展示的宽高，可选，不填的话会使用图片的真实宽高。offset_x 和 offset_y 为图片左上角距离所在单元格左上角的偏移，可选，默认为 0。
+// CreateSheetFloatImage 根据传入的参数创建一张浮动图片。Float_image_token （[上传图片至表格后得到](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/media/upload_all)）和range（只支持一个单元格） 必填。Float_image_id 可选, 不填的话会默认生成, 长度为10, 由 0-9、a-z、A-Z 组合生成。表格内不重复的图片（浮动图片+单元格图片）总数不超过4000。width 和 height 为图片展示的宽高, 可选, 不填的话会使用图片的真实宽高。offset_x 和 offset_y 为图片左上角距离所在单元格左上角的偏移, 可选, 默认为 0。
 //
-// 浮动图片的设置参考：[浮动图片指南](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/sheets-v3/spreadsheet-sheet-float_image/float-image-user-guide)
+// 浮动图片的设置参考: [浮动图片指南](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/sheets-v3/spreadsheet-sheet-float_image/float-image-user-guide)
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/sheets-v3/spreadsheet-sheet-float_image/create
 func (r *DriveService) CreateSheetFloatImage(ctx context.Context, request *CreateSheetFloatImageReq, options ...MethodOptionFunc) (*CreateSheetFloatImageResp, *Response, error) {
@@ -60,22 +60,15 @@ func (r *Mock) UnMockDriveCreateSheetFloatImage() {
 
 // CreateSheetFloatImageReq ...
 type CreateSheetFloatImageReq struct {
-	SpreadSheetToken string   `path:"spreadsheet_token" json:"-"`  // 表格 token, 示例值："shtcnmBA*****yGehy8"
-	SheetID          string   `path:"sheet_id" json:"-"`           // 子表 id, 示例值："0b**12"
-	FloatImageID     *string  `json:"float_image_id,omitempty"`    // 浮动图片 id, 示例值："ye06SS14ph"
-	FloatImageToken  *string  `json:"float_image_token,omitempty"` // 【更新时不用传，创建需要】浮动图片 token，需要先上传图片到表格获得此 token 之后再进行浮动图片的相关操作, 示例值："boxbcbQsaSqIXsxxxxx1HCPJFbh"
-	Range            *string  `json:"range,omitempty"`             // 浮动图片的左上角单元格定位，只支持一个单元格, 示例值："0b**12!A1:A1"
-	Width            *float64 `json:"width,omitempty"`             // 浮动图片的宽度，大于等于 20px, 示例值：100
-	Height           *float64 `json:"height,omitempty"`            // 浮动图片的高度，大于等于 20px, 示例值：100
-	OffsetX          *float64 `json:"offset_x,omitempty"`          // 浮动图片左上角所在位置相对于所在单元格左上角的横向偏移，大于等于0且小于所在单元格的宽度, 示例值：0
-	OffsetY          *float64 `json:"offset_y,omitempty"`          // 浮动图片左上角所在位置相对于所在单元格左上角的纵向偏移，大于等于0且小于所在单元格的高度, 示例值：0
-}
-
-// createSheetFloatImageResp ...
-type createSheetFloatImageResp struct {
-	Code int64                      `json:"code,omitempty"` // 错误码，非 0 表示失败
-	Msg  string                     `json:"msg,omitempty"`  // 错误描述
-	Data *CreateSheetFloatImageResp `json:"data,omitempty"`
+	SpreadSheetToken string   `path:"spreadsheet_token" json:"-"`  // 表格 token, 示例值: "shtcnmBA*yGehy8"
+	SheetID          string   `path:"sheet_id" json:"-"`           // 子表 id, 示例值: "0b**12"
+	FloatImageID     *string  `json:"float_image_id,omitempty"`    // 浮动图片 id, 示例值: "ye06SS14ph"
+	FloatImageToken  *string  `json:"float_image_token,omitempty"` // 【更新时不用传, 创建需要】浮动图片 token, 需要先上传图片到表格获得此 token 之后再进行浮动图片的相关操作, 示例值: "boxbcbQsaSqIXsxxxxx1HCPJFbh"
+	Range            *string  `json:"range,omitempty"`             // 浮动图片的左上角单元格定位, 只支持一个单元格, 示例值: "0b**12!A1:A1"
+	Width            *float64 `json:"width,omitempty"`             // 浮动图片的宽度, 大于等于 20px, 示例值: 100
+	Height           *float64 `json:"height,omitempty"`            // 浮动图片的高度, 大于等于 20px, 示例值: 100
+	OffsetX          *float64 `json:"offset_x,omitempty"`          // 浮动图片左上角所在位置相对于所在单元格左上角的横向偏移, 大于等于0且小于所在单元格的宽度, 示例值: 0
+	OffsetY          *float64 `json:"offset_y,omitempty"`          // 浮动图片左上角所在位置相对于所在单元格左上角的纵向偏移, 大于等于0且小于所在单元格的高度, 示例值: 0
 }
 
 // CreateSheetFloatImageResp ...
@@ -86,10 +79,17 @@ type CreateSheetFloatImageResp struct {
 // CreateSheetFloatImageRespFloatImage ...
 type CreateSheetFloatImageRespFloatImage struct {
 	FloatImageID    string  `json:"float_image_id,omitempty"`    // 浮动图片 id
-	FloatImageToken string  `json:"float_image_token,omitempty"` // 【更新时不用传，创建需要】浮动图片 token，需要先上传图片到表格获得此 token 之后再进行浮动图片的相关操作
-	Range           string  `json:"range,omitempty"`             // 浮动图片的左上角单元格定位，只支持一个单元格
-	Width           float64 `json:"width,omitempty"`             // 浮动图片的宽度，大于等于 20px
-	Height          float64 `json:"height,omitempty"`            // 浮动图片的高度，大于等于 20px
-	OffsetX         float64 `json:"offset_x,omitempty"`          // 浮动图片左上角所在位置相对于所在单元格左上角的横向偏移，大于等于0且小于所在单元格的宽度
-	OffsetY         float64 `json:"offset_y,omitempty"`          // 浮动图片左上角所在位置相对于所在单元格左上角的纵向偏移，大于等于0且小于所在单元格的高度
+	FloatImageToken string  `json:"float_image_token,omitempty"` // 【更新时不用传, 创建需要】浮动图片 token, 需要先上传图片到表格获得此 token 之后再进行浮动图片的相关操作
+	Range           string  `json:"range,omitempty"`             // 浮动图片的左上角单元格定位, 只支持一个单元格
+	Width           float64 `json:"width,omitempty"`             // 浮动图片的宽度, 大于等于 20px
+	Height          float64 `json:"height,omitempty"`            // 浮动图片的高度, 大于等于 20px
+	OffsetX         float64 `json:"offset_x,omitempty"`          // 浮动图片左上角所在位置相对于所在单元格左上角的横向偏移, 大于等于0且小于所在单元格的宽度
+	OffsetY         float64 `json:"offset_y,omitempty"`          // 浮动图片左上角所在位置相对于所在单元格左上角的纵向偏移, 大于等于0且小于所在单元格的高度
+}
+
+// createSheetFloatImageResp ...
+type createSheetFloatImageResp struct {
+	Code int64                      `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg  string                     `json:"msg,omitempty"`  // 错误描述
+	Data *CreateSheetFloatImageResp `json:"data,omitempty"`
 }

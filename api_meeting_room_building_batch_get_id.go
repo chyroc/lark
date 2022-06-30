@@ -60,13 +60,6 @@ type BatchGetMeetingRoomBuildingIDReq struct {
 	CustomBuildingIDs string `query:"custom_building_ids" json:"-"` // 用于查询指定建筑物的租户自定义建筑ID
 }
 
-// batchGetMeetingRoomBuildingIDResp ...
-type batchGetMeetingRoomBuildingIDResp struct {
-	Code int64                              `json:"code,omitempty"` // 返回码，非 0 表示失败
-	Msg  string                             `json:"msg,omitempty"`  // 返回码的描述，"success" 表示成功，其他为错误提示信息
-	Data *BatchGetMeetingRoomBuildingIDResp `json:"data,omitempty"` // 返回业务信息
-}
-
 // BatchGetMeetingRoomBuildingIDResp ...
 type BatchGetMeetingRoomBuildingIDResp struct {
 	Buildings []*BatchGetMeetingRoomBuildingIDRespBuilding `json:"buildings,omitempty"` // 建筑列表
@@ -76,4 +69,11 @@ type BatchGetMeetingRoomBuildingIDResp struct {
 type BatchGetMeetingRoomBuildingIDRespBuilding struct {
 	BuildingID       string `json:"building_id,omitempty"`        // 建筑物ID
 	CustomBuildingID string `json:"custom_building_id,omitempty"` // 租户自定义建筑物ID
+}
+
+// batchGetMeetingRoomBuildingIDResp ...
+type batchGetMeetingRoomBuildingIDResp struct {
+	Code int64                              `json:"code,omitempty"` // 返回码, 非 0 表示失败
+	Msg  string                             `json:"msg,omitempty"`  // 返回码的描述, "success" 表示成功, 其他为错误提示信息
+	Data *BatchGetMeetingRoomBuildingIDResp `json:"data,omitempty"` // 返回业务信息
 }

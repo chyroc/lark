@@ -62,28 +62,21 @@ type GetMeetingRoomCustomizationReq struct {
 	RoomIDs []string `json:"room_ids,omitempty"` // 要获取的会议室ID列表
 }
 
-// getMeetingRoomCustomizationResp ...
-type getMeetingRoomCustomizationResp struct {
-	Code int64                            `json:"code,omitempty"`
-	Msg  string                           `json:"msg,omitempty"`
-	Data *GetMeetingRoomCustomizationResp `json:"data,omitempty"`
-}
-
 // GetMeetingRoomCustomizationResp ...
 type GetMeetingRoomCustomizationResp struct {
 	ErrorRoomIDs          *GetMeetingRoomCustomizationRespErrorRoomIDs          `json:"error_room_ids,omitempty"`           // 返回错误的入参
 	RoomIDToCustomization *GetMeetingRoomCustomizationRespRoomIDToCustomization `json:"room_id_to_customization,omitempty"` // 会议室ID-个性化配置的映射
 }
 
-// GetMeetingRoomCustomizationRespErrorRoomIDs ...
-type GetMeetingRoomCustomizationRespErrorRoomIDs struct {
-	BuildingID *GetMeetingRoomCustomizationRespErrorRoomIDBuildingID `json:"building_id,omitempty"` // 建筑id
-}
-
 // GetMeetingRoomCustomizationRespErrorRoomIDBuildingID ...
 type GetMeetingRoomCustomizationRespErrorRoomIDBuildingID struct {
 	RoomID   string `json:"room_id,omitempty"`   // 会议室id
 	ErrorMsg string `json:"error_msg,omitempty"` // 错误信息
+}
+
+// GetMeetingRoomCustomizationRespErrorRoomIDs ...
+type GetMeetingRoomCustomizationRespErrorRoomIDs struct {
+	BuildingID *GetMeetingRoomCustomizationRespErrorRoomIDBuildingID `json:"building_id,omitempty"` // 建筑id
 }
 
 // GetMeetingRoomCustomizationRespRoomIDToCustomization ...
@@ -100,11 +93,11 @@ type GetMeetingRoomCustomizationRespRoomIDToCustomizationRoomID struct {
 
 // GetMeetingRoomCustomizationRespRoomIDToCustomizationRoomIDCustomizationData ...
 type GetMeetingRoomCustomizationRespRoomIDToCustomizationRoomIDCustomizationData struct {
-	Conditions        *GetMeetingRoomCustomizationRespRoomIDToCustomizationRoomIDCustomizationDataConditions `json:"conditions,omitempty"`         // 问卷的显示条件，当条件满足时，该问卷才会出现让用户进行选择
-	CustomizationType int64                                                                                  `json:"customization_type,omitempty"` // 问卷的类型，1表示单选，2表示多选，3表示填空
+	Conditions        *GetMeetingRoomCustomizationRespRoomIDToCustomizationRoomIDCustomizationDataConditions `json:"conditions,omitempty"`         // 问卷的显示条件, 当条件满足时, 该问卷才会出现让用户进行选择
+	CustomizationType int64                                                                                  `json:"customization_type,omitempty"` // 问卷的类型, 1表示单选, 2表示多选, 3表示填空
 	IndexKey          string                                                                                 `json:"index_key,omitempty"`          // 每个问卷的独立id
-	InputContent      string                                                                                 `json:"input_content,omitempty"`      // 当type类型为填空时，该参数需要填入
-	IsRequired        bool                                                                                   `json:"is_required,omitempty"`        // 当type类型为填空时，该参数需要填入
+	InputContent      string                                                                                 `json:"input_content,omitempty"`      // 当type类型为填空时, 该参数需要填入
+	IsRequired        bool                                                                                   `json:"is_required,omitempty"`        // 当type类型为填空时, 该参数需要填入
 	Label             string                                                                                 `json:"label,omitempty"`              // 每个问卷的问题
 	Options           *GetMeetingRoomCustomizationRespRoomIDToCustomizationRoomIDCustomizationDataOptions    `json:"options,omitempty"`            // 每个问卷的选项
 	PlaceHolder       string                                                                                 `json:"place_holder,omitempty"`       // 填空题在未填写时的填充文案
@@ -112,8 +105,8 @@ type GetMeetingRoomCustomizationRespRoomIDToCustomizationRoomIDCustomizationData
 
 // GetMeetingRoomCustomizationRespRoomIDToCustomizationRoomIDCustomizationDataConditions ...
 type GetMeetingRoomCustomizationRespRoomIDToCustomizationRoomIDCustomizationDataConditions struct {
-	CustomKey  string   `json:"custom_key,omitempty"`  // 该custom_key对应的index_key选中后，问卷才会显示
-	OptionKeys []string `json:"option_keys,omitempty"` // 所有的option都被选中后，问卷才会显示
+	CustomKey  string   `json:"custom_key,omitempty"`  // 该custom_key对应的index_key选中后, 问卷才会显示
+	OptionKeys []string `json:"option_keys,omitempty"` // 所有的option都被选中后, 问卷才会显示
 }
 
 // GetMeetingRoomCustomizationRespRoomIDToCustomizationRoomIDCustomizationDataOptions ...
@@ -124,4 +117,11 @@ type GetMeetingRoomCustomizationRespRoomIDToCustomizationRoomIDCustomizationData
 	OptionKey      string `json:"option_key,omitempty"`       // 每个选项的唯一id
 	OptionLabel    string `json:"option_label,omitempty"`     // 每个问卷的选项
 	OthersContent  string `json:"others_content,omitempty"`   // 其他选项的输入内容
+}
+
+// getMeetingRoomCustomizationResp ...
+type getMeetingRoomCustomizationResp struct {
+	Code int64                            `json:"code,omitempty"`
+	Msg  string                           `json:"msg,omitempty"`
+	Data *GetMeetingRoomCustomizationResp `json:"data,omitempty"`
 }

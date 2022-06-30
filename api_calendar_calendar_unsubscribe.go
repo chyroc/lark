@@ -62,16 +62,16 @@ func (r *Mock) UnMockCalendarUnsubscribeCalendar() {
 
 // UnsubscribeCalendarReq ...
 type UnsubscribeCalendarReq struct {
-	CalendarID string `path:"calendar_id" json:"-"` // 日历ID。参见[日历ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar/introduction), 示例值："feishu.cn_xxxxxxxxxx@group.calendar.feishu.cn"
-}
-
-// unsubscribeCalendarResp ...
-type unsubscribeCalendarResp struct {
-	Code int64                    `json:"code,omitempty"` // 错误码，非 0 表示失败
-	Msg  string                   `json:"msg,omitempty"`  // 错误描述
-	Data *UnsubscribeCalendarResp `json:"data,omitempty"`
+	CalendarID string `path:"calendar_id" json:"-"` // 日历ID。参见[日历ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar/introduction), 示例值: "feishu.cn_xxxxxxxxxx@group.calendar.feishu.cn"
 }
 
 // UnsubscribeCalendarResp ...
 type UnsubscribeCalendarResp struct {
+}
+
+// unsubscribeCalendarResp ...
+type unsubscribeCalendarResp struct {
+	Code int64                    `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg  string                   `json:"msg,omitempty"`  // 错误描述
+	Data *UnsubscribeCalendarResp `json:"data,omitempty"`
 }

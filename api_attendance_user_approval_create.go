@@ -23,9 +23,9 @@ import (
 
 // CreateAttendanceUserApproval
 //
-// 由于部分企业使用的是自己的审批系统，而不是飞书审批系统，因此员工的请假、加班等数据无法流入到飞书考勤系统中，导致员工在请假时间段内依然收到打卡提醒，并且被记为缺卡。
-// 对于这些只使用飞书考勤系统，而未使用飞书审批系统的企业，可以通过考勤开放接口的形式，将三方审批结果数据回写到飞书考勤系统中。
-// 目前支持写入加班、请假、出差和外出这四种审批结果，写入只会追加(insert)，不会覆盖(update)
+// 由于部分企业使用的是自己的审批系统, 而不是飞书审批系统, 因此员工的请假、加班等数据无法流入到飞书考勤系统中, 导致员工在请假时间段内依然收到打卡提醒, 并且被记为缺卡。
+// 对于这些只使用飞书考勤系统, 而未使用飞书审批系统的企业, 可以通过考勤开放接口的形式, 将三方审批结果数据回写到飞书考勤系统中。
+// 目前支持写入加班、请假、出差和外出这四种审批结果, 写入只会追加(insert), 不会覆盖(update)
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/user_approval/create
 func (r *AttendanceService) CreateAttendanceUserApproval(ctx context.Context, request *CreateAttendanceUserApprovalReq, options ...MethodOptionFunc) (*CreateAttendanceUserApprovalResp, *Response, error) {
@@ -61,70 +61,63 @@ func (r *Mock) UnMockAttendanceCreateAttendanceUserApproval() {
 
 // CreateAttendanceUserApprovalReq ...
 type CreateAttendanceUserApprovalReq struct {
-	EmployeeType EmployeeType                                 `query:"employee_type" json:"-"` // 请求体和响应体中的 user_id 的员工工号类型, 示例值："employee_id", 可选值有: ,<md-enum>,<md-enum-item key="employee_id" >员工 employee ID，即飞书管理后台 > 组织架构 > 成员与部门 > 成员详情中的用户 ID</md-enum-item>,<md-enum-item key="employee_no" >员工工号，即飞书管理后台 > 组织架构 > 成员与部门 > 成员详情中的工号</md-enum-item>,</md-enum>
+	EmployeeType EmployeeType                                 `query:"employee_type" json:"-"` // 请求体和响应体中的 user_id 的员工工号类型, 示例值: "employee_id", 可选值有: <md-enum>, <md-enum-item key="employee_id" >员工 employee ID, 即飞书管理后台 > 组织架构 > 成员与部门 > 成员详情中的用户 ID</md-enum-item>, <md-enum-item key="employee_no" >员工工号, 即飞书管理后台 > 组织架构 > 成员与部门 > 成员详情中的工号</md-enum-item>, </md-enum>
 	UserApproval *CreateAttendanceUserApprovalReqUserApproval `json:"user_approval,omitempty"` // 审批信息
 }
 
 // CreateAttendanceUserApprovalReqUserApproval ...
 type CreateAttendanceUserApprovalReqUserApproval struct {
-	UserID        string                                                     `json:"user_id,omitempty"`        // 审批用户 ID, 示例值："abd754f7"
-	Date          string                                                     `json:"date,omitempty"`           // 审批作用日期, 示例值："20210104"
+	UserID        string                                                     `json:"user_id,omitempty"`        // 审批用户 ID, 示例值: "abd754f7"
+	Date          string                                                     `json:"date,omitempty"`           // 审批作用日期, 示例值: "20210104"
 	Outs          []*CreateAttendanceUserApprovalReqUserApprovalOut          `json:"outs,omitempty"`           // 外出信息
 	Leaves        []*CreateAttendanceUserApprovalReqUserApprovalLeave        `json:"leaves,omitempty"`         // 请假信息
 	OvertimeWorks []*CreateAttendanceUserApprovalReqUserApprovalOvertimeWork `json:"overtime_works,omitempty"` // 加班信息
 	Trips         []*CreateAttendanceUserApprovalReqUserApprovalTrip         `json:"trips,omitempty"`          // 出差信息
 }
 
-// CreateAttendanceUserApprovalReqUserApprovalOut ...
-type CreateAttendanceUserApprovalReqUserApprovalOut struct {
-	ApprovalID    *string    `json:"approval_id,omitempty"`    // 审批实例 ID, 示例值："6737202939523236113"
-	UniqID        string     `json:"uniq_id,omitempty"`        // 外出类型唯一 ID，代表一种假期类型，长度小于 14, 示例值："9496E43696967658A512969523E89870"
-	Unit          int64      `json:"unit,omitempty"`           // 外出时长单位, 示例值：1, 可选值有: ,<md-enum>,<md-enum-item key="1" >天</md-enum-item>,<md-enum-item key="2" >小时</md-enum-item>,<md-enum-item key="3" >半天</md-enum-item>,<md-enum-item key="4" >半小时</md-enum-item>,</md-enum>
-	Interval      int64      `json:"interval,omitempty"`       // 外出时长（单位：秒）, 示例值：28800
-	StartTime     string     `json:"start_time,omitempty"`     // 开始时间，时间格式为 yyyy-MM-dd HH:mm:ss, 示例值："2021-01-04 09:00:00"
-	EndTime       string     `json:"end_time,omitempty"`       // 结束时间，时间格式为 yyyy-MM-dd HH:mm:ss, 示例值："2021-01-04 19:00:00"
-	I18nNames     *I18nNames `json:"i18n_names,omitempty"`     // 外出多语言展示，格式为 map，key 为 ["ch"、"en"、"ja"]，其中 ch 代表中文、en 代表英语、ja 代表日语
-	DefaultLocale string     `json:"default_locale,omitempty"` // 默认语言类型，由于飞书客户端支持中、英、日三种语言，当用户切换语言时，如果假期名称没有所对应的语言，会使用默认语言的名称, 示例值："ch"
-	Reason        string     `json:"reason,omitempty"`         // 外出理由, 示例值："外出办事"
-}
-
 // CreateAttendanceUserApprovalReqUserApprovalLeave ...
 type CreateAttendanceUserApprovalReqUserApprovalLeave struct {
-	ApprovalID    *string    `json:"approval_id,omitempty"`    // 审批实例 ID, 示例值："6737202939523236113"
-	UniqID        *string    `json:"uniq_id,omitempty"`        // 假期类型唯一 ID，代表一种假期类型，长度小于 14, 示例值："6852582717813440527"
-	Unit          int64      `json:"unit,omitempty"`           // 假期时长单位, 示例值：1, 可选值有: ,<md-enum>,<md-enum-item key="1" >天</md-enum-item>,<md-enum-item key="2" >小时</md-enum-item>,<md-enum-item key="3" >半天</md-enum-item>,<md-enum-item key="4" >半小时</md-enum-item>,</md-enum>
-	Interval      int64      `json:"interval,omitempty"`       // 假期时长（单位：秒），暂未开放提供，待后续提供, 示例值：28800
-	StartTime     string     `json:"start_time,omitempty"`     // 开始时间，时间格式为 yyyy-MM-dd HH:mm:ss, 示例值："2021-01-04 09:00:00"
-	EndTime       string     `json:"end_time,omitempty"`       // 结束时间，时间格式为 yyyy-MM-dd HH:mm:ss, 示例值："2021-01-04 19:00:00"
-	I18nNames     *I18nNames `json:"i18n_names,omitempty"`     // 假期多语言展示，格式为 map，key 为 ["ch"、"en"、"ja"]，其中 ch 代表中文、en 代表英语、ja 代表日语
-	DefaultLocale string     `json:"default_locale,omitempty"` // 默认语言类型，由于飞书客户端支持中、英、日三种语言，当用户切换语言时，如果假期名称没有所对应的语言，会使用默认语言的名称, 示例值："ch", 可选值有: ,<md-enum>,<md-enum-item key="ch" >中文</md-enum-item>,<md-enum-item key="en" >英文</md-enum-item>,<md-enum-item key="ja" >日文</md-enum-item>,</md-enum>
-	Reason        string     `json:"reason,omitempty"`         // 请假理由，必选字段, 示例值："家里有事"
+	ApprovalID    *string    `json:"approval_id,omitempty"`    // 审批实例 ID, 示例值: "6737202939523236113"
+	UniqID        *string    `json:"uniq_id,omitempty"`        // 假期类型唯一 ID, 代表一种假期类型, 长度小于 14, 示例值: "6852582717813440527"
+	Unit          int64      `json:"unit,omitempty"`           // 假期时长单位, 示例值: 1, 可选值有: <md-enum>, <md-enum-item key="1" >天</md-enum-item>, <md-enum-item key="2" >小时</md-enum-item>, <md-enum-item key="3" >半天</md-enum-item>, <md-enum-item key="4" >半小时</md-enum-item>, </md-enum>
+	Interval      int64      `json:"interval,omitempty"`       // 假期时长（单位: 秒）, 暂未开放提供, 待后续提供, 示例值: 28800
+	StartTime     string     `json:"start_time,omitempty"`     // 开始时间, 时间格式为 yyyy-MM-dd HH:mm:ss, 示例值: "2021-01-04 09:00:00"
+	EndTime       string     `json:"end_time,omitempty"`       // 结束时间, 时间格式为 yyyy-MM-dd HH:mm:ss, 示例值: "2021-01-04 19:00:00"
+	I18nNames     *I18nNames `json:"i18n_names,omitempty"`     // 假期多语言展示, 格式为 map, key 为 ["ch"、"en"、"ja"], 其中 ch 代表中文、en 代表英语、ja 代表日语
+	DefaultLocale string     `json:"default_locale,omitempty"` // 默认语言类型, 由于飞书客户端支持中、英、日三种语言, 当用户切换语言时, 如果假期名称没有所对应的语言, 会使用默认语言的名称, 示例值: "ch", 可选值有: <md-enum>, <md-enum-item key="ch" >中文</md-enum-item>, <md-enum-item key="en" >英文</md-enum-item>, <md-enum-item key="ja" >日文</md-enum-item>, </md-enum>
+	Reason        string     `json:"reason,omitempty"`         // 请假理由, 必选字段, 示例值: "家里有事"
+}
+
+// CreateAttendanceUserApprovalReqUserApprovalOut ...
+type CreateAttendanceUserApprovalReqUserApprovalOut struct {
+	ApprovalID    *string    `json:"approval_id,omitempty"`    // 审批实例 ID, 示例值: "6737202939523236113"
+	UniqID        string     `json:"uniq_id,omitempty"`        // 外出类型唯一 ID, 代表一种假期类型, 长度小于 14, 示例值: "9496E43696967658A512969523E89870"
+	Unit          int64      `json:"unit,omitempty"`           // 外出时长单位, 示例值: 1, 可选值有: <md-enum>, <md-enum-item key="1" >天</md-enum-item>, <md-enum-item key="2" >小时</md-enum-item>, <md-enum-item key="3" >半天</md-enum-item>, <md-enum-item key="4" >半小时</md-enum-item>, </md-enum>
+	Interval      int64      `json:"interval,omitempty"`       // 外出时长（单位: 秒）, 示例值: 28800
+	StartTime     string     `json:"start_time,omitempty"`     // 开始时间, 时间格式为 yyyy-MM-dd HH:mm:ss, 示例值: "2021-01-04 09:00:00"
+	EndTime       string     `json:"end_time,omitempty"`       // 结束时间, 时间格式为 yyyy-MM-dd HH:mm:ss, 示例值: "2021-01-04 19:00:00"
+	I18nNames     *I18nNames `json:"i18n_names,omitempty"`     // 外出多语言展示, 格式为 map, key 为 ["ch"、"en"、"ja"], 其中 ch 代表中文、en 代表英语、ja 代表日语
+	DefaultLocale string     `json:"default_locale,omitempty"` // 默认语言类型, 由于飞书客户端支持中、英、日三种语言, 当用户切换语言时, 如果假期名称没有所对应的语言, 会使用默认语言的名称, 示例值: "ch"
+	Reason        string     `json:"reason,omitempty"`         // 外出理由, 示例值: "外出办事"
 }
 
 // CreateAttendanceUserApprovalReqUserApprovalOvertimeWork ...
 type CreateAttendanceUserApprovalReqUserApprovalOvertimeWork struct {
-	ApprovalID *string `json:"approval_id,omitempty"` // 审批实例 ID, 示例值："6737202939523236113"
-	Duration   float64 `json:"duration,omitempty"`    // 加班时长, 示例值：1.5
-	Unit       int64   `json:"unit,omitempty"`        // 加班时长单位, 示例值：1, 可选值有: ,<md-enum>,<md-enum-item key="1" >天</md-enum-item>,<md-enum-item key="2" >小时</md-enum-item>,<md-enum-item key="3" >半天</md-enum-item>,<md-enum-item key="4" >半小时</md-enum-item>,</md-enum>
-	Category   int64   `json:"category,omitempty"`    // 加班日期类型, 示例值：2, 可选值有: ,<md-enum>,<md-enum-item key="1" >工作日</md-enum-item>,<md-enum-item key="2" >休息日</md-enum-item>,<md-enum-item key="3" >节假日</md-enum-item>,</md-enum>
-	Type       int64   `json:"type,omitempty"`        // 加班规则类型, 示例值：1, 可选值有: ,<md-enum>,<md-enum-item key="0" >不关联加班规则</md-enum-item>,<md-enum-item key="1" >调休</md-enum-item>,<md-enum-item key="2" >加班费</md-enum-item>,<md-enum-item key="3" >关联加班规则，没有调休或加班费</md-enum-item>,</md-enum>
-	StartTime  string  `json:"start_time,omitempty"`  // 开始时间，时间格式为 yyyy-MM-dd HH:mm:ss, 示例值："2021-01-09 09:00:00"
-	EndTime    string  `json:"end_time,omitempty"`    // 结束时间，时间格式为 yyyy-MM-dd HH:mm:ss, 示例值："2021-01-10 13:00:00"
+	ApprovalID *string `json:"approval_id,omitempty"` // 审批实例 ID, 示例值: "6737202939523236113"
+	Duration   float64 `json:"duration,omitempty"`    // 加班时长, 示例值: 1.5
+	Unit       int64   `json:"unit,omitempty"`        // 加班时长单位, 示例值: 1, 可选值有: <md-enum>, <md-enum-item key="1" >天</md-enum-item>, <md-enum-item key="2" >小时</md-enum-item>, <md-enum-item key="3" >半天</md-enum-item>, <md-enum-item key="4" >半小时</md-enum-item>, </md-enum>
+	Category   int64   `json:"category,omitempty"`    // 加班日期类型, 示例值: 2, 可选值有: <md-enum>, <md-enum-item key="1" >工作日</md-enum-item>, <md-enum-item key="2" >休息日</md-enum-item>, <md-enum-item key="3" >节假日</md-enum-item>, </md-enum>
+	Type       int64   `json:"type,omitempty"`        // 加班规则类型, 示例值: 1, 可选值有: <md-enum>, <md-enum-item key="0" >不关联加班规则</md-enum-item>, <md-enum-item key="1" >调休</md-enum-item>, <md-enum-item key="2" >加班费</md-enum-item>, <md-enum-item key="3" >关联加班规则, 没有调休或加班费</md-enum-item>, </md-enum>
+	StartTime  string  `json:"start_time,omitempty"`  // 开始时间, 时间格式为 yyyy-MM-dd HH:mm:ss, 示例值: "2021-01-09 09:00:00"
+	EndTime    string  `json:"end_time,omitempty"`    // 结束时间, 时间格式为 yyyy-MM-dd HH:mm:ss, 示例值: "2021-01-10 13:00:00"
 }
 
 // CreateAttendanceUserApprovalReqUserApprovalTrip ...
 type CreateAttendanceUserApprovalReqUserApprovalTrip struct {
-	ApprovalID *string `json:"approval_id,omitempty"` // 审批实例 ID, 示例值："6737202939523236113"
-	StartTime  string  `json:"start_time,omitempty"`  // 开始时间，时间格式为 yyyy-MM-dd HH:mm:ss, 示例值："2021-01-04 09:00:00"
-	EndTime    string  `json:"end_time,omitempty"`    // 结束时间，时间格式为 yyyy-MM-dd HH:mm:ss, 示例值："2021-01-04 19:00:00"
-	Reason     string  `json:"reason,omitempty"`      // 出差理由, 示例值："培训"
-}
-
-// createAttendanceUserApprovalResp ...
-type createAttendanceUserApprovalResp struct {
-	Code int64                             `json:"code,omitempty"` // 错误码，非 0 表示失败
-	Msg  string                            `json:"msg,omitempty"`  // 错误描述
-	Data *CreateAttendanceUserApprovalResp `json:"data,omitempty"`
+	ApprovalID *string `json:"approval_id,omitempty"` // 审批实例 ID, 示例值: "6737202939523236113"
+	StartTime  string  `json:"start_time,omitempty"`  // 开始时间, 时间格式为 yyyy-MM-dd HH:mm:ss, 示例值: "2021-01-04 09:00:00"
+	EndTime    string  `json:"end_time,omitempty"`    // 结束时间, 时间格式为 yyyy-MM-dd HH:mm:ss, 示例值: "2021-01-04 19:00:00"
+	Reason     string  `json:"reason,omitempty"`      // 出差理由, 示例值: "培训"
 }
 
 // CreateAttendanceUserApprovalResp ...
@@ -142,53 +135,60 @@ type CreateAttendanceUserApprovalRespUserApproval struct {
 	Trips         []*CreateAttendanceUserApprovalRespUserApprovalTrip         `json:"trips,omitempty"`          // 出差信息
 }
 
-// CreateAttendanceUserApprovalRespUserApprovalOut ...
-type CreateAttendanceUserApprovalRespUserApprovalOut struct {
-	ApprovalID       string     `json:"approval_id,omitempty"`        // 审批实例 ID
-	UniqID           string     `json:"uniq_id,omitempty"`            // 外出类型唯一 ID，代表一种假期类型，长度小于 14
-	Unit             int64      `json:"unit,omitempty"`               // 外出时长单位, 可选值有: ,<md-enum>,<md-enum-item key="1" >天</md-enum-item>,<md-enum-item key="2" >小时</md-enum-item>,<md-enum-item key="3" >半天</md-enum-item>,<md-enum-item key="4" >半小时</md-enum-item>,</md-enum>
-	Interval         int64      `json:"interval,omitempty"`           // 外出时长（单位：秒）
-	StartTime        string     `json:"start_time,omitempty"`         // 开始时间，时间格式为 yyyy-MM-dd HH:mm:ss
-	EndTime          string     `json:"end_time,omitempty"`           // 结束时间，时间格式为 yyyy-MM-dd HH:mm:ss
-	I18nNames        *I18nNames `json:"i18n_names,omitempty"`         // 外出多语言展示，格式为 map，key 为 ["ch"、"en"、"ja"]，其中 ch 代表中文、en 代表英语、ja 代表日语
-	DefaultLocale    string     `json:"default_locale,omitempty"`     // 默认语言类型，由于飞书客户端支持中、英、日三种语言，当用户切换语言时，如果假期名称没有所对应的语言，会使用默认语言的名称
-	Reason           string     `json:"reason,omitempty"`             // 外出理由
-	ApprovePassTime  string     `json:"approve_pass_time,omitempty"`  // 审批通过时间
-	ApproveApplyTime string     `json:"approve_apply_time,omitempty"` // 审批申请时间
-}
-
 // CreateAttendanceUserApprovalRespUserApprovalLeave ...
 type CreateAttendanceUserApprovalRespUserApprovalLeave struct {
 	ApprovalID       string     `json:"approval_id,omitempty"`        // 审批实例 ID
-	UniqID           string     `json:"uniq_id,omitempty"`            // 假期类型唯一 ID，代表一种假期类型，长度小于 14
-	Unit             int64      `json:"unit,omitempty"`               // 假期时长单位, 可选值有: ,<md-enum>,<md-enum-item key="1" >天</md-enum-item>,<md-enum-item key="2" >小时</md-enum-item>,<md-enum-item key="3" >半天</md-enum-item>,<md-enum-item key="4" >半小时</md-enum-item>,</md-enum>
-	Interval         int64      `json:"interval,omitempty"`           // 假期时长（单位：秒），暂未开放提供，待后续提供
-	StartTime        string     `json:"start_time,omitempty"`         // 开始时间，时间格式为 yyyy-MM-dd HH:mm:ss
-	EndTime          string     `json:"end_time,omitempty"`           // 结束时间，时间格式为 yyyy-MM-dd HH:mm:ss
-	I18nNames        *I18nNames `json:"i18n_names,omitempty"`         // 假期多语言展示，格式为 map，key 为 ["ch"、"en"、"ja"]，其中 ch 代表中文、en 代表英语、ja 代表日语
-	DefaultLocale    string     `json:"default_locale,omitempty"`     // 默认语言类型，由于飞书客户端支持中、英、日三种语言，当用户切换语言时，如果假期名称没有所对应的语言，会使用默认语言的名称, 可选值有: ,<md-enum>,<md-enum-item key="ch" >中文</md-enum-item>,<md-enum-item key="en" >英文</md-enum-item>,<md-enum-item key="ja" >日文</md-enum-item>,</md-enum>
-	Reason           string     `json:"reason,omitempty"`             // 请假理由，必选字段
-	ApprovePassTime  string     `json:"approve_pass_time,omitempty"`  // 审批通过时间，时间格式为 yyyy-MM-dd HH:mm:ss
-	ApproveApplyTime string     `json:"approve_apply_time,omitempty"` // 审批申请时间，时间格式为 yyyy-MM-dd HH:mm:ss
+	UniqID           string     `json:"uniq_id,omitempty"`            // 假期类型唯一 ID, 代表一种假期类型, 长度小于 14
+	Unit             int64      `json:"unit,omitempty"`               // 假期时长单位, 可选值有: <md-enum>, <md-enum-item key="1" >天</md-enum-item>, <md-enum-item key="2" >小时</md-enum-item>, <md-enum-item key="3" >半天</md-enum-item>, <md-enum-item key="4" >半小时</md-enum-item>, </md-enum>
+	Interval         int64      `json:"interval,omitempty"`           // 假期时长（单位: 秒）, 暂未开放提供, 待后续提供
+	StartTime        string     `json:"start_time,omitempty"`         // 开始时间, 时间格式为 yyyy-MM-dd HH:mm:ss
+	EndTime          string     `json:"end_time,omitempty"`           // 结束时间, 时间格式为 yyyy-MM-dd HH:mm:ss
+	I18nNames        *I18nNames `json:"i18n_names,omitempty"`         // 假期多语言展示, 格式为 map, key 为 ["ch"、"en"、"ja"], 其中 ch 代表中文、en 代表英语、ja 代表日语
+	DefaultLocale    string     `json:"default_locale,omitempty"`     // 默认语言类型, 由于飞书客户端支持中、英、日三种语言, 当用户切换语言时, 如果假期名称没有所对应的语言, 会使用默认语言的名称, 可选值有: <md-enum>, <md-enum-item key="ch" >中文</md-enum-item>, <md-enum-item key="en" >英文</md-enum-item>, <md-enum-item key="ja" >日文</md-enum-item>, </md-enum>
+	Reason           string     `json:"reason,omitempty"`             // 请假理由, 必选字段
+	ApprovePassTime  string     `json:"approve_pass_time,omitempty"`  // 审批通过时间, 时间格式为 yyyy-MM-dd HH:mm:ss
+	ApproveApplyTime string     `json:"approve_apply_time,omitempty"` // 审批申请时间, 时间格式为 yyyy-MM-dd HH:mm:ss
+}
+
+// CreateAttendanceUserApprovalRespUserApprovalOut ...
+type CreateAttendanceUserApprovalRespUserApprovalOut struct {
+	ApprovalID       string     `json:"approval_id,omitempty"`        // 审批实例 ID
+	UniqID           string     `json:"uniq_id,omitempty"`            // 外出类型唯一 ID, 代表一种假期类型, 长度小于 14
+	Unit             int64      `json:"unit,omitempty"`               // 外出时长单位, 可选值有: <md-enum>, <md-enum-item key="1" >天</md-enum-item>, <md-enum-item key="2" >小时</md-enum-item>, <md-enum-item key="3" >半天</md-enum-item>, <md-enum-item key="4" >半小时</md-enum-item>, </md-enum>
+	Interval         int64      `json:"interval,omitempty"`           // 外出时长（单位: 秒）
+	StartTime        string     `json:"start_time,omitempty"`         // 开始时间, 时间格式为 yyyy-MM-dd HH:mm:ss
+	EndTime          string     `json:"end_time,omitempty"`           // 结束时间, 时间格式为 yyyy-MM-dd HH:mm:ss
+	I18nNames        *I18nNames `json:"i18n_names,omitempty"`         // 外出多语言展示, 格式为 map, key 为 ["ch"、"en"、"ja"], 其中 ch 代表中文、en 代表英语、ja 代表日语
+	DefaultLocale    string     `json:"default_locale,omitempty"`     // 默认语言类型, 由于飞书客户端支持中、英、日三种语言, 当用户切换语言时, 如果假期名称没有所对应的语言, 会使用默认语言的名称
+	Reason           string     `json:"reason,omitempty"`             // 外出理由
+	ApprovePassTime  string     `json:"approve_pass_time,omitempty"`  // 审批通过时间
+	ApproveApplyTime string     `json:"approve_apply_time,omitempty"` // 审批申请时间
 }
 
 // CreateAttendanceUserApprovalRespUserApprovalOvertimeWork ...
 type CreateAttendanceUserApprovalRespUserApprovalOvertimeWork struct {
 	ApprovalID string  `json:"approval_id,omitempty"` // 审批实例 ID
 	Duration   float64 `json:"duration,omitempty"`    // 加班时长
-	Unit       int64   `json:"unit,omitempty"`        // 加班时长单位, 可选值有: ,<md-enum>,<md-enum-item key="1" >天</md-enum-item>,<md-enum-item key="2" >小时</md-enum-item>,<md-enum-item key="3" >半天</md-enum-item>,<md-enum-item key="4" >半小时</md-enum-item>,</md-enum>
-	Category   int64   `json:"category,omitempty"`    // 加班日期类型, 可选值有: ,<md-enum>,<md-enum-item key="1" >工作日</md-enum-item>,<md-enum-item key="2" >休息日</md-enum-item>,<md-enum-item key="3" >节假日</md-enum-item>,</md-enum>
-	Type       int64   `json:"type,omitempty"`        // 加班规则类型, 可选值有: ,<md-enum>,<md-enum-item key="0" >不关联加班规则</md-enum-item>,<md-enum-item key="1" >调休</md-enum-item>,<md-enum-item key="2" >加班费</md-enum-item>,<md-enum-item key="3" >关联加班规则，没有调休或加班费</md-enum-item>,</md-enum>
-	StartTime  string  `json:"start_time,omitempty"`  // 开始时间，时间格式为 yyyy-MM-dd HH:mm:ss
-	EndTime    string  `json:"end_time,omitempty"`    // 结束时间，时间格式为 yyyy-MM-dd HH:mm:ss
+	Unit       int64   `json:"unit,omitempty"`        // 加班时长单位, 可选值有: <md-enum>, <md-enum-item key="1" >天</md-enum-item>, <md-enum-item key="2" >小时</md-enum-item>, <md-enum-item key="3" >半天</md-enum-item>, <md-enum-item key="4" >半小时</md-enum-item>, </md-enum>
+	Category   int64   `json:"category,omitempty"`    // 加班日期类型, 可选值有: <md-enum>, <md-enum-item key="1" >工作日</md-enum-item>, <md-enum-item key="2" >休息日</md-enum-item>, <md-enum-item key="3" >节假日</md-enum-item>, </md-enum>
+	Type       int64   `json:"type,omitempty"`        // 加班规则类型, 可选值有: <md-enum>, <md-enum-item key="0" >不关联加班规则</md-enum-item>, <md-enum-item key="1" >调休</md-enum-item>, <md-enum-item key="2" >加班费</md-enum-item>, <md-enum-item key="3" >关联加班规则, 没有调休或加班费</md-enum-item>, </md-enum>
+	StartTime  string  `json:"start_time,omitempty"`  // 开始时间, 时间格式为 yyyy-MM-dd HH:mm:ss
+	EndTime    string  `json:"end_time,omitempty"`    // 结束时间, 时间格式为 yyyy-MM-dd HH:mm:ss
 }
 
 // CreateAttendanceUserApprovalRespUserApprovalTrip ...
 type CreateAttendanceUserApprovalRespUserApprovalTrip struct {
 	ApprovalID       string `json:"approval_id,omitempty"`        // 审批实例 ID
-	StartTime        string `json:"start_time,omitempty"`         // 开始时间，时间格式为 yyyy-MM-dd HH:mm:ss
-	EndTime          string `json:"end_time,omitempty"`           // 结束时间，时间格式为 yyyy-MM-dd HH:mm:ss
+	StartTime        string `json:"start_time,omitempty"`         // 开始时间, 时间格式为 yyyy-MM-dd HH:mm:ss
+	EndTime          string `json:"end_time,omitempty"`           // 结束时间, 时间格式为 yyyy-MM-dd HH:mm:ss
 	Reason           string `json:"reason,omitempty"`             // 出差理由
-	ApprovePassTime  string `json:"approve_pass_time,omitempty"`  // 审批通过时间，时间格式为 yyyy-MM-dd HH:mm:ss
-	ApproveApplyTime string `json:"approve_apply_time,omitempty"` // 审批申请时间，时间格式为 yyyy-MM-dd HH:mm:ss
+	ApprovePassTime  string `json:"approve_pass_time,omitempty"`  // 审批通过时间, 时间格式为 yyyy-MM-dd HH:mm:ss
+	ApproveApplyTime string `json:"approve_apply_time,omitempty"` // 审批申请时间, 时间格式为 yyyy-MM-dd HH:mm:ss
+}
+
+// createAttendanceUserApprovalResp ...
+type createAttendanceUserApprovalResp struct {
+	Code int64                             `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg  string                            `json:"msg,omitempty"`  // 错误描述
+	Data *CreateAttendanceUserApprovalResp `json:"data,omitempty"`
 }

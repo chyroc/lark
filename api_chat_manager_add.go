@@ -23,11 +23,11 @@ import (
 
 // CreateChatManager 将用户或机器人指定为群管理员。
 //
-// 注意事项：
+// 注意事项:
 // - 应用需要开启[机器人能力](https://open.feishu.cn/document/home/develop-a-bot-in-5-minutes/create-an-app)
 // - 仅有群主可以指定群管理员
-// - 对于普通群，最多指定 10 个管理员
-// - 对于超大群，最多指定 20 个管理员
+// - 对于普通群, 最多指定 10 个管理员
+// - 对于超大群, 最多指定 20 个管理员
 // - 每次请求最多指定 50 个用户或者 5 个机器人
 // - 指定机器人类型的管理员请使用 [app_id]
 //
@@ -66,20 +66,20 @@ func (r *Mock) UnMockChatCreateChatManager() {
 
 // CreateChatManagerReq ...
 type CreateChatManagerReq struct {
-	MemberIDType *IDType  `query:"member_id_type" json:"-"` // 群成员 id 类型 open_id/user_id/union_id/app_id, 示例值："open_id", 可选值有: `user_id`：以 user_id 来识别成员，需要有获取用户 UserID 的权限 ([什么是 User ID？](https://open.feishu.cn/document/home/user-identity-introduction/user-id)), `union_id`：以 union_id 来识别成员([什么是 Union ID？](https://open.feishu.cn/document/home/user-identity-introduction/union-id)), `open_id`：以 open_id 来识别成员([什么是 Open ID？](https://open.feishu.cn/document/home/user-identity-introduction/open-id)), `app_id`：以 app_id 来识别成员([获取应用身份访问凭证](https://open.feishu.cn/document/ukTMukTMukTM/ukDNz4SO0MjL5QzM/g))
-	ChatID       string   `path:"chat_id" json:"-"`         // 群 ID，详情参见[群ID 说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-id-description), 示例值："oc_a0553eda9014c201e6969b478895c230"
-	ManagerIDs   []string `json:"manager_ids,omitempty"`    // 要增加的 manager_id, 示例值：["ou_9204a37300b3700d61effaa439f34295"], 最大长度：`50`
-}
-
-// createChatManagerResp ...
-type createChatManagerResp struct {
-	Code int64                  `json:"code,omitempty"` // 错误码，非 0 表示失败
-	Msg  string                 `json:"msg,omitempty"`  // 错误描述
-	Data *CreateChatManagerResp `json:"data,omitempty"`
+	ChatID       string   `path:"chat_id" json:"-"`         // 群 ID, 详情参见[群ID 说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-id-description), 示例值: "oc_a0553eda9014c201e6969b478895c230"
+	MemberIDType *IDType  `query:"member_id_type" json:"-"` // 群成员 id 类型 open_id/user_id/union_id/app_id, 示例值: "open_id", 可选值有: `user_id`: 以 user_id 来识别成员, 需要有获取用户 UserID 的权限 ([什么是 User ID？](https://open.feishu.cn/document/home/user-identity-introduction/user-id)), `union_id`: 以 union_id 来识别成员([什么是 Union ID？](https://open.feishu.cn/document/home/user-identity-introduction/union-id)), `open_id`: 以 open_id 来识别成员([什么是 Open ID？](https://open.feishu.cn/document/home/user-identity-introduction/open-id)), `app_id`: 以 app_id 来识别成员([获取应用身份访问凭证](https://open.feishu.cn/document/ukTMukTMukTM/ukDNz4SO0MjL5QzM/g))
+	ManagerIDs   []string `json:"manager_ids,omitempty"`    // 要增加的 manager_id, 示例值: ["ou_9204a37300b3700d61effaa439f34295"], 最大长度: `50`
 }
 
 // CreateChatManagerResp ...
 type CreateChatManagerResp struct {
 	ChatManagers    []string `json:"chat_managers,omitempty"`     // 群目前用户类型的管理员 id
 	ChatBotManagers []string `json:"chat_bot_managers,omitempty"` // 群目前机器人类型的管理员 id
+}
+
+// createChatManagerResp ...
+type createChatManagerResp struct {
+	Code int64                  `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg  string                 `json:"msg,omitempty"`  // 错误描述
+	Data *CreateChatManagerResp `json:"data,omitempty"`
 }

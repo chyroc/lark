@@ -60,17 +60,10 @@ func (r *Mock) UnMockDriveGetSheetFilterViewCondition() {
 
 // GetSheetFilterViewConditionReq ...
 type GetSheetFilterViewConditionReq struct {
-	SpreadSheetToken string `path:"spreadsheet_token" json:"-"` // 表格 token, 示例值："shtcnmBA*****yGehy8"
-	SheetID          string `path:"sheet_id" json:"-"`          // 子表 id, 示例值："0b**12"
-	FilterViewID     string `path:"filter_view_id" json:"-"`    // 筛选视图 id, 示例值："pH9hbVcCXA"
-	ConditionID      string `path:"condition_id" json:"-"`      // 需要查询筛选条件的列字母号, 示例值："E"
-}
-
-// getSheetFilterViewConditionResp ...
-type getSheetFilterViewConditionResp struct {
-	Code int64                            `json:"code,omitempty"` // 错误码，非 0 表示失败
-	Msg  string                           `json:"msg,omitempty"`  // 错误描述
-	Data *GetSheetFilterViewConditionResp `json:"data,omitempty"`
+	SpreadSheetToken string `path:"spreadsheet_token" json:"-"` // 表格 token, 示例值: "shtcnmBA*yGehy8"
+	SheetID          string `path:"sheet_id" json:"-"`          // 子表 id, 示例值: "0b**12"
+	FilterViewID     string `path:"filter_view_id" json:"-"`    // 筛选视图 id, 示例值: "pH9hbVcCXA"
+	ConditionID      string `path:"condition_id" json:"-"`      // 需要查询筛选条件的列字母号, 示例值: "E"
 }
 
 // GetSheetFilterViewConditionResp ...
@@ -80,8 +73,15 @@ type GetSheetFilterViewConditionResp struct {
 
 // GetSheetFilterViewConditionRespCondition ...
 type GetSheetFilterViewConditionRespCondition struct {
-	ConditionID string   `json:"condition_id,omitempty"` // 设置筛选条件的列，使用字母号
+	ConditionID string   `json:"condition_id,omitempty"` // 设置筛选条件的列, 使用字母号
 	FilterType  string   `json:"filter_type,omitempty"`  // 筛选类型
 	CompareType string   `json:"compare_type,omitempty"` // 比较类型
 	Expected    []string `json:"expected,omitempty"`     // 筛选参数
+}
+
+// getSheetFilterViewConditionResp ...
+type getSheetFilterViewConditionResp struct {
+	Code int64                            `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg  string                           `json:"msg,omitempty"`  // 错误描述
+	Data *GetSheetFilterViewConditionResp `json:"data,omitempty"`
 }

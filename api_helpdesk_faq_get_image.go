@@ -59,8 +59,13 @@ func (r *Mock) UnMockHelpdeskGetHelpdeskFAQImage() {
 
 // GetHelpdeskFAQImageReq ...
 type GetHelpdeskFAQImageReq struct {
-	ID       string `path:"id" json:"-"`        // 知识库ID, 示例值："12345"
-	ImageKey string `path:"image_key" json:"-"` // 图像key, 示例值："img_b07ffac0-19c1-48a3-afca-599f8ea825fj"
+	ID       string `path:"id" json:"-"`        // 知识库ID, 示例值: "12345"
+	ImageKey string `path:"image_key" json:"-"` // 图像key, 示例值: "img_b07ffac0-19c1-48a3-afca-599f8ea825fj"
+}
+
+// GetHelpdeskFAQImageResp ...
+type GetHelpdeskFAQImageResp struct {
+	File io.Reader `json:"file,omitempty"`
 }
 
 // getHelpdeskFAQImageResp ...
@@ -76,9 +81,4 @@ func (r *getHelpdeskFAQImageResp) SetReader(file io.Reader) {
 		r.Data = &GetHelpdeskFAQImageResp{}
 	}
 	r.Data.File = file
-}
-
-// GetHelpdeskFAQImageResp ...
-type GetHelpdeskFAQImageResp struct {
-	File io.Reader `json:"file,omitempty"`
 }

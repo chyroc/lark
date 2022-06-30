@@ -58,9 +58,14 @@ func (r *Mock) UnMockDriveCheckDriveMemberPermission() {
 
 // CheckDriveMemberPermissionReq ...
 type CheckDriveMemberPermissionReq struct {
-	Token string `json:"token,omitempty"` // 文件的 token，获取方式见 [如何获取云文档资源相关 token](https://open.feishu.cn/document/ukTMukTMukTM/uczNzUjL3czM14yN3MTN#08bb5df6)
-	Type  string `json:"type,omitempty"`  // 文档类型，可选 **doc、docx、sheet、bitable、file**
-	Perm  string `json:"perm,omitempty"`  // 权限，"view" or "edit" or "share"
+	Token string `json:"token,omitempty"` // 文件的 token, 获取方式见 [如何获取云文档资源相关 token](https://open.feishu.cn/document/ukTMukTMukTM/uczNzUjL3czM14yN3MTN#08bb5df6)
+	Type  string `json:"type,omitempty"`  // 文档类型, 可选 doc、docx、sheet、bitable、file
+	Perm  string `json:"perm,omitempty"`  // 权限, "view" or "edit" or "share"
+}
+
+// CheckDriveMemberPermissionResp ...
+type CheckDriveMemberPermissionResp struct {
+	IsPermitted bool `json:"is_permitted,omitempty"` // 是否具有指定权限
 }
 
 // checkDriveMemberPermissionResp ...
@@ -68,9 +73,4 @@ type checkDriveMemberPermissionResp struct {
 	Code int64                           `json:"code,omitempty"`
 	Msg  string                          `json:"msg,omitempty"`
 	Data *CheckDriveMemberPermissionResp `json:"data,omitempty"`
-}
-
-// CheckDriveMemberPermissionResp ...
-type CheckDriveMemberPermissionResp struct {
-	IsPermitted bool `json:"is_permitted,omitempty"` // 是否具有指定权限
 }

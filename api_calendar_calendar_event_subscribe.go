@@ -23,7 +23,7 @@ import (
 
 // SubscribeCalendarEvent 该接口用于以用户身份订阅指定日历下的日程变更事件。
 //
-// 当前身份必须对日历有reader、writer或owner权限（调用[获取日历](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar/get)接口，role字段可查看权限）。
+// 当前身份必须对日历有reader、writer或owner权限（调用[获取日历](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar/get)接口, role字段可查看权限）。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar-event/subscription
 func (r *CalendarService) SubscribeCalendarEvent(ctx context.Context, request *SubscribeCalendarEventReq, options ...MethodOptionFunc) (*SubscribeCalendarEventResp, *Response, error) {
@@ -59,16 +59,16 @@ func (r *Mock) UnMockCalendarSubscribeCalendarEvent() {
 
 // SubscribeCalendarEventReq ...
 type SubscribeCalendarEventReq struct {
-	CalendarID string `path:"calendar_id" json:"-"` // 日历ID。参见[日历ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar/introduction), 示例值："feishu.cn_xxxxxxxxxx@group.calendar.feishu.cn"
-}
-
-// subscribeCalendarEventResp ...
-type subscribeCalendarEventResp struct {
-	Code int64                       `json:"code,omitempty"` // 错误码，非 0 表示失败
-	Msg  string                      `json:"msg,omitempty"`  // 错误描述
-	Data *SubscribeCalendarEventResp `json:"data,omitempty"`
+	CalendarID string `path:"calendar_id" json:"-"` // 日历ID。参见[日历ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar/introduction), 示例值: "feishu.cn_xxxxxxxxxx@group.calendar.feishu.cn"
 }
 
 // SubscribeCalendarEventResp ...
 type SubscribeCalendarEventResp struct {
+}
+
+// subscribeCalendarEventResp ...
+type subscribeCalendarEventResp struct {
+	Code int64                       `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg  string                      `json:"msg,omitempty"`  // 错误描述
+	Data *SubscribeCalendarEventResp `json:"data,omitempty"`
 }

@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// DeleteContactGroup 通过该接口可删除企业中的用户组，请注意删除用户组时应用的通讯录权限范围需为“全部员工”，否则会删除失败，[点击了解通讯录权限范围](https://open.feishu.cn/document/ukTMukTMukTM/uETNz4SM1MjLxUzM/v3/guides/scope_authority)。
+// DeleteContactGroup 通过该接口可删除企业中的用户组, 请注意删除用户组时应用的通讯录权限范围需为“全部员工”, 否则会删除失败, [点击了解通讯录权限范围](https://open.feishu.cn/document/ukTMukTMukTM/uETNz4SM1MjLxUzM/v3/guides/scope_authority)。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/group/delete
 func (r *ContactService) DeleteContactGroup(ctx context.Context, request *DeleteContactGroupReq, options ...MethodOptionFunc) (*DeleteContactGroupResp, *Response, error) {
@@ -57,16 +57,16 @@ func (r *Mock) UnMockContactDeleteContactGroup() {
 
 // DeleteContactGroupReq ...
 type DeleteContactGroupReq struct {
-	GroupID string `path:"group_id" json:"-"` // 需删除的用户组ID, 示例值："g1837191"
-}
-
-// deleteContactGroupResp ...
-type deleteContactGroupResp struct {
-	Code int64                   `json:"code,omitempty"` // 错误码，非 0 表示失败
-	Msg  string                  `json:"msg,omitempty"`  // 错误描述
-	Data *DeleteContactGroupResp `json:"data,omitempty"`
+	GroupID string `path:"group_id" json:"-"` // 需删除的用户组ID, 示例值: "g1837191"
 }
 
 // DeleteContactGroupResp ...
 type DeleteContactGroupResp struct {
+}
+
+// deleteContactGroupResp ...
+type deleteContactGroupResp struct {
+	Code int64                   `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg  string                  `json:"msg,omitempty"`  // 错误描述
+	Data *DeleteContactGroupResp `json:"data,omitempty"`
 }

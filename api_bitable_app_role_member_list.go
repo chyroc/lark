@@ -58,24 +58,17 @@ func (r *Mock) UnMockBitableGetBitableAppRoleMemberList() {
 
 // GetBitableAppRoleMemberListReq ...
 type GetBitableAppRoleMemberListReq struct {
-	PageSize  *int64  `query:"page_size" json:"-"`  // 分页大小, 示例值：100, 最大值：`100`
-	PageToken *string `query:"page_token" json:"-"` // 分页标记，第一次请求不填，表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token，下次遍历可采用该 page_token 获取查询结果, 示例值："xxxxx"
-	AppToken  string  `path:"app_token" json:"-"`   // bitable app token, 示例值："appbcbWCzen6D8dezhoCH2RpMAh"
-	RoleID    string  `path:"role_id" json:"-"`     // 自定义权限的id, 示例值："roljRpwIUt"
-}
-
-// getBitableAppRoleMemberListResp ...
-type getBitableAppRoleMemberListResp struct {
-	Code int64                            `json:"code,omitempty"` // 错误码，非 0 表示失败
-	Msg  string                           `json:"msg,omitempty"`  // 错误描述
-	Data *GetBitableAppRoleMemberListResp `json:"data,omitempty"`
+	AppToken  string  `path:"app_token" json:"-"`   // bitable app token, 示例值: "appbcbWCzen6D8dezhoCH2RpMAh"
+	RoleID    string  `path:"role_id" json:"-"`     // 自定义权限的id, 示例值: "roljRpwIUt"
+	PageSize  *int64  `query:"page_size" json:"-"`  // 分页大小, 示例值: 100, 最大值: `100`
+	PageToken *string `query:"page_token" json:"-"` // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果, 示例值: "xxxxx"
 }
 
 // GetBitableAppRoleMemberListResp ...
 type GetBitableAppRoleMemberListResp struct {
 	Items     []*GetBitableAppRoleMemberListRespItem `json:"items,omitempty"`      // 协作者列表
 	HasMore   bool                                   `json:"has_more,omitempty"`   // 是否还有更多项
-	PageToken string                                 `json:"page_token,omitempty"` // 分页标记，当 has_more 为 true 时，会同时返回新的 page_token，否则不返回 page_token
+	PageToken string                                 `json:"page_token,omitempty"` // 分页标记, 当 has_more 为 true 时, 会同时返回新的 page_token, 否则不返回 page_token
 	Total     int64                                  `json:"total,omitempty"`      // 总数
 }
 
@@ -89,5 +82,12 @@ type GetBitableAppRoleMemberListRespItem struct {
 	OpenDepartmentID string `json:"open_department_id,omitempty"` // 部门的 open_department_id
 	MemberName       string `json:"member_name,omitempty"`        // 协作者名字
 	MemberEnName     string `json:"member_en_name,omitempty"`     // 协作者英文名
-	MemberType       string `json:"member_type,omitempty"`        // 协作者类型, 可选值有: `user`：用户, `chat`：群组, `department`：部门
+	MemberType       string `json:"member_type,omitempty"`        // 协作者类型, 可选值有: `user`: 用户, `chat`: 群组, `department`: 部门
+}
+
+// getBitableAppRoleMemberListResp ...
+type getBitableAppRoleMemberListResp struct {
+	Code int64                            `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg  string                           `json:"msg,omitempty"`  // 错误描述
+	Data *GetBitableAppRoleMemberListResp `json:"data,omitempty"`
 }

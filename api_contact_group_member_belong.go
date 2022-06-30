@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// GetContactMemberGroupList 通过该接口可查询该用户所属的用户组列表，可分别查询普通用户组和动态用户组。如果应用的通讯录权限范围是“全部员工”，则可获取该员工所属的全部用户组列表。如果应用的通讯录权限范围不是“全部员工”，则仅可获取通讯录权限范围内该员工所属的用户组。[点击了解通讯录权限范围](https://open.feishu.cn/document/ukTMukTMukTM/uETNz4SM1MjLxUzM/v3/guides/scope_authority)。
+// GetContactMemberGroupList 通过该接口可查询该用户所属的用户组列表, 可分别查询普通用户组和动态用户组。如果应用的通讯录权限范围是“全部员工”, 则可获取该员工所属的全部用户组列表。如果应用的通讯录权限范围不是“全部员工”, 则仅可获取通讯录权限范围内该员工所属的用户组。[点击了解通讯录权限范围](https://open.feishu.cn/document/ukTMukTMukTM/uETNz4SM1MjLxUzM/v3/guides/scope_authority)。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/group/member_belong
 func (r *ContactService) GetContactMemberGroupList(ctx context.Context, request *GetContactMemberGroupListReq, options ...MethodOptionFunc) (*GetContactMemberGroupListResp, *Response, error) {
@@ -57,18 +57,11 @@ func (r *Mock) UnMockContactGetContactMemberGroupList() {
 
 // GetContactMemberGroupListReq ...
 type GetContactMemberGroupListReq struct {
-	MemberID     string  `query:"member_id" json:"-"`      // 成员ID, 示例值："u287xj12"
-	MemberIDType *IDType `query:"member_id_type" json:"-"` // 成员ID类型, 示例值："open_id", 可选值有: ,<md-enum>,<md-enum-item key="open_id" >member_id_type为user时，表示用户的open_id</md-enum-item>,<md-enum-item key="union_id" >member_id_type为user时，表示用户的union_id</md-enum-item>,<md-enum-item key="user_id" >member_id_type为user时，表示用户的user_id</md-enum-item>,</md-enum>, 默认值: `open_id`
-	GroupType    *int64  `query:"group_type" json:"-"`     // 欲获取的用户组类型, 示例值：1, 可选值有: ,<md-enum>,<md-enum-item key="1" >普通用户组</md-enum-item>,<md-enum-item key="2" >动态用户组</md-enum-item>,</md-enum>, 取值范围：`1` ～ `2`
-	PageSize     *int64  `query:"page_size" json:"-"`      // 分页查询大小, 示例值：500, 默认值: `500`, 取值范围：`1` ～ `1000`
-	PageToken    *string `query:"page_token" json:"-"`     // 分页查询Token, 示例值："AQD9/Rn9eij9Pm39ED40/dk53s4Ebp882DYfFaPFbz00L4CMZJrqGdzNyc8BcZtDbwVUvRmQTvyMYicnGWrde9X56TgdBuS+JKiSIkdexPw="
-}
-
-// getContactMemberGroupListResp ...
-type getContactMemberGroupListResp struct {
-	Code int64                          `json:"code,omitempty"` // 错误码，非 0 表示失败
-	Msg  string                         `json:"msg,omitempty"`  // 错误描述
-	Data *GetContactMemberGroupListResp `json:"data,omitempty"`
+	MemberID     string  `query:"member_id" json:"-"`      // 成员ID, 示例值: "u287xj12"
+	MemberIDType *IDType `query:"member_id_type" json:"-"` // 成员ID类型, 示例值: "open_id", 可选值有: <md-enum>, <md-enum-item key="open_id" >member_id_type为user时, 表示用户的open_id</md-enum-item>, <md-enum-item key="union_id" >member_id_type为user时, 表示用户的union_id</md-enum-item>, <md-enum-item key="user_id" >member_id_type为user时, 表示用户的user_id</md-enum-item>, </md-enum>, 默认值: `open_id`
+	GroupType    *int64  `query:"group_type" json:"-"`     // 欲获取的用户组类型, 示例值: 1, 可选值有: <md-enum>, <md-enum-item key="1" >普通用户组</md-enum-item>, <md-enum-item key="2" >动态用户组</md-enum-item>, </md-enum>, 取值范围: `1` ～ `2`
+	PageSize     *int64  `query:"page_size" json:"-"`      // 分页查询大小, 示例值: 500, 默认值: `500`, 取值范围: `1` ～ `1000`
+	PageToken    *string `query:"page_token" json:"-"`     // 分页查询Token, 示例值: "AQD9/Rn9eij9Pm39ED40/dk53s4Ebp882DYfFaPFbz00L4CMZJrqGdzNyc8BcZtDbwVUvRmQTvyMYicnGWrde9X56TgdBuS+JKiSIkdexPw="
 }
 
 // GetContactMemberGroupListResp ...
@@ -76,4 +69,11 @@ type GetContactMemberGroupListResp struct {
 	GroupList []string `json:"group_list,omitempty"` // 用户组ID列表
 	PageToken string   `json:"page_token,omitempty"` // 分页查询Token
 	HasMore   bool     `json:"has_more,omitempty"`   // 是否有更多结果
+}
+
+// getContactMemberGroupListResp ...
+type getContactMemberGroupListResp struct {
+	Code int64                          `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg  string                         `json:"msg,omitempty"`  // 错误描述
+	Data *GetContactMemberGroupListResp `json:"data,omitempty"`
 }

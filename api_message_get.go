@@ -61,34 +61,34 @@ func (r *Mock) UnMockMessageGetMessage() {
 
 // GetMessageReq ...
 type GetMessageReq struct {
-	MessageID string `path:"message_id" json:"-"` // 待获取消息内容的消息的ID, 示例值："om_dc13264520392913993dd051dba21dcf"
-}
-
-// getMessageResp ...
-type getMessageResp struct {
-	Code int64           `json:"code,omitempty"` // 错误码，非 0 表示失败
-	Msg  string          `json:"msg,omitempty"`  // 错误描述
-	Data *GetMessageResp `json:"data,omitempty"`
+	MessageID string `path:"message_id" json:"-"` // 待获取消息内容的消息的ID, 示例值: "om_dc13264520392913993dd051dba21dcf"
 }
 
 // GetMessageResp ...
 type GetMessageResp struct {
-	Items []*GetMessageRespItem `json:"items,omitempty"` // -
+	Items []*GetMessageRespItem `json:"items,omitempty"`
 }
 
 // GetMessageRespItem ...
 type GetMessageRespItem struct {
-	MessageID      string       `json:"message_id,omitempty"`       // 消息id，说明参见：[消息ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/intro#ac79c1c2)
-	RootID         string       `json:"root_id,omitempty"`          // 根消息id，说明参见：[消息ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/intro#ac79c1c2)
-	ParentID       string       `json:"parent_id,omitempty"`        // 父消息的id，说明参见：[消息ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/intro#ac79c1c2)
-	MsgType        MsgType      `json:"msg_type,omitempty"`         // 消息类型 包括：text、post、image、file、audio、media、sticker、interactive、share_chat、share_user等，类型定义请参考[发送消息content说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/im-v1/message/create_json)
+	MessageID      string       `json:"message_id,omitempty"`       // 消息id, 说明参见: [消息ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/intro#ac79c1c2)
+	RootID         string       `json:"root_id,omitempty"`          // 根消息id, 说明参见: [消息ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/intro#ac79c1c2)
+	ParentID       string       `json:"parent_id,omitempty"`        // 父消息的id, 说明参见: [消息ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/intro#ac79c1c2)
+	MsgType        MsgType      `json:"msg_type,omitempty"`         // 消息类型 包括: text、post、image、file、audio、media、sticker、interactive、share_chat、share_user等, 类型定义请参考[发送消息content说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/im-v1/message/create_json)
 	CreateTime     string       `json:"create_time,omitempty"`      // 消息生成的时间戳（毫秒）
 	UpdateTime     string       `json:"update_time,omitempty"`      // 消息更新的时间戳（毫秒）
 	Deleted        bool         `json:"deleted,omitempty"`          // 消息是否被撤回
 	Updated        bool         `json:"updated,omitempty"`          // 消息是否被更新
 	ChatID         string       `json:"chat_id,omitempty"`          // 所属的群
-	Sender         *Sender      `json:"sender,omitempty"`           // 发送者，可以是用户或应用
+	Sender         *Sender      `json:"sender,omitempty"`           // 发送者, 可以是用户或应用
 	Body           *MessageBody `json:"body,omitempty"`             // 消息内容
 	Mentions       []*Mention   `json:"mentions,omitempty"`         // 被@的用户或机器人的id列表
-	UpperMessageID string       `json:"upper_message_id,omitempty"` // 合并转发消息中，上一层级的消息id message_id，说明参见：[消息ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/intro#ac79c1c2)
+	UpperMessageID string       `json:"upper_message_id,omitempty"` // 合并转发消息中, 上一层级的消息id message_id, 说明参见: [消息ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/intro#ac79c1c2)
+}
+
+// getMessageResp ...
+type getMessageResp struct {
+	Code int64           `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg  string          `json:"msg,omitempty"`  // 错误描述
+	Data *GetMessageResp `json:"data,omitempty"`
 }

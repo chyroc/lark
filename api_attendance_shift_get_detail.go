@@ -57,14 +57,7 @@ func (r *Mock) UnMockAttendanceGetAttendanceShiftDetail() {
 
 // GetAttendanceShiftDetailReq ...
 type GetAttendanceShiftDetailReq struct {
-	ShiftID string `path:"shift_id" json:"-"` // 班次 ID，获取方式：1）[按名称查询班次](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/shift/query) 2）[创建班次](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/shift/create), 示例值："6919358778597097404"
-}
-
-// getAttendanceShiftDetailResp ...
-type getAttendanceShiftDetailResp struct {
-	Code int64                         `json:"code,omitempty"` // 错误码，非 0 表示失败
-	Msg  string                        `json:"msg,omitempty"`  // 错误描述
-	Data *GetAttendanceShiftDetailResp `json:"data,omitempty"`
+	ShiftID string `path:"shift_id" json:"-"` // 班次 ID, 获取方式: 1）[按名称查询班次](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/shift/query) 2）[创建班次](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/shift/create), 示例值: "6919358778597097404"
 }
 
 // GetAttendanceShiftDetailResp ...
@@ -80,6 +73,12 @@ type GetAttendanceShiftDetailResp struct {
 	RestTimeRule      []*GetAttendanceShiftDetailRespRestTimeRule      `json:"rest_time_rule,omitempty"`        // 休息规则
 }
 
+// GetAttendanceShiftDetailRespLateOffLateOnRule ...
+type GetAttendanceShiftDetailRespLateOffLateOnRule struct {
+	LateOffMinutes int64 `json:"late_off_minutes,omitempty"` // 晚走多久
+	LateOnMinutes  int64 `json:"late_on_minutes,omitempty"`  // 晚到多久
+}
+
 // GetAttendanceShiftDetailRespPunchTimeRule ...
 type GetAttendanceShiftDetailRespPunchTimeRule struct {
 	OnTime              string `json:"on_time,omitempty"`                // 上班时间
@@ -92,14 +91,15 @@ type GetAttendanceShiftDetailRespPunchTimeRule struct {
 	OffDelayMinutes     int64  `json:"off_delay_minutes,omitempty"`      // 最晚多久可打下班卡
 }
 
-// GetAttendanceShiftDetailRespLateOffLateOnRule ...
-type GetAttendanceShiftDetailRespLateOffLateOnRule struct {
-	LateOffMinutes int64 `json:"late_off_minutes,omitempty"` // 晚走多久
-	LateOnMinutes  int64 `json:"late_on_minutes,omitempty"`  // 晚到多久
-}
-
 // GetAttendanceShiftDetailRespRestTimeRule ...
 type GetAttendanceShiftDetailRespRestTimeRule struct {
 	RestBeginTime string `json:"rest_begin_time,omitempty"` // 休息开始
 	RestEndTime   string `json:"rest_end_time,omitempty"`   // 休息结束
+}
+
+// getAttendanceShiftDetailResp ...
+type getAttendanceShiftDetailResp struct {
+	Code int64                         `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg  string                        `json:"msg,omitempty"`  // 错误描述
+	Data *GetAttendanceShiftDetailResp `json:"data,omitempty"`
 }

@@ -57,16 +57,16 @@ func (r *Mock) UnMockMailDeleteMailGroup() {
 
 // DeleteMailGroupReq ...
 type DeleteMailGroupReq struct {
-	MailGroupID string `path:"mailgroup_id" json:"-"` // 邮件组ID或者邮件组地址, 示例值："xxxxxxxxxxxxxxx 或 test_mail_group@xxx.xx"
-}
-
-// deleteMailGroupResp ...
-type deleteMailGroupResp struct {
-	Code int64                `json:"code,omitempty"` // 错误码，非 0 表示失败
-	Msg  string               `json:"msg,omitempty"`  // 错误描述
-	Data *DeleteMailGroupResp `json:"data,omitempty"`
+	MailGroupID string `path:"mailgroup_id" json:"-"` // 邮件组ID或者邮件组地址, 示例值: "xxxxxxxxxxxxxxx 或 test_mail_group@xxx.xx"
 }
 
 // DeleteMailGroupResp ...
 type DeleteMailGroupResp struct {
+}
+
+// deleteMailGroupResp ...
+type deleteMailGroupResp struct {
+	Code int64                `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg  string               `json:"msg,omitempty"`  // 错误描述
+	Data *DeleteMailGroupResp `json:"data,omitempty"`
 }

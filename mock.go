@@ -493,7 +493,6 @@ type Mock struct {
 	mockAIRecognizeSpeechFile                                  func(ctx context.Context, request *RecognizeSpeechFileReq, options ...MethodOptionFunc) (*RecognizeSpeechFileResp, *Response, error)
 	mockAITranslateText                                        func(ctx context.Context, request *TranslateTextReq, options ...MethodOptionFunc) (*TranslateTextResp, *Response, error)
 	mockAIDetectTextLanguage                                   func(ctx context.Context, request *DetectTextLanguageReq, options ...MethodOptionFunc) (*DetectTextLanguageResp, *Response, error)
-	mockAIDetectFaceAttributes                                 func(ctx context.Context, request *DetectFaceAttributesReq, options ...MethodOptionFunc) (*DetectFaceAttributesResp, *Response, error)
 	mockAttendanceGetAttendanceGroupList                       func(ctx context.Context, request *GetAttendanceGroupListReq, options ...MethodOptionFunc) (*GetAttendanceGroupListResp, *Response, error)
 	mockAttendanceCreateAttendanceGroup                        func(ctx context.Context, request *CreateAttendanceGroupReq, options ...MethodOptionFunc) (*CreateAttendanceGroupResp, *Response, error)
 	mockAttendanceSearchAttendanceGroup                        func(ctx context.Context, request *SearchAttendanceGroupReq, options ...MethodOptionFunc) (*SearchAttendanceGroupResp, *Response, error)

@@ -23,7 +23,7 @@ import (
 
 // UpdateSheetProperty
 //
-// 该接口用于根据 spreadsheetToken 更新表格属性，如更新表格标题。
+// 该接口用于根据 spreadsheetToken 更新表格属性, 如更新表格标题。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/ucTMzUjL3EzM14yNxMTN
 func (r *DriveService) UpdateSheetProperty(ctx context.Context, request *UpdateSheetPropertyReq, options ...MethodOptionFunc) (*UpdateSheetPropertyResp, *Response, error) {
@@ -60,13 +60,19 @@ func (r *Mock) UnMockDriveUpdateSheetProperty() {
 
 // UpdateSheetPropertyReq ...
 type UpdateSheetPropertyReq struct {
-	SpreadSheetToken string                            `path:"spreadsheetToken" json:"-"` // spreadsheet 的 token，获取方式见[在线表格开发指南](https://open.feishu.cn/document/ukTMukTMukTM/uATMzUjLwEzM14CMxMTN/overview)
+	SpreadSheetToken string                            `path:"spreadsheetToken" json:"-"` // spreadsheet 的 token, 获取方式见[在线表格开发指南](https://open.feishu.cn/document/ukTMukTMukTM/uATMzUjLwEzM14CMxMTN/overview)
 	Properties       *UpdateSheetPropertyReqProperties `json:"properties,omitempty"`      // spreadsheet 的属性
 }
 
 // UpdateSheetPropertyReqProperties ...
 type UpdateSheetPropertyReqProperties struct {
-	Title string `json:"title,omitempty"` // spreadsheet 的标题，最大长度100个字符
+	Title string `json:"title,omitempty"` // spreadsheet 的标题, 最大长度100个字符
+}
+
+// UpdateSheetPropertyResp ...
+type UpdateSheetPropertyResp struct {
+	SpreadSheetToken string `json:"spreadsheetToken,omitempty"` // spreadsheet 的 token
+	Title            string `json:"title,omitempty"`            // spreadsheet 的标题
 }
 
 // updateSheetPropertyResp ...
@@ -74,10 +80,4 @@ type updateSheetPropertyResp struct {
 	Code int64                    `json:"code,omitempty"`
 	Msg  string                   `json:"msg,omitempty"`
 	Data *UpdateSheetPropertyResp `json:"data,omitempty"`
-}
-
-// UpdateSheetPropertyResp ...
-type UpdateSheetPropertyResp struct {
-	SpreadSheetToken string `json:"spreadsheetToken,omitempty"` // spreadsheet 的 token
-	Title            string `json:"title,omitempty"`            // spreadsheet 的标题
 }

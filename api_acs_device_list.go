@@ -59,16 +59,9 @@ func (r *Mock) UnMockACSGetACSDeviceList() {
 type GetACSDeviceListReq struct {
 }
 
-// getACSDeviceListResp ...
-type getACSDeviceListResp struct {
-	Code int64                 `json:"code,omitempty"` // 错误码，非 0 表示失败
-	Msg  string                `json:"msg,omitempty"`  // 错误描述
-	Data *GetACSDeviceListResp `json:"data,omitempty"`
-}
-
 // GetACSDeviceListResp ...
 type GetACSDeviceListResp struct {
-	Items []*GetACSDeviceListRespItem `json:"items,omitempty"` // -
+	Items []*GetACSDeviceListRespItem `json:"items,omitempty"`
 }
 
 // GetACSDeviceListRespItem ...
@@ -76,4 +69,11 @@ type GetACSDeviceListRespItem struct {
 	DeviceID   string `json:"device_id,omitempty"`   // 门禁设备 ID
 	DeviceName string `json:"device_name,omitempty"` // 设备名称
 	DeviceSn   string `json:"device_sn,omitempty"`   // 设备 SN 码
+}
+
+// getACSDeviceListResp ...
+type getACSDeviceListResp struct {
+	Code int64                 `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg  string                `json:"msg,omitempty"`  // 错误描述
+	Data *GetACSDeviceListResp `json:"data,omitempty"`
 }

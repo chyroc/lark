@@ -23,7 +23,7 @@ import (
 
 // BatchSetSheetValue
 //
-// 该接口用于根据 spreadsheetToken 和 range 向多个范围写入数据，若范围内有数据，将被更新覆盖；单次写入不超过5000行，100列，每个格子不超过5万字符。
+// 该接口用于根据 spreadsheetToken 和 range 向多个范围写入数据, 若范围内有数据, 将被更新覆盖；单次写入不超过5000行, 100列, 每个格子不超过5万字符。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uEjMzUjLxIzM14SMyMTN
 func (r *DriveService) BatchSetSheetValue(ctx context.Context, request *BatchSetSheetValueReq, options ...MethodOptionFunc) (*BatchSetSheetValueResp, *Response, error) {
@@ -60,21 +60,14 @@ func (r *Mock) UnMockDriveBatchSetSheetValue() {
 
 // BatchSetSheetValueReq ...
 type BatchSetSheetValueReq struct {
-	SpreadSheetToken string                             `path:"spreadsheetToken" json:"-"` // spreadsheet 的 token，获取方式见[在线表格开发指南](https://open.feishu.cn/document/ukTMukTMukTM/uATMzUjLwEzM14CMxMTN/overview)
+	SpreadSheetToken string                             `path:"spreadsheetToken" json:"-"` // spreadsheet 的 token, 获取方式见[在线表格开发指南](https://open.feishu.cn/document/ukTMukTMukTM/uATMzUjLwEzM14CMxMTN/overview)
 	ValueRanges      []*BatchSetSheetValueReqValueRange `json:"valueRanges,omitempty"`     // 需要更新的多个范围
 }
 
 // BatchSetSheetValueReqValueRange ...
 type BatchSetSheetValueReqValueRange struct {
-	Range  string           `json:"range,omitempty"`  // 更新范围，包含 sheetId 与单元格范围两部分，目前支持三种索引方式，详见[在线表格开发指南](https://open.feishu.cn/document/ukTMukTMukTM/uATMzUjLwEzM14CMxMTN/overview)。range所表示的范围需要大于等于values占用的范围。
-	Values [][]SheetContent `json:"values,omitempty"` // 需要写入的值，如要写入公式、超链接、email、@人等，可详看附录[sheet 支持写入数据类型](https://open.feishu.cn/document/ukTMukTMukTM/ugjN1UjL4YTN14CO2UTN)
-}
-
-// batchSetSheetValueResp ...
-type batchSetSheetValueResp struct {
-	Code int64                   `json:"code,omitempty"`
-	Msg  string                  `json:"msg,omitempty"`
-	Data *BatchSetSheetValueResp `json:"data,omitempty"`
+	Range  string           `json:"range,omitempty"`  // 更新范围, 包含 sheetId 与单元格范围两部分, 目前支持三种索引方式, 详见[在线表格开发指南](https://open.feishu.cn/document/ukTMukTMukTM/uATMzUjLwEzM14CMxMTN/overview)。range所表示的范围需要大于等于values占用的范围。
+	Values [][]SheetContent `json:"values,omitempty"` // 需要写入的值, 如要写入公式、超链接、email、@人等, 可详看附录[sheet 支持写入数据类型](https://open.feishu.cn/document/ukTMukTMukTM/ugjN1UjL4YTN14CO2UTN)
 }
 
 // BatchSetSheetValueResp ...
@@ -91,4 +84,11 @@ type BatchSetSheetValueRespResponse struct {
 	UpdatedRows      int64  `json:"updatedRows,omitempty"`      // 写入的行数
 	UpdatedColumns   int64  `json:"updatedColumns,omitempty"`   // 写入的列数
 	UpdatedCells     int64  `json:"updatedCells,omitempty"`     // 写入的单元格总数
+}
+
+// batchSetSheetValueResp ...
+type batchSetSheetValueResp struct {
+	Code int64                   `json:"code,omitempty"`
+	Msg  string                  `json:"msg,omitempty"`
+	Data *BatchSetSheetValueResp `json:"data,omitempty"`
 }

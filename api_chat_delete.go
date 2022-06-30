@@ -23,10 +23,10 @@ import (
 
 // DeleteChat 解散群组
 //
-// 注意事项：
+// 注意事项:
 // - 应用需要开启[机器人能力](https://open.feishu.cn/document/home/develop-a-bot-in-5-minutes/create-an-app)
-// - 如果使用tenant_access_token，需要机器人是群的创建者且具备[更新应用所创建群的群信息]权限才可解散群
-// - 如果使用user_access_token，需要对应的用户是群主才可解散群
+// - 如果使用tenant_access_token, 需要机器人是群的创建者且具备[更新应用所创建群的群信息]权限才可解散群
+// - 如果使用user_access_token, 需要对应的用户是群主才可解散群
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat/delete
 func (r *ChatService) DeleteChat(ctx context.Context, request *DeleteChatReq, options ...MethodOptionFunc) (*DeleteChatResp, *Response, error) {
@@ -63,16 +63,16 @@ func (r *Mock) UnMockChatDeleteChat() {
 
 // DeleteChatReq ...
 type DeleteChatReq struct {
-	ChatID string `path:"chat_id" json:"-"` // 群 ID，详情参见[群ID 说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-id-description), 示例值："oc_a0553eda9014c201e6969b478895c230"
-}
-
-// deleteChatResp ...
-type deleteChatResp struct {
-	Code int64           `json:"code,omitempty"` // 错误码，非 0 表示失败
-	Msg  string          `json:"msg,omitempty"`  // 错误描述
-	Data *DeleteChatResp `json:"data,omitempty"`
+	ChatID string `path:"chat_id" json:"-"` // 群 ID, 详情参见[群ID 说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-id-description), 示例值: "oc_a0553eda9014c201e6969b478895c230"
 }
 
 // DeleteChatResp ...
 type DeleteChatResp struct {
+}
+
+// deleteChatResp ...
+type deleteChatResp struct {
+	Code int64           `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg  string          `json:"msg,omitempty"`  // 错误描述
+	Data *DeleteChatResp `json:"data,omitempty"`
 }

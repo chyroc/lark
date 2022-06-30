@@ -60,24 +60,24 @@ func (r *Mock) UnMockBitableCreateBitableTable() {
 
 // CreateBitableTableReq ...
 type CreateBitableTableReq struct {
-	UserIDType *IDType                     `query:"user_id_type" json:"-"` // 用户 ID 类型, 示例值："open_id", 可选值有: `open_id`：用户的 open id, `union_id`：用户的 union id, `user_id`：用户的 user id, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
-	AppToken   string                      `path:"app_token" json:"-"`     // bitable app token, 示例值："appbcbWCzen6D8dezhoCH2RpMAh"
+	AppToken   string                      `path:"app_token" json:"-"`     // bitable app token, 示例值: "appbcbWCzen6D8dezhoCH2RpMAh"
+	UserIDType *IDType                     `query:"user_id_type" json:"-"` // 用户 ID 类型, 示例值: "open_id", 可选值有: `open_id`: 用户的 open id, `union_id`: 用户的 union id, `user_id`: 用户的 user id, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
 	Table      *CreateBitableTableReqTable `json:"table,omitempty"`        // 数据表
 }
 
 // CreateBitableTableReqTable ...
 type CreateBitableTableReqTable struct {
-	Name *string `json:"name,omitempty"` // 数据表 名字, 示例值："table1"
-}
-
-// createBitableTableResp ...
-type createBitableTableResp struct {
-	Code int64                   `json:"code,omitempty"` // 错误码，非 0 表示失败
-	Msg  string                  `json:"msg,omitempty"`  // 错误描述
-	Data *CreateBitableTableResp `json:"data,omitempty"`
+	Name *string `json:"name,omitempty"` // 数据表 名字, 示例值: "table1"
 }
 
 // CreateBitableTableResp ...
 type CreateBitableTableResp struct {
 	TableID string `json:"table_id,omitempty"` // table id
+}
+
+// createBitableTableResp ...
+type createBitableTableResp struct {
+	Code int64                   `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg  string                  `json:"msg,omitempty"`  // 错误描述
+	Data *CreateBitableTableResp `json:"data,omitempty"`
 }

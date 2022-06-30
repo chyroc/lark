@@ -21,9 +21,9 @@ import (
 	"context"
 )
 
-// GetDocxBlockListOfBlock 给定一个指定版本的文档，并指定需要操作的块，分页遍历其所有子块富文本内容 。如果不指定版本，则会默认查询最新版本。
+// GetDocxBlockListOfBlock 给定一个指定版本的文档, 并指定需要操作的块, 分页遍历其所有子块富文本内容 。如果不指定版本, 则会默认查询最新版本。
 //
-// 在调用此接口前，请仔细阅读[新版文档 OpenAPI 接口校验规则](https://bytedance.feishu.cn/docx/doxcnby5Y0yoACL3PdfZqrJEm6f#doxcnE2UK2yY0gEGK8nBMPtB0vd)，了解相关规则及约束。
+// 在调用此接口前, 请仔细阅读[新版文档 OpenAPI 接口校验规则](https://bytedance.feishu.cn/docx/doxcnby5Y0yoACL3PdfZqrJEm6f#doxcnE2UK2yY0gEGK8nBMPtB0vd), 了解相关规则及约束。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/document-docx/docx-v1/document-block-children/get
 func (r *DriveService) GetDocxBlockListOfBlock(ctx context.Context, request *GetDocxBlockListOfBlockReq, options ...MethodOptionFunc) (*GetDocxBlockListOfBlockResp, *Response, error) {
@@ -60,24 +60,24 @@ func (r *Mock) UnMockDriveGetDocxBlockListOfBlock() {
 
 // GetDocxBlockListOfBlockReq ...
 type GetDocxBlockListOfBlockReq struct {
-	DocumentRevisionID *int64  `query:"document_revision_id" json:"-"` // 操作的文档版本，-1表示文档最新版本。若此时操作的版本为文档最新版本，则需要持有文档的阅读权限；若此时操作的版本为文档的历史版本，则需要持有文档的编辑权限。, 示例值：-1, 默认值: `-1`, 最小值：`-1`
-	PageToken          *string `query:"page_token" json:"-"`           // 分页标记，第一次请求不填，表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token，下次遍历可采用该 page_token 获取查询结果, 示例值："aw7DoMKBFMOGwqHCrcO8w6jCmMOvw6ILeADCvsKNw57Di8O5XGV3LG4_w5HCqhFxSnDCrCzCn0BgZcOYUg85EMOYcEAcwqYOw4ojw5QFwofCu8KoIMO3K8Ktw4IuNMOBBHNYw4bCgCV3U1zDu8K-J8KSR8Kgw7Y0fsKZdsKvW3d9w53DnkHDrcO5bDkYwrvDisOEPcOtVFJ-I03CnsOILMOoAmLDknd6dsKqG1bClAjDuS3CvcOTwo7Dg8OrwovDsRdqIcKxw5HDohTDtXN9w5rCkWo"
-	PageSize           *int64  `query:"page_size" json:"-"`            // 分页大小, 示例值：500, 最大值：`500`
-	UserIDType         *IDType `query:"user_id_type" json:"-"`         // 用户 ID 类型, 示例值："open_id", 可选值有: ,<md-enum>,<md-enum-item key="open_id" >用户的 open id</md-enum-item>,<md-enum-item key="union_id" >用户的 union id</md-enum-item>,<md-enum-item key="user_id" >用户的 user id</md-enum-item>,</md-enum>, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
-	DocumentID         string  `path:"document_id" json:"-"`           // 文档的唯一标识, 示例值："doxcnePuYufKa49ISjhD8Ih0ikh"
-	BlockID            string  `path:"block_id" json:"-"`              // Block 的唯一标识, 示例值："doxcnO6UW6wAw2qIcYf4hZpFIth"
-}
-
-// getDocxBlockListOfBlockResp ...
-type getDocxBlockListOfBlockResp struct {
-	Code int64                        `json:"code,omitempty"` // 错误码，非 0 表示失败
-	Msg  string                       `json:"msg,omitempty"`  // 错误描述
-	Data *GetDocxBlockListOfBlockResp `json:"data,omitempty"`
+	DocumentID         string  `path:"document_id" json:"-"`           // 文档的唯一标识, 示例值: "doxcnePuYufKa49ISjhD8Ih0ikh"
+	BlockID            string  `path:"block_id" json:"-"`              // Block 的唯一标识, 示例值: "doxcnO6UW6wAw2qIcYf4hZpFIth"
+	DocumentRevisionID *int64  `query:"document_revision_id" json:"-"` // 操作的文档版本, 1表示文档最新版本。若此时操作的版本为文档最新版本, 则需要持有文档的阅读权限；若此时操作的版本为文档的历史版本, 则需要持有文档的编辑权限, 示例值:1, 默认值: `-1`, 最小值: `-1`
+	PageToken          *string `query:"page_token" json:"-"`           // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果, 示例值: "aw7DoMKBFMOGwqHCrcO8w6jCmMOvw6ILeADCvsKNw57Di8O5XGV3LG4_w5HCqhFxSnDCrCzCn0BgZcOYUg85EMOYcEAcwqYOw4ojw5QFwofCu8KoIMO3K8Ktw4IuNMOBBHNYw4bCgCV3U1zDu8K-J8KSR8Kgw7Y0fsKZdsKvW3d9w53DnkHDrcO5bDkYwrvDisOEPcOtVFJ-I03CnsOILMOoAmLDknd6dsKqG1bClAjDuS3CvcOTwo7Dg8OrwovDsRdqIcKxw5HDohTDtXN9w5rCkWo"
+	PageSize           *int64  `query:"page_size" json:"-"`            // 分页大小, 示例值: 500, 最大值: `500`
+	UserIDType         *IDType `query:"user_id_type" json:"-"`         // 用户 ID 类型, 示例值: "open_id", 可选值有: <md-enum>, <md-enum-item key="open_id" >用户的 open id</md-enum-item>, <md-enum-item key="union_id" >用户的 union id</md-enum-item>, <md-enum-item key="user_id" >用户的 user id</md-enum-item>, </md-enum>, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
 }
 
 // GetDocxBlockListOfBlockResp ...
 type GetDocxBlockListOfBlockResp struct {
 	Items     []*DocxBlock `json:"items,omitempty"`      // block 的 children 列表
-	PageToken string       `json:"page_token,omitempty"` // 分页标记，当 has_more 为 true 时，会同时返回新的 page_token，否则不返回 page_token
+	PageToken string       `json:"page_token,omitempty"` // 分页标记, 当 has_more 为 true 时, 会同时返回新的 page_token, 否则不返回 page_token
 	HasMore   bool         `json:"has_more,omitempty"`   // 是否还有更多项
+}
+
+// getDocxBlockListOfBlockResp ...
+type getDocxBlockListOfBlockResp struct {
+	Code int64                        `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg  string                       `json:"msg,omitempty"`  // 错误描述
+	Data *GetDocxBlockListOfBlockResp `json:"data,omitempty"`
 }

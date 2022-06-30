@@ -58,17 +58,17 @@ func (r *Mock) UnMockTaskDeleteTaskComment() {
 
 // DeleteTaskCommentReq ...
 type DeleteTaskCommentReq struct {
-	TaskID    string `path:"task_id" json:"-"`    // 任务ID, 示例值："83912691-2e43-47fc-94a4-d512e03984fa"
-	CommentID string `path:"comment_id" json:"-"` // 评论ID, 示例值："6937231762296684564"
-}
-
-// deleteTaskCommentResp ...
-type deleteTaskCommentResp struct {
-	Code int64                  `json:"code,omitempty"` // 错误码，非 0 表示失败
-	Msg  string                 `json:"msg,omitempty"`  // 错误描述
-	Data *DeleteTaskCommentResp `json:"data,omitempty"`
+	TaskID    string `path:"task_id" json:"-"`    // 任务ID, 示例值: "83912691-2e43-47fc-94a4-d512e03984fa"
+	CommentID string `path:"comment_id" json:"-"` // 评论ID, 示例值: "6937231762296684564"
 }
 
 // DeleteTaskCommentResp ...
 type DeleteTaskCommentResp struct {
+}
+
+// deleteTaskCommentResp ...
+type deleteTaskCommentResp struct {
+	Code int64                  `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg  string                 `json:"msg,omitempty"`  // 错误描述
+	Data *DeleteTaskCommentResp `json:"data,omitempty"`
 }

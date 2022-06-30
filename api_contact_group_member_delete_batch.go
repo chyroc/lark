@@ -21,9 +21,9 @@ import (
 	"context"
 )
 
-// BatchDeleteContactGroupMember 从普通用户组中批量移除成员 (目前仅支持移除用户，暂不支持移除部门）。如果应用的通讯录权限范围是“全部员工”，则可将任何成员移出任何用户组。如果应用的通讯录权限范围不是“全部员工”，则仅可将通讯录权限范围中的成员从通讯录权限范围的用户组中移除, [点击了解通讯录权限范围](https://open.feishu.cn/document/ukTMukTMukTM/uETNz4SM1MjLxUzM/v3/guides/scope_authority)。
+// BatchDeleteContactGroupMember 从普通用户组中批量移除成员 (目前仅支持移除用户, 暂不支持移除部门）。如果应用的通讯录权限范围是“全部员工”, 则可将任何成员移出任何用户组。如果应用的通讯录权限范围不是“全部员工”, 则仅可将通讯录权限范围中的成员从通讯录权限范围的用户组中移除, [点击了解通讯录权限范围](https://open.feishu.cn/document/ukTMukTMukTM/uETNz4SM1MjLxUzM/v3/guides/scope_authority)。
 //
-// 请求体中的member_type，目前仅支持user, 未来将支持department。
+// 请求体中的member_type, 目前仅支持user, 未来将支持department。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/group-member/batch_remove
 func (r *ContactService) BatchDeleteContactGroupMember(ctx context.Context, request *BatchDeleteContactGroupMemberReq, options ...MethodOptionFunc) (*BatchDeleteContactGroupMemberResp, *Response, error) {
@@ -59,24 +59,24 @@ func (r *Mock) UnMockContactBatchDeleteContactGroupMember() {
 
 // BatchDeleteContactGroupMemberReq ...
 type BatchDeleteContactGroupMemberReq struct {
-	GroupID string                                    `path:"group_id" json:"-"` // 用户组ID, 示例值："test_group"
-	Members []*BatchDeleteContactGroupMemberReqMember `json:"members,omitempty"` // 待移除成员, 长度范围：`1` ～ `100`
+	GroupID string                                    `path:"group_id" json:"-"` // 用户组ID, 示例值: "test_group"
+	Members []*BatchDeleteContactGroupMemberReqMember `json:"members,omitempty"` // 待移除成员, 长度范围: `1` ～ `100`
 }
 
 // BatchDeleteContactGroupMemberReqMember ...
 type BatchDeleteContactGroupMemberReqMember struct {
-	MemberID     string  `json:"member_id,omitempty"`      // 成员ID, 示例值："u287xj12"
-	MemberType   string  `json:"member_type,omitempty"`    // 用户组成员的类型，取值为 user或department。, 示例值："user"
-	MemberIDType *IDType `json:"member_id_type,omitempty"` // 当member_type为user时，member_id_type表示user_id_type，可选值为open_id, union_id, user_id。仅在请求参数中有效，响应体中不会返回此参数。, 示例值："user_id"
-}
-
-// batchDeleteContactGroupMemberResp ...
-type batchDeleteContactGroupMemberResp struct {
-	Code int64                              `json:"code,omitempty"` // 错误码，非 0 表示失败
-	Msg  string                             `json:"msg,omitempty"`  // 错误描述
-	Data *BatchDeleteContactGroupMemberResp `json:"data,omitempty"`
+	MemberID     string  `json:"member_id,omitempty"`      // 成员ID, 示例值: "u287xj12"
+	MemberType   string  `json:"member_type,omitempty"`    // 用户组成员的类型, 取值为 user或department, 示例值: "user"
+	MemberIDType *IDType `json:"member_id_type,omitempty"` // 当member_type为user时, member_id_type表示user_id_type, 可选值为open_id, union_id, user_id。仅在请求参数中有效, 响应体中不会返回此参数, 示例值: "user_id"
 }
 
 // BatchDeleteContactGroupMemberResp ...
 type BatchDeleteContactGroupMemberResp struct {
+}
+
+// batchDeleteContactGroupMemberResp ...
+type batchDeleteContactGroupMemberResp struct {
+	Code int64                              `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg  string                             `json:"msg,omitempty"`  // 错误描述
+	Data *BatchDeleteContactGroupMemberResp `json:"data,omitempty"`
 }

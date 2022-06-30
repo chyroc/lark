@@ -58,19 +58,19 @@ func (r *Mock) UnMockDriveDeleteSheetFilterViewCondition() {
 
 // DeleteSheetFilterViewConditionReq ...
 type DeleteSheetFilterViewConditionReq struct {
-	SpreadSheetToken string `path:"spreadsheet_token" json:"-"` // 表格 token, 示例值："shtcnmBA*****yGehy8"
-	SheetID          string `path:"sheet_id" json:"-"`          // 子表 id, 示例值："0b**12"
-	FilterViewID     string `path:"filter_view_id" json:"-"`    // 筛选视图 id, 示例值："pH9hbVcCXA"
-	ConditionID      string `path:"condition_id" json:"-"`      // 筛选范围内的某列字母号, 示例值："E"
-}
-
-// deleteSheetFilterViewConditionResp ...
-type deleteSheetFilterViewConditionResp struct {
-	Code int64                               `json:"code,omitempty"` // 错误码，非 0 表示失败
-	Msg  string                              `json:"msg,omitempty"`  // 错误描述
-	Data *DeleteSheetFilterViewConditionResp `json:"data,omitempty"`
+	SpreadSheetToken string `path:"spreadsheet_token" json:"-"` // 表格 token, 示例值: "shtcnmBA*yGehy8"
+	SheetID          string `path:"sheet_id" json:"-"`          // 子表 id, 示例值: "0b**12"
+	FilterViewID     string `path:"filter_view_id" json:"-"`    // 筛选视图 id, 示例值: "pH9hbVcCXA"
+	ConditionID      string `path:"condition_id" json:"-"`      // 筛选范围内的某列字母号, 示例值: "E"
 }
 
 // DeleteSheetFilterViewConditionResp ...
 type DeleteSheetFilterViewConditionResp struct {
+}
+
+// deleteSheetFilterViewConditionResp ...
+type deleteSheetFilterViewConditionResp struct {
+	Code int64                               `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg  string                              `json:"msg,omitempty"`  // 错误描述
+	Data *DeleteSheetFilterViewConditionResp `json:"data,omitempty"`
 }

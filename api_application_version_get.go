@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// GetApplicationVersion 根据 app_id，version_id 获取对应应用版本的信息
+// GetApplicationVersion 根据 app_id, version_id 获取对应应用版本的信息
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/application-v6/application-app_version/get
 func (r *ApplicationService) GetApplicationVersion(ctx context.Context, request *GetApplicationVersionReq, options ...MethodOptionFunc) (*GetApplicationVersionResp, *Response, error) {
@@ -57,17 +57,10 @@ func (r *Mock) UnMockApplicationGetApplicationVersion() {
 
 // GetApplicationVersionReq ...
 type GetApplicationVersionReq struct {
-	Lang       string  `query:"lang" json:"-"`         // 应用信息的语言版本, 示例值："zh_cn", 可选值有: `zh_cn`：中文, `en_us`：英文, `ja_jp`：日文, 最小长度：`1` 字符
-	UserIDType *IDType `query:"user_id_type" json:"-"` // 用户 ID 类型, 示例值："open_id", 可选值有: `open_id`：用户的 open id, `union_id`：用户的 union id, `user_id`：用户的 user id, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
-	AppID      string  `path:"app_id" json:"-"`        // 应用的 app_id，需要查询其他应用版本信息时，必须申请[获取应用版本信息](https://open.feishu.cn/document/ukTMukTMukTM/uQjN3QjL0YzN04CN2cDN)权限，仅查询本应用版本信息时，可填入 "me" 或者应用自身 app_id, 示例值："cli_9f3ca975326b501b"
-	VersionID  string  `path:"version_id" json:"-"`    // 唯一标识应用版本的 ID, 示例值："oav_d317f090b7258ad0372aa53963cda70d"
-}
-
-// getApplicationVersionResp ...
-type getApplicationVersionResp struct {
-	Code int64                      `json:"code,omitempty"` // 错误码，非 0 表示失败
-	Msg  string                     `json:"msg,omitempty"`  // 错误描述
-	Data *GetApplicationVersionResp `json:"data,omitempty"`
+	AppID      string  `path:"app_id" json:"-"`        // 应用的 app_id, 需要查询其他应用版本信息时, 必须申请[获取应用版本信息](https://open.feishu.cn/document/ukTMukTMukTM/uQjN3QjL0YzN04CN2cDN)权限, 仅查询本应用版本信息时, 可填入 "me" 或者应用自身 app_id, 示例值: "cli_9f3ca975326b501b"
+	VersionID  string  `path:"version_id" json:"-"`    // 唯一标识应用版本的 ID, 示例值: "oav_d317f090b7258ad0372aa53963cda70d"
+	Lang       string  `query:"lang" json:"-"`         // 应用信息的语言版本, 示例值: "zh_cn", 可选值有: `zh_cn`: 中文, `en_us`: 英文, `ja_jp`: 日文, 最小长度: `1` 字符
+	UserIDType *IDType `query:"user_id_type" json:"-"` // 用户 ID 类型, 示例值: "open_id", 可选值有: `open_id`: 用户的 open id, `union_id`: 用户的 union id, `user_id`: 用户的 user id, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
 }
 
 // GetApplicationVersionResp ...
@@ -88,26 +81,11 @@ type GetApplicationVersionRespAppVersion struct {
 	I18n             []*GetApplicationVersionRespAppVersionI18n  `json:"i18n,omitempty"`              // 应用的国际化信息列表
 	CommonCategories []string                                    `json:"common_categories,omitempty"` // 应用分类的国际化描述
 	Events           []string                                    `json:"events,omitempty"`            // 应用已订阅开放平台事件列表
-	Status           int64                                       `json:"status,omitempty"`            // 版本状态, 可选值有: `0`：未知状态, `1`：审核通过, `2`：审核拒绝, `3`：审核中, `4`：未提交审核
-	CreateTime       string                                      `json:"create_time,omitempty"`       // 版本创建时间（单位：s）
-	PublishTime      string                                      `json:"publish_time,omitempty"`      // 版本发布时间（单位：s）
+	Status           int64                                       `json:"status,omitempty"`            // 版本状态, 可选值有: `0`: 未知状态, `1`: 审核通过, `2`: 审核拒绝, `3`: 审核中, `4`: 未提交审核
+	CreateTime       string                                      `json:"create_time,omitempty"`       // 版本创建时间（单位: s）
+	PublishTime      string                                      `json:"publish_time,omitempty"`      // 版本发布时间（单位: s）
 	Ability          *GetApplicationVersionRespAppVersionAbility `json:"ability,omitempty"`           // 当前版本下应用开启的能力
 	Remark           *GetApplicationVersionRespAppVersionRemark  `json:"remark,omitempty"`            // 跟随应用版本的信息
-}
-
-// GetApplicationVersionRespAppVersionScope ...
-type GetApplicationVersionRespAppVersionScope struct {
-	Scope       string `json:"scope,omitempty"`       // 应用权限
-	Description string `json:"description,omitempty"` // 应用权限的国际化描述
-	Level       int64  `json:"level,omitempty"`       // 权限等级描述, 可选值有: `1`：普通权限, `2`：高级权限, `3`：超敏感权限, `0`：未知等级
-}
-
-// GetApplicationVersionRespAppVersionI18n ...
-type GetApplicationVersionRespAppVersionI18n struct {
-	I18nKey     string `json:"i18n_key,omitempty"`    // 国际化语言的 key, 可选值有: `zh_cn`：中文, `en_us`：英文, `ja_jp`：日文
-	Name        string `json:"name,omitempty"`        // 应用国际化名称
-	Description string `json:"description,omitempty"` // 应用国际化描述（副标题）
-	HelpUse     string `json:"help_use,omitempty"`    // 帮助国际化文档链接
 }
 
 // GetApplicationVersionRespAppVersionAbility ...
@@ -123,51 +101,9 @@ type GetApplicationVersionRespAppVersionAbility struct {
 	PlusMenu         *GetApplicationVersionRespAppVersionAbilityPlusMenu          `json:"plus_menu,omitempty"`         // 加号菜单
 }
 
-// GetApplicationVersionRespAppVersionAbilityGadget ...
-type GetApplicationVersionRespAppVersionAbilityGadget struct {
-	EnablePcMode         int64    `json:"enable_pc_mode,omitempty"`          // pc 支持的小程序模式，bit 位表示, 可选值有: `1`：sidebar 模式, `2`：pc 模式, `4`：主导航模式
-	SchemaURLs           []string `json:"schema_urls,omitempty"`             // schema url 列表
-	PcUseMobilePkg       bool     `json:"pc_use_mobile_pkg,omitempty"`       // pc 端是否使用小程序版本
-	PcVersion            string   `json:"pc_version,omitempty"`              // pc 的小程序版本号
-	MobileVersion        string   `json:"mobile_version,omitempty"`          // 移动端小程序版本号
-	MobileMinLarkVersion string   `json:"mobile_min_lark_version,omitempty"` // 移动端兼容的最低飞书版本
-	PcMinLarkVersion     string   `json:"pc_min_lark_version,omitempty"`     // pc 端兼容的最低飞书版本
-}
-
-// GetApplicationVersionRespAppVersionAbilityWebApp ...
-type GetApplicationVersionRespAppVersionAbilityWebApp struct {
-	PcURL     string `json:"pc_url,omitempty"`     // pc 端 url
-	MobileURL string `json:"mobile_url,omitempty"` // 移动端 url
-}
-
 // GetApplicationVersionRespAppVersionAbilityBot ...
 type GetApplicationVersionRespAppVersionAbilityBot struct {
 	CardRequestURL string `json:"card_request_url,omitempty"` // 消息卡片回调地址
-}
-
-// GetApplicationVersionRespAppVersionAbilityWorkplaceWidget ...
-type GetApplicationVersionRespAppVersionAbilityWorkplaceWidget struct {
-	MinLarkVersion string `json:"min_lark_version,omitempty"` // 最低兼容 lark 版本号
-}
-
-// GetApplicationVersionRespAppVersionAbilityNavigate ...
-type GetApplicationVersionRespAppVersionAbilityNavigate struct {
-	Pc     *GetApplicationVersionRespAppVersionAbilityNavigatePc     `json:"pc,omitempty"`     // pc 端主导航信息
-	Mobile *GetApplicationVersionRespAppVersionAbilityNavigateMobile `json:"mobile,omitempty"` // 移动端主导航信息
-}
-
-// GetApplicationVersionRespAppVersionAbilityNavigatePc ...
-type GetApplicationVersionRespAppVersionAbilityNavigatePc struct {
-	Version       string `json:"version,omitempty"`         // 主导航小程序版本号
-	ImageURL      string `json:"image_url,omitempty"`       // 默认图片 url
-	HoverImageURL string `json:"hover_image_url,omitempty"` // 选中态图片 url
-}
-
-// GetApplicationVersionRespAppVersionAbilityNavigateMobile ...
-type GetApplicationVersionRespAppVersionAbilityNavigateMobile struct {
-	Version       string `json:"version,omitempty"`         // 主导航小程序版本号
-	ImageURL      string `json:"image_url,omitempty"`       // 默认图片 url
-	HoverImageURL string `json:"hover_image_url,omitempty"` // 选中态图片 url
 }
 
 // GetApplicationVersionRespAppVersionAbilityCloudDoc ...
@@ -175,12 +111,12 @@ type GetApplicationVersionRespAppVersionAbilityCloudDoc struct {
 	SpaceURL string                                                    `json:"space_url,omitempty"` // 云空间重定向 url
 	I18n     []*GetApplicationVersionRespAppVersionAbilityCloudDocI18n `json:"i18n,omitempty"`      // 国际化信息
 	IconURL  string                                                    `json:"icon_url,omitempty"`  // 图标链接
-	Mode     int64                                                     `json:"mode,omitempty"`      // 云文档支持模式, 可选值有: `0`：未知, `1`：移动端
+	Mode     int64                                                     `json:"mode,omitempty"`      // 云文档支持模式, 可选值有: `0`: 未知, `1`: 移动端
 }
 
 // GetApplicationVersionRespAppVersionAbilityCloudDocI18n ...
 type GetApplicationVersionRespAppVersionAbilityCloudDocI18n struct {
-	I18nKey          string `json:"i18n_key,omitempty"`          // 国际化语言的 key, 可选值有: `zh_cn`：中文, `en_us`：英文, `ja_jp`：日文
+	I18nKey          string `json:"i18n_key,omitempty"`          // 国际化语言的 key, 可选值有: `zh_cn`: 中文, `en_us`: 英文, `ja_jp`: 日文
 	Name             string `json:"name,omitempty"`              // 云文档国际化名称
 	ReadDescription  string `json:"read_description,omitempty"`  // 云文档国际化读权限说明
 	WriteDescription string `json:"write_description,omitempty"` // 云文档国际化写权限说明
@@ -196,8 +132,19 @@ type GetApplicationVersionRespAppVersionAbilityDocsBlock struct {
 
 // GetApplicationVersionRespAppVersionAbilityDocsBlockI18n ...
 type GetApplicationVersionRespAppVersionAbilityDocsBlockI18n struct {
-	I18nKey string `json:"i18n_key,omitempty"` // 国际化语言的 key, 可选值有: `zh_cn`：中文, `en_us`：英文, `ja_jp`：日文
+	I18nKey string `json:"i18n_key,omitempty"` // 国际化语言的 key, 可选值有: `zh_cn`: 中文, `en_us`: 英文, `ja_jp`: 日文
 	Name    string `json:"name,omitempty"`     // 名称
+}
+
+// GetApplicationVersionRespAppVersionAbilityGadget ...
+type GetApplicationVersionRespAppVersionAbilityGadget struct {
+	EnablePcMode         int64    `json:"enable_pc_mode,omitempty"`          // pc 支持的小程序模式, bit 位表示, 可选值有: `1`: sidebar 模式, `2`: pc 模式, `4`: 主导航模式
+	SchemaURLs           []string `json:"schema_urls,omitempty"`             // schema url 列表
+	PcUseMobilePkg       bool     `json:"pc_use_mobile_pkg,omitempty"`       // pc 端是否使用小程序版本
+	PcVersion            string   `json:"pc_version,omitempty"`              // pc 的小程序版本号
+	MobileVersion        string   `json:"mobile_version,omitempty"`          // 移动端小程序版本号
+	MobileMinLarkVersion string   `json:"mobile_min_lark_version,omitempty"` // 移动端兼容的最低飞书版本
+	PcMinLarkVersion     string   `json:"pc_min_lark_version,omitempty"`     // pc 端兼容的最低飞书版本
 }
 
 // GetApplicationVersionRespAppVersionAbilityMessageAction ...
@@ -209,8 +156,28 @@ type GetApplicationVersionRespAppVersionAbilityMessageAction struct {
 
 // GetApplicationVersionRespAppVersionAbilityMessageActionI18n ...
 type GetApplicationVersionRespAppVersionAbilityMessageActionI18n struct {
-	I18nKey string `json:"i18n_key,omitempty"` // 国际化语言的 key, 可选值有: `zh_cn`：中文, `en_us`：英文, `ja_jp`：日文
+	I18nKey string `json:"i18n_key,omitempty"` // 国际化语言的 key, 可选值有: `zh_cn`: 中文, `en_us`: 英文, `ja_jp`: 日文
 	Name    string `json:"name,omitempty"`     // 国际化名称
+}
+
+// GetApplicationVersionRespAppVersionAbilityNavigate ...
+type GetApplicationVersionRespAppVersionAbilityNavigate struct {
+	Pc     *GetApplicationVersionRespAppVersionAbilityNavigatePc     `json:"pc,omitempty"`     // pc 端主导航信息
+	Mobile *GetApplicationVersionRespAppVersionAbilityNavigateMobile `json:"mobile,omitempty"` // 移动端主导航信息
+}
+
+// GetApplicationVersionRespAppVersionAbilityNavigateMobile ...
+type GetApplicationVersionRespAppVersionAbilityNavigateMobile struct {
+	Version       string `json:"version,omitempty"`         // 主导航小程序版本号
+	ImageURL      string `json:"image_url,omitempty"`       // 默认图片 url
+	HoverImageURL string `json:"hover_image_url,omitempty"` // 选中态图片 url
+}
+
+// GetApplicationVersionRespAppVersionAbilityNavigatePc ...
+type GetApplicationVersionRespAppVersionAbilityNavigatePc struct {
+	Version       string `json:"version,omitempty"`         // 主导航小程序版本号
+	ImageURL      string `json:"image_url,omitempty"`       // 默认图片 url
+	HoverImageURL string `json:"hover_image_url,omitempty"` // 选中态图片 url
 }
 
 // GetApplicationVersionRespAppVersionAbilityPlusMenu ...
@@ -219,11 +186,30 @@ type GetApplicationVersionRespAppVersionAbilityPlusMenu struct {
 	MobileAppLink string `json:"mobile_app_link,omitempty"` // 移动端链接
 }
 
+// GetApplicationVersionRespAppVersionAbilityWebApp ...
+type GetApplicationVersionRespAppVersionAbilityWebApp struct {
+	PcURL     string `json:"pc_url,omitempty"`     // pc 端 url
+	MobileURL string `json:"mobile_url,omitempty"` // 移动端 url
+}
+
+// GetApplicationVersionRespAppVersionAbilityWorkplaceWidget ...
+type GetApplicationVersionRespAppVersionAbilityWorkplaceWidget struct {
+	MinLarkVersion string `json:"min_lark_version,omitempty"` // 最低兼容 lark 版本号
+}
+
+// GetApplicationVersionRespAppVersionI18n ...
+type GetApplicationVersionRespAppVersionI18n struct {
+	I18nKey     string `json:"i18n_key,omitempty"`    // 国际化语言的 key, 可选值有: `zh_cn`: 中文, `en_us`: 英文, `ja_jp`: 日文
+	Name        string `json:"name,omitempty"`        // 应用国际化名称
+	Description string `json:"description,omitempty"` // 应用国际化描述（副标题）
+	HelpUse     string `json:"help_use,omitempty"`    // 帮助国际化文档链接
+}
+
 // GetApplicationVersionRespAppVersionRemark ...
 type GetApplicationVersionRespAppVersionRemark struct {
 	Remark       string                                               `json:"remark,omitempty"`        // 备注说明
 	UpdateRemark string                                               `json:"update_remark,omitempty"` // 更新说明
-	Visibility   *GetApplicationVersionRespAppVersionRemarkVisibility `json:"visibility,omitempty"`    // 应用当前版本开发者编辑的可见性建议，若开发者未编辑可见性建议，则该字段无内容
+	Visibility   *GetApplicationVersionRespAppVersionRemarkVisibility `json:"visibility,omitempty"`    // 应用当前版本开发者编辑的可见性建议, 若开发者未编辑可见性建议, 则该字段无内容
 }
 
 // GetApplicationVersionRespAppVersionRemarkVisibility ...
@@ -233,14 +219,28 @@ type GetApplicationVersionRespAppVersionRemarkVisibility struct {
 	InvisibleList *GetApplicationVersionRespAppVersionRemarkVisibilityInvisibleList `json:"invisible_list,omitempty"` // 不可见名单
 }
 
+// GetApplicationVersionRespAppVersionRemarkVisibilityInvisibleList ...
+type GetApplicationVersionRespAppVersionRemarkVisibilityInvisibleList struct {
+	OpenIDs       []string `json:"open_ids,omitempty"`       // 可见性成员 open_id 列表
+	DepartmentIDs []string `json:"department_ids,omitempty"` // 可见性部门的 id 列表
+}
+
 // GetApplicationVersionRespAppVersionRemarkVisibilityVisibleList ...
 type GetApplicationVersionRespAppVersionRemarkVisibilityVisibleList struct {
 	OpenIDs       []string `json:"open_ids,omitempty"`       // 可见性成员 open_id 列表
 	DepartmentIDs []string `json:"department_ids,omitempty"` // 可见性部门的 id 列表
 }
 
-// GetApplicationVersionRespAppVersionRemarkVisibilityInvisibleList ...
-type GetApplicationVersionRespAppVersionRemarkVisibilityInvisibleList struct {
-	OpenIDs       []string `json:"open_ids,omitempty"`       // 可见性成员 open_id 列表
-	DepartmentIDs []string `json:"department_ids,omitempty"` // 可见性部门的 id 列表
+// GetApplicationVersionRespAppVersionScope ...
+type GetApplicationVersionRespAppVersionScope struct {
+	Scope       string `json:"scope,omitempty"`       // 应用权限
+	Description string `json:"description,omitempty"` // 应用权限的国际化描述
+	Level       int64  `json:"level,omitempty"`       // 权限等级描述, 可选值有: `1`: 普通权限, `2`: 高级权限, `3`: 超敏感权限, `0`: 未知等级
+}
+
+// getApplicationVersionResp ...
+type getApplicationVersionResp struct {
+	Code int64                      `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg  string                     `json:"msg,omitempty"`  // 错误描述
+	Data *GetApplicationVersionResp `json:"data,omitempty"`
 }

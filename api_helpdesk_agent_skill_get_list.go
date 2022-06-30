@@ -60,13 +60,6 @@ func (r *Mock) UnMockHelpdeskGetHelpdeskAgentSkillList() {
 type GetHelpdeskAgentSkillListReq struct {
 }
 
-// getHelpdeskAgentSkillListResp ...
-type getHelpdeskAgentSkillListResp struct {
-	Code int64                          `json:"code,omitempty"` // 错误码，非 0 表示失败
-	Msg  string                         `json:"msg,omitempty"`  // 错误描述
-	Data *GetHelpdeskAgentSkillListResp `json:"data,omitempty"`
-}
-
 // GetHelpdeskAgentSkillListResp ...
 type GetHelpdeskAgentSkillListResp struct {
 	AgentSkills []*GetHelpdeskAgentSkillListRespAgentSkill `json:"agent_skills,omitempty"` // 客服技能列表
@@ -78,4 +71,11 @@ type GetHelpdeskAgentSkillListRespAgentSkill struct {
 	Name      string   `json:"name,omitempty"`       // 技能名
 	AgentIDs  []string `json:"agent_ids,omitempty"`  // 具有此技能的客服ids
 	IsDefault bool     `json:"is_default,omitempty"` // 默认技能
+}
+
+// getHelpdeskAgentSkillListResp ...
+type getHelpdeskAgentSkillListResp struct {
+	Code int64                          `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg  string                         `json:"msg,omitempty"`  // 错误描述
+	Data *GetHelpdeskAgentSkillListResp `json:"data,omitempty"`
 }

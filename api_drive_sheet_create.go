@@ -58,15 +58,8 @@ func (r *Mock) UnMockDriveCreateSheet() {
 
 // CreateSheetReq ...
 type CreateSheetReq struct {
-	Title       *string `json:"title,omitempty"`        // 表格标题, 示例值："title"
-	FolderToken *string `json:"folder_token,omitempty"` // 文件夹token，获取方式见[概述](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/files/guide/introduction), 示例值："fldcnMsNb*****hIW9IjG1LVswg"
-}
-
-// createSheetResp ...
-type createSheetResp struct {
-	Code int64            `json:"code,omitempty"` // 错误码，非 0 表示失败
-	Msg  string           `json:"msg,omitempty"`  // 错误描述
-	Data *CreateSheetResp `json:"data,omitempty"`
+	Title       *string `json:"title,omitempty"`        // 表格标题, 示例值: "title"
+	FolderToken *string `json:"folder_token,omitempty"` // 文件夹token, 获取方式见[概述](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/files/guide/introduction), 示例值: "fldcnMsNb*hIW9IjG1LVswg"
 }
 
 // CreateSheetResp ...
@@ -77,7 +70,14 @@ type CreateSheetResp struct {
 // CreateSheetRespSpreadsheet ...
 type CreateSheetRespSpreadsheet struct {
 	Title            string `json:"title,omitempty"`             // 表格标题
-	FolderToken      string `json:"folder_token,omitempty"`      // 文件夹token，获取方式见[概述](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/files/guide/introduction)
+	FolderToken      string `json:"folder_token,omitempty"`      // 文件夹token, 获取方式见[概述](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/files/guide/introduction)
 	URL              string `json:"url,omitempty"`               // 文档url
 	SpreadSheetToken string `json:"spreadsheet_token,omitempty"` // 表格token
+}
+
+// createSheetResp ...
+type createSheetResp struct {
+	Code int64            `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg  string           `json:"msg,omitempty"`  // 错误描述
+	Data *CreateSheetResp `json:"data,omitempty"`
 }

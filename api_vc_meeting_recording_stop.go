@@ -23,7 +23,7 @@ import (
 
 // StopVCMeetingRecording 在会议中停止录制。
 //
-// 会议正在录制中，且操作者具有相应权限（如果操作者为用户，必须是会中当前主持人）
+// 会议正在录制中, 且操作者具有相应权限（如果操作者为用户, 必须是会中当前主持人）
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/vc-v1/meeting-recording/stop
 func (r *VCService) StopVCMeetingRecording(ctx context.Context, request *StopVCMeetingRecordingReq, options ...MethodOptionFunc) (*StopVCMeetingRecordingResp, *Response, error) {
@@ -59,16 +59,16 @@ func (r *Mock) UnMockVCStopVCMeetingRecording() {
 
 // StopVCMeetingRecordingReq ...
 type StopVCMeetingRecordingReq struct {
-	MeetingID string `path:"meeting_id" json:"-"` // 会议ID（视频会议的唯一标识，视频会议开始后才会产生）, 示例值："6911188411932033028"
-}
-
-// stopVCMeetingRecordingResp ...
-type stopVCMeetingRecordingResp struct {
-	Code int64                       `json:"code,omitempty"` // 错误码，非 0 表示失败
-	Msg  string                      `json:"msg,omitempty"`  // 错误描述
-	Data *StopVCMeetingRecordingResp `json:"data,omitempty"`
+	MeetingID string `path:"meeting_id" json:"-"` // 会议ID（视频会议的唯一标识, 视频会议开始后才会产生）, 示例值: "6911188411932033028"
 }
 
 // StopVCMeetingRecordingResp ...
 type StopVCMeetingRecordingResp struct {
+}
+
+// stopVCMeetingRecordingResp ...
+type stopVCMeetingRecordingResp struct {
+	Code int64                       `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg  string                      `json:"msg,omitempty"`  // 错误描述
+	Data *StopVCMeetingRecordingResp `json:"data,omitempty"`
 }

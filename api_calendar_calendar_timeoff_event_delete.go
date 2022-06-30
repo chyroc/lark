@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// DeleteCalendarTimeoffEvent 删除一个指定的请假日程，请假日程删除，用户个人签名页的请假信息也会消失。
+// DeleteCalendarTimeoffEvent 删除一个指定的请假日程, 请假日程删除, 用户个人签名页的请假信息也会消失。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/timeoff_event/delete
 func (r *CalendarService) DeleteCalendarTimeoffEvent(ctx context.Context, request *DeleteCalendarTimeoffEventReq, options ...MethodOptionFunc) (*DeleteCalendarTimeoffEventResp, *Response, error) {
@@ -57,16 +57,16 @@ func (r *Mock) UnMockCalendarDeleteCalendarTimeoffEvent() {
 
 // DeleteCalendarTimeoffEventReq ...
 type DeleteCalendarTimeoffEventReq struct {
-	TimeoffEventID string `path:"timeoff_event_id" json:"-"` // 休假申请的唯一标识id。参见[请假日程ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/timeoff_event/introduction#b6611a02), 示例值："timeoff:XXXXXX-XXXX-0917-1623-aa493d591a39"
-}
-
-// deleteCalendarTimeoffEventResp ...
-type deleteCalendarTimeoffEventResp struct {
-	Code int64                           `json:"code,omitempty"` // 错误码，非 0 表示失败
-	Msg  string                          `json:"msg,omitempty"`  // 错误描述
-	Data *DeleteCalendarTimeoffEventResp `json:"data,omitempty"`
+	TimeoffEventID string `path:"timeoff_event_id" json:"-"` // 休假申请的唯一标识id。参见[请假日程ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/timeoff_event/introduction#b6611a02), 示例值: "timeoff:XXXXXX-XXXX-0917-1623-aa493d591a39"
 }
 
 // DeleteCalendarTimeoffEventResp ...
 type DeleteCalendarTimeoffEventResp struct {
+}
+
+// deleteCalendarTimeoffEventResp ...
+type deleteCalendarTimeoffEventResp struct {
+	Code int64                           `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg  string                          `json:"msg,omitempty"`  // 错误描述
+	Data *DeleteCalendarTimeoffEventResp `json:"data,omitempty"`
 }

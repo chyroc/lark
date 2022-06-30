@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// DeleteMailUserMailbox 该接口会永久删除用户邮箱地址。可用于删除位于邮箱回收站中的用户邮箱地址，一旦删除，将无法恢复。该接口支持邮件的转移，可以将被释放邮箱的邮件转移到另外一个可以使用的邮箱中。
+// DeleteMailUserMailbox 该接口会永久删除用户邮箱地址。可用于删除位于邮箱回收站中的用户邮箱地址, 一旦删除, 将无法恢复。该接口支持邮件的转移, 可以将被释放邮箱的邮件转移到另外一个可以使用的邮箱中。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/mail-v1/user_mailbox/delete
 func (r *MailService) DeleteMailUserMailbox(ctx context.Context, request *DeleteMailUserMailboxReq, options ...MethodOptionFunc) (*DeleteMailUserMailboxResp, *Response, error) {
@@ -57,17 +57,17 @@ func (r *Mock) UnMockMailDeleteMailUserMailbox() {
 
 // DeleteMailUserMailboxReq ...
 type DeleteMailUserMailboxReq struct {
-	TransferMailbox *string `query:"transfer_mailbox" json:"-"` // 用于接受转移的邮箱地址, 示例值："888888@abc.com"
-	UserMailboxID   string  `path:"user_mailbox_id" json:"-"`   // 要释放的邮箱地址, 示例值："111111@abc.com"
-}
-
-// deleteMailUserMailboxResp ...
-type deleteMailUserMailboxResp struct {
-	Code int64                      `json:"code,omitempty"` // 错误码，非 0 表示失败
-	Msg  string                     `json:"msg,omitempty"`  // 错误描述
-	Data *DeleteMailUserMailboxResp `json:"data,omitempty"`
+	UserMailboxID   string  `path:"user_mailbox_id" json:"-"`   // 要释放的邮箱地址, 示例值: "111111@abc.com"
+	TransferMailbox *string `query:"transfer_mailbox" json:"-"` // 用于接受转移的邮箱地址, 示例值: "888888@abc.com"
 }
 
 // DeleteMailUserMailboxResp ...
 type DeleteMailUserMailboxResp struct {
+}
+
+// deleteMailUserMailboxResp ...
+type deleteMailUserMailboxResp struct {
+	Code int64                      `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg  string                     `json:"msg,omitempty"`  // 错误描述
+	Data *DeleteMailUserMailboxResp `json:"data,omitempty"`
 }

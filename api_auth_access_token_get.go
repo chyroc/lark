@@ -23,7 +23,7 @@ import (
 
 // GetAccessToken 获取登录预授权码 code 对应的登录用户身份。
 //
-// 该接口仅适用于通过[第三方网站免登](https://open.feishu.cn/document/ukTMukTMukTM/uETOwYjLxkDM24SM5AjN)文档中的登录方式获取的预授权码，小程序登录中用户身份的获取，请使用[小程序 code2session 接口](https://open.feishu.cn/document/uYjL24iN/ukjM04SOyQjL5IDN)
+// 该接口仅适用于通过[第三方网站免登](https://open.feishu.cn/document/ukTMukTMukTM/uETOwYjLxkDM24SM5AjN)文档中的登录方式获取的预授权码, 小程序登录中用户身份的获取, 请使用[小程序 code2session 接口](https://open.feishu.cn/document/uYjL24iN/ukjM04SOyQjL5IDN)
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/authen-v1/authen/access_token
 func (r *AuthService) GetAccessToken(ctx context.Context, request *GetAccessTokenReq, options ...MethodOptionFunc) (*GetAccessTokenResp, *Response, error) {
@@ -60,22 +60,15 @@ func (r *Mock) UnMockAuthGetAccessToken() {
 
 // GetAccessTokenReq ...
 type GetAccessTokenReq struct {
-	GrantType string `json:"grant_type,omitempty"` // 授权类型，本流程中，此值为："authorization_code", 示例值："authorization_code"
-	Code      string `json:"code,omitempty"`       // 来自[请求身份验证](https://open.feishu.cn/document/ukTMukTMukTM/ukzN4UjL5cDO14SO3gTN)流程，用户扫码登录后会自动302到redirect_uri并带上此参数, 示例值："xMSldislSkdK"
-}
-
-// getAccessTokenResp ...
-type getAccessTokenResp struct {
-	Code int64               `json:"code,omitempty"` // 错误码，非 0 表示失败
-	Msg  string              `json:"msg,omitempty"`  // 错误描述
-	Data *GetAccessTokenResp `json:"data,omitempty"`
+	GrantType string `json:"grant_type,omitempty"` // 授权类型, 本流程中, 此值为: "authorization_code", 示例值: "authorization_code"
+	Code      string `json:"code,omitempty"`       // 来自[请求身份验证](https://open.feishu.cn/document/ukTMukTMukTM/ukzN4UjL5cDO14SO3gTN)流程, 用户扫码登录后会自动302到redirect_uri并带上此参数, 示例值: "xMSldislSkdK"
 }
 
 // GetAccessTokenResp ...
 type GetAccessTokenResp struct {
-	AccessToken      string `json:"access_token,omitempty"`       // user_access_token，用于获取用户资源
+	AccessToken      string `json:"access_token,omitempty"`       // user_access_token, 用于获取用户资源
 	TokenType        string `json:"token_type,omitempty"`         // token 类型
-	ExpiresIn        int64  `json:"expires_in,omitempty"`         // access_token 的有效期，单位: 秒
+	ExpiresIn        int64  `json:"expires_in,omitempty"`         // access_token 的有效期, 单位: 秒
 	Name             string `json:"name,omitempty"`               // 用户姓名
 	EnName           string `json:"en_name,omitempty"`            // 用户英文名称
 	AvatarURL        string `json:"avatar_url,omitempty"`         // 用户头像
@@ -85,10 +78,17 @@ type GetAccessTokenResp struct {
 	OpenID           string `json:"open_id,omitempty"`            // 用户在应用内的唯一标识
 	UnionID          string `json:"union_id,omitempty"`           // 用户统一ID
 	Email            string `json:"email,omitempty"`              // 用户邮箱, 字段权限要求: 获取用户邮箱信息
-	EnterpriseEmail  string `json:"enterprise_email,omitempty"`   // 企业邮箱，请先确保已在管理后台启用飞书邮箱服务,      ,**字段权限要求（满足任一）**：,获取用户雇佣信息
+	EnterpriseEmail  string `json:"enterprise_email,omitempty"`   // 企业邮箱, 请先确保已在管理后台启用飞书邮箱服务, 字段权限要求（满足任一）: 获取用户雇佣信息
 	UserID           string `json:"user_id,omitempty"`            // 用户 user_id, 字段权限要求: 获取用户 user ID
 	Mobile           string `json:"mobile,omitempty"`             // 用户手机号, 字段权限要求: 获取用户手机号
 	TenantKey        string `json:"tenant_key,omitempty"`         // 当前企业标识
-	RefreshExpiresIn int64  `json:"refresh_expires_in,omitempty"` // refresh_token 的有效期，单位: 秒
+	RefreshExpiresIn int64  `json:"refresh_expires_in,omitempty"` // refresh_token 的有效期, 单位: 秒
 	RefreshToken     string `json:"refresh_token,omitempty"`      // 刷新用户 access_token 时使用的 token
+}
+
+// getAccessTokenResp ...
+type getAccessTokenResp struct {
+	Code int64               `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg  string              `json:"msg,omitempty"`  // 错误描述
+	Data *GetAccessTokenResp `json:"data,omitempty"`
 }

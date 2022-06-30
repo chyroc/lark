@@ -60,16 +60,9 @@ func (r *Mock) UnMockDriveGetSheetMeta() {
 
 // GetSheetMetaReq ...
 type GetSheetMetaReq struct {
-	ExtFields        *string `query:"extFields" json:"-"`       // 额外返回的字段，extFields=protectedRange时返回保护行列信息
-	UserIDType       *IDType `query:"user_id_type" json:"-"`    // 返回的用户id类型，可选open_id,union_id
 	SpreadSheetToken string  `path:"spreadsheetToken" json:"-"` // spreadsheet 的 token；获取方式见[在线表格开发指南](https://open.feishu.cn/document/ukTMukTMukTM/uATMzUjLwEzM14CMxMTN/overview)
-}
-
-// getSheetMetaResp ...
-type getSheetMetaResp struct {
-	Code int64             `json:"code,omitempty"`
-	Msg  string            `json:"msg,omitempty"`
-	Data *GetSheetMetaResp `json:"data,omitempty"`
+	ExtFields        *string `query:"extFields" json:"-"`       // 额外返回的字段, extFields=protectedRange时返回保护行列信息
+	UserIDType       *IDType `query:"user_id_type" json:"-"`    // 返回的用户id类型, 可选open_id, union_id
 }
 
 // GetSheetMetaResp ...
@@ -83,7 +76,7 @@ type GetSheetMetaResp struct {
 type GetSheetMetaRespProperties struct {
 	Title       string `json:"title,omitempty"`       // spreadsheet 的标题
 	OwnerUser   int64  `json:"ownerUser,omitempty"`   // 所有者的 id
-	OwnerUserID string `json:"ownerUserID,omitempty"` // 所有者的 id，取决于user_id_type的值，仅user_id_type不为空是返回该值
+	OwnerUserID string `json:"ownerUserID,omitempty"` // 所有者的 id, 取决于user_id_type的值, 仅user_id_type不为空是返回该值
 	SheetCount  int64  `json:"sheetCount,omitempty"`  // spreadsheet 下的 sheet 数
 	Revision    int64  `json:"revision,omitempty"`    // 该 sheet 的版本
 }
@@ -95,24 +88,30 @@ type GetSheetMetaRespSheet struct {
 	Index          int64                                `json:"index,omitempty"`          // sheet 的位置
 	RowCount       int64                                `json:"rowCount,omitempty"`       // sheet 的最大行数
 	ColumnCount    int64                                `json:"columnCount,omitempty"`    // sheet 的最大列数
-	FrozenRowCount int64                                `json:"frozenRowCount,omitempty"` // 该 sheet 的冻结行数，小于等于 sheet 的最大行数，0表示未设置冻结
-	FrozenColCount int64                                `json:"frozenColCount,omitempty"` // 该 sheet 的冻结列数，小于等于 sheet 的最大列数，0表示未设置冻结
+	FrozenRowCount int64                                `json:"frozenRowCount,omitempty"` // 该 sheet 的冻结行数, 小于等于 sheet 的最大行数, 0表示未设置冻结
+	FrozenColCount int64                                `json:"frozenColCount,omitempty"` // 该 sheet 的冻结列数, 小于等于 sheet 的最大列数, 0表示未设置冻结
 	Merges         []*GetSheetMetaRespSheetMerge        `json:"merges,omitempty"`         // 该 sheet 中合并单元格的范围
 	ProtectedRange *GetSheetMetaRespSheetProtectedRange `json:"protectedRange,omitempty"` // 该 sheet 中保护范围
-	BlockInfo      *GetSheetMetaRespSheetBlockInfo      `json:"blockInfo,omitempty"`      // 若含有该字段，则此工作表不为表格
+	BlockInfo      *GetSheetMetaRespSheetBlockInfo      `json:"blockInfo,omitempty"`      // 若含有该字段, 则此工作表不为表格
+}
+
+// GetSheetMetaRespSheetBlockInfo ...
+type GetSheetMetaRespSheetBlockInfo struct {
+	BlockToken string `json:"blockToken,omitempty"` // block的token
+	BlockType  string `json:"blockType,omitempty"`  // block的类型
 }
 
 // GetSheetMetaRespSheetMerge ...
 type GetSheetMetaRespSheetMerge struct {
-	StartRowIndex    int64 `json:"startRowIndex,omitempty"`    // 合并单元格范围的开始行下标，index 从 0 开始
-	StartColumnIndex int64 `json:"startColumnIndex,omitempty"` // 合并单元格范围的开始列下标，index 从 0 开始
+	StartRowIndex    int64 `json:"startRowIndex,omitempty"`    // 合并单元格范围的开始行下标, index 从 0 开始
+	StartColumnIndex int64 `json:"startColumnIndex,omitempty"` // 合并单元格范围的开始列下标, index 从 0 开始
 	RowCount         int64 `json:"rowCount,omitempty"`         // 合并单元格范围的行数量
 	ColumnCount      int64 `json:"columnCount,omitempty"`      // 合并单元格范围的列数量
 }
 
 // GetSheetMetaRespSheetProtectedRange ...
 type GetSheetMetaRespSheetProtectedRange struct {
-	Dimension *GetSheetMetaRespSheetProtectedRangeDimension `json:"dimension,omitempty"` // 保护行列的信息，如果为保护工作表，则该字段为空
+	Dimension *GetSheetMetaRespSheetProtectedRangeDimension `json:"dimension,omitempty"` // 保护行列的信息, 如果为保护工作表, 则该字段为空
 	ProtectID string                                        `json:"protectId,omitempty"` // 保护范围ID
 	LockInfo  string                                        `json:"lockInfo,omitempty"`  // 保护说明
 	SheetID   string                                        `json:"sheetId,omitempty"`   // 保护工作表 ID
@@ -120,14 +119,15 @@ type GetSheetMetaRespSheetProtectedRange struct {
 
 // GetSheetMetaRespSheetProtectedRangeDimension ...
 type GetSheetMetaRespSheetProtectedRangeDimension struct {
-	StartIndex     int64  `json:"startIndex,omitempty"`     // 保护行列的起始位置，位置从1开始
-	EndIndex       int64  `json:"endIndex,omitempty"`       // 保护行列的结束位置，位置从1开始
-	MajorDimension string `json:"majorDimension,omitempty"` // 若为ROWS，则为保护行；为COLUMNS，则为保护列
+	StartIndex     int64  `json:"startIndex,omitempty"`     // 保护行列的起始位置, 位置从1开始
+	EndIndex       int64  `json:"endIndex,omitempty"`       // 保护行列的结束位置, 位置从1开始
+	MajorDimension string `json:"majorDimension,omitempty"` // 若为ROWS, 则为保护行；为COLUMNS, 则为保护列
 	SheetID        string `json:"sheetId,omitempty"`        // 保护范围所在工作表 ID
 }
 
-// GetSheetMetaRespSheetBlockInfo ...
-type GetSheetMetaRespSheetBlockInfo struct {
-	BlockToken string `json:"blockToken,omitempty"` // block的token
-	BlockType  string `json:"blockType,omitempty"`  // block的类型
+// getSheetMetaResp ...
+type getSheetMetaResp struct {
+	Code int64             `json:"code,omitempty"`
+	Msg  string            `json:"msg,omitempty"`
+	Data *GetSheetMetaResp `json:"data,omitempty"`
 }

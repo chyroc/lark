@@ -23,7 +23,7 @@ import (
 
 // RollbackApprovalInstance
 //
-// 从当前审批任务，退回到已审批的一个或多个任务节点。退回后，已审批节点重新生成审批任务
+// 从当前审批任务, 退回到已审批的一个或多个任务节点。退回后, 已审批节点重新生成审批任务
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/ukTM5UjL5ETO14SOxkTN/approval-task-return
 func (r *ApprovalService) RollbackApprovalInstance(ctx context.Context, request *RollbackApprovalInstanceReq, options ...MethodOptionFunc) (*RollbackApprovalInstanceResp, *Response, error) {
@@ -59,20 +59,20 @@ func (r *Mock) UnMockApprovalRollbackApprovalInstance() {
 
 // RollbackApprovalInstanceReq ...
 type RollbackApprovalInstanceReq struct {
-	UserIDType     *IDType  `query:"user_id_type" json:"-"`      // 用户 ID 类型, 示例值："open_id", 可选值有: `open_id`：用户的 open id, `union_id`：用户的 union id, `user_id`：用户的 user id, 默认值: `open_id`,, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
-	TaskID         string   `json:"task_id,omitempty"`           // 当前审批任务ID，从实例详情中获取task_list中获取，必须是PENDING的任务id
-	UserID         string   `json:"user_id,omitempty"`           // 当前审批任务审批人open_id，从实例详情中获取task_list中获取，必须是PENDING的任务的审批人open_id
+	UserIDType     *IDType  `query:"user_id_type" json:"-"`      // 用户 ID 类型, 示例值: "open_id", 可选值有: `open_id`: 用户的 open id, `union_id`: 用户的 union id, `user_id`: 用户的 user id, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
+	TaskID         string   `json:"task_id,omitempty"`           // 当前审批任务ID, 从实例详情中获取task_list中获取, 必须是PENDING的任务id
+	UserID         string   `json:"user_id,omitempty"`           // 当前审批任务审批人open_id, 从实例详情中获取task_list中获取, 必须是PENDING的任务的审批人open_id
 	Reason         string   `json:"reason,omitempty"`            // 退回原因
-	TaskDefKeyList []string `json:"task_def_key_list,omitempty"` // 指定退回的任务node_key，从实例详情中获取timeline中获取，必须是PASS的任务node_key
-}
-
-// rollbackApprovalInstanceResp ...
-type rollbackApprovalInstanceResp struct {
-	Code int64                         `json:"code,omitempty"` // 错误码，非0表示失败
-	Msg  string                        `json:"msg,omitempty"`  // 返回码的描述
-	Data *RollbackApprovalInstanceResp `json:"data,omitempty"`
+	TaskDefKeyList []string `json:"task_def_key_list,omitempty"` // 指定退回的任务node_key, 从实例详情中获取timeline中获取, 必须是PASS的任务node_key
 }
 
 // RollbackApprovalInstanceResp ...
 type RollbackApprovalInstanceResp struct {
+}
+
+// rollbackApprovalInstanceResp ...
+type rollbackApprovalInstanceResp struct {
+	Code int64                         `json:"code,omitempty"` // 错误码, 非0表示失败
+	Msg  string                        `json:"msg,omitempty"`  // 返回码的描述
+	Data *RollbackApprovalInstanceResp `json:"data,omitempty"`
 }

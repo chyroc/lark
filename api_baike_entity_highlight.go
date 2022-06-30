@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// HighlightBaikeEntity 传入一句话，智能识别句中对应的词条，并返回词条位置和 entity_id，可在外部系统中快速实现百科词条智能高亮
+// HighlightBaikeEntity 传入一句话, 智能识别句中对应的词条, 并返回词条位置和 entity_id, 可在外部系统中快速实现百科词条智能高亮
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/baike-v1/entity/highlight
 func (r *BaikeService) HighlightBaikeEntity(ctx context.Context, request *HighlightBaikeEntityReq, options ...MethodOptionFunc) (*HighlightBaikeEntityResp, *Response, error) {
@@ -58,14 +58,7 @@ func (r *Mock) UnMockBaikeHighlightBaikeEntity() {
 
 // HighlightBaikeEntityReq ...
 type HighlightBaikeEntityReq struct {
-	Text string `json:"text,omitempty"` // 需要识别百科词条的内容（不超过1000字）, 示例值："企业百科是飞书提供的一款知识管理工具", 长度范围：`1` ～ `1000` 字符
-}
-
-// highlightBaikeEntityResp ...
-type highlightBaikeEntityResp struct {
-	Code int64                     `json:"code,omitempty"` // 错误码，非 0 表示失败
-	Msg  string                    `json:"msg,omitempty"`  // 错误描述
-	Data *HighlightBaikeEntityResp `json:"data,omitempty"`
+	Text string `json:"text,omitempty"` // 需要识别百科词条的内容（不超过1000字）, 示例值: "企业百科是飞书提供的一款知识管理工具", 长度范围: `1` ～ `1000` 字符
 }
 
 // HighlightBaikeEntityResp ...
@@ -82,6 +75,13 @@ type HighlightBaikeEntityRespPhrase struct {
 
 // HighlightBaikeEntityRespPhraseSpan ...
 type HighlightBaikeEntityRespPhraseSpan struct {
-	Start int64 `json:"start,omitempty"` // 关键词开始位置，从 0 开始计数（编码格式采用 utf-8）
-	End   int64 `json:"end,omitempty"`   // 关键词结束位置，从 0 开始计数（编码格式采用 utf-8）
+	Start int64 `json:"start,omitempty"` // 关键词开始位置, 从 0 开始计数（编码格式采用 utf-8）
+	End   int64 `json:"end,omitempty"`   // 关键词结束位置, 从 0 开始计数（编码格式采用 utf-8）
+}
+
+// highlightBaikeEntityResp ...
+type highlightBaikeEntityResp struct {
+	Code int64                     `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg  string                    `json:"msg,omitempty"`  // 错误描述
+	Data *HighlightBaikeEntityResp `json:"data,omitempty"`
 }

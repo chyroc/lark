@@ -23,7 +23,7 @@ import (
 
 // GetDocxDocumentRawContent 获取文档的纯文本内容。
 //
-// 在调用此接口前，请仔细阅读[新版文档 OpenAPI 接口校验规则](https://bytedance.feishu.cn/docx/doxcnby5Y0yoACL3PdfZqrJEm6f#doxcnQeqI4wiKIMis6GNvCOBuqg)，了解相关规则及约束。
+// 在调用此接口前, 请仔细阅读[新版文档 OpenAPI 接口校验规则](https://bytedance.feishu.cn/docx/doxcnby5Y0yoACL3PdfZqrJEm6f#doxcnQeqI4wiKIMis6GNvCOBuqg), 了解相关规则及约束。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/document-docx/docx-v1/document/raw_content
 func (r *DriveService) GetDocxDocumentRawContent(ctx context.Context, request *GetDocxDocumentRawContentReq, options ...MethodOptionFunc) (*GetDocxDocumentRawContentResp, *Response, error) {
@@ -60,18 +60,18 @@ func (r *Mock) UnMockDriveGetDocxDocumentRawContent() {
 
 // GetDocxDocumentRawContentReq ...
 type GetDocxDocumentRawContentReq struct {
-	Lang       *int64 `query:"lang" json:"-"`       // 语言（用于 MentionUser 语言的选取）, 示例值：0, 可选值有: ,<md-enum>,<md-enum-item key="0" >中文</md-enum-item>,<md-enum-item key="1" >英文</md-enum-item>,<md-enum-item key="2" >日文</md-enum-item>,</md-enum>, 默认值: `0`
-	DocumentID string `path:"document_id" json:"-"` // 文档的唯一标识, 示例值："doxbcmEtbFrbbq10nPNu8gO1F3b", 长度范围：`27` ～ `27` 字符
-}
-
-// getDocxDocumentRawContentResp ...
-type getDocxDocumentRawContentResp struct {
-	Code int64                          `json:"code,omitempty"` // 错误码，非 0 表示失败
-	Msg  string                         `json:"msg,omitempty"`  // 错误描述
-	Data *GetDocxDocumentRawContentResp `json:"data,omitempty"`
+	DocumentID string `path:"document_id" json:"-"` // 文档的唯一标识, 示例值: "doxbcmEtbFrbbq10nPNu8gO1F3b", 长度范围: `27` ～ `27` 字符
+	Lang       *int64 `query:"lang" json:"-"`       // 语言（用于 MentionUser 语言的选取）, 示例值: 0, 可选值有: <md-enum>, <md-enum-item key="0" >中文</md-enum-item>, <md-enum-item key="1" >英文</md-enum-item>, <md-enum-item key="2" >日文</md-enum-item>, </md-enum>, 默认值: `0`
 }
 
 // GetDocxDocumentRawContentResp ...
 type GetDocxDocumentRawContentResp struct {
 	Content string `json:"content,omitempty"` // 文档纯文本
+}
+
+// getDocxDocumentRawContentResp ...
+type getDocxDocumentRawContentResp struct {
+	Code int64                          `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg  string                         `json:"msg,omitempty"`  // 错误描述
+	Data *GetDocxDocumentRawContentResp `json:"data,omitempty"`
 }

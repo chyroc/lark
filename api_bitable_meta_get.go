@@ -60,14 +60,7 @@ func (r *Mock) UnMockBitableGetBitableMeta() {
 
 // GetBitableMetaReq ...
 type GetBitableMetaReq struct {
-	AppToken string `path:"app_token" json:"-"` // bitable app token, 示例值："appbcbWCzen6D8dezhoCH2RpMAh"
-}
-
-// getBitableMetaResp ...
-type getBitableMetaResp struct {
-	Code int64               `json:"code,omitempty"` // 错误码，非 0 表示失败
-	Msg  string              `json:"msg,omitempty"`  // 错误描述
-	Data *GetBitableMetaResp `json:"data,omitempty"`
+	AppToken string `path:"app_token" json:"-"` // bitable app token, 示例值: "appbcbWCzen6D8dezhoCH2RpMAh"
 }
 
 // GetBitableMetaResp ...
@@ -79,5 +72,12 @@ type GetBitableMetaResp struct {
 type GetBitableMetaRespApp struct {
 	AppToken string `json:"app_token,omitempty"` // 多维表格的 app_token
 	Name     string `json:"name,omitempty"`      // 多维表格的名字
-	Revision int64  `json:"revision,omitempty"`  // 多维表格的版本号（对 app 进行修改时更新，如新增、删除数据表，修改数据表名）
+	Revision int64  `json:"revision,omitempty"`  // 多维表格的版本号（对 app 进行修改时更新, 如新增、删除数据表, 修改数据表名）
+}
+
+// getBitableMetaResp ...
+type getBitableMetaResp struct {
+	Code int64               `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg  string              `json:"msg,omitempty"`  // 错误描述
+	Data *GetBitableMetaResp `json:"data,omitempty"`
 }

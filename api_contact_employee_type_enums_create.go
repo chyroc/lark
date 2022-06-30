@@ -57,23 +57,16 @@ func (r *Mock) UnMockContactCreateEmployeeTypeEnum() {
 
 // CreateEmployeeTypeEnumReq ...
 type CreateEmployeeTypeEnumReq struct {
-	Content     string                                  `json:"content,omitempty"`      // 枚举内容, 示例值："专家", 长度范围：`1` ～ `100` 字符
-	EnumType    int64                                   `json:"enum_type,omitempty"`    // 类型, 示例值：2, 可选值有: `1`：内置类型, `2`：自定义
-	EnumStatus  int64                                   `json:"enum_status,omitempty"`  // 使用状态, 示例值：1, 可选值有: `1`：激活, `2`：未激活
+	Content     string                                  `json:"content,omitempty"`      // 枚举内容, 示例值: "专家", 长度范围: `1` ～ `100` 字符
+	EnumType    int64                                   `json:"enum_type,omitempty"`    // 类型, 示例值: 2, 可选值有: `1`: 内置类型, `2`: 自定义
+	EnumStatus  int64                                   `json:"enum_status,omitempty"`  // 使用状态, 示例值: 1, 可选值有: `1`: 激活, `2`: 未激活
 	I18nContent []*CreateEmployeeTypeEnumReqI18nContent `json:"i18n_content,omitempty"` // i18n定义
 }
 
 // CreateEmployeeTypeEnumReqI18nContent ...
 type CreateEmployeeTypeEnumReqI18nContent struct {
-	Locale *string `json:"locale,omitempty"` // 语言版本, 示例值："zh_cn"
-	Value  *string `json:"value,omitempty"`  // 字段名, 示例值："专家"
-}
-
-// createEmployeeTypeEnumResp ...
-type createEmployeeTypeEnumResp struct {
-	Code int64                       `json:"code,omitempty"` // 错误码，非 0 表示失败
-	Msg  string                      `json:"msg,omitempty"`  // 错误描述
-	Data *CreateEmployeeTypeEnumResp `json:"data,omitempty"`
+	Locale *string `json:"locale,omitempty"` // 语言版本, 示例值: "zh_cn"
+	Value  *string `json:"value,omitempty"`  // 字段名, 示例值: "专家"
 }
 
 // CreateEmployeeTypeEnumResp ...
@@ -84,10 +77,10 @@ type CreateEmployeeTypeEnumResp struct {
 // CreateEmployeeTypeEnumRespEmployeeTypeEnum ...
 type CreateEmployeeTypeEnumRespEmployeeTypeEnum struct {
 	EnumID      string                                                   `json:"enum_id,omitempty"`      // 枚举值id
-	EnumValue   string                                                   `json:"enum_value,omitempty"`   // 枚举的编号值，创建新的人员类型后，系统生成对应编号。对应[创建用户接口](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/create)中用户信息的employee_type字段值
+	EnumValue   string                                                   `json:"enum_value,omitempty"`   // 枚举的编号值, 创建新的人员类型后, 系统生成对应编号。对应[创建用户接口](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/create)中用户信息的employee_type字段值
 	Content     string                                                   `json:"content,omitempty"`      // 枚举内容
-	EnumType    int64                                                    `json:"enum_type,omitempty"`    // 类型, 可选值有: `1`：内置类型, `2`：自定义
-	EnumStatus  int64                                                    `json:"enum_status,omitempty"`  // 使用状态, 可选值有: `1`：激活, `2`：未激活
+	EnumType    int64                                                    `json:"enum_type,omitempty"`    // 类型, 可选值有: `1`: 内置类型, `2`: 自定义
+	EnumStatus  int64                                                    `json:"enum_status,omitempty"`  // 使用状态, 可选值有: `1`: 激活, `2`: 未激活
 	I18nContent []*CreateEmployeeTypeEnumRespEmployeeTypeEnumI18nContent `json:"i18n_content,omitempty"` // i18n定义
 }
 
@@ -95,4 +88,11 @@ type CreateEmployeeTypeEnumRespEmployeeTypeEnum struct {
 type CreateEmployeeTypeEnumRespEmployeeTypeEnumI18nContent struct {
 	Locale string `json:"locale,omitempty"` // 语言版本
 	Value  string `json:"value,omitempty"`  // 字段名
+}
+
+// createEmployeeTypeEnumResp ...
+type createEmployeeTypeEnumResp struct {
+	Code int64                       `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg  string                      `json:"msg,omitempty"`  // 错误描述
+	Data *CreateEmployeeTypeEnumResp `json:"data,omitempty"`
 }

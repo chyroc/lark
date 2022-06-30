@@ -57,21 +57,14 @@ func (r *Mock) UnMockAttendanceGetAttendanceGroupList() {
 
 // GetAttendanceGroupListReq ...
 type GetAttendanceGroupListReq struct {
-	PageSize  *int64  `query:"page_size" json:"-"`  // 分页大小, 示例值：10, 最大值：`50`
-	PageToken *string `query:"page_token" json:"-"` // 分页标记，第一次请求不填，表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token，下次遍历可采用该 page_token 获取查询结果, 示例值："wgNOR1rmxogRvAsGl6CXlQ=="
-}
-
-// getAttendanceGroupListResp ...
-type getAttendanceGroupListResp struct {
-	Code int64                       `json:"code,omitempty"` // 错误码，非 0 表示失败
-	Msg  string                      `json:"msg,omitempty"`  // 错误描述
-	Data *GetAttendanceGroupListResp `json:"data,omitempty"`
+	PageSize  *int64  `query:"page_size" json:"-"`  // 分页大小, 示例值: 10, 最大值: `50`
+	PageToken *string `query:"page_token" json:"-"` // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果, 示例值: "wgNOR1rmxogRvAsGl6CXlQ=="
 }
 
 // GetAttendanceGroupListResp ...
 type GetAttendanceGroupListResp struct {
 	GroupList []*GetAttendanceGroupListRespGroup `json:"group_list,omitempty"` // 考勤组列表
-	PageToken string                             `json:"page_token,omitempty"` // 分页标记，当 has_more 为 true 时，会同时返回新的 page_token，否则不返回 page_token
+	PageToken string                             `json:"page_token,omitempty"` // 分页标记, 当 has_more 为 true 时, 会同时返回新的 page_token, 否则不返回 page_token
 	HasMore   bool                               `json:"has_more,omitempty"`   // 是否还有更多项
 }
 
@@ -79,4 +72,11 @@ type GetAttendanceGroupListResp struct {
 type GetAttendanceGroupListRespGroup struct {
 	GroupID   string `json:"group_id,omitempty"`   // 考勤组 ID
 	GroupName string `json:"group_name,omitempty"` // 考勤组名称
+}
+
+// getAttendanceGroupListResp ...
+type getAttendanceGroupListResp struct {
+	Code int64                       `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg  string                      `json:"msg,omitempty"`  // 错误描述
+	Data *GetAttendanceGroupListResp `json:"data,omitempty"`
 }

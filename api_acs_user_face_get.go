@@ -22,7 +22,7 @@ import (
 	"io"
 )
 
-// GetACSUserFace 对于已经录入人脸图片的用户，可以使用该接口下载用户人脸图片
+// GetACSUserFace 对于已经录入人脸图片的用户, 可以使用该接口下载用户人脸图片
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/acs-v1/user-face/get
 func (r *ACSService) GetACSUserFace(ctx context.Context, request *GetACSUserFaceReq, options ...MethodOptionFunc) (*GetACSUserFaceResp, *Response, error) {
@@ -58,9 +58,14 @@ func (r *Mock) UnMockACSGetACSUserFace() {
 
 // GetACSUserFaceReq ...
 type GetACSUserFaceReq struct {
-	IsCropped  *bool   `query:"is_cropped" json:"-"`   // 裁剪图, 示例值：true
-	UserIDType *IDType `query:"user_id_type" json:"-"` // 用户 ID 类型, 示例值："open_id", 可选值有: `open_id`：用户的 open id, `union_id`：用户的 union id, `user_id`：用户的 user id, 默认值: `open_id`,, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
-	UserID     string  `path:"user_id" json:"-"`       // 用户 ID, 示例值："ou_7dab8a3d3cdcc9da365777c7ad535d62"
+	UserID     string  `path:"user_id" json:"-"`       // 用户 ID, 示例值: "ou_7dab8a3d3cdcc9da365777c7ad535d62"
+	IsCropped  *bool   `query:"is_cropped" json:"-"`   // 裁剪图, 示例值: true
+	UserIDType *IDType `query:"user_id_type" json:"-"` // 用户 ID 类型, 示例值: "open_id", 可选值有: `open_id`: 用户的 open id, `union_id`: 用户的 union id, `user_id`: 用户的 user id, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
+}
+
+// GetACSUserFaceResp ...
+type GetACSUserFaceResp struct {
+	File io.Reader `json:"file,omitempty"`
 }
 
 // getACSUserFaceResp ...
@@ -76,9 +81,4 @@ func (r *getACSUserFaceResp) SetReader(file io.Reader) {
 		r.Data = &GetACSUserFaceResp{}
 	}
 	r.Data.File = file
-}
-
-// GetACSUserFaceResp ...
-type GetACSUserFaceResp struct {
-	File io.Reader `json:"file,omitempty"`
 }

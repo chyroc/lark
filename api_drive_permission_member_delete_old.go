@@ -58,10 +58,15 @@ func (r *Mock) UnMockDriveDeleteDriveMemberPermissionOld() {
 
 // DeleteDriveMemberPermissionOldReq ...
 type DeleteDriveMemberPermissionOldReq struct {
-	Token      string `json:"token,omitempty"`       // 文件的 token，获取方式见 [对接前说明](https://open.feishu.cn/document/ukTMukTMukTM/uczNzUjL3czM14yN3MTN)的第 4 项
+	Token      string `json:"token,omitempty"`       // 文件的 token, 获取方式见 [对接前说明](https://open.feishu.cn/document/ukTMukTMukTM/uczNzUjL3czM14yN3MTN)的第 4 项
 	Type       string `json:"type,omitempty"`        // 文档类型 "doc"  or  "sheet" or "bitable"  or "file"
-	MemberType string `json:"member_type,omitempty"` // 用户类型，可选 **"openid"、"openchat"、"userid"**
+	MemberType string `json:"member_type,omitempty"` // 用户类型, 可选 "openid"、"openchat"、"userid"
 	MemberID   string `json:"member_id,omitempty"`   // 用户类型下的值
+}
+
+// DeleteDriveMemberPermissionOldResp ...
+type DeleteDriveMemberPermissionOldResp struct {
+	IsSuccess bool `json:"is_success,omitempty"` // 是否操作成功
 }
 
 // deleteDriveMemberPermissionOldResp ...
@@ -69,9 +74,4 @@ type deleteDriveMemberPermissionOldResp struct {
 	Code int64                               `json:"code,omitempty"`
 	Msg  string                              `json:"msg,omitempty"`
 	Data *DeleteDriveMemberPermissionOldResp `json:"data,omitempty"`
-}
-
-// DeleteDriveMemberPermissionOldResp ...
-type DeleteDriveMemberPermissionOldResp struct {
-	IsSuccess bool `json:"is_success,omitempty"` // 是否操作成功
 }

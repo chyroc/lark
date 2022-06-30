@@ -57,18 +57,11 @@ func (r *Mock) UnMockAttendanceGetAttendanceUserStatsField() {
 
 // GetAttendanceUserStatsFieldReq ...
 type GetAttendanceUserStatsFieldReq struct {
-	EmployeeType EmployeeType `query:"employee_type" json:"-"` // 响应体中的 user_id 的员工工号类型, 示例值："employee_id", 可选值有: `employee_id`：员工 employee ID，即飞书管理后台 > 组织架构 > 成员与部门 > 成员详情中的用户 ID, `employee_no`：员工工号，即飞书管理后台 > 组织架构 > 成员与部门 > 成员详情中的工号
-	Locale       string       `json:"locale,omitempty"`        // 语言类型, 示例值："zh", 可选值有: `en`：英语, `ja`：日语, `zh`：中文
-	StatsType    string       `json:"stats_type,omitempty"`    // 统计类型, 示例值："daily", 可选值有: `daily`：日度统计, `month`：月度统计
-	StartDate    int64        `json:"start_date,omitempty"`    // 开始时间, 示例值：20210316
-	EndDate      int64        `json:"end_date,omitempty"`      // 结束时间（时间间隔不超过 40 天）, 示例值：20210323
-}
-
-// getAttendanceUserStatsFieldResp ...
-type getAttendanceUserStatsFieldResp struct {
-	Code int64                            `json:"code,omitempty"` // 错误码，非 0 表示失败
-	Msg  string                           `json:"msg,omitempty"`  // 错误描述
-	Data *GetAttendanceUserStatsFieldResp `json:"data,omitempty"`
+	EmployeeType EmployeeType `query:"employee_type" json:"-"` // 响应体中的 user_id 的员工工号类型, 示例值: "employee_id", 可选值有: `employee_id`: 员工 employee ID, 即飞书管理后台 > 组织架构 > 成员与部门 > 成员详情中的用户 ID, `employee_no`: 员工工号, 即飞书管理后台 > 组织架构 > 成员与部门 > 成员详情中的工号
+	Locale       string       `json:"locale,omitempty"`        // 语言类型, 示例值: "zh", 可选值有: `en`: 英语, `ja`: 日语, `zh`: 中文
+	StatsType    string       `json:"stats_type,omitempty"`    // 统计类型, 示例值: "daily", 可选值有: `daily`: 日度统计, `month`: 月度统计
+	StartDate    int64        `json:"start_date,omitempty"`    // 开始时间, 示例值: 20210316
+	EndDate      int64        `json:"end_date,omitempty"`      // 结束时间（时间间隔不超过 40 天）, 示例值: 20210323
 }
 
 // GetAttendanceUserStatsFieldResp ...
@@ -78,7 +71,7 @@ type GetAttendanceUserStatsFieldResp struct {
 
 // GetAttendanceUserStatsFieldRespUserStatsField ...
 type GetAttendanceUserStatsFieldRespUserStatsField struct {
-	StatsType string                                                `json:"stats_type,omitempty"` // 统计类型, 可选值有: `daily`：日度统计, `month`：月度统计
+	StatsType string                                                `json:"stats_type,omitempty"` // 统计类型, 可选值有: `daily`: 日度统计, `month`: 月度统计
 	UserID    string                                                `json:"user_id,omitempty"`    // 用户 ID
 	Fields    []*GetAttendanceUserStatsFieldRespUserStatsFieldField `json:"fields,omitempty"`     // 字段列表
 }
@@ -95,4 +88,11 @@ type GetAttendanceUserStatsFieldRespUserStatsFieldFieldChildField struct {
 	Code     string `json:"code,omitempty"`      // 子字段编号
 	Title    string `json:"title,omitempty"`     // 子字段名称
 	TimeUnit string `json:"time_unit,omitempty"` // 时间单位
+}
+
+// getAttendanceUserStatsFieldResp ...
+type getAttendanceUserStatsFieldResp struct {
+	Code int64                            `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg  string                           `json:"msg,omitempty"`  // 错误描述
+	Data *GetAttendanceUserStatsFieldResp `json:"data,omitempty"`
 }

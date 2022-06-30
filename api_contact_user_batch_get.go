@@ -21,9 +21,9 @@ import (
 	"context"
 )
 
-// BatchGetUserByID 通过该接口，可使用手机号/邮箱获取用户的 ID 信息，具体获取支持的 ID 类型包括 open_id、user_id、union_id，可通过查询参数指定。
+// BatchGetUserByID 通过该接口, 可使用手机号/邮箱获取用户的 ID 信息, 具体获取支持的 ID 类型包括 open_id、user_id、union_id, 可通过查询参数指定。
 //
-// 如果查询的手机号、邮箱不存在，或者无权限查看对应的用户，则返回的open_id为空。
+// 如果查询的手机号、邮箱不存在, 或者无权限查看对应的用户, 则返回的open_id为空。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/batch_get_id
 func (r *ContactService) BatchGetUserByID(ctx context.Context, request *BatchGetUserByIDReq, options ...MethodOptionFunc) (*BatchGetUserByIDResp, *Response, error) {
@@ -59,16 +59,9 @@ func (r *Mock) UnMockContactBatchGetUserByID() {
 
 // BatchGetUserByIDReq ...
 type BatchGetUserByIDReq struct {
-	UserIDType *IDType  `query:"user_id_type" json:"-"` // 用户 ID 类型, 示例值："open_id", 可选值有: `open_id`：用户的 open id, `union_id`：用户的 union id, `user_id`：用户的 user id, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
-	Emails     []string `json:"emails,omitempty"`       // 要查询的用户邮箱，最多 50 条。, 示例值：zhangsan@a.com, 最大长度：`50`
-	Mobiles    []string `json:"mobiles,omitempty"`      // 要查询的用户手机号，最多 50 条。 非中国大陆地区的手机号需要添加以 “+” 开头的国家 / 地区代码。, 示例值：13812345678, 最大长度：`50`
-}
-
-// batchGetUserByIDResp ...
-type batchGetUserByIDResp struct {
-	Code int64                 `json:"code,omitempty"` // 错误码，非 0 表示失败
-	Msg  string                `json:"msg,omitempty"`  // 错误描述
-	Data *BatchGetUserByIDResp `json:"data,omitempty"`
+	UserIDType *IDType  `query:"user_id_type" json:"-"` // 用户 ID 类型, 示例值: "open_id", 可选值有: `open_id`: 用户的 open id, `union_id`: 用户的 union id, `user_id`: 用户的 user id, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
+	Emails     []string `json:"emails,omitempty"`       // 要查询的用户邮箱, 最多 50 条, 示例值: zhangsan@a.com, 最大长度: `50`
+	Mobiles    []string `json:"mobiles,omitempty"`      // 要查询的用户手机号, 最多 50 条。 非中国大陆地区的手机号需要添加以 “+” 开头的国家 / 地区代码, 示例值: 13812345678, 最大长度: `50`
 }
 
 // BatchGetUserByIDResp ...
@@ -78,7 +71,14 @@ type BatchGetUserByIDResp struct {
 
 // BatchGetUserByIDRespUser ...
 type BatchGetUserByIDRespUser struct {
-	UserID string `json:"user_id,omitempty"` // 用户id，值为user_id_type所指定的类型。如果查询的手机号、邮箱不存在，或者无权限查看对应的用户，则此项为空。
-	Mobile string `json:"mobile,omitempty"`  // 手机号，通过手机号查询时返回
-	Email  string `json:"email,omitempty"`   // 邮箱，通过邮箱查询时返回
+	UserID string `json:"user_id,omitempty"` // 用户id, 值为user_id_type所指定的类型。如果查询的手机号、邮箱不存在, 或者无权限查看对应的用户, 则此项为空。
+	Mobile string `json:"mobile,omitempty"`  // 手机号, 通过手机号查询时返回
+	Email  string `json:"email,omitempty"`   // 邮箱, 通过邮箱查询时返回
+}
+
+// batchGetUserByIDResp ...
+type batchGetUserByIDResp struct {
+	Code int64                 `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg  string                `json:"msg,omitempty"`  // 错误描述
+	Data *BatchGetUserByIDResp `json:"data,omitempty"`
 }

@@ -23,7 +23,7 @@ import (
 
 // UpdateWikiSpaceSetting 根据space_id更新知识空间公共设置
 //
-// 知识库权限要求：
+// 知识库权限要求:
 // - 为知识空间管理员
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/wiki-v2/space-setting/update
@@ -61,17 +61,10 @@ func (r *Mock) UnMockDriveUpdateWikiSpaceSetting() {
 
 // UpdateWikiSpaceSettingReq ...
 type UpdateWikiSpaceSettingReq struct {
-	SpaceID         string  `path:"space_id" json:"-"`          // 知识空间id, 示例值："1565676577122621"
-	CreateSetting   *string `json:"create_setting,omitempty"`   // 谁可以创建空间的一级页面： "admin_and_member" = 管理员和成员 "admin"  - 仅管理员, 示例值："admin/admin_and_member"
-	SecuritySetting *string `json:"security_setting,omitempty"` // 可阅读用户可否创建副本/打印/导出/复制： "allow" - 允许 "not_allow" - 不允许, 示例值："allow/not_allow"
-	CommentSetting  *string `json:"comment_setting,omitempty"`  // 可阅读用户可否评论： "allow" - 允许 "not_allow" - 不允许, 示例值："allow/not_allow"
-}
-
-// updateWikiSpaceSettingResp ...
-type updateWikiSpaceSettingResp struct {
-	Code int64                       `json:"code,omitempty"` // 错误码，非 0 表示失败
-	Msg  string                      `json:"msg,omitempty"`  // 错误描述
-	Data *UpdateWikiSpaceSettingResp `json:"data,omitempty"`
+	SpaceID         string  `path:"space_id" json:"-"`          // 知识空间id, 示例值: "1565676577122621"
+	CreateSetting   *string `json:"create_setting,omitempty"`   // 谁可以创建空间的一级页面: "admin_and_member" = 管理员和成员 "admin"  - 仅管理员, 示例值: "admin/admin_and_member"
+	SecuritySetting *string `json:"security_setting,omitempty"` // 可阅读用户可否创建副本/打印/导出/复制: "allow" - 允许 "not_allow" - 不允许, 示例值: "allow/not_allow"
+	CommentSetting  *string `json:"comment_setting,omitempty"`  // 可阅读用户可否评论: "allow" - 允许 "not_allow" - 不允许, 示例值: "allow/not_allow"
 }
 
 // UpdateWikiSpaceSettingResp ...
@@ -81,7 +74,14 @@ type UpdateWikiSpaceSettingResp struct {
 
 // UpdateWikiSpaceSettingRespSetting ...
 type UpdateWikiSpaceSettingRespSetting struct {
-	CreateSetting   string `json:"create_setting,omitempty"`   // 谁可以创建空间的一级页面： "admin_and_member" = 管理员和成员 "admin"  - 仅管理员
-	SecuritySetting string `json:"security_setting,omitempty"` // 可阅读用户可否创建副本/打印/导出/复制： "allow" - 允许 "not_allow" - 不允许
-	CommentSetting  string `json:"comment_setting,omitempty"`  // 可阅读用户可否评论： "allow" - 允许 "not_allow" - 不允许
+	CreateSetting   string `json:"create_setting,omitempty"`   // 谁可以创建空间的一级页面: "admin_and_member" = 管理员和成员 "admin"  - 仅管理员
+	SecuritySetting string `json:"security_setting,omitempty"` // 可阅读用户可否创建副本/打印/导出/复制: "allow" - 允许 "not_allow" - 不允许
+	CommentSetting  string `json:"comment_setting,omitempty"`  // 可阅读用户可否评论: "allow" - 允许 "not_allow" - 不允许
+}
+
+// updateWikiSpaceSettingResp ...
+type updateWikiSpaceSettingResp struct {
+	Code int64                       `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg  string                      `json:"msg,omitempty"`  // 错误描述
+	Data *UpdateWikiSpaceSettingResp `json:"data,omitempty"`
 }

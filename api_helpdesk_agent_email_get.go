@@ -60,14 +60,14 @@ func (r *Mock) UnMockHelpdeskGetHelpdeskAgentEmail() {
 type GetHelpdeskAgentEmailReq struct {
 }
 
-// getHelpdeskAgentEmailResp ...
-type getHelpdeskAgentEmailResp struct {
-	Code int64                      `json:"code,omitempty"` // 错误码，非 0 表示失败
-	Msg  string                     `json:"msg,omitempty"`  // 错误描述
-	Data *GetHelpdeskAgentEmailResp `json:"data,omitempty"`
-}
-
 // GetHelpdeskAgentEmailResp ...
 type GetHelpdeskAgentEmailResp struct {
 	Agents string `json:"agents,omitempty"` // agent emails
+}
+
+// getHelpdeskAgentEmailResp ...
+type getHelpdeskAgentEmailResp struct {
+	Code int64                      `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg  string                     `json:"msg,omitempty"`  // 错误描述
+	Data *GetHelpdeskAgentEmailResp `json:"data,omitempty"`
 }

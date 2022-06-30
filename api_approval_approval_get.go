@@ -23,7 +23,7 @@ import (
 
 // GetApproval
 //
-// 根据 Approval Code 获取某个审批定义的详情，用于构造创建审批实例的请求。
+// 根据 Approval Code 获取某个审批定义的详情, 用于构造创建审批实例的请求。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uADNyUjLwQjM14CM0ITN
 func (r *ApprovalService) GetApproval(ctx context.Context, request *GetApprovalReq, options ...MethodOptionFunc) (*GetApprovalResp, *Response, error) {
@@ -60,21 +60,14 @@ func (r *Mock) UnMockApprovalGetApproval() {
 // GetApprovalReq ...
 type GetApprovalReq struct {
 	ApprovalCode string  `json:"approval_code,omitempty"` // 审批定义 Code
-	Locale       *string `json:"locale,omitempty"`        // zh-CN - 中文<br>en-US - 英文  <br>ja-JP - 日文
-}
-
-// getApprovalResp ...
-type getApprovalResp struct {
-	Code int64            `json:"code,omitempty"` // 错误码，非 0 表示失败
-	Msg  string           `json:"msg,omitempty"`  // 返回码的描述
-	Data *GetApprovalResp `json:"data,omitempty"` // 返回业务信息
+	Locale       *string `json:"locale,omitempty"`        // zh-CN - 中文en-US - 英文  ja-JP - 日文
 }
 
 // GetApprovalResp ...
 type GetApprovalResp struct {
 	ApprovalName string                   `json:"approval_name,omitempty"` // 审批名称
-	Status       string                   `json:"status,omitempty"`        // 审批定义状态<br>ACTIVE -已启用<br>INACTIVE -已停用<br>DELETED -已删除<br>UNKNOWN -未知
-	Form         ApprovalWidgetList       `json:"form,omitempty"`          // json 数组，**控件信息**
+	Status       string                   `json:"status,omitempty"`        // 审批定义状态ACTIVE -已启用INACTIVE -已停用DELETED -已删除UNKNOWN -未知
+	Form         ApprovalWidgetList       `json:"form,omitempty"`          // json 数组, 控件信息
 	NodeList     []*GetApprovalRespNode   `json:"node_list,omitempty"`     // 节点信息
 	Viewers      []*GetApprovalRespViewer `json:"viewers,omitempty"`       // 可见人列表
 }
@@ -82,15 +75,22 @@ type GetApprovalResp struct {
 // GetApprovalRespNode ...
 type GetApprovalRespNode struct {
 	Name         string  `json:"name,omitempty"`           // 节点名称
-	NeedApprover bool    `json:"need_approver,omitempty"`  // 是否发起人自选节点<br>true - 发起审批时需要提交审批人
+	NeedApprover bool    `json:"need_approver,omitempty"`  // 是否发起人自选节点true - 发起审批时需要提交审批人
 	NodeID       string  `json:"node_id,omitempty"`        // 节点 ID
-	CustomNodeID *string `json:"custom_node_id,omitempty"` // 节点自定义 ID，如果没有设置则不返回
-	NodeType     string  `json:"node_type,omitempty"`      // 审批方式<br>AND -会签<br>OR - 或签<br>SEQUENTIAL -依次审批<br>CC_NODE -抄送节点
+	CustomNodeID *string `json:"custom_node_id,omitempty"` // 节点自定义 ID, 如果没有设置则不返回
+	NodeType     string  `json:"node_type,omitempty"`      // 审批方式AND -会签OR - 或签SEQUENTIAL -依次审批CC_NODE -抄送节点
 }
 
 // GetApprovalRespViewer ...
 type GetApprovalRespViewer struct {
-	Type   string  `json:"type,omitempty"`    // 可见人类型，分别有：<br>TENANT：租户内可见<br>DEPARTMENT：指定部门<br> USER：指定用户<br> ROLE：指定角色<br> USER_GROUP：指定用户组<br>NONE：任何人都不可见
-	OpenID *string `json:"open_id,omitempty"` // 在可见人类型为DEPARTMENT时，open_id为部门的open_id<br>在可见人类型为USER时，open_id为用户的open_id<br>在可见人类型为ROLE时，open_id为角色的open_id<br>在可见人类型为USER_GROUP时，open_id为用户组的open_id
-	UserID *string `json:"user_id,omitempty"` // 在可见人类型为USER时，表示可见人用户id
+	Type   string  `json:"type,omitempty"`    // 可见人类型, 分别有: TENANT: 租户内可见DEPARTMENT: 指定部门 USER: 指定用户 ROLE: 指定角色 USER_GROUP: 指定用户组NONE: 任何人都不可见
+	OpenID *string `json:"open_id,omitempty"` // 在可见人类型为DEPARTMENT时, open_id为部门的open_id在可见人类型为USER时, open_id为用户的open_id在可见人类型为ROLE时, open_id为角色的open_id在可见人类型为USER_GROUP时, open_id为用户组的open_id
+	UserID *string `json:"user_id,omitempty"` // 在可见人类型为USER时, 表示可见人用户id
+}
+
+// getApprovalResp ...
+type getApprovalResp struct {
+	Code int64            `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg  string           `json:"msg,omitempty"`  // 返回码的描述
+	Data *GetApprovalResp `json:"data,omitempty"` // 返回业务信息
 }

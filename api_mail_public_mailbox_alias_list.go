@@ -57,14 +57,7 @@ func (r *Mock) UnMockMailGetMailPublicMailboxAliasList() {
 
 // GetMailPublicMailboxAliasListReq ...
 type GetMailPublicMailboxAliasListReq struct {
-	PublicMailboxID string `path:"public_mailbox_id" json:"-"` // 公共邮箱id或公共邮箱邮件地址, 示例值："xxxxxx 或 xxx@xx.xxx"
-}
-
-// getMailPublicMailboxAliasListResp ...
-type getMailPublicMailboxAliasListResp struct {
-	Code int64                              `json:"code,omitempty"` // 错误码，非 0 表示失败
-	Msg  string                             `json:"msg,omitempty"`  // 错误描述
-	Data *GetMailPublicMailboxAliasListResp `json:"data,omitempty"`
+	PublicMailboxID string `path:"public_mailbox_id" json:"-"` // 公共邮箱id或公共邮箱邮件地址, 示例值: "xxxxxx 或 xxx@xx.xxx"
 }
 
 // GetMailPublicMailboxAliasListResp ...
@@ -76,4 +69,11 @@ type GetMailPublicMailboxAliasListResp struct {
 type GetMailPublicMailboxAliasListRespItem struct {
 	PrimaryEmail string `json:"primary_email,omitempty"` // 主邮箱地址
 	EmailAlias   string `json:"email_alias,omitempty"`   // 邮箱别名
+}
+
+// getMailPublicMailboxAliasListResp ...
+type getMailPublicMailboxAliasListResp struct {
+	Code int64                              `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg  string                             `json:"msg,omitempty"`  // 错误描述
+	Data *GetMailPublicMailboxAliasListResp `json:"data,omitempty"`
 }

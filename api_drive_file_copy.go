@@ -24,8 +24,8 @@ import (
 // CopyDriveFile
 //
 // 将文件复制到用户云空间的其他文件夹中。不支持复制文件夹。
-// 如果目标文件夹是我的空间，则复制的文件会在「**我的空间**」的「**归我所有**」列表里。
-// 该接口不支持并发拷贝多个文件，且调用频率上限为 5QPS 且 10000次/天
+// 如果目标文件夹是我的空间, 则复制的文件会在「我的空间」的「归我所有」列表里。
+// 该接口不支持并发拷贝多个文件, 且调用频率上限为 5QPS 且 10000次/天
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file/copy
 func (r *DriveService) CopyDriveFile(ctx context.Context, request *CopyDriveFileReq, options ...MethodOptionFunc) (*CopyDriveFileResp, *Response, error) {
@@ -62,17 +62,10 @@ func (r *Mock) UnMockDriveCopyDriveFile() {
 
 // CopyDriveFileReq ...
 type CopyDriveFileReq struct {
-	FileToken   string  `path:"file_token" json:"-"`    // 被复制的文件token, 示例值："boxbcj55reGXM6YAS3C7Z4GWKNg"
-	Name        string  `json:"name,omitempty"`         // 被复制文件的新名称, 示例值："123.txt"
-	Type        *string `json:"type,omitempty"`         // 被复制文件的类型，如果该值为空或者与文件实际类型不匹配，接口会返回失败。, 示例值："file", 可选值有: `file`：文件类型, `doc`：文档类型, `sheet`：电子表格类型, `bitable`：多维表格类型, `docx`：新版文档类型, `mindnote`：思维笔记类型
-	FolderToken string  `json:"folder_token,omitempty"` // 文件被复制到的目标文件夹token, 示例值："fldbcRho46N6MQ3mJkOAuPUZR9d"
-}
-
-// copyDriveFileResp ...
-type copyDriveFileResp struct {
-	Code int64              `json:"code,omitempty"` // 错误码，非 0 表示失败
-	Msg  string             `json:"msg,omitempty"`  // 错误描述
-	Data *CopyDriveFileResp `json:"data,omitempty"`
+	FileToken   string  `path:"file_token" json:"-"`    // 被复制的文件token, 示例值: "boxbc0dGSMu23m7QkC1bvabcef"
+	Name        string  `json:"name,omitempty"`         // 被复制文件的新名称, 示例值: "123.txt"
+	Type        *string `json:"type,omitempty"`         // 被复制文件的类型, 如果该值为空或者与文件实际类型不匹配, 接口会返回失败, 示例值: "file", 可选值有: `file`: 文件类型, `doc`: 文档类型, `sheet`: 电子表格类型, `bitable`: 多维表格类型, `docx`: 新版文档类型, `mindnote`: 思维笔记类型
+	FolderToken string  `json:"folder_token,omitempty"` // 文件被复制到的目标文件夹token, 示例值: "fldbcO1UuPz8VwnpPx5a92abcef"
 }
 
 // CopyDriveFileResp ...
@@ -82,9 +75,16 @@ type CopyDriveFileResp struct {
 
 // CopyDriveFileRespFile ...
 type CopyDriveFileRespFile struct {
-	Token       string `json:"token,omitempty"`        // 文件标识符
+	Token       string `json:"token,omitempty"`        // 文件标识
 	Name        string `json:"name,omitempty"`         // 文件名
 	Type        string `json:"type,omitempty"`         // 文件类型
 	ParentToken string `json:"parent_token,omitempty"` // 父文件夹标识
 	URL         string `json:"url,omitempty"`          // 在浏览器中查看的链接
+}
+
+// copyDriveFileResp ...
+type copyDriveFileResp struct {
+	Code int64              `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg  string             `json:"msg,omitempty"`  // 错误描述
+	Data *CopyDriveFileResp `json:"data,omitempty"`
 }

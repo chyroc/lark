@@ -58,17 +58,17 @@ func (r *Mock) UnMockChatIsInChat() {
 
 // IsInChatReq ...
 type IsInChatReq struct {
-	ChatID string `path:"chat_id" json:"-"` // 群 ID，详情参见[群ID 说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-id-description), 示例值："oc_a0553eda9014c201e6969b478895c230"
-}
-
-// isInChatResp ...
-type isInChatResp struct {
-	Code int64         `json:"code,omitempty"` // 错误码，非 0 表示失败
-	Msg  string        `json:"msg,omitempty"`  // 错误描述
-	Data *IsInChatResp `json:"data,omitempty"`
+	ChatID string `path:"chat_id" json:"-"` // 群 ID, 详情参见[群ID 说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-id-description), 示例值: "oc_a0553eda9014c201e6969b478895c230"
 }
 
 // IsInChatResp ...
 type IsInChatResp struct {
 	IsInChat bool `json:"is_in_chat,omitempty"` // 用户或者机器人是否在群中
+}
+
+// isInChatResp ...
+type isInChatResp struct {
+	Code int64         `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg  string        `json:"msg,omitempty"`  // 错误描述
+	Data *IsInChatResp `json:"data,omitempty"`
 }

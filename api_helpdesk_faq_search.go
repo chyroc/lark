@@ -58,30 +58,23 @@ func (r *Mock) UnMockHelpdeskSearchHelpdeskFAQ() {
 
 // SearchHelpdeskFAQReq ...
 type SearchHelpdeskFAQReq struct {
-	Query     string  `query:"query" json:"-"`      // 搜索query,，query内容如果不是英文，包含中文空格等有两种编码策略：1. url编码 2. base64编码，同时加上base64=true参数, 示例值："wifi"
-	Base64    *string `query:"base64" json:"-"`     // 是否转换为base64,输入true表示是，不填写表示否，中文需要转换为base64, 示例值："5bel5Y2V"
-	PageToken *string `query:"page_token" json:"-"` // 分页标记，第一次请求不填，表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token，下次遍历可采用该 page_token 获取查询结果, 示例值："6936004780707807251"
-	PageSize  *int64  `query:"page_size" json:"-"`  // 分页大小, 示例值：10, 最大值：`100`
-}
-
-// searchHelpdeskFAQResp ...
-type searchHelpdeskFAQResp struct {
-	Code int64                  `json:"code,omitempty"` // 错误码，非 0 表示失败
-	Msg  string                 `json:"msg,omitempty"`  // 错误描述
-	Data *SearchHelpdeskFAQResp `json:"data,omitempty"`
+	Query     string  `query:"query" json:"-"`      // 搜索query, query内容如果不是英文, 包含中文空格等有两种编码策略: 1. url编码 2. base64编码, 同时加上base64=true参数, 示例值: "wifi"
+	Base64    *string `query:"base64" json:"-"`     // 是否转换为base64, 输入true表示是, 不填写表示否, 中文需要转换为base64, 示例值: "5bel5Y2V"
+	PageToken *string `query:"page_token" json:"-"` // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果, 示例值: "6936004780707807251"
+	PageSize  *int64  `query:"page_size" json:"-"`  // 分页大小, 示例值: 10, 最大值: `100`
 }
 
 // SearchHelpdeskFAQResp ...
 type SearchHelpdeskFAQResp struct {
 	HasMore   bool                         `json:"has_more,omitempty"`   // 是否还有更多项
-	PageToken string                       `json:"page_token,omitempty"` // 分页标记，当 has_more 为 true 时，会同时返回新的 page_token，否则不返回 page_token
+	PageToken string                       `json:"page_token,omitempty"` // 分页标记, 当 has_more 为 true 时, 会同时返回新的 page_token, 否则不返回 page_token
 	Items     []*SearchHelpdeskFAQRespItem `json:"items,omitempty"`      // 知识库列表
 }
 
 // SearchHelpdeskFAQRespItem ...
 type SearchHelpdeskFAQRespItem struct {
 	FAQID          string                                     `json:"faq_id,omitempty"`          // 知识库ID
-	ID             string                                     `json:"id,omitempty"`              // 知识库旧版ID，请使用faq_id
+	ID             string                                     `json:"id,omitempty"`              // 知识库旧版ID, 请使用faq_id
 	HelpdeskID     string                                     `json:"helpdesk_id,omitempty"`     // 服务台ID
 	Question       string                                     `json:"question,omitempty"`        // 问题
 	Answer         string                                     `json:"answer,omitempty"`          // 答案
@@ -101,16 +94,6 @@ type SearchHelpdeskFAQRespItemAnswerRichtext struct {
 	Type    string `json:"type,omitempty"`    // 类型
 }
 
-// SearchHelpdeskFAQRespItemUpdateUser ...
-type SearchHelpdeskFAQRespItemUpdateUser struct {
-	ID         string `json:"id,omitempty"`         // 用户ID
-	AvatarURL  string `json:"avatar_url,omitempty"` // 用户头像url
-	Name       string `json:"name,omitempty"`       // 用户名
-	Department string `json:"department,omitempty"` // 所在部门名称
-	City       string `json:"city,omitempty"`       // 城市
-	Country    string `json:"country,omitempty"`    // 国家代号(CountryCode)，参考：http://www.mamicode.com/info-detail-2186501.html
-}
-
 // SearchHelpdeskFAQRespItemCreateUser ...
 type SearchHelpdeskFAQRespItemCreateUser struct {
 	ID         string `json:"id,omitempty"`         // 用户ID
@@ -118,5 +101,22 @@ type SearchHelpdeskFAQRespItemCreateUser struct {
 	Name       string `json:"name,omitempty"`       // 用户名
 	Department string `json:"department,omitempty"` // 所在部门名称
 	City       string `json:"city,omitempty"`       // 城市
-	Country    string `json:"country,omitempty"`    // 国家代号(CountryCode)，参考：http://www.mamicode.com/info-detail-2186501.html
+	Country    string `json:"country,omitempty"`    // 国家代号(CountryCode), 参考: http://www.mamicode.com/info-detail-2186501.html
+}
+
+// SearchHelpdeskFAQRespItemUpdateUser ...
+type SearchHelpdeskFAQRespItemUpdateUser struct {
+	ID         string `json:"id,omitempty"`         // 用户ID
+	AvatarURL  string `json:"avatar_url,omitempty"` // 用户头像url
+	Name       string `json:"name,omitempty"`       // 用户名
+	Department string `json:"department,omitempty"` // 所在部门名称
+	City       string `json:"city,omitempty"`       // 城市
+	Country    string `json:"country,omitempty"`    // 国家代号(CountryCode), 参考: http://www.mamicode.com/info-detail-2186501.html
+}
+
+// searchHelpdeskFAQResp ...
+type searchHelpdeskFAQResp struct {
+	Code int64                  `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg  string                 `json:"msg,omitempty"`  // 错误描述
+	Data *SearchHelpdeskFAQResp `json:"data,omitempty"`
 }

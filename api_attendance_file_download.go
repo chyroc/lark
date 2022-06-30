@@ -58,7 +58,12 @@ func (r *Mock) UnMockAttendanceDownloadAttendanceFile() {
 
 // DownloadAttendanceFileReq ...
 type DownloadAttendanceFileReq struct {
-	FileID string `path:"file_id" json:"-"` // 文件 ID, 示例值："xxxxxb306842b1c189bc5212eefxxxxx"
+	FileID string `path:"file_id" json:"-"` // 文件 ID, 示例值: "xxxxxb306842b1c189bc5212eefxxxxx"
+}
+
+// DownloadAttendanceFileResp ...
+type DownloadAttendanceFileResp struct {
+	File io.Reader `json:"file,omitempty"`
 }
 
 // downloadAttendanceFileResp ...
@@ -74,9 +79,4 @@ func (r *downloadAttendanceFileResp) SetReader(file io.Reader) {
 		r.Data = &DownloadAttendanceFileResp{}
 	}
 	r.Data.File = file
-}
-
-// DownloadAttendanceFileResp ...
-type DownloadAttendanceFileResp struct {
-	File io.Reader `json:"file,omitempty"`
 }

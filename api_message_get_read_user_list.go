@@ -25,7 +25,7 @@ import (
 //
 // 注意事项:
 // - 需要开启[机器人能力](https://open.feishu.cn/document/home/develop-a-bot-in-5-minutes/create-an-app)
-// - 只能查询机器人自己发送，且发送时间不超过7天的消息
+// - 只能查询机器人自己发送, 且发送时间不超过7天的消息
 // - 查询消息已读信息时机器人仍需要在会话内
 // - 本接口不支持查询批量消息
 //
@@ -63,22 +63,15 @@ func (r *Mock) UnMockMessageGetMessageReadUserList() {
 
 // GetMessageReadUserListReq ...
 type GetMessageReadUserListReq struct {
-	UserIDType IDType  `query:"user_id_type" json:"-"` // 用户 ID 类型, 示例值："open_id", 可选值有: `open_id`：用户的 open id, `union_id`：用户的 union id, `user_id`：用户的 user id, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
-	PageSize   *int64  `query:"page_size" json:"-"`    // 此次调用中使用的分页的大小, 示例值：20, 取值范围：`1` ～ `100`
-	PageToken  *string `query:"page_token" json:"-"`   // 下一页分页的token, 示例值："GxmvlNRvP0NdQZpa7yIqf_Lv_QuBwTQ8tXkX7w-irAghVD_TvuYd1aoJ1LQph86O-XImC4X9j9FhUPhXQDvtrQ=="
-	MessageID  string  `path:"message_id" json:"-"`    // 待查询的消息的ID，请注意不支持查询批量消息, 示例值："om_dc13264520392913993dd051dba21dcf"
-}
-
-// getMessageReadUserListResp ...
-type getMessageReadUserListResp struct {
-	Code int64                       `json:"code,omitempty"` // 错误码，非 0 表示失败
-	Msg  string                      `json:"msg,omitempty"`  // 错误描述
-	Data *GetMessageReadUserListResp `json:"data,omitempty"`
+	MessageID  string  `path:"message_id" json:"-"`    // 待查询的消息的ID, 请注意不支持查询批量消息, 示例值: "om_dc13264520392913993dd051dba21dcf"
+	UserIDType IDType  `query:"user_id_type" json:"-"` // 用户 ID 类型, 示例值: "open_id", 可选值有: `open_id`: 用户的 open id, `union_id`: 用户的 union id, `user_id`: 用户的 user id, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
+	PageSize   *int64  `query:"page_size" json:"-"`    // 此次调用中使用的分页的大小, 示例值: 20, 取值范围: `1` ～ `100`
+	PageToken  *string `query:"page_token" json:"-"`   // 下一页分页的token, 示例值: "GxmvlNRvP0NdQZpa7yIqf_Lv_QuBwTQ8tXkX7w-irAghVD_TvuYd1aoJ1LQph86O-XImC4X9j9FhUPhXQDvtrQ=="
 }
 
 // GetMessageReadUserListResp ...
 type GetMessageReadUserListResp struct {
-	Items     []*GetMessageReadUserListRespItem `json:"items,omitempty"`      // -
+	Items     []*GetMessageReadUserListRespItem `json:"items,omitempty"`
 	HasMore   bool                              `json:"has_more,omitempty"`   // 是否还有下一页
 	PageToken string                            `json:"page_token,omitempty"` // 下一页分页的token
 }
@@ -89,4 +82,11 @@ type GetMessageReadUserListRespItem struct {
 	UserID     string `json:"user_id,omitempty"`      // 用户id
 	Timestamp  string `json:"timestamp,omitempty"`    // 阅读时间
 	TenantKey  string `json:"tenant_key,omitempty"`   // tenant key
+}
+
+// getMessageReadUserListResp ...
+type getMessageReadUserListResp struct {
+	Code int64                       `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg  string                      `json:"msg,omitempty"`  // 错误描述
+	Data *GetMessageReadUserListResp `json:"data,omitempty"`
 }

@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// GetContactScopeList 该接口用于获取应用被授权可访问的通讯录范围，包括可访问的部门列表、用户列表和用户组列表。
+// GetContactScopeList 该接口用于获取应用被授权可访问的通讯录范围, 包括可访问的部门列表、用户列表和用户组列表。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/scope/list
 func (r *ContactService) GetContactScopeList(ctx context.Context, request *GetContactScopeListReq, options ...MethodOptionFunc) (*GetContactScopeListResp, *Response, error) {
@@ -57,24 +57,24 @@ func (r *Mock) UnMockContactGetContactScopeList() {
 
 // GetContactScopeListReq ...
 type GetContactScopeListReq struct {
-	UserIDType       *IDType           `query:"user_id_type" json:"-"`       // 用户 ID 类型, 示例值："open_id", 可选值有: `open_id`：用户的 open id, `union_id`：用户的 union id, `user_id`：用户的 user id, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
-	DepartmentIDType *DepartmentIDType `query:"department_id_type" json:"-"` // 返回值的部门ID的类型, 示例值："department_id", 可选值有: `department_id`：以自定义department_id来标识部门, `open_department_id`：以open_department_id来标识部门, 默认值: `open_department_id`
-	PageToken        *string           `query:"page_token" json:"-"`         // 分页标记，第一次请求不填，表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token，下次遍历可采用该 page_token 获取查询结果, 示例值："AQD9/Rn9eij9Pm39ED40/dk53s4Ebp882DYfFaPFbz00L4CMZJrqGdzNyc8BcZtDbwVUvRmQTvyMYicnGWrde9X56TgdBuS+JKiSIkdexPw="
-	PageSize         *int64            `query:"page_size" json:"-"`          // 分页大小, 示例值：50, 最大值：`100`
-}
-
-// getContactScopeListResp ...
-type getContactScopeListResp struct {
-	Code int64                    `json:"code,omitempty"` // 错误码，非 0 表示失败
-	Msg  string                   `json:"msg,omitempty"`  // 错误描述
-	Data *GetContactScopeListResp `json:"data,omitempty"`
+	UserIDType       *IDType           `query:"user_id_type" json:"-"`       // 用户 ID 类型, 示例值: "open_id", 可选值有: `open_id`: 用户的 open id, `union_id`: 用户的 union id, `user_id`: 用户的 user id, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
+	DepartmentIDType *DepartmentIDType `query:"department_id_type" json:"-"` // 返回值的部门ID的类型, 示例值: "department_id", 可选值有: `department_id`: 以自定义department_id来标识部门, `open_department_id`: 以open_department_id来标识部门, 默认值: `open_department_id`
+	PageToken        *string           `query:"page_token" json:"-"`         // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果, 示例值: "AQD9/Rn9eij9Pm39ED40/dk53s4Ebp882DYfFaPFbz00L4CMZJrqGdzNyc8BcZtDbwVUvRmQTvyMYicnGWrde9X56TgdBuS+JKiSIkdexPw="
+	PageSize         *int64            `query:"page_size" json:"-"`          // 分页大小, 示例值: 50, 最大值: `100`
 }
 
 // GetContactScopeListResp ...
 type GetContactScopeListResp struct {
-	DepartmentIDs []string `json:"department_ids,omitempty"` // 已授权部门列表，授权范围为全员可见时返回的是当前企业的所有一级部门列表
-	UserIDs       []string `json:"user_ids,omitempty"`       // 已授权用户列表，应用申请了获取用户user_id 权限时返回；当授权范围为全员可见时返回的是当前企业所有顶级部门用户列表
-	GroupIDs      []string `json:"group_ids,omitempty"`      // 已授权的用户组，授权范围为全员可见时返回的是当前企业所有用户组
+	DepartmentIDs []string `json:"department_ids,omitempty"` // 已授权部门列表, 授权范围为全员可见时返回的是当前企业的所有一级部门列表
+	UserIDs       []string `json:"user_ids,omitempty"`       // 已授权用户列表, 应用申请了获取用户user_id 权限时返回；当授权范围为全员可见时返回的是当前企业所有顶级部门用户列表
+	GroupIDs      []string `json:"group_ids,omitempty"`      // 已授权的用户组, 授权范围为全员可见时返回的是当前企业所有用户组
 	HasMore       bool     `json:"has_more,omitempty"`       // 是否还有更多项
-	PageToken     string   `json:"page_token,omitempty"`     // 分页标记，当 has_more 为 true 时，会同时返回新的 page_token，否则不返回 page_token
+	PageToken     string   `json:"page_token,omitempty"`     // 分页标记, 当 has_more 为 true 时, 会同时返回新的 page_token, 否则不返回 page_token
+}
+
+// getContactScopeListResp ...
+type getContactScopeListResp struct {
+	Code int64                    `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg  string                   `json:"msg,omitempty"`  // 错误描述
+	Data *GetContactScopeListResp `json:"data,omitempty"`
 }

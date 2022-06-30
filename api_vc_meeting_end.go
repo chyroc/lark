@@ -23,7 +23,7 @@ import (
 
 // EndVCMeeting 结束一个进行中的会议
 //
-// 会议正在进行中，且操作者须具有相应的权限（如果操作者为用户，必须是会中当前主持人）
+// 会议正在进行中, 且操作者须具有相应的权限（如果操作者为用户, 必须是会中当前主持人）
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/vc-v1/meeting/end
 func (r *VCService) EndVCMeeting(ctx context.Context, request *EndVCMeetingReq, options ...MethodOptionFunc) (*EndVCMeetingResp, *Response, error) {
@@ -59,16 +59,16 @@ func (r *Mock) UnMockVCEndVCMeeting() {
 
 // EndVCMeetingReq ...
 type EndVCMeetingReq struct {
-	MeetingID string `path:"meeting_id" json:"-"` // 会议ID（视频会议的唯一标识，视频会议开始后才会产生）, 示例值："6911188411932033028"
-}
-
-// endVCMeetingResp ...
-type endVCMeetingResp struct {
-	Code int64             `json:"code,omitempty"` // 错误码，非 0 表示失败
-	Msg  string            `json:"msg,omitempty"`  // 错误描述
-	Data *EndVCMeetingResp `json:"data,omitempty"`
+	MeetingID string `path:"meeting_id" json:"-"` // 会议ID（视频会议的唯一标识, 视频会议开始后才会产生）, 示例值: "6911188411932033028"
 }
 
 // EndVCMeetingResp ...
 type EndVCMeetingResp struct {
+}
+
+// endVCMeetingResp ...
+type endVCMeetingResp struct {
+	Code int64             `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg  string            `json:"msg,omitempty"`  // 错误描述
+	Data *EndVCMeetingResp `json:"data,omitempty"`
 }

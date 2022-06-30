@@ -58,7 +58,7 @@ func (r *Mock) UnMockHelpdeskUpdateHelpdeskAgentSchedule() {
 
 // UpdateHelpdeskAgentScheduleReq ...
 type UpdateHelpdeskAgentScheduleReq struct {
-	AgentID       string                                       `path:"agent_id" json:"-"`        // 客服 id, 示例值："123456"
+	AgentID       string                                       `path:"agent_id" json:"-"`        // 客服 id, 示例值: "123456"
 	AgentSchedule *UpdateHelpdeskAgentScheduleReqAgentSchedule `json:"agent_schedule,omitempty"` // 工作日程列表
 }
 
@@ -70,18 +70,18 @@ type UpdateHelpdeskAgentScheduleReqAgentSchedule struct {
 
 // UpdateHelpdeskAgentScheduleReqAgentScheduleSchedule ...
 type UpdateHelpdeskAgentScheduleReqAgentScheduleSchedule struct {
-	StartTime *string `json:"start_time,omitempty"` // 开始时间, format 00:00 - 23:59, 示例值："00:00"
-	EndTime   *string `json:"end_time,omitempty"`   // 结束时间, format 00:00 - 23:59, 示例值："24:00"
-	Weekday   *int64  `json:"weekday,omitempty"`    // 星期几, 1 - Monday, 2 - Tuesday, 3 - Wednesday, 4 - Thursday, 5 - Friday, 6 - Saturday, 7 - Sunday, 9 - Everday, 10 - Weekday, 11 - Weekend, 示例值：9
-}
-
-// updateHelpdeskAgentScheduleResp ...
-type updateHelpdeskAgentScheduleResp struct {
-	Code int64                            `json:"code,omitempty"` // 错误码，非 0 表示失败
-	Msg  string                           `json:"msg,omitempty"`  // 错误描述
-	Data *UpdateHelpdeskAgentScheduleResp `json:"data,omitempty"`
+	StartTime *string `json:"start_time,omitempty"` // 开始时间, format 00:00 - 23:59, 示例值: "00:00"
+	EndTime   *string `json:"end_time,omitempty"`   // 结束时间, format 00:00 - 23:59, 示例值: "24:00"
+	Weekday   *int64  `json:"weekday,omitempty"`    // 星期几, 1 - Monday, 2 - Tuesday, 3 - Wednesday, 4 - Thursday, 5 - Friday, 6 - Saturday, 7 - Sunday, 9 - Everday, 10 - Weekday, 11 - Weekend, 示例值: 9
 }
 
 // UpdateHelpdeskAgentScheduleResp ...
 type UpdateHelpdeskAgentScheduleResp struct {
+}
+
+// updateHelpdeskAgentScheduleResp ...
+type updateHelpdeskAgentScheduleResp struct {
+	Code int64                            `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg  string                           `json:"msg,omitempty"`  // 错误描述
+	Data *UpdateHelpdeskAgentScheduleResp `json:"data,omitempty"`
 }

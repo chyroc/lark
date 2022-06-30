@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// UpdateHelpdeskNotification 更新推送信息，只有在草稿状态下才可以调用此接口进行更新
+// UpdateHelpdeskNotification 更新推送信息, 只有在草稿状态下才可以调用此接口进行更新
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/notification/patch
 func (r *HelpdeskService) UpdateHelpdeskNotification(ctx context.Context, request *UpdateHelpdeskNotificationReq, options ...MethodOptionFunc) (*UpdateHelpdeskNotificationResp, *Response, error) {
@@ -58,76 +58,76 @@ func (r *Mock) UnMockHelpdeskUpdateHelpdeskNotification() {
 
 // UpdateHelpdeskNotificationReq ...
 type UpdateHelpdeskNotificationReq struct {
-	UserIDType                  *IDType                                                 `query:"user_id_type" json:"-"`                    // 用户 ID 类型, 示例值："open_id", 可选值有: `open_id`：用户的 open id, `union_id`：用户的 union id, `user_id`：用户的 user id, 默认值: `open_id`,, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
-	NotificationID              string                                                  `path:"notification_id" json:"-"`                  // push任务唯一id, 示例值："6985032626234982420"
-	ID                          *string                                                 `json:"id,omitempty"`                              // 非必填，创建成功后返回, 示例值："6981801914270744596"
-	JobName                     *string                                                 `json:"job_name,omitempty"`                        // 必填，任务名称, 示例值："测试推送任务"
-	Status                      *int64                                                  `json:"status,omitempty"`                          // 非必填，创建成功后返回, 示例值：0
-	CreateUser                  *UpdateHelpdeskNotificationReqCreateUser                `json:"create_user,omitempty"`                     // 非必填，创建人
-	CreatedAt                   *string                                                 `json:"created_at,omitempty"`                      // 非必填，创建时间（毫秒时间戳）, 示例值："1626332244719"
-	UpdateUser                  *UpdateHelpdeskNotificationReqUpdateUser                `json:"update_user,omitempty"`                     // 非必填，更新用户
-	UpdatedAt                   *string                                                 `json:"updated_at,omitempty"`                      // 非必填，更新时间（毫秒时间戳）, 示例值："1626332244719"
-	TargetUserCount             *int64                                                  `json:"target_user_count,omitempty"`               // 非必填，目标推送用户总数, 示例值：1
-	SentUserCount               *int64                                                  `json:"sent_user_count,omitempty"`                 // 非必填，已推送用户总数, 示例值：1
-	ReadUserCount               *int64                                                  `json:"read_user_count,omitempty"`                 // 非必填，已读用户总数, 示例值：1
-	SendAt                      *string                                                 `json:"send_at,omitempty"`                         // 非必填，推送任务触发时间（毫秒时间戳）, 示例值："1626332244719"
-	PushContent                 *string                                                 `json:"push_content,omitempty"`                    // 必填，推送内容，详见：https://open.feishu.cn/tool/cardbuilder?from=howtoguide, 示例值："{   \"config\": {     \"wide_screen_mode\": true   },   \"elements\": [     {       \"tag\": \"div\",       \"text\": {         \"tag\": \"lark_md\",         \"content\": \"[飞书](https://www.feishu.cn)整合即时沟通、日历、音视频会议、云文档、云盘、工作台等功能于一体，成就组织和个人，更高效、更愉悦。\"       }     }   ] }"
-	PushType                    *int64                                                  `json:"push_type,omitempty"`                       // 必填，,0（定时推送：push_scope不能等于3） 1（新人入职推送：push_scope必须等于1或者3；new_staff_scope_type不能为空）, 示例值：0
-	PushScopeType               *int64                                                  `json:"push_scope_type,omitempty"`                 // 必填，,推送范围（服务台私信） 0：组织内全部成员（user_list和department_list必须为空） 1：不推送任何成员（user_list和department_list必须为空，chat_list不可为空） 2：推送到部分成员（user_list或department_list不能为空） 3：入职新人 以上四种状态，chat_list都相对独立，只有在推送范围为1时，必须需要设置chat_list, 示例值：0
-	NewStaffScopeType           *int64                                                  `json:"new_staff_scope_type,omitempty"`            // 非必填，,新人入职范围类型（push_type为1时生效） 0：组织内所有新人 1：组织内特定的部门（new_staff_scope_department_list 字段不能为空）, 示例值：0
-	NewStaffScopeDepartmentList []*UpdateHelpdeskNotificationReqNewStaffScopeDepartment `json:"new_staff_scope_department_list,omitempty"` // 非必填，新人入职生效部门列表
-	UserList                    []*UpdateHelpdeskNotificationReqUser                    `json:"user_list,omitempty"`                       // 非必填，push推送到成员列表
-	DepartmentList              []*UpdateHelpdeskNotificationReqDepartment              `json:"department_list,omitempty"`                 // 非必填，push推送到的部门信息列表
-	ChatList                    []*UpdateHelpdeskNotificationReqChat                    `json:"chat_list,omitempty"`                       // 非必填，push推送到的会话列表(群)
-	Ext                         *string                                                 `json:"ext,omitempty"`                             // 非必填，预留扩展字段, 示例值："{}"
-}
-
-// UpdateHelpdeskNotificationReqCreateUser ...
-type UpdateHelpdeskNotificationReqCreateUser struct {
-	UserID    *string `json:"user_id,omitempty"`    // 非必填，用户id, 示例值："ou_7277fd1262bfafc363d5b2a1f9c2ac90"
-	AvatarURL *string `json:"avatar_url,omitempty"` // 非必填，头像地址, 示例值："http://*.com/*.png"
-	Name      *string `json:"name,omitempty"`       // 非必填，用户名称, 示例值："test"
-}
-
-// UpdateHelpdeskNotificationReqUpdateUser ...
-type UpdateHelpdeskNotificationReqUpdateUser struct {
-	UserID    *string `json:"user_id,omitempty"`    // 非必填，用户id, 示例值："ou_7277fd1262bfafc363d5b2a1f9c2ac90"
-	AvatarURL *string `json:"avatar_url,omitempty"` // 非必填，头像地址, 示例值："http://*.com/*.png"
-	Name      *string `json:"name,omitempty"`       // 非必填，用户名称, 示例值："test"
-}
-
-// UpdateHelpdeskNotificationReqNewStaffScopeDepartment ...
-type UpdateHelpdeskNotificationReqNewStaffScopeDepartment struct {
-	DepartmentID *string `json:"department_id,omitempty"` // 部门ID, 示例值："od_7277fd1262bfafc363d5b2a1f9c2ac90"
-	Name         *string `json:"name,omitempty"`          // 非必填，部门名称, 示例值："测试部门"
-}
-
-// UpdateHelpdeskNotificationReqUser ...
-type UpdateHelpdeskNotificationReqUser struct {
-	UserID    *string `json:"user_id,omitempty"`    // 非必填，用户id, 示例值："ou_7277fd1262bfafc363d5b2a1f9c2ac90"
-	AvatarURL *string `json:"avatar_url,omitempty"` // 非必填，头像地址, 示例值："http://*.com/*.png"
-	Name      *string `json:"name,omitempty"`       // 非必填，用户名称, 示例值："test"
-}
-
-// UpdateHelpdeskNotificationReqDepartment ...
-type UpdateHelpdeskNotificationReqDepartment struct {
-	DepartmentID *string `json:"department_id,omitempty"` // 部门ID, 示例值："od_7277fd1262bfafc363d5b2a1f9c2ac90"
-	Name         *string `json:"name,omitempty"`          // 非必填，部门名称, 示例值："测试部门"
+	NotificationID              string                                                  `path:"notification_id" json:"-"`                  // push任务唯一id, 示例值: "6985032626234982420"
+	UserIDType                  *IDType                                                 `query:"user_id_type" json:"-"`                    // 用户 ID 类型, 示例值: "open_id", 可选值有: `open_id`: 用户的 open id, `union_id`: 用户的 union id, `user_id`: 用户的 user id, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
+	ID                          *string                                                 `json:"id,omitempty"`                              // 非必填, 创建成功后返回, 示例值: "6981801914270744596"
+	JobName                     *string                                                 `json:"job_name,omitempty"`                        // 必填, 任务名称, 示例值: "测试推送任务"
+	Status                      *int64                                                  `json:"status,omitempty"`                          // 非必填, 创建成功后返回, 示例值: 0
+	CreateUser                  *UpdateHelpdeskNotificationReqCreateUser                `json:"create_user,omitempty"`                     // 非必填, 创建人
+	CreatedAt                   *string                                                 `json:"created_at,omitempty"`                      // 非必填, 创建时间（毫秒时间戳）, 示例值: "1626332244719"
+	UpdateUser                  *UpdateHelpdeskNotificationReqUpdateUser                `json:"update_user,omitempty"`                     // 非必填, 更新用户
+	UpdatedAt                   *string                                                 `json:"updated_at,omitempty"`                      // 非必填, 更新时间（毫秒时间戳）, 示例值: "1626332244719"
+	TargetUserCount             *int64                                                  `json:"target_user_count,omitempty"`               // 非必填, 目标推送用户总数, 示例值: 1
+	SentUserCount               *int64                                                  `json:"sent_user_count,omitempty"`                 // 非必填, 已推送用户总数, 示例值: 1
+	ReadUserCount               *int64                                                  `json:"read_user_count,omitempty"`                 // 非必填, 已读用户总数, 示例值: 1
+	SendAt                      *string                                                 `json:"send_at,omitempty"`                         // 非必填, 推送任务触发时间（毫秒时间戳）, 示例值: "1626332244719"
+	PushContent                 *string                                                 `json:"push_content,omitempty"`                    // 必填, 推送内容, 详见: https://open.feishu.cn/tool/cardbuilder?from=howtoguide, 示例值: "{   \"config\": {     \"wide_screen_mode\": true   }, \"elements\": [     {       \"tag\": \"div\", \"text\": {         \"tag\": \"lark_md\", \"content\": \"[飞书](https://www.feishu.cn)整合即时沟通、日历、音视频会议、云文档、云盘、工作台等功能于一体, 成就组织和个人, 更高效、更愉悦。\"       }     }   ] }"
+	PushType                    *int64                                                  `json:"push_type,omitempty"`                       // 必填, 0（定时推送: push_scope不能等于3） 1（新人入职推送: push_scope必须等于1或者3；new_staff_scope_type不能为空）, 示例值: 0
+	PushScopeType               *int64                                                  `json:"push_scope_type,omitempty"`                 // 必填, 推送范围（服务台私信） 0: 组织内全部成员（user_list和department_list必须为空） 1: 不推送任何成员（user_list和department_list必须为空, chat_list不可为空） 2: 推送到部分成员（user_list或department_list不能为空） 3: 入职新人 以上四种状态, chat_list都相对独立, 只有在推送范围为1时, 必须需要设置chat_list, 示例值: 0
+	NewStaffScopeType           *int64                                                  `json:"new_staff_scope_type,omitempty"`            // 非必填, 新人入职范围类型（push_type为1时生效） 0: 组织内所有新人 1: 组织内特定的部门（new_staff_scope_department_list 字段不能为空）, 示例值: 0
+	NewStaffScopeDepartmentList []*UpdateHelpdeskNotificationReqNewStaffScopeDepartment `json:"new_staff_scope_department_list,omitempty"` // 非必填, 新人入职生效部门列表
+	UserList                    []*UpdateHelpdeskNotificationReqUser                    `json:"user_list,omitempty"`                       // 非必填, push推送到成员列表
+	DepartmentList              []*UpdateHelpdeskNotificationReqDepartment              `json:"department_list,omitempty"`                 // 非必填, push推送到的部门信息列表
+	ChatList                    []*UpdateHelpdeskNotificationReqChat                    `json:"chat_list,omitempty"`                       // 非必填, push推送到的会话列表(群)
+	Ext                         *string                                                 `json:"ext,omitempty"`                             // 非必填, 预留扩展字段, 示例值: "{}"
 }
 
 // UpdateHelpdeskNotificationReqChat ...
 type UpdateHelpdeskNotificationReqChat struct {
-	ChatID *string `json:"chat_id,omitempty"` // 非必填，会话ID, 示例值："oc_7277fd1262bfafc363d5b2a1f9c2ac90"
-	Name   *string `json:"name,omitempty"`    // 非必填，会话名称, 示例值："测试群聊"
+	ChatID *string `json:"chat_id,omitempty"` // 非必填, 会话ID, 示例值: "oc_7277fd1262bfafc363d5b2a1f9c2ac90"
+	Name   *string `json:"name,omitempty"`    // 非必填, 会话名称, 示例值: "测试群聊"
 }
 
-// updateHelpdeskNotificationResp ...
-type updateHelpdeskNotificationResp struct {
-	Code int64                           `json:"code,omitempty"` // 错误码，非 0 表示失败
-	Msg  string                          `json:"msg,omitempty"`  // 错误描述
-	Data *UpdateHelpdeskNotificationResp `json:"data,omitempty"`
+// UpdateHelpdeskNotificationReqCreateUser ...
+type UpdateHelpdeskNotificationReqCreateUser struct {
+	UserID    *string `json:"user_id,omitempty"`    // 非必填, 用户id, 示例值: "ou_7277fd1262bfafc363d5b2a1f9c2ac90"
+	AvatarURL *string `json:"avatar_url,omitempty"` // 非必填, 头像地址, 示例值: "http://*.com/*.png"
+	Name      *string `json:"name,omitempty"`       // 非必填, 用户名称, 示例值: "test"
+}
+
+// UpdateHelpdeskNotificationReqDepartment ...
+type UpdateHelpdeskNotificationReqDepartment struct {
+	DepartmentID *string `json:"department_id,omitempty"` // 部门ID, 示例值: "od_7277fd1262bfafc363d5b2a1f9c2ac90"
+	Name         *string `json:"name,omitempty"`          // 非必填, 部门名称, 示例值: "测试部门"
+}
+
+// UpdateHelpdeskNotificationReqNewStaffScopeDepartment ...
+type UpdateHelpdeskNotificationReqNewStaffScopeDepartment struct {
+	DepartmentID *string `json:"department_id,omitempty"` // 部门ID, 示例值: "od_7277fd1262bfafc363d5b2a1f9c2ac90"
+	Name         *string `json:"name,omitempty"`          // 非必填, 部门名称, 示例值: "测试部门"
+}
+
+// UpdateHelpdeskNotificationReqUpdateUser ...
+type UpdateHelpdeskNotificationReqUpdateUser struct {
+	UserID    *string `json:"user_id,omitempty"`    // 非必填, 用户id, 示例值: "ou_7277fd1262bfafc363d5b2a1f9c2ac90"
+	AvatarURL *string `json:"avatar_url,omitempty"` // 非必填, 头像地址, 示例值: "http://*.com/*.png"
+	Name      *string `json:"name,omitempty"`       // 非必填, 用户名称, 示例值: "test"
+}
+
+// UpdateHelpdeskNotificationReqUser ...
+type UpdateHelpdeskNotificationReqUser struct {
+	UserID    *string `json:"user_id,omitempty"`    // 非必填, 用户id, 示例值: "ou_7277fd1262bfafc363d5b2a1f9c2ac90"
+	AvatarURL *string `json:"avatar_url,omitempty"` // 非必填, 头像地址, 示例值: "http://*.com/*.png"
+	Name      *string `json:"name,omitempty"`       // 非必填, 用户名称, 示例值: "test"
 }
 
 // UpdateHelpdeskNotificationResp ...
 type UpdateHelpdeskNotificationResp struct {
+}
+
+// updateHelpdeskNotificationResp ...
+type updateHelpdeskNotificationResp struct {
+	Code int64                           `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg  string                          `json:"msg,omitempty"`  // 错误描述
+	Data *UpdateHelpdeskNotificationResp `json:"data,omitempty"`
 }

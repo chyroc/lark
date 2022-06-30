@@ -60,20 +60,20 @@ func (r *Mock) UnMockBitableDeleteBitableRecord() {
 
 // DeleteBitableRecordReq ...
 type DeleteBitableRecordReq struct {
-	AppToken string `path:"app_token" json:"-"` // bitable app token, 示例值："appbcbWCzen6D8dezhoCH2RpMAh"
-	TableID  string `path:"table_id" json:"-"`  // table id, 示例值："tblsRc9GRRXKqhvW"
-	RecordID string `path:"record_id" json:"-"` // 单条记录的Id, 示例值："recpCsf4ME"
-}
-
-// deleteBitableRecordResp ...
-type deleteBitableRecordResp struct {
-	Code int64                    `json:"code,omitempty"` // 错误码，非 0 表示失败
-	Msg  string                   `json:"msg,omitempty"`  // 错误描述
-	Data *DeleteBitableRecordResp `json:"data,omitempty"`
+	AppToken string `path:"app_token" json:"-"` // bitable app token, 示例值: "appbcbWCzen6D8dezhoCH2RpMAh"
+	TableID  string `path:"table_id" json:"-"`  // table id, 示例值: "tblsRc9GRRXKqhvW"
+	RecordID string `path:"record_id" json:"-"` // 单条记录的Id, 示例值: "recpCsf4ME"
 }
 
 // DeleteBitableRecordResp ...
 type DeleteBitableRecordResp struct {
 	Deleted  bool   `json:"deleted,omitempty"`   // 是否成功删除
 	RecordID string `json:"record_id,omitempty"` // 删除的记录 ID
+}
+
+// deleteBitableRecordResp ...
+type deleteBitableRecordResp struct {
+	Code int64                    `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg  string                   `json:"msg,omitempty"`  // 错误描述
+	Data *DeleteBitableRecordResp `json:"data,omitempty"`
 }

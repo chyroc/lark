@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// BatchCreateAttendanceUserFlow 导入授权内员工的打卡流水记录。导入后，会根据员工所在的考勤组班次规则，计算最终的打卡状态与结果。
+// BatchCreateAttendanceUserFlow 导入授权内员工的打卡流水记录。导入后, 会根据员工所在的考勤组班次规则, 计算最终的打卡状态与结果。
 //
 // 适用于考勤机数据导入等场景。
 //
@@ -59,34 +59,27 @@ func (r *Mock) UnMockAttendanceBatchCreateAttendanceUserFlow() {
 
 // BatchCreateAttendanceUserFlowReq ...
 type BatchCreateAttendanceUserFlowReq struct {
-	EmployeeType EmployeeType                                  `query:"employee_type" json:"-"` // 请求体和响应体中的 user_id 和 creator_id 的员工工号类型, 示例值："employee_id", 可选值有: `employee_id`：员工 employee ID，即飞书管理后台 > 组织架构 > 成员与部门 > 成员详情中的用户 ID, `employee_no`：员工工号，即飞书管理后台 > 组织架构 > 成员与部门 > 成员详情中的工号
+	EmployeeType EmployeeType                                  `query:"employee_type" json:"-"` // 请求体和响应体中的 user_id 和 creator_id 的员工工号类型, 示例值: "employee_id", 可选值有: `employee_id`: 员工 employee ID, 即飞书管理后台 > 组织架构 > 成员与部门 > 成员详情中的用户 ID, `employee_no`: 员工工号, 即飞书管理后台 > 组织架构 > 成员与部门 > 成员详情中的工号
 	FlowRecords  []*BatchCreateAttendanceUserFlowReqFlowRecord `json:"flow_records,omitempty"`  // 打卡流水记录列表
 }
 
 // BatchCreateAttendanceUserFlowReqFlowRecord ...
 type BatchCreateAttendanceUserFlowReqFlowRecord struct {
-	UserID       string   `json:"user_id,omitempty"`       // 用户 ID, 示例值："abd754f7"
-	CreatorID    string   `json:"creator_id,omitempty"`    // 记录创建者 ID, 示例值："abd754f7"
-	LocationName string   `json:"location_name,omitempty"` // 打卡位置名称信息, 示例值："西溪八方城"
-	CheckTime    string   `json:"check_time,omitempty"`    // 打卡时间，精确到秒的时间戳, 示例值："1611476284"
-	Comment      string   `json:"comment,omitempty"`       // 打卡备注, 示例值："上班打卡"
-	RecordID     *string  `json:"record_id,omitempty"`     // 打卡记录 ID, 示例值："6709359313699356941"
-	Longitude    *float64 `json:"longitude,omitempty"`     // 打卡经度, 示例值：30.28991
-	Latitude     *float64 `json:"latitude,omitempty"`      // 打卡纬度, 示例值：120.04513
-	Ssid         *string  `json:"ssid,omitempty"`          // 打卡 Wi-Fi 的 SSID, 示例值："b0:b8:67:5c:1d:72"
-	Bssid        *string  `json:"bssid,omitempty"`         // 打卡 Wi-Fi 的 MAC 地址, 示例值："b0:b8:67:5c:1d:72"
-	IsField      *bool    `json:"is_field,omitempty"`      // 是否为外勤打卡, 示例值：true
-	IsWifi       *bool    `json:"is_wifi,omitempty"`       // 是否为 Wi-Fi 打卡, 示例值：true
-	Type         *int64   `json:"type,omitempty"`          // 记录生成方式, 示例值：0, 可选值有: `0`：用户打卡, `1`：管理员修改, `2`：用户补卡, `3`：系统自动生成, `4`：下班免打卡, `5`：考勤机, `6`：极速打卡, `7`：考勤开放平台导入
-	PhotoURLs    []string `json:"photo_urls,omitempty"`    // 打卡照片列表, 示例值：https://time.clockin.biz/manage/download/6840389754748502021
-	DeviceID     *string  `json:"device_id,omitempty"`     // 打卡设备 ID, 示例值："99e0609ee053448596502691a81428654d7ded64c7bd85acd982d26b3636c37d"
-}
-
-// batchCreateAttendanceUserFlowResp ...
-type batchCreateAttendanceUserFlowResp struct {
-	Code int64                              `json:"code,omitempty"` // 错误码，非 0 表示失败
-	Msg  string                             `json:"msg,omitempty"`  // 错误描述
-	Data *BatchCreateAttendanceUserFlowResp `json:"data,omitempty"`
+	UserID       string   `json:"user_id,omitempty"`       // 用户 ID, 示例值: "abd754f7"
+	CreatorID    string   `json:"creator_id,omitempty"`    // 记录创建者 ID, 示例值: "abd754f7"
+	LocationName string   `json:"location_name,omitempty"` // 打卡位置名称信息, 示例值: "西溪八方城"
+	CheckTime    string   `json:"check_time,omitempty"`    // 打卡时间, 精确到秒的时间戳, 示例值: "1611476284"
+	Comment      string   `json:"comment,omitempty"`       // 打卡备注, 示例值: "上班打卡"
+	RecordID     *string  `json:"record_id,omitempty"`     // 打卡记录 ID, 示例值: "6709359313699356941"
+	Longitude    *float64 `json:"longitude,omitempty"`     // 打卡经度, 示例值: 30.28991
+	Latitude     *float64 `json:"latitude,omitempty"`      // 打卡纬度, 示例值: 120.04513
+	Ssid         *string  `json:"ssid,omitempty"`          // 打卡 Wi-Fi 的 SSID, 示例值: "b0:b8:67:5c:1d:72"
+	Bssid        *string  `json:"bssid,omitempty"`         // 打卡 Wi-Fi 的 MAC 地址, 示例值: "b0:b8:67:5c:1d:72"
+	IsField      *bool    `json:"is_field,omitempty"`      // 是否为外勤打卡, 示例值: true
+	IsWifi       *bool    `json:"is_wifi,omitempty"`       // 是否为 Wi-Fi 打卡, 示例值: true
+	Type         *int64   `json:"type,omitempty"`          // 记录生成方式, 示例值: 0, 可选值有: `0`: 用户打卡, `1`: 管理员修改, `2`: 用户补卡, `3`: 系统自动生成, `4`: 下班免打卡, `5`: 考勤机, `6`: 极速打卡, `7`: 考勤开放平台导入
+	PhotoURLs    []string `json:"photo_urls,omitempty"`    // 打卡照片列表, 示例值: https://time.clockin.biz/manage/download/6840389754748502021
+	DeviceID     *string  `json:"device_id,omitempty"`     // 打卡设备 ID, 示例值: "99e0609ee053448596502691a81428654d7ded64c7bd85acd982d26b3636c37d"
 }
 
 // BatchCreateAttendanceUserFlowResp ...
@@ -99,7 +92,7 @@ type BatchCreateAttendanceUserFlowRespFlowRecord struct {
 	UserID       string   `json:"user_id,omitempty"`       // 用户 ID
 	CreatorID    string   `json:"creator_id,omitempty"`    // 记录创建者 ID
 	LocationName string   `json:"location_name,omitempty"` // 打卡位置名称信息
-	CheckTime    string   `json:"check_time,omitempty"`    // 打卡时间，精确到秒的时间戳
+	CheckTime    string   `json:"check_time,omitempty"`    // 打卡时间, 精确到秒的时间戳
 	Comment      string   `json:"comment,omitempty"`       // 打卡备注
 	RecordID     string   `json:"record_id,omitempty"`     // 打卡记录 ID
 	Longitude    float64  `json:"longitude,omitempty"`     // 打卡经度
@@ -108,7 +101,14 @@ type BatchCreateAttendanceUserFlowRespFlowRecord struct {
 	Bssid        string   `json:"bssid,omitempty"`         // 打卡 Wi-Fi 的 MAC 地址
 	IsField      bool     `json:"is_field,omitempty"`      // 是否为外勤打卡
 	IsWifi       bool     `json:"is_wifi,omitempty"`       // 是否为 Wi-Fi 打卡
-	Type         int64    `json:"type,omitempty"`          // 记录生成方式, 可选值有: `0`：用户打卡, `1`：管理员修改, `2`：用户补卡, `3`：系统自动生成, `4`：下班免打卡, `5`：考勤机, `6`：极速打卡, `7`：考勤开放平台导入
+	Type         int64    `json:"type,omitempty"`          // 记录生成方式, 可选值有: `0`: 用户打卡, `1`: 管理员修改, `2`: 用户补卡, `3`: 系统自动生成, `4`: 下班免打卡, `5`: 考勤机, `6`: 极速打卡, `7`: 考勤开放平台导入
 	PhotoURLs    []string `json:"photo_urls,omitempty"`    // 打卡照片列表
 	DeviceID     string   `json:"device_id,omitempty"`     // 打卡设备 ID
+}
+
+// batchCreateAttendanceUserFlowResp ...
+type batchCreateAttendanceUserFlowResp struct {
+	Code int64                              `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg  string                             `json:"msg,omitempty"`  // 错误描述
+	Data *BatchCreateAttendanceUserFlowResp `json:"data,omitempty"`
 }

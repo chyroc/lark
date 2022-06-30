@@ -23,7 +23,7 @@ import (
 
 // GetApplicationAppList
 //
-// 该接口用于查询企业安装的应用列表，只能被企业自建应用调用。
+// 该接口用于查询企业安装的应用列表, 只能被企业自建应用调用。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uYDN3UjL2QzN14iN0cTN
 func (r *ApplicationService) GetApplicationAppList(ctx context.Context, request *GetApplicationAppListReq, options ...MethodOptionFunc) (*GetApplicationAppListResp, *Response, error) {
@@ -59,17 +59,10 @@ func (r *Mock) UnMockApplicationGetApplicationAppList() {
 
 // GetApplicationAppListReq ...
 type GetApplicationAppListReq struct {
-	PageToken *string `query:"page_token" json:"-"` // 分页起始位置标示，不填表示从头开始（不保证 page_token 一定为数字，请填入上一次请求返回的 page_token）
-	PageSize  *int64  `query:"page_size" json:"-"`  // 单页需求最大个数（最大 100），0 自动最大个数
-	Lang      *string `query:"lang" json:"-"`       // 优先展示的应用信息的语言版本（zh_cn：中文，en_us：英文，ja_jp：日文）
-	Status    *int64  `query:"status" json:"-"`     // 要返回的应用的状态，0:停用；1:启用；-1:全部，默认为 -1
-}
-
-// getApplicationAppListResp ...
-type getApplicationAppListResp struct {
-	Code int64                      `json:"code,omitempty"` // 返回码，非 0 表示失败
-	Msg  string                     `json:"msg,omitempty"`  // 返回码的描述
-	Data *GetApplicationAppListResp `json:"data,omitempty"` // 返回的业务信息，仅 code = 0 时有效
+	PageToken *string `query:"page_token" json:"-"` // 分页起始位置标示, 不填表示从头开始（不保证 page_token 一定为数字, 请填入上一次请求返回的 page_token）
+	PageSize  *int64  `query:"page_size" json:"-"`  // 单页需求最大个数（最大 100）, 0 自动最大个数
+	Lang      *string `query:"lang" json:"-"`       // 优先展示的应用信息的语言版本（zh_cn: 中文, en_us: 英文, ja_jp: 日文）
+	Status    *int64  `query:"status" json:"-"`     // 要返回的应用的状态, 0:停用；1:启用；-1:全部, 默认为 -1
 }
 
 // GetApplicationAppListResp ...
@@ -89,8 +82,15 @@ type GetApplicationAppListRespAppList struct {
 	AppName              string `json:"app_name,omitempty"`               // 应用名称
 	Description          string `json:"description,omitempty"`            // 应用描述
 	AvatarURL            string `json:"avatar_url,omitempty"`             // 应用 icon
-	AppSceneType         int64  `json:"app_scene_type,omitempty"`         // 应用类型，0：企业自建应用；1：应用商店应用
-	Status               int64  `json:"status,omitempty"`                 // 启停状态，0：停用；1：启用
-	MobileDefaultAbility int64  `json:"mobile_default_ability,omitempty"` // 移动端默认的应用功能，0：未开启；1：小程序；2：H5；8：机器人
-	PcDefaultAbility     int64  `json:"pc_default_ability,omitempty"`     // PC客户端默认的应用功能，0：未开启；1：小程序；2：H5；8：机器人
+	AppSceneType         int64  `json:"app_scene_type,omitempty"`         // 应用类型, 0: 企业自建应用；1: 应用商店应用
+	Status               int64  `json:"status,omitempty"`                 // 启停状态, 0: 停用；1: 启用
+	MobileDefaultAbility int64  `json:"mobile_default_ability,omitempty"` // 移动端默认的应用功能, 0: 未开启；1: 小程序；2: H5；8: 机器人
+	PcDefaultAbility     int64  `json:"pc_default_ability,omitempty"`     // PC客户端默认的应用功能, 0: 未开启；1: 小程序；2: H5；8: 机器人
+}
+
+// getApplicationAppListResp ...
+type getApplicationAppListResp struct {
+	Code int64                      `json:"code,omitempty"` // 返回码, 非 0 表示失败
+	Msg  string                     `json:"msg,omitempty"`  // 返回码的描述
+	Data *GetApplicationAppListResp `json:"data,omitempty"` // 返回的业务信息, 仅 code = 0 时有效
 }

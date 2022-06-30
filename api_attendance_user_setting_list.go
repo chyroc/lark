@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// GetAttendanceUserSettingList 批量查询授权内员工的用户设置信息，包括人脸照片文件 ID、人脸照片更新时间。
+// GetAttendanceUserSettingList 批量查询授权内员工的用户设置信息, 包括人脸照片文件 ID、人脸照片更新时间。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/user_setting/query
 func (r *AttendanceService) GetAttendanceUserSettingList(ctx context.Context, request *GetAttendanceUserSettingListReq, options ...MethodOptionFunc) (*GetAttendanceUserSettingListResp, *Response, error) {
@@ -57,15 +57,8 @@ func (r *Mock) UnMockAttendanceGetAttendanceUserSettingList() {
 
 // GetAttendanceUserSettingListReq ...
 type GetAttendanceUserSettingListReq struct {
-	EmployeeType EmployeeType `query:"employee_type" json:"-"` // 请求体中的 user_ids 和响应体中的 user_id 的员工工号类型, 示例值："employee_id", 可选值有: `employee_id`：员工 employee ID，即飞书管理后台 > 组织架构 > 成员与部门 > 成员详情中的用户 ID, `employee_no`：员工工号，即飞书管理后台 > 组织架构 > 成员与部门 > 成员详情中的工号
-	UserIDs      []string     `json:"user_ids,omitempty"`      // employee_no 或 employee_id 列表, 示例值：["abd754f7"], 最大长度：`100`
-}
-
-// getAttendanceUserSettingListResp ...
-type getAttendanceUserSettingListResp struct {
-	Code int64                             `json:"code,omitempty"` // 错误码，非 0 表示失败
-	Msg  string                            `json:"msg,omitempty"`  // 错误描述
-	Data *GetAttendanceUserSettingListResp `json:"data,omitempty"`
+	EmployeeType EmployeeType `query:"employee_type" json:"-"` // 请求体中的 user_ids 和响应体中的 user_id 的员工工号类型, 示例值: "employee_id", 可选值有: `employee_id`: 员工 employee ID, 即飞书管理后台 > 组织架构 > 成员与部门 > 成员详情中的用户 ID, `employee_no`: 员工工号, 即飞书管理后台 > 组织架构 > 成员与部门 > 成员详情中的工号
+	UserIDs      []string     `json:"user_ids,omitempty"`      // employee_no 或 employee_id 列表, 示例值: ["abd754f7"], 最大长度: `100`
 }
 
 // GetAttendanceUserSettingListResp ...
@@ -76,6 +69,13 @@ type GetAttendanceUserSettingListResp struct {
 // GetAttendanceUserSettingListRespUserSetting ...
 type GetAttendanceUserSettingListRespUserSetting struct {
 	UserID            string `json:"user_id,omitempty"`              // 用户 ID
-	FaceKey           string `json:"face_key,omitempty"`             // 人脸照片文件 ID，获取方式：[文件上传](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/file/upload)
-	FaceKeyUpdateTime string `json:"face_key_update_time,omitempty"` // 人脸照片更新时间，精确到秒的时间戳
+	FaceKey           string `json:"face_key,omitempty"`             // 人脸照片文件 ID, 获取方式: [文件上传](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/file/upload)
+	FaceKeyUpdateTime string `json:"face_key_update_time,omitempty"` // 人脸照片更新时间, 精确到秒的时间戳
+}
+
+// getAttendanceUserSettingListResp ...
+type getAttendanceUserSettingListResp struct {
+	Code int64                             `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg  string                            `json:"msg,omitempty"`  // 错误描述
+	Data *GetAttendanceUserSettingListResp `json:"data,omitempty"`
 }

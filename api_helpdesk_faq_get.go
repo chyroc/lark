@@ -58,14 +58,7 @@ func (r *Mock) UnMockHelpdeskGetHelpdeskFAQ() {
 
 // GetHelpdeskFAQReq ...
 type GetHelpdeskFAQReq struct {
-	ID string `path:"id" json:"-"` // 知识库ID, 示例值："6856395634652479491"
-}
-
-// getHelpdeskFAQResp ...
-type getHelpdeskFAQResp struct {
-	Code int64               `json:"code,omitempty"` // 错误码，非 0 表示失败
-	Msg  string              `json:"msg,omitempty"`  // 错误描述
-	Data *GetHelpdeskFAQResp `json:"data,omitempty"`
+	ID string `path:"id" json:"-"` // 知识库ID, 示例值: "6856395634652479491"
 }
 
 // GetHelpdeskFAQResp ...
@@ -76,7 +69,7 @@ type GetHelpdeskFAQResp struct {
 // GetHelpdeskFAQRespFAQ ...
 type GetHelpdeskFAQRespFAQ struct {
 	FAQID          string                           `json:"faq_id,omitempty"`          // 知识库ID
-	ID             string                           `json:"id,omitempty"`              // 知识库旧版ID，请使用faq_id
+	ID             string                           `json:"id,omitempty"`              // 知识库旧版ID, 请使用faq_id
 	HelpdeskID     string                           `json:"helpdesk_id,omitempty"`     // 服务台ID
 	Question       string                           `json:"question,omitempty"`        // 问题
 	Answer         string                           `json:"answer,omitempty"`          // 答案
@@ -90,6 +83,13 @@ type GetHelpdeskFAQRespFAQ struct {
 	CreateUser     *GetHelpdeskFAQRespFAQCreateUser `json:"create_user,omitempty"`     // 创建用户
 }
 
+// GetHelpdeskFAQRespFAQCreateUser ...
+type GetHelpdeskFAQRespFAQCreateUser struct {
+	ID        string `json:"id,omitempty"`         // 用户ID
+	AvatarURL string `json:"avatar_url,omitempty"` // 用户头像url
+	Name      string `json:"name,omitempty"`       // 用户名
+}
+
 // GetHelpdeskFAQRespFAQUpdateUser ...
 type GetHelpdeskFAQRespFAQUpdateUser struct {
 	ID        string `json:"id,omitempty"`         // 用户ID
@@ -97,9 +97,9 @@ type GetHelpdeskFAQRespFAQUpdateUser struct {
 	Name      string `json:"name,omitempty"`       // 用户名
 }
 
-// GetHelpdeskFAQRespFAQCreateUser ...
-type GetHelpdeskFAQRespFAQCreateUser struct {
-	ID        string `json:"id,omitempty"`         // 用户ID
-	AvatarURL string `json:"avatar_url,omitempty"` // 用户头像url
-	Name      string `json:"name,omitempty"`       // 用户名
+// getHelpdeskFAQResp ...
+type getHelpdeskFAQResp struct {
+	Code int64               `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg  string              `json:"msg,omitempty"`  // 错误描述
+	Data *GetHelpdeskFAQResp `json:"data,omitempty"`
 }

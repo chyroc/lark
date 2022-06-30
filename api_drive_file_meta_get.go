@@ -58,28 +58,27 @@ func (r *Mock) UnMockDriveGetDriveFileMeta() {
 
 // GetDriveFileMetaReq ...
 type GetDriveFileMetaReq struct {
-	UserIDType  *IDType                           `query:"user_id_type" json:"-"` // 用户 ID 类型, 示例值："open_id", 可选值有: `open_id`：用户的 open id, `union_id`：用户的 union id, `user_id`：用户的 user id, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
-	RequestDocs []*GetDriveFileMetaReqRequestDocs `json:"request_docs,omitempty"` // 请求文档,  一次不超过200个, 长度范围：`1` ～ `200`
-	WithURL     *bool                             `json:"with_url,omitempty"`     // 是否获取文档链接, 示例值：false
+	UserIDType  *IDType                           `query:"user_id_type" json:"-"` // 用户 ID 类型, 示例值: "open_id", 可选值有: `open_id`: 用户的 open id, `union_id`: 用户的 union id, `user_id`: 用户的 user id, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
+	RequestDocs []*GetDriveFileMetaReqRequestDocs `json:"request_docs,omitempty"` // 请求文档, 一次不超过200个, 长度范围: `1` ～ `200`
+	WithURL     *bool                             `json:"with_url,omitempty"`     // 是否获取文档链接, 示例值: false
 }
 
 // GetDriveFileMetaReqRequestDocs ...
 type GetDriveFileMetaReqRequestDocs struct {
-	DocToken string `json:"doc_token,omitempty"` // 文件的 token，获取方式见[如何获取云文档资源相关 token](https://open.feishu.cn/document/ukTMukTMukTM/uczNzUjL3czM14yN3MTN#08bb5df6), 示例值："doccnjKPIR8Z00bNXj8V7mabcef"
-	DocType  string `json:"doc_type,omitempty"`  // 文件类型, 示例值："doc", 可选值有: `doc`：飞书文档, `sheet`：飞书电子表格, `bitable`：飞书多维表格, `mindnote`：飞书思维笔记, `file`：飞书文件, `wiki`：飞书wiki, `docx`：飞书新版文档
-}
-
-// getDriveFileMetaResp ...
-type getDriveFileMetaResp struct {
-	Code int64                 `json:"code,omitempty"` // 错误码，非 0 表示失败
-	Msg  string                `json:"msg,omitempty"`  // 错误描述
-	Data *GetDriveFileMetaResp `json:"data,omitempty"`
+	DocToken string `json:"doc_token,omitempty"` // 文件的 token, 获取方式见[如何获取云文档资源相关 token](https://open.feishu.cn/document/ukTMukTMukTM/uczNzUjL3czM14yN3MTN#08bb5df6), 示例值: "doccnfYZzTlvXqZIGTdAHKabcef"
+	DocType  string `json:"doc_type,omitempty"`  // 文件类型, 示例值: "doc", 可选值有: `doc`: 飞书文档, `sheet`: 飞书电子表格, `bitable`: 飞书多维表格, `mindnote`: 飞书思维笔记, `file`: 飞书文件, `wiki`: 飞书wiki, `docx`: 飞书新版文档
 }
 
 // GetDriveFileMetaResp ...
 type GetDriveFileMetaResp struct {
 	Metas      []*GetDriveFileMetaRespMeta   `json:"metas,omitempty"`       // 文档元数据列表
 	FailedList []*GetDriveFileMetaRespFailed `json:"failed_list,omitempty"` // 无法获取元数据的文档列表
+}
+
+// GetDriveFileMetaRespFailed ...
+type GetDriveFileMetaRespFailed struct {
+	Token string `json:"token,omitempty"` // 获取元数据失败的文档token
+	Code  int64  `json:"code,omitempty"`  // 获取元数据失败的错误码, 可选值有: `970002`: Unsupported doc-type, `970003`: No permission to access meta, `970005`: Record not found (不存在或者已被删除)
 }
 
 // GetDriveFileMetaRespMeta ...
@@ -94,8 +93,9 @@ type GetDriveFileMetaRespMeta struct {
 	URL              string `json:"url,omitempty"`                // 文档链接
 }
 
-// GetDriveFileMetaRespFailed ...
-type GetDriveFileMetaRespFailed struct {
-	Token string `json:"token,omitempty"` // 获取元数据失败的文档token
-	Code  int64  `json:"code,omitempty"`  // 获取元数据失败的错误码, 可选值有: `970002`：Unsupported doc-type, `970003`：No permission to access meta, `970005`：Record not found (不存在或者已被删除)
+// getDriveFileMetaResp ...
+type getDriveFileMetaResp struct {
+	Code int64                 `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg  string                `json:"msg,omitempty"`  // 错误描述
+	Data *GetDriveFileMetaResp `json:"data,omitempty"`
 }

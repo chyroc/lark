@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// QuerySheetFilterViewCondition 查询一个筛选视图的所有筛选条件，返回筛选视图的筛选范围内的筛选条件。
+// QuerySheetFilterViewCondition 查询一个筛选视图的所有筛选条件, 返回筛选视图的筛选范围内的筛选条件。
 //
 // 筛选条件含义可参考 [筛选视图的筛选条件指南](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/sheets-v3/spreadsheet-sheet-filter_view-condition/filter-view-condition-user-guide)
 //
@@ -60,16 +60,9 @@ func (r *Mock) UnMockDriveQuerySheetFilterViewCondition() {
 
 // QuerySheetFilterViewConditionReq ...
 type QuerySheetFilterViewConditionReq struct {
-	SpreadSheetToken string `path:"spreadsheet_token" json:"-"` // 表格 token, 示例值："shtcnmBA*****yGehy8"
-	SheetID          string `path:"sheet_id" json:"-"`          // 子表 id, 示例值："0b**12"
-	FilterViewID     string `path:"filter_view_id" json:"-"`    // 筛选视图 id, 示例值："pH9hbVcCXA"
-}
-
-// querySheetFilterViewConditionResp ...
-type querySheetFilterViewConditionResp struct {
-	Code int64                              `json:"code,omitempty"` // 错误码，非 0 表示失败
-	Msg  string                             `json:"msg,omitempty"`  // 错误描述
-	Data *QuerySheetFilterViewConditionResp `json:"data,omitempty"`
+	SpreadSheetToken string `path:"spreadsheet_token" json:"-"` // 表格 token, 示例值: "shtcnmBA*yGehy8"
+	SheetID          string `path:"sheet_id" json:"-"`          // 子表 id, 示例值: "0b**12"
+	FilterViewID     string `path:"filter_view_id" json:"-"`    // 筛选视图 id, 示例值: "pH9hbVcCXA"
 }
 
 // QuerySheetFilterViewConditionResp ...
@@ -79,8 +72,15 @@ type QuerySheetFilterViewConditionResp struct {
 
 // QuerySheetFilterViewConditionRespItem ...
 type QuerySheetFilterViewConditionRespItem struct {
-	ConditionID string   `json:"condition_id,omitempty"` // 设置筛选条件的列，使用字母号
+	ConditionID string   `json:"condition_id,omitempty"` // 设置筛选条件的列, 使用字母号
 	FilterType  string   `json:"filter_type,omitempty"`  // 筛选类型
 	CompareType string   `json:"compare_type,omitempty"` // 比较类型
 	Expected    []string `json:"expected,omitempty"`     // 筛选参数
+}
+
+// querySheetFilterViewConditionResp ...
+type querySheetFilterViewConditionResp struct {
+	Code int64                              `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg  string                             `json:"msg,omitempty"`  // 错误描述
+	Data *QuerySheetFilterViewConditionResp `json:"data,omitempty"`
 }

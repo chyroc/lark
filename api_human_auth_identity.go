@@ -21,10 +21,10 @@ import (
 	"context"
 )
 
-// CreateIdentity 该接口用于录入实名认证的身份信息，在唤起有源活体认证前，需要使用该接口进行实名认证。
+// CreateIdentity 该接口用于录入实名认证的身份信息, 在唤起有源活体认证前, 需要使用该接口进行实名认证。
 //
-// 实名认证接口会有计费管理，接入前请联系飞书开放平台工作人员，邮箱：openplatform@bytedance.com。
-// 仅通过计费申请的应用，才能在[开发者后台](https://open.feishu.cn/app)查找并申请该接口的权限。
+// 实名认证接口会有计费管理, 接入前请联系飞书开放平台工作人员, 邮箱: openplatform@bytedance.com。
+// 仅通过计费申请的应用, 才能在[开发者后台](https://open.feishu.cn/app)查找并申请该接口的权限。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/human_authentication-v1/identity/create
 func (r *HumanAuthService) CreateIdentity(ctx context.Context, request *CreateIdentityReq, options ...MethodOptionFunc) (*CreateIdentityResp, *Response, error) {
@@ -60,21 +60,21 @@ func (r *Mock) UnMockHumanAuthCreateIdentity() {
 
 // CreateIdentityReq ...
 type CreateIdentityReq struct {
-	UserID       string  `query:"user_id" json:"-"`       // 用户的唯一标识（使用的ID类型见下一参数描述，不同ID类型的区别和获取，参考文档：[如何获得 User ID、Open ID 和 Union ID？](https://open.feishu.cn/document/home/user-identity-introduction/how-to-get)）, 示例值: "ou_2eb5483cb377daa5054bc6f86e2089a5"
-	UserIDType   *IDType `query:"user_id_type" json:"-"`  // 用户ID类型, 示例值: "open_id", 可选值有: `open_id`：用户的open id, `union_id`：用户的union id, `user_id`：用户的user id, 默认值: `open_id`, 当值为 `user_id`，字段权限要求: 获取用户 user ID
+	UserID       string  `query:"user_id" json:"-"`       // 用户的唯一标识（使用的ID类型见下一参数描述, 不同ID类型的区别和获取, 参考文档: [如何获得 User ID、Open ID 和 Union ID？](https://open.feishu.cn/document/home/user-identity-introduction/how-to-get)）, 示例值: "ou_2eb5483cb377daa5054bc6f86e2089a5"
+	UserIDType   *IDType `query:"user_id_type" json:"-"`  // 用户ID类型, 示例值: "open_id", 可选值有: `open_id`: 用户的open id, `union_id`: 用户的union id, `user_id`: 用户的user id, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
 	IdentityName string  `json:"identity_name,omitempty"` // 姓名, 示例值: "张三"
 	IdentityCode string  `json:"identity_code,omitempty"` // 身份证号, 示例值: "4xxxxxxxx"
 	Mobile       *string `json:"mobile,omitempty"`        // 手机号, 示例值: "13xxxxxxx"
 }
 
-// createIdentityResp ...
-type createIdentityResp struct {
-	Code int64               `json:"code,omitempty"` // 错误码，非 0 表示失败
-	Msg  string              `json:"msg,omitempty"`  // 错误描述
-	Data *CreateIdentityResp `json:"data,omitempty"`
-}
-
 // CreateIdentityResp ...
 type CreateIdentityResp struct {
 	VerifyUid string `json:"verify_uid,omitempty"` // 用户绑定实名身份的uid
+}
+
+// createIdentityResp ...
+type createIdentityResp struct {
+	Code int64               `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg  string              `json:"msg,omitempty"`  // 错误描述
+	Data *CreateIdentityResp `json:"data,omitempty"`
 }

@@ -60,25 +60,47 @@ func (r *Mock) UnMockDriveCreateSheetProtectedDimension() {
 
 // CreateSheetProtectedDimensionReq ...
 type CreateSheetProtectedDimensionReq struct {
-	UserIDType            *IDType                                                  `query:"user_id_type" json:"-"`          // 请求的用户id类型，可选open_id,union_id
-	SpreadSheetToken      string                                                   `path:"spreadsheetToken" json:"-"`       // spreadsheet 的 token，获取方式见 [在线表格开发指南](https://open.feishu.cn/document/ukTMukTMukTM/uATMzUjLwEzM14CMxMTN/overview)
-	AddProtectedDimension []*CreateSheetProtectedDimensionReqAddProtectedDimension `json:"addProtectedDimension,omitempty"` // 需要增加保护范围的维度信息，可多个范围
+	SpreadSheetToken      string                                                   `path:"spreadsheetToken" json:"-"`       // spreadsheet 的 token, 获取方式见 [在线表格开发指南](https://open.feishu.cn/document/ukTMukTMukTM/uATMzUjLwEzM14CMxMTN/overview)
+	UserIDType            *IDType                                                  `query:"user_id_type" json:"-"`          // 请求的用户id类型, 可选open_id, union_id
+	AddProtectedDimension []*CreateSheetProtectedDimensionReqAddProtectedDimension `json:"addProtectedDimension,omitempty"` // 需要增加保护范围的维度信息, 可多个范围
 }
 
 // CreateSheetProtectedDimensionReqAddProtectedDimension ...
 type CreateSheetProtectedDimensionReqAddProtectedDimension struct {
 	Dimension *CreateSheetProtectedDimensionReqAddProtectedDimensionDimension `json:"dimension,omitempty"` // 需要保护行列的维度信息
 	Editors   []int64                                                         `json:"editors,omitempty"`   // 允许编辑保护范围的用户的 userID
-	Users     []string                                                        `json:"users,omitempty"`     // 允许编辑保护范围的用户的id，id类型取决于user_id_type
+	Users     []string                                                        `json:"users,omitempty"`     // 允许编辑保护范围的用户的id, id类型取决于user_id_type
 	LockInfo  *string                                                         `json:"lockInfo,omitempty"`  // 保护范围的信息
 }
 
 // CreateSheetProtectedDimensionReqAddProtectedDimensionDimension ...
 type CreateSheetProtectedDimensionReqAddProtectedDimensionDimension struct {
 	SheetID        string  `json:"sheetId,omitempty"`        // sheetId
-	MajorDimension *string `json:"majorDimension,omitempty"` // 默认 ROWS ，可选 ROWS、COLUMNS
+	MajorDimension *string `json:"majorDimension,omitempty"` // 默认 ROWS, 可选 ROWS、COLUMNS
 	StartIndex     int64   `json:"startIndex"`               // 开始的位置
 	EndIndex       int64   `json:"endIndex,omitempty"`       // 结束的位置
+}
+
+// CreateSheetProtectedDimensionResp ...
+type CreateSheetProtectedDimensionResp struct {
+	AddProtectedDimension []*CreateSheetProtectedDimensionRespAddProtectedDimension `json:"addProtectedDimension,omitempty"` // 需要增加保护范围的维度信息, 可多个范围
+}
+
+// CreateSheetProtectedDimensionRespAddProtectedDimension ...
+type CreateSheetProtectedDimensionRespAddProtectedDimension struct {
+	Dimension *CreateSheetProtectedDimensionRespAddProtectedDimensionDimension `json:"dimension,omitempty"` // 需要保护行列的维度信息
+	Editors   []int64                                                          `json:"editors,omitempty"`   // 允许编辑保护范围的用户的 userID
+	Users     []string                                                         `json:"users,omitempty"`     // 允许编辑保护范围的用户的id, id类型取决于user_id_type
+	LockInfo  string                                                           `json:"lockInfo,omitempty"`  // 保护范围的信息
+	ProtectID string                                                           `json:"protectId,omitempty"` // 保护区域的唯一 uid, 可用做后续解除保护
+}
+
+// CreateSheetProtectedDimensionRespAddProtectedDimensionDimension ...
+type CreateSheetProtectedDimensionRespAddProtectedDimensionDimension struct {
+	SheetID        string `json:"sheetId,omitempty"`        // sheetId
+	MajorDimension string `json:"majorDimension,omitempty"` // 默认 ROWS, 可选 ROWS、COLUMNS
+	StartIndex     int64  `json:"startIndex"`               // 开始的位置
+	EndIndex       int64  `json:"endIndex,omitempty"`       // 结束的位置
 }
 
 // createSheetProtectedDimensionResp ...
@@ -86,26 +108,4 @@ type createSheetProtectedDimensionResp struct {
 	Code int64                              `json:"code,omitempty"`
 	Msg  string                             `json:"msg,omitempty"`
 	Data *CreateSheetProtectedDimensionResp `json:"data,omitempty"`
-}
-
-// CreateSheetProtectedDimensionResp ...
-type CreateSheetProtectedDimensionResp struct {
-	AddProtectedDimension []*CreateSheetProtectedDimensionRespAddProtectedDimension `json:"addProtectedDimension,omitempty"` // 需要增加保护范围的维度信息，可多个范围
-}
-
-// CreateSheetProtectedDimensionRespAddProtectedDimension ...
-type CreateSheetProtectedDimensionRespAddProtectedDimension struct {
-	Dimension *CreateSheetProtectedDimensionRespAddProtectedDimensionDimension `json:"dimension,omitempty"` // 需要保护行列的维度信息
-	Editors   []int64                                                          `json:"editors,omitempty"`   // 允许编辑保护范围的用户的 userID
-	Users     []string                                                         `json:"users,omitempty"`     // 允许编辑保护范围的用户的id，id类型取决于user_id_type
-	LockInfo  string                                                           `json:"lockInfo,omitempty"`  // 保护范围的信息
-	ProtectID string                                                           `json:"protectId,omitempty"` // 保护区域的唯一 uid ，可用做后续解除保护
-}
-
-// CreateSheetProtectedDimensionRespAddProtectedDimensionDimension ...
-type CreateSheetProtectedDimensionRespAddProtectedDimensionDimension struct {
-	SheetID        string `json:"sheetId,omitempty"`        // sheetId
-	MajorDimension string `json:"majorDimension,omitempty"` // 默认 ROWS ，可选 ROWS、COLUMNS
-	StartIndex     int64  `json:"startIndex"`               // 开始的位置
-	EndIndex       int64  `json:"endIndex,omitempty"`       // 结束的位置
 }

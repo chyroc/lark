@@ -59,15 +59,8 @@ func (r *Mock) UnMockACSGetACSUser() {
 
 // GetACSUserReq ...
 type GetACSUserReq struct {
-	UserIDType *IDType `query:"user_id_type" json:"-"` // 用户 ID 类型, 示例值："open_id", 可选值有: `open_id`：用户的 open id, `union_id`：用户的 union id, `user_id`：用户的 user id, 默认值: `open_id`,, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
-	UserID     string  `path:"user_id" json:"-"`       // 用户 ID, 示例值："ou_7dab8a3d3cdcc9da365777c7ad535d62"
-}
-
-// getACSUserResp ...
-type getACSUserResp struct {
-	Code int64           `json:"code,omitempty"` // 错误码，非 0 表示失败
-	Msg  string          `json:"msg,omitempty"`  // 错误描述
-	Data *GetACSUserResp `json:"data,omitempty"`
+	UserID     string  `path:"user_id" json:"-"`       // 用户 ID, 示例值: "ou_7dab8a3d3cdcc9da365777c7ad535d62"
+	UserIDType *IDType `query:"user_id_type" json:"-"` // 用户 ID 类型, 示例值: "open_id", 可选值有: `open_id`: 用户的 open id, `union_id`: 用户的 union id, `user_id`: 用户的 user id, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
 }
 
 // GetACSUserResp ...
@@ -85,4 +78,11 @@ type GetACSUserRespUser struct {
 type GetACSUserRespUserFeature struct {
 	Card         int64 `json:"card,omitempty"`          // 卡号
 	FaceUploaded bool  `json:"face_uploaded,omitempty"` // 是否已上传人脸图片
+}
+
+// getACSUserResp ...
+type getACSUserResp struct {
+	Code int64           `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg  string          `json:"msg,omitempty"`  // 错误描述
+	Data *GetACSUserResp `json:"data,omitempty"`
 }

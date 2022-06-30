@@ -57,17 +57,17 @@ func (r *Mock) UnMockHireGetHireAttachmentPreview() {
 
 // GetHireAttachmentPreviewReq ...
 type GetHireAttachmentPreviewReq struct {
-	AttachmentID string `path:"attachment_id" json:"-"` // 附件id, 示例值："11111"
-}
-
-// getHireAttachmentPreviewResp ...
-type getHireAttachmentPreviewResp struct {
-	Code int64                         `json:"code,omitempty"` // 错误码，非 0 表示失败
-	Msg  string                        `json:"msg,omitempty"`  // 错误描述
-	Data *GetHireAttachmentPreviewResp `json:"data,omitempty"`
+	AttachmentID string `path:"attachment_id" json:"-"` // 附件id, 示例值: "11111"
 }
 
 // GetHireAttachmentPreviewResp ...
 type GetHireAttachmentPreviewResp struct {
 	URL string `json:"url,omitempty"` // 预览链接
+}
+
+// getHireAttachmentPreviewResp ...
+type getHireAttachmentPreviewResp struct {
+	Code int64                         `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg  string                        `json:"msg,omitempty"`  // 错误描述
+	Data *GetHireAttachmentPreviewResp `json:"data,omitempty"`
 }

@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// CreateCalendarExchangeBinding 本接口将Exchange账户绑定到飞书账户，进而支持Exchange日历的导入
+// CreateCalendarExchangeBinding 本接口将Exchange账户绑定到飞书账户, 进而支持Exchange日历的导入
 //
 // 操作用户需要是企业超级管理员
 //
@@ -59,24 +59,24 @@ func (r *Mock) UnMockCalendarCreateCalendarExchangeBinding() {
 
 // CreateCalendarExchangeBindingReq ...
 type CreateCalendarExchangeBindingReq struct {
-	UserIDType      *IDType `query:"user_id_type" json:"-"`     // 用户 ID 类型, 示例值："open_id", 可选值有: `open_id`：用户的 open id, `union_id`：用户的 union id, `user_id`：用户的 user id, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
-	AdminAccount    *string `json:"admin_account,omitempty"`    // admin账户, 示例值："email_admin_example@outlook.com", 长度范围：`1` ～ `500` 字符
-	ExchangeAccount *string `json:"exchange_account,omitempty"` // 用户绑定的exchange账户, 示例值："email_account_example@outlook.com", 长度范围：`1` ～ `500` 字符
-	UserID          *string `json:"user_id,omitempty"`          // exchange账户绑定user唯一标识id，参见[用户相关的 ID 概念](https://open.feishu.cn/document/home/user-identity-introduction/introduction), 示例值："ou_xxxxxxxxxxxxxxxxxx"
-}
-
-// createCalendarExchangeBindingResp ...
-type createCalendarExchangeBindingResp struct {
-	Code int64                              `json:"code,omitempty"` // 错误码，非 0 表示失败
-	Msg  string                             `json:"msg,omitempty"`  // 错误描述
-	Data *CreateCalendarExchangeBindingResp `json:"data,omitempty"`
+	UserIDType      *IDType `query:"user_id_type" json:"-"`     // 用户 ID 类型, 示例值: "open_id", 可选值有: `open_id`: 用户的 open id, `union_id`: 用户的 union id, `user_id`: 用户的 user id, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
+	AdminAccount    *string `json:"admin_account,omitempty"`    // admin账户, 示例值: "email_admin_example@outlook.com", 长度范围: `1` ～ `500` 字符
+	ExchangeAccount *string `json:"exchange_account,omitempty"` // 用户绑定的exchange账户, 示例值: "email_account_example@outlook.com", 长度范围: `1` ～ `500` 字符
+	UserID          *string `json:"user_id,omitempty"`          // exchange账户绑定user唯一标识id, 参见[用户相关的 ID 概念](https://open.feishu.cn/document/home/user-identity-introduction/introduction), 示例值: "ou_xxxxxxxxxxxxxxxxxx"
 }
 
 // CreateCalendarExchangeBindingResp ...
 type CreateCalendarExchangeBindingResp struct {
 	AdminAccount      string `json:"admin_account,omitempty"`       // admin账户, 字段权限要求: 获取用户邮箱信息
 	ExchangeAccount   string `json:"exchange_account,omitempty"`    // 用户绑定的exchange账户, 字段权限要求: 获取用户邮箱信息
-	UserID            string `json:"user_id,omitempty"`             // exchange账户绑定user唯一标识id，参见[用户相关的 ID 概念](https://open.feishu.cn/document/home/user-identity-introduction/introduction)
-	Status            string `json:"status,omitempty"`              // exchange账户同步状态, 可选值有: `doing`：日历正在同步, `cal_done`：日历同步完成, `timespan_done`：近期时间段同步完成, `done`：日程同步完成, `err`：同步错误
+	UserID            string `json:"user_id,omitempty"`             // exchange账户绑定user唯一标识id, 参见[用户相关的 ID 概念](https://open.feishu.cn/document/home/user-identity-introduction/introduction)
+	Status            string `json:"status,omitempty"`              // exchange账户同步状态, 可选值有: `doing`: 日历正在同步, `cal_done`: 日历同步完成, `timespan_done`: 近期时间段同步完成, `done`: 日程同步完成, `err`: 同步错误
 	ExchangeBindingID string `json:"exchange_binding_id,omitempty"` // exchange绑定唯一标识id。参见[exchange绑定ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/exchange_binding/introduction#12533d5e)
+}
+
+// createCalendarExchangeBindingResp ...
+type createCalendarExchangeBindingResp struct {
+	Code int64                              `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg  string                             `json:"msg,omitempty"`  // 错误描述
+	Data *CreateCalendarExchangeBindingResp `json:"data,omitempty"`
 }

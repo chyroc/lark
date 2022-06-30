@@ -22,7 +22,7 @@ import (
 	"io"
 )
 
-// DownloadDriveExportTask 根据任务导出结果的token，下载导出文件
+// DownloadDriveExportTask 根据任务导出结果的token, 下载导出文件
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/export_task/download
 func (r *DriveService) DownloadDriveExportTask(ctx context.Context, request *DownloadDriveExportTaskReq, options ...MethodOptionFunc) (*DownloadDriveExportTaskResp, *Response, error) {
@@ -59,7 +59,12 @@ func (r *Mock) UnMockDriveDownloadDriveExportTask() {
 
 // DownloadDriveExportTaskReq ...
 type DownloadDriveExportTaskReq struct {
-	FileToken string `path:"file_token" json:"-"` // 导出文档token, 示例值："boxcnNAlfwHxxxxxxxxxxSaLSec"
+	FileToken string `path:"file_token" json:"-"` // 导出文档token, 示例值: "boxcnNAlfwHxxxxxxxxxxSaLSec"
+}
+
+// DownloadDriveExportTaskResp ...
+type DownloadDriveExportTaskResp struct {
+	File io.Reader `json:"file,omitempty"`
 }
 
 // downloadDriveExportTaskResp ...
@@ -75,9 +80,4 @@ func (r *downloadDriveExportTaskResp) SetReader(file io.Reader) {
 		r.Data = &DownloadDriveExportTaskResp{}
 	}
 	r.Data.File = file
-}
-
-// DownloadDriveExportTaskResp ...
-type DownloadDriveExportTaskResp struct {
-	File io.Reader `json:"file,omitempty"`
 }

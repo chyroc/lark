@@ -57,17 +57,10 @@ func (r *Mock) UnMockHireGetHireNoteList() {
 
 // GetHireNoteListReq ...
 type GetHireNoteListReq struct {
-	PageSize   *int64  `query:"page_size" json:"-"`    // 每页限制, 每页最大不超过100, 示例值：10
-	PageToken  *string `query:"page_token" json:"-"`   // 查询游标, 由上一页结果返回, 第一页不传, 示例值："1"
-	TalentID   string  `query:"talent_id" json:"-"`    // 人才ID, 示例值："6916472453069883661"
-	UserIDType *IDType `query:"user_id_type" json:"-"` // 用户 ID 类型, 示例值："open_id", 可选值有: `open_id`：用户的 open id, `union_id`：用户的 union id, `user_id`：用户的 user id, `people_admin_id`：以people_admin_id来识别用户, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
-}
-
-// getHireNoteListResp ...
-type getHireNoteListResp struct {
-	Code int64                `json:"code,omitempty"` // 错误码，非 0 表示失败
-	Msg  string               `json:"msg,omitempty"`  // 错误描述
-	Data *GetHireNoteListResp `json:"data,omitempty"`
+	PageSize   *int64  `query:"page_size" json:"-"`    // 每页限制, 每页最大不超过100, 示例值: 10
+	PageToken  *string `query:"page_token" json:"-"`   // 查询游标, 由上一页结果返回, 第一页不传, 示例值: "1"
+	TalentID   string  `query:"talent_id" json:"-"`    // 人才ID, 示例值: "6916472453069883661"
+	UserIDType *IDType `query:"user_id_type" json:"-"` // 用户 ID 类型, 示例值: "open_id", 可选值有: `open_id`: 用户的 open id, `union_id`: 用户的 union id, `user_id`: 用户的 user id, `people_admin_id`: 以people_admin_id来识别用户, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
 }
 
 // GetHireNoteListResp ...
@@ -87,4 +80,11 @@ type GetHireNoteListRespItem struct {
 	ModifyTime    int64  `json:"modify_time,omitempty"`    // 更新时间
 	CreatorID     string `json:"creator_id,omitempty"`     // 创建人ID
 	Content       string `json:"content,omitempty"`        // 内容
+}
+
+// getHireNoteListResp ...
+type getHireNoteListResp struct {
+	Code int64                `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg  string               `json:"msg,omitempty"`  // 错误描述
+	Data *GetHireNoteListResp `json:"data,omitempty"`
 }

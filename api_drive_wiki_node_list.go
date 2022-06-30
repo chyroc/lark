@@ -24,8 +24,8 @@ import (
 // GetWikiNodeList
 //
 // 此接口用于分页获取Wiki节点的子节点列表。
-// 此接口为分页接口。由于权限过滤，可能返回列表为空，但分页标记（has_more）为true，可以继续分页请求。
-// 知识库权限要求：
+// 此接口为分页接口。由于权限过滤, 可能返回列表为空, 但分页标记（has_more）为true, 可以继续分页请求。
+// 知识库权限要求:
 // - 父节点阅读权限
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/wiki-v2/space-node/list
@@ -63,23 +63,16 @@ func (r *Mock) UnMockDriveGetWikiNodeList() {
 
 // GetWikiNodeListReq ...
 type GetWikiNodeListReq struct {
-	PageSize        *int64  `query:"page_size" json:"-"`         // 分页大小, 示例值：10, 最大值：`50`
-	PageToken       *string `query:"page_token" json:"-"`        // 分页标记，第一次请求不填，表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token，下次遍历可采用该 page_token 获取查询结果, 示例值："6946843325487456878"
-	ParentNodeToken *string `query:"parent_node_token" json:"-"` // 父节点token, 示例值："wikcnKQ1k3pcuo5uSK4t8VN6kVf"
-	SpaceID         string  `path:"space_id" json:"-"`           // 知识空间id, 示例值："6946843325487906839"
-}
-
-// getWikiNodeListResp ...
-type getWikiNodeListResp struct {
-	Code int64                `json:"code,omitempty"` // 错误码，非 0 表示失败
-	Msg  string               `json:"msg,omitempty"`  // 错误描述
-	Data *GetWikiNodeListResp `json:"data,omitempty"`
+	SpaceID         string  `path:"space_id" json:"-"`           // 知识空间id, 示例值: "6946843325487906839"
+	PageSize        *int64  `query:"page_size" json:"-"`         // 分页大小, 示例值: 10, 最大值: `50`
+	PageToken       *string `query:"page_token" json:"-"`        // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果, 示例值: "6946843325487456878"
+	ParentNodeToken *string `query:"parent_node_token" json:"-"` // 父节点token, 示例值: "wikcnKQ1k3pcuo5uSK4t8VN6kVf"
 }
 
 // GetWikiNodeListResp ...
 type GetWikiNodeListResp struct {
 	Items     []*GetWikiNodeListRespItem `json:"items,omitempty"`      // 数据列表
-	PageToken string                     `json:"page_token,omitempty"` // 分页标记，当 has_more 为 true 时，会同时返回新的 page_token，否则不返回 page_token
+	PageToken string                     `json:"page_token,omitempty"` // 分页标记, 当 has_more 为 true 时, 会同时返回新的 page_token, 否则不返回 page_token
 	HasMore   bool                       `json:"has_more,omitempty"`   // 是否还有更多项
 }
 
@@ -87,15 +80,22 @@ type GetWikiNodeListResp struct {
 type GetWikiNodeListRespItem struct {
 	SpaceID         string `json:"space_id,omitempty"`          // 知识库id
 	NodeToken       string `json:"node_token,omitempty"`        // 节点token
-	ObjToken        string `json:"obj_token,omitempty"`         // 文档token，可以根据obj_type判断是属于doc、sheet还是mindnote的token(对于快捷方式，该字段是对应的实体的obj_token)
-	ObjType         string `json:"obj_type,omitempty"`          // 文档类型，对于快捷方式，该字段是对应的实体的obj_type, 可选值有: `doc`：doc, `sheet`：sheet, `mindnote`：mindnote, `bitable`：bitable, `file`：file, `docx`：docx
-	ParentNodeToken string `json:"parent_node_token,omitempty"` // 节点的父亲token。当节点为一级节点时，父亲token为空。
-	NodeType        string `json:"node_type,omitempty"`         // 节点类型, 可选值有: `origin`：实体, `shortcut`：快捷方式
-	OriginNodeToken string `json:"origin_node_token,omitempty"` // 快捷方式对应的实体node_token，当创建节点为快捷方式时，需要传该值
+	ObjToken        string `json:"obj_token,omitempty"`         // 文档token, 可以根据obj_type判断是属于doc、sheet还是mindnote的token(对于快捷方式, 该字段是对应的实体的obj_token)
+	ObjType         string `json:"obj_type,omitempty"`          // 文档类型, 对于快捷方式, 该字段是对应的实体的obj_type, 可选值有: `doc`: doc, `sheet`: sheet, `mindnote`: mindnote, `bitable`: bitable, `file`: file, `docx`: docx
+	ParentNodeToken string `json:"parent_node_token,omitempty"` // 节点的父亲token。当节点为一级节点时, 父亲token为空。
+	NodeType        string `json:"node_type,omitempty"`         // 节点类型, 可选值有: `origin`: 实体, `shortcut`: 快捷方式
+	OriginNodeToken string `json:"origin_node_token,omitempty"` // 快捷方式对应的实体node_token, 当创建节点为快捷方式时, 需要传该值
 	OriginSpaceID   string `json:"origin_space_id,omitempty"`   // 快捷方式对应的实体所在的spaceid
 	HasChild        bool   `json:"has_child,omitempty"`         // 是否有子节点
 	Title           string `json:"title,omitempty"`             // 文档标题
 	ObjCreateTime   string `json:"obj_create_time,omitempty"`   // 文档创建时间
 	ObjEditTime     string `json:"obj_edit_time,omitempty"`     // 文档最近编辑时间
 	NodeCreateTime  string `json:"node_create_time,omitempty"`  // 节点创建时间
+}
+
+// getWikiNodeListResp ...
+type getWikiNodeListResp struct {
+	Code int64                `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg  string               `json:"msg,omitempty"`  // 错误描述
+	Data *GetWikiNodeListResp `json:"data,omitempty"`
 }

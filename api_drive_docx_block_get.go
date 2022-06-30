@@ -23,7 +23,7 @@ import (
 
 // GetDocxBlock 获取指定块的富文本内容。
 //
-// 在调用此接口前，请仔细阅读[新版文档 OpenAPI 接口校验规则](https://bytedance.feishu.cn/docx/doxcnamKaccZKqIMopnREJCZUMe#doxcnWEMWYAg2YMkEq0SZXHzaih)，了解相关规则及约束。
+// 在调用此接口前, 请仔细阅读[新版文档 OpenAPI 接口校验规则](https://bytedance.feishu.cn/docx/doxcnamKaccZKqIMopnREJCZUMe#doxcnWEMWYAg2YMkEq0SZXHzaih), 了解相关规则及约束。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/document-docx/docx-v1/document-block/get
 func (r *DriveService) GetDocxBlock(ctx context.Context, request *GetDocxBlockReq, options ...MethodOptionFunc) (*GetDocxBlockResp, *Response, error) {
@@ -60,20 +60,20 @@ func (r *Mock) UnMockDriveGetDocxBlock() {
 
 // GetDocxBlockReq ...
 type GetDocxBlockReq struct {
-	DocumentRevisionID *int64  `query:"document_revision_id" json:"-"` // 查询的文档版本，-1表示文档最新版本。若此时查询的版本为文档最新版本，则需要持有文档的阅读权限；若此时查询的版本为文档的历史版本，则需要持有文档的编辑权限。, 示例值：-1, 默认值: `-1`, 最小值：`-1`
-	UserIDType         *IDType `query:"user_id_type" json:"-"`         // 用户 ID 类型, 示例值："open_id", 可选值有: ,<md-enum>,<md-enum-item key="open_id" >用户的 open id</md-enum-item>,<md-enum-item key="union_id" >用户的 union id</md-enum-item>,<md-enum-item key="user_id" >用户的 user id</md-enum-item>,</md-enum>, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
-	DocumentID         string  `path:"document_id" json:"-"`           // 文档的唯一标识, 示例值："doxcnePuYufKa49ISjhD8Ih0ikh"
-	BlockID            string  `path:"block_id" json:"-"`              // Block 的唯一标识, 示例值："doxcnO6UW6wAw2qIcYf4hZpFIth"
-}
-
-// getDocxBlockResp ...
-type getDocxBlockResp struct {
-	Code int64             `json:"code,omitempty"` // 错误码，非 0 表示失败
-	Msg  string            `json:"msg,omitempty"`  // 错误描述
-	Data *GetDocxBlockResp `json:"data,omitempty"`
+	DocumentID         string  `path:"document_id" json:"-"`           // 文档的唯一标识, 示例值: "doxcnePuYufKa49ISjhD8Ih0ikh"
+	BlockID            string  `path:"block_id" json:"-"`              // Block 的唯一标识, 示例值: "doxcnO6UW6wAw2qIcYf4hZpFIth"
+	DocumentRevisionID *int64  `query:"document_revision_id" json:"-"` // 查询的文档版本, 1表示文档最新版本。若此时查询的版本为文档最新版本, 则需要持有文档的阅读权限；若此时查询的版本为文档的历史版本, 则需要持有文档的编辑权限, 示例值:1, 默认值: `-1`, 最小值: `-1`
+	UserIDType         *IDType `query:"user_id_type" json:"-"`         // 用户 ID 类型, 示例值: "open_id", 可选值有: <md-enum>, <md-enum-item key="open_id" >用户的 open id</md-enum-item>, <md-enum-item key="union_id" >用户的 union id</md-enum-item>, <md-enum-item key="user_id" >用户的 user id</md-enum-item>, </md-enum>, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
 }
 
 // GetDocxBlockResp ...
 type GetDocxBlockResp struct {
 	Block *DocxBlock `json:"block,omitempty"` // 查询的 Block 的信息
+}
+
+// getDocxBlockResp ...
+type getDocxBlockResp struct {
+	Code int64             `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg  string            `json:"msg,omitempty"`  // 错误描述
+	Data *GetDocxBlockResp `json:"data,omitempty"`
 }

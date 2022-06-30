@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// BindContactUnitDepartment 通过该接口建立部门与单位的绑定关系，需更新单位的权限，需对应部门的通讯录权限。由于单位是旗舰版付费功能，企业需开通相关版本，否则会绑定失败
+// BindContactUnitDepartment 通过该接口建立部门与单位的绑定关系, 需更新单位的权限, 需对应部门的通讯录权限。由于单位是旗舰版付费功能, 企业需开通相关版本, 否则会绑定失败
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/unit/bind_department
 func (r *ContactService) BindContactUnitDepartment(ctx context.Context, request *BindContactUnitDepartmentReq, options ...MethodOptionFunc) (*BindContactUnitDepartmentResp, *Response, error) {
@@ -57,18 +57,18 @@ func (r *Mock) UnMockContactBindContactUnitDepartment() {
 
 // BindContactUnitDepartmentReq ...
 type BindContactUnitDepartmentReq struct {
-	UnitID           string            `json:"unit_id,omitempty"`            // 单位ID, 示例值："BU121"
-	DepartmentID     string            `json:"department_id,omitempty"`      // 单位关联的部门ID, 示例值："od-4e6ac4d14bcd5071a37a39de902c7141"
-	DepartmentIDType *DepartmentIDType `json:"department_id_type,omitempty"` // 此次调用中使用的部门ID的类型, 示例值："open_department_id", 可选值有: `department_id`：以自定义department_id来标识部门, `open_department_id`：以open_department_id来标识部门, 默认值: `open_department_id`
-}
-
-// bindContactUnitDepartmentResp ...
-type bindContactUnitDepartmentResp struct {
-	Code int64                          `json:"code,omitempty"` // 错误码，非 0 表示失败
-	Msg  string                         `json:"msg,omitempty"`  // 错误描述
-	Data *BindContactUnitDepartmentResp `json:"data,omitempty"`
+	UnitID           string            `json:"unit_id,omitempty"`            // 单位ID, 示例值: "BU121"
+	DepartmentID     string            `json:"department_id,omitempty"`      // 单位关联的部门ID, 示例值: "od-4e6ac4d14bcd5071a37a39de902c7141"
+	DepartmentIDType *DepartmentIDType `json:"department_id_type,omitempty"` // 此次调用中使用的部门ID的类型, 示例值: "open_department_id", 可选值有: `department_id`: 以自定义department_id来标识部门, `open_department_id`: 以open_department_id来标识部门, 默认值: `open_department_id`
 }
 
 // BindContactUnitDepartmentResp ...
 type BindContactUnitDepartmentResp struct {
+}
+
+// bindContactUnitDepartmentResp ...
+type bindContactUnitDepartmentResp struct {
+	Code int64                          `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg  string                         `json:"msg,omitempty"`  // 错误描述
+	Data *BindContactUnitDepartmentResp `json:"data,omitempty"`
 }

@@ -57,15 +57,8 @@ func (r *Mock) UnMockHireGetHireJob() {
 
 // GetHireJobReq ...
 type GetHireJobReq struct {
-	UserIDType *IDType `query:"user_id_type" json:"-"` // 用户 ID 类型, 示例值："open_id", 可选值有: `open_id`：用户的 open id, `union_id`：用户的 union id, `user_id`：用户的 user id, `people_admin_id`：以people_admin_id来识别用户, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
-	JobID      int64   `path:"job_id" json:"-"`        // 职位 ID，请求Path中, 示例值：6001
-}
-
-// getHireJobResp ...
-type getHireJobResp struct {
-	Code int64           `json:"code,omitempty"` // 错误码，非 0 表示失败
-	Msg  string          `json:"msg,omitempty"`  // 错误描述
-	Data *GetHireJobResp `json:"data,omitempty"`
+	JobID      int64   `path:"job_id" json:"-"`        // 职位 ID, 请求Path中, 示例值: 6001
+	UserIDType *IDType `query:"user_id_type" json:"-"` // 用户 ID 类型, 示例值: "open_id", 可选值有: `open_id`: 用户的 open id, `union_id`: 用户的 union id, `user_id`: 用户的 user id, `people_admin_id`: 以people_admin_id来识别用户, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
 }
 
 // GetHireJobResp ...
@@ -88,11 +81,11 @@ type GetHireJobRespJob struct {
 	HighlightList      []*GetHireJobRespJobHighlight      `json:"highlight_list,omitempty"`       // 职位亮点
 	JobCategory        *GetHireJobRespJobJobCategory      `json:"job_category,omitempty"`         // 职位序列
 	JobType            *GetHireJobRespJobJobType          `json:"job_type,omitempty"`             // 职位类别
-	ActiveStatus       int64                              `json:"active_status,omitempty"`        // 启用状态, 可选值有: `1`：启用, `2`：未启用
-	CreateUserID       string                             `json:"create_user_id,omitempty"`       // 创建人ID，若为空则为系统或其他对接系统创建
+	ActiveStatus       int64                              `json:"active_status,omitempty"`        // 启用状态, 可选值有: `1`: 启用, `2`: 未启用
+	CreateUserID       string                             `json:"create_user_id,omitempty"`       // 创建人ID, 若为空则为系统或其他对接系统创建
 	CreateTime         int64                              `json:"create_time,omitempty"`          // 创建时间
 	UpdateTime         int64                              `json:"update_time,omitempty"`          // 更新时间
-	ProcessType        int64                              `json:"process_type,omitempty"`         // 招聘流程类型, 可选值有: `1`：社招流程, `2`：校招流程
+	ProcessType        int64                              `json:"process_type,omitempty"`         // 招聘流程类型, 可选值有: `1`: 社招流程, `2`: 校招流程
 	ProcessID          string                             `json:"process_id,omitempty"`           // 招聘流程 ID
 	ProcessName        string                             `json:"process_name,omitempty"`         // 招聘流程中文名称
 	ProcessEnName      string                             `json:"process_en_name,omitempty"`      // 招聘流程英文名称
@@ -100,27 +93,12 @@ type GetHireJobRespJob struct {
 	JobFunction        *GetHireJobRespJobJobFunction      `json:"job_function,omitempty"`         // 职能分类
 	Subject            *GetHireJobRespJobSubject          `json:"subject,omitempty"`              // 职位项目
 	HeadCount          int64                              `json:"head_count,omitempty"`           // 招聘数量
-	Experience         int64                              `json:"experience,omitempty"`           // 工作年限, 可选值有: `1`：不限, `2`：应届毕业生, `3`：1年以下, `4`：1-3年, `5`：3-5年, `6`：5-7年, `7`：7-10年, `8`：10年以上
+	Experience         int64                              `json:"experience,omitempty"`           // 工作年限, 可选值有: `1`: 不限, `2`: 应届毕业生, `3`: 1年以下, `4`: 1-3年, `5`: 3-5年, `6`: 5-7年, `7`: 7-10年, `8`: 10年以上
 	ExpiryTime         int64                              `json:"expiry_time,omitempty"`          // 到期日期
-	MinSalary          int64                              `json:"min_salary,omitempty"`           // 最低薪资，单位:k
-	MaxSalary          int64                              `json:"max_salary,omitempty"`           // 最高薪资，单位:k
-	RequiredDegree     int64                              `json:"required_degree,omitempty"`      // 学历要求, 可选值有: `1`：小学及以上, `2`：初中及以上, `3`：专职及以上, `4`：高中及以上, `5`：大专及以上, `6`：本科及以上, `7`：硕士及以上, `8`：博士及以上, `20`：不限
+	MinSalary          int64                              `json:"min_salary,omitempty"`           // 最低薪资, 单位:k
+	MaxSalary          int64                              `json:"max_salary,omitempty"`           // 最高薪资, 单位:k
+	RequiredDegree     int64                              `json:"required_degree,omitempty"`      // 学历要求, 可选值有: `1`: 小学及以上, `2`: 初中及以上, `3`: 专职及以上, `4`: 高中及以上, `5`: 大专及以上, `6`: 本科及以上, `7`: 硕士及以上, `8`: 博士及以上, `20`: 不限
 	CityList           []*GetHireJobRespJobCity           `json:"city_list,omitempty"`            // 工作地点列表
-}
-
-// GetHireJobRespJobRecruitmentType ...
-type GetHireJobRespJobRecruitmentType struct {
-	ID           string `json:"id,omitempty"`            // 雇佣类型 ID
-	ZhName       string `json:"zh_name,omitempty"`       // 雇佣类型中文名称
-	EnName       string `json:"en_name,omitempty"`       // 雇佣类型英文名称
-	ActiveStatus int64  `json:"active_status,omitempty"` // 雇佣类型启用状态, 可选值有: `1`：启用, `2`：未启用
-}
-
-// GetHireJobRespJobDepartment ...
-type GetHireJobRespJobDepartment struct {
-	ID     string `json:"id,omitempty"`      // 部门 ID
-	ZhName string `json:"zh_name,omitempty"` // 部门中文名称
-	EnName string `json:"en_name,omitempty"` // 部门英文名称
 }
 
 // GetHireJobRespJobCity ...
@@ -129,49 +107,17 @@ type GetHireJobRespJobCity struct {
 	Name *GetHireJobRespJobCityName `json:"name,omitempty"` // 名称
 }
 
-// GetHireJobRespJobMinJobLevel ...
-type GetHireJobRespJobMinJobLevel struct {
-	ID           string `json:"id,omitempty"`            // 职级 ID
-	ZhName       string `json:"zh_name,omitempty"`       // 职级中文名称
-	EnName       string `json:"en_name,omitempty"`       // 职级英文名称
-	ActiveStatus int64  `json:"active_status,omitempty"` // 职级启用状态, 可选值有: `1`：启用, `2`：未启用
-}
-
-// GetHireJobRespJobMaxJobLevel ...
-type GetHireJobRespJobMaxJobLevel struct {
-	ID           string `json:"id,omitempty"`            // 职级 ID
-	ZhName       string `json:"zh_name,omitempty"`       // 职级中文名称
-	EnName       string `json:"en_name,omitempty"`       // 职级英文名称
-	ActiveStatus int64  `json:"active_status,omitempty"` // 职级启用状态, 可选值有: `1`：启用, `2`：未启用
-}
-
-// GetHireJobRespJobHighlight ...
-type GetHireJobRespJobHighlight struct {
-	ID     string `json:"id,omitempty"`      // 职位亮点 ID
-	ZhName string `json:"zh_name,omitempty"` // 职位亮点中文名称
-	EnName string `json:"en_name,omitempty"` // 职位亮点英文名称
-}
-
-// GetHireJobRespJobJobCategory ...
-type GetHireJobRespJobJobCategory struct {
-	ID           string `json:"id,omitempty"`            // 职位序列 ID
-	ZhName       string `json:"zh_name,omitempty"`       // 职位序列中文名称
-	EnName       string `json:"en_name,omitempty"`       // 职位序列英文名称
-	ActiveStatus int64  `json:"active_status,omitempty"` // 职位序列启用状态, 可选值有: `1`：启用, `2`：未启用
-}
-
-// GetHireJobRespJobJobType ...
-type GetHireJobRespJobJobType struct {
-	ID     string `json:"id,omitempty"`      // 职位类别 ID
-	ZhName string `json:"zh_name,omitempty"` // 职位类别中文名称
-	EnName string `json:"en_name,omitempty"` // 职位类别英文名称
+// GetHireJobRespJobCityName ...
+type GetHireJobRespJobCityName struct {
+	ZhCn string `json:"zh_cn,omitempty"` // 中文
+	EnUs string `json:"en_us,omitempty"` // 英文
 }
 
 // GetHireJobRespJobCustomizedData ...
 type GetHireJobRespJobCustomizedData struct {
 	ObjectID   string                                `json:"object_id,omitempty"`   // 自定义字段 ID
 	Name       *GetHireJobRespJobCustomizedDataName  `json:"name,omitempty"`        // 字段名称
-	ObjectType int64                                 `json:"object_type,omitempty"` // 字段类型, 可选值有: `1`：单行文本, `2`：多行文本, `3`：单选, `4`：多选, `5`：日期, `6`：月份选择, `7`：年份选择, `8`：时间段, `9`：数字, `10`：默认字段, `11`：模块
+	ObjectType int64                                 `json:"object_type,omitempty"` // 字段类型, 可选值有: `1`: 单行文本, `2`: 多行文本, `3`: 单选, `4`: 多选, `5`: 日期, `6`: 月份选择, `7`: 年份选择, `8`: 时间段, `9`: 数字, `10`: 默认字段, `11`: 模块
 	Value      *GetHireJobRespJobCustomizedDataValue `json:"value,omitempty"`       // 自定义字段值
 }
 
@@ -183,12 +129,12 @@ type GetHireJobRespJobCustomizedDataName struct {
 
 // GetHireJobRespJobCustomizedDataValue ...
 type GetHireJobRespJobCustomizedDataValue struct {
-	Content    string                                         `json:"content,omitempty"`     // 当字段类型为单行文本、多行文本、模块、默认字段时，从此字段取值
-	Option     *GetHireJobRespJobCustomizedDataValueOption    `json:"option,omitempty"`      // 当字段类型为单选时，从此字段取值
-	OptionList []*GetHireJobRespJobCustomizedDataValueOption  `json:"option_list,omitempty"` // 当字段类型为多选时，从此字段取值
-	TimeRange  *GetHireJobRespJobCustomizedDataValueTimeRange `json:"time_range,omitempty"`  // 当字段类型为时间段时，从此字段取值
-	Time       string                                         `json:"time,omitempty"`        // 当字段类型为日期选择、月份选择、年份选择时，从此字段取值，该字段是毫秒级时间戳
-	Number     string                                         `json:"number,omitempty"`      // 当字段类型为数字时，从此字段取值
+	Content    string                                         `json:"content,omitempty"`     // 当字段类型为单行文本、多行文本、模块、默认字段时, 从此字段取值
+	Option     *GetHireJobRespJobCustomizedDataValueOption    `json:"option,omitempty"`      // 当字段类型为单选时, 从此字段取值
+	OptionList []*GetHireJobRespJobCustomizedDataValueOption  `json:"option_list,omitempty"` // 当字段类型为多选时, 从此字段取值
+	TimeRange  *GetHireJobRespJobCustomizedDataValueTimeRange `json:"time_range,omitempty"`  // 当字段类型为时间段时, 从此字段取值
+	Time       string                                         `json:"time,omitempty"`        // 当字段类型为日期选择、月份选择、年份选择时, 从此字段取值, 该字段是毫秒级时间戳
+	Number     string                                         `json:"number,omitempty"`      // 当字段类型为数字时, 从此字段取值
 }
 
 // GetHireJobRespJobCustomizedDataValueOption ...
@@ -209,6 +155,28 @@ type GetHireJobRespJobCustomizedDataValueTimeRange struct {
 	EndTime   string `json:"end_time,omitempty"`   // 结束时间
 }
 
+// GetHireJobRespJobDepartment ...
+type GetHireJobRespJobDepartment struct {
+	ID     string `json:"id,omitempty"`      // 部门 ID
+	ZhName string `json:"zh_name,omitempty"` // 部门中文名称
+	EnName string `json:"en_name,omitempty"` // 部门英文名称
+}
+
+// GetHireJobRespJobHighlight ...
+type GetHireJobRespJobHighlight struct {
+	ID     string `json:"id,omitempty"`      // 职位亮点 ID
+	ZhName string `json:"zh_name,omitempty"` // 职位亮点中文名称
+	EnName string `json:"en_name,omitempty"` // 职位亮点英文名称
+}
+
+// GetHireJobRespJobJobCategory ...
+type GetHireJobRespJobJobCategory struct {
+	ID           string `json:"id,omitempty"`            // 职位序列 ID
+	ZhName       string `json:"zh_name,omitempty"`       // 职位序列中文名称
+	EnName       string `json:"en_name,omitempty"`       // 职位序列英文名称
+	ActiveStatus int64  `json:"active_status,omitempty"` // 职位序列启用状态, 可选值有: `1`: 启用, `2`: 未启用
+}
+
 // GetHireJobRespJobJobFunction ...
 type GetHireJobRespJobJobFunction struct {
 	ID   string                            `json:"id,omitempty"`   // ID
@@ -219,6 +187,37 @@ type GetHireJobRespJobJobFunction struct {
 type GetHireJobRespJobJobFunctionName struct {
 	ZhCn string `json:"zh_cn,omitempty"` // 中文
 	EnUs string `json:"en_us,omitempty"` // 英文
+}
+
+// GetHireJobRespJobJobType ...
+type GetHireJobRespJobJobType struct {
+	ID     string `json:"id,omitempty"`      // 职位类别 ID
+	ZhName string `json:"zh_name,omitempty"` // 职位类别中文名称
+	EnName string `json:"en_name,omitempty"` // 职位类别英文名称
+}
+
+// GetHireJobRespJobMaxJobLevel ...
+type GetHireJobRespJobMaxJobLevel struct {
+	ID           string `json:"id,omitempty"`            // 职级 ID
+	ZhName       string `json:"zh_name,omitempty"`       // 职级中文名称
+	EnName       string `json:"en_name,omitempty"`       // 职级英文名称
+	ActiveStatus int64  `json:"active_status,omitempty"` // 职级启用状态, 可选值有: `1`: 启用, `2`: 未启用
+}
+
+// GetHireJobRespJobMinJobLevel ...
+type GetHireJobRespJobMinJobLevel struct {
+	ID           string `json:"id,omitempty"`            // 职级 ID
+	ZhName       string `json:"zh_name,omitempty"`       // 职级中文名称
+	EnName       string `json:"en_name,omitempty"`       // 职级英文名称
+	ActiveStatus int64  `json:"active_status,omitempty"` // 职级启用状态, 可选值有: `1`: 启用, `2`: 未启用
+}
+
+// GetHireJobRespJobRecruitmentType ...
+type GetHireJobRespJobRecruitmentType struct {
+	ID           string `json:"id,omitempty"`            // 雇佣类型 ID
+	ZhName       string `json:"zh_name,omitempty"`       // 雇佣类型中文名称
+	EnName       string `json:"en_name,omitempty"`       // 雇佣类型英文名称
+	ActiveStatus int64  `json:"active_status,omitempty"` // 雇佣类型启用状态, 可选值有: `1`: 启用, `2`: 未启用
 }
 
 // GetHireJobRespJobSubject ...
@@ -233,8 +232,9 @@ type GetHireJobRespJobSubjectName struct {
 	EnUs string `json:"en_us,omitempty"` // 英文
 }
 
-// GetHireJobRespJobCityName ...
-type GetHireJobRespJobCityName struct {
-	ZhCn string `json:"zh_cn,omitempty"` // 中文
-	EnUs string `json:"en_us,omitempty"` // 英文
+// getHireJobResp ...
+type getHireJobResp struct {
+	Code int64           `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg  string          `json:"msg,omitempty"`  // 错误描述
+	Data *GetHireJobResp `json:"data,omitempty"`
 }

@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// CreateTaskComment 该接口用于创建和回复任务的评论。当parent_id字段为0时，为创建评论；当parent_id不为0时，为回复某条评论
+// CreateTaskComment 该接口用于创建和回复任务的评论。当parent_id字段为0时, 为创建评论；当parent_id不为0时, 为回复某条评论
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/task-v1/task-comment/create
 func (r *TaskService) CreateTaskComment(ctx context.Context, request *CreateTaskCommentReq, options ...MethodOptionFunc) (*CreateTaskCommentResp, *Response, error) {
@@ -58,17 +58,10 @@ func (r *Mock) UnMockTaskCreateTaskComment() {
 
 // CreateTaskCommentReq ...
 type CreateTaskCommentReq struct {
-	TaskID   string  `path:"task_id" json:"-"`    // 任务 ID, 示例值："83912691-2e43-47fc-94a4-d512e03984fa"
-	Content  *string `json:"content,omitempty"`   // 评论内容, 示例值："举杯邀明月，对影成三人", 长度范围：`0` ～ `65536` 字符
-	ParentID *string `json:"parent_id,omitempty"` // 评论的父ID，创建评论时若不为空则为某条评论的回复，若为空则不是回复, 示例值："6937231762296684564"
-	ID       *string `json:"id,omitempty"`        // 评论ID，由飞书服务器发号, 示例值："6937231762296684564"
-}
-
-// createTaskCommentResp ...
-type createTaskCommentResp struct {
-	Code int64                  `json:"code,omitempty"` // 错误码，非 0 表示失败
-	Msg  string                 `json:"msg,omitempty"`  // 错误描述
-	Data *CreateTaskCommentResp `json:"data,omitempty"`
+	TaskID   string  `path:"task_id" json:"-"`    // 任务 ID, 示例值: "83912691-2e43-47fc-94a4-d512e03984fa"
+	Content  *string `json:"content,omitempty"`   // 评论内容, 示例值: "举杯邀明月, 对影成三人", 长度范围: `0` ～ `65536` 字符
+	ParentID *string `json:"parent_id,omitempty"` // 评论的父ID, 创建评论时若不为空则为某条评论的回复, 若为空则不是回复, 示例值: "6937231762296684564"
+	ID       *string `json:"id,omitempty"`        // 评论ID, 由飞书服务器发号, 示例值: "6937231762296684564"
 }
 
 // CreateTaskCommentResp ...
@@ -79,6 +72,13 @@ type CreateTaskCommentResp struct {
 // CreateTaskCommentRespComment ...
 type CreateTaskCommentRespComment struct {
 	Content  string `json:"content,omitempty"`   // 评论内容
-	ParentID string `json:"parent_id,omitempty"` // 评论的父ID，创建评论时若不为空则为某条评论的回复，若为空则不是回复
-	ID       string `json:"id,omitempty"`        // 评论ID，由飞书服务器发号
+	ParentID string `json:"parent_id,omitempty"` // 评论的父ID, 创建评论时若不为空则为某条评论的回复, 若为空则不是回复
+	ID       string `json:"id,omitempty"`        // 评论ID, 由飞书服务器发号
+}
+
+// createTaskCommentResp ...
+type createTaskCommentResp struct {
+	Code int64                  `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg  string                 `json:"msg,omitempty"`  // 错误描述
+	Data *CreateTaskCommentResp `json:"data,omitempty"`
 }

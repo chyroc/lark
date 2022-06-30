@@ -58,19 +58,19 @@ func (r *Mock) UnMockBitableCreateBitableAppRoleMember() {
 
 // CreateBitableAppRoleMemberReq ...
 type CreateBitableAppRoleMemberReq struct {
-	MemberIDType *IDType `query:"member_id_type" json:"-"` // 协作者id类型，与请求体中的member_id要对应, 示例值："open_id", 可选值有: `open_id`：以open_id来识别协作者, `union_id`：以union_id来识别协作者, `user_id`：以user_id来识别协作者, `chat_id`：以chat_id来识别协作者, `department_id`：以department_id来识别协作者, `open_department_id`：以open_department_id来识别协作者, 默认值: `open_id`
-	AppToken     string  `path:"app_token" json:"-"`       // bitable app token, 示例值："appbcbWCzen6D8dezhoCH2RpMAh"
-	RoleID       string  `path:"role_id" json:"-"`         // 自定义权限的id, 示例值："roljRpwIUt"
-	MemberID     string  `json:"member_id,omitempty"`      // 协作者id, 示例值："ou_7dab8a3d3cdcc9da365777c7ad535d62"
-}
-
-// createBitableAppRoleMemberResp ...
-type createBitableAppRoleMemberResp struct {
-	Code int64                           `json:"code,omitempty"` // 错误码，非 0 表示失败
-	Msg  string                          `json:"msg,omitempty"`  // 错误描述
-	Data *CreateBitableAppRoleMemberResp `json:"data,omitempty"`
+	AppToken     string  `path:"app_token" json:"-"`       // bitable app token, 示例值: "appbcbWCzen6D8dezhoCH2RpMAh"
+	RoleID       string  `path:"role_id" json:"-"`         // 自定义权限的id, 示例值: "roljRpwIUt"
+	MemberIDType *IDType `query:"member_id_type" json:"-"` // 协作者id类型, 与请求体中的member_id要对应, 示例值: "open_id", 可选值有: `open_id`: 以open_id来识别协作者, `union_id`: 以union_id来识别协作者, `user_id`: 以user_id来识别协作者, `chat_id`: 以chat_id来识别协作者, `department_id`: 以department_id来识别协作者, `open_department_id`: 以open_department_id来识别协作者, 默认值: `open_id`
+	MemberID     string  `json:"member_id,omitempty"`      // 协作者id, 示例值: "ou_7dab8a3d3cdcc9da365777c7ad535d62"
 }
 
 // CreateBitableAppRoleMemberResp ...
 type CreateBitableAppRoleMemberResp struct {
+}
+
+// createBitableAppRoleMemberResp ...
+type createBitableAppRoleMemberResp struct {
+	Code int64                           `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg  string                          `json:"msg,omitempty"`  // 错误描述
+	Data *CreateBitableAppRoleMemberResp `json:"data,omitempty"`
 }

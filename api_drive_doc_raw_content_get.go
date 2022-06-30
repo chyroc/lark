@@ -23,9 +23,9 @@ import (
 
 // GetDriveDocRawContent
 //
-// 此接口只支持查询旧版文档纯文本内容，如果需要查询新版文档的纯文本内容，请使用[获取新版文档纯文本内容
+// 此接口只支持查询旧版文档纯文本内容, 如果需要查询新版文档的纯文本内容, 请使用[获取新版文档纯文本内容
 // ](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/document-docx/docx-v1/document/raw_content)接口。
-// 该接口用于获取文档的纯文本内容，不包含富文本格式信息。
+// 该接口用于获取文档的纯文本内容, 不包含富文本格式信息。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/ukzNzUjL5czM14SO3MTN
 func (r *DriveService) GetDriveDocRawContent(ctx context.Context, request *GetDriveDocRawContentReq, options ...MethodOptionFunc) (*GetDriveDocRawContentResp, *Response, error) {
@@ -65,14 +65,14 @@ type GetDriveDocRawContentReq struct {
 	DocToken string `path:"docToken" json:"-"` // 获取方式详见 [如何获取云文档资源相关 token](https://open.feishu.cn/document/ukTMukTMukTM/uczNzUjL3czM14yN3MTN#08bb5df6)
 }
 
-// getDriveDocRawContentResp ...
-type getDriveDocRawContentResp struct {
-	Code int64                      `json:"code,omitempty"` // 如: 0
-	Msg  string                     `json:"msg,omitempty"`  // 如: Success
-	Data *GetDriveDocRawContentResp `json:"data,omitempty"`
-}
-
 // GetDriveDocRawContentResp ...
 type GetDriveDocRawContentResp struct {
 	Content string `json:"content,omitempty"` // 如: string
+}
+
+// getDriveDocRawContentResp ...
+type getDriveDocRawContentResp struct {
+	Code int64                      `json:"code,omitempty"`
+	Msg  string                     `json:"msg,omitempty"`
+	Data *GetDriveDocRawContentResp `json:"data,omitempty"`
 }

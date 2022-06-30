@@ -23,7 +23,7 @@ import (
 
 // GetSheetDataValidationDropdown
 //
-// 该接口根据 spreadsheetToken 、range 查询range内的下拉列表设置信息；单次查询范围不超过5000行，100列。
+// 该接口根据 spreadsheetToken 、range 查询range内的下拉列表设置信息；单次查询范围不超过5000行, 100列。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uATMzUjLwEzM14CMxMTN/datavalidation/query-datavalidation
 func (r *DriveService) GetSheetDataValidationDropdown(ctx context.Context, request *GetSheetDataValidationDropdownReq, options ...MethodOptionFunc) (*GetSheetDataValidationDropdownResp, *Response, error) {
@@ -60,16 +60,9 @@ func (r *Mock) UnMockDriveGetSheetDataValidationDropdown() {
 
 // GetSheetDataValidationDropdownReq ...
 type GetSheetDataValidationDropdownReq struct {
-	Range              string `query:"range" json:"-"`              // 查询范围，包含 sheetId 与单元格范围两部分，目前支持四种索引方式，详见[在线表格开发指南](https://open.feishu.cn/document/ukTMukTMukTM/uATMzUjLwEzM14CMxMTN/overview)
+	SpreadSheetToken   string `path:"spreadsheetToken" json:"-"`    // spreadsheet 的 token, 获取方式见 [在线表格开发指南](https://open.feishu.cn/document/ukTMukTMukTM/uATMzUjLwEzM14CMxMTN/overview)
+	Range              string `query:"range" json:"-"`              // 查询范围, 包含 sheetId 与单元格范围两部分, 目前支持四种索引方式, 详见[在线表格开发指南](https://open.feishu.cn/document/ukTMukTMukTM/uATMzUjLwEzM14CMxMTN/overview)
 	DataValidationType string `query:"dataValidationType" json:"-"` // 下拉列表填"list"
-	SpreadSheetToken   string `path:"spreadsheetToken" json:"-"`    // spreadsheet 的 token，获取方式见 [在线表格开发指南](https://open.feishu.cn/document/ukTMukTMukTM/uATMzUjLwEzM14CMxMTN/overview)
-}
-
-// getSheetDataValidationDropdownResp ...
-type getSheetDataValidationDropdownResp struct {
-	Code int64                               `json:"code,omitempty"` // 状态码，0代表成功
-	Msg  *string                             `json:"msg,omitempty"`  // 状态信息
-	Data *GetSheetDataValidationDropdownResp `json:"data,omitempty"`
 }
 
 // GetSheetDataValidationDropdownResp ...
@@ -92,5 +85,12 @@ type GetSheetDataValidationDropdownRespDataValidation struct {
 type GetSheetDataValidationDropdownRespDataValidationOptions struct {
 	MultipleValues     *bool             `json:"multipleValues,omitempty"`     // 单选填false, 多选填true
 	HighlightValidData *bool             `json:"highlightValidData,omitempty"` // 是否设置颜色和胶囊样式
-	ColorValueMap      map[string]string `json:"colorValueMap,omitempty"`      // 当highlightValidData为true时，colorValueMap的key与conditionValues中的值一一对应，value为对应的颜色参数。
+	ColorValueMap      map[string]string `json:"colorValueMap,omitempty"`      // 当highlightValidData为true时, colorValueMap的key与conditionValues中的值一一对应, value为对应的颜色参数。
+}
+
+// getSheetDataValidationDropdownResp ...
+type getSheetDataValidationDropdownResp struct {
+	Code int64                               `json:"code,omitempty"` // 状态码, 0代表成功
+	Msg  *string                             `json:"msg,omitempty"`  // 状态信息
+	Data *GetSheetDataValidationDropdownResp `json:"data,omitempty"`
 }

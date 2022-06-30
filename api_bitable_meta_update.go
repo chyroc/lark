@@ -24,7 +24,7 @@ import (
 // UpdateBitableMeta 通过 app_token 更新多维表格元数据
 //
 // - 飞书文档、飞书表格、知识库中的多维表格不支持开启高级权限
-// - 此接口非原子操作，先修改多维表格名字，后开关高级权限。可能存在部分成功的情况
+// - 此接口非原子操作, 先修改多维表格名字, 后开关高级权限。可能存在部分成功的情况
 // 该接口支持调用频率上限为 10 QPS
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app/update
@@ -62,16 +62,9 @@ func (r *Mock) UnMockBitableUpdateBitableMeta() {
 
 // UpdateBitableMetaReq ...
 type UpdateBitableMetaReq struct {
-	AppToken   string  `path:"app_token" json:"-"`    // bitable app token, 示例值："appbcbWCzen6D8dezhoCH2RpMAh"
-	Name       *string `json:"name,omitempty"`        // 新的多维表格名字, 示例值："新的多维表格名字"
-	IsAdvanced *bool   `json:"is_advanced,omitempty"` // 多维表格是否开启高级权限, 示例值：false
-}
-
-// updateBitableMetaResp ...
-type updateBitableMetaResp struct {
-	Code int64                  `json:"code,omitempty"` // 错误码，非 0 表示失败
-	Msg  string                 `json:"msg,omitempty"`  // 错误描述
-	Data *UpdateBitableMetaResp `json:"data,omitempty"`
+	AppToken   string  `path:"app_token" json:"-"`    // bitable app token, 示例值: "appbcbWCzen6D8dezhoCH2RpMAh"
+	Name       *string `json:"name,omitempty"`        // 新的多维表格名字, 示例值: "新的多维表格名字"
+	IsAdvanced *bool   `json:"is_advanced,omitempty"` // 多维表格是否开启高级权限, 示例值: false
 }
 
 // UpdateBitableMetaResp ...
@@ -84,4 +77,11 @@ type UpdateBitableMetaRespApp struct {
 	AppToken   string `json:"app_token,omitempty"`   // 多维表格的 app_token
 	Name       string `json:"name,omitempty"`        // 多维表格的名字
 	IsAdvanced bool   `json:"is_advanced,omitempty"` // 多维表格是否已开启高级权限
+}
+
+// updateBitableMetaResp ...
+type updateBitableMetaResp struct {
+	Code int64                  `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg  string                 `json:"msg,omitempty"`  // 错误描述
+	Data *UpdateBitableMetaResp `json:"data,omitempty"`
 }

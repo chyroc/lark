@@ -21,12 +21,12 @@ import (
 	"context"
 )
 
-// DeleteDriveFile 删除用户在云空间内的文件或者文件夹。文件或者文件夹被删除后，会进入用户回收站里。
+// DeleteDriveFile 删除用户在云空间内的文件或者文件夹。文件或者文件夹被删除后, 会进入用户回收站里。
 //
-// 要删除文件需要确保应用具有下述两种权限之一：
+// 要删除文件需要确保应用具有下述两种权限之一:
 // 1. 该应用是文件所有者并且具有该文件所在父文件夹的编辑权限。
-// 2. 该应用并非文件所有者，但是是该文件所在父文件夹的所有者或者拥有该父文件夹的所有权限（full access）。
-// 该接口不支持并发调用，且调用频率上限为5QPS。删除文件夹会异步执行并返回一个task_id，可以使用[task_check](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file/task_check)接口查询任务执行状态。
+// 2. 该应用并非文件所有者, 但是是该文件所在父文件夹的所有者或者拥有该父文件夹的所有权限（full access）。
+// 该接口不支持并发调用, 且调用频率上限为5QPS。删除文件夹会异步执行并返回一个task_id, 可以使用[task_check](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file/task_check)接口查询任务执行状态。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file/delete
 func (r *DriveService) DeleteDriveFile(ctx context.Context, request *DeleteDriveFileReq, options ...MethodOptionFunc) (*DeleteDriveFileResp, *Response, error) {
@@ -63,18 +63,18 @@ func (r *Mock) UnMockDriveDeleteDriveFile() {
 
 // DeleteDriveFileReq ...
 type DeleteDriveFileReq struct {
-	Type      string `query:"type" json:"-"`      // 被删除文件的类型, 示例值："file", 可选值有: `file`：文件类型, `docx`：新版文档类型, `bitable`：多维表格类型, `folder`：文件夹类型, `doc`：文档类型, `sheet`：电子表格类型, `mindnote`：思维笔记类型, `shortcut`：快捷方式类型
-	FileToken string `path:"file_token" json:"-"` // 需要删除的文件token, 示例值："boxbcj55reGXM6YAS3C7Z4GWKNg"
-}
-
-// deleteDriveFileResp ...
-type deleteDriveFileResp struct {
-	Code int64                `json:"code,omitempty"` // 错误码，非 0 表示失败
-	Msg  string               `json:"msg,omitempty"`  // 错误描述
-	Data *DeleteDriveFileResp `json:"data,omitempty"`
+	FileToken string `path:"file_token" json:"-"` // 需要删除的文件token, 示例值: "boxcnrHpsg1QDqXAAAyachabcef"
+	Type      string `query:"type" json:"-"`      // 被删除文件的类型, 示例值: "file", 可选值有: `file`: 文件类型, `docx`: 新版文档类型, `bitable`: 多维表格类型, `folder`: 文件夹类型, `doc`: 文档类型, `sheet`: 电子表格类型, `mindnote`: 思维笔记类型, `shortcut`: 快捷方式类型
 }
 
 // DeleteDriveFileResp ...
 type DeleteDriveFileResp struct {
-	TaskID string `json:"task_id,omitempty"` // 异步任务id，删除文件夹时返回
+	TaskID string `json:"task_id,omitempty"` // 异步任务id, 删除文件夹时返回
+}
+
+// deleteDriveFileResp ...
+type deleteDriveFileResp struct {
+	Code int64                `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg  string               `json:"msg,omitempty"`  // 错误描述
+	Data *DeleteDriveFileResp `json:"data,omitempty"`
 }

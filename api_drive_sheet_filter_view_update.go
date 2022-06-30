@@ -21,9 +21,9 @@ import (
 	"context"
 )
 
-// UpdateSheetFilterView 更新筛选视图的名字或者筛选范围。名字长度不超过100，不能重复即子表内唯一；筛选范围不超过子表的最大范围。
+// UpdateSheetFilterView 更新筛选视图的名字或者筛选范围。名字长度不超过100, 不能重复即子表内唯一；筛选范围不超过子表的最大范围。
 //
-// 筛选范围的设置参考：[筛选视图的筛选条件指南](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/sheets-v3/spreadsheet-sheet-filter_view-condition/filter-view-condition-user-guide)
+// 筛选范围的设置参考: [筛选视图的筛选条件指南](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/sheets-v3/spreadsheet-sheet-filter_view-condition/filter-view-condition-user-guide)
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/sheets-v3/spreadsheet-sheet-filter_view/patch
 func (r *DriveService) UpdateSheetFilterView(ctx context.Context, request *UpdateSheetFilterViewReq, options ...MethodOptionFunc) (*UpdateSheetFilterViewResp, *Response, error) {
@@ -60,18 +60,11 @@ func (r *Mock) UnMockDriveUpdateSheetFilterView() {
 
 // UpdateSheetFilterViewReq ...
 type UpdateSheetFilterViewReq struct {
-	SpreadSheetToken string  `path:"spreadsheet_token" json:"-"` // 表格 token, 示例值："shtcnmBA*****yGehy8"
-	SheetID          string  `path:"sheet_id" json:"-"`          // 子表 id, 示例值："0b**12"
-	FilterViewID     string  `path:"filter_view_id" json:"-"`    // 筛选视图 id, 示例值："pH9hbVcCXA"
-	FilterViewName   *string `json:"filter_view_name,omitempty"` // 筛选视图名字, 示例值："筛选视图 1"
-	Range            *string `json:"range,omitempty"`            // 筛选视图的筛选范围, 示例值："0b**12!C1:H14"
-}
-
-// updateSheetFilterViewResp ...
-type updateSheetFilterViewResp struct {
-	Code int64                      `json:"code,omitempty"` // 错误码，非 0 表示失败
-	Msg  string                     `json:"msg,omitempty"`  // 错误描述
-	Data *UpdateSheetFilterViewResp `json:"data,omitempty"`
+	SpreadSheetToken string  `path:"spreadsheet_token" json:"-"` // 表格 token, 示例值: "shtcnmBA*yGehy8"
+	SheetID          string  `path:"sheet_id" json:"-"`          // 子表 id, 示例值: "0b**12"
+	FilterViewID     string  `path:"filter_view_id" json:"-"`    // 筛选视图 id, 示例值: "pH9hbVcCXA"
+	FilterViewName   *string `json:"filter_view_name,omitempty"` // 筛选视图名字, 示例值: "筛选视图 1"
+	Range            *string `json:"range,omitempty"`            // 筛选视图的筛选范围, 示例值: "0b**12!C1:H14"
 }
 
 // UpdateSheetFilterViewResp ...
@@ -84,4 +77,11 @@ type UpdateSheetFilterViewRespFilterView struct {
 	FilterViewID   string `json:"filter_view_id,omitempty"`   // 筛选视图 id
 	FilterViewName string `json:"filter_view_name,omitempty"` // 筛选视图名字
 	Range          string `json:"range,omitempty"`            // 筛选视图的筛选范围
+}
+
+// updateSheetFilterViewResp ...
+type updateSheetFilterViewResp struct {
+	Code int64                      `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg  string                     `json:"msg,omitempty"`  // 错误描述
+	Data *UpdateSheetFilterViewResp `json:"data,omitempty"`
 }

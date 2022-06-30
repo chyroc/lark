@@ -22,9 +22,9 @@ import (
 	"io"
 )
 
-// DownloadDriveMedia 使用该接口可以下载素材。素材表示在各种创作容器里的文件，如Doc文档内的图片，文件均属于素材。支持range下载。
+// DownloadDriveMedia 使用该接口可以下载素材。素材表示在各种创作容器里的文件, 如Doc文档内的图片, 文件均属于素材。支持range下载。
 //
-// 该接口不支持太高的并发，且调用频率上限为5QPS
+// 该接口不支持太高的并发, 且调用频率上限为5QPS
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/media/download
 func (r *DriveService) DownloadDriveMedia(ctx context.Context, request *DownloadDriveMediaReq, options ...MethodOptionFunc) (*DownloadDriveMediaResp, *Response, error) {
@@ -61,9 +61,15 @@ func (r *Mock) UnMockDriveDownloadDriveMedia() {
 
 // DownloadDriveMediaReq ...
 type DownloadDriveMediaReq struct {
-	Extra     *string  `query:"extra" json:"-"`     // 扩展信息, 示例值："[请参考-上传点类型及对应Extra说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/media/introduction)"
-	FileToken string   `path:"file_token" json:"-"` // 文件的 token，获取方式见 [概述](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/files/guide/introduction), 示例值："boxcnabCdefg12345"
-	Range     [2]int64 `header:"range" json:"-"`    // 指定文件下载部分，示例:bytes=0-1024
+	FileToken string   `path:"file_token" json:"-"` // 文件的 token, 获取方式见 [概述](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/files/guide/introduction), 示例值: "boxcnrHpsg1QDqXAAAyachabcef"
+	Extra     *string  `query:"extra" json:"-"`     // 扩展信息, 示例值: "[请参考-上传点类型及对应Extra说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/media/introduction)"
+	Range     [2]int64 `header:"range" json:"-"`    // 指定文件下载部分, 示例:bytes=0-1024
+}
+
+// DownloadDriveMediaResp ...
+type DownloadDriveMediaResp struct {
+	File     io.Reader
+	Filename string // 文件名
 }
 
 // downloadDriveMediaResp ...
@@ -86,10 +92,4 @@ func (r *downloadDriveMediaResp) SetFilename(filename string) {
 		r.Data = &DownloadDriveMediaResp{}
 	}
 	r.Data.Filename = filename
-}
-
-// DownloadDriveMediaResp ...
-type DownloadDriveMediaResp struct {
-	File     io.Reader
-	Filename string // 文件名
 }

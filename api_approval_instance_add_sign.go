@@ -62,20 +62,20 @@ type AddApprovalInstanceSignReq struct {
 	ApprovalCode   string   `json:"approval_code,omitempty"`     // 审批定义 Code
 	InstanceCode   string   `json:"instance_code,omitempty"`     // 审批实例 Code
 	UserID         string   `json:"user_id,omitempty"`           // 操作用户
-	TaskID         string   `json:"task_id,omitempty"`           // 任务 ID<br>审批实例详情task_list中id，详情请参考[](https://open.feishu.cn/document/ukTMukTMukTM/uEDNyUjLxQjM14SM0ITN)
+	TaskID         string   `json:"task_id,omitempty"`           // 任务 ID审批实例详情task_list中id, 详情请参考[](https://open.feishu.cn/document/ukTMukTMukTM/uEDNyUjLxQjM14SM0ITN)
 	Comment        *string  `json:"comment,omitempty"`           // 意见
 	AddSignUserIDs []string `json:"add_sign_user_ids,omitempty"` // 被加签人id
 	AddSignType    string   `json:"add_sign_type,omitempty"`     // 1/2/3分别代表前加签/后加签/并加签
-	ApprovalMethod *string  `json:"approval_method,omitempty"`   // 仅在前加签、后加签时需要填写，1/2 分别代表或签/会签
-}
-
-// addApprovalInstanceSignResp ...
-type addApprovalInstanceSignResp struct {
-	Code int64                        `json:"code,omitempty"` // 错误码，非0表示失败
-	Msg  string                       `json:"msg,omitempty"`  // 返回码的描述
-	Data *AddApprovalInstanceSignResp `json:"data,omitempty"`
+	ApprovalMethod *string  `json:"approval_method,omitempty"`   // 仅在前加签、后加签时需要填写, 1/2 分别代表或签/会签
 }
 
 // AddApprovalInstanceSignResp ...
 type AddApprovalInstanceSignResp struct {
+}
+
+// addApprovalInstanceSignResp ...
+type addApprovalInstanceSignResp struct {
+	Code int64                        `json:"code,omitempty"` // 错误码, 非0表示失败
+	Msg  string                       `json:"msg,omitempty"`  // 返回码的描述
+	Data *AddApprovalInstanceSignResp `json:"data,omitempty"`
 }

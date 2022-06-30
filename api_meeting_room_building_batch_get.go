@@ -58,14 +58,7 @@ func (r *Mock) UnMockMeetingRoomBatchGetMeetingRoomBuilding() {
 // BatchGetMeetingRoomBuildingReq ...
 type BatchGetMeetingRoomBuildingReq struct {
 	BuildingIDs []string `query:"building_ids" json:"-"` // 用于查询指定建筑物的 ID
-	Fields      *string  `query:"fields" json:"-"`       // 用于指定返回的字段名，每个字段名之间用逗号 "," 分隔，如：“id,name”，"*" 表示返回全部字段，可选字段有："id,name,description,floors"，默认返回所有字段
-}
-
-// batchGetMeetingRoomBuildingResp ...
-type batchGetMeetingRoomBuildingResp struct {
-	Code int64                            `json:"code,omitempty"` // 返回码，非 0 表示失败
-	Msg  string                           `json:"msg,omitempty"`  // 返回码的描述，"success" 表示成功，其他为错误提示信息
-	Data *BatchGetMeetingRoomBuildingResp `json:"data,omitempty"` // 返回业务信息
+	Fields      *string  `query:"fields" json:"-"`       // 用于指定返回的字段名, 每个字段名之间用逗号 ", " 分隔, 如: “id, name”, "*" 表示返回全部字段, 可选字段有: "id, name, description, floors", 默认返回所有字段
 }
 
 // BatchGetMeetingRoomBuildingResp ...
@@ -81,4 +74,11 @@ type BatchGetMeetingRoomBuildingRespBuilding struct {
 	Name        string   `json:"name,omitempty"`        // 建筑物名称
 	CountryID   string   `json:"country_id,omitempty"`  // 所属国家 ID
 	DistrictID  string   `json:"district_id,omitempty"` // 所属城市 ID
+}
+
+// batchGetMeetingRoomBuildingResp ...
+type batchGetMeetingRoomBuildingResp struct {
+	Code int64                            `json:"code,omitempty"` // 返回码, 非 0 表示失败
+	Msg  string                           `json:"msg,omitempty"`  // 返回码的描述, "success" 表示成功, 其他为错误提示信息
+	Data *BatchGetMeetingRoomBuildingResp `json:"data,omitempty"` // 返回业务信息
 }

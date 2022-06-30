@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// CancelSendHelpdeskNotification 取消推送接口，审核通过后待调度可以调用，发送过程中可以调用（会撤回已发送的消息），发送完成后可以需要推送（会撤回所有已发送的消息）
+// CancelSendHelpdeskNotification 取消推送接口, 审核通过后待调度可以调用, 发送过程中可以调用（会撤回已发送的消息）, 发送完成后可以需要推送（会撤回所有已发送的消息）
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/notification/cancel_send
 func (r *HelpdeskService) CancelSendHelpdeskNotification(ctx context.Context, request *CancelSendHelpdeskNotificationReq, options ...MethodOptionFunc) (*CancelSendHelpdeskNotificationResp, *Response, error) {
@@ -58,17 +58,17 @@ func (r *Mock) UnMockHelpdeskCancelSendHelpdeskNotification() {
 
 // CancelSendHelpdeskNotificationReq ...
 type CancelSendHelpdeskNotificationReq struct {
-	NotificationID string `path:"notification_id" json:"-"` // 唯一ID, 示例值："6981801914270744596"
-	IsRecall       bool   `json:"is_recall,omitempty"`      // 是否召回已发送的消息,新人入职消息同样适用, 示例值：true
-}
-
-// cancelSendHelpdeskNotificationResp ...
-type cancelSendHelpdeskNotificationResp struct {
-	Code int64                               `json:"code,omitempty"` // 错误码，非 0 表示失败
-	Msg  string                              `json:"msg,omitempty"`  // 错误描述
-	Data *CancelSendHelpdeskNotificationResp `json:"data,omitempty"`
+	NotificationID string `path:"notification_id" json:"-"` // 唯一ID, 示例值: "6981801914270744596"
+	IsRecall       bool   `json:"is_recall,omitempty"`      // 是否召回已发送的消息, 新人入职消息同样适用, 示例值: true
 }
 
 // CancelSendHelpdeskNotificationResp ...
 type CancelSendHelpdeskNotificationResp struct {
+}
+
+// cancelSendHelpdeskNotificationResp ...
+type cancelSendHelpdeskNotificationResp struct {
+	Code int64                               `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg  string                              `json:"msg,omitempty"`  // 错误描述
+	Data *CancelSendHelpdeskNotificationResp `json:"data,omitempty"`
 }

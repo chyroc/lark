@@ -24,7 +24,7 @@ import (
 
 // GetACSAccessRecordPhoto
 //
-// 用户在门禁考勤机上成功开门或打卡后，智能门禁应用都会生成一条门禁记录，对于使用人脸识别方式进行开门的识别记录，还会有抓拍图。
+// 用户在门禁考勤机上成功开门或打卡后, 智能门禁应用都会生成一条门禁记录, 对于使用人脸识别方式进行开门的识别记录, 还会有抓拍图。
 // 可以用该接口下载开门时的人脸识别照片
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/acs-v1/access_record-access_photo/get
@@ -61,7 +61,12 @@ func (r *Mock) UnMockACSGetACSAccessRecordPhoto() {
 
 // GetACSAccessRecordPhotoReq ...
 type GetACSAccessRecordPhotoReq struct {
-	AccessRecordID string `path:"access_record_id" json:"-"` // 门禁访问记录 ID, 示例值："6939433228970082591"
+	AccessRecordID string `path:"access_record_id" json:"-"` // 门禁访问记录 ID, 示例值: "6939433228970082591"
+}
+
+// GetACSAccessRecordPhotoResp ...
+type GetACSAccessRecordPhotoResp struct {
+	File io.Reader `json:"file,omitempty"`
 }
 
 // getACSAccessRecordPhotoResp ...
@@ -77,9 +82,4 @@ func (r *getACSAccessRecordPhotoResp) SetReader(file io.Reader) {
 		r.Data = &GetACSAccessRecordPhotoResp{}
 	}
 	r.Data.File = file
-}
-
-// GetACSAccessRecordPhotoResp ...
-type GetACSAccessRecordPhotoResp struct {
-	File io.Reader `json:"file,omitempty"`
 }

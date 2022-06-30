@@ -61,8 +61,14 @@ func (r *Mock) UnMockDriveDownloadDriveFile() {
 
 // DownloadDriveFileReq ...
 type DownloadDriveFileReq struct {
-	FileToken string   `path:"file_token" json:"-"` // 文件的 token，获取方式见 [概述](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/files/guide/introduction), 示例值："boxcnabCdefg12345"
-	Range     [2]int64 `header:"range" json:"-"`    // 指定文件下载部分, 示例值："bytes=0-1024"
+	FileToken string   `path:"file_token" json:"-"` // 文件的 token, 获取方式见 [概述](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/files/guide/introduction), 示例值: "boxcnabCdefg12345"
+	Range     [2]int64 `header:"range" json:"-"`    // 指定文件下载部分, 示例值: "bytes=0-1024"
+}
+
+// DownloadDriveFileResp ...
+type DownloadDriveFileResp struct {
+	File     io.Reader
+	Filename string // 文件名
 }
 
 // downloadDriveFileResp ...
@@ -85,10 +91,4 @@ func (r *downloadDriveFileResp) SetFilename(filename string) {
 		r.Data = &DownloadDriveFileResp{}
 	}
 	r.Data.Filename = filename
-}
-
-// DownloadDriveFileResp ...
-type DownloadDriveFileResp struct {
-	File     io.Reader
-	Filename string // 文件名
 }

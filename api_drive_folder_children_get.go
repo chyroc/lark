@@ -23,8 +23,8 @@ import (
 
 // GetDriveFolderChildren
 //
-// 获取用户云空间中指定文件夹下的文件清单。清单类型包括文件、各种在线文档（文档、电子表格、多维表格、思维笔记）、文件夹和快捷方式。该接口不支持分页，并且不会递归的获取子文件夹的清单。
-// 为了更好地提升该接口的安全性，我们对其进行了升级，请尽快迁移至
+// 获取用户云空间中指定文件夹下的文件清单。清单类型包括文件、各种在线文档（文档、电子表格、多维表格、思维笔记）、文件夹和快捷方式。该接口不支持分页, 并且不会递归的获取子文件夹的清单。
+// 为了更好地提升该接口的安全性, 我们对其进行了升级, 请尽快迁移至
 // [新版本>>](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file/list)
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uEjNzUjLxYzM14SM2MTN
@@ -64,15 +64,8 @@ func (r *Mock) UnMockDriveGetDriveFolderChildren() {
 
 // GetDriveFolderChildrenReq ...
 type GetDriveFolderChildrenReq struct {
-	Types       []string `query:"types" json:"-"`      // 需要查询的文件类型，默认返回所有 children；types 可多选，可选类型有 doc、sheet、file、bitable、docx、folder、mindnote 。如 url?types=folder&types=sheet
-	FolderToken string   `path:"folderToken" json:"-"` // 文件夹的 token，获取方式见 [如何获取云文档资源相关 token](https://open.feishu.cn/document/ukTMukTMukTM/uczNzUjL3czM14yN3MTN#08bb5df6)
-}
-
-// getDriveFolderChildrenResp ...
-type getDriveFolderChildrenResp struct {
-	Code int64                       `json:"code,omitempty"`
-	Msg  string                      `json:"msg,omitempty"`
-	Data *GetDriveFolderChildrenResp `json:"data,omitempty"`
+	FolderToken string   `path:"folderToken" json:"-"` // 文件夹的 token, 获取方式见 [如何获取云文档资源相关 token](https://open.feishu.cn/document/ukTMukTMukTM/uczNzUjL3czM14yN3MTN#08bb5df6)
+	Types       []string `query:"types" json:"-"`      // 需要查询的文件类型, 默认返回所有 children；types 可多选, 可选类型有 doc、sheet、file、bitable、docx、folder、mindnote 。如 url?types=folder&types=sheet
 }
 
 // GetDriveFolderChildrenResp ...
@@ -86,5 +79,12 @@ type GetDriveFolderChildrenRespChildren struct {
 	Token      string `json:"token,omitempty"`       // 文件的 token
 	Name       string `json:"name,omitempty"`        // 文件的标题
 	Type       string `json:"type,omitempty"`        // 文件的类型
-	IsShortcut bool   `json:"is_shortcut,omitempty"` // 该文件是否是快捷方式，如果值为true，代表该文件是一个快捷方式
+	IsShortcut bool   `json:"is_shortcut,omitempty"` // 该文件是否是快捷方式, 如果值为true, 代表该文件是一个快捷方式
+}
+
+// getDriveFolderChildrenResp ...
+type getDriveFolderChildrenResp struct {
+	Code int64                       `json:"code,omitempty"`
+	Msg  string                      `json:"msg,omitempty"`
+	Data *GetDriveFolderChildrenResp `json:"data,omitempty"`
 }

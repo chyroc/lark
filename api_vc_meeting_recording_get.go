@@ -59,14 +59,7 @@ func (r *Mock) UnMockVCGetVCMeetingRecording() {
 
 // GetVCMeetingRecordingReq ...
 type GetVCMeetingRecordingReq struct {
-	MeetingID string `path:"meeting_id" json:"-"` // 会议ID（视频会议的唯一标识，视频会议开始后才会产生）, 示例值："6911188411932033028"
-}
-
-// getVCMeetingRecordingResp ...
-type getVCMeetingRecordingResp struct {
-	Code int64                      `json:"code,omitempty"` // 错误码，非 0 表示失败
-	Msg  string                     `json:"msg,omitempty"`  // 错误描述
-	Data *GetVCMeetingRecordingResp `json:"data,omitempty"`
+	MeetingID string `path:"meeting_id" json:"-"` // 会议ID（视频会议的唯一标识, 视频会议开始后才会产生）, 示例值: "6911188411932033028"
 }
 
 // GetVCMeetingRecordingResp ...
@@ -78,4 +71,11 @@ type GetVCMeetingRecordingResp struct {
 type GetVCMeetingRecordingRespRecording struct {
 	URL      string `json:"url,omitempty"`      // 录制文件URL
 	Duration string `json:"duration,omitempty"` // 录制总时长（单位msec）
+}
+
+// getVCMeetingRecordingResp ...
+type getVCMeetingRecordingResp struct {
+	Code int64                      `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg  string                     `json:"msg,omitempty"`  // 错误描述
+	Data *GetVCMeetingRecordingResp `json:"data,omitempty"`
 }

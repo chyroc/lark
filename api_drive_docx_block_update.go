@@ -23,7 +23,7 @@ import (
 
 // UpdateDocxBlock 更新指定的块。
 //
-// 在调用此接口前，请仔细阅读[新版文档 OpenAPI 接口校验规则](https://bytedance.feishu.cn/docx/doxcnby5Y0yoACL3PdfZqrJEm6f#doxcnEeyS0I8MMqoieIMpK7jm8g)，了解相关规则及约束。
+// 在调用此接口前, 请仔细阅读[新版文档 OpenAPI 接口校验规则](https://bytedance.feishu.cn/docx/doxcnby5Y0yoACL3PdfZqrJEm6f#doxcnEeyS0I8MMqoieIMpK7jm8g), 了解相关规则及约束。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/document-docx/docx-v1/document-block/patch
 func (r *DriveService) UpdateDocxBlock(ctx context.Context, request *UpdateDocxBlockReq, options ...MethodOptionFunc) (*UpdateDocxBlockResp, *Response, error) {
@@ -60,11 +60,11 @@ func (r *Mock) UnMockDriveUpdateDocxBlock() {
 
 // UpdateDocxBlockReq ...
 type UpdateDocxBlockReq struct {
-	DocumentRevisionID         *int64                                        `query:"document_revision_id" json:"-"`           // 操作的文档版本，-1表示文档最新版本。若此时操作的版本为文档最新版本，则需要持有文档的阅读权限；若此时操作的版本为文档的历史版本，则需要持有文档的编辑权限。, 示例值：-1, 默认值: `-1`, 最小值：`-1`
-	ClientToken                *string                                       `query:"client_token" json:"-"`                   // 操作的唯一标识，与接口返回值的 client_token 相对应，用于幂等的进行更新操作。此值为空表示将发起一次新的请求，此值非空表示幂等的进行更新操作。, 示例值："0e2633a3-aa1a-4171-af9e-0768ff863566"
-	UserIDType                 *IDType                                       `query:"user_id_type" json:"-"`                   // 用户 ID 类型, 示例值："open_id", 可选值有: ,<md-enum>,<md-enum-item key="open_id" >用户的 open id</md-enum-item>,<md-enum-item key="union_id" >用户的 union id</md-enum-item>,<md-enum-item key="user_id" >用户的 user id</md-enum-item>,</md-enum>, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
-	DocumentID                 string                                        `path:"document_id" json:"-"`                     // 文档的唯一标识, 示例值："doxcnePuYufKa49ISjhD8Ih0ikh"
-	BlockID                    string                                        `path:"block_id" json:"-"`                        // Block 的唯一标识, 示例值："doxcnO6UW6wAw2qIcYf4hZpFIth"
+	DocumentID                 string                                        `path:"document_id" json:"-"`                     // 文档的唯一标识, 示例值: "doxcnePuYufKa49ISjhD8Ih0ikh"
+	BlockID                    string                                        `path:"block_id" json:"-"`                        // Block 的唯一标识, 示例值: "doxcnO6UW6wAw2qIcYf4hZpFIth"
+	DocumentRevisionID         *int64                                        `query:"document_revision_id" json:"-"`           // 操作的文档版本, 1表示文档最新版本。若此时操作的版本为文档最新版本, 则需要持有文档的阅读权限；若此时操作的版本为文档的历史版本, 则需要持有文档的编辑权限, 示例值:1, 默认值: `-1`, 最小值: `-1`
+	ClientToken                *string                                       `query:"client_token" json:"-"`                   // 操作的唯一标识, 与接口返回值的 client_token 相对应, 用于幂等的进行更新操作。此值为空表示将发起一次新的请求, 此值非空表示幂等的进行更新操作, 示例值: "0e2633a3-aa1a-4171-af9e-0768ff863566"
+	UserIDType                 *IDType                                       `query:"user_id_type" json:"-"`                   // 用户 ID 类型, 示例值: "open_id", 可选值有: <md-enum>, <md-enum-item key="open_id" >用户的 open id</md-enum-item>, <md-enum-item key="union_id" >用户的 union id</md-enum-item>, <md-enum-item key="user_id" >用户的 user id</md-enum-item>, </md-enum>, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
 	UpdateTextElements         *UpdateDocxBlockReqUpdateTextElements         `json:"update_text_elements,omitempty"`           // 更新文本元素请求
 	UpdateTextStyle            *UpdateDocxBlockReqUpdateTextStyle            `json:"update_text_style,omitempty"`              // 更新文本样式请求
 	UpdateTableProperty        *UpdateDocxBlockReqUpdateTableProperty        `json:"update_table_property,omitempty"`          // 更新表格属性请求
@@ -82,104 +82,104 @@ type UpdateDocxBlockReq struct {
 	UpdateText                 *UpdateDocxBlockReqUpdateText                 `json:"update_text,omitempty"`                    // 更新文本元素及样式请求
 }
 
-// UpdateDocxBlockReqUpdateTextElements ...
-type UpdateDocxBlockReqUpdateTextElements struct {
-	Elements []*DocxTextElement `json:"elements,omitempty"` // 更新的文本元素列表，单次更新中 reminder 上限 30 个，mention_doc 上限 50 个，mention_user 上限 100 个, 最小长度：`1`
-}
-
-// UpdateDocxBlockReqUpdateTextStyle ...
-type UpdateDocxBlockReqUpdateTextStyle struct {
-	Align    *int64 `json:"align,omitempty"`    // 对齐方式, 示例值：1, 可选值有: ,<md-enum>,<md-enum-item key="1" >居左排版</md-enum-item>,<md-enum-item key="2" >居中排版</md-enum-item>,<md-enum-item key="3" >居右排版</md-enum-item>,</md-enum>, 默认值: `1`
-	Done     *bool  `json:"done,omitempty"`     // todo 的完成状态, 示例值：true, 默认值: `false`
-	Folded   *bool  `json:"folded,omitempty"`   // 文本的折叠状态, 示例值：true, 默认值: `false`
-	Language *int64 `json:"language,omitempty"` // 代码块语言, 示例值：1, 可选值有: ,<md-enum>,<md-enum-item key="1" >PlainText</md-enum-item>,<md-enum-item key="2" >ABAP</md-enum-item>,<md-enum-item key="3" >Ada</md-enum-item>,<md-enum-item key="4" >Apache</md-enum-item>,<md-enum-item key="5" >Apex</md-enum-item>,<md-enum-item key="6" >Assembly Language</md-enum-item>,<md-enum-item key="7" >Bash</md-enum-item>,<md-enum-item key="8" >CSharp</md-enum-item>,<md-enum-item key="9" >C++</md-enum-item>,<md-enum-item key="10" >C</md-enum-item>,<md-enum-item key="11" >COBOL</md-enum-item>,<md-enum-item key="12" >CSS</md-enum-item>,<md-enum-item key="13" >CoffeeScript</md-enum-item>,<md-enum-item key="14" >D</md-enum-item>,<md-enum-item key="15" >Dart</md-enum-item>,<md-enum-item key="16" >Delphi</md-enum-item>,<md-enum-item key="17" >Django</md-enum-item>,<md-enum-item key="18" >Dockerfile</md-enum-item>,<md-enum-item key="19" >Erlang</md-enum-item>,<md-enum-item key="20" >Fortran</md-enum-item>,<md-enum-item key="21" >FoxPro</md-enum-item>,<md-enum-item key="22" >Go</md-enum-item>,<md-enum-item key="23" >Groovy</md-enum-item>,<md-enum-item key="24" >HTML</md-enum-item>,<md-enum-item key="25" >HTMLBars</md-enum-item>,<md-enum-item key="26" >HTTP</md-enum-item>,<md-enum-item key="27" >Haskell</md-enum-item>,<md-enum-item key="28" >JSON</md-enum-item>,<md-enum-item key="29" >Java</md-enum-item>,<md-enum-item key="30" >JavaScript</md-enum-item>,<md-enum-item key="31" >Julia</md-enum-item>,<md-enum-item key="32" >Kotlin</md-enum-item>,<md-enum-item key="33" >LateX</md-enum-item>,<md-enum-item key="34" >Lisp</md-enum-item>,<md-enum-item key="35" >Logo</md-enum-item>,<md-enum-item key="36" >Lua</md-enum-item>,<md-enum-item key="37" >MATLAB</md-enum-item>,<md-enum-item key="38" >Makefile</md-enum-item>,<md-enum-item key="39" >Markdown</md-enum-item>,<md-enum-item key="40" >Nginx</md-enum-item>,<md-enum-item key="41" >Objective-C</md-enum-item>,<md-enum-item key="42" >OpenEdgeABL</md-enum-item>,<md-enum-item key="43" >PHP</md-enum-item>,<md-enum-item key="44" >Perl</md-enum-item>,<md-enum-item key="45" >PostScript</md-enum-item>,<md-enum-item key="46" >Power Shell</md-enum-item>,<md-enum-item key="47" >Prolog</md-enum-item>,<md-enum-item key="48" >ProtoBuf</md-enum-item>,<md-enum-item key="49" >Python</md-enum-item>,<md-enum-item key="50" >R</md-enum-item>,<md-enum-item key="51" >RPG</md-enum-item>,<md-enum-item key="52" >Ruby</md-enum-item>,<md-enum-item key="53" >Rust</md-enum-item>,<md-enum-item key="54" >SAS</md-enum-item>,<md-enum-item key="55" >SCSS</md-enum-item>,<md-enum-item key="56" >SQL</md-enum-item>,<md-enum-item key="57" >Scala</md-enum-item>,<md-enum-item key="58" >Scheme</md-enum-item>,<md-enum-item key="59" >Scratch</md-enum-item>,<md-enum-item key="60" >Shell</md-enum-item>,<md-enum-item key="61" >Swift</md-enum-item>,<md-enum-item key="62" >Thrift</md-enum-item>,<md-enum-item key="63" >TypeScript</md-enum-item>,<md-enum-item key="64" >VBScript</md-enum-item>,<md-enum-item key="65" >Visual Basic</md-enum-item>,<md-enum-item key="66" >XML</md-enum-item>,<md-enum-item key="67" >YAML</md-enum-item>,</md-enum>
-	Wrap     *bool  `json:"wrap,omitempty"`     // 代码块是否自动换行, 示例值：true, 默认值: `false`
-}
-
-// UpdateDocxBlockReqUpdateTableProperty ...
-type UpdateDocxBlockReqUpdateTableProperty struct {
-	ColumnWidth int64 `json:"column_width,omitempty"` // 表格列宽, 示例值：100, 最小值：`50`
-	ColumnIndex int64 `json:"column_index,omitempty"` // 需要修改列宽的表格列的索引, 示例值：0, 最小值：`0`
-}
-
-// UpdateDocxBlockReqInsertTableRow ...
-type UpdateDocxBlockReqInsertTableRow struct {
-	RowIndex int64 `json:"row_index,omitempty"` // 插入的行在表格中的索引。（-1表示在表格末尾插入一行）, 示例值：-1, 最小值：`-1`
-}
-
-// UpdateDocxBlockReqInsertTableColumn ...
-type UpdateDocxBlockReqInsertTableColumn struct {
-	ColumnIndex int64 `json:"column_index,omitempty"` // 插入的列在表格中的索引。（-1表示在表格末尾插入一列）, 示例值：-1, 最小值：`-1`
-}
-
-// UpdateDocxBlockReqDeleteTableRows ...
-type UpdateDocxBlockReqDeleteTableRows struct {
-	RowStartIndex int64 `json:"row_start_index,omitempty"` // 行开始索引（区间左闭右开）, 示例值：0, 最小值：`0`
-	RowEndIndex   int64 `json:"row_end_index,omitempty"`   // 行结束索引（区间左闭右开）, 示例值：1, 最小值：`1`
+// UpdateDocxBlockReqDeleteGridColumn ...
+type UpdateDocxBlockReqDeleteGridColumn struct {
+	ColumnIndex int64 `json:"column_index,omitempty"` // 删除列索引, 从 0 开始, 如 0 表示删除第一列（-1表示删除最后一列）, 示例值: 0, 最小值: `-1`
 }
 
 // UpdateDocxBlockReqDeleteTableColumns ...
 type UpdateDocxBlockReqDeleteTableColumns struct {
-	ColumnStartIndex int64 `json:"column_start_index,omitempty"` // 列开始索引（区间左闭右开）, 示例值：0, 最小值：`0`
-	ColumnEndIndex   int64 `json:"column_end_index,omitempty"`   // 列结束索引（区间左闭右开）, 示例值：1, 最小值：`1`
+	ColumnStartIndex int64 `json:"column_start_index,omitempty"` // 列开始索引（区间左闭右开）, 示例值: 0, 最小值: `0`
+	ColumnEndIndex   int64 `json:"column_end_index,omitempty"`   // 列结束索引（区间左闭右开）, 示例值: 1, 最小值: `1`
 }
 
-// UpdateDocxBlockReqMergeTableCells ...
-type UpdateDocxBlockReqMergeTableCells struct {
-	RowStartIndex    int64 `json:"row_start_index,omitempty"`    // 行起始索引（区间左闭右开）, 示例值：0, 最小值：`0`
-	RowEndIndex      int64 `json:"row_end_index,omitempty"`      // 行结束索引（区间左闭右开）, 示例值：1, 最小值：`1`
-	ColumnStartIndex int64 `json:"column_start_index,omitempty"` // 列起始索引（区间左闭右开）, 示例值：0, 最小值：`0`
-	ColumnEndIndex   int64 `json:"column_end_index,omitempty"`   // 列结束索引（区间左闭右开）, 示例值：1, 最小值：`1`
-}
-
-// UpdateDocxBlockReqUnmergeTableCells ...
-type UpdateDocxBlockReqUnmergeTableCells struct {
-	RowIndex    int64 `json:"row_index,omitempty"`    // table 行索引, 示例值：0, 最小值：`0`
-	ColumnIndex int64 `json:"column_index,omitempty"` // table 列索引, 示例值：0, 最小值：`0`
+// UpdateDocxBlockReqDeleteTableRows ...
+type UpdateDocxBlockReqDeleteTableRows struct {
+	RowStartIndex int64 `json:"row_start_index,omitempty"` // 行开始索引（区间左闭右开）, 示例值: 0, 最小值: `0`
+	RowEndIndex   int64 `json:"row_end_index,omitempty"`   // 行结束索引（区间左闭右开）, 示例值: 1, 最小值: `1`
 }
 
 // UpdateDocxBlockReqInsertGridColumn ...
 type UpdateDocxBlockReqInsertGridColumn struct {
-	ColumnIndex int64 `json:"column_index,omitempty"` // 插入列索引，从 1 开始，如 1 表示在第一列后插入，注意不允许传 0（-1表示在最后一列后插入）, 示例值：1, 最小值：`-1`
+	ColumnIndex int64 `json:"column_index,omitempty"` // 插入列索引, 从 1 开始, 如 1 表示在第一列后插入, 注意不允许传 0（-1表示在最后一列后插入）, 示例值: 1, 最小值: `-1`
 }
 
-// UpdateDocxBlockReqDeleteGridColumn ...
-type UpdateDocxBlockReqDeleteGridColumn struct {
-	ColumnIndex int64 `json:"column_index,omitempty"` // 删除列索引，从 0 开始，如 0 表示删除第一列（-1表示删除最后一列）, 示例值：0, 最小值：`-1`
+// UpdateDocxBlockReqInsertTableColumn ...
+type UpdateDocxBlockReqInsertTableColumn struct {
+	ColumnIndex int64 `json:"column_index,omitempty"` // 插入的列在表格中的索引。（-1表示在表格末尾插入一列）, 示例值:1, 最小值: `-1`
 }
 
-// UpdateDocxBlockReqUpdateGridColumnWidthRatio ...
-type UpdateDocxBlockReqUpdateGridColumnWidthRatio struct {
-	WidthRatios []int64 `json:"width_ratios,omitempty"` // 更新列宽比例时，需要传入所有列宽占比, 示例值：50, 长度范围：`1` ～ `99`
+// UpdateDocxBlockReqInsertTableRow ...
+type UpdateDocxBlockReqInsertTableRow struct {
+	RowIndex int64 `json:"row_index,omitempty"` // 插入的行在表格中的索引。（-1表示在表格末尾插入一行）, 示例值:1, 最小值: `-1`
 }
 
-// UpdateDocxBlockReqReplaceImage ...
-type UpdateDocxBlockReqReplaceImage struct {
-	Token string `json:"token,omitempty"` // 图片 token, 示例值："boxbckbfvfcqEg22hAzN8Dh9gJd"
+// UpdateDocxBlockReqMergeTableCells ...
+type UpdateDocxBlockReqMergeTableCells struct {
+	RowStartIndex    int64 `json:"row_start_index,omitempty"`    // 行起始索引（区间左闭右开）, 示例值: 0, 最小值: `0`
+	RowEndIndex      int64 `json:"row_end_index,omitempty"`      // 行结束索引（区间左闭右开）, 示例值: 1, 最小值: `1`
+	ColumnStartIndex int64 `json:"column_start_index,omitempty"` // 列起始索引（区间左闭右开）, 示例值: 0, 最小值: `0`
+	ColumnEndIndex   int64 `json:"column_end_index,omitempty"`   // 列结束索引（区间左闭右开）, 示例值: 1, 最小值: `1`
 }
 
 // UpdateDocxBlockReqReplaceFile ...
 type UpdateDocxBlockReqReplaceFile struct {
-	Token string `json:"token,omitempty"` // 附件 token, 示例值："boxbckbfvfcqEg22hAzN8Dh9gJd"
+	Token string `json:"token,omitempty"` // 附件 token, 示例值: "boxbckbfvfcqEg22hAzN8Dh9gJd"
+}
+
+// UpdateDocxBlockReqReplaceImage ...
+type UpdateDocxBlockReqReplaceImage struct {
+	Token string `json:"token,omitempty"` // 图片 token, 示例值: "boxbckbfvfcqEg22hAzN8Dh9gJd"
+}
+
+// UpdateDocxBlockReqUnmergeTableCells ...
+type UpdateDocxBlockReqUnmergeTableCells struct {
+	RowIndex    int64 `json:"row_index,omitempty"`    // table 行索引, 示例值: 0, 最小值: `0`
+	ColumnIndex int64 `json:"column_index,omitempty"` // table 列索引, 示例值: 0, 最小值: `0`
+}
+
+// UpdateDocxBlockReqUpdateGridColumnWidthRatio ...
+type UpdateDocxBlockReqUpdateGridColumnWidthRatio struct {
+	WidthRatios []int64 `json:"width_ratios,omitempty"` // 更新列宽比例时, 需要传入所有列宽占比, 示例值: 50, 长度范围: `1` ～ `99`
+}
+
+// UpdateDocxBlockReqUpdateTableProperty ...
+type UpdateDocxBlockReqUpdateTableProperty struct {
+	ColumnWidth int64 `json:"column_width,omitempty"` // 表格列宽, 示例值: 100, 最小值: `50`
+	ColumnIndex int64 `json:"column_index,omitempty"` // 需要修改列宽的表格列的索引, 示例值: 0, 最小值: `0`
 }
 
 // UpdateDocxBlockReqUpdateText ...
 type UpdateDocxBlockReqUpdateText struct {
-	Elements []*DocxTextElement `json:"elements,omitempty"` // 更新的文本元素列表，单次更新中 reminder 上限 30 个，mention_doc 上限 50 个，mention_user 上限 100 个, 最小长度：`1`
+	Elements []*DocxTextElement `json:"elements,omitempty"` // 更新的文本元素列表, 单次更新中 reminder 上限 30 个, mention_doc 上限 50 个, mention_user 上限 100 个, 最小长度: `1`
 	Style    *DocxTextStyle     `json:"style,omitempty"`    // 更新的文本样式
-	Fields   []int64            `json:"fields,omitempty"`   // 文本样式中应更新的字段，必须至少指定一个字段。例如，要调整 Block 对齐方式，请设置 fields 为 [1]。, 示例值：[1], 可选值有: ,<md-enum>,<md-enum-item key="1" >修改 Block 的对齐方式</md-enum-item>,<md-enum-item key="2" >修改 todo block 的完成状态</md-enum-item>,<md-enum-item key="3" >修改 block 的折叠状态</md-enum-item>,<md-enum-item key="4" >修改代码块的语言类型</md-enum-item>,<md-enum-item key="5" >修改代码块的折叠状态</md-enum-item>,</md-enum>
+	Fields   []int64            `json:"fields,omitempty"`   // 文本样式中应更新的字段, 必须至少指定一个字段。例如, 要调整 Block 对齐方式, 请设置 fields 为 [1], 示例值: [1], 可选值有: <md-enum>, <md-enum-item key="1" >修改 Block 的对齐方式</md-enum-item>, <md-enum-item key="2" >修改 todo block 的完成状态</md-enum-item>, <md-enum-item key="3" >修改 block 的折叠状态</md-enum-item>, <md-enum-item key="4" >修改代码块的语言类型</md-enum-item>, <md-enum-item key="5" >修改代码块的折叠状态</md-enum-item>, </md-enum>
 }
 
-// updateDocxBlockResp ...
-type updateDocxBlockResp struct {
-	Code int64                `json:"code,omitempty"` // 错误码，非 0 表示失败
-	Msg  string               `json:"msg,omitempty"`  // 错误描述
-	Data *UpdateDocxBlockResp `json:"data,omitempty"`
+// UpdateDocxBlockReqUpdateTextElements ...
+type UpdateDocxBlockReqUpdateTextElements struct {
+	Elements []*DocxTextElement `json:"elements,omitempty"` // 更新的文本元素列表, 单次更新中 reminder 上限 30 个, mention_doc 上限 50 个, mention_user 上限 100 个, 最小长度: `1`
+}
+
+// UpdateDocxBlockReqUpdateTextStyle ...
+type UpdateDocxBlockReqUpdateTextStyle struct {
+	Align    *int64 `json:"align,omitempty"`    // 对齐方式, 示例值: 1, 可选值有: <md-enum>, <md-enum-item key="1" >居左排版</md-enum-item>, <md-enum-item key="2" >居中排版</md-enum-item>, <md-enum-item key="3" >居右排版</md-enum-item>, </md-enum>, 默认值: `1`
+	Done     *bool  `json:"done,omitempty"`     // todo 的完成状态, 示例值: true, 默认值: `false`
+	Folded   *bool  `json:"folded,omitempty"`   // 文本的折叠状态, 示例值: true, 默认值: `false`
+	Language *int64 `json:"language,omitempty"` // 代码块语言, 示例值: 1, 可选值有: <md-enum>, <md-enum-item key="1" >PlainText</md-enum-item>, <md-enum-item key="2" >ABAP</md-enum-item>, <md-enum-item key="3" >Ada</md-enum-item>, <md-enum-item key="4" >Apache</md-enum-item>, <md-enum-item key="5" >Apex</md-enum-item>, <md-enum-item key="6" >Assembly Language</md-enum-item>, <md-enum-item key="7" >Bash</md-enum-item>, <md-enum-item key="8" >CSharp</md-enum-item>, <md-enum-item key="9" >C++</md-enum-item>, <md-enum-item key="10" >C</md-enum-item>, <md-enum-item key="11" >COBOL</md-enum-item>, <md-enum-item key="12" >CSS</md-enum-item>, <md-enum-item key="13" >CoffeeScript</md-enum-item>, <md-enum-item key="14" >D</md-enum-item>, <md-enum-item key="15" >Dart</md-enum-item>, <md-enum-item key="16" >Delphi</md-enum-item>, <md-enum-item key="17" >Django</md-enum-item>, <md-enum-item key="18" >Dockerfile</md-enum-item>, <md-enum-item key="19" >Erlang</md-enum-item>, <md-enum-item key="20" >Fortran</md-enum-item>, <md-enum-item key="21" >FoxPro</md-enum-item>, <md-enum-item key="22" >Go</md-enum-item>, <md-enum-item key="23" >Groovy</md-enum-item>, <md-enum-item key="24" >HTML</md-enum-item>, <md-enum-item key="25" >HTMLBars</md-enum-item>, <md-enum-item key="26" >HTTP</md-enum-item>, <md-enum-item key="27" >Haskell</md-enum-item>, <md-enum-item key="28" >JSON</md-enum-item>, <md-enum-item key="29" >Java</md-enum-item>, <md-enum-item key="30" >JavaScript</md-enum-item>, <md-enum-item key="31" >Julia</md-enum-item>, <md-enum-item key="32" >Kotlin</md-enum-item>, <md-enum-item key="33" >LateX</md-enum-item>, <md-enum-item key="34" >Lisp</md-enum-item>, <md-enum-item key="35" >Logo</md-enum-item>, <md-enum-item key="36" >Lua</md-enum-item>, <md-enum-item key="37" >MATLAB</md-enum-item>, <md-enum-item key="38" >Makefile</md-enum-item>, <md-enum-item key="39" >Markdown</md-enum-item>, <md-enum-item key="40" >Nginx</md-enum-item>, <md-enum-item key="41" >Objective-C</md-enum-item>, <md-enum-item key="42" >OpenEdgeABL</md-enum-item>, <md-enum-item key="43" >PHP</md-enum-item>, <md-enum-item key="44" >Perl</md-enum-item>, <md-enum-item key="45" >PostScript</md-enum-item>, <md-enum-item key="46" >Power Shell</md-enum-item>, <md-enum-item key="47" >Prolog</md-enum-item>, <md-enum-item key="48" >ProtoBuf</md-enum-item>, <md-enum-item key="49" >Python</md-enum-item>, <md-enum-item key="50" >R</md-enum-item>, <md-enum-item key="51" >RPG</md-enum-item>, <md-enum-item key="52" >Ruby</md-enum-item>, <md-enum-item key="53" >Rust</md-enum-item>, <md-enum-item key="54" >SAS</md-enum-item>, <md-enum-item key="55" >SCSS</md-enum-item>, <md-enum-item key="56" >SQL</md-enum-item>, <md-enum-item key="57" >Scala</md-enum-item>, <md-enum-item key="58" >Scheme</md-enum-item>, <md-enum-item key="59" >Scratch</md-enum-item>, <md-enum-item key="60" >Shell</md-enum-item>, <md-enum-item key="61" >Swift</md-enum-item>, <md-enum-item key="62" >Thrift</md-enum-item>, <md-enum-item key="63" >TypeScript</md-enum-item>, <md-enum-item key="64" >VBScript</md-enum-item>, <md-enum-item key="65" >Visual Basic</md-enum-item>, <md-enum-item key="66" >XML</md-enum-item>, <md-enum-item key="67" >YAML</md-enum-item>, </md-enum>
+	Wrap     *bool  `json:"wrap,omitempty"`     // 代码块是否自动换行, 示例值: true, 默认值: `false`
 }
 
 // UpdateDocxBlockResp ...
 type UpdateDocxBlockResp struct {
 	Block              *DocxBlock `json:"block,omitempty"`                // 更新后的 block 信息
 	DocumentRevisionID int64      `json:"document_revision_id,omitempty"` // 当前更新成功后文档的版本号
-	ClientToken        string     `json:"client_token,omitempty"`         // 操作的唯一标识，更新请求中使用此值表示幂等的进行此次更新
+	ClientToken        string     `json:"client_token,omitempty"`         // 操作的唯一标识, 更新请求中使用此值表示幂等的进行此次更新
+}
+
+// updateDocxBlockResp ...
+type updateDocxBlockResp struct {
+	Code int64                `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg  string               `json:"msg,omitempty"`  // 错误描述
+	Data *UpdateDocxBlockResp `json:"data,omitempty"`
 }

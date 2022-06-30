@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// GetDriveMemberPermissionList 该接口用于根据 filetoken 查询协作者，目前包括人("user")和群("chat") 。
+// GetDriveMemberPermissionList 该接口用于根据 filetoken 查询协作者, 目前包括人("user")和群("chat") 。
 //
 // 你能获取到协作者列表的前提是你对该文档有分享权限
 //
@@ -60,15 +60,8 @@ func (r *Mock) UnMockDriveGetDriveMemberPermissionList() {
 
 // GetDriveMemberPermissionListReq ...
 type GetDriveMemberPermissionListReq struct {
-	Token string `json:"token,omitempty"` // 文件的 token，获取方式见 [如何获取云文档资源相关 token](https://open.feishu.cn/document/ukTMukTMukTM/uczNzUjL3czM14yN3MTN#08bb5df6)
-	Type  string `json:"type,omitempty"`  // 文档类型，可选 **doc、docx、sheet、bitable、file**
-}
-
-// getDriveMemberPermissionListResp ...
-type getDriveMemberPermissionListResp struct {
-	Code int64                             `json:"code,omitempty"`
-	Msg  string                            `json:"msg,omitempty"`
-	Data *GetDriveMemberPermissionListResp `json:"data,omitempty"`
+	Token string `json:"token,omitempty"` // 文件的 token, 获取方式见 [如何获取云文档资源相关 token](https://open.feishu.cn/document/ukTMukTMukTM/uczNzUjL3czM14yN3MTN#08bb5df6)
+	Type  string `json:"type,omitempty"`  // 文档类型, 可选 doc、docx、sheet、bitable、file
 }
 
 // GetDriveMemberPermissionListResp ...
@@ -81,5 +74,12 @@ type GetDriveMemberPermissionListRespMember struct {
 	MemberType   string `json:"member_type,omitempty"`    // 协作者类型 "user" or "chat"
 	MemberOpenID string `json:"member_open_id,omitempty"` // 协作者openid
 	MemberUserID string `json:"member_user_id,omitempty"` // 协作者userid(仅当member_type="user"时有效)
-	Perm         string `json:"perm,omitempty"`           // 协作者权限 (注意: **有"edit"权限的协作者一定有"view"权限**)
+	Perm         string `json:"perm,omitempty"`           // 协作者权限 (注意: 有"edit"权限的协作者一定有"view"权限)
+}
+
+// getDriveMemberPermissionListResp ...
+type getDriveMemberPermissionListResp struct {
+	Code int64                             `json:"code,omitempty"`
+	Msg  string                            `json:"msg,omitempty"`
+	Data *GetDriveMemberPermissionListResp `json:"data,omitempty"`
 }

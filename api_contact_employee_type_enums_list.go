@@ -57,31 +57,24 @@ func (r *Mock) UnMockContactGetEmployeeTypeEnumList() {
 
 // GetEmployeeTypeEnumListReq ...
 type GetEmployeeTypeEnumListReq struct {
-	PageToken *string `query:"page_token" json:"-"` // 分页标记，第一次请求不填，表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token，下次遍历可采用该 page_token 获取查询结果, 示例值："3"
-	PageSize  *int64  `query:"page_size" json:"-"`  // 分页大小, 示例值：10, 最大值：`100`
-}
-
-// getEmployeeTypeEnumListResp ...
-type getEmployeeTypeEnumListResp struct {
-	Code int64                        `json:"code,omitempty"` // 错误码，非 0 表示失败
-	Msg  string                       `json:"msg,omitempty"`  // 错误描述
-	Data *GetEmployeeTypeEnumListResp `json:"data,omitempty"`
+	PageToken *string `query:"page_token" json:"-"` // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果, 示例值: "3"
+	PageSize  *int64  `query:"page_size" json:"-"`  // 分页大小, 示例值: 10, 最大值: `100`
 }
 
 // GetEmployeeTypeEnumListResp ...
 type GetEmployeeTypeEnumListResp struct {
 	Items     []*GetEmployeeTypeEnumListRespItem `json:"items,omitempty"`      // 枚举数据
 	HasMore   bool                               `json:"has_more,omitempty"`   // 是否还有更多项
-	PageToken string                             `json:"page_token,omitempty"` // 分页标记，当 has_more 为 true 时，会同时返回新的 page_token，否则不返回 page_token
+	PageToken string                             `json:"page_token,omitempty"` // 分页标记, 当 has_more 为 true 时, 会同时返回新的 page_token, 否则不返回 page_token
 }
 
 // GetEmployeeTypeEnumListRespItem ...
 type GetEmployeeTypeEnumListRespItem struct {
 	EnumID      string                                        `json:"enum_id,omitempty"`      // 枚举值id
-	EnumValue   string                                        `json:"enum_value,omitempty"`   // 枚举的编号值，创建新的人员类型后，系统生成对应编号。对应[创建用户接口](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/create)中用户信息的employee_type字段值
+	EnumValue   string                                        `json:"enum_value,omitempty"`   // 枚举的编号值, 创建新的人员类型后, 系统生成对应编号。对应[创建用户接口](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/create)中用户信息的employee_type字段值
 	Content     string                                        `json:"content,omitempty"`      // 枚举内容
-	EnumType    int64                                         `json:"enum_type,omitempty"`    // 类型, 可选值有: `1`：内置类型, `2`：自定义
-	EnumStatus  int64                                         `json:"enum_status,omitempty"`  // 使用状态, 可选值有: `1`：激活, `2`：未激活
+	EnumType    int64                                         `json:"enum_type,omitempty"`    // 类型, 可选值有: `1`: 内置类型, `2`: 自定义
+	EnumStatus  int64                                         `json:"enum_status,omitempty"`  // 使用状态, 可选值有: `1`: 激活, `2`: 未激活
 	I18nContent []*GetEmployeeTypeEnumListRespItemI18nContent `json:"i18n_content,omitempty"` // i18n定义
 }
 
@@ -89,4 +82,11 @@ type GetEmployeeTypeEnumListRespItem struct {
 type GetEmployeeTypeEnumListRespItemI18nContent struct {
 	Locale string `json:"locale,omitempty"` // 语言版本
 	Value  string `json:"value,omitempty"`  // 字段名
+}
+
+// getEmployeeTypeEnumListResp ...
+type getEmployeeTypeEnumListResp struct {
+	Code int64                        `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg  string                       `json:"msg,omitempty"`  // 错误描述
+	Data *GetEmployeeTypeEnumListResp `json:"data,omitempty"`
 }

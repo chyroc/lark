@@ -22,7 +22,7 @@ import (
 	"io"
 )
 
-// UploadAttendanceFile 上传文件并获取文件 ID，可用于“修改用户设置”接口中的 face_key 参数。
+// UploadAttendanceFile 上传文件并获取文件 ID, 可用于“修改用户设置”接口中的 face_key 参数。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/file/upload
 func (r *AttendanceService) UploadAttendanceFile(ctx context.Context, request *UploadAttendanceFileReq, options ...MethodOptionFunc) (*UploadAttendanceFileResp, *Response, error) {
@@ -59,15 +59,8 @@ func (r *Mock) UnMockAttendanceUploadAttendanceFile() {
 
 // UploadAttendanceFileReq ...
 type UploadAttendanceFileReq struct {
-	FileName string    `query:"file_name" json:"-"` // 带后缀的文件名, 示例值："人脸照片.jpg"
-	File     io.Reader `json:"file,omitempty"`      // 文件内容, 示例值：二进制文件
-}
-
-// uploadAttendanceFileResp ...
-type uploadAttendanceFileResp struct {
-	Code int64                     `json:"code,omitempty"` // 错误码，非 0 表示失败
-	Msg  string                    `json:"msg,omitempty"`  // 错误描述
-	Data *UploadAttendanceFileResp `json:"data,omitempty"`
+	FileName string    `query:"file_name" json:"-"` // 带后缀的文件名, 示例值: "人脸照片.jpg"
+	File     io.Reader `json:"file,omitempty"`      // 文件内容, 示例值: 二进制文件
 }
 
 // UploadAttendanceFileResp ...
@@ -78,4 +71,11 @@ type UploadAttendanceFileResp struct {
 // UploadAttendanceFileRespFile ...
 type UploadAttendanceFileRespFile struct {
 	FileID string `json:"file_id,omitempty"` // 文件 ID
+}
+
+// uploadAttendanceFileResp ...
+type uploadAttendanceFileResp struct {
+	Code int64                     `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg  string                    `json:"msg,omitempty"`  // 错误描述
+	Data *UploadAttendanceFileResp `json:"data,omitempty"`
 }

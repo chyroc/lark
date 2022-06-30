@@ -23,7 +23,7 @@ import (
 
 // MergeSheetCell
 //
-// 该接口用于根据 spreadsheetToken 和维度信息合并单元格；单次操作不超过5000行，100列。
+// 该接口用于根据 spreadsheetToken 和维度信息合并单元格；单次操作不超过5000行, 100列。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/ukDNzUjL5QzM14SO0MTN
 func (r *DriveService) MergeSheetCell(ctx context.Context, request *MergeSheetCellReq, options ...MethodOptionFunc) (*MergeSheetCellResp, *Response, error) {
@@ -60,9 +60,14 @@ func (r *Mock) UnMockDriveMergeSheetCell() {
 
 // MergeSheetCellReq ...
 type MergeSheetCellReq struct {
-	SpreadSheetToken string `path:"spreadsheetToken" json:"-"` // spreadsheet 的 token，获取方式见[在线表格开发指南](https://open.feishu.cn/document/ukTMukTMukTM/uATMzUjLwEzM14CMxMTN/overview)
-	Range            string `json:"range,omitempty"`           // 查询范围，包含 sheetId 与单元格范围两部分，目前支持四种索引方式，详见 [在线表格开发指南](https://open.feishu.cn/document/ukTMukTMukTM/uATMzUjLwEzM14CMxMTN/overview)
-	MergeType        string `json:"mergeType,omitempty"`       // 可选三个类型，"MERGE_ALL"  将所选区域直接合并、"MERGE_ROWS"  将所选区域按行合并、"MERGE_COLUMNS"  将所选区域按列合并响应
+	SpreadSheetToken string `path:"spreadsheetToken" json:"-"` // spreadsheet 的 token, 获取方式见[在线表格开发指南](https://open.feishu.cn/document/ukTMukTMukTM/uATMzUjLwEzM14CMxMTN/overview)
+	Range            string `json:"range,omitempty"`           // 查询范围, 包含 sheetId 与单元格范围两部分, 目前支持四种索引方式, 详见 [在线表格开发指南](https://open.feishu.cn/document/ukTMukTMukTM/uATMzUjLwEzM14CMxMTN/overview)
+	MergeType        string `json:"mergeType,omitempty"`       // 可选三个类型, "MERGE_ALL"  将所选区域直接合并、"MERGE_ROWS"  将所选区域按行合并、"MERGE_COLUMNS"  将所选区域按列合并响应
+}
+
+// MergeSheetCellResp ...
+type MergeSheetCellResp struct {
+	SpreadSheetToken string `json:"spreadsheetToken,omitempty"` // spreadsheet 的 token
 }
 
 // mergeSheetCellResp ...
@@ -70,9 +75,4 @@ type mergeSheetCellResp struct {
 	Code int64               `json:"code,omitempty"`
 	Msg  string              `json:"msg,omitempty"`
 	Data *MergeSheetCellResp `json:"data,omitempty"`
-}
-
-// MergeSheetCellResp ...
-type MergeSheetCellResp struct {
-	SpreadSheetToken string `json:"spreadsheetToken,omitempty"` // spreadsheet 的 token
 }

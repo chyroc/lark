@@ -57,17 +57,10 @@ func (r *Mock) UnMockDriveUpdateDriveFileSubscription() {
 
 // UpdateDriveFileSubscriptionReq ...
 type UpdateDriveFileSubscriptionReq struct {
-	FileToken      string   `path:"file_token" json:"-"`      // 文档token, 示例值："doxcnxxxxxxxxxxxxxxxxxxxxxx"
-	SubscriptionID string   `path:"subscription_id" json:"-"` // 订阅关系ID, 示例值："1234567890987654321"
-	IsSubscribe    bool     `json:"is_subscribe,omitempty"`   // 是否订阅, 示例值：true
-	FileType       FileType `json:"file_type,omitempty"`      // 文档类型, 示例值："doc", 可选值有: `doc`：文档, `docx`：新版文档, `wiki`：知识库wiki
-}
-
-// updateDriveFileSubscriptionResp ...
-type updateDriveFileSubscriptionResp struct {
-	Code int64                            `json:"code,omitempty"` // 错误码，非 0 表示失败
-	Msg  string                           `json:"msg,omitempty"`  // 错误描述
-	Data *UpdateDriveFileSubscriptionResp `json:"data,omitempty"`
+	FileToken      string   `path:"file_token" json:"-"`      // 文档token, 示例值: "doxcnxxxxxxxxxxxxxxxxxxxxxx"
+	SubscriptionID string   `path:"subscription_id" json:"-"` // 订阅关系ID, 示例值: "1234567890987654321"
+	IsSubscribe    bool     `json:"is_subscribe,omitempty"`   // 是否订阅, 示例值: true
+	FileType       FileType `json:"file_type,omitempty"`      // 文档类型, 示例值: "doc", 可选值有: `doc`: 文档, `docx`: 新版文档, `wiki`: 知识库wiki
 }
 
 // UpdateDriveFileSubscriptionResp ...
@@ -78,7 +71,14 @@ type UpdateDriveFileSubscriptionResp struct {
 // UpdateDriveFileSubscriptionRespSubscription ...
 type UpdateDriveFileSubscriptionRespSubscription struct {
 	SubscriptionID   string   `json:"subscription_id,omitempty"`   // 订阅关系ID
-	SubscriptionType string   `json:"subscription_type,omitempty"` // 订阅类型, 可选值有: `comment_update`：评论更新
+	SubscriptionType string   `json:"subscription_type,omitempty"` // 订阅类型, 可选值有: `comment_update`: 评论更新
 	IsSubcribe       bool     `json:"is_subcribe,omitempty"`       // 是否订阅
-	FileType         FileType `json:"file_type,omitempty"`         // 文档类型, 可选值有: `doc`：文档, `docx`：新版文档, `wiki`：知识库wiki
+	FileType         FileType `json:"file_type,omitempty"`         // 文档类型, 可选值有: `doc`: 文档, `docx`: 新版文档, `wiki`: 知识库wiki
+}
+
+// updateDriveFileSubscriptionResp ...
+type updateDriveFileSubscriptionResp struct {
+	Code int64                            `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg  string                           `json:"msg,omitempty"`  // 错误描述
+	Data *UpdateDriveFileSubscriptionResp `json:"data,omitempty"`
 }

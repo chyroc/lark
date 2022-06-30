@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// GenerateCaldavConf 用于为当前用户生成一个CalDAV账号密码，用于将飞书日历信息同步到本地设备日历。
+// GenerateCaldavConf 用于为当前用户生成一个CalDAV账号密码, 用于将飞书日历信息同步到本地设备日历。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/setting/generate_caldav_conf
 func (r *CalendarService) GenerateCaldavConf(ctx context.Context, request *GenerateCaldavConfReq, options ...MethodOptionFunc) (*GenerateCaldavConfResp, *Response, error) {
@@ -57,14 +57,7 @@ func (r *Mock) UnMockCalendarGenerateCaldavConf() {
 
 // GenerateCaldavConfReq ...
 type GenerateCaldavConfReq struct {
-	DeviceName *string `json:"device_name,omitempty"` // 需要同步日历的设备名，在日历中展示用来管理密码, 示例值："iPhone", 最大长度：`100` 字符
-}
-
-// generateCaldavConfResp ...
-type generateCaldavConfResp struct {
-	Code int64                   `json:"code,omitempty"` // 错误码，非 0 表示失败
-	Msg  string                  `json:"msg,omitempty"`  // 错误描述
-	Data *GenerateCaldavConfResp `json:"data,omitempty"`
+	DeviceName *string `json:"device_name,omitempty"` // 需要同步日历的设备名, 在日历中展示用来管理密码, 示例值: "iPhone", 最大长度: `100` 字符
 }
 
 // GenerateCaldavConfResp ...
@@ -73,4 +66,11 @@ type GenerateCaldavConfResp struct {
 	UserName      string `json:"user_name,omitempty"`      // caldav用户名
 	ServerAddress string `json:"server_address,omitempty"` // 服务器地址
 	DeviceName    string `json:"device_name,omitempty"`    // 设备名
+}
+
+// generateCaldavConfResp ...
+type generateCaldavConfResp struct {
+	Code int64                   `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg  string                  `json:"msg,omitempty"`  // 错误描述
+	Data *GenerateCaldavConfResp `json:"data,omitempty"`
 }

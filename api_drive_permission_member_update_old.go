@@ -58,12 +58,17 @@ func (r *Mock) UnMockDriveUpdateDriveMemberPermissionOld() {
 
 // UpdateDriveMemberPermissionOldReq ...
 type UpdateDriveMemberPermissionOldReq struct {
-	Token      string `json:"token,omitempty"`       // 文件的 token，获取方式见 [对接前说明](https://open.feishu.cn/document/ukTMukTMukTM/uczNzUjL3czM14yN3MTN)的第 4 项
+	Token      string `json:"token,omitempty"`       // 文件的 token, 获取方式见 [对接前说明](https://open.feishu.cn/document/ukTMukTMukTM/uczNzUjL3czM14yN3MTN)的第 4 项
 	Type       string `json:"type,omitempty"`        // 文档类型  "doc"  or  "sheet" or "file"
-	MemberType string `json:"member_type,omitempty"` // 用户类型，可选 **"openid"、"openchat"、"userid"**
+	MemberType string `json:"member_type,omitempty"` // 用户类型, 可选 "openid"、"openchat"、"userid"
 	MemberID   string `json:"member_id,omitempty"`   // 用户类型下的值
-	Perm       string `json:"perm,omitempty"`        // 权限，"view" or "edit"
-	NotifyLark bool   `json:"notify_lark,omitempty"` // 修改权限后是否飞书/lark通知对方<br>true 通知 or false 不通知
+	Perm       string `json:"perm,omitempty"`        // 权限, "view" or "edit"
+	NotifyLark bool   `json:"notify_lark,omitempty"` // 修改权限后是否飞书/lark通知对方true 通知 or false 不通知
+}
+
+// UpdateDriveMemberPermissionOldResp ...
+type UpdateDriveMemberPermissionOldResp struct {
+	IsSuccess bool `json:"is_success,omitempty"` // 是否操作成功
 }
 
 // updateDriveMemberPermissionOldResp ...
@@ -71,9 +76,4 @@ type updateDriveMemberPermissionOldResp struct {
 	Code int64                               `json:"code,omitempty"`
 	Msg  string                              `json:"msg,omitempty"`
 	Data *UpdateDriveMemberPermissionOldResp `json:"data,omitempty"`
-}
-
-// UpdateDriveMemberPermissionOldResp ...
-type UpdateDriveMemberPermissionOldResp struct {
-	IsSuccess bool `json:"is_success,omitempty"` // 是否操作成功
 }

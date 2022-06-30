@@ -21,9 +21,9 @@ import (
 	"context"
 )
 
-// DeleteUser 该接口向通讯录删除一个用户信息，可以理解为员工离职。[常见问题答疑](https://open.feishu.cn/document/ugTN1YjL4UTN24CO1UjN/uQzN1YjL0cTN24CN3UjN)。
+// DeleteUser 该接口向通讯录删除一个用户信息, 可以理解为员工离职。[常见问题答疑](https://open.feishu.cn/document/ugTN1YjL4UTN24CO1UjN/uQzN1YjL0cTN24CN3UjN)。
 //
-// 若用户归属部门A、部门B，应用的通讯录权限范围必须包括部门A和部门B才可以删除用户。应用商店应用无权限调用接口。用户可以在删除员工时设置删除员工数据的接收者，如果不设置则由其leader接收，如果该员工没有leader，则会将该员工的数据删除。
+// 若用户归属部门A、部门B, 应用的通讯录权限范围必须包括部门A和部门B才可以删除用户。应用商店应用无权限调用接口。用户可以在删除员工时设置删除员工数据的接收者, 如果不设置则由其leader接收, 如果该员工没有leader, 则会将该员工的数据删除。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/delete
 func (r *ContactService) DeleteUser(ctx context.Context, request *DeleteUserReq, options ...MethodOptionFunc) (*DeleteUserResp, *Response, error) {
@@ -59,23 +59,23 @@ func (r *Mock) UnMockContactDeleteUser() {
 
 // DeleteUserReq ...
 type DeleteUserReq struct {
-	UserIDType                   *IDType `query:"user_id_type" json:"-"`                     // 用户 ID 类型, 示例值："open_id", 可选值有: `open_id`：用户的 open id, `union_id`：用户的 union id, `user_id`：用户的 user id, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
-	UserID                       string  `path:"user_id" json:"-"`                           // 用户ID，需要与查询参数中的user_id_type类型保持一致。, 示例值："ou_7dab8a3d3cdcc9da365777c7ad535d62"
-	DepartmentChatAcceptorUserID *string `json:"department_chat_acceptor_user_id,omitempty"` // 部门群接收者。被删除用户为部门群群主时，转让群主给指定接收者，不指定接收者则默认转让给群内第一个入群的人, 示例值："ou_7dab8a3d3cdcc9da365777c7ad535d62"
-	ExternalChatAcceptorUserID   *string `json:"external_chat_acceptor_user_id,omitempty"`   // 外部群接收者。被删除用户为外部群群主时，转让群主给指定接收者，不指定接收者则默认转让给群内与被删除用户在同一组织的第一个入群的人，如果组织内只有该用户在群里，则解散外部群, 示例值："ou_7dab8a3d3cdcc9da365777c7ad535d62"
-	DocsAcceptorUserID           *string `json:"docs_acceptor_user_id,omitempty"`            // 文档接收者。用户被删除时，其拥有的文档转让给接收者，不指定接收者则默认转让给直接领导，如果无直接领导则直接删除文档资源, 示例值："ou_7dab8a3d3cdcc9da365777c7ad535d62"
-	CalendarAcceptorUserID       *string `json:"calendar_acceptor_user_id,omitempty"`        // 日程接收者。用户被删除时，其拥有的日程转让给接收者，不指定接收者则默认转让给直接领导，如果无直接领导则直接删除日程资源, 示例值："ou_7dab8a3d3cdcc9da365777c7ad535d62"
-	ApplicationAcceptorUserID    *string `json:"application_acceptor_user_id,omitempty"`     // 应用接收者。用户被删除时，其创建的应用转让给接收者，不指定接收者则默认转让给直接领导，如果无直接领导则不会转移应用，会造成应用不可用, 示例值："ou_7dab8a3d3cdcc9da365777c7ad535d62"
-	HelpdeskAcceptorUserID       *string `json:"helpdesk_acceptor_user_id,omitempty"`        // 服务台资源接收者, 示例值："ou_7dab8a3d3cdcc9da365777c7ad535d62"
-}
-
-// deleteUserResp ...
-type deleteUserResp struct {
-	Code int64           `json:"code,omitempty"` // 错误码，非 0 表示失败
-	Msg  string          `json:"msg,omitempty"`  // 错误描述
-	Data *DeleteUserResp `json:"data,omitempty"`
+	UserID                       string  `path:"user_id" json:"-"`                           // 用户ID, 需要与查询参数中的user_id_type类型保持一致, 示例值: "ou_7dab8a3d3cdcc9da365777c7ad535d62"
+	UserIDType                   *IDType `query:"user_id_type" json:"-"`                     // 用户 ID 类型, 示例值: "open_id", 可选值有: `open_id`: 用户的 open id, `union_id`: 用户的 union id, `user_id`: 用户的 user id, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
+	DepartmentChatAcceptorUserID *string `json:"department_chat_acceptor_user_id,omitempty"` // 部门群接收者。被删除用户为部门群群主时, 转让群主给指定接收者, 不指定接收者则默认转让给群内第一个入群的人, 示例值: "ou_7dab8a3d3cdcc9da365777c7ad535d62"
+	ExternalChatAcceptorUserID   *string `json:"external_chat_acceptor_user_id,omitempty"`   // 外部群接收者。被删除用户为外部群群主时, 转让群主给指定接收者, 不指定接收者则默认转让给群内与被删除用户在同一组织的第一个入群的人, 如果组织内只有该用户在群里, 则解散外部群, 示例值: "ou_7dab8a3d3cdcc9da365777c7ad535d62"
+	DocsAcceptorUserID           *string `json:"docs_acceptor_user_id,omitempty"`            // 文档接收者。用户被删除时, 其拥有的文档转让给接收者, 不指定接收者则默认转让给直接领导, 如果无直接领导则直接删除文档资源, 示例值: "ou_7dab8a3d3cdcc9da365777c7ad535d62"
+	CalendarAcceptorUserID       *string `json:"calendar_acceptor_user_id,omitempty"`        // 日程接收者。用户被删除时, 其拥有的日程转让给接收者, 不指定接收者则默认转让给直接领导, 如果无直接领导则直接删除日程资源, 示例值: "ou_7dab8a3d3cdcc9da365777c7ad535d62"
+	ApplicationAcceptorUserID    *string `json:"application_acceptor_user_id,omitempty"`     // 应用接收者。用户被删除时, 其创建的应用转让给接收者, 不指定接收者则默认转让给直接领导, 如果无直接领导则不会转移应用, 会造成应用不可用, 示例值: "ou_7dab8a3d3cdcc9da365777c7ad535d62"
+	HelpdeskAcceptorUserID       *string `json:"helpdesk_acceptor_user_id,omitempty"`        // 服务台资源接收者, 示例值: "ou_7dab8a3d3cdcc9da365777c7ad535d62"
 }
 
 // DeleteUserResp ...
 type DeleteUserResp struct {
+}
+
+// deleteUserResp ...
+type deleteUserResp struct {
+	Code int64           `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg  string          `json:"msg,omitempty"`  // 错误描述
+	Data *DeleteUserResp `json:"data,omitempty"`
 }

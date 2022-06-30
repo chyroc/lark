@@ -57,16 +57,16 @@ func (r *Mock) UnMockContactDeleteEmployeeTypeEnum() {
 
 // DeleteEmployeeTypeEnumReq ...
 type DeleteEmployeeTypeEnumReq struct {
-	EnumID string `path:"enum_id" json:"-"` // 枚举值id, 示例值："exGeIjow7zIqWMy+ONkFxA=="
-}
-
-// deleteEmployeeTypeEnumResp ...
-type deleteEmployeeTypeEnumResp struct {
-	Code int64                       `json:"code,omitempty"` // 错误码，非 0 表示失败
-	Msg  string                      `json:"msg,omitempty"`  // 错误描述
-	Data *DeleteEmployeeTypeEnumResp `json:"data,omitempty"`
+	EnumID string `path:"enum_id" json:"-"` // 枚举值id, 示例值: "exGeIjow7zIqWMy+ONkFxA=="
 }
 
 // DeleteEmployeeTypeEnumResp ...
 type DeleteEmployeeTypeEnumResp struct {
+}
+
+// deleteEmployeeTypeEnumResp ...
+type deleteEmployeeTypeEnumResp struct {
+	Code int64                       `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg  string                      `json:"msg,omitempty"`  // 错误描述
+	Data *DeleteEmployeeTypeEnumResp `json:"data,omitempty"`
 }

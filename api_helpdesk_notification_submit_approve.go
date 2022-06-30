@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// SubmitApproveHelpdeskNotification 正常情况下调用创建推送接口后，就可以调用提交审核接口，如果创建人是服务台owner则会自动审核通过，否则会通知服务台owner审核此推送信息
+// SubmitApproveHelpdeskNotification 正常情况下调用创建推送接口后, 就可以调用提交审核接口, 如果创建人是服务台owner则会自动审核通过, 否则会通知服务台owner审核此推送信息
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/notification/submit_approve
 func (r *HelpdeskService) SubmitApproveHelpdeskNotification(ctx context.Context, request *SubmitApproveHelpdeskNotificationReq, options ...MethodOptionFunc) (*SubmitApproveHelpdeskNotificationResp, *Response, error) {
@@ -58,18 +58,18 @@ func (r *Mock) UnMockHelpdeskSubmitApproveHelpdeskNotification() {
 
 // SubmitApproveHelpdeskNotificationReq ...
 type SubmitApproveHelpdeskNotificationReq struct {
-	NotificationID string `path:"notification_id" json:"-"` // 创建接口返回的唯一id, 示例值："6985032626234982420"
-	Reason         string `json:"reason,omitempty"`         // 提交审批理由, 示例值："测试发送消息"
-}
-
-// submitApproveHelpdeskNotificationResp ...
-type submitApproveHelpdeskNotificationResp struct {
-	Code int64                                  `json:"code,omitempty"` // 错误码，非 0 表示失败
-	Msg  string                                 `json:"msg,omitempty"`  // 错误描述
-	Data *SubmitApproveHelpdeskNotificationResp `json:"data,omitempty"`
+	NotificationID string `path:"notification_id" json:"-"` // 创建接口返回的唯一id, 示例值: "6985032626234982420"
+	Reason         string `json:"reason,omitempty"`         // 提交审批理由, 示例值: "测试发送消息"
 }
 
 // SubmitApproveHelpdeskNotificationResp ...
 type SubmitApproveHelpdeskNotificationResp struct {
-	HasAccess bool `json:"has_access,omitempty"` // 是否有权限创建或者管理审批流程 （有两种情况会导致没有权限： 1：用户没有安装服务台小程序，需要在https://app.feishu.cn/app/cli_9f9f8825d53b900d 安装小程序 2：用户安装的服务台小程序版本过低）
+	HasAccess bool `json:"has_access,omitempty"` // 是否有权限创建或者管理审批流程 （有两种情况会导致没有权限: 1: 用户没有安装服务台小程序, 需要在https://app.feishu.cn/app/cli_9f9f8825d53b900d 安装小程序 2: 用户安装的服务台小程序版本过低）
+}
+
+// submitApproveHelpdeskNotificationResp ...
+type submitApproveHelpdeskNotificationResp struct {
+	Code int64                                  `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg  string                                 `json:"msg,omitempty"`  // 错误描述
+	Data *SubmitApproveHelpdeskNotificationResp `json:"data,omitempty"`
 }

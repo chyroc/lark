@@ -23,7 +23,7 @@ import (
 
 // GetBotInfo 获取机器人的基本信息。
 //
-// 需要启用机器人能力（前往[开发者后台](https://open.feishu.cn/app) - 选择你要获取信息的应用 - 导航栏点击应用功能 - 机器人，开启机器人能力并发布后即可。）
+// 需要启用机器人能力（前往[开发者后台](https://open.feishu.cn/app) - 选择你要获取信息的应用 - 导航栏点击应用功能 - 机器人, 开启机器人能力并发布后即可。）
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uAjMxEjLwITMx4CMyETM
 func (r *BotService) GetBotInfo(ctx context.Context, request *GetBotInfoReq, options ...MethodOptionFunc) (*GetBotInfoResp, *Response, error) {
@@ -61,18 +61,18 @@ func (r *Mock) UnMockBotGetBotInfo() {
 type GetBotInfoReq struct {
 }
 
-// getBotInfoResp ...
-type getBotInfoResp struct {
-	Code int64           `json:"code,omitempty"` // 错误码，非 0 表示失败
-	Msg  string          `json:"msg,omitempty"`  // 错误描述
-	Data *GetBotInfoResp `json:"bot,omitempty"`  // 机器人信息
-}
-
 // GetBotInfoResp ...
 type GetBotInfoResp struct {
-	ActivateStatus int64    `json:"activate_status,omitempty"` // app 当前状态。,0: 初始化，租户待安装,1: 租户停用,2: 租户启用,3: 安装后待启用,4: 升级待启用,5: license过期停用,6: Lark套餐到期或降级停用
+	ActivateStatus int64    `json:"activate_status,omitempty"` // app 当前状态, 0: 初始化, 租户待安装, 1: 租户停用, 2: 租户启用, 3: 安装后待启用, 4: 升级待启用, 5: license过期停用, 6: Lark套餐到期或降级停用
 	AppName        string   `json:"app_name,omitempty"`        // app 名称
 	AvatarURL      string   `json:"avatar_url,omitempty"`      // app 图像地址
 	IpWhiteList    []string `json:"ip_white_list,omitempty"`   // app 的 IP 白名单地址
 	OpenID         string   `json:"open_id,omitempty"`         // 机器人的open_id
+}
+
+// getBotInfoResp ...
+type getBotInfoResp struct {
+	Code int64           `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg  string          `json:"msg,omitempty"`  // 错误描述
+	Data *GetBotInfoResp `json:"bot,omitempty"`  // 机器人信息
 }

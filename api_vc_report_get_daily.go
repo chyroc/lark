@@ -59,15 +59,8 @@ func (r *Mock) UnMockVCGetVCDailyReport() {
 
 // GetVCDailyReportReq ...
 type GetVCDailyReportReq struct {
-	StartTime string `query:"start_time" json:"-"` // 开始时间（unix时间，单位sec）, 示例值："1608888867"
-	EndTime   string `query:"end_time" json:"-"`   // 结束时间（unix时间，单位sec）, 示例值："1608888966"
-}
-
-// getVCDailyReportResp ...
-type getVCDailyReportResp struct {
-	Code int64                 `json:"code,omitempty"` // 错误码，非 0 表示失败
-	Msg  string                `json:"msg,omitempty"`  // 错误描述
-	Data *GetVCDailyReportResp `json:"data,omitempty"`
+	StartTime string `query:"start_time" json:"-"` // 开始时间（unix时间, 单位sec）, 示例值: "1608888867"
+	EndTime   string `query:"end_time" json:"-"`   // 结束时间（unix时间, 单位sec）, 示例值: "1608888966"
 }
 
 // GetVCDailyReportResp ...
@@ -85,8 +78,15 @@ type GetVCDailyReportRespMeetingReport struct {
 
 // GetVCDailyReportRespMeetingReportDailyReport ...
 type GetVCDailyReportRespMeetingReportDailyReport struct {
-	Date             string `json:"date,omitempty"`              // 日期（unix时间，单位sec）
+	Date             string `json:"date,omitempty"`              // 日期（unix时间, 单位sec）
 	MeetingCount     string `json:"meeting_count,omitempty"`     // 会议数量
 	MeetingDuration  string `json:"meeting_duration,omitempty"`  // 会议时长（单位sec）
 	ParticipantCount string `json:"participant_count,omitempty"` // 参会人数
+}
+
+// getVCDailyReportResp ...
+type getVCDailyReportResp struct {
+	Code int64                 `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg  string                `json:"msg,omitempty"`  // 错误描述
+	Data *GetVCDailyReportResp `json:"data,omitempty"`
 }

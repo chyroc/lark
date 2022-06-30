@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// DeleteContactUnit 使用该接口删除单位，需要有更新单位的权限。注意：如果单位的单位类型被其它的业务使用，不允许删除。
+// DeleteContactUnit 使用该接口删除单位, 需要有更新单位的权限。注意: 如果单位的单位类型被其它的业务使用, 不允许删除。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/unit/delete
 func (r *ContactService) DeleteContactUnit(ctx context.Context, request *DeleteContactUnitReq, options ...MethodOptionFunc) (*DeleteContactUnitResp, *Response, error) {
@@ -57,16 +57,16 @@ func (r *Mock) UnMockContactDeleteContactUnit() {
 
 // DeleteContactUnitReq ...
 type DeleteContactUnitReq struct {
-	UnitID string `path:"unit_id" json:"-"` // 单位ID, 示例值："BU121"
-}
-
-// deleteContactUnitResp ...
-type deleteContactUnitResp struct {
-	Code int64                  `json:"code,omitempty"` // 错误码，非 0 表示失败
-	Msg  string                 `json:"msg,omitempty"`  // 错误描述
-	Data *DeleteContactUnitResp `json:"data,omitempty"`
+	UnitID string `path:"unit_id" json:"-"` // 单位ID, 示例值: "BU121"
 }
 
 // DeleteContactUnitResp ...
 type DeleteContactUnitResp struct {
+}
+
+// deleteContactUnitResp ...
+type deleteContactUnitResp struct {
+	Code int64                  `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg  string                 `json:"msg,omitempty"`  // 错误描述
+	Data *DeleteContactUnitResp `json:"data,omitempty"`
 }

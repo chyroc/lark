@@ -62,19 +62,19 @@ type CreateApprovalCarbonCopyReq struct {
 	ApprovalCode string   `json:"approval_code,omitempty"` // 审批定义 code
 	InstanceCode string   `json:"instance_code,omitempty"` // 审批实例 code
 	UserID       *string  `json:"user_id,omitempty"`       // 发起抄送的人的 user_id
-	OpenID       *string  `json:"open_id,omitempty"`       // 发起抄送的人的 open_id，如果传了 user_id 则优先使用 user_id，二者不能同时为空
+	OpenID       *string  `json:"open_id,omitempty"`       // 发起抄送的人的 open_id, 如果传了 user_id 则优先使用 user_id, 二者不能同时为空
 	CcUserIDs    []string `json:"cc_user_ids,omitempty"`   // 被抄送人的 user_id 列表
-	CcOpenIDs    []string `json:"cc_open_ids,omitempty"`   // 被抄送人的 open_id 列表，与 cc_user_ids 不可同时为空
+	CcOpenIDs    []string `json:"cc_open_ids,omitempty"`   // 被抄送人的 open_id 列表, 与 cc_user_ids 不可同时为空
 	Comment      *string  `json:"comment,omitempty"`       // 抄送留言
-}
-
-// createApprovalCarbonCopyResp ...
-type createApprovalCarbonCopyResp struct {
-	Code int64                         `json:"code,omitempty"` // 错误码，非0表示失败
-	Msg  string                        `json:"msg,omitempty"`  // 返回码的描述
-	Data *CreateApprovalCarbonCopyResp `json:"data,omitempty"`
 }
 
 // CreateApprovalCarbonCopyResp ...
 type CreateApprovalCarbonCopyResp struct {
+}
+
+// createApprovalCarbonCopyResp ...
+type createApprovalCarbonCopyResp struct {
+	Code int64                         `json:"code,omitempty"` // 错误码, 非0表示失败
+	Msg  string                        `json:"msg,omitempty"`  // 返回码的描述
+	Data *CreateApprovalCarbonCopyResp `json:"data,omitempty"`
 }

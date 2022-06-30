@@ -23,7 +23,7 @@ import (
 
 // GetBatchSentMessageReadUser 查询批量消息推送和阅读人数
 //
-// 注意事项：
+// 注意事项:
 // - 只能查询通过[批量发送消息](https://open.feishu.cn/document/ukTMukTMukTM/ucDO1EjL3gTNx4yN4UTM)接口产生的消息
 // - 该接口返回的数据为查询时刻的快照数据。
 //
@@ -61,14 +61,7 @@ func (r *Mock) UnMockMessageGetBatchSentMessageReadUser() {
 
 // GetBatchSentMessageReadUserReq ...
 type GetBatchSentMessageReadUserReq struct {
-	BatchMessageID string `path:"batch_message_id" json:"-"` // 待查询的批量消息的ID, 示例值："bm_dc13264520392913993dd051dba21dcf"
-}
-
-// getBatchSentMessageReadUserResp ...
-type getBatchSentMessageReadUserResp struct {
-	Code int64                            `json:"code,omitempty"` // 错误码，非 0 表示失败
-	Msg  string                           `json:"msg,omitempty"`  // 错误描述
-	Data *GetBatchSentMessageReadUserResp `json:"data,omitempty"`
+	BatchMessageID string `path:"batch_message_id" json:"-"` // 待查询的批量消息的ID, 示例值: "bm_dc13264520392913993dd051dba21dcf"
 }
 
 // GetBatchSentMessageReadUserResp ...
@@ -80,4 +73,11 @@ type GetBatchSentMessageReadUserResp struct {
 type GetBatchSentMessageReadUserRespReadUser struct {
 	ReadCount  string `json:"read_count,omitempty"`  // 已读的人数
 	TotalCount string `json:"total_count,omitempty"` // 推送的总人数
+}
+
+// getBatchSentMessageReadUserResp ...
+type getBatchSentMessageReadUserResp struct {
+	Code int64                            `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg  string                           `json:"msg,omitempty"`  // 错误描述
+	Data *GetBatchSentMessageReadUserResp `json:"data,omitempty"`
 }

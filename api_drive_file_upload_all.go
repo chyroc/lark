@@ -24,7 +24,7 @@ import (
 
 // UploadDriveFile 向云空间指定目录下上传一个小文件。
 //
-// 请不要使用这个接口上传大于20MB的文件，如果有这个需求可以尝试使用[分片上传接口](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file/multipart-upload-file-/introduction)。
+// 请不要使用这个接口上传大于20MB的文件, 如果有这个需求可以尝试使用[分片上传接口](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file/multipart-upload-file-/introduction)。
 // 该接口支持调用频率上限为5QPS
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file/upload_all
@@ -63,22 +63,22 @@ func (r *Mock) UnMockDriveUploadDriveFile() {
 
 // UploadDriveFileReq ...
 type UploadDriveFileReq struct {
-	FileName   string    `json:"file_name,omitempty"`   // 文件名。, 示例值："test.txt", 最大长度：`250` 字符
-	ParentType string    `json:"parent_type,omitempty"` // 上传点类型。, 示例值："explorer", 可选值有: `explorer`：云空间。
-	ParentNode string    `json:"parent_node,omitempty"` // 文件夹token，,获取方式见 [概述](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/files/guide/introduction), 示例值："fldcn77hdDT5"
-	Size       int64     `json:"size,omitempty"`        // 文件大小（以字节为单位）。, 示例值：1024, 最大值：`20971520`
-	Checksum   *string   `json:"checksum,omitempty"`    // 文件adler32校验和(可选)。, 示例值："123423882374238957235"
-	File       io.Reader `json:"file,omitempty"`        // 文件二进制内容。, 示例值：file binary
-}
-
-// uploadDriveFileResp ...
-type uploadDriveFileResp struct {
-	Code int64                `json:"code,omitempty"` // 错误码，非 0 表示失败
-	Msg  string               `json:"msg,omitempty"`  // 错误描述
-	Data *UploadDriveFileResp `json:"data,omitempty"`
+	FileName   string    `json:"file_name,omitempty"`   // 文件名, 示例值: "demo.pdf", 最大长度: `250` 字符
+	ParentType string    `json:"parent_type,omitempty"` // 上传点类型, 示例值: "explorer", 可选值有: <md-enum>, <md-enum-item key="explorer" >云空间。</md-enum-item>, </md-enum>
+	ParentNode string    `json:"parent_node,omitempty"` // 文件夹token, 获取方式见 [概述](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/files/guide/introduction), 示例值: "fldbcO1UuPz8VwnpPx5a92abcef"
+	Size       int64     `json:"size,omitempty"`        // 文件大小（以字节为单位）, 示例值: 1024, 最大值: `20971520`
+	Checksum   *string   `json:"checksum,omitempty"`    // 文件adler32校验和(可选), 示例值: "123423882374238912356"
+	File       io.Reader `json:"file,omitempty"`        // 文件二进制内容, 示例值: file binary
 }
 
 // UploadDriveFileResp ...
 type UploadDriveFileResp struct {
 	FileToken string `json:"file_token,omitempty"` // 新创建文件的 token
+}
+
+// uploadDriveFileResp ...
+type uploadDriveFileResp struct {
+	Code int64                `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg  string               `json:"msg,omitempty"`  // 错误描述
+	Data *UploadDriveFileResp `json:"data,omitempty"`
 }

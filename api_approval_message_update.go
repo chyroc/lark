@@ -23,7 +23,7 @@ import (
 
 // UpdateApprovalMessage
 //
-// 此接口可以根据审批bot消息id及相应状态，更新相应的审批bot消息，只可用于更新待审批模板的bot消息。例如，给用户推送了审批待办消息，当用户处理该消息后，可以将之前推送的Bot消息更新为已审批。
+// 此接口可以根据审批bot消息id及相应状态, 更新相应的审批bot消息, 只可用于更新待审批模板的bot消息。例如, 给用户推送了审批待办消息, 当用户处理该消息后, 可以将之前推送的Bot消息更新为已审批。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uAjNyYjLwYjM24CM2IjN
 func (r *ApprovalService) UpdateApprovalMessage(ctx context.Context, request *UpdateApprovalMessageReq, options ...MethodOptionFunc) (*UpdateApprovalMessageResp, *Response, error) {
@@ -59,21 +59,21 @@ func (r *Mock) UnMockApprovalUpdateApprovalMessage() {
 
 // UpdateApprovalMessageReq ...
 type UpdateApprovalMessageReq struct {
-	MessageID        string  `json:"message_id,omitempty"`         // 卡片 id，发送卡片时会拿到
-	Status           string  `json:"status,omitempty"`             // 状态类型，用于更新第一个action文字内容，枚举：<br> APPROVED:-已同意<br>REJECTED:-已拒绝<br>CANCELLED:-已撤回<br>FORWARDED:-已转交<br>ROLLBACK:-已回退<br>ADD:-已加签<br>DELETED:-已删除<br>PROCESSED:-已处理<br>CUSTOM:-自定义按钮状态
+	MessageID        string  `json:"message_id,omitempty"`         // 卡片 id, 发送卡片时会拿到
+	Status           string  `json:"status,omitempty"`             // 状态类型, 用于更新第一个action文字内容, 枚举: APPROVED:-已同意REJECTED:-已拒绝CANCELLED:-已撤回FORWARDED:-已转交ROLLBACK:-已回退ADD:-已加签DELETED:-已删除PROCESSED:-已处理CUSTOM:-自定义按钮状态
 	StatusName       *string `json:"status_name,omitempty"`        // status=CUSTOM时可以自定义审批同意/拒绝后title状态
 	DetailActionName *string `json:"detail_action_name,omitempty"` // status=CUSTOM时可以自定义审批同意/拒绝后“查看详情按钮名称”
 	I18nResources    *string `json:"i18n_resources,omitempty"`     // i18n国际化文案
 }
 
-// updateApprovalMessageResp ...
-type updateApprovalMessageResp struct {
-	Code int64                      `json:"code,omitempty"` // 错误码，非 0 表示失败
-	Msg  string                     `json:"msg,omitempty"`  // 返回码的描述
-	Data *UpdateApprovalMessageResp `json:"data,omitempty"` // 返回业务信息
-}
-
 // UpdateApprovalMessageResp ...
 type UpdateApprovalMessageResp struct {
-	MessageID string `json:"message_id,omitempty"` // 消息 id ，用于卡片更新、撤回
+	MessageID string `json:"message_id,omitempty"` // 消息 id, 用于卡片更新、撤回
+}
+
+// updateApprovalMessageResp ...
+type updateApprovalMessageResp struct {
+	Code int64                      `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg  string                     `json:"msg,omitempty"`  // 返回码的描述
+	Data *UpdateApprovalMessageResp `json:"data,omitempty"` // 返回业务信息
 }

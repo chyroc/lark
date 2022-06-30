@@ -58,17 +58,17 @@ func (r *Mock) UnMockHelpdeskUpdateHelpdeskAgent() {
 
 // UpdateHelpdeskAgentReq ...
 type UpdateHelpdeskAgentReq struct {
-	AgentID string `path:"agent_id" json:"-"` // 客服id, 示例值："ou_14777d82ffef0f707de5a8c7ff2c5ebe"
-	Status  *int64 `json:"status,omitempty"`  // agent status, 示例值：1：在线；2：离线
-}
-
-// updateHelpdeskAgentResp ...
-type updateHelpdeskAgentResp struct {
-	Code int64                    `json:"code,omitempty"` // 错误码，非 0 表示失败
-	Msg  string                   `json:"msg,omitempty"`  // 错误描述
-	Data *UpdateHelpdeskAgentResp `json:"data,omitempty"`
+	AgentID string `path:"agent_id" json:"-"` // 客服id, 示例值: "ou_14777d82ffef0f707de5a8c7ff2c5ebe"
+	Status  *int64 `json:"status,omitempty"`  // agent status, 示例值: 1: 在线；2: 离线
 }
 
 // UpdateHelpdeskAgentResp ...
 type UpdateHelpdeskAgentResp struct {
+}
+
+// updateHelpdeskAgentResp ...
+type updateHelpdeskAgentResp struct {
+	Code int64                    `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg  string                   `json:"msg,omitempty"`  // 错误描述
+	Data *UpdateHelpdeskAgentResp `json:"data,omitempty"`
 }

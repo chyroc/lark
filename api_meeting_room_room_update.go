@@ -63,13 +63,13 @@ type UpdateMeetingRoomRoomReq struct {
 	CustomRoomID *string `json:"custom_room_id,omitempty"` // 租户自定义会议室ID
 }
 
-// updateMeetingRoomRoomResp ...
-type updateMeetingRoomRoomResp struct {
-	Code int64                      `json:"code,omitempty"` // 返回码，非 0 表示失败
-	Msg  string                     `json:"msg,omitempty"`  // 返回码的描述，"success" 表示成功，其他为错误提示信息
-	Data *UpdateMeetingRoomRoomResp `json:"data,omitempty"`
-}
-
 // UpdateMeetingRoomRoomResp ...
 type UpdateMeetingRoomRoomResp struct {
+}
+
+// updateMeetingRoomRoomResp ...
+type updateMeetingRoomRoomResp struct {
+	Code int64                      `json:"code,omitempty"` // 返回码, 非 0 表示失败
+	Msg  string                     `json:"msg,omitempty"`  // 返回码的描述, "success" 表示成功, 其他为错误提示信息
+	Data *UpdateMeetingRoomRoomResp `json:"data,omitempty"`
 }

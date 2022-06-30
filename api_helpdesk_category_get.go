@@ -58,21 +58,21 @@ func (r *Mock) UnMockHelpdeskGetHelpdeskCategory() {
 
 // GetHelpdeskCategoryReq ...
 type GetHelpdeskCategoryReq struct {
-	ID string `path:"id" json:"-"` // 知识库分类ID, 示例值："6948728206392295444"
-}
-
-// getHelpdeskCategoryResp ...
-type getHelpdeskCategoryResp struct {
-	Code int64                    `json:"code,omitempty"` // 错误码，非 0 表示失败
-	Msg  string                   `json:"msg,omitempty"`  // 错误描述
-	Data *GetHelpdeskCategoryResp `json:"data,omitempty"`
+	ID string `path:"id" json:"-"` // 知识库分类ID, 示例值: "6948728206392295444"
 }
 
 // GetHelpdeskCategoryResp ...
 type GetHelpdeskCategoryResp struct {
 	CategoryID string `json:"category_id,omitempty"` // 知识库分类ID
-	ID         string `json:"id,omitempty"`          // 知识库分类ID，（旧版，请使用category_id）
+	ID         string `json:"id,omitempty"`          // 知识库分类ID, （旧版, 请使用category_id）
 	Name       string `json:"name,omitempty"`        // 名称
 	HelpdeskID string `json:"helpdesk_id,omitempty"` // 服务台ID
 	Language   string `json:"language,omitempty"`    // 语言
+}
+
+// getHelpdeskCategoryResp ...
+type getHelpdeskCategoryResp struct {
+	Code int64                    `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg  string                   `json:"msg,omitempty"`  // 错误描述
+	Data *GetHelpdeskCategoryResp `json:"data,omitempty"`
 }

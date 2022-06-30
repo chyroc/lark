@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// UpdateChatTopNotice 更新会话中的群置顶信息，可以将群中的某一条消息，或者群公告置顶显示。
+// UpdateChatTopNotice 更新会话中的群置顶信息, 可以将群中的某一条消息, 或者群公告置顶显示。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-top_notice/put_top_notice
 func (r *ChatService) UpdateChatTopNotice(ctx context.Context, request *UpdateChatTopNoticeReq, options ...MethodOptionFunc) (*UpdateChatTopNoticeResp, *Response, error) {
@@ -58,23 +58,23 @@ func (r *Mock) UnMockChatUpdateChatTopNotice() {
 
 // UpdateChatTopNoticeReq ...
 type UpdateChatTopNoticeReq struct {
-	ChatID        string                                 `path:"chat_id" json:"-"`          // 待修改置顶的群 ID，详情参见[群ID 说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-id-description), 示例值："oc_5ad11d72b830411d72b836c20"
+	ChatID        string                                 `path:"chat_id" json:"-"`          // 待修改置顶的群 ID, 详情参见[群ID 说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-id-description), 示例值: "oc_5ad11d72b830411d72b836c20"
 	ChatTopNotice []*UpdateChatTopNoticeReqChatTopNotice `json:"chat_top_notice,omitempty"` // 要进行发布的群置顶
 }
 
 // UpdateChatTopNoticeReqChatTopNotice ...
 type UpdateChatTopNoticeReqChatTopNotice struct {
-	ActionType *string `json:"action_type,omitempty"` // 置顶的类型, 示例值："1", 可选值有: `1`：消息类型, `2`：群公告类型
-	MessageID  *string `json:"message_id,omitempty"`  // 消息id, 示例值："om_dc13264520392913993dd051dba21dcf"
-}
-
-// updateChatTopNoticeResp ...
-type updateChatTopNoticeResp struct {
-	Code int64                    `json:"code,omitempty"` // 错误码，非 0 表示失败
-	Msg  string                   `json:"msg,omitempty"`  // 错误描述
-	Data *UpdateChatTopNoticeResp `json:"data,omitempty"`
+	ActionType *string `json:"action_type,omitempty"` // 置顶的类型, 示例值: "1", 可选值有: `1`: 消息类型, `2`: 群公告类型
+	MessageID  *string `json:"message_id,omitempty"`  // 消息id, 示例值: "om_dc13264520392913993dd051dba21dcf"
 }
 
 // UpdateChatTopNoticeResp ...
 type UpdateChatTopNoticeResp struct {
+}
+
+// updateChatTopNoticeResp ...
+type updateChatTopNoticeResp struct {
+	Code int64                    `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg  string                   `json:"msg,omitempty"`  // 错误描述
+	Data *UpdateChatTopNoticeResp `json:"data,omitempty"`
 }

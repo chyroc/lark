@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// GetAdminUserStats 用于获取用户维度的用户活跃和功能使用数据，即IM（即时通讯）、日历、云文档、音视频会议功能的使用数据。
+// GetAdminUserStats 用于获取用户维度的用户活跃和功能使用数据, 即IM（即时通讯）、日历、云文档、音视频会议功能的使用数据。
 //
 // - 只有企业自建应用才有权限调用此接口
 // - 当天的数据会在第二天的早上九点半产出（UTC+8）
@@ -61,21 +61,14 @@ func (r *Mock) UnMockAdminGetAdminUserStats() {
 
 // GetAdminUserStatsReq ...
 type GetAdminUserStatsReq struct {
-	UserIDType       *IDType           `query:"user_id_type" json:"-"`       // 用户 ID 类型, 示例值："open_id", 可选值有: `open_id`：用户的 open id, `union_id`：用户的 union id, `user_id`：用户的 user id, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
-	DepartmentIDType *DepartmentIDType `query:"department_id_type" json:"-"` // 部门ID类型, 示例值："open_department_id", 可选值有: `department_id`：部门的 ID, `open_department_id`：部门的 Open ID
-	StartDate        string            `query:"start_date" json:"-"`         // 起始日期（包含），格式是YYYY-mm-dd, 示例值："2020-02-15"
-	EndDate          string            `query:"end_date" json:"-"`           // 终止日期（包含），格式是YYYY-mm-dd。起止日期之间相差不能超过31天（包含31天）, 示例值："2020-02-15"
-	DepartmentID     *string           `query:"department_id" json:"-"`      // 部门的 ID，取决于department_id_type, 示例值："od-382e2793cfc9471f892e8a672987654c"
-	UserID           *string           `query:"user_id" json:"-"`            // 用户的open_id，user_id或者union_id，取决于user_id_type, 示例值："ou_7dab8a3d3cdcc9da365777c7ad535d62"
-	PageSize         *int64            `query:"page_size" json:"-"`          // 分页大小，默认是10, 示例值：10, 取值范围：`1` ～ `20`
-	PageToken        *string           `query:"page_token" json:"-"`         // 分页标记，第一次请求不填，表示从头开始遍历；当返回的has_more为true时，会返回新的page_token，再次调用接口，传入这个page_token，将获得下一页数据, 示例值："2"
-}
-
-// getAdminUserStatsResp ...
-type getAdminUserStatsResp struct {
-	Code int64                  `json:"code,omitempty"` // 错误码，非 0 表示失败
-	Msg  string                 `json:"msg,omitempty"`  // 错误描述
-	Data *GetAdminUserStatsResp `json:"data,omitempty"`
+	UserIDType       *IDType           `query:"user_id_type" json:"-"`       // 用户 ID 类型, 示例值: "open_id", 可选值有: `open_id`: 用户的 open id, `union_id`: 用户的 union id, `user_id`: 用户的 user id, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
+	DepartmentIDType *DepartmentIDType `query:"department_id_type" json:"-"` // 部门ID类型, 示例值: "open_department_id", 可选值有: `department_id`: 部门的 ID, `open_department_id`: 部门的 Open ID
+	StartDate        string            `query:"start_date" json:"-"`         // 起始日期（包含）, 格式是YYYY-mm-dd, 示例值: "2020-02-15"
+	EndDate          string            `query:"end_date" json:"-"`           // 终止日期（包含）, 格式是YYYY-mm-dd。起止日期之间相差不能超过31天（包含31天）, 示例值: "2020-02-15"
+	DepartmentID     *string           `query:"department_id" json:"-"`      // 部门的 ID, 取决于department_id_type, 示例值: "od-382e2793cfc9471f892e8a672987654c"
+	UserID           *string           `query:"user_id" json:"-"`            // 用户的open_id, user_id或者union_id, 取决于user_id_type, 示例值: "ou_7dab8a3d3cdcc9da365777c7ad535d62"
+	PageSize         *int64            `query:"page_size" json:"-"`          // 分页大小, 默认是10, 示例值: 10, 取值范围: `1` ～ `20`
+	PageToken        *string           `query:"page_token" json:"-"`         // 分页标记, 第一次请求不填, 表示从头开始遍历；当返回的has_more为true时, 会返回新的page_token, 再次调用接口, 传入这个page_token, 将获得下一页数据, 示例值: "2"
 }
 
 // GetAdminUserStatsResp ...
@@ -93,19 +86,26 @@ type GetAdminUserStatsRespItem struct {
 	DepartmentName   string `json:"department_name,omitempty"`    // 部门名
 	DepartmentPath   string `json:"department_path,omitempty"`    // 部门路径
 	CreateTime       string `json:"create_time,omitempty"`        // 账号创建时间
-	UserActiveFlag   int64  `json:"user_active_flag,omitempty"`   // 用户激活状态, 可选值有: `0`：未激活, `1`：已激活
+	UserActiveFlag   int64  `json:"user_active_flag,omitempty"`   // 用户激活状态, 可选值有: `0`: 未激活, `1`: 已激活
 	RegisterTime     string `json:"register_time,omitempty"`      // 激活时间
-	SuiteActiveFlag  int64  `json:"suite_active_flag,omitempty"`  // 用户活跃状态，用户在飞书套件任意应用登陆，即为活跃。包括飞书即时消息，文档，日历，会议，开放平台等, 可选值有: `0`：无活跃, `1`：活跃
+	SuiteActiveFlag  int64  `json:"suite_active_flag,omitempty"`  // 用户活跃状态, 用户在飞书套件任意应用登陆, 即为活跃。包括飞书即时消息, 文档, 日历, 会议, 开放平台等, 可选值有: `0`: 无活跃, `1`: 活跃
 	LastActiveTime   string `json:"last_active_time,omitempty"`   // 最近活跃时间
-	IMActiveFlag     int64  `json:"im_active_flag,omitempty"`     // 用户消息活跃状态，发生过如下事件，则认为该用户消息活跃：,发送消息、回复消息、reaction、转发消息、阅读消息、查看会话、发送表情消息等, 可选值有: `0`：无活跃, `1`：活跃
+	IMActiveFlag     int64  `json:"im_active_flag,omitempty"`     // 用户消息活跃状态, 发生过如下事件, 则认为该用户消息活跃: 发送消息、回复消息、reaction、转发消息、阅读消息、查看会话、发送表情消息等, 可选值有: `0`: 无活跃, `1`: 活跃
 	SendMessengerNum int64  `json:"send_messenger_num,omitempty"` // 发送消息数
-	DocsActiveFlag   int64  `json:"docs_active_flag,omitempty"`   // 用户云文档活跃状态，"发生过如下事件，则认为该用户云文档活跃： ,事件1：文档/文件打开,事件2：进入docs相关页面：如文档详情页，space的各个页面", 可选值有: `0`：无活跃, `1`：活跃
+	DocsActiveFlag   int64  `json:"docs_active_flag,omitempty"`   // 用户云文档活跃状态, "发生过如下事件, 则认为该用户云文档活跃: 事件1: 文档/文件打开, 事件2: 进入docs相关页面: 如文档详情页, space的各个页面", 可选值有: `0`: 无活跃, `1`: 活跃
 	CreateDocsNum    int64  `json:"create_docs_num,omitempty"`    // 创建文件数
-	CalActiveFlag    int64  `json:"cal_active_flag,omitempty"`    // 用户日历活跃状态，发生过如下事件，则认为用户日历活跃，包含进入日历、创建日程、收到日程邀请等, 可选值有: `0`：无活跃, `1`：活跃
+	CalActiveFlag    int64  `json:"cal_active_flag,omitempty"`    // 用户日历活跃状态, 发生过如下事件, 则认为用户日历活跃, 包含进入日历、创建日程、收到日程邀请等, 可选值有: `0`: 无活跃, `1`: 活跃
 	CreateCalNum     int64  `json:"create_cal_num,omitempty"`     // 创建日程数
-	VCActiveFlag     int64  `json:"vc_active_flag,omitempty"`     // 用户音视频会议活跃状态，用户进入会中状态（不包含妙计和直播）即为活跃, 可选值有: `0`：无活跃, `1`：活跃
+	VCActiveFlag     int64  `json:"vc_active_flag,omitempty"`     // 用户音视频会议活跃状态, 用户进入会中状态（不包含妙计和直播）即为活跃, 可选值有: `0`: 无活跃, `1`: 活跃
 	VCDuration       int64  `json:"vc_duration,omitempty"`        // 会议时长
 	ActiveOs         string `json:"active_os,omitempty"`          // 活跃设备
 	CreateTaskNum    int64  `json:"create_task_num,omitempty"`    // 创建任务数
 	VCNum            int64  `json:"vc_num,omitempty"`             // 会议数
+}
+
+// getAdminUserStatsResp ...
+type getAdminUserStatsResp struct {
+	Code int64                  `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg  string                 `json:"msg,omitempty"`  // 错误描述
+	Data *GetAdminUserStatsResp `json:"data,omitempty"`
 }

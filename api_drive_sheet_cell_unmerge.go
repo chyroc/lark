@@ -23,7 +23,7 @@ import (
 
 // UnmergeSheetCell
 //
-// 该接口用于根据 spreadsheetToken 和维度信息拆分单元格；单次操作不超过5000行，100列。
+// 该接口用于根据 spreadsheetToken 和维度信息拆分单元格；单次操作不超过5000行, 100列。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uATNzUjLwUzM14CM1MTN
 func (r *DriveService) UnmergeSheetCell(ctx context.Context, request *UnmergeSheetCellReq, options ...MethodOptionFunc) (*UnmergeSheetCellResp, *Response, error) {
@@ -60,8 +60,13 @@ func (r *Mock) UnMockDriveUnmergeSheetCell() {
 
 // UnmergeSheetCellReq ...
 type UnmergeSheetCellReq struct {
-	SpreadSheetToken string `path:"spreadsheetToken" json:"-"` // spreadsheet 的 token，获取方式见[在线表格开发指南](https://open.feishu.cn/document/ukTMukTMukTM/uATMzUjLwEzM14CMxMTN/overview)
-	Range            string `json:"range,omitempty"`           // 查询范围，包含 sheetId 与单元格范围两部分，目前支持四种索引方式，详见[在线表格开发指南](https://open.feishu.cn/document/ukTMukTMukTM/uATMzUjLwEzM14CMxMTN/overview)
+	SpreadSheetToken string `path:"spreadsheetToken" json:"-"` // spreadsheet 的 token, 获取方式见[在线表格开发指南](https://open.feishu.cn/document/ukTMukTMukTM/uATMzUjLwEzM14CMxMTN/overview)
+	Range            string `json:"range,omitempty"`           // 查询范围, 包含 sheetId 与单元格范围两部分, 目前支持四种索引方式, 详见[在线表格开发指南](https://open.feishu.cn/document/ukTMukTMukTM/uATMzUjLwEzM14CMxMTN/overview)
+}
+
+// UnmergeSheetCellResp ...
+type UnmergeSheetCellResp struct {
+	SpreadSheetToken string `json:"spreadsheetToken,omitempty"` // spreadsheet 的 token
 }
 
 // unmergeSheetCellResp ...
@@ -69,9 +74,4 @@ type unmergeSheetCellResp struct {
 	Code int64                 `json:"code,omitempty"`
 	Msg  string                `json:"msg,omitempty"`
 	Data *UnmergeSheetCellResp `json:"data,omitempty"`
-}
-
-// UnmergeSheetCellResp ...
-type UnmergeSheetCellResp struct {
-	SpreadSheetToken string `json:"spreadsheetToken,omitempty"` // spreadsheet 的 token
 }

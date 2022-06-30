@@ -60,13 +60,6 @@ func (r *Mock) UnMockHelpdeskGetHelpdeskAgentSkillRuleList() {
 type GetHelpdeskAgentSkillRuleListReq struct {
 }
 
-// getHelpdeskAgentSkillRuleListResp ...
-type getHelpdeskAgentSkillRuleListResp struct {
-	Code int64                              `json:"code,omitempty"` // 错误码，非 0 表示失败
-	Msg  string                             `json:"msg,omitempty"`  // 错误描述
-	Data *GetHelpdeskAgentSkillRuleListResp `json:"data,omitempty"`
-}
-
 // GetHelpdeskAgentSkillRuleListResp ...
 type GetHelpdeskAgentSkillRuleListResp struct {
 	Rules []*GetHelpdeskAgentSkillRuleListRespRule `json:"rules,omitempty"` // rules列表
@@ -75,8 +68,15 @@ type GetHelpdeskAgentSkillRuleListResp struct {
 // GetHelpdeskAgentSkillRuleListRespRule ...
 type GetHelpdeskAgentSkillRuleListRespRule struct {
 	ID              string  `json:"id,omitempty"`               // rule id, 参考[获取客服技能rules](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/agent_skill_rule/list) 用于获取rules options
-	OperatorOptions []int64 `json:"operator_options,omitempty"` // rule操作数value，[客服技能及运算符](https://open.feishu.cn/document/ukTMukTMukTM/ucDOyYjL3gjM24yN4IjN/operator-options)
+	OperatorOptions []int64 `json:"operator_options,omitempty"` // rule操作数value, [客服技能及运算符](https://open.feishu.cn/document/ukTMukTMukTM/ucDOyYjL3gjM24yN4IjN/operator-options)
 	Operand         string  `json:"operand,omitempty"`          // rule 操作数的值
-	Category        int64   `json:"category,omitempty"`         // rule 类型，1-知识库，2-工单信息，3-用户飞书信息
+	Category        int64   `json:"category,omitempty"`         // rule 类型, 1-知识库, 2-工单信息, 3-用户飞书信息
 	DisplayName     string  `json:"display_name,omitempty"`     // rule 名
+}
+
+// getHelpdeskAgentSkillRuleListResp ...
+type getHelpdeskAgentSkillRuleListResp struct {
+	Code int64                              `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg  string                             `json:"msg,omitempty"`  // 错误描述
+	Data *GetHelpdeskAgentSkillRuleListResp `json:"data,omitempty"`
 }

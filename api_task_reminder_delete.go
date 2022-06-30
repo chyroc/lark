@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// DeleteTaskReminder 删除提醒时间，返回结果状态
+// DeleteTaskReminder 删除提醒时间, 返回结果状态
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/task-v1/task-reminder/delete
 func (r *TaskService) DeleteTaskReminder(ctx context.Context, request *DeleteTaskReminderReq, options ...MethodOptionFunc) (*DeleteTaskReminderResp, *Response, error) {
@@ -58,17 +58,17 @@ func (r *Mock) UnMockTaskDeleteTaskReminder() {
 
 // DeleteTaskReminderReq ...
 type DeleteTaskReminderReq struct {
-	TaskID     string `path:"task_id" json:"-"`     // 任务 ID, 示例值："83912691-2e43-47fc-94a4-d512e03984fa"
-	ReminderID string `path:"reminder_id" json:"-"` // 任务提醒时间设置的 ID（即 reminder.id）, 示例值："1"
-}
-
-// deleteTaskReminderResp ...
-type deleteTaskReminderResp struct {
-	Code int64                   `json:"code,omitempty"` // 错误码，非 0 表示失败
-	Msg  string                  `json:"msg,omitempty"`  // 错误描述
-	Data *DeleteTaskReminderResp `json:"data,omitempty"`
+	TaskID     string `path:"task_id" json:"-"`     // 任务 ID, 示例值: "83912691-2e43-47fc-94a4-d512e03984fa"
+	ReminderID string `path:"reminder_id" json:"-"` // 任务提醒时间设置的 ID（即 reminder.id）, 示例值: "1"
 }
 
 // DeleteTaskReminderResp ...
 type DeleteTaskReminderResp struct {
+}
+
+// deleteTaskReminderResp ...
+type deleteTaskReminderResp struct {
+	Code int64                   `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg  string                  `json:"msg,omitempty"`  // 错误描述
+	Data *DeleteTaskReminderResp `json:"data,omitempty"`
 }

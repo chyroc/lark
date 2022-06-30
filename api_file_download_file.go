@@ -22,12 +22,12 @@ import (
 	"io"
 )
 
-// DownloadFile 下载文件接口，只能下载应用自己上传的文件
+// DownloadFile 下载文件接口, 只能下载应用自己上传的文件
 //
 // 注意事项:
 // - 需要开启[机器人能力](https://open.feishu.cn/document/home/develop-a-bot-in-5-minutes/create-an-app)
 // - 只能下载机器人自己上传的文件
-// - 下载用户发送的资源，请使用[获取消息中的资源文件](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message-resource/get)接口
+// - 下载用户发送的资源, 请使用[获取消息中的资源文件](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message-resource/get)接口
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/file/get
 func (r *FileService) DownloadFile(ctx context.Context, request *DownloadFileReq, options ...MethodOptionFunc) (*DownloadFileResp, *Response, error) {
@@ -63,7 +63,12 @@ func (r *Mock) UnMockFileDownloadFile() {
 
 // DownloadFileReq ...
 type DownloadFileReq struct {
-	FileKey string `path:"file_key" json:"-"` // 文件的key, 示例值："file_456a92d6-c6ea-4de4-ac3f-7afcf44ac78g"
+	FileKey string `path:"file_key" json:"-"` // 文件的key, 示例值: "file_456a92d6-c6ea-4de4-ac3f-7afcf44ac78g"
+}
+
+// DownloadFileResp ...
+type DownloadFileResp struct {
+	File io.Reader `json:"file,omitempty"`
 }
 
 // downloadFileResp ...
@@ -79,9 +84,4 @@ func (r *downloadFileResp) SetReader(file io.Reader) {
 		r.Data = &DownloadFileResp{}
 	}
 	r.Data.File = file
-}
-
-// DownloadFileResp ...
-type DownloadFileResp struct {
-	File io.Reader `json:"file,omitempty"`
 }

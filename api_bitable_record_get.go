@@ -60,20 +60,13 @@ func (r *Mock) UnMockBitableGetBitableRecord() {
 
 // GetBitableRecordReq ...
 type GetBitableRecordReq struct {
-	TextFieldAsArray  *bool   `query:"text_field_as_array" json:"-"` // 控制多行文本字段数据的返回格式, true 表示以数组形式返回, 示例值：true
-	UserIDType        *IDType `query:"user_id_type" json:"-"`        // 用户 ID 类型, 示例值："open_id", 可选值有: `open_id`：用户的 open id, `union_id`：用户的 union id, `user_id`：用户的 user id, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
-	DisplayFormulaRef *bool   `query:"display_formula_ref" json:"-"` // 控制公式、查找引用是否显示完整的原样返回结果, 示例值：true
-	AutomaticFields   *bool   `query:"automatic_fields" json:"-"`    // 控制是否返回自动计算的字段，例如 `created_by`/`created_time`/`last_modified_by`/`last_modified_time`，true 表示返回, 示例值：true
-	AppToken          string  `path:"app_token" json:"-"`            // bitable app token, 示例值："bascnCMII2ORej2RItqpZZUNMIe"
-	TableID           string  `path:"table_id" json:"-"`             // table id, 示例值："tblxI2tWaxP5dG7p"
-	RecordID          string  `path:"record_id" json:"-"`            // 单条记录的 id, 示例值："recn0hoyXL"
-}
-
-// getBitableRecordResp ...
-type getBitableRecordResp struct {
-	Code int64                 `json:"code,omitempty"` // 错误码，非 0 表示失败
-	Msg  string                `json:"msg,omitempty"`  // 错误描述
-	Data *GetBitableRecordResp `json:"data,omitempty"`
+	AppToken          string  `path:"app_token" json:"-"`            // bitable app token, 示例值: "bascnCMII2ORej2RItqpZZUNMIe"
+	TableID           string  `path:"table_id" json:"-"`             // table id, 示例值: "tblxI2tWaxP5dG7p"
+	RecordID          string  `path:"record_id" json:"-"`            // 单条记录的 id, 示例值: "recn0hoyXL"
+	TextFieldAsArray  *bool   `query:"text_field_as_array" json:"-"` // 控制多行文本字段数据的返回格式, true 表示以数组形式返回, 示例值: true
+	UserIDType        *IDType `query:"user_id_type" json:"-"`        // 用户 ID 类型, 示例值: "open_id", 可选值有: `open_id`: 用户的 open id, `union_id`: 用户的 union id, `user_id`: 用户的 user id, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
+	DisplayFormulaRef *bool   `query:"display_formula_ref" json:"-"` // 控制公式、查找引用是否显示完整的原样返回结果, 示例值: true
+	AutomaticFields   *bool   `query:"automatic_fields" json:"-"`    // 控制是否返回自动计算的字段, 例如 `created_by`/`created_time`/`last_modified_by`/`last_modified_time`, true 表示返回, 示例值: true
 }
 
 // GetBitableRecordResp ...
@@ -88,7 +81,7 @@ type GetBitableRecordRespRecord struct {
 	CreatedTime      int64                                     `json:"created_time,omitempty"`       // 创建时间
 	LastModifiedBy   *GetBitableRecordRespRecordLastModifiedBy `json:"last_modified_by,omitempty"`   // 修改人
 	LastModifiedTime int64                                     `json:"last_modified_time,omitempty"` // 最近更新时间
-	Fields           map[string]interface{}                    `json:"fields,omitempty"`             // 记录字段,关于支持新增的字段类型，请参考[接入指南](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/bitable/notification)
+	Fields           map[string]interface{}                    `json:"fields,omitempty"`             // 记录字段, 关于支持新增的字段类型, 请参考[接入指南](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/bitable/notification)
 }
 
 // GetBitableRecordRespRecordCreatedBy ...
@@ -105,4 +98,11 @@ type GetBitableRecordRespRecordLastModifiedBy struct {
 	Name   string `json:"name,omitempty"`    // 中文姓名
 	EnName string `json:"en_name,omitempty"` // 英文姓名
 	Email  string `json:"email,omitempty"`   // 邮箱
+}
+
+// getBitableRecordResp ...
+type getBitableRecordResp struct {
+	Code int64                 `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg  string                `json:"msg,omitempty"`  // 错误描述
+	Data *GetBitableRecordResp `json:"data,omitempty"`
 }

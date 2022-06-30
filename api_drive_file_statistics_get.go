@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// GetDriveFileStatistics 此接口用于获取文件统计信息，包括文档阅读人数、次数和点赞数。
+// GetDriveFileStatistics 此接口用于获取文件统计信息, 包括文档阅读人数、次数和点赞数。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file-statistics/get
 func (r *DriveService) GetDriveFileStatistics(ctx context.Context, request *GetDriveFileStatisticsReq, options ...MethodOptionFunc) (*GetDriveFileStatisticsResp, *Response, error) {
@@ -58,15 +58,8 @@ func (r *Mock) UnMockDriveGetDriveFileStatistics() {
 
 // GetDriveFileStatisticsReq ...
 type GetDriveFileStatisticsReq struct {
-	FileType  FileType `query:"file_type" json:"-"` // 文档类型, 示例值："doc", 可选值有: `doc`：文档, `sheet`：表格, `mindnote`：思维笔记, `bitable`：多维表格, `wiki`：知识库, `file`：文件
-	FileToken string   `path:"file_token" json:"-"` // 文件 token, 示例值："doccnRs*******"
-}
-
-// getDriveFileStatisticsResp ...
-type getDriveFileStatisticsResp struct {
-	Code int64                       `json:"code,omitempty"` // 错误码，非 0 表示失败
-	Msg  string                      `json:"msg,omitempty"`  // 错误描述
-	Data *GetDriveFileStatisticsResp `json:"data,omitempty"`
+	FileToken string   `path:"file_token" json:"-"` // 文件 token, 示例值: "doccnfYZzTlvXqZIGTdAHKabcef"
+	FileType  FileType `query:"file_type" json:"-"` // 文档类型, 示例值: "doc", 可选值有: `doc`: 文档, `sheet`: 表格, `mindnote`: 思维笔记, `bitable`: 多维表格, `wiki`: 知识库, `file`: 文件
 }
 
 // GetDriveFileStatisticsResp ...
@@ -78,8 +71,15 @@ type GetDriveFileStatisticsResp struct {
 
 // GetDriveFileStatisticsRespStatistics ...
 type GetDriveFileStatisticsRespStatistics struct {
-	Uv        int64 `json:"uv,omitempty"`         // 文件历史访问人数，同一用户（user_id）多次访问按一次计算。
-	Pv        int64 `json:"pv,omitempty"`         // 文件历史访问次数，同一用户（user_id）多次访问按多次计算。（注：同一用户相邻两次访问间隔在半小时内视为一次访问）
-	LikeCount int64 `json:"like_count,omitempty"` // 文件历史点赞总数，若对应的文档类型不支持点赞，返回 -1
+	Uv        int64 `json:"uv,omitempty"`         // 文件历史访问人数, 同一用户（user_id）多次访问按一次计算。
+	Pv        int64 `json:"pv,omitempty"`         // 文件历史访问次数, 同一用户（user_id）多次访问按多次计算。（注: 同一用户相邻两次访问间隔在半小时内视为一次访问）
+	LikeCount int64 `json:"like_count,omitempty"` // 文件历史点赞总数, 若对应的文档类型不支持点赞, 返回 -1
 	Timestamp int64 `json:"timestamp,omitempty"`  // 时间戳（秒）
+}
+
+// getDriveFileStatisticsResp ...
+type getDriveFileStatisticsResp struct {
+	Code int64                       `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg  string                      `json:"msg,omitempty"`  // 错误描述
+	Data *GetDriveFileStatisticsResp `json:"data,omitempty"`
 }

@@ -57,25 +57,18 @@ func (r *Mock) UnMockAttendanceBatchCreateAttendanceUserDailyShift() {
 
 // BatchCreateAttendanceUserDailyShiftReq ...
 type BatchCreateAttendanceUserDailyShiftReq struct {
-	EmployeeType    EmployeeType                                            `query:"employee_type" json:"-"`     // 请求体和响应体中的 user_id 的员工工号类型, 示例值："employee_id", 可选值有: ,<md-enum>,<md-enum-item key="employee_id" >员工 employee ID，即飞书管理后台 > 组织架构 > 成员与部门 > 成员详情中的用户 ID</md-enum-item>,<md-enum-item key="employee_no" >员工工号，即飞书管理后台 > 组织架构 > 成员与部门 > 成员详情中的工号</md-enum-item>,</md-enum>
+	EmployeeType    EmployeeType                                            `query:"employee_type" json:"-"`     // 请求体和响应体中的 user_id 的员工工号类型, 示例值: "employee_id", 可选值有: <md-enum>, <md-enum-item key="employee_id" >员工 employee ID, 即飞书管理后台 > 组织架构 > 成员与部门 > 成员详情中的用户 ID</md-enum-item>, <md-enum-item key="employee_no" >员工工号, 即飞书管理后台 > 组织架构 > 成员与部门 > 成员详情中的工号</md-enum-item>, </md-enum>
 	UserDailyShifts []*BatchCreateAttendanceUserDailyShiftReqUserDailyShift `json:"user_daily_shifts,omitempty"` // 班表信息列表
-	OperatorID      *string                                                 `json:"operator_id,omitempty"`       // 操作人uid，如果您未操作考勤管理后台“API 接入”流程（详见/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/attendance-development-guidelines,），则此字段为必填字段, 示例值："dd31248a"
+	OperatorID      *string                                                 `json:"operator_id,omitempty"`       // 操作人uid, 如果您未操作[考勤管理后台“API 接入”流程](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/attendance-development-guidelines), 则此字段为必填字段, 示例值: "dd31248a"
 }
 
 // BatchCreateAttendanceUserDailyShiftReqUserDailyShift ...
 type BatchCreateAttendanceUserDailyShiftReqUserDailyShift struct {
-	GroupID string `json:"group_id,omitempty"` // 考勤组 ID，获取方式：1）[创建或修改考勤组](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/group/create) 2）[按名称查询考勤组](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/group/search) 3）[获取打卡结果](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/user_task/query), 示例值："6737202939523236110"
-	ShiftID string `json:"shift_id,omitempty"` // 班次 ID，获取方式：1）[按名称查询班次](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/shift/query) 2）[创建班次](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/shift/create), 示例值："6753520403404030215"
-	Month   int64  `json:"month,omitempty"`    // 月份, 示例值：202101
-	UserID  string `json:"user_id,omitempty"`  // 用户 ID, 示例值："abd754f7"
-	DayNo   int64  `json:"day_no,omitempty"`   // 日期, 示例值：21
-}
-
-// batchCreateAttendanceUserDailyShiftResp ...
-type batchCreateAttendanceUserDailyShiftResp struct {
-	Code int64                                    `json:"code,omitempty"` // 错误码，非 0 表示失败
-	Msg  string                                   `json:"msg,omitempty"`  // 错误描述
-	Data *BatchCreateAttendanceUserDailyShiftResp `json:"data,omitempty"`
+	GroupID string `json:"group_id,omitempty"` // 考勤组 ID, 获取方式: 1）[创建或修改考勤组](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/group/create) 2）[按名称查询考勤组](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/group/search) 3）[获取打卡结果](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/user_task/query), 示例值: "6737202939523236110"
+	ShiftID string `json:"shift_id,omitempty"` // 班次 ID, 获取方式: 1）[按名称查询班次](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/shift/query) 2）[创建班次](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/shift/create), 示例值: "6753520403404030215"
+	Month   int64  `json:"month,omitempty"`    // 月份, 示例值: 202101
+	UserID  string `json:"user_id,omitempty"`  // 用户 ID, 示例值: "abd754f7"
+	DayNo   int64  `json:"day_no,omitempty"`   // 日期, 示例值: 21
 }
 
 // BatchCreateAttendanceUserDailyShiftResp ...
@@ -85,9 +78,16 @@ type BatchCreateAttendanceUserDailyShiftResp struct {
 
 // BatchCreateAttendanceUserDailyShiftRespUserDailyShift ...
 type BatchCreateAttendanceUserDailyShiftRespUserDailyShift struct {
-	GroupID string `json:"group_id,omitempty"` // 考勤组 ID，获取方式：1）[创建或修改考勤组](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/group/create) 2）[按名称查询考勤组](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/group/search) 3）[获取打卡结果](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/user_task/query)
-	ShiftID string `json:"shift_id,omitempty"` // 班次 ID，获取方式：1）[按名称查询班次](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/shift/query) 2）[创建班次](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/shift/create)
+	GroupID string `json:"group_id,omitempty"` // 考勤组 ID, 获取方式: 1）[创建或修改考勤组](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/group/create) 2）[按名称查询考勤组](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/group/search) 3）[获取打卡结果](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/user_task/query)
+	ShiftID string `json:"shift_id,omitempty"` // 班次 ID, 获取方式: 1）[按名称查询班次](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/shift/query) 2）[创建班次](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/shift/create)
 	Month   int64  `json:"month,omitempty"`    // 月份
 	UserID  string `json:"user_id,omitempty"`  // 用户 ID
 	DayNo   int64  `json:"day_no,omitempty"`   // 日期
+}
+
+// batchCreateAttendanceUserDailyShiftResp ...
+type batchCreateAttendanceUserDailyShiftResp struct {
+	Code int64                                    `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg  string                                   `json:"msg,omitempty"`  // 错误描述
+	Data *BatchCreateAttendanceUserDailyShiftResp `json:"data,omitempty"`
 }

@@ -21,9 +21,9 @@ import (
 	"context"
 )
 
-// DetectTextLanguage 机器翻译 (MT)，支持 100 多种语言识别，返回符合 ISO 639-1 标准
+// DetectTextLanguage 机器翻译 (MT), 支持 100 多种语言识别, 返回符合 ISO 639-1 标准
 //
-// 单租户限流：20QPS，同租户下的应用没有限流，共享本租户的 20QPS 限流
+// 单租户限流: 20QPS, 同租户下的应用没有限流, 共享本租户的 20QPS 限流
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/ai/translation-v1/text/detect
 func (r *AIService) DetectTextLanguage(ctx context.Context, request *DetectTextLanguageReq, options ...MethodOptionFunc) (*DetectTextLanguageResp, *Response, error) {
@@ -59,17 +59,17 @@ func (r *Mock) UnMockAIDetectTextLanguage() {
 
 // DetectTextLanguageReq ...
 type DetectTextLanguageReq struct {
-	Text string `json:"text,omitempty"` // 需要被识别语种的文本, 示例值："你好"
-}
-
-// detectTextLanguageResp ...
-type detectTextLanguageResp struct {
-	Code int64                   `json:"code,omitempty"` // 错误码，非 0 表示失败
-	Msg  string                  `json:"msg,omitempty"`  // 错误描述
-	Data *DetectTextLanguageResp `json:"data,omitempty"`
+	Text string `json:"text,omitempty"` // 需要被识别语种的文本, 示例值: "你好"
 }
 
 // DetectTextLanguageResp ...
 type DetectTextLanguageResp struct {
-	Language string `json:"language,omitempty"` // 识别的文本语种，返回符合 ISO 639-1 标准
+	Language string `json:"language,omitempty"` // 识别的文本语种, 返回符合 ISO 639-1 标准
+}
+
+// detectTextLanguageResp ...
+type detectTextLanguageResp struct {
+	Code int64                   `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg  string                  `json:"msg,omitempty"`  // 错误描述
+	Data *DetectTextLanguageResp `json:"data,omitempty"`
 }

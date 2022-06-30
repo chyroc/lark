@@ -57,16 +57,16 @@ func (r *Mock) UnMockAttendanceDeleteAttendanceGroup() {
 
 // DeleteAttendanceGroupReq ...
 type DeleteAttendanceGroupReq struct {
-	GroupID string `path:"group_id" json:"-"` // 考勤组 ID，获取方式：1）[创建或修改考勤组](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/group/create) 2）[按名称查询考勤组](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/group/search) 3）[获取打卡结果](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/user_task/query), 示例值："6919358128597097404"
-}
-
-// deleteAttendanceGroupResp ...
-type deleteAttendanceGroupResp struct {
-	Code int64                      `json:"code,omitempty"` // 错误码，非 0 表示失败
-	Msg  string                     `json:"msg,omitempty"`  // 错误描述
-	Data *DeleteAttendanceGroupResp `json:"data,omitempty"`
+	GroupID string `path:"group_id" json:"-"` // 考勤组 ID, 获取方式: 1）[创建或修改考勤组](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/group/create) 2）[按名称查询考勤组](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/group/search) 3）[获取打卡结果](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/user_task/query), 示例值: "6919358128597097404"
 }
 
 // DeleteAttendanceGroupResp ...
 type DeleteAttendanceGroupResp struct {
+}
+
+// deleteAttendanceGroupResp ...
+type deleteAttendanceGroupResp struct {
+	Code int64                      `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg  string                     `json:"msg,omitempty"`  // 错误描述
+	Data *DeleteAttendanceGroupResp `json:"data,omitempty"`
 }

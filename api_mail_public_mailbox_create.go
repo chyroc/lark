@@ -57,15 +57,8 @@ func (r *Mock) UnMockMailCreatePublicMailbox() {
 
 // CreatePublicMailboxReq ...
 type CreatePublicMailboxReq struct {
-	Email *string `json:"email,omitempty"` // 公共邮箱地址, 示例值："test_public_mailbox@xxx.xx"
-	Name  *string `json:"name,omitempty"`  // 公共邮箱名称, 示例值："test public mailbox"
-}
-
-// createPublicMailboxResp ...
-type createPublicMailboxResp struct {
-	Code int64                    `json:"code,omitempty"` // 错误码，非 0 表示失败
-	Msg  string                   `json:"msg,omitempty"`  // 错误描述
-	Data *CreatePublicMailboxResp `json:"data,omitempty"`
+	Email *string `json:"email,omitempty"` // 公共邮箱地址, 示例值: "test_public_mailbox@xxx.xx"
+	Name  *string `json:"name,omitempty"`  // 公共邮箱名称, 示例值: "test public mailbox"
 }
 
 // CreatePublicMailboxResp ...
@@ -73,4 +66,11 @@ type CreatePublicMailboxResp struct {
 	PublicMailboxID string `json:"public_mailbox_id,omitempty"` // 公共邮箱唯一标识
 	Email           string `json:"email,omitempty"`             // 公共邮箱地址
 	Name            string `json:"name,omitempty"`              // 公共邮箱名称
+}
+
+// createPublicMailboxResp ...
+type createPublicMailboxResp struct {
+	Code int64                    `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg  string                   `json:"msg,omitempty"`  // 错误描述
+	Data *CreatePublicMailboxResp `json:"data,omitempty"`
 }

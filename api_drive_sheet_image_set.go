@@ -60,17 +60,10 @@ func (r *Mock) UnMockDriveSetSheetValueImage() {
 
 // SetSheetValueImageReq ...
 type SetSheetValueImageReq struct {
-	SpreadSheetToken string `path:"spreadsheetToken" json:"-"` // spreadsheet的token，获取方式见[在线表格开发指南](https://open.feishu.cn/document/ukTMukTMukTM/uATMzUjLwEzM14CMxMTN/overview)
-	Range            string `json:"range,omitempty"`           // 查询范围  range=<sheetId>!<开始格子>:<结束格子> 如：xxxx!A1:D5，详见[在线表格开发指南](https://open.feishu.cn/document/ukTMukTMukTM/uATMzUjLwEzM14CMxMTN/overview)。此处限定为一个格子，如: xxxx!A1:A1
-	Image            []byte `json:"image,omitempty"`           // 需要写入的图片二进制流，支持  "PNG", "JPEG", "JPG", "GIF", "BMP", "JFIF", "EXIF", "TIFF", "BPG", "WEBP", "HEIC" 等图片格式
+	SpreadSheetToken string `path:"spreadsheetToken" json:"-"` // spreadsheet的token, 获取方式见[在线表格开发指南](https://open.feishu.cn/document/ukTMukTMukTM/uATMzUjLwEzM14CMxMTN/overview)
+	Range            string `json:"range,omitempty"`           // 查询范围  range=<sheetId>!<开始格子>:<结束格子> 如: xxxx!A1:D5, 详见[在线表格开发指南](https://open.feishu.cn/document/ukTMukTMukTM/uATMzUjLwEzM14CMxMTN/overview)。此处限定为一个格子, 如: xxxx!A1:A1
+	Image            []byte `json:"image,omitempty"`           // 需要写入的图片二进制流, 支持  "PNG", "JPEG", "JPG", "GIF", "BMP", "JFIF", "EXIF", "TIFF", "BPG", "WEBP", "HEIC" 等图片格式
 	Name             string `json:"name,omitempty"`            // 写入的图片名字
-}
-
-// setSheetValueImageResp ...
-type setSheetValueImageResp struct {
-	Code int64                   `json:"code,omitempty"`
-	Msg  string                  `json:"msg,omitempty"`
-	Data *SetSheetValueImageResp `json:"data,omitempty"`
 }
 
 // SetSheetValueImageResp ...
@@ -78,4 +71,11 @@ type SetSheetValueImageResp struct {
 	SpreadSheetToken string `json:"spreadsheetToken,omitempty"` // spreadsheet 的 token
 	Revision         int64  `json:"revision,omitempty"`         // spreadsheet 的版本号
 	UpdateRange      string `json:"updateRange,omitempty"`      // 写入图片的range
+}
+
+// setSheetValueImageResp ...
+type setSheetValueImageResp struct {
+	Code int64                   `json:"code,omitempty"`
+	Msg  string                  `json:"msg,omitempty"`
+	Data *SetSheetValueImageResp `json:"data,omitempty"`
 }

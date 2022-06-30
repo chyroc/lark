@@ -23,7 +23,7 @@ import (
 
 // GetWikiTask 该方法用于获取wiki异步任务的结果
 //
-// 知识库权限要求：
+// 知识库权限要求:
 // - 为任务创建者（用户或应用/机器人）
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/wiki-v2/task/get
@@ -61,15 +61,8 @@ func (r *Mock) UnMockDriveGetWikiTask() {
 
 // GetWikiTaskReq ...
 type GetWikiTaskReq struct {
-	TaskType string `query:"task_type" json:"-"` // 任务类型, 示例值："move", 可选值有: `move`：MoveDocsToWiki任务
-	TaskID   string `path:"task_id" json:"-"`    // 任务id, 示例值："7037044037068177428-075c9481e6a0007c1df689dfbe5b55a08b6b06f7"
-}
-
-// getWikiTaskResp ...
-type getWikiTaskResp struct {
-	Code int64            `json:"code,omitempty"` // 错误码，非 0 表示失败
-	Msg  string           `json:"msg,omitempty"`  // 错误描述
-	Data *GetWikiTaskResp `json:"data,omitempty"`
+	TaskID   string `path:"task_id" json:"-"`    // 任务id, 示例值: "7037044037068177428-075c9481e6a0007c1df689dfbe5b55a08b6b06f7"
+	TaskType string `query:"task_type" json:"-"` // 任务类型, 示例值: "move", 可选值有: `move`: MoveDocsToWiki任务
 }
 
 // GetWikiTaskResp ...
@@ -94,15 +87,22 @@ type GetWikiTaskRespTaskMoveResult struct {
 type GetWikiTaskRespTaskMoveResultNode struct {
 	SpaceID         string `json:"space_id,omitempty"`          // 知识库id
 	NodeToken       string `json:"node_token,omitempty"`        // 节点token
-	ObjToken        string `json:"obj_token,omitempty"`         // 文档token，可以根据obj_type判断是属于doc、sheet还是mindnote的token(对于快捷方式，该字段是对应的实体的obj_token)
-	ObjType         string `json:"obj_type,omitempty"`          // 文档类型，对于快捷方式，该字段是对应的实体的obj_type, 可选值有: `doc`：doc, `sheet`：sheet, `mindnote`：mindnote, `bitable`：bitable, `file`：file, `docx`：docx
-	ParentNodeToken string `json:"parent_node_token,omitempty"` // 节点的父亲token。当节点为一级节点时，父亲token为空。
-	NodeType        string `json:"node_type,omitempty"`         // 节点类型, 可选值有: `origin`：实体, `shortcut`：快捷方式
-	OriginNodeToken string `json:"origin_node_token,omitempty"` // 快捷方式对应的实体node_token，当创建节点为快捷方式时，需要传该值
+	ObjToken        string `json:"obj_token,omitempty"`         // 文档token, 可以根据obj_type判断是属于doc、sheet还是mindnote的token(对于快捷方式, 该字段是对应的实体的obj_token)
+	ObjType         string `json:"obj_type,omitempty"`          // 文档类型, 对于快捷方式, 该字段是对应的实体的obj_type, 可选值有: `doc`: doc, `sheet`: sheet, `mindnote`: mindnote, `bitable`: bitable, `file`: file, `docx`: docx
+	ParentNodeToken string `json:"parent_node_token,omitempty"` // 节点的父亲token。当节点为一级节点时, 父亲token为空。
+	NodeType        string `json:"node_type,omitempty"`         // 节点类型, 可选值有: `origin`: 实体, `shortcut`: 快捷方式
+	OriginNodeToken string `json:"origin_node_token,omitempty"` // 快捷方式对应的实体node_token, 当创建节点为快捷方式时, 需要传该值
 	OriginSpaceID   string `json:"origin_space_id,omitempty"`   // 快捷方式对应的实体所在的spaceid
 	HasChild        bool   `json:"has_child,omitempty"`         // 是否有子节点
 	Title           string `json:"title,omitempty"`             // 文档标题
 	ObjCreateTime   string `json:"obj_create_time,omitempty"`   // 文档创建时间
 	ObjEditTime     string `json:"obj_edit_time,omitempty"`     // 文档最近编辑时间
 	NodeCreateTime  string `json:"node_create_time,omitempty"`  // 节点创建时间
+}
+
+// getWikiTaskResp ...
+type getWikiTaskResp struct {
+	Code int64            `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg  string           `json:"msg,omitempty"`  // 错误描述
+	Data *GetWikiTaskResp `json:"data,omitempty"`
 }

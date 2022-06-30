@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// UpdateContactGroup 使用该接口更新用户组信息，请注意更新用户组时应用的通讯录权限范围需为“全部员工”，否则会更新失败。[点击了解通讯录权限范围](https://open.feishu.cn/document/ukTMukTMukTM/uETNz4SM1MjLxUzM/v3/guides/scope_authority)。
+// UpdateContactGroup 使用该接口更新用户组信息, 请注意更新用户组时应用的通讯录权限范围需为“全部员工”, 否则会更新失败。[点击了解通讯录权限范围](https://open.feishu.cn/document/ukTMukTMukTM/uETNz4SM1MjLxUzM/v3/guides/scope_authority)。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/group/patch
 func (r *ContactService) UpdateContactGroup(ctx context.Context, request *UpdateContactGroupReq, options ...MethodOptionFunc) (*UpdateContactGroupResp, *Response, error) {
@@ -57,18 +57,18 @@ func (r *Mock) UnMockContactUpdateContactGroup() {
 
 // UpdateContactGroupReq ...
 type UpdateContactGroupReq struct {
-	GroupID     string  `path:"group_id" json:"-"`     // 用户组ID, 示例值："g187131"
-	Name        *string `json:"name,omitempty"`        // 用户组的名字，企业内唯一，最大长度：100 字符, 示例值："外包 IT 用户组"
-	Description *string `json:"description,omitempty"` // 用户组描述信息,最大长度：500 字, 示例值："IT 外包用户组，需要进行细粒度权限管控"
-}
-
-// updateContactGroupResp ...
-type updateContactGroupResp struct {
-	Code int64                   `json:"code,omitempty"` // 错误码，非 0 表示失败
-	Msg  string                  `json:"msg,omitempty"`  // 错误描述
-	Data *UpdateContactGroupResp `json:"data,omitempty"`
+	GroupID     string  `path:"group_id" json:"-"`     // 用户组ID, 示例值: "g187131"
+	Name        *string `json:"name,omitempty"`        // 用户组的名字, 企业内唯一, 最大长度: 100 字符, 示例值: "外包 IT 用户组"
+	Description *string `json:"description,omitempty"` // 用户组描述信息, 最大长度: 500 字, 示例值: "IT 外包用户组, 需要进行细粒度权限管控"
 }
 
 // UpdateContactGroupResp ...
 type UpdateContactGroupResp struct {
+}
+
+// updateContactGroupResp ...
+type updateContactGroupResp struct {
+	Code int64                   `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg  string                  `json:"msg,omitempty"`  // 错误描述
+	Data *UpdateContactGroupResp `json:"data,omitempty"`
 }

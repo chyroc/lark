@@ -57,16 +57,16 @@ func (r *Mock) UnMockSearchDeleteSearchDataSource() {
 
 // DeleteSearchDataSourceReq ...
 type DeleteSearchDataSourceReq struct {
-	DataSourceID string `path:"data_source_id" json:"-"` // 数据源的唯一标识, 示例值："6953903108179099667"
-}
-
-// deleteSearchDataSourceResp ...
-type deleteSearchDataSourceResp struct {
-	Code int64                       `json:"code,omitempty"` // 错误码，非 0 表示失败
-	Msg  string                      `json:"msg,omitempty"`  // 错误描述
-	Data *DeleteSearchDataSourceResp `json:"data,omitempty"`
+	DataSourceID string `path:"data_source_id" json:"-"` // 数据源的唯一标识, 示例值: "6953903108179099667"
 }
 
 // DeleteSearchDataSourceResp ...
 type DeleteSearchDataSourceResp struct {
+}
+
+// deleteSearchDataSourceResp ...
+type deleteSearchDataSourceResp struct {
+	Code int64                       `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg  string                      `json:"msg,omitempty"`  // 错误描述
+	Data *DeleteSearchDataSourceResp `json:"data,omitempty"`
 }

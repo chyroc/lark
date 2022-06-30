@@ -23,7 +23,7 @@ import (
 
 // GetSheetValue
 //
-// 该接口用于根据 spreadsheetToken 和 range 读取表格单个范围的值，返回数据限制为10M。
+// 该接口用于根据 spreadsheetToken 和 range 读取表格单个范围的值, 返回数据限制为10M。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/ugTMzUjL4EzM14COxMTN
 func (r *DriveService) GetSheetValue(ctx context.Context, request *GetSheetValueReq, options ...MethodOptionFunc) (*GetSheetValueResp, *Response, error) {
@@ -60,11 +60,26 @@ func (r *Mock) UnMockDriveGetSheetValue() {
 
 // GetSheetValueReq ...
 type GetSheetValueReq struct {
+	SpreadSheetToken     string  `path:"spreadsheetToken" json:"-"`      // spreadsheet 的 token, 详见电子表格[概述](https://open.feishu.cn/document/ukTMukTMukTM/uATMzUjLwEzM14CMxMTN/overview)
+	Range                string  `path:"range" json:"-"`                 // 查询范围, 包含 sheetId 与单元格范围两部分, 详见[在线表格开发指南](https://open.feishu.cn/document/ukTMukTMukTM/uATMzUjLwEzM14CMxMTN/overview)
 	ValueRenderOption    *string `query:"valueRenderOption" json:"-"`    // valueRenderOption=ToString 可返回纯文本的值(数值类型除外)；valueRenderOption=FormattedValue 计算并格式化单元格；valueRenderOption=Formula单元格中含有公式时返回公式本身；valueRenderOption=UnformattedValue计算但不对单元格进行格式化。
-	DateTimeRenderOption *string `query:"dateTimeRenderOption" json:"-"` // dateTimeRenderOption=FormattedString 计算并对时间日期按照其格式进行格式化，但不会对数字进行格式化，返回格式化后的字符串。详见[电子表格常见问题](https://open.feishu.cn/document/ukTMukTMukTM/uATMzUjLwEzM14CMxMTN/guide/sheets-faq)
-	UserIDType           *IDType `query:"user_id_type" json:"-"`         // 返回的用户id类型，可选open_id,union_id
-	SpreadSheetToken     string  `path:"spreadsheetToken" json:"-"`      // spreadsheet 的 token，详见电子表格[概述](https://open.feishu.cn/document/ukTMukTMukTM/uATMzUjLwEzM14CMxMTN/overview)
-	Range                string  `path:"range" json:"-"`                 // 查询范围，包含 sheetId 与单元格范围两部分，详见[在线表格开发指南](https://open.feishu.cn/document/ukTMukTMukTM/uATMzUjLwEzM14CMxMTN/overview)
+	DateTimeRenderOption *string `query:"dateTimeRenderOption" json:"-"` // dateTimeRenderOption=FormattedString 计算并对时间日期按照其格式进行格式化, 但不会对数字进行格式化, 返回格式化后的字符串。详见[电子表格常见问题](https://open.feishu.cn/document/ukTMukTMukTM/uATMzUjLwEzM14CMxMTN/guide/sheets-faq)
+	UserIDType           *IDType `query:"user_id_type" json:"-"`         // 返回的用户id类型, 可选open_id, union_id
+}
+
+// GetSheetValueResp ...
+type GetSheetValueResp struct {
+	Revision         int64                        `json:"revision,omitempty"`         // sheet 的版本号
+	SpreadSheetToken string                       `json:"spreadsheetToken,omitempty"` // spreadsheet 的 token, 详见电子表格[概述](https://open.feishu.cn/document/ukTMukTMukTM/uATMzUjLwEzM14CMxMTN/overview)
+	ValueRange       *GetSheetValueRespValueRange `json:"valueRange,omitempty"`       // 值与范围
+}
+
+// GetSheetValueRespValueRange ...
+type GetSheetValueRespValueRange struct {
+	MajorDimension string           `json:"majorDimension,omitempty"` // 插入维度
+	Range          string           `json:"range,omitempty"`          // 返回数据的范围, 为空时表示查询范围没有数据
+	Revision       int64            `json:"revision,omitempty"`       // sheet 的版本号
+	Values         [][]SheetContent `json:"values,omitempty"`         // 查询得到的值
 }
 
 // getSheetValueResp ...
@@ -72,19 +87,4 @@ type getSheetValueResp struct {
 	Code int64              `json:"code,omitempty"`
 	Msg  string             `json:"msg,omitempty"`
 	Data *GetSheetValueResp `json:"data,omitempty"`
-}
-
-// GetSheetValueResp ...
-type GetSheetValueResp struct {
-	Revision         int64                        `json:"revision,omitempty"`         // sheet 的版本号
-	SpreadSheetToken string                       `json:"spreadsheetToken,omitempty"` // spreadsheet 的 token，详见电子表格[概述](https://open.feishu.cn/document/ukTMukTMukTM/uATMzUjLwEzM14CMxMTN/overview)
-	ValueRange       *GetSheetValueRespValueRange `json:"valueRange,omitempty"`       // 值与范围
-}
-
-// GetSheetValueRespValueRange ...
-type GetSheetValueRespValueRange struct {
-	MajorDimension string           `json:"majorDimension,omitempty"` // 插入维度
-	Range          string           `json:"range,omitempty"`          // 返回数据的范围，为空时表示查询范围没有数据
-	Revision       int64            `json:"revision,omitempty"`       // sheet 的版本号
-	Values         [][]SheetContent `json:"values,omitempty"`         // 查询得到的值
 }

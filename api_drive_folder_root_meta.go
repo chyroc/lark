@@ -62,16 +62,16 @@ func (r *Mock) UnMockDriveGetDriveRootFolderMeta() {
 type GetDriveRootFolderMetaReq struct {
 }
 
-// getDriveRootFolderMetaResp ...
-type getDriveRootFolderMetaResp struct {
-	Code int64                       `json:"code,omitempty"`
-	Msg  string                      `json:"msg,omitempty"`
-	Data *GetDriveRootFolderMetaResp `json:"data,omitempty"`
-}
-
 // GetDriveRootFolderMetaResp ...
 type GetDriveRootFolderMetaResp struct {
 	Token  string `json:"token,omitempty"`   // 文件夹的 token
 	ID     string `json:"id,omitempty"`      // 文件夹的 id
 	UserID string `json:"user_id,omitempty"` // 文件夹的所有者 id
+}
+
+// getDriveRootFolderMetaResp ...
+type getDriveRootFolderMetaResp struct {
+	Code int64                       `json:"code,omitempty"`
+	Msg  string                      `json:"msg,omitempty"`
+	Data *GetDriveRootFolderMetaResp `json:"data,omitempty"`
 }

@@ -57,16 +57,16 @@ func (r *Mock) UnMockMailClearPublicMailboxMember() {
 
 // ClearPublicMailboxMemberReq ...
 type ClearPublicMailboxMemberReq struct {
-	PublicMailboxID string `path:"public_mailbox_id" json:"-"` // 公共邮箱唯一标识或公共邮箱地址, 示例值："xxxxxxxxxxxxxxx 或 test_public_mailbox@xxx.xx"
-}
-
-// clearPublicMailboxMemberResp ...
-type clearPublicMailboxMemberResp struct {
-	Code int64                         `json:"code,omitempty"` // 错误码，非 0 表示失败
-	Msg  string                        `json:"msg,omitempty"`  // 错误描述
-	Data *ClearPublicMailboxMemberResp `json:"data,omitempty"`
+	PublicMailboxID string `path:"public_mailbox_id" json:"-"` // 公共邮箱唯一标识或公共邮箱地址, 示例值: "xxxxxxxxxxxxxxx 或 test_public_mailbox@xxx.xx"
 }
 
 // ClearPublicMailboxMemberResp ...
 type ClearPublicMailboxMemberResp struct {
+}
+
+// clearPublicMailboxMemberResp ...
+type clearPublicMailboxMemberResp struct {
+	Code int64                         `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg  string                        `json:"msg,omitempty"`  // 错误描述
+	Data *ClearPublicMailboxMemberResp `json:"data,omitempty"`
 }

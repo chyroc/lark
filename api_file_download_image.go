@@ -22,12 +22,12 @@ import (
 	"io"
 )
 
-// DownloadImage 下载图片资源，只能下载应用自己上传且图片类型为message的图片
+// DownloadImage 下载图片资源, 只能下载应用自己上传且图片类型为message的图片
 //
 // 注意事项:
 // - 需要开启[机器人能力](https://open.feishu.cn/document/home/develop-a-bot-in-5-minutes/create-an-app)
-// - 只能下载机器人自己上传且图片类型为message的图片，avatar类型暂不支持下载；
-// - 下载用户发送的资源，请使用[获取消息中的资源文件](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message-resource/get)接口
+// - 只能下载机器人自己上传且图片类型为message的图片, avatar类型暂不支持下载；
+// - 下载用户发送的资源, 请使用[获取消息中的资源文件](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message-resource/get)接口
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/image/get
 func (r *FileService) DownloadImage(ctx context.Context, request *DownloadImageReq, options ...MethodOptionFunc) (*DownloadImageResp, *Response, error) {
@@ -63,7 +63,12 @@ func (r *Mock) UnMockFileDownloadImage() {
 
 // DownloadImageReq ...
 type DownloadImageReq struct {
-	ImageKey string `path:"image_key" json:"-"` // 图片的key, 示例值："img_8d5181ca-0aed-40f0-b0d1-b1452132afbg"
+	ImageKey string `path:"image_key" json:"-"` // 图片的key, 示例值: "img_8d5181ca-0aed-40f0-b0d1-b1452132afbg"
+}
+
+// DownloadImageResp ...
+type DownloadImageResp struct {
+	File io.Reader `json:"file,omitempty"`
 }
 
 // downloadImageResp ...
@@ -79,9 +84,4 @@ func (r *downloadImageResp) SetReader(file io.Reader) {
 		r.Data = &DownloadImageResp{}
 	}
 	r.Data.File = file
-}
-
-// DownloadImageResp ...
-type DownloadImageResp struct {
-	File io.Reader `json:"file,omitempty"`
 }

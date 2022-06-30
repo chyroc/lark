@@ -23,7 +23,7 @@ import (
 
 // SendApprovalMessage
 //
-// 此接口可以用来通过飞书审批的Bot推送消息给用户，当有新的审批待办，或者审批待办的状态有更新时，可以通过飞书审批的Bot告知用户。当然开发者也可以利用开放平台的能力自建一个全新的Bot，用来推送审批相关信息。如果出现推送成功，但是没有收到消息，可能是因为开通了审批机器人的聚合推送。
+// 此接口可以用来通过飞书审批的Bot推送消息给用户, 当有新的审批待办, 或者审批待办的状态有更新时, 可以通过飞书审批的Bot告知用户。当然开发者也可以利用开放平台的能力自建一个全新的Bot, 用来推送审批相关信息。如果出现推送成功, 但是没有收到消息, 可能是因为开通了审批机器人的聚合推送。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/ugDNyYjL4QjM24CO0IjN
 func (r *ApprovalService) SendApprovalMessage(ctx context.Context, request *SendApprovalMessageReq, options ...MethodOptionFunc) (*SendApprovalMessageResp, *Response, error) {
@@ -61,14 +61,14 @@ func (r *Mock) UnMockApprovalSendApprovalMessage() {
 type SendApprovalMessageReq struct {
 }
 
-// sendApprovalMessageResp ...
-type sendApprovalMessageResp struct {
-	Code int64                    `json:"code,omitempty"` // 错误码，非 0 表示失败
-	Msg  string                   `json:"msg,omitempty"`  // 返回码的描述
-	Data *SendApprovalMessageResp `json:"data,omitempty"` // 返回业务信息
-}
-
 // SendApprovalMessageResp ...
 type SendApprovalMessageResp struct {
-	MessageID string `json:"message_id,omitempty"` // 消息 id ，用于卡片更新
+	MessageID string `json:"message_id,omitempty"` // 消息 id, 用于卡片更新
+}
+
+// sendApprovalMessageResp ...
+type sendApprovalMessageResp struct {
+	Code int64                    `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg  string                   `json:"msg,omitempty"`  // 返回码的描述
+	Data *SendApprovalMessageResp `json:"data,omitempty"` // 返回业务信息
 }

@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// GetContactUnitDepartmentList 通过该接口获取单位绑定的部门列表，需具有获取单位的权限
+// GetContactUnitDepartmentList 通过该接口获取单位绑定的部门列表, 需具有获取单位的权限
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/unit/list_department
 func (r *ContactService) GetContactUnitDepartmentList(ctx context.Context, request *GetContactUnitDepartmentListReq, options ...MethodOptionFunc) (*GetContactUnitDepartmentListResp, *Response, error) {
@@ -57,17 +57,10 @@ func (r *Mock) UnMockContactGetContactUnitDepartmentList() {
 
 // GetContactUnitDepartmentListReq ...
 type GetContactUnitDepartmentListReq struct {
-	UnitID           string            `query:"unit_id" json:"-"`            // 单位ID, 示例值："BU121"
-	DepartmentIDType *DepartmentIDType `query:"department_id_type" json:"-"` // 此次调用中预获取的部门ID的类型, 示例值："open_department_id", 可选值有: `department_id`：以自定义department_id来标识部门, `open_department_id`：以open_department_id来标识部门, 默认值: `open_department_id`
-	PageToken        *string           `query:"page_token" json:"-"`         // 分页标记，第一次请求不填，表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token，下次遍历可采用该 page_token 获取查询结果, 示例值："AQD9/Rn9eij9Pm39ED40/dk53s4Ebp882DYfFaPFbz00L4CMZJrqGdzNyc8BcZtDbwVUvRmQTvyMYicnGWrde9X56TgdBuS+JKiSIkdexPw="
-	PageSize         *int64            `query:"page_size" json:"-"`          // 分页大小, 示例值：50, 默认值: `50`, 最大值：`100`
-}
-
-// getContactUnitDepartmentListResp ...
-type getContactUnitDepartmentListResp struct {
-	Code int64                             `json:"code,omitempty"` // 错误码，非 0 表示失败
-	Msg  string                            `json:"msg,omitempty"`  // 错误描述
-	Data *GetContactUnitDepartmentListResp `json:"data,omitempty"`
+	UnitID           string            `query:"unit_id" json:"-"`            // 单位ID, 示例值: "BU121"
+	DepartmentIDType *DepartmentIDType `query:"department_id_type" json:"-"` // 此次调用中预获取的部门ID的类型, 示例值: "open_department_id", 可选值有: `department_id`: 以自定义department_id来标识部门, `open_department_id`: 以open_department_id来标识部门, 默认值: `open_department_id`
+	PageToken        *string           `query:"page_token" json:"-"`         // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果, 示例值: "AQD9/Rn9eij9Pm39ED40/dk53s4Ebp882DYfFaPFbz00L4CMZJrqGdzNyc8BcZtDbwVUvRmQTvyMYicnGWrde9X56TgdBuS+JKiSIkdexPw="
+	PageSize         *int64            `query:"page_size" json:"-"`          // 分页大小, 示例值: 50, 默认值: `50`, 最大值: `100`
 }
 
 // GetContactUnitDepartmentListResp ...
@@ -81,4 +74,11 @@ type GetContactUnitDepartmentListResp struct {
 type GetContactUnitDepartmentListRespDepartment struct {
 	UnitID       string `json:"unit_id,omitempty"`       // 单位ID
 	DepartmentID string `json:"department_id,omitempty"` // 部门ID
+}
+
+// getContactUnitDepartmentListResp ...
+type getContactUnitDepartmentListResp struct {
+	Code int64                             `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg  string                            `json:"msg,omitempty"`  // 错误描述
+	Data *GetContactUnitDepartmentListResp `json:"data,omitempty"`
 }

@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// ExecuteSendHelpdeskNotification 审核通过后调用此接口设置推送时间，等待调度系统调度，发送消息
+// ExecuteSendHelpdeskNotification 审核通过后调用此接口设置推送时间, 等待调度系统调度, 发送消息
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/notification/execute_send
 func (r *HelpdeskService) ExecuteSendHelpdeskNotification(ctx context.Context, request *ExecuteSendHelpdeskNotificationReq, options ...MethodOptionFunc) (*ExecuteSendHelpdeskNotificationResp, *Response, error) {
@@ -58,17 +58,17 @@ func (r *Mock) UnMockHelpdeskExecuteSendHelpdeskNotification() {
 
 // ExecuteSendHelpdeskNotificationReq ...
 type ExecuteSendHelpdeskNotificationReq struct {
-	NotificationID string `path:"notification_id" json:"-"` // 创建接口返回的唯一id, 示例值："6985032626234982420"
-	SendAt         string `json:"send_at,omitempty"`        // 发送时间戳(毫秒), 示例值："1624326025000"
-}
-
-// executeSendHelpdeskNotificationResp ...
-type executeSendHelpdeskNotificationResp struct {
-	Code int64                                `json:"code,omitempty"` // 错误码，非 0 表示失败
-	Msg  string                               `json:"msg,omitempty"`  // 错误描述
-	Data *ExecuteSendHelpdeskNotificationResp `json:"data,omitempty"`
+	NotificationID string `path:"notification_id" json:"-"` // 创建接口返回的唯一id, 示例值: "6985032626234982420"
+	SendAt         string `json:"send_at,omitempty"`        // 发送时间戳(毫秒), 示例值: "1624326025000"
 }
 
 // ExecuteSendHelpdeskNotificationResp ...
 type ExecuteSendHelpdeskNotificationResp struct {
+}
+
+// executeSendHelpdeskNotificationResp ...
+type executeSendHelpdeskNotificationResp struct {
+	Code int64                                `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg  string                               `json:"msg,omitempty"`  // 错误描述
+	Data *ExecuteSendHelpdeskNotificationResp `json:"data,omitempty"`
 }
