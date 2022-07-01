@@ -21,9 +21,8 @@ import (
 	"context"
 )
 
-// TranslateText
+// TranslateText 机器翻译 (MT), 支持以下语种互译:
 //
-// 机器翻译 (MT), 支持以下语种互译:
 // "zh": 汉语；
 // "zh-Hant": 繁体汉语；
 // "en": 英语；

@@ -21,9 +21,7 @@ import (
 	"context"
 )
 
-// AddSheetDimensionRange
-//
-// 该接口用于根据 spreadsheetToken 和长度, 在末尾增加空行/列；单次操作不超过5000行或列。
+// AddSheetDimensionRange 该接口用于根据 spreadsheetToken 和长度, 在末尾增加空行/列；单次操作不超过5000行或列。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uUjMzUjL1IzM14SNyMTN
 func (r *DriveService) AddSheetDimensionRange(ctx context.Context, request *AddSheetDimensionRangeReq, options ...MethodOptionFunc) (*AddSheetDimensionRangeResp, *Response, error) {

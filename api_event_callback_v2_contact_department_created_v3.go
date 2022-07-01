@@ -21,9 +21,8 @@ import (
 	"context"
 )
 
-// EventV2ContactDepartmentCreatedV3
+// EventV2ContactDepartmentCreatedV3 创建通讯录部门时发送该事件给订阅应用。{使用示例}(url=/api/tools/api_explore/api_explore_config?project=contact&version=v3&resource=department&event=created)
 //
-// 创建通讯录部门时发送该事件给订阅应用。{使用示例}(url=/api/tools/api_explore/api_explore_config?project=contact&version=v3&resource=department&event=created)
 // 只有当应用拥有被改动字段的数据权限时, 才会接收到事件。具体的数据权限与字段的关系请参考[应用权限](https://open.feishu.cn/document/ukTMukTMukTM/uQjN3QjL0YzN04CN2cDN), 或查看事件体参数列表的字段描述。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/events/created

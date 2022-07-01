@@ -21,9 +21,8 @@ import (
 	"context"
 )
 
-// EventV2CalendarCalendarACLCreatedV4
+// EventV2CalendarCalendarACLCreatedV4 当被订阅的日历上有ACL被创建时触发此事件。{使用示例}(url=/api/tools/api_explore/api_explore_config?project=calendar&version=v4&resource=calendar.acl&event=created)
 //
-// 当被订阅的日历上有ACL被创建时触发此事件。{使用示例}(url=/api/tools/api_explore/api_explore_config?project=calendar&version=v4&resource=calendar.acl&event=created)
 // 特殊说明: 应用首先需要调用上述接口建立订阅关系。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar-acl/events/created

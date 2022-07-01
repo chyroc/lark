@@ -23,6 +23,7 @@ import (
 
 // GetCalendarEventList 该接口用于以当前身份（应用 / 用户）获取日历下的日程列表。
 //
+// 身份由 Header Authorization 的 Token 类型决定。
 // - 当前身份必须对日历有reader、writer或owner权限才会返回日程详细信息（调用[获取日历](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar/get)接口, role字段可查看权限）。
 // - 仅支持primary、shared和resource类型的日历获取日程列表。
 // - 调用时首先使用 page_token 分页拉取存量数据, 之后使用 sync_token 增量同步变更数据。

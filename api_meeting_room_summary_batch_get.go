@@ -57,7 +57,7 @@ func (r *Mock) UnMockMeetingRoomBatchGetMeetingRoomSummary() {
 
 // BatchGetMeetingRoomSummaryReq ...
 type BatchGetMeetingRoomSummaryReq struct {
-	EventUids *BatchGetMeetingRoomSummaryReqEventUid `json:"EventUids,omitempty"` // 需要查询的日程Uid和Original time
+	EventUids []*BatchGetMeetingRoomSummaryReqEventUid `json:"EventUids,omitempty"` // 需要查询的日程Uid和Original time
 }
 
 // BatchGetMeetingRoomSummaryReqEventUid ...
@@ -68,8 +68,8 @@ type BatchGetMeetingRoomSummaryReqEventUid struct {
 
 // BatchGetMeetingRoomSummaryResp ...
 type BatchGetMeetingRoomSummaryResp struct {
-	EventInfos     *BatchGetMeetingRoomSummaryRespEventInfo     `json:"EventInfos,omitempty"`     // 成功查询到的日程信息
-	ErrorEventUids *BatchGetMeetingRoomSummaryRespErrorEventUid `json:"ErrorEventUids,omitempty"` // 没有查询到的日程
+	EventInfos     []*BatchGetMeetingRoomSummaryRespEventInfo     `json:"EventInfos,omitempty"`     // 成功查询到的日程信息
+	ErrorEventUids []*BatchGetMeetingRoomSummaryRespErrorEventUid `json:"ErrorEventUids,omitempty"` // 没有查询到的日程
 }
 
 // BatchGetMeetingRoomSummaryRespErrorEventUid ...
@@ -89,8 +89,8 @@ type BatchGetMeetingRoomSummaryRespEventInfo struct {
 
 // BatchGetMeetingRoomSummaryRespEventInfoVchat ...
 type BatchGetMeetingRoomSummaryRespEventInfoVchat struct {
-	VCType      string `json:"vc_type,omitempty"`     // 视屏会议类型  可选值有: `vc`: 飞书视频会议, 取该类型时, 其他字段无效。 - `third_party`: 第三方链接视频会议, 取该类型时, icon_type、description、meeting_url字段生效。 - `no_meeting`: 无视频会议, 取该类型时, 其他字段无效。- `lark_live`: 飞书直播, 内部类型, 飞书客户端使用, API不支持创建, 只读。- `unknown`: 未知类型, 做兼容使用, 飞书客户端使用, API不支持创建, 只读。
-	IconType    string `json:"icon_type,omitempty"`   // 第三方视频会议icon类型；可以为空, 为空展示默认icon。 可选值有: `vc`: 飞书视频会议icon- `live`: 直播视频会议icon -  `default`: 默认icon
+	VCType      string `json:"vc_type,omitempty"`     // 视屏会议类型   可选值有: - `vc`: 飞书视频会议, 取该类型时, 其他字段无效。  - `third_party`: 第三方链接视频会议, 取该类型时, icon_type、description、meeting_url字段生效。  - `no_meeting`: 无视频会议, 取该类型时, 其他字段无效。 - `lark_live`: 飞书直播, 内部类型, 飞书客户端使用, API不支持创建, 只读。 - `unknown`: 未知类型, 做兼容使用, 飞书客户端使用, API不支持创建, 只读。
+	IconType    string `json:"icon_type,omitempty"`   // 第三方视频会议icon类型；可以为空, 为空展示默认icon。  可选值有: - `vc`: 飞书视频会议icon - `live`: 直播视频会议icon  -  `default`: 默认icon
 	Description string `json:"description,omitempty"` // 第三方视频会议文案, 可以为空, 为空展示默认文案
 	MeetingURL  string `json:"meeting_url,omitempty"` // 视频会议URL
 }

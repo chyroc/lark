@@ -21,9 +21,7 @@ import (
 	"context"
 )
 
-// UpdateSheetProtectedDimension
-//
-// 该接口用于根据保护范围ID修改保护范围, 单次最多支持同时修改10个ID。
+// UpdateSheetProtectedDimension 该接口用于根据保护范围ID修改保护范围, 单次最多支持同时修改10个ID。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uUTM5YjL1ETO24SNxkjN
 func (r *DriveService) UpdateSheetProtectedDimension(ctx context.Context, request *UpdateSheetProtectedDimensionReq, options ...MethodOptionFunc) (*UpdateSheetProtectedDimensionResp, *Response, error) {
@@ -68,7 +66,7 @@ type UpdateSheetProtectedDimensionReq struct {
 type UpdateSheetProtectedDimensionReqRequests struct {
 	ProtectID string                                             `json:"protectId,omitempty"` // 保护范围ID, 可以通过[获取表格元数据](https://open.feishu.cn/document/ukTMukTMukTM/uETMzUjLxEzM14SMxMTN) 接口获取
 	Dimension *UpdateSheetProtectedDimensionReqRequestsDimension `json:"dimension,omitempty"` // 行列保护信息
-	Editors   *UpdateSheetProtectedDimensionReqRequestsEditors   `json:"editors,omitempty"`   // 可编辑保护范围的用户
+	Editors   []*UpdateSheetProtectedDimensionReqRequestsEditor  `json:"editors,omitempty"`   // 可编辑保护范围的用户
 	LockInfo  *string                                            `json:"lockInfo,omitempty"`  // 保护说明
 }
 
@@ -80,20 +78,20 @@ type UpdateSheetProtectedDimensionReqRequestsDimension struct {
 	MajorDimension string `json:"majorDimension,omitempty"` // 保护范围ID对应的保护范围的维度, COLUMNS为保护列, ROWS为保护行
 }
 
-// UpdateSheetProtectedDimensionReqRequestsEditors ...
-type UpdateSheetProtectedDimensionReqRequestsEditors struct {
-	AddEditors *UpdateSheetProtectedDimensionReqRequestsEditorsAddEditors `json:"addEditors,omitempty"` // 需要增加的用户的列表, 用户需要有文档的编辑权限
-	DelEditors *UpdateSheetProtectedDimensionReqRequestsEditorsDelEditors `json:"delEditors,omitempty"` // 需要删除的用户的列表
+// UpdateSheetProtectedDimensionReqRequestsEditor ...
+type UpdateSheetProtectedDimensionReqRequestsEditor struct {
+	AddEditors []*UpdateSheetProtectedDimensionReqRequestsEditorAddEditor `json:"addEditors,omitempty"` // 需要增加的用户的列表, 用户需要有文档的编辑权限
+	DelEditors []*UpdateSheetProtectedDimensionReqRequestsEditorDelEditor `json:"delEditors,omitempty"` // 需要删除的用户的列表
 }
 
-// UpdateSheetProtectedDimensionReqRequestsEditorsAddEditors ...
-type UpdateSheetProtectedDimensionReqRequestsEditorsAddEditors struct {
+// UpdateSheetProtectedDimensionReqRequestsEditorAddEditor ...
+type UpdateSheetProtectedDimensionReqRequestsEditorAddEditor struct {
 	MemberType string `json:"memberType,omitempty"` // 用户类型, 支持userId, openId, unionId
 	MemberID   string `json:"memberId,omitempty"`   // 用户类型对应的用户ID
 }
 
-// UpdateSheetProtectedDimensionReqRequestsEditorsDelEditors ...
-type UpdateSheetProtectedDimensionReqRequestsEditorsDelEditors struct {
+// UpdateSheetProtectedDimensionReqRequestsEditorDelEditor ...
+type UpdateSheetProtectedDimensionReqRequestsEditorDelEditor struct {
 	MemberType string `json:"memberType,omitempty"` // 用户类型, 支持userId, openId, unionId
 	MemberID   string `json:"memberId,omitempty"`   // 用户类型对应的用户ID
 }
@@ -107,7 +105,7 @@ type UpdateSheetProtectedDimensionResp struct {
 type UpdateSheetProtectedDimensionRespReply struct {
 	SheetID   string                                           `json:"sheetId,omitempty"`   // sheet的id
 	Dimension *UpdateSheetProtectedDimensionRespReplyDimension `json:"dimension,omitempty"` // 成功修改的保护行列信息
-	Editors   *UpdateSheetProtectedDimensionRespReplyEditors   `json:"editors,omitempty"`   // 可编辑保护范围的用户
+	Editors   []*UpdateSheetProtectedDimensionRespReplyEditor  `json:"editors,omitempty"`   // 可编辑保护范围的用户
 	LockInfo  string                                           `json:"lockInfo,omitempty"`  // 成功修改的保护说明
 }
 
@@ -119,20 +117,20 @@ type UpdateSheetProtectedDimensionRespReplyDimension struct {
 	MajorDimension string `json:"majorDimension,omitempty"` // 保护范围的维度
 }
 
-// UpdateSheetProtectedDimensionRespReplyEditors ...
-type UpdateSheetProtectedDimensionRespReplyEditors struct {
-	AddEditors []*UpdateSheetProtectedDimensionRespReplyEditorsAddEditor `json:"addEditors,omitempty"` // 成功增加的用户的列表
-	DelEditors []*UpdateSheetProtectedDimensionRespReplyEditorsDelEditor `json:"delEditors,omitempty"` // 成功删除的用户的列表
+// UpdateSheetProtectedDimensionRespReplyEditor ...
+type UpdateSheetProtectedDimensionRespReplyEditor struct {
+	AddEditors []*UpdateSheetProtectedDimensionRespReplyEditorAddEditor `json:"addEditors,omitempty"` // 成功增加的用户的列表
+	DelEditors []*UpdateSheetProtectedDimensionRespReplyEditorDelEditor `json:"delEditors,omitempty"` // 成功删除的用户的列表
 }
 
-// UpdateSheetProtectedDimensionRespReplyEditorsAddEditor ...
-type UpdateSheetProtectedDimensionRespReplyEditorsAddEditor struct {
+// UpdateSheetProtectedDimensionRespReplyEditorAddEditor ...
+type UpdateSheetProtectedDimensionRespReplyEditorAddEditor struct {
 	MemberType string `json:"memberType,omitempty"` // 用户类型
 	MemberID   string `json:"memberId,omitempty"`   // 用户类型对应的用户ID
 }
 
-// UpdateSheetProtectedDimensionRespReplyEditorsDelEditor ...
-type UpdateSheetProtectedDimensionRespReplyEditorsDelEditor struct {
+// UpdateSheetProtectedDimensionRespReplyEditorDelEditor ...
+type UpdateSheetProtectedDimensionRespReplyEditorDelEditor struct {
 	MemberType string `json:"memberType,omitempty"` // 用户类型
 	MemberID   string `json:"memberId,omitempty"`   // 用户类型对应的用户ID
 }

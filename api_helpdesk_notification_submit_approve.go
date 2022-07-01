@@ -38,7 +38,6 @@ func (r *HelpdeskService) SubmitApproveHelpdeskNotification(ctx context.Context,
 		Body:                request,
 		MethodOption:        newMethodOption(options),
 		NeedUserAccessToken: true,
-		NeedHelpdeskAuth:    true,
 	}
 	resp := new(submitApproveHelpdeskNotificationResp)
 

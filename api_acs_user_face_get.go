@@ -63,17 +63,11 @@ type GetACSUserFaceReq struct {
 	UserIDType *IDType `query:"user_id_type" json:"-"` // 用户 ID 类型, 示例值: "open_id", 可选值有: `open_id`: 用户的 open id, `union_id`: 用户的 union id, `user_id`: 用户的 user id, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
 }
 
-// GetACSUserFaceResp ...
-type GetACSUserFaceResp struct {
-	File io.Reader `json:"file,omitempty"`
-}
-
 // getACSUserFaceResp ...
 type getACSUserFaceResp struct {
-	IsFile bool                `json:"is_file,omitempty"`
-	Code   int64               `json:"code,omitempty"`
-	Msg    string              `json:"msg,omitempty"`
-	Data   *GetACSUserFaceResp `json:"data,omitempty"`
+	Code int64               `json:"code,omitempty"`
+	Msg  string              `json:"msg,omitempty"`
+	Data *GetACSUserFaceResp `json:"data,omitempty"`
 }
 
 func (r *getACSUserFaceResp) SetReader(file io.Reader) {
@@ -81,4 +75,9 @@ func (r *getACSUserFaceResp) SetReader(file io.Reader) {
 		r.Data = &GetACSUserFaceResp{}
 	}
 	r.Data.File = file
+}
+
+// GetACSUserFaceResp ...
+type GetACSUserFaceResp struct {
+	File io.Reader `json:"file,omitempty"`
 }

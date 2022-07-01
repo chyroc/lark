@@ -21,9 +21,7 @@ import (
 	"context"
 )
 
-// EventV2ApplicationApplicationAppVersionAuditV6
-//
-// 通过订阅该事件, 可接收应用审核（通过 / 拒绝）事件{使用示例}(url=/api/tools/api_explore/api_explore_config?project=application&version=v6&resource=application.app_version&event=audit)
+// EventV2ApplicationApplicationAppVersionAuditV6 通过订阅该事件, 可接收应用审核（通过 / 拒绝）事件{使用示例}(url=/api/tools/api_explore/api_explore_config?project=application&version=v6&resource=application.app_version&event=audit)
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/application-v6/application-app_version/events/audit
 func (r *EventCallbackService) HandlerEventV2ApplicationApplicationAppVersionAuditV6(f EventV2ApplicationApplicationAppVersionAuditV6Handler) {
@@ -44,15 +42,15 @@ type EventV2ApplicationApplicationAppVersionAuditV6 struct {
 	AuditSource string                                                    `json:"audit_source,omitempty"` // 应用审核的方式, 可选值有: `administrator`: 管理员审核, `auto`: 自动免审
 }
 
-// EventV2ApplicationApplicationAppVersionAuditV6OperatorID ...
-type EventV2ApplicationApplicationAppVersionAuditV6OperatorID struct {
+// EventV2ApplicationApplicationAppVersionAuditV6CreatorID ...
+type EventV2ApplicationApplicationAppVersionAuditV6CreatorID struct {
 	UnionID string `json:"union_id,omitempty"` // 用户的 union id
 	UserID  string `json:"user_id,omitempty"`  // 用户的 user id, 字段权限要求: 获取用户 user ID
 	OpenID  string `json:"open_id,omitempty"`  // 用户的 open id
 }
 
-// EventV2ApplicationApplicationAppVersionAuditV6CreatorID ...
-type EventV2ApplicationApplicationAppVersionAuditV6CreatorID struct {
+// EventV2ApplicationApplicationAppVersionAuditV6OperatorID ...
+type EventV2ApplicationApplicationAppVersionAuditV6OperatorID struct {
 	UnionID string `json:"union_id,omitempty"` // 用户的 union id
 	UserID  string `json:"user_id,omitempty"`  // 用户的 user id, 字段权限要求: 获取用户 user ID
 	OpenID  string `json:"open_id,omitempty"`  // 用户的 open id

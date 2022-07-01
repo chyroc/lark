@@ -21,9 +21,8 @@ import (
 	"context"
 )
 
-// BatchGetUser
+// BatchGetUser 为了更好地提升该接口的安全性, 我们对其进行了升级, 请尽快迁移至[新版本>>](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/get)
 //
-// 为了更好地提升该接口的安全性, 我们对其进行了升级, 请尽快迁移至[新版本>>](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/get)
 // 该接口用于批量获取用户详细信息。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uIzNz4iM3MjLyczM
@@ -101,7 +100,7 @@ type BatchGetUserRespUserInfo struct {
 	LeaderUnionID    string                 `json:"leader_union_id,omitempty"`    // 用户直接领导的 union_id
 	Departments      []string               `json:"departments,omitempty"`        // 用户所在部门自定义 ID列表, 用户可能同时存在于多个部门
 	OpenDepartments  []string               `json:"open_departments,omitempty"`   // 用户所在部门 openID 列表, 用户可能同时存在于多个部门
-	CustomAttrs      map[string]interface{} `json:"custom_attrs,omitempty"`       // 用户的自定义属性信息。该字段返回的每一个属性包括自定义属性 ID 和自定义属性值。 企业开放了自定义用户属性且为该用户设置了自定义属性的值, 才会返回该字段
+	CustomAttrs      map[string]interface{} `json:"custom_attrs,omitempty"`       // 用户的自定义属性信息。 该字段返回的每一个属性包括自定义属性 ID 和自定义属性值。  企业开放了自定义用户属性且为该用户设置了自定义属性的值, 才会返回该字段
 }
 
 // batchGetUserResp ...

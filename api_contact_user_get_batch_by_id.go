@@ -21,10 +21,9 @@ import (
 	"context"
 )
 
-// BatchGetUserByIDOld
+// BatchGetUserByIDOld 根据用户邮箱或手机号查询用户 open_id 和 user_id, 支持批量查询。
 //
-// 根据用户邮箱或手机号查询用户 open_id 和 user_id, 支持批量查询。
-// 调用该接口需要申请 `通过手机号或邮箱获取用户 ID` 权限。只能查询到应用可用性范围内的用户 ID, 不在范围内的用户会表现为不存在。
+// 调用该接口需要申请 `通过手机号或邮箱获取用户 ID` 权限。 只能查询到应用可用性范围内的用户 ID, 不在范围内的用户会表现为不存在。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uUzMyUjL1MjM14SNzITN
 //
@@ -63,21 +62,21 @@ func (r *Mock) UnMockContactBatchGetUserByIDOld() {
 // BatchGetUserByIDOldReq ...
 type BatchGetUserByIDOldReq struct {
 	Emails  *string `query:"emails" json:"-"`  // 要查询的用户邮箱, 最多 50 条, 多个邮箱以 & 隔开。
-	Mobiles *string `query:"mobiles" json:"-"` // 要查询的用户手机号, 最多 50 条, 多个手机号以 & 隔开。非中国大陆地区的手机号需要添加以 “+” 开头的国家 / 地区代码, 并且需要进行 URL 转义。
+	Mobiles *string `query:"mobiles" json:"-"` // 要查询的用户手机号, 最多 50 条, 多个手机号以 & 隔开。 非中国大陆地区的手机号需要添加以 “+” 开头的国家 / 地区代码, 并且需要进行 URL 转义。
 }
 
 // BatchGetUserByIDOldResp ...
 type BatchGetUserByIDOldResp struct {
-	EmailUsers      map[string][]*BatchGetUserByIDOldRespEmailUser `json:"email_users,omitempty"`       // 根据邮箱查询到的用户, key 为邮箱, value 为查询到用户的 array。目前同一个邮箱最多只能查询到一个用户。
+	EmailUsers      map[string][]*BatchGetUserByIDOldRespEmailUser `json:"email_users,omitempty"`       // 根据邮箱查询到的用户, key 为邮箱, value 为查询到用户的 array。 目前同一个邮箱最多只能查询到一个用户。
 	EmailsNotExist  []string                                       `json:"emails_not_exist,omitempty"`  // 没有匹配记录的邮箱。
-	MobileUsers     map[string][]*BatchGetUserByIDOldRespEmailUser `json:"mobile_users,omitempty"`      // 根据手机号查询到的用户, key 为手机号, value 为查询到用户的 array。目前同一个手机号最多只能查询到一个用户。
+	MobileUsers     map[string][]*BatchGetUserByIDOldRespEmailUser `json:"mobile_users,omitempty"`      // 根据手机号查询到的用户, key 为手机号, value 为查询到用户的 array。 目前同一个手机号最多只能查询到一个用户。
 	MobilesNotExist []string                                       `json:"mobiles_not_exist,omitempty"` // 没有匹配记录的手机号。
 }
 
 // BatchGetUserByIDOldRespEmailUser ...
 type BatchGetUserByIDOldRespEmailUser struct {
 	OpenID string `json:"open_id,omitempty"` // 用户的 open_id。[open_id描述](https://open.feishu.cn/document/home/user-identity-introduction/open-id)
-	UserID string `json:"user_id,omitempty"` // 用户的 user_id。只有已申请 `获取用户UserID` 权限的企业自建应用返回此字段。[user_id描述](https://open.feishu.cn/document/home/user-identity-introduction/user-id)
+	UserID string `json:"user_id,omitempty"` // 用户的 user_id。 只有已申请 `获取用户UserID` 权限的企业自建应用返回此字段。[user_id描述](https://open.feishu.cn/document/home/user-identity-introduction/user-id)
 }
 
 // batchGetUserByIDOldResp ...

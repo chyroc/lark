@@ -21,7 +21,11 @@ import (
 	"github.com/chyroc/lark/internal"
 )
 
-// OpenTaskDetail 唤起任务详情页。,,**什么是「任务」**：[任务](https://www.feishu.cn/hc/zh-CN/articles/798052212434)是一个轻量级的团队任务管理工具，可有效帮助成员：集中管理任务、追踪任务进度、推进团队协作。
+// OpenTaskDetail 打开任务详情页
+//
+// 唤起任务详情页。
+//
+// **什么是「任务」**：[任务](https://www.feishu.cn/hc/zh-CN/articles/798052212434)是一个轻量级的团队任务管理工具，可有效帮助成员：集中管理任务、追踪任务进度、推进团队协作。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/uYjL24iN/applink-protocol/supported-protocol/open-todo/open-the-task-details-page
 func (r *AppLinkService) OpenTaskDetail(req *OpenTaskDetailReq) string {
@@ -31,5 +35,5 @@ func (r *AppLinkService) OpenTaskDetail(req *OpenTaskDetailReq) string {
 // OpenTaskDetailReq ...
 type OpenTaskDetailReq struct {
 	Guid string  `json:"guid,omitempty"` // 全局唯一的taskId（global unique ID）, 通过[飞书任务的 OpenAPI](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/task-v1/task/overview) 获取
-	Mode *string `json:"mode,omitempty"` // 默认在im场景下, 打开任务详情页面；`mode=app`, 在任务tab中打开详情页面
+	Mode *string `json:"mode,omitempty"` // 默认在im场景下, 打开任务详情页面； `mode=app`, 在任务tab中打开详情页面
 }

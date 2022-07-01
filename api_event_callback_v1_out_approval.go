@@ -21,9 +21,8 @@ import (
 	"context"
 )
 
-// EventV1OutApproval
+// EventV1OutApproval 了解事件订阅的使用场景和配置流程, 请点击查看 [事件订阅概述](https://open.feishu.cn/document/ukTMukTMukTM/uUTNz4SN1MjL1UzM)
 //
-// 了解事件订阅的使用场景和配置流程, 请点击查看 [事件订阅概述](https://open.feishu.cn/document/ukTMukTMukTM/uUTNz4SN1MjL1UzM)
 // 「审批」应用的表单里如果包含 [外出控件组], 则在此表单审批通过后触发此事件。
 // * 依赖权限: [访问审批应用]
 //

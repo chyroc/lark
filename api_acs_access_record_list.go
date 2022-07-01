@@ -21,9 +21,8 @@ import (
 	"context"
 )
 
-// GetACSAccessRecordList
+// GetACSAccessRecordList 用户在门禁考勤机上成功开门或打卡后, 智能门禁应用都会生成一条门禁记录。
 //
-// 用户在门禁考勤机上成功开门或打卡后, 智能门禁应用都会生成一条门禁记录。
 // 该接口返回满足查询参数的识别记录
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/acs-v1/access_record/list

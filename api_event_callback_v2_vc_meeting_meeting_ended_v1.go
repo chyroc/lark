@@ -21,9 +21,7 @@ import (
 	"context"
 )
 
-// EventV2VCMeetingMeetingEndedV1
-//
-// 发生在会议结束时
+// EventV2VCMeetingMeetingEndedV1 发生在会议结束时
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/vc-v1/meeting/events/meeting_ended
 func (r *EventCallbackService) HandlerEventV2VCMeetingMeetingEndedV1(f EventV2VCMeetingMeetingEndedV1Handler) {

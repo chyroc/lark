@@ -21,9 +21,7 @@ import (
 	"context"
 )
 
-// EventV2ACSAccessRecordCreatedV1
-//
-// 门禁设备识别用户成功后发送该事件给订阅应用{使用示例}(url=/api/tools/api_explore/api_explore_config?project=acs&version=v1&resource=access_record&event=created)
+// EventV2ACSAccessRecordCreatedV1 门禁设备识别用户成功后发送该事件给订阅应用{使用示例}(url=/api/tools/api_explore/api_explore_config?project=acs&version=v1&resource=access_record&event=created)
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/acs-v1/access_record/events/created
 func (r *EventCallbackService) HandlerEventV2ACSAccessRecordCreatedV1(f EventV2ACSAccessRecordCreatedV1Handler) {

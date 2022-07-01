@@ -21,7 +21,9 @@ import (
 	"github.com/chyroc/lark/internal"
 )
 
-// OpenCalenderAccount 打开第三方日历账户管理页，方便用户添加或导入谷歌/Exchange 日历。移动端打开页面，PC端打开弹层。
+// OpenCalenderAccount 打开第三方日历账户管理页
+//
+// 打开第三方日历账户管理页，方便用户添加或导入谷歌/Exchange 日历。移动端打开页面，PC端打开弹层。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/uYjL24iN/applink-protocol/supported-protocol/open-calender/open
 func (r *AppLinkService) OpenCalenderAccount(req *OpenCalenderAccountReq) string {

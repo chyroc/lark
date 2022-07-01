@@ -21,9 +21,7 @@ import (
 	"context"
 )
 
-// UpdateHelpdeskTicketCustomizedField
-//
-// 该接口用于更新自定义字段。
+// UpdateHelpdeskTicketCustomizedField 该接口用于更新自定义字段。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/ticket_customized_field/update-ticket-customized-field
 func (r *HelpdeskService) UpdateHelpdeskTicketCustomizedField(ctx context.Context, request *UpdateHelpdeskTicketCustomizedFieldReq, options ...MethodOptionFunc) (*UpdateHelpdeskTicketCustomizedFieldResp, *Response, error) {

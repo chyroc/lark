@@ -23,6 +23,8 @@ import (
 
 // UpdateACSUser 飞书智能门禁在人脸识别成功后会有韦根信号输出, 输出用户的卡号。
 //
+// 对于使用韦根协议的门禁系统, 企业可使用该接口录入用户卡号。
+//
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/acs-v1/user/patch
 func (r *ACSService) UpdateACSUser(ctx context.Context, request *UpdateACSUserReq, options ...MethodOptionFunc) (*UpdateACSUserResp, *Response, error) {
 	if r.cli.mock.mockACSUpdateACSUser != nil {

@@ -21,9 +21,8 @@ import (
 	"context"
 )
 
-// EventV2IMMessageReactionCreatedV1
+// EventV2IMMessageReactionCreatedV1 消息被添加某一个表情回复后触发此事件{使用示例}(url=/api/tools/api_explore/api_explore_config?project=im&version=v1&resource=message.reaction&event=created)
 //
-// 消息被添加某一个表情回复后触发此事件{使用示例}(url=/api/tools/api_explore/api_explore_config?project=im&version=v1&resource=message.reaction&event=created)
 // 注意事项:
 // - 需要开启[机器人能力](https://open.feishu.cn/document/home/develop-a-bot-in-5-minutes/create-an-app), 具备[获取单聊、群组消息] 或 [获取与发送单聊、群组消息]权限, 并订阅 [消息与群组] 分类下的 [消息被reaction] 事件才可接收推送
 // - 机器人只能收到所在群聊内的消息被添加表情回复事件

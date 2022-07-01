@@ -21,9 +21,7 @@ import (
 	"context"
 )
 
-// UpdateSheetDimensionRange
-//
-// 该接口用于根据 spreadsheetToken 和维度信息更新隐藏行列、单元格大小；单次操作不超过5000行或列。
+// UpdateSheetDimensionRange 该接口用于根据 spreadsheetToken 和维度信息更新隐藏行列、单元格大小；单次操作不超过5000行或列。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uYjMzUjL2IzM14iNyMTN
 func (r *DriveService) UpdateSheetDimensionRange(ctx context.Context, request *UpdateSheetDimensionRangeReq, options ...MethodOptionFunc) (*UpdateSheetDimensionRangeResp, *Response, error) {
@@ -86,6 +84,6 @@ type UpdateSheetDimensionRangeResp struct {
 // updateSheetDimensionRangeResp ...
 type updateSheetDimensionRangeResp struct {
 	Code int64                          `json:"code,omitempty"`
-	Msg  string                         `json:"msg,omitempty"`
 	Data *UpdateSheetDimensionRangeResp `json:"data,omitempty"`
+	Msg  string                         `json:"msg,omitempty"`
 }

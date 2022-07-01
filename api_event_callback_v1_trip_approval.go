@@ -21,9 +21,8 @@ import (
 	"context"
 )
 
-// EventV1TripApproval
+// EventV1TripApproval 了解事件订阅的使用场景和配置流程, 请点击查看 [事件订阅概述](https://open.feishu.cn/document/ukTMukTMukTM/uUTNz4SN1MjL1UzM)
 //
-// 了解事件订阅的使用场景和配置流程, 请点击查看 [事件订阅概述](https://open.feishu.cn/document/ukTMukTMukTM/uUTNz4SN1MjL1UzM)
 // 「审批」应用的表单里如果包含 [出差控件组], 则在此表单审批通过后触发此事件。
 // * 依赖权限: [访问审批应用]
 //
@@ -48,7 +47,7 @@ type EventV1TripApproval struct {
 	Schedules    []*EventV1TripApprovalEventSchedule `json:"schedules,omitempty"`
 	TripInterval int64                               `json:"trip_interval,omitempty"` // 行程总时长（秒）. 如: 3600
 	TripReason   string                              `json:"trip_reason,omitempty"`   // 出差事由. 如: xxx
-	TripPeers    []*EventV1TripApprovalEventTripPeer `json:"trip_peers,omitempty"`    // 同行人
+	TripPeers    []string                            `json:"trip_peers,omitempty"`    // 同行人
 }
 
 // EventV1TripApprovalEventSchedule ...
@@ -61,9 +60,4 @@ type EventV1TripApprovalEventSchedule struct {
 	Transportation string `json:"transportation,omitempty"`  // 交通工具. 如: xxx
 	TripType       string `json:"trip_type,omitempty"`       // 单程/往返. 如: 单程
 	Remark         string `json:"remark,omitempty"`          // 备注. 如: 备注
-}
-
-// EventV1TripApprovalEventTripPeer ...
-type EventV1TripApprovalEventTripPeer struct {
-	string `json:",omitempty"` // 如: xxx
 }

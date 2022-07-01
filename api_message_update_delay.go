@@ -22,16 +22,15 @@ import (
 	"encoding/json"
 )
 
-// UpdateMessageDelay
+// UpdateMessageDelay 用于用户交互完成后延后更新消息卡片
 //
-// 用于用户交互完成后延后更新消息卡片
 // ### 使用场景
-// 1. 用户点击卡片后业务方需要处理较长时间，无法在3s内及时返回需要展示的卡片内容
+// 1. 用户点击卡片后业务方需要处理较长时间, 无法在3s内及时返回需要展示的卡片内容
 // 2. 指定只更新一部分收到这张卡片成员（同一个`message_id`）看到的卡片内容
-// - 需要用户主动交互触发，不支持无条件更新
-// - 延迟更新使用的token有效期为30分钟，超时则无法更新卡片
-// - 调用延迟更新接口需要晚于同步返回，否则会出现不可预测行为<br>服务端处理时，可先立即 return 空串，再在30分钟内调用延迟更新接口更新卡片
-// - 只能更新用户交互对应卡片，不允许更新其他卡片
+// - 需要用户主动交互触发, 不支持无条件更新
+// - 延迟更新使用的token有效期为30分钟, 超时则无法更新卡片
+// - 调用延迟更新接口需要晚于同步返回, 否则会出现不可预测行为 服务端处理时, 可先立即 return 空串, 再在30分钟内调用延迟更新接口更新卡片
+// - 只能更新用户交互对应卡片, 不允许更新其他卡片
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uMDO1YjLzgTN24yM4UjN
 func (r *MessageService) UpdateMessageDelay(ctx context.Context, request *UpdateMessageDelayReq, options ...MethodOptionFunc) (*UpdateMessageDelayResp, *Response, error) {
@@ -67,22 +66,14 @@ func (r *Mock) UnMockMessageUpdateMessageDelay() {
 
 // UpdateMessageDelayReq ...
 type UpdateMessageDelayReq struct {
-	Token string                     `json:"token,omitempty"` // 用于更新卡片的token，不是tenant_access_token（可通过[卡片交互返回内容](https://open.feishu.cn/document/ukTMukTMukTM/uEzNwUjLxcDM14SM3ATN)获取）
-	Card  *UpdateMessageDelayReqCard `json:"card,omitempty"`  // 消息卡片的描述内容，具体参考[卡片结构](https://open.feishu.cn/document/ukTMukTMukTM/uEjNwUjLxYDM14SM2ATN)
+	Token string                     `json:"token,omitempty"` // 用于更新卡片的token, 不是tenant_access_token（可通过[卡片交互返回内容](https://open.feishu.cn/document/ukTMukTMukTM/uEzNwUjLxcDM14SM3ATN)获取）
+	Card  *UpdateMessageDelayReqCard `json:"card,omitempty"`  // 消息卡片的描述内容, 具体参考[卡片结构](https://open.feishu.cn/document/ukTMukTMukTM/uEjNwUjLxYDM14SM2ATN)
 }
 
 // UpdateMessageDelayReqCard ...
 type UpdateMessageDelayReqCard struct {
 	Card    interface{} `json:"card,omitempty"`     // 消息卡片内容
-	OpenIDs []string    `json:"open_ids,omitempty"` // 指定需要更新的用户，共享卡片默认更新所有人卡片，无需填写该字段
-}
-
-// UpdateMessageDelayReqCardCard ...
-type UpdateMessageDelayReqCardCard struct {
-}
-
-// UpdateMessageDelayResp ...
-type UpdateMessageDelayResp struct {
+	OpenIDs *string     `json:"open_ids,omitempty"` // 指定需要更新的用户, 共享卡片默认更新所有人卡片, 无需填写该字段
 }
 
 func (r UpdateMessageDelayReqCard) MarshalJSON() ([]byte, error) {
@@ -98,9 +89,13 @@ func (r UpdateMessageDelayReqCard) MarshalJSON() ([]byte, error) {
 	return json.Marshal(m)
 }
 
+// UpdateMessageDelayResp ...
+type UpdateMessageDelayResp struct {
+}
+
 // updateMessageDelayResp ...
 type updateMessageDelayResp struct {
-	Code int64                   `json:"code,omitempty"` // 返回码，非 0 表示失败
+	Code int64                   `json:"code,omitempty"` // 返回码, 非 0 表示失败
 	Msg  string                  `json:"msg,omitempty"`  // 返回码描述
 	Data *UpdateMessageDelayResp `json:"data,omitempty"`
 }

@@ -23,6 +23,8 @@ import (
 
 // DeleteCalendarTimeoffEvent 删除一个指定的请假日程, 请假日程删除, 用户个人签名页的请假信息也会消失。
 //
+// 一个应用只能删除自己创建的请假日程。
+//
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/timeoff_event/delete
 func (r *CalendarService) DeleteCalendarTimeoffEvent(ctx context.Context, request *DeleteCalendarTimeoffEventReq, options ...MethodOptionFunc) (*DeleteCalendarTimeoffEventResp, *Response, error) {
 	if r.cli.mock.mockCalendarDeleteCalendarTimeoffEvent != nil {

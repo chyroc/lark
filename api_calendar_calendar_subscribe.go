@@ -21,9 +21,8 @@ import (
 	"context"
 )
 
-// SubscribeCalendar
+// SubscribeCalendar 该接口用于以当前身份（应用 / 用户）订阅某个日历。
 //
-// 该接口用于以当前身份（应用 / 用户）订阅某个日历。
 // 身份由 Header Authorization 的 Token 类型决定。
 // - 仅可订阅类型为 primary 或 shared 的公开日历。
 // - 可订阅日历数量上限为1000。

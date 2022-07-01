@@ -70,17 +70,11 @@ type GetMessageFileReq struct {
 	Type      string `query:"type" json:"-"`      // 资源类型, 可选"image, file“； image对应消息中的 图片, 富文本消息中的图片。  file对应消息中的 文件、音频、视频、（表情包除外）, 示例值: "image"
 }
 
-// GetMessageFileResp ...
-type GetMessageFileResp struct {
-	File io.Reader `json:"file,omitempty"`
-}
-
 // getMessageFileResp ...
 type getMessageFileResp struct {
-	IsFile bool                `json:"is_file,omitempty"`
-	Code   int64               `json:"code,omitempty"`
-	Msg    string              `json:"msg,omitempty"`
-	Data   *GetMessageFileResp `json:"data,omitempty"`
+	Code int64               `json:"code,omitempty"`
+	Msg  string              `json:"msg,omitempty"`
+	Data *GetMessageFileResp `json:"data,omitempty"`
 }
 
 func (r *getMessageFileResp) SetReader(file io.Reader) {
@@ -88,4 +82,9 @@ func (r *getMessageFileResp) SetReader(file io.Reader) {
 		r.Data = &GetMessageFileResp{}
 	}
 	r.Data.File = file
+}
+
+// GetMessageFileResp ...
+type GetMessageFileResp struct {
+	File io.Reader `json:"file,omitempty"`
 }

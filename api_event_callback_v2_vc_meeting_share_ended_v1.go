@@ -21,9 +21,7 @@ import (
 	"context"
 )
 
-// EventV2VCMeetingShareEndedV1
-//
-// 发生在屏幕共享结束时
+// EventV2VCMeetingShareEndedV1 发生在屏幕共享结束时
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/vc-v1/meeting/events/share_ended
 func (r *EventCallbackService) HandlerEventV2VCMeetingShareEndedV1(f EventV2VCMeetingShareEndedV1Handler) {

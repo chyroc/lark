@@ -23,6 +23,7 @@ import (
 
 // BatchGetOKR - 当前仅支持「飞书OKR 企业版」客户使用本接口。[了解更多](https://okr.feishu.cn/price)
 //
+// - 根据OKR id批量获取OKR
 // 使用tenant_access_token需要额外申请权限以应用身份访问OKR信息
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/okr-v1/okr/batch_get

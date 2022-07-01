@@ -21,9 +21,7 @@ import (
 	"context"
 )
 
-// ApproveApprovalInstance
-//
-// 对于单个审批任务进行同意操作。同意后审批流程会流转到下一个审批人。
+// ApproveApprovalInstance 对于单个审批任务进行同意操作。同意后审批流程会流转到下一个审批人。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uMDNyUjLzQjM14yM0ITN
 func (r *ApprovalService) ApproveApprovalInstance(ctx context.Context, request *ApproveApprovalInstanceReq, options ...MethodOptionFunc) (*ApproveApprovalInstanceResp, *Response, error) {
@@ -63,7 +61,7 @@ type ApproveApprovalInstanceReq struct {
 	InstanceCode string  `json:"instance_code,omitempty"` // 审批实例 Code
 	OpenID       *string `json:"open_id,omitempty"`       // 用户open_id, 如果没有user_id, 必须要有open_id
 	UserID       string  `json:"user_id,omitempty"`       // 操作用户
-	TaskID       string  `json:"task_id,omitempty"`       // 任务 ID审批实例详情task_list中id, 详情请参考[](https://open.feishu.cn/document/ukTMukTMukTM/uEDNyUjLxQjM14SM0ITN)
+	TaskID       string  `json:"task_id,omitempty"`       // 任务 ID 审批实例详情task_list中id, 详情请参考[](https://open.feishu.cn/document/ukTMukTMukTM/uEDNyUjLxQjM14SM0ITN)
 	Comment      *string `json:"comment,omitempty"`       // 意见
 }
 

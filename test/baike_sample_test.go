@@ -45,13 +45,6 @@ func Test_Baike_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
-			_, _, err := moduleCli.CreateBaikeUpdate(ctx, &lark.CreateBaikeUpdateReq{})
-			as.NotNil(err)
-			as.Equal(err.Error(), "failed")
-		})
-
-		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.CreateBaikeEntity(ctx, &lark.CreateBaikeEntityReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "failed")
@@ -59,7 +52,14 @@ func Test_Baike_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
-			_, _, err := moduleCli.UpdateBaikeEntity(ctx, &lark.UpdateBaikeEntityReq{})
+			_, _, err := moduleCli.CreateBaikeUpdate(ctx, &lark.CreateBaikeUpdateReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.GetBaikeClassificationList(ctx, &lark.GetBaikeClassificationListReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "failed")
 		})
@@ -80,6 +80,13 @@ func Test_Baike_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
+			_, _, err := moduleCli.HighlightBaikeEntity(ctx, &lark.HighlightBaikeEntityReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
 			_, _, err := moduleCli.MatchBaikeEntity(ctx, &lark.MatchBaikeEntityReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "failed")
@@ -94,14 +101,7 @@ func Test_Baike_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
-			_, _, err := moduleCli.HighlightBaikeEntity(ctx, &lark.HighlightBaikeEntityReq{})
-			as.NotNil(err)
-			as.Equal(err.Error(), "failed")
-		})
-
-		t.Run("", func(t *testing.T) {
-
-			_, _, err := moduleCli.GetBaikeClassificationList(ctx, &lark.GetBaikeClassificationListReq{})
+			_, _, err := moduleCli.UpdateBaikeEntity(ctx, &lark.UpdateBaikeEntityReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "failed")
 		})
@@ -126,18 +126,6 @@ func Test_Baike_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
-			cli.Mock().MockBaikeCreateBaikeUpdate(func(ctx context.Context, request *lark.CreateBaikeUpdateReq, options ...lark.MethodOptionFunc) (*lark.CreateBaikeUpdateResp, *lark.Response, error) {
-				return nil, nil, fmt.Errorf("mock-failed")
-			})
-			defer cli.Mock().UnMockBaikeCreateBaikeUpdate()
-
-			_, _, err := moduleCli.CreateBaikeUpdate(ctx, &lark.CreateBaikeUpdateReq{})
-			as.NotNil(err)
-			as.Equal(err.Error(), "mock-failed")
-		})
-
-		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockBaikeCreateBaikeEntity(func(ctx context.Context, request *lark.CreateBaikeEntityReq, options ...lark.MethodOptionFunc) (*lark.CreateBaikeEntityResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -150,12 +138,24 @@ func Test_Baike_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
-			cli.Mock().MockBaikeUpdateBaikeEntity(func(ctx context.Context, request *lark.UpdateBaikeEntityReq, options ...lark.MethodOptionFunc) (*lark.UpdateBaikeEntityResp, *lark.Response, error) {
+			cli.Mock().MockBaikeCreateBaikeUpdate(func(ctx context.Context, request *lark.CreateBaikeUpdateReq, options ...lark.MethodOptionFunc) (*lark.CreateBaikeUpdateResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
-			defer cli.Mock().UnMockBaikeUpdateBaikeEntity()
+			defer cli.Mock().UnMockBaikeCreateBaikeUpdate()
 
-			_, _, err := moduleCli.UpdateBaikeEntity(ctx, &lark.UpdateBaikeEntityReq{})
+			_, _, err := moduleCli.CreateBaikeUpdate(ctx, &lark.CreateBaikeUpdateReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			cli.Mock().MockBaikeGetBaikeClassificationList(func(ctx context.Context, request *lark.GetBaikeClassificationListReq, options ...lark.MethodOptionFunc) (*lark.GetBaikeClassificationListResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockBaikeGetBaikeClassificationList()
+
+			_, _, err := moduleCli.GetBaikeClassificationList(ctx, &lark.GetBaikeClassificationListReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "mock-failed")
 		})
@@ -186,6 +186,18 @@ func Test_Baike_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
+			cli.Mock().MockBaikeHighlightBaikeEntity(func(ctx context.Context, request *lark.HighlightBaikeEntityReq, options ...lark.MethodOptionFunc) (*lark.HighlightBaikeEntityResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockBaikeHighlightBaikeEntity()
+
+			_, _, err := moduleCli.HighlightBaikeEntity(ctx, &lark.HighlightBaikeEntityReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
 			cli.Mock().MockBaikeMatchBaikeEntity(func(ctx context.Context, request *lark.MatchBaikeEntityReq, options ...lark.MethodOptionFunc) (*lark.MatchBaikeEntityResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -210,24 +222,12 @@ func Test_Baike_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
-			cli.Mock().MockBaikeHighlightBaikeEntity(func(ctx context.Context, request *lark.HighlightBaikeEntityReq, options ...lark.MethodOptionFunc) (*lark.HighlightBaikeEntityResp, *lark.Response, error) {
+			cli.Mock().MockBaikeUpdateBaikeEntity(func(ctx context.Context, request *lark.UpdateBaikeEntityReq, options ...lark.MethodOptionFunc) (*lark.UpdateBaikeEntityResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
-			defer cli.Mock().UnMockBaikeHighlightBaikeEntity()
+			defer cli.Mock().UnMockBaikeUpdateBaikeEntity()
 
-			_, _, err := moduleCli.HighlightBaikeEntity(ctx, &lark.HighlightBaikeEntityReq{})
-			as.NotNil(err)
-			as.Equal(err.Error(), "mock-failed")
-		})
-
-		t.Run("", func(t *testing.T) {
-
-			cli.Mock().MockBaikeGetBaikeClassificationList(func(ctx context.Context, request *lark.GetBaikeClassificationListReq, options ...lark.MethodOptionFunc) (*lark.GetBaikeClassificationListResp, *lark.Response, error) {
-				return nil, nil, fmt.Errorf("mock-failed")
-			})
-			defer cli.Mock().UnMockBaikeGetBaikeClassificationList()
-
-			_, _, err := moduleCli.GetBaikeClassificationList(ctx, &lark.GetBaikeClassificationListReq{})
+			_, _, err := moduleCli.UpdateBaikeEntity(ctx, &lark.UpdateBaikeEntityReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "mock-failed")
 		})
@@ -247,6 +247,13 @@ func Test_Baike_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
+			_, _, err := moduleCli.CreateBaikeEntity(ctx, &lark.CreateBaikeEntityReq{})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+
 			_, _, err := moduleCli.CreateBaikeUpdate(ctx, &lark.CreateBaikeUpdateReq{
 				DraftID: "x",
 			})
@@ -256,16 +263,7 @@ func Test_Baike_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
-			_, _, err := moduleCli.CreateBaikeEntity(ctx, &lark.CreateBaikeEntityReq{})
-			as.NotNil(err)
-			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
-		})
-
-		t.Run("", func(t *testing.T) {
-
-			_, _, err := moduleCli.UpdateBaikeEntity(ctx, &lark.UpdateBaikeEntityReq{
-				EntityID: "x",
-			})
+			_, _, err := moduleCli.GetBaikeClassificationList(ctx, &lark.GetBaikeClassificationListReq{})
 			as.NotNil(err)
 			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
 		})
@@ -288,6 +286,13 @@ func Test_Baike_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
+			_, _, err := moduleCli.HighlightBaikeEntity(ctx, &lark.HighlightBaikeEntityReq{})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+
 			_, _, err := moduleCli.MatchBaikeEntity(ctx, &lark.MatchBaikeEntityReq{})
 			as.NotNil(err)
 			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
@@ -302,14 +307,9 @@ func Test_Baike_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
-			_, _, err := moduleCli.HighlightBaikeEntity(ctx, &lark.HighlightBaikeEntityReq{})
-			as.NotNil(err)
-			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
-		})
-
-		t.Run("", func(t *testing.T) {
-
-			_, _, err := moduleCli.GetBaikeClassificationList(ctx, &lark.GetBaikeClassificationListReq{})
+			_, _, err := moduleCli.UpdateBaikeEntity(ctx, &lark.UpdateBaikeEntityReq{
+				EntityID: "x",
+			})
 			as.NotNil(err)
 			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
 		})
@@ -332,6 +332,13 @@ func Test_Baike_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
+			_, _, err := moduleCli.CreateBaikeEntity(ctx, &lark.CreateBaikeEntityReq{})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+
 			_, _, err := moduleCli.CreateBaikeUpdate(ctx, &lark.CreateBaikeUpdateReq{
 				DraftID: "x",
 			})
@@ -341,16 +348,7 @@ func Test_Baike_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
-			_, _, err := moduleCli.CreateBaikeEntity(ctx, &lark.CreateBaikeEntityReq{})
-			as.NotNil(err)
-			as.Equal("fake raw request", err.Error())
-		})
-
-		t.Run("", func(t *testing.T) {
-
-			_, _, err := moduleCli.UpdateBaikeEntity(ctx, &lark.UpdateBaikeEntityReq{
-				EntityID: "x",
-			})
+			_, _, err := moduleCli.GetBaikeClassificationList(ctx, &lark.GetBaikeClassificationListReq{})
 			as.NotNil(err)
 			as.Equal("fake raw request", err.Error())
 		})
@@ -373,6 +371,13 @@ func Test_Baike_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
+			_, _, err := moduleCli.HighlightBaikeEntity(ctx, &lark.HighlightBaikeEntityReq{})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+
 			_, _, err := moduleCli.MatchBaikeEntity(ctx, &lark.MatchBaikeEntityReq{})
 			as.NotNil(err)
 			as.Equal("fake raw request", err.Error())
@@ -387,14 +392,9 @@ func Test_Baike_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
-			_, _, err := moduleCli.HighlightBaikeEntity(ctx, &lark.HighlightBaikeEntityReq{})
-			as.NotNil(err)
-			as.Equal("fake raw request", err.Error())
-		})
-
-		t.Run("", func(t *testing.T) {
-
-			_, _, err := moduleCli.GetBaikeClassificationList(ctx, &lark.GetBaikeClassificationListReq{})
+			_, _, err := moduleCli.UpdateBaikeEntity(ctx, &lark.UpdateBaikeEntityReq{
+				EntityID: "x",
+			})
 			as.NotNil(err)
 			as.Equal("fake raw request", err.Error())
 		})

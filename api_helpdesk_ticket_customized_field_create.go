@@ -21,9 +21,7 @@ import (
 	"context"
 )
 
-// CreateHelpdeskTicketCustomizedField
-//
-// 该接口用于创建自定义字段
+// CreateHelpdeskTicketCustomizedField 该接口用于创建自定义字段
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/ticket_customized_field/create-ticket-customized-field
 func (r *HelpdeskService) CreateHelpdeskTicketCustomizedField(ctx context.Context, request *CreateHelpdeskTicketCustomizedFieldReq, options ...MethodOptionFunc) (*CreateHelpdeskTicketCustomizedFieldResp, *Response, error) {

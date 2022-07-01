@@ -21,9 +21,8 @@ import (
 	"context"
 )
 
-// GetDriveFolderChildren
+// GetDriveFolderChildren 获取用户云空间中指定文件夹下的文件清单。清单类型包括文件、各种在线文档（文档、电子表格、多维表格、思维笔记）、文件夹和快捷方式。该接口不支持分页, 并且不会递归的获取子文件夹的清单。
 //
-// 获取用户云空间中指定文件夹下的文件清单。清单类型包括文件、各种在线文档（文档、电子表格、多维表格、思维笔记）、文件夹和快捷方式。该接口不支持分页, 并且不会递归的获取子文件夹的清单。
 // 为了更好地提升该接口的安全性, 我们对其进行了升级, 请尽快迁移至
 // [新版本>>](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file/list)
 //

@@ -21,9 +21,7 @@ import (
 	"context"
 )
 
-// SearchApprovalInstance
-//
-// 该接口通过不同条件查询审批系统中符合条件的审批实例列表。
+// SearchApprovalInstance 该接口通过不同条件查询审批系统中符合条件的审批实例列表。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uQjMxYjL0ITM24CNyEjN
 func (r *ApprovalService) SearchApprovalInstance(ctx context.Context, request *SearchApprovalInstanceReq, options ...MethodOptionFunc) (*SearchApprovalInstanceResp, *Response, error) {
@@ -62,15 +60,15 @@ type SearchApprovalInstanceReq struct {
 	UserID                string  `json:"user_id,omitempty"`                  // 用户 id
 	ApprovalCode          *string `json:"approval_code,omitempty"`            // 审批定义 code
 	InstanceCode          *string `json:"instance_code,omitempty"`            // 审批实例 code
-	InstanceExternalID    *string `json:"instance_external_id,omitempty"`     // 审批实例第三方 id 注: 和 approval_code 取并集
-	GroupExternalID       *string `json:"group_external_id,omitempty"`        // 审批定义分组第三方 id 注: 和 instance_code 取并集
+	InstanceExternalID    *string `json:"instance_external_id,omitempty"`     // 审批实例第三方 id  注: 和 approval_code 取并集
+	GroupExternalID       *string `json:"group_external_id,omitempty"`        // 审批定义分组第三方 id  注: 和 instance_code 取并集
 	InstanceTitle         *string `json:"instance_title,omitempty"`           // 审批实例标题（只有第三方审批有）
-	InstanceStatus        *string `json:"instance_status,omitempty"`          // 审批实例状态REJECT: 拒绝PENDING: 审批中RECALL: 撤回DELETED: 已删除APPROVED: 通过注: 若不设置, 查询全部状态若不在集合中, 报错
+	InstanceStatus        *string `json:"instance_status,omitempty"`          // 审批实例状态 REJECT: 拒绝 PENDING: 审批中 RECALL: 撤回 DELETED: 已删除 APPROVED: 通过 注: 若不设置, 查询全部状态 若不在集合中, 报错
 	InstanceStartTimeFrom *int64  `json:"instance_start_time_from,omitempty"` // 实例查询开始时间（unix毫秒时间戳）
 	InstanceStartTimeTo   *int64  `json:"instance_start_time_to,omitempty"`   // 实例查询结束时间  (unix毫秒时间戳)
 	Locale                *string `json:"locale,omitempty"`                   // 地区 （zh-CN、en-US、ja-JP）
-	Offset                *int64  `json:"offset,omitempty"`                   // 查询偏移量 注: 不得超过10000
-	Limit                 *int64  `json:"limit,omitempty"`                    // 查询限制量 注: 不得超过200不设置默认查询10条数据
+	Offset                *int64  `json:"offset,omitempty"`                   // 查询偏移量  注: 不得超过10000
+	Limit                 *int64  `json:"limit,omitempty"`                    // 查询限制量  注: 不得超过200 不设置默认查询10条数据
 }
 
 // SearchApprovalInstanceResp ...
@@ -101,12 +99,8 @@ type SearchApprovalInstanceRespInstanceApprovalExternal struct {
 
 // SearchApprovalInstanceRespInstanceGroup ...
 type SearchApprovalInstanceRespInstanceGroup struct {
-	ExternalID *SearchApprovalInstanceRespInstanceGroupExternalID `json:"external_id,omitempty"` // 审批定义分组外部 id
-}
-
-// SearchApprovalInstanceRespInstanceGroupExternalID ...
-type SearchApprovalInstanceRespInstanceGroupExternalID struct {
-	Name string `json:"name,omitempty"` // 审批定义分组名称
+	ExternalID string `json:"external_id,omitempty"` // 审批定义分组外部 id
+	Name       string `json:"name,omitempty"`        // 审批定义分组名称
 }
 
 // SearchApprovalInstanceRespInstanceInstance ...

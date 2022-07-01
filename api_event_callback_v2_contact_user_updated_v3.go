@@ -21,9 +21,8 @@ import (
 	"context"
 )
 
-// EventV2ContactUserUpdatedV3
+// EventV2ContactUserUpdatedV3 通过该事件订阅员工变更。old_object中只展示更新的字段的原始值。{使用示例}(url=/api/tools/api_explore/api_explore_config?project=contact&version=v3&resource=user&event=updated)
 //
-// 通过该事件订阅员工变更。old_object中只展示更新的字段的原始值。{使用示例}(url=/api/tools/api_explore/api_explore_config?project=contact&version=v3&resource=user&event=updated)
 // 只有当应用拥有被改动字段的数据权限时, 才会接收到事件。具体的数据权限与字段的关系请参考[应用权限](https://open.feishu.cn/document/ukTMukTMukTM/uQjN3QjL0YzN04CN2cDN), 或查看事件体参数列表的字段描述。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/events/updated
@@ -75,22 +74,6 @@ type EventV2ContactUserUpdatedV3ObjectAvatar struct {
 	AvatarOrigin string `json:"avatar_origin,omitempty"` // 原始头像链接
 }
 
-// EventV2ContactUserUpdatedV3ObjectStatus ...
-type EventV2ContactUserUpdatedV3ObjectStatus struct {
-	IsFrozen    bool `json:"is_frozen,omitempty"`    // 是否暂停
-	IsResigned  bool `json:"is_resigned,omitempty"`  // 是否离职
-	IsActivated bool `json:"is_activated,omitempty"` // 是否激活
-	IsExited    bool `json:"is_exited,omitempty"`    // 是否主动退出, 主动退出一段时间后用户会自动转为已离职
-	IsUnjoin    bool `json:"is_unjoin,omitempty"`    // 是否未加入, 需要用户自主确认才能加入团队
-}
-
-// EventV2ContactUserUpdatedV3ObjectOrder ...
-type EventV2ContactUserUpdatedV3ObjectOrder struct {
-	DepartmentID    string `json:"department_id,omitempty"`    // 排序信息对应的部门ID, ID值与查询参数中的department_id_type 对应, 不同 ID 的说明参见 [部门ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/field-overview)
-	UserOrder       int64  `json:"user_order,omitempty"`       // 用户在其直属部门内的排序, 数值越大, 排序越靠前
-	DepartmentOrder int64  `json:"department_order,omitempty"` // 用户所属的多个部门间的排序, 数值越大, 排序越靠前
-}
-
 // EventV2ContactUserUpdatedV3ObjectCustomAttr ...
 type EventV2ContactUserUpdatedV3ObjectCustomAttr struct {
 	Type  string                                            `json:"type,omitempty"`  // 自定义字段类型, `TEXT`: 文本, `HREF`: 网页, `ENUMERATION`: 枚举, `PICTURE_ENUM`: 图片, `GENERIC_USER`: 用户, [自定义字段相关常见问题](https://open.feishu.cn/document/ugTN1YjL4UTN24CO1UjN/uQzN1YjL0cTN24CN3UjN)
@@ -114,6 +97,22 @@ type EventV2ContactUserUpdatedV3ObjectCustomAttrValue struct {
 type EventV2ContactUserUpdatedV3ObjectCustomAttrValueGenericUser struct {
 	ID   string `json:"id,omitempty"`   // 用户的user_id [用户相关的 ID 概念](https://open.feishu.cn/document/home/user-identity-introduction/introduction)
 	Type int64  `json:"type,omitempty"` // 用户类型    1: 用户
+}
+
+// EventV2ContactUserUpdatedV3ObjectOrder ...
+type EventV2ContactUserUpdatedV3ObjectOrder struct {
+	DepartmentID    string `json:"department_id,omitempty"`    // 排序信息对应的部门ID, ID值与查询参数中的department_id_type 对应, 不同 ID 的说明参见 [部门ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/field-overview)
+	UserOrder       int64  `json:"user_order,omitempty"`       // 用户在其直属部门内的排序, 数值越大, 排序越靠前
+	DepartmentOrder int64  `json:"department_order,omitempty"` // 用户所属的多个部门间的排序, 数值越大, 排序越靠前
+}
+
+// EventV2ContactUserUpdatedV3ObjectStatus ...
+type EventV2ContactUserUpdatedV3ObjectStatus struct {
+	IsFrozen    bool `json:"is_frozen,omitempty"`    // 是否暂停
+	IsResigned  bool `json:"is_resigned,omitempty"`  // 是否离职
+	IsActivated bool `json:"is_activated,omitempty"` // 是否激活
+	IsExited    bool `json:"is_exited,omitempty"`    // 是否主动退出, 主动退出一段时间后用户会自动转为已离职
+	IsUnjoin    bool `json:"is_unjoin,omitempty"`    // 是否未加入, 需要用户自主确认才能加入团队
 }
 
 // EventV2ContactUserUpdatedV3OldObject ...
@@ -150,22 +149,6 @@ type EventV2ContactUserUpdatedV3OldObjectAvatar struct {
 	AvatarOrigin string `json:"avatar_origin,omitempty"` // 原始头像链接
 }
 
-// EventV2ContactUserUpdatedV3OldObjectStatus ...
-type EventV2ContactUserUpdatedV3OldObjectStatus struct {
-	IsFrozen    bool `json:"is_frozen,omitempty"`    // 是否暂停
-	IsResigned  bool `json:"is_resigned,omitempty"`  // 是否离职
-	IsActivated bool `json:"is_activated,omitempty"` // 是否激活
-	IsExited    bool `json:"is_exited,omitempty"`    // 是否主动退出, 主动退出一段时间后用户会自动转为已离职
-	IsUnjoin    bool `json:"is_unjoin,omitempty"`    // 是否未加入, 需要用户自主确认才能加入团队
-}
-
-// EventV2ContactUserUpdatedV3OldObjectOrder ...
-type EventV2ContactUserUpdatedV3OldObjectOrder struct {
-	DepartmentID    string `json:"department_id,omitempty"`    // 排序信息对应的部门ID, ID值与查询参数中的department_id_type 对应, 不同 ID 的说明参见 [部门ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/field-overview)
-	UserOrder       int64  `json:"user_order,omitempty"`       // 用户在其直属部门内的排序, 数值越大, 排序越靠前
-	DepartmentOrder int64  `json:"department_order,omitempty"` // 用户所属的多个部门间的排序, 数值越大, 排序越靠前
-}
-
 // EventV2ContactUserUpdatedV3OldObjectCustomAttr ...
 type EventV2ContactUserUpdatedV3OldObjectCustomAttr struct {
 	Type  string                                               `json:"type,omitempty"`  // 自定义字段类型, `TEXT`: 文本, `HREF`: 网页, `ENUMERATION`: 枚举, `PICTURE_ENUM`: 图片, `GENERIC_USER`: 用户, [自定义字段相关常见问题](https://open.feishu.cn/document/ugTN1YjL4UTN24CO1UjN/uQzN1YjL0cTN24CN3UjN)
@@ -189,4 +172,20 @@ type EventV2ContactUserUpdatedV3OldObjectCustomAttrValue struct {
 type EventV2ContactUserUpdatedV3OldObjectCustomAttrValueGenericUser struct {
 	ID   string `json:"id,omitempty"`   // 用户的user_id [用户相关的 ID 概念](https://open.feishu.cn/document/home/user-identity-introduction/introduction)
 	Type int64  `json:"type,omitempty"` // 用户类型    1: 用户
+}
+
+// EventV2ContactUserUpdatedV3OldObjectOrder ...
+type EventV2ContactUserUpdatedV3OldObjectOrder struct {
+	DepartmentID    string `json:"department_id,omitempty"`    // 排序信息对应的部门ID, ID值与查询参数中的department_id_type 对应, 不同 ID 的说明参见 [部门ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/field-overview)
+	UserOrder       int64  `json:"user_order,omitempty"`       // 用户在其直属部门内的排序, 数值越大, 排序越靠前
+	DepartmentOrder int64  `json:"department_order,omitempty"` // 用户所属的多个部门间的排序, 数值越大, 排序越靠前
+}
+
+// EventV2ContactUserUpdatedV3OldObjectStatus ...
+type EventV2ContactUserUpdatedV3OldObjectStatus struct {
+	IsFrozen    bool `json:"is_frozen,omitempty"`    // 是否暂停
+	IsResigned  bool `json:"is_resigned,omitempty"`  // 是否离职
+	IsActivated bool `json:"is_activated,omitempty"` // 是否激活
+	IsExited    bool `json:"is_exited,omitempty"`    // 是否主动退出, 主动退出一段时间后用户会自动转为已离职
+	IsUnjoin    bool `json:"is_unjoin,omitempty"`    // 是否未加入, 需要用户自主确认才能加入团队
 }

@@ -22,9 +22,8 @@ import (
 	"io"
 )
 
-// DownloadEHRAttachments
+// DownloadEHRAttachments 根据文件 token 下载文件。
 //
-// 根据文件 token 下载文件。
 // 调用 「批量获取员工花名册信息」接口的返回值中, 「文件」类型的字段 id, 即是文件 token
 // ![image.png](//sf1-ttcdn-tos.pstatp.com/obj/open-platform-opendoc/bed391d2a8ce6ed2d5985ea69bf92850_9GY1mnuDXP.png)
 //
@@ -65,17 +64,11 @@ type DownloadEHRAttachmentsReq struct {
 	Token string `path:"token" json:"-"` // 文件 token, 示例值: "09bf7b924f9a4a69875788891b5970d8"
 }
 
-// DownloadEHRAttachmentsResp ...
-type DownloadEHRAttachmentsResp struct {
-	File io.Reader `json:"file,omitempty"`
-}
-
 // downloadEHRAttachmentsResp ...
 type downloadEHRAttachmentsResp struct {
-	IsFile bool                        `json:"is_file,omitempty"`
-	Code   int64                       `json:"code,omitempty"`
-	Msg    string                      `json:"msg,omitempty"`
-	Data   *DownloadEHRAttachmentsResp `json:"data,omitempty"`
+	Code int64                       `json:"code,omitempty"`
+	Msg  string                      `json:"msg,omitempty"`
+	Data *DownloadEHRAttachmentsResp `json:"data,omitempty"`
 }
 
 func (r *downloadEHRAttachmentsResp) SetReader(file io.Reader) {
@@ -83,4 +76,9 @@ func (r *downloadEHRAttachmentsResp) SetReader(file io.Reader) {
 		r.Data = &DownloadEHRAttachmentsResp{}
 	}
 	r.Data.File = file
+}
+
+// DownloadEHRAttachmentsResp ...
+type DownloadEHRAttachmentsResp struct {
+	File io.Reader `json:"file,omitempty"`
 }

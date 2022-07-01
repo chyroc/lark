@@ -68,7 +68,6 @@ func Test_Jssdk_Sample_Failed(t *testing.T) {
 		moduleCli := cli.Jssdk
 
 		t.Run("", func(t *testing.T) {
-			t.Skip()
 
 			_, _, err := moduleCli.GetJssdkTicket(ctx, &lark.GetJssdkTicketReq{})
 			as.NotNil(err)

@@ -21,9 +21,7 @@ import (
 	"context"
 )
 
-// EventV2ApplicationApplicationFeedbackUpdatedV6
-//
-// 当反馈的处理状态被更新时, 触发该事件{使用示例}(url=/api/tools/api_explore/api_explore_config?project=application&version=v6&resource=application.feedback&event=updated)
+// EventV2ApplicationApplicationFeedbackUpdatedV6 当反馈的处理状态被更新时, 触发该事件{使用示例}(url=/api/tools/api_explore/api_explore_config?project=application&version=v6&resource=application.feedback&event=updated)
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/application-v6/application-feedback/events/updated
 func (r *EventCallbackService) HandlerEventV2ApplicationApplicationFeedbackUpdatedV6(f EventV2ApplicationApplicationFeedbackUpdatedV6Handler) {

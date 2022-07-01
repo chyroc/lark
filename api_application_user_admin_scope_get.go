@@ -21,9 +21,7 @@ import (
 	"context"
 )
 
-// GetApplicationUserAdminScope
-//
-// 该接口用于获取应用管理员的管理范围, 即该应用管理员能够管理哪些部门。
+// GetApplicationUserAdminScope 该接口用于获取应用管理员的管理范围, 即该应用管理员能够管理哪些部门。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uMzN3QjLzczN04yM3cDN
 func (r *ApplicationService) GetApplicationUserAdminScope(ctx context.Context, request *GetApplicationUserAdminScopeReq, options ...MethodOptionFunc) (*GetApplicationUserAdminScopeResp, *Response, error) {

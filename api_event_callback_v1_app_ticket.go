@@ -21,9 +21,8 @@ import (
 	"context"
 )
 
-// EventV1AppTicket
+// EventV1AppTicket 了解事件订阅的使用场景和配置流程, 请点击查看 [事件订阅概述](https://open.feishu.cn/document/ukTMukTMukTM/uUTNz4SN1MjL1UzM)
 //
-// 了解事件订阅的使用场景和配置流程, 请点击查看 [事件订阅概述](https://open.feishu.cn/document/ukTMukTMukTM/uUTNz4SN1MjL1UzM)
 // 对于应用商店应用, 开放平台会每隔1小时推送一次 app_ticket, 应用通过该 app_ticket 获取 app_access_token。
 // - 特殊说明: 应用商店应用自动订阅此事件；企业自建应用不需要此事件。
 // - 搭配使用: [触发app_ticket重新推送

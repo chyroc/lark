@@ -21,9 +21,8 @@ import (
 	"context"
 )
 
-// EventV2DriveFilePermissionMemberRemovedV1
+// EventV2DriveFilePermissionMemberRemovedV1 了解事件订阅的使用场景和配置流程, 请点击查看 [事件订阅概述](https://open.feishu.cn/document/ukTMukTMukTM/uUTNz4SN1MjL1UzM)
 //
-// 了解事件订阅的使用场景和配置流程, 请点击查看 [事件订阅概述](https://open.feishu.cn/document/ukTMukTMukTM/uUTNz4SN1MjL1UzM)
 // 文件协作者移除用户/群时将触发此事件。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/event/file-collaborator-remove

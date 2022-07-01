@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// GetFaceVerifyAuthResult
+// GetFaceVerifyAuthResult ::: note
 //
 // 无源人脸比对接入需申请白名单, 接入前请联系飞书开放平台工作人员, 邮箱: openplatform@bytedance.com。
 // 无源人脸比对流程, 开发者后台通过调用此接口请求飞书后台, 对本次活体比对结果做校验。

@@ -23,6 +23,8 @@ import (
 
 // GetTaskList 以分页的方式获取任务列表。当使用user_access_token时, 获取与该用户身份相关的所有任务。当使用tenant_access_token时, 获取该应用通过“创建任务“创建的任务列表。
 //
+// 本接口支持通过任务创建时间以及任务的完成状态对任务进行过滤。
+//
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/task-v1/task/list
 func (r *TaskService) GetTaskList(ctx context.Context, request *GetTaskListReq, options ...MethodOptionFunc) (*GetTaskListResp, *Response, error) {
 	if r.cli.mock.mockTaskGetTaskList != nil {
@@ -59,7 +61,7 @@ func (r *Mock) UnMockTaskGetTaskList() {
 // GetTaskListReq ...
 type GetTaskListReq struct {
 	PageSize        *int64  `query:"page_size" json:"-"`         // 分页大小, 示例值: 10, 最大值: `100`
-	PageToken       *string `query:"page_token" json:"-"`        // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果, 示例值: "MTYzMTg3ODUxNQ=="
+	PageToken       *string `query:"page_token" json:"-"`        // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果, 示例值: "MTYzMTg3ODUxNQ["
 	StartCreateTime *string `query:"start_create_time" json:"-"` // 范围查询任务时, 查询的起始时间。不填时默认起始时间为第一个任务的创建时间, 示例值: "1652323331"
 	EndCreateTime   *string `query:"end_create_time" json:"-"`   // 范围查询任务时, 查询的结束时间。不填时默认结束时间为最后一个任务的创建时间, 示例值: "1652323335"
 	TaskCompleted   *bool   `query:"task_completed" json:"-"`    // 可用于查询时过滤任务完成状态。true表示只返回已完成的任务, false表示只返回未完成的任务。不填时表示同时返回两种完成状态的任务, 示例值: false

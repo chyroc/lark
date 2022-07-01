@@ -21,9 +21,8 @@ import (
 	"context"
 )
 
-// EventV2IMMessageReceiveV1
+// EventV2IMMessageReceiveV1 机器人接收到用户发送的消息后触发此事件。{使用示例}(url=/api/tools/api_explore/api_explore_config?project=im&version=v1&resource=message&event=receive)
 //
-// 机器人接收到用户发送的消息后触发此事件。{使用示例}(url=/api/tools/api_explore/api_explore_config?project=im&version=v1&resource=message&event=receive)
 // 注意事项:
 // - 需要开启[机器人能力](https://open.feishu.cn/document/home/develop-a-bot-in-5-minutes/create-an-app), 并订阅 [消息与群组] 分类下的 [接收消息v2.0] 事件才可接收推送
 // - 同时, 将根据应用具备的权限, 判断可推送的信息:
@@ -43,20 +42,6 @@ type EventV2IMMessageReceiveV1Handler func(ctx context.Context, cli *Lark, schem
 type EventV2IMMessageReceiveV1 struct {
 	Sender  *EventV2IMMessageReceiveV1Sender  `json:"sender,omitempty"`  // 事件的发送者
 	Message *EventV2IMMessageReceiveV1Message `json:"message,omitempty"` // 事件中包含的消息内容
-}
-
-// EventV2IMMessageReceiveV1Sender ...
-type EventV2IMMessageReceiveV1Sender struct {
-	SenderID   *EventV2IMMessageReceiveV1SenderSenderID `json:"sender_id,omitempty"`   // 用户 ID
-	SenderType string                                   `json:"sender_type,omitempty"` // 消息发送者类型。目前只支持用户(user)发送的消息。
-	TenantKey  string                                   `json:"tenant_key,omitempty"`  // tenant key
-}
-
-// EventV2IMMessageReceiveV1SenderSenderID ...
-type EventV2IMMessageReceiveV1SenderSenderID struct {
-	UnionID string `json:"union_id,omitempty"` // 用户的 union id
-	UserID  string `json:"user_id,omitempty"`  // 用户的 user id, 字段权限要求: 获取用户 user ID
-	OpenID  string `json:"open_id,omitempty"`  // 用户的 open id
 }
 
 // EventV2IMMessageReceiveV1Message ...
@@ -82,6 +67,20 @@ type EventV2IMMessageReceiveV1MessageMention struct {
 
 // EventV2IMMessageReceiveV1MessageMentionID ...
 type EventV2IMMessageReceiveV1MessageMentionID struct {
+	UnionID string `json:"union_id,omitempty"` // 用户的 union id
+	UserID  string `json:"user_id,omitempty"`  // 用户的 user id, 字段权限要求: 获取用户 user ID
+	OpenID  string `json:"open_id,omitempty"`  // 用户的 open id
+}
+
+// EventV2IMMessageReceiveV1Sender ...
+type EventV2IMMessageReceiveV1Sender struct {
+	SenderID   *EventV2IMMessageReceiveV1SenderSenderID `json:"sender_id,omitempty"`   // 用户 ID
+	SenderType string                                   `json:"sender_type,omitempty"` // 消息发送者类型。目前只支持用户(user)发送的消息。
+	TenantKey  string                                   `json:"tenant_key,omitempty"`  // tenant key
+}
+
+// EventV2IMMessageReceiveV1SenderSenderID ...
+type EventV2IMMessageReceiveV1SenderSenderID struct {
 	UnionID string `json:"union_id,omitempty"` // 用户的 union id
 	UserID  string `json:"user_id,omitempty"`  // 用户的 user id, 字段权限要求: 获取用户 user ID
 	OpenID  string `json:"open_id,omitempty"`  // 用户的 open id

@@ -62,17 +62,11 @@ type DownloadDriveExportTaskReq struct {
 	FileToken string `path:"file_token" json:"-"` // 导出文档token, 示例值: "boxcnNAlfwHxxxxxxxxxxSaLSec"
 }
 
-// DownloadDriveExportTaskResp ...
-type DownloadDriveExportTaskResp struct {
-	File io.Reader `json:"file,omitempty"`
-}
-
 // downloadDriveExportTaskResp ...
 type downloadDriveExportTaskResp struct {
-	IsFile bool                         `json:"is_file,omitempty"`
-	Code   int64                        `json:"code,omitempty"`
-	Msg    string                       `json:"msg,omitempty"`
-	Data   *DownloadDriveExportTaskResp `json:"data,omitempty"`
+	Code int64                        `json:"code,omitempty"`
+	Msg  string                       `json:"msg,omitempty"`
+	Data *DownloadDriveExportTaskResp `json:"data,omitempty"`
 }
 
 func (r *downloadDriveExportTaskResp) SetReader(file io.Reader) {
@@ -80,4 +74,9 @@ func (r *downloadDriveExportTaskResp) SetReader(file io.Reader) {
 		r.Data = &DownloadDriveExportTaskResp{}
 	}
 	r.Data.File = file
+}
+
+// DownloadDriveExportTaskResp ...
+type DownloadDriveExportTaskResp struct {
+	File io.Reader `json:"file,omitempty"`
 }

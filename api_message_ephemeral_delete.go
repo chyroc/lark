@@ -21,11 +21,9 @@ import (
 	"context"
 )
 
-// DeleteEphemeralMessage
+// DeleteEphemeralMessage 在群会话中删除指定用户可见的临时消息卡片
 //
-// 在群会话中删除指定用户可见的临时消息卡片
 // 临时卡片消息可以通过该接口进行显式删除, 临时卡片消息删除后将不会在该设备上留下任何痕迹。
-// 权限说明 : 需要启用机器人能力；需要机器人在会话群里
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uITOyYjLykjM24iM5IjN
 func (r *MessageService) DeleteEphemeralMessage(ctx context.Context, request *DeleteEphemeralMessageReq, options ...MethodOptionFunc) (*DeleteEphemeralMessageResp, *Response, error) {

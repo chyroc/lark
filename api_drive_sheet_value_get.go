@@ -21,9 +21,7 @@ import (
 	"context"
 )
 
-// GetSheetValue
-//
-// 该接口用于根据 spreadsheetToken 和 range 读取表格单个范围的值, 返回数据限制为10M。
+// GetSheetValue 该接口用于根据 spreadsheetToken 和 range 读取表格单个范围的值, 返回数据限制为10M。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/ugTMzUjL4EzM14COxMTN
 func (r *DriveService) GetSheetValue(ctx context.Context, request *GetSheetValueReq, options ...MethodOptionFunc) (*GetSheetValueResp, *Response, error) {

@@ -21,9 +21,8 @@ import (
 	"context"
 )
 
-// CreateCalendarACL
+// CreateCalendarACL 该接口用于以当前身份（应用 / 用户）给日历添加访问控制权限, 即日历成员。
 //
-// 该接口用于以当前身份（应用 / 用户）给日历添加访问控制权限, 即日历成员。
 // 身份由 Header Authorization 的 Token 类型决定。
 // 当前身份需要有日历的 owner 权限, 并且日历的类型只能为 primary 或 shared。
 //

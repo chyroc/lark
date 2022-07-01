@@ -21,9 +21,8 @@ import (
 	"context"
 )
 
-// GetCalendarList
+// GetCalendarList 该接口用于分页获得当前身份（应用 / 用户）的日历列表。
 //
-// 该接口用于分页获得当前身份（应用 / 用户）的日历列表。
 // 身份由 Header Authorization 的 Token 类型决定。
 // 调用时首先使用 page_token 分页拉取存量数据, 之后使用 sync_token 增量同步变更数据。
 //

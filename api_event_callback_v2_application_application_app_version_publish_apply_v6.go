@@ -21,9 +21,7 @@ import (
 	"context"
 )
 
-// EventV2ApplicationApplicationAppVersionPublishApplyV6
-//
-// 通过订阅该事件, 可接收应用提交发布申请事件{使用示例}(url=/api/tools/api_explore/api_explore_config?project=application&version=v6&resource=application.app_version&event=publish_apply)
+// EventV2ApplicationApplicationAppVersionPublishApplyV6 通过订阅该事件, 可接收应用提交发布申请事件{使用示例}(url=/api/tools/api_explore/api_explore_config?project=application&version=v6&resource=application.app_version&event=publish_apply)
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/application-v6/application-app_version/events/publish_apply
 func (r *EventCallbackService) HandlerEventV2ApplicationApplicationAppVersionPublishApplyV6(f EventV2ApplicationApplicationAppVersionPublishApplyV6Handler) {
@@ -39,13 +37,6 @@ type EventV2ApplicationApplicationAppVersionPublishApplyV6 struct {
 	OnlineVersion     *EventV2ApplicationApplicationAppVersionPublishApplyV6OnlineVersion     `json:"online_version,omitempty"`      // 当前线上版本信息
 	UnderAuditVersion *EventV2ApplicationApplicationAppVersionPublishApplyV6UnderAuditVersion `json:"under_audit_version,omitempty"` // 当前线上版本信息
 	AppStatus         int64                                                                   `json:"app_status,omitempty"`          // 应用状态, 可选值有: `0`: 停用状态, `1`: 启用状态
-}
-
-// EventV2ApplicationApplicationAppVersionPublishApplyV6OperatorID ...
-type EventV2ApplicationApplicationAppVersionPublishApplyV6OperatorID struct {
-	UnionID string `json:"union_id,omitempty"` // 用户的 union id
-	UserID  string `json:"user_id,omitempty"`  // 用户的 user id, 字段权限要求: 获取用户 user ID
-	OpenID  string `json:"open_id,omitempty"`  // 用户的 open id
 }
 
 // EventV2ApplicationApplicationAppVersionPublishApplyV6OnlineVersion ...
@@ -68,21 +59,6 @@ type EventV2ApplicationApplicationAppVersionPublishApplyV6OnlineVersion struct {
 	Remark           *EventV2ApplicationApplicationAppVersionPublishApplyV6OnlineVersionRemark  `json:"remark,omitempty"`            // 跟随应用版本的信息
 }
 
-// EventV2ApplicationApplicationAppVersionPublishApplyV6OnlineVersionScope ...
-type EventV2ApplicationApplicationAppVersionPublishApplyV6OnlineVersionScope struct {
-	Scope       string `json:"scope,omitempty"`       // 应用权限
-	Description string `json:"description,omitempty"` // 应用权限的国际化描述
-	Level       int64  `json:"level,omitempty"`       // 权限等级描述, 可选值有: `1`: 普通权限, `2`: 高级权限, `3`: 超敏感权限, `0`: 未知等级
-}
-
-// EventV2ApplicationApplicationAppVersionPublishApplyV6OnlineVersionI18n ...
-type EventV2ApplicationApplicationAppVersionPublishApplyV6OnlineVersionI18n struct {
-	I18nKey     string `json:"i18n_key,omitempty"`    // 国际化语言的 key, 可选值有: `zh_cn`: 中文, `en_us`: 英文, `ja_jp`: 日文
-	Name        string `json:"name,omitempty"`        // 应用国际化名称, 最小长度: `1` 字符
-	Description string `json:"description,omitempty"` // 应用国际化描述（副标题）, 最小长度: `1` 字符
-	HelpUse     string `json:"help_use,omitempty"`    // 帮助国际化文档链接
-}
-
 // EventV2ApplicationApplicationAppVersionPublishApplyV6OnlineVersionAbility ...
 type EventV2ApplicationApplicationAppVersionPublishApplyV6OnlineVersionAbility struct {
 	Gadget           *EventV2ApplicationApplicationAppVersionPublishApplyV6OnlineVersionAbilityGadget            `json:"gadget,omitempty"`            // 小程序能力
@@ -96,51 +72,9 @@ type EventV2ApplicationApplicationAppVersionPublishApplyV6OnlineVersionAbility s
 	PlusMenu         *EventV2ApplicationApplicationAppVersionPublishApplyV6OnlineVersionAbilityPlusMenu          `json:"plus_menu,omitempty"`         // 加号菜单
 }
 
-// EventV2ApplicationApplicationAppVersionPublishApplyV6OnlineVersionAbilityGadget ...
-type EventV2ApplicationApplicationAppVersionPublishApplyV6OnlineVersionAbilityGadget struct {
-	EnablePcMode         int64    `json:"enable_pc_mode,omitempty"`          // pc 支持的小程序模式, bit 位表示, 可选值有: `1`: sidebar 模式, `2`: pc 模式, `4`: 主导航模式
-	SchemaURLs           []string `json:"schema_urls,omitempty"`             // schema url 列表
-	PcUseMobilePkg       bool     `json:"pc_use_mobile_pkg,omitempty"`       // pc 端是否使用小程序版本
-	PcVersion            string   `json:"pc_version,omitempty"`              // pc 的小程序版本号, 最小长度: `1` 字符
-	MobileVersion        string   `json:"mobile_version,omitempty"`          // 移动端小程序版本号, 最小长度: `1` 字符
-	MobileMinLarkVersion string   `json:"mobile_min_lark_version,omitempty"` // 移动端兼容的最低飞书版本, 最小长度: `1` 字符
-	PcMinLarkVersion     string   `json:"pc_min_lark_version,omitempty"`     // pc 端兼容的最低飞书版本, 最小长度: `1` 字符
-}
-
-// EventV2ApplicationApplicationAppVersionPublishApplyV6OnlineVersionAbilityWebApp ...
-type EventV2ApplicationApplicationAppVersionPublishApplyV6OnlineVersionAbilityWebApp struct {
-	PcURL     string `json:"pc_url,omitempty"`     // pc 端 url
-	MobileURL string `json:"mobile_url,omitempty"` // 移动端 url
-}
-
 // EventV2ApplicationApplicationAppVersionPublishApplyV6OnlineVersionAbilityBot ...
 type EventV2ApplicationApplicationAppVersionPublishApplyV6OnlineVersionAbilityBot struct {
 	CardRequestURL string `json:"card_request_url,omitempty"` // 消息卡片回调地址
-}
-
-// EventV2ApplicationApplicationAppVersionPublishApplyV6OnlineVersionAbilityWorkplaceWidget ...
-type EventV2ApplicationApplicationAppVersionPublishApplyV6OnlineVersionAbilityWorkplaceWidget struct {
-	MinLarkVersion string `json:"min_lark_version,omitempty"` // 最低兼容 lark 版本号
-}
-
-// EventV2ApplicationApplicationAppVersionPublishApplyV6OnlineVersionAbilityNavigate ...
-type EventV2ApplicationApplicationAppVersionPublishApplyV6OnlineVersionAbilityNavigate struct {
-	Pc     *EventV2ApplicationApplicationAppVersionPublishApplyV6OnlineVersionAbilityNavigatePc     `json:"pc,omitempty"`     // pc 端主导航信息
-	Mobile *EventV2ApplicationApplicationAppVersionPublishApplyV6OnlineVersionAbilityNavigateMobile `json:"mobile,omitempty"` // 移动端主导航信息
-}
-
-// EventV2ApplicationApplicationAppVersionPublishApplyV6OnlineVersionAbilityNavigatePc ...
-type EventV2ApplicationApplicationAppVersionPublishApplyV6OnlineVersionAbilityNavigatePc struct {
-	Version       string `json:"version,omitempty"`         // 主导航小程序版本号, 最小长度: `1` 字符
-	ImageURL      string `json:"image_url,omitempty"`       // 默认图片 url
-	HoverImageURL string `json:"hover_image_url,omitempty"` // 选中态图片 url
-}
-
-// EventV2ApplicationApplicationAppVersionPublishApplyV6OnlineVersionAbilityNavigateMobile ...
-type EventV2ApplicationApplicationAppVersionPublishApplyV6OnlineVersionAbilityNavigateMobile struct {
-	Version       string `json:"version,omitempty"`         // 主导航小程序版本号, 最小长度: `1` 字符
-	ImageURL      string `json:"image_url,omitempty"`       // 默认图片 url
-	HoverImageURL string `json:"hover_image_url,omitempty"` // 选中态图片 url
 }
 
 // EventV2ApplicationApplicationAppVersionPublishApplyV6OnlineVersionAbilityCloudDoc ...
@@ -173,6 +107,17 @@ type EventV2ApplicationApplicationAppVersionPublishApplyV6OnlineVersionAbilityDo
 	Name    string `json:"name,omitempty"`     // 名称, 最小长度: `1` 字符
 }
 
+// EventV2ApplicationApplicationAppVersionPublishApplyV6OnlineVersionAbilityGadget ...
+type EventV2ApplicationApplicationAppVersionPublishApplyV6OnlineVersionAbilityGadget struct {
+	EnablePcMode         int64    `json:"enable_pc_mode,omitempty"`          // pc 支持的小程序模式, bit 位表示, 可选值有: `1`: sidebar 模式, `2`: pc 模式, `4`: 主导航模式
+	SchemaURLs           []string `json:"schema_urls,omitempty"`             // schema url 列表
+	PcUseMobilePkg       bool     `json:"pc_use_mobile_pkg,omitempty"`       // pc 端是否使用小程序版本
+	PcVersion            string   `json:"pc_version,omitempty"`              // pc 的小程序版本号, 最小长度: `1` 字符
+	MobileVersion        string   `json:"mobile_version,omitempty"`          // 移动端小程序版本号, 最小长度: `1` 字符
+	MobileMinLarkVersion string   `json:"mobile_min_lark_version,omitempty"` // 移动端兼容的最低飞书版本, 最小长度: `1` 字符
+	PcMinLarkVersion     string   `json:"pc_min_lark_version,omitempty"`     // pc 端兼容的最低飞书版本, 最小长度: `1` 字符
+}
+
 // EventV2ApplicationApplicationAppVersionPublishApplyV6OnlineVersionAbilityMessageAction ...
 type EventV2ApplicationApplicationAppVersionPublishApplyV6OnlineVersionAbilityMessageAction struct {
 	PcAppLink     string                                                                                        `json:"pc_app_link,omitempty"`     // pc 端链接
@@ -186,10 +131,49 @@ type EventV2ApplicationApplicationAppVersionPublishApplyV6OnlineVersionAbilityMe
 	Name    string `json:"name,omitempty"`     // 国际化名称, 最小长度: `1` 字符
 }
 
+// EventV2ApplicationApplicationAppVersionPublishApplyV6OnlineVersionAbilityNavigate ...
+type EventV2ApplicationApplicationAppVersionPublishApplyV6OnlineVersionAbilityNavigate struct {
+	Pc     *EventV2ApplicationApplicationAppVersionPublishApplyV6OnlineVersionAbilityNavigatePc     `json:"pc,omitempty"`     // pc 端主导航信息
+	Mobile *EventV2ApplicationApplicationAppVersionPublishApplyV6OnlineVersionAbilityNavigateMobile `json:"mobile,omitempty"` // 移动端主导航信息
+}
+
+// EventV2ApplicationApplicationAppVersionPublishApplyV6OnlineVersionAbilityNavigateMobile ...
+type EventV2ApplicationApplicationAppVersionPublishApplyV6OnlineVersionAbilityNavigateMobile struct {
+	Version       string `json:"version,omitempty"`         // 主导航小程序版本号, 最小长度: `1` 字符
+	ImageURL      string `json:"image_url,omitempty"`       // 默认图片 url
+	HoverImageURL string `json:"hover_image_url,omitempty"` // 选中态图片 url
+}
+
+// EventV2ApplicationApplicationAppVersionPublishApplyV6OnlineVersionAbilityNavigatePc ...
+type EventV2ApplicationApplicationAppVersionPublishApplyV6OnlineVersionAbilityNavigatePc struct {
+	Version       string `json:"version,omitempty"`         // 主导航小程序版本号, 最小长度: `1` 字符
+	ImageURL      string `json:"image_url,omitempty"`       // 默认图片 url
+	HoverImageURL string `json:"hover_image_url,omitempty"` // 选中态图片 url
+}
+
 // EventV2ApplicationApplicationAppVersionPublishApplyV6OnlineVersionAbilityPlusMenu ...
 type EventV2ApplicationApplicationAppVersionPublishApplyV6OnlineVersionAbilityPlusMenu struct {
 	PcAppLink     string `json:"pc_app_link,omitempty"`     // pc 端链接
 	MobileAppLink string `json:"mobile_app_link,omitempty"` // 移动端链接
+}
+
+// EventV2ApplicationApplicationAppVersionPublishApplyV6OnlineVersionAbilityWebApp ...
+type EventV2ApplicationApplicationAppVersionPublishApplyV6OnlineVersionAbilityWebApp struct {
+	PcURL     string `json:"pc_url,omitempty"`     // pc 端 url
+	MobileURL string `json:"mobile_url,omitempty"` // 移动端 url
+}
+
+// EventV2ApplicationApplicationAppVersionPublishApplyV6OnlineVersionAbilityWorkplaceWidget ...
+type EventV2ApplicationApplicationAppVersionPublishApplyV6OnlineVersionAbilityWorkplaceWidget struct {
+	MinLarkVersion string `json:"min_lark_version,omitempty"` // 最低兼容 lark 版本号
+}
+
+// EventV2ApplicationApplicationAppVersionPublishApplyV6OnlineVersionI18n ...
+type EventV2ApplicationApplicationAppVersionPublishApplyV6OnlineVersionI18n struct {
+	I18nKey     string `json:"i18n_key,omitempty"`    // 国际化语言的 key, 可选值有: `zh_cn`: 中文, `en_us`: 英文, `ja_jp`: 日文
+	Name        string `json:"name,omitempty"`        // 应用国际化名称, 最小长度: `1` 字符
+	Description string `json:"description,omitempty"` // 应用国际化描述（副标题）, 最小长度: `1` 字符
+	HelpUse     string `json:"help_use,omitempty"`    // 帮助国际化文档链接
 }
 
 // EventV2ApplicationApplicationAppVersionPublishApplyV6OnlineVersionRemark ...
@@ -206,29 +190,29 @@ type EventV2ApplicationApplicationAppVersionPublishApplyV6OnlineVersionRemarkVis
 	InvisibleList *EventV2ApplicationApplicationAppVersionPublishApplyV6OnlineVersionRemarkVisibilityInvisibleList `json:"invisible_list,omitempty"` // 不可见名单
 }
 
-// EventV2ApplicationApplicationAppVersionPublishApplyV6OnlineVersionRemarkVisibilityVisibleList ...
-type EventV2ApplicationApplicationAppVersionPublishApplyV6OnlineVersionRemarkVisibilityVisibleList struct {
-	OpenIDs       []*EventV2ApplicationApplicationAppVersionPublishApplyV6OnlineVersionRemarkVisibilityVisibleListOpenID `json:"open_ids,omitempty"`       // 可见性成员 id 列表
-	DepartmentIDs []string                                                                                               `json:"department_ids,omitempty"` // 可见性部门的 id 列表
-}
-
-// EventV2ApplicationApplicationAppVersionPublishApplyV6OnlineVersionRemarkVisibilityVisibleListOpenID ...
-type EventV2ApplicationApplicationAppVersionPublishApplyV6OnlineVersionRemarkVisibilityVisibleListOpenID struct {
-	UnionID string `json:"union_id,omitempty"` // 用户的 union id
-	UserID  string `json:"user_id,omitempty"`  // 用户的 user id
-	OpenID  string `json:"open_id,omitempty"`  // 用户的 open id
-}
-
 // EventV2ApplicationApplicationAppVersionPublishApplyV6OnlineVersionRemarkVisibilityInvisibleList ...
 type EventV2ApplicationApplicationAppVersionPublishApplyV6OnlineVersionRemarkVisibilityInvisibleList struct {
-	OpenIDs       []*EventV2ApplicationApplicationAppVersionPublishApplyV6OnlineVersionRemarkVisibilityInvisibleListOpenID `json:"open_ids,omitempty"`       // 可见性成员 id 列表
-	DepartmentIDs []string                                                                                                 `json:"department_ids,omitempty"` // 可见性部门的 id 列表
+	OpenIDs       []string `json:"open_ids,omitempty"`       // 可见性成员 id 列表
+	DepartmentIDs []string `json:"department_ids,omitempty"` // 可见性部门的 id 列表
 }
 
-// EventV2ApplicationApplicationAppVersionPublishApplyV6OnlineVersionRemarkVisibilityInvisibleListOpenID ...
-type EventV2ApplicationApplicationAppVersionPublishApplyV6OnlineVersionRemarkVisibilityInvisibleListOpenID struct {
+// EventV2ApplicationApplicationAppVersionPublishApplyV6OnlineVersionRemarkVisibilityVisibleList ...
+type EventV2ApplicationApplicationAppVersionPublishApplyV6OnlineVersionRemarkVisibilityVisibleList struct {
+	OpenIDs       []string `json:"open_ids,omitempty"`       // 可见性成员 id 列表
+	DepartmentIDs []string `json:"department_ids,omitempty"` // 可见性部门的 id 列表
+}
+
+// EventV2ApplicationApplicationAppVersionPublishApplyV6OnlineVersionScope ...
+type EventV2ApplicationApplicationAppVersionPublishApplyV6OnlineVersionScope struct {
+	Scope       string `json:"scope,omitempty"`       // 应用权限
+	Description string `json:"description,omitempty"` // 应用权限的国际化描述
+	Level       int64  `json:"level,omitempty"`       // 权限等级描述, 可选值有: `1`: 普通权限, `2`: 高级权限, `3`: 超敏感权限, `0`: 未知等级
+}
+
+// EventV2ApplicationApplicationAppVersionPublishApplyV6OperatorID ...
+type EventV2ApplicationApplicationAppVersionPublishApplyV6OperatorID struct {
 	UnionID string `json:"union_id,omitempty"` // 用户的 union id
-	UserID  string `json:"user_id,omitempty"`  // 用户的 user id
+	UserID  string `json:"user_id,omitempty"`  // 用户的 user id, 字段权限要求: 获取用户 user ID
 	OpenID  string `json:"open_id,omitempty"`  // 用户的 open id
 }
 
@@ -252,21 +236,6 @@ type EventV2ApplicationApplicationAppVersionPublishApplyV6UnderAuditVersion stru
 	Remark           *EventV2ApplicationApplicationAppVersionPublishApplyV6UnderAuditVersionRemark  `json:"remark,omitempty"`            // 跟随应用版本的信息
 }
 
-// EventV2ApplicationApplicationAppVersionPublishApplyV6UnderAuditVersionScope ...
-type EventV2ApplicationApplicationAppVersionPublishApplyV6UnderAuditVersionScope struct {
-	Scope       string `json:"scope,omitempty"`       // 应用权限
-	Description string `json:"description,omitempty"` // 应用权限的国际化描述
-	Level       int64  `json:"level,omitempty"`       // 权限等级描述, 可选值有: `1`: 普通权限, `2`: 高级权限, `3`: 超敏感权限, `0`: 未知等级
-}
-
-// EventV2ApplicationApplicationAppVersionPublishApplyV6UnderAuditVersionI18n ...
-type EventV2ApplicationApplicationAppVersionPublishApplyV6UnderAuditVersionI18n struct {
-	I18nKey     string `json:"i18n_key,omitempty"`    // 国际化语言的 key, 可选值有: `zh_cn`: 中文, `en_us`: 英文, `ja_jp`: 日文
-	Name        string `json:"name,omitempty"`        // 应用国际化名称, 最小长度: `1` 字符
-	Description string `json:"description,omitempty"` // 应用国际化描述（副标题）, 最小长度: `1` 字符
-	HelpUse     string `json:"help_use,omitempty"`    // 帮助国际化文档链接
-}
-
 // EventV2ApplicationApplicationAppVersionPublishApplyV6UnderAuditVersionAbility ...
 type EventV2ApplicationApplicationAppVersionPublishApplyV6UnderAuditVersionAbility struct {
 	Gadget           *EventV2ApplicationApplicationAppVersionPublishApplyV6UnderAuditVersionAbilityGadget            `json:"gadget,omitempty"`            // 小程序能力
@@ -280,51 +249,9 @@ type EventV2ApplicationApplicationAppVersionPublishApplyV6UnderAuditVersionAbili
 	PlusMenu         *EventV2ApplicationApplicationAppVersionPublishApplyV6UnderAuditVersionAbilityPlusMenu          `json:"plus_menu,omitempty"`         // 加号菜单
 }
 
-// EventV2ApplicationApplicationAppVersionPublishApplyV6UnderAuditVersionAbilityGadget ...
-type EventV2ApplicationApplicationAppVersionPublishApplyV6UnderAuditVersionAbilityGadget struct {
-	EnablePcMode         int64    `json:"enable_pc_mode,omitempty"`          // pc 支持的小程序模式, bit 位表示, 可选值有: `1`: sidebar 模式, `2`: pc 模式, `4`: 主导航模式
-	SchemaURLs           []string `json:"schema_urls,omitempty"`             // schema url 列表
-	PcUseMobilePkg       bool     `json:"pc_use_mobile_pkg,omitempty"`       // pc 端是否使用小程序版本
-	PcVersion            string   `json:"pc_version,omitempty"`              // pc 的小程序版本号, 最小长度: `1` 字符
-	MobileVersion        string   `json:"mobile_version,omitempty"`          // 移动端小程序版本号, 最小长度: `1` 字符
-	MobileMinLarkVersion string   `json:"mobile_min_lark_version,omitempty"` // 移动端兼容的最低飞书版本, 最小长度: `1` 字符
-	PcMinLarkVersion     string   `json:"pc_min_lark_version,omitempty"`     // pc 端兼容的最低飞书版本, 最小长度: `1` 字符
-}
-
-// EventV2ApplicationApplicationAppVersionPublishApplyV6UnderAuditVersionAbilityWebApp ...
-type EventV2ApplicationApplicationAppVersionPublishApplyV6UnderAuditVersionAbilityWebApp struct {
-	PcURL     string `json:"pc_url,omitempty"`     // pc 端 url
-	MobileURL string `json:"mobile_url,omitempty"` // 移动端 url
-}
-
 // EventV2ApplicationApplicationAppVersionPublishApplyV6UnderAuditVersionAbilityBot ...
 type EventV2ApplicationApplicationAppVersionPublishApplyV6UnderAuditVersionAbilityBot struct {
 	CardRequestURL string `json:"card_request_url,omitempty"` // 消息卡片回调地址
-}
-
-// EventV2ApplicationApplicationAppVersionPublishApplyV6UnderAuditVersionAbilityWorkplaceWidget ...
-type EventV2ApplicationApplicationAppVersionPublishApplyV6UnderAuditVersionAbilityWorkplaceWidget struct {
-	MinLarkVersion string `json:"min_lark_version,omitempty"` // 最低兼容 lark 版本号
-}
-
-// EventV2ApplicationApplicationAppVersionPublishApplyV6UnderAuditVersionAbilityNavigate ...
-type EventV2ApplicationApplicationAppVersionPublishApplyV6UnderAuditVersionAbilityNavigate struct {
-	Pc     *EventV2ApplicationApplicationAppVersionPublishApplyV6UnderAuditVersionAbilityNavigatePc     `json:"pc,omitempty"`     // pc 端主导航信息
-	Mobile *EventV2ApplicationApplicationAppVersionPublishApplyV6UnderAuditVersionAbilityNavigateMobile `json:"mobile,omitempty"` // 移动端主导航信息
-}
-
-// EventV2ApplicationApplicationAppVersionPublishApplyV6UnderAuditVersionAbilityNavigatePc ...
-type EventV2ApplicationApplicationAppVersionPublishApplyV6UnderAuditVersionAbilityNavigatePc struct {
-	Version       string `json:"version,omitempty"`         // 主导航小程序版本号, 最小长度: `1` 字符
-	ImageURL      string `json:"image_url,omitempty"`       // 默认图片 url
-	HoverImageURL string `json:"hover_image_url,omitempty"` // 选中态图片 url
-}
-
-// EventV2ApplicationApplicationAppVersionPublishApplyV6UnderAuditVersionAbilityNavigateMobile ...
-type EventV2ApplicationApplicationAppVersionPublishApplyV6UnderAuditVersionAbilityNavigateMobile struct {
-	Version       string `json:"version,omitempty"`         // 主导航小程序版本号, 最小长度: `1` 字符
-	ImageURL      string `json:"image_url,omitempty"`       // 默认图片 url
-	HoverImageURL string `json:"hover_image_url,omitempty"` // 选中态图片 url
 }
 
 // EventV2ApplicationApplicationAppVersionPublishApplyV6UnderAuditVersionAbilityCloudDoc ...
@@ -357,6 +284,17 @@ type EventV2ApplicationApplicationAppVersionPublishApplyV6UnderAuditVersionAbili
 	Name    string `json:"name,omitempty"`     // 名称, 最小长度: `1` 字符
 }
 
+// EventV2ApplicationApplicationAppVersionPublishApplyV6UnderAuditVersionAbilityGadget ...
+type EventV2ApplicationApplicationAppVersionPublishApplyV6UnderAuditVersionAbilityGadget struct {
+	EnablePcMode         int64    `json:"enable_pc_mode,omitempty"`          // pc 支持的小程序模式, bit 位表示, 可选值有: `1`: sidebar 模式, `2`: pc 模式, `4`: 主导航模式
+	SchemaURLs           []string `json:"schema_urls,omitempty"`             // schema url 列表
+	PcUseMobilePkg       bool     `json:"pc_use_mobile_pkg,omitempty"`       // pc 端是否使用小程序版本
+	PcVersion            string   `json:"pc_version,omitempty"`              // pc 的小程序版本号, 最小长度: `1` 字符
+	MobileVersion        string   `json:"mobile_version,omitempty"`          // 移动端小程序版本号, 最小长度: `1` 字符
+	MobileMinLarkVersion string   `json:"mobile_min_lark_version,omitempty"` // 移动端兼容的最低飞书版本, 最小长度: `1` 字符
+	PcMinLarkVersion     string   `json:"pc_min_lark_version,omitempty"`     // pc 端兼容的最低飞书版本, 最小长度: `1` 字符
+}
+
 // EventV2ApplicationApplicationAppVersionPublishApplyV6UnderAuditVersionAbilityMessageAction ...
 type EventV2ApplicationApplicationAppVersionPublishApplyV6UnderAuditVersionAbilityMessageAction struct {
 	PcAppLink     string                                                                                            `json:"pc_app_link,omitempty"`     // pc 端链接
@@ -370,10 +308,49 @@ type EventV2ApplicationApplicationAppVersionPublishApplyV6UnderAuditVersionAbili
 	Name    string `json:"name,omitempty"`     // 国际化名称, 最小长度: `1` 字符
 }
 
+// EventV2ApplicationApplicationAppVersionPublishApplyV6UnderAuditVersionAbilityNavigate ...
+type EventV2ApplicationApplicationAppVersionPublishApplyV6UnderAuditVersionAbilityNavigate struct {
+	Pc     *EventV2ApplicationApplicationAppVersionPublishApplyV6UnderAuditVersionAbilityNavigatePc     `json:"pc,omitempty"`     // pc 端主导航信息
+	Mobile *EventV2ApplicationApplicationAppVersionPublishApplyV6UnderAuditVersionAbilityNavigateMobile `json:"mobile,omitempty"` // 移动端主导航信息
+}
+
+// EventV2ApplicationApplicationAppVersionPublishApplyV6UnderAuditVersionAbilityNavigateMobile ...
+type EventV2ApplicationApplicationAppVersionPublishApplyV6UnderAuditVersionAbilityNavigateMobile struct {
+	Version       string `json:"version,omitempty"`         // 主导航小程序版本号, 最小长度: `1` 字符
+	ImageURL      string `json:"image_url,omitempty"`       // 默认图片 url
+	HoverImageURL string `json:"hover_image_url,omitempty"` // 选中态图片 url
+}
+
+// EventV2ApplicationApplicationAppVersionPublishApplyV6UnderAuditVersionAbilityNavigatePc ...
+type EventV2ApplicationApplicationAppVersionPublishApplyV6UnderAuditVersionAbilityNavigatePc struct {
+	Version       string `json:"version,omitempty"`         // 主导航小程序版本号, 最小长度: `1` 字符
+	ImageURL      string `json:"image_url,omitempty"`       // 默认图片 url
+	HoverImageURL string `json:"hover_image_url,omitempty"` // 选中态图片 url
+}
+
 // EventV2ApplicationApplicationAppVersionPublishApplyV6UnderAuditVersionAbilityPlusMenu ...
 type EventV2ApplicationApplicationAppVersionPublishApplyV6UnderAuditVersionAbilityPlusMenu struct {
 	PcAppLink     string `json:"pc_app_link,omitempty"`     // pc 端链接
 	MobileAppLink string `json:"mobile_app_link,omitempty"` // 移动端链接
+}
+
+// EventV2ApplicationApplicationAppVersionPublishApplyV6UnderAuditVersionAbilityWebApp ...
+type EventV2ApplicationApplicationAppVersionPublishApplyV6UnderAuditVersionAbilityWebApp struct {
+	PcURL     string `json:"pc_url,omitempty"`     // pc 端 url
+	MobileURL string `json:"mobile_url,omitempty"` // 移动端 url
+}
+
+// EventV2ApplicationApplicationAppVersionPublishApplyV6UnderAuditVersionAbilityWorkplaceWidget ...
+type EventV2ApplicationApplicationAppVersionPublishApplyV6UnderAuditVersionAbilityWorkplaceWidget struct {
+	MinLarkVersion string `json:"min_lark_version,omitempty"` // 最低兼容 lark 版本号
+}
+
+// EventV2ApplicationApplicationAppVersionPublishApplyV6UnderAuditVersionI18n ...
+type EventV2ApplicationApplicationAppVersionPublishApplyV6UnderAuditVersionI18n struct {
+	I18nKey     string `json:"i18n_key,omitempty"`    // 国际化语言的 key, 可选值有: `zh_cn`: 中文, `en_us`: 英文, `ja_jp`: 日文
+	Name        string `json:"name,omitempty"`        // 应用国际化名称, 最小长度: `1` 字符
+	Description string `json:"description,omitempty"` // 应用国际化描述（副标题）, 最小长度: `1` 字符
+	HelpUse     string `json:"help_use,omitempty"`    // 帮助国际化文档链接
 }
 
 // EventV2ApplicationApplicationAppVersionPublishApplyV6UnderAuditVersionRemark ...
@@ -390,28 +367,21 @@ type EventV2ApplicationApplicationAppVersionPublishApplyV6UnderAuditVersionRemar
 	InvisibleList *EventV2ApplicationApplicationAppVersionPublishApplyV6UnderAuditVersionRemarkVisibilityInvisibleList `json:"invisible_list,omitempty"` // 不可见名单
 }
 
-// EventV2ApplicationApplicationAppVersionPublishApplyV6UnderAuditVersionRemarkVisibilityVisibleList ...
-type EventV2ApplicationApplicationAppVersionPublishApplyV6UnderAuditVersionRemarkVisibilityVisibleList struct {
-	OpenIDs       []*EventV2ApplicationApplicationAppVersionPublishApplyV6UnderAuditVersionRemarkVisibilityVisibleListOpenID `json:"open_ids,omitempty"`       // 可见性成员 id 列表
-	DepartmentIDs []string                                                                                                   `json:"department_ids,omitempty"` // 可见性部门的 id 列表
-}
-
-// EventV2ApplicationApplicationAppVersionPublishApplyV6UnderAuditVersionRemarkVisibilityVisibleListOpenID ...
-type EventV2ApplicationApplicationAppVersionPublishApplyV6UnderAuditVersionRemarkVisibilityVisibleListOpenID struct {
-	UnionID string `json:"union_id,omitempty"` // 用户的 union id
-	UserID  string `json:"user_id,omitempty"`  // 用户的 user id
-	OpenID  string `json:"open_id,omitempty"`  // 用户的 open id
-}
-
 // EventV2ApplicationApplicationAppVersionPublishApplyV6UnderAuditVersionRemarkVisibilityInvisibleList ...
 type EventV2ApplicationApplicationAppVersionPublishApplyV6UnderAuditVersionRemarkVisibilityInvisibleList struct {
-	OpenIDs       []*EventV2ApplicationApplicationAppVersionPublishApplyV6UnderAuditVersionRemarkVisibilityInvisibleListOpenID `json:"open_ids,omitempty"`       // 可见性成员 id 列表
-	DepartmentIDs []string                                                                                                     `json:"department_ids,omitempty"` // 可见性部门的 id 列表
+	OpenIDs       []string `json:"open_ids,omitempty"`       // 可见性成员 id 列表
+	DepartmentIDs []string `json:"department_ids,omitempty"` // 可见性部门的 id 列表
 }
 
-// EventV2ApplicationApplicationAppVersionPublishApplyV6UnderAuditVersionRemarkVisibilityInvisibleListOpenID ...
-type EventV2ApplicationApplicationAppVersionPublishApplyV6UnderAuditVersionRemarkVisibilityInvisibleListOpenID struct {
-	UnionID string `json:"union_id,omitempty"` // 用户的 union id
-	UserID  string `json:"user_id,omitempty"`  // 用户的 user id
-	OpenID  string `json:"open_id,omitempty"`  // 用户的 open id
+// EventV2ApplicationApplicationAppVersionPublishApplyV6UnderAuditVersionRemarkVisibilityVisibleList ...
+type EventV2ApplicationApplicationAppVersionPublishApplyV6UnderAuditVersionRemarkVisibilityVisibleList struct {
+	OpenIDs       []string `json:"open_ids,omitempty"`       // 可见性成员 id 列表
+	DepartmentIDs []string `json:"department_ids,omitempty"` // 可见性部门的 id 列表
+}
+
+// EventV2ApplicationApplicationAppVersionPublishApplyV6UnderAuditVersionScope ...
+type EventV2ApplicationApplicationAppVersionPublishApplyV6UnderAuditVersionScope struct {
+	Scope       string `json:"scope,omitempty"`       // 应用权限
+	Description string `json:"description,omitempty"` // 应用权限的国际化描述
+	Level       int64  `json:"level,omitempty"`       // 权限等级描述, 可选值有: `1`: 普通权限, `2`: 高级权限, `3`: 超敏感权限, `0`: 未知等级
 }

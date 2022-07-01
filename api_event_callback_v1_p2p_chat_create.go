@@ -21,9 +21,9 @@ import (
 	"context"
 )
 
-// EventV1P2PChatCreate
+// EventV1P2PChatCreate 首次会话是用户了解应用的重要机会, 你可以发送操作说明、配置地址来指导用户开始使用你的应用。
 //
-// 首次会话是用户了解应用的重要机会, 你可以发送操作说明、配置地址来指导用户开始使用你的应用。
+// :::warnning
 // 如果是应用商店应用, 请务必确保订阅并响应此事件。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uYDNxYjL2QTM24iN0EjN/bot-events

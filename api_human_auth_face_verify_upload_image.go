@@ -22,7 +22,7 @@ import (
 	"io"
 )
 
-// UploadFaceVerifyImage
+// UploadFaceVerifyImage ::: note
 //
 // 无源人脸比对接入需申请白名单, 接入前请联系飞书开放平台工作人员, 邮箱: openplatform@bytedance.com。
 // 无源人脸比对流程, 开发者后台通过调用此接口将基准图片上传到飞书后台, 做检测时的对比使用。

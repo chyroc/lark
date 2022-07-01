@@ -21,9 +21,8 @@ import (
 	"context"
 )
 
-// DeleteWikiSpaceMember
+// DeleteWikiSpaceMember 此接口用于删除知识空间成员。
 //
-// 此接口用于删除知识空间成员。
 // - 公开知识空间（visibility为public）对租户所有用户可见, 因此不支持再删除成员, 但可以删除管理员。
 // - 个人知识空间 （type为person）为个人管理的知识空间, 不支持删除管理员。但可以删除成员。
 // 知识库权限要求
@@ -67,7 +66,7 @@ type DeleteWikiSpaceMemberReq struct {
 	SpaceID    string `path:"space_id" json:"-"`     // 知识空间id, 示例值: "7008061636015554580"
 	MemberID   string `path:"member_id" json:"-"`    // 成员id, 示例值: "g64fb7g7"
 	MemberType string `json:"member_type,omitempty"` // “openchat” - 群id, “userid” - 用户id, “email” - 邮箱, “opendepartmentid” - 部门id, “openid” - 应用openid, “unionid” - unionid, 示例值: "userid"
-	MemberRole string `json:"member_role,omitempty"` // 角色:“admin” - 管理员, “member” - 成员, 示例值: "admin"
+	MemberRole string `json:"member_role,omitempty"` // 角色: “admin” - 管理员, “member” - 成员, 示例值: "admin"
 }
 
 // DeleteWikiSpaceMemberResp ...
@@ -79,7 +78,7 @@ type DeleteWikiSpaceMemberResp struct {
 type DeleteWikiSpaceMemberRespMember struct {
 	MemberType string `json:"member_type,omitempty"` // “openchat” - 群id, “userid” - 用户id, “email” - 邮箱, “opendepartmentid” - 部门id, “openid” - 应用openid, “unionid” - unionid
 	MemberID   string `json:"member_id,omitempty"`   // 用户id
-	MemberRole string `json:"member_role,omitempty"` // 角色:“admin” - 管理员, “member” - 成员
+	MemberRole string `json:"member_role,omitempty"` // 角色: “admin” - 管理员, “member” - 成员
 }
 
 // deleteWikiSpaceMemberResp ...

@@ -21,9 +21,8 @@ import (
 	"context"
 )
 
-// UpdateCalendar
+// UpdateCalendar 该接口用于以当前身份（应用 / 用户）修改日历信息。
 //
-// 该接口用于以当前身份（应用 / 用户）修改日历信息。
 // 身份由 Header Authorization 的 Token 类型决定。
 // 当前身份对日历有 owner 权限时, 可修改全局字段: summary, description, permission。
 // 当前身份对日历不具有 owner 权限时, 仅可修改对自己生效的字段: color, summary_alias。

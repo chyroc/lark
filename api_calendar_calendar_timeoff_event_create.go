@@ -23,6 +23,8 @@ import (
 
 // CreateCalendarTimeoffEvent 为指定用户创建一个请假日程, 可以是一个普通请假日程, 也可以是一个全天日程。
 //
+// 创建请假日程后, 会在相应时间内, 在用户个人签名页展示请假信息。
+//
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/timeoff_event/create
 func (r *CalendarService) CreateCalendarTimeoffEvent(ctx context.Context, request *CreateCalendarTimeoffEventReq, options ...MethodOptionFunc) (*CreateCalendarTimeoffEventResp, *Response, error) {
 	if r.cli.mock.mockCalendarCreateCalendarTimeoffEvent != nil {

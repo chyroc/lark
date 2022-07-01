@@ -38,28 +38,21 @@ func Test_VC_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
-			_, _, err := moduleCli.GetVCMeeting(ctx, &lark.GetVCMeetingReq{})
+			_, _, err := moduleCli.ApplyVCReserve(ctx, &lark.ApplyVCReserveReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "failed")
 		})
 
 		t.Run("", func(t *testing.T) {
 
-			_, _, err := moduleCli.ListVCMeetingByNo(ctx, &lark.ListVCMeetingByNoReq{})
+			_, _, err := moduleCli.DeleteVCReserve(ctx, &lark.DeleteVCReserveReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "failed")
 		})
 
 		t.Run("", func(t *testing.T) {
 
-			_, _, err := moduleCli.KickoutVCMeeting(ctx, &lark.KickoutVCMeetingReq{})
-			as.NotNil(err)
-			as.Equal(err.Error(), "failed")
-		})
-
-		t.Run("", func(t *testing.T) {
-
-			_, _, err := moduleCli.SetVCHostMeeting(ctx, &lark.SetVCHostMeetingReq{})
+			_, _, err := moduleCli.EndVCMeeting(ctx, &lark.EndVCMeetingReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "failed")
 		})
@@ -73,7 +66,28 @@ func Test_VC_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
-			_, _, err := moduleCli.GetVCTopUserReport(ctx, &lark.GetVCTopUserReportReq{})
+			_, _, err := moduleCli.GetVCMeeting(ctx, &lark.GetVCMeetingReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.GetVCMeetingRecording(ctx, &lark.GetVCMeetingRecordingReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.GetVCReserve(ctx, &lark.GetVCReserveReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.GetVCReserveActiveMeeting(ctx, &lark.GetVCReserveActiveMeetingReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "failed")
 		})
@@ -87,7 +101,70 @@ func Test_VC_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
+			_, _, err := moduleCli.GetVCTopUserReport(ctx, &lark.GetVCTopUserReportReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.InviteVCMeeting(ctx, &lark.InviteVCMeetingReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.KickoutVCMeeting(ctx, &lark.KickoutVCMeetingReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.ListVCMeetingByNo(ctx, &lark.ListVCMeetingByNoReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.SetVCHostMeeting(ctx, &lark.SetVCHostMeetingReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.SetVCPermissionMeetingRecording(ctx, &lark.SetVCPermissionMeetingRecordingReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
 			_, _, err := moduleCli.SetVCRoomConfig(ctx, &lark.SetVCRoomConfigReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.StartVCMeetingRecording(ctx, &lark.StartVCMeetingRecordingReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.StopVCMeetingRecording(ctx, &lark.StopVCMeetingRecordingReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.UpdateVCReserve(ctx, &lark.UpdateVCReserveReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "failed")
 		})
@@ -100,48 +177,36 @@ func Test_VC_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
-			cli.Mock().MockVCGetVCMeeting(func(ctx context.Context, request *lark.GetVCMeetingReq, options ...lark.MethodOptionFunc) (*lark.GetVCMeetingResp, *lark.Response, error) {
+			cli.Mock().MockVCApplyVCReserve(func(ctx context.Context, request *lark.ApplyVCReserveReq, options ...lark.MethodOptionFunc) (*lark.ApplyVCReserveResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
-			defer cli.Mock().UnMockVCGetVCMeeting()
+			defer cli.Mock().UnMockVCApplyVCReserve()
 
-			_, _, err := moduleCli.GetVCMeeting(ctx, &lark.GetVCMeetingReq{})
+			_, _, err := moduleCli.ApplyVCReserve(ctx, &lark.ApplyVCReserveReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "mock-failed")
 		})
 
 		t.Run("", func(t *testing.T) {
 
-			cli.Mock().MockVCListVCMeetingByNo(func(ctx context.Context, request *lark.ListVCMeetingByNoReq, options ...lark.MethodOptionFunc) (*lark.ListVCMeetingByNoResp, *lark.Response, error) {
+			cli.Mock().MockVCDeleteVCReserve(func(ctx context.Context, request *lark.DeleteVCReserveReq, options ...lark.MethodOptionFunc) (*lark.DeleteVCReserveResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
-			defer cli.Mock().UnMockVCListVCMeetingByNo()
+			defer cli.Mock().UnMockVCDeleteVCReserve()
 
-			_, _, err := moduleCli.ListVCMeetingByNo(ctx, &lark.ListVCMeetingByNoReq{})
+			_, _, err := moduleCli.DeleteVCReserve(ctx, &lark.DeleteVCReserveReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "mock-failed")
 		})
 
 		t.Run("", func(t *testing.T) {
 
-			cli.Mock().MockVCKickoutVCMeeting(func(ctx context.Context, request *lark.KickoutVCMeetingReq, options ...lark.MethodOptionFunc) (*lark.KickoutVCMeetingResp, *lark.Response, error) {
+			cli.Mock().MockVCEndVCMeeting(func(ctx context.Context, request *lark.EndVCMeetingReq, options ...lark.MethodOptionFunc) (*lark.EndVCMeetingResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
-			defer cli.Mock().UnMockVCKickoutVCMeeting()
+			defer cli.Mock().UnMockVCEndVCMeeting()
 
-			_, _, err := moduleCli.KickoutVCMeeting(ctx, &lark.KickoutVCMeetingReq{})
-			as.NotNil(err)
-			as.Equal(err.Error(), "mock-failed")
-		})
-
-		t.Run("", func(t *testing.T) {
-
-			cli.Mock().MockVCSetVCHostMeeting(func(ctx context.Context, request *lark.SetVCHostMeetingReq, options ...lark.MethodOptionFunc) (*lark.SetVCHostMeetingResp, *lark.Response, error) {
-				return nil, nil, fmt.Errorf("mock-failed")
-			})
-			defer cli.Mock().UnMockVCSetVCHostMeeting()
-
-			_, _, err := moduleCli.SetVCHostMeeting(ctx, &lark.SetVCHostMeetingReq{})
+			_, _, err := moduleCli.EndVCMeeting(ctx, &lark.EndVCMeetingReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "mock-failed")
 		})
@@ -160,12 +225,48 @@ func Test_VC_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
-			cli.Mock().MockVCGetVCTopUserReport(func(ctx context.Context, request *lark.GetVCTopUserReportReq, options ...lark.MethodOptionFunc) (*lark.GetVCTopUserReportResp, *lark.Response, error) {
+			cli.Mock().MockVCGetVCMeeting(func(ctx context.Context, request *lark.GetVCMeetingReq, options ...lark.MethodOptionFunc) (*lark.GetVCMeetingResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
-			defer cli.Mock().UnMockVCGetVCTopUserReport()
+			defer cli.Mock().UnMockVCGetVCMeeting()
 
-			_, _, err := moduleCli.GetVCTopUserReport(ctx, &lark.GetVCTopUserReportReq{})
+			_, _, err := moduleCli.GetVCMeeting(ctx, &lark.GetVCMeetingReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			cli.Mock().MockVCGetVCMeetingRecording(func(ctx context.Context, request *lark.GetVCMeetingRecordingReq, options ...lark.MethodOptionFunc) (*lark.GetVCMeetingRecordingResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockVCGetVCMeetingRecording()
+
+			_, _, err := moduleCli.GetVCMeetingRecording(ctx, &lark.GetVCMeetingRecordingReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			cli.Mock().MockVCGetVCReserve(func(ctx context.Context, request *lark.GetVCReserveReq, options ...lark.MethodOptionFunc) (*lark.GetVCReserveResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockVCGetVCReserve()
+
+			_, _, err := moduleCli.GetVCReserve(ctx, &lark.GetVCReserveReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			cli.Mock().MockVCGetVCReserveActiveMeeting(func(ctx context.Context, request *lark.GetVCReserveActiveMeetingReq, options ...lark.MethodOptionFunc) (*lark.GetVCReserveActiveMeetingResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockVCGetVCReserveActiveMeeting()
+
+			_, _, err := moduleCli.GetVCReserveActiveMeeting(ctx, &lark.GetVCReserveActiveMeetingReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "mock-failed")
 		})
@@ -184,12 +285,120 @@ func Test_VC_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
+			cli.Mock().MockVCGetVCTopUserReport(func(ctx context.Context, request *lark.GetVCTopUserReportReq, options ...lark.MethodOptionFunc) (*lark.GetVCTopUserReportResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockVCGetVCTopUserReport()
+
+			_, _, err := moduleCli.GetVCTopUserReport(ctx, &lark.GetVCTopUserReportReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			cli.Mock().MockVCInviteVCMeeting(func(ctx context.Context, request *lark.InviteVCMeetingReq, options ...lark.MethodOptionFunc) (*lark.InviteVCMeetingResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockVCInviteVCMeeting()
+
+			_, _, err := moduleCli.InviteVCMeeting(ctx, &lark.InviteVCMeetingReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			cli.Mock().MockVCKickoutVCMeeting(func(ctx context.Context, request *lark.KickoutVCMeetingReq, options ...lark.MethodOptionFunc) (*lark.KickoutVCMeetingResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockVCKickoutVCMeeting()
+
+			_, _, err := moduleCli.KickoutVCMeeting(ctx, &lark.KickoutVCMeetingReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			cli.Mock().MockVCListVCMeetingByNo(func(ctx context.Context, request *lark.ListVCMeetingByNoReq, options ...lark.MethodOptionFunc) (*lark.ListVCMeetingByNoResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockVCListVCMeetingByNo()
+
+			_, _, err := moduleCli.ListVCMeetingByNo(ctx, &lark.ListVCMeetingByNoReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			cli.Mock().MockVCSetVCHostMeeting(func(ctx context.Context, request *lark.SetVCHostMeetingReq, options ...lark.MethodOptionFunc) (*lark.SetVCHostMeetingResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockVCSetVCHostMeeting()
+
+			_, _, err := moduleCli.SetVCHostMeeting(ctx, &lark.SetVCHostMeetingReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			cli.Mock().MockVCSetVCPermissionMeetingRecording(func(ctx context.Context, request *lark.SetVCPermissionMeetingRecordingReq, options ...lark.MethodOptionFunc) (*lark.SetVCPermissionMeetingRecordingResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockVCSetVCPermissionMeetingRecording()
+
+			_, _, err := moduleCli.SetVCPermissionMeetingRecording(ctx, &lark.SetVCPermissionMeetingRecordingReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
 			cli.Mock().MockVCSetVCRoomConfig(func(ctx context.Context, request *lark.SetVCRoomConfigReq, options ...lark.MethodOptionFunc) (*lark.SetVCRoomConfigResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
 			defer cli.Mock().UnMockVCSetVCRoomConfig()
 
 			_, _, err := moduleCli.SetVCRoomConfig(ctx, &lark.SetVCRoomConfigReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			cli.Mock().MockVCStartVCMeetingRecording(func(ctx context.Context, request *lark.StartVCMeetingRecordingReq, options ...lark.MethodOptionFunc) (*lark.StartVCMeetingRecordingResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockVCStartVCMeetingRecording()
+
+			_, _, err := moduleCli.StartVCMeetingRecording(ctx, &lark.StartVCMeetingRecordingReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			cli.Mock().MockVCStopVCMeetingRecording(func(ctx context.Context, request *lark.StopVCMeetingRecordingReq, options ...lark.MethodOptionFunc) (*lark.StopVCMeetingRecordingResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockVCStopVCMeetingRecording()
+
+			_, _, err := moduleCli.StopVCMeetingRecording(ctx, &lark.StopVCMeetingRecordingReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			cli.Mock().MockVCUpdateVCReserve(func(ctx context.Context, request *lark.UpdateVCReserveReq, options ...lark.MethodOptionFunc) (*lark.UpdateVCReserveResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockVCUpdateVCReserve()
+
+			_, _, err := moduleCli.UpdateVCReserve(ctx, &lark.UpdateVCReserveReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "mock-failed")
 		})
@@ -202,8 +411,15 @@ func Test_VC_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
-			_, _, err := moduleCli.GetVCMeeting(ctx, &lark.GetVCMeetingReq{
-				MeetingID: "x",
+			_, _, err := moduleCli.ApplyVCReserve(ctx, &lark.ApplyVCReserveReq{})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.DeleteVCReserve(ctx, &lark.DeleteVCReserveReq{
+				ReserveID: "x",
 			})
 			as.NotNil(err)
 			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
@@ -211,23 +427,7 @@ func Test_VC_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
-			_, _, err := moduleCli.ListVCMeetingByNo(ctx, &lark.ListVCMeetingByNoReq{})
-			as.NotNil(err)
-			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
-		})
-
-		t.Run("", func(t *testing.T) {
-
-			_, _, err := moduleCli.KickoutVCMeeting(ctx, &lark.KickoutVCMeetingReq{
-				MeetingID: "x",
-			})
-			as.NotNil(err)
-			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
-		})
-
-		t.Run("", func(t *testing.T) {
-
-			_, _, err := moduleCli.SetVCHostMeeting(ctx, &lark.SetVCHostMeetingReq{
+			_, _, err := moduleCli.EndVCMeeting(ctx, &lark.EndVCMeetingReq{
 				MeetingID: "x",
 			})
 			as.NotNil(err)
@@ -243,7 +443,36 @@ func Test_VC_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
-			_, _, err := moduleCli.GetVCTopUserReport(ctx, &lark.GetVCTopUserReportReq{})
+			_, _, err := moduleCli.GetVCMeeting(ctx, &lark.GetVCMeetingReq{
+				MeetingID: "x",
+			})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.GetVCMeetingRecording(ctx, &lark.GetVCMeetingRecordingReq{
+				MeetingID: "x",
+			})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.GetVCReserve(ctx, &lark.GetVCReserveReq{
+				ReserveID: "x",
+			})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.GetVCReserveActiveMeeting(ctx, &lark.GetVCReserveActiveMeetingReq{
+				ReserveID: "x",
+			})
 			as.NotNil(err)
 			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
 		})
@@ -257,7 +486,84 @@ func Test_VC_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
+			_, _, err := moduleCli.GetVCTopUserReport(ctx, &lark.GetVCTopUserReportReq{})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.InviteVCMeeting(ctx, &lark.InviteVCMeetingReq{
+				MeetingID: "x",
+			})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.KickoutVCMeeting(ctx, &lark.KickoutVCMeetingReq{
+				MeetingID: "x",
+			})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.ListVCMeetingByNo(ctx, &lark.ListVCMeetingByNoReq{})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.SetVCHostMeeting(ctx, &lark.SetVCHostMeetingReq{
+				MeetingID: "x",
+			})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.SetVCPermissionMeetingRecording(ctx, &lark.SetVCPermissionMeetingRecordingReq{
+				MeetingID: "x",
+			})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+
 			_, _, err := moduleCli.SetVCRoomConfig(ctx, &lark.SetVCRoomConfigReq{})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.StartVCMeetingRecording(ctx, &lark.StartVCMeetingRecordingReq{
+				MeetingID: "x",
+			})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.StopVCMeetingRecording(ctx, &lark.StopVCMeetingRecordingReq{
+				MeetingID: "x",
+			})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.UpdateVCReserve(ctx, &lark.UpdateVCReserveReq{
+				ReserveID: "x",
+			})
 			as.NotNil(err)
 			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
 		})
@@ -273,8 +579,15 @@ func Test_VC_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
-			_, _, err := moduleCli.GetVCMeeting(ctx, &lark.GetVCMeetingReq{
-				MeetingID: "x",
+			_, _, err := moduleCli.ApplyVCReserve(ctx, &lark.ApplyVCReserveReq{})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.DeleteVCReserve(ctx, &lark.DeleteVCReserveReq{
+				ReserveID: "x",
 			})
 			as.NotNil(err)
 			as.Equal("fake raw request", err.Error())
@@ -282,23 +595,7 @@ func Test_VC_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
-			_, _, err := moduleCli.ListVCMeetingByNo(ctx, &lark.ListVCMeetingByNoReq{})
-			as.NotNil(err)
-			as.Equal("fake raw request", err.Error())
-		})
-
-		t.Run("", func(t *testing.T) {
-
-			_, _, err := moduleCli.KickoutVCMeeting(ctx, &lark.KickoutVCMeetingReq{
-				MeetingID: "x",
-			})
-			as.NotNil(err)
-			as.Equal("fake raw request", err.Error())
-		})
-
-		t.Run("", func(t *testing.T) {
-
-			_, _, err := moduleCli.SetVCHostMeeting(ctx, &lark.SetVCHostMeetingReq{
+			_, _, err := moduleCli.EndVCMeeting(ctx, &lark.EndVCMeetingReq{
 				MeetingID: "x",
 			})
 			as.NotNil(err)
@@ -314,7 +611,36 @@ func Test_VC_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
-			_, _, err := moduleCli.GetVCTopUserReport(ctx, &lark.GetVCTopUserReportReq{})
+			_, _, err := moduleCli.GetVCMeeting(ctx, &lark.GetVCMeetingReq{
+				MeetingID: "x",
+			})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.GetVCMeetingRecording(ctx, &lark.GetVCMeetingRecordingReq{
+				MeetingID: "x",
+			})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.GetVCReserve(ctx, &lark.GetVCReserveReq{
+				ReserveID: "x",
+			})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.GetVCReserveActiveMeeting(ctx, &lark.GetVCReserveActiveMeetingReq{
+				ReserveID: "x",
+			})
 			as.NotNil(err)
 			as.Equal("fake raw request", err.Error())
 		})
@@ -328,7 +654,84 @@ func Test_VC_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
+			_, _, err := moduleCli.GetVCTopUserReport(ctx, &lark.GetVCTopUserReportReq{})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.InviteVCMeeting(ctx, &lark.InviteVCMeetingReq{
+				MeetingID: "x",
+			})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.KickoutVCMeeting(ctx, &lark.KickoutVCMeetingReq{
+				MeetingID: "x",
+			})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.ListVCMeetingByNo(ctx, &lark.ListVCMeetingByNoReq{})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.SetVCHostMeeting(ctx, &lark.SetVCHostMeetingReq{
+				MeetingID: "x",
+			})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.SetVCPermissionMeetingRecording(ctx, &lark.SetVCPermissionMeetingRecordingReq{
+				MeetingID: "x",
+			})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+
 			_, _, err := moduleCli.SetVCRoomConfig(ctx, &lark.SetVCRoomConfigReq{})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.StartVCMeetingRecording(ctx, &lark.StartVCMeetingRecordingReq{
+				MeetingID: "x",
+			})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.StopVCMeetingRecording(ctx, &lark.StopVCMeetingRecordingReq{
+				MeetingID: "x",
+			})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.UpdateVCReserve(ctx, &lark.UpdateVCReserveReq{
+				ReserveID: "x",
+			})
 			as.NotNil(err)
 			as.Equal("fake raw request", err.Error())
 		})

@@ -21,9 +21,7 @@ import (
 	"context"
 )
 
-// EventV2ContactEmployeeTypeEnumUpdatedV3
-//
-// 修改人员类型名称会发出对应事件。{使用示例}(url=/api/tools/api_explore/api_explore_config?project=contact&version=v3&resource=employee_type_enum&event=updated)
+// EventV2ContactEmployeeTypeEnumUpdatedV3 修改人员类型名称会发出对应事件。{使用示例}(url=/api/tools/api_explore/api_explore_config?project=contact&version=v3&resource=employee_type_enum&event=updated)
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/employee_type_enum/events/updated
 func (r *EventCallbackService) HandlerEventV2ContactEmployeeTypeEnumUpdatedV3(f EventV2ContactEmployeeTypeEnumUpdatedV3Handler) {
@@ -39,22 +37,6 @@ type EventV2ContactEmployeeTypeEnumUpdatedV3 struct {
 	NewEnum *EventV2ContactEmployeeTypeEnumUpdatedV3NewEnum `json:"new_enum,omitempty"` // 新枚举类型
 }
 
-// EventV2ContactEmployeeTypeEnumUpdatedV3OldEnum ...
-type EventV2ContactEmployeeTypeEnumUpdatedV3OldEnum struct {
-	EnumID      string                                                       `json:"enum_id,omitempty"`      // 枚举值id
-	EnumValue   string                                                       `json:"enum_value,omitempty"`   // 枚举的编号值, 创建新的人员类型后, 系统生成对应编号。对应[创建用户接口](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/create)中用户信息的employee_type字段值
-	Content     string                                                       `json:"content,omitempty"`      // 枚举内容, 长度范围: `1` ～ `100` 字符
-	EnumType    int64                                                        `json:"enum_type,omitempty"`    // 类型, 可选值有: `1`: 内置类型, `2`: 自定义
-	EnumStatus  int64                                                        `json:"enum_status,omitempty"`  // 使用状态, 可选值有: `1`: 激活, `2`: 未激活
-	I18nContent []*EventV2ContactEmployeeTypeEnumUpdatedV3OldEnumI18nContent `json:"i18n_content,omitempty"` // i18n定义
-}
-
-// EventV2ContactEmployeeTypeEnumUpdatedV3OldEnumI18nContent ...
-type EventV2ContactEmployeeTypeEnumUpdatedV3OldEnumI18nContent struct {
-	Locale string `json:"locale,omitempty"` // 语言版本
-	Value  string `json:"value,omitempty"`  // 字段名
-}
-
 // EventV2ContactEmployeeTypeEnumUpdatedV3NewEnum ...
 type EventV2ContactEmployeeTypeEnumUpdatedV3NewEnum struct {
 	EnumID      string                                                       `json:"enum_id,omitempty"`      // 枚举值id
@@ -67,6 +49,22 @@ type EventV2ContactEmployeeTypeEnumUpdatedV3NewEnum struct {
 
 // EventV2ContactEmployeeTypeEnumUpdatedV3NewEnumI18nContent ...
 type EventV2ContactEmployeeTypeEnumUpdatedV3NewEnumI18nContent struct {
+	Locale string `json:"locale,omitempty"` // 语言版本
+	Value  string `json:"value,omitempty"`  // 字段名
+}
+
+// EventV2ContactEmployeeTypeEnumUpdatedV3OldEnum ...
+type EventV2ContactEmployeeTypeEnumUpdatedV3OldEnum struct {
+	EnumID      string                                                       `json:"enum_id,omitempty"`      // 枚举值id
+	EnumValue   string                                                       `json:"enum_value,omitempty"`   // 枚举的编号值, 创建新的人员类型后, 系统生成对应编号。对应[创建用户接口](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/create)中用户信息的employee_type字段值
+	Content     string                                                       `json:"content,omitempty"`      // 枚举内容, 长度范围: `1` ～ `100` 字符
+	EnumType    int64                                                        `json:"enum_type,omitempty"`    // 类型, 可选值有: `1`: 内置类型, `2`: 自定义
+	EnumStatus  int64                                                        `json:"enum_status,omitempty"`  // 使用状态, 可选值有: `1`: 激活, `2`: 未激活
+	I18nContent []*EventV2ContactEmployeeTypeEnumUpdatedV3OldEnumI18nContent `json:"i18n_content,omitempty"` // i18n定义
+}
+
+// EventV2ContactEmployeeTypeEnumUpdatedV3OldEnumI18nContent ...
+type EventV2ContactEmployeeTypeEnumUpdatedV3OldEnumI18nContent struct {
 	Locale string `json:"locale,omitempty"` // 语言版本
 	Value  string `json:"value,omitempty"`  // 字段名
 }

@@ -21,9 +21,8 @@ import (
 	"context"
 )
 
-// EventV1AppOpen
+// EventV1AppOpen 了解事件订阅的使用场景和配置流程, 请点击查看 [事件订阅概述](https://open.feishu.cn/document/ukTMukTMukTM/uUTNz4SN1MjL1UzM)
 //
-// 了解事件订阅的使用场景和配置流程, 请点击查看 [事件订阅概述](https://open.feishu.cn/document/ukTMukTMukTM/uUTNz4SN1MjL1UzM)
 // 当租户第一次安装并启用此应用时触发此事件, 启用应用包含以下场景:
 // - 当租户管理员后台首次开通应用
 // - 租户内的普通成员首次安装此应用

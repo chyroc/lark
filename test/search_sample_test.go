@@ -38,6 +38,13 @@ func Test_Search_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
+			_, _, err := moduleCli.CreateSearchDataSource(ctx, &lark.CreateSearchDataSourceReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
 			_, _, err := moduleCli.CreateSearchDataSourceItem(ctx, &lark.CreateSearchDataSourceItemReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "failed")
@@ -45,7 +52,7 @@ func Test_Search_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
-			_, _, err := moduleCli.GetSearchDataSourceItem(ctx, &lark.GetSearchDataSourceItemReq{})
+			_, _, err := moduleCli.DeleteSearchDataSource(ctx, &lark.DeleteSearchDataSourceReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "failed")
 		})
@@ -59,13 +66,6 @@ func Test_Search_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
-			_, _, err := moduleCli.CreateSearchDataSource(ctx, &lark.CreateSearchDataSourceReq{})
-			as.NotNil(err)
-			as.Equal(err.Error(), "failed")
-		})
-
-		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.GetSearchDataSource(ctx, &lark.GetSearchDataSourceReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "failed")
@@ -73,7 +73,7 @@ func Test_Search_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
-			_, _, err := moduleCli.UpdateSearchDataSource(ctx, &lark.UpdateSearchDataSourceReq{})
+			_, _, err := moduleCli.GetSearchDataSourceItem(ctx, &lark.GetSearchDataSourceItemReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "failed")
 		})
@@ -87,7 +87,7 @@ func Test_Search_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
-			_, _, err := moduleCli.DeleteSearchDataSource(ctx, &lark.DeleteSearchDataSourceReq{})
+			_, _, err := moduleCli.UpdateSearchDataSource(ctx, &lark.UpdateSearchDataSourceReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "failed")
 		})
@@ -97,6 +97,18 @@ func Test_Search_Sample_Failed(t *testing.T) {
 	t.Run("request mock failed", func(t *testing.T) {
 		cli := AppAllPermission.Ins()
 		moduleCli := cli.Search
+
+		t.Run("", func(t *testing.T) {
+
+			cli.Mock().MockSearchCreateSearchDataSource(func(ctx context.Context, request *lark.CreateSearchDataSourceReq, options ...lark.MethodOptionFunc) (*lark.CreateSearchDataSourceResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockSearchCreateSearchDataSource()
+
+			_, _, err := moduleCli.CreateSearchDataSource(ctx, &lark.CreateSearchDataSourceReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
 
 		t.Run("", func(t *testing.T) {
 
@@ -112,12 +124,12 @@ func Test_Search_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
-			cli.Mock().MockSearchGetSearchDataSourceItem(func(ctx context.Context, request *lark.GetSearchDataSourceItemReq, options ...lark.MethodOptionFunc) (*lark.GetSearchDataSourceItemResp, *lark.Response, error) {
+			cli.Mock().MockSearchDeleteSearchDataSource(func(ctx context.Context, request *lark.DeleteSearchDataSourceReq, options ...lark.MethodOptionFunc) (*lark.DeleteSearchDataSourceResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
-			defer cli.Mock().UnMockSearchGetSearchDataSourceItem()
+			defer cli.Mock().UnMockSearchDeleteSearchDataSource()
 
-			_, _, err := moduleCli.GetSearchDataSourceItem(ctx, &lark.GetSearchDataSourceItemReq{})
+			_, _, err := moduleCli.DeleteSearchDataSource(ctx, &lark.DeleteSearchDataSourceReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "mock-failed")
 		})
@@ -136,18 +148,6 @@ func Test_Search_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
-			cli.Mock().MockSearchCreateSearchDataSource(func(ctx context.Context, request *lark.CreateSearchDataSourceReq, options ...lark.MethodOptionFunc) (*lark.CreateSearchDataSourceResp, *lark.Response, error) {
-				return nil, nil, fmt.Errorf("mock-failed")
-			})
-			defer cli.Mock().UnMockSearchCreateSearchDataSource()
-
-			_, _, err := moduleCli.CreateSearchDataSource(ctx, &lark.CreateSearchDataSourceReq{})
-			as.NotNil(err)
-			as.Equal(err.Error(), "mock-failed")
-		})
-
-		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockSearchGetSearchDataSource(func(ctx context.Context, request *lark.GetSearchDataSourceReq, options ...lark.MethodOptionFunc) (*lark.GetSearchDataSourceResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -160,12 +160,12 @@ func Test_Search_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
-			cli.Mock().MockSearchUpdateSearchDataSource(func(ctx context.Context, request *lark.UpdateSearchDataSourceReq, options ...lark.MethodOptionFunc) (*lark.UpdateSearchDataSourceResp, *lark.Response, error) {
+			cli.Mock().MockSearchGetSearchDataSourceItem(func(ctx context.Context, request *lark.GetSearchDataSourceItemReq, options ...lark.MethodOptionFunc) (*lark.GetSearchDataSourceItemResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
-			defer cli.Mock().UnMockSearchUpdateSearchDataSource()
+			defer cli.Mock().UnMockSearchGetSearchDataSourceItem()
 
-			_, _, err := moduleCli.UpdateSearchDataSource(ctx, &lark.UpdateSearchDataSourceReq{})
+			_, _, err := moduleCli.GetSearchDataSourceItem(ctx, &lark.GetSearchDataSourceItemReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "mock-failed")
 		})
@@ -184,12 +184,12 @@ func Test_Search_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
-			cli.Mock().MockSearchDeleteSearchDataSource(func(ctx context.Context, request *lark.DeleteSearchDataSourceReq, options ...lark.MethodOptionFunc) (*lark.DeleteSearchDataSourceResp, *lark.Response, error) {
+			cli.Mock().MockSearchUpdateSearchDataSource(func(ctx context.Context, request *lark.UpdateSearchDataSourceReq, options ...lark.MethodOptionFunc) (*lark.UpdateSearchDataSourceResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
-			defer cli.Mock().UnMockSearchDeleteSearchDataSource()
+			defer cli.Mock().UnMockSearchUpdateSearchDataSource()
 
-			_, _, err := moduleCli.DeleteSearchDataSource(ctx, &lark.DeleteSearchDataSourceReq{})
+			_, _, err := moduleCli.UpdateSearchDataSource(ctx, &lark.UpdateSearchDataSourceReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "mock-failed")
 		})
@@ -202,7 +202,42 @@ func Test_Search_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
+			_, _, err := moduleCli.CreateSearchDataSource(ctx, &lark.CreateSearchDataSourceReq{})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+
 			_, _, err := moduleCli.CreateSearchDataSourceItem(ctx, &lark.CreateSearchDataSourceItemReq{
+				DataSourceID: "x",
+			})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.DeleteSearchDataSource(ctx, &lark.DeleteSearchDataSourceReq{
+				DataSourceID: "x",
+			})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.DeleteSearchDataSourceItem(ctx, &lark.DeleteSearchDataSourceItemReq{
+				DataSourceID: "x",
+				ItemID:       "x",
+			})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.GetSearchDataSource(ctx, &lark.GetSearchDataSourceReq{
 				DataSourceID: "x",
 			})
 			as.NotNil(err)
@@ -221,41 +256,6 @@ func Test_Search_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
-			_, _, err := moduleCli.DeleteSearchDataSourceItem(ctx, &lark.DeleteSearchDataSourceItemReq{
-				DataSourceID: "x",
-				ItemID:       "x",
-			})
-			as.NotNil(err)
-			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
-		})
-
-		t.Run("", func(t *testing.T) {
-
-			_, _, err := moduleCli.CreateSearchDataSource(ctx, &lark.CreateSearchDataSourceReq{})
-			as.NotNil(err)
-			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
-		})
-
-		t.Run("", func(t *testing.T) {
-
-			_, _, err := moduleCli.GetSearchDataSource(ctx, &lark.GetSearchDataSourceReq{
-				DataSourceID: "x",
-			})
-			as.NotNil(err)
-			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
-		})
-
-		t.Run("", func(t *testing.T) {
-
-			_, _, err := moduleCli.UpdateSearchDataSource(ctx, &lark.UpdateSearchDataSourceReq{
-				DataSourceID: "x",
-			})
-			as.NotNil(err)
-			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
-		})
-
-		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.GetSearchDataSourceList(ctx, &lark.GetSearchDataSourceListReq{})
 			as.NotNil(err)
 			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
@@ -263,7 +263,7 @@ func Test_Search_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
-			_, _, err := moduleCli.DeleteSearchDataSource(ctx, &lark.DeleteSearchDataSourceReq{
+			_, _, err := moduleCli.UpdateSearchDataSource(ctx, &lark.UpdateSearchDataSourceReq{
 				DataSourceID: "x",
 			})
 			as.NotNil(err)
@@ -281,7 +281,42 @@ func Test_Search_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
+			_, _, err := moduleCli.CreateSearchDataSource(ctx, &lark.CreateSearchDataSourceReq{})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+
 			_, _, err := moduleCli.CreateSearchDataSourceItem(ctx, &lark.CreateSearchDataSourceItemReq{
+				DataSourceID: "x",
+			})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.DeleteSearchDataSource(ctx, &lark.DeleteSearchDataSourceReq{
+				DataSourceID: "x",
+			})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.DeleteSearchDataSourceItem(ctx, &lark.DeleteSearchDataSourceItemReq{
+				DataSourceID: "x",
+				ItemID:       "x",
+			})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.GetSearchDataSource(ctx, &lark.GetSearchDataSourceReq{
 				DataSourceID: "x",
 			})
 			as.NotNil(err)
@@ -300,41 +335,6 @@ func Test_Search_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
-			_, _, err := moduleCli.DeleteSearchDataSourceItem(ctx, &lark.DeleteSearchDataSourceItemReq{
-				DataSourceID: "x",
-				ItemID:       "x",
-			})
-			as.NotNil(err)
-			as.Equal("fake raw request", err.Error())
-		})
-
-		t.Run("", func(t *testing.T) {
-
-			_, _, err := moduleCli.CreateSearchDataSource(ctx, &lark.CreateSearchDataSourceReq{})
-			as.NotNil(err)
-			as.Equal("fake raw request", err.Error())
-		})
-
-		t.Run("", func(t *testing.T) {
-
-			_, _, err := moduleCli.GetSearchDataSource(ctx, &lark.GetSearchDataSourceReq{
-				DataSourceID: "x",
-			})
-			as.NotNil(err)
-			as.Equal("fake raw request", err.Error())
-		})
-
-		t.Run("", func(t *testing.T) {
-
-			_, _, err := moduleCli.UpdateSearchDataSource(ctx, &lark.UpdateSearchDataSourceReq{
-				DataSourceID: "x",
-			})
-			as.NotNil(err)
-			as.Equal("fake raw request", err.Error())
-		})
-
-		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.GetSearchDataSourceList(ctx, &lark.GetSearchDataSourceListReq{})
 			as.NotNil(err)
 			as.Equal("fake raw request", err.Error())
@@ -342,7 +342,7 @@ func Test_Search_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
-			_, _, err := moduleCli.DeleteSearchDataSource(ctx, &lark.DeleteSearchDataSourceReq{
+			_, _, err := moduleCli.UpdateSearchDataSource(ctx, &lark.UpdateSearchDataSourceReq{
 				DataSourceID: "x",
 			})
 			as.NotNil(err)

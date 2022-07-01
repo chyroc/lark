@@ -21,7 +21,11 @@ import (
 	"github.com/chyroc/lark/internal"
 )
 
-// OpenTaskTab 唤起任务tab页，跳转到指定tab。,,**什么是「任务」**：[任务](https://www.feishu.cn/hc/zh-CN/articles/798052212434)是一个轻量级的团队任务管理工具，可有效帮助成员：集中管理任务、追踪任务进度、推进团队协作。
+// OpenTaskTab 打开任务tab页
+//
+// 唤起任务tab页，跳转到指定tab。
+//
+// **什么是「任务」**：[任务](https://www.feishu.cn/hc/zh-CN/articles/798052212434)是一个轻量级的团队任务管理工具，可有效帮助成员：集中管理任务、追踪任务进度、推进团队协作。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/uYjL24iN/applink-protocol/supported-protocol/open-todo/open-the-task-tab-page
 func (r *AppLinkService) OpenTaskTab(req *OpenTaskTabReq) string {
@@ -30,5 +34,5 @@ func (r *AppLinkService) OpenTaskTab(req *OpenTaskTabReq) string {
 
 // OpenTaskTabReq ...
 type OpenTaskTabReq struct {
-	Tab string `json:"tab,omitempty"` // String类型, 枚举值包括: `all` 进行中； `assign_to_me` 由我处理； `assign_from_me` 我分配的； `followed`  我关注的； `completed` 已完成
+	Tab string `json:"tab,omitempty"` // String类型, 枚举值包括: `all` 进行中；  `assign_to_me` 由我处理；  `assign_from_me` 我分配的；  `followed`  我关注的；  `completed` 已完成
 }

@@ -21,9 +21,7 @@ import (
 	"context"
 )
 
-// EventV2VCMeetingRecordingStartedV1
-//
-// 发生在开始录制时
+// EventV2VCMeetingRecordingStartedV1 发生在开始录制时
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/vc-v1/meeting/events/recording_started
 func (r *EventCallbackService) HandlerEventV2VCMeetingRecordingStartedV1(f EventV2VCMeetingRecordingStartedV1Handler) {

@@ -21,9 +21,8 @@ import (
 	"context"
 )
 
-// DeleteCalendarEvent
+// DeleteCalendarEvent 该接口用于以当前身份（应用 / 用户）删除日历上的一个日程。
 //
-// 该接口用于以当前身份（应用 / 用户）删除日历上的一个日程。
 // 身份由 Header Authorization 的 Token 类型决定。
 // 当前身份必须对日历有 writer 或 owner 权限, 并且日历的类型只能为 primary 或 shared。
 // 当前身份必须是日程的组织者。

@@ -21,9 +21,8 @@ import (
 	"context"
 )
 
-// DeleteCalendar
+// DeleteCalendar 该接口用于以当前身份（应用 / 用户）删除一个共享日历。
 //
-// 该接口用于以当前身份（应用 / 用户）删除一个共享日历。
 // 身份由 Header Authorization 的 Token 类型决定。
 // 当前身份必须对日历具有 owner 权限。
 //

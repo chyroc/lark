@@ -38,14 +38,14 @@ func Test_EHR_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
-			_, _, err := moduleCli.GetEHREmployeeList(ctx, &lark.GetEHREmployeeListReq{})
+			_, _, err := moduleCli.DownloadEHRAttachments(ctx, &lark.DownloadEHRAttachmentsReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "failed")
 		})
 
 		t.Run("", func(t *testing.T) {
 
-			_, _, err := moduleCli.DownloadEHRAttachments(ctx, &lark.DownloadEHRAttachmentsReq{})
+			_, _, err := moduleCli.GetEHREmployeeList(ctx, &lark.GetEHREmployeeListReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "failed")
 		})
@@ -55,18 +55,6 @@ func Test_EHR_Sample_Failed(t *testing.T) {
 	t.Run("request mock failed", func(t *testing.T) {
 		cli := AppAllPermission.Ins()
 		moduleCli := cli.EHR
-
-		t.Run("", func(t *testing.T) {
-
-			cli.Mock().MockEHRGetEHREmployeeList(func(ctx context.Context, request *lark.GetEHREmployeeListReq, options ...lark.MethodOptionFunc) (*lark.GetEHREmployeeListResp, *lark.Response, error) {
-				return nil, nil, fmt.Errorf("mock-failed")
-			})
-			defer cli.Mock().UnMockEHRGetEHREmployeeList()
-
-			_, _, err := moduleCli.GetEHREmployeeList(ctx, &lark.GetEHREmployeeListReq{})
-			as.NotNil(err)
-			as.Equal(err.Error(), "mock-failed")
-		})
 
 		t.Run("", func(t *testing.T) {
 
@@ -80,6 +68,18 @@ func Test_EHR_Sample_Failed(t *testing.T) {
 			as.Equal(err.Error(), "mock-failed")
 		})
 
+		t.Run("", func(t *testing.T) {
+
+			cli.Mock().MockEHRGetEHREmployeeList(func(ctx context.Context, request *lark.GetEHREmployeeListReq, options ...lark.MethodOptionFunc) (*lark.GetEHREmployeeListResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockEHRGetEHREmployeeList()
+
+			_, _, err := moduleCli.GetEHREmployeeList(ctx, &lark.GetEHREmployeeListReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
 	})
 
 	t.Run("response is failed", func(t *testing.T) {
@@ -88,16 +88,16 @@ func Test_EHR_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
-			_, _, err := moduleCli.GetEHREmployeeList(ctx, &lark.GetEHREmployeeListReq{})
+			_, _, err := moduleCli.DownloadEHRAttachments(ctx, &lark.DownloadEHRAttachmentsReq{
+				Token: "x",
+			})
 			as.NotNil(err)
 			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
 		})
 
 		t.Run("", func(t *testing.T) {
 
-			_, _, err := moduleCli.DownloadEHRAttachments(ctx, &lark.DownloadEHRAttachmentsReq{
-				Token: "x",
-			})
+			_, _, err := moduleCli.GetEHREmployeeList(ctx, &lark.GetEHREmployeeListReq{})
 			as.NotNil(err)
 			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
 		})
@@ -113,16 +113,16 @@ func Test_EHR_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
-			_, _, err := moduleCli.GetEHREmployeeList(ctx, &lark.GetEHREmployeeListReq{})
+			_, _, err := moduleCli.DownloadEHRAttachments(ctx, &lark.DownloadEHRAttachmentsReq{
+				Token: "x",
+			})
 			as.NotNil(err)
 			as.Equal("fake raw request", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
 
-			_, _, err := moduleCli.DownloadEHRAttachments(ctx, &lark.DownloadEHRAttachmentsReq{
-				Token: "x",
-			})
+			_, _, err := moduleCli.GetEHREmployeeList(ctx, &lark.GetEHREmployeeListReq{})
 			as.NotNil(err)
 			as.Equal("fake raw request", err.Error())
 		})

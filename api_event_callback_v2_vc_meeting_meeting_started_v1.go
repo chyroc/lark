@@ -21,9 +21,7 @@ import (
 	"context"
 )
 
-// EventV2VCMeetingMeetingStartedV1
-//
-// 发生在会议开始时
+// EventV2VCMeetingMeetingStartedV1 发生在会议开始时
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/vc-v1/meeting/events/meeting_started
 func (r *EventCallbackService) HandlerEventV2VCMeetingMeetingStartedV1(f EventV2VCMeetingMeetingStartedV1Handler) {

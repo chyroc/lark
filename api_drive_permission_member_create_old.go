@@ -61,7 +61,7 @@ type CreateDriveMemberPermissionOldReq struct {
 	Token      string                                    `json:"token,omitempty"`       // 文件的 token, 获取方式见 [对接前说明](https://open.feishu.cn/document/ukTMukTMukTM/uczNzUjL3czM14yN3MTN)的第 4 项
 	Type       string                                    `json:"type,omitempty"`        // 文档类型  "doc" 、"sheet" 、 "bitable" or "file"
 	Members    *CreateDriveMemberPermissionOldReqMembers `json:"members,omitempty"`     // 用户
-	NotifyLark *bool                                     `json:"notify_lark,omitempty"` // 添加权限后是否飞书/lark通知对方true 通知 or false 不通知
+	NotifyLark *bool                                     `json:"notify_lark,omitempty"` // 添加权限后是否飞书/lark通知对方 true 通知 or false 不通知
 }
 
 // CreateDriveMemberPermissionOldReqMembers ...
@@ -73,12 +73,12 @@ type CreateDriveMemberPermissionOldReqMembers struct {
 
 // CreateDriveMemberPermissionOldResp ...
 type CreateDriveMemberPermissionOldResp struct {
-	IsAllSuccess bool                                           `json:"is_all_success,omitempty"` // 是否全部成功
-	FailMembers  *CreateDriveMemberPermissionOldRespFailMembers `json:"fail_members,omitempty"`   // 添加权限失败的用户信息
+	IsAllSuccess bool                                            `json:"is_all_success,omitempty"` // 是否全部成功
+	FailMembers  []*CreateDriveMemberPermissionOldRespFailMember `json:"fail_members,omitempty"`   // 添加权限失败的用户信息
 }
 
-// CreateDriveMemberPermissionOldRespFailMembers ...
-type CreateDriveMemberPermissionOldRespFailMembers struct {
+// CreateDriveMemberPermissionOldRespFailMember ...
+type CreateDriveMemberPermissionOldRespFailMember struct {
 	MemberType string `json:"member_type,omitempty"` // 用户类型
 	MemberID   string `json:"member_id,omitempty"`   // 用户类型下的值
 	Perm       string `json:"perm,omitempty"`        // 需要增加的权限

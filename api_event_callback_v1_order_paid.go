@@ -21,9 +21,8 @@ import (
 	"context"
 )
 
-// EventV1OrderPaid
+// EventV1OrderPaid 了解事件订阅的使用场景和配置流程, 请点击查看 [事件订阅概述](https://open.feishu.cn/document/ukTMukTMukTM/uUTNz4SN1MjL1UzM)
 //
-// 了解事件订阅的使用场景和配置流程, 请点击查看 [事件订阅概述](https://open.feishu.cn/document/ukTMukTMukTM/uUTNz4SN1MjL1UzM)
 // 用户购买应用商店付费应用成功后发送给应用ISV的通知事件。
 // - 订阅条件: 只有应用商店应用才能订阅此事件。自建应用无此事件。
 //

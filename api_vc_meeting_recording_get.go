@@ -23,7 +23,7 @@ import (
 
 // GetVCMeetingRecording 获取一个会议的录制文件。
 //
-// 会议结束后并且收到了"录制完成"的事件方可获取录制文件；只有会议owner（通过开放平台预约的会议即为预约人）有权限获取；录制时间太短(&lt;5s)有可能无法生成录制文件
+// 会议结束后并且收到了"录制完成"的事件方可获取录制文件；只有会议owner（通过开放平台预约的会议即为预约人）有权限获取；录制时间太短(<5s)有可能无法生成录制文件
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/vc-v1/meeting-recording/get
 func (r *VCService) GetVCMeetingRecording(ctx context.Context, request *GetVCMeetingRecordingReq, options ...MethodOptionFunc) (*GetVCMeetingRecordingResp, *Response, error) {

@@ -21,9 +21,8 @@ import (
 	"context"
 )
 
-// EventV1AppUninstalled
+// EventV1AppUninstalled 了解事件订阅的使用场景和配置流程, 请点击查看 [事件订阅概述](https://open.feishu.cn/document/ukTMukTMukTM/uUTNz4SN1MjL1UzM)
 //
-// 了解事件订阅的使用场景和配置流程, 请点击查看 [事件订阅概述](https://open.feishu.cn/document/ukTMukTMukTM/uUTNz4SN1MjL1UzM)
 // - 自建应用无此事件。
 // - 企业解散后会推送此事件。商店应用开发者可在收到此事件后进行相应的账户注销、数据清理等处理。
 //

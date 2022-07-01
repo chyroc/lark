@@ -21,7 +21,11 @@ import (
 	"github.com/chyroc/lark/internal"
 )
 
-// OpenTaskCreate 唤起创建任务页。,,**什么是「任务」**：[任务](https://www.feishu.cn/hc/zh-CN/articles/798052212434)是一个轻量级的团队任务管理工具，可有效帮助成员：集中管理任务、追踪任务进度、推进团队协作。
+// OpenTaskCreate 创建任务
+//
+// 唤起创建任务页。
+//
+// **什么是「任务」**：[任务](https://www.feishu.cn/hc/zh-CN/articles/798052212434)是一个轻量级的团队任务管理工具，可有效帮助成员：集中管理任务、追踪任务进度、推进团队协作。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/uYjL24iN/applink-protocol/supported-protocol/open-todo/create-task
 func (r *AppLinkService) OpenTaskCreate(req *OpenTaskCreateReq) string {

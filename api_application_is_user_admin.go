@@ -21,9 +21,8 @@ import (
 	"context"
 )
 
-// IsApplicationUserAdmin
+// IsApplicationUserAdmin 该接口用于查询用户是否为应用管理员。
 //
-// 该接口用于查询用户是否为应用管理员。
 // > 此处应用管理员是指可以进入企业管理后台对应用进行审核和管理的企业管理员, 并不是应用的开发者。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uITN1EjLyUTNx4iM1UTM

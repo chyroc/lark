@@ -61,11 +61,11 @@ type GetMeetingRoomCountryListReq struct {
 
 // GetMeetingRoomCountryListResp ...
 type GetMeetingRoomCountryListResp struct {
-	Countries *GetMeetingRoomCountryListRespCountries `json:"countries,omitempty"` // 国家地区列表
+	Countries []*GetMeetingRoomCountryListRespCountry `json:"countries,omitempty"` // 国家地区列表
 }
 
-// GetMeetingRoomCountryListRespCountries ...
-type GetMeetingRoomCountryListRespCountries struct {
+// GetMeetingRoomCountryListRespCountry ...
+type GetMeetingRoomCountryListRespCountry struct {
 	CountryID string `json:"country_id,omitempty"` // 国家地区ID
 	Name      string `json:"name,omitempty"`       // 国家地区名称
 }

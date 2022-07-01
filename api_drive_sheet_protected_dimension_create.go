@@ -21,9 +21,7 @@ import (
 	"context"
 )
 
-// CreateSheetProtectedDimension
-//
-// 该接口用于根据 spreadsheetToken 和维度信息增加多个保护范围；单次操作不超过5000行或列。
+// CreateSheetProtectedDimension 该接口用于根据 spreadsheetToken 和维度信息增加多个保护范围；单次操作不超过5000行或列。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/ugDNzUjL4QzM14CO0MTN
 func (r *DriveService) CreateSheetProtectedDimension(ctx context.Context, request *CreateSheetProtectedDimensionReq, options ...MethodOptionFunc) (*CreateSheetProtectedDimensionResp, *Response, error) {

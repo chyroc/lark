@@ -21,9 +21,7 @@ import (
 	"context"
 )
 
-// EventV2HelpdeskTicketMessageCreatedV1
-//
-// 该消息事件属于工单消息事件。需使用订阅接口订阅: [事件订阅](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/event/overview)
+// EventV2HelpdeskTicketMessageCreatedV1 该消息事件属于工单消息事件。需使用订阅接口订阅: [事件订阅](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/event/overview)
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/ticket_message/events/created
 func (r *EventCallbackService) HandlerEventV2HelpdeskTicketMessageCreatedV1(f EventV2HelpdeskTicketMessageCreatedV1Handler) {
@@ -48,6 +46,14 @@ type EventV2HelpdeskTicketMessageCreatedV1 struct {
 	Content         *EventV2HelpdeskTicketMessageCreatedV1Content  `json:"content,omitempty"`           // 内容详情
 }
 
+// EventV2HelpdeskTicketMessageCreatedV1Content ...
+type EventV2HelpdeskTicketMessageCreatedV1Content struct {
+	Content   string   `json:"content,omitempty"`    // 内容
+	MsgType   MsgType  `json:"msg_type,omitempty"`   // 消息类型；text: 纯文本；post: 富文本；image: 图片
+	ImageKeys []string `json:"image_keys,omitempty"` // 图片ID
+	ImageKey  string   `json:"image_key,omitempty"`  // 图片ID
+}
+
 // EventV2HelpdeskTicketMessageCreatedV1SenderID ...
 type EventV2HelpdeskTicketMessageCreatedV1SenderID struct {
 	UnionID string `json:"union_id,omitempty"` // 用户的 union id
@@ -60,12 +66,4 @@ type EventV2HelpdeskTicketMessageCreatedV1Ticket struct {
 	TicketID string `json:"ticket_id,omitempty"` // 工单ID, [可以从工单列表里面取](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/ticket/list), [也可以订阅工单创建事件获取](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/ticket/events/created)
 	Stage    int64  `json:"stage,omitempty"`     // 工单阶段, 1: bot, 2: 人工
 	Status   int64  `json:"status,omitempty"`    // 工单状态, 1: 已创建 2: 处理中 3: 排队中 4: 待定 5: 待用户响应 50: 被机器人关闭 51: 被客服关闭 52: 用户自己关闭
-}
-
-// EventV2HelpdeskTicketMessageCreatedV1Content ...
-type EventV2HelpdeskTicketMessageCreatedV1Content struct {
-	Content   string   `json:"content,omitempty"`    // 内容
-	MsgType   MsgType  `json:"msg_type,omitempty"`   // 消息类型；text: 纯文本；post: 富文本；image: 图片
-	ImageKeys []string `json:"image_keys,omitempty"` // 图片ID
-	ImageKey  string   `json:"image_key,omitempty"`  // 图片ID
 }

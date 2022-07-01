@@ -21,9 +21,8 @@ import (
 	"context"
 )
 
-// EventV2DriveFileBitableRecordChangedV1
+// EventV2DriveFileBitableRecordChangedV1 了解事件订阅的使用场景和配置流程, 请点击查看 [事件订阅概述](https://open.feishu.cn/document/ukTMukTMukTM/uUTNz4SN1MjL1UzM)
 //
-// 了解事件订阅的使用场景和配置流程, 请点击查看 [事件订阅概述](https://open.feishu.cn/document/ukTMukTMukTM/uUTNz4SN1MjL1UzM)
 // 被订阅的多维表格记录发生变更将会触发此事件, 公式字段的值变化不会触发事件。
 // ## 概述
 // :::html
@@ -38,14 +37,12 @@ import (
 // <md-tr>
 // <md-th>支持的应用类型</md-th>
 // <md-td>
-// <md-app-support types="custom, isv"></md-app-support>
+// custom, isv
 // </md-td>
 // </md-tr>
 // <md-tr>
 // <md-th>
 // 权限要求
-// <md-tooltip type="info">调用该 API 所需的权限。开启其中任意一项权限即可调用</md-tooltip>
-// <div style="color: rgb(100, 106, 115);font-size: 12px;line-height: 20px;white-space: pre-line;font-weight: 500;padding-top: 4px;">开启任一权限即可</div>
 // </md-th>
 // <md-td>
 // 查看、评论、编辑和管理多维表格

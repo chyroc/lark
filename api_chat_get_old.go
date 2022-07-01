@@ -21,9 +21,8 @@ import (
 	"context"
 )
 
-// GetChatOld
+// GetChatOld 为了更好地提升该接口的安全性, 我们对其进行了升级, 请尽快迁移至[新版本>>](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat/get)
 //
-// 为了更好地提升该接口的安全性, 我们对其进行了升级, 请尽快迁移至[新版本>>](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat/get)
 // 获取群名称、群主 ID、成员列表 ID 等群基本信息。
 // - 需要启用机器人能力；机器人必须在群里
 //
@@ -70,7 +69,7 @@ type GetChatOldReq struct {
 type GetChatOldResp struct {
 	Avatar                   string                  `json:"avatar,omitempty"`                      // 群头像
 	Description              string                  `json:"description,omitempty"`                 // 群描述
-	I18nNames                map[string]string       `json:"i18n_names,omitempty"`                  // 群国际化名称（设置了国际化名称才会有这个字段）
+	I18nNames                *I18nNames              `json:"i18n_names,omitempty"`                  // 群国际化名称（设置了国际化名称才会有这个字段）
 	ChatID                   string                  `json:"chat_id,omitempty"`                     // 群 ID
 	Members                  []*GetChatOldRespMember `json:"members,omitempty"`                     // 成员列表
 	Name                     string                  `json:"name,omitempty"`                        // 群名称, 类型为group时有效
@@ -82,11 +81,11 @@ type GetChatOldResp struct {
 	ShareAllowed             bool                    `json:"share_allowed,omitempty"`               // 是否允许分享群
 	AddMemberVerify          bool                    `json:"add_member_verify,omitempty"`           // 是否开启入群验证
 	OnlyOwnerAtAll           bool                    `json:"only_owner_at_all,omitempty"`           // 是否仅群主@all
-	SendMessagePermission    string                  `json:"send_message_permission,omitempty"`     // 允许谁发送消息all: 所有人  owner: 仅群主selected_member: 指定成员
-	JoinMessageVisibility    MessageVisibility       `json:"join_message_visibility,omitempty"`     // 成员入群通知all: 所有人 owner: 仅群主 not_anyone: 不通知任何人"
-	LeaveMessageVisibility   MessageVisibility       `json:"leave_message_visibility,omitempty"`    // 成员退群通知all: 所有人 owner: 仅群主 not_anyone: 不通知任何人
+	SendMessagePermission    string                  `json:"send_message_permission,omitempty"`     // 允许谁发送消息 all: 所有人   owner: 仅群主 selected_member: 指定成员
+	JoinMessageVisibility    MessageVisibility       `json:"join_message_visibility,omitempty"`     // 成员入群通知 all: 所有人  owner: 仅群主  not_anyone: 不通知任何人"
+	LeaveMessageVisibility   MessageVisibility       `json:"leave_message_visibility,omitempty"`    // 成员退群通知 all: 所有人  owner: 仅群主  not_anyone: 不通知任何人
 	GroupEmailEnabled        bool                    `json:"group_email_enabled,omitempty"`         // 是否开启群邮件
-	SendGroupEmailPermission string                  `json:"send_group_email_permission,omitempty"` // 发送群邮件的权限owner: 仅群主  group_member: 群组内成员tenant_member: 团队成员 all: 所有人
+	SendGroupEmailPermission string                  `json:"send_group_email_permission,omitempty"` // 发送群邮件的权限 owner: 仅群主   group_member: 群组内成员 tenant_member: 团队成员  all: 所有人
 }
 
 // GetChatOldRespMember ...

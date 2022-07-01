@@ -21,16 +21,10 @@ import (
 	"context"
 )
 
-// EventV2ApprovalApprovalUpdatedV4
+// EventV2ApprovalApprovalUpdatedV4 了解事件订阅的使用场景和配置流程, 请点击查看 [事件订阅概述](https://open.feishu.cn/document/ukTMukTMukTM/uUTNz4SN1MjL1UzM)
 //
-// 了解事件订阅的使用场景和配置流程, 请点击查看 [事件订阅概述](https://open.feishu.cn/document/ukTMukTMukTM/uUTNz4SN1MjL1UzM)
 // 「审批」定义更新时触发此事件
 // * 依赖权限: [访问审批应用]
-// 回调示例:
-// ```json
-// {
-// "schema": "2.0",
-// "header": {
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uIDO24iM4YjLygjN/event/custom-approval-event
 func (r *EventCallbackService) HandlerEventV2ApprovalApprovalUpdatedV4(f EventV2ApprovalApprovalUpdatedV4Handler) {
@@ -42,4 +36,17 @@ type EventV2ApprovalApprovalUpdatedV4Handler func(ctx context.Context, cli *Lark
 
 // EventV2ApprovalApprovalUpdatedV4 ...
 type EventV2ApprovalApprovalUpdatedV4 struct {
+	Object *EventV2ApprovalApprovalUpdatedV4Object `json:"object,omitempty"` // 为当前的数据, 事件的标准格式
+}
+
+// EventV2ApprovalApprovalUpdatedV4Object ...
+type EventV2ApprovalApprovalUpdatedV4Object struct {
+	ApprovalID       string `json:"approval_id,omitempty"`       // 审批定义id
+	ApprovalCode     string `json:"approval_code,omitempty"`     // 审批定义code
+	VersionID        string `json:"version_id,omitempty"`        // 审批定义版本号
+	WidgetGroupType  int64  `json:"widget_group_type,omitempty"` // 控件组类型, 0表示未使用. 如: 0
+	FormDefinitionID string `json:"FormDefinitionId,omitempty"`  // 表单定义ID
+	ProcessObj       string `json:"process_obj,omitempty"`       // 审批流程设计
+	Timestamp        string `json:"timestamp,omitempty"`         // 时间
+	Extra            string `json:"extra,omitempty"`             // 扩展字段
 }

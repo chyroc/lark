@@ -61,17 +61,11 @@ type DownloadAttendanceFileReq struct {
 	FileID string `path:"file_id" json:"-"` // 文件 ID, 示例值: "xxxxxb306842b1c189bc5212eefxxxxx"
 }
 
-// DownloadAttendanceFileResp ...
-type DownloadAttendanceFileResp struct {
-	File io.Reader `json:"file,omitempty"`
-}
-
 // downloadAttendanceFileResp ...
 type downloadAttendanceFileResp struct {
-	IsFile bool                        `json:"is_file,omitempty"`
-	Code   int64                       `json:"code,omitempty"`
-	Msg    string                      `json:"msg,omitempty"`
-	Data   *DownloadAttendanceFileResp `json:"data,omitempty"`
+	Code int64                       `json:"code,omitempty"`
+	Msg  string                      `json:"msg,omitempty"`
+	Data *DownloadAttendanceFileResp `json:"data,omitempty"`
 }
 
 func (r *downloadAttendanceFileResp) SetReader(file io.Reader) {
@@ -79,4 +73,9 @@ func (r *downloadAttendanceFileResp) SetReader(file io.Reader) {
 		r.Data = &DownloadAttendanceFileResp{}
 	}
 	r.Data.File = file
+}
+
+// DownloadAttendanceFileResp ...
+type DownloadAttendanceFileResp struct {
+	File io.Reader `json:"file,omitempty"`
 }

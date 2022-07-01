@@ -21,7 +21,9 @@ import (
 	"github.com/chyroc/lark/internal"
 )
 
-// OpenCalenderEventCreate 跳转日历 tab 并进入日程创建页面，用户可新建日程。
+// OpenCalenderEventCreate 打开日程创建页
+//
+// 跳转日历 tab 并进入日程创建页面，用户可新建日程。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/uYjL24iN/applink-protocol/supported-protocol/open-calender/open-the-schedule-creation-page
 func (r *AppLinkService) OpenCalenderEventCreate(req *OpenCalenderEventCreateReq) string {

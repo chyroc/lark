@@ -21,7 +21,9 @@ import (
 	"github.com/chyroc/lark/internal"
 )
 
-// OpenCalenderView 打开日历tab，并支持定义跳转到具体视图和具体日期。
+// OpenCalenderView 打开日历（支持定义视图和日期）
+//
+// 打开日历tab，并支持定义跳转到具体视图和具体日期。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/uYjL24iN/applink-protocol/supported-protocol/open-calender/open-a-calendar-and-support-to-define-view-and-date
 func (r *AppLinkService) OpenCalenderView(req *OpenCalenderViewReq) string {
@@ -30,6 +32,6 @@ func (r *AppLinkService) OpenCalenderView(req *OpenCalenderViewReq) string {
 
 // OpenCalenderViewReq ...
 type OpenCalenderViewReq struct {
-	Type *string `json:"type,omitempty"` // 视图类型, 枚举值包括: `day`: 日视图 `three_day`: 三日视图, 仅移动端支持 `week`: 周视图, 仅PC端支持   `month`: 月视图 `meeting`: 会议室视图, 仅PC端支持  `list`: 列表视图, 仅移动端支持
+	Type *string `json:"type,omitempty"` // 视图类型, 枚举值包括: `day`: 日视图  `three_day`: 三日视图, 仅移动端支持  `week`: 周视图, 仅PC端支持    `month`: 月视图  `meeting`: 会议室视图, 仅PC端支持   `list`: 列表视图, 仅移动端支持
 	Date *string `json:"date,omitempty"` // 日期, {unixTime}格式
 }

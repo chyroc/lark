@@ -21,9 +21,8 @@ import (
 	"context"
 )
 
-// GetApplicationOrderList
+// GetApplicationOrderList 该接口用于分页查询应用租户下的已付费订单, 每次购买对应一个唯一的订单, 订单会记录购买的套餐的相关信息, 业务方需要自行处理套餐的有效期和付费方案的升级。
 //
-// 该接口用于分页查询应用租户下的已付费订单, 每次购买对应一个唯一的订单, 订单会记录购买的套餐的相关信息, 业务方需要自行处理套餐的有效期和付费方案的升级。
 // >  备注: 免费模式的应用不会产生订单, 仅收费应用会产生订单 (含免费版)。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uETNwUjLxUDM14SM1ATN
@@ -61,7 +60,7 @@ func (r *Mock) UnMockApplicationGetApplicationOrderList() {
 // GetApplicationOrderListReq ...
 type GetApplicationOrderListReq struct {
 	Status    *string `query:"status" json:"-"`     // 获取用户购买套餐信息设置的过滤条件, normal为正常状态, refunded为已退款, 该字段为空或者all表示所有, 未支付的订单无法查到
-	PageSize  int64   `query:"page_size" json:"-"`  // `每页显示的订单数量`
+	PageSize  int64   `query:"page_size" json:"-"`  // 每页显示的订单数量
 	PageToken *string `query:"page_token" json:"-"` // 翻页标识, 可以从上次请求的响应中获取, 不填或者为空时表示从开头获取
 	TenantKey *string `query:"tenant_key" json:"-"` // 购买应用的租户唯一标识, 为空表示获取应用下所有订单, 有值表示获取应用下该租户购买的订单
 }

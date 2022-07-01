@@ -21,9 +21,7 @@ import (
 	"context"
 )
 
-// GetApplicationAppList
-//
-// 该接口用于查询企业安装的应用列表, 只能被企业自建应用调用。
+// GetApplicationAppList 该接口用于查询企业安装的应用列表, 只能被企业自建应用调用。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uYDN3UjL2QzN14iN0cTN
 func (r *ApplicationService) GetApplicationAppList(ctx context.Context, request *GetApplicationAppListReq, options ...MethodOptionFunc) (*GetApplicationAppListResp, *Response, error) {
@@ -70,7 +68,7 @@ type GetApplicationAppListResp struct {
 	PageToken  string                            `json:"page_token,omitempty"`  // 下一个请求页应当给的起始位置
 	PageSize   int64                             `json:"page_size,omitempty"`   // 本次请求实际返回的页大小
 	TotalCount int64                             `json:"total_count,omitempty"` // 可用的应用总数
-	HasMore    int64                             `json:"has_more,omitempty"`    // 是否还有更多应用
+	HasMore    bool                              `json:"has_more,omitempty"`    // 是否还有更多应用
 	Lang       string                            `json:"lang,omitempty"`        // 当前选择的版本语言
 	AppList    *GetApplicationAppListRespAppList `json:"app_list,omitempty"`    // 应用列表
 }

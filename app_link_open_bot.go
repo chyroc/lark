@@ -21,7 +21,10 @@ import (
 	"github.com/chyroc/lark/internal"
 )
 
-// OpenBot 打开一个机器人的聊天窗。,如果访问用户没有机器人的可用性，将看到相关的引导提示。
+// OpenBot 打开机器人会话
+//
+// 打开一个机器人的聊天窗。
+// 如果访问用户没有机器人的可用性，将看到相关的引导提示。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/uYjL24iN/applink-protocol/supported-protocol/open-a-bot
 func (r *AppLinkService) OpenBot(req *OpenBotReq) string {

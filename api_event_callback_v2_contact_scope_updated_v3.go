@@ -21,9 +21,7 @@ import (
 	"context"
 )
 
-// EventV2ContactScopeUpdatedV3
-//
-// 当应用通讯录范围权限发生变更时, 订阅这个事件的应用会收到事件。{使用示例}(url=/api/tools/api_explore/api_explore_config?project=contact&version=v3&resource=scope&event=updated)
+// EventV2ContactScopeUpdatedV3 当应用通讯录范围权限发生变更时, 订阅这个事件的应用会收到事件。{使用示例}(url=/api/tools/api_explore/api_explore_config?project=contact&version=v3&resource=scope&event=updated)
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/scope/events/updated
 func (r *EventCallbackService) HandlerEventV2ContactScopeUpdatedV3(f EventV2ContactScopeUpdatedV3Handler) {
@@ -109,15 +107,6 @@ type EventV2ContactScopeUpdatedV3AddedUserAvatar struct {
 	AvatarOrigin string `json:"avatar_origin,omitempty"` // 原始头像链接
 }
 
-// EventV2ContactScopeUpdatedV3AddedUserStatus ...
-type EventV2ContactScopeUpdatedV3AddedUserStatus struct {
-	IsFrozen    bool `json:"is_frozen,omitempty"`    // 是否暂停
-	IsResigned  bool `json:"is_resigned,omitempty"`  // 是否离职
-	IsActivated bool `json:"is_activated,omitempty"` // 是否激活
-	IsExited    bool `json:"is_exited,omitempty"`    // 是否主动退出, 主动退出一段时间后用户会自动转为已离职
-	IsUnjoin    bool `json:"is_unjoin,omitempty"`    // 是否未加入, 需要用户自主确认才能加入团队
-}
-
 // EventV2ContactScopeUpdatedV3AddedUserCustomAttr ...
 type EventV2ContactScopeUpdatedV3AddedUserCustomAttr struct {
 	Type  string                                                `json:"type,omitempty"`  // 自定义字段类型, `TEXT`: 文本, `HREF`: 网页, `ENUMERATION`: 枚举, `PICTURE_ENUM`: 图片, `GENERIC_USER`: 用户, [自定义字段相关常见问题](https://open.feishu.cn/document/ugTN1YjL4UTN24CO1UjN/uQzN1YjL0cTN24CN3UjN)
@@ -143,12 +132,6 @@ type EventV2ContactScopeUpdatedV3AddedUserCustomAttrValueGenericUser struct {
 	Type int64  `json:"type,omitempty"` // 用户类型    1: 用户
 }
 
-// EventV2ContactScopeUpdatedV3AddedUserNotificationOption ...
-type EventV2ContactScopeUpdatedV3AddedUserNotificationOption struct {
-	Channels []string `json:"channels,omitempty"` // 通道列表, 枚举值, 可多选: `sms`: 短信邀请, `email`: 邮件邀请
-	Language string   `json:"language,omitempty"` // 语言类型, 可选值有: `zh-CN`: 中文, `en-US`: 英文, `ja-JP`: 日文
-}
-
 // EventV2ContactScopeUpdatedV3AddedUserGroup ...
 type EventV2ContactScopeUpdatedV3AddedUserGroup struct {
 	UserGroupID string `json:"user_group_id,omitempty"` // 用户组的自定义ID, 长度范围: `1` ～ `64` 字符
@@ -156,6 +139,21 @@ type EventV2ContactScopeUpdatedV3AddedUserGroup struct {
 	Type        int64  `json:"type,omitempty"`          // 用户组的类型, 可选值有: `1`: 普通用户组, `2`: 动态用户组
 	MemberCount int64  `json:"member_count,omitempty"`  // 成员数量
 	Status      int64  `json:"status,omitempty"`        // 用户组状态, 可选值有: `0`: 未知, `1`: 计算完毕, `2`: 计算中, `3`: 计算失败
+}
+
+// EventV2ContactScopeUpdatedV3AddedUserNotificationOption ...
+type EventV2ContactScopeUpdatedV3AddedUserNotificationOption struct {
+	Channels []string `json:"channels,omitempty"` // 通道列表, 枚举值, 可多选: `sms`: 短信邀请, `email`: 邮件邀请
+	Language string   `json:"language,omitempty"` // 语言类型, 可选值有: `zh-CN`: 中文, `en-US`: 英文, `ja-JP`: 日文
+}
+
+// EventV2ContactScopeUpdatedV3AddedUserStatus ...
+type EventV2ContactScopeUpdatedV3AddedUserStatus struct {
+	IsFrozen    bool `json:"is_frozen,omitempty"`    // 是否暂停
+	IsResigned  bool `json:"is_resigned,omitempty"`  // 是否离职
+	IsActivated bool `json:"is_activated,omitempty"` // 是否激活
+	IsExited    bool `json:"is_exited,omitempty"`    // 是否主动退出, 主动退出一段时间后用户会自动转为已离职
+	IsUnjoin    bool `json:"is_unjoin,omitempty"`    // 是否未加入, 需要用户自主确认才能加入团队
 }
 
 // EventV2ContactScopeUpdatedV3Removed ...
@@ -228,15 +226,6 @@ type EventV2ContactScopeUpdatedV3RemovedUserAvatar struct {
 	AvatarOrigin string `json:"avatar_origin,omitempty"` // 原始头像链接
 }
 
-// EventV2ContactScopeUpdatedV3RemovedUserStatus ...
-type EventV2ContactScopeUpdatedV3RemovedUserStatus struct {
-	IsFrozen    bool `json:"is_frozen,omitempty"`    // 是否暂停
-	IsResigned  bool `json:"is_resigned,omitempty"`  // 是否离职
-	IsActivated bool `json:"is_activated,omitempty"` // 是否激活
-	IsExited    bool `json:"is_exited,omitempty"`    // 是否主动退出, 主动退出一段时间后用户会自动转为已离职
-	IsUnjoin    bool `json:"is_unjoin,omitempty"`    // 是否未加入, 需要用户自主确认才能加入团队
-}
-
 // EventV2ContactScopeUpdatedV3RemovedUserCustomAttr ...
 type EventV2ContactScopeUpdatedV3RemovedUserCustomAttr struct {
 	Type  string                                                  `json:"type,omitempty"`  // 自定义字段类型, `TEXT`: 文本, `HREF`: 网页, `ENUMERATION`: 枚举, `PICTURE_ENUM`: 图片, `GENERIC_USER`: 用户, [自定义字段相关常见问题](https://open.feishu.cn/document/ugTN1YjL4UTN24CO1UjN/uQzN1YjL0cTN24CN3UjN)
@@ -262,12 +251,6 @@ type EventV2ContactScopeUpdatedV3RemovedUserCustomAttrValueGenericUser struct {
 	Type int64  `json:"type,omitempty"` // 用户类型    1: 用户
 }
 
-// EventV2ContactScopeUpdatedV3RemovedUserNotificationOption ...
-type EventV2ContactScopeUpdatedV3RemovedUserNotificationOption struct {
-	Channels []string `json:"channels,omitempty"` // 通道列表, 枚举值, 可多选: `sms`: 短信邀请, `email`: 邮件邀请
-	Language string   `json:"language,omitempty"` // 语言类型, 可选值有: `zh-CN`: 中文, `en-US`: 英文, `ja-JP`: 日文
-}
-
 // EventV2ContactScopeUpdatedV3RemovedUserGroup ...
 type EventV2ContactScopeUpdatedV3RemovedUserGroup struct {
 	UserGroupID string `json:"user_group_id,omitempty"` // 用户组的自定义ID, 长度范围: `1` ～ `64` 字符
@@ -275,4 +258,19 @@ type EventV2ContactScopeUpdatedV3RemovedUserGroup struct {
 	Type        int64  `json:"type,omitempty"`          // 用户组的类型, 可选值有: `1`: 普通用户组, `2`: 动态用户组
 	MemberCount int64  `json:"member_count,omitempty"`  // 成员数量
 	Status      int64  `json:"status,omitempty"`        // 用户组状态, 可选值有: `0`: 未知, `1`: 计算完毕, `2`: 计算中, `3`: 计算失败
+}
+
+// EventV2ContactScopeUpdatedV3RemovedUserNotificationOption ...
+type EventV2ContactScopeUpdatedV3RemovedUserNotificationOption struct {
+	Channels []string `json:"channels,omitempty"` // 通道列表, 枚举值, 可多选: `sms`: 短信邀请, `email`: 邮件邀请
+	Language string   `json:"language,omitempty"` // 语言类型, 可选值有: `zh-CN`: 中文, `en-US`: 英文, `ja-JP`: 日文
+}
+
+// EventV2ContactScopeUpdatedV3RemovedUserStatus ...
+type EventV2ContactScopeUpdatedV3RemovedUserStatus struct {
+	IsFrozen    bool `json:"is_frozen,omitempty"`    // 是否暂停
+	IsResigned  bool `json:"is_resigned,omitempty"`  // 是否离职
+	IsActivated bool `json:"is_activated,omitempty"` // 是否激活
+	IsExited    bool `json:"is_exited,omitempty"`    // 是否主动退出, 主动退出一段时间后用户会自动转为已离职
+	IsUnjoin    bool `json:"is_unjoin,omitempty"`    // 是否未加入, 需要用户自主确认才能加入团队
 }

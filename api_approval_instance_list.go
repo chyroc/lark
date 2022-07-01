@@ -21,9 +21,8 @@ import (
 	"context"
 )
 
-// GetApprovalInstanceList
+// GetApprovalInstanceList 根据 approval_code 批量获取审批实例的 instance_code, 用于拉取租户下某个审批定义的全部审批实例。
 //
-// 根据 approval_code 批量获取审批实例的 instance_code, 用于拉取租户下某个审批定义的全部审批实例。
 // 默认以审批创建时间排序。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uQDOyUjL0gjM14CN4ITN

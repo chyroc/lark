@@ -21,9 +21,8 @@ import (
 	"context"
 )
 
-// EventV1ChatDisband
+// EventV1ChatDisband 如果你希望订阅机器人进出群、群内有人@机器人事件, 请前往[机器人进群](https://open.feishu.cn/document/ukTMukTMukTM/ugzMugzMugzM/event/bot-added-to-group) 或 [机器人退群](https://open.feishu.cn/document/ukTMukTMukTM/ucDO04yN4QjL3gDN)。
 //
-// 如果你希望订阅机器人进出群、群内有人@机器人事件, 请前往[机器人进群](https://open.feishu.cn/document/ukTMukTMukTM/ugzMugzMugzM/event/bot-added-to-group) 或 [机器人退群](https://open.feishu.cn/document/ukTMukTMukTM/ucDO04yN4QjL3gDN)。
 // 为了更好地提升该事件的安全性, 我们对其进行了升级, 请尽快迁移至[新版本>>](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat/events/disbanded)
 // 群聊被解散后触发此事件。
 // * 特殊说明: 只有开启机器人能力并且机器人所在的群被解散时才能触发此事件。

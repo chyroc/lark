@@ -21,9 +21,7 @@ import (
 	"context"
 )
 
-// EventV2VCMeetingShareStartedV1
-//
-// 发生在屏幕共享开始时
+// EventV2VCMeetingShareStartedV1 发生在屏幕共享开始时
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/vc-v1/meeting/events/share_started
 func (r *EventCallbackService) HandlerEventV2VCMeetingShareStartedV1(f EventV2VCMeetingShareStartedV1Handler) {

@@ -21,9 +21,8 @@ import (
 	"context"
 )
 
-// EventV2IMChatMemberBotDeletedV1
+// EventV2IMChatMemberBotDeletedV1 机器人被移出群聊后触发此事件。{使用示例}(url=/api/tools/api_explore/api_explore_config?project=im&version=v1&resource=chat.member.bot&event=deleted)
 //
-// 机器人被移出群聊后触发此事件。{使用示例}(url=/api/tools/api_explore/api_explore_config?project=im&version=v1&resource=chat.member.bot&event=deleted)
 // 注意事项:
 // - 需要开启[机器人能力](https://open.feishu.cn/document/home/develop-a-bot-in-5-minutes/create-an-app)
 // - 需要订阅 [消息与群组] 分类下的 [机器人被移出群] 事件

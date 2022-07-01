@@ -21,9 +21,7 @@ import (
 	"context"
 )
 
-// SearchApprovalTask
-//
-// 该接口通过不同条件查询审批系统中符合条件的审批任务列表
+// SearchApprovalTask 该接口通过不同条件查询审批系统中符合条件的审批任务列表
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uYjMxYjL2ITM24iNyEjN
 func (r *ApprovalService) SearchApprovalTask(ctx context.Context, request *SearchApprovalTaskReq, options ...MethodOptionFunc) (*SearchApprovalTaskResp, *Response, error) {
@@ -62,15 +60,15 @@ type SearchApprovalTaskReq struct {
 	UserID             string  `json:"user_id,omitempty"`              // 用户 id
 	ApprovalCode       *string `json:"approval_code,omitempty"`        // 审批定义 code
 	InstanceCode       *string `json:"instance_code,omitempty"`        // 审批实例 code
-	InstanceExternalID *string `json:"instance_external_id,omitempty"` // 审批实例第三方 id注: 和 approval_code 取并集
-	GroupExternalID    *string `json:"group_external_id,omitempty"`    // 审批定义分组第三方 id注: 和 instance_code 取并集
+	InstanceExternalID *string `json:"instance_external_id,omitempty"` // 审批实例第三方 id 注: 和 approval_code 取并集
+	GroupExternalID    *string `json:"group_external_id,omitempty"`    // 审批定义分组第三方 id 注: 和 instance_code 取并集
 	TaskTitle          *string `json:"task_title,omitempty"`           // 审批任务标题（只有第三方审批有）
-	TaskStatus         *string `json:"task_status,omitempty"`          // 审批任务状态PENDING: 审批中APPROVED: 通过REJECTED: 拒绝TRANSFERRED:转交 DONE: 已完成RM_REPEAT: 去重 PROCESSED: 已处理注: 若不设置, 查询全部状态若不在集合中, 报错
+	TaskStatus         *string `json:"task_status,omitempty"`          // 审批任务状态 PENDING: 审批中 APPROVED: 通过 REJECTED: 拒绝 TRANSFERRED:转交  DONE: 已完成 RM_REPEAT: 去重  PROCESSED: 已处理 注: 若不设置, 查询全部状态 若不在集合中, 报错
 	TaskStartTimeFrom  *int64  `json:"task_start_time_from,omitempty"` // 任务查询开始时间 (unix毫秒时间戳)
 	TaskStartTimeTo    *int64  `json:"task_start_time_to,omitempty"`   // 任务查询结束时间 (unix毫秒时间戳)
 	Locale             *string `json:"locale,omitempty"`               // 地区（zh-CN、en-US、ja-JP）
-	Offset             *int64  `json:"offset,omitempty"`               // 查询偏移量注: 不得超过10000
-	Limit              *int64  `json:"limit,omitempty"`                // 查询限制量注: 不得超过200不设置默认查询10条数据
+	Offset             *int64  `json:"offset,omitempty"`               // 查询偏移量 注: 不得超过10000
+	Limit              *int64  `json:"limit,omitempty"`                // 查询限制量 注: 不得超过200 不设置默认查询10条数据
 }
 
 // SearchApprovalTaskResp ...

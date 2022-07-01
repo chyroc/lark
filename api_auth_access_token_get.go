@@ -33,14 +33,13 @@ func (r *AuthService) GetAccessToken(ctx context.Context, request *GetAccessToke
 	}
 
 	req := &RawRequestReq{
-		Scope:               "Auth",
-		API:                 "GetAccessToken",
-		Method:              "POST",
-		URL:                 r.cli.openBaseURL + "/open-apis/authen/v1/access_token",
-		Body:                request,
-		MethodOption:        newMethodOption(options),
-		NeedAppAccessToken:  true,
-		NeedUserAccessToken: true,
+		Scope:              "Auth",
+		API:                "GetAccessToken",
+		Method:             "POST",
+		URL:                r.cli.openBaseURL + "/open-apis/authen/v1/access_token",
+		Body:               request,
+		MethodOption:       newMethodOption(options),
+		NeedAppAccessToken: true,
 	}
 	resp := new(getAccessTokenResp)
 

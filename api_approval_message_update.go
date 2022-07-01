@@ -21,9 +21,7 @@ import (
 	"context"
 )
 
-// UpdateApprovalMessage
-//
-// 此接口可以根据审批bot消息id及相应状态, 更新相应的审批bot消息, 只可用于更新待审批模板的bot消息。例如, 给用户推送了审批待办消息, 当用户处理该消息后, 可以将之前推送的Bot消息更新为已审批。
+// UpdateApprovalMessage 此接口可以根据审批bot消息id及相应状态, 更新相应的审批bot消息, 只可用于更新待审批模板的bot消息。例如, 给用户推送了审批待办消息, 当用户处理该消息后, 可以将之前推送的Bot消息更新为已审批。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uAjNyYjLwYjM24CM2IjN
 func (r *ApprovalService) UpdateApprovalMessage(ctx context.Context, request *UpdateApprovalMessageReq, options ...MethodOptionFunc) (*UpdateApprovalMessageResp, *Response, error) {
@@ -60,7 +58,7 @@ func (r *Mock) UnMockApprovalUpdateApprovalMessage() {
 // UpdateApprovalMessageReq ...
 type UpdateApprovalMessageReq struct {
 	MessageID        string  `json:"message_id,omitempty"`         // 卡片 id, 发送卡片时会拿到
-	Status           string  `json:"status,omitempty"`             // 状态类型, 用于更新第一个action文字内容, 枚举: APPROVED:-已同意REJECTED:-已拒绝CANCELLED:-已撤回FORWARDED:-已转交ROLLBACK:-已回退ADD:-已加签DELETED:-已删除PROCESSED:-已处理CUSTOM:-自定义按钮状态
+	Status           string  `json:"status,omitempty"`             // 状态类型, 用于更新第一个action文字内容, 枚举: APPROVED:-已同意 REJECTED:-已拒绝 CANCELLED:-已撤回 FORWARDED:-已转交 ROLLBACK:-已回退 ADD:-已加签 DELETED:-已删除 PROCESSED:-已处理 CUSTOM:-自定义按钮状态
 	StatusName       *string `json:"status_name,omitempty"`        // status=CUSTOM时可以自定义审批同意/拒绝后title状态
 	DetailActionName *string `json:"detail_action_name,omitempty"` // status=CUSTOM时可以自定义审批同意/拒绝后“查看详情按钮名称”
 	I18nResources    *string `json:"i18n_resources,omitempty"`     // i18n国际化文案

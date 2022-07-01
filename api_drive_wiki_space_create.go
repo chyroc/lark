@@ -33,14 +33,13 @@ func (r *DriveService) CreateWikiSpace(ctx context.Context, request *CreateWikiS
 	}
 
 	req := &RawRequestReq{
-		Scope:                 "Drive",
-		API:                   "CreateWikiSpace",
-		Method:                "POST",
-		URL:                   r.cli.openBaseURL + "/open-apis/wiki/v2/spaces",
-		Body:                  request,
-		MethodOption:          newMethodOption(options),
-		NeedTenantAccessToken: true,
-		NeedUserAccessToken:   true,
+		Scope:               "Drive",
+		API:                 "CreateWikiSpace",
+		Method:              "POST",
+		URL:                 r.cli.openBaseURL + "/open-apis/wiki/v2/spaces",
+		Body:                request,
+		MethodOption:        newMethodOption(options),
+		NeedUserAccessToken: true,
 	}
 	resp := new(createWikiSpaceResp)
 

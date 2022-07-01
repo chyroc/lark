@@ -38,63 +38,7 @@ func Test_Task_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
-			_, _, err := moduleCli.CreateTaskCollaborator(ctx, &lark.CreateTaskCollaboratorReq{})
-			as.NotNil(err)
-			as.Equal(err.Error(), "failed")
-		})
-
-		t.Run("", func(t *testing.T) {
-
-			_, _, err := moduleCli.GetTaskCollaboratorList(ctx, &lark.GetTaskCollaboratorListReq{})
-			as.NotNil(err)
-			as.Equal(err.Error(), "failed")
-		})
-
-		t.Run("", func(t *testing.T) {
-
-			_, _, err := moduleCli.DeleteTaskCollaborator(ctx, &lark.DeleteTaskCollaboratorReq{})
-			as.NotNil(err)
-			as.Equal(err.Error(), "failed")
-		})
-
-		t.Run("", func(t *testing.T) {
-
-			_, _, err := moduleCli.CreateTaskFollower(ctx, &lark.CreateTaskFollowerReq{})
-			as.NotNil(err)
-			as.Equal(err.Error(), "failed")
-		})
-
-		t.Run("", func(t *testing.T) {
-
-			_, _, err := moduleCli.GetTaskFollowerList(ctx, &lark.GetTaskFollowerListReq{})
-			as.NotNil(err)
-			as.Equal(err.Error(), "failed")
-		})
-
-		t.Run("", func(t *testing.T) {
-
-			_, _, err := moduleCli.DeleteTaskFollower(ctx, &lark.DeleteTaskFollowerReq{})
-			as.NotNil(err)
-			as.Equal(err.Error(), "failed")
-		})
-
-		t.Run("", func(t *testing.T) {
-
-			_, _, err := moduleCli.CreateTaskReminder(ctx, &lark.CreateTaskReminderReq{})
-			as.NotNil(err)
-			as.Equal(err.Error(), "failed")
-		})
-
-		t.Run("", func(t *testing.T) {
-
-			_, _, err := moduleCli.GetTaskReminderList(ctx, &lark.GetTaskReminderListReq{})
-			as.NotNil(err)
-			as.Equal(err.Error(), "failed")
-		})
-
-		t.Run("", func(t *testing.T) {
-
-			_, _, err := moduleCli.DeleteTaskReminder(ctx, &lark.DeleteTaskReminderReq{})
+			_, _, err := moduleCli.CompleteTask(ctx, &lark.CompleteTaskReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "failed")
 		})
@@ -108,14 +52,28 @@ func Test_Task_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
-			_, _, err := moduleCli.GetTask(ctx, &lark.GetTaskReq{})
+			_, _, err := moduleCli.CreateTaskCollaborator(ctx, &lark.CreateTaskCollaboratorReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "failed")
 		})
 
 		t.Run("", func(t *testing.T) {
 
-			_, _, err := moduleCli.GetTaskList(ctx, &lark.GetTaskListReq{})
+			_, _, err := moduleCli.CreateTaskComment(ctx, &lark.CreateTaskCommentReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.CreateTaskFollower(ctx, &lark.CreateTaskFollowerReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.CreateTaskReminder(ctx, &lark.CreateTaskReminderReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "failed")
 		})
@@ -129,28 +87,42 @@ func Test_Task_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
-			_, _, err := moduleCli.UpdateTask(ctx, &lark.UpdateTaskReq{})
+			_, _, err := moduleCli.DeleteTaskCollaborator(ctx, &lark.DeleteTaskCollaboratorReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "failed")
 		})
 
 		t.Run("", func(t *testing.T) {
 
-			_, _, err := moduleCli.CompleteTask(ctx, &lark.CompleteTaskReq{})
+			_, _, err := moduleCli.DeleteTaskComment(ctx, &lark.DeleteTaskCommentReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "failed")
 		})
 
 		t.Run("", func(t *testing.T) {
 
-			_, _, err := moduleCli.UncompleteTask(ctx, &lark.UncompleteTaskReq{})
+			_, _, err := moduleCli.DeleteTaskFollower(ctx, &lark.DeleteTaskFollowerReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "failed")
 		})
 
 		t.Run("", func(t *testing.T) {
 
-			_, _, err := moduleCli.CreateTaskComment(ctx, &lark.CreateTaskCommentReq{})
+			_, _, err := moduleCli.DeleteTaskReminder(ctx, &lark.DeleteTaskReminderReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.GetTask(ctx, &lark.GetTaskReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.GetTaskCollaboratorList(ctx, &lark.GetTaskCollaboratorListReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "failed")
 		})
@@ -171,7 +143,35 @@ func Test_Task_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
-			_, _, err := moduleCli.DeleteTaskComment(ctx, &lark.DeleteTaskCommentReq{})
+			_, _, err := moduleCli.GetTaskFollowerList(ctx, &lark.GetTaskFollowerListReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.GetTaskList(ctx, &lark.GetTaskListReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.GetTaskReminderList(ctx, &lark.GetTaskReminderListReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.UncompleteTask(ctx, &lark.UncompleteTaskReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.UpdateTask(ctx, &lark.UpdateTaskReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "failed")
 		})
@@ -191,108 +191,12 @@ func Test_Task_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
-			cli.Mock().MockTaskCreateTaskCollaborator(func(ctx context.Context, request *lark.CreateTaskCollaboratorReq, options ...lark.MethodOptionFunc) (*lark.CreateTaskCollaboratorResp, *lark.Response, error) {
+			cli.Mock().MockTaskCompleteTask(func(ctx context.Context, request *lark.CompleteTaskReq, options ...lark.MethodOptionFunc) (*lark.CompleteTaskResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
-			defer cli.Mock().UnMockTaskCreateTaskCollaborator()
+			defer cli.Mock().UnMockTaskCompleteTask()
 
-			_, _, err := moduleCli.CreateTaskCollaborator(ctx, &lark.CreateTaskCollaboratorReq{})
-			as.NotNil(err)
-			as.Equal(err.Error(), "mock-failed")
-		})
-
-		t.Run("", func(t *testing.T) {
-
-			cli.Mock().MockTaskGetTaskCollaboratorList(func(ctx context.Context, request *lark.GetTaskCollaboratorListReq, options ...lark.MethodOptionFunc) (*lark.GetTaskCollaboratorListResp, *lark.Response, error) {
-				return nil, nil, fmt.Errorf("mock-failed")
-			})
-			defer cli.Mock().UnMockTaskGetTaskCollaboratorList()
-
-			_, _, err := moduleCli.GetTaskCollaboratorList(ctx, &lark.GetTaskCollaboratorListReq{})
-			as.NotNil(err)
-			as.Equal(err.Error(), "mock-failed")
-		})
-
-		t.Run("", func(t *testing.T) {
-
-			cli.Mock().MockTaskDeleteTaskCollaborator(func(ctx context.Context, request *lark.DeleteTaskCollaboratorReq, options ...lark.MethodOptionFunc) (*lark.DeleteTaskCollaboratorResp, *lark.Response, error) {
-				return nil, nil, fmt.Errorf("mock-failed")
-			})
-			defer cli.Mock().UnMockTaskDeleteTaskCollaborator()
-
-			_, _, err := moduleCli.DeleteTaskCollaborator(ctx, &lark.DeleteTaskCollaboratorReq{})
-			as.NotNil(err)
-			as.Equal(err.Error(), "mock-failed")
-		})
-
-		t.Run("", func(t *testing.T) {
-
-			cli.Mock().MockTaskCreateTaskFollower(func(ctx context.Context, request *lark.CreateTaskFollowerReq, options ...lark.MethodOptionFunc) (*lark.CreateTaskFollowerResp, *lark.Response, error) {
-				return nil, nil, fmt.Errorf("mock-failed")
-			})
-			defer cli.Mock().UnMockTaskCreateTaskFollower()
-
-			_, _, err := moduleCli.CreateTaskFollower(ctx, &lark.CreateTaskFollowerReq{})
-			as.NotNil(err)
-			as.Equal(err.Error(), "mock-failed")
-		})
-
-		t.Run("", func(t *testing.T) {
-
-			cli.Mock().MockTaskGetTaskFollowerList(func(ctx context.Context, request *lark.GetTaskFollowerListReq, options ...lark.MethodOptionFunc) (*lark.GetTaskFollowerListResp, *lark.Response, error) {
-				return nil, nil, fmt.Errorf("mock-failed")
-			})
-			defer cli.Mock().UnMockTaskGetTaskFollowerList()
-
-			_, _, err := moduleCli.GetTaskFollowerList(ctx, &lark.GetTaskFollowerListReq{})
-			as.NotNil(err)
-			as.Equal(err.Error(), "mock-failed")
-		})
-
-		t.Run("", func(t *testing.T) {
-
-			cli.Mock().MockTaskDeleteTaskFollower(func(ctx context.Context, request *lark.DeleteTaskFollowerReq, options ...lark.MethodOptionFunc) (*lark.DeleteTaskFollowerResp, *lark.Response, error) {
-				return nil, nil, fmt.Errorf("mock-failed")
-			})
-			defer cli.Mock().UnMockTaskDeleteTaskFollower()
-
-			_, _, err := moduleCli.DeleteTaskFollower(ctx, &lark.DeleteTaskFollowerReq{})
-			as.NotNil(err)
-			as.Equal(err.Error(), "mock-failed")
-		})
-
-		t.Run("", func(t *testing.T) {
-
-			cli.Mock().MockTaskCreateTaskReminder(func(ctx context.Context, request *lark.CreateTaskReminderReq, options ...lark.MethodOptionFunc) (*lark.CreateTaskReminderResp, *lark.Response, error) {
-				return nil, nil, fmt.Errorf("mock-failed")
-			})
-			defer cli.Mock().UnMockTaskCreateTaskReminder()
-
-			_, _, err := moduleCli.CreateTaskReminder(ctx, &lark.CreateTaskReminderReq{})
-			as.NotNil(err)
-			as.Equal(err.Error(), "mock-failed")
-		})
-
-		t.Run("", func(t *testing.T) {
-
-			cli.Mock().MockTaskGetTaskReminderList(func(ctx context.Context, request *lark.GetTaskReminderListReq, options ...lark.MethodOptionFunc) (*lark.GetTaskReminderListResp, *lark.Response, error) {
-				return nil, nil, fmt.Errorf("mock-failed")
-			})
-			defer cli.Mock().UnMockTaskGetTaskReminderList()
-
-			_, _, err := moduleCli.GetTaskReminderList(ctx, &lark.GetTaskReminderListReq{})
-			as.NotNil(err)
-			as.Equal(err.Error(), "mock-failed")
-		})
-
-		t.Run("", func(t *testing.T) {
-
-			cli.Mock().MockTaskDeleteTaskReminder(func(ctx context.Context, request *lark.DeleteTaskReminderReq, options ...lark.MethodOptionFunc) (*lark.DeleteTaskReminderResp, *lark.Response, error) {
-				return nil, nil, fmt.Errorf("mock-failed")
-			})
-			defer cli.Mock().UnMockTaskDeleteTaskReminder()
-
-			_, _, err := moduleCli.DeleteTaskReminder(ctx, &lark.DeleteTaskReminderReq{})
+			_, _, err := moduleCli.CompleteTask(ctx, &lark.CompleteTaskReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "mock-failed")
 		})
@@ -311,24 +215,48 @@ func Test_Task_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
-			cli.Mock().MockTaskGetTask(func(ctx context.Context, request *lark.GetTaskReq, options ...lark.MethodOptionFunc) (*lark.GetTaskResp, *lark.Response, error) {
+			cli.Mock().MockTaskCreateTaskCollaborator(func(ctx context.Context, request *lark.CreateTaskCollaboratorReq, options ...lark.MethodOptionFunc) (*lark.CreateTaskCollaboratorResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
-			defer cli.Mock().UnMockTaskGetTask()
+			defer cli.Mock().UnMockTaskCreateTaskCollaborator()
 
-			_, _, err := moduleCli.GetTask(ctx, &lark.GetTaskReq{})
+			_, _, err := moduleCli.CreateTaskCollaborator(ctx, &lark.CreateTaskCollaboratorReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "mock-failed")
 		})
 
 		t.Run("", func(t *testing.T) {
 
-			cli.Mock().MockTaskGetTaskList(func(ctx context.Context, request *lark.GetTaskListReq, options ...lark.MethodOptionFunc) (*lark.GetTaskListResp, *lark.Response, error) {
+			cli.Mock().MockTaskCreateTaskComment(func(ctx context.Context, request *lark.CreateTaskCommentReq, options ...lark.MethodOptionFunc) (*lark.CreateTaskCommentResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
-			defer cli.Mock().UnMockTaskGetTaskList()
+			defer cli.Mock().UnMockTaskCreateTaskComment()
 
-			_, _, err := moduleCli.GetTaskList(ctx, &lark.GetTaskListReq{})
+			_, _, err := moduleCli.CreateTaskComment(ctx, &lark.CreateTaskCommentReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			cli.Mock().MockTaskCreateTaskFollower(func(ctx context.Context, request *lark.CreateTaskFollowerReq, options ...lark.MethodOptionFunc) (*lark.CreateTaskFollowerResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockTaskCreateTaskFollower()
+
+			_, _, err := moduleCli.CreateTaskFollower(ctx, &lark.CreateTaskFollowerReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			cli.Mock().MockTaskCreateTaskReminder(func(ctx context.Context, request *lark.CreateTaskReminderReq, options ...lark.MethodOptionFunc) (*lark.CreateTaskReminderResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockTaskCreateTaskReminder()
+
+			_, _, err := moduleCli.CreateTaskReminder(ctx, &lark.CreateTaskReminderReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "mock-failed")
 		})
@@ -347,48 +275,72 @@ func Test_Task_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
-			cli.Mock().MockTaskUpdateTask(func(ctx context.Context, request *lark.UpdateTaskReq, options ...lark.MethodOptionFunc) (*lark.UpdateTaskResp, *lark.Response, error) {
+			cli.Mock().MockTaskDeleteTaskCollaborator(func(ctx context.Context, request *lark.DeleteTaskCollaboratorReq, options ...lark.MethodOptionFunc) (*lark.DeleteTaskCollaboratorResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
-			defer cli.Mock().UnMockTaskUpdateTask()
+			defer cli.Mock().UnMockTaskDeleteTaskCollaborator()
 
-			_, _, err := moduleCli.UpdateTask(ctx, &lark.UpdateTaskReq{})
+			_, _, err := moduleCli.DeleteTaskCollaborator(ctx, &lark.DeleteTaskCollaboratorReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "mock-failed")
 		})
 
 		t.Run("", func(t *testing.T) {
 
-			cli.Mock().MockTaskCompleteTask(func(ctx context.Context, request *lark.CompleteTaskReq, options ...lark.MethodOptionFunc) (*lark.CompleteTaskResp, *lark.Response, error) {
+			cli.Mock().MockTaskDeleteTaskComment(func(ctx context.Context, request *lark.DeleteTaskCommentReq, options ...lark.MethodOptionFunc) (*lark.DeleteTaskCommentResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
-			defer cli.Mock().UnMockTaskCompleteTask()
+			defer cli.Mock().UnMockTaskDeleteTaskComment()
 
-			_, _, err := moduleCli.CompleteTask(ctx, &lark.CompleteTaskReq{})
+			_, _, err := moduleCli.DeleteTaskComment(ctx, &lark.DeleteTaskCommentReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "mock-failed")
 		})
 
 		t.Run("", func(t *testing.T) {
 
-			cli.Mock().MockTaskUncompleteTask(func(ctx context.Context, request *lark.UncompleteTaskReq, options ...lark.MethodOptionFunc) (*lark.UncompleteTaskResp, *lark.Response, error) {
+			cli.Mock().MockTaskDeleteTaskFollower(func(ctx context.Context, request *lark.DeleteTaskFollowerReq, options ...lark.MethodOptionFunc) (*lark.DeleteTaskFollowerResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
-			defer cli.Mock().UnMockTaskUncompleteTask()
+			defer cli.Mock().UnMockTaskDeleteTaskFollower()
 
-			_, _, err := moduleCli.UncompleteTask(ctx, &lark.UncompleteTaskReq{})
+			_, _, err := moduleCli.DeleteTaskFollower(ctx, &lark.DeleteTaskFollowerReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "mock-failed")
 		})
 
 		t.Run("", func(t *testing.T) {
 
-			cli.Mock().MockTaskCreateTaskComment(func(ctx context.Context, request *lark.CreateTaskCommentReq, options ...lark.MethodOptionFunc) (*lark.CreateTaskCommentResp, *lark.Response, error) {
+			cli.Mock().MockTaskDeleteTaskReminder(func(ctx context.Context, request *lark.DeleteTaskReminderReq, options ...lark.MethodOptionFunc) (*lark.DeleteTaskReminderResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
-			defer cli.Mock().UnMockTaskCreateTaskComment()
+			defer cli.Mock().UnMockTaskDeleteTaskReminder()
 
-			_, _, err := moduleCli.CreateTaskComment(ctx, &lark.CreateTaskCommentReq{})
+			_, _, err := moduleCli.DeleteTaskReminder(ctx, &lark.DeleteTaskReminderReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			cli.Mock().MockTaskGetTask(func(ctx context.Context, request *lark.GetTaskReq, options ...lark.MethodOptionFunc) (*lark.GetTaskResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockTaskGetTask()
+
+			_, _, err := moduleCli.GetTask(ctx, &lark.GetTaskReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			cli.Mock().MockTaskGetTaskCollaboratorList(func(ctx context.Context, request *lark.GetTaskCollaboratorListReq, options ...lark.MethodOptionFunc) (*lark.GetTaskCollaboratorListResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockTaskGetTaskCollaboratorList()
+
+			_, _, err := moduleCli.GetTaskCollaboratorList(ctx, &lark.GetTaskCollaboratorListReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "mock-failed")
 		})
@@ -419,12 +371,60 @@ func Test_Task_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
-			cli.Mock().MockTaskDeleteTaskComment(func(ctx context.Context, request *lark.DeleteTaskCommentReq, options ...lark.MethodOptionFunc) (*lark.DeleteTaskCommentResp, *lark.Response, error) {
+			cli.Mock().MockTaskGetTaskFollowerList(func(ctx context.Context, request *lark.GetTaskFollowerListReq, options ...lark.MethodOptionFunc) (*lark.GetTaskFollowerListResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
-			defer cli.Mock().UnMockTaskDeleteTaskComment()
+			defer cli.Mock().UnMockTaskGetTaskFollowerList()
 
-			_, _, err := moduleCli.DeleteTaskComment(ctx, &lark.DeleteTaskCommentReq{})
+			_, _, err := moduleCli.GetTaskFollowerList(ctx, &lark.GetTaskFollowerListReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			cli.Mock().MockTaskGetTaskList(func(ctx context.Context, request *lark.GetTaskListReq, options ...lark.MethodOptionFunc) (*lark.GetTaskListResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockTaskGetTaskList()
+
+			_, _, err := moduleCli.GetTaskList(ctx, &lark.GetTaskListReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			cli.Mock().MockTaskGetTaskReminderList(func(ctx context.Context, request *lark.GetTaskReminderListReq, options ...lark.MethodOptionFunc) (*lark.GetTaskReminderListResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockTaskGetTaskReminderList()
+
+			_, _, err := moduleCli.GetTaskReminderList(ctx, &lark.GetTaskReminderListReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			cli.Mock().MockTaskUncompleteTask(func(ctx context.Context, request *lark.UncompleteTaskReq, options ...lark.MethodOptionFunc) (*lark.UncompleteTaskResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockTaskUncompleteTask()
+
+			_, _, err := moduleCli.UncompleteTask(ctx, &lark.UncompleteTaskReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			cli.Mock().MockTaskUpdateTask(func(ctx context.Context, request *lark.UpdateTaskReq, options ...lark.MethodOptionFunc) (*lark.UpdateTaskResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockTaskUpdateTask()
+
+			_, _, err := moduleCli.UpdateTask(ctx, &lark.UpdateTaskReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "mock-failed")
 		})
@@ -449,6 +449,22 @@ func Test_Task_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
+			_, _, err := moduleCli.CompleteTask(ctx, &lark.CompleteTaskReq{
+				TaskID: "x",
+			})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.CreateTask(ctx, &lark.CreateTaskReq{})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+
 			_, _, err := moduleCli.CreateTaskCollaborator(ctx, &lark.CreateTaskCollaboratorReq{
 				TaskID: "x",
 			})
@@ -458,7 +474,34 @@ func Test_Task_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
-			_, _, err := moduleCli.GetTaskCollaboratorList(ctx, &lark.GetTaskCollaboratorListReq{
+			_, _, err := moduleCli.CreateTaskComment(ctx, &lark.CreateTaskCommentReq{
+				TaskID: "x",
+			})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.CreateTaskFollower(ctx, &lark.CreateTaskFollowerReq{
+				TaskID: "x",
+			})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.CreateTaskReminder(ctx, &lark.CreateTaskReminderReq{
+				TaskID: "x",
+			})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.DeleteTask(ctx, &lark.DeleteTaskReq{
 				TaskID: "x",
 			})
 			as.NotNil(err)
@@ -477,17 +520,9 @@ func Test_Task_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
-			_, _, err := moduleCli.CreateTaskFollower(ctx, &lark.CreateTaskFollowerReq{
-				TaskID: "x",
-			})
-			as.NotNil(err)
-			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
-		})
-
-		t.Run("", func(t *testing.T) {
-
-			_, _, err := moduleCli.GetTaskFollowerList(ctx, &lark.GetTaskFollowerListReq{
-				TaskID: "x",
+			_, _, err := moduleCli.DeleteTaskComment(ctx, &lark.DeleteTaskCommentReq{
+				TaskID:    "x",
+				CommentID: "x",
 			})
 			as.NotNil(err)
 			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
@@ -505,35 +540,10 @@ func Test_Task_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
-			_, _, err := moduleCli.CreateTaskReminder(ctx, &lark.CreateTaskReminderReq{
-				TaskID: "x",
-			})
-			as.NotNil(err)
-			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
-		})
-
-		t.Run("", func(t *testing.T) {
-
-			_, _, err := moduleCli.GetTaskReminderList(ctx, &lark.GetTaskReminderListReq{
-				TaskID: "x",
-			})
-			as.NotNil(err)
-			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
-		})
-
-		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.DeleteTaskReminder(ctx, &lark.DeleteTaskReminderReq{
 				TaskID:     "x",
 				ReminderID: "x",
 			})
-			as.NotNil(err)
-			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
-		})
-
-		t.Run("", func(t *testing.T) {
-
-			_, _, err := moduleCli.CreateTask(ctx, &lark.CreateTaskReq{})
 			as.NotNil(err)
 			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
 		})
@@ -549,50 +559,7 @@ func Test_Task_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
-			_, _, err := moduleCli.GetTaskList(ctx, &lark.GetTaskListReq{})
-			as.NotNil(err)
-			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
-		})
-
-		t.Run("", func(t *testing.T) {
-
-			_, _, err := moduleCli.DeleteTask(ctx, &lark.DeleteTaskReq{
-				TaskID: "x",
-			})
-			as.NotNil(err)
-			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
-		})
-
-		t.Run("", func(t *testing.T) {
-
-			_, _, err := moduleCli.UpdateTask(ctx, &lark.UpdateTaskReq{
-				TaskID: "x",
-			})
-			as.NotNil(err)
-			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
-		})
-
-		t.Run("", func(t *testing.T) {
-
-			_, _, err := moduleCli.CompleteTask(ctx, &lark.CompleteTaskReq{
-				TaskID: "x",
-			})
-			as.NotNil(err)
-			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
-		})
-
-		t.Run("", func(t *testing.T) {
-
-			_, _, err := moduleCli.UncompleteTask(ctx, &lark.UncompleteTaskReq{
-				TaskID: "x",
-			})
-			as.NotNil(err)
-			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
-		})
-
-		t.Run("", func(t *testing.T) {
-
-			_, _, err := moduleCli.CreateTaskComment(ctx, &lark.CreateTaskCommentReq{
+			_, _, err := moduleCli.GetTaskCollaboratorList(ctx, &lark.GetTaskCollaboratorListReq{
 				TaskID: "x",
 			})
 			as.NotNil(err)
@@ -620,9 +587,42 @@ func Test_Task_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
-			_, _, err := moduleCli.DeleteTaskComment(ctx, &lark.DeleteTaskCommentReq{
-				TaskID:    "x",
-				CommentID: "x",
+			_, _, err := moduleCli.GetTaskFollowerList(ctx, &lark.GetTaskFollowerListReq{
+				TaskID: "x",
+			})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.GetTaskList(ctx, &lark.GetTaskListReq{})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.GetTaskReminderList(ctx, &lark.GetTaskReminderListReq{
+				TaskID: "x",
+			})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.UncompleteTask(ctx, &lark.UncompleteTaskReq{
+				TaskID: "x",
+			})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.UpdateTask(ctx, &lark.UpdateTaskReq{
+				TaskID: "x",
 			})
 			as.NotNil(err)
 			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
@@ -649,6 +649,22 @@ func Test_Task_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
+			_, _, err := moduleCli.CompleteTask(ctx, &lark.CompleteTaskReq{
+				TaskID: "x",
+			})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.CreateTask(ctx, &lark.CreateTaskReq{})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+
 			_, _, err := moduleCli.CreateTaskCollaborator(ctx, &lark.CreateTaskCollaboratorReq{
 				TaskID: "x",
 			})
@@ -658,7 +674,34 @@ func Test_Task_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
-			_, _, err := moduleCli.GetTaskCollaboratorList(ctx, &lark.GetTaskCollaboratorListReq{
+			_, _, err := moduleCli.CreateTaskComment(ctx, &lark.CreateTaskCommentReq{
+				TaskID: "x",
+			})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.CreateTaskFollower(ctx, &lark.CreateTaskFollowerReq{
+				TaskID: "x",
+			})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.CreateTaskReminder(ctx, &lark.CreateTaskReminderReq{
+				TaskID: "x",
+			})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.DeleteTask(ctx, &lark.DeleteTaskReq{
 				TaskID: "x",
 			})
 			as.NotNil(err)
@@ -677,17 +720,9 @@ func Test_Task_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
-			_, _, err := moduleCli.CreateTaskFollower(ctx, &lark.CreateTaskFollowerReq{
-				TaskID: "x",
-			})
-			as.NotNil(err)
-			as.Equal("fake raw request", err.Error())
-		})
-
-		t.Run("", func(t *testing.T) {
-
-			_, _, err := moduleCli.GetTaskFollowerList(ctx, &lark.GetTaskFollowerListReq{
-				TaskID: "x",
+			_, _, err := moduleCli.DeleteTaskComment(ctx, &lark.DeleteTaskCommentReq{
+				TaskID:    "x",
+				CommentID: "x",
 			})
 			as.NotNil(err)
 			as.Equal("fake raw request", err.Error())
@@ -705,35 +740,10 @@ func Test_Task_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
-			_, _, err := moduleCli.CreateTaskReminder(ctx, &lark.CreateTaskReminderReq{
-				TaskID: "x",
-			})
-			as.NotNil(err)
-			as.Equal("fake raw request", err.Error())
-		})
-
-		t.Run("", func(t *testing.T) {
-
-			_, _, err := moduleCli.GetTaskReminderList(ctx, &lark.GetTaskReminderListReq{
-				TaskID: "x",
-			})
-			as.NotNil(err)
-			as.Equal("fake raw request", err.Error())
-		})
-
-		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.DeleteTaskReminder(ctx, &lark.DeleteTaskReminderReq{
 				TaskID:     "x",
 				ReminderID: "x",
 			})
-			as.NotNil(err)
-			as.Equal("fake raw request", err.Error())
-		})
-
-		t.Run("", func(t *testing.T) {
-
-			_, _, err := moduleCli.CreateTask(ctx, &lark.CreateTaskReq{})
 			as.NotNil(err)
 			as.Equal("fake raw request", err.Error())
 		})
@@ -749,50 +759,7 @@ func Test_Task_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
-			_, _, err := moduleCli.GetTaskList(ctx, &lark.GetTaskListReq{})
-			as.NotNil(err)
-			as.Equal("fake raw request", err.Error())
-		})
-
-		t.Run("", func(t *testing.T) {
-
-			_, _, err := moduleCli.DeleteTask(ctx, &lark.DeleteTaskReq{
-				TaskID: "x",
-			})
-			as.NotNil(err)
-			as.Equal("fake raw request", err.Error())
-		})
-
-		t.Run("", func(t *testing.T) {
-
-			_, _, err := moduleCli.UpdateTask(ctx, &lark.UpdateTaskReq{
-				TaskID: "x",
-			})
-			as.NotNil(err)
-			as.Equal("fake raw request", err.Error())
-		})
-
-		t.Run("", func(t *testing.T) {
-
-			_, _, err := moduleCli.CompleteTask(ctx, &lark.CompleteTaskReq{
-				TaskID: "x",
-			})
-			as.NotNil(err)
-			as.Equal("fake raw request", err.Error())
-		})
-
-		t.Run("", func(t *testing.T) {
-
-			_, _, err := moduleCli.UncompleteTask(ctx, &lark.UncompleteTaskReq{
-				TaskID: "x",
-			})
-			as.NotNil(err)
-			as.Equal("fake raw request", err.Error())
-		})
-
-		t.Run("", func(t *testing.T) {
-
-			_, _, err := moduleCli.CreateTaskComment(ctx, &lark.CreateTaskCommentReq{
+			_, _, err := moduleCli.GetTaskCollaboratorList(ctx, &lark.GetTaskCollaboratorListReq{
 				TaskID: "x",
 			})
 			as.NotNil(err)
@@ -820,9 +787,42 @@ func Test_Task_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
-			_, _, err := moduleCli.DeleteTaskComment(ctx, &lark.DeleteTaskCommentReq{
-				TaskID:    "x",
-				CommentID: "x",
+			_, _, err := moduleCli.GetTaskFollowerList(ctx, &lark.GetTaskFollowerListReq{
+				TaskID: "x",
+			})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.GetTaskList(ctx, &lark.GetTaskListReq{})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.GetTaskReminderList(ctx, &lark.GetTaskReminderListReq{
+				TaskID: "x",
+			})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.UncompleteTask(ctx, &lark.UncompleteTaskReq{
+				TaskID: "x",
+			})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.UpdateTask(ctx, &lark.UpdateTaskReq{
+				TaskID: "x",
 			})
 			as.NotNil(err)
 			as.Equal("fake raw request", err.Error())

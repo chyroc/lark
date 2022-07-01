@@ -66,17 +66,11 @@ type DownloadImageReq struct {
 	ImageKey string `path:"image_key" json:"-"` // 图片的key, 示例值: "img_8d5181ca-0aed-40f0-b0d1-b1452132afbg"
 }
 
-// DownloadImageResp ...
-type DownloadImageResp struct {
-	File io.Reader `json:"file,omitempty"`
-}
-
 // downloadImageResp ...
 type downloadImageResp struct {
-	IsFile bool               `json:"is_file,omitempty"`
-	Code   int64              `json:"code,omitempty"`
-	Msg    string             `json:"msg,omitempty"`
-	Data   *DownloadImageResp `json:"data,omitempty"`
+	Code int64              `json:"code,omitempty"`
+	Msg  string             `json:"msg,omitempty"`
+	Data *DownloadImageResp `json:"data,omitempty"`
 }
 
 func (r *downloadImageResp) SetReader(file io.Reader) {
@@ -84,4 +78,9 @@ func (r *downloadImageResp) SetReader(file io.Reader) {
 		r.Data = &DownloadImageResp{}
 	}
 	r.Data.File = file
+}
+
+// DownloadImageResp ...
+type DownloadImageResp struct {
+	File io.Reader `json:"file,omitempty"`
 }

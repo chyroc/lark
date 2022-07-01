@@ -21,9 +21,8 @@ import (
 	"context"
 )
 
-// EventV2IMChatUpdatedV1
+// EventV2IMChatUpdatedV1 群组配置被修改后触发此事件, 包含:
 //
-// 群组配置被修改后触发此事件, 包含:
 // - 群主转移
 // - 群基本信息修改(群头像/群名称/群描述/群国际化名称)
 // - 群权限修改(加人入群权限/群编辑权限/at所有人权限/群分享权限)。{使用示例}(url=/api/tools/api_explore/api_explore_config?project=im&version=v1&resource=chat&event=updated)
@@ -49,13 +48,6 @@ type EventV2IMChatUpdatedV1 struct {
 	AfterChange       *EventV2IMChatUpdatedV1AfterChange   `json:"after_change,omitempty"`        // 更新后的群信息
 	BeforeChange      *EventV2IMChatUpdatedV1BeforeChange  `json:"before_change,omitempty"`       // 更新前的群信息
 	ModeratorList     *EventV2IMChatUpdatedV1ModeratorList `json:"moderator_list,omitempty"`      // 群可发言成员名单的变更信息
-}
-
-// EventV2IMChatUpdatedV1OperatorID ...
-type EventV2IMChatUpdatedV1OperatorID struct {
-	UnionID string `json:"union_id,omitempty"` // 用户的 union id
-	UserID  string `json:"user_id,omitempty"`  // 用户的 user id, 字段权限要求: 获取用户 user ID
-	OpenID  string `json:"open_id,omitempty"`  // 用户的 open id
 }
 
 // EventV2IMChatUpdatedV1AfterChange ...
@@ -133,6 +125,13 @@ type EventV2IMChatUpdatedV1ModeratorListRemovedMember struct {
 
 // EventV2IMChatUpdatedV1ModeratorListRemovedMemberUserID ...
 type EventV2IMChatUpdatedV1ModeratorListRemovedMemberUserID struct {
+	UnionID string `json:"union_id,omitempty"` // 用户的 union id
+	UserID  string `json:"user_id,omitempty"`  // 用户的 user id, 字段权限要求: 获取用户 user ID
+	OpenID  string `json:"open_id,omitempty"`  // 用户的 open id
+}
+
+// EventV2IMChatUpdatedV1OperatorID ...
+type EventV2IMChatUpdatedV1OperatorID struct {
 	UnionID string `json:"union_id,omitempty"` // 用户的 union id
 	UserID  string `json:"user_id,omitempty"`  // 用户的 user id, 字段权限要求: 获取用户 user ID
 	OpenID  string `json:"open_id,omitempty"`  // 用户的 open id

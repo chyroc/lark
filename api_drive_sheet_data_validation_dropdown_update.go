@@ -21,9 +21,7 @@ import (
 	"context"
 )
 
-// UpdateSheetDataValidationDropdown
-//
-// 该接口根据 spreadsheetToken 、sheetId、dataValidationId 更新下拉列表的属性。
+// UpdateSheetDataValidationDropdown 该接口根据 spreadsheetToken 、sheetId、dataValidationId 更新下拉列表的属性。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uATMzUjLwEzM14CMxMTN/datavalidation/update-datavalidation
 func (r *DriveService) UpdateSheetDataValidationDropdown(ctx context.Context, request *UpdateSheetDataValidationDropdownReq, options ...MethodOptionFunc) (*UpdateSheetDataValidationDropdownResp, *Response, error) {
@@ -82,8 +80,8 @@ type UpdateSheetDataValidationDropdownReqDataValidationOptions struct {
 
 // UpdateSheetDataValidationDropdownResp ...
 type UpdateSheetDataValidationDropdownResp struct {
-	SpreadSheetToken string                                               `json:"spreadsheetToken,omitempty"` // spreadsheet的token
-	SheetID          string                                               `json:"sheetId,omitempty"`          // 工作表 sheet 的 id
+	SpreadSheetToken string                                               `json:" spreadsheetToken,omitempty"` // spreadsheet的token
+	SheetID          string                                               `json:" sheetId,omitempty"`          // 工作表 sheet 的 id
 	DataValidation   *UpdateSheetDataValidationDropdownRespDataValidation `json:"dataValidation,omitempty"`
 }
 

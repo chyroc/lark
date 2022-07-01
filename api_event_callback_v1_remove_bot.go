@@ -21,9 +21,8 @@ import (
 	"context"
 )
 
-// EventV1RemoveBot
+// EventV1RemoveBot 为了更好地提升该事件的安全性, 我们对其进行了升级, 请尽快迁移至[新版本>>](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-member-bot/events/deleted)
 //
-// 为了更好地提升该事件的安全性, 我们对其进行了升级, 请尽快迁移至[新版本>>](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-member-bot/events/deleted)
 // 机器人被从群聊中移除时触发此事件。
 // - 依赖条件: 应用必须开启了[机器人能力](https://open.feishu.cn/document/home/develop-a-bot-in-5-minutes/create-an-app)。
 //

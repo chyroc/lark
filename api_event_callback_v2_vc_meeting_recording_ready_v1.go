@@ -21,9 +21,8 @@ import (
 	"context"
 )
 
-// EventV2VCMeetingRecordingReadyV1
+// EventV2VCMeetingRecordingReadyV1 发生在录制文件上传完毕时
 //
-// 发生在录制文件上传完毕时
 // 收到该事件后, 方可进行录制文件获取、授权等操作
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/vc-v1/meeting/events/recording_ready

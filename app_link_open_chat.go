@@ -21,7 +21,9 @@ import (
 	"github.com/chyroc/lark/internal"
 )
 
-// OpenChat 打开一个聊天页面，单聊会话或群聊会话,注意事项：,- 仅能打开用户已加入的群聊会话，不会自动进入未加入的群组,- 仅能打开用户当前所在企业下的会话，无法跨企业打开会话
+// OpenChat 打开聊天页面
+//
+// 打开一个聊天页面，单聊会话或群聊会话
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/uYjL24iN/applink-protocol/supported-protocol/open-a-chat-page
 func (r *AppLinkService) OpenChat(req *OpenChatReq) string {

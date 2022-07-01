@@ -21,7 +21,9 @@ import (
 	"github.com/chyroc/lark/internal"
 )
 
-// OpenScan 通过applink 打开飞书扫一扫功能
+// OpenScan 打开扫一扫功能
+//
+// 通过applink 打开飞书扫一扫功能
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/uYjL24iN/applink-protocol/supported-protocol/open-scan-function
 func (r *AppLinkService) OpenScan(req *OpenScanReq) string {

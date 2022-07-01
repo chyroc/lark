@@ -103,8 +103,9 @@ type GetHireJobRespJob struct {
 
 // GetHireJobRespJobCity ...
 type GetHireJobRespJobCity struct {
-	Code string                     `json:"code,omitempty"` // 编码
-	Name *GetHireJobRespJobCityName `json:"name,omitempty"` // 名称
+	CityCode string `json:"city_code,omitempty"` // 工作地点城市代码
+	ZhName   string `json:"zh_name,omitempty"`   // 工作地点中文名称
+	EnName   string `json:"en_name,omitempty"`   // 工作地点英文名称
 }
 
 // GetHireJobRespJobCityName ...

@@ -23,6 +23,8 @@ import (
 
 // GetBaikeClassificationList 获取企业百科当前分类。
 //
+// 企业百科目前为二级分类体系, 每个词条可添加多个二级分类, 但每个一级分类下只能添加一个分类。
+//
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/baike-v1/classification/list
 func (r *BaikeService) GetBaikeClassificationList(ctx context.Context, request *GetBaikeClassificationListReq, options ...MethodOptionFunc) (*GetBaikeClassificationListResp, *Response, error) {
 	if r.cli.mock.mockBaikeGetBaikeClassificationList != nil {

@@ -66,17 +66,11 @@ type DownloadFileReq struct {
 	FileKey string `path:"file_key" json:"-"` // 文件的key, 示例值: "file_456a92d6-c6ea-4de4-ac3f-7afcf44ac78g"
 }
 
-// DownloadFileResp ...
-type DownloadFileResp struct {
-	File io.Reader `json:"file,omitempty"`
-}
-
 // downloadFileResp ...
 type downloadFileResp struct {
-	IsFile bool              `json:"is_file,omitempty"`
-	Code   int64             `json:"code,omitempty"`
-	Msg    string            `json:"msg,omitempty"`
-	Data   *DownloadFileResp `json:"data,omitempty"`
+	Code int64             `json:"code,omitempty"`
+	Msg  string            `json:"msg,omitempty"`
+	Data *DownloadFileResp `json:"data,omitempty"`
 }
 
 func (r *downloadFileResp) SetReader(file io.Reader) {
@@ -84,4 +78,9 @@ func (r *downloadFileResp) SetReader(file io.Reader) {
 		r.Data = &DownloadFileResp{}
 	}
 	r.Data.File = file
+}
+
+// DownloadFileResp ...
+type DownloadFileResp struct {
+	File io.Reader `json:"file,omitempty"`
 }

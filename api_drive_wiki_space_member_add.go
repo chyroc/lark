@@ -21,9 +21,8 @@ import (
 	"context"
 )
 
-// AddWikiSpaceMember
+// AddWikiSpaceMember 添加知识空间成员（管理员）。
 //
-// 添加知识空间成员（管理员）。
 // - 公开知识空间（visibility为public）对租户所有用户可见, 因此不支持再添加成员, 但可以添加管理员。
 // 相关错误: 131101 public wiki space can't create member.
 // - 个人知识空间 （type为person）为个人管理的知识空间, 不支持添加其他管理员（包括应用/机器人）。但可以添加成员。
@@ -70,7 +69,7 @@ type AddWikiSpaceMemberReq struct {
 	NeedNotification *bool  `query:"need_notification" json:"-"` // 添加权限后是否通知对方, 示例值: true/fasle
 	MemberType       string `json:"member_type,omitempty"`       // “openchat” - 群id, “userid” - 用户id, “email” - 邮箱, “opendepartmentid” - 部门id, “openid” - 应用openid, “unionid” - unionid, 示例值: "userid"
 	MemberID         string `json:"member_id,omitempty"`         // 用户id, 示例值: "1565676577122621"
-	MemberRole       string `json:"member_role,omitempty"`       // 角色:“admin” - 管理员, “member” - 成员, 示例值: "admin"
+	MemberRole       string `json:"member_role,omitempty"`       // 角色: “admin” - 管理员, “member” - 成员, 示例值: "admin"
 }
 
 // AddWikiSpaceMemberResp ...
@@ -82,7 +81,7 @@ type AddWikiSpaceMemberResp struct {
 type AddWikiSpaceMemberRespMember struct {
 	MemberType string `json:"member_type,omitempty"` // “openchat” - 群id, “userid” - 用户id, “email” - 邮箱, “opendepartmentid” - 部门id, “openid” - 应用openid, “unionid” - unionid
 	MemberID   string `json:"member_id,omitempty"`   // 用户id
-	MemberRole string `json:"member_role,omitempty"` // 角色:“admin” - 管理员, “member” - 成员
+	MemberRole string `json:"member_role,omitempty"` // 角色: “admin” - 管理员, “member” - 成员
 }
 
 // addWikiSpaceMemberResp ...

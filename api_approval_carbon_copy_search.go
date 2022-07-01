@@ -21,9 +21,7 @@ import (
 	"context"
 )
 
-// SearchApprovalCarbonCopy
-//
-// 该接口通过不同条件查询审批系统中符合条件的审批抄送列表。
+// SearchApprovalCarbonCopy 该接口通过不同条件查询审批系统中符合条件的审批抄送列表。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uUjMxYjL1ITM24SNyEjN
 func (r *ApprovalService) SearchApprovalCarbonCopy(ctx context.Context, request *SearchApprovalCarbonCopyReq, options ...MethodOptionFunc) (*SearchApprovalCarbonCopyResp, *Response, error) {
@@ -62,19 +60,26 @@ type SearchApprovalCarbonCopyReq struct {
 	UserID             string  `json:"user_id,omitempty"`              // 用户 id
 	ApprovalCode       *string `json:"approval_code,omitempty"`        // 审批定义 code
 	InstanceCode       *string `json:"instance_code,omitempty"`        // 审批实例 code
-	InstanceExternalID *string `json:"instance_external_id,omitempty"` // 审批实例第三方 id注: 和 approval_code 取并集
-	GroupExternalID    *string `json:"group_external_id,omitempty"`    // 审批定义分组第三方 id注: 和 instance_code 取并集
+	InstanceExternalID *string `json:"instance_external_id,omitempty"` // 审批实例第三方 id 注: 和 approval_code 取并集
+	GroupExternalID    *string `json:"group_external_id,omitempty"`    // 审批定义分组第三方 id 注: 和 instance_code 取并集
 	CcTitle            *string `json:"cc_title,omitempty"`             // 审批抄送标题（只有第三方审批有）
-	ReadStatus         *string `json:"read_status,omitempty"`          // 审批抄送状态READ: 已读UNREAD: 未读注: 若不设置, 查询全部状态若不在集合中, 报错
+	ReadStatus         *string `json:"read_status,omitempty"`          // 审批抄送状态 READ: 已读 UNREAD: 未读 注: 若不设置, 查询全部状态 若不在集合中, 报错
 	CcCreateTimeFrom   *int64  `json:"CcCreateTimeFrom,omitempty"`     // 抄送查询开始时间 (unix毫秒时间戳)
 	CcCreateTimeTo     *int64  `json:"CcCreateTimeTo,omitempty"`       // 抄送查询结束时间 (unix毫秒时间戳)
 	Locale             *string `json:"locale,omitempty"`               // 地区 （zh-CN、en-US、ja-JP）
-	Offset             *int64  `json:"offset,omitempty"`               // 查询偏移量注: 不得超过10000
-	Limit              *int64  `json:"limit,omitempty"`                // 查询限制量注: 不得超过200不设置默认查询10条数据
+	Offset             *int64  `json:"offset,omitempty"`               // 查询偏移量 注: 不得超过10000
+	Limit              *int64  `json:"limit,omitempty"`                // 查询限制量 注: 不得超过200 不设置默认查询10条数据
 }
 
 // SearchApprovalCarbonCopyResp ...
 type SearchApprovalCarbonCopyResp struct {
+	Data     map[string]interface{}                `json:"data,omitempty"`     // 是
+	Count    int64                                 `json:"count,omitempty"`    // 查询返回条数
+	CcList   []*SearchApprovalCarbonCopyRespCc     `json:"cc_list,omitempty"`  // 审批实例列表
+	Approval *SearchApprovalCarbonCopyRespApproval `json:"approval,omitempty"` // 审批定义
+	Group    *SearchApprovalCarbonCopyRespGroup    `json:"group,omitempty"`    // 审批定义分组
+	Instance *SearchApprovalCarbonCopyRespInstance `json:"instance,omitempty"` // 审批实例信息
+	Cc       *SearchApprovalCarbonCopyRespCc       `json:"cc,omitempty"`       // 审批抄送
 }
 
 // SearchApprovalCarbonCopyRespApproval ...

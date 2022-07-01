@@ -21,9 +21,7 @@ import (
 	"context"
 )
 
-// SetSheetStyle
-//
-// 该接口用于根据 spreadsheetToken 、range 和样式信息更新单元格样式；单次写入不超过5000行, 100列。
+// SetSheetStyle 该接口用于根据 spreadsheetToken 、range 和样式信息更新单元格样式；单次写入不超过5000行, 100列。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/ukjMzUjL5IzM14SOyMTN
 func (r *DriveService) SetSheetStyle(ctx context.Context, request *SetSheetStyleReq, options ...MethodOptionFunc) (*SetSheetStyleResp, *Response, error) {

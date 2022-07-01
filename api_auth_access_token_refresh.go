@@ -31,14 +31,13 @@ func (r *AuthService) RefreshAccessToken(ctx context.Context, request *RefreshAc
 	}
 
 	req := &RawRequestReq{
-		Scope:               "Auth",
-		API:                 "RefreshAccessToken",
-		Method:              "POST",
-		URL:                 r.cli.openBaseURL + "/open-apis/authen/v1/refresh_access_token",
-		Body:                request,
-		MethodOption:        newMethodOption(options),
-		NeedAppAccessToken:  true,
-		NeedUserAccessToken: true,
+		Scope:              "Auth",
+		API:                "RefreshAccessToken",
+		Method:             "POST",
+		URL:                r.cli.openBaseURL + "/open-apis/authen/v1/refresh_access_token",
+		Body:               request,
+		MethodOption:       newMethodOption(options),
+		NeedAppAccessToken: true,
 	}
 	resp := new(refreshAccessTokenResp)
 

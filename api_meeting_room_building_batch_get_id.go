@@ -57,7 +57,7 @@ func (r *Mock) UnMockMeetingRoomBatchGetMeetingRoomBuildingID() {
 
 // BatchGetMeetingRoomBuildingIDReq ...
 type BatchGetMeetingRoomBuildingIDReq struct {
-	CustomBuildingIDs string `query:"custom_building_ids" json:"-"` // 用于查询指定建筑物的租户自定义建筑ID
+	CustomBuildingIDs []string `query:"custom_building_ids" json:"-"` // 用于查询指定建筑物的租户自定义建筑ID
 }
 
 // BatchGetMeetingRoomBuildingIDResp ...

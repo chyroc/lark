@@ -72,7 +72,7 @@ type GetBatchSentMessageReadUserResp struct {
 // GetBatchSentMessageReadUserRespReadUser ...
 type GetBatchSentMessageReadUserRespReadUser struct {
 	ReadCount  string `json:"read_count,omitempty"`  // 已读的人数
-	TotalCount string `json:"total_count,omitempty"` // 推送的总人数
+	TotalCount int64  `json:"total_count,omitempty"` // 推送的总人数
 }
 
 // getBatchSentMessageReadUserResp ...

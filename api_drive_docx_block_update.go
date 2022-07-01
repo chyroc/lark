@@ -163,6 +163,12 @@ type UpdateDocxBlockReqUpdateTextElements struct {
 
 // UpdateDocxBlockReqUpdateTextStyle ...
 type UpdateDocxBlockReqUpdateTextStyle struct {
+	Style  *UpdateDocxBlockReqUpdateTextStyleStyle `json:"style,omitempty"`  // 文本样式
+	Fields []int64                                 `json:"fields,omitempty"` // 应更新的字段, 必须至少指定一个字段。例如, 要调整 Block 对齐方式, 请设置 fields 为 [1], 示例值: 修改的文字样式属性, 可选值有: <md-enum>, <md-enum-item key="1" >修改 Block 的对齐方式</md-enum-item>, <md-enum-item key="2" >修改 todo block 的完成状态</md-enum-item>, <md-enum-item key="3" >修改 block 的折叠状态</md-enum-item>, <md-enum-item key="4" >修改代码块的语言类型</md-enum-item>, <md-enum-item key="5" >修改代码块的折叠状态</md-enum-item>, </md-enum>
+}
+
+// UpdateDocxBlockReqUpdateTextStyleStyle ...
+type UpdateDocxBlockReqUpdateTextStyleStyle struct {
 	Align    *int64 `json:"align,omitempty"`    // 对齐方式, 示例值: 1, 可选值有: <md-enum>, <md-enum-item key="1" >居左排版</md-enum-item>, <md-enum-item key="2" >居中排版</md-enum-item>, <md-enum-item key="3" >居右排版</md-enum-item>, </md-enum>, 默认值: `1`
 	Done     *bool  `json:"done,omitempty"`     // todo 的完成状态, 示例值: true, 默认值: `false`
 	Folded   *bool  `json:"folded,omitempty"`   // 文本的折叠状态, 示例值: true, 默认值: `false`

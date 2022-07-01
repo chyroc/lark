@@ -21,9 +21,7 @@ import (
 	"context"
 )
 
-// BatchSetSheetValue
-//
-// 该接口用于根据 spreadsheetToken 和 range 向多个范围写入数据, 若范围内有数据, 将被更新覆盖；单次写入不超过5000行, 100列, 每个格子不超过5万字符。
+// BatchSetSheetValue 该接口用于根据 spreadsheetToken 和 range 向多个范围写入数据, 若范围内有数据, 将被更新覆盖；单次写入不超过5000行, 100列, 每个格子不超过5万字符。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uEjMzUjLxIzM14SMyMTN
 func (r *DriveService) BatchSetSheetValue(ctx context.Context, request *BatchSetSheetValueReq, options ...MethodOptionFunc) (*BatchSetSheetValueResp, *Response, error) {

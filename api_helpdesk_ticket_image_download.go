@@ -64,17 +64,11 @@ type DownloadHelpdeskTicketImageReq struct {
 	Index    *int64 `query:"index" json:"-"`     // index, 当消息类型为post时, 需指定图片index, index从0开始。当消息类型为img时, 无需index, 示例值: 0
 }
 
-// DownloadHelpdeskTicketImageResp ...
-type DownloadHelpdeskTicketImageResp struct {
-	File io.Reader `json:"file,omitempty"`
-}
-
 // downloadHelpdeskTicketImageResp ...
 type downloadHelpdeskTicketImageResp struct {
-	IsFile bool                             `json:"is_file,omitempty"`
-	Code   int64                            `json:"code,omitempty"`
-	Msg    string                           `json:"msg,omitempty"`
-	Data   *DownloadHelpdeskTicketImageResp `json:"data,omitempty"`
+	Code int64                            `json:"code,omitempty"`
+	Msg  string                           `json:"msg,omitempty"`
+	Data *DownloadHelpdeskTicketImageResp `json:"data,omitempty"`
 }
 
 func (r *downloadHelpdeskTicketImageResp) SetReader(file io.Reader) {
@@ -82,4 +76,9 @@ func (r *downloadHelpdeskTicketImageResp) SetReader(file io.Reader) {
 		r.Data = &DownloadHelpdeskTicketImageResp{}
 	}
 	r.Data.File = file
+}
+
+// DownloadHelpdeskTicketImageResp ...
+type DownloadHelpdeskTicketImageResp struct {
+	File io.Reader `json:"file,omitempty"`
 }

@@ -63,17 +63,11 @@ type GetHelpdeskFAQImageReq struct {
 	ImageKey string `path:"image_key" json:"-"` // 图像key, 示例值: "img_b07ffac0-19c1-48a3-afca-599f8ea825fj"
 }
 
-// GetHelpdeskFAQImageResp ...
-type GetHelpdeskFAQImageResp struct {
-	File io.Reader `json:"file,omitempty"`
-}
-
 // getHelpdeskFAQImageResp ...
 type getHelpdeskFAQImageResp struct {
-	IsFile bool                     `json:"is_file,omitempty"`
-	Code   int64                    `json:"code,omitempty"`
-	Msg    string                   `json:"msg,omitempty"`
-	Data   *GetHelpdeskFAQImageResp `json:"data,omitempty"`
+	Code int64                    `json:"code,omitempty"`
+	Msg  string                   `json:"msg,omitempty"`
+	Data *GetHelpdeskFAQImageResp `json:"data,omitempty"`
 }
 
 func (r *getHelpdeskFAQImageResp) SetReader(file io.Reader) {
@@ -81,4 +75,9 @@ func (r *getHelpdeskFAQImageResp) SetReader(file io.Reader) {
 		r.Data = &GetHelpdeskFAQImageResp{}
 	}
 	r.Data.File = file
+}
+
+// GetHelpdeskFAQImageResp ...
+type GetHelpdeskFAQImageResp struct {
+	File io.Reader `json:"file,omitempty"`
 }

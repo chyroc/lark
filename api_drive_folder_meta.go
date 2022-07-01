@@ -21,9 +21,7 @@ import (
 	"context"
 )
 
-// GetDriveFolderMeta
-//
-// 该接口用于根据 folderToken 获取该文件夹的元信息。
+// GetDriveFolderMeta 该接口用于根据 folderToken 获取该文件夹的元信息。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uAjNzUjLwYzM14CM2MTN
 func (r *DriveService) GetDriveFolderMeta(ctx context.Context, request *GetDriveFolderMetaReq, options ...MethodOptionFunc) (*GetDriveFolderMetaResp, *Response, error) {

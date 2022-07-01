@@ -21,9 +21,7 @@ import (
 	"context"
 )
 
-// TransferApprovalInstance
-//
-// 对于单个审批任务进行转交操作。转交后审批流程流转给被转交人。
+// TransferApprovalInstance 对于单个审批任务进行转交操作。转交后审批流程流转给被转交人。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uUDNyUjL1QjM14SN0ITN
 func (r *ApprovalService) TransferApprovalInstance(ctx context.Context, request *TransferApprovalInstanceReq, options ...MethodOptionFunc) (*TransferApprovalInstanceResp, *Response, error) {
@@ -62,11 +60,11 @@ type TransferApprovalInstanceReq struct {
 	ApprovalCode   string  `json:"approval_code,omitempty"`    // 审批定义 Code
 	InstanceCode   string  `json:"instance_code,omitempty"`    // 审批实例 Code
 	UserID         string  `json:"user_id,omitempty"`          // 操作用户
-	TaskID         string  `json:"task_id,omitempty"`          // 任务 ID审批实例详情task_list中id, 详情请参考[](https://open.feishu.cn/document/ukTMukTMukTM/uEDNyUjLxQjM14SM0ITN)
+	TaskID         string  `json:"task_id,omitempty"`          // 任务 ID 审批实例详情task_list中id, 详情请参考[](https://open.feishu.cn/document/ukTMukTMukTM/uEDNyUjLxQjM14SM0ITN)
 	Comment        *string `json:"comment,omitempty"`          // 意见
 	TransferUserID string  `json:"transfer_user_id,omitempty"` // 被转交人唯一 ID
-	OpenID         *string `json:"open_id,omitempty"`          // 用户open_id 如果没有user_id, 必须要有open_id
-	TransferOpenID *string `json:"transfer_open_id,omitempty"` // 被转交人open_id 如果没有transfer_user_id, 必须要有transfer_open_id
+	OpenID         *string `json:"open_id,omitempty"`          // 用户open_id  如果没有user_id, 必须要有open_id
+	TransferOpenID *string `json:"transfer_open_id,omitempty"` // 被转交人open_id  如果没有transfer_user_id, 必须要有transfer_open_id
 }
 
 // TransferApprovalInstanceResp ...

@@ -23,6 +23,8 @@ import (
 
 // GetContactScopeList 该接口用于获取应用被授权可访问的通讯录范围, 包括可访问的部门列表、用户列表和用户组列表。
 //
+// 授权范围为全员时, 返回的部门列表为该企业所有的一级部门；否则返回的部门为管理员在设置授权范围时勾选的部门（不包含勾选部门的子部门）。
+//
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/scope/list
 func (r *ContactService) GetContactScopeList(ctx context.Context, request *GetContactScopeListReq, options ...MethodOptionFunc) (*GetContactScopeListResp, *Response, error) {
 	if r.cli.mock.mockContactGetContactScopeList != nil {

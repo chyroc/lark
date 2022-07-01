@@ -68,7 +68,7 @@ type UpdateTaskReq struct {
 type UpdateTaskReqTask struct {
 	Summary     *string                  `json:"summary,omitempty"`     // 任务标题。创建任务时, 如果没有标题填充, 飞书服务器会将其视为无主题的任务, 示例值: "每天喝八杯水, 保持身心愉悦", 长度范围: `1` ～ `256` 字符
 	Description *string                  `json:"description,omitempty"` // 任务备注, 示例值: "多吃水果, 多运动, 健康生活, 快乐工作。", 长度范围: `0` ～ `65536` 字符
-	Extra       *string                  `json:"extra,omitempty"`       // 接入方可以自定义的附属信息二进制格式, 采用 base64 编码, 解析方式由接入方自己决定, 示例值: "dGVzdA==", 长度范围: `0` ～ `65536` 字符
+	Extra       *string                  `json:"extra,omitempty"`       // 接入方可以自定义的附属信息二进制格式, 采用 base64 编码, 解析方式由接入方自己决定, 示例值: "dGVzdA[", 长度范围: `0` ～ `65536` 字符
 	Due         *UpdateTaskReqTaskDue    `json:"due,omitempty"`         // 任务的截止时间设置
 	Origin      *UpdateTaskReqTaskOrigin `json:"origin,omitempty"`      // 任务关联的第三方平台来源信息
 	CanEdit     *bool                    `json:"can_edit,omitempty"`    // 此字段用于控制该任务在飞书任务中心是否可编辑, 默认为false, 若为true则第三方需考虑是否需要接入事件来接收任务在任务中心的变更信息, （即将废弃）, 示例值: true, 默认值: `false`

@@ -21,7 +21,9 @@ import (
 	"github.com/chyroc/lark/internal"
 )
 
-// OpenWebApp 打开一个已安装的H5应用
+// OpenWebApp 打开网页应用
+//
+// 打开一个已安装的H5应用
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/uYjL24iN/applink-protocol/supported-protocol/open-an-h5-app
 func (r *AppLinkService) OpenWebApp(req *OpenWebAppReq) string {
@@ -31,11 +33,11 @@ func (r *AppLinkService) OpenWebApp(req *OpenWebAppReq) string {
 // OpenWebAppReq ...
 type OpenWebAppReq struct {
 	AppID       string  `json:"appId,omitempty"`        // H5应用的 appId(可从「开发者后台-凭证与基础信息」获取)
-	Mode        *string `json:"mode,omitempty"`         // 打开H5应用的容器模式, 枚举值包括 `appCenter`: 在工作台打开, 3.20版本开始支持（缺省值）  `window`: 在独立窗口打开, 3.20版本开始支持  `sidebar`: 在侧边栏打开, 3.40版本开始支持  `window-semi`: 在独立窗口以小屏形式打开, 5.10版本开始支持
-	Height      *string `json:"height,omitempty"`       // 自定义独立窗口高度（仅当`mode`为`window`时生效）, 飞书5.12版本开始支持最小值: 480最大值: 屏幕的高度默认值: 飞书窗口的高度
-	Width       *string `json:"width,omitempty"`        // 自定义独立窗口宽度（仅当`mode`为`window`时生效）, 飞书5.12版本开始支持最小值: 640最大值: 屏幕的宽度默认值: 飞书窗口的宽度
-	Path        *string `json:"path,omitempty"`         // 访问H5应用的具体某个页面, path参数将替换H5应用URL的path部分（注意: path中不应该出现#和?字符, 否则会导致最终的H5页面URL结构异常） 也可以使用 path_android、path_ios、path_pc 参数对不同的客户端指定不同的path 3.20版本开始支持
-	PathAndroid *string `json:"path_android,omitempty"` // 同 path 参数, Android 端会优先使用该参数, 如果该参数不存在, 则会使用 path 参数。 3.20版本开始支持
-	PathIos     *string `json:"path_ios,omitempty"`     // 同 path 参数, iOS 端会优先使用该参数, 如果该参数不存在, 则会使用 path 参数 3.20版本开始支持
-	PathPc      *string `json:"path_pc,omitempty"`      // 同 path 参数, PC 端会优先使用该参数, 如果该参数不存在, 则会使用 path 参数 3.20版本开始支持
+	Mode        *string `json:"mode,omitempty"`         // 打开H5应用的容器模式, 枚举值包括  `appCenter`: 在工作台打开, 3.20版本开始支持（缺省值）   `window`: 在独立窗口打开, 3.20版本开始支持   `sidebar`: 在侧边栏打开, 3.40版本开始支持   `window-semi`: 在独立窗口以小屏形式打开, 5.10版本开始支持
+	Height      *string `json:"height,omitempty"`       // 自定义独立窗口高度（仅当`mode`为`window`时生效）, 飞书5.12版本开始支持 最小值: 480 最大值: 屏幕的高度 默认值: 飞书窗口的高度
+	Width       *string `json:"width,omitempty"`        // 自定义独立窗口宽度（仅当`mode`为`window`时生效）, 飞书5.12版本开始支持 最小值: 640 最大值: 屏幕的宽度 默认值: 飞书窗口的宽度
+	Path        *string `json:"path,omitempty"`         // 访问H5应用的具体某个页面, path参数将替换H5应用URL的path部分（注意: path中不应该出现#和?字符, 否则会导致最终的H5页面URL结构异常）  也可以使用 path_android、path_ios、path_pc 参数对不同的客户端指定不同的path  3.20版本开始支持
+	PathAndroid *string `json:"path_android,omitempty"` // 同 path 参数, Android 端会优先使用该参数, 如果该参数不存在, 则会使用 path 参数。  3.20版本开始支持
+	PathIos     *string `json:"path_ios,omitempty"`     // 同 path 参数, iOS 端会优先使用该参数, 如果该参数不存在, 则会使用 path 参数  3.20版本开始支持
+	PathPc      *string `json:"path_pc,omitempty"`      // 同 path 参数, PC 端会优先使用该参数, 如果该参数不存在, 则会使用 path 参数  3.20版本开始支持
 }

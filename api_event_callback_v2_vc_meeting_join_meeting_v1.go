@@ -21,9 +21,7 @@ import (
 	"context"
 )
 
-// EventV2VCMeetingJoinMeetingV1
-//
-// 发生在有人加入会议时
+// EventV2VCMeetingJoinMeetingV1 发生在有人加入会议时
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/vc-v1/meeting/events/join_meeting
 func (r *EventCallbackService) HandlerEventV2VCMeetingJoinMeetingV1(f EventV2VCMeetingJoinMeetingV1Handler) {

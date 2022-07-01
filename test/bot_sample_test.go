@@ -38,14 +38,14 @@ func Test_Bot_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
-			_, _, err := moduleCli.GetBotInfo(ctx, &lark.GetBotInfoReq{})
+			_, _, err := moduleCli.AddBotToChat(ctx, &lark.AddBotToChatReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "failed")
 		})
 
 		t.Run("", func(t *testing.T) {
 
-			_, _, err := moduleCli.AddBotToChat(ctx, &lark.AddBotToChatReq{})
+			_, _, err := moduleCli.GetBotInfo(ctx, &lark.GetBotInfoReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "failed")
 		})
@@ -55,18 +55,6 @@ func Test_Bot_Sample_Failed(t *testing.T) {
 	t.Run("request mock failed", func(t *testing.T) {
 		cli := AppAllPermission.Ins()
 		moduleCli := cli.Bot
-
-		t.Run("", func(t *testing.T) {
-
-			cli.Mock().MockBotGetBotInfo(func(ctx context.Context, request *lark.GetBotInfoReq, options ...lark.MethodOptionFunc) (*lark.GetBotInfoResp, *lark.Response, error) {
-				return nil, nil, fmt.Errorf("mock-failed")
-			})
-			defer cli.Mock().UnMockBotGetBotInfo()
-
-			_, _, err := moduleCli.GetBotInfo(ctx, &lark.GetBotInfoReq{})
-			as.NotNil(err)
-			as.Equal(err.Error(), "mock-failed")
-		})
 
 		t.Run("", func(t *testing.T) {
 
@@ -80,6 +68,18 @@ func Test_Bot_Sample_Failed(t *testing.T) {
 			as.Equal(err.Error(), "mock-failed")
 		})
 
+		t.Run("", func(t *testing.T) {
+
+			cli.Mock().MockBotGetBotInfo(func(ctx context.Context, request *lark.GetBotInfoReq, options ...lark.MethodOptionFunc) (*lark.GetBotInfoResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockBotGetBotInfo()
+
+			_, _, err := moduleCli.GetBotInfo(ctx, &lark.GetBotInfoReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
 	})
 
 	t.Run("response is failed", func(t *testing.T) {
@@ -88,14 +88,14 @@ func Test_Bot_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
-			_, _, err := moduleCli.GetBotInfo(ctx, &lark.GetBotInfoReq{})
+			_, _, err := moduleCli.AddBotToChat(ctx, &lark.AddBotToChatReq{})
 			as.NotNil(err)
 			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
 		})
 
 		t.Run("", func(t *testing.T) {
 
-			_, _, err := moduleCli.AddBotToChat(ctx, &lark.AddBotToChatReq{})
+			_, _, err := moduleCli.GetBotInfo(ctx, &lark.GetBotInfoReq{})
 			as.NotNil(err)
 			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
 		})
@@ -111,14 +111,14 @@ func Test_Bot_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
-			_, _, err := moduleCli.GetBotInfo(ctx, &lark.GetBotInfoReq{})
+			_, _, err := moduleCli.AddBotToChat(ctx, &lark.AddBotToChatReq{})
 			as.NotNil(err)
 			as.Equal("fake raw request", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
 
-			_, _, err := moduleCli.AddBotToChat(ctx, &lark.AddBotToChatReq{})
+			_, _, err := moduleCli.GetBotInfo(ctx, &lark.GetBotInfoReq{})
 			as.NotNil(err)
 			as.Equal("fake raw request", err.Error())
 		})

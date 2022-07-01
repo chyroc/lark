@@ -23,6 +23,7 @@ import (
 
 // GetCalendarEvent 该接口用于以当前身份（应用 / 用户）获取日历上的一个日程。
 //
+// 身份由 Header Authorization 的 Token 类型决定。
 // - 当前身份必须对日历有reader、writer或owner权限才会返回日程详细信息（调用[获取日历](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar/get)接口, role字段可查看权限）。
 // - [例外日程](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar-event/introduction#71c5ec78)可通过event_id的非0时间戳后缀, 来获取修改的重复性日程的哪一天日程的时间信息。
 //

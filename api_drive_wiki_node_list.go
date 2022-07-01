@@ -21,9 +21,8 @@ import (
 	"context"
 )
 
-// GetWikiNodeList
+// GetWikiNodeList 此接口用于分页获取Wiki节点的子节点列表。
 //
-// 此接口用于分页获取Wiki节点的子节点列表。
 // 此接口为分页接口。由于权限过滤, 可能返回列表为空, 但分页标记（has_more）为true, 可以继续分页请求。
 // 知识库权限要求:
 // - 父节点阅读权限

@@ -21,9 +21,8 @@ import (
 	"context"
 )
 
-// GetCalendar
+// GetCalendar 该接口用于以当前身份（应用 / 用户）根据日历 ID 获取日历信息。
 //
-// 该接口用于以当前身份（应用 / 用户）根据日历 ID 获取日历信息。
 // 身份由 Header Authorization 的 Token 类型决定。
 // 当前身份必须对日历有访问权限。
 //

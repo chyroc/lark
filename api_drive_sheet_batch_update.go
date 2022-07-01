@@ -21,9 +21,9 @@ import (
 	"context"
 )
 
-// BatchUpdateSheet
+// BatchUpdateSheet 该接口用于根据 spreadsheetToken 操作表格, 如增加工作表, 复制工作表、删除工作表。
 //
-// 该接口用于根据 spreadsheetToken 操作表格, 如增加工作表, 复制工作表、删除工作表。
+// ::: note
 // 该接口和 [更新工作表属性](https://open.feishu.cn/document/ukTMukTMukTM/ugjMzUjL4IzM14COyMTN) 的请求地址相同, 但参数不同, 调用前请仔细阅读文档。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uYTMzUjL2EzM14iNxMTN
@@ -67,7 +67,7 @@ type BatchUpdateSheetReq struct {
 
 // BatchUpdateSheetReqRequest ...
 type BatchUpdateSheetReqRequest struct {
-	UpdateSheet *BatchUpdateSheetReqRequestUpdateSheet `json:"updateSheet,omitempty"`
+	UpdateSheet *BatchUpdateSheetReqRequestUpdateSheet `json:"updateSheet,omitempty"` // 更新工作表
 	AddSheet    *BatchUpdateSheetReqRequestAddSheet    `json:"addSheet,omitempty"`    // 增加工作表
 	CopySheet   *BatchUpdateSheetReqRequestCopySheet   `json:"copySheet,omitempty"`   // 复制工作表
 	DeleteSheet *BatchUpdateSheetReqRequestDeleteSheet `json:"deleteSheet,omitempty"` // 删除 sheet
@@ -112,12 +112,12 @@ type BatchUpdateSheetReqRequestUpdateSheet struct {
 
 // BatchUpdateSheetReqRequestUpdateSheetProperties ...
 type BatchUpdateSheetReqRequestUpdateSheetProperties struct {
-	SheetID        string                                                  `json:"sheetId,omitempty"`        // read-only, 作为表格唯一识别参数
+	SheetID        string                                                  `json:"sheetId,omitempty"`        // read-only ,作为表格唯一识别参数
 	Title          *string                                                 `json:"title,omitempty"`          // 更改工作表标题
 	Index          *int64                                                  `json:"index,omitempty"`          // 移动工作表的位置
-	Hidden         *bool                                                   `json:"hidden,omitempty"`         // 隐藏表格, 默认 false
-	FrozenRowCount *int64                                                  `json:"frozenRowCount,omitempty"` // 冻结行数, 小于等于工作表的最大行数, 0表示取消冻结行
-	FrozenColCount *int64                                                  `json:"frozenColCount,omitempty"` // 该 sheet 的冻结列数, 小于等于工作表的最大列数, 0表示取消冻结列
+	Hidden         *bool                                                   `json:"hidden,omitempty"`         // 隐藏表格，默认 false
+	FrozenRowCount *int64                                                  `json:"frozenRowCount,omitempty"` // 冻结行数，小于等于工作表的最大行数，0表示取消冻结行
+	FrozenColCount *int64                                                  `json:"frozenColCount,omitempty"` // 该 sheet 的冻结列数，小于等于工作表的最大列数，0表示取消冻结列
 	Protect        *BatchUpdateSheetReqRequestUpdateSheetPropertiesProtect `json:"protect,omitempty"`        // 锁定表格
 }
 
@@ -125,7 +125,7 @@ type BatchUpdateSheetReqRequestUpdateSheetProperties struct {
 type BatchUpdateSheetReqRequestUpdateSheetPropertiesProtect struct {
 	Lock     string   `json:"lock,omitempty"`     // LOCK 、UNLOCK 上锁/解锁
 	LockInfo *string  `json:"lockInfo,omitempty"` // 锁定信息
-	UserIDs  []string `json:"userIDs,omitempty"`  // 除了本人与所有者外, 添加其他的可编辑人员, user_id_type不为空时使用该字段
+	UserIDs  []string `json:"userIDs,omitempty"`  // 除了本人与所有者外，添加其他的可编辑人员,user_id_type不为空时使用该字段
 }
 
 // BatchUpdateSheetResp ...
@@ -135,9 +135,9 @@ type BatchUpdateSheetResp struct {
 
 // BatchUpdateSheetRespReply ...
 type BatchUpdateSheetRespReply struct {
-	AddSheet    *BatchUpdateSheetRespReplyAddSheet    `json:"addSheet,omitempty"`  // 增加/复制工作表的属性
-	CopySheet   *BatchUpdateSheetRespReplyCopySheet   `json:"copySheet,omitempty"` // 增加/复制工作表的属性
-	UpdateSheet *BatchUpdateSheetRespReplyUpdateSheet `json:"updateSheet,omitempty"`
+	UpdateSheet *BatchUpdateSheetRespReplyUpdateSheet `json:"updateSheet,omitempty"` // 更新工作表
+	AddSheet    *BatchUpdateSheetRespReplyAddSheet    `json:"addSheet,omitempty"`    // 增加/复制工作表的属性
+	CopySheet   *BatchUpdateSheetRespReplyCopySheet   `json:"copySheet,omitempty"`   // 增加/复制工作表的属性
 	DeleteSheet *BatchUpdateSheetRespReplyDeleteSheet `json:"deleteSheet,omitempty"` // 删除工作表
 }
 
@@ -178,20 +178,20 @@ type BatchUpdateSheetRespReplyUpdateSheet struct {
 
 // BatchUpdateSheetRespReplyUpdateSheetProperties ...
 type BatchUpdateSheetRespReplyUpdateSheetProperties struct {
-	SheetID        string                                                 `json:"sheetId,omitempty"`        // 表格的 sheetId
-	Title          string                                                 `json:"title,omitempty"`          // 更新的工作表标题
+	SheetID        string                                                 `json:"sheetId,omitempty"`        // read-only ,作为表格唯一识别参数
+	Title          string                                                 `json:"title,omitempty"`          // 更改工作表标题
 	Index          int64                                                  `json:"index,omitempty"`          // 移动工作表的位置
-	Hidden         bool                                                   `json:"hidden,omitempty"`         // 是否隐藏表格
-	FrozenRowCount int64                                                  `json:"frozenRowCount,omitempty"` // 冻结行数
-	FrozenColCount int64                                                  `json:"frozenColCount,omitempty"` // 冻结列数
-	Protect        *BatchUpdateSheetRespReplyUpdateSheetPropertiesProtect `json:"protect,omitempty"`        // 保护工作表
+	Hidden         bool                                                   `json:"hidden,omitempty"`         // 隐藏表格，默认 false
+	FrozenRowCount int64                                                  `json:"frozenRowCount,omitempty"` // 冻结行数，小于等于工作表的最大行数，0表示取消冻结行
+	FrozenColCount int64                                                  `json:"frozenColCount,omitempty"` // 该 sheet 的冻结列数，小于等于工作表的最大列数，0表示取消冻结列
+	Protect        *BatchUpdateSheetRespReplyUpdateSheetPropertiesProtect `json:"protect,omitempty"`        // 锁定表格
 }
 
 // BatchUpdateSheetRespReplyUpdateSheetPropertiesProtect ...
 type BatchUpdateSheetRespReplyUpdateSheetPropertiesProtect struct {
 	Lock     string   `json:"lock,omitempty"`     // LOCK 、UNLOCK 上锁/解锁
 	LockInfo string   `json:"lockInfo,omitempty"` // 锁定信息
-	UserIDs  []string `json:"userIDs,omitempty"`  // 除了本人与所有者外, 添加其他的可编辑人员, user_id_type不为空时使用该字段
+	UserIDs  []string `json:"userIDs,omitempty"`  // 除了本人与所有者外，添加其他的可编辑人员,user_id_type不为空时使用该字段
 }
 
 // batchUpdateSheetResp ...

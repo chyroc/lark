@@ -21,9 +21,8 @@ import (
 	"context"
 )
 
-// GetWikiSpaceList
+// GetWikiSpaceList 此接口用于获取有权限访问的知识空间列表。
 //
-// 此接口用于获取有权限访问的知识空间列表。
 // 此接口为分页接口。由于权限过滤, 可能返回列表为空, 但分页标记（has_more）为true, 可以继续分页请求。
 // 对于知识空间各项属性描述请参阅[获取知识空间信息](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/wiki-v2/space/get)
 // 使用tenant access token调用时, 请确认应用/机器人拥有部分知识空间的访问权限, 否则返回列表容易为空。

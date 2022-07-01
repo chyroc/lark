@@ -21,9 +21,7 @@ import (
 	"context"
 )
 
-// GetSheetConditionFormat
-//
-// 该接口用于根据sheetId查询详细的条件格式信息, 最多支持同时查询10个sheetId。
+// GetSheetConditionFormat 该接口用于根据sheetId查询详细的条件格式信息, 最多支持同时查询10个sheetId。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uATMzUjLwEzM14CMxMTN/conditionformat/condition-format-get
 func (r *DriveService) GetSheetConditionFormat(ctx context.Context, request *GetSheetConditionFormatReq, options ...MethodOptionFunc) (*GetSheetConditionFormatResp, *Response, error) {

@@ -21,9 +21,7 @@ import (
 	"context"
 )
 
-// EventV2VCMeetingRecordingEndedV1
-//
-// 发生在录制结束时
+// EventV2VCMeetingRecordingEndedV1 发生在录制结束时
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/vc-v1/meeting/events/recording_ended
 func (r *EventCallbackService) HandlerEventV2VCMeetingRecordingEndedV1(f EventV2VCMeetingRecordingEndedV1Handler) {

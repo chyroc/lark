@@ -63,21 +63,14 @@ func (r *Mock) UnMockDriveDownloadDriveMedia() {
 type DownloadDriveMediaReq struct {
 	FileToken string   `path:"file_token" json:"-"` // 文件的 token, 获取方式见 [概述](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/files/guide/introduction), 示例值: "boxcnrHpsg1QDqXAAAyachabcef"
 	Extra     *string  `query:"extra" json:"-"`     // 扩展信息, 示例值: "[请参考-上传点类型及对应Extra说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/media/introduction)"
-	Range     [2]int64 `header:"range" json:"-"`    // 指定文件下载部分, 示例:bytes=0-1024
-}
-
-// DownloadDriveMediaResp ...
-type DownloadDriveMediaResp struct {
-	File     io.Reader
-	Filename string // 文件名
+	Range     [2]int64 `header:"range" json:"-"`    // 指定文件下载部分, 示例值: "bytes=0-1024"
 }
 
 // downloadDriveMediaResp ...
 type downloadDriveMediaResp struct {
-	IsFile bool
-	Code   int64
-	Msg    string
-	Data   *DownloadDriveMediaResp
+	Code int64                   `json:"code,omitempty"`
+	Msg  string                  `json:"msg,omitempty"`
+	Data *DownloadDriveMediaResp `json:"data,omitempty"`
 }
 
 func (r *downloadDriveMediaResp) SetReader(file io.Reader) {
@@ -92,4 +85,10 @@ func (r *downloadDriveMediaResp) SetFilename(filename string) {
 		r.Data = &DownloadDriveMediaResp{}
 	}
 	r.Data.Filename = filename
+}
+
+// DownloadDriveMediaResp ...
+type DownloadDriveMediaResp struct {
+	File     io.Reader `json:"file,omitempty"`
+	Filename string    `json:"filename,omitempty"`
 }

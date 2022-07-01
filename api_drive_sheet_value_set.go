@@ -21,9 +21,7 @@ import (
 	"context"
 )
 
-// SetSheetValue
-//
-// 该接口用于根据 spreadsheetToken 和 range 向单个范围写入数据, 若范围内有数据, 将被更新覆盖；单次写入不超过5000行, 100列, 每个格子不超过5万字符。
+// SetSheetValue 该接口用于根据 spreadsheetToken 和 range 向单个范围写入数据, 若范围内有数据, 将被更新覆盖；单次写入不超过5000行, 100列, 每个格子不超过5万字符。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uAjMzUjLwIzM14CMyMTN
 func (r *DriveService) SetSheetValue(ctx context.Context, request *SetSheetValueReq, options ...MethodOptionFunc) (*SetSheetValueResp, *Response, error) {

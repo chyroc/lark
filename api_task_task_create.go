@@ -61,7 +61,7 @@ type CreateTaskReq struct {
 	UserIDType    *IDType                      `query:"user_id_type" json:"-"`  // 用户 ID 类型, 示例值: "open_id", 可选值有: <md-enum>, <md-enum-item key="open_id" >用户的 open id</md-enum-item>, <md-enum-item key="union_id" >用户的 union id</md-enum-item>, <md-enum-item key="user_id" >用户的 user id</md-enum-item>, </md-enum>, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
 	Summary       string                       `json:"summary,omitempty"`       // 任务标题。创建任务时, 如果没有标题填充, 飞书服务器会将其视为无主题的任务, 示例值: "每天喝八杯水, 保持身心愉悦", 长度范围: `1` ～ `256` 字符
 	Description   *string                      `json:"description,omitempty"`   // 任务备注, 示例值: "多吃水果, 多运动, 健康生活, 快乐工作。", 长度范围: `0` ～ `65536` 字符
-	Extra         *string                      `json:"extra,omitempty"`         // 接入方可以自定义的附属信息二进制格式, 采用 base64 编码, 解析方式由接入方自己决定, 示例值: "dGVzdA==", 长度范围: `0` ～ `65536` 字符
+	Extra         *string                      `json:"extra,omitempty"`         // 接入方可以自定义的附属信息二进制格式, 采用 base64 编码, 解析方式由接入方自己决定, 示例值: "dGVzdA[", 长度范围: `0` ～ `65536` 字符
 	Due           *CreateTaskReqDue            `json:"due,omitempty"`           // 任务的截止时间设置
 	Origin        *CreateTaskReqOrigin         `json:"origin,omitempty"`        // 任务关联的第三方平台来源信息
 	CanEdit       *bool                        `json:"can_edit,omitempty"`      // 此字段用于控制该任务在飞书任务中心是否可编辑, 默认为false, 若为true则第三方需考虑是否需要接入事件来接收任务在任务中心的变更信息, （即将废弃）, 示例值: true, 默认值: `false`

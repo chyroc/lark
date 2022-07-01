@@ -63,7 +63,7 @@ type UpdateDriveMemberPermissionOldReq struct {
 	MemberType string `json:"member_type,omitempty"` // 用户类型, 可选 "openid"、"openchat"、"userid"
 	MemberID   string `json:"member_id,omitempty"`   // 用户类型下的值
 	Perm       string `json:"perm,omitempty"`        // 权限, "view" or "edit"
-	NotifyLark bool   `json:"notify_lark,omitempty"` // 修改权限后是否飞书/lark通知对方true 通知 or false 不通知
+	NotifyLark bool   `json:"notify_lark,omitempty"` // 修改权限后是否飞书/lark通知对方 true 通知 or false 不通知
 }
 
 // UpdateDriveMemberPermissionOldResp ...

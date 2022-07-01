@@ -21,9 +21,7 @@ import (
 	"context"
 )
 
-// UpdateApplicationAppVisibility
-//
-// 该接口用于增加或者删除指定应用被哪些人可用, 只能被企业自建应用调用。
+// UpdateApplicationAppVisibility 该接口用于增加或者删除指定应用被哪些人可用, 只能被企业自建应用调用。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/ucDN3UjL3QzN14yN0cTN
 func (r *ApplicationService) UpdateApplicationAppVisibility(ctx context.Context, request *UpdateApplicationAppVisibilityReq, options ...MethodOptionFunc) (*UpdateApplicationAppVisibilityResp, *Response, error) {
@@ -59,22 +57,22 @@ func (r *Mock) UnMockApplicationUpdateApplicationAppVisibility() {
 
 // UpdateApplicationAppVisibilityReq ...
 type UpdateApplicationAppVisibilityReq struct {
-	AppID           string                                     `json:"app_id,omitempty"`             // 目标应用的 ID
-	DelUsers        *UpdateApplicationAppVisibilityReqDelUsers `json:"del_users,omitempty"`          // 删除的用户列表, 元素个数不超过 500, 先增加后删除
-	AddUsers        *UpdateApplicationAppVisibilityReqAddUsers `json:"add_users,omitempty"`          // 增加的用户列表, 元素个数不超过500, 先增加后删除
-	IsVisiableToAll *int64                                     `json:"is_visiable_to_all,omitempty"` // 是否全员可见, 0: 否；1: 是；不填: 继续当前状态不改变
-	AddDepartments  []string                                   `json:"add_departments,omitempty"`    // 添加的部门列表, 元素个数不超过 500, 先增加后删除
-	DelDepartments  []string                                   `json:"del_departments,omitempty"`    // 删除的部门列表, 元素个数不超过 500, 先增加后删除
+	AppID           string                                      `json:"app_id,omitempty"`             // 目标应用的 ID
+	DelUsers        []*UpdateApplicationAppVisibilityReqDelUser `json:"del_users,omitempty"`          // 删除的用户列表, 元素个数不超过 500, 先增加后删除
+	AddUsers        []*UpdateApplicationAppVisibilityReqAddUser `json:"add_users,omitempty"`          // 增加的用户列表, 元素个数不超过500, 先增加后删除
+	IsVisiableToAll *int64                                      `json:"is_visiable_to_all,omitempty"` // 是否全员可见, 0: 否；1: 是；不填: 继续当前状态不改变
+	AddDepartments  []string                                    `json:"add_departments,omitempty"`    // 添加的部门列表, 元素个数不超过 500, 先增加后删除
+	DelDepartments  []string                                    `json:"del_departments,omitempty"`    // 删除的部门列表, 元素个数不超过 500, 先增加后删除
 }
 
-// UpdateApplicationAppVisibilityReqAddUsers ...
-type UpdateApplicationAppVisibilityReqAddUsers struct {
+// UpdateApplicationAppVisibilityReqAddUser ...
+type UpdateApplicationAppVisibilityReqAddUser struct {
 	OpenID *string `json:"open_id,omitempty"` // 与 user_id 至少给其中之一, user_id 优先于 open_id
 	UserID *string `json:"user_id,omitempty"`
 }
 
-// UpdateApplicationAppVisibilityReqDelUsers ...
-type UpdateApplicationAppVisibilityReqDelUsers struct {
+// UpdateApplicationAppVisibilityReqDelUser ...
+type UpdateApplicationAppVisibilityReqDelUser struct {
 	OpenID *string `json:"open_id,omitempty"` // 与 user_id 至少给其中之一, user_id 优先于 open_id
 	UserID *string `json:"user_id,omitempty"`
 }

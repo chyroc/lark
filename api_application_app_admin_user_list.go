@@ -21,9 +21,7 @@ import (
 	"context"
 )
 
-// GetApplicationAppAdminUserList
-//
-// 查询审核应用的管理员列表, 返回最新10个管理员账户id列表。
+// GetApplicationAppAdminUserList 查询审核应用的管理员列表, 返回最新10个管理员账户id列表。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/ucDOwYjL3gDM24yN4AjN
 func (r *ApplicationService) GetApplicationAppAdminUserList(ctx context.Context, request *GetApplicationAppAdminUserListReq, options ...MethodOptionFunc) (*GetApplicationAppAdminUserListResp, *Response, error) {
@@ -68,11 +66,7 @@ type GetApplicationAppAdminUserListResp struct {
 
 // GetApplicationAppAdminUserListRespUser ...
 type GetApplicationAppAdminUserListRespUser struct {
-	OpenID *GetApplicationAppAdminUserListRespUserOpenID `json:"open_id,omitempty"` // 某管理员的open_id
-}
-
-// GetApplicationAppAdminUserListRespUserOpenID ...
-type GetApplicationAppAdminUserListRespUserOpenID struct {
+	OpenID  string `json:"open_id,omitempty"`  // 某管理员的open_id
 	UserID  string `json:"user_id,omitempty"`  // 某管理员的user_id
 	UnionID string `json:"union_id,omitempty"` // 某管理员的union_id
 }

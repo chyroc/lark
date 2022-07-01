@@ -38,7 +38,6 @@ func (r *HelpdeskService) PreviewHelpdeskNotification(ctx context.Context, reque
 		Body:                request,
 		MethodOption:        newMethodOption(options),
 		NeedUserAccessToken: true,
-		NeedHelpdeskAuth:    true,
 	}
 	resp := new(previewHelpdeskNotificationResp)
 

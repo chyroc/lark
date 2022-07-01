@@ -74,7 +74,7 @@ type RecognizeSpeechStreamReqConfig struct {
 
 // RecognizeSpeechStreamReqSpeech ...
 type RecognizeSpeechStreamReqSpeech struct {
-	Speech *string `json:"speech,omitempty"` // pcm格式音频文件（文件识别）或音频分片（流式识别）经base64编码后的内容, 示例值: "PdmrfE267Cd/Z9KpmNFh71A2PSJZxSp7+8upCg=="
+	Speech *string `json:"speech,omitempty"` // pcm格式音频文件（文件识别）或音频分片（流式识别）经base64编码后的内容, 示例值: "PdmrfE267Cd/Z9KpmNFh71A2PSJZxSp7+8upCg["
 }
 
 // RecognizeSpeechStreamResp ...

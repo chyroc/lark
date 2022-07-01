@@ -21,9 +21,8 @@ import (
 	"context"
 )
 
-// EventV2ApplicationApplicationVisibilityAddedV6
+// EventV2ApplicationApplicationVisibilityAddedV6 了解事件订阅的使用场景和配置流程, 请点击查看 [事件订阅概述](https://open.feishu.cn/document/ukTMukTMukTM/uUTNz4SN1MjL1UzM)
 //
-// 了解事件订阅的使用场景和配置流程, 请点击查看 [事件订阅概述](https://open.feishu.cn/document/ukTMukTMukTM/uUTNz4SN1MjL1UzM)
 // 仅当企业的用户通过「普通成员安装」方式获得应用可用性时推送此事件。
 // - 订阅前提: 需要是应用商店应用
 //
@@ -43,11 +42,5 @@ type EventV2ApplicationApplicationVisibilityAddedV6 struct {
 
 // EventV2ApplicationApplicationVisibilityAddedV6User ...
 type EventV2ApplicationApplicationVisibilityAddedV6User struct {
-	UserID *EventV2ApplicationApplicationVisibilityAddedV6UserUserID `json:"user_id,omitempty"` // 开通的用户 id
-}
-
-// EventV2ApplicationApplicationVisibilityAddedV6UserUserID ...
-type EventV2ApplicationApplicationVisibilityAddedV6UserUserID struct {
-	OpenID  string `json:"open_id,omitempty"`  // 如: ou_f370aea2baf6ffc69a6762d31cfaf96a
-	UnionID string `json:"union_id,omitempty"` // 如: on_6bc1e6c0e9ad8193fa4391278eb76891
+	UserID map[string]interface{} `json:"user_id,omitempty"` // 开通的用户 id
 }

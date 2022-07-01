@@ -21,9 +21,8 @@ import (
 	"context"
 )
 
-// EventV1AppStatusChange
+// EventV1AppStatusChange 了解事件订阅的使用场景和配置流程, 请点击查看 [事件订阅概述](https://open.feishu.cn/document/ukTMukTMukTM/uUTNz4SN1MjL1UzM)
 //
-// 了解事件订阅的使用场景和配置流程, 请点击查看 [事件订阅概述](https://open.feishu.cn/document/ukTMukTMukTM/uUTNz4SN1MjL1UzM)
 // 当企业管理员在管理员后台启用、停用应用, 或应用被平台停用时, 开放平台推送 app_status_change 事件到请求网址。
 // - 订阅条件: 只有应用商店应用才能订阅此事件。自建应用无此事件。
 // - 特殊说明: 管理员手动安装应用时, 也会触发启用事件。

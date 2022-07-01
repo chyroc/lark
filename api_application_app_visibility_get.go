@@ -21,9 +21,7 @@ import (
 	"context"
 )
 
-// GetApplicationAppVisibility
-//
-// 该接口用于查询应用在该企业内可以被使用的范围, 只能被企业自建应用调用。
+// GetApplicationAppVisibility 该接口用于查询应用在该企业内可以被使用的范围, 只能被企业自建应用调用。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uIjM3UjLyIzN14iMycTN
 func (r *ApplicationService) GetApplicationAppVisibility(ctx context.Context, request *GetApplicationAppVisibilityReq, options ...MethodOptionFunc) (*GetApplicationAppVisibilityResp, *Response, error) {

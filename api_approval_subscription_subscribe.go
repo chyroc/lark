@@ -21,9 +21,8 @@ import (
 	"context"
 )
 
-// SubscribeApprovalSubscription
+// SubscribeApprovalSubscription 应用订阅 approval_code 后, 该应用就可以收到该审批定义对应实例的事件通知。同一应用只需要订阅一次, 无需重复订阅。
 //
-// 应用订阅 approval_code 后, 该应用就可以收到该审批定义对应实例的事件通知。同一应用只需要订阅一次, 无需重复订阅。
 // 当应用不希望再收到审批事件时, 可以使用取消订阅接口进行取消, 取消后将不再给应用推送消息。
 // 订阅和取消订阅都是应用维度的, 多个应用可以同时订阅同一个 approval_code, 每个应用都能收到审批事件。
 //

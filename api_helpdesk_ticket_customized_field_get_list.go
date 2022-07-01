@@ -21,9 +21,7 @@ import (
 	"context"
 )
 
-// GetHelpdeskTicketCustomizedFieldList
-//
-// 该接口用于获取全部工单自定义字段。
+// GetHelpdeskTicketCustomizedFieldList 该接口用于获取全部工单自定义字段。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/ticket_customized_field/list-ticket-customized-fields
 func (r *HelpdeskService) GetHelpdeskTicketCustomizedFieldList(ctx context.Context, request *GetHelpdeskTicketCustomizedFieldListReq, options ...MethodOptionFunc) (*GetHelpdeskTicketCustomizedFieldListResp, *Response, error) {

@@ -21,9 +21,7 @@ import (
 	"context"
 )
 
-// GetSheetDataValidationDropdown
-//
-// 该接口根据 spreadsheetToken 、range 查询range内的下拉列表设置信息；单次查询范围不超过5000行, 100列。
+// GetSheetDataValidationDropdown 该接口根据 spreadsheetToken 、range 查询range内的下拉列表设置信息；单次查询范围不超过5000行, 100列。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uATMzUjLwEzM14CMxMTN/datavalidation/query-datavalidation
 func (r *DriveService) GetSheetDataValidationDropdown(ctx context.Context, request *GetSheetDataValidationDropdownReq, options ...MethodOptionFunc) (*GetSheetDataValidationDropdownResp, *Response, error) {
@@ -67,10 +65,10 @@ type GetSheetDataValidationDropdownReq struct {
 
 // GetSheetDataValidationDropdownResp ...
 type GetSheetDataValidationDropdownResp struct {
-	SpreadSheetToken string                                              `json:"spreadsheetToken,omitempty"` // spreadsheet的token
-	SheetID          string                                              `json:"sheetId,omitempty"`          // 工作表 sheet 的 id
-	Revision         int64                                               `json:"revision,omitempty"`         // 版本号
-	DataValidations  []*GetSheetDataValidationDropdownRespDataValidation `json:"dataValidations,omitempty"`  // 下拉列表数组, 不存在时为空
+	SpreadSheetToken string                                              `json:" spreadsheetToken,omitempty"` // spreadsheet的token
+	SheetID          string                                              `json:" sheetId,omitempty"`          // 工作表 sheet 的 id
+	Revision         int64                                               `json:"revision,omitempty"`          // 版本号
+	DataValidations  []*GetSheetDataValidationDropdownRespDataValidation `json:"dataValidations,omitempty"`   // 下拉列表数组, 不存在时为空
 }
 
 // GetSheetDataValidationDropdownRespDataValidation ...

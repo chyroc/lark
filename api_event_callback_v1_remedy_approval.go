@@ -21,9 +21,8 @@ import (
 	"context"
 )
 
-// EventV1RemedyApproval
+// EventV1RemedyApproval 了解事件订阅的使用场景和配置流程, 请点击查看 [事件订阅概述](https://open.feishu.cn/document/ukTMukTMukTM/uUTNz4SN1MjL1UzM)
 //
-// 了解事件订阅的使用场景和配置流程, 请点击查看 [事件订阅概述](https://open.feishu.cn/document/ukTMukTMukTM/uUTNz4SN1MjL1UzM)
 // 补卡申请审批通过后触发此事件。 你可以在「打卡」应用里提交补卡申请。
 // * 依赖权限: [访问审批应用]
 //

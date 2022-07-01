@@ -21,9 +21,8 @@ import (
 	"context"
 )
 
-// EventV2IMChatDisbandedV1
+// EventV2IMChatDisbandedV1 群组被解散后触发此事件。{使用示例}(url=/api/tools/api_explore/api_explore_config?project=im&version=v1&resource=chat&event=disbanded)
 //
-// 群组被解散后触发此事件。{使用示例}(url=/api/tools/api_explore/api_explore_config?project=im&version=v1&resource=chat&event=disbanded)
 // 注意事项:
 // - 需要开启[机器人能力](https://open.feishu.cn/document/home/develop-a-bot-in-5-minutes/create-an-app)
 // - 需要订阅 [消息与群组] 分类下的 [解散群] 事件

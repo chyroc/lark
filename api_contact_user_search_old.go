@@ -21,9 +21,8 @@ import (
 	"context"
 )
 
-// SearchUserOld
+// SearchUserOld 以用户身份搜索其他用户的信息, 无法搜索到外部企业或已离职的用户。
 //
-// 以用户身份搜索其他用户的信息, 无法搜索到外部企业或已离职的用户。
 // 调用该接口需要申请 `搜索用户` 权限。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uMTM4UjLzEDO14yMxgTN
@@ -64,7 +63,7 @@ func (r *Mock) UnMockContactSearchUserOld() {
 type SearchUserOldReq struct {
 	Query     string  `query:"query" json:"-"`      // 要执行搜索的字符串, 一般为用户名。
 	PageSize  *int64  `query:"page_size" json:"-"`  // 分页大小, 最小为 1, 最大为 200, 默认为 20。
-	PageToken *string `query:"page_token" json:"-"` // 分页标识, 获取首页不需要填写, 获取下一页时传入上一页返回的分页标识值。请注意此字段的值并没有特殊含义, 请使用每次请求所返回的标识值。
+	PageToken *string `query:"page_token" json:"-"` // 分页标识, 获取首页不需要填写, 获取下一页时传入上一页返回的分页标识值。 请注意此字段的值并没有特殊含义, 请使用每次请求所返回的标识值。
 }
 
 // SearchUserOldResp ...

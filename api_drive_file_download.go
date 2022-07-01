@@ -65,18 +65,11 @@ type DownloadDriveFileReq struct {
 	Range     [2]int64 `header:"range" json:"-"`    // 指定文件下载部分, 示例值: "bytes=0-1024"
 }
 
-// DownloadDriveFileResp ...
-type DownloadDriveFileResp struct {
-	File     io.Reader
-	Filename string // 文件名
-}
-
 // downloadDriveFileResp ...
 type downloadDriveFileResp struct {
-	IsFile bool
-	Code   int64
-	Msg    string
-	Data   *DownloadDriveFileResp
+	Code int64                  `json:"code,omitempty"`
+	Msg  string                 `json:"msg,omitempty"`
+	Data *DownloadDriveFileResp `json:"data,omitempty"`
 }
 
 func (r *downloadDriveFileResp) SetReader(file io.Reader) {
@@ -91,4 +84,10 @@ func (r *downloadDriveFileResp) SetFilename(filename string) {
 		r.Data = &DownloadDriveFileResp{}
 	}
 	r.Data.Filename = filename
+}
+
+// DownloadDriveFileResp ...
+type DownloadDriveFileResp struct {
+	File     io.Reader `json:"file,omitempty"`
+	Filename string    `json:"filename,omitempty"`
 }

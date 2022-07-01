@@ -21,9 +21,7 @@ import (
 	"context"
 )
 
-// GetApplicationOrder
-//
-// 该接口用于查询某个订单的具体信息
+// GetApplicationOrder 该接口用于查询某个订单的具体信息
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uITNwUjLyUDM14iM1ATN
 func (r *ApplicationService) GetApplicationOrder(ctx context.Context, request *GetApplicationOrderReq, options ...MethodOptionFunc) (*GetApplicationOrderResp, *Response, error) {

@@ -70,9 +70,9 @@ type GetVCDailyReportResp struct {
 
 // GetVCDailyReportRespMeetingReport ...
 type GetVCDailyReportRespMeetingReport struct {
-	TotalMeetingCount     string                                          `json:"total_meeting_count,omitempty"`     // 总会议数量
-	TotalMeetingDuration  string                                          `json:"total_meeting_duration,omitempty"`  // 总会议时长（单位sec）
-	TotalParticipantCount string                                          `json:"total_participant_count,omitempty"` // 总参会人数
+	TotalMeetingCount     int64                                           `json:"total_meeting_count,omitempty"`     // 总会议数量
+	TotalMeetingDuration  int64                                           `json:"total_meeting_duration,omitempty"`  // 总会议时长（单位sec）
+	TotalParticipantCount int64                                           `json:"total_participant_count,omitempty"` // 总参会人数
 	DailyReport           []*GetVCDailyReportRespMeetingReportDailyReport `json:"daily_report,omitempty"`            // 每日会议报告列表
 }
 

@@ -21,9 +21,7 @@ import (
 	"context"
 )
 
-// AddApprovalInstanceSign
-//
-// 对于单个审批任务进行加签操作。
+// AddApprovalInstanceSign 对于单个审批任务进行加签操作。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/ukTM5UjL5ETO14SOxkTN/approval-task-addsign
 func (r *ApprovalService) AddApprovalInstanceSign(ctx context.Context, request *AddApprovalInstanceSignReq, options ...MethodOptionFunc) (*AddApprovalInstanceSignResp, *Response, error) {
@@ -62,7 +60,7 @@ type AddApprovalInstanceSignReq struct {
 	ApprovalCode   string   `json:"approval_code,omitempty"`     // 审批定义 Code
 	InstanceCode   string   `json:"instance_code,omitempty"`     // 审批实例 Code
 	UserID         string   `json:"user_id,omitempty"`           // 操作用户
-	TaskID         string   `json:"task_id,omitempty"`           // 任务 ID审批实例详情task_list中id, 详情请参考[](https://open.feishu.cn/document/ukTMukTMukTM/uEDNyUjLxQjM14SM0ITN)
+	TaskID         string   `json:"task_id,omitempty"`           // 任务 ID 审批实例详情task_list中id, 详情请参考[](https://open.feishu.cn/document/ukTMukTMukTM/uEDNyUjLxQjM14SM0ITN)
 	Comment        *string  `json:"comment,omitempty"`           // 意见
 	AddSignUserIDs []string `json:"add_sign_user_ids,omitempty"` // 被加签人id
 	AddSignType    string   `json:"add_sign_type,omitempty"`     // 1/2/3分别代表前加签/后加签/并加签

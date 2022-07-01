@@ -23,6 +23,7 @@ import (
 
 // GetUserList 基于部门ID获取, 获取部门直属用户列表。
 //
+// [常见问题答疑](https://open.feishu.cn/document/ugTN1YjL4UTN24CO1UjN/uQzN1YjL0cTN24CN3UjN).
 // 部门ID 必填, 根部门的部门ID为0
 // - 使用 user_access_token 情况下根据个人组织架构的通讯录可见范围进行权限过滤, 返回个人组织架构通讯录范围（[登录企业管理后台进行权限配置](https://www.feishu.cn/admin/security/permission/visibility)）内可见的用户数据。
 // - 使用tenant_access_token, 会根据应用通讯录的范围进行权限过滤。 如果请求的部门ID为0, 则校验应用是否具有全员通讯录权限； 如果是非0的部门ID, 则会验证应用是否具有该部门的通讯录权限。 无权限返回无权限错误码, 有权限则返回对应部门下的直接用户列表。

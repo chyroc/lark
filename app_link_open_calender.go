@@ -21,7 +21,9 @@ import (
 	"github.com/chyroc/lark/internal"
 )
 
-// OpenCalender 跳转并打开日历，打开界面为上一次离开日历时的视图。
+// OpenCalender 打开日历
+//
+// 跳转并打开日历，打开界面为上一次离开日历时的视图。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/uYjL24iN/applink-protocol/supported-protocol/open-calender/open-a-calender
 func (r *AppLinkService) OpenCalender(req *OpenCalenderReq) string {

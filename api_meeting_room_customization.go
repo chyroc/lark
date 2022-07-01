@@ -21,9 +21,7 @@ import (
 	"context"
 )
 
-// GetMeetingRoomCustomization
-//
-// 该接口用于获取会议室个性化配置。
+// GetMeetingRoomCustomization 该接口用于获取会议室个性化配置。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uIjM5UjLyITO14iMykTN/query-meeting-room-customization-setting
 func (r *MeetingRoomService) GetMeetingRoomCustomization(ctx context.Context, request *GetMeetingRoomCustomizationReq, options ...MethodOptionFunc) (*GetMeetingRoomCustomizationResp, *Response, error) {
@@ -64,19 +62,15 @@ type GetMeetingRoomCustomizationReq struct {
 
 // GetMeetingRoomCustomizationResp ...
 type GetMeetingRoomCustomizationResp struct {
-	ErrorRoomIDs          *GetMeetingRoomCustomizationRespErrorRoomIDs          `json:"error_room_ids,omitempty"`           // 返回错误的入参
+	ErrorRoomIDs          []*GetMeetingRoomCustomizationRespErrorRoomID         `json:"error_room_ids,omitempty"`           // 返回错误的入参
 	RoomIDToCustomization *GetMeetingRoomCustomizationRespRoomIDToCustomization `json:"room_id_to_customization,omitempty"` // 会议室ID-个性化配置的映射
 }
 
-// GetMeetingRoomCustomizationRespErrorRoomIDBuildingID ...
-type GetMeetingRoomCustomizationRespErrorRoomIDBuildingID struct {
-	RoomID   string `json:"room_id,omitempty"`   // 会议室id
-	ErrorMsg string `json:"error_msg,omitempty"` // 错误信息
-}
-
-// GetMeetingRoomCustomizationRespErrorRoomIDs ...
-type GetMeetingRoomCustomizationRespErrorRoomIDs struct {
-	BuildingID *GetMeetingRoomCustomizationRespErrorRoomIDBuildingID `json:"building_id,omitempty"` // 建筑id
+// GetMeetingRoomCustomizationRespErrorRoomID ...
+type GetMeetingRoomCustomizationRespErrorRoomID struct {
+	BuildingID string `json:"building_id,omitempty"` // 建筑id
+	RoomID     string `json:"room_id,omitempty"`     // 会议室id
+	ErrorMsg   string `json:"error_msg,omitempty"`   // 错误信息
 }
 
 // GetMeetingRoomCustomizationRespRoomIDToCustomization ...

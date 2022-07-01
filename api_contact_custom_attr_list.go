@@ -74,7 +74,7 @@ type GetContactCustomAttrListResp struct {
 // GetContactCustomAttrListRespItem ...
 type GetContactCustomAttrListRespItem struct {
 	ID       string                                      `json:"id,omitempty"`        // 自定义字段id
-	Type     string                                      `json:"type,omitempty"`      // 自定义字段类型, 可选值有:- `TEXT`: 纯文本, 用于纯文本描述人员, 如备注, `HREF`: 静态 URL, 用于人员 Profile 跳转链接, `ENUMERATION`: 枚举, 用于结构化描述人员, 如民族, `GENERIC_USER`: 用户, 用于描述人和人关系, 如 HRBP, `PICTURE_ENUM`: 枚举图片, 以结构化的图片描述人员, 如在人员 Profile 展示荣誉徽章
+	Type     string                                      `json:"type,omitempty"`      // 自定义字段类型, 可选值有: `TEXT`: 纯文本, 用于纯文本描述人员, 如备注, `HREF`: 静态 URL, 用于人员 Profile 跳转链接, `ENUMERATION`: 枚举, 用于结构化描述人员, 如民族, `GENERIC_USER`: 用户, 用于描述人和人关系, 如 HRBP, `PICTURE_ENUM`: 枚举图片, 以结构化的图片描述人员, 如在人员 Profile 展示荣誉徽章
 	Options  *GetContactCustomAttrListRespItemOptions    `json:"options,omitempty"`   // 选项定义, 当type为`ENUMERATION`或者`PICTURE_ENUM`时此项有值, 列举所有可选项
 	I18nName []*GetContactCustomAttrListRespItemI18nName `json:"i18n_name,omitempty"` // 自定义字段的字段名称
 }

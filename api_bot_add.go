@@ -21,11 +21,9 @@ import (
 	"context"
 )
 
-// AddBotToChat
+// AddBotToChat 为了更好地提升该接口的安全性, 我们对其进行了升级, 请尽快迁移至[新版本>>](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-members/create)
 //
-// 为了更好地提升该接口的安全性, 我们对其进行了升级, 请尽快迁移至[新版本>>](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-members/create)
 // 拉机器人进群
-// 权限说明 : 需要启用机器人能力；机器人的owner需要已经在群里
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uYDO04iN4QjL2gDN
 //

@@ -21,9 +21,7 @@ import (
 	"context"
 )
 
-// CreateApprovalCarbonCopy
-//
-// 通过接口可以将当前审批实例抄送给其他人。
+// CreateApprovalCarbonCopy 通过接口可以将当前审批实例抄送给其他人。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uADOzYjLwgzM24CM4MjN
 func (r *ApprovalService) CreateApprovalCarbonCopy(ctx context.Context, request *CreateApprovalCarbonCopyReq, options ...MethodOptionFunc) (*CreateApprovalCarbonCopyResp, *Response, error) {
