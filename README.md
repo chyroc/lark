@@ -38,7 +38,7 @@ https://godoc.org/github.com/chyroc/lark
 
 ## Support APIs
 
-API Count: 596, Event Count: 91
+API Count: 602, Event Count: 91
 
 <details>
   <summary>
@@ -106,7 +106,11 @@ API Count: 596, Event Count: 91
   - AddApprovalInstanceSign
   - ApproveApprovalInstance
   - CancelApprovalInstance
+  - CheckApprovalExternalInstance
+  - CreateApproval
   - CreateApprovalCarbonCopy
+  - CreateApprovalExternalApproval
+  - CreateApprovalExternalInstance
   - CreateApprovalInstance
   - GetApproval
   - GetApprovalExternalList
@@ -198,12 +202,14 @@ API Count: 596, Event Count: 91
   - GetBitableMeta
   - GetBitableRecord
   - GetBitableRecordList
+  - GetBitableTableFormFieldList
   - GetBitableTableList
   - GetBitableViewList
   - UpdateBitableAppRole
   - UpdateBitableField
   - UpdateBitableMeta
   - UpdateBitableRecord
+  - UpdateBitableTableFormField
 - Bot
   - AddBotToChat
   - GetBotInfo

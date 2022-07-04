@@ -38,7 +38,7 @@ https://godoc.org/github.com/chyroc/lark
 
 ## 支持的接口
 
-API 总数: 596, 事件总数: 91
+API 总数: 602, 事件总数: 91
 
 <details>
   <summary>
@@ -106,7 +106,11 @@ API 总数: 596, 事件总数: 91
   - AddApprovalInstanceSign
   - ApproveApprovalInstance
   - CancelApprovalInstance
+  - CheckApprovalExternalInstance
+  - CreateApproval
   - CreateApprovalCarbonCopy
+  - CreateApprovalExternalApproval
+  - CreateApprovalExternalInstance
   - CreateApprovalInstance
   - GetApproval
   - GetApprovalExternalList
@@ -198,12 +202,14 @@ API 总数: 596, 事件总数: 91
   - GetBitableMeta
   - GetBitableRecord
   - GetBitableRecordList
+  - GetBitableTableFormFieldList
   - GetBitableTableList
   - GetBitableViewList
   - UpdateBitableAppRole
   - UpdateBitableField
   - UpdateBitableMeta
   - UpdateBitableRecord
+  - UpdateBitableTableFormField
 - Bot
   - AddBotToChat
   - GetBotInfo

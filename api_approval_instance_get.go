@@ -21,9 +21,9 @@ import (
 	"context"
 )
 
-// GetApprovalInstance 通过审批实例 Instance Code  获取审批实例详情。Instance Code 由 [批量获取审批实例](https://open.feishu.cn/document/ukTMukTMukTM/uQDOyUjL0gjM14CN4ITN) 接口获取。
+// GetApprovalInstance 通过审批实例 Instance Code  获取审批实例详情。Instance Code 由 [批量获取审批实例](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/instance/list) 接口获取。
 //
-// doc: https://open.feishu.cn/document/ukTMukTMukTM/uEDNyUjLxQjM14SM0ITN
+// doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/instance/get
 func (r *ApprovalService) GetApprovalInstance(ctx context.Context, request *GetApprovalInstanceReq, options ...MethodOptionFunc) (*GetApprovalInstanceResp, *Response, error) {
 	if r.cli.mock.mockApprovalGetApprovalInstance != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Approval#GetApprovalInstance mock enable")
@@ -33,8 +33,8 @@ func (r *ApprovalService) GetApprovalInstance(ctx context.Context, request *GetA
 	req := &RawRequestReq{
 		Scope:                 "Approval",
 		API:                   "GetApprovalInstance",
-		Method:                "POST",
-		URL:                   r.cli.wwwBaseURL + "/approval/openapi/v2/instance/get",
+		Method:                "GET",
+		URL:                   r.cli.openBaseURL + "/open-apis/approval/v4/instances/:instance_id",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
@@ -57,88 +57,81 @@ func (r *Mock) UnMockApprovalGetApprovalInstance() {
 
 // GetApprovalInstanceReq ...
 type GetApprovalInstanceReq struct {
-	InstanceCode string  `json:"instance_code,omitempty"` // 审批实例 Code, 若在创建的时候传了uuid, 也可以通过传uuid获取
-	Locale       *string `json:"locale,omitempty"`        // zh-CN - 中文 en-US - 英文 ja-JP - 日文
-	UserID       *string `json:"user_id,omitempty"`       // 发起审批用户, 平台级审批时使用
-	OpenID       *string `json:"open_id,omitempty"`       // 发起审批用户 open id
+	InstanceID string  `path:"instance_id" json:"-"`   // 审批实例 Code, 若在创建的时候传了uuid, 也可以通过传uuid获取, 示例值: "81D31358-93AF-92D6-7425-01A5D67C4E71"
+	Locale     *string `query:"locale" json:"-"`       // 语言, 示例值: "zh-CN", 可选值有: <md-enum>, <md-enum-item key="zh-CN" >中文</md-enum-item>, <md-enum-item key="en-US" >英文</md-enum-item>, <md-enum-item key="ja-JP" >日文</md-enum-item>, </md-enum>
+	UserID     *string `query:"user_id" json:"-"`      // 发起审批用户id, 仅自建应用可返回, 示例值: "f7cb567e"
+	UserIDType *IDType `query:"user_id_type" json:"-"` // 用户 ID 类型, 示例值: "open_id", 可选值有: <md-enum>, <md-enum-item key="open_id" >用户的 open id</md-enum-item>, <md-enum-item key="union_id" >用户的 union id</md-enum-item>, <md-enum-item key="user_id" >用户的 user id</md-enum-item>, </md-enum>, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
 }
 
 // GetApprovalInstanceResp ...
 type GetApprovalInstanceResp struct {
-	ApprovalCode string                             `json:"approval_code,omitempty"` // 审批定义 Code
-	ApprovalName string                             `json:"approval_name,omitempty"` // 审批名称
-	StartTime    int64                              `json:"start_time,omitempty"`    // 审批创建时间
-	EndTime      int64                              `json:"end_time,omitempty"`      // 审批完成时间, 未完成为 0
-	UserID       string                             `json:"user_id,omitempty"`       // 发起审批用户
-	OpenID       string                             `json:"open_id,omitempty"`       // 发起审批用户 open id
-	SerialNumber string                             `json:"serial_number,omitempty"` // 审批单编号
-	DepartmentID string                             `json:"department_id,omitempty"` // 发起审批用户所在部门
-	Status       string                             `json:"status,omitempty"`        // 审批实例状态 PENDING    - 审批中 APPROVED - 通过 REJECTED  - 拒绝 CANCELED -  撤回 DELETED    -  删除
-	UUID         string                             `json:"uuid,omitempty"`          // 用户的唯一标识id
-	Form         ApprovalWidgetList                 `json:"form,omitempty"`          // json字符串, 控件值
-	TaskList     []*GetApprovalInstanceRespTask     `json:"task_list,omitempty"`     // 审批任务列表
-	CommentList  []*GetApprovalInstanceRespComment  `json:"comment_list,omitempty"`  // 评论列表
-	Timeline     []*GetApprovalInstanceRespTimeline `json:"timeline,omitempty"`      // 审批动态
+	ApprovalName         string                             `json:"approval_name,omitempty"`          // 审批名称
+	StartTime            string                             `json:"start_time,omitempty"`             // 审批创建时间
+	EndTime              string                             `json:"end_time,omitempty"`               // 审批完成时间, 未完成为 0
+	UserID               string                             `json:"user_id,omitempty"`                // 发起审批用户
+	OpenID               string                             `json:"open_id,omitempty"`                // 发起审批用户 open id
+	SerialNumber         string                             `json:"serial_number,omitempty"`          // 审批单编号
+	DepartmentID         string                             `json:"department_id,omitempty"`          // 发起审批用户所在部门
+	Status               string                             `json:"status,omitempty"`                 // 审批实例状态, 可选值有: <md-enum>, <md-enum-item key="PENDING" >审批中</md-enum-item>, <md-enum-item key="APPROVED" >通过</md-enum-item>, <md-enum-item key="REJECTED" >拒绝</md-enum-item>, <md-enum-item key="CANCELED" >撤回</md-enum-item>, <md-enum-item key="DELETED" >删除</md-enum-item>, </md-enum>
+	UUID                 string                             `json:"uuid,omitempty"`                   // 用户的唯一标识id
+	Form                 ApprovalWidgetList                 `json:"form,omitempty"`                   // json字符串, 控件值详情见下方
+	TaskList             []*GetApprovalInstanceRespTask     `json:"task_list,omitempty"`              // 审批任务列表
+	CommentList          []*GetApprovalInstanceRespComment  `json:"comment_list,omitempty"`           // 评论列表
+	Timeline             []*GetApprovalInstanceRespTimeline `json:"timeline,omitempty"`               // 审批动态
+	ModifiedInstanceCode string                             `json:"modified_instance_code,omitempty"` // 修改的原实例 code, 仅在查询修改实例时显示该字段
+	RevertedInstanceCode string                             `json:"reverted_instance_code,omitempty"` // 撤销的原实例 code, 仅在查询撤销实例时显示该字段
+	ApprovalCode         string                             `json:"approval_code,omitempty"`          // 审批定义 Code
+	Reverted             bool                               `json:"reverted,omitempty"`               // 单据是否被撤销
 }
 
 // GetApprovalInstanceRespComment ...
 type GetApprovalInstanceRespComment struct {
-	ID         string `json:"id,omitempty"`          // comment id
+	ID         string `json:"id,omitempty"`          // 评论 id
 	UserID     string `json:"user_id,omitempty"`     // 发表评论用户
 	OpenID     string `json:"open_id,omitempty"`     // 发表评论用户 open id
 	Comment    string `json:"comment,omitempty"`     // 评论内容
-	CreateTime int64  `json:"create_time,omitempty"` // 评论时间
+	CreateTime string `json:"create_time,omitempty"` // 1564590532967
 }
 
 // GetApprovalInstanceRespTask ...
 type GetApprovalInstanceRespTask struct {
-	ID           string  `json:"id,omitempty"`             // task id
-	UserID       *string `json:"user_id,omitempty"`        // 审批人 自动通过、自动拒绝 task user_id 为空
-	OpenID       *string `json:"open_id,omitempty"`        // 审批人 open id
-	Status       string  `json:"status,omitempty"`         // 任务状态 PENDING - 审批中 APPROVED - 同意 REJECTED  - 拒绝 TRANSFERRED - 已转交 DONE -  完成
-	NodeID       *string `json:"node_id,omitempty"`        // task 所属节点 id
-	NodeName     *string `json:"node_name,omitempty"`      // task 所属节点名称
-	CustomNodeID *string `json:"custom_node_id,omitempty"` // task 所属节点自定义 id, 如果没设置自定义 id, 则不返回该字段
-	Type         string  `json:"type,omitempty"`           // 审批方式 AND -会签 OR - 或签 AUTO_PASS -自动通过 AUTO_REJECT - 自动拒绝 SEQUENTIAL - 按顺序
-	StartTime    int64   `json:"start_time,omitempty"`     // task 开始时间
-	EndTime      int64   `json:"end_time,omitempty"`       // task 完成时间, 未完成为 0
+	ID           string `json:"id,omitempty"`             // task id
+	UserID       string `json:"user_id,omitempty"`        // 审批人的用户id, 自动通过、自动拒绝 时为空
+	OpenID       string `json:"open_id,omitempty"`        // 审批人 open id
+	Status       string `json:"status,omitempty"`         // 任务状态, 可选值有: <md-enum>, <md-enum-item key="PENDING" >审批中</md-enum-item>, <md-enum-item key="APPROVED" >同意</md-enum-item>, <md-enum-item key="REJECTED" >拒绝</md-enum-item>, <md-enum-item key="TRANSFERRED" >已转交</md-enum-item>, <md-enum-item key="DONE" >完成</md-enum-item>, </md-enum>
+	NodeID       string `json:"node_id,omitempty"`        // task 所属节点 id
+	NodeName     string `json:"node_name,omitempty"`      // task 所属节点名称
+	CustomNodeID string `json:"custom_node_id,omitempty"` // task 所属节点自定义 id, 如果没设置自定义 id, 则不返回该字段
+	Type         string `json:"type,omitempty"`           // 审批方式, 可选值有: <md-enum>, <md-enum-item key="AND" >会签</md-enum-item>, <md-enum-item key="OR" >或签</md-enum-item>, <md-enum-item key="AUTO_PASS" >自动通过</md-enum-item>, <md-enum-item key="AUTO_REJECT" >自动拒绝</md-enum-item>, <md-enum-item key="SEQUENTIAL" >按顺序</md-enum-item>, </md-enum>
+	StartTime    string `json:"start_time,omitempty"`     // task 开始时间
+	EndTime      string `json:"end_time,omitempty"`       // task 完成时间, 未完成为 0
 }
 
 // GetApprovalInstanceRespTimeline ...
 type GetApprovalInstanceRespTimeline struct {
-	Type                 string                                   `json:"type,omitempty"`                   // 动态类型, 不同类型 ext 内的 user_id_list 含义不一样 START - 审批开始 PASS - 通过 REJECT  - 拒绝 AUTO_PASS -  自动通过 AUTO_REJECT - 自动拒绝 REMOVE_REPEAT - 去重 TRANSFER - 转交  ADD_APPROVER_BEFORE  - 前加签 ADD_APPROVER -  并加签 ADD_APPROVER_AFTER -  后加签  DELETE_APPROVER  - 减签 ROLLBACK_SELECTED -  指定回退 ROLLBACK - 全部回退 CANCEL -  撤回 DELETE - 删除 CC - 抄送
-	CreateTime           int64                                    `json:"create_time,omitempty"`            // 发生时间
-	UserID               *string                                  `json:"user_id,omitempty"`                // 动态产生用户
-	OpenID               *string                                  `json:"open_id,omitempty"`                // 动态产生用户 open id
-	UserIDList           []string                                 `json:"user_id_list,omitempty"`           // 被抄送人列表
-	OpenIDList           []string                                 `json:"open_id_list,omitempty"`           // 被抄送人列表
-	TaskID               *string                                  `json:"task_id,omitempty"`                // 产生动态关联的task_id
-	Comment              *string                                  `json:"comment,omitempty"`                // 理由
-	CcUserList           []*GetApprovalInstanceRespTimelineCcUser `json:"cc_user_list,omitempty"`           // 抄送人列表
-	Ext                  *GetApprovalInstanceRespTimelineExt      `json:"ext,omitempty"`                    // 动态其他信息, 目前包括 user_id_list, user_id
-	NodeKey              *string                                  `json:"node_key,omitempty"`               // 产生task的节点key
-	ModifiedInstanceCode *string                                  `json:"modified_instance_code,omitempty"` // 修改的原实例 code, 仅在查询修改实例时显示该字段
-	RevertedInstanceCode *string                                  `json:"reverted_instance_code,omitempty"` // 撤销的原实例 code, 仅在查询撤销实例时显示该字段
+	Type       string                                   `json:"type,omitempty"`         // 动态类型, 不同类型 ext 内的 user_id_list 含义不一样, 可选值有: <md-enum>, <md-enum-item key="START" >审批开始</md-enum-item>, <md-enum-item key="PASS" >通过</md-enum-item>, <md-enum-item key="REJECT" >拒绝</md-enum-item>, <md-enum-item key="AUTO_PASS" >自动通过</md-enum-item>, <md-enum-item key="AUTO_REJECT" >自动拒绝</md-enum-item>, <md-enum-item key="REMOVE_REPEAT" >去重</md-enum-item>, <md-enum-item key="TRANSFER" >转交</md-enum-item>, <md-enum-item key="ADD_APPROVER_BEFORE" >前加签</md-enum-item>, <md-enum-item key="ADD_APPROVER" >并加签</md-enum-item>, <md-enum-item key="ADD_APPROVER_AFTER" >后加签</md-enum-item>, <md-enum-item key="DELETE_APPROVER" >减签</md-enum-item>, <md-enum-item key="ROLLBACK_SELECTED" >指定回退</md-enum-item>, <md-enum-item key="ROLLBACK" >全部回退</md-enum-item>, <md-enum-item key="CANCEL" >撤回</md-enum-item>, <md-enum-item key="DELETE" >删除</md-enum-item>, <md-enum-item key="CC" >抄送</md-enum-item>, </md-enum>
+	CreateTime string                                   `json:"create_time,omitempty"`  // 发生时间
+	UserID     string                                   `json:"user_id,omitempty"`      // 动态产生用户
+	OpenID     string                                   `json:"open_id,omitempty"`      // 动态产生用户 open id
+	UserIDList []string                                 `json:"user_id_list,omitempty"` // 被抄送人列表
+	OpenIDList []string                                 `json:"open_id_list,omitempty"` // 被抄送人列表
+	TaskID     string                                   `json:"task_id,omitempty"`      // 产生动态关联的task_id
+	Comment    string                                   `json:"comment,omitempty"`      // 理由
+	CcUserList []*GetApprovalInstanceRespTimelineCcUser `json:"cc_user_list,omitempty"` // 抄送人列表
+	Ext        *GetApprovalInstanceRespTimelineExt      `json:"ext,omitempty"`          // 动态其他信息, json格式, 目前包括 user_id_list, user_id, open_id_list, open_id
+	NodeKey    string                                   `json:"node_key,omitempty"`     // 产生task的节点key
 }
 
 // GetApprovalInstanceRespTimelineCcUser ...
 type GetApprovalInstanceRespTimelineCcUser struct {
-	UserID *string `json:"user_id,omitempty"` // 抄送人 user id
-	CcID   *string `json:"cc_id,omitempty"`   // 审批实例内抄送唯一标识
-	OpenID *string `json:"open_id,omitempty"` // 抄送人 open id
-}
-
-// GetApprovalInstanceRespTimelineExt ...
-type GetApprovalInstanceRespTimelineExt struct {
-	UserIDList []string `json:"user_id_list,omitempty"` // type类型 - user_id_list 含义 TRANSFER - 被转交人  ADD_APPROVER_BEFORE  -  被加签人 ADD_APPROVER -   被加签人 ADD_APPROVER_AFTER -   被加签人  DELETE_APPROVER  - 被减签人
-	OpenIDList []string `json:"open_id_list,omitempty"` // user_id_list 对应的 open id
-	UserID     *string  `json:"user_id,omitempty"`      // type类型 - user_id 含义 CC - 抄送人
-	OpenID     *string  `json:"open_id,omitempty"`      // user_id 对应的 open_id
+	UserID string `json:"user_id,omitempty"` // 抄送人 user id
+	CcID   string `json:"cc_id,omitempty"`   // 审批实例内抄送唯一标识
+	OpenID string `json:"open_id,omitempty"` // 抄送人 open id
 }
 
 // getApprovalInstanceResp ...
 type getApprovalInstanceResp struct {
 	Code int64                    `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string                   `json:"msg,omitempty"`  // 返回码的描述
-	Data *GetApprovalInstanceResp `json:"data,omitempty"` // 返回业务信息
+	Msg  string                   `json:"msg,omitempty"`  // 错误描述
+	Data *GetApprovalInstanceResp `json:"data,omitempty"`
 }

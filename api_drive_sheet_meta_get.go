@@ -73,8 +73,8 @@ type GetSheetMetaResp struct {
 // GetSheetMetaRespProperties ...
 type GetSheetMetaRespProperties struct {
 	Title       string `json:"title,omitempty"`       // spreadsheet 的标题
-	OwnerUser   int64  `json:"ownerUser,omitempty"`   // 所有者的 id
-	OwnerUserID string `json:"ownerUserID,omitempty"` // 所有者的 id, 取决于user_id_type的值, 仅user_id_type不为空是返回该值
+	OwnerUser   int64  `json:"ownerUser,omitempty"`   // 所有者的 id, 仅user_id_type为空时返回该值
+	OwnerUserID string `json:"ownerUserID,omitempty"` // 所有者的 id, 取决于user_id_type的值, 仅user_id_type不为空时返回该值
 	SheetCount  int64  `json:"sheetCount,omitempty"`  // spreadsheet 下的 sheet 数
 	Revision    int64  `json:"revision,omitempty"`    // 该 sheet 的版本
 }

@@ -23,7 +23,7 @@ import (
 
 // TransferApprovalInstance 对于单个审批任务进行转交操作。转交后审批流程流转给被转交人。
 //
-// doc: https://open.feishu.cn/document/ukTMukTMukTM/uUDNyUjL1QjM14SN0ITN
+// doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/task/transfer
 func (r *ApprovalService) TransferApprovalInstance(ctx context.Context, request *TransferApprovalInstanceReq, options ...MethodOptionFunc) (*TransferApprovalInstanceResp, *Response, error) {
 	if r.cli.mock.mockApprovalTransferApprovalInstance != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Approval#TransferApprovalInstance mock enable")
@@ -34,7 +34,7 @@ func (r *ApprovalService) TransferApprovalInstance(ctx context.Context, request 
 		Scope:                 "Approval",
 		API:                   "TransferApprovalInstance",
 		Method:                "POST",
-		URL:                   r.cli.wwwBaseURL + "/approval/openapi/v2/instance/transfer",
+		URL:                   r.cli.openBaseURL + "/open-apis/approval/v4/tasks/transfer",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
@@ -57,14 +57,13 @@ func (r *Mock) UnMockApprovalTransferApprovalInstance() {
 
 // TransferApprovalInstanceReq ...
 type TransferApprovalInstanceReq struct {
-	ApprovalCode   string  `json:"approval_code,omitempty"`    // 审批定义 Code
-	InstanceCode   string  `json:"instance_code,omitempty"`    // 审批实例 Code
-	UserID         string  `json:"user_id,omitempty"`          // 操作用户
-	TaskID         string  `json:"task_id,omitempty"`          // 任务 ID 审批实例详情task_list中id, 详情请参考[](https://open.feishu.cn/document/ukTMukTMukTM/uEDNyUjLxQjM14SM0ITN)
-	Comment        *string `json:"comment,omitempty"`          // 意见
-	TransferUserID string  `json:"transfer_user_id,omitempty"` // 被转交人唯一 ID
-	OpenID         *string `json:"open_id,omitempty"`          // 用户open_id  如果没有user_id, 必须要有open_id
-	TransferOpenID *string `json:"transfer_open_id,omitempty"` // 被转交人open_id  如果没有transfer_user_id, 必须要有transfer_open_id
+	UserIDType     *IDType `query:"user_id_type" json:"-"`     // 用户 ID 类型, 示例值: "open_id", 可选值有: <md-enum>, <md-enum-item key="open_id" >用户的 open id</md-enum-item>, <md-enum-item key="union_id" >用户的 union id</md-enum-item>, <md-enum-item key="user_id" >用户的 user id</md-enum-item>, </md-enum>, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
+	ApprovalCode   string  `json:"approval_code,omitempty"`    // 审批定义 Code, 示例值: "7C468A54-8745-2245-9675-08B7C63E7A85"
+	InstanceCode   string  `json:"instance_code,omitempty"`    // 审批实例 Code, 示例值: "81D31358-93AF-92D6-7425-01A5D67C4E71"
+	UserID         string  `json:"user_id,omitempty"`          // 根据user_id_type填写操作用户id, 示例值: "f7cb567e"
+	Comment        *string `json:"comment,omitempty"`          // 意见, 示例值: "OK"
+	TransferUserID string  `json:"transfer_user_id,omitempty"` // 根据user_id_type填写被转交人唯一 ID, 示例值: "f4ip317q"
+	TaskID         string  `json:"task_id,omitempty"`          // 任务 ID, 审批实例详情task_list中id, 示例值: "12345"
 }
 
 // TransferApprovalInstanceResp ...
@@ -73,7 +72,7 @@ type TransferApprovalInstanceResp struct {
 
 // transferApprovalInstanceResp ...
 type transferApprovalInstanceResp struct {
-	Code int64                         `json:"code,omitempty"` // 错误码, 非0表示失败
-	Msg  string                        `json:"msg,omitempty"`  // 返回码的描述
+	Code int64                         `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg  string                        `json:"msg,omitempty"`  // 错误描述
 	Data *TransferApprovalInstanceResp `json:"data,omitempty"`
 }

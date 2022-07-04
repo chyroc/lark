@@ -23,7 +23,7 @@ import (
 
 // CreateApprovalCarbonCopy 通过接口可以将当前审批实例抄送给其他人。
 //
-// doc: https://open.feishu.cn/document/ukTMukTMukTM/uADOzYjLwgzM24CM4MjN
+// doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/instance/cc
 func (r *ApprovalService) CreateApprovalCarbonCopy(ctx context.Context, request *CreateApprovalCarbonCopyReq, options ...MethodOptionFunc) (*CreateApprovalCarbonCopyResp, *Response, error) {
 	if r.cli.mock.mockApprovalCreateApprovalCarbonCopy != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Approval#CreateApprovalCarbonCopy mock enable")
@@ -34,7 +34,7 @@ func (r *ApprovalService) CreateApprovalCarbonCopy(ctx context.Context, request 
 		Scope:                 "Approval",
 		API:                   "CreateApprovalCarbonCopy",
 		Method:                "POST",
-		URL:                   r.cli.wwwBaseURL + "/approval/openapi/v2/instance/cc",
+		URL:                   r.cli.openBaseURL + "/open-apis/approval/v4/instances/cc",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
@@ -57,13 +57,12 @@ func (r *Mock) UnMockApprovalCreateApprovalCarbonCopy() {
 
 // CreateApprovalCarbonCopyReq ...
 type CreateApprovalCarbonCopyReq struct {
-	ApprovalCode string   `json:"approval_code,omitempty"` // 审批定义 code
-	InstanceCode string   `json:"instance_code,omitempty"` // 审批实例 code
-	UserID       *string  `json:"user_id,omitempty"`       // 发起抄送的人的 user_id
-	OpenID       *string  `json:"open_id,omitempty"`       // 发起抄送的人的 open_id, 如果传了 user_id 则优先使用 user_id, 二者不能同时为空
-	CcUserIDs    []string `json:"cc_user_ids,omitempty"`   // 被抄送人的 user_id 列表
-	CcOpenIDs    []string `json:"cc_open_ids,omitempty"`   // 被抄送人的 open_id 列表, 与 cc_user_ids 不可同时为空
-	Comment      *string  `json:"comment,omitempty"`       // 抄送留言
+	UserIDType   *IDType  `query:"user_id_type" json:"-"`  // 用户 ID 类型, 示例值: "open_id", 可选值有: <md-enum>, <md-enum-item key="open_id" >用户的 open id</md-enum-item>, <md-enum-item key="union_id" >用户的 union id</md-enum-item>, <md-enum-item key="user_id" >用户的 user id</md-enum-item>, </md-enum>, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
+	ApprovalCode string   `json:"approval_code,omitempty"` // 审批定义 code, 示例值: "7C468A54-8745-2245-9675-08B7C63E7A85"
+	InstanceCode string   `json:"instance_code,omitempty"` // 审批实例 code, 示例值: "7C468A54-8745-2245-9675-08B7C63E7A85"
+	UserID       string   `json:"user_id,omitempty"`       // 根据user_id_type填写发起抄送的人的用户id, 示例值: "f7cb567e"
+	CcUserIDs    []string `json:"cc_user_ids,omitempty"`   // 根据user_id_type填写被抄送人的 用户id 列表, 示例值: f7cb567e
+	Comment      *string  `json:"comment,omitempty"`       // 抄送留言, 示例值: "ok"
 }
 
 // CreateApprovalCarbonCopyResp ...
@@ -72,7 +71,7 @@ type CreateApprovalCarbonCopyResp struct {
 
 // createApprovalCarbonCopyResp ...
 type createApprovalCarbonCopyResp struct {
-	Code int64                         `json:"code,omitempty"` // 错误码, 非0表示失败
-	Msg  string                        `json:"msg,omitempty"`  // 返回码的描述
+	Code int64                         `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg  string                        `json:"msg,omitempty"`  // 错误描述
 	Data *CreateApprovalCarbonCopyResp `json:"data,omitempty"`
 }

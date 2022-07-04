@@ -21,11 +21,9 @@ import (
 	"context"
 )
 
-// GetApprovalInstanceList 根据 approval_code 批量获取审批实例的 instance_code, 用于拉取租户下某个审批定义的全部审批实例。
+// GetApprovalInstanceList 根据 approval_code 批量获取审批实例的 instance_code, 用于拉取租户下某个审批定义的全部审批实例。默认以审批创建时间排序
 //
-// 默认以审批创建时间排序。
-//
-// doc: https://open.feishu.cn/document/ukTMukTMukTM/uQDOyUjL0gjM14CN4ITN
+// doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/instance/list
 func (r *ApprovalService) GetApprovalInstanceList(ctx context.Context, request *GetApprovalInstanceListReq, options ...MethodOptionFunc) (*GetApprovalInstanceListResp, *Response, error) {
 	if r.cli.mock.mockApprovalGetApprovalInstanceList != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Approval#GetApprovalInstanceList mock enable")
@@ -35,8 +33,8 @@ func (r *ApprovalService) GetApprovalInstanceList(ctx context.Context, request *
 	req := &RawRequestReq{
 		Scope:                 "Approval",
 		API:                   "GetApprovalInstanceList",
-		Method:                "POST",
-		URL:                   r.cli.wwwBaseURL + "/approval/openapi/v2/instance/list",
+		Method:                "GET",
+		URL:                   r.cli.openBaseURL + "/open-apis/approval/v4/instances",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
@@ -59,21 +57,23 @@ func (r *Mock) UnMockApprovalGetApprovalInstanceList() {
 
 // GetApprovalInstanceListReq ...
 type GetApprovalInstanceListReq struct {
-	ApprovalCode string `json:"approval_code,omitempty"` // 审批定义唯一标识
-	StartTime    int64  `json:"start_time,omitempty"`    // 审批实例创建时间区间（毫秒）
-	EndTime      int64  `json:"end_time,omitempty"`      // 审批实例创建时间区间（毫秒）
-	Offset       int64  `json:"offset,omitempty"`        // 查询偏移量
-	Limit        int64  `json:"limit,omitempty"`         // 查询限制量 注:不得大于100
+	PageSize     *int64  `query:"page_size" json:"-"`     // 分页大小, 示例值: 100, 最大值: `100`
+	PageToken    *string `query:"page_token" json:"-"`    // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果, 示例值: "nF1ZXJ5VGhlbkZldGNoCgAAAAAA6PZwFmUzSldvTC1yU"
+	ApprovalCode string  `query:"approval_code" json:"-"` // 审批定义唯一标识, 示例值: "7C468A54-8745-2245-9675-08B7C63E7A85"
+	StartTime    int64   `query:"start_time" json:"-"`    // 审批实例创建时间区间（毫秒）, 示例值: "1567690398020"
+	EndTime      int64   `query:"end_time" json:"-"`      // 审批实例创建时间区间（毫秒）, 示例值: "1567690398020"
 }
 
 // GetApprovalInstanceListResp ...
 type GetApprovalInstanceListResp struct {
 	InstanceCodeList []string `json:"instance_code_list,omitempty"` // 审批实例 Code
+	PageToken        string   `json:"page_token,omitempty"`         // 分页标记, 当 has_more 为 true 时, 会同时返回新的 page_token, 否则不返回 page_token
+	HasMore          bool     `json:"has_more,omitempty"`           // 是否还有更多项
 }
 
 // getApprovalInstanceListResp ...
 type getApprovalInstanceListResp struct {
-	Code int64                        `json:"code,omitempty"` // 错误码, 非0表示失败
-	Msg  string                       `json:"msg,omitempty"`  // 返回码的描述
-	Data *GetApprovalInstanceListResp `json:"data,omitempty"` // 返回业务信息
+	Code int64                        `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg  string                       `json:"msg,omitempty"`  // 错误描述
+	Data *GetApprovalInstanceListResp `json:"data,omitempty"`
 }

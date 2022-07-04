@@ -21,9 +21,9 @@ import (
 	"context"
 )
 
-// CreateApprovalInstance 创建一个审批实例, 调用方需对审批定义的表单有详细了解, 将按照定义的表单结构, 将表单 Value 通过接口传入。
+// CreateApprovalInstance 创建一个审批实例, 调用方需对审批定义的表单有详细了解, 将按照定义的表单结构, 将表单 Value 通过接口传入
 //
-// doc: https://open.feishu.cn/document/ukTMukTMukTM/uIDNyUjLyQjM14iM0ITN
+// doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/instance/create
 func (r *ApprovalService) CreateApprovalInstance(ctx context.Context, request *CreateApprovalInstanceReq, options ...MethodOptionFunc) (*CreateApprovalInstanceResp, *Response, error) {
 	if r.cli.mock.mockApprovalCreateApprovalInstance != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Approval#CreateApprovalInstance mock enable")
@@ -34,7 +34,7 @@ func (r *ApprovalService) CreateApprovalInstance(ctx context.Context, request *C
 		Scope:                 "Approval",
 		API:                   "CreateApprovalInstance",
 		Method:                "POST",
-		URL:                   r.cli.wwwBaseURL + "/approval/openapi/v2/instance/create",
+		URL:                   r.cli.openBaseURL + "/open-apis/approval/v4/instances",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
@@ -57,19 +57,16 @@ func (r *Mock) UnMockApprovalCreateApprovalInstance() {
 
 // CreateApprovalInstanceReq ...
 type CreateApprovalInstanceReq struct {
-	ApprovalCode           string              `json:"approval_code,omitempty"`              // 审批定义 code
-	UserID                 *string             `json:"user_id,omitempty"`                    // 发起审批用户
-	OpenID                 string              `json:"open_id,omitempty"`                    // 发起审批用户 open id, 如果传了 user_id 则优先使用 user_id
-	DepartmentID           *string             `json:"department_id,omitempty"`              // 发起审批用户部门id, 如果用户只属于一个部门, 可以不填。如果属于多个部门, 默认会选择部门列表第一个部门
-	Form                   ApprovalWidgetList  `json:"form,omitempty"`                       // json 数组, 控件值
-	ID                     string              `json:"id,omitempty"`                         // 控件 ID, 也可以使用自定义 ID custom_id 的值
-	Type                   string              `json:"type,omitempty"`                       // 控件类型
-	Value                  string              `json:"value,omitempty"`                      // 控件值, 不同类型的值格式不一样
-	NodeApproverUserIDList map[string][]string `json:"node_approver_user_id_list,omitempty"` // 如果有发起人自选节点, 则需要填写对应节点的审批人 key: node id 或 custom node id, 通过 [查看审批定义](https://open.feishu.cn/document/ukTMukTMukTM/uADNyUjLwQjM14CM0ITN) 获取  value: 审批人列表
+	ApprovalCode           string              `json:"approval_code,omitempty"`              // 审批定义 code, 示例值: "7C468A54-8745-2245-9675-08B7C63E7A85"
+	UserID                 *string             `json:"user_id,omitempty"`                    // 发起审批用户, 示例值: "f7cb567e"
+	OpenID                 string              `json:"open_id,omitempty"`                    // 发起审批用户 open id, 如果传了 user_id 则优先使用 user_id, 示例值: "ou_3cda9c969f737aaa05e6915dce306cb9"
+	DepartmentID           *string             `json:"department_id,omitempty"`              // 发起审批用户部门id, 如果用户只属于一个部门, 可以不填。如果属于多个部门, 默认会选择部门列表第一个部门, 示例值: "9293493ccacbdb9a"
+	Form                   ApprovalWidgetList  `json:"form,omitempty"`                       // json 数组, 控件值, 示例值: "[{\"id\":\"user_name\", \"type\": \"input\", \"value\":\"test\"}]"
+	NodeApproverUserIDList map[string][]string `json:"node_approver_user_id_list,omitempty"` // 如果有发起人自选节点, 则需要填写对应节点的审批人
 	NodeApproverOpenIDList map[string][]string `json:"node_approver_open_id_list,omitempty"` // 审批人发起人自选 open id, 与上述node_approver_user_id_list字段取并集
-	NodeCcUserIDList       map[string][]string `json:"node_cc_user_id_list,omitempty"`       // 如果有发起人自选节点, 则可填写对应节点的抄送人 key: node id 或 custom node id, 通过 [查看审批定义](https://open.feishu.cn/document/ukTMukTMukTM/uADNyUjLwQjM14CM0ITN) 获取  value: 审批人列表 单个节点最多选择20位抄送人
-	NodeCcOpenIDList       map[string][]string `json:"node_cc_open_id_list,omitempty"`       // 抄送人发起人自选 open id 单个节点最多选择20位抄送人
-	UUID                   *string             `json:"uuid,omitempty"`                       // 审批实例 uuid, 用于幂等操作, 每个租户下面的唯一key, 同一个 uuid 只能用于创建一个审批实例, 如果冲突, 返回错误码 60012, 格式建议为 XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX, 不区分大小写
+	NodeCcUserIDList       map[string][]string `json:"node_cc_user_id_list,omitempty"`       // 如果有发起人自选节点, 则可填写对应节点的抄送人, 单个节点最多选择20位抄送人, 最大长度: `20`
+	NodeCcOpenIDList       map[string][]string `json:"node_cc_open_id_list,omitempty"`       // 抄送人发起人自选 open id 单个节点最多选择20位抄送人, 最大长度: `20`
+	UUID                   *string             `json:"uuid,omitempty"`                       // 审批实例 uuid, 用于幂等操作, 每个租户下面的唯一key, 同一个 uuid 只能用于创建一个审批实例, 如果冲突, 返回错误码 60012, 格式建议为 XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX, 不区分大小写, 示例值: "7C468A54-8745-2245-9675-08B7C63E7A87"
 }
 
 // CreateApprovalInstanceResp ...
@@ -79,7 +76,7 @@ type CreateApprovalInstanceResp struct {
 
 // createApprovalInstanceResp ...
 type createApprovalInstanceResp struct {
-	Code int64                       `json:"code,omitempty"` // 错误码, 非0表示失败
-	Msg  string                      `json:"msg,omitempty"`  // 返回码的描述
-	Data *CreateApprovalInstanceResp `json:"data,omitempty"` // 返回业务信息
+	Code int64                       `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg  string                      `json:"msg,omitempty"`  // 错误描述
+	Data *CreateApprovalInstanceResp `json:"data,omitempty"`
 }

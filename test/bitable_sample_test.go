@@ -213,6 +213,13 @@ func Test_Bitable_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
+			_, _, err := moduleCli.GetBitableTableFormFieldList(ctx, &lark.GetBitableTableFormFieldListReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
 			_, _, err := moduleCli.GetBitableTableList(ctx, &lark.GetBitableTableListReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "failed")
@@ -249,6 +256,13 @@ func Test_Bitable_Sample_Failed(t *testing.T) {
 		t.Run("", func(t *testing.T) {
 
 			_, _, err := moduleCli.UpdateBitableRecord(ctx, &lark.UpdateBitableRecordReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.UpdateBitableTableFormField(ctx, &lark.UpdateBitableTableFormFieldReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "failed")
 		})
@@ -561,6 +575,18 @@ func Test_Bitable_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
+			cli.Mock().MockBitableGetBitableTableFormFieldList(func(ctx context.Context, request *lark.GetBitableTableFormFieldListReq, options ...lark.MethodOptionFunc) (*lark.GetBitableTableFormFieldListResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockBitableGetBitableTableFormFieldList()
+
+			_, _, err := moduleCli.GetBitableTableFormFieldList(ctx, &lark.GetBitableTableFormFieldListReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
 			cli.Mock().MockBitableGetBitableTableList(func(ctx context.Context, request *lark.GetBitableTableListReq, options ...lark.MethodOptionFunc) (*lark.GetBitableTableListResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -627,6 +653,18 @@ func Test_Bitable_Sample_Failed(t *testing.T) {
 			defer cli.Mock().UnMockBitableUpdateBitableRecord()
 
 			_, _, err := moduleCli.UpdateBitableRecord(ctx, &lark.UpdateBitableRecordReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			cli.Mock().MockBitableUpdateBitableTableFormField(func(ctx context.Context, request *lark.UpdateBitableTableFormFieldReq, options ...lark.MethodOptionFunc) (*lark.UpdateBitableTableFormFieldResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockBitableUpdateBitableTableFormField()
+
+			_, _, err := moduleCli.UpdateBitableTableFormField(ctx, &lark.UpdateBitableTableFormFieldReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "mock-failed")
 		})
@@ -888,6 +926,17 @@ func Test_Bitable_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
+			_, _, err := moduleCli.GetBitableTableFormFieldList(ctx, &lark.GetBitableTableFormFieldListReq{
+				AppToken: "x",
+				TableID:  "x",
+				FormID:   "x",
+			})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+
 			_, _, err := moduleCli.GetBitableTableList(ctx, &lark.GetBitableTableListReq{
 				AppToken: "x",
 			})
@@ -941,6 +990,18 @@ func Test_Bitable_Sample_Failed(t *testing.T) {
 				AppToken: "x",
 				TableID:  "x",
 				RecordID: "x",
+			})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.UpdateBitableTableFormField(ctx, &lark.UpdateBitableTableFormFieldReq{
+				AppToken: "x",
+				TableID:  "x",
+				FormID:   "x",
+				FieldID:  "x",
 			})
 			as.NotNil(err)
 			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
@@ -1206,6 +1267,17 @@ func Test_Bitable_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
+			_, _, err := moduleCli.GetBitableTableFormFieldList(ctx, &lark.GetBitableTableFormFieldListReq{
+				AppToken: "x",
+				TableID:  "x",
+				FormID:   "x",
+			})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+
 			_, _, err := moduleCli.GetBitableTableList(ctx, &lark.GetBitableTableListReq{
 				AppToken: "x",
 			})
@@ -1259,6 +1331,18 @@ func Test_Bitable_Sample_Failed(t *testing.T) {
 				AppToken: "x",
 				TableID:  "x",
 				RecordID: "x",
+			})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.UpdateBitableTableFormField(ctx, &lark.UpdateBitableTableFormFieldReq{
+				AppToken: "x",
+				TableID:  "x",
+				FormID:   "x",
+				FieldID:  "x",
 			})
 			as.NotNil(err)
 			as.Equal("fake raw request", err.Error())

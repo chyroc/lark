@@ -23,7 +23,7 @@ import (
 
 // ApproveApprovalInstance 对于单个审批任务进行同意操作。同意后审批流程会流转到下一个审批人。
 //
-// doc: https://open.feishu.cn/document/ukTMukTMukTM/uMDNyUjLzQjM14yM0ITN
+// doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/task/approve
 func (r *ApprovalService) ApproveApprovalInstance(ctx context.Context, request *ApproveApprovalInstanceReq, options ...MethodOptionFunc) (*ApproveApprovalInstanceResp, *Response, error) {
 	if r.cli.mock.mockApprovalApproveApprovalInstance != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Approval#ApproveApprovalInstance mock enable")
@@ -34,7 +34,7 @@ func (r *ApprovalService) ApproveApprovalInstance(ctx context.Context, request *
 		Scope:                 "Approval",
 		API:                   "ApproveApprovalInstance",
 		Method:                "POST",
-		URL:                   r.cli.wwwBaseURL + "/approval/openapi/v2/instance/approve",
+		URL:                   r.cli.openBaseURL + "/open-apis/approval/v4/tasks/approve",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
@@ -57,12 +57,12 @@ func (r *Mock) UnMockApprovalApproveApprovalInstance() {
 
 // ApproveApprovalInstanceReq ...
 type ApproveApprovalInstanceReq struct {
-	ApprovalCode string  `json:"approval_code,omitempty"` // 审批定义 Code
-	InstanceCode string  `json:"instance_code,omitempty"` // 审批实例 Code
-	OpenID       *string `json:"open_id,omitempty"`       // 用户open_id, 如果没有user_id, 必须要有open_id
-	UserID       string  `json:"user_id,omitempty"`       // 操作用户
-	TaskID       string  `json:"task_id,omitempty"`       // 任务 ID 审批实例详情task_list中id, 详情请参考[](https://open.feishu.cn/document/ukTMukTMukTM/uEDNyUjLxQjM14SM0ITN)
-	Comment      *string `json:"comment,omitempty"`       // 意见
+	UserIDType   *IDType `query:"user_id_type" json:"-"`  // 用户 ID 类型, 示例值: "open_id", 可选值有: <md-enum>, <md-enum-item key="open_id" >用户的 open id</md-enum-item>, <md-enum-item key="union_id" >用户的 union id</md-enum-item>, <md-enum-item key="user_id" >用户的 user id</md-enum-item>, </md-enum>, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
+	ApprovalCode string  `json:"approval_code,omitempty"` // 审批定义 Code, 示例值: "7C468A54-8745-2245-9675-08B7C63E7A85"
+	InstanceCode string  `json:"instance_code,omitempty"` // 审批实例 Code, 示例值: "81D31358-93AF-92D6-7425-01A5D67C4E71"
+	UserID       string  `json:"user_id,omitempty"`       // 根据user_id_type填写操作用户id, 示例值: "f7cb567e"
+	Comment      *string `json:"comment,omitempty"`       // 意见, 示例值: "OK"
+	TaskID       string  `json:"task_id,omitempty"`       // 任务 ID, 审批实例详情task_list中id, 示例值: "12345"
 }
 
 // ApproveApprovalInstanceResp ...
@@ -71,7 +71,7 @@ type ApproveApprovalInstanceResp struct {
 
 // approveApprovalInstanceResp ...
 type approveApprovalInstanceResp struct {
-	Code int64                        `json:"code,omitempty"` // 错误码, 非0表示失败
-	Msg  string                       `json:"msg,omitempty"`  // 返回码的描述
+	Code int64                        `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg  string                       `json:"msg,omitempty"`  // 错误描述
 	Data *ApproveApprovalInstanceResp `json:"data,omitempty"`
 }

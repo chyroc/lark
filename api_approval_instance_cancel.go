@@ -23,7 +23,7 @@ import (
 
 // CancelApprovalInstance 对于状态为“审批中”的单个审批实例进行撤销操作, 撤销后审批流程结束
 //
-// doc: https://open.feishu.cn/document/ukTMukTMukTM/uYDNyUjL2QjM14iN0ITN
+// doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/instance/cancel
 func (r *ApprovalService) CancelApprovalInstance(ctx context.Context, request *CancelApprovalInstanceReq, options ...MethodOptionFunc) (*CancelApprovalInstanceResp, *Response, error) {
 	if r.cli.mock.mockApprovalCancelApprovalInstance != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Approval#CancelApprovalInstance mock enable")
@@ -34,7 +34,7 @@ func (r *ApprovalService) CancelApprovalInstance(ctx context.Context, request *C
 		Scope:                 "Approval",
 		API:                   "CancelApprovalInstance",
 		Method:                "POST",
-		URL:                   r.cli.wwwBaseURL + "/approval/openapi/v2/instance/cancel",
+		URL:                   r.cli.openBaseURL + "/open-apis/approval/v4/instances/cancel",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
@@ -57,10 +57,11 @@ func (r *Mock) UnMockApprovalCancelApprovalInstance() {
 
 // CancelApprovalInstanceReq ...
 type CancelApprovalInstanceReq struct {
-	ApprovalCode string `json:"approval_code,omitempty"` // 审批定义Code
-	InstanceCode string `json:"instance_code,omitempty"` // 审批实例Code
-	UserID       string `json:"user_id,omitempty"`       // 操作用户
-	OpenID       string `json:"open_id,omitempty"`       // 某个应用下用户的唯一标识, 根据userID、openID、TenantId获得Lark用户。
+	UserIDType    *IDType `query:"user_id_type" json:"-"`   // 用户 ID 类型, 示例值: "open_id", 可选值有: <md-enum>, <md-enum-item key="open_id" >用户的 open id</md-enum-item>, <md-enum-item key="union_id" >用户的 union id</md-enum-item>, <md-enum-item key="user_id" >用户的 user id</md-enum-item>, </md-enum>, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
+	ApprovalCode  string  `json:"approval_code,omitempty"`  // 审批定义Code, 示例值: "7C468A54-8745-2245-9675-08B7C63E7A85"
+	InstanceCode  string  `json:"instance_code,omitempty"`  // 审批实例Code, 示例值: "81D31358-93AF-92D6-7425-01A5D67C4E71"
+	UserID        string  `json:"user_id,omitempty"`        // 操作用户, 根据user_id_type填写, 示例值: "f7cb567e"
+	NotifyStarter *bool   `json:"notify_starter,omitempty"` // 如果为true, 撤回实例的时候会收到一条消息提醒, 示例值: true
 }
 
 // CancelApprovalInstanceResp ...
@@ -69,7 +70,7 @@ type CancelApprovalInstanceResp struct {
 
 // cancelApprovalInstanceResp ...
 type cancelApprovalInstanceResp struct {
-	Code int64                       `json:"code,omitempty"` // 错误码, 非0表示失败
-	Msg  string                      `json:"msg,omitempty"`  // 返回码的描述
+	Code int64                       `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg  string                      `json:"msg,omitempty"`  // 错误描述
 	Data *CancelApprovalInstanceResp `json:"data,omitempty"`
 }
