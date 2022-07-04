@@ -85,20 +85,20 @@ func Test_UnmarshalGetApprovalInstance(t *testing.T) {
     "approval_name": "sdk-demo",
     "comment_list": [],
     "department_id": "",
-    "end_time": 0,
+    "end_time": "0",
     "form": "[{\"id\":\"widget3\",\"name\":\"单行文本\",\"type\":\"input\",\"ext\":null,\"value\":\"test\"},{\"id\":\"widget16215623422760001\",\"name\":\"说明 1\",\"type\":\"text\",\"ext\":null,\"value\":\"说明\"}]",
     "open_id": "ou_6e2bbe38e6551b5b2731a409ef50e8ce",
     "serial_number": "202105230010",
-    "start_time": 1621742291784,
+    "start_time": "1621742291784",
     "status": "PENDING",
     "task_list": [
       {
-        "end_time": 0,
+        "end_time": "0",
         "id": "6965330108705980419",
         "node_id": "6db614baa6d5cb208decf9efa2e3eee3",
         "node_name": "直接主管",
         "open_id": "ou_6e2bbe38e6551b5b2731a409ef50e8ce",
-        "start_time": 1621742292164,
+        "start_time": "1621742292164",
         "status": "PENDING",
         "type": "AND",
         "user_id": "3gg4cf3g"
@@ -106,7 +106,7 @@ func Test_UnmarshalGetApprovalInstance(t *testing.T) {
     ],
     "timeline": [
       {
-        "create_time": 1621742291784,
+        "create_time": "1621742291784",
         "ext": "{\"user_id\":\"1\"}",
         "open_id": "ou_6e2bbe38e6551b5b2731a409ef50e8ce",
         "type": "START",
