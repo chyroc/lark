@@ -43,27 +43,6 @@ func Test_File_Sample_Failed(t *testing.T) {
 			as.Equal(err.Error(), "failed")
 		})
 
-		t.Run("", func(t *testing.T) {
-
-			_, _, err := moduleCli.DownloadImage(ctx, &lark.DownloadImageReq{})
-			as.NotNil(err)
-			as.Equal(err.Error(), "failed")
-		})
-
-		t.Run("", func(t *testing.T) {
-
-			_, _, err := moduleCli.UploadFile(ctx, &lark.UploadFileReq{})
-			as.NotNil(err)
-			as.Equal(err.Error(), "failed")
-		})
-
-		t.Run("", func(t *testing.T) {
-
-			_, _, err := moduleCli.UploadImage(ctx, &lark.UploadImageReq{})
-			as.NotNil(err)
-			as.Equal(err.Error(), "failed")
-		})
-
 	})
 
 	t.Run("request mock failed", func(t *testing.T) {

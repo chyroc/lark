@@ -43,69 +43,6 @@ func Test_Baike_Sample_Failed(t *testing.T) {
 			as.Equal(err.Error(), "failed")
 		})
 
-		t.Run("", func(t *testing.T) {
-
-			_, _, err := moduleCli.CreateBaikeEntity(ctx, &lark.CreateBaikeEntityReq{})
-			as.NotNil(err)
-			as.Equal(err.Error(), "failed")
-		})
-
-		t.Run("", func(t *testing.T) {
-
-			_, _, err := moduleCli.CreateBaikeUpdate(ctx, &lark.CreateBaikeUpdateReq{})
-			as.NotNil(err)
-			as.Equal(err.Error(), "failed")
-		})
-
-		t.Run("", func(t *testing.T) {
-
-			_, _, err := moduleCli.GetBaikeClassificationList(ctx, &lark.GetBaikeClassificationListReq{})
-			as.NotNil(err)
-			as.Equal(err.Error(), "failed")
-		})
-
-		t.Run("", func(t *testing.T) {
-
-			_, _, err := moduleCli.GetBaikeEntity(ctx, &lark.GetBaikeEntityReq{})
-			as.NotNil(err)
-			as.Equal(err.Error(), "failed")
-		})
-
-		t.Run("", func(t *testing.T) {
-
-			_, _, err := moduleCli.GetBaikeEntityList(ctx, &lark.GetBaikeEntityListReq{})
-			as.NotNil(err)
-			as.Equal(err.Error(), "failed")
-		})
-
-		t.Run("", func(t *testing.T) {
-
-			_, _, err := moduleCli.HighlightBaikeEntity(ctx, &lark.HighlightBaikeEntityReq{})
-			as.NotNil(err)
-			as.Equal(err.Error(), "failed")
-		})
-
-		t.Run("", func(t *testing.T) {
-
-			_, _, err := moduleCli.MatchBaikeEntity(ctx, &lark.MatchBaikeEntityReq{})
-			as.NotNil(err)
-			as.Equal(err.Error(), "failed")
-		})
-
-		t.Run("", func(t *testing.T) {
-
-			_, _, err := moduleCli.SearchBaikeEntity(ctx, &lark.SearchBaikeEntityReq{})
-			as.NotNil(err)
-			as.Equal(err.Error(), "failed")
-		})
-
-		t.Run("", func(t *testing.T) {
-
-			_, _, err := moduleCli.UpdateBaikeEntity(ctx, &lark.UpdateBaikeEntityReq{})
-			as.NotNil(err)
-			as.Equal(err.Error(), "failed")
-		})
-
 	})
 
 	t.Run("request mock failed", func(t *testing.T) {

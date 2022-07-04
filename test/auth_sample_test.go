@@ -43,27 +43,6 @@ func Test_Auth_Sample_Failed(t *testing.T) {
 			as.Equal(err.Error(), "failed")
 		})
 
-		t.Run("", func(t *testing.T) {
-
-			_, _, err := moduleCli.GetUserInfo(ctx, &lark.GetUserInfoReq{})
-			as.NotNil(err)
-			as.Equal(err.Error(), "failed")
-		})
-
-		t.Run("", func(t *testing.T) {
-
-			_, _, err := moduleCli.RefreshAccessToken(ctx, &lark.RefreshAccessTokenReq{})
-			as.NotNil(err)
-			as.Equal(err.Error(), "failed")
-		})
-
-		t.Run("", func(t *testing.T) {
-
-			_, _, err := moduleCli.ResendAppTicket(ctx, &lark.ResendAppTicketReq{})
-			as.NotNil(err)
-			as.Equal(err.Error(), "failed")
-		})
-
 	})
 
 	t.Run("request mock failed", func(t *testing.T) {

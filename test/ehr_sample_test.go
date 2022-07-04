@@ -43,13 +43,6 @@ func Test_EHR_Sample_Failed(t *testing.T) {
 			as.Equal(err.Error(), "failed")
 		})
 
-		t.Run("", func(t *testing.T) {
-
-			_, _, err := moduleCli.GetEHREmployeeList(ctx, &lark.GetEHREmployeeListReq{})
-			as.NotNil(err)
-			as.Equal(err.Error(), "failed")
-		})
-
 	})
 
 	t.Run("request mock failed", func(t *testing.T) {

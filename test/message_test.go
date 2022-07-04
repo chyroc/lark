@@ -37,7 +37,7 @@ func Test_GetMessage(t *testing.T) {
 		}
 	}()
 
-	t.Run("", func(t *testing.T) {
+	t.Run("send card", func(t *testing.T) {
 		AppAllPermission.Ins().Message.Send().ToChatID(ChatForSendMessage.ChatID).SendCard(ctx, (&lark.MessageContentCard{
 			Header: nil,
 			Config: nil,
@@ -167,54 +167,46 @@ func Test_GetMessage(t *testing.T) {
 	})
 
 	t.Run("get-message-read", func(t *testing.T) {
+		messageID := testSendText(t)
 		resp, _, err := AppAllPermission.Ins().Message.GetMessageReadUserList(ctx, &lark.GetMessageReadUserListReq{
 			UserIDType: lark.IDTypeUserID,
-			MessageID:  MessageAdminSendTextInChatContainAllPermissionApp.MessageID,
+			MessageID:  messageID,
 		})
 		printData(resp, err)
 		as.Nil(err)
-		// as.NotNil(err)
-		// as.Contains(err.Error(), "Bot is NOT the sender of the message")
-		// as.Contains(err.Error(), "these ids not existed")
-	})
-
-	t.Run("get-message-read", func(t *testing.T) {
-		// resp, _, err := AppAllPermission.Ins().Message().GetMessageRead(ctx, &lark.GetMessageReadReq{
-		// 	UserIDType: lark.IDTypeUserID,
-		// 	MessageID: MessageAdminSendTextInChatContainAllPermissionApp.MessageID,
-		// })
-		// printData(resp, err)
-		// as.NotNil(err)
-		// as.Contains(err.Error(), "Bot is NOT the sender of the message")
 	})
 
 	t.Run("get-message-text", func(t *testing.T) {
+		messageID := testSendText(t)
+
 		resp, _, err := AppAllPermission.Ins().Message.GetMessage(ctx, &lark.GetMessageReq{
-			MessageID: MessageAdminSendTextInChatContainAllPermissionApp.MessageID,
+			MessageID: messageID,
 		})
 		printData(resp, err)
 		as.Nil(err)
 		as.NotNil(resp)
 		as.Len(resp.Items, 1)
 		as.Equal(lark.MsgTypeText, resp.Items[0].MsgType)
-		as.Equal(MessageAdminSendTextInChatContainAllPermissionApp.ChatID, resp.Items[0].ChatID)
+		as.Equal(ChatForSendMessage.ChatID, resp.Items[0].ChatID)
 		msgContent, err := lark.UnwrapMessageContent(resp.Items[0].MsgType, resp.Items[0].Body.Content)
 		as.Nil(err)
-		as.Equal("test", msgContent.Text.Text)
+		as.Contains(msgContent.Text.Text, "test")
 	})
 
 	t.Run("get-message-image", func(t *testing.T) {
+		messageID := testSendImage(t)
 		messageFile := ""
+
 		{
 			resp, _, err := AppAllPermission.Ins().Message.GetMessage(ctx, &lark.GetMessageReq{
-				MessageID: MessageAdminSendImageInChatContainAllPermissionApp.MessageID,
+				MessageID: messageID,
 			})
 			printData(resp, err)
 			as.Nil(err)
 			as.NotNil(resp)
 			as.Len(resp.Items, 1)
 			as.Equal(lark.MsgTypeImage, resp.Items[0].MsgType)
-			as.Equal(MessageAdminSendImageInChatContainAllPermissionApp.ChatID, resp.Items[0].ChatID)
+			as.Equal(ChatForSendMessage.ChatID, resp.Items[0].ChatID)
 			as.Contains(resp.Items[0].Body.Content, "image_key")
 			msgContent, err := lark.UnwrapMessageContent(resp.Items[0].MsgType, resp.Items[0].Body.Content)
 			as.Nil(err)
@@ -224,7 +216,7 @@ func Test_GetMessage(t *testing.T) {
 		{
 			resp, _, err := AppAllPermission.Ins().Message.GetMessageFile(ctx, &lark.GetMessageFileReq{
 				Type:      "image",
-				MessageID: MessageAdminSendImageInChatContainAllPermissionApp.MessageID,
+				MessageID: messageID,
 				FileKey:   messageFile,
 			})
 			as.Nil(err)
@@ -577,4 +569,23 @@ func Test_BatchSend(t *testing.T) {
 	as.NotNil(resp)
 	as.NotEmpty(resp.MessageID)
 	as.Empty(resp.InvalidOpenIDs)
+}
+
+func testSendText(t *testing.T) string {
+	as := assert.New(t)
+	text := "test " + strconv.FormatInt(time.Now().Unix(), 10)
+	resp, _, err := AppAllPermission.Ins().Message.Send().ToChatID(ChatForSendMessage.ChatID).SendText(ctx, text)
+	as.Nil(err)
+
+	return resp.MessageID
+}
+
+func testSendImage(t *testing.T) string {
+	as := assert.New(t)
+
+	imageKey := "img_v2_094a8a5c-ae93-4602-9416-4d875cc9a96g"
+	resp, _, err := AppAllPermission.Ins().Message.Send().ToChatID(ChatForSendMessage.ChatID).SendImage(ctx, imageKey)
+	as.Nil(err)
+
+	return resp.MessageID
 }

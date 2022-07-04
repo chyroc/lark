@@ -43,34 +43,6 @@ func Test_AI_Sample_Failed(t *testing.T) {
 			as.Equal(err.Error(), "failed")
 		})
 
-		t.Run("", func(t *testing.T) {
-
-			_, _, err := moduleCli.RecognizeBasicImage(ctx, &lark.RecognizeBasicImageReq{})
-			as.NotNil(err)
-			as.Equal(err.Error(), "failed")
-		})
-
-		t.Run("", func(t *testing.T) {
-
-			_, _, err := moduleCli.RecognizeSpeechFile(ctx, &lark.RecognizeSpeechFileReq{})
-			as.NotNil(err)
-			as.Equal(err.Error(), "failed")
-		})
-
-		t.Run("", func(t *testing.T) {
-
-			_, _, err := moduleCli.RecognizeSpeechStream(ctx, &lark.RecognizeSpeechStreamReq{})
-			as.NotNil(err)
-			as.Equal(err.Error(), "failed")
-		})
-
-		t.Run("", func(t *testing.T) {
-
-			_, _, err := moduleCli.TranslateText(ctx, &lark.TranslateTextReq{})
-			as.NotNil(err)
-			as.Equal(err.Error(), "failed")
-		})
-
 	})
 
 	t.Run("request mock failed", func(t *testing.T) {

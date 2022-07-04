@@ -161,26 +161,6 @@ var File2 = File{
 	Key: os.Getenv("LARK_FILE_KEY_TEST_FILE_2_DOC"), // ./test/file_2.docx
 }
 
-type Message struct {
-	MessageID string
-	ChatID    string
-}
-
-var MessageAdminSendTextInChatContainAllPermissionApp = Message{
-	MessageID: os.Getenv("LARK_MESSAGE_ADMIN_SEND_TEST_IN_CHAT_CONTAINS_ALL_PERMISSION_APP"),
-	ChatID:    os.Getenv("LARK_CHAT_FOR_SEND_MSG_CHAT_ID"),
-}
-
-var MessageAdminSendImageInChatContainAllPermissionApp = Message{
-	MessageID: os.Getenv("LARK_MESSAGE_ADMIN_SEND_IMAGE_IN_CHAT_CONTAINS_ALL_PERMISSION_APP"),
-	ChatID:    os.Getenv("LARK_CHAT_FOR_SEND_MSG_CHAT_ID"),
-}
-
-var MessageAllPermissionAppSendTextInChatContainAllPermissionApp = Message{
-	MessageID: os.Getenv("LARK_MESSAGE_ALL_PERMISSION_APP_SEND_TEXT_IN_CHAT_CONTAINS_ALL_PERMISSION_APP"),
-	ChatID:    os.Getenv("LARK_CHAT_CONTAINS_APP_PERMISSION_APP_CHAT_ID"),
-}
-
 type Approval struct {
 	Code string `json:"code"`
 }
@@ -203,12 +183,6 @@ func Test_Config(t *testing.T) {
 	as.NotEmpty(ChatForSendMessage.ChatID)
 	as.NotEmpty(File1.Key)
 	as.NotEmpty(File2.Key)
-	as.NotEmpty(MessageAdminSendTextInChatContainAllPermissionApp.ChatID)
-	as.NotEmpty(MessageAdminSendTextInChatContainAllPermissionApp.MessageID)
-	as.NotEmpty(MessageAdminSendImageInChatContainAllPermissionApp.ChatID)
-	as.NotEmpty(MessageAdminSendImageInChatContainAllPermissionApp.MessageID)
-	as.NotEmpty(MessageAllPermissionAppSendTextInChatContainAllPermissionApp.ChatID)
-	as.NotEmpty(MessageAllPermissionAppSendTextInChatContainAllPermissionApp.MessageID)
 }
 
 type fakeHTTPWriter struct {

@@ -43,27 +43,6 @@ func Test_HumanAuth_Sample_Failed(t *testing.T) {
 			as.Equal(err.Error(), "failed")
 		})
 
-		t.Run("", func(t *testing.T) {
-
-			_, _, err := moduleCli.CropFaceVerifyImage(ctx, &lark.CropFaceVerifyImageReq{})
-			as.NotNil(err)
-			as.Equal(err.Error(), "failed")
-		})
-
-		t.Run("", func(t *testing.T) {
-
-			_, _, err := moduleCli.GetFaceVerifyAuthResult(ctx, &lark.GetFaceVerifyAuthResultReq{})
-			as.NotNil(err)
-			as.Equal(err.Error(), "failed")
-		})
-
-		t.Run("", func(t *testing.T) {
-
-			_, _, err := moduleCli.UploadFaceVerifyImage(ctx, &lark.UploadFaceVerifyImageReq{})
-			as.NotNil(err)
-			as.Equal(err.Error(), "failed")
-		})
-
 	})
 
 	t.Run("request mock failed", func(t *testing.T) {
