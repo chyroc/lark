@@ -149,6 +149,14 @@ type ApprovalWidgetOption struct {
 	Text  string `json:"text,omitempty"`
 }
 
+// GetApprovalInstanceRespTimelineExt ...
+type GetApprovalInstanceRespTimelineExt struct {
+	UserIDList []string `json:"user_id_list,omitempty"` // type类型 - user_id_list 含义TRANSFER - 被转交人 ADD_APPROVER_BEFORE  -  被加签人ADD_APPROVER -   被加签人ADD_APPROVER_AFTER -   被加签人 DELETE_APPROVER  - 被减签人
+	OpenIDList []string `json:"open_id_list,omitempty"` // user_id_list 对应的 open id
+	UserID     *string  `json:"user_id,omitempty"`      // type类型 - user_id 含义CC - 抄送人
+	OpenID     *string  `json:"open_id,omitempty"`      // user_id 对应的 open_id
+}
+
 // UnmarshalJSON ...
 func (r *GetApprovalInstanceRespTimelineExt) UnmarshalJSON(bs []byte) (err error) {
 	if len(bs) == 0 || string(bs) == `""` {

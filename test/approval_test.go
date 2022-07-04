@@ -131,11 +131,11 @@ func Test_Create_CancelApproval(t *testing.T) {
 	cli := AppAllPermission.Ins()
 
 	t.Run("cancel", func(t *testing.T) {
-		instanceCode, _ := testCreateApproval(t, cli, ApprovalALLField.Code, UserAdmin.UserID)
+		instanceCode, _ := testCreateApproval(t, cli, ApprovalALLField.Code, UserAdmin.UserID, UserAdmin.OpenID)
 		_, _, err := cli.Approval.CancelApprovalInstance(ctx, &lark.CancelApprovalInstanceReq{
 			ApprovalCode: ApprovalALLField.Code,
 			InstanceCode: instanceCode,
-			UserID:       UserAdmin.UserID,
+			UserID:       UserAdmin.OpenID,
 		})
 		as.Nil(err)
 	})
@@ -143,7 +143,7 @@ func Test_Create_CancelApproval(t *testing.T) {
 	t.Run("approve-reject", func(t *testing.T) {
 		t.SkipNow()
 		taskDone := map[string]bool{}
-		instanceCode, instance := testCreateApproval(t, cli, ApprovalALLField.Code, UserAdmin.UserID)
+		instanceCode, instance := testCreateApproval(t, cli, ApprovalALLField.Code, UserAdmin.UserID, UserAdmin.OpenID)
 		for taskIdx, task := range instance.TaskList {
 			if taskDone[task.ID] {
 				continue
@@ -161,8 +161,8 @@ func Test_Create_CancelApproval(t *testing.T) {
 		}
 
 		resp, _, err := cli.Approval.GetApprovalInstance(ctx, &lark.GetApprovalInstanceReq{
-			InstanceCode: instanceCode,
-			Locale:       nil,
+			InstanceID: instanceCode,
+			Locale:     nil,
 		})
 		as.Nil(err)
 		for taskIdx, task := range resp.TaskList {
@@ -183,7 +183,7 @@ func Test_Create_CancelApproval(t *testing.T) {
 	})
 }
 
-func testCreateApproval(t *testing.T, cli *lark.Lark, approvalCode, userID string) (string, *lark.GetApprovalInstanceResp) {
+func testCreateApproval(t *testing.T, cli *lark.Lark, approvalCode, userID, openID string) (string, *lark.GetApprovalInstanceResp) {
 	as := assert.New(t)
 
 	var widgetDefine lark.ApprovalWidgetList
@@ -209,7 +209,7 @@ func testCreateApproval(t *testing.T, cli *lark.Lark, approvalCode, userID strin
 		resp, _, err := cli.Approval.CreateApprovalInstance(ctx, &lark.CreateApprovalInstanceReq{
 			ApprovalCode:           approvalCode,
 			UserID:                 &userID,
-			OpenID:                 "",
+			OpenID:                 openID,
 			DepartmentID:           nil,
 			Form:                   v,
 			NodeApproverUserIDList: nil,
@@ -221,8 +221,8 @@ func testCreateApproval(t *testing.T, cli *lark.Lark, approvalCode, userID strin
 	}
 
 	resp, _, err := cli.Approval.GetApprovalInstance(ctx, &lark.GetApprovalInstanceReq{
-		InstanceCode: instanceCode,
-		Locale:       nil,
+		InstanceID: instanceCode,
+		Locale:     nil,
 	})
 	as.Nil(err)
 
