@@ -58,9 +58,9 @@ func (r *Mock) UnMockApprovalGetApprovalInstance() {
 // GetApprovalInstanceReq ...
 type GetApprovalInstanceReq struct {
 	InstanceID string  `path:"instance_id" json:"-"`   // 审批实例 Code, 若在创建的时候传了uuid, 也可以通过传uuid获取, 示例值: "81D31358-93AF-92D6-7425-01A5D67C4E71"
-	Locale     *string `query:"locale" json:"-"`       // 语言, 示例值: "zh-CN", 可选值有: <md-enum>, <md-enum-item key="zh-CN" >中文</md-enum-item>, <md-enum-item key="en-US" >英文</md-enum-item>, <md-enum-item key="ja-JP" >日文</md-enum-item>, </md-enum>
+	Locale     *string `query:"locale" json:"-"`       // 语言, 示例值: "zh-CN", 可选值有: zh-CN: 中文, en-US: 英文, ja-JP: 日文
 	UserID     *string `query:"user_id" json:"-"`      // 发起审批用户id, 仅自建应用可返回, 示例值: "f7cb567e"
-	UserIDType *IDType `query:"user_id_type" json:"-"` // 用户 ID 类型, 示例值: "open_id", 可选值有: <md-enum>, <md-enum-item key="open_id" >用户的 open id</md-enum-item>, <md-enum-item key="union_id" >用户的 union id</md-enum-item>, <md-enum-item key="user_id" >用户的 user id</md-enum-item>, </md-enum>, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
+	UserIDType *IDType `query:"user_id_type" json:"-"` // 用户 ID 类型, 示例值: "open_id", 可选值有: open_id: 用户的 open id, union_id: 用户的 union id, user_id: 用户的 user id, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
 }
 
 // GetApprovalInstanceResp ...
@@ -72,7 +72,7 @@ type GetApprovalInstanceResp struct {
 	OpenID               string                             `json:"open_id,omitempty"`                // 发起审批用户 open id
 	SerialNumber         string                             `json:"serial_number,omitempty"`          // 审批单编号
 	DepartmentID         string                             `json:"department_id,omitempty"`          // 发起审批用户所在部门
-	Status               string                             `json:"status,omitempty"`                 // 审批实例状态, 可选值有: <md-enum>, <md-enum-item key="PENDING" >审批中</md-enum-item>, <md-enum-item key="APPROVED" >通过</md-enum-item>, <md-enum-item key="REJECTED" >拒绝</md-enum-item>, <md-enum-item key="CANCELED" >撤回</md-enum-item>, <md-enum-item key="DELETED" >删除</md-enum-item>, </md-enum>
+	Status               string                             `json:"status,omitempty"`                 // 审批实例状态, 可选值有: PENDING: 审批中, APPROVED: 通过, REJECTED: 拒绝, CANCELED: 撤回, DELETED: 删除
 	UUID                 string                             `json:"uuid,omitempty"`                   // 用户的唯一标识id
 	Form                 ApprovalWidgetList                 `json:"form,omitempty"`                   // json字符串, 控件值详情见下方
 	TaskList             []*GetApprovalInstanceRespTask     `json:"task_list,omitempty"`              // 审批任务列表
@@ -98,18 +98,18 @@ type GetApprovalInstanceRespTask struct {
 	ID           string `json:"id,omitempty"`             // task id
 	UserID       string `json:"user_id,omitempty"`        // 审批人的用户id, 自动通过、自动拒绝 时为空
 	OpenID       string `json:"open_id,omitempty"`        // 审批人 open id
-	Status       string `json:"status,omitempty"`         // 任务状态, 可选值有: <md-enum>, <md-enum-item key="PENDING" >审批中</md-enum-item>, <md-enum-item key="APPROVED" >同意</md-enum-item>, <md-enum-item key="REJECTED" >拒绝</md-enum-item>, <md-enum-item key="TRANSFERRED" >已转交</md-enum-item>, <md-enum-item key="DONE" >完成</md-enum-item>, </md-enum>
+	Status       string `json:"status,omitempty"`         // 任务状态, 可选值有: PENDING: 审批中, APPROVED: 同意, REJECTED: 拒绝, TRANSFERRED: 已转交, DONE: 完成
 	NodeID       string `json:"node_id,omitempty"`        // task 所属节点 id
 	NodeName     string `json:"node_name,omitempty"`      // task 所属节点名称
 	CustomNodeID string `json:"custom_node_id,omitempty"` // task 所属节点自定义 id, 如果没设置自定义 id, 则不返回该字段
-	Type         string `json:"type,omitempty"`           // 审批方式, 可选值有: <md-enum>, <md-enum-item key="AND" >会签</md-enum-item>, <md-enum-item key="OR" >或签</md-enum-item>, <md-enum-item key="AUTO_PASS" >自动通过</md-enum-item>, <md-enum-item key="AUTO_REJECT" >自动拒绝</md-enum-item>, <md-enum-item key="SEQUENTIAL" >按顺序</md-enum-item>, </md-enum>
+	Type         string `json:"type,omitempty"`           // 审批方式, 可选值有: AND: 会签, OR: 或签, AUTO_PASS: 自动通过, AUTO_REJECT: 自动拒绝, SEQUENTIAL: 按顺序
 	StartTime    string `json:"start_time,omitempty"`     // task 开始时间
 	EndTime      string `json:"end_time,omitempty"`       // task 完成时间, 未完成为 0
 }
 
 // GetApprovalInstanceRespTimeline ...
 type GetApprovalInstanceRespTimeline struct {
-	Type       string                                   `json:"type,omitempty"`         // 动态类型, 不同类型 ext 内的 user_id_list 含义不一样, 可选值有: <md-enum>, <md-enum-item key="START" >审批开始</md-enum-item>, <md-enum-item key="PASS" >通过</md-enum-item>, <md-enum-item key="REJECT" >拒绝</md-enum-item>, <md-enum-item key="AUTO_PASS" >自动通过</md-enum-item>, <md-enum-item key="AUTO_REJECT" >自动拒绝</md-enum-item>, <md-enum-item key="REMOVE_REPEAT" >去重</md-enum-item>, <md-enum-item key="TRANSFER" >转交</md-enum-item>, <md-enum-item key="ADD_APPROVER_BEFORE" >前加签</md-enum-item>, <md-enum-item key="ADD_APPROVER" >并加签</md-enum-item>, <md-enum-item key="ADD_APPROVER_AFTER" >后加签</md-enum-item>, <md-enum-item key="DELETE_APPROVER" >减签</md-enum-item>, <md-enum-item key="ROLLBACK_SELECTED" >指定回退</md-enum-item>, <md-enum-item key="ROLLBACK" >全部回退</md-enum-item>, <md-enum-item key="CANCEL" >撤回</md-enum-item>, <md-enum-item key="DELETE" >删除</md-enum-item>, <md-enum-item key="CC" >抄送</md-enum-item>, </md-enum>
+	Type       string                                   `json:"type,omitempty"`         // 动态类型, 不同类型 ext 内的 user_id_list 含义不一样, 可选值有: START: 审批开始, PASS: 通过, REJECT: 拒绝, AUTO_PASS: 自动通过, AUTO_REJECT: 自动拒绝, REMOVE_REPEAT: 去重, TRANSFER: 转交, ADD_APPROVER_BEFORE: 前加签, ADD_APPROVER: 并加签, ADD_APPROVER_AFTER: 后加签, DELETE_APPROVER: 减签, ROLLBACK_SELECTED: 指定回退, ROLLBACK: 全部回退, CANCEL: 撤回, DELETE: 删除, CC: 抄送
 	CreateTime string                                   `json:"create_time,omitempty"`  // 发生时间
 	UserID     string                                   `json:"user_id,omitempty"`      // 动态产生用户
 	OpenID     string                                   `json:"open_id,omitempty"`      // 动态产生用户 open id

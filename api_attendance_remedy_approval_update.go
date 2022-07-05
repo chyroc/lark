@@ -72,8 +72,8 @@ type UpdateAttendanceRemedyApprovalResp struct {
 // UpdateAttendanceRemedyApprovalRespApprovalInfo ...
 type UpdateAttendanceRemedyApprovalRespApprovalInfo struct {
 	ApprovalID   string `json:"approval_id,omitempty"`   // 审批实例 ID
-	ApprovalType string `json:"approval_type,omitempty"` // 审批类型, 可选值有: <md-enum>, <md-enum-item key="leave" >请假</md-enum-item>, <md-enum-item key="overtime" >加班</md-enum-item>, <md-enum-item key="trip" >出差</md-enum-item>, <md-enum-item key="out" >外出</md-enum-item>, <md-enum-item key="remedy" >补卡</md-enum-item>, </md-enum>
-	Status       int64  `json:"status,omitempty"`        // 审批状态, 可选值有: <md-enum>, <md-enum-item key="0" >待审批</md-enum-item>, <md-enum-item key="1" >未通过</md-enum-item>, <md-enum-item key="2" >已通过</md-enum-item>, <md-enum-item key="3" >已取消</md-enum-item>, <md-enum-item key="4" >已撤回</md-enum-item>, </md-enum>
+	ApprovalType string `json:"approval_type,omitempty"` // 审批类型, 可选值有: leave: 请假, overtime: 加班, trip: 出差, out: 外出, remedy: 补卡
+	Status       int64  `json:"status,omitempty"`        // 审批状态, 可选值有: 0: 待审批, 1: 未通过, 2: 已通过, 3: 已取消, 4: 已撤回
 }
 
 // updateAttendanceRemedyApprovalResp ...

@@ -63,7 +63,7 @@ type GetBaikeEntityReq struct {
 	EntityID   string  `path:"entity_id" json:"-"`     // 词条 ID, 示例值: "enterprise_515879"
 	Provider   *string `query:"provider" json:"-"`     // 外部系统, 示例值: "星云", 长度范围: `2` ～ `32` 字符
 	OuterID    *string `query:"outer_id" json:"-"`     // 词条在外部系统中对应的唯一 ID, 示例值: "12345", 长度范围: `1` ～ `64` 字符
-	UserIDType *IDType `query:"user_id_type" json:"-"` // 用户 ID 类型, 示例值: "open_id", 可选值有: <md-enum>, <md-enum-item key="open_id" >用户的 open id</md-enum-item>, <md-enum-item key="union_id" >用户的 union id</md-enum-item>, <md-enum-item key="user_id" >用户的 user id</md-enum-item>, </md-enum>, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
+	UserIDType *IDType `query:"user_id_type" json:"-"` // 用户 ID 类型, 示例值: "open_id", 可选值有: open_id: 用户的 open id, union_id: 用户的 union id, user_id: 用户的 user id, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
 }
 
 // GetBaikeEntityResp ...

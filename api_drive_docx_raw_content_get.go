@@ -61,7 +61,7 @@ func (r *Mock) UnMockDriveGetDocxDocumentRawContent() {
 // GetDocxDocumentRawContentReq ...
 type GetDocxDocumentRawContentReq struct {
 	DocumentID string `path:"document_id" json:"-"` // 文档的唯一标识, 示例值: "doxbcmEtbFrbbq10nPNu8gO1F3b", 长度范围: `27` ～ `27` 字符
-	Lang       *int64 `query:"lang" json:"-"`       // 语言（用于 MentionUser 语言的选取）, 示例值: 0, 可选值有: <md-enum>, <md-enum-item key="0" >中文</md-enum-item>, <md-enum-item key="1" >英文</md-enum-item>, <md-enum-item key="2" >日文</md-enum-item>, </md-enum>, 默认值: `0`
+	Lang       *int64 `query:"lang" json:"-"`       // 语言（用于 MentionUser 语言的选取）, 示例值: 0, 可选值有: 0: 中文, 1: 英文, 2: 日文, 默认值: `0`
 }
 
 // GetDocxDocumentRawContentResp ...

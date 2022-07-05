@@ -86,8 +86,8 @@ func (r *Mock) UnMockAttendanceCreateAttendanceGroup() {
 
 // CreateAttendanceGroupReq ...
 type CreateAttendanceGroupReq struct {
-	EmployeeType EmployeeType                   `query:"employee_type" json:"-"` // 用户 ID 的类型, 示例值: "employee_id", 可选值有: <md-enum>, <md-enum-item key="employee_id" >员工 employee ID, 即飞书管理后台 > 组织架构 > 成员与部门 > 成员详情中的用户 ID</md-enum-item>, <md-enum-item key="employee_no" >员工工号, 即飞书管理后台 > 组织架构 > 成员与部门 > 成员详情中的工号</md-enum-item>, </md-enum>
-	DeptType     string                         `query:"dept_type" json:"-"`     // 部门 ID 的类型, 示例值: "od-fcb45c28a45311afd441b8869541ece8", 可选值有: <md-enum>, <md-enum-item key="open_id" >暂时只支持部门的 openid</md-enum-item>, </md-enum>
+	EmployeeType EmployeeType                   `query:"employee_type" json:"-"` // 用户 ID 的类型, 示例值: "employee_id", 可选值有: employee_id: 员工 employee ID, 即飞书管理后台 > 组织架构 > 成员与部门 > 成员详情中的用户 ID, employee_no: 员工工号, 即飞书管理后台 > 组织架构 > 成员与部门 > 成员详情中的工号
+	DeptType     string                         `query:"dept_type" json:"-"`     // 部门 ID 的类型, 示例值: "od-fcb45c28a45311afd441b8869541ece8", 可选值有: open_id: 暂时只支持部门的 openid
 	Group        *CreateAttendanceGroupReqGroup `json:"group,omitempty"`         // 6921319402260496386
 	OperatorID   *string                        `json:"operator_id,omitempty"`   // 操作人uid, 如果您未操作[考勤管理后台“API 接入”流程](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/attendance-development-guidelines), 则此字段为必填字段, 示例值: "dd31248a"
 }

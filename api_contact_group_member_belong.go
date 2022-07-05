@@ -58,8 +58,8 @@ func (r *Mock) UnMockContactGetContactMemberGroupList() {
 // GetContactMemberGroupListReq ...
 type GetContactMemberGroupListReq struct {
 	MemberID     string  `query:"member_id" json:"-"`      // 成员ID, 示例值: "u287xj12"
-	MemberIDType *IDType `query:"member_id_type" json:"-"` // 成员ID类型, 示例值: "open_id", 可选值有: <md-enum>, <md-enum-item key="open_id" >member_id_type为user时, 表示用户的open_id</md-enum-item>, <md-enum-item key="union_id" >member_id_type为user时, 表示用户的union_id</md-enum-item>, <md-enum-item key="user_id" >member_id_type为user时, 表示用户的user_id</md-enum-item>, </md-enum>, 默认值: `open_id`
-	GroupType    *int64  `query:"group_type" json:"-"`     // 欲获取的用户组类型, 示例值: 1, 可选值有: <md-enum>, <md-enum-item key="1" >普通用户组</md-enum-item>, <md-enum-item key="2" >动态用户组</md-enum-item>, </md-enum>, 取值范围: `1` ～ `2`
+	MemberIDType *IDType `query:"member_id_type" json:"-"` // 成员ID类型, 示例值: "open_id", 可选值有: open_id: member_id_type为user时, 表示用户的open_id, union_id: member_id_type为user时, 表示用户的union_id, user_id: member_id_type为user时, 表示用户的user_id, 默认值: `open_id`
+	GroupType    *int64  `query:"group_type" json:"-"`     // 欲获取的用户组类型, 示例值: 1, 可选值有: 1: 普通用户组, 2: 动态用户组, 取值范围: `1` ～ `2`
 	PageSize     *int64  `query:"page_size" json:"-"`      // 分页查询大小, 示例值: 500, 默认值: `500`, 取值范围: `1` ～ `1000`
 	PageToken    *string `query:"page_token" json:"-"`     // 分页查询Token, 示例值: "AQD9/Rn9eij9Pm39ED40/dk53s4Ebp882DYfFaPFbz00L4CMZJrqGdzNyc8BcZtDbwVUvRmQTvyMYicnGWrde9X56TgdBuS+JKiSIkdexPw="
 }

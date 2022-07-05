@@ -62,8 +62,8 @@ func (r *Mock) UnMockContactCreateUser() {
 
 // CreateUserReq ...
 type CreateUserReq struct {
-	UserIDType       *IDType                    `query:"user_id_type" json:"-"`       // 用户 ID 类型, 示例值: "open_id", 可选值有: <md-enum>, <md-enum-item key="open_id" >用户的 open id</md-enum-item>, <md-enum-item key="union_id" >用户的 union id</md-enum-item>, <md-enum-item key="user_id" >用户的 user id</md-enum-item>, </md-enum>, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
-	DepartmentIDType *DepartmentIDType          `query:"department_id_type" json:"-"` // 此次调用中使用的部门ID的类型, 不同 ID 的说明以及获取方式参见 [部门ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/field-overview#23857fe0), 示例值: "open_department_id", 可选值有: <md-enum>, <md-enum-item key="department_id" >以自定义department_id来标识部门</md-enum-item>, <md-enum-item key="open_department_id" >以open_department_id来标识部门</md-enum-item>, </md-enum>, 默认值: `open_department_id`
+	UserIDType       *IDType                    `query:"user_id_type" json:"-"`       // 用户 ID 类型, 示例值: "open_id", 可选值有: open_id: 用户的 open id, union_id: 用户的 union id, user_id: 用户的 user id, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
+	DepartmentIDType *DepartmentIDType          `query:"department_id_type" json:"-"` // 此次调用中使用的部门ID的类型, 不同 ID 的说明以及获取方式参见 [部门ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/field-overview#23857fe0), 示例值: "open_department_id", 可选值有: department_id: 以自定义department_id来标识部门, open_department_id: 以open_department_id来标识部门, 默认值: `open_department_id`
 	ClientToken      *string                    `query:"client_token" json:"-"`       // 根据client_token是否一致来判断是否为同一请求, 示例值: "xxxx-xxxxx-xxx"
 	UserID           *string                    `json:"user_id,omitempty"`            // 租户内用户的唯一标识, 用户的user_id, 不同ID的说明参见 [用户相关的 ID 概念](https://open.feishu.cn/document/home/user-identity-introduction/introduction), 示例值: "3e3cf96b"
 	Name             string                     `json:"name,omitempty"`               // 用户名, 示例值: "张三", 最小长度: `1` 字符
@@ -72,7 +72,7 @@ type CreateUserReq struct {
 	Email            *string                    `json:"email,omitempty"`              // 邮箱, 注意非 +86 手机号成员必须同时添加邮箱, 示例值: "zhangsan@gmail.com"
 	Mobile           string                     `json:"mobile,omitempty"`             // 手机号, 在本企业内不可重复；未认证企业仅支持添加中国大陆手机号, 通过飞书认证的企业允许添加海外手机号, 注意国际电话区号前缀中必须包含加号 +, 示例值: "中国大陆手机号: 13011111111 或 +8613011111111, 境外手机号: +41446681800"
 	MobileVisible    *bool                      `json:"mobile_visible,omitempty"`     // 手机号码可见性, true 为可见, false 为不可见, 目前默认为 true。不可见时, 组织员工将无法查看该员工的手机号码, 示例值: false
-	Gender           *int64                     `json:"gender,omitempty"`             // 性别, 示例值: 1, 可选值有: <md-enum>, <md-enum-item key="0" >保密</md-enum-item>, <md-enum-item key="1" >男</md-enum-item>, <md-enum-item key="2" >女</md-enum-item>, </md-enum>
+	Gender           *int64                     `json:"gender,omitempty"`             // 性别, 示例值: 1, 可选值有: 0: 保密, 1: 男, 2: 女
 	AvatarKey        *string                    `json:"avatar_key,omitempty"`         // 头像的文件Key, 可通过“消息与群组/消息/图片信息”中的“上传图片”接口上传并获取头像文件 Key, 示例值: "2500c7a9-5fff-4d9a-a2de-3d59614ae28g"
 	DepartmentIDs    []string                   `json:"department_ids,omitempty"`     // 用户所属部门的ID列表, 一个用户可属于多个部门, ID值与查询参数中的department_id_type 对应, 不同 ID 的说明参见 [部门ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/field-overview#23857fe0), 示例值: od-4e6ac4d14bcd5071a37a39de902c7141
 	LeaderUserID     *string                    `json:"leader_user_id,omitempty"`     // 用户的直接主管的用户ID, ID值与查询参数中的user_id_type 对应, 不同 ID 的说明参见 [用户相关的 ID 概念](https://open.feishu.cn/document/home/user-identity-introduction/introduction), 示例值: "ou_7dab8a3d3cdcc9da365777c7ad535d62"
@@ -134,7 +134,7 @@ type CreateUserRespUser struct {
 	Email            string                          `json:"email,omitempty"`              // 邮箱, 注意非 +86 手机号成员必须同时添加邮箱, 字段权限要求: 获取用户邮箱信息
 	Mobile           string                          `json:"mobile,omitempty"`             // 手机号, 在本企业内不可重复；未认证企业仅支持添加中国大陆手机号, 通过飞书认证的企业允许添加海外手机号, 注意国际电话区号前缀中必须包含加号 +, 字段权限要求: 获取用户手机号
 	MobileVisible    bool                            `json:"mobile_visible,omitempty"`     // 手机号码可见性, true 为可见, false 为不可见, 目前默认为 true。不可见时, 组织员工将无法查看该员工的手机号码
-	Gender           int64                           `json:"gender,omitempty"`             // 性别, 可选值有: <md-enum>, <md-enum-item key="0" >保密</md-enum-item>, <md-enum-item key="1" >男</md-enum-item>, <md-enum-item key="2" >女</md-enum-item>, </md-enum>, 字段权限要求（满足任一）: 以应用身份读取通讯录, 获取用户性别, 以应用身份访问通讯录, 读取通讯录
+	Gender           int64                           `json:"gender,omitempty"`             // 性别, 可选值有: 0: 保密, 1: 男, 2: 女, 字段权限要求（满足任一）: 以应用身份读取通讯录, 获取用户性别, 以应用身份访问通讯录, 读取通讯录
 	AvatarKey        string                          `json:"avatar_key,omitempty"`         // 头像的文件Key, 可通过“消息与群组/消息/图片信息”中的“上传图片”接口上传并获取头像文件 Key
 	Avatar           *CreateUserRespUserAvatar       `json:"avatar,omitempty"`             // 用户头像信息, 字段权限要求（满足任一）: 以应用身份读取通讯录, 获取用户基本信息, 以应用身份访问通讯录, 读取通讯录
 	Status           *CreateUserRespUserStatus       `json:"status,omitempty"`             // 用户状态, 字段权限要求（满足任一）: 以应用身份读取通讯录, 获取用户雇员信息, 以应用身份访问通讯录, 读取通讯录

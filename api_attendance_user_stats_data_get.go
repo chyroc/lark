@@ -57,9 +57,9 @@ func (r *Mock) UnMockAttendanceGetAttendanceUserStatsData() {
 
 // GetAttendanceUserStatsDataReq ...
 type GetAttendanceUserStatsDataReq struct {
-	EmployeeType     EmployeeType `query:"employee_type" json:"-"`      // 请求体中的 user_ids 和响应体中的 user_id 的员工工号类型, 示例值: "employee_id", 可选值有: <md-enum>, <md-enum-item key="employee_id" >员工 employee ID, 即飞书管理后台 > 组织架构 > 成员与部门 > 成员详情中的用户 ID</md-enum-item>, <md-enum-item key="employee_no" >员工工号, 即飞书管理后台 > 组织架构 > 成员与部门 > 成员详情中的工号</md-enum-item>, </md-enum>
-	Locale           string       `json:"locale,omitempty"`             // 语言类型, 示例值: "zh", 可选值有: <md-enum>, <md-enum-item key="en" >英语</md-enum-item>, <md-enum-item key="ja" >日语</md-enum-item>, <md-enum-item key="zh" >中文</md-enum-item>, </md-enum>
-	StatsType        string       `json:"stats_type,omitempty"`         // 统计类型, 示例值: "month", 可选值有: <md-enum>, <md-enum-item key="daily" >日度统计</md-enum-item>, <md-enum-item key="month" >月度统计</md-enum-item>, </md-enum>
+	EmployeeType     EmployeeType `query:"employee_type" json:"-"`      // 请求体中的 user_ids 和响应体中的 user_id 的员工工号类型, 示例值: "employee_id", 可选值有: employee_id: 员工 employee ID, 即飞书管理后台 > 组织架构 > 成员与部门 > 成员详情中的用户 ID, employee_no: 员工工号, 即飞书管理后台 > 组织架构 > 成员与部门 > 成员详情中的工号
+	Locale           string       `json:"locale,omitempty"`             // 语言类型, 示例值: "zh", 可选值有: en: 英语, ja: 日语, zh: 中文
+	StatsType        string       `json:"stats_type,omitempty"`         // 统计类型, 示例值: "month", 可选值有: daily: 日度统计, month: 月度统计
 	StartDate        int64        `json:"start_date,omitempty"`         // 开始时间, 示例值: 20210316
 	EndDate          int64        `json:"end_date,omitempty"`           // 结束时间, （时间间隔不超过 40 天）, 示例值: 20210323
 	UserIDs          []string     `json:"user_ids,omitempty"`           // 查询的用户 ID 列表, （用户数量不超过 200）, 示例值: [, "ec8ddg56", "4dbb52f2", "4167842e", ]

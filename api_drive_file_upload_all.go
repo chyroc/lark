@@ -64,7 +64,7 @@ func (r *Mock) UnMockDriveUploadDriveFile() {
 // UploadDriveFileReq ...
 type UploadDriveFileReq struct {
 	FileName   string    `json:"file_name,omitempty"`   // 文件名, 示例值: "demo.pdf", 最大长度: `250` 字符
-	ParentType string    `json:"parent_type,omitempty"` // 上传点类型, 示例值: "explorer", 可选值有: <md-enum>, <md-enum-item key="explorer" >云空间。</md-enum-item>, </md-enum>
+	ParentType string    `json:"parent_type,omitempty"` // 上传点类型, 示例值: "explorer", 可选值有: explorer: 云空间。
 	ParentNode string    `json:"parent_node,omitempty"` // 文件夹token, 获取方式见 [概述](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/files/guide/introduction), 示例值: "fldbcO1UuPz8VwnpPx5a92abcef"
 	Size       int64     `json:"size,omitempty"`        // 文件大小（以字节为单位）, 示例值: 1024, 最大值: `20971520`
 	Checksum   *string   `json:"checksum,omitempty"`    // 文件adler32校验和(可选), 示例值: "123423882374238912356"

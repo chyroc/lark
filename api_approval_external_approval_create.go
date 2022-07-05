@@ -60,8 +60,8 @@ func (r *Mock) UnMockApprovalCreateApprovalExternalApproval() {
 
 // CreateApprovalExternalApprovalReq ...
 type CreateApprovalExternalApprovalReq struct {
-	DepartmentIDType *DepartmentIDType                                `query:"department_id_type" json:"-"` // 此次调用中使用的部门ID的类型, 示例值: "open_department_id", 可选值有: <md-enum>, <md-enum-item key="department_id" >以自定义department_id来标识部门</md-enum-item>, <md-enum-item key="open_department_id" >以open_department_id来标识部门</md-enum-item>, </md-enum>, 默认值: `open_department_id`
-	UserIDType       *IDType                                          `query:"user_id_type" json:"-"`       // 用户 ID 类型, 示例值: "open_id", 可选值有: <md-enum>, <md-enum-item key="open_id" >用户的 open id</md-enum-item>, <md-enum-item key="union_id" >用户的 union id</md-enum-item>, <md-enum-item key="user_id" >用户的 user id</md-enum-item>, </md-enum>, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
+	DepartmentIDType *DepartmentIDType                                `query:"department_id_type" json:"-"` // 此次调用中使用的部门ID的类型, 示例值: "open_department_id", 可选值有: department_id: 以自定义department_id来标识部门, open_department_id: 以open_department_id来标识部门, 默认值: `open_department_id`
+	UserIDType       *IDType                                          `query:"user_id_type" json:"-"`       // 用户 ID 类型, 示例值: "open_id", 可选值有: open_id: 用户的 open id, union_id: 用户的 union id, user_id: 用户的 user id, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
 	ApprovalName     string                                           `json:"approval_name,omitempty"`      // 审批定义名称, 创建审批定义返回的值, 表示该实例属于哪个流程；该字段会影响到列表中该实例的标题, 标题取自对应定义的 name 字段, 示例值: "E78F1022-A166-447C-8320-E151DA90D70F"
 	ApprovalCode     string                                           `json:"approval_code,omitempty"`      // 审批定义 code, 用户自定义, 定义的唯一标识, 如果不存在该 code, 则创建, 否则更新, 示例值: "permission_test"
 	GroupCode        string                                           `json:"group_code,omitempty"`         // 审批定义所属审批分组, 用户自定义； 如果group_code当前不存在, 则会新建审批分组； 如果group_code已经存在, 则会使用group_name更新审批分组名称, 示例值: "work_group"
@@ -90,7 +90,7 @@ type CreateApprovalExternalApprovalReqExternal struct {
 
 // CreateApprovalExternalApprovalReqI18nResource ...
 type CreateApprovalExternalApprovalReqI18nResource struct {
-	Locale    string                                               `json:"locale,omitempty"`     // 语言可选值有: zh-CN: 中文 en-US: 英文 ja-JP: 日文, 示例值: "zh-CN", 可选值有: <md-enum>, <md-enum-item key="zh-CN" >中文</md-enum-item>, <md-enum-item key="en-US" >英文</md-enum-item>, <md-enum-item key="ja-JP" >日文</md-enum-item>, </md-enum>
+	Locale    string                                               `json:"locale,omitempty"`     // 语言可选值有: zh-CN: 中文 en-US: 英文 ja-JP: 日文, 示例值: "zh-CN", 可选值有: zh-CN: 中文, en-US: 英文, ja-JP: 日文
 	Texts     []*CreateApprovalExternalApprovalReqI18nResourceText `json:"texts,omitempty"`      // 文案 key, value, i18n key 以 @i18n@ 开头； 该字段主要用于做国际化, 语序用户同时传多个语言的文案, 审批中心会根据用户当前的语音环境使用对应的文案, 如果没有传用户当前的语音环境文案, 则会使用默认的语言文案。
 	IsDefault bool                                                 `json:"is_default,omitempty"` // 是否默认语言, 默认语言需要包含所有key, 非默认语言如果key不存在会使用默认语言代替, 示例值: true
 }
@@ -103,7 +103,7 @@ type CreateApprovalExternalApprovalReqI18nResourceText struct {
 
 // CreateApprovalExternalApprovalReqViewer ...
 type CreateApprovalExternalApprovalReqViewer struct {
-	ViewerType         *string `json:"viewer_type,omitempty"`          // 可见人类型, 示例值: "USER", 可选值有: <md-enum>, <md-enum-item key="TENANT" >租户内可见</md-enum-item>, <md-enum-item key="DEPARTMENT" >指定部门</md-enum-item>, <md-enum-item key="USER" >指定用户</md-enum-item>, <md-enum-item key="NONE" >任何人都不可见</md-enum-item>, </md-enum>
+	ViewerType         *string `json:"viewer_type,omitempty"`          // 可见人类型, 示例值: "USER", 可选值有: TENANT: 租户内可见, DEPARTMENT: 指定部门, USER: 指定用户, NONE: 任何人都不可见
 	ViewerUserID       *string `json:"viewer_user_id,omitempty"`       // 当 view_type 是 USER, 根据user_id_type填写用户id, 示例值: "19a294c2"
 	ViewerDepartmentID *string `json:"viewer_department_id,omitempty"` // 当 view_type 为DEPARTMENT, 根据department_id_type填写部门id, 示例值: "od-ac9d697abfa990b715dcc33d58a62a9d"
 }

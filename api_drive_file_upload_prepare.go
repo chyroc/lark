@@ -62,7 +62,7 @@ func (r *Mock) UnMockDrivePrepareUploadDriveFile() {
 // PrepareUploadDriveFileReq ...
 type PrepareUploadDriveFileReq struct {
 	FileName   string `json:"file_name,omitempty"`   // 文件名, 示例值: "test.txt", 最大长度: `250` 字符
-	ParentType string `json:"parent_type,omitempty"` // 上传点类型, 示例值: "explorer", 可选值有: <md-enum>, <md-enum-item key="explorer" >云空间。</md-enum-item>, </md-enum>
+	ParentType string `json:"parent_type,omitempty"` // 上传点类型, 示例值: "explorer", 可选值有: explorer: 云空间。
 	ParentNode string `json:"parent_node,omitempty"` // 文件夹的token, 示例值: "fldbcO1UuPz8VwnpPx5a92abcef"
 	Size       int64  `json:"size,omitempty"`        // 文件大小, 示例值: 1024, 最小值: `0`
 }

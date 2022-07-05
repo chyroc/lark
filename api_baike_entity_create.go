@@ -58,7 +58,7 @@ func (r *Mock) UnMockBaikeCreateBaikeEntity() {
 
 // CreateBaikeEntityReq ...
 type CreateBaikeEntityReq struct {
-	UserIDType  *IDType                          `query:"user_id_type" json:"-"` // 用户 ID 类型, 示例值: "open_id", 可选值有: <md-enum>, <md-enum-item key="open_id" >用户的 open id</md-enum-item>, <md-enum-item key="union_id" >用户的 union id</md-enum-item>, <md-enum-item key="user_id" >用户的 user id</md-enum-item>, </md-enum>, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
+	UserIDType  *IDType                          `query:"user_id_type" json:"-"` // 用户 ID 类型, 示例值: "open_id", 可选值有: open_id: 用户的 open id, union_id: 用户的 union id, user_id: 用户的 user id, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
 	MainKeys    []*CreateBaikeEntityReqMainKey   `json:"main_keys,omitempty"`    // 词条名, 最大长度: `1`
 	Aliases     []*CreateBaikeEntityReqAliase    `json:"aliases,omitempty"`      // 别名, 最大长度: `10`
 	Description *string                          `json:"description,omitempty"`  // 词条释义（纯文本格式）, 示例值: "企业百科是飞书提供的一款知识管理工具, 通过企业百科可以帮助企业将分散的知识信息进行聚合, 并通过UGC的方式, 促进企业知识的保鲜和流通", 最大长度: `5000` 字符

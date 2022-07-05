@@ -32,12 +32,13 @@ func (r *AppLinkService) OpenWebApp(req *OpenWebAppReq) string {
 
 // OpenWebAppReq ...
 type OpenWebAppReq struct {
-	AppID       string  `json:"appId,omitempty"`        // H5应用的 appId(可从「开发者后台-凭证与基础信息」获取)
-	Mode        *string `json:"mode,omitempty"`         // 打开H5应用的容器模式, 枚举值包括  `appCenter`: 在工作台打开, 3.20版本开始支持（缺省值）   `window`: 在独立窗口打开, 3.20版本开始支持   `sidebar`: 在侧边栏打开, 3.40版本开始支持   `window-semi`: 在独立窗口以小屏形式打开, 5.10版本开始支持
-	Height      *string `json:"height,omitempty"`       // 自定义独立窗口高度（仅当`mode`为`window`时生效）, 飞书5.12版本开始支持 最小值: 480 最大值: 屏幕的高度 默认值: 飞书窗口的高度
-	Width       *string `json:"width,omitempty"`        // 自定义独立窗口宽度（仅当`mode`为`window`时生效）, 飞书5.12版本开始支持 最小值: 640 最大值: 屏幕的宽度 默认值: 飞书窗口的宽度
-	Path        *string `json:"path,omitempty"`         // 访问H5应用的具体某个页面, path参数将替换H5应用URL的path部分（注意: path中不应该出现#和?字符, 否则会导致最终的H5页面URL结构异常）  也可以使用 path_android、path_ios、path_pc 参数对不同的客户端指定不同的path  3.20版本开始支持
-	PathAndroid *string `json:"path_android,omitempty"` // 同 path 参数, Android 端会优先使用该参数, 如果该参数不存在, 则会使用 path 参数。  3.20版本开始支持
-	PathIos     *string `json:"path_ios,omitempty"`     // 同 path 参数, iOS 端会优先使用该参数, 如果该参数不存在, 则会使用 path 参数  3.20版本开始支持
-	PathPc      *string `json:"path_pc,omitempty"`      // 同 path 参数, PC 端会优先使用该参数, 如果该参数不存在, 则会使用 path 参数  3.20版本开始支持
+	AppID       string  `json:"appId,omitempty"`         // H5应用的 appId(可从「开发者后台-凭证与基础信息」获取)
+	Mode        *string `json:"mode,omitempty"`          // 打开H5应用的容器模式, 枚举值包括  `appCenter`: 在工作台打开, 3.20版本开始支持（缺省值）   `window`: 在独立窗口打开, 3.20版本开始支持   `sidebar`: 在侧边栏打开, 3.40版本开始支持   `window-semi`: 在独立窗口以小屏形式打开, 5.10版本开始支持
+	Height      *string `json:"height,omitempty"`        // 自定义独立窗口高度（仅当`mode`为`window`时生效）, 飞书5.12版本开始支持 最小值: 480 最大值: 屏幕的高度 默认值: 飞书窗口的高度
+	Width       *string `json:"width,omitempty"`         // 自定义独立窗口宽度（仅当`mode`为`window`时生效）, 飞书5.12版本开始支持 最小值: 640 最大值: 屏幕的宽度 默认值: 飞书窗口的宽度
+	Path        *string `json:"path,omitempty"`          // 访问H5应用的具体某个页面, path参数将替换H5应用URL的path部分。如果需要携带参数, 将预期的H5应用URL的query作为applink的query即可, 具体参考示例2。 注意: 1、path中不应该出现#和?字符, 否则会导致最终的H5页面URL结构异常）  2、可以使用 path_android、path_ios、path_pc 参数对不同的客户端指定不同的path  3.20版本开始支持
+	PathAndroid *string `json:"path_android,omitempty"`  // 同 path 参数, Android 端会优先使用该参数, 如果该参数不存在, 则会使用 path 参数。  3.20版本开始支持
+	PathIos     *string `json:"path_ios,omitempty"`      // 同 path 参数, iOS 端会优先使用该参数, 如果该参数不存在, 则会使用 path 参数  3.20版本开始支持
+	PathPc      *string `json:"path_pc,omitempty"`       // 同 path 参数, PC 端会优先使用该参数, 如果该参数不存在, 则会使用 path 参数  3.20版本开始支持
+	LkTargetURL *string `json:"lk_target_url,omitempty"` // 访问H5应用的具体某个页面, 针对网页path中包含#或?字符时, 可使用该参数, 而不使用`path`参数。需要填写H5应用某个具体页面的完整URL（协议名`scheme`和域名`domain`应当与开发者后台配置的应用首页相匹配）, 并进行[URL encode](https://meyerweb.com/eric/tools/dencoder/)后使用。具体参考示例3  飞书V5.12版本开始支持。飞书低版本中无法解析此参数, 将打开应用首页
 }

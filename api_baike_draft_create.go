@@ -62,7 +62,7 @@ func (r *Mock) UnMockBaikeCreateBaikeDraft() {
 
 // CreateBaikeDraftReq ...
 type CreateBaikeDraftReq struct {
-	UserIDType  *IDType                         `query:"user_id_type" json:"-"` // 用户 ID 类型, 示例值: "open_id", 可选值有: <md-enum>, <md-enum-item key="open_id" >用户的 open id</md-enum-item>, <md-enum-item key="union_id" >用户的 union id</md-enum-item>, <md-enum-item key="user_id" >用户的 user id</md-enum-item>, </md-enum>, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
+	UserIDType  *IDType                         `query:"user_id_type" json:"-"` // 用户 ID 类型, 示例值: "open_id", 可选值有: open_id: 用户的 open id, union_id: 用户的 union id, user_id: 用户的 user id, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
 	ID          *string                         `json:"id,omitempty"`           // 词条 ID （需要更新某个词条时填写, 若是创建新词条可不填写）, 示例值: "enterprise_40217521"
 	MainKeys    []*CreateBaikeDraftReqMainKey   `json:"main_keys,omitempty"`    // 词条名, 最大长度: `1`
 	Aliases     []*CreateBaikeDraftReqAliase    `json:"aliases,omitempty"`      // 别名, 最大长度: `10`

@@ -63,7 +63,7 @@ type CreateBitableViewReq struct {
 	AppToken string  `path:"app_token" json:"-"`  // bitable app token, 示例值: "appbcbWCzen6D8dezhoCH2RpMAh"
 	TableID  string  `path:"table_id" json:"-"`   // table id, 示例值: "tblsRc9GRRXKqhvW"
 	ViewName string  `json:"view_name,omitempty"` // 视图名字, 示例值: "表格视图1"
-	ViewType *string `json:"view_type,omitempty"` // 视图类型, 示例值: "grid", 可选值有: <md-enum>, <md-enum-item key="grid" >表格视图</md-enum-item>, <md-enum-item key="kanban" >看板视图</md-enum-item>, <md-enum-item key="gallery" >画册视图</md-enum-item>, <md-enum-item key="gantt" >甘特视图</md-enum-item>, <md-enum-item key="form" >表单视图</md-enum-item>, </md-enum>
+	ViewType *string `json:"view_type,omitempty"` // 视图类型, 示例值: "grid", 可选值有: grid: 表格视图, kanban: 看板视图, gallery: 画册视图, gantt: 甘特视图, form: 表单视图
 }
 
 // CreateBitableViewResp ...

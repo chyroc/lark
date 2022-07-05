@@ -75,9 +75,9 @@ type CopyWikiNodeRespNode struct {
 	SpaceID         string `json:"space_id,omitempty"`          // 知识库id
 	NodeToken       string `json:"node_token,omitempty"`        // 节点token
 	ObjToken        string `json:"obj_token,omitempty"`         // 文档token, 可以根据obj_type判断是属于doc、sheet还是mindnote的token(对于快捷方式, 该字段是对应的实体的obj_token)
-	ObjType         string `json:"obj_type,omitempty"`          // 文档类型, 对于快捷方式, 该字段是对应的实体的obj_type, 可选值有: <md-enum>, <md-enum-item key="doc" >doc</md-enum-item>, <md-enum-item key="sheet" >sheet</md-enum-item>, <md-enum-item key="mindnote" >mindnote</md-enum-item>, <md-enum-item key="bitable" >bitable</md-enum-item>, <md-enum-item key="file" >file</md-enum-item>, <md-enum-item key="docx" >docx</md-enum-item>, </md-enum>
+	ObjType         string `json:"obj_type,omitempty"`          // 文档类型, 对于快捷方式, 该字段是对应的实体的obj_type, 可选值有: doc: doc, sheet: sheet, mindnote: mindnote, bitable: bitable, file: file, docx: docx
 	ParentNodeToken string `json:"parent_node_token,omitempty"` // 节点的父亲token。当节点为一级节点时, 父亲token为空。
-	NodeType        string `json:"node_type,omitempty"`         // 节点类型, 可选值有: <md-enum>, <md-enum-item key="origin" >实体</md-enum-item>, <md-enum-item key="shortcut" >快捷方式</md-enum-item>, </md-enum>
+	NodeType        string `json:"node_type,omitempty"`         // 节点类型, 可选值有: origin: 实体, shortcut: 快捷方式
 	OriginNodeToken string `json:"origin_node_token,omitempty"` // 快捷方式对应的实体node_token, 当创建节点为快捷方式时, 需要传该值
 	OriginSpaceID   string `json:"origin_space_id,omitempty"`   // 快捷方式对应的实体所在的spaceid
 	HasChild        bool   `json:"has_child,omitempty"`         // 是否有子节点

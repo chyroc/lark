@@ -57,9 +57,9 @@ func (r *Mock) UnMockAttendanceGetAttendanceUserStatsView() {
 
 // GetAttendanceUserStatsViewReq ...
 type GetAttendanceUserStatsViewReq struct {
-	EmployeeType EmployeeType `query:"employee_type" json:"-"` // 响应体中的 user_id 的员工工号类型, 示例值: "employee_id", 可选值有: <md-enum>, <md-enum-item key="employee_id" >员工 employee ID, 即飞书管理后台 > 组织架构 > 成员与部门 > 成员详情中的用户 ID</md-enum-item>, <md-enum-item key="employee_no" >员工工号, 即飞书管理后台 > 组织架构 > 成员与部门 > 成员详情中的工号</md-enum-item>, </md-enum>
-	Locale       string       `json:"locale,omitempty"`        // 语言类型, 示例值: "zh", 可选值有: <md-enum>, <md-enum-item key="en" >英语</md-enum-item>, <md-enum-item key="ja" >日语</md-enum-item>, <md-enum-item key="zh" >中文</md-enum-item>, </md-enum>
-	StatsType    string       `json:"stats_type,omitempty"`    // 统计类型, 示例值: "daily", 可选值有: <md-enum>, <md-enum-item key="daily" >日度统计</md-enum-item>, <md-enum-item key="month" >月度统计</md-enum-item>, </md-enum>
+	EmployeeType EmployeeType `query:"employee_type" json:"-"` // 响应体中的 user_id 的员工工号类型, 示例值: "employee_id", 可选值有: employee_id: 员工 employee ID, 即飞书管理后台 > 组织架构 > 成员与部门 > 成员详情中的用户 ID, employee_no: 员工工号, 即飞书管理后台 > 组织架构 > 成员与部门 > 成员详情中的工号
+	Locale       string       `json:"locale,omitempty"`        // 语言类型, 示例值: "zh", 可选值有: en: 英语, ja: 日语, zh: 中文
+	StatsType    string       `json:"stats_type,omitempty"`    // 统计类型, 示例值: "daily", 可选值有: daily: 日度统计, month: 月度统计
 	UserID       *string      `json:"user_id,omitempty"`       // 查询用户id, 同【查询统计数据】、【更新统计设置】user_id, 示例值: "dd31248a"
 }
 
@@ -71,7 +71,7 @@ type GetAttendanceUserStatsViewResp struct {
 // GetAttendanceUserStatsViewRespView ...
 type GetAttendanceUserStatsViewRespView struct {
 	ViewID    string                                    `json:"view_id,omitempty"`    // 视图 ID
-	StatsType string                                    `json:"stats_type,omitempty"` // 视图类型, 可选值有: <md-enum>, <md-enum-item key="daily" >日度统计</md-enum-item>, <md-enum-item key="month" >月度统计</md-enum-item>, </md-enum>
+	StatsType string                                    `json:"stats_type,omitempty"` // 视图类型, 可选值有: daily: 日度统计, month: 月度统计
 	UserID    string                                    `json:"user_id,omitempty"`    // 查询用户id, 同【查询统计数据】、【查询统计设置】user_id
 	Items     []*GetAttendanceUserStatsViewRespViewItem `json:"items,omitempty"`      // 用户设置字段
 }

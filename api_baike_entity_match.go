@@ -69,7 +69,7 @@ type MatchBaikeEntityResp struct {
 // MatchBaikeEntityRespResult ...
 type MatchBaikeEntityRespResult struct {
 	EntityID string `json:"entity_id,omitempty"` // 词条 ID
-	Type     int64  `json:"type,omitempty"`      // 命中的字段, 可选值有: <md-enum>, <md-enum-item key="0" >词条名</md-enum-item>, <md-enum-item key="1" >全称</md-enum-item>, <md-enum-item key="2" >别名</md-enum-item>, </md-enum>
+	Type     int64  `json:"type,omitempty"`      // 命中的字段, 可选值有: 0: 词条名, 1: 全称, 2: 别名
 }
 
 // matchBaikeEntityResp ...

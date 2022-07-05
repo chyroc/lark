@@ -64,7 +64,7 @@ type CreateDocxBlockReq struct {
 	BlockID            string       `path:"block_id" json:"-"`              // Block 的唯一标识, 示例值: "doxcnO6UW6wAw2qIcYf4hZpFIth"
 	DocumentRevisionID *int64       `query:"document_revision_id" json:"-"` // 操作的文档版本, 1表示文档最新版本。若此时操作的版本为文档最新版本, 则需要持有文档的阅读权限；若此时操作的版本为文档的历史版本, 则需要持有文档的编辑权限, 示例值:1, 默认值: `-1`, 最小值: `-1`
 	ClientToken        *string      `query:"client_token" json:"-"`         // 操作的唯一标识, 与接口返回值的 client_token 相对应, 用于幂等的进行更新操作。此值为空表示将发起一次新的请求, 此值非空表示幂等的进行更新操作, 示例值: "fe599b60-450f-46ff-b2ef-9f6675625b97"
-	UserIDType         *IDType      `query:"user_id_type" json:"-"`         // 用户 ID 类型, 示例值: "open_id", 可选值有: <md-enum>, <md-enum-item key="open_id" >用户的 open id</md-enum-item>, <md-enum-item key="union_id" >用户的 union id</md-enum-item>, <md-enum-item key="user_id" >用户的 user id</md-enum-item>, </md-enum>, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
+	UserIDType         *IDType      `query:"user_id_type" json:"-"`         // 用户 ID 类型, 示例值: "open_id", 可选值有: open_id: 用户的 open id, union_id: 用户的 union id, user_id: 用户的 user id, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
 	Children           []*DocxBlock `json:"children,omitempty"`             // 添加的孩子列表, 长度范围: `1` ～ `50`
 	Index              *int64       `json:"index,omitempty"`                // 当前 block 在 children 中的插入位置, 起始值为 0, 最大值为原 children 长度, 示例值: 0, 默认值: `-1`
 }

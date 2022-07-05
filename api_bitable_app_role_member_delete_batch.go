@@ -65,7 +65,7 @@ type BatchDeleteBitableAppRoleMemberReq struct {
 
 // BatchDeleteBitableAppRoleMemberReqMember ...
 type BatchDeleteBitableAppRoleMemberReqMember struct {
-	Type *string `json:"type,omitempty"` // 协作者 ID 类型, 示例值: "open_id", 可选值有: <md-enum>, <md-enum-item key="open_id" >协作者 ID 类型为 open_id</md-enum-item>, <md-enum-item key="union_id" >协作者 ID 类型为 union_id</md-enum-item>, <md-enum-item key="user_id" >协作者 ID 类型为 user_id</md-enum-item>, <md-enum-item key="chat_id" >协作者 ID 类型为 chat_id</md-enum-item>, <md-enum-item key="department_id" >协作者 ID 类型为 department_id</md-enum-item>, <md-enum-item key="open_department_id" >协作者 ID 类型为 open_department_id</md-enum-item>, </md-enum>, 默认值: `open_id`
+	Type *string `json:"type,omitempty"` // 协作者 ID 类型, 示例值: "open_id", 可选值有: open_id: 协作者 ID 类型为 open_id, union_id: 协作者 ID 类型为 union_id, user_id: 协作者 ID 类型为 user_id, chat_id: 协作者 ID 类型为 chat_id, department_id: 协作者 ID 类型为 department_id, open_department_id: 协作者 ID 类型为 open_department_id, 默认值: `open_id`
 	ID   string  `json:"id,omitempty"`   // 协作者 ID, 示例值: "ou_35990a9d9052051a2fae9b2f1afabcef"
 }
 
