@@ -38,7 +38,7 @@ https://godoc.org/github.com/chyroc/lark
 
 ## Support APIs
 
-API Count: 602, Event Count: 91
+API Count: 607, Event Count: 91
 
 <details>
   <summary>
@@ -250,9 +250,11 @@ API Count: 602, Event Count: 91
   - AddChatMember
   - CreateChat
   - CreateChatManager
+  - CreateChatTab
   - DeleteChat
   - DeleteChatManager
   - DeleteChatMember
+  - DeleteChatTab
   - DeleteChatTopNotice
   - GetChat
   - GetChatAnnouncement
@@ -260,12 +262,15 @@ API Count: 602, Event Count: 91
   - GetChatMemberList
   - GetChatModeration
   - GetChatOld
+  - GetChatTabList
   - IsInChat
   - JoinChat
   - SearchChat
+  - SortChatTab
   - UpdateChat
   - UpdateChatAnnouncement
   - UpdateChatModeration
+  - UpdateChatTab
   - UpdateChatTopNotice
 - Contact
   - AddContactGroupMember

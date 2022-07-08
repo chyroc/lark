@@ -87,6 +87,18 @@ func Test_Chat_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
+			cli.Mock().MockChatCreateChatTab(func(ctx context.Context, request *lark.CreateChatTabReq, options ...lark.MethodOptionFunc) (*lark.CreateChatTabResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockChatCreateChatTab()
+
+			_, _, err := moduleCli.CreateChatTab(ctx, &lark.CreateChatTabReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
 			cli.Mock().MockChatDeleteChat(func(ctx context.Context, request *lark.DeleteChatReq, options ...lark.MethodOptionFunc) (*lark.DeleteChatResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -117,6 +129,18 @@ func Test_Chat_Sample_Failed(t *testing.T) {
 			defer cli.Mock().UnMockChatDeleteChatMember()
 
 			_, _, err := moduleCli.DeleteChatMember(ctx, &lark.DeleteChatMemberReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			cli.Mock().MockChatDeleteChatTab(func(ctx context.Context, request *lark.DeleteChatTabReq, options ...lark.MethodOptionFunc) (*lark.DeleteChatTabResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockChatDeleteChatTab()
+
+			_, _, err := moduleCli.DeleteChatTab(ctx, &lark.DeleteChatTabReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "mock-failed")
 		})
@@ -207,6 +231,18 @@ func Test_Chat_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
+			cli.Mock().MockChatGetChatTabList(func(ctx context.Context, request *lark.GetChatTabListReq, options ...lark.MethodOptionFunc) (*lark.GetChatTabListResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockChatGetChatTabList()
+
+			_, _, err := moduleCli.GetChatTabList(ctx, &lark.GetChatTabListReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
 			cli.Mock().MockChatIsInChat(func(ctx context.Context, request *lark.IsInChatReq, options ...lark.MethodOptionFunc) (*lark.IsInChatResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -243,6 +279,18 @@ func Test_Chat_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
+			cli.Mock().MockChatSortChatTab(func(ctx context.Context, request *lark.SortChatTabReq, options ...lark.MethodOptionFunc) (*lark.SortChatTabResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockChatSortChatTab()
+
+			_, _, err := moduleCli.SortChatTab(ctx, &lark.SortChatTabReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
 			cli.Mock().MockChatUpdateChat(func(ctx context.Context, request *lark.UpdateChatReq, options ...lark.MethodOptionFunc) (*lark.UpdateChatResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -273,6 +321,18 @@ func Test_Chat_Sample_Failed(t *testing.T) {
 			defer cli.Mock().UnMockChatUpdateChatModeration()
 
 			_, _, err := moduleCli.UpdateChatModeration(ctx, &lark.UpdateChatModerationReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			cli.Mock().MockChatUpdateChatTab(func(ctx context.Context, request *lark.UpdateChatTabReq, options ...lark.MethodOptionFunc) (*lark.UpdateChatTabResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockChatUpdateChatTab()
+
+			_, _, err := moduleCli.UpdateChatTab(ctx, &lark.UpdateChatTabReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "mock-failed")
 		})
@@ -322,6 +382,15 @@ func Test_Chat_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
+			_, _, err := moduleCli.CreateChatTab(ctx, &lark.CreateChatTabReq{
+				ChatID: "x",
+			})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+
 			_, _, err := moduleCli.DeleteChat(ctx, &lark.DeleteChatReq{
 				ChatID: "x",
 			})
@@ -341,6 +410,15 @@ func Test_Chat_Sample_Failed(t *testing.T) {
 		t.Run("", func(t *testing.T) {
 
 			_, _, err := moduleCli.DeleteChatMember(ctx, &lark.DeleteChatMemberReq{
+				ChatID: "x",
+			})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.DeleteChatTab(ctx, &lark.DeleteChatTabReq{
 				ChatID: "x",
 			})
 			as.NotNil(err)
@@ -408,6 +486,15 @@ func Test_Chat_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
+			_, _, err := moduleCli.GetChatTabList(ctx, &lark.GetChatTabListReq{
+				ChatID: "x",
+			})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+
 			_, _, err := moduleCli.IsInChat(ctx, &lark.IsInChatReq{
 				ChatID: "x",
 			})
@@ -433,6 +520,15 @@ func Test_Chat_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
+			_, _, err := moduleCli.SortChatTab(ctx, &lark.SortChatTabReq{
+				ChatID: "x",
+			})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+
 			_, _, err := moduleCli.UpdateChat(ctx, &lark.UpdateChatReq{
 				ChatID: "x",
 			})
@@ -452,6 +548,15 @@ func Test_Chat_Sample_Failed(t *testing.T) {
 		t.Run("", func(t *testing.T) {
 
 			_, _, err := moduleCli.UpdateChatModeration(ctx, &lark.UpdateChatModerationReq{
+				ChatID: "x",
+			})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.UpdateChatTab(ctx, &lark.UpdateChatTabReq{
 				ChatID: "x",
 			})
 			as.NotNil(err)
@@ -503,6 +608,15 @@ func Test_Chat_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
+			_, _, err := moduleCli.CreateChatTab(ctx, &lark.CreateChatTabReq{
+				ChatID: "x",
+			})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+
 			_, _, err := moduleCli.DeleteChat(ctx, &lark.DeleteChatReq{
 				ChatID: "x",
 			})
@@ -522,6 +636,15 @@ func Test_Chat_Sample_Failed(t *testing.T) {
 		t.Run("", func(t *testing.T) {
 
 			_, _, err := moduleCli.DeleteChatMember(ctx, &lark.DeleteChatMemberReq{
+				ChatID: "x",
+			})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.DeleteChatTab(ctx, &lark.DeleteChatTabReq{
 				ChatID: "x",
 			})
 			as.NotNil(err)
@@ -589,6 +712,15 @@ func Test_Chat_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
+			_, _, err := moduleCli.GetChatTabList(ctx, &lark.GetChatTabListReq{
+				ChatID: "x",
+			})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+
 			_, _, err := moduleCli.IsInChat(ctx, &lark.IsInChatReq{
 				ChatID: "x",
 			})
@@ -614,6 +746,15 @@ func Test_Chat_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
+			_, _, err := moduleCli.SortChatTab(ctx, &lark.SortChatTabReq{
+				ChatID: "x",
+			})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+
 			_, _, err := moduleCli.UpdateChat(ctx, &lark.UpdateChatReq{
 				ChatID: "x",
 			})
@@ -633,6 +774,15 @@ func Test_Chat_Sample_Failed(t *testing.T) {
 		t.Run("", func(t *testing.T) {
 
 			_, _, err := moduleCli.UpdateChatModeration(ctx, &lark.UpdateChatModerationReq{
+				ChatID: "x",
+			})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.UpdateChatTab(ctx, &lark.UpdateChatTabReq{
 				ChatID: "x",
 			})
 			as.NotNil(err)
