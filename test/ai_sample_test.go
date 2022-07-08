@@ -38,7 +38,7 @@ func Test_AI_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
-			_, _, err := moduleCli.DetectTextLanguage(ctx, &lark.DetectTextLanguageReq{})
+			_, _, err := moduleCli.RecognizeBasicImage(ctx, &lark.RecognizeBasicImageReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "failed")
 		})
@@ -51,36 +51,12 @@ func Test_AI_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
-			cli.Mock().MockAIDetectTextLanguage(func(ctx context.Context, request *lark.DetectTextLanguageReq, options ...lark.MethodOptionFunc) (*lark.DetectTextLanguageResp, *lark.Response, error) {
-				return nil, nil, fmt.Errorf("mock-failed")
-			})
-			defer cli.Mock().UnMockAIDetectTextLanguage()
-
-			_, _, err := moduleCli.DetectTextLanguage(ctx, &lark.DetectTextLanguageReq{})
-			as.NotNil(err)
-			as.Equal(err.Error(), "mock-failed")
-		})
-
-		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockAIRecognizeBasicImage(func(ctx context.Context, request *lark.RecognizeBasicImageReq, options ...lark.MethodOptionFunc) (*lark.RecognizeBasicImageResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
 			defer cli.Mock().UnMockAIRecognizeBasicImage()
 
 			_, _, err := moduleCli.RecognizeBasicImage(ctx, &lark.RecognizeBasicImageReq{})
-			as.NotNil(err)
-			as.Equal(err.Error(), "mock-failed")
-		})
-
-		t.Run("", func(t *testing.T) {
-
-			cli.Mock().MockAIRecognizeSpeechFile(func(ctx context.Context, request *lark.RecognizeSpeechFileReq, options ...lark.MethodOptionFunc) (*lark.RecognizeSpeechFileResp, *lark.Response, error) {
-				return nil, nil, fmt.Errorf("mock-failed")
-			})
-			defer cli.Mock().UnMockAIRecognizeSpeechFile()
-
-			_, _, err := moduleCli.RecognizeSpeechFile(ctx, &lark.RecognizeSpeechFileReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "mock-failed")
 		})
@@ -99,12 +75,36 @@ func Test_AI_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
+			cli.Mock().MockAIRecognizeSpeechFile(func(ctx context.Context, request *lark.RecognizeSpeechFileReq, options ...lark.MethodOptionFunc) (*lark.RecognizeSpeechFileResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockAIRecognizeSpeechFile()
+
+			_, _, err := moduleCli.RecognizeSpeechFile(ctx, &lark.RecognizeSpeechFileReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
 			cli.Mock().MockAITranslateText(func(ctx context.Context, request *lark.TranslateTextReq, options ...lark.MethodOptionFunc) (*lark.TranslateTextResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
 			defer cli.Mock().UnMockAITranslateText()
 
 			_, _, err := moduleCli.TranslateText(ctx, &lark.TranslateTextReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			cli.Mock().MockAIDetectTextLanguage(func(ctx context.Context, request *lark.DetectTextLanguageReq, options ...lark.MethodOptionFunc) (*lark.DetectTextLanguageResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockAIDetectTextLanguage()
+
+			_, _, err := moduleCli.DetectTextLanguage(ctx, &lark.DetectTextLanguageReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "mock-failed")
 		})
@@ -117,21 +117,7 @@ func Test_AI_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
-			_, _, err := moduleCli.DetectTextLanguage(ctx, &lark.DetectTextLanguageReq{})
-			as.NotNil(err)
-			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
-		})
-
-		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.RecognizeBasicImage(ctx, &lark.RecognizeBasicImageReq{})
-			as.NotNil(err)
-			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
-		})
-
-		t.Run("", func(t *testing.T) {
-
-			_, _, err := moduleCli.RecognizeSpeechFile(ctx, &lark.RecognizeSpeechFileReq{})
 			as.NotNil(err)
 			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
 		})
@@ -145,7 +131,21 @@ func Test_AI_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
+			_, _, err := moduleCli.RecognizeSpeechFile(ctx, &lark.RecognizeSpeechFileReq{})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+
 			_, _, err := moduleCli.TranslateText(ctx, &lark.TranslateTextReq{})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.DetectTextLanguage(ctx, &lark.DetectTextLanguageReq{})
 			as.NotNil(err)
 			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
 		})
@@ -161,21 +161,7 @@ func Test_AI_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
-			_, _, err := moduleCli.DetectTextLanguage(ctx, &lark.DetectTextLanguageReq{})
-			as.NotNil(err)
-			as.Equal("fake raw request", err.Error())
-		})
-
-		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.RecognizeBasicImage(ctx, &lark.RecognizeBasicImageReq{})
-			as.NotNil(err)
-			as.Equal("fake raw request", err.Error())
-		})
-
-		t.Run("", func(t *testing.T) {
-
-			_, _, err := moduleCli.RecognizeSpeechFile(ctx, &lark.RecognizeSpeechFileReq{})
 			as.NotNil(err)
 			as.Equal("fake raw request", err.Error())
 		})
@@ -189,7 +175,21 @@ func Test_AI_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
+			_, _, err := moduleCli.RecognizeSpeechFile(ctx, &lark.RecognizeSpeechFileReq{})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+
 			_, _, err := moduleCli.TranslateText(ctx, &lark.TranslateTextReq{})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.DetectTextLanguage(ctx, &lark.DetectTextLanguageReq{})
 			as.NotNil(err)
 			as.Equal("fake raw request", err.Error())
 		})

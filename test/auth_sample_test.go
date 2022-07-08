@@ -51,24 +51,24 @@ func Test_Auth_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
-			cli.Mock().MockAuthGetAccessToken(func(ctx context.Context, request *lark.GetAccessTokenReq, options ...lark.MethodOptionFunc) (*lark.GetAccessTokenResp, *lark.Response, error) {
+			cli.Mock().MockAuthResendAppTicket(func(ctx context.Context, request *lark.ResendAppTicketReq, options ...lark.MethodOptionFunc) (*lark.ResendAppTicketResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
-			defer cli.Mock().UnMockAuthGetAccessToken()
+			defer cli.Mock().UnMockAuthResendAppTicket()
 
-			_, _, err := moduleCli.GetAccessToken(ctx, &lark.GetAccessTokenReq{})
+			_, _, err := moduleCli.ResendAppTicket(ctx, &lark.ResendAppTicketReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "mock-failed")
 		})
 
 		t.Run("", func(t *testing.T) {
 
-			cli.Mock().MockAuthGetUserInfo(func(ctx context.Context, request *lark.GetUserInfoReq, options ...lark.MethodOptionFunc) (*lark.GetUserInfoResp, *lark.Response, error) {
+			cli.Mock().MockAuthGetAccessToken(func(ctx context.Context, request *lark.GetAccessTokenReq, options ...lark.MethodOptionFunc) (*lark.GetAccessTokenResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
-			defer cli.Mock().UnMockAuthGetUserInfo()
+			defer cli.Mock().UnMockAuthGetAccessToken()
 
-			_, _, err := moduleCli.GetUserInfo(ctx, &lark.GetUserInfoReq{})
+			_, _, err := moduleCli.GetAccessToken(ctx, &lark.GetAccessTokenReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "mock-failed")
 		})
@@ -87,12 +87,12 @@ func Test_Auth_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
-			cli.Mock().MockAuthResendAppTicket(func(ctx context.Context, request *lark.ResendAppTicketReq, options ...lark.MethodOptionFunc) (*lark.ResendAppTicketResp, *lark.Response, error) {
+			cli.Mock().MockAuthGetUserInfo(func(ctx context.Context, request *lark.GetUserInfoReq, options ...lark.MethodOptionFunc) (*lark.GetUserInfoResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
-			defer cli.Mock().UnMockAuthResendAppTicket()
+			defer cli.Mock().UnMockAuthGetUserInfo()
 
-			_, _, err := moduleCli.ResendAppTicket(ctx, &lark.ResendAppTicketReq{})
+			_, _, err := moduleCli.GetUserInfo(ctx, &lark.GetUserInfoReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "mock-failed")
 		})
@@ -105,14 +105,14 @@ func Test_Auth_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
-			_, _, err := moduleCli.GetAccessToken(ctx, &lark.GetAccessTokenReq{})
+			_, _, err := moduleCli.ResendAppTicket(ctx, &lark.ResendAppTicketReq{})
 			as.NotNil(err)
 			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
 		})
 
 		t.Run("", func(t *testing.T) {
 
-			_, _, err := moduleCli.GetUserInfo(ctx, &lark.GetUserInfoReq{})
+			_, _, err := moduleCli.GetAccessToken(ctx, &lark.GetAccessTokenReq{})
 			as.NotNil(err)
 			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
 		})
@@ -126,7 +126,7 @@ func Test_Auth_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
-			_, _, err := moduleCli.ResendAppTicket(ctx, &lark.ResendAppTicketReq{})
+			_, _, err := moduleCli.GetUserInfo(ctx, &lark.GetUserInfoReq{})
 			as.NotNil(err)
 			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
 		})
@@ -142,14 +142,14 @@ func Test_Auth_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
-			_, _, err := moduleCli.GetAccessToken(ctx, &lark.GetAccessTokenReq{})
+			_, _, err := moduleCli.ResendAppTicket(ctx, &lark.ResendAppTicketReq{})
 			as.NotNil(err)
 			as.Equal("fake raw request", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
 
-			_, _, err := moduleCli.GetUserInfo(ctx, &lark.GetUserInfoReq{})
+			_, _, err := moduleCli.GetAccessToken(ctx, &lark.GetAccessTokenReq{})
 			as.NotNil(err)
 			as.Equal("fake raw request", err.Error())
 		})
@@ -163,7 +163,7 @@ func Test_Auth_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
-			_, _, err := moduleCli.ResendAppTicket(ctx, &lark.ResendAppTicketReq{})
+			_, _, err := moduleCli.GetUserInfo(ctx, &lark.GetUserInfoReq{})
 			as.NotNil(err)
 			as.Equal("fake raw request", err.Error())
 		})

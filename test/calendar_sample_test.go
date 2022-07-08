@@ -38,7 +38,7 @@ func Test_Calendar_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
-			_, _, err := moduleCli.CreateCalendar(ctx, &lark.CreateCalendarReq{})
+			_, _, err := moduleCli.CreateCalendarACL(ctx, &lark.CreateCalendarACLReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "failed")
 		})
@@ -51,84 +51,12 @@ func Test_Calendar_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
-			cli.Mock().MockCalendarCreateCalendar(func(ctx context.Context, request *lark.CreateCalendarReq, options ...lark.MethodOptionFunc) (*lark.CreateCalendarResp, *lark.Response, error) {
-				return nil, nil, fmt.Errorf("mock-failed")
-			})
-			defer cli.Mock().UnMockCalendarCreateCalendar()
-
-			_, _, err := moduleCli.CreateCalendar(ctx, &lark.CreateCalendarReq{})
-			as.NotNil(err)
-			as.Equal(err.Error(), "mock-failed")
-		})
-
-		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockCalendarCreateCalendarACL(func(ctx context.Context, request *lark.CreateCalendarACLReq, options ...lark.MethodOptionFunc) (*lark.CreateCalendarACLResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
 			defer cli.Mock().UnMockCalendarCreateCalendarACL()
 
 			_, _, err := moduleCli.CreateCalendarACL(ctx, &lark.CreateCalendarACLReq{})
-			as.NotNil(err)
-			as.Equal(err.Error(), "mock-failed")
-		})
-
-		t.Run("", func(t *testing.T) {
-
-			cli.Mock().MockCalendarCreateCalendarEvent(func(ctx context.Context, request *lark.CreateCalendarEventReq, options ...lark.MethodOptionFunc) (*lark.CreateCalendarEventResp, *lark.Response, error) {
-				return nil, nil, fmt.Errorf("mock-failed")
-			})
-			defer cli.Mock().UnMockCalendarCreateCalendarEvent()
-
-			_, _, err := moduleCli.CreateCalendarEvent(ctx, &lark.CreateCalendarEventReq{})
-			as.NotNil(err)
-			as.Equal(err.Error(), "mock-failed")
-		})
-
-		t.Run("", func(t *testing.T) {
-
-			cli.Mock().MockCalendarCreateCalendarEventAttendee(func(ctx context.Context, request *lark.CreateCalendarEventAttendeeReq, options ...lark.MethodOptionFunc) (*lark.CreateCalendarEventAttendeeResp, *lark.Response, error) {
-				return nil, nil, fmt.Errorf("mock-failed")
-			})
-			defer cli.Mock().UnMockCalendarCreateCalendarEventAttendee()
-
-			_, _, err := moduleCli.CreateCalendarEventAttendee(ctx, &lark.CreateCalendarEventAttendeeReq{})
-			as.NotNil(err)
-			as.Equal(err.Error(), "mock-failed")
-		})
-
-		t.Run("", func(t *testing.T) {
-
-			cli.Mock().MockCalendarCreateCalendarExchangeBinding(func(ctx context.Context, request *lark.CreateCalendarExchangeBindingReq, options ...lark.MethodOptionFunc) (*lark.CreateCalendarExchangeBindingResp, *lark.Response, error) {
-				return nil, nil, fmt.Errorf("mock-failed")
-			})
-			defer cli.Mock().UnMockCalendarCreateCalendarExchangeBinding()
-
-			_, _, err := moduleCli.CreateCalendarExchangeBinding(ctx, &lark.CreateCalendarExchangeBindingReq{})
-			as.NotNil(err)
-			as.Equal(err.Error(), "mock-failed")
-		})
-
-		t.Run("", func(t *testing.T) {
-
-			cli.Mock().MockCalendarCreateCalendarTimeoffEvent(func(ctx context.Context, request *lark.CreateCalendarTimeoffEventReq, options ...lark.MethodOptionFunc) (*lark.CreateCalendarTimeoffEventResp, *lark.Response, error) {
-				return nil, nil, fmt.Errorf("mock-failed")
-			})
-			defer cli.Mock().UnMockCalendarCreateCalendarTimeoffEvent()
-
-			_, _, err := moduleCli.CreateCalendarTimeoffEvent(ctx, &lark.CreateCalendarTimeoffEventReq{})
-			as.NotNil(err)
-			as.Equal(err.Error(), "mock-failed")
-		})
-
-		t.Run("", func(t *testing.T) {
-
-			cli.Mock().MockCalendarDeleteCalendar(func(ctx context.Context, request *lark.DeleteCalendarReq, options ...lark.MethodOptionFunc) (*lark.DeleteCalendarResp, *lark.Response, error) {
-				return nil, nil, fmt.Errorf("mock-failed")
-			})
-			defer cli.Mock().UnMockCalendarDeleteCalendar()
-
-			_, _, err := moduleCli.DeleteCalendar(ctx, &lark.DeleteCalendarReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "mock-failed")
 		})
@@ -147,12 +75,252 @@ func Test_Calendar_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
+			cli.Mock().MockCalendarGetCalendarACLList(func(ctx context.Context, request *lark.GetCalendarACLListReq, options ...lark.MethodOptionFunc) (*lark.GetCalendarACLListResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockCalendarGetCalendarACLList()
+
+			_, _, err := moduleCli.GetCalendarACLList(ctx, &lark.GetCalendarACLListReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			cli.Mock().MockCalendarSubscribeCalendarACL(func(ctx context.Context, request *lark.SubscribeCalendarACLReq, options ...lark.MethodOptionFunc) (*lark.SubscribeCalendarACLResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockCalendarSubscribeCalendarACL()
+
+			_, _, err := moduleCli.SubscribeCalendarACL(ctx, &lark.SubscribeCalendarACLReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			cli.Mock().MockCalendarGetPrimaryCalendar(func(ctx context.Context, request *lark.GetPrimaryCalendarReq, options ...lark.MethodOptionFunc) (*lark.GetPrimaryCalendarResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockCalendarGetPrimaryCalendar()
+
+			_, _, err := moduleCli.GetPrimaryCalendar(ctx, &lark.GetPrimaryCalendarReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			cli.Mock().MockCalendarCreateCalendar(func(ctx context.Context, request *lark.CreateCalendarReq, options ...lark.MethodOptionFunc) (*lark.CreateCalendarResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockCalendarCreateCalendar()
+
+			_, _, err := moduleCli.CreateCalendar(ctx, &lark.CreateCalendarReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			cli.Mock().MockCalendarDeleteCalendar(func(ctx context.Context, request *lark.DeleteCalendarReq, options ...lark.MethodOptionFunc) (*lark.DeleteCalendarResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockCalendarDeleteCalendar()
+
+			_, _, err := moduleCli.DeleteCalendar(ctx, &lark.DeleteCalendarReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			cli.Mock().MockCalendarGetCalendar(func(ctx context.Context, request *lark.GetCalendarReq, options ...lark.MethodOptionFunc) (*lark.GetCalendarResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockCalendarGetCalendar()
+
+			_, _, err := moduleCli.GetCalendar(ctx, &lark.GetCalendarReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			cli.Mock().MockCalendarGetCalendarList(func(ctx context.Context, request *lark.GetCalendarListReq, options ...lark.MethodOptionFunc) (*lark.GetCalendarListResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockCalendarGetCalendarList()
+
+			_, _, err := moduleCli.GetCalendarList(ctx, &lark.GetCalendarListReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			cli.Mock().MockCalendarUpdateCalendar(func(ctx context.Context, request *lark.UpdateCalendarReq, options ...lark.MethodOptionFunc) (*lark.UpdateCalendarResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockCalendarUpdateCalendar()
+
+			_, _, err := moduleCli.UpdateCalendar(ctx, &lark.UpdateCalendarReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			cli.Mock().MockCalendarSearchCalendar(func(ctx context.Context, request *lark.SearchCalendarReq, options ...lark.MethodOptionFunc) (*lark.SearchCalendarResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockCalendarSearchCalendar()
+
+			_, _, err := moduleCli.SearchCalendar(ctx, &lark.SearchCalendarReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			cli.Mock().MockCalendarSubscribeCalendar(func(ctx context.Context, request *lark.SubscribeCalendarReq, options ...lark.MethodOptionFunc) (*lark.SubscribeCalendarResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockCalendarSubscribeCalendar()
+
+			_, _, err := moduleCli.SubscribeCalendar(ctx, &lark.SubscribeCalendarReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			cli.Mock().MockCalendarUnsubscribeCalendar(func(ctx context.Context, request *lark.UnsubscribeCalendarReq, options ...lark.MethodOptionFunc) (*lark.UnsubscribeCalendarResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockCalendarUnsubscribeCalendar()
+
+			_, _, err := moduleCli.UnsubscribeCalendar(ctx, &lark.UnsubscribeCalendarReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			cli.Mock().MockCalendarSubscribeCalendarChangeEvent(func(ctx context.Context, request *lark.SubscribeCalendarChangeEventReq, options ...lark.MethodOptionFunc) (*lark.SubscribeCalendarChangeEventResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockCalendarSubscribeCalendarChangeEvent()
+
+			_, _, err := moduleCli.SubscribeCalendarChangeEvent(ctx, &lark.SubscribeCalendarChangeEventReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			cli.Mock().MockCalendarCreateCalendarEvent(func(ctx context.Context, request *lark.CreateCalendarEventReq, options ...lark.MethodOptionFunc) (*lark.CreateCalendarEventResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockCalendarCreateCalendarEvent()
+
+			_, _, err := moduleCli.CreateCalendarEvent(ctx, &lark.CreateCalendarEventReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
 			cli.Mock().MockCalendarDeleteCalendarEvent(func(ctx context.Context, request *lark.DeleteCalendarEventReq, options ...lark.MethodOptionFunc) (*lark.DeleteCalendarEventResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
 			defer cli.Mock().UnMockCalendarDeleteCalendarEvent()
 
 			_, _, err := moduleCli.DeleteCalendarEvent(ctx, &lark.DeleteCalendarEventReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			cli.Mock().MockCalendarGetCalendarEvent(func(ctx context.Context, request *lark.GetCalendarEventReq, options ...lark.MethodOptionFunc) (*lark.GetCalendarEventResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockCalendarGetCalendarEvent()
+
+			_, _, err := moduleCli.GetCalendarEvent(ctx, &lark.GetCalendarEventReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			cli.Mock().MockCalendarGetCalendarEventList(func(ctx context.Context, request *lark.GetCalendarEventListReq, options ...lark.MethodOptionFunc) (*lark.GetCalendarEventListResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockCalendarGetCalendarEventList()
+
+			_, _, err := moduleCli.GetCalendarEventList(ctx, &lark.GetCalendarEventListReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			cli.Mock().MockCalendarUpdateCalendarEvent(func(ctx context.Context, request *lark.UpdateCalendarEventReq, options ...lark.MethodOptionFunc) (*lark.UpdateCalendarEventResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockCalendarUpdateCalendarEvent()
+
+			_, _, err := moduleCli.UpdateCalendarEvent(ctx, &lark.UpdateCalendarEventReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			cli.Mock().MockCalendarSearchCalendarEvent(func(ctx context.Context, request *lark.SearchCalendarEventReq, options ...lark.MethodOptionFunc) (*lark.SearchCalendarEventResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockCalendarSearchCalendarEvent()
+
+			_, _, err := moduleCli.SearchCalendarEvent(ctx, &lark.SearchCalendarEventReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			cli.Mock().MockCalendarSubscribeCalendarEvent(func(ctx context.Context, request *lark.SubscribeCalendarEventReq, options ...lark.MethodOptionFunc) (*lark.SubscribeCalendarEventResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockCalendarSubscribeCalendarEvent()
+
+			_, _, err := moduleCli.SubscribeCalendarEvent(ctx, &lark.SubscribeCalendarEventReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			cli.Mock().MockCalendarCreateCalendarEventAttendee(func(ctx context.Context, request *lark.CreateCalendarEventAttendeeReq, options ...lark.MethodOptionFunc) (*lark.CreateCalendarEventAttendeeResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockCalendarCreateCalendarEventAttendee()
+
+			_, _, err := moduleCli.CreateCalendarEventAttendee(ctx, &lark.CreateCalendarEventAttendeeReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			cli.Mock().MockCalendarGetCalendarEventAttendeeList(func(ctx context.Context, request *lark.GetCalendarEventAttendeeListReq, options ...lark.MethodOptionFunc) (*lark.GetCalendarEventAttendeeListResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockCalendarGetCalendarEventAttendeeList()
+
+			_, _, err := moduleCli.GetCalendarEventAttendeeList(ctx, &lark.GetCalendarEventAttendeeListReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "mock-failed")
 		})
@@ -171,12 +339,36 @@ func Test_Calendar_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
-			cli.Mock().MockCalendarDeleteCalendarExchangeBinding(func(ctx context.Context, request *lark.DeleteCalendarExchangeBindingReq, options ...lark.MethodOptionFunc) (*lark.DeleteCalendarExchangeBindingResp, *lark.Response, error) {
+			cli.Mock().MockCalendarGetCalendarEventAttendeeChatMemberList(func(ctx context.Context, request *lark.GetCalendarEventAttendeeChatMemberListReq, options ...lark.MethodOptionFunc) (*lark.GetCalendarEventAttendeeChatMemberListResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
-			defer cli.Mock().UnMockCalendarDeleteCalendarExchangeBinding()
+			defer cli.Mock().UnMockCalendarGetCalendarEventAttendeeChatMemberList()
 
-			_, _, err := moduleCli.DeleteCalendarExchangeBinding(ctx, &lark.DeleteCalendarExchangeBindingReq{})
+			_, _, err := moduleCli.GetCalendarEventAttendeeChatMemberList(ctx, &lark.GetCalendarEventAttendeeChatMemberListReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			cli.Mock().MockCalendarGetCalendarFreeBusyList(func(ctx context.Context, request *lark.GetCalendarFreeBusyListReq, options ...lark.MethodOptionFunc) (*lark.GetCalendarFreeBusyListResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockCalendarGetCalendarFreeBusyList()
+
+			_, _, err := moduleCli.GetCalendarFreeBusyList(ctx, &lark.GetCalendarFreeBusyListReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			cli.Mock().MockCalendarCreateCalendarTimeoffEvent(func(ctx context.Context, request *lark.CreateCalendarTimeoffEventReq, options ...lark.MethodOptionFunc) (*lark.CreateCalendarTimeoffEventResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockCalendarCreateCalendarTimeoffEvent()
+
+			_, _, err := moduleCli.CreateCalendarTimeoffEvent(ctx, &lark.CreateCalendarTimeoffEventReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "mock-failed")
 		})
@@ -207,72 +399,12 @@ func Test_Calendar_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
-			cli.Mock().MockCalendarGetCalendar(func(ctx context.Context, request *lark.GetCalendarReq, options ...lark.MethodOptionFunc) (*lark.GetCalendarResp, *lark.Response, error) {
+			cli.Mock().MockCalendarCreateCalendarExchangeBinding(func(ctx context.Context, request *lark.CreateCalendarExchangeBindingReq, options ...lark.MethodOptionFunc) (*lark.CreateCalendarExchangeBindingResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
-			defer cli.Mock().UnMockCalendarGetCalendar()
+			defer cli.Mock().UnMockCalendarCreateCalendarExchangeBinding()
 
-			_, _, err := moduleCli.GetCalendar(ctx, &lark.GetCalendarReq{})
-			as.NotNil(err)
-			as.Equal(err.Error(), "mock-failed")
-		})
-
-		t.Run("", func(t *testing.T) {
-
-			cli.Mock().MockCalendarGetCalendarACLList(func(ctx context.Context, request *lark.GetCalendarACLListReq, options ...lark.MethodOptionFunc) (*lark.GetCalendarACLListResp, *lark.Response, error) {
-				return nil, nil, fmt.Errorf("mock-failed")
-			})
-			defer cli.Mock().UnMockCalendarGetCalendarACLList()
-
-			_, _, err := moduleCli.GetCalendarACLList(ctx, &lark.GetCalendarACLListReq{})
-			as.NotNil(err)
-			as.Equal(err.Error(), "mock-failed")
-		})
-
-		t.Run("", func(t *testing.T) {
-
-			cli.Mock().MockCalendarGetCalendarEvent(func(ctx context.Context, request *lark.GetCalendarEventReq, options ...lark.MethodOptionFunc) (*lark.GetCalendarEventResp, *lark.Response, error) {
-				return nil, nil, fmt.Errorf("mock-failed")
-			})
-			defer cli.Mock().UnMockCalendarGetCalendarEvent()
-
-			_, _, err := moduleCli.GetCalendarEvent(ctx, &lark.GetCalendarEventReq{})
-			as.NotNil(err)
-			as.Equal(err.Error(), "mock-failed")
-		})
-
-		t.Run("", func(t *testing.T) {
-
-			cli.Mock().MockCalendarGetCalendarEventAttendeeChatMemberList(func(ctx context.Context, request *lark.GetCalendarEventAttendeeChatMemberListReq, options ...lark.MethodOptionFunc) (*lark.GetCalendarEventAttendeeChatMemberListResp, *lark.Response, error) {
-				return nil, nil, fmt.Errorf("mock-failed")
-			})
-			defer cli.Mock().UnMockCalendarGetCalendarEventAttendeeChatMemberList()
-
-			_, _, err := moduleCli.GetCalendarEventAttendeeChatMemberList(ctx, &lark.GetCalendarEventAttendeeChatMemberListReq{})
-			as.NotNil(err)
-			as.Equal(err.Error(), "mock-failed")
-		})
-
-		t.Run("", func(t *testing.T) {
-
-			cli.Mock().MockCalendarGetCalendarEventAttendeeList(func(ctx context.Context, request *lark.GetCalendarEventAttendeeListReq, options ...lark.MethodOptionFunc) (*lark.GetCalendarEventAttendeeListResp, *lark.Response, error) {
-				return nil, nil, fmt.Errorf("mock-failed")
-			})
-			defer cli.Mock().UnMockCalendarGetCalendarEventAttendeeList()
-
-			_, _, err := moduleCli.GetCalendarEventAttendeeList(ctx, &lark.GetCalendarEventAttendeeListReq{})
-			as.NotNil(err)
-			as.Equal(err.Error(), "mock-failed")
-		})
-
-		t.Run("", func(t *testing.T) {
-
-			cli.Mock().MockCalendarGetCalendarEventList(func(ctx context.Context, request *lark.GetCalendarEventListReq, options ...lark.MethodOptionFunc) (*lark.GetCalendarEventListResp, *lark.Response, error) {
-				return nil, nil, fmt.Errorf("mock-failed")
-			})
-			defer cli.Mock().UnMockCalendarGetCalendarEventList()
-
-			_, _, err := moduleCli.GetCalendarEventList(ctx, &lark.GetCalendarEventListReq{})
+			_, _, err := moduleCli.CreateCalendarExchangeBinding(ctx, &lark.CreateCalendarExchangeBindingReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "mock-failed")
 		})
@@ -291,144 +423,12 @@ func Test_Calendar_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
-			cli.Mock().MockCalendarGetCalendarFreeBusyList(func(ctx context.Context, request *lark.GetCalendarFreeBusyListReq, options ...lark.MethodOptionFunc) (*lark.GetCalendarFreeBusyListResp, *lark.Response, error) {
+			cli.Mock().MockCalendarDeleteCalendarExchangeBinding(func(ctx context.Context, request *lark.DeleteCalendarExchangeBindingReq, options ...lark.MethodOptionFunc) (*lark.DeleteCalendarExchangeBindingResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
-			defer cli.Mock().UnMockCalendarGetCalendarFreeBusyList()
+			defer cli.Mock().UnMockCalendarDeleteCalendarExchangeBinding()
 
-			_, _, err := moduleCli.GetCalendarFreeBusyList(ctx, &lark.GetCalendarFreeBusyListReq{})
-			as.NotNil(err)
-			as.Equal(err.Error(), "mock-failed")
-		})
-
-		t.Run("", func(t *testing.T) {
-
-			cli.Mock().MockCalendarGetCalendarList(func(ctx context.Context, request *lark.GetCalendarListReq, options ...lark.MethodOptionFunc) (*lark.GetCalendarListResp, *lark.Response, error) {
-				return nil, nil, fmt.Errorf("mock-failed")
-			})
-			defer cli.Mock().UnMockCalendarGetCalendarList()
-
-			_, _, err := moduleCli.GetCalendarList(ctx, &lark.GetCalendarListReq{})
-			as.NotNil(err)
-			as.Equal(err.Error(), "mock-failed")
-		})
-
-		t.Run("", func(t *testing.T) {
-
-			cli.Mock().MockCalendarGetPrimaryCalendar(func(ctx context.Context, request *lark.GetPrimaryCalendarReq, options ...lark.MethodOptionFunc) (*lark.GetPrimaryCalendarResp, *lark.Response, error) {
-				return nil, nil, fmt.Errorf("mock-failed")
-			})
-			defer cli.Mock().UnMockCalendarGetPrimaryCalendar()
-
-			_, _, err := moduleCli.GetPrimaryCalendar(ctx, &lark.GetPrimaryCalendarReq{})
-			as.NotNil(err)
-			as.Equal(err.Error(), "mock-failed")
-		})
-
-		t.Run("", func(t *testing.T) {
-
-			cli.Mock().MockCalendarSearchCalendar(func(ctx context.Context, request *lark.SearchCalendarReq, options ...lark.MethodOptionFunc) (*lark.SearchCalendarResp, *lark.Response, error) {
-				return nil, nil, fmt.Errorf("mock-failed")
-			})
-			defer cli.Mock().UnMockCalendarSearchCalendar()
-
-			_, _, err := moduleCli.SearchCalendar(ctx, &lark.SearchCalendarReq{})
-			as.NotNil(err)
-			as.Equal(err.Error(), "mock-failed")
-		})
-
-		t.Run("", func(t *testing.T) {
-
-			cli.Mock().MockCalendarSearchCalendarEvent(func(ctx context.Context, request *lark.SearchCalendarEventReq, options ...lark.MethodOptionFunc) (*lark.SearchCalendarEventResp, *lark.Response, error) {
-				return nil, nil, fmt.Errorf("mock-failed")
-			})
-			defer cli.Mock().UnMockCalendarSearchCalendarEvent()
-
-			_, _, err := moduleCli.SearchCalendarEvent(ctx, &lark.SearchCalendarEventReq{})
-			as.NotNil(err)
-			as.Equal(err.Error(), "mock-failed")
-		})
-
-		t.Run("", func(t *testing.T) {
-
-			cli.Mock().MockCalendarSubscribeCalendar(func(ctx context.Context, request *lark.SubscribeCalendarReq, options ...lark.MethodOptionFunc) (*lark.SubscribeCalendarResp, *lark.Response, error) {
-				return nil, nil, fmt.Errorf("mock-failed")
-			})
-			defer cli.Mock().UnMockCalendarSubscribeCalendar()
-
-			_, _, err := moduleCli.SubscribeCalendar(ctx, &lark.SubscribeCalendarReq{})
-			as.NotNil(err)
-			as.Equal(err.Error(), "mock-failed")
-		})
-
-		t.Run("", func(t *testing.T) {
-
-			cli.Mock().MockCalendarSubscribeCalendarACL(func(ctx context.Context, request *lark.SubscribeCalendarACLReq, options ...lark.MethodOptionFunc) (*lark.SubscribeCalendarACLResp, *lark.Response, error) {
-				return nil, nil, fmt.Errorf("mock-failed")
-			})
-			defer cli.Mock().UnMockCalendarSubscribeCalendarACL()
-
-			_, _, err := moduleCli.SubscribeCalendarACL(ctx, &lark.SubscribeCalendarACLReq{})
-			as.NotNil(err)
-			as.Equal(err.Error(), "mock-failed")
-		})
-
-		t.Run("", func(t *testing.T) {
-
-			cli.Mock().MockCalendarSubscribeCalendarChangeEvent(func(ctx context.Context, request *lark.SubscribeCalendarChangeEventReq, options ...lark.MethodOptionFunc) (*lark.SubscribeCalendarChangeEventResp, *lark.Response, error) {
-				return nil, nil, fmt.Errorf("mock-failed")
-			})
-			defer cli.Mock().UnMockCalendarSubscribeCalendarChangeEvent()
-
-			_, _, err := moduleCli.SubscribeCalendarChangeEvent(ctx, &lark.SubscribeCalendarChangeEventReq{})
-			as.NotNil(err)
-			as.Equal(err.Error(), "mock-failed")
-		})
-
-		t.Run("", func(t *testing.T) {
-
-			cli.Mock().MockCalendarSubscribeCalendarEvent(func(ctx context.Context, request *lark.SubscribeCalendarEventReq, options ...lark.MethodOptionFunc) (*lark.SubscribeCalendarEventResp, *lark.Response, error) {
-				return nil, nil, fmt.Errorf("mock-failed")
-			})
-			defer cli.Mock().UnMockCalendarSubscribeCalendarEvent()
-
-			_, _, err := moduleCli.SubscribeCalendarEvent(ctx, &lark.SubscribeCalendarEventReq{})
-			as.NotNil(err)
-			as.Equal(err.Error(), "mock-failed")
-		})
-
-		t.Run("", func(t *testing.T) {
-
-			cli.Mock().MockCalendarUnsubscribeCalendar(func(ctx context.Context, request *lark.UnsubscribeCalendarReq, options ...lark.MethodOptionFunc) (*lark.UnsubscribeCalendarResp, *lark.Response, error) {
-				return nil, nil, fmt.Errorf("mock-failed")
-			})
-			defer cli.Mock().UnMockCalendarUnsubscribeCalendar()
-
-			_, _, err := moduleCli.UnsubscribeCalendar(ctx, &lark.UnsubscribeCalendarReq{})
-			as.NotNil(err)
-			as.Equal(err.Error(), "mock-failed")
-		})
-
-		t.Run("", func(t *testing.T) {
-
-			cli.Mock().MockCalendarUpdateCalendar(func(ctx context.Context, request *lark.UpdateCalendarReq, options ...lark.MethodOptionFunc) (*lark.UpdateCalendarResp, *lark.Response, error) {
-				return nil, nil, fmt.Errorf("mock-failed")
-			})
-			defer cli.Mock().UnMockCalendarUpdateCalendar()
-
-			_, _, err := moduleCli.UpdateCalendar(ctx, &lark.UpdateCalendarReq{})
-			as.NotNil(err)
-			as.Equal(err.Error(), "mock-failed")
-		})
-
-		t.Run("", func(t *testing.T) {
-
-			cli.Mock().MockCalendarUpdateCalendarEvent(func(ctx context.Context, request *lark.UpdateCalendarEventReq, options ...lark.MethodOptionFunc) (*lark.UpdateCalendarEventResp, *lark.Response, error) {
-				return nil, nil, fmt.Errorf("mock-failed")
-			})
-			defer cli.Mock().UnMockCalendarUpdateCalendarEvent()
-
-			_, _, err := moduleCli.UpdateCalendarEvent(ctx, &lark.UpdateCalendarEventReq{})
+			_, _, err := moduleCli.DeleteCalendarExchangeBinding(ctx, &lark.DeleteCalendarExchangeBindingReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "mock-failed")
 		})
@@ -441,56 +441,7 @@ func Test_Calendar_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
-			_, _, err := moduleCli.CreateCalendar(ctx, &lark.CreateCalendarReq{})
-			as.NotNil(err)
-			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
-		})
-
-		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.CreateCalendarACL(ctx, &lark.CreateCalendarACLReq{
-				CalendarID: "x",
-			})
-			as.NotNil(err)
-			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
-		})
-
-		t.Run("", func(t *testing.T) {
-
-			_, _, err := moduleCli.CreateCalendarEvent(ctx, &lark.CreateCalendarEventReq{
-				CalendarID: "x",
-			})
-			as.NotNil(err)
-			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
-		})
-
-		t.Run("", func(t *testing.T) {
-
-			_, _, err := moduleCli.CreateCalendarEventAttendee(ctx, &lark.CreateCalendarEventAttendeeReq{
-				CalendarID: "x",
-				EventID:    "x",
-			})
-			as.NotNil(err)
-			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
-		})
-
-		t.Run("", func(t *testing.T) {
-
-			_, _, err := moduleCli.CreateCalendarExchangeBinding(ctx, &lark.CreateCalendarExchangeBindingReq{})
-			as.NotNil(err)
-			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
-		})
-
-		t.Run("", func(t *testing.T) {
-
-			_, _, err := moduleCli.CreateCalendarTimeoffEvent(ctx, &lark.CreateCalendarTimeoffEventReq{})
-			as.NotNil(err)
-			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
-		})
-
-		t.Run("", func(t *testing.T) {
-
-			_, _, err := moduleCli.DeleteCalendar(ctx, &lark.DeleteCalendarReq{
 				CalendarID: "x",
 			})
 			as.NotNil(err)
@@ -509,7 +460,181 @@ func Test_Calendar_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
+			_, _, err := moduleCli.GetCalendarACLList(ctx, &lark.GetCalendarACLListReq{
+				CalendarID: "x",
+			})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.SubscribeCalendarACL(ctx, &lark.SubscribeCalendarACLReq{
+				CalendarID: "x",
+			})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.GetPrimaryCalendar(ctx, &lark.GetPrimaryCalendarReq{})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.CreateCalendar(ctx, &lark.CreateCalendarReq{})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.DeleteCalendar(ctx, &lark.DeleteCalendarReq{
+				CalendarID: "x",
+			})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.GetCalendar(ctx, &lark.GetCalendarReq{
+				CalendarID: "x",
+			})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.GetCalendarList(ctx, &lark.GetCalendarListReq{})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.UpdateCalendar(ctx, &lark.UpdateCalendarReq{
+				CalendarID: "x",
+			})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.SearchCalendar(ctx, &lark.SearchCalendarReq{})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.SubscribeCalendar(ctx, &lark.SubscribeCalendarReq{
+				CalendarID: "x",
+			})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.UnsubscribeCalendar(ctx, &lark.UnsubscribeCalendarReq{
+				CalendarID: "x",
+			})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.SubscribeCalendarChangeEvent(ctx, &lark.SubscribeCalendarChangeEventReq{})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.CreateCalendarEvent(ctx, &lark.CreateCalendarEventReq{
+				CalendarID: "x",
+			})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+
 			_, _, err := moduleCli.DeleteCalendarEvent(ctx, &lark.DeleteCalendarEventReq{
+				CalendarID: "x",
+				EventID:    "x",
+			})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.GetCalendarEvent(ctx, &lark.GetCalendarEventReq{
+				CalendarID: "x",
+				EventID:    "x",
+			})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.GetCalendarEventList(ctx, &lark.GetCalendarEventListReq{
+				CalendarID: "x",
+			})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.UpdateCalendarEvent(ctx, &lark.UpdateCalendarEventReq{
+				CalendarID: "x",
+				EventID:    "x",
+			})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.SearchCalendarEvent(ctx, &lark.SearchCalendarEventReq{
+				CalendarID: "x",
+			})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.SubscribeCalendarEvent(ctx, &lark.SubscribeCalendarEventReq{
+				CalendarID: "x",
+			})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.CreateCalendarEventAttendee(ctx, &lark.CreateCalendarEventAttendeeReq{
+				CalendarID: "x",
+				EventID:    "x",
+			})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.GetCalendarEventAttendeeList(ctx, &lark.GetCalendarEventAttendeeListReq{
 				CalendarID: "x",
 				EventID:    "x",
 			})
@@ -529,9 +654,25 @@ func Test_Calendar_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
-			_, _, err := moduleCli.DeleteCalendarExchangeBinding(ctx, &lark.DeleteCalendarExchangeBindingReq{
-				ExchangeBindingID: "x",
+			_, _, err := moduleCli.GetCalendarEventAttendeeChatMemberList(ctx, &lark.GetCalendarEventAttendeeChatMemberListReq{
+				CalendarID: "x",
+				EventID:    "x",
+				AttendeeID: "x",
 			})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.GetCalendarFreeBusyList(ctx, &lark.GetCalendarFreeBusyListReq{})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.CreateCalendarTimeoffEvent(ctx, &lark.CreateCalendarTimeoffEventReq{})
 			as.NotNil(err)
 			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
 		})
@@ -554,58 +695,7 @@ func Test_Calendar_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
-			_, _, err := moduleCli.GetCalendar(ctx, &lark.GetCalendarReq{
-				CalendarID: "x",
-			})
-			as.NotNil(err)
-			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
-		})
-
-		t.Run("", func(t *testing.T) {
-
-			_, _, err := moduleCli.GetCalendarACLList(ctx, &lark.GetCalendarACLListReq{
-				CalendarID: "x",
-			})
-			as.NotNil(err)
-			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
-		})
-
-		t.Run("", func(t *testing.T) {
-
-			_, _, err := moduleCli.GetCalendarEvent(ctx, &lark.GetCalendarEventReq{
-				CalendarID: "x",
-				EventID:    "x",
-			})
-			as.NotNil(err)
-			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
-		})
-
-		t.Run("", func(t *testing.T) {
-
-			_, _, err := moduleCli.GetCalendarEventAttendeeChatMemberList(ctx, &lark.GetCalendarEventAttendeeChatMemberListReq{
-				CalendarID: "x",
-				EventID:    "x",
-				AttendeeID: "x",
-			})
-			as.NotNil(err)
-			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
-		})
-
-		t.Run("", func(t *testing.T) {
-
-			_, _, err := moduleCli.GetCalendarEventAttendeeList(ctx, &lark.GetCalendarEventAttendeeListReq{
-				CalendarID: "x",
-				EventID:    "x",
-			})
-			as.NotNil(err)
-			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
-		})
-
-		t.Run("", func(t *testing.T) {
-
-			_, _, err := moduleCli.GetCalendarEventList(ctx, &lark.GetCalendarEventListReq{
-				CalendarID: "x",
-			})
+			_, _, err := moduleCli.CreateCalendarExchangeBinding(ctx, &lark.CreateCalendarExchangeBindingReq{})
 			as.NotNil(err)
 			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
 		})
@@ -621,98 +711,8 @@ func Test_Calendar_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
-			_, _, err := moduleCli.GetCalendarFreeBusyList(ctx, &lark.GetCalendarFreeBusyListReq{})
-			as.NotNil(err)
-			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
-		})
-
-		t.Run("", func(t *testing.T) {
-
-			_, _, err := moduleCli.GetCalendarList(ctx, &lark.GetCalendarListReq{})
-			as.NotNil(err)
-			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
-		})
-
-		t.Run("", func(t *testing.T) {
-
-			_, _, err := moduleCli.GetPrimaryCalendar(ctx, &lark.GetPrimaryCalendarReq{})
-			as.NotNil(err)
-			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
-		})
-
-		t.Run("", func(t *testing.T) {
-
-			_, _, err := moduleCli.SearchCalendar(ctx, &lark.SearchCalendarReq{})
-			as.NotNil(err)
-			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
-		})
-
-		t.Run("", func(t *testing.T) {
-
-			_, _, err := moduleCli.SearchCalendarEvent(ctx, &lark.SearchCalendarEventReq{
-				CalendarID: "x",
-			})
-			as.NotNil(err)
-			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
-		})
-
-		t.Run("", func(t *testing.T) {
-
-			_, _, err := moduleCli.SubscribeCalendar(ctx, &lark.SubscribeCalendarReq{
-				CalendarID: "x",
-			})
-			as.NotNil(err)
-			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
-		})
-
-		t.Run("", func(t *testing.T) {
-
-			_, _, err := moduleCli.SubscribeCalendarACL(ctx, &lark.SubscribeCalendarACLReq{
-				CalendarID: "x",
-			})
-			as.NotNil(err)
-			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
-		})
-
-		t.Run("", func(t *testing.T) {
-
-			_, _, err := moduleCli.SubscribeCalendarChangeEvent(ctx, &lark.SubscribeCalendarChangeEventReq{})
-			as.NotNil(err)
-			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
-		})
-
-		t.Run("", func(t *testing.T) {
-
-			_, _, err := moduleCli.SubscribeCalendarEvent(ctx, &lark.SubscribeCalendarEventReq{
-				CalendarID: "x",
-			})
-			as.NotNil(err)
-			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
-		})
-
-		t.Run("", func(t *testing.T) {
-
-			_, _, err := moduleCli.UnsubscribeCalendar(ctx, &lark.UnsubscribeCalendarReq{
-				CalendarID: "x",
-			})
-			as.NotNil(err)
-			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
-		})
-
-		t.Run("", func(t *testing.T) {
-
-			_, _, err := moduleCli.UpdateCalendar(ctx, &lark.UpdateCalendarReq{
-				CalendarID: "x",
-			})
-			as.NotNil(err)
-			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
-		})
-
-		t.Run("", func(t *testing.T) {
-
-			_, _, err := moduleCli.UpdateCalendarEvent(ctx, &lark.UpdateCalendarEventReq{
-				CalendarID: "x",
-				EventID:    "x",
+			_, _, err := moduleCli.DeleteCalendarExchangeBinding(ctx, &lark.DeleteCalendarExchangeBindingReq{
+				ExchangeBindingID: "x",
 			})
 			as.NotNil(err)
 			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
@@ -729,56 +729,7 @@ func Test_Calendar_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
-			_, _, err := moduleCli.CreateCalendar(ctx, &lark.CreateCalendarReq{})
-			as.NotNil(err)
-			as.Equal("fake raw request", err.Error())
-		})
-
-		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.CreateCalendarACL(ctx, &lark.CreateCalendarACLReq{
-				CalendarID: "x",
-			})
-			as.NotNil(err)
-			as.Equal("fake raw request", err.Error())
-		})
-
-		t.Run("", func(t *testing.T) {
-
-			_, _, err := moduleCli.CreateCalendarEvent(ctx, &lark.CreateCalendarEventReq{
-				CalendarID: "x",
-			})
-			as.NotNil(err)
-			as.Equal("fake raw request", err.Error())
-		})
-
-		t.Run("", func(t *testing.T) {
-
-			_, _, err := moduleCli.CreateCalendarEventAttendee(ctx, &lark.CreateCalendarEventAttendeeReq{
-				CalendarID: "x",
-				EventID:    "x",
-			})
-			as.NotNil(err)
-			as.Equal("fake raw request", err.Error())
-		})
-
-		t.Run("", func(t *testing.T) {
-
-			_, _, err := moduleCli.CreateCalendarExchangeBinding(ctx, &lark.CreateCalendarExchangeBindingReq{})
-			as.NotNil(err)
-			as.Equal("fake raw request", err.Error())
-		})
-
-		t.Run("", func(t *testing.T) {
-
-			_, _, err := moduleCli.CreateCalendarTimeoffEvent(ctx, &lark.CreateCalendarTimeoffEventReq{})
-			as.NotNil(err)
-			as.Equal("fake raw request", err.Error())
-		})
-
-		t.Run("", func(t *testing.T) {
-
-			_, _, err := moduleCli.DeleteCalendar(ctx, &lark.DeleteCalendarReq{
 				CalendarID: "x",
 			})
 			as.NotNil(err)
@@ -797,7 +748,181 @@ func Test_Calendar_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
+			_, _, err := moduleCli.GetCalendarACLList(ctx, &lark.GetCalendarACLListReq{
+				CalendarID: "x",
+			})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.SubscribeCalendarACL(ctx, &lark.SubscribeCalendarACLReq{
+				CalendarID: "x",
+			})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.GetPrimaryCalendar(ctx, &lark.GetPrimaryCalendarReq{})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.CreateCalendar(ctx, &lark.CreateCalendarReq{})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.DeleteCalendar(ctx, &lark.DeleteCalendarReq{
+				CalendarID: "x",
+			})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.GetCalendar(ctx, &lark.GetCalendarReq{
+				CalendarID: "x",
+			})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.GetCalendarList(ctx, &lark.GetCalendarListReq{})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.UpdateCalendar(ctx, &lark.UpdateCalendarReq{
+				CalendarID: "x",
+			})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.SearchCalendar(ctx, &lark.SearchCalendarReq{})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.SubscribeCalendar(ctx, &lark.SubscribeCalendarReq{
+				CalendarID: "x",
+			})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.UnsubscribeCalendar(ctx, &lark.UnsubscribeCalendarReq{
+				CalendarID: "x",
+			})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.SubscribeCalendarChangeEvent(ctx, &lark.SubscribeCalendarChangeEventReq{})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.CreateCalendarEvent(ctx, &lark.CreateCalendarEventReq{
+				CalendarID: "x",
+			})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+
 			_, _, err := moduleCli.DeleteCalendarEvent(ctx, &lark.DeleteCalendarEventReq{
+				CalendarID: "x",
+				EventID:    "x",
+			})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.GetCalendarEvent(ctx, &lark.GetCalendarEventReq{
+				CalendarID: "x",
+				EventID:    "x",
+			})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.GetCalendarEventList(ctx, &lark.GetCalendarEventListReq{
+				CalendarID: "x",
+			})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.UpdateCalendarEvent(ctx, &lark.UpdateCalendarEventReq{
+				CalendarID: "x",
+				EventID:    "x",
+			})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.SearchCalendarEvent(ctx, &lark.SearchCalendarEventReq{
+				CalendarID: "x",
+			})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.SubscribeCalendarEvent(ctx, &lark.SubscribeCalendarEventReq{
+				CalendarID: "x",
+			})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.CreateCalendarEventAttendee(ctx, &lark.CreateCalendarEventAttendeeReq{
+				CalendarID: "x",
+				EventID:    "x",
+			})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.GetCalendarEventAttendeeList(ctx, &lark.GetCalendarEventAttendeeListReq{
 				CalendarID: "x",
 				EventID:    "x",
 			})
@@ -817,9 +942,25 @@ func Test_Calendar_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
-			_, _, err := moduleCli.DeleteCalendarExchangeBinding(ctx, &lark.DeleteCalendarExchangeBindingReq{
-				ExchangeBindingID: "x",
+			_, _, err := moduleCli.GetCalendarEventAttendeeChatMemberList(ctx, &lark.GetCalendarEventAttendeeChatMemberListReq{
+				CalendarID: "x",
+				EventID:    "x",
+				AttendeeID: "x",
 			})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.GetCalendarFreeBusyList(ctx, &lark.GetCalendarFreeBusyListReq{})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.CreateCalendarTimeoffEvent(ctx, &lark.CreateCalendarTimeoffEventReq{})
 			as.NotNil(err)
 			as.Equal("fake raw request", err.Error())
 		})
@@ -842,58 +983,7 @@ func Test_Calendar_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
-			_, _, err := moduleCli.GetCalendar(ctx, &lark.GetCalendarReq{
-				CalendarID: "x",
-			})
-			as.NotNil(err)
-			as.Equal("fake raw request", err.Error())
-		})
-
-		t.Run("", func(t *testing.T) {
-
-			_, _, err := moduleCli.GetCalendarACLList(ctx, &lark.GetCalendarACLListReq{
-				CalendarID: "x",
-			})
-			as.NotNil(err)
-			as.Equal("fake raw request", err.Error())
-		})
-
-		t.Run("", func(t *testing.T) {
-
-			_, _, err := moduleCli.GetCalendarEvent(ctx, &lark.GetCalendarEventReq{
-				CalendarID: "x",
-				EventID:    "x",
-			})
-			as.NotNil(err)
-			as.Equal("fake raw request", err.Error())
-		})
-
-		t.Run("", func(t *testing.T) {
-
-			_, _, err := moduleCli.GetCalendarEventAttendeeChatMemberList(ctx, &lark.GetCalendarEventAttendeeChatMemberListReq{
-				CalendarID: "x",
-				EventID:    "x",
-				AttendeeID: "x",
-			})
-			as.NotNil(err)
-			as.Equal("fake raw request", err.Error())
-		})
-
-		t.Run("", func(t *testing.T) {
-
-			_, _, err := moduleCli.GetCalendarEventAttendeeList(ctx, &lark.GetCalendarEventAttendeeListReq{
-				CalendarID: "x",
-				EventID:    "x",
-			})
-			as.NotNil(err)
-			as.Equal("fake raw request", err.Error())
-		})
-
-		t.Run("", func(t *testing.T) {
-
-			_, _, err := moduleCli.GetCalendarEventList(ctx, &lark.GetCalendarEventListReq{
-				CalendarID: "x",
-			})
+			_, _, err := moduleCli.CreateCalendarExchangeBinding(ctx, &lark.CreateCalendarExchangeBindingReq{})
 			as.NotNil(err)
 			as.Equal("fake raw request", err.Error())
 		})
@@ -909,98 +999,8 @@ func Test_Calendar_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
-			_, _, err := moduleCli.GetCalendarFreeBusyList(ctx, &lark.GetCalendarFreeBusyListReq{})
-			as.NotNil(err)
-			as.Equal("fake raw request", err.Error())
-		})
-
-		t.Run("", func(t *testing.T) {
-
-			_, _, err := moduleCli.GetCalendarList(ctx, &lark.GetCalendarListReq{})
-			as.NotNil(err)
-			as.Equal("fake raw request", err.Error())
-		})
-
-		t.Run("", func(t *testing.T) {
-
-			_, _, err := moduleCli.GetPrimaryCalendar(ctx, &lark.GetPrimaryCalendarReq{})
-			as.NotNil(err)
-			as.Equal("fake raw request", err.Error())
-		})
-
-		t.Run("", func(t *testing.T) {
-
-			_, _, err := moduleCli.SearchCalendar(ctx, &lark.SearchCalendarReq{})
-			as.NotNil(err)
-			as.Equal("fake raw request", err.Error())
-		})
-
-		t.Run("", func(t *testing.T) {
-
-			_, _, err := moduleCli.SearchCalendarEvent(ctx, &lark.SearchCalendarEventReq{
-				CalendarID: "x",
-			})
-			as.NotNil(err)
-			as.Equal("fake raw request", err.Error())
-		})
-
-		t.Run("", func(t *testing.T) {
-
-			_, _, err := moduleCli.SubscribeCalendar(ctx, &lark.SubscribeCalendarReq{
-				CalendarID: "x",
-			})
-			as.NotNil(err)
-			as.Equal("fake raw request", err.Error())
-		})
-
-		t.Run("", func(t *testing.T) {
-
-			_, _, err := moduleCli.SubscribeCalendarACL(ctx, &lark.SubscribeCalendarACLReq{
-				CalendarID: "x",
-			})
-			as.NotNil(err)
-			as.Equal("fake raw request", err.Error())
-		})
-
-		t.Run("", func(t *testing.T) {
-
-			_, _, err := moduleCli.SubscribeCalendarChangeEvent(ctx, &lark.SubscribeCalendarChangeEventReq{})
-			as.NotNil(err)
-			as.Equal("fake raw request", err.Error())
-		})
-
-		t.Run("", func(t *testing.T) {
-
-			_, _, err := moduleCli.SubscribeCalendarEvent(ctx, &lark.SubscribeCalendarEventReq{
-				CalendarID: "x",
-			})
-			as.NotNil(err)
-			as.Equal("fake raw request", err.Error())
-		})
-
-		t.Run("", func(t *testing.T) {
-
-			_, _, err := moduleCli.UnsubscribeCalendar(ctx, &lark.UnsubscribeCalendarReq{
-				CalendarID: "x",
-			})
-			as.NotNil(err)
-			as.Equal("fake raw request", err.Error())
-		})
-
-		t.Run("", func(t *testing.T) {
-
-			_, _, err := moduleCli.UpdateCalendar(ctx, &lark.UpdateCalendarReq{
-				CalendarID: "x",
-			})
-			as.NotNil(err)
-			as.Equal("fake raw request", err.Error())
-		})
-
-		t.Run("", func(t *testing.T) {
-
-			_, _, err := moduleCli.UpdateCalendarEvent(ctx, &lark.UpdateCalendarEventReq{
-				CalendarID: "x",
-				EventID:    "x",
+			_, _, err := moduleCli.DeleteCalendarExchangeBinding(ctx, &lark.DeleteCalendarExchangeBindingReq{
+				ExchangeBindingID: "x",
 			})
 			as.NotNil(err)
 			as.Equal("fake raw request", err.Error())
