@@ -45,73 +45,73 @@ type Lark struct {
 	eventHandler *eventHandler
 
 	// service
-	AppLink       *AppLinkService
-	EventCallback *EventCallbackService
-	MeetingRoom   *MeetingRoomService
-	Task          *TaskService
-	VC            *VCService
+	ACS           *ACSService
 	AI            *AIService
-	Calendar      *CalendarService
-	Chat          *ChatService
-	HumanAuth     *HumanAuthService
-	OKR           *OKRService
-	Contact       *ContactService
-	Drive         *DriveService
-	Tenant        *TenantService
 	Admin         *AdminService
+	AppLink       *AppLinkService
+	Application   *ApplicationService
+	Approval      *ApprovalService
+	Attendance    *AttendanceService
 	Auth          *AuthService
 	Baike         *BaikeService
-	EHR           *EHRService
-	Hire          *HireService
-	Approval      *ApprovalService
-	Application   *ApplicationService
-	Bot           *BotService
-	File          *FileService
-	Jssdk         *JssdkService
-	Message       *MessageService
-	ACS           *ACSService
-	Attendance    *AttendanceService
 	Bitable       *BitableService
-	Helpdesk      *HelpdeskService
-	Passport      *PassportService
+	Bot           *BotService
+	Calendar      *CalendarService
+	Chat          *ChatService
+	Contact       *ContactService
+	Drive         *DriveService
+	EHR           *EHRService
 	Event         *EventService
+	EventCallback *EventCallbackService
+	File          *FileService
+	Helpdesk      *HelpdeskService
+	Hire          *HireService
+	HumanAuth     *HumanAuthService
+	Jssdk         *JssdkService
 	Mail          *MailService
+	MeetingRoom   *MeetingRoomService
+	Message       *MessageService
+	OKR           *OKRService
+	Passport      *PassportService
 	Search        *SearchService
+	Task          *TaskService
+	Tenant        *TenantService
+	VC            *VCService
 }
 
 func (r *Lark) initService() {
-	r.AppLink = &AppLinkService{cli: r}
-	r.EventCallback = &EventCallbackService{cli: r}
-	r.MeetingRoom = &MeetingRoomService{cli: r}
-	r.Task = &TaskService{cli: r}
-	r.VC = &VCService{cli: r}
+	r.ACS = &ACSService{cli: r}
 	r.AI = &AIService{cli: r}
-	r.Calendar = &CalendarService{cli: r}
-	r.Chat = &ChatService{cli: r}
-	r.HumanAuth = &HumanAuthService{cli: r}
-	r.OKR = &OKRService{cli: r}
-	r.Contact = &ContactService{cli: r}
-	r.Drive = &DriveService{cli: r}
-	r.Tenant = &TenantService{cli: r}
 	r.Admin = &AdminService{cli: r}
+	r.AppLink = &AppLinkService{cli: r}
+	r.Application = &ApplicationService{cli: r}
+	r.Approval = &ApprovalService{cli: r}
+	r.Attendance = &AttendanceService{cli: r}
 	r.Auth = &AuthService{cli: r}
 	r.Baike = &BaikeService{cli: r}
-	r.EHR = &EHRService{cli: r}
-	r.Hire = &HireService{cli: r}
-	r.Approval = &ApprovalService{cli: r}
-	r.Application = &ApplicationService{cli: r}
-	r.Bot = &BotService{cli: r}
-	r.File = &FileService{cli: r}
-	r.Jssdk = &JssdkService{cli: r}
-	r.Message = &MessageService{cli: r}
-	r.ACS = &ACSService{cli: r}
-	r.Attendance = &AttendanceService{cli: r}
 	r.Bitable = &BitableService{cli: r}
-	r.Helpdesk = &HelpdeskService{cli: r}
-	r.Passport = &PassportService{cli: r}
+	r.Bot = &BotService{cli: r}
+	r.Calendar = &CalendarService{cli: r}
+	r.Chat = &ChatService{cli: r}
+	r.Contact = &ContactService{cli: r}
+	r.Drive = &DriveService{cli: r}
+	r.EHR = &EHRService{cli: r}
 	r.Event = &EventService{cli: r}
+	r.EventCallback = &EventCallbackService{cli: r}
+	r.File = &FileService{cli: r}
+	r.Helpdesk = &HelpdeskService{cli: r}
+	r.Hire = &HireService{cli: r}
+	r.HumanAuth = &HumanAuthService{cli: r}
+	r.Jssdk = &JssdkService{cli: r}
 	r.Mail = &MailService{cli: r}
+	r.MeetingRoom = &MeetingRoomService{cli: r}
+	r.Message = &MessageService{cli: r}
+	r.OKR = &OKRService{cli: r}
+	r.Passport = &PassportService{cli: r}
 	r.Search = &SearchService{cli: r}
+	r.Task = &TaskService{cli: r}
+	r.Tenant = &TenantService{cli: r}
+	r.VC = &VCService{cli: r}
 
 }
 
@@ -141,35 +141,35 @@ func (r *Lark) clone(tenantKey string) *Lark {
 	return r2
 }
 
-type AppLinkService struct{ cli *Lark }
-type EventCallbackService struct{ cli *Lark }
-type MeetingRoomService struct{ cli *Lark }
-type TaskService struct{ cli *Lark }
-type VCService struct{ cli *Lark }
+type ACSService struct{ cli *Lark }
 type AIService struct{ cli *Lark }
-type CalendarService struct{ cli *Lark }
-type ChatService struct{ cli *Lark }
-type HumanAuthService struct{ cli *Lark }
-type OKRService struct{ cli *Lark }
-type ContactService struct{ cli *Lark }
-type DriveService struct{ cli *Lark }
-type TenantService struct{ cli *Lark }
 type AdminService struct{ cli *Lark }
+type AppLinkService struct{ cli *Lark }
+type ApplicationService struct{ cli *Lark }
+type ApprovalService struct{ cli *Lark }
+type AttendanceService struct{ cli *Lark }
 type AuthService struct{ cli *Lark }
 type BaikeService struct{ cli *Lark }
-type EHRService struct{ cli *Lark }
-type HireService struct{ cli *Lark }
-type ApprovalService struct{ cli *Lark }
-type ApplicationService struct{ cli *Lark }
-type BotService struct{ cli *Lark }
-type FileService struct{ cli *Lark }
-type JssdkService struct{ cli *Lark }
-type MessageService struct{ cli *Lark }
-type ACSService struct{ cli *Lark }
-type AttendanceService struct{ cli *Lark }
 type BitableService struct{ cli *Lark }
-type HelpdeskService struct{ cli *Lark }
-type PassportService struct{ cli *Lark }
+type BotService struct{ cli *Lark }
+type CalendarService struct{ cli *Lark }
+type ChatService struct{ cli *Lark }
+type ContactService struct{ cli *Lark }
+type DriveService struct{ cli *Lark }
+type EHRService struct{ cli *Lark }
 type EventService struct{ cli *Lark }
+type EventCallbackService struct{ cli *Lark }
+type FileService struct{ cli *Lark }
+type HelpdeskService struct{ cli *Lark }
+type HireService struct{ cli *Lark }
+type HumanAuthService struct{ cli *Lark }
+type JssdkService struct{ cli *Lark }
 type MailService struct{ cli *Lark }
+type MeetingRoomService struct{ cli *Lark }
+type MessageService struct{ cli *Lark }
+type OKRService struct{ cli *Lark }
+type PassportService struct{ cli *Lark }
 type SearchService struct{ cli *Lark }
+type TaskService struct{ cli *Lark }
+type TenantService struct{ cli *Lark }
+type VCService struct{ cli *Lark }
