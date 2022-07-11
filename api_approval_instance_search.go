@@ -21,11 +21,9 @@ import (
 	"context"
 )
 
-// SearchApprovalInstance 为了更好地提升接口文档的的易理解性, 我们对文档进行了升级, 请尽快迁移至[新版本>>](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/instance/query)
+// SearchApprovalInstance 该接口通过不同条件查询审批系统中符合条件的审批实例列表。
 //
-// 该接口通过不同条件查询审批系统中符合条件的审批实例列表。
-//
-// doc: https://open.feishu.cn/document/ukTMukTMukTM/uQjMxYjL0ITM24CNyEjN
+// doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/instance/query
 func (r *ApprovalService) SearchApprovalInstance(ctx context.Context, request *SearchApprovalInstanceReq, options ...MethodOptionFunc) (*SearchApprovalInstanceResp, *Response, error) {
 	if r.cli.mock.mockApprovalSearchApprovalInstance != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Approval#SearchApprovalInstance mock enable")
@@ -36,7 +34,7 @@ func (r *ApprovalService) SearchApprovalInstance(ctx context.Context, request *S
 		Scope:                 "Approval",
 		API:                   "SearchApprovalInstance",
 		Method:                "POST",
-		URL:                   r.cli.wwwBaseURL + "/approval/openapi/v2/instance/search",
+		URL:                   r.cli.openBaseURL + "/open-apis/approval/v4/instances/query",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
@@ -59,24 +57,27 @@ func (r *Mock) UnMockApprovalSearchApprovalInstance() {
 
 // SearchApprovalInstanceReq ...
 type SearchApprovalInstanceReq struct {
-	UserID                string  `json:"user_id,omitempty"`                  // 用户 id
-	ApprovalCode          *string `json:"approval_code,omitempty"`            // 审批定义 code
-	InstanceCode          *string `json:"instance_code,omitempty"`            // 审批实例 code
-	InstanceExternalID    *string `json:"instance_external_id,omitempty"`     // 审批实例第三方 id  注: 和 approval_code 取并集
-	GroupExternalID       *string `json:"group_external_id,omitempty"`        // 审批定义分组第三方 id  注: 和 instance_code 取并集
-	InstanceTitle         *string `json:"instance_title,omitempty"`           // 审批实例标题（只有第三方审批有）
-	InstanceStatus        *string `json:"instance_status,omitempty"`          // 审批实例状态 REJECT: 拒绝 PENDING: 审批中 RECALL: 撤回 DELETED: 已删除 APPROVED: 通过 注: 若不设置, 查询全部状态 若不在集合中, 报错
-	InstanceStartTimeFrom *int64  `json:"instance_start_time_from,omitempty"` // 实例查询开始时间（unix毫秒时间戳）
-	InstanceStartTimeTo   *int64  `json:"instance_start_time_to,omitempty"`   // 实例查询结束时间  (unix毫秒时间戳)
-	Locale                *string `json:"locale,omitempty"`                   // 地区 （zh-CN、en-US、ja-JP）
-	Offset                *int64  `json:"offset,omitempty"`                   // 查询偏移量  注: 不得超过10000
-	Limit                 *int64  `json:"limit,omitempty"`                    // 查询限制量  注: 不得超过200 不设置默认查询10条数据
+	PageSize              *int64  `query:"page_size" json:"-"`                // 分页大小, 示例值: 10, 最大值: `100`
+	PageToken             *string `query:"page_token" json:"-"`               // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果, 示例值: "nF1ZXJ5VGhlbkZldGNoCgAAAAAA6PZwFmUzSldvTC1yU"
+	UserIDType            *IDType `query:"user_id_type" json:"-"`             // 用户 ID 类型, 示例值: "open_id", 可选值有: open_id: 用户的 open id, union_id: 用户的 union id, user_id: 用户的 user id, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
+	UserID                string  `json:"user_id,omitempty"`                  // 根据x_user_type填写用户 id, 示例值: "lwiu098wj"
+	ApprovalCode          *string `json:"approval_code,omitempty"`            // 审批定义 code, 示例值: "EB828003-9FFE-4B3F-AA50-2E199E2ED942"
+	InstanceCode          *string `json:"instance_code,omitempty"`            // 审批实例 code, 示例值: "EB828003-9FFE-4B3F-AA50-2E199E2ED943"
+	InstanceExternalID    *string `json:"instance_external_id,omitempty"`     // 审批实例第三方 id 注: 和 approval_code 取并集, 示例值: "EB828003-9FFE-4B3F-AA50-2E199E2ED976"
+	GroupExternalID       *string `json:"group_external_id,omitempty"`        // 审批定义分组第三方 id 注: 和 instance_code 取并集, 示例值: "1234567"
+	InstanceTitle         *string `json:"instance_title,omitempty"`           // 审批实例标题（只有第三方审批有）, 示例值: "test"
+	InstanceStatus        *string `json:"instance_status,omitempty"`          // 审批实例状态, 注: 若不设置, 查询全部状态 若不在集合中, 报错, 示例值: "PENDING", 可选值有: PENDING: 审批中, RECALL: 撤回, REJECT: 拒绝, DELETED: 已删除, APPROVED: 通过, ALL: 所有状态
+	InstanceStartTimeFrom *string `json:"instance_start_time_from,omitempty"` // 实例查询开始时间（unix毫秒时间戳）, 示例值: "1547654251506"
+	InstanceStartTimeTo   *string `json:"instance_start_time_to,omitempty"`   // 实例查询结束时间 (unix毫秒时间戳), 示例值: "1547654251506"
+	Locale                *string `json:"locale,omitempty"`                   // 地区, 示例值: "zh-CN", 可选值有: zh-CN: 中文, en-US: 英文, ja-JP: 日文
 }
 
 // SearchApprovalInstanceResp ...
 type SearchApprovalInstanceResp struct {
 	Count        int64                                 `json:"count,omitempty"`         // 查询返回条数
 	InstanceList []*SearchApprovalInstanceRespInstance `json:"instance_list,omitempty"` // 审批实例列表
+	PageToken    string                                `json:"page_token,omitempty"`    // 分页标记, 当 has_more 为 true 时, 会同时返回新的 page_token, 否则不返回 page_token
+	HasMore      bool                                  `json:"has_more,omitempty"`      // 是否还有更多项
 }
 
 // SearchApprovalInstanceRespInstance ...
@@ -110,11 +111,11 @@ type SearchApprovalInstanceRespInstanceInstance struct {
 	Code       string                                          `json:"code,omitempty"`        // 审批实例 code
 	ExternalID string                                          `json:"external_id,omitempty"` // 审批实例外部 id
 	UserID     string                                          `json:"user_id,omitempty"`     // 审批实例发起人 id
-	StartTime  int64                                           `json:"start_time,omitempty"`  // 审批实例开始时间
-	EndTime    int64                                           `json:"end_time,omitempty"`    // 审批实例结束时间
-	Status     string                                          `json:"status,omitempty"`      // 审批实例状态
+	StartTime  string                                          `json:"start_time,omitempty"`  // 审批实例开始时间
+	EndTime    string                                          `json:"end_time,omitempty"`    // 审批实例结束时间
+	Status     string                                          `json:"status,omitempty"`      // 审批实例状态, 可选值有: REJECT: 拒绝, PENDING: 审批中, RECALL: 撤回, DELETED: 已删除, APPROVED: 通过
 	Title      string                                          `json:"title,omitempty"`       // 审批实例名称（只有第三方审批有）
-	Extra      string                                          `json:"extra,omitempty"`       // 审批实例扩展字段
+	Extra      string                                          `json:"extra,omitempty"`       // 审批实例扩展字段, string型json
 	SerialID   string                                          `json:"serial_id,omitempty"`   // 审批流水号
 	Link       *SearchApprovalInstanceRespInstanceInstanceLink `json:"link,omitempty"`        // 审批实例链接（只有第三方审批有）
 }
@@ -127,7 +128,7 @@ type SearchApprovalInstanceRespInstanceInstanceLink struct {
 
 // searchApprovalInstanceResp ...
 type searchApprovalInstanceResp struct {
-	Code int64                       `json:"code,omitempty"` // 错误码, 非0表示失败
-	Msg  string                      `json:"msg,omitempty"`  // 返回码的描述
-	Data *SearchApprovalInstanceResp `json:"data,omitempty"` // 返回业务信息
+	Code int64                       `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg  string                      `json:"msg,omitempty"`  // 错误描述
+	Data *SearchApprovalInstanceResp `json:"data,omitempty"`
 }

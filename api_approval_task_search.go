@@ -21,11 +21,9 @@ import (
 	"context"
 )
 
-// SearchApprovalTask 为了更好地提升接口文档的的易理解性, 我们对文档进行了升级, 请尽快迁移至[新版本>>](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/task/search)
+// SearchApprovalTask 该接口通过不同条件查询审批系统中符合条件的审批任务列表
 //
-// 该接口通过不同条件查询审批系统中符合条件的审批任务列表
-//
-// doc: https://open.feishu.cn/document/ukTMukTMukTM/uYjMxYjL2ITM24iNyEjN
+// doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/task/search
 func (r *ApprovalService) SearchApprovalTask(ctx context.Context, request *SearchApprovalTaskReq, options ...MethodOptionFunc) (*SearchApprovalTaskResp, *Response, error) {
 	if r.cli.mock.mockApprovalSearchApprovalTask != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Approval#SearchApprovalTask mock enable")
@@ -36,7 +34,7 @@ func (r *ApprovalService) SearchApprovalTask(ctx context.Context, request *Searc
 		Scope:                 "Approval",
 		API:                   "SearchApprovalTask",
 		Method:                "POST",
-		URL:                   r.cli.wwwBaseURL + "/approval/openapi/v2/task/search",
+		URL:                   r.cli.openBaseURL + "/open-apis/approval/v4/tasks/search",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
@@ -59,24 +57,27 @@ func (r *Mock) UnMockApprovalSearchApprovalTask() {
 
 // SearchApprovalTaskReq ...
 type SearchApprovalTaskReq struct {
-	UserID             string  `json:"user_id,omitempty"`              // 用户 id
-	ApprovalCode       *string `json:"approval_code,omitempty"`        // 审批定义 code
-	InstanceCode       *string `json:"instance_code,omitempty"`        // 审批实例 code
-	InstanceExternalID *string `json:"instance_external_id,omitempty"` // 审批实例第三方 id 注: 和 approval_code 取并集
-	GroupExternalID    *string `json:"group_external_id,omitempty"`    // 审批定义分组第三方 id 注: 和 instance_code 取并集
-	TaskTitle          *string `json:"task_title,omitempty"`           // 审批任务标题（只有第三方审批有）
-	TaskStatus         *string `json:"task_status,omitempty"`          // 审批任务状态 PENDING: 审批中 APPROVED: 通过 REJECTED: 拒绝 TRANSFERRED:转交  DONE: 已完成 RM_REPEAT: 去重  PROCESSED: 已处理 注: 若不设置, 查询全部状态 若不在集合中, 报错
-	TaskStartTimeFrom  *int64  `json:"task_start_time_from,omitempty"` // 任务查询开始时间 (unix毫秒时间戳)
-	TaskStartTimeTo    *int64  `json:"task_start_time_to,omitempty"`   // 任务查询结束时间 (unix毫秒时间戳)
-	Locale             *string `json:"locale,omitempty"`               // 地区（zh-CN、en-US、ja-JP）
-	Offset             *int64  `json:"offset,omitempty"`               // 查询偏移量 注: 不得超过10000
-	Limit              *int64  `json:"limit,omitempty"`                // 查询限制量 注: 不得超过200 不设置默认查询10条数据
+	PageSize           *int64  `query:"page_size" json:"-"`            // 分页大小, 示例值: 10, 默认值: `10`, 取值范围: `5` ～ `200`
+	PageToken          *string `query:"page_token" json:"-"`           // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果, 示例值: "nF1ZXJ5VGhlbkZldGNoCgAAAAAA6PZwFmUzSldvTC1yU"
+	UserIDType         *IDType `query:"user_id_type" json:"-"`         // 用户 ID 类型, 示例值: "open_id", 可选值有: open_id: 用户的 open id, union_id: 用户的 union id, user_id: 用户的 user id, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
+	UserID             string  `json:"user_id,omitempty"`              // 根据x_user_type填写用户 id, 示例值: "lwiu098wj"
+	ApprovalCode       *string `json:"approval_code,omitempty"`        // 审批定义 code, 示例值: "EB828003-9FFE-4B3F-AA50-2E199E2ED942"
+	InstanceCode       *string `json:"instance_code,omitempty"`        // 审批实例 code, 示例值: "EB828003-9FFE-4B3F-AA50-2E199E2ED943"
+	InstanceExternalID *string `json:"instance_external_id,omitempty"` // 审批实例第三方 id 注: 和 approval_code 取并集, 示例值: "EB828003-9FFE-4B3F-AA50-2E199E2ED976"
+	GroupExternalID    *string `json:"group_external_id,omitempty"`    // 审批定义分组第三方 id 注: 和 instance_code 取并集, 示例值: "1234567"
+	TaskTitle          *string `json:"task_title,omitempty"`           // 审批实例标题（只有第三方审批有）, 示例值: "test"
+	TaskStatus         *string `json:"task_status,omitempty"`          // 审批实例状态, 注: 若不设置, 查询全部状态 若不在集合中, 报错, 示例值: "PENDING", 可选值有: PENDING: 审批中, REJECTED: 拒绝, APPROVED: 通过, TRANSFERRED: 转交, DONE: 已完成, RM_REPEAT: 去重, PROCESSED: 已处理, ALL: 所有状态
+	TaskStartTimeFrom  *string `json:"task_start_time_from,omitempty"` // 实例查询开始时间（unix毫秒时间戳）, 示例值: "1547654251506"
+	TaskStartTimeTo    *string `json:"task_start_time_to,omitempty"`   // 实例查询结束时间 (unix毫秒时间戳), 示例值: "1547654251506"
+	Locale             *string `json:"locale,omitempty"`               // 地区, 示例值: "zh-CN", 可选值有: zh-CN: 中文, en-US: 英文, ja-JP: 日文
 }
 
 // SearchApprovalTaskResp ...
 type SearchApprovalTaskResp struct {
-	Count    int64                         `json:"count,omitempty"`     // 查询返回条数
-	TaskList []*SearchApprovalTaskRespTask `json:"task_list,omitempty"` // 审批任务列表
+	Count     int64                         `json:"count,omitempty"`      // 查询返回条数
+	TaskList  []*SearchApprovalTaskRespTask `json:"task_list,omitempty"`  // 审批任务列表
+	PageToken string                        `json:"page_token,omitempty"` // 翻页 Token
+	HasMore   bool                          `json:"has_more,omitempty"`   // 是否有更多任务可供拉取
 }
 
 // SearchApprovalTaskRespTask ...
@@ -111,11 +112,11 @@ type SearchApprovalTaskRespTaskInstance struct {
 	Code       string                                  `json:"code,omitempty"`        // 审批实例 code
 	ExternalID string                                  `json:"external_id,omitempty"` // 审批实例外部 id
 	UserID     string                                  `json:"user_id,omitempty"`     // 审批实例发起人 id
-	StartTime  int64                                   `json:"start_time,omitempty"`  // 审批实例开始时间
-	EndTime    int64                                   `json:"end_time,omitempty"`    // 审批实例结束时间
-	Status     string                                  `json:"status,omitempty"`      // 审批实例状态
+	StartTime  string                                  `json:"start_time,omitempty"`  // 审批实例开始时间
+	EndTime    string                                  `json:"end_time,omitempty"`    // 审批实例结束时间
+	Status     string                                  `json:"status,omitempty"`      // 审批实例状态, 可选值有: REJECT: 拒绝, PENDING: 审批中, RECALL: 撤回, DELETED: 已删除, APPROVED: 通过
 	Title      string                                  `json:"title,omitempty"`       // 审批实例名称（只有第三方审批有）
-	Extra      string                                  `json:"extra,omitempty"`       // 审批实例扩展字段
+	Extra      string                                  `json:"extra,omitempty"`       // 审批实例扩展字段, string型json
 	SerialID   string                                  `json:"serial_id,omitempty"`   // 审批流水号
 	Link       *SearchApprovalTaskRespTaskInstanceLink `json:"link,omitempty"`        // 审批实例链接（只有第三方审批有）
 }
@@ -128,24 +129,25 @@ type SearchApprovalTaskRespTaskInstanceLink struct {
 
 // SearchApprovalTaskRespTaskTask ...
 type SearchApprovalTaskRespTaskTask struct {
-	StartTime int64                               `json:"start_time,omitempty"` // 审批任务开始时间
-	UserID    string                              `json:"user_id,omitempty"`    // 审批任务发起人 id
-	EndTime   int64                               `json:"end_time,omitempty"`   // 审批任务结束时间
-	Title     string                              `json:"title,omitempty"`      // 审批任务名称
-	Status    string                              `json:"status,omitempty"`     // 审批任务状态
-	Extra     string                              `json:"extra,omitempty"`      // 审批任务扩展字段
-	Link      *SearchApprovalTaskRespTaskTaskLink `json:"link,omitempty"`       // 审批任务链接
+	UserID    string                              `json:"user_id,omitempty"`    // 审批实例发起人 id
+	StartTime string                              `json:"start_time,omitempty"` // 审批实例开始时间
+	EndTime   string                              `json:"end_time,omitempty"`   // 审批实例结束时间
+	Status    string                              `json:"status,omitempty"`     // 审批实例状态, 可选值有: REJECTED: 拒绝, PENDING: 审批中, APPROVED: 通过, TRANSFERRED: 转交, DONE: 已完成, RM_REPEAT: 去重, PROCESSED: 已处理
+	Title     string                              `json:"title,omitempty"`      // 审批实例名称（只有第三方审批有）
+	Extra     string                              `json:"extra,omitempty"`      // 审批实例扩展字段, string型json
+	Link      *SearchApprovalTaskRespTaskTaskLink `json:"link,omitempty"`       // 审批实例链接（只有第三方审批有）
+	TaskID    string                              `json:"task_id,omitempty"`    // 任务id
 }
 
 // SearchApprovalTaskRespTaskTaskLink ...
 type SearchApprovalTaskRespTaskTaskLink struct {
-	PcLink     string `json:"pc_link,omitempty"`     // 审批任务 pc 端链接
-	MobileLink string `json:"mobile_link,omitempty"` // 审批任务移动端链接
+	PcLink     string `json:"pc_link,omitempty"`     // 审批实例 pc 端链接
+	MobileLink string `json:"mobile_link,omitempty"` // 审批实例移动端链接
 }
 
 // searchApprovalTaskResp ...
 type searchApprovalTaskResp struct {
-	Code int64                   `json:"code,omitempty"` // 错误码, 非0表示失败
-	Msg  string                  `json:"msg,omitempty"`  // 返回码的描述
-	Data *SearchApprovalTaskResp `json:"data,omitempty"` // 返回业务信息
+	Code int64                   `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg  string                  `json:"msg,omitempty"`  // 错误描述
+	Data *SearchApprovalTaskResp `json:"data,omitempty"`
 }

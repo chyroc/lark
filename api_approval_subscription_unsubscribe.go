@@ -21,11 +21,9 @@ import (
 	"context"
 )
 
-// UnsubscribeApprovalSubscription 为了更好地提升接口文档的的易理解性, 我们对文档进行了升级, 请尽快迁移至[新版本>>](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/approval/unsubscribe)
+// UnsubscribeApprovalSubscription 取消订阅 approval_code 后, 无法再收到该审批定义对应实例的事件通知
 //
-// 取消订阅 approval_code 后, 无法再收到该审批定义对应实例的事件通知。
-//
-// doc: https://open.feishu.cn/document/ukTMukTMukTM/ugDOyUjL4gjM14CO4ITN
+// doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/approval/unsubscribe
 func (r *ApprovalService) UnsubscribeApprovalSubscription(ctx context.Context, request *UnsubscribeApprovalSubscriptionReq, options ...MethodOptionFunc) (*UnsubscribeApprovalSubscriptionResp, *Response, error) {
 	if r.cli.mock.mockApprovalUnsubscribeApprovalSubscription != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Approval#UnsubscribeApprovalSubscription mock enable")
@@ -36,7 +34,7 @@ func (r *ApprovalService) UnsubscribeApprovalSubscription(ctx context.Context, r
 		Scope:                 "Approval",
 		API:                   "UnsubscribeApprovalSubscription",
 		Method:                "POST",
-		URL:                   r.cli.wwwBaseURL + "/approval/openapi/v2/subscription/unsubscribe",
+		URL:                   r.cli.openBaseURL + "/open-apis/approval/v4/approvals/:approval_code/unsubscribe",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
@@ -59,7 +57,7 @@ func (r *Mock) UnMockApprovalUnsubscribeApprovalSubscription() {
 
 // UnsubscribeApprovalSubscriptionReq ...
 type UnsubscribeApprovalSubscriptionReq struct {
-	ApprovalCode string `json:"approval_code,omitempty"` // 审批定义唯一标识
+	ApprovalCode string `path:"approval_code" json:"-"` // 审批定义唯一标识, 示例值: "7C468A54-8745-2245-9675-08B7C63E7A85"
 }
 
 // UnsubscribeApprovalSubscriptionResp ...
@@ -68,7 +66,7 @@ type UnsubscribeApprovalSubscriptionResp struct {
 
 // unsubscribeApprovalSubscriptionResp ...
 type unsubscribeApprovalSubscriptionResp struct {
-	Code int64                                `json:"code,omitempty"` // 错误码, 非0表示失败
-	Msg  string                               `json:"msg,omitempty"`  // 返回码的描述
+	Code int64                                `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg  string                               `json:"msg,omitempty"`  // 错误描述
 	Data *UnsubscribeApprovalSubscriptionResp `json:"data,omitempty"`
 }

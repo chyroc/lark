@@ -105,6 +105,8 @@ API Count: 607, Event Count: 91
 - Approval
   - CreateApproval
   - GetApproval
+  - SubscribeApprovalSubscription
+  - UnsubscribeApprovalSubscription
   - CreateApprovalInstance
   - GetApprovalInstance
   - GetApprovalInstanceList
@@ -119,16 +121,14 @@ API Count: 607, Event Count: 91
   - CreateApprovalExternalApproval
   - CreateApprovalExternalInstance
   - CheckApprovalExternalInstance
-  - SearchApprovalInstance
+  - GetApprovalExternalList
   - UploadApprovalFile
+  - UpdateApprovalMessage
+  - SendApprovalMessage
+  - SearchApprovalInstance
+  - SearchApprovalCarbonCopy
   - SearchApprovalTask
   - GetApprovalUserTaskList
-  - SearchApprovalCarbonCopy
-  - UpdateApprovalMessage
-  - SubscribeApprovalSubscription
-  - UnsubscribeApprovalSubscription
-  - GetApprovalExternalList
-  - SendApprovalMessage
 - Attendance
   - GetAttendanceGroupList
   - CreateAttendanceGroup

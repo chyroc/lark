@@ -105,6 +105,8 @@ API 总数: 607, 事件总数: 91
 - Approval
   - CreateApproval
   - GetApproval
+  - SubscribeApprovalSubscription
+  - UnsubscribeApprovalSubscription
   - CreateApprovalInstance
   - GetApprovalInstance
   - GetApprovalInstanceList
@@ -119,16 +121,14 @@ API 总数: 607, 事件总数: 91
   - CreateApprovalExternalApproval
   - CreateApprovalExternalInstance
   - CheckApprovalExternalInstance
-  - SearchApprovalInstance
+  - GetApprovalExternalList
   - UploadApprovalFile
+  - UpdateApprovalMessage
+  - SendApprovalMessage
+  - SearchApprovalInstance
+  - SearchApprovalCarbonCopy
   - SearchApprovalTask
   - GetApprovalUserTaskList
-  - SearchApprovalCarbonCopy
-  - UpdateApprovalMessage
-  - SubscribeApprovalSubscription
-  - UnsubscribeApprovalSubscription
-  - GetApprovalExternalList
-  - SendApprovalMessage
 - Attendance
   - GetAttendanceGroupList
   - CreateAttendanceGroup
