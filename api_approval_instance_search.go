@@ -21,7 +21,9 @@ import (
 	"context"
 )
 
-// SearchApprovalInstance 该接口通过不同条件查询审批系统中符合条件的审批实例列表。
+// SearchApprovalInstance 为了更好地提升接口文档的的易理解性, 我们对文档进行了升级, 请尽快迁移至[新版本>>](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/instance/query)
+//
+// 该接口通过不同条件查询审批系统中符合条件的审批实例列表。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uQjMxYjL0ITM24CNyEjN
 func (r *ApprovalService) SearchApprovalInstance(ctx context.Context, request *SearchApprovalInstanceReq, options ...MethodOptionFunc) (*SearchApprovalInstanceResp, *Response, error) {

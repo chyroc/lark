@@ -21,7 +21,9 @@ import (
 	"context"
 )
 
-// UnsubscribeApprovalSubscription 取消订阅 approval_code 后, 无法再收到该审批定义对应实例的事件通知。
+// UnsubscribeApprovalSubscription 为了更好地提升接口文档的的易理解性, 我们对文档进行了升级, 请尽快迁移至[新版本>>](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/approval/unsubscribe)
+//
+// 取消订阅 approval_code 后, 无法再收到该审批定义对应实例的事件通知。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/ugDOyUjL4gjM14CO4ITN
 func (r *ApprovalService) UnsubscribeApprovalSubscription(ctx context.Context, request *UnsubscribeApprovalSubscriptionReq, options ...MethodOptionFunc) (*UnsubscribeApprovalSubscriptionResp, *Response, error) {

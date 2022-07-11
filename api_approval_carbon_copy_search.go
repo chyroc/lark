@@ -21,7 +21,9 @@ import (
 	"context"
 )
 
-// SearchApprovalCarbonCopy 该接口通过不同条件查询审批系统中符合条件的审批抄送列表。
+// SearchApprovalCarbonCopy 为了更好地提升接口文档的的易理解性, 我们对文档进行了升级, 请尽快迁移至[新版本>>](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/instance/search_cc)
+//
+// 该接口通过不同条件查询审批系统中符合条件的审批抄送列表。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uUjMxYjL1ITM24SNyEjN
 func (r *ApprovalService) SearchApprovalCarbonCopy(ctx context.Context, request *SearchApprovalCarbonCopyReq, options ...MethodOptionFunc) (*SearchApprovalCarbonCopyResp, *Response, error) {

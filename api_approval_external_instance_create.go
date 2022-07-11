@@ -67,7 +67,7 @@ func (r *Mock) UnMockApprovalCreateApprovalExternalInstance() {
 // CreateApprovalExternalInstanceReq ...
 type CreateApprovalExternalInstanceReq struct {
 	ApprovalCode   string                                           `json:"approval_code,omitempty"`   // 审批定义 code, 创建审批定义返回的值, 表示该实例属于哪个流程；该字段会影响到列表中该实例的标题, 标题取自对应定义的 name 字段, 示例值: "81D31358-93AF-92D6-7425-01A5D67C4E71"
-	Status         string                                           `json:"status,omitempty"`          // 审批实例状态, 示例值: "PENDING", 可选值有: `PENDING`: 审批中, `APPROVED`: 审批流程结束, 结果为同意, `REJECTED`: 审批流程结束, 结果为拒绝, `CANCELED`: 审批发起人撤回, `DELETED`: 审批被删除, `HIDDEN`: 状态隐藏(不显示状态)
+	Status         string                                           `json:"status,omitempty"`          // 审批实例状态, 示例值: "PENDING", 可选值有: PENDING: 审批中, APPROVED: 审批流程结束, 结果为同意, REJECTED: 审批流程结束, 结果为拒绝, CANCELED: 审批发起人撤回, DELETED: 审批被删除, HIDDEN: 状态隐藏(不显示状态)
 	Extra          *string                                          `json:"extra,omitempty"`           // 审批实例扩展 JSON, 示例值: "{\"xxx\":\"xxx\"}"
 	InstanceID     string                                           `json:"instance_id,omitempty"`     // 审批实例唯一标识, 用户自定义, 需确保证租户、应用下唯一, 示例值: "24492654"
 	Links          []*CreateApprovalExternalInstanceReqLink         `json:"links,omitempty"`           // 审批实例链接集合, 用于【已发起】列表的跳转, 跳转回三方系统； pc_link 和 mobile_link 必须填一个, 填写的是哪一端的链接, 即会跳转到该链接, 不受平台影响
@@ -81,8 +81,8 @@ type CreateApprovalExternalInstanceReq struct {
 	StartTime      string                                           `json:"start_time,omitempty"`      // 审批发起时间, Unix毫秒时间戳, 示例值: "1556468012678"
 	EndTime        string                                           `json:"end_time,omitempty"`        // 审批实例结束时间: 未结束的审批为 0, Unix毫秒时间戳, 示例值: "1556468012678"
 	UpdateTime     string                                           `json:"update_time,omitempty"`     // 审批实例最近更新时间；用于推送数据版本控制如果 update_mode 值为 UPDATE, 则只有传过来的 update_time 有变化时（变大）, 才会更新审批中心中的审批实例信息。使用该字段主要用来避免并发时老的数据更新了新的数据, 示例值: "1556468012678"
-	DisplayMethod  *string                                          `json:"display_method,omitempty"`  // 列表页打开审批实例的方式, 示例值: "BROWSER", 可选值有: `BROWSER`: 跳转系统默认浏览器打开, `SIDEBAR`: 飞书中侧边抽屉打开, `NORMAL`: 飞书内嵌页面打开
-	UpdateMode     *string                                          `json:"update_mode,omitempty"`     // 更新方式, 当 update_mode=REPLACE时, 每次都以当前推送的数据为最终数据, 会删掉审批中心中多余的任务、抄送数据（不在这次推送的数据中）; 当 update_mode=UPDATE时, 则不会删除审批中心的数据, 而只是进行新增和更新实例、任务数据, 示例值: "UPDATE", 可选值有: `REPLACE`: 全量替换, 默认值, `UPDATE`: 增量更新
+	DisplayMethod  *string                                          `json:"display_method,omitempty"`  // 列表页打开审批实例的方式, 示例值: "BROWSER", 可选值有: BROWSER: 跳转系统默认浏览器打开, SIDEBAR: 飞书中侧边抽屉打开, NORMAL: 飞书内嵌页面打开
+	UpdateMode     *string                                          `json:"update_mode,omitempty"`     // 更新方式, 当 update_mode=REPLACE时, 每次都以当前推送的数据为最终数据, 会删掉审批中心中多余的任务、抄送数据（不在这次推送的数据中）; 当 update_mode=UPDATE时, 则不会删除审批中心的数据, 而只是进行新增和更新实例、任务数据, 示例值: "UPDATE", 可选值有: REPLACE: 全量替换, 默认值, UPDATE: 增量更新
 	TaskList       []*CreateApprovalExternalInstanceReqTask         `json:"task_list,omitempty"`       // 任务列表, 最大长度: `200`
 	CcList         []*CreateApprovalExternalInstanceReqCc           `json:"cc_list,omitempty"`         // 抄送列表, 最大长度: `200`
 	I18nResources  []*CreateApprovalExternalInstanceReqI18nResource `json:"i18n_resources,omitempty"`  // 国际化文案
@@ -94,12 +94,12 @@ type CreateApprovalExternalInstanceReqCc struct {
 	UserID        string                                     `json:"user_id,omitempty"`        // 抄送人 employee id, 示例值: "12345"
 	OpenID        *string                                    `json:"open_id,omitempty"`        // 抄送人 open id, 和user id 二选一, 示例值: "ou_be73cbc0ee35eb6ca54e9e7cc14998c1"
 	Links         []*CreateApprovalExternalInstanceReqCcLink `json:"links,omitempty"`          // 跳转链接, 用于【抄送我的】列表中的跳转pc_link 和 mobile_link 必须填一个, 填写的是哪一端的链接, 即会跳转到该链接, 不受平台影响
-	ReadStatus    string                                     `json:"read_status,omitempty"`    // 阅读状态, 空值表示不支持已读未读: 示例值: "READ", 可选值有: `READ`: 已读, `UNREAD`: 未读
+	ReadStatus    string                                     `json:"read_status,omitempty"`    // 阅读状态, 空值表示不支持已读未读: 示例值: "READ", 可选值有: READ: 已读, UNREAD: 未读
 	Extra         *string                                    `json:"extra,omitempty"`          // 扩展 json, 示例值: "{\"xxx\":\"xxx\"}"
 	Title         *string                                    `json:"title,omitempty"`          // 抄送任务名称, 示例值: "xxx"
 	CreateTime    string                                     `json:"create_time,omitempty"`    // 抄送发起时间, Unix 毫秒时间戳, 示例值: "1556468012678"
 	UpdateTime    string                                     `json:"update_time,omitempty"`    // 抄送最近更新时间, 用于推送数据版本控制更新策略同 instance 的update_time, 示例值: "1556468012678"
-	DisplayMethod *string                                    `json:"display_method,omitempty"` // 列表页打开审批任务的方式, 示例值: "BROWSER", 可选值有: `BROWSER`: 跳转系统默认浏览器打开, `SIDEBAR`: 飞书中侧边抽屉打开, `NORMAL`: 飞书内嵌页面打开
+	DisplayMethod *string                                    `json:"display_method,omitempty"` // 列表页打开审批任务的方式, 示例值: "BROWSER", 可选值有: BROWSER: 跳转系统默认浏览器打开, SIDEBAR: 飞书中侧边抽屉打开, NORMAL: 飞书内嵌页面打开
 }
 
 // CreateApprovalExternalInstanceReqCcLink ...
@@ -116,7 +116,7 @@ type CreateApprovalExternalInstanceReqForm struct {
 
 // CreateApprovalExternalInstanceReqI18nResource ...
 type CreateApprovalExternalInstanceReqI18nResource struct {
-	Locale    string                                               `json:"locale,omitempty"`     // 语言可选值有: zh-CN: 中文 en-US: 英文 ja-JP: 日文, 示例值: "zh-CN", 可选值有: `zh-CN`: 中文, `en-US`: 英文, `ja-JP`: 日文
+	Locale    string                                               `json:"locale,omitempty"`     // 语言可选值有: zh-CN: 中文 en-US: 英文 ja-JP: 日文, 示例值: "zh-CN", 可选值有: zh-CN: 中文, en-US: 英文, ja-JP: 日文
 	Texts     []*CreateApprovalExternalInstanceReqI18nResourceText `json:"texts,omitempty"`      // 文案 key, value, i18n key 以 @i18n@ 开头； 该字段主要用于做国际化, 语序用户同时传多个语言的文案, 审批中心会根据用户当前的语音环境使用对应的文案, 如果没有传用户当前的语音环境文案, 则会使用默认的语言文案。
 	IsDefault bool                                                 `json:"is_default,omitempty"` // 是否默认语言, 默认语言需要包含所有key, 非默认语言如果key不存在会使用默认语言代替, 示例值: true
 }
@@ -140,19 +140,19 @@ type CreateApprovalExternalInstanceReqTask struct {
 	OpenID        *string                                              `json:"open_id,omitempty"`        // 审批人 open id, 和 user id 二选一, 示例值: "ou_be73cbc0ee35eb6ca54e9e7cc14998c1"
 	Title         *string                                              `json:"title,omitempty"`          // 审批任务名称, 示例值: "i18n1"
 	Links         *CreateApprovalExternalInstanceReqTaskLinks          `json:"links,omitempty"`          // 【待审批】或【已审批】中使用的跳转链接, 用于跳转回三方系统pc_link 和 mobile_link 必须填一个, 填写的是哪一端的链接, 即会跳转到该链接, 不受平台影响
-	Status        string                                               `json:"status,omitempty"`         // 任务状态, 示例值: "PENDING", 可选值有: `PENDING`: 待审批, `APPROVED`: 任务同意, `REJECTED`: 任务拒绝, `TRANSFERRED`: 任务转交, `DONE`: 任务通过但审批人未操作；审批人看不到这个任务, 若想要看到, 可以通过抄送该人.
+	Status        string                                               `json:"status,omitempty"`         // 任务状态, 示例值: "PENDING", 可选值有: PENDING: 待审批, APPROVED: 任务同意, REJECTED: 任务拒绝, TRANSFERRED: 任务转交, DONE: 任务通过但审批人未操作；审批人看不到这个任务, 若想要看到, 可以通过抄送该人.
 	Extra         *string                                              `json:"extra,omitempty"`          // 扩展 json, 示例值: "{\"xxx\":\"xxx\"}"
 	CreateTime    string                                               `json:"create_time,omitempty"`    // 任务创建时间, Unix 毫秒时间戳, 示例值: "1556468012678"
 	EndTime       string                                               `json:"end_time,omitempty"`       // 任务完成时间: 未结束的审批为 0, Unix 毫秒时间戳, 示例值: "1556468012678"
 	UpdateTime    *string                                              `json:"update_time,omitempty"`    // task最近更新时间, 用于推送数据版本控制； 更新策略同 instance 中的 update_time, 示例值: "1556468012678"
 	ActionContext *string                                              `json:"action_context,omitempty"` // 操作上下文, 当用户操作时, 回调请求中带上该参数, 用于传递该任务的上下文数据, 示例值: "123456"
 	ActionConfigs []*CreateApprovalExternalInstanceReqTaskActionConfig `json:"action_configs,omitempty"` // 任务级别操作配置, 快捷审批目前支持移动端操作
-	DisplayMethod *string                                              `json:"display_method,omitempty"` // 列表页打开审批任务的方式, 示例值: "BROWSER", 可选值有: `BROWSER`: 跳转系统默认浏览器打开, `SIDEBAR`: 飞书中侧边抽屉打开, `NORMAL`: 飞书内嵌页面打开
+	DisplayMethod *string                                              `json:"display_method,omitempty"` // 列表页打开审批任务的方式, 示例值: "BROWSER", 可选值有: BROWSER: 跳转系统默认浏览器打开, SIDEBAR: 飞书中侧边抽屉打开, NORMAL: 飞书内嵌页面打开
 }
 
 // CreateApprovalExternalInstanceReqTaskActionConfig ...
 type CreateApprovalExternalInstanceReqTaskActionConfig struct {
-	ActionType       string  `json:"action_type,omitempty"`        // 操作类型, 每个任务都可以配置2个操作, 会展示审批列表中, 当用户操作时, 回调请求会带上该字段, 表示用户进行了同意操作还是拒绝操作, 示例值: "APPROVE", 可选值有: `APPROVE`: 同意, `REJECT`: 拒绝, `{KEY}`: 任意字符串, 如果使用任意字符串, 则需要提供 action_name
+	ActionType       string  `json:"action_type,omitempty"`        // 操作类型, 每个任务都可以配置2个操作, 会展示审批列表中, 当用户操作时, 回调请求会带上该字段, 表示用户进行了同意操作还是拒绝操作, 示例值: "APPROVE", 可选值有: APPROVE: 同意, REJECT: 拒绝, {KEY}: 任意字符串, 如果使用任意字符串, 则需要提供 action_name
 	ActionName       *string `json:"action_name,omitempty"`        // 操作名称, i18n key 用于前台展示, 如果 action_type 不是 APPROVAL和REJECT, 则必须提供该字段, 用于展示特定的操作名称, 示例值: "@i18n@5"
 	IsNeedReason     *bool   `json:"is_need_reason,omitempty"`     // 是否需要意见, 如果为true, 则用户操作时, 会跳转到 意见填写页面, 示例值: false
 	IsReasonRequired *bool   `json:"is_reason_required,omitempty"` // 审批意见是否必填, 示例值: false
@@ -173,7 +173,7 @@ type CreateApprovalExternalInstanceResp struct {
 // CreateApprovalExternalInstanceRespData ...
 type CreateApprovalExternalInstanceRespData struct {
 	ApprovalCode   string                                                `json:"approval_code,omitempty"`   // 审批定义 code, 创建审批定义返回的值, 表示该实例属于哪个流程；该字段会影响到列表中该实例的标题, 标题取自对应定义的 name 字段
-	Status         string                                                `json:"status,omitempty"`          // 审批实例状态, 可选值有: `PENDING`: 审批中, `APPROVED`: 审批流程结束, 结果为同意, `REJECTED`: 审批流程结束, 结果为拒绝, `CANCELED`: 审批发起人撤回, `DELETED`: 审批被删除, `HIDDEN`: 状态隐藏(不显示状态)
+	Status         string                                                `json:"status,omitempty"`          // 审批实例状态, 可选值有: PENDING: 审批中, APPROVED: 审批流程结束, 结果为同意, REJECTED: 审批流程结束, 结果为拒绝, CANCELED: 审批发起人撤回, DELETED: 审批被删除, HIDDEN: 状态隐藏(不显示状态)
 	Extra          string                                                `json:"extra,omitempty"`           // 审批实例扩展 JSON
 	InstanceID     string                                                `json:"instance_id,omitempty"`     // 审批实例唯一标识, 用户自定义, 需确保证租户、应用下唯一
 	Links          []*CreateApprovalExternalInstanceRespDataLink         `json:"links,omitempty"`           // 审批实例链接集合, 用于【已发起】列表的跳转, 跳转回三方系统； pc_link 和 mobile_link 必须填一个, 填写的是哪一端的链接, 即会跳转到该链接, 不受平台影响
@@ -187,8 +187,8 @@ type CreateApprovalExternalInstanceRespData struct {
 	StartTime      string                                                `json:"start_time,omitempty"`      // 审批发起时间, Unix毫秒时间戳
 	EndTime        string                                                `json:"end_time,omitempty"`        // 审批实例结束时间: 未结束的审批为 0, Unix毫秒时间戳
 	UpdateTime     string                                                `json:"update_time,omitempty"`     // 审批实例最近更新时间；用于推送数据版本控制如果 update_mode 值为 UPDATE, 则只有传过来的 update_time 有变化时（变大）, 才会更新审批中心中的审批实例信息。使用该字段主要用来避免并发时老的数据更新了新的数据
-	DisplayMethod  string                                                `json:"display_method,omitempty"`  // 列表页打开审批实例的方式, 可选值有: `BROWSER`: 跳转系统默认浏览器打开, `SIDEBAR`: 飞书中侧边抽屉打开, `NORMAL`: 飞书内嵌页面打开
-	UpdateMode     string                                                `json:"update_mode,omitempty"`     // 更新方式, 当 update_mode=REPLACE时, 每次都以当前推送的数据为最终数据, 会删掉审批中心中多余的任务、抄送数据（不在这次推送的数据中）; 当 update_mode=UPDATE时, 则不会删除审批中心的数据, 而只是进行新增和更新实例、任务数据, 可选值有: `REPLACE`: 全量替换, 默认值, `UPDATE`: 增量更新
+	DisplayMethod  string                                                `json:"display_method,omitempty"`  // 列表页打开审批实例的方式, 可选值有: BROWSER: 跳转系统默认浏览器打开, SIDEBAR: 飞书中侧边抽屉打开, NORMAL: 飞书内嵌页面打开
+	UpdateMode     string                                                `json:"update_mode,omitempty"`     // 更新方式, 当 update_mode=REPLACE时, 每次都以当前推送的数据为最终数据, 会删掉审批中心中多余的任务、抄送数据（不在这次推送的数据中）; 当 update_mode=UPDATE时, 则不会删除审批中心的数据, 而只是进行新增和更新实例、任务数据, 可选值有: REPLACE: 全量替换, 默认值, UPDATE: 增量更新
 	TaskList       []*CreateApprovalExternalInstanceRespDataTask         `json:"task_list,omitempty"`       // 任务列表
 	CcList         []*CreateApprovalExternalInstanceRespDataCc           `json:"cc_list,omitempty"`         // 抄送列表
 	I18nResources  []*CreateApprovalExternalInstanceRespDataI18nResource `json:"i18n_resources,omitempty"`  // 国际化文案
@@ -200,12 +200,12 @@ type CreateApprovalExternalInstanceRespDataCc struct {
 	UserID        string                                          `json:"user_id,omitempty"`        // 抄送人 employee id
 	OpenID        string                                          `json:"open_id,omitempty"`        // 抄送人 open id, 和user id 二选一
 	Links         []*CreateApprovalExternalInstanceRespDataCcLink `json:"links,omitempty"`          // 跳转链接, 用于【抄送我的】列表中的跳转pc_link 和 mobile_link 必须填一个, 填写的是哪一端的链接, 即会跳转到该链接, 不受平台影响
-	ReadStatus    string                                          `json:"read_status,omitempty"`    // 阅读状态, 空值表示不支持已读未读: 可选值有: `READ`: 已读, `UNREAD`: 未读
+	ReadStatus    string                                          `json:"read_status,omitempty"`    // 阅读状态, 空值表示不支持已读未读: 可选值有: READ: 已读, UNREAD: 未读
 	Extra         string                                          `json:"extra,omitempty"`          // 扩展 json
 	Title         string                                          `json:"title,omitempty"`          // 抄送任务名称
 	CreateTime    string                                          `json:"create_time,omitempty"`    // 抄送发起时间, Unix 毫秒时间戳
 	UpdateTime    string                                          `json:"update_time,omitempty"`    // 抄送最近更新时间, 用于推送数据版本控制更新策略同 instance 的update_time
-	DisplayMethod string                                          `json:"display_method,omitempty"` // 列表页打开审批任务的方式, 可选值有: `BROWSER`: 跳转系统默认浏览器打开, `SIDEBAR`: 飞书中侧边抽屉打开, `NORMAL`: 飞书内嵌页面打开
+	DisplayMethod string                                          `json:"display_method,omitempty"` // 列表页打开审批任务的方式, 可选值有: BROWSER: 跳转系统默认浏览器打开, SIDEBAR: 飞书中侧边抽屉打开, NORMAL: 飞书内嵌页面打开
 }
 
 // CreateApprovalExternalInstanceRespDataCcLink ...
@@ -222,7 +222,7 @@ type CreateApprovalExternalInstanceRespDataForm struct {
 
 // CreateApprovalExternalInstanceRespDataI18nResource ...
 type CreateApprovalExternalInstanceRespDataI18nResource struct {
-	Locale    string                                                    `json:"locale,omitempty"`     // 语言可选值有: zh-CN: 中文 en-US: 英文 ja-JP: 日文, 可选值有: `zh-CN`: 中文, `en-US`: 英文, `ja-JP`: 日文
+	Locale    string                                                    `json:"locale,omitempty"`     // 语言可选值有: zh-CN: 中文 en-US: 英文 ja-JP: 日文, 可选值有: zh-CN: 中文, en-US: 英文, ja-JP: 日文
 	Texts     []*CreateApprovalExternalInstanceRespDataI18nResourceText `json:"texts,omitempty"`      // 文案 key, value, i18n key 以 @i18n@ 开头； 该字段主要用于做国际化, 语序用户同时传多个语言的文案, 审批中心会根据用户当前的语音环境使用对应的文案, 如果没有传用户当前的语音环境文案, 则会使用默认的语言文案。
 	IsDefault bool                                                      `json:"is_default,omitempty"` // 是否默认语言, 默认语言需要包含所有key, 非默认语言如果key不存在会使用默认语言代替
 }
@@ -246,19 +246,19 @@ type CreateApprovalExternalInstanceRespDataTask struct {
 	OpenID        string                                                    `json:"open_id,omitempty"`        // 审批人 open id, 和 user id 二选一
 	Title         string                                                    `json:"title,omitempty"`          // 审批任务名称
 	Links         *CreateApprovalExternalInstanceRespDataTaskLinks          `json:"links,omitempty"`          // 【待审批】或【已审批】中使用的跳转链接, 用于跳转回三方系统pc_link 和 mobile_link 必须填一个, 填写的是哪一端的链接, 即会跳转到该链接, 不受平台影响
-	Status        string                                                    `json:"status,omitempty"`         // 任务状态, 可选值有: `PENDING`: 待审批, `APPROVED`: 任务同意, `REJECTED`: 任务拒绝, `TRANSFERRED`: 任务转交, `DONE`: 任务通过但审批人未操作；审批人看不到这个任务, 若想要看到, 可以通过抄送该人.
+	Status        string                                                    `json:"status,omitempty"`         // 任务状态, 可选值有: PENDING: 待审批, APPROVED: 任务同意, REJECTED: 任务拒绝, TRANSFERRED: 任务转交, DONE: 任务通过但审批人未操作；审批人看不到这个任务, 若想要看到, 可以通过抄送该人.
 	Extra         string                                                    `json:"extra,omitempty"`          // 扩展 json
 	CreateTime    string                                                    `json:"create_time,omitempty"`    // 任务创建时间, Unix 毫秒时间戳
 	EndTime       string                                                    `json:"end_time,omitempty"`       // 任务完成时间: 未结束的审批为 0, Unix 毫秒时间戳
 	UpdateTime    string                                                    `json:"update_time,omitempty"`    // task最近更新时间, 用于推送数据版本控制； 更新策略同 instance 中的 update_time
 	ActionContext string                                                    `json:"action_context,omitempty"` // 操作上下文, 当用户操作时, 回调请求中带上该参数, 用于传递该任务的上下文数据
 	ActionConfigs []*CreateApprovalExternalInstanceRespDataTaskActionConfig `json:"action_configs,omitempty"` // 任务级别操作配置, 快捷审批目前支持移动端操作
-	DisplayMethod string                                                    `json:"display_method,omitempty"` // 列表页打开审批任务的方式, 可选值有: `BROWSER`: 跳转系统默认浏览器打开, `SIDEBAR`: 飞书中侧边抽屉打开, `NORMAL`: 飞书内嵌页面打开
+	DisplayMethod string                                                    `json:"display_method,omitempty"` // 列表页打开审批任务的方式, 可选值有: BROWSER: 跳转系统默认浏览器打开, SIDEBAR: 飞书中侧边抽屉打开, NORMAL: 飞书内嵌页面打开
 }
 
 // CreateApprovalExternalInstanceRespDataTaskActionConfig ...
 type CreateApprovalExternalInstanceRespDataTaskActionConfig struct {
-	ActionType       string `json:"action_type,omitempty"`        // 操作类型, 每个任务都可以配置2个操作, 会展示审批列表中, 当用户操作时, 回调请求会带上该字段, 表示用户进行了同意操作还是拒绝操作, 可选值有: `APPROVE`: 同意, `REJECT`: 拒绝, `{KEY}`: 任意字符串, 如果使用任意字符串, 则需要提供 action_name
+	ActionType       string `json:"action_type,omitempty"`        // 操作类型, 每个任务都可以配置2个操作, 会展示审批列表中, 当用户操作时, 回调请求会带上该字段, 表示用户进行了同意操作还是拒绝操作, 可选值有: APPROVE: 同意, REJECT: 拒绝, {KEY}: 任意字符串, 如果使用任意字符串, 则需要提供 action_name
 	ActionName       string `json:"action_name,omitempty"`        // 操作名称, i18n key 用于前台展示, 如果 action_type 不是 APPROVAL和REJECT, 则必须提供该字段, 用于展示特定的操作名称
 	IsNeedReason     bool   `json:"is_need_reason,omitempty"`     // 是否需要意见, 如果为true, 则用户操作时, 会跳转到 意见填写页面
 	IsReasonRequired bool   `json:"is_reason_required,omitempty"` // 审批意见是否必填

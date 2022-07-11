@@ -21,7 +21,9 @@ import (
 	"context"
 )
 
-// SearchApprovalTask 该接口通过不同条件查询审批系统中符合条件的审批任务列表
+// SearchApprovalTask 为了更好地提升接口文档的的易理解性, 我们对文档进行了升级, 请尽快迁移至[新版本>>](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/task/search)
+//
+// 该接口通过不同条件查询审批系统中符合条件的审批任务列表
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uYjMxYjL2ITM24iNyEjN
 func (r *ApprovalService) SearchApprovalTask(ctx context.Context, request *SearchApprovalTaskReq, options ...MethodOptionFunc) (*SearchApprovalTaskResp, *Response, error) {

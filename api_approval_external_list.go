@@ -21,8 +21,9 @@ import (
 	"context"
 )
 
-// GetApprovalExternalList 该接口用于获取三方审批的状态。用户传入查询条件, 接口返回满足条件的审批实例的状态。
+// GetApprovalExternalList 为了更好地提升接口文档的的易理解性, 我们对文档进行了升级, 请尽快迁移至[新版本>>](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/external_task/list)
 //
+// 该接口用于获取三方审批的状态。用户传入查询条件, 接口返回满足条件的审批实例的状态。
 // 该接口支持多种参数的组合, 包括如下组合:
 // 1. 通过 instance_ids 获取指定实例的任务状态
 // 2. 通过 user_ids 获取指定用户的任务状态
@@ -66,7 +67,7 @@ type GetApprovalExternalListReq struct {
 	ApprovalCodes []string `json:"approval_codes,omitempty"` // 审批定义 Code, 用于指定只获取这些定义下的数据
 	InstanceIDs   []string `json:"instance_ids,omitempty"`   // 审批实例 ID, 用于指定只获取这些实例下的数据, 最多支持 20 个
 	UserIDs       []string `json:"user_ids,omitempty"`       // 审批人 user_id, 用于指定只获取这些用户的数据
-	Status        *string  `json:"status,omitempty"`         // 审批任务状态, 用于指定获取该状态下的数据, 状态值参照 [三方审批任务状态枚举](https://open.feishu.cn/document/ukTMukTMukTM/uczM3UjL3MzN14yNzcTN)
+	Status        *string  `json:"status,omitempty"`         // 审批任务状态, 用于指定获取该状态下的数据, 状态值参照 [三方审批任务状态枚举](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/external_instance/create)
 	ScrollID      *string  `json:"scroll_id,omitempty"`      // 通过 status 获取所有任务的请求, 数据是分批返回的, 使用 scroll_id 获取下一批数据
 }
 
@@ -81,7 +82,7 @@ type GetApprovalExternalListRespData struct {
 	InstanceID   string                                 `json:"instance_id,omitempty"`   // 审批实例 ID
 	ApprovalCode string                                 `json:"approval_code,omitempty"` // 审批对应的 approval_code
 	ApprovalID   string                                 `json:"approval_id,omitempty"`   // 审批的id
-	Status       string                                 `json:"status,omitempty"`        // 审批实例当前的状态, 参考[三方审批实例状态枚举](https://open.feishu.cn/document/ukTMukTMukTM/uczM3UjL3MzN14yNzcTN)
+	Status       string                                 `json:"status,omitempty"`        // 审批实例当前的状态, 参考[三方审批实例状态枚举](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/external_instance/create)
 	UpdateTime   int64                                  `json:"update_time,omitempty"`   // 审批实例最后更新时间, 单位 毫秒
 	Tasks        []*GetApprovalExternalListRespDataTask `json:"tasks,omitempty"`         // 审批实例下的审批任务
 }
@@ -89,7 +90,7 @@ type GetApprovalExternalListRespData struct {
 // GetApprovalExternalListRespDataTask ...
 type GetApprovalExternalListRespDataTask struct {
 	ID         string `json:"id,omitempty"`          // 审批任务 ID
-	Status     string `json:"status,omitempty"`      // 审批任务状态, 状态值参照 [三方审批任务状态枚举](https://open.feishu.cn/document/ukTMukTMukTM/uczM3UjL3MzN14yNzcTN)
+	Status     string `json:"status,omitempty"`      // 审批任务状态, 状态值参照 [三方审批任务状态枚举](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/external_instance/create)
 	UpdateTime int64  `json:"update_time,omitempty"` // 审批任务最后更新时间, 单位 毫秒
 }
 
