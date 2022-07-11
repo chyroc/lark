@@ -84,6 +84,7 @@ func escape(txt string) string {
 // url保留字转义
 func preprocessURL(urlStr string) string {
 	urlStr = strings.ReplaceAll(urlStr, "&reg", "&&#114;eg")
+	urlStr = strings.ReplaceAll(urlStr, "&para", "&&#112;ara")
 	return urlStr
 }
 
