@@ -61,7 +61,7 @@ type GetTaskCommentListReq struct {
 	TaskID        string  `path:"task_id" json:"-"`         // 任务id, 示例值: ""83912691-2e43-47fc-94a4-d512e03984fa""
 	PageSize      *int64  `query:"page_size" json:"-"`      // 分页大小, 示例值: 10, 最大值: `100`
 	PageToken     *string `query:"page_token" json:"-"`     // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果, 示例值: ""MTYzMTg3ODUxNQ==""
-	ListDirection *int64  `query:"list_direction" json:"-"` // 评论排序标记, 可按照评论时间从小到大查询, 或者评论时间从大到小查询, 不填默认按照从小到大, 示例值: 0, 可选值有: `0`: 按照回复时间从小到大查询, `1`: 按照回复时间从大到小查询, 默认值: `0`
+	ListDirection *int64  `query:"list_direction" json:"-"` // 评论排序标记, 可按照评论时间从小到大查询, 或者评论时间从大到小查询, 不填默认按照从小到大, 示例值: 0, 可选值有: 0: 按照回复时间从小到大查询, 1: 按照回复时间从大到小查询, 默认值: `0`
 }
 
 // GetTaskCommentListResp ...
@@ -73,9 +73,10 @@ type GetTaskCommentListResp struct {
 
 // GetTaskCommentListRespItem ...
 type GetTaskCommentListRespItem struct {
-	Content  string `json:"content,omitempty"`   // 评论内容
-	ParentID string `json:"parent_id,omitempty"` // 评论的父ID, 创建评论时若不为空则为某条评论的回复, 若为空则不是回复
-	ID       string `json:"id,omitempty"`        // 评论ID, 由飞书服务器发号
+	Content         string `json:"content,omitempty"`           // 评论内容
+	ParentID        string `json:"parent_id,omitempty"`         // 评论的父ID, 创建评论时若不为空则为某条评论的回复, 若为空则不是回复
+	ID              string `json:"id,omitempty"`                // 评论ID, 由飞书服务器发号
+	CreateMilliTime string `json:"create_milli_time,omitempty"` // 评论创建的时间戳, 单位为毫秒, 用于展示, 创建时不用填写
 }
 
 // getTaskCommentListResp ...

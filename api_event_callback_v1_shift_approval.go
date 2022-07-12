@@ -23,7 +23,7 @@ import (
 
 // EventV1ShiftApproval 了解事件订阅的使用场景和配置流程, 请点击查看 [事件订阅概述](https://open.feishu.cn/document/ukTMukTMukTM/uUTNz4SN1MjL1UzM)
 //
-// 通过open api创建的换班申请审批通过后触发此事件。备注: 「打卡」应用里提交换班申请不支持该事件。即将下线, 已订阅的不受影响。
+// 包含换班控件组的换班申请审批通过后触发此事件。
 // * 依赖权限: [访问审批应用]
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uIDO24iM4YjLygjN/event/shift-change

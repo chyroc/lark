@@ -69,9 +69,10 @@ type GetTaskCommentResp struct {
 
 // GetTaskCommentRespComment ...
 type GetTaskCommentRespComment struct {
-	Content  string `json:"content,omitempty"`   // 评论内容
-	ParentID string `json:"parent_id,omitempty"` // 评论的父ID, 创建评论时若不为空则为某条评论的回复, 若为空则不是回复
-	ID       string `json:"id,omitempty"`        // 评论ID, 由飞书服务器发号
+	Content         string `json:"content,omitempty"`           // 评论内容
+	ParentID        string `json:"parent_id,omitempty"`         // 评论的父ID, 创建评论时若不为空则为某条评论的回复, 若为空则不是回复
+	ID              string `json:"id,omitempty"`                // 评论ID, 由飞书服务器发号
+	CreateMilliTime string `json:"create_milli_time,omitempty"` // 评论创建的时间戳, 单位为毫秒, 用于展示, 创建时不用填写
 }
 
 // getTaskCommentResp ...

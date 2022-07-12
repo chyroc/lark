@@ -75,6 +75,30 @@ func Test_Approval_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
+			cli.Mock().MockApprovalSubscribeApprovalSubscription(func(ctx context.Context, request *lark.SubscribeApprovalSubscriptionReq, options ...lark.MethodOptionFunc) (*lark.SubscribeApprovalSubscriptionResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockApprovalSubscribeApprovalSubscription()
+
+			_, _, err := moduleCli.SubscribeApprovalSubscription(ctx, &lark.SubscribeApprovalSubscriptionReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			cli.Mock().MockApprovalUnsubscribeApprovalSubscription(func(ctx context.Context, request *lark.UnsubscribeApprovalSubscriptionReq, options ...lark.MethodOptionFunc) (*lark.UnsubscribeApprovalSubscriptionResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockApprovalUnsubscribeApprovalSubscription()
+
+			_, _, err := moduleCli.UnsubscribeApprovalSubscription(ctx, &lark.UnsubscribeApprovalSubscriptionReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
 			cli.Mock().MockApprovalCreateApprovalInstance(func(ctx context.Context, request *lark.CreateApprovalInstanceReq, options ...lark.MethodOptionFunc) (*lark.CreateApprovalInstanceResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -207,6 +231,54 @@ func Test_Approval_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
+			cli.Mock().MockApprovalCreateApprovalComment(func(ctx context.Context, request *lark.CreateApprovalCommentReq, options ...lark.MethodOptionFunc) (*lark.CreateApprovalCommentResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockApprovalCreateApprovalComment()
+
+			_, _, err := moduleCli.CreateApprovalComment(ctx, &lark.CreateApprovalCommentReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			cli.Mock().MockApprovalGetApprovalComment(func(ctx context.Context, request *lark.GetApprovalCommentReq, options ...lark.MethodOptionFunc) (*lark.GetApprovalCommentResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockApprovalGetApprovalComment()
+
+			_, _, err := moduleCli.GetApprovalComment(ctx, &lark.GetApprovalCommentReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			cli.Mock().MockApprovalDeleteApprovalComment(func(ctx context.Context, request *lark.DeleteApprovalCommentReq, options ...lark.MethodOptionFunc) (*lark.DeleteApprovalCommentResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockApprovalDeleteApprovalComment()
+
+			_, _, err := moduleCli.DeleteApprovalComment(ctx, &lark.DeleteApprovalCommentReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			cli.Mock().MockApprovalRemoveApprovalComment(func(ctx context.Context, request *lark.RemoveApprovalCommentReq, options ...lark.MethodOptionFunc) (*lark.RemoveApprovalCommentResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockApprovalRemoveApprovalComment()
+
+			_, _, err := moduleCli.RemoveApprovalComment(ctx, &lark.RemoveApprovalCommentReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
 			cli.Mock().MockApprovalCreateApprovalExternalApproval(func(ctx context.Context, request *lark.CreateApprovalExternalApprovalReq, options ...lark.MethodOptionFunc) (*lark.CreateApprovalExternalApprovalResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -243,12 +315,12 @@ func Test_Approval_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
-			cli.Mock().MockApprovalSearchApprovalInstance(func(ctx context.Context, request *lark.SearchApprovalInstanceReq, options ...lark.MethodOptionFunc) (*lark.SearchApprovalInstanceResp, *lark.Response, error) {
+			cli.Mock().MockApprovalGetApprovalExternalList(func(ctx context.Context, request *lark.GetApprovalExternalListReq, options ...lark.MethodOptionFunc) (*lark.GetApprovalExternalListResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
-			defer cli.Mock().UnMockApprovalSearchApprovalInstance()
+			defer cli.Mock().UnMockApprovalGetApprovalExternalList()
 
-			_, _, err := moduleCli.SearchApprovalInstance(ctx, &lark.SearchApprovalInstanceReq{})
+			_, _, err := moduleCli.GetApprovalExternalList(ctx, &lark.GetApprovalExternalListReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "mock-failed")
 		})
@@ -261,6 +333,54 @@ func Test_Approval_Sample_Failed(t *testing.T) {
 			defer cli.Mock().UnMockApprovalUploadApprovalFile()
 
 			_, _, err := moduleCli.UploadApprovalFile(ctx, &lark.UploadApprovalFileReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			cli.Mock().MockApprovalUpdateApprovalMessage(func(ctx context.Context, request *lark.UpdateApprovalMessageReq, options ...lark.MethodOptionFunc) (*lark.UpdateApprovalMessageResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockApprovalUpdateApprovalMessage()
+
+			_, _, err := moduleCli.UpdateApprovalMessage(ctx, &lark.UpdateApprovalMessageReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			cli.Mock().MockApprovalSendApprovalMessage(func(ctx context.Context, request *lark.SendApprovalMessageReq, options ...lark.MethodOptionFunc) (*lark.SendApprovalMessageResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockApprovalSendApprovalMessage()
+
+			_, _, err := moduleCli.SendApprovalMessage(ctx, &lark.SendApprovalMessageReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			cli.Mock().MockApprovalSearchApprovalInstance(func(ctx context.Context, request *lark.SearchApprovalInstanceReq, options ...lark.MethodOptionFunc) (*lark.SearchApprovalInstanceResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockApprovalSearchApprovalInstance()
+
+			_, _, err := moduleCli.SearchApprovalInstance(ctx, &lark.SearchApprovalInstanceReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			cli.Mock().MockApprovalSearchApprovalCarbonCopy(func(ctx context.Context, request *lark.SearchApprovalCarbonCopyReq, options ...lark.MethodOptionFunc) (*lark.SearchApprovalCarbonCopyResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockApprovalSearchApprovalCarbonCopy()
+
+			_, _, err := moduleCli.SearchApprovalCarbonCopy(ctx, &lark.SearchApprovalCarbonCopyReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "mock-failed")
 		})
@@ -289,78 +409,6 @@ func Test_Approval_Sample_Failed(t *testing.T) {
 			as.Equal(err.Error(), "mock-failed")
 		})
 
-		t.Run("", func(t *testing.T) {
-
-			cli.Mock().MockApprovalSearchApprovalCarbonCopy(func(ctx context.Context, request *lark.SearchApprovalCarbonCopyReq, options ...lark.MethodOptionFunc) (*lark.SearchApprovalCarbonCopyResp, *lark.Response, error) {
-				return nil, nil, fmt.Errorf("mock-failed")
-			})
-			defer cli.Mock().UnMockApprovalSearchApprovalCarbonCopy()
-
-			_, _, err := moduleCli.SearchApprovalCarbonCopy(ctx, &lark.SearchApprovalCarbonCopyReq{})
-			as.NotNil(err)
-			as.Equal(err.Error(), "mock-failed")
-		})
-
-		t.Run("", func(t *testing.T) {
-
-			cli.Mock().MockApprovalUpdateApprovalMessage(func(ctx context.Context, request *lark.UpdateApprovalMessageReq, options ...lark.MethodOptionFunc) (*lark.UpdateApprovalMessageResp, *lark.Response, error) {
-				return nil, nil, fmt.Errorf("mock-failed")
-			})
-			defer cli.Mock().UnMockApprovalUpdateApprovalMessage()
-
-			_, _, err := moduleCli.UpdateApprovalMessage(ctx, &lark.UpdateApprovalMessageReq{})
-			as.NotNil(err)
-			as.Equal(err.Error(), "mock-failed")
-		})
-
-		t.Run("", func(t *testing.T) {
-
-			cli.Mock().MockApprovalSubscribeApprovalSubscription(func(ctx context.Context, request *lark.SubscribeApprovalSubscriptionReq, options ...lark.MethodOptionFunc) (*lark.SubscribeApprovalSubscriptionResp, *lark.Response, error) {
-				return nil, nil, fmt.Errorf("mock-failed")
-			})
-			defer cli.Mock().UnMockApprovalSubscribeApprovalSubscription()
-
-			_, _, err := moduleCli.SubscribeApprovalSubscription(ctx, &lark.SubscribeApprovalSubscriptionReq{})
-			as.NotNil(err)
-			as.Equal(err.Error(), "mock-failed")
-		})
-
-		t.Run("", func(t *testing.T) {
-
-			cli.Mock().MockApprovalUnsubscribeApprovalSubscription(func(ctx context.Context, request *lark.UnsubscribeApprovalSubscriptionReq, options ...lark.MethodOptionFunc) (*lark.UnsubscribeApprovalSubscriptionResp, *lark.Response, error) {
-				return nil, nil, fmt.Errorf("mock-failed")
-			})
-			defer cli.Mock().UnMockApprovalUnsubscribeApprovalSubscription()
-
-			_, _, err := moduleCli.UnsubscribeApprovalSubscription(ctx, &lark.UnsubscribeApprovalSubscriptionReq{})
-			as.NotNil(err)
-			as.Equal(err.Error(), "mock-failed")
-		})
-
-		t.Run("", func(t *testing.T) {
-
-			cli.Mock().MockApprovalGetApprovalExternalList(func(ctx context.Context, request *lark.GetApprovalExternalListReq, options ...lark.MethodOptionFunc) (*lark.GetApprovalExternalListResp, *lark.Response, error) {
-				return nil, nil, fmt.Errorf("mock-failed")
-			})
-			defer cli.Mock().UnMockApprovalGetApprovalExternalList()
-
-			_, _, err := moduleCli.GetApprovalExternalList(ctx, &lark.GetApprovalExternalListReq{})
-			as.NotNil(err)
-			as.Equal(err.Error(), "mock-failed")
-		})
-
-		t.Run("", func(t *testing.T) {
-
-			cli.Mock().MockApprovalSendApprovalMessage(func(ctx context.Context, request *lark.SendApprovalMessageReq, options ...lark.MethodOptionFunc) (*lark.SendApprovalMessageResp, *lark.Response, error) {
-				return nil, nil, fmt.Errorf("mock-failed")
-			})
-			defer cli.Mock().UnMockApprovalSendApprovalMessage()
-
-			_, _, err := moduleCli.SendApprovalMessage(ctx, &lark.SendApprovalMessageReq{})
-			as.NotNil(err)
-			as.Equal(err.Error(), "mock-failed")
-		})
-
 	})
 
 	t.Run("response is failed", func(t *testing.T) {
@@ -377,6 +425,24 @@ func Test_Approval_Sample_Failed(t *testing.T) {
 		t.Run("", func(t *testing.T) {
 
 			_, _, err := moduleCli.GetApproval(ctx, &lark.GetApprovalReq{
+				ApprovalCode: "x",
+			})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.SubscribeApprovalSubscription(ctx, &lark.SubscribeApprovalSubscriptionReq{
+				ApprovalCode: "x",
+			})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.UnsubscribeApprovalSubscription(ctx, &lark.UnsubscribeApprovalSubscriptionReq{
 				ApprovalCode: "x",
 			})
 			as.NotNil(err)
@@ -464,6 +530,43 @@ func Test_Approval_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
+			_, _, err := moduleCli.CreateApprovalComment(ctx, &lark.CreateApprovalCommentReq{
+				InstanceID: "x",
+			})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.GetApprovalComment(ctx, &lark.GetApprovalCommentReq{
+				InstanceID: "x",
+			})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.DeleteApprovalComment(ctx, &lark.DeleteApprovalCommentReq{
+				InstanceID: "x",
+				CommentID:  "x",
+			})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.RemoveApprovalComment(ctx, &lark.RemoveApprovalCommentReq{
+				InstanceID: "x",
+			})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+
 			_, _, err := moduleCli.CreateApprovalExternalApproval(ctx, &lark.CreateApprovalExternalApprovalReq{})
 			as.NotNil(err)
 			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
@@ -485,7 +588,7 @@ func Test_Approval_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
-			_, _, err := moduleCli.SearchApprovalInstance(ctx, &lark.SearchApprovalInstanceReq{})
+			_, _, err := moduleCli.GetApprovalExternalList(ctx, &lark.GetApprovalExternalListReq{})
 			as.NotNil(err)
 			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
 		})
@@ -493,6 +596,34 @@ func Test_Approval_Sample_Failed(t *testing.T) {
 		t.Run("", func(t *testing.T) {
 
 			_, _, err := moduleCli.UploadApprovalFile(ctx, &lark.UploadApprovalFileReq{})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.UpdateApprovalMessage(ctx, &lark.UpdateApprovalMessageReq{})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.SendApprovalMessage(ctx, &lark.SendApprovalMessageReq{})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.SearchApprovalInstance(ctx, &lark.SearchApprovalInstanceReq{})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.SearchApprovalCarbonCopy(ctx, &lark.SearchApprovalCarbonCopyReq{})
 			as.NotNil(err)
 			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
 		})
@@ -507,48 +638,6 @@ func Test_Approval_Sample_Failed(t *testing.T) {
 		t.Run("", func(t *testing.T) {
 
 			_, _, err := moduleCli.GetApprovalUserTaskList(ctx, &lark.GetApprovalUserTaskListReq{})
-			as.NotNil(err)
-			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
-		})
-
-		t.Run("", func(t *testing.T) {
-
-			_, _, err := moduleCli.SearchApprovalCarbonCopy(ctx, &lark.SearchApprovalCarbonCopyReq{})
-			as.NotNil(err)
-			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
-		})
-
-		t.Run("", func(t *testing.T) {
-
-			_, _, err := moduleCli.UpdateApprovalMessage(ctx, &lark.UpdateApprovalMessageReq{})
-			as.NotNil(err)
-			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
-		})
-
-		t.Run("", func(t *testing.T) {
-
-			_, _, err := moduleCli.SubscribeApprovalSubscription(ctx, &lark.SubscribeApprovalSubscriptionReq{})
-			as.NotNil(err)
-			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
-		})
-
-		t.Run("", func(t *testing.T) {
-
-			_, _, err := moduleCli.UnsubscribeApprovalSubscription(ctx, &lark.UnsubscribeApprovalSubscriptionReq{})
-			as.NotNil(err)
-			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
-		})
-
-		t.Run("", func(t *testing.T) {
-
-			_, _, err := moduleCli.GetApprovalExternalList(ctx, &lark.GetApprovalExternalListReq{})
-			as.NotNil(err)
-			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
-		})
-
-		t.Run("", func(t *testing.T) {
-
-			_, _, err := moduleCli.SendApprovalMessage(ctx, &lark.SendApprovalMessageReq{})
 			as.NotNil(err)
 			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
 		})
@@ -580,6 +669,24 @@ func Test_Approval_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
+			_, _, err := moduleCli.SubscribeApprovalSubscription(ctx, &lark.SubscribeApprovalSubscriptionReq{
+				ApprovalCode: "x",
+			})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.UnsubscribeApprovalSubscription(ctx, &lark.UnsubscribeApprovalSubscriptionReq{
+				ApprovalCode: "x",
+			})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+
 			_, _, err := moduleCli.CreateApprovalInstance(ctx, &lark.CreateApprovalInstanceReq{})
 			as.NotNil(err)
 			as.Equal("fake raw request", err.Error())
@@ -659,6 +766,43 @@ func Test_Approval_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
+			_, _, err := moduleCli.CreateApprovalComment(ctx, &lark.CreateApprovalCommentReq{
+				InstanceID: "x",
+			})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.GetApprovalComment(ctx, &lark.GetApprovalCommentReq{
+				InstanceID: "x",
+			})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.DeleteApprovalComment(ctx, &lark.DeleteApprovalCommentReq{
+				InstanceID: "x",
+				CommentID:  "x",
+			})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.RemoveApprovalComment(ctx, &lark.RemoveApprovalCommentReq{
+				InstanceID: "x",
+			})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+
 			_, _, err := moduleCli.CreateApprovalExternalApproval(ctx, &lark.CreateApprovalExternalApprovalReq{})
 			as.NotNil(err)
 			as.Equal("fake raw request", err.Error())
@@ -680,7 +824,7 @@ func Test_Approval_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
-			_, _, err := moduleCli.SearchApprovalInstance(ctx, &lark.SearchApprovalInstanceReq{})
+			_, _, err := moduleCli.GetApprovalExternalList(ctx, &lark.GetApprovalExternalListReq{})
 			as.NotNil(err)
 			as.Equal("fake raw request", err.Error())
 		})
@@ -688,6 +832,34 @@ func Test_Approval_Sample_Failed(t *testing.T) {
 		t.Run("", func(t *testing.T) {
 
 			_, _, err := moduleCli.UploadApprovalFile(ctx, &lark.UploadApprovalFileReq{})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.UpdateApprovalMessage(ctx, &lark.UpdateApprovalMessageReq{})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.SendApprovalMessage(ctx, &lark.SendApprovalMessageReq{})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.SearchApprovalInstance(ctx, &lark.SearchApprovalInstanceReq{})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.SearchApprovalCarbonCopy(ctx, &lark.SearchApprovalCarbonCopyReq{})
 			as.NotNil(err)
 			as.Equal("fake raw request", err.Error())
 		})
@@ -702,48 +874,6 @@ func Test_Approval_Sample_Failed(t *testing.T) {
 		t.Run("", func(t *testing.T) {
 
 			_, _, err := moduleCli.GetApprovalUserTaskList(ctx, &lark.GetApprovalUserTaskListReq{})
-			as.NotNil(err)
-			as.Equal("fake raw request", err.Error())
-		})
-
-		t.Run("", func(t *testing.T) {
-
-			_, _, err := moduleCli.SearchApprovalCarbonCopy(ctx, &lark.SearchApprovalCarbonCopyReq{})
-			as.NotNil(err)
-			as.Equal("fake raw request", err.Error())
-		})
-
-		t.Run("", func(t *testing.T) {
-
-			_, _, err := moduleCli.UpdateApprovalMessage(ctx, &lark.UpdateApprovalMessageReq{})
-			as.NotNil(err)
-			as.Equal("fake raw request", err.Error())
-		})
-
-		t.Run("", func(t *testing.T) {
-
-			_, _, err := moduleCli.SubscribeApprovalSubscription(ctx, &lark.SubscribeApprovalSubscriptionReq{})
-			as.NotNil(err)
-			as.Equal("fake raw request", err.Error())
-		})
-
-		t.Run("", func(t *testing.T) {
-
-			_, _, err := moduleCli.UnsubscribeApprovalSubscription(ctx, &lark.UnsubscribeApprovalSubscriptionReq{})
-			as.NotNil(err)
-			as.Equal("fake raw request", err.Error())
-		})
-
-		t.Run("", func(t *testing.T) {
-
-			_, _, err := moduleCli.GetApprovalExternalList(ctx, &lark.GetApprovalExternalListReq{})
-			as.NotNil(err)
-			as.Equal("fake raw request", err.Error())
-		})
-
-		t.Run("", func(t *testing.T) {
-
-			_, _, err := moduleCli.SendApprovalMessage(ctx, &lark.SendApprovalMessageReq{})
 			as.NotNil(err)
 			as.Equal("fake raw request", err.Error())
 		})

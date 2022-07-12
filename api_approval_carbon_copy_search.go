@@ -23,7 +23,7 @@ import (
 
 // SearchApprovalCarbonCopy 该接口通过不同条件查询审批系统中符合条件的审批抄送列表。
 //
-// doc: https://open.feishu.cn/document/ukTMukTMukTM/uUjMxYjL1ITM24SNyEjN
+// doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/instance/search_cc
 func (r *ApprovalService) SearchApprovalCarbonCopy(ctx context.Context, request *SearchApprovalCarbonCopyReq, options ...MethodOptionFunc) (*SearchApprovalCarbonCopyResp, *Response, error) {
 	if r.cli.mock.mockApprovalSearchApprovalCarbonCopy != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Approval#SearchApprovalCarbonCopy mock enable")
@@ -34,7 +34,7 @@ func (r *ApprovalService) SearchApprovalCarbonCopy(ctx context.Context, request 
 		Scope:                 "Approval",
 		API:                   "SearchApprovalCarbonCopy",
 		Method:                "POST",
-		URL:                   r.cli.wwwBaseURL + "/approval/openapi/v2/cc/search",
+		URL:                   r.cli.openBaseURL + "/open-apis/approval/v4/instances/search_cc",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
@@ -57,89 +57,95 @@ func (r *Mock) UnMockApprovalSearchApprovalCarbonCopy() {
 
 // SearchApprovalCarbonCopyReq ...
 type SearchApprovalCarbonCopyReq struct {
-	UserID             string  `json:"user_id,omitempty"`              // 用户 id
-	ApprovalCode       *string `json:"approval_code,omitempty"`        // 审批定义 code
-	InstanceCode       *string `json:"instance_code,omitempty"`        // 审批实例 code
-	InstanceExternalID *string `json:"instance_external_id,omitempty"` // 审批实例第三方 id 注: 和 approval_code 取并集
-	GroupExternalID    *string `json:"group_external_id,omitempty"`    // 审批定义分组第三方 id 注: 和 instance_code 取并集
-	CcTitle            *string `json:"cc_title,omitempty"`             // 审批抄送标题（只有第三方审批有）
-	ReadStatus         *string `json:"read_status,omitempty"`          // 审批抄送状态 READ: 已读 UNREAD: 未读 注: 若不设置, 查询全部状态 若不在集合中, 报错
-	CcCreateTimeFrom   *int64  `json:"CcCreateTimeFrom,omitempty"`     // 抄送查询开始时间 (unix毫秒时间戳)
-	CcCreateTimeTo     *int64  `json:"CcCreateTimeTo,omitempty"`       // 抄送查询结束时间 (unix毫秒时间戳)
-	Locale             *string `json:"locale,omitempty"`               // 地区 （zh-CN、en-US、ja-JP）
-	Offset             *int64  `json:"offset,omitempty"`               // 查询偏移量 注: 不得超过10000
-	Limit              *int64  `json:"limit,omitempty"`                // 查询限制量 注: 不得超过200 不设置默认查询10条数据
+	PageSize           *int64  `query:"page_size" json:"-"`            // 分页大小, 示例值: 10, 默认值: `10`, 取值范围: `5` ～ `200`
+	PageToken          *string `query:"page_token" json:"-"`           // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果, 示例值: "nF1ZXJ5VGhlbkZldGNoCgAAAAAA6PZwFmUzSldvTC1yU"
+	UserIDType         *IDType `query:"user_id_type" json:"-"`         // 用户 ID 类型, 示例值: "open_id", 可选值有: open_id: 用户的 open id, union_id: 用户的 union id, user_id: 用户的 user id, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
+	UserID             string  `json:"user_id,omitempty"`              // 根据x_user_type填写用户 id, 示例值: "lwiu098wj"
+	ApprovalCode       *string `json:"approval_code,omitempty"`        // 审批定义 code, 示例值: "EB828003-9FFE-4B3F-AA50-2E199E2ED942"
+	InstanceCode       *string `json:"instance_code,omitempty"`        // 审批实例 code, 示例值: "EB828003-9FFE-4B3F-AA50-2E199E2ED943"
+	InstanceExternalID *string `json:"instance_external_id,omitempty"` // 审批实例第三方 id 注: 和 approval_code 取并集, 示例值: "EB828003-9FFE-4B3F-AA50-2E199E2ED976"
+	GroupExternalID    *string `json:"group_external_id,omitempty"`    // 审批定义分组第三方 id 注: 和 instance_code 取并集, 示例值: "1234567"
+	CcTitle            *string `json:"cc_title,omitempty"`             // 审批实例标题（只有第三方审批有）, 示例值: "test"
+	ReadStatus         *string `json:"read_status,omitempty"`          // 审批抄送状态, 注: 若不设置, 查询全部状态 若不在集合中, 报错, 示例值: "READ", 可选值有: READ: 已读, UNREAD: 未读, ALL: 所有状态
+	CcCreateTimeFrom   *string `json:"cc_create_time_from,omitempty"`  // 实例查询开始时间（unix毫秒时间戳）, 示例值: "1547654251506"
+	CcCreateTimeTo     *string `json:"cc_create_time_to,omitempty"`    // 实例查询结束时间 (unix毫秒时间戳), 示例值: "1547654251506"
+	Locale             *string `json:"locale,omitempty"`               // 地区, 示例值: "zh-CN", 可选值有: zh-CN: 中文, en-US: 英文, ja-JP: 日文
 }
 
 // SearchApprovalCarbonCopyResp ...
 type SearchApprovalCarbonCopyResp struct {
-	Data     map[string]interface{}                `json:"data,omitempty"`     // 是
-	Count    int64                                 `json:"count,omitempty"`    // 查询返回条数
-	CcList   []*SearchApprovalCarbonCopyRespCc     `json:"cc_list,omitempty"`  // 审批实例列表
-	Approval *SearchApprovalCarbonCopyRespApproval `json:"approval,omitempty"` // 审批定义
-	Group    *SearchApprovalCarbonCopyRespGroup    `json:"group,omitempty"`    // 审批定义分组
-	Instance *SearchApprovalCarbonCopyRespInstance `json:"instance,omitempty"` // 审批实例信息
-	Cc       *SearchApprovalCarbonCopyRespCc       `json:"cc,omitempty"`       // 审批抄送
-}
-
-// SearchApprovalCarbonCopyRespApproval ...
-type SearchApprovalCarbonCopyRespApproval struct {
-	Code       string                                        `json:"code,omitempty"`        // 审批定义 code
-	Name       string                                        `json:"name,omitempty"`        // 审批定义名称
-	IsExternal bool                                          `json:"is_external,omitempty"` // 是否为第三方审批
-	External   *SearchApprovalCarbonCopyRespApprovalExternal `json:"external,omitempty"`    // 第三方审批信息
-}
-
-// SearchApprovalCarbonCopyRespApprovalExternal ...
-type SearchApprovalCarbonCopyRespApprovalExternal struct {
-	BatchCcRead bool `json:"batch_cc_read,omitempty"` // 是否支持批量读
+	Count     int64                             `json:"count,omitempty"`      // 查询返回条数
+	CcList    []*SearchApprovalCarbonCopyRespCc `json:"cc_list,omitempty"`    // 审批实例列表
+	PageToken string                            `json:"page_token,omitempty"` // 翻页 Token
+	HasMore   bool                              `json:"has_more,omitempty"`   // 是否有更多任务可供拉取
 }
 
 // SearchApprovalCarbonCopyRespCc ...
 type SearchApprovalCarbonCopyRespCc struct {
-	UserID     string                              `json:"user_id,omitempty"`     // 审批抄送发起人 id
-	CreateTime int64                               `json:"create_time,omitempty"` // 审批抄送开始时间
-	ReadStatus string                              `json:"read_status,omitempty"` // 审批抄送状态
-	Title      string                              `json:"title,omitempty"`       // 审批抄送名称
-	Extra      string                              `json:"extra,omitempty"`       // 审批抄送扩展字段
-	Link       *SearchApprovalCarbonCopyRespCcLink `json:"link,omitempty"`        // 审批抄送链接
+	Approval *SearchApprovalCarbonCopyRespCcApproval `json:"approval,omitempty"` // 审批定义
+	Group    *SearchApprovalCarbonCopyRespCcGroup    `json:"group,omitempty"`    // 审批定义分组
+	Instance *SearchApprovalCarbonCopyRespCcInstance `json:"instance,omitempty"` // 审批实例信息
+	Cc       *SearchApprovalCarbonCopyRespCcCc       `json:"cc,omitempty"`       // 审批任务
 }
 
-// SearchApprovalCarbonCopyRespCcLink ...
-type SearchApprovalCarbonCopyRespCcLink struct {
-	PcLink     string `json:"pc_link,omitempty"`     // 审批抄送 pc 端链接
-	MobileLink string `json:"mobile_link,omitempty"` // 审批抄送移动端链接
+// SearchApprovalCarbonCopyRespCcApproval ...
+type SearchApprovalCarbonCopyRespCcApproval struct {
+	Code       string                                          `json:"code,omitempty"`        // 审批定义 code
+	Name       string                                          `json:"name,omitempty"`        // 审批定义名称
+	IsExternal bool                                            `json:"is_external,omitempty"` // 是否为第三方审批
+	External   *SearchApprovalCarbonCopyRespCcApprovalExternal `json:"external,omitempty"`    // 第三方审批信息
 }
 
-// SearchApprovalCarbonCopyRespGroup ...
-type SearchApprovalCarbonCopyRespGroup struct {
+// SearchApprovalCarbonCopyRespCcApprovalExternal ...
+type SearchApprovalCarbonCopyRespCcApprovalExternal struct {
+	BatchCcRead bool `json:"batch_cc_read,omitempty"` // 是否支持批量读
+}
+
+// SearchApprovalCarbonCopyRespCcCc ...
+type SearchApprovalCarbonCopyRespCcCc struct {
+	UserID     string                                `json:"user_id,omitempty"`     // 审批实例发起人 id
+	CreateTime string                                `json:"create_time,omitempty"` // 审批实例开始时间
+	ReadStatus string                                `json:"read_status,omitempty"` // 审批实例状态, 可选值有: READ: 已读, UNREAD: 未读
+	Title      string                                `json:"title,omitempty"`       // 审批实例名称（只有第三方审批有）
+	Extra      string                                `json:"extra,omitempty"`       // 审批实例扩展字段, string型json
+	Link       *SearchApprovalCarbonCopyRespCcCcLink `json:"link,omitempty"`        // 审批实例链接（只有第三方审批有）
+}
+
+// SearchApprovalCarbonCopyRespCcCcLink ...
+type SearchApprovalCarbonCopyRespCcCcLink struct {
+	PcLink     string `json:"pc_link,omitempty"`     // 审批实例 pc 端链接
+	MobileLink string `json:"mobile_link,omitempty"` // 审批实例移动端链接
+}
+
+// SearchApprovalCarbonCopyRespCcGroup ...
+type SearchApprovalCarbonCopyRespCcGroup struct {
 	ExternalID string `json:"external_id,omitempty"` // 审批定义分组外部 id
 	Name       string `json:"name,omitempty"`        // 审批定义分组名称
 }
 
-// SearchApprovalCarbonCopyRespInstance ...
-type SearchApprovalCarbonCopyRespInstance struct {
-	Code       string                                    `json:"code,omitempty"`        // 审批实例 code
-	ExternalID string                                    `json:"external_id,omitempty"` // 审批实例外部 id
-	UserID     string                                    `json:"user_id,omitempty"`     // 审批实例发起人 id
-	StartTime  int64                                     `json:"start_time,omitempty"`  // 审批实例开始时间
-	EndTime    int64                                     `json:"end_time,omitempty"`    // 审批实例结束时间
-	Status     string                                    `json:"status,omitempty"`      // 审批实例状态
-	Title      string                                    `json:"title,omitempty"`       // 审批实例名称（只有第三方审批有）
-	Extra      string                                    `json:"extra,omitempty"`       // 审批实例扩展字段
-	SerialID   string                                    `json:"serial_id,omitempty"`   // 审批流水号
-	Link       *SearchApprovalCarbonCopyRespInstanceLink `json:"link,omitempty"`        // 审批实例链接（只有第三方审批有）
+// SearchApprovalCarbonCopyRespCcInstance ...
+type SearchApprovalCarbonCopyRespCcInstance struct {
+	Code       string                                      `json:"code,omitempty"`        // 审批实例 code
+	ExternalID string                                      `json:"external_id,omitempty"` // 审批实例外部 id
+	UserID     string                                      `json:"user_id,omitempty"`     // 审批实例发起人 id
+	StartTime  string                                      `json:"start_time,omitempty"`  // 审批实例开始时间
+	EndTime    string                                      `json:"end_time,omitempty"`    // 审批实例结束时间
+	Status     string                                      `json:"status,omitempty"`      // 审批实例状态, 可选值有: REJECT: 拒绝, PENDING: 审批中, RECALL: 撤回, DELETED: 已删除, APPROVED: 通过
+	Title      string                                      `json:"title,omitempty"`       // 审批实例名称（只有第三方审批有）
+	Extra      string                                      `json:"extra,omitempty"`       // 审批实例扩展字段, string型json
+	SerialID   string                                      `json:"serial_id,omitempty"`   // 审批流水号
+	Link       *SearchApprovalCarbonCopyRespCcInstanceLink `json:"link,omitempty"`        // 审批实例链接（只有第三方审批有）
 }
 
-// SearchApprovalCarbonCopyRespInstanceLink ...
-type SearchApprovalCarbonCopyRespInstanceLink struct {
+// SearchApprovalCarbonCopyRespCcInstanceLink ...
+type SearchApprovalCarbonCopyRespCcInstanceLink struct {
 	PcLink     string `json:"pc_link,omitempty"`     // 审批实例 pc 端链接
 	MobileLink string `json:"mobile_link,omitempty"` // 审批实例移动端链接
 }
 
 // searchApprovalCarbonCopyResp ...
 type searchApprovalCarbonCopyResp struct {
-	Code int64                         `json:"code,omitempty"` // 是
-	Msg  string                        `json:"msg,omitempty"`  // 是
-	Data *SearchApprovalCarbonCopyResp `json:"data,omitempty"` // 返回业务信息
+	Code int64                         `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg  string                        `json:"msg,omitempty"`  // 错误描述
+	Data *SearchApprovalCarbonCopyResp `json:"data,omitempty"`
 }

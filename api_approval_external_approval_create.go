@@ -62,7 +62,7 @@ func (r *Mock) UnMockApprovalCreateApprovalExternalApproval() {
 type CreateApprovalExternalApprovalReq struct {
 	DepartmentIDType *DepartmentIDType                                `query:"department_id_type" json:"-"` // 此次调用中使用的部门ID的类型, 示例值: "open_department_id", 可选值有: department_id: 以自定义department_id来标识部门, open_department_id: 以open_department_id来标识部门, 默认值: `open_department_id`
 	UserIDType       *IDType                                          `query:"user_id_type" json:"-"`       // 用户 ID 类型, 示例值: "open_id", 可选值有: open_id: 用户的 open id, union_id: 用户的 union id, user_id: 用户的 user id, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
-	ApprovalName     string                                           `json:"approval_name,omitempty"`      // 审批定义名称, 创建审批定义返回的值, 表示该实例属于哪个流程；该字段会影响到列表中该实例的标题, 标题取自对应定义的 name 字段, 示例值: "E78F1022-A166-447C-8320-E151DA90D70F"
+	ApprovalName     string                                           `json:"approval_name,omitempty"`      // 审批定义名称, 创建审批定义返回的值, 表示该实例属于哪个流程；该字段会影响到列表中该实例的标题, 标题取自对应定义的 name 字段, 示例值: "@i18n@1"
 	ApprovalCode     string                                           `json:"approval_code,omitempty"`      // 审批定义 code, 用户自定义, 定义的唯一标识, 如果不存在该 code, 则创建, 否则更新, 示例值: "permission_test"
 	GroupCode        string                                           `json:"group_code,omitempty"`         // 审批定义所属审批分组, 用户自定义； 如果group_code当前不存在, 则会新建审批分组； 如果group_code已经存在, 则会使用group_name更新审批分组名称, 示例值: "work_group"
 	GroupName        *string                                          `json:"group_name,omitempty"`         // 分组名称, 值的格式是 i18n key, 文案放在 i18n_resource； 如果是 group_code 当前不存在, 则该 group_name 必填, 否则, 如果填写了则会更新分组名称, 不填则不更新分组名称； 审批发起页 审批定义的分组名称来自该字段, 示例值: "@i18n@2"
@@ -83,9 +83,10 @@ type CreateApprovalExternalApprovalReqExternal struct {
 	SupportBatchRead    *bool   `json:"support_batch_read,omitempty"`    // 是否支持批量已读, 示例值: true
 	EnableMarkReaded    *bool   `json:"enable_mark_readed,omitempty"`    // 是否支持标注可读, 示例值: true
 	EnableQuickOperate  *bool   `json:"enable_quick_operate,omitempty"`  // 是否支持快速操作, 示例值: true
-	ActionCallbackURL   *string `json:"action_callback_url,omitempty"`   // 三方系统的操作回调 url, 【待审批】列表的任务审批人点同意或拒绝操作后, 审批中心调用该地址通知三方系统, 回调地址相关信息可参见: https://open.feishu.cn/document/ukTMukTMukTM/ukjNyYjL5YjM24SO2IjN/quick-approval-callback, 示例值: "http://www.feishu.cn/approval/openapi/instanceOperate"
-	ActionCallbackToken *string `json:"action_callback_token,omitempty"` // 回调时带的 token, 用于业务系统验证请求来自审批, 具体参考 https://open.feishu.cn/document/ukTMukTMukTM/uUTNz4SN1MjL1UzM, 示例值: "sdjkljkx9lsadf110"
-	ActionCallbackKey   *string `json:"action_callback_key,omitempty"`   // 请求参数加密密钥, 如果配置了该参数, 则会对请求参数进行加密, 业务需要对请求进行解密, 加解密算法参考 https://open.feishu.cn/document/ukTMukTMukTM/uADM4QjLwADO04CMwgDN, 示例值: "gfdqedvsadfgfsd"
+	ActionCallbackURL   *string `json:"action_callback_url,omitempty"`   // 三方系统的操作回调 url, 【待审批】列表的任务审批人点同意或拒绝操作后, 审批中心调用该地址通知三方系统, 回调地址相关信息可参见: [三方审批快捷审批回调](https://open.feishu.cn/document/ukTMukTMukTM/ukjNyYjL5YjM24SO2IjN/quick-approval-callback), 示例值: "http://www.feishu.cn/approval/openapi/instanceOperate"
+	ActionCallbackToken *string `json:"action_callback_token,omitempty"` // 回调时带的 token, 用于业务系统验证请求来自审批, 具体参考 [开放平台文档](https://open.feishu.cn/document/ukTMukTMukTM/uUTNz4SN1MjL1UzM), 示例值: "sdjkljkx9lsadf110"
+	ActionCallbackKey   *string `json:"action_callback_key,omitempty"`   // 请求参数加密密钥, 如果配置了该参数, 则会对请求参数进行加密, 业务需要对请求进行解密, 加解密算法参考 [关联外部选项说明](https://open.feishu.cn/document/ukTMukTMukTM/uADM4QjLwADO04CMwgDN), 示例值: "gfdqedvsadfgfsd"
+	AllowBatchOperate   *bool   `json:"allow_batch_operate,omitempty"`   // 是否支持批量审批, 示例值: true
 }
 
 // CreateApprovalExternalApprovalReqI18nResource ...

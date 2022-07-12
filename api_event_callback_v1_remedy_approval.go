@@ -36,14 +36,17 @@ type EventV1RemedyApprovalHandler func(ctx context.Context, cli *Lark, schema st
 
 // EventV1RemedyApproval ...
 type EventV1RemedyApproval struct {
-	AppID        string `json:"app_id,omitempty"`        // 如: cli_xxx
-	TenantKey    string `json:"tenant_key,omitempty"`    // 如: xxx
-	Type         string `json:"type,omitempty"`          // 或者remedy_approval_v2. 如: remedy_approval
-	InstanceCode string `json:"instance_code,omitempty"` // 审批实例Code. 如: xxx
-	EmployeeID   string `json:"employee_id,omitempty"`   // 用户id. 如: xxx
-	OpenID       string `json:"open_id,omitempty"`       // 用户open_id. 如: ou_xxx
-	StartTime    int64  `json:"start_time,omitempty"`    // 审批发起时间. 如: 1502199207
-	EndTime      int64  `json:"end_time,omitempty"`      // 审批结束时间. 如: 1502199307
-	RemedyTime   string `json:"remedy_time,omitempty"`   // 补卡时间. 如: 2018-12-01 12:00:00
-	RemedyReason string `json:"remedy_reason,omitempty"` // 补卡原因. 如: xxx
+	Object *EventV1RemedyApprovalObject `json:"object,omitempty"` // 为当前的数据, 事件的标准格式
+}
+
+// EventV1RemedyApprovalObject ...
+type EventV1RemedyApprovalObject struct {
+	Type         string `json:"type,omitempty"`          // 审批定义id. 如: remedy_approval_v2
+	InstanceCode string `json:"instance_code,omitempty"` // 审批实例code
+	EmployeeID   string `json:"employee_id,omitempty"`   // 用户id
+	StartTime    int64  `json:"start_time,omitempty"`    // 审批发起时间. 如: 0
+	EndTime      int64  `json:"end_time,omitempty"`      // 审批结束时间. 如: 0
+	RemedyTime   int64  `json:"remedy_time,omitempty"`   // 补卡时间. 如: 0
+	RemedyReason string `json:"remedy_reason,omitempty"` // 补卡原因
+	Status       string `json:"status,omitempty"`        // 实例状态
 }

@@ -57,9 +57,29 @@ func (r *Mock) UnMockSearchCreateSearchDataSource() {
 
 // CreateSearchDataSourceReq ...
 type CreateSearchDataSourceReq struct {
-	Name        string  `json:"name,omitempty"`        // data_source的展示名称, 示例值: "客服工单"
-	State       *int64  `json:"state,omitempty"`       // 数据源状态, 0-未上线, 1-已上线, 示例值: 0, 可选值有: `0`: 未上线, `1`: 已上线
-	Description *string `json:"description,omitempty"` // 对于数据源的描述, 示例值: "搜索客服工单数据"
+	Name             string                                    `json:"name,omitempty"`              // data_source的展示名称, 示例值: "客服工单"
+	State            *int64                                    `json:"state,omitempty"`             // 数据源状态, 0-已上线, 1-未上线, 示例值: 0, 可选值有: 0: 已上线, 1: 未上线
+	Description      *string                                   `json:"description,omitempty"`       // 对于数据源的描述, 示例值: "搜索客服工单数据"
+	IconURL          *string                                   `json:"icon_url,omitempty"`          // 数据源在 search tab 上的展示图标路径, 示例值: "https://www.xxx.com/open.jpg"
+	Template         *string                                   `json:"template,omitempty"`          // 数据源采用的展示模版名称, 示例值: "search_common_card", 默认值: `search_common_card`
+	SearchableFields []string                                  `json:"searchable_fields,omitempty"` // 描述哪些字段可以被搜索, 示例值: ["field1", "field2"]（不推荐使用, 如果有定制搜索需求, 请用 schema 接口）
+	I18nName         *CreateSearchDataSourceReqI18nName        `json:"i18n_name,omitempty"`         // 数据源的国际化展示名称
+	I18nDescription  *CreateSearchDataSourceReqI18nDescription `json:"i18n_description,omitempty"`  // 数据源的国际化描述
+	SchemaID         *string                                   `json:"schema_id,omitempty"`         // 数据源关联的 schema 标识, 示例值: "custom_schema"
+}
+
+// CreateSearchDataSourceReqI18nDescription ...
+type CreateSearchDataSourceReqI18nDescription struct {
+	ZhCn *string `json:"zh_cn,omitempty"` // 国际化字段: 中文, 示例值: "任务"
+	EnUs *string `json:"en_us,omitempty"` // 国际化字段: 英文, 示例值: "TODO"
+	JaJp *string `json:"ja_jp,omitempty"` // 国际化字段: 日文, 示例值: "タスク"
+}
+
+// CreateSearchDataSourceReqI18nName ...
+type CreateSearchDataSourceReqI18nName struct {
+	ZhCn *string `json:"zh_cn,omitempty"` // 国际化字段: 中文, 示例值: "任务"
+	EnUs *string `json:"en_us,omitempty"` // 国际化字段: 英文, 示例值: "TODO"
+	JaJp *string `json:"ja_jp,omitempty"` // 国际化字段: 日文, 示例值: "タスク"
 }
 
 // CreateSearchDataSourceResp ...
@@ -69,13 +89,33 @@ type CreateSearchDataSourceResp struct {
 
 // CreateSearchDataSourceRespDataSource ...
 type CreateSearchDataSourceRespDataSource struct {
-	ID            string `json:"id,omitempty"`              // 数据源的唯一标识
-	Name          string `json:"name,omitempty"`            // data_source的展示名称
-	State         int64  `json:"state,omitempty"`           // 数据源状态, 0-未上线, 1-已上线, 可选值有: `0`: 未上线, `1`: 已上线
-	Description   string `json:"description,omitempty"`     // 对于数据源的描述
-	CreateTime    string `json:"create_time,omitempty"`     // 创建时间, 使用Unix时间戳, 单位为“秒”
-	UpdateTime    string `json:"update_time,omitempty"`     // 更新时间, 使用Unix时间戳, 单位为“秒”
-	IsExceedQuota bool   `json:"is_exceed_quota,omitempty"` // 是否超限
+	ID               string                                               `json:"id,omitempty"`                // 数据源的唯一标识
+	Name             string                                               `json:"name,omitempty"`              // data_source的展示名称
+	State            int64                                                `json:"state,omitempty"`             // 数据源状态, 0-已上线, 1-未上线, 可选值有: 0: 已上线, 1: 未上线
+	Description      string                                               `json:"description,omitempty"`       // 对于数据源的描述
+	CreateTime       string                                               `json:"create_time,omitempty"`       // 创建时间, 使用Unix时间戳, 单位为“秒”
+	UpdateTime       string                                               `json:"update_time,omitempty"`       // 更新时间, 使用Unix时间戳, 单位为“秒”
+	IsExceedQuota    bool                                                 `json:"is_exceed_quota,omitempty"`   // 是否超限
+	IconURL          string                                               `json:"icon_url,omitempty"`          // 数据源在 search tab 上的展示图标路径
+	Template         string                                               `json:"template,omitempty"`          // 数据源采用的展示模版名称
+	SearchableFields []string                                             `json:"searchable_fields,omitempty"` // 描述哪些字段可以被搜索
+	I18nName         *CreateSearchDataSourceRespDataSourceI18nName        `json:"i18n_name,omitempty"`         // 数据源的国际化展示名称
+	I18nDescription  *CreateSearchDataSourceRespDataSourceI18nDescription `json:"i18n_description,omitempty"`  // 数据源的国际化描述
+	SchemaID         string                                               `json:"schema_id,omitempty"`         // 数据源关联的 schema 标识
+}
+
+// CreateSearchDataSourceRespDataSourceI18nDescription ...
+type CreateSearchDataSourceRespDataSourceI18nDescription struct {
+	ZhCn string `json:"zh_cn,omitempty"` // 国际化字段: 中文
+	EnUs string `json:"en_us,omitempty"` // 国际化字段: 英文
+	JaJp string `json:"ja_jp,omitempty"` // 国际化字段: 日文
+}
+
+// CreateSearchDataSourceRespDataSourceI18nName ...
+type CreateSearchDataSourceRespDataSourceI18nName struct {
+	ZhCn string `json:"zh_cn,omitempty"` // 国际化字段: 中文
+	EnUs string `json:"en_us,omitempty"` // 国际化字段: 英文
+	JaJp string `json:"ja_jp,omitempty"` // 国际化字段: 日文
 }
 
 // createSearchDataSourceResp ...
