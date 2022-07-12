@@ -42,7 +42,7 @@ const (
 	EventTypeV1OutApproval                                     EventType = "out_approval"
 	EventTypeV1P2PChatCreate                                   EventType = "p2p_chat_create"
 	EventTypeV1ReceiveMessage                                  EventType = "message"
-	EventTypeV1RemedyApproval                                  EventType = "remedy_approval"
+	EventTypeV1RemedyApproval                                  EventType = "approval.instance.remedy_group_update_v4"
 	EventTypeV1RemoveBot                                       EventType = "remove_bot"
 	EventTypeV1RemoveUserFromChat                              EventType = "remove_user_from_chat"
 	EventTypeV1RevokeAddUserFromChat                           EventType = "revoke_add_user_from_chat"

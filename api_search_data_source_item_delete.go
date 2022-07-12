@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// DeleteSearchDataSourceItem 删除数据记录
+// DeleteSearchDataSourceItem 删除数据项
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/search-v2/data_source-item/delete
 func (r *SearchService) DeleteSearchDataSourceItem(ctx context.Context, request *DeleteSearchDataSourceItemReq, options ...MethodOptionFunc) (*DeleteSearchDataSourceItemResp, *Response, error) {
