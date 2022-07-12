@@ -164,6 +164,8 @@ type Mock struct {
 	mockBitableBatchCreateBitableTable                         func(ctx context.Context, request *BatchCreateBitableTableReq, options ...MethodOptionFunc) (*BatchCreateBitableTableResp, *Response, error)
 	mockBitableDeleteBitableTable                              func(ctx context.Context, request *DeleteBitableTableReq, options ...MethodOptionFunc) (*DeleteBitableTableResp, *Response, error)
 	mockBitableBatchDeleteBitableTable                         func(ctx context.Context, request *BatchDeleteBitableTableReq, options ...MethodOptionFunc) (*BatchDeleteBitableTableResp, *Response, error)
+	mockBitableUpdateBitableTableForm                          func(ctx context.Context, request *UpdateBitableTableFormReq, options ...MethodOptionFunc) (*UpdateBitableTableFormResp, *Response, error)
+	mockBitableGetBitableTableForm                             func(ctx context.Context, request *GetBitableTableFormReq, options ...MethodOptionFunc) (*GetBitableTableFormResp, *Response, error)
 	mockBitableUpdateBitableTableFormField                     func(ctx context.Context, request *UpdateBitableTableFormFieldReq, options ...MethodOptionFunc) (*UpdateBitableTableFormFieldResp, *Response, error)
 	mockBitableGetBitableTableFormFieldList                    func(ctx context.Context, request *GetBitableTableFormFieldListReq, options ...MethodOptionFunc) (*GetBitableTableFormFieldListResp, *Response, error)
 	mockBitableUpdateBitableMeta                               func(ctx context.Context, request *UpdateBitableMetaReq, options ...MethodOptionFunc) (*UpdateBitableMetaResp, *Response, error)
