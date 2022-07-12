@@ -66,7 +66,7 @@ type GetMessageReq struct {
 
 // GetMessageResp ...
 type GetMessageResp struct {
-	Items []*GetMessageRespItem `json:"items,omitempty"`
+	Items []*GetMessageRespItem `json:"items,omitempty"` // --
 }
 
 // GetMessageRespItem ...

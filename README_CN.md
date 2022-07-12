@@ -38,7 +38,7 @@ https://godoc.org/github.com/chyroc/lark
 
 ## 支持的接口
 
-API 总数: 607, 事件总数: 91
+API 总数: 618, 事件总数: 91
 
 <details>
   <summary>
@@ -118,6 +118,10 @@ API 总数: 607, 事件总数: 91
   - TransferApprovalInstance
   - RollbackApprovalInstance
   - AddApprovalInstanceSign
+  - CreateApprovalComment
+  - GetApprovalComment
+  - DeleteApprovalComment
+  - RemoveApprovalComment
   - CreateApprovalExternalApproval
   - CreateApprovalExternalInstance
   - CheckApprovalExternalInstance
@@ -723,21 +727,28 @@ API 总数: 607, 事件总数: 91
 - Passport
   - GetPassportSession
 - Search
-  - CreateSearchDataSourceItem
-  - GetSearchDataSourceItem
-  - DeleteSearchDataSourceItem
   - CreateSearchDataSource
   - GetSearchDataSource
   - UpdateSearchDataSource
   - GetSearchDataSourceList
   - DeleteSearchDataSource
+  - BatchCreateSearchDataSourceItem
+  - CreateSearchDataSourceItem
+  - GetSearchDataSourceItem
+  - DeleteSearchDataSourceItem
+  - UpdateSearchSchema
+  - DeleteSearchSchema
+  - GetSearchSchema
+  - CreateSearchSchema
 - Task
-  - CreateTaskCollaborator
-  - GetTaskCollaboratorList
-  - DeleteTaskCollaborator
   - CreateTaskFollower
-  - GetTaskFollowerList
   - DeleteTaskFollower
+  - BatchDeleteTaskFollower
+  - GetTaskFollowerList
+  - CreateTaskCollaborator
+  - DeleteTaskCollaborator
+  - BatchDeleteTaskCollaborator
+  - GetTaskCollaboratorList
   - CreateTaskReminder
   - GetTaskReminderList
   - DeleteTaskReminder

@@ -38,7 +38,7 @@ https://godoc.org/github.com/chyroc/lark
 
 ## Support APIs
 
-API Count: 607, Event Count: 91
+API Count: 618, Event Count: 91
 
 <details>
   <summary>
@@ -118,6 +118,10 @@ API Count: 607, Event Count: 91
   - TransferApprovalInstance
   - RollbackApprovalInstance
   - AddApprovalInstanceSign
+  - CreateApprovalComment
+  - GetApprovalComment
+  - DeleteApprovalComment
+  - RemoveApprovalComment
   - CreateApprovalExternalApproval
   - CreateApprovalExternalInstance
   - CheckApprovalExternalInstance
@@ -723,21 +727,28 @@ API Count: 607, Event Count: 91
 - Passport
   - GetPassportSession
 - Search
-  - CreateSearchDataSourceItem
-  - GetSearchDataSourceItem
-  - DeleteSearchDataSourceItem
   - CreateSearchDataSource
   - GetSearchDataSource
   - UpdateSearchDataSource
   - GetSearchDataSourceList
   - DeleteSearchDataSource
+  - BatchCreateSearchDataSourceItem
+  - CreateSearchDataSourceItem
+  - GetSearchDataSourceItem
+  - DeleteSearchDataSourceItem
+  - UpdateSearchSchema
+  - DeleteSearchSchema
+  - GetSearchSchema
+  - CreateSearchSchema
 - Task
-  - CreateTaskCollaborator
-  - GetTaskCollaboratorList
-  - DeleteTaskCollaborator
   - CreateTaskFollower
-  - GetTaskFollowerList
   - DeleteTaskFollower
+  - BatchDeleteTaskFollower
+  - GetTaskFollowerList
+  - CreateTaskCollaborator
+  - DeleteTaskCollaborator
+  - BatchDeleteTaskCollaborator
+  - GetTaskCollaboratorList
   - CreateTaskReminder
   - GetTaskReminderList
   - DeleteTaskReminder

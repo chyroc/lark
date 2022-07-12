@@ -231,6 +231,54 @@ func Test_Approval_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
+			cli.Mock().MockApprovalCreateApprovalComment(func(ctx context.Context, request *lark.CreateApprovalCommentReq, options ...lark.MethodOptionFunc) (*lark.CreateApprovalCommentResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockApprovalCreateApprovalComment()
+
+			_, _, err := moduleCli.CreateApprovalComment(ctx, &lark.CreateApprovalCommentReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			cli.Mock().MockApprovalGetApprovalComment(func(ctx context.Context, request *lark.GetApprovalCommentReq, options ...lark.MethodOptionFunc) (*lark.GetApprovalCommentResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockApprovalGetApprovalComment()
+
+			_, _, err := moduleCli.GetApprovalComment(ctx, &lark.GetApprovalCommentReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			cli.Mock().MockApprovalDeleteApprovalComment(func(ctx context.Context, request *lark.DeleteApprovalCommentReq, options ...lark.MethodOptionFunc) (*lark.DeleteApprovalCommentResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockApprovalDeleteApprovalComment()
+
+			_, _, err := moduleCli.DeleteApprovalComment(ctx, &lark.DeleteApprovalCommentReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			cli.Mock().MockApprovalRemoveApprovalComment(func(ctx context.Context, request *lark.RemoveApprovalCommentReq, options ...lark.MethodOptionFunc) (*lark.RemoveApprovalCommentResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockApprovalRemoveApprovalComment()
+
+			_, _, err := moduleCli.RemoveApprovalComment(ctx, &lark.RemoveApprovalCommentReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
 			cli.Mock().MockApprovalCreateApprovalExternalApproval(func(ctx context.Context, request *lark.CreateApprovalExternalApprovalReq, options ...lark.MethodOptionFunc) (*lark.CreateApprovalExternalApprovalResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -482,6 +530,43 @@ func Test_Approval_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
+			_, _, err := moduleCli.CreateApprovalComment(ctx, &lark.CreateApprovalCommentReq{
+				InstanceID: "x",
+			})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.GetApprovalComment(ctx, &lark.GetApprovalCommentReq{
+				InstanceID: "x",
+			})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.DeleteApprovalComment(ctx, &lark.DeleteApprovalCommentReq{
+				InstanceID: "x",
+				CommentID:  "x",
+			})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.RemoveApprovalComment(ctx, &lark.RemoveApprovalCommentReq{
+				InstanceID: "x",
+			})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+
 			_, _, err := moduleCli.CreateApprovalExternalApproval(ctx, &lark.CreateApprovalExternalApprovalReq{})
 			as.NotNil(err)
 			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
@@ -675,6 +760,43 @@ func Test_Approval_Sample_Failed(t *testing.T) {
 		t.Run("", func(t *testing.T) {
 
 			_, _, err := moduleCli.AddApprovalInstanceSign(ctx, &lark.AddApprovalInstanceSignReq{})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.CreateApprovalComment(ctx, &lark.CreateApprovalCommentReq{
+				InstanceID: "x",
+			})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.GetApprovalComment(ctx, &lark.GetApprovalCommentReq{
+				InstanceID: "x",
+			})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.DeleteApprovalComment(ctx, &lark.DeleteApprovalCommentReq{
+				InstanceID: "x",
+				CommentID:  "x",
+			})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.RemoveApprovalComment(ctx, &lark.RemoveApprovalCommentReq{
+				InstanceID: "x",
+			})
 			as.NotNil(err)
 			as.Equal("fake raw request", err.Error())
 		})
