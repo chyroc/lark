@@ -76,7 +76,6 @@ type CreateAttendanceUserApprovalReqUserApproval struct {
 
 // CreateAttendanceUserApprovalReqUserApprovalLeave ...
 type CreateAttendanceUserApprovalReqUserApprovalLeave struct {
-	ApprovalID    *string    `json:"approval_id,omitempty"`    // 审批实例 ID, 示例值: "6737202939523236113"
 	UniqID        *string    `json:"uniq_id,omitempty"`        // 假期类型唯一 ID, 代表一种假期类型, 长度小于 14, 示例值: "6852582717813440527"
 	Unit          int64      `json:"unit,omitempty"`           // 假期时长单位, 示例值: 1, 可选值有: 1: 天, 2: 小时, 3: 半天, 4: 半小时
 	Interval      int64      `json:"interval,omitempty"`       // 假期时长（单位: 秒）, 暂未开放提供, 待后续提供, 示例值: 28800
@@ -89,7 +88,6 @@ type CreateAttendanceUserApprovalReqUserApprovalLeave struct {
 
 // CreateAttendanceUserApprovalReqUserApprovalOut ...
 type CreateAttendanceUserApprovalReqUserApprovalOut struct {
-	ApprovalID    *string    `json:"approval_id,omitempty"`    // 审批实例 ID, 示例值: "6737202939523236113"
 	UniqID        string     `json:"uniq_id,omitempty"`        // 外出类型唯一 ID, 代表一种假期类型, 长度小于 14, 示例值: "9496E43696967658A512969523E89870"
 	Unit          int64      `json:"unit,omitempty"`           // 外出时长单位, 示例值: 1, 可选值有: 1: 天, 2: 小时, 3: 半天, 4: 半小时
 	Interval      int64      `json:"interval,omitempty"`       // 外出时长（单位: 秒）, 示例值: 28800
@@ -102,21 +100,19 @@ type CreateAttendanceUserApprovalReqUserApprovalOut struct {
 
 // CreateAttendanceUserApprovalReqUserApprovalOvertimeWork ...
 type CreateAttendanceUserApprovalReqUserApprovalOvertimeWork struct {
-	ApprovalID *string `json:"approval_id,omitempty"` // 审批实例 ID, 示例值: "6737202939523236113"
-	Duration   float64 `json:"duration,omitempty"`    // 加班时长, 示例值: 1.5
-	Unit       int64   `json:"unit,omitempty"`        // 加班时长单位, 示例值: 1, 可选值有: 1: 天, 2: 小时, 3: 半天, 4: 半小时
-	Category   int64   `json:"category,omitempty"`    // 加班日期类型, 示例值: 2, 可选值有: 1: 工作日, 2: 休息日, 3: 节假日
-	Type       int64   `json:"type,omitempty"`        // 加班规则类型, 示例值: 1, 可选值有: 0: 不关联加班规则, 1: 调休, 2: 加班费, 3: 关联加班规则, 没有调休或加班费
-	StartTime  string  `json:"start_time,omitempty"`  // 开始时间, 时间格式为 yyyy-MM-dd HH:mm:ss, 示例值: "2021-01-09 09:00:00"
-	EndTime    string  `json:"end_time,omitempty"`    // 结束时间, 时间格式为 yyyy-MM-dd HH:mm:ss, 示例值: "2021-01-10 13:00:00"
+	Duration  float64 `json:"duration,omitempty"`   // 加班时长, 示例值: 1.5
+	Unit      int64   `json:"unit,omitempty"`       // 加班时长单位, 示例值: 1, 可选值有: 1: 天, 2: 小时, 3: 半天, 4: 半小时
+	Category  int64   `json:"category,omitempty"`   // 加班日期类型, 示例值: 2, 可选值有: 1: 工作日, 2: 休息日, 3: 节假日
+	Type      int64   `json:"type,omitempty"`       // 加班规则类型, 示例值: 1, 可选值有: 0: 不关联加班规则, 1: 调休, 2: 加班费, 3: 关联加班规则, 没有调休或加班费
+	StartTime string  `json:"start_time,omitempty"` // 开始时间, 时间格式为 yyyy-MM-dd HH:mm:ss, 示例值: "2021-01-09 09:00:00"
+	EndTime   string  `json:"end_time,omitempty"`   // 结束时间, 时间格式为 yyyy-MM-dd HH:mm:ss, 示例值: "2021-01-10 13:00:00"
 }
 
 // CreateAttendanceUserApprovalReqUserApprovalTrip ...
 type CreateAttendanceUserApprovalReqUserApprovalTrip struct {
-	ApprovalID *string `json:"approval_id,omitempty"` // 审批实例 ID, 示例值: "6737202939523236113"
-	StartTime  string  `json:"start_time,omitempty"`  // 开始时间, 时间格式为 yyyy-MM-dd HH:mm:ss, 示例值: "2021-01-04 09:00:00"
-	EndTime    string  `json:"end_time,omitempty"`    // 结束时间, 时间格式为 yyyy-MM-dd HH:mm:ss, 示例值: "2021-01-04 19:00:00"
-	Reason     string  `json:"reason,omitempty"`      // 出差理由, 示例值: "培训"
+	StartTime string `json:"start_time,omitempty"` // 开始时间, 时间格式为 yyyy-MM-dd HH:mm:ss, 示例值: "2021-01-04 09:00:00"
+	EndTime   string `json:"end_time,omitempty"`   // 结束时间, 时间格式为 yyyy-MM-dd HH:mm:ss, 示例值: "2021-01-04 19:00:00"
+	Reason    string `json:"reason,omitempty"`     // 出差理由, 示例值: "培训"
 }
 
 // CreateAttendanceUserApprovalResp ...

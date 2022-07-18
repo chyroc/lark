@@ -21,9 +21,8 @@ import (
 	"context"
 )
 
-// GetOKRPeriodList - 当前仅支持「飞书OKR 企业版」客户使用本接口。[了解更多](https://okr.feishu.cn/price)
+// GetOKRPeriodList 获取OKR周期列表
 //
-// - 获取OKR周期列表
 // 使用tenant_access_token需要额外申请权限以应用身份访问OKR信息
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/okr-v1/period/list
@@ -76,7 +75,7 @@ type GetOKRPeriodListRespItem struct {
 	ID     string `json:"id,omitempty"`      // id
 	ZhName string `json:"zh_name,omitempty"` // 中文名称
 	EnName string `json:"en_name,omitempty"` // 英文名称
-	Status int64  `json:"status,omitempty"`  // 启用状态, 可选值有: `0`: 正常状态, `1`: 暂不处理, `2`: 标记失效, `3`: 隐藏周期
+	Status int64  `json:"status,omitempty"`  // 启用状态, 可选值有: 0: 正常状态, 1: 暂不处理, 2: 标记失效, 3: 隐藏周期
 }
 
 // getOKRPeriodListResp ...

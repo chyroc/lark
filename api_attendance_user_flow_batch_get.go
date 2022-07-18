@@ -59,7 +59,7 @@ func (r *Mock) UnMockAttendanceBatchGetAttendanceUserFlow() {
 
 // BatchGetAttendanceUserFlowReq ...
 type BatchGetAttendanceUserFlowReq struct {
-	EmployeeType          EmployeeType `query:"employee_type" json:"-"`           // 请求体中的 user_ids 和响应体中的 user_id 的员工工号类型, 示例值: "employee_id", 可选值有: `employee_id`: 员工 employee ID, 即飞书管理后台 > 组织架构 > 成员与部门 > 成员详情中的用户 ID, `employee_no`: 员工工号, 即飞书管理后台 > 组织架构 > 成员与部门 > 成员详情中的工号
+	EmployeeType          EmployeeType `query:"employee_type" json:"-"`           // 请求体中的 user_ids 和响应体中的 user_id 的员工工号类型, 示例值: "employee_id", 可选值有: employee_id: 员工 employee ID, 即飞书管理后台 > 组织架构 > 成员与部门 > 成员详情中的用户 ID, employee_no: 员工工号, 即飞书管理后台 > 组织架构 > 成员与部门 > 成员详情中的工号
 	IncludeTerminatedUser *bool        `query:"include_terminated_user" json:"-"` // 由于新入职用户可以复用已离职用户的employee_no/employee_id。如果true, 返回employee_no/employee_id对应的所有在职+离职用户数据；如果false, 只返回employee_no/employee_id对应的在职或最近一个离职用户数据, 示例值: true
 	UserIDs               []string     `json:"user_ids,omitempty"`                // employee_no 或 employee_id 列表, 长度不超过 50, 示例值: [ "abd754f7"]
 	CheckTimeFrom         string       `json:"check_time_from,omitempty"`         // 查询的起始时间, 时间戳, 示例值: "1566641088"
@@ -79,15 +79,13 @@ type BatchGetAttendanceUserFlowRespUserFlowResult struct {
 	CheckTime    string   `json:"check_time,omitempty"`    // 打卡时间, 精确到秒的时间戳
 	Comment      string   `json:"comment,omitempty"`       // 打卡备注
 	RecordID     string   `json:"record_id,omitempty"`     // 打卡记录 ID
-	Longitude    float64  `json:"longitude,omitempty"`     // 打卡经度
-	Latitude     float64  `json:"latitude,omitempty"`      // 打卡纬度
 	Ssid         string   `json:"ssid,omitempty"`          // 打卡 Wi-Fi 的 SSID
 	Bssid        string   `json:"bssid,omitempty"`         // 打卡 Wi-Fi 的 MAC 地址
 	IsField      bool     `json:"is_field,omitempty"`      // 是否为外勤打卡
 	IsWifi       bool     `json:"is_wifi,omitempty"`       // 是否为 Wi-Fi 打卡
-	Type         int64    `json:"type,omitempty"`          // 记录生成方式, 可选值有: `0`: 用户打卡, `1`: 管理员修改, `2`: 用户补卡, `3`: 系统自动生成, `4`: 下班免打卡, `5`: 考勤机, `6`: 极速打卡, `7`: 考勤开放平台导入
+	Type         int64    `json:"type,omitempty"`          // 记录生成方式, 可选值有: 0: 用户打卡, 1: 管理员修改, 2: 用户补卡, 3: 系统自动生成, 4: 下班免打卡, 5: 考勤机, 6: 极速打卡, 7: 考勤开放平台导入
 	PhotoURLs    []string `json:"photo_urls,omitempty"`    // 打卡照片列表
-	DeviceID     string   `json:"device_id,omitempty"`     // 打卡设备 ID
+	CheckResult  string   `json:"check_result,omitempty"`  // 打卡结果, 可选值有: NoNeedCheck: 无需打卡, SystemCheck: 系统打卡, Normal: 正常, Early: 早退, Late: 迟到, SeriousLate: 严重迟到, Lack: 缺卡, Invalid: 无效, None: 无状态, Todo: 尚未打卡
 }
 
 // batchGetAttendanceUserFlowResp ...

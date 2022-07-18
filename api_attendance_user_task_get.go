@@ -60,7 +60,7 @@ func (r *Mock) UnMockAttendanceGetAttendanceUserTask() {
 
 // GetAttendanceUserTaskReq ...
 type GetAttendanceUserTaskReq struct {
-	EmployeeType          EmployeeType `query:"employee_type" json:"-"`           // 员工工号类型, 示例值: "employee_id", 可选值有: `employee_id`: 员工 employee ID, 即飞书管理后台 > 组织架构 > 成员与部门 > 成员详情中的用户 ID, `employee_no`: 员工工号, 即飞书管理后台 > 组织架构 > 成员与部门 > 成员详情中的工号
+	EmployeeType          EmployeeType `query:"employee_type" json:"-"`           // 员工工号类型, 示例值: "employee_id", 可选值有: employee_id: 员工 employee ID, 即飞书管理后台 > 组织架构 > 成员与部门 > 成员详情中的用户 ID, employee_no: 员工工号, 即飞书管理后台 > 组织架构 > 成员与部门 > 成员详情中的工号
 	IgnoreInvalidUsers    *bool        `query:"ignore_invalid_users" json:"-"`    // 是否忽略无效和没有权限的用户。如果 true, 则返回有效用户的信息, 并告知无效和没有权限的用户信息；如果 false, 且 user_ids 中存在无效或没有权限的用户, 则返回错误, 示例值: true
 	IncludeTerminatedUser *bool        `query:"include_terminated_user" json:"-"` // 由于新入职员工可以复用已离职员工的 employee_no/employee_id, 如果 true, 则返回 employee_no/employee_id 对应的所有在职 + 离职员工的数据；如果 false, 则只返回 employee_no/employee_id 对应的在职或最近一个离职员工的数据, 示例值: true
 	UserIDs               []string     `json:"user_ids,omitempty"`                // employee_no 或 employee_id 列表, 示例值: abd754f7
@@ -92,10 +92,10 @@ type GetAttendanceUserTaskRespUserTaskResultRecord struct {
 	CheckInRecord            *GetAttendanceUserTaskRespUserTaskResultRecordCheckInRecord  `json:"check_in_record,omitempty"`             // 上班打卡记录
 	CheckOutRecordID         string                                                       `json:"check_out_record_id,omitempty"`         // 下班打卡记录 ID
 	CheckOutRecord           *GetAttendanceUserTaskRespUserTaskResultRecordCheckOutRecord `json:"check_out_record,omitempty"`            // 下班打卡记录
-	CheckInResult            string                                                       `json:"check_in_result,omitempty"`             // 上班打卡结果, 可选值有: `NoNeedCheck`: 无需打卡, `SystemCheck`: 系统打卡, `Normal`: 正常, `Early`: 早退, `Late`: 迟到, `Lack`: 缺卡
-	CheckOutResult           string                                                       `json:"check_out_result,omitempty"`            // 下班打卡结果, 可选值有: `NoNeedCheck`: 无需打卡, `SystemCheck`: 系统打卡, `Normal`: 正常, `Early`: 早退, `Late`: 迟到, `Lack`: 缺卡
-	CheckInResultSupplement  string                                                       `json:"check_in_result_supplement,omitempty"`  // 上班打卡结果补充, 可选值有: `None`: 无, `ManagerModification`: 管理员修改, `CardReplacement`: 补卡通过, `ShiftChange`: 换班, `Travel`: 出差, `Leave`: 请假, `GoOut`: 外出, `CardReplacementApplication`: 补卡申请中, `FieldPunch`: 外勤打卡
-	CheckOutResultSupplement string                                                       `json:"check_out_result_supplement,omitempty"` // 下班打卡结果补充, 可选值有: `None`: 无, `ManagerModification`: 管理员修改, `CardReplacement`: 补卡通过, `ShiftChange`: 换班, `Travel`: 出差, `Leave`: 请假, `GoOut`: 外出, `CardReplacementApplication`: 补卡申请中, `FieldPunch`: 外勤打卡
+	CheckInResult            string                                                       `json:"check_in_result,omitempty"`             // 上班打卡结果, 可选值有: NoNeedCheck: 无需打卡, SystemCheck: 系统打卡, Normal: 正常, Early: 早退, Late: 迟到, Lack: 缺卡
+	CheckOutResult           string                                                       `json:"check_out_result,omitempty"`            // 下班打卡结果, 可选值有: NoNeedCheck: 无需打卡, SystemCheck: 系统打卡, Normal: 正常, Early: 早退, Late: 迟到, Lack: 缺卡
+	CheckInResultSupplement  string                                                       `json:"check_in_result_supplement,omitempty"`  // 上班打卡结果补充, 可选值有: None: 无, ManagerModification: 管理员修改, CardReplacement: 补卡通过, ShiftChange: 换班, Travel: 出差, Leave: 请假, GoOut: 外出, CardReplacementApplication: 补卡申请中, FieldPunch: 外勤打卡
+	CheckOutResultSupplement string                                                       `json:"check_out_result_supplement,omitempty"` // 下班打卡结果补充, 可选值有: None: 无, ManagerModification: 管理员修改, CardReplacement: 补卡通过, ShiftChange: 换班, Travel: 出差, Leave: 请假, GoOut: 外出, CardReplacementApplication: 补卡申请中, FieldPunch: 外勤打卡
 	CheckInShiftTime         string                                                       `json:"check_in_shift_time,omitempty"`         // 上班打卡时间
 	CheckOutShiftTime        string                                                       `json:"check_out_shift_time,omitempty"`        // 下班打卡时间
 }
@@ -108,15 +108,13 @@ type GetAttendanceUserTaskRespUserTaskResultRecordCheckInRecord struct {
 	CheckTime    string   `json:"check_time,omitempty"`    // 打卡时间, 精确到秒的时间戳
 	Comment      string   `json:"comment,omitempty"`       // 打卡备注
 	RecordID     string   `json:"record_id,omitempty"`     // 打卡记录 ID
-	Longitude    float64  `json:"longitude,omitempty"`     // 打卡经度
-	Latitude     float64  `json:"latitude,omitempty"`      // 打卡纬度
 	Ssid         string   `json:"ssid,omitempty"`          // 打卡 Wi-Fi 的 SSID
 	Bssid        string   `json:"bssid,omitempty"`         // 打卡 Wi-Fi 的 MAC 地址
 	IsField      bool     `json:"is_field,omitempty"`      // 是否为外勤打卡
 	IsWifi       bool     `json:"is_wifi,omitempty"`       // 是否为 Wi-Fi 打卡
-	Type         int64    `json:"type,omitempty"`          // 记录生成方式, 可选值有: `0`: 用户打卡, `1`: 管理员修改, `2`: 用户补卡, `3`: 系统自动生成, `4`: 下班免打卡, `5`: 考勤机, `6`: 极速打卡, `7`: 考勤开放平台导入
+	Type         int64    `json:"type,omitempty"`          // 记录生成方式, 可选值有: 0: 用户打卡, 1: 管理员修改, 2: 用户补卡, 3: 系统自动生成, 4: 下班免打卡, 5: 考勤机, 6: 极速打卡, 7: 考勤开放平台导入
 	PhotoURLs    []string `json:"photo_urls,omitempty"`    // 打卡照片列表
-	DeviceID     string   `json:"device_id,omitempty"`     // 打卡设备 ID
+	CheckResult  string   `json:"check_result,omitempty"`  // 打卡结果, 可选值有: NoNeedCheck: 无需打卡, SystemCheck: 系统打卡, Normal: 正常, Early: 早退, Late: 迟到, SeriousLate: 严重迟到, Lack: 缺卡, Invalid: 无效, None: 无状态, Todo: 尚未打卡
 }
 
 // GetAttendanceUserTaskRespUserTaskResultRecordCheckOutRecord ...
@@ -127,15 +125,13 @@ type GetAttendanceUserTaskRespUserTaskResultRecordCheckOutRecord struct {
 	CheckTime    string   `json:"check_time,omitempty"`    // 打卡时间, 精确到秒的时间戳
 	Comment      string   `json:"comment,omitempty"`       // 打卡备注
 	RecordID     string   `json:"record_id,omitempty"`     // 打卡记录 ID
-	Longitude    float64  `json:"longitude,omitempty"`     // 打卡经度
-	Latitude     float64  `json:"latitude,omitempty"`      // 打卡纬度
 	Ssid         string   `json:"ssid,omitempty"`          // 打卡 Wi-Fi 的 SSID
 	Bssid        string   `json:"bssid,omitempty"`         // 打卡 Wi-Fi 的 MAC 地址
 	IsField      bool     `json:"is_field,omitempty"`      // 是否为外勤打卡
 	IsWifi       bool     `json:"is_wifi,omitempty"`       // 是否为 Wi-Fi 打卡
-	Type         int64    `json:"type,omitempty"`          // 记录生成方式, 可选值有: `0`: 用户打卡, `1`: 管理员修改, `2`: 用户补卡, `3`: 系统自动生成, `4`: 下班免打卡, `5`: 考勤机, `6`: 极速打卡, `7`: 考勤开放平台导入
+	Type         int64    `json:"type,omitempty"`          // 记录生成方式, 可选值有: 0: 用户打卡, 1: 管理员修改, 2: 用户补卡, 3: 系统自动生成, 4: 下班免打卡, 5: 考勤机, 6: 极速打卡, 7: 考勤开放平台导入
 	PhotoURLs    []string `json:"photo_urls,omitempty"`    // 打卡照片列表
-	DeviceID     string   `json:"device_id,omitempty"`     // 打卡设备 ID
+	CheckResult  string   `json:"check_result,omitempty"`  // 打卡结果, 可选值有: NoNeedCheck: 无需打卡, SystemCheck: 系统打卡, Normal: 正常, Early: 早退, Late: 迟到, SeriousLate: 严重迟到, Lack: 缺卡, Invalid: 无效, None: 无状态, Todo: 尚未打卡
 }
 
 // getAttendanceUserTaskResp ...

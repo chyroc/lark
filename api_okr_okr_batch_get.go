@@ -21,9 +21,8 @@ import (
 	"context"
 )
 
-// BatchGetOKR - 当前仅支持「飞书OKR 企业版」客户使用本接口。[了解更多](https://okr.feishu.cn/price)
+// BatchGetOKR 根据OKR id批量获取OKR
 //
-// - 根据OKR id批量获取OKR
 // 使用tenant_access_token需要额外申请权限以应用身份访问OKR信息
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/okr-v1/okr/batch_get
@@ -61,7 +60,7 @@ func (r *Mock) UnMockOKRBatchGetOKR() {
 
 // BatchGetOKRReq ...
 type BatchGetOKRReq struct {
-	UserIDType *IDType  `query:"user_id_type" json:"-"` // 用户 ID 类型, 示例值: "open_id", 可选值有: `open_id`: 用户的 open id, `union_id`: 用户的 union id, `user_id`: 用户的 user id, `people_admin_id`: 以people_admin_id来识别用户, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
+	UserIDType *IDType  `query:"user_id_type" json:"-"` // 用户 ID 类型, 示例值: "open_id", 可选值有: open_id: 用户的 open id, union_id: 用户的 union id, user_id: 用户的 user id, people_admin_id: 以people_admin_id来识别用户, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
 	OKRIDs     []string `query:"okr_ids" json:"-"`      // OKR ID 列表, 最多10个, 示例值: 7043693679567028244, 最大长度: `10`
 	Lang       *string  `query:"lang" json:"-"`         // 请求OKR的语言版本（比如@的人名）, lang=en_us/zh_cn, 请求 Query中, 示例值: "zh_cn", 默认值: `zh_cn`
 }
@@ -74,17 +73,17 @@ type BatchGetOKRResp struct {
 // BatchGetOKRRespOKR ...
 type BatchGetOKRRespOKR struct {
 	ID            string                         `json:"id,omitempty"`             // id
-	Permission    int64                          `json:"permission,omitempty"`     // OKR的访问权限, 可选值有: `0`: 此时OKR只返回id, `1`: 返回OKR的其他具体字段
+	Permission    int64                          `json:"permission,omitempty"`     // OKR的访问权限, 可选值有: 0: 此时OKR只返回id, 1: 返回OKR的其他具体字段
 	PeriodID      string                         `json:"period_id,omitempty"`      // period_id
 	Name          string                         `json:"name,omitempty"`           // 名称
 	ObjectiveList []*BatchGetOKRRespOKRObjective `json:"objective_list,omitempty"` // Objective列表
-	ConfirmStatus int64                          `json:"confirm_status,omitempty"` // OKR确认状态, 可选值有: `0`: 未填写 OKR, `1`: 已填写未发起确认, `2`: 已发起待上级确认, `3`: 上级未通过, `4`: 上级已通过
+	ConfirmStatus int64                          `json:"confirm_status,omitempty"` // OKR确认状态, 可选值有: 0: 未填写 OKR, 1: 已填写未发起确认, 2: 已发起待上级确认, 3: 上级未通过, 4: 上级已通过
 }
 
 // BatchGetOKRRespOKRObjective ...
 type BatchGetOKRRespOKRObjective struct {
 	ID                                 string                                          `json:"id,omitempty"`                                      // Objective ID
-	Permission                         int64                                           `json:"permission,omitempty"`                              // 权限, 可选值有: `0`: 此时OKR只返回id, `1`: 返回OKR的其他具体字段
+	Permission                         int64                                           `json:"permission,omitempty"`                              // 权限, 可选值有: 0: 此时OKR只返回id, 1: 返回OKR的其他具体字段
 	Content                            string                                          `json:"content,omitempty"`                                 // Objective 内容
 	ProgressReport                     string                                          `json:"progress_report,omitempty"`                         // Objective 进度记录内容
 	Score                              int64                                           `json:"score,omitempty"`                                   // Objective 分数（0 - 100）
@@ -156,7 +155,7 @@ type BatchGetOKRRespOKRObjectiveKrMentionedUser struct {
 // BatchGetOKRRespOKRObjectiveKrProgressRate ...
 type BatchGetOKRRespOKRObjectiveKrProgressRate struct {
 	Percent int64  `json:"percent,omitempty"` // Objective 进度百分比 >= 0
-	Status  string `json:"status,omitempty"`  // Objective 进度状态, 可选值有: `-1`: 未更新, `0`: 正常, `1`: 有风险, `2`: 已延期
+	Status  string `json:"status,omitempty"`  // Objective 进度状态, 可选值有: -1: 未更新, 0: 正常, 1: 有风险, 2: 已延期
 }
 
 // BatchGetOKRRespOKRObjectiveKrProgressRecord ...
@@ -173,7 +172,7 @@ type BatchGetOKRRespOKRObjectiveMentionedUser struct {
 // BatchGetOKRRespOKRObjectiveProgressRate ...
 type BatchGetOKRRespOKRObjectiveProgressRate struct {
 	Percent int64  `json:"percent,omitempty"` // Objective 进度百分比 >= 0
-	Status  string `json:"status,omitempty"`  // Objective 进度状态, 可选值有: `-1`: 未更新, `0`: 正常, `1`: 有风险, `2`: 已延期
+	Status  string `json:"status,omitempty"`  // Objective 进度状态, 可选值有: -1: 未更新, 0: 正常, 1: 有风险, 2: 已延期
 }
 
 // BatchGetOKRRespOKRObjectiveProgressRecord ...

@@ -26,7 +26,7 @@ import (
 // - 新增用户的所有部门必须都在当前应用的通讯录授权范围内才允许新增用户, 如果想要在根部门下新增用户, 必须要有全员权限。
 // - 应用商店应用无权限调用此接口。
 // - 创建用户后, 会给用户发送邀请短信/邮件, 用户在操作同意后才可访问团队。
-// - 返回数据中不返回手机号, 如果需要请重新查询用户信息获取手机号
+// - 返回数据中不返回手机号, 如果需要请重新查询用户信息获取手机号。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/create
 func (r *ContactService) CreateUser(ctx context.Context, request *CreateUserReq, options ...MethodOptionFunc) (*CreateUserResp, *Response, error) {

@@ -51,8 +51,8 @@ type EventV1ReceiveMessage struct {
 	UnionID          string   `json:"union_id,omitempty"`            // 如: xxx
 	OpenMessageID    string   `json:"open_message_id,omitempty"`     // 如: om_36686ee62209da697d8775375d0c8e88
 	IsMention        bool     `json:"is_mention,omitempty"`          // 如: false
-	Text             string   `json:"text,omitempty"`                // 消息文本, 可能包含被@的人/机器人。. 如: <at </at> 消息内容 <at </at>
-	TextWithoutAtBot string   `json:"text_without_at_bot,omitempty"` // 消息内容, 会过滤掉at你的机器人的内容, 当内容只有at机器人, 该字段会被过滤。. 如: 消息内容 <at </at>
+	Text             string   `json:"text,omitempty"`                // 消息文本, 可能包含被@的人/机器人。. 如: <at open_id="xxx">@小助手</at> 消息内容 <at open_id="yyy">@张三</at>
+	TextWithoutAtBot string   `json:"text_without_at_bot,omitempty"` // 消息内容, 会过滤掉at你的机器人的内容, 当内容只有at机器人, 该字段会被过滤。. 如: 消息内容 <at open_id="yyy">@张三</at>
 	Title            string   `json:"title,omitempty"`               // 富文本标题
 	ImageKeys        []string `json:"image_keys,omitempty"`          // 富文本里面的图片的keys
 	ImageKey         string   `json:"image_key,omitempty"`           // 图片内容

@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// GetBitableTableForm 列出表单的所有元数据项
+// GetBitableTableForm 获取表单的所有元数据项
 //
 // 该接口支持调用频率上限为 20 QPS
 //

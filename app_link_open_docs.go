@@ -32,5 +32,5 @@ func (r *AppLinkService) OpenDocs(req *OpenDocsReq) string {
 
 // OpenDocsReq ...
 type OpenDocsReq struct {
-	URL string `json:"URL,omitempty"` // 要打开的云文档URL
+	URL string `json:"url,omitempty"` // 要打开的云文档URL
 }

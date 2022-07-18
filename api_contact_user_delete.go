@@ -59,14 +59,23 @@ func (r *Mock) UnMockContactDeleteUser() {
 
 // DeleteUserReq ...
 type DeleteUserReq struct {
-	UserID                       string  `path:"user_id" json:"-"`                           // 用户ID, 需要与查询参数中的user_id_type类型保持一致, 示例值: "ou_7dab8a3d3cdcc9da365777c7ad535d62"
-	UserIDType                   *IDType `query:"user_id_type" json:"-"`                     // 用户 ID 类型, 示例值: "open_id", 可选值有: `open_id`: 用户的 open id, `union_id`: 用户的 union id, `user_id`: 用户的 user id, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
-	DepartmentChatAcceptorUserID *string `json:"department_chat_acceptor_user_id,omitempty"` // 部门群接收者。被删除用户为部门群群主时, 转让群主给指定接收者, 不指定接收者则默认转让给群内第一个入群的人, 示例值: "ou_7dab8a3d3cdcc9da365777c7ad535d62"
-	ExternalChatAcceptorUserID   *string `json:"external_chat_acceptor_user_id,omitempty"`   // 外部群接收者。被删除用户为外部群群主时, 转让群主给指定接收者, 不指定接收者则默认转让给群内与被删除用户在同一组织的第一个入群的人, 如果组织内只有该用户在群里, 则解散外部群, 示例值: "ou_7dab8a3d3cdcc9da365777c7ad535d62"
-	DocsAcceptorUserID           *string `json:"docs_acceptor_user_id,omitempty"`            // 文档接收者。用户被删除时, 其拥有的文档转让给接收者, 不指定接收者则默认转让给直接领导, 如果无直接领导则直接删除文档资源, 示例值: "ou_7dab8a3d3cdcc9da365777c7ad535d62"
-	CalendarAcceptorUserID       *string `json:"calendar_acceptor_user_id,omitempty"`        // 日程接收者。用户被删除时, 其拥有的日程转让给接收者, 不指定接收者则默认转让给直接领导, 如果无直接领导则直接删除日程资源, 示例值: "ou_7dab8a3d3cdcc9da365777c7ad535d62"
-	ApplicationAcceptorUserID    *string `json:"application_acceptor_user_id,omitempty"`     // 应用接收者。用户被删除时, 其创建的应用转让给接收者, 不指定接收者则默认转让给直接领导, 如果无直接领导则不会转移应用, 会造成应用不可用, 示例值: "ou_7dab8a3d3cdcc9da365777c7ad535d62"
-	HelpdeskAcceptorUserID       *string `json:"helpdesk_acceptor_user_id,omitempty"`        // 服务台资源接收者, 示例值: "ou_7dab8a3d3cdcc9da365777c7ad535d62"
+	UserID                       string                      `path:"user_id" json:"-"`                           // 用户ID, 需要与查询参数中的user_id_type类型保持一致, 示例值: "ou_7dab8a3d3cdcc9da365777c7ad535d62"
+	UserIDType                   *IDType                     `query:"user_id_type" json:"-"`                     // 用户 ID 类型, 示例值: "open_id", 可选值有: open_id: 用户的 open id, union_id: 用户的 union id, user_id: 用户的 user id, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
+	DepartmentChatAcceptorUserID *string                     `json:"department_chat_acceptor_user_id,omitempty"` // 部门群接收者。被删除用户为部门群群主时, 转让群主给指定接收者, 不指定接收者则默认转让给群内第一个入群的人, 示例值: "ou_7dab8a3d3cdcc9da365777c7ad535d62"
+	ExternalChatAcceptorUserID   *string                     `json:"external_chat_acceptor_user_id,omitempty"`   // 外部群接收者。被删除用户为外部群群主时, 转让群主给指定接收者, 不指定接收者则默认转让给群内与被删除用户在同一组织的第一个入群的人, 如果组织内只有该用户在群里, 则解散外部群, 示例值: "ou_7dab8a3d3cdcc9da365777c7ad535d62"
+	DocsAcceptorUserID           *string                     `json:"docs_acceptor_user_id,omitempty"`            // 文档接收者。用户被删除时, 其拥有的文档转让给接收者, 不指定接收者则默认转让给直接领导, 如果无直接领导则直接删除文档资源, 示例值: "ou_7dab8a3d3cdcc9da365777c7ad535d62"
+	CalendarAcceptorUserID       *string                     `json:"calendar_acceptor_user_id,omitempty"`        // 日程接收者。用户被删除时, 其拥有的日程转让给接收者, 不指定接收者则默认转让给直接领导, 如果无直接领导则直接删除日程资源, 示例值: "ou_7dab8a3d3cdcc9da365777c7ad535d62"
+	ApplicationAcceptorUserID    *string                     `json:"application_acceptor_user_id,omitempty"`     // 应用接收者。用户被删除时, 其创建的应用转让给接收者, 不指定接收者则默认转让给直接领导, 如果无直接领导则不会转移应用, 会造成应用不可用, 示例值: "ou_7dab8a3d3cdcc9da365777c7ad535d62"
+	HelpdeskAcceptorUserID       *string                     `json:"helpdesk_acceptor_user_id,omitempty"`        // 服务台资源接收者。用户被删除时, 其拥有的服务台资源转让给接收者, 不指定接收者则默认转让给直接领导, 如果无直接领导则直接删除服务台资源, 示例值: "ou_7dab8a3d3cdcc9da365777c7ad535d62"
+	MinutesAcceptorUserID        *string                     `json:"minutes_acceptor_user_id,omitempty"`         // 用户妙记接收者。。用户被删除时, 其拥有的妙记资源转让给接收者, 不指定接收者则默认转让给直接领导, 如果无直接领导则直接删除妙记资源, 示例值: "ou_7dab8a3d3cdcc9da365777c7ad535d62"
+	SurveyAcceptorUserID         *string                     `json:"survey_acceptor_user_id,omitempty"`          // 飞书问卷接收者。用户被删除时, 其拥有的飞书问卷资源转让给接收者, 不指定接收者则默认转让给直接领导, 如果无直接领导则直接删除飞书问卷资源, 示例值: "ou_7dab8a3d3cdcc9da365777c7ad535d62"
+	EmailAcceptor                *DeleteUserReqEmailAcceptor `json:"email_acceptor,omitempty"`                   // 用户邮件资源处理。用户被删除时, 根据传递的操作指令对其拥有的邮件资源做对应处理。未传递指令时默认转让给直接领导, 如果无直接领导则直接保留邮件资源
+}
+
+// DeleteUserReqEmailAcceptor ...
+type DeleteUserReqEmailAcceptor struct {
+	ProcessingType string  `json:"processing_type,omitempty"`  // 资源处理类型, 示例值: "1", 可选值有: 1: 转移资源, 2: 保留资源, 3: 删除资源
+	AcceptorUserID *string `json:"acceptor_user_id,omitempty"` // 在 processing_type 为 1 （转移资源时）, 邮件资源接收者, 示例值: "ou_7dab8a3d3cdcc9da365777c7ad535d62"
 }
 
 // DeleteUserResp ...

@@ -59,7 +59,7 @@ func (r *Mock) UnMockAdminAdminResetPassword() {
 
 // AdminResetPasswordReq ...
 type AdminResetPasswordReq struct {
-	UserIDType IDType                         `query:"user_id_type" json:"-"` // 用户 ID 类型, 示例值: "open_id", 可选值有: `open_id`: 用户的 open id, `union_id`: 用户的 union id, `user_id`: 用户的 user id, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
+	UserIDType IDType                         `query:"user_id_type" json:"-"` // 用户 ID 类型, 示例值: "open_id", 可选值有: open_id: 用户的 open id, union_id: 用户的 union id, user_id: 用户的 user id, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
 	Password   *AdminResetPasswordReqPassword `json:"password,omitempty"`     // 需要重置的密码参数, 不少于8个字符, 字母、数字和符号, 至少三选二
 	UserID     string                         `json:"user_id,omitempty"`      // 待修改密码的用户ID, 只针对邮箱登录凭证与企业邮箱(包括别名)相等的用户生效, 示例值: "abc123", 长度范围: `0` ～ `200` 字符
 }

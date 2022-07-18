@@ -57,7 +57,7 @@ func (r *Mock) UnMockApplicationGetApplicationFeedbackList() {
 
 // GetApplicationFeedbackListReq ...
 type GetApplicationFeedbackListReq struct {
-	AppID        string  `path:"app_id" json:"-"`         // 目标应用 ID, 示例值: "cli_9f115af860f7901b"
+	AppID        string  `path:"app_id" json:"-"`         // 目标应用 ID（本租户创建的所有应用）, 示例值: "cli_9f115af860f7901b"
 	FromDate     *string `query:"from_date" json:"-"`     // 查询的起始日期, 格式为yyyy-mm-dd。不填则默认为当前日期减去180天, 示例值: "2022-01-30"
 	ToDate       *string `query:"to_date" json:"-"`       // 查询的结束日期, 格式为yyyy-mm-dd。不填默认为当前日期, 只能查询 180 天内的数据, 示例值: "2022-01-30"
 	FeedbackType *int64  `query:"feedback_type" json:"-"` // 反馈类型, 不填写则表示查询所有反馈类型, 示例值: 1, 可选值有: 1: 故障反馈, 2: 产品建议
@@ -91,7 +91,7 @@ type GetApplicationFeedbackListRespFeedback struct {
 	UserID       string   `json:"user_id,omitempty"`       // 反馈用户id, 租户内用户的唯一标识, ID值与查询参数中的user_id_type对应
 	OperatorID   string   `json:"operator_id,omitempty"`   // 操作者id, 租户内用户的唯一标识, ID值与查询参数中的user_id_type 对应
 	Images       []string `json:"images,omitempty"`        // 反馈图片url列表, url 过期时间三天
-	FeedbackPath string   `json:"feedback_path,omitempty"` // $$$application.v6.type.application.feedback.prop.feedback_path.desc$$$
+	FeedbackPath string   `json:"feedback_path,omitempty"` // 反馈页面路径, 如触发反馈的应用类型为小程序, 则上报小程序当前页面的path信息, 如触发反馈的应用类型为网页或网页应用, 则上报当前网页的url信息, 如为其他应用类型, 则字段返回值为空
 }
 
 // getApplicationFeedbackListResp ...

@@ -21,9 +21,8 @@ import (
 	"context"
 )
 
-// GetUserOKRList - 当前仅支持「飞书OKR 企业版」客户使用本接口。[了解更多](https://okr.feishu.cn/price)
+// GetUserOKRList 根据用户的id获取OKR列表
 //
-// - 根据用户的id获取OKR列表
 // 使用tenant_access_token需要额外申请权限以应用身份访问OKR信息
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/okr-v1/user-okr/list
@@ -62,7 +61,7 @@ func (r *Mock) UnMockOKRGetUserOKRList() {
 // GetUserOKRListReq ...
 type GetUserOKRListReq struct {
 	UserID     string   `path:"user_id" json:"-"`       // 目标用户id, 示例值: "ou-asdasdasdasdasd"
-	UserIDType *IDType  `query:"user_id_type" json:"-"` // 用户 ID 类型, 示例值: "open_id", 可选值有: `open_id`: 用户的 open id, `union_id`: 用户的 union id, `user_id`: 用户的 user id, `people_admin_id`: 以people_admin_id来识别用户, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
+	UserIDType *IDType  `query:"user_id_type" json:"-"` // 用户 ID 类型, 示例值: "open_id", 可选值有: open_id: 用户的 open id, union_id: 用户的 union id, user_id: 用户的 user id, people_admin_id: 以people_admin_id来识别用户, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
 	Offset     string   `query:"offset" json:"-"`       // 请求列表的偏移, offset>=0, 示例值: "0"
 	Limit      string   `query:"limit" json:"-"`        // 列表长度, 0-10, 示例值: "5"
 	Lang       *string  `query:"lang" json:"-"`         // 请求OKR的语言版本（比如@的人名）, lang=en_us/zh_cn, 示例值: "zh_cn", 默认值: `zh_cn`
@@ -78,17 +77,17 @@ type GetUserOKRListResp struct {
 // GetUserOKRListRespOKR ...
 type GetUserOKRListRespOKR struct {
 	ID            string                            `json:"id,omitempty"`             // id
-	Permission    int64                             `json:"permission,omitempty"`     // OKR的访问权限, 可选值有: `0`: 此时OKR只返回id, `1`: 返回OKR的其他具体字段
+	Permission    int64                             `json:"permission,omitempty"`     // OKR的访问权限, 可选值有: 0: 此时OKR只返回id, 1: 返回OKR的其他具体字段
 	PeriodID      string                            `json:"period_id,omitempty"`      // period_id
 	Name          string                            `json:"name,omitempty"`           // 名称
 	ObjectiveList []*GetUserOKRListRespOKRObjective `json:"objective_list,omitempty"` // Objective列表
-	ConfirmStatus int64                             `json:"confirm_status,omitempty"` // OKR确认状态, 可选值有: `0`: 未填写 OKR, `1`: 已填写未发起确认, `2`: 已发起待上级确认, `3`: 上级未通过, `4`: 上级已通过
+	ConfirmStatus int64                             `json:"confirm_status,omitempty"` // OKR确认状态, 可选值有: 0: 未填写 OKR, 1: 已填写未发起确认, 2: 已发起待上级确认, 3: 上级未通过, 4: 上级已通过
 }
 
 // GetUserOKRListRespOKRObjective ...
 type GetUserOKRListRespOKRObjective struct {
 	ID                                 string                                             `json:"id,omitempty"`                                      // Objective ID
-	Permission                         int64                                              `json:"permission,omitempty"`                              // 权限, 可选值有: `0`: 此时OKR只返回id, `1`: 返回OKR的其他具体字段
+	Permission                         int64                                              `json:"permission,omitempty"`                              // 权限, 可选值有: 0: 此时OKR只返回id, 1: 返回OKR的其他具体字段
 	Content                            string                                             `json:"content,omitempty"`                                 // Objective 内容
 	ProgressReport                     string                                             `json:"progress_report,omitempty"`                         // Objective 进度记录内容
 	Score                              int64                                              `json:"score,omitempty"`                                   // Objective 分数（0 - 100）
@@ -160,7 +159,7 @@ type GetUserOKRListRespOKRObjectiveKrMentionedUser struct {
 // GetUserOKRListRespOKRObjectiveKrProgressRate ...
 type GetUserOKRListRespOKRObjectiveKrProgressRate struct {
 	Percent int64  `json:"percent,omitempty"` // Objective 进度百分比 >= 0
-	Status  string `json:"status,omitempty"`  // Objective 进度状态, 可选值有: `-1`: 未更新, `0`: 正常, `1`: 有风险, `2`: 已延期
+	Status  string `json:"status,omitempty"`  // Objective 进度状态, 可选值有: -1: 未更新, 0: 正常, 1: 有风险, 2: 已延期
 }
 
 // GetUserOKRListRespOKRObjectiveKrProgressRecord ...
@@ -177,7 +176,7 @@ type GetUserOKRListRespOKRObjectiveMentionedUser struct {
 // GetUserOKRListRespOKRObjectiveProgressRate ...
 type GetUserOKRListRespOKRObjectiveProgressRate struct {
 	Percent int64  `json:"percent,omitempty"` // Objective 进度百分比 >= 0
-	Status  string `json:"status,omitempty"`  // Objective 进度状态, 可选值有: `-1`: 未更新, `0`: 正常, `1`: 有风险, `2`: 已延期
+	Status  string `json:"status,omitempty"`  // Objective 进度状态, 可选值有: -1: 未更新, 0: 正常, 1: 有风险, 2: 已延期
 }
 
 // GetUserOKRListRespOKRObjectiveProgressRecord ...

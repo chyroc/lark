@@ -59,7 +59,7 @@ func (r *Mock) UnMockTaskGetTask() {
 // GetTaskReq ...
 type GetTaskReq struct {
 	TaskID     string  `path:"task_id" json:"-"`       // 任务 ID, 示例值: "83912691-2e43-47fc-94a4-d512e03984fa"
-	UserIDType *IDType `query:"user_id_type" json:"-"` // 用户 ID 类型, 示例值: "open_id", 可选值有: `open_id`: 用户的 open id, `union_id`: 用户的 union id, `user_id`: 用户的 user id, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
+	UserIDType *IDType `query:"user_id_type" json:"-"` // 用户 ID 类型, 示例值: "open_id", 可选值有: open_id: 用户的 open id, union_id: 用户的 union id, user_id: 用户的 user id, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
 }
 
 // GetTaskResp ...
@@ -69,26 +69,30 @@ type GetTaskResp struct {
 
 // GetTaskRespTask ...
 type GetTaskRespTask struct {
-	ID            string                         `json:"id,omitempty"`            // 任务 ID, 由飞书任务服务器发号
-	Summary       string                         `json:"summary,omitempty"`       // 任务标题。创建任务时, 如果没有标题填充, 飞书服务器会将其视为无主题的任务
-	Description   string                         `json:"description,omitempty"`   // 任务备注
-	CompleteTime  string                         `json:"complete_time,omitempty"` // 任务的完成时间戳（单位为秒）, 如果完成时间为 0, 则表示任务尚未完成
-	CreatorID     string                         `json:"creator_id,omitempty"`    // 任务的创建者 ID。在创建任务时无需填充该字段
-	Extra         string                         `json:"extra,omitempty"`         // 接入方可以自定义的附属信息二进制格式, 采用 base64 编码, 解析方式由接入方自己决定
-	CreateTime    string                         `json:"create_time,omitempty"`   // 任务的创建时间戳（单位为秒）
-	UpdateTime    string                         `json:"update_time,omitempty"`   // 任务的更新时间戳（单位为秒）
-	Due           *GetTaskRespTaskDue            `json:"due,omitempty"`           // 任务的截止时间设置
-	Origin        *GetTaskRespTaskOrigin         `json:"origin,omitempty"`        // 任务关联的第三方平台来源信息
-	CanEdit       bool                           `json:"can_edit,omitempty"`      // 此字段用于控制该任务在飞书任务中心是否可编辑, 默认为false, 若为true则第三方需考虑是否需要接入事件来接收任务在任务中心的变更信息, （即将废弃）
-	Custom        string                         `json:"custom,omitempty"`        // 此字段用于存储第三方需透传到端上的自定义数据, Json格式。取值举例中custom_complete字段存储「完成」按钮的跳转链接（href）或提示信息（tip）, pc、ios、android三端均可自定义, 其中tip字段的key为语言类型, value为提示信息, 可自行增加或减少语言类型, 支持的各地区语言名: it_it, th_th, ko_kr, es_es, ja_jp, zh_cn, id_id, zh_hk, pt_br, de_de, fr_fr, zh_tw, ru_ru, en_us, hi_in, vi_vn。href的优先级高于tip, href和tip同时不为空时只跳转不提示。链接和提示信息可自定义, 其余的key需按举例中的结构传递
-	Source        int64                          `json:"source,omitempty"`        // 任务创建的来源, 可选值有: `0`: 未知类型, `1`: 来源任务中心创建, `2`: 来源消息转任务, `3`: 来源云文档, `4`: 来源文档单品, `5`: 来源PANO, `6`: 来源tenant_access_token创建的任务, `7`: 来源user_access_token创建的任务, `8`: 来源新版云文档
-	Followers     []*GetTaskRespTaskFollower     `json:"followers,omitempty"`     // 任务的关注者
-	Collaborators []*GetTaskRespTaskCollaborator `json:"collaborators,omitempty"` // 任务的执行者
+	ID              string                         `json:"id,omitempty"`               // 任务 ID, 由飞书任务服务器发号
+	Summary         string                         `json:"summary,omitempty"`          // 任务标题。创建任务时, 如果没有标题填充, 飞书服务器会将其视为无主题的任务
+	Description     string                         `json:"description,omitempty"`      // 任务备注
+	CompleteTime    string                         `json:"complete_time,omitempty"`    // 任务的完成时间戳（单位为秒）, 如果完成时间为 0, 则表示任务尚未完成
+	CreatorID       string                         `json:"creator_id,omitempty"`       // 任务的创建者 ID。在创建任务时无需填充该字段
+	Extra           string                         `json:"extra,omitempty"`            // 接入方可以自定义的附属信息二进制格式, 采用 base64 编码, 解析方式由接入方自己决定
+	CreateTime      string                         `json:"create_time,omitempty"`      // 任务的创建时间戳（单位为秒）
+	UpdateTime      string                         `json:"update_time,omitempty"`      // 任务的更新时间戳（单位为秒）
+	Due             *GetTaskRespTaskDue            `json:"due,omitempty"`              // 任务的截止时间设置
+	Origin          *GetTaskRespTaskOrigin         `json:"origin,omitempty"`           // 任务关联的第三方平台来源信息
+	CanEdit         bool                           `json:"can_edit,omitempty"`         // 此字段用于控制该任务在飞书任务中心是否可编辑, 默认为false, 若为true则第三方需考虑是否需要接入事件来接收任务在任务中心的变更信息, （即将废弃）
+	Custom          string                         `json:"custom,omitempty"`           // 此字段用于存储第三方需透传到端上的自定义数据, Json格式。取值举例中custom_complete字段存储「完成」按钮的跳转链接（href）或提示信息（tip）, pc、ios、android三端均可自定义, 其中tip字段的key为语言类型, value为提示信息, 可自行增加或减少语言类型, 支持的各地区语言名: it_it, th_th, ko_kr, es_es, ja_jp, zh_cn, id_id, zh_hk, pt_br, de_de, fr_fr, zh_tw, ru_ru, en_us, hi_in, vi_vn。href的优先级高于tip, href和tip同时不为空时只跳转不提示。链接和提示信息可自定义, 其余的key需按举例中的结构传递
+	Source          int64                          `json:"source,omitempty"`           // 任务创建的来源, 可选值有: 0: 未知类型, 1: 来源任务中心创建, 2: 来源消息转任务, 3: 来源云文档, 4: 来源文档单品, 5: 来源PANO, 6: 来源tenant_access_token创建的任务, 7: 来源user_access_token创建的任务, 8: 来源新版云文档
+	Followers       []*GetTaskRespTaskFollower     `json:"followers,omitempty"`        // 任务的关注者
+	Collaborators   []*GetTaskRespTaskCollaborator `json:"collaborators,omitempty"`    // 任务的执行者
+	CollaboratorIDs []string                       `json:"collaborator_ids,omitempty"` // 创建任务时添加的执行者用户id列表
+	FollowerIDs     []string                       `json:"follower_ids,omitempty"`     // 创建任务时添加的关注者用户id列表
+	RepeatRule      string                         `json:"repeat_rule,omitempty"`      // 重复任务重复规则
 }
 
 // GetTaskRespTaskCollaborator ...
 type GetTaskRespTaskCollaborator struct {
-	ID string `json:"id,omitempty"` // 任务执行者的 ID
+	ID     string   `json:"id,omitempty"`      // 任务执行者的 ID
+	IDList []string `json:"id_list,omitempty"` // 执行者的用户ID列表。
 }
 
 // GetTaskRespTaskDue ...
@@ -100,7 +104,8 @@ type GetTaskRespTaskDue struct {
 
 // GetTaskRespTaskFollower ...
 type GetTaskRespTaskFollower struct {
-	ID string `json:"id,omitempty"` // 任务关注人 ID
+	ID     string   `json:"id,omitempty"`      // 任务关注人 ID
+	IDList []string `json:"id_list,omitempty"` // 要添加的关注人ID列表
 }
 
 // GetTaskRespTaskOrigin ...

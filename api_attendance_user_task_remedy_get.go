@@ -57,7 +57,7 @@ func (r *Mock) UnMockAttendanceGetAttendanceUserTaskRemedy() {
 
 // GetAttendanceUserTaskRemedyReq ...
 type GetAttendanceUserTaskRemedyReq struct {
-	EmployeeType  EmployeeType `query:"employee_type" json:"-"`   // 请求体中的 user_ids 和响应体中的 user_id 的员工工号类型, 示例值: "employee_id", 可选值有: `employee_id`: 员工 employee ID, 即飞书管理后台 > 组织架构 > 成员与部门 > 成员详情中的用户 ID, `employee_no`: 员工工号, 即飞书管理后台 > 组织架构 > 成员与部门 > 成员详情中的工号
+	EmployeeType  EmployeeType `query:"employee_type" json:"-"`   // 请求体中的 user_ids 和响应体中的 user_id 的员工工号类型, 示例值: "employee_id", 可选值有: employee_id: 员工 employee ID, 即飞书管理后台 > 组织架构 > 成员与部门 > 成员详情中的用户 ID, employee_no: 员工工号, 即飞书管理后台 > 组织架构 > 成员与部门 > 成员详情中的工号
 	UserIDs       []string     `json:"user_ids,omitempty"`        // employee_no 或 employee_id 列表, 示例值: ["abd754f7"]
 	CheckTimeFrom string       `json:"check_time_from,omitempty"` // 查询的起始时间, 精确到秒的时间戳, 示例值: "1566641088"
 	CheckTimeTo   string       `json:"check_time_to,omitempty"`   // 查询的结束时间, 精确到秒的时间戳, 示例值: "1592561088"
@@ -76,7 +76,7 @@ type GetAttendanceUserTaskRemedyRespUserRemedy struct {
 	WorkType   int64  `json:"work_type,omitempty"`   // 上班 / 下班, 1: 上班, 2: 下班, 自由班制填 0
 	ApprovalID string `json:"approval_id,omitempty"` // 审批 ID
 	RemedyTime string `json:"remedy_time,omitempty"` // 补卡时间, 时间格式为 yyyy-MM-dd HH:mm
-	Status     int64  `json:"status,omitempty"`      // 补卡状态（默认为审批中）, 可选值有: `0`: 审批中, `2`: 已通过, `3`: 已取消, `4`: 通过后撤回
+	Status     int64  `json:"status,omitempty"`      // 补卡状态（默认为审批中）, 可选值有: 0: 审批中, 2: 已通过, 3: 已取消, 4: 通过后撤回
 	Reason     string `json:"reason,omitempty"`      // 补卡原因
 	Time       string `json:"time,omitempty"`        // 补卡时间, 精确到秒的时间戳
 	TimeZone   string `json:"time_zone,omitempty"`   // 补卡时考勤组时区

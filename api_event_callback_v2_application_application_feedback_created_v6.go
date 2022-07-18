@@ -45,6 +45,7 @@ type EventV2ApplicationApplicationFeedbackCreatedV6 struct {
 	Description  string                                                `json:"description,omitempty"`   // 反馈详情
 	Images       []string                                              `json:"images,omitempty"`        // 反馈图片url列表, url 过期时间三天
 	FeedbackID   string                                                `json:"feedback_id,omitempty"`   // 应用反馈 ID, 应用反馈记录唯一标识
+	FeedbackPath string                                                `json:"feedback_path,omitempty"` // 反馈页面路径
 }
 
 // EventV2ApplicationApplicationFeedbackCreatedV6UserID ...
