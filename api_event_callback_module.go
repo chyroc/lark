@@ -62,6 +62,8 @@ const (
 	EventTypeV2ApplicationApplicationFeedbackUpdatedV6         EventType = "application.application.feedback.updated_v6"
 	EventTypeV2ApplicationApplicationVisibilityAddedV6         EventType = "application.application.visibility.added_v6"
 	EventTypeV2ApprovalApprovalUpdatedV4                       EventType = "approval.approval.updated_v4"
+	EventTypeV2AttendanceUserFlowCreatedV1                     EventType = "attendance.user_flow.created_v1"
+	EventTypeV2AttendanceUserTaskUpdatedV1                     EventType = "attendance.user_task.updated_v1"
 	EventTypeV2CalendarCalendarACLCreatedV4                    EventType = "calendar.calendar.acl.created_v4"
 	EventTypeV2CalendarCalendarACLDeletedV4                    EventType = "calendar.calendar.acl.deleted_v4"
 	EventTypeV2CalendarCalendarChangedV4                       EventType = "calendar.calendar.changed_v4"
@@ -157,6 +159,8 @@ type eventHandler struct {
 	eventV2ApplicationApplicationFeedbackUpdatedV6Handler         EventV2ApplicationApplicationFeedbackUpdatedV6Handler
 	eventV2ApplicationApplicationVisibilityAddedV6Handler         EventV2ApplicationApplicationVisibilityAddedV6Handler
 	eventV2ApprovalApprovalUpdatedV4Handler                       EventV2ApprovalApprovalUpdatedV4Handler
+	eventV2AttendanceUserFlowCreatedV1Handler                     EventV2AttendanceUserFlowCreatedV1Handler
+	eventV2AttendanceUserTaskUpdatedV1Handler                     EventV2AttendanceUserTaskUpdatedV1Handler
 	eventV2CalendarCalendarACLCreatedV4Handler                    EventV2CalendarCalendarACLCreatedV4Handler
 	eventV2CalendarCalendarACLDeletedV4Handler                    EventV2CalendarCalendarACLDeletedV4Handler
 	eventV2CalendarCalendarChangedV4Handler                       EventV2CalendarCalendarChangedV4Handler
@@ -253,6 +257,8 @@ func (r *eventHandler) clone() *eventHandler {
 		eventV2ApplicationApplicationFeedbackUpdatedV6Handler:         r.eventV2ApplicationApplicationFeedbackUpdatedV6Handler,
 		eventV2ApplicationApplicationVisibilityAddedV6Handler:         r.eventV2ApplicationApplicationVisibilityAddedV6Handler,
 		eventV2ApprovalApprovalUpdatedV4Handler:                       r.eventV2ApprovalApprovalUpdatedV4Handler,
+		eventV2AttendanceUserFlowCreatedV1Handler:                     r.eventV2AttendanceUserFlowCreatedV1Handler,
+		eventV2AttendanceUserTaskUpdatedV1Handler:                     r.eventV2AttendanceUserTaskUpdatedV1Handler,
 		eventV2CalendarCalendarACLCreatedV4Handler:                    r.eventV2CalendarCalendarACLCreatedV4Handler,
 		eventV2CalendarCalendarACLDeletedV4Handler:                    r.eventV2CalendarCalendarACLDeletedV4Handler,
 		eventV2CalendarCalendarChangedV4Handler:                       r.eventV2CalendarCalendarChangedV4Handler,
@@ -348,6 +354,8 @@ type eventBody struct {
 	eventV2ApplicationApplicationFeedbackUpdatedV6         *EventV2ApplicationApplicationFeedbackUpdatedV6
 	eventV2ApplicationApplicationVisibilityAddedV6         *EventV2ApplicationApplicationVisibilityAddedV6
 	eventV2ApprovalApprovalUpdatedV4                       *EventV2ApprovalApprovalUpdatedV4
+	eventV2AttendanceUserFlowCreatedV1                     *EventV2AttendanceUserFlowCreatedV1
+	eventV2AttendanceUserTaskUpdatedV1                     *EventV2AttendanceUserTaskUpdatedV1
 	eventV2CalendarCalendarACLCreatedV4                    *EventV2CalendarCalendarACLCreatedV4
 	eventV2CalendarCalendarACLDeletedV4                    *EventV2CalendarCalendarACLDeletedV4
 	eventV2CalendarCalendarChangedV4                       *EventV2CalendarCalendarChangedV4
@@ -473,6 +481,18 @@ func (r *EventCallbackService) parserEventV2(req *eventReq) error {
 			return err
 		}
 		req.eventV2ApprovalApprovalUpdatedV4 = event
+	case EventTypeV2AttendanceUserFlowCreatedV1:
+		event := new(EventV2AttendanceUserFlowCreatedV1)
+		if err := req.unmarshalEvent(event); err != nil {
+			return err
+		}
+		req.eventV2AttendanceUserFlowCreatedV1 = event
+	case EventTypeV2AttendanceUserTaskUpdatedV1:
+		event := new(EventV2AttendanceUserTaskUpdatedV1)
+		if err := req.unmarshalEvent(event); err != nil {
+			return err
+		}
+		req.eventV2AttendanceUserTaskUpdatedV1 = event
 	case EventTypeV2CalendarCalendarACLCreatedV4:
 		event := new(EventV2CalendarCalendarACLCreatedV4)
 		if err := req.unmarshalEvent(event); err != nil {
@@ -1167,6 +1187,16 @@ func (r *EventCallbackService) handlerEvent(ctx context.Context, req *eventReq) 
 	case req.eventV2ApprovalApprovalUpdatedV4 != nil:
 		if r.cli.eventHandler.eventV2ApprovalApprovalUpdatedV4Handler != nil {
 			s, err = r.cli.eventHandler.eventV2ApprovalApprovalUpdatedV4Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2ApprovalApprovalUpdatedV4)
+		}
+		return true, s, err
+	case req.eventV2AttendanceUserFlowCreatedV1 != nil:
+		if r.cli.eventHandler.eventV2AttendanceUserFlowCreatedV1Handler != nil {
+			s, err = r.cli.eventHandler.eventV2AttendanceUserFlowCreatedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2AttendanceUserFlowCreatedV1)
+		}
+		return true, s, err
+	case req.eventV2AttendanceUserTaskUpdatedV1 != nil:
+		if r.cli.eventHandler.eventV2AttendanceUserTaskUpdatedV1Handler != nil {
+			s, err = r.cli.eventHandler.eventV2AttendanceUserTaskUpdatedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2AttendanceUserTaskUpdatedV1)
 		}
 		return true, s, err
 	case req.eventV2CalendarCalendarACLCreatedV4 != nil:

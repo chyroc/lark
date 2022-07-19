@@ -38,7 +38,7 @@ https://godoc.org/github.com/chyroc/lark
 
 ## 支持的接口
 
-API 总数: 620, 事件总数: 91
+API 总数: 626, 事件总数: 93
 
 <details>
   <summary>
@@ -556,6 +556,8 @@ API 总数: 620, 事件总数: 91
   - EventV1ApprovalInstance
   - EventV1ApprovalTask
   - EventV1ApprovalCc
+  - EventV2AttendanceUserTaskUpdatedV1
+  - EventV2AttendanceUserFlowCreatedV1
 - File
   - UploadImage
   - DownloadImage
@@ -726,6 +728,12 @@ API 总数: 620, 事件总数: 91
   - GetOKRPeriodList
   - BatchGetOKR
   - GetUserOKRList
+  - DeleteOKRProgressRecord
+  - UpdateOKRProgressRecord
+  - GetOKRProgressRecord
+  - CreateOKRProgressRecord
+  - UploadOKRImage
+  - GetOKRReview
 - Passport
   - GetPassportSession
 - Search

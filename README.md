@@ -38,7 +38,7 @@ https://godoc.org/github.com/chyroc/lark
 
 ## Support APIs
 
-API Count: 620, Event Count: 91
+API Count: 626, Event Count: 93
 
 <details>
   <summary>
@@ -556,6 +556,8 @@ API Count: 620, Event Count: 91
   - EventV1ApprovalInstance
   - EventV1ApprovalTask
   - EventV1ApprovalCc
+  - EventV2AttendanceUserTaskUpdatedV1
+  - EventV2AttendanceUserFlowCreatedV1
 - File
   - UploadImage
   - DownloadImage
@@ -726,6 +728,12 @@ API Count: 620, Event Count: 91
   - GetOKRPeriodList
   - BatchGetOKR
   - GetUserOKRList
+  - DeleteOKRProgressRecord
+  - UpdateOKRProgressRecord
+  - GetOKRProgressRecord
+  - CreateOKRProgressRecord
+  - UploadOKRImage
+  - GetOKRReview
 - Passport
   - GetPassportSession
 - Search

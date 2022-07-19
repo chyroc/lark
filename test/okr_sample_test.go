@@ -85,6 +85,78 @@ func Test_OKR_Sample_Failed(t *testing.T) {
 			as.Equal(err.Error(), "mock-failed")
 		})
 
+		t.Run("", func(t *testing.T) {
+
+			cli.Mock().MockOKRDeleteOKRProgressRecord(func(ctx context.Context, request *lark.DeleteOKRProgressRecordReq, options ...lark.MethodOptionFunc) (*lark.DeleteOKRProgressRecordResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockOKRDeleteOKRProgressRecord()
+
+			_, _, err := moduleCli.DeleteOKRProgressRecord(ctx, &lark.DeleteOKRProgressRecordReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			cli.Mock().MockOKRUpdateOKRProgressRecord(func(ctx context.Context, request *lark.UpdateOKRProgressRecordReq, options ...lark.MethodOptionFunc) (*lark.UpdateOKRProgressRecordResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockOKRUpdateOKRProgressRecord()
+
+			_, _, err := moduleCli.UpdateOKRProgressRecord(ctx, &lark.UpdateOKRProgressRecordReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			cli.Mock().MockOKRGetOKRProgressRecord(func(ctx context.Context, request *lark.GetOKRProgressRecordReq, options ...lark.MethodOptionFunc) (*lark.GetOKRProgressRecordResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockOKRGetOKRProgressRecord()
+
+			_, _, err := moduleCli.GetOKRProgressRecord(ctx, &lark.GetOKRProgressRecordReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			cli.Mock().MockOKRCreateOKRProgressRecord(func(ctx context.Context, request *lark.CreateOKRProgressRecordReq, options ...lark.MethodOptionFunc) (*lark.CreateOKRProgressRecordResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockOKRCreateOKRProgressRecord()
+
+			_, _, err := moduleCli.CreateOKRProgressRecord(ctx, &lark.CreateOKRProgressRecordReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			cli.Mock().MockOKRUploadOKRImage(func(ctx context.Context, request *lark.UploadOKRImageReq, options ...lark.MethodOptionFunc) (*lark.UploadOKRImageResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockOKRUploadOKRImage()
+
+			_, _, err := moduleCli.UploadOKRImage(ctx, &lark.UploadOKRImageReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			cli.Mock().MockOKRGetOKRReview(func(ctx context.Context, request *lark.GetOKRReviewReq, options ...lark.MethodOptionFunc) (*lark.GetOKRReviewResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockOKRGetOKRReview()
+
+			_, _, err := moduleCli.GetOKRReview(ctx, &lark.GetOKRReviewReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
 	})
 
 	t.Run("response is failed", func(t *testing.T) {
@@ -110,6 +182,54 @@ func Test_OKR_Sample_Failed(t *testing.T) {
 			_, _, err := moduleCli.GetUserOKRList(ctx, &lark.GetUserOKRListReq{
 				UserID: "x",
 			})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.DeleteOKRProgressRecord(ctx, &lark.DeleteOKRProgressRecordReq{
+				ProgressID: "x",
+			})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.UpdateOKRProgressRecord(ctx, &lark.UpdateOKRProgressRecordReq{
+				ProgressID: "x",
+			})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.GetOKRProgressRecord(ctx, &lark.GetOKRProgressRecordReq{
+				ProgressID: "x",
+			})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.CreateOKRProgressRecord(ctx, &lark.CreateOKRProgressRecordReq{})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.UploadOKRImage(ctx, &lark.UploadOKRImageReq{})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.GetOKRReview(ctx, &lark.GetOKRReviewReq{})
 			as.NotNil(err)
 			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
 		})
@@ -142,6 +262,54 @@ func Test_OKR_Sample_Failed(t *testing.T) {
 			_, _, err := moduleCli.GetUserOKRList(ctx, &lark.GetUserOKRListReq{
 				UserID: "x",
 			})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.DeleteOKRProgressRecord(ctx, &lark.DeleteOKRProgressRecordReq{
+				ProgressID: "x",
+			})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.UpdateOKRProgressRecord(ctx, &lark.UpdateOKRProgressRecordReq{
+				ProgressID: "x",
+			})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.GetOKRProgressRecord(ctx, &lark.GetOKRProgressRecordReq{
+				ProgressID: "x",
+			})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.CreateOKRProgressRecord(ctx, &lark.CreateOKRProgressRecordReq{})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.UploadOKRImage(ctx, &lark.UploadOKRImageReq{})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.GetOKRReview(ctx, &lark.GetOKRReviewReq{})
 			as.NotNil(err)
 			as.Equal("fake raw request", err.Error())
 		})
