@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// BatchDeleteBitableRecord 该接口用于删除数据表中现有的多条记录
+// BatchDeleteBitableRecord 该接口用于删除数据表中现有的多条记录, 单次调用中最多删除 500 条记录。
 //
 // 该接口支持调用频率上限为 10 QPS
 //
