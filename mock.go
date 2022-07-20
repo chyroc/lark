@@ -577,7 +577,6 @@ type Mock struct {
 	mockOKRGetOKRProgressRecord                                func(ctx context.Context, request *GetOKRProgressRecordReq, options ...MethodOptionFunc) (*GetOKRProgressRecordResp, *Response, error)
 	mockOKRCreateOKRProgressRecord                             func(ctx context.Context, request *CreateOKRProgressRecordReq, options ...MethodOptionFunc) (*CreateOKRProgressRecordResp, *Response, error)
 	mockOKRUploadOKRImage                                      func(ctx context.Context, request *UploadOKRImageReq, options ...MethodOptionFunc) (*UploadOKRImageResp, *Response, error)
-	mockOKRGetOKRReview                                        func(ctx context.Context, request *GetOKRReviewReq, options ...MethodOptionFunc) (*GetOKRReviewResp, *Response, error)
 	mockPassportGetPassportSession                             func(ctx context.Context, request *GetPassportSessionReq, options ...MethodOptionFunc) (*GetPassportSessionResp, *Response, error)
 	mockSearchCreateSearchDataSource                           func(ctx context.Context, request *CreateSearchDataSourceReq, options ...MethodOptionFunc) (*CreateSearchDataSourceResp, *Response, error)
 	mockSearchGetSearchDataSource                              func(ctx context.Context, request *GetSearchDataSourceReq, options ...MethodOptionFunc) (*GetSearchDataSourceResp, *Response, error)

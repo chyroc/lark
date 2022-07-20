@@ -59,8 +59,8 @@ func (r *Mock) UnMockApplicationUpdateApplicationFeedback() {
 type UpdateApplicationFeedbackReq struct {
 	AppID      string  `path:"app_id" json:"-"`        // 目标应用 ID（本租户创建的所有应用）, 示例值: "cli_9f115af860f7901b"
 	FeedbackID string  `path:"feedback_id" json:"-"`   // 应用反馈记录id, 示例值: "7057888018203574291"
-	UserIDType *IDType `query:"user_id_type" json:"-"` // 用户 ID 类型, 示例值: "open_id", 可选值有: `open_id`: 用户的 open id, `union_id`: 用户的 union id, `user_id`: 用户的 user id, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
-	Status     int64   `query:"status" json:"-"`       // 反馈处理状态, 示例值: 1, 可选值有: `0`: 反馈未处理, `1`: 反馈已处理, `2`: 反馈处理中, `3`: 反馈已关闭
+	UserIDType *IDType `query:"user_id_type" json:"-"` // 用户 ID 类型, 示例值: "open_id", 可选值有: open_id: 用户的 open id, union_id: 用户的 union id, user_id: 用户的 user id, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
+	Status     int64   `query:"status" json:"-"`       // 反馈处理状态, 示例值: 1, 可选值有: 0: 反馈未处理, 1: 反馈已处理, 2: 反馈处理中, 3: 反馈已关闭
 	OperatorID string  `query:"operator_id" json:"-"`  // 反馈处理人员id, 租户内用户的唯一标识, ID值与查询参数中的user_id_type 对应, 示例值: "ou_9565b69967831233761cc2f11b4c089f"
 }
 

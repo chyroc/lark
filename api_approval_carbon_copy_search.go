@@ -66,7 +66,7 @@ type SearchApprovalCarbonCopyReq struct {
 	InstanceExternalID *string `json:"instance_external_id,omitempty"` // 审批实例第三方 id 注: 和 approval_code 取并集, 示例值: "EB828003-9FFE-4B3F-AA50-2E199E2ED976"
 	GroupExternalID    *string `json:"group_external_id,omitempty"`    // 审批定义分组第三方 id 注: 和 instance_code 取并集, 示例值: "1234567"
 	CcTitle            *string `json:"cc_title,omitempty"`             // 审批实例标题（只有第三方审批有）, 示例值: "test"
-	ReadStatus         *string `json:"read_status,omitempty"`          // 审批抄送状态, 注: 若不设置, 查询全部状态 若不在集合中, 报错, 示例值: "READ", 可选值有: READ: 已读, UNREAD: 未读, ALL: 所有状态
+	ReadStatus         *string `json:"read_status,omitempty"`          // 审批抄送状态, 注: 若不设置, 查询全部状态 若不在集合中, 报错, 示例值: "read", 可选值有: READ: 已读, UNREAD: 未读, ALL: 所有状态
 	CcCreateTimeFrom   *string `json:"cc_create_time_from,omitempty"`  // 实例查询开始时间（unix毫秒时间戳）, 示例值: "1547654251506"
 	CcCreateTimeTo     *string `json:"cc_create_time_to,omitempty"`    // 实例查询结束时间 (unix毫秒时间戳), 示例值: "1547654251506"
 	Locale             *string `json:"locale,omitempty"`               // 地区, 示例值: "zh-CN", 可选值有: zh-CN: 中文, en-US: 英文, ja-JP: 日文
@@ -103,9 +103,9 @@ type SearchApprovalCarbonCopyRespCcApprovalExternal struct {
 
 // SearchApprovalCarbonCopyRespCcCc ...
 type SearchApprovalCarbonCopyRespCcCc struct {
-	UserID     string                                `json:"user_id,omitempty"`     // 审批实例发起人 id
+	UserID     string                                `json:"user_id,omitempty"`     // 审批抄送发起人 id
 	CreateTime string                                `json:"create_time,omitempty"` // 审批实例开始时间
-	ReadStatus string                                `json:"read_status,omitempty"` // 审批实例状态, 可选值有: READ: 已读, UNREAD: 未读
+	ReadStatus string                                `json:"read_status,omitempty"` // 审批实例状态, 可选值有: read: 已读, unread: 未读
 	Title      string                                `json:"title,omitempty"`       // 审批实例名称（只有第三方审批有）
 	Extra      string                                `json:"extra,omitempty"`       // 审批实例扩展字段, string型json
 	Link       *SearchApprovalCarbonCopyRespCcCcLink `json:"link,omitempty"`        // 审批实例链接（只有第三方审批有）
@@ -130,7 +130,7 @@ type SearchApprovalCarbonCopyRespCcInstance struct {
 	UserID     string                                      `json:"user_id,omitempty"`     // 审批实例发起人 id
 	StartTime  string                                      `json:"start_time,omitempty"`  // 审批实例开始时间
 	EndTime    string                                      `json:"end_time,omitempty"`    // 审批实例结束时间
-	Status     string                                      `json:"status,omitempty"`      // 审批实例状态, 可选值有: REJECT: 拒绝, PENDING: 审批中, RECALL: 撤回, DELETED: 已删除, APPROVED: 通过
+	Status     string                                      `json:"status,omitempty"`      // 审批实例状态, 可选值有: reject: 拒绝, pending: 审批中, recall: 撤回, deleted: 已删除, approved: 通过
 	Title      string                                      `json:"title,omitempty"`       // 审批实例名称（只有第三方审批有）
 	Extra      string                                      `json:"extra,omitempty"`       // 审批实例扩展字段, string型json
 	SerialID   string                                      `json:"serial_id,omitempty"`   // 审批流水号

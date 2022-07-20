@@ -38,7 +38,7 @@ https://godoc.org/github.com/chyroc/lark
 
 ## 支持的接口
 
-API 总数: 626, 事件总数: 93
+API 总数: 625, 事件总数: 93
 
 <details>
   <summary>
@@ -733,7 +733,6 @@ API 总数: 626, 事件总数: 93
   - GetOKRProgressRecord
   - CreateOKRProgressRecord
   - UploadOKRImage
-  - GetOKRReview
 - Passport
   - GetPassportSession
 - Search

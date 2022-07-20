@@ -57,7 +57,7 @@ func (r *Mock) UnMockAttendanceGetAttendanceUserDailyShift() {
 
 // GetAttendanceUserDailyShiftReq ...
 type GetAttendanceUserDailyShiftReq struct {
-	EmployeeType  EmployeeType `query:"employee_type" json:"-"`   // 请求体中的 user_ids 和响应体中的 user_id 的员工工号类型, 示例值: "employee_id", 可选值有: `employee_id`: 员工 employee ID, 即飞书管理后台 > 组织架构 > 成员与部门 > 成员详情中的用户 ID, `employee_no`: 员工工号, 即飞书管理后台 > 组织架构 > 成员与部门 > 成员详情中的工号
+	EmployeeType  EmployeeType `query:"employee_type" json:"-"`   // 请求体中的 user_ids 和响应体中的 user_id 的员工工号类型, 示例值: "employee_id", 可选值有: employee_id: 员工 employee ID, 即飞书管理后台 > 组织架构 > 成员与部门 > 成员详情中的用户 ID, employee_no: 员工工号, 即飞书管理后台 > 组织架构 > 成员与部门 > 成员详情中的工号
 	UserIDs       []string     `json:"user_ids,omitempty"`        // employee_no 或 employee_id 列表, 示例值: ["abd754f7"]
 	CheckDateFrom int64        `json:"check_date_from,omitempty"` // 查询的起始工作日, 示例值: 20190817
 	CheckDateTo   int64        `json:"check_date_to,omitempty"`   // 查询的结束工作日, 示例值: 20190820

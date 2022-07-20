@@ -59,8 +59,8 @@ func (r *Mock) UnMockApplicationGetApplicationVersion() {
 type GetApplicationVersionReq struct {
 	AppID      string  `path:"app_id" json:"-"`        // 应用的 app_id, 需要查询其他应用版本信息时, 必须申请[获取应用版本信息](https://open.feishu.cn/document/ukTMukTMukTM/uQjN3QjL0YzN04CN2cDN)权限, 仅查询本应用版本信息时, 可填入 "me" 或者应用自身 app_id, 示例值: "cli_9f3ca975326b501b"
 	VersionID  string  `path:"version_id" json:"-"`    // 唯一标识应用版本的 ID, 示例值: "oav_d317f090b7258ad0372aa53963cda70d"
-	Lang       string  `query:"lang" json:"-"`         // 应用信息的语言版本, 示例值: "zh_cn", 可选值有: `zh_cn`: 中文, `en_us`: 英文, `ja_jp`: 日文, 最小长度: `1` 字符
-	UserIDType *IDType `query:"user_id_type" json:"-"` // 用户 ID 类型, 示例值: "open_id", 可选值有: `open_id`: 用户的 open id, `union_id`: 用户的 union id, `user_id`: 用户的 user id, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
+	Lang       string  `query:"lang" json:"-"`         // 应用信息的语言版本, 示例值: "zh_cn", 可选值有: zh_cn: 中文, en_us: 英文, ja_jp: 日文, 最小长度: `1` 字符
+	UserIDType *IDType `query:"user_id_type" json:"-"` // 用户 ID 类型, 示例值: "open_id", 可选值有: open_id: 用户的 open id, union_id: 用户的 union id, user_id: 用户的 user id, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
 }
 
 // GetApplicationVersionResp ...
@@ -81,7 +81,7 @@ type GetApplicationVersionRespAppVersion struct {
 	I18n             []*GetApplicationVersionRespAppVersionI18n  `json:"i18n,omitempty"`              // 应用的国际化信息列表
 	CommonCategories []string                                    `json:"common_categories,omitempty"` // 应用分类的国际化描述
 	Events           []string                                    `json:"events,omitempty"`            // 应用已订阅开放平台事件列表
-	Status           int64                                       `json:"status,omitempty"`            // 版本状态, 可选值有: `0`: 未知状态, `1`: 审核通过, `2`: 审核拒绝, `3`: 审核中, `4`: 未提交审核
+	Status           int64                                       `json:"status,omitempty"`            // 版本状态, 可选值有: 0: 未知状态, 1: 审核通过, 2: 审核拒绝, 3: 审核中, 4: 未提交审核
 	CreateTime       string                                      `json:"create_time,omitempty"`       // 版本创建时间（单位: s）
 	PublishTime      string                                      `json:"publish_time,omitempty"`      // 版本发布时间（单位: s）
 	Ability          *GetApplicationVersionRespAppVersionAbility `json:"ability,omitempty"`           // 当前版本下应用开启的能力
@@ -111,12 +111,12 @@ type GetApplicationVersionRespAppVersionAbilityCloudDoc struct {
 	SpaceURL string                                                    `json:"space_url,omitempty"` // 云空间重定向 url
 	I18n     []*GetApplicationVersionRespAppVersionAbilityCloudDocI18n `json:"i18n,omitempty"`      // 国际化信息
 	IconURL  string                                                    `json:"icon_url,omitempty"`  // 图标链接
-	Mode     int64                                                     `json:"mode,omitempty"`      // 云文档支持模式, 可选值有: `0`: 未知, `1`: 移动端
+	Mode     int64                                                     `json:"mode,omitempty"`      // 云文档支持模式, 可选值有: 0: 未知, 1: 移动端
 }
 
 // GetApplicationVersionRespAppVersionAbilityCloudDocI18n ...
 type GetApplicationVersionRespAppVersionAbilityCloudDocI18n struct {
-	I18nKey          string `json:"i18n_key,omitempty"`          // 国际化语言的 key, 可选值有: `zh_cn`: 中文, `en_us`: 英文, `ja_jp`: 日文
+	I18nKey          string `json:"i18n_key,omitempty"`          // 国际化语言的 key, 可选值有: zh_cn: 中文, en_us: 英文, ja_jp: 日文
 	Name             string `json:"name,omitempty"`              // 云文档国际化名称
 	ReadDescription  string `json:"read_description,omitempty"`  // 云文档国际化读权限说明
 	WriteDescription string `json:"write_description,omitempty"` // 云文档国际化写权限说明
@@ -132,13 +132,13 @@ type GetApplicationVersionRespAppVersionAbilityDocsBlock struct {
 
 // GetApplicationVersionRespAppVersionAbilityDocsBlockI18n ...
 type GetApplicationVersionRespAppVersionAbilityDocsBlockI18n struct {
-	I18nKey string `json:"i18n_key,omitempty"` // 国际化语言的 key, 可选值有: `zh_cn`: 中文, `en_us`: 英文, `ja_jp`: 日文
+	I18nKey string `json:"i18n_key,omitempty"` // 国际化语言的 key, 可选值有: zh_cn: 中文, en_us: 英文, ja_jp: 日文
 	Name    string `json:"name,omitempty"`     // 名称
 }
 
 // GetApplicationVersionRespAppVersionAbilityGadget ...
 type GetApplicationVersionRespAppVersionAbilityGadget struct {
-	EnablePcMode         int64    `json:"enable_pc_mode,omitempty"`          // pc 支持的小程序模式, bit 位表示, 可选值有: `1`: sidebar 模式, `2`: pc 模式, `4`: 主导航模式
+	EnablePcMode         int64    `json:"enable_pc_mode,omitempty"`          // pc 支持的小程序模式, bit 位表示, 可选值有: 1: sidebar 模式, 2: pc 模式, 4: 主导航模式
 	SchemaURLs           []string `json:"schema_urls,omitempty"`             // schema url 列表
 	PcUseMobilePkg       bool     `json:"pc_use_mobile_pkg,omitempty"`       // pc 端是否使用小程序版本
 	PcVersion            string   `json:"pc_version,omitempty"`              // pc 的小程序版本号
@@ -156,7 +156,7 @@ type GetApplicationVersionRespAppVersionAbilityMessageAction struct {
 
 // GetApplicationVersionRespAppVersionAbilityMessageActionI18n ...
 type GetApplicationVersionRespAppVersionAbilityMessageActionI18n struct {
-	I18nKey string `json:"i18n_key,omitempty"` // 国际化语言的 key, 可选值有: `zh_cn`: 中文, `en_us`: 英文, `ja_jp`: 日文
+	I18nKey string `json:"i18n_key,omitempty"` // 国际化语言的 key, 可选值有: zh_cn: 中文, en_us: 英文, ja_jp: 日文
 	Name    string `json:"name,omitempty"`     // 国际化名称
 }
 
@@ -199,7 +199,7 @@ type GetApplicationVersionRespAppVersionAbilityWorkplaceWidget struct {
 
 // GetApplicationVersionRespAppVersionI18n ...
 type GetApplicationVersionRespAppVersionI18n struct {
-	I18nKey     string `json:"i18n_key,omitempty"`    // 国际化语言的 key, 可选值有: `zh_cn`: 中文, `en_us`: 英文, `ja_jp`: 日文
+	I18nKey     string `json:"i18n_key,omitempty"`    // 国际化语言的 key, 可选值有: zh_cn: 中文, en_us: 英文, ja_jp: 日文
 	Name        string `json:"name,omitempty"`        // 应用国际化名称
 	Description string `json:"description,omitempty"` // 应用国际化描述（副标题）
 	HelpUse     string `json:"help_use,omitempty"`    // 帮助国际化文档链接
@@ -235,7 +235,7 @@ type GetApplicationVersionRespAppVersionRemarkVisibilityVisibleList struct {
 type GetApplicationVersionRespAppVersionScope struct {
 	Scope       string `json:"scope,omitempty"`       // 应用权限
 	Description string `json:"description,omitempty"` // 应用权限的国际化描述
-	Level       int64  `json:"level,omitempty"`       // 权限等级描述, 可选值有: `1`: 普通权限, `2`: 高级权限, `3`: 超敏感权限, `0`: 未知等级
+	Level       int64  `json:"level,omitempty"`       // 权限等级描述, 可选值有: 1: 普通权限, 2: 高级权限, 3: 超敏感权限, 0: 未知等级
 }
 
 // getApplicationVersionResp ...
