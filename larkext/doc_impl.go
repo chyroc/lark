@@ -56,6 +56,17 @@ func (r *Doc) content(ctx context.Context) (*lark.DocContent, error) {
 	return doc, err
 }
 
+func (r *Doc) statistics(ctx context.Context) (*lark.GetDriveFileStatisticsRespStatistics, error) {
+	resp, _, err := r.larkClient.Drive.GetDriveFileStatistics(ctx, &lark.GetDriveFileStatisticsReq{
+		FileType:  lark.FileTypeDoc,
+		FileToken: r.docToken,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return resp.Statistics, nil
+}
+
 func (r *Doc) update(ctx context.Context, requests ...*lark.UpdateDocRequest) error {
 	revision, err := r.revision(ctx)
 	if err != nil {

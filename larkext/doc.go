@@ -81,6 +81,10 @@ func (r *Doc) Content(ctx context.Context) (*lark.DocContent, error) {
 	return r.content(ctx)
 }
 
+func (r *Doc) Statistics(ctx context.Context) (*lark.GetDriveFileStatisticsRespStatistics, error) {
+	return r.statistics(ctx)
+}
+
 // Update update doc
 func (r *Doc) Update(ctx context.Context, requests ...*lark.UpdateDocRequest) error {
 	return r.update(ctx, requests...)
