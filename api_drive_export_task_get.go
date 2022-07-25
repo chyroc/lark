@@ -69,13 +69,13 @@ type GetDriveExportTaskResp struct {
 
 // GetDriveExportTaskRespResult ...
 type GetDriveExportTaskRespResult struct {
-	FileExtension string `json:"file_extension,omitempty"` // 导出文件扩展名, 可选值有: `docx`: Microsoft Word (DOCX) 格式, `pdf`: pdf 格式, `xlsx`: Microsoft Excel (XLSX) 格式
-	Type          string `json:"type,omitempty"`           // 导出文档类型, 可选值有: `doc`: 旧版飞书云文档类型, `sheet`: 飞书电子表格类型, `bitable`: 飞书多维表格类型, `docx`: 新版飞书云文档类型
+	FileExtension string `json:"file_extension,omitempty"` // 导出文件扩展名, 可选值有: docx: Microsoft Word (DOCX) 格式, pdf: pdf 格式, xlsx: Microsoft Excel (XLSX) 格式
+	Type          string `json:"type,omitempty"`           // 导出文档类型, 可选值有: doc: 旧版飞书云文档类型, sheet: 飞书电子表格类型, bitable: 飞书多维表格类型, docx: 新版飞书云文档类型
 	FileName      string `json:"file_name,omitempty"`      // 导出文件名
 	FileToken     string `json:"file_token,omitempty"`     // 导出文件 drive token
 	FileSize      int64  `json:"file_size,omitempty"`      // 导出文件大小
 	JobErrorMsg   string `json:"job_error_msg,omitempty"`  // 任务失败原因
-	JobStatus     int64  `json:"job_status,omitempty"`     // 任务状态, 可选值有: `0`: 成功, `1`: 初始化, `2`: 处理中, `3`: 内部错误, `107`: 导出文档过大, `108`: 处理超时, `109`: 内部错误, `110`: 无权限, `111`: 导出文档已删除, `122`: 创建副本中禁止导出, `123`: 导出文档不存在, `6000`: 导出文档图片过多
+	JobStatus     int64  `json:"job_status,omitempty"`     // 任务状态, 可选值有: 0: 成功, 1: 初始化, 2: 处理中, 3: 内部错误, 107: 导出文档过大, 108: 处理超时, 109: 内部错误, 110: 无权限, 111: 导出文档已删除, 122: 创建副本中禁止导出, 123: 导出文档不存在, 6000: 导出文档图片过多
 }
 
 // getDriveExportTaskResp ...

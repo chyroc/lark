@@ -36,14 +36,14 @@ type EventV2CalendarCalendarACLDeletedV4Handler func(ctx context.Context, cli *L
 // EventV2CalendarCalendarACLDeletedV4 ...
 type EventV2CalendarCalendarACLDeletedV4 struct {
 	ACLID      string                                       `json:"acl_id,omitempty"`       // acl资源ID
-	Role       CalendarRole                                 `json:"role,omitempty"`         // 对日历的访问权限, 可选值有: `unknown`: 未知权限, `free_busy_reader`: 游客, 只能看到忙碌/空闲信息, `reader`: 订阅者, 查看所有日程详情, `writer`: 编辑者, 创建及修改日程, `owner`: 管理员, 管理日历及共享设置
+	Role       CalendarRole                                 `json:"role,omitempty"`         // 对日历的访问权限, 可选值有: unknown: 未知权限, free_busy_reader: 游客, 只能看到忙碌/空闲信息, reader: 订阅者, 查看所有日程详情, writer: 编辑者, 创建及修改日程, owner: 管理员, 管理日历及共享设置
 	Scope      *EventV2CalendarCalendarACLDeletedV4Scope    `json:"scope,omitempty"`        // 权限范围
 	UserIDList []*EventV2CalendarCalendarACLDeletedV4UserID `json:"user_id_list,omitempty"` // 需要推送事件的用户列表
 }
 
 // EventV2CalendarCalendarACLDeletedV4Scope ...
 type EventV2CalendarCalendarACLDeletedV4Scope struct {
-	Type   string                                          `json:"type,omitempty"`    // 权限类型, 当type为User时, 值为open_id/user_id/union_id, 可选值有: `user`: 用户
+	Type   string                                          `json:"type,omitempty"`    // 权限类型, 当type为User时, 值为open_id/user_id/union_id, 可选值有: user: 用户
 	UserID *EventV2CalendarCalendarACLDeletedV4ScopeUserID `json:"user_id,omitempty"` // 用户 ID
 }
 

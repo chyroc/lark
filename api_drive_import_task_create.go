@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// CreateDriveImportTask 创建导入任务。支持导入为 doc、sheet、bitable, 参考[导入用户指南](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/import_task/import-user-guide)
+// CreateDriveImportTask 创建导入任务。支持导入为 doc、docx、sheet、bitable, 参考[导入用户指南](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/import_task/import-user-guide)
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/import_task/create
 func (r *DriveService) CreateDriveImportTask(ctx context.Context, request *CreateDriveImportTaskReq, options ...MethodOptionFunc) (*CreateDriveImportTaskResp, *Response, error) {
@@ -67,7 +67,7 @@ type CreateDriveImportTaskReq struct {
 
 // CreateDriveImportTaskReqPoint ...
 type CreateDriveImportTaskReqPoint struct {
-	MountType int64  `json:"mount_type,omitempty"` // 挂载类型, 示例值: 1, 可选值有: `1`: 挂载到云空间
+	MountType int64  `json:"mount_type,omitempty"` // 挂载类型, 示例值: 1, 可选值有: 1: 挂载到云空间
 	MountKey  string `json:"mount_key,omitempty"`  // 挂载位置, 对于mount_type=1, 云空间目录token, 空表示根目录, 示例值: "fldxxxxxxxx"
 }
 

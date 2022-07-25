@@ -64,7 +64,7 @@ func (r *Mock) UnMockCalendarDeleteCalendarEvent() {
 type DeleteCalendarEventReq struct {
 	CalendarID       string `path:"calendar_id" json:"-"`        // 日历ID。参见[日历ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar/introduction), 示例值: "feishu.cn_xxxxxxxxxx@group.calendar.feishu.cn"
 	EventID          string `path:"event_id" json:"-"`           // 日程ID。参见[日程ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar-event/introduction), 示例值: "xxxxxxxxx_0"
-	NeedNotification *bool  `query:"need_notification" json:"-"` // 删除日程是否给日程参与人发送bot通知, 默认为true, 示例值: false, 可选值有: `true`: true, `false`: false
+	NeedNotification *bool  `query:"need_notification" json:"-"` // 删除日程是否给日程参与人发送bot通知, 默认为true, 示例值: false, 可选值有: true: true, false: false
 }
 
 // DeleteCalendarEventResp ...

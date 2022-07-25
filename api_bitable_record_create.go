@@ -73,8 +73,28 @@ type CreateBitableRecordResp struct {
 
 // CreateBitableRecordRespRecord ...
 type CreateBitableRecordRespRecord struct {
-	RecordID string                 `json:"record_id,omitempty"` // 记录 id
-	Fields   map[string]interface{} `json:"fields,omitempty"`    // 记录字段, 关于支持新增的字段类型, 请参考[接入指南](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/bitable/notification)
+	RecordID         string                                       `json:"record_id,omitempty"`          // 记录 id
+	CreatedBy        *CreateBitableRecordRespRecordCreatedBy      `json:"created_by,omitempty"`         // 创建人
+	CreatedTime      int64                                        `json:"created_time,omitempty"`       // 创建时间
+	LastModifiedBy   *CreateBitableRecordRespRecordLastModifiedBy `json:"last_modified_by,omitempty"`   // 修改人
+	LastModifiedTime int64                                        `json:"last_modified_time,omitempty"` // 最近更新时间
+	Fields           map[string]interface{}                       `json:"fields,omitempty"`             // 记录字段, 关于支持新增的字段类型, 请参考[接入指南](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/bitable/notification)
+}
+
+// CreateBitableRecordRespRecordCreatedBy ...
+type CreateBitableRecordRespRecordCreatedBy struct {
+	ID     string `json:"id,omitempty"`      // 人员Id
+	Name   string `json:"name,omitempty"`    // 中文姓名
+	EnName string `json:"en_name,omitempty"` // 英文姓名
+	Email  string `json:"email,omitempty"`   // 邮箱
+}
+
+// CreateBitableRecordRespRecordLastModifiedBy ...
+type CreateBitableRecordRespRecordLastModifiedBy struct {
+	ID     string `json:"id,omitempty"`      // 人员Id
+	Name   string `json:"name,omitempty"`    // 中文姓名
+	EnName string `json:"en_name,omitempty"` // 英文姓名
+	Email  string `json:"email,omitempty"`   // 邮箱
 }
 
 // createBitableRecordResp ...

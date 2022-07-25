@@ -58,7 +58,7 @@ func (r *Mock) UnMockHireGetHireEmployee() {
 // GetHireEmployeeReq ...
 type GetHireEmployeeReq struct {
 	EmployeeID string  `path:"employee_id" json:"-"`   // 员工ID, 示例值: "123"
-	UserIDType *IDType `query:"user_id_type" json:"-"` // 用户 ID 类型, 示例值: "open_id", 可选值有: `open_id`: 用户的 open id, `union_id`: 用户的 union id, `user_id`: 用户的 user id, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
+	UserIDType *IDType `query:"user_id_type" json:"-"` // 用户 ID 类型, 示例值: "open_id", 可选值有: open_id: 用户的 open id, union_id: 用户的 union id, user_id: 用户的 user id, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
 }
 
 // GetHireEmployeeResp ...
@@ -70,8 +70,8 @@ type GetHireEmployeeResp struct {
 type GetHireEmployeeRespEmployee struct {
 	ID                     string       `json:"id,omitempty"`                       // 员工ID
 	ApplicationID          string       `json:"application_id,omitempty"`           // 投递ID
-	OnboardStatus          int64        `json:"onboard_status,omitempty"`           // 入职状态, 可选值有: `1`: 已入职, `2`: 已离职
-	ConversionStatus       int64        `json:"conversion_status,omitempty"`        // 转正状态, 可选值有: `1`: 未转正, `2`: 已转正
+	OnboardStatus          int64        `json:"onboard_status,omitempty"`           // 入职状态, 可选值有: 1: 已入职, 2: 已离职
+	ConversionStatus       int64        `json:"conversion_status,omitempty"`        // 转正状态, 可选值有: 1: 未转正, 2: 已转正
 	OnboardTime            int64        `json:"onboard_time,omitempty"`             // 实际入职时间
 	ExpectedConversionTime int64        `json:"expected_conversion_time,omitempty"` // 预期转正时间
 	ActualConversionTime   int64        `json:"actual_conversion_time,omitempty"`   // 实际转正时间

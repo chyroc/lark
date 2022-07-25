@@ -71,9 +71,9 @@ type UpdateCalendarEventReq struct {
 	StartTime        *UpdateCalendarEventReqStartTime  `json:"start_time,omitempty"`        // 日程开始时间
 	EndTime          *UpdateCalendarEventReqEndTime    `json:"end_time,omitempty"`          // 日程结束时间
 	Vchat            *UpdateCalendarEventReqVchat      `json:"vchat,omitempty"`             // 视频会议信息。
-	Visibility       *string                           `json:"visibility,omitempty"`        // 日程公开范围, 新建日程默认为Default；仅新建日程时对所有参与人生效, 之后修改该属性仅对当前身份生效, 示例值: "default", 可选值有: `default`: 默认权限, 跟随日历权限, 默认仅向他人显示是否“忙碌”, `public`: 公开, 显示日程详情, `private`: 私密, 仅自己可见详情
-	AttendeeAbility  *string                           `json:"attendee_ability,omitempty"`  // 参与人权限, 示例值: "can_see_others", 可选值有: `none`: 无法编辑日程、无法邀请其它参与人、无法查看参与人列表, `can_see_others`: 无法编辑日程、无法邀请其它参与人、可以查看参与人列表, `can_invite_others`: 无法编辑日程、可以邀请其它参与人、可以查看参与人列表, `can_modify_event`: 可以编辑日程、可以邀请其它参与人、可以查看参与人列表
-	FreeBusyStatus   *string                           `json:"free_busy_status,omitempty"`  // 日程占用的忙闲状态, 新建日程默认为Busy；仅新建日程时对所有参与人生效, 之后修改该属性仅对当前身份生效, 示例值: "busy", 可选值有: `busy`: 忙碌, `free`: 空闲
+	Visibility       *string                           `json:"visibility,omitempty"`        // 日程公开范围, 新建日程默认为Default；仅新建日程时对所有参与人生效, 之后修改该属性仅对当前身份生效, 示例值: "default", 可选值有: default: 默认权限, 跟随日历权限, 默认仅向他人显示是否“忙碌”, public: 公开, 显示日程详情, private: 私密, 仅自己可见详情
+	AttendeeAbility  *string                           `json:"attendee_ability,omitempty"`  // 参与人权限, 示例值: "can_see_others", 可选值有: none: 无法编辑日程、无法邀请其它参与人、无法查看参与人列表, can_see_others: 无法编辑日程、无法邀请其它参与人、可以查看参与人列表, can_invite_others: 无法编辑日程、可以邀请其它参与人、可以查看参与人列表, can_modify_event: 可以编辑日程、可以邀请其它参与人、可以查看参与人列表
+	FreeBusyStatus   *string                           `json:"free_busy_status,omitempty"`  // 日程占用的忙闲状态, 新建日程默认为Busy；仅新建日程时对所有参与人生效, 之后修改该属性仅对当前身份生效, 示例值: "busy", 可选值有: busy: 忙碌, free: 空闲
 	Location         *UpdateCalendarEventReqLocation   `json:"location,omitempty"`          // 日程地点
 	Color            *int64                            `json:"color,omitempty"`             // 日程颜色, 颜色RGB值的int32表示。仅对当前身份生效；客户端展示时会映射到色板上最接近的一种颜色；值为0或-1时默认跟随日历颜色, 示例值:1
 	Reminders        []*UpdateCalendarEventReqReminder `json:"reminders,omitempty"`         // 日程提醒列表
@@ -104,7 +104,7 @@ type UpdateCalendarEventReqReminder struct {
 // UpdateCalendarEventReqSchema ...
 type UpdateCalendarEventReqSchema struct {
 	UiName   *string `json:"ui_name,omitempty"`   // UI名称。取值范围如下: ForwardIcon: 日程转发按钮, MeetingChatIcon: 会议群聊按钮, MeetingMinutesIcon: 会议纪要按钮, MeetingVideo: 视频会议区域, RSVP: 接受/拒绝/待定区域, Attendee: 参与者区域, OrganizerOrCreator: 组织者/创建者区域, 示例值: "ForwardIcon"
-	UiStatus *string `json:"ui_status,omitempty"` // UI项自定义状态。目前只支持hide, 示例值: "hide", 可选值有: `hide`: 隐藏显示, `readonly`: 只读, `editable`: 可编辑, `unknown`: 未知UI项自定义状态, 仅用于读取时兼容
+	UiStatus *string `json:"ui_status,omitempty"` // UI项自定义状态。目前只支持hide, 示例值: "hide", 可选值有: hide: 隐藏显示, readonly: 只读, editable: 可编辑, unknown: 未知UI项自定义状态, 仅用于读取时兼容
 	AppLink  *string `json:"app_link,omitempty"`  // 按钮点击后跳转的链接; 该字段暂不支持传入, 示例值: "https://applink.feishu.cn/client/calendar/event/detail?calendarId=xxxxxx&key=xxxxxx&originalTime=xxxxxx&startTime=xxxxxx", 最大长度: `2000` 字符
 }
 
@@ -117,8 +117,8 @@ type UpdateCalendarEventReqStartTime struct {
 
 // UpdateCalendarEventReqVchat ...
 type UpdateCalendarEventReqVchat struct {
-	VCType      *string `json:"vc_type,omitempty"`     // 视频会议类型, 示例值: "third_party", 可选值有: `vc`: 飞书视频会议, 取该类型时, 其他字段无效, `third_party`: 第三方链接视频会议, 取该类型时, icon_type、description、meeting_url字段生效, `no_meeting`: 无视频会议, 取该类型时, 其他字段无效, `lark_live`: 飞书直播, 内部类型, 飞书客户端使用, API不支持创建, 只读, `unknown`: 未知类型, 做兼容使用, 飞书客户端使用, API不支持创建, 只读。
-	IconType    *string `json:"icon_type,omitempty"`   // 第三方视频会议icon类型；可以为空, 为空展示默认icon, 示例值: "vc", 可选值有: `vc`: 飞书视频会议icon, `live`: 直播视频会议icon, `default`: 默认icon
+	VCType      *string `json:"vc_type,omitempty"`     // 视频会议类型, 示例值: "third_party", 可选值有: vc: 飞书视频会议, 取该类型时, 其他字段无效。, third_party: 第三方链接视频会议, 取该类型时, icon_type、description、meeting_url字段生效。, no_meeting: 无视频会议, 取该类型时, 其他字段无效。, lark_live: 飞书直播, 内部类型, 飞书客户端使用, API不支持创建, 只读。, unknown: 未知类型, 做兼容使用, 飞书客户端使用, API不支持创建, 只读。
+	IconType    *string `json:"icon_type,omitempty"`   // 第三方视频会议icon类型；可以为空, 为空展示默认icon, 示例值: "vc", 可选值有: vc: 飞书视频会议icon, live: 直播视频会议icon, default: 默认icon
 	Description *string `json:"description,omitempty"` // 第三方视频会议文案, 可以为空, 为空展示默认文案, 示例值: "发起视频会议", 长度范围: `0` ～ `500` 字符
 	MeetingURL  *string `json:"meeting_url,omitempty"` // 视频会议URL, 示例值: "https://example.com", 长度范围: `1` ～ `2000` 字符
 }
@@ -138,14 +138,14 @@ type UpdateCalendarEventRespEvent struct {
 	StartTime           *UpdateCalendarEventRespEventStartTime  `json:"start_time,omitempty"`            // 日程开始时间
 	EndTime             *UpdateCalendarEventRespEventEndTime    `json:"end_time,omitempty"`              // 日程结束时间
 	Vchat               *UpdateCalendarEventRespEventVchat      `json:"vchat,omitempty"`                 // 视频会议信息。
-	Visibility          string                                  `json:"visibility,omitempty"`            // 日程公开范围, 新建日程默认为Default；仅新建日程时对所有参与人生效, 之后修改该属性仅对当前身份生效, 可选值有: `default`: 默认权限, 跟随日历权限, 默认仅向他人显示是否“忙碌”, `public`: 公开, 显示日程详情, `private`: 私密, 仅自己可见详情
-	AttendeeAbility     string                                  `json:"attendee_ability,omitempty"`      // 参与人权限, 可选值有: `none`: 无法编辑日程、无法邀请其它参与人、无法查看参与人列表, `can_see_others`: 无法编辑日程、无法邀请其它参与人、可以查看参与人列表, `can_invite_others`: 无法编辑日程、可以邀请其它参与人、可以查看参与人列表, `can_modify_event`: 可以编辑日程、可以邀请其它参与人、可以查看参与人列表
-	FreeBusyStatus      string                                  `json:"free_busy_status,omitempty"`      // 日程占用的忙闲状态, 新建日程默认为Busy；仅新建日程时对所有参与人生效, 之后修改该属性仅对当前身份生效, 可选值有: `busy`: 忙碌, `free`: 空闲
+	Visibility          string                                  `json:"visibility,omitempty"`            // 日程公开范围, 新建日程默认为Default；仅新建日程时对所有参与人生效, 之后修改该属性仅对当前身份生效, 可选值有: default: 默认权限, 跟随日历权限, 默认仅向他人显示是否“忙碌”, public: 公开, 显示日程详情, private: 私密, 仅自己可见详情
+	AttendeeAbility     string                                  `json:"attendee_ability,omitempty"`      // 参与人权限, 可选值有: none: 无法编辑日程、无法邀请其它参与人、无法查看参与人列表, can_see_others: 无法编辑日程、无法邀请其它参与人、可以查看参与人列表, can_invite_others: 无法编辑日程、可以邀请其它参与人、可以查看参与人列表, can_modify_event: 可以编辑日程、可以邀请其它参与人、可以查看参与人列表
+	FreeBusyStatus      string                                  `json:"free_busy_status,omitempty"`      // 日程占用的忙闲状态, 新建日程默认为Busy；仅新建日程时对所有参与人生效, 之后修改该属性仅对当前身份生效, 可选值有: busy: 忙碌, free: 空闲
 	Location            *UpdateCalendarEventRespEventLocation   `json:"location,omitempty"`              // 日程地点
 	Color               int64                                   `json:"color,omitempty"`                 // 日程颜色, 颜色RGB值的int32表示。仅对当前身份生效；客户端展示时会映射到色板上最接近的一种颜色；值为0或-1时默认跟随日历颜色。
 	Reminders           []*UpdateCalendarEventRespEventReminder `json:"reminders,omitempty"`             // 日程提醒列表
 	Recurrence          string                                  `json:"recurrence,omitempty"`            // 重复日程的重复性规则；参考[rfc5545](https://datatracker.ietf.org/doc/html/rfc5545#section-3.3.10)；, 不支持COUNT和UNTIL同时出现；, 预定会议室重复日程长度不得超过两年。
-	Status              string                                  `json:"status,omitempty"`                // 日程状态, 可选值有: `tentative`: 未回应, `confirmed`: 已确认, `cancelled`: 日程已取消
+	Status              string                                  `json:"status,omitempty"`                // 日程状态, 可选值有: tentative: 未回应, confirmed: 已确认, cancelled: 日程已取消
 	IsException         bool                                    `json:"is_exception,omitempty"`          // 日程是否是一个重复日程的例外日程
 	RecurringEventID    string                                  `json:"recurring_event_id,omitempty"`    // 例外日程的原重复日程的event_id
 	Schemas             []*UpdateCalendarEventRespEventSchema   `json:"schemas,omitempty"`               // 日程自定义信息；控制日程详情页的ui展示。
@@ -174,7 +174,7 @@ type UpdateCalendarEventRespEventReminder struct {
 // UpdateCalendarEventRespEventSchema ...
 type UpdateCalendarEventRespEventSchema struct {
 	UiName   string `json:"ui_name,omitempty"`   // UI名称。取值范围如下: ForwardIcon: 日程转发按钮, MeetingChatIcon: 会议群聊按钮, MeetingMinutesIcon: 会议纪要按钮, MeetingVideo: 视频会议区域, RSVP: 接受/拒绝/待定区域, Attendee: 参与者区域, OrganizerOrCreator: 组织者/创建者区域
-	UiStatus string `json:"ui_status,omitempty"` // UI项自定义状态。目前只支持hide, 可选值有: `hide`: 隐藏显示, `readonly`: 只读, `editable`: 可编辑, `unknown`: 未知UI项自定义状态, 仅用于读取时兼容
+	UiStatus string `json:"ui_status,omitempty"` // UI项自定义状态。目前只支持hide, 可选值有: hide: 隐藏显示, readonly: 只读, editable: 可编辑, unknown: 未知UI项自定义状态, 仅用于读取时兼容
 	AppLink  string `json:"app_link,omitempty"`  // 按钮点击后跳转的链接; 该字段暂不支持传入。
 }
 
@@ -187,8 +187,8 @@ type UpdateCalendarEventRespEventStartTime struct {
 
 // UpdateCalendarEventRespEventVchat ...
 type UpdateCalendarEventRespEventVchat struct {
-	VCType      string `json:"vc_type,omitempty"`     // 视频会议类型, 可选值有: `vc`: 飞书视频会议, 取该类型时, 其他字段无效, `third_party`: 第三方链接视频会议, 取该类型时, icon_type、description、meeting_url字段生效, `no_meeting`: 无视频会议, 取该类型时, 其他字段无效, `lark_live`: 飞书直播, 内部类型, 飞书客户端使用, API不支持创建, 只读, `unknown`: 未知类型, 做兼容使用, 飞书客户端使用, API不支持创建, 只读。
-	IconType    string `json:"icon_type,omitempty"`   // 第三方视频会议icon类型；可以为空, 为空展示默认icon, 可选值有: `vc`: 飞书视频会议icon, `live`: 直播视频会议icon, `default`: 默认icon
+	VCType      string `json:"vc_type,omitempty"`     // 视频会议类型, 可选值有: vc: 飞书视频会议, 取该类型时, 其他字段无效。, third_party: 第三方链接视频会议, 取该类型时, icon_type、description、meeting_url字段生效。, no_meeting: 无视频会议, 取该类型时, 其他字段无效。, lark_live: 飞书直播, 内部类型, 飞书客户端使用, API不支持创建, 只读。, unknown: 未知类型, 做兼容使用, 飞书客户端使用, API不支持创建, 只读。
+	IconType    string `json:"icon_type,omitempty"`   // 第三方视频会议icon类型；可以为空, 为空展示默认icon, 可选值有: vc: 飞书视频会议icon, live: 直播视频会议icon, default: 默认icon
 	Description string `json:"description,omitempty"` // 第三方视频会议文案, 可以为空, 为空展示默认文案
 	MeetingURL  string `json:"meeting_url,omitempty"` // 视频会议URL
 }

@@ -51,7 +51,7 @@ type EventV2ContactUserUpdatedV3Object struct {
 	EnterpriseEmail string                                         `json:"enterprise_email,omitempty"` // 企业邮箱
 	JobTitle        string                                         `json:"job_title,omitempty"`        // 职务
 	Mobile          string                                         `json:"mobile,omitempty"`           // 手机号, 字段权限要求: 获取用户手机号
-	Gender          int64                                          `json:"gender,omitempty"`           // 性别, 可选值有: `0`: 未知, `1`: 男, `2`: 女, 字段权限要求（满足任一）: 以应用身份读取通讯录, 获取用户性别, 以应用身份访问通讯录, 读取通讯录
+	Gender          int64                                          `json:"gender,omitempty"`           // 性别, 可选值有: 0: 未知, 1: 男, 2: 女, 字段权限要求（满足任一）: 以应用身份读取通讯录, 获取用户性别, 以应用身份访问通讯录, 读取通讯录
 	Avatar          *EventV2ContactUserUpdatedV3ObjectAvatar       `json:"avatar,omitempty"`           // 用户头像信息, 字段权限要求（满足任一）: 以应用身份读取通讯录, 获取用户基本信息, 以应用身份访问通讯录, 读取通讯录
 	Status          *EventV2ContactUserUpdatedV3ObjectStatus       `json:"status,omitempty"`           // 用户状态, 字段权限要求（满足任一）: 以应用身份读取通讯录, 获取用户雇佣信息, 以应用身份访问通讯录, 读取通讯录
 	DepartmentIDs   []string                                       `json:"department_ids,omitempty"`   // 用户所属部门的ID列表, 字段权限要求（满足任一）: 以应用身份读取通讯录, 获取用户组织架构信息, 以应用身份访问通讯录, 读取通讯录
@@ -61,7 +61,7 @@ type EventV2ContactUserUpdatedV3Object struct {
 	WorkStation     string                                         `json:"work_station,omitempty"`     // 工位, 字段权限要求（满足任一）: 以应用身份读取通讯录, 获取用户雇佣信息, 以应用身份访问通讯录, 读取通讯录
 	JoinTime        int64                                          `json:"join_time,omitempty"`        // 入职时间, 取值范围: `1` ～ `2147483647`, 字段权限要求（满足任一）: 以应用身份读取通讯录, 获取用户雇佣信息, 以应用身份访问通讯录, 读取通讯录
 	EmployeeNo      string                                         `json:"employee_no,omitempty"`      // 工号, 字段权限要求（满足任一）: 以应用身份读取通讯录, 获取用户雇佣信息, 以应用身份访问通讯录, 读取通讯录
-	EmployeeType    int64                                          `json:"employee_type,omitempty"`    // 员工类型, 可选值有: `1`: 正式员工, `2`: 实习生, `3`: 外包, `4`: 劳务, `5`: 顾问, 字段权限要求（满足任一）: 以应用身份读取通讯录, 获取用户雇佣信息, 以应用身份访问通讯录, 读取通讯录
+	EmployeeType    int64                                          `json:"employee_type,omitempty"`    // 员工类型, 可选值有: 1: 正式员工, 2: 实习生, 3: 外包, 4: 劳务, 5: 顾问, 字段权限要求（满足任一）: 以应用身份读取通讯录, 获取用户雇佣信息, 以应用身份访问通讯录, 读取通讯录
 	Orders          []*EventV2ContactUserUpdatedV3ObjectOrder      `json:"orders,omitempty"`           // 用户排序信息, 字段权限要求（满足任一）: 以应用身份读取通讯录, 获取用户组织架构信息, 以应用身份访问通讯录, 读取通讯录
 	CustomAttrs     []*EventV2ContactUserUpdatedV3ObjectCustomAttr `json:"custom_attrs,omitempty"`     // 自定义属性, 字段权限要求（满足任一）: 以应用身份读取通讯录, 获取用户雇佣信息, 以应用身份访问通讯录, 读取通讯录
 }
@@ -126,7 +126,7 @@ type EventV2ContactUserUpdatedV3OldObject struct {
 	Email         string                                            `json:"email,omitempty"`          // 邮箱, 字段权限要求: 获取用户邮箱信息
 	JobTitle      string                                            `json:"job_title,omitempty"`      // 职务
 	Mobile        string                                            `json:"mobile,omitempty"`         // 手机号, 字段权限要求: 获取用户手机号
-	Gender        int64                                             `json:"gender,omitempty"`         // 性别, 可选值有: `0`: 未知, `1`: 男, `2`: 女, 字段权限要求（满足任一）: 以应用身份读取通讯录, 获取用户性别, 以应用身份访问通讯录, 读取通讯录
+	Gender        int64                                             `json:"gender,omitempty"`         // 性别, 可选值有: 0: 未知, 1: 男, 2: 女, 字段权限要求（满足任一）: 以应用身份读取通讯录, 获取用户性别, 以应用身份访问通讯录, 读取通讯录
 	Avatar        *EventV2ContactUserUpdatedV3OldObjectAvatar       `json:"avatar,omitempty"`         // 用户头像信息, 字段权限要求（满足任一）: 以应用身份读取通讯录, 获取用户基本信息, 以应用身份访问通讯录, 读取通讯录
 	Status        *EventV2ContactUserUpdatedV3OldObjectStatus       `json:"status,omitempty"`         // 用户状态, 字段权限要求（满足任一）: 以应用身份读取通讯录, 获取用户雇佣信息, 以应用身份访问通讯录, 读取通讯录
 	DepartmentIDs []string                                          `json:"department_ids,omitempty"` // 用户所属部门的ID列表, 字段权限要求（满足任一）: 以应用身份读取通讯录, 获取用户组织架构信息, 以应用身份访问通讯录, 读取通讯录
@@ -136,7 +136,7 @@ type EventV2ContactUserUpdatedV3OldObject struct {
 	WorkStation   string                                            `json:"work_station,omitempty"`   // 工位, 字段权限要求（满足任一）: 以应用身份读取通讯录, 获取用户雇佣信息, 以应用身份访问通讯录, 读取通讯录
 	JoinTime      int64                                             `json:"join_time,omitempty"`      // 入职时间, 取值范围: `1` ～ `2147483647`, 字段权限要求（满足任一）: 以应用身份读取通讯录, 获取用户雇佣信息, 以应用身份访问通讯录, 读取通讯录
 	EmployeeNo    string                                            `json:"employee_no,omitempty"`    // 工号, 字段权限要求（满足任一）: 以应用身份读取通讯录, 获取用户雇佣信息, 以应用身份访问通讯录, 读取通讯录
-	EmployeeType  int64                                             `json:"employee_type,omitempty"`  // 员工类型, 可选值有: `1`: 正式员工, `2`: 实习生, `3`: 外包, `4`: 劳务, `5`: 顾问, 字段权限要求（满足任一）: 以应用身份读取通讯录, 获取用户雇佣信息, 以应用身份访问通讯录, 读取通讯录
+	EmployeeType  int64                                             `json:"employee_type,omitempty"`  // 员工类型, 可选值有: 1: 正式员工, 2: 实习生, 3: 外包, 4: 劳务, 5: 顾问, 字段权限要求（满足任一）: 以应用身份读取通讯录, 获取用户雇佣信息, 以应用身份访问通讯录, 读取通讯录
 	Orders        []*EventV2ContactUserUpdatedV3OldObjectOrder      `json:"orders,omitempty"`         // 用户排序信息, 字段权限要求（满足任一）: 以应用身份读取通讯录, 获取用户组织架构信息, 以应用身份访问通讯录, 读取通讯录
 	CustomAttrs   []*EventV2ContactUserUpdatedV3OldObjectCustomAttr `json:"custom_attrs,omitempty"`   // 自定义属性, 字段权限要求（满足任一）: 以应用身份读取通讯录, 获取用户雇佣信息, 以应用身份访问通讯录, 读取通讯录
 }

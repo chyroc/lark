@@ -59,7 +59,7 @@ func (r *Mock) UnMockContactUnbindContactUnitDepartment() {
 type UnbindContactUnitDepartmentReq struct {
 	UnitID           string            `json:"unit_id,omitempty"`            // 单位ID, 示例值: "BU121"
 	DepartmentID     string            `json:"department_id,omitempty"`      // 预解除关联的部门ID, 示例值: "od-4e6ac4d14bcd5071a37a39de902c7141"
-	DepartmentIDType *DepartmentIDType `json:"department_id_type,omitempty"` // 此次调用中使用的部门ID的类型, 示例值: "open_department_id", 可选值有: `department_id`: 以自定义department_id来标识部门, `open_department_id`: 以open_department_id来标识部门, 默认值: `open_department_id`
+	DepartmentIDType *DepartmentIDType `json:"department_id_type,omitempty"` // 此次调用中使用的部门ID的类型, 示例值: "open_department_id", 可选值有: department_id: 以自定义department_id来标识部门, open_department_id: 以open_department_id来标识部门, 默认值: `open_department_id`
 }
 
 // UnbindContactUnitDepartmentResp ...

@@ -59,7 +59,7 @@ func (r *Mock) UnMockHelpdeskUpdateHelpdeskNotification() {
 // UpdateHelpdeskNotificationReq ...
 type UpdateHelpdeskNotificationReq struct {
 	NotificationID              string                                                  `path:"notification_id" json:"-"`                  // push任务唯一id, 示例值: "6985032626234982420"
-	UserIDType                  *IDType                                                 `query:"user_id_type" json:"-"`                    // 用户 ID 类型, 示例值: "open_id", 可选值有: `open_id`: 用户的 open id, `union_id`: 用户的 union id, `user_id`: 用户的 user id, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
+	UserIDType                  *IDType                                                 `query:"user_id_type" json:"-"`                    // 用户 ID 类型, 示例值: "open_id", 可选值有: open_id: 用户的 open id, union_id: 用户的 union id, user_id: 用户的 user id, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
 	ID                          *string                                                 `json:"id,omitempty"`                              // 非必填, 创建成功后返回, 示例值: "6981801914270744596"
 	JobName                     *string                                                 `json:"job_name,omitempty"`                        // 必填, 任务名称, 示例值: "测试推送任务"
 	Status                      *int64                                                  `json:"status,omitempty"`                          // 非必填, 创建成功后返回, 示例值: 0

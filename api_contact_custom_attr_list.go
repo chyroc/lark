@@ -88,7 +88,7 @@ type GetContactCustomAttrListRespItemI18nName struct {
 // GetContactCustomAttrListRespItemOptions ...
 type GetContactCustomAttrListRespItemOptions struct {
 	DefaultOptionID string                                           `json:"default_option_id,omitempty"` // 默认选项id
-	OptionType      string                                           `json:"option_type,omitempty"`       // 选项类型, 可选值有: `TEXT`: 文本选项, `PICTURE`: 图片选项
+	OptionType      string                                           `json:"option_type,omitempty"`       // 选项类型, 可选值有: TEXT: 文本选项, PICTURE: 图片选项
 	Options         []*GetContactCustomAttrListRespItemOptionsOption `json:"options,omitempty"`           // 选项列表
 }
 

@@ -98,7 +98,7 @@ type GetBitableFieldListRespItemProperty struct {
 // GetBitableFieldListRespItemPropertyOption ...
 type GetBitableFieldListRespItemPropertyOption struct {
 	Name  string `json:"name,omitempty"`  // 选项名
-	ID    string `json:"id,omitempty"`    // 选项id
+	ID    string `json:"id,omitempty"`    // 选项 ID, 创建时不允许指定 ID
 	Color int64  `json:"color,omitempty"` // 选项颜色
 }
 

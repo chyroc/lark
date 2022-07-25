@@ -77,7 +77,7 @@ type DeleteMessageReactionResp struct {
 // DeleteMessageReactionRespOperator ...
 type DeleteMessageReactionRespOperator struct {
 	OperatorID   string `json:"operator_id,omitempty"`   // 操作人ID
-	OperatorType string `json:"operator_type,omitempty"` // 操作人身份, 用户或应用, 可选值有: `app`: "app", `user`: "user"
+	OperatorType string `json:"operator_type,omitempty"` // 操作人身份, 用户或应用, 可选值有: app: "app", user: "user"
 }
 
 // DeleteMessageReactionRespReactionType ...

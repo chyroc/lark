@@ -59,7 +59,7 @@ func (r *Mock) UnMockHireGetHireJobManager() {
 type GetHireJobManagerReq struct {
 	JobID      string  `path:"job_id" json:"-"`        // 职位 ID, 示例值: "1618209327096"
 	ManagerID  string  `path:"manager_id" json:"-"`    // 此处传入职位 ID, 示例值: "1618209327096"
-	UserIDType *IDType `query:"user_id_type" json:"-"` // 用户 ID 类型, 示例值: "open_id", 可选值有: `open_id`: 用户的 open id, `union_id`: 用户的 union id, `user_id`: 用户的 user id, `people_admin_id`: 以 people_admin_id 来识别用户, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
+	UserIDType *IDType `query:"user_id_type" json:"-"` // 用户 ID 类型, 示例值: "open_id", 可选值有: open_id: 用户的 open id, union_id: 用户的 union id, user_id: 用户的 user id, people_admin_id: 以 people_admin_id 来识别用户, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
 }
 
 // GetHireJobManagerResp ...

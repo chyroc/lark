@@ -60,7 +60,7 @@ func (r *Mock) UnMockCalendarGetCalendarExchangeBinding() {
 // GetCalendarExchangeBindingReq ...
 type GetCalendarExchangeBindingReq struct {
 	ExchangeBindingID string  `path:"exchange_binding_id" json:"-"` // exchange绑定唯一标识id。参见[exchange绑定ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/exchange_binding/introduction#12533d5e), 示例值: "ZW1haWxfYWRtaW5fZXhhbXBsZUBvdXRsb29rLmNvbSBlbWFpbF9hY2NvdW50X2V4YW1wbGVAb3V0bG9vay5jb20="
-	UserIDType        *IDType `query:"user_id_type" json:"-"`       // 用户 ID 类型, 示例值: "open_id", 可选值有: `open_id`: 用户的 open id, `union_id`: 用户的 union id, `user_id`: 用户的 user id, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
+	UserIDType        *IDType `query:"user_id_type" json:"-"`       // 用户 ID 类型, 示例值: "open_id", 可选值有: open_id: 用户的 open id, union_id: 用户的 union id, user_id: 用户的 user id, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
 }
 
 // GetCalendarExchangeBindingResp ...
@@ -68,7 +68,7 @@ type GetCalendarExchangeBindingResp struct {
 	AdminAccount      string `json:"admin_account,omitempty"`       // admin账户, 字段权限要求: 获取用户邮箱信息
 	ExchangeAccount   string `json:"exchange_account,omitempty"`    // 用户绑定的exchange账户, 字段权限要求: 获取用户邮箱信息
 	UserID            string `json:"user_id,omitempty"`             // exchange账户绑定user唯一标识id, 参见[用户相关的 ID 概念](https://open.feishu.cn/document/home/user-identity-introduction/introduction)
-	Status            string `json:"status,omitempty"`              // exchange账户同步状态, 可选值有: `doing`: 日历正在同步, `cal_done`: 日历同步完成, `timespan_done`: 近期时间段同步完成, `done`: 日程同步完成, `err`: 同步错误
+	Status            string `json:"status,omitempty"`              // exchange账户同步状态, 可选值有: doing: 日历正在同步, cal_done: 日历同步完成, timespan_done: 近期时间段同步完成, done: 日程同步完成, err: 同步错误
 	ExchangeBindingID string `json:"exchange_binding_id,omitempty"` // exchange绑定唯一标识id。参见[exchange绑定ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/exchange_binding/introduction#12533d5e)
 }
 

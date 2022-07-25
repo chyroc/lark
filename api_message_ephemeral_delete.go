@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// DeleteEphemeralMessage 在群会话中删除指定用户可见的临时消息卡片
+// DeleteEphemeralMessage 在群会话中删除仅指定用户可见的临时消息卡片。
 //
 // 临时卡片消息可以通过该接口进行显式删除, 临时卡片消息删除后将不会在该设备上留下任何痕迹。
 //

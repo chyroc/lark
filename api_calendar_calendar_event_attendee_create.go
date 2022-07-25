@@ -67,7 +67,7 @@ func (r *Mock) UnMockCalendarCreateCalendarEventAttendee() {
 type CreateCalendarEventAttendeeReq struct {
 	CalendarID             string                                    `path:"calendar_id" json:"-"`                // 日历ID。参见[日历ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar/introduction), 示例值: "feishu.cn_xxxxxxxxxx@group.calendar.feishu.cn"
 	EventID                string                                    `path:"event_id" json:"-"`                   // 日程ID。参见[日程ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar-event/introduction), 示例值: "xxxxxxxxx_0"
-	UserIDType             *IDType                                   `query:"user_id_type" json:"-"`              // 用户 ID 类型, 示例值: "open_id", 可选值有: `open_id`: 用户的 open id, `union_id`: 用户的 union id, `user_id`: 用户的 user id, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
+	UserIDType             *IDType                                   `query:"user_id_type" json:"-"`              // 用户 ID 类型, 示例值: "open_id", 可选值有: open_id: 用户的 open id, union_id: 用户的 union id, user_id: 用户的 user id, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
 	Attendees              []*CreateCalendarEventAttendeeReqAttendee `json:"attendees,omitempty"`                 // 新增参与人列表；, 单次请求会议室的数量限制为100。
 	NeedNotification       *bool                                     `json:"need_notification,omitempty"`         // 是否给参与人发送bot通知 默认为true, 示例值: false
 	InstanceStartTimeAdmin *string                                   `json:"instance_start_time_admin,omitempty"` // 使用管理员身份访问时要修改的实例(仅用于重复日程修改其中的一个实例, 非重复日程无需填此字段), 示例值: "1647320400"
@@ -76,7 +76,7 @@ type CreateCalendarEventAttendeeReq struct {
 
 // CreateCalendarEventAttendeeReqAttendee ...
 type CreateCalendarEventAttendeeReqAttendee struct {
-	Type                  *CalendarEventAttendeeType                                     `json:"type,omitempty"`                   // 参与人类型, 示例值: "user", 可选值有: `user`: 用户, `chat`: 群组, `resource`: 会议室, `third_party`: 邮箱
+	Type                  *CalendarEventAttendeeType                                     `json:"type,omitempty"`                   // 参与人类型, 示例值: "user", 可选值有: user: 用户, chat: 群组, resource: 会议室, third_party: 邮箱
 	IsOptional            *bool                                                          `json:"is_optional,omitempty"`            // 参与人是否为「可选参加」, 无法编辑群参与人的此字段, 示例值: true, 默认值: `false`
 	UserID                *string                                                        `json:"user_id,omitempty"`                // 参与人的用户id, 依赖于user_id_type返回对应的取值, 当is_external为true时, 此字段只会返回open_id或者union_id, 参见[用户相关的 ID 概念](https://open.feishu.cn/document/home/user-identity-introduction/introduction), 示例值: "ou_xxxxxxxx"
 	ChatID                *string                                                        `json:"chat_id,omitempty"`                // chat类型参与人的群组chat_id, 参见[群ID 说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-id-description), 示例值: "oc_xxxxxxxxx"
@@ -106,9 +106,9 @@ type CreateCalendarEventAttendeeResp struct {
 
 // CreateCalendarEventAttendeeRespAttendee ...
 type CreateCalendarEventAttendeeRespAttendee struct {
-	Type                  CalendarEventAttendeeType                                       `json:"type,omitempty"`                   // 参与人类型, 可选值有: `user`: 用户, `chat`: 群组, `resource`: 会议室, `third_party`: 邮箱
+	Type                  CalendarEventAttendeeType                                       `json:"type,omitempty"`                   // 参与人类型, 可选值有: user: 用户, chat: 群组, resource: 会议室, third_party: 邮箱
 	AttendeeID            string                                                          `json:"attendee_id,omitempty"`            // 参与人ID。参见[参与人ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar-event-attendee/introduction#4998889c)
-	RsvpStatus            string                                                          `json:"rsvp_status,omitempty"`            // 参与人RSVP状态, 可选值有: `needs_action`: 参与人尚未回复状态, 或表示会议室预约中, `accept`: 参与人回复接受, 或表示会议室预约成功, `tentative`: 参与人回复待定, `decline`: 参与人回复拒绝, 或表示会议室预约失败, `removed`: 参与人或会议室已经从日程中被移除
+	RsvpStatus            string                                                          `json:"rsvp_status,omitempty"`            // 参与人RSVP状态, 可选值有: needs_action: 参与人尚未回复状态, 或表示会议室预约中, accept: 参与人回复接受, 或表示会议室预约成功, tentative: 参与人回复待定, decline: 参与人回复拒绝, 或表示会议室预约失败, removed: 参与人或会议室已经从日程中被移除
 	IsOptional            bool                                                            `json:"is_optional,omitempty"`            // 参与人是否为「可选参加」, 无法编辑群参与人的此字段
 	IsOrganizer           bool                                                            `json:"is_organizer,omitempty"`           // 参与人是否为日程组织者
 	IsExternal            bool                                                            `json:"is_external,omitempty"`            // 参与人是否为外部参与人；外部参与人不支持编辑
@@ -124,7 +124,7 @@ type CreateCalendarEventAttendeeRespAttendee struct {
 
 // CreateCalendarEventAttendeeRespAttendeeChatMember ...
 type CreateCalendarEventAttendeeRespAttendeeChatMember struct {
-	RsvpStatus  string `json:"rsvp_status,omitempty"`  // 参与人RSVP状态, 可选值有: `needs_action`: 参与人尚未回复状态, 或表示会议室预约中, `accept`: 参与人回复接受, 或表示会议室预约成功, `tentative`: 参与人回复待定, `decline`: 参与人回复拒绝, 或表示会议室预约失败, `removed`: 参与人或会议室已经从日程中被移除
+	RsvpStatus  string `json:"rsvp_status,omitempty"`  // 参与人RSVP状态, 可选值有: needs_action: 参与人尚未回复状态, 或表示会议室预约中, accept: 参与人回复接受, 或表示会议室预约成功, tentative: 参与人回复待定, decline: 参与人回复拒绝, 或表示会议室预约失败, removed: 参与人或会议室已经从日程中被移除
 	IsOptional  bool   `json:"is_optional,omitempty"`  // 参与人是否为「可选参加」
 	DisplayName string `json:"display_name,omitempty"` // 参与人名称
 	IsOrganizer bool   `json:"is_organizer,omitempty"` // 参与人是否为日程组织者

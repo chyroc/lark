@@ -60,7 +60,7 @@ type CreateContactGroupReq struct {
 	GroupID     *string `json:"group_id,omitempty"`    // 自定义用户组ID, 可在创建时自定义, 不自定义则由系统自动生成, 已创建用户组不允许修改 group_id, 自定义group_id 最大长度: 64 字符, 校验规则: 数字、大小写字母的组合, 不能包含空格, 示例值: "g122817"
 	Name        string  `json:"name,omitempty"`        // 用户组的名字, 企业内唯一, 最大长度: 100 字符, 示例值: "IT 外包组"
 	Description *string `json:"description,omitempty"` // 用户组描述, 示例值: "IT服务人员的集合"
-	Type        *int64  `json:"type,omitempty"`        // 用户组的类型。默认为1表示普通用户组, 示例值: 1, 可选值有: `1`: 普通用户组, 默认值: `1`
+	Type        *int64  `json:"type,omitempty"`        // 用户组的类型。默认为1表示普通用户组, 示例值: 1, 可选值有: 1: 普通用户组, 默认值: `1`
 }
 
 // CreateContactGroupResp ...

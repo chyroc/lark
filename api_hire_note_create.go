@@ -57,12 +57,12 @@ func (r *Mock) UnMockHireCreateHireNote() {
 
 // CreateHireNoteReq ...
 type CreateHireNoteReq struct {
-	UserIDType    *IDType `query:"user_id_type" json:"-"`   // 用户 ID 类型, 示例值: "open_id", 可选值有: `open_id`: 用户的 open id, `union_id`: 用户的 union id, `user_id`: 用户的 user id, `people_admin_id`: 以people_admin_id来识别用户, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
+	UserIDType    *IDType `query:"user_id_type" json:"-"`   // 用户 ID 类型, 示例值: "open_id", 可选值有: open_id: 用户的 open id, union_id: 用户的 union id, user_id: 用户的 user id, people_admin_id: 以people_admin_id来识别用户, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
 	TalentID      string  `json:"talent_id,omitempty"`      // 人才ID, 示例值: "6916472453069883661"
 	ApplicationID *string `json:"application_id,omitempty"` // 投递ID, 示例值: "6891565253964859661"
 	CreatorID     *string `json:"creator_id,omitempty"`     // 创建人ID, 示例值: "ou_f476cb099ac9227c9bae09ce46112579"
 	Content       string  `json:"content,omitempty"`        // 内容, 示例值: "测试"
-	Privacy       *int64  `json:"privacy,omitempty"`        // 备注私密属性（默认为公开）, 示例值: 1, 可选值有: `1`: 私密, `2`: 公开
+	Privacy       *int64  `json:"privacy,omitempty"`        // 备注私密属性（默认为公开）, 示例值: 1, 可选值有: 1: 私密, 2: 公开
 }
 
 // CreateHireNoteResp ...

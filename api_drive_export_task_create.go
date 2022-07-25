@@ -58,9 +58,9 @@ func (r *Mock) UnMockDriveCreateDriveExportTask() {
 
 // CreateDriveExportTaskReq ...
 type CreateDriveExportTaskReq struct {
-	FileExtension string `json:"file_extension,omitempty"` // 导出文件扩展名, 示例值: "pdf", 可选值有: `docx`: Microsoft Word (DOCX) 格式, `pdf`: pdf 格式, `xlsx`: Microsoft Excel (XLSX) 格式
+	FileExtension string `json:"file_extension,omitempty"` // 导出文件扩展名, 示例值: "pdf", 可选值有: docx: Microsoft Word (DOCX) 格式, pdf: pdf 格式, xlsx: Microsoft Excel (XLSX) 格式
 	Token         string `json:"token,omitempty"`          // 导出文档 token, 示例值: "doccnxe5OxxxxxxxSNdsJviENsk"
-	Type          string `json:"type,omitempty"`           // 导出文档类型, 示例值: "doc", 可选值有: `doc`: 旧版飞书云文档类型, `sheet`: 飞书电子表格类型, `bitable`: 飞书多维表格类型, `docx`: 新版飞书云文档类型
+	Type          string `json:"type,omitempty"`           // 导出文档类型, 示例值: "doc", 可选值有: doc: 旧版飞书云文档类型, sheet: 飞书电子表格类型, bitable: 飞书多维表格类型, docx: 新版飞书云文档类型
 }
 
 // CreateDriveExportTaskResp ...

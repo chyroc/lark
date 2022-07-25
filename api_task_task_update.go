@@ -66,8 +66,8 @@ type UpdateTaskReq struct {
 
 // UpdateTaskReqTask ...
 type UpdateTaskReqTask struct {
-	Summary         *string                          `json:"summary,omitempty"`          // 任务标题。创建任务时, 如果没有标题填充, 飞书服务器会将其视为无主题的任务, 示例值: "每天喝八杯水, 保持身心愉悦", 长度范围: `1` ～ `256` 字符
-	Description     *string                          `json:"description,omitempty"`      // 任务备注, 示例值: "多吃水果, 多运动, 健康生活, 快乐工作。", 长度范围: `0` ～ `65536` 字符
+	Summary         *string                          `json:"summary,omitempty"`          // 任务标题。创建任务时, 如果没有标题填充, 飞书服务器会将其视为无主题的任务, <md-alert>, 任务标题和任务富文本标题同时存在时只使用富文本标题, </md-alert>, 示例值: "每天喝八杯水, 保持身心愉悦", 长度范围: `0` ～ `256` 字符
+	Description     *string                          `json:"description,omitempty"`      // 任务备注, <md-alert>, 任务备注和任务富文本备注同时存在时只使用富文本备注, </md-alert>, 示例值: "多吃水果, 多运动, 健康生活, 快乐工作。", 长度范围: `0` ～ `65536` 字符
 	Extra           *string                          `json:"extra,omitempty"`            // 接入方可以自定义的附属信息二进制格式, 采用 base64 编码, 解析方式由接入方自己决定, 示例值: "dGVzdA[", 长度范围: `0` ～ `65536` 字符
 	Due             *UpdateTaskReqTaskDue            `json:"due,omitempty"`              // 任务的截止时间设置
 	Origin          *UpdateTaskReqTaskOrigin         `json:"origin,omitempty"`           // 任务关联的第三方平台来源信息
@@ -78,6 +78,8 @@ type UpdateTaskReqTask struct {
 	CollaboratorIDs []string                         `json:"collaborator_ids,omitempty"` // 创建任务时添加的执行者用户id列表, 示例值: ["ou_1400208f15333e20e11339d39067844b", "ou_84ed6312949945c8ae6168f10829e9e6"], 最大长度: `100`
 	FollowerIDs     []string                         `json:"follower_ids,omitempty"`     // 创建任务时添加的关注者用户id列表, 示例值: ["ou_1400208f15333e20e11339d39067844b", "ou_84ed6312949945c8ae6168f10829e9e6"], 最大长度: `100`
 	RepeatRule      *string                          `json:"repeat_rule,omitempty"`      // 重复任务重复规则, 示例值: "FREQ=WEEKLY;INTERVAL=1;BYDAY=MO, TU, WE, TH, FR"
+	RichSummary     *string                          `json:"rich_summary,omitempty"`     // 富文本任务标题。创建任务时, 如果没有标题填充, 飞书服务器会将其视为无主题的任务。语法格式参见[Markdown模块](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/task-v1/markdown-module), 示例值: "每天喝八杯水, 保持身心愉悦\[飞书开放平台\](https://open.feishu.cn/)", 长度范围: `0` ～ `256` 字符
+	RichDescription *string                          `json:"rich_description,omitempty"` // 富文本任务备注。语法格式参见[Markdown模块](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/task-v1/markdown-module), 示例值: "多吃水果, 多运动, 健康生活, 快乐工作。\[飞书开放平台](https://open.feishu.cn/)", 长度范围: `0` ～ `65536` 字符
 }
 
 // UpdateTaskReqTaskCollaborator ...
@@ -119,8 +121,8 @@ type UpdateTaskResp struct {
 // UpdateTaskRespTask ...
 type UpdateTaskRespTask struct {
 	ID              string                            `json:"id,omitempty"`               // 任务 ID, 由飞书任务服务器发号
-	Summary         string                            `json:"summary,omitempty"`          // 任务标题。创建任务时, 如果没有标题填充, 飞书服务器会将其视为无主题的任务
-	Description     string                            `json:"description,omitempty"`      // 任务备注
+	Summary         string                            `json:"summary,omitempty"`          // 任务标题。创建任务时, 如果没有标题填充, 飞书服务器会将其视为无主题的任务, <md-alert>, 任务标题和任务富文本标题同时存在时只使用富文本标题, </md-alert>
+	Description     string                            `json:"description,omitempty"`      // 任务备注, <md-alert>, 任务备注和任务富文本备注同时存在时只使用富文本备注, </md-alert>
 	CompleteTime    string                            `json:"complete_time,omitempty"`    // 任务的完成时间戳（单位为秒）, 如果完成时间为 0, 则表示任务尚未完成
 	CreatorID       string                            `json:"creator_id,omitempty"`       // 任务的创建者 ID。在创建任务时无需填充该字段
 	Extra           string                            `json:"extra,omitempty"`            // 接入方可以自定义的附属信息二进制格式, 采用 base64 编码, 解析方式由接入方自己决定
@@ -136,6 +138,8 @@ type UpdateTaskRespTask struct {
 	CollaboratorIDs []string                          `json:"collaborator_ids,omitempty"` // 创建任务时添加的执行者用户id列表
 	FollowerIDs     []string                          `json:"follower_ids,omitempty"`     // 创建任务时添加的关注者用户id列表
 	RepeatRule      string                            `json:"repeat_rule,omitempty"`      // 重复任务重复规则
+	RichSummary     string                            `json:"rich_summary,omitempty"`     // 富文本任务标题。创建任务时, 如果没有标题填充, 飞书服务器会将其视为无主题的任务。语法格式参见[Markdown模块](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/task-v1/markdown-module)
+	RichDescription string                            `json:"rich_description,omitempty"` // 富文本任务备注。语法格式参见[Markdown模块](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/task-v1/markdown-module)
 }
 
 // UpdateTaskRespTaskCollaborator ...

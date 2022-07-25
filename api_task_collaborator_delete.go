@@ -58,8 +58,9 @@ func (r *Mock) UnMockTaskDeleteTaskCollaborator() {
 
 // DeleteTaskCollaboratorReq ...
 type DeleteTaskCollaboratorReq struct {
-	TaskID         string `path:"task_id" json:"-"`         // 任务 ID, 示例值: "83912691-2e43-47fc-94a4-d512e03984fa"
-	CollaboratorID string `path:"collaborator_id" json:"-"` // 任务执行者 ID（Open ID）, 示例值: "ou_99e1a581b36ecc4862cbfbce123f346a"
+	TaskID         string  `path:"task_id" json:"-"`         // 任务 ID, 示例值: "83912691-2e43-47fc-94a4-d512e03984fa"
+	CollaboratorID string  `path:"collaborator_id" json:"-"` // 任务执行者 ID（Open ID或User ID, 由user_id_type指定）, 示例值: "ou_99e1a581b36ecc4862cbfbce123f346a"
+	UserIDType     *IDType `query:"user_id_type" json:"-"`   // 用户 ID 类型, 示例值: "open_id", 可选值有: open_id: 用户的 open id, union_id: 用户的 union id, user_id: 用户的 user id, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
 }
 
 // DeleteTaskCollaboratorResp ...

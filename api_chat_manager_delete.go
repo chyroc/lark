@@ -65,7 +65,7 @@ func (r *Mock) UnMockChatDeleteChatManager() {
 // DeleteChatManagerReq ...
 type DeleteChatManagerReq struct {
 	ChatID       string   `path:"chat_id" json:"-"`         // 群 ID, 详情参见[群ID 说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-id-description), 示例值: "oc_a0553eda9014c201e6969b478895c230"
-	MemberIDType *IDType  `query:"member_id_type" json:"-"` // 群成员 id 类型 open_id/user_id/union_id/app_id, 示例值: "open_id", 可选值有: `user_id`: 以 user_id 来识别成员, 需要有获取用户 UserID 的权限 ([什么是 User ID？](https://open.feishu.cn/document/home/user-identity-introduction/user-id)), `union_id`: 以 union_id 来识别成员([什么是 Union ID？](https://open.feishu.cn/document/home/user-identity-introduction/union-id)), `open_id`: 以 open_id 来识别成员([什么是 Open ID？](https://open.feishu.cn/document/home/user-identity-introduction/open-id)), `app_id`: 以 app_id 来识别成员([获取应用身份访问凭证](https://open.feishu.cn/document/ukTMukTMukTM/ukDNz4SO0MjL5QzM/g))
+	MemberIDType *IDType  `query:"member_id_type" json:"-"` // 群成员 id 类型 open_id/user_id/union_id/app_id, 示例值: "open_id", 可选值有: user_id: 以 user_id 来识别成员, 需要有获取用户 UserID 的权限 ([什么是 User ID？](https://open.feishu.cn/document/home/user-identity-introduction/user-id)), union_id: 以 union_id 来识别成员([什么是 Union ID？](https://open.feishu.cn/document/home/user-identity-introduction/union-id)), open_id: 以 open_id 来识别成员([什么是 Open ID？](https://open.feishu.cn/document/home/user-identity-introduction/open-id)), app_id: 以 app_id 来识别成员([获取应用身份访问凭证](https://open.feishu.cn/document/ukTMukTMukTM/ukDNz4SO0MjL5QzM/g))
 	ManagerIDs   []string `json:"manager_ids,omitempty"`    // 要删除的 manager_id, 示例值: ["ou_9204a37300b3700d61effaa439f34295"], 最大长度: `50`
 }
 

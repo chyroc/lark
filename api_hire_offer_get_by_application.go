@@ -58,7 +58,7 @@ func (r *Mock) UnMockHireGetHireOfferByApplication() {
 // GetHireOfferByApplicationReq ...
 type GetHireOfferByApplicationReq struct {
 	ApplicationID string  `path:"application_id" json:"-"` // 投递ID, 示例值: "6949805467799537964"
-	UserIDType    *IDType `query:"user_id_type" json:"-"`  // 用户 ID 类型, 示例值: "open_id", 可选值有: `open_id`: 用户的 open id, `union_id`: 用户的 union id, `user_id`: 用户的 user id, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
+	UserIDType    *IDType `query:"user_id_type" json:"-"`  // 用户 ID 类型, 示例值: "open_id", 可选值有: open_id: 用户的 open id, union_id: 用户的 union id, user_id: 用户的 user id, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
 }
 
 // GetHireOfferByApplicationResp ...
@@ -73,13 +73,13 @@ type GetHireOfferByApplicationRespOffer struct {
 	BasicInfo     *GetHireOfferByApplicationRespOfferBasicInfo  `json:"basic_info,omitempty"`     // 基础信息
 	SalaryPlan    *GetHireOfferByApplicationRespOfferSalaryPlan `json:"salary_plan,omitempty"`    // 薪酬计划
 	SchemaID      string                                        `json:"schema_id,omitempty"`      // 当前 Offer 使用的 schema
-	OfferStatus   int64                                         `json:"offer_status,omitempty"`   // Offer 状态, 可选值有: `0`: 所有, `1`: 未申请, `2`: 审批中, `3`: 审批已撤回, `4`: 审批通过, `5`: 审批不通过, `6`: Offer 已发出, `7`: 候选人已接受, `8`: 候选人已拒绝, `9`: Offer 已失效
+	OfferStatus   int64                                         `json:"offer_status,omitempty"`   // Offer 状态, 可选值有: 0: 所有, 1: 未申请, 2: 审批中, 3: 审批已撤回, 4: 审批通过, 5: 审批不通过, 6: Offer 已发出, 7: 候选人已接受, 8: 候选人已拒绝, 9: Offer 已失效
 	JobInfo       *GetHireOfferByApplicationRespOfferJobInfo    `json:"job_info,omitempty"`       // 职位信息
 }
 
 // GetHireOfferByApplicationRespOfferBasicInfo ...
 type GetHireOfferByApplicationRespOfferBasicInfo struct {
-	OfferType         int64                                                       `json:"offer_type,omitempty"`          // Offer 类型, 可选值有: `1`: Social, `2`: Campus, `3`: Intern, `4`: InternTransfer
+	OfferType         int64                                                       `json:"offer_type,omitempty"`          // Offer 类型, 可选值有: 1: Social, 2: Campus, 3: Intern, 4: InternTransfer
 	Remark            string                                                      `json:"remark,omitempty"`              // 备注
 	ExpireTime        int64                                                       `json:"expire_time,omitempty"`         // Offer 过期时间
 	OwnerUserID       string                                                      `json:"owner_user_id,omitempty"`       // Offer 负责人 ID
@@ -135,7 +135,7 @@ type GetHireOfferByApplicationRespOfferBasicInfoOnboardAddressCity struct {
 	ZhName       string `json:"zh_name,omitempty"`       // 中文名称
 	EnName       string `json:"en_name,omitempty"`       // 英文名称
 	Code         string `json:"code,omitempty"`          // 编码
-	LocationType int64  `json:"location_type,omitempty"` // 地址类型, 可选值有: `1`: COUNTRY, `2`: STATE, `3`: CITY, `4`: DISTRICT, `5`: ADDRESS
+	LocationType int64  `json:"location_type,omitempty"` // 地址类型, 可选值有: 1: COUNTRY, 2: STATE, 3: CITY, 4: DISTRICT, 5: ADDRESS
 }
 
 // GetHireOfferByApplicationRespOfferBasicInfoOnboardAddressCountry ...
@@ -143,7 +143,7 @@ type GetHireOfferByApplicationRespOfferBasicInfoOnboardAddressCountry struct {
 	ZhName       string `json:"zh_name,omitempty"`       // 中文名称
 	EnName       string `json:"en_name,omitempty"`       // 英文名称
 	Code         string `json:"code,omitempty"`          // 编码
-	LocationType int64  `json:"location_type,omitempty"` // 地址类型, 可选值有: `1`: COUNTRY, `2`: STATE, `3`: CITY, `4`: DISTRICT, `5`: ADDRESS
+	LocationType int64  `json:"location_type,omitempty"` // 地址类型, 可选值有: 1: COUNTRY, 2: STATE, 3: CITY, 4: DISTRICT, 5: ADDRESS
 }
 
 // GetHireOfferByApplicationRespOfferBasicInfoOnboardAddressDistrict ...
@@ -159,7 +159,7 @@ type GetHireOfferByApplicationRespOfferBasicInfoOnboardAddressState struct {
 	ZhName       string `json:"zh_name,omitempty"`       // 中文名称
 	EnName       string `json:"en_name,omitempty"`       // 英文名称
 	Code         string `json:"code,omitempty"`          // 编码
-	LocationType int64  `json:"location_type,omitempty"` // 地址类型, 可选值有: `1`: COUNTRY, `2`: STATE, `3`: CITY, `4`: DISTRICT, `5`: ADDRESS
+	LocationType int64  `json:"location_type,omitempty"` // 地址类型, 可选值有: 1: COUNTRY, 2: STATE, 3: CITY, 4: DISTRICT, 5: ADDRESS
 }
 
 // GetHireOfferByApplicationRespOfferBasicInfoRecruitmentType ...
@@ -192,7 +192,7 @@ type GetHireOfferByApplicationRespOfferBasicInfoWorkAddressCity struct {
 	ZhName       string `json:"zh_name,omitempty"`       // 中文名称
 	EnName       string `json:"en_name,omitempty"`       // 英文名称
 	Code         string `json:"code,omitempty"`          // 编码
-	LocationType int64  `json:"location_type,omitempty"` // 地址类型, 可选值有: `1`: COUNTRY, `2`: STATE, `3`: CITY, `4`: DISTRICT, `5`: ADDRESS
+	LocationType int64  `json:"location_type,omitempty"` // 地址类型, 可选值有: 1: COUNTRY, 2: STATE, 3: CITY, 4: DISTRICT, 5: ADDRESS
 }
 
 // GetHireOfferByApplicationRespOfferBasicInfoWorkAddressCountry ...
@@ -200,7 +200,7 @@ type GetHireOfferByApplicationRespOfferBasicInfoWorkAddressCountry struct {
 	ZhName       string `json:"zh_name,omitempty"`       // 中文名称
 	EnName       string `json:"en_name,omitempty"`       // 英文名称
 	Code         string `json:"code,omitempty"`          // 编码
-	LocationType int64  `json:"location_type,omitempty"` // 地址类型, 可选值有: `1`: COUNTRY, `2`: STATE, `3`: CITY, `4`: DISTRICT, `5`: ADDRESS
+	LocationType int64  `json:"location_type,omitempty"` // 地址类型, 可选值有: 1: COUNTRY, 2: STATE, 3: CITY, 4: DISTRICT, 5: ADDRESS
 }
 
 // GetHireOfferByApplicationRespOfferBasicInfoWorkAddressDistrict ...
@@ -216,7 +216,7 @@ type GetHireOfferByApplicationRespOfferBasicInfoWorkAddressState struct {
 	ZhName       string `json:"zh_name,omitempty"`       // 中文名称
 	EnName       string `json:"en_name,omitempty"`       // 英文名称
 	Code         string `json:"code,omitempty"`          // 编码
-	LocationType int64  `json:"location_type,omitempty"` // 地址类型, 可选值有: `1`: COUNTRY, `2`: STATE, `3`: CITY, `4`: DISTRICT, `5`: ADDRESS
+	LocationType int64  `json:"location_type,omitempty"` // 地址类型, 可选值有: 1: COUNTRY, 2: STATE, 3: CITY, 4: DISTRICT, 5: ADDRESS
 }
 
 // GetHireOfferByApplicationRespOfferJobInfo ...

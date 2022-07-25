@@ -73,8 +73,8 @@ type GetHireResumeSourceRespItem struct {
 	ID               string `json:"id,omitempty"`                 // 来源 ID
 	ZhName           string `json:"zh_name,omitempty"`            // 中文名
 	EnName           string `json:"en_name,omitempty"`            // 英文名
-	ActiveStatus     int64  `json:"active_status,omitempty"`      // 启用状态, 可选值有: `1`: 已启用, `2`: 已禁用
-	ResumeSourceType int64  `json:"resume_source_type,omitempty"` // 来源类型, 可选值有: `10000`: 内推, `10001`: 猎头, `10002`: 内部来源, `10003`: 第三方招聘网站, `10004`: 社交媒体, `10005`: 线下来源, `10006`: 其他, `10007`: 外部推荐
+	ActiveStatus     int64  `json:"active_status,omitempty"`      // 启用状态, 可选值有: 1: 已启用, 2: 已禁用
+	ResumeSourceType int64  `json:"resume_source_type,omitempty"` // 来源类型, 可选值有: 10000: 内推, 10001: 猎头, 10002: 内部来源, 10003: 第三方招聘网站, 10004: 社交媒体, 10005: 线下来源, 10006: 其他, 10007: 外部推荐
 }
 
 // getHireResumeSourceResp ...

@@ -59,7 +59,7 @@ func (r *Mock) UnMockContactBatchGetUserByID() {
 
 // BatchGetUserByIDReq ...
 type BatchGetUserByIDReq struct {
-	UserIDType *IDType  `query:"user_id_type" json:"-"` // 用户 ID 类型, 示例值: "open_id", 可选值有: `open_id`: 用户的 open id, `union_id`: 用户的 union id, `user_id`: 用户的 user id, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
+	UserIDType *IDType  `query:"user_id_type" json:"-"` // 用户 ID 类型, 示例值: "open_id", 可选值有: open_id: 用户的 open id, union_id: 用户的 union id, user_id: 用户的 user id, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
 	Emails     []string `json:"emails,omitempty"`       // 要查询的用户邮箱, 最多 50 条, 示例值: zhangsan@a.com, 最大长度: `50`
 	Mobiles    []string `json:"mobiles,omitempty"`      // 要查询的用户手机号, 最多 50 条。 非中国大陆地区的手机号需要添加以 “+” 开头的国家 / 地区代码, 示例值: 13812345678, 最大长度: `50`
 }

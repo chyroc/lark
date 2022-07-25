@@ -58,10 +58,12 @@ func (r *Mock) UnMockTaskCreateTaskComment() {
 
 // CreateTaskCommentReq ...
 type CreateTaskCommentReq struct {
-	TaskID   string  `path:"task_id" json:"-"`    // 任务 ID, 示例值: "83912691-2e43-47fc-94a4-d512e03984fa"
-	Content  *string `json:"content,omitempty"`   // 评论内容, 示例值: "举杯邀明月, 对影成三人", 长度范围: `0` ～ `65536` 字符
-	ParentID *string `json:"parent_id,omitempty"` // 评论的父ID, 创建评论时若不为空则为某条评论的回复, 若为空则不是回复, 示例值: "6937231762296684564"
-	ID       *string `json:"id,omitempty"`        // 评论ID, 由飞书服务器发号, 示例值: "6937231762296684564"
+	TaskID          string  `path:"task_id" json:"-"`            // 任务 ID, 示例值: "83912691-2e43-47fc-94a4-d512e03984fa"
+	Content         *string `json:"content,omitempty"`           // 评论内容, <md-alert>, 评论内容和富文本评论内容同时存在时只使用富文本评论内容, </md-alert>, 示例值: "举杯邀明月, 对影成三人", 长度范围: `0` ～ `65536` 字符
+	ParentID        *string `json:"parent_id,omitempty"`         // 评论的父ID, 创建评论时若不为空则为某条评论的回复, 若为空则不是回复, 示例值: "6937231762296684564"
+	ID              *string `json:"id,omitempty"`                // 评论ID, 由飞书服务器发号, 示例值: "6937231762296684564"
+	CreateMilliTime *string `json:"create_milli_time,omitempty"` // 评论创建的时间戳, 单位为毫秒, 用于展示, 创建时不用填写, 示例值: "1657075055135"
+	RichContent     *string `json:"rich_content,omitempty"`      // 富文本评论内容。语法格式参见[Markdown模块](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/task-v1/markdown-module), 示例值: "举杯邀明月, 对影成三人<at id=7058204817822318612></at>", 长度范围: `0` ～ `65536` 字符
 }
 
 // CreateTaskCommentResp ...
@@ -71,9 +73,11 @@ type CreateTaskCommentResp struct {
 
 // CreateTaskCommentRespComment ...
 type CreateTaskCommentRespComment struct {
-	Content  string `json:"content,omitempty"`   // 评论内容
-	ParentID string `json:"parent_id,omitempty"` // 评论的父ID, 创建评论时若不为空则为某条评论的回复, 若为空则不是回复
-	ID       string `json:"id,omitempty"`        // 评论ID, 由飞书服务器发号
+	Content         string `json:"content,omitempty"`           // 评论内容, <md-alert>, 评论内容和富文本评论内容同时存在时只使用富文本评论内容, </md-alert>
+	ParentID        string `json:"parent_id,omitempty"`         // 评论的父ID, 创建评论时若不为空则为某条评论的回复, 若为空则不是回复
+	ID              string `json:"id,omitempty"`                // 评论ID, 由飞书服务器发号
+	CreateMilliTime string `json:"create_milli_time,omitempty"` // 评论创建的时间戳, 单位为毫秒, 用于展示, 创建时不用填写
+	RichContent     string `json:"rich_content,omitempty"`      // 富文本评论内容。语法格式参见[Markdown模块](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/task-v1/markdown-module)
 }
 
 // createTaskCommentResp ...
