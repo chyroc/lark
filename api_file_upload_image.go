@@ -63,7 +63,7 @@ func (r *Mock) UnMockFileUploadImage() {
 
 // UploadImageReq ...
 type UploadImageReq struct {
-	ImageType ImageType `json:"image_type,omitempty"` // 图片类型, 示例值: "message", 可选值有: `message`: 用于发送消息, `avatar`: 用于设置头像
+	ImageType ImageType `json:"image_type,omitempty"` // 图片类型, 示例值: "message", 可选值有: message: 用于发送消息, avatar: 用于设置头像
 	Image     io.Reader `json:"image,omitempty"`      // 图片内容, 示例值: 二进制文件
 }
 

@@ -76,7 +76,7 @@ type CreateApprovalExternalApprovalReq struct {
 type CreateApprovalExternalApprovalReqExternal struct {
 	BizName             *string `json:"biz_name,omitempty"`              // 列表中用于提示审批来自哪里, i18n key, 注意不需要“来自”前缀, 审批中心会拼上前缀, 示例值: "@i18n@3"
 	BizType             *string `json:"biz_type,omitempty"`              // 审批定义业务类别, 示例值: "permission"
-	CreateLinkMobile    string  `json:"create_link_mobile,omitempty"`    // 移动端发起链接, 如果设置了该链接, 则会在移动端审批发起页展示该审批, 用户点击后会跳转到该链接进行发起； 如果不填, 则在mobile端不显示该审批, 示例值: "https://applink.feishu.cn/client/mini_program/open?appId=cli_9c90fc38e07a9101&path=pages/approval-form/index?id=9999"
+	CreateLinkMobile    *string `json:"create_link_mobile,omitempty"`    // 移动端发起链接, 如果设置了该链接, 则会在移动端审批发起页展示该审批, 用户点击后会跳转到该链接进行发起； 如果不填, 则在mobile端不显示该审批, 示例值: "https://applink.feishu.cn/client/mini_program/open?appId=cli_9c90fc38e07a9101&path=pages/approval-form/index?id=9999"
 	CreateLinkPc        *string `json:"create_link_pc,omitempty"`        // PC端发起链接, 如果设置了该链接, 则会在PC端审批发起页展示该审批, 用户点击后会跳转到该链接进行发起； 如果不填, 则在PC端不显示该审批；, 示例值: "https://applink.feishu.cn/client/mini_program/open?mode=appCenter&appId=cli_9c90fc38e07a9101&path=pc/pages/create-form/index?id=9999"
 	SupportPc           *bool   `json:"support_pc,omitempty"`            // 审批实例、审批任务、审批抄送是否要在PC端展示, 如果为 true, 则PC端列表会展示该定义下的实例信息, 否则, 不展示, 示例值: true
 	SupportMobile       *bool   `json:"support_mobile,omitempty"`        // 审批实例、审批任务、审批抄送是否要在移动端展示, 如果为 true, 则移动端列表会展示该定义下的实例信息, 否则, 不展示； support_pc和support_mobile不可都为false, 否则不展示, 示例值: true

@@ -64,7 +64,7 @@ type CreateApprovalReq struct {
 	ApprovalName     string                           `json:"approval_name,omitempty"`      // 审批名称的国际化文案 Key, 以 @i18n@ 开头, 长度不得少于 9 个字符, 示例值: "@i18n@approval_name"
 	ApprovalCode     *string                          `json:"approval_code,omitempty"`      // 传空表示新建, 示例值: "7C468A54-8745-2245-9675-08B7C63E7A85"
 	Description      *string                          `json:"description,omitempty"`        // 审批描述的国际化文案 Key, 以 @i18n@ 开头, 长度不得少于 9 个字符, 示例值: "@i18n@description"
-	Viewers          []*CreateApprovalReqViewer       `json:"viewers,omitempty"`            // viewers 字段指定了哪些人能从审批应用的前台发起该审批, 1.当 type 为 USER 时, 需要填写 user_id 或 open_id 中的一个, 用于指定对哪个用户可见；, 2.当 type 为 DEPARTMENT 时, 需要填写部门的 open_id, 用于指定对哪个部门可见
+	Viewers          []*CreateApprovalReqViewer       `json:"viewers,omitempty"`            // viewers 字段指定了哪些人能从审批应用的前台发起该审批, 1. 当 view_type 为 USER, 需要填写viewer_user_id；, 2. 当 view_type 为DEPARTMENT, 需要填写viewer_department_id；, 3. 当 view_type 为TENANT或NONE时, viewer_user_id和viewer_department_id无需填写
 	Form             *CreateApprovalReqForm           `json:"form,omitempty"`               // 审批定义表单
 	NodeList         []*CreateApprovalReqNode         `json:"node_list,omitempty"`          // 审批定义节点, 需要将开始节点作为 list 第一个元素, 结束节点作为最后一个元素
 	Settings         *CreateApprovalReqSettings       `json:"settings,omitempty"`           // 审批定义其他设置
@@ -112,14 +112,14 @@ type CreateApprovalReqNode struct {
 
 // CreateApprovalReqNodeApprover ...
 type CreateApprovalReqNodeApprover struct {
-	Type   string  `json:"type,omitempty"`    // 审批节点上的审批人, 1.当 type 为 Supervisor、SupervisorTopDown、DepartmentManager 、DepartmentManagerTopDown 这 4 种时, 需要在 user_id 中填写对应的级数, 例如: 由下往上三级主管审批, user_id = 3；, 2.当 type 为 Personal 时, 需要填写user_id 或 open_id 中的一个, 用于指定用户；, 3.当 approver 为 Free 发起人自选时, 不需要指定 user_id 或 open_id；, ccer不支持 Free 发起人自选, 示例值: "Supervisor", 可选值有: Supervisor: 主管审批（由下往上）, SupervisorTopDown: 主管审批（从上往下）, DepartmentManager: 部门负责人审批（由下往上）, DepartmentManagerTopDown: 部门负责人审批（从上往下）, Personal: 指定成员, Free: 发起人自选
+	Type   string  `json:"type,omitempty"`    // 审批节点上的审批人, 1. 当 type 为 Supervisor、SupervisorTopDown、DepartmentManager 、DepartmentManagerTopDown 这 4 种时, 需要在 level 中填写对应的级数, 例如: 由下往上三级主管审批, level = 3；, 2. 当 type 为 Personal 时, 需要填写对应的user_id, 用于指定用户；, 3. 当 approver 为 Free 发起人自选时, 不需要指定 user_id 和level；, 4. ccer不支持 Free 发起人自选, 示例值: "Supervisor", 可选值有: Supervisor: 主管审批（由下往上）, SupervisorTopDown: 主管审批（从上往下）, DepartmentManager: 部门负责人审批（由下往上）, DepartmentManagerTopDown: 部门负责人审批（从上往下）, Personal: 指定成员, Free: 发起人自选
 	UserID *string `json:"user_id,omitempty"` // 用户id, 根据user_id_type填写, 示例值: "f7cb567e"
 	Level  *string `json:"level,omitempty"`   // 审批级数, 当 type 为 Supervisor、SupervisorTopDown、DepartmentManager 、DepartmentManagerTopDown 这 4 种时, 需要在 level 中填写对应的级数, 例如: 由下往上三级主管审批, level = 3, 示例值: "3"
 }
 
 // CreateApprovalReqNodeCcer ...
 type CreateApprovalReqNodeCcer struct {
-	Type   string  `json:"type,omitempty"`    // 审批节点上的审批人, 1.当 type 为 Supervisor、SupervisorTopDown、DepartmentManager 、DepartmentManagerTopDown 这 4 种时, 需要在 user_id 中填写对应的级数, 例如: 由下往上三级主管审批, user_id = 3；, 2.当 type 为 Personal 时, 需要填写user_id 或 open_id 中的一个, 用于指定用户；, 3.当 approver 为 Free 发起人自选时, 不需要指定 user_id 或 open_id；, ccer不支持 Free 发起人自选, 示例值: "Supervisor", 可选值有: Supervisor: 主管审批（由下往上）, SupervisorTopDown: 主管审批（从上往下）, DepartmentManager: 部门负责人审批（由下往上）, DepartmentManagerTopDown: 部门负责人审批（从上往下）, Personal: 指定成员, Free: 发起人自选
+	Type   string  `json:"type,omitempty"`    // 审批节点上的审批人, 1. 当 type 为 Supervisor、SupervisorTopDown、DepartmentManager 、DepartmentManagerTopDown 这 4 种时, 需要在 level 中填写对应的级数, 例如: 由下往上三级主管审批, level = 3；, 2. 当 type 为 Personal 时, 需要填写对应的user_id, 用于指定用户；, 3. 当 approver 为 Free 发起人自选时, 不需要指定 user_id 和level；, 4. ccer不支持 Free 发起人自选, 示例值: "Supervisor", 可选值有: Supervisor: 主管审批（由下往上）, SupervisorTopDown: 主管审批（从上往下）, DepartmentManager: 部门负责人审批（由下往上）, DepartmentManagerTopDown: 部门负责人审批（从上往下）, Personal: 指定成员, Free: 发起人自选
 	UserID *string `json:"user_id,omitempty"` // 用户id, 根据user_id_type填写, 示例值: "f7cb567e"
 	Level  *string `json:"level,omitempty"`   // 审批级数, 当 type 为 Supervisor、SupervisorTopDown、DepartmentManager 、DepartmentManagerTopDown 这 4 种时, 需要在 level 中填写对应的级数, 例如: 由下往上三级主管审批, level = 3, 示例值: "3"
 }

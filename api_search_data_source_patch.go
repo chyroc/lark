@@ -75,11 +75,9 @@ type UpdateSearchDataSourceReqI18nDescription struct {
 
 // UpdateSearchDataSourceReqI18nName ...
 type UpdateSearchDataSourceReqI18nName struct {
-	Title           string  `json:"title,omitempty"`             // 该条数据记录对应的标题, 示例值: "工单: 无法创建文章"
-	SourceURL       string  `json:"source_url,omitempty"`        // 该条数据记录对应的跳转url, 示例值: "http://www.abc.com.cn"
-	CreateTime      *int64  `json:"create_time,omitempty"`       // 数据项的创建时间。Unix 时间, 单位为秒, 示例值: 1618831236
-	UpdateTime      *int64  `json:"update_time,omitempty"`       // 数据项的更新时间。Unix 时间, 单位为秒, 示例值: 1618831236
-	SourceURLMobile *string `json:"source_url_mobile,omitempty"` // 移动端搜索命中的跳转地址。如果您PC端和移动端有不同的跳转地址, 可以在这里写入移动端专用的url, 我们会在搜索时为您选择合适的地址, 示例值: "https://www.feishu.cn"
+	ZhCn *string `json:"zh_cn,omitempty"` // 国际化字段: 中文, 示例值: "任务"
+	EnUs *string `json:"en_us,omitempty"` // 国际化字段: 英文, 示例值: "TODO"
+	JaJp *string `json:"ja_jp,omitempty"` // 国际化字段: 日文, 示例值: "タスク"
 }
 
 // UpdateSearchDataSourceResp ...
