@@ -91,7 +91,7 @@ type CreateApprovalExternalInstanceReq struct {
 // CreateApprovalExternalInstanceReqCc ...
 type CreateApprovalExternalInstanceReqCc struct {
 	CcID          string                                     `json:"cc_id,omitempty"`          // 审批实例内唯一标识, 示例值: "123456"
-	UserID        string                                     `json:"user_id,omitempty"`        // 抄送人 employee id, 示例值: "12345"
+	UserID        *string                                    `json:"user_id,omitempty"`        // 抄送人 employee id, 示例值: "12345"
 	OpenID        *string                                    `json:"open_id,omitempty"`        // 抄送人 open id, 和user id 二选一, 示例值: "ou_be73cbc0ee35eb6ca54e9e7cc14998c1"
 	Links         []*CreateApprovalExternalInstanceReqCcLink `json:"links,omitempty"`          // 跳转链接, 用于【抄送我的】列表中的跳转pc_link 和 mobile_link 必须填一个, 填写的是哪一端的链接, 即会跳转到该链接, 不受平台影响
 	ReadStatus    string                                     `json:"read_status,omitempty"`    // 阅读状态, 空值表示不支持已读未读: 示例值: "READ", 可选值有: READ: 已读, UNREAD: 未读
@@ -136,7 +136,7 @@ type CreateApprovalExternalInstanceReqLink struct {
 // CreateApprovalExternalInstanceReqTask ...
 type CreateApprovalExternalInstanceReqTask struct {
 	TaskID        string                                               `json:"task_id,omitempty"`        // 审批实例内的唯一标识, 用于更新审批任务时定位数据, 示例值: "112534"
-	UserID        string                                               `json:"user_id,omitempty"`        // 审批人 user_id, 该任务会出现在审批人的【待审批】或【已审批】列表中, 示例值: "a987sf9s"
+	UserID        *string                                              `json:"user_id,omitempty"`        // 审批人 user_id, 该任务会出现在审批人的【待审批】或【已审批】列表中, 示例值: "a987sf9s"
 	OpenID        *string                                              `json:"open_id,omitempty"`        // 审批人 open id, 和 user id 二选一, 示例值: "ou_be73cbc0ee35eb6ca54e9e7cc14998c1"
 	Title         *string                                              `json:"title,omitempty"`          // 审批任务名称, 示例值: "i18n1"
 	Links         *CreateApprovalExternalInstanceReqTaskLinks          `json:"links,omitempty"`          // 【待审批】或【已审批】中使用的跳转链接, 用于跳转回三方系统pc_link 和 mobile_link 必须填一个, 填写的是哪一端的链接, 即会跳转到该链接, 不受平台影响
