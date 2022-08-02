@@ -43,12 +43,12 @@ func ExampleEventCallback() {
 		if err != nil {
 			return "", err
 		}
-		switch {
-		case content.Text != nil:
+		switch event.Message.MessageType {
+		case lark.MsgTypeText:
 			_, _, err = cli.Message.Reply(event.Message.MessageID).SendText(ctx, fmt.Sprintf("got text: %s", content.Text.Text))
-		case content.File != nil:
+		case lark.MsgTypeFile:
 			_, _, err = cli.Message.Reply(event.Message.MessageID).SendText(ctx, fmt.Sprintf("got file: %s, key: %s", content.File.FileName, content.File.FileKey))
-		case content.Image != nil:
+		case lark.MsgTypeImage:
 			_, _, err = cli.Message.Reply(event.Message.MessageID).SendText(ctx, fmt.Sprintf("got image: %s", content.Image.ImageKey))
 		}
 		return "", err
