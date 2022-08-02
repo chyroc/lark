@@ -102,7 +102,7 @@ type GetHireApplicationRespApplicationApplicationPreferredCityName struct {
 type GetHireApplicationRespApplicationResumeSourceInfo struct {
 	ID               string                                                 `json:"id,omitempty"`                 // 投递来源 ID
 	Name             *GetHireApplicationRespApplicationResumeSourceInfoName `json:"name,omitempty"`               // 投递来源名称
-	ResumeSourceType int64                                                  `json:"resume_source_type,omitempty"` // 投递来源类型, 可选值有: 10000: 内推, 10001: 猎头, 10002: 内部来源, 10003: 第三方招聘网站, 10004: 社交媒体, 10005: 线下来源, 10006: 其他, 10007: 外部推荐
+	ResumeSourceType int64                                                  `json:"resume_source_type,omitempty"` // 投递来源类型, 可选值有: 10000: 内推, 10001: 猎头, 10002: 内部来源, 10003: 第三方招聘网站, 10004: 社交媒体, 10005: 线下来源, 10006: 其他, 10007: 外部推荐, 10008: 员工转岗, 10009: 实习生转正
 }
 
 // GetHireApplicationRespApplicationResumeSourceInfoName ...

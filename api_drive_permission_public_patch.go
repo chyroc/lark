@@ -64,8 +64,8 @@ type UpdateDrivePublicPermissionReq struct {
 	SecurityEntity  *string `json:"security_entity,omitempty"`   // 谁可以复制内容、创建副本、打印、下载, 示例值: "anyone_can_view", 可选值有: anyone_can_view: 拥有可阅读权限的用户, anyone_can_edit: 拥有可编辑权限的用户, only_full_access: 拥有可管理权限（包括我）的用户
 	CommentEntity   *string `json:"comment_entity,omitempty"`    // 谁可以评论, 示例值: "anyone_can_view", 可选值有: anyone_can_view: 拥有可阅读权限的用户, anyone_can_edit: 拥有可编辑权限的用户
 	ShareEntity     *string `json:"share_entity,omitempty"`      // 谁可以添加和管理协作者, 示例值: "anyone", 可选值有: anyone: 所有可阅读或编辑此文档的用户, same_tenant: 组织内所有可阅读或编辑此文档的用户, only_full_access: 拥有可管理权限（包括我）的用户
-	LinkShareEntity *string `json:"link_share_entity,omitempty"` // 链接分享设置, 示例值: "tenant_readable", 可选值有: tenant_readable: 组织内获得链接的人可阅读, tenant_editable: 组织内获得链接的人可编辑, anyone_readable: 互联网上获得链接的任何人可阅读, 提示: 仅`external_access=true`时有效, anyone_editable: 互联网上获得链接的任何人可编辑, 提示: 仅`external_access=true`时有效, closed: 关闭链接分享
-	InviteExternal  *bool   `json:"invite_external,omitempty"`   // 允许非「可管理权限」的人分享到组织外, 提示: 仅`share_entity="same_tenant"`时有效, 示例值: true
+	LinkShareEntity *string `json:"link_share_entity,omitempty"` // 链接分享设置, 示例值: "tenant_readable", 可选值有: tenant_readable: 组织内获得链接的人可阅读, tenant_editable: 组织内获得链接的人可编辑, anyone_readable: 互联网上获得链接的任何人可阅读, anyone_editable: 互联网上获得链接的任何人可编辑, closed: 关闭链接分享
+	InviteExternal  *bool   `json:"invite_external,omitempty"`   // 允许非「可管理权限」的人分享到组织外, 示例值: true
 }
 
 // UpdateDrivePublicPermissionResp ...
@@ -79,8 +79,8 @@ type UpdateDrivePublicPermissionRespPermissionPublic struct {
 	SecurityEntity  string `json:"security_entity,omitempty"`   // 谁可以复制内容、创建副本、打印、下载, 可选值有: anyone_can_view: 拥有可阅读权限的用户, anyone_can_edit: 拥有可编辑权限的用户, only_full_access: 拥有可管理权限（包括我）的用户
 	CommentEntity   string `json:"comment_entity,omitempty"`    // 可评论设置, 可选值有: anyone_can_view: 拥有可阅读权限的用户, anyone_can_edit: 拥有可编辑权限的用户
 	ShareEntity     string `json:"share_entity,omitempty"`      // 谁可以添加和管理协作者, 可选值有: anyone: 所有可阅读或编辑此文档的用户, same_tenant: 组织内所有可阅读或编辑此文档的用户, only_full_access: 拥有可管理权限（包括我）的用户
-	LinkShareEntity string `json:"link_share_entity,omitempty"` // 链接分享设置, 可选值有: tenant_readable: 组织内获得链接的人可阅读, tenant_editable: 组织内获得链接的人可编辑, anyone_readable: 互联网上获得链接的任何人可阅读, 提示: 仅`external_access=true`时有效, anyone_editable: 互联网上获得链接的任何人可编辑, 提示: 仅`external_access=true`时有效, closed: 关闭链接分享
-	InviteExternal  bool   `json:"invite_external,omitempty"`   // 允许非「可管理权限」的人分享到组织外, 提示: 仅`share_entity="same_tenant"`时有效
+	LinkShareEntity string `json:"link_share_entity,omitempty"` // 链接分享设置, 可选值有: tenant_readable: 组织内获得链接的人可阅读, tenant_editable: 组织内获得链接的人可编辑, anyone_readable: 互联网上获得链接的任何人可阅读, anyone_editable: 互联网上获得链接的任何人可编辑, closed: 关闭链接分享
+	InviteExternal  bool   `json:"invite_external,omitempty"`   // 允许非「可管理权限」的人分享到组织外
 	LockSwitch      bool   `json:"lock_switch,omitempty"`       // 节点加锁状态
 }
 

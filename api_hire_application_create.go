@@ -59,6 +59,7 @@ func (r *Mock) UnMockHireCreateHireApplication() {
 type CreateHireApplicationReq struct {
 	TalentID                         string   `json:"talent_id,omitempty"`                            // 人才ID, 示例值: "12312312312"
 	JobID                            string   `json:"job_id,omitempty"`                               // 职位ID, 示例值: "12312312312"
+	ResumeSourceID                   *string  `json:"resume_source_id,omitempty"`                     // 简历来源 ID, 可通过「获取简历来源」接口查询。若简历来源类型属于「员工转岗」或「实习生转正」, 人才需处于已入职状态, 示例值: "7115289562569591070"
 	ApplicationPreferredCityCodeList []string `json:"application_preferred_city_code_list,omitempty"` // 意向投递城市列表, 可从「获取职位信息」返回的工作地点列表获取, 示例值: ["CT_1"]
 }
 

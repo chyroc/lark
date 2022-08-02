@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// BatchUpdateBitableRecord 该接口用于更新数据表中的多条记录, 单词调用最多更新 500 条记录。
+// BatchUpdateBitableRecord 该接口用于更新数据表中的多条记录, 单次调用最多更新 500 条记录。
 //
 // 该接口支持调用频率上限为 10 QPS
 //

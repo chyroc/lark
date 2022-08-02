@@ -86,11 +86,20 @@ type GetApprovalInstanceResp struct {
 
 // GetApprovalInstanceRespComment ...
 type GetApprovalInstanceRespComment struct {
-	ID         string `json:"id,omitempty"`          // 评论 id
-	UserID     string `json:"user_id,omitempty"`     // 发表评论用户
-	OpenID     string `json:"open_id,omitempty"`     // 发表评论用户 open id
-	Comment    string `json:"comment,omitempty"`     // 评论内容
-	CreateTime string `json:"create_time,omitempty"` // 1564590532967
+	ID         string                                `json:"id,omitempty"`          // 评论 id
+	UserID     string                                `json:"user_id,omitempty"`     // 发表评论用户
+	OpenID     string                                `json:"open_id,omitempty"`     // 发表评论用户 open id
+	Comment    string                                `json:"comment,omitempty"`     // 评论内容
+	CreateTime string                                `json:"create_time,omitempty"` // 1564590532967
+	Files      []*GetApprovalInstanceRespCommentFile `json:"files,omitempty"`       // 评论附件
+}
+
+// GetApprovalInstanceRespCommentFile ...
+type GetApprovalInstanceRespCommentFile struct {
+	URL      string `json:"url,omitempty"`       // 附件路径
+	FileSize int64  `json:"file_size,omitempty"` // 附件大小
+	Title    string `json:"title,omitempty"`     // 附件标题
+	Type     string `json:"type,omitempty"`      // 附件类别
 }
 
 // GetApprovalInstanceRespTask ...
@@ -120,6 +129,7 @@ type GetApprovalInstanceRespTimeline struct {
 	CcUserList []*GetApprovalInstanceRespTimelineCcUser `json:"cc_user_list,omitempty"` // 抄送人列表
 	Ext        *GetApprovalInstanceRespTimelineExt      `json:"ext,omitempty"`          // 动态其他信息, json格式, 目前包括 user_id_list, user_id, open_id_list, open_id
 	NodeKey    string                                   `json:"node_key,omitempty"`     // 产生task的节点key
+	Files      []*GetApprovalInstanceRespTimelineFile   `json:"files,omitempty"`        // 审批附件
 }
 
 // GetApprovalInstanceRespTimelineCcUser ...
@@ -127,6 +137,14 @@ type GetApprovalInstanceRespTimelineCcUser struct {
 	UserID string `json:"user_id,omitempty"` // 抄送人 user id
 	CcID   string `json:"cc_id,omitempty"`   // 审批实例内抄送唯一标识
 	OpenID string `json:"open_id,omitempty"` // 抄送人 open id
+}
+
+// GetApprovalInstanceRespTimelineFile ...
+type GetApprovalInstanceRespTimelineFile struct {
+	URL      string `json:"url,omitempty"`       // 附件路径
+	FileSize int64  `json:"file_size,omitempty"` // 附件大小
+	Title    string `json:"title,omitempty"`     // 附件标题
+	Type     string `json:"type,omitempty"`      // 附件类别
 }
 
 // getApprovalInstanceResp ...
