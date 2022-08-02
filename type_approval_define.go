@@ -203,10 +203,3 @@ type getApprovalInstanceRespTimelineExt struct {
 	UserID     *string  `json:"user_id,omitempty"`      // **type类型** - **user_id 含义**<br>CC - 抄送人
 	OpenID     *string  `json:"open_id,omitempty"`      // user_id 对应的 open_id
 }
-
-type NodeApproverList []*NodeApprover
-
-type NodeApprover struct {
-	Key   string   `json:"key"`   // node id 或 custom node id，通过 查看审批定义 获取
-	Value []string `json:"value"` // 审批人列表
-}
