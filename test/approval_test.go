@@ -155,7 +155,7 @@ func Test_UnmarshalCreateApproval(t *testing.T) {
 	err := json.Unmarshal([]byte(s), res)
 	as.Nil(err)
 	as.NotNil(res)
-	as.Equal("46e6d96cfa756980907209209ec03b64", res.NodeApproverOpenIDList[0].Key)
+	as.Equal("46e6d96cfa756980907209209ec03b64", *res.NodeApproverOpenIDList[0].Key)
 	as.Equal("ou_806a18f", res.NodeApproverOpenIDList[0].Value[1])
 	printData(res)
 }
