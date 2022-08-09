@@ -28,6 +28,14 @@ func (r *Lark) WithTenant(tenantKey string) *Lark {
 // GetAppTicket ...
 func (r *AuthService) GetAppTicket(ctx context.Context) (string, error) {
 	s, _, err := r.cli.store.Get(ctx, genISVAppTicketKey(r.cli.appID))
+	if err == ErrStoreNotFound && r.cli.getAppTicketFunc != nil {
+		ticket, err := r.cli.getAppTicketFunc(ctx, r.cli.appID)
+		if err != nil {
+			return "", err
+		}
+		_ = r.SetAppTicket(ctx, ticket)
+		return ticket, nil
+	}
 	return s, err
 }
 

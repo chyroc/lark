@@ -18,6 +18,7 @@
 package lark
 
 import (
+	"context"
 	"time"
 )
 
@@ -36,6 +37,7 @@ type Lark struct {
 	customBotSecret     string
 	openBaseURL         string
 	wwwBaseURL          string
+	getAppTicketFunc func(ctx context.Context, appID string) (string, error)
 
 	httpClient   HttpClient
 	logger       Logger
