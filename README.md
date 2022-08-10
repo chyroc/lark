@@ -38,7 +38,7 @@ https://godoc.org/github.com/chyroc/lark
 
 ## Support APIs
 
-API Count: 631, Event Count: 93
+API Count: 645, Event Count: 93
 
 <details>
   <summary>
@@ -64,6 +64,16 @@ API Count: 631, Event Count: 93
   - AdminResetPassword
   - GetAdminDeptStats
   - GetAdminUserStats
+  - UploadAdminBadgeImage
+  - CreateAdminBadge
+  - UpdateAdminBadge
+  - GetAdminBadgeList
+  - GetAdminBadge
+  - CreateAdminBadgeGrant
+  - UpdateAdminBadgeGrant
+  - GetAdminBadgeGrantList
+  - GetAdminBadgeGrant
+  - DeleteAdminBadgeGrant
 - AppLink
   - OpenLark
   - OpenMiniProgram
@@ -116,6 +126,7 @@ API Count: 631, Event Count: 93
   - ApproveApprovalInstance
   - RejectApprovalInstance
   - TransferApprovalInstance
+  - ResubmitApprovalInstanceTask
   - RollbackApprovalInstance
   - AddApprovalInstanceSign
   - CreateApprovalComment
@@ -225,6 +236,7 @@ API Count: 631, Event Count: 93
   - DeleteCalendarACL
   - GetCalendarACLList
   - SubscribeCalendarACL
+  - UnsubscribeCalendarACL
   - GetPrimaryCalendar
   - CreateCalendar
   - DeleteCalendar
@@ -235,6 +247,7 @@ API Count: 631, Event Count: 93
   - SubscribeCalendar
   - UnsubscribeCalendar
   - SubscribeCalendarChangeEvent
+  - UnsubscribeCalendarChangeEvent
   - CreateCalendarEvent
   - DeleteCalendarEvent
   - GetCalendarEvent
@@ -242,6 +255,7 @@ API Count: 631, Event Count: 93
   - UpdateCalendarEvent
   - SearchCalendarEvent
   - SubscribeCalendarEvent
+  - UnsubscribeCalendarEvent
   - CreateCalendarEventAttendee
   - GetCalendarEventAttendeeList
   - DeleteCalendarEventAttendee

@@ -38,7 +38,7 @@ https://godoc.org/github.com/chyroc/lark
 
 ## 支持的接口
 
-API 总数: 631, 事件总数: 93
+API 总数: 645, 事件总数: 93
 
 <details>
   <summary>
@@ -64,6 +64,16 @@ API 总数: 631, 事件总数: 93
   - AdminResetPassword
   - GetAdminDeptStats
   - GetAdminUserStats
+  - UploadAdminBadgeImage
+  - CreateAdminBadge
+  - UpdateAdminBadge
+  - GetAdminBadgeList
+  - GetAdminBadge
+  - CreateAdminBadgeGrant
+  - UpdateAdminBadgeGrant
+  - GetAdminBadgeGrantList
+  - GetAdminBadgeGrant
+  - DeleteAdminBadgeGrant
 - AppLink
   - OpenLark
   - OpenMiniProgram
@@ -116,6 +126,7 @@ API 总数: 631, 事件总数: 93
   - ApproveApprovalInstance
   - RejectApprovalInstance
   - TransferApprovalInstance
+  - ResubmitApprovalInstanceTask
   - RollbackApprovalInstance
   - AddApprovalInstanceSign
   - CreateApprovalComment
@@ -225,6 +236,7 @@ API 总数: 631, 事件总数: 93
   - DeleteCalendarACL
   - GetCalendarACLList
   - SubscribeCalendarACL
+  - UnsubscribeCalendarACL
   - GetPrimaryCalendar
   - CreateCalendar
   - DeleteCalendar
@@ -235,6 +247,7 @@ API 总数: 631, 事件总数: 93
   - SubscribeCalendar
   - UnsubscribeCalendar
   - SubscribeCalendarChangeEvent
+  - UnsubscribeCalendarChangeEvent
   - CreateCalendarEvent
   - DeleteCalendarEvent
   - GetCalendarEvent
@@ -242,6 +255,7 @@ API 总数: 631, 事件总数: 93
   - UpdateCalendarEvent
   - SearchCalendarEvent
   - SubscribeCalendarEvent
+  - UnsubscribeCalendarEvent
   - CreateCalendarEventAttendee
   - GetCalendarEventAttendeeList
   - DeleteCalendarEventAttendee

@@ -99,6 +99,18 @@ func Test_Calendar_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
+			cli.Mock().MockCalendarUnsubscribeCalendarACL(func(ctx context.Context, request *lark.UnsubscribeCalendarACLReq, options ...lark.MethodOptionFunc) (*lark.UnsubscribeCalendarACLResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockCalendarUnsubscribeCalendarACL()
+
+			_, _, err := moduleCli.UnsubscribeCalendarACL(ctx, &lark.UnsubscribeCalendarACLReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
 			cli.Mock().MockCalendarGetPrimaryCalendar(func(ctx context.Context, request *lark.GetPrimaryCalendarReq, options ...lark.MethodOptionFunc) (*lark.GetPrimaryCalendarResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -219,6 +231,18 @@ func Test_Calendar_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
+			cli.Mock().MockCalendarUnsubscribeCalendarChangeEvent(func(ctx context.Context, request *lark.UnsubscribeCalendarChangeEventReq, options ...lark.MethodOptionFunc) (*lark.UnsubscribeCalendarChangeEventResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockCalendarUnsubscribeCalendarChangeEvent()
+
+			_, _, err := moduleCli.UnsubscribeCalendarChangeEvent(ctx, &lark.UnsubscribeCalendarChangeEventReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
 			cli.Mock().MockCalendarCreateCalendarEvent(func(ctx context.Context, request *lark.CreateCalendarEventReq, options ...lark.MethodOptionFunc) (*lark.CreateCalendarEventResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -297,6 +321,18 @@ func Test_Calendar_Sample_Failed(t *testing.T) {
 			defer cli.Mock().UnMockCalendarSubscribeCalendarEvent()
 
 			_, _, err := moduleCli.SubscribeCalendarEvent(ctx, &lark.SubscribeCalendarEventReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			cli.Mock().MockCalendarUnsubscribeCalendarEvent(func(ctx context.Context, request *lark.UnsubscribeCalendarEventReq, options ...lark.MethodOptionFunc) (*lark.UnsubscribeCalendarEventResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockCalendarUnsubscribeCalendarEvent()
+
+			_, _, err := moduleCli.UnsubscribeCalendarEvent(ctx, &lark.UnsubscribeCalendarEventReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "mock-failed")
 		})
@@ -478,6 +514,15 @@ func Test_Calendar_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
+			_, _, err := moduleCli.UnsubscribeCalendarACL(ctx, &lark.UnsubscribeCalendarACLReq{
+				CalendarID: "x",
+			})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+
 			_, _, err := moduleCli.GetPrimaryCalendar(ctx, &lark.GetPrimaryCalendarReq{})
 			as.NotNil(err)
 			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
@@ -558,6 +603,13 @@ func Test_Calendar_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
+			_, _, err := moduleCli.UnsubscribeCalendarChangeEvent(ctx, &lark.UnsubscribeCalendarChangeEventReq{})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+
 			_, _, err := moduleCli.CreateCalendarEvent(ctx, &lark.CreateCalendarEventReq{
 				CalendarID: "x",
 			})
@@ -616,6 +668,15 @@ func Test_Calendar_Sample_Failed(t *testing.T) {
 		t.Run("", func(t *testing.T) {
 
 			_, _, err := moduleCli.SubscribeCalendarEvent(ctx, &lark.SubscribeCalendarEventReq{
+				CalendarID: "x",
+			})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.UnsubscribeCalendarEvent(ctx, &lark.UnsubscribeCalendarEventReq{
 				CalendarID: "x",
 			})
 			as.NotNil(err)
@@ -766,6 +827,15 @@ func Test_Calendar_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
+			_, _, err := moduleCli.UnsubscribeCalendarACL(ctx, &lark.UnsubscribeCalendarACLReq{
+				CalendarID: "x",
+			})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+
 			_, _, err := moduleCli.GetPrimaryCalendar(ctx, &lark.GetPrimaryCalendarReq{})
 			as.NotNil(err)
 			as.Equal("fake raw request", err.Error())
@@ -846,6 +916,13 @@ func Test_Calendar_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
+			_, _, err := moduleCli.UnsubscribeCalendarChangeEvent(ctx, &lark.UnsubscribeCalendarChangeEventReq{})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+
 			_, _, err := moduleCli.CreateCalendarEvent(ctx, &lark.CreateCalendarEventReq{
 				CalendarID: "x",
 			})
@@ -904,6 +981,15 @@ func Test_Calendar_Sample_Failed(t *testing.T) {
 		t.Run("", func(t *testing.T) {
 
 			_, _, err := moduleCli.SubscribeCalendarEvent(ctx, &lark.SubscribeCalendarEventReq{
+				CalendarID: "x",
+			})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.UnsubscribeCalendarEvent(ctx, &lark.UnsubscribeCalendarEventReq{
 				CalendarID: "x",
 			})
 			as.NotNil(err)

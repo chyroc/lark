@@ -207,6 +207,18 @@ func Test_Approval_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
+			cli.Mock().MockApprovalResubmitApprovalInstanceTask(func(ctx context.Context, request *lark.ResubmitApprovalInstanceTaskReq, options ...lark.MethodOptionFunc) (*lark.ResubmitApprovalInstanceTaskResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockApprovalResubmitApprovalInstanceTask()
+
+			_, _, err := moduleCli.ResubmitApprovalInstanceTask(ctx, &lark.ResubmitApprovalInstanceTaskReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
 			cli.Mock().MockApprovalRollbackApprovalInstance(func(ctx context.Context, request *lark.RollbackApprovalInstanceReq, options ...lark.MethodOptionFunc) (*lark.RollbackApprovalInstanceResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -516,6 +528,13 @@ func Test_Approval_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
+			_, _, err := moduleCli.ResubmitApprovalInstanceTask(ctx, &lark.ResubmitApprovalInstanceTaskReq{})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+
 			_, _, err := moduleCli.RollbackApprovalInstance(ctx, &lark.RollbackApprovalInstanceReq{})
 			as.NotNil(err)
 			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
@@ -746,6 +765,13 @@ func Test_Approval_Sample_Failed(t *testing.T) {
 		t.Run("", func(t *testing.T) {
 
 			_, _, err := moduleCli.TransferApprovalInstance(ctx, &lark.TransferApprovalInstanceReq{})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.ResubmitApprovalInstanceTask(ctx, &lark.ResubmitApprovalInstanceTaskReq{})
 			as.NotNil(err)
 			as.Equal("fake raw request", err.Error())
 		})
