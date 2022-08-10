@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// BatchCreateBitableAppRoleMember 批量新增自定义权限的协作者
+// BatchCreateBitableAppRoleMember 批量新增自定义角色的协作者
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-role-member/batch_create
 func (r *BitableService) BatchCreateBitableAppRoleMember(ctx context.Context, request *BatchCreateBitableAppRoleMemberReq, options ...MethodOptionFunc) (*BatchCreateBitableAppRoleMemberResp, *Response, error) {
@@ -59,7 +59,7 @@ func (r *Mock) UnMockBitableBatchCreateBitableAppRoleMember() {
 // BatchCreateBitableAppRoleMemberReq ...
 type BatchCreateBitableAppRoleMemberReq struct {
 	AppToken   string                                      `path:"app_token" json:"-"`    // Bitable 文档 Token, 示例值: "bascnnKKvcoUblgmmhZkYqabcef"
-	RoleID     string                                      `path:"role_id" json:"-"`      // 自定义权限 ID, 示例值: "rolNGhPqks"
+	RoleID     string                                      `path:"role_id" json:"-"`      // 自定义角色 ID, 示例值: "rolNGhPqks"
 	MemberList []*BatchCreateBitableAppRoleMemberReqMember `json:"member_list,omitempty"` // 协作者列表, 最大长度: `100`
 }
 

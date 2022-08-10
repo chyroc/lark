@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// DeleteBitableAppRoleMember 删除自定义权限的协作者
+// DeleteBitableAppRoleMember 删除自定义角色的协作者
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-role-member/delete
 func (r *BitableService) DeleteBitableAppRoleMember(ctx context.Context, request *DeleteBitableAppRoleMemberReq, options ...MethodOptionFunc) (*DeleteBitableAppRoleMemberResp, *Response, error) {
@@ -59,9 +59,9 @@ func (r *Mock) UnMockBitableDeleteBitableAppRoleMember() {
 // DeleteBitableAppRoleMemberReq ...
 type DeleteBitableAppRoleMemberReq struct {
 	AppToken     string  `path:"app_token" json:"-"`       // bitable app token, 示例值: "appbcbWCzen6D8dezhoCH2RpMAh"
-	RoleID       string  `path:"role_id" json:"-"`         // 自定义权限的id, 示例值: "roljRpwIUt"
+	RoleID       string  `path:"role_id" json:"-"`         // 自定义角色的id, 示例值: "roljRpwIUt"
 	MemberID     string  `path:"member_id" json:"-"`       // 协作者id, 示例值: "ou_7dab8a3d3cdcc9da365777c7ad53uew2"
-	MemberIDType *IDType `query:"member_id_type" json:"-"` // 协作者id类型, 与请求体中的member_id要对应, 示例值: "open_id", 可选值有: `open_id`: 以open_id来识别协作者, `union_id`: 以union_id来识别协作者, `user_id`: 以user_id来识别协作者, `chat_id`: 以chat_id来识别协作者, `department_id`: 以department_id来识别协作者, `open_department_id`: 以open_department_id来识别协作者, 默认值: `open_id`
+	MemberIDType *IDType `query:"member_id_type" json:"-"` // 协作者id类型, 与请求体中的member_id要对应, 示例值: "open_id", 可选值有: open_id: 以open_id来识别协作者, union_id: 以union_id来识别协作者, user_id: 以user_id来识别协作者, chat_id: 以chat_id来识别协作者, department_id: 以department_id来识别协作者, open_department_id: 以open_department_id来识别协作者, 默认值: `open_id`
 }
 
 // DeleteBitableAppRoleMemberResp ...

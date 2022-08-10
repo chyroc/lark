@@ -67,7 +67,7 @@ type GetBitableRecordListReq struct {
 	Sort              *string `query:"sort" json:"-"`                // 排序参数, 注意: 1.表达式需要不超过1000字符, 2.不支持对带“公式”和“关联字段”的表的使用, 示例值: "["字段1 DESC", "字段2 ASC"], 注意: 使用引号将字段名称和顺序逆序连接起来。"
 	FieldNames        *string `query:"field_names" json:"-"`         // 字段名称, 示例值: "["字段1"]"
 	TextFieldAsArray  *bool   `query:"text_field_as_array" json:"-"` // 控制多行文本字段数据的返回格式, true 表示以数组形式返回, 注意: 1.多行文本中如果有超链接部分, 则会返回链接的 URL, 2.目前可以返回多行文本中 URL 类型为多维表格链接、飞书 doc、飞书 sheet的URL类型以及@人员的数据结构, 示例值: true
-	UserIDType        *IDType `query:"user_id_type" json:"-"`        // 用户 ID 类型, 示例值: "open_id", 可选值有: `open_id`: 用户的 open id, `union_id`: 用户的 union id, `user_id`: 用户的 user id, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
+	UserIDType        *IDType `query:"user_id_type" json:"-"`        // 用户 ID 类型, 示例值: "open_id", 可选值有: open_id: 用户的 open id, union_id: 用户的 union id, user_id: 用户的 user id, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
 	DisplayFormulaRef *bool   `query:"display_formula_ref" json:"-"` // 控制公式、查找引用是否显示完整的原样返回结果, 示例值: true
 	AutomaticFields   *bool   `query:"automatic_fields" json:"-"`    // 控制是否返回自动计算的字段, 例如 `created_by`/`created_time`/`last_modified_by`/`last_modified_time`, true 表示返回, 示例值: true
 	PageToken         *string `query:"page_token" json:"-"`          // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果, 示例值: "recn0hoyXL"

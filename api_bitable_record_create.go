@@ -62,7 +62,7 @@ func (r *Mock) UnMockBitableCreateBitableRecord() {
 type CreateBitableRecordReq struct {
 	AppToken   string                 `path:"app_token" json:"-"`     // bitable app token, 示例值: "bascng7vrxcxpig7geggXiCtadY"
 	TableID    string                 `path:"table_id" json:"-"`      // table id, 示例值: "tblUa9vcYjWQYJCj"
-	UserIDType *IDType                `query:"user_id_type" json:"-"` // 用户 ID 类型, 示例值: "open_id", 可选值有: `open_id`: 用户的 open id, `union_id`: 用户的 union id, `user_id`: 用户的 user id, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
+	UserIDType *IDType                `query:"user_id_type" json:"-"` // 用户 ID 类型, 示例值: "open_id", 可选值有: open_id: 用户的 open id, union_id: 用户的 union id, user_id: 用户的 user id, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
 	Fields     map[string]interface{} `json:"fields,omitempty"`       // 记录字段, 关于支持新增的字段类型, 请参考[接入指南](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/bitable/notification)
 }
 

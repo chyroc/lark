@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// DeleteBitableAppRole 删除自定义权限
+// DeleteBitableAppRole 删除自定义角色
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-role/delete
 func (r *BitableService) DeleteBitableAppRole(ctx context.Context, request *DeleteBitableAppRoleReq, options ...MethodOptionFunc) (*DeleteBitableAppRoleResp, *Response, error) {
@@ -59,7 +59,7 @@ func (r *Mock) UnMockBitableDeleteBitableAppRole() {
 // DeleteBitableAppRoleReq ...
 type DeleteBitableAppRoleReq struct {
 	AppToken string `path:"app_token" json:"-"` // bitable app token, 示例值: "appbcbWCzen6D8dezhoCH2RpMAh"
-	RoleID   string `path:"role_id" json:"-"`   // 自定义权限的id, 示例值: "roljRpwIUt"
+	RoleID   string `path:"role_id" json:"-"`   // 自定义角色的id, 示例值: "roljRpwIUt"
 }
 
 // DeleteBitableAppRoleResp ...

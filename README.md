@@ -38,7 +38,7 @@ https://godoc.org/github.com/chyroc/lark
 
 ## Support APIs
 
-API Count: 630, Event Count: 93
+API Count: 631, Event Count: 93
 
 <details>
   <summary>
@@ -210,6 +210,7 @@ API Count: 630, Event Count: 93
   - BatchCreateBitableTable
   - DeleteBitableTable
   - BatchDeleteBitableTable
+  - GetBitableDashboardList
   - UpdateBitableTableForm
   - GetBitableTableForm
   - UpdateBitableTableFormField

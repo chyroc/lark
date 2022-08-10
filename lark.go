@@ -115,17 +115,17 @@ func WithOpenBaseURL(baseURL string) ClientOptionFunc {
 	}
 }
 
-// WithGetAppTicketFunc set get app ticket function
-func WithGetAppTicketFunc(f func(ctx context.Context, appID string) (string, error)) ClientOptionFunc {
-	return func(lark *Lark) {
-		lark.getAppTicketFunc = f
-	}
-}
-
 // WithWWWBaseURL set www base url
 func WithWWWBaseURL(baseURL string) ClientOptionFunc {
 	return func(lark *Lark) {
 		lark.wwwBaseURL = strings.TrimRight(baseURL, "/")
+	}
+}
+
+// WithGetAppTicketFunc set get app ticket function
+func WithGetAppTicketFunc(f func(ctx context.Context, larkClient *Lark, appID string) (string, error)) ClientOptionFunc {
+	return func(lark *Lark) {
+		lark.getAppTicketFunc = f
 	}
 }
 

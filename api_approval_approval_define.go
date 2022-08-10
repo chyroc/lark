@@ -59,18 +59,19 @@ func (r *Mock) UnMockApprovalCreateApproval() {
 
 // CreateApprovalReq ...
 type CreateApprovalReq struct {
-	DepartmentIDType *DepartmentIDType                `query:"department_id_type" json:"-"` // 此次调用中使用的部门ID的类型, 示例值: "open_department_id", 可选值有: department_id: 以自定义department_id来标识部门, open_department_id: 以open_department_id来标识部门
-	UserIDType       *IDType                          `query:"user_id_type" json:"-"`       // 用户 ID 类型, 示例值: "open_id", 可选值有: open_id: 用户的 open id, union_id: 用户的 union id, user_id: 用户的 user id, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
-	ApprovalName     string                           `json:"approval_name,omitempty"`      // 审批名称的国际化文案 Key, 以 @i18n@ 开头, 长度不得少于 9 个字符, 示例值: "@i18n@approval_name"
-	ApprovalCode     *string                          `json:"approval_code,omitempty"`      // 传空表示新建, 示例值: "7C468A54-8745-2245-9675-08B7C63E7A85"
-	Description      *string                          `json:"description,omitempty"`        // 审批描述的国际化文案 Key, 以 @i18n@ 开头, 长度不得少于 9 个字符, 示例值: "@i18n@description"
-	Viewers          []*CreateApprovalReqViewer       `json:"viewers,omitempty"`            // viewers 字段指定了哪些人能从审批应用的前台发起该审批, 1. 当 view_type 为 USER, 需要填写viewer_user_id；, 2. 当 view_type 为DEPARTMENT, 需要填写viewer_department_id；, 3. 当 view_type 为TENANT或NONE时, viewer_user_id和viewer_department_id无需填写
-	Form             *CreateApprovalReqForm           `json:"form,omitempty"`               // 审批定义表单
-	NodeList         []*CreateApprovalReqNode         `json:"node_list,omitempty"`          // 审批定义节点, 需要将开始节点作为 list 第一个元素, 结束节点作为最后一个元素
-	Settings         *CreateApprovalReqSettings       `json:"settings,omitempty"`           // 审批定义其他设置
-	Config           *CreateApprovalReqConfig         `json:"config,omitempty"`             // 审批定义配置项, 用于配置对应审批定义是否可以由用户在审批后台进行修改
-	Icon             *int64                           `json:"icon,omitempty"`               // 审批图标枚举, 详见下方说明, 默认为 0, 示例值: 0, 默认值: `0`
-	I18nResources    []*CreateApprovalReqI18nResource `json:"i18n_resources,omitempty"`     // 国际化文案
+	DepartmentIDType  *DepartmentIDType                `query:"department_id_type" json:"-"`  // 此次调用中使用的部门ID的类型, 示例值: "open_department_id", 可选值有: department_id: 以自定义department_id来标识部门, open_department_id: 以open_department_id来标识部门
+	UserIDType        *IDType                          `query:"user_id_type" json:"-"`        // 用户 ID 类型, 示例值: "open_id", 可选值有: open_id: 用户的 open id, union_id: 用户的 union id, user_id: 用户的 user id, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
+	ApprovalName      string                           `json:"approval_name,omitempty"`       // 审批名称的国际化文案 Key, 以 @i18n@ 开头, 长度不得少于 9 个字符, 示例值: "@i18n@approval_name"
+	ApprovalCode      *string                          `json:"approval_code,omitempty"`       // 传空表示新建, 示例值: "7C468A54-8745-2245-9675-08B7C63E7A85"
+	Description       *string                          `json:"description,omitempty"`         // 审批描述的国际化文案 Key, 以 @i18n@ 开头, 长度不得少于 9 个字符, 示例值: "@i18n@description"
+	Viewers           []*CreateApprovalReqViewer       `json:"viewers,omitempty"`             // viewers 字段指定了哪些人能从审批应用的前台发起该审批, 1. 当 view_type 为 USER, 需要填写viewer_user_id；, 2. 当 view_type 为DEPARTMENT, 需要填写viewer_department_id；, 3. 当 view_type 为TENANT或NONE时, viewer_user_id和viewer_department_id无需填写
+	Form              *CreateApprovalReqForm           `json:"form,omitempty"`                // 审批定义表单
+	NodeList          []*CreateApprovalReqNode         `json:"node_list,omitempty"`           // 审批定义节点, 需要将开始节点作为 list 第一个元素, 结束节点作为最后一个元素
+	Settings          *CreateApprovalReqSettings       `json:"settings,omitempty"`            // 审批定义其他设置
+	Config            *CreateApprovalReqConfig         `json:"config,omitempty"`              // 审批定义配置项, 用于配置对应审批定义是否可以由用户在审批后台进行修改
+	Icon              *int64                           `json:"icon,omitempty"`                // 审批图标枚举, 详见下方说明, 默认为 0, 示例值: 0, 默认值: `0`
+	I18nResources     []*CreateApprovalReqI18nResource `json:"i18n_resources,omitempty"`      // 国际化文案
+	ProcessManagerIDs []string                         `json:"process_manager_ids,omitempty"` // 根据user_id_type填写流程管理员的用户id, 示例值: ["1c5ea995"]
 }
 
 // CreateApprovalReqConfig ...

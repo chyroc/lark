@@ -37,14 +37,14 @@ type Lark struct {
 	customBotSecret     string
 	openBaseURL         string
 	wwwBaseURL          string
-	getAppTicketFunc func(ctx context.Context, appID string) (string, error)
 
-	httpClient   HttpClient
-	logger       Logger
-	logLevel     LogLevel
-	store        Store
-	mock         *Mock
-	eventHandler *eventHandler
+	httpClient       HttpClient
+	logger           Logger
+	logLevel         LogLevel
+	store            Store
+	mock             *Mock
+	eventHandler     *eventHandler
+	getAppTicketFunc func(ctx context.Context, larkClient *Lark, appID string) (string, error)
 
 	// service
 	ACS           *ACSService

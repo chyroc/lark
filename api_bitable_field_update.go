@@ -64,20 +64,39 @@ type UpdateBitableFieldReq struct {
 	TableID   string                         `path:"table_id" json:"-"`    // table id, 示例值: "tblsRc9GRRXKqhvW"
 	FieldID   string                         `path:"field_id" json:"-"`    // field id, 示例值: "fldPTb0U2y"
 	FieldName string                         `json:"field_name,omitempty"` // 多维表格字段名, 示例值: "多行文本"
-	Type      int64                          `json:"type,omitempty"`       // 多维表格字段类型, 示例值: 1, 可选值有: `1`: 多行文本, `2`: 数字, `3`: 单选, `4`: 多选, `5`: 日期, `7`: 复选框, `11`: 人员, `15`: 超链接, `17`: 附件, `18`: 关联, `20`: 公式, `21`: 双向关联, `1001`: 创建时间, `1002`: 最后更新时间, `1003`: 创建人, `1004`: 修改人
+	Type      int64                          `json:"type,omitempty"`       // 多维表格字段类型, 示例值: 1, 可选值有: 1: 多行文本, 2: 数字, 3: 单选, 4: 多选, 5: 日期, 7: 复选框, 11: 人员, 15: 超链接, 17: 附件, 18: 关联, 20: 公式, 21: 双向关联, 1001: 创建时间, 1002: 最后更新时间, 1003: 创建人, 1004: 修改人, 1005: 自动编号, 13: 电话号码, 22: 地理位置
 	Property  *UpdateBitableFieldReqProperty `json:"property,omitempty"`   // 字段属性, 具体参考: [字段编辑指南](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table-field/guide)
 }
 
 // UpdateBitableFieldReqProperty ...
 type UpdateBitableFieldReqProperty struct {
-	Options       []*UpdateBitableFieldReqPropertyOption `json:"options,omitempty"`         // 单选、多选字段的选项信息
-	Formatter     *string                                `json:"formatter,omitempty"`       // 数字、公式字段的显示格式, 示例值: "0"
-	DateFormatter *string                                `json:"date_formatter,omitempty"`  // 日期、创建时间、最后更新时间字段的显示格式, 示例值: "日期格式"
-	AutoFill      *bool                                  `json:"auto_fill,omitempty"`       // 日期字段中新纪录自动填写创建时间, 示例值: false
-	Multiple      *bool                                  `json:"multiple,omitempty"`        // 人员字段中允许添加多个成员, 单向关联、双向关联中允许添加多个记录, 示例值: false
-	TableID       *string                                `json:"table_id,omitempty"`        // 单向关联、双向关联字段中关联的数据表的id, 示例值: "tblsRc9GRRXKqhvW"
-	TableName     *string                                `json:"table_name,omitempty"`      // 单向关联、双向关联字段中关联的数据表的名字, 示例值: ""table2""
-	BackFieldName *string                                `json:"back_field_name,omitempty"` // 双向关联字段中关联的数据表中对应的双向关联字段的名字, 示例值: ""table1-双向关联""
+	Options       []*UpdateBitableFieldReqPropertyOption   `json:"options,omitempty"`         // 单选、多选字段的选项信息
+	Formatter     *string                                  `json:"formatter,omitempty"`       // 数字、公式字段的显示格式, 示例值: "0"
+	DateFormatter *string                                  `json:"date_formatter,omitempty"`  // 日期、创建时间、最后更新时间字段的显示格式, 示例值: "日期格式"
+	AutoFill      *bool                                    `json:"auto_fill,omitempty"`       // 日期字段中新纪录自动填写创建时间, 示例值: false
+	Multiple      *bool                                    `json:"multiple,omitempty"`        // 人员字段中允许添加多个成员, 单向关联、双向关联中允许添加多个记录, 示例值: false
+	TableID       *string                                  `json:"table_id,omitempty"`        // 单向关联、双向关联字段中关联的数据表的id, 示例值: "tblsRc9GRRXKqhvW"
+	TableName     *string                                  `json:"table_name,omitempty"`      // 单向关联、双向关联字段中关联的数据表的名字, 示例值: ""table2""
+	BackFieldName *string                                  `json:"back_field_name,omitempty"` // 双向关联字段中关联的数据表中对应的双向关联字段的名字, 示例值: ""table1-双向关联""
+	AutoSerial    *UpdateBitableFieldReqPropertyAutoSerial `json:"auto_serial,omitempty"`     // 自动编号类型
+	Location      *UpdateBitableFieldReqPropertyLocation   `json:"location,omitempty"`        // 地理位置输入方式
+}
+
+// UpdateBitableFieldReqPropertyAutoSerial ...
+type UpdateBitableFieldReqPropertyAutoSerial struct {
+	Type    string                                           `json:"type,omitempty"`    // 自动编号类型, 示例值: "auto_increment_number", 可选值有: custom: 自定义编号, auto_increment_number: 自增数字
+	Options []*UpdateBitableFieldReqPropertyAutoSerialOption `json:"options,omitempty"` // 自动编号规则列表
+}
+
+// UpdateBitableFieldReqPropertyAutoSerialOption ...
+type UpdateBitableFieldReqPropertyAutoSerialOption struct {
+	Type  string `json:"type,omitempty"`  // 自动编号的可选规则项类型, 示例值: "created_time", 可选值有: system_number: 自增数字位, value范围1-9, fixed_text: 固定字符, 最大长度: 20, created_time: 创建时间, 支持格式 "yyyyMMdd"、"yyyyMM"、"yyyy"、"MMdd"、"MM"、"dd"
+	Value string `json:"value,omitempty"` // 与自动编号的可选规则项类型相对应的取值, 示例值: "yyyyMMdd"
+}
+
+// UpdateBitableFieldReqPropertyLocation ...
+type UpdateBitableFieldReqPropertyLocation struct {
+	InputType string `json:"input_type,omitempty"` // 地理位置输入限制, 示例值: "not_limit", 可选值有: only_mobile: 只允许移动端上传, not_limit: 无限制
 }
 
 // UpdateBitableFieldReqPropertyOption ...
@@ -96,20 +115,39 @@ type UpdateBitableFieldResp struct {
 type UpdateBitableFieldRespField struct {
 	FieldID   string                               `json:"field_id,omitempty"`   // 多维表格字段 id
 	FieldName string                               `json:"field_name,omitempty"` // 多维表格字段名
-	Type      int64                                `json:"type,omitempty"`       // 多维表格字段类型, 可选值有: `1`: 多行文本, `2`: 数字, `3`: 单选, `4`: 多选, `5`: 日期, `7`: 复选框, `11`: 人员, `15`: 超链接, `17`: 附件, `18`: 关联, `20`: 公式, `21`: 双向关联, `1001`: 创建时间, `1002`: 最后更新时间, `1003`: 创建人, `1004`: 修改人
+	Type      int64                                `json:"type,omitempty"`       // 多维表格字段类型, 可选值有: 1: 多行文本, 2: 数字, 3: 单选, 4: 多选, 5: 日期, 7: 复选框, 11: 人员, 15: 超链接, 17: 附件, 18: 关联, 20: 公式, 21: 双向关联, 1001: 创建时间, 1002: 最后更新时间, 1003: 创建人, 1004: 修改人, 1005: 自动编号, 13: 电话号码, 22: 地理位置
 	Property  *UpdateBitableFieldRespFieldProperty `json:"property,omitempty"`   // 字段属性, 具体参考: [字段编辑指南](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table-field/guide)
 }
 
 // UpdateBitableFieldRespFieldProperty ...
 type UpdateBitableFieldRespFieldProperty struct {
-	Options       []*UpdateBitableFieldRespFieldPropertyOption `json:"options,omitempty"`         // 单选、多选字段的选项信息
-	Formatter     string                                       `json:"formatter,omitempty"`       // 数字、公式字段的显示格式
-	DateFormatter string                                       `json:"date_formatter,omitempty"`  // 日期、创建时间、最后更新时间字段的显示格式
-	AutoFill      bool                                         `json:"auto_fill,omitempty"`       // 日期字段中新纪录自动填写创建时间
-	Multiple      bool                                         `json:"multiple,omitempty"`        // 人员字段中允许添加多个成员, 单向关联、双向关联中允许添加多个记录
-	TableID       string                                       `json:"table_id,omitempty"`        // 单向关联、双向关联字段中关联的数据表的id
-	TableName     string                                       `json:"table_name,omitempty"`      // 单向关联、双向关联字段中关联的数据表的名字
-	BackFieldName string                                       `json:"back_field_name,omitempty"` // 双向关联字段中关联的数据表中对应的双向关联字段的名字
+	Options       []*UpdateBitableFieldRespFieldPropertyOption   `json:"options,omitempty"`         // 单选、多选字段的选项信息
+	Formatter     string                                         `json:"formatter,omitempty"`       // 数字、公式字段的显示格式
+	DateFormatter string                                         `json:"date_formatter,omitempty"`  // 日期、创建时间、最后更新时间字段的显示格式
+	AutoFill      bool                                           `json:"auto_fill,omitempty"`       // 日期字段中新纪录自动填写创建时间
+	Multiple      bool                                           `json:"multiple,omitempty"`        // 人员字段中允许添加多个成员, 单向关联、双向关联中允许添加多个记录
+	TableID       string                                         `json:"table_id,omitempty"`        // 单向关联、双向关联字段中关联的数据表的id
+	TableName     string                                         `json:"table_name,omitempty"`      // 单向关联、双向关联字段中关联的数据表的名字
+	BackFieldName string                                         `json:"back_field_name,omitempty"` // 双向关联字段中关联的数据表中对应的双向关联字段的名字
+	AutoSerial    *UpdateBitableFieldRespFieldPropertyAutoSerial `json:"auto_serial,omitempty"`     // 自动编号类型
+	Location      *UpdateBitableFieldRespFieldPropertyLocation   `json:"location,omitempty"`        // 地理位置输入方式
+}
+
+// UpdateBitableFieldRespFieldPropertyAutoSerial ...
+type UpdateBitableFieldRespFieldPropertyAutoSerial struct {
+	Type    string                                                 `json:"type,omitempty"`    // 自动编号类型, 可选值有: custom: 自定义编号, auto_increment_number: 自增数字
+	Options []*UpdateBitableFieldRespFieldPropertyAutoSerialOption `json:"options,omitempty"` // 自动编号规则列表
+}
+
+// UpdateBitableFieldRespFieldPropertyAutoSerialOption ...
+type UpdateBitableFieldRespFieldPropertyAutoSerialOption struct {
+	Type  string `json:"type,omitempty"`  // 自动编号的可选规则项类型, 可选值有: system_number: 自增数字位, value范围1-9, fixed_text: 固定字符, 最大长度: 20, created_time: 创建时间, 支持格式 "yyyyMMdd"、"yyyyMM"、"yyyy"、"MMdd"、"MM"、"dd"
+	Value string `json:"value,omitempty"` // 与自动编号的可选规则项类型相对应的取值
+}
+
+// UpdateBitableFieldRespFieldPropertyLocation ...
+type UpdateBitableFieldRespFieldPropertyLocation struct {
+	InputType string `json:"input_type,omitempty"` // 地理位置输入限制, 可选值有: only_mobile: 只允许移动端上传, not_limit: 无限制
 }
 
 // UpdateBitableFieldRespFieldPropertyOption ...

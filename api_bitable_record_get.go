@@ -64,7 +64,7 @@ type GetBitableRecordReq struct {
 	TableID           string  `path:"table_id" json:"-"`             // table id, 示例值: "tblxI2tWaxP5dG7p"
 	RecordID          string  `path:"record_id" json:"-"`            // 单条记录的 id, 示例值: "recn0hoyXL"
 	TextFieldAsArray  *bool   `query:"text_field_as_array" json:"-"` // 控制多行文本字段数据的返回格式, true 表示以数组形式返回, 示例值: true
-	UserIDType        *IDType `query:"user_id_type" json:"-"`        // 用户 ID 类型, 示例值: "open_id", 可选值有: `open_id`: 用户的 open id, `union_id`: 用户的 union id, `user_id`: 用户的 user id, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
+	UserIDType        *IDType `query:"user_id_type" json:"-"`        // 用户 ID 类型, 示例值: "open_id", 可选值有: open_id: 用户的 open id, union_id: 用户的 union id, user_id: 用户的 user id, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
 	DisplayFormulaRef *bool   `query:"display_formula_ref" json:"-"` // 控制公式、查找引用是否显示完整的原样返回结果, 示例值: true
 	AutomaticFields   *bool   `query:"automatic_fields" json:"-"`    // 控制是否返回自动计算的字段, 例如 `created_by`/`created_time`/`last_modified_by`/`last_modified_time`, true 表示返回, 示例值: true
 }

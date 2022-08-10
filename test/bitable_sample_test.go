@@ -399,6 +399,18 @@ func Test_Bitable_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
+			cli.Mock().MockBitableGetBitableDashboardList(func(ctx context.Context, request *lark.GetBitableDashboardListReq, options ...lark.MethodOptionFunc) (*lark.GetBitableDashboardListResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockBitableGetBitableDashboardList()
+
+			_, _, err := moduleCli.GetBitableDashboardList(ctx, &lark.GetBitableDashboardListReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
 			cli.Mock().MockBitableUpdateBitableTableForm(func(ctx context.Context, request *lark.UpdateBitableTableFormReq, options ...lark.MethodOptionFunc) (*lark.UpdateBitableTableFormResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -768,6 +780,15 @@ func Test_Bitable_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
+			_, _, err := moduleCli.GetBitableDashboardList(ctx, &lark.GetBitableDashboardListReq{
+				AppToken: "x",
+			})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+
 			_, _, err := moduleCli.UpdateBitableTableForm(ctx, &lark.UpdateBitableTableFormReq{
 				AppToken: "x",
 				TableID:  "x",
@@ -1123,6 +1144,15 @@ func Test_Bitable_Sample_Failed(t *testing.T) {
 		t.Run("", func(t *testing.T) {
 
 			_, _, err := moduleCli.BatchDeleteBitableTable(ctx, &lark.BatchDeleteBitableTableReq{
+				AppToken: "x",
+			})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.GetBitableDashboardList(ctx, &lark.GetBitableDashboardListReq{
 				AppToken: "x",
 			})
 			as.NotNil(err)

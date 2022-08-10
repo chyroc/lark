@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// BatchDeleteBitableAppRoleMember 批量删除自定义权限的协作者
+// BatchDeleteBitableAppRoleMember 批量删除自定义角色的协作者
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-role-member/batch_delete
 func (r *BitableService) BatchDeleteBitableAppRoleMember(ctx context.Context, request *BatchDeleteBitableAppRoleMemberReq, options ...MethodOptionFunc) (*BatchDeleteBitableAppRoleMemberResp, *Response, error) {
@@ -59,7 +59,7 @@ func (r *Mock) UnMockBitableBatchDeleteBitableAppRoleMember() {
 // BatchDeleteBitableAppRoleMemberReq ...
 type BatchDeleteBitableAppRoleMemberReq struct {
 	AppToken   string                                      `path:"app_token" json:"-"`    // 多维表格文档 Token, 示例值: "bascnnKKvcoUblgmmhZkYqabcef"
-	RoleID     string                                      `path:"role_id" json:"-"`      // 自定义权限 ID, 示例值: "rolNGhPqks"
+	RoleID     string                                      `path:"role_id" json:"-"`      // 自定义角色 ID, 示例值: "rolNGhPqks"
 	MemberList []*BatchDeleteBitableAppRoleMemberReqMember `json:"member_list,omitempty"` // 协作者列表, 最大长度: `100`
 }
 
