@@ -83,13 +83,13 @@ type CreateApprovalInstanceReqNodeApproverUserIDList struct {
 
 // CreateApprovalInstanceReqNodeCcOpenIDList ...
 type CreateApprovalInstanceReqNodeCcOpenIDList struct {
-	Key   *string  `json:"key,omitempty"`   // node id 或 custom node id, 通过 [查看审批定义](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/approval/get) 获取, 示例值: "46e6d96cfa756980907209209ec03b75"
+	Key   *string  `json:"key,omitempty"`   // node id, 通过 [查看审批定义](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/approval/get) 获取, 示例值: "46e6d96cfa756980907209209ec03b75"
 	Value []string `json:"value,omitempty"` // value: 审批人列表, 示例值: ["f7cb567e"]
 }
 
 // CreateApprovalInstanceReqNodeCcUserIDList ...
 type CreateApprovalInstanceReqNodeCcUserIDList struct {
-	Key   *string  `json:"key,omitempty"`   // node id 或 custom node id, 通过 [查看审批定义](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/approval/get) 获取, 示例值: "46e6d96cfa756980907209209ec03b75"
+	Key   *string  `json:"key,omitempty"`   // node id, 通过 [查看审批定义](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/approval/get) 获取, 示例值: "46e6d96cfa756980907209209ec03b75"
 	Value []string `json:"value,omitempty"` // value: 审批人列表, 示例值: ["f7cb567e"]
 }
 
