@@ -138,6 +138,7 @@ func (r *Lark) clone(tenantKey string) *Lark {
 		store:               r.store,
 		mock:                r.mock,
 		eventHandler:        r.eventHandler,
+		getAppTicketFunc:    r.getAppTicketFunc,
 	}
 	r2.initService()
 	return r2
