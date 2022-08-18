@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// UnsubscribeCalendarChangeEvent 该接口用于以用户身份取消订阅当前身份下日历列表中的日历变更事件
+// UnsubscribeCalendarChangeEvent 该接口用于以用户身份取消订阅当前身份下日历列表中的日历变更事件。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar/unsubscription
 func (r *CalendarService) UnsubscribeCalendarChangeEvent(ctx context.Context, request *UnsubscribeCalendarChangeEventReq, options ...MethodOptionFunc) (*UnsubscribeCalendarChangeEventResp, *Response, error) {

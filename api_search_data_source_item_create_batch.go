@@ -95,7 +95,7 @@ type BatchCreateSearchDataSourceItemReqItemMetadata struct {
 
 // BatchCreateSearchDataSourceItemResp ...
 type BatchCreateSearchDataSourceItemResp struct {
-	Result *BatchCreateSearchDataSourceItemRespResult `json:"result,omitempty"` // 返回信息列表
+	Result []*BatchCreateSearchDataSourceItemRespResult `json:"result,omitempty"` // 返回信息列表
 }
 
 // BatchCreateSearchDataSourceItemRespResult ...

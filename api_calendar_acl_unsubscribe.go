@@ -23,6 +23,8 @@ import (
 
 // UnsubscribeCalendarACL 该接口用于以用户身份取消订阅指定日历下的日历成员变更事件。
 //
+// 用户必须对日历有访问权限。
+//
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar-acl/unsubscription
 func (r *CalendarService) UnsubscribeCalendarACL(ctx context.Context, request *UnsubscribeCalendarACLReq, options ...MethodOptionFunc) (*UnsubscribeCalendarACLResp, *Response, error) {
 	if r.cli.mock.mockCalendarUnsubscribeCalendarACL != nil {

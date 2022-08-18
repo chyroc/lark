@@ -86,7 +86,7 @@ func Test_AppLink(t *testing.T) {
 	})
 
 	t.Run("docs", func(t *testing.T) {
-		as.Equal("https://applink.feishu.cn/client/docs/open?URL=https%3A%2F%2Fbytedance.feishu.cn%2Fdocs%2Fdoccn9EOHrnB0r0iEN9HoCPczbf", lark.AppLink.OpenDocs(&lark.OpenDocsReq{
+		as.Equal("https://applink.feishu.cn/client/docs/open?url=https%3A%2F%2Fbytedance.feishu.cn%2Fdocs%2Fdoccn9EOHrnB0r0iEN9HoCPczbf", lark.AppLink.OpenDocs(&lark.OpenDocsReq{
 			URL: "https://bytedance.feishu.cn/docs/doccn9EOHrnB0r0iEN9HoCPczbf",
 		}))
 	})

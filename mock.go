@@ -652,7 +652,6 @@ type Mock struct {
 	mockVCExportVCMeetingList                                  func(ctx context.Context, request *ExportVCMeetingListReq, options ...MethodOptionFunc) (*ExportVCMeetingListResp, *Response, error)
 	mockVCExportVCParticipantList                              func(ctx context.Context, request *ExportVCParticipantListReq, options ...MethodOptionFunc) (*ExportVCParticipantListResp, *Response, error)
 	mockVCExportVCParticipantQualityList                       func(ctx context.Context, request *ExportVCParticipantQualityListReq, options ...MethodOptionFunc) (*ExportVCParticipantQualityListResp, *Response, error)
-	mockVCExportVCResourceReservationList                      func(ctx context.Context, request *ExportVCResourceReservationListReq, options ...MethodOptionFunc) (*ExportVCResourceReservationListResp, *Response, error)
 	mockVCGetVCExportTask                                      func(ctx context.Context, request *GetVCExportTaskReq, options ...MethodOptionFunc) (*GetVCExportTaskResp, *Response, error)
 }
 

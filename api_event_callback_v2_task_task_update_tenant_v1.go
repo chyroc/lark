@@ -35,8 +35,8 @@ type EventV2TaskTaskUpdateTenantV1Handler func(ctx context.Context, cli *Lark, s
 type EventV2TaskTaskUpdateTenantV1 struct {
 	UserIDList *EventV2TaskTaskUpdateTenantV1UserIDList `json:"user_id_list,omitempty"` // 用户 ID 列表
 	TaskID     string                                   `json:"task_id,omitempty"`      // 任务的id
-	ObjectType string                                   `json:"object_type,omitempty"`  // 变更的数据类型
-	EventType  string                                   `json:"event_type,omitempty"`   // 事件类型
+	ObjectType string                                   `json:"object_type,omitempty"`  // 变更的数据类型, 可选值: "task", "collaborator", "follower"
+	EventType  string                                   `json:"event_type,omitempty"`   // 事件类型, 可选值: "create", "delete", "update"
 }
 
 // EventV2TaskTaskUpdateTenantV1UserIDList ...

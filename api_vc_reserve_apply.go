@@ -59,7 +59,7 @@ func (r *Mock) UnMockVCApplyVCReserve() {
 
 // ApplyVCReserveReq ...
 type ApplyVCReserveReq struct {
-	UserIDType      *IDType                           `query:"user_id_type" json:"-"`     // 用户 ID 类型, 示例值: "open_id", 可选值有: `open_id`: 用户的 open id, `union_id`: 用户的 union id, `user_id`: 用户的 user id, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
+	UserIDType      *IDType                           `query:"user_id_type" json:"-"`     // 用户 ID 类型, 示例值: "open_id", 可选值有: open_id: 用户的 open id, union_id: 用户的 union id, user_id: 用户的 user id, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
 	EndTime         *string                           `json:"end_time,omitempty"`         // 预约到期时间（unix时间, 单位sec）, 多人会议必填, 示例值: "1608888867"
 	MeetingSettings *ApplyVCReserveReqMeetingSettings `json:"meeting_settings,omitempty"` // 会议设置
 }
@@ -68,20 +68,21 @@ type ApplyVCReserveReq struct {
 type ApplyVCReserveReqMeetingSettings struct {
 	Topic              *string                                             `json:"topic,omitempty"`                // 会议主题, 示例值: "my meeting"
 	ActionPermissions  []*ApplyVCReserveReqMeetingSettingsActionPermission `json:"action_permissions,omitempty"`   // 会议权限配置列表, 如果存在相同的权限配置项则它们之间为"逻辑或"的关系（即 有一个为true则拥有该权限）
-	MeetingInitialType *int64                                              `json:"meeting_initial_type,omitempty"` // 会议初始类型, 示例值: 1, 可选值有: `1`: 多人会议, `2`: 1v1呼叫
+	MeetingInitialType *int64                                              `json:"meeting_initial_type,omitempty"` // 会议初始类型, 示例值: 1, 可选值有: 1: 多人会议, 2: 1v1呼叫
 	CallSetting        *ApplyVCReserveReqMeetingSettingsCallSetting        `json:"call_setting,omitempty"`         // 1v1呼叫相关参数
+	AutoRecord         *bool                                               `json:"auto_record,omitempty"`          // 使用飞书视频会议时, 是否开启自动录制, 默认false, 示例值: true
 }
 
 // ApplyVCReserveReqMeetingSettingsActionPermission ...
 type ApplyVCReserveReqMeetingSettingsActionPermission struct {
-	Permission         int64                                                                `json:"permission,omitempty"`          // 权限项, 示例值: 1, 可选值有: `1`: 是否能成为主持人, `2`: 是否能邀请参会人, `3`: 是否能加入会议
+	Permission         int64                                                                `json:"permission,omitempty"`          // 权限项, 示例值: 1, 可选值有: 1: 是否能成为主持人, 2: 是否能邀请参会人, 3: 是否能加入会议
 	PermissionCheckers []*ApplyVCReserveReqMeetingSettingsActionPermissionPermissionChecker `json:"permission_checkers,omitempty"` // 权限检查器列表, 权限检查器之间为"逻辑或"的关系（即 有一个为true则拥有该权限）
 }
 
 // ApplyVCReserveReqMeetingSettingsActionPermissionPermissionChecker ...
 type ApplyVCReserveReqMeetingSettingsActionPermissionPermissionChecker struct {
-	CheckField int64    `json:"check_field,omitempty"` // 检查字段类型, 示例值: 1, 可选值有: `1`: 用户ID, `2`: 用户类型, `3`: 租户ID
-	CheckMode  int64    `json:"check_mode,omitempty"`  // 检查方式, 示例值: 1, 可选值有: `1`: 在check_list中为有权限（白名单）, `2`: 不在check_list中为有权限（黑名单）
+	CheckField int64    `json:"check_field,omitempty"` // 检查字段类型, 示例值: 1, 可选值有: 1: 用户ID, 2: 用户类型, 3: 租户ID
+	CheckMode  int64    `json:"check_mode,omitempty"`  // 检查方式, 示例值: 1, 可选值有: 1: 在check_list中为有权限（白名单）, 2: 不在check_list中为有权限（黑名单）
 	CheckList  []string `json:"check_list,omitempty"`  // 检查字段列表, 示例值: 123
 }
 
@@ -93,7 +94,7 @@ type ApplyVCReserveReqMeetingSettingsCallSetting struct {
 // ApplyVCReserveReqMeetingSettingsCallSettingCallee ...
 type ApplyVCReserveReqMeetingSettingsCallSettingCallee struct {
 	ID          *string                                                       `json:"id,omitempty"`            // 用户ID, 示例值: "ou_3ec3f6a28a0d08c45d895276e8e5e19b"
-	UserType    int64                                                         `json:"user_type,omitempty"`     // 用户类型, 当前仅支持用户类型6(pstn用户), 示例值: 1, 可选值有: `1`: lark用户, `2`: rooms用户, `3`: 文档用户, `4`: neo单品用户, `5`: neo单品游客用户, `6`: pstn用户, `7`: sip用户
+	UserType    int64                                                         `json:"user_type,omitempty"`     // 用户类型, 当前仅支持用户类型6(pstn用户), 示例值: 1, 可选值有: 1: lark用户, 2: rooms用户, 3: 文档用户, 4: neo单品用户, 5: neo单品游客用户, 6: pstn用户, 7: sip用户
 	PstnSipInfo *ApplyVCReserveReqMeetingSettingsCallSettingCalleePstnSipInfo `json:"pstn_sip_info,omitempty"` // pstn/sip信息
 }
 

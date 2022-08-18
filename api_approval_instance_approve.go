@@ -57,12 +57,13 @@ func (r *Mock) UnMockApprovalApproveApprovalInstance() {
 
 // ApproveApprovalInstanceReq ...
 type ApproveApprovalInstanceReq struct {
-	UserIDType   *IDType `query:"user_id_type" json:"-"`  // 用户 ID 类型, 示例值: "open_id", 可选值有: open_id: 用户的 open id, union_id: 用户的 union id, user_id: 用户的 user id, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
-	ApprovalCode string  `json:"approval_code,omitempty"` // 审批定义 Code, 示例值: "7C468A54-8745-2245-9675-08B7C63E7A85"
-	InstanceCode string  `json:"instance_code,omitempty"` // 审批实例 Code, 示例值: "81D31358-93AF-92D6-7425-01A5D67C4E71"
-	UserID       string  `json:"user_id,omitempty"`       // 根据user_id_type填写操作用户id, 示例值: "f7cb567e"
-	Comment      *string `json:"comment,omitempty"`       // 意见, 示例值: "OK"
-	TaskID       string  `json:"task_id,omitempty"`       // 任务 ID, 审批实例详情task_list中id, 示例值: "12345"
+	UserIDType   *IDType            `query:"user_id_type" json:"-"`  // 用户 ID 类型, 示例值: "open_id", 可选值有: open_id: 用户的 open id, union_id: 用户的 union id, user_id: 用户的 user id, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
+	ApprovalCode string             `json:"approval_code,omitempty"` // 审批定义 Code, 示例值: "7C468A54-8745-2245-9675-08B7C63E7A85"
+	InstanceCode string             `json:"instance_code,omitempty"` // 审批实例 Code, 示例值: "81D31358-93AF-92D6-7425-01A5D67C4E71"
+	UserID       string             `json:"user_id,omitempty"`       // 根据user_id_type填写操作用户id, 示例值: "f7cb567e"
+	Comment      *string            `json:"comment,omitempty"`       // 意见, 示例值: "OK"
+	TaskID       string             `json:"task_id,omitempty"`       // 任务 ID, 审批实例详情task_list中id, 示例值: "12345"
+	Form         ApprovalWidgetList `json:"form,omitempty"`          // json 数组, 控件值, 示例值: "[{\"id\":\"111\", \"type\": \"input\", \"value\":\"test\"}]"
 }
 
 // ApproveApprovalInstanceResp ...

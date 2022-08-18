@@ -38,7 +38,7 @@ https://godoc.org/github.com/chyroc/lark
 
 ## Support APIs
 
-API Count: 645, Event Count: 93
+API Count: 644, Event Count: 93
 
 <details>
   <summary>
@@ -813,7 +813,6 @@ API Count: 645, Event Count: 93
   - ExportVCMeetingList
   - ExportVCParticipantList
   - ExportVCParticipantQualityList
-  - ExportVCResourceReservationList
   - GetVCExportTask
 
 
