@@ -24,3 +24,9 @@ func Header(title string) *lark.MessageContentCardHeader {
 		Title: Text(title),
 	}
 }
+
+func I18NHeader(title *lark.I18NText) *lark.MessageContentCardHeader {
+	return &lark.MessageContentCardHeader{
+		Title: I18nText(title),
+	}
+}

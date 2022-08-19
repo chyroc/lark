@@ -151,7 +151,7 @@ func (r *MessageContentCardHeader) SetGrey() *MessageContentCardHeader {
 	return r
 }
 
-func (r *MessageContentCardHeader) SetEnableForward(val *MessageContentCardObjectText) *MessageContentCardHeader {
+func (r *MessageContentCardHeader) SetTitle(val *MessageContentCardObjectText) *MessageContentCardHeader {
 	r.Title = val
 	return r
 }
