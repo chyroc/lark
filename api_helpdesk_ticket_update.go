@@ -60,7 +60,7 @@ func (r *Mock) UnMockHelpdeskUpdateHelpdeskTicket() {
 type UpdateHelpdeskTicketReq struct {
 	TicketID         string                                    `path:"ticket_id" json:"-"`          // 工单ID, 示例值: "6945345902185807891"
 	Status           *int64                                    `json:"status,omitempty"`            // new status, 1: 已创建, 2: 处理中, 3: 排队中, 5: 待定, 50: 机器人关闭工单, 51: 关闭工单, 示例值: 1
-	TagNames         []string                                  `json:"tag_names,omitempty"`         // 新标签名
+	TagNames         []string                                  `json:"tag_names,omitempty"`         // 新标签名, 示例值: abc
 	Comment          *string                                   `json:"comment,omitempty"`           // 新评论, 示例值: "good"
 	CustomizedFields []*UpdateHelpdeskTicketReqCustomizedField `json:"customized_fields,omitempty"` // 自定义字段
 	TicketType       *int64                                    `json:"ticket_type,omitempty"`       // ticket stage, 示例值: 1

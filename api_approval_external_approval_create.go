@@ -74,19 +74,20 @@ type CreateApprovalExternalApprovalReq struct {
 
 // CreateApprovalExternalApprovalReqExternal ...
 type CreateApprovalExternalApprovalReqExternal struct {
-	BizName             *string `json:"biz_name,omitempty"`              // 列表中用于提示审批来自哪里, i18n key, 注意不需要“来自”前缀, 审批中心会拼上前缀, 示例值: "@i18n@3"
-	BizType             *string `json:"biz_type,omitempty"`              // 审批定义业务类别, 示例值: "permission"
-	CreateLinkMobile    *string `json:"create_link_mobile,omitempty"`    // 移动端发起链接, 如果设置了该链接, 则会在移动端审批发起页展示该审批, 用户点击后会跳转到该链接进行发起； 如果不填, 则在mobile端不显示该审批, 示例值: "https://applink.feishu.cn/client/mini_program/open?appId=cli_9c90fc38e07a9101&path=pages/approval-form/index?id=9999"
-	CreateLinkPc        *string `json:"create_link_pc,omitempty"`        // PC端发起链接, 如果设置了该链接, 则会在PC端审批发起页展示该审批, 用户点击后会跳转到该链接进行发起； 如果不填, 则在PC端不显示该审批；, 示例值: "https://applink.feishu.cn/client/mini_program/open?mode=appCenter&appId=cli_9c90fc38e07a9101&path=pc/pages/create-form/index?id=9999"
-	SupportPc           *bool   `json:"support_pc,omitempty"`            // 审批实例、审批任务、审批抄送是否要在PC端展示, 如果为 true, 则PC端列表会展示该定义下的实例信息, 否则, 不展示, 示例值: true
-	SupportMobile       *bool   `json:"support_mobile,omitempty"`        // 审批实例、审批任务、审批抄送是否要在移动端展示, 如果为 true, 则移动端列表会展示该定义下的实例信息, 否则, 不展示； support_pc和support_mobile不可都为false, 否则不展示, 示例值: true
-	SupportBatchRead    *bool   `json:"support_batch_read,omitempty"`    // 是否支持批量已读, 示例值: true
-	EnableMarkReaded    *bool   `json:"enable_mark_readed,omitempty"`    // 是否支持标注可读（该字段无效）, 示例值: true
-	EnableQuickOperate  *bool   `json:"enable_quick_operate,omitempty"`  // 是否支持快速操作, 示例值: true
-	ActionCallbackURL   *string `json:"action_callback_url,omitempty"`   // 三方系统的操作回调 url, 【待审批】列表的任务审批人点同意或拒绝操作后, 审批中心调用该地址通知三方系统, 回调地址相关信息可参见: [三方审批快捷审批回调](https://open.feishu.cn/document/ukTMukTMukTM/ukjNyYjL5YjM24SO2IjN/quick-approval-callback), 示例值: "http://www.feishu.cn/approval/openapi/instanceOperate"
-	ActionCallbackToken *string `json:"action_callback_token,omitempty"` // 回调时带的 token, 用于业务系统验证请求来自审批, 具体参考 [开放平台文档](https://open.feishu.cn/document/ukTMukTMukTM/uUTNz4SN1MjL1UzM), 示例值: "sdjkljkx9lsadf110"
-	ActionCallbackKey   *string `json:"action_callback_key,omitempty"`   // 请求参数加密密钥, 如果配置了该参数, 则会对请求参数进行加密, 业务需要对请求进行解密, 加解密算法参考 [关联外部选项说明](https://open.feishu.cn/document/ukTMukTMukTM/uADM4QjLwADO04CMwgDN), 示例值: "gfdqedvsadfgfsd"
-	AllowBatchOperate   *bool   `json:"allow_batch_operate,omitempty"`   // 是否支持批量审批, 示例值: true
+	BizName                     *string `json:"biz_name,omitempty"`                      // 列表中用于提示审批来自哪里, i18n key, 注意不需要“来自”前缀, 审批中心会拼上前缀, 示例值: "@i18n@3"
+	BizType                     *string `json:"biz_type,omitempty"`                      // 审批定义业务类别, 示例值: "permission"
+	CreateLinkMobile            *string `json:"create_link_mobile,omitempty"`            // 移动端发起链接, 如果设置了该链接, 则会在移动端审批发起页展示该审批, 用户点击后会跳转到该链接进行发起； 如果不填, 则在mobile端不显示该审批, 示例值: "https://applink.feishu.cn/client/mini_program/open?appId=cli_9c90fc38e07a9101&path=pages/approval-form/index?id=9999"
+	CreateLinkPc                *string `json:"create_link_pc,omitempty"`                // PC端发起链接, 如果设置了该链接, 则会在PC端审批发起页展示该审批, 用户点击后会跳转到该链接进行发起； 如果不填, 则在PC端不显示该审批；, 示例值: "https://applink.feishu.cn/client/mini_program/open?mode=appCenter&appId=cli_9c90fc38e07a9101&path=pc/pages/create-form/index?id=9999"
+	SupportPc                   *bool   `json:"support_pc,omitempty"`                    // 审批实例、审批任务、审批抄送是否要在PC端展示, 如果为 true, 则PC端列表会展示该定义下的实例信息, 否则, 不展示, 示例值: true
+	SupportMobile               *bool   `json:"support_mobile,omitempty"`                // 审批实例、审批任务、审批抄送是否要在移动端展示, 如果为 true, 则移动端列表会展示该定义下的实例信息, 否则, 不展示； support_pc和support_mobile不可都为false, 否则不展示, 示例值: true
+	SupportBatchRead            *bool   `json:"support_batch_read,omitempty"`            // 是否支持批量已读, 示例值: true
+	EnableMarkReaded            *bool   `json:"enable_mark_readed,omitempty"`            // 是否支持标注可读（该字段无效）, 示例值: true
+	EnableQuickOperate          *bool   `json:"enable_quick_operate,omitempty"`          // 是否支持快速操作, 示例值: true
+	ActionCallbackURL           *string `json:"action_callback_url,omitempty"`           // 三方系统的操作回调 url, 【待审批】列表的任务审批人点同意或拒绝操作后, 审批中心调用该地址通知三方系统, 回调地址相关信息可参见: [三方审批快捷审批回调](https://open.feishu.cn/document/ukTMukTMukTM/ukjNyYjL5YjM24SO2IjN/quick-approval-callback), 示例值: "http://www.feishu.cn/approval/openapi/instanceOperate"
+	ActionCallbackToken         *string `json:"action_callback_token,omitempty"`         // 回调时带的 token, 用于业务系统验证请求来自审批, 具体参考 [开放平台文档](https://open.feishu.cn/document/ukTMukTMukTM/uUTNz4SN1MjL1UzM), 示例值: "sdjkljkx9lsadf110"
+	ActionCallbackKey           *string `json:"action_callback_key,omitempty"`           // 请求参数加密密钥, 如果配置了该参数, 则会对请求参数进行加密, 业务需要对请求进行解密, 加解密算法参考 [关联外部选项说明](https://open.feishu.cn/document/ukTMukTMukTM/uADM4QjLwADO04CMwgDN), 示例值: "gfdqedvsadfgfsd"
+	AllowBatchOperate           *bool   `json:"allow_batch_operate,omitempty"`           // 是否支持批量审批, 示例值: true
+	ExcludeEfficiencyStatistics *bool   `json:"exclude_efficiency_statistics,omitempty"` // 审批流程数据是否不纳入效率统计, 示例值: true
 }
 
 // CreateApprovalExternalApprovalReqI18nResource ...

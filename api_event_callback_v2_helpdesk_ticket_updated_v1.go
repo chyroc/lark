@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// EventV2HelpdeskTicketUpdatedV1 可监听工单状态和阶段变更事件。需使用订阅接口订阅: [事件订阅](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/event/overview)
+// EventV2HelpdeskTicketUpdatedV1 可监听工单状态和阶段变更事件。需使用订阅接口订阅: [事件订阅](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/event/overview){使用示例}(url=/api/tools/api_explore/api_explore_config?project=helpdesk&version=v1&resource=ticket&event=updated)
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/ticket/events/updated
 func (r *EventCallbackService) HandlerEventV2HelpdeskTicketUpdatedV1(f EventV2HelpdeskTicketUpdatedV1Handler) {
@@ -39,24 +39,36 @@ type EventV2HelpdeskTicketUpdatedV1 struct {
 
 // EventV2HelpdeskTicketUpdatedV1Object ...
 type EventV2HelpdeskTicketUpdatedV1Object struct {
-	TicketID   string                                     `json:"ticket_id,omitempty"`   // 工单ID, [可以从工单列表里面取](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/ticket/list), [也可以订阅工单创建事件获取](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/ticket/events/created)
-	HelpdeskID string                                     `json:"helpdesk_id,omitempty"` // 服务台ID
-	Guest      *EventV2HelpdeskTicketUpdatedV1ObjectGuest `json:"guest,omitempty"`       // 工单创建用户
-	Stage      int64                                      `json:"stage,omitempty"`       // 工单阶段, 1: bot, 2: 人工
-	Status     int64                                      `json:"status,omitempty"`      // 工单状态, 1: 已创建 2: 处理中 3: 排队中 4: 待定 5: 待用户响应 50: 被机器人关闭 51: 被客服关闭 52: 用户自己关闭
-	Score      int64                                      `json:"score,omitempty"`       // 工单评分, 1: 不满意, 2:一般, 3:满意
-	CreatedAt  int64                                      `json:"created_at,omitempty"`  // 工单创建时间
-	UpdatedAt  int64                                      `json:"updated_at,omitempty"`  // 工单更新时间, 没有值时为-1
-	ClosedAt   int64                                      `json:"closed_at,omitempty"`   // 工单结束时间
-	Channel    int64                                      `json:"channel,omitempty"`     // 工单渠道, 描述: 9: Open API 2: 二维码 14: 分享 13: 搜索 其他数字: 其他渠道
-	Solve      int64                                      `json:"solve,omitempty"`       // 工单是否解决 1:没解决 2:已解决
-	ChatID     string                                     `json:"chat_id,omitempty"`     // 会话Open ID
+	TicketID         string                                                 `json:"ticket_id,omitempty"`         // 6626871355780366331
+	HelpdeskID       string                                                 `json:"helpdesk_id,omitempty"`       // 6626871355780366330
+	Guest            *EventV2HelpdeskTicketUpdatedV1ObjectGuest             `json:"guest,omitempty"`             // abc
+	Stage            int64                                                  `json:"stage,omitempty"`             // 1
+	Status           int64                                                  `json:"status,omitempty"`            // 50
+	Score            int64                                                  `json:"score,omitempty"`             // 1
+	CreatedAt        int64                                                  `json:"created_at,omitempty"`        // 1616920429000
+	UpdatedAt        int64                                                  `json:"updated_at,omitempty"`        // 1616920429000
+	ClosedAt         int64                                                  `json:"closed_at,omitempty"`         // 1616920429000
+	Channel          int64                                                  `json:"channel,omitempty"`           // 0
+	Solve            int64                                                  `json:"solve,omitempty"`             // 1
+	CustomizedFields []*EventV2HelpdeskTicketUpdatedV1ObjectCustomizedField `json:"customized_fields,omitempty"` // []
+	ChatID           string                                                 `json:"chat_id,omitempty"`           // oc_xxxxxxx
+}
+
+// EventV2HelpdeskTicketUpdatedV1ObjectCustomizedField ...
+type EventV2HelpdeskTicketUpdatedV1ObjectCustomizedField struct {
+	ID          string `json:"id,omitempty"`           // 自定义字段ID
+	Value       string `json:"value,omitempty"`        // 自定义字段值
+	KeyName     string `json:"key_name,omitempty"`     // 键名
+	DisplayName string `json:"display_name,omitempty"` // 展示名称
+	Position    int64  `json:"position,omitempty"`     // 展示位置
+	Required    bool   `json:"required,omitempty"`     // 是否必填
+	Editable    bool   `json:"editable,omitempty"`     // 是否可修改
 }
 
 // EventV2HelpdeskTicketUpdatedV1ObjectGuest ...
 type EventV2HelpdeskTicketUpdatedV1ObjectGuest struct {
-	ID   *EventV2HelpdeskTicketUpdatedV1ObjectGuestID `json:"id,omitempty"`   // 用户 ID
-	Name string                                       `json:"name,omitempty"` // 用户名
+	ID   *EventV2HelpdeskTicketUpdatedV1ObjectGuestID `json:"id,omitempty"`   // 6626871355780366332
+	Name string                                       `json:"name,omitempty"` // 6626871355780366333
 }
 
 // EventV2HelpdeskTicketUpdatedV1ObjectGuestID ...

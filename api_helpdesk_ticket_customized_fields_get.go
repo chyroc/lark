@@ -88,18 +88,24 @@ type GetHelpdeskTicketCustomizedFieldsRespTicketCustomizedField struct {
 
 // GetHelpdeskTicketCustomizedFieldsRespTicketCustomizedFieldCreatedBy ...
 type GetHelpdeskTicketCustomizedFieldsRespTicketCustomizedFieldCreatedBy struct {
-	ID        string `json:"id,omitempty"`         // 用户ID
-	AvatarURL string `json:"avatar_url,omitempty"` // 用户头像url
-	Name      string `json:"name,omitempty"`       // 用户名
-	Email     string `json:"email,omitempty"`      // 用户邮箱
+	ID         string `json:"id,omitempty"`         // 用户ID
+	AvatarURL  string `json:"avatar_url,omitempty"` // 用户头像url
+	Name       string `json:"name,omitempty"`       // 用户名
+	Email      string `json:"email,omitempty"`      // 用户邮箱
+	Department string `json:"department,omitempty"` // 所在部门名称
+	City       string `json:"city,omitempty"`       // 城市
+	Country    string `json:"country,omitempty"`    // 国家代号(CountryCode), 参考: http://www.mamicode.com/info-detail-2186501.html
 }
 
 // GetHelpdeskTicketCustomizedFieldsRespTicketCustomizedFieldUpdatedBy ...
 type GetHelpdeskTicketCustomizedFieldsRespTicketCustomizedFieldUpdatedBy struct {
-	ID        string `json:"id,omitempty"`         // 用户ID
-	AvatarURL string `json:"avatar_url,omitempty"` // 用户头像url
-	Name      string `json:"name,omitempty"`       // 用户名
-	Email     string `json:"email,omitempty"`      // 用户邮箱
+	ID         string `json:"id,omitempty"`         // 用户ID
+	AvatarURL  string `json:"avatar_url,omitempty"` // 用户头像url
+	Name       string `json:"name,omitempty"`       // 用户名
+	Email      string `json:"email,omitempty"`      // 用户邮箱
+	Department string `json:"department,omitempty"` // 所在部门名称
+	City       string `json:"city,omitempty"`       // 城市
+	Country    string `json:"country,omitempty"`    // 国家代号(CountryCode), 参考: http://www.mamicode.com/info-detail-2186501.html
 }
 
 // GetHelpdeskTicketCustomizedFieldsRespUserCustomizedField ...

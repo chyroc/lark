@@ -110,10 +110,22 @@ type GetHelpdeskTicketListRespTicket struct {
 	AgentEntryTime             int64                                             `json:"agent_entry_time,omitempty"`              // 客服进入时间, 单位毫秒
 	AgentFirstResponseTime     int64                                             `json:"agent_first_response_time,omitempty"`     // 客服首次回复时间, 单位毫秒
 	AgentLastResponseTime      int64                                             `json:"agent_last_response_time,omitempty"`      // 客服最后回复时间, 单位毫秒
+	AgentOwner                 *GetHelpdeskTicketListRespTicketAgentOwner        `json:"agent_owner,omitempty"`                   // 主责客服
 }
 
 // GetHelpdeskTicketListRespTicketAgent ...
 type GetHelpdeskTicketListRespTicketAgent struct {
+	ID         string `json:"id,omitempty"`         // 用户ID
+	AvatarURL  string `json:"avatar_url,omitempty"` // 用户头像url
+	Name       string `json:"name,omitempty"`       // 用户名
+	Email      string `json:"email,omitempty"`      // 用户邮箱
+	Department string `json:"department,omitempty"` // 所在部门名称
+	City       string `json:"city,omitempty"`       // 城市
+	Country    string `json:"country,omitempty"`    // 国家代号(CountryCode), 参考: http://www.mamicode.com/info-detail-2186501.html
+}
+
+// GetHelpdeskTicketListRespTicketAgentOwner ...
+type GetHelpdeskTicketListRespTicketAgentOwner struct {
 	ID         string `json:"id,omitempty"`         // 用户ID
 	AvatarURL  string `json:"avatar_url,omitempty"` // 用户头像url
 	Name       string `json:"name,omitempty"`       // 用户名

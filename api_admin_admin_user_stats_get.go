@@ -25,7 +25,6 @@ import (
 //
 // - 只有企业自建应用才有权限调用此接口
 // - 当天的数据会在第二天的早上九点半产出（UTC+8）
-// - 用户维度的数据最多查询最近31天的数据（包含31天）的数据
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/admin-v1/admin_user_stat/list
 func (r *AdminService) GetAdminUserStats(ctx context.Context, request *GetAdminUserStatsReq, options ...MethodOptionFunc) (*GetAdminUserStatsResp, *Response, error) {

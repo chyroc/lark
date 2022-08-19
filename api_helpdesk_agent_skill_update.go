@@ -64,16 +64,16 @@ type UpdateHelpdeskAgentSkillReq struct {
 
 // UpdateHelpdeskAgentSkillReqAgentSkill ...
 type UpdateHelpdeskAgentSkillReqAgentSkill struct {
-	Name     *string                                     `json:"name,omitempty"`      // 技能名, 示例值: "skill-name"
-	Rules    *UpdateHelpdeskAgentSkillReqAgentSkillRules `json:"rules,omitempty"`     // 技能rules
-	AgentIDs []string                                    `json:"agent_ids,omitempty"` // 具有此技能的客服ids
+	Name     *string                                      `json:"name,omitempty"`      // 技能名, 示例值: "skill-name"
+	Rules    []*UpdateHelpdeskAgentSkillReqAgentSkillRule `json:"rules,omitempty"`     // 技能rules
+	AgentIDs []string                                     `json:"agent_ids,omitempty"` // 具有此技能的客服ids, 示例值: ["ou_ea21d7f018e1155d960e40d33191f966"]
 }
 
-// UpdateHelpdeskAgentSkillReqAgentSkillRules ...
-type UpdateHelpdeskAgentSkillReqAgentSkillRules struct {
+// UpdateHelpdeskAgentSkillReqAgentSkillRule ...
+type UpdateHelpdeskAgentSkillReqAgentSkillRule struct {
 	ID               *string `json:"id,omitempty"`                // rule id, 参考[获取客服技能rules](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/agent_skill_rule/list) 用于获取rules options, 示例值: "test-skill-id"
 	SelectedOperator *int64  `json:"selected_operator,omitempty"` // 运算符比较, 参考[客服技能运算符选项](https://open.feishu.cn/document/ukTMukTMukTM/ucDOyYjL3gjM24yN4IjN/operator-options), 示例值: 8
-	OperatorOptions  []int64 `json:"operator_options,omitempty"`  // rule操作数value, [客服技能及运算符](https://open.feishu.cn/document/ukTMukTMukTM/ucDOyYjL3gjM24yN4IjN/operator-options)
+	OperatorOptions  []int64 `json:"operator_options,omitempty"`  // rule操作数value, [客服技能及运算符](https://open.feishu.cn/document/ukTMukTMukTM/ucDOyYjL3gjM24yN4IjN/operator-options), 示例值: [3]
 	Operand          *string `json:"operand,omitempty"`           // rule 操作数的值, 示例值: "{, "selected_departments": [, {, "id": "部门ID", "name": "IT", }, ], }"
 }
 

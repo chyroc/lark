@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// EventV2HelpdeskTicketMessageCreatedV1 该消息事件属于工单消息事件。需使用订阅接口订阅: [事件订阅](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/event/overview)
+// EventV2HelpdeskTicketMessageCreatedV1 该消息事件属于工单消息事件。需使用订阅接口订阅: [事件订阅](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/event/overview){使用示例}(url=/api/tools/api_explore/api_explore_config?project=helpdesk&version=v1&resource=ticket_message&event=created)
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/ticket_message/events/created
 func (r *EventCallbackService) HandlerEventV2HelpdeskTicketMessageCreatedV1(f EventV2HelpdeskTicketMessageCreatedV1Handler) {
@@ -33,17 +33,17 @@ type EventV2HelpdeskTicketMessageCreatedV1Handler func(ctx context.Context, cli 
 
 // EventV2HelpdeskTicketMessageCreatedV1 ...
 type EventV2HelpdeskTicketMessageCreatedV1 struct {
-	TicketMessageID string                                         `json:"ticket_message_id,omitempty"` // 工单消息ID
-	MessageID       string                                         `json:"message_id,omitempty"`        // chat消息open ID
-	MsgType         MsgType                                        `json:"msg_type,omitempty"`          // 消息类型；text: 纯文本
-	Position        string                                         `json:"position,omitempty"`          // 消息位置
+	TicketMessageID string                                         `json:"ticket_message_id,omitempty"` // ticket message id
+	MessageID       string                                         `json:"message_id,omitempty"`        // open message id
+	MsgType         MsgType                                        `json:"msg_type,omitempty"`          // message type, text is the only supported type
+	Position        string                                         `json:"position,omitempty"`          // position of the message
 	SenderID        *EventV2HelpdeskTicketMessageCreatedV1SenderID `json:"sender_id,omitempty"`         // 用户 ID
-	SenderType      int64                                          `json:"sender_type,omitempty"`       // 发送者类型 1: 机器人；2: 用户；3: 客服
-	Text            string                                         `json:"text,omitempty"`              // 内容
-	Ticket          *EventV2HelpdeskTicketMessageCreatedV1Ticket   `json:"ticket,omitempty"`            // 工单信息
-	EventID         string                                         `json:"event_id,omitempty"`          // 消息事件ID
-	ChatID          string                                         `json:"chat_id,omitempty"`           // 会话ID
-	Content         *EventV2HelpdeskTicketMessageCreatedV1Content  `json:"content,omitempty"`           // 内容详情
+	SenderType      int64                                          `json:"sender_type,omitempty"`       // sender type, 1 for bot, 2 for guest, 3 for agent
+	Text            string                                         `json:"text,omitempty"`              // message content
+	Ticket          *EventV2HelpdeskTicketMessageCreatedV1Ticket   `json:"ticket,omitempty"`            // ticket related information
+	EventID         string                                         `json:"event_id,omitempty"`          // event id
+	ChatID          string                                         `json:"chat_id,omitempty"`           // chat id
+	Content         *EventV2HelpdeskTicketMessageCreatedV1Content  `json:"content,omitempty"`           // message content
 }
 
 // EventV2HelpdeskTicketMessageCreatedV1Content ...
@@ -63,7 +63,51 @@ type EventV2HelpdeskTicketMessageCreatedV1SenderID struct {
 
 // EventV2HelpdeskTicketMessageCreatedV1Ticket ...
 type EventV2HelpdeskTicketMessageCreatedV1Ticket struct {
-	TicketID string `json:"ticket_id,omitempty"` // 工单ID, [可以从工单列表里面取](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/ticket/list), [也可以订阅工单创建事件获取](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/ticket/events/created)
-	Stage    int64  `json:"stage,omitempty"`     // 工单阶段, 1: bot, 2: 人工
-	Status   int64  `json:"status,omitempty"`    // 工单状态, 1: 已创建 2: 处理中 3: 排队中 4: 待定 5: 待用户响应 50: 被机器人关闭 51: 被客服关闭 52: 用户自己关闭
+	TicketID                   string                                                        `json:"ticket_id,omitempty"`                     // 工单ID, [可以从工单列表里面取](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/ticket/list), [也可以订阅工单创建事件获取](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/ticket/events/created)
+	Comments                   *EventV2HelpdeskTicketMessageCreatedV1TicketComments          `json:"comments,omitempty"`                      // 备注
+	TicketType                 int64                                                         `json:"ticket_type,omitempty"`                   // 工单阶段: 1. 机器人 2. 人工
+	Status                     int64                                                         `json:"status,omitempty"`                        // 工单状态, 1: 已创建 2: 处理中 3: 排队中 4: 待定 5: 待用户响应 50: 被机器人关闭 51: 被客服关闭 52: 用户自己关闭
+	DissatisfactionReason      []string                                                      `json:"dissatisfaction_reason,omitempty"`        // 不满意原因
+	CustomizedFields           []*EventV2HelpdeskTicketMessageCreatedV1TicketCustomizedField `json:"customized_fields,omitempty"`             // 自定义字段列表, 没有值时不设置, 下拉菜单的value对应工单字段里面的children.display_name, [获取全部工单自定义字段](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/ticket_customized_field/list-ticket-customized-fields)
+	AgentServiceDuration       float64                                                       `json:"agent_service_duration,omitempty"`        // 客服服务时长, 客服最后一次回复时间距离客服进入时间间隔, 单位分钟
+	AgentFirstResponseDuration int64                                                         `json:"agent_first_response_duration,omitempty"` // 客服首次回复时间距离客服进入时间的间隔(秒)
+	BotServiceDuration         int64                                                         `json:"bot_service_duration,omitempty"`          // 机器人服务时间: 客服进入时间距离工单创建时间的间隔, 单位秒
+	AgentResolutionTime        int64                                                         `json:"agent_resolution_time,omitempty"`         // 客服解决时长, 关单时间距离客服进入时间的间隔, 单位秒
+	ActualProcessingTime       int64                                                         `json:"actual_processing_time,omitempty"`        // 工单实际处理时间: 从客服进入到关单, 单位秒
+	AgentEntryTime             int64                                                         `json:"agent_entry_time,omitempty"`              // 客服进入时间, 单位毫秒
+	AgentFirstResponseTime     int64                                                         `json:"agent_first_response_time,omitempty"`     // 客服首次回复时间, 单位毫秒
+	AgentLastResponseTime      int64                                                         `json:"agent_last_response_time,omitempty"`      // 客服最后回复时间, 单位毫秒
+	AgentOwner                 *EventV2HelpdeskTicketMessageCreatedV1TicketAgentOwner        `json:"agent_owner,omitempty"`                   // 主责客服
+}
+
+// EventV2HelpdeskTicketMessageCreatedV1TicketAgentOwner ...
+type EventV2HelpdeskTicketMessageCreatedV1TicketAgentOwner struct {
+	ID         string `json:"id,omitempty"`         // 用户ID
+	AvatarURL  string `json:"avatar_url,omitempty"` // 用户头像url
+	Name       string `json:"name,omitempty"`       // 用户名
+	Email      string `json:"email,omitempty"`      // 用户邮箱
+	Department string `json:"department,omitempty"` // 所在部门名称
+	City       string `json:"city,omitempty"`       // 城市
+	Country    string `json:"country,omitempty"`    // 国家代号(CountryCode), 参考: http://www.mamicode.com/info-detail-2186501.html
+}
+
+// EventV2HelpdeskTicketMessageCreatedV1TicketComments ...
+type EventV2HelpdeskTicketMessageCreatedV1TicketComments struct {
+	Content       string `json:"content,omitempty"`         // 备注
+	CreatedAt     int64  `json:"created_at,omitempty"`      // 备注时间, 单位毫秒
+	ID            int64  `json:"id,omitempty"`              // 备注ID
+	UserAvatarURL string `json:"user_avatar_url,omitempty"` // 备注人头像
+	UserName      string `json:"user_name,omitempty"`       // 备注人姓名
+	UserID        int64  `json:"user_id,omitempty"`         // 备注人ID
+}
+
+// EventV2HelpdeskTicketMessageCreatedV1TicketCustomizedField ...
+type EventV2HelpdeskTicketMessageCreatedV1TicketCustomizedField struct {
+	ID          string `json:"id,omitempty"`           // 自定义字段ID
+	Value       string `json:"value,omitempty"`        // 自定义字段值
+	KeyName     string `json:"key_name,omitempty"`     // 键名
+	DisplayName string `json:"display_name,omitempty"` // 展示名称
+	Position    int64  `json:"position,omitempty"`     // 展示位置
+	Required    bool   `json:"required,omitempty"`     // 是否必填
+	Editable    bool   `json:"editable,omitempty"`     // 是否可修改
 }

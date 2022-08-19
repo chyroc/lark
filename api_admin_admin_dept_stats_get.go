@@ -25,7 +25,6 @@ import (
 //
 // - 只有企业自建应用才有权限调用此接口
 // - 当天的数据会在第二天的早上九点半产出（UTC+8）
-// - 部门维度的数据最多查询最近366天（包含366天）的数据
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/admin-v1/admin_dept_stat/list
 func (r *AdminService) GetAdminDeptStats(ctx context.Context, request *GetAdminDeptStatsReq, options ...MethodOptionFunc) (*GetAdminDeptStatsResp, *Response, error) {

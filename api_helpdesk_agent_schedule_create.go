@@ -65,7 +65,7 @@ type CreateHelpdeskAgentScheduleReq struct {
 type CreateHelpdeskAgentScheduleReqAgentSchedule struct {
 	AgentID       *string                                                `json:"agent_id,omitempty"`        // 客服id, [可以以普通用户身份在服务台发起工单, 从工单详情里面获取用户guest.id](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/ticket/get), 示例值: "agent-id"
 	Schedule      []*CreateHelpdeskAgentScheduleReqAgentScheduleSchedule `json:"schedule,omitempty"`        // 工作日程列表
-	AgentSkillIDs []string                                               `json:"agent_skill_ids,omitempty"` // 客服技能 ids
+	AgentSkillIDs []string                                               `json:"agent_skill_ids,omitempty"` // 客服技能 ids, 示例值: []
 }
 
 // CreateHelpdeskAgentScheduleReqAgentScheduleSchedule ...

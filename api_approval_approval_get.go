@@ -72,11 +72,19 @@ type GetApprovalResp struct {
 
 // GetApprovalRespNode ...
 type GetApprovalRespNode struct {
-	Name         string `json:"name,omitempty"`           // 节点名称
-	NeedApprover bool   `json:"need_approver,omitempty"`  // 是否发起人自选节点 true - 发起审批时需要提交审批人
-	NodeID       string `json:"node_id,omitempty"`        // 节点 ID
-	CustomNodeID string `json:"custom_node_id,omitempty"` // 节点自定义 ID, 如果没有设置则不返回
-	NodeType     string `json:"node_type,omitempty"`      // 审批方式, 可选值有: AND: 会签, OR: 或签, SEQUENTIAL: 依次审批, CC_NODE: 抄送节点
+	Name                string                                    `json:"name,omitempty"`                  // 节点名称
+	NeedApprover        bool                                      `json:"need_approver,omitempty"`         // 是否发起人自选节点 true - 发起审批时需要提交审批人
+	NodeID              string                                    `json:"node_id,omitempty"`               // 节点 ID
+	CustomNodeID        string                                    `json:"custom_node_id,omitempty"`        // 节点自定义 ID, 如果没有设置则不返回
+	NodeType            string                                    `json:"node_type,omitempty"`             // 审批方式, 可选值有: AND: 会签, OR: 或签, SEQUENTIAL: 依次审批, CC_NODE: 抄送节点
+	ApproverChosenMulti bool                                      `json:"approver_chosen_multi,omitempty"` // 是否支持多选: true-支持, 发起、结束节点该值无意义
+	ApproverChosenRange []*GetApprovalRespNodeApproverChosenRange `json:"approver_chosen_range,omitempty"` // 自选范围
+}
+
+// GetApprovalRespNodeApproverChosenRange ...
+type GetApprovalRespNodeApproverChosenRange struct {
+	ApproverRangeType int64    `json:"approver_range_type,omitempty"` // 指定范围: 0-all, 1-指定角色, 2-指定人员, 可选值有: 0: 全公司范围, 1: 指定角色范围, 2: 指定用户范围
+	ApproverRangeIDs  []string `json:"approver_range_ids,omitempty"`  // 根据上面的type, 分别存放角色id与userid, type为0时本字段为空列表
 }
 
 // GetApprovalRespViewer ...
