@@ -76,11 +76,11 @@ type CreateApprovalReq struct {
 
 // CreateApprovalReqConfig ...
 type CreateApprovalReqConfig struct {
-	CanUpdateViewer  bool   `json:"can_update_viewer,omitempty"`  // 允许用户修改可见范围, 示例值: false
-	CanUpdateForm    bool   `json:"can_update_form,omitempty"`    // 允许用户更新表单, 示例值: false
-	CanUpdateProcess bool   `json:"can_update_process,omitempty"` // 允许用户更新流程定义, 示例值: false
-	CanUpdateRevert  bool   `json:"can_update_revert,omitempty"`  // 允许用户更新撤回设置, 示例值: false
-	HelpURL          string `json:"help_url,omitempty"`           // 帮助文档链接, 示例值: "https://www.baidu.com"
+	CanUpdateViewer  bool    `json:"can_update_viewer,omitempty"`  // 允许用户修改可见范围, 示例值: false
+	CanUpdateForm    bool    `json:"can_update_form,omitempty"`    // 允许用户更新表单, 示例值: false
+	CanUpdateProcess bool    `json:"can_update_process,omitempty"` // 允许用户更新流程定义, 示例值: false
+	CanUpdateRevert  bool    `json:"can_update_revert,omitempty"`  // 允许用户更新撤回设置, 示例值: false
+	HelpURL          *string `json:"help_url,omitempty"`           // 帮助文档链接, 示例值: "https://www.baidu.com"
 }
 
 // CreateApprovalReqForm ...
