@@ -128,6 +128,8 @@ func jsonString(v interface{}) string {
 const (
 	httpRequestHeaderAuthorization = "Authorization"
 	httpRequestHeaderHelpdeskAuth  = "X-Lark-Helpdesk-Authorization"
+	rpcLogIDKey                    = "K_LOGID"
+	httpHeaderLogIDKey             = "X-Tt-Logid"
 )
 
 func jsonHeader(headers map[string]string) string {
