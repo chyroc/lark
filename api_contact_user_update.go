@@ -60,35 +60,34 @@ func (r *Mock) UnMockContactUpdateUser() {
 // UpdateUserReq ...
 type UpdateUserReq struct {
 	UserID           string                     `path:"user_id" json:"-"`             // 用户ID, 需要与查询参数中的user_id_type类型保持一致, 示例值: "ou_7dab8a3d3cdcc9da365777c7ad535d62"
-	UserIDType       *IDType                    `query:"user_id_type" json:"-"`       // 用户 ID 类型, 示例值: "open_id", 可选值有: `open_id`: 用户的 open id, `union_id`: 用户的 union id, `user_id`: 用户的 user id, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
-	DepartmentIDType *DepartmentIDType          `query:"department_id_type" json:"-"` // 此次调用中使用的部门ID的类型, 示例值: "open_department_id", 可选值有: `department_id`: 以自定义department_id来标识部门, `open_department_id`: 以open_department_id来标识部门, 默认值: `open_department_id`
+	UserIDType       *IDType                    `query:"user_id_type" json:"-"`       // 用户 ID 类型, 示例值: "open_id", 可选值有: open_id: 用户的 open id, union_id: 用户的 union id, user_id: 用户的 user id, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
+	DepartmentIDType *DepartmentIDType          `query:"department_id_type" json:"-"` // 此次调用中使用的部门ID的类型, 示例值: "open_department_id", 可选值有: department_id: 以自定义department_id来标识部门, open_department_id: 以open_department_id来标识部门, 默认值: `open_department_id`
 	Name             string                     `json:"name,omitempty"`               // 用户名, 示例值: "张三", 最小长度: `1` 字符
 	EnName           *string                    `json:"en_name,omitempty"`            // 英文名, 示例值: "San Zhang"
 	Nickname         *string                    `json:"nickname,omitempty"`           // 别名, 示例值: "Alex Zhang"
-	Email            *string                    `json:"email,omitempty"`              // 邮箱, 注意非 +86 手机号成员必须同时添加邮箱, 示例值: "zhangsan@gmail.com"
-	Mobile           string                     `json:"mobile,omitempty"`             // 手机号, 在本企业内不可重复；未认证企业仅支持添加中国大陆手机号, 通过飞书认证的企业允许添加海外手机号, 注意国际电话区号前缀中必须包含加号 +, 示例值: "中国大陆手机号: 13011111111 或 +8613011111111, 境外手机号: +41446681800"
+	Email            *string                    `json:"email,omitempty"`              // 邮箱, 注意: 1. 非中国大陆手机号成员必须同时添加邮箱, 2. 邮箱不可重复, 示例值: "zhangsan@gmail.com"
+	Mobile           string                     `json:"mobile,omitempty"`             // 手机号, 在本企业内不可重复；未认证企业仅支持添加中国大陆手机号, 通过飞书认证的企业允许添加海外手机号, 注意国际电话区号前缀中必须包含加号 +, 示例值: "13011111111 (其他例子, 中国大陆手机号: 13011111111 或 +8613011111111, 非中国大陆手机号: +41446681800)"
 	MobileVisible    *bool                      `json:"mobile_visible,omitempty"`     // 手机号码可见性, true 为可见, false 为不可见, 目前默认为 true。不可见时, 组织员工将无法查看该员工的手机号码, 示例值: false
-	Gender           *int64                     `json:"gender,omitempty"`             // 性别, 示例值: 1, 可选值有: `0`: 保密, `1`: 男, `2`: 女
-	AvatarKey        *string                    `json:"avatar_key,omitempty"`         // 头像的文件Key, 可通过“消息与群组/消息/图片信息”中的“上传图片”接口上传并获取头像文件 Key, 示例值: "2500c7a9-5fff-4d9a-a2de-3d59614ae28g"
-	DepartmentIDs    []string                   `json:"department_ids,omitempty"`     // 用户所属部门的ID列表, 一个用户可属于多个部门, ID值与查询参数中的department_id_type 对应, 不同 ID 的说明参见 [部门ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/field-overview#23857fe0), 示例值: od-4e6ac4d14bcd5071a37a39de902c7141
-	LeaderUserID     *string                    `json:"leader_user_id,omitempty"`     // 用户的直接主管的用户ID, ID值与查询参数中的user_id_type 对应, 不同 ID 的说明参见 [用户相关的 ID 概念](https://open.feishu.cn/document/home/user-identity-introduction/introduction), 示例值: "ou_7dab8a3d3cdcc9da365777c7ad535d62"
-	City             *string                    `json:"city,omitempty"`               // 城市, 示例值: "杭州"
+	Gender           *int64                     `json:"gender,omitempty"`             // 性别, 示例值: 1, 可选值有: 0: 保密, 1: 男, 2: 女
+	AvatarKey        *string                    `json:"avatar_key,omitempty"`         // 头像的文件Key, 可通过“消息与群组/消息/图片信息”中的“上传图片”接口上传并获取头像文件 Key, “上传图片”接口文档: [上传图片](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/image/create), 示例值: "2500c7a9-5fff-4d9a-a2de-3d59614ae28g"
+	DepartmentIDs    []string                   `json:"department_ids,omitempty"`     // 用户所属部门的ID列表, 一个用户可属于多个部门, ID值的类型与查询参数中的department_id_type 对应, 不同 ID 的说明与department_id的获取方式参见 [部门ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/field-overview#23857fe0), 示例值: od-4e6ac4d14bcd5071a37a39de902c7141
+	LeaderUserID     *string                    `json:"leader_user_id,omitempty"`     // 用户的直接主管的用户ID, ID值与查询参数中的user_id_type 对应, 不同 ID 的说明参见 [用户相关的 ID 概念](https://open.feishu.cn/document/home/user-identity-introduction/introduction), 获取方式参见[如何获取user_id](https://open.feishu.cn/document/home/user-identity-introduction/how-to-get), 示例值: "ou_7dab8a3d3cdcc9da365777c7ad535d62"
+	City             *string                    `json:"city,omitempty"`               // 工作城市, 示例值: "杭州"
 	Country          *string                    `json:"country,omitempty"`            // 国家或地区Code缩写, 具体写入格式请参考 [国家/地区码表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/country-code-description), 示例值: "CN"
 	WorkStation      *string                    `json:"work_station,omitempty"`       // 工位, 示例值: "北楼-H34"
-	JoinTime         *int64                     `json:"join_time,omitempty"`          // 入职时间, 示例值: 2147483647
+	JoinTime         *int64                     `json:"join_time,omitempty"`          // 入职时间, 时间戳格式, 表示从1970年1月1日开始所经过的秒数, 示例值: 2147483647
 	EmployeeNo       *string                    `json:"employee_no,omitempty"`        // 工号, 示例值: "1"
 	EmployeeType     int64                      `json:"employee_type,omitempty"`      // 员工类型, 可选值有: `1`: 正式员工, `2`: 实习生, `3`: 外包, `4`: 劳务, `5`: 顾问, 同时可读取到自定义员工类型的 int 值, 可通过下方接口获取到该租户的自定义员工类型的名称, [获取人员类型](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/employee_type_enum/list), 示例值: 1
-	Orders           []*UpdateUserReqOrder      `json:"orders,omitempty"`             // 用户排序信息
+	Orders           []*UpdateUserReqOrder      `json:"orders,omitempty"`             // 用户排序信息, 用于标记通讯录下组织架构的人员顺序, 人员可能存在多个部门中, 且有不同的排序。
 	CustomAttrs      []*UpdateUserReqCustomAttr `json:"custom_attrs,omitempty"`       // 自定义字段, 请确保你的组织管理员已在管理后台/组织架构/成员字段管理/自定义字段管理/全局设置中开启了“允许开放平台 API 调用“, 否则该字段不会生效/返回。
 	EnterpriseEmail  *string                    `json:"enterprise_email,omitempty"`   // 企业邮箱, 请先确保已在管理后台启用飞书邮箱服务, 示例值: "demo@mail.com"
 	JobTitle         *string                    `json:"job_title,omitempty"`          // 职务, 示例值: "xxxxx"
 	IsFrozen         *bool                      `json:"is_frozen,omitempty"`          // 是否暂停用户, 示例值: false
-	EntEmailPassword *string                    `json:"ent_email_password,omitempty"` // 企业邮箱登录时的密码（已废弃, 无需使用）, 示例值: "-"
 }
 
 // UpdateUserReqCustomAttr ...
 type UpdateUserReqCustomAttr struct {
-	Type  *string                       `json:"type,omitempty"`  // 自定义字段类型, `TEXT`: 文本, `HREF`: 网页, `ENUMERATION`: 枚举, `PICTURE_ENUM`: 图片, `GENERIC_USER`: 用户, [自定义字段相关常见问题](https://open.feishu.cn/document/ugTN1YjL4UTN24CO1UjN/uQzN1YjL0cTN24CN3UjN), 示例值: "TEXT"
+	Type  *string                       `json:"type,omitempty"`  // 自定义字段类型, `TEXT`: 文本, `HREF`: 网页, `ENUMERATION`: 枚举, `PICTURE_ENUM`: 图片, `GENERIC_USER`: 用户, [自定义字段相关常见问题](https://open.feishu.cn/document/ugTN1YjL4UTN24CO1UjN/uQzN1YjL0cTN24CN3UjN#77061525), 示例值: "TEXT"
 	ID    *string                       `json:"id,omitempty"`    // 自定义字段ID, 示例值: "DemoId"
 	Value *UpdateUserReqCustomAttrValue `json:"value,omitempty"` // 自定义字段取值
 }
@@ -96,7 +95,7 @@ type UpdateUserReqCustomAttr struct {
 // UpdateUserReqCustomAttrValue ...
 type UpdateUserReqCustomAttrValue struct {
 	Text        *string                                  `json:"text,omitempty"`         // 字段类型为`TEXT`时该参数定义字段值, 必填；字段类型为`HREF`时该参数定义网页标题, 必填, 示例值: "DemoText"
-	URL         *string                                  `json:"url,omitempty"`          // 字段类型为 HREF 时, 该参数定义默认 URL, 示例值: "http://www.feishu.cn"
+	URL         *string                                  `json:"url,omitempty"`          // 字段类型为 HREF 时, 该参数定义默认 URL, 例如手机端跳转小程序, PC端跳转网页, 示例值: "http://www.feishu.cn"
 	PcURL       *string                                  `json:"pc_url,omitempty"`       // 字段类型为 HREF 时, 该参数定义PC端 URL, 示例值: "http://www.feishu.cn"
 	OptionID    *string                                  `json:"option_id,omitempty"`    // 字段类型为 ENUMERATION 或 PICTURE_ENUM 时, 该参数定义选项值, 示例值: "edcvfrtg"
 	GenericUser *UpdateUserReqCustomAttrValueGenericUser `json:"generic_user,omitempty"` // 字段类型为 GENERIC_USER 时, 该参数定义引用人员
@@ -110,7 +109,7 @@ type UpdateUserReqCustomAttrValueGenericUser struct {
 
 // UpdateUserReqOrder ...
 type UpdateUserReqOrder struct {
-	DepartmentID    *string `json:"department_id,omitempty"`    // 排序信息对应的部门ID, ID值与查询参数中的department_id_type 对应, 不同 ID 的说明参见 [部门ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/field-overview), 示例值: "od-4e6ac4d14bcd5071a37a39de902c7141"
+	DepartmentID    *string `json:"department_id,omitempty"`    // 排序信息对应的部门ID, ID值与查询参数中的department_id_type 对应, 表示用户所在的、且需要排序的部门, 不同 ID 的说明参见及获取方式 [部门ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/field-overview), 示例值: "od-4e6ac4d14bcd5071a37a39de902c7141"
 	UserOrder       *int64  `json:"user_order,omitempty"`       // 用户在其直属部门内的排序, 数值越大, 排序越靠前, 示例值: 100
 	DepartmentOrder *int64  `json:"department_order,omitempty"` // 用户所属的多个部门间的排序, 数值越大, 排序越靠前, 示例值: 100
 }
@@ -122,34 +121,33 @@ type UpdateUserResp struct {
 
 // UpdateUserRespUser ...
 type UpdateUserRespUser struct {
-	UnionID          string                          `json:"union_id,omitempty"`           // 用户的union_id, 不同ID的说明参见 [用户相关的 ID 概念](https://open.feishu.cn/document/home/user-identity-introduction/introduction)
-	UserID           string                          `json:"user_id,omitempty"`            // 租户内用户的唯一标识, 用户的user_id, 不同ID的说明参见 [用户相关的 ID 概念](https://open.feishu.cn/document/home/user-identity-introduction/introduction), 字段权限要求: 获取用户 user ID
-	OpenID           string                          `json:"open_id,omitempty"`            // 用户的open_id, 不同ID的说明参见 [用户相关的 ID 概念](https://open.feishu.cn/document/home/user-identity-introduction/introduction)
-	Name             string                          `json:"name,omitempty"`               // 用户名, 字段权限要求（满足任一）: 以应用身份读取通讯录, 获取用户基本信息, 以应用身份访问通讯录, 读取通讯录
-	EnName           string                          `json:"en_name,omitempty"`            // 英文名, 字段权限要求（满足任一）: 以应用身份读取通讯录, 获取用户基本信息, 以应用身份访问通讯录, 读取通讯录
-	Nickname         string                          `json:"nickname,omitempty"`           // 别名, 字段权限要求（满足任一）: 以应用身份读取通讯录, 获取用户基本信息, 以应用身份访问通讯录, 读取通讯录
-	Email            string                          `json:"email,omitempty"`              // 邮箱, 注意非 +86 手机号成员必须同时添加邮箱, 字段权限要求: 获取用户邮箱信息
-	Mobile           string                          `json:"mobile,omitempty"`             // 手机号, 在本企业内不可重复；未认证企业仅支持添加中国大陆手机号, 通过飞书认证的企业允许添加海外手机号, 注意国际电话区号前缀中必须包含加号 +, 字段权限要求: 获取用户手机号
-	MobileVisible    bool                            `json:"mobile_visible,omitempty"`     // 手机号码可见性, true 为可见, false 为不可见, 目前默认为 true。不可见时, 组织员工将无法查看该员工的手机号码
-	Gender           int64                           `json:"gender,omitempty"`             // 性别, 可选值有: `0`: 保密, `1`: 男, `2`: 女, 字段权限要求（满足任一）: 以应用身份读取通讯录, 获取用户性别, 以应用身份访问通讯录, 读取通讯录
-	AvatarKey        string                          `json:"avatar_key,omitempty"`         // 头像的文件Key, 可通过“消息与群组/消息/图片信息”中的“上传图片”接口上传并获取头像文件 Key
-	Avatar           *UpdateUserRespUserAvatar       `json:"avatar,omitempty"`             // 用户头像信息, 字段权限要求（满足任一）: 以应用身份读取通讯录, 获取用户基本信息, 以应用身份访问通讯录, 读取通讯录
-	Status           *UpdateUserRespUserStatus       `json:"status,omitempty"`             // 用户状态, 字段权限要求（满足任一）: 以应用身份读取通讯录, 获取用户雇佣信息, 以应用身份访问通讯录, 读取通讯录
-	DepartmentIDs    []string                        `json:"department_ids,omitempty"`     // 用户所属部门的ID列表, 一个用户可属于多个部门, ID值与查询参数中的department_id_type 对应, 不同 ID 的说明参见 [部门ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/field-overview#23857fe0), 字段权限要求（满足任一）: 以应用身份读取通讯录, 获取用户组织架构信息, 以应用身份访问通讯录, 读取通讯录
-	LeaderUserID     string                          `json:"leader_user_id,omitempty"`     // 用户的直接主管的用户ID, ID值与查询参数中的user_id_type 对应, 不同 ID 的说明参见 [用户相关的 ID 概念](https://open.feishu.cn/document/home/user-identity-introduction/introduction), 字段权限要求（满足任一）: 以应用身份读取通讯录, 获取用户组织架构信息, 以应用身份访问通讯录, 读取通讯录
-	City             string                          `json:"city,omitempty"`               // 城市, 字段权限要求（满足任一）: 以应用身份读取通讯录, 获取用户雇佣信息, 以应用身份访问通讯录, 读取通讯录
-	Country          string                          `json:"country,omitempty"`            // 国家或地区Code缩写, 具体写入格式请参考 [国家/地区码表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/country-code-description), 字段权限要求（满足任一）: 以应用身份读取通讯录, 获取用户雇佣信息, 以应用身份访问通讯录, 读取通讯录
-	WorkStation      string                          `json:"work_station,omitempty"`       // 工位, 字段权限要求（满足任一）: 以应用身份读取通讯录, 获取用户雇佣信息, 以应用身份访问通讯录, 读取通讯录
-	JoinTime         int64                           `json:"join_time,omitempty"`          // 入职时间, 字段权限要求（满足任一）: 以应用身份读取通讯录, 获取用户雇佣信息, 以应用身份访问通讯录, 读取通讯录
-	IsTenantManager  bool                            `json:"is_tenant_manager,omitempty"`  // 是否是租户超级管理员, 字段权限要求（满足任一）: 以应用身份读取通讯录, 获取用户雇佣信息, 以应用身份访问通讯录, 读取通讯录
-	EmployeeNo       string                          `json:"employee_no,omitempty"`        // 工号, 字段权限要求（满足任一）: 以应用身份读取通讯录, 获取用户雇佣信息, 以应用身份访问通讯录, 读取通讯录
-	EmployeeType     int64                           `json:"employee_type,omitempty"`      // 员工类型, 可选值有: `1`: 正式员工, `2`: 实习生, `3`: 外包, `4`: 劳务, `5`: 顾问, 同时可读取到自定义员工类型的 int 值, 可通过下方接口获取到该租户的自定义员工类型的名称, [获取人员类型](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/employee_type_enum/list), 字段权限要求（满足任一）: 以应用身份读取通讯录, 获取用户雇佣信息, 以应用身份访问通讯录, 读取通讯录
-	Orders           []*UpdateUserRespUserOrder      `json:"orders,omitempty"`             // 用户排序信息, 字段权限要求（满足任一）: 以应用身份读取通讯录, 获取用户组织架构信息, 以应用身份访问通讯录, 读取通讯录
-	CustomAttrs      []*UpdateUserRespUserCustomAttr `json:"custom_attrs,omitempty"`       // 自定义字段, 请确保你的组织管理员已在管理后台/组织架构/成员字段管理/自定义字段管理/全局设置中开启了“允许开放平台 API 调用“, 否则该字段不会生效/返回, 字段权限要求（满足任一）: 以应用身份读取通讯录, 获取用户雇佣信息, 以应用身份访问通讯录, 读取通讯录
-	EnterpriseEmail  string                          `json:"enterprise_email,omitempty"`   // 企业邮箱, 请先确保已在管理后台启用飞书邮箱服务, 字段权限要求（满足任一）: 以应用身份读取通讯录, 获取用户雇佣信息, 以应用身份访问通讯录, 读取通讯录
-	JobTitle         string                          `json:"job_title,omitempty"`          // 职务, 字段权限要求（满足任一）: 以应用身份读取通讯录, 获取用户雇佣信息, 以应用身份访问通讯录, 读取通讯录
-	IsFrozen         bool                            `json:"is_frozen,omitempty"`          // 是否暂停用户
-	EntEmailPassword string                          `json:"ent_email_password,omitempty"` // 企业邮箱登录时的密码（已废弃, 无需使用）
+	UnionID         string                          `json:"union_id,omitempty"`          // 用户的union_id, 不同ID的说明参见 [用户相关的 ID 概念](https://open.feishu.cn/document/home/user-identity-introduction/introduction)
+	UserID          string                          `json:"user_id,omitempty"`           // 租户内用户的唯一标识, 用户的user_id, 不同ID的说明参见 [用户相关的 ID 概念](https://open.feishu.cn/document/home/user-identity-introduction/introduction), 字段权限要求: 获取用户 user ID
+	OpenID          string                          `json:"open_id,omitempty"`           // 用户的open_id, 不同ID的说明参见 [用户相关的 ID 概念](https://open.feishu.cn/document/home/user-identity-introduction/introduction)
+	Name            string                          `json:"name,omitempty"`              // 用户名, 字段权限要求（满足任一）: 以应用身份读取通讯录, 获取用户基本信息, 以应用身份访问通讯录, 读取通讯录
+	EnName          string                          `json:"en_name,omitempty"`           // 英文名, 字段权限要求（满足任一）: 以应用身份读取通讯录, 获取用户基本信息, 以应用身份访问通讯录, 读取通讯录
+	Nickname        string                          `json:"nickname,omitempty"`          // 别名, 字段权限要求（满足任一）: 以应用身份读取通讯录, 获取用户基本信息, 以应用身份访问通讯录, 读取通讯录
+	Email           string                          `json:"email,omitempty"`             // 邮箱, 注意: 1. 非中国大陆手机号成员必须同时添加邮箱, 2. 邮箱不可重复, 字段权限要求: 获取用户邮箱信息
+	Mobile          string                          `json:"mobile,omitempty"`            // 手机号, 在本企业内不可重复；未认证企业仅支持添加中国大陆手机号, 通过飞书认证的企业允许添加海外手机号, 注意国际电话区号前缀中必须包含加号 +, 字段权限要求: 获取用户手机号
+	MobileVisible   bool                            `json:"mobile_visible,omitempty"`    // 手机号码可见性, true 为可见, false 为不可见, 目前默认为 true。不可见时, 组织员工将无法查看该员工的手机号码
+	Gender          int64                           `json:"gender,omitempty"`            // 性别, 可选值有: 0: 保密, 1: 男, 2: 女, 字段权限要求（满足任一）: 以应用身份读取通讯录, 获取用户性别, 以应用身份访问通讯录, 读取通讯录
+	AvatarKey       string                          `json:"avatar_key,omitempty"`        // 头像的文件Key, 可通过“消息与群组/消息/图片信息”中的“上传图片”接口上传并获取头像文件 Key, “上传图片”接口文档: [上传图片](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/image/create)
+	Avatar          *UpdateUserRespUserAvatar       `json:"avatar,omitempty"`            // 用户头像信息, 字段权限要求（满足任一）: 以应用身份读取通讯录, 获取用户基本信息, 以应用身份访问通讯录, 读取通讯录
+	Status          *UpdateUserRespUserStatus       `json:"status,omitempty"`            // 用户状态, 枚举类型, 包括is_frozen、is_resigned、is_activated、is_exited, 用户状态转移参见: [用户状态图](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/field-overview#4302b5a1), 字段权限要求（满足任一）: 以应用身份读取通讯录, 获取用户雇佣信息, 以应用身份访问通讯录, 读取通讯录
+	DepartmentIDs   []string                        `json:"department_ids,omitempty"`    // 用户所属部门的ID列表, 一个用户可属于多个部门, ID值的类型与查询参数中的department_id_type 对应, 不同 ID 的说明与department_id的获取方式参见 [部门ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/field-overview#23857fe0), 字段权限要求（满足任一）: 以应用身份读取通讯录, 获取用户组织架构信息, 以应用身份访问通讯录, 读取通讯录
+	LeaderUserID    string                          `json:"leader_user_id,omitempty"`    // 用户的直接主管的用户ID, ID值与查询参数中的user_id_type 对应, 不同 ID 的说明参见 [用户相关的 ID 概念](https://open.feishu.cn/document/home/user-identity-introduction/introduction), 获取方式参见[如何获取user_id](https://open.feishu.cn/document/home/user-identity-introduction/how-to-get), 字段权限要求（满足任一）: 以应用身份读取通讯录, 获取用户组织架构信息, 以应用身份访问通讯录, 读取通讯录
+	City            string                          `json:"city,omitempty"`              // 工作城市, 字段权限要求（满足任一）: 以应用身份读取通讯录, 获取用户雇佣信息, 以应用身份访问通讯录, 读取通讯录
+	Country         string                          `json:"country,omitempty"`           // 国家或地区Code缩写, 具体写入格式请参考 [国家/地区码表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/country-code-description), 字段权限要求（满足任一）: 以应用身份读取通讯录, 获取用户雇佣信息, 以应用身份访问通讯录, 读取通讯录
+	WorkStation     string                          `json:"work_station,omitempty"`      // 工位, 字段权限要求（满足任一）: 以应用身份读取通讯录, 获取用户雇佣信息, 以应用身份访问通讯录, 读取通讯录
+	JoinTime        int64                           `json:"join_time,omitempty"`         // 入职时间, 时间戳格式, 表示从1970年1月1日开始所经过的秒数, 字段权限要求（满足任一）: 以应用身份读取通讯录, 获取用户雇佣信息, 以应用身份访问通讯录, 读取通讯录
+	IsTenantManager bool                            `json:"is_tenant_manager,omitempty"` // 是否是租户超级管理员, 字段权限要求（满足任一）: 以应用身份读取通讯录, 获取用户雇佣信息, 以应用身份访问通讯录, 读取通讯录
+	EmployeeNo      string                          `json:"employee_no,omitempty"`       // 工号, 字段权限要求（满足任一）: 以应用身份读取通讯录, 获取用户雇佣信息, 以应用身份访问通讯录, 读取通讯录
+	EmployeeType    int64                           `json:"employee_type,omitempty"`     // 员工类型, 可选值有: `1`: 正式员工, `2`: 实习生, `3`: 外包, `4`: 劳务, `5`: 顾问, 同时可读取到自定义员工类型的 int 值, 可通过下方接口获取到该租户的自定义员工类型的名称, [获取人员类型](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/employee_type_enum/list), 字段权限要求（满足任一）: 以应用身份读取通讯录, 获取用户雇佣信息, 以应用身份访问通讯录, 读取通讯录
+	Orders          []*UpdateUserRespUserOrder      `json:"orders,omitempty"`            // 用户排序信息, 用于标记通讯录下组织架构的人员顺序, 人员可能存在多个部门中, 且有不同的排序, 字段权限要求（满足任一）: 以应用身份读取通讯录, 获取用户组织架构信息, 以应用身份访问通讯录, 读取通讯录
+	CustomAttrs     []*UpdateUserRespUserCustomAttr `json:"custom_attrs,omitempty"`      // 自定义字段, 请确保你的组织管理员已在管理后台/组织架构/成员字段管理/自定义字段管理/全局设置中开启了“允许开放平台 API 调用“, 否则该字段不会生效/返回, 字段权限要求（满足任一）: 以应用身份读取通讯录, 获取用户雇佣信息, 以应用身份访问通讯录, 读取通讯录
+	EnterpriseEmail string                          `json:"enterprise_email,omitempty"`  // 企业邮箱, 请先确保已在管理后台启用飞书邮箱服务, 字段权限要求（满足任一）: 以应用身份读取通讯录, 获取用户雇佣信息, 以应用身份访问通讯录, 读取通讯录
+	JobTitle        string                          `json:"job_title,omitempty"`         // 职务, 字段权限要求（满足任一）: 以应用身份读取通讯录, 获取用户雇佣信息, 以应用身份访问通讯录, 读取通讯录
+	IsFrozen        bool                            `json:"is_frozen,omitempty"`         // 是否暂停用户
 }
 
 // UpdateUserRespUserAvatar ...
@@ -162,7 +160,7 @@ type UpdateUserRespUserAvatar struct {
 
 // UpdateUserRespUserCustomAttr ...
 type UpdateUserRespUserCustomAttr struct {
-	Type  string                             `json:"type,omitempty"`  // 自定义字段类型, `TEXT`: 文本, `HREF`: 网页, `ENUMERATION`: 枚举, `PICTURE_ENUM`: 图片, `GENERIC_USER`: 用户, [自定义字段相关常见问题](https://open.feishu.cn/document/ugTN1YjL4UTN24CO1UjN/uQzN1YjL0cTN24CN3UjN)
+	Type  string                             `json:"type,omitempty"`  // 自定义字段类型, `TEXT`: 文本, `HREF`: 网页, `ENUMERATION`: 枚举, `PICTURE_ENUM`: 图片, `GENERIC_USER`: 用户, [自定义字段相关常见问题](https://open.feishu.cn/document/ugTN1YjL4UTN24CO1UjN/uQzN1YjL0cTN24CN3UjN#77061525)
 	ID    string                             `json:"id,omitempty"`    // 自定义字段ID
 	Value *UpdateUserRespUserCustomAttrValue `json:"value,omitempty"` // 自定义字段取值
 }
@@ -170,11 +168,11 @@ type UpdateUserRespUserCustomAttr struct {
 // UpdateUserRespUserCustomAttrValue ...
 type UpdateUserRespUserCustomAttrValue struct {
 	Text        string                                        `json:"text,omitempty"`         // 字段类型为`TEXT`时该参数定义字段值, 必填；字段类型为`HREF`时该参数定义网页标题, 必填
-	URL         string                                        `json:"url,omitempty"`          // 字段类型为 HREF 时, 该参数定义默认 URL
+	URL         string                                        `json:"url,omitempty"`          // 字段类型为 HREF 时, 该参数定义默认 URL, 例如手机端跳转小程序, PC端跳转网页
 	PcURL       string                                        `json:"pc_url,omitempty"`       // 字段类型为 HREF 时, 该参数定义PC端 URL
 	OptionID    string                                        `json:"option_id,omitempty"`    // 字段类型为 ENUMERATION 或 PICTURE_ENUM 时, 该参数定义选项值
-	OptionValue string                                        `json:"option_value,omitempty"` // 选项值
-	Name        string                                        `json:"name,omitempty"`         // 名称
+	OptionValue string                                        `json:"option_value,omitempty"` // 选项类型的值, 表示 成员详情/自定义字段 中选项选中的值
+	Name        string                                        `json:"name,omitempty"`         // 选项类型为图片时, 表示图片的名称
 	PictureURL  string                                        `json:"picture_url,omitempty"`  // 图片链接
 	GenericUser *UpdateUserRespUserCustomAttrValueGenericUser `json:"generic_user,omitempty"` // 字段类型为 GENERIC_USER 时, 该参数定义引用人员
 }
@@ -187,7 +185,7 @@ type UpdateUserRespUserCustomAttrValueGenericUser struct {
 
 // UpdateUserRespUserOrder ...
 type UpdateUserRespUserOrder struct {
-	DepartmentID    string `json:"department_id,omitempty"`    // 排序信息对应的部门ID, ID值与查询参数中的department_id_type 对应, 不同 ID 的说明参见 [部门ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/field-overview)
+	DepartmentID    string `json:"department_id,omitempty"`    // 排序信息对应的部门ID, ID值与查询参数中的department_id_type 对应, 表示用户所在的、且需要排序的部门, 不同 ID 的说明参见及获取方式 [部门ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/field-overview)
 	UserOrder       int64  `json:"user_order,omitempty"`       // 用户在其直属部门内的排序, 数值越大, 排序越靠前
 	DepartmentOrder int64  `json:"department_order,omitempty"` // 用户所属的多个部门间的排序, 数值越大, 排序越靠前
 }

@@ -75,7 +75,7 @@ type EventV2ContactUserCreatedV3ObjectAvatar struct {
 
 // EventV2ContactUserCreatedV3ObjectCustomAttr ...
 type EventV2ContactUserCreatedV3ObjectCustomAttr struct {
-	Type  string                                            `json:"type,omitempty"`  // 自定义字段类型, `TEXT`: 文本, `HREF`: 网页, `ENUMERATION`: 枚举, `PICTURE_ENUM`: 图片, `GENERIC_USER`: 用户, [自定义字段相关常见问题](https://open.feishu.cn/document/ugTN1YjL4UTN24CO1UjN/uQzN1YjL0cTN24CN3UjN)
+	Type  string                                            `json:"type,omitempty"`  // 自定义字段类型, `TEXT`: 文本, `HREF`: 网页, `ENUMERATION`: 枚举, `PICTURE_ENUM`: 图片, `GENERIC_USER`: 用户, [自定义字段相关常见问题](https://open.feishu.cn/document/ugTN1YjL4UTN24CO1UjN/uQzN1YjL0cTN24CN3UjN#77061525)
 	ID    string                                            `json:"id,omitempty"`    // 自定义字段ID
 	Value *EventV2ContactUserCreatedV3ObjectCustomAttrValue `json:"value,omitempty"` // 自定义字段取值
 }
@@ -83,11 +83,11 @@ type EventV2ContactUserCreatedV3ObjectCustomAttr struct {
 // EventV2ContactUserCreatedV3ObjectCustomAttrValue ...
 type EventV2ContactUserCreatedV3ObjectCustomAttrValue struct {
 	Text        string                                                       `json:"text,omitempty"`         // 字段类型为`TEXT`时该参数定义字段值, 必填；字段类型为`HREF`时该参数定义网页标题, 必填
-	URL         string                                                       `json:"url,omitempty"`          // 字段类型为 HREF 时, 该参数定义默认 URL
+	URL         string                                                       `json:"url,omitempty"`          // 字段类型为 HREF 时, 该参数定义默认 URL, 例如手机端跳转小程序, PC端跳转网页
 	PcURL       string                                                       `json:"pc_url,omitempty"`       // 字段类型为 HREF 时, 该参数定义PC端 URL
 	OptionID    string                                                       `json:"option_id,omitempty"`    // 字段类型为 ENUMERATION 或 PICTURE_ENUM 时, 该参数定义选项值
-	OptionValue string                                                       `json:"option_value,omitempty"` // 选项值
-	Name        string                                                       `json:"name,omitempty"`         // 名称
+	OptionValue string                                                       `json:"option_value,omitempty"` // 选项类型的值, 表示 成员详情/自定义字段 中选项选中的值
+	Name        string                                                       `json:"name,omitempty"`         // 选项类型为图片时, 表示图片的名称
 	PictureURL  string                                                       `json:"picture_url,omitempty"`  // 图片链接
 	GenericUser *EventV2ContactUserCreatedV3ObjectCustomAttrValueGenericUser `json:"generic_user,omitempty"` // 字段类型为 GENERIC_USER 时, 该参数定义引用人员
 }
@@ -100,7 +100,7 @@ type EventV2ContactUserCreatedV3ObjectCustomAttrValueGenericUser struct {
 
 // EventV2ContactUserCreatedV3ObjectOrder ...
 type EventV2ContactUserCreatedV3ObjectOrder struct {
-	DepartmentID    string `json:"department_id,omitempty"`    // 排序信息对应的部门ID, ID值与查询参数中的department_id_type 对应, 不同 ID 的说明参见 [部门ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/field-overview)
+	DepartmentID    string `json:"department_id,omitempty"`    // 排序信息对应的部门ID, ID值与查询参数中的department_id_type 对应, 表示用户所在的、且需要排序的部门, 不同 ID 的说明参见及获取方式 [部门ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/field-overview)
 	UserOrder       int64  `json:"user_order,omitempty"`       // 用户在其直属部门内的排序, 数值越大, 排序越靠前
 	DepartmentOrder int64  `json:"department_order,omitempty"` // 用户所属的多个部门间的排序, 数值越大, 排序越靠前
 }
