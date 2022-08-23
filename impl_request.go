@@ -73,12 +73,25 @@ func (r *Lark) rawRequest(ctx context.Context, req *RawRequestReq, resp interfac
 		return response, err
 	}
 
-	// 2. do request
+	// 2. do before func
+	for _, beforeFunction := range r.beforeFuncList {
+		err := beforeFunction(ctx, rawHttpReq)
+		if err != nil {
+			return nil, err
+		}
+	}
+
+	// 3. do request
 	response, err = r.doRequest(ctx, rawHttpReq, resp)
 	requestID, statusCode := getResponseRequestID(response)
 	if err != nil {
 		r.log(ctx, LogLevelError, "[lark] %s#%s %s %s failed, request_id: %s, status_code: %d, error: %s", req.Scope, req.API, req.Method, req.URL, requestID, statusCode, err)
 		return response, err
+	}
+
+	// 4. do after func
+	for _, afterFunction := range r.afterFuncList {
+		afterFunction(ctx, resp, response)
 	}
 
 	code, msg := getCodeMsg(resp)
@@ -108,9 +121,9 @@ type RawRequestReq struct {
 }
 
 // 把可读的 RawRequestReq ，解析为 http 请求的参数 rawHttpRequestParam
-func (r *Lark) parseRawHttpRequest(ctx context.Context, req *RawRequestReq) (*rawHttpRequest, error) {
+func (r *Lark) parseRawHttpRequest(ctx context.Context, req *RawRequestReq) (*RawHttpRequest, error) {
 	// 0 init
-	rawHttpReq := &rawHttpRequest{
+	rawHttpReq := &RawHttpRequest{
 		Scope:   req.Scope,
 		API:     req.API,
 		Method:  strings.ToUpper(req.Method),
@@ -132,7 +145,7 @@ func (r *Lark) parseRawHttpRequest(ctx context.Context, req *RawRequestReq) (*ra
 	return rawHttpReq, nil
 }
 
-func (r *Lark) doRequest(ctx context.Context, rawHttpReq *rawHttpRequest, realResponse interface{}) (*Response, error) {
+func (r *Lark) doRequest(ctx context.Context, rawHttpReq *RawHttpRequest, realResponse interface{}) (*Response, error) {
 	response := new(Response)
 	response.Method = rawHttpReq.Method
 	response.URL = rawHttpReq.URL
@@ -212,7 +225,7 @@ func (r *Lark) doRequest(ctx context.Context, rawHttpReq *rawHttpRequest, realRe
 	return response, nil
 }
 
-func (r *rawHttpRequest) parseHeader(ctx context.Context, ins *Lark, req *RawRequestReq) error {
+func (r *RawHttpRequest) parseHeader(ctx context.Context, ins *Lark, req *RawRequestReq) error {
 	if ins.isEnableLogID {
 		logID, ok := getStringFromContext(ctx, rpcLogIDKey)
 		if ok {
@@ -244,7 +257,7 @@ func (r *rawHttpRequest) parseHeader(ctx context.Context, ins *Lark, req *RawReq
 	return nil
 }
 
-func (r *rawHttpRequest) parseRawRequestReqBody(body interface{}, isFile bool) error {
+func (r *RawHttpRequest) parseRawRequestReqBody(body interface{}, isFile bool) error {
 	var reader io.Reader
 	fileKey := ""
 	query := url.Values{}
@@ -327,7 +340,7 @@ func (r *rawHttpRequest) parseRawRequestReqBody(body interface{}, isFile bool) e
 	return nil
 }
 
-type rawHttpRequest struct {
+type RawHttpRequest struct {
 	Scope   string
 	API     string
 	Method  string

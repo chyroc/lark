@@ -136,6 +136,22 @@ func WithIsEnableLogID(isEnableLogID bool) ClientOptionFunc {
 	}
 }
 
+// WithBeforeFunc set before func
+// you can call WithBeforeFunc several times to set multi before func
+func WithBeforeFunc(beforeFunc beforeFunc) ClientOptionFunc {
+	return func(lark *Lark) {
+		lark.beforeFuncList = append(lark.beforeFuncList, beforeFunc)
+	}
+}
+
+// WithAfterFunc set after func
+// you can call WithAfterFunc several times to set multi after func
+func WithAfterFunc(afterFunc afterFunc) ClientOptionFunc {
+	return func(lark *Lark) {
+		lark.afterFuncList = append(lark.afterFuncList, afterFunc)
+	}
+}
+
 // MethodOptionFunc new method option
 type MethodOptionFunc func(*MethodOption)
 
@@ -161,14 +177,16 @@ func newMethodOption(options []MethodOptionFunc) *MethodOption {
 
 func newClient(tenantKey string, options []ClientOptionFunc) *Lark {
 	r := &Lark{
-		timeout:      time.Second * 3,
-		isISV:        false,
-		tenantKey:    tenantKey,
-		store:        NewStoreMemory(),
-		mock:         new(Mock),
-		eventHandler: new(eventHandler),
-		openBaseURL:  "https://open.feishu.cn",
-		wwwBaseURL:   "https://www.feishu.cn",
+		timeout:        time.Second * 3,
+		isISV:          false,
+		tenantKey:      tenantKey,
+		store:          NewStoreMemory(),
+		mock:           new(Mock),
+		eventHandler:   new(eventHandler),
+		openBaseURL:    "https://open.feishu.cn",
+		wwwBaseURL:     "https://www.feishu.cn",
+		beforeFuncList: make([]beforeFunc, 0),
+		afterFuncList:  make([]afterFunc, 0),
 	}
 	for _, v := range options {
 		if v != nil {

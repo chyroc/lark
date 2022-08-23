@@ -22,6 +22,9 @@ import (
 	"time"
 )
 
+type beforeFunc func(ctx context.Context, req *RawHttpRequest) error
+type afterFunc func(ctx context.Context, rpcResp interface{}, generalResp *Response)
+
 // Lark client struct
 type Lark struct {
 	appID               string
@@ -46,6 +49,8 @@ type Lark struct {
 	mock             *Mock
 	eventHandler     *eventHandler
 	getAppTicketFunc func(ctx context.Context, larkClient *Lark, appID string) (string, error)
+	beforeFuncList   []beforeFunc
+	afterFuncList    []afterFunc
 
 	// service
 	ACS           *ACSService
@@ -141,6 +146,8 @@ func (r *Lark) clone(tenantKey string) *Lark {
 		mock:                r.mock,
 		eventHandler:        r.eventHandler,
 		getAppTicketFunc:    r.getAppTicketFunc,
+		beforeFuncList:      r.beforeFuncList,
+		afterFuncList:       r.afterFuncList,
 	}
 	r2.initService()
 	return r2
