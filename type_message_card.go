@@ -230,7 +230,7 @@ type MessageContentCardElementButton struct {
 	Text     *MessageContentCardObjectText    `json:"text,omitempty"`      // 按钮中的文本
 	URL      string                           `json:"url,omitempty"`       // 跳转链接，和multi_url互斥
 	MultiURL *MessageContentCardObjectURL     `json:"multi_url,omitempty"` // 多端跳转链接
-	Type     string                           `json:"type,omitempty"`      // 配置按钮样式，默认为"default"，	"default"/"primary"/"danger"
+	Type     string                           `json:"type,omitempty"`      // 配置按钮样式，默认为"default", 可选值: "default"/"primary"/"danger"
 	Value    interface{}                      `json:"value,omitempty"`     // 点击后返回业务方，	仅支持key-value形式的json结构，且key为String类型。
 	Confirm  *MessageContentCardObjectConfirm `json:"confirm,omitempty"`   // 二次确认的弹框
 }

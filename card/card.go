@@ -21,13 +21,16 @@ import (
 
 func Card(modules ...lark.MessageContentCardModule) *lark.MessageContentCard {
 	return &lark.MessageContentCard{
-		Config:  Config(),
-		Modules: modules,
+		Header:      nil,
+		Config:      Config(),
+		Modules:     modules,
+		I18NModules: nil,
 	}
 }
 
 func I18NCard(module *lark.MessageContentCardI18NModule) *lark.MessageContentCard {
 	return &lark.MessageContentCard{
+		Header:      nil,
 		Config:      Config(),
 		Modules:     nil,
 		I18NModules: module,

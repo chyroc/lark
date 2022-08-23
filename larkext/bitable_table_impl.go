@@ -21,19 +21,10 @@ import (
 	"github.com/chyroc/lark"
 )
 
-// BitableTable is a table that can be used to store bitable data.
-type BitableTable struct {
-	larkClient *lark.Lark
-	appToken   string
-	tableID    string
-}
-
-// NewBitableTable new a bitable table.
-func NewBitableTable(larkClient *lark.Lark, appToken string, tableID string) *BitableTable {
-	return &BitableTable{larkClient: larkClient, appToken: appToken, tableID: tableID}
-}
-
-// Delete delete bitable table
-func (r *BitableTable) Delete(ctx context.Context) error {
-	return r.delete(ctx)
+func (r *BitableTable) delete(ctx context.Context) error {
+	_, _, err := r.larkClient.Bitable.DeleteBitableTable(ctx, &lark.DeleteBitableTableReq{
+		AppToken: r.appToken,
+		TableID:  r.tableID,
+	})
+	return err
 }
