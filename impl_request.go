@@ -213,6 +213,12 @@ func (r *Lark) doRequest(ctx context.Context, rawHttpReq *rawHttpRequest, realRe
 }
 
 func (r *rawHttpRequest) parseHeader(ctx context.Context, ins *Lark, req *RawRequestReq) error {
+	if ins.isEnableLogID {
+		logID, ok := getStringFromContext(ctx, rpcLogIDKey)
+		if ok {
+			r.Headers[httpHeaderLogIDKey] = logID
+		}
+	}
 	r.Headers["User-Agent"] = fmt.Sprintf("chyroc-go-lark/%s (https://github.com/chyroc/lark)", version)
 
 	if req.NeedUserAccessToken && req.MethodOption.userAccessToken != "" {
@@ -411,6 +417,28 @@ func getResponseRequestID(response *Response) (requestID string, statusCode int)
 	requestID = response.RequestID
 	statusCode = response.StatusCode
 	return
+}
+
+func getStringFromContext(ctx context.Context, key string) (string, bool) {
+	if ctx == nil {
+		return "", false
+	}
+
+	v := ctx.Value(key)
+	if v == nil {
+		return "", false
+	}
+
+	switch v := v.(type) {
+	case string:
+		return v, true
+	case *string:
+		if v == nil {
+			return "", false
+		}
+		return *v, true
+	}
+	return "", false
 }
 
 func rangeStruct(v interface{}, f func(fieldVV reflect.Value, fieldVT reflect.StructField) error) error {

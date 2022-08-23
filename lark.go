@@ -129,6 +129,13 @@ func WithGetAppTicketFunc(f func(ctx context.Context, larkClient *Lark, appID st
 	}
 }
 
+// WithIsEnableLogID set IsCarryLogID
+func WithIsEnableLogID(isEnableLogID bool) ClientOptionFunc {
+	return func(lark *Lark) {
+		lark.isEnableLogID = isEnableLogID
+	}
+}
+
 // MethodOptionFunc new method option
 type MethodOptionFunc func(*MethodOption)
 
