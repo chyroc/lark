@@ -31,10 +31,33 @@ func (r *Bitable) meta(ctx context.Context) (*lark.GetBitableMetaRespApp, error)
 	return resp.App, err
 }
 
+func (r *Bitable) updateMeta(ctx context.Context, name *string, isAdvanced *bool) error {
+	_, _, err := r.larkClient.Bitable.UpdateBitableMeta(ctx, &lark.UpdateBitableMetaReq{
+		AppToken:   r.token,
+		Name:       name,
+		IsAdvanced: isAdvanced,
+	})
+	return err
+}
+
 func (r *Bitable) copy(ctx context.Context, folderToken, name string) (*Bitable, error) {
 	res, err := copyFile(ctx, r.larkClient, folderToken, r.token, r.typ, name)
 	if err != nil {
 		return nil, err
 	}
 	return newBitable(r.larkClient, res.Token, res.URL), nil
+}
+
+func (r *Bitable) createBitableTable(ctx context.Context, name string) (*BitableTable, error) {
+	resp, _, err := r.larkClient.Bitable.CreateBitableTable(ctx, &lark.CreateBitableTableReq{
+		AppToken:   r.token,
+		UserIDType: nil,
+		Table: &lark.CreateBitableTableReqTable{
+			Name: &name,
+		},
+	})
+	if err != nil {
+		return nil, err
+	}
+	return NewBitableTable(r.larkClient, r.token, resp.TableID), nil
 }

@@ -34,3 +34,10 @@ func LinkButton(text string, url string) *lark.MessageContentCardElementButton {
 		URL:  url,
 	}
 }
+
+func MultiLinkButton(text string, url *lark.MessageContentCardObjectURL) *lark.MessageContentCardElementButton {
+	return &lark.MessageContentCardElementButton{
+		Text:     Text(text),
+		MultiURL: url,
+	}
+}

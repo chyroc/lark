@@ -43,6 +43,11 @@ func (r *Bitable) Meta(ctx context.Context) (*lark.GetBitableMetaRespApp, error)
 	return r.meta(ctx)
 }
 
+// UpdateTitle update bitable title
+func (r *Bitable) UpdateTitle(ctx context.Context, title string) error {
+	return r.updateMeta(ctx, &title, nil)
+}
+
 // Copy copy bitable file
 func (r *Bitable) Copy(ctx context.Context, folderToken, name string) (*Bitable, error) {
 	return r.copy(ctx, folderToken, name)
@@ -56,6 +61,11 @@ func (r *Bitable) Move(ctx context.Context, folderToken string) error {
 func (r *Bitable) Delete(ctx context.Context) error {
 	_, err := deleteFile(ctx, r.larkClient, r.token, r.typ)
 	return err
+}
+
+// CreateBitableTable create bitable table
+func (r *Bitable) CreateBitableTable(ctx context.Context, name string) (*BitableTable, error) {
+	return r.createBitableTable(ctx, name)
 }
 
 // Permission grant bitable permission

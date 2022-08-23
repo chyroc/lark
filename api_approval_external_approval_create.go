@@ -70,6 +70,7 @@ type CreateApprovalExternalApprovalReq struct {
 	External         *CreateApprovalExternalApprovalReqExternal       `json:"external,omitempty"`           // 三方审批相关
 	Viewers          []*CreateApprovalExternalApprovalReqViewer       `json:"viewers,omitempty"`            // 可见人列表, 可通知配置多个可见人, 只有在配置的范围内用户可以在审批发起也看到该审批, 默认不传, 则是任何人不可见
 	I18nResources    []*CreateApprovalExternalApprovalReqI18nResource `json:"i18n_resources,omitempty"`     // 国际化文案
+	Managers         []string                                         `json:"managers,omitempty"`           // 根据user_id_type填写流程管理员id, 示例值: 19a294c2
 }
 
 // CreateApprovalExternalApprovalReqExternal ...
