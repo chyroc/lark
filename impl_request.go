@@ -51,7 +51,8 @@ func (r *Lark) RawRequest(ctx context.Context, req *RawRequestReq, resp interfac
 	if r.mock.mockRawRequest != nil {
 		return r.mock.mockRawRequest(ctx, req, resp)
 	}
-	return r.rawRequest(ctx, req, resp)
+
+	return r.wrapDoRequest(ctx, req, resp)
 }
 
 // MockRawRequest mock request
@@ -67,7 +68,7 @@ func (r *Mock) UnMockRawRequest() {
 func (r *Lark) rawRequest(ctx context.Context, req *RawRequestReq, resp interface{}) (response *Response, err error) {
 	r.log(ctx, LogLevelInfo, "[lark] %s#%s call api", req.Scope, req.API)
 
-	// 1. req
+	// 1. parse request
 	rawHttpReq, err := r.parseRawHttpRequest(ctx, req)
 	if err != nil {
 		return response, err
@@ -75,6 +76,7 @@ func (r *Lark) rawRequest(ctx context.Context, req *RawRequestReq, resp interfac
 
 	// 2. do request
 	response, err = r.doRequest(ctx, rawHttpReq, resp)
+
 	requestID, statusCode := getResponseRequestID(response)
 	if err != nil {
 		r.log(ctx, LogLevelError, "[lark] %s#%s %s %s failed, request_id: %s, status_code: %d, error: %s", req.Scope, req.API, req.Method, req.URL, requestID, statusCode, err)

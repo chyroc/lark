@@ -129,6 +129,13 @@ func WithGetAppTicketFunc(f func(ctx context.Context, larkClient *Lark, appID st
 	}
 }
 
+// WithApiMiddleware set api middleware
+func WithApiMiddleware(mws ...ApiMiddleware) ClientOptionFunc {
+	return func(lark *Lark) {
+		lark.apiMiddlewares = mws
+	}
+}
+
 // WithIsEnableLogID set IsCarryLogID
 func WithIsEnableLogID(isEnableLogID bool) ClientOptionFunc {
 	return func(lark *Lark) {
@@ -181,6 +188,7 @@ func newClient(tenantKey string, options []ClientOptionFunc) *Lark {
 	}
 
 	r.initService()
+	r.initMiddleware()
 
 	return r
 }

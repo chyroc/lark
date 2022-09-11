@@ -38,6 +38,7 @@ type Lark struct {
 	openBaseURL         string
 	wwwBaseURL          string
 	isEnableLogID       bool
+	apiMiddlewares      []ApiMiddleware
 
 	httpClient       HttpClient
 	logger           Logger
@@ -46,6 +47,7 @@ type Lark struct {
 	mock             *Mock
 	eventHandler     *eventHandler
 	getAppTicketFunc func(ctx context.Context, larkClient *Lark, appID string) (string, error)
+	wrapDoRequest    ApiEndpoint
 
 	// service
 	ACS           *ACSService
@@ -141,6 +143,8 @@ func (r *Lark) clone(tenantKey string) *Lark {
 		mock:                r.mock,
 		eventHandler:        r.eventHandler,
 		getAppTicketFunc:    r.getAppTicketFunc,
+		apiMiddlewares:      r.apiMiddlewares,
+		wrapDoRequest:       r.wrapDoRequest,
 	}
 	r2.initService()
 	return r2
