@@ -129,6 +129,13 @@ func WithGetAppTicketFunc(f func(ctx context.Context, larkClient *Lark, appID st
 	}
 }
 
+// WithMiddleware set get app ticket function
+func WithMiddleware(middlewares ...HandlerFunc) ClientOptionFunc {
+	return func(lark *Lark) {
+		lark.handlers = middlewares
+	}
+}
+
 // WithIsEnableLogID set IsCarryLogID
 func WithIsEnableLogID(isEnableLogID bool) ClientOptionFunc {
 	return func(lark *Lark) {
