@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// GetBaikeEntity 通过词条 id 拉取对应的实体词详情信息
+// GetBaikeEntity 通过词条 id 拉取对应的词条详情信息。
 //
 // 也支持通过 provider 和 outer_id 返回对应实体的详情数据。此时路径中的 entity_id 为固定的 enterprise_0
 //
@@ -68,7 +68,7 @@ type GetBaikeEntityReq struct {
 
 // GetBaikeEntityResp ...
 type GetBaikeEntityResp struct {
-	Entity *GetBaikeEntityRespEntity `json:"entity,omitempty"` // 实体词
+	Entity *GetBaikeEntityRespEntity `json:"entity,omitempty"` // 百科词条
 }
 
 // GetBaikeEntityRespEntity ...
@@ -80,7 +80,6 @@ type GetBaikeEntityRespEntity struct {
 	CreateTime  string                               `json:"create_time,omitempty"`  // 词条创建时间
 	UpdateTime  string                               `json:"update_time,omitempty"`  // 词条最近更新时间
 	RelatedMeta *GetBaikeEntityRespEntityRelatedMeta `json:"related_meta,omitempty"` // 更多相关信息
-	Categories  []string                             `json:"categories,omitempty"`   // 词条标签
 	Statistics  *GetBaikeEntityRespEntityStatistics  `json:"statistics,omitempty"`   // 当前词条收到的反馈数据
 	OuterInfo   *GetBaikeEntityRespEntityOuterInfo   `json:"outer_info,omitempty"`   // 外部系统关联数据
 	RichText    string                               `json:"rich_text,omitempty"`    // 富文本格式（当填写富文本内容时, description字段将会失效可不填写）, 支持的格式参考[企业百科指南](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/baike-v1/overview)中的释义部分
@@ -125,6 +124,7 @@ type GetBaikeEntityRespEntityRelatedMeta struct {
 	Links           []*GetBaikeEntityRespEntityRelatedMetaLink           `json:"links,omitempty"`           // 相关链接
 	Abbreviations   []*GetBaikeEntityRespEntityRelatedMetaAbbreviation   `json:"abbreviations,omitempty"`   // 相关词条
 	Classifications []*GetBaikeEntityRespEntityRelatedMetaClassification `json:"classifications,omitempty"` // 当前词条所属分类, 词条只能属于二级分类, 且每个一级分类下只能选择一个二级分类。
+	Images          []*GetBaikeEntityRespEntityRelatedMetaImage          `json:"images,omitempty"`          // 上传的图片
 }
 
 // GetBaikeEntityRespEntityRelatedMetaAbbreviation ...
@@ -150,6 +150,11 @@ type GetBaikeEntityRespEntityRelatedMetaClassification struct {
 type GetBaikeEntityRespEntityRelatedMetaDoc struct {
 	Title string `json:"title,omitempty"` // 对应相关信息的描述, 如相关联系人的描述、相关链接的标题
 	URL   string `json:"url,omitempty"`   // 链接地址
+}
+
+// GetBaikeEntityRespEntityRelatedMetaImage ...
+type GetBaikeEntityRespEntityRelatedMetaImage struct {
+	Token string `json:"token,omitempty"` // 通过文件接口上传图片后, 获得的图片 token
 }
 
 // GetBaikeEntityRespEntityRelatedMetaLink ...

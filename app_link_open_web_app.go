@@ -41,4 +41,5 @@ type OpenWebAppReq struct {
 	PathIos     *string `json:"path_ios,omitempty"`      // 同 path 参数, iOS 端会优先使用该参数, 如果该参数不存在, 则会使用 path 参数  3.20版本开始支持
 	PathPc      *string `json:"path_pc,omitempty"`       // 同 path 参数, PC 端会优先使用该参数, 如果该参数不存在, 则会使用 path 参数  3.20版本开始支持
 	LkTargetURL *string `json:"lk_target_url,omitempty"` // 访问H5应用的具体某个页面, 针对网页path中包含#或?字符时, 可使用该参数, 而不使用`path`参数。需要填写H5应用某个具体页面的完整URL（协议名`scheme`和域名`domain`应当与开发者后台配置的应用首页相匹配）, 并进行[URL encode](https://meyerweb.com/eric/tools/dencoder/)后使用。具体参考示例3  飞书V5.12版本开始支持。飞书低版本中无法解析此参数, 将打开应用首页
+	Reload      *string `json:"reload,omitempty"`        // 如果网页应用当前所处的页面路径和 applink 要打开的页面路径相同时: true: 重新加载页面   false: 保留原页面状态   默认值: false   5.20版本开始支持
 }

@@ -807,12 +807,36 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
-			cli.Mock().MockDriveCreateSheet(func(ctx context.Context, request *lark.CreateSheetReq, options ...lark.MethodOptionFunc) (*lark.CreateSheetResp, *lark.Response, error) {
+			cli.Mock().MockDriveUpdateSpreadsheet(func(ctx context.Context, request *lark.UpdateSpreadsheetReq, options ...lark.MethodOptionFunc) (*lark.UpdateSpreadsheetResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
-			defer cli.Mock().UnMockDriveCreateSheet()
+			defer cli.Mock().UnMockDriveUpdateSpreadsheet()
 
-			_, _, err := moduleCli.CreateSheet(ctx, &lark.CreateSheetReq{})
+			_, _, err := moduleCli.UpdateSpreadsheet(ctx, &lark.UpdateSpreadsheetReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			cli.Mock().MockDriveGetSpreadsheet(func(ctx context.Context, request *lark.GetSpreadsheetReq, options ...lark.MethodOptionFunc) (*lark.GetSpreadsheetResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockDriveGetSpreadsheet()
+
+			_, _, err := moduleCli.GetSpreadsheet(ctx, &lark.GetSpreadsheetReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			cli.Mock().MockDriveCreateSpreadsheet(func(ctx context.Context, request *lark.CreateSpreadsheetReq, options ...lark.MethodOptionFunc) (*lark.CreateSpreadsheetResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockDriveCreateSpreadsheet()
+
+			_, _, err := moduleCli.CreateSpreadsheet(ctx, &lark.CreateSpreadsheetReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "mock-failed")
 		})
@@ -837,6 +861,30 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 			defer cli.Mock().UnMockDriveUpdateSheetProperty()
 
 			_, _, err := moduleCli.UpdateSheetProperty(ctx, &lark.UpdateSheetPropertyReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			cli.Mock().MockDriveGetSheet(func(ctx context.Context, request *lark.GetSheetReq, options ...lark.MethodOptionFunc) (*lark.GetSheetResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockDriveGetSheet()
+
+			_, _, err := moduleCli.GetSheet(ctx, &lark.GetSheetReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			cli.Mock().MockDriveGetSheetList(func(ctx context.Context, request *lark.GetSheetListReq, options ...lark.MethodOptionFunc) (*lark.GetSheetListResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockDriveGetSheetList()
+
+			_, _, err := moduleCli.GetSheetList(ctx, &lark.GetSheetListReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "mock-failed")
 		})
@@ -2187,7 +2235,25 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
-			_, _, err := moduleCli.CreateSheet(ctx, &lark.CreateSheetReq{})
+			_, _, err := moduleCli.UpdateSpreadsheet(ctx, &lark.UpdateSpreadsheetReq{
+				SpreadSheetToken: "x",
+			})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.GetSpreadsheet(ctx, &lark.GetSpreadsheetReq{
+				SpreadSheetToken: "x",
+			})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.CreateSpreadsheet(ctx, &lark.CreateSpreadsheetReq{})
 			as.NotNil(err)
 			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
 		})
@@ -2204,6 +2270,25 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		t.Run("", func(t *testing.T) {
 
 			_, _, err := moduleCli.UpdateSheetProperty(ctx, &lark.UpdateSheetPropertyReq{
+				SpreadSheetToken: "x",
+			})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.GetSheet(ctx, &lark.GetSheetReq{
+				SpreadSheetToken: "x",
+				SheetID:          "x",
+			})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.GetSheetList(ctx, &lark.GetSheetListReq{
 				SpreadSheetToken: "x",
 			})
 			as.NotNil(err)
@@ -3391,7 +3476,25 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
-			_, _, err := moduleCli.CreateSheet(ctx, &lark.CreateSheetReq{})
+			_, _, err := moduleCli.UpdateSpreadsheet(ctx, &lark.UpdateSpreadsheetReq{
+				SpreadSheetToken: "x",
+			})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.GetSpreadsheet(ctx, &lark.GetSpreadsheetReq{
+				SpreadSheetToken: "x",
+			})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.CreateSpreadsheet(ctx, &lark.CreateSpreadsheetReq{})
 			as.NotNil(err)
 			as.Equal("fake raw request", err.Error())
 		})
@@ -3408,6 +3511,25 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		t.Run("", func(t *testing.T) {
 
 			_, _, err := moduleCli.UpdateSheetProperty(ctx, &lark.UpdateSheetPropertyReq{
+				SpreadSheetToken: "x",
+			})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.GetSheet(ctx, &lark.GetSheetReq{
+				SpreadSheetToken: "x",
+				SheetID:          "x",
+			})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.GetSheetList(ctx, &lark.GetSheetListReq{
 				SpreadSheetToken: "x",
 			})
 			as.NotNil(err)

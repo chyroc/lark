@@ -63,8 +63,8 @@ type GetBitableRecordListReq struct {
 	AppToken          string  `path:"app_token" json:"-"`            // bitable app token, 示例值: "bascnCMII2ORej2RItqpZZUNMIe"
 	TableID           string  `path:"table_id" json:"-"`             // table id, 示例值: "tblxI2tWaxP5dG7p"
 	ViewID            *string `query:"view_id" json:"-"`             // 视图 id, 注意: 如 filter 或 sort 有值, view_id 会被忽略, 示例值: "vewqhz51lk"
-	Filter            *string `query:"filter" json:"-"`              // 筛选参数, 注意: 1.筛选记录的表达式不超过2000个字符, 2.不支持对“人员”以及“关联字段”的属性进行过滤筛选, 如人员的 OpenID, 3.仅支持字段在页面展示字符值进行筛选, 详细请参考[记录筛选开发指南](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/filter), 示例值: "示例表达式: AND(CurrentValue.[身高]>180, CurrentValue.[体重]>150)"
-	Sort              *string `query:"sort" json:"-"`                // 排序参数, 注意: 1.表达式需要不超过1000字符, 2.不支持对带“公式”和“关联字段”的表的使用, 示例值: "["字段1 DESC", "字段2 ASC"], 注意: 使用引号将字段名称和顺序逆序连接起来。"
+	Filter            *string `query:"filter" json:"-"`              // 筛选参数, 注意: 1.筛选记录的表达式不超过2000个字符, 2.不支持对“人员”以及“关联字段”的属性进行过滤筛选, 如人员的 OpenID, 3.仅支持字段在页面展示字符值进行筛选, 详细请参考[记录筛选开发指南](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/filter), 示例值: "AND(CurrentValue.[身高]>180, CurrentValue.[体重]>150)"
+	Sort              *string `query:"sort" json:"-"`                // 排序参数, 注意: 1.表达式需要不超过1000字符, 2.不支持对带“公式”和“关联字段”的表的使用, 3.使用引号将字段名称和顺序逆序连接起来, 示例值: "["字段1 DESC", "字段2 ASC"]"
 	FieldNames        *string `query:"field_names" json:"-"`         // 字段名称, 示例值: "["字段1"]"
 	TextFieldAsArray  *bool   `query:"text_field_as_array" json:"-"` // 控制多行文本字段数据的返回格式, true 表示以数组形式返回, 注意: 1.多行文本中如果有超链接部分, 则会返回链接的 URL, 2.目前可以返回多行文本中 URL 类型为多维表格链接、飞书 doc、飞书 sheet的URL类型以及@人员的数据结构, 示例值: true
 	UserIDType        *IDType `query:"user_id_type" json:"-"`        // 用户 ID 类型, 示例值: "open_id", 可选值有: open_id: 用户的 open id, union_id: 用户的 union id, user_id: 用户的 user id, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
@@ -84,7 +84,7 @@ type GetBitableRecordListResp struct {
 
 // GetBitableRecordListRespItem ...
 type GetBitableRecordListRespItem struct {
-	RecordID         string                                      `json:"record_id,omitempty"`          // 记录 id
+	RecordID         string                                      `json:"record_id,omitempty"`          // 记录 id, 更新多条记录时必填
 	CreatedBy        *GetBitableRecordListRespItemCreatedBy      `json:"created_by,omitempty"`         // 创建人
 	CreatedTime      int64                                       `json:"created_time,omitempty"`       // 创建时间
 	LastModifiedBy   *GetBitableRecordListRespItemLastModifiedBy `json:"last_modified_by,omitempty"`   // 修改人

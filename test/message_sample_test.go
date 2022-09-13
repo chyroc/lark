@@ -313,6 +313,42 @@ func Test_Message_Sample_Failed(t *testing.T) {
 			as.Equal(err.Error(), "mock-failed")
 		})
 
+		t.Run("", func(t *testing.T) {
+
+			cli.Mock().MockMessageCreateMessagePin(func(ctx context.Context, request *lark.CreateMessagePinReq, options ...lark.MethodOptionFunc) (*lark.CreateMessagePinResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockMessageCreateMessagePin()
+
+			_, _, err := moduleCli.CreateMessagePin(ctx, &lark.CreateMessagePinReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			cli.Mock().MockMessageDeleteMessagePin(func(ctx context.Context, request *lark.DeleteMessagePinReq, options ...lark.MethodOptionFunc) (*lark.DeleteMessagePinResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockMessageDeleteMessagePin()
+
+			_, _, err := moduleCli.DeleteMessagePin(ctx, &lark.DeleteMessagePinReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			cli.Mock().MockMessageGetMessagePinList(func(ctx context.Context, request *lark.GetMessagePinListReq, options ...lark.MethodOptionFunc) (*lark.GetMessagePinListResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockMessageGetMessagePinList()
+
+			_, _, err := moduleCli.GetMessagePinList(ctx, &lark.GetMessagePinListReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
 	})
 
 	t.Run("response is failed", func(t *testing.T) {
@@ -501,6 +537,29 @@ func Test_Message_Sample_Failed(t *testing.T) {
 				MessageID:  "x",
 				ReactionID: "x",
 			})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.CreateMessagePin(ctx, &lark.CreateMessagePinReq{})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.DeleteMessagePin(ctx, &lark.DeleteMessagePinReq{
+				MessageID: "x",
+			})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.GetMessagePinList(ctx, &lark.GetMessagePinListReq{})
 			as.NotNil(err)
 			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
 		})
@@ -696,6 +755,29 @@ func Test_Message_Sample_Failed(t *testing.T) {
 				MessageID:  "x",
 				ReactionID: "x",
 			})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.CreateMessagePin(ctx, &lark.CreateMessagePinReq{})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.DeleteMessagePin(ctx, &lark.DeleteMessagePinReq{
+				MessageID: "x",
+			})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.GetMessagePinList(ctx, &lark.GetMessagePinListReq{})
 			as.NotNil(err)
 			as.Equal("fake raw request", err.Error())
 		})

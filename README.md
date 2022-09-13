@@ -38,7 +38,7 @@ https://godoc.org/github.com/chyroc/lark
 
 ## Support APIs
 
-API Count: 644, Event Count: 93
+API Count: 653, Event Count: 93
 
 <details>
   <summary>
@@ -191,6 +191,8 @@ API Count: 644, Event Count: 93
   - SearchBaikeEntity
   - HighlightBaikeEntity
   - GetBaikeClassificationList
+  - UploadBaikeImage
+  - DownloadBaikeImage
 - Bitable
   - GetBitableViewList
   - CreateBitableView
@@ -404,9 +406,13 @@ API Count: 644, Event Count: 93
   - UpdateDriveDocContent
   - GetDriveDocRawContent
   - GetDriveDocMeta
-  - CreateSheet
+  - UpdateSpreadsheet
+  - GetSpreadsheet
+  - CreateSpreadsheet
   - GetSheetMeta
   - UpdateSheetProperty
+  - GetSheet
+  - GetSheetList
   - BatchUpdateSheet
   - ImportSheet
   - CreateDriveImportTask
@@ -739,6 +745,9 @@ API Count: 644, Event Count: 93
   - CreateMessageReaction
   - GetMessageReactionList
   - DeleteMessageReaction
+  - CreateMessagePin
+  - DeleteMessagePin
+  - GetMessagePinList
 - OKR
   - GetOKRPeriodList
   - BatchGetOKR

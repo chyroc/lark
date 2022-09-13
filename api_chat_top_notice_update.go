@@ -64,7 +64,7 @@ type UpdateChatTopNoticeReq struct {
 
 // UpdateChatTopNoticeReqChatTopNotice ...
 type UpdateChatTopNoticeReqChatTopNotice struct {
-	ActionType *string `json:"action_type,omitempty"` // 置顶的类型, 示例值: "1", 可选值有: `1`: 消息类型, `2`: 群公告类型
+	ActionType *string `json:"action_type,omitempty"` // 置顶的类型, 示例值: "1", 可选值有: 1: 消息类型, 2: 群公告类型
 	MessageID  *string `json:"message_id,omitempty"`  // 消息id, 示例值: "om_dc13264520392913993dd051dba21dcf"
 }
 

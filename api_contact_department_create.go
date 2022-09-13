@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// CreateDepartment 该接口用于向通讯录中创建部门。[常见问题答疑](https://open.feishu.cn/document/ugTN1YjL4UTN24CO1UjN/uQzN1YjL0cTN24CN3UjN)。
+// CreateDepartment 该接口用于向通讯录中创建部门。
 //
 // 只可在应用的通讯录权限范围内的部门下创建部门。若需要在根部门下创建子部门, 则应用通讯录权限范围需要设置为“全部成员”。应用商店应用无权限调用此接口。
 //
@@ -60,7 +60,7 @@ func (r *Mock) UnMockContactCreateDepartment() {
 // CreateDepartmentReq ...
 type CreateDepartmentReq struct {
 	UserIDType         *IDType                      `query:"user_id_type" json:"-"`         // 用户 ID 类型, 示例值: "open_id", 可选值有: open_id: 用户的 open id, union_id: 用户的 union id, user_id: 用户的 user id, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
-	DepartmentIDType   *DepartmentIDType            `query:"department_id_type" json:"-"`   // 此次调用中使用的部门ID的类型, 不同 ID 的说明 [部门ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/field-overview#23857fe0), 示例值: "open_department_id", 可选值有: department_id: 以自定义department_id来标识部门, open_department_id: 以open_department_id来标识部门
+	DepartmentIDType   *DepartmentIDType            `query:"department_id_type" json:"-"`   // 此次调用中使用的部门ID的类型, 不同 ID 的说明参见[部门ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/field-overview#23857fe0), 示例值: "open_department_id", 可选值有: department_id: 以自定义department_id来标识部门, open_department_id: 以open_department_id来标识部门
 	ClientToken        *string                      `query:"client_token" json:"-"`         // 用于幂等判断是否为同一请求, 避免重复创建。字符串类型, 自行生成, 示例值: "473469C7-AA6F-4DC5-B3DB-A3DC0DE3C83E"
 	Name               string                       `json:"name,omitempty"`                 // 部门名称, 示例值: "DemoName", 最小长度: `1` 字符
 	I18nName           *CreateDepartmentReqI18nName `json:"i18n_name,omitempty"`            // 国际化的部门名称
