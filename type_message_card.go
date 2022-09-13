@@ -467,12 +467,13 @@ type MessageContentCardModuleTag string
 
 // MessageContentCardModuleTagDIV ...
 const (
-	MessageContentCardModuleTagDIV      MessageContentCardModuleTag = "div"
-	MessageContentCardModuleTagMarkdown MessageContentCardModuleTag = "markdown"
-	MessageContentCardModuleTagHR       MessageContentCardModuleTag = "hr"
-	MessageContentCardModuleTagImage    MessageContentCardModuleTag = "img"
-	MessageContentCardModuleTagAction   MessageContentCardModuleTag = "action"
-	MessageContentCardModuleTagNote     MessageContentCardModuleTag = "note"
+	MessageContentCardModuleTagDIV       MessageContentCardModuleTag = "div"
+	MessageContentCardModuleTagMarkdown  MessageContentCardModuleTag = "markdown"
+	MessageContentCardModuleTagHR        MessageContentCardModuleTag = "hr"
+	MessageContentCardModuleTagImage     MessageContentCardModuleTag = "img"
+	MessageContentCardModuleTagAction    MessageContentCardModuleTag = "action"
+	MessageContentCardModuleTagNote      MessageContentCardModuleTag = "note"
+	MessageContentCardModuleTagColumnSet MessageContentCardModuleTag = "column_set"
 )
 
 // === MessageContentCardModuleAction ===
@@ -607,8 +608,9 @@ func (r MessageContentCardModuleImage) MarshalJSON() ([]byte, error) {
 //
 // https://open.feishu.cn/document/ukTMukTMukTM/uMjNwUjLzYDM14yM2ATN
 type MessageContentCardModuleMarkdown struct {
-	Content string                                  `json:"content"` // 使用已支持的markdown语法构造markdown内容
-	Href    map[string]*MessageContentCardObjectURL `json:"href"`    // key是 content 中的 url值，差异化跳转：仅在需要PC、移动端跳转不同链接使用
+	Content   string                                  `json:"content"`              // 使用已支持的markdown语法构造markdown内容
+	TextAlign string                                  `json:"text_align,omitempty"` // 设置文本内容的对齐方式。枚举值包括： · left：左对齐（默认）· center：居中对齐· right：右对齐
+	Href      map[string]*MessageContentCardObjectURL `json:"href"`                 // key是 content 中的 url值，差异化跳转：仅在需要PC、移动端跳转不同链接使用
 }
 
 // IsMessageContentCardModule ...
@@ -617,6 +619,26 @@ func (r MessageContentCardModuleMarkdown) IsMessageContentCardModule() {}
 // MarshalJSON ...
 func (r MessageContentCardModuleMarkdown) MarshalJSON() ([]byte, error) {
 	return marshalJSONWithMap(r, map[string]interface{}{"tag": MessageContentCardModuleTagMarkdown})
+}
+
+func (r *MessageContentCardModuleMarkdown) SetTextAlign(val string) *MessageContentCardModuleMarkdown {
+	r.TextAlign = val
+	return r
+}
+
+func (r *MessageContentCardModuleMarkdown) SetLeftTextAlign() *MessageContentCardModuleMarkdown {
+	r.TextAlign = "left"
+	return r
+}
+
+func (r *MessageContentCardModuleMarkdown) SetCenterTextAlign() *MessageContentCardModuleMarkdown {
+	r.TextAlign = "center"
+	return r
+}
+
+func (r *MessageContentCardModuleMarkdown) SetRightTextAlign() *MessageContentCardModuleMarkdown {
+	r.TextAlign = "right"
+	return r
 }
 
 func (r *MessageContentCardModuleMarkdown) SetHref(val map[string]*MessageContentCardObjectURL) *MessageContentCardModuleMarkdown {
@@ -648,6 +670,104 @@ func (r MessageContentCardModuleNote) MarshalJSON() ([]byte, error) {
 
 func (r *MessageContentCardModuleNote) SetElements(val ...MessageContentCardElement) *MessageContentCardModuleNote {
 	r.Elements = val
+	return r
+}
+
+type MessageContentCardModuleColumnSet struct {
+	Columns           []*MessageContentCardModuleColumn `json:"columns,omitempty"`            // 存放布局子容器的数组
+	FlexMode          *string                           `json:"flex_mode,omitempty"`          // 移动端窄屏幕下，各列的自适应方式。 none：默认值。移动端与PC端表现一致，不进行布局自适应，在窄屏幕下按比例压缩列宽度。stretch：在移动端和PC的窄窗口模式下，列布局变为 行布局，且每列（行）宽度强制拉伸为100%，所有列自适应为上下堆叠排布。flow: 列流式排布（自动换行），当一行展示不下下一列时，自动换至下一行展示。bisect：在移动端和PC的窄窗口模式下，两列等分布局。trisect：在移动端和PC的窄窗口模式下，三列等分布局。
+	BackgroundStyle   *string                           `json:"background_style,omitempty"`   // 列集的背景色样式。 default：默认的白底样式，dark mode下为黑底。grey：灰底样式
+	HorizontalSpacing *string                           `json:"horizontal_spacing,omitempty"` // 列集内，每列与上一列的左右间距，默认为default。 列集内的所有水平边距保持统一间距。default：默认间距。small：窄间距
+	Action            *MessageContentCardElement        `json:"action,omitempty"`
+}
+
+// IsMessageContentCardModule ...
+func (r MessageContentCardModuleColumnSet) IsMessageContentCardModule() {}
+
+// MarshalJSON ...
+func (r MessageContentCardModuleColumnSet) MarshalJSON() ([]byte, error) {
+	return marshalJSONWithMap(r, map[string]interface{}{"tag": MessageContentCardModuleTagColumnSet})
+}
+
+func (r *MessageContentCardModuleColumnSet) SetFlexMode(val string) *MessageContentCardModuleColumnSet {
+	r.FlexMode = &val
+	return r
+}
+
+func (r *MessageContentCardModuleColumnSet) SetBackgroundStyle(val string) *MessageContentCardModuleColumnSet {
+	r.BackgroundStyle = &val
+	return r
+}
+
+func (r *MessageContentCardModuleColumnSet) SetHorizontalSpacing(val string) *MessageContentCardModuleColumnSet {
+	r.HorizontalSpacing = &val
+	return r
+}
+
+func (r *MessageContentCardModuleColumnSet) SetAction(val MessageContentCardElement) *MessageContentCardModuleColumnSet {
+	r.Action = &val
+	return r
+}
+
+type MessageContentCardModuleColumn struct {
+	Modules       []MessageContentCardModule `json:"elements,omitempty"`       // 需要在列内展示的卡片元素
+	Width         *string                    `json:"width"`                    // 列宽度属性。枚举值包括： auto：列宽度与列内元素宽度一致,weighted:列宽度按weight定义的权重分布
+	Weight        *int64                     `json:"weight,omitempty"`         // 当width为weighted时生效，为当前列的宽度占比
+	VerticalAlign *string                    `json:"vertical_align,omitempty"` // 列内成员垂直对齐方式。枚举值包括： top：顶对齐,center：居中对齐,bottom：底部对齐
+}
+
+// MarshalJSON ...
+func (r MessageContentCardModuleColumn) MarshalJSON() ([]byte, error) {
+	return marshalJSONWithMap(r, map[string]interface{}{"tag": "column"})
+}
+
+func (r *MessageContentCardModuleColumn) SetWidth(val string) *MessageContentCardModuleColumn {
+	r.Width = &val
+	return r
+}
+
+// SetAutoWidth 列宽度与列内元素宽度一致
+func (r *MessageContentCardModuleColumn) SetAutoWidth() *MessageContentCardModuleColumn {
+	val := "auto"
+	r.Width = &val
+	return r
+}
+
+// 列宽度按weight定义的权重分布
+func (r *MessageContentCardModuleColumn) SetWeightedWidth() *MessageContentCardModuleColumn {
+	val := "weighted"
+	r.Width = &val
+	return r
+}
+
+func (r *MessageContentCardModuleColumn) SetWeight(val int64) *MessageContentCardModuleColumn {
+	width := "weighted"
+	r.Width = &width
+	r.Weight = &val
+	return r
+}
+
+func (r *MessageContentCardModuleColumn) SetVerticalAlign(val string) *MessageContentCardModuleColumn {
+	r.VerticalAlign = &val
+	return r
+}
+
+// 顶对齐
+func (r *MessageContentCardModuleColumn) SetTopVerticalAlign() *MessageContentCardModuleColumn {
+	val := "top"
+	r.VerticalAlign = &val
+	return r
+}
+
+func (r *MessageContentCardModuleColumn) SetCenterVerticalAlign() *MessageContentCardModuleColumn {
+	val := "center"
+	r.VerticalAlign = &val
+	return r
+}
+
+func (r *MessageContentCardModuleColumn) SetBottomVerticalAlign() *MessageContentCardModuleColumn {
+	val := "bottom"
+	r.VerticalAlign = &val
 	return r
 }
 

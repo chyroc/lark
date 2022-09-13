@@ -25,3 +25,15 @@ func Markdown(content string) *lark.MessageContentCardModuleMarkdown {
 		Content: content,
 	}
 }
+
+func GreenText(s string) string {
+	return lark.MdBuilder.GreenText(s)
+}
+
+func RedText(s string) string {
+	return lark.MdBuilder.RedText(s)
+}
+
+func GreyText(s string) string {
+	return lark.MdBuilder.GreyText(s)
+}
