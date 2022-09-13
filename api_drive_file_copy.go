@@ -61,10 +61,17 @@ func (r *Mock) UnMockDriveCopyDriveFile() {
 
 // CopyDriveFileReq ...
 type CopyDriveFileReq struct {
-	FileToken   string  `path:"file_token" json:"-"`    // 被复制的文件token, 示例值: "boxbc0dGSMu23m7QkC1bvabcef"
-	Name        string  `json:"name,omitempty"`         // 被复制文件的新名称, 示例值: "123.txt"
-	Type        *string `json:"type,omitempty"`         // 被复制文件的类型, 如果该值为空或者与文件实际类型不匹配, 接口会返回失败, 示例值: "file", 可选值有: `file`: 文件类型, `doc`: 文档类型, `sheet`: 电子表格类型, `bitable`: 多维表格类型, `docx`: 新版文档类型, `mindnote`: 思维笔记类型
-	FolderToken string  `json:"folder_token,omitempty"` // 文件被复制到的目标文件夹token, 示例值: "fldbcO1UuPz8VwnpPx5a92abcef"
+	FileToken   string                   `path:"file_token" json:"-"`    // 被复制的文件token, 示例值: "doccngpahSdXrFPIBD4XdIabcef"
+	Name        string                   `json:"name,omitempty"`         // 被复制文件的新名称, 示例值: "test.txt"
+	Type        *string                  `json:"type,omitempty"`         // 被复制文件的类型, 如果该值为空或者与文件实际类型不匹配, 接口会返回失败, 示例值: "doc", 可选值有: file: 文件类型, doc: 文档类型, sheet: 电子表格类型, bitable: 多维表格类型, docx: 新版文档类型, mindnote: 思维笔记类型
+	FolderToken string                   `json:"folder_token,omitempty"` // 文件被复制到的目标文件夹token, 示例值: "fldbcO1UuPz8VwnpPx5a92abcef"
+	Extra       []*CopyDriveFileReqExtra `json:"extra,omitempty"`        // 用户自定义请求附加参数, 用于实现特殊的复制语义
+}
+
+// CopyDriveFileReqExtra ...
+type CopyDriveFileReqExtra struct {
+	Key   string `json:"key,omitempty"`   // 自定义属性键对象, 示例值: "target_type"
+	Value string `json:"value,omitempty"` // 自定义属性值对象, 示例值: "docx"
 }
 
 // CopyDriveFileResp ...
@@ -74,11 +81,18 @@ type CopyDriveFileResp struct {
 
 // CopyDriveFileRespFile ...
 type CopyDriveFileRespFile struct {
-	Token       string `json:"token,omitempty"`        // 文件标识
-	Name        string `json:"name,omitempty"`         // 文件名
-	Type        string `json:"type,omitempty"`         // 文件类型
-	ParentToken string `json:"parent_token,omitempty"` // 父文件夹标识
-	URL         string `json:"url,omitempty"`          // 在浏览器中查看的链接
+	Token        string                             `json:"token,omitempty"`         // 文件标识
+	Name         string                             `json:"name,omitempty"`          // 文件名
+	Type         string                             `json:"type,omitempty"`          // 文件类型
+	ParentToken  string                             `json:"parent_token,omitempty"`  // 父文件夹标识
+	URL          string                             `json:"url,omitempty"`           // 在浏览器中查看的链接
+	ShortcutInfo *CopyDriveFileRespFileShortcutInfo `json:"shortcut_info,omitempty"` // 快捷方式文件信息
+}
+
+// CopyDriveFileRespFileShortcutInfo ...
+type CopyDriveFileRespFileShortcutInfo struct {
+	TargetType  string `json:"target_type,omitempty"`  // 快捷方式指向的原文件类型
+	TargetToken string `json:"target_token,omitempty"` // 快捷方式指向的原文件token
 }
 
 // copyDriveFileResp ...

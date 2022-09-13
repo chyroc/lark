@@ -24,6 +24,8 @@ import (
 // GetSheetMeta 该接口用于根据 spreadsheetToken 获取表格元数据。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uETMzUjLxEzM14SMxMTN
+//
+// Deprecated
 func (r *DriveService) GetSheetMeta(ctx context.Context, request *GetSheetMetaReq, options ...MethodOptionFunc) (*GetSheetMetaResp, *Response, error) {
 	if r.cli.mock.mockDriveGetSheetMeta != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Drive#GetSheetMeta mock enable")

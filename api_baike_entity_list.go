@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// GetBaikeEntityList 分页拉取词条列表数据, 支持拉取租户内的全部词条
+// GetBaikeEntityList 分页拉取词条列表数据, 支持拉取租户内的全部词条。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/baike-v1/entity/list
 func (r *BaikeService) GetBaikeEntityList(ctx context.Context, request *GetBaikeEntityListReq, options ...MethodOptionFunc) (*GetBaikeEntityListResp, *Response, error) {
@@ -58,7 +58,7 @@ func (r *Mock) UnMockBaikeGetBaikeEntityList() {
 
 // GetBaikeEntityListReq ...
 type GetBaikeEntityListReq struct {
-	PageSize   *int64  `query:"page_size" json:"-"`    // 分页大小, 示例值: 20, 最大值: `100`
+	PageSize   *int64  `query:"page_size" json:"-"`    // 分页大小, 示例值: 20, 默认值: `20`, 最大值: `100`
 	PageToken  *string `query:"page_token" json:"-"`   // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果, 示例值: "b152fa6e6f62a291019a04c3a93f365f8ac641910506ff15ff4cad6534e087cb4ed8fa2c"
 	Provider   *string `query:"provider" json:"-"`     // 相关外部系统【可用来过滤词条数据】, 示例值: "星云", 长度范围: `2` ～ `32` 字符
 	UserIDType *IDType `query:"user_id_type" json:"-"` // 用户 ID 类型, 示例值: "open_id", 可选值有: open_id: 用户的 open id, union_id: 用户的 union id, user_id: 用户的 user id, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
@@ -79,7 +79,6 @@ type GetBaikeEntityListRespEntity struct {
 	CreateTime  string                                   `json:"create_time,omitempty"`  // 词条创建时间
 	UpdateTime  string                                   `json:"update_time,omitempty"`  // 词条最近更新时间
 	RelatedMeta *GetBaikeEntityListRespEntityRelatedMeta `json:"related_meta,omitempty"` // 更多相关信息
-	Categories  []string                                 `json:"categories,omitempty"`   // 词条标签
 	Statistics  *GetBaikeEntityListRespEntityStatistics  `json:"statistics,omitempty"`   // 当前词条收到的反馈数据
 	OuterInfo   *GetBaikeEntityListRespEntityOuterInfo   `json:"outer_info,omitempty"`   // 外部系统关联数据
 	RichText    string                                   `json:"rich_text,omitempty"`    // 富文本格式（当填写富文本内容时, description字段将会失效可不填写）, 支持的格式参考[企业百科指南](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/baike-v1/overview)中的释义部分
@@ -124,6 +123,7 @@ type GetBaikeEntityListRespEntityRelatedMeta struct {
 	Links           []*GetBaikeEntityListRespEntityRelatedMetaLink           `json:"links,omitempty"`           // 相关链接
 	Abbreviations   []*GetBaikeEntityListRespEntityRelatedMetaAbbreviation   `json:"abbreviations,omitempty"`   // 相关词条
 	Classifications []*GetBaikeEntityListRespEntityRelatedMetaClassification `json:"classifications,omitempty"` // 当前词条所属分类, 词条只能属于二级分类, 且每个一级分类下只能选择一个二级分类。
+	Images          []*GetBaikeEntityListRespEntityRelatedMetaImage          `json:"images,omitempty"`          // 上传的图片
 }
 
 // GetBaikeEntityListRespEntityRelatedMetaAbbreviation ...
@@ -149,6 +149,11 @@ type GetBaikeEntityListRespEntityRelatedMetaClassification struct {
 type GetBaikeEntityListRespEntityRelatedMetaDoc struct {
 	Title string `json:"title,omitempty"` // 对应相关信息的描述, 如相关联系人的描述、相关链接的标题
 	URL   string `json:"url,omitempty"`   // 链接地址
+}
+
+// GetBaikeEntityListRespEntityRelatedMetaImage ...
+type GetBaikeEntityListRespEntityRelatedMetaImage struct {
+	Token string `json:"token,omitempty"` // 通过文件接口上传图片后, 获得的图片 token
 }
 
 // GetBaikeEntityListRespEntityRelatedMetaLink ...

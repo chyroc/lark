@@ -29,7 +29,6 @@ import (
 // - 机器人和消息需要在同一会话中
 // - 请求的 file_key 和 message_id 需要匹配
 // - 暂不支持获取合并转发消息中的子消息的资源文件
-// - 获取群组消息时, 应用必须拥有 获取群组中所有的消息 权限
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message-resource/get
 func (r *MessageService) GetMessageFile(ctx context.Context, request *GetMessageFileReq, options ...MethodOptionFunc) (*GetMessageFileResp, *Response, error) {

@@ -52,12 +52,14 @@ type EventV1TripApproval struct {
 
 // EventV1TripApprovalEventSchedule ...
 type EventV1TripApprovalEventSchedule struct {
-	TripStartTime  string `json:"trip_start_time,omitempty"` // 行程开始时间. 如: 2018-12-01 12:00:00
-	TripEndTime    string `json:"trip_end_time,omitempty"`   // 行程结束时间. 如: 2018-12-01 12:00:00
-	TripInterval   int64  `json:"trip_interval,omitempty"`   // 行程时长（秒）. 如: 3600
-	Departure      string `json:"departure,omitempty"`       // 出发地. 如: xxx
-	Destination    string `json:"destination,omitempty"`     // 目的地. 如: xxx
-	Transportation string `json:"transportation,omitempty"`  // 交通工具. 如: xxx
-	TripType       string `json:"trip_type,omitempty"`       // 单程/往返. 如: 单程
-	Remark         string `json:"remark,omitempty"`          // 备注. 如: 备注
+	TripStartTime  string   `json:"trip_start_time,omitempty"` // 行程开始时间. 如: 2018-12-01 12:00:00
+	TripEndTime    string   `json:"trip_end_time,omitempty"`   // 行程结束时间. 如: 2018-12-01 12:00:00
+	TripInterval   int64    `json:"trip_interval,omitempty"`   // 行程时长（秒）. 如: 3600
+	Departure      string   `json:"departure,omitempty"`       // 出发地. 如: xxx
+	DepartureID    string   `json:"departure_id,omitempty"`    // 出发地id. 如: 6c758b5dc54930abc7a454c7477d3496cfca0a62fd93b2d819e0e263a6
+	Destination    string   `json:"destination,omitempty"`     // 目的地. 如: xxx
+	DestinationIDs []string `json:"destination_ids,omitempty"` // 目的地id列表
+	Transportation string   `json:"transportation,omitempty"`  // 交通工具. 如: xxx
+	TripType       string   `json:"trip_type,omitempty"`       // 单程/往返. 如: 单程
+	Remark         string   `json:"remark,omitempty"`          // 备注. 如: 备注
 }

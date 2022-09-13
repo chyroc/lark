@@ -62,7 +62,7 @@ type GetHelpdeskFAQListReq struct {
 	Status     *string `query:"status" json:"-"`      // 搜索条件: 知识库状态 1:在线 0:删除, 可恢复 2: 删除, 不可恢复, 示例值: "1"
 	Search     *string `query:"search" json:"-"`      // 搜索条件: 关键词, 匹配问题标题, 问题关键字, 用户姓名, 示例值: "点餐"
 	PageToken  *string `query:"page_token" json:"-"`  // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果, 示例值: "6856395634652479491"
-	PageSize   *int64  `query:"page_size" json:"-"`   // 分页大小, 示例值: 10, 最大值: `100`
+	PageSize   *int64  `query:"page_size" json:"-"`   // 分页大小, 示例值: 10, 默认值: `20`, 最大值: `100`
 }
 
 // GetHelpdeskFAQListResp ...
@@ -76,33 +76,45 @@ type GetHelpdeskFAQListResp struct {
 
 // GetHelpdeskFAQListRespItem ...
 type GetHelpdeskFAQListRespItem struct {
-	FAQID          string                                `json:"faq_id,omitempty"`          // 知识库ID
-	ID             string                                `json:"id,omitempty"`              // 知识库旧版ID, 请使用faq_id
-	HelpdeskID     string                                `json:"helpdesk_id,omitempty"`     // 服务台ID
-	Question       string                                `json:"question,omitempty"`        // 问题
-	Answer         string                                `json:"answer,omitempty"`          // 答案
-	AnswerRichtext string                                `json:"answer_richtext,omitempty"` // 富文本答案
-	CreateTime     int64                                 `json:"create_time,omitempty"`     // 创建时间
-	UpdateTime     int64                                 `json:"update_time,omitempty"`     // 修改时间
-	Categories     []*HelpdeskCategory                   `json:"categories,omitempty"`      // 分类
-	Tags           []string                              `json:"tags,omitempty"`            // 相似问题列表
-	ExpireTime     int64                                 `json:"expire_time,omitempty"`     // 失效时间
-	UpdateUser     *GetHelpdeskFAQListRespItemUpdateUser `json:"update_user,omitempty"`     // 更新用户
-	CreateUser     *GetHelpdeskFAQListRespItemCreateUser `json:"create_user,omitempty"`     // 创建用户
+	FAQID          string                                      `json:"faq_id,omitempty"`          // 知识库ID
+	ID             string                                      `json:"id,omitempty"`              // 知识库旧版ID, 请使用faq_id
+	HelpdeskID     string                                      `json:"helpdesk_id,omitempty"`     // 服务台ID
+	Question       string                                      `json:"question,omitempty"`        // 问题
+	Answer         string                                      `json:"answer,omitempty"`          // 答案
+	AnswerRichtext []*GetHelpdeskFAQListRespItemAnswerRichtext `json:"answer_richtext,omitempty"` // 富文本答案
+	CreateTime     int64                                       `json:"create_time,omitempty"`     // 创建时间
+	UpdateTime     int64                                       `json:"update_time,omitempty"`     // 修改时间
+	Categories     []*HelpdeskCategory                         `json:"categories,omitempty"`      // 分类
+	Tags           []string                                    `json:"tags,omitempty"`            // 相似问题列表
+	ExpireTime     int64                                       `json:"expire_time,omitempty"`     // 失效时间
+	UpdateUser     *GetHelpdeskFAQListRespItemUpdateUser       `json:"update_user,omitempty"`     // 更新用户
+	CreateUser     *GetHelpdeskFAQListRespItemCreateUser       `json:"create_user,omitempty"`     // 创建用户
+}
+
+// GetHelpdeskFAQListRespItemAnswerRichtext ...
+type GetHelpdeskFAQListRespItemAnswerRichtext struct {
+	Content string `json:"content,omitempty"` // 内容
+	Type    string `json:"type,omitempty"`    // 类型
 }
 
 // GetHelpdeskFAQListRespItemCreateUser ...
 type GetHelpdeskFAQListRespItemCreateUser struct {
-	ID        string `json:"id,omitempty"`         // 用户ID
-	AvatarURL string `json:"avatar_url,omitempty"` // 用户头像url
-	Name      string `json:"name,omitempty"`       // 用户名
+	ID         string `json:"id,omitempty"`         // 用户ID
+	AvatarURL  string `json:"avatar_url,omitempty"` // 用户头像url
+	Name       string `json:"name,omitempty"`       // 用户名
+	Department string `json:"department,omitempty"` // 所在部门名称
+	City       string `json:"city,omitempty"`       // 城市
+	Country    string `json:"country,omitempty"`    // 国家代号(CountryCode), 参考: http://www.mamicode.com/info-detail-2186501.html
 }
 
 // GetHelpdeskFAQListRespItemUpdateUser ...
 type GetHelpdeskFAQListRespItemUpdateUser struct {
-	ID        string `json:"id,omitempty"`         // 用户ID
-	AvatarURL string `json:"avatar_url,omitempty"` // 用户头像url
-	Name      string `json:"name,omitempty"`       // 用户名
+	ID         string `json:"id,omitempty"`         // 用户ID
+	AvatarURL  string `json:"avatar_url,omitempty"` // 用户头像url
+	Name       string `json:"name,omitempty"`       // 用户名
+	Department string `json:"department,omitempty"` // 所在部门名称
+	City       string `json:"city,omitempty"`       // 城市
+	Country    string `json:"country,omitempty"`    // 国家代号(CountryCode), 参考: http://www.mamicode.com/info-detail-2186501.html
 }
 
 // getHelpdeskFAQListResp ...

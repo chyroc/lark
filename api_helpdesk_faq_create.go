@@ -77,19 +77,25 @@ type CreateHelpdeskFAQResp struct {
 
 // CreateHelpdeskFAQRespFAQ ...
 type CreateHelpdeskFAQRespFAQ struct {
-	FAQID          string                              `json:"faq_id,omitempty"`          // 知识库ID
-	ID             string                              `json:"id,omitempty"`              // 知识库旧版ID, 请使用faq_id
-	HelpdeskID     string                              `json:"helpdesk_id,omitempty"`     // 服务台ID
-	Question       string                              `json:"question,omitempty"`        // 问题
-	Answer         string                              `json:"answer,omitempty"`          // 答案
-	AnswerRichtext string                              `json:"answer_richtext,omitempty"` // 富文本答案
-	CreateTime     int64                               `json:"create_time,omitempty"`     // 创建时间
-	UpdateTime     int64                               `json:"update_time,omitempty"`     // 修改时间
-	Categories     []*HelpdeskCategory                 `json:"categories,omitempty"`      // 分类
-	Tags           []string                            `json:"tags,omitempty"`            // 相似问题列表
-	ExpireTime     int64                               `json:"expire_time,omitempty"`     // 失效时间
-	UpdateUser     *CreateHelpdeskFAQRespFAQUpdateUser `json:"update_user,omitempty"`     // 更新用户
-	CreateUser     *CreateHelpdeskFAQRespFAQCreateUser `json:"create_user,omitempty"`     // 创建用户
+	FAQID          string                                    `json:"faq_id,omitempty"`          // 知识库ID
+	ID             string                                    `json:"id,omitempty"`              // 知识库旧版ID, 请使用faq_id
+	HelpdeskID     string                                    `json:"helpdesk_id,omitempty"`     // 服务台ID
+	Question       string                                    `json:"question,omitempty"`        // 问题
+	Answer         string                                    `json:"answer,omitempty"`          // 答案
+	AnswerRichtext []*CreateHelpdeskFAQRespFAQAnswerRichtext `json:"answer_richtext,omitempty"` // 富文本答案
+	CreateTime     int64                                     `json:"create_time,omitempty"`     // 创建时间
+	UpdateTime     int64                                     `json:"update_time,omitempty"`     // 修改时间
+	Categories     []*HelpdeskCategory                       `json:"categories,omitempty"`      // 分类
+	Tags           []string                                  `json:"tags,omitempty"`            // 相似问题列表
+	ExpireTime     int64                                     `json:"expire_time,omitempty"`     // 失效时间
+	UpdateUser     *CreateHelpdeskFAQRespFAQUpdateUser       `json:"update_user,omitempty"`     // 更新用户
+	CreateUser     *CreateHelpdeskFAQRespFAQCreateUser       `json:"create_user,omitempty"`     // 创建用户
+}
+
+// CreateHelpdeskFAQRespFAQAnswerRichtext ...
+type CreateHelpdeskFAQRespFAQAnswerRichtext struct {
+	Content string `json:"content,omitempty"` // 内容
+	Type    string `json:"type,omitempty"`    // 类型
 }
 
 // CreateHelpdeskFAQRespFAQCreateUser ...

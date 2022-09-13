@@ -58,11 +58,11 @@ func (r *Mock) UnMockApprovalGetApprovalUserTaskList() {
 
 // GetApprovalUserTaskListReq ...
 type GetApprovalUserTaskListReq struct {
-	PageSize   *int64  `query:"page_size" json:"-"`    // 分页大小, 示例值: 100, 最大值: `200`
+	PageSize   *int64  `query:"page_size" json:"-"`    // 分页大小, 示例值: 100, 默认值: `100`, 最大值: `200`
 	PageToken  *string `query:"page_token" json:"-"`   // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果, 示例值: "1"
 	UserID     string  `query:"user_id" json:"-"`      // 需要查询的 User ID, 示例值: "example_user_id"
-	Topic      string  `query:"topic" json:"-"`        // 需要查询的任务分组主题, 如「待办」、「已办」等, 示例值: "1", 可选值有: `1`: 待办审批, `2`: 已办审批, `3`: 已发起审批, `17`: 未读知会, `18`: 已读知会
-	UserIDType *IDType `query:"user_id_type" json:"-"` // 用户 ID 类型, 示例值: "open_id", 可选值有: `open_id`: 用户的 open id, `union_id`: 用户的 union id, `user_id`: 用户的 user id, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
+	Topic      string  `query:"topic" json:"-"`        // 需要查询的任务分组主题, 如「待办」、「已办」等, 示例值: "1", 可选值有: 1: 待办审批, 2: 已办审批, 3: 已发起审批, 17: 未读知会, 18: 已读知会
+	UserIDType *IDType `query:"user_id_type" json:"-"` // 用户 ID 类型, 示例值: "open_id", 可选值有: open_id: 用户的 open id, union_id: 用户的 union id, user_id: 用户的 user id, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
 }
 
 // GetApprovalUserTaskListResp ...
@@ -81,14 +81,14 @@ type GetApprovalUserTaskListRespCount struct {
 
 // GetApprovalUserTaskListRespTask ...
 type GetApprovalUserTaskListRespTask struct {
-	Topic               string                               `json:"topic,omitempty"`                 // 任务所属的任务分组, 如「待办」、「已办」等, 可选值有: `1`: 待办审批, `2`: 已办审批, `3`: 已发起审批, `17`: 未读知会, `18`: 已读知会
+	Topic               string                               `json:"topic,omitempty"`                 // 任务所属的任务分组, 如「待办」、「已办」等, 可选值有: 1: 待办审批, 2: 已办审批, 3: 已发起审批, 17: 未读知会, 18: 已读知会
 	UserID              string                               `json:"user_id,omitempty"`               // 任务所属的用户 ID
 	Title               string                               `json:"title,omitempty"`                 // 任务题目
 	URLs                *GetApprovalUserTaskListRespTaskURLs `json:"urls,omitempty"`                  // 任务相关 URL
 	ProcessExternalID   string                               `json:"process_external_id,omitempty"`   // 流程三方 ID, 仅第三方流程, 需要在当前租户、当前 APP 内唯一
 	TaskExternalID      string                               `json:"task_external_id,omitempty"`      // 任务三方 ID, 仅第三方流程, 需要在当前流程实例内唯一
-	Status              string                               `json:"status,omitempty"`                // 任务状态, 可选值有: `1`: 待办, `2`: 已办, `17`: 未读, `18`: 已读, `33`: 处理中, 标记完成用, `34`: 撤回
-	ProcessStatus       string                               `json:"process_status,omitempty"`        // 流程实例状态, 可选值有: `0`: 无流程状态, 不展示对应标签, `1`: 流程实例流转中, `2`: 已通过, `3`: 已拒绝, `4`: 已撤销, `5`: 已终止
+	Status              string                               `json:"status,omitempty"`                // 任务状态, 可选值有: 1: 待办, 2: 已办, 17: 未读, 18: 已读, 33: 处理中, 标记完成用, 34: 撤回
+	ProcessStatus       string                               `json:"process_status,omitempty"`        // 流程实例状态, 可选值有: 0: 无流程状态, 不展示对应标签, 1: 流程实例流转中, 2: 已通过, 3: 已拒绝, 4: 已撤销, 5: 已终止
 	DefinitionCode      string                               `json:"definition_code,omitempty"`       // 流程定义 Code
 	Initiators          []string                             `json:"initiators,omitempty"`            // 发起人 ID 列表
 	InitiatorNames      []string                             `json:"initiator_names,omitempty"`       // 发起人姓名列表

@@ -60,11 +60,12 @@ func (r *Mock) UnMockBitableGetBitableFieldList() {
 
 // GetBitableFieldListReq ...
 type GetBitableFieldListReq struct {
-	AppToken  string  `path:"app_token" json:"-"`   // bitable app token, 示例值: "appbcbWCzen6D8dezhoCH2RpMAh"
-	TableID   string  `path:"table_id" json:"-"`    // table id, 示例值: "tblsRc9GRRXKqhvW"
-	ViewID    *string `query:"view_id" json:"-"`    // 视图 ID, 示例值: "vewOVMEXPF"
-	PageToken *string `query:"page_token" json:"-"` // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果, 示例值: "fldwJ4YrtB"
-	PageSize  *int64  `query:"page_size" json:"-"`  // 分页大小, 示例值: 10, 最大值: `100`
+	AppToken         string  `path:"app_token" json:"-"`            // bitable app token, 示例值: "appbcbWCzen6D8dezhoCH2RpMAh"
+	TableID          string  `path:"table_id" json:"-"`             // table id, 示例值: "tblsRc9GRRXKqhvW"
+	ViewID           *string `query:"view_id" json:"-"`             // 视图 ID, 示例值: "vewOVMEXPF"
+	TextFieldAsArray *bool   `query:"text_field_as_array" json:"-"` // 控制字段描述（多行文本格式）数据的返回格式, true 表示以数组富文本形式返回, 示例值: true
+	PageToken        *string `query:"page_token" json:"-"`          // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果, 示例值: "fldwJ4YrtB"
+	PageSize         *int64  `query:"page_size" json:"-"`           // 分页大小, 示例值: 10, 默认值: `20`, 最大值: `100`
 }
 
 // GetBitableFieldListResp ...
@@ -77,10 +78,17 @@ type GetBitableFieldListResp struct {
 
 // GetBitableFieldListRespItem ...
 type GetBitableFieldListRespItem struct {
-	FieldID   string                               `json:"field_id,omitempty"`   // 多维表格字段 id
-	FieldName string                               `json:"field_name,omitempty"` // 多维表格字段名
-	Type      int64                                `json:"type,omitempty"`       // 多维表格字段类型, 可选值有: 1: 多行文本, 2: 数字, 3: 单选, 4: 多选, 5: 日期, 7: 复选框, 11: 人员, 15: 超链接, 17: 附件, 18: 关联, 20: 公式, 21: 双向关联, 1001: 创建时间, 1002: 最后更新时间, 1003: 创建人, 1004: 修改人, 1005: 自动编号, 13: 电话号码, 22: 地理位置
-	Property  *GetBitableFieldListRespItemProperty `json:"property,omitempty"`   // 字段属性, 具体参考: [字段编辑指南](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table-field/guide)
+	FieldID     string                                  `json:"field_id,omitempty"`    // 多维表格字段 id
+	FieldName   string                                  `json:"field_name,omitempty"`  // 多维表格字段名
+	Type        int64                                   `json:"type,omitempty"`        // 多维表格字段类型, 可选值有: 1: 多行文本, 2: 数字, 3: 单选, 4: 多选, 5: 日期, 7: 复选框, 11: 人员, 15: 超链接, 17: 附件, 18: 关联, 20: 公式, 21: 双向关联, 1001: 创建时间, 1002: 最后更新时间, 1003: 创建人, 1004: 修改人, 1005: 自动编号, 13: 电话号码, 22: 地理位置
+	Property    *GetBitableFieldListRespItemProperty    `json:"property,omitempty"`    // 字段属性, 具体参考: [字段编辑指南](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table-field/guide)
+	Description *GetBitableFieldListRespItemDescription `json:"description,omitempty"` // 字段的描述
+}
+
+// GetBitableFieldListRespItemDescription ...
+type GetBitableFieldListRespItemDescription struct {
+	DisableSync bool   `json:"disable_sync,omitempty"` // 是否禁止同步, 如果为true, 表示禁止同步该描述内容到表单的问题描述（只在新增、修改字段时生效）
+	Text        string `json:"text,omitempty"`         // 字段描述内容
 }
 
 // GetBitableFieldListRespItemProperty ...

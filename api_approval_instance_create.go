@@ -66,7 +66,7 @@ type CreateApprovalInstanceReq struct {
 	NodeApproverOpenIDList []*CreateApprovalInstanceReqNodeApproverOpenIDList `json:"node_approver_open_id_list,omitempty"` // 审批人发起人自选 open id, 与上述node_approver_user_id_list字段取并集
 	NodeCcUserIDList       []*CreateApprovalInstanceReqNodeCcUserIDList       `json:"node_cc_user_id_list,omitempty"`       // 如果有发起人自选节点, 则可填写对应节点的抄送人, 单个节点最多选择20位抄送人, 最大长度: `20`
 	NodeCcOpenIDList       []*CreateApprovalInstanceReqNodeCcOpenIDList       `json:"node_cc_open_id_list,omitempty"`       // 抄送人发起人自选 open id 单个节点最多选择20位抄送人, 最大长度: `20`
-	UUID                   *string                                            `json:"uuid,omitempty"`                       // 审批实例 uuid, 用于幂等操作, 每个租户下面的唯一key, 同一个 uuid 只能用于创建一个审批实例, 如果冲突, 返回错误码 60012, 格式建议为 XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX, 不区分大小写, 示例值: "7C468A54-8745-2245-9675-08B7C63E7A87"
+	UUID                   *string                                            `json:"uuid,omitempty"`                       // 审批实例 uuid, 用于幂等操作, 每个租户下面的唯一key, 同一个 uuid 只能用于创建一个审批实例, 如果冲突, 返回错误码 60012, 格式建议为 XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX, 不区分大小写, 示例值: "7C468A54-8745-2245-9675-08B7C63E7A87", 长度范围: `1` ～ `64` 字符
 	AllowResubmit          *bool                                              `json:"allow_resubmit,omitempty"`             // 可配置是否可以再次提交, 示例值: true
 	AllowSubmitAgain       *bool                                              `json:"allow_submit_again,omitempty"`         // 可配置是否可以重新提交, 示例值: true
 }

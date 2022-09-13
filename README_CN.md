@@ -38,7 +38,7 @@ https://godoc.org/github.com/chyroc/lark
 
 ## 支持的接口
 
-API 总数: 644, 事件总数: 93
+API 总数: 653, 事件总数: 93
 
 <details>
   <summary>
@@ -191,6 +191,8 @@ API 总数: 644, 事件总数: 93
   - SearchBaikeEntity
   - HighlightBaikeEntity
   - GetBaikeClassificationList
+  - UploadBaikeImage
+  - DownloadBaikeImage
 - Bitable
   - GetBitableViewList
   - CreateBitableView
@@ -404,9 +406,13 @@ API 总数: 644, 事件总数: 93
   - UpdateDriveDocContent
   - GetDriveDocRawContent
   - GetDriveDocMeta
-  - CreateSheet
+  - UpdateSpreadsheet
+  - GetSpreadsheet
+  - CreateSpreadsheet
   - GetSheetMeta
   - UpdateSheetProperty
+  - GetSheet
+  - GetSheetList
   - BatchUpdateSheet
   - ImportSheet
   - CreateDriveImportTask
@@ -739,6 +745,9 @@ API 总数: 644, 事件总数: 93
   - CreateMessageReaction
   - GetMessageReactionList
   - DeleteMessageReaction
+  - CreateMessagePin
+  - DeleteMessagePin
+  - GetMessagePinList
 - OKR
   - GetOKRPeriodList
   - BatchGetOKR

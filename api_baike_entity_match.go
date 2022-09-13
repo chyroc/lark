@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// MatchBaikeEntity 将关键词与词条名、别名精准匹配, 并返回对应的 词条 ID
+// MatchBaikeEntity 将关键词与词条名、别名精准匹配, 并返回对应的 词条 ID。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/baike-v1/entity/match
 func (r *BaikeService) MatchBaikeEntity(ctx context.Context, request *MatchBaikeEntityReq, options ...MethodOptionFunc) (*MatchBaikeEntityResp, *Response, error) {

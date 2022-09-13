@@ -21,18 +21,18 @@ import (
 	"context"
 )
 
-// CreateSheet 使用该接口可以在指定的目录下创建在线表格。
+// CreateSpreadsheet 使用该接口可以在指定的目录下创建在线表格。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/sheets-v3/spreadsheet/create
-func (r *DriveService) CreateSheet(ctx context.Context, request *CreateSheetReq, options ...MethodOptionFunc) (*CreateSheetResp, *Response, error) {
-	if r.cli.mock.mockDriveCreateSheet != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Drive#CreateSheet mock enable")
-		return r.cli.mock.mockDriveCreateSheet(ctx, request, options...)
+func (r *DriveService) CreateSpreadsheet(ctx context.Context, request *CreateSpreadsheetReq, options ...MethodOptionFunc) (*CreateSpreadsheetResp, *Response, error) {
+	if r.cli.mock.mockDriveCreateSpreadsheet != nil {
+		r.cli.log(ctx, LogLevelDebug, "[lark] Drive#CreateSpreadsheet mock enable")
+		return r.cli.mock.mockDriveCreateSpreadsheet(ctx, request, options...)
 	}
 
 	req := &RawRequestReq{
 		Scope:                 "Drive",
-		API:                   "CreateSheet",
+		API:                   "CreateSpreadsheet",
 		Method:                "POST",
 		URL:                   r.cli.openBaseURL + "/open-apis/sheets/v3/spreadsheets",
 		Body:                  request,
@@ -40,44 +40,44 @@ func (r *DriveService) CreateSheet(ctx context.Context, request *CreateSheetReq,
 		NeedTenantAccessToken: true,
 		NeedUserAccessToken:   true,
 	}
-	resp := new(createSheetResp)
+	resp := new(createSpreadsheetResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
 	return resp.Data, response, err
 }
 
-// MockDriveCreateSheet mock DriveCreateSheet method
-func (r *Mock) MockDriveCreateSheet(f func(ctx context.Context, request *CreateSheetReq, options ...MethodOptionFunc) (*CreateSheetResp, *Response, error)) {
-	r.mockDriveCreateSheet = f
+// MockDriveCreateSpreadsheet mock DriveCreateSpreadsheet method
+func (r *Mock) MockDriveCreateSpreadsheet(f func(ctx context.Context, request *CreateSpreadsheetReq, options ...MethodOptionFunc) (*CreateSpreadsheetResp, *Response, error)) {
+	r.mockDriveCreateSpreadsheet = f
 }
 
-// UnMockDriveCreateSheet un-mock DriveCreateSheet method
-func (r *Mock) UnMockDriveCreateSheet() {
-	r.mockDriveCreateSheet = nil
+// UnMockDriveCreateSpreadsheet un-mock DriveCreateSpreadsheet method
+func (r *Mock) UnMockDriveCreateSpreadsheet() {
+	r.mockDriveCreateSpreadsheet = nil
 }
 
-// CreateSheetReq ...
-type CreateSheetReq struct {
+// CreateSpreadsheetReq ...
+type CreateSpreadsheetReq struct {
 	Title       *string `json:"title,omitempty"`        // 表格标题, 示例值: "title"
 	FolderToken *string `json:"folder_token,omitempty"` // 文件夹token, 获取方式见[概述](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/files/guide/introduction), 示例值: "fldcnMsNb*hIW9IjG1LVswg"
 }
 
-// CreateSheetResp ...
-type CreateSheetResp struct {
-	Spreadsheet *CreateSheetRespSpreadsheet `json:"spreadsheet,omitempty"` // 表格
+// CreateSpreadsheetResp ...
+type CreateSpreadsheetResp struct {
+	Spreadsheet *CreateSpreadsheetRespSpreadsheet `json:"spreadsheet,omitempty"` // 表格
 }
 
-// CreateSheetRespSpreadsheet ...
-type CreateSheetRespSpreadsheet struct {
+// CreateSpreadsheetRespSpreadsheet ...
+type CreateSpreadsheetRespSpreadsheet struct {
 	Title            string `json:"title,omitempty"`             // 表格标题
 	FolderToken      string `json:"folder_token,omitempty"`      // 文件夹token, 获取方式见[概述](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/files/guide/introduction)
 	URL              string `json:"url,omitempty"`               // 文档url
 	SpreadSheetToken string `json:"spreadsheet_token,omitempty"` // 表格token
 }
 
-// createSheetResp ...
-type createSheetResp struct {
-	Code int64            `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string           `json:"msg,omitempty"`  // 错误描述
-	Data *CreateSheetResp `json:"data,omitempty"`
+// createSpreadsheetResp ...
+type createSpreadsheetResp struct {
+	Code int64                  `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg  string                 `json:"msg,omitempty"`  // 错误描述
+	Data *CreateSpreadsheetResp `json:"data,omitempty"`
 }

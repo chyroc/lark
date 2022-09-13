@@ -61,7 +61,7 @@ func (r *Mock) UnMockDriveGetDocxBlockListOfDocument() {
 // GetDocxBlockListOfDocumentReq ...
 type GetDocxBlockListOfDocumentReq struct {
 	DocumentID         string  `path:"document_id" json:"-"`           // 文档的唯一标识, 示例值: "doxcnePuYufKa49ISjhD8Ih0ikh"
-	PageSize           *int64  `query:"page_size" json:"-"`            // 分页大小, 示例值: 500, 最大值: `500`
+	PageSize           *int64  `query:"page_size" json:"-"`            // 分页大小, 示例值: 500, 默认值: `500`, 最大值: `500`
 	PageToken          *string `query:"page_token" json:"-"`           // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果, 示例值: "aw7DoMKBFMOGwqHCrcO8w6jCmMOvw6ILeADCvsKNw57Di8O5XGV3LG4_w5HCqhFxSnDCrCzCn0BgZcOYUg85EMOYcEAcwqYOw4ojw5QFwofCu8KoIMO3K8Ktw4IuNMOBBHNYw4bCgCV3U1zDu8K-J8KSR8Kgw7Y0fsKZdsKvW3d9w53DnkHDrcO5bDkYwrvDisOEPcOtVFJ-I03CnsOILMOoAmLDknd6dsKqG1bClAjDuS3CvcOTwo7Dg8OrwovDsRdqIcKxw5HDohTDtXN9w5rCkWo"
 	DocumentRevisionID *int64  `query:"document_revision_id" json:"-"` // 查询的文档版本, 1表示文档最新版本。若此时查询的版本为文档最新版本, 则需要持有文档的阅读权限；若此时查询的版本为文档的历史版本, 则需要持有文档的编辑权限, 示例值:1, 默认值: `-1`, 最小值: `-1`
 	UserIDType         *IDType `query:"user_id_type" json:"-"`         // 用户 ID 类型, 示例值: "open_id", 可选值有: open_id: 用户的 open id, union_id: 用户的 union id, user_id: 用户的 user id, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID

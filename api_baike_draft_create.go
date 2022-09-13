@@ -111,6 +111,7 @@ type CreateBaikeDraftReqRelatedMeta struct {
 	Links           []*CreateBaikeDraftReqRelatedMetaLink           `json:"links,omitempty"`           // 相关链接
 	Abbreviations   []*CreateBaikeDraftReqRelatedMetaAbbreviation   `json:"abbreviations,omitempty"`   // 相关词条
 	Classifications []*CreateBaikeDraftReqRelatedMetaClassification `json:"classifications,omitempty"` // 当前词条所属分类, 词条只能属于二级分类, 且每个一级分类下只能选择一个二级分类。
+	Images          []*CreateBaikeDraftReqRelatedMetaImage          `json:"images,omitempty"`          // 上传的图片, 最大长度: `10`
 }
 
 // CreateBaikeDraftReqRelatedMetaAbbreviation ...
@@ -133,6 +134,11 @@ type CreateBaikeDraftReqRelatedMetaClassification struct {
 type CreateBaikeDraftReqRelatedMetaDoc struct {
 	Title *string `json:"title,omitempty"` // 对应相关信息的描述, 如相关联系人的描述、相关链接的标题, 示例值: "企业百科帮助中心"
 	URL   *string `json:"url,omitempty"`   // 链接地址, 示例值: "https://www.feishu.cn/hc/zh-CN", 正则校验: `(https?|ftp|file)://[-A-Za-z0-9+&@#/%?=~_|!:.;]+[-A-Za-z0-9+&@#/%=~_|]`
+}
+
+// CreateBaikeDraftReqRelatedMetaImage ...
+type CreateBaikeDraftReqRelatedMetaImage struct {
+	Token string `json:"token,omitempty"` // 通过文件接口上传图片后, 获得的图片 token, 示例值: "boxbcEcmKiD3SGHvgqWTpvdc7jc"
 }
 
 // CreateBaikeDraftReqRelatedMetaLink ...
@@ -172,7 +178,6 @@ type CreateBaikeDraftRespDraftEntity struct {
 	CreateTime  string                                      `json:"create_time,omitempty"`  // 词条创建时间
 	UpdateTime  string                                      `json:"update_time,omitempty"`  // 词条最近更新时间
 	RelatedMeta *CreateBaikeDraftRespDraftEntityRelatedMeta `json:"related_meta,omitempty"` // 更多相关信息
-	Categories  []string                                    `json:"categories,omitempty"`   // 词条标签
 	Statistics  *CreateBaikeDraftRespDraftEntityStatistics  `json:"statistics,omitempty"`   // 当前词条收到的反馈数据
 	OuterInfo   *CreateBaikeDraftRespDraftEntityOuterInfo   `json:"outer_info,omitempty"`   // 外部系统关联数据
 	RichText    string                                      `json:"rich_text,omitempty"`    // 富文本格式（当填写富文本内容时, description字段将会失效可不填写）, 支持的格式参考[企业百科指南](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/baike-v1/overview)中的释义部分
@@ -217,6 +222,7 @@ type CreateBaikeDraftRespDraftEntityRelatedMeta struct {
 	Links           []*CreateBaikeDraftRespDraftEntityRelatedMetaLink           `json:"links,omitempty"`           // 相关链接
 	Abbreviations   []*CreateBaikeDraftRespDraftEntityRelatedMetaAbbreviation   `json:"abbreviations,omitempty"`   // 相关词条
 	Classifications []*CreateBaikeDraftRespDraftEntityRelatedMetaClassification `json:"classifications,omitempty"` // 当前词条所属分类, 词条只能属于二级分类, 且每个一级分类下只能选择一个二级分类。
+	Images          []*CreateBaikeDraftRespDraftEntityRelatedMetaImage          `json:"images,omitempty"`          // 上传的图片
 }
 
 // CreateBaikeDraftRespDraftEntityRelatedMetaAbbreviation ...
@@ -242,6 +248,11 @@ type CreateBaikeDraftRespDraftEntityRelatedMetaClassification struct {
 type CreateBaikeDraftRespDraftEntityRelatedMetaDoc struct {
 	Title string `json:"title,omitempty"` // 对应相关信息的描述, 如相关联系人的描述、相关链接的标题
 	URL   string `json:"url,omitempty"`   // 链接地址
+}
+
+// CreateBaikeDraftRespDraftEntityRelatedMetaImage ...
+type CreateBaikeDraftRespDraftEntityRelatedMetaImage struct {
+	Token string `json:"token,omitempty"` // 通过文件接口上传图片后, 获得的图片 token
 }
 
 // CreateBaikeDraftRespDraftEntityRelatedMetaLink ...

@@ -60,7 +60,7 @@ func (r *Mock) UnMockDriveGetDriveFileList() {
 type GetDriveFileListReq struct {
 	PageSize    *int64  `query:"page_size" json:"-"`    // 分页大小, 示例值: 10, 最大值: `200`
 	PageToken   *string `query:"page_token" json:"-"`   // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果, 示例值: "MTY1NTA3MTA1OXw3MTA4NDc2MDc1NzkyOTI0Nabcef"
-	FolderToken *string `query:"folder_token" json:"-"` // 文件夹的token, 示例值: "fldbcO1UuPz8VwnpPx5a9abcef"
+	FolderToken *string `query:"folder_token" json:"-"` // 文件夹的token（若不填写该参数或填写空字符串, 则默认获取用户云空间下的清单, 且不支持分页）, 示例值: "fldbcO1UuPz8VwnpPx5a9abcef"
 }
 
 // GetDriveFileListResp ...

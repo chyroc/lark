@@ -60,12 +60,19 @@ func (r *Mock) UnMockBitableUpdateBitableField() {
 
 // UpdateBitableFieldReq ...
 type UpdateBitableFieldReq struct {
-	AppToken  string                         `path:"app_token" json:"-"`   // bitable app token, 示例值: "appbcbWCzen6D8dezhoCH2RpMAh"
-	TableID   string                         `path:"table_id" json:"-"`    // table id, 示例值: "tblsRc9GRRXKqhvW"
-	FieldID   string                         `path:"field_id" json:"-"`    // field id, 示例值: "fldPTb0U2y"
-	FieldName string                         `json:"field_name,omitempty"` // 多维表格字段名, 示例值: "多行文本"
-	Type      int64                          `json:"type,omitempty"`       // 多维表格字段类型, 示例值: 1, 可选值有: 1: 多行文本, 2: 数字, 3: 单选, 4: 多选, 5: 日期, 7: 复选框, 11: 人员, 15: 超链接, 17: 附件, 18: 关联, 20: 公式, 21: 双向关联, 1001: 创建时间, 1002: 最后更新时间, 1003: 创建人, 1004: 修改人, 1005: 自动编号, 13: 电话号码, 22: 地理位置
-	Property  *UpdateBitableFieldReqProperty `json:"property,omitempty"`   // 字段属性, 具体参考: [字段编辑指南](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table-field/guide)
+	AppToken    string                            `path:"app_token" json:"-"`    // bitable app token, 示例值: "appbcbWCzen6D8dezhoCH2RpMAh"
+	TableID     string                            `path:"table_id" json:"-"`     // table id, 示例值: "tblsRc9GRRXKqhvW"
+	FieldID     string                            `path:"field_id" json:"-"`     // field id, 示例值: "fldPTb0U2y"
+	FieldName   string                            `json:"field_name,omitempty"`  // 多维表格字段名, 示例值: "多行文本"
+	Type        int64                             `json:"type,omitempty"`        // 多维表格字段类型, 示例值: 1, 可选值有: 1: 多行文本, 2: 数字, 3: 单选, 4: 多选, 5: 日期, 7: 复选框, 11: 人员, 15: 超链接, 17: 附件, 18: 关联, 20: 公式, 21: 双向关联, 1001: 创建时间, 1002: 最后更新时间, 1003: 创建人, 1004: 修改人, 1005: 自动编号, 13: 电话号码, 22: 地理位置
+	Property    *UpdateBitableFieldReqProperty    `json:"property,omitempty"`    // 字段属性, 具体参考: [字段编辑指南](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table-field/guide)
+	Description *UpdateBitableFieldReqDescription `json:"description,omitempty"` // 字段的描述
+}
+
+// UpdateBitableFieldReqDescription ...
+type UpdateBitableFieldReqDescription struct {
+	DisableSync *bool   `json:"disable_sync,omitempty"` // 是否禁止同步, 如果为true, 表示禁止同步该描述内容到表单的问题描述（只在新增、修改字段时生效）, 示例值: ture, 默认值: `ture`
+	Text        *string `json:"text,omitempty"`         // 字段描述内容, 示例值: "这是一个字段描述"
 }
 
 // UpdateBitableFieldReqProperty ...
@@ -113,10 +120,17 @@ type UpdateBitableFieldResp struct {
 
 // UpdateBitableFieldRespField ...
 type UpdateBitableFieldRespField struct {
-	FieldID   string                               `json:"field_id,omitempty"`   // 多维表格字段 id
-	FieldName string                               `json:"field_name,omitempty"` // 多维表格字段名
-	Type      int64                                `json:"type,omitempty"`       // 多维表格字段类型, 可选值有: 1: 多行文本, 2: 数字, 3: 单选, 4: 多选, 5: 日期, 7: 复选框, 11: 人员, 15: 超链接, 17: 附件, 18: 关联, 20: 公式, 21: 双向关联, 1001: 创建时间, 1002: 最后更新时间, 1003: 创建人, 1004: 修改人, 1005: 自动编号, 13: 电话号码, 22: 地理位置
-	Property  *UpdateBitableFieldRespFieldProperty `json:"property,omitempty"`   // 字段属性, 具体参考: [字段编辑指南](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table-field/guide)
+	FieldID     string                                  `json:"field_id,omitempty"`    // 多维表格字段 id
+	FieldName   string                                  `json:"field_name,omitempty"`  // 多维表格字段名
+	Type        int64                                   `json:"type,omitempty"`        // 多维表格字段类型, 可选值有: 1: 多行文本, 2: 数字, 3: 单选, 4: 多选, 5: 日期, 7: 复选框, 11: 人员, 15: 超链接, 17: 附件, 18: 关联, 20: 公式, 21: 双向关联, 1001: 创建时间, 1002: 最后更新时间, 1003: 创建人, 1004: 修改人, 1005: 自动编号, 13: 电话号码, 22: 地理位置
+	Property    *UpdateBitableFieldRespFieldProperty    `json:"property,omitempty"`    // 字段属性, 具体参考: [字段编辑指南](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table-field/guide)
+	Description *UpdateBitableFieldRespFieldDescription `json:"description,omitempty"` // 字段的描述
+}
+
+// UpdateBitableFieldRespFieldDescription ...
+type UpdateBitableFieldRespFieldDescription struct {
+	DisableSync bool   `json:"disable_sync,omitempty"` // 是否禁止同步, 如果为true, 表示禁止同步该描述内容到表单的问题描述（只在新增、修改字段时生效）
+	Text        string `json:"text,omitempty"`         // 字段描述内容
 }
 
 // UpdateBitableFieldRespFieldProperty ...

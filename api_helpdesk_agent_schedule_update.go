@@ -65,7 +65,7 @@ type UpdateHelpdeskAgentScheduleReq struct {
 // UpdateHelpdeskAgentScheduleReqAgentSchedule ...
 type UpdateHelpdeskAgentScheduleReqAgentSchedule struct {
 	Schedule      []*UpdateHelpdeskAgentScheduleReqAgentScheduleSchedule `json:"schedule,omitempty"`        // 工作日程列表
-	AgentSkillIDs []string                                               `json:"agent_skill_ids,omitempty"` // 客服技能 ids, 示例值: []
+	AgentSkillIDs []string                                               `json:"agent_skill_ids,omitempty"` // 客服技能 ids, 示例值: [“test-skill-id”]
 }
 
 // UpdateHelpdeskAgentScheduleReqAgentScheduleSchedule ...

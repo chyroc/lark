@@ -77,7 +77,7 @@ func (r *Folder) newFolder(ctx context.Context, title string) (*Folder, error) {
 }
 
 func (r *Folder) newSheet(ctx context.Context, title string) (*Sheet, error) {
-	resp, _, err := r.larkClient.Drive.CreateSheet(ctx, &lark.CreateSheetReq{
+	resp, _, err := r.larkClient.Drive.CreateSpreadsheet(ctx, &lark.CreateSpreadsheetReq{
 		Title:       &title,
 		FolderToken: ptr.StringNoNonePtr(r.folderToken),
 	})

@@ -59,7 +59,7 @@ func (r *Mock) UnMockSearchGetSearchDataSourceList() {
 type GetSearchDataSourceListReq struct {
 	View      *int64  `query:"view" json:"-"`       // 回包数据格式, 0-全量数据；1-摘要数据, 注: 摘要数据仅包含"id", "name", "state", 示例值: 0, 可选值有: 0: 全量数据, 1: 摘要数据
 	PageToken *string `query:"page_token" json:"-"` // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果, 示例值: "PxZFma9OIRhdBlT/dOYNiu2Ro8F2WAhcby7OhOijfljZ"
-	PageSize  *int64  `query:"page_size" json:"-"`  // 分页大小, 示例值: 10, 最大值: `50`
+	PageSize  *int64  `query:"page_size" json:"-"`  // 分页大小, 示例值: 10, 默认值: `20`, 最大值: `50`
 }
 
 // GetSearchDataSourceListResp ...

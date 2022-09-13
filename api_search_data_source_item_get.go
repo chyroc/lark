@@ -77,23 +77,24 @@ type GetSearchDataSourceItemRespItem struct {
 
 // GetSearchDataSourceItemRespItemACL ...
 type GetSearchDataSourceItemRespItemACL struct {
-	Access string `json:"access,omitempty"` // 权限类型, 优先级: Deny > Allow, 可选值有: `allow`: 允许访问, `deny`: 禁止访问
+	Access string `json:"access,omitempty"` // 权限类型, 优先级: Deny > Allow, 可选值有: allow: 允许访问, deny: 禁止访问
 	Value  string `json:"value,omitempty"`  // 设置的权限值, 例如 userID, 依赖 type 描述, 注: 在 type 为 user 且 access 为 allow 时, 可填 "everyone" 来表示该数据项对全员可见；
-	Type   string `json:"type,omitempty"`   // 权限值类型, 可选值有: `user`: 访问权限控制中指定“用户”可以访问或拒绝访问该条数据, `group`: (已下线)访问权限控制中指定“用户组”可以访问或拒绝访问该条数据
+	Type   string `json:"type,omitempty"`   // 权限值类型, 可选值有: user: 访问权限控制中指定“用户”可以访问或拒绝访问该条数据, group: (已下线)访问权限控制中指定“用户组”可以访问或拒绝访问该条数据, open_id: 用户的open_id
 }
 
 // GetSearchDataSourceItemRespItemContent ...
 type GetSearchDataSourceItemRespItemContent struct {
-	Format      string `json:"format,omitempty"`       // 内容的格式, 可选值有: `html`: html格式, `plaintext`: 纯文本格式
+	Format      string `json:"format,omitempty"`       // 内容的格式, 可选值有: html: html格式, plaintext: 纯文本格式
 	ContentData string `json:"content_data,omitempty"` // 全文数据
 }
 
 // GetSearchDataSourceItemRespItemMetadata ...
 type GetSearchDataSourceItemRespItemMetadata struct {
-	Title      string `json:"title,omitempty"`       // 该条数据记录对应的标题
-	SourceURL  string `json:"source_url,omitempty"`  // 该条数据记录对应的跳转url
-	CreateTime int64  `json:"create_time,omitempty"` // 数据项的创建时间。Unix 时间, 单位为秒
-	UpdateTime int64  `json:"update_time,omitempty"` // 数据项的更新时间。Unix 时间, 单位为秒
+	Title           string `json:"title,omitempty"`             // 该条数据记录对应的标题
+	SourceURL       string `json:"source_url,omitempty"`        // 该条数据记录对应的跳转url
+	CreateTime      int64  `json:"create_time,omitempty"`       // 数据项的创建时间。Unix 时间, 单位为秒
+	UpdateTime      int64  `json:"update_time,omitempty"`       // 数据项的更新时间。Unix 时间, 单位为秒
+	SourceURLMobile string `json:"source_url_mobile,omitempty"` // 移动端搜索命中的跳转地址。如果您PC端和移动端有不同的跳转地址, 可以在这里写入移动端专用的url, 我们会在搜索时为您选择合适的地址
 }
 
 // getSearchDataSourceItemResp ...

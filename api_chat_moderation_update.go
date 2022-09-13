@@ -64,10 +64,10 @@ func (r *Mock) UnMockChatUpdateChatModeration() {
 // UpdateChatModerationReq ...
 type UpdateChatModerationReq struct {
 	ChatID               string   `path:"chat_id" json:"-"`                 // 群 ID, 详情参见[群ID 说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-id-description), 示例值: "oc_a0553eda9014c201e6969b478895c230"
-	UserIDType           *IDType  `query:"user_id_type" json:"-"`           // 用户 ID 类型, 示例值: "open_id", 可选值有: `open_id`: 用户的 open id, `union_id`: 用户的 union id, `user_id`: 用户的 user id, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
+	UserIDType           *IDType  `query:"user_id_type" json:"-"`           // 用户 ID 类型, 示例值: "open_id", 可选值有: open_id: 用户的 open id, union_id: 用户的 union id, user_id: 用户的 user id, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
 	ModerationSetting    *string  `json:"moderation_setting,omitempty"`     // 群发言模式（all_members/only_owner/moderator_list, 其中 moderator_list 表示部分用户可发言的模式）, 示例值: "moderator_list"
-	ModeratorAddedList   []string `json:"moderator_added_list,omitempty"`   // 选择部分用户可发言模式时, 添加的可发言用户列表（自动过滤不在群内的用户）
-	ModeratorRemovedList []string `json:"moderator_removed_list,omitempty"` // 选择部分用户可发言模式时, 移除的可发言用户列表（自动过滤不在群内的用户）
+	ModeratorAddedList   []string `json:"moderator_added_list,omitempty"`   // 选择部分用户可发言模式时, 添加的可发言用户列表（自动过滤不在群内的用户）, 示例值: ["4d7a3c6g"]
+	ModeratorRemovedList []string `json:"moderator_removed_list,omitempty"` // 选择部分用户可发言模式时, 移除的可发言用户列表（自动过滤不在群内的用户）, 示例值: ["4d7a3ih6"]
 }
 
 // UpdateChatModerationResp ...

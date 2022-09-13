@@ -110,9 +110,11 @@ type CreateAttendanceUserApprovalReqUserApprovalOvertimeWork struct {
 
 // CreateAttendanceUserApprovalReqUserApprovalTrip ...
 type CreateAttendanceUserApprovalReqUserApprovalTrip struct {
-	StartTime string `json:"start_time,omitempty"` // 开始时间, 时间格式为 yyyy-MM-dd HH:mm:ss, 示例值: "2021-01-04 09:00:00"
-	EndTime   string `json:"end_time,omitempty"`   // 结束时间, 时间格式为 yyyy-MM-dd HH:mm:ss, 示例值: "2021-01-04 19:00:00"
-	Reason    string `json:"reason,omitempty"`     // 出差理由, 示例值: "培训"
+	StartTime        string `json:"start_time,omitempty"`         // 开始时间, 时间格式为 yyyy-MM-dd HH:mm:ss, 示例值: "2021-01-04 09:00:00"
+	EndTime          string `json:"end_time,omitempty"`           // 结束时间, 时间格式为 yyyy-MM-dd HH:mm:ss, 示例值: "2021-01-04 19:00:00"
+	Reason           string `json:"reason,omitempty"`             // 出差理由, 示例值: "培训"
+	ApprovePassTime  string `json:"approve_pass_time,omitempty"`  // 审批通过时间, 时间格式为 yyyy-MM-dd HH:mm:ss, 示例值: "2021-01-04 12:00:00"
+	ApproveApplyTime string `json:"approve_apply_time,omitempty"` // 审批申请时间, 时间格式为 yyyy-MM-dd HH:mm:ss, 示例值: "2021-01-04 11:00:00"
 }
 
 // CreateAttendanceUserApprovalResp ...
