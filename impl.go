@@ -46,6 +46,7 @@ type Lark struct {
 	mock             *Mock
 	eventHandler     *eventHandler
 	getAppTicketFunc func(ctx context.Context, larkClient *Lark, appID string) (string, error)
+	handlers         []HandlerFunc
 
 	// service
 	ACS           *ACSService
@@ -141,6 +142,7 @@ func (r *Lark) clone(tenantKey string) *Lark {
 		mock:                r.mock,
 		eventHandler:        r.eventHandler,
 		getAppTicketFunc:    r.getAppTicketFunc,
+		handlers:            r.handlers,
 	}
 	r2.initService()
 	return r2
