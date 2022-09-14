@@ -24,6 +24,7 @@ import (
 // GetDocxBlock 获取指定块的富文本内容。
 //
 // 在调用此接口前, 请仔细阅读[新版文档 OpenAPI 接口校验规则](https://bytedance.feishu.cn/docx/doxcnamKaccZKqIMopnREJCZUMe#doxcnWEMWYAg2YMkEq0SZXHzaih), 了解相关规则及约束。
+// 频率限制: 单个应用调用频率上限为每秒 5 次。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/document-docx/docx-v1/document-block/get
 func (r *DriveService) GetDocxBlock(ctx context.Context, request *GetDocxBlockReq, options ...MethodOptionFunc) (*GetDocxBlockResp, *Response, error) {

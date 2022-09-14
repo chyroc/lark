@@ -24,6 +24,7 @@ import (
 // GetDocxBlockListOfDocument 获取文档所有块的富文本内容并分页返回。
 //
 // 在调用此接口前, 请仔细阅读[新版文档 OpenAPI 接口校验规则](https://bytedance.feishu.cn/docx/doxcnamKaccZKqIMopnREJCZUMe#doxcn6AkCE2AUUm2WwxID7lS7Xc), 了解相关规则及约束。
+// 频率限制: 单个应用调用频率上限为每秒 5 次。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/document-docx/docx-v1/document-block/list
 func (r *DriveService) GetDocxBlockListOfDocument(ctx context.Context, request *GetDocxBlockListOfDocumentReq, options ...MethodOptionFunc) (*GetDocxBlockListOfDocumentResp, *Response, error) {

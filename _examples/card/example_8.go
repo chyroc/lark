@@ -21,7 +21,7 @@ import (
 	"github.com/chyroc/lark/card"
 )
 
-func Example9() {
+func Example8_1() {
 	content := card.Card(
 		card.Markdown("**个人审批效率总览**"),
 		card.ColumnSet(
@@ -48,6 +48,38 @@ func Example9() {
 				card.Markdown("**对比上周变化**\n"+card.GreenText("↓12%")+"\n"+card.RedText("↑5%")+"\n"+card.GreenText("↓25%")),
 			).SetWeight(1),
 		).SetFlexMode("none").SetBackgroundStyle("default").SetHorizontalSpacing("default"),
+	).
+		SetHeader(
+			card.Header("Title").SetGreen(),
+		)
+	fmt.Println(content.String())
+}
+
+func Example8_2() {
+	content := card.Card(
+		card.Markdown("**个人审批效率总览**"),
+
+		card.ColumnSet(
+			card.Column(card.Markdown("已审批单量").SetCenterTextAlign()).SetWeight(1),
+			card.Column(card.Markdown("平均审批耗时").SetCenterTextAlign()).SetWeight(1),
+			card.Column(card.Markdown("待批率").SetCenterTextAlign()).SetWeight(1),
+		).SetFlexMode("bisect").SetHorizontalSpacing("default"),
+
+		card.ColumnSet(
+			card.Column(card.Markdown("**29单**").SetCenterTextAlign()).SetWeight(1),
+			card.Column(card.Markdown("**0.9小时**").SetCenterTextAlign()).SetWeight(1),
+			card.Column(card.Markdown("**25%**").SetCenterTextAlign()).SetWeight(1),
+		).SetFlexMode("bisect").SetHorizontalSpacing("default"),
+
+		card.ColumnSet(
+			card.Column(card.Markdown(card.GreenText("领先团队59%")).SetCenterTextAlign()).SetWeight(1),
+			card.Column(card.Markdown(card.GreenText("领先团队100%")).SetCenterTextAlign()).SetWeight(1),
+			card.Column(card.Markdown(card.RedText("落后团队29%")).SetCenterTextAlign()).SetWeight(1),
+		).SetFlexMode("bisect").SetHorizontalSpacing("default"),
+
+		card.HR(),
+
+		card.Markdown("**团队审批效率总览**"),
 	).
 		SetHeader(
 			card.Header("Title").SetGreen(),

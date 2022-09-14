@@ -100,6 +100,7 @@ type GetCalendarEventListRespItem struct {
 	Status              string                                  `json:"status,omitempty"`                // 日程状态, 可选值有: tentative: 未回应, confirmed: 已确认, cancelled: 日程已取消
 	IsException         bool                                    `json:"is_exception,omitempty"`          // 日程是否是一个重复日程的例外日程
 	RecurringEventID    string                                  `json:"recurring_event_id,omitempty"`    // 例外日程的原重复日程的event_id
+	CreateTime          string                                  `json:"create_time,omitempty"`           // 日程的创建时间（秒级时间戳）
 	Schemas             []*GetCalendarEventListRespItemSchema   `json:"schemas,omitempty"`               // 日程自定义信息；控制日程详情页的ui展示。
 }
 

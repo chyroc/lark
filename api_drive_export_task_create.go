@@ -58,9 +58,10 @@ func (r *Mock) UnMockDriveCreateDriveExportTask() {
 
 // CreateDriveExportTaskReq ...
 type CreateDriveExportTaskReq struct {
-	FileExtension string `json:"file_extension,omitempty"` // 导出文件扩展名, 示例值: "pdf", 可选值有: docx: Microsoft Word (DOCX) 格式, pdf: pdf 格式, xlsx: Microsoft Excel (XLSX) 格式
-	Token         string `json:"token,omitempty"`          // 导出文档 token, 示例值: "doccnxe5OxxxxxxxSNdsJviENsk"
-	Type          string `json:"type,omitempty"`           // 导出文档类型, 示例值: "doc", 可选值有: doc: 旧版飞书云文档类型, sheet: 飞书电子表格类型, bitable: 飞书多维表格类型, docx: 新版飞书云文档类型
+	FileExtension string  `json:"file_extension,omitempty"` // 导出文件扩展名, 示例值: "pdf", 可选值有: docx: Microsoft Word (DOCX) 格式, pdf: pdf 格式, xlsx: Microsoft Excel (XLSX) 格式, csv: csv 格式
+	Token         string  `json:"token,omitempty"`          // 导出文档 token, 示例值: "doccnxe5OxxxxxxxSNdsJviENsk"
+	Type          string  `json:"type,omitempty"`           // 导出文档类型, 示例值: "doc", 可选值有: doc: 旧版飞书云文档类型, sheet: 飞书电子表格类型, bitable: 飞书多维表格类型, docx: 新版飞书云文档类型
+	SubID         *string `json:"sub_id,omitempty"`         // 导出子表ID, 仅当将电子表格/多维表格导出为 csv 时使用, [获取电子表格子表ID](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/sheets-v3/spreadsheet-sheet/query), [获取多维表格子表ID](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table/list), 示例值: "tblKz5D60T4JlfcT"
 }
 
 // CreateDriveExportTaskResp ...

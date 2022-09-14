@@ -24,6 +24,7 @@ import (
 // GetDocxDocument 获取文档最新版本号、标题等
 //
 // 在调用此接口前, 请仔细阅读[新版文档 OpenAPI 接口校验规则](https://bytedance.feishu.cn/docx/doxcnby5Y0yoACL3PdfZqrJEm6f#doxcnWKAE4aSaIU4GcdLInSaVde), 了解相关规则及约束。
+// 频率限制: 单个应用调用频率上限为每秒 5 次。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/document-docx/docx-v1/document/get
 func (r *DriveService) GetDocxDocument(ctx context.Context, request *GetDocxDocumentReq, options ...MethodOptionFunc) (*GetDocxDocumentResp, *Response, error) {

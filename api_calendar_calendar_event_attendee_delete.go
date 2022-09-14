@@ -63,7 +63,9 @@ func (r *Mock) UnMockCalendarDeleteCalendarEventAttendee() {
 type DeleteCalendarEventAttendeeReq struct {
 	CalendarID             string   `path:"calendar_id" json:"-"`                // 日历ID。参见[日历ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar/introduction), 示例值: "feishu.cn_xxxxxxxxxx@group.calendar.feishu.cn"
 	EventID                string   `path:"event_id" json:"-"`                   // 日程ID。参见[日程ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar-event/introduction), 示例值: "xxxxxxxxx_0"
+	UserIDType             *IDType  `query:"user_id_type" json:"-"`              // 用户 ID 类型, 示例值: "open_id", 可选值有: open_id: 用户的 open id, union_id: 用户的 union id, user_id: 用户的 user id, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
 	AttendeeIDs            []string `json:"attendee_ids,omitempty"`              // 要移除的参与人 ID 列表。参见[参与人ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar-event-attendee/introduction#4998889c), 示例值: ["user_xxxxx", "chat_xxxxx", "resource_xxxxx", "third_party_xxxxx"]
+	DeleteIDs              []string `json:"delete_ids,omitempty"`                // 需要删除的参与人类型实体ID, 作为attendee_ids字段的补充。
 	NeedNotification       *bool    `json:"need_notification,omitempty"`         // 删除日程参与人时是否要给参与人发送bot通知, 默认为true, 示例值: false
 	InstanceStartTimeAdmin *string  `json:"instance_start_time_admin,omitempty"` // 使用管理员身份访问时要修改的实例, 示例值: "1647320400"
 	IsEnableAdmin          *bool    `json:"is_enable_admin,omitempty"`           // 是否启用管理员身份(需先在管理后台设置某人为会议室管理员), 示例值: false

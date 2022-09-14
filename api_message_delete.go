@@ -27,7 +27,7 @@ import (
 // - 需要开启[机器人能力](https://open.feishu.cn/document/home/develop-a-bot-in-5-minutes/create-an-app), 撤回消息时机器人仍需要在会话内
 // - 机器人可以撤回单聊和群组内, 自己发送 且 发送时间不超过1天(24小时)的消息
 // - 若机器人要撤回群内他人发送的消息, 则机器人必须是该群的群主、管理员 或者 创建者, 且消息发送时间不超过1年
-// - 无法撤回通过「批量发送消息接口」发送的消息
+// - 无法撤回通过「[批量发送消息](https://open.feishu.cn/document/ukTMukTMukTM/ucDO1EjL3gTNx4yN4UTM)」接口发送的消息
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/delete
 func (r *MessageService) DeleteMessage(ctx context.Context, request *DeleteMessageReq, options ...MethodOptionFunc) (*DeleteMessageResp, *Response, error) {

@@ -4,8 +4,10 @@ import (
 	"context"
 )
 
-type ApiEndpoint func(ctx context.Context, rawHttpReq *RawRequestReq, resp interface{}) (*Response, error)
-type ApiMiddleware func(ApiEndpoint) ApiEndpoint
+type (
+	ApiEndpoint   func(ctx context.Context, rawHttpReq *RawRequestReq, resp interface{}) (*Response, error)
+	ApiMiddleware func(ApiEndpoint) ApiEndpoint
+)
 
 func chainApiMiddleware(mws ...ApiMiddleware) ApiMiddleware {
 	return func(next ApiEndpoint) ApiEndpoint {

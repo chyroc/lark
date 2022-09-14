@@ -24,13 +24,14 @@ import (
 // SendUrgentSmsMessage 对指定消息进行应用内加急与短信加急。
 //
 // 特别说明:
-// - 通过接口产生的短信加急将消耗企业的加急额度, 请慎重调用。
-// - 通过租户管理后台-费用中心-短信/电话加急 可以查看当前额度。
-// - 默认接口限流为50 QPS, 请谨慎调用。
+// - 通过接口产生的短信加急将消耗企业的加急额度, 请慎重调用
+// - 通过租户管理后台-费用中心-短信/电话加急 可以查看当前额度
+// - 默认接口限流为50 QPS, 请谨慎调用
 // 注意事项:
 // - 需要开启[机器人能力](https://open.feishu.cn/document/home/develop-a-bot-in-5-minutes/create-an-app)
 // - 只能加急机器人自己发送的消息
-// - 加急时机器人仍需要在会话内
+// - 加急时机器人仍需要在加急消息所在的群组中
+// - 调用本接口需要用户已阅读加急的消息才可以继续加急（用户未读的加急上限为200条）
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/urgent_sms
 func (r *MessageService) SendUrgentSmsMessage(ctx context.Context, request *SendUrgentSmsMessageReq, options ...MethodOptionFunc) (*SendUrgentSmsMessageResp, *Response, error) {
@@ -66,9 +67,9 @@ func (r *Mock) UnMockMessageSendUrgentSmsMessage() {
 
 // SendUrgentSmsMessageReq ...
 type SendUrgentSmsMessageReq struct {
-	MessageID  string   `path:"message_id" json:"-"`    // 待加急的消息ID。注意不支持批量消息ID(bm_xxx), 示例值: "om_dc13264520392913993dd051dba21dcf"
+	MessageID  string   `path:"message_id" json:"-"`    // 待加急的消息ID, 详情参见[消息ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/intro#ac79c1c2), 注意: 不支持批量消息ID（bm_xxx）, 示例值: "om_dc13264520392913993dd051dba21dcf"
 	UserIDType IDType   `query:"user_id_type" json:"-"` // 用户 ID 类型, 示例值: "open_id", 可选值有: open_id: 用户的 open id, union_id: 用户的 union id, user_id: 用户的 user id, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
-	UserIDList []string `json:"user_id_list,omitempty"` // 目标用户的ID。列表不可为空, 示例值: ["ou_6yf8af6bgb9100449565764t3382b168"]
+	UserIDList []string `json:"user_id_list,omitempty"` // 目标用户的ID, 列表不可为空, 注意: 请确保所填的用户ID正确, 并且用户在加急消息所在的群组中, 示例值: ["ou_6yf8af6bgb9100449565764t3382b168"]
 }
 
 // SendUrgentSmsMessageResp ...

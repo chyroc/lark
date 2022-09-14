@@ -76,16 +76,17 @@ type CreateBitableFieldReqDescription struct {
 
 // CreateBitableFieldReqProperty ...
 type CreateBitableFieldReqProperty struct {
-	Options       []*CreateBitableFieldReqPropertyOption   `json:"options,omitempty"`         // 单选、多选字段的选项信息
-	Formatter     *string                                  `json:"formatter,omitempty"`       // 数字、公式字段的显示格式, 示例值: "0"
-	DateFormatter *string                                  `json:"date_formatter,omitempty"`  // 日期、创建时间、最后更新时间字段的显示格式, 示例值: "日期格式"
-	AutoFill      *bool                                    `json:"auto_fill,omitempty"`       // 日期字段中新纪录自动填写创建时间, 示例值: false
-	Multiple      *bool                                    `json:"multiple,omitempty"`        // 人员字段中允许添加多个成员, 单向关联、双向关联中允许添加多个记录, 示例值: false
-	TableID       *string                                  `json:"table_id,omitempty"`        // 单向关联、双向关联字段中关联的数据表的id, 示例值: "tblsRc9GRRXKqhvW"
-	TableName     *string                                  `json:"table_name,omitempty"`      // 单向关联、双向关联字段中关联的数据表的名字, 示例值: ""table2""
-	BackFieldName *string                                  `json:"back_field_name,omitempty"` // 双向关联字段中关联的数据表中对应的双向关联字段的名字, 示例值: ""table1-双向关联""
-	AutoSerial    *CreateBitableFieldReqPropertyAutoSerial `json:"auto_serial,omitempty"`     // 自动编号类型
-	Location      *CreateBitableFieldReqPropertyLocation   `json:"location,omitempty"`        // 地理位置输入方式
+	Options           []*CreateBitableFieldReqPropertyOption   `json:"options,omitempty"`            // 单选、多选字段的选项信息
+	Formatter         *string                                  `json:"formatter,omitempty"`          // 数字、公式字段的显示格式, 示例值: "0"
+	DateFormatter     *string                                  `json:"date_formatter,omitempty"`     // 日期、创建时间、最后更新时间字段的显示格式, 示例值: "日期格式"
+	AutoFill          *bool                                    `json:"auto_fill,omitempty"`          // 日期字段中新纪录自动填写创建时间, 示例值: false
+	Multiple          *bool                                    `json:"multiple,omitempty"`           // 人员字段中允许添加多个成员, 单向关联、双向关联中允许添加多个记录, 示例值: false
+	TableID           *string                                  `json:"table_id,omitempty"`           // 单向关联、双向关联字段中关联的数据表的id, 示例值: "tblsRc9GRRXKqhvW"
+	TableName         *string                                  `json:"table_name,omitempty"`         // 单向关联、双向关联字段中关联的数据表的名字, 示例值: ""table2""
+	BackFieldName     *string                                  `json:"back_field_name,omitempty"`    // 双向关联字段中关联的数据表中对应的双向关联字段的名字, 示例值: ""table1-双向关联""
+	AutoSerial        *CreateBitableFieldReqPropertyAutoSerial `json:"auto_serial,omitempty"`        // 自动编号类型
+	Location          *CreateBitableFieldReqPropertyLocation   `json:"location,omitempty"`           // 地理位置输入方式
+	FormulaExpression *string                                  `json:"formula_expression,omitempty"` // 公式字段的表达式, 示例值: "bitable::$table[tblNj92WQBAasdEf].$field[fldMV60rYs]*2"
 }
 
 // CreateBitableFieldReqPropertyAutoSerial ...
@@ -134,16 +135,17 @@ type CreateBitableFieldRespFieldDescription struct {
 
 // CreateBitableFieldRespFieldProperty ...
 type CreateBitableFieldRespFieldProperty struct {
-	Options       []*CreateBitableFieldRespFieldPropertyOption   `json:"options,omitempty"`         // 单选、多选字段的选项信息
-	Formatter     string                                         `json:"formatter,omitempty"`       // 数字、公式字段的显示格式
-	DateFormatter string                                         `json:"date_formatter,omitempty"`  // 日期、创建时间、最后更新时间字段的显示格式
-	AutoFill      bool                                           `json:"auto_fill,omitempty"`       // 日期字段中新纪录自动填写创建时间
-	Multiple      bool                                           `json:"multiple,omitempty"`        // 人员字段中允许添加多个成员, 单向关联、双向关联中允许添加多个记录
-	TableID       string                                         `json:"table_id,omitempty"`        // 单向关联、双向关联字段中关联的数据表的id
-	TableName     string                                         `json:"table_name,omitempty"`      // 单向关联、双向关联字段中关联的数据表的名字
-	BackFieldName string                                         `json:"back_field_name,omitempty"` // 双向关联字段中关联的数据表中对应的双向关联字段的名字
-	AutoSerial    *CreateBitableFieldRespFieldPropertyAutoSerial `json:"auto_serial,omitempty"`     // 自动编号类型
-	Location      *CreateBitableFieldRespFieldPropertyLocation   `json:"location,omitempty"`        // 地理位置输入方式
+	Options           []*CreateBitableFieldRespFieldPropertyOption   `json:"options,omitempty"`            // 单选、多选字段的选项信息
+	Formatter         string                                         `json:"formatter,omitempty"`          // 数字、公式字段的显示格式
+	DateFormatter     string                                         `json:"date_formatter,omitempty"`     // 日期、创建时间、最后更新时间字段的显示格式
+	AutoFill          bool                                           `json:"auto_fill,omitempty"`          // 日期字段中新纪录自动填写创建时间
+	Multiple          bool                                           `json:"multiple,omitempty"`           // 人员字段中允许添加多个成员, 单向关联、双向关联中允许添加多个记录
+	TableID           string                                         `json:"table_id,omitempty"`           // 单向关联、双向关联字段中关联的数据表的id
+	TableName         string                                         `json:"table_name,omitempty"`         // 单向关联、双向关联字段中关联的数据表的名字
+	BackFieldName     string                                         `json:"back_field_name,omitempty"`    // 双向关联字段中关联的数据表中对应的双向关联字段的名字
+	AutoSerial        *CreateBitableFieldRespFieldPropertyAutoSerial `json:"auto_serial,omitempty"`        // 自动编号类型
+	Location          *CreateBitableFieldRespFieldPropertyLocation   `json:"location,omitempty"`           // 地理位置输入方式
+	FormulaExpression string                                         `json:"formula_expression,omitempty"` // 公式字段的表达式
 }
 
 // CreateBitableFieldRespFieldPropertyAutoSerial ...

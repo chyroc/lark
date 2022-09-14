@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// CreateTaskCollaborator 该接口用于新增任务执行者, 一次性可以添加多个执行者。新增的执行者必须是表示是用户的ID。
+// CreateTaskCollaborator 该接口用于新增任务执行者, 一次性可以添加多个执行者。新增的执行者必须是用户的ID。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/task-v1/task-collaborator/create
 func (r *TaskService) CreateTaskCollaborator(ctx context.Context, request *CreateTaskCollaboratorReq, options ...MethodOptionFunc) (*CreateTaskCollaboratorResp, *Response, error) {

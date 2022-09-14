@@ -24,6 +24,7 @@ import (
 // UpdateDocxBlock 更新指定的块。
 //
 // 在调用此接口前, 请仔细阅读[新版文档 OpenAPI 接口校验规则](https://bytedance.feishu.cn/docx/doxcnby5Y0yoACL3PdfZqrJEm6f#doxcnEeyS0I8MMqoieIMpK7jm8g), 了解相关规则及约束。
+// 频率限制: 单个应用调用频率上限为每秒 3 次。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/document-docx/docx-v1/document-block/patch
 func (r *DriveService) UpdateDocxBlock(ctx context.Context, request *UpdateDocxBlockReq, options ...MethodOptionFunc) (*UpdateDocxBlockResp, *Response, error) {

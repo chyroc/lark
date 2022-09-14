@@ -24,6 +24,7 @@ import (
 // BatchDeleteDocxBlock 指定需要操作的块, 删除其指定范围的子块。如果操作成功, 接口将返回应用删除操作后的文档版本号。
 //
 // 在调用此接口前, 请仔细阅读[新版文档 OpenAPI 接口校验规则](https://bytedance.feishu.cn/docx/doxcnby5Y0yoACL3PdfZqrJEm6f#doxcngCsscGk0WacO258mYDgM6b), 了解相关规则及约束。
+// 频率限制: 单个应用调用频率上限为每秒 3 次。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/document-docx/docx-v1/document-block-children/batch_delete
 func (r *DriveService) BatchDeleteDocxBlock(ctx context.Context, request *BatchDeleteDocxBlockReq, options ...MethodOptionFunc) (*BatchDeleteDocxBlockResp, *Response, error) {

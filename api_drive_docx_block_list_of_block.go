@@ -24,6 +24,7 @@ import (
 // GetDocxBlockListOfBlock 给定一个指定版本的文档, 并指定需要操作的块, 分页遍历其所有子块富文本内容 。如果不指定版本, 则会默认查询最新版本。
 //
 // 在调用此接口前, 请仔细阅读[新版文档 OpenAPI 接口校验规则](https://bytedance.feishu.cn/docx/doxcnby5Y0yoACL3PdfZqrJEm6f#doxcnE2UK2yY0gEGK8nBMPtB0vd), 了解相关规则及约束。
+// 频率限制: 单个应用调用频率上限为每秒 5 次。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/document-docx/docx-v1/document-block-children/get
 func (r *DriveService) GetDocxBlockListOfBlock(ctx context.Context, request *GetDocxBlockListOfBlockReq, options ...MethodOptionFunc) (*GetDocxBlockListOfBlockResp, *Response, error) {

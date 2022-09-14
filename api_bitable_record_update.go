@@ -74,7 +74,7 @@ type UpdateBitableRecordResp struct {
 
 // UpdateBitableRecordRespRecord ...
 type UpdateBitableRecordRespRecord struct {
-	RecordID         string                                       `json:"record_id,omitempty"`          // 记录 id
+	RecordID         string                                       `json:"record_id,omitempty"`          // 记录 id, 更新多条记录时必填
 	CreatedBy        *UpdateBitableRecordRespRecordCreatedBy      `json:"created_by,omitempty"`         // 创建人
 	CreatedTime      int64                                        `json:"created_time,omitempty"`       // 创建时间
 	LastModifiedBy   *UpdateBitableRecordRespRecordLastModifiedBy `json:"last_modified_by,omitempty"`   // 修改人

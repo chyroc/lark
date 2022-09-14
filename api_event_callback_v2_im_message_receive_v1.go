@@ -46,11 +46,11 @@ type EventV2IMMessageReceiveV1 struct {
 
 // EventV2IMMessageReceiveV1Message ...
 type EventV2IMMessageReceiveV1Message struct {
-	MessageID   string                                     `json:"message_id,omitempty"`   // 消息的 open_message_id
-	RootID      string                                     `json:"root_id,omitempty"`      // 回复消息 根 id
-	ParentID    string                                     `json:"parent_id,omitempty"`    // 回复消息 父 id
-	CreateTime  string                                     `json:"create_time,omitempty"`  // 消息发送时间 毫秒
-	ChatID      string                                     `json:"chat_id,omitempty"`      // 消息所在的群组 id
+	MessageID   string                                     `json:"message_id,omitempty"`   // 消息的open_message_id, 说明参见: [消息ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/intro#ac79c1c2)
+	RootID      string                                     `json:"root_id,omitempty"`      // 根消息id, 用于回复消息场景, 说明参见: [消息ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/intro#ac79c1c2)
+	ParentID    string                                     `json:"parent_id,omitempty"`    // 父消息的id, 用于回复消息场景, 说明参见: [消息ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/intro#ac79c1c2)
+	CreateTime  string                                     `json:"create_time,omitempty"`  // 消息发送时间（毫秒）
+	ChatID      string                                     `json:"chat_id,omitempty"`      // 消息所在的群组 ID
 	ChatType    ChatMode                                   `json:"chat_type,omitempty"`    // 消息所在的群组类型, 单聊（p2p）或群聊（group）
 	MessageType MsgType                                    `json:"message_type,omitempty"` // 消息类型
 	Content     string                                     `json:"content,omitempty"`      // 消息内容, json 格式, [各类型消息Content](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/im-v1/message/events/message_content)
@@ -62,7 +62,7 @@ type EventV2IMMessageReceiveV1MessageMention struct {
 	Key       string                                     `json:"key,omitempty"`        // mention key
 	ID        *EventV2IMMessageReceiveV1MessageMentionID `json:"id,omitempty"`         // 用户 ID
 	Name      string                                     `json:"name,omitempty"`       // 用户姓名
-	TenantKey string                                     `json:"tenant_key,omitempty"` // tenant key
+	TenantKey string                                     `json:"tenant_key,omitempty"` // tenant key, 为租户在飞书上的唯一标识, 用来换取对应的tenant_access_token, 也可以用作租户在应用里面的唯一标识
 }
 
 // EventV2IMMessageReceiveV1MessageMentionID ...
@@ -76,7 +76,7 @@ type EventV2IMMessageReceiveV1MessageMentionID struct {
 type EventV2IMMessageReceiveV1Sender struct {
 	SenderID   *EventV2IMMessageReceiveV1SenderSenderID `json:"sender_id,omitempty"`   // 用户 ID
 	SenderType string                                   `json:"sender_type,omitempty"` // 消息发送者类型。目前只支持用户(user)发送的消息。
-	TenantKey  string                                   `json:"tenant_key,omitempty"`  // tenant key
+	TenantKey  string                                   `json:"tenant_key,omitempty"`  // tenant key, 为租户在飞书上的唯一标识, 用来换取对应的tenant_access_token, 也可以用作租户在应用里面的唯一标识
 }
 
 // EventV2IMMessageReceiveV1SenderSenderID ...

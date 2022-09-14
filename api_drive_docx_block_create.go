@@ -24,6 +24,7 @@ import (
 // CreateDocxBlock 指定需要操作的块, 为其创建一批子块, 并插入到指定位置。如果操作成功, 接口将返回新创建子块的富文本内容。
 //
 // 在调用此接口前, 请仔细阅读[新版文档 OpenAPI 接口校验规则](https://bytedance.feishu.cn/docx/doxcnby5Y0yoACL3PdfZqrJEm6f#doxcnm0ooUe0s20GwwVB3a05rtb), 了解相关规则及约束。
+// 频率限制: 单个应用调用频率上限为每秒 3 次。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/document-docx/docx-v1/document-block-children/create
 func (r *DriveService) CreateDocxBlock(ctx context.Context, request *CreateDocxBlockReq, options ...MethodOptionFunc) (*CreateDocxBlockResp, *Response, error) {

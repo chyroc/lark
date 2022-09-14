@@ -68,7 +68,7 @@ type BatchUpdateBitableRecordReq struct {
 
 // BatchUpdateBitableRecordReqRecord ...
 type BatchUpdateBitableRecordReqRecord struct {
-	RecordID         *string                                          `json:"record_id,omitempty"`          // 记录 id, 示例值: "recqwIwhc6"
+	RecordID         *string                                          `json:"record_id,omitempty"`          // 记录 id, 更新多条记录时必填, 示例值: "recqwIwhc6"
 	CreatedBy        *BatchUpdateBitableRecordReqRecordCreatedBy      `json:"created_by,omitempty"`         // 创建人
 	CreatedTime      *int64                                           `json:"created_time,omitempty"`       // 创建时间, 示例值: 1610281603
 	LastModifiedBy   *BatchUpdateBitableRecordReqRecordLastModifiedBy `json:"last_modified_by,omitempty"`   // 修改人
@@ -99,7 +99,7 @@ type BatchUpdateBitableRecordResp struct {
 
 // BatchUpdateBitableRecordRespRecord ...
 type BatchUpdateBitableRecordRespRecord struct {
-	RecordID         string                                            `json:"record_id,omitempty"`          // 记录 id
+	RecordID         string                                            `json:"record_id,omitempty"`          // 记录 id, 更新多条记录时必填
 	CreatedBy        *BatchUpdateBitableRecordRespRecordCreatedBy      `json:"created_by,omitempty"`         // 创建人
 	CreatedTime      int64                                             `json:"created_time,omitempty"`       // 创建时间
 	LastModifiedBy   *BatchUpdateBitableRecordRespRecordLastModifiedBy `json:"last_modified_by,omitempty"`   // 修改人

@@ -59,7 +59,7 @@ func (r *Mock) UnMockTaskCreateTask() {
 // CreateTaskReq ...
 type CreateTaskReq struct {
 	UserIDType      *IDType              `query:"user_id_type" json:"-"`     // 用户 ID 类型, 示例值: "open_id", 可选值有: open_id: 用户的 open id, union_id: 用户的 union id, user_id: 用户的 user id, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
-	Summary         string               `json:"summary,omitempty"`          // 任务标题。创建任务时, 如果没有标题填充, 飞书服务器会将其视为无主题的任务, <md-alert>, 任务标题和任务富文本标题同时存在时只使用富文本标题, </md-alert>, 示例值: "每天喝八杯水, 保持身心愉悦", 长度范围: `0` ～ `256` 字符
+	Summary         *string              `json:"summary,omitempty"`          // 任务标题。创建任务时, 标题和富文本标题不能同时为空, 需要至少填充其中一个字段, <md-alert>, 任务标题和任务富文本标题同时存在时只使用富文本标题, </md-alert>, 示例值: "每天喝八杯水, 保持身心愉悦", 长度范围: `0` ～ `256` 字符
 	Description     *string              `json:"description,omitempty"`      // 任务备注, <md-alert>, 任务备注和任务富文本备注同时存在时只使用富文本备注, </md-alert>, 示例值: "多吃水果, 多运动, 健康生活, 快乐工作。", 长度范围: `0` ～ `65536` 字符
 	Extra           *string              `json:"extra,omitempty"`            // 接入方可以自定义的附属信息二进制格式, 采用 base64 编码, 解析方式由接入方自己决定, 示例值: "dGVzdA[", 长度范围: `0` ～ `65536` 字符
 	Due             *CreateTaskReqDue    `json:"due,omitempty"`              // 任务的截止时间设置
@@ -100,7 +100,7 @@ type CreateTaskResp struct {
 // CreateTaskRespTask ...
 type CreateTaskRespTask struct {
 	ID              string                            `json:"id,omitempty"`               // 任务 ID, 由飞书任务服务器发号
-	Summary         string                            `json:"summary,omitempty"`          // 任务标题。创建任务时, 如果没有标题填充, 飞书服务器会将其视为无主题的任务, <md-alert>, 任务标题和任务富文本标题同时存在时只使用富文本标题, </md-alert>
+	Summary         string                            `json:"summary,omitempty"`          // 任务标题。创建任务时, 标题和富文本标题不能同时为空, 需要至少填充其中一个字段, <md-alert>, 任务标题和任务富文本标题同时存在时只使用富文本标题, </md-alert>
 	Description     string                            `json:"description,omitempty"`      // 任务备注, <md-alert>, 任务备注和任务富文本备注同时存在时只使用富文本备注, </md-alert>
 	CompleteTime    string                            `json:"complete_time,omitempty"`    // 任务的完成时间戳（单位为秒）, 如果完成时间为 0, 则表示任务尚未完成
 	CreatorID       string                            `json:"creator_id,omitempty"`       // 任务的创建者 ID。在创建任务时无需填充该字段

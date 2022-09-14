@@ -45,7 +45,7 @@ type EventV2IMMessageReadV1 struct {
 type EventV2IMMessageReadV1Reader struct {
 	ReaderID  *EventV2IMMessageReadV1ReaderReaderID `json:"reader_id,omitempty"`  // 用户 ID
 	ReadTime  string                                `json:"read_time,omitempty"`  // 阅读时间
-	TenantKey string                                `json:"tenant_key,omitempty"` // tenant key
+	TenantKey string                                `json:"tenant_key,omitempty"` // 租户key, 为租户在飞书上的唯一标识, 用来换取对应的tenant_access_token, 也可以用作租户在应用里面的唯一标识
 }
 
 // EventV2IMMessageReadV1ReaderReaderID ...

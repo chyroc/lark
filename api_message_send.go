@@ -26,11 +26,7 @@ import (
 // 注意事项:
 // - 需要开启[机器人能力](https://open.feishu.cn/document/home/develop-a-bot-in-5-minutes/create-an-app)
 // - 给用户发送消息, 需要机器人对用户有[可用性](https://open.feishu.cn/document/home/introduction-to-scope-and-authorization/availability)
-// - 给群组发送消息, 需要机器人在群中
-// - 该接口不支持给部门成员发消息, 请使用 [批量发送消息](https://open.feishu.cn/document/ukTMukTMukTM/ucDO1EjL3gTNx4yN4UTM)
-// - 文本消息请求体最大不能超过150KB
-// - 卡片及富文本消息请求体最大不能超过30KB
-// - 消息卡片的 `update_multi`（是否为共享卡片）字段在卡片内容的`config`结构体中设置。详细参考文档[配置卡片属性](https://open.feishu.cn/document/ukTMukTMukTM/uAjNwUjLwYDM14CM2ATN)
+// - 给群组发送消息, 需要机器人在群组中
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/create
 func (r *MessageService) SendRawMessage(ctx context.Context, request *SendRawMessageReq, options ...MethodOptionFunc) (*SendRawMessageResp, *Response, error) {
@@ -66,18 +62,19 @@ func (r *Mock) UnMockMessageSendRawMessage() {
 
 // SendRawMessageReq ...
 type SendRawMessageReq struct {
-	ReceiveIDType IDType  `query:"receive_id_type" json:"-"` // 消息接收者id类型 open_id/user_id/union_id/email/chat_id, 示例值: "open_id", 可选值有: `open_id`: 以open_id来识别用户([什么是 Open ID？](https://open.feishu.cn/document/home/user-identity-introduction/open-id)), `user_id`: 以user_id来识别用户。需要有获取用户 userID的权限 ([什么是 User ID？](https://open.feishu.cn/document/home/user-identity-introduction/user-id)), `union_id`: 以union_id来识别用户([什么是 Union ID？](https://open.feishu.cn/document/home/user-identity-introduction/union-id)), `email`: 以email来识别用户。是用户的真实邮箱, `chat_id`: 以chat_id来识别群聊。群ID说明请参考: [群ID 说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-id-description)
+	ReceiveIDType IDType  `query:"receive_id_type" json:"-"` // 消息接收者id类型 open_id/user_id/union_id/email/chat_id, 示例值: "open_id", 可选值有: open_id: 以open_id来识别用户([什么是 Open ID？](https://open.feishu.cn/document/home/user-identity-introduction/open-id)), user_id: 以user_id来识别用户。需要有获取用户 userID的权限 ([什么是 User ID？](https://open.feishu.cn/document/home/user-identity-introduction/user-id)), union_id: 以union_id来识别用户([什么是 Union ID？](https://open.feishu.cn/document/home/user-identity-introduction/union-id)), email: 以email来识别用户。是用户的真实邮箱, chat_id: 以chat_id来识别群聊。群ID说明请参考: [群ID 说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-id-description)
 	ReceiveID     string  `json:"receive_id,omitempty"`      // 依据receive_id_type的值, 填写对应的消息接收者id, 示例值: "ou_7d8a6e6df7621556ce0d21922b676706ccs"
-	Content       string  `json:"content,omitempty"`         // 消息内容, json结构序列化后的字符串。不同msg_type对应不同内容。消息类型 包括: text、post、image、file、audio、media、sticker、interactive、share_chat、share_user等, 具体格式说明参考: [发送消息content说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/im-v1/message/create_json), 示例值: "{\"text\":\"<at user_id=\\\"ou_155184d1e73cbfb8973e5a9e698e74f2\\\">Tom</at> test content\"}"
-	MsgType       MsgType `json:"msg_type,omitempty"`        // 消息类型 包括: text、post、image、file、audio、media、sticker、interactive、share_chat、share_user等, 类型定义请参考[发送消息content说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/im-v1/message/create_json), 示例值: "text"
+	MsgType       MsgType `json:"msg_type,omitempty"`        // 消息类型 包括: text、post、image、file、audio、media、sticker、interactive、share_chat、share_user等, 类型定义请参考[发送消息Content](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/im-v1/message/create_json), 示例值: "text"
+	Content       string  `json:"content,omitempty"`         // 消息内容, json结构序列化后的字符串。不同msg_type对应不同内容。消息类型 包括: text、post、image、file、audio、media、sticker、interactive、share_chat、share_user等, 具体格式说明参考: [发送消息Content](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/im-v1/message/create_json), <b>请求体大小限制</b>: 文本消息请求体最大不能超过150KB, 卡片及富文本消息请求体最大不能超过30KB, 示例值: "{\"text\":\"<at user_id=\\\"ou_155184d1e73cbfb8973e5a9e698e74f2\\\">Tom</at> test content\"}"
+	UUID          *string `json:"uuid,omitempty"`            // 由开发者生成的唯一字符串序列, 用于发送消息请求去重；持有相同uuid的请求1小时内至多成功执行一次, 示例值: "a0d69e20-1dd1-458b-k525-dfeca4015204", 最大长度: `50` 字符
 }
 
 // SendRawMessageResp ...
 type SendRawMessageResp struct {
 	MessageID      string       `json:"message_id,omitempty"`       // 消息id, 说明参见: [消息ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/intro#ac79c1c2)
-	RootID         string       `json:"root_id,omitempty"`          // 根消息id, 说明参见: [消息ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/intro#ac79c1c2)
-	ParentID       string       `json:"parent_id,omitempty"`        // 父消息的id, 说明参见: [消息ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/intro#ac79c1c2)
-	MsgType        MsgType      `json:"msg_type,omitempty"`         // 消息类型 包括: text、post、image、file、audio、media、sticker、interactive、share_chat、share_user等, 类型定义请参考[发送消息content说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/im-v1/message/create_json)
+	RootID         string       `json:"root_id,omitempty"`          // 根消息id, 用于回复消息场景, 说明参见: [消息ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/intro#ac79c1c2)
+	ParentID       string       `json:"parent_id,omitempty"`        // 父消息的id, 用于回复消息场景, 说明参见: [消息ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/intro#ac79c1c2)
+	MsgType        MsgType      `json:"msg_type,omitempty"`         // 消息类型 包括: text、post、image、file、audio、media、sticker、interactive、share_chat、share_user等, 类型定义请参考[接收消息Content](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/im-v1/message/events/message_content)
 	CreateTime     string       `json:"create_time,omitempty"`      // 消息生成的时间戳（毫秒）
 	UpdateTime     string       `json:"update_time,omitempty"`      // 消息更新的时间戳（毫秒）
 	Deleted        bool         `json:"deleted,omitempty"`          // 消息是否被撤回
