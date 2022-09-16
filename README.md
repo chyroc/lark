@@ -38,7 +38,7 @@ https://godoc.org/github.com/chyroc/lark
 
 ## Support APIs
 
-API Count: 653, Event Count: 93
+API Count: 656, Event Count: 93
 
 <details>
   <summary>
@@ -115,6 +115,7 @@ API Count: 653, Event Count: 93
 - Approval
   - CreateApproval
   - GetApproval
+  - GetApprovalList
   - SubscribeApprovalSubscription
   - UnsubscribeApprovalSubscription
   - CreateApprovalInstance
@@ -288,6 +289,7 @@ API Count: 653, Event Count: 93
   - UpdateChatModeration
   - UpdateChatTopNotice
   - DeleteChatTopNotice
+  - GenChatShareLink
   - GetChatAnnouncement
   - UpdateChatAnnouncement
   - CreateChatTab
@@ -823,6 +825,7 @@ API Count: 653, Event Count: 93
   - ExportVCParticipantList
   - ExportVCParticipantQualityList
   - GetVCExportTask
+  - DownloadVCExportFile
 
 
 </details>

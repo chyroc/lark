@@ -76,7 +76,7 @@ func (r *Mock) UnMockDriveMoveDocsToWiki() {
 type MoveDocsToWikiReq struct {
 	SpaceID         string  `path:"space_id" json:"-"`           // 知识库id, 示例值: "1565676577122621"
 	ParentWikiToken *string `json:"parent_wiki_token,omitempty"` // 节点的父亲token, 示例值: "wikbcOHIFxB0PJS2UTd2kF2SP6c"
-	ObjType         string  `json:"obj_type,omitempty"`          // 文档类型, 示例值: "doc", 可选值有: `doc`: doc（文档）, `sheet`: sheet（表格）, `bitable`: bitable（多维表格）, `mindnote`: mindnote（思维导图）, `docx`: docx, `file`: file (文件)
+	ObjType         string  `json:"obj_type,omitempty"`          // 文档类型, 示例值: "doc", 可选值有: doc: doc（文档）, sheet: sheet（表格）, bitable: bitable（多维表格）, mindnote: mindnote（思维导图）, docx: docx, file: file (文件)
 	ObjToken        string  `json:"obj_token,omitempty"`         // 文档token, 示例值: "docbc6e1qBqt1O5mCBVA1QUKVEg"
 	Apply           *bool   `json:"apply,omitempty"`             // 没有权限时, 是否申请迁入文档, 示例值: true
 }

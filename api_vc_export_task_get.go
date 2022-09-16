@@ -63,8 +63,10 @@ type GetVCExportTaskReq struct {
 
 // GetVCExportTaskResp ...
 type GetVCExportTaskResp struct {
-	Status int64  `json:"status,omitempty"` // 任务状态, 可选值有: 1: 处理中, 2: 失败, 3: 完成
-	URL    string `json:"url,omitempty"`    // 文件下载地址
+	Status    int64  `json:"status,omitempty"`     // 任务状态, 可选值有: 1: 处理中, 2: 失败, 3: 完成
+	URL       string `json:"url,omitempty"`        // 文件下载地址
+	FileToken string `json:"file_token,omitempty"` // 文件token
+	FailMsg   string `json:"fail_msg,omitempty"`   // 失败信息
 }
 
 // getVCExportTaskResp ...

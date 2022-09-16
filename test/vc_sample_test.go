@@ -325,6 +325,18 @@ func Test_VC_Sample_Failed(t *testing.T) {
 			as.Equal(err.Error(), "mock-failed")
 		})
 
+		t.Run("", func(t *testing.T) {
+
+			cli.Mock().MockVCDownloadVCExportFile(func(ctx context.Context, request *lark.DownloadVCExportFileReq, options ...lark.MethodOptionFunc) (*lark.DownloadVCExportFileResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockVCDownloadVCExportFile()
+
+			_, _, err := moduleCli.DownloadVCExportFile(ctx, &lark.DownloadVCExportFileReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
 	})
 
 	t.Run("response is failed", func(t *testing.T) {
@@ -516,6 +528,13 @@ func Test_VC_Sample_Failed(t *testing.T) {
 			_, _, err := moduleCli.GetVCExportTask(ctx, &lark.GetVCExportTaskReq{
 				TaskID: "x",
 			})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.DownloadVCExportFile(ctx, &lark.DownloadVCExportFileReq{})
 			as.NotNil(err)
 			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
 		})
@@ -714,6 +733,13 @@ func Test_VC_Sample_Failed(t *testing.T) {
 			_, _, err := moduleCli.GetVCExportTask(ctx, &lark.GetVCExportTaskReq{
 				TaskID: "x",
 			})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.DownloadVCExportFile(ctx, &lark.DownloadVCExportFileReq{})
 			as.NotNil(err)
 			as.Equal("fake raw request", err.Error())
 		})

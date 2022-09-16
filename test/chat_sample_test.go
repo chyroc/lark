@@ -267,6 +267,18 @@ func Test_Chat_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
+			cli.Mock().MockChatGenChatShareLink(func(ctx context.Context, request *lark.GenChatShareLinkReq, options ...lark.MethodOptionFunc) (*lark.GenChatShareLinkResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockChatGenChatShareLink()
+
+			_, _, err := moduleCli.GenChatShareLink(ctx, &lark.GenChatShareLinkReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
 			cli.Mock().MockChatGetChatAnnouncement(func(ctx context.Context, request *lark.GetChatAnnouncementReq, options ...lark.MethodOptionFunc) (*lark.GetChatAnnouncementResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -511,6 +523,15 @@ func Test_Chat_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
+			_, _, err := moduleCli.GenChatShareLink(ctx, &lark.GenChatShareLinkReq{
+				ChatID: "x",
+			})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+
 			_, _, err := moduleCli.GetChatAnnouncement(ctx, &lark.GetChatAnnouncementReq{
 				ChatID: "x",
 			})
@@ -729,6 +750,15 @@ func Test_Chat_Sample_Failed(t *testing.T) {
 		t.Run("", func(t *testing.T) {
 
 			_, _, err := moduleCli.DeleteChatTopNotice(ctx, &lark.DeleteChatTopNoticeReq{
+				ChatID: "x",
+			})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.GenChatShareLink(ctx, &lark.GenChatShareLinkReq{
 				ChatID: "x",
 			})
 			as.NotNil(err)

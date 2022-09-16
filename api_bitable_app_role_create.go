@@ -66,7 +66,7 @@ type CreateBitableAppRoleReq struct {
 
 // CreateBitableAppRoleReqBlockRole ...
 type CreateBitableAppRoleReqBlockRole struct {
-	BlockID   string `json:"block_id,omitempty"`   // Block的ID, 示例值: "blknkqrP3RqUkcAW"
+	BlockID   string `json:"block_id,omitempty"`   // Block 的 ID, 例如列出仪表盘接口中的仪表盘 block  id, 示例值: "blknkqrP3RqUkcAW"
 	BlockPerm int64  `json:"block_perm,omitempty"` // Block权限, 示例值: 0, 可选值有: 0: 无权限, 1: 可阅读, 默认值: `0`
 }
 
@@ -110,7 +110,7 @@ type CreateBitableAppRoleRespRole struct {
 
 // CreateBitableAppRoleRespRoleBlockRole ...
 type CreateBitableAppRoleRespRoleBlockRole struct {
-	BlockID   string `json:"block_id,omitempty"`   // Block的ID
+	BlockID   string `json:"block_id,omitempty"`   // Block 的 ID, 例如列出仪表盘接口中的仪表盘 block  id
 	BlockType string `json:"block_type,omitempty"` // Block类型, 可选值有: dashboard: 仪表盘
 	BlockPerm int64  `json:"block_perm,omitempty"` // Block权限, 可选值有: 0: 无权限, 1: 可阅读
 }

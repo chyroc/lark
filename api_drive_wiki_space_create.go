@@ -73,8 +73,8 @@ type CreateWikiSpaceRespSpace struct {
 	Name        string `json:"name,omitempty"`        // 知识空间名称
 	Description string `json:"description,omitempty"` // 知识空间描述
 	SpaceID     string `json:"space_id,omitempty"`    // 知识空间id
-	SpaceType   string `json:"space_type,omitempty"`  // 表示知识空间类型（团队空间 或 个人空间）, 可选值有: `team`: 团队空间, `person`: 个人空间
-	Visibility  string `json:"visibility,omitempty"`  // 表示知识空间可见性（公开空间 或 私有空间）, 可选值有: `public`: 公开空间, `private`: 私有空间
+	SpaceType   string `json:"space_type,omitempty"`  // 表示知识空间类型（团队空间 或 个人空间）, 可选值有: team: 团队空间, person: 个人空间
+	Visibility  string `json:"visibility,omitempty"`  // 表示知识空间可见性（公开空间 或 私有空间）, 可选值有: public: 公开空间, private: 私有空间
 }
 
 // createWikiSpaceResp ...

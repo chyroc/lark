@@ -62,7 +62,8 @@ type CreateMailGroupPermissionMemberReq struct {
 	DepartmentIDType *DepartmentIDType `query:"department_id_type" json:"-"` // 此次调用中使用的部门ID的类型, 示例值: "xxx", 可选值有: department_id: 以自定义department_id来标识部门, open_department_id: 以open_department_id来标识部门
 	UserID           *string           `json:"user_id,omitempty"`            // 租户内用户的唯一标识（当成员类型是USER时有值）, 示例值: "xxxxxxxxxx"
 	DepartmentID     *string           `json:"department_id,omitempty"`      // 租户内部门的唯一标识（当成员类型是DEPARTMENT时有值）, 示例值: "xxxxxxxxxx"
-	Type             *MailUserType     `json:"type,omitempty"`               // 成员类型, 示例值: "USER", 可选值有: USER: 内部用户, DEPARTMENT: 部门
+	Email            *string           `json:"email,omitempty"`              // The member's email address. Value is valid when type is MAIL_GROUP/PUBLIC_MAILBOX, 示例值: "xxx@xx.x"
+	Type             *MailUserType     `json:"type,omitempty"`               // 成员类型, 示例值: "USER", 可选值有: USER: 内部用户, DEPARTMENT: 部门, MAIL_GROUP: member is a mail group, PUBLIC_MAILBOX: member is a public mailbox
 }
 
 // CreateMailGroupPermissionMemberResp ...
@@ -70,7 +71,8 @@ type CreateMailGroupPermissionMemberResp struct {
 	PermissionMemberID string       `json:"permission_member_id,omitempty"` // 权限组内成员唯一标识
 	UserID             string       `json:"user_id,omitempty"`              // 租户内用户的唯一标识（当成员类型是USER时有值）
 	DepartmentID       string       `json:"department_id,omitempty"`        // 租户内部门的唯一标识（当成员类型是DEPARTMENT时有值）
-	Type               MailUserType `json:"type,omitempty"`                 // 成员类型, 可选值有: USER: 内部用户, DEPARTMENT: 部门
+	Email              string       `json:"email,omitempty"`                // The member's email address. Value is valid when type is MAIL_GROUP/PUBLIC_MAILBOX
+	Type               MailUserType `json:"type,omitempty"`                 // 成员类型, 可选值有: USER: 内部用户, DEPARTMENT: 部门, MAIL_GROUP: member is a mail group, PUBLIC_MAILBOX: member is a public mailbox
 }
 
 // createMailGroupPermissionMemberResp ...

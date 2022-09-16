@@ -73,6 +73,7 @@ type Mock struct {
 	mockApplicationGetApplicationFeedbackList                  func(ctx context.Context, request *GetApplicationFeedbackListReq, options ...MethodOptionFunc) (*GetApplicationFeedbackListResp, *Response, error)
 	mockApprovalCreateApproval                                 func(ctx context.Context, request *CreateApprovalReq, options ...MethodOptionFunc) (*CreateApprovalResp, *Response, error)
 	mockApprovalGetApproval                                    func(ctx context.Context, request *GetApprovalReq, options ...MethodOptionFunc) (*GetApprovalResp, *Response, error)
+	mockApprovalGetApprovalList                                func(ctx context.Context, request *GetApprovalListReq, options ...MethodOptionFunc) (*GetApprovalListResp, *Response, error)
 	mockApprovalSubscribeApprovalSubscription                  func(ctx context.Context, request *SubscribeApprovalSubscriptionReq, options ...MethodOptionFunc) (*SubscribeApprovalSubscriptionResp, *Response, error)
 	mockApprovalUnsubscribeApprovalSubscription                func(ctx context.Context, request *UnsubscribeApprovalSubscriptionReq, options ...MethodOptionFunc) (*UnsubscribeApprovalSubscriptionResp, *Response, error)
 	mockApprovalCreateApprovalInstance                         func(ctx context.Context, request *CreateApprovalInstanceReq, options ...MethodOptionFunc) (*CreateApprovalInstanceResp, *Response, error)
@@ -239,6 +240,7 @@ type Mock struct {
 	mockChatUpdateChatModeration                               func(ctx context.Context, request *UpdateChatModerationReq, options ...MethodOptionFunc) (*UpdateChatModerationResp, *Response, error)
 	mockChatUpdateChatTopNotice                                func(ctx context.Context, request *UpdateChatTopNoticeReq, options ...MethodOptionFunc) (*UpdateChatTopNoticeResp, *Response, error)
 	mockChatDeleteChatTopNotice                                func(ctx context.Context, request *DeleteChatTopNoticeReq, options ...MethodOptionFunc) (*DeleteChatTopNoticeResp, *Response, error)
+	mockChatGenChatShareLink                                   func(ctx context.Context, request *GenChatShareLinkReq, options ...MethodOptionFunc) (*GenChatShareLinkResp, *Response, error)
 	mockChatGetChatAnnouncement                                func(ctx context.Context, request *GetChatAnnouncementReq, options ...MethodOptionFunc) (*GetChatAnnouncementResp, *Response, error)
 	mockChatUpdateChatAnnouncement                             func(ctx context.Context, request *UpdateChatAnnouncementReq, options ...MethodOptionFunc) (*UpdateChatAnnouncementResp, *Response, error)
 	mockChatCreateChatTab                                      func(ctx context.Context, request *CreateChatTabReq, options ...MethodOptionFunc) (*CreateChatTabResp, *Response, error)
@@ -662,6 +664,7 @@ type Mock struct {
 	mockVCExportVCParticipantList                              func(ctx context.Context, request *ExportVCParticipantListReq, options ...MethodOptionFunc) (*ExportVCParticipantListResp, *Response, error)
 	mockVCExportVCParticipantQualityList                       func(ctx context.Context, request *ExportVCParticipantQualityListReq, options ...MethodOptionFunc) (*ExportVCParticipantQualityListResp, *Response, error)
 	mockVCGetVCExportTask                                      func(ctx context.Context, request *GetVCExportTaskReq, options ...MethodOptionFunc) (*GetVCExportTaskResp, *Response, error)
+	mockVCDownloadVCExportFile                                 func(ctx context.Context, request *DownloadVCExportFileReq, options ...MethodOptionFunc) (*DownloadVCExportFileResp, *Response, error)
 }
 
 // Mock return mock client
