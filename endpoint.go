@@ -17,7 +17,3 @@ func chainApiMiddleware(mws ...ApiMiddleware) ApiMiddleware {
 		return next
 	}
 }
-
-func (r *Lark) initMiddleware() {
-	r.wrapDoRequest = chainApiMiddleware(r.apiMiddlewares...)(r.rawRequest)
-}

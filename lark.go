@@ -187,8 +187,7 @@ func newClient(tenantKey string, options []ClientOptionFunc) *Lark {
 		r.httpClient = newDefaultHttpClient(&http.Client{Timeout: r.timeout}) // 这个时候之前 timeout 可能还没有设置
 	}
 
-	r.initService()
-	r.initMiddleware()
+	r.init()
 
 	return r
 }

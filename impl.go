@@ -84,7 +84,9 @@ type Lark struct {
 	VC            *VCService
 }
 
-func (r *Lark) initService() {
+func (r *Lark) init() {
+	r.wrapDoRequest = chainApiMiddleware(r.apiMiddlewares...)(r.rawRequest)
+
 	r.ACS = &ACSService{cli: r}
 	r.AI = &AIService{cli: r}
 	r.Admin = &AdminService{cli: r}
@@ -146,7 +148,7 @@ func (r *Lark) clone(tenantKey string) *Lark {
 		apiMiddlewares:      r.apiMiddlewares,
 		wrapDoRequest:       r.wrapDoRequest,
 	}
-	r2.initService()
+	r2.init()
 	return r2
 }
 
