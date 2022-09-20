@@ -197,7 +197,7 @@ func (r *EventCallbackService) checkCallbackSecurity(isSecurity bool, header htt
 	timestamp := header.Get("X-Lark-Request-Timestamp")
 	nonce := header.Get("X-Lark-Request-Nonce")
 	expectSignature := header.Get("X-Lark-Signature")
-	realSignature := internal.CalculateLarkCallbackSignature(timestamp, nonce, encryptKey, body)
+	realSignature := internal.CalculateLarkCallbackSignature(timestamp, nonce, encryptKey, body, req.isNormalEvent())
 	if expectSignature != realSignature {
 		return fmt.Errorf("need check security, but security check invalid")
 	}
