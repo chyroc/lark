@@ -88,6 +88,7 @@ type GetVCReserveRespReserveMeetingSettings struct {
 	MeetingInitialType int64                                                     `json:"meeting_initial_type,omitempty"` // 会议初始类型, 可选值有: 1: 多人会议, 2: 1v1呼叫
 	CallSetting        *GetVCReserveRespReserveMeetingSettingsCallSetting        `json:"call_setting,omitempty"`         // 1v1呼叫相关参数
 	AutoRecord         bool                                                      `json:"auto_record,omitempty"`          // 使用飞书视频会议时, 是否开启自动录制, 默认false
+	AssignHostList     []*GetVCReserveRespReserveMeetingSettingsAssignHost       `json:"assign_host_list,omitempty"`     // 指定主持人列表
 }
 
 // GetVCReserveRespReserveMeetingSettingsActionPermission ...
@@ -101,6 +102,12 @@ type GetVCReserveRespReserveMeetingSettingsActionPermissionPermissionChecker str
 	CheckField int64    `json:"check_field,omitempty"` // 检查字段类型, 可选值有: 1: 用户ID, 2: 用户类型, 3: 租户ID
 	CheckMode  int64    `json:"check_mode,omitempty"`  // 检查方式, 可选值有: 1: 在check_list中为有权限（白名单）, 2: 不在check_list中为有权限（黑名单）
 	CheckList  []string `json:"check_list,omitempty"`  // 检查字段列表
+}
+
+// GetVCReserveRespReserveMeetingSettingsAssignHost ...
+type GetVCReserveRespReserveMeetingSettingsAssignHost struct {
+	UserType int64  `json:"user_type,omitempty"` // 用户类型, 仅支持设置同租户下的 Lark 用户, 可选值有: 1: lark用户
+	ID       string `json:"id,omitempty"`        // 用户ID
 }
 
 // GetVCReserveRespReserveMeetingSettingsCallSetting ...

@@ -59,15 +59,19 @@ func (r *Mock) UnMockDriveCreateDriveComment() {
 // CreateDriveCommentReq ...
 type CreateDriveCommentReq struct {
 	FileToken    string                          `path:"file_token" json:"-"`      // 文档token, 示例值: "doccnGp4UK1UskrOEJwBXd3"
-	FileType     FileType                        `query:"file_type" json:"-"`      // 文档类型, 示例值: "doc", 可选值有: `doc`: 文档, `sheet`: 表格, `file`: 文件, `docx`: 新版文档
-	UserIDType   *IDType                         `query:"user_id_type" json:"-"`   // 用户 ID 类型, 示例值: "open_id", 可选值有: `open_id`: 用户的 open id, `union_id`: 用户的 union id, `user_id`: 用户的 user id, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
-	CommentID    *string                         `json:"comment_id,omitempty"`     // 评论ID（创建新评论可不填；如填写, 则视为回复已有评论）, 示例值: "6916106822734578184"
-	UserID       *string                         `json:"user_id,omitempty"`        // 用户ID, 示例值: "ou_cc19b2bfb93f8a44db4b4d6eab*"
+	FileType     FileType                        `query:"file_type" json:"-"`      // 文档类型, 示例值: "doc", 可选值有: doc: 文档, sheet: 表格, file: 文件, docx: 新版文档
+	UserIDType   *IDType                         `query:"user_id_type" json:"-"`   // 用户 ID 类型, 示例值: "open_id", 可选值有: open_id: 用户的 open id, union_id: 用户的 union id, user_id: 用户的 user id, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
+	CommentID    *string                         `json:"comment_id,omitempty"`     // 评论ID（创建新评论可不填；如填写, 则视为回复已有评论）, 示例值: "6916106822734512356"
+	UserID       *string                         `json:"user_id,omitempty"`        // 用户ID, 示例值: "ou_cc19b2bfb93f8a44db4b4d6eababcef"
 	CreateTime   *int64                          `json:"create_time,omitempty"`    // 创建时间, 示例值: 1610281603
 	UpdateTime   *int64                          `json:"update_time,omitempty"`    // 更新时间, 示例值: 1610281603
 	IsSolved     *bool                           `json:"is_solved,omitempty"`      // 是否已解决, 示例值: false
 	SolvedTime   *int64                          `json:"solved_time,omitempty"`    // 解决评论时间, 示例值: 1610281603
 	SolverUserID *string                         `json:"solver_user_id,omitempty"` // 解决评论者的用户ID, 示例值: "null"
+	HasMore      *bool                           `json:"has_more,omitempty"`       // 是否有更多回复, 示例值: false
+	PageToken    *string                         `json:"page_token,omitempty"`     // 回复分页标记, 示例值: "6916106822734512356"
+	IsWhole      *bool                           `json:"is_whole,omitempty"`       // 是否是全文评论, 示例值: true
+	Quote        *string                         `json:"quote,omitempty"`          // 如果是局部评论, 引用字段, 示例值: "划词评论引用内容"
 	ReplyList    *CreateDriveCommentReqReplyList `json:"reply_list,omitempty"`     // 评论里的回复列表
 }
 
@@ -78,11 +82,12 @@ type CreateDriveCommentReqReplyList struct {
 
 // CreateDriveCommentReqReplyListReply ...
 type CreateDriveCommentReqReplyListReply struct {
-	ReplyID    *string                                     `json:"reply_id,omitempty"`    // 回复ID, 示例值: "6916106822734594568"
-	UserID     *string                                     `json:"user_id,omitempty"`     // 用户ID, 示例值: "ou_cc19b2bfb93f8a44db4b4d6eab2*"
+	ReplyID    *string                                     `json:"reply_id,omitempty"`    // 回复ID, 示例值: "6916106822734512356"
+	UserID     *string                                     `json:"user_id,omitempty"`     // 用户ID, 示例值: "ou_cc19b2bfb93f8a44db4b4d6eab2abcef"
 	CreateTime *int64                                      `json:"create_time,omitempty"` // 创建时间, 示例值: 1610281603
 	UpdateTime *int64                                      `json:"update_time,omitempty"` // 更新时间, 示例值: 1610281603
 	Content    *CreateDriveCommentReqReplyListReplyContent `json:"content,omitempty"`     // 回复内容
+	Extra      *CreateDriveCommentReqReplyListReplyExtra   `json:"extra,omitempty"`       // 回复的其他内容, 图片token等
 }
 
 // CreateDriveCommentReqReplyListReplyContent ...
@@ -92,7 +97,7 @@ type CreateDriveCommentReqReplyListReplyContent struct {
 
 // CreateDriveCommentReqReplyListReplyContentElement ...
 type CreateDriveCommentReqReplyListReplyContentElement struct {
-	Type     string                                                     `json:"type,omitempty"`      // 回复的内容元素, 示例值: "text_run", 可选值有: `text_run`: 普通文本, `docs_link`: at 云文档链接, `person`: at 联系人
+	Type     string                                                     `json:"type,omitempty"`      // 回复的内容元素, 示例值: "text_run", 可选值有: text_run: 普通文本, docs_link: at 云文档链接, person: at 联系人
 	TextRun  *CreateDriveCommentReqReplyListReplyContentElementTextRun  `json:"text_run,omitempty"`  // 文本内容
 	DocsLink *CreateDriveCommentReqReplyListReplyContentElementDocsLink `json:"docs_link,omitempty"` // 文本内容
 	Person   *CreateDriveCommentReqReplyListReplyContentElementPerson   `json:"person,omitempty"`    // 文本内容
@@ -100,17 +105,22 @@ type CreateDriveCommentReqReplyListReplyContentElement struct {
 
 // CreateDriveCommentReqReplyListReplyContentElementDocsLink ...
 type CreateDriveCommentReqReplyListReplyContentElementDocsLink struct {
-	URL string `json:"url,omitempty"` // 回复 at云文档, 示例值: "https://bytedance.feishu.cn/docs/doccnHh7U87HOFpii5u5G*"
+	URL string `json:"url,omitempty"` // 回复 at云文档, 示例值: "https://bytedance.feishu.cn/docs/doccnHh7U87HOFpii5u5Gabcef"
 }
 
 // CreateDriveCommentReqReplyListReplyContentElementPerson ...
 type CreateDriveCommentReqReplyListReplyContentElementPerson struct {
-	UserID string `json:"user_id,omitempty"` // 回复 at联系人, 示例值: "ou_cc19b2bfb93f8a44db4b4d6eab*"
+	UserID string `json:"user_id,omitempty"` // 回复 at联系人, 示例值: "ou_cc19b2bfb93f8a44db4b4d6eababcef"
 }
 
 // CreateDriveCommentReqReplyListReplyContentElementTextRun ...
 type CreateDriveCommentReqReplyListReplyContentElementTextRun struct {
 	Text string `json:"text,omitempty"` // 回复 普通文本, 示例值: "comment text"
+}
+
+// CreateDriveCommentReqReplyListReplyExtra ...
+type CreateDriveCommentReqReplyListReplyExtra struct {
+	ImageList []string `json:"image_list,omitempty"` // 评论中的图片token list, 示例值: ["xfsfseewewabcef"]
 }
 
 // CreateDriveCommentResp ...
@@ -122,6 +132,10 @@ type CreateDriveCommentResp struct {
 	IsSolved     bool                             `json:"is_solved,omitempty"`      // 是否已解决
 	SolvedTime   int64                            `json:"solved_time,omitempty"`    // 解决评论时间
 	SolverUserID string                           `json:"solver_user_id,omitempty"` // 解决评论者的用户ID
+	HasMore      bool                             `json:"has_more,omitempty"`       // 是否有更多回复
+	PageToken    string                           `json:"page_token,omitempty"`     // 回复分页标记
+	IsWhole      bool                             `json:"is_whole,omitempty"`       // 是否是全文评论
+	Quote        string                           `json:"quote,omitempty"`          // 如果是局部评论, 引用字段
 	ReplyList    *CreateDriveCommentRespReplyList `json:"reply_list,omitempty"`     // 评论里的回复列表
 }
 
@@ -137,6 +151,7 @@ type CreateDriveCommentRespReplyListReply struct {
 	CreateTime int64                                        `json:"create_time,omitempty"` // 创建时间
 	UpdateTime int64                                        `json:"update_time,omitempty"` // 更新时间
 	Content    *CreateDriveCommentRespReplyListReplyContent `json:"content,omitempty"`     // 回复内容
+	Extra      *CreateDriveCommentRespReplyListReplyExtra   `json:"extra,omitempty"`       // 回复的其他内容, 图片token等
 }
 
 // CreateDriveCommentRespReplyListReplyContent ...
@@ -146,7 +161,7 @@ type CreateDriveCommentRespReplyListReplyContent struct {
 
 // CreateDriveCommentRespReplyListReplyContentElement ...
 type CreateDriveCommentRespReplyListReplyContentElement struct {
-	Type     string                                                      `json:"type,omitempty"`      // 回复的内容元素, 可选值有: `text_run`: 普通文本, `docs_link`: at 云文档链接, `person`: at 联系人
+	Type     string                                                      `json:"type,omitempty"`      // 回复的内容元素, 可选值有: text_run: 普通文本, docs_link: at 云文档链接, person: at 联系人
 	TextRun  *CreateDriveCommentRespReplyListReplyContentElementTextRun  `json:"text_run,omitempty"`  // 文本内容
 	DocsLink *CreateDriveCommentRespReplyListReplyContentElementDocsLink `json:"docs_link,omitempty"` // 文本内容
 	Person   *CreateDriveCommentRespReplyListReplyContentElementPerson   `json:"person,omitempty"`    // 文本内容
@@ -165,6 +180,11 @@ type CreateDriveCommentRespReplyListReplyContentElementPerson struct {
 // CreateDriveCommentRespReplyListReplyContentElementTextRun ...
 type CreateDriveCommentRespReplyListReplyContentElementTextRun struct {
 	Text string `json:"text,omitempty"` // 回复 普通文本
+}
+
+// CreateDriveCommentRespReplyListReplyExtra ...
+type CreateDriveCommentRespReplyListReplyExtra struct {
+	ImageList []string `json:"image_list,omitempty"` // 评论中的图片token list
 }
 
 // createDriveCommentResp ...

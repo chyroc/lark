@@ -98,7 +98,7 @@ type GetHireTalentRespTalentAward struct {
 type GetHireTalentRespTalentAwardCustomizedData struct {
 	ObjectID   string                                           `json:"object_id,omitempty"`   // 自定义字段 ID
 	Name       *GetHireTalentRespTalentAwardCustomizedDataName  `json:"name,omitempty"`        // 字段名称
-	ObjectType int64                                            `json:"object_type,omitempty"` // 字段类型, 可选值有: 1: 单行文本, 2: 多行文本, 3: 单选, 4: 多选, 5: 日期, 6: 月份选择, 7: 年份选择, 8: 时间段, 9: 数字, 10: 默认字段, 11: 模块
+	ObjectType int64                                            `json:"object_type,omitempty"` // 字段类型, 可选值有: 1: 单行文本, 2: 多行文本, 3: 单选, 4: 多选, 5: 日期, 6: 月份选择, 7: 年份选择, 8: 时间段, 9: 数字, 10: 默认字段, 11: 模块, 13: 附件
 	Value      *GetHireTalentRespTalentAwardCustomizedDataValue `json:"value,omitempty"`       // 自定义字段值
 }
 
@@ -110,12 +110,21 @@ type GetHireTalentRespTalentAwardCustomizedDataName struct {
 
 // GetHireTalentRespTalentAwardCustomizedDataValue ...
 type GetHireTalentRespTalentAwardCustomizedDataValue struct {
-	Content    string                                                    `json:"content,omitempty"`     // 当字段类型为单行文本、多行文本、模块、默认字段时, 从此字段取值
-	Option     *GetHireTalentRespTalentAwardCustomizedDataValueOption    `json:"option,omitempty"`      // 当字段类型为单选时, 从此字段取值
-	OptionList []*GetHireTalentRespTalentAwardCustomizedDataValueOption  `json:"option_list,omitempty"` // 当字段类型为多选时, 从此字段取值
-	TimeRange  *GetHireTalentRespTalentAwardCustomizedDataValueTimeRange `json:"time_range,omitempty"`  // 当字段类型为时间段时, 从此字段取值
-	Time       string                                                    `json:"time,omitempty"`        // 当字段类型为日期选择、月份选择、年份选择时, 从此字段取值, 该字段是秒级时间戳
-	Number     string                                                    `json:"number,omitempty"`      // 当字段类型为数字时, 从此字段取值
+	Content              string                                                                 `json:"content,omitempty"`               // 当字段类型为单行文本、多行文本、模块、默认字段时, 从此字段取值
+	Option               *GetHireTalentRespTalentAwardCustomizedDataValueOption                 `json:"option,omitempty"`                // 当字段类型为单选时, 从此字段取值
+	OptionList           []*GetHireTalentRespTalentAwardCustomizedDataValueOption               `json:"option_list,omitempty"`           // 当字段类型为多选时, 从此字段取值
+	TimeRange            *GetHireTalentRespTalentAwardCustomizedDataValueTimeRange              `json:"time_range,omitempty"`            // 当字段类型为时间段时, 从此字段取值
+	Time                 string                                                                 `json:"time,omitempty"`                  // 当字段类型为日期选择、月份选择、年份选择时, 从此字段取值, 该字段是秒级时间戳
+	Number               string                                                                 `json:"number,omitempty"`                // 当字段类型为数字时, 从此字段取值
+	CustomizedAttachment []*GetHireTalentRespTalentAwardCustomizedDataValueCustomizedAttachment `json:"customized_attachment,omitempty"` // 当字段类型为附件时, 从此字段取值
+}
+
+// GetHireTalentRespTalentAwardCustomizedDataValueCustomizedAttachment ...
+type GetHireTalentRespTalentAwardCustomizedDataValueCustomizedAttachment struct {
+	FileID      string `json:"file_id,omitempty"`      // 附件 ID
+	FileName    string `json:"file_name,omitempty"`    // 附件名称
+	ContentType string `json:"content_type,omitempty"` // 附件类型
+	FileSize    string `json:"file_size,omitempty"`    // 附件大小
 }
 
 // GetHireTalentRespTalentAwardCustomizedDataValueOption ...
@@ -172,7 +181,7 @@ type GetHireTalentRespTalentBasicInfoCurrentCity struct {
 type GetHireTalentRespTalentBasicInfoCustomizedData struct {
 	ObjectID   string                                               `json:"object_id,omitempty"`   // 自定义字段 ID
 	Name       *GetHireTalentRespTalentBasicInfoCustomizedDataName  `json:"name,omitempty"`        // 字段名称
-	ObjectType int64                                                `json:"object_type,omitempty"` // 字段类型, 可选值有: 1: 单行文本, 2: 多行文本, 3: 单选, 4: 多选, 5: 日期, 6: 月份选择, 7: 年份选择, 8: 时间段, 9: 数字, 10: 默认字段, 11: 模块
+	ObjectType int64                                                `json:"object_type,omitempty"` // 字段类型, 可选值有: 1: 单行文本, 2: 多行文本, 3: 单选, 4: 多选, 5: 日期, 6: 月份选择, 7: 年份选择, 8: 时间段, 9: 数字, 10: 默认字段, 11: 模块, 13: 附件
 	Value      *GetHireTalentRespTalentBasicInfoCustomizedDataValue `json:"value,omitempty"`       // 自定义字段值
 }
 
@@ -184,12 +193,21 @@ type GetHireTalentRespTalentBasicInfoCustomizedDataName struct {
 
 // GetHireTalentRespTalentBasicInfoCustomizedDataValue ...
 type GetHireTalentRespTalentBasicInfoCustomizedDataValue struct {
-	Content    string                                                        `json:"content,omitempty"`     // 当字段类型为单行文本、多行文本、模块、默认字段时, 从此字段取值
-	Option     *GetHireTalentRespTalentBasicInfoCustomizedDataValueOption    `json:"option,omitempty"`      // 当字段类型为单选时, 从此字段取值
-	OptionList []*GetHireTalentRespTalentBasicInfoCustomizedDataValueOption  `json:"option_list,omitempty"` // 当字段类型为多选时, 从此字段取值
-	TimeRange  *GetHireTalentRespTalentBasicInfoCustomizedDataValueTimeRange `json:"time_range,omitempty"`  // 当字段类型为时间段时, 从此字段取值
-	Time       string                                                        `json:"time,omitempty"`        // 当字段类型为日期选择、月份选择、年份选择时, 从此字段取值, 该字段是秒级时间戳
-	Number     string                                                        `json:"number,omitempty"`      // 当字段类型为数字时, 从此字段取值
+	Content              string                                                                     `json:"content,omitempty"`               // 当字段类型为单行文本、多行文本、模块、默认字段时, 从此字段取值
+	Option               *GetHireTalentRespTalentBasicInfoCustomizedDataValueOption                 `json:"option,omitempty"`                // 当字段类型为单选时, 从此字段取值
+	OptionList           []*GetHireTalentRespTalentBasicInfoCustomizedDataValueOption               `json:"option_list,omitempty"`           // 当字段类型为多选时, 从此字段取值
+	TimeRange            *GetHireTalentRespTalentBasicInfoCustomizedDataValueTimeRange              `json:"time_range,omitempty"`            // 当字段类型为时间段时, 从此字段取值
+	Time                 string                                                                     `json:"time,omitempty"`                  // 当字段类型为日期选择、月份选择、年份选择时, 从此字段取值, 该字段是秒级时间戳
+	Number               string                                                                     `json:"number,omitempty"`                // 当字段类型为数字时, 从此字段取值
+	CustomizedAttachment []*GetHireTalentRespTalentBasicInfoCustomizedDataValueCustomizedAttachment `json:"customized_attachment,omitempty"` // 当字段类型为附件时, 从此字段取值
+}
+
+// GetHireTalentRespTalentBasicInfoCustomizedDataValueCustomizedAttachment ...
+type GetHireTalentRespTalentBasicInfoCustomizedDataValueCustomizedAttachment struct {
+	FileID      string `json:"file_id,omitempty"`      // 附件 ID
+	FileName    string `json:"file_name,omitempty"`    // 附件名称
+	ContentType string `json:"content_type,omitempty"` // 附件类型
+	FileSize    string `json:"file_size,omitempty"`    // 附件大小
 }
 
 // GetHireTalentRespTalentBasicInfoCustomizedDataValueOption ...
@@ -254,7 +272,7 @@ type GetHireTalentRespTalentCareer struct {
 type GetHireTalentRespTalentCareerCustomizedData struct {
 	ObjectID   string                                            `json:"object_id,omitempty"`   // 自定义字段 ID
 	Name       *GetHireTalentRespTalentCareerCustomizedDataName  `json:"name,omitempty"`        // 字段名称
-	ObjectType int64                                             `json:"object_type,omitempty"` // 字段类型, 可选值有: 1: 单行文本, 2: 多行文本, 3: 单选, 4: 多选, 5: 日期, 6: 月份选择, 7: 年份选择, 8: 时间段, 9: 数字, 10: 默认字段, 11: 模块
+	ObjectType int64                                             `json:"object_type,omitempty"` // 字段类型, 可选值有: 1: 单行文本, 2: 多行文本, 3: 单选, 4: 多选, 5: 日期, 6: 月份选择, 7: 年份选择, 8: 时间段, 9: 数字, 10: 默认字段, 11: 模块, 13: 附件
 	Value      *GetHireTalentRespTalentCareerCustomizedDataValue `json:"value,omitempty"`       // 自定义字段值
 }
 
@@ -266,12 +284,21 @@ type GetHireTalentRespTalentCareerCustomizedDataName struct {
 
 // GetHireTalentRespTalentCareerCustomizedDataValue ...
 type GetHireTalentRespTalentCareerCustomizedDataValue struct {
-	Content    string                                                     `json:"content,omitempty"`     // 当字段类型为单行文本、多行文本、模块、默认字段时, 从此字段取值
-	Option     *GetHireTalentRespTalentCareerCustomizedDataValueOption    `json:"option,omitempty"`      // 当字段类型为单选时, 从此字段取值
-	OptionList []*GetHireTalentRespTalentCareerCustomizedDataValueOption  `json:"option_list,omitempty"` // 当字段类型为多选时, 从此字段取值
-	TimeRange  *GetHireTalentRespTalentCareerCustomizedDataValueTimeRange `json:"time_range,omitempty"`  // 当字段类型为时间段时, 从此字段取值
-	Time       string                                                     `json:"time,omitempty"`        // 当字段类型为日期选择、月份选择、年份选择时, 从此字段取值, 该字段是秒级时间戳
-	Number     string                                                     `json:"number,omitempty"`      // 当字段类型为数字时, 从此字段取值
+	Content              string                                                                  `json:"content,omitempty"`               // 当字段类型为单行文本、多行文本、模块、默认字段时, 从此字段取值
+	Option               *GetHireTalentRespTalentCareerCustomizedDataValueOption                 `json:"option,omitempty"`                // 当字段类型为单选时, 从此字段取值
+	OptionList           []*GetHireTalentRespTalentCareerCustomizedDataValueOption               `json:"option_list,omitempty"`           // 当字段类型为多选时, 从此字段取值
+	TimeRange            *GetHireTalentRespTalentCareerCustomizedDataValueTimeRange              `json:"time_range,omitempty"`            // 当字段类型为时间段时, 从此字段取值
+	Time                 string                                                                  `json:"time,omitempty"`                  // 当字段类型为日期选择、月份选择、年份选择时, 从此字段取值, 该字段是秒级时间戳
+	Number               string                                                                  `json:"number,omitempty"`                // 当字段类型为数字时, 从此字段取值
+	CustomizedAttachment []*GetHireTalentRespTalentCareerCustomizedDataValueCustomizedAttachment `json:"customized_attachment,omitempty"` // 当字段类型为附件时, 从此字段取值
+}
+
+// GetHireTalentRespTalentCareerCustomizedDataValueCustomizedAttachment ...
+type GetHireTalentRespTalentCareerCustomizedDataValueCustomizedAttachment struct {
+	FileID      string `json:"file_id,omitempty"`      // 附件 ID
+	FileName    string `json:"file_name,omitempty"`    // 附件名称
+	ContentType string `json:"content_type,omitempty"` // 附件类型
+	FileSize    string `json:"file_size,omitempty"`    // 附件大小
 }
 
 // GetHireTalentRespTalentCareerCustomizedDataValueOption ...
@@ -304,7 +331,7 @@ type GetHireTalentRespTalentCustomizedData struct {
 type GetHireTalentRespTalentCustomizedDataChildren struct {
 	ObjectID   string                                              `json:"object_id,omitempty"`   // 自定义字段 ID
 	Name       *GetHireTalentRespTalentCustomizedDataChildrenName  `json:"name,omitempty"`        // 字段名称
-	ObjectType int64                                               `json:"object_type,omitempty"` // 字段类型, 可选值有: 1: 单行文本, 2: 多行文本, 3: 单选, 4: 多选, 5: 日期, 6: 月份选择, 7: 年份选择, 8: 时间段, 9: 数字, 10: 默认字段, 11: 模块
+	ObjectType int64                                               `json:"object_type,omitempty"` // 字段类型, 可选值有: 1: 单行文本, 2: 多行文本, 3: 单选, 4: 多选, 5: 日期, 6: 月份选择, 7: 年份选择, 8: 时间段, 9: 数字, 10: 默认字段, 11: 模块, 13: 附件
 	Value      *GetHireTalentRespTalentCustomizedDataChildrenValue `json:"value,omitempty"`       // 自定义字段值
 }
 
@@ -316,12 +343,21 @@ type GetHireTalentRespTalentCustomizedDataChildrenName struct {
 
 // GetHireTalentRespTalentCustomizedDataChildrenValue ...
 type GetHireTalentRespTalentCustomizedDataChildrenValue struct {
-	Content    string                                                       `json:"content,omitempty"`     // 当字段类型为单行文本、多行文本、模块、默认字段时, 从此字段取值
-	Option     *GetHireTalentRespTalentCustomizedDataChildrenValueOption    `json:"option,omitempty"`      // 当字段类型为单选时, 从此字段取值
-	OptionList []*GetHireTalentRespTalentCustomizedDataChildrenValueOption  `json:"option_list,omitempty"` // 当字段类型为多选时, 从此字段取值
-	TimeRange  *GetHireTalentRespTalentCustomizedDataChildrenValueTimeRange `json:"time_range,omitempty"`  // 当字段类型为时间段时, 从此字段取值
-	Time       string                                                       `json:"time,omitempty"`        // 当字段类型为日期选择、月份选择、年份选择时, 从此字段取值, 该字段是秒级时间戳
-	Number     string                                                       `json:"number,omitempty"`      // 当字段类型为数字时, 从此字段取值
+	Content              string                                                                    `json:"content,omitempty"`               // 当字段类型为单行文本、多行文本、模块、默认字段时, 从此字段取值
+	Option               *GetHireTalentRespTalentCustomizedDataChildrenValueOption                 `json:"option,omitempty"`                // 当字段类型为单选时, 从此字段取值
+	OptionList           []*GetHireTalentRespTalentCustomizedDataChildrenValueOption               `json:"option_list,omitempty"`           // 当字段类型为多选时, 从此字段取值
+	TimeRange            *GetHireTalentRespTalentCustomizedDataChildrenValueTimeRange              `json:"time_range,omitempty"`            // 当字段类型为时间段时, 从此字段取值
+	Time                 string                                                                    `json:"time,omitempty"`                  // 当字段类型为日期选择、月份选择、年份选择时, 从此字段取值, 该字段是秒级时间戳
+	Number               string                                                                    `json:"number,omitempty"`                // 当字段类型为数字时, 从此字段取值
+	CustomizedAttachment []*GetHireTalentRespTalentCustomizedDataChildrenValueCustomizedAttachment `json:"customized_attachment,omitempty"` // 当字段类型为附件时, 从此字段取值
+}
+
+// GetHireTalentRespTalentCustomizedDataChildrenValueCustomizedAttachment ...
+type GetHireTalentRespTalentCustomizedDataChildrenValueCustomizedAttachment struct {
+	FileID      string `json:"file_id,omitempty"`      // 附件 ID
+	FileName    string `json:"file_name,omitempty"`    // 附件名称
+	ContentType string `json:"content_type,omitempty"` // 附件类型
+	FileSize    string `json:"file_size,omitempty"`    // 附件大小
 }
 
 // GetHireTalentRespTalentCustomizedDataChildrenValueOption ...
@@ -366,7 +402,7 @@ type GetHireTalentRespTalentEducation struct {
 type GetHireTalentRespTalentEducationCustomizedData struct {
 	ObjectID   string                                               `json:"object_id,omitempty"`   // 自定义字段 ID
 	Name       *GetHireTalentRespTalentEducationCustomizedDataName  `json:"name,omitempty"`        // 字段名称
-	ObjectType int64                                                `json:"object_type,omitempty"` // 字段类型, 可选值有: 1: 单行文本, 2: 多行文本, 3: 单选, 4: 多选, 5: 日期, 6: 月份选择, 7: 年份选择, 8: 时间段, 9: 数字, 10: 默认字段, 11: 模块
+	ObjectType int64                                                `json:"object_type,omitempty"` // 字段类型, 可选值有: 1: 单行文本, 2: 多行文本, 3: 单选, 4: 多选, 5: 日期, 6: 月份选择, 7: 年份选择, 8: 时间段, 9: 数字, 10: 默认字段, 11: 模块, 13: 附件
 	Value      *GetHireTalentRespTalentEducationCustomizedDataValue `json:"value,omitempty"`       // 自定义字段值
 }
 
@@ -378,12 +414,21 @@ type GetHireTalentRespTalentEducationCustomizedDataName struct {
 
 // GetHireTalentRespTalentEducationCustomizedDataValue ...
 type GetHireTalentRespTalentEducationCustomizedDataValue struct {
-	Content    string                                                        `json:"content,omitempty"`     // 当字段类型为单行文本、多行文本、模块、默认字段时, 从此字段取值
-	Option     *GetHireTalentRespTalentEducationCustomizedDataValueOption    `json:"option,omitempty"`      // 当字段类型为单选时, 从此字段取值
-	OptionList []*GetHireTalentRespTalentEducationCustomizedDataValueOption  `json:"option_list,omitempty"` // 当字段类型为多选时, 从此字段取值
-	TimeRange  *GetHireTalentRespTalentEducationCustomizedDataValueTimeRange `json:"time_range,omitempty"`  // 当字段类型为时间段时, 从此字段取值
-	Time       string                                                        `json:"time,omitempty"`        // 当字段类型为日期选择、月份选择、年份选择时, 从此字段取值, 该字段是秒级时间戳
-	Number     string                                                        `json:"number,omitempty"`      // 当字段类型为数字时, 从此字段取值
+	Content              string                                                                     `json:"content,omitempty"`               // 当字段类型为单行文本、多行文本、模块、默认字段时, 从此字段取值
+	Option               *GetHireTalentRespTalentEducationCustomizedDataValueOption                 `json:"option,omitempty"`                // 当字段类型为单选时, 从此字段取值
+	OptionList           []*GetHireTalentRespTalentEducationCustomizedDataValueOption               `json:"option_list,omitempty"`           // 当字段类型为多选时, 从此字段取值
+	TimeRange            *GetHireTalentRespTalentEducationCustomizedDataValueTimeRange              `json:"time_range,omitempty"`            // 当字段类型为时间段时, 从此字段取值
+	Time                 string                                                                     `json:"time,omitempty"`                  // 当字段类型为日期选择、月份选择、年份选择时, 从此字段取值, 该字段是秒级时间戳
+	Number               string                                                                     `json:"number,omitempty"`                // 当字段类型为数字时, 从此字段取值
+	CustomizedAttachment []*GetHireTalentRespTalentEducationCustomizedDataValueCustomizedAttachment `json:"customized_attachment,omitempty"` // 当字段类型为附件时, 从此字段取值
+}
+
+// GetHireTalentRespTalentEducationCustomizedDataValueCustomizedAttachment ...
+type GetHireTalentRespTalentEducationCustomizedDataValueCustomizedAttachment struct {
+	FileID      string `json:"file_id,omitempty"`      // 附件 ID
+	FileName    string `json:"file_name,omitempty"`    // 附件名称
+	ContentType string `json:"content_type,omitempty"` // 附件类型
+	FileSize    string `json:"file_size,omitempty"`    // 附件大小
 }
 
 // GetHireTalentRespTalentEducationCustomizedDataValueOption ...
@@ -422,7 +467,7 @@ type GetHireTalentRespTalentLanguage struct {
 type GetHireTalentRespTalentLanguageCustomizedData struct {
 	ObjectID   string                                              `json:"object_id,omitempty"`   // 自定义字段 ID
 	Name       *GetHireTalentRespTalentLanguageCustomizedDataName  `json:"name,omitempty"`        // 字段名称
-	ObjectType int64                                               `json:"object_type,omitempty"` // 字段类型, 可选值有: 1: 单行文本, 2: 多行文本, 3: 单选, 4: 多选, 5: 日期, 6: 月份选择, 7: 年份选择, 8: 时间段, 9: 数字, 10: 默认字段, 11: 模块
+	ObjectType int64                                               `json:"object_type,omitempty"` // 字段类型, 可选值有: 1: 单行文本, 2: 多行文本, 3: 单选, 4: 多选, 5: 日期, 6: 月份选择, 7: 年份选择, 8: 时间段, 9: 数字, 10: 默认字段, 11: 模块, 13: 附件
 	Value      *GetHireTalentRespTalentLanguageCustomizedDataValue `json:"value,omitempty"`       // 自定义字段值
 }
 
@@ -434,12 +479,21 @@ type GetHireTalentRespTalentLanguageCustomizedDataName struct {
 
 // GetHireTalentRespTalentLanguageCustomizedDataValue ...
 type GetHireTalentRespTalentLanguageCustomizedDataValue struct {
-	Content    string                                                       `json:"content,omitempty"`     // 当字段类型为单行文本、多行文本、模块、默认字段时, 从此字段取值
-	Option     *GetHireTalentRespTalentLanguageCustomizedDataValueOption    `json:"option,omitempty"`      // 当字段类型为单选时, 从此字段取值
-	OptionList []*GetHireTalentRespTalentLanguageCustomizedDataValueOption  `json:"option_list,omitempty"` // 当字段类型为多选时, 从此字段取值
-	TimeRange  *GetHireTalentRespTalentLanguageCustomizedDataValueTimeRange `json:"time_range,omitempty"`  // 当字段类型为时间段时, 从此字段取值
-	Time       string                                                       `json:"time,omitempty"`        // 当字段类型为日期选择、月份选择、年份选择时, 从此字段取值, 该字段是秒级时间戳
-	Number     string                                                       `json:"number,omitempty"`      // 当字段类型为数字时, 从此字段取值
+	Content              string                                                                    `json:"content,omitempty"`               // 当字段类型为单行文本、多行文本、模块、默认字段时, 从此字段取值
+	Option               *GetHireTalentRespTalentLanguageCustomizedDataValueOption                 `json:"option,omitempty"`                // 当字段类型为单选时, 从此字段取值
+	OptionList           []*GetHireTalentRespTalentLanguageCustomizedDataValueOption               `json:"option_list,omitempty"`           // 当字段类型为多选时, 从此字段取值
+	TimeRange            *GetHireTalentRespTalentLanguageCustomizedDataValueTimeRange              `json:"time_range,omitempty"`            // 当字段类型为时间段时, 从此字段取值
+	Time                 string                                                                    `json:"time,omitempty"`                  // 当字段类型为日期选择、月份选择、年份选择时, 从此字段取值, 该字段是秒级时间戳
+	Number               string                                                                    `json:"number,omitempty"`                // 当字段类型为数字时, 从此字段取值
+	CustomizedAttachment []*GetHireTalentRespTalentLanguageCustomizedDataValueCustomizedAttachment `json:"customized_attachment,omitempty"` // 当字段类型为附件时, 从此字段取值
+}
+
+// GetHireTalentRespTalentLanguageCustomizedDataValueCustomizedAttachment ...
+type GetHireTalentRespTalentLanguageCustomizedDataValueCustomizedAttachment struct {
+	FileID      string `json:"file_id,omitempty"`      // 附件 ID
+	FileName    string `json:"file_name,omitempty"`    // 附件名称
+	ContentType string `json:"content_type,omitempty"` // 附件类型
+	FileSize    string `json:"file_size,omitempty"`    // 附件大小
 }
 
 // GetHireTalentRespTalentLanguageCustomizedDataValueOption ...
@@ -476,7 +530,7 @@ type GetHireTalentRespTalentProject struct {
 type GetHireTalentRespTalentProjectCustomizedData struct {
 	ObjectID   string                                             `json:"object_id,omitempty"`   // 自定义字段 ID
 	Name       *GetHireTalentRespTalentProjectCustomizedDataName  `json:"name,omitempty"`        // 字段名称
-	ObjectType int64                                              `json:"object_type,omitempty"` // 字段类型, 可选值有: 1: 单行文本, 2: 多行文本, 3: 单选, 4: 多选, 5: 日期, 6: 月份选择, 7: 年份选择, 8: 时间段, 9: 数字, 10: 默认字段, 11: 模块
+	ObjectType int64                                              `json:"object_type,omitempty"` // 字段类型, 可选值有: 1: 单行文本, 2: 多行文本, 3: 单选, 4: 多选, 5: 日期, 6: 月份选择, 7: 年份选择, 8: 时间段, 9: 数字, 10: 默认字段, 11: 模块, 13: 附件
 	Value      *GetHireTalentRespTalentProjectCustomizedDataValue `json:"value,omitempty"`       // 自定义字段值
 }
 
@@ -488,12 +542,21 @@ type GetHireTalentRespTalentProjectCustomizedDataName struct {
 
 // GetHireTalentRespTalentProjectCustomizedDataValue ...
 type GetHireTalentRespTalentProjectCustomizedDataValue struct {
-	Content    string                                                      `json:"content,omitempty"`     // 当字段类型为单行文本、多行文本、模块、默认字段时, 从此字段取值
-	Option     *GetHireTalentRespTalentProjectCustomizedDataValueOption    `json:"option,omitempty"`      // 当字段类型为单选时, 从此字段取值
-	OptionList []*GetHireTalentRespTalentProjectCustomizedDataValueOption  `json:"option_list,omitempty"` // 当字段类型为多选时, 从此字段取值
-	TimeRange  *GetHireTalentRespTalentProjectCustomizedDataValueTimeRange `json:"time_range,omitempty"`  // 当字段类型为时间段时, 从此字段取值
-	Time       string                                                      `json:"time,omitempty"`        // 当字段类型为日期选择、月份选择、年份选择时, 从此字段取值, 该字段是秒级时间戳
-	Number     string                                                      `json:"number,omitempty"`      // 当字段类型为数字时, 从此字段取值
+	Content              string                                                                   `json:"content,omitempty"`               // 当字段类型为单行文本、多行文本、模块、默认字段时, 从此字段取值
+	Option               *GetHireTalentRespTalentProjectCustomizedDataValueOption                 `json:"option,omitempty"`                // 当字段类型为单选时, 从此字段取值
+	OptionList           []*GetHireTalentRespTalentProjectCustomizedDataValueOption               `json:"option_list,omitempty"`           // 当字段类型为多选时, 从此字段取值
+	TimeRange            *GetHireTalentRespTalentProjectCustomizedDataValueTimeRange              `json:"time_range,omitempty"`            // 当字段类型为时间段时, 从此字段取值
+	Time                 string                                                                   `json:"time,omitempty"`                  // 当字段类型为日期选择、月份选择、年份选择时, 从此字段取值, 该字段是秒级时间戳
+	Number               string                                                                   `json:"number,omitempty"`                // 当字段类型为数字时, 从此字段取值
+	CustomizedAttachment []*GetHireTalentRespTalentProjectCustomizedDataValueCustomizedAttachment `json:"customized_attachment,omitempty"` // 当字段类型为附件时, 从此字段取值
+}
+
+// GetHireTalentRespTalentProjectCustomizedDataValueCustomizedAttachment ...
+type GetHireTalentRespTalentProjectCustomizedDataValueCustomizedAttachment struct {
+	FileID      string `json:"file_id,omitempty"`      // 附件 ID
+	FileName    string `json:"file_name,omitempty"`    // 附件名称
+	ContentType string `json:"content_type,omitempty"` // 附件类型
+	FileSize    string `json:"file_size,omitempty"`    // 附件大小
 }
 
 // GetHireTalentRespTalentProjectCustomizedDataValueOption ...
@@ -533,7 +596,7 @@ type GetHireTalentRespTalentSns struct {
 type GetHireTalentRespTalentSnsCustomizedData struct {
 	ObjectID   string                                         `json:"object_id,omitempty"`   // 自定义字段 ID
 	Name       *GetHireTalentRespTalentSnsCustomizedDataName  `json:"name,omitempty"`        // 字段名称
-	ObjectType int64                                          `json:"object_type,omitempty"` // 字段类型, 可选值有: 1: 单行文本, 2: 多行文本, 3: 单选, 4: 多选, 5: 日期, 6: 月份选择, 7: 年份选择, 8: 时间段, 9: 数字, 10: 默认字段, 11: 模块
+	ObjectType int64                                          `json:"object_type,omitempty"` // 字段类型, 可选值有: 1: 单行文本, 2: 多行文本, 3: 单选, 4: 多选, 5: 日期, 6: 月份选择, 7: 年份选择, 8: 时间段, 9: 数字, 10: 默认字段, 11: 模块, 13: 附件
 	Value      *GetHireTalentRespTalentSnsCustomizedDataValue `json:"value,omitempty"`       // 自定义字段值
 }
 
@@ -545,12 +608,21 @@ type GetHireTalentRespTalentSnsCustomizedDataName struct {
 
 // GetHireTalentRespTalentSnsCustomizedDataValue ...
 type GetHireTalentRespTalentSnsCustomizedDataValue struct {
-	Content    string                                                  `json:"content,omitempty"`     // 当字段类型为单行文本、多行文本、模块、默认字段时, 从此字段取值
-	Option     *GetHireTalentRespTalentSnsCustomizedDataValueOption    `json:"option,omitempty"`      // 当字段类型为单选时, 从此字段取值
-	OptionList []*GetHireTalentRespTalentSnsCustomizedDataValueOption  `json:"option_list,omitempty"` // 当字段类型为多选时, 从此字段取值
-	TimeRange  *GetHireTalentRespTalentSnsCustomizedDataValueTimeRange `json:"time_range,omitempty"`  // 当字段类型为时间段时, 从此字段取值
-	Time       string                                                  `json:"time,omitempty"`        // 当字段类型为日期选择、月份选择、年份选择时, 从此字段取值, 该字段是秒级时间戳
-	Number     string                                                  `json:"number,omitempty"`      // 当字段类型为数字时, 从此字段取值
+	Content              string                                                               `json:"content,omitempty"`               // 当字段类型为单行文本、多行文本、模块、默认字段时, 从此字段取值
+	Option               *GetHireTalentRespTalentSnsCustomizedDataValueOption                 `json:"option,omitempty"`                // 当字段类型为单选时, 从此字段取值
+	OptionList           []*GetHireTalentRespTalentSnsCustomizedDataValueOption               `json:"option_list,omitempty"`           // 当字段类型为多选时, 从此字段取值
+	TimeRange            *GetHireTalentRespTalentSnsCustomizedDataValueTimeRange              `json:"time_range,omitempty"`            // 当字段类型为时间段时, 从此字段取值
+	Time                 string                                                               `json:"time,omitempty"`                  // 当字段类型为日期选择、月份选择、年份选择时, 从此字段取值, 该字段是秒级时间戳
+	Number               string                                                               `json:"number,omitempty"`                // 当字段类型为数字时, 从此字段取值
+	CustomizedAttachment []*GetHireTalentRespTalentSnsCustomizedDataValueCustomizedAttachment `json:"customized_attachment,omitempty"` // 当字段类型为附件时, 从此字段取值
+}
+
+// GetHireTalentRespTalentSnsCustomizedDataValueCustomizedAttachment ...
+type GetHireTalentRespTalentSnsCustomizedDataValueCustomizedAttachment struct {
+	FileID      string `json:"file_id,omitempty"`      // 附件 ID
+	FileName    string `json:"file_name,omitempty"`    // 附件名称
+	ContentType string `json:"content_type,omitempty"` // 附件类型
+	FileSize    string `json:"file_size,omitempty"`    // 附件大小
 }
 
 // GetHireTalentRespTalentSnsCustomizedDataValueOption ...
@@ -584,7 +656,7 @@ type GetHireTalentRespTalentWorks struct {
 type GetHireTalentRespTalentWorksCustomizedData struct {
 	ObjectID   string                                           `json:"object_id,omitempty"`   // 自定义字段 ID
 	Name       *GetHireTalentRespTalentWorksCustomizedDataName  `json:"name,omitempty"`        // 字段名称
-	ObjectType int64                                            `json:"object_type,omitempty"` // 字段类型, 可选值有: 1: 单行文本, 2: 多行文本, 3: 单选, 4: 多选, 5: 日期, 6: 月份选择, 7: 年份选择, 8: 时间段, 9: 数字, 10: 默认字段, 11: 模块
+	ObjectType int64                                            `json:"object_type,omitempty"` // 字段类型, 可选值有: 1: 单行文本, 2: 多行文本, 3: 单选, 4: 多选, 5: 日期, 6: 月份选择, 7: 年份选择, 8: 时间段, 9: 数字, 10: 默认字段, 11: 模块, 13: 附件
 	Value      *GetHireTalentRespTalentWorksCustomizedDataValue `json:"value,omitempty"`       // 自定义字段值
 }
 
@@ -596,12 +668,21 @@ type GetHireTalentRespTalentWorksCustomizedDataName struct {
 
 // GetHireTalentRespTalentWorksCustomizedDataValue ...
 type GetHireTalentRespTalentWorksCustomizedDataValue struct {
-	Content    string                                                    `json:"content,omitempty"`     // 当字段类型为单行文本、多行文本、模块、默认字段时, 从此字段取值
-	Option     *GetHireTalentRespTalentWorksCustomizedDataValueOption    `json:"option,omitempty"`      // 当字段类型为单选时, 从此字段取值
-	OptionList []*GetHireTalentRespTalentWorksCustomizedDataValueOption  `json:"option_list,omitempty"` // 当字段类型为多选时, 从此字段取值
-	TimeRange  *GetHireTalentRespTalentWorksCustomizedDataValueTimeRange `json:"time_range,omitempty"`  // 当字段类型为时间段时, 从此字段取值
-	Time       string                                                    `json:"time,omitempty"`        // 当字段类型为日期选择、月份选择、年份选择时, 从此字段取值, 该字段是秒级时间戳
-	Number     string                                                    `json:"number,omitempty"`      // 当字段类型为数字时, 从此字段取值
+	Content              string                                                                 `json:"content,omitempty"`               // 当字段类型为单行文本、多行文本、模块、默认字段时, 从此字段取值
+	Option               *GetHireTalentRespTalentWorksCustomizedDataValueOption                 `json:"option,omitempty"`                // 当字段类型为单选时, 从此字段取值
+	OptionList           []*GetHireTalentRespTalentWorksCustomizedDataValueOption               `json:"option_list,omitempty"`           // 当字段类型为多选时, 从此字段取值
+	TimeRange            *GetHireTalentRespTalentWorksCustomizedDataValueTimeRange              `json:"time_range,omitempty"`            // 当字段类型为时间段时, 从此字段取值
+	Time                 string                                                                 `json:"time,omitempty"`                  // 当字段类型为日期选择、月份选择、年份选择时, 从此字段取值, 该字段是秒级时间戳
+	Number               string                                                                 `json:"number,omitempty"`                // 当字段类型为数字时, 从此字段取值
+	CustomizedAttachment []*GetHireTalentRespTalentWorksCustomizedDataValueCustomizedAttachment `json:"customized_attachment,omitempty"` // 当字段类型为附件时, 从此字段取值
+}
+
+// GetHireTalentRespTalentWorksCustomizedDataValueCustomizedAttachment ...
+type GetHireTalentRespTalentWorksCustomizedDataValueCustomizedAttachment struct {
+	FileID      string `json:"file_id,omitempty"`      // 附件 ID
+	FileName    string `json:"file_name,omitempty"`    // 附件名称
+	ContentType string `json:"content_type,omitempty"` // 附件类型
+	FileSize    string `json:"file_size,omitempty"`    // 附件大小
 }
 
 // GetHireTalentRespTalentWorksCustomizedDataValueOption ...

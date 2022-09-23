@@ -120,7 +120,7 @@ type CreateApprovalExternalInstanceReqForm struct {
 // CreateApprovalExternalInstanceReqI18nResource ...
 type CreateApprovalExternalInstanceReqI18nResource struct {
 	Locale    string                                               `json:"locale,omitempty"`     // 语言可选值有: zh-CN: 中文 en-US: 英文 ja-JP: 日文, 示例值: "zh-CN", 可选值有: zh-CN: 中文, en-US: 英文, ja-JP: 日文
-	Texts     []*CreateApprovalExternalInstanceReqI18nResourceText `json:"texts,omitempty"`      // 文案 key, value, i18n key 以 @i18n@ 开头； 该字段主要用于做国际化, 语序用户同时传多个语言的文案, 审批中心会根据用户当前的语音环境使用对应的文案, 如果没有传用户当前的语音环境文案, 则会使用默认的语言文案。
+	Texts     []*CreateApprovalExternalInstanceReqI18nResourceText `json:"texts,omitempty"`      // 文案 key, value, i18n key 以 @i18n@ 开头； 该字段主要用于做国际化, 允许用户同时传多个语言的文案, 审批中心会根据用户当前的语音环境使用对应的文案, 如果没有传用户当前的语音环境文案, 则会使用默认的语言文案。
 	IsDefault bool                                                 `json:"is_default,omitempty"` // 是否默认语言, 默认语言需要包含所有key, 非默认语言如果key不存在会使用默认语言代替, 示例值: true
 }
 
@@ -144,7 +144,7 @@ type CreateApprovalExternalInstanceReqTask struct {
 	Title             *string                                              `json:"title,omitempty"`              // 审批任务名称, 示例值: "i18n1"
 	Links             *CreateApprovalExternalInstanceReqTaskLinks          `json:"links,omitempty"`              // 【待审批】或【已审批】中使用的跳转链接, 用于跳转回三方系统pc_link 和 mobile_link 必须填一个, 填写的是哪一端的链接, 即会跳转到该链接, 不受平台影响
 	Status            string                                               `json:"status,omitempty"`             // 任务状态, 示例值: "PENDING", 可选值有: PENDING: 待审批, APPROVED: 任务同意, REJECTED: 任务拒绝, TRANSFERRED: 任务转交, DONE: 任务通过但审批人未操作；审批人看不到这个任务, 若想要看到, 可以通过抄送该人.
-	Extra             *string                                              `json:"extra,omitempty"`              // 扩展 json, 任务结束原因需传complete_reason字段, 示例值: "{\"xxx\":\"xxx\", \"complete_reason\":\"approved\"}"
+	Extra             *string                                              `json:"extra,omitempty"`              // 扩展 json, 任务结束原因需传complete_reason字段。枚举值与对应说明: approved: 同意, rejected: 拒绝, node_auto_reject: （因逻辑判断产生的）自动拒绝, specific_rollback: 退回（包括退回到发起人、退回到中间任一审批人）, add: 并加签（添加新审批人, 和我一起审批）, add_pre: 前加签（添加新审批人, 在我之前审批）, add_post: 后加签（添加新审批人, 在我之后审批）, delete_assignee: 减签, forward_resign: 转交（转给其他人审批）, recall: 撤销（撤回单据, 单据失效）, delete : 删除审批单, admin_forward: 管理员在后台操作转交, system_forward: 系统自动转交, auto_skip: 自动通过, manual_skip: 手动跳过, submit_again: 重新提交任务, restart: 重新启动流程, others: 其他（作为兜底）, 示例值: "{\"xxx\":\"xxx\", \"complete_reason\":\"approved\"}"
 	CreateTime        string                                               `json:"create_time,omitempty"`        // 任务创建时间, Unix 毫秒时间戳, 示例值: "1556468012678"
 	EndTime           string                                               `json:"end_time,omitempty"`           // 任务完成时间: 未结束的审批为 0, Unix 毫秒时间戳, 示例值: "1556468012678"
 	UpdateTime        *string                                              `json:"update_time,omitempty"`        // task最近更新时间, 用于推送数据版本控制； 更新策略同 instance 中的 update_time, 示例值: "1556468012678"
@@ -152,8 +152,8 @@ type CreateApprovalExternalInstanceReqTask struct {
 	ActionConfigs     []*CreateApprovalExternalInstanceReqTaskActionConfig `json:"action_configs,omitempty"`     // 任务级别操作配置, 快捷审批目前支持移动端操作
 	DisplayMethod     *string                                              `json:"display_method,omitempty"`     // 列表页打开审批任务的方式, 示例值: "BROWSER", 可选值有: BROWSER: 跳转系统默认浏览器打开, SIDEBAR: 飞书中侧边抽屉打开, NORMAL: 飞书内嵌页面打开, TRUSTEESHIP: 以托管模式打开
 	ExcludeStatistics *bool                                                `json:"exclude_statistics,omitempty"` // 三方任务支持不纳入效率统计, false: 纳入效率统计, true: 不纳入效率统计, 示例值: false, 默认值: `false`
-	NodeID            *string                                              `json:"node_id,omitempty"`            // 节点id, 示例值: "node"
-	NodeName          *string                                              `json:"node_name,omitempty"`          // 节点名称, 示例: i18n@name。需要在i18n_resources中传该名称对应的国际化文案, 示例值: "i18n@name"
+	NodeID            *string                                              `json:"node_id,omitempty"`            // 节点id: 必须同时满足, 一个流程内, 每个节点id唯一。如一个流程下「直属上级」、「隔级上级」等每个节点的Node_id均不一样, 同一个流程定义内, 不同审批实例中的相同节点, Node_id要保持不变。例如张三和李四分别发起了请假申请, 这2个审批实例中的「直属上级」节点的node_id应该保持一致, 示例值: "node"
+	NodeName          *string                                              `json:"node_name,omitempty"`          // 节点名称, 如「财务审批」「法务审批」, 支持中英日三种语言。示例: i18n@name。需要在i18n_resources中传该名称对应的国际化文案, 示例值: "i18n@name"
 }
 
 // CreateApprovalExternalInstanceReqTaskActionConfig ...
@@ -240,7 +240,7 @@ type CreateApprovalExternalInstanceRespDataForm struct {
 // CreateApprovalExternalInstanceRespDataI18nResource ...
 type CreateApprovalExternalInstanceRespDataI18nResource struct {
 	Locale    string                                                    `json:"locale,omitempty"`     // 语言可选值有: zh-CN: 中文 en-US: 英文 ja-JP: 日文, 可选值有: zh-CN: 中文, en-US: 英文, ja-JP: 日文
-	Texts     []*CreateApprovalExternalInstanceRespDataI18nResourceText `json:"texts,omitempty"`      // 文案 key, value, i18n key 以 @i18n@ 开头； 该字段主要用于做国际化, 语序用户同时传多个语言的文案, 审批中心会根据用户当前的语音环境使用对应的文案, 如果没有传用户当前的语音环境文案, 则会使用默认的语言文案。
+	Texts     []*CreateApprovalExternalInstanceRespDataI18nResourceText `json:"texts,omitempty"`      // 文案 key, value, i18n key 以 @i18n@ 开头； 该字段主要用于做国际化, 允许用户同时传多个语言的文案, 审批中心会根据用户当前的语音环境使用对应的文案, 如果没有传用户当前的语音环境文案, 则会使用默认的语言文案。
 	IsDefault bool                                                      `json:"is_default,omitempty"` // 是否默认语言, 默认语言需要包含所有key, 非默认语言如果key不存在会使用默认语言代替
 }
 
@@ -264,7 +264,7 @@ type CreateApprovalExternalInstanceRespDataTask struct {
 	Title             string                                                    `json:"title,omitempty"`              // 审批任务名称
 	Links             *CreateApprovalExternalInstanceRespDataTaskLinks          `json:"links,omitempty"`              // 【待审批】或【已审批】中使用的跳转链接, 用于跳转回三方系统pc_link 和 mobile_link 必须填一个, 填写的是哪一端的链接, 即会跳转到该链接, 不受平台影响
 	Status            string                                                    `json:"status,omitempty"`             // 任务状态, 可选值有: PENDING: 待审批, APPROVED: 任务同意, REJECTED: 任务拒绝, TRANSFERRED: 任务转交, DONE: 任务通过但审批人未操作；审批人看不到这个任务, 若想要看到, 可以通过抄送该人.
-	Extra             string                                                    `json:"extra,omitempty"`              // 扩展 json, 任务结束原因需传complete_reason字段
+	Extra             string                                                    `json:"extra,omitempty"`              // 扩展 json, 任务结束原因需传complete_reason字段。枚举值与对应说明: approved: 同意, rejected: 拒绝, node_auto_reject: （因逻辑判断产生的）自动拒绝, specific_rollback: 退回（包括退回到发起人、退回到中间任一审批人）, add: 并加签（添加新审批人, 和我一起审批）, add_pre: 前加签（添加新审批人, 在我之前审批）, add_post: 后加签（添加新审批人, 在我之后审批）, delete_assignee: 减签, forward_resign: 转交（转给其他人审批）, recall: 撤销（撤回单据, 单据失效）, delete : 删除审批单, admin_forward: 管理员在后台操作转交, system_forward: 系统自动转交, auto_skip: 自动通过, manual_skip: 手动跳过, submit_again: 重新提交任务, restart: 重新启动流程, others: 其他（作为兜底）
 	CreateTime        string                                                    `json:"create_time,omitempty"`        // 任务创建时间, Unix 毫秒时间戳
 	EndTime           string                                                    `json:"end_time,omitempty"`           // 任务完成时间: 未结束的审批为 0, Unix 毫秒时间戳
 	UpdateTime        string                                                    `json:"update_time,omitempty"`        // task最近更新时间, 用于推送数据版本控制； 更新策略同 instance 中的 update_time
@@ -272,8 +272,8 @@ type CreateApprovalExternalInstanceRespDataTask struct {
 	ActionConfigs     []*CreateApprovalExternalInstanceRespDataTaskActionConfig `json:"action_configs,omitempty"`     // 任务级别操作配置, 快捷审批目前支持移动端操作
 	DisplayMethod     string                                                    `json:"display_method,omitempty"`     // 列表页打开审批任务的方式, 可选值有: BROWSER: 跳转系统默认浏览器打开, SIDEBAR: 飞书中侧边抽屉打开, NORMAL: 飞书内嵌页面打开, TRUSTEESHIP: 以托管模式打开
 	ExcludeStatistics bool                                                      `json:"exclude_statistics,omitempty"` // 三方任务支持不纳入效率统计, false: 纳入效率统计, true: 不纳入效率统计
-	NodeID            string                                                    `json:"node_id,omitempty"`            // 节点id
-	NodeName          string                                                    `json:"node_name,omitempty"`          // 节点名称, 示例: i18n@name。需要在i18n_resources中传该名称对应的国际化文案
+	NodeID            string                                                    `json:"node_id,omitempty"`            // 节点id: 必须同时满足, 一个流程内, 每个节点id唯一。如一个流程下「直属上级」、「隔级上级」等每个节点的Node_id均不一样, 同一个流程定义内, 不同审批实例中的相同节点, Node_id要保持不变。例如张三和李四分别发起了请假申请, 这2个审批实例中的「直属上级」节点的node_id应该保持一致
+	NodeName          string                                                    `json:"node_name,omitempty"`          // 节点名称, 如「财务审批」「法务审批」, 支持中英日三种语言。示例: i18n@name。需要在i18n_resources中传该名称对应的国际化文案
 }
 
 // CreateApprovalExternalInstanceRespDataTaskActionConfig ...

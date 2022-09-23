@@ -65,6 +65,7 @@ type Mock struct {
 	mockApplicationGetApplicationUnderAuditList                func(ctx context.Context, request *GetApplicationUnderAuditListReq, options ...MethodOptionFunc) (*GetApplicationUnderAuditListResp, *Response, error)
 	mockApplicationGetApplication                              func(ctx context.Context, request *GetApplicationReq, options ...MethodOptionFunc) (*GetApplicationResp, *Response, error)
 	mockApplicationGetApplicationVersion                       func(ctx context.Context, request *GetApplicationVersionReq, options ...MethodOptionFunc) (*GetApplicationVersionResp, *Response, error)
+	mockApplicationGetApplicationVersionList                   func(ctx context.Context, request *GetApplicationVersionListReq, options ...MethodOptionFunc) (*GetApplicationVersionListResp, *Response, error)
 	mockApplicationUpdateApplicationVersion                    func(ctx context.Context, request *UpdateApplicationVersionReq, options ...MethodOptionFunc) (*UpdateApplicationVersionResp, *Response, error)
 	mockApplicationUpdateApplication                           func(ctx context.Context, request *UpdateApplicationReq, options ...MethodOptionFunc) (*UpdateApplicationResp, *Response, error)
 	mockApplicationGetApplicationUsageOverview                 func(ctx context.Context, request *GetApplicationUsageOverviewReq, options ...MethodOptionFunc) (*GetApplicationUsageOverviewResp, *Response, error)
@@ -665,6 +666,7 @@ type Mock struct {
 	mockVCExportVCParticipantQualityList                       func(ctx context.Context, request *ExportVCParticipantQualityListReq, options ...MethodOptionFunc) (*ExportVCParticipantQualityListResp, *Response, error)
 	mockVCGetVCExportTask                                      func(ctx context.Context, request *GetVCExportTaskReq, options ...MethodOptionFunc) (*GetVCExportTaskResp, *Response, error)
 	mockVCDownloadVCExportFile                                 func(ctx context.Context, request *DownloadVCExportFileReq, options ...MethodOptionFunc) (*DownloadVCExportFileResp, *Response, error)
+	mockVCGetVCAlertList                                       func(ctx context.Context, request *GetVCAlertListReq, options ...MethodOptionFunc) (*GetVCAlertListResp, *Response, error)
 }
 
 // Mock return mock client

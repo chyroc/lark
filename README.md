@@ -38,7 +38,7 @@ https://godoc.org/github.com/chyroc/lark
 
 ## Support APIs
 
-API Count: 656, Event Count: 93
+API Count: 658, Event Count: 93
 
 <details>
   <summary>
@@ -106,6 +106,7 @@ API Count: 656, Event Count: 93
   - GetApplicationUnderAuditList
   - GetApplication
   - GetApplicationVersion
+  - GetApplicationVersionList
   - UpdateApplicationVersion
   - UpdateApplication
   - GetApplicationUsageOverview
@@ -826,6 +827,7 @@ API Count: 656, Event Count: 93
   - ExportVCParticipantQualityList
   - GetVCExportTask
   - DownloadVCExportFile
+  - GetVCAlertList
 
 
 </details>

@@ -71,6 +71,7 @@ type ApplyVCReserveReqMeetingSettings struct {
 	MeetingInitialType *int64                                              `json:"meeting_initial_type,omitempty"` // 会议初始类型, 示例值: 1, 可选值有: 1: 多人会议, 2: 1v1呼叫
 	CallSetting        *ApplyVCReserveReqMeetingSettingsCallSetting        `json:"call_setting,omitempty"`         // 1v1呼叫相关参数
 	AutoRecord         *bool                                               `json:"auto_record,omitempty"`          // 使用飞书视频会议时, 是否开启自动录制, 默认false, 示例值: true
+	AssignHostList     []*ApplyVCReserveReqMeetingSettingsAssignHost       `json:"assign_host_list,omitempty"`     // 指定主持人列表
 }
 
 // ApplyVCReserveReqMeetingSettingsActionPermission ...
@@ -84,6 +85,12 @@ type ApplyVCReserveReqMeetingSettingsActionPermissionPermissionChecker struct {
 	CheckField int64    `json:"check_field,omitempty"` // 检查字段类型, 示例值: 1, 可选值有: 1: 用户ID, 2: 用户类型, 3: 租户ID
 	CheckMode  int64    `json:"check_mode,omitempty"`  // 检查方式, 示例值: 1, 可选值有: 1: 在check_list中为有权限（白名单）, 2: 不在check_list中为有权限（黑名单）
 	CheckList  []string `json:"check_list,omitempty"`  // 检查字段列表, 示例值: 123
+}
+
+// ApplyVCReserveReqMeetingSettingsAssignHost ...
+type ApplyVCReserveReqMeetingSettingsAssignHost struct {
+	UserType *int64  `json:"user_type,omitempty"` // 用户类型, 仅支持设置同租户下的 Lark 用户, 示例值: 1, 可选值有: 1: lark用户
+	ID       *string `json:"id,omitempty"`        // 用户ID, 示例值: "ou_3ec3f6a28a0d08c45d895276e8e5e19b"
 }
 
 // ApplyVCReserveReqMeetingSettingsCallSetting ...
@@ -106,7 +113,8 @@ type ApplyVCReserveReqMeetingSettingsCallSettingCalleePstnSipInfo struct {
 
 // ApplyVCReserveResp ...
 type ApplyVCReserveResp struct {
-	Reserve *ApplyVCReserveRespReserve `json:"reserve,omitempty"` // 预约数据
+	Reserve                    *ApplyVCReserveRespReserve                    `json:"reserve,omitempty"`                       // 预约数据
+	ReserveCorrectionCheckInfo *ApplyVCReserveRespReserveCorrectionCheckInfo `json:"reserve_correction_check_info,omitempty"` // 预约参数检查信息
 }
 
 // ApplyVCReserveRespReserve ...
@@ -117,6 +125,11 @@ type ApplyVCReserveRespReserve struct {
 	AppLink   string `json:"app_link,omitempty"`   // APPLink用于唤起飞书APP入会。"{?}"为占位符, 用于配置入会参数, 使用时需替换具体值: 0表示关闭, 1表示打开。preview为入会前的设置页, mic为麦克风, speaker为扬声器, camera为摄像头
 	LiveLink  string `json:"live_link,omitempty"`  // 直播链接
 	EndTime   string `json:"end_time,omitempty"`   // 预约到期时间（unix时间, 单位sec）
+}
+
+// ApplyVCReserveRespReserveCorrectionCheckInfo ...
+type ApplyVCReserveRespReserveCorrectionCheckInfo struct {
+	InvalidHostIDList []string `json:"invalid_host_id_list,omitempty"` // 指定主持人无效id列表
 }
 
 // applyVCReserveResp ...

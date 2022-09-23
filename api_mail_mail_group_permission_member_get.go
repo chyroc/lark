@@ -68,8 +68,8 @@ type GetMailGroupPermissionMemberResp struct {
 	PermissionMemberID string       `json:"permission_member_id,omitempty"` // 权限组内成员唯一标识
 	UserID             string       `json:"user_id,omitempty"`              // 租户内用户的唯一标识（当成员类型是USER时有值）
 	DepartmentID       string       `json:"department_id,omitempty"`        // 租户内部门的唯一标识（当成员类型是DEPARTMENT时有值）
-	Email              string       `json:"email,omitempty"`                // The member's email address. Value is valid when type is MAIL_GROUP/PUBLIC_MAILBOX
-	Type               MailUserType `json:"type,omitempty"`                 // 成员类型, 可选值有: USER: 内部用户, DEPARTMENT: 部门, MAIL_GROUP: member is a mail group, PUBLIC_MAILBOX: member is a public mailbox
+	Email              string       `json:"email,omitempty"`                // 成员邮箱地址（当成员类型是MAIL_GROUP/PUBLIC_MAILBOX时有值）
+	Type               MailUserType `json:"type,omitempty"`                 // 成员类型, 可选值有: USER: 内部用户, DEPARTMENT: 部门, MAIL_GROUP: 邮件组, PUBLIC_MAILBOX: 公共邮箱
 }
 
 // getMailGroupPermissionMemberResp ...

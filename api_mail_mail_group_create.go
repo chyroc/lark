@@ -60,7 +60,7 @@ type CreateMailGroupReq struct {
 	Email          *string `json:"email,omitempty"`             // 邮件组地址, 示例值: "test_mail_group@xxx.xx"
 	Name           *string `json:"name,omitempty"`              // 邮件组名称, 示例值: "test mail group"
 	Description    *string `json:"description,omitempty"`       // 邮件组描述, 示例值: "mail group for testing"
-	WhoCanSendMail *string `json:"who_can_send_mail,omitempty"` // 谁可发送邮件到此邮件组, 示例值: "ALL_INTERNAL_USERS", 可选值有: `ANYONE`: 任何人, `ALL_INTERNAL_USERS`: 仅组织内部成员, `ALL_GROUP_MEMBERS`: 仅邮件组成员, `CUSTOM_MEMBERS`: 自定义成员
+	WhoCanSendMail *string `json:"who_can_send_mail,omitempty"` // 谁可发送邮件到此邮件组, 示例值: "ALL_INTERNAL_USERS", 可选值有: ANYONE: 任何人, ALL_INTERNAL_USERS: 仅组织内部成员, ALL_GROUP_MEMBERS: 仅邮件组成员, CUSTOM_MEMBERS: 自定义成员
 }
 
 // CreateMailGroupResp ...
@@ -72,7 +72,7 @@ type CreateMailGroupResp struct {
 	DirectMembersCount      string `json:"direct_members_count,omitempty"`       // 邮件组成员数量
 	IncludeExternalMember   bool   `json:"include_external_member,omitempty"`    // 是否包含外部成员
 	IncludeAllCompanyMember bool   `json:"include_all_company_member,omitempty"` // 是否是全员邮件组
-	WhoCanSendMail          string `json:"who_can_send_mail,omitempty"`          // 谁可发送邮件到此邮件组, 可选值有: `ANYONE`: 任何人, `ALL_INTERNAL_USERS`: 仅组织内部成员, `ALL_GROUP_MEMBERS`: 仅邮件组成员, `CUSTOM_MEMBERS`: 自定义成员
+	WhoCanSendMail          string `json:"who_can_send_mail,omitempty"`          // 谁可发送邮件到此邮件组, 可选值有: ANYONE: 任何人, ALL_INTERNAL_USERS: 仅组织内部成员, ALL_GROUP_MEMBERS: 仅邮件组成员, CUSTOM_MEMBERS: 自定义成员
 }
 
 // createMailGroupResp ...

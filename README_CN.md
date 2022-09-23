@@ -38,7 +38,7 @@ https://godoc.org/github.com/chyroc/lark
 
 ## 支持的接口
 
-API 总数: 656, 事件总数: 93
+API 总数: 658, 事件总数: 93
 
 <details>
   <summary>
@@ -106,6 +106,7 @@ API 总数: 656, 事件总数: 93
   - GetApplicationUnderAuditList
   - GetApplication
   - GetApplicationVersion
+  - GetApplicationVersionList
   - UpdateApplicationVersion
   - UpdateApplication
   - GetApplicationUsageOverview
@@ -826,6 +827,7 @@ API 总数: 656, 事件总数: 93
   - ExportVCParticipantQualityList
   - GetVCExportTask
   - DownloadVCExportFile
+  - GetVCAlertList
 
 
 </details>

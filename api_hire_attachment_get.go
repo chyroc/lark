@@ -58,6 +58,7 @@ func (r *Mock) UnMockHireGetHireAttachment() {
 // GetHireAttachmentReq ...
 type GetHireAttachmentReq struct {
 	AttachmentID string `path:"attachment_id" json:"-"` // 附件id, 示例值: "6435242341238"
+	Type         *int64 `query:"type" json:"-"`         // 附件类型, 示例值: 1, 可选值有: 1: 附件简历, 2: 候选人作品, 3: 自定义附件, 默认值: `1`
 }
 
 // GetHireAttachmentResp ...

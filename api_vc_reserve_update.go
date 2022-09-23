@@ -72,6 +72,7 @@ type UpdateVCReserveReqMeetingSettings struct {
 	MeetingInitialType *int64                                               `json:"meeting_initial_type,omitempty"` // 会议初始类型, 示例值: 1, 可选值有: 1: 多人会议, 2: 1v1呼叫
 	CallSetting        *UpdateVCReserveReqMeetingSettingsCallSetting        `json:"call_setting,omitempty"`         // 1v1呼叫相关参数
 	AutoRecord         *bool                                                `json:"auto_record,omitempty"`          // 使用飞书视频会议时, 是否开启自动录制, 默认false, 示例值: true
+	AssignHostList     []*UpdateVCReserveReqMeetingSettingsAssignHost       `json:"assign_host_list,omitempty"`     // 指定主持人列表
 }
 
 // UpdateVCReserveReqMeetingSettingsActionPermission ...
@@ -85,6 +86,12 @@ type UpdateVCReserveReqMeetingSettingsActionPermissionPermissionChecker struct {
 	CheckField int64    `json:"check_field,omitempty"` // 检查字段类型, 示例值: 1, 可选值有: 1: 用户ID, 2: 用户类型, 3: 租户ID
 	CheckMode  int64    `json:"check_mode,omitempty"`  // 检查方式, 示例值: 1, 可选值有: 1: 在check_list中为有权限（白名单）, 2: 不在check_list中为有权限（黑名单）
 	CheckList  []string `json:"check_list,omitempty"`  // 检查字段列表, 示例值: 123
+}
+
+// UpdateVCReserveReqMeetingSettingsAssignHost ...
+type UpdateVCReserveReqMeetingSettingsAssignHost struct {
+	UserType *int64  `json:"user_type,omitempty"` // 用户类型, 仅支持设置同租户下的 Lark 用户, 示例值: 1, 可选值有: 1: lark用户
+	ID       *string `json:"id,omitempty"`        // 用户ID, 示例值: "ou_3ec3f6a28a0d08c45d895276e8e5e19b"
 }
 
 // UpdateVCReserveReqMeetingSettingsCallSetting ...
@@ -107,7 +114,8 @@ type UpdateVCReserveReqMeetingSettingsCallSettingCalleePstnSipInfo struct {
 
 // UpdateVCReserveResp ...
 type UpdateVCReserveResp struct {
-	Reserve *UpdateVCReserveRespReserve `json:"reserve,omitempty"` // 预约数据
+	Reserve                    *UpdateVCReserveRespReserve                    `json:"reserve,omitempty"`                       // 预约数据
+	ReserveCorrectionCheckInfo *UpdateVCReserveRespReserveCorrectionCheckInfo `json:"reserve_correction_check_info,omitempty"` // 预约参数检查信息
 }
 
 // UpdateVCReserveRespReserve ...
@@ -118,6 +126,11 @@ type UpdateVCReserveRespReserve struct {
 	LiveLink     string `json:"live_link,omitempty"`     // 直播链接
 	EndTime      string `json:"end_time,omitempty"`      // 预约到期时间（unix时间, 单位sec）
 	ExpireStatus int64  `json:"expire_status,omitempty"` // 过期状态, 可选值有: 1: 未过期, 2: 已过期
+}
+
+// UpdateVCReserveRespReserveCorrectionCheckInfo ...
+type UpdateVCReserveRespReserveCorrectionCheckInfo struct {
+	InvalidHostIDList []string `json:"invalid_host_id_list,omitempty"` // 指定主持人无效id列表
 }
 
 // updateVCReserveResp ...
