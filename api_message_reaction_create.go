@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// CreateMessageReaction 给指定消息添加指定类型的表情回复（reaction即表情回复, 本说明文档统一用“reaction”代称）。
+// CreateMessageReaction 给指定消息添加指定类型的表情回复（reaction即表情回复, 本文档统一用“reaction”代称）。
 //
 // 注意事项:
 // - 需要开启[机器人能力](https://open.feishu.cn/document/home/develop-a-bot-in-5-minutes/create-an-app)
@@ -63,7 +63,7 @@ func (r *Mock) UnMockMessageCreateMessageReaction() {
 
 // CreateMessageReactionReq ...
 type CreateMessageReactionReq struct {
-	MessageID    string                                `path:"message_id" json:"-"`     // 待添加reaction的消息ID, 示例值: "om_a8f2294ba1a38afaac9d"
+	MessageID    string                                `path:"message_id" json:"-"`     // 待添加reaction的消息ID, 详情参见[消息ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/intro#ac79c1c2), 示例值: "om_a8f2294ba1a38afaac9d"
 	ReactionType *CreateMessageReactionReqReactionType `json:"reaction_type,omitempty"` // reaction资源类型
 }
 

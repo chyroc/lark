@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// DeleteMessageReaction 删除指定消息的表情回复（reaction即表情回复, 本说明文档统一用“reaction”代称）。
+// DeleteMessageReaction 删除指定消息的表情回复（reaction即表情回复, 本文档统一用“reaction”代称）。
 //
 // 注意事项:
 // - 需要开启[机器人能力](https://open.feishu.cn/document/home/develop-a-bot-in-5-minutes/create-an-app)
@@ -62,8 +62,8 @@ func (r *Mock) UnMockMessageDeleteMessageReaction() {
 
 // DeleteMessageReactionReq ...
 type DeleteMessageReactionReq struct {
-	MessageID  string `path:"message_id" json:"-"`  // 待删除reaction的消息ID, 示例值: "om_8964d1b4*2b31383276113"
-	ReactionID string `path:"reaction_id" json:"-"` // 待删除reaction的资源id, 示例值: "ZCaCIjUBVVWSrm5L-3ZTw*sNa8dHVplEzzSfJVUVLMLcS_"
+	MessageID  string `path:"message_id" json:"-"`  // 待删除reaction的消息ID, 详情参见[消息ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/intro#ac79c1c2), 示例值: "om_8964d1b4*2b31383276113"
+	ReactionID string `path:"reaction_id" json:"-"` // 待删除reaction的资源id, 可通过调用[添加消息表情回复](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message-reaction/create)接口或[获取消息表情回复](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message-reaction/list)获得, 示例值: "ZCaCIjUBVVWSrm5L-3ZTw*sNa8dHVplEzzSfJVUVLMLcS_"
 }
 
 // DeleteMessageReactionResp ...

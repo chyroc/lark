@@ -21,9 +21,9 @@ import (
 	"context"
 )
 
-// GetAccessToken 获取登录预授权码 code 对应的登录用户身份。
+// GetAccessToken 根据[登录预授权码](https://open.feishu.cn/document/ukTMukTMukTM/ukzN4UjL5cDO14SO3gTN) code 获取 `user_access_token`。
 //
-// 该接口仅适用于通过[第三方网站免登](https://open.feishu.cn/document/ukTMukTMukTM/uETOwYjLxkDM24SM5AjN)文档中的登录方式获取的预授权码, 小程序登录中用户身份的获取, 请使用[小程序 code2session 接口](https://open.feishu.cn/document/uYjL24iN/ukjM04SOyQjL5IDN)
+// 说明: 本接口用于网页应用免登录应用场景, 小程序应用获取 user_access_token 的方法, 请参考小程序应用提供的 [code2session](https://open.feishu.cn/document/uYjL24iN/ukjM04SOyQjL5IDN) 接口。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/authen-v1/authen/access_token
 func (r *AuthService) GetAccessToken(ctx context.Context, request *GetAccessTokenReq, options ...MethodOptionFunc) (*GetAccessTokenResp, *Response, error) {
@@ -59,8 +59,8 @@ func (r *Mock) UnMockAuthGetAccessToken() {
 
 // GetAccessTokenReq ...
 type GetAccessTokenReq struct {
-	GrantType string `json:"grant_type,omitempty"` // 授权类型, 本流程中, 此值为: "authorization_code", 示例值: "authorization_code"
-	Code      string `json:"code,omitempty"`       // 来自[请求身份验证](https://open.feishu.cn/document/ukTMukTMukTM/ukzN4UjL5cDO14SO3gTN)流程, 用户扫码登录后会自动302到redirect_uri并带上此参数, 示例值: "xMSldislSkdK"
+	GrantType string `json:"grant_type,omitempty"` // 授权类型, 固定值: "authorization_code"
+	Code      string `json:"code,omitempty"`       // 登录预授权码, 调用[获取登录预授权码](https://open.feishu.cn/document/ukTMukTMukTM/ukzN4UjL5cDO14SO3gTN)接口获取, 示例值: "xMSldislSkdK"
 }
 
 // GetAccessTokenResp ...
@@ -81,8 +81,8 @@ type GetAccessTokenResp struct {
 	UserID           string `json:"user_id,omitempty"`            // 用户 user_id, 字段权限要求: 获取用户 user ID
 	Mobile           string `json:"mobile,omitempty"`             // 用户手机号, 字段权限要求: 获取用户手机号
 	TenantKey        string `json:"tenant_key,omitempty"`         // 当前企业标识
-	RefreshExpiresIn int64  `json:"refresh_expires_in,omitempty"` // refresh_token 的有效期, 单位: 秒
-	RefreshToken     string `json:"refresh_token,omitempty"`      // 刷新用户 access_token 时使用的 token
+	RefreshExpiresIn int64  `json:"refresh_expires_in,omitempty"` // `refresh_token` 的有效期, 单位: 秒
+	RefreshToken     string `json:"refresh_token,omitempty"`      // 刷新用户 `access_token` 时使用的 token
 }
 
 // getAccessTokenResp ...

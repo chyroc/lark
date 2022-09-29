@@ -37,9 +37,9 @@ type EventV2ApplicationApplicationAppVersionAuditV6 struct {
 	VersionID   string                                                    `json:"version_id,omitempty"`   // 被审核的应用版本 id
 	CreatorID   *EventV2ApplicationApplicationAppVersionAuditV6CreatorID  `json:"creator_id,omitempty"`   // 应用创建者的 id
 	AppID       string                                                    `json:"app_id,omitempty"`       // 撤回应用的 id
-	Operation   string                                                    `json:"operation,omitempty"`    // 审核通过 / 拒绝, 可选值有: `audited`: 审核通过, `reject`: 审核拒绝
+	Operation   string                                                    `json:"operation,omitempty"`    // 审核通过 / 拒绝, 可选值有: audited: 审核通过, reject: 审核拒绝
 	Remark      string                                                    `json:"remark,omitempty"`       // 审核信息, 当审核拒绝时, 管理员填写的拒绝理由
-	AuditSource string                                                    `json:"audit_source,omitempty"` // 应用审核的方式, 可选值有: `administrator`: 管理员审核, `auto`: 自动免审
+	AuditSource string                                                    `json:"audit_source,omitempty"` // 应用审核的方式, 可选值有: administrator: 管理员审核, auto: 自动免审
 }
 
 // EventV2ApplicationApplicationAppVersionAuditV6CreatorID ...

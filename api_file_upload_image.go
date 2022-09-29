@@ -22,10 +22,11 @@ import (
 	"io"
 )
 
-// UploadImage 上传图片接口, 可以上传 JPEG、PNG、WEBP、GIF、TIFF、BMP、ICO格式图片
+// UploadImage 上传图片接口, 支持上传 JPEG、PNG、WEBP、GIF、TIFF、BMP、ICO格式图片。
 //
 // 注意事项:
 // - 需要开启[机器人能力](https://open.feishu.cn/document/home/develop-a-bot-in-5-minutes/create-an-app)
+// - 图片大小不得超过10M, 且不支持上传大小为0的图片
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/image/create
 func (r *FileService) UploadImage(ctx context.Context, request *UploadImageReq, options ...MethodOptionFunc) (*UploadImageResp, *Response, error) {

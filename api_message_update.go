@@ -25,9 +25,12 @@ import (
 //
 // 注意事项:
 // - 需要开启[机器人能力](https://open.feishu.cn/document/home/develop-a-bot-in-5-minutes/create-an-app)
-// - 当前仅支持更新 卡片消息
+// - 若以user_access_token更新消息, 该操作用户必须是卡片消息的发送者
+// - 对所有人更新[「共享卡片」](ukTMukTMukTM/uAjNwUjLwYDM14CM2ATN), 需在卡片的config属性中, 显式声明`"update_multi":true`。 更新特定人的卡片内容, 必须在用户对卡片进行交互操作后触发调用, 参考[「独享卡片」](https://open.feishu.cn/document/ukTMukTMukTM/uYjNwUjL2YDM14iN2ATN#49904b71)
+// - 当前仅支持更新未撤回的 卡片消息
 // - 不支持更新批量消息
-// - 只支持对所有人都更新的[「共享卡片」](ukTMukTMukTM/uAjNwUjLwYDM14CM2ATN), 也即需要在卡片的`config`属性中, 显式声明`"update_multi":true`。 如果你只想更新特定人的消息卡片, 必须要用户在卡片操作交互后触发, 开发文档参考[「独享卡片」](https://open.feishu.cn/document/ukTMukTMukTM/uYjNwUjL2YDM14iN2ATN#49904b71)
+// - 文本消息请求体最大不能超过150KB；卡片及富文本消息请求体最大不能超过30KB
+// - 仅支持修改14天内发送的消息
 // - 单条消息更新频控为5QPS
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/patch
@@ -65,7 +68,7 @@ func (r *Mock) UnMockMessageUpdateMessage() {
 
 // UpdateMessageReq ...
 type UpdateMessageReq struct {
-	MessageID string `path:"message_id" json:"-"` // 待更新的消息的ID, 示例值: "om_dc13264520392913993dd051dba21dcf"
+	MessageID string `path:"message_id" json:"-"` // 待更新的消息的ID, 详情参见[消息ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/intro#ac79c1c2), 示例值: "om_dc13264520392913993dd051dba21dcf"
 	Content   string `json:"content,omitempty"`   // 消息内容 json 格式, [发送消息 content 说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/im-v1/message/create_json), 参考文档中的卡片格式, 示例值: "参考链接"
 }
 

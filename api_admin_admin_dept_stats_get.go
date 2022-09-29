@@ -60,7 +60,7 @@ func (r *Mock) UnMockAdminGetAdminDeptStats() {
 
 // GetAdminDeptStatsReq ...
 type GetAdminDeptStatsReq struct {
-	DepartmentIDType  DepartmentIDType `query:"department_id_type" json:"-"`  // 部门ID类型, 示例值: "open_department_id", 可选值有: `department_id`: 部门的 ID, `open_department_id`: 部门的 Open ID
+	DepartmentIDType  DepartmentIDType `query:"department_id_type" json:"-"`  // 部门ID类型, 示例值: "open_department_id", 可选值有: department_id: 部门的 ID, open_department_id: 部门的 Open ID
 	StartDate         string           `query:"start_date" json:"-"`          // 起始日期（包含）, 格式是YYYY-mm-dd, 示例值: "2020-02-15"
 	EndDate           string           `query:"end_date" json:"-"`            // 终止日期（包含）, 格式是YYYY-mm-dd, 起止日期之间相差不能超过91天（包含91天）, 示例值: "2020-02-15"
 	DepartmentID      string           `query:"department_id" json:"-"`       // 部门的 ID, 取决于department_id_type, 仅支持根部门及其下前4级子部门, 示例值: "od-382e2793cfc9471f892e8a672987654c"
@@ -103,7 +103,7 @@ type GetAdminDeptStatsRespItem struct {
 	CreateCalNum         int64  `json:"create_cal_num,omitempty"`          // 创建日程数
 	AvgCreateCalNum      string `json:"avg_create_cal_num,omitempty"`      // 人均创建日程数
 	VCDau                int64  `json:"vc_dau,omitempty"`                  // 音视频会议活跃人数
-	VCDuration           int64  `json:"vc_duration,omitempty"`             // 会议时长（分钟）
+	VCDuration           int64  `json:"vc_duration,omitempty"`             // 会议时长: 企业内员工参与通话与会议的总时长（分钟）
 	AvgVCDuration        string `json:"avg_vc_duration,omitempty"`         // 人均会议时长（分钟）
 	AvgDuration          string `json:"avg_duration,omitempty"`            // 人均飞书使用时长（分钟）
 	TaskDau              int64  `json:"task_dau,omitempty"`                // 任务活跃人数

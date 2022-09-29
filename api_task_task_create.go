@@ -68,7 +68,7 @@ type CreateTaskReq struct {
 	Custom          *string              `json:"custom,omitempty"`           // 此字段用于存储第三方需透传到端上的自定义数据, Json格式。取值举例中custom_complete字段存储「完成」按钮的跳转链接（href）或提示信息（tip）, pc、ios、android三端均可自定义, 其中tip字段的key为语言类型, value为提示信息, 可自行增加或减少语言类型, 支持的各地区语言名: it_it, th_th, ko_kr, es_es, ja_jp, zh_cn, id_id, zh_hk, pt_br, de_de, fr_fr, zh_tw, ru_ru, en_us, hi_in, vi_vn。href的优先级高于tip, href和tip同时不为空时只跳转不提示。链接和提示信息可自定义, 其余的key需按举例中的结构传递, 示例值: "{\"custom_complete\":{\"android\":{\"href\":\"https://www.feishu.cn/\", \"tip\":{\"zh_cn\":\"你好\", \"en_us\":\"hello\"}}, \"ios\":{\"href\":\"https://www.feishu.cn/\", \"tip\":{\"zh_cn\":\"你好\", \"en_us\":\"hello\"}}, \"pc\":{\"href\":\"https://www.feishu.cn/\", \"tip\":{\"zh_cn\":\"你好\", \"en_us\":\"hello\"}}}}", 长度范围: `0` ～ `65536` 字符
 	CollaboratorIDs []string             `json:"collaborator_ids,omitempty"` // 创建任务时添加的执行者用户id列表, 示例值: ["ou_1400208f15333e20e11339d39067844b", "ou_84ed6312949945c8ae6168f10829e9e6"], 最大长度: `100`
 	FollowerIDs     []string             `json:"follower_ids,omitempty"`     // 创建任务时添加的关注者用户id列表, 示例值: ["ou_1400208f15333e20e11339d39067844b", "ou_84ed6312949945c8ae6168f10829e9e6"], 最大长度: `100`
-	RepeatRule      *string              `json:"repeat_rule,omitempty"`      // 重复任务重复规则, 示例值: "FREQ=WEEKLY;INTERVAL=1;BYDAY=MO, TU, WE, TH, FR"
+	RepeatRule      *string              `json:"repeat_rule,omitempty"`      // 重复任务重复规则。语法格式参见[RRule语法规范](https://www.ietf.org/rfc/rfc2445.txt) 4.3.10小节, 示例值: "FREQ=WEEKLY;INTERVAL=1;BYDAY=MO, TU, WE, TH, FR"
 	RichSummary     *string              `json:"rich_summary,omitempty"`     // 富文本任务标题。创建任务时, 如果没有标题填充, 飞书服务器会将其视为无主题的任务。语法格式参见[Markdown模块](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/task-v1/markdown-module), 示例值: "每天喝八杯水, 保持身心愉悦\[飞书开放平台\](https://open.feishu.cn/)", 长度范围: `0` ～ `256` 字符
 	RichDescription *string              `json:"rich_description,omitempty"` // 富文本任务备注。语法格式参见[Markdown模块](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/task-v1/markdown-module), 示例值: "多吃水果, 多运动, 健康生活, 快乐工作。\[飞书开放平台](https://open.feishu.cn/)", 长度范围: `0` ～ `65536` 字符
 }
@@ -116,7 +116,7 @@ type CreateTaskRespTask struct {
 	Collaborators   []*CreateTaskRespTaskCollaborator `json:"collaborators,omitempty"`    // 任务的执行者
 	CollaboratorIDs []string                          `json:"collaborator_ids,omitempty"` // 创建任务时添加的执行者用户id列表
 	FollowerIDs     []string                          `json:"follower_ids,omitempty"`     // 创建任务时添加的关注者用户id列表
-	RepeatRule      string                            `json:"repeat_rule,omitempty"`      // 重复任务重复规则
+	RepeatRule      string                            `json:"repeat_rule,omitempty"`      // 重复任务重复规则。语法格式参见[RRule语法规范](https://www.ietf.org/rfc/rfc2445.txt) 4.3.10小节
 	RichSummary     string                            `json:"rich_summary,omitempty"`     // 富文本任务标题。创建任务时, 如果没有标题填充, 飞书服务器会将其视为无主题的任务。语法格式参见[Markdown模块](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/task-v1/markdown-module)
 	RichDescription string                            `json:"rich_description,omitempty"` // 富文本任务备注。语法格式参见[Markdown模块](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/task-v1/markdown-module)
 }

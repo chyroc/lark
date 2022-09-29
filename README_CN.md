@@ -38,7 +38,7 @@ https://godoc.org/github.com/chyroc/lark
 
 ## 支持的接口
 
-API 总数: 658, 事件总数: 93
+API 总数: 661, 事件总数: 93
 
 <details>
   <summary>
@@ -93,6 +93,7 @@ API 总数: 658, 事件总数: 93
   - OpenTaskTab
   - OpenScan
 - Application
+  - GetApplicationRecommendRuleList
   - IsApplicationUserAdmin
   - GetApplicationUserAdminScope
   - GetApplicationAppVisibility
@@ -827,6 +828,8 @@ API 总数: 658, 事件总数: 93
   - ExportVCParticipantQualityList
   - GetVCExportTask
   - DownloadVCExportFile
+  - GetVCReserveConfig
+  - UpdateVCReserveConfig
   - GetVCAlertList
 
 

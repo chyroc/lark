@@ -21,11 +21,11 @@ import (
 	"context"
 )
 
-// GetBatchSentMessageReadUser 查询批量消息推送和阅读人数
+// GetBatchSentMessageReadUser 批量发送消息后, 可以通过该接口查询批量消息推送的总人数和阅读人数。
 //
 // 注意事项:
 // - 只能查询通过[批量发送消息](https://open.feishu.cn/document/ukTMukTMukTM/ucDO1EjL3gTNx4yN4UTM)接口产生的消息
-// - 该接口返回的数据为查询时刻的快照数据。
+// - 该接口返回的数据为查询时刻的快照数据
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/batch_message/read_user
 func (r *MessageService) GetBatchSentMessageReadUser(ctx context.Context, request *GetBatchSentMessageReadUserReq, options ...MethodOptionFunc) (*GetBatchSentMessageReadUserResp, *Response, error) {
@@ -61,7 +61,7 @@ func (r *Mock) UnMockMessageGetBatchSentMessageReadUser() {
 
 // GetBatchSentMessageReadUserReq ...
 type GetBatchSentMessageReadUserReq struct {
-	BatchMessageID string `path:"batch_message_id" json:"-"` // 待查询的批量消息的ID, 示例值: "bm_dc13264520392913993dd051dba21dcf"
+	BatchMessageID string `path:"batch_message_id" json:"-"` // 待查询的批量消息的ID, 通过调用[批量发送消息接口](	/ssl:ttdoc/ukTMukTMukTM/ucDO1EjL3gTNx4yN4UTM)的返回值中得到, 示例值: "bm_dc13264520392913993dd051dba21dcf"
 }
 
 // GetBatchSentMessageReadUserResp ...

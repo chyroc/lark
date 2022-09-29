@@ -38,7 +38,7 @@ func Test_Application_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
-			_, _, err := moduleCli.IsApplicationUserAdmin(ctx, &lark.IsApplicationUserAdminReq{})
+			_, _, err := moduleCli.GetApplicationRecommendRuleList(ctx, &lark.GetApplicationRecommendRuleListReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "failed")
 		})
@@ -48,6 +48,18 @@ func Test_Application_Sample_Failed(t *testing.T) {
 	t.Run("request mock failed", func(t *testing.T) {
 		cli := AppAllPermission.Ins()
 		moduleCli := cli.Application
+
+		t.Run("", func(t *testing.T) {
+
+			cli.Mock().MockApplicationGetApplicationRecommendRuleList(func(ctx context.Context, request *lark.GetApplicationRecommendRuleListReq, options ...lark.MethodOptionFunc) (*lark.GetApplicationRecommendRuleListResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockApplicationGetApplicationRecommendRuleList()
+
+			_, _, err := moduleCli.GetApplicationRecommendRuleList(ctx, &lark.GetApplicationRecommendRuleListReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
 
 		t.Run("", func(t *testing.T) {
 
@@ -297,6 +309,13 @@ func Test_Application_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
+			_, _, err := moduleCli.GetApplicationRecommendRuleList(ctx, &lark.GetApplicationRecommendRuleListReq{})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+
 			_, _, err := moduleCli.IsApplicationUserAdmin(ctx, &lark.IsApplicationUserAdminReq{})
 			as.NotNil(err)
 			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
@@ -461,6 +480,13 @@ func Test_Application_Sample_Failed(t *testing.T) {
 		moduleCli := cli.Application
 		cli.Mock().MockRawRequest(func(ctx context.Context, req *lark.RawRequestReq, resp interface{}) (response *lark.Response, err error) {
 			return nil, fmt.Errorf("fake raw request")
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.GetApplicationRecommendRuleList(ctx, &lark.GetApplicationRecommendRuleListReq{})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {

@@ -104,7 +104,7 @@ func (r *Permission) FullAccessPerm() *Permission {
 }
 
 // Create 添加权限
-func (r *Permission) GetList(ctx context.Context) ([]*lark.GetDriveMemberPermissionListRespMember, error) {
+func (r *Permission) GetList(ctx context.Context) ([]*lark.GetDriveMemberPermissionListRespItem, error) {
 	resp, _, err := r.client.Drive.GetDriveMemberPermissionList(ctx, &lark.GetDriveMemberPermissionListReq{
 		Type:  r.typ,
 		Token: r.token,
@@ -112,7 +112,7 @@ func (r *Permission) GetList(ctx context.Context) ([]*lark.GetDriveMemberPermiss
 	if err != nil {
 		return nil, err
 	}
-	return resp.Members, nil
+	return resp.Items, nil
 }
 
 // TransferOwner 转移 owner

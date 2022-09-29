@@ -21,9 +21,7 @@ import (
 	"context"
 )
 
-// GetDriveCommentList 通过分页方式获取云文档中的全文评论列表。
-//
-// 注意: 该接口仅可获取在线文档的全文评论, 不支持获取局部评论或者在线表格中的评论。
+// GetDriveCommentList 该接口用于根据文档 token 分页获取文档评论。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file-comment/list
 func (r *DriveService) GetDriveCommentList(ctx context.Context, request *GetDriveCommentListReq, options ...MethodOptionFunc) (*GetDriveCommentListResp, *Response, error) {
@@ -60,12 +58,13 @@ func (r *Mock) UnMockDriveGetDriveCommentList() {
 
 // GetDriveCommentListReq ...
 type GetDriveCommentListReq struct {
-	FileToken  string   `path:"file_token" json:"-"`    // 文档token, 示例值: "doccnHh7U87HOFpii5u5G*"
-	FileType   FileType `query:"file_type" json:"-"`    // 文档类型, 示例值: "doc", 可选值有: doc: 文档, sheet: 表格, file: 文件, docx: 新版文档
-	UserIDType *IDType  `query:"user_id_type" json:"-"` // 用户 ID 类型, 示例值: "open_id", 可选值有: open_id: 用户的 open id, union_id: 用户的 union id, user_id: 用户的 user id, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
+	FileToken  string   `path:"file_token" json:"-"`    // 文档token, 示例值: "XIHSdYSI7oMEU1xrsnxc8fabcef"
+	FileType   FileType `query:"file_type" json:"-"`    // 文档类型, 示例值: "doc", 可选值有: doc: 文档类型, sheet: 电子表格类型, file: 文件类型, docx: 新版文档类型
+	IsWhole    *bool    `query:"is_whole" json:"-"`     // 是否全文评论, 示例值: false
 	IsSolved   *bool    `query:"is_solved" json:"-"`    // 是否已解决（可选）, 示例值: false
-	PageToken  *string  `query:"page_token" json:"-"`   // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果, 示例值: "6916106822734578184"
-	PageSize   *int64   `query:"page_size" json:"-"`    // 分页大小, 示例值: 10, 默认值: `20`, 最大值: `100`
+	PageToken  *string  `query:"page_token" json:"-"`   // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果, 示例值: "7153511712153412356"
+	PageSize   *int64   `query:"page_size" json:"-"`    // 分页大小, 示例值: "10", 最大值: `100`
+	UserIDType *IDType  `query:"user_id_type" json:"-"` // 用户 ID 类型, 示例值: "open_id", 可选值有: open_id: 用户的 open id, union_id: 用户的 union id, user_id: 用户的 user id, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
 }
 
 // GetDriveCommentListResp ...

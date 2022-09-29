@@ -21,10 +21,9 @@ import (
 	"context"
 )
 
-// GetBatchSentMessageProgress 查询批量消息整体进度
+// GetBatchSentMessageProgress 该接口在[查询批量消息推送和阅读人数](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/batch_message/read_user)查询结果的基础上, 增加了批量请求中有效的userid数量以及消息撤回进度数据。
 //
 // 注意事项:
-// * 该接口是[查询批量消息推送和阅读人数](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/batch_message/read_user)接口的加强版
 // * 该接口返回的数据为查询时刻的快照数据
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/batch_message/get_progress
@@ -61,7 +60,7 @@ func (r *Mock) UnMockMessageGetBatchSentMessageProgress() {
 
 // GetBatchSentMessageProgressReq ...
 type GetBatchSentMessageProgressReq struct {
-	BatchMessageID string `path:"batch_message_id" json:"-"` // 待查询的批量消息的ID, 示例值: "bm-0b3d5d1b2df7c6d5dbd1abe2c91e2217"
+	BatchMessageID string `path:"batch_message_id" json:"-"` // 待查询的批量消息的ID, 通过调用[批量发送消息接口](	/ssl:ttdoc/ukTMukTMukTM/ucDO1EjL3gTNx4yN4UTM)的返回值中得到, 示例值: "bm-0b3d5d1b2df7c6d5dbd1abe2c91e2217"
 }
 
 // GetBatchSentMessageProgressResp ...
@@ -78,8 +77,8 @@ type GetBatchSentMessageProgressRespBatchMessageRecallProgres struct {
 
 // GetBatchSentMessageProgressRespBatchMessageSendProgres ...
 type GetBatchSentMessageProgressRespBatchMessageSendProgres struct {
-	ValidUserIDsCount   int64 `json:"valid_user_ids_count,omitempty"`   // 批量请求中有效的userid数量(包含机器人不可见用户), * 注: 当valid_user_ids_count为0有两种情况: 1. 批量任务还没有开始被调度（请等待一会再调用该接口）, 2. 批量发送消息时传入的所有openIDs、employeID、departmentiIDs都不包含有效的用户
-	SuccessUserIDsCount int64 `json:"success_user_ids_count,omitempty"` // 已经成功给用户发送成功的消息数量, * 注: 最终success_user_ids_count不一定等于valid_user_ids_count, 因为valid_user_ids_count包含了对机器人不可见的用户
+	ValidUserIDsCount   int64 `json:"valid_user_ids_count,omitempty"`   // 批量请求中有效的userid数量(包含机器人不可见用户), 注意: 当valid_user_ids_count为0有两种情况: * 批量任务还没有开始被调度（请等待一会再调用该接口）, * 批量发送消息时传入的所有openIDs、employeID、departmentiIDs都不包含有效的用户
+	SuccessUserIDsCount int64 `json:"success_user_ids_count,omitempty"` // 已经成功给用户发送成功的消息数量, 注意: 最终success_user_ids_count不一定等于valid_user_ids_count, 因为valid_user_ids_count包含了对机器人不可见的用户
 	ReadUserIDsCount    int64 `json:"read_user_ids_count,omitempty"`    // 已读信息用户数量
 }
 

@@ -86,7 +86,7 @@ type GetTaskRespTask struct {
 	Collaborators   []*GetTaskRespTaskCollaborator `json:"collaborators,omitempty"`    // 任务的执行者
 	CollaboratorIDs []string                       `json:"collaborator_ids,omitempty"` // 创建任务时添加的执行者用户id列表
 	FollowerIDs     []string                       `json:"follower_ids,omitempty"`     // 创建任务时添加的关注者用户id列表
-	RepeatRule      string                         `json:"repeat_rule,omitempty"`      // 重复任务重复规则
+	RepeatRule      string                         `json:"repeat_rule,omitempty"`      // 重复任务重复规则。语法格式参见[RRule语法规范](https://www.ietf.org/rfc/rfc2445.txt) 4.3.10小节
 	RichSummary     string                         `json:"rich_summary,omitempty"`     // 富文本任务标题。创建任务时, 如果没有标题填充, 飞书服务器会将其视为无主题的任务。语法格式参见[Markdown模块](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/task-v1/markdown-module)
 	RichDescription string                         `json:"rich_description,omitempty"` // 富文本任务备注。语法格式参见[Markdown模块](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/task-v1/markdown-module)
 }

@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// GetMessage 通过 message_id 查询消息内容
+// GetMessage 通过 message_id 查询消息内容。
 //
 // 注意事项:
 // - 需要开启[机器人能力](https://open.feishu.cn/document/home/develop-a-bot-in-5-minutes/create-an-app)

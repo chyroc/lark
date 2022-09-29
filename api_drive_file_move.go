@@ -59,7 +59,7 @@ func (r *Mock) UnMockDriveMoveDriveFile() {
 // MoveDriveFileReq ...
 type MoveDriveFileReq struct {
 	FileToken   string  `path:"file_token" json:"-"`    // 需要移动的文件token, 示例值: "boxcnrHpsg1QDqXAAAyachabcef"
-	Type        *string `json:"type,omitempty"`         // 文件类型, 如果该值为空或者与文件实际类型不匹配, 接口会返回失败, 示例值: "file", 可选值有: `file`: 普通文件类型, `docx`: 新版文档类型, `bitable`: 多维表格类型, `doc`: 文档类型, `sheet`: 电子表格类型, `mindnote`: 思维笔记类型, `folder`: 文件夹类型
+	Type        *string `json:"type,omitempty"`         // 文件类型, 如果该值为空或者与文件实际类型不匹配, 接口会返回失败, 示例值: "file", 可选值有: file: 普通文件类型, docx: 新版文档类型, bitable: 多维表格类型, doc: 文档类型, sheet: 电子表格类型, mindnote: 思维笔记类型, folder: 文件夹类型
 	FolderToken *string `json:"folder_token,omitempty"` // 目标文件夹token, 示例值: "fldbcO1UuPz8VwnpPx5a92abcef"
 }
 

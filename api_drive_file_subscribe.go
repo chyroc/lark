@@ -59,7 +59,7 @@ func (r *Mock) UnMockDriveSubscribeDriveFile() {
 // SubscribeDriveFileReq ...
 type SubscribeDriveFileReq struct {
 	FileToken string   `path:"file_token" json:"-"` // 文档token, 示例值: "doccnxxxxxxxxxxxxxxxxxxxxxx"
-	FileType  FileType `query:"file_type" json:"-"` // 文档类型, 示例值: "doc", 可选值有: `doc`: 文档, `docx`: 新版文档, `sheet`: 表格, `bitable`: 多维表格
+	FileType  FileType `query:"file_type" json:"-"` // 文档类型, 示例值: "doc", 可选值有: doc: 文档, docx: 新版文档, sheet: 表格, bitable: 多维表格
 }
 
 // SubscribeDriveFileResp ...

@@ -21,12 +21,14 @@ import (
 	"context"
 )
 
-// CreateMessagePin Pin一条指定的消息
+// CreateMessagePin Pin一条指定的消息。
 //
 // 注意事项:
 // - 需要开启[机器人能力](https://open.feishu.cn/document/home/develop-a-bot-in-5-minutes/create-an-app)
 // - Pin消息时, 机器人必须在对应的群组中
 // - 若消息已经被Pin, 返回该Pin的操作信息
+// - 不能Pin一条对操作者不可见的消息
+// - 对同一条消息的Pin操作不能超过[5 QPS]
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/pin/create
 func (r *MessageService) CreateMessagePin(ctx context.Context, request *CreateMessagePinReq, options ...MethodOptionFunc) (*CreateMessagePinResp, *Response, error) {
@@ -63,7 +65,7 @@ func (r *Mock) UnMockMessageCreateMessagePin() {
 
 // CreateMessagePinReq ...
 type CreateMessagePinReq struct {
-	MessageID string `json:"message_id,omitempty"` // 待Pin的消息ID, 示例值: "om_dc13264520392913993dd051dba21dcf"
+	MessageID string `json:"message_id,omitempty"` // 待Pin的消息ID, 详情参见[消息ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/intro#ac79c1c2), 示例值: "om_dc13264520392913993dd051dba21dcf"
 }
 
 // CreateMessagePinResp ...

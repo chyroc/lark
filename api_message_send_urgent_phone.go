@@ -21,11 +21,11 @@ import (
 	"context"
 )
 
-// SendUrgentPhoneMessage 对指定消息进行应用内加急与电话加急
+// SendUrgentPhoneMessage 对指定消息进行应用内加急与电话加急。
 //
 // 特别说明:
 // - 通过接口产生的电话加急将消耗企业的加急额度, 请慎重调用
-// - 通过租户管理后台-费用中心-短信/电话加急 可以查看当前额度
+// - 通过[租户管理后台](https://admin.feishu.cn/)-费用中心-短信/电话加急 可以查看当前额度
 // - 默认接口限流为50 QPS, 请谨慎调用
 // 注意事项:
 // - 需要开启[机器人能力](https://open.feishu.cn/document/home/develop-a-bot-in-5-minutes/create-an-app)

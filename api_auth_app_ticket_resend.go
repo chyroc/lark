@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// ResendAppTicket 飞书每隔 1 小时会给应用推送一次最新的 app_ticket, 应用也可以主动调用此接口, 触发飞书进行及时的重新推送。（该接口并不能直接获取app_ticket, 而是触发事件推送）
+// ResendAppTicket 飞书开放平台每隔 1 小时会给应用推送一次最新的 `app_ticket`, 应用也可以主动调用此接口, 触发飞书开放平台进行即时推送。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/ukDNz4SO0MjL5QzM/auth-v3/auth/app_ticket_resend
 func (r *AuthService) ResendAppTicket(ctx context.Context, request *ResendAppTicketReq, options ...MethodOptionFunc) (*ResendAppTicketResp, *Response, error) {
@@ -56,8 +56,8 @@ func (r *Mock) UnMockAuthResendAppTicket() {
 
 // ResendAppTicketReq ...
 type ResendAppTicketReq struct {
-	AppID     string `json:"app_id,omitempty"`     // 应用唯一标识, 创建应用后获得, 示例值: "cli_slkdjalasdkjasd"
-	AppSecret string `json:"app_secret,omitempty"` // 应用秘钥, 创建应用后获得, 示例值: "dskLLdkasdjlasdKK"
+	AppID     string `json:"app_id,omitempty"`     // 应用唯一标识, 创建应用后获得。有关`app_id` 的详细介绍。请参考[通用参数](https://open.feishu.cn/document/ukTMukTMukTM/uYTM5UjL2ETO14iNxkTN/terminology)介绍, 示例值: "cli_slkdjalasdkjasd"
+	AppSecret string `json:"app_secret,omitempty"` // 应用秘钥, 创建应用后获得。有关 `app_secret` 的详细介绍, 请参考[通用参数](https://open.feishu.cn/document/ukTMukTMukTM/uYTM5UjL2ETO14iNxkTN/terminology)介绍, 示例值: "dskLLdkasdjlasdKK"
 }
 
 // ResendAppTicketResp ...

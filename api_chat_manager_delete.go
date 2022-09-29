@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// DeleteChatManager 删除指定的群管理员（用户或机器人）
+// DeleteChatManager 删除指定的群管理员（用户或机器人）。
 //
 // 注意事项:
 // - 应用需要开启[机器人能力](https://open.feishu.cn/document/home/develop-a-bot-in-5-minutes/create-an-app)

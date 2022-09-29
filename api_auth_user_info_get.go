@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// GetUserInfo 通过 user_access_token 获取登录用户的信息。
+// GetUserInfo 通过 `user_access_token` 获取登录用户的信息。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/authen-v1/authen/user_info
 func (r *AuthService) GetUserInfo(ctx context.Context, request *GetUserInfoReq, options ...MethodOptionFunc) (*GetUserInfoResp, *Response, error) {

@@ -21,9 +21,9 @@ import (
 	"context"
 )
 
-// GetEventOutboundIpList 飞书开放平台向应用配置的回调地址推送事件时, 是通过特定的IP发送出去的。如果企业需要做防火墙配置, 那么可以通过这个接口获取到所有相关的IP段。
+// GetEventOutboundIpList 飞书开放平台向应用配置的回调地址推送事件时, 是通过特定的 IP 发送出去的, 应用可以通过本接口获取所有相关的 IP 地址。
 //
-// IP段有变更可能, 建议企业每隔6小时定时拉取IP段更新防火墙设置, 这样因IP变更导致推送失败的事件还可以通过重试解决。
+// IP 地址有变更可能, 建议应用每隔 6 小时定时拉取最新的 IP 地址, 以免由于企业防火墙设置, 导致应用无法及时接收到飞书开放平台推送的事件。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uYDNxYjL2QTM24iN0EjN/event-v1/outbound_ip/list
 func (r *EventService) GetEventOutboundIpList(ctx context.Context, request *GetEventOutboundIpListReq, options ...MethodOptionFunc) (*GetEventOutboundIpListResp, *Response, error) {

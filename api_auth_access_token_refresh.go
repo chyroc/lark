@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// RefreshAccessToken user_access_token 具有一定的时效性, 默认最长有效期为7200秒。该接口用于在 user_access_token 过期时用 refresh_token 重新获取 access_token。此时会返回新的 refresh_token, 再次刷新 access_token 时需要使用新的 refresh_token。
+// RefreshAccessToken `user_access_token` 的最大有效期是 6900 秒。当 `user_access_token` 过期时, 可以调用本接口获取新的 `user_access_token`。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/authen-v1/authen/refresh_access_token
 func (r *AuthService) RefreshAccessToken(ctx context.Context, request *RefreshAccessTokenReq, options ...MethodOptionFunc) (*RefreshAccessTokenResp, *Response, error) {
@@ -57,8 +57,8 @@ func (r *Mock) UnMockAuthRefreshAccessToken() {
 
 // RefreshAccessTokenReq ...
 type RefreshAccessTokenReq struct {
-	GrantType    string `json:"grant_type,omitempty"`    // 授权类型, 本流程中, 此值为: "refresh_token", 示例值: "refresh_token"
-	RefreshToken string `json:"refresh_token,omitempty"` // 来自[获取登录用户身份](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/authen-v1/authen/access_token) 或 本接口返回值, 示例值: "ur-oQ0mMq6MCcueAv0pwx2fQQhxqv__CbLu6G8ySFwafeKww2Def2BJdOkW3.9gCFM.LBQgFri901QaqeuL"
+	GrantType    string `json:"grant_type,omitempty"`    // 授权类型, 固定值: "refresh_token"
+	RefreshToken string `json:"refresh_token,omitempty"` // 刷新 `user_access_token` 需要的凭证, [获取 user_access_token](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/authen-v1/authen/access_token)接口和本接口均返回 `refresh_token`, 请使用最新获取到的, 示例值: "ur-oQ0mMq6MCcueAv0pwx2fQQhxqv__CbLu6G8ySFwafeKww2Def2BJdOkW3.9gCFM.LBQgFri901QaqeuL"
 }
 
 // RefreshAccessTokenResp ...

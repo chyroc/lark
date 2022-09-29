@@ -22,7 +22,7 @@ import (
 	"io"
 )
 
-// DownloadImage 下载图片资源, 只能下载应用自己上传且图片类型为message的图片
+// DownloadImage 下载图片资源, 只能下载当前应用所上传且图片类型为message的图片。
 //
 // 注意事项:
 // - 需要开启[机器人能力](https://open.feishu.cn/document/home/develop-a-bot-in-5-minutes/create-an-app)
@@ -63,7 +63,7 @@ func (r *Mock) UnMockFileDownloadImage() {
 
 // DownloadImageReq ...
 type DownloadImageReq struct {
-	ImageKey string `path:"image_key" json:"-"` // 图片的key, 示例值: "img_8d5181ca-0aed-40f0-b0d1-b1452132afbg"
+	ImageKey string `path:"image_key" json:"-"` // 图片的key, 通过[上传图片](	/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/reference/im-v1/image/create)接口上传图片后获得, 示例值: "img_8d5181ca-0aed-40f0-b0d1-b1452132afbg"
 }
 
 // downloadImageResp ...

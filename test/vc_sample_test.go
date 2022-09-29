@@ -339,6 +339,30 @@ func Test_VC_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
+			cli.Mock().MockVCGetVCReserveConfig(func(ctx context.Context, request *lark.GetVCReserveConfigReq, options ...lark.MethodOptionFunc) (*lark.GetVCReserveConfigResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockVCGetVCReserveConfig()
+
+			_, _, err := moduleCli.GetVCReserveConfig(ctx, &lark.GetVCReserveConfigReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			cli.Mock().MockVCUpdateVCReserveConfig(func(ctx context.Context, request *lark.UpdateVCReserveConfigReq, options ...lark.MethodOptionFunc) (*lark.UpdateVCReserveConfigResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockVCUpdateVCReserveConfig()
+
+			_, _, err := moduleCli.UpdateVCReserveConfig(ctx, &lark.UpdateVCReserveConfigReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
 			cli.Mock().MockVCGetVCAlertList(func(ctx context.Context, request *lark.GetVCAlertListReq, options ...lark.MethodOptionFunc) (*lark.GetVCAlertListResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -553,6 +577,22 @@ func Test_VC_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
+			_, _, err := moduleCli.GetVCReserveConfig(ctx, &lark.GetVCReserveConfigReq{})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.UpdateVCReserveConfig(ctx, &lark.UpdateVCReserveConfigReq{
+				ReserveConfigID: "x",
+			})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+
 			_, _, err := moduleCli.GetVCAlertList(ctx, &lark.GetVCAlertListReq{})
 			as.NotNil(err)
 			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
@@ -759,6 +799,22 @@ func Test_VC_Sample_Failed(t *testing.T) {
 		t.Run("", func(t *testing.T) {
 
 			_, _, err := moduleCli.DownloadVCExportFile(ctx, &lark.DownloadVCExportFileReq{})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.GetVCReserveConfig(ctx, &lark.GetVCReserveConfigReq{})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.UpdateVCReserveConfig(ctx, &lark.UpdateVCReserveConfigReq{
+				ReserveConfigID: "x",
+			})
 			as.NotNil(err)
 			as.Equal("fake raw request", err.Error())
 		})

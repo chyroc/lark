@@ -30,7 +30,7 @@ import (
 // --至少拥有一个批量发送消息权限:
 // --给用户发送需要拥有 给多个用户批量发消息 权限
 // --给部门成员发送需要拥有 给一个或多个部门的成员批量发消息 权限
-// - 应用需要拥有对所发送用户或部门的可见性
+// - 应用需要拥有对所发送用户或部门的[可用性](https://open.feishu.cn/document/home/introduction-to-scope-and-authorization/availability)
 // - 通过该接口发送的消息 不支持更新以及回复等操作
 // - 只能发送给用户, 无法发送给群组
 // - 异步接口, 会有一定延迟, 每个应用待发送的消息按顺序处理, 请合理安排批量发送范围和顺序。发送消息给单个用户的场景请使用[发送消息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/create)接口
@@ -70,10 +70,10 @@ func (r *Mock) UnMockMessageBatchSendOldRawMessage() {
 
 // BatchSendOldRawMessageReq ...
 type BatchSendOldRawMessageReq struct {
-	MsgType       MsgType     `json:"msg_type,omitempty"`       // 消息类型, 支持多种消息类型, 详见下表
-	Content       interface{} `json:"content,omitempty"`        // 消息内容, 支持除卡片消息外的多种消息内容, 详见下表
-	Card          interface{} `json:"card,omitempty"`           // 卡片消息内容, 注意card和content必须二选一
-	DepartmentIDs []string    `json:"department_ids,omitempty"` // 支持[自定义部门ID](https://open.feishu.cn/document/ukTMukTMukTM/uYTM5UjL2ETO14iNxkTN/terminology#3c3e6267)和open_department_id, 列表长度小于等于 200    注: 部门下的所有子部门包含的成员也会收到消息 示例值: ["3dceba33a33226", "d502aaa9514059", "od-5b91c9affb665451a16b90b4be367efa"]
+	MsgType       MsgType     `json:"msg_type,omitempty"`       // 消息类型, 支持多种消息类型, 详见[消息类型及内容示例](	/ssl:ttdoc/ukTMukTMukTM/ucDO1EjL3gTNx4yN4UTM#9e9e6fe7)
+	Content       interface{} `json:"content,omitempty"`        // 消息内容, 支持除卡片消息外的多种消息内容, 详见[消息类型及内容示例](	/ssl:ttdoc/ukTMukTMukTM/ucDO1EjL3gTNx4yN4UTM#9e9e6fe7)
+	Card          interface{} `json:"card,omitempty"`           // 卡片消息内容   注意: card和content字段必须二选一
+	DepartmentIDs []string    `json:"department_ids,omitempty"` // 支持[自定义部门ID](https://open.feishu.cn/document/ukTMukTMukTM/uYTM5UjL2ETO14iNxkTN/terminology#3c3e6267)和open_department_id, 列表长度小于等于 200    注意: 部门下的所有子部门包含的成员也会收到消息  示例值: ["3dceba33a33226", "d502aaa9514059", "od-5b91c9affb665451a16b90b4be367efa"]
 	OpenIDs       []string    `json:"open_ids,omitempty"`       // 用户 open_id 列表, 长度小于等于 200   示例值: ["ou_18eac85d35a26f989317ad4f02e8bbbb", "ou_461cf042d9eedaa60d445f26dc747d5e"]
 	UserIDs       []string    `json:"user_ids,omitempty"`       // 用户 user_id 列表, 长度小于等于 200 （对应 V3 接口的 employee_ids ）  示例值: ["7cdcc7c2", "ca51d83b"]
 	UnionIDs      []string    `json:"union_ids,omitempty"`      // 用户 union_ids 列表, 长度小于等于 200   示例值: ["on_cad4860e7af114fb4ff6c5d496d1dd76", "on_gdcq860e7af114fb4ff6c5d496dabcet"]
@@ -81,7 +81,7 @@ type BatchSendOldRawMessageReq struct {
 
 // BatchSendOldRawMessageResp ...
 type BatchSendOldRawMessageResp struct {
-	MessageID            string   `json:"message_id,omitempty"`             // 消息 ID
+	MessageID            string   `json:"message_id,omitempty"`             // 批量消息 ID
 	InvalidDepartmentIDs []string `json:"invalid_department_ids,omitempty"` // 不合法的部门 ID 列表
 	InvalidOpenIDs       []string `json:"invalid_open_ids,omitempty"`       // 不合法的 open_id 列表
 	InvalidUserIDs       []string `json:"invalid_user_ids,omitempty"`       // 不合法的 user_id 列表（对应V3接口的invalid_employee_ids）

@@ -21,12 +21,14 @@ import (
 	"context"
 )
 
-// DeleteMessagePin 移除一条指定消息的Pin
+// DeleteMessagePin 移除一条指定消息的Pin。
 //
 // 注意事项:
 // - 需要开启[机器人能力](https://open.feishu.cn/document/home/develop-a-bot-in-5-minutes/create-an-app)
 // - 移除Pin消息时, 机器人必须在对应的群组中
 // - 若消息未被Pin或已被撤回, 返回成功信息
+// - 不能移除一条对操作者不可见的Pin消息
+// - 对同一条消息移除Pin的操作不能超过[5 QPS]
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/pin/delete
 func (r *MessageService) DeleteMessagePin(ctx context.Context, request *DeleteMessagePinReq, options ...MethodOptionFunc) (*DeleteMessagePinResp, *Response, error) {
@@ -63,7 +65,7 @@ func (r *Mock) UnMockMessageDeleteMessagePin() {
 
 // DeleteMessagePinReq ...
 type DeleteMessagePinReq struct {
-	MessageID string `path:"message_id" json:"-"` // 待移除Pin的消息ID, 示例值: "om_dc13264520392913993dd051dba21dcf"
+	MessageID string `path:"message_id" json:"-"` // 待移除Pin的消息ID, 详情参见[消息ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/intro#ac79c1c2), 示例值: "om_dc13264520392913993dd051dba21dcf"
 }
 
 // DeleteMessagePinResp ...

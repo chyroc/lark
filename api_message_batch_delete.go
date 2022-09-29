@@ -21,11 +21,11 @@ import (
 	"context"
 )
 
-// BatchDeleteMessage 批量撤回消息
+// BatchDeleteMessage 批量撤回通过[批量发送消息](https://open.feishu.cn/document/ukTMukTMukTM/ucDO1EjL3gTNx4yN4UTM)接口发送的消息。
 //
 // 注意事项:
-// - 只能撤回通过[批量发送消息](https://open.feishu.cn/document/ukTMukTMukTM/ucDO1EjL3gTNx4yN4UTM)接口产生的消息, 单条消息的撤回请使用[撤回消息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/delete)接口
-// - 路径参数batch_message_id为[批量发送消息](https://open.feishu.cn/document/ukTMukTMukTM/ucDO1EjL3gTNx4yN4UTM)接口返回值中的message_id字段, 用于标识一次批量发送消息请求, 格式为: bm-xxx
+// - 撤回单条发送的消息请使用[撤回消息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/delete)接口
+// - 不支持撤回发出时间超过1天的消息
 // - 一次调用涉及大量消息, 所以为异步接口, 会有一定延迟。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/batch_message/delete
@@ -62,7 +62,7 @@ func (r *Mock) UnMockMessageBatchDeleteMessage() {
 
 // BatchDeleteMessageReq ...
 type BatchDeleteMessageReq struct {
-	BatchMessageID string `path:"batch_message_id" json:"-"` // 待撤回的批量消息的ID, 示例值: "bm-dc13264520392913993dd051dba21dcf"
+	BatchMessageID string `path:"batch_message_id" json:"-"` // 待撤回的批量消息的ID, 为[批量发送消息](https://open.feishu.cn/document/ukTMukTMukTM/ucDO1EjL3gTNx4yN4UTM)接口返回值中的`message_id`字段, 用于标识一次批量发送消息请求, 示例值: "bm-dc13264520392913993dd051dba21dcf"
 }
 
 // BatchDeleteMessageResp ...

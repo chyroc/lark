@@ -52,6 +52,7 @@ type Mock struct {
 	mockAdminGetAdminBadgeGrantList                            func(ctx context.Context, request *GetAdminBadgeGrantListReq, options ...MethodOptionFunc) (*GetAdminBadgeGrantListResp, *Response, error)
 	mockAdminGetAdminBadgeGrant                                func(ctx context.Context, request *GetAdminBadgeGrantReq, options ...MethodOptionFunc) (*GetAdminBadgeGrantResp, *Response, error)
 	mockAdminDeleteAdminBadgeGrant                             func(ctx context.Context, request *DeleteAdminBadgeGrantReq, options ...MethodOptionFunc) (*DeleteAdminBadgeGrantResp, *Response, error)
+	mockApplicationGetApplicationRecommendRuleList             func(ctx context.Context, request *GetApplicationRecommendRuleListReq, options ...MethodOptionFunc) (*GetApplicationRecommendRuleListResp, *Response, error)
 	mockApplicationIsApplicationUserAdmin                      func(ctx context.Context, request *IsApplicationUserAdminReq, options ...MethodOptionFunc) (*IsApplicationUserAdminResp, *Response, error)
 	mockApplicationGetApplicationUserAdminScope                func(ctx context.Context, request *GetApplicationUserAdminScopeReq, options ...MethodOptionFunc) (*GetApplicationUserAdminScopeResp, *Response, error)
 	mockApplicationGetApplicationAppVisibility                 func(ctx context.Context, request *GetApplicationAppVisibilityReq, options ...MethodOptionFunc) (*GetApplicationAppVisibilityResp, *Response, error)
@@ -666,6 +667,8 @@ type Mock struct {
 	mockVCExportVCParticipantQualityList                       func(ctx context.Context, request *ExportVCParticipantQualityListReq, options ...MethodOptionFunc) (*ExportVCParticipantQualityListResp, *Response, error)
 	mockVCGetVCExportTask                                      func(ctx context.Context, request *GetVCExportTaskReq, options ...MethodOptionFunc) (*GetVCExportTaskResp, *Response, error)
 	mockVCDownloadVCExportFile                                 func(ctx context.Context, request *DownloadVCExportFileReq, options ...MethodOptionFunc) (*DownloadVCExportFileResp, *Response, error)
+	mockVCGetVCReserveConfig                                   func(ctx context.Context, request *GetVCReserveConfigReq, options ...MethodOptionFunc) (*GetVCReserveConfigResp, *Response, error)
+	mockVCUpdateVCReserveConfig                                func(ctx context.Context, request *UpdateVCReserveConfigReq, options ...MethodOptionFunc) (*UpdateVCReserveConfigResp, *Response, error)
 	mockVCGetVCAlertList                                       func(ctx context.Context, request *GetVCAlertListReq, options ...MethodOptionFunc) (*GetVCAlertListResp, *Response, error)
 }
 

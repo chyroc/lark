@@ -21,11 +21,12 @@ import (
 	"context"
 )
 
-// GetDriveMemberPermissionList 该接口用于根据 filetoken 查询协作者, 目前包括人("user")和群("chat") 。
+// GetDriveMemberPermissionList 该接口用于根据 filetoken 查询协作者
 //
-// 你能获取到协作者列表的前提是你对该文档有分享权限
+// - 你能获取到协作者列表的前提是你对该文档有分享权限
+// - 目前仅支持人、群、组织架构三种类型的协作者
 //
-// doc: https://open.feishu.cn/document/ukTMukTMukTM/uATN3UjLwUzN14CM1cTN
+// doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/permission-member/list
 func (r *DriveService) GetDriveMemberPermissionList(ctx context.Context, request *GetDriveMemberPermissionListReq, options ...MethodOptionFunc) (*GetDriveMemberPermissionListResp, *Response, error) {
 	if r.cli.mock.mockDriveGetDriveMemberPermissionList != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Drive#GetDriveMemberPermissionList mock enable")
@@ -35,8 +36,8 @@ func (r *DriveService) GetDriveMemberPermissionList(ctx context.Context, request
 	req := &RawRequestReq{
 		Scope:                 "Drive",
 		API:                   "GetDriveMemberPermissionList",
-		Method:                "POST",
-		URL:                   r.cli.openBaseURL + "/open-apis/drive/permission/member/list",
+		Method:                "GET",
+		URL:                   r.cli.openBaseURL + "/open-apis/drive/v1/permissions/:token/members",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
@@ -60,26 +61,30 @@ func (r *Mock) UnMockDriveGetDriveMemberPermissionList() {
 
 // GetDriveMemberPermissionListReq ...
 type GetDriveMemberPermissionListReq struct {
-	Token string `json:"token,omitempty"` // 文件的 token, 获取方式见 [如何获取云文档资源相关 token](https://open.feishu.cn/document/ukTMukTMukTM/uczNzUjL3czM14yN3MTN#08bb5df6)
-	Type  string `json:"type,omitempty"`  // 文档类型, 可选 doc、docx、sheet、bitable、file
+	Token  string  `path:"token" json:"-"`   // 文件的 token, 获取方式见 [如何获取云文档资源相关 token](https://open.feishu.cn/document/ukTMukTMukTM/uczNzUjL3czM14yN3MTN#08bb5df6), 示例值: "doccnBKgoMyY5OMbUG6FioTXuBe"
+	Type   string  `query:"type" json:"-"`   // 文件类型, 需要与文件的 token 相匹配, 示例值: "doc", 可选值有: doc: 文档, sheet: 电子表格, file: 云空间文件, wiki: 知识库节点, bitable: 多维表格, docx: 新版文档, mindnote: 思维笔记
+	Fields *string `query:"fields" json:"-"` // 指定返回的协作者字段信息, 如无指定则默认不返回, 可选值有: `name`: 协作者名, `type`: 协作者类型, `avatar`: 头像, `external_label`: 外部标签, 注意: 你可以使用特殊值`*`指定返回目前支持的所有字段, 你可以使用`, `分隔若干个你想指定返回的字段, 如: `name, avatar`, 按需指定返回字段接口性能更好, 示例值: "*"
 }
 
 // GetDriveMemberPermissionListResp ...
 type GetDriveMemberPermissionListResp struct {
-	Members []*GetDriveMemberPermissionListRespMember `json:"members,omitempty"` // 协作者列表
+	Items []*GetDriveMemberPermissionListRespItem `json:"items,omitempty"` // 返回的列表数据
 }
 
-// GetDriveMemberPermissionListRespMember ...
-type GetDriveMemberPermissionListRespMember struct {
-	MemberType   string `json:"member_type,omitempty"`    // 协作者类型 "user" or "chat"
-	MemberOpenID string `json:"member_open_id,omitempty"` // 协作者openid
-	MemberUserID string `json:"member_user_id,omitempty"` // 协作者userid(仅当member_type="user"时有效)
-	Perm         string `json:"perm,omitempty"`           // 协作者权限 (注意: 有"edit"权限的协作者一定有"view"权限)
+// GetDriveMemberPermissionListRespItem ...
+type GetDriveMemberPermissionListRespItem struct {
+	MemberType    string `json:"member_type,omitempty"`    // 协作者 ID 类型, 与协作者 ID 需要对应, 可选值有: email: 飞书邮箱, openid: [开放平台ID](https://open.feishu.cn/document/home/user-identity-introduction/how-to-get), openchat: [开放平台群组ID](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-id-description), opendepartmentid: [开放平台部门ID](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/field-overview), userid: [用户自定义ID](https://open.feishu.cn/document/home/user-identity-introduction/how-to-get)
+	MemberID      string `json:"member_id,omitempty"`      // 协作者 ID, 与协作者 ID 类型需要对应
+	Perm          string `json:"perm,omitempty"`           // 协作者对应的权限角色, 可选值有: view: 可阅读角色, edit: 可编辑角色, full_access: 可管理角色
+	Type          string `json:"type,omitempty"`           // 协作者的类型, 可选值有: user: 用户, chat: 群组, department: 组织架构
+	Name          string `json:"name,omitempty"`           // 协作者的名字, 字段权限要求（满足任一）: 以应用身份读取通讯录, 获取用户基本信息, 以应用身份访问通讯录, 读取通讯录
+	Avatar        string `json:"avatar,omitempty"`         // 协作者的头像, 字段权限要求（满足任一）: 以应用身份读取通讯录, 获取用户基本信息, 以应用身份访问通讯录, 读取通讯录
+	ExternalLabel bool   `json:"external_label,omitempty"` // 协作者的外部标签
 }
 
 // getDriveMemberPermissionListResp ...
 type getDriveMemberPermissionListResp struct {
-	Code int64                             `json:"code,omitempty"`
-	Msg  string                            `json:"msg,omitempty"`
+	Code int64                             `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg  string                            `json:"msg,omitempty"`  // 错误描述
 	Data *GetDriveMemberPermissionListResp `json:"data,omitempty"`
 }

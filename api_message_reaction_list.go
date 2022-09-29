@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// GetMessageReactionList 获取指定消息的特定类型表情回复列表（reaction即表情回复, 本说明文档统一用“reaction”代称）。
+// GetMessageReactionList 获取指定消息的特定类型表情回复列表（reaction即表情回复, 本文档统一用“reaction”代称）。
 //
 // 注意事项:
 // - 需要开启[机器人能力](https://open.feishu.cn/document/home/develop-a-bot-in-5-minutes/create-an-app)
@@ -63,8 +63,8 @@ func (r *Mock) UnMockMessageGetMessageReactionList() {
 
 // GetMessageReactionListReq ...
 type GetMessageReactionListReq struct {
-	MessageID    string  `path:"message_id" json:"-"`     // 待获取reaction的消息ID, 示例值: "om_8964d1b4*2b31383276113"
-	ReactionType *string `query:"reaction_type" json:"-"` // 待查询消息reaction的类型[emoji类型列举](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message-reaction/emojis-introduce), 不传入该参数, 表示拉取所有类型reaction, 示例值: "LAUGH"
+	MessageID    string  `path:"message_id" json:"-"`     // 待获取reaction的消息ID, 详情参见[消息ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/intro#ac79c1c2), 示例值: "om_8964d1b4*2b31383276113"
+	ReactionType *string `query:"reaction_type" json:"-"` // 待查询消息reaction的类型[emoji类型列举](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message-reaction/emojis-introduce), 注意: 不传入该参数, 表示拉取所有类型reaction, 示例值: "LAUGH"
 	PageToken    *string `query:"page_token" json:"-"`    // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果, 示例值: "YhljsPiGfUgnVAg9urvRFd-BvSqRL20wMZNAWfa9xXkud6UKCybPuUgQ1vM26dj6"
 	PageSize     *int64  `query:"page_size" json:"-"`     // 分页大小, 示例值: 10, 最大值: `50`
 	UserIDType   *IDType `query:"user_id_type" json:"-"`  // 用户 ID 类型, 示例值: "open_id", 可选值有: open_id: 用户的 open id, union_id: 用户的 union id, user_id: 用户的 user id, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
