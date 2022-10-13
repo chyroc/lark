@@ -213,11 +213,11 @@ type DocxBlocQuoteContainer struct{}
 
 // DocxBlockOKR OKR 信息
 type DocxBlockOKR struct {
-	OKRId               string                      `json:"okr_id,omitempty"`                // OKR ID
+	OKRID               string                      `json:"okr_id,omitempty"`                // OKR ID
 	PeriodDisplayStatus *DocxOKRPeriodDisplayStatus `json:"period_display_status,omitempty"` // 周期的状态
 	PeriodNameEn        string                      `json:"period_name_en,omitempty"`        // 周期名 - 英文
 	PeriodNameZh        string                      `json:"period_name_zh,omitempty"`        // 周期名 - 中文
-	UserId              string                      `json:"user_id,omitempty"`               // OKR 所属的用户 ID
+	UserID              string                      `json:"user_id,omitempty"`               // OKR 所属的用户 ID
 	VisibleSetting      *DocxOKRVisibleSetting      `json:"visible_setting,omitempty"`       // 可见性设置
 }
 
@@ -225,7 +225,7 @@ type DocxBlockOKR struct {
 type DocxBlockOKRObjective struct {
 	Confidential bool                 `json:"confidential,omitempty"`  // 是否在 OKR 平台设置了私密权限
 	Content      *DocxBlockText       `json:"content,omitempty"`       // Objective 的文本内容
-	ObjectiveId  string               `json:"objective_id,omitempty"`  // OKR Objective ID
+	ObjectiveID  string               `json:"objective_id,omitempty"`  // OKR Objective ID
 	Position     int64                `json:"position,omitempty"`      // Objective 的位置编号，对应 Block 中 O1、O2 的 1、2
 	ProgressRate *DocxOKRProgressRate `json:"progress_rate,omitempty"` // 进展信息
 	Score        int64                `json:"score,omitempty"`         // 打分信息
@@ -237,7 +237,7 @@ type DocxBlockOKRObjective struct {
 type DocxBlockOKRKeyResult struct {
 	Confidential bool                 `json:"confidential,omitempty"`  // 是否在 OKR 平台设置了私密权限
 	Content      *DocxBlockText       `json:"content,omitempty"`       // Key Result 的文本内容
-	KeyResultId  string               `json:"kr_id,omitempty"`         // OKR Key Result ID
+	KeyResultID  string               `json:"kr_id,omitempty"`         // OKR Key Result ID
 	Position     int64                `json:"position,omitempty"`      // Key Result 的位置编号，对应 Block 中 KR1、KR2 的 1、2
 	ProgressRate *DocxOKRProgressRate `json:"progress_rate,omitempty"` // 进展信息
 	Score        int64                `json:"score,omitempty"`         // 打分信息
