@@ -213,36 +213,36 @@ type DocxBlocQuoteContainer struct{}
 
 // DocxBlockOKR OKR 信息
 type DocxBlockOKR struct {
-	OKRId               string                      `json:"okr_id,omitempty"`
-	PeriodDisplayStatus *DocxOKRPeriodDisplayStatus `json:"period_display_status,omitempty"`
-	PeriodNameEn        string                      `json:"period_name_en,omitempty"`
-	PeriodNameZh        string                      `json:"period_name_zh,omitempty"`
-	UserId              string                      `json:"user_id,omitempty"`
-	VisibleSetting      *DocxOKRVisibleSetting      `json:"visible_setting,omitempty"`
+	OKRId               string                      `json:"okr_id,omitempty"`                // OKR ID
+	PeriodDisplayStatus *DocxOKRPeriodDisplayStatus `json:"period_display_status,omitempty"` // 周期的状态
+	PeriodNameEn        string                      `json:"period_name_en,omitempty"`        // 周期名 - 英文
+	PeriodNameZh        string                      `json:"period_name_zh,omitempty"`        // 周期名 - 中文
+	UserId              string                      `json:"user_id,omitempty"`               // OKR 所属的用户 ID
+	VisibleSetting      *DocxOKRVisibleSetting      `json:"visible_setting,omitempty"`       // 可见性设置
 }
 
 // DocxBlockOKRObjective OKR Objective 信息
 type DocxBlockOKRObjective struct {
-	Confidential bool                 `json:"confidential,omitempty"`
-	Content      *DocxBlockText       `json:"content,omitempty"`
-	ObjectiveId  string               `json:"objective_id,omitempty"`
-	Position     int64                `json:"position,omitempty"`
-	ProgressRate *DocxOKRProgressRate `json:"progress_rate,omitempty"`
-	Score        int64                `json:"score,omitempty"`
-	Visible      bool                 `json:"visible,omitempty"`
-	Weight       int64                `json:"weight,omitempty"`
+	Confidential bool                 `json:"confidential,omitempty"`  // 是否在 OKR 平台设置了私密权限
+	Content      *DocxBlockText       `json:"content,omitempty"`       // Objective 的文本内容
+	ObjectiveId  string               `json:"objective_id,omitempty"`  // OKR Objective ID
+	Position     int64                `json:"position,omitempty"`      // Objective 的位置编号，对应 Block 中 O1、O2 的 1、2
+	ProgressRate *DocxOKRProgressRate `json:"progress_rate,omitempty"` // 进展信息
+	Score        int64                `json:"score,omitempty"`         // 打分信息
+	Visible      bool                 `json:"visible,omitempty"`       // OKR Block 中是否展示该 Objective
+	Weight       int64                `json:"weight,omitempty"`        // Objective 的权重
 }
 
 // DocxBlockOKRKeyResult OKR KR 信息
 type DocxBlockOKRKeyResult struct {
-	Confidential bool                 `json:"confidential,omitempty"`
-	Content      *DocxBlockText       `json:"content,omitempty"`
-	KrId         string               `json:"kr_id,omitempty"`
-	Position     int64                `json:"position,omitempty"`
-	ProgressRate *DocxOKRProgressRate `json:"progress_rate,omitempty"`
-	Score        int64                `json:"score,omitempty"`
-	Visible      bool                 `json:"visible,omitempty"`
-	Weight       float32              `json:"weight,omitempty"`
+	Confidential bool                 `json:"confidential,omitempty"`  // 是否在 OKR 平台设置了私密权限
+	Content      *DocxBlockText       `json:"content,omitempty"`       // Key Result 的文本内容
+	KeyResultId  string               `json:"kr_id,omitempty"`         // OKR Key Result ID
+	Position     int64                `json:"position,omitempty"`      // Key Result 的位置编号，对应 Block 中 KR1、KR2 的 1、2
+	ProgressRate *DocxOKRProgressRate `json:"progress_rate,omitempty"` // 进展信息
+	Score        int64                `json:"score,omitempty"`         // 打分信息
+	Visible      bool                 `json:"visible,omitempty"`       // OKR Block 中是否展示该 Key Result
+	Weight       float32              `json:"weight,omitempty"`        // Key Result 的权重
 }
 
 // DocxBlockText 文本 Block，其有多种 type。
@@ -618,7 +618,7 @@ const (
 	DocxCodeLanguageYAML         DocxCodeLanguage = 67 // YAML
 )
 
-// DocxOKRPeriodDisplayStatus OKR周期的状态
+// DocxOKRPeriodDisplayStatus OKR 周期的状态
 type DocxOKRPeriodDisplayStatus string
 
 const (
