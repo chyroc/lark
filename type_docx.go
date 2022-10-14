@@ -214,7 +214,7 @@ type DocxBlocQuoteContainer struct{}
 // DocxBlockOKR OKR 信息
 type DocxBlockOKR struct {
 	OKRID               string                      `json:"okr_id,omitempty"`                // OKR ID
-	PeriodDisplayStatus *DocxOKRPeriodDisplayStatus `json:"period_display_status,omitempty"` // 周期的状态
+	PeriodDisplayStatus DocxOKRPeriodDisplayStatus `json:"period_display_status,omitempty"` // 周期的状态
 	PeriodNameEn        string                      `json:"period_name_en,omitempty"`        // 周期名 - 英文
 	PeriodNameZh        string                      `json:"period_name_zh,omitempty"`        // 周期名 - 中文
 	UserID              string                      `json:"user_id,omitempty"`               // OKR 所属的用户 ID
