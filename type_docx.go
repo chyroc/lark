@@ -64,6 +64,9 @@ type DocxBlock struct {
 	Table          *DocxBlockTable         `json:"table,omitempty"`           // 表格 Block
 	TableCell      *DocxBlockTableCell     `json:"table_cell,omitempty"`      // 单元格 Block
 	View           *DocxBlockView          `json:"view,omitempty"`            // 视图 Block
+	OKR            *DocxBlockOKR           `json:"okr,omitempty"`             // OKR Block
+	OKRObjective   *DocxBlockOKRObjective  `json:"okr_objective,omitempty"`   // OKR Objective Block
+	OKRKeyResult   *DocxBlockOKRKeyResult  `json:"okr_key_result,omitempty"`  // OKR KR Block
 	Undefined      *DocxBlocUndefined      `json:"undefined,omitempty"`       // 未支持 Block
 	QuoteContainer *DocxBlocQuoteContainer `json:"quote_container,omitempty"` // 引用容器 Block
 }
@@ -197,7 +200,7 @@ type DocxBlockTablePropertyMergeInfo struct {
 // DocxBlockTableCell 单元格 Block
 type DocxBlockTableCell struct{}
 
-// DocxBlockTableCell 视图 Block
+// DocxBlockView 视图 Block
 type DocxBlockView struct {
 	ViewType DocxViewType `json:"view_type,omitempty"` // 视图类型, 可选值有：1：卡片视图, 2：预览视图, 3：内联试图
 }
@@ -207,6 +210,40 @@ type DocxBlocUndefined struct{}
 
 // DocxBlocQuoteContainer 引用容器 Block
 type DocxBlocQuoteContainer struct{}
+
+// DocxBlockOKR OKR 信息
+type DocxBlockOKR struct {
+	OKRID               string                      `json:"okr_id,omitempty"`                // OKR ID
+	PeriodDisplayStatus DocxOKRPeriodDisplayStatus `json:"period_display_status,omitempty"` // 周期的状态
+	PeriodNameEn        string                      `json:"period_name_en,omitempty"`        // 周期名 - 英文
+	PeriodNameZh        string                      `json:"period_name_zh,omitempty"`        // 周期名 - 中文
+	UserID              string                      `json:"user_id,omitempty"`               // OKR 所属的用户 ID
+	VisibleSetting      *DocxOKRVisibleSetting      `json:"visible_setting,omitempty"`       // 可见性设置
+}
+
+// DocxBlockOKRObjective OKR Objective 信息
+type DocxBlockOKRObjective struct {
+	Confidential bool                 `json:"confidential,omitempty"`  // 是否在 OKR 平台设置了私密权限
+	Content      *DocxBlockText       `json:"content,omitempty"`       // Objective 的文本内容
+	ObjectiveID  string               `json:"objective_id,omitempty"`  // OKR Objective ID
+	Position     int64                `json:"position,omitempty"`      // Objective 的位置编号，对应 Block 中 O1、O2 的 1、2
+	ProgressRate *DocxOKRProgressRate `json:"progress_rate,omitempty"` // 进展信息
+	Score        int64                `json:"score,omitempty"`         // 打分信息
+	Visible      bool                 `json:"visible,omitempty"`       // OKR Block 中是否展示该 Objective
+	Weight       int64                `json:"weight,omitempty"`        // Objective 的权重
+}
+
+// DocxBlockOKRKeyResult OKR KR 信息
+type DocxBlockOKRKeyResult struct {
+	Confidential bool                 `json:"confidential,omitempty"`  // 是否在 OKR 平台设置了私密权限
+	Content      *DocxBlockText       `json:"content,omitempty"`       // Key Result 的文本内容
+	KeyResultID  string               `json:"kr_id,omitempty"`         // OKR Key Result ID
+	Position     int64                `json:"position,omitempty"`      // Key Result 的位置编号，对应 Block 中 KR1、KR2 的 1、2
+	ProgressRate *DocxOKRProgressRate `json:"progress_rate,omitempty"` // 进展信息
+	Score        int64                `json:"score,omitempty"`         // 打分信息
+	Visible      bool                 `json:"visible,omitempty"`       // OKR Block 中是否展示该 Key Result
+	Weight       float32              `json:"weight,omitempty"`        // Key Result 的权重
+}
 
 // DocxBlockText 文本 Block，其有多种 type。
 type DocxBlockText struct {
@@ -297,6 +334,24 @@ type DocxTextElementEquation struct {
 	Content string `json:"content,omitempty"` // 符合 KaTeX 语法的公式内容。语法规则请参考：https://katex.org/docs/supported.html
 }
 
+// DocxOKRVisibleSetting OKR 可见设置
+type DocxOKRVisibleSetting struct {
+	ProgressFillAreaVisible bool `json:"progress_fill_area_visible,omitempty"`
+	ProgressStatusVisible   bool `json:"progress_status_visible,omitempty"`
+	ScoreVisible            bool `json:"score_visible,omitempty"`
+}
+
+// DocxOKRProgressRate OKR 进度
+type DocxOKRProgressRate struct {
+	Current        int64                     `json:"current,omitempty"`
+	Mode           DocxOKRProgressRateMode   `json:"mode,omitempty"`
+	Percent        int64                     `json:"percent,omitempty"`
+	ProgressStatus DocxOKRProgressStatus     `json:"progress_status,omitempty"`
+	Start          int64                     `json:"start,omitempty"`
+	StatusType     DocxOKRProgressStatusType `json:"status_type,omitempty"`
+	Target         int64                     `json:"target,omitempty"`
+}
+
 // 枚举类型
 
 // DocxBlockType ...
@@ -337,6 +392,11 @@ const (
 	DocxBlockTypeTableCell      DocxBlockType = 32  // 单元格 Block
 	DocxBlockTypeView           DocxBlockType = 33  // 视图 Block
 	DocxBlockTypeQuoteContainer DocxBlockType = 34  // 引用容器 Block
+	DocxBlockTypeTask           DocxBlockType = 35  // 任务容器 Block
+	DocxBlockTypeOKR            DocxBlockType = 36  // OKR容器 Block
+	DocxBlockTypeOKRObjective   DocxBlockType = 37  // OKR Objective容器 Block
+	DocxBlockTypeOKRKeyResult   DocxBlockType = 38  // OKR KeyResult容器 Block
+	DocxBlockTypeProgress       DocxBlockType = 39  // Progress容器 Block
 	DocxBlockTypeUndefined      DocxBlockType = 999 // 未支持 Block
 )
 
@@ -556,4 +616,40 @@ const (
 	DocxCodeLanguageVisual       DocxCodeLanguage = 65 // Visual
 	DocxCodeLanguageXML          DocxCodeLanguage = 66 // XML
 	DocxCodeLanguageYAML         DocxCodeLanguage = 67 // YAML
+)
+
+// DocxOKRPeriodDisplayStatus OKR 周期的状态
+type DocxOKRPeriodDisplayStatus string
+
+const (
+	DocxOKRPeriodDisplayStatusDefault DocxOKRPeriodDisplayStatus = "default" // 默认
+	DocxOKRPeriodDisplayStatusNormal  DocxOKRPeriodDisplayStatus = "normal"  // 正常
+	DocxOKRPeriodDisplayStatusInvalid DocxOKRPeriodDisplayStatus = "invalid" // 失效
+	DocxOKRPeriodDisplayStatusHidden  DocxOKRPeriodDisplayStatus = "hidden"  // 隐藏
+)
+
+// DocxOKRProgressRateMode OKR 进展状态模式
+type DocxOKRProgressRateMode string
+
+const (
+	DocxOKRProgressRateModeSimple   DocxOKRProgressRateMode = "simple"   // 简单模式
+	DocxOKRProgressRateModeAdvanced DocxOKRProgressRateMode = "advanced" // 高级模式
+)
+
+// DocxOKRProgressStatus OKR 进展状态
+type DocxOKRProgressStatus string
+
+const (
+	DocxOKRProgressStatusUnset    DocxOKRProgressStatus = "unset"    // 未设置
+	DocxOKRProgressStatusNormal   DocxOKRProgressStatus = "normal"   // 正常
+	DocxOKRProgressStatusRisk     DocxOKRProgressStatus = "risk"     // 有风险
+	DocxOKRProgressStatusExtended DocxOKRProgressStatus = "extended" // 已延期
+)
+
+// DocxOKRProgressStatusType OKR 进展所展示的状态计算类型
+type DocxOKRProgressStatusType string
+
+const (
+	DocxOKRProgressStatusTypeDefault DocxOKRProgressStatusType = "default" // 以风险最高的 Key Result 状态展示
+	DocxOKRProgressStatusTypeCustom  DocxOKRProgressStatusType = "custom"  // 自定义
 )
