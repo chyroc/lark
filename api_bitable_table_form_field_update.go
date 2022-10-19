@@ -68,7 +68,7 @@ type UpdateBitableTableFormFieldReq struct {
 	Title       *string `json:"title,omitempty"`        // 表单问题, 示例值: "多行文本"
 	Description *string `json:"description,omitempty"`  // 问题描述, 示例值: "多行文本描述"
 	Required    *bool   `json:"required,omitempty"`     // 是否必填, 示例值: true
-	Visible     *bool   `json:"visible,omitempty"`      // 是否可见, 示例值: true
+	Visible     *bool   `json:"visible,omitempty"`      // 是否可见, 当值为 false 时, 不允许更新其他字段, 示例值: true
 }
 
 // UpdateBitableTableFormFieldResp ...
@@ -82,7 +82,7 @@ type UpdateBitableTableFormFieldRespField struct {
 	Title       string `json:"title,omitempty"`        // 表单问题
 	Description string `json:"description,omitempty"`  // 问题描述
 	Required    bool   `json:"required,omitempty"`     // 是否必填
-	Visible     bool   `json:"visible,omitempty"`      // 是否可见
+	Visible     bool   `json:"visible,omitempty"`      // 是否可见, 当值为 false 时, 不允许更新其他字段。
 }
 
 // updateBitableTableFormFieldResp ...

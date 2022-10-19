@@ -21,10 +21,10 @@ import (
 	"context"
 )
 
-// GetDepartment 该接口用于向通讯录获取单个部门信息。[常见问题答疑](https://open.feishu.cn/document/ugTN1YjL4UTN24CO1UjN/uQzN1YjL0cTN24CN3UjN)。
+// GetDepartment 该接口用于向通讯录获取单个部门信息。
 //
-// 使用tenant_access_token时, 应用需要拥有待查询部门的通讯录授权。如果需要获取根部门信息, 则需要拥有全员权限。
-// 使用user_access_token时, 用户需要有待查询部门的可见性, 如果需要获取根部门信息, 则要求员工可见所有人。
+// - 使用`tenant_access_token`时, 应用需要拥有待查询部门的通讯录授权。如果需要获取根部门信息, 则需要拥有全员权限。
+// - 使用`user_access_token`时, 用户需要有待查询部门的可见性, 如果需要获取根部门信息, 则要求员工可见所有人。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/get
 func (r *ContactService) GetDepartment(ctx context.Context, request *GetDepartmentReq, options ...MethodOptionFunc) (*GetDepartmentResp, *Response, error) {

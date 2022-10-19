@@ -21,12 +21,12 @@ import (
 	"context"
 )
 
-// GetDepartmentList 通过部门ID获取部门的子部门列表。[常见问题答疑](https://open.feishu.cn/document/ugTN1YjL4UTN24CO1UjN/uQzN1YjL0cTN24CN3UjN)。
+// GetDepartmentList 通过部门ID获取部门的子部门列表。
 //
-// 部门ID 必填, 根部门的部门ID 为0
-// - 使用 user_access_token 时, 返回该用户组织架构可见性范围（[登陆企业管理后台进行权限配置](https://www.feishu.cn/admin/security/permission/visibility)）内的所有可见部门。当进行递归查询时, 最多1000个部门对该用户可见。
+// - 部门ID 必填, 根部门的部门ID 为0。
+// - 使用 `user_access_token` 时, 返回该用户组织架构可见性范围（[登陆企业管理后台进行权限配置](https://www.feishu.cn/admin/security/permission/visibility)）内的所有可见部门。当进行递归查询时, 最多1000个部门对该用户可见。
 // - 使用
-// tenant_access_token 则基于应用的通讯录权限范围进行权限校验与过滤。
+// `tenant_access_token` 则基于应用的通讯录权限范围进行权限校验与过滤。
 // 如果部门ID为0, 会检验应用是否有全员通讯录权限, 如果是非0 部门ID, 则会校验应用是否有该部门的通讯录权限。无部门权限返回无部门通讯录权限错误码, 有权限则返回部门下子部门列表（根据fetch_child决定是否递归）。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/children

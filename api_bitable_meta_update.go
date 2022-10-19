@@ -64,7 +64,7 @@ func (r *Mock) UnMockBitableUpdateBitableMeta() {
 type UpdateBitableMetaReq struct {
 	AppToken   string  `path:"app_token" json:"-"`    // bitable app token, 示例值: "appbcbWCzen6D8dezhoCH2RpMAh"
 	Name       *string `json:"name,omitempty"`        // 新的多维表格名字, 示例值: "新的多维表格名字"
-	IsAdvanced *bool   `json:"is_advanced,omitempty"` // 多维表格是否开启高级权限, 示例值: false
+	IsAdvanced *bool   `json:"is_advanced,omitempty"` // 多维表格是否开启高级权限, 示例值: true
 }
 
 // UpdateBitableMetaResp ...

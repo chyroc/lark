@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// UpdateDepartment 该接口用于更新当前部门所有信息。[常见问题答疑](https://open.feishu.cn/document/ugTN1YjL4UTN24CO1UjN/uQzN1YjL0cTN24CN3UjN)。
+// UpdateDepartment 该接口用于更新当前部门所有信息。
 //
 // - 调用该接口需要具有该部门以及更新操作涉及的部门的通讯录权限。应用商店应用无权限调用此接口。
 // - 没有填写的字段会被置为空值（order字段除外）。

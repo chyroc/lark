@@ -62,7 +62,7 @@ func (r *Mock) UnMockBitableGetBitableTableList() {
 type GetBitableTableListReq struct {
 	AppToken  string  `path:"app_token" json:"-"`   // bitable app token, 示例值: "appbcbWCzen6D8dezhoCH2RpMAh"
 	PageToken *string `query:"page_token" json:"-"` // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果, 示例值: "tblsRc9GRRXKqhvW"
-	PageSize  *int64  `query:"page_size" json:"-"`  // 分页大小, 示例值: 10, 最大值: `100`
+	PageSize  *int64  `query:"page_size" json:"-"`  // 分页大小, 示例值: 10, 默认值: `20`, 最大值: `100`
 }
 
 // GetBitableTableListResp ...

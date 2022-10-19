@@ -21,9 +21,9 @@ import (
 	"context"
 )
 
-// SearchDepartment 搜索部门, 用户通过关键词查询可见的部门数据, 部门可见性需要管理员在后台配置。[常见问题答疑](https://open.feishu.cn/document/ugTN1YjL4UTN24CO1UjN/uQzN1YjL0cTN24CN3UjN)。
+// SearchDepartment 搜索部门, 用户通过关键词查询可见的部门数据, 部门可见性需要管理员在后台配置。
 //
-// 部门存在, 但用户搜索不到并不一定是搜索有问题, 可能是管理员在后台配置了权限控制, 导致用户无法搜索到该部门
+// 部门存在, 但用户搜索不到并不一定是搜索有问题, 可能是管理员在后台配置了权限控制, 导致用户无法搜索到该部门。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/search
 func (r *ContactService) SearchDepartment(ctx context.Context, request *SearchDepartmentReq, options ...MethodOptionFunc) (*SearchDepartmentResp, *Response, error) {

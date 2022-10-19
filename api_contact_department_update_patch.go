@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// UpdateDepartmentPatch 该接口用于更新通讯录中部门的信息中的任一个字段。[常见问题答疑](https://open.feishu.cn/document/ugTN1YjL4UTN24CO1UjN/uQzN1YjL0cTN24CN3UjN)。
+// UpdateDepartmentPatch 该接口用于更新通讯录中部门的信息中的任一个字段。
 //
 // 调用该接口需要具有该部门以及更新操作涉及的部门的通讯录权限。应用商店应用无权限调用此接口。
 //

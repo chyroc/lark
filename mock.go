@@ -597,6 +597,7 @@ type Mock struct {
 	mockMessageCreateMessagePin                                func(ctx context.Context, request *CreateMessagePinReq, options ...MethodOptionFunc) (*CreateMessagePinResp, *Response, error)
 	mockMessageDeleteMessagePin                                func(ctx context.Context, request *DeleteMessagePinReq, options ...MethodOptionFunc) (*DeleteMessagePinResp, *Response, error)
 	mockMessageGetMessagePinList                               func(ctx context.Context, request *GetMessagePinListReq, options ...MethodOptionFunc) (*GetMessagePinListResp, *Response, error)
+	mockMinaMinaCodeToSession                                  func(ctx context.Context, request *MinaCodeToSessionReq, options ...MethodOptionFunc) (*MinaCodeToSessionResp, *Response, error)
 	mockOKRGetOKRPeriodList                                    func(ctx context.Context, request *GetOKRPeriodListReq, options ...MethodOptionFunc) (*GetOKRPeriodListResp, *Response, error)
 	mockOKRBatchGetOKR                                         func(ctx context.Context, request *BatchGetOKRReq, options ...MethodOptionFunc) (*BatchGetOKRResp, *Response, error)
 	mockOKRGetUserOKRList                                      func(ctx context.Context, request *GetUserOKRListReq, options ...MethodOptionFunc) (*GetUserOKRListResp, *Response, error)
@@ -670,6 +671,7 @@ type Mock struct {
 	mockVCGetVCReserveConfig                                   func(ctx context.Context, request *GetVCReserveConfigReq, options ...MethodOptionFunc) (*GetVCReserveConfigResp, *Response, error)
 	mockVCUpdateVCReserveConfig                                func(ctx context.Context, request *UpdateVCReserveConfigReq, options ...MethodOptionFunc) (*UpdateVCReserveConfigResp, *Response, error)
 	mockVCGetVCAlertList                                       func(ctx context.Context, request *GetVCAlertListReq, options ...MethodOptionFunc) (*GetVCAlertListResp, *Response, error)
+	mockVerificationGetVerification                            func(ctx context.Context, request *GetVerificationReq, options ...MethodOptionFunc) (*GetVerificationResp, *Response, error)
 }
 
 // Mock return mock client

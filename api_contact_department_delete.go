@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// DeleteDepartment 该接口用于向通讯录中删除部门。[常见问题答疑](https://open.feishu.cn/document/ugTN1YjL4UTN24CO1UjN/uQzN1YjL0cTN24CN3UjN)。
+// DeleteDepartment 该接口用于向通讯录中删除部门。
 //
 // 应用需要同时拥有待删除部门及其父部门的通讯录授权。应用商店应用无权限调用该接口。
 //

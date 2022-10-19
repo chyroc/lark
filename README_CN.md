@@ -38,7 +38,7 @@ https://godoc.org/github.com/chyroc/lark
 
 ## 支持的接口
 
-API 总数: 661, 事件总数: 93
+API 总数: 663, 事件总数: 93
 
 <details>
   <summary>
@@ -752,6 +752,8 @@ API 总数: 661, 事件总数: 93
   - CreateMessagePin
   - DeleteMessagePin
   - GetMessagePinList
+- Mina
+  - MinaCodeToSession
 - OKR
   - GetOKRPeriodList
   - BatchGetOKR
@@ -831,6 +833,8 @@ API 总数: 661, 事件总数: 93
   - GetVCReserveConfig
   - UpdateVCReserveConfig
   - GetVCAlertList
+- Verification
+  - GetVerification
 
 
 </details>

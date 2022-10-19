@@ -26,7 +26,7 @@ import (
 // 身份由 Header Authorization 的 Token 类型决定。
 // - 当前身份必须对日历有reader、writer或owner权限才会返回日程详细信息（调用[获取日历](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar/get)接口, role字段可查看权限）。
 // - 仅支持primary、shared和resource类型的日历获取日程列表。
-// - 调用时首先使用 page_token 分页拉取存量数据, 之后使用 sync_token 增量同步变更数据。
+// - page_token 分页拉取存量数据, sync_token 增量同步变更数据；目前仅传anchor_time时, 会返回page_token。
 // - 为了确保调用方日程同步数据的一致性, 在使用sync_token时, 不能同时使用start_time和end_time, 否则可能造成日程数据缺失。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar-event/list
@@ -75,9 +75,9 @@ type GetCalendarEventListReq struct {
 
 // GetCalendarEventListResp ...
 type GetCalendarEventListResp struct {
-	HasMore   bool                            `json:"has_more,omitempty"`   // 是否有下一页数据
-	PageToken string                          `json:"page_token,omitempty"` // 下次请求需要带上的分页标记, 90 天有效期
-	SyncToken string                          `json:"sync_token,omitempty"` // 下次请求需要带上的增量同步标记, 90 天有效期
+	HasMore   bool                            `json:"has_more,omitempty"`   // 是否还有更多数据
+	PageToken string                          `json:"page_token,omitempty"` // 下次请求需要带上的分页标记
+	SyncToken string                          `json:"sync_token,omitempty"` // 下次请求需要带上的增量同步标记
 	Items     []*GetCalendarEventListRespItem `json:"items,omitempty"`      // 日程列表
 }
 
