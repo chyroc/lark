@@ -59,20 +59,23 @@ func (r *Mock) UnMockVCSetVCRoomConfig() {
 
 // SetVCRoomConfigReq ...
 type SetVCRoomConfigReq struct {
-	Scope      int64                         `json:"scope,omitempty"`       // 设置节点范围, 示例值: 5, 可选值有: `1`: 租户, `2`: 国家/地区, `3`: 城市, `4`: 建筑, `5`: 楼层, `6`: 会议室
-	CountryID  *string                       `json:"country_id,omitempty"`  // 国家/地区ID scope为2, 3时需要此参数, 示例值: "086"
-	DistrictID *string                       `json:"district_id,omitempty"` // 城市ID scope为3时需要此参数, 示例值: "223"
-	BuildingID *string                       `json:"building_id,omitempty"` // 建筑ID scope为4, 5时需要此参数, 示例值: "66"
-	FloorName  *string                       `json:"floor_name,omitempty"`  // 楼层 scope为5时需要此参数, 示例值: "3"
-	RoomID     *string                       `json:"room_id,omitempty"`     // 会议室ID scope为6时需要此参数, 示例值: "67687262867363"
-	RoomConfig *SetVCRoomConfigReqRoomConfig `json:"room_config,omitempty"` // 会议室设置
+	UserIDType *IDType                       `query:"user_id_type" json:"-"` // 用户 ID 类型, 示例值: "open_id", 可选值有: open_id: 用户的 open id, union_id: 用户的 union id, user_id: 用户的 user id, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
+	Scope      int64                         `json:"scope,omitempty"`        // 设置节点范围, 示例值: 5, 可选值有: 1: 租户, 2: 国家/地区, 3: 城市, 4: 建筑, 5: 楼层, 6: 会议室
+	CountryID  *string                       `json:"country_id,omitempty"`   // 国家/地区ID scope为2, 3时需要此参数, 示例值: "086"
+	DistrictID *string                       `json:"district_id,omitempty"`  // 城市ID scope为3时需要此参数, 示例值: "223"
+	BuildingID *string                       `json:"building_id,omitempty"`  // 建筑ID scope为4, 5时需要此参数, 示例值: "66"
+	FloorName  *string                       `json:"floor_name,omitempty"`   // 楼层 scope为5时需要此参数, 示例值: "3"
+	RoomID     *string                       `json:"room_id,omitempty"`      // 会议室ID scope为6时需要此参数, 示例值: "67687262867363"
+	RoomConfig *SetVCRoomConfigReqRoomConfig `json:"room_config,omitempty"`  // 会议室设置
 }
 
 // SetVCRoomConfigReqRoomConfig ...
 type SetVCRoomConfigReqRoomConfig struct {
-	RoomBackground    *string                                     `json:"room_background,omitempty"`    // 飞书会议室背景图, 示例值: "https://lf1-ttcdn-tos.pstatp.com/obj/xxx"
-	DisplayBackground *string                                     `json:"display_background,omitempty"` // 飞书签到板背景图, 示例值: "https://lf1-ttcdn-tos.pstatp.com/obj/xxx"
-	DigitalSignage    *SetVCRoomConfigReqRoomConfigDigitalSignage `json:"digital_signage,omitempty"`    // 飞书会议室数字标牌
+	RoomBackground        *string                                            `json:"room_background,omitempty"`          // 飞书会议室背景图, 示例值: "https://lf1-ttcdn-tos.pstatp.com/obj/xxx"
+	DisplayBackground     *string                                            `json:"display_background,omitempty"`       // 飞书签到板背景图, 示例值: "https://lf1-ttcdn-tos.pstatp.com/obj/xxx"
+	DigitalSignage        *SetVCRoomConfigReqRoomConfigDigitalSignage        `json:"digital_signage,omitempty"`          // 飞书会议室数字标牌
+	RoomBoxDigitalSignage *SetVCRoomConfigReqRoomConfigRoomBoxDigitalSignage `json:"room_box_digital_signage,omitempty"` // 飞书投屏盒子数字标牌
+	RoomStatus            *SetVCRoomConfigReqRoomConfigRoomStatus            `json:"room_status,omitempty"`              // 会议室状态
 }
 
 // SetVCRoomConfigReqRoomConfigDigitalSignage ...
@@ -88,11 +91,46 @@ type SetVCRoomConfigReqRoomConfigDigitalSignage struct {
 type SetVCRoomConfigReqRoomConfigDigitalSignageMaterial struct {
 	ID           *string `json:"id,omitempty"`            // 素材ID, 示例值: "7847784676276"
 	Name         *string `json:"name,omitempty"`          // 素材名称, 示例值: "name"
-	MaterialType *int64  `json:"material_type,omitempty"` // 素材类型, 示例值: 0, 可选值有: `1`: 图片, `2`: 视频, `3`: GIF
+	MaterialType *int64  `json:"material_type,omitempty"` // 素材类型, 示例值: 0, 可选值有: 1: 图片, 2: 视频, 3: GIF
 	URL          *string `json:"url,omitempty"`           // 素材url, 示例值: "url"
 	Duration     *int64  `json:"duration,omitempty"`      // 播放时长（单位sec）, 示例值: 15
 	Cover        *string `json:"cover,omitempty"`         // 素材封面url, 示例值: "url"
 	Md5          *string `json:"md5,omitempty"`           // 素材文件md5, 示例值: "md5"
+	Vid          *string `json:"vid,omitempty"`           // 素材文件vid, 示例值: "vid"
+	Size         *string `json:"size,omitempty"`          // 素材文件大小（单位byte）, 示例值: "100"
+}
+
+// SetVCRoomConfigReqRoomConfigRoomBoxDigitalSignage ...
+type SetVCRoomConfigReqRoomConfigRoomBoxDigitalSignage struct {
+	Enable       *bool                                                        `json:"enable,omitempty"`        // 是否开启数字标牌功能, 示例值: true
+	Mute         *bool                                                        `json:"mute,omitempty"`          // 是否静音播放, 示例值: true
+	StartDisplay *int64                                                       `json:"start_display,omitempty"` // 日程会议开始前n分钟结束播放, 示例值: 3
+	StopDisplay  *int64                                                       `json:"stop_display,omitempty"`  // 会议结束后n分钟开始播放, 示例值: 3
+	Materials    []*SetVCRoomConfigReqRoomConfigRoomBoxDigitalSignageMaterial `json:"materials,omitempty"`     // 素材列表
+}
+
+// SetVCRoomConfigReqRoomConfigRoomBoxDigitalSignageMaterial ...
+type SetVCRoomConfigReqRoomConfigRoomBoxDigitalSignageMaterial struct {
+	ID           *string `json:"id,omitempty"`            // 素材ID, 示例值: "7847784676276"
+	Name         *string `json:"name,omitempty"`          // 素材名称, 示例值: "name"
+	MaterialType *int64  `json:"material_type,omitempty"` // 素材类型, 示例值: 0, 可选值有: 1: 图片, 2: 视频, 3: GIF
+	URL          *string `json:"url,omitempty"`           // 素材url, 示例值: "url"
+	Duration     *int64  `json:"duration,omitempty"`      // 播放时长（单位sec）, 示例值: 15
+	Cover        *string `json:"cover,omitempty"`         // 素材封面url, 示例值: "url"
+	Md5          *string `json:"md5,omitempty"`           // 素材文件md5, 示例值: "md5"
+	Vid          *string `json:"vid,omitempty"`           // 素材文件vid, 示例值: "vid"
+	Size         *string `json:"size,omitempty"`          // 素材文件大小（单位byte）, 示例值: "100"
+}
+
+// SetVCRoomConfigReqRoomConfigRoomStatus ...
+type SetVCRoomConfigReqRoomConfigRoomStatus struct {
+	Status           bool     `json:"status,omitempty"`             // 是否启用会议室, 示例值: true
+	DisableStartTime *string  `json:"disable_start_time,omitempty"` // 禁用开始时间（unix时间, 单位sec）, 示例值: "1652356050"
+	DisableEndTime   *string  `json:"disable_end_time,omitempty"`   // 禁用结束时间（unix时间, 单位sec, 数值0表示永久禁用）, 示例值: "1652442450"
+	DisableReason    *string  `json:"disable_reason,omitempty"`     // 禁用原因, 示例值: "测试占用"
+	ContactIDs       []string `json:"contact_ids,omitempty"`        // 联系人列表, id类型由user_id_type参数决定, 示例值: ["ou_3ec3f6a28a0d08c45d895276e8e5e19b"]
+	DisableNotice    *bool    `json:"disable_notice,omitempty"`     // 是否在禁用时发送通知给预定了该会议室的员工, 示例值: true
+	ResumeNotice     *bool    `json:"resume_notice,omitempty"`      // 是否在恢复启用时发送通知给预定了该会议室的员工, 示例值: true
 }
 
 // SetVCRoomConfigResp ...

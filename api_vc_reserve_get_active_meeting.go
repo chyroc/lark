@@ -61,7 +61,7 @@ func (r *Mock) UnMockVCGetVCReserveActiveMeeting() {
 type GetVCReserveActiveMeetingReq struct {
 	ReserveID        string  `path:"reserve_id" json:"-"`         // 预约ID（预约的唯一标识）, 示例值: "6911188411932033028"
 	WithParticipants *bool   `query:"with_participants" json:"-"` // 是否需要参会人列表, 默认为false, 示例值: false
-	UserIDType       *IDType `query:"user_id_type" json:"-"`      // 用户 ID 类型, 示例值: "open_id", 可选值有: `open_id`: 用户的 open id, `union_id`: 用户的 union id, `user_id`: 用户的 user id, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
+	UserIDType       *IDType `query:"user_id_type" json:"-"`      // 用户 ID 类型, 示例值: "open_id", 可选值有: open_id: 用户的 open id, union_id: 用户的 union id, user_id: 用户的 user id, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
 }
 
 // GetVCReserveActiveMeetingResp ...
@@ -79,7 +79,7 @@ type GetVCReserveActiveMeetingRespMeeting struct {
 	StartTime                   string                                             `json:"start_time,omitempty"`                    // 会议开始时间（unix时间, 单位sec）
 	EndTime                     string                                             `json:"end_time,omitempty"`                      // 会议结束时间（unix时间, 单位sec）
 	HostUser                    *GetVCReserveActiveMeetingRespMeetingHostUser      `json:"host_user,omitempty"`                     // 主持人
-	Status                      int64                                              `json:"status,omitempty"`                        // 会议状态, 可选值有: `1`: 会议呼叫中, `2`: 会议进行中, `3`: 会议已结束
+	Status                      int64                                              `json:"status,omitempty"`                        // 会议状态, 可选值有: 1: 会议呼叫中, 2: 会议进行中, 3: 会议已结束
 	ParticipantCount            string                                             `json:"participant_count,omitempty"`             // 参会人数
 	ParticipantCountAccumulated string                                             `json:"participant_count_accumulated,omitempty"` // 累计参会人数
 	Participants                []*GetVCReserveActiveMeetingRespMeetingParticipant `json:"participants,omitempty"`                  // 参会人列表
@@ -99,7 +99,7 @@ type GetVCReserveActiveMeetingRespMeetingAbility struct {
 // GetVCReserveActiveMeetingRespMeetingHostUser ...
 type GetVCReserveActiveMeetingRespMeetingHostUser struct {
 	ID       string `json:"id,omitempty"`        // 用户ID
-	UserType int64  `json:"user_type,omitempty"` // 用户类型, 可选值有: `1`: lark用户, `2`: rooms用户, `3`: 文档用户, `4`: neo单品用户, `5`: neo单品游客用户, `6`: pstn用户, `7`: sip用户
+	UserType int64  `json:"user_type,omitempty"` // 用户类型, 可选值有: 1: lark用户, 2: rooms用户, 3: 文档用户, 4: neo单品用户, 5: neo单品游客用户, 6: pstn用户, 7: sip用户
 }
 
 // GetVCReserveActiveMeetingRespMeetingParticipant ...
@@ -108,11 +108,11 @@ type GetVCReserveActiveMeetingRespMeetingParticipant struct {
 	FirstJoinTime     string `json:"first_join_time,omitempty"`     // 首次入会时间, 秒级Unix时间戳
 	FinalLeaveTime    string `json:"final_leave_time,omitempty"`    // 最终离会时间, 秒级Unix时间戳
 	InMeetingDuration string `json:"in_meeting_duration,omitempty"` // 累计在会中时间, 时间单位: 秒
-	UserType          int64  `json:"user_type,omitempty"`           // 用户类型, 可选值有: `1`: lark用户, `2`: rooms用户, `3`: 文档用户, `4`: neo单品用户, `5`: neo单品游客用户, `6`: pstn用户, `7`: sip用户
+	UserType          int64  `json:"user_type,omitempty"`           // 用户类型, 可选值有: 1: lark用户, 2: rooms用户, 3: 文档用户, 4: neo单品用户, 5: neo单品游客用户, 6: pstn用户, 7: sip用户
 	IsHost            bool   `json:"is_host,omitempty"`             // 是否为主持人
 	IsCohost          bool   `json:"is_cohost,omitempty"`           // 是否为联席主持人
 	IsExternal        bool   `json:"is_external,omitempty"`         // 是否为外部参会人
-	Status            int64  `json:"status,omitempty"`              // 参会人状态, 可选值有: `1`: 呼叫中, `2`: 在会中, `3`: 正在响铃, `4`: 不在会中或已经离开会议
+	Status            int64  `json:"status,omitempty"`              // 参会人状态, 可选值有: 1: 呼叫中, 2: 在会中, 3: 正在响铃, 4: 不在会中或已经离开会议
 }
 
 // getVCReserveActiveMeetingResp ...

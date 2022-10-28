@@ -25,12 +25,10 @@ import (
 //
 // 注意事项:
 // - 应用需要开启[机器人能力](https://open.feishu.cn/document/home/develop-a-bot-in-5-minutes/create-an-app)
-// - 若群未开启 [仅群主和群管理员可编辑群信息] 配置:
-// --群主/群管理员 或 创建群组且具备[更新应用所创建群的群信息]权限的机器人, 可更新所有信息
-// --不满足上述条件的群成员或机器人, 仅可更新群头像、群名称、群描述、群国际化名称信息
-// - 若群开启了[仅群主和群管理员可编辑群信息]配置:
-// --群主/群管理员 或 创建群组且具备[更新应用所创建群的群信息]权限的机器人, 可更新所有信息
-// --不满足上述条件的群成员或者机器人, 任何群信息都不能修改
+// - 对于群主/群管理员 或 创建群组且具备 [更新应用所创建群的群信息] 权限的机器人, 可更新所有信息
+// - 对于不满足上述权限条件的群成员或机器人:
+// - 若未开启 [仅群主和群管理员可编辑群信息] 配置, 仅可更新群头像、群名称、群描述、群国际化名称信息
+// - 若开启了 [仅群主和群管理员可编辑群信息] 配置, 任何群信息都不能修改
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat/update
 func (r *ChatService) UpdateChat(ctx context.Context, request *UpdateChatReq, options ...MethodOptionFunc) (*UpdateChatResp, *Response, error) {
@@ -67,20 +65,20 @@ func (r *Mock) UnMockChatUpdateChat() {
 
 // UpdateChatReq ...
 type UpdateChatReq struct {
-	ChatID                 string               `path:"chat_id" json:"-"`                   // 群 ID, 详情参见[群ID 说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-id-description), 示例值: "oc_a0553eda9014c201e6969b478895c230"
+	ChatID                 string               `path:"chat_id" json:"-"`                   // 群 ID, 详情参见[群ID 说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-id-description), 注意: 仅支持群模式为`group`的群组ID, 示例值: "oc_a0553eda9014c201e6969b478895c230"
 	UserIDType             *IDType              `query:"user_id_type" json:"-"`             // 用户 ID 类型, 示例值: "open_id", 可选值有: open_id: 用户的 open id, union_id: 用户的 union id, user_id: 用户的 user id, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
 	Avatar                 *string              `json:"avatar,omitempty"`                   // 群头像对应的 Image Key, 可通过[上传图片](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/image/create)获取（注意: 上传图片的 [image_type] 需要指定为 [avatar]）, 示例值: "default-avatar_44ae0ca3-e140-494b-956f-78091e348435"
 	Name                   *string              `json:"name,omitempty"`                     // 群名称, 示例值: "群聊"
 	Description            *string              `json:"description,omitempty"`              // 群描述, 示例值: "测试群描述"
 	I18nNames              *I18nNames           `json:"i18n_names,omitempty"`               // 群国际化名称
-	AddMemberPermission    *AddMemberPermission `json:"add_member_permission,omitempty"`    // 加 user/bot 入群权限(all_members/only_owner), 示例值: "all_members"
-	ShareCardPermission    *ShareCardPermission `json:"share_card_permission,omitempty"`    // 群分享权限(allowed/not_allowed), 示例值: "allowed"
-	AtAllPermission        *AtAllPermission     `json:"at_all_permission,omitempty"`        // at 所有人权限(all_members/only_owner), 示例值: "all_members"
-	EditPermission         *EditPermission      `json:"edit_permission,omitempty"`          // 群编辑权限(all_members/only_owner), 示例值: "all_members"
+	AddMemberPermission    *AddMemberPermission `json:"add_member_permission,omitempty"`    // 邀请用户或机器人入群权限, 可选值有: `only_owner`: 仅群主和管理员, `all_members`: 所有成员, 示例值: "all_members"
+	ShareCardPermission    *ShareCardPermission `json:"share_card_permission,omitempty"`    // 群分享权限, 可选值有: `allowed`: 允许, `not_allowed`: 不允许, 示例值: "allowed"
+	AtAllPermission        *AtAllPermission     `json:"at_all_permission,omitempty"`        // at 所有人权限, 可选值有: `only_owner`: 仅群主和管理员, `all_members`: 所有成员, 示例值: "all_members"
+	EditPermission         *EditPermission      `json:"edit_permission,omitempty"`          // 群编辑权限, 可选值有: `only_owner`: 仅群主和管理员, `all_members`: 所有成员, 示例值: "all_members"
 	OwnerID                *string              `json:"owner_id,omitempty"`                 // 新群主 ID, 示例值: "4d7a3c6g"
-	JoinMessageVisibility  *MessageVisibility   `json:"join_message_visibility,omitempty"`  // 入群消息可见性(only_owner/all_members/not_anyone), 示例值: "only_owner"
-	LeaveMessageVisibility *MessageVisibility   `json:"leave_message_visibility,omitempty"` // 出群消息可见性(only_owner/all_members/not_anyone), 示例值: "only_owner"
-	MembershipApproval     *MembershipApproval  `json:"membership_approval,omitempty"`      // 加群审批(no_approval_required/approval_required), 示例值: "no_approval_required"
+	JoinMessageVisibility  *MessageVisibility   `json:"join_message_visibility,omitempty"`  // 入群消息可见性, 可选值有: `only_owner`: 仅群主和管理员可见, `all_members`: 所有成员可见, `not_anyone`: 任何人均不可见, 示例值: "only_owner"
+	LeaveMessageVisibility *MessageVisibility   `json:"leave_message_visibility,omitempty"` // 出群消息可见性, 可选值有: `only_owner`: 仅群主和管理员可见, `all_members`: 所有成员可见, `not_anyone`: 任何人均不可见, 示例值: "only_owner"
+	MembershipApproval     *MembershipApproval  `json:"membership_approval,omitempty"`      // 加群审批, 可选值有: `no_approval_required`: 无需审批, `approval_required`: 需要审批, 示例值: "no_approval_required"
 }
 
 // UpdateChatResp ...

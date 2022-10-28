@@ -71,7 +71,7 @@ type GetAttendanceGroupResp struct {
 	ExceptDeptIDs           []string                                       `json:"except_dept_ids,omitempty"`             // 排除的部门 ID
 	BindUserIDs             []string                                       `json:"bind_user_ids,omitempty"`               // 绑定的用户 ID
 	ExceptUserIDs           []string                                       `json:"except_user_ids,omitempty"`             // 排除的用户 ID
-	GroupLeaderIDs          []string                                       `json:"group_leader_ids,omitempty"`            // 考勤主负责人 ID 列表, 必选字段
+	GroupLeaderIDs          []string                                       `json:"group_leader_ids,omitempty"`            // 考勤主负责人 ID 列表, 必选字段（需至少拥有考勤组管理员权限）
 	SubGroupLeaderIDs       []string                                       `json:"sub_group_leader_ids,omitempty"`        // 考勤子负责人 ID 列表
 	AllowOutPunch           bool                                           `json:"allow_out_punch,omitempty"`             // 是否允许外勤打卡
 	OutPunchNeedApproval    bool                                           `json:"out_punch_need_approval,omitempty"`     // 外勤打卡需审批（需要允许外勤打卡才能设置生效）
@@ -108,6 +108,7 @@ type GetAttendanceGroupResp struct {
 	RemedyPeriodType        int64                                          `json:"remedy_period_type,omitempty"`          // 补卡周期类型
 	RemedyPeriodCustomDate  int64                                          `json:"remedy_period_custom_date,omitempty"`   // 补卡自定义周期起始日期
 	PunchType               int64                                          `json:"punch_type,omitempty"`                  // 打卡类型, 位运算。1: GPS 打卡, 2: Wi-Fi 打卡, 4: 考勤机打卡, 8: IP 打卡
+	EffectTime              string                                         `json:"effect_time,omitempty"`                 // 生效时间, 精确到秒的时间戳
 	RestClockInNeedApproval bool                                           `json:"rest_clockIn_need_approval,omitempty"`  // 休息日打卡需审批
 	ClockInNeedPhoto        bool                                           `json:"clockIn_need_photo,omitempty"`          // 每次打卡均需拍照
 }

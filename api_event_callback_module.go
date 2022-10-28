@@ -27,7 +27,6 @@ import (
 type EventType string
 
 const (
-	EventTypeV1AddBot                                          EventType = "add_bot"
 	EventTypeV1AddUserToChat                                   EventType = "add_user_to_chat"
 	EventTypeV1AppOpen                                         EventType = "app_open"
 	EventTypeV1AppStatusChange                                 EventType = "app_status_change"
@@ -124,7 +123,6 @@ const (
 
 type eventHandler struct {
 	eventCardHandler                                              EventCardHandler
-	eventV1AddBotHandler                                          EventV1AddBotHandler
 	eventV1AddUserToChatHandler                                   EventV1AddUserToChatHandler
 	eventV1AppOpenHandler                                         EventV1AppOpenHandler
 	eventV1AppStatusChangeHandler                                 EventV1AppStatusChangeHandler
@@ -222,7 +220,6 @@ type eventHandler struct {
 func (r *eventHandler) clone() *eventHandler {
 	return &eventHandler{
 
-		eventV1AddBotHandler:                                          r.eventV1AddBotHandler,
 		eventV1AddUserToChatHandler:                                   r.eventV1AddUserToChatHandler,
 		eventV1AppOpenHandler:                                         r.eventV1AppOpenHandler,
 		eventV1AppStatusChangeHandler:                                 r.eventV1AppStatusChangeHandler,
@@ -319,7 +316,6 @@ func (r *eventHandler) clone() *eventHandler {
 }
 
 type eventBody struct {
-	eventV1AddBot                                          *EventV1AddBot
 	eventV1AddUserToChat                                   *EventV1AddUserToChat
 	eventV1AppOpen                                         *EventV1AppOpen
 	eventV1AppStatusChange                                 *EventV1AppStatusChange
@@ -852,12 +848,6 @@ func (r *EventCallbackService) parserEventV1(req *eventReq) error {
 	}
 
 	switch v1type.Type {
-	case EventTypeV1AddBot:
-		event := new(EventV1AddBot)
-		if err := json.Unmarshal(bs, event); err != nil {
-			return fmt.Errorf("lark event unmarshal event %s failed", bs)
-		}
-		req.eventV1AddBot = event
 	case EventTypeV1AddUserToChat:
 		event := new(EventV1AddUserToChat)
 		if err := json.Unmarshal(bs, event); err != nil {
@@ -1014,11 +1004,6 @@ type v1type struct {
 
 func (r *EventCallbackService) handlerEvent(ctx context.Context, req *eventReq) (handled bool, s string, err error) {
 	switch {
-	case req.eventV1AddBot != nil:
-		if r.cli.eventHandler.eventV1AddBotHandler != nil {
-			s, err = r.cli.eventHandler.eventV1AddBotHandler(ctx, r.cli, req.Schema, req.headerV1(EventTypeV1AddBot), req.eventV1AddBot)
-		}
-		return true, s, err
 	case req.eventV1AddUserToChat != nil:
 		if r.cli.eventHandler.eventV1AddUserToChatHandler != nil {
 			s, err = r.cli.eventHandler.eventV1AddUserToChatHandler(ctx, r.cli, req.Schema, req.headerV1(EventTypeV1AddUserToChat), req.eventV1AddUserToChat)

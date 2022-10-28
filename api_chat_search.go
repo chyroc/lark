@@ -63,9 +63,9 @@ func (r *Mock) UnMockChatSearchChat() {
 // SearchChatReq ...
 type SearchChatReq struct {
 	UserIDType *IDType `query:"user_id_type" json:"-"` // 用户 ID 类型, 示例值: "open_id", 可选值有: open_id: 用户的 open id, union_id: 用户的 union id, user_id: 用户的 user id, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
-	Query      *string `query:"query" json:"-"`        // 关键词。注意: 如果query为空值将返回空的结果, 示例值: "abc"
+	Query      *string `query:"query" json:"-"`        // 关键词, 注意事项: 关键词支持匹配群国际化名称、群成员名称, 支持使用多语种搜索, 支持拼音、前缀等模糊搜索, 关键词为空值或长度超过`64`个字符时将返回空的结果, 示例值: "abc"
 	PageToken  *string `query:"page_token" json:"-"`   // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果, 示例值: "dmJCRHhpd3JRbGV1VEVNRFFyTitRWDY5ZFkybmYrMEUwMUFYT0VMMWdENEtuYUhsNUxGMDIwemtvdE5ORjBNQQ["
-	PageSize   *int64  `query:"page_size" json:"-"`    // 分页大小, 示例值: 10, 最大值: `100`
+	PageSize   *int64  `query:"page_size" json:"-"`    // 分页大小, 示例值: 10, 默认值: `20`, 最大值: `100`
 }
 
 // SearchChatResp ...
@@ -84,7 +84,7 @@ type SearchChatRespItem struct {
 	OwnerID     string `json:"owner_id,omitempty"`      // 群主 ID
 	OwnerIDType IDType `json:"owner_id_type,omitempty"` // 群主 ID 类型
 	External    bool   `json:"external,omitempty"`      // 是否是外部群
-	TenantKey   string `json:"tenant_key,omitempty"`    // tenant key
+	TenantKey   string `json:"tenant_key,omitempty"`    // 租户Key, 为租户在飞书上的唯一标识, 用来换取对应的tenant_access_token, 也可以用作租户在应用中的唯一标识
 }
 
 // searchChatResp ...

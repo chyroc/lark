@@ -58,8 +58,8 @@ func (r *Mock) UnMockDriveGetSheet() {
 
 // GetSheetReq ...
 type GetSheetReq struct {
-	SpreadSheetToken string `path:"spreadsheet_token" json:"-"` // 电子表格的token, 示例值: "shtxxxxxxxxxxxxxxx"
-	SheetID          string `path:"sheet_id" json:"-"`          // 工作表的id, 示例值: "giDk9k"
+	SpreadSheetToken string `path:"spreadsheet_token" json:"-"` // 表格的token, 获取方式见[如何获取云文档资源相关 token](https://open.feishu.cn/document/ukTMukTMukTM/uczNzUjL3czM14yN3MTN), 示例值: "shtxxxxxxxxxxxxxxx"
+	SheetID          string `path:"sheet_id" json:"-"`          // 工作表的id, 获取方式见[获取工作表](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/sheets-v3/spreadsheet-sheet/query), 示例值: "giDk9k"
 }
 
 // GetSheetResp ...
@@ -71,11 +71,11 @@ type GetSheetResp struct {
 type GetSheetRespSheet struct {
 	SheetID        string                           `json:"sheet_id,omitempty"`        // 工作表id
 	Title          string                           `json:"title,omitempty"`           // 工作表标题
-	Index          int64                            `json:"index,omitempty"`           // 工作表索引位置
-	Hidden         bool                             `json:"hidden,omitempty"`          // 工作表是否被隐藏
+	Index          int64                            `json:"index,omitempty"`           // 工作表索引位置, 索引从 0 开始计数。
+	Hidden         bool                             `json:"hidden,omitempty"`          // 工作表是否被隐藏, `true`: 表示被隐藏, `false`: 表示未被隐藏
 	GridProperties *GetSheetRespSheetGridProperties `json:"grid_properties,omitempty"` // 单元格属性
-	ResourceType   string                           `json:"resource_type,omitempty"`   // 工作表类型
-	Merges         []*GetSheetRespSheetMerge        `json:"merges,omitempty"`          // 合并单元格
+	ResourceType   string                           `json:"resource_type,omitempty"`   // 工作表类型, `sheet`: 工作表, `bitable`: 多维表格, [多维表格概述](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/bitable-overview), `#UNSUPPORTED_TYPE`: 不支持的类型
+	Merges         []*GetSheetRespSheetMerge        `json:"merges,omitempty"`          // 合并单元格的相关信息
 }
 
 // GetSheetRespSheetGridProperties ...

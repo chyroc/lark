@@ -28,7 +28,7 @@ import (
 // - 用户或机器人在任何条件下均可移除自己出群（即主动退群）
 // - 仅有群主/管理员 或 创建群组并且具备 [更新应用所创建群的群信息] 权限的机器人, 可以移除其他用户或者机器人
 // - 每次请求, 最多移除50个用户或者5个机器人
-// - 移除机器人请使用 [app_id]
+// - 操作内部群时, 操作者须与群组在同一租户下
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-members/delete
 func (r *ChatService) DeleteChatMember(ctx context.Context, request *DeleteChatMemberReq, options ...MethodOptionFunc) (*DeleteChatMemberResp, *Response, error) {
@@ -65,9 +65,9 @@ func (r *Mock) UnMockChatDeleteChatMember() {
 
 // DeleteChatMemberReq ...
 type DeleteChatMemberReq struct {
-	ChatID       string   `path:"chat_id" json:"-"`         // 群 ID, 详情参见[群ID 说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-id-description), 示例值: "oc_a0553eda9014c201e6969b478895c230"
-	MemberIDType *IDType  `query:"member_id_type" json:"-"` // 出群成员 id 类型 open_id/user_id/union_id/app_id, 示例值: "open_id", 可选值有: user_id: 以 user_id 来识别成员, union_id: 以 union_id 来识别成员, open_id: 以 open_id 来识别成员, app_id: 以 app_id 来识别成员
-	IDList       []string `json:"id_list,omitempty"`        // 成员列表, 示例值: ["ou_9204a37300b3700d61effaa439f34295"]
+	ChatID       string   `path:"chat_id" json:"-"`         // 群 ID, 详情参见[群ID 说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-id-description), 注意: 仅支持群模式为`group`、`topic`的群组ID, 示例值: "oc_a0553eda9014c201e6969b478895c230"
+	MemberIDType *IDType  `query:"member_id_type" json:"-"` // 出群成员ID类型, 注意: 移除机器人请使用 [app_id], 示例值: "open_id", 可选值有: user_id: 标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。同一个 user_id 对所有的应用都保持一致。user_id 主要用于在不同的应用间进行用户数据打通。, union_id: 标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中, 获取到的 union_id 是相同的, 而不同开发商下的应用获取到的 union_id 是不同的。union_id可以让应用开发商把同个用户在多个应用中的身份关联起来。, open_id: 标识一个用户在某个应用中的身份。同一个 User ID 在不同应用中的 Open ID 不同。, app_id: 飞书开放平台应用的唯一标识。在创建应用时, 由系统自动生成, 用户不能自行修改。可以在[开发者后台](https://open.feishu.cn/app)的 凭证与基础信息 页面查看。, 默认值: `open_id`
+	IDList       []string `json:"id_list,omitempty"`        // 成员列表, 注意: 成员列表不可为空, 列表中填写的成员ID类型应与 [member_id_type] 参数中选择的类型相对应, 示例值: ["ou_9204a37300b3700d61effaa439f34295"]
 }
 
 // DeleteChatMemberResp ...

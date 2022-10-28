@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// EventV2VCMeetingRecordingStartedV1 发生在开始录制时
+// EventV2VCMeetingRecordingStartedV1 发生在开始录制时{使用示例}(url=/api/tools/api_explore/api_explore_config?project=vc&version=v1&resource=meeting&event=recording_started)
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/vc-v1/meeting/events/recording_started
 func (r *EventCallbackService) HandlerEventV2VCMeetingRecordingStartedV1(f EventV2VCMeetingRecordingStartedV1Handler) {
@@ -51,8 +51,8 @@ type EventV2VCMeetingRecordingStartedV1Meeting struct {
 // EventV2VCMeetingRecordingStartedV1MeetingHostUser ...
 type EventV2VCMeetingRecordingStartedV1MeetingHostUser struct {
 	ID       *EventV2VCMeetingRecordingStartedV1MeetingHostUserID `json:"id,omitempty"`        // 用户 ID
-	UserRole int64                                                `json:"user_role,omitempty"` // 用户会中角色, 可选值有: `1`: 普通参会人, `2`: 主持人, `3`: 联席主持人
-	UserType int64                                                `json:"user_type,omitempty"` // 用户类型, 可选值有: `1`: lark用户, `2`: rooms用户, `3`: 文档用户, `4`: neo单品用户, `5`: neo单品游客用户, `6`: pstn用户, `7`: sip用户
+	UserRole int64                                                `json:"user_role,omitempty"` // 用户会中角色, 可选值有: 1: 普通参会人, 2: 主持人, 3: 联席主持人
+	UserType int64                                                `json:"user_type,omitempty"` // 用户类型, 可选值有: 1: lark用户, 2: rooms用户, 3: 文档用户, 4: neo单品用户, 5: neo单品游客用户, 6: pstn用户, 7: sip用户
 }
 
 // EventV2VCMeetingRecordingStartedV1MeetingHostUserID ...
@@ -65,8 +65,8 @@ type EventV2VCMeetingRecordingStartedV1MeetingHostUserID struct {
 // EventV2VCMeetingRecordingStartedV1MeetingOwner ...
 type EventV2VCMeetingRecordingStartedV1MeetingOwner struct {
 	ID       *EventV2VCMeetingRecordingStartedV1MeetingOwnerID `json:"id,omitempty"`        // 用户 ID
-	UserRole int64                                             `json:"user_role,omitempty"` // 用户会中角色, 可选值有: `1`: 普通参会人, `2`: 主持人, `3`: 联席主持人
-	UserType int64                                             `json:"user_type,omitempty"` // 用户类型, 可选值有: `1`: lark用户, `2`: rooms用户, `3`: 文档用户, `4`: neo单品用户, `5`: neo单品游客用户, `6`: pstn用户, `7`: sip用户
+	UserRole int64                                             `json:"user_role,omitempty"` // 用户会中角色, 可选值有: 1: 普通参会人, 2: 主持人, 3: 联席主持人
+	UserType int64                                             `json:"user_type,omitempty"` // 用户类型, 可选值有: 1: lark用户, 2: rooms用户, 3: 文档用户, 4: neo单品用户, 5: neo单品游客用户, 6: pstn用户, 7: sip用户
 }
 
 // EventV2VCMeetingRecordingStartedV1MeetingOwnerID ...
@@ -79,8 +79,8 @@ type EventV2VCMeetingRecordingStartedV1MeetingOwnerID struct {
 // EventV2VCMeetingRecordingStartedV1Operator ...
 type EventV2VCMeetingRecordingStartedV1Operator struct {
 	ID       *EventV2VCMeetingRecordingStartedV1OperatorID `json:"id,omitempty"`        // 用户 ID
-	UserRole int64                                         `json:"user_role,omitempty"` // 用户会中角色, 可选值有: `1`: 普通参会人, `2`: 主持人, `3`: 联席主持人
-	UserType int64                                         `json:"user_type,omitempty"` // 用户类型, 可选值有: `1`: lark用户, `2`: rooms用户, `3`: 文档用户, `4`: neo单品用户, `5`: neo单品游客用户, `6`: pstn用户, `7`: sip用户
+	UserRole int64                                         `json:"user_role,omitempty"` // 用户会中角色, 可选值有: 1: 普通参会人, 2: 主持人, 3: 联席主持人
+	UserType int64                                         `json:"user_type,omitempty"` // 用户类型, 可选值有: 1: lark用户, 2: rooms用户, 3: 文档用户, 4: neo单品用户, 5: neo单品游客用户, 6: pstn用户, 7: sip用户
 }
 
 // EventV2VCMeetingRecordingStartedV1OperatorID ...

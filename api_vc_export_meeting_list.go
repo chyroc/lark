@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// ExportVCMeetingList 导出会议明细
+// ExportVCMeetingList 导出会议明细, 具体权限要求请参考「导出概述」
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/vc-v1/export/meeting_list
 func (r *VCService) ExportVCMeetingList(ctx context.Context, request *ExportVCMeetingListReq, options ...MethodOptionFunc) (*ExportVCMeetingListResp, *Response, error) {

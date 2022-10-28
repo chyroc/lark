@@ -62,20 +62,20 @@ func (r *Mock) UnMockChatCreateChat() {
 // CreateChatReq ...
 type CreateChatReq struct {
 	UserIDType             *IDType             `query:"user_id_type" json:"-"`             // 用户 ID 类型, 示例值: "open_id", 可选值有: open_id: 用户的 open id, union_id: 用户的 union id, user_id: 用户的 user id, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
-	SetBotManager          *bool               `query:"set_bot_manager" json:"-"`          // 如果选择了设置群主为指定用户, 可以选择是否同时设置创建此群的机器人为管理员, 此标志位用于标记是否设置创建群的机器人为管理员, 示例值: false, 默认值: `false`
+	SetBotManager          *bool               `query:"set_bot_manager" json:"-"`          // 如果在请求体的 [owner_id] 字段指定了某个用户为群主, 可以选择是否同时设置创建此群的机器人为管理员, 此标志位用于标记是否设置创建群的机器人为管理员, 示例值: false, 默认值: `false`
 	Avatar                 *string             `json:"avatar,omitempty"`                   // 群头像对应的 Image Key, 可通过[上传图片](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/image/create)获取（注意: 上传图片的 [image_type] 需要指定为 [avatar]）, 示例值: "default-avatar_44ae0ca3-e140-494b-956f-78091e348435"
 	Name                   *string             `json:"name,omitempty"`                     // 群名称, 注意: 公开群名称的长度不得少于2个字符, 私有群若未填写群名称, 群名称默认设置为 ”`(无主题)`“, 示例值: "测试群名称"
 	Description            *string             `json:"description,omitempty"`              // 群描述, 示例值: "测试群描述"
 	I18nNames              *I18nNames          `json:"i18n_names,omitempty"`               // 群国际化名称
-	OwnerID                *string             `json:"owner_id,omitempty"`                 // 创建群时指定的群主, 不填时指定建群的机器人为群主, 群主 ID, ID值与查询参数中的 user_id_type 对应, 不同 ID 的说明参见 [用户相关的 ID 概念](https://open.feishu.cn/document/home/user-identity-introduction/introduction), 示例值: "4d7a3c6g"
-	UserIDList             []string            `json:"user_id_list,omitempty"`             // 创建群时邀请的群成员, id 类型为 user_id_type, 注意: 最多同时邀请 50 个用户, 示例值: ["4d7a3c6g"], 最大长度: `50`
+	OwnerID                *string             `json:"owner_id,omitempty"`                 // 创建群时指定的群主, 不填时指定建群的机器人为群主。群主 ID值应与查询参数中的 [user_id_type] 对应, 不同 ID 的说明参见[用户相关的 ID 概念](https://open.feishu.cn/document/home/user-identity-introduction/introduction), 注意: 创建外部群时, 必须指定群主, 示例值: "4d7a3c6g"
+	UserIDList             []string            `json:"user_id_list,omitempty"`             // 创建群时邀请的群成员, ID 类型在查询参数 [user_id_type] 中指定, 注意: 最多同时邀请 50 个用户, 示例值: ["4d7a3c6g"], 最大长度: `50`
 	BotIDList              []string            `json:"bot_id_list,omitempty"`              // 创建群时邀请的群机器人, 注意: 拉机器人入群请使用`app_id`, 最多同时邀请5个机器人, 并且群组最多容纳 15 个机器人, 示例值: ["cli_a10fbf7e94b8d01d"], 最大长度: `5`
 	ChatMode               *ChatMode           `json:"chat_mode,omitempty"`                // 群模式, 可选值有: `group`: 群组, 示例值: "group", 默认值: `group`
 	ChatType               *ChatType           `json:"chat_type,omitempty"`                // 群类型, 可选值有: `private`: 私有群, `public`: 公开群, 示例值: "private", 默认值: `private`
-	External               *bool               `json:"external,omitempty"`                 // 是否是外部群；若群组需要邀请不同租户的用户或机器人, 请指定为外部群, 示例值: false
+	External               *bool               `json:"external,omitempty"`                 // 是否是外部群；若群组需要邀请不同租户的用户或机器人, 请指定为外部群；, 注意: 创建外部群需要在[开发者后台](https://open.feishu.cn/app)—权限管理—权限配置页面申请 [在外部群调用群聊的 API 及事件] 权限, 示例值: false, 默认值: `false`
 	JoinMessageVisibility  *MessageVisibility  `json:"join_message_visibility,omitempty"`  // 入群消息可见性, 可选值有: `only_owner`: 仅群主和管理员可见, `all_members`: 所有成员可见, `not_anyone`: 任何人均不可见, 示例值: "all_members", 默认值: `all_members`
 	LeaveMessageVisibility *MessageVisibility  `json:"leave_message_visibility,omitempty"` // 退群消息可见性, 可选值有: `only_owner`: 仅群主和管理员可见, `all_members`: 所有成员可见, `not_anyone`: 任何人均不可见, 示例值: "all_members", 默认值: `all_members`
-	MembershipApproval     *MembershipApproval `json:"membership_approval,omitempty"`      // 加群审批, 可选值有: `no_approval_required`: 无需审批, `approval_required`: 需要审批, 示例值: "no_approval_required"
+	MembershipApproval     *MembershipApproval `json:"membership_approval,omitempty"`      // 加群审批, 可选值有: `no_approval_required`: 无需审批, `approval_required`: 需要审批, 示例值: "no_approval_required", 默认值: `no_approval_required`
 }
 
 // CreateChatResp ...
@@ -85,8 +85,8 @@ type CreateChatResp struct {
 	Name                   string               `json:"name,omitempty"`                     // 群名称
 	Description            string               `json:"description,omitempty"`              // 群描述
 	I18nNames              *I18nNames           `json:"i18n_names,omitempty"`               // 群国际化名称
-	OwnerID                string               `json:"owner_id,omitempty"`                 // 群主 ID, ID值与查询参数中的 user_id_type 对应, 不同 ID 的说明参见 [用户相关的 ID 概念](https://open.feishu.cn/document/home/user-identity-introduction/introduction), 当群主是机器人时, 该字段不返回
-	OwnerIDType            IDType               `json:"owner_id_type,omitempty"`            // 群主 ID 对应的ID类型, 与查询参数中的 user_id_type 相同。取值为: `open_id`、`user_id`、`union_id`其中之一, 当群主是机器人时, 该字段不返回
+	OwnerID                string               `json:"owner_id,omitempty"`                 // 群主 ID, ID值与查询参数中的 [user_id_type] 对应；不同 ID 的说明参见 [用户相关的 ID 概念](https://open.feishu.cn/document/home/user-identity-introduction/introduction), 注意: 当群主是机器人时, 该字段不返回
+	OwnerIDType            IDType               `json:"owner_id_type,omitempty"`            // 群主 ID 对应的ID类型, 与查询参数中的 [user_id_type] 相同。取值为: `open_id`、`user_id`、`union_id`其中之一, 注意: 当群主是机器人时, 该字段不返回
 	AddMemberPermission    AddMemberPermission  `json:"add_member_permission,omitempty"`    // 拉 用户或机器人 入群权限, 可选值有: `only_owner`: 仅群主和管理员, `all_members`: 所有成员
 	ShareCardPermission    ShareCardPermission  `json:"share_card_permission,omitempty"`    // 群分享权限, 可选值有: `allowed`: 允许, `not_allowed`: 不允许
 	AtAllPermission        AtAllPermission      `json:"at_all_permission,omitempty"`        // at 所有人权限, 可选值有: `only_owner`: 仅群主和管理员, `all_members`: 所有成员

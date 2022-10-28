@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// FindSheet 按照指定的条件查找子表的某个范围内的数据符合条件的单元格位置。请求体中的 range 和 find 字段为必填。
+// FindSheet 在指定范围内查找符合查找条件的单元格。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/sheets-v3/spreadsheet-sheet/find
 func (r *DriveService) FindSheet(ctx context.Context, request *FindSheetReq, options ...MethodOptionFunc) (*FindSheetResp, *Response, error) {
@@ -58,24 +58,24 @@ func (r *Mock) UnMockDriveFindSheet() {
 
 // FindSheetReq ...
 type FindSheetReq struct {
-	SpreadSheetToken string                     `path:"spreadsheet_token" json:"-"` // 表格的 token, 示例值: "shtcnmBA*yGehy8"
-	SheetID          string                     `path:"sheet_id" json:"-"`          // 子表的 id, 示例值: "0b**12"
+	SpreadSheetToken string                     `path:"spreadsheet_token" json:"-"` // 表格的token, 获取方式见[如何获取云文档资源相关 token](https://open.feishu.cn/document/ukTMukTMukTM/uczNzUjL3czM14yN3MTN), 示例值: "shtcnmBA*yGehy8"
+	SheetID          string                     `path:"sheet_id" json:"-"`          // 工作表的id, 获取方式见[获取工作表](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/sheets-v3/spreadsheet-sheet/query), 示例值: "0b**12"
 	FindCondition    *FindSheetReqFindCondition `json:"find_condition,omitempty"`   // 查找条件
-	Find             string                     `json:"find,omitempty"`             // 查找的字符串, 示例值: "hello"
+	Find             string                     `json:"find,omitempty"`             // 查找的字符串, 当`search_by_regex`字段为 true 时, 该字段为正则表达式, 示例值: "如下, 普通查找示例: "hello", 正则查找示例: "[A-Z]\w+""
 }
 
 // FindSheetReqFindCondition ...
 type FindSheetReqFindCondition struct {
-	Range           string `json:"range,omitempty"`             // 查找范围, 示例值: "0b**12!A1:H10"
-	MatchCase       *bool  `json:"match_case,omitempty"`        // 是否忽略大小写, 示例值: true
-	MatchEntireCell *bool  `json:"match_entire_cell,omitempty"` // 是否匹配整个单元格, 示例值: false
-	SearchByRegex   *bool  `json:"search_by_regex,omitempty"`   // 是否为正则匹配, 示例值: false
-	IncludeFormulas *bool  `json:"include_formulas,omitempty"`  // 是否搜索公式内容, 示例值: false
+	Range           string `json:"range,omitempty"`             // 查找范围, 参考 [名词解释 Range](https://open.feishu.cn/document/ukTMukTMukTM/uATMzUjLwEzM14CMxMTN/overview), 示例值: "PNIfrm!A1:C5"
+	MatchCase       *bool  `json:"match_case,omitempty"`        // 是否忽略大小写, 默认为 false, `true`: 表示忽略字符串中字母大小写差异, `false`: 表示区分字符串中字母大小写, 示例值: true
+	MatchEntireCell *bool  `json:"match_entire_cell,omitempty"` // 是否完全匹配整个单元格, 默认值为 false, `true`: 表示完全匹配单元格, 比如 find 取值为 "hello", 则单元格中的内容必须为 "hello", `false`: 表示允许部分匹配单元格, 比如 find 取值为 "hello", 则单元格中的内容包含 "hello" 即可, 示例值: false
+	SearchByRegex   *bool  `json:"search_by_regex,omitempty"`   // 是否为正则匹配, 默认值为 false, `true`: 表示使用正则匹配, `false`: 表示不使用正则匹配, 示例值: false
+	IncludeFormulas *bool  `json:"include_formulas,omitempty"`  // 是否仅搜索单元格公式, 默认值为 false, `true`: 表示仅搜索单元格公式, `false`: 表示仅搜索单元格内容, 示例值: false
 }
 
 // FindSheetResp ...
 type FindSheetResp struct {
-	FindResult *FindSheetRespFindResult `json:"find_result,omitempty"` // 查找返回符合条件的信息
+	FindResult *FindSheetRespFindResult `json:"find_result,omitempty"` // 符合条件的信息
 }
 
 // FindSheetRespFindResult ...

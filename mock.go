@@ -148,6 +148,7 @@ type Mock struct {
 	mockBaikeMatchBaikeEntity                                  func(ctx context.Context, request *MatchBaikeEntityReq, options ...MethodOptionFunc) (*MatchBaikeEntityResp, *Response, error)
 	mockBaikeSearchBaikeEntity                                 func(ctx context.Context, request *SearchBaikeEntityReq, options ...MethodOptionFunc) (*SearchBaikeEntityResp, *Response, error)
 	mockBaikeHighlightBaikeEntity                              func(ctx context.Context, request *HighlightBaikeEntityReq, options ...MethodOptionFunc) (*HighlightBaikeEntityResp, *Response, error)
+	mockBaikeExtractBaikeEntity                                func(ctx context.Context, request *ExtractBaikeEntityReq, options ...MethodOptionFunc) (*ExtractBaikeEntityResp, *Response, error)
 	mockBaikeGetBaikeClassificationList                        func(ctx context.Context, request *GetBaikeClassificationListReq, options ...MethodOptionFunc) (*GetBaikeClassificationListResp, *Response, error)
 	mockBaikeUploadBaikeImage                                  func(ctx context.Context, request *UploadBaikeImageReq, options ...MethodOptionFunc) (*UploadBaikeImageResp, *Response, error)
 	mockBaikeDownloadBaikeImage                                func(ctx context.Context, request *DownloadBaikeImageReq, options ...MethodOptionFunc) (*DownloadBaikeImageResp, *Response, error)
@@ -666,11 +667,11 @@ type Mock struct {
 	mockVCExportVCMeetingList                                  func(ctx context.Context, request *ExportVCMeetingListReq, options ...MethodOptionFunc) (*ExportVCMeetingListResp, *Response, error)
 	mockVCExportVCParticipantList                              func(ctx context.Context, request *ExportVCParticipantListReq, options ...MethodOptionFunc) (*ExportVCParticipantListResp, *Response, error)
 	mockVCExportVCParticipantQualityList                       func(ctx context.Context, request *ExportVCParticipantQualityListReq, options ...MethodOptionFunc) (*ExportVCParticipantQualityListResp, *Response, error)
+	mockVCExportVCResourceReservationList                      func(ctx context.Context, request *ExportVCResourceReservationListReq, options ...MethodOptionFunc) (*ExportVCResourceReservationListResp, *Response, error)
 	mockVCGetVCExportTask                                      func(ctx context.Context, request *GetVCExportTaskReq, options ...MethodOptionFunc) (*GetVCExportTaskResp, *Response, error)
 	mockVCDownloadVCExportFile                                 func(ctx context.Context, request *DownloadVCExportFileReq, options ...MethodOptionFunc) (*DownloadVCExportFileResp, *Response, error)
 	mockVCGetVCReserveConfig                                   func(ctx context.Context, request *GetVCReserveConfigReq, options ...MethodOptionFunc) (*GetVCReserveConfigResp, *Response, error)
 	mockVCUpdateVCReserveConfig                                func(ctx context.Context, request *UpdateVCReserveConfigReq, options ...MethodOptionFunc) (*UpdateVCReserveConfigResp, *Response, error)
-	mockVCGetVCAlertList                                       func(ctx context.Context, request *GetVCAlertListReq, options ...MethodOptionFunc) (*GetVCAlertListResp, *Response, error)
 	mockVerificationGetVerification                            func(ctx context.Context, request *GetVerificationReq, options ...MethodOptionFunc) (*GetVerificationResp, *Response, error)
 }
 

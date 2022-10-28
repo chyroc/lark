@@ -26,6 +26,7 @@ import (
 // 注意事项:
 // - 应用需要开启[机器人能力](https://open.feishu.cn/document/home/develop-a-bot-in-5-minutes/create-an-app)
 // - 目前仅支持加入公开群
+// - 操作内部群时, 操作者须与群组在同一租户下
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-members/me_join
 func (r *ChatService) JoinChat(ctx context.Context, request *JoinChatReq, options ...MethodOptionFunc) (*JoinChatResp, *Response, error) {
@@ -62,7 +63,7 @@ func (r *Mock) UnMockChatJoinChat() {
 
 // JoinChatReq ...
 type JoinChatReq struct {
-	ChatID string `path:"chat_id" json:"-"` // 群 ID, 详情参见[群ID 说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-id-description), 示例值: "oc_a0553eda9014c201e6969b478895c230"
+	ChatID string `path:"chat_id" json:"-"` // 群 ID, 详情参见[群ID 说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-id-description), 注意: 仅支持公开（Public）群类型, 对于已认证企业的飞书的群人数默认上限: 普通群5000人, 会议群3000人, 话题群5000人, 示例值: "oc_a0553eda9014c201e6969b478895c230"
 }
 
 // JoinChatResp ...

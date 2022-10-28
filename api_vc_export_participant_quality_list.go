@@ -23,6 +23,8 @@ import (
 
 // ExportVCParticipantQualityList 导出某场会议某个参会人的音视频&共享质量数据
 //
+// , 具体权限要求请参考「导出概述」
+//
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/vc-v1/export/participant_quality_list
 func (r *VCService) ExportVCParticipantQualityList(ctx context.Context, request *ExportVCParticipantQualityListReq, options ...MethodOptionFunc) (*ExportVCParticipantQualityListResp, *Response, error) {
 	if r.cli.mock.mockVCExportVCParticipantQualityList != nil {
@@ -63,8 +65,8 @@ type ExportVCParticipantQualityListReq struct {
 	MeetingEndTime   string  `json:"meeting_end_time,omitempty"`   // 会议结束时间（unix时间, 单位sec）, 示例值: "1655276858"
 	MeetingNo        string  `json:"meeting_no,omitempty"`         // 9位会议号, 示例值: "123456789"
 	JoinTime         string  `json:"join_time,omitempty"`          // 参会人入会时间（unix时间, 单位sec）, 示例值: "1655276858"
-	UserID           *string `json:"user_id,omitempty"`            // 参会人为Lark用户时填入, 示例值: "ou_3ec3f6a28a0d08c45d895276e8e5e19b"
-	RoomID           *string `json:"room_id,omitempty"`            // 参会人为Rooms时填入, 示例值: "omm_eada1d61a550955240c28757e7dec3af"
+	UserID           *string `json:"user_id,omitempty"`            // 参会人为Lark用户时填入, room_id和user_id必须只填一个, 示例值: "ou_3ec3f6a28a0d08c45d895276e8e5e19b"
+	RoomID           *string `json:"room_id,omitempty"`            // 参会人为Rooms时填入, room_id和user_id必须只填一个, 示例值: "omm_eada1d61a550955240c28757e7dec3af"
 }
 
 // ExportVCParticipantQualityListResp ...

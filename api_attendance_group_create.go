@@ -86,7 +86,7 @@ func (r *Mock) UnMockAttendanceCreateAttendanceGroup() {
 
 // CreateAttendanceGroupReq ...
 type CreateAttendanceGroupReq struct {
-	EmployeeType EmployeeType                   `query:"employee_type" json:"-"` // 用户 ID 的类型, 示例值: "employee_id", 可选值有: employee_id: 员工 employee ID, 即飞书管理后台 > 组织架构 > 成员与部门 > 成员详情中的用户 ID, employee_no: 员工工号, 即飞书管理后台 > 组织架构 > 成员与部门 > 成员详情中的工号
+	EmployeeType EmployeeType                   `query:"employee_type" json:"-"` // 用户 ID 的类型, 示例值: "employee_id", 可选值有: employee_id: 员工 employee ID, 即[飞书管理后台](https://bytedance.feishu.cn/admin/contacts/departmentanduser) > 组织架构 > 成员与部门 > 成员详情中的用户 ID, employee_no: 员工工号, 即[飞书管理后台](https://bytedance.feishu.cn/admin/contacts/departmentanduser) > 组织架构 > 成员与部门 > 成员详情中的工号
 	DeptType     string                         `query:"dept_type" json:"-"`     // 部门 ID 的类型, 示例值: "od-fcb45c28a45311afd441b8869541ece8", 可选值有: open_id: 暂时只支持部门的 openid
 	Group        *CreateAttendanceGroupReqGroup `json:"group,omitempty"`         // 6921319402260496386
 	OperatorID   *string                        `json:"operator_id,omitempty"`   // 操作人uid, 如果您未操作[考勤管理后台“API 接入”流程](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/attendance-development-guidelines), 则此字段为必填字段, 示例值: "dd31248a"
@@ -101,7 +101,7 @@ type CreateAttendanceGroupReqGroup struct {
 	ExceptDeptIDs           []string                                              `json:"except_dept_ids,omitempty"`             // 排除的部门 ID, 示例值: od-fcb45c28a45311afd440b7869541fce8
 	BindUserIDs             []string                                              `json:"bind_user_ids,omitempty"`               // 绑定的用户 ID, 示例值: 52aa1fa1
 	ExceptUserIDs           []string                                              `json:"except_user_ids,omitempty"`             // 排除的用户 ID, 示例值: 52aa1fa1
-	GroupLeaderIDs          []string                                              `json:"group_leader_ids,omitempty"`            // 考勤主负责人 ID 列表, 必选字段, 示例值: 2bg4a9be
+	GroupLeaderIDs          []string                                              `json:"group_leader_ids,omitempty"`            // 考勤主负责人 ID 列表, 必选字段（需至少拥有考勤组管理员权限）, 示例值: 2bg4a9be
 	SubGroupLeaderIDs       []string                                              `json:"sub_group_leader_ids,omitempty"`        // 考勤子负责人 ID 列表, 示例值: 52aa1fa1
 	AllowOutPunch           *bool                                                 `json:"allow_out_punch,omitempty"`             // 是否允许外勤打卡, 示例值: true
 	OutPunchNeedApproval    *bool                                                 `json:"out_punch_need_approval,omitempty"`     // 外勤打卡需审批（需要允许外勤打卡才能设置生效）, 示例值: true
@@ -198,7 +198,7 @@ type CreateAttendanceGroupRespGroup struct {
 	ExceptDeptIDs           []string                                               `json:"except_dept_ids,omitempty"`             // 排除的部门 ID
 	BindUserIDs             []string                                               `json:"bind_user_ids,omitempty"`               // 绑定的用户 ID
 	ExceptUserIDs           []string                                               `json:"except_user_ids,omitempty"`             // 排除的用户 ID
-	GroupLeaderIDs          []string                                               `json:"group_leader_ids,omitempty"`            // 考勤主负责人 ID 列表, 必选字段
+	GroupLeaderIDs          []string                                               `json:"group_leader_ids,omitempty"`            // 考勤主负责人 ID 列表, 必选字段（需至少拥有考勤组管理员权限）
 	SubGroupLeaderIDs       []string                                               `json:"sub_group_leader_ids,omitempty"`        // 考勤子负责人 ID 列表
 	AllowOutPunch           bool                                                   `json:"allow_out_punch,omitempty"`             // 是否允许外勤打卡
 	OutPunchNeedApproval    bool                                                   `json:"out_punch_need_approval,omitempty"`     // 外勤打卡需审批（需要允许外勤打卡才能设置生效）

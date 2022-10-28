@@ -38,7 +38,7 @@ https://godoc.org/github.com/chyroc/lark
 
 ## Support APIs
 
-API Count: 663, Event Count: 93
+API Count: 664, Event Count: 92
 
 <details>
   <summary>
@@ -193,6 +193,7 @@ API Count: 663, Event Count: 93
   - MatchBaikeEntity
   - SearchBaikeEntity
   - HighlightBaikeEntity
+  - ExtractBaikeEntity
   - GetBaikeClassificationList
   - UploadBaikeImage
   - DownloadBaikeImage
@@ -570,7 +571,6 @@ API Count: 663, Event Count: 93
   - EventV2CalendarCalendarACLDeletedV4
   - EventV2CalendarCalendarEventChangedV4
   - EventV2CalendarCalendarChangedV4
-  - EventV1AddBot
   - EventV1RemoveBot
   - EventV1P2PChatCreate
   - EventV1ReceiveMessage
@@ -828,11 +828,11 @@ API Count: 663, Event Count: 93
   - ExportVCMeetingList
   - ExportVCParticipantList
   - ExportVCParticipantQualityList
+  - ExportVCResourceReservationList
   - GetVCExportTask
   - DownloadVCExportFile
   - GetVCReserveConfig
   - UpdateVCReserveConfig
-  - GetVCAlertList
 - Verification
   - GetVerification
 

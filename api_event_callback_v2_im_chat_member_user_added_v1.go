@@ -55,7 +55,7 @@ type EventV2IMChatMemberUserAddedV1OperatorID struct {
 // EventV2IMChatMemberUserAddedV1User ...
 type EventV2IMChatMemberUserAddedV1User struct {
 	Name      string                                    `json:"name,omitempty"`       // 用户名字
-	TenantKey string                                    `json:"tenant_key,omitempty"` // 租户 Key
+	TenantKey string                                    `json:"tenant_key,omitempty"` // 租户Key, 为租户在飞书上的唯一标识, 用来换取对应的tenant_access_token, 也可以用作租户在应用中的唯一标识
 	UserID    *EventV2IMChatMemberUserAddedV1UserUserID `json:"user_id,omitempty"`    // 用户 ID
 }
 

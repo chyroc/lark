@@ -21,13 +21,15 @@ import (
 	"context"
 )
 
-// GetChatMemberList 如果用户在群中, 则返回该群的成员列表。
+// GetChatMemberList 获取用户/机器人所在群的群成员列表。
 //
 // 注意事项:
 // - 应用需要开启[机器人能力](https://open.feishu.cn/document/home/develop-a-bot-in-5-minutes/create-an-app)
+// - 机器人或授权用户必须在群组中
 // - 该接口不会返回群内的机器人成员
 // - 由于返回的群成员列表会过滤掉机器人成员, 因此返回的群成员个数可能会小于指定的page_size
 // - 如果有同一时间加入群的群成员, 会一次性返回, 这会导致返回的群成员个数可能会大于指定的page_size
+// - 获取内部群信息时, 操作者须与群组在同一租户下
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-members/get
 func (r *ChatService) GetChatMemberList(ctx context.Context, request *GetChatMemberListReq, options ...MethodOptionFunc) (*GetChatMemberListResp, *Response, error) {
@@ -66,7 +68,7 @@ func (r *Mock) UnMockChatGetChatMemberList() {
 type GetChatMemberListReq struct {
 	ChatID       string  `path:"chat_id" json:"-"`         // 群 ID, 详情参见[群ID 说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-id-description), 示例值: "oc_a0553eda9014c201e6969b478895c230"
 	MemberIDType *IDType `query:"member_id_type" json:"-"` // 群成员 用户 ID 类型, 详情参见 [用户相关的 ID 概念](https://open.feishu.cn/document/home/user-identity-introduction/introduction), 示例值: "open_id", 可选值有: user_id: 以 user_id 来识别成员, union_id: 以 union_id 来识别成员, open_id: 以 open_id 来识别成员, 当值为 `user_id`, 字段权限要求: 获取用户 user ID, </md-td>, </md-tr>
-	PageToken    *string `query:"page_token" json:"-"`     // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果, 示例值: "dmJCRHhpd3JRbGV1VEVNRFFyTitRWDY5ZFkybmYrMEUwMUFYT0VMMWdENEtuYUhsNUxGMDIwemtvdE5ORjBNQQ=="
+	PageToken    *string `query:"page_token" json:"-"`     // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果, 示例值: "dmJCRHhpd3JRbGV1VEVNRFFyTitRWDY5ZFkybmYrMEUwMUFYT0VMMWdENEtuYUhsNUxGMDIwemtvdE5ORjBNQQ["
 	PageSize     *int64  `query:"page_size" json:"-"`      // 分页大小, 示例值: 10, 默认值: `20`, 最大值: `100`
 }
 
@@ -83,7 +85,7 @@ type GetChatMemberListRespItem struct {
 	MemberIDType IDType `json:"member_id_type,omitempty"` // 成员的用户 ID 类型, 与查询参数中的 member_id_type 相同。取值为: `open_id`、`user_id`、`union_id`其中之一。
 	MemberID     string `json:"member_id,omitempty"`      // 成员的用户ID, ID值与查询参数中的 member_id_type 对应, 不同 ID 的说明参见 [用户相关的 ID 概念](https://open.feishu.cn/document/home/user-identity-introduction/introduction)
 	Name         string `json:"name,omitempty"`           // 名字
-	TenantKey    string `json:"tenant_key,omitempty"`     // tenant key
+	TenantKey    string `json:"tenant_key,omitempty"`     // 租户Key, 为租户在飞书上的唯一标识, 用来换取对应的tenant_access_token, 也可以用作租户在应用中的唯一标识
 }
 
 // getChatMemberListResp ...

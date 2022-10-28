@@ -21,7 +21,12 @@ import (
 	"context"
 )
 
-// DeleteChatTopNotice 撤销会话中的置顶
+// DeleteChatTopNotice 撤销会话中的置顶。
+//
+// 注意事项:
+// - 应用需要开启[机器人能力](https://open.feishu.cn/document/home/develop-a-bot-in-5-minutes/create-an-app)
+// - 机器人或授权用户必须在群组中
+// - 撤销内部群置顶时, 操作者须与群组在同一租户下
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-top_notice/delete_top_notice
 func (r *ChatService) DeleteChatTopNotice(ctx context.Context, request *DeleteChatTopNoticeReq, options ...MethodOptionFunc) (*DeleteChatTopNoticeResp, *Response, error) {

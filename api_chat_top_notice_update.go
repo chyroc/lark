@@ -23,6 +23,11 @@ import (
 
 // UpdateChatTopNotice 更新会话中的群置顶信息, 可以将群中的某一条消息, 或者群公告置顶显示。
 //
+// 注意事项:
+// - 应用需要开启[机器人能力](https://open.feishu.cn/document/home/develop-a-bot-in-5-minutes/create-an-app)
+// - 机器人或授权用户必须在群组中
+// - 更新内部群置顶时, 操作者须与群组在同一租户下
+//
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-top_notice/put_top_notice
 func (r *ChatService) UpdateChatTopNotice(ctx context.Context, request *UpdateChatTopNoticeReq, options ...MethodOptionFunc) (*UpdateChatTopNoticeResp, *Response, error) {
 	if r.cli.mock.mockChatUpdateChatTopNotice != nil {
@@ -64,8 +69,8 @@ type UpdateChatTopNoticeReq struct {
 
 // UpdateChatTopNoticeReqChatTopNotice ...
 type UpdateChatTopNoticeReqChatTopNotice struct {
-	ActionType *string `json:"action_type,omitempty"` // 置顶的类型, 示例值: "1", 可选值有: 1: 消息类型, 2: 群公告类型
-	MessageID  *string `json:"message_id,omitempty"`  // 消息id, 示例值: "om_dc13264520392913993dd051dba21dcf"
+	ActionType *string `json:"action_type,omitempty"` // 置顶的类型, 注意: 选择 [消息类型] 时必须填写`message_id`字段, 选择 [群公告类型] 时填写的`message_id`将被忽略, 示例值: "2", 可选值有: 1: 消息类型, 2: 群公告类型
+	MessageID  *string `json:"message_id,omitempty"`  // 消息ID, 详情参见[消息ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/intro#ac79c1c2), 示例值: "om_dc13264520392913993dd051dba21dcf"
 }
 
 // UpdateChatTopNoticeResp ...

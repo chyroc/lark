@@ -167,6 +167,8 @@ func (r *EventCallbackService) parserAllCallbackRequest(ctx context.Context, hea
 		if err := r.parserEventV1(req); err != nil {
 			return req, err
 		}
+	case req.OpenMessageID != "":
+		req.EventCardCallback.Token = req.Token
 	}
 
 	return req, nil
@@ -251,7 +253,7 @@ type eventReq struct {
 	// v1 v2 通用字段
 	Event json.RawMessage `json:"event"`
 
-	// card event
+	// 消息卡片 card event
 	*EventCardCallback
 
 	// v2 event 解析后字段

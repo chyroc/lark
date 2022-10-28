@@ -25,9 +25,8 @@ import (
 //
 // 注意事项:
 // - 应用需要开启[机器人能力](https://open.feishu.cn/document/home/develop-a-bot-in-5-minutes/create-an-app)
-// - 查询参数  user_id_type 用于控制响应体中 owner_id 的类型, 如果是获取机器人所在群列表该值可以不填
 // - 请注意区分本接口和[获取群信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat/get)的请求 URL
-// - 获取的群列表不包含p2p单聊群
+// - 获取的群列表不包含P2P单聊
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat/list
 func (r *ChatService) GetChatListOfSelf(ctx context.Context, request *GetChatListOfSelfReq, options ...MethodOptionFunc) (*GetChatListOfSelfResp, *Response, error) {
@@ -85,7 +84,7 @@ type GetChatListOfSelfRespItem struct {
 	OwnerID     string `json:"owner_id,omitempty"`      // 群主 ID
 	OwnerIDType IDType `json:"owner_id_type,omitempty"` // 群主 ID 类型
 	External    bool   `json:"external,omitempty"`      // 是否是外部群
-	TenantKey   string `json:"tenant_key,omitempty"`    // tenant key
+	TenantKey   string `json:"tenant_key,omitempty"`    // 租户Key, 为租户在飞书上的唯一标识, 用来换取对应的tenant_access_token, 也可以用作租户在应用中的唯一标识
 }
 
 // getChatListOfSelfResp ...

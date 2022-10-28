@@ -24,9 +24,12 @@ import (
 // GenChatShareLink 获取指定群的分享链接
 //
 // 注意事项:
-// - 该接口遵守群分享权限管控
-// - 单聊、团队群不支持分享群链接
+// - 应用需要开启[机器人能力](https://open.feishu.cn/document/home/develop-a-bot-in-5-minutes/create-an-app)
+// - 机器人或授权用户必须在群组中
+// - 单聊、密聊、团队群不支持分享群链接
 // - 当Bot被停用或Bot退出群组时, Bot生成的群链接也将停用
+// - 当群聊开启了 [仅群主和群管理员可添加群成员/分享群] 设置时, 仅群主和群管理员可以获取群分享链接
+// - 获取内部群分享链接时, 操作者须与群组在同一租户下
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat/link
 func (r *ChatService) GenChatShareLink(ctx context.Context, request *GenChatShareLinkReq, options ...MethodOptionFunc) (*GenChatShareLinkResp, *Response, error) {
@@ -63,7 +66,7 @@ func (r *Mock) UnMockChatGenChatShareLink() {
 
 // GenChatShareLinkReq ...
 type GenChatShareLinkReq struct {
-	ChatID         string  `path:"chat_id" json:"-"`          // 待获取分享链接的群ID, 详情参见[群ID 说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-id-description), 示例值: "oc_a0553eda9014c201e6969b478895c230"
+	ChatID         string  `path:"chat_id" json:"-"`          // 待获取分享链接的群ID, 详情参见[群ID 说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-id-description), 注意: 单聊、密聊、团队群不支持分享群链接, 示例值: "oc_a0553eda9014c201e6969b478895c230"
 	ValidityPeriod *string `json:"validity_period,omitempty"` // 群分享链接有效时长, 可选值week、year、permanently, 分别表示7天、1年以及永久有效, 示例值: "week", 可选值有: week: 有效期7天, year: 有效期1年, permanently: 永久有效, 默认值: `week`
 }
 

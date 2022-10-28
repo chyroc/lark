@@ -59,19 +59,22 @@ func (r *Mock) UnMockVCGetVCRoomConfig() {
 
 // GetVCRoomConfigReq ...
 type GetVCRoomConfigReq struct {
-	Scope      int64   `query:"scope" json:"-"`       // 查询节点范围, 示例值: 5, 可选值有: `1`: 租户, `2`: 国家/地区, `3`: 城市, `4`: 建筑, `5`: 楼层, `6`: 会议室
-	CountryID  *string `query:"country_id" json:"-"`  // 国家/地区ID scope为2, 3时需要此参数, 示例值: "086"
-	DistrictID *string `query:"district_id" json:"-"` // 城市ID scope为3时需要此参数, 示例值: "001"
-	BuildingID *string `query:"building_id" json:"-"` // 建筑ID scope为4, 5时需要此参数, 示例值: "22"
-	FloorName  *string `query:"floor_name" json:"-"`  // 楼层 scope为5时需要此参数, 示例值: "4"
-	RoomID     *string `query:"room_id" json:"-"`     // 会议室ID scope为6时需要此参数, 示例值: "6383786266263"
+	Scope      int64   `query:"scope" json:"-"`        // 查询节点范围, 示例值: 5, 可选值有: 1: 租户, 2: 国家/地区, 3: 城市, 4: 建筑, 5: 楼层, 6: 会议室
+	CountryID  *string `query:"country_id" json:"-"`   // 国家/地区ID scope为2, 3时需要此参数, 示例值: "086"
+	DistrictID *string `query:"district_id" json:"-"`  // 城市ID scope为3时需要此参数, 示例值: "001"
+	BuildingID *string `query:"building_id" json:"-"`  // 建筑ID scope为4, 5时需要此参数, 示例值: "22"
+	FloorName  *string `query:"floor_name" json:"-"`   // 楼层 scope为5时需要此参数, 示例值: "4"
+	RoomID     *string `query:"room_id" json:"-"`      // 会议室ID scope为6时需要此参数, 示例值: "6383786266263"
+	UserIDType *IDType `query:"user_id_type" json:"-"` // 用户 ID 类型, 示例值: "open_id", 可选值有: open_id: 用户的 open id, union_id: 用户的 union id, user_id: 用户的 user id, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
 }
 
 // GetVCRoomConfigResp ...
 type GetVCRoomConfigResp struct {
-	RoomBackground    string                             `json:"room_background,omitempty"`    // 飞书会议室背景图
-	DisplayBackground string                             `json:"display_background,omitempty"` // 飞书签到板背景图
-	DigitalSignage    *GetVCRoomConfigRespDigitalSignage `json:"digital_signage,omitempty"`    // 飞书会议室数字标牌
+	RoomBackground        string                                    `json:"room_background,omitempty"`          // 飞书会议室背景图
+	DisplayBackground     string                                    `json:"display_background,omitempty"`       // 飞书签到板背景图
+	DigitalSignage        *GetVCRoomConfigRespDigitalSignage        `json:"digital_signage,omitempty"`          // 飞书会议室数字标牌
+	RoomBoxDigitalSignage *GetVCRoomConfigRespRoomBoxDigitalSignage `json:"room_box_digital_signage,omitempty"` // 飞书投屏盒子数字标牌
+	RoomStatus            *GetVCRoomConfigRespRoomStatus            `json:"room_status,omitempty"`              // 会议室状态
 }
 
 // GetVCRoomConfigRespDigitalSignage ...
@@ -87,11 +90,47 @@ type GetVCRoomConfigRespDigitalSignage struct {
 type GetVCRoomConfigRespDigitalSignageMaterial struct {
 	ID           string `json:"id,omitempty"`            // 素材ID
 	Name         string `json:"name,omitempty"`          // 素材名称
-	MaterialType int64  `json:"material_type,omitempty"` // 素材类型, 可选值有: `1`: 图片, `2`: 视频, `3`: GIF
+	MaterialType int64  `json:"material_type,omitempty"` // 素材类型, 可选值有: 1: 图片, 2: 视频, 3: GIF
 	URL          string `json:"url,omitempty"`           // 素材url
 	Duration     int64  `json:"duration,omitempty"`      // 播放时长（单位sec）
 	Cover        string `json:"cover,omitempty"`         // 素材封面url
 	Md5          string `json:"md5,omitempty"`           // 素材文件md5
+	Vid          string `json:"vid,omitempty"`           // 素材文件vid
+	Size         string `json:"size,omitempty"`          // 素材文件大小（单位byte）
+}
+
+// GetVCRoomConfigRespRoomBoxDigitalSignage ...
+type GetVCRoomConfigRespRoomBoxDigitalSignage struct {
+	Enable       bool                                                `json:"enable,omitempty"`        // 是否开启数字标牌功能
+	Mute         bool                                                `json:"mute,omitempty"`          // 是否静音播放
+	StartDisplay int64                                               `json:"start_display,omitempty"` // 日程会议开始前n分钟结束播放
+	StopDisplay  int64                                               `json:"stop_display,omitempty"`  // 会议结束后n分钟开始播放
+	Materials    []*GetVCRoomConfigRespRoomBoxDigitalSignageMaterial `json:"materials,omitempty"`     // 素材列表
+}
+
+// GetVCRoomConfigRespRoomBoxDigitalSignageMaterial ...
+type GetVCRoomConfigRespRoomBoxDigitalSignageMaterial struct {
+	ID           string `json:"id,omitempty"`            // 素材ID
+	Name         string `json:"name,omitempty"`          // 素材名称
+	MaterialType int64  `json:"material_type,omitempty"` // 素材类型, 可选值有: 1: 图片, 2: 视频, 3: GIF
+	URL          string `json:"url,omitempty"`           // 素材url
+	Duration     int64  `json:"duration,omitempty"`      // 播放时长（单位sec）
+	Cover        string `json:"cover,omitempty"`         // 素材封面url
+	Md5          string `json:"md5,omitempty"`           // 素材文件md5
+	Vid          string `json:"vid,omitempty"`           // 素材文件vid
+	Size         string `json:"size,omitempty"`          // 素材文件大小（单位byte）
+}
+
+// GetVCRoomConfigRespRoomStatus ...
+type GetVCRoomConfigRespRoomStatus struct {
+	Status           bool     `json:"status,omitempty"`             // 是否启用会议室
+	ScheduleStatus   bool     `json:"schedule_status,omitempty"`    // 会议室未来状态为启用或禁用
+	DisableStartTime string   `json:"disable_start_time,omitempty"` // 禁用开始时间（unix时间, 单位sec）
+	DisableEndTime   string   `json:"disable_end_time,omitempty"`   // 禁用结束时间（unix时间, 单位sec, 数值0表示永久禁用）
+	DisableReason    string   `json:"disable_reason,omitempty"`     // 禁用原因
+	ContactIDs       []string `json:"contact_ids,omitempty"`        // 联系人列表, id类型由user_id_type参数决定
+	DisableNotice    bool     `json:"disable_notice,omitempty"`     // 是否在禁用时发送通知给预定了该会议室的员工
+	ResumeNotice     bool     `json:"resume_notice,omitempty"`      // 是否在恢复启用时发送通知给预定了该会议室的员工
 }
 
 // getVCRoomConfigResp ...

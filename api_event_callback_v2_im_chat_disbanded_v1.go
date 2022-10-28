@@ -39,9 +39,9 @@ type EventV2IMChatDisbandedV1Handler func(ctx context.Context, cli *Lark, schema
 // EventV2IMChatDisbandedV1 ...
 type EventV2IMChatDisbandedV1 struct {
 	ChatID            string                              `json:"chat_id,omitempty"`             // 群组 ID, 详情参见[群ID 说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-id-description)
-	OperatorID        *EventV2IMChatDisbandedV1OperatorID `json:"operator_id,omitempty"`         // 用户 ID
-	External          bool                                `json:"external,omitempty"`            // 是否是外部群
-	OperatorTenantKey string                              `json:"operator_tenant_key,omitempty"` // 操作者的租户 Key
+	OperatorID        *EventV2IMChatDisbandedV1OperatorID `json:"operator_id,omitempty"`         // 操作者的ID
+	External          bool                                `json:"external,omitempty"`            // 被解散的群是否是外部群
+	OperatorTenantKey string                              `json:"operator_tenant_key,omitempty"` // 操作者的租户 Key, 为租户在飞书上的唯一标识, 用来换取对应的tenant_access_token, 也可以用作租户在应用中的唯一标识
 }
 
 // EventV2IMChatDisbandedV1OperatorID ...

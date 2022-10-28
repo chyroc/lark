@@ -26,6 +26,7 @@ import (
 // 注意事项:
 // - 应用需要开启[机器人能力](https://open.feishu.cn/document/home/develop-a-bot-in-5-minutes/create-an-app)
 // - 机器人或授权用户必须在群里（否则只会返回群名称、群头像等基本信息）
+// - 获取内部群信息时, 操作者须与群组在同一租户下
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat/get
 func (r *ChatService) GetChat(ctx context.Context, request *GetChatReq, options ...MethodOptionFunc) (*GetChatResp, *Response, error) {
@@ -72,21 +73,21 @@ type GetChatResp struct {
 	Name                   string               `json:"name,omitempty"`                     // 群名称
 	Description            string               `json:"description,omitempty"`              // 群描述
 	I18nNames              *I18nNames           `json:"i18n_names,omitempty"`               // 群国际化名称
-	AddMemberPermission    AddMemberPermission  `json:"add_member_permission,omitempty"`    // 群成员添加权限(all_members/only_owner)
-	ShareCardPermission    ShareCardPermission  `json:"share_card_permission,omitempty"`    // 群分享权限(allowed/not_allowed)
-	AtAllPermission        AtAllPermission      `json:"at_all_permission,omitempty"`        // at 所有人权限(all_members/only_owner)
-	EditPermission         EditPermission       `json:"edit_permission,omitempty"`          // 群编辑权限(all_members/only_owner)
-	OwnerIDType            IDType               `json:"owner_id_type,omitempty"`            // 群主 ID 的类型(open_id/user_id/union_id), 群主是机器人时, 不返回该字段。
-	OwnerID                string               `json:"owner_id,omitempty"`                 // 群主 ID, 群主是机器人时, 不返回该字段。
-	ChatMode               ChatMode             `json:"chat_mode,omitempty"`                // 群模式(group/topic/p2p)
-	ChatType               ChatType             `json:"chat_type,omitempty"`                // 群类型(private/public)
-	ChatTag                string               `json:"chat_tag,omitempty"`                 // 优先级最高的一个群tag(inner/tenant/department/edu/meeting/customer_service)
-	JoinMessageVisibility  MessageVisibility    `json:"join_message_visibility,omitempty"`  // 入群消息可见性(only_owner/all_members/not_anyone)
-	LeaveMessageVisibility MessageVisibility    `json:"leave_message_visibility,omitempty"` // 出群消息可见性(only_owner/all_members/not_anyone)
-	MembershipApproval     MembershipApproval   `json:"membership_approval,omitempty"`      // 加群审批(no_approval_required/approval_required)
-	ModerationPermission   ModerationPermission `json:"moderation_permission,omitempty"`    // 发言权限(all_members/only_owner/moderator_list)
+	AddMemberPermission    AddMemberPermission  `json:"add_member_permission,omitempty"`    // 群成员添加权限, 可选值有: `only_owner`: 仅群主和管理员, `all_members`: 所有成员, 注意: 单聊不返回该字段
+	ShareCardPermission    ShareCardPermission  `json:"share_card_permission,omitempty"`    // 群分享权限, 可选值有: `allowed`: 允许, `not_allowed`: 不允许, 注意: 单聊不返回该字段
+	AtAllPermission        AtAllPermission      `json:"at_all_permission,omitempty"`        // at 所有人权限, 可选值有: `only_owner`: 仅群主和管理员, `all_members`: 所有成员, 注意: 单聊不返回该字段
+	EditPermission         EditPermission       `json:"edit_permission,omitempty"`          // 群编辑权限, 可选值有: `only_owner`: 仅群主和管理员, `all_members`: 所有成员
+	OwnerIDType            IDType               `json:"owner_id_type,omitempty"`            // 群主 ID 对应的ID类型, 与查询参数中的 [user_id_type] 相同。取值为: `open_id`、`user_id`、`union_id`其中之一, 注意: 当群主是机器人时不返回该字段, 单聊不返回该字段
+	OwnerID                string               `json:"owner_id,omitempty"`                 // 群主 ID, ID值与查询参数中的 [user_id_type] 对应；不同 ID 的说明参见 [用户相关的 ID 概念](https://open.feishu.cn/document/home/user-identity-introduction/introduction), 注意: 当群主是机器人时不返回该字段, 单聊不返回该字段
+	ChatMode               ChatMode             `json:"chat_mode,omitempty"`                // 群模式, 可选值有: `group`: 群组, `topic`: 话题, `p2p`: 单聊
+	ChatType               ChatType             `json:"chat_type,omitempty"`                // 群类型, 可选值有: `private`: 私有群, `public`: 公开群, 注意: 单聊不返回该字段
+	ChatTag                string               `json:"chat_tag,omitempty"`                 // 群标签, 如有多个, 则按照下列顺序返回第一个, 可选值有: `inner`: 内部群, `tenant`: 公司群, `department`: 部门群, `edu`: 教育群, `meeting`: 会议群, `customer_service`: 客服群, 注意: 单聊不返回该字段
+	JoinMessageVisibility  MessageVisibility    `json:"join_message_visibility,omitempty"`  // 入群消息可见性, 可选值有: `only_owner`: 仅群主和管理员可见, `all_members`: 所有成员可见, `not_anyone`: 任何人均不可见, 注意: 单聊不返回该字段
+	LeaveMessageVisibility MessageVisibility    `json:"leave_message_visibility,omitempty"` // 出群消息可见性, 可选值有: `only_owner`: 仅群主和管理员可见, `all_members`: 所有成员可见, `not_anyone`: 任何人均不可见, 注意: 单聊不返回该字段
+	MembershipApproval     MembershipApproval   `json:"membership_approval,omitempty"`      // 加群审批, 可选值有: `no_approval_required`: 无需审批, `approval_required`: 需要审批, 注意: 单聊不返回该字段
+	ModerationPermission   ModerationPermission `json:"moderation_permission,omitempty"`    // 发言权限, 可选值有: `only_owner`: 仅群主和管理员, `all_members`: 所有成员, `moderator_list`: 指定群成员
 	External               bool                 `json:"external,omitempty"`                 // 是否是外部群
-	TenantKey              string               `json:"tenant_key,omitempty"`               // tenant key
+	TenantKey              string               `json:"tenant_key,omitempty"`               // 租户Key, 为租户在飞书上的唯一标识, 用来换取对应的tenant_access_token, 也可以用作租户在应用中的唯一标识
 	UserCount              string               `json:"user_count,omitempty"`               // 群成员人数
 	BotCount               string               `json:"bot_count,omitempty"`                // 群机器人数
 }

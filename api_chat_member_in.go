@@ -23,6 +23,10 @@ import (
 
 // IsInChat 根据使用的access_token判断对应的用户或者机器人是否在群里。
 //
+// 注意事项:
+// - 应用需要开启[机器人能力](https://open.feishu.cn/document/home/develop-a-bot-in-5-minutes/create-an-app)
+// - 获取内部群信息时, 操作者须与群组在同一租户下
+//
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-members/is_in_chat
 func (r *ChatService) IsInChat(ctx context.Context, request *IsInChatReq, options ...MethodOptionFunc) (*IsInChatResp, *Response, error) {
 	if r.cli.mock.mockChatIsInChat != nil {

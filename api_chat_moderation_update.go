@@ -26,7 +26,7 @@ import (
 // 注意事项:
 // - 需要开启[机器人能力](https://open.feishu.cn/document/uQjL04CN/uYTMuYTMuYTM)
 // - 若以用户授权调用接口, 当授权用户是群主时, 可更新群发言权限
-// - 若以租户授权调用接口(即以机器人身份调用接口), 当机器人是群主 或者 机器人是创建群组、具备[更新应用所创建群的群信息]权限且仍在群内时, 可更新群发言权限
+// - 若以租户授权调用接口(即以机器人身份调用接口), 当机器人是群主 或者 机器人是群组创建者、具备[更新应用所创建群的群信息]权限且仍在群内时, 可更新群发言权限
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-moderation/update
 func (r *ChatService) UpdateChatModeration(ctx context.Context, request *UpdateChatModerationReq, options ...MethodOptionFunc) (*UpdateChatModerationResp, *Response, error) {

@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// CreateSpreadsheet 使用该接口可以在指定的目录下创建在线表格。
+// CreateSpreadsheet 在指定目录下创建表格
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/sheets-v3/spreadsheet/create
 func (r *DriveService) CreateSpreadsheet(ctx context.Context, request *CreateSpreadsheetReq, options ...MethodOptionFunc) (*CreateSpreadsheetResp, *Response, error) {
@@ -58,8 +58,8 @@ func (r *Mock) UnMockDriveCreateSpreadsheet() {
 
 // CreateSpreadsheetReq ...
 type CreateSpreadsheetReq struct {
-	Title       *string `json:"title,omitempty"`        // 表格标题, 示例值: "title"
-	FolderToken *string `json:"folder_token,omitempty"` // 文件夹token, 获取方式见[概述](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/files/guide/introduction), 示例值: "fldcnMsNb*hIW9IjG1LVswg"
+	Title       *string `json:"title,omitempty"`        // 表格标题, 示例值: "title", 长度范围: `0` ～ `255` 字符
+	FolderToken *string `json:"folder_token,omitempty"` // 文件夹token, 获取方式见[如何获取云文档资源相关 token](https://open.feishu.cn/document/ukTMukTMukTM/uczNzUjL3czM14yN3MTN), 示例值: "fldcnMsNb*hIW9IjG1LVswg"
 }
 
 // CreateSpreadsheetResp ...
@@ -70,7 +70,7 @@ type CreateSpreadsheetResp struct {
 // CreateSpreadsheetRespSpreadsheet ...
 type CreateSpreadsheetRespSpreadsheet struct {
 	Title            string `json:"title,omitempty"`             // 表格标题
-	FolderToken      string `json:"folder_token,omitempty"`      // 文件夹token, 获取方式见[概述](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/files/guide/introduction)
+	FolderToken      string `json:"folder_token,omitempty"`      // 文件夹token, 获取方式见[如何获取云文档资源相关 token](https://open.feishu.cn/document/ukTMukTMukTM/uczNzUjL3czM14yN3MTN)
 	URL              string `json:"url,omitempty"`               // 文档url
 	SpreadSheetToken string `json:"spreadsheet_token,omitempty"` // 表格token
 }

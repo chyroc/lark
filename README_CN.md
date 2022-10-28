@@ -38,7 +38,7 @@ https://godoc.org/github.com/chyroc/lark
 
 ## 支持的接口
 
-API 总数: 663, 事件总数: 93
+API 总数: 664, 事件总数: 92
 
 <details>
   <summary>
@@ -193,6 +193,7 @@ API 总数: 663, 事件总数: 93
   - MatchBaikeEntity
   - SearchBaikeEntity
   - HighlightBaikeEntity
+  - ExtractBaikeEntity
   - GetBaikeClassificationList
   - UploadBaikeImage
   - DownloadBaikeImage
@@ -570,7 +571,6 @@ API 总数: 663, 事件总数: 93
   - EventV2CalendarCalendarACLDeletedV4
   - EventV2CalendarCalendarEventChangedV4
   - EventV2CalendarCalendarChangedV4
-  - EventV1AddBot
   - EventV1RemoveBot
   - EventV1P2PChatCreate
   - EventV1ReceiveMessage
@@ -828,11 +828,11 @@ API 总数: 663, 事件总数: 93
   - ExportVCMeetingList
   - ExportVCParticipantList
   - ExportVCParticipantQualityList
+  - ExportVCResourceReservationList
   - GetVCExportTask
   - DownloadVCExportFile
   - GetVCReserveConfig
   - UpdateVCReserveConfig
-  - GetVCAlertList
 - Verification
   - GetVerification
 

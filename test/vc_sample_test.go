@@ -315,6 +315,18 @@ func Test_VC_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
+			cli.Mock().MockVCExportVCResourceReservationList(func(ctx context.Context, request *lark.ExportVCResourceReservationListReq, options ...lark.MethodOptionFunc) (*lark.ExportVCResourceReservationListResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockVCExportVCResourceReservationList()
+
+			_, _, err := moduleCli.ExportVCResourceReservationList(ctx, &lark.ExportVCResourceReservationListReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
 			cli.Mock().MockVCGetVCExportTask(func(ctx context.Context, request *lark.GetVCExportTaskReq, options ...lark.MethodOptionFunc) (*lark.GetVCExportTaskResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -357,18 +369,6 @@ func Test_VC_Sample_Failed(t *testing.T) {
 			defer cli.Mock().UnMockVCUpdateVCReserveConfig()
 
 			_, _, err := moduleCli.UpdateVCReserveConfig(ctx, &lark.UpdateVCReserveConfigReq{})
-			as.NotNil(err)
-			as.Equal(err.Error(), "mock-failed")
-		})
-
-		t.Run("", func(t *testing.T) {
-
-			cli.Mock().MockVCGetVCAlertList(func(ctx context.Context, request *lark.GetVCAlertListReq, options ...lark.MethodOptionFunc) (*lark.GetVCAlertListResp, *lark.Response, error) {
-				return nil, nil, fmt.Errorf("mock-failed")
-			})
-			defer cli.Mock().UnMockVCGetVCAlertList()
-
-			_, _, err := moduleCli.GetVCAlertList(ctx, &lark.GetVCAlertListReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "mock-failed")
 		})
@@ -561,6 +561,13 @@ func Test_VC_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
+			_, _, err := moduleCli.ExportVCResourceReservationList(ctx, &lark.ExportVCResourceReservationListReq{})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+
 			_, _, err := moduleCli.GetVCExportTask(ctx, &lark.GetVCExportTaskReq{
 				TaskID: "x",
 			})
@@ -587,13 +594,6 @@ func Test_VC_Sample_Failed(t *testing.T) {
 			_, _, err := moduleCli.UpdateVCReserveConfig(ctx, &lark.UpdateVCReserveConfigReq{
 				ReserveConfigID: "x",
 			})
-			as.NotNil(err)
-			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
-		})
-
-		t.Run("", func(t *testing.T) {
-
-			_, _, err := moduleCli.GetVCAlertList(ctx, &lark.GetVCAlertListReq{})
 			as.NotNil(err)
 			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
 		})
@@ -789,6 +789,13 @@ func Test_VC_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
+			_, _, err := moduleCli.ExportVCResourceReservationList(ctx, &lark.ExportVCResourceReservationListReq{})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+
 			_, _, err := moduleCli.GetVCExportTask(ctx, &lark.GetVCExportTaskReq{
 				TaskID: "x",
 			})
@@ -815,13 +822,6 @@ func Test_VC_Sample_Failed(t *testing.T) {
 			_, _, err := moduleCli.UpdateVCReserveConfig(ctx, &lark.UpdateVCReserveConfigReq{
 				ReserveConfigID: "x",
 			})
-			as.NotNil(err)
-			as.Equal("fake raw request", err.Error())
-		})
-
-		t.Run("", func(t *testing.T) {
-
-			_, _, err := moduleCli.GetVCAlertList(ctx, &lark.GetVCAlertListReq{})
 			as.NotNil(err)
 			as.Equal("fake raw request", err.Error())
 		})

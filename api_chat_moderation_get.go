@@ -80,7 +80,7 @@ type GetChatModerationResp struct {
 type GetChatModerationRespItem struct {
 	UserIDType IDType `json:"user_id_type,omitempty"` // 可发言用户 ID 类型
 	UserID     string `json:"user_id,omitempty"`      // 可发言用户 ID
-	TenantKey  string `json:"tenant_key,omitempty"`   // tenant key
+	TenantKey  string `json:"tenant_key,omitempty"`   // 租户Key, 为租户在飞书上的唯一标识, 用来换取对应的tenant_access_token, 也可以用作租户在应用中的唯一标识
 }
 
 // getChatModerationResp ...

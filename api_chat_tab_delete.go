@@ -21,7 +21,14 @@ import (
 	"context"
 )
 
-// DeleteChatTab 删除会话标签页
+// DeleteChatTab 删除会话标签页。
+//
+// 注意事项:
+// - 应用需要开启[机器人能力](https://open.feishu.cn/document/home/develop-a-bot-in-5-minutes/create-an-app)
+// - 机器人或授权用户必须在群里
+// - 只允许删除类型为`doc`和`url`的会话标签页
+// - 在开启 [仅群主和管理员可管理标签页] 的设置时, 仅群主和群管理员可以删除会话标签页
+// - 操作内部群时, 操作者须与群组在同一租户下
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-tab/delete_tabs
 func (r *ChatService) DeleteChatTab(ctx context.Context, request *DeleteChatTabReq, options ...MethodOptionFunc) (*DeleteChatTabResp, *Response, error) {
@@ -58,8 +65,8 @@ func (r *Mock) UnMockChatDeleteChatTab() {
 
 // DeleteChatTabReq ...
 type DeleteChatTabReq struct {
-	ChatID string   `path:"chat_id" json:"-"`  // 群ID, 示例值: "oc_a0553eda9014c201e6969b478895c230"
-	TabIDs []string `json:"tab_ids,omitempty"` // 会话标签页id列表, 示例值: ["7101214603622940671", "7101214603622940672"]
+	ChatID string   `path:"chat_id" json:"-"`  // 群ID, 详情参见[群ID 说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-id-description), 注意: 支持群模式为`p2p`与`group`的群ID, 示例值: "oc_a0553eda9014c201e6969b478895c230"
+	TabIDs []string `json:"tab_ids,omitempty"` // 会话标签页ID列表, Tab ID可以在[添加会话标签页](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-tab/create)与[拉取会话标签页](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-tab/list_tabs)的返回值中获取, 示例值: ["7101214603622940671", "7101214603622940672"]
 }
 
 // DeleteChatTabResp ...
@@ -69,10 +76,17 @@ type DeleteChatTabResp struct {
 
 // DeleteChatTabRespChatTab ...
 type DeleteChatTabRespChatTab struct {
-	TabID      string                              `json:"tab_id,omitempty"`      // TabID
-	TabName    string                              `json:"tab_name,omitempty"`    // Tab名称
+	TabID      string                              `json:"tab_id,omitempty"`      // Tab ID
+	TabName    string                              `json:"tab_name,omitempty"`    // Tab名称, 注意: 会话标签页的名称不能超过30个字符
 	TabType    string                              `json:"tab_type,omitempty"`    // Tab类型, 可选值有: message: 消息类型, doc_list: 云文档列表, doc: 文档, pin: Pin, meeting_minute: 会议纪要, chat_announcement: 群公告, url: URL, file: 文件
 	TabContent *DeleteChatTabRespChatTabTabContent `json:"tab_content,omitempty"` // Tab内容
+	TabConfig  *DeleteChatTabRespChatTabTabConfig  `json:"tab_config,omitempty"`  // Tab的配置
+}
+
+// DeleteChatTabRespChatTabTabConfig ...
+type DeleteChatTabRespChatTabTabConfig struct {
+	IconKey   string `json:"icon_key,omitempty"`    // 群Tab图标
+	IsBuiltIn bool   `json:"is_built_in,omitempty"` // 群tab是否App内嵌打开
 }
 
 // DeleteChatTabRespChatTabTabContent ...

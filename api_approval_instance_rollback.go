@@ -62,7 +62,7 @@ type RollbackApprovalInstanceReq struct {
 	TaskID         string   `json:"task_id,omitempty"`           // 回退的任务ID, 示例值: "7026591166355210260"
 	Reason         *string  `json:"reason,omitempty"`            // 退回原因, 示例值: "申请事项填写不具体, 请重新填写"
 	Extra          *string  `json:"extra,omitempty"`             // 扩展字段, 示例值: "暂不填写"
-	TaskDefKeyList []string `json:"task_def_key_list,omitempty"` // 退回到节点列表, 示例值: ["START", "APPROVAL_27997_285502", "APPROVAL_462205_2734554"], 长度范围: `1` ～ `100`
+	TaskDefKeyList []string `json:"task_def_key_list,omitempty"` // 指定退回的任务node_key, 从实例详情中获取timeline中获取, 必须是PASS的任务node_key, 示例值: ["START", "APPROVAL_27997_285502", "APPROVAL_462205_2734554"], 长度范围: `1` ～ `100`
 }
 
 // RollbackApprovalInstanceResp ...

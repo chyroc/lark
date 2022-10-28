@@ -65,12 +65,12 @@ type GetAttendanceUserStatsDataReq struct {
 	UserIDs          []string     `json:"user_ids,omitempty"`           // 查询的用户 ID 列表, （用户数量不超过 200）, 示例值: [, "ec8ddg56", "4dbb52f2", "4167842e", ]
 	NeedHistory      *bool        `json:"need_history,omitempty"`       // 是否需要历史数据, 示例值: true
 	CurrentGroupOnly *bool        `json:"current_group_only,omitempty"` // 只展示当前考勤组, 示例值: true
-	UserID           *string      `json:"user_id,omitempty"`            // 查询用户id, 同【更新统计设置】、【查询统计设置】user_id, 示例值: "ec8ddg56"
+	UserID           *string      `json:"user_id,omitempty"`            // 查询用户id, 同【更新统计设置】、【查询统计设置】user_id（新系统用户必填, 否则会报错）, 示例值: "ec8ddg56"
 }
 
 // GetAttendanceUserStatsDataResp ...
 type GetAttendanceUserStatsDataResp struct {
-	UserDatas []*GetAttendanceUserStatsDataRespUserData `json:"user_datas,omitempty"` // 用户统计数据
+	UserDatas []*GetAttendanceUserStatsDataRespUserData `json:"user_datas,omitempty"` // 用户统计数据（限制1000条）
 }
 
 // GetAttendanceUserStatsDataRespUserData ...

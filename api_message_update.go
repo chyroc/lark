@@ -26,8 +26,7 @@ import (
 // 注意事项:
 // - 需要开启[机器人能力](https://open.feishu.cn/document/home/develop-a-bot-in-5-minutes/create-an-app)
 // - 若以user_access_token更新消息, 该操作用户必须是卡片消息的发送者
-// - 对所有人更新[「共享卡片」](ukTMukTMukTM/uAjNwUjLwYDM14CM2ATN), 需在卡片的config属性中, 显式声明`"update_multi":true`。 更新特定人的卡片内容, 必须在用户对卡片进行交互操作后触发调用, 参考[「独享卡片」](https://open.feishu.cn/document/ukTMukTMukTM/uYjNwUjL2YDM14iN2ATN#49904b71)
-// - 当前仅支持更新未撤回的 卡片消息
+// - 仅支持对所有人更新未撤回的[「共享卡片」](ukTMukTMukTM/uAjNwUjLwYDM14CM2ATN)消息, 需在卡片的config属性中, 显式声明 ["update_multi":true]。
 // - 不支持更新批量消息
 // - 文本消息请求体最大不能超过150KB；卡片及富文本消息请求体最大不能超过30KB
 // - 仅支持修改14天内发送的消息
