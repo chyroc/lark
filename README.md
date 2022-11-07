@@ -38,7 +38,7 @@ https://godoc.org/github.com/chyroc/lark
 
 ## Support APIs
 
-API Count: 664, Event Count: 92
+API Count: 666, Event Count: 90
 
 <details>
   <summary>
@@ -236,7 +236,6 @@ API Count: 664, Event Count: 92
   - GetBitableMeta
 - Bot
   - GetBotInfo
-  - AddBotToChat
 - Calendar
   - CreateCalendarACL
   - DeleteCalendarACL
@@ -276,7 +275,6 @@ API Count: 664, Event Count: 92
 - Chat
   - CreateChat
   - GetChat
-  - GetChatOld
   - UpdateChat
   - DeleteChat
   - GetChatListOfSelf
@@ -510,7 +508,6 @@ API Count: 664, Event Count: 92
   - EventV2DriveFileDeletedV1
   - EventV2DriveFilePermissionMemberRemovedV1
   - EventV2ApprovalApprovalUpdatedV4
-  - EventV1TripApproval
   - EventV1RemedyApproval
   - EventV1ThirdPartyMeetingRoomEventUpdated
   - EventV1ThirdPartyMeetingRoomEventDeleted
@@ -571,18 +568,17 @@ API Count: 664, Event Count: 92
   - EventV2CalendarCalendarACLDeletedV4
   - EventV2CalendarCalendarEventChangedV4
   - EventV2CalendarCalendarChangedV4
-  - EventV1RemoveBot
   - EventV1P2PChatCreate
-  - EventV1ReceiveMessage
-  - EventV1AddUserToChat
-  - EventV1RemoveUserFromChat
-  - EventV1RevokeAddUserFromChat
-  - EventV1ChatDisband
   - EventV1ApprovalInstance
   - EventV1ApprovalTask
   - EventV1ApprovalCc
   - EventV2AttendanceUserTaskUpdatedV1
   - EventV2AttendanceUserFlowCreatedV1
+  - EventV2IMMessageRecalledV1
+  - EventV2VCRoomCreatedV1
+  - EventV2VCRoomDeletedV1
+  - EventV2VCRoomUpdatedV1
+  - EventV2DriveFileBitableFieldChangedV1
 - File
   - UploadImage
   - DownloadImage
@@ -707,25 +703,6 @@ API Count: 664, Event Count: 92
   - DeleteMailUserMailboxAlias
   - GetMailUserMailboxAliasList
   - DeleteMailUserMailbox
-- MeetingRoom
-  - GetMeetingRoomCustomization
-  - BatchGetMeetingRoomSummary
-  - GetMeetingRoomBuildingList
-  - BatchGetMeetingRoomBuilding
-  - GetMeetingRoomRoomList
-  - BatchGetMeetingRoomRoom
-  - BatchGetMeetingRoomFreebusy
-  - ReplyMeetingRoomInstance
-  - CreateMeetingRoomBuilding
-  - UpdateMeetingRoomBuilding
-  - DeleteMeetingRoomBuilding
-  - BatchGetMeetingRoomBuildingID
-  - CreateMeetingRoomRoom
-  - UpdateMeetingRoomRoom
-  - DeleteMeetingRoomRoom
-  - BatchGetMeetingRoomRoomID
-  - GetMeetingRoomCountryList
-  - GetMeetingRoomDistrictList
 - Message
   - SendEphemeralMessage
   - SendUrgentAppMessage
@@ -763,6 +740,13 @@ API Count: 664, Event Count: 92
   - GetOKRProgressRecord
   - CreateOKRProgressRecord
   - UploadOKRImage
+  - GetOKRMetricSourceList
+  - GetOKRMetricSourceTableList
+  - GetOKRMetricSourceTableList
+  - BatchUpdateOKRMetricSourceTableItem
+  - UpdateOKRMetricSourceTableItem
+  - GetOKRMetricSourceTableItem
+  - GetOKRMetricSourceTableItemList
 - Passport
   - GetPassportSession
 - Search
@@ -823,16 +807,31 @@ API Count: 664, Event Count: 92
   - SetVCPermissionMeetingRecording
   - GetVCDailyReport
   - GetVCTopUserReport
-  - GetVCRoomConfig
-  - SetVCRoomConfig
+  - GetVCRoomList
+  - GetVCRoom
+  - BatchGetVCRoom
+  - CreateVCRoom
+  - UpdateVCRoom
+  - DeleteVCRoom
+  - SearchVCRoom
+  - GetVCRoomLevelList
+  - GetVCRoomLevel
+  - BatchGetVCRoomLevel
+  - CreateVCRoomLevel
+  - UpdateVCRoomLevel
+  - DeleteVCRoomLevel
+  - SearchVCRoomLevel
+  - SetVCScopeConfig
+  - GetVCScopeConfig
+  - GetVCReserveConfig
+  - UpdateVCReserveConfig
   - ExportVCMeetingList
   - ExportVCParticipantList
   - ExportVCParticipantQualityList
   - ExportVCResourceReservationList
   - GetVCExportTask
   - DownloadVCExportFile
-  - GetVCReserveConfig
-  - UpdateVCReserveConfig
+  - GetVCAlertList
 - Verification
   - GetVerification
 

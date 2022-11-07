@@ -24,11 +24,14 @@ import (
 // UpdateChat 更新群头像、群名称、群描述、群配置、转让群主等。
 //
 // 注意事项:
-// - 应用需要开启[机器人能力](https://open.feishu.cn/document/home/develop-a-bot-in-5-minutes/create-an-app)
+// - 应用需要开启[机器人能力](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-enable-bot-ability)
 // - 对于群主/群管理员 或 创建群组且具备 [更新应用所创建群的群信息] 权限的机器人, 可更新所有信息
 // - 对于不满足上述权限条件的群成员或机器人:
 // - 若未开启 [仅群主和群管理员可编辑群信息] 配置, 仅可更新群头像、群名称、群描述、群国际化名称信息
 // - 若开启了 [仅群主和群管理员可编辑群信息] 配置, 任何群信息都不能修改
+// - 如果同时更新 [邀请用户或机器人入群权限] 和 [群分享权限] 这两项设置需要满足以下条件:
+// - 若未开启 [仅群主和管理员可以邀请用户或机器人入群], 需要设置 [群分享权限] 为 [允许分享]
+// - 若开启了 [仅群主和管理员可以邀请用户或机器人入群], 需要设置 [群分享权限] 为 [不允许分享]
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat/update
 func (r *ChatService) UpdateChat(ctx context.Context, request *UpdateChatReq, options ...MethodOptionFunc) (*UpdateChatResp, *Response, error) {
@@ -71,7 +74,7 @@ type UpdateChatReq struct {
 	Name                   *string              `json:"name,omitempty"`                     // 群名称, 示例值: "群聊"
 	Description            *string              `json:"description,omitempty"`              // 群描述, 示例值: "测试群描述"
 	I18nNames              *I18nNames           `json:"i18n_names,omitempty"`               // 群国际化名称
-	AddMemberPermission    *AddMemberPermission `json:"add_member_permission,omitempty"`    // 邀请用户或机器人入群权限, 可选值有: `only_owner`: 仅群主和管理员, `all_members`: 所有成员, 示例值: "all_members"
+	AddMemberPermission    *AddMemberPermission `json:"add_member_permission,omitempty"`    // 邀请用户或机器人入群权限, 注意: 若值设置为`only_owner`, 则share_card_permission只能设置为`not_allowed`, 若值设置为`all_members`, 则share_card_permission只能设置为`allowed`, 可选值有: `only_owner`: 仅群主和管理员, `all_members`: 所有成员, 示例值: "all_members"
 	ShareCardPermission    *ShareCardPermission `json:"share_card_permission,omitempty"`    // 群分享权限, 可选值有: `allowed`: 允许, `not_allowed`: 不允许, 示例值: "allowed"
 	AtAllPermission        *AtAllPermission     `json:"at_all_permission,omitempty"`        // at 所有人权限, 可选值有: `only_owner`: 仅群主和管理员, `all_members`: 所有成员, 示例值: "all_members"
 	EditPermission         *EditPermission      `json:"edit_permission,omitempty"`          // 群编辑权限, 可选值有: `only_owner`: 仅群主和管理员, `all_members`: 所有成员, 示例值: "all_members"
@@ -79,6 +82,7 @@ type UpdateChatReq struct {
 	JoinMessageVisibility  *MessageVisibility   `json:"join_message_visibility,omitempty"`  // 入群消息可见性, 可选值有: `only_owner`: 仅群主和管理员可见, `all_members`: 所有成员可见, `not_anyone`: 任何人均不可见, 示例值: "only_owner"
 	LeaveMessageVisibility *MessageVisibility   `json:"leave_message_visibility,omitempty"` // 出群消息可见性, 可选值有: `only_owner`: 仅群主和管理员可见, `all_members`: 所有成员可见, `not_anyone`: 任何人均不可见, 示例值: "only_owner"
 	MembershipApproval     *MembershipApproval  `json:"membership_approval,omitempty"`      // 加群审批, 可选值有: `no_approval_required`: 无需审批, `approval_required`: 需要审批, 示例值: "no_approval_required"
+	ChatType               *ChatType            `json:"chat_type,omitempty"`                // 群类型, 可选值有: `private`: 私有群, `public`: 公开群, 示例值: "private"
 }
 
 // UpdateChatResp ...

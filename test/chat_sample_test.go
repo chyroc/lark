@@ -75,18 +75,6 @@ func Test_Chat_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
-			cli.Mock().MockChatGetChatOld(func(ctx context.Context, request *lark.GetChatOldReq, options ...lark.MethodOptionFunc) (*lark.GetChatOldResp, *lark.Response, error) {
-				return nil, nil, fmt.Errorf("mock-failed")
-			})
-			defer cli.Mock().UnMockChatGetChatOld()
-
-			_, _, err := moduleCli.GetChatOld(ctx, &lark.GetChatOldReq{})
-			as.NotNil(err)
-			as.Equal(err.Error(), "mock-failed")
-		})
-
-		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockChatUpdateChat(func(ctx context.Context, request *lark.UpdateChatReq, options ...lark.MethodOptionFunc) (*lark.UpdateChatResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -385,13 +373,6 @@ func Test_Chat_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
-			_, _, err := moduleCli.GetChatOld(ctx, &lark.GetChatOldReq{})
-			as.NotNil(err)
-			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
-		})
-
-		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.UpdateChat(ctx, &lark.UpdateChatReq{
 				ChatID: "x",
 			})
@@ -614,13 +595,6 @@ func Test_Chat_Sample_Failed(t *testing.T) {
 			_, _, err := moduleCli.GetChat(ctx, &lark.GetChatReq{
 				ChatID: "x",
 			})
-			as.NotNil(err)
-			as.Equal("fake raw request", err.Error())
-		})
-
-		t.Run("", func(t *testing.T) {
-
-			_, _, err := moduleCli.GetChatOld(ctx, &lark.GetChatOldReq{})
 			as.NotNil(err)
 			as.Equal("fake raw request", err.Error())
 		})

@@ -25,7 +25,7 @@ import (
 // GetMessageFile 获取消息中的资源文件, 包括音频, 视频, 图片和文件, 暂不支持表情包资源下载。当前仅支持 100M 以内的资源文件的下载。
 //
 // 注意事项:
-// - 需要开启[机器人能力](https://open.feishu.cn/document/home/develop-a-bot-in-5-minutes/create-an-app)
+// - 需要开启[机器人能力](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-enable-bot-ability)
 // - 机器人和消息需要在同一会话中
 // - 暂不支持获取合并转发消息中的子消息的资源文件
 //

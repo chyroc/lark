@@ -74,7 +74,6 @@ type Lark struct {
 	HumanAuth     *HumanAuthService
 	Jssdk         *JssdkService
 	Mail          *MailService
-	MeetingRoom   *MeetingRoomService
 	Message       *MessageService
 	Mina          *MinaService
 	OKR           *OKRService
@@ -113,7 +112,6 @@ func (r *Lark) init() {
 	r.HumanAuth = &HumanAuthService{cli: r}
 	r.Jssdk = &JssdkService{cli: r}
 	r.Mail = &MailService{cli: r}
-	r.MeetingRoom = &MeetingRoomService{cli: r}
 	r.Message = &MessageService{cli: r}
 	r.Mina = &MinaService{cli: r}
 	r.OKR = &OKRService{cli: r}
@@ -180,7 +178,6 @@ type HireService struct{ cli *Lark }
 type HumanAuthService struct{ cli *Lark }
 type JssdkService struct{ cli *Lark }
 type MailService struct{ cli *Lark }
-type MeetingRoomService struct{ cli *Lark }
 type MessageService struct{ cli *Lark }
 type MinaService struct{ cli *Lark }
 type OKRService struct{ cli *Lark }

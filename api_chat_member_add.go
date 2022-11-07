@@ -24,7 +24,7 @@ import (
 // AddChatMember 将用户或机器人拉入群聊。
 //
 // 注意事项:
-// - 应用需要开启[机器人能力](https://open.feishu.cn/document/home/develop-a-bot-in-5-minutes/create-an-app)
+// - 应用需要开启[机器人能力](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-enable-bot-ability)
 // - 如需拉用户进群, 需要机器人对用户有[可用性](https://open.feishu.cn/document/home/introduction-to-scope-and-authorization/availability)
 // - 机器人或授权用户必须在群组中
 // - 外部租户不能被加入到内部群中
@@ -70,12 +70,12 @@ type AddChatMemberReq struct {
 	ChatID       string   `path:"chat_id" json:"-"`         // 群 ID, 详情参见[群ID 说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-id-description), 注意: 仅支持群模式为`group`、`topic`的群组ID, 示例值: "oc_a0553eda9014c201e6969b478895c230"
 	MemberIDType *IDType  `query:"member_id_type" json:"-"` // 进群成员 ID 类型 open_id/user_id/union_id/app_id, 注意: 拉机器人入群请使用 [app_id], 示例值: "open_id", 可选值有: user_id: 标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。同一个 user_id 对所有的应用都保持一致。user_id 主要用于在不同的应用间进行用户数据打通。, union_id: 标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中, 获取到的 union_id 是相同的, 而不同开发商下的应用获取到的 union_id 是不同的。union_id可以让应用开发商把同个用户在多个应用中的身份关联起来。, open_id: 标识一个用户在某个应用中的身份。同一个 User ID 在不同应用中的 Open ID 不同。, app_id: 飞书开放平台应用的唯一标识。在创建应用时, 由系统自动生成, 用户不能自行修改。可以在[开发者后台](https://open.feishu.cn/app)的 凭证与基础信息 页面查看。, 默认值: `open_id`
 	SucceedType  *int64   `query:"succeed_type" json:"-"`   // 出现不可用ID后的处理方式 0/1/2, 示例值: 0, 可选值有: 0: 兼容之前的策略, 不存在/不可见的 ID 会拉群失败, 并返回错误响应。存在已离职 ID 时, 会将其他可用 ID 拉入群聊, 返回拉群成功的响应。, 1: 将参数中可用的 ID 全部拉入群聊, 返回拉群成功的响应, 并展示剩余不可用的 ID 及原因。, 2: 参数中只要存在任一不可用的 ID, 就会拉群失败, 返回错误响应, 并展示出不可用的 ID。
-	IDList       []string `json:"id_list,omitempty"`        // 成员列表, 注意: 成员列表不可为空, 每次请求最多拉50个用户或者5个机器人, 并且群组最多容纳15个机器人, 列表中填写的成员ID类型应与 [member_id_type] 参数中选择的类型相对应, 对于已认证企业的飞书的群人数默认上限: 普通群5000人, 会议群3000人, 话题群5000人, 示例值: ["ou_9204a37300b3700d61effaa439f34295"]
+	IDList       []string `json:"id_list,omitempty"`        // 成员ID列表, 获取ID请参见[如何获得 User ID、Open ID 和 Union ID？](https://open.feishu.cn/document/home/user-identity-introduction/how-to-get), 注意: 成员列表不可为空, 每次请求最多拉50个用户或者5个机器人, 并且群组最多容纳15个机器人, 列表中填写的成员ID类型应与 [member_id_type] 参数中选择的类型相对应, 对于已认证企业的飞书的群人数默认上限: 普通群5000人, 会议群3000人, 话题群5000人, 示例值: ["ou_9204a37300b3700d61effaa439f34295"]
 }
 
 // AddChatMemberResp ...
 type AddChatMemberResp struct {
-	InvalidIDList    []string `json:"invalid_id_list,omitempty"`     // 无效成员列表
+	InvalidIDList    []string `json:"invalid_id_list,omitempty"`     // 无效成员列表, 注意: 当`success_type=0`时, `invalid_id_list`只包含已离职的用户ID, 当`success_type=1`时, `invalid_id_list`中包含已离职的、不可见的、应用未激活的ID
 	NotExistedIDList []string `json:"not_existed_id_list,omitempty"` // ID不存在的成员列表
 }
 

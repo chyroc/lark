@@ -24,6 +24,7 @@ import (
 // BatchDeleteMessage 批量撤回通过[批量发送消息](https://open.feishu.cn/document/ukTMukTMukTM/ucDO1EjL3gTNx4yN4UTM)接口发送的消息。
 //
 // 注意事项:
+// - 应用需要启用[机器人能力](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-enable-bot-ability)
 // - 撤回单条发送的消息请使用[撤回消息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/delete)接口
 // - 不支持撤回发出时间超过1天的消息
 // - 一次调用涉及大量消息, 所以为异步接口, 会有一定延迟。

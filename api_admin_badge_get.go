@@ -67,11 +67,27 @@ type GetAdminBadgeResp struct {
 
 // GetAdminBadgeRespBadge ...
 type GetAdminBadgeRespBadge struct {
-	ID          string `json:"id,omitempty"`           // 租户内勋章的唯一标识, 该值由系统随机生成。
-	Name        string `json:"name,omitempty"`         // 租户内唯一的勋章名称, 最多30个字符。
-	Explanation string `json:"explanation,omitempty"`  // 勋章的描述文案, 最多100个字符。
-	DetailImage string `json:"detail_image,omitempty"` // 企业勋章的详情图Key。1.权限校验: 非本租户上传的图片key, 不能直接使用；2.时效校验: 创建勋章, 或者修改勋章图片key时, 需使用1h内上传的图片key。
-	ShowImage   string `json:"show_image,omitempty"`   // 企业勋章的头像挂饰图Key。1.权限校验: 非本租户上传的图片key, 不能直接使用；2.时效校验: 创建勋章, 或者修改勋章图片key时, 需使用1h内上传的图片key。
+	ID              string                                 `json:"id,omitempty"`               // 租户内勋章的唯一标识, 该值由系统随机生成。
+	Name            string                                 `json:"name,omitempty"`             // 租户内唯一的勋章名称, 最多30个字符。
+	Explanation     string                                 `json:"explanation,omitempty"`      // 勋章的描述文案, 最多100个字符。
+	DetailImage     string                                 `json:"detail_image,omitempty"`     // 企业勋章的详情图Key。1.权限校验: 非本租户上传的图片key, 不能直接使用；2.时效校验: 创建勋章, 或者修改勋章图片key时, 需使用1h内上传的图片key。
+	ShowImage       string                                 `json:"show_image,omitempty"`       // 企业勋章的头像挂饰图Key。1.权限校验: 非本租户上传的图片key, 不能直接使用；2.时效校验: 创建勋章, 或者修改勋章图片key时, 需使用1h内上传的图片key。
+	I18nName        *GetAdminBadgeRespBadgeI18nName        `json:"i18n_name,omitempty"`        // 勋章的多语言名称, 同name字段限制, 最多30个字符。
+	I18nExplanation *GetAdminBadgeRespBadgeI18nExplanation `json:"i18n_explanation,omitempty"` // 勋章的多语言描述文案, 同explanation字段限制, 最多100个字符。
+}
+
+// GetAdminBadgeRespBadgeI18nExplanation ...
+type GetAdminBadgeRespBadgeI18nExplanation struct {
+	ZhCn string `json:"zh_cn,omitempty"` // 中文文案
+	EnUs string `json:"en_us,omitempty"` // 英文文案
+	JaJp string `json:"ja_jp,omitempty"` // 日文文案
+}
+
+// GetAdminBadgeRespBadgeI18nName ...
+type GetAdminBadgeRespBadgeI18nName struct {
+	ZhCn string `json:"zh_cn,omitempty"` // 中文文案
+	EnUs string `json:"en_us,omitempty"` // 英文文案
+	JaJp string `json:"ja_jp,omitempty"` // 日文文案
 }
 
 // getAdminBadgeResp ...

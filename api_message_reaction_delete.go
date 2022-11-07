@@ -24,7 +24,7 @@ import (
 // DeleteMessageReaction 删除指定消息的表情回复（reaction即表情回复, 本文档统一用“reaction”代称）。
 //
 // 注意事项:
-// - 需要开启[机器人能力](https://open.feishu.cn/document/home/develop-a-bot-in-5-minutes/create-an-app)
+// - 需要开启[机器人能力](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-enable-bot-ability)
 // - 只能删除真实存在的reaction, 并且删除reaction请求的操作者必须是reaction的原始添加者
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message-reaction/delete

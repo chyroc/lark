@@ -24,7 +24,7 @@ import (
 // EventV2IMChatMemberBotDeletedV1 机器人被移出群聊后触发此事件。{使用示例}(url=/api/tools/api_explore/api_explore_config?project=im&version=v1&resource=chat.member.bot&event=deleted)
 //
 // 注意事项:
-// - 需要开启[机器人能力](https://open.feishu.cn/document/home/develop-a-bot-in-5-minutes/create-an-app)
+// - 需要开启[机器人能力](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-enable-bot-ability)
 // - 需要订阅 [消息与群组] 分类下的 [机器人被移出群] 事件
 // - 事件会向被移出群的机器人进行推送
 //
@@ -42,6 +42,8 @@ type EventV2IMChatMemberBotDeletedV1 struct {
 	OperatorID        *EventV2IMChatMemberBotDeletedV1OperatorID `json:"operator_id,omitempty"`         // 用户 ID
 	External          bool                                       `json:"external,omitempty"`            // 是否是外部群
 	OperatorTenantKey string                                     `json:"operator_tenant_key,omitempty"` // 操作者租户 Key
+	Name              string                                     `json:"name,omitempty"`                // 群名称
+	I18nNames         *I18nNames                                 `json:"i18n_names,omitempty"`          // 群国际化名称
 }
 
 // EventV2IMChatMemberBotDeletedV1OperatorID ...

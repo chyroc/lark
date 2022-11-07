@@ -24,7 +24,7 @@ import (
 // UpdateChatTab 更新会话标签页
 //
 // 注意事项:
-// - 应用需要开启[机器人能力](https://open.feishu.cn/document/home/develop-a-bot-in-5-minutes/create-an-app)
+// - 应用需要开启[机器人能力](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-enable-bot-ability)
 // - 机器人或授权用户必须在群里
 // - 只允许更新类型为`doc`和`url`的会话标签页
 // - 更新doc类型时, 操作者（access token对应的身份）需要拥有对应文档的权限

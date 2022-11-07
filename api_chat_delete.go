@@ -24,7 +24,7 @@ import (
 // DeleteChat 解散群组。
 //
 // 注意事项:
-// - 应用需要开启[机器人能力](https://open.feishu.cn/document/home/develop-a-bot-in-5-minutes/create-an-app)
+// - 应用需要开启[机器人能力](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-enable-bot-ability)
 // - 如果使用tenant_access_token, 需要机器人符合以下任一情况才可解散群:
 // - 机器人是群主
 // - 机器人是群的创建者且具备[更新应用所创建群的群信息]权限

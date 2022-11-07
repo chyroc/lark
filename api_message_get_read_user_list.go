@@ -24,7 +24,7 @@ import (
 // GetMessageReadUserList 查询消息的已读信息。
 //
 // 注意事项:
-// - 需要开启[机器人能力](https://open.feishu.cn/document/home/develop-a-bot-in-5-minutes/create-an-app)
+// - 需要开启[机器人能力](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-enable-bot-ability)
 // - 只能查询机器人自己发送, 且发送时间不超过7天的消息
 // - 查询消息已读信息时机器人仍需要在会话内
 // - 本接口不支持查询批量消息

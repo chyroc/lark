@@ -24,7 +24,7 @@ import (
 // CreateMessageReaction 给指定消息添加指定类型的表情回复（reaction即表情回复, 本文档统一用“reaction”代称）。
 //
 // 注意事项:
-// - 需要开启[机器人能力](https://open.feishu.cn/document/home/develop-a-bot-in-5-minutes/create-an-app)
+// - 需要开启[机器人能力](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-enable-bot-ability)
 // - 待添加reaction的消息要真实存在, 不能被撤回
 // - 给消息添加reaction, 需要reaction的发送方（机器人或者用户）在消息所在的会话内
 //

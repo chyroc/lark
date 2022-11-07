@@ -24,7 +24,7 @@ import (
 // EventV2IMChatMemberBotAddedV1 机器人被用户添加至群聊时触发此事件。{使用示例}(url=/api/tools/api_explore/api_explore_config?project=im&version=v1&resource=chat.member.bot&event=added)
 //
 // 注意事项:
-// - 需要开启[机器人能力](https://open.feishu.cn/document/home/develop-a-bot-in-5-minutes/create-an-app)
+// - 需要开启[机器人能力](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-enable-bot-ability)
 // - 需要订阅 [消息与群组] 分类下的 [机器人进群] 事件
 // - 事件会向进群的机器人进行推送
 // - 机器人邀请机器人不会触发事件
@@ -43,6 +43,8 @@ type EventV2IMChatMemberBotAddedV1 struct {
 	OperatorID        *EventV2IMChatMemberBotAddedV1OperatorID `json:"operator_id,omitempty"`         // 用户 ID
 	External          bool                                     `json:"external,omitempty"`            // 是否是外部群
 	OperatorTenantKey string                                   `json:"operator_tenant_key,omitempty"` // 操作者的租户Key, 为租户在飞书上的唯一标识, 用来换取对应的tenant_access_token, 也可以用作租户在应用中的唯一标识
+	Name              string                                   `json:"name,omitempty"`                // 群名称
+	I18nNames         *I18nNames                               `json:"i18n_names,omitempty"`          // 群国际化名称
 }
 
 // EventV2IMChatMemberBotAddedV1OperatorID ...

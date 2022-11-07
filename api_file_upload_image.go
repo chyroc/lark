@@ -25,7 +25,7 @@ import (
 // UploadImage 上传图片接口, 支持上传 JPEG、PNG、WEBP、GIF、TIFF、BMP、ICO格式图片。
 //
 // 注意事项:
-// - 需要开启[机器人能力](https://open.feishu.cn/document/home/develop-a-bot-in-5-minutes/create-an-app)
+// - 需要开启[机器人能力](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-enable-bot-ability)
 // - 图片大小不得超过10M, 且不支持上传大小为0的图片
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/image/create

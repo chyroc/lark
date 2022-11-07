@@ -24,7 +24,7 @@ import (
 // GetMessagePinList 获取所在群内指定时间范围内的所有Pin消息。
 //
 // 注意事项:
-// - 需要开启[机器人能力](https://open.feishu.cn/document/home/develop-a-bot-in-5-minutes/create-an-app)
+// - 需要开启[机器人能力](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-enable-bot-ability)
 // - 获取Pin消息时, 机器人必须在群组中
 // - 获取的Pin消息按Pin的创建时间降序排列
 // - 接口默认限流为[50 QPS]

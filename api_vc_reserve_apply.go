@@ -33,13 +33,14 @@ func (r *VCService) ApplyVCReserve(ctx context.Context, request *ApplyVCReserveR
 	}
 
 	req := &RawRequestReq{
-		Scope:               "VC",
-		API:                 "ApplyVCReserve",
-		Method:              "POST",
-		URL:                 r.cli.openBaseURL + "/open-apis/vc/v1/reserves/apply",
-		Body:                request,
-		MethodOption:        newMethodOption(options),
-		NeedUserAccessToken: true,
+		Scope:                 "VC",
+		API:                   "ApplyVCReserve",
+		Method:                "POST",
+		URL:                   r.cli.openBaseURL + "/open-apis/vc/v1/reserves/apply",
+		Body:                  request,
+		MethodOption:          newMethodOption(options),
+		NeedTenantAccessToken: true,
+		NeedUserAccessToken:   true,
 	}
 	resp := new(applyVCReserveResp)
 
@@ -61,6 +62,7 @@ func (r *Mock) UnMockVCApplyVCReserve() {
 type ApplyVCReserveReq struct {
 	UserIDType      *IDType                           `query:"user_id_type" json:"-"`     // 用户 ID 类型, 示例值: "open_id", 可选值有: open_id: 用户的 open id, union_id: 用户的 union id, user_id: 用户的 user id, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
 	EndTime         *string                           `json:"end_time,omitempty"`         // 预约到期时间（unix时间, 单位sec）, 多人会议必填, 示例值: "1608888867"
+	OwnerID         *string                           `json:"owner_id,omitempty"`         // 指定会议归属人, 使用tenant_access_token时生效且必传, 使用user_access_token时不生效, 必须指定为同租户下的合法lark用户, 示例值: "ou_3ec3f6a28a0d08c45d895276e8e5e19b"
 	MeetingSettings *ApplyVCReserveReqMeetingSettings `json:"meeting_settings,omitempty"` // 会议设置
 }
 

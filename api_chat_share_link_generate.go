@@ -21,10 +21,10 @@ import (
 	"context"
 )
 
-// GenChatShareLink 获取指定群的分享链接
+// GenChatShareLink 获取指定群的分享链接。
 //
 // 注意事项:
-// - 应用需要开启[机器人能力](https://open.feishu.cn/document/home/develop-a-bot-in-5-minutes/create-an-app)
+// - 应用需要开启[机器人能力](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-enable-bot-ability)
 // - 机器人或授权用户必须在群组中
 // - 单聊、密聊、团队群不支持分享群链接
 // - 当Bot被停用或Bot退出群组时, Bot生成的群链接也将停用

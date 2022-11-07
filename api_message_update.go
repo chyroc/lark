@@ -24,7 +24,7 @@ import (
 // UpdateMessage 更新应用已发送的消息卡片内容。
 //
 // 注意事项:
-// - 需要开启[机器人能力](https://open.feishu.cn/document/home/develop-a-bot-in-5-minutes/create-an-app)
+// - 需要开启[机器人能力](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-enable-bot-ability)
 // - 若以user_access_token更新消息, 该操作用户必须是卡片消息的发送者
 // - 仅支持对所有人更新未撤回的[「共享卡片」](ukTMukTMukTM/uAjNwUjLwYDM14CM2ATN)消息, 需在卡片的config属性中, 显式声明 ["update_multi":true]。
 // - 不支持更新批量消息

@@ -57,7 +57,7 @@ func (r *Mock) UnMockAdminGetAdminBadgeList() {
 
 // GetAdminBadgeListReq ...
 type GetAdminBadgeListReq struct {
-	PageSize  int64   `query:"page_size" json:"-"`  // 分页大小, 示例值: 10, 最大值: `50`
+	PageSize  int64   `query:"page_size" json:"-"`  // 分页大小, 示例值: 10, 默认值: `10`, 最大值: `50`
 	PageToken *string `query:"page_token" json:"-"` // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果, 示例值: "b1fmUz"
 	Name      *string `query:"name" json:"-"`       // 租户内唯一的勋章名称, 精确匹配, 示例值: "激励勋章", 最小长度: `1` 字符
 }
@@ -71,11 +71,27 @@ type GetAdminBadgeListResp struct {
 
 // GetAdminBadgeListRespBadge ...
 type GetAdminBadgeListRespBadge struct {
-	ID          string `json:"id,omitempty"`           // 租户内勋章的唯一标识, 该值由系统随机生成。
-	Name        string `json:"name,omitempty"`         // 租户内唯一的勋章名称, 最多30个字符。
-	Explanation string `json:"explanation,omitempty"`  // 勋章的描述文案, 最多100个字符。
-	DetailImage string `json:"detail_image,omitempty"` // 企业勋章的详情图Key。1.权限校验: 非本租户上传的图片key, 不能直接使用；2.时效校验: 创建勋章, 或者修改勋章图片key时, 需使用1h内上传的图片key。
-	ShowImage   string `json:"show_image,omitempty"`   // 企业勋章的头像挂饰图Key。1.权限校验: 非本租户上传的图片key, 不能直接使用；2.时效校验: 创建勋章, 或者修改勋章图片key时, 需使用1h内上传的图片key。
+	ID              string                                     `json:"id,omitempty"`               // 租户内勋章的唯一标识, 该值由系统随机生成。
+	Name            string                                     `json:"name,omitempty"`             // 租户内唯一的勋章名称, 最多30个字符。
+	Explanation     string                                     `json:"explanation,omitempty"`      // 勋章的描述文案, 最多100个字符。
+	DetailImage     string                                     `json:"detail_image,omitempty"`     // 企业勋章的详情图Key。1.权限校验: 非本租户上传的图片key, 不能直接使用；2.时效校验: 创建勋章, 或者修改勋章图片key时, 需使用1h内上传的图片key。
+	ShowImage       string                                     `json:"show_image,omitempty"`       // 企业勋章的头像挂饰图Key。1.权限校验: 非本租户上传的图片key, 不能直接使用；2.时效校验: 创建勋章, 或者修改勋章图片key时, 需使用1h内上传的图片key。
+	I18nName        *GetAdminBadgeListRespBadgeI18nName        `json:"i18n_name,omitempty"`        // 勋章的多语言名称, 同name字段限制, 最多30个字符。
+	I18nExplanation *GetAdminBadgeListRespBadgeI18nExplanation `json:"i18n_explanation,omitempty"` // 勋章的多语言描述文案, 同explanation字段限制, 最多100个字符。
+}
+
+// GetAdminBadgeListRespBadgeI18nExplanation ...
+type GetAdminBadgeListRespBadgeI18nExplanation struct {
+	ZhCn string `json:"zh_cn,omitempty"` // 中文文案
+	EnUs string `json:"en_us,omitempty"` // 英文文案
+	JaJp string `json:"ja_jp,omitempty"` // 日文文案
+}
+
+// GetAdminBadgeListRespBadgeI18nName ...
+type GetAdminBadgeListRespBadgeI18nName struct {
+	ZhCn string `json:"zh_cn,omitempty"` // 中文文案
+	EnUs string `json:"en_us,omitempty"` // 英文文案
+	JaJp string `json:"ja_jp,omitempty"` // 日文文案
 }
 
 // getAdminBadgeListResp ...

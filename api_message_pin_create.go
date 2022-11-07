@@ -24,7 +24,7 @@ import (
 // CreateMessagePin Pin一条指定的消息。
 //
 // 注意事项:
-// - 需要开启[机器人能力](https://open.feishu.cn/document/home/develop-a-bot-in-5-minutes/create-an-app)
+// - 需要开启[机器人能力](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-enable-bot-ability)
 // - Pin消息时, 机器人必须在对应的群组中
 // - 若消息已经被Pin, 返回该Pin的操作信息
 // - 不能Pin一条对操作者不可见的消息

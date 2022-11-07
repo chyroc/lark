@@ -58,10 +58,11 @@ func (r *Mock) UnMockAdminGetAdminBadgeGrantList() {
 // GetAdminBadgeGrantListReq ...
 type GetAdminBadgeGrantListReq struct {
 	BadgeID          string            `path:"badge_id" json:"-"`            // 企业勋章的唯一ID, 示例值: "m_DjMzaK", 长度范围: `1` ～ `64` 字符
-	PageSize         int64             `query:"page_size" json:"-"`          // 分页大小, 示例值: 10, 最大值: `50`
+	PageSize         int64             `query:"page_size" json:"-"`          // 分页大小, 示例值: 10, 默认值: `10`, 最大值: `50`
 	PageToken        *string           `query:"page_token" json:"-"`         // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果, 示例值: "om5fn1"
 	UserIDType       *IDType           `query:"user_id_type" json:"-"`       // 用户 ID 类型, 示例值: "open_id", 可选值有: open_id: 用户的 open id, union_id: 用户的 union id, user_id: 用户的 user id, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
 	DepartmentIDType *DepartmentIDType `query:"department_id_type" json:"-"` // 此次调用中使用的部门ID的类型, 示例值: "open_department_id", 可选值有: department_id: 以自定义department_id来标识部门, open_department_id: 以open_department_id来标识部门, 默认值: `open_department_id`
+	Name             *string           `query:"name" json:"-"`               // 授予名单名称, 精确匹配, 示例值: "激励勋章的授予名单", 最小长度: `1` 字符
 }
 
 // GetAdminBadgeGrantListResp ...

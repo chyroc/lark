@@ -24,7 +24,7 @@ import (
 // UpdateChatModeration 更新群组的发言权限设置, 可设置为全员可发言、仅管理员可发言  或 指定用户可发言。
 //
 // 注意事项:
-// - 需要开启[机器人能力](https://open.feishu.cn/document/uQjL04CN/uYTMuYTMuYTM)
+// - 需要开启[机器人能力](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-enable-bot-ability)
 // - 若以用户授权调用接口, 当授权用户是群主时, 可更新群发言权限
 // - 若以租户授权调用接口(即以机器人身份调用接口), 当机器人是群主 或者 机器人是群组创建者、具备[更新应用所创建群的群信息]权限且仍在群内时, 可更新群发言权限
 //

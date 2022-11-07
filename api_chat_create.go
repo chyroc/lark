@@ -24,7 +24,7 @@ import (
 // CreateChat 创建群并设置群头像、群名、群描述等。
 //
 // 注意事项:
-// - 应用需要开启[机器人能力](https://open.feishu.cn/document/home/develop-a-bot-in-5-minutes/create-an-app)
+// - 应用需要开启[机器人能力](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-enable-bot-ability)
 // - 本接口支持在创建群的同时拉用户或机器人进群；如果仅需要拉用户或者机器人入群参考 [将用户或机器人拉入群聊](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-members/create)接口
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat/create
@@ -72,7 +72,7 @@ type CreateChatReq struct {
 	BotIDList              []string            `json:"bot_id_list,omitempty"`              // 创建群时邀请的群机器人, 注意: 拉机器人入群请使用`app_id`, 最多同时邀请5个机器人, 并且群组最多容纳 15 个机器人, 示例值: ["cli_a10fbf7e94b8d01d"], 最大长度: `5`
 	ChatMode               *ChatMode           `json:"chat_mode,omitempty"`                // 群模式, 可选值有: `group`: 群组, 示例值: "group", 默认值: `group`
 	ChatType               *ChatType           `json:"chat_type,omitempty"`                // 群类型, 可选值有: `private`: 私有群, `public`: 公开群, 示例值: "private", 默认值: `private`
-	External               *bool               `json:"external,omitempty"`                 // 是否是外部群；若群组需要邀请不同租户的用户或机器人, 请指定为外部群；, 注意: 创建外部群需要在[开发者后台](https://open.feishu.cn/app)—权限管理—权限配置页面申请 [在外部群调用群聊的 API 及事件] 权限, 示例值: false, 默认值: `false`
+	External               *bool               `json:"external,omitempty"`                 // 是否是外部群；若群组需要邀请不同租户的用户或机器人, 请指定为外部群；, 示例值: false, 默认值: `false`
 	JoinMessageVisibility  *MessageVisibility  `json:"join_message_visibility,omitempty"`  // 入群消息可见性, 可选值有: `only_owner`: 仅群主和管理员可见, `all_members`: 所有成员可见, `not_anyone`: 任何人均不可见, 示例值: "all_members", 默认值: `all_members`
 	LeaveMessageVisibility *MessageVisibility  `json:"leave_message_visibility,omitempty"` // 退群消息可见性, 可选值有: `only_owner`: 仅群主和管理员可见, `all_members`: 所有成员可见, `not_anyone`: 任何人均不可见, 示例值: "all_members", 默认值: `all_members`
 	MembershipApproval     *MembershipApproval `json:"membership_approval,omitempty"`      // 加群审批, 可选值有: `no_approval_required`: 无需审批, `approval_required`: 需要审批, 示例值: "no_approval_required", 默认值: `no_approval_required`

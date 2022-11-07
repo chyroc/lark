@@ -69,11 +69,6 @@ type UploadOKRImageReqData struct {
 
 // UploadOKRImageResp ...
 type UploadOKRImageResp struct {
-	Data *UploadOKRImageRespData `json:"data,omitempty"` // 图片url和token信息
-}
-
-// UploadOKRImageRespData ...
-type UploadOKRImageRespData struct {
 	FileToken string `json:"file_token,omitempty"` // 图片token
 	URL       string `json:"url,omitempty"`        // 图片下载链接
 }

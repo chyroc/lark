@@ -24,7 +24,7 @@ import (
 // SortChatTab 会话标签页排序。
 //
 // 注意事项:
-// - 应用需要开启[机器人能力](https://open.feishu.cn/document/home/develop-a-bot-in-5-minutes/create-an-app)
+// - 应用需要开启[机器人能力](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-enable-bot-ability)
 // - 机器人或授权用户必须在群里
 // - 消息标签页强制固定为第一顺位, 不参与排序, 但是请求体中必须包含该标签页的Tab ID
 // - 操作内部群时, 操作者须与群组在同一租户下

@@ -24,7 +24,7 @@ import (
 // DeleteMessagePin 移除一条指定消息的Pin。
 //
 // 注意事项:
-// - 需要开启[机器人能力](https://open.feishu.cn/document/home/develop-a-bot-in-5-minutes/create-an-app)
+// - 需要开启[机器人能力](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-enable-bot-ability)
 // - 移除Pin消息时, 机器人必须在对应的群组中
 // - 若消息未被Pin或已被撤回, 返回成功信息
 // - 不能移除一条对操作者不可见的Pin消息

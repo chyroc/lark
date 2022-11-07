@@ -24,7 +24,7 @@ import (
 // UpdateChatAnnouncement 更新会话中的群公告信息, 更新公告信息的格式和更新[云文档](https://open.feishu.cn/document/ukTMukTMukTM/uAzM5YjLwMTO24CMzkjN)格式相同。
 //
 // 注意事项:
-// - 应用需要开启[机器人能力](https://open.feishu.cn/document/home/develop-a-bot-in-5-minutes/create-an-app)
+// - 应用需要开启[机器人能力](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-enable-bot-ability)
 // - 机器人或授权用户必须在群里
 // - 操作者需要拥有群公告文档的阅读权限
 // - 获取内部群信息时, 操作者须与群组在同一租户下

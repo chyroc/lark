@@ -24,7 +24,7 @@ import (
 // JoinChat 用户或机器人主动加入群聊。
 //
 // 注意事项:
-// - 应用需要开启[机器人能力](https://open.feishu.cn/document/home/develop-a-bot-in-5-minutes/create-an-app)
+// - 应用需要开启[机器人能力](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-enable-bot-ability)
 // - 目前仅支持加入公开群
 // - 操作内部群时, 操作者须与群组在同一租户下
 //

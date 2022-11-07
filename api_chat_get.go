@@ -24,7 +24,7 @@ import (
 // GetChat 获取群名称、群描述、群头像、群主 ID 等群基本信息。
 //
 // 注意事项:
-// - 应用需要开启[机器人能力](https://open.feishu.cn/document/home/develop-a-bot-in-5-minutes/create-an-app)
+// - 应用需要开启[机器人能力](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-enable-bot-ability)
 // - 机器人或授权用户必须在群里（否则只会返回群名称、群头像等基本信息）
 // - 获取内部群信息时, 操作者须与群组在同一租户下
 //

@@ -58,8 +58,9 @@ func (r *Mock) UnMockOKRUpdateOKRProgressRecord() {
 
 // UpdateOKRProgressRecordReq ...
 type UpdateOKRProgressRecordReq struct {
-	ProgressID string                             `path:"progress_id" json:"-"` // 待更新的 OKR进展记录 ID, 示例值: "7041857032248410131"
-	Content    *UpdateOKRProgressRecordReqContent `json:"content,omitempty"`    // 进展详情 富文本格式
+	ProgressID string                             `path:"progress_id" json:"-"`   // 待更新的 OKR进展记录 ID, 示例值: "7041857032248410131"
+	UserIDType *IDType                            `query:"user_id_type" json:"-"` // 用户 ID 类型, 示例值: "open_id", 可选值有: open_id: 用户的 open id, union_id: 用户的 union id, user_id: 用户的 user id, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
+	Content    *UpdateOKRProgressRecordReqContent `json:"content,omitempty"`      // 进展详情 富文本格式
 }
 
 // UpdateOKRProgressRecordReqContent ...
@@ -82,7 +83,7 @@ type UpdateOKRProgressRecordReqContentBlockGallery struct {
 // UpdateOKRProgressRecordReqContentBlockGalleryImageList ...
 type UpdateOKRProgressRecordReqContentBlockGalleryImageList struct {
 	FileToken *string  `json:"fileToken,omitempty"` // 图片 token, 通过上传图片接口获取, 示例值: "boxcnOj88GDkmWGm2zsTyCBqoLb"
-	URL       *string  `json:"url,omitempty"`       // 图片链接, 通过上传图片接口获取, 示例值: "https://internal-api-okr.feishu-boe.cn/stream/api/downloadFile/?file_token=boxbcMTBQO9ofLjWkDuPxkxOA2c\&ticket=eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJ0YXJnZXRfaWQiOiI3MDQxNDMwMzc3NjQyMDgyMzIzIiwidGFyZ2V0X3R5cGUiOjMsImFjdGlvbiI6MiwiZmlsZV90b2tlbiI6ImJveGJjTVRCUU85b2ZMaldrRHVQeGt4T0EyYyIsInVzZXJfaWQiOiI2OTY5ODU1NTAxNzQ0ODM0MDkyIiwidGVuYW50X2lkIjoiNjg3NzUwMjY4NzYwOTQwNjk5MCIsImV4cCI6MTY0MDE1NTk2M30.yc4qV2pkGUVwSO53-N_XGgeMucjmDn9iso1Ez_8vpghFz8YdeSDf4NHQpxOHYHc8RURvwI0a5UTNKKJ9CWagTQ"
+	Src       *string  `json:"src,omitempty"`       // 图片链接, 示例值: "https://bytedance.feishu.cn/drive/home/"
 	Width     *float64 `json:"width,omitempty"`     // 图片宽, 单位px, 示例值: 458
 	Height    *float64 `json:"height,omitempty"`    // 图片高, 单位px, 示例值: 372
 }
@@ -150,6 +151,11 @@ type UpdateOKRProgressRecordReqContentBlockParagraphElementTextRunStyleTextColor
 
 // UpdateOKRProgressRecordReqContentBlockParagraphStyle ...
 type UpdateOKRProgressRecordReqContentBlockParagraphStyle struct {
+	List *UpdateOKRProgressRecordReqContentBlockParagraphStyleList `json:"list,omitempty"` // 有序列表/无序列表/任务列表
+}
+
+// UpdateOKRProgressRecordReqContentBlockParagraphStyleList ...
+type UpdateOKRProgressRecordReqContentBlockParagraphStyleList struct {
 	Type        *string `json:"type,omitempty"`        // 列表类型, 示例值: "number", 可选值有: number: 有序列表, bullet: 无序列表, checkBox: 任务列表, checkedBox: 已完成的任务列表, indent: tab缩进
 	IndentLevel *int64  `json:"indentLevel,omitempty"` // 列表的缩进级别, 支持指定一行的缩进 除代码块以外的列表都支持设置缩进, 支持 1-16 级缩进, 取值范围: [1, 16], 示例值: 1
 	Number      *int64  `json:"number,omitempty"`      // 用于指定列表的行号, 仅对有序列表和代码块生效 如果为有序列表设置了缩进, 行号可能会显示为字母或者罗马数字, 示例值: 1
@@ -157,104 +163,104 @@ type UpdateOKRProgressRecordReqContentBlockParagraphStyle struct {
 
 // UpdateOKRProgressRecordResp ...
 type UpdateOKRProgressRecordResp struct {
-	Data *UpdateOKRProgressRecordRespData `json:"data,omitempty"` // 更新后的进行详情
+	ProgressID string                              `json:"progress_id,omitempty"` // OKR 进展ID
+	ModifyTime string                              `json:"modify_time,omitempty"` // 进展更新时间 毫秒
+	Content    *UpdateOKRProgressRecordRespContent `json:"content,omitempty"`     // 进展 对应的 Content 详细内容
 }
 
-// UpdateOKRProgressRecordRespData ...
-type UpdateOKRProgressRecordRespData struct {
-	ProgressID string                                  `json:"progress_id,omitempty"` // OKR 进展ID
-	ModifyTime string                                  `json:"modify_time,omitempty"` // 进展更新时间 毫秒
-	Content    *UpdateOKRProgressRecordRespDataContent `json:"content,omitempty"`     // 进展 对应的 Content 详细内容
+// UpdateOKRProgressRecordRespContent ...
+type UpdateOKRProgressRecordRespContent struct {
+	Blocks []*UpdateOKRProgressRecordRespContentBlock `json:"blocks,omitempty"` // 文档结构是按行排列的, 每行内容是一个 Block
 }
 
-// UpdateOKRProgressRecordRespDataContent ...
-type UpdateOKRProgressRecordRespDataContent struct {
-	Blocks []*UpdateOKRProgressRecordRespDataContentBlock `json:"blocks,omitempty"` // 文档结构是按行排列的, 每行内容是一个 Block
+// UpdateOKRProgressRecordRespContentBlock ...
+type UpdateOKRProgressRecordRespContentBlock struct {
+	Type      string                                            `json:"type,omitempty"`      // 文档元素类型, 可选值有: paragraph: 文本段落, gallery: 图片
+	Paragraph *UpdateOKRProgressRecordRespContentBlockParagraph `json:"paragraph,omitempty"` // 文本段落
+	Gallery   *UpdateOKRProgressRecordRespContentBlockGallery   `json:"gallery,omitempty"`   // 图片
 }
 
-// UpdateOKRProgressRecordRespDataContentBlock ...
-type UpdateOKRProgressRecordRespDataContentBlock struct {
-	Type      string                                                `json:"type,omitempty"`      // 文档元素类型, 可选值有: paragraph: 文本段落, gallery: 图片
-	Paragraph *UpdateOKRProgressRecordRespDataContentBlockParagraph `json:"paragraph,omitempty"` // 文本段落
-	Gallery   *UpdateOKRProgressRecordRespDataContentBlockGallery   `json:"gallery,omitempty"`   // 图片
+// UpdateOKRProgressRecordRespContentBlockGallery ...
+type UpdateOKRProgressRecordRespContentBlockGallery struct {
+	ImageList []*UpdateOKRProgressRecordRespContentBlockGalleryImageList `json:"imageList,omitempty"` // 图片元素
 }
 
-// UpdateOKRProgressRecordRespDataContentBlockGallery ...
-type UpdateOKRProgressRecordRespDataContentBlockGallery struct {
-	ImageList []*UpdateOKRProgressRecordRespDataContentBlockGalleryImageList `json:"imageList,omitempty"` // 图片元素
-}
-
-// UpdateOKRProgressRecordRespDataContentBlockGalleryImageList ...
-type UpdateOKRProgressRecordRespDataContentBlockGalleryImageList struct {
+// UpdateOKRProgressRecordRespContentBlockGalleryImageList ...
+type UpdateOKRProgressRecordRespContentBlockGalleryImageList struct {
 	FileToken string  `json:"fileToken,omitempty"` // 图片 token, 通过上传图片接口获取
-	URL       string  `json:"url,omitempty"`       // 图片链接, 通过上传图片接口获取
+	Src       string  `json:"src,omitempty"`       // 图片链接
 	Width     float64 `json:"width,omitempty"`     // 图片宽, 单位px
 	Height    float64 `json:"height,omitempty"`    // 图片高, 单位px
 }
 
-// UpdateOKRProgressRecordRespDataContentBlockParagraph ...
-type UpdateOKRProgressRecordRespDataContentBlockParagraph struct {
-	Style    *UpdateOKRProgressRecordRespDataContentBlockParagraphStyle     `json:"style,omitempty"`    // 段落样式
-	Elements []*UpdateOKRProgressRecordRespDataContentBlockParagraphElement `json:"elements,omitempty"` // 段落元素组成一个段落
+// UpdateOKRProgressRecordRespContentBlockParagraph ...
+type UpdateOKRProgressRecordRespContentBlockParagraph struct {
+	Style    *UpdateOKRProgressRecordRespContentBlockParagraphStyle     `json:"style,omitempty"`    // 段落样式
+	Elements []*UpdateOKRProgressRecordRespContentBlockParagraphElement `json:"elements,omitempty"` // 段落元素组成一个段落
 }
 
-// UpdateOKRProgressRecordRespDataContentBlockParagraphElement ...
-type UpdateOKRProgressRecordRespDataContentBlockParagraphElement struct {
-	Type     string                                                               `json:"type,omitempty"`     // 元素类型, 可选值有: textRun: 文本型元素, docsLink: 文档链接型元素, person: 艾特用户型元素
-	TextRun  *UpdateOKRProgressRecordRespDataContentBlockParagraphElementTextRun  `json:"textRun,omitempty"`  // 文本
-	DocsLink *UpdateOKRProgressRecordRespDataContentBlockParagraphElementDocsLink `json:"docsLink,omitempty"` // 飞书云文档
-	Person   *UpdateOKRProgressRecordRespDataContentBlockParagraphElementPerson   `json:"person,omitempty"`   // 艾特用户
+// UpdateOKRProgressRecordRespContentBlockParagraphElement ...
+type UpdateOKRProgressRecordRespContentBlockParagraphElement struct {
+	Type     string                                                           `json:"type,omitempty"`     // 元素类型, 可选值有: textRun: 文本型元素, docsLink: 文档链接型元素, person: 艾特用户型元素
+	TextRun  *UpdateOKRProgressRecordRespContentBlockParagraphElementTextRun  `json:"textRun,omitempty"`  // 文本
+	DocsLink *UpdateOKRProgressRecordRespContentBlockParagraphElementDocsLink `json:"docsLink,omitempty"` // 飞书云文档
+	Person   *UpdateOKRProgressRecordRespContentBlockParagraphElementPerson   `json:"person,omitempty"`   // 艾特用户
 }
 
-// UpdateOKRProgressRecordRespDataContentBlockParagraphElementDocsLink ...
-type UpdateOKRProgressRecordRespDataContentBlockParagraphElementDocsLink struct {
+// UpdateOKRProgressRecordRespContentBlockParagraphElementDocsLink ...
+type UpdateOKRProgressRecordRespContentBlockParagraphElementDocsLink struct {
 	URL   string `json:"url,omitempty"`   // 飞书云文档链接地址
 	Title string `json:"title,omitempty"` // 飞书云文档标题
 }
 
-// UpdateOKRProgressRecordRespDataContentBlockParagraphElementPerson ...
-type UpdateOKRProgressRecordRespDataContentBlockParagraphElementPerson struct {
+// UpdateOKRProgressRecordRespContentBlockParagraphElementPerson ...
+type UpdateOKRProgressRecordRespContentBlockParagraphElementPerson struct {
 	OpenID string `json:"openId,omitempty"` // 员工的OpenID
 }
 
-// UpdateOKRProgressRecordRespDataContentBlockParagraphElementTextRun ...
-type UpdateOKRProgressRecordRespDataContentBlockParagraphElementTextRun struct {
-	Text  string                                                                   `json:"text,omitempty"`  // 具体的文本内容
-	Style *UpdateOKRProgressRecordRespDataContentBlockParagraphElementTextRunStyle `json:"style,omitempty"` // 文本内容的样式, 支持 BIUS、颜色等
+// UpdateOKRProgressRecordRespContentBlockParagraphElementTextRun ...
+type UpdateOKRProgressRecordRespContentBlockParagraphElementTextRun struct {
+	Text  string                                                               `json:"text,omitempty"`  // 具体的文本内容
+	Style *UpdateOKRProgressRecordRespContentBlockParagraphElementTextRunStyle `json:"style,omitempty"` // 文本内容的样式, 支持 BIUS、颜色等
 }
 
-// UpdateOKRProgressRecordRespDataContentBlockParagraphElementTextRunStyle ...
-type UpdateOKRProgressRecordRespDataContentBlockParagraphElementTextRunStyle struct {
-	Bold          bool                                                                              `json:"bold,omitempty"`          // 是否加粗
-	StrikeThrough bool                                                                              `json:"strikeThrough,omitempty"` // 是否删除
-	BackColor     *UpdateOKRProgressRecordRespDataContentBlockParagraphElementTextRunStyleBackColor `json:"backColor,omitempty"`     // 背景颜色
-	TextColor     *UpdateOKRProgressRecordRespDataContentBlockParagraphElementTextRunStyleTextColor `json:"textColor,omitempty"`     // 字体颜色
-	Link          *UpdateOKRProgressRecordRespDataContentBlockParagraphElementTextRunStyleLink      `json:"link,omitempty"`          // 链接地址
+// UpdateOKRProgressRecordRespContentBlockParagraphElementTextRunStyle ...
+type UpdateOKRProgressRecordRespContentBlockParagraphElementTextRunStyle struct {
+	Bold          bool                                                                          `json:"bold,omitempty"`          // 是否加粗
+	StrikeThrough bool                                                                          `json:"strikeThrough,omitempty"` // 是否删除
+	BackColor     *UpdateOKRProgressRecordRespContentBlockParagraphElementTextRunStyleBackColor `json:"backColor,omitempty"`     // 背景颜色
+	TextColor     *UpdateOKRProgressRecordRespContentBlockParagraphElementTextRunStyleTextColor `json:"textColor,omitempty"`     // 字体颜色
+	Link          *UpdateOKRProgressRecordRespContentBlockParagraphElementTextRunStyleLink      `json:"link,omitempty"`          // 链接地址
 }
 
-// UpdateOKRProgressRecordRespDataContentBlockParagraphElementTextRunStyleBackColor ...
-type UpdateOKRProgressRecordRespDataContentBlockParagraphElementTextRunStyleBackColor struct {
+// UpdateOKRProgressRecordRespContentBlockParagraphElementTextRunStyleBackColor ...
+type UpdateOKRProgressRecordRespContentBlockParagraphElementTextRunStyleBackColor struct {
 	Red   int64   `json:"red,omitempty"`   // 红 取值范围[0, 255]
 	Green int64   `json:"green,omitempty"` // 绿 取值范围[0, 255]
 	Blue  int64   `json:"blue,omitempty"`  // 蓝 取值范围[0, 255]
 	Alpha float64 `json:"alpha,omitempty"` // 透明度 取值范围[0, 1]
 }
 
-// UpdateOKRProgressRecordRespDataContentBlockParagraphElementTextRunStyleLink ...
-type UpdateOKRProgressRecordRespDataContentBlockParagraphElementTextRunStyleLink struct {
+// UpdateOKRProgressRecordRespContentBlockParagraphElementTextRunStyleLink ...
+type UpdateOKRProgressRecordRespContentBlockParagraphElementTextRunStyleLink struct {
 	URL string `json:"url,omitempty"` // 链接地址
 }
 
-// UpdateOKRProgressRecordRespDataContentBlockParagraphElementTextRunStyleTextColor ...
-type UpdateOKRProgressRecordRespDataContentBlockParagraphElementTextRunStyleTextColor struct {
+// UpdateOKRProgressRecordRespContentBlockParagraphElementTextRunStyleTextColor ...
+type UpdateOKRProgressRecordRespContentBlockParagraphElementTextRunStyleTextColor struct {
 	Red   int64   `json:"red,omitempty"`   // 红 取值范围[0, 255]
 	Green int64   `json:"green,omitempty"` // 绿 取值范围[0, 255]
 	Blue  int64   `json:"blue,omitempty"`  // 蓝 取值范围[0, 255]
 	Alpha float64 `json:"alpha,omitempty"` // 透明度 取值范围[0, 1]
 }
 
-// UpdateOKRProgressRecordRespDataContentBlockParagraphStyle ...
-type UpdateOKRProgressRecordRespDataContentBlockParagraphStyle struct {
+// UpdateOKRProgressRecordRespContentBlockParagraphStyle ...
+type UpdateOKRProgressRecordRespContentBlockParagraphStyle struct {
+	List *UpdateOKRProgressRecordRespContentBlockParagraphStyleList `json:"list,omitempty"` // 有序列表/无序列表/任务列表
+}
+
+// UpdateOKRProgressRecordRespContentBlockParagraphStyleList ...
+type UpdateOKRProgressRecordRespContentBlockParagraphStyleList struct {
 	Type        string `json:"type,omitempty"`        // 列表类型, 可选值有: number: 有序列表, bullet: 无序列表, checkBox: 任务列表, checkedBox: 已完成的任务列表, indent: tab缩进
 	IndentLevel int64  `json:"indentLevel,omitempty"` // 列表的缩进级别, 支持指定一行的缩进 除代码块以外的列表都支持设置缩进, 支持 1-16 级缩进, 取值范围: [1, 16]
 	Number      int64  `json:"number,omitempty"`      // 用于指定列表的行号, 仅对有序列表和代码块生效 如果为有序列表设置了缩进, 行号可能会显示为字母或者罗马数字

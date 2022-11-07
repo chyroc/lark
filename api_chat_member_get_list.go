@@ -24,7 +24,7 @@ import (
 // GetChatMemberList 获取用户/机器人所在群的群成员列表。
 //
 // 注意事项:
-// - 应用需要开启[机器人能力](https://open.feishu.cn/document/home/develop-a-bot-in-5-minutes/create-an-app)
+// - 应用需要开启[机器人能力](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-enable-bot-ability)
 // - 机器人或授权用户必须在群组中
 // - 该接口不会返回群内的机器人成员
 // - 由于返回的群成员列表会过滤掉机器人成员, 因此返回的群成员个数可能会小于指定的page_size

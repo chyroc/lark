@@ -70,7 +70,7 @@ type GetAttendanceUserStatsDataReq struct {
 
 // GetAttendanceUserStatsDataResp ...
 type GetAttendanceUserStatsDataResp struct {
-	UserDatas []*GetAttendanceUserStatsDataRespUserData `json:"user_datas,omitempty"` // 用户统计数据（限制1000条）
+	UserDatas []*GetAttendanceUserStatsDataRespUserData `json:"user_datas,omitempty"` // 用户统计数据（限制1000条, 超过1000条会截断）
 }
 
 // GetAttendanceUserStatsDataRespUserData ...

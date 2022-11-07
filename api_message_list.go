@@ -24,7 +24,7 @@ import (
 // GetMessageList 获取会话（包括单聊、群组）的历史消息（聊天记录）。
 //
 // 接口级别权限默认只能获取单聊（p2p）消息, 如果需要获取群组（group）消息, 应用还必须拥有 [获取群组中所有消息] 权限
-// - 需要开启[机器人能力](https://open.feishu.cn/document/home/develop-a-bot-in-5-minutes/create-an-app)
+// - 需要开启[机器人能力](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-enable-bot-ability)
 // - 获取消息时, 机器人必须在群组中
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/list

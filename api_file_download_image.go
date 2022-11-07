@@ -25,7 +25,7 @@ import (
 // DownloadImage 下载图片资源, 只能下载当前应用所上传且图片类型为message的图片。
 //
 // 注意事项:
-// - 需要开启[机器人能力](https://open.feishu.cn/document/home/develop-a-bot-in-5-minutes/create-an-app)
+// - 需要开启[机器人能力](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-enable-bot-ability)
 // - 只能下载机器人自己上传且图片类型为message的图片, avatar类型暂不支持下载
 // - 下载用户发送的资源, 请使用[获取消息中的资源文件](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message-resource/get)接口
 //

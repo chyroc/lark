@@ -25,7 +25,7 @@ import (
 // DownloadFile 下载文件接口, 只能下载应用自己上传的文件。
 //
 // 注意事项:
-// - 需要开启[机器人能力](https://open.feishu.cn/document/home/develop-a-bot-in-5-minutes/create-an-app)
+// - 需要开启[机器人能力](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-enable-bot-ability)
 // - 只能下载机器人自己上传的文件
 // - 下载用户发送的资源, 请使用[获取消息中的资源文件](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message-resource/get)接口
 // - 下载的资源大小不能超过100M

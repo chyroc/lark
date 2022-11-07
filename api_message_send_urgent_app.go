@@ -26,7 +26,7 @@ import (
 // 特别说明:
 // - 默认接口限流为50 QPS, 请谨慎调用
 // 注意事项:
-// - 需要开启[机器人能力](https://open.feishu.cn/document/home/develop-a-bot-in-5-minutes/create-an-app)
+// - 需要开启[机器人能力](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-enable-bot-ability)
 // - 不支持加急批量消息
 // - 只能加急机器人自己发送的消息
 // - 加急时机器人需要在加急消息所在的群中

@@ -24,7 +24,7 @@ import (
 // EventV2IMMessageReactionDeletedV1 消息被删除某一个表情回复后触发此事件{使用示例}(url=/api/tools/api_explore/api_explore_config?project=im&version=v1&resource=message.reaction&event=deleted)
 //
 // 注意事项:
-// - 需要开启[机器人能力](https://open.feishu.cn/document/home/develop-a-bot-in-5-minutes/create-an-app)
+// - 需要开启[机器人能力](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-enable-bot-ability)
 // - 具备[获取单聊、群组消息] 或 [获取与发送单聊、群组消息]权限, 并订阅 [消息与群组] 分类下的 [消息被取消reaction] 事件才可接收推送
 // - 机器人只能收到所在群聊内的消息被删除表情回复事件
 //

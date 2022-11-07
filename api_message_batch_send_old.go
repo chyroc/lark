@@ -24,7 +24,7 @@ import (
 // BatchSendOldRawMessage 给多个用户或者多个部门中的成员发送消息。
 //
 // 注意事项:
-// - 应用需要启用[机器人能力](https://open.feishu.cn/document/home/develop-a-bot-in-5-minutes/create-an-app)
+// - 应用需要启用[机器人能力](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-enable-bot-ability)
 // - 接口权限说明:
 // --必须拥有获取与发送单聊、群组消息权限, 或者以应用的身份发消息权限
 // --至少拥有一个批量发送消息权限:

@@ -28,7 +28,7 @@ import (
 // - 通过[租户管理后台](https://admin.feishu.cn/)-费用中心-短信/电话加急 可以查看当前额度
 // - 默认接口限流为50 QPS, 请谨慎调用
 // 注意事项:
-// - 需要开启[机器人能力](https://open.feishu.cn/document/home/develop-a-bot-in-5-minutes/create-an-app)
+// - 需要开启[机器人能力](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-enable-bot-ability)
 // - 只能加急机器人自己发送的消息
 // - 加急时机器人仍需要在加急消息所在的群组中
 // - 调用本接口需要用户已阅读加急的消息才可以继续加急（用户未读的加急上限为200条）

@@ -24,7 +24,7 @@ import (
 // DeleteChatTab 删除会话标签页。
 //
 // 注意事项:
-// - 应用需要开启[机器人能力](https://open.feishu.cn/document/home/develop-a-bot-in-5-minutes/create-an-app)
+// - 应用需要开启[机器人能力](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-enable-bot-ability)
 // - 机器人或授权用户必须在群里
 // - 只允许删除类型为`doc`和`url`的会话标签页
 // - 在开启 [仅群主和管理员可管理标签页] 的设置时, 仅群主和群管理员可以删除会话标签页

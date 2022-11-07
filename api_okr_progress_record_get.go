@@ -58,7 +58,8 @@ func (r *Mock) UnMockOKRGetOKRProgressRecord() {
 
 // GetOKRProgressRecordReq ...
 type GetOKRProgressRecordReq struct {
-	ProgressID string `path:"progress_id" json:"-"` // 待查询的 OKR进展记录 ID, 示例值: "7041857032248410131"
+	ProgressID string  `path:"progress_id" json:"-"`   // 待查询的 OKR进展记录 ID, 示例值: "7041857032248410131"
+	UserIDType *IDType `query:"user_id_type" json:"-"` // 用户 ID 类型, 示例值: "open_id", 可选值有: open_id: 用户的 open id, union_id: 用户的 union id, user_id: 用户的 user id, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
 }
 
 // GetOKRProgressRecordResp ...
@@ -88,7 +89,7 @@ type GetOKRProgressRecordRespContentBlockGallery struct {
 // GetOKRProgressRecordRespContentBlockGalleryImageList ...
 type GetOKRProgressRecordRespContentBlockGalleryImageList struct {
 	FileToken string  `json:"fileToken,omitempty"` // 图片 token, 通过上传图片接口获取
-	URL       string  `json:"url,omitempty"`       // 图片链接, 通过上传图片接口获取
+	Src       string  `json:"src,omitempty"`       // 图片链接
 	Width     float64 `json:"width,omitempty"`     // 图片宽, 单位px
 	Height    float64 `json:"height,omitempty"`    // 图片高, 单位px
 }
@@ -156,6 +157,11 @@ type GetOKRProgressRecordRespContentBlockParagraphElementTextRunStyleTextColor s
 
 // GetOKRProgressRecordRespContentBlockParagraphStyle ...
 type GetOKRProgressRecordRespContentBlockParagraphStyle struct {
+	List *GetOKRProgressRecordRespContentBlockParagraphStyleList `json:"list,omitempty"` // 有序列表/无序列表/任务列表
+}
+
+// GetOKRProgressRecordRespContentBlockParagraphStyleList ...
+type GetOKRProgressRecordRespContentBlockParagraphStyleList struct {
 	Type        string `json:"type,omitempty"`        // 列表类型, 可选值有: number: 有序列表, bullet: 无序列表, checkBox: 任务列表, checkedBox: 已完成的任务列表, indent: tab缩进
 	IndentLevel int64  `json:"indentLevel,omitempty"` // 列表的缩进级别, 支持指定一行的缩进 除代码块以外的列表都支持设置缩进, 支持 1-16 级缩进, 取值范围: [1, 16]
 	Number      int64  `json:"number,omitempty"`      // 用于指定列表的行号, 仅对有序列表和代码块生效 如果为有序列表设置了缩进, 行号可能会显示为字母或者罗马数字

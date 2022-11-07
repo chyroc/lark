@@ -24,9 +24,8 @@ import (
 // CreateChatTab 添加自定义会话标签页。
 //
 // 注意事项:
-// - 应用需要开启[机器人能力](https://open.feishu.cn/document/home/develop-a-bot-in-5-minutes/create-an-app)
+// - 应用需要开启[机器人能力](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-enable-bot-ability)
 // - 机器人或授权用户必须在群里
-// - 不需要填写请求体中的`tab_id`字段
 // - 只允许添加类型为`doc`和`url`的会话标签页
 // - 添加doc类型时, 操作者（access token对应的身份）需要拥有对应文档的权限
 // - tab_config字段当前只对`url`类型的会话标签页生效
@@ -74,7 +73,6 @@ type CreateChatTabReq struct {
 
 // CreateChatTabReqChatTab ...
 type CreateChatTabReqChatTab struct {
-	TabID      *string                            `json:"tab_id,omitempty"`      // Tab ID, 示例值: "7101214603622940671"
 	TabName    *string                            `json:"tab_name,omitempty"`    // Tab名称, 注意: 会话标签页的名称不能超过30个字符, 示例值: "文档"
 	TabType    string                             `json:"tab_type,omitempty"`    // Tab类型, 示例值: "doc", 可选值有: message: 消息类型, doc_list: 云文档列表, doc: 文档, pin: Pin, meeting_minute: 会议纪要, chat_announcement: 群公告, url: URL, file: 文件
 	TabContent *CreateChatTabReqChatTabTabContent `json:"tab_content,omitempty"` // Tab内容
