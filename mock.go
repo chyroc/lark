@@ -23,6 +23,8 @@ import (
 
 // Mock mock struct
 type Mock struct {
+	mockChatGetChatOld                                         func(ctx context.Context, request *GetChatOldReq, options ...MethodOptionFunc) (*GetChatOldResp, *Response, error)
+	mockBotAddBotToChat                                        func(ctx context.Context, request *AddBotToChatReq, options ...MethodOptionFunc) (*AddBotToChatResp, *Response, error)
 	mockRawRequest                                             func(ctx context.Context, req *RawRequestReq, resp interface{}) (response *Response, err error)
 	mockGetTenantAccessToken                                   func(ctx context.Context) (*TokenExpire, *Response, error)
 	mockGetAppAccessToken                                      func(ctx context.Context) (*TokenExpire, *Response, error)
@@ -589,7 +591,6 @@ type Mock struct {
 	mockOKRCreateOKRProgressRecord                             func(ctx context.Context, request *CreateOKRProgressRecordReq, options ...MethodOptionFunc) (*CreateOKRProgressRecordResp, *Response, error)
 	mockOKRUploadOKRImage                                      func(ctx context.Context, request *UploadOKRImageReq, options ...MethodOptionFunc) (*UploadOKRImageResp, *Response, error)
 	mockOKRGetOKRMetricSourceList                              func(ctx context.Context, request *GetOKRMetricSourceListReq, options ...MethodOptionFunc) (*GetOKRMetricSourceListResp, *Response, error)
-	mockOKRGetOKRMetricSourceTableList                         func(ctx context.Context, request *GetOKRMetricSourceTableListReq, options ...MethodOptionFunc) (*GetOKRMetricSourceTableListResp, *Response, error)
 	mockOKRGetOKRMetricSourceTableList                         func(ctx context.Context, request *GetOKRMetricSourceTableListReq, options ...MethodOptionFunc) (*GetOKRMetricSourceTableListResp, *Response, error)
 	mockOKRBatchUpdateOKRMetricSourceTableItem                 func(ctx context.Context, request *BatchUpdateOKRMetricSourceTableItemReq, options ...MethodOptionFunc) (*BatchUpdateOKRMetricSourceTableItemResp, *Response, error)
 	mockOKRUpdateOKRMetricSourceTableItem                      func(ctx context.Context, request *UpdateOKRMetricSourceTableItemReq, options ...MethodOptionFunc) (*UpdateOKRMetricSourceTableItemResp, *Response, error)
