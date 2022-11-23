@@ -38,7 +38,7 @@ https://godoc.org/github.com/chyroc/lark
 
 ## Support APIs
 
-API Count: 666, Event Count: 90
+API Count: 667, Event Count: 90
 
 <details>
   <summary>
@@ -392,6 +392,7 @@ API Count: 666, Event Count: 90
   - UpdateDriveMemberPermissionOld
   - UpdateDriveMemberPermission
   - CheckDriveMemberPermission
+  - GetDrivePublicPermissionOld
   - GetDrivePublicPermission
   - UpdateDrivePublicPermission
   - BatchGetDriveMediaTmpDownloadURL

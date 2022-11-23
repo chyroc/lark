@@ -38,7 +38,7 @@ https://godoc.org/github.com/chyroc/lark
 
 ## 支持的接口
 
-API 总数: 666, 事件总数: 90
+API 总数: 667, 事件总数: 90
 
 <details>
   <summary>
@@ -392,6 +392,7 @@ API 总数: 666, 事件总数: 90
   - UpdateDriveMemberPermissionOld
   - UpdateDriveMemberPermission
   - CheckDriveMemberPermission
+  - GetDrivePublicPermissionOld
   - GetDrivePublicPermission
   - UpdateDrivePublicPermission
   - BatchGetDriveMediaTmpDownloadURL

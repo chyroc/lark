@@ -59,7 +59,7 @@ func (r *Mock) UnMockDriveCreateDriveComment() {
 // CreateDriveCommentReq ...
 type CreateDriveCommentReq struct {
 	FileToken    string                          `path:"file_token" json:"-"`      // 文档token, 示例值: "doccnGp4UK1UskrOEJwBXd3"
-	FileType     FileType                        `query:"file_type" json:"-"`      // 文档类型, 示例值: "doc", 可选值有: doc: 文档, sheet: 表格, file: 文件, docx: 新版文档
+	FileType     FileType                        `query:"file_type" json:"-"`      // 文档类型, 示例值: "doc", 可选值有: doc: 文档, docx: 新版文档
 	UserIDType   *IDType                         `query:"user_id_type" json:"-"`   // 用户 ID 类型, 示例值: "open_id", 可选值有: open_id: 用户的 open id, union_id: 用户的 union id, user_id: 用户的 user id, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
 	CommentID    *string                         `json:"comment_id,omitempty"`     // 评论ID（创建新评论可不填；如填写, 则视为回复已有评论）, 示例值: "6916106822734512356"
 	UserID       *string                         `json:"user_id,omitempty"`        // 用户ID, 示例值: "ou_cc19b2bfb93f8a44db4b4d6eababcef"

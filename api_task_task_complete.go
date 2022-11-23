@@ -21,7 +21,9 @@ import (
 	"context"
 )
 
-// CompleteTask 该接口用于将任务状态修改为”已完成“
+// CompleteTask 该接口用于将任务状态修改为“已完成”。
+//
+// 完成任务是指整个任务全部完成, 而不支持执行者分别完成任务, 执行成功后, 任务对所有关联用户都变为完成状态。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/task-v1/task/complete
 func (r *TaskService) CompleteTask(ctx context.Context, request *CompleteTaskReq, options ...MethodOptionFunc) (*CompleteTaskResp, *Response, error) {
@@ -58,7 +60,7 @@ func (r *Mock) UnMockTaskCompleteTask() {
 
 // CompleteTaskReq ...
 type CompleteTaskReq struct {
-	TaskID string `path:"task_id" json:"-"` // 任务 ID, 示例值: "bb54ab99-d360-434f-bcaa-a4cc4c05840e"
+	TaskID string `path:"task_id" json:"-"` // 任务 ID, 可通过[创建任务](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/task-v1/task/create)时响应体中的id字段获取, 示例值: "bb54ab99-d360-434f-bcaa-a4cc4c05840e"
 }
 
 // CompleteTaskResp ...

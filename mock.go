@@ -341,6 +341,7 @@ type Mock struct {
 	mockDriveUpdateDriveMemberPermissionOld                    func(ctx context.Context, request *UpdateDriveMemberPermissionOldReq, options ...MethodOptionFunc) (*UpdateDriveMemberPermissionOldResp, *Response, error)
 	mockDriveUpdateDriveMemberPermission                       func(ctx context.Context, request *UpdateDriveMemberPermissionReq, options ...MethodOptionFunc) (*UpdateDriveMemberPermissionResp, *Response, error)
 	mockDriveCheckDriveMemberPermission                        func(ctx context.Context, request *CheckDriveMemberPermissionReq, options ...MethodOptionFunc) (*CheckDriveMemberPermissionResp, *Response, error)
+	mockDriveGetDrivePublicPermissionOld                       func(ctx context.Context, request *GetDrivePublicPermissionOldReq, options ...MethodOptionFunc) (*GetDrivePublicPermissionOldResp, *Response, error)
 	mockDriveGetDrivePublicPermission                          func(ctx context.Context, request *GetDrivePublicPermissionReq, options ...MethodOptionFunc) (*GetDrivePublicPermissionResp, *Response, error)
 	mockDriveUpdateDrivePublicPermission                       func(ctx context.Context, request *UpdateDrivePublicPermissionReq, options ...MethodOptionFunc) (*UpdateDrivePublicPermissionResp, *Response, error)
 	mockDriveBatchGetDriveMediaTmpDownloadURL                  func(ctx context.Context, request *BatchGetDriveMediaTmpDownloadURLReq, options ...MethodOptionFunc) (*BatchGetDriveMediaTmpDownloadURLResp, *Response, error)

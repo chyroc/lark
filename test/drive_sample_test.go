@@ -603,6 +603,18 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
+			cli.Mock().MockDriveGetDrivePublicPermissionOld(func(ctx context.Context, request *lark.GetDrivePublicPermissionOldReq, options ...lark.MethodOptionFunc) (*lark.GetDrivePublicPermissionOldResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockDriveGetDrivePublicPermissionOld()
+
+			_, _, err := moduleCli.GetDrivePublicPermissionOld(ctx, &lark.GetDrivePublicPermissionOldReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
 			cli.Mock().MockDriveGetDrivePublicPermission(func(ctx context.Context, request *lark.GetDrivePublicPermissionReq, options ...lark.MethodOptionFunc) (*lark.GetDrivePublicPermissionResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -2080,6 +2092,13 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
+			_, _, err := moduleCli.GetDrivePublicPermissionOld(ctx, &lark.GetDrivePublicPermissionOldReq{})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+
 			_, _, err := moduleCli.GetDrivePublicPermission(ctx, &lark.GetDrivePublicPermissionReq{
 				Token: "x",
 			})
@@ -3317,6 +3336,13 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		t.Run("", func(t *testing.T) {
 
 			_, _, err := moduleCli.CheckDriveMemberPermission(ctx, &lark.CheckDriveMemberPermissionReq{})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.GetDrivePublicPermissionOld(ctx, &lark.GetDrivePublicPermissionOldReq{})
 			as.NotNil(err)
 			as.Equal("fake raw request", err.Error())
 		})

@@ -21,7 +21,10 @@ import (
 	"context"
 )
 
-// CreateTask 该接口可以创建一个任务（基本信息）, 如果需要绑定协作者等需要调用别的资源管理接口。其中查询字段 user_id_type 是用于控制返回体中 creator_id 的类型, 不传时默认返回 open_id。当使用tenant_access_token 调用接口时, 如果user_id_type为user_id, 则不会返回creator_id。
+// CreateTask 该接口可以创建一个任务, 支持填写任务的基本信息, 包括任务的标题, 描述及协作者等。
+//
+// 在此基础上, 创建任务时可以设置截止时间和重复规则, 将任务设置为定期执行的重复任务。通过添加协作者, 则可以让其他用户协同完成该任务。
+// 此外, 接口也提供了一些支持自定义内容的字段, 调用方可以实现定制化效果, 如完成任务后跳转到指定结束界面。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/task-v1/task/create
 func (r *TaskService) CreateTask(ctx context.Context, request *CreateTaskReq, options ...MethodOptionFunc) (*CreateTaskResp, *Response, error) {
@@ -59,36 +62,36 @@ func (r *Mock) UnMockTaskCreateTask() {
 // CreateTaskReq ...
 type CreateTaskReq struct {
 	UserIDType      *IDType              `query:"user_id_type" json:"-"`     // 用户 ID 类型, 示例值: "open_id", 可选值有: open_id: 用户的 open id, union_id: 用户的 union id, user_id: 用户的 user id, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
-	Summary         *string              `json:"summary,omitempty"`          // 任务标题。创建任务时, 标题和富文本标题不能同时为空, 需要至少填充其中一个字段, <md-alert>, 任务标题和任务富文本标题同时存在时只使用富文本标题, </md-alert>, 示例值: "每天喝八杯水, 保持身心愉悦", 长度范围: `0` ～ `256` 字符
-	Description     *string              `json:"description,omitempty"`      // 任务备注, <md-alert>, 任务备注和任务富文本备注同时存在时只使用富文本备注, </md-alert>, 示例值: "多吃水果, 多运动, 健康生活, 快乐工作。", 长度范围: `0` ～ `65536` 字符
-	Extra           *string              `json:"extra,omitempty"`            // 接入方可以自定义的附属信息二进制格式, 采用 base64 编码, 解析方式由接入方自己决定, 示例值: "dGVzdA[", 长度范围: `0` ～ `65536` 字符
+	Summary         *string              `json:"summary,omitempty"`          // 任务的标题, 类型为文本字符串, 如果要在任务标题中插入 URL 或者 @某个用户, 请使用rich_summary字段, 创建任务时, 任务标题(summary字段)和任务富文本标题(rich_summary字段)不能同时为空, 需要至少填充其中一个字段, <md-alert>, 任务标题和任务富文本标题同时存在时只使用富文本标题, </md-alert>, 示例值: "完成本季度OKR编写", 长度范围: `0` ～ `256` 字符
+	Description     *string              `json:"description,omitempty"`      // 任务的描述, 类型为文本字符串, 如果要在任务描述中插入 URL 或者 @某个用户, 请使用rich_description字段, <md-alert>, 任务备注和任务富文本备注同时存在时只使用富文本备注, </md-alert>, 示例值: "对本次会议内容复盘总结, 编写更新本季度OKR", 长度范围: `0` ～ `65536` 字符
+	Extra           *string              `json:"extra,omitempty"`            // 附属信息, 接入方可以传入base64 编码后的自定义的数据。用户如果需要对当前任务备注信息, 但对外不显示, 可使用该字段进行存储, 该数据会在获取任务详情时, 原样返回给用户, 示例值: "dGVzdA[", 长度范围: `0` ～ `65536` 字符
 	Due             *CreateTaskReqDue    `json:"due,omitempty"`              // 任务的截止时间设置
 	Origin          *CreateTaskReqOrigin `json:"origin,omitempty"`           // 任务关联的第三方平台来源信息
-	CanEdit         *bool                `json:"can_edit,omitempty"`         // 此字段用于控制该任务在飞书任务中心是否可编辑, 默认为false, 若为true则第三方需考虑是否需要接入事件来接收任务在任务中心的变更信息, （即将废弃）, 示例值: true, 默认值: `false`
-	Custom          *string              `json:"custom,omitempty"`           // 此字段用于存储第三方需透传到端上的自定义数据, Json格式。取值举例中custom_complete字段存储「完成」按钮的跳转链接（href）或提示信息（tip）, pc、ios、android三端均可自定义, 其中tip字段的key为语言类型, value为提示信息, 可自行增加或减少语言类型, 支持的各地区语言名: it_it, th_th, ko_kr, es_es, ja_jp, zh_cn, id_id, zh_hk, pt_br, de_de, fr_fr, zh_tw, ru_ru, en_us, hi_in, vi_vn。href的优先级高于tip, href和tip同时不为空时只跳转不提示。链接和提示信息可自定义, 其余的key需按举例中的结构传递, 示例值: "{\"custom_complete\":{\"android\":{\"href\":\"https://www.feishu.cn/\", \"tip\":{\"zh_cn\":\"你好\", \"en_us\":\"hello\"}}, \"ios\":{\"href\":\"https://www.feishu.cn/\", \"tip\":{\"zh_cn\":\"你好\", \"en_us\":\"hello\"}}, \"pc\":{\"href\":\"https://www.feishu.cn/\", \"tip\":{\"zh_cn\":\"你好\", \"en_us\":\"hello\"}}}}", 长度范围: `0` ～ `65536` 字符
-	CollaboratorIDs []string             `json:"collaborator_ids,omitempty"` // 创建任务时添加的执行者用户id列表, 示例值: ["ou_1400208f15333e20e11339d39067844b", "ou_84ed6312949945c8ae6168f10829e9e6"], 最大长度: `100`
-	FollowerIDs     []string             `json:"follower_ids,omitempty"`     // 创建任务时添加的关注者用户id列表, 示例值: ["ou_1400208f15333e20e11339d39067844b", "ou_84ed6312949945c8ae6168f10829e9e6"], 最大长度: `100`
-	RepeatRule      *string              `json:"repeat_rule,omitempty"`      // 重复任务重复规则。语法格式参见[RRule语法规范](https://www.ietf.org/rfc/rfc2445.txt) 4.3.10小节, 示例值: "FREQ=WEEKLY;INTERVAL=1;BYDAY=MO, TU, WE, TH, FR"
-	RichSummary     *string              `json:"rich_summary,omitempty"`     // 富文本任务标题。创建任务时, 如果没有标题填充, 飞书服务器会将其视为无主题的任务。语法格式参见[Markdown模块](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/task-v1/markdown-module), 示例值: "每天喝八杯水, 保持身心愉悦\[飞书开放平台\](https://open.feishu.cn/)", 长度范围: `0` ～ `256` 字符
-	RichDescription *string              `json:"rich_description,omitempty"` // 富文本任务备注。语法格式参见[Markdown模块](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/task-v1/markdown-module), 示例值: "多吃水果, 多运动, 健康生活, 快乐工作。\[飞书开放平台](https://open.feishu.cn/)", 长度范围: `0` ～ `65536` 字符
+	CanEdit         *bool                `json:"can_edit,omitempty"`         // 此字段用于控制该任务在飞书任务中心是否可编辑, 默认为false, <md-alert>, 已经废弃, 向前兼容故仍然保留, 但不推荐使用, </md-alert>, 示例值: true, 默认值: `false`
+	Custom          *string              `json:"custom,omitempty"`           // 自定义完成配置, 此字段用于设置完成任务时的页面跳转, 或展示提示语。详细参见: [任务字段补充说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/task-v1/Supplementary-directions-of-task-fields), 示例值: "{\"custom_complete\":{\"android\":{\"href\":\"https://www.feishu.cn/\", \"tip\":{\"zh_cn\":\"你好\", \"en_us\":\"hello\"}}, \"ios\":{\"href\":\"https://www.feishu.cn/\", \"tip\":{\"zh_cn\":\"你好\", \"en_us\":\"hello\"}}, \"pc\":{\"href\":\"https://www.feishu.cn/\", \"tip\":{\"zh_cn\":\"你好\", \"en_us\":\"hello\"}}}}", 长度范围: `0` ～ `65536` 字符
+	CollaboratorIDs []string             `json:"collaborator_ids,omitempty"` // 创建任务时添加的执行者用户id列表, 传入的值为 user_id 或 open_id, 由user_id_type 决定。user_id和open_id的获取可见文档: [如何获取相关id](https://open.feishu.cn/document/home/user-identity-introduction/how-to-get), 示例值: ["ou_1400208f15333e20e11339d39067844b", "ou_84ed6312949945c8ae6168f10829e9e6"], 最大长度: `100`
+	FollowerIDs     []string             `json:"follower_ids,omitempty"`     // 创建任务时添加的关注者用户id列表, 传入的值为 user_id 或 open_id, 由user_id_type 决定。user_id和open_id的获取可见文档: [如何获取相关id](https://open.feishu.cn/document/home/user-identity-introduction/how-to-get), 示例值: ["ou_1400208f15333e20e11339d39067844b", "ou_84ed6312949945c8ae6168f10829e9e6"], 最大长度: `100`
+	RepeatRule      *string              `json:"repeat_rule,omitempty"`      // 重复任务的规则表达式, 语法格式参见[RRule语法规范](https://www.ietf.org/rfc/rfc2445.txt) 4.3.10小节, 示例值: "FREQ=WEEKLY;INTERVAL=1;BYDAY=MO, TU, WE, TH, FR"
+	RichSummary     *string              `json:"rich_summary,omitempty"`     // 富文本任务标题。语法格式参见[Markdown模块](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/task-v1/markdown-module), 。创建任务时, 任务标题(summary字段)和任务富文本标题(rich_summary字段)不能同时为空, 需要至少填充其中一个字段, 示例值: "完成本季度OKR编写\[飞书开放平台](https://open.feishu.cn/)", 长度范围: `0` ～ `256` 字符
+	RichDescription *string              `json:"rich_description,omitempty"` // 富文本任务备注。语法格式参见[Markdown模块](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/task-v1/markdown-module), 示例值: "对本次会议内容复盘总结, 编写更新本季度OKR\[飞书开放平台](https://open.feishu.cn/)", 长度范围: `0` ～ `65536` 字符
 }
 
 // CreateTaskReqDue ...
 type CreateTaskReqDue struct {
-	Time     *string `json:"time,omitempty"`       // 截止时间的时间戳（单位为秒）, 示例值: "1623124318"
-	Timezone *string `json:"timezone,omitempty"`   // 截止时间对应的时区, 使用IANA Time Zone Database标准, 如Asia/Shanghai, 示例值: "Asia/Shanghai", 默认值: `Asia/Shanghai`
-	IsAllDay *bool   `json:"is_all_day,omitempty"` // 标记任务是否为全天任务（全天任务的截止时间为当天 UTC 时间的 0 点）, 示例值: false, 默认值: `false`
+	Time     *string `json:"time,omitempty"`       // 表示截止时间的Unix时间戳（单位为秒）, 示例值: "1623124318"
+	Timezone *string `json:"timezone,omitempty"`   // 截止时间对应的时区, 传入值需要符合IANA Time Zone Database标准, 规范见[Time Zone Database](https://www.iana.org/time-zones), 示例值: "Asia/Shanghai", 默认值: `Asia/Shanghai`
+	IsAllDay *bool   `json:"is_all_day,omitempty"` // 标记任务是否为全天任务, 包括如下取值: true: 表示是全天任务, 全天任务的截止时间为当天 UTC 时间的 0 点, false: 表示不是全天任务, 示例值: false, 默认值: `false`
 }
 
 // CreateTaskReqOrigin ...
 type CreateTaskReqOrigin struct {
-	PlatformI18nName string                   `json:"platform_i18n_name,omitempty"` // 任务导入来源的名称, 用于在任务中心详情页展示。请提供一个字典, 多种语言名称映射。支持的各地区语言名: it_it, th_th, ko_kr, es_es, ja_jp, zh_cn, id_id, zh_hk, pt_br, de_de, fr_fr, zh_tw, ru_ru, en_us, hi_in, vi_vn, 示例值: "{\"zh_cn\": \"IT 工作台\", \"en_us\": \"IT Workspace\"}", 长度范围: `0` ～ `1024` 字符
+	PlatformI18nName string                   `json:"platform_i18n_name,omitempty"` // 任务来源的名称, 用于在任务中心详情页展示。需要提供一个字典, 支持多种语言名称映射。应用在使用不同语言时, 导入来源也将展示对应的内容。详细参见: [任务字段补充说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/task-v1/Supplementary-directions-of-task-fields), 示例值: "{\"zh_cn\": \"IT 工作台\", \"en_us\": \"IT Workspace\"}", 长度范围: `0` ～ `1024` 字符
 	Href             *CreateTaskReqOriginHref `json:"href,omitempty"`               // 任务关联的来源平台详情页链接
 }
 
 // CreateTaskReqOriginHref ...
 type CreateTaskReqOriginHref struct {
-	URL   *string `json:"url,omitempty"`   // 具体链接地址, 示例值: "https://support.feishu.com/internal/foo-bar", 长度范围: `0` ～ `1024` 字符
+	URL   *string `json:"url,omitempty"`   // 具体链接地址, URL仅支持解析http、https。详细参见: [任务字段补充说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/task-v1/Supplementary-directions-of-task-fields), 示例值: "https://support.feishu.com/internal/foo-bar", 长度范围: `0` ～ `1024` 字符
 	Title *string `json:"title,omitempty"` // 链接对应的标题, 示例值: "反馈一个问题, 需要协助排查", 长度范围: `0` ～ `512` 字符
 }
 
@@ -99,39 +102,38 @@ type CreateTaskResp struct {
 
 // CreateTaskRespTask ...
 type CreateTaskRespTask struct {
-	ID              string                            `json:"id,omitempty"`               // 任务 ID, 由飞书任务服务器发号
-	Summary         string                            `json:"summary,omitempty"`          // 任务标题。创建任务时, 标题和富文本标题不能同时为空, 需要至少填充其中一个字段, <md-alert>, 任务标题和任务富文本标题同时存在时只使用富文本标题, </md-alert>
-	Description     string                            `json:"description,omitempty"`      // 任务备注, <md-alert>, 任务备注和任务富文本备注同时存在时只使用富文本备注, </md-alert>
-	CompleteTime    string                            `json:"complete_time,omitempty"`    // 任务的完成时间戳（单位为秒）, 如果完成时间为 0, 则表示任务尚未完成
-	CreatorID       string                            `json:"creator_id,omitempty"`       // 任务的创建者 ID。在创建任务时无需填充该字段
-	Extra           string                            `json:"extra,omitempty"`            // 接入方可以自定义的附属信息二进制格式, 采用 base64 编码, 解析方式由接入方自己决定
-	CreateTime      string                            `json:"create_time,omitempty"`      // 任务的创建时间戳（单位为秒）
-	UpdateTime      string                            `json:"update_time,omitempty"`      // 任务的更新时间戳（单位为秒）
+	ID              string                            `json:"id,omitempty"`               // 任务的唯一ID, 例如"83912691-2e43-47fc-94a4-d512e03984fa"
+	Summary         string                            `json:"summary,omitempty"`          // 任务的标题, 类型为文本字符串, 如果要在任务标题中插入 URL 或者 @某个用户, 请使用rich_summary字段, 创建任务时, 任务标题(summary字段)和任务富文本标题(rich_summary字段)不能同时为空, 需要至少填充其中一个字段, <md-alert>, 任务标题和任务富文本标题同时存在时只使用富文本标题, </md-alert>
+	Description     string                            `json:"description,omitempty"`      // 任务的描述, 类型为文本字符串, 如果要在任务描述中插入 URL 或者 @某个用户, 请使用rich_description字段, <md-alert>, 任务备注和任务富文本备注同时存在时只使用富文本备注, </md-alert>
+	CompleteTime    string                            `json:"complete_time,omitempty"`    // 任务的完成时间戳（单位为秒）, 完成时间为0则表示任务尚未完成, 不支持部分完成, 只有整个任务完成, 该字段才会有非0值。
+	CreatorID       string                            `json:"creator_id,omitempty"`       // 任务的创建者 ID, 其中查询字段 user_id_type 是用于控制返回体中 creator_id 的类型, 不传时默认返回 open_id, 特别的, 使用tenant_access_token 调用接口时, 如果是user_id_type是openid, 则返回代表该应用身份的openid；当user_id_type为user_id时, 不返回creator_id。原因是user_id代表一个真实飞书用户的id, 应用身份没有user_id。使用user_access_token调用接口正常返回创建者。
+	Extra           string                            `json:"extra,omitempty"`            // 附属信息, 接入方可以传入base64 编码后的自定义的数据。用户如果需要对当前任务备注信息, 但对外不显示, 可使用该字段进行存储, 该数据会在获取任务详情时, 原样返回给用户。
+	CreateTime      string                            `json:"create_time,omitempty"`      // 任务的创建时间的Unix时间戳（单位为秒）
+	UpdateTime      string                            `json:"update_time,omitempty"`      // 任务的更新时间的Unix时间戳（单位为秒）, 创建任务时update_time与create_time相同
 	Due             *CreateTaskRespTaskDue            `json:"due,omitempty"`              // 任务的截止时间设置
 	Origin          *CreateTaskRespTaskOrigin         `json:"origin,omitempty"`           // 任务关联的第三方平台来源信息
-	CanEdit         bool                              `json:"can_edit,omitempty"`         // 此字段用于控制该任务在飞书任务中心是否可编辑, 默认为false, 若为true则第三方需考虑是否需要接入事件来接收任务在任务中心的变更信息, （即将废弃）
-	Custom          string                            `json:"custom,omitempty"`           // 此字段用于存储第三方需透传到端上的自定义数据, Json格式。取值举例中custom_complete字段存储「完成」按钮的跳转链接（href）或提示信息（tip）, pc、ios、android三端均可自定义, 其中tip字段的key为语言类型, value为提示信息, 可自行增加或减少语言类型, 支持的各地区语言名: it_it, th_th, ko_kr, es_es, ja_jp, zh_cn, id_id, zh_hk, pt_br, de_de, fr_fr, zh_tw, ru_ru, en_us, hi_in, vi_vn。href的优先级高于tip, href和tip同时不为空时只跳转不提示。链接和提示信息可自定义, 其余的key需按举例中的结构传递
+	Custom          string                            `json:"custom,omitempty"`           // 自定义完成配置, 此字段用于设置完成任务时的页面跳转, 或展示提示语。详细参见: [任务字段补充说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/task-v1/Supplementary-directions-of-task-fields)
 	Source          int64                             `json:"source,omitempty"`           // 任务创建的来源, 可选值有: 0: 未知类型, 1: 来源任务中心创建, 2: 来源消息转任务, 3: 来源云文档, 4: 来源文档单品, 5: 来源PANO, 6: 来源tenant_access_token创建的任务, 7: 来源user_access_token创建的任务, 8: 来源新版云文档
 	Followers       []*CreateTaskRespTaskFollower     `json:"followers,omitempty"`        // 任务的关注者
 	Collaborators   []*CreateTaskRespTaskCollaborator `json:"collaborators,omitempty"`    // 任务的执行者
-	CollaboratorIDs []string                          `json:"collaborator_ids,omitempty"` // 创建任务时添加的执行者用户id列表
-	FollowerIDs     []string                          `json:"follower_ids,omitempty"`     // 创建任务时添加的关注者用户id列表
-	RepeatRule      string                            `json:"repeat_rule,omitempty"`      // 重复任务重复规则。语法格式参见[RRule语法规范](https://www.ietf.org/rfc/rfc2445.txt) 4.3.10小节
-	RichSummary     string                            `json:"rich_summary,omitempty"`     // 富文本任务标题。创建任务时, 如果没有标题填充, 飞书服务器会将其视为无主题的任务。语法格式参见[Markdown模块](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/task-v1/markdown-module)
+	CollaboratorIDs []string                          `json:"collaborator_ids,omitempty"` // 创建任务时添加的执行者用户id列表, 传入的值为 user_id 或 open_id, 由user_id_type 决定。user_id和open_id的获取可见文档: [如何获取相关id](https://open.feishu.cn/document/home/user-identity-introduction/how-to-get)。
+	FollowerIDs     []string                          `json:"follower_ids,omitempty"`     // 创建任务时添加的关注者用户id列表, 传入的值为 user_id 或 open_id, 由user_id_type 决定。user_id和open_id的获取可见文档: [如何获取相关id](https://open.feishu.cn/document/home/user-identity-introduction/how-to-get)。
+	RepeatRule      string                            `json:"repeat_rule,omitempty"`      // 重复任务的规则表达式, 语法格式参见[RRule语法规范](https://www.ietf.org/rfc/rfc2445.txt) 4.3.10小节
+	RichSummary     string                            `json:"rich_summary,omitempty"`     // 富文本任务标题。语法格式参见[Markdown模块](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/task-v1/markdown-module), 。创建任务时, 任务标题(summary字段)和任务富文本标题(rich_summary字段)不能同时为空, 需要至少填充其中一个字段。
 	RichDescription string                            `json:"rich_description,omitempty"` // 富文本任务备注。语法格式参见[Markdown模块](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/task-v1/markdown-module)
 }
 
 // CreateTaskRespTaskCollaborator ...
 type CreateTaskRespTaskCollaborator struct {
-	ID     string   `json:"id,omitempty"`      // 任务执行者的 ID
-	IDList []string `json:"id_list,omitempty"` // 执行者的用户ID列表。
+	ID     string   `json:"id,omitempty"`      // 任务执行者的 ID, 传入的值为 user_id 或 open_id, 由user_id_type 决定。user_id和open_id的获取可见文档[如何获取相关id](https://open.feishu.cn/document/home/user-identity-introduction/how-to-get), <md-alert>, 已经废弃, 为了向前兼容早期只支持单次添加一个人的情况而保留, 但不再推荐使用, 建议使用id_list字段, </md-alert>
+	IDList []string `json:"id_list,omitempty"` // 执行者的用户ID列表, 传入的值为 user_id 或 open_id, 由user_id_type 决定。user_id和open_id的获取可见文档[如何获取相关id](https://open.feishu.cn/document/home/user-identity-introduction/how-to-get)。
 }
 
 // CreateTaskRespTaskDue ...
 type CreateTaskRespTaskDue struct {
-	Time     string `json:"time,omitempty"`       // 截止时间的时间戳（单位为秒）
-	Timezone string `json:"timezone,omitempty"`   // 截止时间对应的时区, 使用IANA Time Zone Database标准, 如Asia/Shanghai
-	IsAllDay bool   `json:"is_all_day,omitempty"` // 标记任务是否为全天任务（全天任务的截止时间为当天 UTC 时间的 0 点）
+	Time     string `json:"time,omitempty"`       // 表示截止时间的Unix时间戳（单位为秒）。
+	Timezone string `json:"timezone,omitempty"`   // 截止时间对应的时区, 传入值需要符合IANA Time Zone Database标准, 规范见[Time Zone Database](https://www.iana.org/time-zones)。
+	IsAllDay bool   `json:"is_all_day,omitempty"` // 标记任务是否为全天任务, 包括如下取值: true: 表示是全天任务, 全天任务的截止时间为当天 UTC 时间的 0 点, false: 表示不是全天任务。
 }
 
 // CreateTaskRespTaskFollower ...
@@ -142,13 +144,13 @@ type CreateTaskRespTaskFollower struct {
 
 // CreateTaskRespTaskOrigin ...
 type CreateTaskRespTaskOrigin struct {
-	PlatformI18nName string                        `json:"platform_i18n_name,omitempty"` // 任务导入来源的名称, 用于在任务中心详情页展示。请提供一个字典, 多种语言名称映射。支持的各地区语言名: it_it, th_th, ko_kr, es_es, ja_jp, zh_cn, id_id, zh_hk, pt_br, de_de, fr_fr, zh_tw, ru_ru, en_us, hi_in, vi_vn
+	PlatformI18nName string                        `json:"platform_i18n_name,omitempty"` // 任务来源的名称, 用于在任务中心详情页展示。需要提供一个字典, 支持多种语言名称映射。应用在使用不同语言时, 导入来源也将展示对应的内容。详细参见: [任务字段补充说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/task-v1/Supplementary-directions-of-task-fields)
 	Href             *CreateTaskRespTaskOriginHref `json:"href,omitempty"`               // 任务关联的来源平台详情页链接
 }
 
 // CreateTaskRespTaskOriginHref ...
 type CreateTaskRespTaskOriginHref struct {
-	URL   string `json:"url,omitempty"`   // 具体链接地址
+	URL   string `json:"url,omitempty"`   // 具体链接地址, URL仅支持解析http、https。详细参见: [任务字段补充说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/task-v1/Supplementary-directions-of-task-fields)
 	Title string `json:"title,omitempty"` // 链接对应的标题
 }
 
