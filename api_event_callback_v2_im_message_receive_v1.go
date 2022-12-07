@@ -51,7 +51,7 @@ type EventV2IMMessageReceiveV1Message struct {
 	ParentID    string                                     `json:"parent_id,omitempty"`    // 父消息的id, 用于回复消息场景, 说明参见: [消息ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/intro#ac79c1c2)
 	CreateTime  string                                     `json:"create_time,omitempty"`  // 消息发送时间（毫秒）
 	ChatID      string                                     `json:"chat_id,omitempty"`      // 消息所在的群组 ID
-	ChatType    ChatType                                   `json:"chat_type,omitempty"`    // 消息所在的群组类型, 可选值有: `p2p`: 单聊, `group`: 群组, `topic_group`: 话题群
+	ChatType    ChatMode                                   `json:"chat_type,omitempty"`    // 消息所在的群组类型, 可选值有: `p2p`: 单聊, `group`: 群组, `topic_group`: 话题群
 	MessageType MsgType                                    `json:"message_type,omitempty"` // 消息类型
 	Content     string                                     `json:"content,omitempty"`      // 消息内容, json 格式, [各类型消息Content](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/im-v1/message/events/message_content)
 	Mentions    []*EventV2IMMessageReceiveV1MessageMention `json:"mentions,omitempty"`     // 被提及用户的信息
