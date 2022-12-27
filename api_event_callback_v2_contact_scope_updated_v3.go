@@ -48,7 +48,7 @@ type EventV2ContactScopeUpdatedV3Added struct {
 type EventV2ContactScopeUpdatedV3AddedDepartment struct {
 	Name               string                                               `json:"name,omitempty"`                 // 部门名称, 最小长度: `1` 字符, 字段权限要求（满足任一）: 以应用身份读取通讯录, 获取部门基础信息, 以应用身份访问通讯录, 读取通讯录
 	I18nName           *EventV2ContactScopeUpdatedV3AddedDepartmentI18nName `json:"i18n_name,omitempty"`            // 国际化的部门名称, 字段权限要求（满足任一）: 以应用身份读取通讯录, 获取部门基础信息, 以应用身份访问通讯录, 读取通讯录
-	ParentDepartmentID string                                               `json:"parent_department_id,omitempty"` // 父部门的ID, * 创建根部门, 该参数值为 “0”, 字段权限要求（满足任一）: 以应用身份读取通讯录, 获取部门组织架构信息, 以应用身份访问通讯录, 读取通讯录
+	ParentDepartmentID string                                               `json:"parent_department_id,omitempty"` // 父部门的ID, * 在根部门下创建新部门, 该参数值为 “0”, 字段权限要求（满足任一）: 以应用身份读取通讯录, 获取部门组织架构信息, 以应用身份访问通讯录, 读取通讯录
 	DepartmentID       string                                               `json:"department_id,omitempty"`        // 本部门的自定义部门ID, 注意: 除需要满足正则规则外, 同时不能以`od-`开头, 最大长度: `64` 字符, 正则校验: `^0|[^od][A-Za-z0-9]*`, 字段权限要求（满足任一）: 以应用身份读取通讯录, 获取部门基础信息, 以应用身份访问通讯录, 读取通讯录
 	OpenDepartmentID   string                                               `json:"open_department_id,omitempty"`   // 部门的open_id, 类型与通过请求的查询参数传入的department_id_type相同
 	LeaderUserID       string                                               `json:"leader_user_id,omitempty"`       // 部门主管用户ID, 字段权限要求（满足任一）: 以应用身份读取通讯录, 获取部门组织架构信息, 以应用身份访问通讯录, 读取通讯录
@@ -167,7 +167,7 @@ type EventV2ContactScopeUpdatedV3Removed struct {
 type EventV2ContactScopeUpdatedV3RemovedDepartment struct {
 	Name               string                                                 `json:"name,omitempty"`                 // 部门名称, 最小长度: `1` 字符, 字段权限要求（满足任一）: 以应用身份读取通讯录, 获取部门基础信息, 以应用身份访问通讯录, 读取通讯录
 	I18nName           *EventV2ContactScopeUpdatedV3RemovedDepartmentI18nName `json:"i18n_name,omitempty"`            // 国际化的部门名称, 字段权限要求（满足任一）: 以应用身份读取通讯录, 获取部门基础信息, 以应用身份访问通讯录, 读取通讯录
-	ParentDepartmentID string                                                 `json:"parent_department_id,omitempty"` // 父部门的ID, * 创建根部门, 该参数值为 “0”, 字段权限要求（满足任一）: 以应用身份读取通讯录, 获取部门组织架构信息, 以应用身份访问通讯录, 读取通讯录
+	ParentDepartmentID string                                                 `json:"parent_department_id,omitempty"` // 父部门的ID, * 在根部门下创建新部门, 该参数值为 “0”, 字段权限要求（满足任一）: 以应用身份读取通讯录, 获取部门组织架构信息, 以应用身份访问通讯录, 读取通讯录
 	DepartmentID       string                                                 `json:"department_id,omitempty"`        // 本部门的自定义部门ID, 注意: 除需要满足正则规则外, 同时不能以`od-`开头, 最大长度: `64` 字符, 正则校验: `^0|[^od][A-Za-z0-9]*`, 字段权限要求（满足任一）: 以应用身份读取通讯录, 获取部门基础信息, 以应用身份访问通讯录, 读取通讯录
 	OpenDepartmentID   string                                                 `json:"open_department_id,omitempty"`   // 部门的open_id, 类型与通过请求的查询参数传入的department_id_type相同
 	LeaderUserID       string                                                 `json:"leader_user_id,omitempty"`       // 部门主管用户ID, 字段权限要求（满足任一）: 以应用身份读取通讯录, 获取部门组织架构信息, 以应用身份访问通讯录, 读取通讯录

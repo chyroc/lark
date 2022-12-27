@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// GetMailPublicMailboxAliasList 获取所有公共邮箱别名
+// GetMailPublicMailboxAliasList 获取所有公共邮箱别名。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/mail-v1/public_mailbox-alias/list
 func (r *MailService) GetMailPublicMailboxAliasList(ctx context.Context, request *GetMailPublicMailboxAliasListReq, options ...MethodOptionFunc) (*GetMailPublicMailboxAliasListResp, *Response, error) {

@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// GetOKRPeriodList 获取OKR周期列表
+// GetOKRPeriodList 获取 OKR 周期列表。
 //
 // 使用tenant_access_token需要额外申请权限以应用身份访问OKR信息
 //

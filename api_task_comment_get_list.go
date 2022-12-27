@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// GetTaskCommentList 该接口用于查询任务评论列表, 支持分页, 最大值为100
+// GetTaskCommentList 该接口用于查询任务评论列表, 支持分页, 最大值为100。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/task-v1/task-comment/list
 func (r *TaskService) GetTaskCommentList(ctx context.Context, request *GetTaskCommentListReq, options ...MethodOptionFunc) (*GetTaskCommentListResp, *Response, error) {

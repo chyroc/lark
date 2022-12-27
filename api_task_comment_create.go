@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// CreateTaskComment 该接口用于创建和回复任务的评论。当parent_id字段为0时, 为创建评论；当parent_id不为0时, 为回复某条评论
+// CreateTaskComment 该接口用于创建和回复任务的评论。当parent_id字段为0时, 为创建评论；当parent_id不为0时, 为回复某条评论。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/task-v1/task-comment/create
 func (r *TaskService) CreateTaskComment(ctx context.Context, request *CreateTaskCommentReq, options ...MethodOptionFunc) (*CreateTaskCommentResp, *Response, error) {

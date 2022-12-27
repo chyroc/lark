@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// EventV2HelpdeskNotificationApproveV1 Push审核状态通知事件{使用示例}(url=/api/tools/api_explore/api_explore_config?project=helpdesk&version=v1&resource=notification&event=approve)
+// EventV2HelpdeskNotificationApproveV1 推送审核状态通知事件。{使用示例}(url=/api/tools/api_explore/api_explore_config?project=helpdesk&version=v1&resource=notification&event=approve)
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/notification/events/approve
 func (r *EventCallbackService) HandlerEventV2HelpdeskNotificationApproveV1(f EventV2HelpdeskNotificationApproveV1Handler) {

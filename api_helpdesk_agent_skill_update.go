@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// UpdateHelpdeskAgentSkill 该接口用于更新客服技能
+// UpdateHelpdeskAgentSkill 该接口用于更新客服技能。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/agent_skill/patch
 func (r *HelpdeskService) UpdateHelpdeskAgentSkill(ctx context.Context, request *UpdateHelpdeskAgentSkillReq, options ...MethodOptionFunc) (*UpdateHelpdeskAgentSkillResp, *Response, error) {

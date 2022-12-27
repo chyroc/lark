@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// GetPublicMailbox 获取公共邮箱信息
+// GetPublicMailbox 获取公共邮箱信息。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/mail-v1/public_mailbox/get
 func (r *MailService) GetPublicMailbox(ctx context.Context, request *GetPublicMailboxReq, options ...MethodOptionFunc) (*GetPublicMailboxResp, *Response, error) {

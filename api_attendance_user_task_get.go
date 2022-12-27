@@ -63,7 +63,7 @@ type GetAttendanceUserTaskReq struct {
 	EmployeeType          EmployeeType `query:"employee_type" json:"-"`           // 员工工号类型, 示例值: "employee_id", 可选值有: employee_id: 员工 employee ID, 即[飞书管理后台](https://bytedance.feishu.cn/admin/contacts/departmentanduser) > 组织架构 > 成员与部门 > 成员详情中的用户 ID, employee_no: 员工工号, 即[飞书管理后台](https://bytedance.feishu.cn/admin/contacts/departmentanduser) > 组织架构 > 成员与部门 > 成员详情中的工号
 	IgnoreInvalidUsers    *bool        `query:"ignore_invalid_users" json:"-"`    // 是否忽略无效和没有权限的用户。如果 true, 则返回有效用户的信息, 并告知无效和没有权限的用户信息；如果 false, 且 user_ids 中存在无效或没有权限的用户, 则返回错误, 示例值: true
 	IncludeTerminatedUser *bool        `query:"include_terminated_user" json:"-"` // 由于新入职员工可以复用已离职员工的 employee_no/employee_id, 如果 true, 则返回 employee_no/employee_id 对应的所有在职 + 离职员工的数据；如果 false, 则只返回 employee_no/employee_id 对应的在职或最近一个离职员工的数据, 示例值: true
-	UserIDs               []string     `json:"user_ids,omitempty"`                // employee_no 或 employee_id 列表, 示例值: abd754f7
+	UserIDs               []string     `json:"user_ids,omitempty"`                // employee_no 或 employee_id 列表, 长度不超过 50, 示例值: abd754f7
 	CheckDateFrom         int64        `json:"check_date_from,omitempty"`         // 查询的起始工作日, 示例值: 20190817
 	CheckDateTo           int64        `json:"check_date_to,omitempty"`           // 查询的结束工作日, 示例值: 20190820
 }

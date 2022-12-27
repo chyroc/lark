@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// GetHelpdeskAgentSkillList 获取全部客服技能
+// GetHelpdeskAgentSkillList 获取全部客服技能。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/agent_skill/list
 func (r *HelpdeskService) GetHelpdeskAgentSkillList(ctx context.Context, request *GetHelpdeskAgentSkillListReq, options ...MethodOptionFunc) (*GetHelpdeskAgentSkillListResp, *Response, error) {

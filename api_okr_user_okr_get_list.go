@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// GetUserOKRList 根据用户的id获取OKR列表
+// GetUserOKRList 根据用户的 id 获取 OKR 列表。
 //
 // 使用tenant_access_token需要额外申请权限以应用身份访问OKR信息
 //
@@ -61,7 +61,7 @@ func (r *Mock) UnMockOKRGetUserOKRList() {
 // GetUserOKRListReq ...
 type GetUserOKRListReq struct {
 	UserID     string   `path:"user_id" json:"-"`       // 目标用户id, 示例值: "ou-asdasdasdasdasd"
-	UserIDType *IDType  `query:"user_id_type" json:"-"` // 用户 ID 类型, 示例值: "open_id", 可选值有: open_id: 用户的 open id, union_id: 用户的 union id, user_id: 用户的 user id, people_admin_id: 以people_admin_id来识别用户, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
+	UserIDType *IDType  `query:"user_id_type" json:"-"` // 用户 ID 类型, 示例值: "open_id", 可选值有: open_id: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid), union_id: 标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id), user_id: 标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id), people_admin_id: 以people_admin_id来识别用户, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
 	Offset     string   `query:"offset" json:"-"`       // 请求列表的偏移, offset>=0, 示例值: "0"
 	Limit      string   `query:"limit" json:"-"`        // 列表长度, 0-10, 示例值: "5"
 	Lang       *string  `query:"lang" json:"-"`         // 请求OKR的语言版本（比如@的人名）, lang=en_us/zh_cn, 示例值: "zh_cn", 默认值: `zh_cn`
@@ -159,7 +159,7 @@ type GetUserOKRListRespOKRObjectiveKrMentionedUser struct {
 // GetUserOKRListRespOKRObjectiveKrProgressRate ...
 type GetUserOKRListRespOKRObjectiveKrProgressRate struct {
 	Percent int64  `json:"percent,omitempty"` // Objective 进度百分比 >= 0
-	Status  string `json:"status,omitempty"`  // Objective 进度状态
+	Status  string `json:"status,omitempty"`  // Objective 进度状态: "-1" 暂无, "0" 正常, "1" 风险, "2" 延期
 }
 
 // GetUserOKRListRespOKRObjectiveKrProgressRecord ...
@@ -176,7 +176,7 @@ type GetUserOKRListRespOKRObjectiveMentionedUser struct {
 // GetUserOKRListRespOKRObjectiveProgressRate ...
 type GetUserOKRListRespOKRObjectiveProgressRate struct {
 	Percent int64  `json:"percent,omitempty"` // Objective 进度百分比 >= 0
-	Status  string `json:"status,omitempty"`  // Objective 进度状态
+	Status  string `json:"status,omitempty"`  // Objective 进度状态: "-1" 暂无, "0" 正常, "1" 风险, "2" 延期
 }
 
 // GetUserOKRListRespOKRObjectiveProgressRecord ...

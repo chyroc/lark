@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// DeleteTask 该接口用于删除任务
+// DeleteTask 该接口用于删除任务。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/task-v1/task/delete
 func (r *TaskService) DeleteTask(ctx context.Context, request *DeleteTaskReq, options ...MethodOptionFunc) (*DeleteTaskResp, *Response, error) {

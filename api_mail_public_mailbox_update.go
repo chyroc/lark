@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// UpdatePublicMailbox 更新公共邮箱所有信息
+// UpdatePublicMailbox 更新公共邮箱所有信息。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/mail-v1/public_mailbox/update
 func (r *MailService) UpdatePublicMailbox(ctx context.Context, request *UpdatePublicMailboxReq, options ...MethodOptionFunc) (*UpdatePublicMailboxResp, *Response, error) {

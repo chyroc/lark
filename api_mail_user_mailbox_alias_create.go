@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// CreateMailUserMailboxAlias 创建用户邮箱别名
+// CreateMailUserMailboxAlias 创建用户邮箱别名。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/mail-v1/user_mailbox-alias/create
 func (r *MailService) CreateMailUserMailboxAlias(ctx context.Context, request *CreateMailUserMailboxAliasReq, options ...MethodOptionFunc) (*CreateMailUserMailboxAliasResp, *Response, error) {

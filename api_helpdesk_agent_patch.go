@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// UpdateHelpdeskAgent 更新客服状态等信息
+// UpdateHelpdeskAgent 更新客服状态等信息。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/agent/patch
 func (r *HelpdeskService) UpdateHelpdeskAgent(ctx context.Context, request *UpdateHelpdeskAgentReq, options ...MethodOptionFunc) (*UpdateHelpdeskAgentResp, *Response, error) {

@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// ExecuteSendHelpdeskNotification 审核通过后调用此接口设置推送时间, 等待调度系统调度, 发送消息
+// ExecuteSendHelpdeskNotification 审核通过后调用此接口设置推送时间, 等待调度系统调度, 发送消息。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/notification/execute_send
 func (r *HelpdeskService) ExecuteSendHelpdeskNotification(ctx context.Context, request *ExecuteSendHelpdeskNotificationReq, options ...MethodOptionFunc) (*ExecuteSendHelpdeskNotificationResp, *Response, error) {

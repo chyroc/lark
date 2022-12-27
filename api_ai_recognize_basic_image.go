@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// RecognizeBasicImage 可识别图片中的文字, 按图片中的区域划分, 分段返回文本列表
+// RecognizeBasicImage 可识别图片中的文字, 按图片中的区域划分, 分段返回文本列表。
 //
 // 单租户限流: 20QPS, 同租户下的应用没有限流, 共享本租户的 20QPS 限流
 //

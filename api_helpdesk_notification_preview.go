@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// PreviewHelpdeskNotification 在正式执行推送之前是可以调用此接口预览设置的推送内容
+// PreviewHelpdeskNotification 在正式执行推送之前是可以调用此接口预览设置的推送内容。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/notification/preview
 func (r *HelpdeskService) PreviewHelpdeskNotification(ctx context.Context, request *PreviewHelpdeskNotificationReq, options ...MethodOptionFunc) (*PreviewHelpdeskNotificationResp, *Response, error) {

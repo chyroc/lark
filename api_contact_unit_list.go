@@ -70,7 +70,7 @@ type GetContactUnitListResp struct {
 
 // GetContactUnitListRespUnit ...
 type GetContactUnitListRespUnit struct {
-	UnitID   string `json:"unit_id,omitempty"`   // 单位的自定义ID
+	UnitID   string `json:"unit_id,omitempty"`   // 单位ID
 	Name     string `json:"name,omitempty"`      // 单位的名字
 	UnitType string `json:"unit_type,omitempty"` // 单位的类型
 }

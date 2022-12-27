@@ -25,7 +25,7 @@ import (
 //
 // 注意事项:
 // - 应用需要开启[机器人能力](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-enable-bot-ability)
-// - 机器人或授权用户必须在群组中
+// - access_token所对应的 机器人 或 授权用户 必须在`chat_id`参数指定的群组中
 // - 单聊、密聊、团队群不支持分享群链接
 // - 当Bot被停用或Bot退出群组时, Bot生成的群链接也将停用
 // - 当群聊开启了 [仅群主和群管理员可添加群成员/分享群] 设置时, 仅群主和群管理员可以获取群分享链接

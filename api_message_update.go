@@ -67,7 +67,7 @@ func (r *Mock) UnMockMessageUpdateMessage() {
 
 // UpdateMessageReq ...
 type UpdateMessageReq struct {
-	MessageID string `path:"message_id" json:"-"` // 待更新的消息的ID, 详情参见[消息ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/intro#ac79c1c2), 示例值: "om_dc13264520392913993dd051dba21dcf"
+	MessageID string `path:"message_id" json:"-"` // 待更新的消息的ID, 仅支持更新消息卡片(`interactive`类型), 详情参见[消息ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/intro#ac79c1c2), 示例值: "om_dc13264520392913993dd051dba21dcf"
 	Content   string `json:"content,omitempty"`   // 消息内容 json 格式, [发送消息 content 说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/im-v1/message/create_json), 参考文档中的卡片格式, 示例值: "参考链接"
 }
 

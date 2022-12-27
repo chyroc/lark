@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// DeleteMailPublicMailboxAlias 删除公共邮箱别名
+// DeleteMailPublicMailboxAlias 删除公共邮箱别名。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/mail-v1/public_mailbox-alias/delete
 func (r *MailService) DeleteMailPublicMailboxAlias(ctx context.Context, request *DeleteMailPublicMailboxAliasReq, options ...MethodOptionFunc) (*DeleteMailPublicMailboxAliasResp, *Response, error) {

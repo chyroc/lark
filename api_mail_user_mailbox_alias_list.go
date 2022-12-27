@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// GetMailUserMailboxAliasList 获取用户邮箱所有别名
+// GetMailUserMailboxAliasList 获取用户邮箱所有别名。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/mail-v1/user_mailbox-alias/list
 func (r *MailService) GetMailUserMailboxAliasList(ctx context.Context, request *GetMailUserMailboxAliasListReq, options ...MethodOptionFunc) (*GetMailUserMailboxAliasListResp, *Response, error) {

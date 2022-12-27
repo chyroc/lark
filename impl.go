@@ -50,39 +50,40 @@ type Lark struct {
 	wrapDoRequest    ApiEndpoint
 
 	// service
-	ACS           *ACSService
-	AI            *AIService
-	Admin         *AdminService
-	AppLink       *AppLinkService
-	Application   *ApplicationService
-	Approval      *ApprovalService
-	Attendance    *AttendanceService
-	Auth          *AuthService
-	Baike         *BaikeService
-	Bitable       *BitableService
-	Bot           *BotService
-	Calendar      *CalendarService
-	Chat          *ChatService
-	Contact       *ContactService
-	Drive         *DriveService
-	EHR           *EHRService
-	Event         *EventService
-	EventCallback *EventCallbackService
-	File          *FileService
-	Helpdesk      *HelpdeskService
-	Hire          *HireService
-	HumanAuth     *HumanAuthService
-	Jssdk         *JssdkService
-	Mail          *MailService
-	Message       *MessageService
-	Mina          *MinaService
-	OKR           *OKRService
-	Passport      *PassportService
-	Search        *SearchService
-	Task          *TaskService
-	Tenant        *TenantService
-	VC            *VCService
-	Verification  *VerificationService
+	ACS              *ACSService
+	AI               *AIService
+	Admin            *AdminService
+	AppLink          *AppLinkService
+	Application      *ApplicationService
+	Approval         *ApprovalService
+	Attendance       *AttendanceService
+	Auth             *AuthService
+	Baike            *BaikeService
+	Bitable          *BitableService
+	Bot              *BotService
+	Calendar         *CalendarService
+	Chat             *ChatService
+	Contact          *ContactService
+	Drive            *DriveService
+	EHR              *EHRService
+	Event            *EventService
+	EventCallback    *EventCallbackService
+	File             *FileService
+	Helpdesk         *HelpdeskService
+	Hire             *HireService
+	HumanAuth        *HumanAuthService
+	Jssdk            *JssdkService
+	Mail             *MailService
+	Message          *MessageService
+	Mina             *MinaService
+	OKR              *OKRService
+	Passport         *PassportService
+	PersonalSettings *PersonalSettingsService
+	Search           *SearchService
+	Task             *TaskService
+	Tenant           *TenantService
+	VC               *VCService
+	Verification     *VerificationService
 }
 
 func (r *Lark) init() {
@@ -116,6 +117,7 @@ func (r *Lark) init() {
 	r.Mina = &MinaService{cli: r}
 	r.OKR = &OKRService{cli: r}
 	r.Passport = &PassportService{cli: r}
+	r.PersonalSettings = &PersonalSettingsService{cli: r}
 	r.Search = &SearchService{cli: r}
 	r.Task = &TaskService{cli: r}
 	r.Tenant = &TenantService{cli: r}
@@ -182,6 +184,7 @@ type MessageService struct{ cli *Lark }
 type MinaService struct{ cli *Lark }
 type OKRService struct{ cli *Lark }
 type PassportService struct{ cli *Lark }
+type PersonalSettingsService struct{ cli *Lark }
 type SearchService struct{ cli *Lark }
 type TaskService struct{ cli *Lark }
 type TenantService struct{ cli *Lark }

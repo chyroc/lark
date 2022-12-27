@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// DeleteOKRProgressRecord 根据ID删除OKR进展记录
+// DeleteOKRProgressRecord 根据 ID 删除 OKR 进展记录。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/okr-v1/progress_record/delete
 func (r *OKRService) DeleteOKRProgressRecord(ctx context.Context, request *DeleteOKRProgressRecordReq, options ...MethodOptionFunc) (*DeleteOKRProgressRecordResp, *Response, error) {

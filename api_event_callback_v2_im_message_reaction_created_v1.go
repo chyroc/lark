@@ -40,7 +40,7 @@ type EventV2IMMessageReactionCreatedV1Handler func(ctx context.Context, cli *Lar
 type EventV2IMMessageReactionCreatedV1 struct {
 	MessageID    string                                         `json:"message_id,omitempty"`    // 消息的 open_message_id
 	ReactionType *EventV2IMMessageReactionCreatedV1ReactionType `json:"reaction_type,omitempty"` // 表情回复的资源类型
-	OperatorType string                                         `json:"operator_type,omitempty"` // 操作人类型
+	OperatorType string                                         `json:"operator_type,omitempty"` // 操作人类型, 注意事项: 如果操作人类型是"user", 则会返回 [user_id], 如果操作人类型是"app", 则会返回 [app_id]
 	UserID       *EventV2IMMessageReactionCreatedV1UserID       `json:"user_id,omitempty"`       // 用户 ID
 	AppID        string                                         `json:"app_id,omitempty"`        // 应用 ID
 	ActionTime   string                                         `json:"action_time,omitempty"`   // 添加表情回复时间戳（单位: ms）

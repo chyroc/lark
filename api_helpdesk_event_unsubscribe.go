@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// UnsubscribeHelpdeskEvent 用于取消订阅服务台事件
+// UnsubscribeHelpdeskEvent 本接口用于取消订阅服务台事件。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/event/unsubscribe
 func (r *HelpdeskService) UnsubscribeHelpdeskEvent(ctx context.Context, request *UnsubscribeHelpdeskEventReq, options ...MethodOptionFunc) (*UnsubscribeHelpdeskEventResp, *Response, error) {

@@ -21,9 +21,9 @@ import (
 	"context"
 )
 
-// DeleteDepartment 该接口用于向通讯录中删除部门。
+// DeleteDepartment 该接口用于从通讯录中删除部门。
 //
-// 应用需要同时拥有待删除部门及其父部门的通讯录授权。应用商店应用无权限调用该接口。
+// 应用需要同时拥有待删除部门及其父部门的通讯录授权。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/delete
 func (r *ContactService) DeleteDepartment(ctx context.Context, request *DeleteDepartmentReq, options ...MethodOptionFunc) (*DeleteDepartmentResp, *Response, error) {
@@ -59,8 +59,8 @@ func (r *Mock) UnMockContactDeleteDepartment() {
 
 // DeleteDepartmentReq ...
 type DeleteDepartmentReq struct {
-	DepartmentID     string            `path:"department_id" json:"-"`       // 部门ID, 需要与查询参数中传入的department_id_type类型保持一致, 示例值: "od-4e6ac4d14bcd5071a37a39de902c7141", 最大长度: `64` 字符, 正则校验: `^0|[^od][A-Za-z0-9]*`
-	DepartmentIDType *DepartmentIDType `query:"department_id_type" json:"-"` // 此次调用中使用的部门ID的类型, 示例值: "open_department_id", 可选值有: department_id: 以自定义department_id来标识部门, open_department_id: 以open_department_id来标识部门, 默认值: `open_department_id`
+	DepartmentID     string            `path:"department_id" json:"-"`       // 部门ID, 需要与查询参数中传入的department_id_type类型保持一致, 示例值: "D096", 最大长度: `64` 字符, 正则校验: `^0|[^od][A-Za-z0-9]*`
+	DepartmentIDType *DepartmentIDType `query:"department_id_type" json:"-"` // 此次调用中使用的部门ID的类型, 示例值: "open_department_id", 可选值有: department_id: 用来标识租户内一个唯一的部门, open_department_id: 用来在具体某个应用中标识一个部门, 同一个部门 在不同应用中的 open_department_id 不相同。, 默认值: `open_department_id`
 }
 
 // DeleteDepartmentResp ...

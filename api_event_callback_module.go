@@ -27,6 +27,8 @@ import (
 type EventType string
 
 const (
+	EventTypeV1AddBot                                          EventType = "add_bot"
+	EventTypeV1AddUserToChat                                   EventType = "add_user_to_chat"
 	EventTypeV1AppOpen                                         EventType = "app_open"
 	EventTypeV1AppStatusChange                                 EventType = "app_status_change"
 	EventTypeV1AppTicket                                       EventType = "app_ticket"
@@ -34,11 +36,16 @@ const (
 	EventTypeV1ApprovalCc                                      EventType = "approval_cc"
 	EventTypeV1ApprovalInstance                                EventType = "approval_instance"
 	EventTypeV1ApprovalTask                                    EventType = "approval_task"
+	EventTypeV1ChatDisband                                     EventType = "chat_disband"
 	EventTypeV1LeaveApprovalV2                                 EventType = "leave_approvalV2"
 	EventTypeV1OrderPaid                                       EventType = "order_paid"
 	EventTypeV1OutApproval                                     EventType = "out_approval"
 	EventTypeV1P2PChatCreate                                   EventType = "p2p_chat_create"
+	EventTypeV1ReceiveMessage                                  EventType = "message"
 	EventTypeV1RemedyApproval                                  EventType = "approval.instance.remedy_group_update_v4"
+	EventTypeV1RemoveBot                                       EventType = "remove_bot"
+	EventTypeV1RemoveUserFromChat                              EventType = "remove_user_from_chat"
+	EventTypeV1RevokeAddUserFromChat                           EventType = "revoke_add_user_from_chat"
 	EventTypeV1ShiftApproval                                   EventType = "shift_approval"
 	EventTypeV1ThirdPartyMeetingRoomEventCreated               EventType = "third_party_meeting_room_event_created"
 	EventTypeV1ThirdPartyMeetingRoomEventDeleted               EventType = "third_party_meeting_room_event_deleted"
@@ -121,6 +128,8 @@ const (
 
 type eventHandler struct {
 	eventCardHandler                                              EventCardHandler
+	eventV1AddBotHandler                                          EventV1AddBotHandler
+	eventV1AddUserToChatHandler                                   EventV1AddUserToChatHandler
 	eventV1AppOpenHandler                                         EventV1AppOpenHandler
 	eventV1AppStatusChangeHandler                                 EventV1AppStatusChangeHandler
 	eventV1AppTicketHandler                                       EventV1AppTicketHandler
@@ -128,11 +137,16 @@ type eventHandler struct {
 	eventV1ApprovalCcHandler                                      EventV1ApprovalCcHandler
 	eventV1ApprovalInstanceHandler                                EventV1ApprovalInstanceHandler
 	eventV1ApprovalTaskHandler                                    EventV1ApprovalTaskHandler
+	eventV1ChatDisbandHandler                                     EventV1ChatDisbandHandler
 	eventV1LeaveApprovalV2Handler                                 EventV1LeaveApprovalV2Handler
 	eventV1OrderPaidHandler                                       EventV1OrderPaidHandler
 	eventV1OutApprovalHandler                                     EventV1OutApprovalHandler
 	eventV1P2PChatCreateHandler                                   EventV1P2PChatCreateHandler
+	eventV1ReceiveMessageHandler                                  EventV1ReceiveMessageHandler
 	eventV1RemedyApprovalHandler                                  EventV1RemedyApprovalHandler
+	eventV1RemoveBotHandler                                       EventV1RemoveBotHandler
+	eventV1RemoveUserFromChatHandler                              EventV1RemoveUserFromChatHandler
+	eventV1RevokeAddUserFromChatHandler                           EventV1RevokeAddUserFromChatHandler
 	eventV1ShiftApprovalHandler                                   EventV1ShiftApprovalHandler
 	eventV1ThirdPartyMeetingRoomEventCreatedHandler               EventV1ThirdPartyMeetingRoomEventCreatedHandler
 	eventV1ThirdPartyMeetingRoomEventDeletedHandler               EventV1ThirdPartyMeetingRoomEventDeletedHandler
@@ -216,6 +230,8 @@ type eventHandler struct {
 func (r *eventHandler) clone() *eventHandler {
 	return &eventHandler{
 
+		eventV1AddBotHandler:                                          r.eventV1AddBotHandler,
+		eventV1AddUserToChatHandler:                                   r.eventV1AddUserToChatHandler,
 		eventV1AppOpenHandler:                                         r.eventV1AppOpenHandler,
 		eventV1AppStatusChangeHandler:                                 r.eventV1AppStatusChangeHandler,
 		eventV1AppTicketHandler:                                       r.eventV1AppTicketHandler,
@@ -223,11 +239,16 @@ func (r *eventHandler) clone() *eventHandler {
 		eventV1ApprovalCcHandler:                                      r.eventV1ApprovalCcHandler,
 		eventV1ApprovalInstanceHandler:                                r.eventV1ApprovalInstanceHandler,
 		eventV1ApprovalTaskHandler:                                    r.eventV1ApprovalTaskHandler,
+		eventV1ChatDisbandHandler:                                     r.eventV1ChatDisbandHandler,
 		eventV1LeaveApprovalV2Handler:                                 r.eventV1LeaveApprovalV2Handler,
 		eventV1OrderPaidHandler:                                       r.eventV1OrderPaidHandler,
 		eventV1OutApprovalHandler:                                     r.eventV1OutApprovalHandler,
 		eventV1P2PChatCreateHandler:                                   r.eventV1P2PChatCreateHandler,
+		eventV1ReceiveMessageHandler:                                  r.eventV1ReceiveMessageHandler,
 		eventV1RemedyApprovalHandler:                                  r.eventV1RemedyApprovalHandler,
+		eventV1RemoveBotHandler:                                       r.eventV1RemoveBotHandler,
+		eventV1RemoveUserFromChatHandler:                              r.eventV1RemoveUserFromChatHandler,
+		eventV1RevokeAddUserFromChatHandler:                           r.eventV1RevokeAddUserFromChatHandler,
 		eventV1ShiftApprovalHandler:                                   r.eventV1ShiftApprovalHandler,
 		eventV1ThirdPartyMeetingRoomEventCreatedHandler:               r.eventV1ThirdPartyMeetingRoomEventCreatedHandler,
 		eventV1ThirdPartyMeetingRoomEventDeletedHandler:               r.eventV1ThirdPartyMeetingRoomEventDeletedHandler,
@@ -310,6 +331,8 @@ func (r *eventHandler) clone() *eventHandler {
 }
 
 type eventBody struct {
+	eventV1AddBot                                          *EventV1AddBot
+	eventV1AddUserToChat                                   *EventV1AddUserToChat
 	eventV1AppOpen                                         *EventV1AppOpen
 	eventV1AppStatusChange                                 *EventV1AppStatusChange
 	eventV1AppTicket                                       *EventV1AppTicket
@@ -317,11 +340,16 @@ type eventBody struct {
 	eventV1ApprovalCc                                      *EventV1ApprovalCc
 	eventV1ApprovalInstance                                *EventV1ApprovalInstance
 	eventV1ApprovalTask                                    *EventV1ApprovalTask
+	eventV1ChatDisband                                     *EventV1ChatDisband
 	eventV1LeaveApprovalV2                                 *EventV1LeaveApprovalV2
 	eventV1OrderPaid                                       *EventV1OrderPaid
 	eventV1OutApproval                                     *EventV1OutApproval
 	eventV1P2PChatCreate                                   *EventV1P2PChatCreate
+	eventV1ReceiveMessage                                  *EventV1ReceiveMessage
 	eventV1RemedyApproval                                  *EventV1RemedyApproval
+	eventV1RemoveBot                                       *EventV1RemoveBot
+	eventV1RemoveUserFromChat                              *EventV1RemoveUserFromChat
+	eventV1RevokeAddUserFromChat                           *EventV1RevokeAddUserFromChat
 	eventV1ShiftApproval                                   *EventV1ShiftApproval
 	eventV1ThirdPartyMeetingRoomEventCreated               *EventV1ThirdPartyMeetingRoomEventCreated
 	eventV1ThirdPartyMeetingRoomEventDeleted               *EventV1ThirdPartyMeetingRoomEventDeleted
@@ -870,6 +898,18 @@ func (r *EventCallbackService) parserEventV1(req *eventReq) error {
 	}
 
 	switch v1type.Type {
+	case EventTypeV1AddBot:
+		event := new(EventV1AddBot)
+		if err := json.Unmarshal(bs, event); err != nil {
+			return fmt.Errorf("lark event unmarshal event %s failed", bs)
+		}
+		req.eventV1AddBot = event
+	case EventTypeV1AddUserToChat:
+		event := new(EventV1AddUserToChat)
+		if err := json.Unmarshal(bs, event); err != nil {
+			return fmt.Errorf("lark event unmarshal event %s failed", bs)
+		}
+		req.eventV1AddUserToChat = event
 	case EventTypeV1AppOpen:
 		event := new(EventV1AppOpen)
 		if err := json.Unmarshal(bs, event); err != nil {
@@ -912,6 +952,12 @@ func (r *EventCallbackService) parserEventV1(req *eventReq) error {
 			return fmt.Errorf("lark event unmarshal event %s failed", bs)
 		}
 		req.eventV1ApprovalTask = event
+	case EventTypeV1ChatDisband:
+		event := new(EventV1ChatDisband)
+		if err := json.Unmarshal(bs, event); err != nil {
+			return fmt.Errorf("lark event unmarshal event %s failed", bs)
+		}
+		req.eventV1ChatDisband = event
 	case EventTypeV1LeaveApprovalV2:
 		event := new(EventV1LeaveApprovalV2)
 		if err := json.Unmarshal(bs, event); err != nil {
@@ -936,12 +982,36 @@ func (r *EventCallbackService) parserEventV1(req *eventReq) error {
 			return fmt.Errorf("lark event unmarshal event %s failed", bs)
 		}
 		req.eventV1P2PChatCreate = event
+	case EventTypeV1ReceiveMessage:
+		event := new(EventV1ReceiveMessage)
+		if err := json.Unmarshal(bs, event); err != nil {
+			return fmt.Errorf("lark event unmarshal event %s failed", bs)
+		}
+		req.eventV1ReceiveMessage = event
 	case EventTypeV1RemedyApproval:
 		event := new(EventV1RemedyApproval)
 		if err := json.Unmarshal(bs, event); err != nil {
 			return fmt.Errorf("lark event unmarshal event %s failed", bs)
 		}
 		req.eventV1RemedyApproval = event
+	case EventTypeV1RemoveBot:
+		event := new(EventV1RemoveBot)
+		if err := json.Unmarshal(bs, event); err != nil {
+			return fmt.Errorf("lark event unmarshal event %s failed", bs)
+		}
+		req.eventV1RemoveBot = event
+	case EventTypeV1RemoveUserFromChat:
+		event := new(EventV1RemoveUserFromChat)
+		if err := json.Unmarshal(bs, event); err != nil {
+			return fmt.Errorf("lark event unmarshal event %s failed", bs)
+		}
+		req.eventV1RemoveUserFromChat = event
+	case EventTypeV1RevokeAddUserFromChat:
+		event := new(EventV1RevokeAddUserFromChat)
+		if err := json.Unmarshal(bs, event); err != nil {
+			return fmt.Errorf("lark event unmarshal event %s failed", bs)
+		}
+		req.eventV1RevokeAddUserFromChat = event
 	case EventTypeV1ShiftApproval:
 		event := new(EventV1ShiftApproval)
 		if err := json.Unmarshal(bs, event); err != nil {
@@ -984,6 +1054,16 @@ type v1type struct {
 
 func (r *EventCallbackService) handlerEvent(ctx context.Context, req *eventReq) (handled bool, s string, err error) {
 	switch {
+	case req.eventV1AddBot != nil:
+		if r.cli.eventHandler.eventV1AddBotHandler != nil {
+			s, err = r.cli.eventHandler.eventV1AddBotHandler(ctx, r.cli, req.Schema, req.headerV1(EventTypeV1AddBot), req.eventV1AddBot)
+		}
+		return true, s, err
+	case req.eventV1AddUserToChat != nil:
+		if r.cli.eventHandler.eventV1AddUserToChatHandler != nil {
+			s, err = r.cli.eventHandler.eventV1AddUserToChatHandler(ctx, r.cli, req.Schema, req.headerV1(EventTypeV1AddUserToChat), req.eventV1AddUserToChat)
+		}
+		return true, s, err
 	case req.eventV1AppOpen != nil:
 		if r.cli.eventHandler.eventV1AppOpenHandler != nil {
 			s, err = r.cli.eventHandler.eventV1AppOpenHandler(ctx, r.cli, req.Schema, req.headerV1(EventTypeV1AppOpen), req.eventV1AppOpen)
@@ -1019,6 +1099,11 @@ func (r *EventCallbackService) handlerEvent(ctx context.Context, req *eventReq) 
 			s, err = r.cli.eventHandler.eventV1ApprovalTaskHandler(ctx, r.cli, req.Schema, req.headerV1(EventTypeV1ApprovalTask), req.eventV1ApprovalTask)
 		}
 		return true, s, err
+	case req.eventV1ChatDisband != nil:
+		if r.cli.eventHandler.eventV1ChatDisbandHandler != nil {
+			s, err = r.cli.eventHandler.eventV1ChatDisbandHandler(ctx, r.cli, req.Schema, req.headerV1(EventTypeV1ChatDisband), req.eventV1ChatDisband)
+		}
+		return true, s, err
 	case req.eventV1LeaveApprovalV2 != nil:
 		if r.cli.eventHandler.eventV1LeaveApprovalV2Handler != nil {
 			s, err = r.cli.eventHandler.eventV1LeaveApprovalV2Handler(ctx, r.cli, req.Schema, req.headerV1(EventTypeV1LeaveApprovalV2), req.eventV1LeaveApprovalV2)
@@ -1039,9 +1124,29 @@ func (r *EventCallbackService) handlerEvent(ctx context.Context, req *eventReq) 
 			s, err = r.cli.eventHandler.eventV1P2PChatCreateHandler(ctx, r.cli, req.Schema, req.headerV1(EventTypeV1P2PChatCreate), req.eventV1P2PChatCreate)
 		}
 		return true, s, err
+	case req.eventV1ReceiveMessage != nil:
+		if r.cli.eventHandler.eventV1ReceiveMessageHandler != nil {
+			s, err = r.cli.eventHandler.eventV1ReceiveMessageHandler(ctx, r.cli, req.Schema, req.headerV1(EventTypeV1ReceiveMessage), req.eventV1ReceiveMessage)
+		}
+		return true, s, err
 	case req.eventV1RemedyApproval != nil:
 		if r.cli.eventHandler.eventV1RemedyApprovalHandler != nil {
 			s, err = r.cli.eventHandler.eventV1RemedyApprovalHandler(ctx, r.cli, req.Schema, req.headerV1(EventTypeV1RemedyApproval), req.eventV1RemedyApproval)
+		}
+		return true, s, err
+	case req.eventV1RemoveBot != nil:
+		if r.cli.eventHandler.eventV1RemoveBotHandler != nil {
+			s, err = r.cli.eventHandler.eventV1RemoveBotHandler(ctx, r.cli, req.Schema, req.headerV1(EventTypeV1RemoveBot), req.eventV1RemoveBot)
+		}
+		return true, s, err
+	case req.eventV1RemoveUserFromChat != nil:
+		if r.cli.eventHandler.eventV1RemoveUserFromChatHandler != nil {
+			s, err = r.cli.eventHandler.eventV1RemoveUserFromChatHandler(ctx, r.cli, req.Schema, req.headerV1(EventTypeV1RemoveUserFromChat), req.eventV1RemoveUserFromChat)
+		}
+		return true, s, err
+	case req.eventV1RevokeAddUserFromChat != nil:
+		if r.cli.eventHandler.eventV1RevokeAddUserFromChatHandler != nil {
+			s, err = r.cli.eventHandler.eventV1RevokeAddUserFromChatHandler(ctx, r.cli, req.Schema, req.headerV1(EventTypeV1RevokeAddUserFromChat), req.eventV1RevokeAddUserFromChat)
 		}
 		return true, s, err
 	case req.eventV1ShiftApproval != nil:

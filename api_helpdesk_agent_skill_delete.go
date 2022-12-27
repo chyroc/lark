@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// DeleteHelpdeskAgentSkill 该接口用于删除客服技能
+// DeleteHelpdeskAgentSkill 该接口用于删除客服技能。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/agent_skill/delete
 func (r *HelpdeskService) DeleteHelpdeskAgentSkill(ctx context.Context, request *DeleteHelpdeskAgentSkillReq, options ...MethodOptionFunc) (*DeleteHelpdeskAgentSkillResp, *Response, error) {

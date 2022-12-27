@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// UploadOKRImage 上传图片
+// UploadOKRImage 上传进展记录图片。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/okr-v1/image/upload
 func (r *OKRService) UploadOKRImage(ctx context.Context, request *UploadOKRImageReq, options ...MethodOptionFunc) (*UploadOKRImageResp, *Response, error) {

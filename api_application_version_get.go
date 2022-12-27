@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// GetApplicationVersion 根据 app_id, version_id 获取对应应用版本的信息
+// GetApplicationVersion 根据应用 ID 和应用版本 ID 来获取同租户下的应用版本的信息
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/application-v6/application-app_version/get
 func (r *ApplicationService) GetApplicationVersion(ctx context.Context, request *GetApplicationVersionReq, options ...MethodOptionFunc) (*GetApplicationVersionResp, *Response, error) {
@@ -59,8 +59,8 @@ func (r *Mock) UnMockApplicationGetApplicationVersion() {
 type GetApplicationVersionReq struct {
 	AppID      string  `path:"app_id" json:"-"`        // 应用的 app_id, 需要查询其他应用版本信息时, 必须申请[获取应用版本信息](https://open.feishu.cn/document/ukTMukTMukTM/uQjN3QjL0YzN04CN2cDN)权限, 仅查询本应用版本信息时, 可填入 "me" 或者应用自身 app_id, 示例值: "cli_9f3ca975326b501b"
 	VersionID  string  `path:"version_id" json:"-"`    // 唯一标识应用版本的 ID, 示例值: "oav_d317f090b7258ad0372aa53963cda70d"
-	Lang       string  `query:"lang" json:"-"`         // 应用信息的语言版本, 示例值: "zh_cn", 可选值有: zh_cn: 中文, en_us: 英文, ja_jp: 日文, 最小长度: `1` 字符
-	UserIDType *IDType `query:"user_id_type" json:"-"` // 用户 ID 类型, 示例值: "open_id", 可选值有: open_id: 用户的 open id, union_id: 用户的 union id, user_id: 用户的 user id, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
+	Lang       string  `query:"lang" json:"-"`         // 应用信息的语言版本, 示例值: "zh_cn", 可选值有: zh_cn: 中文, en_us: 英文, ja_jp: 日文
+	UserIDType *IDType `query:"user_id_type" json:"-"` // 用户 ID 类型, 示例值: "open_id", 可选值有: open_id: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid), union_id: 标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id), user_id: 标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id), 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
 }
 
 // GetApplicationVersionResp ...
@@ -194,7 +194,7 @@ type GetApplicationVersionRespAppVersionAbilityWebApp struct {
 
 // GetApplicationVersionRespAppVersionAbilityWorkplaceWidget ...
 type GetApplicationVersionRespAppVersionAbilityWorkplaceWidget struct {
-	MinLarkVersion string `json:"min_lark_version,omitempty"` // 最低兼容 lark 版本号
+	MinLarkVersion string `json:"min_lark_version,omitempty"` // 最低兼容飞书版本号
 }
 
 // GetApplicationVersionRespAppVersionI18n ...
@@ -202,7 +202,7 @@ type GetApplicationVersionRespAppVersionI18n struct {
 	I18nKey     string `json:"i18n_key,omitempty"`    // 国际化语言的 key, 可选值有: zh_cn: 中文, en_us: 英文, ja_jp: 日文
 	Name        string `json:"name,omitempty"`        // 应用国际化名称
 	Description string `json:"description,omitempty"` // 应用国际化描述（副标题）
-	HelpUse     string `json:"help_use,omitempty"`    // 帮助国际化文档链接
+	HelpUse     string `json:"help_use,omitempty"`    // 国际化帮助文档链接
 }
 
 // GetApplicationVersionRespAppVersionRemark ...

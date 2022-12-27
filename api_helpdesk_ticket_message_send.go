@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// SendHelpdeskTicketMessage 该接口用于工单发送消息。
+// SendHelpdeskTicketMessage 该接口用于发送工单消息。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/ticket-message/create
 func (r *HelpdeskService) SendHelpdeskTicketMessage(ctx context.Context, request *SendHelpdeskTicketMessageReq, options ...MethodOptionFunc) (*SendHelpdeskTicketMessageResp, *Response, error) {

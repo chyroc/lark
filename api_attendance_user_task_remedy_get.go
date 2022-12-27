@@ -61,6 +61,8 @@ type GetAttendanceUserTaskRemedyReq struct {
 	UserIDs       []string     `json:"user_ids,omitempty"`        // employee_no 或 employee_id 列表, 示例值: ["abd754f7"]
 	CheckTimeFrom string       `json:"check_time_from,omitempty"` // 查询的起始时间, 精确到秒的时间戳, 示例值: "1566641088"
 	CheckTimeTo   string       `json:"check_time_to,omitempty"`   // 查询的结束时间, 精确到秒的时间戳, 示例值: "1592561088"
+	CheckDateType *string      `json:"check_date_type,omitempty"` // 查询依据的时间类型（默认依据PeriodTime, 如果使用非默认的, 非特定租户不支持）, 示例值: "PeriodTime", 可选值有: PeriodTime: 单据作用时间, CreateTime: 单据创建时间（目前暂不支持）, UpdateTime: 单据状态更新时间（新增字段, 对特定租户生效）
+	Status        *int64       `json:"status,omitempty"`          // 查询状态（不填默认查询已通过状态）, 示例值: 2, 可选值有: 0: 待审批, 1: 未通过, 2: 已通过, 3: 已取消, 4: 已撤回
 }
 
 // GetAttendanceUserTaskRemedyResp ...
@@ -76,7 +78,7 @@ type GetAttendanceUserTaskRemedyRespUserRemedy struct {
 	WorkType   int64  `json:"work_type,omitempty"`   // 上班 / 下班, 1: 上班, 2: 下班, 自由班制填 0
 	ApprovalID string `json:"approval_id,omitempty"` // 审批 ID
 	RemedyTime string `json:"remedy_time,omitempty"` // 补卡时间, 时间格式为 yyyy-MM-dd HH:mm
-	Status     int64  `json:"status,omitempty"`      // 补卡状态（默认为审批中）, 可选值有: 0: 审批中, 2: 已通过, 3: 已取消, 4: 通过后撤回
+	Status     int64  `json:"status,omitempty"`      // 补卡状态（默认为审批中）, 可选值有: 0: 审批中, 1: 未通过, 2: 已通过, 3: 已取消, 4: 通过后撤回
 	Reason     string `json:"reason,omitempty"`      // 补卡原因
 	Time       string `json:"time,omitempty"`        // 补卡时间, 精确到秒的时间戳
 	TimeZone   string `json:"time_zone,omitempty"`   // 补卡时考勤组时区

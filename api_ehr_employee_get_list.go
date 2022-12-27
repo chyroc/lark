@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// GetEHREmployeeList 根据员工飞书用户 ID / 员工状态 / 雇员类型等搜索条件, 批量获取员工花名册字段信息。字段包括「系统标准字段 / system_fields」和「自定义字段 / custom_fields」
+// GetEHREmployeeList 根据员工飞书用户 ID / 员工状态 / 雇员类型等搜索条件, 批量获取员工花名册字段信息。字段包括「系统标准字段 / system_fields」和「自定义字段 / custom_fields」。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/ehr/ehr-v1/employee/list
 func (r *EHRService) GetEHREmployeeList(ctx context.Context, request *GetEHREmployeeListReq, options ...MethodOptionFunc) (*GetEHREmployeeListResp, *Response, error) {
@@ -62,7 +62,7 @@ type GetEHREmployeeListReq struct {
 	Type       []int64  `query:"type" json:"-"`         // 雇员类型, 不传代表查询所有雇员类型, 示例值: 1, 可选值有: 1: 全职, 2: 实习, 3: 顾问, 4: 外包, 5: 劳务
 	StartTime  *string  `query:"start_time" json:"-"`   // 查询开始时间（创建时间 >= 此时间）, 示例值: "1608690517811"
 	EndTime    *string  `query:"end_time" json:"-"`     // 查询结束时间（创建时间 <= 此时间）, 示例值: "1608690517811"
-	UserIDType *IDType  `query:"user_id_type" json:"-"` // 用户 ID 类型, 示例值: "open_id", 可选值有: open_id: 用户的 open id, union_id: 用户的 union id, user_id: 用户的 user id, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
+	UserIDType *IDType  `query:"user_id_type" json:"-"` // 用户 ID 类型, 示例值: "open_id", 可选值有: open_id: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid), union_id: 标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id), user_id: 标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id), 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
 	UserIDs    []string `query:"user_ids" json:"-"`     // user_id、open_id 或 union_id, 默认为 open_id, 如果传入的值不是 open_id, 需要一并传入 user_id_type 参数, 可一次查询多个 id 的用户, 例如: user_ids=ou_8ebd4f35d7101ffdeb4771d7c8ec517e&user_ids=ou_7abc4f35d7101ffdeb4771dabcde, [用户相关的 ID 概念](https://open.feishu.cn/document/home/user-identity-introduction/introduction), 示例值: ou_8ebd4f35d7101ffdeb4771d7c8ec517e, 最大长度: `100`
 	PageToken  *string  `query:"page_token" json:"-"`   // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果, 示例值: "10"
 	PageSize   *int64   `query:"page_size" json:"-"`    // 分页大小, 示例值: 10, 最大值: `100`

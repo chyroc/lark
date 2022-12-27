@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// UpdateMailGroupPatch 更新邮件组部分字段, 没有填写的字段不会被更新
+// UpdateMailGroupPatch 更新邮件组部分字段, 没有填写的字段不会被更新。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/mail-v1/mailgroup/patch
 func (r *MailService) UpdateMailGroupPatch(ctx context.Context, request *UpdateMailGroupPatchReq, options ...MethodOptionFunc) (*UpdateMailGroupPatchResp, *Response, error) {

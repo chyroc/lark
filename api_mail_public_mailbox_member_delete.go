@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// DeletePublicMailboxMember 删除公共邮箱单个成员
+// DeletePublicMailboxMember 删除公共邮箱单个成员。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/mail-v1/public_mailbox-member/delete
 func (r *MailService) DeletePublicMailboxMember(ctx context.Context, request *DeletePublicMailboxMemberReq, options ...MethodOptionFunc) (*DeletePublicMailboxMemberResp, *Response, error) {

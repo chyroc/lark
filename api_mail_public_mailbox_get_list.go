@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// GetPublicMailboxList 分页批量获取公共邮箱列表
+// GetPublicMailboxList 分页批量获取公共邮箱列表。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/mail-v1/public_mailbox/list
 func (r *MailService) GetPublicMailboxList(ctx context.Context, request *GetPublicMailboxListReq, options ...MethodOptionFunc) (*GetPublicMailboxListResp, *Response, error) {

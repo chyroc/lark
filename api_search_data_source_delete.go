@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// DeleteSearchDataSource 删除一个已存在的数据源
+// DeleteSearchDataSource 删除一个已存在的数据源。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/search-v2/data_source/delete
 func (r *SearchService) DeleteSearchDataSource(ctx context.Context, request *DeleteSearchDataSourceReq, options ...MethodOptionFunc) (*DeleteSearchDataSourceResp, *Response, error) {

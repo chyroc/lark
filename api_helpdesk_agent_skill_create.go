@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// CreateHelpdeskAgentSkill 该接口用于创建客服技能
+// CreateHelpdeskAgentSkill 该接口用于创建客服技能。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/agent_skill/create
 func (r *HelpdeskService) CreateHelpdeskAgentSkill(ctx context.Context, request *CreateHelpdeskAgentSkillReq, options ...MethodOptionFunc) (*CreateHelpdeskAgentSkillResp, *Response, error) {

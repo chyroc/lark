@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// CreatePublicMailbox 创建一个公共邮箱
+// CreatePublicMailbox 创建一个公共邮箱。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/mail-v1/public_mailbox/create
 func (r *MailService) CreatePublicMailbox(ctx context.Context, request *CreatePublicMailboxReq, options ...MethodOptionFunc) (*CreatePublicMailboxResp, *Response, error) {

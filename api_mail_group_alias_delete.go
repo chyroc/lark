@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// DeleteMailGroupAlias 删除邮件组别名
+// DeleteMailGroupAlias 删除邮件组别名。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/mail-v1/mailgroup-alias/delete
 func (r *MailService) DeleteMailGroupAlias(ctx context.Context, request *DeleteMailGroupAliasReq, options ...MethodOptionFunc) (*DeleteMailGroupAliasResp, *Response, error) {

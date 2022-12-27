@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// DeleteTaskComment 该接口用于通过评论ID删除评论
+// DeleteTaskComment 该接口用于通过评论ID删除评论。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/task-v1/task-comment/delete
 func (r *TaskService) DeleteTaskComment(ctx context.Context, request *DeleteTaskCommentReq, options ...MethodOptionFunc) (*DeleteTaskCommentResp, *Response, error) {

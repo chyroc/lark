@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// GetHelpdeskAgentEmail 该接口用于获取客服邮箱地址
+// GetHelpdeskAgentEmail 该接口用于获取客服邮箱地址。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/agent/agent_email
 func (r *HelpdeskService) GetHelpdeskAgentEmail(ctx context.Context, request *GetHelpdeskAgentEmailReq, options ...MethodOptionFunc) (*GetHelpdeskAgentEmailResp, *Response, error) {

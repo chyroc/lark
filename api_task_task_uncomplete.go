@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// UncompleteTask 该接口用于取消任务的已完成状态
+// UncompleteTask 该接口用于取消任务的已完成状态。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/task-v1/task/uncomplete
 func (r *TaskService) UncompleteTask(ctx context.Context, request *UncompleteTaskReq, options ...MethodOptionFunc) (*UncompleteTaskResp, *Response, error) {

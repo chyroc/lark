@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// UpdateSearchSchema 修改数据范式
+// UpdateSearchSchema 修改数据范式。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/search-v2/schema/patch
 func (r *SearchService) UpdateSearchSchema(ctx context.Context, request *UpdateSearchSchemaReq, options ...MethodOptionFunc) (*UpdateSearchSchemaResp, *Response, error) {
@@ -63,7 +63,7 @@ type UpdateSearchSchemaReq struct {
 
 // UpdateSearchSchemaReqDisplay ...
 type UpdateSearchSchemaReqDisplay struct {
-	CardKey       string                                       `json:"card_key,omitempty"`       // 搜索数据的展示卡片, 示例值: "search_common_card", 可选值有: search_common_card: 普通 common 卡片
+	CardKey       string                                       `json:"card_key,omitempty"`       // 搜索数据的展示卡片, 卡片详细信息请参考 [通用模块接入指南](/uAjLw4CM/ukTMukTMukTM/search-v2/common-template-intergration-handbook)  "请求创建数据范式"部分, 示例值: "search_common_card", 可选值有: search_common_card: 普通 common 卡片
 	FieldsMapping []*UpdateSearchSchemaReqDisplayFieldsMapping `json:"fields_mapping,omitempty"` // 数据字段名称和展示字段名称的映射关系。如果没有设置, 则只会展示 与展示字段名称同名的 数据字段
 }
 
@@ -87,7 +87,7 @@ type UpdateSearchSchemaRespSchema struct {
 
 // UpdateSearchSchemaRespSchemaDisplay ...
 type UpdateSearchSchemaRespSchemaDisplay struct {
-	CardKey       string                                              `json:"card_key,omitempty"`       // 搜索数据的展示卡片, 可选值有: search_common_card: 普通 common 卡片
+	CardKey       string                                              `json:"card_key,omitempty"`       // 搜索数据的展示卡片, 卡片详细信息请参考 [通用模块接入指南](/uAjLw4CM/ukTMukTMukTM/search-v2/common-template-intergration-handbook)  "请求创建数据范式"部分, 可选值有: search_common_card: 普通 common 卡片
 	FieldsMapping []*UpdateSearchSchemaRespSchemaDisplayFieldsMapping `json:"fields_mapping,omitempty"` // 数据字段名称和展示字段名称的映射关系。如果没有设置, 则只会展示 与展示字段名称同名的 数据字段
 }
 
@@ -100,7 +100,7 @@ type UpdateSearchSchemaRespSchemaDisplayFieldsMapping struct {
 // UpdateSearchSchemaRespSchemaPropertie ...
 type UpdateSearchSchemaRespSchemaPropertie struct {
 	Name            string                                                `json:"name,omitempty"`             // 属性名
-	Type            string                                                `json:"type,omitempty"`             // 属性类型, 可选值有: text: -长文本类型, 长度大于20的文本, int: 64位整数类型, tag: 标签类型, timestamp: Unix 时间戳类型（单位为秒）, double: 浮点数类型（小数）, tinytext: 短文本类型, 长度小于等于20的文本
+	Type            string                                                `json:"type,omitempty"`             // 属性类型, 可选值有: text: 长文本类型, int: 64位整数类型, tag: 标签类型, timestamp: Unix 时间戳类型（单位为秒）, double: 浮点数类型（小数）, tinytext: 短文本类型, （utf8 编码）长度小于 140 的文本。在设置 search_options 时, 与 text 类型有区别, 支持更多召回策略
 	IsSearchable    bool                                                  `json:"is_searchable,omitempty"`    // 该属性是否可用作搜索, 默认为 false
 	IsSortable      bool                                                  `json:"is_sortable,omitempty"`      // 该属性是否可用作搜索结果排序, 默认为 false。如果为 true, 需要再配置 sortOptions
 	IsReturnable    bool                                                  `json:"is_returnable,omitempty"`    // 该属性是否可用作返回字段, 为 false 时, 该字段不会被召回和展示。默认为 false

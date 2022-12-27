@@ -38,7 +38,7 @@ https://godoc.org/github.com/chyroc/lark
 
 ## Support APIs
 
-API Count: 667, Event Count: 90
+API Count: 683, Event Count: 97
 
 <details>
   <summary>
@@ -60,6 +60,7 @@ API Count: 667, Event Count: 90
   - RecognizeSpeechFile
   - TranslateText
   - DetectTextLanguage
+  - DetectFaceAttributes
 - Admin
   - AdminResetPassword
   - GetAdminDeptStats
@@ -147,6 +148,7 @@ API Count: 667, Event Count: 90
   - SearchApprovalCarbonCopy
   - SearchApprovalTask
   - GetApprovalUserTaskList
+  - TransformApprovalUserID
 - Attendance
   - GetAttendanceGroupList
   - CreateAttendanceGroup
@@ -198,6 +200,10 @@ API Count: 667, Event Count: 90
   - UploadBaikeImage
   - DownloadBaikeImage
 - Bitable
+  - CopyBitableDashboard
+  - GetBitableDashboardList
+  - UpdateBitableView
+  - GetBitableView
   - GetBitableViewList
   - CreateBitableView
   - DeleteBitableView
@@ -227,7 +233,6 @@ API Count: 667, Event Count: 90
   - BatchCreateBitableTable
   - DeleteBitableTable
   - BatchDeleteBitableTable
-  - GetBitableDashboardList
   - UpdateBitableTableForm
   - GetBitableTableForm
   - UpdateBitableTableFormField
@@ -236,6 +241,7 @@ API Count: 667, Event Count: 90
   - GetBitableMeta
 - Bot
   - GetBotInfo
+  - AddBotToChat
 - Calendar
   - CreateCalendarACL
   - DeleteCalendarACL
@@ -275,6 +281,7 @@ API Count: 667, Event Count: 90
 - Chat
   - CreateChat
   - GetChat
+  - GetChatOld
   - UpdateChat
   - DeleteChat
   - GetChatListOfSelf
@@ -569,7 +576,14 @@ API Count: 667, Event Count: 90
   - EventV2CalendarCalendarACLDeletedV4
   - EventV2CalendarCalendarEventChangedV4
   - EventV2CalendarCalendarChangedV4
+  - EventV1AddBot
+  - EventV1RemoveBot
   - EventV1P2PChatCreate
+  - EventV1ReceiveMessage
+  - EventV1AddUserToChat
+  - EventV1RemoveUserFromChat
+  - EventV1RevokeAddUserFromChat
+  - EventV1ChatDisband
   - EventV1ApprovalInstance
   - EventV1ApprovalTask
   - EventV1ApprovalCc
@@ -637,6 +651,9 @@ API Count: 667, Event Count: 90
   - SubscribeHelpdeskEvent
   - UnsubscribeHelpdeskEvent
 - Hire
+  - GetHireJobConfig
+  - CreateHireJob
+  - UpdateHireJobConfig
   - GetHireJob
   - GetHireJobManager
   - GetHireTalent
@@ -660,6 +677,7 @@ API Count: 667, Event Count: 90
   - UpdateHireEmployee
   - GetHireEmployeeByApplication
   - GetHireEmployee
+  - UpdateHireEHRImportTask
 - HumanAuth
   - GetFaceVerifyAuthResult
   - UploadFaceVerifyImage
@@ -743,13 +761,19 @@ API Count: 667, Event Count: 90
   - UploadOKRImage
   - GetOKRMetricSourceList
   - GetOKRMetricSourceTableList
-  - GetOKRMetricSourceTableList
   - BatchUpdateOKRMetricSourceTableItem
   - UpdateOKRMetricSourceTableItem
   - GetOKRMetricSourceTableItem
   - GetOKRMetricSourceTableItemList
 - Passport
   - GetPassportSession
+- PersonalSettings
+  - CreatePersonalSettingsSystemStatus
+  - DeletePersonalSettingsSystemStatus
+  - UpdatePersonalSettingsSystemStatus
+  - GetPersonalSettingsSystemStatusList
+  - BatchOpenPersonalSettingsSystemStatus
+  - BatchClosePersonalSettingsSystemStatus
 - Search
   - CreateSearchDataSource
   - GetSearchDataSource

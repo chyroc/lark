@@ -20,6 +20,7 @@ import (
 	"fmt"
 
 	"github.com/chyroc/go-ptr"
+
 	"github.com/chyroc/lark"
 )
 
@@ -265,7 +266,7 @@ func (r *Sheet) deleteDimension(ctx context.Context, dimension, sheetID string, 
 		SpreadSheetToken: r.token,
 		Dimension: &lark.DeleteSheetDimensionRangeReqDimension{
 			SheetID:        sheetID,
-			MajorDimension: &dimension,
+			MajorDimension: dimension,
 			StartIndex:     startIndex,
 			EndIndex:       startIndex + count - 1,
 		},

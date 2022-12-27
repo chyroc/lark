@@ -59,8 +59,7 @@ func (r *Mock) UnMockAttendanceSearchAttendanceGroup() {
 
 // SearchAttendanceGroupReq ...
 type SearchAttendanceGroupReq struct {
-	GroupName      string `json:"group_name,omitempty"`      // 考勤组名称, 示例值: "考勤组1"
-	ExactlyMatched *bool  `json:"exactly_matched,omitempty"` // 是否精准匹配, 默认为 false: 模糊匹配；true: 精准匹配, 示例值: true
+	GroupName string `json:"group_name,omitempty"` // 考勤组名称, 示例值: "考勤组1"
 }
 
 // SearchAttendanceGroupResp ...

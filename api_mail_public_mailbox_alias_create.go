@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// CreateMailPublicMailboxAlias 创建公共邮箱别名
+// CreateMailPublicMailboxAlias 创建公共邮箱别名。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/mail-v1/public_mailbox-alias/create
 func (r *MailService) CreateMailPublicMailboxAlias(ctx context.Context, request *CreateMailPublicMailboxAliasReq, options ...MethodOptionFunc) (*CreateMailPublicMailboxAliasResp, *Response, error) {

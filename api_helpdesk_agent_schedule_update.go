@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// UpdateHelpdeskAgentSchedule 该接口用于更新客服的日程
+// UpdateHelpdeskAgentSchedule 该接口用于更新客服的日程。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/agent-schedules/patch
 func (r *HelpdeskService) UpdateHelpdeskAgentSchedule(ctx context.Context, request *UpdateHelpdeskAgentScheduleReq, options ...MethodOptionFunc) (*UpdateHelpdeskAgentScheduleResp, *Response, error) {

@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// DeleteMailUserMailboxAlias 删除用户邮箱别名
+// DeleteMailUserMailboxAlias 删除用户邮箱别名。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/mail-v1/user_mailbox-alias/delete
 func (r *MailService) DeleteMailUserMailboxAlias(ctx context.Context, request *DeleteMailUserMailboxAliasReq, options ...MethodOptionFunc) (*DeleteMailUserMailboxAliasResp, *Response, error) {

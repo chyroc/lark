@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// GetHelpdeskAgentSkill 该接口用于获取客服技能
+// GetHelpdeskAgentSkill 该接口用于获取客服技能。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/agent_skill/get
 func (r *HelpdeskService) GetHelpdeskAgentSkill(ctx context.Context, request *GetHelpdeskAgentSkillReq, options ...MethodOptionFunc) (*GetHelpdeskAgentSkillResp, *Response, error) {

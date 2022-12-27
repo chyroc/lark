@@ -21,11 +21,10 @@ import (
 	"context"
 )
 
-// DeleteUser 该接口向通讯录删除一个用户信息, 可以理解为员工离职。
+// DeleteUser 该接口用于从通讯录删除一个用户信息, 可以理解为员工离职。
 //
 // - 若用户归属部门A、部门B, 应用的通讯录权限范围必须包括部门A和部门B才可以删除用户。
-// - 应用商店应用无权限调用接口。
-// - 用户可以在删除员工时设置删除员工数据的接收者, 如果不设置则由其leader接收, 如果该员工没有leader, 则会将该员工的数据删除。
+// - 用户可以在删除员工时设置删除员工数据（如文档）的接收者, 如果不设置则由其leader接收, 如果该员工没有leader, 则会将该员工的数据删除。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/delete
 func (r *ContactService) DeleteUser(ctx context.Context, request *DeleteUserReq, options ...MethodOptionFunc) (*DeleteUserResp, *Response, error) {
@@ -62,7 +61,7 @@ func (r *Mock) UnMockContactDeleteUser() {
 // DeleteUserReq ...
 type DeleteUserReq struct {
 	UserID                       string                      `path:"user_id" json:"-"`                           // 用户ID, 需要与查询参数中的user_id_type类型保持一致, 示例值: "ou_7dab8a3d3cdcc9da365777c7ad535d62"
-	UserIDType                   *IDType                     `query:"user_id_type" json:"-"`                     // 用户 ID 类型, 示例值: "open_id", 可选值有: open_id: 用户的 open id, union_id: 用户的 union id, user_id: 用户的 user id, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
+	UserIDType                   *IDType                     `query:"user_id_type" json:"-"`                     // 用户 ID 类型, 示例值: "open_id", 可选值有: open_id: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid), union_id: 标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id), user_id: 标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id), 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
 	DepartmentChatAcceptorUserID *string                     `json:"department_chat_acceptor_user_id,omitempty"` // 部门群接收者。被删除用户为部门群群主时, 转让群主给指定接收者, 不指定接收者则默认转让给群内第一个入群的人, 示例值: "ou_7dab8a3d3cdcc9da365777c7ad535d62"
 	ExternalChatAcceptorUserID   *string                     `json:"external_chat_acceptor_user_id,omitempty"`   // 外部群接收者。被删除用户为外部群群主时, 转让群主给指定接收者, 不指定接收者则默认转让给群内与被删除用户在同一组织的第一个入群的人, 如果组织内只有该用户在群里, 则解散外部群, 示例值: "ou_7dab8a3d3cdcc9da365777c7ad535d62"
 	DocsAcceptorUserID           *string                     `json:"docs_acceptor_user_id,omitempty"`            // 文档接收者。用户被删除时, 其拥有的文档转让给接收者。不指定接收者则默认转让给直属上级, 如果无直属上级则将文档资源保留在该用户名下, 示例值: "ou_7dab8a3d3cdcc9da365777c7ad535d62"
@@ -76,7 +75,7 @@ type DeleteUserReq struct {
 
 // DeleteUserReqEmailAcceptor ...
 type DeleteUserReqEmailAcceptor struct {
-	ProcessingType string  `json:"processing_type,omitempty"`  // 资源处理类型, 示例值: "1", 可选值有: 1: 转移资源, 2: 保留资源, 3: 删除资源
+	ProcessingType string  `json:"processing_type,omitempty"`  // 邮件处理方式, 示例值: "1", 可选值有: 1: 转移资源, 2: 保留资源, 3: 删除资源
 	AcceptorUserID *string `json:"acceptor_user_id,omitempty"` // 在 processing_type 为 1 （转移资源时）, 邮件资源接收者, 示例值: "ou_7dab8a3d3cdcc9da365777c7ad535d62"
 }
 

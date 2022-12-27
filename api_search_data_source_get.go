@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// GetSearchDataSource 获取已经创建的数据源
+// GetSearchDataSource 获取已经创建的数据源。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/search-v2/data_source/get
 func (r *SearchService) GetSearchDataSource(ctx context.Context, request *GetSearchDataSourceReq, options ...MethodOptionFunc) (*GetSearchDataSourceResp, *Response, error) {
@@ -69,14 +69,14 @@ type GetSearchDataSourceResp struct {
 type GetSearchDataSourceRespDataSource struct {
 	ID               string                                            `json:"id,omitempty"`                // 数据源的唯一标识
 	Name             string                                            `json:"name,omitempty"`              // data_source的展示名称
-	State            int64                                             `json:"state,omitempty"`             // 数据源状态, 0-已上线, 1-未上线, 可选值有: 0: 已上线, 1: 未上线
+	State            int64                                             `json:"state,omitempty"`             // 数据源状态, 0-已上线, 1-未上线。如果未填, 默认是未上线状态, 可选值有: 0: 已上线, 1: 未上线
 	Description      string                                            `json:"description,omitempty"`       // 对于数据源的描述
 	CreateTime       string                                            `json:"create_time,omitempty"`       // 创建时间, 使用Unix时间戳, 单位为“秒”
 	UpdateTime       string                                            `json:"update_time,omitempty"`       // 更新时间, 使用Unix时间戳, 单位为“秒”
 	IsExceedQuota    bool                                              `json:"is_exceed_quota,omitempty"`   // 是否超限
 	IconURL          string                                            `json:"icon_url,omitempty"`          // 数据源在 search tab 上的展示图标路径
 	Template         string                                            `json:"template,omitempty"`          // 数据源采用的展示模版名称
-	SearchableFields []string                                          `json:"searchable_fields,omitempty"` // 描述哪些字段可以被搜索
+	SearchableFields []string                                          `json:"searchable_fields,omitempty"` // 【已废弃, 如有定制需要请使用“数据范式”接口】描述哪些字段可以被搜索
 	I18nName         *GetSearchDataSourceRespDataSourceI18nName        `json:"i18n_name,omitempty"`         // 数据源的国际化展示名称
 	I18nDescription  *GetSearchDataSourceRespDataSourceI18nDescription `json:"i18n_description,omitempty"`  // 数据源的国际化描述
 	SchemaID         string                                            `json:"schema_id,omitempty"`         // 数据源关联的 schema 标识

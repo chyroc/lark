@@ -69,7 +69,7 @@ type CreateApprovalExternalInstanceReq struct {
 	ApprovalCode          string                                            `json:"approval_code,omitempty"`            // 审批定义 code, 创建审批定义返回的值, 表示该实例属于哪个流程；该字段会影响到列表中该实例的标题, 标题取自对应定义的 name 字段, 示例值: "81D31358-93AF-92D6-7425-01A5D67C4E71"
 	Status                string                                            `json:"status,omitempty"`                   // 审批实例状态, 示例值: "PENDING", 可选值有: PENDING: 审批中, APPROVED: 审批流程结束, 结果为同意, REJECTED: 审批流程结束, 结果为拒绝, CANCELED: 审批发起人撤回, DELETED: 审批被删除, HIDDEN: 状态隐藏(不显示状态)
 	Extra                 *string                                           `json:"extra,omitempty"`                    // 审批实例扩展 JSON, 示例值: "{\"xxx\":\"xxx\"}"
-	InstanceID            string                                            `json:"instance_id,omitempty"`              // 审批实例唯一标识, 用户自定义, 需确保证租户、应用下唯一, 示例值: "24492654"
+	InstanceID            string                                            `json:"instance_id,omitempty"`              // 审批实例唯一标识, 用户自定义, 需确保证租户下唯一, 示例值: "24492654"
 	Links                 []*CreateApprovalExternalInstanceReqLink          `json:"links,omitempty"`                    // 审批实例链接集合, 用于【已发起】列表的跳转, 跳转回三方系统； pc_link 和 mobile_link 必须填一个, 填写的是哪一端的链接, 即会跳转到该链接, 不受平台影响
 	Title                 *string                                           `json:"title,omitempty"`                    // 审批展示名称, 如果填写了该字段, 则审批列表中的审批名称使用该字段, 如果不填该字段, 则审批名称使用审批定义的名称, 示例值: "@i18n@1"
 	Form                  []*CreateApprovalExternalInstanceReqForm          `json:"form,omitempty"`                     // 用户提交审批时填写的表单数据, 用于所有审批列表中展示。可传多个值, 但审批中心pc展示前2个, 移动端展示前3个, 长度不超过2048字符
@@ -189,7 +189,7 @@ type CreateApprovalExternalInstanceRespData struct {
 	ApprovalCode          string                                                 `json:"approval_code,omitempty"`            // 审批定义 code, 创建审批定义返回的值, 表示该实例属于哪个流程；该字段会影响到列表中该实例的标题, 标题取自对应定义的 name 字段
 	Status                string                                                 `json:"status,omitempty"`                   // 审批实例状态, 可选值有: PENDING: 审批中, APPROVED: 审批流程结束, 结果为同意, REJECTED: 审批流程结束, 结果为拒绝, CANCELED: 审批发起人撤回, DELETED: 审批被删除, HIDDEN: 状态隐藏(不显示状态)
 	Extra                 string                                                 `json:"extra,omitempty"`                    // 审批实例扩展 JSON
-	InstanceID            string                                                 `json:"instance_id,omitempty"`              // 审批实例唯一标识, 用户自定义, 需确保证租户、应用下唯一
+	InstanceID            string                                                 `json:"instance_id,omitempty"`              // 审批实例唯一标识, 用户自定义, 需确保证租户下唯一
 	Links                 []*CreateApprovalExternalInstanceRespDataLink          `json:"links,omitempty"`                    // 审批实例链接集合, 用于【已发起】列表的跳转, 跳转回三方系统； pc_link 和 mobile_link 必须填一个, 填写的是哪一端的链接, 即会跳转到该链接, 不受平台影响
 	Title                 string                                                 `json:"title,omitempty"`                    // 审批展示名称, 如果填写了该字段, 则审批列表中的审批名称使用该字段, 如果不填该字段, 则审批名称使用审批定义的名称
 	Form                  []*CreateApprovalExternalInstanceRespDataForm          `json:"form,omitempty"`                     // 用户提交审批时填写的表单数据, 用于所有审批列表中展示。可传多个值, 但审批中心pc展示前2个, 移动端展示前3个, 长度不超过2048字符

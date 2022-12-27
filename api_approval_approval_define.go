@@ -60,11 +60,11 @@ func (r *Mock) UnMockApprovalCreateApproval() {
 // CreateApprovalReq ...
 type CreateApprovalReq struct {
 	DepartmentIDType  *DepartmentIDType                `query:"department_id_type" json:"-"`  // 此次调用中使用的部门ID的类型, 示例值: "open_department_id", 可选值有: department_id: 以自定义department_id来标识部门, open_department_id: 以open_department_id来标识部门
-	UserIDType        *IDType                          `query:"user_id_type" json:"-"`        // 用户 ID 类型, 示例值: "open_id", 可选值有: open_id: 用户的 open id, union_id: 用户的 union id, user_id: 用户的 user id, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
+	UserIDType        *IDType                          `query:"user_id_type" json:"-"`        // 用户 ID 类型, 示例值: "open_id", 可选值有: open_id: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid), union_id: 标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id), user_id: 标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id), 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
 	ApprovalName      string                           `json:"approval_name,omitempty"`       // 审批名称的国际化文案 Key, 以 @i18n@ 开头, 长度不得少于 9 个字符, 示例值: "@i18n@approval_name"
 	ApprovalCode      *string                          `json:"approval_code,omitempty"`       // 传空表示新建, 示例值: "7C468A54-8745-2245-9675-08B7C63E7A85"
 	Description       *string                          `json:"description,omitempty"`         // 审批描述的国际化文案 Key, 以 @i18n@ 开头, 长度不得少于 9 个字符, 示例值: "@i18n@description"
-	Viewers           []*CreateApprovalReqViewer       `json:"viewers,omitempty"`             // viewers 字段指定了哪些人能从审批应用的前台发起该审批, 1. 当 view_type 为 USER, 需要填写viewer_user_id；, 2. 当 view_type 为DEPARTMENT, 需要填写viewer_department_id；, 3. 当 view_type 为TENANT或NONE时, viewer_user_id和viewer_department_id无需填写
+	Viewers           []*CreateApprovalReqViewer       `json:"viewers,omitempty"`             // viewers 字段指定了哪些人能从审批应用的前台发起该审批, 1. 当 viewer_type 为 USER, 需要填写viewer_user_id；, 2. 当 viewer_type 为DEPARTMENT, 需要填写viewer_department_id；, 3. 当 viewer_type 为TENANT或NONE时, viewer_user_id和viewer_department_id无需填写
 	Form              *CreateApprovalReqForm           `json:"form,omitempty"`                // 审批定义表单
 	NodeList          []*CreateApprovalReqNode         `json:"node_list,omitempty"`           // 审批定义节点, 需要将开始节点作为 list 第一个元素, 结束节点作为最后一个元素
 	Settings          *CreateApprovalReqSettings       `json:"settings,omitempty"`            // 审批定义其他设置
@@ -140,8 +140,8 @@ type CreateApprovalReqSettings struct {
 // CreateApprovalReqViewer ...
 type CreateApprovalReqViewer struct {
 	ViewerType         *string `json:"viewer_type,omitempty"`          // 可见人类型, 示例值: "USER", 可选值有: TENANT: 租户内可见, DEPARTMENT: 指定部门, USER: 指定用户, NONE: 任何人都不可见
-	ViewerUserID       *string `json:"viewer_user_id,omitempty"`       // 当 view_type 是 USER, 根据user_id_type填写用户id, 示例值: "19a294c2"
-	ViewerDepartmentID *string `json:"viewer_department_id,omitempty"` // 当 view_type 为DEPARTMENT, 根据department_id_type填写部门id, 示例值: "od-ac9d697abfa990b715dcc33d58a62a9d"
+	ViewerUserID       *string `json:"viewer_user_id,omitempty"`       // 当 viewer_type 是 USER, 根据user_id_type填写用户id, 示例值: "19a294c2"
+	ViewerDepartmentID *string `json:"viewer_department_id,omitempty"` // 当 viewer_type 为DEPARTMENT, 根据department_id_type填写部门id, 示例值: "od-ac9d697abfa990b715dcc33d58a62a9d"
 }
 
 // CreateApprovalResp ...

@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// GetTaskComment 该接口用于通过评论ID获取评论详情
+// GetTaskComment 该接口用于通过评论ID获取评论详情。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/task-v1/task-comment/get
 func (r *TaskService) GetTaskComment(ctx context.Context, request *GetTaskCommentReq, options ...MethodOptionFunc) (*GetTaskCommentResp, *Response, error) {

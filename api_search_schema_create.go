@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// CreateSearchSchema 创建一个数据源
+// CreateSearchSchema 创建一个数据范式。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/search-v2/schema/create
 func (r *SearchService) CreateSearchSchema(ctx context.Context, request *CreateSearchSchemaReq, options ...MethodOptionFunc) (*CreateSearchSchemaResp, *Response, error) {
@@ -77,8 +77,8 @@ type CreateSearchSchemaReqDisplayFieldsMapping struct {
 
 // CreateSearchSchemaReqPropertie ...
 type CreateSearchSchemaReqPropertie struct {
-	Name            string                                         `json:"name,omitempty"`             // 属性名, 示例值: "summary", 最大长度: `20` 字符
-	Type            string                                         `json:"type,omitempty"`             // 属性类型, 示例值: "text", 可选值有: text: -长文本类型, 长度大于20的文本, int: 64位整数类型, tag: 标签类型, timestamp: Unix 时间戳类型（单位为秒）, double: 浮点数类型（小数）, tinytext: 短文本类型, 长度小于等于20的文本
+	Name            string                                         `json:"name,omitempty"`             // 属性名, 示例值: "summary", 长度范围: `0` ～ `20` 字符
+	Type            string                                         `json:"type,omitempty"`             // 属性类型, 示例值: "text", 可选值有: text: 长文本类型, int: 64位整数类型, tag: 标签类型, timestamp: Unix 时间戳类型（单位为秒）, double: 浮点数类型（小数）, tinytext: 短文本类型, （utf8 编码）长度小于 140 的文本。在设置 search_options 时, 与 text 类型有区别, 支持更多召回策略, 长度范围: `0` ～ `60000` 字符
 	IsSearchable    *bool                                          `json:"is_searchable,omitempty"`    // 该属性是否可用作搜索, 默认为 false, 示例值: true
 	IsSortable      *bool                                          `json:"is_sortable,omitempty"`      // 该属性是否可用作搜索结果排序, 默认为 false。如果为 true, 需要再配置 sortOptions, 示例值: false
 	IsReturnable    *bool                                          `json:"is_returnable,omitempty"`    // 该属性是否可用作返回字段, 为 false 时, 该字段不会被召回和展示。默认为 false, 示例值: true
@@ -141,7 +141,7 @@ type CreateSearchSchemaRespSchemaDisplayFieldsMapping struct {
 // CreateSearchSchemaRespSchemaPropertie ...
 type CreateSearchSchemaRespSchemaPropertie struct {
 	Name            string                                                `json:"name,omitempty"`             // 属性名
-	Type            string                                                `json:"type,omitempty"`             // 属性类型, 可选值有: text: -长文本类型, 长度大于20的文本, int: 64位整数类型, tag: 标签类型, timestamp: Unix 时间戳类型（单位为秒）, double: 浮点数类型（小数）, tinytext: 短文本类型, 长度小于等于20的文本
+	Type            string                                                `json:"type,omitempty"`             // 属性类型, 可选值有: text: 长文本类型, int: 64位整数类型, tag: 标签类型, timestamp: Unix 时间戳类型（单位为秒）, double: 浮点数类型（小数）, tinytext: 短文本类型, （utf8 编码）长度小于 140 的文本。在设置 search_options 时, 与 text 类型有区别, 支持更多召回策略
 	IsSearchable    bool                                                  `json:"is_searchable,omitempty"`    // 该属性是否可用作搜索, 默认为 false
 	IsSortable      bool                                                  `json:"is_sortable,omitempty"`      // 该属性是否可用作搜索结果排序, 默认为 false。如果为 true, 需要再配置 sortOptions
 	IsReturnable    bool                                                  `json:"is_returnable,omitempty"`    // 该属性是否可用作返回字段, 为 false 时, 该字段不会被召回和展示。默认为 false

@@ -171,18 +171,6 @@ func Test_OKR_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
-			cli.Mock().MockOKRGetOKRMetricSourceTableList(func(ctx context.Context, request *lark.GetOKRMetricSourceTableListReq, options ...lark.MethodOptionFunc) (*lark.GetOKRMetricSourceTableListResp, *lark.Response, error) {
-				return nil, nil, fmt.Errorf("mock-failed")
-			})
-			defer cli.Mock().UnMockOKRGetOKRMetricSourceTableList()
-
-			_, _, err := moduleCli.GetOKRMetricSourceTableList(ctx, &lark.GetOKRMetricSourceTableListReq{})
-			as.NotNil(err)
-			as.Equal(err.Error(), "mock-failed")
-		})
-
-		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockOKRBatchUpdateOKRMetricSourceTableItem(func(ctx context.Context, request *lark.BatchUpdateOKRMetricSourceTableItemReq, options ...lark.MethodOptionFunc) (*lark.BatchUpdateOKRMetricSourceTableItemResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -317,15 +305,6 @@ func Test_OKR_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
-			_, _, err := moduleCli.GetOKRMetricSourceTableList(ctx, &lark.GetOKRMetricSourceTableListReq{
-				MetricSourceID: "x",
-			})
-			as.NotNil(err)
-			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
-		})
-
-		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.BatchUpdateOKRMetricSourceTableItem(ctx, &lark.BatchUpdateOKRMetricSourceTableItemReq{
 				MetricSourceID: "x",
 				MetricTableID:  "x",
@@ -442,15 +421,6 @@ func Test_OKR_Sample_Failed(t *testing.T) {
 		t.Run("", func(t *testing.T) {
 
 			_, _, err := moduleCli.GetOKRMetricSourceList(ctx, &lark.GetOKRMetricSourceListReq{})
-			as.NotNil(err)
-			as.Equal("fake raw request", err.Error())
-		})
-
-		t.Run("", func(t *testing.T) {
-
-			_, _, err := moduleCli.GetOKRMetricSourceTableList(ctx, &lark.GetOKRMetricSourceTableListReq{
-				MetricSourceID: "x",
-			})
 			as.NotNil(err)
 			as.Equal("fake raw request", err.Error())
 		})

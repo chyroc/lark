@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// DeleteSearchSchema 删除已存在的数据范式
+// DeleteSearchSchema 删除已存在的数据范式。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/search-v2/schema/delete
 func (r *SearchService) DeleteSearchSchema(ctx context.Context, request *DeleteSearchSchemaReq, options ...MethodOptionFunc) (*DeleteSearchSchemaResp, *Response, error) {

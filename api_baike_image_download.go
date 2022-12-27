@@ -22,7 +22,7 @@ import (
 	"io"
 )
 
-// DownloadBaikeImage 通过 file_token 下载原图片
+// DownloadBaikeImage 通过 file_token 下载原图片。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/baike-v1/file/download
 func (r *BaikeService) DownloadBaikeImage(ctx context.Context, request *DownloadBaikeImageReq, options ...MethodOptionFunc) (*DownloadBaikeImageResp, *Response, error) {

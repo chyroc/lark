@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// BatchCreateSearchDataSourceItem 为提高索引数据记录的速度, 特提供批量索引数据记录的接口
+// BatchCreateSearchDataSourceItem 为提高索引数据记录的速度, 特提供批量索引数据记录的接口。
 //
 // 注意: 一个batch中所有数据项的datasourceID需要一致, tenantID也需要一致
 //

@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// GetHelpdeskAgentScheduleList 该接口用于获取所有客服信息
+// GetHelpdeskAgentScheduleList 该接口用于获取所有客服信息。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/agent_schedule/list
 func (r *HelpdeskService) GetHelpdeskAgentScheduleList(ctx context.Context, request *GetHelpdeskAgentScheduleListReq, options ...MethodOptionFunc) (*GetHelpdeskAgentScheduleListResp, *Response, error) {

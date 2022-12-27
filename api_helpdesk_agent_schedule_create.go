@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// CreateHelpdeskAgentSchedule 该接口用于创建客服
+// CreateHelpdeskAgentSchedule 该接口用于创建客服日程。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/agent_schedule/create
 func (r *HelpdeskService) CreateHelpdeskAgentSchedule(ctx context.Context, request *CreateHelpdeskAgentScheduleReq, options ...MethodOptionFunc) (*CreateHelpdeskAgentScheduleResp, *Response, error) {

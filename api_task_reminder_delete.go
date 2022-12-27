@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// DeleteTaskReminder 删除提醒时间, 返回结果状态
+// DeleteTaskReminder 删除提醒时间, 返回结果状态。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/task-v1/task-reminder/delete
 func (r *TaskService) DeleteTaskReminder(ctx context.Context, request *DeleteTaskReminderReq, options ...MethodOptionFunc) (*DeleteTaskReminderResp, *Response, error) {

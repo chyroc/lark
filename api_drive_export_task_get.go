@@ -21,7 +21,11 @@ import (
 	"context"
 )
 
-// GetDriveExportTask 根据创建导出任务的ticket查询导出任务的结果
+// GetDriveExportTask 根据[创建导出任务](/ssl::ttdoc//uAjLw4CM/ukTMukTMukTM/reference/drive-v1/export_task/create)的ticket查询导出任务的结果, 前提条件需要先调用创建导出任务接口。
+//
+// 通过该接口获取到下载文件的 token 后调用[下载导出文件接口](/ssl::ttdoc//uAjLw4CM/ukTMukTMukTM/reference/drive-v1/export_task/download)将文件进行下载
+// ::: note
+// 获取导出结果的用户需要与创建导出任务的用户一致
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/export_task/get
 func (r *DriveService) GetDriveExportTask(ctx context.Context, request *GetDriveExportTaskReq, options ...MethodOptionFunc) (*GetDriveExportTaskResp, *Response, error) {
@@ -58,8 +62,8 @@ func (r *Mock) UnMockDriveGetDriveExportTask() {
 
 // GetDriveExportTaskReq ...
 type GetDriveExportTaskReq struct {
-	Ticket string `path:"ticket" json:"-"` // 导出任务ID, 示例值: "6933093124755423251"
-	Token  string `query:"token" json:"-"` // 导出文档的 token, 示例值: "doccnZVxxxxxxxxxxxxGiyBgYqe"
+	Ticket string `path:"ticket" json:"-"` // 导出任务ID, [创建导出任务](/ssl::ttdoc//uAjLw4CM/ukTMukTMukTM/reference/drive-v1/export_task/create) 响应中的 ticket 字段, 示例值: "6933093124755423251"
+	Token  string `query:"token" json:"-"` // 导出文档的 token, [如何获取文档 otken](https://open.feishu.cn/document/ukTMukTMukTM/uczNzUjL3czM14yN3MTN#08bb5df6), 示例值: "doccnZVxxxxxxxxxxxxGiyBgYqe"
 }
 
 // GetDriveExportTaskResp ...
@@ -69,13 +73,13 @@ type GetDriveExportTaskResp struct {
 
 // GetDriveExportTaskRespResult ...
 type GetDriveExportTaskRespResult struct {
-	FileExtension string `json:"file_extension,omitempty"` // 导出文件扩展名, 可选值有: docx: Microsoft Word (DOCX) 格式, pdf: pdf 格式, xlsx: Microsoft Excel (XLSX) 格式
-	Type          string `json:"type,omitempty"`           // 导出文档类型, 可选值有: doc: 旧版飞书云文档类型, sheet: 飞书电子表格类型, bitable: 飞书多维表格类型, docx: 新版飞书云文档类型
+	FileExtension string `json:"file_extension,omitempty"` // 导出文件扩展名, 可选值有: docx: Microsoft Word (DOCX) 格式, pdf: pdf 格式, xlsx: Microsoft Excel (XLSX) 格式, csv: csv 格式
+	Type          string `json:"type,omitempty"`           // 导出文档类型 [文档类型说明](/ssl::ttdoc/ukTMukTMukTM/uczNzUjL3czM14yN3MTN#560bf735), 可选值有: doc: 旧版飞书云文档类型, 支持导出为 docx、pdf 格式, sheet: 飞书电子表格类型, 支持导出为 xlsx、csv 格式, bitable: 飞书多维表格类型, 支持导出为 xlsx、csv 格式, docx: 新版飞书云文档类型, 支持导出为 docx、pdf 格式
 	FileName      string `json:"file_name,omitempty"`      // 导出文件名
 	FileToken     string `json:"file_token,omitempty"`     // 导出文件 drive token
-	FileSize      int64  `json:"file_size,omitempty"`      // 导出文件大小
+	FileSize      int64  `json:"file_size,omitempty"`      // 导出文件大小, 单位字节
 	JobErrorMsg   string `json:"job_error_msg,omitempty"`  // 任务失败原因
-	JobStatus     int64  `json:"job_status,omitempty"`     // 任务状态, 可选值有: 0: 成功, 1: 初始化, 2: 处理中, 3: 内部错误, 107: 导出文档过大, 108: 处理超时, 109: 内部错误, 110: 无权限, 111: 导出文档已删除, 122: 创建副本中禁止导出, 123: 导出文档不存在, 6000: 导出文档图片过多
+	JobStatus     int64  `json:"job_status,omitempty"`     // 任务状态, 可选值有: 0: 成功, 1: 初始化, 2: 处理中, 3: 内部错误, 107: 导出文档过大, 108: 处理超时, 109: 导出内容块无权限, 110: 无权限, 111: 导出文档已删除, 122: 创建副本中禁止导出, 123: 导出文档不存在, 6000: 导出文档图片过多
 }
 
 // getDriveExportTaskResp ...

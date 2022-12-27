@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// GetMailGroup 获取特定邮件组信息
+// GetMailGroup 获取特定邮件组信息。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/mail-v1/mailgroup/get
 func (r *MailService) GetMailGroup(ctx context.Context, request *GetMailGroupReq, options ...MethodOptionFunc) (*GetMailGroupResp, *Response, error) {

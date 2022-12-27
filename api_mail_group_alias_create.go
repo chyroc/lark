@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// CreateMailGroupAlias 创建邮件组别名
+// CreateMailGroupAlias 创建邮件组别名。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/mail-v1/mailgroup-alias/create
 func (r *MailService) CreateMailGroupAlias(ctx context.Context, request *CreateMailGroupAliasReq, options ...MethodOptionFunc) (*CreateMailGroupAliasResp, *Response, error) {

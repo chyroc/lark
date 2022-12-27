@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// GetContactUnit 调用该接口获取单位信息, 需有获取单位的权限
+// GetContactUnit 该接口用于获取单位信息
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/unit/get
 func (r *ContactService) GetContactUnit(ctx context.Context, request *GetContactUnitReq, options ...MethodOptionFunc) (*GetContactUnitResp, *Response, error) {
@@ -67,7 +67,7 @@ type GetContactUnitResp struct {
 
 // GetContactUnitRespUnit ...
 type GetContactUnitRespUnit struct {
-	UnitID   string `json:"unit_id,omitempty"`   // 单位的自定义ID
+	UnitID   string `json:"unit_id,omitempty"`   // 单位ID
 	Name     string `json:"name,omitempty"`      // 单位的名字
 	UnitType string `json:"unit_type,omitempty"` // 单位的类型
 }
