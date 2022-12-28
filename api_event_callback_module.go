@@ -112,6 +112,8 @@ const (
 	EventTypeV2TaskTaskCommentUpdatedV1                        EventType = "task.task.comment.updated_v1"
 	EventTypeV2TaskTaskUpdateTenantV1                          EventType = "task.task.update_tenant_v1"
 	EventTypeV2TaskTaskUpdatedV1                               EventType = "task.task.updated_v1"
+	EventTypeV2VCMeetingAllMeetingEndedV1                      EventType = "vc.meeting.all_meeting_ended_v1"
+	EventTypeV2VCMeetingAllMeetingStartedV1                    EventType = "vc.meeting.all_meeting_started_v1"
 	EventTypeV2VCMeetingJoinMeetingV1                          EventType = "vc.meeting.join_meeting_v1"
 	EventTypeV2VCMeetingLeaveMeetingV1                         EventType = "vc.meeting.leave_meeting_v1"
 	EventTypeV2VCMeetingMeetingEndedV1                         EventType = "vc.meeting.meeting_ended_v1"
@@ -213,6 +215,8 @@ type eventHandler struct {
 	eventV2TaskTaskCommentUpdatedV1Handler                        EventV2TaskTaskCommentUpdatedV1Handler
 	eventV2TaskTaskUpdateTenantV1Handler                          EventV2TaskTaskUpdateTenantV1Handler
 	eventV2TaskTaskUpdatedV1Handler                               EventV2TaskTaskUpdatedV1Handler
+	eventV2VCMeetingAllMeetingEndedV1Handler                      EventV2VCMeetingAllMeetingEndedV1Handler
+	eventV2VCMeetingAllMeetingStartedV1Handler                    EventV2VCMeetingAllMeetingStartedV1Handler
 	eventV2VCMeetingJoinMeetingV1Handler                          EventV2VCMeetingJoinMeetingV1Handler
 	eventV2VCMeetingLeaveMeetingV1Handler                         EventV2VCMeetingLeaveMeetingV1Handler
 	eventV2VCMeetingMeetingEndedV1Handler                         EventV2VCMeetingMeetingEndedV1Handler
@@ -315,6 +319,8 @@ func (r *eventHandler) clone() *eventHandler {
 		eventV2TaskTaskCommentUpdatedV1Handler:                        r.eventV2TaskTaskCommentUpdatedV1Handler,
 		eventV2TaskTaskUpdateTenantV1Handler:                          r.eventV2TaskTaskUpdateTenantV1Handler,
 		eventV2TaskTaskUpdatedV1Handler:                               r.eventV2TaskTaskUpdatedV1Handler,
+		eventV2VCMeetingAllMeetingEndedV1Handler:                      r.eventV2VCMeetingAllMeetingEndedV1Handler,
+		eventV2VCMeetingAllMeetingStartedV1Handler:                    r.eventV2VCMeetingAllMeetingStartedV1Handler,
 		eventV2VCMeetingJoinMeetingV1Handler:                          r.eventV2VCMeetingJoinMeetingV1Handler,
 		eventV2VCMeetingLeaveMeetingV1Handler:                         r.eventV2VCMeetingLeaveMeetingV1Handler,
 		eventV2VCMeetingMeetingEndedV1Handler:                         r.eventV2VCMeetingMeetingEndedV1Handler,
@@ -416,6 +422,8 @@ type eventBody struct {
 	eventV2TaskTaskCommentUpdatedV1                        *EventV2TaskTaskCommentUpdatedV1
 	eventV2TaskTaskUpdateTenantV1                          *EventV2TaskTaskUpdateTenantV1
 	eventV2TaskTaskUpdatedV1                               *EventV2TaskTaskUpdatedV1
+	eventV2VCMeetingAllMeetingEndedV1                      *EventV2VCMeetingAllMeetingEndedV1
+	eventV2VCMeetingAllMeetingStartedV1                    *EventV2VCMeetingAllMeetingStartedV1
 	eventV2VCMeetingJoinMeetingV1                          *EventV2VCMeetingJoinMeetingV1
 	eventV2VCMeetingLeaveMeetingV1                         *EventV2VCMeetingLeaveMeetingV1
 	eventV2VCMeetingMeetingEndedV1                         *EventV2VCMeetingMeetingEndedV1
@@ -803,6 +811,18 @@ func (r *EventCallbackService) parserEventV2(req *eventReq) error {
 			return err
 		}
 		req.eventV2TaskTaskUpdatedV1 = event
+	case EventTypeV2VCMeetingAllMeetingEndedV1:
+		event := new(EventV2VCMeetingAllMeetingEndedV1)
+		if err := req.unmarshalEvent(event); err != nil {
+			return err
+		}
+		req.eventV2VCMeetingAllMeetingEndedV1 = event
+	case EventTypeV2VCMeetingAllMeetingStartedV1:
+		event := new(EventV2VCMeetingAllMeetingStartedV1)
+		if err := req.unmarshalEvent(event); err != nil {
+			return err
+		}
+		req.eventV2VCMeetingAllMeetingStartedV1 = event
 	case EventTypeV2VCMeetingJoinMeetingV1:
 		event := new(EventV2VCMeetingJoinMeetingV1)
 		if err := req.unmarshalEvent(event); err != nil {
@@ -1477,6 +1497,16 @@ func (r *EventCallbackService) handlerEvent(ctx context.Context, req *eventReq) 
 	case req.eventV2TaskTaskUpdatedV1 != nil:
 		if r.cli.eventHandler.eventV2TaskTaskUpdatedV1Handler != nil {
 			s, err = r.cli.eventHandler.eventV2TaskTaskUpdatedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2TaskTaskUpdatedV1)
+		}
+		return true, s, err
+	case req.eventV2VCMeetingAllMeetingEndedV1 != nil:
+		if r.cli.eventHandler.eventV2VCMeetingAllMeetingEndedV1Handler != nil {
+			s, err = r.cli.eventHandler.eventV2VCMeetingAllMeetingEndedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2VCMeetingAllMeetingEndedV1)
+		}
+		return true, s, err
+	case req.eventV2VCMeetingAllMeetingStartedV1 != nil:
+		if r.cli.eventHandler.eventV2VCMeetingAllMeetingStartedV1Handler != nil {
+			s, err = r.cli.eventHandler.eventV2VCMeetingAllMeetingStartedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2VCMeetingAllMeetingStartedV1)
 		}
 		return true, s, err
 	case req.eventV2VCMeetingJoinMeetingV1 != nil:

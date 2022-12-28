@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// EventV2ApprovalApprovalUpdatedV4 了解事件订阅的使用场景和配置流程, 请点击查看 [事件订阅概述](https://open.feishu.cn/document/ukTMukTMukTM/uUTNz4SN1MjL1UzM)
+// EventV2ApprovalApprovalUpdatedV4 了解事件订阅的使用场景和配置流程, 请点击查看 [事件订阅概述](https://open.feishu.cn/document/ukTMukTMukTM/uUTNz4SN1MjL1UzM)。
 //
 // 「审批」定义更新时触发此事件
 // * 依赖权限: [访问审批应用]

@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// GetApprovalInstanceList 根据 approval_code 批量获取审批实例的 instance_code, 用于拉取租户下某个审批定义的全部审批实例。默认以审批创建时间排序
+// GetApprovalInstanceList 根据 approval_code 批量获取审批实例的 instance_code, 用于拉取租户下某个审批定义的全部审批实例。默认以审批创建时间先后顺序排列。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/instance/list
 func (r *ApprovalService) GetApprovalInstanceList(ctx context.Context, request *GetApprovalInstanceListReq, options ...MethodOptionFunc) (*GetApprovalInstanceListResp, *Response, error) {

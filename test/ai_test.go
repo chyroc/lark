@@ -51,7 +51,7 @@ func Test_AI(t *testing.T) {
 		printData(resp)
 		as.Nil(err)
 		as.NotNil(resp)
-		as.Equal("country", strings.ToLower(resp.Text))
+		as.Contains([]string{"country", "national"}, strings.ToLower(resp.Text))
 		as.NotEmpty(response.RequestID)
 	})
 

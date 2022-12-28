@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// PreviewApprovalInstance 提交审批前, 预览审批流程。或者发起审批后, 在某一审批节点预览后续流程
+// PreviewApprovalInstance 提交审批前, 预览审批流程。或者发起审批后, 在某一审批节点预览后续流程。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/ukTM5UjL5ETO14SOxkTN/approval-preview
 func (r *ApprovalService) PreviewApprovalInstance(ctx context.Context, request *PreviewApprovalInstanceReq, options ...MethodOptionFunc) (*PreviewApprovalInstanceResp, *Response, error) {

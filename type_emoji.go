@@ -105,6 +105,7 @@ const (
 	EmojiLove                     EmojiType = "LOVE"                     // https://sf3-ttcdn-tos.pstatp.com/obj/lark-reaction-cn/emoji_love.png?lazyload=true&width=96&height=96
 	EmojiLuck                     EmojiType = "LUCK"                     // https://sf3-ttcdn-tos.pstatp.com/obj/lark-reaction-cn/emoji_luck.png?lazyload=true&width=96&height=96
 	EmojiMeMeMe                   EmojiType = "MeMeMe"                   // https://sf3-ttcdn-tos.pstatp.com/obj/lark-reaction-cn/emoji_mememe.png?lazyload=true&width=108&height=96
+	EmojiVRHeadSet                EmojiType = "VRHeadset"                // https://sf3-ttcdn-tos.pstatp.com/obj/lark-reaction-cn/emoji_vrheadset_v1.png?lazyload=true&width=96&height=96
 	EmojiMinusOne                 EmojiType = "MinusOne"                 // https://sf3-ttcdn-tos.pstatp.com/obj/lark-reaction-cn/emoji_minusone_v4.png?lazyload=true&width=96&height=96
 	EmojiMoney                    EmojiType = "MONEY"                    // https://sf3-ttcdn-tos.pstatp.com/obj/lark-reaction-cn/emoji_dollar.png?lazyload=true&width=97&height=97
 	EmojiMuscle                   EmojiType = "MUSCLE"                   // https://sf3-ttcdn-tos.pstatp.com/obj/lark-reaction-cn/emoji_fighton_v2.png?lazyload=true&width=96&height=96

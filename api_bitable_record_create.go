@@ -23,7 +23,9 @@ import (
 
 // CreateBitableRecord 该接口用于在数据表中新增一条记录
 //
-// 该接口支持调用频率上限为 10 QPS
+// 该接口支持调用频率上限为 10 QPS（Query Per Second, 每秒请求率）
+// ::: note
+// 首次调用请参考 [云文档接口快速入门](https://open.feishu.cn/document/ukTMukTMukTM/uczNzUjL3czM14yN3MTN)[多维表格接口接入指南](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/bitable/notification)
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table-record/create
 func (r *BitableService) CreateBitableRecord(ctx context.Context, request *CreateBitableRecordReq, options ...MethodOptionFunc) (*CreateBitableRecordResp, *Response, error) {
@@ -60,41 +62,41 @@ func (r *Mock) UnMockBitableCreateBitableRecord() {
 
 // CreateBitableRecordReq ...
 type CreateBitableRecordReq struct {
-	AppToken   string                 `path:"app_token" json:"-"`     // bitable app token, 示例值: "bascng7vrxcxpig7geggXiCtadY"
-	TableID    string                 `path:"table_id" json:"-"`      // table id, 示例值: "tblUa9vcYjWQYJCj"
+	AppToken   string                 `path:"app_token" json:"-"`     // 多维表格的唯一标识符 [app_token 参数说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/bitable/notification#8121eebe), 示例值: "bascng7vrxcxpig7geggXiCtadY"
+	TableID    string                 `path:"table_id" json:"-"`      // 多维表格数据表的唯一标识符 [table_id 参数说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/bitable/notification#735fe883), 示例值: "tblUa9vcYjWQYJCj"
 	UserIDType *IDType                `query:"user_id_type" json:"-"` // 用户 ID 类型, 示例值: "open_id", 可选值有: open_id: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid), union_id: 标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id), user_id: 标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id), 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
-	Fields     map[string]interface{} `json:"fields,omitempty"`       // 记录字段, 关于支持新增的字段类型, 请参考[接入指南](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/bitable/notification)
+	Fields     map[string]interface{} `json:"fields,omitempty"`       // 数据表的字段, 即数据表的列, 当前接口支持的字段类型请参考[接入指南](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/bitable/notification#31f78a3c), 不同类型字段的数据结构请参考[数据结构概述](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/bitable/development-guide/bitable-structure)
 }
 
 // CreateBitableRecordResp ...
 type CreateBitableRecordResp struct {
-	Record *CreateBitableRecordRespRecord `json:"record,omitempty"` // 记录
+	Record *CreateBitableRecordRespRecord `json:"record,omitempty"` // 新增的记录的内容
 }
 
 // CreateBitableRecordRespRecord ...
 type CreateBitableRecordRespRecord struct {
-	RecordID         string                                       `json:"record_id,omitempty"`          // 记录 id, 更新多条记录时必填
-	CreatedBy        *CreateBitableRecordRespRecordCreatedBy      `json:"created_by,omitempty"`         // 创建人
-	CreatedTime      int64                                        `json:"created_time,omitempty"`       // 创建时间
-	LastModifiedBy   *CreateBitableRecordRespRecordLastModifiedBy `json:"last_modified_by,omitempty"`   // 修改人
-	LastModifiedTime int64                                        `json:"last_modified_time,omitempty"` // 最近更新时间
-	Fields           map[string]interface{}                       `json:"fields,omitempty"`             // 记录字段, 关于支持新增的字段类型, 请参考[接入指南](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/bitable/notification)
+	RecordID         string                                       `json:"record_id,omitempty"`          // 一条记录的唯一标识 id [record_id 参数说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/bitable/notification#15d8db94)
+	CreatedBy        *CreateBitableRecordRespRecordCreatedBy      `json:"created_by,omitempty"`         // 该记录的创建人
+	CreatedTime      int64                                        `json:"created_time,omitempty"`       // 该记录的创建时间
+	LastModifiedBy   *CreateBitableRecordRespRecordLastModifiedBy `json:"last_modified_by,omitempty"`   // 该记录最新一次更新的修改人
+	LastModifiedTime int64                                        `json:"last_modified_time,omitempty"` // 该记录最近一次的更新时间
+	Fields           map[string]interface{}                       `json:"fields,omitempty"`             // 数据表的字段, 即数据表的列, 当前接口支持的字段类型请参考[接入指南](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/bitable/notification#31f78a3c), 不同类型字段的数据结构请参考[数据结构概述](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/bitable/development-guide/bitable-structure)
 }
 
 // CreateBitableRecordRespRecordCreatedBy ...
 type CreateBitableRecordRespRecordCreatedBy struct {
-	ID     string `json:"id,omitempty"`      // 人员Id
-	Name   string `json:"name,omitempty"`    // 中文姓名
-	EnName string `json:"en_name,omitempty"` // 英文姓名
-	Email  string `json:"email,omitempty"`   // 邮箱
+	ID     string `json:"id,omitempty"`      // 用户id, id类型等于user_id_type所指定的类型。
+	Name   string `json:"name,omitempty"`    // 用户的中文名称
+	EnName string `json:"en_name,omitempty"` // 用户的英文名称
+	Email  string `json:"email,omitempty"`   // 用户的邮箱
 }
 
 // CreateBitableRecordRespRecordLastModifiedBy ...
 type CreateBitableRecordRespRecordLastModifiedBy struct {
-	ID     string `json:"id,omitempty"`      // 人员Id
-	Name   string `json:"name,omitempty"`    // 中文姓名
-	EnName string `json:"en_name,omitempty"` // 英文姓名
-	Email  string `json:"email,omitempty"`   // 邮箱
+	ID     string `json:"id,omitempty"`      // 用户id, id类型等于user_id_type所指定的类型。
+	Name   string `json:"name,omitempty"`    // 用户的中文名称
+	EnName string `json:"en_name,omitempty"` // 用户的英文名称
+	Email  string `json:"email,omitempty"`   // 用户的邮箱
 }
 
 // createBitableRecordResp ...

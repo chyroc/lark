@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// RollbackApprovalInstance 从当前审批任务, 退回到已审批的一个或多个任务节点。退回后, 已审批节点重新生成审批任务
+// RollbackApprovalInstance 从当前审批任务, 退回到已审批的一个或多个任务节点。退回后, 已审批节点重新生成审批任务。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/instance/specified_rollback
 func (r *ApprovalService) RollbackApprovalInstance(ctx context.Context, request *RollbackApprovalInstanceReq, options ...MethodOptionFunc) (*RollbackApprovalInstanceResp, *Response, error) {

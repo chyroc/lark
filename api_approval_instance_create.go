@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// CreateApprovalInstance 创建一个审批实例, 调用方需对审批定义的表单有详细了解, 将按照定义的表单结构, 将表单 Value 通过接口传入
+// CreateApprovalInstance 创建一个审批实例, 调用方需对审批定义的表单有详细了解, 将按照定义的表单结构, 将表单 Value 通过接口传入。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/instance/create
 func (r *ApprovalService) CreateApprovalInstance(ctx context.Context, request *CreateApprovalInstanceReq, options ...MethodOptionFunc) (*CreateApprovalInstanceResp, *Response, error) {

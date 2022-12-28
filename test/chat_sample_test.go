@@ -361,6 +361,66 @@ func Test_Chat_Sample_Failed(t *testing.T) {
 			as.Equal(err.Error(), "mock-failed")
 		})
 
+		t.Run("", func(t *testing.T) {
+
+			cli.Mock().MockChatCreateChatMenuTree(func(ctx context.Context, request *lark.CreateChatMenuTreeReq, options ...lark.MethodOptionFunc) (*lark.CreateChatMenuTreeResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockChatCreateChatMenuTree()
+
+			_, _, err := moduleCli.CreateChatMenuTree(ctx, &lark.CreateChatMenuTreeReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			cli.Mock().MockChatDeleteChatMenuTree(func(ctx context.Context, request *lark.DeleteChatMenuTreeReq, options ...lark.MethodOptionFunc) (*lark.DeleteChatMenuTreeResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockChatDeleteChatMenuTree()
+
+			_, _, err := moduleCli.DeleteChatMenuTree(ctx, &lark.DeleteChatMenuTreeReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			cli.Mock().MockChatUpdateChatMenuTree(func(ctx context.Context, request *lark.UpdateChatMenuTreeReq, options ...lark.MethodOptionFunc) (*lark.UpdateChatMenuTreeResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockChatUpdateChatMenuTree()
+
+			_, _, err := moduleCli.UpdateChatMenuTree(ctx, &lark.UpdateChatMenuTreeReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			cli.Mock().MockChatSortChatMenuTree(func(ctx context.Context, request *lark.SortChatMenuTreeReq, options ...lark.MethodOptionFunc) (*lark.SortChatMenuTreeResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockChatSortChatMenuTree()
+
+			_, _, err := moduleCli.SortChatMenuTree(ctx, &lark.SortChatMenuTreeReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			cli.Mock().MockChatGetChatMenuTree(func(ctx context.Context, request *lark.GetChatMenuTreeReq, options ...lark.MethodOptionFunc) (*lark.GetChatMenuTreeResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockChatGetChatMenuTree()
+
+			_, _, err := moduleCli.GetChatMenuTree(ctx, &lark.GetChatMenuTreeReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
 	})
 
 	t.Run("response is failed", func(t *testing.T) {
@@ -587,6 +647,52 @@ func Test_Chat_Sample_Failed(t *testing.T) {
 		t.Run("", func(t *testing.T) {
 
 			_, _, err := moduleCli.SortChatTab(ctx, &lark.SortChatTabReq{
+				ChatID: "x",
+			})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.CreateChatMenuTree(ctx, &lark.CreateChatMenuTreeReq{
+				ChatID: "x",
+			})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.DeleteChatMenuTree(ctx, &lark.DeleteChatMenuTreeReq{
+				ChatID: "x",
+			})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.UpdateChatMenuTree(ctx, &lark.UpdateChatMenuTreeReq{
+				ChatID:     "x",
+				MenuItemID: "x",
+			})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.SortChatMenuTree(ctx, &lark.SortChatMenuTreeReq{
+				ChatID: "x",
+			})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.GetChatMenuTree(ctx, &lark.GetChatMenuTreeReq{
 				ChatID: "x",
 			})
 			as.NotNil(err)
@@ -822,6 +928,52 @@ func Test_Chat_Sample_Failed(t *testing.T) {
 		t.Run("", func(t *testing.T) {
 
 			_, _, err := moduleCli.SortChatTab(ctx, &lark.SortChatTabReq{
+				ChatID: "x",
+			})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.CreateChatMenuTree(ctx, &lark.CreateChatMenuTreeReq{
+				ChatID: "x",
+			})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.DeleteChatMenuTree(ctx, &lark.DeleteChatMenuTreeReq{
+				ChatID: "x",
+			})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.UpdateChatMenuTree(ctx, &lark.UpdateChatMenuTreeReq{
+				ChatID:     "x",
+				MenuItemID: "x",
+			})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.SortChatMenuTree(ctx, &lark.SortChatMenuTreeReq{
+				ChatID: "x",
+			})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.GetChatMenuTree(ctx, &lark.GetChatMenuTreeReq{
 				ChatID: "x",
 			})
 			as.NotNil(err)

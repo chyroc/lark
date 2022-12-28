@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// TransformApprovalUserID 用于灰度租户内的userID相互转换
+// TransformApprovalUserID 用于灰度租户内的 userID 相互转换。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uEDN5UjLxQTO14SM0kTN
 func (r *ApprovalService) TransformApprovalUserID(ctx context.Context, request *TransformApprovalUserIDReq, options ...MethodOptionFunc) (*TransformApprovalUserIDResp, *Response, error) {

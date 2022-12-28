@@ -93,6 +93,8 @@ type SearchApprovalInstanceRespInstanceApproval struct {
 	Name       string                                              `json:"name,omitempty"`        // 审批定义名称
 	IsExternal bool                                                `json:"is_external,omitempty"` // 是否为第三方审批
 	External   *SearchApprovalInstanceRespInstanceApprovalExternal `json:"external,omitempty"`    // 第三方审批信息
+	ApprovalID string                                              `json:"approval_id,omitempty"` // 审批定义Id
+	Icon       string                                              `json:"icon,omitempty"`        // 审批定义图标信息
 }
 
 // SearchApprovalInstanceRespInstanceApprovalExternal ...

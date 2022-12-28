@@ -23,7 +23,7 @@ import (
 
 // RefreshAccessToken `user_access_token` 的最大有效期是 6900 秒。当 `user_access_token` 过期时, 可以调用本接口获取新的 `user_access_token`。
 //
-// doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/authen-v1/authen/refresh_access_token
+// doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/authen-v1/refresh_access_token/create
 func (r *AuthService) RefreshAccessToken(ctx context.Context, request *RefreshAccessTokenReq, options ...MethodOptionFunc) (*RefreshAccessTokenResp, *Response, error) {
 	if r.cli.mock.mockAuthRefreshAccessToken != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Auth#RefreshAccessToken mock enable")
@@ -57,15 +57,15 @@ func (r *Mock) UnMockAuthRefreshAccessToken() {
 
 // RefreshAccessTokenReq ...
 type RefreshAccessTokenReq struct {
-	GrantType    string `json:"grant_type,omitempty"`    // 授权类型, 固定值: "refresh_token"
-	RefreshToken string `json:"refresh_token,omitempty"` // 刷新 `user_access_token` 需要的凭证, [获取 user_access_token](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/authen-v1/authen/access_token)接口和本接口均返回 `refresh_token`, 请使用最新获取到的, 示例值: "ur-oQ0mMq6MCcueAv0pwx2fQQhxqv__CbLu6G8ySFwafeKww2Def2BJdOkW3.9gCFM.LBQgFri901QaqeuL"
+	GrantType    string `json:"grant_type,omitempty"`    // 授权类型, 固定值, 示例值: "refresh_token"
+	RefreshToken string `json:"refresh_token,omitempty"` // 刷新 `user_access_token` 需要的凭证 获取user_access_token接口和本接口均返回 `refresh_token`, 每次请求, 请注意使用最新获取到的`refresh_token`, 示例值: "ur-oQ0mMq6MCcueAv0pwx2fQQhxqv__CbLu6G8ySFwafeKww2Def2BJdOkW3.9gCFM.LBQgFri901QaqeuL"
 }
 
 // RefreshAccessTokenResp ...
 type RefreshAccessTokenResp struct {
 	AccessToken      string `json:"access_token,omitempty"`       // user_access_token, 用于获取用户资源
 	TokenType        string `json:"token_type,omitempty"`         // token 类型
-	ExpiresIn        int64  `json:"expires_in,omitempty"`         // access_token 的有效期, 单位: 秒
+	ExpiresIn        int64  `json:"expires_in,omitempty"`         // `access_token` 的有效期, 单位: 秒
 	Name             string `json:"name,omitempty"`               // 用户姓名
 	EnName           string `json:"en_name,omitempty"`            // 用户英文名称
 	AvatarURL        string `json:"avatar_url,omitempty"`         // 用户头像
@@ -75,11 +75,13 @@ type RefreshAccessTokenResp struct {
 	OpenID           string `json:"open_id,omitempty"`            // 用户在应用内的唯一标识
 	UnionID          string `json:"union_id,omitempty"`           // 用户统一ID
 	Email            string `json:"email,omitempty"`              // 用户邮箱, 字段权限要求: 获取用户邮箱信息
+	EnterpriseEmail  string `json:"enterprise_email,omitempty"`   // 企业邮箱, 请先确保已在管理后台启用飞书邮箱服务, 字段权限要求: 获取用户受雇信息
 	UserID           string `json:"user_id,omitempty"`            // 用户 user_id, 字段权限要求: 获取用户 user ID
 	Mobile           string `json:"mobile,omitempty"`             // 用户手机号, 字段权限要求: 获取用户手机号
 	TenantKey        string `json:"tenant_key,omitempty"`         // 当前企业标识
-	RefreshExpiresIn int64  `json:"refresh_expires_in,omitempty"` // refresh_token 的有效期, 单位: 秒
-	RefreshToken     string `json:"refresh_token,omitempty"`      // 刷新用户 access_token 时使用的 token
+	RefreshExpiresIn int64  `json:"refresh_expires_in,omitempty"` // `refresh_token` 的有效期, 单位: 秒
+	RefreshToken     string `json:"refresh_token,omitempty"`      // 刷新用户 `access_token` 时使用的 token
+	Sid              string `json:"sid,omitempty"`                // 用户当前登录态session的唯一标识, 为空则不返回
 }
 
 // refreshAccessTokenResp ...

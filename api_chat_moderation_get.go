@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// GetChatModeration 获取群发言模式、可发言用户名单等
+// GetChatModeration 获取群发言模式、可发言用户名单等。
 //
 // 注意事项:
 // - 应用需要开启[机器人能力](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-enable-bot-ability)

@@ -60,8 +60,8 @@ func (r *Mock) UnMockAdminGetAdminUserStats() {
 
 // GetAdminUserStatsReq ...
 type GetAdminUserStatsReq struct {
-	UserIDType       *IDType           `query:"user_id_type" json:"-"`       // 用户 ID 类型, 示例值: "open_id", 可选值有: `open_id`: 用户的 open id, `union_id`: 用户的 union id, `user_id`: 用户的 user id, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
-	DepartmentIDType *DepartmentIDType `query:"department_id_type" json:"-"` // 部门ID类型, 示例值: "open_department_id", 可选值有: `department_id`: 部门的 ID, `open_department_id`: 部门的 Open ID
+	UserIDType       *IDType           `query:"user_id_type" json:"-"`       // 用户 ID 类型, 示例值: "open_id", 可选值有: open_id: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid), union_id: 标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id), user_id: 标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id), 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
+	DepartmentIDType *DepartmentIDType `query:"department_id_type" json:"-"` // 部门ID类型, 示例值: "open_department_id", 可选值有: department_id: 部门的 ID, open_department_id: 部门的 Open ID
 	StartDate        string            `query:"start_date" json:"-"`         // 起始日期（包含）, 格式是YYYY-mm-dd, 示例值: "2020-02-15"
 	EndDate          string            `query:"end_date" json:"-"`           // 终止日期（包含）, 格式是YYYY-mm-dd。起止日期之间相差不能超过31天（包含31天）, 示例值: "2020-02-15"
 	DepartmentID     *string           `query:"department_id" json:"-"`      // 部门的 ID, 取决于department_id_type, 示例值: "od-382e2793cfc9471f892e8a672987654c"
@@ -85,21 +85,23 @@ type GetAdminUserStatsRespItem struct {
 	DepartmentName   string `json:"department_name,omitempty"`    // 部门名
 	DepartmentPath   string `json:"department_path,omitempty"`    // 部门路径
 	CreateTime       string `json:"create_time,omitempty"`        // 账号创建时间
-	UserActiveFlag   int64  `json:"user_active_flag,omitempty"`   // 用户激活状态, 可选值有: `0`: 未激活, `1`: 已激活
+	UserActiveFlag   int64  `json:"user_active_flag,omitempty"`   // 用户激活状态, 可选值有: 0: 未激活, 1: 已激活
 	RegisterTime     string `json:"register_time,omitempty"`      // 激活时间
-	SuiteActiveFlag  int64  `json:"suite_active_flag,omitempty"`  // 用户活跃状态, 用户在飞书套件任意应用登陆, 即为活跃。包括飞书即时消息, 文档, 日历, 会议, 开放平台等, 可选值有: `0`: 无活跃, `1`: 活跃
+	SuiteActiveFlag  int64  `json:"suite_active_flag,omitempty"`  // 用户活跃状态, 用户在飞书套件任意应用登陆, 即为活跃。包括飞书即时消息, 文档, 日历, 会议, 开放平台等, 可选值有: 0: 无活跃, 1: 活跃
 	LastActiveTime   string `json:"last_active_time,omitempty"`   // 最近活跃时间
-	IMActiveFlag     int64  `json:"im_active_flag,omitempty"`     // 用户消息活跃状态, 发生过如下事件, 则认为该用户消息活跃: 发送消息、回复消息、reaction、转发消息、阅读消息、查看会话、发送表情消息等, 可选值有: `0`: 无活跃, `1`: 活跃
+	IMActiveFlag     int64  `json:"im_active_flag,omitempty"`     // 用户消息活跃状态, 发生过如下事件, 则认为该用户消息活跃: 发送消息、回复消息、reaction、转发消息、阅读消息、查看会话、发送表情消息等, 可选值有: 0: 无活跃, 1: 活跃
 	SendMessengerNum int64  `json:"send_messenger_num,omitempty"` // 发送消息数
-	DocsActiveFlag   int64  `json:"docs_active_flag,omitempty"`   // 用户云文档活跃状态, "发生过如下事件, 则认为该用户云文档活跃: 事件1: 文档/文件打开, 事件2: 进入docs相关页面: 如文档详情页, space的各个页面", 可选值有: `0`: 无活跃, `1`: 活跃
+	DocsActiveFlag   int64  `json:"docs_active_flag,omitempty"`   // 用户云文档活跃状态, "发生过如下事件, 则认为该用户云文档活跃: 事件1: 文档/文件打开, 事件2: 进入docs相关页面: 如文档详情页, space的各个页面", 可选值有: 0: 无活跃, 1: 活跃
 	CreateDocsNum    int64  `json:"create_docs_num,omitempty"`    // 创建文件数
-	CalActiveFlag    int64  `json:"cal_active_flag,omitempty"`    // 用户日历活跃状态, 发生过如下事件, 则认为用户日历活跃, 包含进入日历、创建日程、收到日程邀请等, 可选值有: `0`: 无活跃, `1`: 活跃
+	CalActiveFlag    int64  `json:"cal_active_flag,omitempty"`    // 用户日历活跃状态, 发生过如下事件, 则认为用户日历活跃, 包含进入日历、创建日程、收到日程邀请等, 可选值有: 0: 无活跃, 1: 活跃
 	CreateCalNum     int64  `json:"create_cal_num,omitempty"`     // 创建日程数
-	VCActiveFlag     int64  `json:"vc_active_flag,omitempty"`     // 用户音视频会议活跃状态, 用户进入会中状态（不包含妙计和直播）即为活跃, 可选值有: `0`: 无活跃, `1`: 活跃
-	VCDuration       int64  `json:"vc_duration,omitempty"`        // 会议时长
+	VCActiveFlag     int64  `json:"vc_active_flag,omitempty"`     // 用户音视频会议活跃状态, 用户进入会中状态（不包含妙计和直播）即为活跃, 可选值有: 0: 无活跃, 1: 活跃
+	VCDuration       int64  `json:"vc_duration,omitempty"`        // 会议时长（分钟）
 	ActiveOs         string `json:"active_os,omitempty"`          // 活跃设备
 	CreateTaskNum    int64  `json:"create_task_num,omitempty"`    // 创建任务数
 	VCNum            int64  `json:"vc_num,omitempty"`             // 会议数
+	AppPackageType   string `json:"app_package_type,omitempty"`   // 飞书的应用类型名称
+	OsName           string `json:"os_name,omitempty"`            // 操作系统名称
 }
 
 // getAdminUserStatsResp ...

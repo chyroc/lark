@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// DeleteMessagePin 移除一条指定消息的Pin。
+// DeleteMessagePin 移除一条指定消息的 Pin。
 //
 // 注意事项:
 // - 需要开启[机器人能力](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-enable-bot-ability)

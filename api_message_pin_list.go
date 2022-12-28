@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// GetMessagePinList 获取所在群内指定时间范围内的所有Pin消息。
+// GetMessagePinList 获取所在群内指定时间范围内的所有 Pin 消息。
 //
 // 注意事项:
 // - 需要开启[机器人能力](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-enable-bot-ability)

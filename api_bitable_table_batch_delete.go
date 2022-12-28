@@ -21,9 +21,11 @@ import (
 	"context"
 )
 
-// BatchDeleteBitableTable 删除多个数据表
+// BatchDeleteBitableTable 删除多个数据表。
 //
 // 该接口支持调用频率上限为 10 QPS
+// ::: note
+// 首次调用请参考 [云文档接口快速入门](https://open.feishu.cn/document/ukTMukTMukTM/uczNzUjL3czM14yN3MTN)[多维表格接口接入指南](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/bitable/notification)
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table/batch_delete
 func (r *BitableService) BatchDeleteBitableTable(ctx context.Context, request *BatchDeleteBitableTableReq, options ...MethodOptionFunc) (*BatchDeleteBitableTableResp, *Response, error) {
@@ -60,8 +62,8 @@ func (r *Mock) UnMockBitableBatchDeleteBitableTable() {
 
 // BatchDeleteBitableTableReq ...
 type BatchDeleteBitableTableReq struct {
-	AppToken string   `path:"app_token" json:"-"`  // bitable app token, 示例值: "appbcbWCzen6D8dezhoCH2RpMAh"
-	TableIDs []string `json:"table_ids,omitempty"` // 删除的多条tableid列表, 示例值: ["tblsRc9GRRXKqhvW"]
+	AppToken string   `path:"app_token" json:"-"`  // 多维表格的唯一标识符 [app_token 参数说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/bitable/notification#8121eebe), 示例值: "appbcbWCzen6D8dezhoCH2RpMAh", 最小长度: `1` 字符
+	TableIDs []string `json:"table_ids,omitempty"` // 待删除的数据表的id [table_id 参数说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/bitable/notification#735fe883), 示例值: ["tblsRc9GRRXKqhvW"]
 }
 
 // BatchDeleteBitableTableResp ...

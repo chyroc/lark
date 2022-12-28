@@ -38,7 +38,7 @@ https://godoc.org/github.com/chyroc/lark
 
 ## Support APIs
 
-API Count: 683, Event Count: 97
+API Count: 689, Event Count: 99
 
 <details>
   <summary>
@@ -228,11 +228,12 @@ API Count: 683, Event Count: 97
   - GetBitableAppRoleMemberList
   - CreateBitableAppRoleMember
   - DeleteBitableAppRoleMember
-  - GetBitableTableList
   - CreateBitableTable
   - BatchCreateBitableTable
   - DeleteBitableTable
   - BatchDeleteBitableTable
+  - UpdateBitableTable
+  - GetBitableTableList
   - UpdateBitableTableForm
   - GetBitableTableForm
   - UpdateBitableTableFormField
@@ -305,6 +306,11 @@ API Count: 683, Event Count: 97
   - GetChatTabList
   - UpdateChatTab
   - SortChatTab
+  - CreateChatMenuTree
+  - DeleteChatMenuTree
+  - UpdateChatMenuTree
+  - SortChatMenuTree
+  - GetChatMenuTree
 - Contact
   - SearchUserOld
   - CreateUser
@@ -594,6 +600,8 @@ API Count: 683, Event Count: 97
   - EventV2VCRoomDeletedV1
   - EventV2VCRoomUpdatedV1
   - EventV2DriveFileBitableFieldChangedV1
+  - EventV2VCMeetingAllMeetingStartedV1
+  - EventV2VCMeetingAllMeetingEndedV1
 - File
   - UploadImage
   - DownloadImage

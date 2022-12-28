@@ -107,8 +107,8 @@ type CreateApprovalExternalApprovalReqI18nResourceText struct {
 // CreateApprovalExternalApprovalReqViewer ...
 type CreateApprovalExternalApprovalReqViewer struct {
 	ViewerType         *string `json:"viewer_type,omitempty"`          // 可见人类型, 示例值: "USER", 可选值有: TENANT: 租户内可见, DEPARTMENT: 指定部门, USER: 指定用户, NONE: 任何人都不可见
-	ViewerUserID       *string `json:"viewer_user_id,omitempty"`       // 当 view_type 是 USER, 根据user_id_type填写用户id, 示例值: "19a294c2"
-	ViewerDepartmentID *string `json:"viewer_department_id,omitempty"` // 当 view_type 为DEPARTMENT, 根据department_id_type填写部门id, 示例值: "od-ac9d697abfa990b715dcc33d58a62a9d"
+	ViewerUserID       *string `json:"viewer_user_id,omitempty"`       // 当 viewer_type 是 USER, 根据user_id_type填写用户id, 示例值: "19a294c2"
+	ViewerDepartmentID *string `json:"viewer_department_id,omitempty"` // 当 viewer_type 为DEPARTMENT, 根据department_id_type填写部门id, 示例值: "od-ac9d697abfa990b715dcc33d58a62a9d"
 }
 
 // CreateApprovalExternalApprovalResp ...

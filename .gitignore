@@ -29,3 +29,4 @@ venv/
 generate
 test/debug_test.go
 g
+test.log

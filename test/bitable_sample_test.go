@@ -387,18 +387,6 @@ func Test_Bitable_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
-			cli.Mock().MockBitableGetBitableTableList(func(ctx context.Context, request *lark.GetBitableTableListReq, options ...lark.MethodOptionFunc) (*lark.GetBitableTableListResp, *lark.Response, error) {
-				return nil, nil, fmt.Errorf("mock-failed")
-			})
-			defer cli.Mock().UnMockBitableGetBitableTableList()
-
-			_, _, err := moduleCli.GetBitableTableList(ctx, &lark.GetBitableTableListReq{})
-			as.NotNil(err)
-			as.Equal(err.Error(), "mock-failed")
-		})
-
-		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockBitableCreateBitableTable(func(ctx context.Context, request *lark.CreateBitableTableReq, options ...lark.MethodOptionFunc) (*lark.CreateBitableTableResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -441,6 +429,30 @@ func Test_Bitable_Sample_Failed(t *testing.T) {
 			defer cli.Mock().UnMockBitableBatchDeleteBitableTable()
 
 			_, _, err := moduleCli.BatchDeleteBitableTable(ctx, &lark.BatchDeleteBitableTableReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			cli.Mock().MockBitableUpdateBitableTable(func(ctx context.Context, request *lark.UpdateBitableTableReq, options ...lark.MethodOptionFunc) (*lark.UpdateBitableTableResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockBitableUpdateBitableTable()
+
+			_, _, err := moduleCli.UpdateBitableTable(ctx, &lark.UpdateBitableTableReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			cli.Mock().MockBitableGetBitableTableList(func(ctx context.Context, request *lark.GetBitableTableListReq, options ...lark.MethodOptionFunc) (*lark.GetBitableTableListResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockBitableGetBitableTableList()
+
+			_, _, err := moduleCli.GetBitableTableList(ctx, &lark.GetBitableTableListReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "mock-failed")
 		})
@@ -811,15 +823,6 @@ func Test_Bitable_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
-			_, _, err := moduleCli.GetBitableTableList(ctx, &lark.GetBitableTableListReq{
-				AppToken: "x",
-			})
-			as.NotNil(err)
-			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
-		})
-
-		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.CreateBitableTable(ctx, &lark.CreateBitableTableReq{
 				AppToken: "x",
 			})
@@ -849,6 +852,25 @@ func Test_Bitable_Sample_Failed(t *testing.T) {
 		t.Run("", func(t *testing.T) {
 
 			_, _, err := moduleCli.BatchDeleteBitableTable(ctx, &lark.BatchDeleteBitableTableReq{
+				AppToken: "x",
+			})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.UpdateBitableTable(ctx, &lark.UpdateBitableTableReq{
+				AppToken: "x",
+				TableID:  "x",
+			})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.GetBitableTableList(ctx, &lark.GetBitableTableListReq{
 				AppToken: "x",
 			})
 			as.NotNil(err)
@@ -1215,15 +1237,6 @@ func Test_Bitable_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
-			_, _, err := moduleCli.GetBitableTableList(ctx, &lark.GetBitableTableListReq{
-				AppToken: "x",
-			})
-			as.NotNil(err)
-			as.Equal("fake raw request", err.Error())
-		})
-
-		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.CreateBitableTable(ctx, &lark.CreateBitableTableReq{
 				AppToken: "x",
 			})
@@ -1253,6 +1266,25 @@ func Test_Bitable_Sample_Failed(t *testing.T) {
 		t.Run("", func(t *testing.T) {
 
 			_, _, err := moduleCli.BatchDeleteBitableTable(ctx, &lark.BatchDeleteBitableTableReq{
+				AppToken: "x",
+			})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.UpdateBitableTable(ctx, &lark.UpdateBitableTableReq{
+				AppToken: "x",
+				TableID:  "x",
+			})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.GetBitableTableList(ctx, &lark.GetBitableTableListReq{
 				AppToken: "x",
 			})
 			as.NotNil(err)

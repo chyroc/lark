@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// UpdateChatTab 更新会话标签页
+// UpdateChatTab 更新会话标签页。
 //
 // 注意事项:
 // - 应用需要开启[机器人能力](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-enable-bot-ability)

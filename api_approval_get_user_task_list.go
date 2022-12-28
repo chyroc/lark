@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// GetApprovalUserTaskList 根据用户和任务分组查询任务列表
+// GetApprovalUserTaskList 根据用户和任务分组查询任务列表。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/task/query
 func (r *ApprovalService) GetApprovalUserTaskList(ctx context.Context, request *GetApprovalUserTaskListReq, options ...MethodOptionFunc) (*GetApprovalUserTaskListResp, *Response, error) {
