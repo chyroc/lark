@@ -64,9 +64,9 @@ type AddSheetDimensionRangeReq struct {
 
 // AddSheetDimensionRangeReqDimension ...
 type AddSheetDimensionRangeReqDimension struct {
-	SheetID        string  `json:"sheetId,omitempty"`        // sheetId
-	MajorDimension *string `json:"majorDimension,omitempty"` // 默认 ROWS, 可选 ROWS、COLUMNS
-	Length         int64   `json:"length,omitempty"`         // 要增加的行/列数, 0<length<5000
+	SheetID        string `json:"sheetId,omitempty"`        // sheetId
+	MajorDimension string `json:"majorDimension,omitempty"` // 可选 ROWS、COLUMNS
+	Length         int64  `json:"length,omitempty"`         // 要增加的行/列数, 0<length<5000
 }
 
 // AddSheetDimensionRangeResp ...

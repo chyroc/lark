@@ -80,7 +80,7 @@ type UpdateBitableViewReqPropertyFilterInfo struct {
 // UpdateBitableViewReqPropertyFilterInfoCondition ...
 type UpdateBitableViewReqPropertyFilterInfoCondition struct {
 	FieldID  string  `json:"field_id,omitempty"` // 用于过滤的字段唯一ID, 示例值: "单选"
-	Operator string  `json:"operator,omitempty"` // 过滤操作的类型, 示例值: "is", 可选值有: is: 等于, isNot: 不等于, contains: 包含, doesNotContain: 不包含, isEmpty: 为空, isNotEmpty: 不为空, isGreater: 大于, isGreater: 大于等于, isLess: 小于, isLessEqual: 小于等于, 默认值: `is`
+	Operator string  `json:"operator,omitempty"` // 过滤操作的类型, 示例值: "is", 可选值有: is: 等于, isNot: 不等于, contains: 包含, doesNotContain: 不包含, isEmpty: 为空, isNotEmpty: 不为空, isGreater: 大于, isGreaterEqual: 大于等于, isLess: 小于, isLessEqual: 小于等于, 默认值: `is`
 	Value    *string `json:"value,omitempty"`    // 筛选值, 示例值: "["optbdVHf4q", "optrpd3eIJ"]"
 }
 
@@ -113,7 +113,7 @@ type UpdateBitableViewRespViewPropertyFilterInfo struct {
 // UpdateBitableViewRespViewPropertyFilterInfoCondition ...
 type UpdateBitableViewRespViewPropertyFilterInfoCondition struct {
 	FieldID     string `json:"field_id,omitempty"`     // 用于过滤的字段唯一ID
-	Operator    string `json:"operator,omitempty"`     // 过滤操作的类型, 可选值有: is: 等于, isNot: 不等于, contains: 包含, doesNotContain: 不包含, isEmpty: 为空, isNotEmpty: 不为空, isGreater: 大于, isGreater: 大于等于, isLess: 小于, isLessEqual: 小于等于
+	Operator    string `json:"operator,omitempty"`     // 过滤操作的类型, 可选值有: is: 等于, isNot: 不等于, contains: 包含, doesNotContain: 不包含, isEmpty: 为空, isNotEmpty: 不为空, isGreater: 大于, isGreaterEqual: 大于等于, isLess: 小于, isLessEqual: 小于等于
 	Value       string `json:"value,omitempty"`        // 筛选值
 	ConditionID string `json:"condition_id,omitempty"` // 过滤条件的唯一ID
 	FieldType   string `json:"field_type,omitempty"`   // 用于过滤的字段类型

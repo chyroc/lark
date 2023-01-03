@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// BindContactUnitDepartment 通过该接口建立部门与单位的绑定关系。由于单位是旗舰版付费功能, 企业需开通相关版本, 否则会绑定失败, 不同版本请参考[飞书版本对比](https://www.feishu.cn/service)
+// BindContactUnitDepartment 通过该接口建立部门与单位的绑定关系。由于单位是旗舰版付费功能, 企业需开通相关版本, 否则会绑定失败, 不同版本请参考[飞书版本对比](https://www.feishu.cn/service)。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/unit/bind_department
 func (r *ContactService) BindContactUnitDepartment(ctx context.Context, request *BindContactUnitDepartmentReq, options ...MethodOptionFunc) (*BindContactUnitDepartmentResp, *Response, error) {

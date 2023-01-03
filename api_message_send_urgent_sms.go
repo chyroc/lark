@@ -31,7 +31,7 @@ import (
 // - 需要开启[机器人能力](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-enable-bot-ability)
 // - 只能加急机器人自己发送的消息
 // - 加急时机器人仍需要在加急消息所在的群组中
-// - 调用本接口需要用户已阅读加急的消息才可以继续加急（用户未读的加急上限为200条）
+// - 加急用户的未读加急总数不能超过200条
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/urgent_sms
 func (r *MessageService) SendUrgentSmsMessage(ctx context.Context, request *SendUrgentSmsMessageReq, options ...MethodOptionFunc) (*SendUrgentSmsMessageResp, *Response, error) {

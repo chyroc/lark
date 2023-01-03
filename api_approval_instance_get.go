@@ -82,6 +82,7 @@ type GetApprovalInstanceResp struct {
 	RevertedInstanceCode string                             `json:"reverted_instance_code,omitempty"` // 撤销的原实例 code, 仅在查询撤销实例时显示该字段
 	ApprovalCode         string                             `json:"approval_code,omitempty"`          // 审批定义 Code
 	Reverted             bool                               `json:"reverted,omitempty"`               // 单据是否被撤销
+	InstanceCode         string                             `json:"instance_code,omitempty"`          // 审批实例 Code
 }
 
 // GetApprovalInstanceRespComment ...

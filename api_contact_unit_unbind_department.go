@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// UnbindContactUnitDepartment 通过该接口解除部门与单位的绑定关系, 需更新单位的权限, 需对应部门的通讯录权限。由于单位是旗舰版付费功能, 企业需开通相关功能, 否则会解绑失败
+// UnbindContactUnitDepartment 通过该接口解除部门与单位的绑定关系, 需更新单位的权限, 需对应部门的通讯录权限。由于单位是旗舰版付费功能, 企业需开通相关功能, 否则会解绑失败。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/unit/unbind_department
 func (r *ContactService) UnbindContactUnitDepartment(ctx context.Context, request *UnbindContactUnitDepartmentReq, options ...MethodOptionFunc) (*UnbindContactUnitDepartmentResp, *Response, error) {

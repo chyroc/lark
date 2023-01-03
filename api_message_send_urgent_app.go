@@ -30,7 +30,7 @@ import (
 // - 不支持加急批量消息
 // - 只能加急机器人自己发送的消息
 // - 加急时机器人需要在加急消息所在的群中
-// - 调用本接口需要用户已阅读加急的消息才可以继续加急（用户未读的加急上限为200条）
+// - 加急用户的未读加急总数不能超过200条
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/urgent_app
 func (r *MessageService) SendUrgentAppMessage(ctx context.Context, request *SendUrgentAppMessageReq, options ...MethodOptionFunc) (*SendUrgentAppMessageResp, *Response, error) {

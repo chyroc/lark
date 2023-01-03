@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// CreateEmployeeTypeEnum 新增自定义人员类型
+// CreateEmployeeTypeEnum 新增自定义人员类型。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/employee_type_enum/create
 func (r *ContactService) CreateEmployeeTypeEnum(ctx context.Context, request *CreateEmployeeTypeEnumReq, options ...MethodOptionFunc) (*CreateEmployeeTypeEnumResp, *Response, error) {

@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// GetEmployeeTypeEnumList 该接口用于获取员工的人员类型
+// GetEmployeeTypeEnumList 该接口用于获取员工的人员类型。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/employee_type_enum/list
 func (r *ContactService) GetEmployeeTypeEnumList(ctx context.Context, request *GetEmployeeTypeEnumListReq, options ...MethodOptionFunc) (*GetEmployeeTypeEnumListResp, *Response, error) {

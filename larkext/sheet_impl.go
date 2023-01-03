@@ -237,8 +237,8 @@ func (r *Sheet) addDimension(ctx context.Context, dimension string, sheetID stri
 		SpreadSheetToken: r.token,
 		Dimension: &lark.AddSheetDimensionRangeReqDimension{
 			SheetID:        sheetID,
-			MajorDimension: &dimension,
-			Length:         int64(count),
+			MajorDimension: dimension,
+			Length:         count,
 		},
 	})
 	return err

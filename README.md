@@ -38,7 +38,7 @@ https://godoc.org/github.com/chyroc/lark
 
 ## Support APIs
 
-API Count: 689, Event Count: 99
+API Count: 693, Event Count: 99
 
 <details>
   <summary>
@@ -359,6 +359,22 @@ API Count: 689, Event Count: 99
   - GetContactUnitDepartmentList
   - GetContactScopeList
 - Drive
+  - GetDriveRootFolderMeta
+  - GetDriveFileList
+  - GetDriveFolderMeta
+  - CreateDriveFolder
+  - GetDriveFileMeta
+  - CreateDriveFile
+  - CopyDriveFile
+  - MoveDriveFile
+  - DeleteDriveFile
+  - GetDriveFileStatistics
+  - GetDriveFileTask
+  - UploadDriveMedia
+  - DownloadDriveMedia
+  - PrepareUploadDriveMedia
+  - PartUploadDriveMedia
+  - FinishUploadDriveMedia
   - GetDocxDocument
   - GetDocxDocumentRawContent
   - GetDocxBlockListOfDocument
@@ -370,32 +386,20 @@ API Count: 689, Event Count: 99
   - GetDocxBlockListOfBlock
   - SubscribeDriveFile
   - SearchDriveFile
-  - GetDriveFileMeta
-  - CreateDriveFile
-  - DeleteDriveFile
   - DeleteDriveSheetFile
-  - GetDriveFileList
-  - GetDriveRootFolderMeta
-  - GetDriveFolderMeta
   - GetDriveFolderChildren
-  - GetDriveFileStatistics
-  - GetDriveFileTask
   - CreateDriveExportTask
   - GetDriveExportTask
   - DownloadDriveExportTask
+  - CreateDriveFileVersion
+  - DeleteDriveFileVersion
+  - GetDriveFileVersion
+  - GetDriveFileVersionList
   - DownloadDriveFile
-  - CopyDriveFile
-  - CreateDriveFolder
-  - MoveDriveFile
   - UploadDriveFile
   - PrepareUploadDriveFile
   - PartUploadDriveFile
   - FinishUploadDriveFile
-  - DownloadDriveMedia
-  - UploadDriveMedia
-  - PrepareUploadDriveMedia
-  - PartUploadDriveMedia
-  - FinishUploadDriveMedia
   - CreateDriveMemberPermissionOld
   - TransferDriveMemberPermission
   - GetDriveMemberPermissionList

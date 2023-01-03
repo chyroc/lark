@@ -38,7 +38,7 @@ https://godoc.org/github.com/chyroc/lark
 
 ## 支持的接口
 
-API 总数: 689, 事件总数: 99
+API 总数: 693, 事件总数: 99
 
 <details>
   <summary>
@@ -359,6 +359,22 @@ API 总数: 689, 事件总数: 99
   - GetContactUnitDepartmentList
   - GetContactScopeList
 - Drive
+  - GetDriveRootFolderMeta
+  - GetDriveFileList
+  - GetDriveFolderMeta
+  - CreateDriveFolder
+  - GetDriveFileMeta
+  - CreateDriveFile
+  - CopyDriveFile
+  - MoveDriveFile
+  - DeleteDriveFile
+  - GetDriveFileStatistics
+  - GetDriveFileTask
+  - UploadDriveMedia
+  - DownloadDriveMedia
+  - PrepareUploadDriveMedia
+  - PartUploadDriveMedia
+  - FinishUploadDriveMedia
   - GetDocxDocument
   - GetDocxDocumentRawContent
   - GetDocxBlockListOfDocument
@@ -370,32 +386,20 @@ API 总数: 689, 事件总数: 99
   - GetDocxBlockListOfBlock
   - SubscribeDriveFile
   - SearchDriveFile
-  - GetDriveFileMeta
-  - CreateDriveFile
-  - DeleteDriveFile
   - DeleteDriveSheetFile
-  - GetDriveFileList
-  - GetDriveRootFolderMeta
-  - GetDriveFolderMeta
   - GetDriveFolderChildren
-  - GetDriveFileStatistics
-  - GetDriveFileTask
   - CreateDriveExportTask
   - GetDriveExportTask
   - DownloadDriveExportTask
+  - CreateDriveFileVersion
+  - DeleteDriveFileVersion
+  - GetDriveFileVersion
+  - GetDriveFileVersionList
   - DownloadDriveFile
-  - CopyDriveFile
-  - CreateDriveFolder
-  - MoveDriveFile
   - UploadDriveFile
   - PrepareUploadDriveFile
   - PartUploadDriveFile
   - FinishUploadDriveFile
-  - DownloadDriveMedia
-  - UploadDriveMedia
-  - PrepareUploadDriveMedia
-  - PartUploadDriveMedia
-  - FinishUploadDriveMedia
   - CreateDriveMemberPermissionOld
   - TransferDriveMemberPermission
   - GetDriveMemberPermissionList

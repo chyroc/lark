@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// GetContactUnit 该接口用于获取单位信息
+// GetContactUnit 该接口用于获取单位信息。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/unit/get
 func (r *ContactService) GetContactUnit(ctx context.Context, request *GetContactUnitReq, options ...MethodOptionFunc) (*GetContactUnitResp, *Response, error) {
