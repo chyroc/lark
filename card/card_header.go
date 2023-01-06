@@ -25,6 +25,15 @@ func Header(title string) *lark.MessageContentCardHeader {
 	}
 }
 
+func HeaderIcon(title, iconImgKey string) *lark.MessageContentCardHeader {
+	return &lark.MessageContentCardHeader{
+		Title: Text(title),
+		Icon: &lark.MessageContentCardElementImage{
+			ImgKey: iconImgKey,
+		},
+	}
+}
+
 func I18NHeader(title *lark.I18NText) *lark.MessageContentCardHeader {
 	return &lark.MessageContentCardHeader{
 		Title: I18nText(title),

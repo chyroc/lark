@@ -158,6 +158,21 @@ func (r *MessageContentCardHeader) SetTitle(val *MessageContentCardObjectText) *
 	return r
 }
 
+func (r *MessageContentCardHeader) SetIcon(imgKey string) *MessageContentCardHeader {
+	r.Icon = &MessageContentCardElementImage{
+		ImgKey: imgKey,
+	}
+	return r
+}
+
+func (r *MessageContentCardHeader) SetSubtitle(subtitle string) *MessageContentCardHeader {
+	r.Subtitle = &MessageContentCardObjectText{
+		Tag:     MessageContentCardTextTypePlainText,
+		Content: subtitle,
+	}
+	return r
+}
+
 // === MessageContentCardHeader ===
 
 // === MessageContentCardConfig ===
