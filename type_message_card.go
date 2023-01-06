@@ -89,6 +89,8 @@ func (r *MessageContentCard) SetI18NModules(val *MessageContentCardI18NModule) *
 type MessageContentCardHeader struct {
 	Template MessageContentCardHeaderTemplate `json:"template,omitempty"` // 控制标题背景颜色，取值参考注意事项
 	Title    *MessageContentCardObjectText    `json:"title,omitempty"`    // 卡片标题
+	Icon     *MessageContentCardElementImage  `json:"icon,omitempty"`     // 标题的前缀图标。 不填则不展示。卡片标题最多只可配1个前缀图标
+	Subtitle *MessageContentCardObjectText    `json:"subtitle,omitempty"` // 配置副标题的内容。支持配置国际化文案内容; 不允许只配置副标题内容，如只配置副标题，则内容展示为主标题样式; 副标题内容最多1行，超长文案末尾使用“…”省略
 }
 
 func (r *MessageContentCardHeader) SetBlue() *MessageContentCardHeader {
