@@ -226,14 +226,15 @@ type MessageContentCardElementTag string
 
 // MessageContentCardElementTagImage ...
 const (
-	MessageContentCardElementTagImage          MessageContentCardElementTag = "img"
-	MessageContentCardElementTagButton         MessageContentCardElementTag = "button"
-	MessageContentCardElementTagOverflow       MessageContentCardElementTag = "overflow"
-	MessageContentCardElementTagSelectStatic   MessageContentCardElementTag = "select_static"
-	MessageContentCardElementTagSelectPerson   MessageContentCardElementTag = "select_person"
-	MessageContentCardElementTagPickerDate     MessageContentCardElementTag = "date_picker"
-	MessageContentCardElementTagPickerTime     MessageContentCardElementTag = "picker_time"
-	MessageContentCardElementTagPickerDatetime MessageContentCardElementTag = "picker_datetime"
+	MessageContentCardElementTagImage            MessageContentCardElementTag = "img"
+	MessageContentCardElementTagButton           MessageContentCardElementTag = "button"
+	MessageContentCardElementTagOverflow         MessageContentCardElementTag = "overflow"
+	MessageContentCardElementTagSelectStatic     MessageContentCardElementTag = "select_static"
+	MessageContentCardElementTagSelectPerson     MessageContentCardElementTag = "select_person"
+	MessageContentCardElementTagPickerDate       MessageContentCardElementTag = "date_picker"
+	MessageContentCardElementTagPickerTime       MessageContentCardElementTag = "picker_time"
+	MessageContentCardElementTagPickerDatetime   MessageContentCardElementTag = "picker_datetime"
+	MessageContentCardElementTagImageCombination MessageContentCardElementTag = "img_combination"
 )
 
 // === MessageContentCardElementButton ===
@@ -908,6 +909,80 @@ func (r *MessageContentCardObjectText) SetLines(val int) *MessageContentCardObje
 }
 
 // === MessageContentCardObjectText ===
+
+// === MessageContentCardElementImageCombination ===
+
+// MessageContentCardElementImageCombination 图片模块
+//
+// 图片模块用于展示整张图片。建议需要着重展示的图片使用此模块，用户点击图片后可以查看大图。
+//
+// doc: https://open.feishu.cn/document/ukTMukTMukTM/uUjNwUjL1YDM14SN2ATN
+type MessageContentCardElementImageCombination struct {
+	CombinationMode MessageContentCardElementCombinationMode `json:"combination_mode"`
+	ImgList         []*MessageContentCardElementImage        `json:"img_list"`
+}
+
+// 多图混排的方式。枚举值包括：
+// - double：双图混排，最多排布2张图。
+// - triple：三图混排，最多排布3张图。
+// - bisect：等分双列图混排，每行2个等大的正方形图，最多可排布6张图。
+// - trisect：等分三列图混排，每行3个等大的正方形图，最多可排布9张图。
+//
+// 注意：
+// - 如果排布的图片超过最多排布个数上限，则按图片数据顺序展示前面的图，超出部分的图不展示
+// - 如果排布的图无法排满一行，则未排布的部分留白。请注意选择合适的混排方式
+type MessageContentCardElementCombinationMode string
+
+const (
+	MessageContentCardElementCombinationModeDouble  MessageContentCardElementCombinationMode = "double"  // 双图混排，最多排布2张图
+	MessageContentCardElementCombinationModeTriple  MessageContentCardElementCombinationMode = "triple"  // 三图混排，最多排布3张图
+	MessageContentCardElementCombinationModeBisect  MessageContentCardElementCombinationMode = "bisect"  // 等分双列图混排，每行2个等大的正方形图，最多可排布6张图
+	MessageContentCardElementCombinationModeTrisect MessageContentCardElementCombinationMode = "trisect" // 等分三列图混排，每行3个等大的正方形图，最多可排布9张图
+)
+
+// IsMessageContentCardElement ...
+func (r MessageContentCardElementImageCombination) IsMessageContentCardElement() {}
+
+// MarshalJSON ...
+func (r MessageContentCardElementImageCombination) MarshalJSON() ([]byte, error) {
+	return marshalJSONWithMap(r, map[string]interface{}{"tag": MessageContentCardElementTagImageCombination})
+}
+
+func (r *MessageContentCardElementImageCombination) SetCombinationMode(val MessageContentCardElementCombinationMode) *MessageContentCardElementImageCombination {
+	r.CombinationMode = val
+	return r
+}
+
+func (r *MessageContentCardElementImageCombination) SetDouble() *MessageContentCardElementImageCombination {
+	r.CombinationMode = MessageContentCardElementCombinationModeDouble
+	return r
+}
+
+func (r *MessageContentCardElementImageCombination) SetTriple() *MessageContentCardElementImageCombination {
+	r.CombinationMode = MessageContentCardElementCombinationModeTriple
+	return r
+}
+
+func (r *MessageContentCardElementImageCombination) SetBisect() *MessageContentCardElementImageCombination {
+	r.CombinationMode = MessageContentCardElementCombinationModeBisect
+	return r
+}
+
+func (r *MessageContentCardElementImageCombination) SetTrisect() *MessageContentCardElementImageCombination {
+	r.CombinationMode = MessageContentCardElementCombinationModeTrisect
+	return r
+}
+
+func (r *MessageContentCardElementImageCombination) SetImageList(list ...string) *MessageContentCardElementImageCombination {
+	res := []*MessageContentCardElementImage{}
+	for _, v := range list {
+		res = append(res, &MessageContentCardElementImage{ImgKey: v})
+	}
+	r.ImgList = res
+	return r
+}
+
+// === MessageContentCardElementImageCombination ===
 
 // === MessageContentCardObjectURL ===
 
