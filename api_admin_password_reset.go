@@ -23,7 +23,7 @@ import (
 
 // AdminResetPassword 重置用户的企业邮箱密码, 仅当用户的邮箱和企业邮箱(别名)一致时生效, 可用于处理飞书企业邮箱登录死锁的问题。
 //
-// 邮箱死锁: 当用户的登录凭证与飞书企业邮箱一致时, 目前飞书登录流程要求用户输入验证码, 由于飞书邮箱无单独的帐号体系, 则未登录时无法收取邮箱验证码, 即陷入死锁
+// 邮箱死锁: 当用户的登录凭证与飞书企业邮箱一致时, 目前飞书登录流程要求用户输入验证码, 由于飞书邮箱无单独的帐号体系, 则未登录时无法收取邮箱验证码, 即陷入死锁。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/admin-v1/password/reset
 func (r *AdminService) AdminResetPassword(ctx context.Context, request *AdminResetPasswordReq, options ...MethodOptionFunc) (*AdminResetPasswordResp, *Response, error) {

@@ -25,7 +25,7 @@ import (
 // UploadFaceVerifyImage 无源人脸比对流程, 开发者后台通过调用此接口将基准图片上传到飞书后台, 做检测时的对比使用。
 //
 // ::: note
-// 无源人脸比对接入需申请白名单, 接入前请联系飞书开放平台工作人员, 邮箱: openplatform@bytedance.com。
+// 无源人脸比对接入需申请白名单, 接入前请联系飞书开放平台工作人员, 邮箱: open-platform@bytedance.com。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/human_authentication-v1/face/upload-facial-reference-image
 func (r *HumanAuthService) UploadFaceVerifyImage(ctx context.Context, request *UploadFaceVerifyImageReq, options ...MethodOptionFunc) (*UploadFaceVerifyImageResp, *Response, error) {

@@ -63,21 +63,21 @@ type EventV2HelpdeskTicketMessageCreatedV1SenderID struct {
 
 // EventV2HelpdeskTicketMessageCreatedV1Ticket ...
 type EventV2HelpdeskTicketMessageCreatedV1Ticket struct {
-	TicketID                   string                                                        `json:"ticket_id,omitempty"`                     // 工单ID, [可以从工单列表里面取](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/ticket/list), [也可以订阅工单创建事件获取](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/ticket/events/created)
-	Comments                   *EventV2HelpdeskTicketMessageCreatedV1TicketComments          `json:"comments,omitempty"`                      // 备注
-	TicketType                 int64                                                         `json:"ticket_type,omitempty"`                   // 工单阶段: 1. 机器人 2. 人工
-	Status                     int64                                                         `json:"status,omitempty"`                        // 工单状态, 1: 已创建 2: 处理中 3: 排队中 4: 待定 5: 待用户响应 50: 被机器人关闭 51: 被客服关闭 52: 用户自己关闭
-	DissatisfactionReason      []string                                                      `json:"dissatisfaction_reason,omitempty"`        // 不满意原因
-	CustomizedFields           []*EventV2HelpdeskTicketMessageCreatedV1TicketCustomizedField `json:"customized_fields,omitempty"`             // 自定义字段列表, 没有值时不设置, 下拉菜单的value对应工单字段里面的children.display_name, [获取全部工单自定义字段](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/ticket_customized_field/list-ticket-customized-fields)
-	AgentServiceDuration       float64                                                       `json:"agent_service_duration,omitempty"`        // 客服服务时长, 客服最后一次回复时间距离客服进入时间间隔, 单位分钟
-	AgentFirstResponseDuration int64                                                         `json:"agent_first_response_duration,omitempty"` // 客服首次回复时间距离客服进入时间的间隔(秒)
-	BotServiceDuration         int64                                                         `json:"bot_service_duration,omitempty"`          // 机器人服务时间: 客服进入时间距离工单创建时间的间隔, 单位秒
-	AgentResolutionTime        int64                                                         `json:"agent_resolution_time,omitempty"`         // 客服解决时长, 关单时间距离客服进入时间的间隔, 单位秒
-	ActualProcessingTime       int64                                                         `json:"actual_processing_time,omitempty"`        // 工单实际处理时间: 从客服进入到关单, 单位秒
-	AgentEntryTime             int64                                                         `json:"agent_entry_time,omitempty"`              // 客服进入时间, 单位毫秒
-	AgentFirstResponseTime     int64                                                         `json:"agent_first_response_time,omitempty"`     // 客服首次回复时间, 单位毫秒
-	AgentLastResponseTime      int64                                                         `json:"agent_last_response_time,omitempty"`      // 客服最后回复时间, 单位毫秒
-	AgentOwner                 *EventV2HelpdeskTicketMessageCreatedV1TicketAgentOwner        `json:"agent_owner,omitempty"`                   // 主责客服
+	TicketID                   string                                                            `json:"ticket_id,omitempty"`                     // 工单ID, [可以从工单列表里面取](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/ticket/list), [也可以订阅工单创建事件获取](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/ticket/events/created)
+	Comments                   *EventV2HelpdeskTicketMessageCreatedV1TicketComments              `json:"comments,omitempty"`                      // 备注
+	TicketType                 int64                                                             `json:"ticket_type,omitempty"`                   // 工单阶段: 1. 机器人 2. 人工
+	Status                     int64                                                             `json:"status,omitempty"`                        // 工单状态, 1: 已创建 2: 处理中 3: 排队中 4: 待定 5: 待用户响应 50: 被机器人关闭 51: 被客服关闭 52: 用户自己关闭
+	DissatisfactionReason      *EventV2HelpdeskTicketMessageCreatedV1TicketDissatisfactionReason `json:"dissatisfaction_reason,omitempty"`        // 不满意原因
+	CustomizedFields           []*EventV2HelpdeskTicketMessageCreatedV1TicketCustomizedField     `json:"customized_fields,omitempty"`             // 自定义字段列表, 没有值时不设置, 下拉菜单的value对应工单字段里面的children.display_name, [获取全部工单自定义字段](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/ticket_customized_field/list-ticket-customized-fields)
+	AgentServiceDuration       float64                                                           `json:"agent_service_duration,omitempty"`        // 客服服务时长, 客服最后一次回复时间距离客服进入时间间隔, 单位分钟
+	AgentFirstResponseDuration int64                                                             `json:"agent_first_response_duration,omitempty"` // 客服首次回复时间距离客服进入时间的间隔(秒)
+	BotServiceDuration         int64                                                             `json:"bot_service_duration,omitempty"`          // 机器人服务时间: 客服进入时间距离工单创建时间的间隔, 单位秒
+	AgentResolutionTime        int64                                                             `json:"agent_resolution_time,omitempty"`         // 客服解决时长, 关单时间距离客服进入时间的间隔, 单位秒
+	ActualProcessingTime       int64                                                             `json:"actual_processing_time,omitempty"`        // 工单实际处理时间: 从客服进入到关单, 单位秒
+	AgentEntryTime             int64                                                             `json:"agent_entry_time,omitempty"`              // 客服进入时间, 单位毫秒
+	AgentFirstResponseTime     int64                                                             `json:"agent_first_response_time,omitempty"`     // 客服首次回复时间, 单位毫秒
+	AgentLastResponseTime      int64                                                             `json:"agent_last_response_time,omitempty"`      // 客服最后回复时间, 单位毫秒
+	AgentOwner                 *EventV2HelpdeskTicketMessageCreatedV1TicketAgentOwner            `json:"agent_owner,omitempty"`                   // 主责客服
 }
 
 // EventV2HelpdeskTicketMessageCreatedV1TicketAgentOwner ...
@@ -110,4 +110,11 @@ type EventV2HelpdeskTicketMessageCreatedV1TicketCustomizedField struct {
 	Position    int64  `json:"position,omitempty"`     // 展示位置
 	Required    bool   `json:"required,omitempty"`     // 是否必填
 	Editable    bool   `json:"editable,omitempty"`     // 是否可修改
+}
+
+// EventV2HelpdeskTicketMessageCreatedV1TicketDissatisfactionReason ...
+type EventV2HelpdeskTicketMessageCreatedV1TicketDissatisfactionReason struct {
+	ZhCn string `json:"zh_cn,omitempty"` // 中文描述
+	EnUs string `json:"en_us,omitempty"` // 英文描述
+	JaJp string `json:"ja_jp,omitempty"` // 日文描述
 }

@@ -103,7 +103,7 @@ func (r *Permission) FullAccessPerm() *Permission {
 	return r
 }
 
-// Create 添加权限
+// GetList ...
 func (r *Permission) GetList(ctx context.Context) ([]*lark.GetDriveMemberPermissionListRespItem, error) {
 	resp, _, err := r.client.Drive.GetDriveMemberPermissionList(ctx, &lark.GetDriveMemberPermissionListReq{
 		Type:  r.typ,
@@ -176,14 +176,14 @@ func (r *Permission) Update(ctx context.Context) (*lark.UpdateDriveMemberPermiss
 // Check 检查权限
 func (r *Permission) Check(ctx context.Context) (bool, error) {
 	resp, _, err := r.client.Drive.CheckDriveMemberPermission(ctx, &lark.CheckDriveMemberPermissionReq{
-		Type:  r.typ,
-		Token: r.token,
-		Perm:  r.perm,
+		Type:   r.typ,
+		Token:  r.token,
+		Action: r.perm,
 	}, r.ops...)
 	if err != nil {
 		return false, err
 	}
-	return resp.IsPermitted, nil
+	return resp.AuthResult, nil
 }
 
 // GetPublic 获取公共权限

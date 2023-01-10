@@ -23,7 +23,7 @@ import (
 
 // CheckDriveMemberPermission 该接口用于根据 filetoken 判断当前登录用户是否具有某权限。
 //
-// doc: https://open.feishu.cn/document/ukTMukTMukTM/uYzN3UjL2czN14iN3cTN
+// doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/permission-member/auth
 func (r *DriveService) CheckDriveMemberPermission(ctx context.Context, request *CheckDriveMemberPermissionReq, options ...MethodOptionFunc) (*CheckDriveMemberPermissionResp, *Response, error) {
 	if r.cli.mock.mockDriveCheckDriveMemberPermission != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Drive#CheckDriveMemberPermission mock enable")
@@ -33,8 +33,8 @@ func (r *DriveService) CheckDriveMemberPermission(ctx context.Context, request *
 	req := &RawRequestReq{
 		Scope:                 "Drive",
 		API:                   "CheckDriveMemberPermission",
-		Method:                "POST",
-		URL:                   r.cli.openBaseURL + "/open-apis/drive/permission/member/permitted",
+		Method:                "GET",
+		URL:                   r.cli.openBaseURL + "/open-apis/drive/v1/permissions/:token/members/auth",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
@@ -58,19 +58,19 @@ func (r *Mock) UnMockDriveCheckDriveMemberPermission() {
 
 // CheckDriveMemberPermissionReq ...
 type CheckDriveMemberPermissionReq struct {
-	Token string `json:"token,omitempty"` // 文件的 token, 获取方式见 [如何获取云文档资源相关 token](https://open.feishu.cn/document/ukTMukTMukTM/uczNzUjL3czM14yN3MTN#08bb5df6)
-	Type  string `json:"type,omitempty"`  // 文档类型, 可选 doc、docx、sheet、bitable、file
-	Perm  string `json:"perm,omitempty"`  // 权限, "view" or "edit" or "share"
+	Token  string `path:"token" json:"-"`   // 文件的 token, 示例值: "doccnBKgoMyY5OMbUG6FioTXuBe"
+	Type   string `query:"type" json:"-"`   // 文件类型, 需要与文件的 token 相匹配, 示例值: "doc", 可选值有: doc: 文档, sheet: 电子表格, file: 云空间文件, wiki: 知识库节点, bitable: 多维表格, docx: 新版文档, mindnote: 思维笔记, minutes: 妙记
+	Action string `query:"action" json:"-"` // 需要判断的权限, 示例值: "view", 可选值有: view: 阅读, edit: 编辑, share: 分享, comment: 评论, export: 导出, copy: 拷贝, print: 打印
 }
 
 // CheckDriveMemberPermissionResp ...
 type CheckDriveMemberPermissionResp struct {
-	IsPermitted bool `json:"is_permitted,omitempty"` // 是否具有指定权限
+	AuthResult bool `json:"auth_result,omitempty"` // 是否有权限
 }
 
 // checkDriveMemberPermissionResp ...
 type checkDriveMemberPermissionResp struct {
-	Code int64                           `json:"code,omitempty"`
-	Msg  string                          `json:"msg,omitempty"`
+	Code int64                           `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg  string                          `json:"msg,omitempty"`  // 错误描述
 	Data *CheckDriveMemberPermissionResp `json:"data,omitempty"`
 }

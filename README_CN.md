@@ -38,7 +38,7 @@ https://godoc.org/github.com/chyroc/lark
 
 ## 支持的接口
 
-API 总数: 693, 事件总数: 99
+API 总数: 703, 事件总数: 99
 
 <details>
   <summary>
@@ -401,14 +401,13 @@ API 总数: 693, 事件总数: 99
   - PartUploadDriveFile
   - FinishUploadDriveFile
   - CreateDriveMemberPermissionOld
-  - TransferDriveMemberPermission
-  - GetDriveMemberPermissionList
-  - CreateDriveMemberPermission
-  - DeleteDriveMemberPermission
-  - DeleteDriveMemberPermissionOld
-  - UpdateDriveMemberPermissionOld
-  - UpdateDriveMemberPermission
+  - TransferDriveOwnerPermission
   - CheckDriveMemberPermission
+  - GetDriveMemberPermissionList
+  - GetDriveMemberPermissionListOld
+  - CreateDriveMemberPermission
+  - UpdateDriveMemberPermission
+  - DeleteDriveMemberPermission
   - GetDrivePublicPermissionOld
   - GetDrivePublicPermission
   - UpdateDrivePublicPermission
@@ -501,6 +500,10 @@ API 总数: 693, 事件总数: 99
   - GetWikiNode
   - MoveDocsToWiki
   - GetWikiTask
+  - DeleteDriveMemberPermissionOld
+  - UpdateDriveMemberPermissionOld
+  - TransferDriveMemberPermission
+  - CheckDriveMemberPermissionOld
 - EHR
   - GetEHREmployeeList
   - DownloadEHRAttachments
@@ -665,6 +668,7 @@ API 总数: 693, 事件总数: 99
 - Hire
   - GetHireJobConfig
   - CreateHireJob
+  - UpdateHireJob
   - UpdateHireJobConfig
   - GetHireJob
   - GetHireJobManager
@@ -706,13 +710,17 @@ API 总数: 693, 事件总数: 99
   - UpdateMailGroup
   - DeleteMailGroup
   - CreateMailGroupMember
+  - DeleteMailGroupMember
   - GetMailGroupMember
   - GetMailGroupMemberList
-  - DeleteMailGroupMember
+  - BatchCreateMailGroupMember
+  - BatchDeleteMailGroupMember
   - CreateMailGroupPermissionMember
+  - DeleteMailGroupPermissionMember
   - GetMailGroupPermissionMember
   - GetMailGroupPermissionMemberList
-  - DeleteMailGroupPermissionMember
+  - BatchCreateMailGroupPermissionMember
+  - BatchDeleteMailGroupPermissionMember
   - CreateMailGroupAlias
   - GetMailGroupAliasList
   - DeleteMailGroupAlias
@@ -725,6 +733,8 @@ API 总数: 693, 事件总数: 99
   - CreatePublicMailboxMember
   - GetPublicMailboxMember
   - GetPublicMailboxMemberList
+  - BatchCreatePublicMailboxMember
+  - BatchDeletePublicMailboxMember
   - DeletePublicMailboxMember
   - ClearPublicMailboxMember
   - CreateMailPublicMailboxAlias

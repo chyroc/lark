@@ -32,6 +32,7 @@ type MessageSendAPI struct {
 	msgAPI        *MessageService
 	receiveID     string
 	receiveIDType IDType
+	uuid          *string
 }
 
 // Send ...
@@ -70,6 +71,12 @@ func (r *MessageSendAPI) ToChatID(id string) *MessageSendAPI {
 // ToEmail ...
 func (r *MessageSendAPI) ToEmail(id string) *MessageSendAPI {
 	return r.to(id, IDTypeEmail)
+}
+
+// UUID ...
+func (r *MessageSendAPI) UUID(uuid string) *MessageSendAPI {
+	r.uuid = &uuid
+	return r
 }
 
 func (r *MessageSendAPI) to(receiveID string, receiveIDType IDType) *MessageSendAPI {
@@ -159,6 +166,7 @@ type MessageReplyAPI struct {
 	cli       *Lark
 	msgAPI    *MessageService
 	messageID string
+	uuid      *string
 }
 
 // Reply ...
@@ -168,6 +176,12 @@ func (r *MessageService) Reply(messageID string) *MessageReplyAPI {
 		msgAPI:    r,
 		messageID: messageID,
 	}
+}
+
+// UUID ...
+func (r *MessageReplyAPI) UUID(uuid string) *MessageReplyAPI {
+	r.uuid = &uuid
+	return r
 }
 
 // SendText ...
@@ -232,6 +246,7 @@ func (r *MessageSendAPI) send(ctx context.Context, msgType MsgType, format strin
 		ReceiveID:     r.receiveID,
 		Content:       formatString(format, args...),
 		MsgType:       msgType,
+		UUID:          r.uuid,
 	})
 }
 
@@ -240,6 +255,7 @@ func (r *MessageReplyAPI) reply(ctx context.Context, msgType MsgType, format str
 		MessageID: r.messageID,
 		Content:   formatString(format, args...),
 		MsgType:   msgType,
+		UUID:      r.uuid,
 	})
 }
 

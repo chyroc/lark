@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// GetAdminBadge 可以通过该接口查询勋章的详情
+// GetAdminBadge 可以通过该接口查询勋章的详情。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/admin-v1/badge/get
 func (r *AdminService) GetAdminBadge(ctx context.Context, request *GetAdminBadgeReq, options ...MethodOptionFunc) (*GetAdminBadgeResp, *Response, error) {

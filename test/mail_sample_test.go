@@ -147,6 +147,18 @@ func Test_Mail_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
+			cli.Mock().MockMailDeleteMailGroupMember(func(ctx context.Context, request *lark.DeleteMailGroupMemberReq, options ...lark.MethodOptionFunc) (*lark.DeleteMailGroupMemberResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockMailDeleteMailGroupMember()
+
+			_, _, err := moduleCli.DeleteMailGroupMember(ctx, &lark.DeleteMailGroupMemberReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
 			cli.Mock().MockMailGetMailGroupMember(func(ctx context.Context, request *lark.GetMailGroupMemberReq, options ...lark.MethodOptionFunc) (*lark.GetMailGroupMemberResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -171,12 +183,24 @@ func Test_Mail_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
-			cli.Mock().MockMailDeleteMailGroupMember(func(ctx context.Context, request *lark.DeleteMailGroupMemberReq, options ...lark.MethodOptionFunc) (*lark.DeleteMailGroupMemberResp, *lark.Response, error) {
+			cli.Mock().MockMailBatchCreateMailGroupMember(func(ctx context.Context, request *lark.BatchCreateMailGroupMemberReq, options ...lark.MethodOptionFunc) (*lark.BatchCreateMailGroupMemberResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
-			defer cli.Mock().UnMockMailDeleteMailGroupMember()
+			defer cli.Mock().UnMockMailBatchCreateMailGroupMember()
 
-			_, _, err := moduleCli.DeleteMailGroupMember(ctx, &lark.DeleteMailGroupMemberReq{})
+			_, _, err := moduleCli.BatchCreateMailGroupMember(ctx, &lark.BatchCreateMailGroupMemberReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			cli.Mock().MockMailBatchDeleteMailGroupMember(func(ctx context.Context, request *lark.BatchDeleteMailGroupMemberReq, options ...lark.MethodOptionFunc) (*lark.BatchDeleteMailGroupMemberResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockMailBatchDeleteMailGroupMember()
+
+			_, _, err := moduleCli.BatchDeleteMailGroupMember(ctx, &lark.BatchDeleteMailGroupMemberReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "mock-failed")
 		})
@@ -189,6 +213,18 @@ func Test_Mail_Sample_Failed(t *testing.T) {
 			defer cli.Mock().UnMockMailCreateMailGroupPermissionMember()
 
 			_, _, err := moduleCli.CreateMailGroupPermissionMember(ctx, &lark.CreateMailGroupPermissionMemberReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			cli.Mock().MockMailDeleteMailGroupPermissionMember(func(ctx context.Context, request *lark.DeleteMailGroupPermissionMemberReq, options ...lark.MethodOptionFunc) (*lark.DeleteMailGroupPermissionMemberResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockMailDeleteMailGroupPermissionMember()
+
+			_, _, err := moduleCli.DeleteMailGroupPermissionMember(ctx, &lark.DeleteMailGroupPermissionMemberReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "mock-failed")
 		})
@@ -219,12 +255,24 @@ func Test_Mail_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
-			cli.Mock().MockMailDeleteMailGroupPermissionMember(func(ctx context.Context, request *lark.DeleteMailGroupPermissionMemberReq, options ...lark.MethodOptionFunc) (*lark.DeleteMailGroupPermissionMemberResp, *lark.Response, error) {
+			cli.Mock().MockMailBatchCreateMailGroupPermissionMember(func(ctx context.Context, request *lark.BatchCreateMailGroupPermissionMemberReq, options ...lark.MethodOptionFunc) (*lark.BatchCreateMailGroupPermissionMemberResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
-			defer cli.Mock().UnMockMailDeleteMailGroupPermissionMember()
+			defer cli.Mock().UnMockMailBatchCreateMailGroupPermissionMember()
 
-			_, _, err := moduleCli.DeleteMailGroupPermissionMember(ctx, &lark.DeleteMailGroupPermissionMemberReq{})
+			_, _, err := moduleCli.BatchCreateMailGroupPermissionMember(ctx, &lark.BatchCreateMailGroupPermissionMemberReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			cli.Mock().MockMailBatchDeleteMailGroupPermissionMember(func(ctx context.Context, request *lark.BatchDeleteMailGroupPermissionMemberReq, options ...lark.MethodOptionFunc) (*lark.BatchDeleteMailGroupPermissionMemberResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockMailBatchDeleteMailGroupPermissionMember()
+
+			_, _, err := moduleCli.BatchDeleteMailGroupPermissionMember(ctx, &lark.BatchDeleteMailGroupPermissionMemberReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "mock-failed")
 		})
@@ -369,6 +417,30 @@ func Test_Mail_Sample_Failed(t *testing.T) {
 			defer cli.Mock().UnMockMailGetPublicMailboxMemberList()
 
 			_, _, err := moduleCli.GetPublicMailboxMemberList(ctx, &lark.GetPublicMailboxMemberListReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			cli.Mock().MockMailBatchCreatePublicMailboxMember(func(ctx context.Context, request *lark.BatchCreatePublicMailboxMemberReq, options ...lark.MethodOptionFunc) (*lark.BatchCreatePublicMailboxMemberResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockMailBatchCreatePublicMailboxMember()
+
+			_, _, err := moduleCli.BatchCreatePublicMailboxMember(ctx, &lark.BatchCreatePublicMailboxMemberReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			cli.Mock().MockMailBatchDeletePublicMailboxMember(func(ctx context.Context, request *lark.BatchDeletePublicMailboxMemberReq, options ...lark.MethodOptionFunc) (*lark.BatchDeletePublicMailboxMemberResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockMailBatchDeletePublicMailboxMember()
+
+			_, _, err := moduleCli.BatchDeletePublicMailboxMember(ctx, &lark.BatchDeletePublicMailboxMemberReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "mock-failed")
 		})
@@ -555,6 +627,16 @@ func Test_Mail_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
+			_, _, err := moduleCli.DeleteMailGroupMember(ctx, &lark.DeleteMailGroupMemberReq{
+				MailGroupID: "x",
+				MemberID:    "x",
+			})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+
 			_, _, err := moduleCli.GetMailGroupMember(ctx, &lark.GetMailGroupMemberReq{
 				MailGroupID: "x",
 				MemberID:    "x",
@@ -574,9 +656,17 @@ func Test_Mail_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
-			_, _, err := moduleCli.DeleteMailGroupMember(ctx, &lark.DeleteMailGroupMemberReq{
+			_, _, err := moduleCli.BatchCreateMailGroupMember(ctx, &lark.BatchCreateMailGroupMemberReq{
 				MailGroupID: "x",
-				MemberID:    "x",
+			})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.BatchDeleteMailGroupMember(ctx, &lark.BatchDeleteMailGroupMemberReq{
+				MailGroupID: "x",
 			})
 			as.NotNil(err)
 			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
@@ -586,6 +676,16 @@ func Test_Mail_Sample_Failed(t *testing.T) {
 
 			_, _, err := moduleCli.CreateMailGroupPermissionMember(ctx, &lark.CreateMailGroupPermissionMemberReq{
 				MailGroupID: "x",
+			})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.DeleteMailGroupPermissionMember(ctx, &lark.DeleteMailGroupPermissionMemberReq{
+				MailGroupID:        "x",
+				PermissionMemberID: "x",
 			})
 			as.NotNil(err)
 			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
@@ -612,9 +712,17 @@ func Test_Mail_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
-			_, _, err := moduleCli.DeleteMailGroupPermissionMember(ctx, &lark.DeleteMailGroupPermissionMemberReq{
-				MailGroupID:        "x",
-				PermissionMemberID: "x",
+			_, _, err := moduleCli.BatchCreateMailGroupPermissionMember(ctx, &lark.BatchCreateMailGroupPermissionMemberReq{
+				MailGroupID: "x",
+			})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.BatchDeleteMailGroupPermissionMember(ctx, &lark.BatchDeleteMailGroupPermissionMemberReq{
+				MailGroupID: "x",
 			})
 			as.NotNil(err)
 			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
@@ -720,6 +828,24 @@ func Test_Mail_Sample_Failed(t *testing.T) {
 		t.Run("", func(t *testing.T) {
 
 			_, _, err := moduleCli.GetPublicMailboxMemberList(ctx, &lark.GetPublicMailboxMemberListReq{
+				PublicMailboxID: "x",
+			})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.BatchCreatePublicMailboxMember(ctx, &lark.BatchCreatePublicMailboxMemberReq{
+				PublicMailboxID: "x",
+			})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.BatchDeletePublicMailboxMember(ctx, &lark.BatchDeletePublicMailboxMemberReq{
 				PublicMailboxID: "x",
 			})
 			as.NotNil(err)
@@ -887,6 +1013,16 @@ func Test_Mail_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
+			_, _, err := moduleCli.DeleteMailGroupMember(ctx, &lark.DeleteMailGroupMemberReq{
+				MailGroupID: "x",
+				MemberID:    "x",
+			})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+
 			_, _, err := moduleCli.GetMailGroupMember(ctx, &lark.GetMailGroupMemberReq{
 				MailGroupID: "x",
 				MemberID:    "x",
@@ -906,9 +1042,17 @@ func Test_Mail_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
-			_, _, err := moduleCli.DeleteMailGroupMember(ctx, &lark.DeleteMailGroupMemberReq{
+			_, _, err := moduleCli.BatchCreateMailGroupMember(ctx, &lark.BatchCreateMailGroupMemberReq{
 				MailGroupID: "x",
-				MemberID:    "x",
+			})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.BatchDeleteMailGroupMember(ctx, &lark.BatchDeleteMailGroupMemberReq{
+				MailGroupID: "x",
 			})
 			as.NotNil(err)
 			as.Equal("fake raw request", err.Error())
@@ -918,6 +1062,16 @@ func Test_Mail_Sample_Failed(t *testing.T) {
 
 			_, _, err := moduleCli.CreateMailGroupPermissionMember(ctx, &lark.CreateMailGroupPermissionMemberReq{
 				MailGroupID: "x",
+			})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.DeleteMailGroupPermissionMember(ctx, &lark.DeleteMailGroupPermissionMemberReq{
+				MailGroupID:        "x",
+				PermissionMemberID: "x",
 			})
 			as.NotNil(err)
 			as.Equal("fake raw request", err.Error())
@@ -944,9 +1098,17 @@ func Test_Mail_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
-			_, _, err := moduleCli.DeleteMailGroupPermissionMember(ctx, &lark.DeleteMailGroupPermissionMemberReq{
-				MailGroupID:        "x",
-				PermissionMemberID: "x",
+			_, _, err := moduleCli.BatchCreateMailGroupPermissionMember(ctx, &lark.BatchCreateMailGroupPermissionMemberReq{
+				MailGroupID: "x",
+			})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.BatchDeleteMailGroupPermissionMember(ctx, &lark.BatchDeleteMailGroupPermissionMemberReq{
+				MailGroupID: "x",
 			})
 			as.NotNil(err)
 			as.Equal("fake raw request", err.Error())
@@ -1052,6 +1214,24 @@ func Test_Mail_Sample_Failed(t *testing.T) {
 		t.Run("", func(t *testing.T) {
 
 			_, _, err := moduleCli.GetPublicMailboxMemberList(ctx, &lark.GetPublicMailboxMemberListReq{
+				PublicMailboxID: "x",
+			})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.BatchCreatePublicMailboxMember(ctx, &lark.BatchCreatePublicMailboxMemberReq{
+				PublicMailboxID: "x",
+			})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.BatchDeletePublicMailboxMember(ctx, &lark.BatchDeletePublicMailboxMemberReq{
 				PublicMailboxID: "x",
 			})
 			as.NotNil(err)

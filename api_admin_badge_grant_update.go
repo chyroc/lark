@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// UpdateAdminBadgeGrant 通过该接口可以修改特定授予名单的相关信息
+// UpdateAdminBadgeGrant 通过该接口可以修改特定授予名单的相关信息。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/admin-v1/badge-grant/update
 func (r *AdminService) UpdateAdminBadgeGrant(ctx context.Context, request *UpdateAdminBadgeGrantReq, options ...MethodOptionFunc) (*UpdateAdminBadgeGrantResp, *Response, error) {

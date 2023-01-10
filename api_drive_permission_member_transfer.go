@@ -24,6 +24,8 @@ import (
 // TransferDriveMemberPermission 该接口用于根据文档信息和用户信息转移文档的所有者。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uQzNzUjL0czM14CN3MTN
+//
+// Deprecated
 func (r *DriveService) TransferDriveMemberPermission(ctx context.Context, request *TransferDriveMemberPermissionReq, options ...MethodOptionFunc) (*TransferDriveMemberPermissionResp, *Response, error) {
 	if r.cli.mock.mockDriveTransferDriveMemberPermission != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Drive#TransferDriveMemberPermission mock enable")

@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// UpdateAdminBadge 通过该接口可以修改勋章的信息
+// UpdateAdminBadge 通过该接口可以修改勋章的信息。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/admin-v1/badge/update
 func (r *AdminService) UpdateAdminBadge(ctx context.Context, request *UpdateAdminBadgeReq, options ...MethodOptionFunc) (*UpdateAdminBadgeResp, *Response, error) {

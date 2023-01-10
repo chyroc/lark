@@ -75,6 +75,18 @@ func Test_Hire_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
+			cli.Mock().MockHireUpdateHireJob(func(ctx context.Context, request *lark.UpdateHireJobReq, options ...lark.MethodOptionFunc) (*lark.UpdateHireJobResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockHireUpdateHireJob()
+
+			_, _, err := moduleCli.UpdateHireJob(ctx, &lark.UpdateHireJobReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
 			cli.Mock().MockHireUpdateHireJobConfig(func(ctx context.Context, request *lark.UpdateHireJobConfigReq, options ...lark.MethodOptionFunc) (*lark.UpdateHireJobConfigResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -397,6 +409,15 @@ func Test_Hire_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
+			_, _, err := moduleCli.UpdateHireJob(ctx, &lark.UpdateHireJobReq{
+				JobID: "x",
+			})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+
 			_, _, err := moduleCli.UpdateHireJobConfig(ctx, &lark.UpdateHireJobConfigReq{
 				JobID: "x",
 			})
@@ -407,7 +428,7 @@ func Test_Hire_Sample_Failed(t *testing.T) {
 		t.Run("", func(t *testing.T) {
 
 			_, _, err := moduleCli.GetHireJob(ctx, &lark.GetHireJobReq{
-				JobID: 1,
+				JobID: "x",
 			})
 			as.NotNil(err)
 			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
@@ -632,6 +653,15 @@ func Test_Hire_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
+			_, _, err := moduleCli.UpdateHireJob(ctx, &lark.UpdateHireJobReq{
+				JobID: "x",
+			})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+
 			_, _, err := moduleCli.UpdateHireJobConfig(ctx, &lark.UpdateHireJobConfigReq{
 				JobID: "x",
 			})
@@ -642,7 +672,7 @@ func Test_Hire_Sample_Failed(t *testing.T) {
 		t.Run("", func(t *testing.T) {
 
 			_, _, err := moduleCli.GetHireJob(ctx, &lark.GetHireJobReq{
-				JobID: 1,
+				JobID: "x",
 			})
 			as.NotNil(err)
 			as.Equal("fake raw request", err.Error())

@@ -23,7 +23,7 @@ import (
 
 // EventV2CalendarCalendarChangedV4 当订阅用户的日历列表有日历变动时触发此事件。{使用示例}(url=/api/tools/api_explore/api_explore_config?project=calendar&version=v4&resource=calendar&event=changed)
 //
-// 应用首先需要调用上述接口建立订阅关系。应用收到该事件后, 使用事件的 user_list 字段中的用户对应的 user_access_token 调用[获取日历列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar/list)接口拉取增量的变更数据
+// 应用首先需要调用上述接口建立订阅关系。应用收到该事件后, 使用事件的 user_id_list 字段中的用户对应的 user_access_token 调用[获取日历列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar/list)接口拉取增量的变更数据
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar/events/changed
 func (r *EventCallbackService) HandlerEventV2CalendarCalendarChangedV4(f EventV2CalendarCalendarChangedV4Handler) {

@@ -57,8 +57,9 @@ func (r *Mock) UnMockHireGetHireJob() {
 
 // GetHireJobReq ...
 type GetHireJobReq struct {
-	JobID      int64   `path:"job_id" json:"-"`        // 职位 ID, 请求Path中, 示例值: 6001
-	UserIDType *IDType `query:"user_id_type" json:"-"` // 用户 ID 类型, 示例值: "open_id", 可选值有: open_id: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid), union_id: 标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id), user_id: 标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id), people_admin_id: 以people_admin_id来识别用户, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
+	JobID            string            `path:"job_id" json:"-"`              // 职位 ID, 请求Path中, 示例值: "6001"
+	UserIDType       *IDType           `query:"user_id_type" json:"-"`       // 用户 ID 类型, 示例值: "open_id", 可选值有: open_id: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid), union_id: 标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id), user_id: 标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id), people_admin_id: 以people_admin_id来识别用户, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
+	DepartmentIDType *DepartmentIDType `query:"department_id_type" json:"-"` // 部门ID类型, 示例值: "open_department_id", 可选值有: open_department_id: 开放平台部门ID, department_id: 内部部门ID, 默认值: `open_department_id`
 }
 
 // GetHireJobResp ...
@@ -83,8 +84,8 @@ type GetHireJobRespJob struct {
 	JobType            *GetHireJobRespJobJobType          `json:"job_type,omitempty"`             // 职位类别
 	ActiveStatus       int64                              `json:"active_status,omitempty"`        // 启用状态, 可选值有: 1: 启用, 2: 未启用
 	CreateUserID       string                             `json:"create_user_id,omitempty"`       // 创建人ID, 若为空则为系统或其他对接系统创建
-	CreateTime         int64                              `json:"create_time,omitempty"`          // 创建时间
-	UpdateTime         int64                              `json:"update_time,omitempty"`          // 更新时间
+	CreateTime         int64                              `json:"create_time,omitempty"`          // 创建时间 请使用create_timestamp
+	UpdateTime         int64                              `json:"update_time,omitempty"`          // 更新时间 请使用update_timestamp
 	ProcessType        int64                              `json:"process_type,omitempty"`         // 招聘流程类型, 可选值有: 1: 社招流程, 2: 校招流程
 	ProcessID          string                             `json:"process_id,omitempty"`           // 招聘流程 ID
 	ProcessName        string                             `json:"process_name,omitempty"`         // 招聘流程中文名称
@@ -94,11 +95,15 @@ type GetHireJobRespJob struct {
 	Subject            *GetHireJobRespJobSubject          `json:"subject,omitempty"`              // 职位项目
 	HeadCount          int64                              `json:"head_count,omitempty"`           // 招聘数量
 	Experience         int64                              `json:"experience,omitempty"`           // 工作年限, 可选值有: 1: 不限, 2: 应届毕业生, 3: 1年以下, 4: 1-3年, 5: 3-5年, 6: 5-7年, 7: 7-10年, 8: 10年以上
-	ExpiryTime         int64                              `json:"expiry_time,omitempty"`          // 到期日期
+	ExpiryTime         int64                              `json:"expiry_time,omitempty"`          // 到期日期 请使用expiry_timestamp
 	MinSalary          int64                              `json:"min_salary,omitempty"`           // 最低薪资, 单位:k
 	MaxSalary          int64                              `json:"max_salary,omitempty"`           // 最高薪资, 单位:k
-	RequiredDegree     int64                              `json:"required_degree,omitempty"`      // 学历要求, 可选值有: 1: 小学及以上, 2: 初中及以上, 3: 专职及以上, 4: 高中及以上, 5: 大专及以上, 6: 本科及以上, 7: 硕士及以上, 8: 博士及以上, 20: 不限
+	RequiredDegree     int64                              `json:"required_degree,omitempty"`      // 学历要求, 可选值有: 1: JuniorMiddleSchoolEducation, 2: 初中及以上, 3: 专职及以上, 4: 高中及以上, 5: 大专及以上, 6: 本科及以上, 7: 硕士及以上, 8: 博士及以上, 20: 不限
 	CityList           []*GetHireJobRespJobCity           `json:"city_list,omitempty"`            // 工作地点列表
+	JobAttribute       int64                              `json:"job_attribute,omitempty"`        // 职位属性, 1是实体职位, 2是虚拟职位, 可选值有: 1: 实体职位, 2: 虚拟职位
+	CreateTimestamp    string                             `json:"create_timestamp,omitempty"`     // 创建时间戳
+	UpdateTimestamp    string                             `json:"update_timestamp,omitempty"`     // 更新时间戳
+	ExpiryTimestamp    string                             `json:"expiry_timestamp,omitempty"`     // 到期时间戳
 }
 
 // GetHireJobRespJobCity ...
