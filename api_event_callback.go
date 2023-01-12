@@ -228,6 +228,10 @@ func (r *EventCallbackService) handlerAllEvent(ctx context.Context, writer io.Wr
 
 func (r *EventCallbackService) handlerCardEvent(ctx context.Context, req *EventCardCallback) (handled bool, s string, err error) {
 	if r.cli.eventHandler.eventCardHandler != nil {
+		if r.cli.noBlocking {
+			go r.cli.eventHandler.eventCardHandler(ctx, r.cli, req)
+			return true, "", nil
+		}
 		s, err := r.cli.eventHandler.eventCardHandler(ctx, r.cli, req)
 		return true, s, err
 	}
