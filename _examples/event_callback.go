@@ -31,6 +31,14 @@ func ExampleEventCallback() {
 		lark.WithEventCallbackVerify("<ENCRYPT_KEY>", "<VERIFICATION_TOKEN>"),
 	)
 
+	// 如果你希望你的回调是非阻塞的
+	// if you want your callback is non-blocking
+	cli = lark.New(
+		lark.WithAppCredential("<APP_ID>", "<APP_SECRET>"),
+		lark.WithEventCallbackVerify("<ENCRYPT_KEY>", "<VERIFICATION_TOKEN>"),
+		lark.WithNonBlockingCallback(true),
+	)
+
 	// handle chat create callback
 	cli.EventCallback.HandlerEventV1P2PChatCreate(func(ctx context.Context, cli *lark.Lark, schema string, header *lark.EventHeaderV1, event *lark.EventV1P2PChatCreate) (string, error) {
 		_, _, err := cli.Message.Send().ToChatID(event.ChatID).SendText(ctx, "hi")
