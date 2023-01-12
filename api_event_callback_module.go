@@ -1076,497 +1076,893 @@ func (r *EventCallbackService) handlerEvent(ctx context.Context, req *eventReq) 
 	switch {
 	case req.eventV1AddBot != nil:
 		if r.cli.eventHandler.eventV1AddBotHandler != nil {
-			s, err = r.cli.eventHandler.eventV1AddBotHandler(ctx, r.cli, req.Schema, req.headerV1(EventTypeV1AddBot), req.eventV1AddBot)
+			if r.cli.noBlocking {
+				go r.cli.eventHandler.eventV1AddBotHandler(ctx, r.cli, req.Schema, req.headerV1(EventTypeV1AddBot), req.eventV1AddBot)
+			} else {
+				s, err = r.cli.eventHandler.eventV1AddBotHandler(ctx, r.cli, req.Schema, req.headerV1(EventTypeV1AddBot), req.eventV1AddBot)
+			}
 		}
 		return true, s, err
 	case req.eventV1AddUserToChat != nil:
 		if r.cli.eventHandler.eventV1AddUserToChatHandler != nil {
-			s, err = r.cli.eventHandler.eventV1AddUserToChatHandler(ctx, r.cli, req.Schema, req.headerV1(EventTypeV1AddUserToChat), req.eventV1AddUserToChat)
+			if r.cli.noBlocking {
+				go r.cli.eventHandler.eventV1AddUserToChatHandler(ctx, r.cli, req.Schema, req.headerV1(EventTypeV1AddUserToChat), req.eventV1AddUserToChat)
+			} else {
+				s, err = r.cli.eventHandler.eventV1AddUserToChatHandler(ctx, r.cli, req.Schema, req.headerV1(EventTypeV1AddUserToChat), req.eventV1AddUserToChat)
+			}
 		}
 		return true, s, err
 	case req.eventV1AppOpen != nil:
 		if r.cli.eventHandler.eventV1AppOpenHandler != nil {
-			s, err = r.cli.eventHandler.eventV1AppOpenHandler(ctx, r.cli, req.Schema, req.headerV1(EventTypeV1AppOpen), req.eventV1AppOpen)
+			if r.cli.noBlocking {
+				go r.cli.eventHandler.eventV1AppOpenHandler(ctx, r.cli, req.Schema, req.headerV1(EventTypeV1AppOpen), req.eventV1AppOpen)
+			} else {
+				s, err = r.cli.eventHandler.eventV1AppOpenHandler(ctx, r.cli, req.Schema, req.headerV1(EventTypeV1AppOpen), req.eventV1AppOpen)
+			}
 		}
 		return true, s, err
 	case req.eventV1AppStatusChange != nil:
 		if r.cli.eventHandler.eventV1AppStatusChangeHandler != nil {
-			s, err = r.cli.eventHandler.eventV1AppStatusChangeHandler(ctx, r.cli, req.Schema, req.headerV1(EventTypeV1AppStatusChange), req.eventV1AppStatusChange)
+			if r.cli.noBlocking {
+				go r.cli.eventHandler.eventV1AppStatusChangeHandler(ctx, r.cli, req.Schema, req.headerV1(EventTypeV1AppStatusChange), req.eventV1AppStatusChange)
+			} else {
+				s, err = r.cli.eventHandler.eventV1AppStatusChangeHandler(ctx, r.cli, req.Schema, req.headerV1(EventTypeV1AppStatusChange), req.eventV1AppStatusChange)
+			}
 		}
 		return true, s, err
 	case req.eventV1AppTicket != nil:
 		if r.cli.eventHandler.eventV1AppTicketHandler != nil {
-			s, err = r.cli.eventHandler.eventV1AppTicketHandler(ctx, r.cli, req.Schema, req.headerV1(EventTypeV1AppTicket), req.eventV1AppTicket)
+			if r.cli.noBlocking {
+				go r.cli.eventHandler.eventV1AppTicketHandler(ctx, r.cli, req.Schema, req.headerV1(EventTypeV1AppTicket), req.eventV1AppTicket)
+			} else {
+				s, err = r.cli.eventHandler.eventV1AppTicketHandler(ctx, r.cli, req.Schema, req.headerV1(EventTypeV1AppTicket), req.eventV1AppTicket)
+			}
 		}
 		return true, s, err
 	case req.eventV1AppUninstalled != nil:
 		if r.cli.eventHandler.eventV1AppUninstalledHandler != nil {
-			s, err = r.cli.eventHandler.eventV1AppUninstalledHandler(ctx, r.cli, req.Schema, req.headerV1(EventTypeV1AppUninstalled), req.eventV1AppUninstalled)
+			if r.cli.noBlocking {
+				go r.cli.eventHandler.eventV1AppUninstalledHandler(ctx, r.cli, req.Schema, req.headerV1(EventTypeV1AppUninstalled), req.eventV1AppUninstalled)
+			} else {
+				s, err = r.cli.eventHandler.eventV1AppUninstalledHandler(ctx, r.cli, req.Schema, req.headerV1(EventTypeV1AppUninstalled), req.eventV1AppUninstalled)
+			}
 		}
 		return true, s, err
 	case req.eventV1ApprovalCc != nil:
 		if r.cli.eventHandler.eventV1ApprovalCcHandler != nil {
-			s, err = r.cli.eventHandler.eventV1ApprovalCcHandler(ctx, r.cli, req.Schema, req.headerV1(EventTypeV1ApprovalCc), req.eventV1ApprovalCc)
+			if r.cli.noBlocking {
+				go r.cli.eventHandler.eventV1ApprovalCcHandler(ctx, r.cli, req.Schema, req.headerV1(EventTypeV1ApprovalCc), req.eventV1ApprovalCc)
+			} else {
+				s, err = r.cli.eventHandler.eventV1ApprovalCcHandler(ctx, r.cli, req.Schema, req.headerV1(EventTypeV1ApprovalCc), req.eventV1ApprovalCc)
+			}
 		}
 		return true, s, err
 	case req.eventV1ApprovalInstance != nil:
 		if r.cli.eventHandler.eventV1ApprovalInstanceHandler != nil {
-			s, err = r.cli.eventHandler.eventV1ApprovalInstanceHandler(ctx, r.cli, req.Schema, req.headerV1(EventTypeV1ApprovalInstance), req.eventV1ApprovalInstance)
+			if r.cli.noBlocking {
+				go r.cli.eventHandler.eventV1ApprovalInstanceHandler(ctx, r.cli, req.Schema, req.headerV1(EventTypeV1ApprovalInstance), req.eventV1ApprovalInstance)
+			} else {
+				s, err = r.cli.eventHandler.eventV1ApprovalInstanceHandler(ctx, r.cli, req.Schema, req.headerV1(EventTypeV1ApprovalInstance), req.eventV1ApprovalInstance)
+			}
 		}
 		return true, s, err
 	case req.eventV1ApprovalTask != nil:
 		if r.cli.eventHandler.eventV1ApprovalTaskHandler != nil {
-			s, err = r.cli.eventHandler.eventV1ApprovalTaskHandler(ctx, r.cli, req.Schema, req.headerV1(EventTypeV1ApprovalTask), req.eventV1ApprovalTask)
+			if r.cli.noBlocking {
+				go r.cli.eventHandler.eventV1ApprovalTaskHandler(ctx, r.cli, req.Schema, req.headerV1(EventTypeV1ApprovalTask), req.eventV1ApprovalTask)
+			} else {
+				s, err = r.cli.eventHandler.eventV1ApprovalTaskHandler(ctx, r.cli, req.Schema, req.headerV1(EventTypeV1ApprovalTask), req.eventV1ApprovalTask)
+			}
 		}
 		return true, s, err
 	case req.eventV1ChatDisband != nil:
 		if r.cli.eventHandler.eventV1ChatDisbandHandler != nil {
-			s, err = r.cli.eventHandler.eventV1ChatDisbandHandler(ctx, r.cli, req.Schema, req.headerV1(EventTypeV1ChatDisband), req.eventV1ChatDisband)
+			if r.cli.noBlocking {
+				go r.cli.eventHandler.eventV1ChatDisbandHandler(ctx, r.cli, req.Schema, req.headerV1(EventTypeV1ChatDisband), req.eventV1ChatDisband)
+			} else {
+				s, err = r.cli.eventHandler.eventV1ChatDisbandHandler(ctx, r.cli, req.Schema, req.headerV1(EventTypeV1ChatDisband), req.eventV1ChatDisband)
+			}
 		}
 		return true, s, err
 	case req.eventV1LeaveApprovalV2 != nil:
 		if r.cli.eventHandler.eventV1LeaveApprovalV2Handler != nil {
-			s, err = r.cli.eventHandler.eventV1LeaveApprovalV2Handler(ctx, r.cli, req.Schema, req.headerV1(EventTypeV1LeaveApprovalV2), req.eventV1LeaveApprovalV2)
+			if r.cli.noBlocking {
+				go r.cli.eventHandler.eventV1LeaveApprovalV2Handler(ctx, r.cli, req.Schema, req.headerV1(EventTypeV1LeaveApprovalV2), req.eventV1LeaveApprovalV2)
+			} else {
+				s, err = r.cli.eventHandler.eventV1LeaveApprovalV2Handler(ctx, r.cli, req.Schema, req.headerV1(EventTypeV1LeaveApprovalV2), req.eventV1LeaveApprovalV2)
+			}
 		}
 		return true, s, err
 	case req.eventV1OrderPaid != nil:
 		if r.cli.eventHandler.eventV1OrderPaidHandler != nil {
-			s, err = r.cli.eventHandler.eventV1OrderPaidHandler(ctx, r.cli, req.Schema, req.headerV1(EventTypeV1OrderPaid), req.eventV1OrderPaid)
+			if r.cli.noBlocking {
+				go r.cli.eventHandler.eventV1OrderPaidHandler(ctx, r.cli, req.Schema, req.headerV1(EventTypeV1OrderPaid), req.eventV1OrderPaid)
+			} else {
+				s, err = r.cli.eventHandler.eventV1OrderPaidHandler(ctx, r.cli, req.Schema, req.headerV1(EventTypeV1OrderPaid), req.eventV1OrderPaid)
+			}
 		}
 		return true, s, err
 	case req.eventV1OutApproval != nil:
 		if r.cli.eventHandler.eventV1OutApprovalHandler != nil {
-			s, err = r.cli.eventHandler.eventV1OutApprovalHandler(ctx, r.cli, req.Schema, req.headerV1(EventTypeV1OutApproval), req.eventV1OutApproval)
+			if r.cli.noBlocking {
+				go r.cli.eventHandler.eventV1OutApprovalHandler(ctx, r.cli, req.Schema, req.headerV1(EventTypeV1OutApproval), req.eventV1OutApproval)
+			} else {
+				s, err = r.cli.eventHandler.eventV1OutApprovalHandler(ctx, r.cli, req.Schema, req.headerV1(EventTypeV1OutApproval), req.eventV1OutApproval)
+			}
 		}
 		return true, s, err
 	case req.eventV1P2PChatCreate != nil:
 		if r.cli.eventHandler.eventV1P2PChatCreateHandler != nil {
-			s, err = r.cli.eventHandler.eventV1P2PChatCreateHandler(ctx, r.cli, req.Schema, req.headerV1(EventTypeV1P2PChatCreate), req.eventV1P2PChatCreate)
+			if r.cli.noBlocking {
+				go r.cli.eventHandler.eventV1P2PChatCreateHandler(ctx, r.cli, req.Schema, req.headerV1(EventTypeV1P2PChatCreate), req.eventV1P2PChatCreate)
+			} else {
+				s, err = r.cli.eventHandler.eventV1P2PChatCreateHandler(ctx, r.cli, req.Schema, req.headerV1(EventTypeV1P2PChatCreate), req.eventV1P2PChatCreate)
+			}
 		}
 		return true, s, err
 	case req.eventV1ReceiveMessage != nil:
 		if r.cli.eventHandler.eventV1ReceiveMessageHandler != nil {
-			s, err = r.cli.eventHandler.eventV1ReceiveMessageHandler(ctx, r.cli, req.Schema, req.headerV1(EventTypeV1ReceiveMessage), req.eventV1ReceiveMessage)
+			if r.cli.noBlocking {
+				go r.cli.eventHandler.eventV1ReceiveMessageHandler(ctx, r.cli, req.Schema, req.headerV1(EventTypeV1ReceiveMessage), req.eventV1ReceiveMessage)
+			} else {
+				s, err = r.cli.eventHandler.eventV1ReceiveMessageHandler(ctx, r.cli, req.Schema, req.headerV1(EventTypeV1ReceiveMessage), req.eventV1ReceiveMessage)
+			}
 		}
 		return true, s, err
 	case req.eventV1RemedyApproval != nil:
 		if r.cli.eventHandler.eventV1RemedyApprovalHandler != nil {
-			s, err = r.cli.eventHandler.eventV1RemedyApprovalHandler(ctx, r.cli, req.Schema, req.headerV1(EventTypeV1RemedyApproval), req.eventV1RemedyApproval)
+			if r.cli.noBlocking {
+				go r.cli.eventHandler.eventV1RemedyApprovalHandler(ctx, r.cli, req.Schema, req.headerV1(EventTypeV1RemedyApproval), req.eventV1RemedyApproval)
+			} else {
+				s, err = r.cli.eventHandler.eventV1RemedyApprovalHandler(ctx, r.cli, req.Schema, req.headerV1(EventTypeV1RemedyApproval), req.eventV1RemedyApproval)
+			}
 		}
 		return true, s, err
 	case req.eventV1RemoveBot != nil:
 		if r.cli.eventHandler.eventV1RemoveBotHandler != nil {
-			s, err = r.cli.eventHandler.eventV1RemoveBotHandler(ctx, r.cli, req.Schema, req.headerV1(EventTypeV1RemoveBot), req.eventV1RemoveBot)
+			if r.cli.noBlocking {
+				go r.cli.eventHandler.eventV1RemoveBotHandler(ctx, r.cli, req.Schema, req.headerV1(EventTypeV1RemoveBot), req.eventV1RemoveBot)
+			} else {
+				s, err = r.cli.eventHandler.eventV1RemoveBotHandler(ctx, r.cli, req.Schema, req.headerV1(EventTypeV1RemoveBot), req.eventV1RemoveBot)
+			}
 		}
 		return true, s, err
 	case req.eventV1RemoveUserFromChat != nil:
 		if r.cli.eventHandler.eventV1RemoveUserFromChatHandler != nil {
-			s, err = r.cli.eventHandler.eventV1RemoveUserFromChatHandler(ctx, r.cli, req.Schema, req.headerV1(EventTypeV1RemoveUserFromChat), req.eventV1RemoveUserFromChat)
+			if r.cli.noBlocking {
+				go r.cli.eventHandler.eventV1RemoveUserFromChatHandler(ctx, r.cli, req.Schema, req.headerV1(EventTypeV1RemoveUserFromChat), req.eventV1RemoveUserFromChat)
+			} else {
+				s, err = r.cli.eventHandler.eventV1RemoveUserFromChatHandler(ctx, r.cli, req.Schema, req.headerV1(EventTypeV1RemoveUserFromChat), req.eventV1RemoveUserFromChat)
+			}
 		}
 		return true, s, err
 	case req.eventV1RevokeAddUserFromChat != nil:
 		if r.cli.eventHandler.eventV1RevokeAddUserFromChatHandler != nil {
-			s, err = r.cli.eventHandler.eventV1RevokeAddUserFromChatHandler(ctx, r.cli, req.Schema, req.headerV1(EventTypeV1RevokeAddUserFromChat), req.eventV1RevokeAddUserFromChat)
+			if r.cli.noBlocking {
+				go r.cli.eventHandler.eventV1RevokeAddUserFromChatHandler(ctx, r.cli, req.Schema, req.headerV1(EventTypeV1RevokeAddUserFromChat), req.eventV1RevokeAddUserFromChat)
+			} else {
+				s, err = r.cli.eventHandler.eventV1RevokeAddUserFromChatHandler(ctx, r.cli, req.Schema, req.headerV1(EventTypeV1RevokeAddUserFromChat), req.eventV1RevokeAddUserFromChat)
+			}
 		}
 		return true, s, err
 	case req.eventV1ShiftApproval != nil:
 		if r.cli.eventHandler.eventV1ShiftApprovalHandler != nil {
-			s, err = r.cli.eventHandler.eventV1ShiftApprovalHandler(ctx, r.cli, req.Schema, req.headerV1(EventTypeV1ShiftApproval), req.eventV1ShiftApproval)
+			if r.cli.noBlocking {
+				go r.cli.eventHandler.eventV1ShiftApprovalHandler(ctx, r.cli, req.Schema, req.headerV1(EventTypeV1ShiftApproval), req.eventV1ShiftApproval)
+			} else {
+				s, err = r.cli.eventHandler.eventV1ShiftApprovalHandler(ctx, r.cli, req.Schema, req.headerV1(EventTypeV1ShiftApproval), req.eventV1ShiftApproval)
+			}
 		}
 		return true, s, err
 	case req.eventV1ThirdPartyMeetingRoomEventCreated != nil:
 		if r.cli.eventHandler.eventV1ThirdPartyMeetingRoomEventCreatedHandler != nil {
-			s, err = r.cli.eventHandler.eventV1ThirdPartyMeetingRoomEventCreatedHandler(ctx, r.cli, req.Schema, req.headerV1(EventTypeV1ThirdPartyMeetingRoomEventCreated), req.eventV1ThirdPartyMeetingRoomEventCreated)
+			if r.cli.noBlocking {
+				go r.cli.eventHandler.eventV1ThirdPartyMeetingRoomEventCreatedHandler(ctx, r.cli, req.Schema, req.headerV1(EventTypeV1ThirdPartyMeetingRoomEventCreated), req.eventV1ThirdPartyMeetingRoomEventCreated)
+			} else {
+				s, err = r.cli.eventHandler.eventV1ThirdPartyMeetingRoomEventCreatedHandler(ctx, r.cli, req.Schema, req.headerV1(EventTypeV1ThirdPartyMeetingRoomEventCreated), req.eventV1ThirdPartyMeetingRoomEventCreated)
+			}
 		}
 		return true, s, err
 	case req.eventV1ThirdPartyMeetingRoomEventDeleted != nil:
 		if r.cli.eventHandler.eventV1ThirdPartyMeetingRoomEventDeletedHandler != nil {
-			s, err = r.cli.eventHandler.eventV1ThirdPartyMeetingRoomEventDeletedHandler(ctx, r.cli, req.Schema, req.headerV1(EventTypeV1ThirdPartyMeetingRoomEventDeleted), req.eventV1ThirdPartyMeetingRoomEventDeleted)
+			if r.cli.noBlocking {
+				go r.cli.eventHandler.eventV1ThirdPartyMeetingRoomEventDeletedHandler(ctx, r.cli, req.Schema, req.headerV1(EventTypeV1ThirdPartyMeetingRoomEventDeleted), req.eventV1ThirdPartyMeetingRoomEventDeleted)
+			} else {
+				s, err = r.cli.eventHandler.eventV1ThirdPartyMeetingRoomEventDeletedHandler(ctx, r.cli, req.Schema, req.headerV1(EventTypeV1ThirdPartyMeetingRoomEventDeleted), req.eventV1ThirdPartyMeetingRoomEventDeleted)
+			}
 		}
 		return true, s, err
 	case req.eventV1ThirdPartyMeetingRoomEventUpdated != nil:
 		if r.cli.eventHandler.eventV1ThirdPartyMeetingRoomEventUpdatedHandler != nil {
-			s, err = r.cli.eventHandler.eventV1ThirdPartyMeetingRoomEventUpdatedHandler(ctx, r.cli, req.Schema, req.headerV1(EventTypeV1ThirdPartyMeetingRoomEventUpdated), req.eventV1ThirdPartyMeetingRoomEventUpdated)
+			if r.cli.noBlocking {
+				go r.cli.eventHandler.eventV1ThirdPartyMeetingRoomEventUpdatedHandler(ctx, r.cli, req.Schema, req.headerV1(EventTypeV1ThirdPartyMeetingRoomEventUpdated), req.eventV1ThirdPartyMeetingRoomEventUpdated)
+			} else {
+				s, err = r.cli.eventHandler.eventV1ThirdPartyMeetingRoomEventUpdatedHandler(ctx, r.cli, req.Schema, req.headerV1(EventTypeV1ThirdPartyMeetingRoomEventUpdated), req.eventV1ThirdPartyMeetingRoomEventUpdated)
+			}
 		}
 		return true, s, err
 	case req.eventV1WorkApproval != nil:
 		if r.cli.eventHandler.eventV1WorkApprovalHandler != nil {
-			s, err = r.cli.eventHandler.eventV1WorkApprovalHandler(ctx, r.cli, req.Schema, req.headerV1(EventTypeV1WorkApproval), req.eventV1WorkApproval)
+			if r.cli.noBlocking {
+				go r.cli.eventHandler.eventV1WorkApprovalHandler(ctx, r.cli, req.Schema, req.headerV1(EventTypeV1WorkApproval), req.eventV1WorkApproval)
+			} else {
+				s, err = r.cli.eventHandler.eventV1WorkApprovalHandler(ctx, r.cli, req.Schema, req.headerV1(EventTypeV1WorkApproval), req.eventV1WorkApproval)
+			}
 		}
 		return true, s, err
 	case req.eventV2ACSAccessRecordCreatedV1 != nil:
 		if r.cli.eventHandler.eventV2ACSAccessRecordCreatedV1Handler != nil {
-			s, err = r.cli.eventHandler.eventV2ACSAccessRecordCreatedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2ACSAccessRecordCreatedV1)
+			if r.cli.noBlocking {
+				go r.cli.eventHandler.eventV2ACSAccessRecordCreatedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2ACSAccessRecordCreatedV1)
+			} else {
+				s, err = r.cli.eventHandler.eventV2ACSAccessRecordCreatedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2ACSAccessRecordCreatedV1)
+			}
 		}
 		return true, s, err
 	case req.eventV2ACSUserUpdatedV1 != nil:
 		if r.cli.eventHandler.eventV2ACSUserUpdatedV1Handler != nil {
-			s, err = r.cli.eventHandler.eventV2ACSUserUpdatedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2ACSUserUpdatedV1)
+			if r.cli.noBlocking {
+				go r.cli.eventHandler.eventV2ACSUserUpdatedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2ACSUserUpdatedV1)
+			} else {
+				s, err = r.cli.eventHandler.eventV2ACSUserUpdatedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2ACSUserUpdatedV1)
+			}
 		}
 		return true, s, err
 	case req.eventV2ApplicationApplicationAppVersionAuditV6 != nil:
 		if r.cli.eventHandler.eventV2ApplicationApplicationAppVersionAuditV6Handler != nil {
-			s, err = r.cli.eventHandler.eventV2ApplicationApplicationAppVersionAuditV6Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2ApplicationApplicationAppVersionAuditV6)
+			if r.cli.noBlocking {
+				go r.cli.eventHandler.eventV2ApplicationApplicationAppVersionAuditV6Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2ApplicationApplicationAppVersionAuditV6)
+			} else {
+				s, err = r.cli.eventHandler.eventV2ApplicationApplicationAppVersionAuditV6Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2ApplicationApplicationAppVersionAuditV6)
+			}
 		}
 		return true, s, err
 	case req.eventV2ApplicationApplicationAppVersionPublishApplyV6 != nil:
 		if r.cli.eventHandler.eventV2ApplicationApplicationAppVersionPublishApplyV6Handler != nil {
-			s, err = r.cli.eventHandler.eventV2ApplicationApplicationAppVersionPublishApplyV6Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2ApplicationApplicationAppVersionPublishApplyV6)
+			if r.cli.noBlocking {
+				go r.cli.eventHandler.eventV2ApplicationApplicationAppVersionPublishApplyV6Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2ApplicationApplicationAppVersionPublishApplyV6)
+			} else {
+				s, err = r.cli.eventHandler.eventV2ApplicationApplicationAppVersionPublishApplyV6Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2ApplicationApplicationAppVersionPublishApplyV6)
+			}
 		}
 		return true, s, err
 	case req.eventV2ApplicationApplicationAppVersionPublishRevokeV6 != nil:
 		if r.cli.eventHandler.eventV2ApplicationApplicationAppVersionPublishRevokeV6Handler != nil {
-			s, err = r.cli.eventHandler.eventV2ApplicationApplicationAppVersionPublishRevokeV6Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2ApplicationApplicationAppVersionPublishRevokeV6)
+			if r.cli.noBlocking {
+				go r.cli.eventHandler.eventV2ApplicationApplicationAppVersionPublishRevokeV6Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2ApplicationApplicationAppVersionPublishRevokeV6)
+			} else {
+				s, err = r.cli.eventHandler.eventV2ApplicationApplicationAppVersionPublishRevokeV6Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2ApplicationApplicationAppVersionPublishRevokeV6)
+			}
 		}
 		return true, s, err
 	case req.eventV2ApplicationApplicationCreatedV6 != nil:
 		if r.cli.eventHandler.eventV2ApplicationApplicationCreatedV6Handler != nil {
-			s, err = r.cli.eventHandler.eventV2ApplicationApplicationCreatedV6Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2ApplicationApplicationCreatedV6)
+			if r.cli.noBlocking {
+				go r.cli.eventHandler.eventV2ApplicationApplicationCreatedV6Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2ApplicationApplicationCreatedV6)
+			} else {
+				s, err = r.cli.eventHandler.eventV2ApplicationApplicationCreatedV6Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2ApplicationApplicationCreatedV6)
+			}
 		}
 		return true, s, err
 	case req.eventV2ApplicationApplicationFeedbackCreatedV6 != nil:
 		if r.cli.eventHandler.eventV2ApplicationApplicationFeedbackCreatedV6Handler != nil {
-			s, err = r.cli.eventHandler.eventV2ApplicationApplicationFeedbackCreatedV6Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2ApplicationApplicationFeedbackCreatedV6)
+			if r.cli.noBlocking {
+				go r.cli.eventHandler.eventV2ApplicationApplicationFeedbackCreatedV6Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2ApplicationApplicationFeedbackCreatedV6)
+			} else {
+				s, err = r.cli.eventHandler.eventV2ApplicationApplicationFeedbackCreatedV6Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2ApplicationApplicationFeedbackCreatedV6)
+			}
 		}
 		return true, s, err
 	case req.eventV2ApplicationApplicationFeedbackUpdatedV6 != nil:
 		if r.cli.eventHandler.eventV2ApplicationApplicationFeedbackUpdatedV6Handler != nil {
-			s, err = r.cli.eventHandler.eventV2ApplicationApplicationFeedbackUpdatedV6Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2ApplicationApplicationFeedbackUpdatedV6)
+			if r.cli.noBlocking {
+				go r.cli.eventHandler.eventV2ApplicationApplicationFeedbackUpdatedV6Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2ApplicationApplicationFeedbackUpdatedV6)
+			} else {
+				s, err = r.cli.eventHandler.eventV2ApplicationApplicationFeedbackUpdatedV6Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2ApplicationApplicationFeedbackUpdatedV6)
+			}
 		}
 		return true, s, err
 	case req.eventV2ApplicationApplicationVisibilityAddedV6 != nil:
 		if r.cli.eventHandler.eventV2ApplicationApplicationVisibilityAddedV6Handler != nil {
-			s, err = r.cli.eventHandler.eventV2ApplicationApplicationVisibilityAddedV6Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2ApplicationApplicationVisibilityAddedV6)
+			if r.cli.noBlocking {
+				go r.cli.eventHandler.eventV2ApplicationApplicationVisibilityAddedV6Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2ApplicationApplicationVisibilityAddedV6)
+			} else {
+				s, err = r.cli.eventHandler.eventV2ApplicationApplicationVisibilityAddedV6Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2ApplicationApplicationVisibilityAddedV6)
+			}
 		}
 		return true, s, err
 	case req.eventV2ApprovalApprovalUpdatedV4 != nil:
 		if r.cli.eventHandler.eventV2ApprovalApprovalUpdatedV4Handler != nil {
-			s, err = r.cli.eventHandler.eventV2ApprovalApprovalUpdatedV4Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2ApprovalApprovalUpdatedV4)
+			if r.cli.noBlocking {
+				go r.cli.eventHandler.eventV2ApprovalApprovalUpdatedV4Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2ApprovalApprovalUpdatedV4)
+			} else {
+				s, err = r.cli.eventHandler.eventV2ApprovalApprovalUpdatedV4Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2ApprovalApprovalUpdatedV4)
+			}
 		}
 		return true, s, err
 	case req.eventV2AttendanceUserFlowCreatedV1 != nil:
 		if r.cli.eventHandler.eventV2AttendanceUserFlowCreatedV1Handler != nil {
-			s, err = r.cli.eventHandler.eventV2AttendanceUserFlowCreatedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2AttendanceUserFlowCreatedV1)
+			if r.cli.noBlocking {
+				go r.cli.eventHandler.eventV2AttendanceUserFlowCreatedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2AttendanceUserFlowCreatedV1)
+			} else {
+				s, err = r.cli.eventHandler.eventV2AttendanceUserFlowCreatedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2AttendanceUserFlowCreatedV1)
+			}
 		}
 		return true, s, err
 	case req.eventV2AttendanceUserTaskUpdatedV1 != nil:
 		if r.cli.eventHandler.eventV2AttendanceUserTaskUpdatedV1Handler != nil {
-			s, err = r.cli.eventHandler.eventV2AttendanceUserTaskUpdatedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2AttendanceUserTaskUpdatedV1)
+			if r.cli.noBlocking {
+				go r.cli.eventHandler.eventV2AttendanceUserTaskUpdatedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2AttendanceUserTaskUpdatedV1)
+			} else {
+				s, err = r.cli.eventHandler.eventV2AttendanceUserTaskUpdatedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2AttendanceUserTaskUpdatedV1)
+			}
 		}
 		return true, s, err
 	case req.eventV2CalendarCalendarACLCreatedV4 != nil:
 		if r.cli.eventHandler.eventV2CalendarCalendarACLCreatedV4Handler != nil {
-			s, err = r.cli.eventHandler.eventV2CalendarCalendarACLCreatedV4Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2CalendarCalendarACLCreatedV4)
+			if r.cli.noBlocking {
+				go r.cli.eventHandler.eventV2CalendarCalendarACLCreatedV4Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2CalendarCalendarACLCreatedV4)
+			} else {
+				s, err = r.cli.eventHandler.eventV2CalendarCalendarACLCreatedV4Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2CalendarCalendarACLCreatedV4)
+			}
 		}
 		return true, s, err
 	case req.eventV2CalendarCalendarACLDeletedV4 != nil:
 		if r.cli.eventHandler.eventV2CalendarCalendarACLDeletedV4Handler != nil {
-			s, err = r.cli.eventHandler.eventV2CalendarCalendarACLDeletedV4Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2CalendarCalendarACLDeletedV4)
+			if r.cli.noBlocking {
+				go r.cli.eventHandler.eventV2CalendarCalendarACLDeletedV4Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2CalendarCalendarACLDeletedV4)
+			} else {
+				s, err = r.cli.eventHandler.eventV2CalendarCalendarACLDeletedV4Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2CalendarCalendarACLDeletedV4)
+			}
 		}
 		return true, s, err
 	case req.eventV2CalendarCalendarChangedV4 != nil:
 		if r.cli.eventHandler.eventV2CalendarCalendarChangedV4Handler != nil {
-			s, err = r.cli.eventHandler.eventV2CalendarCalendarChangedV4Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2CalendarCalendarChangedV4)
+			if r.cli.noBlocking {
+				go r.cli.eventHandler.eventV2CalendarCalendarChangedV4Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2CalendarCalendarChangedV4)
+			} else {
+				s, err = r.cli.eventHandler.eventV2CalendarCalendarChangedV4Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2CalendarCalendarChangedV4)
+			}
 		}
 		return true, s, err
 	case req.eventV2CalendarCalendarEventChangedV4 != nil:
 		if r.cli.eventHandler.eventV2CalendarCalendarEventChangedV4Handler != nil {
-			s, err = r.cli.eventHandler.eventV2CalendarCalendarEventChangedV4Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2CalendarCalendarEventChangedV4)
+			if r.cli.noBlocking {
+				go r.cli.eventHandler.eventV2CalendarCalendarEventChangedV4Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2CalendarCalendarEventChangedV4)
+			} else {
+				s, err = r.cli.eventHandler.eventV2CalendarCalendarEventChangedV4Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2CalendarCalendarEventChangedV4)
+			}
 		}
 		return true, s, err
 	case req.eventV2ContactCustomAttrEventUpdatedV3 != nil:
 		if r.cli.eventHandler.eventV2ContactCustomAttrEventUpdatedV3Handler != nil {
-			s, err = r.cli.eventHandler.eventV2ContactCustomAttrEventUpdatedV3Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2ContactCustomAttrEventUpdatedV3)
+			if r.cli.noBlocking {
+				go r.cli.eventHandler.eventV2ContactCustomAttrEventUpdatedV3Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2ContactCustomAttrEventUpdatedV3)
+			} else {
+				s, err = r.cli.eventHandler.eventV2ContactCustomAttrEventUpdatedV3Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2ContactCustomAttrEventUpdatedV3)
+			}
 		}
 		return true, s, err
 	case req.eventV2ContactDepartmentCreatedV3 != nil:
 		if r.cli.eventHandler.eventV2ContactDepartmentCreatedV3Handler != nil {
-			s, err = r.cli.eventHandler.eventV2ContactDepartmentCreatedV3Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2ContactDepartmentCreatedV3)
+			if r.cli.noBlocking {
+				go r.cli.eventHandler.eventV2ContactDepartmentCreatedV3Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2ContactDepartmentCreatedV3)
+			} else {
+				s, err = r.cli.eventHandler.eventV2ContactDepartmentCreatedV3Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2ContactDepartmentCreatedV3)
+			}
 		}
 		return true, s, err
 	case req.eventV2ContactDepartmentDeletedV3 != nil:
 		if r.cli.eventHandler.eventV2ContactDepartmentDeletedV3Handler != nil {
-			s, err = r.cli.eventHandler.eventV2ContactDepartmentDeletedV3Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2ContactDepartmentDeletedV3)
+			if r.cli.noBlocking {
+				go r.cli.eventHandler.eventV2ContactDepartmentDeletedV3Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2ContactDepartmentDeletedV3)
+			} else {
+				s, err = r.cli.eventHandler.eventV2ContactDepartmentDeletedV3Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2ContactDepartmentDeletedV3)
+			}
 		}
 		return true, s, err
 	case req.eventV2ContactDepartmentUpdatedV3 != nil:
 		if r.cli.eventHandler.eventV2ContactDepartmentUpdatedV3Handler != nil {
-			s, err = r.cli.eventHandler.eventV2ContactDepartmentUpdatedV3Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2ContactDepartmentUpdatedV3)
+			if r.cli.noBlocking {
+				go r.cli.eventHandler.eventV2ContactDepartmentUpdatedV3Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2ContactDepartmentUpdatedV3)
+			} else {
+				s, err = r.cli.eventHandler.eventV2ContactDepartmentUpdatedV3Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2ContactDepartmentUpdatedV3)
+			}
 		}
 		return true, s, err
 	case req.eventV2ContactEmployeeTypeEnumActivedV3 != nil:
 		if r.cli.eventHandler.eventV2ContactEmployeeTypeEnumActivedV3Handler != nil {
-			s, err = r.cli.eventHandler.eventV2ContactEmployeeTypeEnumActivedV3Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2ContactEmployeeTypeEnumActivedV3)
+			if r.cli.noBlocking {
+				go r.cli.eventHandler.eventV2ContactEmployeeTypeEnumActivedV3Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2ContactEmployeeTypeEnumActivedV3)
+			} else {
+				s, err = r.cli.eventHandler.eventV2ContactEmployeeTypeEnumActivedV3Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2ContactEmployeeTypeEnumActivedV3)
+			}
 		}
 		return true, s, err
 	case req.eventV2ContactEmployeeTypeEnumCreatedV3 != nil:
 		if r.cli.eventHandler.eventV2ContactEmployeeTypeEnumCreatedV3Handler != nil {
-			s, err = r.cli.eventHandler.eventV2ContactEmployeeTypeEnumCreatedV3Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2ContactEmployeeTypeEnumCreatedV3)
+			if r.cli.noBlocking {
+				go r.cli.eventHandler.eventV2ContactEmployeeTypeEnumCreatedV3Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2ContactEmployeeTypeEnumCreatedV3)
+			} else {
+				s, err = r.cli.eventHandler.eventV2ContactEmployeeTypeEnumCreatedV3Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2ContactEmployeeTypeEnumCreatedV3)
+			}
 		}
 		return true, s, err
 	case req.eventV2ContactEmployeeTypeEnumDeactivatedV3 != nil:
 		if r.cli.eventHandler.eventV2ContactEmployeeTypeEnumDeactivatedV3Handler != nil {
-			s, err = r.cli.eventHandler.eventV2ContactEmployeeTypeEnumDeactivatedV3Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2ContactEmployeeTypeEnumDeactivatedV3)
+			if r.cli.noBlocking {
+				go r.cli.eventHandler.eventV2ContactEmployeeTypeEnumDeactivatedV3Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2ContactEmployeeTypeEnumDeactivatedV3)
+			} else {
+				s, err = r.cli.eventHandler.eventV2ContactEmployeeTypeEnumDeactivatedV3Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2ContactEmployeeTypeEnumDeactivatedV3)
+			}
 		}
 		return true, s, err
 	case req.eventV2ContactEmployeeTypeEnumDeletedV3 != nil:
 		if r.cli.eventHandler.eventV2ContactEmployeeTypeEnumDeletedV3Handler != nil {
-			s, err = r.cli.eventHandler.eventV2ContactEmployeeTypeEnumDeletedV3Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2ContactEmployeeTypeEnumDeletedV3)
+			if r.cli.noBlocking {
+				go r.cli.eventHandler.eventV2ContactEmployeeTypeEnumDeletedV3Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2ContactEmployeeTypeEnumDeletedV3)
+			} else {
+				s, err = r.cli.eventHandler.eventV2ContactEmployeeTypeEnumDeletedV3Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2ContactEmployeeTypeEnumDeletedV3)
+			}
 		}
 		return true, s, err
 	case req.eventV2ContactEmployeeTypeEnumUpdatedV3 != nil:
 		if r.cli.eventHandler.eventV2ContactEmployeeTypeEnumUpdatedV3Handler != nil {
-			s, err = r.cli.eventHandler.eventV2ContactEmployeeTypeEnumUpdatedV3Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2ContactEmployeeTypeEnumUpdatedV3)
+			if r.cli.noBlocking {
+				go r.cli.eventHandler.eventV2ContactEmployeeTypeEnumUpdatedV3Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2ContactEmployeeTypeEnumUpdatedV3)
+			} else {
+				s, err = r.cli.eventHandler.eventV2ContactEmployeeTypeEnumUpdatedV3Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2ContactEmployeeTypeEnumUpdatedV3)
+			}
 		}
 		return true, s, err
 	case req.eventV2ContactScopeUpdatedV3 != nil:
 		if r.cli.eventHandler.eventV2ContactScopeUpdatedV3Handler != nil {
-			s, err = r.cli.eventHandler.eventV2ContactScopeUpdatedV3Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2ContactScopeUpdatedV3)
+			if r.cli.noBlocking {
+				go r.cli.eventHandler.eventV2ContactScopeUpdatedV3Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2ContactScopeUpdatedV3)
+			} else {
+				s, err = r.cli.eventHandler.eventV2ContactScopeUpdatedV3Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2ContactScopeUpdatedV3)
+			}
 		}
 		return true, s, err
 	case req.eventV2ContactUserCreatedV3 != nil:
 		if r.cli.eventHandler.eventV2ContactUserCreatedV3Handler != nil {
-			s, err = r.cli.eventHandler.eventV2ContactUserCreatedV3Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2ContactUserCreatedV3)
+			if r.cli.noBlocking {
+				go r.cli.eventHandler.eventV2ContactUserCreatedV3Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2ContactUserCreatedV3)
+			} else {
+				s, err = r.cli.eventHandler.eventV2ContactUserCreatedV3Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2ContactUserCreatedV3)
+			}
 		}
 		return true, s, err
 	case req.eventV2ContactUserDeletedV3 != nil:
 		if r.cli.eventHandler.eventV2ContactUserDeletedV3Handler != nil {
-			s, err = r.cli.eventHandler.eventV2ContactUserDeletedV3Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2ContactUserDeletedV3)
+			if r.cli.noBlocking {
+				go r.cli.eventHandler.eventV2ContactUserDeletedV3Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2ContactUserDeletedV3)
+			} else {
+				s, err = r.cli.eventHandler.eventV2ContactUserDeletedV3Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2ContactUserDeletedV3)
+			}
 		}
 		return true, s, err
 	case req.eventV2ContactUserUpdatedV3 != nil:
 		if r.cli.eventHandler.eventV2ContactUserUpdatedV3Handler != nil {
-			s, err = r.cli.eventHandler.eventV2ContactUserUpdatedV3Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2ContactUserUpdatedV3)
+			if r.cli.noBlocking {
+				go r.cli.eventHandler.eventV2ContactUserUpdatedV3Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2ContactUserUpdatedV3)
+			} else {
+				s, err = r.cli.eventHandler.eventV2ContactUserUpdatedV3Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2ContactUserUpdatedV3)
+			}
 		}
 		return true, s, err
 	case req.eventV2DriveFileBitableFieldChangedV1 != nil:
 		if r.cli.eventHandler.eventV2DriveFileBitableFieldChangedV1Handler != nil {
-			s, err = r.cli.eventHandler.eventV2DriveFileBitableFieldChangedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2DriveFileBitableFieldChangedV1)
+			if r.cli.noBlocking {
+				go r.cli.eventHandler.eventV2DriveFileBitableFieldChangedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2DriveFileBitableFieldChangedV1)
+			} else {
+				s, err = r.cli.eventHandler.eventV2DriveFileBitableFieldChangedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2DriveFileBitableFieldChangedV1)
+			}
 		}
 		return true, s, err
 	case req.eventV2DriveFileBitableRecordChangedV1 != nil:
 		if r.cli.eventHandler.eventV2DriveFileBitableRecordChangedV1Handler != nil {
-			s, err = r.cli.eventHandler.eventV2DriveFileBitableRecordChangedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2DriveFileBitableRecordChangedV1)
+			if r.cli.noBlocking {
+				go r.cli.eventHandler.eventV2DriveFileBitableRecordChangedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2DriveFileBitableRecordChangedV1)
+			} else {
+				s, err = r.cli.eventHandler.eventV2DriveFileBitableRecordChangedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2DriveFileBitableRecordChangedV1)
+			}
 		}
 		return true, s, err
 	case req.eventV2DriveFileDeletedV1 != nil:
 		if r.cli.eventHandler.eventV2DriveFileDeletedV1Handler != nil {
-			s, err = r.cli.eventHandler.eventV2DriveFileDeletedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2DriveFileDeletedV1)
+			if r.cli.noBlocking {
+				go r.cli.eventHandler.eventV2DriveFileDeletedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2DriveFileDeletedV1)
+			} else {
+				s, err = r.cli.eventHandler.eventV2DriveFileDeletedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2DriveFileDeletedV1)
+			}
 		}
 		return true, s, err
 	case req.eventV2DriveFileEditV1 != nil:
 		if r.cli.eventHandler.eventV2DriveFileEditV1Handler != nil {
-			s, err = r.cli.eventHandler.eventV2DriveFileEditV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2DriveFileEditV1)
+			if r.cli.noBlocking {
+				go r.cli.eventHandler.eventV2DriveFileEditV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2DriveFileEditV1)
+			} else {
+				s, err = r.cli.eventHandler.eventV2DriveFileEditV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2DriveFileEditV1)
+			}
 		}
 		return true, s, err
 	case req.eventV2DriveFilePermissionMemberAddedV1 != nil:
 		if r.cli.eventHandler.eventV2DriveFilePermissionMemberAddedV1Handler != nil {
-			s, err = r.cli.eventHandler.eventV2DriveFilePermissionMemberAddedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2DriveFilePermissionMemberAddedV1)
+			if r.cli.noBlocking {
+				go r.cli.eventHandler.eventV2DriveFilePermissionMemberAddedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2DriveFilePermissionMemberAddedV1)
+			} else {
+				s, err = r.cli.eventHandler.eventV2DriveFilePermissionMemberAddedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2DriveFilePermissionMemberAddedV1)
+			}
 		}
 		return true, s, err
 	case req.eventV2DriveFilePermissionMemberRemovedV1 != nil:
 		if r.cli.eventHandler.eventV2DriveFilePermissionMemberRemovedV1Handler != nil {
-			s, err = r.cli.eventHandler.eventV2DriveFilePermissionMemberRemovedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2DriveFilePermissionMemberRemovedV1)
+			if r.cli.noBlocking {
+				go r.cli.eventHandler.eventV2DriveFilePermissionMemberRemovedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2DriveFilePermissionMemberRemovedV1)
+			} else {
+				s, err = r.cli.eventHandler.eventV2DriveFilePermissionMemberRemovedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2DriveFilePermissionMemberRemovedV1)
+			}
 		}
 		return true, s, err
 	case req.eventV2DriveFileReadV1 != nil:
 		if r.cli.eventHandler.eventV2DriveFileReadV1Handler != nil {
-			s, err = r.cli.eventHandler.eventV2DriveFileReadV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2DriveFileReadV1)
+			if r.cli.noBlocking {
+				go r.cli.eventHandler.eventV2DriveFileReadV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2DriveFileReadV1)
+			} else {
+				s, err = r.cli.eventHandler.eventV2DriveFileReadV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2DriveFileReadV1)
+			}
 		}
 		return true, s, err
 	case req.eventV2DriveFileTitleUpdatedV1 != nil:
 		if r.cli.eventHandler.eventV2DriveFileTitleUpdatedV1Handler != nil {
-			s, err = r.cli.eventHandler.eventV2DriveFileTitleUpdatedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2DriveFileTitleUpdatedV1)
+			if r.cli.noBlocking {
+				go r.cli.eventHandler.eventV2DriveFileTitleUpdatedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2DriveFileTitleUpdatedV1)
+			} else {
+				s, err = r.cli.eventHandler.eventV2DriveFileTitleUpdatedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2DriveFileTitleUpdatedV1)
+			}
 		}
 		return true, s, err
 	case req.eventV2DriveFileTrashedV1 != nil:
 		if r.cli.eventHandler.eventV2DriveFileTrashedV1Handler != nil {
-			s, err = r.cli.eventHandler.eventV2DriveFileTrashedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2DriveFileTrashedV1)
+			if r.cli.noBlocking {
+				go r.cli.eventHandler.eventV2DriveFileTrashedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2DriveFileTrashedV1)
+			} else {
+				s, err = r.cli.eventHandler.eventV2DriveFileTrashedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2DriveFileTrashedV1)
+			}
 		}
 		return true, s, err
 	case req.eventV2HelpdeskNotificationApproveV1 != nil:
 		if r.cli.eventHandler.eventV2HelpdeskNotificationApproveV1Handler != nil {
-			s, err = r.cli.eventHandler.eventV2HelpdeskNotificationApproveV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2HelpdeskNotificationApproveV1)
+			if r.cli.noBlocking {
+				go r.cli.eventHandler.eventV2HelpdeskNotificationApproveV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2HelpdeskNotificationApproveV1)
+			} else {
+				s, err = r.cli.eventHandler.eventV2HelpdeskNotificationApproveV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2HelpdeskNotificationApproveV1)
+			}
 		}
 		return true, s, err
 	case req.eventV2HelpdeskTicketCreatedV1 != nil:
 		if r.cli.eventHandler.eventV2HelpdeskTicketCreatedV1Handler != nil {
-			s, err = r.cli.eventHandler.eventV2HelpdeskTicketCreatedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2HelpdeskTicketCreatedV1)
+			if r.cli.noBlocking {
+				go r.cli.eventHandler.eventV2HelpdeskTicketCreatedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2HelpdeskTicketCreatedV1)
+			} else {
+				s, err = r.cli.eventHandler.eventV2HelpdeskTicketCreatedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2HelpdeskTicketCreatedV1)
+			}
 		}
 		return true, s, err
 	case req.eventV2HelpdeskTicketMessageCreatedV1 != nil:
 		if r.cli.eventHandler.eventV2HelpdeskTicketMessageCreatedV1Handler != nil {
-			s, err = r.cli.eventHandler.eventV2HelpdeskTicketMessageCreatedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2HelpdeskTicketMessageCreatedV1)
+			if r.cli.noBlocking {
+				go r.cli.eventHandler.eventV2HelpdeskTicketMessageCreatedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2HelpdeskTicketMessageCreatedV1)
+			} else {
+				s, err = r.cli.eventHandler.eventV2HelpdeskTicketMessageCreatedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2HelpdeskTicketMessageCreatedV1)
+			}
 		}
 		return true, s, err
 	case req.eventV2HelpdeskTicketUpdatedV1 != nil:
 		if r.cli.eventHandler.eventV2HelpdeskTicketUpdatedV1Handler != nil {
-			s, err = r.cli.eventHandler.eventV2HelpdeskTicketUpdatedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2HelpdeskTicketUpdatedV1)
+			if r.cli.noBlocking {
+				go r.cli.eventHandler.eventV2HelpdeskTicketUpdatedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2HelpdeskTicketUpdatedV1)
+			} else {
+				s, err = r.cli.eventHandler.eventV2HelpdeskTicketUpdatedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2HelpdeskTicketUpdatedV1)
+			}
 		}
 		return true, s, err
 	case req.eventV2IMChatDisbandedV1 != nil:
 		if r.cli.eventHandler.eventV2IMChatDisbandedV1Handler != nil {
-			s, err = r.cli.eventHandler.eventV2IMChatDisbandedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2IMChatDisbandedV1)
+			if r.cli.noBlocking {
+				go r.cli.eventHandler.eventV2IMChatDisbandedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2IMChatDisbandedV1)
+			} else {
+				s, err = r.cli.eventHandler.eventV2IMChatDisbandedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2IMChatDisbandedV1)
+			}
 		}
 		return true, s, err
 	case req.eventV2IMChatMemberBotAddedV1 != nil:
 		if r.cli.eventHandler.eventV2IMChatMemberBotAddedV1Handler != nil {
-			s, err = r.cli.eventHandler.eventV2IMChatMemberBotAddedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2IMChatMemberBotAddedV1)
+			if r.cli.noBlocking {
+				go r.cli.eventHandler.eventV2IMChatMemberBotAddedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2IMChatMemberBotAddedV1)
+			} else {
+				s, err = r.cli.eventHandler.eventV2IMChatMemberBotAddedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2IMChatMemberBotAddedV1)
+			}
 		}
 		return true, s, err
 	case req.eventV2IMChatMemberBotDeletedV1 != nil:
 		if r.cli.eventHandler.eventV2IMChatMemberBotDeletedV1Handler != nil {
-			s, err = r.cli.eventHandler.eventV2IMChatMemberBotDeletedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2IMChatMemberBotDeletedV1)
+			if r.cli.noBlocking {
+				go r.cli.eventHandler.eventV2IMChatMemberBotDeletedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2IMChatMemberBotDeletedV1)
+			} else {
+				s, err = r.cli.eventHandler.eventV2IMChatMemberBotDeletedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2IMChatMemberBotDeletedV1)
+			}
 		}
 		return true, s, err
 	case req.eventV2IMChatMemberUserAddedV1 != nil:
 		if r.cli.eventHandler.eventV2IMChatMemberUserAddedV1Handler != nil {
-			s, err = r.cli.eventHandler.eventV2IMChatMemberUserAddedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2IMChatMemberUserAddedV1)
+			if r.cli.noBlocking {
+				go r.cli.eventHandler.eventV2IMChatMemberUserAddedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2IMChatMemberUserAddedV1)
+			} else {
+				s, err = r.cli.eventHandler.eventV2IMChatMemberUserAddedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2IMChatMemberUserAddedV1)
+			}
 		}
 		return true, s, err
 	case req.eventV2IMChatMemberUserDeletedV1 != nil:
 		if r.cli.eventHandler.eventV2IMChatMemberUserDeletedV1Handler != nil {
-			s, err = r.cli.eventHandler.eventV2IMChatMemberUserDeletedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2IMChatMemberUserDeletedV1)
+			if r.cli.noBlocking {
+				go r.cli.eventHandler.eventV2IMChatMemberUserDeletedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2IMChatMemberUserDeletedV1)
+			} else {
+				s, err = r.cli.eventHandler.eventV2IMChatMemberUserDeletedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2IMChatMemberUserDeletedV1)
+			}
 		}
 		return true, s, err
 	case req.eventV2IMChatMemberUserWithdrawnV1 != nil:
 		if r.cli.eventHandler.eventV2IMChatMemberUserWithdrawnV1Handler != nil {
-			s, err = r.cli.eventHandler.eventV2IMChatMemberUserWithdrawnV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2IMChatMemberUserWithdrawnV1)
+			if r.cli.noBlocking {
+				go r.cli.eventHandler.eventV2IMChatMemberUserWithdrawnV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2IMChatMemberUserWithdrawnV1)
+			} else {
+				s, err = r.cli.eventHandler.eventV2IMChatMemberUserWithdrawnV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2IMChatMemberUserWithdrawnV1)
+			}
 		}
 		return true, s, err
 	case req.eventV2IMChatUpdatedV1 != nil:
 		if r.cli.eventHandler.eventV2IMChatUpdatedV1Handler != nil {
-			s, err = r.cli.eventHandler.eventV2IMChatUpdatedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2IMChatUpdatedV1)
+			if r.cli.noBlocking {
+				go r.cli.eventHandler.eventV2IMChatUpdatedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2IMChatUpdatedV1)
+			} else {
+				s, err = r.cli.eventHandler.eventV2IMChatUpdatedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2IMChatUpdatedV1)
+			}
 		}
 		return true, s, err
 	case req.eventV2IMMessageReactionCreatedV1 != nil:
 		if r.cli.eventHandler.eventV2IMMessageReactionCreatedV1Handler != nil {
-			s, err = r.cli.eventHandler.eventV2IMMessageReactionCreatedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2IMMessageReactionCreatedV1)
+			if r.cli.noBlocking {
+				go r.cli.eventHandler.eventV2IMMessageReactionCreatedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2IMMessageReactionCreatedV1)
+			} else {
+				s, err = r.cli.eventHandler.eventV2IMMessageReactionCreatedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2IMMessageReactionCreatedV1)
+			}
 		}
 		return true, s, err
 	case req.eventV2IMMessageReactionDeletedV1 != nil:
 		if r.cli.eventHandler.eventV2IMMessageReactionDeletedV1Handler != nil {
-			s, err = r.cli.eventHandler.eventV2IMMessageReactionDeletedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2IMMessageReactionDeletedV1)
+			if r.cli.noBlocking {
+				go r.cli.eventHandler.eventV2IMMessageReactionDeletedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2IMMessageReactionDeletedV1)
+			} else {
+				s, err = r.cli.eventHandler.eventV2IMMessageReactionDeletedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2IMMessageReactionDeletedV1)
+			}
 		}
 		return true, s, err
 	case req.eventV2IMMessageReadV1 != nil:
 		if r.cli.eventHandler.eventV2IMMessageReadV1Handler != nil {
-			s, err = r.cli.eventHandler.eventV2IMMessageReadV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2IMMessageReadV1)
+			if r.cli.noBlocking {
+				go r.cli.eventHandler.eventV2IMMessageReadV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2IMMessageReadV1)
+			} else {
+				s, err = r.cli.eventHandler.eventV2IMMessageReadV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2IMMessageReadV1)
+			}
 		}
 		return true, s, err
 	case req.eventV2IMMessageRecalledV1 != nil:
 		if r.cli.eventHandler.eventV2IMMessageRecalledV1Handler != nil {
-			s, err = r.cli.eventHandler.eventV2IMMessageRecalledV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2IMMessageRecalledV1)
+			if r.cli.noBlocking {
+				go r.cli.eventHandler.eventV2IMMessageRecalledV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2IMMessageRecalledV1)
+			} else {
+				s, err = r.cli.eventHandler.eventV2IMMessageRecalledV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2IMMessageRecalledV1)
+			}
 		}
 		return true, s, err
 	case req.eventV2IMMessageReceiveV1 != nil:
 		if r.cli.eventHandler.eventV2IMMessageReceiveV1Handler != nil {
-			s, err = r.cli.eventHandler.eventV2IMMessageReceiveV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2IMMessageReceiveV1)
+			if r.cli.noBlocking {
+				go r.cli.eventHandler.eventV2IMMessageReceiveV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2IMMessageReceiveV1)
+			} else {
+				s, err = r.cli.eventHandler.eventV2IMMessageReceiveV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2IMMessageReceiveV1)
+			}
 		}
 		return true, s, err
 	case req.eventV2MeetingRoomMeetingRoomCreatedV1 != nil:
 		if r.cli.eventHandler.eventV2MeetingRoomMeetingRoomCreatedV1Handler != nil {
-			s, err = r.cli.eventHandler.eventV2MeetingRoomMeetingRoomCreatedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2MeetingRoomMeetingRoomCreatedV1)
+			if r.cli.noBlocking {
+				go r.cli.eventHandler.eventV2MeetingRoomMeetingRoomCreatedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2MeetingRoomMeetingRoomCreatedV1)
+			} else {
+				s, err = r.cli.eventHandler.eventV2MeetingRoomMeetingRoomCreatedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2MeetingRoomMeetingRoomCreatedV1)
+			}
 		}
 		return true, s, err
 	case req.eventV2MeetingRoomMeetingRoomDeletedV1 != nil:
 		if r.cli.eventHandler.eventV2MeetingRoomMeetingRoomDeletedV1Handler != nil {
-			s, err = r.cli.eventHandler.eventV2MeetingRoomMeetingRoomDeletedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2MeetingRoomMeetingRoomDeletedV1)
+			if r.cli.noBlocking {
+				go r.cli.eventHandler.eventV2MeetingRoomMeetingRoomDeletedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2MeetingRoomMeetingRoomDeletedV1)
+			} else {
+				s, err = r.cli.eventHandler.eventV2MeetingRoomMeetingRoomDeletedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2MeetingRoomMeetingRoomDeletedV1)
+			}
 		}
 		return true, s, err
 	case req.eventV2MeetingRoomMeetingRoomStatusChangedV1 != nil:
 		if r.cli.eventHandler.eventV2MeetingRoomMeetingRoomStatusChangedV1Handler != nil {
-			s, err = r.cli.eventHandler.eventV2MeetingRoomMeetingRoomStatusChangedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2MeetingRoomMeetingRoomStatusChangedV1)
+			if r.cli.noBlocking {
+				go r.cli.eventHandler.eventV2MeetingRoomMeetingRoomStatusChangedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2MeetingRoomMeetingRoomStatusChangedV1)
+			} else {
+				s, err = r.cli.eventHandler.eventV2MeetingRoomMeetingRoomStatusChangedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2MeetingRoomMeetingRoomStatusChangedV1)
+			}
 		}
 		return true, s, err
 	case req.eventV2MeetingRoomMeetingRoomUpdatedV1 != nil:
 		if r.cli.eventHandler.eventV2MeetingRoomMeetingRoomUpdatedV1Handler != nil {
-			s, err = r.cli.eventHandler.eventV2MeetingRoomMeetingRoomUpdatedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2MeetingRoomMeetingRoomUpdatedV1)
+			if r.cli.noBlocking {
+				go r.cli.eventHandler.eventV2MeetingRoomMeetingRoomUpdatedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2MeetingRoomMeetingRoomUpdatedV1)
+			} else {
+				s, err = r.cli.eventHandler.eventV2MeetingRoomMeetingRoomUpdatedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2MeetingRoomMeetingRoomUpdatedV1)
+			}
 		}
 		return true, s, err
 	case req.eventV2TaskTaskCommentUpdatedV1 != nil:
 		if r.cli.eventHandler.eventV2TaskTaskCommentUpdatedV1Handler != nil {
-			s, err = r.cli.eventHandler.eventV2TaskTaskCommentUpdatedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2TaskTaskCommentUpdatedV1)
+			if r.cli.noBlocking {
+				go r.cli.eventHandler.eventV2TaskTaskCommentUpdatedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2TaskTaskCommentUpdatedV1)
+			} else {
+				s, err = r.cli.eventHandler.eventV2TaskTaskCommentUpdatedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2TaskTaskCommentUpdatedV1)
+			}
 		}
 		return true, s, err
 	case req.eventV2TaskTaskUpdateTenantV1 != nil:
 		if r.cli.eventHandler.eventV2TaskTaskUpdateTenantV1Handler != nil {
-			s, err = r.cli.eventHandler.eventV2TaskTaskUpdateTenantV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2TaskTaskUpdateTenantV1)
+			if r.cli.noBlocking {
+				go r.cli.eventHandler.eventV2TaskTaskUpdateTenantV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2TaskTaskUpdateTenantV1)
+			} else {
+				s, err = r.cli.eventHandler.eventV2TaskTaskUpdateTenantV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2TaskTaskUpdateTenantV1)
+			}
 		}
 		return true, s, err
 	case req.eventV2TaskTaskUpdatedV1 != nil:
 		if r.cli.eventHandler.eventV2TaskTaskUpdatedV1Handler != nil {
-			s, err = r.cli.eventHandler.eventV2TaskTaskUpdatedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2TaskTaskUpdatedV1)
+			if r.cli.noBlocking {
+				go r.cli.eventHandler.eventV2TaskTaskUpdatedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2TaskTaskUpdatedV1)
+			} else {
+				s, err = r.cli.eventHandler.eventV2TaskTaskUpdatedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2TaskTaskUpdatedV1)
+			}
 		}
 		return true, s, err
 	case req.eventV2VCMeetingAllMeetingEndedV1 != nil:
 		if r.cli.eventHandler.eventV2VCMeetingAllMeetingEndedV1Handler != nil {
-			s, err = r.cli.eventHandler.eventV2VCMeetingAllMeetingEndedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2VCMeetingAllMeetingEndedV1)
+			if r.cli.noBlocking {
+				go r.cli.eventHandler.eventV2VCMeetingAllMeetingEndedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2VCMeetingAllMeetingEndedV1)
+			} else {
+				s, err = r.cli.eventHandler.eventV2VCMeetingAllMeetingEndedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2VCMeetingAllMeetingEndedV1)
+			}
 		}
 		return true, s, err
 	case req.eventV2VCMeetingAllMeetingStartedV1 != nil:
 		if r.cli.eventHandler.eventV2VCMeetingAllMeetingStartedV1Handler != nil {
-			s, err = r.cli.eventHandler.eventV2VCMeetingAllMeetingStartedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2VCMeetingAllMeetingStartedV1)
+			if r.cli.noBlocking {
+				go r.cli.eventHandler.eventV2VCMeetingAllMeetingStartedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2VCMeetingAllMeetingStartedV1)
+			} else {
+				s, err = r.cli.eventHandler.eventV2VCMeetingAllMeetingStartedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2VCMeetingAllMeetingStartedV1)
+			}
 		}
 		return true, s, err
 	case req.eventV2VCMeetingJoinMeetingV1 != nil:
 		if r.cli.eventHandler.eventV2VCMeetingJoinMeetingV1Handler != nil {
-			s, err = r.cli.eventHandler.eventV2VCMeetingJoinMeetingV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2VCMeetingJoinMeetingV1)
+			if r.cli.noBlocking {
+				go r.cli.eventHandler.eventV2VCMeetingJoinMeetingV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2VCMeetingJoinMeetingV1)
+			} else {
+				s, err = r.cli.eventHandler.eventV2VCMeetingJoinMeetingV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2VCMeetingJoinMeetingV1)
+			}
 		}
 		return true, s, err
 	case req.eventV2VCMeetingLeaveMeetingV1 != nil:
 		if r.cli.eventHandler.eventV2VCMeetingLeaveMeetingV1Handler != nil {
-			s, err = r.cli.eventHandler.eventV2VCMeetingLeaveMeetingV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2VCMeetingLeaveMeetingV1)
+			if r.cli.noBlocking {
+				go r.cli.eventHandler.eventV2VCMeetingLeaveMeetingV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2VCMeetingLeaveMeetingV1)
+			} else {
+				s, err = r.cli.eventHandler.eventV2VCMeetingLeaveMeetingV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2VCMeetingLeaveMeetingV1)
+			}
 		}
 		return true, s, err
 	case req.eventV2VCMeetingMeetingEndedV1 != nil:
 		if r.cli.eventHandler.eventV2VCMeetingMeetingEndedV1Handler != nil {
-			s, err = r.cli.eventHandler.eventV2VCMeetingMeetingEndedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2VCMeetingMeetingEndedV1)
+			if r.cli.noBlocking {
+				go r.cli.eventHandler.eventV2VCMeetingMeetingEndedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2VCMeetingMeetingEndedV1)
+			} else {
+				s, err = r.cli.eventHandler.eventV2VCMeetingMeetingEndedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2VCMeetingMeetingEndedV1)
+			}
 		}
 		return true, s, err
 	case req.eventV2VCMeetingMeetingStartedV1 != nil:
 		if r.cli.eventHandler.eventV2VCMeetingMeetingStartedV1Handler != nil {
-			s, err = r.cli.eventHandler.eventV2VCMeetingMeetingStartedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2VCMeetingMeetingStartedV1)
+			if r.cli.noBlocking {
+				go r.cli.eventHandler.eventV2VCMeetingMeetingStartedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2VCMeetingMeetingStartedV1)
+			} else {
+				s, err = r.cli.eventHandler.eventV2VCMeetingMeetingStartedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2VCMeetingMeetingStartedV1)
+			}
 		}
 		return true, s, err
 	case req.eventV2VCMeetingRecordingEndedV1 != nil:
 		if r.cli.eventHandler.eventV2VCMeetingRecordingEndedV1Handler != nil {
-			s, err = r.cli.eventHandler.eventV2VCMeetingRecordingEndedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2VCMeetingRecordingEndedV1)
+			if r.cli.noBlocking {
+				go r.cli.eventHandler.eventV2VCMeetingRecordingEndedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2VCMeetingRecordingEndedV1)
+			} else {
+				s, err = r.cli.eventHandler.eventV2VCMeetingRecordingEndedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2VCMeetingRecordingEndedV1)
+			}
 		}
 		return true, s, err
 	case req.eventV2VCMeetingRecordingReadyV1 != nil:
 		if r.cli.eventHandler.eventV2VCMeetingRecordingReadyV1Handler != nil {
-			s, err = r.cli.eventHandler.eventV2VCMeetingRecordingReadyV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2VCMeetingRecordingReadyV1)
+			if r.cli.noBlocking {
+				go r.cli.eventHandler.eventV2VCMeetingRecordingReadyV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2VCMeetingRecordingReadyV1)
+			} else {
+				s, err = r.cli.eventHandler.eventV2VCMeetingRecordingReadyV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2VCMeetingRecordingReadyV1)
+			}
 		}
 		return true, s, err
 	case req.eventV2VCMeetingRecordingStartedV1 != nil:
 		if r.cli.eventHandler.eventV2VCMeetingRecordingStartedV1Handler != nil {
-			s, err = r.cli.eventHandler.eventV2VCMeetingRecordingStartedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2VCMeetingRecordingStartedV1)
+			if r.cli.noBlocking {
+				go r.cli.eventHandler.eventV2VCMeetingRecordingStartedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2VCMeetingRecordingStartedV1)
+			} else {
+				s, err = r.cli.eventHandler.eventV2VCMeetingRecordingStartedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2VCMeetingRecordingStartedV1)
+			}
 		}
 		return true, s, err
 	case req.eventV2VCMeetingShareEndedV1 != nil:
 		if r.cli.eventHandler.eventV2VCMeetingShareEndedV1Handler != nil {
-			s, err = r.cli.eventHandler.eventV2VCMeetingShareEndedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2VCMeetingShareEndedV1)
+			if r.cli.noBlocking {
+				go r.cli.eventHandler.eventV2VCMeetingShareEndedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2VCMeetingShareEndedV1)
+			} else {
+				s, err = r.cli.eventHandler.eventV2VCMeetingShareEndedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2VCMeetingShareEndedV1)
+			}
 		}
 		return true, s, err
 	case req.eventV2VCMeetingShareStartedV1 != nil:
 		if r.cli.eventHandler.eventV2VCMeetingShareStartedV1Handler != nil {
-			s, err = r.cli.eventHandler.eventV2VCMeetingShareStartedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2VCMeetingShareStartedV1)
+			if r.cli.noBlocking {
+				go r.cli.eventHandler.eventV2VCMeetingShareStartedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2VCMeetingShareStartedV1)
+			} else {
+				s, err = r.cli.eventHandler.eventV2VCMeetingShareStartedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2VCMeetingShareStartedV1)
+			}
 		}
 		return true, s, err
 	case req.eventV2VCRoomCreatedV1 != nil:
 		if r.cli.eventHandler.eventV2VCRoomCreatedV1Handler != nil {
-			s, err = r.cli.eventHandler.eventV2VCRoomCreatedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2VCRoomCreatedV1)
+			if r.cli.noBlocking {
+				go r.cli.eventHandler.eventV2VCRoomCreatedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2VCRoomCreatedV1)
+			} else {
+				s, err = r.cli.eventHandler.eventV2VCRoomCreatedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2VCRoomCreatedV1)
+			}
 		}
 		return true, s, err
 	case req.eventV2VCRoomDeletedV1 != nil:
 		if r.cli.eventHandler.eventV2VCRoomDeletedV1Handler != nil {
-			s, err = r.cli.eventHandler.eventV2VCRoomDeletedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2VCRoomDeletedV1)
+			if r.cli.noBlocking {
+				go r.cli.eventHandler.eventV2VCRoomDeletedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2VCRoomDeletedV1)
+			} else {
+				s, err = r.cli.eventHandler.eventV2VCRoomDeletedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2VCRoomDeletedV1)
+			}
 		}
 		return true, s, err
 	case req.eventV2VCRoomUpdatedV1 != nil:
 		if r.cli.eventHandler.eventV2VCRoomUpdatedV1Handler != nil {
-			s, err = r.cli.eventHandler.eventV2VCRoomUpdatedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2VCRoomUpdatedV1)
+			if r.cli.noBlocking {
+				go r.cli.eventHandler.eventV2VCRoomUpdatedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2VCRoomUpdatedV1)
+			} else {
+				s, err = r.cli.eventHandler.eventV2VCRoomUpdatedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2VCRoomUpdatedV1)
+			}
 		}
 		return true, s, err
 

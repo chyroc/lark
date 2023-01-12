@@ -143,6 +143,13 @@ func WithIsEnableLogID(isEnableLogID bool) ClientOptionFunc {
 	}
 }
 
+// WithNonBlockingCallback set if enable no-blocking callback
+func WithNonBlockingCallback(noBlocking bool) ClientOptionFunc {
+	return func(lark *Lark) {
+		lark.noBlocking = noBlocking
+	}
+}
+
 // MethodOptionFunc new method option
 type MethodOptionFunc func(*MethodOption)
 
