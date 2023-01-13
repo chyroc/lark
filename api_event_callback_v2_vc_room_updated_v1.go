@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// EventV2VCRoomUpdatedV1 当更新会议室时, 会触发该事件{使用示例}(url=/api/tools/api_explore/api_explore_config?project=vc&version=v1&resource=room&event=updated)
+// EventV2VCRoomUpdatedV1 当更新会议室时, 会触发该事件。{使用示例}(url=/api/tools/api_explore/api_explore_config?project=vc&version=v1&resource=room&event=updated)
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/vc-v1/room/events/updated
 func (r *EventCallbackService) HandlerEventV2VCRoomUpdatedV1(f EventV2VCRoomUpdatedV1Handler) {
@@ -47,6 +47,12 @@ type EventV2VCRoomUpdatedV1Room struct {
 	RoomLevelID  string                                `json:"room_level_id,omitempty"`  // 层级ID
 	Path         []string                              `json:"path,omitempty"`           // 层级路径
 	RoomStatus   *EventV2VCRoomUpdatedV1RoomRoomStatus `json:"room_status,omitempty"`    // 会议室状态
+	Device       []*EventV2VCRoomUpdatedV1RoomDevice   `json:"device,omitempty"`         // 设施信息列表
+}
+
+// EventV2VCRoomUpdatedV1RoomDevice ...
+type EventV2VCRoomUpdatedV1RoomDevice struct {
+	Name string `json:"name,omitempty"` // 设施名称
 }
 
 // EventV2VCRoomUpdatedV1RoomRoomStatus ...

@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// GetVCExportTask 查看异步导出的进度
+// GetVCExportTask 查看异步导出的进度。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/vc-v1/export/get
 func (r *VCService) GetVCExportTask(ctx context.Context, request *GetVCExportTaskReq, options ...MethodOptionFunc) (*GetVCExportTaskResp, *Response, error) {

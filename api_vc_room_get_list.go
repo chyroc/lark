@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// GetVCRoomList 该接口可以用来查询某个会议室层级下会议室列表
+// GetVCRoomList 该接口可以用来查询某个会议室层级下会议室列表。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/vc-v1/room/list
 func (r *VCService) GetVCRoomList(ctx context.Context, request *GetVCRoomListReq, options ...MethodOptionFunc) (*GetVCRoomListResp, *Response, error) {
@@ -82,6 +82,12 @@ type GetVCRoomListRespRoom struct {
 	RoomLevelID  string                           `json:"room_level_id,omitempty"`  // 层级ID
 	Path         []string                         `json:"path,omitempty"`           // 层级路径
 	RoomStatus   *GetVCRoomListRespRoomRoomStatus `json:"room_status,omitempty"`    // 会议室状态
+	Device       []*GetVCRoomListRespRoomDevice   `json:"device,omitempty"`         // 设施信息列表
+}
+
+// GetVCRoomListRespRoomDevice ...
+type GetVCRoomListRespRoomDevice struct {
+	Name string `json:"name,omitempty"` // 设施名称
 }
 
 // GetVCRoomListRespRoomRoomStatus ...
@@ -93,7 +99,7 @@ type GetVCRoomListRespRoomRoomStatus struct {
 	DisableReason    string   `json:"disable_reason,omitempty"`     // 禁用原因
 	ContactIDs       []string `json:"contact_ids,omitempty"`        // 联系人列表, id类型由user_id_type参数决定
 	DisableNotice    bool     `json:"disable_notice,omitempty"`     // 是否在禁用时发送通知给预定了该会议室的员工
-	ResumeNotice     bool     `json:"resume_notice,omitempty"`      // 是否在恢复启用时发送通知给预定了该会议室的员工
+	ResumeNotice     bool     `json:"resume_notice,omitempty"`      // 是否在恢复启用时发送通知给联系人
 }
 
 // getVCRoomListResp ...

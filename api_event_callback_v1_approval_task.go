@@ -21,13 +21,8 @@ import (
 	"context"
 )
 
-// EventV1ApprovalTask ## 什么是审批事件监听
+// EventV1ApprovalTask 审批人同意/拒绝/转交/退回 审批任务后, 会向开发者推送审批任务状态消息。
 //
-// 开发者通过审批开放接口创建审批实例后, 如要在审批完成后进行额外处理, 需不断轮询审批详情接口获取最新状态, 既增加开发复杂度, 又造成了不必要的接口查询消耗。
-// 审批事件监听使用开放平台事件订阅机制, 可将指定消息推送到开发者在应用后台配置的回调 URL 上。审批事件包括审批实例状态变更、审批任务状态变更、审批抄送事件。
-// 消息推送可能会有重复, 需要开发者做幂等。
-// ### 审批任务状态变更
-// 审批人同意/拒绝/转交/退回 审批任务后, 会向开发者推送审批任务状态消息。
 // 1. 用户创建审批后, 推送第一个审批节点的审批任务【PENDING】状态
 // 2. 如果当前节点是会签(AND)节点
 // - 	任一审批任务被同意, 推送该任务的【APPROVED】状态
@@ -40,7 +35,7 @@ import (
 // 6. 审批定义被管理员删除后, 推送剩余所有任务的【DONE】状态
 // 7. 如果用户对审批任务进行退回, 推送该任务的【ROLLBACK】状态, 和被退回人任务的【PENDING】状态
 //
-// doc: https://open.feishu.cn/document/ukTMukTMukTM/ugDNyUjL4QjM14CO0ITN
+// doc: https://open.feishu.cn/document/ukTMukTMukTM/uIDO24iM4YjLygjN/event/common-event/approval-task-event
 func (r *EventCallbackService) HandlerEventV1ApprovalTask(f EventV1ApprovalTaskHandler) {
 	r.cli.eventHandler.eventV1ApprovalTaskHandler = f
 }
@@ -61,4 +56,6 @@ type EventV1ApprovalTask struct {
 	Status       string `json:"status,omitempty"`        // 任务状态 REVERTED - 已还原 PENDING - 进行中 APPROVED - 已通过 REJECTED - 已拒绝 TRANSFERRED - 已转交 ROLLBACK - 已退回 DONE - 已完成
 	OperateTime  string `json:"operate_time,omitempty"`  // 事件发生时间
 	Extra        string `json:"extra,omitempty"`         // 扩展数据, 当前只有退回事件才有此字段, rollback_node_ids退回的节点列表, rollback_custom_node_ids用户自定义配置的节点列表
+	CustomKey    string `json:"custom_key,omitempty"`    // 节点自定义ID
+	DefKey       string `json:"def_key,omitempty"`       // 节点系统生成唯一ID
 }

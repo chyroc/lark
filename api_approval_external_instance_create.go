@@ -67,8 +67,8 @@ func (r *Mock) UnMockApprovalCreateApprovalExternalInstance() {
 // CreateApprovalExternalInstanceReq ...
 type CreateApprovalExternalInstanceReq struct {
 	ApprovalCode          string                                            `json:"approval_code,omitempty"`            // 审批定义 code, 创建审批定义返回的值, 表示该实例属于哪个流程；该字段会影响到列表中该实例的标题, 标题取自对应定义的 name 字段, 示例值: "81D31358-93AF-92D6-7425-01A5D67C4E71"
-	Status                string                                            `json:"status,omitempty"`                   // 审批实例状态, 示例值: "PENDING", 可选值有: PENDING: 审批中, APPROVED: 审批流程结束, 结果为同意, REJECTED: 审批流程结束, 结果为拒绝, CANCELED: 审批发起人撤回, DELETED: 审批被删除, HIDDEN: 状态隐藏(不显示状态)
-	Extra                 *string                                           `json:"extra,omitempty"`                    // 审批实例扩展 JSON, 示例值: "{\"xxx\":\"xxx\"}"
+	Status                string                                            `json:"status,omitempty"`                   // 审批实例状态, 示例值: "PENDING", 可选值有: PENDING: 审批中, APPROVED: 审批流程结束, 结果为同意, REJECTED: 审批流程结束, 结果为拒绝, CANCELED: 审批发起人撤回, DELETED: 审批被删除, HIDDEN: 状态隐藏(不显示状态), TERMINATED: 审批终止
+	Extra                 *string                                           `json:"extra,omitempty"`                    // 审批实例扩展 JSON。单据编号通过传business_key字段来实现, 示例值: "{\"xxx\":\"xxx\", \"business_key\":\"xxx\"}"
 	InstanceID            string                                            `json:"instance_id,omitempty"`              // 审批实例唯一标识, 用户自定义, 需确保证租户下唯一, 示例值: "24492654"
 	Links                 []*CreateApprovalExternalInstanceReqLink          `json:"links,omitempty"`                    // 审批实例链接集合, 用于【已发起】列表的跳转, 跳转回三方系统； pc_link 和 mobile_link 必须填一个, 填写的是哪一端的链接, 即会跳转到该链接, 不受平台影响
 	Title                 *string                                           `json:"title,omitempty"`                    // 审批展示名称, 如果填写了该字段, 则审批列表中的审批名称使用该字段, 如果不填该字段, 则审批名称使用审批定义的名称, 示例值: "@i18n@1"
@@ -158,7 +158,7 @@ type CreateApprovalExternalInstanceReqTask struct {
 
 // CreateApprovalExternalInstanceReqTaskActionConfig ...
 type CreateApprovalExternalInstanceReqTaskActionConfig struct {
-	ActionType       string  `json:"action_type,omitempty"`        // 操作类型, 每个任务都可以配置2个操作, 会展示审批列表中, 当用户操作时, 回调请求会带上该字段, 表示用户进行了同意操作还是拒绝操作, 示例值: "APPROVE", 可选值有: APPROVE: 同意, REJECT: 拒绝, {KEY}: 任意字符串, 如果使用任意字符串, 则需要提供 action_name
+	ActionType       string  `json:"action_type,omitempty"`        // 操作类型, 每个任务都可以配置2个操作, 会展示审批列表中, 当用户操作时, 回调请求会带上该字段, 表示用户进行了同意操作还是拒绝操作, 可选值有: APPROVE: 同意, REJECT: 拒绝, {KEY}: 任意字符串, 如果使用任意字符串, 则需要提供 action_name, 示例值: "APPROVE"
 	ActionName       *string `json:"action_name,omitempty"`        // 操作名称, i18n key 用于前台展示, 如果 action_type 不是 APPROVAL和REJECT, 则必须提供该字段, 用于展示特定的操作名称, 示例值: "@i18n@5"
 	IsNeedReason     *bool   `json:"is_need_reason,omitempty"`     // 是否需要意见, 如果为true, 则用户操作时, 会跳转到 意见填写页面, 示例值: false
 	IsReasonRequired *bool   `json:"is_reason_required,omitempty"` // 审批意见是否必填, 示例值: false
@@ -173,10 +173,11 @@ type CreateApprovalExternalInstanceReqTaskLinks struct {
 
 // CreateApprovalExternalInstanceReqTrusteeshipURLs ...
 type CreateApprovalExternalInstanceReqTrusteeshipURLs struct {
-	FormDetailURL       *string `json:"form_detail_url,omitempty"`       // 获取表单schema相关数据的url地址, 示例值: "https://#{your_domain}/api/form_detail"
-	ActionDefinitionURL *string `json:"action_definition_url,omitempty"` // 表示获取审批操作区数据的url地址, 示例值: "https://#{your_domain}/api/action_definition"
-	ApprovalNodeURL     *string `json:"approval_node_url,omitempty"`     // 获取审批记录相关数据的url地址, 示例值: "https://#{your_domain}/api/approval_node"
-	ActionCallbackURL   *string `json:"action_callback_url,omitempty"`   // 进行审批操作时回调的url地址, 示例值: "https://#{your_domain}/api/approval_node"
+	FormDetailURL       *string `json:"form_detail_url,omitempty"`        // 获取表单schema相关数据的url地址, 示例值: "https://#{your_domain}/api/form_detail"
+	ActionDefinitionURL *string `json:"action_definition_url,omitempty"`  // 表示获取审批操作区数据的url地址, 示例值: "https://#{your_domain}/api/action_definition"
+	ApprovalNodeURL     *string `json:"approval_node_url,omitempty"`      // 获取审批记录相关数据的url地址, 示例值: "https://#{your_domain}/api/approval_node"
+	ActionCallbackURL   *string `json:"action_callback_url,omitempty"`    // 进行审批操作时回调的url地址, 示例值: "https://#{your_domain}/api/action_callback"
+	PullBusinessDataURL *string `json:"pull_business_data_url,omitempty"` // 获取托管动态数据url 地址, 使用该接口时必须要保证历史托管单据的数据中都同步了该接口地址, 如果历史单据中没有该接口需要重新同步历史托管单据的数据来更新该URL。该接口用于飞书审批前端和业务线进行交互使用, 只有使用审批前端的特定组件(由飞书审批前端提供的组件, 并且需要和业务线进行接口交互的组件)才会需要, 示例值: "https://#{your_domain}/api/pull_business_data"
 }
 
 // CreateApprovalExternalInstanceResp ...
@@ -187,8 +188,8 @@ type CreateApprovalExternalInstanceResp struct {
 // CreateApprovalExternalInstanceRespData ...
 type CreateApprovalExternalInstanceRespData struct {
 	ApprovalCode          string                                                 `json:"approval_code,omitempty"`            // 审批定义 code, 创建审批定义返回的值, 表示该实例属于哪个流程；该字段会影响到列表中该实例的标题, 标题取自对应定义的 name 字段
-	Status                string                                                 `json:"status,omitempty"`                   // 审批实例状态, 可选值有: PENDING: 审批中, APPROVED: 审批流程结束, 结果为同意, REJECTED: 审批流程结束, 结果为拒绝, CANCELED: 审批发起人撤回, DELETED: 审批被删除, HIDDEN: 状态隐藏(不显示状态)
-	Extra                 string                                                 `json:"extra,omitempty"`                    // 审批实例扩展 JSON
+	Status                string                                                 `json:"status,omitempty"`                   // 审批实例状态, 可选值有: PENDING: 审批中, APPROVED: 审批流程结束, 结果为同意, REJECTED: 审批流程结束, 结果为拒绝, CANCELED: 审批发起人撤回, DELETED: 审批被删除, HIDDEN: 状态隐藏(不显示状态), TERMINATED: 审批终止
+	Extra                 string                                                 `json:"extra,omitempty"`                    // 审批实例扩展 JSON。单据编号通过传business_key字段来实现
 	InstanceID            string                                                 `json:"instance_id,omitempty"`              // 审批实例唯一标识, 用户自定义, 需确保证租户下唯一
 	Links                 []*CreateApprovalExternalInstanceRespDataLink          `json:"links,omitempty"`                    // 审批实例链接集合, 用于【已发起】列表的跳转, 跳转回三方系统； pc_link 和 mobile_link 必须填一个, 填写的是哪一端的链接, 即会跳转到该链接, 不受平台影响
 	Title                 string                                                 `json:"title,omitempty"`                    // 审批展示名称, 如果填写了该字段, 则审批列表中的审批名称使用该字段, 如果不填该字段, 则审批名称使用审批定义的名称
@@ -293,10 +294,11 @@ type CreateApprovalExternalInstanceRespDataTaskLinks struct {
 
 // CreateApprovalExternalInstanceRespDataTrusteeshipURLs ...
 type CreateApprovalExternalInstanceRespDataTrusteeshipURLs struct {
-	FormDetailURL       string `json:"form_detail_url,omitempty"`       // 获取表单schema相关数据的url地址
-	ActionDefinitionURL string `json:"action_definition_url,omitempty"` // 表示获取审批操作区数据的url地址
-	ApprovalNodeURL     string `json:"approval_node_url,omitempty"`     // 获取审批记录相关数据的url地址
-	ActionCallbackURL   string `json:"action_callback_url,omitempty"`   // 进行审批操作时回调的url地址
+	FormDetailURL       string `json:"form_detail_url,omitempty"`        // 获取表单schema相关数据的url地址
+	ActionDefinitionURL string `json:"action_definition_url,omitempty"`  // 表示获取审批操作区数据的url地址
+	ApprovalNodeURL     string `json:"approval_node_url,omitempty"`      // 获取审批记录相关数据的url地址
+	ActionCallbackURL   string `json:"action_callback_url,omitempty"`    // 进行审批操作时回调的url地址
+	PullBusinessDataURL string `json:"pull_business_data_url,omitempty"` // 获取托管动态数据url 地址, 使用该接口时必须要保证历史托管单据的数据中都同步了该接口地址, 如果历史单据中没有该接口需要重新同步历史托管单据的数据来更新该URL。该接口用于飞书审批前端和业务线进行交互使用, 只有使用审批前端的特定组件(由飞书审批前端提供的组件, 并且需要和业务线进行接口交互的组件)才会需要
 }
 
 // createApprovalExternalInstanceResp ...

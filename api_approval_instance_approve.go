@@ -63,7 +63,7 @@ type ApproveApprovalInstanceReq struct {
 	UserID       string             `json:"user_id,omitempty"`       // 根据user_id_type填写操作用户id, 示例值: "f7cb567e"
 	Comment      *string            `json:"comment,omitempty"`       // 意见, 示例值: "OK"
 	TaskID       string             `json:"task_id,omitempty"`       // 任务 ID, 审批实例详情task_list中id, 示例值: "12345"
-	Form         ApprovalWidgetList `json:"form,omitempty"`          // json 数组, 控件值, 示例值: "[{\"id\":\"111\", \"type\": \"input\", \"value\":\"test\"}]"
+	Form         ApprovalWidgetList `json:"form,omitempty"`          // json 数组, 控件值（如果缺少控件, 会影响后续分支条件流转）, 示例值: "[{\"id\":\"111\", \"type\": \"input\", \"value\":\"test\"}]"
 }
 
 // ApproveApprovalInstanceResp ...

@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// BatchGetVCRoomLevel 该接口可以使用会议室层级ID批量查询会议室层级详情
+// BatchGetVCRoomLevel 该接口可以使用会议室层级 ID 批量查询会议室层级详情。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/vc-v1/room_level/mget
 func (r *VCService) BatchGetVCRoomLevel(ctx context.Context, request *BatchGetVCRoomLevelReq, options ...MethodOptionFunc) (*BatchGetVCRoomLevelResp, *Response, error) {

@@ -24,7 +24,13 @@ import (
 // UpdateDocxBlock 更新指定的块。
 //
 // 在调用此接口前, 请仔细阅读[新版文档 OpenAPI 接口校验规则](https://bytedance.feishu.cn/docx/doxcnby5Y0yoACL3PdfZqrJEm6f#doxcnEeyS0I8MMqoieIMpK7jm8g), 了解相关规则及约束。
-// 频率限制: 单个应用调用频率上限为每秒 3 次。
+// 应用频率限制: 单个应用调用频率上限为每秒 3 次, 超过该频率限制, 接口将返回 HTTP 状态码 400 及错误码 99991400；
+// 文档频率限制: 单篇文档并发编辑上限为每秒 3 次, 超过该频率限制, 接口将返回 HTTP 状态码 429, 编辑操作包括:
+// - 创建块
+// - 删除块
+// - 更新块
+// - 批量更新块
+// 当请求被限频, 应用需要处理限频状态码, 并使用指数退避算法或其它一些频控策略降低对 API 的调用速率。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/document-docx/docx-v1/document-block/patch
 func (r *DriveService) UpdateDocxBlock(ctx context.Context, request *UpdateDocxBlockReq, options ...MethodOptionFunc) (*UpdateDocxBlockResp, *Response, error) {
@@ -61,9 +67,9 @@ func (r *Mock) UnMockDriveUpdateDocxBlock() {
 
 // UpdateDocxBlockReq ...
 type UpdateDocxBlockReq struct {
-	DocumentID                 string                                        `path:"document_id" json:"-"`                     // 文档的唯一标识, 示例值: "doxcnePuYufKa49ISjhD8Ih0ikh"
+	DocumentID                 string                                        `path:"document_id" json:"-"`                     // 文档唯一标识。对应新版文档 Token, [点击了解如何获取云文档 Token](https://open.feishu.cn/document/ukTMukTMukTM/uczNzUjL3czM14yN3MTN#08bb5df6), 示例值: "doxcnePuYufKa49ISjhD8Ih0ikh"
 	BlockID                    string                                        `path:"block_id" json:"-"`                        // Block 的唯一标识, 示例值: "doxcnO6UW6wAw2qIcYf4hZpFIth"
-	DocumentRevisionID         *int64                                        `query:"document_revision_id" json:"-"`           // 操作的文档版本, 1表示文档最新版本。若此时操作的版本为文档最新版本, 则需要持有文档的阅读权限；若此时操作的版本为文档的历史版本, 则需要持有文档的编辑权限, 示例值:1, 默认值: `-1`, 最小值: `-1`
+	DocumentRevisionID         *int64                                        `query:"document_revision_id" json:"-"`           // 操作的文档版本, 1 表示文档最新版本。若此时操作的版本为文档最新版本, 则需要持有文档的阅读权限；若此时操作的版本为文档的历史版本, 则需要持有文档的编辑权限, 示例值:1, 默认值: `-1`, 最小值: `-1`
 	ClientToken                *string                                       `query:"client_token" json:"-"`                   // 操作的唯一标识, 与接口返回值的 client_token 相对应, 用于幂等的进行更新操作。此值为空表示将发起一次新的请求, 此值非空表示幂等的进行更新操作, 示例值: "0e2633a3-aa1a-4171-af9e-0768ff863566"
 	UserIDType                 *IDType                                       `query:"user_id_type" json:"-"`                   // 用户 ID 类型, 示例值: "open_id", 可选值有: open_id: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid), union_id: 标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id), user_id: 标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id), 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
 	UpdateTextElements         *UpdateDocxBlockReqUpdateTextElements         `json:"update_text_elements,omitempty"`           // 更新文本元素请求

@@ -64,7 +64,7 @@ func (r *Mock) UnMockBitableCreateBitableField() {
 type CreateBitableFieldReq struct {
 	AppToken    string                            `path:"app_token" json:"-"`     // 多维表格的唯一标识符 [app_token 参数说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/bitable/notification#8121eebe), 示例值: "appbcbWCzen6D8dezhoCH2RpMAh"
 	TableID     string                            `path:"table_id" json:"-"`      // 多维表格数据表的唯一标识符 [table_id 参数说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/bitable/notification#735fe883), 示例值: "tblsRc9GRRXKqhvW"
-	ClientToken *string                           `query:"client_token" json:"-"` // 格式为标准的 uuid, 操作的唯一标识, 用于幂等的进行更新操作。此值为空表示将发起一次新的请求, 此值非空表示幂等的进行更新操作, 示例值: "fe599b60-450f-46ff-b2ef-9f6675625b97"
+	ClientToken *string                           `query:"client_token" json:"-"` // 格式为标准的 uuidv4, 操作的唯一标识, 用于幂等的进行更新操作。此值为空表示将发起一次新的请求, 此值非空表示幂等的进行更新操作, 示例值: "fe599b60-450f-46ff-b2ef-9f6675625b97"
 	FieldName   string                            `json:"field_name,omitempty"`   // 多维表格字段名, 请注意: 1. 名称中的首尾空格将会被去除, 示例值: "多行文本"
 	Type        int64                             `json:"type,omitempty"`         // 多维表格字段类型, 示例值: 1, 可选值有: 1: 多行文本, 2: 数字, 3: 单选, 4: 多选, 5: 日期, 7: 复选框, 11: 人员, 15: 超链接, 17: 附件, 18: 关联, 20: 公式, 21: 双向关联, 1001: 创建时间, 1002: 最后更新时间, 1003: 创建人, 1004: 修改人, 1005: 自动编号, 13: 电话号码, 22: 地理位置
 	Property    *CreateBitableFieldReqProperty    `json:"property,omitempty"`     // 字段属性, 具体参考: [字段编辑指南](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table-field/guide)

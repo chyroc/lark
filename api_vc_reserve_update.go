@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// UpdateVCReserve 更新一个预约
+// UpdateVCReserve 更新一个预约。
 //
 // 只能更新归属于自己的预约, 不需要更新的字段不传（如果传空则会被更新为空）；可用于续期操作, 到期时间距离当前时间不超过30天
 //
@@ -102,7 +102,7 @@ type UpdateVCReserveReqMeetingSettingsCallSetting struct {
 // UpdateVCReserveReqMeetingSettingsCallSettingCallee ...
 type UpdateVCReserveReqMeetingSettingsCallSettingCallee struct {
 	ID          *string                                                        `json:"id,omitempty"`            // 用户ID, 示例值: "ou_3ec3f6a28a0d08c45d895276e8e5e19b"
-	UserType    int64                                                          `json:"user_type,omitempty"`     // 用户类型, 当前仅支持用户类型6(pstn用户), 示例值: 1, 可选值有: 1: lark用户, 2: rooms用户, 3: 文档用户, 4: neo单品用户, 5: neo单品游客用户, 6: pstn用户, 7: sip用户
+	UserType    int64                                                          `json:"user_type,omitempty"`     // 用户类型, 当前仅支持用户类型6(pstn用户), 示例值: 1, 可选值有: 1: lark用户, 2: rooms用户（建议使用open_id作为user_id_type用于获取此类用户）, 3: 文档用户, 4: neo单品用户, 5: neo单品游客用户, 6: pstn用户, 7: sip用户
 	PstnSipInfo *UpdateVCReserveReqMeetingSettingsCallSettingCalleePstnSipInfo `json:"pstn_sip_info,omitempty"` // pstn/sip信息
 }
 
@@ -123,7 +123,7 @@ type UpdateVCReserveRespReserve struct {
 	ID           string `json:"id,omitempty"`            // 预约ID（预约的唯一标识）
 	MeetingNo    string `json:"meeting_no,omitempty"`    // 9位会议号（飞书用户可通过输入9位会议号快捷入会）
 	URL          string `json:"url,omitempty"`           // 会议链接（飞书用户可通过点击会议链接快捷入会）
-	LiveLink     string `json:"live_link,omitempty"`     // 直播链接
+	LiveLink     string `json:"live_link,omitempty"`     // 会议转直播链接
 	EndTime      string `json:"end_time,omitempty"`      // 预约到期时间（unix时间, 单位sec）
 	ExpireStatus int64  `json:"expire_status,omitempty"` // 过期状态, 可选值有: 1: 未过期, 2: 已过期
 }

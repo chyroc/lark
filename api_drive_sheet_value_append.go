@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// AppendSheetValue 该接口用于根据 spreadsheetToken 和 range 遇到空行则进行覆盖追加或新增行追加数据。 空行: 默认该行第一个格子是空, 则认为是空行；单次写入不超过5000行, 100列, 每个格子不超过5万字符。
+// AppendSheetValue 该接口用于在已有数据的末尾追加写入给定的数据。该接口会从给定的range中的起始行列开始向下寻找（如range为"sheet1!A1:B2", 将会依次寻找A1、A2、A3...）, 找到第一个空白位置后将数据写入到该区域。单次写入不得超过5000行, 100列, 每个格子不得超过5万字符。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uMjMzUjLzIzM14yMyMTN
 func (r *DriveService) AppendSheetValue(ctx context.Context, request *AppendSheetValueReq, options ...MethodOptionFunc) (*AppendSheetValueResp, *Response, error) {

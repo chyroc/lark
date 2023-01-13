@@ -66,7 +66,7 @@ type GetDriveFileMetaReq struct {
 // GetDriveFileMetaReqRequestDocs ...
 type GetDriveFileMetaReqRequestDocs struct {
 	DocToken string `json:"doc_token,omitempty"` // 文件的 token, 获取方式见[如何获取云文档资源相关 token](https://open.feishu.cn/document/ukTMukTMukTM/uczNzUjL3czM14yN3MTN#08bb5df6), 示例值: "doccnfYZzTlvXqZIGTdAHKabcef"
-	DocType  string `json:"doc_type,omitempty"`  // 文件类型, 示例值: "doc", 可选值有: doc: 飞书文档, sheet: 飞书电子表格, bitable: 飞书多维表格, mindnote: 飞书思维笔记, file: 飞书文件, wiki: 飞书wiki, docx: 飞书新版文档
+	DocType  string `json:"doc_type,omitempty"`  // 文件类型, 示例值: "doc", 可选值有: doc: 飞书文档, sheet: 飞书电子表格, bitable: 飞书多维表格, mindnote: 飞书思维笔记, file: 飞书文件, wiki: 飞书wiki, docx: 飞书新版文档, folder: 飞书文件夹
 }
 
 // GetDriveFileMetaResp ...
@@ -91,6 +91,7 @@ type GetDriveFileMetaRespMeta struct {
 	LatestModifyUser string `json:"latest_modify_user,omitempty"` // 最后编辑者
 	LatestModifyTime string `json:"latest_modify_time,omitempty"` // 最后编辑时间（Unix时间戳）
 	URL              string `json:"url,omitempty"`                // 文档链接
+	SecLabelName     string `json:"sec_label_name,omitempty"`     // 文档密级标签名称, 字段权限要求: 获取文档密级标签名称
 }
 
 // getDriveFileMetaResp ...

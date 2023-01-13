@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// KickoutVCMeeting 将参会人从会议中移除
+// KickoutVCMeeting 将参会人从会议中移除。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/vc-v1/meeting/kickout
 func (r *VCService) KickoutVCMeeting(ctx context.Context, request *KickoutVCMeetingReq, options ...MethodOptionFunc) (*KickoutVCMeetingResp, *Response, error) {
@@ -65,7 +65,7 @@ type KickoutVCMeetingReq struct {
 // KickoutVCMeetingReqKickoutUser ...
 type KickoutVCMeetingReqKickoutUser struct {
 	ID       *string `json:"id,omitempty"`        // 用户ID, 示例值: "ou_3ec3f6a28a0d08c45d895276e8e5e19b"
-	UserType *int64  `json:"user_type,omitempty"` // 用户类型, 示例值: 1, 可选值有: 1: lark用户, 2: rooms用户, 3: 文档用户, 4: neo单品用户, 5: neo单品游客用户, 6: pstn用户, 7: sip用户
+	UserType *int64  `json:"user_type,omitempty"` // 用户类型, 示例值: 1, 可选值有: 1: lark用户, 2: rooms用户（建议使用open_id作为user_id_type用于获取此类用户）, 3: 文档用户, 4: neo单品用户, 5: neo单品游客用户, 6: pstn用户, 7: sip用户
 }
 
 // KickoutVCMeetingResp ...

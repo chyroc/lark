@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// GetVCMeeting 获取一个会议的详细数据
+// GetVCMeeting 获取一个会议的详细数据。
 //
 // 只能获取归属于自己的会议, 支持查询最近90天内的会议
 //

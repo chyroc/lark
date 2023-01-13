@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// GetHireJobConfig 获取职位设置
+// GetHireJobConfig 获取职位设置。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/job/config
 func (r *HireService) GetHireJobConfig(ctx context.Context, request *GetHireJobConfigReq, options ...MethodOptionFunc) (*GetHireJobConfigResp, *Response, error) {

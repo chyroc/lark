@@ -121,7 +121,7 @@ type GetCalendarEventListRespItemLocation struct {
 
 // GetCalendarEventListRespItemReminder ...
 type GetCalendarEventListRespItemReminder struct {
-	Minutes int64 `json:"minutes,omitempty"` // 日程提醒时间的偏移量, 正数时表示在日程开始前X分钟提醒, 负数时表示在日程开始后X分钟提醒, 新建或更新日程时传入该字段, 仅对当前身份生效
+	Minutes int64 `json:"minutes,omitempty"` // 日程提醒时间的偏移量, 正数时表示在日程开始前X分钟提醒, 负数时表示在日程开始后X分钟提醒, 新建或更新日程时传入该字段, 仅对当前身份生效, 不会对日程其他参与人生效。
 }
 
 // GetCalendarEventListRespItemSchema ...

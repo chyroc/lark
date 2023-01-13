@@ -66,7 +66,7 @@ type CreateBaikeDraftReq struct {
 	ID          *string                         `json:"id,omitempty"`           // 词条 ID （需要更新某个词条时填写, 若是创建新词条可不填写）, 示例值: "enterprise_40217521"
 	MainKeys    []*CreateBaikeDraftReqMainKey   `json:"main_keys,omitempty"`    // 词条名, 最大长度: `1`
 	Aliases     []*CreateBaikeDraftReqAliase    `json:"aliases,omitempty"`      // 别名, 最大长度: `10`
-	Description *string                         `json:"description,omitempty"`  // 词条释义（纯文本格式）, 示例值: "企业百科是飞书提供的一款知识管理工具, 通过企业百科可以帮助企业将分散的知识信息进行聚合, 并通过UGC的方式, 促进企业知识的保鲜和流通", 最大长度: `5000` 字符
+	Description *string                         `json:"description,omitempty"`  // 纯文本格式词条释义。注: description 和 rich_text 至少有一个, 否则会报错: 1540001, 示例值: "企业百科是飞书提供的一款知识管理工具, 通过企业百科可以帮助企业将分散的知识信息进行聚合, 并通过UGC的方式, 促进企业知识的保鲜和流通", 最大长度: `5000` 字符
 	RelatedMeta *CreateBaikeDraftReqRelatedMeta `json:"related_meta,omitempty"` // 更多相关信息
 	OuterInfo   *CreateBaikeDraftReqOuterInfo   `json:"outer_info,omitempty"`   // 外部系统关联数据
 	RichText    *string                         `json:"rich_text,omitempty"`    // 富文本格式（当填写富文本内容时, description字段将会失效可不填写）, 支持的格式参考[企业百科指南](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/baike-v1/overview)中的释义部分, 示例值: "<b>加粗</b><i>斜体</i><p><a href=\"https://feishu.cn\">链接</a></p><p><span>企业百科是飞书提供的一款知识管理工具, 通过企业百科可以帮助企业将分散的知识信息进行聚合, 并通过UGC的方式, 促进企业知识的保鲜和流通</span></p>", 最大长度: `5000` 字符
@@ -174,7 +174,7 @@ type CreateBaikeDraftRespDraftEntity struct {
 	ID          string                                      `json:"id,omitempty"`           // 词条 ID （需要更新某个词条时填写, 若是创建新词条可不填写）
 	MainKeys    []*CreateBaikeDraftRespDraftEntityMainKey   `json:"main_keys,omitempty"`    // 词条名
 	Aliases     []*CreateBaikeDraftRespDraftEntityAliase    `json:"aliases,omitempty"`      // 别名
-	Description string                                      `json:"description,omitempty"`  // 词条释义（纯文本格式）
+	Description string                                      `json:"description,omitempty"`  // 纯文本格式词条释义。注: description 和 rich_text 至少有一个, 否则会报错: 1540001
 	CreateTime  string                                      `json:"create_time,omitempty"`  // 词条创建时间
 	UpdateTime  string                                      `json:"update_time,omitempty"`  // 词条最近更新时间
 	RelatedMeta *CreateBaikeDraftRespDraftEntityRelatedMeta `json:"related_meta,omitempty"` // 更多相关信息

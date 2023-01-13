@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// GetHireApplication 根据投递 ID 获取单个投递信息
+// GetHireApplication 根据投递 ID 获取单个投递信息。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/application/get
 func (r *HireService) GetHireApplication(ctx context.Context, request *GetHireApplicationReq, options ...MethodOptionFunc) (*GetHireApplicationResp, *Response, error) {

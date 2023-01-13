@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// SetVCScopeConfig 该接口可以用来设置某个会议层级范围下或者某个会议室的配置
+// SetVCScopeConfig 该接口可以用来设置某个会议层级范围下或者某个会议室的配置。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/vc-v1/scope_config/create
 func (r *VCService) SetVCScopeConfig(ctx context.Context, request *SetVCScopeConfigReq, options ...MethodOptionFunc) (*SetVCScopeConfigResp, *Response, error) {
@@ -77,18 +77,18 @@ type SetVCScopeConfigReqScopeConfig struct {
 type SetVCScopeConfigReqScopeConfigDigitalSignage struct {
 	Enable       *bool                                                   `json:"enable,omitempty"`        // 是否开启数字标牌功能, 示例值: true
 	Mute         *bool                                                   `json:"mute,omitempty"`          // 是否静音播放, 示例值: true
-	StartDisplay *int64                                                  `json:"start_display,omitempty"` // 日程会议开始前n分钟结束播放, 示例值: 3
-	StopDisplay  *int64                                                  `json:"stop_display,omitempty"`  // 会议结束后n分钟开始播放, 示例值: 3
+	StartDisplay *int64                                                  `json:"start_display,omitempty"` // 在会议结束n分钟后开始播放, 取值1~720（仅对飞书会议室数字标牌生效）, 示例值: 3
+	StopDisplay  *int64                                                  `json:"stop_display,omitempty"`  // 在日程会议开始前n分钟停止播放, 取值1~720（仅对飞书会议室数字标牌生效）, 示例值: 3
 	Materials    []*SetVCScopeConfigReqScopeConfigDigitalSignageMaterial `json:"materials,omitempty"`     // 素材列表
 }
 
 // SetVCScopeConfigReqScopeConfigDigitalSignageMaterial ...
 type SetVCScopeConfigReqScopeConfigDigitalSignageMaterial struct {
-	ID           *string `json:"id,omitempty"`            // 素材ID, 示例值: "7847784676276"
+	ID           *string `json:"id,omitempty"`            // 素材ID, 当设置新素材时, 无需传递该字段, 示例值: "7847784676276"
 	Name         *string `json:"name,omitempty"`          // 素材名称, 示例值: "name"
 	MaterialType *int64  `json:"material_type,omitempty"` // 素材类型, 示例值: 0, 可选值有: 1: 图片, 2: 视频, 3: GIF
 	URL          *string `json:"url,omitempty"`           // 素材url, 示例值: "url"
-	Duration     *int64  `json:"duration,omitempty"`      // 播放时长（单位sec）, 示例值: 15
+	Duration     *int64  `json:"duration,omitempty"`      // 播放时长（单位sec）, 取值1~43200, 示例值: 15
 	Cover        *string `json:"cover,omitempty"`         // 素材封面url, 示例值: "url"
 	Md5          *string `json:"md5,omitempty"`           // 素材文件md5, 示例值: "md5"
 	Vid          *string `json:"vid,omitempty"`           // 素材文件vid, 示例值: "vid"
@@ -99,18 +99,18 @@ type SetVCScopeConfigReqScopeConfigDigitalSignageMaterial struct {
 type SetVCScopeConfigReqScopeConfigRoomBoxDigitalSignage struct {
 	Enable       *bool                                                          `json:"enable,omitempty"`        // 是否开启数字标牌功能, 示例值: true
 	Mute         *bool                                                          `json:"mute,omitempty"`          // 是否静音播放, 示例值: true
-	StartDisplay *int64                                                         `json:"start_display,omitempty"` // 日程会议开始前n分钟结束播放, 示例值: 3
-	StopDisplay  *int64                                                         `json:"stop_display,omitempty"`  // 会议结束后n分钟开始播放, 示例值: 3
+	StartDisplay *int64                                                         `json:"start_display,omitempty"` // 在会议结束n分钟后开始播放, 取值1~720（仅对飞书会议室数字标牌生效）, 示例值: 3
+	StopDisplay  *int64                                                         `json:"stop_display,omitempty"`  // 在日程会议开始前n分钟停止播放, 取值1~720（仅对飞书会议室数字标牌生效）, 示例值: 3
 	Materials    []*SetVCScopeConfigReqScopeConfigRoomBoxDigitalSignageMaterial `json:"materials,omitempty"`     // 素材列表
 }
 
 // SetVCScopeConfigReqScopeConfigRoomBoxDigitalSignageMaterial ...
 type SetVCScopeConfigReqScopeConfigRoomBoxDigitalSignageMaterial struct {
-	ID           *string `json:"id,omitempty"`            // 素材ID, 示例值: "7847784676276"
+	ID           *string `json:"id,omitempty"`            // 素材ID, 当设置新素材时, 无需传递该字段, 示例值: "7847784676276"
 	Name         *string `json:"name,omitempty"`          // 素材名称, 示例值: "name"
 	MaterialType *int64  `json:"material_type,omitempty"` // 素材类型, 示例值: 0, 可选值有: 1: 图片, 2: 视频, 3: GIF
 	URL          *string `json:"url,omitempty"`           // 素材url, 示例值: "url"
-	Duration     *int64  `json:"duration,omitempty"`      // 播放时长（单位sec）, 示例值: 15
+	Duration     *int64  `json:"duration,omitempty"`      // 播放时长（单位sec）, 取值1~43200, 示例值: 15
 	Cover        *string `json:"cover,omitempty"`         // 素材封面url, 示例值: "url"
 	Md5          *string `json:"md5,omitempty"`           // 素材文件md5, 示例值: "md5"
 	Vid          *string `json:"vid,omitempty"`           // 素材文件vid, 示例值: "vid"
@@ -126,7 +126,7 @@ type SetVCScopeConfigReqScopeConfigRoomStatus struct {
 	DisableReason    *string  `json:"disable_reason,omitempty"`     // 禁用原因, 示例值: "测试占用"
 	ContactIDs       []string `json:"contact_ids,omitempty"`        // 联系人列表, id类型由user_id_type参数决定, 示例值: ["ou_3ec3f6a28a0d08c45d895276e8e5e19b"]
 	DisableNotice    *bool    `json:"disable_notice,omitempty"`     // 是否在禁用时发送通知给预定了该会议室的员工, 示例值: true
-	ResumeNotice     *bool    `json:"resume_notice,omitempty"`      // 是否在恢复启用时发送通知给预定了该会议室的员工, 示例值: true
+	ResumeNotice     *bool    `json:"resume_notice,omitempty"`      // 是否在恢复启用时发送通知给联系人, 示例值: true
 }
 
 // SetVCScopeConfigResp ...

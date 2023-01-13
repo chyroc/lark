@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// GetVCTopUserReport 获取一段时间内组织内会议使用的top用户列表。
+// GetVCTopUserReport 获取一段时间内组织内会议使用的 Top 用户列表。
 //
 // 支持最近90天内的数据查询；默认返回前10位, 最多可查询前100位
 //
@@ -75,7 +75,7 @@ type GetVCTopUserReportResp struct {
 type GetVCTopUserReportRespTopUserReport struct {
 	ID              string `json:"id,omitempty"`               // 用户ID
 	Name            string `json:"name,omitempty"`             // 用户名
-	UserType        int64  `json:"user_type,omitempty"`        // 用户类型, 可选值有: 1: lark用户, 2: rooms用户, 3: 文档用户, 4: neo单品用户, 5: neo单品游客用户, 6: pstn用户, 7: sip用户
+	UserType        int64  `json:"user_type,omitempty"`        // 用户类型, 可选值有: 1: lark用户, 2: rooms用户（建议使用open_id作为user_id_type用于获取此类用户）, 3: 文档用户, 4: neo单品用户, 5: neo单品游客用户, 6: pstn用户, 7: sip用户
 	MeetingCount    string `json:"meeting_count,omitempty"`    // 会议数量
 	MeetingDuration string `json:"meeting_duration,omitempty"` // 会议时长（单位min）
 }

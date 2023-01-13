@@ -98,7 +98,7 @@ type UpdateCalendarEventReqLocation struct {
 
 // UpdateCalendarEventReqReminder ...
 type UpdateCalendarEventReqReminder struct {
-	Minutes *int64 `json:"minutes,omitempty"` // 日程提醒时间的偏移量, 正数时表示在日程开始前X分钟提醒, 负数时表示在日程开始后X分钟提醒, 新建或更新日程时传入该字段, 仅对当前身份生效, 示例值: 5, 取值范围: `-20160` ～ `20160`
+	Minutes *int64 `json:"minutes,omitempty"` // 日程提醒时间的偏移量, 正数时表示在日程开始前X分钟提醒, 负数时表示在日程开始后X分钟提醒, 新建或更新日程时传入该字段, 仅对当前身份生效, 不会对日程其他参与人生效, 示例值: 5, 取值范围: `-20160` ～ `20160`
 }
 
 // UpdateCalendarEventReqSchema ...
@@ -169,7 +169,7 @@ type UpdateCalendarEventRespEventLocation struct {
 
 // UpdateCalendarEventRespEventReminder ...
 type UpdateCalendarEventRespEventReminder struct {
-	Minutes int64 `json:"minutes,omitempty"` // 日程提醒时间的偏移量, 正数时表示在日程开始前X分钟提醒, 负数时表示在日程开始后X分钟提醒, 新建或更新日程时传入该字段, 仅对当前身份生效
+	Minutes int64 `json:"minutes,omitempty"` // 日程提醒时间的偏移量, 正数时表示在日程开始前X分钟提醒, 负数时表示在日程开始后X分钟提醒, 新建或更新日程时传入该字段, 仅对当前身份生效, 不会对日程其他参与人生效。
 }
 
 // UpdateCalendarEventRespEventSchema ...

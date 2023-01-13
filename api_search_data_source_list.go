@@ -84,6 +84,7 @@ type GetSearchDataSourceListRespItem struct {
 	I18nName         *GetSearchDataSourceListRespItemI18nName        `json:"i18n_name,omitempty"`         // 数据源的国际化展示名称
 	I18nDescription  *GetSearchDataSourceListRespItemI18nDescription `json:"i18n_description,omitempty"`  // 数据源的国际化描述
 	SchemaID         string                                          `json:"schema_id,omitempty"`         // 数据源关联的 schema 标识
+	AppID            string                                          `json:"app_id,omitempty"`            // datasource对应的开放平台应用id
 }
 
 // GetSearchDataSourceListRespItemI18nDescription ...

@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// GetHireReferralByApplication 根据投递 ID 获取内推信息
+// GetHireReferralByApplication 根据投递 ID 获取内推信息。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/referral/get_by_application
 func (r *HireService) GetHireReferralByApplication(ctx context.Context, request *GetHireReferralByApplicationReq, options ...MethodOptionFunc) (*GetHireReferralByApplicationResp, *Response, error) {

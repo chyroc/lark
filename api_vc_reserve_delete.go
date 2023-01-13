@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// DeleteVCReserve 删除一个预约
+// DeleteVCReserve 删除一个预约。
 //
 // 只能删除归属于自己的预约；删除后数据不可恢复
 //

@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// MakeHireTransferOnboardByApplication 根据投递 ID 操作候选人入职并创建员工。投递须处于「待入职」阶段, 可通过「转移阶段」接口变更投递状态
+// MakeHireTransferOnboardByApplication 根据投递 ID 操作候选人入职并创建员工。投递须处于「待入职」阶段, 可通过「转移阶段」接口变更投递状态。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/application/transfer_onboard
 func (r *HireService) MakeHireTransferOnboardByApplication(ctx context.Context, request *MakeHireTransferOnboardByApplicationReq, options ...MethodOptionFunc) (*MakeHireTransferOnboardByApplicationResp, *Response, error) {

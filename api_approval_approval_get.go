@@ -57,17 +57,20 @@ func (r *Mock) UnMockApprovalGetApproval() {
 
 // GetApprovalReq ...
 type GetApprovalReq struct {
-	ApprovalCode string  `path:"approval_code" json:"-"` // 审批定义 Code, 示例值: "7C468A54-8745-2245-9675-08B7C63E7A85"
-	Locale       *string `query:"locale" json:"-"`       // 语言可选值, 示例值: "zh-CN", 可选值有: zh-CN: 中文, en-US: 英文, ja-JP: 日文
+	ApprovalCode string  `path:"approval_code" json:"-"`  // 审批定义 Code, 示例值: "7C468A54-8745-2245-9675-08B7C63E7A85"
+	Locale       *string `query:"locale" json:"-"`        // 语言可选值, 示例值: "zh-CN", 可选值有: zh-CN: 中文, en-US: 英文, ja-JP: 日文
+	WithAdminID  *bool   `query:"with_admin_id" json:"-"` // 可选是否返回有数据权限审批流程管理员ID列表, 示例值: false
+	UserIDType   *IDType `query:"user_id_type" json:"-"`  // 用户 ID 类型, 示例值: "open_id", 可选值有: open_id: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid), union_id: 标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id), user_id: 标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id), 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
 }
 
 // GetApprovalResp ...
 type GetApprovalResp struct {
-	ApprovalName string                   `json:"approval_name,omitempty"` // 审批名称
-	Status       string                   `json:"status,omitempty"`        // 审批定义状态, 可选值有: ACTIVE: 已启用, INACTIVE: 已停用, DELETED: 已删除, UNKNOWN: 未知
-	Form         ApprovalWidgetList       `json:"form,omitempty"`          // 控件信息, 见下方form字段说明
-	NodeList     []*GetApprovalRespNode   `json:"node_list,omitempty"`     // 节点信息
-	Viewers      []*GetApprovalRespViewer `json:"viewers,omitempty"`       // 可见人列表
+	ApprovalName     string                   `json:"approval_name,omitempty"`      // 审批名称
+	Status           string                   `json:"status,omitempty"`             // 审批定义状态, 可选值有: ACTIVE: 已启用, INACTIVE: 已停用, DELETED: 已删除, UNKNOWN: 未知
+	Form             ApprovalWidgetList       `json:"form,omitempty"`               // 控件信息, 见下方form字段说明
+	NodeList         []*GetApprovalRespNode   `json:"node_list,omitempty"`          // 节点信息
+	Viewers          []*GetApprovalRespViewer `json:"viewers,omitempty"`            // 可见人列表
+	ApprovalAdminIDs []string                 `json:"approval_admin_ids,omitempty"` // 有数据管理权限的审批流程管理员ID
 }
 
 // GetApprovalRespNode ...
@@ -79,6 +82,7 @@ type GetApprovalRespNode struct {
 	NodeType            string                                    `json:"node_type,omitempty"`             // 审批方式, 可选值有: AND: 会签, OR: 或签, SEQUENTIAL: 依次审批, CC_NODE: 抄送节点
 	ApproverChosenMulti bool                                      `json:"approver_chosen_multi,omitempty"` // 是否支持多选: true-支持, 发起、结束节点该值无意义
 	ApproverChosenRange []*GetApprovalRespNodeApproverChosenRange `json:"approver_chosen_range,omitempty"` // 自选范围
+	RequireSignature    bool                                      `json:"require_signature,omitempty"`     // 是否签名
 }
 
 // GetApprovalRespNodeApproverChosenRange ...

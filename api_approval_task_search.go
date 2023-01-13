@@ -96,6 +96,8 @@ type SearchApprovalTaskRespTaskApproval struct {
 	Name       string                                      `json:"name,omitempty"`        // 审批定义名称
 	IsExternal bool                                        `json:"is_external,omitempty"` // 是否为第三方审批
 	External   *SearchApprovalTaskRespTaskApprovalExternal `json:"external,omitempty"`    // 第三方审批信息
+	ApprovalID string                                      `json:"approval_id,omitempty"` // 审批定义Id
+	Icon       string                                      `json:"icon,omitempty"`        // 审批定义图标信息
 }
 
 // SearchApprovalTaskRespTaskApprovalExternal ...
@@ -131,15 +133,16 @@ type SearchApprovalTaskRespTaskInstanceLink struct {
 
 // SearchApprovalTaskRespTaskTask ...
 type SearchApprovalTaskRespTaskTask struct {
-	UserID     string                              `json:"user_id,omitempty"`     // 审批任务审批人 id
-	StartTime  string                              `json:"start_time,omitempty"`  // 审批任务开始时间
-	EndTime    string                              `json:"end_time,omitempty"`    // 审批任务结束时间
-	Status     string                              `json:"status,omitempty"`      // 审批任务状态, 可选值有: rejected: 拒绝, pending: 审批中, approved: 通过, transferred: 转交, done: 已完成, rm_repeat: 去重, processed: 已处理, hidden: 隐藏
-	Title      string                              `json:"title,omitempty"`       // 审批任务名称（只有第三方审批有）
-	Extra      string                              `json:"extra,omitempty"`       // 审批任务扩展字段, string型json
-	Link       *SearchApprovalTaskRespTaskTaskLink `json:"link,omitempty"`        // 审批任务链接（只有第三方审批有）
-	TaskID     string                              `json:"task_id,omitempty"`     // 任务id
-	UpdateTime string                              `json:"update_time,omitempty"` // 审批任务更新时间
+	UserID         string                              `json:"user_id,omitempty"`          // 审批任务审批人 id
+	StartTime      string                              `json:"start_time,omitempty"`       // 审批任务开始时间
+	EndTime        string                              `json:"end_time,omitempty"`         // 审批任务结束时间
+	Status         string                              `json:"status,omitempty"`           // 审批任务状态, 可选值有: rejected: 拒绝, pending: 审批中, approved: 通过, transferred: 转交, done: 已完成, rm_repeat: 去重, processed: 已处理, hidden: 隐藏
+	Title          string                              `json:"title,omitempty"`            // 审批任务名称（只有第三方审批有）
+	Extra          string                              `json:"extra,omitempty"`            // 审批任务扩展字段, string型json
+	Link           *SearchApprovalTaskRespTaskTaskLink `json:"link,omitempty"`             // 审批任务链接（只有第三方审批有）
+	TaskID         string                              `json:"task_id,omitempty"`          // 任务id
+	UpdateTime     string                              `json:"update_time,omitempty"`      // 审批任务更新时间
+	TaskExternalID string                              `json:"task_external_id,omitempty"` // 三方审批扩展 ID
 }
 
 // SearchApprovalTaskRespTaskTaskLink ...

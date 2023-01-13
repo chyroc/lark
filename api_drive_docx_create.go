@@ -24,7 +24,7 @@ import (
 // CreateDocx 创建新版文档, 文档标题和目录可选。
 //
 // 在调用此接口前, 请仔细阅读[新版文档 OpenAPI 接口校验规则](https://bytedance.feishu.cn/docx/doxcnby5Y0yoACL3PdfZqrJEm6f#doxcnyoyCgwS8ywWwMtQr9yjZ2f), 了解相关规则及约束。
-// 频率限制: 单个应用调用频率上限为每秒 3 次。
+// 应用频率限制: 单个应用调用频率上限为每秒 3 次, 超过该频率限制, 接口将返回 HTTP 状态码 400 及错误码 99991400。当请求被限频, 应用需要处理限频状态码, 并使用指数退避算法或其它一些频控策略降低对 API 的调用速率。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/document-docx/docx-v1/document/create
 func (r *DriveService) CreateDocx(ctx context.Context, request *CreateDocxReq, options ...MethodOptionFunc) (*CreateDocxResp, *Response, error) {
@@ -72,7 +72,7 @@ type CreateDocxResp struct {
 
 // CreateDocxRespDocument ...
 type CreateDocxRespDocument struct {
-	DocumentID string `json:"document_id,omitempty"` // 文档唯一标识
+	DocumentID string `json:"document_id,omitempty"` // 文档唯一标识。对应新版文档 Token, [点击了解如何获取云文档 Token](https://open.feishu.cn/document/ukTMukTMukTM/uczNzUjL3czM14yN3MTN#08bb5df6)。
 	RevisionID int64  `json:"revision_id,omitempty"` // 文档版本 ID
 	Title      string `json:"title,omitempty"`       // 文档标题
 }

@@ -77,6 +77,7 @@ type Lark struct {
 	Mail             *MailService
 	Message          *MessageService
 	Mina             *MinaService
+	Minutes          *MinutesService
 	OKR              *OKRService
 	Passport         *PassportService
 	PersonalSettings *PersonalSettingsService
@@ -116,6 +117,7 @@ func (r *Lark) init() {
 	r.Mail = &MailService{cli: r}
 	r.Message = &MessageService{cli: r}
 	r.Mina = &MinaService{cli: r}
+	r.Minutes = &MinutesService{cli: r}
 	r.OKR = &OKRService{cli: r}
 	r.Passport = &PassportService{cli: r}
 	r.PersonalSettings = &PersonalSettingsService{cli: r}
@@ -184,6 +186,7 @@ type JssdkService struct{ cli *Lark }
 type MailService struct{ cli *Lark }
 type MessageService struct{ cli *Lark }
 type MinaService struct{ cli *Lark }
+type MinutesService struct{ cli *Lark }
 type OKRService struct{ cli *Lark }
 type PassportService struct{ cli *Lark }
 type PersonalSettingsService struct{ cli *Lark }

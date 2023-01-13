@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// BatchGetVCRoom 该接口可以使用会议室ID批量查询会议室详情
+// BatchGetVCRoom 该接口可以使用会议室 ID 批量查询会议室详情。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/vc-v1/room/mget
 func (r *VCService) BatchGetVCRoom(ctx context.Context, request *BatchGetVCRoomReq, options ...MethodOptionFunc) (*BatchGetVCRoomResp, *Response, error) {
@@ -78,6 +78,12 @@ type BatchGetVCRoomRespItem struct {
 	RoomLevelID  string                            `json:"room_level_id,omitempty"`  // 层级ID
 	Path         []string                          `json:"path,omitempty"`           // 层级路径
 	RoomStatus   *BatchGetVCRoomRespItemRoomStatus `json:"room_status,omitempty"`    // 会议室状态
+	Device       []*BatchGetVCRoomRespItemDevice   `json:"device,omitempty"`         // 设施信息列表
+}
+
+// BatchGetVCRoomRespItemDevice ...
+type BatchGetVCRoomRespItemDevice struct {
+	Name string `json:"name,omitempty"` // 设施名称
 }
 
 // BatchGetVCRoomRespItemRoomStatus ...
@@ -89,7 +95,7 @@ type BatchGetVCRoomRespItemRoomStatus struct {
 	DisableReason    string   `json:"disable_reason,omitempty"`     // 禁用原因
 	ContactIDs       []string `json:"contact_ids,omitempty"`        // 联系人列表, id类型由user_id_type参数决定
 	DisableNotice    bool     `json:"disable_notice,omitempty"`     // 是否在禁用时发送通知给预定了该会议室的员工
-	ResumeNotice     bool     `json:"resume_notice,omitempty"`      // 是否在恢复启用时发送通知给预定了该会议室的员工
+	ResumeNotice     bool     `json:"resume_notice,omitempty"`      // 是否在恢复启用时发送通知给联系人
 }
 
 // batchGetVCRoomResp ...

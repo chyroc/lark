@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// GetHireJobManager 根据职位 ID 获取职位上的招聘人员信息, 如招聘负责人、用人经理
+// GetHireJobManager 根据职位 ID 获取职位上的招聘人员信息, 如招聘负责人、用人经理。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/job-manager/get
 func (r *HireService) GetHireJobManager(ctx context.Context, request *GetHireJobManagerReq, options ...MethodOptionFunc) (*GetHireJobManagerResp, *Response, error) {

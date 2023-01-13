@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// UpdateVCReserveConfig 更新会议室预定范围
+// UpdateVCReserveConfig 更新会议室预定限制。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/vc-v1/reserve_config/patch
 func (r *VCService) UpdateVCReserveConfig(ctx context.Context, request *UpdateVCReserveConfigReq, options ...MethodOptionFunc) (*UpdateVCReserveConfigResp, *Response, error) {
@@ -76,7 +76,7 @@ type UpdateVCReserveConfigReqApprovalConfig struct {
 
 // UpdateVCReserveConfigReqApprovalConfigApprover ...
 type UpdateVCReserveConfigReqApprovalConfigApprover struct {
-	UserID string `json:"user_id,omitempty"` // 审批人/预定人id, 示例值: "ou_a27b07a9071d90577c0177bcec98f856"
+	UserID string `json:"user_id,omitempty"` // 预定管理员ID, 示例值: "ou_a27b07a9071d90577c0177bcec98f856"
 }
 
 // UpdateVCReserveConfigReqReserveScopeConfig ...
@@ -88,12 +88,12 @@ type UpdateVCReserveConfigReqReserveScopeConfig struct {
 
 // UpdateVCReserveConfigReqReserveScopeConfigAllowDept ...
 type UpdateVCReserveConfigReqReserveScopeConfigAllowDept struct {
-	DepartmentID string `json:"department_id,omitempty"` // 可预定部门id, 示例值: "od-47d8b570b0a011e9679a755efcc5f61a"
+	DepartmentID string `json:"department_id,omitempty"` // 预定管理部门ID, 示例值: "od-47d8b570b0a011e9679a755efcc5f61a"
 }
 
 // UpdateVCReserveConfigReqReserveScopeConfigAllowUser ...
 type UpdateVCReserveConfigReqReserveScopeConfigAllowUser struct {
-	UserID string `json:"user_id,omitempty"` // 审批人/预定人id, 示例值: "ou_a27b07a9071d90577c0177bcec98f856"
+	UserID string `json:"user_id,omitempty"` // 预定管理员ID, 示例值: "ou_a27b07a9071d90577c0177bcec98f856"
 }
 
 // UpdateVCReserveConfigReqTimeConfig ...

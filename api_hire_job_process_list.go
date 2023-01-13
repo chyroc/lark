@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// GetHireJobProcessList 获取全部招聘流程信息
+// GetHireJobProcessList 获取全部招聘流程信息。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/job_process/list
 func (r *HireService) GetHireJobProcessList(ctx context.Context, request *GetHireJobProcessListReq, options ...MethodOptionFunc) (*GetHireJobProcessListResp, *Response, error) {

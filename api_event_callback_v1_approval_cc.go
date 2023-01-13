@@ -21,13 +21,12 @@ import (
 	"context"
 )
 
-// EventV1ApprovalCc ## 什么是审批事件监听
+// EventV1ApprovalCc 创建抄送或者被抄送人已读抄送后, 会向开发者推送消息。
 //
-// 开发者通过审批开放接口创建审批实例后, 如要在审批完成后进行额外处理, 需不断轮询审批详情接口获取最新状态, 既增加开发复杂度, 又造成了不必要的接口查询消耗。
-// 审批事件监听使用开放平台事件订阅机制, 可将指定消息推送到开发者在应用后台配置的回调 URL 上。审批事件包括审批实例状态变更、审批任务状态变更、审批抄送事件。
-// 消息推送可能会有重复, 需要开发者做幂等。
+// 1. 创建抄送, 推送 "operate" 为 "CREATE" 的事件。
+// 1. 被抄送人已读抄送, 推送 "operate" 为 "READ" 的事件。
 //
-// doc: https://open.feishu.cn/document/ukTMukTMukTM/ugDNyUjL4QjM14CO0ITN
+// doc: https://open.feishu.cn/document/ukTMukTMukTM/uIDO24iM4YjLygjN/event/common-event/approval-cc-event
 func (r *EventCallbackService) HandlerEventV1ApprovalCc(f EventV1ApprovalCcHandler) {
 	r.cli.eventHandler.eventV1ApprovalCcHandler = f
 }
@@ -45,6 +44,6 @@ type EventV1ApprovalCc struct {
 	ID           string `json:"id,omitempty"`            // 抄送 ID
 	UserID       string `json:"user_id,omitempty"`       // 被抄送人
 	CreateTime   int64  `json:"create_time,omitempty"`   // 抄送时间
-	Operate      string `json:"operate,omitempty"`       // 操作类型  CREATE: 抄送  REVOKE: 撤回
+	Operate      string `json:"operate,omitempty"`       // 操作类型  CREATE: 抄送  READ: 已读
 	From         string `json:"from,omitempty"`          // 抄送人, 可能为空
 }

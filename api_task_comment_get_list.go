@@ -73,7 +73,7 @@ type GetTaskCommentListResp struct {
 
 // GetTaskCommentListRespItem ...
 type GetTaskCommentListRespItem struct {
-	Content         string `json:"content,omitempty"`           // 评论内容, <md-alert>, 评论内容和富文本评论内容同时存在时只使用富文本评论内容, </md-alert>
+	Content         string `json:"content,omitempty"`           // 评论内容, 评论内容和富文本评论内容同时存在时只使用富文本评论内容。
 	ParentID        string `json:"parent_id,omitempty"`         // 评论的父ID, 创建评论时若不为空则为某条评论的回复, 若为空则不是回复
 	ID              string `json:"id,omitempty"`                // 评论ID, 由飞书服务器发号
 	CreateMilliTime string `json:"create_milli_time,omitempty"` // 评论创建的时间戳, 单位为毫秒, 用于展示, 创建时不用填写

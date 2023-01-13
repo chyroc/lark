@@ -507,12 +507,12 @@ func Test_Bitable_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
-			cli.Mock().MockBitableUpdateBitableMeta(func(ctx context.Context, request *lark.UpdateBitableMetaReq, options ...lark.MethodOptionFunc) (*lark.UpdateBitableMetaResp, *lark.Response, error) {
+			cli.Mock().MockBitableCreateBitableApp(func(ctx context.Context, request *lark.CreateBitableAppReq, options ...lark.MethodOptionFunc) (*lark.CreateBitableAppResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
-			defer cli.Mock().UnMockBitableUpdateBitableMeta()
+			defer cli.Mock().UnMockBitableCreateBitableApp()
 
-			_, _, err := moduleCli.UpdateBitableMeta(ctx, &lark.UpdateBitableMetaReq{})
+			_, _, err := moduleCli.CreateBitableApp(ctx, &lark.CreateBitableAppReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "mock-failed")
 		})
@@ -525,6 +525,18 @@ func Test_Bitable_Sample_Failed(t *testing.T) {
 			defer cli.Mock().UnMockBitableGetBitableMeta()
 
 			_, _, err := moduleCli.GetBitableMeta(ctx, &lark.GetBitableMetaReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			cli.Mock().MockBitableUpdateBitableMeta(func(ctx context.Context, request *lark.UpdateBitableMetaReq, options ...lark.MethodOptionFunc) (*lark.UpdateBitableMetaResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockBitableUpdateBitableMeta()
+
+			_, _, err := moduleCli.UpdateBitableMeta(ctx, &lark.UpdateBitableMetaReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "mock-failed")
 		})
@@ -924,7 +936,14 @@ func Test_Bitable_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
-			_, _, err := moduleCli.UpdateBitableMeta(ctx, &lark.UpdateBitableMetaReq{
+			_, _, err := moduleCli.CreateBitableApp(ctx, &lark.CreateBitableAppReq{})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.GetBitableMeta(ctx, &lark.GetBitableMetaReq{
 				AppToken: "x",
 			})
 			as.NotNil(err)
@@ -933,7 +952,7 @@ func Test_Bitable_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
-			_, _, err := moduleCli.GetBitableMeta(ctx, &lark.GetBitableMetaReq{
+			_, _, err := moduleCli.UpdateBitableMeta(ctx, &lark.UpdateBitableMetaReq{
 				AppToken: "x",
 			})
 			as.NotNil(err)
@@ -1338,7 +1357,14 @@ func Test_Bitable_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
-			_, _, err := moduleCli.UpdateBitableMeta(ctx, &lark.UpdateBitableMetaReq{
+			_, _, err := moduleCli.CreateBitableApp(ctx, &lark.CreateBitableAppReq{})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.GetBitableMeta(ctx, &lark.GetBitableMetaReq{
 				AppToken: "x",
 			})
 			as.NotNil(err)
@@ -1347,7 +1373,7 @@ func Test_Bitable_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
-			_, _, err := moduleCli.GetBitableMeta(ctx, &lark.GetBitableMetaReq{
+			_, _, err := moduleCli.UpdateBitableMeta(ctx, &lark.UpdateBitableMetaReq{
 				AppToken: "x",
 			})
 			as.NotNil(err)

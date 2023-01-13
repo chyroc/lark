@@ -21,9 +21,9 @@ import (
 	"github.com/chyroc/lark/internal"
 )
 
-// OpenWebURL 打开PC端内web-view访问指定URL
+// OpenWebURL 打开端内web-view访问指定URL
 //
-// 用户在PC端点击这类applink，不必跳转外部浏览器，可以直接在聊天的侧边栏、或飞书的独立窗口中打开指定的网页。
+// 用户在端内点击这类applink，不必跳转外部浏览器，可以直接在聊天的侧边栏、或飞书的独立窗口中打开指定的网页。
 // 可以配置这类applink在消息卡片的“查看详情”跳转上，使用户连贯地消费消息中的详情内容。
 //
 // ![image.png](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/761f68be5274fea59bf8145489633c88_Z6KZ6NyGCh.png?lazyload=true&width=1649&height=962)
@@ -36,7 +36,7 @@ func (r *AppLinkService) OpenWebURL(req *OpenWebURLReq) string {
 // OpenWebURLReq ...
 type OpenWebURLReq struct {
 	URL    string  `json:"url,omitempty"`    // 指定需要在客户端内打开的具体链接, 需要执行encodeURIComponent, 4.2+版本支持lark协议
-	Mode   string  `json:"mode,omitempty"`   // 打开的容器模式, 枚举值包括: `sidebar-semi` 在侧边栏打开； `window` 在独立窗口打开
-	Height *string `json:"height,omitempty"` // 自定义独立窗口高度（仅当`mode`为`window`时生效）, 飞书5.12版本开始支持 最小值: 480 最大值: 屏幕的高度 默认值: 飞书窗口的高度
-	Width  *string `json:"width,omitempty"`  // 自定义独立窗口宽度（仅当`mode`为`window`时生效）, 飞书5.12版本开始支持 最小值: 640 最大值: 屏幕的宽度 默认值: 飞书窗口的宽度
+	Mode   string  `json:"mode,omitempty"`   // PC端打开的容器模式, 枚举值包括: `sidebar-semi` 在侧边栏打开； `window` 在独立窗口打开
+	Height *string `json:"height,omitempty"` // PC端自定义独立窗口高度（仅当`mode`为`window`时生效）, 飞书5.12版本开始支持 最小值: 480 最大值: 屏幕的高度 默认值: 飞书窗口的高度
+	Width  *string `json:"width,omitempty"`  // PC端自定义独立窗口宽度（仅当`mode`为`window`时生效）, 飞书5.12版本开始支持 最小值: 640 最大值: 屏幕的宽度 默认值: 飞书窗口的宽度
 }

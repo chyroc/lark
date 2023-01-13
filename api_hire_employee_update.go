@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// UpdateHireEmployee 根据员工 ID 更新员工转正、离职状态
+// UpdateHireEmployee 根据员工 ID 更新员工转正、离职状态。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/employee/patch
 func (r *HireService) UpdateHireEmployee(ctx context.Context, request *UpdateHireEmployeeReq, options ...MethodOptionFunc) (*UpdateHireEmployeeResp, *Response, error) {

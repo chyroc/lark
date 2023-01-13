@@ -38,7 +38,7 @@ https://godoc.org/github.com/chyroc/lark
 
 ## Support APIs
 
-API Count: 703, Event Count: 99
+API Count: 712, Event Count: 103
 
 <details>
   <summary>
@@ -238,8 +238,9 @@ API Count: 703, Event Count: 99
   - GetBitableTableForm
   - UpdateBitableTableFormField
   - GetBitableTableFormFieldList
-  - UpdateBitableMeta
+  - CreateBitableApp
   - GetBitableMeta
+  - UpdateBitableMeta
 - Bot
   - GetBotInfo
   - AddBotToChat
@@ -609,6 +610,10 @@ API Count: 703, Event Count: 99
   - EventV2DriveFileBitableFieldChangedV1
   - EventV2VCMeetingAllMeetingStartedV1
   - EventV2VCMeetingAllMeetingEndedV1
+  - EventV2VCRoomLevelCreatedV1
+  - EventV2VCRoomLevelDeletedV1
+  - EventV2VCRoomLevelUpdatedV1
+  - EventV2VCReserveConfigUpdatedV1
 - File
   - UploadImage
   - DownloadImage
@@ -772,6 +777,9 @@ API Count: 703, Event Count: 99
   - GetMessagePinList
 - Mina
   - MinaCodeToSession
+- Minutes
+  - GetMinutesStatistics
+  - GetMinutesMinute
 - OKR
   - GetOKRPeriodList
   - BatchGetOKR
@@ -872,6 +880,8 @@ API Count: 703, Event Count: 99
   - GetVCScopeConfig
   - GetVCReserveConfig
   - UpdateVCReserveConfig
+  - GetVCReserveConfigAdmin
+  - UpdateVCReserveConfigAdmin
   - ExportVCMeetingList
   - ExportVCParticipantList
   - ExportVCParticipantQualityList
@@ -879,6 +889,10 @@ API Count: 703, Event Count: 99
   - GetVCExportTask
   - DownloadVCExportFile
   - GetVCAlertList
+  - GetVCMeetingList
+  - GetVCParticipantList
+  - GetVCParticipantQualityList
+  - GetVCResourceReservationList
 - Verification
   - GetVerification
 

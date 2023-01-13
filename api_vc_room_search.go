@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// SearchVCRoom 该接口可以用来搜索会议室, 支持使用关键词进行搜索, 也支持使用自定义会议室ID进行查询
+// SearchVCRoom 该接口可以用来搜索会议室, 支持使用关键词进行搜索, 也支持使用自定义会议室 ID 进行查询。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/vc-v1/room/search
 func (r *VCService) SearchVCRoom(ctx context.Context, request *SearchVCRoomReq, options ...MethodOptionFunc) (*SearchVCRoomResp, *Response, error) {
@@ -84,6 +84,12 @@ type SearchVCRoomRespRoom struct {
 	RoomLevelID  string                          `json:"room_level_id,omitempty"`  // 层级ID
 	Path         []string                        `json:"path,omitempty"`           // 层级路径
 	RoomStatus   *SearchVCRoomRespRoomRoomStatus `json:"room_status,omitempty"`    // 会议室状态
+	Device       []*SearchVCRoomRespRoomDevice   `json:"device,omitempty"`         // 设施信息列表
+}
+
+// SearchVCRoomRespRoomDevice ...
+type SearchVCRoomRespRoomDevice struct {
+	Name string `json:"name,omitempty"` // 设施名称
 }
 
 // SearchVCRoomRespRoomRoomStatus ...
@@ -95,7 +101,7 @@ type SearchVCRoomRespRoomRoomStatus struct {
 	DisableReason    string   `json:"disable_reason,omitempty"`     // 禁用原因
 	ContactIDs       []string `json:"contact_ids,omitempty"`        // 联系人列表, id类型由user_id_type参数决定
 	DisableNotice    bool     `json:"disable_notice,omitempty"`     // 是否在禁用时发送通知给预定了该会议室的员工
-	ResumeNotice     bool     `json:"resume_notice,omitempty"`      // 是否在恢复启用时发送通知给预定了该会议室的员工
+	ResumeNotice     bool     `json:"resume_notice,omitempty"`      // 是否在恢复启用时发送通知给联系人
 }
 
 // searchVCRoomResp ...

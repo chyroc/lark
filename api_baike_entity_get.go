@@ -76,7 +76,7 @@ type GetBaikeEntityRespEntity struct {
 	ID          string                               `json:"id,omitempty"`           // 词条 ID （需要更新某个词条时填写, 若是创建新词条可不填写）
 	MainKeys    []*GetBaikeEntityRespEntityMainKey   `json:"main_keys,omitempty"`    // 词条名
 	Aliases     []*GetBaikeEntityRespEntityAliase    `json:"aliases,omitempty"`      // 别名
-	Description string                               `json:"description,omitempty"`  // 词条释义（纯文本格式）
+	Description string                               `json:"description,omitempty"`  // 纯文本格式词条释义。注: description 和 rich_text 至少有一个, 否则会报错: 1540001
 	CreateTime  string                               `json:"create_time,omitempty"`  // 词条创建时间
 	UpdateTime  string                               `json:"update_time,omitempty"`  // 词条最近更新时间
 	RelatedMeta *GetBaikeEntityRespEntityRelatedMeta `json:"related_meta,omitempty"` // 更多相关信息

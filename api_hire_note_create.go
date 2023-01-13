@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// CreateHireNote 创建备注信息
+// CreateHireNote 创建备注信息。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/note/create
 func (r *HireService) CreateHireNote(ctx context.Context, request *CreateHireNoteReq, options ...MethodOptionFunc) (*CreateHireNoteResp, *Response, error) {

@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// GetVCReserve 获取一个预约的详情
+// GetVCReserve 获取一个预约的详情。
 //
 // 只能获取归属于自己的预约
 //
@@ -74,7 +74,7 @@ type GetVCReserveRespReserve struct {
 	MeetingNo       string                                  `json:"meeting_no,omitempty"`       // 9位会议号（飞书用户可通过输入9位会议号快捷入会）
 	URL             string                                  `json:"url,omitempty"`              // 会议链接（飞书用户可通过点击会议链接快捷入会）
 	AppLink         string                                  `json:"app_link,omitempty"`         // APPLink用于唤起飞书APP入会。"{?}"为占位符, 用于配置入会参数, 使用时需替换具体值: 0表示关闭, 1表示打开。preview为入会前的设置页, mic为麦克风, speaker为扬声器, camera为摄像头
-	LiveLink        string                                  `json:"live_link,omitempty"`        // 直播链接
+	LiveLink        string                                  `json:"live_link,omitempty"`        // 会议转直播链接
 	EndTime         string                                  `json:"end_time,omitempty"`         // 预约到期时间（unix时间, 单位sec）
 	ExpireStatus    int64                                   `json:"expire_status,omitempty"`    // 过期状态, 可选值有: 1: 未过期, 2: 已过期
 	ReserveUserID   string                                  `json:"reserve_user_id,omitempty"`  // 预约人ID
@@ -118,7 +118,7 @@ type GetVCReserveRespReserveMeetingSettingsCallSetting struct {
 // GetVCReserveRespReserveMeetingSettingsCallSettingCallee ...
 type GetVCReserveRespReserveMeetingSettingsCallSettingCallee struct {
 	ID          string                                                              `json:"id,omitempty"`            // 用户ID
-	UserType    int64                                                               `json:"user_type,omitempty"`     // 用户类型, 当前仅支持用户类型6(pstn用户), 可选值有: 1: lark用户, 2: rooms用户, 3: 文档用户, 4: neo单品用户, 5: neo单品游客用户, 6: pstn用户, 7: sip用户
+	UserType    int64                                                               `json:"user_type,omitempty"`     // 用户类型, 当前仅支持用户类型6(pstn用户), 可选值有: 1: lark用户, 2: rooms用户（建议使用open_id作为user_id_type用于获取此类用户）, 3: 文档用户, 4: neo单品用户, 5: neo单品游客用户, 6: pstn用户, 7: sip用户
 	PstnSipInfo *GetVCReserveRespReserveMeetingSettingsCallSettingCalleePstnSipInfo `json:"pstn_sip_info,omitempty"` // pstn/sip信息
 }
 

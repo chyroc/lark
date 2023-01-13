@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// GetHireNote 根据备注 ID 获取备注信息
+// GetHireNote 根据备注 ID 获取备注信息。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/note/get
 func (r *HireService) GetHireNote(ctx context.Context, request *GetHireNoteReq, options ...MethodOptionFunc) (*GetHireNoteResp, *Response, error) {

@@ -38,7 +38,7 @@ https://godoc.org/github.com/chyroc/lark
 
 ## 支持的接口
 
-API 总数: 703, 事件总数: 99
+API 总数: 712, 事件总数: 103
 
 <details>
   <summary>
@@ -238,8 +238,9 @@ API 总数: 703, 事件总数: 99
   - GetBitableTableForm
   - UpdateBitableTableFormField
   - GetBitableTableFormFieldList
-  - UpdateBitableMeta
+  - CreateBitableApp
   - GetBitableMeta
+  - UpdateBitableMeta
 - Bot
   - GetBotInfo
   - AddBotToChat
@@ -609,6 +610,10 @@ API 总数: 703, 事件总数: 99
   - EventV2DriveFileBitableFieldChangedV1
   - EventV2VCMeetingAllMeetingStartedV1
   - EventV2VCMeetingAllMeetingEndedV1
+  - EventV2VCRoomLevelCreatedV1
+  - EventV2VCRoomLevelDeletedV1
+  - EventV2VCRoomLevelUpdatedV1
+  - EventV2VCReserveConfigUpdatedV1
 - File
   - UploadImage
   - DownloadImage
@@ -772,6 +777,9 @@ API 总数: 703, 事件总数: 99
   - GetMessagePinList
 - Mina
   - MinaCodeToSession
+- Minutes
+  - GetMinutesStatistics
+  - GetMinutesMinute
 - OKR
   - GetOKRPeriodList
   - BatchGetOKR
@@ -872,6 +880,8 @@ API 总数: 703, 事件总数: 99
   - GetVCScopeConfig
   - GetVCReserveConfig
   - UpdateVCReserveConfig
+  - GetVCReserveConfigAdmin
+  - UpdateVCReserveConfigAdmin
   - ExportVCMeetingList
   - ExportVCParticipantList
   - ExportVCParticipantQualityList
@@ -879,6 +889,10 @@ API 总数: 703, 事件总数: 99
   - GetVCExportTask
   - DownloadVCExportFile
   - GetVCAlertList
+  - GetVCMeetingList
+  - GetVCParticipantList
+  - GetVCParticipantQualityList
+  - GetVCResourceReservationList
 - Verification
   - GetVerification
 

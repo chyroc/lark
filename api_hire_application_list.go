@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// GetHireApplicationList 根据限定条件获取投递列表信息
+// GetHireApplicationList 根据限定条件获取投递列表信息。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/application/list
 func (r *HireService) GetHireApplicationList(ctx context.Context, request *GetHireApplicationListReq, options ...MethodOptionFunc) (*GetHireApplicationListResp, *Response, error) {

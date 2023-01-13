@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// GetHireNoteList 获取备注列表
+// GetHireNoteList 获取备注列表。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/note/list
 func (r *HireService) GetHireNoteList(ctx context.Context, request *GetHireNoteListReq, options ...MethodOptionFunc) (*GetHireNoteListResp, *Response, error) {

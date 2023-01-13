@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// GetHireEmployeeByApplication 通过投递 ID 获取入职信息
+// GetHireEmployeeByApplication 通过投递 ID 获取入职信息。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/employee/get_by_application
 func (r *HireService) GetHireEmployeeByApplication(ctx context.Context, request *GetHireEmployeeByApplicationReq, options ...MethodOptionFunc) (*GetHireEmployeeByApplicationResp, *Response, error) {

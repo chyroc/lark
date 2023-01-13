@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// GetHireResumeSource 获取简历来源列表
+// GetHireResumeSource 获取简历来源列表。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/resume_source/list
 func (r *HireService) GetHireResumeSource(ctx context.Context, request *GetHireResumeSourceReq, options ...MethodOptionFunc) (*GetHireResumeSourceResp, *Response, error) {

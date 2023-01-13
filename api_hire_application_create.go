@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// CreateHireApplication 根据人才 ID 和职位 ID 创建投递
+// CreateHireApplication 根据人才 ID 和职位 ID 创建投递。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/application/create
 func (r *HireService) CreateHireApplication(ctx context.Context, request *CreateHireApplicationReq, options ...MethodOptionFunc) (*CreateHireApplicationResp, *Response, error) {

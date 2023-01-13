@@ -23,7 +23,7 @@ import (
 
 // ExportVCParticipantQualityList 导出某场会议某个参会人的音视频&共享质量数据
 //
-// , 具体权限要求请参考「导出概述」
+// , 具体权限要求请参考「资源介绍」。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/vc-v1/export/participant_quality_list
 func (r *VCService) ExportVCParticipantQualityList(ctx context.Context, request *ExportVCParticipantQualityListReq, options ...MethodOptionFunc) (*ExportVCParticipantQualityListResp, *Response, error) {

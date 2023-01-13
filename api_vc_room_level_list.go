@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// GetVCRoomLevelList 该接口用来查询某个会议室层级下的子层级列表
+// GetVCRoomLevelList 该接口用来查询某个会议室层级下的子层级列表。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/vc-v1/room_level/list
 func (r *VCService) GetVCRoomLevelList(ctx context.Context, request *GetVCRoomLevelListReq, options ...MethodOptionFunc) (*GetVCRoomLevelListResp, *Response, error) {

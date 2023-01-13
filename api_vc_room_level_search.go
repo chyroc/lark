@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// SearchVCRoomLevel 该接口可以用来搜索会议室层级, 支持使用自定义会议室层级ID进行查询
+// SearchVCRoomLevel 该接口可以用来搜索会议室层级, 支持使用自定义会议室层级 ID 进行查询。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/vc-v1/room_level/search
 func (r *VCService) SearchVCRoomLevel(ctx context.Context, request *SearchVCRoomLevelReq, options ...MethodOptionFunc) (*SearchVCRoomLevelResp, *Response, error) {

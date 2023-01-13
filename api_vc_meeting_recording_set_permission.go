@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// SetVCPermissionMeetingRecording 将一个会议的录制文件授权给组织、用户或公开到公网
+// SetVCPermissionMeetingRecording 将一个会议的录制文件授权给组织、用户或公开到公网。
 //
 // 会议结束后并且收到了"录制完成"的事件方可进行授权；会议owner（通过开放平台预约的会议即为预约人）才有权限操作
 //

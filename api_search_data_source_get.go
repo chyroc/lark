@@ -57,7 +57,7 @@ func (r *Mock) UnMockSearchGetSearchDataSource() {
 
 // GetSearchDataSourceReq ...
 type GetSearchDataSourceReq struct {
-	DataSourceID string `path:"data_source_id" json:"-"` // 数据源的唯一标识, 示例值: "service_ticket"
+	DataSourceID string `path:"data_source_id" json:"-"` // 数据源的唯一标识, 示例值: "6953903108179099667"
 }
 
 // GetSearchDataSourceResp ...
@@ -80,6 +80,7 @@ type GetSearchDataSourceRespDataSource struct {
 	I18nName         *GetSearchDataSourceRespDataSourceI18nName        `json:"i18n_name,omitempty"`         // 数据源的国际化展示名称
 	I18nDescription  *GetSearchDataSourceRespDataSourceI18nDescription `json:"i18n_description,omitempty"`  // 数据源的国际化描述
 	SchemaID         string                                            `json:"schema_id,omitempty"`         // 数据源关联的 schema 标识
+	AppID            string                                            `json:"app_id,omitempty"`            // datasource对应的开放平台应用id
 }
 
 // GetSearchDataSourceRespDataSourceI18nDescription ...

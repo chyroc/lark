@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// GetVCReserveConfig 获取会议室预定范围
+// GetVCReserveConfig 查询会议室预定限制。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/vc-v1/reserve_config/reserve_scope
 func (r *VCService) GetVCReserveConfig(ctx context.Context, request *GetVCReserveConfigReq, options ...MethodOptionFunc) (*GetVCReserveConfigResp, *Response, error) {
@@ -80,7 +80,7 @@ type GetVCReserveConfigRespApproveConfig struct {
 
 // GetVCReserveConfigRespApproveConfigApprover ...
 type GetVCReserveConfigRespApproveConfigApprover struct {
-	UserID string `json:"user_id,omitempty"` // 审批人/预定人id
+	UserID string `json:"user_id,omitempty"` // 预定管理员ID
 }
 
 // GetVCReserveConfigRespReserveScopeConfig ...
@@ -92,12 +92,12 @@ type GetVCReserveConfigRespReserveScopeConfig struct {
 
 // GetVCReserveConfigRespReserveScopeConfigAllowDept ...
 type GetVCReserveConfigRespReserveScopeConfigAllowDept struct {
-	DepartmentID string `json:"department_id,omitempty"` // 可预定部门id
+	DepartmentID string `json:"department_id,omitempty"` // 预定管理部门ID
 }
 
 // GetVCReserveConfigRespReserveScopeConfigAllowUser ...
 type GetVCReserveConfigRespReserveScopeConfigAllowUser struct {
-	UserID string `json:"user_id,omitempty"` // 审批人/预定人id
+	UserID string `json:"user_id,omitempty"` // 预定管理员ID
 }
 
 // GetVCReserveConfigRespTimeConfig ...

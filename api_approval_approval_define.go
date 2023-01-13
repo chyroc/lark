@@ -103,12 +103,15 @@ type CreateApprovalReqI18nResourceText struct {
 
 // CreateApprovalReqNode ...
 type CreateApprovalReqNode struct {
-	ID             string                               `json:"id,omitempty"`              // 节点 ID, 开始节点的 ID 为 START, 结束节点的 ID 为 END, 开始和结束节点不需要指定 name、node_type 以及 approver, 示例值: "START"
-	Name           *string                              `json:"name,omitempty"`            // 节点名称的国际化文案 Key, 以 @i18n@ 开头, 长度不得少于 9 个字符, 示例值: "@i18n@node_name"
-	NodeType       *string                              `json:"node_type,omitempty"`       // 审批类型枚举, 当 node_type 为依次审批时, 审批人必须为『发起人自选』, 示例值: "AND", 可选值有: AND: 会签, OR: 或签, SEQUENTIAL: 依次审批
-	Approver       []*CreateApprovalReqNodeApprover     `json:"approver,omitempty"`        // 审批人列表
-	Ccer           []*CreateApprovalReqNodeCcer         `json:"ccer,omitempty"`            // 抄送人列表
-	PrivilegeField *CreateApprovalReqNodePrivilegeField `json:"privilege_field,omitempty"` // 表单项的控件权限
+	ID                  string                                      `json:"id,omitempty"`                    // 节点 ID, 开始节点的 ID 为 START, 结束节点的 ID 为 END, 开始和结束节点不需要指定 name、node_type 以及 approver, 示例值: "START"
+	Name                *string                                     `json:"name,omitempty"`                  // 节点名称的国际化文案 Key, 以 @i18n@ 开头, 长度不得少于 9 个字符, 示例值: "@i18n@node_name"
+	NodeType            *string                                     `json:"node_type,omitempty"`             // 审批类型枚举, 当 node_type 为依次审批时, 审批人必须为『发起人自选』, 示例值: "AND", 可选值有: AND: 会签, OR: 或签, SEQUENTIAL: 依次审批
+	Approver            []*CreateApprovalReqNodeApprover            `json:"approver,omitempty"`              // 审批人列表
+	Ccer                []*CreateApprovalReqNodeCcer                `json:"ccer,omitempty"`                  // 抄送人列表
+	PrivilegeField      *CreateApprovalReqNodePrivilegeField        `json:"privilege_field,omitempty"`       // 表单项的控件权限
+	ApproverChosenMulti *bool                                       `json:"approver_chosen_multi,omitempty"` // 自选审批人是否允许多选, 示例值: false
+	ApproverChosenRange []*CreateApprovalReqNodeApproverChosenRange `json:"approver_chosen_range,omitempty"` // 自选审批人选择范围
+	StarterAssignee     *string                                     `json:"starter_assignee,omitempty"`      // 审批人为提交人时的操作, 示例值: "STARTER", 可选值有: STARTER: 发起人本人审批, AUTO_PASS: 自动通过, SUPERVISOR: 直属上级审批, DEPARTMENT_MANAGER: 直属部门负责人审批
 }
 
 // CreateApprovalReqNodeApprover ...
@@ -116,6 +119,12 @@ type CreateApprovalReqNodeApprover struct {
 	Type   string  `json:"type,omitempty"`    // 审批/抄送人类型, 1. 当 type 为 Supervisor、SupervisorTopDown、DepartmentManager 、DepartmentManagerTopDown 这 4 种时, 需要在 level 中填写对应的级数, 例如: 由下往上三级主管审批, level = 3；, 2. 当 type 为 Personal 时, 需要填写对应的user_id, 用于指定用户；, 3. 当 approver 为 Free 发起人自选时, 不需要指定 user_id 和level；, 4. ccer不支持 Free 发起人自选, 示例值: "Supervisor", 可选值有: Supervisor: 主管审批（由下往上）, SupervisorTopDown: 主管审批（从上往下）, DepartmentManager: 部门负责人审批（由下往上）, DepartmentManagerTopDown: 部门负责人审批（从上往下）, Personal: 指定成员, Free: 发起人自选
 	UserID *string `json:"user_id,omitempty"` // 用户id, 根据user_id_type填写, 示例值: "f7cb567e"
 	Level  *string `json:"level,omitempty"`   // 审批级数, 当 type 为 Supervisor、SupervisorTopDown、DepartmentManager 、DepartmentManagerTopDown 这 4 种时, 需要在 level 中填写对应的级数, 例如: 由下往上三级主管审批, level = 3, 示例值: "3"
+}
+
+// CreateApprovalReqNodeApproverChosenRange ...
+type CreateApprovalReqNodeApproverChosenRange struct {
+	Type   *string  `json:"type,omitempty"`    // 审批人类型, 示例值: "ALL", 可选值有: ALL: 全租户, PERSONAL: 指定审批人, ROLE: 指定角色
+	IDList []string `json:"id_list,omitempty"` // 审批人id, 示例值: f7cb567e
 }
 
 // CreateApprovalReqNodeCcer ...

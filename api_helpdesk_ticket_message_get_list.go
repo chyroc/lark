@@ -75,7 +75,7 @@ type GetHelpdeskTicketMessageListResp struct {
 type GetHelpdeskTicketMessageListRespMessage struct {
 	ID          string  `json:"id,omitempty"`           // 工单消息ID
 	MessageID   string  `json:"message_id,omitempty"`   // chat消息ID
-	MessageType MsgType `json:"message_type,omitempty"` // 消息类型；text: 纯文本；post: 富文本
+	MessageType MsgType `json:"message_type,omitempty"` // 消息类型；text: 纯文本；post: 富文本；image: 图像；file: 文件；media: 视频
 	CreatedAt   int64   `json:"created_at,omitempty"`   // 创建时间
 	Content     string  `json:"content,omitempty"`      // 内容
 	UserName    string  `json:"user_name,omitempty"`    // 用户名

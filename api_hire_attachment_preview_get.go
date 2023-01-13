@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// GetHireAttachmentPreview 根据附件 ID 获取附件预览信息
+// GetHireAttachmentPreview 根据附件 ID 获取附件预览信息。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/attachment/preview
 func (r *HireService) GetHireAttachmentPreview(ctx context.Context, request *GetHireAttachmentPreviewReq, options ...MethodOptionFunc) (*GetHireAttachmentPreviewResp, *Response, error) {

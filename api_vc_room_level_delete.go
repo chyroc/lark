@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// DeleteVCRoomLevel 该接口可以用来删除某个会议室层级
+// DeleteVCRoomLevel 该接口可以用来删除某个会议室层级。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/vc-v1/room_level/del
 func (r *VCService) DeleteVCRoomLevel(ctx context.Context, request *DeleteVCRoomLevelReq, options ...MethodOptionFunc) (*DeleteVCRoomLevelResp, *Response, error) {

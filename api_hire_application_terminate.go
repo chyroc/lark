@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// TerminateHireApplication 根据投递 ID 修改投递状态为「已终止」
+// TerminateHireApplication 根据投递 ID 修改投递状态为「已终止」。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/application/terminate
 func (r *HireService) TerminateHireApplication(ctx context.Context, request *TerminateHireApplicationReq, options ...MethodOptionFunc) (*TerminateHireApplicationResp, *Response, error) {

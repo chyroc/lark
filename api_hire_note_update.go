@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// UpdateHireNote 根据备注 ID 更新备注信息
+// UpdateHireNote 根据备注 ID 更新备注信息。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/note/patch
 func (r *HireService) UpdateHireNote(ctx context.Context, request *UpdateHireNoteReq, options ...MethodOptionFunc) (*UpdateHireNoteResp, *Response, error) {

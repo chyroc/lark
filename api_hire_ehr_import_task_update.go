@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// UpdateHireEHRImportTask 在处理完导入 e-HR 事件后, 可调用该接口, 更新  e-HR 导入任务结果
+// UpdateHireEHRImportTask 在处理完导入 e-HR 事件后, 可调用该接口, 更新  e-HR 导入任务结果。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/ehr_import_task/patch
 func (r *HireService) UpdateHireEHRImportTask(ctx context.Context, request *UpdateHireEHRImportTaskReq, options ...MethodOptionFunc) (*UpdateHireEHRImportTaskResp, *Response, error) {

@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// GetHireJob 根据职位 ID 获取职位信息
+// GetHireJob 根据职位 ID 获取职位信息。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/job/get
 func (r *HireService) GetHireJob(ctx context.Context, request *GetHireJobReq, options ...MethodOptionFunc) (*GetHireJobResp, *Response, error) {

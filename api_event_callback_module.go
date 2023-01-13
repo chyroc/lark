@@ -123,8 +123,12 @@ const (
 	EventTypeV2VCMeetingRecordingStartedV1                     EventType = "vc.meeting.recording_started_v1"
 	EventTypeV2VCMeetingShareEndedV1                           EventType = "vc.meeting.share_ended_v1"
 	EventTypeV2VCMeetingShareStartedV1                         EventType = "vc.meeting.share_started_v1"
+	EventTypeV2VCReserveConfigUpdatedV1                        EventType = "vc.reserve_config.updated_v1"
 	EventTypeV2VCRoomCreatedV1                                 EventType = "vc.room.created_v1"
 	EventTypeV2VCRoomDeletedV1                                 EventType = "vc.room.deleted_v1"
+	EventTypeV2VCRoomLevelCreatedV1                            EventType = "vc.room_level.created_v1"
+	EventTypeV2VCRoomLevelDeletedV1                            EventType = "vc.room_level.deleted_v1"
+	EventTypeV2VCRoomLevelUpdatedV1                            EventType = "vc.room_level.updated_v1"
 	EventTypeV2VCRoomUpdatedV1                                 EventType = "vc.room.updated_v1"
 )
 
@@ -226,8 +230,12 @@ type eventHandler struct {
 	eventV2VCMeetingRecordingStartedV1Handler                     EventV2VCMeetingRecordingStartedV1Handler
 	eventV2VCMeetingShareEndedV1Handler                           EventV2VCMeetingShareEndedV1Handler
 	eventV2VCMeetingShareStartedV1Handler                         EventV2VCMeetingShareStartedV1Handler
+	eventV2VCReserveConfigUpdatedV1Handler                        EventV2VCReserveConfigUpdatedV1Handler
 	eventV2VCRoomCreatedV1Handler                                 EventV2VCRoomCreatedV1Handler
 	eventV2VCRoomDeletedV1Handler                                 EventV2VCRoomDeletedV1Handler
+	eventV2VCRoomLevelCreatedV1Handler                            EventV2VCRoomLevelCreatedV1Handler
+	eventV2VCRoomLevelDeletedV1Handler                            EventV2VCRoomLevelDeletedV1Handler
+	eventV2VCRoomLevelUpdatedV1Handler                            EventV2VCRoomLevelUpdatedV1Handler
 	eventV2VCRoomUpdatedV1Handler                                 EventV2VCRoomUpdatedV1Handler
 }
 
@@ -330,8 +338,12 @@ func (r *eventHandler) clone() *eventHandler {
 		eventV2VCMeetingRecordingStartedV1Handler:                     r.eventV2VCMeetingRecordingStartedV1Handler,
 		eventV2VCMeetingShareEndedV1Handler:                           r.eventV2VCMeetingShareEndedV1Handler,
 		eventV2VCMeetingShareStartedV1Handler:                         r.eventV2VCMeetingShareStartedV1Handler,
+		eventV2VCReserveConfigUpdatedV1Handler:                        r.eventV2VCReserveConfigUpdatedV1Handler,
 		eventV2VCRoomCreatedV1Handler:                                 r.eventV2VCRoomCreatedV1Handler,
 		eventV2VCRoomDeletedV1Handler:                                 r.eventV2VCRoomDeletedV1Handler,
+		eventV2VCRoomLevelCreatedV1Handler:                            r.eventV2VCRoomLevelCreatedV1Handler,
+		eventV2VCRoomLevelDeletedV1Handler:                            r.eventV2VCRoomLevelDeletedV1Handler,
+		eventV2VCRoomLevelUpdatedV1Handler:                            r.eventV2VCRoomLevelUpdatedV1Handler,
 		eventV2VCRoomUpdatedV1Handler:                                 r.eventV2VCRoomUpdatedV1Handler,
 	}
 }
@@ -433,8 +445,12 @@ type eventBody struct {
 	eventV2VCMeetingRecordingStartedV1                     *EventV2VCMeetingRecordingStartedV1
 	eventV2VCMeetingShareEndedV1                           *EventV2VCMeetingShareEndedV1
 	eventV2VCMeetingShareStartedV1                         *EventV2VCMeetingShareStartedV1
+	eventV2VCReserveConfigUpdatedV1                        *EventV2VCReserveConfigUpdatedV1
 	eventV2VCRoomCreatedV1                                 *EventV2VCRoomCreatedV1
 	eventV2VCRoomDeletedV1                                 *EventV2VCRoomDeletedV1
+	eventV2VCRoomLevelCreatedV1                            *EventV2VCRoomLevelCreatedV1
+	eventV2VCRoomLevelDeletedV1                            *EventV2VCRoomLevelDeletedV1
+	eventV2VCRoomLevelUpdatedV1                            *EventV2VCRoomLevelUpdatedV1
 	eventV2VCRoomUpdatedV1                                 *EventV2VCRoomUpdatedV1
 }
 
@@ -877,6 +893,12 @@ func (r *EventCallbackService) parserEventV2(req *eventReq) error {
 			return err
 		}
 		req.eventV2VCMeetingShareStartedV1 = event
+	case EventTypeV2VCReserveConfigUpdatedV1:
+		event := new(EventV2VCReserveConfigUpdatedV1)
+		if err := req.unmarshalEvent(event); err != nil {
+			return err
+		}
+		req.eventV2VCReserveConfigUpdatedV1 = event
 	case EventTypeV2VCRoomCreatedV1:
 		event := new(EventV2VCRoomCreatedV1)
 		if err := req.unmarshalEvent(event); err != nil {
@@ -889,6 +911,24 @@ func (r *EventCallbackService) parserEventV2(req *eventReq) error {
 			return err
 		}
 		req.eventV2VCRoomDeletedV1 = event
+	case EventTypeV2VCRoomLevelCreatedV1:
+		event := new(EventV2VCRoomLevelCreatedV1)
+		if err := req.unmarshalEvent(event); err != nil {
+			return err
+		}
+		req.eventV2VCRoomLevelCreatedV1 = event
+	case EventTypeV2VCRoomLevelDeletedV1:
+		event := new(EventV2VCRoomLevelDeletedV1)
+		if err := req.unmarshalEvent(event); err != nil {
+			return err
+		}
+		req.eventV2VCRoomLevelDeletedV1 = event
+	case EventTypeV2VCRoomLevelUpdatedV1:
+		event := new(EventV2VCRoomLevelUpdatedV1)
+		if err := req.unmarshalEvent(event); err != nil {
+			return err
+		}
+		req.eventV2VCRoomLevelUpdatedV1 = event
 	case EventTypeV2VCRoomUpdatedV1:
 		event := new(EventV2VCRoomUpdatedV1)
 		if err := req.unmarshalEvent(event); err != nil {
@@ -1938,6 +1978,15 @@ func (r *EventCallbackService) handlerEvent(ctx context.Context, req *eventReq) 
 			}
 		}
 		return true, s, err
+	case req.eventV2VCReserveConfigUpdatedV1 != nil:
+		if r.cli.eventHandler.eventV2VCReserveConfigUpdatedV1Handler != nil {
+			if r.cli.noBlocking {
+				go r.cli.eventHandler.eventV2VCReserveConfigUpdatedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2VCReserveConfigUpdatedV1)
+			} else {
+				s, err = r.cli.eventHandler.eventV2VCReserveConfigUpdatedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2VCReserveConfigUpdatedV1)
+			}
+		}
+		return true, s, err
 	case req.eventV2VCRoomCreatedV1 != nil:
 		if r.cli.eventHandler.eventV2VCRoomCreatedV1Handler != nil {
 			if r.cli.noBlocking {
@@ -1953,6 +2002,33 @@ func (r *EventCallbackService) handlerEvent(ctx context.Context, req *eventReq) 
 				go r.cli.eventHandler.eventV2VCRoomDeletedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2VCRoomDeletedV1)
 			} else {
 				s, err = r.cli.eventHandler.eventV2VCRoomDeletedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2VCRoomDeletedV1)
+			}
+		}
+		return true, s, err
+	case req.eventV2VCRoomLevelCreatedV1 != nil:
+		if r.cli.eventHandler.eventV2VCRoomLevelCreatedV1Handler != nil {
+			if r.cli.noBlocking {
+				go r.cli.eventHandler.eventV2VCRoomLevelCreatedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2VCRoomLevelCreatedV1)
+			} else {
+				s, err = r.cli.eventHandler.eventV2VCRoomLevelCreatedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2VCRoomLevelCreatedV1)
+			}
+		}
+		return true, s, err
+	case req.eventV2VCRoomLevelDeletedV1 != nil:
+		if r.cli.eventHandler.eventV2VCRoomLevelDeletedV1Handler != nil {
+			if r.cli.noBlocking {
+				go r.cli.eventHandler.eventV2VCRoomLevelDeletedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2VCRoomLevelDeletedV1)
+			} else {
+				s, err = r.cli.eventHandler.eventV2VCRoomLevelDeletedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2VCRoomLevelDeletedV1)
+			}
+		}
+		return true, s, err
+	case req.eventV2VCRoomLevelUpdatedV1 != nil:
+		if r.cli.eventHandler.eventV2VCRoomLevelUpdatedV1Handler != nil {
+			if r.cli.noBlocking {
+				go r.cli.eventHandler.eventV2VCRoomLevelUpdatedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2VCRoomLevelUpdatedV1)
+			} else {
+				s, err = r.cli.eventHandler.eventV2VCRoomLevelUpdatedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2VCRoomLevelUpdatedV1)
 			}
 		}
 		return true, s, err
