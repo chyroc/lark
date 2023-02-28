@@ -38,7 +38,7 @@ https://godoc.org/github.com/chyroc/lark
 
 ## 支持的接口
 
-API 总数: 712, 事件总数: 103
+API 总数: 713, 事件总数: 103
 
 <details>
   <summary>
@@ -843,6 +843,7 @@ API 总数: 712, 事件总数: 103
   - DeleteTaskComment
   - UpdateTaskComment
 - Tenant
+  - GetTenantProductAssignInfo
   - GetTenant
 - VC
   - ApplyVCReserve

@@ -671,6 +671,7 @@ type Mock struct {
 	mockTaskGetTaskCommentList                                 func(ctx context.Context, request *GetTaskCommentListReq, options ...MethodOptionFunc) (*GetTaskCommentListResp, *Response, error)
 	mockTaskDeleteTaskComment                                  func(ctx context.Context, request *DeleteTaskCommentReq, options ...MethodOptionFunc) (*DeleteTaskCommentResp, *Response, error)
 	mockTaskUpdateTaskComment                                  func(ctx context.Context, request *UpdateTaskCommentReq, options ...MethodOptionFunc) (*UpdateTaskCommentResp, *Response, error)
+	mockTenantGetTenantProductAssignInfo                       func(ctx context.Context, request *GetTenantProductAssignInfoReq, options ...MethodOptionFunc) (*GetTenantProductAssignInfoResp, *Response, error)
 	mockTenantGetTenant                                        func(ctx context.Context, request *GetTenantReq, options ...MethodOptionFunc) (*GetTenantResp, *Response, error)
 	mockVCApplyVCReserve                                       func(ctx context.Context, request *ApplyVCReserveReq, options ...MethodOptionFunc) (*ApplyVCReserveResp, *Response, error)
 	mockVCUpdateVCReserve                                      func(ctx context.Context, request *UpdateVCReserveReq, options ...MethodOptionFunc) (*UpdateVCReserveResp, *Response, error)

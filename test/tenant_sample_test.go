@@ -38,7 +38,7 @@ func Test_Tenant_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
-			_, _, err := moduleCli.GetTenant(ctx, &lark.GetTenantReq{})
+			_, _, err := moduleCli.GetTenantProductAssignInfo(ctx, &lark.GetTenantProductAssignInfoReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "failed")
 		})
@@ -48,6 +48,18 @@ func Test_Tenant_Sample_Failed(t *testing.T) {
 	t.Run("request mock failed", func(t *testing.T) {
 		cli := AppAllPermission.Ins()
 		moduleCli := cli.Tenant
+
+		t.Run("", func(t *testing.T) {
+
+			cli.Mock().MockTenantGetTenantProductAssignInfo(func(ctx context.Context, request *lark.GetTenantProductAssignInfoReq, options ...lark.MethodOptionFunc) (*lark.GetTenantProductAssignInfoResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockTenantGetTenantProductAssignInfo()
+
+			_, _, err := moduleCli.GetTenantProductAssignInfo(ctx, &lark.GetTenantProductAssignInfoReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
 
 		t.Run("", func(t *testing.T) {
 
@@ -69,6 +81,13 @@ func Test_Tenant_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
+			_, _, err := moduleCli.GetTenantProductAssignInfo(ctx, &lark.GetTenantProductAssignInfoReq{})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+
 			_, _, err := moduleCli.GetTenant(ctx, &lark.GetTenantReq{})
 			as.NotNil(err)
 			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
@@ -81,6 +100,13 @@ func Test_Tenant_Sample_Failed(t *testing.T) {
 		moduleCli := cli.Tenant
 		cli.Mock().MockRawRequest(func(ctx context.Context, req *lark.RawRequestReq, resp interface{}) (response *lark.Response, err error) {
 			return nil, fmt.Errorf("fake raw request")
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.GetTenantProductAssignInfo(ctx, &lark.GetTenantProductAssignInfoReq{})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {

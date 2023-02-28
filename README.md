@@ -38,7 +38,7 @@ https://godoc.org/github.com/chyroc/lark
 
 ## Support APIs
 
-API Count: 712, Event Count: 103
+API Count: 713, Event Count: 103
 
 <details>
   <summary>
@@ -843,6 +843,7 @@ API Count: 712, Event Count: 103
   - DeleteTaskComment
   - UpdateTaskComment
 - Tenant
+  - GetTenantProductAssignInfo
   - GetTenant
 - VC
   - ApplyVCReserve
