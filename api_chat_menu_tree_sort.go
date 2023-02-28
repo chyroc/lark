@@ -88,8 +88,8 @@ type SortChatMenuTreeRespMenuTreeChatMenuTopLevelChatMenuItem struct {
 	ActionType   string                                                                `json:"action_type,omitempty"`   // 菜单类型, 可选值有: NONE: 无类型, 仅一级菜单存在二级菜单时, 该一级菜单设置NONE类型, REDIRECT_LINK: 跳转链接类型
 	RedirectLink *SortChatMenuTreeRespMenuTreeChatMenuTopLevelChatMenuItemRedirectLink `json:"redirect_link,omitempty"` // 跳转链接
 	ImageKey     string                                                                `json:"image_key,omitempty"`     // image_key, 通过 [上传图片](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/image/create) 接口上传message类型图片获取image_key
-	Name         string                                                                `json:"name,omitempty"`          // 名称, 一级菜单名称字符数要在1到8范围内, 二级菜单名称字符数要在1到24范围内, 注意: 1中文=2英文=2其他语言字符=2字符
-	I18nNames    *I18nNames                                                            `json:"i18n_names,omitempty"`    // 国际化名称, 一级菜单名称字符数要在1到8范围内, 二级菜单名称字符数要在1到24范围内, 注意: 1中文=2英文=2其他语言字符=2字符
+	Name         string                                                                `json:"name,omitempty"`          // 名称, 一级、二级菜单名称字符数要在1到120范围内
+	I18nNames    *I18nNames                                                            `json:"i18n_names,omitempty"`    // 国际化名称, 一级、二级菜单名称字符数要在1到120范围内
 }
 
 // SortChatMenuTreeRespMenuTreeChatMenuTopLevelChatMenuItemRedirectLink ...
@@ -97,7 +97,7 @@ type SortChatMenuTreeRespMenuTreeChatMenuTopLevelChatMenuItemRedirectLink struct
 	CommonURL  string `json:"common_url,omitempty"`  // 公用跳转链接, 必须以http开头。
 	IosURL     string `json:"ios_url,omitempty"`     // IOS端跳转链接, 当该字段不设置时, IOS端会使用common_url。必须以http开头。
 	AndroidURL string `json:"android_url,omitempty"` // Android端跳转链接, 当该字段不设置时, Android端会使用common_url。必须以http开头。
-	PcURL      string `json:"pc_url,omitempty"`      // PC端跳转链接, 当该字段不设置时, PC端会使用common_url。必须以http开头。
+	PcURL      string `json:"pc_url,omitempty"`      // PC端跳转链接, 当该字段不设置时, PC端会使用common_url。必须以http开头。在PC端点击群菜单后, 如果需要url对应的页面在飞书侧边栏展开, 可以在url前加上https://applink.feishu.cn/client/web_url/open?mode=sidebar-semi&url=, 比如https://applink.feishu.cn/client/web_url/open?mode=sidebar-semi&url=https://open.feishu.cn/
 	WebURL     string `json:"web_url,omitempty"`     // Web端跳转链接, 当该字段不设置时, Web端会使用common_url。必须以http开头。
 }
 
@@ -112,8 +112,8 @@ type SortChatMenuTreeRespMenuTreeChatMenuTopLevelChildrenChatMenuItem struct {
 	ActionType   string                                                                        `json:"action_type,omitempty"`   // 菜单类型, 可选值有: NONE: 无类型, 仅一级菜单存在二级菜单时, 该一级菜单设置NONE类型, REDIRECT_LINK: 跳转链接类型
 	RedirectLink *SortChatMenuTreeRespMenuTreeChatMenuTopLevelChildrenChatMenuItemRedirectLink `json:"redirect_link,omitempty"` // 跳转链接
 	ImageKey     string                                                                        `json:"image_key,omitempty"`     // image_key, 通过 [上传图片](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/image/create) 接口上传message类型图片获取image_key
-	Name         string                                                                        `json:"name,omitempty"`          // 名称, 一级菜单名称字符数要在1到8范围内, 二级菜单名称字符数要在1到24范围内, 注意: 1中文=2英文=2其他语言字符=2字符
-	I18nNames    *I18nNames                                                                    `json:"i18n_names,omitempty"`    // 国际化名称, 一级菜单名称字符数要在1到8范围内, 二级菜单名称字符数要在1到24范围内, 注意: 1中文=2英文=2其他语言字符=2字符
+	Name         string                                                                        `json:"name,omitempty"`          // 名称, 一级、二级菜单名称字符数要在1到120范围内
+	I18nNames    *I18nNames                                                                    `json:"i18n_names,omitempty"`    // 国际化名称, 一级、二级菜单名称字符数要在1到120范围内
 }
 
 // SortChatMenuTreeRespMenuTreeChatMenuTopLevelChildrenChatMenuItemRedirectLink ...
@@ -121,7 +121,7 @@ type SortChatMenuTreeRespMenuTreeChatMenuTopLevelChildrenChatMenuItemRedirectLin
 	CommonURL  string `json:"common_url,omitempty"`  // 公用跳转链接, 必须以http开头。
 	IosURL     string `json:"ios_url,omitempty"`     // IOS端跳转链接, 当该字段不设置时, IOS端会使用common_url。必须以http开头。
 	AndroidURL string `json:"android_url,omitempty"` // Android端跳转链接, 当该字段不设置时, Android端会使用common_url。必须以http开头。
-	PcURL      string `json:"pc_url,omitempty"`      // PC端跳转链接, 当该字段不设置时, PC端会使用common_url。必须以http开头。
+	PcURL      string `json:"pc_url,omitempty"`      // PC端跳转链接, 当该字段不设置时, PC端会使用common_url。必须以http开头。在PC端点击群菜单后, 如果需要url对应的页面在飞书侧边栏展开, 可以在url前加上https://applink.feishu.cn/client/web_url/open?mode=sidebar-semi&url=, 比如https://applink.feishu.cn/client/web_url/open?mode=sidebar-semi&url=https://open.feishu.cn/
 	WebURL     string `json:"web_url,omitempty"`     // Web端跳转链接, 当该字段不设置时, Web端会使用common_url。必须以http开头。
 }
 

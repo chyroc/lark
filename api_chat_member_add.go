@@ -76,8 +76,9 @@ type AddChatMemberReq struct {
 
 // AddChatMemberResp ...
 type AddChatMemberResp struct {
-	InvalidIDList    []string `json:"invalid_id_list,omitempty"`     // 无效成员列表, 注意: 当`success_type=0`时, `invalid_id_list`只包含已离职的用户ID, 当`success_type=1`时, `invalid_id_list`中包含已离职的、不可见的、应用未激活的ID
-	NotExistedIDList []string `json:"not_existed_id_list,omitempty"` // ID不存在的成员列表
+	InvalidIDList         []string `json:"invalid_id_list,omitempty"`          // 无效成员列表, 注意: 当`success_type=0`时, `invalid_id_list`只包含已离职的用户ID, 当`success_type=1`时, `invalid_id_list`中包含已离职的、不可见的、应用未激活的ID
+	NotExistedIDList      []string `json:"not_existed_id_list,omitempty"`      // ID不存在的成员列表
+	PendingApprovalIDList []string `json:"pending_approval_id_list,omitempty"` // 等待群主或管理员审批的成员ID列表
 }
 
 // addChatMemberResp ...

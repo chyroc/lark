@@ -59,14 +59,14 @@ func (r *Mock) UnMockDriveDeleteSheetDimensionRange() {
 // DeleteSheetDimensionRangeReq ...
 type DeleteSheetDimensionRangeReq struct {
 	SpreadSheetToken string                                 `path:"spreadsheetToken" json:"-"` // spreadsheet的token, 详见 [在线表格开发指南](https://open.feishu.cn/document/ukTMukTMukTM/uATMzUjLwEzM14CMxMTN/overview)
-	Dimension        *DeleteSheetDimensionRangeReqDimension `json:"dimension,omitempty"`       // 需要删除行列的维度信息
+	Dimension        *DeleteSheetDimensionRangeReqDimension `json:"dimension,omitempty"`       // 需要删除行列的维度信息, 将删除[startIndex, endIndex]区间的行或列
 }
 
 // DeleteSheetDimensionRangeReqDimension ...
 type DeleteSheetDimensionRangeReqDimension struct {
 	SheetID        string `json:"sheetId,omitempty"`        // sheetId
 	MajorDimension string `json:"majorDimension,omitempty"` // 可选 ROWS、COLUMNS
-	StartIndex     int64  `json:"startIndex"`               // 开始的位置
+	StartIndex     int64  `json:"startIndex"`               // 开始的位置, 从1开始
 	EndIndex       int64  `json:"endIndex,omitempty"`       // 结束的位置
 }
 
