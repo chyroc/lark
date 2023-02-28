@@ -244,7 +244,7 @@ func testCreateApproval(t *testing.T, cli *lark.Lark, approvalCode, userID, open
 		resp, _, err := cli.Approval.CreateApprovalInstance(ctx, &lark.CreateApprovalInstanceReq{
 			ApprovalCode:           approvalCode,
 			UserID:                 &userID,
-			OpenID:                 openID,
+			OpenID:                 &openID,
 			DepartmentID:           nil,
 			Form:                   v,
 			NodeApproverUserIDList: nil,
