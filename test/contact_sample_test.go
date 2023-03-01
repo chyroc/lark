@@ -447,6 +447,90 @@ func Test_Contact_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
+			cli.Mock().MockContactDeleteContactFunctionalRole(func(ctx context.Context, request *lark.DeleteContactFunctionalRoleReq, options ...lark.MethodOptionFunc) (*lark.DeleteContactFunctionalRoleResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockContactDeleteContactFunctionalRole()
+
+			_, _, err := moduleCli.DeleteContactFunctionalRole(ctx, &lark.DeleteContactFunctionalRoleReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			cli.Mock().MockContactUpdateContactFunctionalRole(func(ctx context.Context, request *lark.UpdateContactFunctionalRoleReq, options ...lark.MethodOptionFunc) (*lark.UpdateContactFunctionalRoleResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockContactUpdateContactFunctionalRole()
+
+			_, _, err := moduleCli.UpdateContactFunctionalRole(ctx, &lark.UpdateContactFunctionalRoleReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			cli.Mock().MockContactBatchCreateContactFunctionalRoleMember(func(ctx context.Context, request *lark.BatchCreateContactFunctionalRoleMemberReq, options ...lark.MethodOptionFunc) (*lark.BatchCreateContactFunctionalRoleMemberResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockContactBatchCreateContactFunctionalRoleMember()
+
+			_, _, err := moduleCli.BatchCreateContactFunctionalRoleMember(ctx, &lark.BatchCreateContactFunctionalRoleMemberReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			cli.Mock().MockContactBatchDeleteContactFunctionalRoleMember(func(ctx context.Context, request *lark.BatchDeleteContactFunctionalRoleMemberReq, options ...lark.MethodOptionFunc) (*lark.BatchDeleteContactFunctionalRoleMemberResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockContactBatchDeleteContactFunctionalRoleMember()
+
+			_, _, err := moduleCli.BatchDeleteContactFunctionalRoleMember(ctx, &lark.BatchDeleteContactFunctionalRoleMemberReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			cli.Mock().MockContactUpdateContactFunctionalRoleMemberScope(func(ctx context.Context, request *lark.UpdateContactFunctionalRoleMemberScopeReq, options ...lark.MethodOptionFunc) (*lark.UpdateContactFunctionalRoleMemberScopeResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockContactUpdateContactFunctionalRoleMemberScope()
+
+			_, _, err := moduleCli.UpdateContactFunctionalRoleMemberScope(ctx, &lark.UpdateContactFunctionalRoleMemberScopeReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			cli.Mock().MockContactGetContactFunctionalRoleMemberScope(func(ctx context.Context, request *lark.GetContactFunctionalRoleMemberScopeReq, options ...lark.MethodOptionFunc) (*lark.GetContactFunctionalRoleMemberScopeResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockContactGetContactFunctionalRoleMemberScope()
+
+			_, _, err := moduleCli.GetContactFunctionalRoleMemberScope(ctx, &lark.GetContactFunctionalRoleMemberScopeReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			cli.Mock().MockContactGetContactFunctionalRoleMember(func(ctx context.Context, request *lark.GetContactFunctionalRoleMemberReq, options ...lark.MethodOptionFunc) (*lark.GetContactFunctionalRoleMemberResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockContactGetContactFunctionalRoleMember()
+
+			_, _, err := moduleCli.GetContactFunctionalRoleMember(ctx, &lark.GetContactFunctionalRoleMemberReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
 			cli.Mock().MockContactGetEmployeeTypeEnumList(func(ctx context.Context, request *lark.GetEmployeeTypeEnumListReq, options ...lark.MethodOptionFunc) (*lark.GetEmployeeTypeEnumListResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -886,6 +970,70 @@ func Test_Contact_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
+			_, _, err := moduleCli.DeleteContactFunctionalRole(ctx, &lark.DeleteContactFunctionalRoleReq{
+				RoleID: "x",
+			})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.UpdateContactFunctionalRole(ctx, &lark.UpdateContactFunctionalRoleReq{
+				RoleID: "x",
+			})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.BatchCreateContactFunctionalRoleMember(ctx, &lark.BatchCreateContactFunctionalRoleMemberReq{
+				RoleID: "x",
+			})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.BatchDeleteContactFunctionalRoleMember(ctx, &lark.BatchDeleteContactFunctionalRoleMemberReq{
+				RoleID: "x",
+			})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.UpdateContactFunctionalRoleMemberScope(ctx, &lark.UpdateContactFunctionalRoleMemberScopeReq{
+				RoleID: "x",
+			})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.GetContactFunctionalRoleMemberScope(ctx, &lark.GetContactFunctionalRoleMemberScopeReq{
+				RoleID:   "x",
+				MemberID: "x",
+			})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.GetContactFunctionalRoleMember(ctx, &lark.GetContactFunctionalRoleMemberReq{
+				RoleID: "x",
+			})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+
 			_, _, err := moduleCli.GetEmployeeTypeEnumList(ctx, &lark.GetEmployeeTypeEnumListReq{})
 			as.NotNil(err)
 			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
@@ -1262,6 +1410,70 @@ func Test_Contact_Sample_Failed(t *testing.T) {
 		t.Run("", func(t *testing.T) {
 
 			_, _, err := moduleCli.CreateContactFunctionalRole(ctx, &lark.CreateContactFunctionalRoleReq{})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.DeleteContactFunctionalRole(ctx, &lark.DeleteContactFunctionalRoleReq{
+				RoleID: "x",
+			})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.UpdateContactFunctionalRole(ctx, &lark.UpdateContactFunctionalRoleReq{
+				RoleID: "x",
+			})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.BatchCreateContactFunctionalRoleMember(ctx, &lark.BatchCreateContactFunctionalRoleMemberReq{
+				RoleID: "x",
+			})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.BatchDeleteContactFunctionalRoleMember(ctx, &lark.BatchDeleteContactFunctionalRoleMemberReq{
+				RoleID: "x",
+			})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.UpdateContactFunctionalRoleMemberScope(ctx, &lark.UpdateContactFunctionalRoleMemberScopeReq{
+				RoleID: "x",
+			})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.GetContactFunctionalRoleMemberScope(ctx, &lark.GetContactFunctionalRoleMemberScopeReq{
+				RoleID:   "x",
+				MemberID: "x",
+			})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.GetContactFunctionalRoleMember(ctx, &lark.GetContactFunctionalRoleMemberReq{
+				RoleID: "x",
+			})
 			as.NotNil(err)
 			as.Equal("fake raw request", err.Error())
 		})
