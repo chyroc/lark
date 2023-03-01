@@ -57,18 +57,19 @@ func (r *Mock) UnMockHireMakeHireTransferOnboardByApplication() {
 
 // MakeHireTransferOnboardByApplicationReq ...
 type MakeHireTransferOnboardByApplicationReq struct {
-	ApplicationID          string        `path:"application_id" json:"-"`            // 投递ID, 示例值: "7073372582620416300"
-	UserIDType             *IDType       `query:"user_id_type" json:"-"`             // 用户 ID 类型, 示例值: "open_id", 可选值有: open_id: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid), union_id: 标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id), user_id: 标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id), 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
-	ActualOnboardTime      *int64        `json:"actual_onboard_time,omitempty"`      // 实际入职时间, 示例值: 1616428800000
-	ExpectedConversionTime *int64        `json:"expected_conversion_time,omitempty"` // 预期转正时间, 示例值: 1616428800000
-	JobRequirementID       *string       `json:"job_requirement_id,omitempty"`       // 招聘需求 ID, 示例值: "6960663240925956402"
-	OperatorID             *string       `json:"operator_id,omitempty"`              // 操作人 UserID, 示例值: "ou-xxx"
-	OnboardCityCode        *string       `json:"onboard_city_code,omitempty"`        // 候选人办公地点 ID, 枚举可通过接口「获取地址列表」获取, 将用于候选人内推奖规则判断, 示例值: "CT_2"
-	Department             *string       `json:"department,omitempty"`               // 候选人入职部门 ID, 枚举可通过接口「获取部门信息列表」获取, 将用于候选人内推奖规则判断, 示例值: "6966123381141866028"
-	Leader                 *string       `json:"leader,omitempty"`                   // 候选人直属上级 UserID, 将用于候选人内推奖规则判断, 示例值: "ou-xxx"
-	Sequence               *string       `json:"sequence,omitempty"`                 // 候选人序列 ID, 枚举可通过接口「获取职务分类列表」获取, 将用于候选人内推奖规则判断, 示例值: "7006234385490345986"
-	Level                  *string       `json:"level,omitempty"`                    // 候选人职级 ID, 枚举可通过接口「获取职级列表」获取, 将用于候选人内推奖规则判断, 示例值: "6937934036379650311"
-	EmployeeType           *EmployeeType `json:"employee_type,omitempty"`            // 候选人入职人员类型 ID, 可通过接口人力资源管理平台「获取员工类型列表」获取, 将用于候选人内推奖规则判断, 示例值: "1"
+	ApplicationID          string            `path:"application_id" json:"-"`            // 投递ID, 示例值: "7073372582620416300"
+	UserIDType             *IDType           `query:"user_id_type" json:"-"`             // 用户 ID 类型, 示例值: "open_id", 可选值有: open_id: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid), union_id: 标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id), user_id: 标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id), 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
+	DepartmentIDType       *DepartmentIDType `query:"department_id_type" json:"-"`       // 此次调用中使用的部门 ID 的类型, 示例值: "department_id", 可选值有: open_department_id: 以 open_department_id 来标识部门, department_id: 以 department_id 来标识部门, people_admin_department_id: 以 people_admin_department_id 来标识部门, 默认值: `people_admin_department_id`
+	ActualOnboardTime      *int64            `json:"actual_onboard_time,omitempty"`      // 实际入职时间, 示例值: 1616428800000
+	ExpectedConversionTime *int64            `json:"expected_conversion_time,omitempty"` // 预期转正时间, 示例值: 1616428800000
+	JobRequirementID       *string           `json:"job_requirement_id,omitempty"`       // 招聘需求 ID, 示例值: "6960663240925956402"
+	OperatorID             *string           `json:"operator_id,omitempty"`              // 操作人 UserID, 示例值: "ou-xxx"
+	OnboardCityCode        *string           `json:"onboard_city_code,omitempty"`        // 候选人办公地点 ID, 枚举可通过接口「获取地址列表」获取, 将用于候选人内推奖规则判断, 示例值: "CT_2"
+	Department             *string           `json:"department,omitempty"`               // 候选人入职部门 ID, 枚举可通过接口「获取部门信息列表」获取, 将用于候选人内推奖规则判断, 示例值: "6966123381141866028"
+	Leader                 *string           `json:"leader,omitempty"`                   // 候选人直属上级 UserID, 将用于候选人内推奖规则判断, 示例值: "ou-xxx"
+	Sequence               *string           `json:"sequence,omitempty"`                 // 候选人序列 ID, 枚举可通过接口「获取职务分类列表」获取, 将用于候选人内推奖规则判断, 示例值: "7006234385490345986"
+	Level                  *string           `json:"level,omitempty"`                    // 候选人职级 ID, 枚举可通过接口「获取职级列表」获取, 将用于候选人内推奖规则判断, 示例值: "6937934036379650311"
+	EmployeeType           *EmployeeType     `json:"employee_type,omitempty"`            // 候选人入职人员类型 ID, 可通过接口人力资源管理平台「获取员工类型列表」获取, 将用于候选人内推奖规则判断, 示例值: "1"
 }
 
 // MakeHireTransferOnboardByApplicationResp ...

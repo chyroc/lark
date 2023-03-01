@@ -60,7 +60,7 @@ type CreateSearchDataSourceReq struct {
 	Name             string                                    `json:"name,omitempty"`              // data_source的展示名称, 示例值: "客服工单"
 	State            *int64                                    `json:"state,omitempty"`             // 数据源状态, 0-已上线, 1-未上线。如果未填, 默认是未上线状态, 示例值: 0, 可选值有: 0: 已上线, 1: 未上线
 	Description      *string                                   `json:"description,omitempty"`       // 对于数据源的描述, 示例值: "搜索客服工单数据"
-	IconURL          *string                                   `json:"icon_url,omitempty"`          // 数据源在 search tab 上的展示图标路径, 示例值: "https://www.xxx.com/open.jpg"
+	IconURL          *string                                   `json:"icon_url,omitempty"`          // 数据源在 search tab 上的展示图标路径, 建议使用png或jpeg格式, 否则可能无法在客户端正常展示, 示例值: "https://www.xxx.com/open.jpg"
 	Template         *string                                   `json:"template,omitempty"`          // 数据源采用的展示模版名称, 示例值: "search_common_card", 默认值: `search_common_card`
 	SearchableFields []string                                  `json:"searchable_fields,omitempty"` // 【已废弃, 如有定制需要请使用“数据范式”接口】描述哪些字段可以被搜索, 示例值: 【已废弃, 如有定制需要请使用“数据范式”接口】["field1", "field2"]
 	I18nName         *CreateSearchDataSourceReqI18nName        `json:"i18n_name,omitempty"`         // 数据源的国际化展示名称
@@ -96,7 +96,7 @@ type CreateSearchDataSourceRespDataSource struct {
 	CreateTime       string                                               `json:"create_time,omitempty"`       // 创建时间, 使用Unix时间戳, 单位为“秒”
 	UpdateTime       string                                               `json:"update_time,omitempty"`       // 更新时间, 使用Unix时间戳, 单位为“秒”
 	IsExceedQuota    bool                                                 `json:"is_exceed_quota,omitempty"`   // 是否超限
-	IconURL          string                                               `json:"icon_url,omitempty"`          // 数据源在 search tab 上的展示图标路径
+	IconURL          string                                               `json:"icon_url,omitempty"`          // 数据源在 search tab 上的展示图标路径, 建议使用png或jpeg格式, 否则可能无法在客户端正常展示
 	Template         string                                               `json:"template,omitempty"`          // 数据源采用的展示模版名称
 	SearchableFields []string                                             `json:"searchable_fields,omitempty"` // 【已废弃, 如有定制需要请使用“数据范式”接口】描述哪些字段可以被搜索
 	I18nName         *CreateSearchDataSourceRespDataSourceI18nName        `json:"i18n_name,omitempty"`         // 数据源的国际化展示名称
