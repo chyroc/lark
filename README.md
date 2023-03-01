@@ -38,7 +38,7 @@ https://godoc.org/github.com/chyroc/lark
 
 ## Support APIs
 
-API Count: 713, Event Count: 103
+API Count: 714, Event Count: 103
 
 <details>
   <summary>
@@ -345,6 +345,7 @@ API Count: 713, Event Count: 103
   - DeleteContactGroupMember
   - BatchDeleteContactGroupMember
   - GetContactGroupMember
+  - CreateContactFunctionalRole
   - GetEmployeeTypeEnumList
   - UpdateEmployeeTypeEnumPatch
   - DeleteEmployeeTypeEnum

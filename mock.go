@@ -295,6 +295,7 @@ type Mock struct {
 	mockContactDeleteContactGroupMember                        func(ctx context.Context, request *DeleteContactGroupMemberReq, options ...MethodOptionFunc) (*DeleteContactGroupMemberResp, *Response, error)
 	mockContactBatchDeleteContactGroupMember                   func(ctx context.Context, request *BatchDeleteContactGroupMemberReq, options ...MethodOptionFunc) (*BatchDeleteContactGroupMemberResp, *Response, error)
 	mockContactGetContactGroupMember                           func(ctx context.Context, request *GetContactGroupMemberReq, options ...MethodOptionFunc) (*GetContactGroupMemberResp, *Response, error)
+	mockContactCreateContactFunctionalRole                     func(ctx context.Context, request *CreateContactFunctionalRoleReq, options ...MethodOptionFunc) (*CreateContactFunctionalRoleResp, *Response, error)
 	mockContactGetEmployeeTypeEnumList                         func(ctx context.Context, request *GetEmployeeTypeEnumListReq, options ...MethodOptionFunc) (*GetEmployeeTypeEnumListResp, *Response, error)
 	mockContactUpdateEmployeeTypeEnumPatch                     func(ctx context.Context, request *UpdateEmployeeTypeEnumPatchReq, options ...MethodOptionFunc) (*UpdateEmployeeTypeEnumPatchResp, *Response, error)
 	mockContactDeleteEmployeeTypeEnum                          func(ctx context.Context, request *DeleteEmployeeTypeEnumReq, options ...MethodOptionFunc) (*DeleteEmployeeTypeEnumResp, *Response, error)
