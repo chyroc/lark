@@ -18,7 +18,6 @@ package test
 import (
 	"testing"
 
-	"github.com/chyroc/go-ptr"
 	"github.com/stretchr/testify/assert"
 
 	"github.com/chyroc/lark"
@@ -102,7 +101,7 @@ func Test_Contact_Failed(t *testing.T) {
 				DepartmentIDType:   lark.DepartmentIDTypePtr(lark.DepartmentIDTypeDepartmentID),
 				Name:               "dep-" + randInt64String(),
 				ParentDepartmentID: "0",
-				LeaderUserID:       ptr.String(UserAdmin.UserID),
+				LeaderUserID:       ptrString(UserAdmin.UserID),
 			})
 			as.Nil(err)
 			as.NotNil(resp)
@@ -130,8 +129,8 @@ func Test_Contact_Failed(t *testing.T) {
 				// UserIDType:       nil,
 				DepartmentIDType: lark.DepartmentIDTypePtr(lark.DepartmentIDTypeOpenDepartmentID),
 				DepartmentID:     childOpenDepartmentID,
-				// PageToken:        ptr.String(""),
-				// PageSize:         ptr.Int64(10),
+				// PageToken:        ptrString(""),
+				// PageSize:         ptrInt64(10),
 			})
 			printData(resp)
 			as.Nil(err)
@@ -145,7 +144,7 @@ func Test_Contact_Failed(t *testing.T) {
 				// UserIDType:         nil,
 				DepartmentIDType: lark.DepartmentIDTypePtr(lark.DepartmentIDTypeOpenDepartmentID),
 				DepartmentID:     childOpenDepartmentID,
-				Name:             ptr.String("dep-update-" + randInt64String()),
+				Name:             ptrString("dep-update-" + randInt64String()),
 				// I18nName:           nil,
 				// ParentDepartmentID: nil,
 				// LeaderUserID:       nil,
@@ -163,7 +162,7 @@ func Test_Contact_Failed(t *testing.T) {
 				// UserIDType:         nil,
 				DepartmentIDType: lark.DepartmentIDTypePtr(lark.DepartmentIDTypeOpenDepartmentID),
 				DepartmentID:     childOpenDepartmentID,
-				Name:             ptr.String("dep-patch-" + randInt64String()),
+				Name:             ptrString("dep-patch-" + randInt64String()),
 				// I18nName:           nil,
 				// ParentDepartmentID: nil,
 				// LeaderUserID:       nil,

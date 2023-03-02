@@ -18,9 +18,9 @@ package test
 import (
 	"testing"
 
-	"github.com/chyroc/go-ptr"
-	"github.com/chyroc/lark"
 	"github.com/stretchr/testify/assert"
+
+	"github.com/chyroc/lark"
 )
 
 func Test_AppLink(t *testing.T) {
@@ -44,20 +44,20 @@ func Test_AppLink(t *testing.T) {
 	t.Run("calender_event_create", func(t *testing.T) {
 		t.Run("", func(t *testing.T) {
 			res := lark.AppLink.OpenCalenderEventCreate(&lark.OpenCalenderEventCreateReq{
-				StartTime: ptr.String("1581950880"),
+				StartTime: ptrString("1581950880"),
 			})
 			as.Equal("https://applink.feishu.cn/client/calendar/event/create?startTime=1581950880", res)
 		})
 		t.Run("", func(t *testing.T) {
 			as.Equal("https://applink.feishu.cn/client/calendar/event/create?endTime=1581951000&startTime=1581950880", lark.AppLink.OpenCalenderEventCreate(&lark.OpenCalenderEventCreateReq{
-				StartTime: ptr.String("1581950880"),
-				EndTime:   ptr.String("1581951000"),
+				StartTime: ptrString("1581950880"),
+				EndTime:   ptrString("1581951000"),
 			}))
 		})
 		t.Run("", func(t *testing.T) {
 			res := lark.AppLink.OpenCalenderEventCreate(&lark.OpenCalenderEventCreateReq{
-				StartTime: ptr.String("1581950880"),
-				Summary:   ptr.String("主题"),
+				StartTime: ptrString("1581950880"),
+				Summary:   ptrString("主题"),
 			})
 			as.Equal("https://applink.feishu.cn/client/calendar/event/create?startTime=1581950880&summary=%E4%B8%BB%E9%A2%98", res)
 		})
@@ -65,23 +65,23 @@ func Test_AppLink(t *testing.T) {
 
 	t.Run("calendar_view", func(t *testing.T) {
 		as.Equal("https://applink.feishu.cn/client/calendar/view?type=week", lark.AppLink.OpenCalenderView(&lark.OpenCalenderViewReq{
-			Type: ptr.String("week"),
+			Type: ptrString("week"),
 		}))
 		as.Equal("https://applink.feishu.cn/client/calendar/view?type=meeting", lark.AppLink.OpenCalenderView(&lark.OpenCalenderViewReq{
-			Type: ptr.String("meeting"),
+			Type: ptrString("meeting"),
 		}))
 		as.Equal("https://applink.feishu.cn/client/calendar/view?date=1581999948&type=day", lark.AppLink.OpenCalenderView(&lark.OpenCalenderViewReq{
-			Type: ptr.String("day"),
-			Date: ptr.String("1581999948"),
+			Type: ptrString("day"),
+			Date: ptrString("1581999948"),
 		}))
 	})
 
 	t.Run("chat", func(t *testing.T) {
 		as.Equal("https://applink.feishu.cn/client/chat/open?openId=1234567890", lark.AppLink.OpenChat(&lark.OpenChatReq{
-			OpenID: ptr.String("1234567890"),
+			OpenID: ptrString("1234567890"),
 		}))
 		as.Equal("https://applink.feishu.cn/client/chat/open?openChatId=oc_41e7bdf4877cfc316136f4ccf6c32613", lark.AppLink.OpenChat(&lark.OpenChatReq{
-			OpenChatID: ptr.String("oc_41e7bdf4877cfc316136f4ccf6c32613"),
+			OpenChatID: ptrString("oc_41e7bdf4877cfc316136f4ccf6c32613"),
 		}))
 	})
 
@@ -98,23 +98,23 @@ func Test_AppLink(t *testing.T) {
 	t.Run("mini-pro", func(t *testing.T) {
 		as.Equal("https://applink.feishu.cn/client/mini_program/open?appId=1234567890&mode=window", lark.AppLink.OpenMiniProgram(&lark.OpenMiniProgramReq{
 			AppID: "1234567890",
-			Mode:  ptr.String("window"),
+			Mode:  ptrString("window"),
 		}))
 		as.Equal("https://applink.feishu.cn/client/mini_program/open?appId=1234567890&mode=window&path=pages%2Fhome", lark.AppLink.OpenMiniProgram(&lark.OpenMiniProgramReq{
 			AppID: "1234567890",
-			Mode:  ptr.String("window"),
-			Path:  ptr.String("pages/home"),
+			Mode:  ptrString("window"),
+			Path:  ptrString("pages/home"),
 		}))
 		as.Equal("https://applink.feishu.cn/client/mini_program/open?appId=1234567890&mode=window&path=pages%2Fhome%3Fxid%3D123", lark.AppLink.OpenMiniProgram(&lark.OpenMiniProgramReq{
 			AppID: "1234567890",
-			Mode:  ptr.String("window"),
-			Path:  ptr.String("pages/home?xid=123"),
+			Mode:  ptrString("window"),
+			Path:  ptrString("pages/home?xid=123"),
 		}))
 		as.Equal("https://applink.feishu.cn/client/mini_program/open?appId=1234567890&mode=window&path=pages%2Fhome%3Fxid%3D123&path_pc=pages%2Fpc_home%3Fpid%3D123", lark.AppLink.OpenMiniProgram(&lark.OpenMiniProgramReq{
 			AppID:  "1234567890",
-			Mode:   ptr.String("window"),
-			Path:   ptr.String("pages/home?xid=123"),
-			PathPc: ptr.String("pages/pc_home?pid=123"),
+			Mode:   ptrString("window"),
+			Path:   ptrString("pages/home?xid=123"),
+			PathPc: ptrString("pages/pc_home?pid=123"),
 		}))
 		// todo: min_lk_ver_pc
 	})

@@ -19,7 +19,6 @@ import (
 	"reflect"
 	"testing"
 
-	"github.com/chyroc/go-ptr"
 	"github.com/stretchr/testify/assert"
 )
 
@@ -40,19 +39,19 @@ func Test_ReflectToString(t *testing.T) {
 	as.Equal("true", ReflectToString(reflect.ValueOf(true)))
 	as.Equal("false", ReflectToString(reflect.ValueOf(false)))
 	as.Equal("<map[string]string Value>", ReflectToString(reflect.ValueOf(map[string]string{})))
-	as.Equal("1", ReflectToString(reflect.ValueOf(ptr.String(string("1")))))
-	as.Equal("1", ReflectToString(reflect.ValueOf(ptr.Int(int(1)))))
-	as.Equal("1", ReflectToString(reflect.ValueOf(ptr.Int8(int8(1)))))
-	as.Equal("1", ReflectToString(reflect.ValueOf(ptr.Int16(int16(1)))))
-	as.Equal("1", ReflectToString(reflect.ValueOf(ptr.Int32(int32(1)))))
-	as.Equal("1", ReflectToString(reflect.ValueOf(ptr.Int64(int64(1)))))
-	as.Equal("1", ReflectToString(reflect.ValueOf(ptr.UInt(uint(1)))))
-	as.Equal("1", ReflectToString(reflect.ValueOf(ptr.UInt8(uint8(1)))))
-	as.Equal("1", ReflectToString(reflect.ValueOf(ptr.UInt16(uint16(1)))))
-	as.Equal("1", ReflectToString(reflect.ValueOf(ptr.UInt32(uint32(1)))))
-	as.Equal("1", ReflectToString(reflect.ValueOf(ptr.UInt64(uint64(1)))))
-	as.Equal("true", ReflectToString(reflect.ValueOf(ptr.Bool(true))))
-	as.Equal("false", ReflectToString(reflect.ValueOf(ptr.Bool(false))))
+	as.Equal("1", ReflectToString(reflect.ValueOf(ptrString(string("1")))))
+	as.Equal("1", ReflectToString(reflect.ValueOf(ptrInt(int(1)))))
+	as.Equal("1", ReflectToString(reflect.ValueOf(ptrInt8(int8(1)))))
+	as.Equal("1", ReflectToString(reflect.ValueOf(ptrInt16(int16(1)))))
+	as.Equal("1", ReflectToString(reflect.ValueOf(ptrInt32(int32(1)))))
+	as.Equal("1", ReflectToString(reflect.ValueOf(ptrInt64(int64(1)))))
+	as.Equal("1", ReflectToString(reflect.ValueOf(ptrUInt(uint(1)))))
+	as.Equal("1", ReflectToString(reflect.ValueOf(ptrUInt8(uint8(1)))))
+	as.Equal("1", ReflectToString(reflect.ValueOf(ptrUInt16(uint16(1)))))
+	as.Equal("1", ReflectToString(reflect.ValueOf(ptrUInt32(uint32(1)))))
+	as.Equal("1", ReflectToString(reflect.ValueOf(ptrUInt64(uint64(1)))))
+	as.Equal("true", ReflectToString(reflect.ValueOf(ptrBool(true))))
+	as.Equal("false", ReflectToString(reflect.ValueOf(ptrBool(false))))
 }
 
 func TestReflectToQueryString(t *testing.T) {

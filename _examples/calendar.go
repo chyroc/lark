@@ -19,9 +19,8 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/chyroc/go-ptr"
-
 	"github.com/chyroc/lark"
+	"github.com/chyroc/lark/_examples/util"
 )
 
 // ExampleCalendar ...
@@ -32,7 +31,7 @@ func ExampleCalendar() {
 	// create calendar
 	{
 		resp, _, err := cli.Calendar.CreateCalendar(ctx, &lark.CreateCalendarReq{
-			Summary: ptr.String("<SUMMARY>"),
+			Summary: util.PtrString("<SUMMARY>"),
 		})
 		fmt.Println(resp, err)
 	}
@@ -41,7 +40,7 @@ func ExampleCalendar() {
 	{
 		resp, _, err := cli.Calendar.UpdateCalendar(ctx, &lark.UpdateCalendarReq{
 			CalendarID: "<CALENDAR_ID>",
-			Summary:    ptr.String("<SUMMARY>"),
+			Summary:    util.PtrString("<SUMMARY>"),
 		})
 		fmt.Println(resp, err)
 	}
@@ -95,7 +94,7 @@ func ExampleCalendar() {
 	// create calendar event
 	{
 		resp, _, err := cli.Calendar.CreateCalendarEvent(ctx, &lark.CreateCalendarEventReq{
-			Summary: ptr.String("<SUMMARY>"),
+			Summary: util.PtrString("<SUMMARY>"),
 		})
 		fmt.Println(resp, err)
 	}
@@ -104,7 +103,7 @@ func ExampleCalendar() {
 	{
 		resp, _, err := cli.Calendar.UpdateCalendarEvent(ctx, &lark.UpdateCalendarEventReq{
 			CalendarID: "<CALENDAR_ID>",
-			Summary:    ptr.String("<SUMMARY>"),
+			Summary:    util.PtrString("<SUMMARY>"),
 		})
 		fmt.Println(resp, err)
 	}
@@ -188,7 +187,7 @@ func ExampleCalendar() {
 			EventID:    "<EVENT_ID>",
 			Attendees: []*lark.CreateCalendarEventAttendeeReqAttendee{
 				{
-					UserID: ptr.String("<USER_ID>"),
+					UserID: util.PtrString("<USER_ID>"),
 				},
 			},
 		})
@@ -231,7 +230,7 @@ func ExampleCalendar() {
 		resp, _, err := cli.Calendar.GetCalendarFreeBusyList(ctx, &lark.GetCalendarFreeBusyListReq{
 			TimeMin: "2020-10-28T12:00:00+08:00",
 			TimeMax: "2020-10-29T12:00:00+08:00",
-			UserID:  ptr.String("<USER_ID>"),
+			UserID:  util.PtrString("<USER_ID>"),
 		})
 		fmt.Println(resp, err)
 	}
@@ -242,7 +241,7 @@ func ExampleCalendar() {
 			UserID:    "<USER_ID>",
 			StartTime: "2021-01-01",
 			EndTime:   "2021-01-02",
-			Title:     ptr.String("<TITLE>"),
+			Title:     util.PtrString("<TITLE>"),
 		})
 		fmt.Println(resp, err)
 	}
@@ -258,7 +257,7 @@ func ExampleCalendar() {
 	// subscribe calendar acl
 	{
 		resp, _, err := cli.Calendar.GenerateCaldavConf(ctx, &lark.GenerateCaldavConfReq{
-			DeviceName: ptr.String("DEVICE_NAME"),
+			DeviceName: util.PtrString("DEVICE_NAME"),
 		})
 		fmt.Println(resp, err)
 	}

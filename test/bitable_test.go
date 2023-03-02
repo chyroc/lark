@@ -19,7 +19,6 @@ import (
 	"fmt"
 	"testing"
 
-	"github.com/chyroc/go-ptr"
 	"github.com/stretchr/testify/assert"
 
 	"github.com/chyroc/lark"
@@ -73,7 +72,7 @@ func Test_Bitable(t *testing.T) {
 					AppToken: appToken,
 					TableID:  tableID,
 					ViewName: "view-name-" + randInt64String(),
-					ViewType: ptr.String("gantt"),
+					ViewType: ptrString("gantt"),
 				})
 				resp = res
 				return err

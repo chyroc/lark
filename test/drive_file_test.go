@@ -22,9 +22,9 @@ import (
 	"strconv"
 	"testing"
 
-	"github.com/chyroc/go-ptr"
-	"github.com/chyroc/lark"
 	"github.com/stretchr/testify/assert"
+
+	"github.com/chyroc/lark"
 )
 
 func Test_DriveFile(t *testing.T) {
@@ -51,7 +51,7 @@ func Test_DriveFile(t *testing.T) {
 			ParentType: "explorer",
 			ParentNode: rootFolderMetaToken,
 			Size:       int64(len(bs)),
-			Checksum:   ptr.String(strconv.FormatInt(int64(x.Sum32()), 10)),
+			Checksum:   ptrString(strconv.FormatInt(int64(x.Sum32()), 10)),
 			File:       bytes.NewReader(bs),
 		})
 		as.Nil(err)

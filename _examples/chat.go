@@ -19,9 +19,8 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/chyroc/go-ptr"
-
 	"github.com/chyroc/lark"
+	"github.com/chyroc/lark/_examples/util"
 )
 
 // ExampleChat ...
@@ -32,7 +31,7 @@ func ExampleChat() {
 	// create chat
 	{
 		resp, _, err := cli.Chat.CreateChat(ctx, &lark.CreateChatReq{
-			Name: ptr.String("<CHAT_NAME>"),
+			Name: util.PtrString("<CHAT_NAME>"),
 		})
 		fmt.Println(resp, err)
 	}
@@ -41,7 +40,7 @@ func ExampleChat() {
 	{
 		resp, _, err := cli.Chat.UpdateChat(ctx, &lark.UpdateChatReq{
 			ChatID: "<CHAT_ID>",
-			Name:   ptr.String("<CHAT_NAME>"),
+			Name:   util.PtrString("<CHAT_NAME>"),
 		})
 		fmt.Println(resp, err)
 	}
@@ -99,7 +98,7 @@ func ExampleChat() {
 	// search chat
 	{
 		resp, _, err := cli.Chat.SearchChat(ctx, &lark.SearchChatReq{
-			Query: ptr.String("<SEARCH>"),
+			Query: util.PtrString("<SEARCH>"),
 		})
 		fmt.Println(resp, err)
 	}

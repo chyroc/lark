@@ -19,7 +19,6 @@ import (
 	"encoding/json"
 	"testing"
 
-	"github.com/chyroc/go-ptr"
 	"github.com/stretchr/testify/assert"
 
 	"github.com/chyroc/lark"
@@ -30,7 +29,7 @@ func Test_Type(t *testing.T) {
 
 	t.Run("SheetContent", func(t *testing.T) {
 		t.Run("children", func(t *testing.T) {
-			children := []*lark.SheetContent{{String: ptr.String("str")}}
+			children := []*lark.SheetContent{{String: ptrString("str")}}
 			res := lark.SheetContent{
 				Children: &children,
 			}
@@ -43,7 +42,7 @@ func Test_Type(t *testing.T) {
 
 		t.Run("str", func(t *testing.T) {
 			res := lark.SheetContent{
-				String: ptr.String("str"),
+				String: ptrString("str"),
 			}
 			bs, err := json.Marshal(res)
 			as.Nil(err)
@@ -54,7 +53,7 @@ func Test_Type(t *testing.T) {
 
 		t.Run("int", func(t *testing.T) {
 			res := lark.SheetContent{
-				Int: ptr.Int64(1),
+				Int: ptrInt64(1),
 			}
 			bs, err := json.Marshal(res)
 			as.Nil(err)

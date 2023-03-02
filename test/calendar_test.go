@@ -19,7 +19,6 @@ import (
 	"fmt"
 	"testing"
 
-	"github.com/chyroc/go-ptr"
 	"github.com/stretchr/testify/assert"
 
 	"github.com/chyroc/lark"
@@ -167,8 +166,8 @@ func Test_Calendar(t *testing.T) {
 
 		{
 			resp, _, err := moduleCli.CreateCalendar(ctx, &lark.CreateCalendarReq{
-				Summary:      ptr.String("summary-test"),
-				Description:  ptr.String("desc-test"),
+				Summary:      ptrString("summary-test"),
+				Description:  ptrString("desc-test"),
 				Permissions:  nil,
 				Color:        nil,
 				SummaryAlias: nil,
@@ -196,7 +195,7 @@ func Test_Calendar(t *testing.T) {
 		{
 			resp, _, err := moduleCli.UpdateCalendar(ctx, &lark.UpdateCalendarReq{
 				CalendarID: calendarID,
-				Summary:    ptr.String(summary + "-update"),
+				Summary:    ptrString(summary + "-update"),
 			})
 			printData(resp, err)
 			as.Nil(err)
@@ -244,8 +243,8 @@ func Test_CalendarEvent(t *testing.T) {
 
 		{
 			resp, _, err := moduleCli.CreateCalendar(ctx, &lark.CreateCalendarReq{
-				Summary:      ptr.String("summary-test"),
-				Description:  ptr.String("desc-test"),
+				Summary:      ptrString("summary-test"),
+				Description:  ptrString("desc-test"),
 				Permissions:  nil,
 				Color:        nil,
 				SummaryAlias: nil,
@@ -260,10 +259,10 @@ func Test_CalendarEvent(t *testing.T) {
 				CalendarID: calendarID,
 				Summary:    &summary,
 				StartTime: &lark.CreateCalendarEventReqStartTime{
-					Date: ptr.String("2020-09-01"),
+					Date: ptrString("2020-09-01"),
 				},
 				EndTime: &lark.CreateCalendarEventReqEndTime{
-					Date: ptr.String("2020-09-02"),
+					Date: ptrString("2020-09-02"),
 				},
 			})
 			printData(resp, err)
@@ -293,7 +292,7 @@ func Test_CalendarEvent(t *testing.T) {
 			resp, _, err := moduleCli.UpdateCalendarEvent(ctx, &lark.UpdateCalendarEventReq{
 				CalendarID: calendarID,
 				EventID:    eventID,
-				Summary:    ptr.String(summary + "-update"),
+				Summary:    ptrString(summary + "-update"),
 			})
 			printData(resp, err)
 			as.Nil(err)
@@ -334,8 +333,8 @@ func Test_CalendarACL(t *testing.T) {
 
 		{
 			resp, _, err := moduleCli.CreateCalendar(ctx, &lark.CreateCalendarReq{
-				Summary:      ptr.String("summary-test"),
-				Description:  ptr.String("desc-test"),
+				Summary:      ptrString("summary-test"),
+				Description:  ptrString("desc-test"),
 				Permissions:  nil,
 				Color:        nil,
 				SummaryAlias: nil,

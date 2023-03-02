@@ -22,7 +22,6 @@ import (
 	"io"
 	"io/ioutil"
 
-	"github.com/chyroc/go-ptr"
 	"github.com/chyroc/lark"
 )
 
@@ -79,7 +78,7 @@ func (r *Folder) newFolder(ctx context.Context, title string) (*Folder, error) {
 func (r *Folder) newSheet(ctx context.Context, title string) (*Sheet, error) {
 	resp, _, err := r.larkClient.Drive.CreateSpreadsheet(ctx, &lark.CreateSpreadsheetReq{
 		Title:       &title,
-		FolderToken: ptr.StringNoNonePtr(r.folderToken),
+		FolderToken: ptrStringNoNonePtr(r.folderToken),
 	})
 	if err != nil {
 		return nil, err
@@ -94,8 +93,8 @@ func (r *Folder) newDoc(ctx context.Context, title string, blocks ...*lark.DocBl
 	}
 	body, _ := json.Marshal(b)
 	resp, _, err := r.larkClient.Drive.CreateDriveDoc(ctx, &lark.CreateDriveDocReq{
-		Content:     ptr.StringNoNonePtr(string(body)),
-		FolderToken: ptr.StringNoNonePtr(r.folderToken),
+		Content:     ptrStringNoNonePtr(string(body)),
+		FolderToken: ptrStringNoNonePtr(r.folderToken),
 	})
 	if err != nil {
 		return nil, err

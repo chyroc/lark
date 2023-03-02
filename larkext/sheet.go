@@ -18,7 +18,6 @@ package larkext
 import (
 	"context"
 
-	"github.com/chyroc/go-ptr"
 	"github.com/chyroc/lark"
 )
 
@@ -168,12 +167,12 @@ func (r *Sheet) SetColsVisible(ctx context.Context, sheetID string, startIndex, 
 
 // SetRowsSize 设置行的高度
 func (r *Sheet) SetRowsSize(ctx context.Context, sheetID string, startIndex, count, size int64) error {
-	return r.updateDimension(ctx, "ROWS", sheetID, startIndex, count, nil, ptr.Int64(size))
+	return r.updateDimension(ctx, "ROWS", sheetID, startIndex, count, nil, ptrInt64(size))
 }
 
 // SetColsSize 设置列的宽度
 func (r *Sheet) SetColsSize(ctx context.Context, sheetID string, startIndex, count, size int64) error {
-	return r.updateDimension(ctx, "COLUMNS", sheetID, startIndex, count, nil, ptr.Int64(size))
+	return r.updateDimension(ctx, "COLUMNS", sheetID, startIndex, count, nil, ptrInt64(size))
 }
 
 // DeleteRows 删除行
@@ -198,7 +197,7 @@ func (r *Sheet) SetCellStyle(ctx context.Context, cellRange string, style *lark.
 
 // CleanCellStyle 清除单元格样式
 func (r *Sheet) CleanCellStyle(ctx context.Context, cellRange string) error {
-	return r.setCellStyle(ctx, cellRange, &lark.SetSheetStyleReqAppendStyleStyle{Clean: ptr.Bool(true)})
+	return r.setCellStyle(ctx, cellRange, &lark.SetSheetStyleReqAppendStyleStyle{Clean: ptrBool(true)})
 }
 
 // BatchSetCellStyle 批量设置单元格样式
@@ -211,7 +210,7 @@ func (r *Sheet) BatchCleanCellStyle(ctx context.Context, cellRanges []string) er
 	styles := []*lark.BatchSetSheetStyleReqData{{
 		Ranges: cellRanges,
 		Style: &lark.BatchSetSheetStyleReqDataStyle{
-			Clean: ptr.Bool(true),
+			Clean: ptrBool(true),
 		},
 	}}
 	return r.batchSetCellStyle(ctx, styles)

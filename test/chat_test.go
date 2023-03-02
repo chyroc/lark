@@ -22,7 +22,6 @@ import (
 	"testing"
 	"time"
 
-	"github.com/chyroc/go-ptr"
 	"github.com/stretchr/testify/assert"
 
 	"github.com/chyroc/lark"
@@ -128,7 +127,7 @@ func Test_GetChat(t *testing.T) {
 	t.Run("", func(t *testing.T) {
 		resp, _, err := AppAllPermission.Ins().Chat.UpdateChat(ctx, &lark.UpdateChatReq{
 			ChatID: ChatContainALLPermissionApp.ChatID,
-			Name:   ptr.String("包含「lark-sdk」的群 " + strconv.FormatInt(randInt64(), 10)),
+			Name:   ptrString("包含「lark-sdk」的群 " + strconv.FormatInt(randInt64(), 10)),
 		})
 		as.Nil(err)
 		as.NotNil(resp)
@@ -151,7 +150,7 @@ func Test_GetChat(t *testing.T) {
 
 	t.Run("SearchChat, success", func(t *testing.T) {
 		resp, _, err := AppAllPermission.Ins().Chat.SearchChat(ctx, &lark.SearchChatReq{
-			Query: ptr.String("lark-sdk"),
+			Query: ptrString("lark-sdk"),
 		})
 		as.Nil(err)
 		as.True(len(resp.Items) > 0)

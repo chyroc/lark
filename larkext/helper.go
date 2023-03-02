@@ -69,3 +69,22 @@ func deleteFile(ctx context.Context, larkClient *lark.Lark, fileToken string, ty
 	}
 	return newTask(larkClient, resp.TaskID), nil
 }
+
+func ptrStringNoNonePtr(s string) *string {
+	if s == "" {
+		return nil
+	}
+	return &s
+}
+
+func ptrString(s string) *string {
+	return &s
+}
+
+func ptrInt64(s int64) *int64 {
+	return &s
+}
+
+func ptrBool(s bool) *bool {
+	return &s
+}

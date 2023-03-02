@@ -28,10 +28,10 @@ func Test_Helpdesk(t *testing.T) {
 
 	t.Run("", func(t *testing.T) {
 		resp, _, err := HelpdeskAllPermission.Ins().Helpdesk.StartHelpdeskService(ctx, &lark.StartHelpdeskServiceReq{
-			// HumanService: ptr.Bool(false),
+			// HumanService: ptrBool(false),
 			// AppointedAgents: nil,
 			OpenID: UserAdmin.OpenID,
-			// CustomizedInfo: ptr.String("test"),
+			// CustomizedInfo: ptrString("test"),
 		})
 		printData(resp, err)
 		as.Nil(err)

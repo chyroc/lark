@@ -19,8 +19,6 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/chyroc/go-ptr"
-
 	"github.com/chyroc/lark"
 )
 
@@ -178,7 +176,7 @@ func (r *Sheet) insertDimension(ctx context.Context, majorDimension, sheetID str
 		SpreadSheetToken: r.token,
 		Dimension: &lark.InsertSheetDimensionRangeReqDimension{
 			SheetID:        sheetID,
-			MajorDimension: ptr.String(majorDimension),
+			MajorDimension: ptrString(majorDimension),
 			StartIndex:     startIndex,
 			EndIndex:       count,
 		},
@@ -211,11 +209,11 @@ func (r *Sheet) moveDimension(ctx context.Context, majorDimension, sheetID strin
 		SpreadSheetToken: r.token,
 		SheetID:          sheetID,
 		Source: &lark.MoveSheetDimensionReqSource{
-			MajorDimension: ptr.String(majorDimension),
-			StartIndex:     ptr.Int64(int64(startIndex)),
-			EndIndex:       ptr.Int64(int64(endIndex)),
+			MajorDimension: ptrString(majorDimension),
+			StartIndex:     ptrInt64(startIndex),
+			EndIndex:       ptrInt64(endIndex),
 		},
-		DestinationIndex: ptr.Int64(int64(destIndex)),
+		DestinationIndex: ptrInt64(destIndex),
 	})
 	return err
 }

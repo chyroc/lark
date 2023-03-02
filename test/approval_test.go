@@ -20,7 +20,6 @@ import (
 	"fmt"
 	"testing"
 
-	"github.com/chyroc/go-ptr"
 	"github.com/stretchr/testify/assert"
 
 	"github.com/chyroc/lark"
@@ -121,7 +120,7 @@ func Test_UnmarshalGetApprovalInstance(t *testing.T) {
 	err := json.Unmarshal([]byte(s), res)
 	as.Nil(err)
 	as.NotNil(res)
-	as.Equal("1", ptr.ValueString(res.Timeline[0].Ext.UserID))
+	as.Equal("1", ptrValueString(res.Timeline[0].Ext.UserID))
 	printData(res)
 }
 
@@ -190,7 +189,7 @@ func Test_Create_CancelApproval(t *testing.T) {
 				InstanceCode: instanceCode,
 				UserID:       UserAdmin.UserID,
 				TaskID:       task.ID,
-				Comment:      ptr.String(fmt.Sprintf("task: %d, approve", taskIdx)),
+				Comment:      ptrString(fmt.Sprintf("task: %d, approve", taskIdx)),
 			})
 			as.Nil(err)
 		}
@@ -211,7 +210,7 @@ func Test_Create_CancelApproval(t *testing.T) {
 				InstanceCode: instanceCode,
 				UserID:       UserAdmin.UserID,
 				TaskID:       task.ID,
-				Comment:      ptr.String(fmt.Sprintf("task: %d, approve", taskIdx)),
+				Comment:      ptrString(fmt.Sprintf("task: %d, approve", taskIdx)),
 			})
 			as.Nil(err)
 		}

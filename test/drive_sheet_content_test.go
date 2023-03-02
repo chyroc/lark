@@ -19,9 +19,9 @@ import (
 	"encoding/json"
 	"testing"
 
-	"github.com/chyroc/go-ptr"
-	"github.com/chyroc/lark"
 	"github.com/stretchr/testify/assert"
+
+	"github.com/chyroc/lark"
 )
 
 func Test_SheetContent(t *testing.T) {
@@ -29,10 +29,10 @@ func Test_SheetContent(t *testing.T) {
 
 	content := [][]lark.SheetContent{
 		{
-			{String: ptr.String("text")},
-			{String: ptr.String("123.456")},
+			{String: ptrString("text")},
+			{String: ptrString("123.456")},
 			{Link: &lark.SheetValueLink{Text: "text", Link: "https://github.com/"}},
-			{String: ptr.String("a@b.com")},
+			{String: ptrString("a@b.com")},
 			{AtUser: &lark.SheetValueAtUser{Text: "a@b.com", TextType: "email", Notify: false, GrantReadPermission: true}},
 		},
 		{

@@ -19,9 +19,9 @@ import (
 	"encoding/json"
 	"testing"
 
-	"github.com/chyroc/go-ptr"
-	"github.com/chyroc/lark"
 	"github.com/stretchr/testify/assert"
+
+	"github.com/chyroc/lark"
 )
 
 func TestSheetValue_MarshalJSON(t *testing.T) {
@@ -34,8 +34,8 @@ func TestSheetValue_MarshalJSON(t *testing.T) {
 		errContain string
 	}{
 		{name: "0", arg: &lark.SheetContent{}, want: `null`},
-		{name: "1", arg: &lark.SheetContent{String: ptr.String("string")}, want: `"string"`},
-		{name: "2", arg: &lark.SheetContent{Int: ptr.Int64(1)}, want: `1`},
+		{name: "1", arg: &lark.SheetContent{String: ptrString("string")}, want: `"string"`},
+		{name: "2", arg: &lark.SheetContent{Int: ptrInt64(1)}, want: `1`},
 		{name: "3", arg: &lark.SheetContent{Link: &lark.SheetValueLink{Text: "text", Link: "url"}}, want: `{"text":"text","link":"url","type":"url"}`},
 		{
 			name: "4", arg: &lark.SheetContent{AtUser: &lark.SheetValueAtUser{Text: "aaa@aa.com", TextType: "email", Notify: false, GrantReadPermission: false}},

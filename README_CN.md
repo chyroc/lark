@@ -987,7 +987,7 @@ cli := lark.New(
 
 tenantKey1Cli := cli.WithTenant("<TENANT_KEY_1>")
 resp, _, err := tenantKey1cli.Chat.CreateChat(ctx, &lark.CreateChatReq{
-    Name: ptr.String("<CHAT_NAME_1>"),
+    Name: ptrString("<CHAT_NAME_1>"),
 })
 fmt.Println(resp, err)
 ```
@@ -1043,7 +1043,7 @@ fmt.Println(resp, err)
 cli := lark.New(lark.WithAppCredential("<APP_ID>", "<APP_SECRET>"))
 
 resp, _, err := cli.Chat.CreateChat(ctx, &lark.CreateChatReq{
-    Name: ptr.String("<CHAT_NAME>"),
+    Name: ptrString("<CHAT_NAME>"),
 })
 fmt.Println(resp, err)
 ```
@@ -1078,7 +1078,7 @@ fmt.Println(resp, err)
 cli := lark.New(lark.WithAppCredential("<APP_ID>", "<APP_SECRET>"))
 
 resp, _, err := cli.Calendar.CreateCalendar(ctx, &lark.CreateCalendarReq{
-Summary: ptr.String("<SUMMARY>"),
+Summary: ptrString("<SUMMARY>"),
 })
 fmt.Println(resp, err)
 ```

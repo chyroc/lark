@@ -20,10 +20,10 @@ import (
 	"fmt"
 	"testing"
 
-	"github.com/chyroc/go-ptr"
+	"github.com/stretchr/testify/assert"
+
 	"github.com/chyroc/lark"
 	"github.com/chyroc/lark/larkext"
-	"github.com/stretchr/testify/assert"
 )
 
 func TestLarkExt_Helper(t *testing.T) {
@@ -75,7 +75,7 @@ func Test_SheetExt(t *testing.T) {
 	})
 
 	t.Run("copy-sheet", func(t *testing.T) {
-		sheetID, err := sheetClient.CopySheet(ctx, defaultSheetID, ptr.String(randInt64String()))
+		sheetID, err := sheetClient.CopySheet(ctx, defaultSheetID, ptrString(randInt64String()))
 		as.Nil(err)
 		as.NotEmpty(sheetID)
 
@@ -88,13 +88,13 @@ func Test_SheetExt(t *testing.T) {
 
 	t.Run("", func(t *testing.T) {
 		err = sheetClient.SetSheetValue(ctx, larkext.CellRange(defaultSheetID, 1, 1, 1, 7), [][]lark.SheetContent{
-			{{String: ptr.String("1")}}, // 1
-			{{Int: ptr.Int64(100)}},     // 2
+			{{String: ptrString("1")}}, // 1
+			{{Int: ptrInt64(100)}},     // 2
 			{{Link: &lark.SheetValueLink{Text: "link", Link: "https://google.com"}}}, // 3
 			{{Formula: &lark.SheetValueFormula{Text: "=A1"}}},                        // 4
-			{{String: ptr.String("5")}},                                              // 5
-			{{String: ptr.String("6")}},                                              // 6
-			{{String: ptr.String("7")}},                                              // 7
+			{{String: ptrString("5")}},                                               // 5
+			{{String: ptrString("6")}},                                               // 6
+			{{String: ptrString("7")}},                                               // 7
 		})
 		as.Nil(err)
 
@@ -103,7 +103,7 @@ func Test_SheetExt(t *testing.T) {
 				Range: larkext.CellRange(defaultSheetID, 1, 1, 1, 1),
 				Values: [][]lark.SheetContent{
 					{
-						{String: ptr.String("(1,1) 字符串")},
+						{String: ptrString("(1,1) 字符串")},
 					},
 				},
 			},
@@ -156,13 +156,13 @@ func Test_SheetExt(t *testing.T) {
 		as.Nil(sheetClient.AddCols(ctx, defaultSheetID, 1))
 
 		err = sheetClient.Append(ctx, larkext.CellRange(defaultSheetID, 1, 1, 1, 7), [][]lark.SheetContent{
-			{{String: ptr.String("1")}}, // 1
-			{{Int: ptr.Int64(100)}},     // 2
+			{{String: ptrString("1")}}, // 1
+			{{Int: ptrInt64(100)}},     // 2
 			{{Link: &lark.SheetValueLink{Text: "link", Link: "https://google.com"}}}, // 3
 			{{Formula: &lark.SheetValueFormula{Text: "=A1"}}},                        // 4
-			{{String: ptr.String("5")}},                                              // 5
-			{{String: ptr.String("6")}},                                              // 6
-			{{String: ptr.String("7")}},                                              // 7
+			{{String: ptrString("5")}},                                               // 5
+			{{String: ptrString("6")}},                                               // 6
+			{{String: ptrString("7")}},                                               // 7
 		}, nil)
 		as.Nil(err)
 
@@ -179,7 +179,7 @@ func Test_SheetExt(t *testing.T) {
 		as.Nil(sheetClient.DeleteCols(ctx, defaultSheetID, 10, 1))
 
 		as.Nil(sheetClient.SetCellStyle(ctx, larkext.CellRange(defaultSheetID, 1, 1, 20, 20), &lark.SetSheetStyleReqAppendStyleStyle{
-			BackColor: ptr.String("#21d11f"),
+			BackColor: ptrString("#21d11f"),
 		}))
 
 		as.Nil(sheetClient.CleanCellStyle(ctx, larkext.CellRange(defaultSheetID, 1, 1, 1, 1)))
@@ -226,7 +226,7 @@ func testCreateSheet(larkCli *lark.Lark) *larkext.Sheet {
 	}
 
 	_, _, err = larkCli.Drive.CreateDriveMemberPermission(context.Background(), &lark.CreateDriveMemberPermissionReq{
-		NeedNotification: ptr.Bool(true),
+		NeedNotification: ptrBool(true),
 		Type:             "sheet",
 		Token:            sheetClient.SheetToken(),
 		MemberID:         UserAdmin.OpenID,
