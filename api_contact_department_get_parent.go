@@ -78,8 +78,8 @@ type GetParentDepartmentResp struct {
 
 // GetParentDepartmentRespItem ...
 type GetParentDepartmentRespItem struct {
-	Name                   string                               `json:"name,omitempty"`                      // 部门名称, 字段权限要求（满足任一）: 以应用身份读取通讯录, 获取部门基础信息, 以应用身份访问通讯录, 读取通讯录
-	I18nName               *GetParentDepartmentRespItemI18nName `json:"i18n_name,omitempty"`                 // 国际化的部门名称, 字段权限要求（满足任一）: 以应用身份读取通讯录, 获取部门基础信息, 以应用身份访问通讯录, 读取通讯录
+	Name                   string                               `json:"name,omitempty"`                      // 部门名称, 注意: 不可包含斜杠, 字段权限要求（满足任一）: 以应用身份读取通讯录, 获取部门基础信息, 以应用身份访问通讯录, 读取通讯录
+	I18nName               *GetParentDepartmentRespItemI18nName `json:"i18n_name,omitempty"`                 // 国际化的部门名称, 注意: 不可包含斜杠, 字段权限要求（满足任一）: 以应用身份读取通讯录, 获取部门基础信息, 以应用身份访问通讯录, 读取通讯录
 	ParentDepartmentID     string                               `json:"parent_department_id,omitempty"`      // 父部门的ID, * 在根部门下创建新部门, 该参数值为 “0”, 字段权限要求（满足任一）: 以应用身份读取通讯录, 获取部门组织架构信息, 以应用身份访问通讯录, 读取通讯录
 	DepartmentID           string                               `json:"department_id,omitempty"`             // 本部门的自定义部门ID, 注意: 除需要满足正则规则外, 同时不能以`od-`开头, 字段权限要求（满足任一）: 以应用身份读取通讯录, 获取部门基础信息, 以应用身份访问通讯录, 读取通讯录
 	OpenDepartmentID       string                               `json:"open_department_id,omitempty"`        // 部门的open_id, 类型与通过请求的查询参数传入的department_id_type相同
@@ -91,6 +91,7 @@ type GetParentDepartmentRespItem struct {
 	Status                 *GetParentDepartmentRespItemStatus   `json:"status,omitempty"`                    // 部门状态, 字段权限要求（满足任一）: 以应用身份读取通讯录, 获取部门基础信息, 以应用身份访问通讯录, 读取通讯录
 	Leaders                []*GetParentDepartmentRespItemLeader `json:"leaders,omitempty"`                   // 部门负责人
 	GroupChatEmployeeTypes []int64                              `json:"group_chat_employee_types,omitempty"` // 部门群雇员类型限制。[]空列表时, 表示为无任何雇员类型。类型字段可包含以下值, 支持多个类型值；若有多个, 用英文', '分隔: 1、正式员工, 2、实习生, 3、外包, 4、劳务, 5、顾问, 6、其他自定义类型字段, 可通过下方接口获取到该租户的自定义员工类型的名称, 参见[获取人员类型](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/employee_type_enum/list)。
+	DepartmentHrbps        []string                             `json:"department_hrbps,omitempty"`          // 部门HRBP, 字段权限要求: 查询部门HRBP信息
 }
 
 // GetParentDepartmentRespItemI18nName ...

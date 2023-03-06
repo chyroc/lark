@@ -46,8 +46,8 @@ type EventV2ContactScopeUpdatedV3Added struct {
 
 // EventV2ContactScopeUpdatedV3AddedDepartment ...
 type EventV2ContactScopeUpdatedV3AddedDepartment struct {
-	Name               string                                               `json:"name,omitempty"`                 // 部门名称, 最小长度: `1` 字符, 字段权限要求（满足任一）: 以应用身份读取通讯录, 获取部门基础信息, 以应用身份访问通讯录, 读取通讯录
-	I18nName           *EventV2ContactScopeUpdatedV3AddedDepartmentI18nName `json:"i18n_name,omitempty"`            // 国际化的部门名称, 字段权限要求（满足任一）: 以应用身份读取通讯录, 获取部门基础信息, 以应用身份访问通讯录, 读取通讯录
+	Name               string                                               `json:"name,omitempty"`                 // 部门名称, 注意: 不可包含斜杠, 最小长度: `1` 字符, 字段权限要求（满足任一）: 以应用身份读取通讯录, 获取部门基础信息, 以应用身份访问通讯录, 读取通讯录
+	I18nName           *EventV2ContactScopeUpdatedV3AddedDepartmentI18nName `json:"i18n_name,omitempty"`            // 国际化的部门名称, 注意: 不可包含斜杠, 字段权限要求（满足任一）: 以应用身份读取通讯录, 获取部门基础信息, 以应用身份访问通讯录, 读取通讯录
 	ParentDepartmentID string                                               `json:"parent_department_id,omitempty"` // 父部门的ID, * 在根部门下创建新部门, 该参数值为 “0”, 字段权限要求（满足任一）: 以应用身份读取通讯录, 获取部门组织架构信息, 以应用身份访问通讯录, 读取通讯录
 	DepartmentID       string                                               `json:"department_id,omitempty"`        // 本部门的自定义部门ID, 注意: 除需要满足正则规则外, 同时不能以`od-`开头, 最大长度: `64` 字符, 正则校验: `^0|[^od][A-Za-z0-9]*`, 字段权限要求（满足任一）: 以应用身份读取通讯录, 获取部门基础信息, 以应用身份访问通讯录, 读取通讯录
 	OpenDepartmentID   string                                               `json:"open_department_id,omitempty"`   // 部门的open_id, 类型与通过请求的查询参数传入的department_id_type相同
@@ -87,7 +87,7 @@ type EventV2ContactScopeUpdatedV3AddedUser struct {
 	EnName          string                                             `json:"en_name,omitempty"`          // 英文名, 字段权限要求（满足任一）: 以应用身份读取通讯录, 获取用户基本信息, 以应用身份访问通讯录, 读取通讯录
 	Nickname        string                                             `json:"nickname,omitempty"`         // 别名, 字段权限要求（满足任一）: 以应用身份读取通讯录, 获取用户基本信息, 以应用身份访问通讯录, 读取通讯录
 	Email           string                                             `json:"email,omitempty"`            // 邮箱, 注意: 1. 非中国大陆手机号成员必须同时添加邮箱, 2. 邮箱不可重复, 字段权限要求: 获取用户邮箱信息
-	Mobile          string                                             `json:"mobile,omitempty"`           // 手机号, 在本企业内不可重复；未认证企业仅支持添加中国大陆手机号, 通过飞书认证的企业允许添加海外手机号, 注意国际电话区号前缀中必须包含加号 +, 字段权限要求: 获取用户手机号
+	Mobile          string                                             `json:"mobile,omitempty"`           // 手机号, 注意: 1. 在本企业内不可重复, 2. 未认证企业仅支持添加中国大陆手机号, 通过飞书认证的企业允许添加海外手机号, 3. 国际电话区号前缀中必须包含加号 +, 4. 该 mobile 字段在海外版飞书非必填, 字段权限要求: 获取用户手机号
 	Gender          int64                                              `json:"gender,omitempty"`           // 性别, 可选值有: 0: 保密, 1: 男, 2: 女, 字段权限要求（满足任一）: 以应用身份读取通讯录, 获取用户性别, 以应用身份访问通讯录, 读取通讯录
 	Avatar          *EventV2ContactScopeUpdatedV3AddedUserAvatar       `json:"avatar,omitempty"`           // 用户头像信息, 字段权限要求（满足任一）: 以应用身份读取通讯录, 获取用户基本信息, 以应用身份访问通讯录, 读取通讯录
 	Status          *EventV2ContactScopeUpdatedV3AddedUserStatus       `json:"status,omitempty"`           // 用户状态, 枚举类型, 包括is_frozen、is_resigned、is_activated、is_exited, 用户状态转移参见: [用户状态图](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/field-overview#4302b5a1), 字段权限要求（满足任一）: 以应用身份读取通讯录, 获取用户受雇信息, 以应用身份访问通讯录, 读取通讯录
@@ -165,8 +165,8 @@ type EventV2ContactScopeUpdatedV3Removed struct {
 
 // EventV2ContactScopeUpdatedV3RemovedDepartment ...
 type EventV2ContactScopeUpdatedV3RemovedDepartment struct {
-	Name               string                                                 `json:"name,omitempty"`                 // 部门名称, 最小长度: `1` 字符, 字段权限要求（满足任一）: 以应用身份读取通讯录, 获取部门基础信息, 以应用身份访问通讯录, 读取通讯录
-	I18nName           *EventV2ContactScopeUpdatedV3RemovedDepartmentI18nName `json:"i18n_name,omitempty"`            // 国际化的部门名称, 字段权限要求（满足任一）: 以应用身份读取通讯录, 获取部门基础信息, 以应用身份访问通讯录, 读取通讯录
+	Name               string                                                 `json:"name,omitempty"`                 // 部门名称, 注意: 不可包含斜杠, 最小长度: `1` 字符, 字段权限要求（满足任一）: 以应用身份读取通讯录, 获取部门基础信息, 以应用身份访问通讯录, 读取通讯录
+	I18nName           *EventV2ContactScopeUpdatedV3RemovedDepartmentI18nName `json:"i18n_name,omitempty"`            // 国际化的部门名称, 注意: 不可包含斜杠, 字段权限要求（满足任一）: 以应用身份读取通讯录, 获取部门基础信息, 以应用身份访问通讯录, 读取通讯录
 	ParentDepartmentID string                                                 `json:"parent_department_id,omitempty"` // 父部门的ID, * 在根部门下创建新部门, 该参数值为 “0”, 字段权限要求（满足任一）: 以应用身份读取通讯录, 获取部门组织架构信息, 以应用身份访问通讯录, 读取通讯录
 	DepartmentID       string                                                 `json:"department_id,omitempty"`        // 本部门的自定义部门ID, 注意: 除需要满足正则规则外, 同时不能以`od-`开头, 最大长度: `64` 字符, 正则校验: `^0|[^od][A-Za-z0-9]*`, 字段权限要求（满足任一）: 以应用身份读取通讯录, 获取部门基础信息, 以应用身份访问通讯录, 读取通讯录
 	OpenDepartmentID   string                                                 `json:"open_department_id,omitempty"`   // 部门的open_id, 类型与通过请求的查询参数传入的department_id_type相同
@@ -206,7 +206,7 @@ type EventV2ContactScopeUpdatedV3RemovedUser struct {
 	EnName          string                                               `json:"en_name,omitempty"`          // 英文名, 字段权限要求（满足任一）: 以应用身份读取通讯录, 获取用户基本信息, 以应用身份访问通讯录, 读取通讯录
 	Nickname        string                                               `json:"nickname,omitempty"`         // 别名, 字段权限要求（满足任一）: 以应用身份读取通讯录, 获取用户基本信息, 以应用身份访问通讯录, 读取通讯录
 	Email           string                                               `json:"email,omitempty"`            // 邮箱, 注意: 1. 非中国大陆手机号成员必须同时添加邮箱, 2. 邮箱不可重复, 字段权限要求: 获取用户邮箱信息
-	Mobile          string                                               `json:"mobile,omitempty"`           // 手机号, 在本企业内不可重复；未认证企业仅支持添加中国大陆手机号, 通过飞书认证的企业允许添加海外手机号, 注意国际电话区号前缀中必须包含加号 +, 字段权限要求: 获取用户手机号
+	Mobile          string                                               `json:"mobile,omitempty"`           // 手机号, 注意: 1. 在本企业内不可重复, 2. 未认证企业仅支持添加中国大陆手机号, 通过飞书认证的企业允许添加海外手机号, 3. 国际电话区号前缀中必须包含加号 +, 4. 该 mobile 字段在海外版飞书非必填, 字段权限要求: 获取用户手机号
 	Gender          int64                                                `json:"gender,omitempty"`           // 性别, 可选值有: 0: 保密, 1: 男, 2: 女, 字段权限要求（满足任一）: 以应用身份读取通讯录, 获取用户性别, 以应用身份访问通讯录, 读取通讯录
 	Avatar          *EventV2ContactScopeUpdatedV3RemovedUserAvatar       `json:"avatar,omitempty"`           // 用户头像信息, 字段权限要求（满足任一）: 以应用身份读取通讯录, 获取用户基本信息, 以应用身份访问通讯录, 读取通讯录
 	Status          *EventV2ContactScopeUpdatedV3RemovedUserStatus       `json:"status,omitempty"`           // 用户状态, 枚举类型, 包括is_frozen、is_resigned、is_activated、is_exited, 用户状态转移参见: [用户状态图](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/field-overview#4302b5a1), 字段权限要求（满足任一）: 以应用身份读取通讯录, 获取用户受雇信息, 以应用身份访问通讯录, 读取通讯录

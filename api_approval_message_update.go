@@ -23,6 +23,8 @@ import (
 
 // UpdateApprovalMessage 此接口可以根据审批bot消息id及相应状态, 更新相应的审批bot消息, 只可用于更新待审批模板的bot消息。例如, 给用户推送了审批待办消息, 当用户处理该消息后, 可以将之前推送的Bot消息更新为已审批。
 //
+// 注意: 该接口只能更新模板为 1008「收到审批待办」的卡片。
+//
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uAjNyYjLwYjM24CM2IjN
 func (r *ApprovalService) UpdateApprovalMessage(ctx context.Context, request *UpdateApprovalMessageReq, options ...MethodOptionFunc) (*UpdateApprovalMessageResp, *Response, error) {
 	if r.cli.mock.mockApprovalUpdateApprovalMessage != nil {
