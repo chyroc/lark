@@ -69,7 +69,7 @@ type UpdateDepartmentReq struct {
 	LeaderUserID           *string                      `json:"leader_user_id,omitempty"`            // 部门主管用户ID, 示例值: "ou_7dab8a3d3cdcc9da365777c7ad535d62"
 	Order                  *string                      `json:"order,omitempty"`                     // 部门的排序, 即部门在其同级部门的展示顺序, 示例值: "100"
 	UnitIDs                []string                     `json:"unit_ids,omitempty"`                  // 部门单位自定义ID列表, 当前只支持一个, 示例值: custom_unit_id
-	CreateGroupChat        *bool                        `json:"create_group_chat,omitempty"`         // 是否创建部门群, 默认不创建, 示例值: false
+	CreateGroupChat        *bool                        `json:"create_group_chat,omitempty"`         // 是否创建部门群, 默认不创建, 创建部门群时, 默认群名为部门名, 默认群主为部门主负责人, 示例值: false
 	Leaders                []*UpdateDepartmentReqLeader `json:"leaders,omitempty"`                   // 部门负责人
 	GroupChatEmployeeTypes []int64                      `json:"group_chat_employee_types,omitempty"` // 部门群雇员类型限制。[]空列表时, 表示为无任何雇员类型。类型字段可包含以下值, 支持多个类型值；若有多个, 用英文', '分隔: 1、正式员工, 2、实习生, 3、外包, 4、劳务, 5、顾问, 6、其他自定义类型字段, 可通过下方接口获取到该租户的自定义员工类型的名称, 参见[获取人员类型](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/employee_type_enum/list), 示例值: [1, 2, 3]
 }

@@ -92,7 +92,7 @@ type GetDepartmentListRespItem struct {
 	UnitIDs                []string                           `json:"unit_ids,omitempty"`                  // 部门单位自定义ID列表, 当前只支持一个, 字段权限要求（满足任一）: 以应用身份读取通讯录, 获取部门组织架构信息, 以应用身份访问通讯录, 读取通讯录
 	MemberCount            int64                              `json:"member_count,omitempty"`              // 部门下用户的个数, 字段权限要求（满足任一）: 以应用身份读取通讯录, 获取部门组织架构信息, 以应用身份访问通讯录, 读取通讯录
 	Status                 *GetDepartmentListRespItemStatus   `json:"status,omitempty"`                    // 部门状态, 字段权限要求（满足任一）: 以应用身份读取通讯录, 获取部门基础信息, 以应用身份访问通讯录, 读取通讯录
-	CreateGroupChat        bool                               `json:"create_group_chat,omitempty"`         // 是否创建部门群, 默认不创建
+	CreateGroupChat        bool                               `json:"create_group_chat,omitempty"`         // 是否创建部门群, 默认不创建, 创建部门群时, 默认群名为部门名, 默认群主为部门主负责人
 	Leaders                []*GetDepartmentListRespItemLeader `json:"leaders,omitempty"`                   // 部门负责人
 	GroupChatEmployeeTypes []int64                            `json:"group_chat_employee_types,omitempty"` // 部门群雇员类型限制。[]空列表时, 表示为无任何雇员类型。类型字段可包含以下值, 支持多个类型值；若有多个, 用英文', '分隔: 1、正式员工, 2、实习生, 3、外包, 4、劳务, 5、顾问, 6、其他自定义类型字段, 可通过下方接口获取到该租户的自定义员工类型的名称, 参见[获取人员类型](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/employee_type_enum/list)。
 	DepartmentHrbps        []string                           `json:"department_hrbps,omitempty"`          // 部门HRBP, 字段权限要求: 查询部门HRBP信息

@@ -41,15 +41,23 @@ type EventV2ContactDepartmentUpdatedV3 struct {
 
 // EventV2ContactDepartmentUpdatedV3Object ...
 type EventV2ContactDepartmentUpdatedV3Object struct {
-	Name               string                                           `json:"name,omitempty"`                 // 部门名称, 最小长度: `1` 字符, 字段权限要求（满足任一）: 以应用身份读取通讯录, 获取部门基础信息, 以应用身份访问通讯录, 读取通讯录
-	ParentDepartmentID string                                           `json:"parent_department_id,omitempty"` // 父部门的部门open_department_id [部门相关ID概念](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/field-overview#23857fe0), 字段权限要求（满足任一）: 以应用身份读取通讯录, 获取部门组织架构信息, 以应用身份访问通讯录, 读取通讯录
-	DepartmentID       string                                           `json:"department_id,omitempty"`        // 本部门的department_id [部门相关ID概念](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/field-overview#23857fe0), 字段权限要求（满足任一）: 以应用身份读取通讯录, 获取部门基础信息, 以应用身份访问通讯录, 读取通讯录
-	OpenDepartmentID   string                                           `json:"open_department_id,omitempty"`   // 部门的open_department_id [部门相关ID概念](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/field-overview#23857fe0)
-	LeaderUserID       string                                           `json:"leader_user_id,omitempty"`       // 部门主管用户open_id [用户相关的 ID 概念](https://open.feishu.cn/document/home/user-identity-introduction/introduction), 字段权限要求（满足任一）: 以应用身份读取通讯录, 获取部门基础信息, 以应用身份访问通讯录, 读取通讯录
-	ChatID             string                                           `json:"chat_id,omitempty"`              // 部门群ID, 字段权限要求（满足任一）: 以应用身份读取通讯录, 获取部门组织架构信息, 以应用身份访问通讯录, 读取通讯录
-	Order              int64                                            `json:"order,omitempty"`                // 部门的排序, 字段权限要求（满足任一）: 以应用身份读取通讯录, 获取部门组织架构信息, 以应用身份访问通讯录, 读取通讯录
-	Status             *EventV2ContactDepartmentUpdatedV3ObjectStatus   `json:"status,omitempty"`               // 部门状态, 字段权限要求（满足任一）: 以应用身份读取通讯录, 获取部门基础信息, 以应用身份访问通讯录, 读取通讯录
-	Leaders            []*EventV2ContactDepartmentUpdatedV3ObjectLeader `json:"leaders,omitempty"`              // 部门负责人
+	Name               string                                                   `json:"name,omitempty"`                 // 部门名称, 最小长度: `1` 字符, 字段权限要求（满足任一）: 以应用身份读取通讯录, 获取部门基础信息, 以应用身份访问通讯录, 读取通讯录
+	ParentDepartmentID string                                                   `json:"parent_department_id,omitempty"` // 父部门的部门open_department_id [部门相关ID概念](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/field-overview#23857fe0), 字段权限要求（满足任一）: 以应用身份读取通讯录, 获取部门组织架构信息, 以应用身份访问通讯录, 读取通讯录
+	DepartmentID       string                                                   `json:"department_id,omitempty"`        // 本部门的department_id [部门相关ID概念](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/field-overview#23857fe0), 字段权限要求（满足任一）: 以应用身份读取通讯录, 获取部门基础信息, 以应用身份访问通讯录, 读取通讯录
+	OpenDepartmentID   string                                                   `json:"open_department_id,omitempty"`   // 部门的open_department_id [部门相关ID概念](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/field-overview#23857fe0)
+	LeaderUserID       string                                                   `json:"leader_user_id,omitempty"`       // 部门主管用户open_id [用户相关的 ID 概念](https://open.feishu.cn/document/home/user-identity-introduction/introduction), 字段权限要求（满足任一）: 以应用身份读取通讯录, 获取部门基础信息, 以应用身份访问通讯录, 读取通讯录
+	ChatID             string                                                   `json:"chat_id,omitempty"`              // 部门群ID, 字段权限要求（满足任一）: 以应用身份读取通讯录, 获取部门组织架构信息, 以应用身份访问通讯录, 读取通讯录
+	Order              int64                                                    `json:"order,omitempty"`                // 部门的排序, 字段权限要求（满足任一）: 以应用身份读取通讯录, 获取部门组织架构信息, 以应用身份访问通讯录, 读取通讯录
+	Status             *EventV2ContactDepartmentUpdatedV3ObjectStatus           `json:"status,omitempty"`               // 部门状态, 字段权限要求（满足任一）: 以应用身份读取通讯录, 获取部门基础信息, 以应用身份访问通讯录, 读取通讯录
+	Leaders            []*EventV2ContactDepartmentUpdatedV3ObjectLeader         `json:"leaders,omitempty"`              // 部门负责人
+	DepartmentHrbps    []*EventV2ContactDepartmentUpdatedV3ObjectDepartmentHrbp `json:"department_hrbps,omitempty"`     // 部门HRBP, 字段权限要求: 查询部门HRBP信息
+}
+
+// EventV2ContactDepartmentUpdatedV3ObjectDepartmentHrbp ...
+type EventV2ContactDepartmentUpdatedV3ObjectDepartmentHrbp struct {
+	UnionID string `json:"union_id,omitempty"` // Union ID
+	UserID  string `json:"user_id,omitempty"`  // User ID
+	OpenID  string `json:"open_id,omitempty"`  // Open ID
 }
 
 // EventV2ContactDepartmentUpdatedV3ObjectLeader ...
@@ -65,15 +73,23 @@ type EventV2ContactDepartmentUpdatedV3ObjectStatus struct {
 
 // EventV2ContactDepartmentUpdatedV3OldObject ...
 type EventV2ContactDepartmentUpdatedV3OldObject struct {
-	Name               string                                              `json:"name,omitempty"`                 // 部门名称, 最小长度: `1` 字符, 字段权限要求（满足任一）: 以应用身份读取通讯录, 获取部门基础信息, 以应用身份访问通讯录, 读取通讯录
-	ParentDepartmentID string                                              `json:"parent_department_id,omitempty"` // 父部门的部门open_department_id [部门相关ID概念](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/field-overview#23857fe0), 字段权限要求（满足任一）: 以应用身份读取通讯录, 获取部门组织架构信息, 以应用身份访问通讯录, 读取通讯录
-	DepartmentID       string                                              `json:"department_id,omitempty"`        // 本部门的department_id [部门相关ID概念](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/field-overview#23857fe0), 字段权限要求（满足任一）: 以应用身份读取通讯录, 获取部门基础信息, 以应用身份访问通讯录, 读取通讯录
-	OpenDepartmentID   string                                              `json:"open_department_id,omitempty"`   // 部门的open_department_id [部门相关ID概念](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/field-overview#23857fe0)
-	LeaderUserID       string                                              `json:"leader_user_id,omitempty"`       // 部门主管用户open_id [用户相关的 ID 概念](https://open.feishu.cn/document/home/user-identity-introduction/introduction), 字段权限要求（满足任一）: 以应用身份读取通讯录, 获取部门基础信息, 以应用身份访问通讯录, 读取通讯录
-	ChatID             string                                              `json:"chat_id,omitempty"`              // 部门群ID, 字段权限要求（满足任一）: 以应用身份读取通讯录, 获取部门组织架构信息, 以应用身份访问通讯录, 读取通讯录
-	Order              int64                                               `json:"order,omitempty"`                // 部门的排序, 字段权限要求（满足任一）: 以应用身份读取通讯录, 获取部门组织架构信息, 以应用身份访问通讯录, 读取通讯录
-	Status             *EventV2ContactDepartmentUpdatedV3OldObjectStatus   `json:"status,omitempty"`               // 部门状态, 字段权限要求（满足任一）: 以应用身份读取通讯录, 获取部门基础信息, 以应用身份访问通讯录, 读取通讯录
-	Leaders            []*EventV2ContactDepartmentUpdatedV3OldObjectLeader `json:"leaders,omitempty"`              // 部门负责人
+	Name               string                                                      `json:"name,omitempty"`                 // 部门名称, 最小长度: `1` 字符, 字段权限要求（满足任一）: 以应用身份读取通讯录, 获取部门基础信息, 以应用身份访问通讯录, 读取通讯录
+	ParentDepartmentID string                                                      `json:"parent_department_id,omitempty"` // 父部门的部门open_department_id [部门相关ID概念](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/field-overview#23857fe0), 字段权限要求（满足任一）: 以应用身份读取通讯录, 获取部门组织架构信息, 以应用身份访问通讯录, 读取通讯录
+	DepartmentID       string                                                      `json:"department_id,omitempty"`        // 本部门的department_id [部门相关ID概念](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/field-overview#23857fe0), 字段权限要求（满足任一）: 以应用身份读取通讯录, 获取部门基础信息, 以应用身份访问通讯录, 读取通讯录
+	OpenDepartmentID   string                                                      `json:"open_department_id,omitempty"`   // 部门的open_department_id [部门相关ID概念](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/field-overview#23857fe0)
+	LeaderUserID       string                                                      `json:"leader_user_id,omitempty"`       // 部门主管用户open_id [用户相关的 ID 概念](https://open.feishu.cn/document/home/user-identity-introduction/introduction), 字段权限要求（满足任一）: 以应用身份读取通讯录, 获取部门基础信息, 以应用身份访问通讯录, 读取通讯录
+	ChatID             string                                                      `json:"chat_id,omitempty"`              // 部门群ID, 字段权限要求（满足任一）: 以应用身份读取通讯录, 获取部门组织架构信息, 以应用身份访问通讯录, 读取通讯录
+	Order              int64                                                       `json:"order,omitempty"`                // 部门的排序, 字段权限要求（满足任一）: 以应用身份读取通讯录, 获取部门组织架构信息, 以应用身份访问通讯录, 读取通讯录
+	Status             *EventV2ContactDepartmentUpdatedV3OldObjectStatus           `json:"status,omitempty"`               // 部门状态, 字段权限要求（满足任一）: 以应用身份读取通讯录, 获取部门基础信息, 以应用身份访问通讯录, 读取通讯录
+	Leaders            []*EventV2ContactDepartmentUpdatedV3OldObjectLeader         `json:"leaders,omitempty"`              // 部门负责人
+	DepartmentHrbps    []*EventV2ContactDepartmentUpdatedV3OldObjectDepartmentHrbp `json:"department_hrbps,omitempty"`     // 部门HRBP, 字段权限要求: 查询部门HRBP信息
+}
+
+// EventV2ContactDepartmentUpdatedV3OldObjectDepartmentHrbp ...
+type EventV2ContactDepartmentUpdatedV3OldObjectDepartmentHrbp struct {
+	UnionID string `json:"union_id,omitempty"` // Union ID
+	UserID  string `json:"user_id,omitempty"`  // User ID
+	OpenID  string `json:"open_id,omitempty"`  // Open ID
 }
 
 // EventV2ContactDepartmentUpdatedV3OldObjectLeader ...

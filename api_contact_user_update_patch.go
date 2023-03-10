@@ -65,7 +65,7 @@ type UpdateUserPatchReq struct {
 	EnName           *string                         `json:"en_name,omitempty"`            // 英文名, 示例值: "San Zhang"
 	Nickname         *string                         `json:"nickname,omitempty"`           // 别名, 示例值: "Alex Zhang"
 	Email            *string                         `json:"email,omitempty"`              // 邮箱, 注意: 1. 非中国大陆手机号成员必须同时添加邮箱, 2. 邮箱不可重复, 示例值: "zhangsan@gmail.com"
-	Mobile           *string                         `json:"mobile,omitempty"`             // 手机号, 在本企业内不可重复；未认证企业仅支持添加中国大陆手机号, 通过飞书认证的企业允许添加海外手机号, 注意国际电话区号前缀中必须包含加号 +, 示例值: "13011111111 (其他例子, 中国大陆手机号: 13011111111 或 +8613011111111, 非中国大陆手机号: +41446681800)"
+	Mobile           *string                         `json:"mobile,omitempty"`             // 手机号, 注意: 1. 在本企业内不可重复, 2. 未认证企业仅支持添加中国大陆手机号, 通过飞书认证的企业允许添加海外手机号, 3. 国际电话区号前缀中必须包含加号 +, 4. 该 mobile 字段在海外版飞书非必填, 示例值: "13011111111 (其他例子, 中国大陆手机号: 13011111111 或 +8613011111111, 非中国大陆手机号: +41446681800)"
 	MobileVisible    *bool                           `json:"mobile_visible,omitempty"`     // 手机号码可见性, true 为可见, false 为不可见, 目前默认为 true。不可见时, 组织员工将无法查看该员工的手机号码, 示例值: false
 	Gender           *int64                          `json:"gender,omitempty"`             // 性别, 示例值: 1, 可选值有: 0: 保密, 1: 男, 2: 女
 	AvatarKey        *string                         `json:"avatar_key,omitempty"`         // 头像的文件Key, 可通过“消息与群组/消息/图片信息”中的“上传图片”接口上传并获取头像文件 Key, “上传图片”功能参见[上传图片](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/image/create), 示例值: "2500c7a9-5fff-4d9a-a2de-3d59614ae28g"
@@ -82,6 +82,9 @@ type UpdateUserPatchReq struct {
 	EnterpriseEmail  *string                         `json:"enterprise_email,omitempty"`   // 企业邮箱, 请先确保已在管理后台启用飞书邮箱服务, 创建用户时, 企业邮箱的使用方式参见[用户接口相关问题](https://open.feishu.cn/document/ugTN1YjL4UTN24CO1UjN/uQzN1YjL0cTN24CN3UjN#77061525), 示例值: "demo@mail.com"
 	JobTitle         *string                         `json:"job_title,omitempty"`          // 职务, 示例值: "xxxxx"
 	IsFrozen         *bool                           `json:"is_frozen,omitempty"`          // 是否暂停用户, 示例值: false
+	JobLevelID       *string                         `json:"job_level_id,omitempty"`       // 职级ID, 示例值: "mga5oa8ayjlp9rb"
+	JobFamilyID      *string                         `json:"job_family_id,omitempty"`      // 序列ID, 示例值: "mga5oa8ayjlp9rb"
+	SubscriptionIDs  []string                        `json:"subscription_ids,omitempty"`   // 分配给用户的席位ID列表, 需开通“分配用户席位”权限。可通过下方接口获取到该租户的可用席位ID, 参见[获取企业席位信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/tenant-v2/tenant-product_assign_info/query), 示例值: ["7179609168571645971"]
 }
 
 // UpdateUserPatchReqCustomAttr ...
@@ -127,7 +130,7 @@ type UpdateUserPatchRespUser struct {
 	EnName          string                               `json:"en_name,omitempty"`           // 英文名, 字段权限要求（满足任一）: 以应用身份读取通讯录, 获取用户基本信息, 以应用身份访问通讯录, 读取通讯录
 	Nickname        string                               `json:"nickname,omitempty"`          // 别名, 字段权限要求（满足任一）: 以应用身份读取通讯录, 获取用户基本信息, 以应用身份访问通讯录, 读取通讯录
 	Email           string                               `json:"email,omitempty"`             // 邮箱, 注意: 1. 非中国大陆手机号成员必须同时添加邮箱, 2. 邮箱不可重复, 字段权限要求: 获取用户邮箱信息
-	Mobile          string                               `json:"mobile,omitempty"`            // 手机号, 在本企业内不可重复；未认证企业仅支持添加中国大陆手机号, 通过飞书认证的企业允许添加海外手机号, 注意国际电话区号前缀中必须包含加号 +, 字段权限要求: 获取用户手机号
+	Mobile          string                               `json:"mobile,omitempty"`            // 手机号, 注意: 1. 在本企业内不可重复, 2. 未认证企业仅支持添加中国大陆手机号, 通过飞书认证的企业允许添加海外手机号, 3. 国际电话区号前缀中必须包含加号 +, 4. 该 mobile 字段在海外版飞书非必填, 字段权限要求: 获取用户手机号
 	MobileVisible   bool                                 `json:"mobile_visible,omitempty"`    // 手机号码可见性, true 为可见, false 为不可见, 目前默认为 true。不可见时, 组织员工将无法查看该员工的手机号码
 	Gender          int64                                `json:"gender,omitempty"`            // 性别, 可选值有: 0: 保密, 1: 男, 2: 女, 字段权限要求（满足任一）: 以应用身份读取通讯录, 获取用户性别, 以应用身份访问通讯录, 读取通讯录
 	AvatarKey       string                               `json:"avatar_key,omitempty"`        // 头像的文件Key, 可通过“消息与群组/消息/图片信息”中的“上传图片”接口上传并获取头像文件 Key, “上传图片”功能参见[上传图片](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/image/create)
@@ -147,6 +150,8 @@ type UpdateUserPatchRespUser struct {
 	EnterpriseEmail string                               `json:"enterprise_email,omitempty"`  // 企业邮箱, 请先确保已在管理后台启用飞书邮箱服务, 创建用户时, 企业邮箱的使用方式参见[用户接口相关问题](https://open.feishu.cn/document/ugTN1YjL4UTN24CO1UjN/uQzN1YjL0cTN24CN3UjN#77061525), 字段权限要求（满足任一）: 以应用身份读取通讯录, 获取用户受雇信息, 以应用身份访问通讯录, 读取通讯录
 	JobTitle        string                               `json:"job_title,omitempty"`         // 职务, 字段权限要求（满足任一）: 以应用身份读取通讯录, 获取用户受雇信息, 以应用身份访问通讯录, 读取通讯录
 	IsFrozen        bool                                 `json:"is_frozen,omitempty"`         // 是否暂停用户
+	JobLevelID      string                               `json:"job_level_id,omitempty"`      // 职级ID, 字段权限要求: 查询用户职级
+	JobFamilyID     string                               `json:"job_family_id,omitempty"`     // 序列ID, 字段权限要求: 查询用户所属的工作序列
 }
 
 // UpdateUserPatchRespUserAvatar ...

@@ -21,13 +21,16 @@ import (
 	"context"
 )
 
-// CreateChatMenuTree 向群内添加群菜单。
+// CreateChatMenuTree 该接口用于向群组中添加群菜单。
 //
 // 注意事项:
-// - 该API是向群内追加菜单, 群内原来存在的菜单并不会被覆盖。操作API后, 将返回群内所有菜单。
+// - 该接口是向群内追加菜单, 群内已存在的菜单不会被覆盖。
+// - 接口调用成功后, 会返回当前群内所有群菜单。
 // - 应用需要开启[机器人能力](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-enable-bot-ability)。
 // - 机器人必须在群里。
 // - 一个群内, 一级菜单最多有3个, 每个一级菜单最多有5个二级菜单。
+// - 暂不支持在一级菜单中追加二级菜单。
+// - 仅支持群模式为group的群组。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-menu_tree/create
 func (r *ChatService) CreateChatMenuTree(ctx context.Context, request *CreateChatMenuTreeReq, options ...MethodOptionFunc) (*CreateChatMenuTreeResp, *Response, error) {
@@ -80,11 +83,11 @@ type CreateChatMenuTreeReqMenuTreeChatMenuTopLevel struct {
 
 // CreateChatMenuTreeReqMenuTreeChatMenuTopLevelChatMenuItem ...
 type CreateChatMenuTreeReqMenuTreeChatMenuTopLevelChatMenuItem struct {
-	ActionType   string                                                                 `json:"action_type,omitempty"`   // 菜单类型, 示例值: "NONE", 可选值有: NONE: 无类型, 仅一级菜单存在二级菜单时, 该一级菜单设置NONE类型, REDIRECT_LINK: 跳转链接类型
+	ActionType   string                                                                 `json:"action_type,omitempty"`   // 菜单类型, 注意, 如果一级菜单有二级菜单时, 则此一级菜单的值必须为NONE, 示例值: "NONE", 可选值有: NONE: 无类型, REDIRECT_LINK: 跳转链接类型
 	RedirectLink *CreateChatMenuTreeReqMenuTreeChatMenuTopLevelChatMenuItemRedirectLink `json:"redirect_link,omitempty"` // 跳转链接
-	ImageKey     *string                                                                `json:"image_key,omitempty"`     // image_key, 通过 [上传图片](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/image/create) 接口上传message类型图片获取image_key, 示例值: "img_v2_b0fbe905-7988-4282-b882-82edd010336j"
-	Name         string                                                                 `json:"name,omitempty"`          // 名称, 一级、二级菜单名称字符数要在1到120范围内, 示例值: "群聊"
-	I18nNames    *I18nNames                                                             `json:"i18n_names,omitempty"`    // 国际化名称, 一级、二级菜单名称字符数要在1到120范围内
+	ImageKey     *string                                                                `json:"image_key,omitempty"`     // 图片的key值。通过 [上传图片](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/image/create) 接口上传message类型图片获取image_key, 注意, 如果一级菜单有二级菜单, 则此一级菜单不能有图标, 示例值: "img_v2_b0fbe905-7988-4282-b882-82edd010336j"
+	Name         string                                                                 `json:"name,omitempty"`          // 菜单名称, 注意, 一级、二级菜单名称字符数要在1到120范围内, 示例值: "群聊"
+	I18nNames    *I18nNames                                                             `json:"i18n_names,omitempty"`    // 菜单国际化名称, 注意, 一级、二级菜单名称字符数要在1到120范围内
 }
 
 // CreateChatMenuTreeReqMenuTreeChatMenuTopLevelChatMenuItemRedirectLink ...
@@ -103,11 +106,11 @@ type CreateChatMenuTreeReqMenuTreeChatMenuTopLevelChildren struct {
 
 // CreateChatMenuTreeReqMenuTreeChatMenuTopLevelChildrenChatMenuItem ...
 type CreateChatMenuTreeReqMenuTreeChatMenuTopLevelChildrenChatMenuItem struct {
-	ActionType   *string                                                                        `json:"action_type,omitempty"`   // 菜单类型, 示例值: "NONE", 可选值有: NONE: 无类型, 仅一级菜单存在二级菜单时, 该一级菜单设置NONE类型, REDIRECT_LINK: 跳转链接类型
+	ActionType   *string                                                                        `json:"action_type,omitempty"`   // 菜单类型, 注意, 如果一级菜单有二级菜单时, 则此一级菜单的值必须为NONE, 示例值: "NONE", 可选值有: NONE: 无类型, REDIRECT_LINK: 跳转链接类型
 	RedirectLink *CreateChatMenuTreeReqMenuTreeChatMenuTopLevelChildrenChatMenuItemRedirectLink `json:"redirect_link,omitempty"` // 跳转链接
-	ImageKey     *string                                                                        `json:"image_key,omitempty"`     // image_key, 通过 [上传图片](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/image/create) 接口上传message类型图片获取image_key, 示例值: "img_v2_b0fbe905-7988-4282-b882-82edd010336j"
-	Name         *string                                                                        `json:"name,omitempty"`          // 名称, 一级、二级菜单名称字符数要在1到120范围内, 示例值: "群聊"
-	I18nNames    *I18nNames                                                                     `json:"i18n_names,omitempty"`    // 国际化名称, 一级、二级菜单名称字符数要在1到120范围内
+	ImageKey     *string                                                                        `json:"image_key,omitempty"`     // 图片的key值。通过 [上传图片](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/image/create) 接口上传message类型图片获取image_key, 注意, 如果一级菜单有二级菜单, 则此一级菜单不能有图标, 示例值: "img_v2_b0fbe905-7988-4282-b882-82edd010336j"
+	Name         *string                                                                        `json:"name,omitempty"`          // 菜单名称, 注意, 一级、二级菜单名称字符数要在1到120范围内, 示例值: "群聊"
+	I18nNames    *I18nNames                                                                     `json:"i18n_names,omitempty"`    // 菜单国际化名称, 注意, 一级、二级菜单名称字符数要在1到120范围内
 }
 
 // CreateChatMenuTreeReqMenuTreeChatMenuTopLevelChildrenChatMenuItemRedirectLink ...
@@ -138,11 +141,11 @@ type CreateChatMenuTreeRespMenuTreeChatMenuTopLevel struct {
 
 // CreateChatMenuTreeRespMenuTreeChatMenuTopLevelChatMenuItem ...
 type CreateChatMenuTreeRespMenuTreeChatMenuTopLevelChatMenuItem struct {
-	ActionType   string                                                                  `json:"action_type,omitempty"`   // 菜单类型, 可选值有: NONE: 无类型, 仅一级菜单存在二级菜单时, 该一级菜单设置NONE类型, REDIRECT_LINK: 跳转链接类型
+	ActionType   string                                                                  `json:"action_type,omitempty"`   // 菜单类型, 注意, 如果一级菜单有二级菜单时, 则此一级菜单的值必须为NONE, 可选值有: NONE: 无类型, REDIRECT_LINK: 跳转链接类型
 	RedirectLink *CreateChatMenuTreeRespMenuTreeChatMenuTopLevelChatMenuItemRedirectLink `json:"redirect_link,omitempty"` // 跳转链接
-	ImageKey     string                                                                  `json:"image_key,omitempty"`     // image_key, 通过 [上传图片](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/image/create) 接口上传message类型图片获取image_key
-	Name         string                                                                  `json:"name,omitempty"`          // 名称, 一级、二级菜单名称字符数要在1到120范围内
-	I18nNames    *I18nNames                                                              `json:"i18n_names,omitempty"`    // 国际化名称, 一级、二级菜单名称字符数要在1到120范围内
+	ImageKey     string                                                                  `json:"image_key,omitempty"`     // 图片的key值。通过 [上传图片](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/image/create) 接口上传message类型图片获取image_key, 注意, 如果一级菜单有二级菜单, 则此一级菜单不能有图标。
+	Name         string                                                                  `json:"name,omitempty"`          // 菜单名称, 注意, 一级、二级菜单名称字符数要在1到120范围内
+	I18nNames    *I18nNames                                                              `json:"i18n_names,omitempty"`    // 菜单国际化名称, 注意, 一级、二级菜单名称字符数要在1到120范围内
 }
 
 // CreateChatMenuTreeRespMenuTreeChatMenuTopLevelChatMenuItemRedirectLink ...
@@ -162,11 +165,11 @@ type CreateChatMenuTreeRespMenuTreeChatMenuTopLevelChildren struct {
 
 // CreateChatMenuTreeRespMenuTreeChatMenuTopLevelChildrenChatMenuItem ...
 type CreateChatMenuTreeRespMenuTreeChatMenuTopLevelChildrenChatMenuItem struct {
-	ActionType   string                                                                          `json:"action_type,omitempty"`   // 菜单类型, 可选值有: NONE: 无类型, 仅一级菜单存在二级菜单时, 该一级菜单设置NONE类型, REDIRECT_LINK: 跳转链接类型
+	ActionType   string                                                                          `json:"action_type,omitempty"`   // 菜单类型, 注意, 如果一级菜单有二级菜单时, 则此一级菜单的值必须为NONE, 可选值有: NONE: 无类型, REDIRECT_LINK: 跳转链接类型
 	RedirectLink *CreateChatMenuTreeRespMenuTreeChatMenuTopLevelChildrenChatMenuItemRedirectLink `json:"redirect_link,omitempty"` // 跳转链接
-	ImageKey     string                                                                          `json:"image_key,omitempty"`     // image_key, 通过 [上传图片](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/image/create) 接口上传message类型图片获取image_key
-	Name         string                                                                          `json:"name,omitempty"`          // 名称, 一级、二级菜单名称字符数要在1到120范围内
-	I18nNames    *I18nNames                                                                      `json:"i18n_names,omitempty"`    // 国际化名称, 一级、二级菜单名称字符数要在1到120范围内
+	ImageKey     string                                                                          `json:"image_key,omitempty"`     // 图片的key值。通过 [上传图片](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/image/create) 接口上传message类型图片获取image_key, 注意, 如果一级菜单有二级菜单, 则此一级菜单不能有图标。
+	Name         string                                                                          `json:"name,omitempty"`          // 菜单名称, 注意, 一级、二级菜单名称字符数要在1到120范围内
+	I18nNames    *I18nNames                                                                      `json:"i18n_names,omitempty"`    // 菜单国际化名称, 注意, 一级、二级菜单名称字符数要在1到120范围内
 }
 
 // CreateChatMenuTreeRespMenuTreeChatMenuTopLevelChildrenChatMenuItemRedirectLink ...

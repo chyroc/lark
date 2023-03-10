@@ -77,7 +77,7 @@ type GetUserRespUser struct {
 	EnName          string                       `json:"en_name,omitempty"`           // 英文名, 字段权限要求（满足任一）: 以应用身份读取通讯录, 获取用户基本信息, 以应用身份访问通讯录, 读取通讯录
 	Nickname        string                       `json:"nickname,omitempty"`          // 别名, 字段权限要求（满足任一）: 以应用身份读取通讯录, 获取用户基本信息, 以应用身份访问通讯录, 读取通讯录
 	Email           string                       `json:"email,omitempty"`             // 邮箱, 注意: 1. 非中国大陆手机号成员必须同时添加邮箱, 2. 邮箱不可重复, 字段权限要求: 获取用户邮箱信息
-	Mobile          string                       `json:"mobile,omitempty"`            // 手机号, 在本企业内不可重复；未认证企业仅支持添加中国大陆手机号, 通过飞书认证的企业允许添加海外手机号, 注意国际电话区号前缀中必须包含加号 +, 字段权限要求: 获取用户手机号
+	Mobile          string                       `json:"mobile,omitempty"`            // 手机号, 注意: 1. 在本企业内不可重复, 2. 未认证企业仅支持添加中国大陆手机号, 通过飞书认证的企业允许添加海外手机号, 3. 国际电话区号前缀中必须包含加号 +, 4. 该 mobile 字段在海外版飞书非必填, 字段权限要求: 获取用户手机号
 	MobileVisible   bool                         `json:"mobile_visible,omitempty"`    // 手机号码可见性, true 为可见, false 为不可见, 目前默认为 true。不可见时, 组织员工将无法查看该员工的手机号码
 	Gender          int64                        `json:"gender,omitempty"`            // 性别, 可选值有: 0: 保密, 1: 男, 2: 女, 字段权限要求（满足任一）: 以应用身份读取通讯录, 获取用户性别, 以应用身份访问通讯录, 读取通讯录
 	Avatar          *GetUserRespUserAvatar       `json:"avatar,omitempty"`            // 用户头像信息, 字段权限要求（满足任一）: 以应用身份读取通讯录, 获取用户基本信息, 以应用身份访问通讯录, 读取通讯录
@@ -95,6 +95,26 @@ type GetUserRespUser struct {
 	CustomAttrs     []*GetUserRespUserCustomAttr `json:"custom_attrs,omitempty"`      // 自定义字段, 请确保你的组织管理员已在管理后台/组织架构/成员字段管理/自定义字段管理/全局设置中开启了“允许开放平台 API 调用“, 否则该字段不会生效/返回, 更多详情参见[用户接口相关问题](https://open.feishu.cn/document/ugTN1YjL4UTN24CO1UjN/uQzN1YjL0cTN24CN3UjN#77061525), 字段权限要求（满足任一）: 以应用身份读取通讯录, 获取用户受雇信息, 以应用身份访问通讯录, 读取通讯录
 	EnterpriseEmail string                       `json:"enterprise_email,omitempty"`  // 企业邮箱, 请先确保已在管理后台启用飞书邮箱服务, 创建用户时, 企业邮箱的使用方式参见[用户接口相关问题](https://open.feishu.cn/document/ugTN1YjL4UTN24CO1UjN/uQzN1YjL0cTN24CN3UjN#77061525), 字段权限要求（满足任一）: 以应用身份读取通讯录, 获取用户受雇信息, 以应用身份访问通讯录, 读取通讯录
 	JobTitle        string                       `json:"job_title,omitempty"`         // 职务, 字段权限要求（满足任一）: 以应用身份读取通讯录, 获取用户受雇信息, 以应用身份访问通讯录, 读取通讯录
+	JobLevelID      string                       `json:"job_level_id,omitempty"`      // 职级ID, 字段权限要求: 查询用户职级
+	JobFamilyID     string                       `json:"job_family_id,omitempty"`     // 序列ID, 字段权限要求: 查询用户所属的工作序列
+	AssignInfo      []*GetUserRespUserAssignInfo `json:"assign_info,omitempty"`       // 用户席位列表, 字段权限要求: 查询用户席位信息
+}
+
+// GetUserRespUserAssignInfo ...
+type GetUserRespUserAssignInfo struct {
+	SubscriptionID string                             `json:"subscription_id,omitempty"`  // 席位id
+	LicensePlanKey string                             `json:"license_plan_key,omitempty"` // license_plan_key
+	ProductName    string                             `json:"product_name,omitempty"`     // 席位名称
+	I18nName       *GetUserRespUserAssignInfoI18nName `json:"i18n_name,omitempty"`        // 国际化名称
+	StartTime      string                             `json:"start_time,omitempty"`       // 席位起始时间
+	EndTime        string                             `json:"end_time,omitempty"`         // 席位结束时间
+}
+
+// GetUserRespUserAssignInfoI18nName ...
+type GetUserRespUserAssignInfoI18nName struct {
+	ZhCn string `json:"zh_cn,omitempty"` // 席位中文名
+	JaJp string `json:"ja_jp,omitempty"` // 席位日文名
+	EnUs string `json:"en_us,omitempty"` // 席位英文名
 }
 
 // GetUserRespUserAvatar ...

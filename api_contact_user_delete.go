@@ -24,7 +24,7 @@ import (
 // DeleteUser 该接口用于从通讯录删除一个用户信息, 可以理解为员工离职。
 //
 // - 若用户归属部门A、部门B, 应用的通讯录权限范围必须包括部门A和部门B才可以删除用户。
-// - 用户可以在删除员工时设置删除员工数据（如文档）的接收者, 如果不设置则由其leader接收, 如果该员工没有leader, 则会将该员工的数据删除。
+// - 用户可以在删除员工时指定员工数据（如部门群, 文档, 日程等）的接收者, 如不指定将触发默认处理逻辑。不同数据的默认处理逻辑不同, 详见下文接口各acceptor请求参数的描述
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/delete
 func (r *ContactService) DeleteUser(ctx context.Context, request *DeleteUserReq, options ...MethodOptionFunc) (*DeleteUserResp, *Response, error) {

@@ -23,7 +23,7 @@ import (
 
 // BatchGetUserByID 通过该接口, 可使用手机号/邮箱获取用户的 ID 信息, 具体获取支持的 ID 类型包括 open_id、user_id、union_id, 可通过查询参数指定。
 //
-// 如果查询的手机号、邮箱不存在, 或者无权限查看对应的用户, 则返回的用户ID列表为空。
+// 如果查询的手机号、邮箱不存在, 或者无权限查看对应的用户, 则不返回用户ID。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/batch_get_id
 func (r *ContactService) BatchGetUserByID(ctx context.Context, request *BatchGetUserByIDReq, options ...MethodOptionFunc) (*BatchGetUserByIDResp, *Response, error) {
@@ -71,7 +71,7 @@ type BatchGetUserByIDResp struct {
 
 // BatchGetUserByIDRespUser ...
 type BatchGetUserByIDRespUser struct {
-	UserID string `json:"user_id,omitempty"` // 用户id, 值为user_id_type所指定的类型。如果查询的手机号、邮箱不存在, 或者无权限查看对应的用户, 则此项为空。
+	UserID string `json:"user_id,omitempty"` // 用户id, 值为user_id_type所指定的类型。如果查询的手机号、邮箱不存在, 或者无权限查看对应的用户, 则不返回此项。
 	Mobile string `json:"mobile,omitempty"`  // 手机号, 通过手机号查询时返回
 	Email  string `json:"email,omitempty"`   // 邮箱, 通过邮箱查询时返回
 }

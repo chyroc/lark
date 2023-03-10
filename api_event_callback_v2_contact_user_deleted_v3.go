@@ -48,7 +48,7 @@ type EventV2ContactUserDeletedV3Object struct {
 	EnName          string                                         `json:"en_name,omitempty"`          // 英文名, 字段权限要求（满足任一）: 以应用身份读取通讯录, 获取用户基本信息, 以应用身份访问通讯录, 读取通讯录
 	Nickname        string                                         `json:"nickname,omitempty"`         // 别名, 字段权限要求（满足任一）: 以应用身份读取通讯录, 获取用户基本信息, 以应用身份访问通讯录, 读取通讯录
 	Email           string                                         `json:"email,omitempty"`            // 邮箱, 字段权限要求: 获取用户邮箱信息
-	EnterpriseEmail string                                         `json:"enterprise_email,omitempty"` // 企业邮箱
+	EnterpriseEmail string                                         `json:"enterprise_email,omitempty"` // 企业邮箱, 字段权限要求（满足任一）: 以应用身份读取通讯录, 获取用户基本信息, 以应用身份访问通讯录, 读取通讯录
 	JobTitle        string                                         `json:"job_title,omitempty"`        // 职务
 	Mobile          string                                         `json:"mobile,omitempty"`           // 手机号, 字段权限要求: 获取用户手机号
 	Gender          int64                                          `json:"gender,omitempty"`           // 性别, 可选值有: 0: 未知, 1: 男, 2: 女, 字段权限要求（满足任一）: 以应用身份读取通讯录, 获取用户性别, 以应用身份访问通讯录, 读取通讯录
@@ -64,6 +64,8 @@ type EventV2ContactUserDeletedV3Object struct {
 	EmployeeType    int64                                          `json:"employee_type,omitempty"`    // 员工类型, 可选值有: 1: 正式员工, 2: 实习生, 3: 外包, 4: 劳务, 5: 顾问, 字段权限要求（满足任一）: 以应用身份读取通讯录, 获取用户受雇信息, 以应用身份访问通讯录, 读取通讯录
 	Orders          []*EventV2ContactUserDeletedV3ObjectOrder      `json:"orders,omitempty"`           // 用户排序信息, 字段权限要求（满足任一）: 以应用身份读取通讯录, 获取用户组织架构信息, 以应用身份访问通讯录, 读取通讯录
 	CustomAttrs     []*EventV2ContactUserDeletedV3ObjectCustomAttr `json:"custom_attrs,omitempty"`     // 自定义属性, 字段权限要求（满足任一）: 以应用身份读取通讯录, 获取用户受雇信息, 以应用身份访问通讯录, 读取通讯录
+	JobLevelID      string                                         `json:"job_level_id,omitempty"`     // 职级ID, 字段权限要求: 查询用户职级
+	JobFamilyID     string                                         `json:"job_family_id,omitempty"`    // 序列ID, 字段权限要求: 查询用户所属的工作序列
 }
 
 // EventV2ContactUserDeletedV3ObjectAvatar ...

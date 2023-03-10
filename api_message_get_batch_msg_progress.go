@@ -24,7 +24,8 @@ import (
 // GetBatchSentMessageProgress 该接口在[查询批量消息推送和阅读人数](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/batch_message/read_user)查询结果的基础上, 增加了批量请求中有效的userid数量以及消息撤回进度数据。
 //
 // 注意事项:
-// * 该接口返回的数据为查询时刻的快照数据
+// - 只能查询30天内通过[批量发送消息](https://open.feishu.cn/document/ukTMukTMukTM/ucDO1EjL3gTNx4yN4UTM)接口产生的消息
+// - 该接口返回的数据为查询时刻的快照数据
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/batch_message/get_progress
 func (r *MessageService) GetBatchSentMessageProgress(ctx context.Context, request *GetBatchSentMessageProgressReq, options ...MethodOptionFunc) (*GetBatchSentMessageProgressResp, *Response, error) {

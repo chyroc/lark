@@ -26,8 +26,6 @@ import (
 // 调用该接口需要申请 `通过手机号或邮箱获取用户 ID` 权限。 只能查询到应用可用性范围内的用户 ID, 不在范围内的用户会表现为不存在。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uUzMyUjL1MjM14SNzITN
-//
-// Deprecated
 func (r *ContactService) BatchGetUserByIDOld(ctx context.Context, request *BatchGetUserByIDOldReq, options ...MethodOptionFunc) (*BatchGetUserByIDOldResp, *Response, error) {
 	if r.cli.mock.mockContactBatchGetUserByIDOld != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Contact#BatchGetUserByIDOld mock enable")
