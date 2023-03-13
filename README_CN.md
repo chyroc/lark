@@ -38,7 +38,7 @@ https://godoc.org/github.com/chyroc/lark
 
 ## 支持的接口
 
-API 总数: 721, 事件总数: 103
+API 总数: 731, 事件总数: 103
 
 <details>
   <summary>
@@ -353,6 +353,16 @@ API 总数: 721, 事件总数: 103
   - UpdateContactFunctionalRoleMemberScope
   - GetContactFunctionalRoleMemberScope
   - GetContactFunctionalRoleMember
+  - CreateContactJobLevel
+  - DeleteContactJobLevel
+  - UpdateContactJobLevel
+  - GetContactJobLevel
+  - GetContactJobLevelList
+  - CreateContactJobFamily
+  - DeleteContactJobFamily
+  - UpdateContactJobFamily
+  - GetContactJobFamily
+  - GetContactJobFamilyList
   - GetEmployeeTypeEnumList
   - UpdateEmployeeTypeEnumPatch
   - DeleteEmployeeTypeEnum

@@ -531,6 +531,126 @@ func Test_Contact_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
+			cli.Mock().MockContactCreateContactJobLevel(func(ctx context.Context, request *lark.CreateContactJobLevelReq, options ...lark.MethodOptionFunc) (*lark.CreateContactJobLevelResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockContactCreateContactJobLevel()
+
+			_, _, err := moduleCli.CreateContactJobLevel(ctx, &lark.CreateContactJobLevelReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			cli.Mock().MockContactDeleteContactJobLevel(func(ctx context.Context, request *lark.DeleteContactJobLevelReq, options ...lark.MethodOptionFunc) (*lark.DeleteContactJobLevelResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockContactDeleteContactJobLevel()
+
+			_, _, err := moduleCli.DeleteContactJobLevel(ctx, &lark.DeleteContactJobLevelReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			cli.Mock().MockContactUpdateContactJobLevel(func(ctx context.Context, request *lark.UpdateContactJobLevelReq, options ...lark.MethodOptionFunc) (*lark.UpdateContactJobLevelResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockContactUpdateContactJobLevel()
+
+			_, _, err := moduleCli.UpdateContactJobLevel(ctx, &lark.UpdateContactJobLevelReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			cli.Mock().MockContactGetContactJobLevel(func(ctx context.Context, request *lark.GetContactJobLevelReq, options ...lark.MethodOptionFunc) (*lark.GetContactJobLevelResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockContactGetContactJobLevel()
+
+			_, _, err := moduleCli.GetContactJobLevel(ctx, &lark.GetContactJobLevelReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			cli.Mock().MockContactGetContactJobLevelList(func(ctx context.Context, request *lark.GetContactJobLevelListReq, options ...lark.MethodOptionFunc) (*lark.GetContactJobLevelListResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockContactGetContactJobLevelList()
+
+			_, _, err := moduleCli.GetContactJobLevelList(ctx, &lark.GetContactJobLevelListReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			cli.Mock().MockContactCreateContactJobFamily(func(ctx context.Context, request *lark.CreateContactJobFamilyReq, options ...lark.MethodOptionFunc) (*lark.CreateContactJobFamilyResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockContactCreateContactJobFamily()
+
+			_, _, err := moduleCli.CreateContactJobFamily(ctx, &lark.CreateContactJobFamilyReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			cli.Mock().MockContactDeleteContactJobFamily(func(ctx context.Context, request *lark.DeleteContactJobFamilyReq, options ...lark.MethodOptionFunc) (*lark.DeleteContactJobFamilyResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockContactDeleteContactJobFamily()
+
+			_, _, err := moduleCli.DeleteContactJobFamily(ctx, &lark.DeleteContactJobFamilyReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			cli.Mock().MockContactUpdateContactJobFamily(func(ctx context.Context, request *lark.UpdateContactJobFamilyReq, options ...lark.MethodOptionFunc) (*lark.UpdateContactJobFamilyResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockContactUpdateContactJobFamily()
+
+			_, _, err := moduleCli.UpdateContactJobFamily(ctx, &lark.UpdateContactJobFamilyReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			cli.Mock().MockContactGetContactJobFamily(func(ctx context.Context, request *lark.GetContactJobFamilyReq, options ...lark.MethodOptionFunc) (*lark.GetContactJobFamilyResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockContactGetContactJobFamily()
+
+			_, _, err := moduleCli.GetContactJobFamily(ctx, &lark.GetContactJobFamilyReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			cli.Mock().MockContactGetContactJobFamilyList(func(ctx context.Context, request *lark.GetContactJobFamilyListReq, options ...lark.MethodOptionFunc) (*lark.GetContactJobFamilyListResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockContactGetContactJobFamilyList()
+
+			_, _, err := moduleCli.GetContactJobFamilyList(ctx, &lark.GetContactJobFamilyListReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
 			cli.Mock().MockContactGetEmployeeTypeEnumList(func(ctx context.Context, request *lark.GetEmployeeTypeEnumListReq, options ...lark.MethodOptionFunc) (*lark.GetEmployeeTypeEnumListResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -1034,6 +1154,88 @@ func Test_Contact_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
+			_, _, err := moduleCli.CreateContactJobLevel(ctx, &lark.CreateContactJobLevelReq{})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.DeleteContactJobLevel(ctx, &lark.DeleteContactJobLevelReq{
+				JobLevelID: "x",
+			})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.UpdateContactJobLevel(ctx, &lark.UpdateContactJobLevelReq{
+				JobLevelID: "x",
+			})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.GetContactJobLevel(ctx, &lark.GetContactJobLevelReq{
+				JobLevelID: "x",
+			})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.GetContactJobLevelList(ctx, &lark.GetContactJobLevelListReq{})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.CreateContactJobFamily(ctx, &lark.CreateContactJobFamilyReq{})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.DeleteContactJobFamily(ctx, &lark.DeleteContactJobFamilyReq{
+				JobFamilyID: "x",
+			})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.UpdateContactJobFamily(ctx, &lark.UpdateContactJobFamilyReq{
+				JobFamilyID: "x",
+			})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.GetContactJobFamily(ctx, &lark.GetContactJobFamilyReq{
+				JobFamilyID: "x",
+			})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.GetContactJobFamilyList(ctx, &lark.GetContactJobFamilyListReq{})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+
 			_, _, err := moduleCli.GetEmployeeTypeEnumList(ctx, &lark.GetEmployeeTypeEnumListReq{})
 			as.NotNil(err)
 			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
@@ -1474,6 +1676,88 @@ func Test_Contact_Sample_Failed(t *testing.T) {
 			_, _, err := moduleCli.GetContactFunctionalRoleMember(ctx, &lark.GetContactFunctionalRoleMemberReq{
 				RoleID: "x",
 			})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.CreateContactJobLevel(ctx, &lark.CreateContactJobLevelReq{})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.DeleteContactJobLevel(ctx, &lark.DeleteContactJobLevelReq{
+				JobLevelID: "x",
+			})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.UpdateContactJobLevel(ctx, &lark.UpdateContactJobLevelReq{
+				JobLevelID: "x",
+			})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.GetContactJobLevel(ctx, &lark.GetContactJobLevelReq{
+				JobLevelID: "x",
+			})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.GetContactJobLevelList(ctx, &lark.GetContactJobLevelListReq{})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.CreateContactJobFamily(ctx, &lark.CreateContactJobFamilyReq{})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.DeleteContactJobFamily(ctx, &lark.DeleteContactJobFamilyReq{
+				JobFamilyID: "x",
+			})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.UpdateContactJobFamily(ctx, &lark.UpdateContactJobFamilyReq{
+				JobFamilyID: "x",
+			})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.GetContactJobFamily(ctx, &lark.GetContactJobFamilyReq{
+				JobFamilyID: "x",
+			})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.GetContactJobFamilyList(ctx, &lark.GetContactJobFamilyListReq{})
 			as.NotNil(err)
 			as.Equal("fake raw request", err.Error())
 		})
