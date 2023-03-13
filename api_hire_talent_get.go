@@ -454,6 +454,7 @@ type GetHireTalentRespTalentEducationCustomizedDataValueTimeRange struct {
 type GetHireTalentRespTalentInterviewRegistration struct {
 	ID               string `json:"id,omitempty"`                // ID
 	RegistrationTime int64  `json:"registration_time,omitempty"` // 创建时间
+	DownloadURL      string `json:"download_url,omitempty"`      // 下载链接
 }
 
 // GetHireTalentRespTalentLanguage ...
