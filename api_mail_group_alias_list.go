@@ -23,6 +23,8 @@ import (
 
 // GetMailGroupAliasList 获取邮件组所有别名。
 //
+// 该接口一次性返回所有数据, 分页参数无效
+//
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/mail-v1/mailgroup-alias/list
 func (r *MailService) GetMailGroupAliasList(ctx context.Context, request *GetMailGroupAliasListReq, options ...MethodOptionFunc) (*GetMailGroupAliasListResp, *Response, error) {
 	if r.cli.mock.mockMailGetMailGroupAliasList != nil {

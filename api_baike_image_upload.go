@@ -22,7 +22,7 @@ import (
 	"io"
 )
 
-// UploadBaikeImage 百科词条图片资源上传。
+// UploadBaikeImage 词条图片资源上传。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/baike-v1/file/upload
 func (r *BaikeService) UploadBaikeImage(ctx context.Context, request *UploadBaikeImageReq, options ...MethodOptionFunc) (*UploadBaikeImageResp, *Response, error) {

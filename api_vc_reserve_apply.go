@@ -23,7 +23,8 @@ import (
 
 // ApplyVCReserve 创建一个会议预约。
 //
-// 支持预约最近30天内的会议（到期时间距离当前时间不超过30天）, 预约到期后会议号将被释放, 如需继续使用可通过"更新预约"接口进行续期；预约会议时可配置参会人在会中的权限, 以达到控制会议的目的
+// 支持预约最近30天内的会议（到期时间距离当前时间不超过30天）, 预约到期后会议号将被释放, 如需继续使用可通过"更新预约"接口进行续期；预约会议时可配置参会人在会中的权限, 以达到控制会议的目的。
+// 以此方式预约的会议「不会」生成日程, 「不会」显示在日历中
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/vc-v1/reserve/apply
 func (r *VCService) ApplyVCReserve(ctx context.Context, request *ApplyVCReserveReq, options ...MethodOptionFunc) (*ApplyVCReserveResp, *Response, error) {
@@ -84,9 +85,9 @@ type ApplyVCReserveReqMeetingSettingsActionPermission struct {
 
 // ApplyVCReserveReqMeetingSettingsActionPermissionPermissionChecker ...
 type ApplyVCReserveReqMeetingSettingsActionPermissionPermissionChecker struct {
-	CheckField int64    `json:"check_field,omitempty"` // 检查字段类型, 示例值: 1, 可选值有: 1: 用户ID, 2: 用户类型, 3: 租户ID
+	CheckField int64    `json:"check_field,omitempty"` // 检查字段类型, 示例值: 1, 可选值有: 1: 用户ID（check_list填入用户ID）, 2: 用户类型（check_list可选值有, "1": lark用户、, "2": rooms用户、, "6": pstn用户、, "7": sip用户）, 3: 租户ID（check_list填入租户tenant_key）
 	CheckMode  int64    `json:"check_mode,omitempty"`  // 检查方式, 示例值: 1, 可选值有: 1: 在check_list中为有权限（白名单）, 2: 不在check_list中为有权限（黑名单）
-	CheckList  []string `json:"check_list,omitempty"`  // 检查字段列表, 示例值: 123
+	CheckList  []string `json:"check_list,omitempty"`  // 检查字段列表（根据check_field的类型填入对应内容）, 示例值: "ou_3ec3f6a28a0d08c45d895276e8e5e19b"
 }
 
 // ApplyVCReserveReqMeetingSettingsAssignHost ...
@@ -103,7 +104,7 @@ type ApplyVCReserveReqMeetingSettingsCallSetting struct {
 // ApplyVCReserveReqMeetingSettingsCallSettingCallee ...
 type ApplyVCReserveReqMeetingSettingsCallSettingCallee struct {
 	ID          *string                                                       `json:"id,omitempty"`            // 用户ID, 示例值: "ou_3ec3f6a28a0d08c45d895276e8e5e19b"
-	UserType    int64                                                         `json:"user_type,omitempty"`     // 用户类型, 当前仅支持用户类型6(pstn用户), 示例值: 1, 可选值有: 1: lark用户, 2: rooms用户（建议使用open_id作为user_id_type用于获取此类用户）, 3: 文档用户, 4: neo单品用户, 5: neo单品游客用户, 6: pstn用户, 7: sip用户
+	UserType    int64                                                         `json:"user_type,omitempty"`     // 用户类型, 当前仅支持用户类型6(pstn用户), 示例值: 1, 可选值有: 1: lark用户, 2: rooms用户, 3: 文档用户, 4: neo单品用户, 5: neo单品游客用户, 6: pstn用户, 7: sip用户
 	PstnSipInfo *ApplyVCReserveReqMeetingSettingsCallSettingCalleePstnSipInfo `json:"pstn_sip_info,omitempty"` // pstn/sip信息
 }
 
@@ -121,7 +122,7 @@ type ApplyVCReserveResp struct {
 
 // ApplyVCReserveRespReserve ...
 type ApplyVCReserveRespReserve struct {
-	ID        string `json:"id,omitempty"`         // 预约ID（预约的唯一标识）
+	ID        string `json:"id,omitempty"`         // 预约ID（预约的唯一标识, 非会议ID, 会议ID仅在会议开始后才生成）
 	MeetingNo string `json:"meeting_no,omitempty"` // 9位会议号（飞书用户可通过输入9位会议号快捷入会）
 	URL       string `json:"url,omitempty"`        // 会议链接（飞书用户可通过点击会议链接快捷入会）
 	AppLink   string `json:"app_link,omitempty"`   // APPLink用于唤起飞书APP入会。"{?}"为占位符, 用于配置入会参数, 使用时需替换具体值: 0表示关闭, 1表示打开。preview为入会前的设置页, mic为麦克风, speaker为扬声器, camera为摄像头

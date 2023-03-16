@@ -66,7 +66,7 @@ type UpdateAttendanceUserStatsViewReq struct {
 type UpdateAttendanceUserStatsViewReqView struct {
 	ViewID    string                                      `json:"view_id,omitempty"`    // 视图 ID, 示例值: "TmpZNU5qTTJORFF6T1RnNU5UTTNOakV6TWl0dGIyNTBhQT09"
 	StatsType string                                      `json:"stats_type,omitempty"` // 视图类型, 示例值: "month", 可选值有: daily: 日度统计, month: 月度统计
-	UserID    string                                      `json:"user_id,omitempty"`    // 查询用户id, 同【查询统计数据】、【查询统计设置】user_id, 示例值: "ec8ddg56"
+	UserID    string                                      `json:"user_id,omitempty"`    // 操作者的用户id, 示例值: "ec8ddg56"
 	Items     []*UpdateAttendanceUserStatsViewReqViewItem `json:"items,omitempty"`      // 用户设置字段
 }
 
@@ -91,7 +91,7 @@ type UpdateAttendanceUserStatsViewResp struct {
 type UpdateAttendanceUserStatsViewRespView struct {
 	ViewID    string                                       `json:"view_id,omitempty"`    // 视图 ID
 	StatsType string                                       `json:"stats_type,omitempty"` // 视图类型, 可选值有: daily: 日度统计, month: 月度统计
-	UserID    string                                       `json:"user_id,omitempty"`    // 查询用户id, 同【查询统计数据】、【查询统计设置】user_id
+	UserID    string                                       `json:"user_id,omitempty"`    // 操作者的用户id
 	Items     []*UpdateAttendanceUserStatsViewRespViewItem `json:"items,omitempty"`      // 用户设置字段
 }
 

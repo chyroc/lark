@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// ExtractBaikeEntity 提取文本中可能成为百科词条的词语, 且不会过滤已经成为百科词条的词语。同时, 会返回推荐的别名。
+// ExtractBaikeEntity 提取文本中可能成为词条的词语, 且不会过滤已经成为词条的词语。同时返回推荐的别名。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/baike-v1/entity/extract
 func (r *BaikeService) ExtractBaikeEntity(ctx context.Context, request *ExtractBaikeEntityReq, options ...MethodOptionFunc) (*ExtractBaikeEntityResp, *Response, error) {
@@ -58,12 +58,12 @@ func (r *Mock) UnMockBaikeExtractBaikeEntity() {
 
 // ExtractBaikeEntityReq ...
 type ExtractBaikeEntityReq struct {
-	Text *string `json:"text,omitempty"` // 需要被提取百科实体词的文本（不会过滤租户已成为百科词条的内容）, 示例值: "企业百科是一部高效汇聚企业内各类信息, 并可由企业成员参与编辑的在线百科全书", 最大长度: `128` 字符
+	Text *string `json:"text,omitempty"` // 需要被提取词条的文本（不会过滤租户中已成为词条的内容）, 示例值: "飞书词典是一部高效汇聚企业内各类信息, 并可由企业成员参与编辑的在线词典", 最大长度: `128` 字符
 }
 
 // ExtractBaikeEntityResp ...
 type ExtractBaikeEntityResp struct {
-	EntityWord []*ExtractBaikeEntityRespEntityWord `json:"entity_word,omitempty"` // 文本中可能的成为百科词条的词汇
+	EntityWord []*ExtractBaikeEntityRespEntityWord `json:"entity_word,omitempty"` // 文本中可能的成为词条的词汇
 }
 
 // ExtractBaikeEntityRespEntityWord ...

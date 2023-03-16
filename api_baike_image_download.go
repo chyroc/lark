@@ -59,7 +59,7 @@ func (r *Mock) UnMockBaikeDownloadBaikeImage() {
 
 // DownloadBaikeImageReq ...
 type DownloadBaikeImageReq struct {
-	FileToken string `path:"file_token" json:"-"` // 需要下载的文件 token, 示例值: "boxbcEcmKiD3SGHvgqWTpvdc7jc"
+	FileToken string `path:"file_token" json:"-"` // 需要下载的文件 token, 示例值: "boxbcEcmKiD3***vgqWTpvdc7jc"
 }
 
 // downloadBaikeImageResp ...

@@ -81,7 +81,7 @@ type GetBaikeEntityListRespEntity struct {
 	RelatedMeta *GetBaikeEntityListRespEntityRelatedMeta `json:"related_meta,omitempty"` // 更多相关信息
 	Statistics  *GetBaikeEntityListRespEntityStatistics  `json:"statistics,omitempty"`   // 当前词条收到的反馈数据
 	OuterInfo   *GetBaikeEntityListRespEntityOuterInfo   `json:"outer_info,omitempty"`   // 外部系统关联数据
-	RichText    string                                   `json:"rich_text,omitempty"`    // 富文本格式（当填写富文本内容时, description字段将会失效可不填写）, 支持的格式参考[企业百科指南](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/baike-v1/overview)中的释义部分
+	RichText    string                                   `json:"rich_text,omitempty"`    // 富文本格式（当填写富文本内容时, description字段将会失效可不填写）, 支持的格式参考[飞书词典指南](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/baike-v1/overview)中的释义部分
 }
 
 // GetBaikeEntityListRespEntityAliase ...

@@ -53,7 +53,7 @@ type EventV2VCMeetingAllMeetingEndedV1Meeting struct {
 type EventV2VCMeetingAllMeetingEndedV1MeetingHostUser struct {
 	ID       *EventV2VCMeetingAllMeetingEndedV1MeetingHostUserID `json:"id,omitempty"`        // 用户 ID
 	UserRole int64                                               `json:"user_role,omitempty"` // 用户会中角色, 可选值有: 1: 普通参会人, 2: 主持人, 3: 联席主持人
-	UserType int64                                               `json:"user_type,omitempty"` // 用户类型, 可选值有: 1: lark用户, 2: rooms用户（建议使用open_id作为user_id_type用于获取此类用户）, 3: 文档用户, 4: neo单品用户, 5: neo单品游客用户, 6: pstn用户, 7: sip用户
+	UserType int64                                               `json:"user_type,omitempty"` // 用户类型, 可选值有: 1: lark用户, 2: rooms用户, 3: 文档用户, 4: neo单品用户, 5: neo单品游客用户, 6: pstn用户, 7: sip用户
 }
 
 // EventV2VCMeetingAllMeetingEndedV1MeetingHostUserID ...
@@ -67,7 +67,7 @@ type EventV2VCMeetingAllMeetingEndedV1MeetingHostUserID struct {
 type EventV2VCMeetingAllMeetingEndedV1MeetingOwner struct {
 	ID       *EventV2VCMeetingAllMeetingEndedV1MeetingOwnerID `json:"id,omitempty"`        // 用户 ID
 	UserRole int64                                            `json:"user_role,omitempty"` // 用户会中角色, 可选值有: 1: 普通参会人, 2: 主持人, 3: 联席主持人
-	UserType int64                                            `json:"user_type,omitempty"` // 用户类型, 可选值有: 1: lark用户, 2: rooms用户（建议使用open_id作为user_id_type用于获取此类用户）, 3: 文档用户, 4: neo单品用户, 5: neo单品游客用户, 6: pstn用户, 7: sip用户
+	UserType int64                                            `json:"user_type,omitempty"` // 用户类型, 可选值有: 1: lark用户, 2: rooms用户, 3: 文档用户, 4: neo单品用户, 5: neo单品游客用户, 6: pstn用户, 7: sip用户
 }
 
 // EventV2VCMeetingAllMeetingEndedV1MeetingOwnerID ...
@@ -81,7 +81,7 @@ type EventV2VCMeetingAllMeetingEndedV1MeetingOwnerID struct {
 type EventV2VCMeetingAllMeetingEndedV1Operator struct {
 	ID       *EventV2VCMeetingAllMeetingEndedV1OperatorID `json:"id,omitempty"`        // 用户 ID
 	UserRole int64                                        `json:"user_role,omitempty"` // 用户会中角色, 可选值有: 1: 普通参会人, 2: 主持人, 3: 联席主持人
-	UserType int64                                        `json:"user_type,omitempty"` // 用户类型, 可选值有: 1: lark用户, 2: rooms用户（建议使用open_id作为user_id_type用于获取此类用户）, 3: 文档用户, 4: neo单品用户, 5: neo单品游客用户, 6: pstn用户, 7: sip用户
+	UserType int64                                        `json:"user_type,omitempty"` // 用户类型, 可选值有: 1: lark用户, 2: rooms用户, 3: 文档用户, 4: neo单品用户, 5: neo单品游客用户, 6: pstn用户, 7: sip用户
 }
 
 // EventV2VCMeetingAllMeetingEndedV1OperatorID ...

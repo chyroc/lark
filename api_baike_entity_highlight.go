@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// HighlightBaikeEntity 传入一句话, 智能识别句中对应的词条, 并返回词条位置和 entity_id, 可在外部系统中快速实现百科词条智能高亮。
+// HighlightBaikeEntity 传入一句话, 智能识别句中对应的词条, 并返回词条位置和 entity_id, 可在外部系统中快速实现词条智能高亮。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/baike-v1/entity/highlight
 func (r *BaikeService) HighlightBaikeEntity(ctx context.Context, request *HighlightBaikeEntityReq, options ...MethodOptionFunc) (*HighlightBaikeEntityResp, *Response, error) {
@@ -58,7 +58,7 @@ func (r *Mock) UnMockBaikeHighlightBaikeEntity() {
 
 // HighlightBaikeEntityReq ...
 type HighlightBaikeEntityReq struct {
-	Text string `json:"text,omitempty"` // 需要识别百科词条的内容（不超过1000字）, 示例值: "企业百科是飞书提供的一款知识管理工具", 长度范围: `1` ～ `1000` 字符
+	Text string `json:"text,omitempty"` // 需要识别词条的内容（不超过1000字）, 示例值: "词典是飞书提供的一款知识管理工具", 长度范围: `1` ～ `1000` 字符
 }
 
 // HighlightBaikeEntityResp ...

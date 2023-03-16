@@ -21,9 +21,9 @@ import (
 	"context"
 )
 
-// GetBaikeClassificationList 获取企业百科当前分类。
+// GetBaikeClassificationList 获取飞书词典当前分类。
 //
-// 企业百科目前为二级分类体系, 每个词条可添加多个二级分类, 但每个一级分类下只能添加一个分类。
+// 飞书词典目前为二级分类体系, 每个词条可添加多个二级分类, 但选择的二级分类必须从属于不同的一级分类。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/baike-v1/classification/list
 func (r *BaikeService) GetBaikeClassificationList(ctx context.Context, request *GetBaikeClassificationListReq, options ...MethodOptionFunc) (*GetBaikeClassificationListResp, *Response, error) {
@@ -60,8 +60,8 @@ func (r *Mock) UnMockBaikeGetBaikeClassificationList() {
 
 // GetBaikeClassificationListReq ...
 type GetBaikeClassificationListReq struct {
-	PageSize  *int64  `query:"page_size" json:"-"`  // 分页大小, 示例值: 20, 最大值: `500`
-	PageToken *string `query:"page_token" json:"-"` // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果, 示例值: "408ecac018b2e3518db37275e812aad7bb8ad3e755fc886f322ac6c430ba"
+	PageSize  *int64  `query:"page_size" json:"-"`  // 分页大小, 示例值: 20, 默认值: `20`, 最大值: `500`
+	PageToken *string `query:"page_token" json:"-"` // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果, 示例值: "408ecac018b2e3518db37275e812bb8ad3e755fc886f322ac6c430ba"
 }
 
 // GetBaikeClassificationListResp ...

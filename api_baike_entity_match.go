@@ -58,7 +58,7 @@ func (r *Mock) UnMockBaikeMatchBaikeEntity() {
 
 // MatchBaikeEntityReq ...
 type MatchBaikeEntityReq struct {
-	Word string `json:"word,omitempty"` // 搜索关键词, 将与词条名、别名进行精准匹配, 示例值: "企业百科", 长度范围: `1` ～ `100` 字符
+	Word string `json:"word,omitempty"` // 搜索关键词, 将与词条名、别名进行精准匹配, 示例值: "飞书词典", 长度范围: `1` ～ `100` 字符
 }
 
 // MatchBaikeEntityResp ...

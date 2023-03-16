@@ -33,13 +33,14 @@ func (r *VCService) DeleteVCReserve(ctx context.Context, request *DeleteVCReserv
 	}
 
 	req := &RawRequestReq{
-		Scope:               "VC",
-		API:                 "DeleteVCReserve",
-		Method:              "DELETE",
-		URL:                 r.cli.openBaseURL + "/open-apis/vc/v1/reserves/:reserve_id",
-		Body:                request,
-		MethodOption:        newMethodOption(options),
-		NeedUserAccessToken: true,
+		Scope:                 "VC",
+		API:                   "DeleteVCReserve",
+		Method:                "DELETE",
+		URL:                   r.cli.openBaseURL + "/open-apis/vc/v1/reserves/:reserve_id",
+		Body:                  request,
+		MethodOption:          newMethodOption(options),
+		NeedTenantAccessToken: true,
+		NeedUserAccessToken:   true,
 	}
 	resp := new(deleteVCReserveResp)
 

@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// EventV2VCMeetingRecordingReadyV1 发生在录制文件上传完毕时。{使用示例}(url=/api/tools/api_explore/api_explore_config?project=vc&version=v1&resource=meeting&event=recording_ready)
+// EventV2VCMeetingRecordingReadyV1 发生在录制文件上传完毕时【仅通过Open API预约的会议会产生此类事件】{使用示例}(url=/api/tools/api_explore/api_explore_config?project=vc&version=v1&resource=meeting&event=recording_ready)
 //
 // 收到该事件后, 方可进行录制文件获取、授权等操作。
 //

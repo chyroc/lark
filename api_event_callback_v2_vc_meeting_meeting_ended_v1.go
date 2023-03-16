@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// EventV2VCMeetingMeetingEndedV1 发生在会议结束时, 目前仅提供预约会议相关事件。{使用示例}(url=/api/tools/api_explore/api_explore_config?project=vc&version=v1&resource=meeting&event=meeting_ended)
+// EventV2VCMeetingMeetingEndedV1 发生在会议结束时【仅通过Open API预约的会议会产生此类事件】{使用示例}(url=/api/tools/api_explore/api_explore_config?project=vc&version=v1&resource=meeting&event=meeting_ended)
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/vc-v1/meeting/events/meeting_ended
 func (r *EventCallbackService) HandlerEventV2VCMeetingMeetingEndedV1(f EventV2VCMeetingMeetingEndedV1Handler) {
@@ -52,7 +52,7 @@ type EventV2VCMeetingMeetingEndedV1Meeting struct {
 type EventV2VCMeetingMeetingEndedV1MeetingHostUser struct {
 	ID       *EventV2VCMeetingMeetingEndedV1MeetingHostUserID `json:"id,omitempty"`        // 用户 ID
 	UserRole int64                                            `json:"user_role,omitempty"` // 用户会中角色, 可选值有: 1: 普通参会人, 2: 主持人, 3: 联席主持人
-	UserType int64                                            `json:"user_type,omitempty"` // 用户类型, 可选值有: 1: lark用户, 2: rooms用户（建议使用open_id作为user_id_type用于获取此类用户）, 3: 文档用户, 4: neo单品用户, 5: neo单品游客用户, 6: pstn用户, 7: sip用户
+	UserType int64                                            `json:"user_type,omitempty"` // 用户类型, 可选值有: 1: lark用户, 2: rooms用户, 3: 文档用户, 4: neo单品用户, 5: neo单品游客用户, 6: pstn用户, 7: sip用户
 }
 
 // EventV2VCMeetingMeetingEndedV1MeetingHostUserID ...
@@ -66,7 +66,7 @@ type EventV2VCMeetingMeetingEndedV1MeetingHostUserID struct {
 type EventV2VCMeetingMeetingEndedV1MeetingOwner struct {
 	ID       *EventV2VCMeetingMeetingEndedV1MeetingOwnerID `json:"id,omitempty"`        // 用户 ID
 	UserRole int64                                         `json:"user_role,omitempty"` // 用户会中角色, 可选值有: 1: 普通参会人, 2: 主持人, 3: 联席主持人
-	UserType int64                                         `json:"user_type,omitempty"` // 用户类型, 可选值有: 1: lark用户, 2: rooms用户（建议使用open_id作为user_id_type用于获取此类用户）, 3: 文档用户, 4: neo单品用户, 5: neo单品游客用户, 6: pstn用户, 7: sip用户
+	UserType int64                                         `json:"user_type,omitempty"` // 用户类型, 可选值有: 1: lark用户, 2: rooms用户, 3: 文档用户, 4: neo单品用户, 5: neo单品游客用户, 6: pstn用户, 7: sip用户
 }
 
 // EventV2VCMeetingMeetingEndedV1MeetingOwnerID ...
@@ -80,7 +80,7 @@ type EventV2VCMeetingMeetingEndedV1MeetingOwnerID struct {
 type EventV2VCMeetingMeetingEndedV1Operator struct {
 	ID       *EventV2VCMeetingMeetingEndedV1OperatorID `json:"id,omitempty"`        // 用户 ID
 	UserRole int64                                     `json:"user_role,omitempty"` // 用户会中角色, 可选值有: 1: 普通参会人, 2: 主持人, 3: 联席主持人
-	UserType int64                                     `json:"user_type,omitempty"` // 用户类型, 可选值有: 1: lark用户, 2: rooms用户（建议使用open_id作为user_id_type用于获取此类用户）, 3: 文档用户, 4: neo单品用户, 5: neo单品游客用户, 6: pstn用户, 7: sip用户
+	UserType int64                                     `json:"user_type,omitempty"` // 用户类型, 可选值有: 1: lark用户, 2: rooms用户, 3: 文档用户, 4: neo单品用户, 5: neo单品游客用户, 6: pstn用户, 7: sip用户
 }
 
 // EventV2VCMeetingMeetingEndedV1OperatorID ...

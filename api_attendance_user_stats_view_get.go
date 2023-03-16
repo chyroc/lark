@@ -60,7 +60,7 @@ type GetAttendanceUserStatsViewReq struct {
 	EmployeeType EmployeeType `query:"employee_type" json:"-"` // 响应体中的 user_id 的员工工号类型, 示例值: "employee_id", 可选值有: employee_id: 员工 employee ID, 即飞书管理后台 > 组织架构 > 成员与部门 > 成员详情中的用户 ID, employee_no: 员工工号, 即飞书管理后台 > 组织架构 > 成员与部门 > 成员详情中的工号
 	Locale       string       `json:"locale,omitempty"`        // 语言类型, 示例值: "zh", 可选值有: en: 英语, ja: 日语, zh: 中文
 	StatsType    string       `json:"stats_type,omitempty"`    // 统计类型, 示例值: "daily", 可选值有: daily: 日度统计, month: 月度统计
-	UserID       *string      `json:"user_id,omitempty"`       // 查询用户id, 同【查询统计数据】、【更新统计设置】user_id, 示例值: "dd31248a"
+	UserID       *string      `json:"user_id,omitempty"`       // 操作者的用户id, * 必填字段(系统升级后, 新系统要求必填), 示例值: "dd31248a"
 }
 
 // GetAttendanceUserStatsViewResp ...
@@ -72,7 +72,7 @@ type GetAttendanceUserStatsViewResp struct {
 type GetAttendanceUserStatsViewRespView struct {
 	ViewID    string                                    `json:"view_id,omitempty"`    // 视图 ID
 	StatsType string                                    `json:"stats_type,omitempty"` // 视图类型, 可选值有: daily: 日度统计, month: 月度统计
-	UserID    string                                    `json:"user_id,omitempty"`    // 查询用户id, 同【查询统计数据】、【查询统计设置】user_id
+	UserID    string                                    `json:"user_id,omitempty"`    // 操作者的用户id
 	Items     []*GetAttendanceUserStatsViewRespViewItem `json:"items,omitempty"`      // 用户设置字段
 }
 
