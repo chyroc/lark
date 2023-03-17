@@ -471,6 +471,30 @@ func Test_VC_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
+			cli.Mock().MockVCGetVCReserveConfigForm(func(ctx context.Context, request *lark.GetVCReserveConfigFormReq, options ...lark.MethodOptionFunc) (*lark.GetVCReserveConfigFormResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockVCGetVCReserveConfigForm()
+
+			_, _, err := moduleCli.GetVCReserveConfigForm(ctx, &lark.GetVCReserveConfigFormReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			cli.Mock().MockVCUpdateVCReserveConfigForm(func(ctx context.Context, request *lark.UpdateVCReserveConfigFormReq, options ...lark.MethodOptionFunc) (*lark.UpdateVCReserveConfigFormResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockVCUpdateVCReserveConfigForm()
+
+			_, _, err := moduleCli.UpdateVCReserveConfigForm(ctx, &lark.UpdateVCReserveConfigFormReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
 			cli.Mock().MockVCGetVCReserveConfigAdmin(func(ctx context.Context, request *lark.GetVCReserveConfigAdminReq, options ...lark.MethodOptionFunc) (*lark.GetVCReserveConfigAdminResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -916,6 +940,24 @@ func Test_VC_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
+			_, _, err := moduleCli.GetVCReserveConfigForm(ctx, &lark.GetVCReserveConfigFormReq{
+				ReserveConfigID: "x",
+			})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.UpdateVCReserveConfigForm(ctx, &lark.UpdateVCReserveConfigFormReq{
+				ReserveConfigID: "x",
+			})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+
 			_, _, err := moduleCli.GetVCReserveConfigAdmin(ctx, &lark.GetVCReserveConfigAdminReq{
 				ReserveConfigID: "x",
 			})
@@ -1297,6 +1339,24 @@ func Test_VC_Sample_Failed(t *testing.T) {
 		t.Run("", func(t *testing.T) {
 
 			_, _, err := moduleCli.UpdateVCReserveConfig(ctx, &lark.UpdateVCReserveConfigReq{
+				ReserveConfigID: "x",
+			})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.GetVCReserveConfigForm(ctx, &lark.GetVCReserveConfigFormReq{
+				ReserveConfigID: "x",
+			})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.UpdateVCReserveConfigForm(ctx, &lark.UpdateVCReserveConfigFormReq{
 				ReserveConfigID: "x",
 			})
 			as.NotNil(err)

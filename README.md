@@ -38,7 +38,7 @@ https://godoc.org/github.com/chyroc/lark
 
 ## Support APIs
 
-API Count: 733, Event Count: 103
+API Count: 735, Event Count: 103
 
 <details>
   <summary>
@@ -901,6 +901,8 @@ API Count: 733, Event Count: 103
   - GetVCScopeConfig
   - GetVCReserveConfig
   - UpdateVCReserveConfig
+  - GetVCReserveConfigForm
+  - UpdateVCReserveConfigForm
   - GetVCReserveConfigAdmin
   - UpdateVCReserveConfigAdmin
   - ExportVCMeetingList

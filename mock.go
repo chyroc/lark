@@ -728,6 +728,8 @@ type Mock struct {
 	mockVCGetVCScopeConfig                                     func(ctx context.Context, request *GetVCScopeConfigReq, options ...MethodOptionFunc) (*GetVCScopeConfigResp, *Response, error)
 	mockVCGetVCReserveConfig                                   func(ctx context.Context, request *GetVCReserveConfigReq, options ...MethodOptionFunc) (*GetVCReserveConfigResp, *Response, error)
 	mockVCUpdateVCReserveConfig                                func(ctx context.Context, request *UpdateVCReserveConfigReq, options ...MethodOptionFunc) (*UpdateVCReserveConfigResp, *Response, error)
+	mockVCGetVCReserveConfigForm                               func(ctx context.Context, request *GetVCReserveConfigFormReq, options ...MethodOptionFunc) (*GetVCReserveConfigFormResp, *Response, error)
+	mockVCUpdateVCReserveConfigForm                            func(ctx context.Context, request *UpdateVCReserveConfigFormReq, options ...MethodOptionFunc) (*UpdateVCReserveConfigFormResp, *Response, error)
 	mockVCGetVCReserveConfigAdmin                              func(ctx context.Context, request *GetVCReserveConfigAdminReq, options ...MethodOptionFunc) (*GetVCReserveConfigAdminResp, *Response, error)
 	mockVCUpdateVCReserveConfigAdmin                           func(ctx context.Context, request *UpdateVCReserveConfigAdminReq, options ...MethodOptionFunc) (*UpdateVCReserveConfigAdminResp, *Response, error)
 	mockVCExportVCMeetingList                                  func(ctx context.Context, request *ExportVCMeetingListReq, options ...MethodOptionFunc) (*ExportVCMeetingListResp, *Response, error)
