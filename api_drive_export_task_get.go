@@ -21,11 +21,10 @@ import (
 	"context"
 )
 
-// GetDriveExportTask 根据[创建导出任务](/ssl::ttdoc//uAjLw4CM/ukTMukTMukTM/reference/drive-v1/export_task/create)的ticket查询导出任务的结果, 前提条件需要先调用创建导出任务接口。
+// GetDriveExportTask 根据[创建导出任务](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/export_task/create)返回的`ticket`轮询导出任务的结果, 通过本接口获取到导出产物的文件`token`之后, 可调用[下载导出文件](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/export_task/download)接口将导出产物下载到本地。
 //
-// 通过该接口获取到下载文件的 token 后调用[下载导出文件接口](/ssl::ttdoc//uAjLw4CM/ukTMukTMukTM/reference/drive-v1/export_task/download)将文件进行下载
 // ::: note
-// 获取导出结果的用户需要与创建导出任务的用户一致
+// 获取导出结果的用户需要与创建导出任务的用户相一致。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/export_task/get
 func (r *DriveService) GetDriveExportTask(ctx context.Context, request *GetDriveExportTaskReq, options ...MethodOptionFunc) (*GetDriveExportTaskResp, *Response, error) {

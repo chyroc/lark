@@ -21,10 +21,10 @@ import (
 	"context"
 )
 
-// CreateDriveExportTask 创建导出任务, 将云文件导出为指定格式的本地文件。该接口为异步接口, 需要通过轮询 [查询导出任务结果](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/export_task/get) 接口获取任务结果。
+// CreateDriveExportTask 创建导出任务, 将云文档导出为指定格式的本地文件, 目前支持新版文档、电子表格、多维表格和旧版文档。该接口为异步接口, 任务创建完成即刻返回, 并不会阻塞等待到任务执行成功, 因此需要结合[查询导出任务结果](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/export_task/get)接口获取导出结果。
 //
 // ::: note
-// 请求用户需要对该文档有导出权限
+// 请求用户需要对该文档有导出权限。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/export_task/create
 func (r *DriveService) CreateDriveExportTask(ctx context.Context, request *CreateDriveExportTaskReq, options ...MethodOptionFunc) (*CreateDriveExportTaskResp, *Response, error) {
