@@ -24,7 +24,8 @@ import (
 // CreateAttendanceUserApproval 由于部分企业使用的是自己的审批系统, 而不是飞书审批系统, 因此员工的请假、加班等数据无法流入到飞书考勤系统中, 导致员工在请假时间段内依然收到打卡提醒, 并且被记为缺卡。
 //
 // 对于这些只使用飞书考勤系统, 而未使用飞书审批系统的企业, 可以通过考勤开放接口的形式, 将三方审批结果数据回写到飞书考勤系统中。
-// 目前支持写入加班、请假、出差和外出这四种审批结果, 写入只会追加(insert), 不会覆盖(update)（开放接口导入的加班假期记录, 在管理后台的假期加班里查不到, 可以在考勤统计报表查看, 或者通过[获取审批通过数据](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/user_approval/query)来查询）
+// 1. 目前支持写入加班、请假、出差和外出这四种审批结果, 写入只会追加(insert), 不会覆盖(update)（开放接口导入的加班假期记录, 在管理后台的假期加班里查不到, 可以在考勤统计报表查看, 或者通过[获取审批通过数据](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/user_approval/query)来查询）
+// 2. 离职人员没有考勤组, 所以写入和返回的时间会有差异
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/user_approval/create
 func (r *AttendanceService) CreateAttendanceUserApproval(ctx context.Context, request *CreateAttendanceUserApprovalReq, options ...MethodOptionFunc) (*CreateAttendanceUserApprovalResp, *Response, error) {
@@ -76,7 +77,7 @@ type CreateAttendanceUserApprovalReqUserApproval struct {
 
 // CreateAttendanceUserApprovalReqUserApprovalLeave ...
 type CreateAttendanceUserApprovalReqUserApprovalLeave struct {
-	UniqID        *string    `json:"uniq_id,omitempty"`        // 假期类型唯一 ID, 代表一种假期类型, 长度小于 14, 示例值: "6852582717813440527"
+	UniqID        *string    `json:"uniq_id,omitempty"`        // 假期类型唯一 ID, 代表一种假期类型, 长度小于 14, * 此ID对应假期类型(即: i18n_names), 因此需要保证唯一, 示例值: "6852582717813440527"
 	Unit          int64      `json:"unit,omitempty"`           // 假期时长单位, 示例值: 1, 可选值有: 1: 天, 2: 小时, 3: 半天, 4: 半小时
 	Interval      int64      `json:"interval,omitempty"`       // 假期时长（单位: 秒）, 暂未开放提供, 待后续提供, 示例值: 28800
 	StartTime     string     `json:"start_time,omitempty"`     // 开始时间, 时间格式为 yyyy-MM-dd HH:mm:ss, 示例值: "2021-01-04 09:00:00"
@@ -88,7 +89,7 @@ type CreateAttendanceUserApprovalReqUserApprovalLeave struct {
 
 // CreateAttendanceUserApprovalReqUserApprovalOut ...
 type CreateAttendanceUserApprovalReqUserApprovalOut struct {
-	UniqID        string     `json:"uniq_id,omitempty"`        // 外出类型唯一 ID, 代表一种假期类型, 长度小于 14, 示例值: "9496E43696967658A512969523E89870"
+	UniqID        string     `json:"uniq_id,omitempty"`        // 外出类型唯一 ID, 代表一种假期类型, 长度小于 14, * 此ID对应假期类型(即: i18n_names), 因此需要保证唯一, 示例值: "9496E43696967658A512969523E89870"
 	Unit          int64      `json:"unit,omitempty"`           // 外出时长单位, 示例值: 1, 可选值有: 1: 天, 2: 小时, 3: 半天, 4: 半小时
 	Interval      int64      `json:"interval,omitempty"`       // 外出时长（单位: 秒）, 示例值: 28800
 	StartTime     string     `json:"start_time,omitempty"`     // 开始时间, 时间格式为 yyyy-MM-dd HH:mm:ss, 示例值: "2021-01-04 09:00:00"
@@ -135,7 +136,7 @@ type CreateAttendanceUserApprovalRespUserApproval struct {
 // CreateAttendanceUserApprovalRespUserApprovalLeave ...
 type CreateAttendanceUserApprovalRespUserApprovalLeave struct {
 	ApprovalID       string     `json:"approval_id,omitempty"`        // 审批实例 ID
-	UniqID           string     `json:"uniq_id,omitempty"`            // 假期类型唯一 ID, 代表一种假期类型, 长度小于 14
+	UniqID           string     `json:"uniq_id,omitempty"`            // 假期类型唯一 ID, 代表一种假期类型, 长度小于 14, * 此ID对应假期类型(即: i18n_names), 因此需要保证唯一
 	Unit             int64      `json:"unit,omitempty"`               // 假期时长单位, 可选值有: 1: 天, 2: 小时, 3: 半天, 4: 半小时
 	Interval         int64      `json:"interval,omitempty"`           // 假期时长（单位: 秒）, 暂未开放提供, 待后续提供
 	StartTime        string     `json:"start_time,omitempty"`         // 开始时间, 时间格式为 yyyy-MM-dd HH:mm:ss
@@ -150,7 +151,7 @@ type CreateAttendanceUserApprovalRespUserApprovalLeave struct {
 // CreateAttendanceUserApprovalRespUserApprovalOut ...
 type CreateAttendanceUserApprovalRespUserApprovalOut struct {
 	ApprovalID       string     `json:"approval_id,omitempty"`        // 审批实例 ID
-	UniqID           string     `json:"uniq_id,omitempty"`            // 外出类型唯一 ID, 代表一种假期类型, 长度小于 14
+	UniqID           string     `json:"uniq_id,omitempty"`            // 外出类型唯一 ID, 代表一种假期类型, 长度小于 14, * 此ID对应假期类型(即: i18n_names), 因此需要保证唯一
 	Unit             int64      `json:"unit,omitempty"`               // 外出时长单位, 可选值有: 1: 天, 2: 小时, 3: 半天, 4: 半小时
 	Interval         int64      `json:"interval,omitempty"`           // 外出时长（单位: 秒）
 	StartTime        string     `json:"start_time,omitempty"`         // 开始时间, 时间格式为 yyyy-MM-dd HH:mm:ss

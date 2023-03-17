@@ -63,7 +63,7 @@ func (r *Mock) UnMockDriveGetDriveExportTask() {
 // GetDriveExportTaskReq ...
 type GetDriveExportTaskReq struct {
 	Ticket string `path:"ticket" json:"-"` // 导出任务ID, [创建导出任务](/ssl::ttdoc//uAjLw4CM/ukTMukTMukTM/reference/drive-v1/export_task/create) 响应中的 ticket 字段, 示例值: "6933093124755423251"
-	Token  string `query:"token" json:"-"` // 导出文档的 token, [如何获取文档 otken](https://open.feishu.cn/document/ukTMukTMukTM/uczNzUjL3czM14yN3MTN#08bb5df6), 示例值: "doccnZVxxxxxxxxxxxxGiyBgYqe"
+	Token  string `query:"token" json:"-"` // 导出文档的 token, [如何获取文档 token](https://open.feishu.cn/document/ukTMukTMukTM/uczNzUjL3czM14yN3MTN#08bb5df6), 示例值: "doccnZVxxxxxxxxxxxxGiyBgYqe"
 }
 
 // GetDriveExportTaskResp ...

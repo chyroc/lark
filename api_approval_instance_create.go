@@ -71,7 +71,7 @@ type CreateApprovalInstanceReq struct {
 	AllowSubmitAgain       *bool                                              `json:"allow_submit_again,omitempty"`         // 可配置是否可以再次提交, 示例值: true
 	CancelBotNotification  *string                                            `json:"cancel_bot_notification,omitempty"`    // 配置bot是否取消通知结果, 示例值: "0"
 	ForbidRevoke           *bool                                              `json:"forbid_revoke,omitempty"`              // 配置是否可以禁止撤销, 示例值: false, 默认值: `false`
-	I18nResources          []*CreateApprovalInstanceReqI18nResource           `json:"i18n_resources,omitempty"`             // 国际化文案
+	I18nResources          []*CreateApprovalInstanceReqI18nResource           `json:"i18n_resources,omitempty"`             // 国际化文案。目前只支单行、多行文本的值。
 }
 
 // CreateApprovalInstanceReqI18nResource ...

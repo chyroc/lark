@@ -61,8 +61,8 @@ func (r *Mock) UnMockDriveCreateDocx() {
 
 // CreateDocxReq ...
 type CreateDocxReq struct {
-	FolderToken *string `json:"folder_token,omitempty"` // 文件夹 token, 获取方式见云文档接口快速入门；空表示根目录, tenant_access_token应用权限仅允许操作应用创建的目录, 示例值: "fldcnqquW1svRIYVT2Np6IuLCKd"
-	Title       *string `json:"title,omitempty"`        // 文档标题, 只支持纯文本, 示例值: "undefined", 长度范围: `1` ～ `800` 字符
+	FolderToken *string `json:"folder_token,omitempty"` // 文件夹 Token, 获取方式可参考[如何获取云文档资源相关 Token](https://open.feishu.cn/document/ukTMukTMukTM/uczNzUjL3czM14yN3MTN#08bb5df6), 不传或传空表示根目录, 示例值: "fldcnqquW1svRIYVT2Np6IuLCKd"
+	Title       *string `json:"title,omitempty"`        // 文档标题, 只支持纯文本, 示例值: "一篇新的文档", 长度范围: `1` ～ `800` 字符
 }
 
 // CreateDocxResp ...

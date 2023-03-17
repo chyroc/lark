@@ -22,9 +22,10 @@ import (
 	"io"
 )
 
-// DownloadDriveFile 使用该接口可以下载在云空间目录下的文件（不含飞书文档/表格/思维导图等在线文档）。支持range下载。
+// DownloadDriveFile 下载云空间下的文件, 不含飞书文档、电子表格以及多维表格等在线文档, 支持指定文件 Range 进行下载。
 //
-// 该接口支持调用频率上限为5QPS
+// 本接口提供文件下载能力, 如要下载云文档素材, 需调用[下载素材](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/media/download)接口。素材表示云文档中的资源文件, 比如新版文档中的图片及附件等, 素材不会呈现在云空间, 只会显示在对应云文档内。
+// 该接口支持调用频率上限为 5QPS
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file/download
 func (r *DriveService) DownloadDriveFile(ctx context.Context, request *DownloadDriveFileReq, options ...MethodOptionFunc) (*DownloadDriveFileResp, *Response, error) {

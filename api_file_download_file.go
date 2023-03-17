@@ -82,7 +82,15 @@ func (r *downloadFileResp) SetReader(file io.Reader) {
 	r.Data.File = file
 }
 
+func (r *downloadFileResp) SetFilename(filename string) {
+	if r.Data == nil {
+		r.Data = &DownloadFileResp{}
+	}
+	r.Data.Filename = filename
+}
+
 // DownloadFileResp ...
 type DownloadFileResp struct {
-	File io.Reader `json:"file,omitempty"`
+	File     io.Reader `json:"file,omitempty"`
+	Filename string    `json:"filename,omitempty"`
 }

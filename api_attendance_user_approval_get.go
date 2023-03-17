@@ -88,7 +88,7 @@ type GetAttendanceUserApprovalRespUserApproval struct {
 // GetAttendanceUserApprovalRespUserApprovalLeave ...
 type GetAttendanceUserApprovalRespUserApprovalLeave struct {
 	ApprovalID       string     `json:"approval_id,omitempty"`        // 审批实例 ID
-	UniqID           string     `json:"uniq_id,omitempty"`            // 假期类型唯一 ID, 代表一种假期类型, 长度小于 14
+	UniqID           string     `json:"uniq_id,omitempty"`            // 假期类型唯一 ID, 代表一种假期类型, 长度小于 14, * 此ID对应假期类型(即: i18n_names), 因此需要保证唯一
 	Unit             int64      `json:"unit,omitempty"`               // 假期时长单位, 可选值有: 1: 天, 2: 小时, 3: 半天, 4: 半小时
 	Interval         int64      `json:"interval,omitempty"`           // 假期时长（单位: 秒）, 暂未开放提供, 待后续提供
 	StartTime        string     `json:"start_time,omitempty"`         // 开始时间, 时间格式为 yyyy-MM-dd HH:mm:ss
@@ -103,7 +103,7 @@ type GetAttendanceUserApprovalRespUserApprovalLeave struct {
 // GetAttendanceUserApprovalRespUserApprovalOut ...
 type GetAttendanceUserApprovalRespUserApprovalOut struct {
 	ApprovalID       string     `json:"approval_id,omitempty"`        // 审批实例 ID
-	UniqID           string     `json:"uniq_id,omitempty"`            // 外出类型唯一 ID, 代表一种假期类型, 长度小于 14
+	UniqID           string     `json:"uniq_id,omitempty"`            // 外出类型唯一 ID, 代表一种假期类型, 长度小于 14, * 此ID对应假期类型(即: i18n_names), 因此需要保证唯一
 	Unit             int64      `json:"unit,omitempty"`               // 外出时长单位, 可选值有: 1: 天, 2: 小时, 3: 半天, 4: 半小时
 	Interval         int64      `json:"interval,omitempty"`           // 外出时长（单位: 秒）
 	StartTime        string     `json:"start_time,omitempty"`         // 开始时间, 时间格式为 yyyy-MM-dd HH:mm:ss
