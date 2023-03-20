@@ -24,8 +24,9 @@ import (
 // UpdateCalendar 该接口用于以当前身份（应用 / 用户）修改日历信息。
 //
 // 身份由 Header Authorization 的 Token 类型决定。
-// 当前身份对日历有 owner 权限时, 可修改全局字段: summary, description, permission。
-// 当前身份对日历不具有 owner 权限时, 仅可修改对自己生效的字段: color, summary_alias。
+// - 应用需要开启[机器人能力](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-enable-bot-ability)。
+// - 当前身份对日历有 owner 权限时, 可修改全局字段: summary, description, permission。
+// - 当前身份对日历不具有 owner 权限时, 仅可修改对自己生效的字段: color, summary_alias。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar/patch
 func (r *CalendarService) UpdateCalendar(ctx context.Context, request *UpdateCalendarReq, options ...MethodOptionFunc) (*UpdateCalendarResp, *Response, error) {

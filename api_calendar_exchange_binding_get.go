@@ -23,7 +23,8 @@ import (
 
 // GetCalendarExchangeBinding 本接口获取Exchange账户的绑定状态, 包括exchange日历是否同步完成。
 //
-// 操作用户需要是企业超级管理员
+// - 应用需要开启[机器人能力](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-enable-bot-ability)。
+// - 操作用户需要是企业超级管理员
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/exchange_binding/get
 func (r *CalendarService) GetCalendarExchangeBinding(ctx context.Context, request *GetCalendarExchangeBindingReq, options ...MethodOptionFunc) (*GetCalendarExchangeBindingResp, *Response, error) {

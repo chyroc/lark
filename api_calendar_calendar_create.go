@@ -24,6 +24,7 @@ import (
 // CreateCalendar 该接口用于为当前身份（应用 / 用户）创建一个共享日历。
 //
 // 身份由 Header Authorization 的 Token 类型决定。
+// - 应用需要开启[机器人能力](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-enable-bot-ability)。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar/create
 func (r *CalendarService) CreateCalendar(ctx context.Context, request *CreateCalendarReq, options ...MethodOptionFunc) (*CreateCalendarResp, *Response, error) {

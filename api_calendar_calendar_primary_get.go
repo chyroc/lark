@@ -23,6 +23,8 @@ import (
 
 // GetPrimaryCalendar 获取当前身份的主日历信息。
 //
+// - 应用需要开启[机器人能力](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-enable-bot-ability)。
+//
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar/primary
 func (r *CalendarService) GetPrimaryCalendar(ctx context.Context, request *GetPrimaryCalendarReq, options ...MethodOptionFunc) (*GetPrimaryCalendarResp, *Response, error) {
 	if r.cli.mock.mockCalendarGetPrimaryCalendar != nil {

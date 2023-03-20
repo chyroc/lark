@@ -64,7 +64,7 @@ func (r *Mock) UnMockDriveUploadDriveMedia() {
 // UploadDriveMediaReq ...
 type UploadDriveMediaReq struct {
 	FileName   string    `json:"file_name,omitempty"`   // 文件名, 示例值: "demo.jpeg", 最大长度: `250` 字符
-	ParentType string    `json:"parent_type,omitempty"` // 上传点类型, 示例值: "doc_image", 可选值有: doc_image: 文档图片。, docx_image: 新版文档图片。, sheet_image: 电子表格图片。, doc_file: 文档文件。, docx_file: 新版文档文件。, sheet_file: 电子表格文件。, vc_virtual_background: vc虚拟背景(灰度中, 暂未开放)。, bitable_image: 多维表格图片。, bitable_file: 多维表格文件。, moments: 同事圈(灰度中, 暂未开放)。, ccm_import_open: 云文档导入文件。
+	ParentType string    `json:"parent_type,omitempty"` // 上传点类型, 即要将某种类型的素材上传到指定类型的云文档中。例如将一张图片插入到新版文档, 则`parent_type`需填写为`docx_image `, 再如将一个附件上传到新版文档, 则`parent_type`需填写为`docx_file`, 示例值: "doc_image", 可选值有: doc_image: 文档图片。, docx_image: 新版文档图片。, sheet_image: 电子表格图片。, doc_file: 文档文件。, docx_file: 新版文档文件。, sheet_file: 电子表格文件。, vc_virtual_background: vc虚拟背景(灰度中, 暂未开放)。, bitable_image: 多维表格图片。, bitable_file: 多维表格文件。, moments: 同事圈(灰度中, 暂未开放)。, ccm_import_open: 云文档导入文件。
 	ParentNode string    `json:"parent_node,omitempty"` // 上传点的token, 示例值: "doccnFivLCfJfblZjGZtxgabcef"
 	Size       int64     `json:"size,omitempty"`        // 文件大小（以字节为单位）, 示例值: 1024, 最大值: `20971520`
 	Checksum   *string   `json:"checksum,omitempty"`    // 文件adler32校验和（可选）, 示例值: "12345678"

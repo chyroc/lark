@@ -71,7 +71,7 @@ type CreateCalendarEventAttendeeReq struct {
 	Attendees              []*CreateCalendarEventAttendeeReqAttendee `json:"attendees,omitempty"`                 // 新增参与人列表；, 单次请求会议室的数量限制为100。
 	NeedNotification       *bool                                     `json:"need_notification,omitempty"`         // 是否给参与人发送bot通知 默认为true, 示例值: false
 	InstanceStartTimeAdmin *string                                   `json:"instance_start_time_admin,omitempty"` // 使用管理员身份访问时要修改的实例(仅用于重复日程修改其中的一个实例, 非重复日程无需填此字段), 示例值: "1647320400"
-	IsEnableAdmin          *bool                                     `json:"is_enable_admin,omitempty"`           // 是否启用管理员身份(需先在管理后台设置某人为会议室管理员), 示例值: false
+	IsEnableAdmin          *bool                                     `json:"is_enable_admin,omitempty"`           // 是否启用管理员身份(需先在管理后台设置某人为会议室管理员)；开启后只会处理会议室数据, 其他参与人操作不会生效, 示例值: false
 }
 
 // CreateCalendarEventAttendeeReqAttendee ...

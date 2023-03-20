@@ -23,6 +23,8 @@ import (
 
 // SearchCalendar 该接口用于通过关键字查询公共日历或用户主日历。
 //
+// - 应用需要开启[机器人能力](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-enable-bot-ability)。
+//
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar/search
 func (r *CalendarService) SearchCalendar(ctx context.Context, request *SearchCalendarReq, options ...MethodOptionFunc) (*SearchCalendarResp, *Response, error) {
 	if r.cli.mock.mockCalendarSearchCalendar != nil {

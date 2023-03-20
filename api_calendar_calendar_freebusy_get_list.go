@@ -23,6 +23,8 @@ import (
 
 // GetCalendarFreeBusyList 查询用户主日历或会议室的忙闲信息。
 //
+// - 应用需要开启[机器人能力](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-enable-bot-ability)。
+//
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/freebusy/list
 func (r *CalendarService) GetCalendarFreeBusyList(ctx context.Context, request *GetCalendarFreeBusyListReq, options ...MethodOptionFunc) (*GetCalendarFreeBusyListResp, *Response, error) {
 	if r.cli.mock.mockCalendarGetCalendarFreeBusyList != nil {

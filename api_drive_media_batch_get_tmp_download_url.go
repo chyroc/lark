@@ -21,9 +21,9 @@ import (
 	"context"
 )
 
-// BatchGetDriveMediaTmpDownloadURL 通过file_token获取素材临时下载链接, 链接时效性是24小时, 过期失效。
+// BatchGetDriveMediaTmpDownloadURL 通过`file_tokens`获取素材临时下载链接, 链接时效性是 24 小时, 过期失效。
 //
-// 该接口不支持太高的并发, 且调用频率上限为5QPS
+// 该接口不支持太高的并发, 且调用频率上限为 5QPS。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/media/batch_get_tmp_download_url
 func (r *DriveService) BatchGetDriveMediaTmpDownloadURL(ctx context.Context, request *BatchGetDriveMediaTmpDownloadURLReq, options ...MethodOptionFunc) (*BatchGetDriveMediaTmpDownloadURLResp, *Response, error) {
@@ -61,7 +61,7 @@ func (r *Mock) UnMockDriveBatchGetDriveMediaTmpDownloadURL() {
 // BatchGetDriveMediaTmpDownloadURLReq ...
 type BatchGetDriveMediaTmpDownloadURLReq struct {
 	FileTokens []string `query:"file_tokens" json:"-"` // 文件标识符列表, 示例值: boxcnrHpsg1QDqXAAAyachabcef
-	Extra      *string  `query:"extra" json:"-"`       // 拓展信息(可选), 示例值: "[请参考-上传点类型及对应Extra说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/media/introduction)"
+	Extra      *string  `query:"extra" json:"-"`       // 拓展信息, 比如对于拥有高级权限的 Bitable, 在下载素材或者获取素材临时下载链接时, 需要添加额外的`extra`作为 URL 查询参数进行鉴权, 示例值: "[请参考-上传点类型及对应Extra说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/media/introduction)"
 }
 
 // BatchGetDriveMediaTmpDownloadURLResp ...

@@ -23,6 +23,8 @@ import (
 
 // GenerateCaldavConf 用于为当前用户生成一个CalDAV账号密码, 用于将飞书日历信息同步到本地设备日历。
 //
+// - 应用需要开启[机器人能力](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-enable-bot-ability)。
+//
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/setting/generate_caldav_conf
 func (r *CalendarService) GenerateCaldavConf(ctx context.Context, request *GenerateCaldavConfReq, options ...MethodOptionFunc) (*GenerateCaldavConfResp, *Response, error) {
 	if r.cli.mock.mockCalendarGenerateCaldavConf != nil {

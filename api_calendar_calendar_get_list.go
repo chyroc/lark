@@ -24,7 +24,8 @@ import (
 // GetCalendarList 该接口用于分页获得当前身份（应用 / 用户）的日历列表。
 //
 // 身份由 Header Authorization 的 Token 类型决定。
-// 调用时首先使用 page_token 分页拉取存量数据, 之后使用 sync_token 增量同步变更数据。
+// - 应用需要开启[机器人能力](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-enable-bot-ability)。
+// - 调用时首先使用 page_token 分页拉取存量数据, 之后使用 sync_token 增量同步变更数据。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar/list
 func (r *CalendarService) GetCalendarList(ctx context.Context, request *GetCalendarListReq, options ...MethodOptionFunc) (*GetCalendarListResp, *Response, error) {

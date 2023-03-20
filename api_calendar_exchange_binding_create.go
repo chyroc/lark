@@ -23,7 +23,8 @@ import (
 
 // CreateCalendarExchangeBinding 本接口将Exchange账户绑定到飞书账户, 进而支持Exchange日历的导入
 //
-// 操作用户需要是企业超级管理员
+// - 应用需要开启[机器人能力](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-enable-bot-ability)。
+// - 操作用户需要是企业超级管理员
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/exchange_binding/create
 func (r *CalendarService) CreateCalendarExchangeBinding(ctx context.Context, request *CreateCalendarExchangeBindingReq, options ...MethodOptionFunc) (*CreateCalendarExchangeBindingResp, *Response, error) {

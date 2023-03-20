@@ -35,6 +35,6 @@ type EventV2IMMessageRecalledV1Handler func(ctx context.Context, cli *Lark, sche
 type EventV2IMMessageRecalledV1 struct {
 	MessageID  string `json:"message_id,omitempty"`  // 消息ID
 	ChatID     string `json:"chat_id,omitempty"`     // 群ID
-	RecallTime string `json:"recall_time,omitempty"` // 撤回事件
+	RecallTime string `json:"recall_time,omitempty"` // 撤回时间
 	RecallType string `json:"recall_type,omitempty"` // 撤回类型, 可选值有: message_owner: 消息发送者撤回, group_owner: 群主撤回, group_manager: 群管理员撤回, enterprise_manager: 企业管理员撤回
 }

@@ -23,6 +23,8 @@ import (
 
 // UnsubscribeCalendarChangeEvent 该接口用于以用户身份取消订阅当前身份下日历列表中的日历变更事件。
 //
+// - 应用需要开启[机器人能力](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-enable-bot-ability)。
+//
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar/unsubscription
 func (r *CalendarService) UnsubscribeCalendarChangeEvent(ctx context.Context, request *UnsubscribeCalendarChangeEventReq, options ...MethodOptionFunc) (*UnsubscribeCalendarChangeEventResp, *Response, error) {
 	if r.cli.mock.mockCalendarUnsubscribeCalendarChangeEvent != nil {

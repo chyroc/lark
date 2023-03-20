@@ -23,6 +23,8 @@ import (
 
 // SubscribeCalendarChangeEvent 该接口用于以用户身份订阅当前身份下日历列表中的所有日历变更。
 //
+// - 应用需要开启[机器人能力](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-enable-bot-ability)。
+//
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar/subscription
 func (r *CalendarService) SubscribeCalendarChangeEvent(ctx context.Context, request *SubscribeCalendarChangeEventReq, options ...MethodOptionFunc) (*SubscribeCalendarChangeEventResp, *Response, error) {
 	if r.cli.mock.mockCalendarSubscribeCalendarChangeEvent != nil {

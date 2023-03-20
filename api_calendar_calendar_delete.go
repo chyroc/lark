@@ -24,7 +24,8 @@ import (
 // DeleteCalendar 该接口用于以当前身份（应用 / 用户）删除一个共享日历。
 //
 // 身份由 Header Authorization 的 Token 类型决定。
-// 当前身份必须对日历具有 owner 权限。
+// - 应用需要开启[机器人能力](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-enable-bot-ability)。
+// - 当前身份必须对日历具有 owner 权限。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar/delete
 func (r *CalendarService) DeleteCalendar(ctx context.Context, request *DeleteCalendarReq, options ...MethodOptionFunc) (*DeleteCalendarResp, *Response, error) {

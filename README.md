@@ -38,7 +38,7 @@ https://godoc.org/github.com/chyroc/lark
 
 ## Support APIs
 
-API Count: 735, Event Count: 103
+API Count: 733, Event Count: 103
 
 <details>
   <summary>
@@ -793,8 +793,6 @@ API Count: 735, Event Count: 103
   - CreateMessagePin
   - DeleteMessagePin
   - GetMessagePinList
-  - GetMessageSpecialFocusList
-  - GetMessageSpecialFocusUnread
 - Mina
   - MinaCodeToSession
 - Minutes

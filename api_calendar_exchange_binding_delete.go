@@ -23,7 +23,8 @@ import (
 
 // DeleteCalendarExchangeBinding 本接口解除Exchange账户和飞书账户的绑定关系, Exchange账户解除绑定后才能绑定其他飞书账户
 //
-// 操作用户需要是企业超级管理员
+// - 应用需要开启[机器人能力](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-enable-bot-ability)。
+// - 操作用户需要是企业超级管理员
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/exchange_binding/delete
 func (r *CalendarService) DeleteCalendarExchangeBinding(ctx context.Context, request *DeleteCalendarExchangeBindingReq, options ...MethodOptionFunc) (*DeleteCalendarExchangeBindingResp, *Response, error) {

@@ -24,7 +24,8 @@ import (
 // UnsubscribeCalendar 该接口用于以当前身份（应用 / 用户）取消对某日历的订阅状态。
 //
 // 身份由 Header Authorization 的 Token 类型决定。
-// 仅可操作已经被当前身份订阅的日历。
+// - 应用需要开启[机器人能力](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-enable-bot-ability)。
+// - 仅可操作已经被当前身份订阅的日历。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar/unsubscribe
 func (r *CalendarService) UnsubscribeCalendar(ctx context.Context, request *UnsubscribeCalendarReq, options ...MethodOptionFunc) (*UnsubscribeCalendarResp, *Response, error) {

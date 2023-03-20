@@ -629,8 +629,6 @@ type Mock struct {
 	mockMessageCreateMessagePin                                func(ctx context.Context, request *CreateMessagePinReq, options ...MethodOptionFunc) (*CreateMessagePinResp, *Response, error)
 	mockMessageDeleteMessagePin                                func(ctx context.Context, request *DeleteMessagePinReq, options ...MethodOptionFunc) (*DeleteMessagePinResp, *Response, error)
 	mockMessageGetMessagePinList                               func(ctx context.Context, request *GetMessagePinListReq, options ...MethodOptionFunc) (*GetMessagePinListResp, *Response, error)
-	mockMessageGetMessageSpecialFocusList                      func(ctx context.Context, request *GetMessageSpecialFocusListReq, options ...MethodOptionFunc) (*GetMessageSpecialFocusListResp, *Response, error)
-	mockMessageGetMessageSpecialFocusUnread                    func(ctx context.Context, request *GetMessageSpecialFocusUnreadReq, options ...MethodOptionFunc) (*GetMessageSpecialFocusUnreadResp, *Response, error)
 	mockMinaMinaCodeToSession                                  func(ctx context.Context, request *MinaCodeToSessionReq, options ...MethodOptionFunc) (*MinaCodeToSessionResp, *Response, error)
 	mockMinutesGetMinutesStatistics                            func(ctx context.Context, request *GetMinutesStatisticsReq, options ...MethodOptionFunc) (*GetMinutesStatisticsResp, *Response, error)
 	mockMinutesGetMinutesMinute                                func(ctx context.Context, request *GetMinutesMinuteReq, options ...MethodOptionFunc) (*GetMinutesMinuteResp, *Response, error)
