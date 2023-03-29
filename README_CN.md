@@ -38,7 +38,7 @@ https://godoc.org/github.com/chyroc/lark
 
 ## 支持的接口
 
-API 总数: 733, 事件总数: 103
+API 总数: 736, 事件总数: 103
 
 <details>
   <summary>
@@ -77,6 +77,8 @@ API 总数: 733, 事件总数: 103
   - DeleteAdminBadgeGrant
 - AppLink
   - OpenLark
+  - OpenScan
+  - OpenWorkbench
   - OpenMiniProgram
   - OpenWebApp
   - OpenChat
@@ -92,7 +94,6 @@ API 总数: 733, 事件总数: 103
   - OpenTaskCreate
   - OpenTaskDetail
   - OpenTaskTab
-  - OpenScan
 - Application
   - GetApplicationRecommendRuleList
   - IsApplicationUserAdmin
@@ -823,6 +824,8 @@ API 总数: 733, 事件总数: 103
   - BatchOpenPersonalSettingsSystemStatus
   - BatchClosePersonalSettingsSystemStatus
 - Search
+  - SearchMessage
+  - SearchApp
   - CreateSearchDataSource
   - GetSearchDataSource
   - UpdateSearchDataSource

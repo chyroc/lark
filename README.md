@@ -38,7 +38,7 @@ https://godoc.org/github.com/chyroc/lark
 
 ## Support APIs
 
-API Count: 733, Event Count: 103
+API Count: 736, Event Count: 103
 
 <details>
   <summary>
@@ -77,6 +77,8 @@ API Count: 733, Event Count: 103
   - DeleteAdminBadgeGrant
 - AppLink
   - OpenLark
+  - OpenScan
+  - OpenWorkbench
   - OpenMiniProgram
   - OpenWebApp
   - OpenChat
@@ -92,7 +94,6 @@ API Count: 733, Event Count: 103
   - OpenTaskCreate
   - OpenTaskDetail
   - OpenTaskTab
-  - OpenScan
 - Application
   - GetApplicationRecommendRuleList
   - IsApplicationUserAdmin
@@ -823,6 +824,8 @@ API Count: 733, Event Count: 103
   - BatchOpenPersonalSettingsSystemStatus
   - BatchClosePersonalSettingsSystemStatus
 - Search
+  - SearchMessage
+  - SearchApp
   - CreateSearchDataSource
   - GetSearchDataSource
   - UpdateSearchDataSource

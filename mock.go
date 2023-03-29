@@ -653,6 +653,8 @@ type Mock struct {
 	mockPersonalSettingsGetPersonalSettingsSystemStatusList    func(ctx context.Context, request *GetPersonalSettingsSystemStatusListReq, options ...MethodOptionFunc) (*GetPersonalSettingsSystemStatusListResp, *Response, error)
 	mockPersonalSettingsBatchOpenPersonalSettingsSystemStatus  func(ctx context.Context, request *BatchOpenPersonalSettingsSystemStatusReq, options ...MethodOptionFunc) (*BatchOpenPersonalSettingsSystemStatusResp, *Response, error)
 	mockPersonalSettingsBatchClosePersonalSettingsSystemStatus func(ctx context.Context, request *BatchClosePersonalSettingsSystemStatusReq, options ...MethodOptionFunc) (*BatchClosePersonalSettingsSystemStatusResp, *Response, error)
+	mockSearchSearchMessage                                    func(ctx context.Context, request *SearchMessageReq, options ...MethodOptionFunc) (*SearchMessageResp, *Response, error)
+	mockSearchSearchApp                                        func(ctx context.Context, request *SearchAppReq, options ...MethodOptionFunc) (*SearchAppResp, *Response, error)
 	mockSearchCreateSearchDataSource                           func(ctx context.Context, request *CreateSearchDataSourceReq, options ...MethodOptionFunc) (*CreateSearchDataSourceResp, *Response, error)
 	mockSearchGetSearchDataSource                              func(ctx context.Context, request *GetSearchDataSourceReq, options ...MethodOptionFunc) (*GetSearchDataSourceResp, *Response, error)
 	mockSearchUpdateSearchDataSource                           func(ctx context.Context, request *UpdateSearchDataSourceReq, options ...MethodOptionFunc) (*UpdateSearchDataSourceResp, *Response, error)

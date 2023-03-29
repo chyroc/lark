@@ -51,6 +51,30 @@ func Test_Search_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
+			cli.Mock().MockSearchSearchMessage(func(ctx context.Context, request *lark.SearchMessageReq, options ...lark.MethodOptionFunc) (*lark.SearchMessageResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockSearchSearchMessage()
+
+			_, _, err := moduleCli.SearchMessage(ctx, &lark.SearchMessageReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			cli.Mock().MockSearchSearchApp(func(ctx context.Context, request *lark.SearchAppReq, options ...lark.MethodOptionFunc) (*lark.SearchAppResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockSearchSearchApp()
+
+			_, _, err := moduleCli.SearchApp(ctx, &lark.SearchAppReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
 			cli.Mock().MockSearchCreateSearchDataSource(func(ctx context.Context, request *lark.CreateSearchDataSourceReq, options ...lark.MethodOptionFunc) (*lark.CreateSearchDataSourceResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -213,6 +237,20 @@ func Test_Search_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
+			_, _, err := moduleCli.SearchMessage(ctx, &lark.SearchMessageReq{})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.SearchApp(ctx, &lark.SearchAppReq{})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+
 			_, _, err := moduleCli.CreateSearchDataSource(ctx, &lark.CreateSearchDataSourceReq{})
 			as.NotNil(err)
 			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
@@ -331,6 +369,20 @@ func Test_Search_Sample_Failed(t *testing.T) {
 		moduleCli := cli.Search
 		cli.Mock().MockRawRequest(func(ctx context.Context, req *lark.RawRequestReq, resp interface{}) (response *lark.Response, err error) {
 			return nil, fmt.Errorf("fake raw request")
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.SearchMessage(ctx, &lark.SearchMessageReq{})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.SearchApp(ctx, &lark.SearchAppReq{})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
