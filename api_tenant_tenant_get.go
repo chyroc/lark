@@ -23,8 +23,6 @@ import (
 
 // GetTenant 获取企业名称、企业编号等企业信息
 //
-// 如果ISV应用是企业创建时默认安装, 并且180天内企业未打开或使用过此应用, 则无法通过此接口获取到企业信息。
-//
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/tenant-v2/tenant/query
 func (r *TenantService) GetTenant(ctx context.Context, request *GetTenantReq, options ...MethodOptionFunc) (*GetTenantResp, *Response, error) {
 	if r.cli.mock.mockTenantGetTenant != nil {

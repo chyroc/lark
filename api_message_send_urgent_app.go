@@ -23,8 +23,6 @@ import (
 
 // SendUrgentAppMessage 对指定消息进行应用内加急。
 //
-// 特别说明:
-// - 默认接口限流为50 QPS, 请谨慎调用
 // 注意事项:
 // - 需要开启[机器人能力](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-enable-bot-ability)
 // - 不支持加急批量消息

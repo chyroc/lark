@@ -69,7 +69,7 @@ type UpdateChatTopNoticeReq struct {
 
 // UpdateChatTopNoticeReqChatTopNotice ...
 type UpdateChatTopNoticeReqChatTopNotice struct {
-	ActionType *string `json:"action_type,omitempty"` // 置顶的类型, 注意: 选择 [消息类型] 时必须填写`message_id`字段, 选择 [群公告类型] 时填写的`message_id`将被忽略, 示例值: "2", 可选值有: 1: 消息类型, 2: 群公告类型
+	ActionType *string `json:"action_type,omitempty"` // 置顶的类型, 注意: 选择 [消息类型] 时必须填写`message_id`字段, 选择 [群公告类型] 时填写的`message_id`将被忽略, 示例值: "2", 可选值有: 1: 消息类型, 2: 群公告类型, 默认值: `2`
 	MessageID  *string `json:"message_id,omitempty"`  // 消息ID, 详情参见[消息ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/intro#ac79c1c2), 示例值: "om_dc13264520392913993dd051dba21dcf"
 }
 

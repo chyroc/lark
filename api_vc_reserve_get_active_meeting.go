@@ -100,7 +100,7 @@ type GetVCReserveActiveMeetingRespMeetingAbility struct {
 // GetVCReserveActiveMeetingRespMeetingHostUser ...
 type GetVCReserveActiveMeetingRespMeetingHostUser struct {
 	ID       string `json:"id,omitempty"`        // 用户ID
-	UserType int64  `json:"user_type,omitempty"` // 用户类型, 可选值有: 1: lark用户, 2: rooms用户, 3: 文档用户, 4: neo单品用户, 5: neo单品游客用户, 6: pstn用户, 7: sip用户
+	UserType int64  `json:"user_type,omitempty"` // 用户类型, 可选值有: 1: 飞书用户, 2: rooms用户, 3: 文档用户, 4: neo单品用户, 5: neo单品游客用户, 6: pstn用户, 7: sip用户
 }
 
 // GetVCReserveActiveMeetingRespMeetingParticipant ...
@@ -109,7 +109,7 @@ type GetVCReserveActiveMeetingRespMeetingParticipant struct {
 	FirstJoinTime     string `json:"first_join_time,omitempty"`     // 首次入会时间, 秒级Unix时间戳
 	FinalLeaveTime    string `json:"final_leave_time,omitempty"`    // 最终离会时间, 秒级Unix时间戳
 	InMeetingDuration string `json:"in_meeting_duration,omitempty"` // 累计在会中时间, 时间单位: 秒
-	UserType          int64  `json:"user_type,omitempty"`           // 用户类型, 可选值有: 1: lark用户, 2: rooms用户, 3: 文档用户, 4: neo单品用户, 5: neo单品游客用户, 6: pstn用户, 7: sip用户
+	UserType          int64  `json:"user_type,omitempty"`           // 用户类型, 可选值有: 1: 飞书用户, 2: rooms用户, 3: 文档用户, 4: neo单品用户, 5: neo单品游客用户, 6: pstn用户, 7: sip用户
 	IsHost            bool   `json:"is_host,omitempty"`             // 是否为主持人
 	IsCohost          bool   `json:"is_cohost,omitempty"`           // 是否为联席主持人
 	IsExternal        bool   `json:"is_external,omitempty"`         // 是否为外部参会人

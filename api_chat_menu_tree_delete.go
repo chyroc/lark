@@ -63,7 +63,7 @@ func (r *Mock) UnMockChatDeleteChatMenuTree() {
 // DeleteChatMenuTreeReq ...
 type DeleteChatMenuTreeReq struct {
 	ChatID              string   `path:"chat_id" json:"-"`                  // 群ID, 详情参见[群ID 说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-id-description), 注意: 仅支持群模式为`group`的群ID, 示例值: "oc_a0553eda9014c201e6969b478895c230"
-	ChatMenuTopLevelIDs []string `json:"chat_menu_top_level_ids,omitempty"` // 群内要删除的一级菜单ID。通过 [获取群菜单](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-menu_tree/get) 接口获取群内菜单详情, 示例值: 7156553273518882844
+	ChatMenuTopLevelIDs []string `json:"chat_menu_top_level_ids,omitempty"` // 群内要删除的一级菜单ID。通过 [获取群菜单](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-menu_tree/get) 接口获取群内菜单详情, 示例值: ["6936075528890826780"]
 }
 
 // DeleteChatMenuTreeResp ...

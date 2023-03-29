@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// UpdateApplicationAppVisibility 该接口用于增加或者删除指定应用被哪些人可用, 只能被企业自建应用调用。
+// UpdateApplicationAppVisibility 该接口用于更新当前企业内自建应用或已安装的商店应用的可见范围, 包括可用人员与禁用人员。更新后对线上立即生效。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/ucDN3UjL3QzN14yN0cTN
 func (r *ApplicationService) UpdateApplicationAppVisibility(ctx context.Context, request *UpdateApplicationAppVisibilityReq, options ...MethodOptionFunc) (*UpdateApplicationAppVisibilityResp, *Response, error) {

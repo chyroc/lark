@@ -26,7 +26,6 @@ import (
 // 特别说明:
 // - 通过接口产生的短信加急将消耗企业的加急额度, 请慎重调用
 // - 通过[租户管理后台](https://admin.feishu.cn/)-费用中心-短信/电话加急 可以查看当前额度
-// - 默认接口限流为50 QPS, 请谨慎调用
 // 注意事项:
 // - 需要开启[机器人能力](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-enable-bot-ability)
 // - 只能加急机器人自己发送的消息

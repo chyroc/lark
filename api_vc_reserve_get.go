@@ -100,14 +100,14 @@ type GetVCReserveRespReserveMeetingSettingsActionPermission struct {
 
 // GetVCReserveRespReserveMeetingSettingsActionPermissionPermissionChecker ...
 type GetVCReserveRespReserveMeetingSettingsActionPermissionPermissionChecker struct {
-	CheckField int64    `json:"check_field,omitempty"` // 检查字段类型, 可选值有: 1: 用户ID（check_list填入用户ID）, 2: 用户类型（check_list可选值有, "1": lark用户、, "2": rooms用户、, "6": pstn用户、, "7": sip用户）, 3: 租户ID（check_list填入租户tenant_key）
+	CheckField int64    `json:"check_field,omitempty"` // 检查字段类型, 可选值有: 1: 用户ID（check_list填入用户ID）, 2: 用户类型（check_list可选值有, "1": 飞书用户、, "2": rooms用户、, "6": pstn用户、, "7": sip用户）, 3: 租户ID（check_list填入租户tenant_key）
 	CheckMode  int64    `json:"check_mode,omitempty"`  // 检查方式, 可选值有: 1: 在check_list中为有权限（白名单）, 2: 不在check_list中为有权限（黑名单）
 	CheckList  []string `json:"check_list,omitempty"`  // 检查字段列表（根据check_field的类型填入对应内容）
 }
 
 // GetVCReserveRespReserveMeetingSettingsAssignHost ...
 type GetVCReserveRespReserveMeetingSettingsAssignHost struct {
-	UserType int64  `json:"user_type,omitempty"` // 用户类型, 仅支持设置同租户下的 Lark 用户, 可选值有: 1: lark用户
+	UserType int64  `json:"user_type,omitempty"` // 用户类型, 仅支持设置同租户下的 Lark 用户, 可选值有: 1: 飞书用户
 	ID       string `json:"id,omitempty"`        // 用户ID
 }
 
@@ -119,7 +119,7 @@ type GetVCReserveRespReserveMeetingSettingsCallSetting struct {
 // GetVCReserveRespReserveMeetingSettingsCallSettingCallee ...
 type GetVCReserveRespReserveMeetingSettingsCallSettingCallee struct {
 	ID          string                                                              `json:"id,omitempty"`            // 用户ID
-	UserType    int64                                                               `json:"user_type,omitempty"`     // 用户类型, 当前仅支持用户类型6(pstn用户), 可选值有: 1: lark用户, 2: rooms用户, 3: 文档用户, 4: neo单品用户, 5: neo单品游客用户, 6: pstn用户, 7: sip用户
+	UserType    int64                                                               `json:"user_type,omitempty"`     // 用户类型, 当前仅支持用户类型6(pstn用户), 可选值有: 1: 飞书用户, 2: rooms用户, 3: 文档用户, 4: neo单品用户, 5: neo单品游客用户, 6: pstn用户, 7: sip用户
 	PstnSipInfo *GetVCReserveRespReserveMeetingSettingsCallSettingCalleePstnSipInfo `json:"pstn_sip_info,omitempty"` // pstn/sip信息
 }
 

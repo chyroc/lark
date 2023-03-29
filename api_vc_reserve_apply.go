@@ -63,7 +63,7 @@ func (r *Mock) UnMockVCApplyVCReserve() {
 type ApplyVCReserveReq struct {
 	UserIDType      *IDType                           `query:"user_id_type" json:"-"`     // 用户 ID 类型, 示例值: "open_id", 可选值有: open_id: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid), union_id: 标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id), user_id: 标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id), 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
 	EndTime         *string                           `json:"end_time,omitempty"`         // 预约到期时间（unix时间, 单位sec）, 多人会议必填, 示例值: "1608888867"
-	OwnerID         *string                           `json:"owner_id,omitempty"`         // 指定会议归属人, 使用tenant_access_token时生效且必传, 使用user_access_token时不生效, 必须指定为同租户下的合法lark用户, 示例值: "ou_3ec3f6a28a0d08c45d895276e8e5e19b"
+	OwnerID         *string                           `json:"owner_id,omitempty"`         // 指定会议归属人, 使用tenant_access_token时生效且必传, 使用user_access_token时不生效, 必须指定为同租户下的合法飞书用户, 示例值: "ou_3ec3f6a28a0d08c45d895276e8e5e19b"
 	MeetingSettings *ApplyVCReserveReqMeetingSettings `json:"meeting_settings,omitempty"` // 会议设置
 }
 
@@ -85,14 +85,14 @@ type ApplyVCReserveReqMeetingSettingsActionPermission struct {
 
 // ApplyVCReserveReqMeetingSettingsActionPermissionPermissionChecker ...
 type ApplyVCReserveReqMeetingSettingsActionPermissionPermissionChecker struct {
-	CheckField int64    `json:"check_field,omitempty"` // 检查字段类型, 示例值: 1, 可选值有: 1: 用户ID（check_list填入用户ID）, 2: 用户类型（check_list可选值有, "1": lark用户、, "2": rooms用户、, "6": pstn用户、, "7": sip用户）, 3: 租户ID（check_list填入租户tenant_key）
+	CheckField int64    `json:"check_field,omitempty"` // 检查字段类型, 示例值: 1, 可选值有: 1: 用户ID（check_list填入用户ID）, 2: 用户类型（check_list可选值有, "1": 飞书用户、, "2": rooms用户、, "6": pstn用户、, "7": sip用户）, 3: 租户ID（check_list填入租户tenant_key）
 	CheckMode  int64    `json:"check_mode,omitempty"`  // 检查方式, 示例值: 1, 可选值有: 1: 在check_list中为有权限（白名单）, 2: 不在check_list中为有权限（黑名单）
 	CheckList  []string `json:"check_list,omitempty"`  // 检查字段列表（根据check_field的类型填入对应内容）, 示例值: "ou_3ec3f6a28a0d08c45d895276e8e5e19b"
 }
 
 // ApplyVCReserveReqMeetingSettingsAssignHost ...
 type ApplyVCReserveReqMeetingSettingsAssignHost struct {
-	UserType *int64  `json:"user_type,omitempty"` // 用户类型, 仅支持设置同租户下的 Lark 用户, 示例值: 1, 可选值有: 1: lark用户
+	UserType *int64  `json:"user_type,omitempty"` // 用户类型, 仅支持设置同租户下的 Lark 用户, 示例值: 1, 可选值有: 1: 飞书用户
 	ID       *string `json:"id,omitempty"`        // 用户ID, 示例值: "ou_3ec3f6a28a0d08c45d895276e8e5e19b"
 }
 
@@ -104,7 +104,7 @@ type ApplyVCReserveReqMeetingSettingsCallSetting struct {
 // ApplyVCReserveReqMeetingSettingsCallSettingCallee ...
 type ApplyVCReserveReqMeetingSettingsCallSettingCallee struct {
 	ID          *string                                                       `json:"id,omitempty"`            // 用户ID, 示例值: "ou_3ec3f6a28a0d08c45d895276e8e5e19b"
-	UserType    int64                                                         `json:"user_type,omitempty"`     // 用户类型, 当前仅支持用户类型6(pstn用户), 示例值: 1, 可选值有: 1: lark用户, 2: rooms用户, 3: 文档用户, 4: neo单品用户, 5: neo单品游客用户, 6: pstn用户, 7: sip用户
+	UserType    int64                                                         `json:"user_type,omitempty"`     // 用户类型, 当前仅支持用户类型6(pstn用户), 示例值: 1, 可选值有: 1: 飞书用户, 2: rooms用户, 3: 文档用户, 4: neo单品用户, 5: neo单品游客用户, 6: pstn用户, 7: sip用户
 	PstnSipInfo *ApplyVCReserveReqMeetingSettingsCallSettingCalleePstnSipInfo `json:"pstn_sip_info,omitempty"` // pstn/sip信息
 }
 
