@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// GetDriveCommentList 该接口用于根据文档 token 分页获取文档评论。
+// GetDriveCommentList 该接口用于根据文档 token 分页获取文档全文评论, 暂时不支持局部评论
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file-comment/list
 func (r *DriveService) GetDriveCommentList(ctx context.Context, request *GetDriveCommentListReq, options ...MethodOptionFunc) (*GetDriveCommentListResp, *Response, error) {

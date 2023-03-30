@@ -57,7 +57,7 @@ func (r *Mock) UnMockSearchUpdateSearchDataSource() {
 
 // UpdateSearchDataSourceReq ...
 type UpdateSearchDataSourceReq struct {
-	DataSourceID    string                                    `path:"data_source_id" json:"-"`    // 数据源的唯一标识, 示例值: "service_ticket"
+	DataSourceID    string                                    `path:"data_source_id" json:"-"`    // 数据源的唯一标识, 示例值: "6953903108179099667"
 	Name            *string                                   `json:"name,omitempty"`             // 数据源的展示名称, 示例值: "客服工单"
 	State           *int64                                    `json:"state,omitempty"`            // 数据源状态, 0-已上线, 1-未上线, 示例值: 0, 可选值有: 0: 已上线, 1: 未上线
 	Description     *string                                   `json:"description,omitempty"`      // 对于数据源的描述, 示例值: "搜索客服工单"

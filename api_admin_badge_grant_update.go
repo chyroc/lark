@@ -66,9 +66,9 @@ type UpdateAdminBadgeGrantReq struct {
 	TimeZone         string                              `json:"time_zone,omitempty"`          // 授予名单的生效时间对应的时区, 用于检查RuleDetail的时间戳的取值是否规范, 取值范围为TZ database name, 示例值: "Asia/Shanghai", 最小长度: `1` 字符
 	RuleDetail       *UpdateAdminBadgeGrantReqRuleDetail `json:"rule_detail,omitempty"`        // 规则详情
 	IsGrantAll       bool                                `json:"is_grant_all,omitempty"`       // 是否授予给全员。1.为false时, 需要关联1~500个用户群体。2.为true时, 不可关联用户、用户组、部门, 示例值: false, 默认值: `false`
-	UserIDs          []string                            `json:"user_ids,omitempty"`           // 授予的用户ID列表, 授予名单列表接口返回结果中不返回该字段, 只在详情接口返回, 示例值: [u273y71]
-	DepartmentIDs    []string                            `json:"department_ids,omitempty"`     // 授予的部门ID列表, 授予名单列表接口返回结果中不返回该字段, 只在详情接口返回, 示例值: [h121921]
-	GroupIDs         []string                            `json:"group_ids,omitempty"`          // 授予的用户组ID列表, 授予名单列表接口返回结果中不返回该字段, 只在详情接口返回, 示例值: [g122817]
+	UserIDs          []string                            `json:"user_ids,omitempty"`           // 授予的用户ID列表, 授予名单列表接口返回结果中不返回该字段, 只在详情接口返回, 示例值: ["u273y71"]
+	DepartmentIDs    []string                            `json:"department_ids,omitempty"`     // 授予的部门ID列表, 授予名单列表接口返回结果中不返回该字段, 只在详情接口返回, 示例值: ["h121921"]
+	GroupIDs         []string                            `json:"group_ids,omitempty"`          // 授予的用户组ID列表, 授予名单列表接口返回结果中不返回该字段, 只在详情接口返回, 示例值: ["g122817"]
 }
 
 // UpdateAdminBadgeGrantReqRuleDetail ...

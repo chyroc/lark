@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// GetDriveComment 获取云文档中的某条评论。
+// GetDriveComment 获取云文档中的某条全文评论, 暂时不支持局部评论
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file-comment/get
 func (r *DriveService) GetDriveComment(ctx context.Context, request *GetDriveCommentReq, options ...MethodOptionFunc) (*GetDriveCommentResp, *Response, error) {
@@ -73,8 +73,8 @@ type GetDriveCommentResp struct {
 	IsSolved     bool                          `json:"is_solved,omitempty"`      // 是否已解决
 	SolvedTime   int64                         `json:"solved_time,omitempty"`    // 解决评论时间
 	SolverUserID string                        `json:"solver_user_id,omitempty"` // 解决评论者的用户ID
-	HasMore      bool                          `json:"has_more,omitempty"`       // 是否有更多回复
-	PageToken    string                        `json:"page_token,omitempty"`     // 回复分页标记
+	HasMore      bool                          `json:"has_more,omitempty"`       // 是否还有更多项
+	PageToken    string                        `json:"page_token,omitempty"`     // 分页标记, 当 has_more 为 true 时, 会同时返回新的 page_token, 否则不返回 page_token
 	IsWhole      bool                          `json:"is_whole,omitempty"`       // 是否是全文评论
 	Quote        string                        `json:"quote,omitempty"`          // 如果是局部评论, 引用字段
 	ReplyList    *GetDriveCommentRespReplyList `json:"reply_list,omitempty"`     // 评论里的回复列表

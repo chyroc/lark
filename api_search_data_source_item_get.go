@@ -68,10 +68,10 @@ type GetSearchDataSourceItemResp struct {
 
 // GetSearchDataSourceItemRespItem ...
 type GetSearchDataSourceItemRespItem struct {
-	ID             string                                   `json:"id,omitempty"`              // item 在 datasource 中的唯一标识
+	ID             string                                   `json:"id,omitempty"`              // item 在 datasource 中的唯一标识, 只允许英文字母、数字和下划线
 	ACL            []*GetSearchDataSourceItemRespItemACL    `json:"acl,omitempty"`             // item 的访问权限控制。 acl 字段为空数组, 则默认数据不可见。如果数据是全员可见, 需要设置 access="allow"; type="user"; value="everyone"
 	Metadata       *GetSearchDataSourceItemRespItemMetadata `json:"metadata,omitempty"`        // item 的元信息
-	StructuredData string                                   `json:"structured_data,omitempty"` // 结构化数据（以 json 字符串传递）, 这些字段是搜索结果的展示字段(特殊字段无须在此另外指定);具体格式可参参考 [接入指南](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/search-v2/common-template-intergration-handbook) 请求创建数据项部分
+	StructuredData string                                   `json:"structured_data,omitempty"` // 结构化数据（以 json 字符串传递）, 这些字段是搜索结果的展示字段(特殊字段无须在此另外指定);具体格式可参参考 [接入指南](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/search-v2/common-template-intergration-handbook) 请求创建数据项部分。这里的示例遵循了”创建数据范式“部分中的数据范式示例, 请按自己定义的数据范式填写数据
 	Content        *GetSearchDataSourceItemRespItemContent  `json:"content,omitempty"`         // 非结构化数据, 如文档文本, 飞书搜索会用来做召回
 }
 

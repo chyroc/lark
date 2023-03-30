@@ -66,14 +66,14 @@ type GetAdminUserStatsReq struct {
 	EndDate          string            `query:"end_date" json:"-"`           // 终止日期（包含）, 格式是YYYY-mm-dd。起止日期之间相差不能超过31天（包含31天）, 示例值: "2020-02-15"
 	DepartmentID     *string           `query:"department_id" json:"-"`      // 部门的 ID, 取决于department_id_type, 示例值: "od-382e2793cfc9471f892e8a672987654c"
 	UserID           *string           `query:"user_id" json:"-"`            // 用户的open_id, user_id或者union_id, 取决于user_id_type, 示例值: "ou_7dab8a3d3cdcc9da365777c7ad535d62"
-	PageSize         *int64            `query:"page_size" json:"-"`          // 分页大小, 默认是10, 示例值: 10, 取值范围: `1` ～ `20`
-	PageToken        *string           `query:"page_token" json:"-"`         // 分页标记, 第一次请求不填, 表示从头开始遍历；当返回的has_more为true时, 会返回新的page_token, 再次调用接口, 传入这个page_token, 将获得下一页数据, 示例值: "2"
+	PageSize         *int64            `query:"page_size" json:"-"`          // 分页大小, 示例值: 10, 取值范围: `1` ～ `20`
+	PageToken        *string           `query:"page_token" json:"-"`         // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果, 示例值: "2"
 }
 
 // GetAdminUserStatsResp ...
 type GetAdminUserStatsResp struct {
-	HasMore   bool                         `json:"has_more,omitempty"`   // 是否有下一页数据
-	PageToken string                       `json:"page_token,omitempty"` // 下一页分页的token
+	HasMore   bool                         `json:"has_more,omitempty"`   // 是否还有更多项
+	PageToken string                       `json:"page_token,omitempty"` // 分页标记, 当 has_more 为 true 时, 会同时返回新的 page_token, 否则不返回 page_token
 	Items     []*GetAdminUserStatsRespItem `json:"items,omitempty"`      // 数据报表
 }
 

@@ -68,16 +68,17 @@ type GetHireJobConfigResp struct {
 
 // GetHireJobConfigRespJobConfig ...
 type GetHireJobConfigRespJobConfig struct {
-	OfferApplySchema         *GetHireJobConfigRespJobConfigOfferApplySchema       `json:"offer_apply_schema,omitempty"`         // Offer 申请表
-	OfferProcessConf         *GetHireJobConfigRespJobConfigOfferProcessConf       `json:"offer_process_conf,omitempty"`         // Offer 审批流
-	RecommendedEvaluatorList []*GetHireJobConfigRespJobConfigRecommendedEvaluator `json:"recommended_evaluator_list,omitempty"` // 建议评估人列表
-	AssessmentTemplate       *GetHireJobConfigRespJobConfigAssessmentTemplate     `json:"assessment_template,omitempty"`        // 面试评价表
-	ID                       string                                               `json:"id,omitempty"`                         // 职位 ID
-	InterviewRoundList       []*GetHireJobConfigRespJobConfigInterviewRound       `json:"interview_round_list,omitempty"`       // 建议面试官列表
-	JobRequirementList       []*GetHireJobConfigRespJobConfigJobRequirement       `json:"job_requirement_list,omitempty"`       // 招聘需求
-	InterviewRoundTypeList   []*GetHireJobConfigRespJobConfigInterviewRoundType   `json:"interview_round_type_list,omitempty"`  // 面试轮次类型列表
-	RelatedJobList           []*GetHireJobConfigRespJobConfigRelatedJob           `json:"related_job_list,omitempty"`           // 关联职位列表
-	JobAttribute             int64                                                `json:"job_attribute,omitempty"`              // 职位属性, 1是实体职位, 2是虚拟职位
+	OfferApplySchema            *GetHireJobConfigRespJobConfigOfferApplySchema            `json:"offer_apply_schema,omitempty"`            // Offer 申请表
+	OfferProcessConf            *GetHireJobConfigRespJobConfigOfferProcessConf            `json:"offer_process_conf,omitempty"`            // Offer 审批流
+	RecommendedEvaluatorList    []*GetHireJobConfigRespJobConfigRecommendedEvaluator      `json:"recommended_evaluator_list,omitempty"`    // 建议评估人列表
+	AssessmentTemplate          *GetHireJobConfigRespJobConfigAssessmentTemplate          `json:"assessment_template,omitempty"`           // 面试评价表
+	ID                          string                                                    `json:"id,omitempty"`                            // 职位 ID
+	InterviewRoundList          []*GetHireJobConfigRespJobConfigInterviewRound            `json:"interview_round_list,omitempty"`          // 建议面试官列表
+	JobRequirementList          []*GetHireJobConfigRespJobConfigJobRequirement            `json:"job_requirement_list,omitempty"`          // 招聘需求
+	InterviewRegistrationSchema *GetHireJobConfigRespJobConfigInterviewRegistrationSchema `json:"interview_registration_schema,omitempty"` // 面试登记表
+	InterviewRoundTypeList      []*GetHireJobConfigRespJobConfigInterviewRoundType        `json:"interview_round_type_list,omitempty"`     // 面试轮次类型列表
+	RelatedJobList              []*GetHireJobConfigRespJobConfigRelatedJob                `json:"related_job_list,omitempty"`              // 关联职位列表
+	JobAttribute                int64                                                     `json:"job_attribute,omitempty"`                 // 职位属性, 1是实体职位, 2是虚拟职位
 }
 
 // GetHireJobConfigRespJobConfigAssessmentTemplate ...
@@ -90,6 +91,12 @@ type GetHireJobConfigRespJobConfigAssessmentTemplate struct {
 type GetHireJobConfigRespJobConfigAssessmentTemplateName struct {
 	ZhCn string `json:"zh_cn,omitempty"` // 中文
 	EnUs string `json:"en_us,omitempty"` // 英文
+}
+
+// GetHireJobConfigRespJobConfigInterviewRegistrationSchema ...
+type GetHireJobConfigRespJobConfigInterviewRegistrationSchema struct {
+	ID   string `json:"id,omitempty"`   // 面试登记表ID
+	Name string `json:"name,omitempty"` // 面试登记表名称
 }
 
 // GetHireJobConfigRespJobConfigInterviewRound ...

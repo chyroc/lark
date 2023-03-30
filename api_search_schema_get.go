@@ -74,7 +74,7 @@ type GetSearchSchemaRespSchema struct {
 
 // GetSearchSchemaRespSchemaDisplay ...
 type GetSearchSchemaRespSchemaDisplay struct {
-	CardKey       string                                           `json:"card_key,omitempty"`       // 搜索数据的展示卡片, 卡片详细信息请参考 [通用模块接入指南](/uAjLw4CM/ukTMukTMukTM/search-v2/common-template-intergration-handbook)  "请求创建数据范式"部分, 可选值有: search_common_card: 普通 common 卡片
+	CardKey       string                                           `json:"card_key,omitempty"`       // 搜索数据的展示卡片, 卡片详细信息请参考 [通用模块接入指南](/document/uAjLw4CM/ukTMukTMukTM/search-v2/common-template-intergration-handbook)  "请求创建数据范式"部分, 可选值有: search_common_card: 普通 common 卡片
 	FieldsMapping []*GetSearchSchemaRespSchemaDisplayFieldsMapping `json:"fields_mapping,omitempty"` // 数据字段名称和展示字段名称的映射关系。如果没有设置, 则只会展示 与展示字段名称同名的 数据字段
 }
 

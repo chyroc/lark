@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// SearchApp 搜素应用, 用户可以通过关键字搜索到可见应用, 应用可见性与套件内搜素一致。
+// SearchApp 用户可以通过关键字搜索到可见应用, 应用可见性与套件内搜索一致。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/search-v2/app/create
 func (r *SearchService) SearchApp(ctx context.Context, request *SearchAppReq, options ...MethodOptionFunc) (*SearchAppResp, *Response, error) {
@@ -67,7 +67,7 @@ type SearchAppReq struct {
 type SearchAppResp struct {
 	Items     []string `json:"items,omitempty"`      // app_id列表
 	PageToken string   `json:"page_token,omitempty"` // 分页标记, 当 has_more 为 true 时, 会同时返回新的 page_token, 否则不返回 page_token
-	HasMore   bool     `json:"has_more,omitempty"`   // 是否还有下一页
+	HasMore   bool     `json:"has_more,omitempty"`   // 是否还有更多项
 }
 
 // searchAppResp ...

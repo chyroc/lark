@@ -59,16 +59,16 @@ func (r *Mock) UnMockSearchBatchCreateSearchDataSourceItem() {
 
 // BatchCreateSearchDataSourceItemReq ...
 type BatchCreateSearchDataSourceItemReq struct {
-	DataSourceID string                                    `path:"data_source_id" json:"-"` // 数据源的ID, 示例值: "service_ticket"
+	DataSourceID string                                    `path:"data_source_id" json:"-"` // 数据源的ID, 示例值: "6953903108179099667"
 	Items        []*BatchCreateSearchDataSourceItemReqItem `json:"items,omitempty"`         // 待进入索引的item列表
 }
 
 // BatchCreateSearchDataSourceItemReqItem ...
 type BatchCreateSearchDataSourceItemReqItem struct {
-	ID             string                                          `json:"id,omitempty"`              // item 在 datasource 中的唯一标识, 示例值: "01010111"
+	ID             string                                          `json:"id,omitempty"`              // item 在 datasource 中的唯一标识, 示例值: "my_item_01010111"
 	ACL            []*BatchCreateSearchDataSourceItemReqItemACL    `json:"acl,omitempty"`             // item 的访问权限控制。 acl 字段为空数组, 则默认数据不可见。如果数据是全员可见, 需要设置 access="allow"; type="user"; value="everyone"
 	Metadata       *BatchCreateSearchDataSourceItemReqItemMetadata `json:"metadata,omitempty"`        // item 的元信息
-	StructuredData string                                          `json:"structured_data,omitempty"` // 结构化数据（以 json 字符串传递）, 这些字段是搜索结果的展示字段（title字段无须在此另外指定）；, 示例值: "{"key":"value"}"
+	StructuredData string                                          `json:"structured_data,omitempty"` // 结构化数据（以 json 字符串传递）, 这些字段是搜索结果的展示字段（title字段无须在此另外指定）, 这里的示例值遵循了数据范式示例中的schema定义, 请按你在“数据范式”中创建的schema约束填写数据, 示例值: "{"description":"description1", "priority":"HIGH"}"
 	Content        *BatchCreateSearchDataSourceItemReqItemContent  `json:"content,omitempty"`         // 非结构化数据, 如文档文本, 飞书搜索会用来做召回
 }
 
@@ -87,10 +87,11 @@ type BatchCreateSearchDataSourceItemReqItemContent struct {
 
 // BatchCreateSearchDataSourceItemReqItemMetadata ...
 type BatchCreateSearchDataSourceItemReqItemMetadata struct {
-	Title      string `json:"title,omitempty"`       // 该条数据记录对应的标题, 示例值: "工单: 无法创建文章"
-	SourceURL  string `json:"source_url,omitempty"`  // 该条数据记录对应的跳转url, 示例值: "http://www.abc.com.cn"
-	CreateTime *int64 `json:"create_time,omitempty"` // 数据项的创建时间。Unix 时间, 单位为秒, 示例值: 1618831236
-	UpdateTime int64  `json:"update_time,omitempty"` // 数据项的更新时间。Unix 时间, 单位为秒, 示例值: 1618831236
+	Title           string `json:"title,omitempty"`             // 该条数据记录对应的标题, 示例值: "工单: 无法创建文章"
+	SourceURL       string `json:"source_url,omitempty"`        // 该条数据记录对应的跳转url, 示例值: "http://www.abc.com.cn"
+	CreateTime      *int64 `json:"create_time,omitempty"`       // 数据项的创建时间。Unix 时间, 单位为秒, 示例值: 1618831236
+	UpdateTime      int64  `json:"update_time,omitempty"`       // 数据项的更新时间。Unix 时间, 单位为秒, 示例值: 1618831236
+	SourceURLMobile string `json:"source_url_mobile,omitempty"` // 移动端搜索命中的跳转地址。如果您PC端和移动端有不同的跳转地址, 可以在这里写入移动端专用的url, 我们会在搜索时为您选择合适的地址, 示例值: "https://www.feishu.cn"
 }
 
 // BatchCreateSearchDataSourceItemResp ...
