@@ -38,7 +38,7 @@ https://godoc.org/github.com/chyroc/lark
 
 ## Support APIs
 
-API Count: 736, Event Count: 103
+API Count: 738, Event Count: 103
 
 <details>
   <summary>
@@ -389,6 +389,7 @@ API Count: 736, Event Count: 103
   - MoveDriveFile
   - DeleteDriveFile
   - GetDriveFileStatistics
+  - CreateDriveFileShortcut
   - GetDriveFileTask
   - UploadDriveMedia
   - DownloadDriveMedia
@@ -434,6 +435,7 @@ API Count: 736, Event Count: 103
   - BatchGetDriveMediaTmpDownloadURL
   - GetDriveCommentList
   - GetDriveComment
+  - BatchGetDriveComment
   - CreateDriveComment
   - UpdateDriveComment
   - DeleteDriveComment

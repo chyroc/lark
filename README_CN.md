@@ -38,7 +38,7 @@ https://godoc.org/github.com/chyroc/lark
 
 ## 支持的接口
 
-API 总数: 736, 事件总数: 103
+API 总数: 738, 事件总数: 103
 
 <details>
   <summary>
@@ -389,6 +389,7 @@ API 总数: 736, 事件总数: 103
   - MoveDriveFile
   - DeleteDriveFile
   - GetDriveFileStatistics
+  - CreateDriveFileShortcut
   - GetDriveFileTask
   - UploadDriveMedia
   - DownloadDriveMedia
@@ -434,6 +435,7 @@ API 总数: 736, 事件总数: 103
   - BatchGetDriveMediaTmpDownloadURL
   - GetDriveCommentList
   - GetDriveComment
+  - BatchGetDriveComment
   - CreateDriveComment
   - UpdateDriveComment
   - DeleteDriveComment
