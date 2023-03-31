@@ -58,10 +58,19 @@ func (r *Mock) UnMockBaikeSearchBaikeEntity() {
 
 // SearchBaikeEntityReq ...
 type SearchBaikeEntityReq struct {
-	PageToken  *string `query:"page_token" json:"-"`   // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果, 示例值: "b152fa6e6f62a291019a04c3a93f365f8ac641910506ff15ff4cad6534e087cb4ed8fa2c"
-	PageSize   *int64  `query:"page_size" json:"-"`    // 分页大小, 示例值: 10, 默认值: `20`, 最大值: `100`
-	UserIDType *IDType `query:"user_id_type" json:"-"` // 用户 ID 类型, 示例值: "open_id", 可选值有: open_id: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid), union_id: 标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id), user_id: 标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id), 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
-	Query      string  `json:"query,omitempty"`        // 搜索关键词, 示例值: "词典", 长度范围: `1` ～ `100` 字符
+	PageSize             *int64                                    `query:"page_size" json:"-"`             // 分页大小, 示例值: b152fa6e6f62a291019a04c3a93f365f8ac641910506ff15ff4cad6534e087cb4ed8fa2c, 默认值: `20`, 取值范围: `1` ～ `100`
+	PageToken            *string                                   `query:"page_token" json:"-"`            // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果, 示例值: "b152fa6e6f62a291019a04c3a93f365f8ac641910506ff15ff4cad6534e087cb4ed8fa2c", 最大值: `100`
+	UserIDType           *IDType                                   `query:"user_id_type" json:"-"`          // 用户 ID 类型, 示例值: "open_id", 可选值有: open_id: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid), union_id: 标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id), user_id: 标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id), 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
+	Query                *string                                   `json:"query,omitempty"`                 // 搜索关键词, 示例值: "词典", 长度范围: `1` ～ `100` 字符
+	ClassificationFilter *SearchBaikeEntityReqClassificationFilter `json:"classification_filter,omitempty"` // 分类筛选
+	Sources              []int64                                   `json:"sources,omitempty"`               // 词条的创建来源, 1: 用户主动创建, 2: 批量导入, 3: 官方词, 4: OpenAPI 创建, 示例值: [1]
+	Creators             []string                                  `json:"creators,omitempty"`              // 创建者, 示例值: ["ou_30b07b63089ea46518789914dac63d36"]
+}
+
+// SearchBaikeEntityReqClassificationFilter ...
+type SearchBaikeEntityReqClassificationFilter struct {
+	Include []string `json:"include,omitempty"` // 需要获取的分类, 示例值: ["7195482254012055580"]
+	Exclude []string `json:"exclude,omitempty"` // 需要排除的分类, 示例值: ["7195482254012055581"]
 }
 
 // SearchBaikeEntityResp ...
@@ -76,12 +85,15 @@ type SearchBaikeEntityRespEntitie struct {
 	MainKeys    []*SearchBaikeEntityRespEntitieMainKey   `json:"main_keys,omitempty"`    // 词条名
 	Aliases     []*SearchBaikeEntityRespEntitieAliase    `json:"aliases,omitempty"`      // 别名
 	Description string                                   `json:"description,omitempty"`  // 纯文本格式词条释义。注: description 和 rich_text 至少有一个, 否则会报错: 1540001
-	CreateTime  string                                   `json:"create_time,omitempty"`  // 词条创建时间
-	UpdateTime  string                                   `json:"update_time,omitempty"`  // 词条最近更新时间
-	RelatedMeta *SearchBaikeEntityRespEntitieRelatedMeta `json:"related_meta,omitempty"` // 更多相关信息
-	Statistics  *SearchBaikeEntityRespEntitieStatistics  `json:"statistics,omitempty"`   // 当前词条收到的反馈数据
-	OuterInfo   *SearchBaikeEntityRespEntitieOuterInfo   `json:"outer_info,omitempty"`   // 外部系统关联数据
-	RichText    string                                   `json:"rich_text,omitempty"`    // 富文本格式（当填写富文本内容时, description字段将会失效可不填写）, 支持的格式参考[飞书词典指南](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/baike-v1/overview)中的释义部分
+	Creator     string                                   `json:"creator,omitempty"`      // 词条创建时间
+	CreateTime  string                                   `json:"create_time,omitempty"`  // 词条最近更新时间
+	Updater     string                                   `json:"updater,omitempty"`      // 更多相关信息
+	UpdateTime  string                                   `json:"update_time,omitempty"`  // 当前词条收到的反馈数据
+	RelatedMeta *SearchBaikeEntityRespEntitieRelatedMeta `json:"related_meta,omitempty"` // 外部系统关联数据
+	Statistics  *SearchBaikeEntityRespEntitieStatistics  `json:"statistics,omitempty"`   // 富文本格式（当填写富文本内容时, description字段将会失效可不填写）, 支持的格式参考[飞书词典指南](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/baike-v1/overview)中的释义部分
+	OuterInfo   *SearchBaikeEntityRespEntitieOuterInfo   `json:"outer_info,omitempty"`   // 外部 id 关联数据
+	RichText    string                                   `json:"rich_text,omitempty"`    // 富文本格式（当填写富文本内容时, description字段将会失效可不填写）, 支持的格式参考[企业百科指南](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/baike-v1/overview)中的释义部分
+	Source      int64                                    `json:"source,omitempty"`       // 词条的创建来源, 1: 用户主动创建, 2: 批量导入, 3: 官方词, 4: OpenAPI 创建
 }
 
 // SearchBaikeEntityRespEntitieAliase ...
@@ -110,76 +122,76 @@ type SearchBaikeEntityRespEntitieMainKeyDisplayStatus struct {
 
 // SearchBaikeEntityRespEntitieOuterInfo ...
 type SearchBaikeEntityRespEntitieOuterInfo struct {
-	Provider string `json:"provider,omitempty"` // 外部系统（不能包含中横线 "-"）
-	OuterID  string `json:"outer_id,omitempty"` // 词条在外部系统中对应的唯一 ID（不能包含中横线 "-"）
+	Provider string `json:"provider,omitempty"` // 数据提供方（不能包含中横线 "-"）
+	OuterID  string `json:"outer_id,omitempty"` // 唯一标识, 可用来和其他平台的内容进行绑定。需保证和百科词条唯一对应（不能包含中横线 "-"）
 }
 
 // SearchBaikeEntityRespEntitieRelatedMeta ...
 type SearchBaikeEntityRespEntitieRelatedMeta struct {
-	Users           []*SearchBaikeEntityRespEntitieRelatedMetaUser           `json:"users,omitempty"`           // 相关联系人
-	Chats           []*SearchBaikeEntityRespEntitieRelatedMetaChat           `json:"chats,omitempty"`           // 相关服务中的相关公开群
-	Docs            []*SearchBaikeEntityRespEntitieRelatedMetaDoc            `json:"docs,omitempty"`            // 相关云文档
-	Oncalls         []*SearchBaikeEntityRespEntitieRelatedMetaOncall         `json:"oncalls,omitempty"`         // 相关服务中的相关值班号
-	Links           []*SearchBaikeEntityRespEntitieRelatedMetaLink           `json:"links,omitempty"`           // 相关链接
-	Abbreviations   []*SearchBaikeEntityRespEntitieRelatedMetaAbbreviation   `json:"abbreviations,omitempty"`   // 相关词条
-	Classifications []*SearchBaikeEntityRespEntitieRelatedMetaClassification `json:"classifications,omitempty"` // 当前词条所属分类, 词条只能属于二级分类, 且每个一级分类下只能选择一个二级分类。
-	Images          []*SearchBaikeEntityRespEntitieRelatedMetaImage          `json:"images,omitempty"`          // 上传的图片
+	Users           []*SearchBaikeEntityRespEntitieRelatedMetaUser           `json:"users,omitempty"`           // 外部系统（不能包含中横线 "-"）
+	Chats           []*SearchBaikeEntityRespEntitieRelatedMetaChat           `json:"chats,omitempty"`           // 词条在外部系统中对应的唯一 ID（不能包含中横线 "-"）
+	Docs            []*SearchBaikeEntityRespEntitieRelatedMetaDoc            `json:"docs,omitempty"`            // 关联文档信息
+	Oncalls         []*SearchBaikeEntityRespEntitieRelatedMetaOncall         `json:"oncalls,omitempty"`         // 关联值班者信息
+	Links           []*SearchBaikeEntityRespEntitieRelatedMetaLink           `json:"links,omitempty"`           // 关联链接信息
+	Abbreviations   []*SearchBaikeEntityRespEntitieRelatedMetaAbbreviation   `json:"abbreviations,omitempty"`   // 相关词条信息
+	Classifications []*SearchBaikeEntityRespEntitieRelatedMetaClassification `json:"classifications,omitempty"` // 所属分类信息（不支持传入一级分类。词条不可同时属于同一个一级分类下的多个二级分类, 一级分类下的二级分类互斥）
+	Images          []*SearchBaikeEntityRespEntitieRelatedMetaImage          `json:"images,omitempty"`          // 上传的相关图片
 }
 
 // SearchBaikeEntityRespEntitieRelatedMetaAbbreviation ...
 type SearchBaikeEntityRespEntitieRelatedMetaAbbreviation struct {
-	ID string `json:"id,omitempty"` // 相关词条 ID
+	ID string `json:"id,omitempty"` // 相关其他词条 id
 }
 
 // SearchBaikeEntityRespEntitieRelatedMetaChat ...
 type SearchBaikeEntityRespEntitieRelatedMetaChat struct {
-	ID    string `json:"id,omitempty"`    // 对应相关信息 ID
-	Title string `json:"title,omitempty"` // 对应相关信息的描述, 如相关联系人的描述、相关链接的标题
+	ID    string `json:"id,omitempty"`    // 数据 id
+	Title string `json:"title,omitempty"` // 标题
 	URL   string `json:"url,omitempty"`   // 链接地址
 }
 
 // SearchBaikeEntityRespEntitieRelatedMetaClassification ...
 type SearchBaikeEntityRespEntitieRelatedMetaClassification struct {
-	ID       string `json:"id,omitempty"`        // 二级分类 ID
-	Name     string `json:"name,omitempty"`      // 二级分类名称
-	FatherID string `json:"father_id,omitempty"` // 对应一级分类 ID
+	ID       string `json:"id,omitempty"`        // 唯一分类 ID
+	Name     string `json:"name,omitempty"`      // 分类名称
+	FatherID string `json:"father_id,omitempty"` // 父级分类的 ID
 }
 
 // SearchBaikeEntityRespEntitieRelatedMetaDoc ...
 type SearchBaikeEntityRespEntitieRelatedMetaDoc struct {
-	Title string `json:"title,omitempty"` // 对应相关信息的描述, 如相关联系人的描述、相关链接的标题
+	Title string `json:"title,omitempty"` // 标题
 	URL   string `json:"url,omitempty"`   // 链接地址
 }
 
 // SearchBaikeEntityRespEntitieRelatedMetaImage ...
 type SearchBaikeEntityRespEntitieRelatedMetaImage struct {
-	Token string `json:"token,omitempty"` // 通过文件接口上传图片后, 获得的图片 token
+	Token string `json:"token,omitempty"` // 通过文件接口上传后的图片 token
 }
 
 // SearchBaikeEntityRespEntitieRelatedMetaLink ...
 type SearchBaikeEntityRespEntitieRelatedMetaLink struct {
-	Title string `json:"title,omitempty"` // 对应相关信息的描述, 如相关联系人的描述、相关链接的标题
+	Title string `json:"title,omitempty"` // 标题
 	URL   string `json:"url,omitempty"`   // 链接地址
 }
 
 // SearchBaikeEntityRespEntitieRelatedMetaOncall ...
 type SearchBaikeEntityRespEntitieRelatedMetaOncall struct {
-	ID    string `json:"id,omitempty"`    // 对应相关信息 ID
-	Title string `json:"title,omitempty"` // 对应相关信息的描述, 如相关联系人的描述、相关链接的标题
+	ID    string `json:"id,omitempty"`    // 数据 id
+	Title string `json:"title,omitempty"` // 标题
 	URL   string `json:"url,omitempty"`   // 链接地址
 }
 
 // SearchBaikeEntityRespEntitieRelatedMetaUser ...
 type SearchBaikeEntityRespEntitieRelatedMetaUser struct {
-	ID    string `json:"id,omitempty"`    // 对应相关信息 ID
-	Title string `json:"title,omitempty"` // 对应相关信息的描述, 如相关联系人的描述、相关链接的标题
+	ID    string `json:"id,omitempty"`    // 数据 id
+	Title string `json:"title,omitempty"` // 标题
 	URL   string `json:"url,omitempty"`   // 链接地址
 }
 
 // SearchBaikeEntityRespEntitieStatistics ...
 type SearchBaikeEntityRespEntitieStatistics struct {
-	LikeCount    int64 `json:"like_count,omitempty"`    // 累计点赞
-	DislikeCount int64 `json:"dislike_count,omitempty"` // 当前词条版本收到的负反馈数量
+	LikeCount    int64 `json:"like_count,omitempty"`    // 点赞数量
+	DislikeCount int64 `json:"dislike_count,omitempty"` // 点踩数量
 }
 
 // searchBaikeEntityResp ...

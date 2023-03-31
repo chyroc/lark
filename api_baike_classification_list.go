@@ -60,7 +60,7 @@ func (r *Mock) UnMockBaikeGetBaikeClassificationList() {
 
 // GetBaikeClassificationListReq ...
 type GetBaikeClassificationListReq struct {
-	PageSize  *int64  `query:"page_size" json:"-"`  // 分页大小, 示例值: 20, 默认值: `20`, 最大值: `500`
+	PageSize  *int64  `query:"page_size" json:"-"`  // 分页大小, 示例值: 20, 默认值: `20`, 取值范围: `1` ～ `500`
 	PageToken *string `query:"page_token" json:"-"` // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果, 示例值: "408ecac018b2e3518db37275e812bb8ad3e755fc886f322ac6c430ba"
 }
 
