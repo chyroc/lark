@@ -507,6 +507,18 @@ func Test_Bitable_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
+			cli.Mock().MockBitableCopyBitableApp(func(ctx context.Context, request *lark.CopyBitableAppReq, options ...lark.MethodOptionFunc) (*lark.CopyBitableAppResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockBitableCopyBitableApp()
+
+			_, _, err := moduleCli.CopyBitableApp(ctx, &lark.CopyBitableAppReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
 			cli.Mock().MockBitableCreateBitableApp(func(ctx context.Context, request *lark.CreateBitableAppReq, options ...lark.MethodOptionFunc) (*lark.CreateBitableAppResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -936,6 +948,15 @@ func Test_Bitable_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
+			_, _, err := moduleCli.CopyBitableApp(ctx, &lark.CopyBitableAppReq{
+				AppToken: "x",
+			})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+
 			_, _, err := moduleCli.CreateBitableApp(ctx, &lark.CreateBitableAppReq{})
 			as.NotNil(err)
 			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
@@ -1350,6 +1371,15 @@ func Test_Bitable_Sample_Failed(t *testing.T) {
 				AppToken: "x",
 				TableID:  "x",
 				FormID:   "x",
+			})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.CopyBitableApp(ctx, &lark.CopyBitableAppReq{
+				AppToken: "x",
 			})
 			as.NotNil(err)
 			as.Equal("fake raw request", err.Error())

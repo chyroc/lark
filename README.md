@@ -38,7 +38,7 @@ https://godoc.org/github.com/chyroc/lark
 
 ## Support APIs
 
-API Count: 738, Event Count: 103
+API Count: 739, Event Count: 103
 
 <details>
   <summary>
@@ -239,6 +239,7 @@ API Count: 738, Event Count: 103
   - GetBitableTableForm
   - UpdateBitableTableFormField
   - GetBitableTableFormFieldList
+  - CopyBitableApp
   - CreateBitableApp
   - GetBitableMeta
   - UpdateBitableMeta
