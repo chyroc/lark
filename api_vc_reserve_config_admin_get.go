@@ -76,7 +76,7 @@ type GetVCReserveConfigAdminRespReserveAdminConfig struct {
 
 // GetVCReserveConfigAdminRespReserveAdminConfigDept ...
 type GetVCReserveConfigAdminRespReserveAdminConfigDept struct {
-	DepartmentID string `json:"department_id,omitempty"` // 预定管理部门ID
+	DepartmentID string `json:"department_id,omitempty"` // 预定管理部门ID, 使用open_department_id
 }
 
 // GetVCReserveConfigAdminRespReserveAdminConfigUser ...

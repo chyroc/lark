@@ -72,7 +72,7 @@ type UpdateVCReserveConfigAdminReqReserveAdminConfig struct {
 
 // UpdateVCReserveConfigAdminReqReserveAdminConfigDept ...
 type UpdateVCReserveConfigAdminReqReserveAdminConfigDept struct {
-	DepartmentID string `json:"department_id,omitempty"` // 预定管理部门ID, 示例值: "od-47d8b570b0a011e9679a755efcc5f61a"
+	DepartmentID string `json:"department_id,omitempty"` // 预定管理部门ID, 使用open_department_id, 示例值: "od-47d8b570b0a011e9679a755efcc5f61a"
 }
 
 // UpdateVCReserveConfigAdminReqReserveAdminConfigUser ...

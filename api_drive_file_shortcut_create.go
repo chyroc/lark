@@ -73,6 +73,22 @@ type CreateDriveFileShortcutResp struct {
 	SuccShortcutNode *CreateDriveFileShortcutRespSuccShortcutNode `json:"succ_shortcut_node,omitempty"` // 快捷方式
 }
 
+// CreateDriveFileShortcutRespSuccShortcutNode ...
+type CreateDriveFileShortcutRespSuccShortcutNode struct {
+	Token        string                                                   `json:"token,omitempty"`         // 文件`Token`
+	Name         string                                                   `json:"name,omitempty"`          // 文件名
+	Type         string                                                   `json:"type,omitempty"`          // 文件类型, 可选值参照请求体的`refer_type`
+	ParentToken  string                                                   `json:"parent_token,omitempty"`  // 父文件夹`Token`
+	URL          string                                                   `json:"url,omitempty"`           // 访问链接
+	ShortcutInfo *CreateDriveFileShortcutRespSuccShortcutNodeShortcutInfo `json:"shortcut_info,omitempty"` // 快捷方式源文件信息
+}
+
+// CreateDriveFileShortcutRespSuccShortcutNodeShortcutInfo ...
+type CreateDriveFileShortcutRespSuccShortcutNodeShortcutInfo struct {
+	TargetType  string `json:"target_type,omitempty"`  // 快捷方式指向的源文件类型, 可选值参照请求体的`refer_type`
+	TargetToken string `json:"target_token,omitempty"` // 快捷方式指向的源文件`Token`
+}
+
 // createDriveFileShortcutResp ...
 type createDriveFileShortcutResp struct {
 	Code int64                        `json:"code,omitempty"` // 错误码, 非 0 表示失败

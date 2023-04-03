@@ -85,13 +85,13 @@ type SearchBaikeEntityRespEntitie struct {
 	MainKeys    []*SearchBaikeEntityRespEntitieMainKey   `json:"main_keys,omitempty"`    // 词条名
 	Aliases     []*SearchBaikeEntityRespEntitieAliase    `json:"aliases,omitempty"`      // 别名
 	Description string                                   `json:"description,omitempty"`  // 纯文本格式词条释义。注: description 和 rich_text 至少有一个, 否则会报错: 1540001
-	Creator     string                                   `json:"creator,omitempty"`      // 词条创建时间
-	CreateTime  string                                   `json:"create_time,omitempty"`  // 词条最近更新时间
-	Updater     string                                   `json:"updater,omitempty"`      // 更多相关信息
-	UpdateTime  string                                   `json:"update_time,omitempty"`  // 当前词条收到的反馈数据
-	RelatedMeta *SearchBaikeEntityRespEntitieRelatedMeta `json:"related_meta,omitempty"` // 外部系统关联数据
-	Statistics  *SearchBaikeEntityRespEntitieStatistics  `json:"statistics,omitempty"`   // 富文本格式（当填写富文本内容时, description字段将会失效可不填写）, 支持的格式参考[飞书词典指南](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/baike-v1/overview)中的释义部分
-	OuterInfo   *SearchBaikeEntityRespEntitieOuterInfo   `json:"outer_info,omitempty"`   // 外部 id 关联数据
+	Creator     string                                   `json:"creator,omitempty"`      // 词条创建者
+	CreateTime  string                                   `json:"create_time,omitempty"`  // 词条创建时间
+	Updater     string                                   `json:"updater,omitempty"`      // 词条最近一次更新者
+	UpdateTime  string                                   `json:"update_time,omitempty"`  // 词条最近一次更新时间
+	RelatedMeta *SearchBaikeEntityRespEntitieRelatedMeta `json:"related_meta,omitempty"` // 词条的相关资源
+	Statistics  *SearchBaikeEntityRespEntitieStatistics  `json:"statistics,omitempty"`   // 当前词条收到的反馈数据
+	OuterInfo   *SearchBaikeEntityRespEntitieOuterInfo   `json:"outer_info,omitempty"`   // 词条在外部系统中的信息
 	RichText    string                                   `json:"rich_text,omitempty"`    // 富文本格式（当填写富文本内容时, description字段将会失效可不填写）, 支持的格式参考[企业百科指南](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/baike-v1/overview)中的释义部分
 	Source      int64                                    `json:"source,omitempty"`       // 词条的创建来源, 1: 用户主动创建, 2: 批量导入, 3: 官方词, 4: OpenAPI 创建
 }
@@ -123,15 +123,15 @@ type SearchBaikeEntityRespEntitieMainKeyDisplayStatus struct {
 // SearchBaikeEntityRespEntitieOuterInfo ...
 type SearchBaikeEntityRespEntitieOuterInfo struct {
 	Provider string `json:"provider,omitempty"` // 数据提供方（不能包含中横线 "-"）
-	OuterID  string `json:"outer_id,omitempty"` // 唯一标识, 可用来和其他平台的内容进行绑定。需保证和百科词条唯一对应（不能包含中横线 "-"）
+	OuterID  string `json:"outer_id,omitempty"` // 词条在外部系统的唯一标识, 可用来和其他平台的内容进行绑定。需保证和百科词条唯一对应（不能包含中横线 "-"）
 }
 
 // SearchBaikeEntityRespEntitieRelatedMeta ...
 type SearchBaikeEntityRespEntitieRelatedMeta struct {
-	Users           []*SearchBaikeEntityRespEntitieRelatedMetaUser           `json:"users,omitempty"`           // 外部系统（不能包含中横线 "-"）
-	Chats           []*SearchBaikeEntityRespEntitieRelatedMetaChat           `json:"chats,omitempty"`           // 词条在外部系统中对应的唯一 ID（不能包含中横线 "-"）
+	Users           []*SearchBaikeEntityRespEntitieRelatedMetaUser           `json:"users,omitempty"`           // 相关人信息
+	Chats           []*SearchBaikeEntityRespEntitieRelatedMetaChat           `json:"chats,omitempty"`           // 相关公开群信息
 	Docs            []*SearchBaikeEntityRespEntitieRelatedMetaDoc            `json:"docs,omitempty"`            // 关联文档信息
-	Oncalls         []*SearchBaikeEntityRespEntitieRelatedMetaOncall         `json:"oncalls,omitempty"`         // 关联值班者信息
+	Oncalls         []*SearchBaikeEntityRespEntitieRelatedMetaOncall         `json:"oncalls,omitempty"`         // 关联服务台信息
 	Links           []*SearchBaikeEntityRespEntitieRelatedMetaLink           `json:"links,omitempty"`           // 关联链接信息
 	Abbreviations   []*SearchBaikeEntityRespEntitieRelatedMetaAbbreviation   `json:"abbreviations,omitempty"`   // 相关词条信息
 	Classifications []*SearchBaikeEntityRespEntitieRelatedMetaClassification `json:"classifications,omitempty"` // 所属分类信息（不支持传入一级分类。词条不可同时属于同一个一级分类下的多个二级分类, 一级分类下的二级分类互斥）
@@ -140,7 +140,7 @@ type SearchBaikeEntityRespEntitieRelatedMeta struct {
 
 // SearchBaikeEntityRespEntitieRelatedMetaAbbreviation ...
 type SearchBaikeEntityRespEntitieRelatedMetaAbbreviation struct {
-	ID string `json:"id,omitempty"` // 相关其他词条 id
+	ID string `json:"id,omitempty"` // 相关词条 id
 }
 
 // SearchBaikeEntityRespEntitieRelatedMetaChat ...

@@ -84,6 +84,7 @@ type GetHireTalentRespTalent struct {
 	ResumeAttachmentIDList    []string                                        `json:"resume_attachment_id_list,omitempty"`   // 简历附件id列表（按照简历创建时间降序）
 	CustomizedDataList        []*GetHireTalentRespTalentCustomizedData        `json:"customized_data_list,omitempty"`        // 自定义模块
 	TopDegree                 int64                                           `json:"top_degree,omitempty"`                  // 最高学历, 可选值有: 1: 小学, 2: 初中, 3: 专职, 4: 高中, 5: 大专, 6: 本科, 7: 硕士, 8: 博士, 9: 其他
+	FirstDegree               int64                                           `json:"first_degree,omitempty"`                // 第一学历, 可选值有: 1: 低于大专, 2: 大专, 3: 本科, 4: 硕士, 5: 博士, 6: 其他, 7: 无
 }
 
 // GetHireTalentRespTalentAward ...
