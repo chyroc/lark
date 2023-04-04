@@ -93,7 +93,7 @@ type GetApplicationRespAppI18n struct {
 	I18nKey     string `json:"i18n_key,omitempty"`    // 国际化语言的 key, 可选值有: zh_cn: 中文, en_us: 英文, ja_jp: 日文
 	Name        string `json:"name,omitempty"`        // 应用国际化名称
 	Description string `json:"description,omitempty"` // 应用国际化描述（副标题）
-	HelpUse     string `json:"help_use,omitempty"`    // 帮助国际化文档链接
+	HelpUse     string `json:"help_use,omitempty"`    // 国际化帮助文档链接
 }
 
 // GetApplicationRespAppOwner ...

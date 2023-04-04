@@ -72,7 +72,7 @@ type CreateApprovalExternalInstanceReq struct {
 	InstanceID            string                                            `json:"instance_id,omitempty"`              // 审批实例唯一标识, 用户自定义, 需确保证租户下唯一, 示例值: "24492654"
 	Links                 []*CreateApprovalExternalInstanceReqLink          `json:"links,omitempty"`                    // 审批实例链接集合, 用于【已发起】列表的跳转, 跳转回三方系统； pc_link 和 mobile_link 必须填一个, 填写的是哪一端的链接, 即会跳转到该链接, 不受平台影响
 	Title                 *string                                           `json:"title,omitempty"`                    // 审批展示名称, 如果填写了该字段, 则审批列表中的审批名称使用该字段, 如果不填该字段, 则审批名称使用审批定义的名称, 示例值: "@i18n@1"
-	Form                  []*CreateApprovalExternalInstanceReqForm          `json:"form,omitempty"`                     // 用户提交审批时填写的表单数据, 用于所有审批列表中展示。可传多个值, 但审批中心pc展示前2个, 移动端展示前3个, 长度不超过2048字符
+	Form                  []*CreateApprovalExternalInstanceReqForm          `json:"form,omitempty"`                     // 用户提交审批时填写的表单数据, 用于所有审批列表中展示。可传多个值, 但审批中心pc展示前2个, 移动端展示前3个, 长度不超过2048字符, 示例值: [{ "name": "@i18n@2", "value": "@i18n@3" }]
 	UserID                *string                                           `json:"user_id,omitempty"`                  // 审批发起人 user_id, 发起人可在【已发起】列表中看到所有已发起的审批; 在【待审批】, 【已审批】【抄送我】列表中, 该字段展示审批是谁发起的。审批发起人 open id, 和 user id 二者至少填一个, 示例值: "a987sf9s"
 	UserName              *string                                           `json:"user_name,omitempty"`                // 审批发起人 用户名, 如果发起人不是真实的用户（例如是某个部门）, 没有 user_id, 则可以使用该字段传名称, 示例值: "@i18n@9"
 	OpenID                *string                                           `json:"open_id,omitempty"`                  // 审批发起人 open id, 和 user id 二者至少填一个, 示例值: "ou_be73cbc0ee35eb6ca54e9e7cc14998c1"
@@ -120,7 +120,7 @@ type CreateApprovalExternalInstanceReqForm struct {
 // CreateApprovalExternalInstanceReqI18nResource ...
 type CreateApprovalExternalInstanceReqI18nResource struct {
 	Locale    string                                               `json:"locale,omitempty"`     // 语言可选值有: zh-CN: 中文 en-US: 英文 ja-JP: 日文, 示例值: "zh-CN", 可选值有: zh-CN: 中文, en-US: 英文, ja-JP: 日文
-	Texts     []*CreateApprovalExternalInstanceReqI18nResourceText `json:"texts,omitempty"`      // 文案 key, value, i18n key 以 @i18n@ 开头； 该字段主要用于做国际化, 允许用户同时传多个语言的文案, 审批中心会根据用户当前的语音环境使用对应的文案, 如果没有传用户当前的语音环境文案, 则会使用默认的语言文案。
+	Texts     []*CreateApprovalExternalInstanceReqI18nResourceText `json:"texts,omitempty"`      // 文案 key, value, i18n key 以 @i18n@ 开头； 该字段主要用于做国际化, 允许用户同时传多个语言的文案, 审批中心会根据用户当前的语音环境使用对应的文案, 如果没有传用户当前的语音环境文案, 则会使用默认的语言文案, 示例值: { "@i18n@1": "权限申请", "@i18n@2": "OA审批", "@i18n@3": "Permission" }
 	IsDefault bool                                                 `json:"is_default,omitempty"` // 是否默认语言, 默认语言需要包含所有key, 非默认语言如果key不存在会使用默认语言代替, 示例值: true
 }
 
@@ -132,8 +132,8 @@ type CreateApprovalExternalInstanceReqI18nResourceText struct {
 
 // CreateApprovalExternalInstanceReqLink ...
 type CreateApprovalExternalInstanceReqLink struct {
-	PcLink     string  `json:"pc_link,omitempty"`     // pc 端的跳转链接, 当用户使用飞书 pc 端时, 使用该字段进行跳转, 示例值: "https://applink.feishu.cn/client/mini_program/open?mode=appCenter&appId=cli_9c90fc38e07a9101&path=pc/pages/detail?id=1234"
-	MobileLink *string `json:"mobile_link,omitempty"` // 移动端 跳转链接, 当用户使用飞书 移动端时, 使用该字段进行跳转, 示例值: "https://applink.feishu.cn/client/mini_program/open?appId=cli_9c90fc38e07a9101&path=pages/detail?id=1234"
+	PcLink     string  `json:"pc_link,omitempty"`     // pc 端的跳转链接, 当用户使用飞书 pc 端时, 使用该字段进行跳转, 托管的链接保持不变, 示例值: "https://applink.feishu.cn/client/mini_program/open?mode=appCenter&appId=cli_9c90fc38e07a9101&path=pc/pages/detail?id=1234"
+	MobileLink *string `json:"mobile_link,omitempty"` // 移动端 跳转链接, 当用户使用飞书 移动端时, 使用该字段进行跳转, 托管的链接保持不变, 示例值: "https://applink.feishu.cn/client/mini_program/open?appId=cli_9c90fc38e07a9101&path=pages/detail?id=1234"
 }
 
 // CreateApprovalExternalInstanceReqTask ...

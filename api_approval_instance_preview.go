@@ -77,7 +77,7 @@ type PreviewApprovalInstanceRespPreviewNode struct {
 	EndCcIDList        []string `json:"end_cc_id_list,omitempty"`        // 审批结束抄送人id列表
 	NodeID             string   `json:"node_id,omitempty"`               // 节点id
 	NodeName           string   `json:"node_name,omitempty"`             // 节点名称
-	NodeType           string   `json:"node_type,omitempty"`             // 节点类型: AND: 会签 OR: 或签
+	NodeType           string   `json:"node_type,omitempty"`             // 节点类型: AND: 会签 OR: 或签 AUTO_PASS:自动通过 AUTO_REJECT:自动拒绝 SEQUENTIAL:按顺序
 	CustomNodeID       string   `json:"custom_node_id,omitempty"`        // 用户自定义节点id
 	Comments           []string `json:"comments,omitempty"`              // 节点的说明信息
 	IsEmptyLogic       bool     `json:"is_empty_logic,omitempty"`        // 审批人是否为空, 若为空, 则user_id_list为兜底审批人id列表

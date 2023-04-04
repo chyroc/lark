@@ -66,8 +66,8 @@ type GetContactUnitDepartmentListReq struct {
 // GetContactUnitDepartmentListResp ...
 type GetContactUnitDepartmentListResp struct {
 	Departmentlist []*GetContactUnitDepartmentListRespDepartment `json:"departmentlist,omitempty"` // 单位绑定的部门列表
-	HasMore        bool                                          `json:"has_more,omitempty"`       // 是否还有分页数据
-	PageToken      string                                        `json:"page_token,omitempty"`     // 下次分页请求标记
+	HasMore        bool                                          `json:"has_more,omitempty"`       // 是否还有更多项
+	PageToken      string                                        `json:"page_token,omitempty"`     // 分页标记, 当 has_more 为 true 时, 会同时返回新的 page_token, 否则不返回 page_token
 }
 
 // GetContactUnitDepartmentListRespDepartment ...

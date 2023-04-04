@@ -58,8 +58,8 @@ func (r *Mock) UnMockContactAddContactGroupMember() {
 // AddContactGroupMemberReq ...
 type AddContactGroupMemberReq struct {
 	GroupID      string `path:"group_id" json:"-"`        // 用户组ID, 示例值: "g281721"
-	MemberType   string `json:"member_type,omitempty"`    // 用户组成员的类型, 取值为 user, 示例值: "user", 可选值有: `user`: 用户。返回归属于该用户组的用户列表, 默认值: `user`
-	MemberIDType IDType `json:"member_id_type,omitempty"` // 当member_type =user时候, member_id_type表示user_id_type, 枚举值为open_id, union_id, user_id, 示例值: "open_id", 可选值有: `open_id`: member_type =user时候, 表示用户的open_id, `union_id`: member_type =user时候, 表示用户的union_id, `user_id`: member_type =user时候, 表示用户的user_id
+	MemberType   string `json:"member_type,omitempty"`    // 用户组成员的类型, 取值为 user, 示例值: "user", 可选值有: user: 用户成员, 默认值: `user`
+	MemberIDType IDType `json:"member_id_type,omitempty"` // 当member_type =user时候, member_id_type表示user_id_type, 枚举值为open_id, union_id, user_id, 示例值: "open_id", 可选值有: open_id: member_type =user时候, 表示用户的open_id, union_id: member_type =user时候, 表示用户的union_id, user_id: member_type =user时候, 表示用户的user_id
 	MemberID     string `json:"member_id,omitempty"`      // 添加的成员ID, 示例值: "ou_7dab8a3d3cdcc9da365777c7ad535d62"
 }
 

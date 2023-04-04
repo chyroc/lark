@@ -221,14 +221,16 @@ type GetApplicationVersionRespAppVersionRemarkVisibility struct {
 
 // GetApplicationVersionRespAppVersionRemarkVisibilityInvisibleList ...
 type GetApplicationVersionRespAppVersionRemarkVisibilityInvisibleList struct {
-	OpenIDs       []string `json:"open_ids,omitempty"`       // 可见性成员 open_id 列表
-	DepartmentIDs []string `json:"department_ids,omitempty"` // 可见性部门的 id 列表
+	OpenIDs       []string `json:"open_ids,omitempty"`       // 不可见性成员 open_id 列表
+	DepartmentIDs []string `json:"department_ids,omitempty"` // 不可见性部门的 id 列表
+	GroupIDs      []string `json:"group_ids,omitempty"`      // 不可见性成员 group_id 列表
 }
 
 // GetApplicationVersionRespAppVersionRemarkVisibilityVisibleList ...
 type GetApplicationVersionRespAppVersionRemarkVisibilityVisibleList struct {
 	OpenIDs       []string `json:"open_ids,omitempty"`       // 可见性成员 open_id 列表
 	DepartmentIDs []string `json:"department_ids,omitempty"` // 可见性部门的 id 列表
+	GroupIDs      []string `json:"group_ids,omitempty"`      // 可见性成员 group_id 列表
 }
 
 // GetApplicationVersionRespAppVersionScope ...
