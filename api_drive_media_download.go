@@ -22,7 +22,7 @@ import (
 	"io"
 )
 
-// DownloadDriveMedia 下载各种类型文档中的素材, 比如电子表格中的图片, 支持指定`range`进行分片下载。
+// DownloadDriveMedia 下载各种类型文档中的素材, 比如电子表格中的图片, 支持通过在请求头通过指定`Range`进行分片下载。
 //
 // 本接口提供素材下载能力, 如要下载文件, 需调用[下载文件](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file/download)接口。素材表示云文档中的资源文件, 比如新版文档中的图片及附件等, 素材不会呈现在云空间, 只会显示在对应云文档内。
 // 该接口不支持太高的并发, 且调用频率上限为 5QPS。
@@ -62,7 +62,7 @@ func (r *Mock) UnMockDriveDownloadDriveMedia() {
 
 // DownloadDriveMediaReq ...
 type DownloadDriveMediaReq struct {
-	FileToken string   `path:"file_token" json:"-"` // 文件的`token`, 获取方式见 [概述](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/files/guide/introduction), 示例值: "boxcnrHpsg1QDqXAAAyachabcef"
+	FileToken string   `path:"file_token" json:"-"` // 文件的`Token`, 获取方式见 [概述](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/files/guide/introduction), 示例值: "boxcnrHpsg1QDqXAAAyachabcef"
 	Extra     *string  `query:"extra" json:"-"`     // 扩展信息, 示例值: "[请参考-上传点类型及对应Extra说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/media/introduction)"
 	Range     [2]int64 `header:"range" json:"-"`    // 指定文件下载部分, 示例值: "bytes=0-1024"
 }
