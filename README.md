@@ -38,7 +38,7 @@ https://godoc.org/github.com/chyroc/lark
 
 ## Support APIs
 
-API Count: 739, Event Count: 103
+API Count: 742, Event Count: 103
 
 <details>
   <summary>
@@ -99,7 +99,9 @@ API Count: 739, Event Count: 103
   - IsApplicationUserAdmin
   - GetApplicationUserAdminScope
   - GetApplicationAppVisibility
+  - GetApplicationContactsRangeConfiguration
   - GetApplicationUserVisibleApp
+  - CheckApplicationVisibleWhiteBlackList
   - GetApplicationAppList
   - UpdateApplicationAppVisibility
   - GetApplicationAppAdminUserList
@@ -110,6 +112,7 @@ API Count: 739, Event Count: 103
   - GetApplication
   - GetApplicationVersion
   - GetApplicationVersionList
+  - GetApplicationVersionContactsRangeSuggest
   - UpdateApplicationVersion
   - UpdateApplication
   - GetApplicationUsageOverview

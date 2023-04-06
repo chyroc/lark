@@ -99,12 +99,36 @@ func Test_Application_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
+			cli.Mock().MockApplicationGetApplicationContactsRangeConfiguration(func(ctx context.Context, request *lark.GetApplicationContactsRangeConfigurationReq, options ...lark.MethodOptionFunc) (*lark.GetApplicationContactsRangeConfigurationResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockApplicationGetApplicationContactsRangeConfiguration()
+
+			_, _, err := moduleCli.GetApplicationContactsRangeConfiguration(ctx, &lark.GetApplicationContactsRangeConfigurationReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
 			cli.Mock().MockApplicationGetApplicationUserVisibleApp(func(ctx context.Context, request *lark.GetApplicationUserVisibleAppReq, options ...lark.MethodOptionFunc) (*lark.GetApplicationUserVisibleAppResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
 			defer cli.Mock().UnMockApplicationGetApplicationUserVisibleApp()
 
 			_, _, err := moduleCli.GetApplicationUserVisibleApp(ctx, &lark.GetApplicationUserVisibleAppReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			cli.Mock().MockApplicationCheckApplicationVisibleWhiteBlackList(func(ctx context.Context, request *lark.CheckApplicationVisibleWhiteBlackListReq, options ...lark.MethodOptionFunc) (*lark.CheckApplicationVisibleWhiteBlackListResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockApplicationCheckApplicationVisibleWhiteBlackList()
+
+			_, _, err := moduleCli.CheckApplicationVisibleWhiteBlackList(ctx, &lark.CheckApplicationVisibleWhiteBlackListReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "mock-failed")
 		})
@@ -231,6 +255,18 @@ func Test_Application_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
+			cli.Mock().MockApplicationGetApplicationVersionContactsRangeSuggest(func(ctx context.Context, request *lark.GetApplicationVersionContactsRangeSuggestReq, options ...lark.MethodOptionFunc) (*lark.GetApplicationVersionContactsRangeSuggestResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockApplicationGetApplicationVersionContactsRangeSuggest()
+
+			_, _, err := moduleCli.GetApplicationVersionContactsRangeSuggest(ctx, &lark.GetApplicationVersionContactsRangeSuggestReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
 			cli.Mock().MockApplicationUpdateApplicationVersion(func(ctx context.Context, request *lark.UpdateApplicationVersionReq, options ...lark.MethodOptionFunc) (*lark.UpdateApplicationVersionResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -337,7 +373,25 @@ func Test_Application_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
+			_, _, err := moduleCli.GetApplicationContactsRangeConfiguration(ctx, &lark.GetApplicationContactsRangeConfigurationReq{
+				AppID: "x",
+			})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+
 			_, _, err := moduleCli.GetApplicationUserVisibleApp(ctx, &lark.GetApplicationUserVisibleAppReq{})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.CheckApplicationVisibleWhiteBlackList(ctx, &lark.CheckApplicationVisibleWhiteBlackListReq{
+				AppID: "x",
+			})
 			as.NotNil(err)
 			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
 		})
@@ -414,6 +468,16 @@ func Test_Application_Sample_Failed(t *testing.T) {
 
 			_, _, err := moduleCli.GetApplicationVersionList(ctx, &lark.GetApplicationVersionListReq{
 				AppID: "x",
+			})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.GetApplicationVersionContactsRangeSuggest(ctx, &lark.GetApplicationVersionContactsRangeSuggestReq{
+				AppID:     "x",
+				VersionID: "x",
 			})
 			as.NotNil(err)
 			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
@@ -512,7 +576,25 @@ func Test_Application_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
+			_, _, err := moduleCli.GetApplicationContactsRangeConfiguration(ctx, &lark.GetApplicationContactsRangeConfigurationReq{
+				AppID: "x",
+			})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+
 			_, _, err := moduleCli.GetApplicationUserVisibleApp(ctx, &lark.GetApplicationUserVisibleAppReq{})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.CheckApplicationVisibleWhiteBlackList(ctx, &lark.CheckApplicationVisibleWhiteBlackListReq{
+				AppID: "x",
+			})
 			as.NotNil(err)
 			as.Equal("fake raw request", err.Error())
 		})
@@ -589,6 +671,16 @@ func Test_Application_Sample_Failed(t *testing.T) {
 
 			_, _, err := moduleCli.GetApplicationVersionList(ctx, &lark.GetApplicationVersionListReq{
 				AppID: "x",
+			})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.GetApplicationVersionContactsRangeSuggest(ctx, &lark.GetApplicationVersionContactsRangeSuggestReq{
+				AppID:     "x",
+				VersionID: "x",
 			})
 			as.NotNil(err)
 			as.Equal("fake raw request", err.Error())

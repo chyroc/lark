@@ -38,7 +38,7 @@ https://godoc.org/github.com/chyroc/lark
 
 ## 支持的接口
 
-API 总数: 739, 事件总数: 103
+API 总数: 742, 事件总数: 103
 
 <details>
   <summary>
@@ -99,7 +99,9 @@ API 总数: 739, 事件总数: 103
   - IsApplicationUserAdmin
   - GetApplicationUserAdminScope
   - GetApplicationAppVisibility
+  - GetApplicationContactsRangeConfiguration
   - GetApplicationUserVisibleApp
+  - CheckApplicationVisibleWhiteBlackList
   - GetApplicationAppList
   - UpdateApplicationAppVisibility
   - GetApplicationAppAdminUserList
@@ -110,6 +112,7 @@ API 总数: 739, 事件总数: 103
   - GetApplication
   - GetApplicationVersion
   - GetApplicationVersionList
+  - GetApplicationVersionContactsRangeSuggest
   - UpdateApplicationVersion
   - UpdateApplication
   - GetApplicationUsageOverview
