@@ -39,14 +39,15 @@ type EventV2VCMeetingAllMeetingStartedV1 struct {
 
 // EventV2VCMeetingAllMeetingStartedV1Meeting ...
 type EventV2VCMeetingAllMeetingStartedV1Meeting struct {
-	ID            string                                              `json:"id,omitempty"`             // 会议ID（视频会议的唯一标识, 视频会议开始后才会产生）
-	Topic         string                                              `json:"topic,omitempty"`          // 会议主题
-	MeetingNo     string                                              `json:"meeting_no,omitempty"`     // 9位会议号（飞书用户可通过输入9位会议号快捷入会）
-	MeetingSource int64                                               `json:"meeting_source,omitempty"` // 会议创建源, 可选值有: 1: 日程会议, 2: 即时会议, 3: 面试会议, 4: 开放平台会议, 100: 其他会议类型
-	StartTime     string                                              `json:"start_time,omitempty"`     // 会议结束时间（unix时间, 单位: 秒）
-	EndTime       string                                              `json:"end_time,omitempty"`       // 会议结束时间（unix时间, 单位: 秒）
-	HostUser      *EventV2VCMeetingAllMeetingStartedV1MeetingHostUser `json:"host_user,omitempty"`      // 会议主持人
-	Owner         *EventV2VCMeetingAllMeetingStartedV1MeetingOwner    `json:"owner,omitempty"`          // 会议拥有者
+	ID              string                                              `json:"id,omitempty"`                // 会议ID（视频会议的唯一标识, 视频会议开始后才会产生）
+	Topic           string                                              `json:"topic,omitempty"`             // 会议主题
+	MeetingNo       string                                              `json:"meeting_no,omitempty"`        // 9位会议号（飞书用户可通过输入9位会议号快捷入会）
+	MeetingSource   int64                                               `json:"meeting_source,omitempty"`    // 会议创建源, 可选值有: 1: 日程会议, 2: 即时会议, 3: 面试会议, 4: 开放平台会议, 100: 其他会议类型
+	StartTime       string                                              `json:"start_time,omitempty"`        // 会议结束时间（unix时间, 单位: 秒）
+	EndTime         string                                              `json:"end_time,omitempty"`          // 会议结束时间（unix时间, 单位: 秒）
+	HostUser        *EventV2VCMeetingAllMeetingStartedV1MeetingHostUser `json:"host_user,omitempty"`         // 会议主持人
+	Owner           *EventV2VCMeetingAllMeetingStartedV1MeetingOwner    `json:"owner,omitempty"`             // 会议拥有者
+	CalendarEventID string                                              `json:"calendar_event_id,omitempty"` // 日程实体的唯一标志
 }
 
 // EventV2VCMeetingAllMeetingStartedV1MeetingHostUser ...
