@@ -873,10 +873,10 @@ func (r *MessageContentCardObjectOption) SetMultiURL(val *MessageContentCardObje
 
 // MessageContentCardObjectText 作为text对象被使用，支持"plain_text"和"lark_md"两种模式
 type MessageContentCardObjectText struct {
-	Tag     MessageContentCardObjectTextType `json:"tag,omitempty"`     // plain_text / lark_md
-	Content string                           `json:"content,omitempty"` // 文本内容
-	Lines   int                              `json:"lines,omitempty"`   // 内容显示行数
-	I18N    *I18NText                        `json:"i18n,omitempty"`    // 国际化文本内容
+	Tag     MessageContentCardObjectTextType `json:"tag"`             // plain_text / lark_md
+	Content string                           `json:"content"`         // 文本内容
+	Lines   int                              `json:"lines,omitempty"` // 内容显示行数
+	I18N    *I18NText                        `json:"i18n,omitempty"`  // 国际化文本内容
 }
 
 // IsMessageContentCardElement ...

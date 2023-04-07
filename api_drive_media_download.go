@@ -62,7 +62,7 @@ func (r *Mock) UnMockDriveDownloadDriveMedia() {
 
 // DownloadDriveMediaReq ...
 type DownloadDriveMediaReq struct {
-	FileToken string   `path:"file_token" json:"-"` // 文件的`Token`, 获取方式见 [概述](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/files/guide/introduction), 示例值: "boxcnrHpsg1QDqXAAAyachabcef"
+	FileToken string   `path:"file_token" json:"-"` // 素材文件的`Token`, 比如对于新版文档中的附件, 可以通过[获取块](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/document-docx/docx-v1/document-block/get)接口获取指定 File Block 的 Token, 示例值: "boxcnrHpsg1QDqXAAAyachabcef"
 	Extra     *string  `query:"extra" json:"-"`     // 扩展信息, 示例值: "[请参考-上传点类型及对应Extra说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/media/introduction)"
 	Range     [2]int64 `header:"range" json:"-"`    // 指定文件下载部分, 示例值: "bytes=0-1024"
 }
