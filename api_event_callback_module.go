@@ -37,6 +37,7 @@ const (
 	EventTypeV1ApprovalInstance                                EventType = "approval_instance"
 	EventTypeV1ApprovalTask                                    EventType = "approval_task"
 	EventTypeV1ChatDisband                                     EventType = "chat_disband"
+	EventTypeV1LeaveApprovalRevert                             EventType = "leave_approval_revert"
 	EventTypeV1LeaveApprovalV2                                 EventType = "leave_approvalV2"
 	EventTypeV1OrderPaid                                       EventType = "order_paid"
 	EventTypeV1OutApproval                                     EventType = "out_approval"
@@ -144,6 +145,7 @@ type eventHandler struct {
 	eventV1ApprovalInstanceHandler                                EventV1ApprovalInstanceHandler
 	eventV1ApprovalTaskHandler                                    EventV1ApprovalTaskHandler
 	eventV1ChatDisbandHandler                                     EventV1ChatDisbandHandler
+	eventV1LeaveApprovalRevertHandler                             EventV1LeaveApprovalRevertHandler
 	eventV1LeaveApprovalV2Handler                                 EventV1LeaveApprovalV2Handler
 	eventV1OrderPaidHandler                                       EventV1OrderPaidHandler
 	eventV1OutApprovalHandler                                     EventV1OutApprovalHandler
@@ -252,6 +254,7 @@ func (r *eventHandler) clone() *eventHandler {
 		eventV1ApprovalInstanceHandler:                                r.eventV1ApprovalInstanceHandler,
 		eventV1ApprovalTaskHandler:                                    r.eventV1ApprovalTaskHandler,
 		eventV1ChatDisbandHandler:                                     r.eventV1ChatDisbandHandler,
+		eventV1LeaveApprovalRevertHandler:                             r.eventV1LeaveApprovalRevertHandler,
 		eventV1LeaveApprovalV2Handler:                                 r.eventV1LeaveApprovalV2Handler,
 		eventV1OrderPaidHandler:                                       r.eventV1OrderPaidHandler,
 		eventV1OutApprovalHandler:                                     r.eventV1OutApprovalHandler,
@@ -359,6 +362,7 @@ type eventBody struct {
 	eventV1ApprovalInstance                                *EventV1ApprovalInstance
 	eventV1ApprovalTask                                    *EventV1ApprovalTask
 	eventV1ChatDisband                                     *EventV1ChatDisband
+	eventV1LeaveApprovalRevert                             *EventV1LeaveApprovalRevert
 	eventV1LeaveApprovalV2                                 *EventV1LeaveApprovalV2
 	eventV1OrderPaid                                       *EventV1OrderPaid
 	eventV1OutApproval                                     *EventV1OutApproval
@@ -1018,6 +1022,12 @@ func (r *EventCallbackService) parserEventV1(req *eventReq) error {
 			return fmt.Errorf("lark event unmarshal event %s failed", bs)
 		}
 		req.eventV1ChatDisband = event
+	case EventTypeV1LeaveApprovalRevert:
+		event := new(EventV1LeaveApprovalRevert)
+		if err := json.Unmarshal(bs, event); err != nil {
+			return fmt.Errorf("lark event unmarshal event %s failed", bs)
+		}
+		req.eventV1LeaveApprovalRevert = event
 	case EventTypeV1LeaveApprovalV2:
 		event := new(EventV1LeaveApprovalV2)
 		if err := json.Unmarshal(bs, event); err != nil {
@@ -1201,6 +1211,15 @@ func (r *EventCallbackService) handlerEvent(ctx context.Context, req *eventReq) 
 				go r.cli.eventHandler.eventV1ChatDisbandHandler(ctx, r.cli, req.Schema, req.headerV1(EventTypeV1ChatDisband), req.eventV1ChatDisband)
 			} else {
 				s, err = r.cli.eventHandler.eventV1ChatDisbandHandler(ctx, r.cli, req.Schema, req.headerV1(EventTypeV1ChatDisband), req.eventV1ChatDisband)
+			}
+		}
+		return true, s, err
+	case req.eventV1LeaveApprovalRevert != nil:
+		if r.cli.eventHandler.eventV1LeaveApprovalRevertHandler != nil {
+			if r.cli.noBlocking {
+				go r.cli.eventHandler.eventV1LeaveApprovalRevertHandler(ctx, r.cli, req.Schema, req.headerV1(EventTypeV1LeaveApprovalRevert), req.eventV1LeaveApprovalRevert)
+			} else {
+				s, err = r.cli.eventHandler.eventV1LeaveApprovalRevertHandler(ctx, r.cli, req.Schema, req.headerV1(EventTypeV1LeaveApprovalRevert), req.eventV1LeaveApprovalRevert)
 			}
 		}
 		return true, s, err

@@ -29,4 +29,5 @@ venv/
 generate
 test/debug_test.go
 g
+release
 test.log
