@@ -53,6 +53,8 @@ type Mock struct {
 	mockAdminGetAdminBadgeGrantList                            func(ctx context.Context, request *GetAdminBadgeGrantListReq, options ...MethodOptionFunc) (*GetAdminBadgeGrantListResp, *Response, error)
 	mockAdminGetAdminBadgeGrant                                func(ctx context.Context, request *GetAdminBadgeGrantReq, options ...MethodOptionFunc) (*GetAdminBadgeGrantResp, *Response, error)
 	mockAdminDeleteAdminBadgeGrant                             func(ctx context.Context, request *DeleteAdminBadgeGrantReq, options ...MethodOptionFunc) (*DeleteAdminBadgeGrantResp, *Response, error)
+	mockApplicationGetApplicationFavourite                     func(ctx context.Context, request *GetApplicationFavouriteReq, options ...MethodOptionFunc) (*GetApplicationFavouriteResp, *Response, error)
+	mockApplicationGetApplicationRecommend                     func(ctx context.Context, request *GetApplicationRecommendReq, options ...MethodOptionFunc) (*GetApplicationRecommendResp, *Response, error)
 	mockApplicationGetApplicationRecommendRuleList             func(ctx context.Context, request *GetApplicationRecommendRuleListReq, options ...MethodOptionFunc) (*GetApplicationRecommendRuleListResp, *Response, error)
 	mockApplicationIsApplicationUserAdmin                      func(ctx context.Context, request *IsApplicationUserAdminReq, options ...MethodOptionFunc) (*IsApplicationUserAdminResp, *Response, error)
 	mockApplicationGetApplicationUserAdminScope                func(ctx context.Context, request *GetApplicationUserAdminScopeReq, options ...MethodOptionFunc) (*GetApplicationUserAdminScopeResp, *Response, error)

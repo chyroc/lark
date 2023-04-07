@@ -51,6 +51,30 @@ func Test_Application_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
+			cli.Mock().MockApplicationGetApplicationFavourite(func(ctx context.Context, request *lark.GetApplicationFavouriteReq, options ...lark.MethodOptionFunc) (*lark.GetApplicationFavouriteResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockApplicationGetApplicationFavourite()
+
+			_, _, err := moduleCli.GetApplicationFavourite(ctx, &lark.GetApplicationFavouriteReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			cli.Mock().MockApplicationGetApplicationRecommend(func(ctx context.Context, request *lark.GetApplicationRecommendReq, options ...lark.MethodOptionFunc) (*lark.GetApplicationRecommendResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockApplicationGetApplicationRecommend()
+
+			_, _, err := moduleCli.GetApplicationRecommend(ctx, &lark.GetApplicationRecommendReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
 			cli.Mock().MockApplicationGetApplicationRecommendRuleList(func(ctx context.Context, request *lark.GetApplicationRecommendRuleListReq, options ...lark.MethodOptionFunc) (*lark.GetApplicationRecommendRuleListResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -345,6 +369,20 @@ func Test_Application_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
+			_, _, err := moduleCli.GetApplicationFavourite(ctx, &lark.GetApplicationFavouriteReq{})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.GetApplicationRecommend(ctx, &lark.GetApplicationRecommendReq{})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+
 			_, _, err := moduleCli.GetApplicationRecommendRuleList(ctx, &lark.GetApplicationRecommendRuleListReq{})
 			as.NotNil(err)
 			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
@@ -544,6 +582,20 @@ func Test_Application_Sample_Failed(t *testing.T) {
 		moduleCli := cli.Application
 		cli.Mock().MockRawRequest(func(ctx context.Context, req *lark.RawRequestReq, resp interface{}) (response *lark.Response, err error) {
 			return nil, fmt.Errorf("fake raw request")
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.GetApplicationFavourite(ctx, &lark.GetApplicationFavouriteReq{})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.GetApplicationRecommend(ctx, &lark.GetApplicationRecommendReq{})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {

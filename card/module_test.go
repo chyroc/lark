@@ -40,7 +40,7 @@ func Test_Module(t *testing.T) {
 	as.Equal(`{"tag":"hr"}`, jsonString(card.HR()))
 
 	// image
-	as.Equal(`{"alt":{"tag":"plain_text"},"img_key":"img","tag":"img"}`, jsonString(card.ModuleImage("img")))
+	as.Equal(`{"alt":{"tag":"plain_text","content":""},"img_key":"img","tag":"img"}`, jsonString(card.ModuleImage("img")))
 
 	// markdown
 	as.Equal(`{"content":"- 1","tag":"markdown"}`, jsonString(card.Markdown("- 1")))

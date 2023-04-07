@@ -38,7 +38,7 @@ https://godoc.org/github.com/chyroc/lark
 
 ## Support APIs
 
-API Count: 742, Event Count: 104
+API Count: 744, Event Count: 104
 
 <details>
   <summary>
@@ -95,6 +95,8 @@ API Count: 742, Event Count: 104
   - OpenTaskDetail
   - OpenTaskTab
 - Application
+  - GetApplicationFavourite
+  - GetApplicationRecommend
   - GetApplicationRecommendRuleList
   - IsApplicationUserAdmin
   - GetApplicationUserAdminScope
