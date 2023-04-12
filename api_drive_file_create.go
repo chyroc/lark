@@ -21,12 +21,12 @@ import (
 	"context"
 )
 
-// CreateDriveFile 在用户云空间指定文件夹中创建文档、电子表格或者多维表格。
+// CreateDriveFile 在用户云空间指定文件夹中创建旧版文档、电子表格或者多维表格。如果目标文件夹是「我的空间」, 则新建的文档会在「我的空间」的「归我所有」列表里。
 //
-// 如果目标文件夹是我的空间, 则新建的文档会在「我的空间」的「归我所有」列表里。
-// 云空间中文件夹单层节点上限是1500个, 超过限制新建文档接口会返回失败, 如果有这类需求, 可以考虑将文档新建在不同文件夹中。
-// 为了更好地提升该接口的安全性, 我们对其进行了升级, 如果需要创建文档可以尝试
-// [新版本>>](https://open.feishu.cn/document/ukTMukTMukTM/ugDM2YjL4AjN24COwYjN), 如果需要创建电子表格可以尝试[新版本>>](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/sheets-v3/spreadsheet/create)
+// - 云空间中文件夹单层节点上限是 1500 个, 超过此限制接口将会返回失败。如有创建大量节点的需求, 可以考虑将文档新建到不同文件夹下；
+// - 我们对创建类接口进行了更细粒度的拆分和升级:
+// --本接口不支持创建[新版文档](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/document-docx/docx-overview), 如需创建新版文档, 请调用[创建新版文档](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/document-docx/docx-v1/document/create)接口；
+// --如需创建电子表格, 也可以调用[创建表格](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/sheets-v3/spreadsheet/create)接口。
 // 该接口不支持并发创建, 且调用频率上限为 5QPS 且 10000次/天
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uQTNzUjL0UzM14CN1MTN

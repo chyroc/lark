@@ -27,6 +27,7 @@ import (
 // - 需要开启[机器人能力](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-enable-bot-ability)
 // - 需要订阅 [消息与群组] 分类下的 [解散群] 事件
 // - 事件会向群内订阅了该事件的机器人进行推送
+// - 解散群并勾选【为群成员保留历史记录】不会触发该事件
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat/events/disbanded
 func (r *EventCallbackService) HandlerEventV2IMChatDisbandedV1(f EventV2IMChatDisbandedV1Handler) {

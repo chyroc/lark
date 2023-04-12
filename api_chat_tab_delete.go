@@ -66,7 +66,7 @@ func (r *Mock) UnMockChatDeleteChatTab() {
 // DeleteChatTabReq ...
 type DeleteChatTabReq struct {
 	ChatID string   `path:"chat_id" json:"-"`  // 群ID, 详情参见[群ID 说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-id-description), 注意: 支持群模式为`p2p`与`group`的群ID, 示例值: "oc_a0553eda9014c201e6969b478895c230"
-	TabIDs []string `json:"tab_ids,omitempty"` // 会话标签页ID列表, Tab ID可以在[添加会话标签页](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-tab/create)与[拉取会话标签页](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-tab/list_tabs)的返回值中获取, 示例值: ["7101214603622940671"]
+	TabIDs []string `json:"tab_ids,omitempty"` // 会话标签页ID列表, Tab ID可以在[添加会话标签页](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-tab/create)与[拉取会话标签页](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-tab/list_tabs)的返回值中获取, 示例值: ["6936075528890826780"]
 }
 
 // DeleteChatTabResp ...

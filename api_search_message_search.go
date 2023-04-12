@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// SearchMessage 用户可以通过关键字搜索可见消息, 可见性和套件内搜素一致。
+// SearchMessage 用户可以通过关键字搜索可见消息, 可见性和套件内搜索一致。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/search-v2/message/create
 func (r *SearchService) SearchMessage(ctx context.Context, request *SearchMessageReq, options ...MethodOptionFunc) (*SearchMessageResp, *Response, error) {
@@ -61,10 +61,10 @@ type SearchMessageReq struct {
 	PageSize     *int64    `query:"page_size" json:"-"`      // 分页大小, 示例值: 20, 默认值: `20`, 取值范围: `1` ～ `100`
 	PageToken    *string   `query:"page_token" json:"-"`     // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果, 示例值: "9e91187f9107ef4d43cd71c3722cd97665e6cec51bf30a06328839bc9867"
 	Query        string    `json:"query,omitempty"`          // 搜索关键词, 示例值: "测试消息"
-	FromIDs      []string  `json:"from_ids,omitempty"`       // 消息来自user_id列表, 示例值: ou_1970b39a6730a4a8e97b530d8cb14ccb
-	ChatIDs      []string  `json:"chat_ids,omitempty"`       // 消息所在chat_id列表, 示例值: oc_c063434856a818a615fd36697a9ffe09
+	FromIDs      []string  `json:"from_ids,omitempty"`       // 消息来自user_id列表, 示例值: ["ou_1970b39a6730a4a8e97b530d8cb14ccb"]
+	ChatIDs      []string  `json:"chat_ids,omitempty"`       // 消息所在chat_id列表, 示例值: ["oc_c063434856a818a615fd36697a9ffe09"]
 	MessageType  *MsgType  `json:"message_type,omitempty"`   // 消息类型(file/image/media), 示例值: "image", 可选值有: file: 文件, image: 图片, media: 视频
-	AtChatterIDs []string  `json:"at_chatter_ids,omitempty"` // at用户user_id列表, 示例值: ou_1970b39a6730a4a8e97b530d8cb14ccb
+	AtChatterIDs []string  `json:"at_chatter_ids,omitempty"` // at用户user_id列表, 示例值: ["ou_1970b39a6730a4a8e97b530d8cb14ccb"]
 	FromType     *string   `json:"from_type,omitempty"`      // 消息来自类型(bot/user), 示例值: "user", 可选值有: bot: 机器人, user: 用户
 	ChatType     *ChatType `json:"chat_type,omitempty"`      // 会话类型(group_chat/p2p_chat), 示例值: "group_chat", 可选值有: group_chat: 群聊, p2p_chat: 单聊
 	StartTime    *string   `json:"start_time,omitempty"`     // 消息发送起始时间, 示例值: "1609296809"
@@ -75,7 +75,7 @@ type SearchMessageReq struct {
 type SearchMessageResp struct {
 	Items     []string `json:"items,omitempty"`      // 消息id列表
 	PageToken string   `json:"page_token,omitempty"` // 分页标记, 当 has_more 为 true 时, 会同时返回新的 page_token, 否则不返回 page_token
-	HasMore   bool     `json:"has_more,omitempty"`   // 是否还有下一页
+	HasMore   bool     `json:"has_more,omitempty"`   // 是否还有更多项
 }
 
 // searchMessageResp ...
