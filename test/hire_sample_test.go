@@ -231,6 +231,90 @@ func Test_Hire_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
+			cli.Mock().MockHireCreateHireExternalApplication(func(ctx context.Context, request *lark.CreateHireExternalApplicationReq, options ...lark.MethodOptionFunc) (*lark.CreateHireExternalApplicationResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockHireCreateHireExternalApplication()
+
+			_, _, err := moduleCli.CreateHireExternalApplication(ctx, &lark.CreateHireExternalApplicationReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			cli.Mock().MockHireCreateHireExternalInterview(func(ctx context.Context, request *lark.CreateHireExternalInterviewReq, options ...lark.MethodOptionFunc) (*lark.CreateHireExternalInterviewResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockHireCreateHireExternalInterview()
+
+			_, _, err := moduleCli.CreateHireExternalInterview(ctx, &lark.CreateHireExternalInterviewReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			cli.Mock().MockHireCreateHireExternalInterviewAssessment(func(ctx context.Context, request *lark.CreateHireExternalInterviewAssessmentReq, options ...lark.MethodOptionFunc) (*lark.CreateHireExternalInterviewAssessmentResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockHireCreateHireExternalInterviewAssessment()
+
+			_, _, err := moduleCli.CreateHireExternalInterviewAssessment(ctx, &lark.CreateHireExternalInterviewAssessmentReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			cli.Mock().MockHireCreateHireExternalBackgroundCheck(func(ctx context.Context, request *lark.CreateHireExternalBackgroundCheckReq, options ...lark.MethodOptionFunc) (*lark.CreateHireExternalBackgroundCheckResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockHireCreateHireExternalBackgroundCheck()
+
+			_, _, err := moduleCli.CreateHireExternalBackgroundCheck(ctx, &lark.CreateHireExternalBackgroundCheckReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			cli.Mock().MockHireAddHireTalentToFolder(func(ctx context.Context, request *lark.AddHireTalentToFolderReq, options ...lark.MethodOptionFunc) (*lark.AddHireTalentToFolderResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockHireAddHireTalentToFolder()
+
+			_, _, err := moduleCli.AddHireTalentToFolder(ctx, &lark.AddHireTalentToFolderReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			cli.Mock().MockHireGetHireTalentFolderList(func(ctx context.Context, request *lark.GetHireTalentFolderListReq, options ...lark.MethodOptionFunc) (*lark.GetHireTalentFolderListResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockHireGetHireTalentFolderList()
+
+			_, _, err := moduleCli.GetHireTalentFolderList(ctx, &lark.GetHireTalentFolderListReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			cli.Mock().MockHireBatchGetHireTalent(func(ctx context.Context, request *lark.BatchGetHireTalentReq, options ...lark.MethodOptionFunc) (*lark.BatchGetHireTalentResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockHireBatchGetHireTalent()
+
+			_, _, err := moduleCli.BatchGetHireTalent(ctx, &lark.BatchGetHireTalentReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
 			cli.Mock().MockHireGetHireJobProcessList(func(ctx context.Context, request *lark.GetHireJobProcessListReq, options ...lark.MethodOptionFunc) (*lark.GetHireJobProcessListResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -519,6 +603,55 @@ func Test_Hire_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
+			_, _, err := moduleCli.CreateHireExternalApplication(ctx, &lark.CreateHireExternalApplicationReq{})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.CreateHireExternalInterview(ctx, &lark.CreateHireExternalInterviewReq{})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.CreateHireExternalInterviewAssessment(ctx, &lark.CreateHireExternalInterviewAssessmentReq{})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.CreateHireExternalBackgroundCheck(ctx, &lark.CreateHireExternalBackgroundCheckReq{})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.AddHireTalentToFolder(ctx, &lark.AddHireTalentToFolderReq{})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.GetHireTalentFolderList(ctx, &lark.GetHireTalentFolderListReq{})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.BatchGetHireTalent(ctx, &lark.BatchGetHireTalentReq{})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+
 			_, _, err := moduleCli.GetHireJobProcessList(ctx, &lark.GetHireJobProcessListReq{})
 			as.NotNil(err)
 			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
@@ -757,6 +890,55 @@ func Test_Hire_Sample_Failed(t *testing.T) {
 		t.Run("", func(t *testing.T) {
 
 			_, _, err := moduleCli.GetHireReferralByApplication(ctx, &lark.GetHireReferralByApplicationReq{})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.CreateHireExternalApplication(ctx, &lark.CreateHireExternalApplicationReq{})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.CreateHireExternalInterview(ctx, &lark.CreateHireExternalInterviewReq{})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.CreateHireExternalInterviewAssessment(ctx, &lark.CreateHireExternalInterviewAssessmentReq{})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.CreateHireExternalBackgroundCheck(ctx, &lark.CreateHireExternalBackgroundCheckReq{})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.AddHireTalentToFolder(ctx, &lark.AddHireTalentToFolderReq{})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.GetHireTalentFolderList(ctx, &lark.GetHireTalentFolderListReq{})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.BatchGetHireTalent(ctx, &lark.BatchGetHireTalentReq{})
 			as.NotNil(err)
 			as.Equal("fake raw request", err.Error())
 		})

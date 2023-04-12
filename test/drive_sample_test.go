@@ -663,6 +663,42 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
+			cli.Mock().MockDriveCreateDrivePermissionPublicPassword(func(ctx context.Context, request *lark.CreateDrivePermissionPublicPasswordReq, options ...lark.MethodOptionFunc) (*lark.CreateDrivePermissionPublicPasswordResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockDriveCreateDrivePermissionPublicPassword()
+
+			_, _, err := moduleCli.CreateDrivePermissionPublicPassword(ctx, &lark.CreateDrivePermissionPublicPasswordReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			cli.Mock().MockDriveUpdateDrivePermissionPublicPassword(func(ctx context.Context, request *lark.UpdateDrivePermissionPublicPasswordReq, options ...lark.MethodOptionFunc) (*lark.UpdateDrivePermissionPublicPasswordResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockDriveUpdateDrivePermissionPublicPassword()
+
+			_, _, err := moduleCli.UpdateDrivePermissionPublicPassword(ctx, &lark.UpdateDrivePermissionPublicPasswordReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			cli.Mock().MockDriveDeleteDrivePermissionPublicPassword(func(ctx context.Context, request *lark.DeleteDrivePermissionPublicPasswordReq, options ...lark.MethodOptionFunc) (*lark.DeleteDrivePermissionPublicPasswordResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockDriveDeleteDrivePermissionPublicPassword()
+
+			_, _, err := moduleCli.DeleteDrivePermissionPublicPassword(ctx, &lark.DeleteDrivePermissionPublicPasswordReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
 			cli.Mock().MockDriveGetDrivePublicPermission(func(ctx context.Context, request *lark.GetDrivePublicPermissionReq, options ...lark.MethodOptionFunc) (*lark.GetDrivePublicPermissionResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -2249,6 +2285,33 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
+			_, _, err := moduleCli.CreateDrivePermissionPublicPassword(ctx, &lark.CreateDrivePermissionPublicPasswordReq{
+				Token: "x",
+			})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.UpdateDrivePermissionPublicPassword(ctx, &lark.UpdateDrivePermissionPublicPasswordReq{
+				Token: "x",
+			})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.DeleteDrivePermissionPublicPassword(ctx, &lark.DeleteDrivePermissionPublicPasswordReq{
+				Token: "x",
+			})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+
 			_, _, err := moduleCli.GetDrivePublicPermission(ctx, &lark.GetDrivePublicPermissionReq{
 				Token: "x",
 			})
@@ -3572,6 +3635,33 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		t.Run("", func(t *testing.T) {
 
 			_, _, err := moduleCli.GetDrivePublicPermissionOld(ctx, &lark.GetDrivePublicPermissionOldReq{})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.CreateDrivePermissionPublicPassword(ctx, &lark.CreateDrivePermissionPublicPasswordReq{
+				Token: "x",
+			})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.UpdateDrivePermissionPublicPassword(ctx, &lark.UpdateDrivePermissionPublicPasswordReq{
+				Token: "x",
+			})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.DeleteDrivePermissionPublicPassword(ctx, &lark.DeleteDrivePermissionPublicPasswordReq{
+				Token: "x",
+			})
 			as.NotNil(err)
 			as.Equal("fake raw request", err.Error())
 		})

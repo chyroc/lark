@@ -38,7 +38,7 @@ https://godoc.org/github.com/chyroc/lark
 
 ## 支持的接口
 
-API 总数: 744, 事件总数: 104
+API 总数: 755, 事件总数: 104
 
 <details>
   <summary>
@@ -323,6 +323,7 @@ API 总数: 744, 事件总数: 104
   - SearchUserOld
   - CreateUser
   - DeleteUser
+  - ResurrectUser
   - GetUser
   - GetUserList
   - GetUserListOld
@@ -436,6 +437,9 @@ API 总数: 744, 事件总数: 104
   - UpdateDriveMemberPermission
   - DeleteDriveMemberPermission
   - GetDrivePublicPermissionOld
+  - CreateDrivePermissionPublicPassword
+  - UpdateDrivePermissionPublicPassword
+  - DeleteDrivePermissionPublicPassword
   - GetDrivePublicPermission
   - UpdateDrivePublicPermission
   - BatchGetDriveMediaTmpDownloadURL
@@ -714,6 +718,13 @@ API 总数: 744, 事件总数: 104
   - GetHireNote
   - GetHireNoteList
   - GetHireReferralByApplication
+  - CreateHireExternalApplication
+  - CreateHireExternalInterview
+  - CreateHireExternalInterviewAssessment
+  - CreateHireExternalBackgroundCheck
+  - AddHireTalentToFolder
+  - GetHireTalentFolderList
+  - BatchGetHireTalent
   - GetHireJobProcessList
   - CreateHireApplication
   - TerminateHireApplication

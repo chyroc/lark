@@ -38,7 +38,7 @@ https://godoc.org/github.com/chyroc/lark
 
 ## Support APIs
 
-API Count: 744, Event Count: 104
+API Count: 755, Event Count: 104
 
 <details>
   <summary>
@@ -323,6 +323,7 @@ API Count: 744, Event Count: 104
   - SearchUserOld
   - CreateUser
   - DeleteUser
+  - ResurrectUser
   - GetUser
   - GetUserList
   - GetUserListOld
@@ -436,6 +437,9 @@ API Count: 744, Event Count: 104
   - UpdateDriveMemberPermission
   - DeleteDriveMemberPermission
   - GetDrivePublicPermissionOld
+  - CreateDrivePermissionPublicPassword
+  - UpdateDrivePermissionPublicPassword
+  - DeleteDrivePermissionPublicPassword
   - GetDrivePublicPermission
   - UpdateDrivePublicPermission
   - BatchGetDriveMediaTmpDownloadURL
@@ -714,6 +718,13 @@ API Count: 744, Event Count: 104
   - GetHireNote
   - GetHireNoteList
   - GetHireReferralByApplication
+  - CreateHireExternalApplication
+  - CreateHireExternalInterview
+  - CreateHireExternalInterviewAssessment
+  - CreateHireExternalBackgroundCheck
+  - AddHireTalentToFolder
+  - GetHireTalentFolderList
+  - BatchGetHireTalent
   - GetHireJobProcessList
   - CreateHireApplication
   - TerminateHireApplication

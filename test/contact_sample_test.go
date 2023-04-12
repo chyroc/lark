@@ -87,6 +87,18 @@ func Test_Contact_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
+			cli.Mock().MockContactResurrectUser(func(ctx context.Context, request *lark.ResurrectUserReq, options ...lark.MethodOptionFunc) (*lark.ResurrectUserResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockContactResurrectUser()
+
+			_, _, err := moduleCli.ResurrectUser(ctx, &lark.ResurrectUserReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
 			cli.Mock().MockContactGetUser(func(ctx context.Context, request *lark.GetUserReq, options ...lark.MethodOptionFunc) (*lark.GetUserResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -848,6 +860,15 @@ func Test_Contact_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
+			_, _, err := moduleCli.ResurrectUser(ctx, &lark.ResurrectUserReq{
+				UserID: "x",
+			})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+
 			_, _, err := moduleCli.GetUser(ctx, &lark.GetUserReq{
 				UserID: "x",
 			})
@@ -1368,6 +1389,15 @@ func Test_Contact_Sample_Failed(t *testing.T) {
 		t.Run("", func(t *testing.T) {
 
 			_, _, err := moduleCli.DeleteUser(ctx, &lark.DeleteUserReq{
+				UserID: "x",
+			})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.ResurrectUser(ctx, &lark.ResurrectUserReq{
 				UserID: "x",
 			})
 			as.NotNil(err)
