@@ -26,7 +26,7 @@ import (
 // 知识空间具有[类型](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/wiki-overview)和[可见性](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/wiki-overview)的概念。不同的类型或可见性可以对本操作做出限制:
 // - 可见性限制: 公开知识空间（visibility为public）对租户所有用户可见, 因此不支持再添加成员, 但可以添加管理员。
 // - 类型限制: 个人知识空间 （type为person）为个人管理的知识空间, 不支持添加其他管理员（包括应用/机器人）。但可以添加成员。
-// 知识空间权限要求, 当前使用的 access token 所代表的应用或用户拥有:
+// 知识空间权限要求, 当前用户或应用:
 // - 为知识空间管理员
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/wiki-v2/space-member/create

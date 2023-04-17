@@ -38,7 +38,7 @@ https://godoc.org/github.com/chyroc/lark
 
 ## 支持的接口
 
-API 总数: 755, 事件总数: 104
+API 总数: 755, 事件总数: 105
 
 <details>
   <summary>
@@ -646,6 +646,7 @@ API 总数: 755, 事件总数: 104
   - EventV2VCRoomLevelDeletedV1
   - EventV2VCRoomLevelUpdatedV1
   - EventV2VCReserveConfigUpdatedV1
+  - EventV2ApplicationBotMenuV6
 - File
   - UploadImage
   - DownloadImage

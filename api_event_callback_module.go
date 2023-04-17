@@ -61,6 +61,7 @@ const (
 	EventTypeV2ApplicationApplicationFeedbackCreatedV6         EventType = "application.application.feedback.created_v6"
 	EventTypeV2ApplicationApplicationFeedbackUpdatedV6         EventType = "application.application.feedback.updated_v6"
 	EventTypeV2ApplicationApplicationVisibilityAddedV6         EventType = "application.application.visibility.added_v6"
+	EventTypeV2ApplicationBotMenuV6                            EventType = "application.bot.menu_v6"
 	EventTypeV2ApprovalApprovalUpdatedV4                       EventType = "approval.approval.updated_v4"
 	EventTypeV2AttendanceUserFlowCreatedV1                     EventType = "attendance.user_flow.created_v1"
 	EventTypeV2AttendanceUserTaskUpdatedV1                     EventType = "attendance.user_task.updated_v1"
@@ -169,6 +170,7 @@ type eventHandler struct {
 	eventV2ApplicationApplicationFeedbackCreatedV6Handler         EventV2ApplicationApplicationFeedbackCreatedV6Handler
 	eventV2ApplicationApplicationFeedbackUpdatedV6Handler         EventV2ApplicationApplicationFeedbackUpdatedV6Handler
 	eventV2ApplicationApplicationVisibilityAddedV6Handler         EventV2ApplicationApplicationVisibilityAddedV6Handler
+	eventV2ApplicationBotMenuV6Handler                            EventV2ApplicationBotMenuV6Handler
 	eventV2ApprovalApprovalUpdatedV4Handler                       EventV2ApprovalApprovalUpdatedV4Handler
 	eventV2AttendanceUserFlowCreatedV1Handler                     EventV2AttendanceUserFlowCreatedV1Handler
 	eventV2AttendanceUserTaskUpdatedV1Handler                     EventV2AttendanceUserTaskUpdatedV1Handler
@@ -278,6 +280,7 @@ func (r *eventHandler) clone() *eventHandler {
 		eventV2ApplicationApplicationFeedbackCreatedV6Handler:         r.eventV2ApplicationApplicationFeedbackCreatedV6Handler,
 		eventV2ApplicationApplicationFeedbackUpdatedV6Handler:         r.eventV2ApplicationApplicationFeedbackUpdatedV6Handler,
 		eventV2ApplicationApplicationVisibilityAddedV6Handler:         r.eventV2ApplicationApplicationVisibilityAddedV6Handler,
+		eventV2ApplicationBotMenuV6Handler:                            r.eventV2ApplicationBotMenuV6Handler,
 		eventV2ApprovalApprovalUpdatedV4Handler:                       r.eventV2ApprovalApprovalUpdatedV4Handler,
 		eventV2AttendanceUserFlowCreatedV1Handler:                     r.eventV2AttendanceUserFlowCreatedV1Handler,
 		eventV2AttendanceUserTaskUpdatedV1Handler:                     r.eventV2AttendanceUserTaskUpdatedV1Handler,
@@ -386,6 +389,7 @@ type eventBody struct {
 	eventV2ApplicationApplicationFeedbackCreatedV6         *EventV2ApplicationApplicationFeedbackCreatedV6
 	eventV2ApplicationApplicationFeedbackUpdatedV6         *EventV2ApplicationApplicationFeedbackUpdatedV6
 	eventV2ApplicationApplicationVisibilityAddedV6         *EventV2ApplicationApplicationVisibilityAddedV6
+	eventV2ApplicationBotMenuV6                            *EventV2ApplicationBotMenuV6
 	eventV2ApprovalApprovalUpdatedV4                       *EventV2ApprovalApprovalUpdatedV4
 	eventV2AttendanceUserFlowCreatedV1                     *EventV2AttendanceUserFlowCreatedV1
 	eventV2AttendanceUserTaskUpdatedV1                     *EventV2AttendanceUserTaskUpdatedV1
@@ -519,6 +523,12 @@ func (r *EventCallbackService) parserEventV2(req *eventReq) error {
 			return err
 		}
 		req.eventV2ApplicationApplicationVisibilityAddedV6 = event
+	case EventTypeV2ApplicationBotMenuV6:
+		event := new(EventV2ApplicationBotMenuV6)
+		if err := req.unmarshalEvent(event); err != nil {
+			return err
+		}
+		req.eventV2ApplicationBotMenuV6 = event
 	case EventTypeV2ApprovalApprovalUpdatedV4:
 		event := new(EventV2ApprovalApprovalUpdatedV4)
 		if err := req.unmarshalEvent(event); err != nil {
@@ -1427,6 +1437,15 @@ func (r *EventCallbackService) handlerEvent(ctx context.Context, req *eventReq) 
 				go r.cli.eventHandler.eventV2ApplicationApplicationVisibilityAddedV6Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2ApplicationApplicationVisibilityAddedV6)
 			} else {
 				s, err = r.cli.eventHandler.eventV2ApplicationApplicationVisibilityAddedV6Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2ApplicationApplicationVisibilityAddedV6)
+			}
+		}
+		return true, s, err
+	case req.eventV2ApplicationBotMenuV6 != nil:
+		if r.cli.eventHandler.eventV2ApplicationBotMenuV6Handler != nil {
+			if r.cli.noBlocking {
+				go r.cli.eventHandler.eventV2ApplicationBotMenuV6Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2ApplicationBotMenuV6)
+			} else {
+				s, err = r.cli.eventHandler.eventV2ApplicationBotMenuV6Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2ApplicationBotMenuV6)
 			}
 		}
 		return true, s, err

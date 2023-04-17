@@ -38,7 +38,7 @@ https://godoc.org/github.com/chyroc/lark
 
 ## Support APIs
 
-API Count: 755, Event Count: 104
+API Count: 755, Event Count: 105
 
 <details>
   <summary>
@@ -646,6 +646,7 @@ API Count: 755, Event Count: 104
   - EventV2VCRoomLevelDeletedV1
   - EventV2VCRoomLevelUpdatedV1
   - EventV2VCReserveConfigUpdatedV1
+  - EventV2ApplicationBotMenuV6
 - File
   - UploadImage
   - DownloadImage
