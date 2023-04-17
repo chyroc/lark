@@ -84,7 +84,7 @@ type GetMessageListRespItem struct {
 	MsgType        MsgType      `json:"msg_type,omitempty"`         // 消息类型 包括: text、post、image、file、audio、media、sticker、interactive、share_chat、share_user等, 类型定义请参考[接收消息Content](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/im-v1/message/events/message_content)
 	CreateTime     string       `json:"create_time,omitempty"`      // 消息生成的时间戳（毫秒）
 	UpdateTime     string       `json:"update_time,omitempty"`      // 消息更新的时间戳（毫秒）
-	Deleted        bool         `json:"deleted,omitempty"`          // 消息是否被撤回
+	Deleted        bool         `json:"deleted,omitempty"`          // 消息是否被撤回或删除
 	Updated        bool         `json:"updated,omitempty"`          // 消息是否被更新
 	ChatID         string       `json:"chat_id,omitempty"`          // 所属的群
 	Sender         *Sender      `json:"sender,omitempty"`           // 发送者, 可以是用户或应用

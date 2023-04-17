@@ -21,9 +21,9 @@ import (
 	"context"
 )
 
-// GetApplicationVersionContactsRangeSuggest 根据应用 ID 和应用版本 ID 来获取该企业的自建应用某个应用版本中开发者申请的通讯录权限范围建议。
+// GetApplicationVersionContactsRangeSuggest 该接口用于根据应用的 App ID 和版本 ID 获取企业自建应用某个版本的通讯录权限范围。
 //
-// 该权限范围建议并不对应线上实际生效的权限范围, 因为该通讯录权限范围需要提交发布并通过企业管理员审核后才会生效。如需获取线上实际生效的通讯录权限范围, 可通过[获取应用通讯录权限范围配置](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/application-v6/application/contacts_range_configuration) 获取
+// 由于通讯录权限范围需要提交发布新的应用版本, 并且企业管理员审核通过后才会生效, 因此该权限范围可能与实际生效的权限范围有差别, 如需获取线上实际生效的通讯录权限范围, 可通过[获取应用通讯录权限范围配置](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/application-v6/application/contacts_range_configuration) 获取。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/application-v6/application-app_version/contacts_range_suggest
 func (r *ApplicationService) GetApplicationVersionContactsRangeSuggest(ctx context.Context, request *GetApplicationVersionContactsRangeSuggestReq, options ...MethodOptionFunc) (*GetApplicationVersionContactsRangeSuggestResp, *Response, error) {
@@ -59,8 +59,8 @@ func (r *Mock) UnMockApplicationGetApplicationVersionContactsRangeSuggest() {
 
 // GetApplicationVersionContactsRangeSuggestReq ...
 type GetApplicationVersionContactsRangeSuggestReq struct {
-	AppID            string            `path:"app_id" json:"-"`              // 应用的 app_id, 需要查询其他应用版本信息时, 必须申请[获取应用版本信息](https://open.feishu.cn/document/ukTMukTMukTM/uQjN3QjL0YzN04CN2cDN), 仅查询本应用版本信息时, 可填入 "me" 或者应用自身 app_id, 示例值: "cli_9f3ca975326b501b"
-	VersionID        string            `path:"version_id" json:"-"`          // 唯一标识应用版本的 ID, 示例值: "oav_d317f090b7258ad0372aa53963cda70d"
+	AppID            string            `path:"app_id" json:"-"`              // 应用的 AppID, 可以在[开发者后台](https://open.feishu.cn/app) > 凭证与基础信息页查看, * 仅查询本应用信息时, 可填应用自身App ID 或 `me`, * 当值为其他应用的App ID时, 必须申请以下权限: 获取应用信息, 示例值: "cli_9f3ca975326b501b"
+	VersionID        string            `path:"version_id" json:"-"`          // 唯一标识应用版本的 ID, 可以调用[获取应用版本列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/application-v6/application-app_version/list)接口获取, 示例值: "oav_d317f090b7258ad0372aa53963cda70d"
 	DepartmentIDType *DepartmentIDType `query:"department_id_type" json:"-"` // 返回值的部门ID的类型, 示例值: "department_id", 可选值有: department_id: 以自定义department_id来标识部门, open_department_id: 以open_department_id来标识部门, 默认值: `open_department_id`
 	UserIDType       *IDType           `query:"user_id_type" json:"-"`       // 用户 ID 类型, 示例值: "open_id", 可选值有: open_id: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid), union_id: 标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id), user_id: 标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id), 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
 }

@@ -78,13 +78,13 @@ type CreateHireJobReq struct {
 	Requirement                   *string                           `json:"requirement,omitempty"`                      // 职位要求, 示例值: "熟悉后端研发"
 	AddressID                     *string                           `json:"address_id,omitempty"`                       // 工作地点, 枚举通过接口「获取地址列表」获取, 选择地点用途为「职位地址」, 示例值: "6960663240925956553"
 	Description                   *string                           `json:"description,omitempty"`                      // 职位描述, 示例值: "后端研发岗位描述"
-	HighlightList                 []string                          `json:"highlight_list,omitempty"`                   // 职位亮点, 示例值: 6960663240925956554
+	HighlightList                 []string                          `json:"highlight_list,omitempty"`                   // 职位亮点, 示例值: ["6949805467799537964"]
 	JobTypeID                     string                            `json:"job_type_id,omitempty"`                      // 职位类别, 示例值: "6960663240925956551"
 	MaxLevelID                    *string                           `json:"max_level_id,omitempty"`                     // 最高职级, 枚举通过接口「获取职级列表」获取, 示例值: "6960663240925956548"
 	RecruitmentTypeID             string                            `json:"recruitment_type_id,omitempty"`              // 雇佣类型, 社招: 101-全职  102-外包 103-劳务 105-顾问 301-实习, 校招: 201-正式 202-实习, 示例值: "102"
 	RequiredDegree                *int64                            `json:"required_degree,omitempty"`                  // 学历要求, 示例值: 20, 可选值有: 1: 小学及以上, 2: 初中及以上, 3: 专职及以上, 4: 高中及以上, 5: 大专及以上, 6: 本科及以上, 7: 硕士及以上, 8: 博士及以上, 20: 不限
 	JobCategoryID                 *string                           `json:"job_category_id,omitempty"`                  // 序列ID, 示例值: "6960663240925956550"
-	AddressIDList                 []string                          `json:"address_id_list,omitempty"`                  // 工作地点, 枚举通过接口「获取地址列表」获取, 选择地点用途为「职位地址」, 示例值: 7035374761602959660
+	AddressIDList                 []string                          `json:"address_id_list,omitempty"`                  // 工作地点, 枚举通过接口「获取地址列表」获取, 选择地点用途为「职位地址」, 示例值: ["7035374761602959660"]
 	JobAttribute                  *int64                            `json:"job_attribute,omitempty"`                    // 职位属性, 1是实体职位, 2是虚拟职位, 示例值: 职位类别, 可选值有: 1: 实体职位, 2: 虚拟职位
 	ExpiryTimestamp               *string                           `json:"expiry_timestamp,omitempty"`                 // 到期日期的毫秒时间戳, 示例值: "1622484739955"
 	InterviewRegistrationSchemaID *string                           `json:"interview_registration_schema_id,omitempty"` // 面试登记表ID, 示例值: "6930815272790114324"
@@ -100,8 +100,8 @@ type CreateHireJobReqCustomizedData struct {
 type CreateHireJobReqJobManagers struct {
 	ID                  *string  `json:"id,omitempty"`                     // 职位 ID, 示例值: "1618209327096"
 	RecruiterID         string   `json:"recruiter_id,omitempty"`           // 招聘负责人 ID, 仅一位, 可通过用户相关接口获取用户 ID, 示例值: "ou_efk39117c300506837def50545420c6a"
-	HiringManagerIDList []string `json:"hiring_manager_id_list,omitempty"` // 用人经理 ID 列表, 示例值: 6960663240925956554
-	AssistantIDList     []string `json:"assistant_id_list,omitempty"`      // 协助人 ID 列表, 示例值: 6960663240925956554
+	HiringManagerIDList []string `json:"hiring_manager_id_list,omitempty"` // 用人经理 ID 列表, 示例值: ["ou_efk39117c300506837def50545420c6a"]
+	AssistantIDList     []string `json:"assistant_id_list,omitempty"`      // 协助人 ID 列表, 示例值: ["ou_efk39117c300506837def50545420c6a"]
 }
 
 // CreateHireJobResp ...

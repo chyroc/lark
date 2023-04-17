@@ -61,14 +61,14 @@ type UpdateHireJobConfigReq struct {
 	UserIDType                    *IDType                                           `query:"user_id_type" json:"-"`                     // 用户 ID 类型, 示例值: "open_id", 可选值有: open_id: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid), union_id: 标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id), user_id: 标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id), 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
 	OfferApplySchemaID            *string                                           `json:"offer_apply_schema_id,omitempty"`            // Offer 申请表, 枚举通过接口「获取 Offer 申请表列表」获取, 示例值: "6960663240925956573"
 	OfferProcessConf              *string                                           `json:"offer_process_conf,omitempty"`               // Offer 审批流, 枚举通过接口「获取 Offer 审批流列表」获取, 示例值: "6960663240925956572"
-	RecommendedEvaluatorIDList    []string                                          `json:"recommended_evaluator_id_list,omitempty"`    // 建议评估人 ID 列表, 示例值: 6960663240925956573
-	UpdateOptionList              []int64                                           `json:"update_option_list,omitempty"`               // 更新选项, 传入要更新的配置项, 1=更新面试评价表, 2=更新 Offer 申请表, 3=更新 Offer 审批流程, 4=更新招聘需求, 5=更新建议面试官, 6=更新推荐评估人, 示例值: 1, 可选值有: 1: 更新面试评价表, 2: 更新 Offer 申请表, 3: 更新 Offer 审批流程, 4: 更新招聘需求, 5: 更新建议面试官, 6: 更新推荐评估人, 8: 更新关联职位, 9: 更新自助约面配置, 10: 更新面试登记表
+	RecommendedEvaluatorIDList    []string                                          `json:"recommended_evaluator_id_list,omitempty"`    // 建议评估人 ID 列表, 示例值: ["6960663240925956571"]
+	UpdateOptionList              []int64                                           `json:"update_option_list,omitempty"`               // 更新选项, 传入要更新的配置项, 1=更新面试评价表, 2=更新 Offer 申请表, 3=更新 Offer 审批流程, 4=更新招聘需求, 5=更新建议面试官, 6=更新推荐评估人, 示例值: [1], 可选值有: 1: 更新面试评价表, 2: 更新 Offer 申请表, 3: 更新 Offer 审批流程, 4: 更新招聘需求, 5: 更新建议面试官, 6: 更新推荐评估人, 8: 更新关联职位, 9: 更新自助约面配置, 10: 更新面试登记表
 	AssessmentTemplateBizID       *string                                           `json:"assessment_template_biz_id,omitempty"`       // 面试评价表, 枚举通过接口「获取面试评价表列表」获取, 示例值: "6960663240925956571"
 	InterviewRoundConfList        []*UpdateHireJobConfigReqInterviewRoundConf       `json:"interview_round_conf_list,omitempty"`        // 建议面试官列表
-	JrIDList                      []string                                          `json:"jr_id_list,omitempty"`                       // 关联招聘需求, 支持关联多个, 枚举通过接口「获取招聘需求」获取, 示例值: 6960663240925956572
+	JrIDList                      []string                                          `json:"jr_id_list,omitempty"`                       // 关联招聘需求, 支持关联多个, 枚举通过接口「获取招聘需求」获取, 示例值: ["6960663240925956571"]
 	InterviewRegistrationSchemaID *string                                           `json:"interview_registration_schema_id,omitempty"` // 面试登记表 ID, 仅在面试登记表使用设置中开启按职位设置选项后生效, 示例值: "6930815272790114324"
 	InterviewRoundTypeConfList    []*UpdateHireJobConfigReqInterviewRoundTypeConf   `json:"interview_round_type_conf_list,omitempty"`   // 面试轮次类型 ID 列表
-	RelatedJobIDList              []string                                          `json:"related_job_id_list,omitempty"`              // 关联职位列表, 如职位为实体职位则关联虚拟职位id, 如职位为虚拟职位则关联实体职位id, 示例值: 6960663240925956574
+	RelatedJobIDList              []string                                          `json:"related_job_id_list,omitempty"`              // 关联职位列表, 如职位为实体职位则关联虚拟职位id, 如职位为虚拟职位则关联实体职位id, 示例值: ["6960663240925956573"]
 	InterviewAppointmentConfig    *UpdateHireJobConfigReqInterviewAppointmentConfig `json:"interview_appointment_config,omitempty"`     // 自助约面配置
 }
 
@@ -87,7 +87,7 @@ type UpdateHireJobConfigReqInterviewAppointmentConfigConfig struct {
 	ContactEmail                          *string  `json:"contact_email,omitempty"`                             // 联系人邮箱, 示例值: "test@email"
 	AddressID                             *string  `json:"address_id,omitempty"`                                // 地址id, 示例值: "6960663240925956576"
 	VideoType                             *int64   `json:"video_type,omitempty"`                                // 地址id, 示例值: 1, 可选值有: 1: zoom, 2: 牛客技术类型, 3: 牛客非技术类型, 4: 赛码, 5: 飞书, 8: Hackerrank, 9: 飞书(含代码考核), 100: 不使用系统工具
-	Cc                                    []string `json:"cc,omitempty"`                                        // 抄送人id lsit, 示例值: ou_c99c5f35d542efc7ee492afe11af19ef
+	Cc                                    []string `json:"cc,omitempty"`                                        // 抄送人id lsit, 示例值: ["user_id"]
 	Remark                                *string  `json:"remark,omitempty"`                                    // 备注, 示例值: "备注"
 	InterviewNotificationTemplateID       *string  `json:"interview_notification_template_id,omitempty"`        // 面试通知模板, 示例值: "6960663240925956573"
 	AppointmentNotificationTemplateID     *string  `json:"appointment_notification_template_id,omitempty"`      // 预约通知模板, 示例值: "6960663240925956573"
@@ -96,7 +96,7 @@ type UpdateHireJobConfigReqInterviewAppointmentConfigConfig struct {
 
 // UpdateHireJobConfigReqInterviewRoundConf ...
 type UpdateHireJobConfigReqInterviewRoundConf struct {
-	InterviewerIDList []string `json:"interviewer_id_list,omitempty"` // 建议面试官 ID 列表, 示例值: 6960663240925956571
+	InterviewerIDList []string `json:"interviewer_id_list,omitempty"` // 建议面试官 ID 列表, 示例值: ["6960663240925956571"]
 	Round             *int64   `json:"round,omitempty"`               // 面试轮次, 示例值: 1
 }
 

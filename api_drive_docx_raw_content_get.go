@@ -61,7 +61,7 @@ func (r *Mock) UnMockDriveGetDocxDocumentRawContent() {
 
 // GetDocxDocumentRawContentReq ...
 type GetDocxDocumentRawContentReq struct {
-	DocumentID string `path:"document_id" json:"-"` // 文档唯一标识。对应新版文档 Token, [点击了解如何获取云文档 Token](https://open.feishu.cn/document/ukTMukTMukTM/uczNzUjL3czM14yN3MTN#08bb5df6), 示例值: "doxbcmEtbFrbbq10nPNu8gO1F3b", 长度范围: `27` ～ `27` 字符
+	DocumentID string `path:"document_id" json:"-"` // 文档的唯一标识。对应新版文档 Token, [点击了解如何获取云文档 Token](https://open.feishu.cn/document/ukTMukTMukTM/uczNzUjL3czM14yN3MTN#08bb5df6), 示例值: "doxbcmEtbFrbbq10nPNu8gO1F3b", 长度范围: `27` ～ `27` 字符
 	Lang       *int64 `query:"lang" json:"-"`       // 语言（用于 MentionUser 语言的选取）, 示例值: 0, 可选值有: 0: 中文, 1: 英文, 2: 日文, 默认值: `0`
 }
 

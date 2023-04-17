@@ -35,7 +35,7 @@ type EventV2ApplicationApplicationAppVersionPublishApplyV6Handler func(ctx conte
 type EventV2ApplicationApplicationAppVersionPublishApplyV6 struct {
 	OperatorID        *EventV2ApplicationApplicationAppVersionPublishApplyV6OperatorID        `json:"operator_id,omitempty"`         // 用户 ID
 	OnlineVersion     *EventV2ApplicationApplicationAppVersionPublishApplyV6OnlineVersion     `json:"online_version,omitempty"`      // 当前线上版本信息
-	UnderAuditVersion *EventV2ApplicationApplicationAppVersionPublishApplyV6UnderAuditVersion `json:"under_audit_version,omitempty"` // 当前线上版本信息
+	UnderAuditVersion *EventV2ApplicationApplicationAppVersionPublishApplyV6UnderAuditVersion `json:"under_audit_version,omitempty"` // 当前在审核的版本信息
 	AppStatus         int64                                                                   `json:"app_status,omitempty"`          // 应用状态, 可选值有: 0: 停用状态, 1: 启用状态
 }
 
@@ -165,7 +165,7 @@ type EventV2ApplicationApplicationAppVersionPublishApplyV6OnlineVersionAbilityWe
 
 // EventV2ApplicationApplicationAppVersionPublishApplyV6OnlineVersionAbilityWorkplaceWidget ...
 type EventV2ApplicationApplicationAppVersionPublishApplyV6OnlineVersionAbilityWorkplaceWidget struct {
-	MinLarkVersion string `json:"min_lark_version,omitempty"` // 最低兼容 lark 版本号
+	MinLarkVersion string `json:"min_lark_version,omitempty"` // 最低兼容飞书版本号
 }
 
 // EventV2ApplicationApplicationAppVersionPublishApplyV6OnlineVersionI18n ...
@@ -173,7 +173,7 @@ type EventV2ApplicationApplicationAppVersionPublishApplyV6OnlineVersionI18n stru
 	I18nKey     string `json:"i18n_key,omitempty"`    // 国际化语言的 key, 可选值有: zh_cn: 中文, en_us: 英文, ja_jp: 日文
 	Name        string `json:"name,omitempty"`        // 应用国际化名称, 最小长度: `1` 字符
 	Description string `json:"description,omitempty"` // 应用国际化描述（副标题）, 最小长度: `1` 字符
-	HelpUse     string `json:"help_use,omitempty"`    // 帮助国际化文档链接
+	HelpUse     string `json:"help_use,omitempty"`    // 国际化帮助文档链接
 }
 
 // EventV2ApplicationApplicationAppVersionPublishApplyV6OnlineVersionRemark ...
@@ -342,7 +342,7 @@ type EventV2ApplicationApplicationAppVersionPublishApplyV6UnderAuditVersionAbili
 
 // EventV2ApplicationApplicationAppVersionPublishApplyV6UnderAuditVersionAbilityWorkplaceWidget ...
 type EventV2ApplicationApplicationAppVersionPublishApplyV6UnderAuditVersionAbilityWorkplaceWidget struct {
-	MinLarkVersion string `json:"min_lark_version,omitempty"` // 最低兼容 lark 版本号
+	MinLarkVersion string `json:"min_lark_version,omitempty"` // 最低兼容飞书版本号
 }
 
 // EventV2ApplicationApplicationAppVersionPublishApplyV6UnderAuditVersionI18n ...
@@ -350,7 +350,7 @@ type EventV2ApplicationApplicationAppVersionPublishApplyV6UnderAuditVersionI18n 
 	I18nKey     string `json:"i18n_key,omitempty"`    // 国际化语言的 key, 可选值有: zh_cn: 中文, en_us: 英文, ja_jp: 日文
 	Name        string `json:"name,omitempty"`        // 应用国际化名称, 最小长度: `1` 字符
 	Description string `json:"description,omitempty"` // 应用国际化描述（副标题）, 最小长度: `1` 字符
-	HelpUse     string `json:"help_use,omitempty"`    // 帮助国际化文档链接
+	HelpUse     string `json:"help_use,omitempty"`    // 国际化帮助文档链接
 }
 
 // EventV2ApplicationApplicationAppVersionPublishApplyV6UnderAuditVersionRemark ...

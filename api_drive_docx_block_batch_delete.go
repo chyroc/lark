@@ -67,7 +67,7 @@ func (r *Mock) UnMockDriveBatchDeleteDocxBlock() {
 
 // BatchDeleteDocxBlockReq ...
 type BatchDeleteDocxBlockReq struct {
-	DocumentID         string  `path:"document_id" json:"-"`           // 文档唯一标识。对应新版文档 Token, [点击了解如何获取云文档 Token](https://open.feishu.cn/document/ukTMukTMukTM/uczNzUjL3czM14yN3MTN#08bb5df6), 示例值: "doxcnePuYufKa49ISjhD8Ih0ikh"
+	DocumentID         string  `path:"document_id" json:"-"`           // 文档的唯一标识。对应新版文档 Token, [点击了解如何获取云文档 Token](https://open.feishu.cn/document/ukTMukTMukTM/uczNzUjL3czM14yN3MTN#08bb5df6), 示例值: "doxcnePuYufKa49ISjhD8Ih0ikh"
 	BlockID            string  `path:"block_id" json:"-"`              // 父 Block 的唯一标识, 示例值: "doxcnO6UW6wAw2qIcYf4hZpFIth"
 	DocumentRevisionID *int64  `query:"document_revision_id" json:"-"` // 操作的文档版本, 1表示文档最新版本。若此时操作的版本为文档最新版本, 则需要持有文档的阅读权限；若此时操作的版本为文档的历史版本, 则需要持有文档的编辑权限, 示例值:1, 默认值: `-1`, 最小值: `-1`
 	ClientToken        *string `query:"client_token" json:"-"`         // 操作的唯一标识, 与接口返回值的 client_token 相对应, 用于幂等的进行更新操作。此值为空表示将发起一次新的请求, 此值非空表示幂等的进行更新操作, 示例值: "fe599b60-450f-46ff-b2ef-9f6675625b97"

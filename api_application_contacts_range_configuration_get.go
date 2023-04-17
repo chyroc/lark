@@ -21,7 +21,9 @@ import (
 	"context"
 )
 
-// GetApplicationContactsRangeConfiguration 获取当前企业内某个自建应用 线上实际生效的通讯录权限范围配置
+// GetApplicationContactsRangeConfiguration 获取当前企业内某个自建应用线上实际生效的通讯录权限范围配置。
+//
+// 通讯录权限范围是指应用在调用通讯录相关接口, 可以获取的部门和用户的数据范围。应用无法获取权限范围之外的通讯录数据。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/application-v6/application/contacts_range_configuration
 func (r *ApplicationService) GetApplicationContactsRangeConfiguration(ctx context.Context, request *GetApplicationContactsRangeConfigurationReq, options ...MethodOptionFunc) (*GetApplicationContactsRangeConfigurationResp, *Response, error) {
@@ -57,7 +59,7 @@ func (r *Mock) UnMockApplicationGetApplicationContactsRangeConfiguration() {
 
 // GetApplicationContactsRangeConfigurationReq ...
 type GetApplicationContactsRangeConfigurationReq struct {
-	AppID            string            `path:"app_id" json:"-"`              // 应用的 app_id, 示例值: "cli_9b445f5258795107"
+	AppID            string            `path:"app_id" json:"-"`              // 应用的 app_id, 可以在[开发者后台](https://open.feishu.cn/app) > 凭证与基础信息页查看, 示例值: "cli_9b445f5258795107"
 	PageSize         *int64            `query:"page_size" json:"-"`          // 分页大小, 示例值: 20, 默认值: `50`, 取值范围: `1` ～ `100`
 	PageToken        *string           `query:"page_token" json:"-"`         // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果, 示例值: "new-e3c5a0627cdf0c2e057da7257b90376a"
 	DepartmentIDType *DepartmentIDType `query:"department_id_type" json:"-"` // 返回值的部门ID的类型, 示例值: "department_id", 可选值有: department_id: 以自定义department_id来标识部门, open_department_id: 以open_department_id来标识部门, 默认值: `open_department_id`
