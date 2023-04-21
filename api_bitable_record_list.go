@@ -23,7 +23,6 @@ import (
 
 // GetBitableRecordList 该接口用于列出数据表中的现有记录, 单次最多列出 500 行记录, 支持分页获取。
 //
-// 该接口支持调用频率上限为 10 QPS（Query Per Second, 每秒请求率）, 1000 QPM（Query Per Minute, 每分钟请求率）
 // ::: note
 // 首次调用请参考 [云文档接口快速入门](https://open.feishu.cn/document/ukTMukTMukTM/uczNzUjL3czM14yN3MTN)[多维表格接口接入指南](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/bitable/notification)
 //
@@ -80,7 +79,7 @@ type GetBitableRecordListReq struct {
 type GetBitableRecordListResp struct {
 	HasMore   bool                            `json:"has_more,omitempty"`   // 是否还有更多项
 	PageToken string                          `json:"page_token,omitempty"` // 分页标记, 当 has_more 为 true 时, 会同时返回新的 page_token, 否则不返回 page_token
-	Total     int64                           `json:"total,omitempty"`      // 本次请求返回的总记录数
+	Total     int64                           `json:"total,omitempty"`      // 总记录数
 	Items     []*GetBitableRecordListRespItem `json:"items,omitempty"`      // 本次请求返回的全部记录列表
 }
 
@@ -96,18 +95,20 @@ type GetBitableRecordListRespItem struct {
 
 // GetBitableRecordListRespItemCreatedBy ...
 type GetBitableRecordListRespItemCreatedBy struct {
-	ID     string `json:"id,omitempty"`      // 用户id, id类型等于user_id_type所指定的类型。
-	Name   string `json:"name,omitempty"`    // 用户的中文名称
-	EnName string `json:"en_name,omitempty"` // 用户的英文名称
-	Email  string `json:"email,omitempty"`   // 用户的邮箱
+	ID        string `json:"id,omitempty"`         // 用户id, id类型等于user_id_type所指定的类型。
+	Name      string `json:"name,omitempty"`       // 用户的中文名称
+	EnName    string `json:"en_name,omitempty"`    // 用户的英文名称
+	Email     string `json:"email,omitempty"`      // 用户的邮箱
+	AvatarURL string `json:"avatar_url,omitempty"` // 头像链接, 字段权限要求（满足任一）: 以应用身份读取通讯录, 获取用户基本信息, 以应用身份访问通讯录, 读取通讯录
 }
 
 // GetBitableRecordListRespItemLastModifiedBy ...
 type GetBitableRecordListRespItemLastModifiedBy struct {
-	ID     string `json:"id,omitempty"`      // 用户id, id类型等于user_id_type所指定的类型。
-	Name   string `json:"name,omitempty"`    // 用户的中文名称
-	EnName string `json:"en_name,omitempty"` // 用户的英文名称
-	Email  string `json:"email,omitempty"`   // 用户的邮箱
+	ID        string `json:"id,omitempty"`         // 用户id, id类型等于user_id_type所指定的类型。
+	Name      string `json:"name,omitempty"`       // 用户的中文名称
+	EnName    string `json:"en_name,omitempty"`    // 用户的英文名称
+	Email     string `json:"email,omitempty"`      // 用户的邮箱
+	AvatarURL string `json:"avatar_url,omitempty"` // 头像链接, 字段权限要求（满足任一）: 以应用身份读取通讯录, 获取用户基本信息, 以应用身份访问通讯录, 读取通讯录
 }
 
 // getBitableRecordListResp ...

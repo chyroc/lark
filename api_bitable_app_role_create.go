@@ -58,7 +58,7 @@ func (r *Mock) UnMockBitableCreateBitableAppRole() {
 
 // CreateBitableAppRoleReq ...
 type CreateBitableAppRoleReq struct {
-	AppToken   string                              `path:"app_token" json:"-"`    // bitable app token, 示例值: "appbcbWCzen6D8dezhoCH2RpMAh"
+	AppToken   string                              `path:"app_token" json:"-"`    // 多维表格的唯一标识符 [app_token 参数说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/bitable/notification#8121eebe), 示例值: "appbcbWCzen6D8dezhoCH2RpMAh"
 	RoleName   string                              `json:"role_name,omitempty"`   // 自定义角色的名字, 示例值: "自定义角色1"
 	TableRoles []*CreateBitableAppRoleReqTableRole `json:"table_roles,omitempty"` // 数据表角色, 最大长度: `100`
 	BlockRoles []*CreateBitableAppRoleReqBlockRole `json:"block_roles,omitempty"` // block权限, 最大长度: `100`
@@ -76,7 +76,7 @@ type CreateBitableAppRoleReqTableRole struct {
 	TableID           *string                                  `json:"table_id,omitempty"`            // 数据表ID, 示例值: "tblKz5D60T4JlfcT"
 	TablePerm         int64                                    `json:"table_perm,omitempty"`          // 数据表权限, `协作者可编辑自己的记录`和`可编辑指定字段`是`可编辑记录`的特殊情况, 可通过指定`rec_rule`或`field_perm`参数实现相同的效果, 示例值: 0, 可选值有: 0: 无权限, 1: 可阅读, 2: 可编辑记录, 4: 可编辑字段和记录, 默认值: `0`
 	RecRule           *CreateBitableAppRoleReqTableRoleRecRule `json:"rec_rule,omitempty"`            // 记录筛选条件, 在table_perm为1或2时有意义, 用于指定可编辑或可阅读某些记录
-	FieldPerm         map[string]int64                         `json:"field_perm,omitempty"`          // 字段权限, 仅在table_perm为2时有意义, 设置字段可编辑或可阅读。类型为 map, key 是字段名, value 是字段权限, value 枚举值有: `1`: 可阅读, `2`: 可编辑
+	FieldPerm         map[string]int64                         `json:"field_perm,omitempty"`          // 字段权限, 仅在table_perm为2时有意义, 设置字段可编辑或可阅读。类型为 map, key 是字段名, value 是字段权限, value 枚举值有: `1`: 可阅读, `2`: 可编辑, 示例值: {"姓名": 1, "年龄": 2}
 	AllowAddRecord    *bool                                    `json:"allow_add_record,omitempty"`    // 新增记录权限, 仅在table_perm为2时有意义, 用于设置记录是否可以新增, 示例值: true, 默认值: `true`
 	AllowDeleteRecord *bool                                    `json:"allow_delete_record,omitempty"` // 删除记录权限, 仅在table_perm为2时有意义, 用于设置记录是否可以删除, 示例值: true, 默认值: `true`
 }
@@ -92,7 +92,7 @@ type CreateBitableAppRoleReqTableRoleRecRule struct {
 type CreateBitableAppRoleReqTableRoleRecRuleCondition struct {
 	FieldName string   `json:"field_name,omitempty"` // 字段名, 记录筛选条件是`创建人包含访问者本人`时, 此参数值为"", 示例值: "单选"
 	Operator  *string  `json:"operator,omitempty"`   // 运算符, 示例值: "is", 可选值有: is: 等于, isNot: 不等于, contains: 包含, doesNotContain: 不包含, isEmpty: 为空, isNotEmpty: 不为空, 默认值: `is`
-	Value     []string `json:"value,omitempty"`      // 单选或多选字段的选项id, 示例值: ["optbdVHf4q", "optrpd3eIJ"]
+	Value     []string `json:"value,omitempty"`      // 单选或多选字段的选项id, 示例值: ["optbdVHf4q"]
 }
 
 // CreateBitableAppRoleResp ...

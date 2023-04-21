@@ -58,7 +58,7 @@ func (r *Mock) UnMockBitableBatchCreateBitableAppRoleMember() {
 
 // BatchCreateBitableAppRoleMemberReq ...
 type BatchCreateBitableAppRoleMemberReq struct {
-	AppToken   string                                      `path:"app_token" json:"-"`    // Bitable 文档 Token, 示例值: "bascnnKKvcoUblgmmhZkYqabcef"
+	AppToken   string                                      `path:"app_token" json:"-"`    // 多维表格的唯一标识符 [app_token 参数说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/bitable/notification#8121eebe), 示例值: "bascnnKKvcoUblgmmhZkYqabcef"
 	RoleID     string                                      `path:"role_id" json:"-"`      // 自定义角色 ID, 示例值: "rolNGhPqks"
 	MemberList []*BatchCreateBitableAppRoleMemberReqMember `json:"member_list,omitempty"` // 协作者列表, 最大长度: `100`
 }

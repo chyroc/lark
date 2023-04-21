@@ -87,7 +87,7 @@ type CreateHireJobReq struct {
 	AddressIDList                 []string                          `json:"address_id_list,omitempty"`                  // 工作地点, 枚举通过接口「获取地址列表」获取, 选择地点用途为「职位地址」, 示例值: ["7035374761602959660"]
 	JobAttribute                  *int64                            `json:"job_attribute,omitempty"`                    // 职位属性, 1是实体职位, 2是虚拟职位, 示例值: 职位类别, 可选值有: 1: 实体职位, 2: 虚拟职位
 	ExpiryTimestamp               *string                           `json:"expiry_timestamp,omitempty"`                 // 到期日期的毫秒时间戳, 示例值: "1622484739955"
-	InterviewRegistrationSchemaID *string                           `json:"interview_registration_schema_id,omitempty"` // 面试登记表ID, 示例值: "6930815272790114324"
+	InterviewRegistrationSchemaID *string                           `json:"interview_registration_schema_id,omitempty"` // 面试登记表ID, 当在飞书招聘「设置 - 面试登记表使用设置 - 面试登记表使用方式」中选择「全部职位应用同一登记表」时, 「职位设置」下的面试登记表不生效；选择「HR 按职位选择登记表」时, 该字段为必填, 示例值: "6930815272790114324"
 }
 
 // CreateHireJobReqCustomizedData ...

@@ -23,8 +23,6 @@ import (
 
 // BatchDeleteBitableRecord 该接口用于删除数据表中现有的多条记录, 单次调用中最多删除 500 条记录。
 //
-// 该接口支持调用频率上限为 10 QPS
-//
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table-record/batch_delete
 func (r *BitableService) BatchDeleteBitableRecord(ctx context.Context, request *BatchDeleteBitableRecordReq, options ...MethodOptionFunc) (*BatchDeleteBitableRecordResp, *Response, error) {
 	if r.cli.mock.mockBitableBatchDeleteBitableRecord != nil {
@@ -60,9 +58,9 @@ func (r *Mock) UnMockBitableBatchDeleteBitableRecord() {
 
 // BatchDeleteBitableRecordReq ...
 type BatchDeleteBitableRecordReq struct {
-	AppToken string   `path:"app_token" json:"-"` // bitable app token, 示例值: "appbcbWCzen6D8dezhoCH2RpMAh"
+	AppToken string   `path:"app_token" json:"-"` // base app token, 示例值: "appbcbWCzen6D8dezhoCH2RpMAh"
 	TableID  string   `path:"table_id" json:"-"`  // table id, 示例值: "tblsRc9GRRXKqhvW"
-	Records  []string `json:"records,omitempty"`  // 删除的多条记录id列表, 示例值: [, "recIcJBbvC", "recvmiCORa", ]
+	Records  []string `json:"records,omitempty"`  // 删除的多条记录id列表, 示例值: ["recIcJBbvC", "recvmiCORa"]
 }
 
 // BatchDeleteBitableRecordResp ...

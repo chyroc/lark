@@ -23,8 +23,6 @@ import (
 
 // DeleteBitableField 该接口用于在数据表中删除一个字段
 //
-// 该接口支持调用频率上限为 10 QPS
-//
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table-field/delete
 func (r *BitableService) DeleteBitableField(ctx context.Context, request *DeleteBitableFieldReq, options ...MethodOptionFunc) (*DeleteBitableFieldResp, *Response, error) {
 	if r.cli.mock.mockBitableDeleteBitableField != nil {
@@ -60,7 +58,7 @@ func (r *Mock) UnMockBitableDeleteBitableField() {
 
 // DeleteBitableFieldReq ...
 type DeleteBitableFieldReq struct {
-	AppToken string `path:"app_token" json:"-"` // bitable app token, 示例值: "appbcbWCzen6D8dezhoCH2RpMAh"
+	AppToken string `path:"app_token" json:"-"` // 多维表格的唯一标识符 [app_token 参数说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/bitable/notification#8121eebe), 示例值: "appbcbWCzen6D8dezhoCH2RpMAh"
 	TableID  string `path:"table_id" json:"-"`  // table id, 示例值: "tblsRc9GRRXKqhvW"
 	FieldID  string `path:"field_id" json:"-"`  // field id, 示例值: "fldPTb0U2y"
 }

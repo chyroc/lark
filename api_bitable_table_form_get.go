@@ -23,8 +23,6 @@ import (
 
 // GetBitableTableForm 获取表单的所有元数据项
 //
-// 该接口支持调用频率上限为 20 QPS
-//
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table-form/get
 func (r *BitableService) GetBitableTableForm(ctx context.Context, request *GetBitableTableFormReq, options ...MethodOptionFunc) (*GetBitableTableFormResp, *Response, error) {
 	if r.cli.mock.mockBitableGetBitableTableForm != nil {

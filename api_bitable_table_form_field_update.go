@@ -23,8 +23,6 @@ import (
 
 // UpdateBitableTableFormField 该接口用于更新表单中的问题项
 //
-// 该接口支持调用频率上限为 10 QPS
-//
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table-form-field/patch
 func (r *BitableService) UpdateBitableTableFormField(ctx context.Context, request *UpdateBitableTableFormFieldReq, options ...MethodOptionFunc) (*UpdateBitableTableFormFieldResp, *Response, error) {
 	if r.cli.mock.mockBitableUpdateBitableTableFormField != nil {

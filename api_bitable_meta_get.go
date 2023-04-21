@@ -21,9 +21,10 @@ import (
 	"context"
 )
 
-// GetBitableMeta 通过 app_token 获取多维表格元数据
+// GetBitableMeta 获取指定多维表格的元数据信息, 包括多维表格名称, 多维表格版本号, 多维表格是否开启高级权限等。
 //
-// 该接口支持调用频率上限为 20 QPS
+// ::: note
+// 首次调用请参考 [云文档接口快速入门](https://open.feishu.cn/document/ukTMukTMukTM/uczNzUjL3czM14yN3MTN)[多维表格接口接入指南](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/bitable/notification)
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app/get
 func (r *BitableService) GetBitableMeta(ctx context.Context, request *GetBitableMetaReq, options ...MethodOptionFunc) (*GetBitableMetaResp, *Response, error) {
@@ -60,7 +61,7 @@ func (r *Mock) UnMockBitableGetBitableMeta() {
 
 // GetBitableMetaReq ...
 type GetBitableMetaReq struct {
-	AppToken string `path:"app_token" json:"-"` // bitable app token, 示例值: "appbcbWCzen6D8dezhoCH2RpMAh"
+	AppToken string `path:"app_token" json:"-"` // 多维表格的唯一标识符 [app_token 参数说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/bitable/notification#8121eebe), 示例值: "appbcbWCzen6D8dezhoCH2RpMAh"
 }
 
 // GetBitableMetaResp ...
@@ -70,10 +71,10 @@ type GetBitableMetaResp struct {
 
 // GetBitableMetaRespApp ...
 type GetBitableMetaRespApp struct {
-	AppToken   string `json:"app_token,omitempty"`   // 多维表格的 app_token
+	AppToken   string `json:"app_token,omitempty"`   // 多维表格的 app_token, [app_token 参数说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/bitable/notification#8121eebe)
 	Name       string `json:"name,omitempty"`        // 多维表格的名字
-	Revision   int64  `json:"revision,omitempty"`    // 多维表格的版本号（对 app 进行修改时更新, 如新增、删除数据表, 修改数据表名）
-	IsAdvanced bool   `json:"is_advanced,omitempty"` // 多维表格是否已开启高级权限
+	Revision   int64  `json:"revision,omitempty"`    // 多维表格的版本号（对多维表格进行修改时更新, 如新增、删除数据表, 修改数据表名等, 初始为1, 每次更新+1）
+	IsAdvanced bool   `json:"is_advanced,omitempty"` // 多维表格是否开启了高级权限。取值包括: true: 表示开启了高级权限, false: 表示关闭了高级权限, [了解更多: 使用多维表格高级权限](https://www.feishu.cn/hc/zh-CN/articles/588604550568)
 }
 
 // getBitableMetaResp ...

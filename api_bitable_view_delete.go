@@ -23,8 +23,6 @@ import (
 
 // DeleteBitableView 删除数据表中的视图
 //
-// 该接口支持调用频率上限为 10 QPS
-//
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table-view/delete
 func (r *BitableService) DeleteBitableView(ctx context.Context, request *DeleteBitableViewReq, options ...MethodOptionFunc) (*DeleteBitableViewResp, *Response, error) {
 	if r.cli.mock.mockBitableDeleteBitableView != nil {
@@ -60,7 +58,7 @@ func (r *Mock) UnMockBitableDeleteBitableView() {
 
 // DeleteBitableViewReq ...
 type DeleteBitableViewReq struct {
-	AppToken string `path:"app_token" json:"-"` // bitable app token, 示例值: "appbcbWCzen6D8dezhoCH2RpMAh"
+	AppToken string `path:"app_token" json:"-"` // base app token, 示例值: "appbcbWCzen6D8dezhoCH2RpMAh"
 	TableID  string `path:"table_id" json:"-"`  // table id, 示例值: "tblsRc9GRRXKqhvW"
 	ViewID   string `path:"view_id" json:"-"`   // 视图Id, 示例值: "vewTpR1urY"
 }

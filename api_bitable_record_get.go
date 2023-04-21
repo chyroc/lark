@@ -23,8 +23,6 @@ import (
 
 // GetBitableRecord 该接口用于根据 record_id 的值检索现有记录
 //
-// 该接口支持调用频率上限为 20 QPS
-//
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table-record/get
 func (r *BitableService) GetBitableRecord(ctx context.Context, request *GetBitableRecordReq, options ...MethodOptionFunc) (*GetBitableRecordResp, *Response, error) {
 	if r.cli.mock.mockBitableGetBitableRecord != nil {
@@ -60,7 +58,7 @@ func (r *Mock) UnMockBitableGetBitableRecord() {
 
 // GetBitableRecordReq ...
 type GetBitableRecordReq struct {
-	AppToken          string  `path:"app_token" json:"-"`            // bitable app token, 示例值: "bascnCMII2ORej2RItqpZZUNMIe"
+	AppToken          string  `path:"app_token" json:"-"`            // base app token, 示例值: "bascnCMII2ORej2RItqpZZUNMIe"
 	TableID           string  `path:"table_id" json:"-"`             // table id, 示例值: "tblxI2tWaxP5dG7p"
 	RecordID          string  `path:"record_id" json:"-"`            // 单条记录的 id, 示例值: "recn0hoyXL"
 	TextFieldAsArray  *bool   `query:"text_field_as_array" json:"-"` // 控制多行文本字段数据的返回格式, true 表示以数组形式返回, 示例值: true
@@ -76,28 +74,30 @@ type GetBitableRecordResp struct {
 
 // GetBitableRecordRespRecord ...
 type GetBitableRecordRespRecord struct {
-	RecordID         string                                    `json:"record_id,omitempty"`          // 记录 id, 更新多条记录时必填
-	CreatedBy        *GetBitableRecordRespRecordCreatedBy      `json:"created_by,omitempty"`         // 创建人
-	CreatedTime      int64                                     `json:"created_time,omitempty"`       // 创建时间
-	LastModifiedBy   *GetBitableRecordRespRecordLastModifiedBy `json:"last_modified_by,omitempty"`   // 修改人
-	LastModifiedTime int64                                     `json:"last_modified_time,omitempty"` // 最近更新时间
-	Fields           map[string]interface{}                    `json:"fields,omitempty"`             // 记录字段, 关于支持新增的字段类型, 请参考[接入指南](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/bitable/notification)
+	RecordID         string                                    `json:"record_id,omitempty"`          // 一条记录的唯一标识 id [record_id 参数说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/bitable/notification#15d8db94)
+	CreatedBy        *GetBitableRecordRespRecordCreatedBy      `json:"created_by,omitempty"`         // 该记录的创建人
+	CreatedTime      int64                                     `json:"created_time,omitempty"`       // 该记录的创建时间
+	LastModifiedBy   *GetBitableRecordRespRecordLastModifiedBy `json:"last_modified_by,omitempty"`   // 该记录最新一次更新的修改人
+	LastModifiedTime int64                                     `json:"last_modified_time,omitempty"` // 该记录最近一次的更新时间
+	Fields           map[string]interface{}                    `json:"fields,omitempty"`             // 数据表的字段, 即数据表的列, 当前接口支持的字段类型请参考[接入指南](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/bitable/notification#31f78a3c), 不同类型字段的数据结构请参考[数据结构概述](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/bitable/development-guide/bitable-structure)
 }
 
 // GetBitableRecordRespRecordCreatedBy ...
 type GetBitableRecordRespRecordCreatedBy struct {
-	ID     string `json:"id,omitempty"`      // 人员Id
-	Name   string `json:"name,omitempty"`    // 中文姓名
-	EnName string `json:"en_name,omitempty"` // 英文姓名
-	Email  string `json:"email,omitempty"`   // 邮箱
+	ID        string `json:"id,omitempty"`         // 用户id, id类型等于user_id_type所指定的类型。
+	Name      string `json:"name,omitempty"`       // 用户的中文名称
+	EnName    string `json:"en_name,omitempty"`    // 用户的英文名称
+	Email     string `json:"email,omitempty"`      // 用户的邮箱
+	AvatarURL string `json:"avatar_url,omitempty"` // 头像链接, 字段权限要求（满足任一）: 以应用身份读取通讯录, 获取用户基本信息, 以应用身份访问通讯录, 读取通讯录
 }
 
 // GetBitableRecordRespRecordLastModifiedBy ...
 type GetBitableRecordRespRecordLastModifiedBy struct {
-	ID     string `json:"id,omitempty"`      // 人员Id
-	Name   string `json:"name,omitempty"`    // 中文姓名
-	EnName string `json:"en_name,omitempty"` // 英文姓名
-	Email  string `json:"email,omitempty"`   // 邮箱
+	ID        string `json:"id,omitempty"`         // 用户id, id类型等于user_id_type所指定的类型。
+	Name      string `json:"name,omitempty"`       // 用户的中文名称
+	EnName    string `json:"en_name,omitempty"`    // 用户的英文名称
+	Email     string `json:"email,omitempty"`      // 用户的邮箱
+	AvatarURL string `json:"avatar_url,omitempty"` // 头像链接, 字段权限要求（满足任一）: 以应用身份读取通讯录, 获取用户基本信息, 以应用身份访问通讯录, 读取通讯录
 }
 
 // getBitableRecordResp ...

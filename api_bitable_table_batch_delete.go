@@ -23,7 +23,6 @@ import (
 
 // BatchDeleteBitableTable 删除多个数据表。
 //
-// 该接口支持调用频率上限为 10 QPS
 // ::: note
 // 首次调用请参考 [云文档接口快速入门](https://open.feishu.cn/document/ukTMukTMukTM/uczNzUjL3czM14yN3MTN)[多维表格接口接入指南](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/bitable/notification)
 //

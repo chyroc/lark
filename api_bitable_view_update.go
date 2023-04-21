@@ -58,7 +58,7 @@ func (r *Mock) UnMockBitableUpdateBitableView() {
 
 // UpdateBitableViewReq ...
 type UpdateBitableViewReq struct {
-	AppToken string                        `path:"app_token" json:"-"`  // bitable app token, 示例值: "bascng7vrxcxpig7geggXiCtadY"
+	AppToken string                        `path:"app_token" json:"-"`  // base app token, 示例值: "bascng7vrxcxpig7geggXiCtadY", 最小长度: `1` 字符
 	TableID  string                        `path:"table_id" json:"-"`   // table id, 示例值: "tblsRc9GRRXKqhvW"
 	ViewID   string                        `path:"view_id" json:"-"`    // 视图 ID, 示例值: "vewTpR1urY"
 	ViewName *string                       `json:"view_name,omitempty"` // 视图名称, 示例值: "grid"
@@ -68,7 +68,7 @@ type UpdateBitableViewReq struct {
 // UpdateBitableViewReqProperty ...
 type UpdateBitableViewReqProperty struct {
 	FilterInfo   *UpdateBitableViewReqPropertyFilterInfo `json:"filter_info,omitempty"`   // 过滤条件
-	HiddenFields []string                                `json:"hidden_fields,omitempty"` // 隐藏字段ID列表, 示例值: ["fldCGzANXx", "fldCGzANXx"], 最大长度: `100`
+	HiddenFields []string                                `json:"hidden_fields,omitempty"` // 隐藏字段ID列表, 示例值: ["fldVioUai2"], 最大长度: `100`
 }
 
 // UpdateBitableViewReqPropertyFilterInfo ...

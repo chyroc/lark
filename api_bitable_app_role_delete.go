@@ -58,7 +58,7 @@ func (r *Mock) UnMockBitableDeleteBitableAppRole() {
 
 // DeleteBitableAppRoleReq ...
 type DeleteBitableAppRoleReq struct {
-	AppToken string `path:"app_token" json:"-"` // bitable app token, 示例值: "appbcbWCzen6D8dezhoCH2RpMAh"
+	AppToken string `path:"app_token" json:"-"` // 多维表格的唯一标识符 [app_token 参数说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/bitable/notification#8121eebe), 示例值: "appbcbWCzen6D8dezhoCH2RpMAh"
 	RoleID   string `path:"role_id" json:"-"`   // 自定义角色的id, 示例值: "roljRpwIUt"
 }
 

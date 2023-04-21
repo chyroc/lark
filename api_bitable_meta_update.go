@@ -25,7 +25,6 @@ import (
 //
 // - 飞书文档、飞书表格、知识库中的多维表格不支持开启高级权限
 // - 此接口非原子操作, 先修改多维表格名字, 后开关高级权限。可能存在部分成功的情况
-// 该接口支持调用频率上限为 10 QPS
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app/update
 func (r *BitableService) UpdateBitableMeta(ctx context.Context, request *UpdateBitableMetaReq, options ...MethodOptionFunc) (*UpdateBitableMetaResp, *Response, error) {
@@ -62,7 +61,7 @@ func (r *Mock) UnMockBitableUpdateBitableMeta() {
 
 // UpdateBitableMetaReq ...
 type UpdateBitableMetaReq struct {
-	AppToken   string  `path:"app_token" json:"-"`    // bitable app token, 示例值: "appbcbWCzen6D8dezhoCH2RpMAh"
+	AppToken   string  `path:"app_token" json:"-"`    // Base app token, 示例值: "appbcbWCzen6D8dezhoCH2RpMAh"
 	Name       *string `json:"name,omitempty"`        // 新的多维表格名字, 示例值: "新的多维表格名字"
 	IsAdvanced *bool   `json:"is_advanced,omitempty"` // 多维表格是否开启高级权限, 示例值: true
 }

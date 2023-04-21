@@ -66,7 +66,7 @@ type UpdateHireJobConfigReq struct {
 	AssessmentTemplateBizID       *string                                           `json:"assessment_template_biz_id,omitempty"`       // 面试评价表, 枚举通过接口「获取面试评价表列表」获取, 示例值: "6960663240925956571"
 	InterviewRoundConfList        []*UpdateHireJobConfigReqInterviewRoundConf       `json:"interview_round_conf_list,omitempty"`        // 建议面试官列表
 	JrIDList                      []string                                          `json:"jr_id_list,omitempty"`                       // 关联招聘需求, 支持关联多个, 枚举通过接口「获取招聘需求」获取, 示例值: ["6960663240925956571"]
-	InterviewRegistrationSchemaID *string                                           `json:"interview_registration_schema_id,omitempty"` // 面试登记表 ID, 仅在面试登记表使用设置中开启按职位设置选项后生效, 示例值: "6930815272790114324"
+	InterviewRegistrationSchemaID *string                                           `json:"interview_registration_schema_id,omitempty"` // 面试登记表 ID, 当在飞书招聘「设置 - 面试登记表使用设置 - 面试登记表使用方式」中选择「全部职位应用同一登记表」时, 「职位设置」下的面试登记表不生效；选择「HR 按职位选择登记表」时, 该字段为必填, 示例值: "6930815272790114324"
 	InterviewRoundTypeConfList    []*UpdateHireJobConfigReqInterviewRoundTypeConf   `json:"interview_round_type_conf_list,omitempty"`   // 面试轮次类型 ID 列表
 	RelatedJobIDList              []string                                          `json:"related_job_id_list,omitempty"`              // 关联职位列表, 如职位为实体职位则关联虚拟职位id, 如职位为虚拟职位则关联实体职位id, 示例值: ["6960663240925956573"]
 	InterviewAppointmentConfig    *UpdateHireJobConfigReqInterviewAppointmentConfig `json:"interview_appointment_config,omitempty"`     // 自助约面配置

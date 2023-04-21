@@ -21,9 +21,10 @@ import (
 	"context"
 )
 
-// CreateBitableTable 新增一个数据表
+// CreateBitableTable 通过该接口, 可以新增一个仅包含索引列的空数据表, 也可以指定一部分初始字段。
 //
-// 该接口支持调用频率上限为 10 QPS
+// ::: note
+// 首次调用请参考 [云文档接口快速入门](https://open.feishu.cn/document/ukTMukTMukTM/uczNzUjL3czM14yN3MTN)[多维表格接口接入指南](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/bitable/notification)
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table/create
 func (r *BitableService) CreateBitableTable(ctx context.Context, request *CreateBitableTableReq, options ...MethodOptionFunc) (*CreateBitableTableResp, *Response, error) {
@@ -60,19 +61,68 @@ func (r *Mock) UnMockBitableCreateBitableTable() {
 
 // CreateBitableTableReq ...
 type CreateBitableTableReq struct {
-	AppToken   string                      `path:"app_token" json:"-"`     // bitable app token, 示例值: "appbcbWCzen6D8dezhoCH2RpMAh"
-	UserIDType *IDType                     `query:"user_id_type" json:"-"` // 用户 ID 类型, 示例值: "open_id", 可选值有: open_id: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid), union_id: 标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id), user_id: 标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id), 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
-	Table      *CreateBitableTableReqTable `json:"table,omitempty"`        // 数据表
+	AppToken string                      `path:"app_token" json:"-"` // 多维表格的唯一标识符 [app_token 参数说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/bitable/notification#8121eebe), 示例值: "appbcbWCzen6D8dezhoCH2RpMAh", 最小长度: `1` 字符
+	Table    *CreateBitableTableReqTable `json:"table,omitempty"`    // 数据表
 }
 
 // CreateBitableTableReqTable ...
 type CreateBitableTableReqTable struct {
-	Name *string `json:"name,omitempty"` // 数据表名字, 必填字段, 示例值: "table1"
+	Name            *string                            `json:"name,omitempty"`              // 数据表名称, 请注意: 1. 名称中的首尾空格将会被去除, 示例值: "table1", 长度范围: `1` ～ `100` 字符
+	DefaultViewName *string                            `json:"default_view_name,omitempty"` // 默认表格视图的名称, 不填则默认为 表格, 请注意: 1. 名称中的首尾空格将会被去除, 2. 名称中不允许包含 [ ] 两个字符, 示例值: "表格"
+	Fields          []*CreateBitableTableReqTableField `json:"fields,omitempty"`            // 数据表的初始字段, 请注意: 1. 如果 default_view_name 字段和 fields 字段都不填写, 将会创建一个仅包含索引列的空数据表, 2. 如果指定了 fields 字段, 将会创建一个包含初始字段的数据表且默认第一个字段为索引列, 长度范围: `1` ～ `50`
+}
+
+// CreateBitableTableReqTableField ...
+type CreateBitableTableReqTableField struct {
+	FieldName string                                   `json:"field_name,omitempty"` // 字段名, 示例值: "文本"
+	Type      int64                                    `json:"type,omitempty"`       // 字段类型, 示例值: 1, 可选值有: 1: 多行文本, 2: 数字, 3: 单选, 4: 多选, 5: 日期, 7: 复选框, 11: 人员, 13: 电话号码, 15: 超链接, 22: 地理位置, 1001: 创建时间, 1002: 最后更新时间, 1003: 创建人, 1004: 修改人
+	Property  *CreateBitableTableReqTableFieldProperty `json:"property,omitempty"`   // 字段属性
+}
+
+// CreateBitableTableReqTableFieldProperty ...
+type CreateBitableTableReqTableFieldProperty struct {
+	Options           []*CreateBitableTableReqTableFieldPropertyOption   `json:"options,omitempty"`            // 单选、多选字段的选项信息
+	Formatter         *string                                            `json:"formatter,omitempty"`          // 数字、公式字段的显示格式, 示例值: "0"
+	DateFormatter     *string                                            `json:"date_formatter,omitempty"`     // 日期、创建时间、最后更新时间字段的显示格式, 示例值: "日期格式"
+	AutoFill          *bool                                              `json:"auto_fill,omitempty"`          // 日期字段中新纪录自动填写创建时间, 示例值: false
+	Multiple          *bool                                              `json:"multiple,omitempty"`           // 人员字段中允许添加多个成员, 单向关联、双向关联中允许添加多个记录, 示例值: false
+	TableID           *string                                            `json:"table_id,omitempty"`           // 单向关联、双向关联字段中关联的数据表的id, 示例值: "tblsRc9GRRXKqhvW"
+	TableName         *string                                            `json:"table_name,omitempty"`         // 单向关联、双向关联字段中关联的数据表的名字, 示例值: ""table2""
+	BackFieldName     *string                                            `json:"back_field_name,omitempty"`    // 双向关联字段中关联的数据表中对应的双向关联字段的名字, 示例值: ""table1-双向关联""
+	AutoSerial        *CreateBitableTableReqTableFieldPropertyAutoSerial `json:"auto_serial,omitempty"`        // 自动编号类型
+	Location          *CreateBitableTableReqTableFieldPropertyLocation   `json:"location,omitempty"`           // 地理位置输入方式
+	FormulaExpression *string                                            `json:"formula_expression,omitempty"` // 公式字段的表达式, 示例值: "bitable::$table[tblNj92WQBAasdEf].$field[fldMV60rYs]*2"
+}
+
+// CreateBitableTableReqTableFieldPropertyAutoSerial ...
+type CreateBitableTableReqTableFieldPropertyAutoSerial struct {
+	Type    string                                                     `json:"type,omitempty"`    // 自动编号类型, 示例值: "auto_increment_number", 可选值有: custom: 自定义编号, auto_increment_number: 自增数字
+	Options []*CreateBitableTableReqTableFieldPropertyAutoSerialOption `json:"options,omitempty"` // 自动编号规则列表
+}
+
+// CreateBitableTableReqTableFieldPropertyAutoSerialOption ...
+type CreateBitableTableReqTableFieldPropertyAutoSerialOption struct {
+	Type  string `json:"type,omitempty"`  // 自动编号的可选规则项类型, 示例值: "created_time", 可选值有: system_number: 自增数字位, value范围1-9, fixed_text: 固定字符, 最大长度: 20, created_time: 创建时间, 支持格式 "yyyyMMdd"、"yyyyMM"、"yyyy"、"MMdd"、"MM"、"dd"
+	Value string `json:"value,omitempty"` // 与自动编号的可选规则项类型相对应的取值, 示例值: "yyyyMMdd"
+}
+
+// CreateBitableTableReqTableFieldPropertyLocation ...
+type CreateBitableTableReqTableFieldPropertyLocation struct {
+	InputType string `json:"input_type,omitempty"` // 地理位置输入限制, 示例值: "not_limit", 可选值有: only_mobile: 只允许移动端上传, not_limit: 无限制
+}
+
+// CreateBitableTableReqTableFieldPropertyOption ...
+type CreateBitableTableReqTableFieldPropertyOption struct {
+	Name  *string `json:"name,omitempty"`  // 选项名, 示例值: "红色"
+	ID    *string `json:"id,omitempty"`    // 选项 ID, 创建时不允许指定 ID, 示例值: "optKl35lnG"
+	Color *int64  `json:"color,omitempty"` // 选项颜色, 示例值: 0, 取值范围: `0` ～ `54`
 }
 
 // CreateBitableTableResp ...
 type CreateBitableTableResp struct {
-	TableID string `json:"table_id,omitempty"` // table id
+	TableID       string   `json:"table_id,omitempty"`        // 多维表格数据表的唯一标识符
+	DefaultViewID string   `json:"default_view_id,omitempty"` // 默认表格视图的id, 该字段仅在请求参数中填写了default_view_name或fields才会返回
+	FieldIDList   []string `json:"field_id_list,omitempty"`   // 数据表初始字段的id列表, 该字段仅在请求参数中填写了fields才会返回
 }
 
 // createBitableTableResp ...

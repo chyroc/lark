@@ -23,8 +23,6 @@ import (
 
 // CreateBitableView 在数据表中新增一个视图
 //
-// 该接口支持调用频率上限为 10 QPS
-//
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table-view/create
 func (r *BitableService) CreateBitableView(ctx context.Context, request *CreateBitableViewReq, options ...MethodOptionFunc) (*CreateBitableViewResp, *Response, error) {
 	if r.cli.mock.mockBitableCreateBitableView != nil {
@@ -60,7 +58,7 @@ func (r *Mock) UnMockBitableCreateBitableView() {
 
 // CreateBitableViewReq ...
 type CreateBitableViewReq struct {
-	AppToken string  `path:"app_token" json:"-"`  // bitable app token, 示例值: "appbcbWCzen6D8dezhoCH2RpMAh"
+	AppToken string  `path:"app_token" json:"-"`  // base app token, 示例值: "appbcbWCzen6D8dezhoCH2RpMAh", 最小长度: `1` 字符
 	TableID  string  `path:"table_id" json:"-"`   // table id, 示例值: "tblsRc9GRRXKqhvW"
 	ViewName string  `json:"view_name,omitempty"` // 视图名字, 示例值: "表格视图1"
 	ViewType *string `json:"view_type,omitempty"` // 视图类型, 示例值: "grid", 可选值有: grid: 表格视图, kanban: 看板视图, gallery: 画册视图, gantt: 甘特视图, form: 表单视图

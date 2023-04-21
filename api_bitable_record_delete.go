@@ -23,8 +23,6 @@ import (
 
 // DeleteBitableRecord 该接口用于删除数据表中的一条记录
 //
-// 该接口支持调用频率上限为 10 QPS
-//
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table-record/delete
 func (r *BitableService) DeleteBitableRecord(ctx context.Context, request *DeleteBitableRecordReq, options ...MethodOptionFunc) (*DeleteBitableRecordResp, *Response, error) {
 	if r.cli.mock.mockBitableDeleteBitableRecord != nil {
@@ -60,7 +58,7 @@ func (r *Mock) UnMockBitableDeleteBitableRecord() {
 
 // DeleteBitableRecordReq ...
 type DeleteBitableRecordReq struct {
-	AppToken string `path:"app_token" json:"-"` // bitable app token, 示例值: "appbcbWCzen6D8dezhoCH2RpMAh"
+	AppToken string `path:"app_token" json:"-"` // base app token, 示例值: "appbcbWCzen6D8dezhoCH2RpMAh"
 	TableID  string `path:"table_id" json:"-"`  // table id, 示例值: "tblsRc9GRRXKqhvW"
 	RecordID string `path:"record_id" json:"-"` // 单条记录的Id, 示例值: "recpCsf4ME"
 }

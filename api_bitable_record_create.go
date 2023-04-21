@@ -23,7 +23,6 @@ import (
 
 // CreateBitableRecord 该接口用于在数据表中新增一条记录
 //
-// 该接口支持调用频率上限为 10 QPS（Query Per Second, 每秒请求率）
 // ::: note
 // 首次调用请参考 [云文档接口快速入门](https://open.feishu.cn/document/ukTMukTMukTM/uczNzUjL3czM14yN3MTN)[多维表格接口接入指南](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/bitable/notification)
 //
@@ -66,7 +65,7 @@ type CreateBitableRecordReq struct {
 	TableID     string                 `path:"table_id" json:"-"`      // 多维表格数据表的唯一标识符 [table_id 参数说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/bitable/notification#735fe883), 示例值: "tblUa9vcYjWQYJCj"
 	UserIDType  *IDType                `query:"user_id_type" json:"-"` // 用户 ID 类型, 示例值: "open_id", 可选值有: open_id: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid), union_id: 标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id), user_id: 标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id), 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
 	ClientToken *string                `query:"client_token" json:"-"` // 格式为标准的 uuidv4, 操作的唯一标识, 用于幂等的进行更新操作。此值为空表示将发起一次新的请求, 此值非空表示幂等的进行更新操作, 示例值: "fe599b60-450f-46ff-b2ef-9f6675625b97"
-	Fields      map[string]interface{} `json:"fields,omitempty"`       // 数据表的字段, 即数据表的列, 当前接口支持的字段类型请参考[接入指南](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/bitable/notification#31f78a3c), 不同类型字段的数据结构请参考[数据结构概述](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/bitable/development-guide/bitable-structure)
+	Fields      map[string]interface{} `json:"fields,omitempty"`       // 数据表的字段, 即数据表的列, 当前接口支持的字段类型请参考[接入指南](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/bitable/notification#31f78a3c), 不同类型字段的数据结构请参考[数据结构概述](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/bitable/development-guide/bitable-structure), 示例值: {, "多行文本":"HelloWorld", }
 }
 
 // CreateBitableRecordResp ...
@@ -86,18 +85,20 @@ type CreateBitableRecordRespRecord struct {
 
 // CreateBitableRecordRespRecordCreatedBy ...
 type CreateBitableRecordRespRecordCreatedBy struct {
-	ID     string `json:"id,omitempty"`      // 用户id, id类型等于user_id_type所指定的类型。
-	Name   string `json:"name,omitempty"`    // 用户的中文名称
-	EnName string `json:"en_name,omitempty"` // 用户的英文名称
-	Email  string `json:"email,omitempty"`   // 用户的邮箱
+	ID        string `json:"id,omitempty"`         // 用户id, id类型等于user_id_type所指定的类型。
+	Name      string `json:"name,omitempty"`       // 用户的中文名称
+	EnName    string `json:"en_name,omitempty"`    // 用户的英文名称
+	Email     string `json:"email,omitempty"`      // 用户的邮箱
+	AvatarURL string `json:"avatar_url,omitempty"` // 头像链接, 字段权限要求（满足任一）: 以应用身份读取通讯录, 获取用户基本信息, 以应用身份访问通讯录, 读取通讯录
 }
 
 // CreateBitableRecordRespRecordLastModifiedBy ...
 type CreateBitableRecordRespRecordLastModifiedBy struct {
-	ID     string `json:"id,omitempty"`      // 用户id, id类型等于user_id_type所指定的类型。
-	Name   string `json:"name,omitempty"`    // 用户的中文名称
-	EnName string `json:"en_name,omitempty"` // 用户的英文名称
-	Email  string `json:"email,omitempty"`   // 用户的邮箱
+	ID        string `json:"id,omitempty"`         // 用户id, id类型等于user_id_type所指定的类型。
+	Name      string `json:"name,omitempty"`       // 用户的中文名称
+	EnName    string `json:"en_name,omitempty"`    // 用户的英文名称
+	Email     string `json:"email,omitempty"`      // 用户的邮箱
+	AvatarURL string `json:"avatar_url,omitempty"` // 头像链接, 字段权限要求（满足任一）: 以应用身份读取通讯录, 获取用户基本信息, 以应用身份访问通讯录, 读取通讯录
 }
 
 // createBitableRecordResp ...

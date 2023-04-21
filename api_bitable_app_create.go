@@ -23,8 +23,6 @@ import (
 
 // CreateBitableApp 在指定目录下创建多维表格
 //
-// 该接口支持调用频率上限为 20 QPM（Query Per Minute, 每分钟请求率）
-//
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app/create
 func (r *BitableService) CreateBitableApp(ctx context.Context, request *CreateBitableAppReq, options ...MethodOptionFunc) (*CreateBitableAppResp, *Response, error) {
 	if r.cli.mock.mockBitableCreateBitableApp != nil {

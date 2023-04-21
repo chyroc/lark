@@ -23,8 +23,6 @@ import (
 
 // GetBitableTableFormFieldList 列出表单的所有问题项
 //
-// 该接口支持调用频率上限为 20 QPS
-//
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table-form-field/list
 func (r *BitableService) GetBitableTableFormFieldList(ctx context.Context, request *GetBitableTableFormFieldListReq, options ...MethodOptionFunc) (*GetBitableTableFormFieldListResp, *Response, error) {
 	if r.cli.mock.mockBitableGetBitableTableFormFieldList != nil {
