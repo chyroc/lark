@@ -50,8 +50,7 @@ func (r *Bitable) copy(ctx context.Context, folderToken, name string) (*Bitable,
 
 func (r *Bitable) createBitableTable(ctx context.Context, name string) (*BitableTable, error) {
 	resp, _, err := r.larkClient.Bitable.CreateBitableTable(ctx, &lark.CreateBitableTableReq{
-		AppToken:   r.token,
-		UserIDType: nil,
+		AppToken: r.token,
 		Table: &lark.CreateBitableTableReqTable{
 			Name: &name,
 		},

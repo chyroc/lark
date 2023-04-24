@@ -21,11 +21,9 @@ import (
 	"context"
 )
 
-// GetVCAlertList 获取特定条件下租户的设备告警记录
+// GetVCAlertList 获取特定条件下租户的设备告警记录。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/vc-v1/alert/list
-//
-// Deprecated
 func (r *VCService) GetVCAlertList(ctx context.Context, request *GetVCAlertListReq, options ...MethodOptionFunc) (*GetVCAlertListResp, *Response, error) {
 	if r.cli.mock.mockVCGetVCAlertList != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] VC#GetVCAlertList mock enable")
@@ -59,10 +57,10 @@ func (r *Mock) UnMockVCGetVCAlertList() {
 
 // GetVCAlertListReq ...
 type GetVCAlertListReq struct {
-	StartTime  string  `query:"start_time" json:"-"`  // 开始时间（unix时间, 单位sec）, 示例值: "1608888867"
-	EndTime    string  `query:"end_time" json:"-"`    // 结束时间（unix时间, 单位sec）, 示例值: "1608888867"
-	QueryType  *int64  `query:"query_type" json:"-"`  // 查询对象类型, 不填返回所有, 示例值: 1, 可选值有: 1: 会议室, 2: erc
-	QueryValue *string `query:"query_value" json:"-"` // 查询对象ID, 示例值: "6911188411932033028"
+	StartTime  string  `query:"start_time" json:"-"`  // 开始时间（unix时间, 单位秒）, 示例值: "1608888867"
+	EndTime    string  `query:"end_time" json:"-"`    // 结束时间（unix时间, 单位秒）, 示例值: "1608888867"
+	QueryType  *int64  `query:"query_type" json:"-"`  // 查询对象类型, 不填返回所有, 示例值: 1, 可选值有: 1: 会议室, 2: 企业会议室连接器
+	QueryValue *string `query:"query_value" json:"-"` // 查询对象ID, 会议室ID或企业会议室连接器ID, 示例值: "6911188411932033028"
 	PageSize   *int64  `query:"page_size" json:"-"`   // 分页大小, 示例值: 100, 最大值: `200`
 	PageToken  *string `query:"page_token" json:"-"`  // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果, 示例值: "100"
 }
@@ -80,7 +78,7 @@ type GetVCAlertListRespItem struct {
 	ResourceScope string                           `json:"resource_scope,omitempty"` // 触发告警规则的会议室/服务器具体的名称
 	MonitorTarget int64                            `json:"monitor_target,omitempty"` // 触发告警规则的监控对象, 可选值有: 1: 飞书会议室, 2: 飞书会议室签到板, 3: 飞书投屏盒子, 4: 飞书投屏, 5: sip会议室系统, 6: erc节点, 7: 飞书传感器
 	AlertStrategy string                           `json:"alert_strategy,omitempty"` // 告警规则的规则描述
-	AlertTime     string                           `json:"alert_time,omitempty"`     // 告警通知发生时间（unix时间, 单位sec）
+	AlertTime     string                           `json:"alert_time,omitempty"`     // 告警通知发生时间（unix时间, 单位秒）
 	AlertLevel    int64                            `json:"alert_level,omitempty"`    // 告警等级: 严重/警告/提醒, 可选值有: 0: 提醒, 1: 警告, 2: 严重
 	Contacts      []*GetVCAlertListRespItemContact `json:"contacts,omitempty"`       // 告警联系人
 	NotifyMethods []int64                          `json:"notifyMethods,omitempty"`  // 通知方式, 可选值有: 0: 飞书机器人, 1: 邮件
