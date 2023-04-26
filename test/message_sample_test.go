@@ -159,6 +159,30 @@ func Test_Message_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
+			cli.Mock().MockMessageForwardMessage(func(ctx context.Context, request *lark.ForwardMessageReq, options ...lark.MethodOptionFunc) (*lark.ForwardMessageResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockMessageForwardMessage()
+
+			_, _, err := moduleCli.ForwardMessage(ctx, &lark.ForwardMessageReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			cli.Mock().MockMessageMergeForwardMessage(func(ctx context.Context, request *lark.MergeForwardMessageReq, options ...lark.MethodOptionFunc) (*lark.MergeForwardMessageResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockMessageMergeForwardMessage()
+
+			_, _, err := moduleCli.MergeForwardMessage(ctx, &lark.MergeForwardMessageReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
 			cli.Mock().MockMessageBatchDeleteMessage(func(ctx context.Context, request *lark.BatchDeleteMessageReq, options ...lark.MethodOptionFunc) (*lark.BatchDeleteMessageResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -430,6 +454,22 @@ func Test_Message_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
+			_, _, err := moduleCli.ForwardMessage(ctx, &lark.ForwardMessageReq{
+				MessageID: "x",
+			})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.MergeForwardMessage(ctx, &lark.MergeForwardMessageReq{})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+
 			_, _, err := moduleCli.BatchDeleteMessage(ctx, &lark.BatchDeleteMessageReq{
 				BatchMessageID: "x",
 			})
@@ -642,6 +682,22 @@ func Test_Message_Sample_Failed(t *testing.T) {
 			_, _, err := moduleCli.DeleteMessage(ctx, &lark.DeleteMessageReq{
 				MessageID: "x",
 			})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.ForwardMessage(ctx, &lark.ForwardMessageReq{
+				MessageID: "x",
+			})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.MergeForwardMessage(ctx, &lark.MergeForwardMessageReq{})
 			as.NotNil(err)
 			as.Equal("fake raw request", err.Error())
 		})

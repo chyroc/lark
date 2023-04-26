@@ -38,7 +38,7 @@ https://godoc.org/github.com/chyroc/lark
 
 ## Support APIs
 
-API Count: 755, Event Count: 105
+API Count: 757, Event Count: 105
 
 <details>
   <summary>
@@ -799,6 +799,8 @@ API Count: 755, Event Count: 105
   - BatchSendOldRawMessage
   - ReplyRawMessage
   - DeleteMessage
+  - ForwardMessage
+  - MergeForwardMessage
   - BatchDeleteMessage
   - UpdateMessage
   - UpdateMessageDelay

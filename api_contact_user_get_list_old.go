@@ -25,7 +25,7 @@ import (
 //
 // [常见问题答疑](https://open.feishu.cn/document/ugTN1YjL4UTN24CO1UjN/uQzN1YjL0cTN24CN3UjN)。
 // - 使用 user_access_token 情况下根据个人组织架构的通讯录可见范围进行权限过滤, 返回个人组织架构通讯录范围（[登陆企业管理后台进行权限配置](https://www.feishu.cn/admin/security/permission/visibility)）内可见的用户数据。
-// -  tenant_access_token  基于应用通讯录范围进行权限鉴定。由于 department_id 是非必填参数, 填与不填存在<b>两种数据权限校验与返回</b>情况: 1、请求设置了 department_id
+// - tenant_access_token  基于应用通讯录范围进行权限鉴定。由于 department_id 是非必填参数, 填与不填存在<b>两种数据权限校验与返回</b>情况: 1、请求设置了 department_id
 // （根部门为0）, 会检验所带部门ID是否具有通讯录权限（如果带上
 // department_id=0 会校验是否有全员权限）, 有则返回部门下直属的成员列表, 否则提示无部门权限的错误码返回。 2、请求未带
 // department_id 参数, 则会返回权限范围内的独立用户（权限范围直接包含了某用户, 则该用户视为权限范围内的独立用户）。

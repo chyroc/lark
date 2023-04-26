@@ -632,6 +632,8 @@ type Mock struct {
 	mockMessageBatchSendOldRawMessage                          func(ctx context.Context, request *BatchSendOldRawMessageReq, options ...MethodOptionFunc) (*BatchSendOldRawMessageResp, *Response, error)
 	mockMessageReplyRawMessage                                 func(ctx context.Context, request *ReplyRawMessageReq, options ...MethodOptionFunc) (*ReplyRawMessageResp, *Response, error)
 	mockMessageDeleteMessage                                   func(ctx context.Context, request *DeleteMessageReq, options ...MethodOptionFunc) (*DeleteMessageResp, *Response, error)
+	mockMessageForwardMessage                                  func(ctx context.Context, request *ForwardMessageReq, options ...MethodOptionFunc) (*ForwardMessageResp, *Response, error)
+	mockMessageMergeForwardMessage                             func(ctx context.Context, request *MergeForwardMessageReq, options ...MethodOptionFunc) (*MergeForwardMessageResp, *Response, error)
 	mockMessageBatchDeleteMessage                              func(ctx context.Context, request *BatchDeleteMessageReq, options ...MethodOptionFunc) (*BatchDeleteMessageResp, *Response, error)
 	mockMessageUpdateMessage                                   func(ctx context.Context, request *UpdateMessageReq, options ...MethodOptionFunc) (*UpdateMessageResp, *Response, error)
 	mockMessageUpdateMessageDelay                              func(ctx context.Context, request *UpdateMessageDelayReq, options ...MethodOptionFunc) (*UpdateMessageDelayResp, *Response, error)
