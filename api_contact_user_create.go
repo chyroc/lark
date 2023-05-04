@@ -74,7 +74,7 @@ type CreateUserReq struct {
 	MobileVisible    *bool                      `json:"mobile_visible,omitempty"`     // 手机号码可见性, true 为可见, false 为不可见, 目前默认为 true。不可见时, 组织员工将无法查看该员工的手机号码, 示例值: false
 	Gender           *int64                     `json:"gender,omitempty"`             // 性别, 示例值: 1, 可选值有: 0: 保密, 1: 男, 2: 女
 	AvatarKey        *string                    `json:"avatar_key,omitempty"`         // 头像的文件Key, 可通过“消息与群组/消息/图片信息”中的“上传图片”接口上传并获取头像文件 Key, “上传图片”功能参见[上传图片](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/image/create), 示例值: "2500c7a9-5fff-4d9a-a2de-3d59614ae28g"
-	DepartmentIDs    []string                   `json:"department_ids,omitempty"`     // 用户所属部门的ID列表, 一个用户可属于多个部门, ID值的类型与查询参数中的department_id_type 对应, 不同 ID 的说明与department_id的获取方式参见 [部门ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/field-overview#23857fe0), 示例值: od-4e6ac4d14bcd5071a37a39de902c7141
+	DepartmentIDs    []string                   `json:"department_ids,omitempty"`     // 用户所属部门的ID列表, 一个用户可属于多个部门, ID值的类型与查询参数中的department_id_type 对应, 不同 ID 的说明与department_id的获取方式参见 [部门ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/field-overview#23857fe0), 示例值: ["od-4e6ac4d14bcd5071a37a39de902c714111111"]
 	LeaderUserID     *string                    `json:"leader_user_id,omitempty"`     // 用户的直接主管的用户ID, ID值与查询参数中的user_id_type 对应, 不同 ID 的说明参见 [用户相关的 ID 概念](https://open.feishu.cn/document/home/user-identity-introduction/introduction), 获取方式参见[如何获取user_id](https://open.feishu.cn/document/home/user-identity-introduction/how-to-get), 示例值: "ou_7dab8a3d3cdcc9da365777c7ad535d62"
 	City             *string                    `json:"city,omitempty"`               // 工作城市, 示例值: "杭州"
 	Country          *string                    `json:"country,omitempty"`            // 国家或地区Code缩写, 具体写入格式请参考 [国家/地区码表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/country-code-description), 示例值: "CN"
@@ -86,9 +86,10 @@ type CreateUserReq struct {
 	CustomAttrs      []*CreateUserReqCustomAttr `json:"custom_attrs,omitempty"`       // 自定义字段, 请确保你的组织管理员已在管理后台/组织架构/成员字段管理/自定义字段管理/全局设置中开启了“允许开放平台 API 调用“, 否则该字段不会生效/返回, 更多详情参见[用户接口相关问题](https://open.feishu.cn/document/ugTN1YjL4UTN24CO1UjN/uQzN1YjL0cTN24CN3UjN#77061525)
 	EnterpriseEmail  *string                    `json:"enterprise_email,omitempty"`   // 企业邮箱, 请先确保已在管理后台启用飞书邮箱服务, 创建用户时, 企业邮箱的使用方式参见[用户接口相关问题](https://open.feishu.cn/document/ugTN1YjL4UTN24CO1UjN/uQzN1YjL0cTN24CN3UjN#77061525), 示例值: "demo@mail.com"
 	JobTitle         *string                    `json:"job_title,omitempty"`          // 职务, 示例值: "xxxxx"
+	Geo              *string                    `json:"geo,omitempty"`                // 成员数据驻留地, 示例值: "cn"
 	JobLevelID       *string                    `json:"job_level_id,omitempty"`       // 职级ID, 示例值: "mga5oa8ayjlp9rb"
 	JobFamilyID      *string                    `json:"job_family_id,omitempty"`      // 序列ID, 示例值: "mga5oa8ayjlp9rb"
-	SubscriptionIDs  []string                   `json:"subscription_ids,omitempty"`   // 分配给用户的席位ID列表, 需开通“分配用户席位”权限。可通过下方接口获取到该租户的可用席位ID, 参见[获取企业席位信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/tenant-v2/tenant-product_assign_info/query), 示例值: ["7179609168571645971"]
+	SubscriptionIDs  []string                   `json:"subscription_ids,omitempty"`   // 分配给用户的席位ID列表, 需开通“分配用户席位”权限。可通过下方接口获取到该租户的可用席位ID, 参见[获取企业席位信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/tenant-v2/tenant-product_assign_info/query), 示例值: ["7079609167680782300"]
 }
 
 // CreateUserReqCustomAttr ...
@@ -118,6 +119,7 @@ type CreateUserReqOrder struct {
 	DepartmentID    *string `json:"department_id,omitempty"`    // 排序信息对应的部门ID, ID值与查询参数中的department_id_type 对应, 表示用户所在的、且需要排序的部门, 不同 ID 的说明参见及获取方式参见 [部门ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/field-overview), 示例值: "od-4e6ac4d14bcd5071a37a39de902c7141"
 	UserOrder       *int64  `json:"user_order,omitempty"`       // 用户在其直属部门内的排序, 数值越大, 排序越靠前, 示例值: 100
 	DepartmentOrder *int64  `json:"department_order,omitempty"` // 用户所属的多个部门间的排序, 数值越大, 排序越靠前, 示例值: 100
+	IsPrimaryDept   *bool   `json:"is_primary_dept,omitempty"`  // 标识用户的唯一主部门, 主部门为用户所属部门中排序第一的部门(department_order最大), 示例值: true
 }
 
 // CreateUserResp ...
@@ -154,6 +156,7 @@ type CreateUserRespUser struct {
 	EnterpriseEmail string                          `json:"enterprise_email,omitempty"`  // 企业邮箱, 请先确保已在管理后台启用飞书邮箱服务, 创建用户时, 企业邮箱的使用方式参见[用户接口相关问题](https://open.feishu.cn/document/ugTN1YjL4UTN24CO1UjN/uQzN1YjL0cTN24CN3UjN#77061525), 字段权限要求（满足任一）: 以应用身份读取通讯录, 获取用户受雇信息, 以应用身份访问通讯录, 读取通讯录
 	JobTitle        string                          `json:"job_title,omitempty"`         // 职务, 字段权限要求（满足任一）: 以应用身份读取通讯录, 获取用户受雇信息, 以应用身份访问通讯录, 读取通讯录
 	IsFrozen        bool                            `json:"is_frozen,omitempty"`         // 是否暂停用户
+	Geo             string                          `json:"geo,omitempty"`               // 成员数据驻留地, 字段权限要求: 查看成员数据驻留地
 	JobLevelID      string                          `json:"job_level_id,omitempty"`      // 职级ID, 字段权限要求: 查询用户职级
 	JobFamilyID     string                          `json:"job_family_id,omitempty"`     // 序列ID, 字段权限要求: 查询用户所属的工作序列
 }
@@ -196,6 +199,7 @@ type CreateUserRespUserOrder struct {
 	DepartmentID    string `json:"department_id,omitempty"`    // 排序信息对应的部门ID, ID值与查询参数中的department_id_type 对应, 表示用户所在的、且需要排序的部门, 不同 ID 的说明参见及获取方式参见 [部门ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/field-overview)
 	UserOrder       int64  `json:"user_order,omitempty"`       // 用户在其直属部门内的排序, 数值越大, 排序越靠前
 	DepartmentOrder int64  `json:"department_order,omitempty"` // 用户所属的多个部门间的排序, 数值越大, 排序越靠前
+	IsPrimaryDept   bool   `json:"is_primary_dept,omitempty"`  // 标识用户的唯一主部门, 主部门为用户所属部门中排序第一的部门(department_order最大)
 }
 
 // CreateUserRespUserStatus ...

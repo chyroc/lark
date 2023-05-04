@@ -64,7 +64,7 @@ type CheckUserIsInApplicationPaidScopeReq struct {
 // CheckUserIsInApplicationPaidScopeResp ...
 type CheckUserIsInApplicationPaidScopeResp struct {
 	Status          string `json:"status,omitempty"`            // 用户是否在开通范围中, "valid" -该用户在开通范围中, "not_in_scope"-该用户不在开通范围中, "no_active_license"-企业未购买任何价格方案或价格方案已过期, "exceeds_maximum_limit"-企业当前配置的付费功能开通范围人数超出限制, 需提醒管理员调整
-	PricePlanID     string `json:"price_plan_id,omitempty"`     // 租户当前使用的「价格方案ID」, 对应开发者后台中「价格方案配置」中的「价格方案」
+	PricePlanID     string `json:"price_plan_id,omitempty"`     // 租户当前使用的「价格方案ID」, 对应开发者后台中「付费方案配置」中的「价格方案ID」
 	IsTrial         bool   `json:"is_trial,omitempty"`          // 是否为试用版本, true-是试用版本；false-非试用版本
 	ServiceStopTime string `json:"service_stop_time,omitempty"` // 租户当前有生效价格方案时表示价格方案的到期时间, 为时间unix时间戳
 }
