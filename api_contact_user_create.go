@@ -79,7 +79,7 @@ type CreateUserReq struct {
 	City             *string                    `json:"city,omitempty"`               // 工作城市, 示例值: "杭州"
 	Country          *string                    `json:"country,omitempty"`            // 国家或地区Code缩写, 具体写入格式请参考 [国家/地区码表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/country-code-description), 示例值: "CN"
 	WorkStation      *string                    `json:"work_station,omitempty"`       // 工位, 示例值: "北楼-H34"
-	JoinTime         *int64                     `json:"join_time,omitempty"`          // 入职时间, 时间戳格式, 表示从1970年1月1日开始所经过的秒数, 示例值: 2147483647
+	JoinTime         *int64                     `json:"join_time,omitempty"`          // 入职时间, 时间戳格式, 表示从1970年1月1日开始所经过的秒数。创建用户时不指定入职时间则默认填充当前时间, 示例值: 2147483647
 	EmployeeNo       *string                    `json:"employee_no,omitempty"`        // 工号, 示例值: "1"
 	EmployeeType     int64                      `json:"employee_type,omitempty"`      // 员工类型, 可选值有: `1`: 正式员工, `2`: 实习生, `3`: 外包, `4`: 劳务, `5`: 顾问, 同时可读取到自定义员工类型的 int 值, 可通过下方接口获取到该租户的自定义员工类型的名称, 参见[获取人员类型](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/employee_type_enum/list), 示例值: 1
 	Orders           []*CreateUserReqOrder      `json:"orders,omitempty"`             // 用户排序信息, 用于标记通讯录下组织架构的人员顺序, 人员可能存在多个部门中, 且有不同的排序。

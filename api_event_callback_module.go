@@ -95,6 +95,7 @@ const (
 	EventTypeV2HelpdeskTicketCreatedV1                         EventType = "helpdesk.ticket.created_v1"
 	EventTypeV2HelpdeskTicketMessageCreatedV1                  EventType = "helpdesk.ticket_message.created_v1"
 	EventTypeV2HelpdeskTicketUpdatedV1                         EventType = "helpdesk.ticket.updated_v1"
+	EventTypeV2HireOfferStatusChangedV1                        EventType = "hire.offer.status_changed_v1"
 	EventTypeV2IMChatDisbandedV1                               EventType = "im.chat.disbanded_v1"
 	EventTypeV2IMChatMemberBotAddedV1                          EventType = "im.chat.member.bot.added_v1"
 	EventTypeV2IMChatMemberBotDeletedV1                        EventType = "im.chat.member.bot.deleted_v1"
@@ -204,6 +205,7 @@ type eventHandler struct {
 	eventV2HelpdeskTicketCreatedV1Handler                         EventV2HelpdeskTicketCreatedV1Handler
 	eventV2HelpdeskTicketMessageCreatedV1Handler                  EventV2HelpdeskTicketMessageCreatedV1Handler
 	eventV2HelpdeskTicketUpdatedV1Handler                         EventV2HelpdeskTicketUpdatedV1Handler
+	eventV2HireOfferStatusChangedV1Handler                        EventV2HireOfferStatusChangedV1Handler
 	eventV2IMChatDisbandedV1Handler                               EventV2IMChatDisbandedV1Handler
 	eventV2IMChatMemberBotAddedV1Handler                          EventV2IMChatMemberBotAddedV1Handler
 	eventV2IMChatMemberBotDeletedV1Handler                        EventV2IMChatMemberBotDeletedV1Handler
@@ -314,6 +316,7 @@ func (r *eventHandler) clone() *eventHandler {
 		eventV2HelpdeskTicketCreatedV1Handler:                         r.eventV2HelpdeskTicketCreatedV1Handler,
 		eventV2HelpdeskTicketMessageCreatedV1Handler:                  r.eventV2HelpdeskTicketMessageCreatedV1Handler,
 		eventV2HelpdeskTicketUpdatedV1Handler:                         r.eventV2HelpdeskTicketUpdatedV1Handler,
+		eventV2HireOfferStatusChangedV1Handler:                        r.eventV2HireOfferStatusChangedV1Handler,
 		eventV2IMChatDisbandedV1Handler:                               r.eventV2IMChatDisbandedV1Handler,
 		eventV2IMChatMemberBotAddedV1Handler:                          r.eventV2IMChatMemberBotAddedV1Handler,
 		eventV2IMChatMemberBotDeletedV1Handler:                        r.eventV2IMChatMemberBotDeletedV1Handler,
@@ -423,6 +426,7 @@ type eventBody struct {
 	eventV2HelpdeskTicketCreatedV1                         *EventV2HelpdeskTicketCreatedV1
 	eventV2HelpdeskTicketMessageCreatedV1                  *EventV2HelpdeskTicketMessageCreatedV1
 	eventV2HelpdeskTicketUpdatedV1                         *EventV2HelpdeskTicketUpdatedV1
+	eventV2HireOfferStatusChangedV1                        *EventV2HireOfferStatusChangedV1
 	eventV2IMChatDisbandedV1                               *EventV2IMChatDisbandedV1
 	eventV2IMChatMemberBotAddedV1                          *EventV2IMChatMemberBotAddedV1
 	eventV2IMChatMemberBotDeletedV1                        *EventV2IMChatMemberBotDeletedV1
@@ -727,6 +731,12 @@ func (r *EventCallbackService) parserEventV2(req *eventReq) error {
 			return err
 		}
 		req.eventV2HelpdeskTicketUpdatedV1 = event
+	case EventTypeV2HireOfferStatusChangedV1:
+		event := new(EventV2HireOfferStatusChangedV1)
+		if err := req.unmarshalEvent(event); err != nil {
+			return err
+		}
+		req.eventV2HireOfferStatusChangedV1 = event
 	case EventTypeV2IMChatDisbandedV1:
 		event := new(EventV2IMChatDisbandedV1)
 		if err := req.unmarshalEvent(event); err != nil {
@@ -1743,6 +1753,15 @@ func (r *EventCallbackService) handlerEvent(ctx context.Context, req *eventReq) 
 				go r.cli.eventHandler.eventV2HelpdeskTicketUpdatedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2HelpdeskTicketUpdatedV1)
 			} else {
 				s, err = r.cli.eventHandler.eventV2HelpdeskTicketUpdatedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2HelpdeskTicketUpdatedV1)
+			}
+		}
+		return true, s, err
+	case req.eventV2HireOfferStatusChangedV1 != nil:
+		if r.cli.eventHandler.eventV2HireOfferStatusChangedV1Handler != nil {
+			if r.cli.noBlocking {
+				go r.cli.eventHandler.eventV2HireOfferStatusChangedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2HireOfferStatusChangedV1)
+			} else {
+				s, err = r.cli.eventHandler.eventV2HireOfferStatusChangedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2HireOfferStatusChangedV1)
 			}
 		}
 		return true, s, err

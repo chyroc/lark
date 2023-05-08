@@ -230,7 +230,7 @@ type GetHireOfferRespOfferJobInfo struct {
 // GetHireOfferRespOfferSalaryPlan ...
 type GetHireOfferRespOfferSalaryPlan struct {
 	Currency                  string                                          `json:"currency,omitempty"`                    // 币种
-	BasicSalary               string                                          `json:"basic_salary,omitempty"`                // 基本薪资, 为JSON 格式, amount 代表基本薪资的金额, peroid 代表基本薪资的周期单位, 如: "{"amount":"10000", "period":2}"
+	BasicSalary               string                                          `json:"basic_salary,omitempty"`                // 基本薪资, 为JSON 格式, amount 代表基本薪资的金额, peroid 代表基本薪资的周期单位, 如: "{\"amount\":\"10000\", \"period\":2}"
 	ProbationSalaryPercentage string                                          `json:"probation_salary_percentage,omitempty"` // 试用期百分比
 	AwardSalaryMultiple       string                                          `json:"award_salary_multiple,omitempty"`       // 年终奖月数
 	OptionShares              string                                          `json:"option_shares,omitempty"`               // 期权股数

@@ -74,7 +74,7 @@ type GetHireOfferByApplicationRespOffer struct {
 	BasicInfo     *GetHireOfferByApplicationRespOfferBasicInfo  `json:"basic_info,omitempty"`     // 基础信息
 	SalaryPlan    *GetHireOfferByApplicationRespOfferSalaryPlan `json:"salary_plan,omitempty"`    // 薪酬计划
 	SchemaID      string                                        `json:"schema_id,omitempty"`      // 当前 Offer 使用的 schema
-	OfferStatus   int64                                         `json:"offer_status,omitempty"`   // Offer 状态, 可选值有: 0: 所有, 1: 未申请, 2: 审批中, 3: 审批已撤回, 4: 审批通过, 5: 审批不通过, 6: Offer 已发出, 7: 候选人已接受, 8: 候选人已拒绝, 9: Offer 已失效
+	OfferStatus   int64                                         `json:"offer_status,omitempty"`   // Offer 状态, 可选值有: 0: 所有, 1: 未申请, 2: 审批中, 3: 审批已撤回, 4: 审批通过, 5: 审批不通过, 6: Offer 已发出, 7: 候选人已接受, 8: 候选人已拒绝, 9: Offer 已失效, 10: 未审批
 	JobInfo       *GetHireOfferByApplicationRespOfferJobInfo    `json:"job_info,omitempty"`       // 职位信息
 }
 
@@ -229,7 +229,7 @@ type GetHireOfferByApplicationRespOfferJobInfo struct {
 // GetHireOfferByApplicationRespOfferSalaryPlan ...
 type GetHireOfferByApplicationRespOfferSalaryPlan struct {
 	Currency                  string                                                       `json:"currency,omitempty"`                    // 币种
-	BasicSalary               string                                                       `json:"basic_salary,omitempty"`                // 基本薪资, 为JSON 格式, amount 代表基本薪资的金额, peroid 代表基本薪资的周期单位, 如: "{"amount":"10000", "period":2}"
+	BasicSalary               string                                                       `json:"basic_salary,omitempty"`                // 基本薪资, 为JSON 格式, amount 代表基本薪资的金额, peroid 代表基本薪资的周期单位, 如: "{\"amount\":\"10000\", "\period\":2}"
 	ProbationSalaryPercentage string                                                       `json:"probation_salary_percentage,omitempty"` // 试用期百分比
 	AwardSalaryMultiple       string                                                       `json:"award_salary_multiple,omitempty"`       // 年终奖月数
 	OptionShares              string                                                       `json:"option_shares,omitempty"`               // 期权股数

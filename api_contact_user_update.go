@@ -26,6 +26,8 @@ import (
 // 应用需要拥有待更新用户的通讯录授权, 如果涉及到用户部门变更, 还需要同时拥有变更前、后所有新部门的通讯录授权。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/update
+//
+// Deprecated
 func (r *ContactService) UpdateUser(ctx context.Context, request *UpdateUserReq, options ...MethodOptionFunc) (*UpdateUserResp, *Response, error) {
 	if r.cli.mock.mockContactUpdateUser != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Contact#UpdateUser mock enable")

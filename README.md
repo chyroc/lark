@@ -38,7 +38,7 @@ https://godoc.org/github.com/chyroc/lark
 
 ## Support APIs
 
-API Count: 757, Event Count: 105
+API Count: 765, Event Count: 106
 
 <details>
   <summary>
@@ -647,6 +647,7 @@ API Count: 757, Event Count: 105
   - EventV2VCRoomLevelUpdatedV1
   - EventV2VCReserveConfigUpdatedV1
   - EventV2ApplicationBotMenuV6
+  - EventV2HireOfferStatusChangedV1
 - File
   - UploadImage
   - DownloadImage
@@ -731,8 +732,16 @@ API Count: 757, Event Count: 105
   - TerminateHireApplication
   - GetHireApplication
   - GetHireApplicationList
-  - GetHireApplicationInterviewList
+  - GetHireEvaluationList
+  - GetHireQuestionnaireList
+  - UpdateHireOfferStatus
+  - CreateHireOffer
+  - UpdateHireOffer
+  - UpdateHireOfferInternStatus
   - GetHireOfferByApplication
+  - GetHireOffer
+  - GetHireOfferList
+  - GetHireApplicationInterviewList
   - GetHireOfferSchema
   - MakeHireTransferOnboardByApplication
   - UpdateHireEmployee

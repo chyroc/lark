@@ -28,6 +28,7 @@ import (
 // - 向用户合并转发消息, 需要机器人对用户有[可用性](https://open.feishu.cn/document/home/introduction-to-scope-and-authorization/availability)
 // - 向群组合并转发消息, 需要机器人在群组中
 // - 对于要合并转发的消息与转发到的对象, 本接口有以下限制:
+// - 不支持合并转发系统消息（system）
 // - 不支持合并转发来自不同群聊中的消息
 // - 不支持同时合并转发来自多个话题回复中的消息
 // - 不支持同时合并转发普通消息与话题回复中的消息
@@ -78,7 +79,7 @@ type MergeForwardMessageReq struct {
 // MergeForwardMessageResp ...
 type MergeForwardMessageResp struct {
 	Message              *MergeForwardMessageRespMessage `json:"message,omitempty"`                 // 合并转发生成的新消息
-	InvalidMessageIDList []string                        `json:"invalid_message_id_list,omitempty"` // 无效的消息ID列表, 如不存在的消息、已被撤回的消息、不可见的历史消息等。
+	InvalidMessageIDList []string                        `json:"invalid_message_id_list,omitempty"` // 无效的消息ID列表, 如不存在的消息、已被撤回的消息、不可见的历史消息、不支持的消息类型等。
 }
 
 // MergeForwardMessageRespMessage ...

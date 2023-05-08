@@ -40,7 +40,7 @@ type EventV2ApplicationBotMenuV6 struct {
 
 // EventV2ApplicationBotMenuV6Operator ...
 type EventV2ApplicationBotMenuV6Operator struct {
-	OperatorName string                                         `json:"operator_name,omitempty"` // 用户名称, 长度范围: `1` ～ `100` 字符
+	OperatorName string                                         `json:"operator_name,omitempty"` // 用户名称, 长度范围: `1` ～ `100` 字符, 字段权限要求: 获取机器人自定义菜单操作人名称
 	OperatorID   *EventV2ApplicationBotMenuV6OperatorOperatorID `json:"operator_id,omitempty"`   // 用户 ID
 }
 

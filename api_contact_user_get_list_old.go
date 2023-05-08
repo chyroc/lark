@@ -68,7 +68,7 @@ func (r *Mock) UnMockContactGetUserListOld() {
 // GetUserListOldReq ...
 type GetUserListOldReq struct {
 	UserIDType       *IDType           `query:"user_id_type" json:"-"`       // 用户 ID 类型, 示例值: "open_id", 可选值有: `open_id`: 用户的 open id, `union_id`: 用户的 union id, `user_id`: 用户的 user id, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
-	DepartmentIDType *DepartmentIDType `query:"department_id_type" json:"-"` // 此次调用中使用的部门ID的类型, 示例值: "open_department_type", 可选值有: `department_id`: 以自定义department_id来标识部门, `open_department_id`: 以open_department_id来标识部门, 默认值: `open_department_id`
+	DepartmentIDType *DepartmentIDType `query:"department_id_type" json:"-"` // 此次调用中使用的部门ID的类型, 示例值: "open_department_id", 可选值有: `department_id`: 以自定义department_id来标识部门, `open_department_id`: 以open_department_id来标识部门, 默认值: `open_department_id`
 	DepartmentID     *string           `query:"department_id" json:"-"`      // 填写该字段表示获取部门下所有用户, 选填, 示例值: "od-xxxxxxxxxxxxx"
 	PageToken        *string           `query:"page_token" json:"-"`         // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果, 示例值: "AQD9/Rn9eij9Pm39ED40/dk53s4Ebp882DYfFaPFbz00L4CMZJrqGdzNyc8BcZtDbwVUvRmQTvyMYicnGWrde9X56TgdBuS%2BJKiSIkdexPw="
 	PageSize         *int64            `query:"page_size" json:"-"`          // 分页大小, 示例值: 10, 最大值: `100`
@@ -89,7 +89,7 @@ type GetUserListOldRespItem struct {
 	Name            string                              `json:"name,omitempty"`              // 用户名, 字段权限要求（满足任一）: 获取用户基本信息, 以应用身份读取通讯录, 读取通讯录, 以应用身份访问通讯录
 	EnName          string                              `json:"en_name,omitempty"`           // 英文名, 字段权限要求（满足任一）: 获取用户基本信息, 以应用身份读取通讯录, 读取通讯录, 以应用身份访问通讯录
 	Email           string                              `json:"email,omitempty"`             // 邮箱, 注意: 1. 非中国大陆手机号成员必须同时添加邮箱, 2. 邮箱不可重复, 字段权限要求: 获取用户邮箱信息
-	Mobile          string                              `json:"mobile,omitempty"`            // 手机号, 在本企业内不可重复；未认证企业仅支持添加中国大陆手机号, 通过飞书认证的企业允许添加海外手机号, 注意国际电话区号前缀中必须包含加号 +, 字段权限要求: 获取用户手机号
+	Mobile          string                              `json:"mobile,omitempty"`            // 手机号, 注意: 1. 在本企业内不可重复, 2. 未认证企业仅支持添加中国大陆手机号, 通过飞书认证的企业允许添加海外手机号, 3. 国际电话区号前缀中必须包含加号 +, 4. 该 mobile 字段在海外版飞书非必填, 字段权限要求: 获取用户手机号
 	MobileVisible   bool                                `json:"mobile_visible,omitempty"`    // 手机号码可见性, true 为可见, false 为不可见, 目前默认为 true。不可见时, 组织员工将无法查看该员工的手机号码
 	Gender          int64                               `json:"gender,omitempty"`            // 性别, 可选值有: `0`: 保密, `1`: 男, `2`: 女, 字段权限要求（满足任一）: 获取用户性别, 以应用身份读取通讯录, 读取通讯录, 以应用身份访问通讯录
 	Avatar          *GetUserListOldRespItemAvatar       `json:"avatar,omitempty"`            // 用户头像信息, 字段权限要求（满足任一）: 获取用户基本信息, 以应用身份读取通讯录, 读取通讯录, 以应用身份访问通讯录

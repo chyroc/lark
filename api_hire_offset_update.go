@@ -78,7 +78,7 @@ type UpdateHireOfferReqBasicInfo struct {
 	JobLevelID            *string  `json:"job_level_id,omitempty"`           // 职位级别 ID, 示例值: "6807407987381881101"
 	ProbationMonth        *int64   `json:"probation_month,omitempty"`        // 试用期, 示例值: 3
 	ContractYear          *int64   `json:"contract_year,omitempty"`          // 合同期, 示例值: 3
-	ExpectedOnboardDate   *string  `json:"expected_onboard_date,omitempty"`  // 预计入职日期, 示例值: "{"date":"2022-04-07"}"
+	ExpectedOnboardDate   *string  `json:"expected_onboard_date,omitempty"`  // 预计入职日期, 示例值: "{\"date\":\"2022-04-07\"}"
 	OnboardAddressID      *string  `json:"onboard_address_id,omitempty"`     // 入职地点 ID, 示例值: "6897079709306259719"
 	WorkAddressID         *string  `json:"work_address_id,omitempty"`        // 办公地点 ID, 示例值: "6897079709306259719"
 	OwnerUserID           string   `json:"owner_user_id,omitempty"`          // Offer负责人 ID, 示例值: "ou_ce613028fe74745421f5dc320bb9c709"
