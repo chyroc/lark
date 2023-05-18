@@ -207,10 +207,10 @@ type CalendarEventAttendeeType string
 
 // CalendarEventAttendeeTypeUser ...
 const (
-	CalendarEventAttendeeTypeUser       CalendarEventAttendeeType = "user"     // 用户
-	CalendarEventAttendeeTypeChat       CalendarEventAttendeeType = "chat"     // 群组
-	CalendarEventAttendeeTypeResource   CalendarEventAttendeeType = "resource" // 会议室
-	CalendarEventAttendeeTypeThirdParty CalendarEventAttendeeType = "user"     // 邮箱
+	CalendarEventAttendeeTypeUser       CalendarEventAttendeeType = "user"        // 用户
+	CalendarEventAttendeeTypeChat       CalendarEventAttendeeType = "chat"        // 群组
+	CalendarEventAttendeeTypeResource   CalendarEventAttendeeType = "resource"    // 会议室
+	CalendarEventAttendeeTypeThirdParty CalendarEventAttendeeType = "third_party" // 邮箱
 )
 
 // CalendarEventAttendeeTypePtr ...
