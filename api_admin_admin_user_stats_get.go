@@ -95,7 +95,7 @@ type GetAdminUserStatsRespItem struct {
 	CreateDocsNum    int64  `json:"create_docs_num,omitempty"`    // 创建文件数
 	CalActiveFlag    int64  `json:"cal_active_flag,omitempty"`    // 用户日历活跃状态, 发生过如下事件, 则认为用户日历活跃, 包含进入日历、创建日程、收到日程邀请等, 可选值有: 0: 无活跃, 1: 活跃
 	CreateCalNum     int64  `json:"create_cal_num,omitempty"`     // 创建日程数
-	VCActiveFlag     int64  `json:"vc_active_flag,omitempty"`     // 用户音视频会议活跃状态, 用户进入会中状态（不包含妙计和直播）即为活跃, 可选值有: 0: 无活跃, 1: 活跃
+	VCActiveFlag     int64  `json:"vc_active_flag,omitempty"`     // 用户音视频会议活跃状态, 用户进入会中状态（不包含妙记和直播）即为活跃, 可选值有: 0: 无活跃, 1: 活跃
 	VCDuration       int64  `json:"vc_duration,omitempty"`        // 会议时长（分钟）
 	ActiveOs         string `json:"active_os,omitempty"`          // 活跃设备
 	CreateTaskNum    int64  `json:"create_task_num,omitempty"`    // 创建任务数

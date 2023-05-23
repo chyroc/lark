@@ -375,12 +375,72 @@ func Test_Hire_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
-			cli.Mock().MockHireGetHireApplicationInterviewList(func(ctx context.Context, request *lark.GetHireApplicationInterviewListReq, options ...lark.MethodOptionFunc) (*lark.GetHireApplicationInterviewListResp, *lark.Response, error) {
+			cli.Mock().MockHireGetHireEvaluationList(func(ctx context.Context, request *lark.GetHireEvaluationListReq, options ...lark.MethodOptionFunc) (*lark.GetHireEvaluationListResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
-			defer cli.Mock().UnMockHireGetHireApplicationInterviewList()
+			defer cli.Mock().UnMockHireGetHireEvaluationList()
 
-			_, _, err := moduleCli.GetHireApplicationInterviewList(ctx, &lark.GetHireApplicationInterviewListReq{})
+			_, _, err := moduleCli.GetHireEvaluationList(ctx, &lark.GetHireEvaluationListReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			cli.Mock().MockHireGetHireQuestionnaireList(func(ctx context.Context, request *lark.GetHireQuestionnaireListReq, options ...lark.MethodOptionFunc) (*lark.GetHireQuestionnaireListResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockHireGetHireQuestionnaireList()
+
+			_, _, err := moduleCli.GetHireQuestionnaireList(ctx, &lark.GetHireQuestionnaireListReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			cli.Mock().MockHireUpdateHireOfferStatus(func(ctx context.Context, request *lark.UpdateHireOfferStatusReq, options ...lark.MethodOptionFunc) (*lark.UpdateHireOfferStatusResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockHireUpdateHireOfferStatus()
+
+			_, _, err := moduleCli.UpdateHireOfferStatus(ctx, &lark.UpdateHireOfferStatusReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			cli.Mock().MockHireCreateHireOffer(func(ctx context.Context, request *lark.CreateHireOfferReq, options ...lark.MethodOptionFunc) (*lark.CreateHireOfferResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockHireCreateHireOffer()
+
+			_, _, err := moduleCli.CreateHireOffer(ctx, &lark.CreateHireOfferReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			cli.Mock().MockHireUpdateHireOffer(func(ctx context.Context, request *lark.UpdateHireOfferReq, options ...lark.MethodOptionFunc) (*lark.UpdateHireOfferResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockHireUpdateHireOffer()
+
+			_, _, err := moduleCli.UpdateHireOffer(ctx, &lark.UpdateHireOfferReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			cli.Mock().MockHireUpdateHireOfferInternStatus(func(ctx context.Context, request *lark.UpdateHireOfferInternStatusReq, options ...lark.MethodOptionFunc) (*lark.UpdateHireOfferInternStatusResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockHireUpdateHireOfferInternStatus()
+
+			_, _, err := moduleCli.UpdateHireOfferInternStatus(ctx, &lark.UpdateHireOfferInternStatusReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "mock-failed")
 		})
@@ -393,6 +453,42 @@ func Test_Hire_Sample_Failed(t *testing.T) {
 			defer cli.Mock().UnMockHireGetHireOfferByApplication()
 
 			_, _, err := moduleCli.GetHireOfferByApplication(ctx, &lark.GetHireOfferByApplicationReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			cli.Mock().MockHireGetHireOffer(func(ctx context.Context, request *lark.GetHireOfferReq, options ...lark.MethodOptionFunc) (*lark.GetHireOfferResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockHireGetHireOffer()
+
+			_, _, err := moduleCli.GetHireOffer(ctx, &lark.GetHireOfferReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			cli.Mock().MockHireGetHireOfferList(func(ctx context.Context, request *lark.GetHireOfferListReq, options ...lark.MethodOptionFunc) (*lark.GetHireOfferListResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockHireGetHireOfferList()
+
+			_, _, err := moduleCli.GetHireOfferList(ctx, &lark.GetHireOfferListReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			cli.Mock().MockHireGetHireApplicationInterviewList(func(ctx context.Context, request *lark.GetHireApplicationInterviewListReq, options ...lark.MethodOptionFunc) (*lark.GetHireApplicationInterviewListResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockHireGetHireApplicationInterviewList()
+
+			_, _, err := moduleCli.GetHireApplicationInterviewList(ctx, &lark.GetHireApplicationInterviewListReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "mock-failed")
 		})
@@ -691,8 +787,47 @@ func Test_Hire_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
-			_, _, err := moduleCli.GetHireApplicationInterviewList(ctx, &lark.GetHireApplicationInterviewListReq{
-				ApplicationID: "x",
+			_, _, err := moduleCli.GetHireEvaluationList(ctx, &lark.GetHireEvaluationListReq{})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.GetHireQuestionnaireList(ctx, &lark.GetHireQuestionnaireListReq{})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.UpdateHireOfferStatus(ctx, &lark.UpdateHireOfferStatusReq{
+				OfferID: "x",
+			})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.CreateHireOffer(ctx, &lark.CreateHireOfferReq{})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.UpdateHireOffer(ctx, &lark.UpdateHireOfferReq{
+				OfferID: "x",
+			})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.UpdateHireOfferInternStatus(ctx, &lark.UpdateHireOfferInternStatusReq{
+				OfferID: "x",
 			})
 			as.NotNil(err)
 			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
@@ -701,6 +836,31 @@ func Test_Hire_Sample_Failed(t *testing.T) {
 		t.Run("", func(t *testing.T) {
 
 			_, _, err := moduleCli.GetHireOfferByApplication(ctx, &lark.GetHireOfferByApplicationReq{
+				ApplicationID: "x",
+			})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.GetHireOffer(ctx, &lark.GetHireOfferReq{
+				OfferID: "x",
+			})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.GetHireOfferList(ctx, &lark.GetHireOfferListReq{})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.GetHireApplicationInterviewList(ctx, &lark.GetHireApplicationInterviewListReq{
 				ApplicationID: "x",
 			})
 			as.NotNil(err)
@@ -984,8 +1144,47 @@ func Test_Hire_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
-			_, _, err := moduleCli.GetHireApplicationInterviewList(ctx, &lark.GetHireApplicationInterviewListReq{
-				ApplicationID: "x",
+			_, _, err := moduleCli.GetHireEvaluationList(ctx, &lark.GetHireEvaluationListReq{})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.GetHireQuestionnaireList(ctx, &lark.GetHireQuestionnaireListReq{})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.UpdateHireOfferStatus(ctx, &lark.UpdateHireOfferStatusReq{
+				OfferID: "x",
+			})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.CreateHireOffer(ctx, &lark.CreateHireOfferReq{})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.UpdateHireOffer(ctx, &lark.UpdateHireOfferReq{
+				OfferID: "x",
+			})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.UpdateHireOfferInternStatus(ctx, &lark.UpdateHireOfferInternStatusReq{
+				OfferID: "x",
 			})
 			as.NotNil(err)
 			as.Equal("fake raw request", err.Error())
@@ -994,6 +1193,31 @@ func Test_Hire_Sample_Failed(t *testing.T) {
 		t.Run("", func(t *testing.T) {
 
 			_, _, err := moduleCli.GetHireOfferByApplication(ctx, &lark.GetHireOfferByApplicationReq{
+				ApplicationID: "x",
+			})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.GetHireOffer(ctx, &lark.GetHireOfferReq{
+				OfferID: "x",
+			})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.GetHireOfferList(ctx, &lark.GetHireOfferListReq{})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.GetHireApplicationInterviewList(ctx, &lark.GetHireApplicationInterviewListReq{
 				ApplicationID: "x",
 			})
 			as.NotNil(err)

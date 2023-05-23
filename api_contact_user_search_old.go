@@ -26,8 +26,6 @@ import (
 // 调用该接口需要申请 `搜索用户` 权限。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uMTM4UjLzEDO14yMxgTN
-//
-// Deprecated
 func (r *ContactService) SearchUserOld(ctx context.Context, request *SearchUserOldReq, options ...MethodOptionFunc) (*SearchUserOldResp, *Response, error) {
 	if r.cli.mock.mockContactSearchUserOld != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Contact#SearchUserOld mock enable")

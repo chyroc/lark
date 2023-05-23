@@ -26,6 +26,8 @@ import (
 // 应用需要拥有待更新用户的通讯录授权, 如果涉及到用户部门变更, 还需要同时拥有变更前、后所有新部门的通讯录授权。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/update
+//
+// Deprecated
 func (r *ContactService) UpdateUser(ctx context.Context, request *UpdateUserReq, options ...MethodOptionFunc) (*UpdateUserResp, *Response, error) {
 	if r.cli.mock.mockContactUpdateUser != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Contact#UpdateUser mock enable")
@@ -66,11 +68,11 @@ type UpdateUserReq struct {
 	EnName           *string                    `json:"en_name,omitempty"`            // 英文名, 示例值: "San Zhang"
 	Nickname         *string                    `json:"nickname,omitempty"`           // 别名, 示例值: "Alex Zhang"
 	Email            *string                    `json:"email,omitempty"`              // 邮箱, 注意: 1. 非中国大陆手机号成员必须同时添加邮箱, 2. 邮箱不可重复, 示例值: "zhangsan@gmail.com"
-	Mobile           string                     `json:"mobile,omitempty"`             // 手机号, 在本企业内不可重复；未认证企业仅支持添加中国大陆手机号, 通过飞书认证的企业允许添加海外手机号, 注意国际电话区号前缀中必须包含加号 +, 示例值: "13011111111 (其他例子, 中国大陆手机号: 13011111111 或 +8613011111111, 非中国大陆手机号: +41446681800)"
+	Mobile           string                     `json:"mobile,omitempty"`             // 手机号, 注意: 1. 在本企业内不可重复, 2. 未认证企业仅支持添加中国大陆手机号, 通过飞书认证的企业允许添加海外手机号, 3. 国际电话区号前缀中必须包含加号 +, 4. 该 mobile 字段在海外版飞书非必填, 示例值: "13011111111 (其他例子, 中国大陆手机号: 13011111111 或 +8613011111111, 非中国大陆手机号: +41446681800)"
 	MobileVisible    *bool                      `json:"mobile_visible,omitempty"`     // 手机号码可见性, true 为可见, false 为不可见, 目前默认为 true。不可见时, 组织员工将无法查看该员工的手机号码, 示例值: false
 	Gender           *int64                     `json:"gender,omitempty"`             // 性别, 示例值: 1, 可选值有: 0: 保密, 1: 男, 2: 女
 	AvatarKey        *string                    `json:"avatar_key,omitempty"`         // 头像的文件Key, 可通过“消息与群组/消息/图片信息”中的“上传图片”接口上传并获取头像文件 Key, “上传图片”功能参见[上传图片](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/image/create), 示例值: "2500c7a9-5fff-4d9a-a2de-3d59614ae28g"
-	DepartmentIDs    []string                   `json:"department_ids,omitempty"`     // 用户所属部门的ID列表, 一个用户可属于多个部门, ID值的类型与查询参数中的department_id_type 对应, 不同 ID 的说明与department_id的获取方式参见 [部门ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/field-overview#23857fe0), 示例值: od-4e6ac4d14bcd5071a37a39de902c7141
+	DepartmentIDs    []string                   `json:"department_ids,omitempty"`     // 用户所属部门的ID列表, 一个用户可属于多个部门, ID值的类型与查询参数中的department_id_type 对应, 不同 ID 的说明与department_id的获取方式参见 [部门ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/field-overview#23857fe0), 示例值: ["od-4e6ac4d14bcd5071a37a39de902c7141"]
 	LeaderUserID     *string                    `json:"leader_user_id,omitempty"`     // 用户的直接主管的用户ID, ID值与查询参数中的user_id_type 对应, 不同 ID 的说明参见 [用户相关的 ID 概念](https://open.feishu.cn/document/home/user-identity-introduction/introduction), 获取方式参见[如何获取user_id](https://open.feishu.cn/document/home/user-identity-introduction/how-to-get), 示例值: "ou_7dab8a3d3cdcc9da365777c7ad535d62"
 	City             *string                    `json:"city,omitempty"`               // 工作城市, 示例值: "杭州"
 	Country          *string                    `json:"country,omitempty"`            // 国家或地区Code缩写, 具体写入格式请参考 [国家/地区码表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/country-code-description), 示例值: "CN"
@@ -112,6 +114,7 @@ type UpdateUserReqOrder struct {
 	DepartmentID    *string `json:"department_id,omitempty"`    // 排序信息对应的部门ID, ID值与查询参数中的department_id_type 对应, 表示用户所在的、且需要排序的部门, 不同 ID 的说明参见及获取方式参见 [部门ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/field-overview), 示例值: "od-4e6ac4d14bcd5071a37a39de902c7141"
 	UserOrder       *int64  `json:"user_order,omitempty"`       // 用户在其直属部门内的排序, 数值越大, 排序越靠前, 示例值: 100
 	DepartmentOrder *int64  `json:"department_order,omitempty"` // 用户所属的多个部门间的排序, 数值越大, 排序越靠前, 示例值: 100
+	IsPrimaryDept   *bool   `json:"is_primary_dept,omitempty"`  // 标识用户的唯一主部门, 主部门为用户所属部门中排序第一的部门(department_order最大), 示例值: true
 }
 
 // UpdateUserResp ...
@@ -128,7 +131,7 @@ type UpdateUserRespUser struct {
 	EnName          string                          `json:"en_name,omitempty"`           // 英文名, 字段权限要求（满足任一）: 以应用身份读取通讯录, 获取用户基本信息, 以应用身份访问通讯录, 读取通讯录
 	Nickname        string                          `json:"nickname,omitempty"`          // 别名, 字段权限要求（满足任一）: 以应用身份读取通讯录, 获取用户基本信息, 以应用身份访问通讯录, 读取通讯录
 	Email           string                          `json:"email,omitempty"`             // 邮箱, 注意: 1. 非中国大陆手机号成员必须同时添加邮箱, 2. 邮箱不可重复, 字段权限要求: 获取用户邮箱信息
-	Mobile          string                          `json:"mobile,omitempty"`            // 手机号, 在本企业内不可重复；未认证企业仅支持添加中国大陆手机号, 通过飞书认证的企业允许添加海外手机号, 注意国际电话区号前缀中必须包含加号 +, 字段权限要求: 获取用户手机号
+	Mobile          string                          `json:"mobile,omitempty"`            // 手机号, 注意: 1. 在本企业内不可重复, 2. 未认证企业仅支持添加中国大陆手机号, 通过飞书认证的企业允许添加海外手机号, 3. 国际电话区号前缀中必须包含加号 +, 4. 该 mobile 字段在海外版飞书非必填, 字段权限要求: 获取用户手机号
 	MobileVisible   bool                            `json:"mobile_visible,omitempty"`    // 手机号码可见性, true 为可见, false 为不可见, 目前默认为 true。不可见时, 组织员工将无法查看该员工的手机号码
 	Gender          int64                           `json:"gender,omitempty"`            // 性别, 可选值有: 0: 保密, 1: 男, 2: 女, 字段权限要求（满足任一）: 以应用身份读取通讯录, 获取用户性别, 以应用身份访问通讯录, 读取通讯录
 	AvatarKey       string                          `json:"avatar_key,omitempty"`        // 头像的文件Key, 可通过“消息与群组/消息/图片信息”中的“上传图片”接口上传并获取头像文件 Key, “上传图片”功能参见[上传图片](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/image/create)
@@ -188,6 +191,7 @@ type UpdateUserRespUserOrder struct {
 	DepartmentID    string `json:"department_id,omitempty"`    // 排序信息对应的部门ID, ID值与查询参数中的department_id_type 对应, 表示用户所在的、且需要排序的部门, 不同 ID 的说明参见及获取方式参见 [部门ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/field-overview)
 	UserOrder       int64  `json:"user_order,omitempty"`       // 用户在其直属部门内的排序, 数值越大, 排序越靠前
 	DepartmentOrder int64  `json:"department_order,omitempty"` // 用户所属的多个部门间的排序, 数值越大, 排序越靠前
+	IsPrimaryDept   bool   `json:"is_primary_dept,omitempty"`  // 标识用户的唯一主部门, 主部门为用户所属部门中排序第一的部门(department_order最大)
 }
 
 // UpdateUserRespUserStatus ...

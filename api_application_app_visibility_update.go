@@ -23,6 +23,8 @@ import (
 
 // UpdateApplicationAppVisibility 该接口用于更新当前企业内自建应用或已安装的商店应用的可见范围, 包括可用人员与禁用人员。更新后对线上立即生效。
 //
+// 当通过接口新增用户或部门时, 提前判断对应用户或部门是否已在禁用名单中, 如果已在禁用名单中, 则即便将用户或部门添加到可用名单, 该用户或部门也无法看到该应用, 即禁用名单优先级高于可用名单。
+//
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/ucDN3UjL3QzN14yN0cTN
 func (r *ApplicationService) UpdateApplicationAppVisibility(ctx context.Context, request *UpdateApplicationAppVisibilityReq, options ...MethodOptionFunc) (*UpdateApplicationAppVisibilityResp, *Response, error) {
 	if r.cli.mock.mockApplicationUpdateApplicationAppVisibility != nil {

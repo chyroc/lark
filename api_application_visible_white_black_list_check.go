@@ -67,9 +67,9 @@ type CheckApplicationVisibleWhiteBlackListReq struct {
 
 // CheckApplicationVisibleWhiteBlackListResp ...
 type CheckApplicationVisibleWhiteBlackListResp struct {
-	UserVisibilityList       []*CheckApplicationVisibleWhiteBlackListRespUserVisibility       `json:"user_visibility_list,omitempty"`       // 查询的用户可见性结果列表
-	DepartmentVisibilityList []*CheckApplicationVisibleWhiteBlackListRespDepartmentVisibility `json:"department_visibility_list,omitempty"` // 查询的部门可见性结果列表
-	GroupVisibilityList      []*CheckApplicationVisibleWhiteBlackListRespGroupVisibility      `json:"group_visibility_list,omitempty"`      // 查询的用户组可见性结果列表
+	UserVisibilityList       []*CheckApplicationVisibleWhiteBlackListRespUserVisibility       `json:"user_visibility_list,omitempty"`       // 查询的用户可见性结果列表, 如果用户在白名单或付费白名单, 且不在黑名单中, 则可见该应用
+	DepartmentVisibilityList []*CheckApplicationVisibleWhiteBlackListRespDepartmentVisibility `json:"department_visibility_list,omitempty"` // 查询的部门可见性结果列表, 如果部门在白名单, 且不在黑名单, 则该部门下的用户可见该应用
+	GroupVisibilityList      []*CheckApplicationVisibleWhiteBlackListRespGroupVisibility      `json:"group_visibility_list,omitempty"`      // 查询的用户组可见性结果列表, 如果用户组在白名单, 且不在黑名单, 则该用户组下的用户可见该应用
 }
 
 // CheckApplicationVisibleWhiteBlackListRespDepartmentVisibility ...
