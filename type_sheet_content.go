@@ -19,6 +19,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"strconv"
+	"strings"
 )
 
 type SheetContentType string
@@ -26,6 +27,7 @@ type SheetContentType string
 const (
 	SheetContentTypeString     SheetContentType = "string"
 	SheetContentTypeInt        SheetContentType = "int"
+	SheetContentTypeFloat      SheetContentType = "float"
 	SheetContentTypeLink       SheetContentType = "link"
 	SheetContentTypeAtUser     SheetContentType = "at_user"
 	SheetContentTypeFormula    SheetContentType = "formula"
@@ -41,6 +43,7 @@ type SheetContent struct {
 	Children   *[]*SheetContent      `json:"children,omitempty"`
 	String     *string               `json:"string,omitempty"`      // 字符串, `"`
 	Int        *int64                `json:"int,omitempty"`         // 数字, `0-9`
+	Float      *float64              `json:"float,omitempty"`       // 小数, `x.x`
 	Link       *SheetValueLink       `json:"link,omitempty"`        // 带文本的链接, `{
 	AtUser     *SheetValueAtUser     `json:"at_user,omitempty"`     // @人, `{
 	Formula    *SheetValueFormula    `json:"formula,omitempty"`     // 公式, `{
@@ -101,6 +104,8 @@ func (r *SheetContent) Type() SheetContentType {
 		return SheetContentTypeString
 	case r.Int != nil:
 		return SheetContentTypeInt
+	case r.Float != nil:
+		return SheetContentTypeFloat
 	case r.Link != nil:
 		return SheetContentTypeLink
 	case r.AtUser != nil:
@@ -133,11 +138,20 @@ func (r *SheetContent) UnmarshalJSON(bytes []byte) error {
 		r.String = &dest
 		return nil
 	} else if bytes[0] >= '0' && bytes[0] <= '9' {
-		var dest int64
-		if err := json.Unmarshal(bytes, &dest); err != nil {
-			return err
+		str := string(bytes)
+		if strings.Contains(str, ".") {
+			float, err := strconv.ParseFloat(str, 64)
+			if err != nil {
+				return err
+			}
+			r.Float = &float
+		} else {
+			integer, err := strconv.ParseInt(str, 10, 64)
+			if err != nil {
+				return err
+			}
+			r.Int = &integer
 		}
-		r.Int = &dest
 		return nil
 	} else if bytes[0] == 'n' {
 		if len(bytes) == 4 && string(bytes) == "null" {
@@ -225,6 +239,8 @@ func (r SheetContent) MarshalJSON() ([]byte, error) {
 		return []byte(fmt.Sprintf("%q", *r.String)), nil
 	} else if r.Int != nil {
 		return []byte(strconv.FormatInt(*r.Int, 10)), nil
+	} else if r.Float != nil {
+		return []byte(strconv.FormatFloat(*r.Float, byte('f'), 10, 64)), nil
 	} else if r.Link != nil {
 		r.Link.Type = "url"
 		return json.Marshal(r.Link)
