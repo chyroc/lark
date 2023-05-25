@@ -34,6 +34,8 @@ import (
 // 5. 发起人撤回审批后, 推送剩余所有任务的【DONE】状态
 // 6. 审批定义被管理员删除后, 推送剩余所有任务的【DONE】状态
 // 7. 如果用户对审批任务进行退回, 推送该任务的【ROLLBACK】状态, 和被退回人任务的【PENDING】状态
+// 8. 如果进行中的审批任务超时未处理被关闭, 推送该任务的【OVERTIME_CLOSE】状态
+// 9. 如果超时已关闭的审批任务被手动恢复, 推送该任务的【OVERTIME_RECOVER】状态
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uIDO24iM4YjLygjN/event/common-event/approval-task-event
 func (r *EventCallbackService) HandlerEventV1ApprovalTask(f EventV1ApprovalTaskHandler) {

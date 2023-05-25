@@ -61,7 +61,7 @@ type GetVCAlertListReq struct {
 	EndTime    string  `query:"end_time" json:"-"`    // 结束时间（unix时间, 单位秒）, 示例值: "1608888867"
 	QueryType  *int64  `query:"query_type" json:"-"`  // 查询对象类型, 不填返回所有, 示例值: 1, 可选值有: 1: 会议室, 2: 企业会议室连接器
 	QueryValue *string `query:"query_value" json:"-"` // 查询对象ID, 会议室ID或企业会议室连接器ID, 示例值: "6911188411932033028"
-	PageSize   *int64  `query:"page_size" json:"-"`   // 分页大小, 示例值: 100, 最大值: `200`
+	PageSize   *int64  `query:"page_size" json:"-"`   // 请求期望返回的告警记录数量, 不足则返回全部, 该值默认为 100, 最大为 1000, 示例值: 100, 最大值: `200`
 	PageToken  *string `query:"page_token" json:"-"`  // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果, 示例值: "100"
 }
 
@@ -83,6 +83,9 @@ type GetVCAlertListRespItem struct {
 	Contacts      []*GetVCAlertListRespItemContact `json:"contacts,omitempty"`       // 告警联系人
 	NotifyMethods []int64                          `json:"notifyMethods,omitempty"`  // 通知方式, 可选值有: 0: 飞书机器人, 1: 邮件
 	AlertRule     string                           `json:"alertRule,omitempty"`      // 规则名称
+	ProcessTime   string                           `json:"process_time,omitempty"`   // 处理时间
+	RecoverTime   string                           `json:"recover_time,omitempty"`   // 恢复时间
+	ProcessStatus int64                            `json:"process_status,omitempty"` // 处理状态: 待处理/处理中/已恢复, 可选值有: 0: 待处理（deprecated）, 1: 待处理, 2: 处理中, 3: 已恢复（deprecated）, 4: 已恢复
 }
 
 // GetVCAlertListRespItemContact ...

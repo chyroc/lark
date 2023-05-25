@@ -29,6 +29,8 @@ import (
 // 4. 发起人撤回审批后, 推送【CANCELED】状态
 // 5. 审批定义被管理员删除后, 推送【DELETED】状态
 // 6. 发起人撤销已通过的审批, 推送【REVERTED】状态
+// 7. 审批实例超时未处理被关闭, 推送【OVERTIME_CLOSE】状态
+// 8. 已超时的审批实例手动恢复, 推送【OVERTIME_RECOVER】状态
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uIDO24iM4YjLygjN/event/common-event/approval-instance-event
 func (r *EventCallbackService) HandlerEventV1ApprovalInstance(f EventV1ApprovalInstanceHandler) {
