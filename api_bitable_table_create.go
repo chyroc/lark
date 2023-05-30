@@ -74,9 +74,16 @@ type CreateBitableTableReqTable struct {
 
 // CreateBitableTableReqTableField ...
 type CreateBitableTableReqTableField struct {
-	FieldName string                                   `json:"field_name,omitempty"` // 字段名, 示例值: "文本"
-	Type      int64                                    `json:"type,omitempty"`       // 字段类型, 示例值: 1, 可选值有: 1: 多行文本, 2: 数字, 3: 单选, 4: 多选, 5: 日期, 7: 复选框, 11: 人员, 13: 电话号码, 15: 超链接, 22: 地理位置, 1001: 创建时间, 1002: 最后更新时间, 1003: 创建人, 1004: 修改人
-	Property  *CreateBitableTableReqTableFieldProperty `json:"property,omitempty"`   // 字段属性
+	FieldName   string                                      `json:"field_name,omitempty"`  // 字段名, 示例值: "文本"
+	Type        int64                                       `json:"type,omitempty"`        // 字段类型, 示例值: 1, 可选值有: 1: 多行文本, 2: 数字, 3: 单选, 4: 多选, 5: 日期, 7: 复选框, 11: 人员, 13: 电话号码, 15: 超链接, 22: 地理位置, 1001: 创建时间, 1002: 最后更新时间, 1003: 创建人, 1004: 修改人
+	Property    *CreateBitableTableReqTableFieldProperty    `json:"property,omitempty"`    // 字段属性
+	Description *CreateBitableTableReqTableFieldDescription `json:"description,omitempty"` // 字段的描述
+}
+
+// CreateBitableTableReqTableFieldDescription ...
+type CreateBitableTableReqTableFieldDescription struct {
+	DisableSync *bool   `json:"disable_sync,omitempty"` // 是否禁止同步, 如果为true, 表示禁止同步该描述内容到表单的问题描述, 示例值: true, 默认值: `true`
+	Text        *string `json:"text,omitempty"`         // 字段描述内容, 支持换行\n, 示例值: "请按 name_id 格式填写\n例如: “Alice_20202020”"
 }
 
 // CreateBitableTableReqTableFieldProperty ...

@@ -35,6 +35,7 @@ import (
 // - 不支持将消息转发至话题回复中
 // - 不支持再次合并转发合并转发消息中的子消息（含有[upper_message_id]字段的消息）
 // - 合并转发生成的新消息的消息内容为固定值[Merged and Forwarded Message], 其子消息可以使用[获取指定消息的内容](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/get)接口获取
+// - 为避免对用户造成打扰, 向同一用户发送消息的限频为 [5 QPS], 向同一群组发送消息的限频为群内机器人共享 [5 QPS]
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/merge_forward
 func (r *MessageService) MergeForwardMessage(ctx context.Context, request *MergeForwardMessageReq, options ...MethodOptionFunc) (*MergeForwardMessageResp, *Response, error) {

@@ -23,7 +23,6 @@ import (
 
 // CreateBitableField 该接口用于在数据表中新增一个字段
 //
-// 该接口支持调用频率上限为 10 QPS
 // ::: note
 // 首次调用请参考 [云文档接口快速入门](https://open.feishu.cn/document/ukTMukTMukTM/uczNzUjL3czM14yN3MTN)[多维表格接口接入指南](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/bitable/notification)
 //
@@ -69,6 +68,7 @@ type CreateBitableFieldReq struct {
 	Type        int64                             `json:"type,omitempty"`         // 多维表格字段类型, 示例值: 1, 可选值有: 1: 多行文本, 2: 数字, 3: 单选, 4: 多选, 5: 日期, 7: 复选框, 11: 人员, 15: 超链接, 17: 附件, 18: 关联, 20: 公式, 21: 双向关联, 1001: 创建时间, 1002: 最后更新时间, 1003: 创建人, 1004: 修改人, 1005: 自动编号, 13: 电话号码, 22: 地理位置
 	Property    *CreateBitableFieldReqProperty    `json:"property,omitempty"`     // 字段属性, 具体参考: [字段编辑指南](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table-field/guide)
 	Description *CreateBitableFieldReqDescription `json:"description,omitempty"`  // 字段的描述
+	IsHidden    *bool                             `json:"is_hidden,omitempty"`    // 是否是隐藏字段, 示例值: false, 默认值: `false`
 }
 
 // CreateBitableFieldReqDescription ...
@@ -128,6 +128,8 @@ type CreateBitableFieldRespField struct {
 	Type        int64                                   `json:"type,omitempty"`        // 多维表格字段类型, 可选值有: 1: 多行文本, 2: 数字, 3: 单选, 4: 多选, 5: 日期, 7: 复选框, 11: 人员, 15: 超链接, 17: 附件, 18: 关联, 20: 公式, 21: 双向关联, 1001: 创建时间, 1002: 最后更新时间, 1003: 创建人, 1004: 修改人, 1005: 自动编号, 13: 电话号码, 22: 地理位置
 	Property    *CreateBitableFieldRespFieldProperty    `json:"property,omitempty"`    // 字段属性, 具体参考: [字段编辑指南](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table-field/guide)
 	Description *CreateBitableFieldRespFieldDescription `json:"description,omitempty"` // 字段的描述
+	IsPrimary   bool                                    `json:"is_primary,omitempty"`  // 是否是索引列
+	IsHidden    bool                                    `json:"is_hidden,omitempty"`   // 是否是隐藏字段
 }
 
 // CreateBitableFieldRespFieldDescription ...

@@ -32,6 +32,7 @@ import (
 // - 不支持将消息转发至话题回复中
 // - 不支持红包、投票、语音、日程转让等消息类型
 // - 不支持再次转发合并转发消息中的子消息（含有[upper_message_id]字段的消息）
+// - 为避免对用户造成打扰, 向同一用户发送消息的限频为 [5 QPS], 向同一群组发送消息的限频为群内机器人共享 [5 QPS]
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/forward
 func (r *MessageService) ForwardMessage(ctx context.Context, request *ForwardMessageReq, options ...MethodOptionFunc) (*ForwardMessageResp, *Response, error) {

@@ -27,6 +27,7 @@ import (
 // - 需要开启[机器人能力](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-enable-bot-ability)
 // - 给用户发送消息, 需要机器人对用户有[可用性](https://open.feishu.cn/document/home/introduction-to-scope-and-authorization/availability)
 // - 给群组发送消息, 需要机器人在群组中
+// - 为避免对用户造成打扰, 向同一用户发送消息的限频为 [5 QPS], 向同一群组发送消息的限频为群内机器人共享 [5 QPS]
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/create
 func (r *MessageService) SendRawMessage(ctx context.Context, request *SendRawMessageReq, options ...MethodOptionFunc) (*SendRawMessageResp, *Response, error) {

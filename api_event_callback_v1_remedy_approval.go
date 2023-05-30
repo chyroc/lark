@@ -41,7 +41,7 @@ type EventV1RemedyApproval struct {
 
 // EventV1RemedyApprovalObject ...
 type EventV1RemedyApprovalObject struct {
-	Type         string `json:"type,omitempty"`          // 审批定义id. 如: remedy_approval_v2
+	Type         string `json:"type,omitempty"`          // 类型. 如: remedy_approval_v2
 	InstanceCode string `json:"instance_code,omitempty"` // 审批实例code
 	EmployeeID   string `json:"employee_id,omitempty"`   // 用户id
 	StartTime    int64  `json:"start_time,omitempty"`    // 审批发起时间. 如: 0
