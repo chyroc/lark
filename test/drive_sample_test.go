@@ -447,6 +447,18 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
+			cli.Mock().MockDriveGetDriveFileViewRecordList(func(ctx context.Context, request *lark.GetDriveFileViewRecordListReq, options ...lark.MethodOptionFunc) (*lark.GetDriveFileViewRecordListResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockDriveGetDriveFileViewRecordList()
+
+			_, _, err := moduleCli.GetDriveFileViewRecordList(ctx, &lark.GetDriveFileViewRecordListReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
 			cli.Mock().MockDriveCreateDriveFileVersion(func(ctx context.Context, request *lark.CreateDriveFileVersionReq, options ...lark.MethodOptionFunc) (*lark.CreateDriveFileVersionResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -2133,6 +2145,15 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
+			_, _, err := moduleCli.GetDriveFileViewRecordList(ctx, &lark.GetDriveFileViewRecordListReq{
+				FileToken: "x",
+			})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+
 			_, _, err := moduleCli.CreateDriveFileVersion(ctx, &lark.CreateDriveFileVersionReq{
 				FileToken: "x",
 			})
@@ -3481,6 +3502,15 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		t.Run("", func(t *testing.T) {
 
 			_, _, err := moduleCli.DownloadDriveExportTask(ctx, &lark.DownloadDriveExportTaskReq{
+				FileToken: "x",
+			})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.GetDriveFileViewRecordList(ctx, &lark.GetDriveFileViewRecordListReq{
 				FileToken: "x",
 			})
 			as.NotNil(err)

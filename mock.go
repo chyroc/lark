@@ -367,6 +367,7 @@ type Mock struct {
 	mockDriveCreateDriveExportTask                             func(ctx context.Context, request *CreateDriveExportTaskReq, options ...MethodOptionFunc) (*CreateDriveExportTaskResp, *Response, error)
 	mockDriveGetDriveExportTask                                func(ctx context.Context, request *GetDriveExportTaskReq, options ...MethodOptionFunc) (*GetDriveExportTaskResp, *Response, error)
 	mockDriveDownloadDriveExportTask                           func(ctx context.Context, request *DownloadDriveExportTaskReq, options ...MethodOptionFunc) (*DownloadDriveExportTaskResp, *Response, error)
+	mockDriveGetDriveFileViewRecordList                        func(ctx context.Context, request *GetDriveFileViewRecordListReq, options ...MethodOptionFunc) (*GetDriveFileViewRecordListResp, *Response, error)
 	mockDriveCreateDriveFileVersion                            func(ctx context.Context, request *CreateDriveFileVersionReq, options ...MethodOptionFunc) (*CreateDriveFileVersionResp, *Response, error)
 	mockDriveDeleteDriveFileVersion                            func(ctx context.Context, request *DeleteDriveFileVersionReq, options ...MethodOptionFunc) (*DeleteDriveFileVersionResp, *Response, error)
 	mockDriveGetDriveFileVersion                               func(ctx context.Context, request *GetDriveFileVersionReq, options ...MethodOptionFunc) (*GetDriveFileVersionResp, *Response, error)
