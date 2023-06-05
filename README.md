@@ -38,7 +38,7 @@ https://godoc.org/github.com/chyroc/lark
 
 ## Support APIs
 
-API Count: 767, Event Count: 106
+API Count: 768, Event Count: 106
 
 <details>
   <summary>
@@ -386,6 +386,8 @@ API Count: 767, Event Count: 106
   - UnbindContactUnitDepartment
   - GetContactUnitDepartmentList
   - GetContactScopeList
+- CoreHr
+  - GetCoreHrCustomField
 - Drive
   - GetDriveRootFolderMeta
   - GetDriveFileList

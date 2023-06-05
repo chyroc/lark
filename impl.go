@@ -65,6 +65,7 @@ type Lark struct {
 	Calendar         *CalendarService
 	Chat             *ChatService
 	Contact          *ContactService
+	CoreHR           *CoreHRService
 	Drive            *DriveService
 	EHR              *EHRService
 	Event            *EventService
@@ -105,6 +106,7 @@ func (r *Lark) init() {
 	r.Calendar = &CalendarService{cli: r}
 	r.Chat = &ChatService{cli: r}
 	r.Contact = &ContactService{cli: r}
+	r.CoreHR = &CoreHRService{cli: r}
 	r.Drive = &DriveService{cli: r}
 	r.EHR = &EHRService{cli: r}
 	r.Event = &EventService{cli: r}
@@ -174,6 +176,7 @@ type BotService struct{ cli *Lark }
 type CalendarService struct{ cli *Lark }
 type ChatService struct{ cli *Lark }
 type ContactService struct{ cli *Lark }
+type CoreHRService struct{ cli *Lark }
 type DriveService struct{ cli *Lark }
 type EHRService struct{ cli *Lark }
 type EventService struct{ cli *Lark }

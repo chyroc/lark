@@ -335,6 +335,7 @@ type Mock struct {
 	mockContactUnbindContactUnitDepartment                     func(ctx context.Context, request *UnbindContactUnitDepartmentReq, options ...MethodOptionFunc) (*UnbindContactUnitDepartmentResp, *Response, error)
 	mockContactGetContactUnitDepartmentList                    func(ctx context.Context, request *GetContactUnitDepartmentListReq, options ...MethodOptionFunc) (*GetContactUnitDepartmentListResp, *Response, error)
 	mockContactGetContactScopeList                             func(ctx context.Context, request *GetContactScopeListReq, options ...MethodOptionFunc) (*GetContactScopeListResp, *Response, error)
+	mockCoreHrGetCoreHrCustomField                             func(ctx context.Context, request *GetCoreHrCustomFieldReq, options ...MethodOptionFunc) (*GetCoreHrCustomFieldResp, *Response, error)
 	mockDriveGetDriveRootFolderMeta                            func(ctx context.Context, request *GetDriveRootFolderMetaReq, options ...MethodOptionFunc) (*GetDriveRootFolderMetaResp, *Response, error)
 	mockDriveGetDriveFileList                                  func(ctx context.Context, request *GetDriveFileListReq, options ...MethodOptionFunc) (*GetDriveFileListResp, *Response, error)
 	mockDriveGetDriveFolderMeta                                func(ctx context.Context, request *GetDriveFolderMetaReq, options ...MethodOptionFunc) (*GetDriveFolderMetaResp, *Response, error)

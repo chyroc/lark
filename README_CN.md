@@ -38,7 +38,7 @@ https://godoc.org/github.com/chyroc/lark
 
 ## 支持的接口
 
-API 总数: 767, 事件总数: 106
+API 总数: 768, 事件总数: 106
 
 <details>
   <summary>
@@ -386,6 +386,8 @@ API 总数: 767, 事件总数: 106
   - UnbindContactUnitDepartment
   - GetContactUnitDepartmentList
   - GetContactScopeList
+- CoreHr
+  - GetCoreHrCustomField
 - Drive
   - GetDriveRootFolderMeta
   - GetDriveFileList
