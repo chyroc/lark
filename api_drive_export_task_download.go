@@ -59,7 +59,7 @@ func (r *Mock) UnMockDriveDownloadDriveExportTask() {
 
 // DownloadDriveExportTaskReq ...
 type DownloadDriveExportTaskReq struct {
-	FileToken string `path:"file_token" json:"-"` // 导出文档token, 示例值: "boxcnNAlfwHxxxxxxxxxxSaLSec"
+	FileToken string `path:"file_token" json:"-"` // 导出文档 token, 示例值: "boxcnNAlfwHxxxxxxxxxxSaLSec"
 }
 
 // downloadDriveExportTaskResp ...

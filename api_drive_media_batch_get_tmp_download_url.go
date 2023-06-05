@@ -60,8 +60,8 @@ func (r *Mock) UnMockDriveBatchGetDriveMediaTmpDownloadURL() {
 
 // BatchGetDriveMediaTmpDownloadURLReq ...
 type BatchGetDriveMediaTmpDownloadURLReq struct {
-	FileTokens []string `query:"file_tokens" json:"-"` // 文件标识符列表, 示例值: boxcnrHpsg1QDqXAAAyachabcef
-	Extra      *string  `query:"extra" json:"-"`       // 拓展信息, 比如对于拥有高级权限的 Bitable, 在下载素材或者获取素材临时下载链接时, 需要添加额外的`extra`作为 URL 查询参数进行鉴权, 示例值: "[请参考-上传点类型及对应Extra说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/media/introduction)"
+	FileTokens []string `query:"file_tokens" json:"-"` // 文件标识符列表, 最小个数: 1, 最大个数: 5, 如需一次查询多个文件标识符, 可通过将同一个参数名多次传递, 并且每次传递不同的参数值, 例如一次查询两个文件标识符的下载链接: https://{url}?file_tokens={token1}&file_tokens={token2}, 其中: `file_tokens`是参数名, 可以多次传递, `token1`和`token2`是参数值, 示例值: boxcnrHpsg1QDqXAAAyachabcef
+	Extra      *string  `query:"extra" json:"-"`       // 拓展信息, 比如对于拥有高级权限的 Bitable, 在下载素材或者获取素材临时下载链接时, 需要添加额外的`extra`作为 URL 查询参数进行鉴权, 示例值: [请参考-上传点类型及对应Extra说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/media/introduction)
 }
 
 // BatchGetDriveMediaTmpDownloadURLResp ...

@@ -61,12 +61,13 @@ func (r *Mock) UnMockMessageGetMessageList() {
 
 // GetMessageListReq ...
 type GetMessageListReq struct {
-	ContainerIDType ContainerIDType `query:"container_id_type" json:"-"` // 容器类型, 目前可选值仅有"chat", 包含单聊（p2p）和群聊（group）, 示例值: "chat"
-	ContainerID     string          `query:"container_id" json:"-"`      // 容器的id, 即chat的id, 详情参见[群ID 说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-id-description), 示例值: "oc_234jsi43d3ssi993d43545f"
-	StartTime       *string         `query:"start_time" json:"-"`        // 历史信息的起始时间（秒级时间戳）, 示例值: "1609296809"
-	EndTime         *string         `query:"end_time" json:"-"`          // 历史信息的结束时间（秒级时间戳）, 示例值: "1608594809"
+	ContainerIDType ContainerIDType `query:"container_id_type" json:"-"` // 容器类型, 目前可选值仅有"chat", 包含单聊（p2p）和群聊（group）, 示例值: chat
+	ContainerID     string          `query:"container_id" json:"-"`      // 容器的id, 即chat的id, 详情参见[群ID 说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-id-description), 示例值: oc_234jsi43d3ssi993d43545f
+	StartTime       *string         `query:"start_time" json:"-"`        // 历史信息的起始时间（秒级时间戳）, 示例值: 1608594809
+	EndTime         *string         `query:"end_time" json:"-"`          // 历史信息的结束时间（秒级时间戳）, 示例值: 1609296809
+	SortType        *string         `query:"sort_type" json:"-"`         // 消息排序方式, 示例值: ByCreateTimeAsc, 可选值有: ByCreateTimeAsc: 按消息创建时间升序排列, ByCreateTimeDesc: 按消息创建时间降序排列, 默认值: `ByCreateTimeAsc`
 	PageSize        *int64          `query:"page_size" json:"-"`         // 分页大小, 示例值: 20, 默认值: `20`, 取值范围: `1` ～ `50`
-	PageToken       *string         `query:"page_token" json:"-"`        // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果, 示例值: "GxmvlNRvP0NdQZpa7yIqf_Lv_QuBwTQ8tXkX7w-irAghVD_TvuYd1aoJ1LQph86O-XImC4X9j9FhUPhXQDvtrQ["
+	PageToken       *string         `query:"page_token" json:"-"`        // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果, 示例值: GxmvlNRvP0NdQZpa7yIqf_Lv_QuBwTQ8tXkX7w-irAghVD_TvuYd1aoJ1LQph86O-XImC4X9j9FhUPhXQDvtrQ[
 }
 
 // GetMessageListResp ...

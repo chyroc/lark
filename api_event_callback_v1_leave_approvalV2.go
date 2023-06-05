@@ -25,7 +25,7 @@ import (
 //
 // 「审批」应用的表单里如果包含 [请假控件组], 则在此表单审批通过后触发此事件。
 // * 特殊说明: 如果你订阅了此事件, 会收到2条消息, 其 [type] 分别为 [leave_approval]、 [leave_approvalV2] 。这两个事件的 [uuid] 不同、 [instance_code] 相同。
-// * 依赖权限: [访问审批应用]
+// * 依赖权限: [访问审批应用] 或 [查看、创建、更新、删除审批应用相关信息]
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uIDO24iM4YjLygjN/event/leave
 func (r *EventCallbackService) HandlerEventV1LeaveApprovalV2(f EventV1LeaveApprovalV2Handler) {

@@ -24,7 +24,7 @@ import (
 // EventV1RemedyApproval 了解事件订阅的使用场景和配置流程, 请点击查看 [事件订阅概述](https://open.feishu.cn/document/ukTMukTMukTM/uUTNz4SN1MjL1UzM)
 //
 // 补卡申请审批通过后触发此事件。 你可以在「打卡」应用里提交补卡申请。
-// * 依赖权限: [访问审批应用]
+// * 依赖权限: [访问审批应用] 或 [查看、创建、更新、删除审批应用相关信息]
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uIDO24iM4YjLygjN/event/attendance-record-correction
 func (r *EventCallbackService) HandlerEventV1RemedyApproval(f EventV1RemedyApprovalHandler) {

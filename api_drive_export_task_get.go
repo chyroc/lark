@@ -61,8 +61,8 @@ func (r *Mock) UnMockDriveGetDriveExportTask() {
 
 // GetDriveExportTaskReq ...
 type GetDriveExportTaskReq struct {
-	Ticket string `path:"ticket" json:"-"` // 导出任务ID, [创建导出任务](/ssl::ttdoc//uAjLw4CM/ukTMukTMukTM/reference/drive-v1/export_task/create) 响应中的 ticket 字段, 示例值: "6933093124755423251"
-	Token  string `query:"token" json:"-"` // 导出文档的 token, [如何获取文档 token](https://open.feishu.cn/document/ukTMukTMukTM/uczNzUjL3czM14yN3MTN#08bb5df6), 示例值: "doccnZVxxxxxxxxxxxxGiyBgYqe"
+	Ticket string `path:"ticket" json:"-"` // 导出任务ID, [创建导出任务](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/export_task/create) 响应中的 ticket 字段, 示例值: "6933093124755423251"
+	Token  string `query:"token" json:"-"` // 导出文档的 token, [如何获取文档 token](https://open.feishu.cn/document/ukTMukTMukTM/uczNzUjL3czM14yN3MTN#08bb5df6), 示例值: doccnZVxxxxxxxxxxxxGiyBgYqe
 }
 
 // GetDriveExportTaskResp ...
@@ -73,7 +73,7 @@ type GetDriveExportTaskResp struct {
 // GetDriveExportTaskRespResult ...
 type GetDriveExportTaskRespResult struct {
 	FileExtension string `json:"file_extension,omitempty"` // 导出文件扩展名, 可选值有: docx: Microsoft Word (DOCX) 格式, pdf: pdf 格式, xlsx: Microsoft Excel (XLSX) 格式, csv: csv 格式
-	Type          string `json:"type,omitempty"`           // 导出文档类型 [文档类型说明](/ssl::ttdoc/ukTMukTMukTM/uczNzUjL3czM14yN3MTN#560bf735), 可选值有: doc: 旧版飞书云文档类型, 支持导出为 docx、pdf 格式, sheet: 飞书电子表格类型, 支持导出为 xlsx、csv 格式, bitable: 飞书多维表格类型, 支持导出为 xlsx、csv 格式, docx: 新版飞书云文档类型, 支持导出为 docx、pdf 格式
+	Type          string `json:"type,omitempty"`           // 导出文档类型 [文档类型说明](https://open.feishu.cn/document/ukTMukTMukTM/uczNzUjL3czM14yN3MTN#560bf735), 可选值有: doc: 旧版飞书云文档类型, 支持导出为 docx、pdf 格式, sheet: 飞书电子表格类型, 支持导出为 xlsx、csv 格式, bitable: 飞书多维表格类型, 支持导出为 xlsx、csv 格式, docx: 新版飞书云文档类型, 支持导出为 docx、pdf 格式
 	FileName      string `json:"file_name,omitempty"`      // 导出文件名
 	FileToken     string `json:"file_token,omitempty"`     // 导出文件 drive token
 	FileSize      int64  `json:"file_size,omitempty"`      // 导出文件大小, 单位字节
