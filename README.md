@@ -38,7 +38,7 @@ https://godoc.org/github.com/chyroc/lark
 
 ## Support APIs
 
-API Count: 766, Event Count: 106
+API Count: 767, Event Count: 106
 
 <details>
   <summary>
@@ -165,6 +165,7 @@ API Count: 766, Event Count: 106
   - GetAttendanceShift
   - GetAttendanceShiftDetail
   - DeleteAttendanceShift
+  - CreateAttendanceShift
   - CreateAttendanceShift
   - GetAttendanceUserDailyShift
   - BatchCreateAttendanceUserDailyShift

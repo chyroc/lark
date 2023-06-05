@@ -38,7 +38,7 @@ https://godoc.org/github.com/chyroc/lark
 
 ## 支持的接口
 
-API 总数: 766, 事件总数: 106
+API 总数: 767, 事件总数: 106
 
 <details>
   <summary>
@@ -165,6 +165,7 @@ API 总数: 766, 事件总数: 106
   - GetAttendanceShift
   - GetAttendanceShiftDetail
   - DeleteAttendanceShift
+  - CreateAttendanceShift
   - CreateAttendanceShift
   - GetAttendanceUserDailyShift
   - BatchCreateAttendanceUserDailyShift

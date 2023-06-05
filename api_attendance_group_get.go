@@ -58,8 +58,8 @@ func (r *Mock) UnMockAttendanceGetAttendanceGroup() {
 // GetAttendanceGroupReq ...
 type GetAttendanceGroupReq struct {
 	GroupID      string       `path:"group_id" json:"-"`       // 考勤组 ID, 获取方式: 1）[创建或修改考勤组](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/group/create) 2）[按名称查询考勤组](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/group/search) 3）[获取打卡结果](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/user_task/query), 示例值: "6919358128597097404"
-	EmployeeType EmployeeType `query:"employee_type" json:"-"` // 用户 ID 的类型, 示例值: "employee_id", 可选值有: employee_id: 员工 employeeId, employee_no: 员工工号
-	DeptType     string       `query:"dept_type" json:"-"`     // 部门 ID 的类型, 示例值: "od-fcb45c28a45311afd441b8869541ece8", 可选值有: open_id: 暂时只支持部门的 openid
+	EmployeeType EmployeeType `query:"employee_type" json:"-"` // 用户 ID 的类型, 示例值: employee_id, 可选值有: employee_id: 员工 employeeId, employee_no: 员工工号
+	DeptType     string       `query:"dept_type" json:"-"`     // 部门 ID 的类型, 示例值: od-fcb45c28a45311afd441b8869541ece8, 可选值有: open_id: 暂时只支持部门的 openid
 }
 
 // GetAttendanceGroupResp ...
@@ -93,6 +93,7 @@ type GetAttendanceGroupResp struct {
 	HideStaffPunchTime      bool                                           `json:"hide_staff_punch_time,omitempty"`       // 是否隐藏员工打卡详情
 	FacePunch               bool                                           `json:"face_punch,omitempty"`                  // 是否开启人脸识别打卡
 	FacePunchCfg            int64                                          `json:"face_punch_cfg,omitempty"`              // 人脸识别打卡规则, 1: 每次打卡均需人脸识别, 2: 疑似作弊打卡时需要人脸识别
+	FaceLiveNeedAction      bool                                           `json:"face_live_need_action,omitempty"`       // 人脸打卡规则, * false: 开启活体验证, * true: 动作验证, 仅在 face_punch_cfg = 1 时有效
 	FaceDowngrade           bool                                           `json:"face_downgrade,omitempty"`              // 人脸识别失败时是否允许普通拍照打卡
 	ReplaceBasicPic         bool                                           `json:"replace_basic_pic,omitempty"`           // 人脸识别失败时是否允许替换基准图片
 	Machines                []*GetAttendanceGroupRespMachine               `json:"machines,omitempty"`                    // 考勤机列表
@@ -109,8 +110,17 @@ type GetAttendanceGroupResp struct {
 	RemedyPeriodCustomDate  int64                                          `json:"remedy_period_custom_date,omitempty"`   // 补卡自定义周期起始日期
 	PunchType               int64                                          `json:"punch_type,omitempty"`                  // 打卡类型, 位运算。1: GPS 打卡, 2: Wi-Fi 打卡, 4: 考勤机打卡, 8: IP 打卡
 	EffectTime              string                                         `json:"effect_time,omitempty"`                 // 生效时间, 精确到秒的时间戳
+	FixshiftEffectTime      string                                         `json:"fixshift_effect_time,omitempty"`        // 固定班次生效时间, 精确到秒的时间戳
+	MemberEffectTime        string                                         `json:"member_effect_time,omitempty"`          // 参加考勤的人员、部门变动生效时间, 精确到秒的时间戳
 	RestClockInNeedApproval bool                                           `json:"rest_clockIn_need_approval,omitempty"`  // 休息日打卡需审批
 	ClockInNeedPhoto        bool                                           `json:"clockIn_need_photo,omitempty"`          // 每次打卡均需拍照
+	MemberStatusChange      *GetAttendanceGroupRespMemberStatusChange      `json:"member_status_change,omitempty"`        // 人员异动打卡设置
+	LeaveNeedPunch          bool                                           `json:"leave_need_punch,omitempty"`            // 请假离岗或返岗是否需打卡
+	LeaveNeedPunchCfg       *GetAttendanceGroupRespLeaveNeedPunchCfg       `json:"leave_need_punch_cfg,omitempty"`        // 请假离岗或返岗打卡规则
+	GoOutNeedPunch          int64                                          `json:"go_out_need_punch,omitempty"`           // 外出期间是否需打卡
+	GoOutNeedPunchCfg       *GetAttendanceGroupRespGoOutNeedPunchCfg       `json:"go_out_need_punch_cfg,omitempty"`       // 外出期间打卡规则
+	TravelNeedPunch         int64                                          `json:"travel_need_punch,omitempty"`           // 出差期间是否需打卡
+	TravelNeedPunchCfg      *GetAttendanceGroupRespTravelNeedPunchCfg      `json:"travel_need_punch_cfg,omitempty"`       // 出差期间打卡规则
 }
 
 // GetAttendanceGroupRespFreePunchCfg ...
@@ -119,6 +129,24 @@ type GetAttendanceGroupRespFreePunchCfg struct {
 	FreeEndTime          string `json:"free_end_time,omitempty"`             // 自由班制打卡结束时间
 	PunchDay             int64  `json:"punch_day,omitempty"`                 // 打卡的时间, 为 7 位数字, 每一位依次代表周一到周日, 0 为不上班, 1 为上班
 	WorkDayNoPunchAsLack bool   `json:"work_day_no_punch_as_lack,omitempty"` // 工作日不打卡是否记为缺卡
+	WorkHoursDemand      bool   `json:"work_hours_demand,omitempty"`         // 工作日出勤是否需满足时长要求
+	WorkHours            int64  `json:"work_hours,omitempty"`                // 每日工作时长（分钟), 范围[0, 1440]
+}
+
+// GetAttendanceGroupRespGoOutNeedPunchCfg ...
+type GetAttendanceGroupRespGoOutNeedPunchCfg struct {
+	LateMinutesAsLate   int64 `json:"late_minutes_as_late,omitempty"`   // 晚到超过多久记为迟到
+	LateMinutesAsLack   int64 `json:"late_minutes_as_lack,omitempty"`   // 晚到超过多久记为缺卡
+	EarlyMinutesAsEarly int64 `json:"early_minutes_as_early,omitempty"` // 早走超过多久记为早退
+	EarlyMinutesAsLack  int64 `json:"early_minutes_as_lack,omitempty"`  // 早走超过多久记为缺卡
+}
+
+// GetAttendanceGroupRespLeaveNeedPunchCfg ...
+type GetAttendanceGroupRespLeaveNeedPunchCfg struct {
+	LateMinutesAsLate   int64 `json:"late_minutes_as_late,omitempty"`   // 晚到超过多久记为迟到
+	LateMinutesAsLack   int64 `json:"late_minutes_as_lack,omitempty"`   // 晚到超过多久记为缺卡
+	EarlyMinutesAsEarly int64 `json:"early_minutes_as_early,omitempty"` // 早走超过多久记为早退
+	EarlyMinutesAsLack  int64 `json:"early_minutes_as_lack,omitempty"`  // 早走超过多久记为缺卡
 }
 
 // GetAttendanceGroupRespLocation ...
@@ -143,6 +171,14 @@ type GetAttendanceGroupRespMachine struct {
 	MachineName string `json:"machine_name,omitempty"` // 考勤机名称
 }
 
+// GetAttendanceGroupRespMemberStatusChange ...
+type GetAttendanceGroupRespMemberStatusChange struct {
+	OnboardingOnNoNeedPunch   bool `json:"onboarding_on_no_need_punch,omitempty"`   // 是否入职日上班无需打卡
+	OnboardingOffNoNeedPunch  bool `json:"onboarding_off_no_need_punch,omitempty"`  // 是否入职日下班无需打卡
+	OffboardingOnNoNeedPunch  bool `json:"offboarding_on_no_need_punch,omitempty"`  // 是否离职日上班无需打卡
+	OffboardingOffNoNeedPunch bool `json:"offboarding_off_no_need_punch,omitempty"` // 是否离职日下班无需打卡
+}
+
 // GetAttendanceGroupRespNeedPunchSpecialDay ...
 type GetAttendanceGroupRespNeedPunchSpecialDay struct {
 	PunchDay int64  `json:"punch_day,omitempty"` // 打卡日期
@@ -153,6 +189,14 @@ type GetAttendanceGroupRespNeedPunchSpecialDay struct {
 type GetAttendanceGroupRespNoNeedPunchSpecialDay struct {
 	PunchDay int64  `json:"punch_day,omitempty"` // 打卡日期
 	ShiftID  string `json:"shift_id,omitempty"`  // 班次 ID
+}
+
+// GetAttendanceGroupRespTravelNeedPunchCfg ...
+type GetAttendanceGroupRespTravelNeedPunchCfg struct {
+	LateMinutesAsLate   int64 `json:"late_minutes_as_late,omitempty"`   // 晚到超过多久记为迟到
+	LateMinutesAsLack   int64 `json:"late_minutes_as_lack,omitempty"`   // 晚到超过多久记为缺卡
+	EarlyMinutesAsEarly int64 `json:"early_minutes_as_early,omitempty"` // 早走超过多久记为早退
+	EarlyMinutesAsLack  int64 `json:"early_minutes_as_lack,omitempty"`  // 早走超过多久记为缺卡
 }
 
 // getAttendanceGroupResp ...

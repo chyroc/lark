@@ -59,7 +59,7 @@ func (r *Mock) UnMockContactBatchDeleteContactFunctionalRoleMember() {
 type BatchDeleteContactFunctionalRoleMemberReq struct {
 	RoleID     string   `path:"role_id" json:"-"`       // 角色的唯一标识, 单租户下唯一, 示例值: "7vrj3vk70xk7v5r"
 	UserIDType *IDType  `query:"user_id_type" json:"-"` // 用户 ID 类型, 示例值: "open_id", 可选值有: open_id: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid), union_id: 标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id), user_id: 标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id), 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
-	Members    []string `json:"members,omitempty"`      // 角色删除的角色成员列表（一批用户的UserID列表), 示例值: ["qwer"], 长度范围: `1` ～ `100`
+	Members    []string `json:"members,omitempty"`      // 角色删除的角色成员列表（一批用户的UserID列表), 示例值: ["ou-12832197382"], 长度范围: `1` ～ `100`
 }
 
 // BatchDeleteContactFunctionalRoleMemberResp ...
@@ -70,7 +70,7 @@ type BatchDeleteContactFunctionalRoleMemberResp struct {
 // BatchDeleteContactFunctionalRoleMemberRespResult ...
 type BatchDeleteContactFunctionalRoleMemberRespResult struct {
 	UserID string `json:"user_id,omitempty"` // 用户ID
-	Reason int64  `json:"reason,omitempty"`  // 成员处理结果, 可选值有: 0: 处理成功, 1: 用户ID无效, 2: 用户ID无权限, 3: 用户已存在在该角色中, 4: 用户不存在在该角色中, 5: 对该角色内该用户旧的管理范围无权限
+	Reason int64  `json:"reason,omitempty"`  // 成员处理结果, 可选值有: 1: 处理成功, 2: 用户ID无效, 3: 用户ID无权限, 4: 用户已存在在该角色中, 5: 用户不存在在该角色中, 6: 对该角色内该用户旧的管理范围无权限
 }
 
 // batchDeleteContactFunctionalRoleMemberResp ...
