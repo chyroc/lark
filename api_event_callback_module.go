@@ -82,6 +82,23 @@ const (
 	EventTypeV2ContactUserCreatedV3                            EventType = "contact.user.created_v3"
 	EventTypeV2ContactUserDeletedV3                            EventType = "contact.user.deleted_v3"
 	EventTypeV2ContactUserUpdatedV3                            EventType = "contact.user.updated_v3"
+	EventTypeV2CorehrContractCreatedV1                         EventType = "corehr.contract.created_v1"
+	EventTypeV2CorehrDepartmentCreatedV1                       EventType = "corehr.department.created_v1"
+	EventTypeV2CorehrDepartmentDeletedV1                       EventType = "corehr.department.deleted_v1"
+	EventTypeV2CorehrDepartmentUpdatedV1                       EventType = "corehr.department.updated_v1"
+	EventTypeV2CorehrEmploymentConvertedV1                     EventType = "corehr.employment.converted_v1"
+	EventTypeV2CorehrEmploymentCreatedV1                       EventType = "corehr.employment.created_v1"
+	EventTypeV2CorehrEmploymentDeletedV1                       EventType = "corehr.employment.deleted_v1"
+	EventTypeV2CorehrEmploymentResignedV1                      EventType = "corehr.employment.resigned_v1"
+	EventTypeV2CorehrEmploymentUpdatedV1                       EventType = "corehr.employment.updated_v1"
+	EventTypeV2CorehrJobChangeUpdatedV1                        EventType = "corehr.job_change.updated_v1"
+	EventTypeV2CorehrJobDataChangedV1                          EventType = "corehr.job_data.changed_v1"
+	EventTypeV2CorehrJobDataEmployedV1                         EventType = "corehr.job_data.employed_v1"
+	EventTypeV2CorehrOffboardingUpdatedV1                      EventType = "corehr.offboarding.updated_v1"
+	EventTypeV2CorehrOrgRoleAuthorizationUpdatedV1             EventType = "corehr.org_role_authorization.updated_v1"
+	EventTypeV2CorehrPersonCreatedV1                           EventType = "corehr.person.created_v1"
+	EventTypeV2CorehrPersonDeletedV1                           EventType = "corehr.person.deleted_v1"
+	EventTypeV2CorehrPersonUpdatedV1                           EventType = "corehr.person.updated_v1"
 	EventTypeV2DriveFileBitableFieldChangedV1                  EventType = "drive.file.bitable_field_changed_v1"
 	EventTypeV2DriveFileBitableRecordChangedV1                 EventType = "drive.file.bitable_record_changed_v1"
 	EventTypeV2DriveFileDeletedV1                              EventType = "drive.file.deleted_v1"
@@ -95,6 +112,7 @@ const (
 	EventTypeV2HelpdeskTicketCreatedV1                         EventType = "helpdesk.ticket.created_v1"
 	EventTypeV2HelpdeskTicketMessageCreatedV1                  EventType = "helpdesk.ticket_message.created_v1"
 	EventTypeV2HelpdeskTicketUpdatedV1                         EventType = "helpdesk.ticket.updated_v1"
+	EventTypeV2HireEHRImportTaskForInternshipOfferImportedV1   EventType = "hire.ehr_import_task_for_internship_offer.imported_v1"
 	EventTypeV2HireOfferStatusChangedV1                        EventType = "hire.offer.status_changed_v1"
 	EventTypeV2IMChatDisbandedV1                               EventType = "im.chat.disbanded_v1"
 	EventTypeV2IMChatMemberBotAddedV1                          EventType = "im.chat.member.bot.added_v1"
@@ -192,6 +210,23 @@ type eventHandler struct {
 	eventV2ContactUserCreatedV3Handler                            EventV2ContactUserCreatedV3Handler
 	eventV2ContactUserDeletedV3Handler                            EventV2ContactUserDeletedV3Handler
 	eventV2ContactUserUpdatedV3Handler                            EventV2ContactUserUpdatedV3Handler
+	eventV2CorehrContractCreatedV1Handler                         EventV2CorehrContractCreatedV1Handler
+	eventV2CorehrDepartmentCreatedV1Handler                       EventV2CorehrDepartmentCreatedV1Handler
+	eventV2CorehrDepartmentDeletedV1Handler                       EventV2CorehrDepartmentDeletedV1Handler
+	eventV2CorehrDepartmentUpdatedV1Handler                       EventV2CorehrDepartmentUpdatedV1Handler
+	eventV2CorehrEmploymentConvertedV1Handler                     EventV2CorehrEmploymentConvertedV1Handler
+	eventV2CorehrEmploymentCreatedV1Handler                       EventV2CorehrEmploymentCreatedV1Handler
+	eventV2CorehrEmploymentDeletedV1Handler                       EventV2CorehrEmploymentDeletedV1Handler
+	eventV2CorehrEmploymentResignedV1Handler                      EventV2CorehrEmploymentResignedV1Handler
+	eventV2CorehrEmploymentUpdatedV1Handler                       EventV2CorehrEmploymentUpdatedV1Handler
+	eventV2CorehrJobChangeUpdatedV1Handler                        EventV2CorehrJobChangeUpdatedV1Handler
+	eventV2CorehrJobDataChangedV1Handler                          EventV2CorehrJobDataChangedV1Handler
+	eventV2CorehrJobDataEmployedV1Handler                         EventV2CorehrJobDataEmployedV1Handler
+	eventV2CorehrOffboardingUpdatedV1Handler                      EventV2CorehrOffboardingUpdatedV1Handler
+	eventV2CorehrOrgRoleAuthorizationUpdatedV1Handler             EventV2CorehrOrgRoleAuthorizationUpdatedV1Handler
+	eventV2CorehrPersonCreatedV1Handler                           EventV2CorehrPersonCreatedV1Handler
+	eventV2CorehrPersonDeletedV1Handler                           EventV2CorehrPersonDeletedV1Handler
+	eventV2CorehrPersonUpdatedV1Handler                           EventV2CorehrPersonUpdatedV1Handler
 	eventV2DriveFileBitableFieldChangedV1Handler                  EventV2DriveFileBitableFieldChangedV1Handler
 	eventV2DriveFileBitableRecordChangedV1Handler                 EventV2DriveFileBitableRecordChangedV1Handler
 	eventV2DriveFileDeletedV1Handler                              EventV2DriveFileDeletedV1Handler
@@ -205,6 +240,7 @@ type eventHandler struct {
 	eventV2HelpdeskTicketCreatedV1Handler                         EventV2HelpdeskTicketCreatedV1Handler
 	eventV2HelpdeskTicketMessageCreatedV1Handler                  EventV2HelpdeskTicketMessageCreatedV1Handler
 	eventV2HelpdeskTicketUpdatedV1Handler                         EventV2HelpdeskTicketUpdatedV1Handler
+	eventV2HireEHRImportTaskForInternshipOfferImportedV1Handler   EventV2HireEHRImportTaskForInternshipOfferImportedV1Handler
 	eventV2HireOfferStatusChangedV1Handler                        EventV2HireOfferStatusChangedV1Handler
 	eventV2IMChatDisbandedV1Handler                               EventV2IMChatDisbandedV1Handler
 	eventV2IMChatMemberBotAddedV1Handler                          EventV2IMChatMemberBotAddedV1Handler
@@ -303,6 +339,23 @@ func (r *eventHandler) clone() *eventHandler {
 		eventV2ContactUserCreatedV3Handler:                            r.eventV2ContactUserCreatedV3Handler,
 		eventV2ContactUserDeletedV3Handler:                            r.eventV2ContactUserDeletedV3Handler,
 		eventV2ContactUserUpdatedV3Handler:                            r.eventV2ContactUserUpdatedV3Handler,
+		eventV2CorehrContractCreatedV1Handler:                         r.eventV2CorehrContractCreatedV1Handler,
+		eventV2CorehrDepartmentCreatedV1Handler:                       r.eventV2CorehrDepartmentCreatedV1Handler,
+		eventV2CorehrDepartmentDeletedV1Handler:                       r.eventV2CorehrDepartmentDeletedV1Handler,
+		eventV2CorehrDepartmentUpdatedV1Handler:                       r.eventV2CorehrDepartmentUpdatedV1Handler,
+		eventV2CorehrEmploymentConvertedV1Handler:                     r.eventV2CorehrEmploymentConvertedV1Handler,
+		eventV2CorehrEmploymentCreatedV1Handler:                       r.eventV2CorehrEmploymentCreatedV1Handler,
+		eventV2CorehrEmploymentDeletedV1Handler:                       r.eventV2CorehrEmploymentDeletedV1Handler,
+		eventV2CorehrEmploymentResignedV1Handler:                      r.eventV2CorehrEmploymentResignedV1Handler,
+		eventV2CorehrEmploymentUpdatedV1Handler:                       r.eventV2CorehrEmploymentUpdatedV1Handler,
+		eventV2CorehrJobChangeUpdatedV1Handler:                        r.eventV2CorehrJobChangeUpdatedV1Handler,
+		eventV2CorehrJobDataChangedV1Handler:                          r.eventV2CorehrJobDataChangedV1Handler,
+		eventV2CorehrJobDataEmployedV1Handler:                         r.eventV2CorehrJobDataEmployedV1Handler,
+		eventV2CorehrOffboardingUpdatedV1Handler:                      r.eventV2CorehrOffboardingUpdatedV1Handler,
+		eventV2CorehrOrgRoleAuthorizationUpdatedV1Handler:             r.eventV2CorehrOrgRoleAuthorizationUpdatedV1Handler,
+		eventV2CorehrPersonCreatedV1Handler:                           r.eventV2CorehrPersonCreatedV1Handler,
+		eventV2CorehrPersonDeletedV1Handler:                           r.eventV2CorehrPersonDeletedV1Handler,
+		eventV2CorehrPersonUpdatedV1Handler:                           r.eventV2CorehrPersonUpdatedV1Handler,
 		eventV2DriveFileBitableFieldChangedV1Handler:                  r.eventV2DriveFileBitableFieldChangedV1Handler,
 		eventV2DriveFileBitableRecordChangedV1Handler:                 r.eventV2DriveFileBitableRecordChangedV1Handler,
 		eventV2DriveFileDeletedV1Handler:                              r.eventV2DriveFileDeletedV1Handler,
@@ -316,6 +369,7 @@ func (r *eventHandler) clone() *eventHandler {
 		eventV2HelpdeskTicketCreatedV1Handler:                         r.eventV2HelpdeskTicketCreatedV1Handler,
 		eventV2HelpdeskTicketMessageCreatedV1Handler:                  r.eventV2HelpdeskTicketMessageCreatedV1Handler,
 		eventV2HelpdeskTicketUpdatedV1Handler:                         r.eventV2HelpdeskTicketUpdatedV1Handler,
+		eventV2HireEHRImportTaskForInternshipOfferImportedV1Handler:   r.eventV2HireEHRImportTaskForInternshipOfferImportedV1Handler,
 		eventV2HireOfferStatusChangedV1Handler:                        r.eventV2HireOfferStatusChangedV1Handler,
 		eventV2IMChatDisbandedV1Handler:                               r.eventV2IMChatDisbandedV1Handler,
 		eventV2IMChatMemberBotAddedV1Handler:                          r.eventV2IMChatMemberBotAddedV1Handler,
@@ -413,6 +467,23 @@ type eventBody struct {
 	eventV2ContactUserCreatedV3                            *EventV2ContactUserCreatedV3
 	eventV2ContactUserDeletedV3                            *EventV2ContactUserDeletedV3
 	eventV2ContactUserUpdatedV3                            *EventV2ContactUserUpdatedV3
+	eventV2CorehrContractCreatedV1                         *EventV2CorehrContractCreatedV1
+	eventV2CorehrDepartmentCreatedV1                       *EventV2CorehrDepartmentCreatedV1
+	eventV2CorehrDepartmentDeletedV1                       *EventV2CorehrDepartmentDeletedV1
+	eventV2CorehrDepartmentUpdatedV1                       *EventV2CorehrDepartmentUpdatedV1
+	eventV2CorehrEmploymentConvertedV1                     *EventV2CorehrEmploymentConvertedV1
+	eventV2CorehrEmploymentCreatedV1                       *EventV2CorehrEmploymentCreatedV1
+	eventV2CorehrEmploymentDeletedV1                       *EventV2CorehrEmploymentDeletedV1
+	eventV2CorehrEmploymentResignedV1                      *EventV2CorehrEmploymentResignedV1
+	eventV2CorehrEmploymentUpdatedV1                       *EventV2CorehrEmploymentUpdatedV1
+	eventV2CorehrJobChangeUpdatedV1                        *EventV2CorehrJobChangeUpdatedV1
+	eventV2CorehrJobDataChangedV1                          *EventV2CorehrJobDataChangedV1
+	eventV2CorehrJobDataEmployedV1                         *EventV2CorehrJobDataEmployedV1
+	eventV2CorehrOffboardingUpdatedV1                      *EventV2CorehrOffboardingUpdatedV1
+	eventV2CorehrOrgRoleAuthorizationUpdatedV1             *EventV2CorehrOrgRoleAuthorizationUpdatedV1
+	eventV2CorehrPersonCreatedV1                           *EventV2CorehrPersonCreatedV1
+	eventV2CorehrPersonDeletedV1                           *EventV2CorehrPersonDeletedV1
+	eventV2CorehrPersonUpdatedV1                           *EventV2CorehrPersonUpdatedV1
 	eventV2DriveFileBitableFieldChangedV1                  *EventV2DriveFileBitableFieldChangedV1
 	eventV2DriveFileBitableRecordChangedV1                 *EventV2DriveFileBitableRecordChangedV1
 	eventV2DriveFileDeletedV1                              *EventV2DriveFileDeletedV1
@@ -426,6 +497,7 @@ type eventBody struct {
 	eventV2HelpdeskTicketCreatedV1                         *EventV2HelpdeskTicketCreatedV1
 	eventV2HelpdeskTicketMessageCreatedV1                  *EventV2HelpdeskTicketMessageCreatedV1
 	eventV2HelpdeskTicketUpdatedV1                         *EventV2HelpdeskTicketUpdatedV1
+	eventV2HireEHRImportTaskForInternshipOfferImportedV1   *EventV2HireEHRImportTaskForInternshipOfferImportedV1
 	eventV2HireOfferStatusChangedV1                        *EventV2HireOfferStatusChangedV1
 	eventV2IMChatDisbandedV1                               *EventV2IMChatDisbandedV1
 	eventV2IMChatMemberBotAddedV1                          *EventV2IMChatMemberBotAddedV1
@@ -653,6 +725,108 @@ func (r *EventCallbackService) parserEventV2(req *eventReq) error {
 			return err
 		}
 		req.eventV2ContactUserUpdatedV3 = event
+	case EventTypeV2CorehrContractCreatedV1:
+		event := new(EventV2CorehrContractCreatedV1)
+		if err := req.unmarshalEvent(event); err != nil {
+			return err
+		}
+		req.eventV2CorehrContractCreatedV1 = event
+	case EventTypeV2CorehrDepartmentCreatedV1:
+		event := new(EventV2CorehrDepartmentCreatedV1)
+		if err := req.unmarshalEvent(event); err != nil {
+			return err
+		}
+		req.eventV2CorehrDepartmentCreatedV1 = event
+	case EventTypeV2CorehrDepartmentDeletedV1:
+		event := new(EventV2CorehrDepartmentDeletedV1)
+		if err := req.unmarshalEvent(event); err != nil {
+			return err
+		}
+		req.eventV2CorehrDepartmentDeletedV1 = event
+	case EventTypeV2CorehrDepartmentUpdatedV1:
+		event := new(EventV2CorehrDepartmentUpdatedV1)
+		if err := req.unmarshalEvent(event); err != nil {
+			return err
+		}
+		req.eventV2CorehrDepartmentUpdatedV1 = event
+	case EventTypeV2CorehrEmploymentConvertedV1:
+		event := new(EventV2CorehrEmploymentConvertedV1)
+		if err := req.unmarshalEvent(event); err != nil {
+			return err
+		}
+		req.eventV2CorehrEmploymentConvertedV1 = event
+	case EventTypeV2CorehrEmploymentCreatedV1:
+		event := new(EventV2CorehrEmploymentCreatedV1)
+		if err := req.unmarshalEvent(event); err != nil {
+			return err
+		}
+		req.eventV2CorehrEmploymentCreatedV1 = event
+	case EventTypeV2CorehrEmploymentDeletedV1:
+		event := new(EventV2CorehrEmploymentDeletedV1)
+		if err := req.unmarshalEvent(event); err != nil {
+			return err
+		}
+		req.eventV2CorehrEmploymentDeletedV1 = event
+	case EventTypeV2CorehrEmploymentResignedV1:
+		event := new(EventV2CorehrEmploymentResignedV1)
+		if err := req.unmarshalEvent(event); err != nil {
+			return err
+		}
+		req.eventV2CorehrEmploymentResignedV1 = event
+	case EventTypeV2CorehrEmploymentUpdatedV1:
+		event := new(EventV2CorehrEmploymentUpdatedV1)
+		if err := req.unmarshalEvent(event); err != nil {
+			return err
+		}
+		req.eventV2CorehrEmploymentUpdatedV1 = event
+	case EventTypeV2CorehrJobChangeUpdatedV1:
+		event := new(EventV2CorehrJobChangeUpdatedV1)
+		if err := req.unmarshalEvent(event); err != nil {
+			return err
+		}
+		req.eventV2CorehrJobChangeUpdatedV1 = event
+	case EventTypeV2CorehrJobDataChangedV1:
+		event := new(EventV2CorehrJobDataChangedV1)
+		if err := req.unmarshalEvent(event); err != nil {
+			return err
+		}
+		req.eventV2CorehrJobDataChangedV1 = event
+	case EventTypeV2CorehrJobDataEmployedV1:
+		event := new(EventV2CorehrJobDataEmployedV1)
+		if err := req.unmarshalEvent(event); err != nil {
+			return err
+		}
+		req.eventV2CorehrJobDataEmployedV1 = event
+	case EventTypeV2CorehrOffboardingUpdatedV1:
+		event := new(EventV2CorehrOffboardingUpdatedV1)
+		if err := req.unmarshalEvent(event); err != nil {
+			return err
+		}
+		req.eventV2CorehrOffboardingUpdatedV1 = event
+	case EventTypeV2CorehrOrgRoleAuthorizationUpdatedV1:
+		event := new(EventV2CorehrOrgRoleAuthorizationUpdatedV1)
+		if err := req.unmarshalEvent(event); err != nil {
+			return err
+		}
+		req.eventV2CorehrOrgRoleAuthorizationUpdatedV1 = event
+	case EventTypeV2CorehrPersonCreatedV1:
+		event := new(EventV2CorehrPersonCreatedV1)
+		if err := req.unmarshalEvent(event); err != nil {
+			return err
+		}
+		req.eventV2CorehrPersonCreatedV1 = event
+	case EventTypeV2CorehrPersonDeletedV1:
+		event := new(EventV2CorehrPersonDeletedV1)
+		if err := req.unmarshalEvent(event); err != nil {
+			return err
+		}
+		req.eventV2CorehrPersonDeletedV1 = event
+	case EventTypeV2CorehrPersonUpdatedV1:
+		event := new(EventV2CorehrPersonUpdatedV1)
+		if err := req.unmarshalEvent(event); err != nil {
+			return err
+		}
+		req.eventV2CorehrPersonUpdatedV1 = event
 	case EventTypeV2DriveFileBitableFieldChangedV1:
 		event := new(EventV2DriveFileBitableFieldChangedV1)
 		if err := req.unmarshalEvent(event); err != nil {
@@ -731,6 +905,12 @@ func (r *EventCallbackService) parserEventV2(req *eventReq) error {
 			return err
 		}
 		req.eventV2HelpdeskTicketUpdatedV1 = event
+	case EventTypeV2HireEHRImportTaskForInternshipOfferImportedV1:
+		event := new(EventV2HireEHRImportTaskForInternshipOfferImportedV1)
+		if err := req.unmarshalEvent(event); err != nil {
+			return err
+		}
+		req.eventV2HireEHRImportTaskForInternshipOfferImportedV1 = event
 	case EventTypeV2HireOfferStatusChangedV1:
 		event := new(EventV2HireOfferStatusChangedV1)
 		if err := req.unmarshalEvent(event); err != nil {
@@ -1639,6 +1819,159 @@ func (r *EventCallbackService) handlerEvent(ctx context.Context, req *eventReq) 
 			}
 		}
 		return true, s, err
+	case req.eventV2CorehrContractCreatedV1 != nil:
+		if r.cli.eventHandler.eventV2CorehrContractCreatedV1Handler != nil {
+			if r.cli.noBlocking {
+				go r.cli.eventHandler.eventV2CorehrContractCreatedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2CorehrContractCreatedV1)
+			} else {
+				s, err = r.cli.eventHandler.eventV2CorehrContractCreatedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2CorehrContractCreatedV1)
+			}
+		}
+		return true, s, err
+	case req.eventV2CorehrDepartmentCreatedV1 != nil:
+		if r.cli.eventHandler.eventV2CorehrDepartmentCreatedV1Handler != nil {
+			if r.cli.noBlocking {
+				go r.cli.eventHandler.eventV2CorehrDepartmentCreatedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2CorehrDepartmentCreatedV1)
+			} else {
+				s, err = r.cli.eventHandler.eventV2CorehrDepartmentCreatedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2CorehrDepartmentCreatedV1)
+			}
+		}
+		return true, s, err
+	case req.eventV2CorehrDepartmentDeletedV1 != nil:
+		if r.cli.eventHandler.eventV2CorehrDepartmentDeletedV1Handler != nil {
+			if r.cli.noBlocking {
+				go r.cli.eventHandler.eventV2CorehrDepartmentDeletedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2CorehrDepartmentDeletedV1)
+			} else {
+				s, err = r.cli.eventHandler.eventV2CorehrDepartmentDeletedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2CorehrDepartmentDeletedV1)
+			}
+		}
+		return true, s, err
+	case req.eventV2CorehrDepartmentUpdatedV1 != nil:
+		if r.cli.eventHandler.eventV2CorehrDepartmentUpdatedV1Handler != nil {
+			if r.cli.noBlocking {
+				go r.cli.eventHandler.eventV2CorehrDepartmentUpdatedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2CorehrDepartmentUpdatedV1)
+			} else {
+				s, err = r.cli.eventHandler.eventV2CorehrDepartmentUpdatedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2CorehrDepartmentUpdatedV1)
+			}
+		}
+		return true, s, err
+	case req.eventV2CorehrEmploymentConvertedV1 != nil:
+		if r.cli.eventHandler.eventV2CorehrEmploymentConvertedV1Handler != nil {
+			if r.cli.noBlocking {
+				go r.cli.eventHandler.eventV2CorehrEmploymentConvertedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2CorehrEmploymentConvertedV1)
+			} else {
+				s, err = r.cli.eventHandler.eventV2CorehrEmploymentConvertedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2CorehrEmploymentConvertedV1)
+			}
+		}
+		return true, s, err
+	case req.eventV2CorehrEmploymentCreatedV1 != nil:
+		if r.cli.eventHandler.eventV2CorehrEmploymentCreatedV1Handler != nil {
+			if r.cli.noBlocking {
+				go r.cli.eventHandler.eventV2CorehrEmploymentCreatedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2CorehrEmploymentCreatedV1)
+			} else {
+				s, err = r.cli.eventHandler.eventV2CorehrEmploymentCreatedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2CorehrEmploymentCreatedV1)
+			}
+		}
+		return true, s, err
+	case req.eventV2CorehrEmploymentDeletedV1 != nil:
+		if r.cli.eventHandler.eventV2CorehrEmploymentDeletedV1Handler != nil {
+			if r.cli.noBlocking {
+				go r.cli.eventHandler.eventV2CorehrEmploymentDeletedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2CorehrEmploymentDeletedV1)
+			} else {
+				s, err = r.cli.eventHandler.eventV2CorehrEmploymentDeletedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2CorehrEmploymentDeletedV1)
+			}
+		}
+		return true, s, err
+	case req.eventV2CorehrEmploymentResignedV1 != nil:
+		if r.cli.eventHandler.eventV2CorehrEmploymentResignedV1Handler != nil {
+			if r.cli.noBlocking {
+				go r.cli.eventHandler.eventV2CorehrEmploymentResignedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2CorehrEmploymentResignedV1)
+			} else {
+				s, err = r.cli.eventHandler.eventV2CorehrEmploymentResignedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2CorehrEmploymentResignedV1)
+			}
+		}
+		return true, s, err
+	case req.eventV2CorehrEmploymentUpdatedV1 != nil:
+		if r.cli.eventHandler.eventV2CorehrEmploymentUpdatedV1Handler != nil {
+			if r.cli.noBlocking {
+				go r.cli.eventHandler.eventV2CorehrEmploymentUpdatedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2CorehrEmploymentUpdatedV1)
+			} else {
+				s, err = r.cli.eventHandler.eventV2CorehrEmploymentUpdatedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2CorehrEmploymentUpdatedV1)
+			}
+		}
+		return true, s, err
+	case req.eventV2CorehrJobChangeUpdatedV1 != nil:
+		if r.cli.eventHandler.eventV2CorehrJobChangeUpdatedV1Handler != nil {
+			if r.cli.noBlocking {
+				go r.cli.eventHandler.eventV2CorehrJobChangeUpdatedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2CorehrJobChangeUpdatedV1)
+			} else {
+				s, err = r.cli.eventHandler.eventV2CorehrJobChangeUpdatedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2CorehrJobChangeUpdatedV1)
+			}
+		}
+		return true, s, err
+	case req.eventV2CorehrJobDataChangedV1 != nil:
+		if r.cli.eventHandler.eventV2CorehrJobDataChangedV1Handler != nil {
+			if r.cli.noBlocking {
+				go r.cli.eventHandler.eventV2CorehrJobDataChangedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2CorehrJobDataChangedV1)
+			} else {
+				s, err = r.cli.eventHandler.eventV2CorehrJobDataChangedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2CorehrJobDataChangedV1)
+			}
+		}
+		return true, s, err
+	case req.eventV2CorehrJobDataEmployedV1 != nil:
+		if r.cli.eventHandler.eventV2CorehrJobDataEmployedV1Handler != nil {
+			if r.cli.noBlocking {
+				go r.cli.eventHandler.eventV2CorehrJobDataEmployedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2CorehrJobDataEmployedV1)
+			} else {
+				s, err = r.cli.eventHandler.eventV2CorehrJobDataEmployedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2CorehrJobDataEmployedV1)
+			}
+		}
+		return true, s, err
+	case req.eventV2CorehrOffboardingUpdatedV1 != nil:
+		if r.cli.eventHandler.eventV2CorehrOffboardingUpdatedV1Handler != nil {
+			if r.cli.noBlocking {
+				go r.cli.eventHandler.eventV2CorehrOffboardingUpdatedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2CorehrOffboardingUpdatedV1)
+			} else {
+				s, err = r.cli.eventHandler.eventV2CorehrOffboardingUpdatedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2CorehrOffboardingUpdatedV1)
+			}
+		}
+		return true, s, err
+	case req.eventV2CorehrOrgRoleAuthorizationUpdatedV1 != nil:
+		if r.cli.eventHandler.eventV2CorehrOrgRoleAuthorizationUpdatedV1Handler != nil {
+			if r.cli.noBlocking {
+				go r.cli.eventHandler.eventV2CorehrOrgRoleAuthorizationUpdatedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2CorehrOrgRoleAuthorizationUpdatedV1)
+			} else {
+				s, err = r.cli.eventHandler.eventV2CorehrOrgRoleAuthorizationUpdatedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2CorehrOrgRoleAuthorizationUpdatedV1)
+			}
+		}
+		return true, s, err
+	case req.eventV2CorehrPersonCreatedV1 != nil:
+		if r.cli.eventHandler.eventV2CorehrPersonCreatedV1Handler != nil {
+			if r.cli.noBlocking {
+				go r.cli.eventHandler.eventV2CorehrPersonCreatedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2CorehrPersonCreatedV1)
+			} else {
+				s, err = r.cli.eventHandler.eventV2CorehrPersonCreatedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2CorehrPersonCreatedV1)
+			}
+		}
+		return true, s, err
+	case req.eventV2CorehrPersonDeletedV1 != nil:
+		if r.cli.eventHandler.eventV2CorehrPersonDeletedV1Handler != nil {
+			if r.cli.noBlocking {
+				go r.cli.eventHandler.eventV2CorehrPersonDeletedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2CorehrPersonDeletedV1)
+			} else {
+				s, err = r.cli.eventHandler.eventV2CorehrPersonDeletedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2CorehrPersonDeletedV1)
+			}
+		}
+		return true, s, err
+	case req.eventV2CorehrPersonUpdatedV1 != nil:
+		if r.cli.eventHandler.eventV2CorehrPersonUpdatedV1Handler != nil {
+			if r.cli.noBlocking {
+				go r.cli.eventHandler.eventV2CorehrPersonUpdatedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2CorehrPersonUpdatedV1)
+			} else {
+				s, err = r.cli.eventHandler.eventV2CorehrPersonUpdatedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2CorehrPersonUpdatedV1)
+			}
+		}
+		return true, s, err
 	case req.eventV2DriveFileBitableFieldChangedV1 != nil:
 		if r.cli.eventHandler.eventV2DriveFileBitableFieldChangedV1Handler != nil {
 			if r.cli.noBlocking {
@@ -1753,6 +2086,15 @@ func (r *EventCallbackService) handlerEvent(ctx context.Context, req *eventReq) 
 				go r.cli.eventHandler.eventV2HelpdeskTicketUpdatedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2HelpdeskTicketUpdatedV1)
 			} else {
 				s, err = r.cli.eventHandler.eventV2HelpdeskTicketUpdatedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2HelpdeskTicketUpdatedV1)
+			}
+		}
+		return true, s, err
+	case req.eventV2HireEHRImportTaskForInternshipOfferImportedV1 != nil:
+		if r.cli.eventHandler.eventV2HireEHRImportTaskForInternshipOfferImportedV1Handler != nil {
+			if r.cli.noBlocking {
+				go r.cli.eventHandler.eventV2HireEHRImportTaskForInternshipOfferImportedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2HireEHRImportTaskForInternshipOfferImportedV1)
+			} else {
+				s, err = r.cli.eventHandler.eventV2HireEHRImportTaskForInternshipOfferImportedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2HireEHRImportTaskForInternshipOfferImportedV1)
 			}
 		}
 		return true, s, err

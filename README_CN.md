@@ -38,7 +38,7 @@ https://godoc.org/github.com/chyroc/lark
 
 ## 支持的接口
 
-API 总数: 768, 事件总数: 106
+API 总数: 869, 事件总数: 124
 
 <details>
   <summary>
@@ -165,6 +165,7 @@ API 总数: 768, 事件总数: 106
   - GetAttendanceShift
   - GetAttendanceShiftDetail
   - DeleteAttendanceShift
+  - UpdateAttendanceLeaveAccrualRecord
   - CreateAttendanceShift
   - CreateAttendanceShift
   - GetAttendanceUserDailyShift
@@ -388,6 +389,103 @@ API 总数: 768, 事件总数: 106
   - GetContactScopeList
 - CoreHr
   - GetCoreHrCustomField
+  - GetCoreHrCustomFieldList
+  - GetCoreHrCustomFieldObjectApiNameList
+  - GetCoreHrCountryRegion
+  - GetCoreHrCountryRegionList
+  - GetCoreHrSubdivision
+  - GetCoreHrSubdivisionList
+  - GetCoreHrSubregion
+  - GetCoreHrSubregionList
+  - CreateCoreHrEmployeeType
+  - DeleteCoreHrEmployeeType
+  - UpdateCoreHrEmployeeType
+  - GetCoreHrEmployeeType
+  - GetCoreHrEmployeeTypeList
+  - CreateCoreHrNationalIDType
+  - DeleteCoreHrNationalIDType
+  - UpdateCoreHrNationalIDType
+  - GetCoreHrNationalIDType
+  - GetCoreHrNationalIDTypeList
+  - CreateCoreHrWorkingHoursType
+  - DeleteCoreHrWorkingHoursType
+  - UpdateCoreHrWorkingHoursType
+  - GetCoreHrWorkingHoursType
+  - GetCoreHrWorkingHoursTypeList
+  - GetCoreHrCurrency
+  - GetCoreHrCurrencyList
+  - SearchCoreHrEmployee
+  - CreateCoreHrEmployment
+  - DeleteCoreHrEmployment
+  - UpdateCoreHrEmployment
+  - CreateCoreHrPerson
+  - UpdateCoreHrPerson
+  - DeleteCoreHrPerson
+  - UploadCoreHrPersonFile
+  - DownloadCoreHrPersonFile
+  - GetCoreHrPerson
+  - CreateCoreHrJobData
+  - DeleteCoreHrJobData
+  - UpdateCoreHrJobData
+  - GetCoreHrJobData
+  - GetCoreHrJobDataList
+  - GetCoreHrDepartmentParentList
+  - CreateCoreHrDepartment
+  - DeleteCoreHrDepartment
+  - UpdateCoreHrDepartment
+  - GetCoreHrDepartment
+  - GetCoreHrDepartmentList
+  - CreateCoreHrLocation
+  - DeleteCoreHrLocation
+  - GetCoreHrLocation
+  - GetCoreHrLocationList
+  - CreateCoreHrCompany
+  - DeleteCoreHrCompany
+  - GetCoreHrCompany
+  - GetCoreHrCompanyList
+  - CreateCoreHrJobLevel
+  - DeleteCoreHrJobLevel
+  - UpdateCoreHrJobLevel
+  - GetCoreHrJobLevel
+  - GetCoreHrJobLevelList
+  - CreateCoreHrJobFamily
+  - DeleteCoreHrJobFamily
+  - UpdateCoreHrJobFamily
+  - GetCoreHrJobFamily
+  - GetCoreHrJobFamilyList
+  - CreateCoreHrJob
+  - DeleteCoreHrJob
+  - UpdateCoreHrJob
+  - GetCoreHrJob
+  - GetCoreHrJobList
+  - CreateCoreHrPreHire
+  - DeleteCoreHrPreHire
+  - UpdateCoreHrPreHire
+  - GetCoreHrPreHire
+  - GetCoreHrPreHireList
+  - CreateCoreHrContract
+  - DeleteCoreHrContract
+  - UpdateCoreHrContract
+  - GetCoreHrContract
+  - GetCoreHrContractList
+  - GetCoreHrTransferReasonList
+  - GetCoreHrTransferTypeList
+  - CreateCoreHrJobChange
+  - SearchCoreHrJobChange
+  - GetCoreHrOffboardingList
+  - CreateCoreHrOffboarding
+  - SearchCoreHrOffboarding
+  - CreateCoreHrLeaveGrantingRecord
+  - DeleteCoreHrLeaveGrantingRecord
+  - GetCoreHrLeaveTypeList
+  - GetCoreHrLeaveBalanceList
+  - GetCoreHrLeaveRequestHistoryList
+  - SearchCoreHrAssignedUser
+  - GetCoreHrSecurityGroupBp
+  - GetCoreHrAuthorization
+  - GetCoreHrAuthorizationList
+  - GetCoreHrSecurityGroupList
+  - GetCoreHrProcessFormVariableData
 - Drive
   - GetDriveRootFolderMeta
   - GetDriveFileList
@@ -652,6 +750,24 @@ API 总数: 768, 事件总数: 106
   - EventV2VCReserveConfigUpdatedV1
   - EventV2ApplicationBotMenuV6
   - EventV2HireOfferStatusChangedV1
+  - EventV2CorehrEmploymentCreatedV1
+  - EventV2CorehrEmploymentUpdatedV1
+  - EventV2CorehrEmploymentDeletedV1
+  - EventV2CorehrPersonCreatedV1
+  - EventV2CorehrPersonUpdatedV1
+  - EventV2CorehrPersonDeletedV1
+  - EventV2CorehrDepartmentCreatedV1
+  - EventV2CorehrDepartmentUpdatedV1
+  - EventV2CorehrDepartmentDeletedV1
+  - EventV2CorehrJobDataEmployedV1
+  - EventV2CorehrContractCreatedV1
+  - EventV2CorehrEmploymentConvertedV1
+  - EventV2CorehrJobChangeUpdatedV1
+  - EventV2CorehrJobDataChangedV1
+  - EventV2CorehrOffboardingUpdatedV1
+  - EventV2CorehrEmploymentResignedV1
+  - EventV2CorehrOrgRoleAuthorizationUpdatedV1
+  - EventV2HireEHRImportTaskForInternshipOfferImportedV1
 - File
   - UploadImage
   - DownloadImage
@@ -725,6 +841,8 @@ API 总数: 768, 事件总数: 106
   - GetHireNoteList
   - GetHireReferralByApplication
   - CreateHireExternalApplication
+  - UpdateHireExternalApplication
+  - DeleteHireExternalApplication
   - CreateHireExternalInterview
   - CreateHireExternalInterviewAssessment
   - CreateHireExternalBackgroundCheck
@@ -738,6 +856,7 @@ API 总数: 768, 事件总数: 106
   - GetHireApplicationList
   - GetHireEvaluationList
   - GetHireQuestionnaireList
+  - GetHireInterviewList
   - UpdateHireOfferStatus
   - CreateHireOffer
   - UpdateHireOffer
