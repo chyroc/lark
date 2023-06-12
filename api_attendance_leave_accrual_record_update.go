@@ -21,7 +21,10 @@ import (
 	"context"
 )
 
-// UpdateAttendanceLeaveAccrualRecord 更新授予记录过期日期和授予余额, 不能更新系统发放的授予记录
+// UpdateAttendanceLeaveAccrualRecord 仅可更新「授予数量」和「失效日期」
+//
+// - 仅飞书人事企业版可用
+// - 由系统生成的授予记录不可被更新
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/leave_accrual_record/patch
 func (r *AttendanceService) UpdateAttendanceLeaveAccrualRecord(ctx context.Context, request *UpdateAttendanceLeaveAccrualRecordReq, options ...MethodOptionFunc) (*UpdateAttendanceLeaveAccrualRecordResp, *Response, error) {
@@ -69,7 +72,7 @@ type UpdateAttendanceLeaveAccrualRecordReq struct {
 
 // UpdateAttendanceLeaveAccrualRecordReqReason ...
 type UpdateAttendanceLeaveAccrualRecordReqReason struct {
-	Lang  string `json:"lang,omitempty"`  // 语言码, 示例值: "cn_zh"
+	Lang  string `json:"lang,omitempty"`  // 语言码, 示例值: "zh-CN"
 	Value string `json:"value,omitempty"` // 语言码对应的文本, 示例值: "test"
 }
 

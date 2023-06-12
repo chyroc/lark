@@ -61,6 +61,7 @@ type SearchCoreHrEmployeeReq struct {
 	PageToken                     *string           `query:"page_token" json:"-"`                        // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果, 示例值: 6891251722631890445
 	UserIDType                    *IDType           `query:"user_id_type" json:"-"`                      // 用户 ID 类型, 示例值: open_id, 可选值有: open_id: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid), union_id: 标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id), user_id: 标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id), people_corehr_id: 以飞书人事的 ID 来识别用户, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
 	DepartmentIDType              *DepartmentIDType `query:"department_id_type" json:"-"`                // 此次调用中使用的部门 ID 类型, 示例值: open_department_id, 可选值有: open_department_id: 以 open_department_id 来标识部门, department_id: 以 department_id 来标识部门, people_corehr_department_id: 以 people_corehr_department_id 来标识部门, 默认值: `open_department_id`
+	Fields                        []string          `json:"fields,omitempty"`                            // 返回数据的字段列表, 为空时不返回任何字段, 示例值: ["person_info.phone_number"], 最大长度: `100`
 	EmploymentIDList              []string          `json:"employment_id_list,omitempty"`                // 雇佣 ID 列表, 示例值: ["7140964208476371111"]
 	EmployeeNumberList            []string          `json:"employee_number_list,omitempty"`              // 工号列表, 示例值: ["100001"]
 	WorkEmail                     *string           `json:"work_email,omitempty"`                        // 邮箱, 精确匹配查询, 示例值: "13312345678@qq.com"
@@ -71,7 +72,6 @@ type SearchCoreHrEmployeeReq struct {
 	DepartmentIDList              []string          `json:"department_id_list,omitempty"`                // 部门 ID, 根据员工主职的直接部门查询, 可以通过【查询部门】API 获取 部门 ID, 示例值: ["7140964208476371111"]
 	DirectManagerIDList           []string          `json:"direct_manager_id_list,omitempty"`            // 直接上级的雇佣 ID, 根据员工主职的直接上级查询, 示例值: ["7027024823985117820"]
 	DottedLineManagerIDList       []string          `json:"dotted_line_manager_id_list,omitempty"`       // 虚线上级的雇佣 ID, 根据员工主职的虚线上级查询, 示例值: ["7027024823985117820"]
-	Fields                        []string          `json:"fields,omitempty"`                            // 返回数据的字段列表, 为空时不返回任何字段, 示例值: ["person_info.phone_number"], 最大长度: `100`
 	RegularEmployeeStartDateStart *string           `json:"regular_employee_start_date_start,omitempty"` // 转正式员工日期-搜索范围开始, 示例值: "2020-01-01"
 	RegularEmployeeStartDateEnd   *string           `json:"regular_employee_start_date_end,omitempty"`   // 转正式员工日期-搜索范围结束, 示例值: "2020-01-01"
 	EffectiveTimeStart            *string           `json:"effective_time_start,omitempty"`              // 入职日期-搜索范围开始, 需要与搜索范围结束一同使用, 示例值: "2020-01-01"
@@ -140,6 +140,10 @@ type SearchCoreHrEmployeeRespItem struct {
 	PayGroupID               string                                            `json:"pay_group_id,omitempty"`                // 所属薪资组 ID
 	InternationalAssignment  bool                                              `json:"international_assignment,omitempty"`    // 是否外派
 	WorkCalendarID           string                                            `json:"work_calendar_id,omitempty"`            // 工作日历 ID
+	Department               *SearchCoreHrEmployeeRespItemDepartment           `json:"department,omitempty"`                  // 部门基本信息
+	DirectManager            *SearchCoreHrEmployeeRespItemDirectManager        `json:"direct_manager,omitempty"`              // 直接上级基本信息
+	DottedLineManager        *SearchCoreHrEmployeeRespItemDottedLineManager    `json:"dotted_line_manager,omitempty"`         // 虚线上级基本信息
+	TimeZone                 string                                            `json:"time_zone,omitempty"`                   // 时区
 }
 
 // SearchCoreHrEmployeeRespItemCostCenter ...
@@ -160,6 +164,50 @@ type SearchCoreHrEmployeeRespItemCustomField struct {
 type SearchCoreHrEmployeeRespItemCustomFieldName struct {
 	ZhCn string `json:"zh_cn,omitempty"` // 中文
 	EnUs string `json:"en_us,omitempty"` // 英文
+}
+
+// SearchCoreHrEmployeeRespItemDepartment ...
+type SearchCoreHrEmployeeRespItemDepartment struct {
+	ID             string                                                  `json:"id,omitempty"`              // 部门 ID
+	DepartmentName []*SearchCoreHrEmployeeRespItemDepartmentDepartmentName `json:"department_name,omitempty"` // 部门名称
+}
+
+// SearchCoreHrEmployeeRespItemDepartmentDepartmentName ...
+type SearchCoreHrEmployeeRespItemDepartmentDepartmentName struct {
+	Lang  string `json:"lang,omitempty"`  // 语言
+	Value string `json:"value,omitempty"` // 内容
+}
+
+// SearchCoreHrEmployeeRespItemDirectManager ...
+type SearchCoreHrEmployeeRespItemDirectManager struct {
+	EmploymentID   string                                               `json:"employment_id,omitempty"`   // 雇佣 ID
+	EmployeeNumber string                                               `json:"employee_number,omitempty"` // 工号
+	EmailAddress   string                                               `json:"email_address,omitempty"`   // 邮箱地址
+	PersonInfo     *SearchCoreHrEmployeeRespItemDirectManagerPersonInfo `json:"person_info,omitempty"`     // 基本个人信息
+}
+
+// SearchCoreHrEmployeeRespItemDirectManagerPersonInfo ...
+type SearchCoreHrEmployeeRespItemDirectManagerPersonInfo struct {
+	PersonID                 string `json:"person_id,omitempty"`                   // 个人信息 ID
+	PreferredName            string `json:"preferred_name,omitempty"`              // 常用名
+	PreferredLocalFullName   string `json:"preferred_local_full_name,omitempty"`   // 常用本地全名
+	PreferredEnglishFullName string `json:"preferred_english_full_name,omitempty"` // 常用英文全名
+}
+
+// SearchCoreHrEmployeeRespItemDottedLineManager ...
+type SearchCoreHrEmployeeRespItemDottedLineManager struct {
+	EmploymentID   string                                                   `json:"employment_id,omitempty"`   // 雇佣 ID
+	EmployeeNumber string                                                   `json:"employee_number,omitempty"` // 工号
+	EmailAddress   string                                                   `json:"email_address,omitempty"`   // 邮箱地址
+	PersonInfo     *SearchCoreHrEmployeeRespItemDottedLineManagerPersonInfo `json:"person_info,omitempty"`     // 基本个人信息
+}
+
+// SearchCoreHrEmployeeRespItemDottedLineManagerPersonInfo ...
+type SearchCoreHrEmployeeRespItemDottedLineManagerPersonInfo struct {
+	PersonID                 string `json:"person_id,omitempty"`                   // 个人信息 ID
+	PreferredName            string `json:"preferred_name,omitempty"`              // 常用名
+	PreferredLocalFullName   string `json:"preferred_local_full_name,omitempty"`   // 常用本地全名
+	PreferredEnglishFullName string `json:"preferred_english_full_name,omitempty"` // 常用英文全名
 }
 
 // SearchCoreHrEmployeeRespItemEmploymentStatus ...

@@ -23,8 +23,9 @@ import (
 
 // CreateWikiNode 此接口用于在知识节点里创建[节点](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/wiki-overview)到指定位置。
 //
-// 知识空间权限要求, 当前使用的 access token 所代表的应用或用户拥有:
+// - 知识空间权限要求, 当前使用的 access token 所代表的应用或用户拥有:
 // - 父节点容器编辑权限
+// - 当前不支持创建`文件`类型节点。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/wiki-v2/space-node/create
 func (r *DriveService) CreateWikiNode(ctx context.Context, request *CreateWikiNodeReq, options ...MethodOptionFunc) (*CreateWikiNodeResp, *Response, error) {

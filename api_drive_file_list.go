@@ -59,8 +59,8 @@ func (r *Mock) UnMockDriveGetDriveFileList() {
 // GetDriveFileListReq ...
 type GetDriveFileListReq struct {
 	PageSize    *int64  `query:"page_size" json:"-"`    // 分页大小, 示例值: 10, 最大值: `200`
-	PageToken   *string `query:"page_token" json:"-"`   // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果, 示例值: "MTY1NTA3MTA1OXw3MTA4NDc2MDc1NzkyOTI0Nabcef"
-	FolderToken *string `query:"folder_token" json:"-"` // 文件夹的token（若不填写该参数或填写空字符串, 则默认获取用户云空间下的清单, 且不支持分页）, 示例值: "fldbcO1UuPz8VwnpPx5a9abcef"
+	PageToken   *string `query:"page_token" json:"-"`   // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果, 示例值: MTY1NTA3MTA1OXw3MTA4NDc2MDc1NzkyOTI0Nabcef
+	FolderToken *string `query:"folder_token" json:"-"` // 文件夹的token（若不填写该参数或填写空字符串, 则默认获取用户云空间下的清单, 且不支持分页）, 示例值: fldbcO1UuPz8VwnpPx5a9abcef
 }
 
 // GetDriveFileListResp ...
@@ -74,7 +74,7 @@ type GetDriveFileListResp struct {
 type GetDriveFileListRespFile struct {
 	Token        string                                `json:"token,omitempty"`         // 文件标识
 	Name         string                                `json:"name,omitempty"`          // 文件名
-	Type         string                                `json:"type,omitempty"`          // 文件类型
+	Type         string                                `json:"type,omitempty"`          // 文件类型, 可选值有: `doc`: 旧版文档, `sheet`: 表格, `mindnote`: 思维导图, `bitable`: 多维表格, `file`: 文件, `docx`: 新版文档, `folder`: 文件夹
 	ParentToken  string                                `json:"parent_token,omitempty"`  // 父文件夹标识
 	URL          string                                `json:"url,omitempty"`           // 在浏览器中查看的链接
 	ShortcutInfo *GetDriveFileListRespFileShortcutInfo `json:"shortcut_info,omitempty"` // 快捷方式文件信息
@@ -82,7 +82,7 @@ type GetDriveFileListRespFile struct {
 
 // GetDriveFileListRespFileShortcutInfo ...
 type GetDriveFileListRespFileShortcutInfo struct {
-	TargetType  string `json:"target_type,omitempty"`  // 快捷方式指向的原文件类型
+	TargetType  string `json:"target_type,omitempty"`  // 快捷方式指向的原文件类型, 可选值有: `doc`: 旧版文档, `sheet`: 表格, `mindnote`: 思维导图, `bitable`: 多维表格, `file`: 文件, `docx`: 新版文档
 	TargetToken string `json:"target_token,omitempty"` // 快捷方式指向的原文件token
 }
 

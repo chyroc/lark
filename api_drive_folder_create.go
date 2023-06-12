@@ -61,7 +61,7 @@ func (r *Mock) UnMockDriveCreateDriveFolder() {
 // CreateDriveFolderReq ...
 type CreateDriveFolderReq struct {
 	Name        string `json:"name,omitempty"`         // 文件夹名称, 示例值: "New Folder"
-	FolderToken string `json:"folder_token,omitempty"` // 父文件夹token, 示例值: "fldbcO1UuPz8VwnpPx5a92abcef"
+	FolderToken string `json:"folder_token,omitempty"` // 父文件夹token。如果需要创建到「我的空间」作为顶级文件夹, 请传入我的空间token[获取方式](https://open.feishu.cn/document/ukTMukTMukTM/ugTNzUjL4UzM14CO1MTN/get-root-folder-meta), 示例值: "fldbcO1UuPz8VwnpPx5a92abcef"
 }
 
 // CreateDriveFolderResp ...

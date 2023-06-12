@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// ReplaceSheet 按照指定的条件查找子表的某个范围内的数据符合条件的单元格并替换值, 返回替换成功的单元格位置。一次请求最多允许替换5000个单元格, 如果超过请将range缩小范围再操作。请求体中的 range、find、replaccement 字段必填。
+// ReplaceSheet 按照指定的条件查找子表的某个范围内的数据符合条件的单元格并替换值, 返回替换成功的单元格位置。一次请求最多允许替换5000个单元格, 如果超过请将range缩小范围再操作。请求体中的 range、find、replacement 字段必填。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/sheets-v3/spreadsheet-sheet/replace
 func (r *DriveService) ReplaceSheet(ctx context.Context, request *ReplaceSheetReq, options ...MethodOptionFunc) (*ReplaceSheetResp, *Response, error) {
@@ -67,11 +67,11 @@ type ReplaceSheetReq struct {
 
 // ReplaceSheetReqFindCondition ...
 type ReplaceSheetReqFindCondition struct {
-	Range           string `json:"range,omitempty"`             // 查找范围, 示例值: "0b**12!A1:H10"
-	MatchCase       *bool  `json:"match_case,omitempty"`        // 是否忽略大小写, 示例值: true
-	MatchEntireCell *bool  `json:"match_entire_cell,omitempty"` // 是否匹配整个单元格, 示例值: false
-	SearchByRegex   *bool  `json:"search_by_regex,omitempty"`   // 是否为正则匹配, 示例值: false
-	IncludeFormulas *bool  `json:"include_formulas,omitempty"`  // 是否搜索公式内容, 示例值: false
+	Range           string `json:"range,omitempty"`             // 查找范围, 参考 [名词解释 Range](https://open.feishu.cn/document/ukTMukTMukTM/uATMzUjLwEzM14CMxMTN/overview), 示例值: "PNIfrm!A1:C5"
+	MatchCase       *bool  `json:"match_case,omitempty"`        // 是否忽略大小写, 默认为 false, `true`: 表示忽略字符串中字母大小写差异, `false`: 表示区分字符串中字母大小写, 示例值: true
+	MatchEntireCell *bool  `json:"match_entire_cell,omitempty"` // 是否完全匹配整个单元格, 默认值为 false, `true`: 表示完全匹配单元格, 比如 find 取值为 "hello", 则单元格中的内容必须为 "hello", `false`: 表示允许部分匹配单元格, 比如 find 取值为 "hello", 则单元格中的内容包含 "hello" 即可, 示例值: false
+	SearchByRegex   *bool  `json:"search_by_regex,omitempty"`   // 是否为正则匹配, 默认值为 false, `true`: 表示使用正则匹配, `false`: 表示不使用正则匹配, 示例值: false
+	IncludeFormulas *bool  `json:"include_formulas,omitempty"`  // 是否仅搜索单元格公式, 默认值为 false, `true`: 表示仅搜索单元格公式, `false`: 表示仅搜索单元格内容, 示例值: false
 }
 
 // ReplaceSheetResp ...

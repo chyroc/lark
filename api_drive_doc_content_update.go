@@ -32,6 +32,8 @@ import (
 // 该接口用于批量编辑更新文档内容, 包括更新标题、范围删除、插入内容。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uYDM2YjL2AjN24iNwYjN
+//
+// Deprecated
 func (r *DriveService) UpdateDriveDocContent(ctx context.Context, request *UpdateDriveDocContentReq, options ...MethodOptionFunc) (*UpdateDriveDocContentResp, *Response, error) {
 	if r.cli.mock.mockDriveUpdateDriveDocContent != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Drive#UpdateDriveDocContent mock enable")

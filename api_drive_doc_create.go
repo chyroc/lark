@@ -28,6 +28,8 @@ import (
 // 该接口用于创建并初始化文档。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/ugDM2YjL4AjN24COwYjN
+//
+// Deprecated
 func (r *DriveService) CreateDriveDoc(ctx context.Context, request *CreateDriveDocReq, options ...MethodOptionFunc) (*CreateDriveDocResp, *Response, error) {
 	if r.cli.mock.mockDriveCreateDriveDoc != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Drive#CreateDriveDoc mock enable")

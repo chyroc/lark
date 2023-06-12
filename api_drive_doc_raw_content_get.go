@@ -27,6 +27,8 @@ import (
 // 该接口用于获取文档的纯文本内容, 不包含富文本格式信息。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/ukzNzUjL5czM14SO3MTN
+//
+// Deprecated
 func (r *DriveService) GetDriveDocRawContent(ctx context.Context, request *GetDriveDocRawContentReq, options ...MethodOptionFunc) (*GetDriveDocRawContentResp, *Response, error) {
 	if r.cli.mock.mockDriveGetDriveDocRawContent != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Drive#GetDriveDocRawContent mock enable")
