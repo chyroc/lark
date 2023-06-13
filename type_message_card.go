@@ -820,8 +820,8 @@ func (r *MessageContentCardObjectConfirm) SetText(val *MessageContentCardObjectT
 //
 // https://open.feishu.cn/document/ukTMukTMukTM/uYzNwUjL2cDM14iN3ATN
 type MessageContentCardObjectField struct {
-	IsShort bool                          `json:"is_short,omitempty"` // 是否并排布局
-	Text    *MessageContentCardObjectText `json:"text,omitempty"`     // 	国际化文本内容
+	IsShort bool                          `json:"is_short"`       // 是否并排布局
+	Text    *MessageContentCardObjectText `json:"text,omitempty"` // 国际化文本内容
 }
 
 func (r *MessageContentCardObjectField) SetIsShort(val bool) *MessageContentCardObjectField {
