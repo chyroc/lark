@@ -27,6 +27,7 @@ import (
 // 如果是应用商店应用, 请务必确保订阅并响应此事件。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uYDNxYjL2QTM24iN0EjN/bot-events
+// new doc: https://open.feishu.cn/document/server-docs/group/chat-member/event/bot-events
 func (r *EventCallbackService) HandlerEventV1P2PChatCreate(f EventV1P2PChatCreateHandler) {
 	r.cli.eventHandler.eventV1P2PChatCreateHandler = f
 }

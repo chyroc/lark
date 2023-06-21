@@ -24,6 +24,7 @@ import (
 // RejectApprovalInstance 对于单个审批任务进行拒绝操作。拒绝后审批流程结束。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/task/reject
+// new doc: https://open.feishu.cn/document/server-docs/approval-v4/task/reject
 func (r *ApprovalService) RejectApprovalInstance(ctx context.Context, request *RejectApprovalInstanceReq, options ...MethodOptionFunc) (*RejectApprovalInstanceResp, *Response, error) {
 	if r.cli.mock.mockApprovalRejectApprovalInstance != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Approval#RejectApprovalInstance mock enable")

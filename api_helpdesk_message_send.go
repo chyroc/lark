@@ -24,6 +24,7 @@ import (
 // SendHelpdeskMessage 通过服务台机器人给指定用户的服务台专属群或私聊发送消息, 支持文本、富文本、卡片、图片。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/bot-message/create
+// new doc: https://open.feishu.cn/document/server-docs/helpdesk-v1/ticket-management/ticket-message/create-2
 func (r *HelpdeskService) SendHelpdeskMessage(ctx context.Context, request *SendHelpdeskMessageReq, options ...MethodOptionFunc) (*SendHelpdeskMessageResp, *Response, error) {
 	if r.cli.mock.mockHelpdeskSendHelpdeskMessage != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Helpdesk#SendHelpdeskMessage mock enable")

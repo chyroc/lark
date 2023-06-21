@@ -24,6 +24,7 @@ import (
 // GetApplicationUnderAuditList 查看本企业下所有待审核的自建应用列表
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/application-v6/application/underauditlist
+// new doc: https://open.feishu.cn/document/server-docs/application-v6/application/underauditlist
 func (r *ApplicationService) GetApplicationUnderAuditList(ctx context.Context, request *GetApplicationUnderAuditListReq, options ...MethodOptionFunc) (*GetApplicationUnderAuditListResp, *Response, error) {
 	if r.cli.mock.mockApplicationGetApplicationUnderAuditList != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Application#GetApplicationUnderAuditList mock enable")

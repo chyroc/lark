@@ -24,6 +24,7 @@ import (
 // GetDriveFileStatistics 此接口用于获取文档统计信息, 包括文档阅读人数、次数和点赞数。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file-statistics/get
+// new doc: https://open.feishu.cn/document/server-docs/docs/drive-v1/file/get
 func (r *DriveService) GetDriveFileStatistics(ctx context.Context, request *GetDriveFileStatisticsReq, options ...MethodOptionFunc) (*GetDriveFileStatisticsResp, *Response, error) {
 	if r.cli.mock.mockDriveGetDriveFileStatistics != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Drive#GetDriveFileStatistics mock enable")

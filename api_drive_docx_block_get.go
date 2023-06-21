@@ -27,6 +27,7 @@ import (
 // 应用频率限制: 单个应用调用频率上限为每秒 5 次, 超过该频率限制, 接口将返回 HTTP 状态码 400 及错误码 99991400。当请求被限频, 应用需要处理限频状态码, 并使用指数退避算法或其它一些频控策略降低对 API 的调用速率。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/document-docx/docx-v1/document-block/get
+// new doc: https://open.feishu.cn/document/server-docs/docs/docs/docx-v1/document-block/get
 func (r *DriveService) GetDocxBlock(ctx context.Context, request *GetDocxBlockReq, options ...MethodOptionFunc) (*GetDocxBlockResp, *Response, error) {
 	if r.cli.mock.mockDriveGetDocxBlock != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Drive#GetDocxBlock mock enable")

@@ -26,6 +26,7 @@ import (
 // 本接口用于网页应用免登录应用场景, 小程序应用获取 user_access_token 的方法, 请参考小程序应用提供的 [code2session](https://open.feishu.cn/document/uYjL24iN/ukjM04SOyQjL5IDN) 接口。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/authen-v1/access_token/create
+// new doc: https://open.feishu.cn/document/server-docs/authentication-management/access-token/create-2
 func (r *AuthService) GetAccessToken(ctx context.Context, request *GetAccessTokenReq, options ...MethodOptionFunc) (*GetAccessTokenResp, *Response, error) {
 	if r.cli.mock.mockAuthGetAccessToken != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Auth#GetAccessToken mock enable")

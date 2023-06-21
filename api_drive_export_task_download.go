@@ -25,6 +25,7 @@ import (
 // DownloadDriveExportTask 根据[查询导出任务结果](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/export_task/get)返回的导出产物`token`, 下载导出产物文件到本地。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/export_task/download
+// new doc: https://open.feishu.cn/document/server-docs/docs/drive-v1/export_task/download
 func (r *DriveService) DownloadDriveExportTask(ctx context.Context, request *DownloadDriveExportTaskReq, options ...MethodOptionFunc) (*DownloadDriveExportTaskResp, *Response, error) {
 	if r.cli.mock.mockDriveDownloadDriveExportTask != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Drive#DownloadDriveExportTask mock enable")

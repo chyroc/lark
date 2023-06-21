@@ -35,6 +35,7 @@ import (
 // - 临时消息卡片的[呈现能力](https://open.feishu.cn/document/ukTMukTMukTM/uEjNwUjLxYDM14SM2ATN)、[交互能力](https://open.feishu.cn/document/ukTMukTMukTM/uYjNwUjL2YDM14iN2ATN)与消息卡片一致。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uETOyYjLxkjM24SM5IjN
+// new doc: https://open.feishu.cn/document/server-docs/im-v1/message-card/send-message-cards-that-are-only-visible-to-certain-people
 func (r *MessageService) SendEphemeralMessage(ctx context.Context, request *SendEphemeralMessageReq, options ...MethodOptionFunc) (*SendEphemeralMessageResp, *Response, error) {
 	if r.cli.mock.mockMessageSendEphemeralMessage != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Message#SendEphemeralMessage mock enable")

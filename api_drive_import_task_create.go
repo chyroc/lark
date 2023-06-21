@@ -24,6 +24,7 @@ import (
 // CreateDriveImportTask 创建导入任务。支持导入为新版文档、电子表格、多维表格以及旧版文档。该接口为异步接口, 需要通过[查询导入结果](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/import_task/get)接口获取导入结果, 调用方式可参考[导入使用指南](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/import_task/import-user-guide)。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/import_task/create
+// new doc: https://open.feishu.cn/document/server-docs/docs/drive-v1/import_task/create
 func (r *DriveService) CreateDriveImportTask(ctx context.Context, request *CreateDriveImportTaskReq, options ...MethodOptionFunc) (*CreateDriveImportTaskResp, *Response, error) {
 	if r.cli.mock.mockDriveCreateDriveImportTask != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Drive#CreateDriveImportTask mock enable")

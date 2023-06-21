@@ -24,6 +24,7 @@ import (
 // UpdateVCReserveConfig 更新会议室预定限制。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/vc-v1/reserve_config/patch
+// new doc: https://open.feishu.cn/document/server-docs/vc-v1/scope_config/patch
 func (r *VCService) UpdateVCReserveConfig(ctx context.Context, request *UpdateVCReserveConfigReq, options ...MethodOptionFunc) (*UpdateVCReserveConfigResp, *Response, error) {
 	if r.cli.mock.mockVCUpdateVCReserveConfig != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] VC#UpdateVCReserveConfig mock enable")

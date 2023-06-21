@@ -26,6 +26,7 @@ import (
 // 只可在应用的通讯录权限范围内的部门下创建部门。若需要在根部门下创建子部门, 则应用通讯录权限范围需要设置为“全部成员”。应用商店应用无权限调用此接口。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/create
+// new doc: https://open.feishu.cn/document/server-docs/contact-v3/department/create
 func (r *ContactService) CreateDepartment(ctx context.Context, request *CreateDepartmentReq, options ...MethodOptionFunc) (*CreateDepartmentResp, *Response, error) {
 	if r.cli.mock.mockContactCreateDepartment != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Contact#CreateDepartment mock enable")

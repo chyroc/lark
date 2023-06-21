@@ -26,6 +26,7 @@ import (
 // 跳转并打开日历，打开界面为上一次离开日历时的视图。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/uYjL24iN/applink-protocol/supported-protocol/open-calender/open-a-calender
+// new doc: https://open.feishu.cn/document/common-capabilities/applink-protocol/supported-protocol/open-calender/open-a-calender
 func (r *AppLinkService) OpenCalender(req *OpenCalenderReq) string {
 	return internal.JoinAppLinkURL("https://applink.feishu.cn/client/calendar/open", req)
 }

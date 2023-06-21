@@ -24,6 +24,7 @@ import (
 // SearchBaikeEntity 传入关键词, 与词条名、别名、释义等信息进行模糊匹配, 返回搜到的词条信息。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/baike-v1/entity/search
+// new doc: https://open.feishu.cn/document/server-docs/baike-v1/entity/search
 func (r *BaikeService) SearchBaikeEntity(ctx context.Context, request *SearchBaikeEntityReq, options ...MethodOptionFunc) (*SearchBaikeEntityResp, *Response, error) {
 	if r.cli.mock.mockBaikeSearchBaikeEntity != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Baike#SearchBaikeEntity mock enable")

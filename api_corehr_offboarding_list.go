@@ -24,6 +24,7 @@ import (
 // GetCoreHrOffboardingList 查询「飞书人事」-「离职设置」中的离职原因。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/offboarding/query
+// new doc: https://open.feishu.cn/document/server-docs/corehr-v1/offboarding/query
 func (r *CoreHrService) GetCoreHrOffboardingList(ctx context.Context, request *GetCoreHrOffboardingListReq, options ...MethodOptionFunc) (*GetCoreHrOffboardingListResp, *Response, error) {
 	if r.cli.mock.mockCoreHrGetCoreHrOffboardingList != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] CoreHr#GetCoreHrOffboardingList mock enable")

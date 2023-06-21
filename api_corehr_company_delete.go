@@ -24,6 +24,7 @@ import (
 // DeleteCoreHrCompany 删除公司。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/company/delete
+// new doc: https://open.feishu.cn/document/server-docs/corehr-v1/organization-management/company/delete
 func (r *CoreHrService) DeleteCoreHrCompany(ctx context.Context, request *DeleteCoreHrCompanyReq, options ...MethodOptionFunc) (*DeleteCoreHrCompanyResp, *Response, error) {
 	if r.cli.mock.mockCoreHrDeleteCoreHrCompany != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] CoreHr#DeleteCoreHrCompany mock enable")

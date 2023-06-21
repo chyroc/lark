@@ -24,6 +24,7 @@ import (
 // UpdateAttendanceUserSetting 修改授权内员工的用户设置信息, 包括人脸照片文件 ID。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/user_setting/modify
+// new doc: https://open.feishu.cn/document/server-docs/attendance-v1/user_setting/modify
 func (r *AttendanceService) UpdateAttendanceUserSetting(ctx context.Context, request *UpdateAttendanceUserSettingReq, options ...MethodOptionFunc) (*UpdateAttendanceUserSettingResp, *Response, error) {
 	if r.cli.mock.mockAttendanceUpdateAttendanceUserSetting != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Attendance#UpdateAttendanceUserSetting mock enable")

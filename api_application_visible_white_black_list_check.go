@@ -24,6 +24,7 @@ import (
 // CheckApplicationVisibleWhiteBlackList 该接口用于查询用户、部门、用户组是否在应用的可用或禁用名单中
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/application-v6/application-visibility/check_white_black_list
+// new doc: https://open.feishu.cn/document/server-docs/application-v6/admin/check_white_black_list
 func (r *ApplicationService) CheckApplicationVisibleWhiteBlackList(ctx context.Context, request *CheckApplicationVisibleWhiteBlackListReq, options ...MethodOptionFunc) (*CheckApplicationVisibleWhiteBlackListResp, *Response, error) {
 	if r.cli.mock.mockApplicationCheckApplicationVisibleWhiteBlackList != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Application#CheckApplicationVisibleWhiteBlackList mock enable")

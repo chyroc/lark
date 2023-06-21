@@ -24,6 +24,7 @@ import (
 // GetBitableViewList 根据 app_token 和 table_id, 获取数据表的所有视图
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table-view/list
+// new doc: https://open.feishu.cn/document/server-docs/docs/bitable-v1/app-table-view/list
 func (r *BitableService) GetBitableViewList(ctx context.Context, request *GetBitableViewListReq, options ...MethodOptionFunc) (*GetBitableViewListResp, *Response, error) {
 	if r.cli.mock.mockBitableGetBitableViewList != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Bitable#GetBitableViewList mock enable")

@@ -24,6 +24,7 @@ import (
 // GetCoreHrContract 根据 ID 查询单个合同。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/contract/get
+// new doc: https://open.feishu.cn/document/server-docs/corehr-v1/contract/get
 func (r *CoreHrService) GetCoreHrContract(ctx context.Context, request *GetCoreHrContractReq, options ...MethodOptionFunc) (*GetCoreHrContractResp, *Response, error) {
 	if r.cli.mock.mockCoreHrGetCoreHrContract != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] CoreHr#GetCoreHrContract mock enable")

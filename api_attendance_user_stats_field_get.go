@@ -24,6 +24,7 @@ import (
 // GetAttendanceUserStatsField 查询考勤统计支持的日度统计或月度统计的统计表头。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/user_stats_field/query
+// new doc: https://open.feishu.cn/document/server-docs/attendance-v1/user_stats_data/query-2
 func (r *AttendanceService) GetAttendanceUserStatsField(ctx context.Context, request *GetAttendanceUserStatsFieldReq, options ...MethodOptionFunc) (*GetAttendanceUserStatsFieldResp, *Response, error) {
 	if r.cli.mock.mockAttendanceGetAttendanceUserStatsField != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Attendance#GetAttendanceUserStatsField mock enable")

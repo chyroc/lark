@@ -24,6 +24,7 @@ import (
 // GetCoreHrCustomFieldList 获取「飞书人事」具体对象下的自定义字段列表。注: 在「人员档案信息配置」-「个人信息」功能中添加的分组, 实际上是一个自定义对象, 可以通过该接口查询自定义对象的所有字段。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/custom_field/query
+// new doc: https://open.feishu.cn/document/server-docs/corehr-v1/basic-infomation/custom_field/query
 func (r *CoreHrService) GetCoreHrCustomFieldList(ctx context.Context, request *GetCoreHrCustomFieldListReq, options ...MethodOptionFunc) (*GetCoreHrCustomFieldListResp, *Response, error) {
 	if r.cli.mock.mockCoreHrGetCoreHrCustomFieldList != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] CoreHr#GetCoreHrCustomFieldList mock enable")

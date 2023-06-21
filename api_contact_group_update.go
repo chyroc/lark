@@ -24,6 +24,7 @@ import (
 // UpdateContactGroup 使用该接口更新用户组信息, 请注意更新用户组时应用的通讯录权限范围需为“全部员工”, 否则会更新失败。[点击了解通讯录权限范围](https://open.feishu.cn/document/ukTMukTMukTM/uETNz4SM1MjLxUzM/v3/guides/scope_authority)。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/group/patch
+// new doc: https://open.feishu.cn/document/server-docs/contact-v3/group/patch
 func (r *ContactService) UpdateContactGroup(ctx context.Context, request *UpdateContactGroupReq, options ...MethodOptionFunc) (*UpdateContactGroupResp, *Response, error) {
 	if r.cli.mock.mockContactUpdateContactGroup != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Contact#UpdateContactGroup mock enable")

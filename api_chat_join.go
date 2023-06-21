@@ -29,6 +29,7 @@ import (
 // - 操作内部群时, 操作者须与群组在同一租户下
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-members/me_join
+// new doc: https://open.feishu.cn/document/server-docs/group/chat-member/me_join
 func (r *ChatService) JoinChat(ctx context.Context, request *JoinChatReq, options ...MethodOptionFunc) (*JoinChatResp, *Response, error) {
 	if r.cli.mock.mockChatJoinChat != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Chat#JoinChat mock enable")

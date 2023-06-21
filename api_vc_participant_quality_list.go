@@ -24,6 +24,7 @@ import (
 // GetVCParticipantQualityList 查询参会人会议质量数据。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/vc-v1/participant_quality_list/get
+// new doc: https://open.feishu.cn/document/server-docs/vc-v1/meeting-room-data/get-3
 func (r *VCService) GetVCParticipantQualityList(ctx context.Context, request *GetVCParticipantQualityListReq, options ...MethodOptionFunc) (*GetVCParticipantQualityListResp, *Response, error) {
 	if r.cli.mock.mockVCGetVCParticipantQualityList != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] VC#GetVCParticipantQualityList mock enable")

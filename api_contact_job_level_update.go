@@ -24,6 +24,7 @@ import (
 // UpdateContactJobLevel 该接口用于更新职级信息。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/job_level/update
+// new doc: https://open.feishu.cn/document/server-docs/contact-v3/job_level/update
 func (r *ContactService) UpdateContactJobLevel(ctx context.Context, request *UpdateContactJobLevelReq, options ...MethodOptionFunc) (*UpdateContactJobLevelResp, *Response, error) {
 	if r.cli.mock.mockContactUpdateContactJobLevel != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Contact#UpdateContactJobLevel mock enable")

@@ -28,6 +28,7 @@ import (
 // - 当前身份必须对日历具有 owner 权限。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar/delete
+// new doc: https://open.feishu.cn/document/server-docs/calendar-v4/calendar/delete
 func (r *CalendarService) DeleteCalendar(ctx context.Context, request *DeleteCalendarReq, options ...MethodOptionFunc) (*DeleteCalendarResp, *Response, error) {
 	if r.cli.mock.mockCalendarDeleteCalendar != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Calendar#DeleteCalendar mock enable")

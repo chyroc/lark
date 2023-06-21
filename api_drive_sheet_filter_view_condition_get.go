@@ -26,6 +26,7 @@ import (
 // 筛选条件含义参考 [筛选视图的筛选条件指南](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/sheets-v3/spreadsheet-sheet-filter_view-condition/filter-view-condition-user-guide)
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/sheets-v3/spreadsheet-sheet-filter_view-condition/get
+// new doc: https://open.feishu.cn/document/server-docs/docs/sheets-v3/spreadsheet-sheet-filter_view/spreadsheet-sheet-filter_view-condition/get
 func (r *DriveService) GetSheetFilterViewCondition(ctx context.Context, request *GetSheetFilterViewConditionReq, options ...MethodOptionFunc) (*GetSheetFilterViewConditionResp, *Response, error) {
 	if r.cli.mock.mockDriveGetSheetFilterViewCondition != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Drive#GetSheetFilterViewCondition mock enable")

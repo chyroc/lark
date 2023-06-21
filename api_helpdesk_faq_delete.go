@@ -24,6 +24,7 @@ import (
 // DeleteHelpdeskFAQ 该接口用于删除知识库。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/faq/delete
+// new doc: https://open.feishu.cn/document/server-docs/helpdesk-v1/faq-management/faq/delete
 func (r *HelpdeskService) DeleteHelpdeskFAQ(ctx context.Context, request *DeleteHelpdeskFAQReq, options ...MethodOptionFunc) (*DeleteHelpdeskFAQResp, *Response, error) {
 	if r.cli.mock.mockHelpdeskDeleteHelpdeskFAQ != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Helpdesk#DeleteHelpdeskFAQ mock enable")

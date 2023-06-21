@@ -24,6 +24,7 @@ import (
 // GetHireTalentFolderList 用于获取招聘系统中人才文件夹信息。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/talent_folder/list
+// new doc: https://open.feishu.cn/document/server-docs/hire-v1/candidate-management/talent/list-2
 func (r *HireService) GetHireTalentFolderList(ctx context.Context, request *GetHireTalentFolderListReq, options ...MethodOptionFunc) (*GetHireTalentFolderListResp, *Response, error) {
 	if r.cli.mock.mockHireGetHireTalentFolderList != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Hire#GetHireTalentFolderList mock enable")

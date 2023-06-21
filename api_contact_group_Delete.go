@@ -24,6 +24,7 @@ import (
 // DeleteContactGroup 通过该接口可删除企业中的用户组, 请注意删除用户组时应用的通讯录权限范围需为“全部员工”, 否则会删除失败, [点击了解通讯录权限范围](https://open.feishu.cn/document/ukTMukTMukTM/uETNz4SM1MjLxUzM/v3/guides/scope_authority)。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/group/delete
+// new doc: https://open.feishu.cn/document/server-docs/contact-v3/group/delete
 func (r *ContactService) DeleteContactGroup(ctx context.Context, request *DeleteContactGroupReq, options ...MethodOptionFunc) (*DeleteContactGroupResp, *Response, error) {
 	if r.cli.mock.mockContactDeleteContactGroup != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Contact#DeleteContactGroup mock enable")

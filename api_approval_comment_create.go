@@ -24,6 +24,7 @@ import (
 // CreateApprovalComment 在某审批实例下创建、修改评论或评论回复（不包含审批同意、拒绝、转交等附加的理由或意见）。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/instance-comment/create
+// new doc: https://open.feishu.cn/document/server-docs/approval-v4/instance-comment/create
 func (r *ApprovalService) CreateApprovalComment(ctx context.Context, request *CreateApprovalCommentReq, options ...MethodOptionFunc) (*CreateApprovalCommentResp, *Response, error) {
 	if r.cli.mock.mockApprovalCreateApprovalComment != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Approval#CreateApprovalComment mock enable")

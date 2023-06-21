@@ -24,6 +24,7 @@ import (
 // SearchApprovalInstance 该接口通过不同条件查询审批系统中符合条件的审批实例列表。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/instance/query
+// new doc: https://open.feishu.cn/document/server-docs/approval-v4/approval-search/query-2
 func (r *ApprovalService) SearchApprovalInstance(ctx context.Context, request *SearchApprovalInstanceReq, options ...MethodOptionFunc) (*SearchApprovalInstanceResp, *Response, error) {
 	if r.cli.mock.mockApprovalSearchApprovalInstance != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Approval#SearchApprovalInstance mock enable")

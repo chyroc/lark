@@ -24,6 +24,7 @@ import (
 // GetBitableTableList 根据  app_token, 获取多维表格下的所有数据表。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table/list
+// new doc: https://open.feishu.cn/document/server-docs/docs/bitable-v1/app-table/list
 func (r *BitableService) GetBitableTableList(ctx context.Context, request *GetBitableTableListReq, options ...MethodOptionFunc) (*GetBitableTableListResp, *Response, error) {
 	if r.cli.mock.mockBitableGetBitableTableList != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Bitable#GetBitableTableList mock enable")

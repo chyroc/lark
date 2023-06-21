@@ -24,6 +24,7 @@ import (
 // UpdateBitableField 该接口用于在数据表中更新一个字段
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table-field/update
+// new doc: https://open.feishu.cn/document/server-docs/docs/bitable-v1/app-table-field/update
 func (r *BitableService) UpdateBitableField(ctx context.Context, request *UpdateBitableFieldReq, options ...MethodOptionFunc) (*UpdateBitableFieldResp, *Response, error) {
 	if r.cli.mock.mockBitableUpdateBitableField != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Bitable#UpdateBitableField mock enable")

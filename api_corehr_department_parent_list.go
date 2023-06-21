@@ -24,6 +24,7 @@ import (
 // GetCoreHrDepartmentParentList 该接口用来递归获取部门的父部门信息, 并按照由子到父的顺序返回有权限的父部门信息列表。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/department/parents
+// new doc: https://open.feishu.cn/document/server-docs/corehr-v1/organization-management/department/parents
 func (r *CoreHrService) GetCoreHrDepartmentParentList(ctx context.Context, request *GetCoreHrDepartmentParentListReq, options ...MethodOptionFunc) (*GetCoreHrDepartmentParentListResp, *Response, error) {
 	if r.cli.mock.mockCoreHrGetCoreHrDepartmentParentList != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] CoreHr#GetCoreHrDepartmentParentList mock enable")

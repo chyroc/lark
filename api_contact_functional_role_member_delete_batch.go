@@ -24,6 +24,7 @@ import (
 // BatchDeleteContactFunctionalRoleMember 通过本接口可以删除角色下的某个/些成员
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/functional_role-member/batch_delete
+// new doc: https://open.feishu.cn/document/server-docs/contact-v3/functional_role-member/batch_delete
 func (r *ContactService) BatchDeleteContactFunctionalRoleMember(ctx context.Context, request *BatchDeleteContactFunctionalRoleMemberReq, options ...MethodOptionFunc) (*BatchDeleteContactFunctionalRoleMemberResp, *Response, error) {
 	if r.cli.mock.mockContactBatchDeleteContactFunctionalRoleMember != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Contact#BatchDeleteContactFunctionalRoleMember mock enable")

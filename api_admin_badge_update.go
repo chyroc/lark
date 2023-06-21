@@ -24,6 +24,7 @@ import (
 // UpdateAdminBadge 通过该接口可以修改勋章的信息。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/admin-v1/badge/update
+// new doc: https://open.feishu.cn/document/server-docs/admin-v1/badge/badge/update
 func (r *AdminService) UpdateAdminBadge(ctx context.Context, request *UpdateAdminBadgeReq, options ...MethodOptionFunc) (*UpdateAdminBadgeResp, *Response, error) {
 	if r.cli.mock.mockAdminUpdateAdminBadge != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Admin#UpdateAdminBadge mock enable")

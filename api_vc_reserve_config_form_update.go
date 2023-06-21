@@ -24,6 +24,7 @@ import (
 // UpdateVCReserveConfigForm 更新会议室预定表单。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/vc-v1/reserve_config-form/patch
+// new doc: https://open.feishu.cn/document/server-docs/vc-v1/scope_config/patch-2
 func (r *VCService) UpdateVCReserveConfigForm(ctx context.Context, request *UpdateVCReserveConfigFormReq, options ...MethodOptionFunc) (*UpdateVCReserveConfigFormResp, *Response, error) {
 	if r.cli.mock.mockVCUpdateVCReserveConfigForm != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] VC#UpdateVCReserveConfigForm mock enable")

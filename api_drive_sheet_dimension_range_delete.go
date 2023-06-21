@@ -24,6 +24,7 @@ import (
 // DeleteSheetDimensionRange 该接口用于根据 spreadsheetToken 和维度信息删除行/列 。单次删除最大5000行/列。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/ucjMzUjL3IzM14yNyMTN
+// new doc: https://open.feishu.cn/document/server-docs/docs/sheets-v3/sheet-rowcol/-delete-rows-or-columns
 func (r *DriveService) DeleteSheetDimensionRange(ctx context.Context, request *DeleteSheetDimensionRangeReq, options ...MethodOptionFunc) (*DeleteSheetDimensionRangeResp, *Response, error) {
 	if r.cli.mock.mockDriveDeleteSheetDimensionRange != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Drive#DeleteSheetDimensionRange mock enable")

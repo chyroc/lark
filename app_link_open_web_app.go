@@ -26,6 +26,7 @@ import (
 // 打开一个已安装的H5应用
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/uYjL24iN/applink-protocol/supported-protocol/open-an-h5-app
+// new doc: https://open.feishu.cn/document/common-capabilities/applink-protocol/supported-protocol/open-an-h5-app
 func (r *AppLinkService) OpenWebApp(req *OpenWebAppReq) string {
 	return internal.JoinAppLinkURL("https://applink.feishu.cn/client/web_app/open", req)
 }

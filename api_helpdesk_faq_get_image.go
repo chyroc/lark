@@ -25,6 +25,7 @@ import (
 // GetHelpdeskFAQImage 该接口用于获取知识库图像。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/faq/faq_image
+// new doc: https://open.feishu.cn/document/server-docs/helpdesk-v1/faq-management/faq/faq_image
 func (r *HelpdeskService) GetHelpdeskFAQImage(ctx context.Context, request *GetHelpdeskFAQImageReq, options ...MethodOptionFunc) (*GetHelpdeskFAQImageResp, *Response, error) {
 	if r.cli.mock.mockHelpdeskGetHelpdeskFAQImage != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Helpdesk#GetHelpdeskFAQImage mock enable")

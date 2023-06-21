@@ -24,6 +24,7 @@ import (
 // PreviewHelpdeskNotification 在正式执行推送之前是可以调用此接口预览设置的推送内容。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/notification/preview
+// new doc: https://open.feishu.cn/document/server-docs/helpdesk-v1/notification/preview
 func (r *HelpdeskService) PreviewHelpdeskNotification(ctx context.Context, request *PreviewHelpdeskNotificationReq, options ...MethodOptionFunc) (*PreviewHelpdeskNotificationResp, *Response, error) {
 	if r.cli.mock.mockHelpdeskPreviewHelpdeskNotification != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Helpdesk#PreviewHelpdeskNotification mock enable")

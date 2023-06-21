@@ -28,6 +28,7 @@ import (
 // - 获取内部群信息时, 操作者须与群组在同一租户下
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-members/is_in_chat
+// new doc: https://open.feishu.cn/document/server-docs/group/chat-member/is_in_chat
 func (r *ChatService) IsInChat(ctx context.Context, request *IsInChatReq, options ...MethodOptionFunc) (*IsInChatResp, *Response, error) {
 	if r.cli.mock.mockChatIsInChat != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Chat#IsInChat mock enable")

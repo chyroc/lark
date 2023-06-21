@@ -26,6 +26,7 @@ import (
 // 会议正在录制中, 且操作者具有相应权限（如果操作者为用户, 必须是会中当前主持人）
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/vc-v1/meeting-recording/stop
+// new doc: https://open.feishu.cn/document/server-docs/vc-v1/meeting-recording/stop
 func (r *VCService) StopVCMeetingRecording(ctx context.Context, request *StopVCMeetingRecordingReq, options ...MethodOptionFunc) (*StopVCMeetingRecordingResp, *Response, error) {
 	if r.cli.mock.mockVCStopVCMeetingRecording != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] VC#StopVCMeetingRecording mock enable")

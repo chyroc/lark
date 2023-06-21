@@ -24,6 +24,7 @@ import (
 // GetCoreHrLocationList 批量查询地点。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/location/list
+// new doc: https://open.feishu.cn/document/server-docs/corehr-v1/organization-management/location/list
 func (r *CoreHrService) GetCoreHrLocationList(ctx context.Context, request *GetCoreHrLocationListReq, options ...MethodOptionFunc) (*GetCoreHrLocationListResp, *Response, error) {
 	if r.cli.mock.mockCoreHrGetCoreHrLocationList != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] CoreHr#GetCoreHrLocationList mock enable")

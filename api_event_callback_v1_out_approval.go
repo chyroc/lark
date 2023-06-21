@@ -27,6 +27,7 @@ import (
 // * 依赖权限: [访问审批应用] 或 [查看、创建、更新、删除审批应用相关信息]
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uIDO24iM4YjLygjN/event/out-of-office
+// new doc: https://open.feishu.cn/document/server-docs/approval-v4/event/special-event/out-of-office
 func (r *EventCallbackService) HandlerEventV1OutApproval(f EventV1OutApprovalHandler) {
 	r.cli.eventHandler.eventV1OutApprovalHandler = f
 }

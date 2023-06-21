@@ -24,6 +24,7 @@ import (
 // GetAdminBadgeList 可以通过该接口列出租户下所有的勋章, 勋章的排列顺序是按照创建时间倒序排列。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/admin-v1/badge/list
+// new doc: https://open.feishu.cn/document/server-docs/admin-v1/badge/badge/list
 func (r *AdminService) GetAdminBadgeList(ctx context.Context, request *GetAdminBadgeListReq, options ...MethodOptionFunc) (*GetAdminBadgeListResp, *Response, error) {
 	if r.cli.mock.mockAdminGetAdminBadgeList != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Admin#GetAdminBadgeList mock enable")

@@ -26,6 +26,7 @@ import (
 // 使用tenant_access_token需要额外申请权限以应用身份访问OKR信息
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/okr-v1/user-okr/list
+// new doc: https://open.feishu.cn/document/server-docs/okr-v1/okr/list
 func (r *OKRService) GetUserOKRList(ctx context.Context, request *GetUserOKRListReq, options ...MethodOptionFunc) (*GetUserOKRListResp, *Response, error) {
 	if r.cli.mock.mockOKRGetUserOKRList != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] OKR#GetUserOKRList mock enable")

@@ -26,6 +26,7 @@ import (
 // 当添加了第三方会议室的日程发生变动时（创建/更新/删除）触发此事件。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/meeting_room-v1/event/third-room-event-changes
+// new doc: https://open.feishu.cn/document/server-docs/calendar-v4/meeting-room-event/event/third-room-event-changes
 func (r *EventCallbackService) HandlerEventV1ThirdPartyMeetingRoomEventCreated(f EventV1ThirdPartyMeetingRoomEventCreatedHandler) {
 	r.cli.eventHandler.eventV1ThirdPartyMeetingRoomEventCreatedHandler = f
 }

@@ -24,6 +24,7 @@ import (
 // GetAttendanceUserTaskRemedyAllowedRemedyList 获取用户某天可以补的第几次上 / 下班卡的时间。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/user_task_remedy/query_user_allowed_remedys
+// new doc: https://open.feishu.cn/document/server-docs/attendance-v1/user_task_remedy/query_user_allowed_remedys
 func (r *AttendanceService) GetAttendanceUserTaskRemedyAllowedRemedyList(ctx context.Context, request *GetAttendanceUserTaskRemedyAllowedRemedyListReq, options ...MethodOptionFunc) (*GetAttendanceUserTaskRemedyAllowedRemedyListResp, *Response, error) {
 	if r.cli.mock.mockAttendanceGetAttendanceUserTaskRemedyAllowedRemedyList != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Attendance#GetAttendanceUserTaskRemedyAllowedRemedyList mock enable")

@@ -24,6 +24,7 @@ import (
 // GetBaikeEntityList 分页拉取词条列表数据, 支持拉取租户内的全部词条。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/baike-v1/entity/list
+// new doc: https://open.feishu.cn/document/server-docs/baike-v1/entity/list
 func (r *BaikeService) GetBaikeEntityList(ctx context.Context, request *GetBaikeEntityListReq, options ...MethodOptionFunc) (*GetBaikeEntityListResp, *Response, error) {
 	if r.cli.mock.mockBaikeGetBaikeEntityList != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Baike#GetBaikeEntityList mock enable")

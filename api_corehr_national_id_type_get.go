@@ -24,6 +24,7 @@ import (
 // GetCoreHrNationalIDType 根据 ID 查询单个国家证件类型。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/national_id_type/get
+// new doc: https://open.feishu.cn/document/server-docs/corehr-v1/basic-infomation/national_id_type/get
 func (r *CoreHrService) GetCoreHrNationalIDType(ctx context.Context, request *GetCoreHrNationalIDTypeReq, options ...MethodOptionFunc) (*GetCoreHrNationalIDTypeResp, *Response, error) {
 	if r.cli.mock.mockCoreHrGetCoreHrNationalIDType != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] CoreHr#GetCoreHrNationalIDType mock enable")

@@ -28,6 +28,7 @@ import (
 // - 本接口支持在创建群的同时拉用户或机器人进群；如果仅需要拉用户或者机器人入群参考 [将用户或机器人拉入群聊](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-members/create)接口
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat/create
+// new doc: https://open.feishu.cn/document/server-docs/group/chat/create
 func (r *ChatService) CreateChat(ctx context.Context, request *CreateChatReq, options ...MethodOptionFunc) (*CreateChatResp, *Response, error) {
 	if r.cli.mock.mockChatCreateChat != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Chat#CreateChat mock enable")

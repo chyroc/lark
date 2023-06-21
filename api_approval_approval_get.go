@@ -24,6 +24,7 @@ import (
 // GetApproval 根据 Approval Code 获取某个审批定义的详情, 用于构造创建审批实例的请求。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/approval/get
+// new doc: https://open.feishu.cn/document/server-docs/approval-v4/approval/get
 func (r *ApprovalService) GetApproval(ctx context.Context, request *GetApprovalReq, options ...MethodOptionFunc) (*GetApprovalResp, *Response, error) {
 	if r.cli.mock.mockApprovalGetApproval != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Approval#GetApproval mock enable")

@@ -24,6 +24,7 @@ import (
 // CreateMailGroupPermissionMember 向邮件组添加单个自定义权限成员, 添加后该成员可发送邮件到该邮件组。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/mail-v1/mailgroup-permission_member/create
+// new doc: https://open.feishu.cn/document/server-docs/mail-v1/mail-group/mailgroup-permission_member/create
 func (r *MailService) CreateMailGroupPermissionMember(ctx context.Context, request *CreateMailGroupPermissionMemberReq, options ...MethodOptionFunc) (*CreateMailGroupPermissionMemberResp, *Response, error) {
 	if r.cli.mock.mockMailCreateMailGroupPermissionMember != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Mail#CreateMailGroupPermissionMember mock enable")

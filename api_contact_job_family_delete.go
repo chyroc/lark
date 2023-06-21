@@ -24,6 +24,7 @@ import (
 // DeleteContactJobFamily 该接口用于删除租户内的序列。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/job_family/delete
+// new doc: https://open.feishu.cn/document/server-docs/contact-v3/job_family/delete
 func (r *ContactService) DeleteContactJobFamily(ctx context.Context, request *DeleteContactJobFamilyReq, options ...MethodOptionFunc) (*DeleteContactJobFamilyResp, *Response, error) {
 	if r.cli.mock.mockContactDeleteContactJobFamily != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Contact#DeleteContactJobFamily mock enable")

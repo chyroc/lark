@@ -26,6 +26,7 @@ import (
 // 应用首先需要调用[订阅日程变更事件接口](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar-event/subscription)建立订阅关系。应用收到该事件后, 使用事件的 user_list 字段中的用户对应的 user_access_token 调用[获取日程列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar-event/list)接口拉取事件中 calendar_id 字段对应的日历下的日程数据
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar-event/events/changed
+// new doc: https://open.feishu.cn/document/server-docs/calendar-v4/calendar-event/events/changed
 func (r *EventCallbackService) HandlerEventV2CalendarCalendarEventChangedV4(f EventV2CalendarCalendarEventChangedV4Handler) {
 	r.cli.eventHandler.eventV2CalendarCalendarEventChangedV4Handler = f
 }

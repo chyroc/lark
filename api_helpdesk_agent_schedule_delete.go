@@ -24,6 +24,7 @@ import (
 // DeleteHelpdeskAgentSchedule 该接口用于删除客服日程。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/agent-schedules/delete
+// new doc: https://open.feishu.cn/document/server-docs/helpdesk-v1/agent-function/agent-schedules/delete
 func (r *HelpdeskService) DeleteHelpdeskAgentSchedule(ctx context.Context, request *DeleteHelpdeskAgentScheduleReq, options ...MethodOptionFunc) (*DeleteHelpdeskAgentScheduleResp, *Response, error) {
 	if r.cli.mock.mockHelpdeskDeleteHelpdeskAgentSchedule != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Helpdesk#DeleteHelpdeskAgentSchedule mock enable")

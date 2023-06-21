@@ -27,6 +27,7 @@ import (
 // * 依赖权限: [访问审批应用] 或 [查看、创建、更新、删除审批应用相关信息]
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uIDO24iM4YjLygjN/event/custom-approval-event
+// new doc: https://open.feishu.cn/document/server-docs/approval-v4/event/common-event/custom-approval-event
 func (r *EventCallbackService) HandlerEventV2ApprovalApprovalUpdatedV4(f EventV2ApprovalApprovalUpdatedV4Handler) {
 	r.cli.eventHandler.eventV2ApprovalApprovalUpdatedV4Handler = f
 }

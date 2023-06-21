@@ -26,6 +26,7 @@ import (
 // 支持最近90天内的数据查询
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/vc-v1/report/get_daily
+// new doc: https://open.feishu.cn/document/server-docs/vc-v1/report/get_daily
 func (r *VCService) GetVCDailyReport(ctx context.Context, request *GetVCDailyReportReq, options ...MethodOptionFunc) (*GetVCDailyReportResp, *Response, error) {
 	if r.cli.mock.mockVCGetVCDailyReport != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] VC#GetVCDailyReport mock enable")

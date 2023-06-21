@@ -24,6 +24,7 @@ import (
 // GetBitableAppRoleMemberList 列出自定义角色的协作者
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-role-member/list
+// new doc: https://open.feishu.cn/document/server-docs/docs/bitable-v1/advanced-permission/app-role-member/list
 func (r *BitableService) GetBitableAppRoleMemberList(ctx context.Context, request *GetBitableAppRoleMemberListReq, options ...MethodOptionFunc) (*GetBitableAppRoleMemberListResp, *Response, error) {
 	if r.cli.mock.mockBitableGetBitableAppRoleMemberList != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Bitable#GetBitableAppRoleMemberList mock enable")

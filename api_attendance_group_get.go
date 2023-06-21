@@ -24,6 +24,7 @@ import (
 // GetAttendanceGroup 通过考勤组 ID 获取考勤组详情。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/group/get
+// new doc: https://open.feishu.cn/document/server-docs/attendance-v1/group/get
 func (r *AttendanceService) GetAttendanceGroup(ctx context.Context, request *GetAttendanceGroupReq, options ...MethodOptionFunc) (*GetAttendanceGroupResp, *Response, error) {
 	if r.cli.mock.mockAttendanceGetAttendanceGroup != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Attendance#GetAttendanceGroup mock enable")

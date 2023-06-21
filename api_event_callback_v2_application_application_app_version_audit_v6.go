@@ -24,6 +24,7 @@ import (
 // EventV2ApplicationApplicationAppVersionAuditV6 通过订阅该事件, 可接收应用审核（通过 / 拒绝）事件{使用示例}(url=/api/tools/api_explore/api_explore_config?project=application&version=v6&resource=application.app_version&event=audit)
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/application-v6/application-app_version/events/audit
+// new doc: https://open.feishu.cn/document/server-docs/application-v6/event/audit
 func (r *EventCallbackService) HandlerEventV2ApplicationApplicationAppVersionAuditV6(f EventV2ApplicationApplicationAppVersionAuditV6Handler) {
 	r.cli.eventHandler.eventV2ApplicationApplicationAppVersionAuditV6Handler = f
 }

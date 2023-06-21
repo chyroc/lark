@@ -29,6 +29,7 @@ import (
 // - 更新已有词条时, 请传入对应词条的 entity_id 或 outer_info
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/baike-v1/draft/create
+// new doc: https://open.feishu.cn/document/server-docs/baike-v1/draft/create
 func (r *BaikeService) CreateBaikeDraft(ctx context.Context, request *CreateBaikeDraftReq, options ...MethodOptionFunc) (*CreateBaikeDraftResp, *Response, error) {
 	if r.cli.mock.mockBaikeCreateBaikeDraft != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Baike#CreateBaikeDraft mock enable")

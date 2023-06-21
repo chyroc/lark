@@ -24,6 +24,7 @@ import (
 // CreateDriveComment 往云文档添加一条全局评论。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file-comment/create
+// new doc: https://open.feishu.cn/document/server-docs/docs/CommentAPI/create
 func (r *DriveService) CreateDriveComment(ctx context.Context, request *CreateDriveCommentReq, options ...MethodOptionFunc) (*CreateDriveCommentResp, *Response, error) {
 	if r.cli.mock.mockDriveCreateDriveComment != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Drive#CreateDriveComment mock enable")

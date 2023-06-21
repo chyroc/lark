@@ -26,6 +26,7 @@ import (
 // 因此, 调用该接口时应当慎重操作。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/baike-v1/entity/update
+// new doc: https://open.feishu.cn/document/server-docs/baike-v1/entity/update
 func (r *BaikeService) UpdateBaikeEntity(ctx context.Context, request *UpdateBaikeEntityReq, options ...MethodOptionFunc) (*UpdateBaikeEntityResp, *Response, error) {
 	if r.cli.mock.mockBaikeUpdateBaikeEntity != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Baike#UpdateBaikeEntity mock enable")

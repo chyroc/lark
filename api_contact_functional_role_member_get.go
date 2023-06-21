@@ -24,6 +24,7 @@ import (
 // GetContactFunctionalRoleMember 通过本接口可以查询角色ID下的成员信息（含成员ID及其管理范围）
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/functional_role-member/list
+// new doc: https://open.feishu.cn/document/server-docs/contact-v3/functional_role-member/list
 func (r *ContactService) GetContactFunctionalRoleMember(ctx context.Context, request *GetContactFunctionalRoleMemberReq, options ...MethodOptionFunc) (*GetContactFunctionalRoleMemberResp, *Response, error) {
 	if r.cli.mock.mockContactGetContactFunctionalRoleMember != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Contact#GetContactFunctionalRoleMember mock enable")

@@ -24,6 +24,7 @@ import (
 // GetAttendanceUserDailyShift 支持查询多个用户的排班情况, 查询的时间跨度不能超过 30 天。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/user_daily_shift/query
+// new doc: https://open.feishu.cn/document/server-docs/attendance-v1/user_daily_shift/query
 func (r *AttendanceService) GetAttendanceUserDailyShift(ctx context.Context, request *GetAttendanceUserDailyShiftReq, options ...MethodOptionFunc) (*GetAttendanceUserDailyShiftResp, *Response, error) {
 	if r.cli.mock.mockAttendanceGetAttendanceUserDailyShift != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Attendance#GetAttendanceUserDailyShift mock enable")

@@ -28,6 +28,7 @@ import (
 // - 机器人 或 授权用户 必须在群里
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-moderation/get
+// new doc: https://open.feishu.cn/document/server-docs/group/chat/get
 func (r *ChatService) GetChatModeration(ctx context.Context, request *GetChatModerationReq, options ...MethodOptionFunc) (*GetChatModerationResp, *Response, error) {
 	if r.cli.mock.mockChatGetChatModeration != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Chat#GetChatModeration mock enable")

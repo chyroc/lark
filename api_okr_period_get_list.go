@@ -26,6 +26,7 @@ import (
 // 使用tenant_access_token需要额外申请权限以应用身份访问OKR信息
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/okr-v1/period/list
+// new doc: https://open.feishu.cn/document/server-docs/okr-v1/period/list
 func (r *OKRService) GetOKRPeriodList(ctx context.Context, request *GetOKRPeriodListReq, options ...MethodOptionFunc) (*GetOKRPeriodListResp, *Response, error) {
 	if r.cli.mock.mockOKRGetOKRPeriodList != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] OKR#GetOKRPeriodList mock enable")

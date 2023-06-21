@@ -24,6 +24,7 @@ import (
 // DeleteContactUnit 使用该接口删除单位, 需要有更新单位的权限。注意: 如果单位的单位类型被其它的业务使用, 不允许删除。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/unit/delete
+// new doc: https://open.feishu.cn/document/server-docs/contact-v3/unit/delete
 func (r *ContactService) DeleteContactUnit(ctx context.Context, request *DeleteContactUnitReq, options ...MethodOptionFunc) (*DeleteContactUnitResp, *Response, error) {
 	if r.cli.mock.mockContactDeleteContactUnit != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Contact#DeleteContactUnit mock enable")

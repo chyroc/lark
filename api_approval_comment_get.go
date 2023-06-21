@@ -24,6 +24,7 @@ import (
 // GetApprovalComment 根据 Instance Code 获取某个审批实例下的全部评论与评论回复（不包含审批同意、拒绝、转交等附加的理由或意见）。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/instance-comment/list
+// new doc: https://open.feishu.cn/document/server-docs/approval-v4/instance-comment/list
 func (r *ApprovalService) GetApprovalComment(ctx context.Context, request *GetApprovalCommentReq, options ...MethodOptionFunc) (*GetApprovalCommentResp, *Response, error) {
 	if r.cli.mock.mockApprovalGetApprovalComment != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Approval#GetApprovalComment mock enable")

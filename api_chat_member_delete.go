@@ -31,6 +31,7 @@ import (
 // - 操作内部群时, 操作者须与群组在同一租户下
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-members/delete
+// new doc: https://open.feishu.cn/document/server-docs/group/chat-member/delete
 func (r *ChatService) DeleteChatMember(ctx context.Context, request *DeleteChatMemberReq, options ...MethodOptionFunc) (*DeleteChatMemberResp, *Response, error) {
 	if r.cli.mock.mockChatDeleteChatMember != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Chat#DeleteChatMember mock enable")

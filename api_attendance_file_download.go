@@ -25,6 +25,7 @@ import (
 // DownloadAttendanceFile 通过文件 ID 下载指定的文件。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/file/download
+// new doc: https://open.feishu.cn/document/server-docs/attendance-v1/user_setting/download
 func (r *AttendanceService) DownloadAttendanceFile(ctx context.Context, request *DownloadAttendanceFileReq, options ...MethodOptionFunc) (*DownloadAttendanceFileResp, *Response, error) {
 	if r.cli.mock.mockAttendanceDownloadAttendanceFile != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Attendance#DownloadAttendanceFile mock enable")

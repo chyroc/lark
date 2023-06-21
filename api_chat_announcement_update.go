@@ -32,6 +32,7 @@ import (
 // - 若群未开启 [仅群主和群管理员可编辑群信息] 配置, 所有成员可以更新群公告
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-announcement/patch
+// new doc: https://open.feishu.cn/document/server-docs/group/chat-announcement/patch
 func (r *ChatService) UpdateChatAnnouncement(ctx context.Context, request *UpdateChatAnnouncementReq, options ...MethodOptionFunc) (*UpdateChatAnnouncementResp, *Response, error) {
 	if r.cli.mock.mockChatUpdateChatAnnouncement != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Chat#UpdateChatAnnouncement mock enable")

@@ -24,6 +24,7 @@ import (
 // UpdateHireJobConfig 更新职位设置, 包括面试评价表、Offer 申请表等。接口将按照所选择的「更新选项」进行设置参数校验和更新。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/job/update_config
+// new doc: https://open.feishu.cn/document/server-docs/hire-v1/recruitment-related-configuration/job/update_config
 func (r *HireService) UpdateHireJobConfig(ctx context.Context, request *UpdateHireJobConfigReq, options ...MethodOptionFunc) (*UpdateHireJobConfigResp, *Response, error) {
 	if r.cli.mock.mockHireUpdateHireJobConfig != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Hire#UpdateHireJobConfig mock enable")

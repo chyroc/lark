@@ -24,6 +24,7 @@ import (
 // GetDriveFileVersionList 获取文档所有版本。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file-version/list
+// new doc: https://open.feishu.cn/document/server-docs/docs/drive-v1/file-version/list
 func (r *DriveService) GetDriveFileVersionList(ctx context.Context, request *GetDriveFileVersionListReq, options ...MethodOptionFunc) (*GetDriveFileVersionListResp, *Response, error) {
 	if r.cli.mock.mockDriveGetDriveFileVersionList != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Drive#GetDriveFileVersionList mock enable")

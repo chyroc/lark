@@ -24,6 +24,7 @@ import (
 // UpdateContactJobFamily 该接口用于更新租户序列的信息。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/job_family/update
+// new doc: https://open.feishu.cn/document/server-docs/contact-v3/job_family/update
 func (r *ContactService) UpdateContactJobFamily(ctx context.Context, request *UpdateContactJobFamilyReq, options ...MethodOptionFunc) (*UpdateContactJobFamilyResp, *Response, error) {
 	if r.cli.mock.mockContactUpdateContactJobFamily != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Contact#UpdateContactJobFamily mock enable")

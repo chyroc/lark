@@ -24,6 +24,7 @@ import (
 // UpdateContactUnit 调用该接口, 需要有更新单位的权限。注意: 单位功能属于旗舰版付费功能, 企业需开通对应版本才可以修改单位。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/unit/patch
+// new doc: https://open.feishu.cn/document/server-docs/contact-v3/unit/patch
 func (r *ContactService) UpdateContactUnit(ctx context.Context, request *UpdateContactUnitReq, options ...MethodOptionFunc) (*UpdateContactUnitResp, *Response, error) {
 	if r.cli.mock.mockContactUpdateContactUnit != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Contact#UpdateContactUnit mock enable")

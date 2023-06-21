@@ -24,6 +24,7 @@ import (
 // UpdateMailGroupPatch 更新邮件组部分字段, 没有填写的字段不会被更新。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/mail-v1/mailgroup/patch
+// new doc: https://open.feishu.cn/document/server-docs/mail-v1/mail-group/mailgroup/patch
 func (r *MailService) UpdateMailGroupPatch(ctx context.Context, request *UpdateMailGroupPatchReq, options ...MethodOptionFunc) (*UpdateMailGroupPatchResp, *Response, error) {
 	if r.cli.mock.mockMailUpdateMailGroupPatch != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Mail#UpdateMailGroupPatch mock enable")

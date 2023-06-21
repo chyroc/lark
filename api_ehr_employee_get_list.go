@@ -24,6 +24,7 @@ import (
 // GetEHREmployeeList 根据员工飞书用户 ID / 员工状态 / 雇员类型等搜索条件, 批量获取员工花名册字段信息。字段包括「系统标准字段 / system_fields」和「自定义字段 / custom_fields」。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/ehr/ehr-v1/employee/list
+// new doc: https://open.feishu.cn/document/server-docs/ehr-v1/list
 func (r *EHRService) GetEHREmployeeList(ctx context.Context, request *GetEHREmployeeListReq, options ...MethodOptionFunc) (*GetEHREmployeeListResp, *Response, error) {
 	if r.cli.mock.mockEHRGetEHREmployeeList != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] EHR#GetEHREmployeeList mock enable")

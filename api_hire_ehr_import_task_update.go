@@ -24,6 +24,7 @@ import (
 // UpdateHireEHRImportTask 在处理完导入 e-HR 事件后, 可调用该接口, 更新  e-HR 导入任务结果。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/ehr_import_task/patch
+// new doc: https://open.feishu.cn/document/server-docs/hire-v1/candidate-management/delivery-process-management/onboard/patch-2
 func (r *HireService) UpdateHireEHRImportTask(ctx context.Context, request *UpdateHireEHRImportTaskReq, options ...MethodOptionFunc) (*UpdateHireEHRImportTaskResp, *Response, error) {
 	if r.cli.mock.mockHireUpdateHireEHRImportTask != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Hire#UpdateHireEHRImportTask mock enable")

@@ -24,6 +24,7 @@ import (
 // UpdateHireEmployee 根据员工 ID 更新员工转正、离职状态。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/employee/patch
+// new doc: https://open.feishu.cn/document/server-docs/hire-v1/candidate-management/delivery-process-management/onboard/patch
 func (r *HireService) UpdateHireEmployee(ctx context.Context, request *UpdateHireEmployeeReq, options ...MethodOptionFunc) (*UpdateHireEmployeeResp, *Response, error) {
 	if r.cli.mock.mockHireUpdateHireEmployee != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Hire#UpdateHireEmployee mock enable")

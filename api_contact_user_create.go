@@ -29,6 +29,7 @@ import (
 // - 返回数据中不返回手机号, 如果需要请重新查询用户信息获取手机号。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/create
+// new doc: https://open.feishu.cn/document/server-docs/contact-v3/user/create
 func (r *ContactService) CreateUser(ctx context.Context, request *CreateUserReq, options ...MethodOptionFunc) (*CreateUserResp, *Response, error) {
 	if r.cli.mock.mockContactCreateUser != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Contact#CreateUser mock enable")

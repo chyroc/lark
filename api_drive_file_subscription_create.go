@@ -24,6 +24,7 @@ import (
 // CreateDriveFileSubscription 订阅文档中的变更事件, 当前支持文档评论订阅, 订阅后文档评论更新会有“云文档助手”推送给订阅的用户
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file-subscription/create
+// new doc: https://open.feishu.cn/document/server-docs/docs/docs-assistant/file-subscription/create
 func (r *DriveService) CreateDriveFileSubscription(ctx context.Context, request *CreateDriveFileSubscriptionReq, options ...MethodOptionFunc) (*CreateDriveFileSubscriptionResp, *Response, error) {
 	if r.cli.mock.mockDriveCreateDriveFileSubscription != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Drive#CreateDriveFileSubscription mock enable")

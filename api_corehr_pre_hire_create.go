@@ -26,6 +26,7 @@ import (
 // Offer ID 仅支持传入飞书招聘 ID, 如果未使用飞书招聘请置空。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/pre_hire/create
+// new doc: https://open.feishu.cn/document/server-docs/corehr-v1/pre_hire/create
 func (r *CoreHrService) CreateCoreHrPreHire(ctx context.Context, request *CreateCoreHrPreHireReq, options ...MethodOptionFunc) (*CreateCoreHrPreHireResp, *Response, error) {
 	if r.cli.mock.mockCoreHrCreateCoreHrPreHire != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] CoreHr#CreateCoreHrPreHire mock enable")

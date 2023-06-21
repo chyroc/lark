@@ -29,6 +29,7 @@ import (
 // - 获取内部群信息时, 操作者须与群组在同一租户下
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-announcement/get
+// new doc: https://open.feishu.cn/document/server-docs/group/chat-announcement/get
 func (r *ChatService) GetChatAnnouncement(ctx context.Context, request *GetChatAnnouncementReq, options ...MethodOptionFunc) (*GetChatAnnouncementResp, *Response, error) {
 	if r.cli.mock.mockChatGetChatAnnouncement != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Chat#GetChatAnnouncement mock enable")

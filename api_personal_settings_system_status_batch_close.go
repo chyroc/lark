@@ -24,6 +24,7 @@ import (
 // BatchClosePersonalSettingsSystemStatus 批量关闭用户系统状态可用。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/personal_settings-v1/system_status/batch_close
+// new doc: https://open.feishu.cn/document/server-docs/personal_settings-v1/system_status/batch_close
 func (r *PersonalSettingsService) BatchClosePersonalSettingsSystemStatus(ctx context.Context, request *BatchClosePersonalSettingsSystemStatusReq, options ...MethodOptionFunc) (*BatchClosePersonalSettingsSystemStatusResp, *Response, error) {
 	if r.cli.mock.mockPersonalSettingsBatchClosePersonalSettingsSystemStatus != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] PersonalSettings#BatchClosePersonalSettingsSystemStatus mock enable")

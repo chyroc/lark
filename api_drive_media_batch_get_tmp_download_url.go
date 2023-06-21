@@ -26,6 +26,7 @@ import (
 // 该接口不支持太高的并发, 且调用频率上限为 5QPS。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/media/batch_get_tmp_download_url
+// new doc: https://open.feishu.cn/document/server-docs/docs/drive-v1/media/batch_get_tmp_download_url
 func (r *DriveService) BatchGetDriveMediaTmpDownloadURL(ctx context.Context, request *BatchGetDriveMediaTmpDownloadURLReq, options ...MethodOptionFunc) (*BatchGetDriveMediaTmpDownloadURLResp, *Response, error) {
 	if r.cli.mock.mockDriveBatchGetDriveMediaTmpDownloadURL != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Drive#BatchGetDriveMediaTmpDownloadURL mock enable")

@@ -27,6 +27,7 @@ import (
 // 该接口不支持太高的并发, 且调用频率上限为5QPS
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/media/upload_prepare
+// new doc: https://open.feishu.cn/document/server-docs/docs/drive-v1/media/multipart-upload-media/upload_prepare
 func (r *DriveService) PrepareUploadDriveMedia(ctx context.Context, request *PrepareUploadDriveMediaReq, options ...MethodOptionFunc) (*PrepareUploadDriveMediaResp, *Response, error) {
 	if r.cli.mock.mockDrivePrepareUploadDriveMedia != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Drive#PrepareUploadDriveMedia mock enable")

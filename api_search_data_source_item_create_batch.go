@@ -26,6 +26,7 @@ import (
 // 注意: 一个batch中所有数据项的datasourceID需要一致, tenantID也需要一致
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/search-v2/data_source-item/batch_create
+// new doc: https://open.feishu.cn/document/server-docs/search-v2/open-search/data_source-item/batch_create
 func (r *SearchService) BatchCreateSearchDataSourceItem(ctx context.Context, request *BatchCreateSearchDataSourceItemReq, options ...MethodOptionFunc) (*BatchCreateSearchDataSourceItemResp, *Response, error) {
 	if r.cli.mock.mockSearchBatchCreateSearchDataSourceItem != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Search#BatchCreateSearchDataSourceItem mock enable")

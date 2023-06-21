@@ -26,6 +26,7 @@ import (
 // 会议正在进行中, 且操作者须具有相应的权限（如果操作者为用户, 必须是会中当前主持人）
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/vc-v1/meeting/end
+// new doc: https://open.feishu.cn/document/server-docs/vc-v1/meeting/end
 func (r *VCService) EndVCMeeting(ctx context.Context, request *EndVCMeetingReq, options ...MethodOptionFunc) (*EndVCMeetingResp, *Response, error) {
 	if r.cli.mock.mockVCEndVCMeeting != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] VC#EndVCMeeting mock enable")

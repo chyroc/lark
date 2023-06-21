@@ -24,6 +24,7 @@ import (
 // GetCoreHrLocation 根据 ID 查询单个地点。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/location/get
+// new doc: https://open.feishu.cn/document/server-docs/corehr-v1/organization-management/location/get
 func (r *CoreHrService) GetCoreHrLocation(ctx context.Context, request *GetCoreHrLocationReq, options ...MethodOptionFunc) (*GetCoreHrLocationResp, *Response, error) {
 	if r.cli.mock.mockCoreHrGetCoreHrLocation != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] CoreHr#GetCoreHrLocation mock enable")

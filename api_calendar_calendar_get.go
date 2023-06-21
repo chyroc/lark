@@ -28,6 +28,7 @@ import (
 // - 当前身份必须对日历有访问权限。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar/get
+// new doc: https://open.feishu.cn/document/server-docs/calendar-v4/calendar/get
 func (r *CalendarService) GetCalendar(ctx context.Context, request *GetCalendarReq, options ...MethodOptionFunc) (*GetCalendarResp, *Response, error) {
 	if r.cli.mock.mockCalendarGetCalendar != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Calendar#GetCalendar mock enable")

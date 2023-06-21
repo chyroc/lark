@@ -24,6 +24,7 @@ import (
 // GetApprovalInstance 通过审批实例 Instance Code  获取审批实例详情。Instance Code 由 [批量获取审批实例](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/instance/list) 接口获取。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/instance/get
+// new doc: https://open.feishu.cn/document/server-docs/approval-v4/instance/get
 func (r *ApprovalService) GetApprovalInstance(ctx context.Context, request *GetApprovalInstanceReq, options ...MethodOptionFunc) (*GetApprovalInstanceResp, *Response, error) {
 	if r.cli.mock.mockApprovalGetApprovalInstance != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Approval#GetApprovalInstance mock enable")

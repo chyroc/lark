@@ -27,6 +27,7 @@ import (
 // 首次调用请参考 [云文档接口快速入门](https://open.feishu.cn/document/ukTMukTMukTM/uczNzUjL3czM14yN3MTN)[多维表格接口接入指南](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/bitable/notification)
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table/patch
+// new doc: https://open.feishu.cn/document/server-docs/docs/bitable-v1/app-table/patch
 func (r *BitableService) UpdateBitableTable(ctx context.Context, request *UpdateBitableTableReq, options ...MethodOptionFunc) (*UpdateBitableTableResp, *Response, error) {
 	if r.cli.mock.mockBitableUpdateBitableTable != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Bitable#UpdateBitableTable mock enable")

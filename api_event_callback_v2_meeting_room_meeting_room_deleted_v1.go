@@ -26,6 +26,7 @@ import (
 // 了解事件订阅的使用场景和配置流程, 请点击查看 [事件订阅概述](https://open.feishu.cn/document/ukTMukTMukTM/uUTNz4SN1MjL1UzM)
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/meeting_room-v1/meeting_room/events/deleted
+// new doc: https://open.feishu.cn/document/server-docs/historic-version/meeting_room-v1/event/deleted
 func (r *EventCallbackService) HandlerEventV2MeetingRoomMeetingRoomDeletedV1(f EventV2MeetingRoomMeetingRoomDeletedV1Handler) {
 	r.cli.eventHandler.eventV2MeetingRoomMeetingRoomDeletedV1Handler = f
 }

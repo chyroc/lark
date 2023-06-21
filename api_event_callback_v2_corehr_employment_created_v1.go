@@ -24,6 +24,7 @@ import (
 // EventV2CorehrEmploymentCreatedV1 员工在飞书人事的「雇佣信息被创建」时将触发此事件。{使用示例}(url=/api/tools/api_explore/api_explore_config?project=corehr&version=v1&resource=employment&event=created)
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/employment/events/created
+// new doc: https://open.feishu.cn/document/server-docs/corehr-v1/employee/employment/created
 func (r *EventCallbackService) HandlerEventV2CorehrEmploymentCreatedV1(f EventV2CorehrEmploymentCreatedV1Handler) {
 	r.cli.eventHandler.eventV2CorehrEmploymentCreatedV1Handler = f
 }

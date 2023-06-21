@@ -30,6 +30,7 @@ import (
 // ](https://open.feishu.cn/document/ukTMukTMukTM/ukDNz4SO0MjL5QzM/auth-v3/auth/app_access_token)
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/application-v6/event/app_ticket-events
+// new doc: https://open.feishu.cn/document/server-docs/application-v6/event/app_ticket-events
 func (r *EventCallbackService) HandlerEventV1AppTicket(f EventV1AppTicketHandler) {
 	r.cli.eventHandler.eventV1AppTicketHandler = f
 }

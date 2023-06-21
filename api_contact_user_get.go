@@ -26,6 +26,7 @@ import (
 // - 当使用`tenant_access_token`时, 结果中部门路径字段不会被返回。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/get
+// new doc: https://open.feishu.cn/document/server-docs/contact-v3/user/get
 func (r *ContactService) GetUser(ctx context.Context, request *GetUserReq, options ...MethodOptionFunc) (*GetUserResp, *Response, error) {
 	if r.cli.mock.mockContactGetUser != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Contact#GetUser mock enable")

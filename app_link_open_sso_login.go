@@ -26,6 +26,7 @@ import (
 // 在飞书客户端中打开租户在admin后台配置的SSO登录页
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/uYjL24iN/applink-protocol/supported-protocol/open-the-sso-login-page
+// new doc: https://open.feishu.cn/document/common-capabilities/applink-protocol/supported-protocol/open-the-sso-login-page
 func (r *AppLinkService) OpenSSOLogin(req *OpenSSOLoginReq) string {
 	return internal.JoinAppLinkURL("https://applink.feishu.cn/client/passport/sso_login", req)
 }

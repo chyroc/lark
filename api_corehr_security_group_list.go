@@ -24,6 +24,7 @@ import (
 // GetCoreHrSecurityGroupList 批量查询「飞书人事」-「权限设置」-「角色设置」中的角色列表。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/security_group/list
+// new doc: https://open.feishu.cn/document/server-docs/corehr-v1/authorization/list
 func (r *CoreHrService) GetCoreHrSecurityGroupList(ctx context.Context, request *GetCoreHrSecurityGroupListReq, options ...MethodOptionFunc) (*GetCoreHrSecurityGroupListResp, *Response, error) {
 	if r.cli.mock.mockCoreHrGetCoreHrSecurityGroupList != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] CoreHr#GetCoreHrSecurityGroupList mock enable")

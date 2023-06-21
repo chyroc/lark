@@ -30,6 +30,7 @@ import (
 // - 本接口不支持查询批量消息
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/read_users
+// new doc: https://open.feishu.cn/document/server-docs/im-v1/message/read_users
 func (r *MessageService) GetMessageReadUserList(ctx context.Context, request *GetMessageReadUserListReq, options ...MethodOptionFunc) (*GetMessageReadUserListResp, *Response, error) {
 	if r.cli.mock.mockMessageGetMessageReadUserList != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Message#GetMessageReadUserList mock enable")

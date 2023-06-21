@@ -26,6 +26,7 @@ import (
 // > 此处应用管理员是指可以进入企业管理后台对应用进行审核和管理的企业管理员, 并不是应用的开发者。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uITN1EjLyUTNx4iM1UTM
+// new doc: https://open.feishu.cn/document/server-docs/application-v6/admin/verify-app-admin
 func (r *ApplicationService) IsApplicationUserAdmin(ctx context.Context, request *IsApplicationUserAdminReq, options ...MethodOptionFunc) (*IsApplicationUserAdminResp, *Response, error) {
 	if r.cli.mock.mockApplicationIsApplicationUserAdmin != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Application#IsApplicationUserAdmin mock enable")

@@ -28,6 +28,7 @@ import (
 // ![image.png](//sf1-ttcdn-tos.pstatp.com/obj/open-platform-opendoc/bed391d2a8ce6ed2d5985ea69bf92850_9GY1mnuDXP.png)
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/ehr/ehr-v1/attachment/get
+// new doc: https://open.feishu.cn/document/server-docs/ehr-v1/get
 func (r *EHRService) DownloadEHRAttachments(ctx context.Context, request *DownloadEHRAttachmentsReq, options ...MethodOptionFunc) (*DownloadEHRAttachmentsResp, *Response, error) {
 	if r.cli.mock.mockEHRDownloadEHRAttachments != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] EHR#DownloadEHRAttachments mock enable")

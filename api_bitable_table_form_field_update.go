@@ -24,6 +24,7 @@ import (
 // UpdateBitableTableFormField 该接口用于更新表单中的问题项
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table-form-field/patch
+// new doc: https://open.feishu.cn/document/server-docs/docs/bitable-v1/form/patch
 func (r *BitableService) UpdateBitableTableFormField(ctx context.Context, request *UpdateBitableTableFormFieldReq, options ...MethodOptionFunc) (*UpdateBitableTableFormFieldResp, *Response, error) {
 	if r.cli.mock.mockBitableUpdateBitableTableFormField != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Bitable#UpdateBitableTableFormField mock enable")

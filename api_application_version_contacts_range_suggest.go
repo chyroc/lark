@@ -26,6 +26,7 @@ import (
 // 由于通讯录权限范围需要提交发布新的应用版本, 并且企业管理员审核通过后才会生效, 因此该权限范围可能与实际生效的权限范围有差别, 如需获取线上实际生效的通讯录权限范围, 可通过[获取应用通讯录权限范围配置](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/application-v6/application/contacts_range_configuration) 获取。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/application-v6/application-app_version/contacts_range_suggest
+// new doc: https://open.feishu.cn/document/server-docs/application-v6/application/contacts_range_suggest
 func (r *ApplicationService) GetApplicationVersionContactsRangeSuggest(ctx context.Context, request *GetApplicationVersionContactsRangeSuggestReq, options ...MethodOptionFunc) (*GetApplicationVersionContactsRangeSuggestResp, *Response, error) {
 	if r.cli.mock.mockApplicationGetApplicationVersionContactsRangeSuggest != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Application#GetApplicationVersionContactsRangeSuggest mock enable")

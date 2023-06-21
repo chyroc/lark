@@ -30,6 +30,7 @@ import (
 // - 机器人邀请机器人不会触发事件
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-member-bot/events/added
+// new doc: https://open.feishu.cn/document/server-docs/group/chat-member/event/added-2
 func (r *EventCallbackService) HandlerEventV2IMChatMemberBotAddedV1(f EventV2IMChatMemberBotAddedV1Handler) {
 	r.cli.eventHandler.eventV2IMChatMemberBotAddedV1Handler = f
 }

@@ -24,6 +24,7 @@ import (
 // GetHireEmployeeByApplication 通过投递 ID 获取入职信息。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/employee/get_by_application
+// new doc: https://open.feishu.cn/document/server-docs/hire-v1/candidate-management/delivery-process-management/onboard/get_by_application
 func (r *HireService) GetHireEmployeeByApplication(ctx context.Context, request *GetHireEmployeeByApplicationReq, options ...MethodOptionFunc) (*GetHireEmployeeByApplicationResp, *Response, error) {
 	if r.cli.mock.mockHireGetHireEmployeeByApplication != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Hire#GetHireEmployeeByApplication mock enable")

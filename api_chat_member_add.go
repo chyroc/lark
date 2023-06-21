@@ -34,6 +34,7 @@ import (
 // - 在未开启 [仅群主和群管理员可添加群成员] 的设置时, 所有群成员都可以拉用户或机器人进群
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-members/create
+// new doc: https://open.feishu.cn/document/server-docs/group/chat-member/create
 func (r *ChatService) AddChatMember(ctx context.Context, request *AddChatMemberReq, options ...MethodOptionFunc) (*AddChatMemberResp, *Response, error) {
 	if r.cli.mock.mockChatAddChatMember != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Chat#AddChatMember mock enable")

@@ -28,6 +28,7 @@ import (
 // 无源人脸比对接入需申请白名单, 接入前请联系飞书开放平台工作人员, 邮箱: open-platform@bytedance.com。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/human_authentication-v1/face/facial-image-cropping
+// new doc: https://open.feishu.cn/document/server-docs/human_authentication-v1/facial-image-cropping
 func (r *HumanAuthService) CropFaceVerifyImage(ctx context.Context, request *CropFaceVerifyImageReq, options ...MethodOptionFunc) (*CropFaceVerifyImageResp, *Response, error) {
 	if r.cli.mock.mockHumanAuthCropFaceVerifyImage != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] HumanAuth#CropFaceVerifyImage mock enable")

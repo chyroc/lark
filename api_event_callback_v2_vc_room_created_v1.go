@@ -24,6 +24,7 @@ import (
 // EventV2VCRoomCreatedV1 当创建会议室时, 会触发该事件。{使用示例}(url=/api/tools/api_explore/api_explore_config?project=vc&version=v1&resource=room&event=created)
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/vc-v1/room/events/created
+// new doc: https://open.feishu.cn/document/server-docs/vc-v1/room/events/created
 func (r *EventCallbackService) HandlerEventV2VCRoomCreatedV1(f EventV2VCRoomCreatedV1Handler) {
 	r.cli.eventHandler.eventV2VCRoomCreatedV1Handler = f
 }

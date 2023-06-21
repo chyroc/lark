@@ -24,6 +24,7 @@ import (
 // GetVCRoom 该接口可以使用会议室 ID 查询会议室详情。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/vc-v1/room/get
+// new doc: https://open.feishu.cn/document/server-docs/vc-v1/room/get
 func (r *VCService) GetVCRoom(ctx context.Context, request *GetVCRoomReq, options ...MethodOptionFunc) (*GetVCRoomResp, *Response, error) {
 	if r.cli.mock.mockVCGetVCRoom != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] VC#GetVCRoom mock enable")

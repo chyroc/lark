@@ -24,6 +24,7 @@ import (
 // CreateApprovalCarbonCopy 通过接口可以将当前审批实例抄送给其他人。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/instance/cc
+// new doc: https://open.feishu.cn/document/server-docs/approval-v4/instance/cc
 func (r *ApprovalService) CreateApprovalCarbonCopy(ctx context.Context, request *CreateApprovalCarbonCopyReq, options ...MethodOptionFunc) (*CreateApprovalCarbonCopyResp, *Response, error) {
 	if r.cli.mock.mockApprovalCreateApprovalCarbonCopy != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Approval#CreateApprovalCarbonCopy mock enable")

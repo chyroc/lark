@@ -24,6 +24,7 @@ import (
 // GetBitableTableFormFieldList 列出表单的所有问题项
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table-form-field/list
+// new doc: https://open.feishu.cn/document/server-docs/docs/bitable-v1/form/list
 func (r *BitableService) GetBitableTableFormFieldList(ctx context.Context, request *GetBitableTableFormFieldListReq, options ...MethodOptionFunc) (*GetBitableTableFormFieldListResp, *Response, error) {
 	if r.cli.mock.mockBitableGetBitableTableFormFieldList != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Bitable#GetBitableTableFormFieldList mock enable")

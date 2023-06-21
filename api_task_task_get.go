@@ -24,6 +24,7 @@ import (
 // GetTask 该接口用于获取任务详情, 包括任务标题、描述、时间、来源等信息。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/task-v1/task/get
+// new doc: https://open.feishu.cn/document/server-docs/task-v1/task/get
 func (r *TaskService) GetTask(ctx context.Context, request *GetTaskReq, options ...MethodOptionFunc) (*GetTaskResp, *Response, error) {
 	if r.cli.mock.mockTaskGetTask != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Task#GetTask mock enable")

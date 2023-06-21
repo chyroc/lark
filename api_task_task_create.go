@@ -27,6 +27,7 @@ import (
 // 此外, 接口也提供了一些支持自定义内容的字段, 调用方可以实现定制化效果, 如完成任务后跳转到指定结束界面。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/task-v1/task/create
+// new doc: https://open.feishu.cn/document/server-docs/task-v1/task/create
 func (r *TaskService) CreateTask(ctx context.Context, request *CreateTaskReq, options ...MethodOptionFunc) (*CreateTaskResp, *Response, error) {
 	if r.cli.mock.mockTaskCreateTask != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Task#CreateTask mock enable")

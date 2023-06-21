@@ -24,6 +24,7 @@ import (
 // DeletePublicMailbox 该接口会永久删除公共邮箱地址。可用于释放邮箱回收站的公共邮箱地址, 一旦删除, 该邮箱地址将无法恢复。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/mail-v1/public_mailbox/delete
+// new doc: https://open.feishu.cn/document/server-docs/mail-v1/public-mailbox/public_mailbox/delete
 func (r *MailService) DeletePublicMailbox(ctx context.Context, request *DeletePublicMailboxReq, options ...MethodOptionFunc) (*DeletePublicMailboxResp, *Response, error) {
 	if r.cli.mock.mockMailDeletePublicMailbox != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Mail#DeletePublicMailbox mock enable")

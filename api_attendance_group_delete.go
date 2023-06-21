@@ -24,6 +24,7 @@ import (
 // DeleteAttendanceGroup 通过班次 ID 删除班次。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/group/delete
+// new doc: https://open.feishu.cn/document/server-docs/attendance-v1/group/delete
 func (r *AttendanceService) DeleteAttendanceGroup(ctx context.Context, request *DeleteAttendanceGroupReq, options ...MethodOptionFunc) (*DeleteAttendanceGroupResp, *Response, error) {
 	if r.cli.mock.mockAttendanceDeleteAttendanceGroup != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Attendance#DeleteAttendanceGroup mock enable")

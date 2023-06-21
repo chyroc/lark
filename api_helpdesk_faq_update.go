@@ -24,6 +24,7 @@ import (
 // UpdateHelpdeskFAQ 该接口用于修改知识库。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/faq/patch
+// new doc: https://open.feishu.cn/document/server-docs/helpdesk-v1/faq-management/faq/patch
 func (r *HelpdeskService) UpdateHelpdeskFAQ(ctx context.Context, request *UpdateHelpdeskFAQReq, options ...MethodOptionFunc) (*UpdateHelpdeskFAQResp, *Response, error) {
 	if r.cli.mock.mockHelpdeskUpdateHelpdeskFAQ != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Helpdesk#UpdateHelpdeskFAQ mock enable")

@@ -28,6 +28,7 @@ import (
 // * 依赖权限: [访问审批应用] 或 [查看、创建、更新、删除审批应用相关信息]
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uIDO24iM4YjLygjN/event/leave
+// new doc: https://open.feishu.cn/document/server-docs/approval-v4/event/special-event/leave
 func (r *EventCallbackService) HandlerEventV1LeaveApprovalV2(f EventV1LeaveApprovalV2Handler) {
 	r.cli.eventHandler.eventV1LeaveApprovalV2Handler = f
 }

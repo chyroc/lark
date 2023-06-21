@@ -24,6 +24,7 @@ import (
 // DeleteMailUserMailbox 该接口会永久删除用户邮箱地址。可用于删除位于邮箱回收站中的用户邮箱地址, 一旦删除, 将无法恢复。该接口支持邮件的转移, 可以将被释放邮箱的邮件转移到另外一个可以使用的邮箱中。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/mail-v1/user_mailbox/delete
+// new doc: https://open.feishu.cn/document/server-docs/mail-v1/user_mailbox-alias/delete
 func (r *MailService) DeleteMailUserMailbox(ctx context.Context, request *DeleteMailUserMailboxReq, options ...MethodOptionFunc) (*DeleteMailUserMailboxResp, *Response, error) {
 	if r.cli.mock.mockMailDeleteMailUserMailbox != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Mail#DeleteMailUserMailbox mock enable")

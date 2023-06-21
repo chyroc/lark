@@ -26,6 +26,7 @@ import (
 // 该接口依赖的数据和考勤组主数据间存在数据同步延时（正常数据同步 2 秒以内）, 因此在使用该接口时需注意评估数据延迟潜在风险。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/group/search
+// new doc: https://open.feishu.cn/document/server-docs/attendance-v1/group/search
 func (r *AttendanceService) SearchAttendanceGroup(ctx context.Context, request *SearchAttendanceGroupReq, options ...MethodOptionFunc) (*SearchAttendanceGroupResp, *Response, error) {
 	if r.cli.mock.mockAttendanceSearchAttendanceGroup != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Attendance#SearchAttendanceGroup mock enable")

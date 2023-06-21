@@ -24,6 +24,7 @@ import (
 // GetContactJobFamily 该接口用于获取单个序列信息。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/job_family/get
+// new doc: https://open.feishu.cn/document/server-docs/contact-v3/job_family/get
 func (r *ContactService) GetContactJobFamily(ctx context.Context, request *GetContactJobFamilyReq, options ...MethodOptionFunc) (*GetContactJobFamilyResp, *Response, error) {
 	if r.cli.mock.mockContactGetContactJobFamily != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Contact#GetContactJobFamily mock enable")

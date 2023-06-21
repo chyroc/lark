@@ -24,6 +24,7 @@ import (
 // CancelApprovalInstance 对于状态为“审批中”的单个审批实例进行撤销操作, 撤销后审批流程结束。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/instance/cancel
+// new doc: https://open.feishu.cn/document/server-docs/approval-v4/instance/cancel
 func (r *ApprovalService) CancelApprovalInstance(ctx context.Context, request *CancelApprovalInstanceReq, options ...MethodOptionFunc) (*CancelApprovalInstanceResp, *Response, error) {
 	if r.cli.mock.mockApprovalCancelApprovalInstance != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Approval#CancelApprovalInstance mock enable")

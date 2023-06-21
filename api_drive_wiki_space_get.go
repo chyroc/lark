@@ -33,6 +33,7 @@ import (
 // - 需要为知识空间成员（管理员）
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/wiki-v2/space/get
+// new doc: https://open.feishu.cn/document/server-docs/docs/wiki-v2/space/get
 func (r *DriveService) GetWikiSpace(ctx context.Context, request *GetWikiSpaceReq, options ...MethodOptionFunc) (*GetWikiSpaceResp, *Response, error) {
 	if r.cli.mock.mockDriveGetWikiSpace != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Drive#GetWikiSpace mock enable")

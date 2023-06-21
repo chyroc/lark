@@ -26,6 +26,7 @@ import (
 // 只能获取归属于自己的预约
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/vc-v1/reserve/get
+// new doc: https://open.feishu.cn/document/server-docs/vc-v1/reserve/get
 func (r *VCService) GetVCReserve(ctx context.Context, request *GetVCReserveReq, options ...MethodOptionFunc) (*GetVCReserveResp, *Response, error) {
 	if r.cli.mock.mockVCGetVCReserve != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] VC#GetVCReserve mock enable")

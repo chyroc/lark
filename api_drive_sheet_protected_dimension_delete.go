@@ -24,6 +24,7 @@ import (
 // DeleteSheetProtectedDimension 该接口用于根据保护范围ID删除保护范围, 最多支持同时删除10个ID。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uYTM5YjL2ETO24iNxkjN
+// new doc: https://open.feishu.cn/document/server-docs/docs/sheets-v3/protect-range/delete-protection-scopes
 func (r *DriveService) DeleteSheetProtectedDimension(ctx context.Context, request *DeleteSheetProtectedDimensionReq, options ...MethodOptionFunc) (*DeleteSheetProtectedDimensionResp, *Response, error) {
 	if r.cli.mock.mockDriveDeleteSheetProtectedDimension != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Drive#DeleteSheetProtectedDimension mock enable")

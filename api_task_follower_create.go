@@ -24,6 +24,7 @@ import (
 // CreateTaskFollower 该接口用于新增任务关注人。可以一次性添加多位关注人。关注人ID要使用表示用户的ID。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/task-v1/task-follower/create
+// new doc: https://open.feishu.cn/document/server-docs/task-v1/task-follower/create
 func (r *TaskService) CreateTaskFollower(ctx context.Context, request *CreateTaskFollowerReq, options ...MethodOptionFunc) (*CreateTaskFollowerResp, *Response, error) {
 	if r.cli.mock.mockTaskCreateTaskFollower != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Task#CreateTaskFollower mock enable")

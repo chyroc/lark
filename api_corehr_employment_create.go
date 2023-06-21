@@ -24,6 +24,7 @@ import (
 // CreateCoreHrEmployment 创建人员的雇佣信息。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/employment/create
+// new doc: https://open.feishu.cn/document/server-docs/corehr-v1/employee/employment/create
 func (r *CoreHrService) CreateCoreHrEmployment(ctx context.Context, request *CreateCoreHrEmploymentReq, options ...MethodOptionFunc) (*CreateCoreHrEmploymentResp, *Response, error) {
 	if r.cli.mock.mockCoreHrCreateCoreHrEmployment != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] CoreHr#CreateCoreHrEmployment mock enable")

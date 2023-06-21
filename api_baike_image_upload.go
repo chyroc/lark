@@ -25,6 +25,7 @@ import (
 // UploadBaikeImage 词条图片资源上传。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/baike-v1/file/upload
+// new doc: https://open.feishu.cn/document/server-docs/baike-v1/file/upload
 func (r *BaikeService) UploadBaikeImage(ctx context.Context, request *UploadBaikeImageReq, options ...MethodOptionFunc) (*UploadBaikeImageResp, *Response, error) {
 	if r.cli.mock.mockBaikeUploadBaikeImage != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Baike#UploadBaikeImage mock enable")

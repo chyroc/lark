@@ -27,6 +27,7 @@ import (
 // 订阅和取消订阅都是应用维度的, 多个应用可以同时订阅同一个 approval_code, 每个应用都能收到审批事件。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/approval/subscribe
+// new doc: https://open.feishu.cn/document/server-docs/approval-v4/event/event-interface/subscribe
 func (r *ApprovalService) SubscribeApprovalSubscription(ctx context.Context, request *SubscribeApprovalSubscriptionReq, options ...MethodOptionFunc) (*SubscribeApprovalSubscriptionResp, *Response, error) {
 	if r.cli.mock.mockApprovalSubscribeApprovalSubscription != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Approval#SubscribeApprovalSubscription mock enable")

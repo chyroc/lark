@@ -25,6 +25,7 @@ import (
 // UploadAttendanceFile 上传文件并获取文件 ID, 可用于“修改用户设置”接口中的 face_key 参数。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/file/upload
+// new doc: https://open.feishu.cn/document/server-docs/attendance-v1/user_setting/upload
 func (r *AttendanceService) UploadAttendanceFile(ctx context.Context, request *UploadAttendanceFileReq, options ...MethodOptionFunc) (*UploadAttendanceFileResp, *Response, error) {
 	if r.cli.mock.mockAttendanceUploadAttendanceFile != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Attendance#UploadAttendanceFile mock enable")

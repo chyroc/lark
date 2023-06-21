@@ -24,6 +24,7 @@ import (
 // GetCoreHrPreHireList 批量查询待入职人员。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/pre_hire/list
+// new doc: https://open.feishu.cn/document/server-docs/corehr-v1/pre_hire/list
 func (r *CoreHrService) GetCoreHrPreHireList(ctx context.Context, request *GetCoreHrPreHireListReq, options ...MethodOptionFunc) (*GetCoreHrPreHireListResp, *Response, error) {
 	if r.cli.mock.mockCoreHrGetCoreHrPreHireList != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] CoreHr#GetCoreHrPreHireList mock enable")

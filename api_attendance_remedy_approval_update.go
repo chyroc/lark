@@ -26,6 +26,7 @@ import (
 // 发起状态的审批才可以被更新为通过、不通过, 已经通过的审批才可以被更新为撤销。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/approval_info/process
+// new doc: https://open.feishu.cn/document/server-docs/attendance-v1/user_approval/process
 func (r *AttendanceService) UpdateAttendanceRemedyApproval(ctx context.Context, request *UpdateAttendanceRemedyApprovalReq, options ...MethodOptionFunc) (*UpdateAttendanceRemedyApprovalResp, *Response, error) {
 	if r.cli.mock.mockAttendanceUpdateAttendanceRemedyApproval != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Attendance#UpdateAttendanceRemedyApproval mock enable")

@@ -26,6 +26,7 @@ import (
 // 如果查询的手机号、邮箱不存在, 或者无权限查看对应的用户, 则不返回用户ID。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/batch_get_id
+// new doc: https://open.feishu.cn/document/server-docs/contact-v3/user/batch_get_id
 func (r *ContactService) BatchGetUserByID(ctx context.Context, request *BatchGetUserByIDReq, options ...MethodOptionFunc) (*BatchGetUserByIDResp, *Response, error) {
 	if r.cli.mock.mockContactBatchGetUserByID != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Contact#BatchGetUserByID mock enable")

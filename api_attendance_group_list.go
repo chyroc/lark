@@ -24,6 +24,7 @@ import (
 // GetAttendanceGroupList 翻页获取所有考勤组列表。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/group/list
+// new doc: https://open.feishu.cn/document/server-docs/attendance-v1/group/list
 func (r *AttendanceService) GetAttendanceGroupList(ctx context.Context, request *GetAttendanceGroupListReq, options ...MethodOptionFunc) (*GetAttendanceGroupListResp, *Response, error) {
 	if r.cli.mock.mockAttendanceGetAttendanceGroupList != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Attendance#GetAttendanceGroupList mock enable")

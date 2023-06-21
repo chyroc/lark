@@ -26,6 +26,7 @@ import (
 // 该接口要求文档协作者已存在, 如还未对文档协作者授权请先调用[「增加权限」 ](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/permission-member/create)接口进行授权。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/permission-member/update
+// new doc: https://open.feishu.cn/document/server-docs/docs/permission/permission-member/update
 func (r *DriveService) UpdateDriveMemberPermission(ctx context.Context, request *UpdateDriveMemberPermissionReq, options ...MethodOptionFunc) (*UpdateDriveMemberPermissionResp, *Response, error) {
 	if r.cli.mock.mockDriveUpdateDriveMemberPermission != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Drive#UpdateDriveMemberPermission mock enable")

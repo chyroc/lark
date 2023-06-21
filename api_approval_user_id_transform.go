@@ -24,6 +24,7 @@ import (
 // TransformApprovalUserID 用于灰度租户内的 userID 相互转换。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uEDN5UjLxQTO14SM0kTN
+// new doc: https://open.feishu.cn/document/server-docs/approval-v4/approval-search/search-approval-id-(dedicated)
 func (r *ApprovalService) TransformApprovalUserID(ctx context.Context, request *TransformApprovalUserIDReq, options ...MethodOptionFunc) (*TransformApprovalUserIDResp, *Response, error) {
 	if r.cli.mock.mockApprovalTransformApprovalUserID != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Approval#TransformApprovalUserID mock enable")

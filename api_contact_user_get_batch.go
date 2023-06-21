@@ -26,6 +26,7 @@ import (
 // 该接口用于批量获取用户详细信息。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uIzNz4iM3MjLyczM
+// new doc: https://open.feishu.cn/document/server-docs/historic-version//user/batch-obtain-user-information
 //
 // Deprecated
 func (r *ContactService) BatchGetUser(ctx context.Context, request *BatchGetUserReq, options ...MethodOptionFunc) (*BatchGetUserResp, *Response, error) {

@@ -24,6 +24,7 @@ import (
 // BatchGetSheetValue 该接口用于根据 spreadsheetToken 和 ranges 读取表格多个范围的值, 返回数据限制为10M。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/ukTMzUjL5EzM14SOxMTN
+// new doc: https://open.feishu.cn/document/server-docs/docs/sheets-v3/data-operation/reading-multiple-ranges
 func (r *DriveService) BatchGetSheetValue(ctx context.Context, request *BatchGetSheetValueReq, options ...MethodOptionFunc) (*BatchGetSheetValueResp, *Response, error) {
 	if r.cli.mock.mockDriveBatchGetSheetValue != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Drive#BatchGetSheetValue mock enable")

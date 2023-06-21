@@ -24,6 +24,7 @@ import (
 // UpdateVCRoomLevel 该接口可以用来更新某个会议室层级的信息。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/vc-v1/room_level/patch
+// new doc: https://open.feishu.cn/document/server-docs/vc-v1/room_level/patch
 func (r *VCService) UpdateVCRoomLevel(ctx context.Context, request *UpdateVCRoomLevelReq, options ...MethodOptionFunc) (*UpdateVCRoomLevelResp, *Response, error) {
 	if r.cli.mock.mockVCUpdateVCRoomLevel != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] VC#UpdateVCRoomLevel mock enable")

@@ -24,6 +24,7 @@ import (
 // CreateOKRProgressRecord 创建 OKR 进展记录。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/okr-v1/progress_record/create
+// new doc: https://open.feishu.cn/document/server-docs/okr-v1/progress_record/create
 func (r *OKRService) CreateOKRProgressRecord(ctx context.Context, request *CreateOKRProgressRecordReq, options ...MethodOptionFunc) (*CreateOKRProgressRecordResp, *Response, error) {
 	if r.cli.mock.mockOKRCreateOKRProgressRecord != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] OKR#CreateOKRProgressRecord mock enable")

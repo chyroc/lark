@@ -27,6 +27,7 @@ import (
 // ![通讯录.gif](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/544738c94f13ef0b9ebaff53a5133cc7_E9EGMkXyzX.gif)
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/custom_attr/list
+// new doc: https://open.feishu.cn/document/server-docs/contact-v3/custom_attr/list
 func (r *ContactService) GetContactCustomAttrList(ctx context.Context, request *GetContactCustomAttrListReq, options ...MethodOptionFunc) (*GetContactCustomAttrListResp, *Response, error) {
 	if r.cli.mock.mockContactGetContactCustomAttrList != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Contact#GetContactCustomAttrList mock enable")

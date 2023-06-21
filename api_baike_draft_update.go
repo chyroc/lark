@@ -24,6 +24,7 @@ import (
 // CreateBaikeUpdate 根据 draft_id 更新草稿内容, 已审批的草稿无法编辑。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/baike-v1/draft/update
+// new doc: https://open.feishu.cn/document/server-docs/baike-v1/draft/update
 func (r *BaikeService) CreateBaikeUpdate(ctx context.Context, request *CreateBaikeUpdateReq, options ...MethodOptionFunc) (*CreateBaikeUpdateResp, *Response, error) {
 	if r.cli.mock.mockBaikeCreateBaikeUpdate != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Baike#CreateBaikeUpdate mock enable")

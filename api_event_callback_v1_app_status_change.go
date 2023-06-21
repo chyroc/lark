@@ -28,6 +28,7 @@ import (
 // - 特殊说明: 管理员手动安装应用时, 也会触发启用事件。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/application-v6/event/app-enabled-or-disabled
+// new doc: https://open.feishu.cn/document/server-docs/application-v6/event/app-enabled-or-disabled
 func (r *EventCallbackService) HandlerEventV1AppStatusChange(f EventV1AppStatusChangeHandler) {
 	r.cli.eventHandler.eventV1AppStatusChangeHandler = f
 }

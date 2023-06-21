@@ -24,6 +24,7 @@ import (
 // UpdateTaskComment 该接口用于更新评论内容。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/task-v1/task-comment/update
+// new doc: https://open.feishu.cn/document/server-docs/task-v1/task-comment/update
 func (r *TaskService) UpdateTaskComment(ctx context.Context, request *UpdateTaskCommentReq, options ...MethodOptionFunc) (*UpdateTaskCommentResp, *Response, error) {
 	if r.cli.mock.mockTaskUpdateTaskComment != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Task#UpdateTaskComment mock enable")

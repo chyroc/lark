@@ -52,6 +52,7 @@ import (
 // 事件示例
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/event/user-task-status-change-event
+// new doc: https://open.feishu.cn/document/server-docs/attendance-v1/event/user-task-status-change-event
 func (r *EventCallbackService) HandlerEventV2AttendanceUserTaskUpdatedV1(f EventV2AttendanceUserTaskUpdatedV1Handler) {
 	r.cli.eventHandler.eventV2AttendanceUserTaskUpdatedV1Handler = f
 }

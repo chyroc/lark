@@ -31,6 +31,7 @@ import (
 // - 对同一条消息的Pin操作不能超过[5 QPS]
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/pin/create
+// new doc: https://open.feishu.cn/document/server-docs/im-v1/pin/create
 func (r *MessageService) CreateMessagePin(ctx context.Context, request *CreateMessagePinReq, options ...MethodOptionFunc) (*CreateMessagePinResp, *Response, error) {
 	if r.cli.mock.mockMessageCreateMessagePin != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Message#CreateMessagePin mock enable")

@@ -29,6 +29,7 @@ import (
 // - 获取消息的reaction, 需要request的授权主体（机器人或者用户）在消息所在的会话内
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message-reaction/list
+// new doc: https://open.feishu.cn/document/server-docs/im-v1/message-reaction/list
 func (r *MessageService) GetMessageReactionList(ctx context.Context, request *GetMessageReactionListReq, options ...MethodOptionFunc) (*GetMessageReactionListResp, *Response, error) {
 	if r.cli.mock.mockMessageGetMessageReactionList != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Message#GetMessageReactionList mock enable")

@@ -27,6 +27,7 @@ import (
 // - 节点阅读权限
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/wiki-v2/space/get_node
+// new doc: https://open.feishu.cn/document/server-docs/docs/wiki-v2/space-node/get_node
 func (r *DriveService) GetWikiNode(ctx context.Context, request *GetWikiNodeReq, options ...MethodOptionFunc) (*GetWikiNodeResp, *Response, error) {
 	if r.cli.mock.mockDriveGetWikiNode != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Drive#GetWikiNode mock enable")

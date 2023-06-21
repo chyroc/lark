@@ -24,6 +24,7 @@ import (
 // DeleteSheetFilterView 删除指定 id 对应的筛选视图。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/sheets-v3/spreadsheet-sheet-filter_view/delete
+// new doc: https://open.feishu.cn/document/server-docs/docs/sheets-v3/spreadsheet-sheet-filter_view/delete
 func (r *DriveService) DeleteSheetFilterView(ctx context.Context, request *DeleteSheetFilterViewReq, options ...MethodOptionFunc) (*DeleteSheetFilterViewResp, *Response, error) {
 	if r.cli.mock.mockDriveDeleteSheetFilterView != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Drive#DeleteSheetFilterView mock enable")

@@ -24,6 +24,7 @@ import (
 // DeleteCoreHrJobData 删除人员的任职信息。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job_data/delete
+// new doc: https://open.feishu.cn/document/server-docs/corehr-v1/employee/job_data/delete
 func (r *CoreHrService) DeleteCoreHrJobData(ctx context.Context, request *DeleteCoreHrJobDataReq, options ...MethodOptionFunc) (*DeleteCoreHrJobDataResp, *Response, error) {
 	if r.cli.mock.mockCoreHrDeleteCoreHrJobData != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] CoreHr#DeleteCoreHrJobData mock enable")

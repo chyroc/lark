@@ -24,6 +24,7 @@ import (
 // EventV2CorehrDepartmentDeletedV1 飞书人事中「部门被删除」时将触发此事件。{使用示例}(url=/api/tools/api_explore/api_explore_config?project=corehr&version=v1&resource=department&event=deleted)
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/department/events/deleted
+// new doc: https://open.feishu.cn/document/server-docs/corehr-v1/organization-management/department/deleted
 func (r *EventCallbackService) HandlerEventV2CorehrDepartmentDeletedV1(f EventV2CorehrDepartmentDeletedV1Handler) {
 	r.cli.eventHandler.eventV2CorehrDepartmentDeletedV1Handler = f
 }

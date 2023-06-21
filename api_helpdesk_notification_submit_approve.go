@@ -24,6 +24,7 @@ import (
 // SubmitApproveHelpdeskNotification 正常情况下调用创建推送接口后, 就可以调用提交审核接口, 如果创建人是服务台owner则会自动审核通过, 否则会通知服务台owner审核此推送信息。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/notification/submit_approve
+// new doc: https://open.feishu.cn/document/server-docs/helpdesk-v1/notification/submit_approve
 func (r *HelpdeskService) SubmitApproveHelpdeskNotification(ctx context.Context, request *SubmitApproveHelpdeskNotificationReq, options ...MethodOptionFunc) (*SubmitApproveHelpdeskNotificationResp, *Response, error) {
 	if r.cli.mock.mockHelpdeskSubmitApproveHelpdeskNotification != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Helpdesk#SubmitApproveHelpdeskNotification mock enable")

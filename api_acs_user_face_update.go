@@ -25,6 +25,7 @@ import (
 // UpdateACSUserFace 用户需要录入人脸图片才可以使用门禁考勤机。使用该 API 上传门禁用户的人脸图片。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/acs-v1/user-face/update
+// new doc: https://open.feishu.cn/document/server-docs/acs-v1/user/update
 func (r *ACSService) UpdateACSUserFace(ctx context.Context, request *UpdateACSUserFaceReq, options ...MethodOptionFunc) (*UpdateACSUserFaceResp, *Response, error) {
 	if r.cli.mock.mockACSUpdateACSUserFace != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] ACS#UpdateACSUserFace mock enable")

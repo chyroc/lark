@@ -24,6 +24,7 @@ import (
 // EventV2ContactScopeUpdatedV3 当应用通讯录范围权限发生变更时, 订阅这个事件的应用会收到事件。{使用示例}(url=/api/tools/api_explore/api_explore_config?project=contact&version=v3&resource=scope&event=updated)
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/scope/events/updated
+// new doc: https://open.feishu.cn/document/server-docs/contact-v3/scope/events/updated
 func (r *EventCallbackService) HandlerEventV2ContactScopeUpdatedV3(f EventV2ContactScopeUpdatedV3Handler) {
 	r.cli.eventHandler.eventV2ContactScopeUpdatedV3Handler = f
 }

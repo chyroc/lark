@@ -24,6 +24,7 @@ import (
 // EventV2VCMeetingShareEndedV1 发生在屏幕共享结束时【仅通过Open API预约的会议会产生此类事件】{使用示例}(url=/api/tools/api_explore/api_explore_config?project=vc&version=v1&resource=meeting&event=share_ended)
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/vc-v1/meeting/events/share_ended
+// new doc: https://open.feishu.cn/document/server-docs/vc-v1/meeting/events/share_ended
 func (r *EventCallbackService) HandlerEventV2VCMeetingShareEndedV1(f EventV2VCMeetingShareEndedV1Handler) {
 	r.cli.eventHandler.eventV2VCMeetingShareEndedV1Handler = f
 }

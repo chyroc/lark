@@ -26,6 +26,7 @@ import (
 // 筛选范围的设置参考: [筛选视图的筛选条件指南](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/sheets-v3/spreadsheet-sheet-filter_view-condition/filter-view-condition-user-guide)
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/sheets-v3/spreadsheet-sheet-filter_view/patch
+// new doc: https://open.feishu.cn/document/server-docs/docs/sheets-v3/spreadsheet-sheet-filter_view/patch
 func (r *DriveService) UpdateSheetFilterView(ctx context.Context, request *UpdateSheetFilterViewReq, options ...MethodOptionFunc) (*UpdateSheetFilterViewResp, *Response, error) {
 	if r.cli.mock.mockDriveUpdateSheetFilterView != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Drive#UpdateSheetFilterView mock enable")

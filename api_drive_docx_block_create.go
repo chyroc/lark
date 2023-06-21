@@ -33,6 +33,7 @@ import (
 // 当请求被限频, 应用需要处理限频状态码, 并使用指数退避算法或其它一些频控策略降低对 API 的调用速率。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/document-docx/docx-v1/document-block-children/create
+// new doc: https://open.feishu.cn/document/server-docs/docs/docs/docx-v1/document-block/create
 func (r *DriveService) CreateDocxBlock(ctx context.Context, request *CreateDocxBlockReq, options ...MethodOptionFunc) (*CreateDocxBlockResp, *Response, error) {
 	if r.cli.mock.mockDriveCreateDocxBlock != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Drive#CreateDocxBlock mock enable")

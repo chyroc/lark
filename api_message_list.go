@@ -28,6 +28,7 @@ import (
 // - 获取消息时, 机器人必须在群组中
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/list
+// new doc: https://open.feishu.cn/document/server-docs/im-v1/message/list
 func (r *MessageService) GetMessageList(ctx context.Context, request *GetMessageListReq, options ...MethodOptionFunc) (*GetMessageListResp, *Response, error) {
 	if r.cli.mock.mockMessageGetMessageList != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Message#GetMessageList mock enable")

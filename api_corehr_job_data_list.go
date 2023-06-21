@@ -24,6 +24,7 @@ import (
 // GetCoreHrJobDataList 批量查询人员的任职信息。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job_data/list
+// new doc: https://open.feishu.cn/document/server-docs/corehr-v1/employee/job_data/list
 func (r *CoreHrService) GetCoreHrJobDataList(ctx context.Context, request *GetCoreHrJobDataListReq, options ...MethodOptionFunc) (*GetCoreHrJobDataListResp, *Response, error) {
 	if r.cli.mock.mockCoreHrGetCoreHrJobDataList != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] CoreHr#GetCoreHrJobDataList mock enable")

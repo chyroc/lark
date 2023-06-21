@@ -29,6 +29,7 @@ import (
 // - 给消息添加reaction, 需要reaction的发送方（机器人或者用户）在消息所在的会话内
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message-reaction/create
+// new doc: https://open.feishu.cn/document/server-docs/im-v1/message-reaction/create
 func (r *MessageService) CreateMessageReaction(ctx context.Context, request *CreateMessageReactionReq, options ...MethodOptionFunc) (*CreateMessageReactionResp, *Response, error) {
 	if r.cli.mock.mockMessageCreateMessageReaction != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Message#CreateMessageReaction mock enable")

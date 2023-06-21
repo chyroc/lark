@@ -24,6 +24,7 @@ import (
 // BatchGetVCRoom 该接口可以使用会议室 ID 批量查询会议室详情。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/vc-v1/room/mget
+// new doc: https://open.feishu.cn/document/server-docs/vc-v1/room/mget
 func (r *VCService) BatchGetVCRoom(ctx context.Context, request *BatchGetVCRoomReq, options ...MethodOptionFunc) (*BatchGetVCRoomResp, *Response, error) {
 	if r.cli.mock.mockVCBatchGetVCRoom != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] VC#BatchGetVCRoom mock enable")

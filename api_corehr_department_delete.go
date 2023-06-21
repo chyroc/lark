@@ -24,6 +24,7 @@ import (
 // DeleteCoreHrDepartment 删除部门
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/department/delete
+// new doc: https://open.feishu.cn/document/server-docs/corehr-v1/organization-management/department/delete
 func (r *CoreHrService) DeleteCoreHrDepartment(ctx context.Context, request *DeleteCoreHrDepartmentReq, options ...MethodOptionFunc) (*DeleteCoreHrDepartmentResp, *Response, error) {
 	if r.cli.mock.mockCoreHrDeleteCoreHrDepartment != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] CoreHr#DeleteCoreHrDepartment mock enable")

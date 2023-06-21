@@ -29,6 +29,7 @@ import (
 // - 操作内部群时, 操作者须与群组在同一租户下
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-tab/list_tabs
+// new doc: https://open.feishu.cn/document/server-docs/group/chat-tab/list_tabs
 func (r *ChatService) GetChatTabList(ctx context.Context, request *GetChatTabListReq, options ...MethodOptionFunc) (*GetChatTabListResp, *Response, error) {
 	if r.cli.mock.mockChatGetChatTabList != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Chat#GetChatTabList mock enable")

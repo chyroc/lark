@@ -24,6 +24,7 @@ import (
 // DeleteContactJobLevel 该接口用于删除职级。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/job_level/delete
+// new doc: https://open.feishu.cn/document/server-docs/contact-v3/job_level/delete
 func (r *ContactService) DeleteContactJobLevel(ctx context.Context, request *DeleteContactJobLevelReq, options ...MethodOptionFunc) (*DeleteContactJobLevelResp, *Response, error) {
 	if r.cli.mock.mockContactDeleteContactJobLevel != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Contact#DeleteContactJobLevel mock enable")

@@ -26,6 +26,7 @@ import (
 // 请求体中的member_type, 目前仅支持user, 未来将支持department。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/group-member/batch_remove
+// new doc: https://open.feishu.cn/document/server-docs/contact-v3/group-member/batch_remove
 func (r *ContactService) BatchDeleteContactGroupMember(ctx context.Context, request *BatchDeleteContactGroupMemberReq, options ...MethodOptionFunc) (*BatchDeleteContactGroupMemberResp, *Response, error) {
 	if r.cli.mock.mockContactBatchDeleteContactGroupMember != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Contact#BatchDeleteContactGroupMember mock enable")

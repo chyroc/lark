@@ -24,6 +24,7 @@ import (
 // ApproveApprovalInstance 对于单个审批任务进行同意操作。同意后审批流程会流转到下一个审批人。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/task/approve
+// new doc: https://open.feishu.cn/document/server-docs/approval-v4/task/approve
 func (r *ApprovalService) ApproveApprovalInstance(ctx context.Context, request *ApproveApprovalInstanceReq, options ...MethodOptionFunc) (*ApproveApprovalInstanceResp, *Response, error) {
 	if r.cli.mock.mockApprovalApproveApprovalInstance != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Approval#ApproveApprovalInstance mock enable")

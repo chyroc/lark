@@ -24,6 +24,7 @@ import (
 // PreviewApprovalInstance 提交审批前, 预览审批流程。或者发起审批后, 在某一审批节点预览后续流程。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/ukTM5UjL5ETO14SOxkTN/approval-preview
+// new doc: https://open.feishu.cn/document/server-docs/approval-v4/instance/approval-preview
 func (r *ApprovalService) PreviewApprovalInstance(ctx context.Context, request *PreviewApprovalInstanceReq, options ...MethodOptionFunc) (*PreviewApprovalInstanceResp, *Response, error) {
 	if r.cli.mock.mockApprovalPreviewApprovalInstance != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Approval#PreviewApprovalInstance mock enable")

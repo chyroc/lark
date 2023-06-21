@@ -24,6 +24,7 @@ import (
 // CheckDriveMemberPermission 该接口用于根据 filetoken 判断当前登录用户是否具有某权限。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/permission-member/auth
+// new doc: https://open.feishu.cn/document/server-docs/docs/permission/permission-member/auth
 func (r *DriveService) CheckDriveMemberPermission(ctx context.Context, request *CheckDriveMemberPermissionReq, options ...MethodOptionFunc) (*CheckDriveMemberPermissionResp, *Response, error) {
 	if r.cli.mock.mockDriveCheckDriveMemberPermission != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Drive#CheckDriveMemberPermission mock enable")

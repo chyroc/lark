@@ -24,6 +24,7 @@ import (
 // ListVCMeetingByNo 获取指定时间范围（90天内)会议号关联的会议简要信息列表。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/vc-v1/meeting/list_by_no
+// new doc: https://open.feishu.cn/document/server-docs/vc-v1/meeting/list_by_no
 func (r *VCService) ListVCMeetingByNo(ctx context.Context, request *ListVCMeetingByNoReq, options ...MethodOptionFunc) (*ListVCMeetingByNoResp, *Response, error) {
 	if r.cli.mock.mockVCListVCMeetingByNo != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] VC#ListVCMeetingByNo mock enable")

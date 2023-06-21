@@ -24,6 +24,7 @@ import (
 // GetCoreHrTransferTypeList 获取异动类型列表。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/transfer_type/query
+// new doc: https://open.feishu.cn/document/server-docs/corehr-v1/job_change/query
 func (r *CoreHrService) GetCoreHrTransferTypeList(ctx context.Context, request *GetCoreHrTransferTypeListReq, options ...MethodOptionFunc) (*GetCoreHrTransferTypeListResp, *Response, error) {
 	if r.cli.mock.mockCoreHrGetCoreHrTransferTypeList != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] CoreHr#GetCoreHrTransferTypeList mock enable")

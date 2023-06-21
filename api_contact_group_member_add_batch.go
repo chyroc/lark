@@ -26,6 +26,7 @@ import (
 // 请求体中的member_type, 目前仅支持user, 未来将支持department。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/group-member/batch_add
+// new doc: https://open.feishu.cn/document/server-docs/contact-v3/group-member/batch_add
 func (r *ContactService) BatchAddContactGroupMember(ctx context.Context, request *BatchAddContactGroupMemberReq, options ...MethodOptionFunc) (*BatchAddContactGroupMemberResp, *Response, error) {
 	if r.cli.mock.mockContactBatchAddContactGroupMember != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Contact#BatchAddContactGroupMember mock enable")

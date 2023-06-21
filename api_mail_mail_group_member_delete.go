@@ -24,6 +24,7 @@ import (
 // DeleteMailGroupMember 删除邮件组单个成员。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/mail-v1/mailgroup-member/delete
+// new doc: https://open.feishu.cn/document/server-docs/mail-v1/mail-group/mailgroup-member/delete
 func (r *MailService) DeleteMailGroupMember(ctx context.Context, request *DeleteMailGroupMemberReq, options ...MethodOptionFunc) (*DeleteMailGroupMemberResp, *Response, error) {
 	if r.cli.mock.mockMailDeleteMailGroupMember != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Mail#DeleteMailGroupMember mock enable")

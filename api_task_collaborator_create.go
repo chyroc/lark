@@ -26,6 +26,7 @@ import (
 // 只有任务的创建者和执行者才能添加执行者, 关注人无权限添加。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/task-v1/task-collaborator/create
+// new doc: https://open.feishu.cn/document/server-docs/task-v1/task-collaborator/create
 func (r *TaskService) CreateTaskCollaborator(ctx context.Context, request *CreateTaskCollaboratorReq, options ...MethodOptionFunc) (*CreateTaskCollaboratorResp, *Response, error) {
 	if r.cli.mock.mockTaskCreateTaskCollaborator != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Task#CreateTaskCollaborator mock enable")

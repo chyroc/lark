@@ -25,6 +25,7 @@ import (
 // DownloadBaikeImage 通过 file_token 下载原图片。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/baike-v1/file/download
+// new doc: https://open.feishu.cn/document/server-docs/baike-v1/file/download
 func (r *BaikeService) DownloadBaikeImage(ctx context.Context, request *DownloadBaikeImageReq, options ...MethodOptionFunc) (*DownloadBaikeImageResp, *Response, error) {
 	if r.cli.mock.mockBaikeDownloadBaikeImage != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Baike#DownloadBaikeImage mock enable")

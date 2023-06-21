@@ -24,6 +24,7 @@ import (
 // GetContactUnit 该接口用于获取单位信息。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/unit/get
+// new doc: https://open.feishu.cn/document/server-docs/contact-v3/unit/get
 func (r *ContactService) GetContactUnit(ctx context.Context, request *GetContactUnitReq, options ...MethodOptionFunc) (*GetContactUnitResp, *Response, error) {
 	if r.cli.mock.mockContactGetContactUnit != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Contact#GetContactUnit mock enable")

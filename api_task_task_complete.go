@@ -26,6 +26,7 @@ import (
 // 完成任务是指整个任务全部完成, 而不支持执行者分别完成任务, 执行成功后, 任务对所有关联用户都变为完成状态。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/task-v1/task/complete
+// new doc: https://open.feishu.cn/document/server-docs/task-v1/task/complete
 func (r *TaskService) CompleteTask(ctx context.Context, request *CompleteTaskReq, options ...MethodOptionFunc) (*CompleteTaskResp, *Response, error) {
 	if r.cli.mock.mockTaskCompleteTask != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Task#CompleteTask mock enable")

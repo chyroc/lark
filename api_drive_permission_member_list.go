@@ -27,6 +27,7 @@ import (
 // - 目前仅支持人、群、组织架构三种类型的协作者
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/permission-member/list
+// new doc: https://open.feishu.cn/document/server-docs/docs/permission/permission-member/list
 func (r *DriveService) GetDriveMemberPermissionList(ctx context.Context, request *GetDriveMemberPermissionListReq, options ...MethodOptionFunc) (*GetDriveMemberPermissionListResp, *Response, error) {
 	if r.cli.mock.mockDriveGetDriveMemberPermissionList != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Drive#GetDriveMemberPermissionList mock enable")

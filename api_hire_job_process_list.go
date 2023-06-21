@@ -24,6 +24,7 @@ import (
 // GetHireJobProcessList 获取全部招聘流程信息。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/job_process/list
+// new doc: https://open.feishu.cn/document/server-docs/hire-v1/recruitment-related-configuration/job_process/list
 func (r *HireService) GetHireJobProcessList(ctx context.Context, request *GetHireJobProcessListReq, options ...MethodOptionFunc) (*GetHireJobProcessListResp, *Response, error) {
 	if r.cli.mock.mockHireGetHireJobProcessList != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Hire#GetHireJobProcessList mock enable")

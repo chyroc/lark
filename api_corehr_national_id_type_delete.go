@@ -24,6 +24,7 @@ import (
 // DeleteCoreHrNationalIDType 删除国家证件类型。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/national_id_type/delete
+// new doc: https://open.feishu.cn/document/server-docs/corehr-v1/basic-infomation/national_id_type/delete
 func (r *CoreHrService) DeleteCoreHrNationalIDType(ctx context.Context, request *DeleteCoreHrNationalIDTypeReq, options ...MethodOptionFunc) (*DeleteCoreHrNationalIDTypeResp, *Response, error) {
 	if r.cli.mock.mockCoreHrDeleteCoreHrNationalIDType != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] CoreHr#DeleteCoreHrNationalIDType mock enable")

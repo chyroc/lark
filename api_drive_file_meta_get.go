@@ -24,6 +24,7 @@ import (
 // GetDriveFileMeta 该接口用于根据 token 获取各类文件的元数据
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/meta/batch_query
+// new doc: https://open.feishu.cn/document/server-docs/docs/drive-v1/file/batch_query
 func (r *DriveService) GetDriveFileMeta(ctx context.Context, request *GetDriveFileMetaReq, options ...MethodOptionFunc) (*GetDriveFileMetaResp, *Response, error) {
 	if r.cli.mock.mockDriveGetDriveFileMeta != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Drive#GetDriveFileMeta mock enable")

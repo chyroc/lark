@@ -24,6 +24,7 @@ import (
 // UpdateCoreHrNationalIDType 更新国家证件类型。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/national_id_type/patch
+// new doc: https://open.feishu.cn/document/server-docs/corehr-v1/basic-infomation/national_id_type/patch
 func (r *CoreHrService) UpdateCoreHrNationalIDType(ctx context.Context, request *UpdateCoreHrNationalIDTypeReq, options ...MethodOptionFunc) (*UpdateCoreHrNationalIDTypeResp, *Response, error) {
 	if r.cli.mock.mockCoreHrUpdateCoreHrNationalIDType != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] CoreHr#UpdateCoreHrNationalIDType mock enable")

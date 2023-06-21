@@ -24,6 +24,7 @@ import (
 // GetDriveComment 获取云文档中的某条全文评论, 暂时不支持局部评论
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file-comment/get
+// new doc: https://open.feishu.cn/document/server-docs/docs/CommentAPI/get
 func (r *DriveService) GetDriveComment(ctx context.Context, request *GetDriveCommentReq, options ...MethodOptionFunc) (*GetDriveCommentResp, *Response, error) {
 	if r.cli.mock.mockDriveGetDriveComment != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Drive#GetDriveComment mock enable")

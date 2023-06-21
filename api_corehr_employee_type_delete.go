@@ -24,6 +24,7 @@ import (
 // DeleteCoreHrEmployeeType 删除人员类型。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/employee_type/delete
+// new doc: https://open.feishu.cn/document/server-docs/corehr-v1/basic-infomation/employee_type/delete
 func (r *CoreHrService) DeleteCoreHrEmployeeType(ctx context.Context, request *DeleteCoreHrEmployeeTypeReq, options ...MethodOptionFunc) (*DeleteCoreHrEmployeeTypeResp, *Response, error) {
 	if r.cli.mock.mockCoreHrDeleteCoreHrEmployeeType != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] CoreHr#DeleteCoreHrEmployeeType mock enable")

@@ -24,6 +24,7 @@ import (
 // CreateHireExternalBackgroundCheck 导入来自其他系统的背调信息, 创建为外部背调。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/external_background_check/create
+// new doc: https://open.feishu.cn/document/server-docs/hire-v1/get-candidates/import-external-system-information/create-2
 func (r *HireService) CreateHireExternalBackgroundCheck(ctx context.Context, request *CreateHireExternalBackgroundCheckReq, options ...MethodOptionFunc) (*CreateHireExternalBackgroundCheckResp, *Response, error) {
 	if r.cli.mock.mockHireCreateHireExternalBackgroundCheck != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Hire#CreateHireExternalBackgroundCheck mock enable")

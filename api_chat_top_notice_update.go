@@ -29,6 +29,7 @@ import (
 // - 更新内部群置顶时, 操作者须与群组在同一租户下
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-top_notice/put_top_notice
+// new doc: https://open.feishu.cn/document/server-docs/group/chat/put_top_notice
 func (r *ChatService) UpdateChatTopNotice(ctx context.Context, request *UpdateChatTopNoticeReq, options ...MethodOptionFunc) (*UpdateChatTopNoticeResp, *Response, error) {
 	if r.cli.mock.mockChatUpdateChatTopNotice != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Chat#UpdateChatTopNotice mock enable")

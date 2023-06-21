@@ -29,6 +29,7 @@ import (
 // - 当前身份对日历不具有 owner 权限时, 仅可修改对自己生效的字段: color, summary_alias。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar/patch
+// new doc: https://open.feishu.cn/document/server-docs/calendar-v4/calendar/patch
 func (r *CalendarService) UpdateCalendar(ctx context.Context, request *UpdateCalendarReq, options ...MethodOptionFunc) (*UpdateCalendarResp, *Response, error) {
 	if r.cli.mock.mockCalendarUpdateCalendar != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Calendar#UpdateCalendar mock enable")

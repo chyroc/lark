@@ -24,6 +24,7 @@ import (
 // GetApprovalUserTaskList 根据用户和任务分组查询任务列表。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/task/query
+// new doc: https://open.feishu.cn/document/server-docs/approval-v4/approval-search/query
 func (r *ApprovalService) GetApprovalUserTaskList(ctx context.Context, request *GetApprovalUserTaskListReq, options ...MethodOptionFunc) (*GetApprovalUserTaskListResp, *Response, error) {
 	if r.cli.mock.mockApprovalGetApprovalUserTaskList != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Approval#GetApprovalUserTaskList mock enable")

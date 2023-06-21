@@ -28,6 +28,7 @@ import (
 // - 每个租户最多创建10个系统状态。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/personal_settings-v1/system_status/create
+// new doc: https://open.feishu.cn/document/server-docs/personal_settings-v1/system_status/create
 func (r *PersonalSettingsService) CreatePersonalSettingsSystemStatus(ctx context.Context, request *CreatePersonalSettingsSystemStatusReq, options ...MethodOptionFunc) (*CreatePersonalSettingsSystemStatusResp, *Response, error) {
 	if r.cli.mock.mockPersonalSettingsCreatePersonalSettingsSystemStatus != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] PersonalSettings#CreatePersonalSettingsSystemStatus mock enable")

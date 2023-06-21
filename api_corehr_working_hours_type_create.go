@@ -24,6 +24,7 @@ import (
 // CreateCoreHrWorkingHoursType 创建工时制度。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/working_hours_type/create
+// new doc: https://open.feishu.cn/document/server-docs/corehr-v1/basic-infomation/working_hours_type/create
 func (r *CoreHrService) CreateCoreHrWorkingHoursType(ctx context.Context, request *CreateCoreHrWorkingHoursTypeReq, options ...MethodOptionFunc) (*CreateCoreHrWorkingHoursTypeResp, *Response, error) {
 	if r.cli.mock.mockCoreHrCreateCoreHrWorkingHoursType != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] CoreHr#CreateCoreHrWorkingHoursType mock enable")

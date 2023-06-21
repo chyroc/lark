@@ -30,6 +30,7 @@ import (
 // - 一次调用涉及大量消息, 所以为异步接口, 会有一定延迟。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/batch_message/delete
+// new doc: https://open.feishu.cn/document/server-docs/im-v1/batch_message/delete
 func (r *MessageService) BatchDeleteMessage(ctx context.Context, request *BatchDeleteMessageReq, options ...MethodOptionFunc) (*BatchDeleteMessageResp, *Response, error) {
 	if r.cli.mock.mockMessageBatchDeleteMessage != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Message#BatchDeleteMessage mock enable")

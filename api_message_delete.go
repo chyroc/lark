@@ -30,6 +30,7 @@ import (
 // - 无法撤回通过「[批量发送消息](https://open.feishu.cn/document/ukTMukTMukTM/ucDO1EjL3gTNx4yN4UTM)」接口发送的消息
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/delete
+// new doc: https://open.feishu.cn/document/server-docs/im-v1/message/delete
 func (r *MessageService) DeleteMessage(ctx context.Context, request *DeleteMessageReq, options ...MethodOptionFunc) (*DeleteMessageResp, *Response, error) {
 	if r.cli.mock.mockMessageDeleteMessage != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Message#DeleteMessage mock enable")

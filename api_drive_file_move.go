@@ -24,6 +24,7 @@ import (
 // MoveDriveFile 将文件或者文件夹移动到用户云空间的其他位置。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file/move
+// new doc: https://open.feishu.cn/document/server-docs/docs/drive-v1/file/move
 func (r *DriveService) MoveDriveFile(ctx context.Context, request *MoveDriveFileReq, options ...MethodOptionFunc) (*MoveDriveFileResp, *Response, error) {
 	if r.cli.mock.mockDriveMoveDriveFile != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Drive#MoveDriveFile mock enable")

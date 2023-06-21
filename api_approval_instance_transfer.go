@@ -24,6 +24,7 @@ import (
 // TransferApprovalInstance 对于单个审批任务进行转交操作。转交后审批流程流转给被转交人。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/task/transfer
+// new doc: https://open.feishu.cn/document/server-docs/approval-v4/task/transfer
 func (r *ApprovalService) TransferApprovalInstance(ctx context.Context, request *TransferApprovalInstanceReq, options ...MethodOptionFunc) (*TransferApprovalInstanceResp, *Response, error) {
 	if r.cli.mock.mockApprovalTransferApprovalInstance != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Approval#TransferApprovalInstance mock enable")

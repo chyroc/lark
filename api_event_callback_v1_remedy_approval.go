@@ -27,6 +27,7 @@ import (
 // * 依赖权限: [访问审批应用] 或 [查看、创建、更新、删除审批应用相关信息]
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uIDO24iM4YjLygjN/event/attendance-record-correction
+// new doc: https://open.feishu.cn/document/server-docs/approval-v4/event/special-event/attendance-record-correction
 func (r *EventCallbackService) HandlerEventV1RemedyApproval(f EventV1RemedyApprovalHandler) {
 	r.cli.eventHandler.eventV1RemedyApprovalHandler = f
 }

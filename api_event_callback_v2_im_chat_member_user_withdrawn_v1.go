@@ -29,6 +29,7 @@ import (
 // - 事件会向群内订阅了该事件的机器人进行推送
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-member-user/events/withdrawn
+// new doc: https://open.feishu.cn/document/server-docs/group/chat-member/event/withdrawn
 func (r *EventCallbackService) HandlerEventV2IMChatMemberUserWithdrawnV1(f EventV2IMChatMemberUserWithdrawnV1Handler) {
 	r.cli.eventHandler.eventV2IMChatMemberUserWithdrawnV1Handler = f
 }

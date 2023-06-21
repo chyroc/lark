@@ -24,6 +24,7 @@ import (
 // BatchDeletePublicMailboxMember 一次请求可以删除一个公共邮箱中的多个成员。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/mail-v1/public_mailbox-member/batch_delete
+// new doc: https://open.feishu.cn/document/server-docs/mail-v1/public-mailbox/public_mailbox-member/batch_delete
 func (r *MailService) BatchDeletePublicMailboxMember(ctx context.Context, request *BatchDeletePublicMailboxMemberReq, options ...MethodOptionFunc) (*BatchDeletePublicMailboxMemberResp, *Response, error) {
 	if r.cli.mock.mockMailBatchDeletePublicMailboxMember != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Mail#BatchDeletePublicMailboxMember mock enable")

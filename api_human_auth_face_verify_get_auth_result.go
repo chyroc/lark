@@ -27,6 +27,7 @@ import (
 // 无源人脸比对接入需申请白名单, 接入前请联系飞书开放平台工作人员, 邮箱: open-platform@bytedance.com。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/human_authentication-v1/face/query-recognition-result
+// new doc: https://open.feishu.cn/document/server-docs/human_authentication-v1/query-recognition-result
 func (r *HumanAuthService) GetFaceVerifyAuthResult(ctx context.Context, request *GetFaceVerifyAuthResultReq, options ...MethodOptionFunc) (*GetFaceVerifyAuthResultResp, *Response, error) {
 	if r.cli.mock.mockHumanAuthGetFaceVerifyAuthResult != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] HumanAuth#GetFaceVerifyAuthResult mock enable")

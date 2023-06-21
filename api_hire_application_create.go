@@ -24,6 +24,7 @@ import (
 // CreateHireApplication 根据人才 ID 和职位 ID 创建投递。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/application/create
+// new doc: https://open.feishu.cn/document/server-docs/hire-v1/candidate-management/delivery-process-management/application/create
 func (r *HireService) CreateHireApplication(ctx context.Context, request *CreateHireApplicationReq, options ...MethodOptionFunc) (*CreateHireApplicationResp, *Response, error) {
 	if r.cli.mock.mockHireCreateHireApplication != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Hire#CreateHireApplication mock enable")

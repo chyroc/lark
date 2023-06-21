@@ -29,6 +29,7 @@ import (
 // - 文件大小不得超过30M, 且不允许上传空文件
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/file/create
+// new doc: https://open.feishu.cn/document/server-docs/im-v1/file/create
 func (r *FileService) UploadFile(ctx context.Context, request *UploadFileReq, options ...MethodOptionFunc) (*UploadFileResp, *Response, error) {
 	if r.cli.mock.mockFileUploadFile != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] File#UploadFile mock enable")

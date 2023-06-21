@@ -28,6 +28,7 @@ import (
 // 使用user_access_token时, 该接口只返回对于用户可见的父部门信息。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/parent
+// new doc: https://open.feishu.cn/document/server-docs/contact-v3/department/parent
 func (r *ContactService) GetParentDepartment(ctx context.Context, request *GetParentDepartmentReq, options ...MethodOptionFunc) (*GetParentDepartmentResp, *Response, error) {
 	if r.cli.mock.mockContactGetParentDepartment != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Contact#GetParentDepartment mock enable")

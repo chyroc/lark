@@ -24,6 +24,7 @@ import (
 // GetHelpdeskTicketList 该接口用于获取全部工单详情。仅支持自建应用。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/ticket/list
+// new doc: https://open.feishu.cn/document/server-docs/helpdesk-v1/ticket-management/ticket/list
 func (r *HelpdeskService) GetHelpdeskTicketList(ctx context.Context, request *GetHelpdeskTicketListReq, options ...MethodOptionFunc) (*GetHelpdeskTicketListResp, *Response, error) {
 	if r.cli.mock.mockHelpdeskGetHelpdeskTicketList != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Helpdesk#GetHelpdeskTicketList mock enable")

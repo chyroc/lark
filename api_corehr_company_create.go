@@ -24,6 +24,7 @@ import (
 // CreateCoreHrCompany 创建公司。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/company/create
+// new doc: https://open.feishu.cn/document/server-docs/corehr-v1/organization-management/company/create
 func (r *CoreHrService) CreateCoreHrCompany(ctx context.Context, request *CreateCoreHrCompanyReq, options ...MethodOptionFunc) (*CreateCoreHrCompanyResp, *Response, error) {
 	if r.cli.mock.mockCoreHrCreateCoreHrCompany != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] CoreHr#CreateCoreHrCompany mock enable")

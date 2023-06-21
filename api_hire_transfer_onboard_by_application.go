@@ -24,6 +24,7 @@ import (
 // MakeHireTransferOnboardByApplication 根据投递 ID 操作候选人入职并创建员工。投递须处于「待入职」阶段, 可通过「转移阶段」接口变更投递状态。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/application/transfer_onboard
+// new doc: https://open.feishu.cn/document/server-docs/hire-v1/candidate-management/delivery-process-management/onboard/transfer_onboard
 func (r *HireService) MakeHireTransferOnboardByApplication(ctx context.Context, request *MakeHireTransferOnboardByApplicationReq, options ...MethodOptionFunc) (*MakeHireTransferOnboardByApplicationResp, *Response, error) {
 	if r.cli.mock.mockHireMakeHireTransferOnboardByApplication != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Hire#MakeHireTransferOnboardByApplication mock enable")

@@ -26,6 +26,7 @@ import (
 // 临时卡片消息可以通过该接口进行显式删除, 临时卡片消息删除后将不会在该设备上留下任何痕迹。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uITOyYjLykjM24iM5IjN
+// new doc: https://open.feishu.cn/document/server-docs/im-v1/message-card/delete-message-cards-that-are-only-visible-to-certain-people
 func (r *MessageService) DeleteEphemeralMessage(ctx context.Context, request *DeleteEphemeralMessageReq, options ...MethodOptionFunc) (*DeleteEphemeralMessageResp, *Response, error) {
 	if r.cli.mock.mockMessageDeleteEphemeralMessage != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Message#DeleteEphemeralMessage mock enable")

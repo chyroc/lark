@@ -24,6 +24,7 @@ import (
 // GetSheet 该接口用于通过工作表ID查询工作表属性信息。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/sheets-v3/spreadsheet-sheet/get
+// new doc: https://open.feishu.cn/document/server-docs/docs/sheets-v3/spreadsheet-sheet/get
 func (r *DriveService) GetSheet(ctx context.Context, request *GetSheetReq, options ...MethodOptionFunc) (*GetSheetResp, *Response, error) {
 	if r.cli.mock.mockDriveGetSheet != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Drive#GetSheet mock enable")

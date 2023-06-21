@@ -24,6 +24,7 @@ import (
 // EventV2CorehrEmploymentUpdatedV1 员工在飞书人事的「雇佣信息被更新」时将触发此事件, 雇佣信息的创建和删除不会触发该事件{使用示例}(url=/api/tools/api_explore/api_explore_config?project=corehr&version=v1&resource=employment&event=updated)
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/employment/events/updated
+// new doc: https://open.feishu.cn/document/server-docs/corehr-v1/employee/employment/updated
 func (r *EventCallbackService) HandlerEventV2CorehrEmploymentUpdatedV1(f EventV2CorehrEmploymentUpdatedV1Handler) {
 	r.cli.eventHandler.eventV2CorehrEmploymentUpdatedV1Handler = f
 }

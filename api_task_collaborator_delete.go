@@ -24,6 +24,7 @@ import (
 // DeleteTaskCollaborator 该接口用于删除任务执行者。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/task-v1/task-collaborator/delete
+// new doc: https://open.feishu.cn/document/server-docs/task-v1/task-collaborator/delete
 func (r *TaskService) DeleteTaskCollaborator(ctx context.Context, request *DeleteTaskCollaboratorReq, options ...MethodOptionFunc) (*DeleteTaskCollaboratorResp, *Response, error) {
 	if r.cli.mock.mockTaskDeleteTaskCollaborator != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Task#DeleteTaskCollaborator mock enable")

@@ -24,6 +24,7 @@ import (
 // DeleteMailPublicMailboxAlias 删除公共邮箱别名。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/mail-v1/public_mailbox-alias/delete
+// new doc: https://open.feishu.cn/document/server-docs/mail-v1/public-mailbox/public_mailbox-alias/delete
 func (r *MailService) DeleteMailPublicMailboxAlias(ctx context.Context, request *DeleteMailPublicMailboxAliasReq, options ...MethodOptionFunc) (*DeleteMailPublicMailboxAliasResp, *Response, error) {
 	if r.cli.mock.mockMailDeleteMailPublicMailboxAlias != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Mail#DeleteMailPublicMailboxAlias mock enable")

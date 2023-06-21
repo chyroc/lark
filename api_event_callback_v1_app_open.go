@@ -29,6 +29,7 @@ import (
 // 只有应用商店应用才能订阅此事件。自建应用无此事件。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/application-v6/event/app-first-enabled
+// new doc: https://open.feishu.cn/document/server-docs/application-v6/event/app-first-enabled
 func (r *EventCallbackService) HandlerEventV1AppOpen(f EventV1AppOpenHandler) {
 	r.cli.eventHandler.eventV1AppOpenHandler = f
 }

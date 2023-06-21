@@ -24,6 +24,7 @@ import (
 // SearchHelpdeskFAQ 该接口用于搜索服务台知识库。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/faq/search
+// new doc: https://open.feishu.cn/document/server-docs/helpdesk-v1/faq-management/faq/search
 func (r *HelpdeskService) SearchHelpdeskFAQ(ctx context.Context, request *SearchHelpdeskFAQReq, options ...MethodOptionFunc) (*SearchHelpdeskFAQResp, *Response, error) {
 	if r.cli.mock.mockHelpdeskSearchHelpdeskFAQ != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Helpdesk#SearchHelpdeskFAQ mock enable")

@@ -26,6 +26,7 @@ import (
 // 此接口目前仅支持文档(doc)、新版文档(docx)和快捷方式。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/wiki-v2/space-node/update_title
+// new doc: https://open.feishu.cn/document/server-docs/docs/wiki-v2/space-node/update_title
 func (r *DriveService) UpdateWikiNodeTitle(ctx context.Context, request *UpdateWikiNodeTitleReq, options ...MethodOptionFunc) (*UpdateWikiNodeTitleResp, *Response, error) {
 	if r.cli.mock.mockDriveUpdateWikiNodeTitle != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Drive#UpdateWikiNodeTitle mock enable")

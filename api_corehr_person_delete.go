@@ -24,6 +24,7 @@ import (
 // DeleteCoreHrPerson 删除人员的个人信息。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/person/delete
+// new doc: https://open.feishu.cn/document/server-docs/corehr-v1/employee/person/delete
 func (r *CoreHrService) DeleteCoreHrPerson(ctx context.Context, request *DeleteCoreHrPersonReq, options ...MethodOptionFunc) (*DeleteCoreHrPersonResp, *Response, error) {
 	if r.cli.mock.mockCoreHrDeleteCoreHrPerson != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] CoreHr#DeleteCoreHrPerson mock enable")

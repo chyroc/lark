@@ -24,6 +24,7 @@ import (
 // UploadCoreHrPersonFile 上传文件。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/person/upload
+// new doc: https://open.feishu.cn/document/server-docs/corehr-v1/employee/person/upload
 func (r *CoreHrService) UploadCoreHrPersonFile(ctx context.Context, request *UploadCoreHrPersonFileReq, options ...MethodOptionFunc) (*UploadCoreHrPersonFileResp, *Response, error) {
 	if r.cli.mock.mockCoreHrUploadCoreHrPersonFile != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] CoreHr#UploadCoreHrPersonFile mock enable")

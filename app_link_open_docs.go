@@ -26,6 +26,7 @@ import (
 // 打开云文档（docs）。使用外部浏览器打开文档时，提供入口从飞书中打开。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/uYjL24iN/applink-protocol/supported-protocol/open-docs
+// new doc: https://open.feishu.cn/document/common-capabilities/applink-protocol/supported-protocol/open-docs
 func (r *AppLinkService) OpenDocs(req *OpenDocsReq) string {
 	return internal.JoinAppLinkURL("https://applink.feishu.cn/client/docs/open", req)
 }

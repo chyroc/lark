@@ -24,6 +24,7 @@ import (
 // GetApplicationAppAdminUserList 查询审核应用的管理员列表, 返回最新10个管理员账户id列表。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/ucDOwYjL3gDM24yN4AjN
+// new doc: https://open.feishu.cn/document/server-docs/application-v6/admin/query-app-administrator-list
 func (r *ApplicationService) GetApplicationAppAdminUserList(ctx context.Context, request *GetApplicationAppAdminUserListReq, options ...MethodOptionFunc) (*GetApplicationAppAdminUserListResp, *Response, error) {
 	if r.cli.mock.mockApplicationGetApplicationAppAdminUserList != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Application#GetApplicationAppAdminUserList mock enable")

@@ -24,6 +24,7 @@ import (
 // GetCoreHrEmployeeTypeList 批量查询人员类型。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/employee_type/list
+// new doc: https://open.feishu.cn/document/server-docs/corehr-v1/basic-infomation/employee_type/list
 func (r *CoreHrService) GetCoreHrEmployeeTypeList(ctx context.Context, request *GetCoreHrEmployeeTypeListReq, options ...MethodOptionFunc) (*GetCoreHrEmployeeTypeListResp, *Response, error) {
 	if r.cli.mock.mockCoreHrGetCoreHrEmployeeTypeList != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] CoreHr#GetCoreHrEmployeeTypeList mock enable")

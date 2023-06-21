@@ -26,6 +26,7 @@ import (
 // 请假的假期时长字段, 暂未开放提供, 待后续提供。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/user_approval/query
+// new doc: https://open.feishu.cn/document/server-docs/attendance-v1/user_approval/query
 func (r *AttendanceService) GetAttendanceUserApproval(ctx context.Context, request *GetAttendanceUserApprovalReq, options ...MethodOptionFunc) (*GetAttendanceUserApprovalResp, *Response, error) {
 	if r.cli.mock.mockAttendanceGetAttendanceUserApproval != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Attendance#GetAttendanceUserApproval mock enable")

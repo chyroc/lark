@@ -24,6 +24,7 @@ import (
 // CreateAdminBadge 使用该接口可以创建一枚完整的勋章信息, 一个租户下最多可创建1000枚勋章。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/admin-v1/badge/create
+// new doc: https://open.feishu.cn/document/server-docs/admin-v1/badge/badge/create-2
 func (r *AdminService) CreateAdminBadge(ctx context.Context, request *CreateAdminBadgeReq, options ...MethodOptionFunc) (*CreateAdminBadgeResp, *Response, error) {
 	if r.cli.mock.mockAdminCreateAdminBadge != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Admin#CreateAdminBadge mock enable")

@@ -24,6 +24,7 @@ import (
 // FindSheet 在指定范围内查找符合查找条件的单元格。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/sheets-v3/spreadsheet-sheet/find
+// new doc: https://open.feishu.cn/document/server-docs/docs/sheets-v3/data-operation/find
 func (r *DriveService) FindSheet(ctx context.Context, request *FindSheetReq, options ...MethodOptionFunc) (*FindSheetResp, *Response, error) {
 	if r.cli.mock.mockDriveFindSheet != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Drive#FindSheet mock enable")

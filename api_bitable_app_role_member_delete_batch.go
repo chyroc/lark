@@ -24,6 +24,7 @@ import (
 // BatchDeleteBitableAppRoleMember 批量删除自定义角色的协作者
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-role-member/batch_delete
+// new doc: https://open.feishu.cn/document/server-docs/docs/bitable-v1/advanced-permission/app-role-member/batch_delete
 func (r *BitableService) BatchDeleteBitableAppRoleMember(ctx context.Context, request *BatchDeleteBitableAppRoleMemberReq, options ...MethodOptionFunc) (*BatchDeleteBitableAppRoleMemberResp, *Response, error) {
 	if r.cli.mock.mockBitableBatchDeleteBitableAppRoleMember != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Bitable#BatchDeleteBitableAppRoleMember mock enable")

@@ -24,6 +24,7 @@ import (
 // GetCoreHrCustomFieldObjectApiNameList 获取「飞书人事」中的对象列表, 含系统预置对象与自定义对象。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/custom_field/list_object_api_name
+// new doc: https://open.feishu.cn/document/server-docs/corehr-v1/basic-infomation/custom_field/list_object_api_name
 func (r *CoreHrService) GetCoreHrCustomFieldObjectApiNameList(ctx context.Context, request *GetCoreHrCustomFieldObjectApiNameListReq, options ...MethodOptionFunc) (*GetCoreHrCustomFieldObjectApiNameListResp, *Response, error) {
 	if r.cli.mock.mockCoreHrGetCoreHrCustomFieldObjectApiNameList != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] CoreHr#GetCoreHrCustomFieldObjectApiNameList mock enable")

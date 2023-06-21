@@ -24,6 +24,7 @@ import (
 // GetTaskFollowerList 该接口用于查询任务关注人列表, 支持分页, 最大值为50。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/task-v1/task-follower/list
+// new doc: https://open.feishu.cn/document/server-docs/task-v1/task-follower/list
 func (r *TaskService) GetTaskFollowerList(ctx context.Context, request *GetTaskFollowerListReq, options ...MethodOptionFunc) (*GetTaskFollowerListResp, *Response, error) {
 	if r.cli.mock.mockTaskGetTaskFollowerList != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Task#GetTaskFollowerList mock enable")

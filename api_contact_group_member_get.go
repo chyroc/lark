@@ -24,6 +24,7 @@ import (
 // GetContactGroupMember 通过该接口可查询某个用户组的成员列表（支持查询成员中的用户和部门）, 本接口支持普通用户组和动态用户组。如果应用的通讯录权限范围是“全部员工”, 则可查询企业内任何用户组的成员列表。如果应用的通讯录权限范围不是“全部员工”, 则仅可查询通讯录权限范围中的用户组的成员列表, [点击了解通讯录权限范围](https://open.feishu.cn/document/ukTMukTMukTM/uETNz4SM1MjLxUzM/v3/guides/scope_authority)。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/group-member/simplelist
+// new doc: https://open.feishu.cn/document/server-docs/contact-v3/group-member/simplelist
 func (r *ContactService) GetContactGroupMember(ctx context.Context, request *GetContactGroupMemberReq, options ...MethodOptionFunc) (*GetContactGroupMemberResp, *Response, error) {
 	if r.cli.mock.mockContactGetContactGroupMember != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Contact#GetContactGroupMember mock enable")

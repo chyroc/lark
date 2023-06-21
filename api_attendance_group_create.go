@@ -27,6 +27,7 @@ import (
 // 出于安全考虑, 目前通过该接口只允许修改自己创建的考勤组。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/group/create
+// new doc: https://open.feishu.cn/document/server-docs/attendance-v1/group/create
 func (r *AttendanceService) CreateAttendanceGroup(ctx context.Context, request *CreateAttendanceGroupReq, options ...MethodOptionFunc) (*CreateAttendanceGroupResp, *Response, error) {
 	if r.cli.mock.mockAttendanceCreateAttendanceGroup != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Attendance#CreateAttendanceGroup mock enable")

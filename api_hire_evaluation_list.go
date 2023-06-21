@@ -24,6 +24,7 @@ import (
 // GetHireEvaluationList 获取简历评估信息。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/evaluation/list
+// new doc: https://open.feishu.cn/document/server-docs/hire-v1/candidate-management/delivery-process-management/evaluation/list
 func (r *HireService) GetHireEvaluationList(ctx context.Context, request *GetHireEvaluationListReq, options ...MethodOptionFunc) (*GetHireEvaluationListResp, *Response, error) {
 	if r.cli.mock.mockHireGetHireEvaluationList != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Hire#GetHireEvaluationList mock enable")

@@ -26,6 +26,7 @@ import (
 // 接口谨慎调用, 创建后的审批定义无法停用/删除
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/approval/create
+// new doc: https://open.feishu.cn/document/server-docs/approval-v4/approval/create
 func (r *ApprovalService) CreateApproval(ctx context.Context, request *CreateApprovalReq, options ...MethodOptionFunc) (*CreateApprovalResp, *Response, error) {
 	if r.cli.mock.mockApprovalCreateApproval != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Approval#CreateApproval mock enable")

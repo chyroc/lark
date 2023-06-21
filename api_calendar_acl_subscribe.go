@@ -26,6 +26,7 @@ import (
 // 用户必须对日历有访问权限。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar-acl/subscription
+// new doc: https://open.feishu.cn/document/server-docs/calendar-v4/calendar-acl/subscription
 func (r *CalendarService) SubscribeCalendarACL(ctx context.Context, request *SubscribeCalendarACLReq, options ...MethodOptionFunc) (*SubscribeCalendarACLResp, *Response, error) {
 	if r.cli.mock.mockCalendarSubscribeCalendarACL != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Calendar#SubscribeCalendarACL mock enable")

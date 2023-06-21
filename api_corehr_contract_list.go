@@ -24,6 +24,7 @@ import (
 // GetCoreHrContractList 批量查询合同。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/contract/list
+// new doc: https://open.feishu.cn/document/server-docs/corehr-v1/contract/list
 func (r *CoreHrService) GetCoreHrContractList(ctx context.Context, request *GetCoreHrContractListReq, options ...MethodOptionFunc) (*GetCoreHrContractListResp, *Response, error) {
 	if r.cli.mock.mockCoreHrGetCoreHrContractList != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] CoreHr#GetCoreHrContractList mock enable")

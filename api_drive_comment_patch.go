@@ -24,6 +24,7 @@ import (
 // UpdateDriveCommentPatch 解决或恢复云文档中的评论。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file-comment/patch
+// new doc: https://open.feishu.cn/document/server-docs/docs/CommentAPI/patch
 func (r *DriveService) UpdateDriveCommentPatch(ctx context.Context, request *UpdateDriveCommentPatchReq, options ...MethodOptionFunc) (*UpdateDriveCommentPatchResp, *Response, error) {
 	if r.cli.mock.mockDriveUpdateDriveCommentPatch != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Drive#UpdateDriveCommentPatch mock enable")

@@ -24,6 +24,7 @@ import (
 // GetContactFunctionalRoleMemberScope 通过本接口可以查询某个成员的管理范围
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/functional_role-member/get
+// new doc: https://open.feishu.cn/document/server-docs/contact-v3/functional_role-member/get
 func (r *ContactService) GetContactFunctionalRoleMemberScope(ctx context.Context, request *GetContactFunctionalRoleMemberScopeReq, options ...MethodOptionFunc) (*GetContactFunctionalRoleMemberScopeResp, *Response, error) {
 	if r.cli.mock.mockContactGetContactFunctionalRoleMemberScope != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Contact#GetContactFunctionalRoleMemberScope mock enable")

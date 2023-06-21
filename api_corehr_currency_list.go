@@ -24,6 +24,7 @@ import (
 // GetCoreHrCurrencyList 批量查询货币信息。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/currency/list
+// new doc: https://open.feishu.cn/document/server-docs/corehr-v1/basic-infomation/currency/list
 func (r *CoreHrService) GetCoreHrCurrencyList(ctx context.Context, request *GetCoreHrCurrencyListReq, options ...MethodOptionFunc) (*GetCoreHrCurrencyListResp, *Response, error) {
 	if r.cli.mock.mockCoreHrGetCoreHrCurrencyList != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] CoreHr#GetCoreHrCurrencyList mock enable")

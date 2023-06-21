@@ -24,6 +24,7 @@ import (
 // UpdateBitableTableForm 该接口用于更新表单中的元数据项
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table-form/patch
+// new doc: https://open.feishu.cn/document/server-docs/docs/bitable-v1/form/patch-2
 func (r *BitableService) UpdateBitableTableForm(ctx context.Context, request *UpdateBitableTableFormReq, options ...MethodOptionFunc) (*UpdateBitableTableFormResp, *Response, error) {
 	if r.cli.mock.mockBitableUpdateBitableTableForm != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Bitable#UpdateBitableTableForm mock enable")

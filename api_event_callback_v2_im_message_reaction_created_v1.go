@@ -29,6 +29,7 @@ import (
 // - 机器人只能收到所在群聊内的消息被添加表情回复事件
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message-reaction/events/created
+// new doc: https://open.feishu.cn/document/server-docs/im-v1/message-reaction/event/created
 func (r *EventCallbackService) HandlerEventV2IMMessageReactionCreatedV1(f EventV2IMMessageReactionCreatedV1Handler) {
 	r.cli.eventHandler.eventV2IMMessageReactionCreatedV1Handler = f
 }

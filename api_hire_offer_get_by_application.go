@@ -24,6 +24,7 @@ import (
 // GetHireOfferByApplication 根据投递 ID 获取 Offer 信息。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/application/offer
+// new doc: https://open.feishu.cn/document/server-docs/hire-v1/candidate-management/delivery-process-management/offer/offer
 func (r *HireService) GetHireOfferByApplication(ctx context.Context, request *GetHireOfferByApplicationReq, options ...MethodOptionFunc) (*GetHireOfferByApplicationResp, *Response, error) {
 	if r.cli.mock.mockHireGetHireOfferByApplication != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Hire#GetHireOfferByApplication mock enable")

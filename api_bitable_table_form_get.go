@@ -24,6 +24,7 @@ import (
 // GetBitableTableForm 获取表单的所有元数据项
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table-form/get
+// new doc: https://open.feishu.cn/document/server-docs/docs/bitable-v1/form/get
 func (r *BitableService) GetBitableTableForm(ctx context.Context, request *GetBitableTableFormReq, options ...MethodOptionFunc) (*GetBitableTableFormResp, *Response, error) {
 	if r.cli.mock.mockBitableGetBitableTableForm != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Bitable#GetBitableTableForm mock enable")

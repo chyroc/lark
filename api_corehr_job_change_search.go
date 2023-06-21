@@ -24,6 +24,7 @@ import (
 // SearchCoreHrJobChange 搜索异动信息, 该接口会按照应用拥有的「员工数据」的权限范围返回数据, 请确定在「开发者后台 - 权限管理 - 数据权限」中有申请「员工资源」权限范围
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/job_change/search
+// new doc: https://open.feishu.cn/document/server-docs/corehr-v1/job_change/search
 func (r *CoreHrService) SearchCoreHrJobChange(ctx context.Context, request *SearchCoreHrJobChangeReq, options ...MethodOptionFunc) (*SearchCoreHrJobChangeResp, *Response, error) {
 	if r.cli.mock.mockCoreHrSearchCoreHrJobChange != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] CoreHr#SearchCoreHrJobChange mock enable")

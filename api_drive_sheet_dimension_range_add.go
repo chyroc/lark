@@ -24,6 +24,7 @@ import (
 // AddSheetDimensionRange 该接口用于根据 spreadsheetToken 和长度, 在末尾增加空行/列；单次操作不超过5000行或列。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uUjMzUjL1IzM14SNyMTN
+// new doc: https://open.feishu.cn/document/server-docs/docs/sheets-v3/sheet-rowcol/add-rows-or-columns
 func (r *DriveService) AddSheetDimensionRange(ctx context.Context, request *AddSheetDimensionRangeReq, options ...MethodOptionFunc) (*AddSheetDimensionRangeResp, *Response, error) {
 	if r.cli.mock.mockDriveAddSheetDimensionRange != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Drive#AddSheetDimensionRange mock enable")

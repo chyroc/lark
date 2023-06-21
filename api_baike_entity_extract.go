@@ -24,6 +24,7 @@ import (
 // ExtractBaikeEntity 提取文本中可能成为词条的词语, 且不会过滤已经成为词条的词语。同时返回推荐的别名。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/baike-v1/entity/extract
+// new doc: https://open.feishu.cn/document/server-docs/baike-v1/entity/extract
 func (r *BaikeService) ExtractBaikeEntity(ctx context.Context, request *ExtractBaikeEntityReq, options ...MethodOptionFunc) (*ExtractBaikeEntityResp, *Response, error) {
 	if r.cli.mock.mockBaikeExtractBaikeEntity != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Baike#ExtractBaikeEntity mock enable")

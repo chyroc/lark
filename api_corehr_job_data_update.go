@@ -27,6 +27,7 @@ import (
 // - 「任职原因」不允许填写为「onboarding」, 当上一个任职版本的「任职原因」为「onboarding」时, 「任职原因」必填
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job_data/patch
+// new doc: https://open.feishu.cn/document/server-docs/corehr-v1/employee/job_data/patch
 func (r *CoreHrService) UpdateCoreHrJobData(ctx context.Context, request *UpdateCoreHrJobDataReq, options ...MethodOptionFunc) (*UpdateCoreHrJobDataResp, *Response, error) {
 	if r.cli.mock.mockCoreHrUpdateCoreHrJobData != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] CoreHr#UpdateCoreHrJobData mock enable")

@@ -24,6 +24,7 @@ import (
 // GetCoreHrDepartment 根据 ID 查询单个部门。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/department/get
+// new doc: https://open.feishu.cn/document/server-docs/corehr-v1/organization-management/department/get
 func (r *CoreHrService) GetCoreHrDepartment(ctx context.Context, request *GetCoreHrDepartmentReq, options ...MethodOptionFunc) (*GetCoreHrDepartmentResp, *Response, error) {
 	if r.cli.mock.mockCoreHrGetCoreHrDepartment != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] CoreHr#GetCoreHrDepartment mock enable")

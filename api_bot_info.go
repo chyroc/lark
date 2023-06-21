@@ -26,6 +26,7 @@ import (
 // 需要启用机器人能力（前往[开发者后台](https://open.feishu.cn/app) - 选择你要获取信息的应用 - 导航栏点击应用功能 - 机器人, 开启机器人能力并发布后即可。）
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uAjMxEjLwITMx4CMyETM
+// new doc: https://open.feishu.cn/document/client-docs/bot-v3/obtain-bot-info
 func (r *BotService) GetBotInfo(ctx context.Context, request *GetBotInfoReq, options ...MethodOptionFunc) (*GetBotInfoResp, *Response, error) {
 	if r.cli.mock.mockBotGetBotInfo != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Bot#GetBotInfo mock enable")

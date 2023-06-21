@@ -24,6 +24,7 @@ import (
 // UnmergeSheetCell 该接口用于根据 spreadsheetToken 和维度信息拆分单元格；单次操作不超过5000行, 100列。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uATNzUjLwUzM14CM1MTN
+// new doc: https://open.feishu.cn/document/server-docs/docs/sheets-v3/data-operation/split-cells
 func (r *DriveService) UnmergeSheetCell(ctx context.Context, request *UnmergeSheetCellReq, options ...MethodOptionFunc) (*UnmergeSheetCellResp, *Response, error) {
 	if r.cli.mock.mockDriveUnmergeSheetCell != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Drive#UnmergeSheetCell mock enable")

@@ -24,6 +24,7 @@ import (
 // CreateContactGroup 使用该接口创建用户组, 请注意创建用户组时应用的通讯录权限范围需为“全部员工”, 否则会创建失败, [点击了解通讯录权限范围](https://open.feishu.cn/document/ukTMukTMukTM/uETNz4SM1MjLxUzM/v3/guides/scope_authority)。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/group/create
+// new doc: https://open.feishu.cn/document/server-docs/contact-v3/group/create
 func (r *ContactService) CreateContactGroup(ctx context.Context, request *CreateContactGroupReq, options ...MethodOptionFunc) (*CreateContactGroupResp, *Response, error) {
 	if r.cli.mock.mockContactCreateContactGroup != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Contact#CreateContactGroup mock enable")

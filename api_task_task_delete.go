@@ -24,6 +24,7 @@ import (
 // DeleteTask 该接口用于删除任务。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/task-v1/task/delete
+// new doc: https://open.feishu.cn/document/server-docs/task-v1/task/delete
 func (r *TaskService) DeleteTask(ctx context.Context, request *DeleteTaskReq, options ...MethodOptionFunc) (*DeleteTaskResp, *Response, error) {
 	if r.cli.mock.mockTaskDeleteTask != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Task#DeleteTask mock enable")

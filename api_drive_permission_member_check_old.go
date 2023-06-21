@@ -24,6 +24,7 @@ import (
 // CheckDriveMemberPermissionOld 该接口用于根据 filetoken 判断当前登录用户是否具有某权限。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uYzN3UjL2czN14iN3cTN
+// new doc: https://open.feishu.cn/document/server-docs/historic-version/docs/drive/permission/querying-if-a-collaborator-has-a-specific-permission
 //
 // Deprecated
 func (r *DriveService) CheckDriveMemberPermissionOld(ctx context.Context, request *CheckDriveMemberPermissionOldReq, options ...MethodOptionFunc) (*CheckDriveMemberPermissionOldResp, *Response, error) {

@@ -62,6 +62,7 @@ import (
 // ## 回调示例
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/event/list/bitable-record-changed
+// new doc: https://open.feishu.cn/document/server-docs/docs/drive-v1/event/list/bitable-record-changed
 func (r *EventCallbackService) HandlerEventV2DriveFileBitableRecordChangedV1(f EventV2DriveFileBitableRecordChangedV1Handler) {
 	r.cli.eventHandler.eventV2DriveFileBitableRecordChangedV1Handler = f
 }

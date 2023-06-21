@@ -24,6 +24,7 @@ import (
 // DeleteDriveFileVersion 删除文档版本。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file-version/delete
+// new doc: https://open.feishu.cn/document/server-docs/docs/drive-v1/file-version/delete
 func (r *DriveService) DeleteDriveFileVersion(ctx context.Context, request *DeleteDriveFileVersionReq, options ...MethodOptionFunc) (*DeleteDriveFileVersionResp, *Response, error) {
 	if r.cli.mock.mockDriveDeleteDriveFileVersion != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Drive#DeleteDriveFileVersion mock enable")

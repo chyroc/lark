@@ -24,6 +24,7 @@ import (
 // GetCoreHrWorkingHoursTypeList 批量查询工时制度。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/working_hours_type/list
+// new doc: https://open.feishu.cn/document/server-docs/corehr-v1/basic-infomation/working_hours_type/list
 func (r *CoreHrService) GetCoreHrWorkingHoursTypeList(ctx context.Context, request *GetCoreHrWorkingHoursTypeListReq, options ...MethodOptionFunc) (*GetCoreHrWorkingHoursTypeListResp, *Response, error) {
 	if r.cli.mock.mockCoreHrGetCoreHrWorkingHoursTypeList != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] CoreHr#GetCoreHrWorkingHoursTypeList mock enable")

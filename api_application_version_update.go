@@ -24,6 +24,7 @@ import (
 // UpdateApplicationVersion 通过接口来更新应用版本的审核结果: 通过后应用可以直接上架；拒绝后则开发者可以看到拒绝理由, 并在修改后再次申请发布。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/application-v6/application-app_version/patch
+// new doc: https://open.feishu.cn/document/server-docs/application-v6/application/patch-2
 func (r *ApplicationService) UpdateApplicationVersion(ctx context.Context, request *UpdateApplicationVersionReq, options ...MethodOptionFunc) (*UpdateApplicationVersionResp, *Response, error) {
 	if r.cli.mock.mockApplicationUpdateApplicationVersion != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Application#UpdateApplicationVersion mock enable")

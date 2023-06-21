@@ -24,6 +24,7 @@ import (
 // CreateContactJobFamily 该接口用于创建租户内的序列信息。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/job_family/create
+// new doc: https://open.feishu.cn/document/server-docs/contact-v3/job_family/create
 func (r *ContactService) CreateContactJobFamily(ctx context.Context, request *CreateContactJobFamilyReq, options ...MethodOptionFunc) (*CreateContactJobFamilyResp, *Response, error) {
 	if r.cli.mock.mockContactCreateContactJobFamily != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Contact#CreateContactJobFamily mock enable")

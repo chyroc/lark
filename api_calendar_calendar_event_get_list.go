@@ -30,6 +30,7 @@ import (
 // - 为了确保调用方日程同步数据的一致性, 在使用sync_token时, 不能同时使用start_time和end_time, 否则可能造成日程数据缺失。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar-event/list
+// new doc: https://open.feishu.cn/document/server-docs/calendar-v4/calendar-event/list
 func (r *CalendarService) GetCalendarEventList(ctx context.Context, request *GetCalendarEventListReq, options ...MethodOptionFunc) (*GetCalendarEventListResp, *Response, error) {
 	if r.cli.mock.mockCalendarGetCalendarEventList != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Calendar#GetCalendarEventList mock enable")

@@ -24,6 +24,7 @@ import (
 // GetVCAlertList 获取特定条件下租户的设备告警记录。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/vc-v1/alert/list
+// new doc: https://open.feishu.cn/document/server-docs/vc-v1/alert/list
 func (r *VCService) GetVCAlertList(ctx context.Context, request *GetVCAlertListReq, options ...MethodOptionFunc) (*GetVCAlertListResp, *Response, error) {
 	if r.cli.mock.mockVCGetVCAlertList != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] VC#GetVCAlertList mock enable")

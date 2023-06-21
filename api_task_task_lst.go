@@ -26,6 +26,7 @@ import (
 // 本接口支持通过任务创建时间以及任务的完成状态对任务进行过滤。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/task-v1/task/list
+// new doc: https://open.feishu.cn/document/server-docs/task-v1/task/list
 func (r *TaskService) GetTaskList(ctx context.Context, request *GetTaskListReq, options ...MethodOptionFunc) (*GetTaskListResp, *Response, error) {
 	if r.cli.mock.mockTaskGetTaskList != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Task#GetTaskList mock enable")

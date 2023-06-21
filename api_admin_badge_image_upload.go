@@ -25,6 +25,7 @@ import (
 // UploadAdminBadgeImage 通过该接口可以上传勋章详情图、挂饰图的文件, 获取对应的文件key。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/admin-v1/badge_image/create
+// new doc: https://open.feishu.cn/document/server-docs/admin-v1/badge/badge/create
 func (r *AdminService) UploadAdminBadgeImage(ctx context.Context, request *UploadAdminBadgeImageReq, options ...MethodOptionFunc) (*UploadAdminBadgeImageResp, *Response, error) {
 	if r.cli.mock.mockAdminUploadAdminBadgeImage != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Admin#UploadAdminBadgeImage mock enable")

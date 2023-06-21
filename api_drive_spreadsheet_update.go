@@ -24,6 +24,7 @@ import (
 // UpdateSpreadsheet 该接口用于修改电子表格的属性
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/sheets-v3/spreadsheet/patch
+// new doc: https://open.feishu.cn/document/server-docs/docs/sheets-v3/spreadsheet/patch
 func (r *DriveService) UpdateSpreadsheet(ctx context.Context, request *UpdateSpreadsheetReq, options ...MethodOptionFunc) (*UpdateSpreadsheetResp, *Response, error) {
 	if r.cli.mock.mockDriveUpdateSpreadsheet != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Drive#UpdateSpreadsheet mock enable")

@@ -24,6 +24,7 @@ import (
 // CreateTaskReminder 该接口用于创建任务的提醒时间。提醒时间在截止时间基础上做偏移, 但是偏移后的结果不能早于当前时间。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/task-v1/task-reminder/create
+// new doc: https://open.feishu.cn/document/server-docs/task-v1/task-reminder/create
 func (r *TaskService) CreateTaskReminder(ctx context.Context, request *CreateTaskReminderReq, options ...MethodOptionFunc) (*CreateTaskReminderResp, *Response, error) {
 	if r.cli.mock.mockTaskCreateTaskReminder != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Task#CreateTaskReminder mock enable")

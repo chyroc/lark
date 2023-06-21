@@ -24,6 +24,7 @@ import (
 // DeleteSheetDataValidationDropdown 该接口根据 spreadsheetToken 、range 移除选定数据范围单元格的下拉列表设置, 但保留选项文本。单个删除范围不超过5000单元格。单次请求range最大数量100个。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uATMzUjLwEzM14CMxMTN/datavalidation/delete-datavalidation
+// new doc: https://open.feishu.cn/document/server-docs/docs/sheets-v3/datavalidation/delete-datavalidation
 func (r *DriveService) DeleteSheetDataValidationDropdown(ctx context.Context, request *DeleteSheetDataValidationDropdownReq, options ...MethodOptionFunc) (*DeleteSheetDataValidationDropdownResp, *Response, error) {
 	if r.cli.mock.mockDriveDeleteSheetDataValidationDropdown != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Drive#DeleteSheetDataValidationDropdown mock enable")

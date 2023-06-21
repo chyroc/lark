@@ -27,6 +27,7 @@ import (
 // - 没有填写的字段会被置为空值（order字段除外）。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/update
+// new doc: https://open.feishu.cn/document/server-docs/contact-v3/department/update
 func (r *ContactService) UpdateDepartment(ctx context.Context, request *UpdateDepartmentReq, options ...MethodOptionFunc) (*UpdateDepartmentResp, *Response, error) {
 	if r.cli.mock.mockContactUpdateDepartment != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Contact#UpdateDepartment mock enable")

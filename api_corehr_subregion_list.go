@@ -24,6 +24,7 @@ import (
 // GetCoreHrSubregionList 批量查询城市/区域信息。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/subregion/list
+// new doc: https://open.feishu.cn/document/server-docs/corehr-v1/basic-infomation/location_data/list-3
 func (r *CoreHrService) GetCoreHrSubregionList(ctx context.Context, request *GetCoreHrSubregionListReq, options ...MethodOptionFunc) (*GetCoreHrSubregionListResp, *Response, error) {
 	if r.cli.mock.mockCoreHrGetCoreHrSubregionList != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] CoreHr#GetCoreHrSubregionList mock enable")

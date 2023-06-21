@@ -26,6 +26,7 @@ import (
 // 打开日历tab，并支持定义跳转到具体视图和具体日期。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/uYjL24iN/applink-protocol/supported-protocol/open-calender/open-a-calendar-and-support-to-define-view-and-date
+// new doc: https://open.feishu.cn/document/common-capabilities/applink-protocol/supported-protocol/open-calender/open-a-calendar-and-support-to-define-view-and-date
 func (r *AppLinkService) OpenCalenderView(req *OpenCalenderViewReq) string {
 	return internal.JoinAppLinkURL("https://applink.feishu.cn/client/calendar/view", req)
 }

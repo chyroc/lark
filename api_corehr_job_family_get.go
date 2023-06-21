@@ -24,6 +24,7 @@ import (
 // GetCoreHrJobFamily 根据 ID 查询单个序列。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job_family/get
+// new doc: https://open.feishu.cn/document/server-docs/corehr-v1/job-management/job_family/get
 func (r *CoreHrService) GetCoreHrJobFamily(ctx context.Context, request *GetCoreHrJobFamilyReq, options ...MethodOptionFunc) (*GetCoreHrJobFamilyResp, *Response, error) {
 	if r.cli.mock.mockCoreHrGetCoreHrJobFamily != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] CoreHr#GetCoreHrJobFamily mock enable")

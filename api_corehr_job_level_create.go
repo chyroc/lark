@@ -24,6 +24,7 @@ import (
 // CreateCoreHrJobLevel 创建职级
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job_level/create
+// new doc: https://open.feishu.cn/document/server-docs/corehr-v1/job-management/job_level/create
 func (r *CoreHrService) CreateCoreHrJobLevel(ctx context.Context, request *CreateCoreHrJobLevelReq, options ...MethodOptionFunc) (*CreateCoreHrJobLevelResp, *Response, error) {
 	if r.cli.mock.mockCoreHrCreateCoreHrJobLevel != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] CoreHr#CreateCoreHrJobLevel mock enable")

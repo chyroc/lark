@@ -24,6 +24,7 @@ import (
 // AnswerHelpdeskTicketUserQuery 该接口用于回复用户提问结果至工单, 需要工单仍处于进行中且未接入人工状态。仅支持自建应用。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/ticket/answer_user_query
+// new doc: https://open.feishu.cn/document/server-docs/helpdesk-v1/ticket-management/ticket/answer_user_query
 func (r *HelpdeskService) AnswerHelpdeskTicketUserQuery(ctx context.Context, request *AnswerHelpdeskTicketUserQueryReq, options ...MethodOptionFunc) (*AnswerHelpdeskTicketUserQueryResp, *Response, error) {
 	if r.cli.mock.mockHelpdeskAnswerHelpdeskTicketUserQuery != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Helpdesk#AnswerHelpdeskTicketUserQuery mock enable")

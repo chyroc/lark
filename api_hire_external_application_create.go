@@ -24,6 +24,7 @@ import (
 // CreateHireExternalApplication 导入来自其他系统的投递信息, 创建为外部投递。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/external_application/create
+// new doc: https://open.feishu.cn/document/server-docs/hire-v1/get-candidates/import-external-system-information/create
 func (r *HireService) CreateHireExternalApplication(ctx context.Context, request *CreateHireExternalApplicationReq, options ...MethodOptionFunc) (*CreateHireExternalApplicationResp, *Response, error) {
 	if r.cli.mock.mockHireCreateHireExternalApplication != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Hire#CreateHireExternalApplication mock enable")

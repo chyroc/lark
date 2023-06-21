@@ -24,6 +24,7 @@ import (
 // GetApplicationAppList 该接口用于查询企业安装的应用列表, 只能被企业自建应用调用。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uYDN3UjL2QzN14iN0cTN
+// new doc: https://open.feishu.cn/document/server-docs/application-v6/admin/obtain-the-apps-installed-by-an-organization
 func (r *ApplicationService) GetApplicationAppList(ctx context.Context, request *GetApplicationAppListReq, options ...MethodOptionFunc) (*GetApplicationAppListResp, *Response, error) {
 	if r.cli.mock.mockApplicationGetApplicationAppList != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Application#GetApplicationAppList mock enable")

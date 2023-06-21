@@ -24,6 +24,7 @@ import (
 // GetVerification 获取企业主体名称、是否认证等信息。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/verification-v1/verification/get
+// new doc: https://open.feishu.cn/document/server-docs/verification-v1/get
 func (r *VerificationService) GetVerification(ctx context.Context, request *GetVerificationReq, options ...MethodOptionFunc) (*GetVerificationResp, *Response, error) {
 	if r.cli.mock.mockVerificationGetVerification != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Verification#GetVerification mock enable")

@@ -26,6 +26,7 @@ import (
 // 应用需要同时拥有待删除部门及其父部门的通讯录授权。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/delete
+// new doc: https://open.feishu.cn/document/server-docs/contact-v3/department/delete
 func (r *ContactService) DeleteDepartment(ctx context.Context, request *DeleteDepartmentReq, options ...MethodOptionFunc) (*DeleteDepartmentResp, *Response, error) {
 	if r.cli.mock.mockContactDeleteDepartment != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Contact#DeleteDepartment mock enable")

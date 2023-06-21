@@ -29,6 +29,7 @@ import (
 // - 获取的群列表不包含P2P单聊
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat/list
+// new doc: https://open.feishu.cn/document/server-docs/group/chat/list
 func (r *ChatService) GetChatListOfSelf(ctx context.Context, request *GetChatListOfSelfReq, options ...MethodOptionFunc) (*GetChatListOfSelfResp, *Response, error) {
 	if r.cli.mock.mockChatGetChatListOfSelf != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Chat#GetChatListOfSelf mock enable")

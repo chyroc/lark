@@ -27,6 +27,7 @@ import (
 // 注意, 审批中心不负责审批流程的流转, 只负责展示、操作、消息通知。因此审批定义创建时没有审批流程的信息。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/external_approval/create
+// new doc: https://open.feishu.cn/document/server-docs/approval-v4/external_approval/create
 func (r *ApprovalService) CreateApprovalExternalApproval(ctx context.Context, request *CreateApprovalExternalApprovalReq, options ...MethodOptionFunc) (*CreateApprovalExternalApprovalResp, *Response, error) {
 	if r.cli.mock.mockApprovalCreateApprovalExternalApproval != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Approval#CreateApprovalExternalApproval mock enable")

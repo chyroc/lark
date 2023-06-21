@@ -24,6 +24,7 @@ import (
 // ExportVCParticipantList 导出某个会议的参会人详情列表, 具体权限要求请参考「资源介绍」。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/vc-v1/export/participant_list
+// new doc: https://open.feishu.cn/document/server-docs/vc-v1/export/participant_list
 func (r *VCService) ExportVCParticipantList(ctx context.Context, request *ExportVCParticipantListReq, options ...MethodOptionFunc) (*ExportVCParticipantListResp, *Response, error) {
 	if r.cli.mock.mockVCExportVCParticipantList != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] VC#ExportVCParticipantList mock enable")

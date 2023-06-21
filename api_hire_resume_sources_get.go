@@ -24,6 +24,7 @@ import (
 // GetHireResumeSource 获取简历来源列表。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/resume_source/list
+// new doc: https://open.feishu.cn/document/server-docs/hire-v1/candidate-management/resume_source/list
 func (r *HireService) GetHireResumeSource(ctx context.Context, request *GetHireResumeSourceReq, options ...MethodOptionFunc) (*GetHireResumeSourceResp, *Response, error) {
 	if r.cli.mock.mockHireGetHireResumeSource != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Hire#GetHireResumeSource mock enable")

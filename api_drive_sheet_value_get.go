@@ -24,6 +24,7 @@ import (
 // GetSheetValue 该接口用于根据 spreadsheetToken 和 range 读取表格单个范围的值, 返回数据限制为10M。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/ugTMzUjL4EzM14COxMTN
+// new doc: https://open.feishu.cn/document/server-docs/docs/sheets-v3/data-operation/reading-a-single-range
 func (r *DriveService) GetSheetValue(ctx context.Context, request *GetSheetValueReq, options ...MethodOptionFunc) (*GetSheetValueResp, *Response, error) {
 	if r.cli.mock.mockDriveGetSheetValue != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Drive#GetSheetValue mock enable")

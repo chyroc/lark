@@ -24,6 +24,7 @@ import (
 // GetHireAttachment 获取招聘系统中附件的元信息, 比如文件名、创建时间、文件 URL 等。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/attachment/get
+// new doc: https://open.feishu.cn/document/server-docs/hire-v1/attachment/get
 func (r *HireService) GetHireAttachment(ctx context.Context, request *GetHireAttachmentReq, options ...MethodOptionFunc) (*GetHireAttachmentResp, *Response, error) {
 	if r.cli.mock.mockHireGetHireAttachment != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Hire#GetHireAttachment mock enable")

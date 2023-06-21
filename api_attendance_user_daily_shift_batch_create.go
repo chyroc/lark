@@ -24,6 +24,7 @@ import (
 // BatchCreateAttendanceUserDailyShift 班表是用来描述考勤组内人员每天按哪个班次进行上班。目前班表支持按一个整月对一位或多位人员进行排班。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/user_daily_shift/batch_create
+// new doc: https://open.feishu.cn/document/server-docs/attendance-v1/user_daily_shift/batch_create
 func (r *AttendanceService) BatchCreateAttendanceUserDailyShift(ctx context.Context, request *BatchCreateAttendanceUserDailyShiftReq, options ...MethodOptionFunc) (*BatchCreateAttendanceUserDailyShiftResp, *Response, error) {
 	if r.cli.mock.mockAttendanceBatchCreateAttendanceUserDailyShift != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Attendance#BatchCreateAttendanceUserDailyShift mock enable")

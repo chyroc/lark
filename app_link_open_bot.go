@@ -27,6 +27,7 @@ import (
 // 如果访问用户没有机器人的可用性，将看到相关的引导提示。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/uYjL24iN/applink-protocol/supported-protocol/open-a-bot
+// new doc: https://open.feishu.cn/document/common-capabilities/applink-protocol/supported-protocol/open-a-bot
 func (r *AppLinkService) OpenBot(req *OpenBotReq) string {
 	return internal.JoinAppLinkURL("https://applink.feishu.cn/client/bot/open", req)
 }

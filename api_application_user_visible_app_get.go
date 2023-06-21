@@ -24,6 +24,7 @@ import (
 // GetApplicationUserVisibleApp 该接口用于查询用户可用的应用列表, 只能被企业自建应用调用。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uMjM3UjLzIzN14yMycTN
+// new doc: https://open.feishu.cn/document/server-docs/application-v6/admin/obtain-the-apps-available-to-a-user
 func (r *ApplicationService) GetApplicationUserVisibleApp(ctx context.Context, request *GetApplicationUserVisibleAppReq, options ...MethodOptionFunc) (*GetApplicationUserVisibleAppResp, *Response, error) {
 	if r.cli.mock.mockApplicationGetApplicationUserVisibleApp != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Application#GetApplicationUserVisibleApp mock enable")

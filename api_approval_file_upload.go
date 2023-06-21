@@ -25,6 +25,7 @@ import (
 // UploadApprovalFile 当审批表单中有图片或附件控件时, 开发者需在创建审批实例前通过审批上传文件接口将文件上传到审批系统, 且附件上传大小限制为50M, 图片上传大小为10M。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uUDOyUjL1gjM14SN4ITN
+// new doc: https://open.feishu.cn/document/server-docs/approval-v4/file/upload-files
 func (r *ApprovalService) UploadApprovalFile(ctx context.Context, request *UploadApprovalFileReq, options ...MethodOptionFunc) (*UploadApprovalFileResp, *Response, error) {
 	if r.cli.mock.mockApprovalUploadApprovalFile != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Approval#UploadApprovalFile mock enable")

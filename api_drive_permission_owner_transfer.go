@@ -24,6 +24,7 @@ import (
 // TransferDriveOwnerPermission 该接口用于根据 filetoken 和用户信息转移文件的所有者。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/permission-member/transfer_owner
+// new doc: https://open.feishu.cn/document/server-docs/docs/permission/permission-member/transfer_owner
 func (r *DriveService) TransferDriveOwnerPermission(ctx context.Context, request *TransferDriveOwnerPermissionReq, options ...MethodOptionFunc) (*TransferDriveOwnerPermissionResp, *Response, error) {
 	if r.cli.mock.mockDriveTransferDriveOwnerPermission != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Drive#TransferDriveOwnerPermission mock enable")

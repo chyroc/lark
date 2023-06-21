@@ -29,6 +29,7 @@ import (
 // 该接口不支持并发调用, 且调用频率上限为5QPS。删除文件夹会异步执行并返回一个task_id, 可以使用[task_check](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file/task_check)接口查询任务执行状态。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file/delete
+// new doc: https://open.feishu.cn/document/server-docs/docs/drive-v1/file/delete
 func (r *DriveService) DeleteDriveFile(ctx context.Context, request *DeleteDriveFileReq, options ...MethodOptionFunc) (*DeleteDriveFileResp, *Response, error) {
 	if r.cli.mock.mockDriveDeleteDriveFile != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Drive#DeleteDriveFile mock enable")

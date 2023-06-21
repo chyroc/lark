@@ -24,6 +24,7 @@ import (
 // CreateAttendanceUserTaskRemedy 对于只使用飞书考勤系统而未使用飞书审批系统的企业, 可以通过该接口, 将在三方审批系统中发起的补卡审批数据, 写入到飞书考勤系统中。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/user_task_remedy/create
+// new doc: https://open.feishu.cn/document/server-docs/attendance-v1/user_task_remedy/create
 func (r *AttendanceService) CreateAttendanceUserTaskRemedy(ctx context.Context, request *CreateAttendanceUserTaskRemedyReq, options ...MethodOptionFunc) (*CreateAttendanceUserTaskRemedyResp, *Response, error) {
 	if r.cli.mock.mockAttendanceCreateAttendanceUserTaskRemedy != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Attendance#CreateAttendanceUserTaskRemedy mock enable")

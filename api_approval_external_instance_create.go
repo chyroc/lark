@@ -33,6 +33,7 @@ import (
 // <img src="//sf3-cn.feishucdn.com/obj/open-platform-opendoc/721c35428bc1187db3318c572f9979ad_je75QpElcg.png" alt=""  style="zoom:25%;" />
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/external_instance/create
+// new doc: https://open.feishu.cn/document/server-docs/approval-v4/external_instance/create
 func (r *ApprovalService) CreateApprovalExternalInstance(ctx context.Context, request *CreateApprovalExternalInstanceReq, options ...MethodOptionFunc) (*CreateApprovalExternalInstanceResp, *Response, error) {
 	if r.cli.mock.mockApprovalCreateApprovalExternalInstance != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Approval#CreateApprovalExternalInstance mock enable")

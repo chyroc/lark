@@ -24,6 +24,7 @@ import (
 // ResubmitApprovalInstanceTask 对于单个退回到发起人的审批任务进行重新发起操作。发起后审批流程会流转到下一个审批人。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/task/resubmit
+// new doc: https://open.feishu.cn/document/server-docs/approval-v4/task/resubmit
 func (r *ApprovalService) ResubmitApprovalInstanceTask(ctx context.Context, request *ResubmitApprovalInstanceTaskReq, options ...MethodOptionFunc) (*ResubmitApprovalInstanceTaskResp, *Response, error) {
 	if r.cli.mock.mockApprovalResubmitApprovalInstanceTask != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Approval#ResubmitApprovalInstanceTask mock enable")

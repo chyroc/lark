@@ -24,6 +24,7 @@ import (
 // GetAttendanceUserSettingList 批量查询授权内员工的用户设置信息, 包括人脸照片文件 ID、人脸照片更新时间。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/user_setting/query
+// new doc: https://open.feishu.cn/document/server-docs/attendance-v1/user_setting/query
 func (r *AttendanceService) GetAttendanceUserSettingList(ctx context.Context, request *GetAttendanceUserSettingListReq, options ...MethodOptionFunc) (*GetAttendanceUserSettingListResp, *Response, error) {
 	if r.cli.mock.mockAttendanceGetAttendanceUserSettingList != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Attendance#GetAttendanceUserSettingList mock enable")

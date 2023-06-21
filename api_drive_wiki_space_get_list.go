@@ -28,6 +28,7 @@ import (
 // 使用tenant access token调用时, 请确认应用/机器人拥有部分知识空间的访问权限, 否则返回列表容易为空。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/wiki-v2/space/list
+// new doc: https://open.feishu.cn/document/server-docs/docs/wiki-v2/space/list
 func (r *DriveService) GetWikiSpaceList(ctx context.Context, request *GetWikiSpaceListReq, options ...MethodOptionFunc) (*GetWikiSpaceListResp, *Response, error) {
 	if r.cli.mock.mockDriveGetWikiSpaceList != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Drive#GetWikiSpaceList mock enable")

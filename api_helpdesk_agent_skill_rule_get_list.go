@@ -24,6 +24,7 @@ import (
 // GetHelpdeskAgentSkillRuleList 该接口用于获取全部客服技能。仅支持自建应用。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/agent_skill_rule/list
+// new doc: https://open.feishu.cn/document/server-docs/helpdesk-v1/agent-function/agent_skill_rule/list
 func (r *HelpdeskService) GetHelpdeskAgentSkillRuleList(ctx context.Context, request *GetHelpdeskAgentSkillRuleListReq, options ...MethodOptionFunc) (*GetHelpdeskAgentSkillRuleListResp, *Response, error) {
 	if r.cli.mock.mockHelpdeskGetHelpdeskAgentSkillRuleList != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Helpdesk#GetHelpdeskAgentSkillRuleList mock enable")

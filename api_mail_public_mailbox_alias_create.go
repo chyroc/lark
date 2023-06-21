@@ -24,6 +24,7 @@ import (
 // CreateMailPublicMailboxAlias 创建公共邮箱别名。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/mail-v1/public_mailbox-alias/create
+// new doc: https://open.feishu.cn/document/server-docs/mail-v1/public-mailbox/public_mailbox-alias/create
 func (r *MailService) CreateMailPublicMailboxAlias(ctx context.Context, request *CreateMailPublicMailboxAliasReq, options ...MethodOptionFunc) (*CreateMailPublicMailboxAliasResp, *Response, error) {
 	if r.cli.mock.mockMailCreateMailPublicMailboxAlias != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Mail#CreateMailPublicMailboxAlias mock enable")

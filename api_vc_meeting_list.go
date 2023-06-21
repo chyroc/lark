@@ -24,6 +24,7 @@ import (
 // GetVCMeetingList 查询会议明细。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/vc-v1/meeting_list/get
+// new doc: https://open.feishu.cn/document/server-docs/vc-v1/meeting-room-data/get
 func (r *VCService) GetVCMeetingList(ctx context.Context, request *GetVCMeetingListReq, options ...MethodOptionFunc) (*GetVCMeetingListResp, *Response, error) {
 	if r.cli.mock.mockVCGetVCMeetingList != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] VC#GetVCMeetingList mock enable")

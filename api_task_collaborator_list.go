@@ -24,6 +24,7 @@ import (
 // GetTaskCollaboratorList 该接口用于查询任务执行者列表, 支持分页, 最大值为50。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/task-v1/task-collaborator/list
+// new doc: https://open.feishu.cn/document/server-docs/task-v1/task-collaborator/list
 func (r *TaskService) GetTaskCollaboratorList(ctx context.Context, request *GetTaskCollaboratorListReq, options ...MethodOptionFunc) (*GetTaskCollaboratorListResp, *Response, error) {
 	if r.cli.mock.mockTaskGetTaskCollaboratorList != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Task#GetTaskCollaboratorList mock enable")

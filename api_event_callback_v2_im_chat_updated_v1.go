@@ -32,6 +32,7 @@ import (
 // - 事件会向群内订阅了该事件的机器人进行推送
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat/events/updated
+// new doc: https://open.feishu.cn/document/server-docs/group/chat/events/updated
 func (r *EventCallbackService) HandlerEventV2IMChatUpdatedV1(f EventV2IMChatUpdatedV1Handler) {
 	r.cli.eventHandler.eventV2IMChatUpdatedV1Handler = f
 }

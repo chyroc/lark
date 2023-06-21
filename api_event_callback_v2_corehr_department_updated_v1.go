@@ -24,6 +24,7 @@ import (
 // EventV2CorehrDepartmentUpdatedV1 飞书人事中「部门信息被更新」时将触发此事件。注意: 1. 触发时间为部门更新实际生效时间, 如在 2022-01-01 更新部门, 部门更新生效时间设置为 2022-05-01, 事件将在 2022-05-01 进行推送。2. 只有在部门发生如下字段变更的时候, 会触发「部门更新」事件: 部门名称、code、部门描述、上级部门、部门子类型、部门负责人、是否保密、生效时间、失效时间、自定义字段（不包括其他部门角色）3. 删除部门不会触发「部门更新」事件{使用示例}(url=/api/tools/api_explore/api_explore_config?project=corehr&version=v1&resource=department&event=updated)
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/department/events/updated
+// new doc: https://open.feishu.cn/document/server-docs/corehr-v1/organization-management/department/updated
 func (r *EventCallbackService) HandlerEventV2CorehrDepartmentUpdatedV1(f EventV2CorehrDepartmentUpdatedV1Handler) {
 	r.cli.eventHandler.eventV2CorehrDepartmentUpdatedV1Handler = f
 }

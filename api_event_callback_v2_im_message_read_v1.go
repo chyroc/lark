@@ -28,6 +28,7 @@ import (
 // - 需要订阅 [消息与群组] 分类下的 [消息已读] 事件
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/events/message_read
+// new doc: https://open.feishu.cn/document/server-docs/im-v1/message/events/message_read
 func (r *EventCallbackService) HandlerEventV2IMMessageReadV1(f EventV2IMMessageReadV1Handler) {
 	r.cli.eventHandler.eventV2IMMessageReadV1Handler = f
 }

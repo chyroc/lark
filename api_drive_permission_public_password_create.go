@@ -26,6 +26,7 @@ import (
 // 注意: 开启密码, 需要先通过”云文档“-“权限”-“设置”-“更新云文档权限设置”的接口更新元文档为互联网上获得链接的任何人可阅读/编辑
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/permission-public-password/create
+// new doc: https://open.feishu.cn/document/server-docs/docs/permission/permission-public/permission-public-password/create
 func (r *DriveService) CreateDrivePermissionPublicPassword(ctx context.Context, request *CreateDrivePermissionPublicPasswordReq, options ...MethodOptionFunc) (*CreateDrivePermissionPublicPasswordResp, *Response, error) {
 	if r.cli.mock.mockDriveCreateDrivePermissionPublicPassword != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Drive#CreateDrivePermissionPublicPassword mock enable")

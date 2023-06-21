@@ -26,6 +26,7 @@ import (
 // 只能删除归属于自己的预约；删除后数据不可恢复
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/vc-v1/reserve/delete
+// new doc: https://open.feishu.cn/document/server-docs/vc-v1/reserve/delete
 func (r *VCService) DeleteVCReserve(ctx context.Context, request *DeleteVCReserveReq, options ...MethodOptionFunc) (*DeleteVCReserveResp, *Response, error) {
 	if r.cli.mock.mockVCDeleteVCReserve != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] VC#DeleteVCReserve mock enable")

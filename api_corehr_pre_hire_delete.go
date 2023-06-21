@@ -24,6 +24,7 @@ import (
 // DeleteCoreHrPreHire 删除待入职人员。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/pre_hire/delete
+// new doc: https://open.feishu.cn/document/server-docs/corehr-v1/pre_hire/delete
 func (r *CoreHrService) DeleteCoreHrPreHire(ctx context.Context, request *DeleteCoreHrPreHireReq, options ...MethodOptionFunc) (*DeleteCoreHrPreHireResp, *Response, error) {
 	if r.cli.mock.mockCoreHrDeleteCoreHrPreHire != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] CoreHr#DeleteCoreHrPreHire mock enable")

@@ -24,6 +24,7 @@ import (
 // SearchMessage 用户可以通过关键字搜索可见消息, 可见性和套件内搜索一致。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/search-v2/message/create
+// new doc: https://open.feishu.cn/document/server-docs/search-v2/suite-search/create
 func (r *SearchService) SearchMessage(ctx context.Context, request *SearchMessageReq, options ...MethodOptionFunc) (*SearchMessageResp, *Response, error) {
 	if r.cli.mock.mockSearchSearchMessage != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Search#SearchMessage mock enable")

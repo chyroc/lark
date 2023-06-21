@@ -24,6 +24,7 @@ import (
 // BatchCreateMailGroupPermissionMember 一次请求可以给一个邮件组添加多个权限成员。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/mail-v1/mailgroup-permission_member/batch_create
+// new doc: https://open.feishu.cn/document/server-docs/mail-v1/mail-group/mailgroup-permission_member/batch_create
 func (r *MailService) BatchCreateMailGroupPermissionMember(ctx context.Context, request *BatchCreateMailGroupPermissionMemberReq, options ...MethodOptionFunc) (*BatchCreateMailGroupPermissionMemberResp, *Response, error) {
 	if r.cli.mock.mockMailBatchCreateMailGroupPermissionMember != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Mail#BatchCreateMailGroupPermissionMember mock enable")

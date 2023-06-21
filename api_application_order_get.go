@@ -24,6 +24,7 @@ import (
 // GetApplicationOrder 该接口用于查询某个订单的具体信息
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uITNwUjLyUDM14iM1ATN
+// new doc: https://open.feishu.cn/document/server-docs/application-v6/appstore-paid-info/query-order-information
 func (r *ApplicationService) GetApplicationOrder(ctx context.Context, request *GetApplicationOrderReq, options ...MethodOptionFunc) (*GetApplicationOrderResp, *Response, error) {
 	if r.cli.mock.mockApplicationGetApplicationOrder != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Application#GetApplicationOrder mock enable")

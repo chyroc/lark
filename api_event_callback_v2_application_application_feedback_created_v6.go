@@ -24,6 +24,7 @@ import (
 // EventV2ApplicationApplicationFeedbackCreatedV6 当应用收到新反馈时, 触发该事件{使用示例}(url=/api/tools/api_explore/api_explore_config?project=application&version=v6&resource=application.feedback&event=created)
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/application-v6/application-feedback/events/created
+// new doc: https://open.feishu.cn/document/server-docs/application-v6/event/created-2
 func (r *EventCallbackService) HandlerEventV2ApplicationApplicationFeedbackCreatedV6(f EventV2ApplicationApplicationFeedbackCreatedV6Handler) {
 	r.cli.eventHandler.eventV2ApplicationApplicationFeedbackCreatedV6Handler = f
 }

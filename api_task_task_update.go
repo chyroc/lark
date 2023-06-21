@@ -24,6 +24,7 @@ import (
 // UpdateTask 该接口用于修改任务的标题、描述、时间、来源等相关信息。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/task-v1/task/patch
+// new doc: https://open.feishu.cn/document/server-docs/task-v1/task/patch
 func (r *TaskService) UpdateTask(ctx context.Context, request *UpdateTaskReq, options ...MethodOptionFunc) (*UpdateTaskResp, *Response, error) {
 	if r.cli.mock.mockTaskUpdateTask != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Task#UpdateTask mock enable")

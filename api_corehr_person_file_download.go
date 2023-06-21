@@ -25,6 +25,7 @@ import (
 // DownloadCoreHrPersonFile 根据ID下载文件
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/file/get
+// new doc: https://open.feishu.cn/document/server-docs/corehr-v1/employee/person/get-2
 func (r *CoreHrService) DownloadCoreHrPersonFile(ctx context.Context, request *DownloadCoreHrPersonFileReq, options ...MethodOptionFunc) (*DownloadCoreHrPersonFileResp, *Response, error) {
 	if r.cli.mock.mockCoreHrDownloadCoreHrPersonFile != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] CoreHr#DownloadCoreHrPersonFile mock enable")

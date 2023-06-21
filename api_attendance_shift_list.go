@@ -24,6 +24,7 @@ import (
 // GetAttendanceShiftList 翻页获取所有班次列表。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/shift/list
+// new doc: https://open.feishu.cn/document/server-docs/attendance-v1/shift/list
 func (r *AttendanceService) GetAttendanceShiftList(ctx context.Context, request *GetAttendanceShiftListReq, options ...MethodOptionFunc) (*GetAttendanceShiftListResp, *Response, error) {
 	if r.cli.mock.mockAttendanceGetAttendanceShiftList != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Attendance#GetAttendanceShiftList mock enable")

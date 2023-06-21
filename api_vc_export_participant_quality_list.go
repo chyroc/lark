@@ -26,6 +26,7 @@ import (
 // , 具体权限要求请参考「资源介绍」。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/vc-v1/export/participant_quality_list
+// new doc: https://open.feishu.cn/document/server-docs/vc-v1/export/participant_quality_list
 func (r *VCService) ExportVCParticipantQualityList(ctx context.Context, request *ExportVCParticipantQualityListReq, options ...MethodOptionFunc) (*ExportVCParticipantQualityListResp, *Response, error) {
 	if r.cli.mock.mockVCExportVCParticipantQualityList != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] VC#ExportVCParticipantQualityList mock enable")

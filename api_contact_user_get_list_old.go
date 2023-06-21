@@ -31,6 +31,7 @@ import (
 // department_id 参数, 则会返回权限范围内的独立用户（权限范围直接包含了某用户, 则该用户视为权限范围内的独立用户）。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/list
+// new doc: https://open.feishu.cn/document/server-docs/historic-version//user/list
 //
 // Deprecated
 func (r *ContactService) GetUserListOld(ctx context.Context, request *GetUserListOldReq, options ...MethodOptionFunc) (*GetUserListOldResp, *Response, error) {

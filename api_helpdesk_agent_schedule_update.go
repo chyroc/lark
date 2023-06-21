@@ -24,6 +24,7 @@ import (
 // UpdateHelpdeskAgentSchedule 该接口用于更新客服的日程。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/agent-schedules/patch
+// new doc: https://open.feishu.cn/document/server-docs/helpdesk-v1/agent-function/agent-schedules/patch
 func (r *HelpdeskService) UpdateHelpdeskAgentSchedule(ctx context.Context, request *UpdateHelpdeskAgentScheduleReq, options ...MethodOptionFunc) (*UpdateHelpdeskAgentScheduleResp, *Response, error) {
 	if r.cli.mock.mockHelpdeskUpdateHelpdeskAgentSchedule != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Helpdesk#UpdateHelpdeskAgentSchedule mock enable")

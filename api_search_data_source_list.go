@@ -24,6 +24,7 @@ import (
 // GetSearchDataSourceList 批量获取创建的数据源信息。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/search-v2/data_source/list
+// new doc: https://open.feishu.cn/document/server-docs/search-v2/open-search/data_source/list
 func (r *SearchService) GetSearchDataSourceList(ctx context.Context, request *GetSearchDataSourceListReq, options ...MethodOptionFunc) (*GetSearchDataSourceListResp, *Response, error) {
 	if r.cli.mock.mockSearchGetSearchDataSourceList != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Search#GetSearchDataSourceList mock enable")

@@ -26,6 +26,7 @@ import (
 // 参数值可参考[筛选指南](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/sheets-v3/spreadsheet-sheet-filter/filter-user-guide)
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/sheets-v3/spreadsheet-sheet-filter/update
+// new doc: https://open.feishu.cn/document/server-docs/docs/sheets-v3/spreadsheet-sheet-filter/update
 func (r *DriveService) UpdateSheetFilter(ctx context.Context, request *UpdateSheetFilterReq, options ...MethodOptionFunc) (*UpdateSheetFilterResp, *Response, error) {
 	if r.cli.mock.mockDriveUpdateSheetFilter != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Drive#UpdateSheetFilter mock enable")

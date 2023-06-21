@@ -24,6 +24,7 @@ import (
 // CreateCoreHrJobData 在系统中第一次创建员工任职数据, 通常在员工入职或者做数据批量导入的时候使用, 【任职原因】只支持填写“入职”。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job_data/create
+// new doc: https://open.feishu.cn/document/server-docs/corehr-v1/employee/job_data/create
 func (r *CoreHrService) CreateCoreHrJobData(ctx context.Context, request *CreateCoreHrJobDataReq, options ...MethodOptionFunc) (*CreateCoreHrJobDataResp, *Response, error) {
 	if r.cli.mock.mockCoreHrCreateCoreHrJobData != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] CoreHr#CreateCoreHrJobData mock enable")

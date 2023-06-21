@@ -24,6 +24,7 @@ import (
 // GetApplicationRecommend 获取管理员推荐的应用。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/application-v5/application/recommend
+// new doc: https://open.feishu.cn/document/server-docs/workplace-v1/app_recommend_rule/recommend
 func (r *ApplicationService) GetApplicationRecommend(ctx context.Context, request *GetApplicationRecommendReq, options ...MethodOptionFunc) (*GetApplicationRecommendResp, *Response, error) {
 	if r.cli.mock.mockApplicationGetApplicationRecommend != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Application#GetApplicationRecommend mock enable")

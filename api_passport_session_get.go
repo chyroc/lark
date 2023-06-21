@@ -24,6 +24,7 @@ import (
 // GetPassportSession 该接口用于查询用户的登录信息。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/passport-v1/session/query
+// new doc: https://open.feishu.cn/document/server-docs/authentication-management/login-state-management/query
 func (r *PassportService) GetPassportSession(ctx context.Context, request *GetPassportSessionReq, options ...MethodOptionFunc) (*GetPassportSessionResp, *Response, error) {
 	if r.cli.mock.mockPassportGetPassportSession != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Passport#GetPassportSession mock enable")

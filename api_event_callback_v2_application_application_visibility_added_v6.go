@@ -27,6 +27,7 @@ import (
 // - 订阅前提: 需要是应用商店应用
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/application-v6/event/app-availability-scope-extended
+// new doc: https://open.feishu.cn/document/server-docs/application-v6/event/app-availability-scope-extended
 func (r *EventCallbackService) HandlerEventV2ApplicationApplicationVisibilityAddedV6(f EventV2ApplicationApplicationVisibilityAddedV6Handler) {
 	r.cli.eventHandler.eventV2ApplicationApplicationVisibilityAddedV6Handler = f
 }

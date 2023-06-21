@@ -28,6 +28,7 @@ import (
 // 该接口不支持太高的并发, 且调用频率上限为 5QPS。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/media/download
+// new doc: https://open.feishu.cn/document/server-docs/docs/drive-v1/media/download
 func (r *DriveService) DownloadDriveMedia(ctx context.Context, request *DownloadDriveMediaReq, options ...MethodOptionFunc) (*DownloadDriveMediaResp, *Response, error) {
 	if r.cli.mock.mockDriveDownloadDriveMedia != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Drive#DownloadDriveMedia mock enable")

@@ -26,6 +26,7 @@ import (
 // 该接口用于根据 docToken 获取元数据。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uczN3UjL3czN14yN3cTN
+// new doc: https://open.feishu.cn/document/server-docs/historic-version/docs/document/obtain-document-meta
 //
 // Deprecated
 func (r *DriveService) GetDriveDocMeta(ctx context.Context, request *GetDriveDocMetaReq, options ...MethodOptionFunc) (*GetDriveDocMetaResp, *Response, error) {

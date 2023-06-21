@@ -24,6 +24,7 @@ import (
 // DeleteCoreHrJobFamily 删除序列。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job_family/delete
+// new doc: https://open.feishu.cn/document/server-docs/corehr-v1/job-management/job_family/delete
 func (r *CoreHrService) DeleteCoreHrJobFamily(ctx context.Context, request *DeleteCoreHrJobFamilyReq, options ...MethodOptionFunc) (*DeleteCoreHrJobFamilyResp, *Response, error) {
 	if r.cli.mock.mockCoreHrDeleteCoreHrJobFamily != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] CoreHr#DeleteCoreHrJobFamily mock enable")

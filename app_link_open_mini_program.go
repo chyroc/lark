@@ -26,6 +26,7 @@ import (
 // 打开一个小程序或者小程序中的一个页面
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/uYjL24iN/applink-protocol/supported-protocol/open-a-gadget
+// new doc: https://open.feishu.cn/document/common-capabilities/applink-protocol/supported-protocol/open-a-gadget
 func (r *AppLinkService) OpenMiniProgram(req *OpenMiniProgramReq) string {
 	return internal.JoinAppLinkURL("https://applink.feishu.cn/client/mini_program/open", req)
 }

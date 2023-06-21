@@ -24,6 +24,7 @@ import (
 // CreateHelpdeskAgentSkill 该接口用于创建客服技能。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/agent_skill/create
+// new doc: https://open.feishu.cn/document/server-docs/helpdesk-v1/agent-function/agent_skill/create
 func (r *HelpdeskService) CreateHelpdeskAgentSkill(ctx context.Context, request *CreateHelpdeskAgentSkillReq, options ...MethodOptionFunc) (*CreateHelpdeskAgentSkillResp, *Response, error) {
 	if r.cli.mock.mockHelpdeskCreateHelpdeskAgentSkill != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Helpdesk#CreateHelpdeskAgentSkill mock enable")

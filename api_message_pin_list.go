@@ -30,6 +30,7 @@ import (
 // - 接口默认限流为[50 QPS]
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/pin/list
+// new doc: https://open.feishu.cn/document/server-docs/im-v1/pin/list
 func (r *MessageService) GetMessagePinList(ctx context.Context, request *GetMessagePinListReq, options ...MethodOptionFunc) (*GetMessagePinListResp, *Response, error) {
 	if r.cli.mock.mockMessageGetMessagePinList != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Message#GetMessagePinList mock enable")

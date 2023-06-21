@@ -35,6 +35,7 @@ import (
 // 若要使用成员卡片组件, SDK需要在`<body>`加载后引入。
 //
 // doc: https://open.feishu.cn/document/uYjL24iN/uUDO3YjL1gzN24SN4cjN
+// new doc: https://open.feishu.cn/document/common-capabilities/web-components/component-sdk-authentication-process
 func (r *JssdkService) GetJssdkTicket(ctx context.Context, request *GetJssdkTicketReq, options ...MethodOptionFunc) (*GetJssdkTicketResp, *Response, error) {
 	if r.cli.mock.mockJssdkGetJssdkTicket != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Jssdk#GetJssdkTicket mock enable")

@@ -24,6 +24,7 @@ import (
 // CreateHelpdeskCategory 该接口用于创建知识库分类。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/category/create
+// new doc: https://open.feishu.cn/document/server-docs/helpdesk-v1/faq-management/category/create
 func (r *HelpdeskService) CreateHelpdeskCategory(ctx context.Context, request *CreateHelpdeskCategoryReq, options ...MethodOptionFunc) (*CreateHelpdeskCategoryResp, *Response, error) {
 	if r.cli.mock.mockHelpdeskCreateHelpdeskCategory != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Helpdesk#CreateHelpdeskCategory mock enable")

@@ -24,6 +24,7 @@ import (
 // GetHelpdeskFAQList 该接口用于获取服务台知识库详情。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/faq/list
+// new doc: https://open.feishu.cn/document/server-docs/helpdesk-v1/faq-management/faq/list
 func (r *HelpdeskService) GetHelpdeskFAQList(ctx context.Context, request *GetHelpdeskFAQListReq, options ...MethodOptionFunc) (*GetHelpdeskFAQListResp, *Response, error) {
 	if r.cli.mock.mockHelpdeskGetHelpdeskFAQList != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Helpdesk#GetHelpdeskFAQList mock enable")

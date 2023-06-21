@@ -34,6 +34,7 @@ import (
 // 3. 撤销加人 - revoke_add_user_from_chat
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uQDOwUjL0gDM14CN4ATN/event/user-joins-or-leave-group
+// new doc:
 func (r *EventCallbackService) HandlerEventV1AddUserToChat(f EventV1AddUserToChatHandler) {
 	r.cli.eventHandler.eventV1AddUserToChatHandler = f
 }

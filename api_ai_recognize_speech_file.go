@@ -26,6 +26,7 @@ import (
 // 单租户限流: 20QPS, 同租户下的应用没有限流, 共享本租户的 20QPS 限流
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/ai/speech_to_text-v1/speech/file_recognize
+// new doc: https://open.feishu.cn/document/server-docs/ai/speech_to_text-v1/file_recognize
 func (r *AIService) RecognizeSpeechFile(ctx context.Context, request *RecognizeSpeechFileReq, options ...MethodOptionFunc) (*RecognizeSpeechFileResp, *Response, error) {
 	if r.cli.mock.mockAIRecognizeSpeechFile != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] AI#RecognizeSpeechFile mock enable")

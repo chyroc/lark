@@ -24,6 +24,7 @@ import (
 // BatchDeleteBitableRecord 该接口用于删除数据表中现有的多条记录, 单次调用中最多删除 500 条记录。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table-record/batch_delete
+// new doc: https://open.feishu.cn/document/server-docs/docs/bitable-v1/app-table-record/batch_delete
 func (r *BitableService) BatchDeleteBitableRecord(ctx context.Context, request *BatchDeleteBitableRecordReq, options ...MethodOptionFunc) (*BatchDeleteBitableRecordResp, *Response, error) {
 	if r.cli.mock.mockBitableBatchDeleteBitableRecord != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Bitable#BatchDeleteBitableRecord mock enable")

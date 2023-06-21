@@ -24,6 +24,7 @@ import (
 // EventV1LeaveApprovalRevert 请假撤销消息
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uIDO24iM4YjLygjN/event/leave
+// new doc: https://open.feishu.cn/document/server-docs/approval-v4/event/special-event/leave
 func (r *EventCallbackService) HandlerEventV1LeaveApprovalRevert(f EventV1LeaveApprovalRevertHandler) {
 	r.cli.eventHandler.eventV1LeaveApprovalRevertHandler = f
 }

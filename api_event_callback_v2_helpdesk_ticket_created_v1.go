@@ -24,6 +24,7 @@ import (
 // EventV2HelpdeskTicketCreatedV1 可监听服务台的工单创建事件。需使用订阅接口订阅: [事件订阅](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/event/subscribe){使用示例}(url=/api/tools/api_explore/api_explore_config?project=helpdesk&version=v1&resource=ticket&event=created)
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/ticket/events/created
+// new doc: https://open.feishu.cn/document/server-docs/helpdesk-v1/ticket-management/ticket/events/created
 func (r *EventCallbackService) HandlerEventV2HelpdeskTicketCreatedV1(f EventV2HelpdeskTicketCreatedV1Handler) {
 	r.cli.eventHandler.eventV2HelpdeskTicketCreatedV1Handler = f
 }

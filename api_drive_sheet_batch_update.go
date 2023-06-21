@@ -27,6 +27,7 @@ import (
 // 该接口和 [更新工作表属性](https://open.feishu.cn/document/ukTMukTMukTM/ugjMzUjL4IzM14COyMTN) 的请求地址相同, 但参数不同, 调用前请仔细阅读文档。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uYTMzUjL2EzM14iNxMTN
+// new doc: https://open.feishu.cn/document/server-docs/docs/sheets-v3/spreadsheet-sheet/operate-sheets
 func (r *DriveService) BatchUpdateSheet(ctx context.Context, request *BatchUpdateSheetReq, options ...MethodOptionFunc) (*BatchUpdateSheetResp, *Response, error) {
 	if r.cli.mock.mockDriveBatchUpdateSheet != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Drive#BatchUpdateSheet mock enable")

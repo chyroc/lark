@@ -27,6 +27,7 @@ import (
 // 获取导出结果的用户需要与创建导出任务的用户相一致。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/export_task/get
+// new doc: https://open.feishu.cn/document/server-docs/docs/drive-v1/export_task/get
 func (r *DriveService) GetDriveExportTask(ctx context.Context, request *GetDriveExportTaskReq, options ...MethodOptionFunc) (*GetDriveExportTaskResp, *Response, error) {
 	if r.cli.mock.mockDriveGetDriveExportTask != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Drive#GetDriveExportTask mock enable")

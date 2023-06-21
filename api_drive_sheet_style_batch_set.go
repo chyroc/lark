@@ -24,6 +24,7 @@ import (
 // BatchSetSheetStyle 该接口用于根据 spreadsheetToken 、range和样式信息 批量更新单元格样式；单次写入不超过5000行, 100列。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uAzMzUjLwMzM14CMzMTN
+// new doc: https://open.feishu.cn/document/server-docs/docs/sheets-v3/data-operation/batch-set-cell-style
 func (r *DriveService) BatchSetSheetStyle(ctx context.Context, request *BatchSetSheetStyleReq, options ...MethodOptionFunc) (*BatchSetSheetStyleResp, *Response, error) {
 	if r.cli.mock.mockDriveBatchSetSheetStyle != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Drive#BatchSetSheetStyle mock enable")

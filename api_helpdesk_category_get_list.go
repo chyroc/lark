@@ -24,6 +24,7 @@ import (
 // GetHelpdeskCategoryList 该接口用于获取服务台知识库所有分类。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/category/list-categories
+// new doc: https://open.feishu.cn/document/server-docs/helpdesk-v1/faq-management/category/list-categories
 func (r *HelpdeskService) GetHelpdeskCategoryList(ctx context.Context, request *GetHelpdeskCategoryListReq, options ...MethodOptionFunc) (*GetHelpdeskCategoryListResp, *Response, error) {
 	if r.cli.mock.mockHelpdeskGetHelpdeskCategoryList != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Helpdesk#GetHelpdeskCategoryList mock enable")

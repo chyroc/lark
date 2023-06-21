@@ -24,6 +24,7 @@ import (
 // GetVCRoomList 该接口可以用来查询某个会议室层级下会议室列表。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/vc-v1/room/list
+// new doc: https://open.feishu.cn/document/server-docs/vc-v1/room/list
 func (r *VCService) GetVCRoomList(ctx context.Context, request *GetVCRoomListReq, options ...MethodOptionFunc) (*GetVCRoomListResp, *Response, error) {
 	if r.cli.mock.mockVCGetVCRoomList != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] VC#GetVCRoomList mock enable")

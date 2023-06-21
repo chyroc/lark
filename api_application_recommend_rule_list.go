@@ -24,6 +24,7 @@ import (
 // GetApplicationRecommendRuleList 获取当前设置的推荐规则列表。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/application-v6/app_recommend_rule/list
+// new doc: https://open.feishu.cn/document/server-docs/workplace-v1/app_recommend_rule/list
 func (r *ApplicationService) GetApplicationRecommendRuleList(ctx context.Context, request *GetApplicationRecommendRuleListReq, options ...MethodOptionFunc) (*GetApplicationRecommendRuleListResp, *Response, error) {
 	if r.cli.mock.mockApplicationGetApplicationRecommendRuleList != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Application#GetApplicationRecommendRuleList mock enable")

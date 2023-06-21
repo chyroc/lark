@@ -26,6 +26,7 @@ import (
 // 打开工作台（定制工作台）或打开网页工作台的特定页面。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/uYjL24iN/applink-protocol/supported-protocol/open-a-workplace
+// new doc: https://open.feishu.cn/document/common-capabilities/applink-protocol/supported-protocol/open-a-workplace
 func (r *AppLinkService) OpenWorkbench(req *OpenWorkbenchReq) string {
 	return internal.JoinAppLinkURL("https://applink.feishu.cn/client/workplace/open", req)
 }

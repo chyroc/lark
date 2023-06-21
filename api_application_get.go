@@ -24,6 +24,7 @@ import (
 // GetApplication 根据app_id获取应用的基础信息
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/application-v6/application/get
+// new doc: https://open.feishu.cn/document/server-docs/application-v6/application/get
 func (r *ApplicationService) GetApplication(ctx context.Context, request *GetApplicationReq, options ...MethodOptionFunc) (*GetApplicationResp, *Response, error) {
 	if r.cli.mock.mockApplicationGetApplication != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Application#GetApplication mock enable")

@@ -24,6 +24,7 @@ import (
 // UpdateSheetDataValidationDropdown 该接口根据 spreadsheetToken 、sheetId、dataValidationId 更新下拉列表的属性。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uATMzUjLwEzM14CMxMTN/datavalidation/update-datavalidation
+// new doc: https://open.feishu.cn/document/server-docs/docs/sheets-v3/datavalidation/update-datavalidation
 func (r *DriveService) UpdateSheetDataValidationDropdown(ctx context.Context, request *UpdateSheetDataValidationDropdownReq, options ...MethodOptionFunc) (*UpdateSheetDataValidationDropdownResp, *Response, error) {
 	if r.cli.mock.mockDriveUpdateSheetDataValidationDropdown != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Drive#UpdateSheetDataValidationDropdown mock enable")

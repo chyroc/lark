@@ -30,6 +30,7 @@ import (
 // - 操作内部群时, 操作者须与群组在同一租户下
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-tab/sort_tabs
+// new doc: https://open.feishu.cn/document/server-docs/group/chat-tab/sort_tabs
 func (r *ChatService) SortChatTab(ctx context.Context, request *SortChatTabReq, options ...MethodOptionFunc) (*SortChatTabResp, *Response, error) {
 	if r.cli.mock.mockChatSortChatTab != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Chat#SortChatTab mock enable")

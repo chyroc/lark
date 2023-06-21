@@ -33,6 +33,7 @@ import (
 // - 仅支持群模式为group的群组。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-menu_tree/create
+// new doc: https://open.feishu.cn/document/server-docs/group/chat-menu_tree/create
 func (r *ChatService) CreateChatMenuTree(ctx context.Context, request *CreateChatMenuTreeReq, options ...MethodOptionFunc) (*CreateChatMenuTreeResp, *Response, error) {
 	if r.cli.mock.mockChatCreateChatMenuTree != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Chat#CreateChatMenuTree mock enable")

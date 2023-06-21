@@ -26,6 +26,7 @@ import (
 // 此接口不支持tenant access token（应用身份访问）
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/wiki-v2/space/create
+// new doc: https://open.feishu.cn/document/server-docs/docs/wiki-v2/space/create
 func (r *DriveService) CreateWikiSpace(ctx context.Context, request *CreateWikiSpaceReq, options ...MethodOptionFunc) (*CreateWikiSpaceResp, *Response, error) {
 	if r.cli.mock.mockDriveCreateWikiSpace != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Drive#CreateWikiSpace mock enable")

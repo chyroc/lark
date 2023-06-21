@@ -24,6 +24,7 @@ import (
 // DeleteCoreHrLeaveGrantingRecord 删除飞书人事休假系统中的假期授予记录（仅支持删除授予来源是「手动授予」或「外部系统授予」的记录）。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/leave_granting_record/delete
+// new doc: https://open.feishu.cn/document/server-docs/corehr-v1/leave/delete
 func (r *CoreHrService) DeleteCoreHrLeaveGrantingRecord(ctx context.Context, request *DeleteCoreHrLeaveGrantingRecordReq, options ...MethodOptionFunc) (*DeleteCoreHrLeaveGrantingRecordResp, *Response, error) {
 	if r.cli.mock.mockCoreHrDeleteCoreHrLeaveGrantingRecord != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] CoreHr#DeleteCoreHrLeaveGrantingRecord mock enable")

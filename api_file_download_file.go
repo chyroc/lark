@@ -32,6 +32,7 @@ import (
 // - 如果需要Content-Disposition header, 发起请求的时候需要在header中设置Content-Type为application/json
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/file/get
+// new doc: https://open.feishu.cn/document/server-docs/im-v1/file/get
 func (r *FileService) DownloadFile(ctx context.Context, request *DownloadFileReq, options ...MethodOptionFunc) (*DownloadFileResp, *Response, error) {
 	if r.cli.mock.mockFileDownloadFile != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] File#DownloadFile mock enable")

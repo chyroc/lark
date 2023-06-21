@@ -24,6 +24,7 @@ import (
 // UnbindDepartmentChat 通过该接口将部门群转为普通群。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/unbind_department_chat
+// new doc: https://open.feishu.cn/document/server-docs/contact-v3/department/unbind_department_chat
 func (r *ContactService) UnbindDepartmentChat(ctx context.Context, request *UnbindDepartmentChatReq, options ...MethodOptionFunc) (*UnbindDepartmentChatResp, *Response, error) {
 	if r.cli.mock.mockContactUnbindDepartmentChat != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Contact#UnbindDepartmentChat mock enable")

@@ -24,6 +24,7 @@ import (
 // UpdateHelpdeskAgent 更新客服状态等信息。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/agent/patch
+// new doc: https://open.feishu.cn/document/server-docs/helpdesk-v1/agent-function/agent/patch
 func (r *HelpdeskService) UpdateHelpdeskAgent(ctx context.Context, request *UpdateHelpdeskAgentReq, options ...MethodOptionFunc) (*UpdateHelpdeskAgentResp, *Response, error) {
 	if r.cli.mock.mockHelpdeskUpdateHelpdeskAgent != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Helpdesk#UpdateHelpdeskAgent mock enable")

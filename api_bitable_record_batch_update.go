@@ -24,6 +24,7 @@ import (
 // BatchUpdateBitableRecord 该接口用于更新数据表中的多条记录, 单次调用最多更新 500 条记录。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table-record/batch_update
+// new doc: https://open.feishu.cn/document/server-docs/docs/bitable-v1/app-table-record/batch_update
 func (r *BitableService) BatchUpdateBitableRecord(ctx context.Context, request *BatchUpdateBitableRecordReq, options ...MethodOptionFunc) (*BatchUpdateBitableRecordResp, *Response, error) {
 	if r.cli.mock.mockBitableBatchUpdateBitableRecord != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Bitable#BatchUpdateBitableRecord mock enable")

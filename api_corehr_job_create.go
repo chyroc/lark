@@ -24,6 +24,7 @@ import (
 // CreateCoreHrJob 创建职务。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job/create
+// new doc: https://open.feishu.cn/document/server-docs/corehr-v1/job-management/job/create
 func (r *CoreHrService) CreateCoreHrJob(ctx context.Context, request *CreateCoreHrJobReq, options ...MethodOptionFunc) (*CreateCoreHrJobResp, *Response, error) {
 	if r.cli.mock.mockCoreHrCreateCoreHrJob != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] CoreHr#CreateCoreHrJob mock enable")

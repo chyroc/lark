@@ -24,6 +24,7 @@ import (
 // DeleteCoreHrEmployment 删除人员的雇佣信息。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/employment/delete
+// new doc: https://open.feishu.cn/document/server-docs/corehr-v1/employee/employment/delete
 func (r *CoreHrService) DeleteCoreHrEmployment(ctx context.Context, request *DeleteCoreHrEmploymentReq, options ...MethodOptionFunc) (*DeleteCoreHrEmploymentResp, *Response, error) {
 	if r.cli.mock.mockCoreHrDeleteCoreHrEmployment != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] CoreHr#DeleteCoreHrEmployment mock enable")

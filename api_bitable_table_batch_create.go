@@ -24,6 +24,7 @@ import (
 // BatchCreateBitableTable 新增多个数据表。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table/batch_create
+// new doc: https://open.feishu.cn/document/server-docs/docs/bitable-v1/app-table/batch_create
 func (r *BitableService) BatchCreateBitableTable(ctx context.Context, request *BatchCreateBitableTableReq, options ...MethodOptionFunc) (*BatchCreateBitableTableResp, *Response, error) {
 	if r.cli.mock.mockBitableBatchCreateBitableTable != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Bitable#BatchCreateBitableTable mock enable")

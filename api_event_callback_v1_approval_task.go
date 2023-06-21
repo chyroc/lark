@@ -38,6 +38,7 @@ import (
 // 9. 如果超时已关闭的审批任务被手动恢复, 推送该任务的【OVERTIME_RECOVER】状态
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uIDO24iM4YjLygjN/event/common-event/approval-task-event
+// new doc: https://open.feishu.cn/document/server-docs/approval-v4/event/common-event/approval-task-event
 func (r *EventCallbackService) HandlerEventV1ApprovalTask(f EventV1ApprovalTaskHandler) {
 	r.cli.eventHandler.eventV1ApprovalTaskHandler = f
 }

@@ -24,6 +24,7 @@ import (
 // GetCoreHrSubdivisionList 批量查询省份/行政区信息。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/subdivision/list
+// new doc: https://open.feishu.cn/document/server-docs/corehr-v1/basic-infomation/location_data/list-2
 func (r *CoreHrService) GetCoreHrSubdivisionList(ctx context.Context, request *GetCoreHrSubdivisionListReq, options ...MethodOptionFunc) (*GetCoreHrSubdivisionListResp, *Response, error) {
 	if r.cli.mock.mockCoreHrGetCoreHrSubdivisionList != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] CoreHr#GetCoreHrSubdivisionList mock enable")

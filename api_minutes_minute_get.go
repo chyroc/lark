@@ -24,6 +24,7 @@ import (
 // GetMinutesMinute 通过这个接口, 可以得到一篇妙记的基础概述信息, 包含 `owner_id`、`create_time`、标题、封面、时长和 URL。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/minutes-v1/minute/get
+// new doc: https://open.feishu.cn/document/server-docs/minutes-v1/minute/get
 func (r *MinutesService) GetMinutesMinute(ctx context.Context, request *GetMinutesMinuteReq, options ...MethodOptionFunc) (*GetMinutesMinuteResp, *Response, error) {
 	if r.cli.mock.mockMinutesGetMinutesMinute != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Minutes#GetMinutesMinute mock enable")

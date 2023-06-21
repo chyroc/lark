@@ -28,6 +28,7 @@ import (
 // - 只能删除真实存在的reaction, 并且删除reaction请求的操作者必须是reaction的原始添加者
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message-reaction/delete
+// new doc: https://open.feishu.cn/document/server-docs/im-v1/message-reaction/delete
 func (r *MessageService) DeleteMessageReaction(ctx context.Context, request *DeleteMessageReactionReq, options ...MethodOptionFunc) (*DeleteMessageReactionResp, *Response, error) {
 	if r.cli.mock.mockMessageDeleteMessageReaction != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Message#DeleteMessageReaction mock enable")

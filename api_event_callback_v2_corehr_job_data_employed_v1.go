@@ -24,6 +24,7 @@ import (
 // EventV2CorehrJobDataEmployedV1 在「飞书人事」将待入职员工手动操作“完成入职”后, 触发该事件。{使用示例}(url=/api/tools/api_explore/api_explore_config?project=corehr&version=v1&resource=job_data&event=employed)
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job_data/events/employed
+// new doc: https://open.feishu.cn/document/server-docs/corehr-v1/pre_hire/employed
 func (r *EventCallbackService) HandlerEventV2CorehrJobDataEmployedV1(f EventV2CorehrJobDataEmployedV1Handler) {
 	r.cli.eventHandler.eventV2CorehrJobDataEmployedV1Handler = f
 }

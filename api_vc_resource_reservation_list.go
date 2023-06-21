@@ -24,6 +24,7 @@ import (
 // GetVCResourceReservationList 查询会议室预定数据。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/vc-v1/resource_reservation_list/get
+// new doc: https://open.feishu.cn/document/server-docs/vc-v1/meeting-room-data/get-4
 func (r *VCService) GetVCResourceReservationList(ctx context.Context, request *GetVCResourceReservationListReq, options ...MethodOptionFunc) (*GetVCResourceReservationListResp, *Response, error) {
 	if r.cli.mock.mockVCGetVCResourceReservationList != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] VC#GetVCResourceReservationList mock enable")

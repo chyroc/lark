@@ -24,6 +24,7 @@ import (
 // CreateCoreHrPerson 创建个人信息
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/person/create
+// new doc: https://open.feishu.cn/document/server-docs/corehr-v1/employee/person/create-2
 func (r *CoreHrService) CreateCoreHrPerson(ctx context.Context, request *CreateCoreHrPersonReq, options ...MethodOptionFunc) (*CreateCoreHrPersonResp, *Response, error) {
 	if r.cli.mock.mockCoreHrCreateCoreHrPerson != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] CoreHr#CreateCoreHrPerson mock enable")

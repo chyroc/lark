@@ -24,6 +24,7 @@ import (
 // GetMailGroupPermissionMember 获取邮件组单个权限成员信息。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/mail-v1/mailgroup-permission_member/get
+// new doc: https://open.feishu.cn/document/server-docs/mail-v1/mail-group/mailgroup-permission_member/get
 func (r *MailService) GetMailGroupPermissionMember(ctx context.Context, request *GetMailGroupPermissionMemberReq, options ...MethodOptionFunc) (*GetMailGroupPermissionMemberResp, *Response, error) {
 	if r.cli.mock.mockMailGetMailGroupPermissionMember != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Mail#GetMailGroupPermissionMember mock enable")

@@ -27,6 +27,7 @@ import (
 // - 操作用户需要是企业超级管理员
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/exchange_binding/get
+// new doc: https://open.feishu.cn/document/server-docs/calendar-v4/exchange_binding/get
 func (r *CalendarService) GetCalendarExchangeBinding(ctx context.Context, request *GetCalendarExchangeBindingReq, options ...MethodOptionFunc) (*GetCalendarExchangeBindingResp, *Response, error) {
 	if r.cli.mock.mockCalendarGetCalendarExchangeBinding != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Calendar#GetCalendarExchangeBinding mock enable")

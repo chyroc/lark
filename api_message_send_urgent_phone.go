@@ -33,6 +33,7 @@ import (
 // - 加急用户的未读加急总数不能超过200条
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/urgent_phone
+// new doc: https://open.feishu.cn/document/server-docs/im-v1/buzz-messages/urgent_phone
 func (r *MessageService) SendUrgentPhoneMessage(ctx context.Context, request *SendUrgentPhoneMessageReq, options ...MethodOptionFunc) (*SendUrgentPhoneMessageResp, *Response, error) {
 	if r.cli.mock.mockMessageSendUrgentPhoneMessage != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Message#SendUrgentPhoneMessage mock enable")

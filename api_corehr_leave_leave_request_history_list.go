@@ -24,6 +24,7 @@ import (
 // GetCoreHrLeaveRequestHistoryList 批量获取员工的请假记录数据。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/leave/leave_request_history
+// new doc: https://open.feishu.cn/document/server-docs/corehr-v1/leave/leave_request_history
 func (r *CoreHrService) GetCoreHrLeaveRequestHistoryList(ctx context.Context, request *GetCoreHrLeaveRequestHistoryListReq, options ...MethodOptionFunc) (*GetCoreHrLeaveRequestHistoryListResp, *Response, error) {
 	if r.cli.mock.mockCoreHrGetCoreHrLeaveRequestHistoryList != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] CoreHr#GetCoreHrLeaveRequestHistoryList mock enable")

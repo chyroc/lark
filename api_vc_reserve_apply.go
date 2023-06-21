@@ -27,6 +27,7 @@ import (
 // 以此方式预约的会议「不会」生成日程, 「不会」显示在日历中
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/vc-v1/reserve/apply
+// new doc: https://open.feishu.cn/document/server-docs/vc-v1/reserve/apply
 func (r *VCService) ApplyVCReserve(ctx context.Context, request *ApplyVCReserveReq, options ...MethodOptionFunc) (*ApplyVCReserveResp, *Response, error) {
 	if r.cli.mock.mockVCApplyVCReserve != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] VC#ApplyVCReserve mock enable")

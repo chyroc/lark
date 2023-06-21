@@ -33,6 +33,7 @@ import (
 // - 操作内部群时, 操作者须与群组在同一租户下
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-tab/create
+// new doc: https://open.feishu.cn/document/server-docs/group/chat-tab/create
 func (r *ChatService) CreateChatTab(ctx context.Context, request *CreateChatTabReq, options ...MethodOptionFunc) (*CreateChatTabResp, *Response, error) {
 	if r.cli.mock.mockChatCreateChatTab != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Chat#CreateChatTab mock enable")

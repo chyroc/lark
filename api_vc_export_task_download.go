@@ -25,6 +25,7 @@ import (
 // DownloadVCExportFile 下载导出文件。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/vc-v1/export/download
+// new doc: https://open.feishu.cn/document/server-docs/vc-v1/export/download
 func (r *VCService) DownloadVCExportFile(ctx context.Context, request *DownloadVCExportFileReq, options ...MethodOptionFunc) (*DownloadVCExportFileResp, *Response, error) {
 	if r.cli.mock.mockVCDownloadVCExportFile != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] VC#DownloadVCExportFile mock enable")

@@ -24,6 +24,7 @@ import (
 // GetHireInterviewList 根据投递 ID 或面试时间获取面试信息。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/interview/list
+// new doc: https://open.feishu.cn/document/server-docs/hire-v1/candidate-management/delivery-process-management/interview/list
 func (r *HireService) GetHireInterviewList(ctx context.Context, request *GetHireInterviewListReq, options ...MethodOptionFunc) (*GetHireInterviewListResp, *Response, error) {
 	if r.cli.mock.mockHireGetHireInterviewList != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Hire#GetHireInterviewList mock enable")

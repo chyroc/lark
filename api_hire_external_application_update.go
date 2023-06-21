@@ -24,6 +24,7 @@ import (
 // UpdateHireExternalApplication 更新外部投递, 对外部投递的字段进行覆盖更新。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/external_application/update
+// new doc: https://open.feishu.cn/document/server-docs/hire-v1/get-candidates/import-external-system-information/update-2
 func (r *HireService) UpdateHireExternalApplication(ctx context.Context, request *UpdateHireExternalApplicationReq, options ...MethodOptionFunc) (*UpdateHireExternalApplicationResp, *Response, error) {
 	if r.cli.mock.mockHireUpdateHireExternalApplication != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Hire#UpdateHireExternalApplication mock enable")

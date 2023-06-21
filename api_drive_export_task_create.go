@@ -27,6 +27,7 @@ import (
 // 请求用户需要对该文档有导出权限。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/export_task/create
+// new doc: https://open.feishu.cn/document/server-docs/docs/drive-v1/export_task/create
 func (r *DriveService) CreateDriveExportTask(ctx context.Context, request *CreateDriveExportTaskReq, options ...MethodOptionFunc) (*CreateDriveExportTaskResp, *Response, error) {
 	if r.cli.mock.mockDriveCreateDriveExportTask != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Drive#CreateDriveExportTask mock enable")

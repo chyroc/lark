@@ -26,6 +26,7 @@ import (
 // 只能获取已加入智能门禁权限组的用户
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/acs-v1/user/get
+// new doc: https://open.feishu.cn/document/server-docs/acs-v1/user/get
 func (r *ACSService) GetACSUser(ctx context.Context, request *GetACSUserReq, options ...MethodOptionFunc) (*GetACSUserResp, *Response, error) {
 	if r.cli.mock.mockACSGetACSUser != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] ACS#GetACSUser mock enable")

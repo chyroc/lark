@@ -24,6 +24,7 @@ import (
 // GetTaskComment 该接口用于通过评论ID获取评论详情。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/task-v1/task-comment/get
+// new doc: https://open.feishu.cn/document/server-docs/task-v1/task-comment/get
 func (r *TaskService) GetTaskComment(ctx context.Context, request *GetTaskCommentReq, options ...MethodOptionFunc) (*GetTaskCommentResp, *Response, error) {
 	if r.cli.mock.mockTaskGetTaskComment != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Task#GetTaskComment mock enable")

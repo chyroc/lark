@@ -28,6 +28,7 @@ import (
 // - 修改系统状态后, 并不影响正在使用的用户。该用户的系统状态可用时间到期后, 再次被开启可用的时候, 用户客户端才会同步到更新后的系统状态。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/personal_settings-v1/system_status/patch
+// new doc: https://open.feishu.cn/document/server-docs/personal_settings-v1/system_status/patch
 func (r *PersonalSettingsService) UpdatePersonalSettingsSystemStatus(ctx context.Context, request *UpdatePersonalSettingsSystemStatusReq, options ...MethodOptionFunc) (*UpdatePersonalSettingsSystemStatusResp, *Response, error) {
 	if r.cli.mock.mockPersonalSettingsUpdatePersonalSettingsSystemStatus != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] PersonalSettings#UpdatePersonalSettingsSystemStatus mock enable")

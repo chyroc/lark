@@ -24,6 +24,7 @@ import (
 // CreateContactFunctionalRole 通过”创建角色“接口可批量完成角色创建, 新增角色同步展示至租户的管理后台-角色管理模块。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/functional_role/create
+// new doc: https://open.feishu.cn/document/server-docs/contact-v3/functional_role/create
 func (r *ContactService) CreateContactFunctionalRole(ctx context.Context, request *CreateContactFunctionalRoleReq, options ...MethodOptionFunc) (*CreateContactFunctionalRoleResp, *Response, error) {
 	if r.cli.mock.mockContactCreateContactFunctionalRole != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Contact#CreateContactFunctionalRole mock enable")

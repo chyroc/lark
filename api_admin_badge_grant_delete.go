@@ -24,6 +24,7 @@ import (
 // DeleteAdminBadgeGrant 通过该接口可以删除特定授予名单的信息。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/admin-v1/badge-grant/delete
+// new doc: https://open.feishu.cn/document/server-docs/admin-v1/badge/badge-grant/delete
 func (r *AdminService) DeleteAdminBadgeGrant(ctx context.Context, request *DeleteAdminBadgeGrantReq, options ...MethodOptionFunc) (*DeleteAdminBadgeGrantResp, *Response, error) {
 	if r.cli.mock.mockAdminDeleteAdminBadgeGrant != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Admin#DeleteAdminBadgeGrant mock enable")

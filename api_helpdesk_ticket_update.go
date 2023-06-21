@@ -24,6 +24,7 @@ import (
 // UpdateHelpdeskTicket 该接口用于更新服务台工单详情。只会更新数据, 不会触发相关操作。如修改工单状态到关单, 不会关闭聊天页面。仅支持自建应用。要更新的工单字段必须至少输入一项。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/ticket/update
+// new doc: https://open.feishu.cn/document/server-docs/helpdesk-v1/ticket-management/ticket/update
 func (r *HelpdeskService) UpdateHelpdeskTicket(ctx context.Context, request *UpdateHelpdeskTicketReq, options ...MethodOptionFunc) (*UpdateHelpdeskTicketResp, *Response, error) {
 	if r.cli.mock.mockHelpdeskUpdateHelpdeskTicket != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Helpdesk#UpdateHelpdeskTicket mock enable")

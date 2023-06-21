@@ -31,6 +31,7 @@ import (
 // 该接口用于获取结构化的文档内容。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uUDM2YjL1AjN24SNwYjN
+// new doc: https://open.feishu.cn/document/server-docs/docs/docs/docs/content/get-document
 //
 // Deprecated
 func (r *DriveService) GetDriveDocContent(ctx context.Context, request *GetDriveDocContentReq, options ...MethodOptionFunc) (*GetDriveDocContentResp, *Response, error) {

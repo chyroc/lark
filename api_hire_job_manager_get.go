@@ -24,6 +24,7 @@ import (
 // GetHireJobManager 根据职位 ID 获取职位上的招聘人员信息, 如招聘负责人、用人经理。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/job-manager/get
+// new doc: https://open.feishu.cn/document/server-docs/hire-v1/recruitment-related-configuration/job/get-2
 func (r *HireService) GetHireJobManager(ctx context.Context, request *GetHireJobManagerReq, options ...MethodOptionFunc) (*GetHireJobManagerResp, *Response, error) {
 	if r.cli.mock.mockHireGetHireJobManager != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Hire#GetHireJobManager mock enable")

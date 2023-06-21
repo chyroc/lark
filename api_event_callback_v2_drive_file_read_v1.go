@@ -26,6 +26,7 @@ import (
 // 文件被打开将触发此事件。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/event/file-read
+// new doc: https://open.feishu.cn/document/server-docs/docs/drive-v1/event/list/file-read
 func (r *EventCallbackService) HandlerEventV2DriveFileReadV1(f EventV2DriveFileReadV1Handler) {
 	r.cli.eventHandler.eventV2DriveFileReadV1Handler = f
 }

@@ -24,6 +24,7 @@ import (
 // GetContactJobLevel 该接口可以获取单个职级的信息。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/job_level/get
+// new doc: https://open.feishu.cn/document/server-docs/contact-v3/job_level/get
 func (r *ContactService) GetContactJobLevel(ctx context.Context, request *GetContactJobLevelReq, options ...MethodOptionFunc) (*GetContactJobLevelResp, *Response, error) {
 	if r.cli.mock.mockContactGetContactJobLevel != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Contact#GetContactJobLevel mock enable")

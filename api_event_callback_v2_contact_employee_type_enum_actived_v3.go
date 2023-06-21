@@ -24,6 +24,7 @@ import (
 // EventV2ContactEmployeeTypeEnumActivedV3 启用人员类型会发出对应事件。{使用示例}(url=/api/tools/api_explore/api_explore_config?project=contact&version=v3&resource=employee_type_enum&event=actived)
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/employee_type_enum/events/actived
+// new doc: https://open.feishu.cn/document/server-docs/contact-v3/employee_type_enum/events/actived
 func (r *EventCallbackService) HandlerEventV2ContactEmployeeTypeEnumActivedV3(f EventV2ContactEmployeeTypeEnumActivedV3Handler) {
 	r.cli.eventHandler.eventV2ContactEmployeeTypeEnumActivedV3Handler = f
 }

@@ -26,6 +26,7 @@ import (
 // 该接口一次性返回所有数据, 分页参数无效
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/mail-v1/user_mailbox-alias/list
+// new doc: https://open.feishu.cn/document/server-docs/mail-v1/user_mailbox-alias/list
 func (r *MailService) GetMailUserMailboxAliasList(ctx context.Context, request *GetMailUserMailboxAliasListReq, options ...MethodOptionFunc) (*GetMailUserMailboxAliasListResp, *Response, error) {
 	if r.cli.mock.mockMailGetMailUserMailboxAliasList != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Mail#GetMailUserMailboxAliasList mock enable")

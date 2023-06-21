@@ -24,6 +24,7 @@ import (
 // AddApprovalInstanceSign 对于单个审批任务进行加签操作。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/ukTM5UjL5ETO14SOxkTN/approval-task-addsign
+// new doc: https://open.feishu.cn/document/server-docs/approval-v4/task/approval-task-addsign
 func (r *ApprovalService) AddApprovalInstanceSign(ctx context.Context, request *AddApprovalInstanceSignReq, options ...MethodOptionFunc) (*AddApprovalInstanceSignResp, *Response, error) {
 	if r.cli.mock.mockApprovalAddApprovalInstanceSign != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Approval#AddApprovalInstanceSign mock enable")

@@ -24,6 +24,7 @@ import (
 // UpdateSearchDataSource 更新一个已经存在的数据源。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/search-v2/data_source/patch
+// new doc: https://open.feishu.cn/document/server-docs/search-v2/open-search/data_source/patch
 func (r *SearchService) UpdateSearchDataSource(ctx context.Context, request *UpdateSearchDataSourceReq, options ...MethodOptionFunc) (*UpdateSearchDataSourceResp, *Response, error) {
 	if r.cli.mock.mockSearchUpdateSearchDataSource != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Search#UpdateSearchDataSource mock enable")

@@ -24,6 +24,7 @@ import (
 // DeletePublicMailboxMember 删除公共邮箱单个成员。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/mail-v1/public_mailbox-member/delete
+// new doc: https://open.feishu.cn/document/server-docs/mail-v1/public-mailbox/public_mailbox-member/delete
 func (r *MailService) DeletePublicMailboxMember(ctx context.Context, request *DeletePublicMailboxMemberReq, options ...MethodOptionFunc) (*DeletePublicMailboxMemberResp, *Response, error) {
 	if r.cli.mock.mockMailDeletePublicMailboxMember != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Mail#DeletePublicMailboxMember mock enable")

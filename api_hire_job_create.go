@@ -24,6 +24,7 @@ import (
 // CreateHireJob 新建职位, 字段的是否必填, 以系统中的「职位字段管理」中的设置为准。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/job/combined_create
+// new doc: https://open.feishu.cn/document/server-docs/hire-v1/recruitment-related-configuration/job/combined_create
 func (r *HireService) CreateHireJob(ctx context.Context, request *CreateHireJobReq, options ...MethodOptionFunc) (*CreateHireJobResp, *Response, error) {
 	if r.cli.mock.mockHireCreateHireJob != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Hire#CreateHireJob mock enable")

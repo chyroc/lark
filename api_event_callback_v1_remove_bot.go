@@ -27,6 +27,7 @@ import (
 // - 依赖条件: 应用必须开启了[机器人能力](https://open.feishu.cn/document/home/develop-a-bot-in-5-minutes/create-an-app)。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/ugzMugzMugzM/event/bot-removed-from-group
+// new doc:
 func (r *EventCallbackService) HandlerEventV1RemoveBot(f EventV1RemoveBotHandler) {
 	r.cli.eventHandler.eventV1RemoveBotHandler = f
 }

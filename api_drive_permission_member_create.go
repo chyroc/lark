@@ -24,6 +24,7 @@ import (
 // CreateDriveMemberPermission 该接口用于根据 filetoken 给用户增加文档的权限。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/permission-member/create
+// new doc: https://open.feishu.cn/document/server-docs/docs/permission/permission-member/create
 func (r *DriveService) CreateDriveMemberPermission(ctx context.Context, request *CreateDriveMemberPermissionReq, options ...MethodOptionFunc) (*CreateDriveMemberPermissionResp, *Response, error) {
 	if r.cli.mock.mockDriveCreateDriveMemberPermission != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Drive#CreateDriveMemberPermission mock enable")

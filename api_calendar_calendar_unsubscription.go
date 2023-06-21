@@ -26,6 +26,7 @@ import (
 // - 应用需要开启[机器人能力](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-enable-bot-ability)。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar/unsubscription
+// new doc: https://open.feishu.cn/document/server-docs/calendar-v4/calendar/unsubscription
 func (r *CalendarService) UnsubscribeCalendarChangeEvent(ctx context.Context, request *UnsubscribeCalendarChangeEventReq, options ...MethodOptionFunc) (*UnsubscribeCalendarChangeEventResp, *Response, error) {
 	if r.cli.mock.mockCalendarUnsubscribeCalendarChangeEvent != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Calendar#UnsubscribeCalendarChangeEvent mock enable")

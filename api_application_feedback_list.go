@@ -24,6 +24,7 @@ import (
 // GetApplicationFeedbackList 查询应用的反馈数据
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/application-v6/application-feedback/list
+// new doc: https://open.feishu.cn/document/server-docs/application-v6/application-feedback/list
 func (r *ApplicationService) GetApplicationFeedbackList(ctx context.Context, request *GetApplicationFeedbackListReq, options ...MethodOptionFunc) (*GetApplicationFeedbackListResp, *Response, error) {
 	if r.cli.mock.mockApplicationGetApplicationFeedbackList != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Application#GetApplicationFeedbackList mock enable")

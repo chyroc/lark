@@ -24,6 +24,7 @@ import (
 // GetMailUser 使用邮箱状态查询接口, 可以输入邮箱地址, 查询出该邮箱地址对应的类型以及状态。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/mail-v1/user/query
+// new doc: https://open.feishu.cn/document/server-docs/mail-v1/user/query
 func (r *MailService) GetMailUser(ctx context.Context, request *GetMailUserReq, options ...MethodOptionFunc) (*GetMailUserResp, *Response, error) {
 	if r.cli.mock.mockMailGetMailUser != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Mail#GetMailUser mock enable")

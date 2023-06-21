@@ -24,6 +24,7 @@ import (
 // UpdateHireOfferInternStatus 对「实习待入职」状态的实习 Offer 确认入职、放弃入职, 或对「实习已入职」状态的实习 Offer 操作离职。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/offer/intern_offer_status
+// new doc: https://open.feishu.cn/document/server-docs/hire-v1/candidate-management/delivery-process-management/offer/intern_offer_status
 func (r *HireService) UpdateHireOfferInternStatus(ctx context.Context, request *UpdateHireOfferInternStatusReq, options ...MethodOptionFunc) (*UpdateHireOfferInternStatusResp, *Response, error) {
 	if r.cli.mock.mockHireUpdateHireOfferInternStatus != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Hire#UpdateHireOfferInternStatus mock enable")

@@ -24,6 +24,7 @@ import (
 // GetApplicationUserAdminScope 该接口用于获取应用管理员的管理范围, 即该应用管理员能够管理哪些部门。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uMzN3QjLzczN04yM3cDN
+// new doc: https://open.feishu.cn/document/server-docs/application-v6/admin/obtain-an-app-admin’s-management-permissions
 func (r *ApplicationService) GetApplicationUserAdminScope(ctx context.Context, request *GetApplicationUserAdminScopeReq, options ...MethodOptionFunc) (*GetApplicationUserAdminScopeResp, *Response, error) {
 	if r.cli.mock.mockApplicationGetApplicationUserAdminScope != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Application#GetApplicationUserAdminScope mock enable")

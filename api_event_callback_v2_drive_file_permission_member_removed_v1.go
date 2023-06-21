@@ -26,6 +26,7 @@ import (
 // 文件协作者移除用户/群时将触发此事件。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/event/file-collaborator-remove
+// new doc: https://open.feishu.cn/document/server-docs/docs/drive-v1/event/list/file-collaborator-remove
 func (r *EventCallbackService) HandlerEventV2DriveFilePermissionMemberRemovedV1(f EventV2DriveFilePermissionMemberRemovedV1Handler) {
 	r.cli.eventHandler.eventV2DriveFilePermissionMemberRemovedV1Handler = f
 }

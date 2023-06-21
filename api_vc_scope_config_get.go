@@ -24,6 +24,7 @@ import (
 // GetVCScopeConfig 该接口可以用来查询某个会议层级范围下或者某个会议室的配置。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/vc-v1/scope_config/get
+// new doc: https://open.feishu.cn/document/server-docs/vc-v1/scope_config/get
 func (r *VCService) GetVCScopeConfig(ctx context.Context, request *GetVCScopeConfigReq, options ...MethodOptionFunc) (*GetVCScopeConfigResp, *Response, error) {
 	if r.cli.mock.mockVCGetVCScopeConfig != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] VC#GetVCScopeConfig mock enable")

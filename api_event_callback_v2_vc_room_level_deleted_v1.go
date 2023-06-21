@@ -24,6 +24,7 @@ import (
 // EventV2VCRoomLevelDeletedV1 当删除会议室成层级时, 会触发该事件。{使用示例}(url=/api/tools/api_explore/api_explore_config?project=vc&version=v1&resource=room_level&event=deleted)
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/vc-v1/room_level/events/deleted
+// new doc: https://open.feishu.cn/document/server-docs/vc-v1/room_level/events/deleted
 func (r *EventCallbackService) HandlerEventV2VCRoomLevelDeletedV1(f EventV2VCRoomLevelDeletedV1Handler) {
 	r.cli.eventHandler.eventV2VCRoomLevelDeletedV1Handler = f
 }

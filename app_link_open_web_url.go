@@ -29,6 +29,7 @@ import (
 // ![image.png](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/761f68be5274fea59bf8145489633c88_Z6KZ6NyGCh.png?lazyload=true&width=1649&height=962)
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/uYjL24iN/applink-protocol/supported-protocol/open-the-web-view-in-feishu-to-access-the-specified-url
+// new doc: https://open.feishu.cn/document/common-capabilities/applink-protocol/supported-protocol/open-the-web-view-in-feishu-to-access-the-specified-url
 func (r *AppLinkService) OpenWebURL(req *OpenWebURLReq) string {
 	return internal.JoinAppLinkURL("https://applink.feishu.cn/client/web_url/open", req)
 }

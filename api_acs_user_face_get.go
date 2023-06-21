@@ -25,6 +25,7 @@ import (
 // GetACSUserFace 对于已经录入人脸图片的用户, 可以使用该接口下载用户人脸图片。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/acs-v1/user-face/get
+// new doc: https://open.feishu.cn/document/server-docs/acs-v1/user/get-2
 func (r *ACSService) GetACSUserFace(ctx context.Context, request *GetACSUserFaceReq, options ...MethodOptionFunc) (*GetACSUserFaceResp, *Response, error) {
 	if r.cli.mock.mockACSGetACSUserFace != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] ACS#GetACSUserFace mock enable")

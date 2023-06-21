@@ -24,6 +24,7 @@ import (
 // GetSheetMeta 该接口用于根据 spreadsheetToken 获取表格元数据。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uETMzUjLxEzM14SMxMTN
+// new doc: https://open.feishu.cn/document/server-docs/historic-version/docs/sheets/obtain-spreadsheet-metadata
 //
 // Deprecated
 func (r *DriveService) GetSheetMeta(ctx context.Context, request *GetSheetMetaReq, options ...MethodOptionFunc) (*GetSheetMetaResp, *Response, error) {

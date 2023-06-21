@@ -24,6 +24,7 @@ import (
 // UpdateContactFunctionalRole 通过本接口可以修改角色名称
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/functional_role/update
+// new doc: https://open.feishu.cn/document/server-docs/contact-v3/functional_role/update
 func (r *ContactService) UpdateContactFunctionalRole(ctx context.Context, request *UpdateContactFunctionalRoleReq, options ...MethodOptionFunc) (*UpdateContactFunctionalRoleResp, *Response, error) {
 	if r.cli.mock.mockContactUpdateContactFunctionalRole != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Contact#UpdateContactFunctionalRole mock enable")

@@ -24,6 +24,7 @@ import (
 // GetDriveImportTask 根据创建导入任务返回的`ticket`轮询导入结果, 调用方式可参考[导入使用指南](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/import_task/import-user-guide)。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/import_task/get
+// new doc: https://open.feishu.cn/document/server-docs/docs/drive-v1/import_task/get
 func (r *DriveService) GetDriveImportTask(ctx context.Context, request *GetDriveImportTaskReq, options ...MethodOptionFunc) (*GetDriveImportTaskResp, *Response, error) {
 	if r.cli.mock.mockDriveGetDriveImportTask != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Drive#GetDriveImportTask mock enable")

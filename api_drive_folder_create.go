@@ -26,6 +26,7 @@ import (
 // 该接口不支持并发创建, 且调用频率上限为 5QPS 以及 10000次/天
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file/create_folder
+// new doc: https://open.feishu.cn/document/server-docs/docs/drive-v1/folder/create_folder
 func (r *DriveService) CreateDriveFolder(ctx context.Context, request *CreateDriveFolderReq, options ...MethodOptionFunc) (*CreateDriveFolderResp, *Response, error) {
 	if r.cli.mock.mockDriveCreateDriveFolder != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Drive#CreateDriveFolder mock enable")

@@ -24,6 +24,7 @@ import (
 // UpdateApplication 更新应用的分组信息（分组会影响应用在工作台中的分类情况, 请谨慎更新）
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/application-v6/application/patch
+// new doc: https://open.feishu.cn/document/server-docs/application-v6/application/patch
 func (r *ApplicationService) UpdateApplication(ctx context.Context, request *UpdateApplicationReq, options ...MethodOptionFunc) (*UpdateApplicationResp, *Response, error) {
 	if r.cli.mock.mockApplicationUpdateApplication != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Application#UpdateApplication mock enable")

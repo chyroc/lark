@@ -26,6 +26,7 @@ import (
 // - 应用需要开启[机器人能力](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-enable-bot-ability)。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar/subscription
+// new doc: https://open.feishu.cn/document/server-docs/calendar-v4/calendar/subscription
 func (r *CalendarService) SubscribeCalendarChangeEvent(ctx context.Context, request *SubscribeCalendarChangeEventReq, options ...MethodOptionFunc) (*SubscribeCalendarChangeEventResp, *Response, error) {
 	if r.cli.mock.mockCalendarSubscribeCalendarChangeEvent != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Calendar#SubscribeCalendarChangeEvent mock enable")

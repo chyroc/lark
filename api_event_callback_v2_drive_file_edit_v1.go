@@ -26,6 +26,7 @@ import (
 // 文件编辑将触发此事件。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/event/file-edited
+// new doc: https://open.feishu.cn/document/server-docs/docs/drive-v1/event/list/file-edited
 func (r *EventCallbackService) HandlerEventV2DriveFileEditV1(f EventV2DriveFileEditV1Handler) {
 	r.cli.eventHandler.eventV2DriveFileEditV1Handler = f
 }

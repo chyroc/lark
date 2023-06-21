@@ -24,6 +24,7 @@ import (
 // DeleteVCRoom 该接口可以用来删除某个会议室。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/vc-v1/room/delete
+// new doc: https://open.feishu.cn/document/server-docs/vc-v1/room/delete
 func (r *VCService) DeleteVCRoom(ctx context.Context, request *DeleteVCRoomReq, options ...MethodOptionFunc) (*DeleteVCRoomResp, *Response, error) {
 	if r.cli.mock.mockVCDeleteVCRoom != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] VC#DeleteVCRoom mock enable")

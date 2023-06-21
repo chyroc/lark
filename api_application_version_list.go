@@ -24,6 +24,7 @@ import (
 // GetApplicationVersionList 根据 app_id 获取对应应用版本列表。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/application-v6/application-app_version/list
+// new doc: https://open.feishu.cn/document/server-docs/application-v6/application/list
 func (r *ApplicationService) GetApplicationVersionList(ctx context.Context, request *GetApplicationVersionListReq, options ...MethodOptionFunc) (*GetApplicationVersionListResp, *Response, error) {
 	if r.cli.mock.mockApplicationGetApplicationVersionList != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Application#GetApplicationVersionList mock enable")

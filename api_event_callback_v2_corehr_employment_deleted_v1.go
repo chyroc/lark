@@ -24,6 +24,7 @@ import (
 // EventV2CorehrEmploymentDeletedV1 员工在飞书人事的「雇佣信息被删除」时将触发此事件。{使用示例}(url=/api/tools/api_explore/api_explore_config?project=corehr&version=v1&resource=employment&event=deleted)
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/employment/events/deleted
+// new doc: https://open.feishu.cn/document/server-docs/corehr-v1/employee/employment/deleted
 func (r *EventCallbackService) HandlerEventV2CorehrEmploymentDeletedV1(f EventV2CorehrEmploymentDeletedV1Handler) {
 	r.cli.eventHandler.eventV2CorehrEmploymentDeletedV1Handler = f
 }

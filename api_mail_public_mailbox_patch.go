@@ -24,6 +24,7 @@ import (
 // UpdatePublicMailboxPatch 更新公共邮箱部分字段, 没有填写的字段不会被更新。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/mail-v1/public_mailbox/patch
+// new doc: https://open.feishu.cn/document/server-docs/mail-v1/public-mailbox/public_mailbox/patch
 func (r *MailService) UpdatePublicMailboxPatch(ctx context.Context, request *UpdatePublicMailboxPatchReq, options ...MethodOptionFunc) (*UpdatePublicMailboxPatchResp, *Response, error) {
 	if r.cli.mock.mockMailUpdatePublicMailboxPatch != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Mail#UpdatePublicMailboxPatch mock enable")

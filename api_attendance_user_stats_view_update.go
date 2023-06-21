@@ -24,6 +24,7 @@ import (
 // UpdateAttendanceUserStatsView 更新开发者定制的日度统计或月度统计的统计报表表头设置信息。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/user_stats_view/update
+// new doc: https://open.feishu.cn/document/server-docs/attendance-v1/user_stats_data/update
 func (r *AttendanceService) UpdateAttendanceUserStatsView(ctx context.Context, request *UpdateAttendanceUserStatsViewReq, options ...MethodOptionFunc) (*UpdateAttendanceUserStatsViewResp, *Response, error) {
 	if r.cli.mock.mockAttendanceUpdateAttendanceUserStatsView != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Attendance#UpdateAttendanceUserStatsView mock enable")

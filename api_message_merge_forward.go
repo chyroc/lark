@@ -38,6 +38,7 @@ import (
 // - 为避免对用户造成打扰, 向同一用户发送消息的限频为 [5 QPS], 向同一群组发送消息的限频为群内机器人共享 [5 QPS]
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/merge_forward
+// new doc: https://open.feishu.cn/document/server-docs/im-v1/message/merge_forward
 func (r *MessageService) MergeForwardMessage(ctx context.Context, request *MergeForwardMessageReq, options ...MethodOptionFunc) (*MergeForwardMessageResp, *Response, error) {
 	if r.cli.mock.mockMessageMergeForwardMessage != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Message#MergeForwardMessage mock enable")

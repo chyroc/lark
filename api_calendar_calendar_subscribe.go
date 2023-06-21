@@ -29,6 +29,7 @@ import (
 // - 可订阅日历数量上限为1000。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar/subscribe
+// new doc: https://open.feishu.cn/document/server-docs/calendar-v4/calendar/subscribe
 func (r *CalendarService) SubscribeCalendar(ctx context.Context, request *SubscribeCalendarReq, options ...MethodOptionFunc) (*SubscribeCalendarResp, *Response, error) {
 	if r.cli.mock.mockCalendarSubscribeCalendar != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Calendar#SubscribeCalendar mock enable")

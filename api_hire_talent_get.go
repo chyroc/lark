@@ -24,6 +24,7 @@ import (
 // GetHireTalent 根据人才 ID 获取人才信息。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/talent/get
+// new doc: https://open.feishu.cn/document/server-docs/hire-v1/candidate-management/talent/get
 func (r *HireService) GetHireTalent(ctx context.Context, request *GetHireTalentReq, options ...MethodOptionFunc) (*GetHireTalentResp, *Response, error) {
 	if r.cli.mock.mockHireGetHireTalent != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Hire#GetHireTalent mock enable")

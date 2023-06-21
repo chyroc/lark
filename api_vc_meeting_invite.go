@@ -26,6 +26,7 @@ import (
 // 发起邀请的操作者必须具有相应的权限（如果操作者为用户, 则必须在会中）, 如果会议被锁定、或参会人数如果达到上限, 则会邀请失败
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/vc-v1/meeting/invite
+// new doc: https://open.feishu.cn/document/server-docs/vc-v1/meeting/invite
 func (r *VCService) InviteVCMeeting(ctx context.Context, request *InviteVCMeetingReq, options ...MethodOptionFunc) (*InviteVCMeetingResp, *Response, error) {
 	if r.cli.mock.mockVCInviteVCMeeting != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] VC#InviteVCMeeting mock enable")

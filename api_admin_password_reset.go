@@ -26,6 +26,7 @@ import (
 // 邮箱死锁: 当用户的登录凭证与飞书企业邮箱一致时, 目前飞书登录流程要求用户输入验证码, 由于飞书邮箱无单独的帐号体系, 则未登录时无法收取邮箱验证码, 即陷入死锁。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/admin-v1/password/reset
+// new doc: https://open.feishu.cn/document/server-docs/admin-v1/password/reset
 func (r *AdminService) AdminResetPassword(ctx context.Context, request *AdminResetPasswordReq, options ...MethodOptionFunc) (*AdminResetPasswordResp, *Response, error) {
 	if r.cli.mock.mockAdminAdminResetPassword != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Admin#AdminResetPassword mock enable")

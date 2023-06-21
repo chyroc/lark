@@ -24,6 +24,7 @@ import (
 // GetHireJobConfig 获取职位设置。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/job/config
+// new doc: https://open.feishu.cn/document/server-docs/hire-v1/recruitment-related-configuration/job/config
 func (r *HireService) GetHireJobConfig(ctx context.Context, request *GetHireJobConfigReq, options ...MethodOptionFunc) (*GetHireJobConfigResp, *Response, error) {
 	if r.cli.mock.mockHireGetHireJobConfig != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Hire#GetHireJobConfig mock enable")

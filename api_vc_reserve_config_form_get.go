@@ -24,6 +24,7 @@ import (
 // GetVCReserveConfigForm 查询会议室预定表单。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/vc-v1/reserve_config-form/get
+// new doc: https://open.feishu.cn/document/server-docs/vc-v1/scope_config/get-2
 func (r *VCService) GetVCReserveConfigForm(ctx context.Context, request *GetVCReserveConfigFormReq, options ...MethodOptionFunc) (*GetVCReserveConfigFormResp, *Response, error) {
 	if r.cli.mock.mockVCGetVCReserveConfigForm != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] VC#GetVCReserveConfigForm mock enable")

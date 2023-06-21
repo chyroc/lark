@@ -24,6 +24,7 @@ import (
 // UpdateCoreHrContract 更新合同。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/contract/patch
+// new doc: https://open.feishu.cn/document/server-docs/corehr-v1/contract/patch
 func (r *CoreHrService) UpdateCoreHrContract(ctx context.Context, request *UpdateCoreHrContractReq, options ...MethodOptionFunc) (*UpdateCoreHrContractResp, *Response, error) {
 	if r.cli.mock.mockCoreHrUpdateCoreHrContract != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] CoreHr#UpdateCoreHrContract mock enable")

@@ -24,6 +24,7 @@ import (
 // CancelSendHelpdeskNotification 取消推送接口, 审核通过后待调度可以调用, 发送过程中可以调用（会撤回已发送的消息）, 发送完成后可以需要推送（会撤回所有已发送的消息）。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/notification/cancel_send
+// new doc: https://open.feishu.cn/document/server-docs/helpdesk-v1/notification/cancel_send
 func (r *HelpdeskService) CancelSendHelpdeskNotification(ctx context.Context, request *CancelSendHelpdeskNotificationReq, options ...MethodOptionFunc) (*CancelSendHelpdeskNotificationResp, *Response, error) {
 	if r.cli.mock.mockHelpdeskCancelSendHelpdeskNotification != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Helpdesk#CancelSendHelpdeskNotification mock enable")

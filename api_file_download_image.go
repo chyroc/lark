@@ -30,6 +30,7 @@ import (
 // - 下载用户发送的资源, 请使用[获取消息中的资源文件](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message-resource/get)接口
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/image/get
+// new doc: https://open.feishu.cn/document/server-docs/im-v1/image/get
 func (r *FileService) DownloadImage(ctx context.Context, request *DownloadImageReq, options ...MethodOptionFunc) (*DownloadImageResp, *Response, error) {
 	if r.cli.mock.mockFileDownloadImage != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] File#DownloadImage mock enable")

@@ -24,6 +24,7 @@ import (
 // HighlightBaikeEntity 传入一句话, 智能识别句中对应的词条, 并返回词条位置和 entity_id, 可在外部系统中快速实现词条智能高亮。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/baike-v1/entity/highlight
+// new doc: https://open.feishu.cn/document/server-docs/baike-v1/entity/highlight
 func (r *BaikeService) HighlightBaikeEntity(ctx context.Context, request *HighlightBaikeEntityReq, options ...MethodOptionFunc) (*HighlightBaikeEntityResp, *Response, error) {
 	if r.cli.mock.mockBaikeHighlightBaikeEntity != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Baike#HighlightBaikeEntity mock enable")

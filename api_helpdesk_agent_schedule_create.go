@@ -24,6 +24,7 @@ import (
 // CreateHelpdeskAgentSchedule 该接口用于创建客服日程。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/agent_schedule/create
+// new doc: https://open.feishu.cn/document/server-docs/helpdesk-v1/agent-function/agent-schedules/create
 func (r *HelpdeskService) CreateHelpdeskAgentSchedule(ctx context.Context, request *CreateHelpdeskAgentScheduleReq, options ...MethodOptionFunc) (*CreateHelpdeskAgentScheduleResp, *Response, error) {
 	if r.cli.mock.mockHelpdeskCreateHelpdeskAgentSchedule != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Helpdesk#CreateHelpdeskAgentSchedule mock enable")

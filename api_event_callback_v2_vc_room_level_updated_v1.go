@@ -24,6 +24,7 @@ import (
 // EventV2VCRoomLevelUpdatedV1 当更新会议室层级时, 会触发该事件。{使用示例}(url=/api/tools/api_explore/api_explore_config?project=vc&version=v1&resource=room_level&event=updated)
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/vc-v1/room_level/events/updated
+// new doc: https://open.feishu.cn/document/server-docs/vc-v1/room_level/events/updated
 func (r *EventCallbackService) HandlerEventV2VCRoomLevelUpdatedV1(f EventV2VCRoomLevelUpdatedV1Handler) {
 	r.cli.eventHandler.eventV2VCRoomLevelUpdatedV1Handler = f
 }

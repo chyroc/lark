@@ -26,6 +26,7 @@ import (
 // 注意: 该接口只能更新模板为 1008「收到审批待办」的卡片。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uAjNyYjLwYjM24CM2IjN
+// new doc: https://open.feishu.cn/document/server-docs/approval-v4/message/update-bot-messages
 func (r *ApprovalService) UpdateApprovalMessage(ctx context.Context, request *UpdateApprovalMessageReq, options ...MethodOptionFunc) (*UpdateApprovalMessageResp, *Response, error) {
 	if r.cli.mock.mockApprovalUpdateApprovalMessage != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Approval#UpdateApprovalMessage mock enable")

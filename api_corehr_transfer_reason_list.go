@@ -24,6 +24,7 @@ import (
 // GetCoreHrTransferReasonList 获取异动原因列表。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/transfer_reason/query
+// new doc: https://open.feishu.cn/document/server-docs/corehr-v1/job_change/query-2
 func (r *CoreHrService) GetCoreHrTransferReasonList(ctx context.Context, request *GetCoreHrTransferReasonListReq, options ...MethodOptionFunc) (*GetCoreHrTransferReasonListResp, *Response, error) {
 	if r.cli.mock.mockCoreHrGetCoreHrTransferReasonList != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] CoreHr#GetCoreHrTransferReasonList mock enable")

@@ -26,6 +26,7 @@ import (
 // 支持最近90天内的数据查询；默认返回前10位, 最多可查询前100位
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/vc-v1/report/get_top_user
+// new doc: https://open.feishu.cn/document/server-docs/vc-v1/report/get_top_user
 func (r *VCService) GetVCTopUserReport(ctx context.Context, request *GetVCTopUserReportReq, options ...MethodOptionFunc) (*GetVCTopUserReportResp, *Response, error) {
 	if r.cli.mock.mockVCGetVCTopUserReport != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] VC#GetVCTopUserReport mock enable")

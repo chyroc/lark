@@ -29,6 +29,7 @@ import (
 // - 操作API后, 将返回群内所有菜单。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-menu_tree/sort
+// new doc: https://open.feishu.cn/document/server-docs/group/chat-menu_tree/sort
 func (r *ChatService) SortChatMenuTree(ctx context.Context, request *SortChatMenuTreeReq, options ...MethodOptionFunc) (*SortChatMenuTreeResp, *Response, error) {
 	if r.cli.mock.mockChatSortChatMenuTree != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Chat#SortChatMenuTree mock enable")

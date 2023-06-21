@@ -31,6 +31,7 @@ import (
 // - 加急用户的未读加急总数不能超过200条
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/urgent_app
+// new doc: https://open.feishu.cn/document/server-docs/im-v1/buzz-messages/urgent_app
 func (r *MessageService) SendUrgentAppMessage(ctx context.Context, request *SendUrgentAppMessageReq, options ...MethodOptionFunc) (*SendUrgentAppMessageResp, *Response, error) {
 	if r.cli.mock.mockMessageSendUrgentAppMessage != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Message#SendUrgentAppMessage mock enable")

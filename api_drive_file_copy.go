@@ -27,6 +27,7 @@ import (
 // 该接口不支持并发拷贝多个文件, 且调用频率上限为 5QPS 且 10000次/天
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file/copy
+// new doc: https://open.feishu.cn/document/server-docs/docs/drive-v1/file/copy
 func (r *DriveService) CopyDriveFile(ctx context.Context, request *CopyDriveFileReq, options ...MethodOptionFunc) (*CopyDriveFileResp, *Response, error) {
 	if r.cli.mock.mockDriveCopyDriveFile != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Drive#CopyDriveFile mock enable")

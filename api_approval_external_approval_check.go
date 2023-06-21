@@ -26,6 +26,7 @@ import (
 // 例如, 用户可以每隔5分钟, 将最近5分钟产生的实例使用该接口进行对比。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/external_instance/check
+// new doc: https://open.feishu.cn/document/server-docs/approval-v4/external_instance/check
 func (r *ApprovalService) CheckApprovalExternalInstance(ctx context.Context, request *CheckApprovalExternalInstanceReq, options ...MethodOptionFunc) (*CheckApprovalExternalInstanceResp, *Response, error) {
 	if r.cli.mock.mockApprovalCheckApprovalExternalInstance != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Approval#CheckApprovalExternalInstance mock enable")

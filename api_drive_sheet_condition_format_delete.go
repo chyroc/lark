@@ -24,6 +24,7 @@ import (
 // DeleteSheetConditionFormat 该接口用于删除已有的条件格式, 单次最多支持删除10个条件格式, 每个条件格式的删除会返回成功或者失败, 失败的情况包括各种参数的校验。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uATMzUjLwEzM14CMxMTN/conditionformat/condition-format-delete
+// new doc: https://open.feishu.cn/document/server-docs/docs/sheets-v3/conditionformat/condition-format-delete
 func (r *DriveService) DeleteSheetConditionFormat(ctx context.Context, request *DeleteSheetConditionFormatReq, options ...MethodOptionFunc) (*DeleteSheetConditionFormatResp, *Response, error) {
 	if r.cli.mock.mockDriveDeleteSheetConditionFormat != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Drive#DeleteSheetConditionFormat mock enable")

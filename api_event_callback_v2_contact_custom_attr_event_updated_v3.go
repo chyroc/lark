@@ -26,6 +26,7 @@ import (
 // 触发事件的动作有「打开/关闭」开关、「增加/删除」成员字段。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/custom_attr_event/events/updated
+// new doc: https://open.feishu.cn/document/server-docs/contact-v3/custom_attr/events/updated
 func (r *EventCallbackService) HandlerEventV2ContactCustomAttrEventUpdatedV3(f EventV2ContactCustomAttrEventUpdatedV3Handler) {
 	r.cli.eventHandler.eventV2ContactCustomAttrEventUpdatedV3Handler = f
 }

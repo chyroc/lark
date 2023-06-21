@@ -31,6 +31,7 @@ import (
 // - 操作内部群时, 操作者须与群组在同一租户下
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-tab/delete_tabs
+// new doc: https://open.feishu.cn/document/server-docs/group/chat-tab/delete_tabs
 func (r *ChatService) DeleteChatTab(ctx context.Context, request *DeleteChatTabReq, options ...MethodOptionFunc) (*DeleteChatTabResp, *Response, error) {
 	if r.cli.mock.mockChatDeleteChatTab != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Chat#DeleteChatTab mock enable")

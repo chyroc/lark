@@ -24,6 +24,7 @@ import (
 // GetCoreHrCurrency 查询单个货币信息。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/currency/get
+// new doc: https://open.feishu.cn/document/server-docs/corehr-v1/basic-infomation/currency/get
 func (r *CoreHrService) GetCoreHrCurrency(ctx context.Context, request *GetCoreHrCurrencyReq, options ...MethodOptionFunc) (*GetCoreHrCurrencyResp, *Response, error) {
 	if r.cli.mock.mockCoreHrGetCoreHrCurrency != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] CoreHr#GetCoreHrCurrency mock enable")

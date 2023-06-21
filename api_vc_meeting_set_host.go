@@ -26,6 +26,7 @@ import (
 // 发起设置主持人的操作者必须具有相应的权限（如果操作者为用户, 必须是会中当前主持人）；该操作使用CAS并发安全机制, 需传入会中当前主持人, 如果操作失败可使用返回的最新数据重试
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/vc-v1/meeting/set_host
+// new doc: https://open.feishu.cn/document/server-docs/vc-v1/meeting/set_host
 func (r *VCService) SetVCHostMeeting(ctx context.Context, request *SetVCHostMeetingReq, options ...MethodOptionFunc) (*SetVCHostMeetingResp, *Response, error) {
 	if r.cli.mock.mockVCSetVCHostMeeting != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] VC#SetVCHostMeeting mock enable")

@@ -27,6 +27,7 @@ import (
 // - 当天的数据会在第二天的早上九点半产出（UTC+8）
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/admin-v1/admin_dept_stat/list
+// new doc: https://open.feishu.cn/document/server-docs/admin-v1/data-report-management/list
 func (r *AdminService) GetAdminDeptStats(ctx context.Context, request *GetAdminDeptStatsReq, options ...MethodOptionFunc) (*GetAdminDeptStatsResp, *Response, error) {
 	if r.cli.mock.mockAdminGetAdminDeptStats != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Admin#GetAdminDeptStats mock enable")

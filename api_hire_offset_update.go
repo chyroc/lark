@@ -26,6 +26,7 @@ import (
 // 2. 对系统中已存在的 offer 进行更新的, 若更新 offer 中含有「修改需审批」的字段, 更新后原 Offer 的审批会自动撤回, 需要重新发起审批。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/offer/update
+// new doc: https://open.feishu.cn/document/server-docs/hire-v1/candidate-management/delivery-process-management/offer/update
 func (r *HireService) UpdateHireOffer(ctx context.Context, request *UpdateHireOfferReq, options ...MethodOptionFunc) (*UpdateHireOfferResp, *Response, error) {
 	if r.cli.mock.mockHireUpdateHireOffer != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Hire#UpdateHireOffer mock enable")

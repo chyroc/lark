@@ -24,6 +24,7 @@ import (
 // EventV2CorehrOrgRoleAuthorizationUpdatedV1 当组织上的角色授权发生变更时, 触发该事件。例如在部门上修改了角色, 并在 2030-01-01 年生效, 则事件将在 2030-01-01 触发。注意: 当前事件只返回在飞书人事中组织角色的变化, 下游组织的影响, 可以通过 「获取组织类角色授权列表」获取。{使用示例}(url=/api/tools/api_explore/api_explore_config?project=corehr&version=v1&resource=org_role_authorization&event=updated)
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/org_role_authorization/events/updated
+// new doc: https://open.feishu.cn/document/server-docs/corehr-v1/authorization/updated
 func (r *EventCallbackService) HandlerEventV2CorehrOrgRoleAuthorizationUpdatedV1(f EventV2CorehrOrgRoleAuthorizationUpdatedV1Handler) {
 	r.cli.eventHandler.eventV2CorehrOrgRoleAuthorizationUpdatedV1Handler = f
 }

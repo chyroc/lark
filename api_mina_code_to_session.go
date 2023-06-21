@@ -26,6 +26,7 @@ import (
 // 本接口应在服务端调用, 调用方法参见 [如何调用服务端API](https://open.feishu.cn/document/ukTMukTMukTM/uITNz4iM1MjLyUzM)
 //
 // doc: https://open.feishu.cn/document/uYjL24iN/ukjM04SOyQjL5IDN
+// new doc: https://open.feishu.cn/document/client-docs/gadget/-web-app-api/open-ability/login/code2session
 func (r *MinaService) MinaCodeToSession(ctx context.Context, request *MinaCodeToSessionReq, options ...MethodOptionFunc) (*MinaCodeToSessionResp, *Response, error) {
 	if r.cli.mock.mockMinaMinaCodeToSession != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Mina#MinaCodeToSession mock enable")

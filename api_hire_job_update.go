@@ -24,6 +24,7 @@ import (
 // UpdateHireJob 更新职位信息, 该接口为全量更新, 若字段没有返回值, 则原有值将会被清空。字段的是否必填, 将以系统中的「职位字段管理」中的设置为准。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/job/combined_update
+// new doc: https://open.feishu.cn/document/server-docs/hire-v1/recruitment-related-configuration/job/combined_update
 func (r *HireService) UpdateHireJob(ctx context.Context, request *UpdateHireJobReq, options ...MethodOptionFunc) (*UpdateHireJobResp, *Response, error) {
 	if r.cli.mock.mockHireUpdateHireJob != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Hire#UpdateHireJob mock enable")

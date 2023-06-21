@@ -24,6 +24,7 @@ import (
 // CancelApproveHelpdeskNotification 提交审核后, 如果需要取消审核, 则调用此接口。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/notification/cancel_approve
+// new doc: https://open.feishu.cn/document/server-docs/helpdesk-v1/notification/cancel_approve
 func (r *HelpdeskService) CancelApproveHelpdeskNotification(ctx context.Context, request *CancelApproveHelpdeskNotificationReq, options ...MethodOptionFunc) (*CancelApproveHelpdeskNotificationResp, *Response, error) {
 	if r.cli.mock.mockHelpdeskCancelApproveHelpdeskNotification != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Helpdesk#CancelApproveHelpdeskNotification mock enable")

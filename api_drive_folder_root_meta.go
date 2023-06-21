@@ -24,6 +24,7 @@ import (
 // GetDriveRootFolderMeta 该接口用于获取 "我的空间" 的元信息
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/ugTNzUjL4UzM14CO1MTN/get-root-folder-meta
+// new doc: https://open.feishu.cn/document/server-docs/docs/drive-v1/folder/get-root-folder-meta
 func (r *DriveService) GetDriveRootFolderMeta(ctx context.Context, request *GetDriveRootFolderMetaReq, options ...MethodOptionFunc) (*GetDriveRootFolderMetaResp, *Response, error) {
 	if r.cli.mock.mockDriveGetDriveRootFolderMeta != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Drive#GetDriveRootFolderMeta mock enable")

@@ -24,6 +24,7 @@ import (
 // CreateCoreHrOffboarding 操作员工直接离职。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/offboarding/submit
+// new doc: https://open.feishu.cn/document/server-docs/corehr-v1/offboarding/submit
 func (r *CoreHrService) CreateCoreHrOffboarding(ctx context.Context, request *CreateCoreHrOffboardingReq, options ...MethodOptionFunc) (*CreateCoreHrOffboardingResp, *Response, error) {
 	if r.cli.mock.mockCoreHrCreateCoreHrOffboarding != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] CoreHr#CreateCoreHrOffboarding mock enable")

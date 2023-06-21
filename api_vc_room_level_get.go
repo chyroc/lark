@@ -24,6 +24,7 @@ import (
 // GetVCRoomLevel 该接口可以使用会议室层级 ID 查询会议室层级详情。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/vc-v1/room_level/get
+// new doc: https://open.feishu.cn/document/server-docs/vc-v1/room_level/get
 func (r *VCService) GetVCRoomLevel(ctx context.Context, request *GetVCRoomLevelReq, options ...MethodOptionFunc) (*GetVCRoomLevelResp, *Response, error) {
 	if r.cli.mock.mockVCGetVCRoomLevel != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] VC#GetVCRoomLevel mock enable")

@@ -24,6 +24,7 @@ import (
 // GetDriveFileSubscription 根据订阅ID获取该订阅的状态
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file-subscription/get
+// new doc: https://open.feishu.cn/document/server-docs/docs/docs-assistant/file-subscription/get
 func (r *DriveService) GetDriveFileSubscription(ctx context.Context, request *GetDriveFileSubscriptionReq, options ...MethodOptionFunc) (*GetDriveFileSubscriptionResp, *Response, error) {
 	if r.cli.mock.mockDriveGetDriveFileSubscription != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Drive#GetDriveFileSubscription mock enable")

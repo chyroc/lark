@@ -24,6 +24,7 @@ import (
 // SearchCoreHrOffboarding 搜索离职信息, 该接口会按照应用拥有的「员工数据」的权限范围返回数据, 请确定在「开发者后台 - 权限管理 - 数据权限」中有申请「员工资源」权限范围
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/offboarding/search
+// new doc: https://open.feishu.cn/document/server-docs/corehr-v1/offboarding/search
 func (r *CoreHrService) SearchCoreHrOffboarding(ctx context.Context, request *SearchCoreHrOffboardingReq, options ...MethodOptionFunc) (*SearchCoreHrOffboardingResp, *Response, error) {
 	if r.cli.mock.mockCoreHrSearchCoreHrOffboarding != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] CoreHr#SearchCoreHrOffboarding mock enable")

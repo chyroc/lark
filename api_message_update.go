@@ -33,6 +33,7 @@ import (
 // - 单条消息更新频控为5QPS
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/patch
+// new doc: https://open.feishu.cn/document/server-docs/im-v1/message-card/patch
 func (r *MessageService) UpdateMessage(ctx context.Context, request *UpdateMessageReq, options ...MethodOptionFunc) (*UpdateMessageResp, *Response, error) {
 	if r.cli.mock.mockMessageUpdateMessage != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Message#UpdateMessage mock enable")

@@ -24,6 +24,7 @@ import (
 // UpdateDriveFileSubscription 根据订阅ID更新订阅状态
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file-subscription/patch
+// new doc: https://open.feishu.cn/document/server-docs/docs/docs-assistant/file-subscription/patch
 func (r *DriveService) UpdateDriveFileSubscription(ctx context.Context, request *UpdateDriveFileSubscriptionReq, options ...MethodOptionFunc) (*UpdateDriveFileSubscriptionResp, *Response, error) {
 	if r.cli.mock.mockDriveUpdateDriveFileSubscription != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Drive#UpdateDriveFileSubscription mock enable")

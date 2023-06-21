@@ -24,6 +24,7 @@ import (
 // GetHireEmployee 通过员工 ID 获取入职信息。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/employee/get
+// new doc: https://open.feishu.cn/document/server-docs/hire-v1/candidate-management/delivery-process-management/onboard/get
 func (r *HireService) GetHireEmployee(ctx context.Context, request *GetHireEmployeeReq, options ...MethodOptionFunc) (*GetHireEmployeeResp, *Response, error) {
 	if r.cli.mock.mockHireGetHireEmployee != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Hire#GetHireEmployee mock enable")

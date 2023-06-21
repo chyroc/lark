@@ -26,6 +26,7 @@ import (
 // 当通过接口新增用户或部门时, 提前判断对应用户或部门是否已在禁用名单中, 如果已在禁用名单中, 则即便将用户或部门添加到可用名单, 该用户或部门也无法看到该应用, 即禁用名单优先级高于可用名单。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/ucDN3UjL3QzN14yN0cTN
+// new doc: https://open.feishu.cn/document/server-docs/application-v6/admin/update-the-availability-of-an-app
 func (r *ApplicationService) UpdateApplicationAppVisibility(ctx context.Context, request *UpdateApplicationAppVisibilityReq, options ...MethodOptionFunc) (*UpdateApplicationAppVisibilityResp, *Response, error) {
 	if r.cli.mock.mockApplicationUpdateApplicationAppVisibility != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Application#UpdateApplicationAppVisibility mock enable")

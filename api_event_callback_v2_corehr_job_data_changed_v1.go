@@ -24,6 +24,7 @@ import (
 // EventV2CorehrJobDataChangedV1 员工在飞书人事异动完成后将触发该事件。{使用示例}(url=/api/tools/api_explore/api_explore_config?project=corehr&version=v1&resource=job_data&event=changed)
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job_data/events/changed
+// new doc: https://open.feishu.cn/document/server-docs/corehr-v1/job_change/changed
 func (r *EventCallbackService) HandlerEventV2CorehrJobDataChangedV1(f EventV2CorehrJobDataChangedV1Handler) {
 	r.cli.eventHandler.eventV2CorehrJobDataChangedV1Handler = f
 }

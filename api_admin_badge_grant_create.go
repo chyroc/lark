@@ -24,6 +24,7 @@ import (
 // CreateAdminBadgeGrant 通过该接口可以为特定勋章创建一份授予名单, 一枚勋章下最多可创建1000份授予名单。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/admin-v1/badge-grant/create
+// new doc: https://open.feishu.cn/document/server-docs/admin-v1/badge/badge-grant/create
 func (r *AdminService) CreateAdminBadgeGrant(ctx context.Context, request *CreateAdminBadgeGrantReq, options ...MethodOptionFunc) (*CreateAdminBadgeGrantResp, *Response, error) {
 	if r.cli.mock.mockAdminCreateAdminBadgeGrant != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Admin#CreateAdminBadgeGrant mock enable")

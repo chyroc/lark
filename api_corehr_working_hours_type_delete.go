@@ -24,6 +24,7 @@ import (
 // DeleteCoreHrWorkingHoursType 删除工时制度。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/working_hours_type/delete
+// new doc: https://open.feishu.cn/document/server-docs/corehr-v1/basic-infomation/working_hours_type/delete
 func (r *CoreHrService) DeleteCoreHrWorkingHoursType(ctx context.Context, request *DeleteCoreHrWorkingHoursTypeReq, options ...MethodOptionFunc) (*DeleteCoreHrWorkingHoursTypeResp, *Response, error) {
 	if r.cli.mock.mockCoreHrDeleteCoreHrWorkingHoursType != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] CoreHr#DeleteCoreHrWorkingHoursType mock enable")

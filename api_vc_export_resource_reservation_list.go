@@ -24,6 +24,7 @@ import (
 // ExportVCResourceReservationList 导出会议室预定数据, 具体权限要求请参考「资源介绍」。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/vc-v1/export/resource_reservation_list
+// new doc: https://open.feishu.cn/document/server-docs/vc-v1/export/resource_reservation_list
 func (r *VCService) ExportVCResourceReservationList(ctx context.Context, request *ExportVCResourceReservationListReq, options ...MethodOptionFunc) (*ExportVCResourceReservationListResp, *Response, error) {
 	if r.cli.mock.mockVCExportVCResourceReservationList != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] VC#ExportVCResourceReservationList mock enable")

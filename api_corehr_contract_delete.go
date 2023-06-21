@@ -24,6 +24,7 @@ import (
 // DeleteCoreHrContract 删除合同。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/contract/delete
+// new doc: https://open.feishu.cn/document/server-docs/corehr-v1/contract/delete
 func (r *CoreHrService) DeleteCoreHrContract(ctx context.Context, request *DeleteCoreHrContractReq, options ...MethodOptionFunc) (*DeleteCoreHrContractResp, *Response, error) {
 	if r.cli.mock.mockCoreHrDeleteCoreHrContract != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] CoreHr#DeleteCoreHrContract mock enable")

@@ -26,6 +26,7 @@ import (
 // 更新自定义角色是全量更新, 会完全覆盖旧的自定义角色设置
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-role/update
+// new doc: https://open.feishu.cn/document/server-docs/docs/bitable-v1/advanced-permission/app-role/update
 func (r *BitableService) UpdateBitableAppRole(ctx context.Context, request *UpdateBitableAppRoleReq, options ...MethodOptionFunc) (*UpdateBitableAppRoleResp, *Response, error) {
 	if r.cli.mock.mockBitableUpdateBitableAppRole != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Bitable#UpdateBitableAppRole mock enable")

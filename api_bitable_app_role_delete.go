@@ -24,6 +24,7 @@ import (
 // DeleteBitableAppRole 删除自定义角色
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-role/delete
+// new doc: https://open.feishu.cn/document/server-docs/docs/bitable-v1/advanced-permission/app-role/delete
 func (r *BitableService) DeleteBitableAppRole(ctx context.Context, request *DeleteBitableAppRoleReq, options ...MethodOptionFunc) (*DeleteBitableAppRoleResp, *Response, error) {
 	if r.cli.mock.mockBitableDeleteBitableAppRole != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Bitable#DeleteBitableAppRole mock enable")

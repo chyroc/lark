@@ -24,6 +24,7 @@ import (
 // AddHireTalentToFolder 将人才加入指定文件夹。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/talent/add_to_folder
+// new doc: https://open.feishu.cn/document/server-docs/hire-v1/candidate-management/talent/add_to_folder
 func (r *HireService) AddHireTalentToFolder(ctx context.Context, request *AddHireTalentToFolderReq, options ...MethodOptionFunc) (*AddHireTalentToFolderResp, *Response, error) {
 	if r.cli.mock.mockHireAddHireTalentToFolder != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Hire#AddHireTalentToFolder mock enable")

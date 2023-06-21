@@ -24,6 +24,7 @@ import (
 // CreateContactJobLevel 该接口可以创建职级。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/job_level/create
+// new doc: https://open.feishu.cn/document/server-docs/contact-v3/job_level/create
 func (r *ContactService) CreateContactJobLevel(ctx context.Context, request *CreateContactJobLevelReq, options ...MethodOptionFunc) (*CreateContactJobLevelResp, *Response, error) {
 	if r.cli.mock.mockContactCreateContactJobLevel != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Contact#CreateContactJobLevel mock enable")

@@ -24,6 +24,7 @@ import (
 // GetUserInfo 通过 `user_access_token` 获取登录用户的信息。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/authen-v1/user_info/get
+// new doc: https://open.feishu.cn/document/server-docs/authentication-management/login-state-management/get
 func (r *AuthService) GetUserInfo(ctx context.Context, request *GetUserInfoReq, options ...MethodOptionFunc) (*GetUserInfoResp, *Response, error) {
 	if r.cli.mock.mockAuthGetUserInfo != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Auth#GetUserInfo mock enable")

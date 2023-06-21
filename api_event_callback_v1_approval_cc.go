@@ -27,6 +27,7 @@ import (
 // 1. 被抄送人已读抄送, 推送 "operate" 为 "READ" 的事件。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uIDO24iM4YjLygjN/event/common-event/approval-cc-event
+// new doc: https://open.feishu.cn/document/server-docs/approval-v4/event/common-event/approval-cc-event
 func (r *EventCallbackService) HandlerEventV1ApprovalCc(f EventV1ApprovalCcHandler) {
 	r.cli.eventHandler.eventV1ApprovalCcHandler = f
 }

@@ -24,6 +24,7 @@ import (
 // SetSheetValueImage 该接口用于根据 spreadsheetToken 和 range 向单个格子写入图片。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uUDNxYjL1QTM24SN0EjN
+// new doc: https://open.feishu.cn/document/server-docs/docs/sheets-v3/data-operation/write-images
 func (r *DriveService) SetSheetValueImage(ctx context.Context, request *SetSheetValueImageReq, options ...MethodOptionFunc) (*SetSheetValueImageResp, *Response, error) {
 	if r.cli.mock.mockDriveSetSheetValueImage != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Drive#SetSheetValueImage mock enable")

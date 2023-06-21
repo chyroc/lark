@@ -24,6 +24,7 @@ import (
 // GetMailGroupList 分页批量获取邮件组
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/mail-v1/mailgroup/list
+// new doc: https://open.feishu.cn/document/server-docs/mail-v1/mail-group/mailgroup/list
 func (r *MailService) GetMailGroupList(ctx context.Context, request *GetMailGroupListReq, options ...MethodOptionFunc) (*GetMailGroupListResp, *Response, error) {
 	if r.cli.mock.mockMailGetMailGroupList != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Mail#GetMailGroupList mock enable")

@@ -28,6 +28,7 @@ import (
 // - 应用需要开启[机器人能力](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-enable-bot-ability)
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat/search
+// new doc: https://open.feishu.cn/document/server-docs/group/chat/search
 func (r *ChatService) SearchChat(ctx context.Context, request *SearchChatReq, options ...MethodOptionFunc) (*SearchChatResp, *Response, error) {
 	if r.cli.mock.mockChatSearchChat != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Chat#SearchChat mock enable")

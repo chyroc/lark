@@ -24,6 +24,7 @@ import (
 // TerminateHireApplication 根据投递 ID 修改投递状态为「已终止」。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/application/terminate
+// new doc: https://open.feishu.cn/document/server-docs/hire-v1/candidate-management/delivery-process-management/application/terminate
 func (r *HireService) TerminateHireApplication(ctx context.Context, request *TerminateHireApplicationReq, options ...MethodOptionFunc) (*TerminateHireApplicationResp, *Response, error) {
 	if r.cli.mock.mockHireTerminateHireApplication != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Hire#TerminateHireApplication mock enable")

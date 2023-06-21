@@ -28,6 +28,7 @@ import (
 // - 调用[添加日程参与人](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar-event-attendee/create)接口可添加参与人和预约会议室。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar-event/create
+// new doc: https://open.feishu.cn/document/server-docs/calendar-v4/calendar-event/create
 func (r *CalendarService) CreateCalendarEvent(ctx context.Context, request *CreateCalendarEventReq, options ...MethodOptionFunc) (*CreateCalendarEventResp, *Response, error) {
 	if r.cli.mock.mockCalendarCreateCalendarEvent != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Calendar#CreateCalendarEvent mock enable")

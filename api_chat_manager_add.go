@@ -28,6 +28,7 @@ import (
 // - 仅有群主可以指定群管理员
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-managers/add_managers
+// new doc: https://open.feishu.cn/document/server-docs/group/chat-member/add_managers
 func (r *ChatService) CreateChatManager(ctx context.Context, request *CreateChatManagerReq, options ...MethodOptionFunc) (*CreateChatManagerResp, *Response, error) {
 	if r.cli.mock.mockChatCreateChatManager != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Chat#CreateChatManager mock enable")

@@ -24,6 +24,7 @@ import (
 // DeleteMailGroupPermissionMember 从自定义成员中删除单个成员, 删除后该成员无法发送邮件到该邮件组。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/mail-v1/mailgroup-permission_member/delete
+// new doc: https://open.feishu.cn/document/server-docs/mail-v1/mail-group/mailgroup-permission_member/delete
 func (r *MailService) DeleteMailGroupPermissionMember(ctx context.Context, request *DeleteMailGroupPermissionMemberReq, options ...MethodOptionFunc) (*DeleteMailGroupPermissionMemberResp, *Response, error) {
 	if r.cli.mock.mockMailDeleteMailGroupPermissionMember != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Mail#DeleteMailGroupPermissionMember mock enable")

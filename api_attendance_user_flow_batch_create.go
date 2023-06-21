@@ -26,6 +26,7 @@ import (
 // 适用于考勤机数据导入等场景。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/user_flow/batch_create
+// new doc: https://open.feishu.cn/document/server-docs/attendance-v1/user_task/batch_create
 func (r *AttendanceService) BatchCreateAttendanceUserFlow(ctx context.Context, request *BatchCreateAttendanceUserFlowReq, options ...MethodOptionFunc) (*BatchCreateAttendanceUserFlowResp, *Response, error) {
 	if r.cli.mock.mockAttendanceBatchCreateAttendanceUserFlow != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Attendance#BatchCreateAttendanceUserFlow mock enable")

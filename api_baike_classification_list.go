@@ -26,6 +26,7 @@ import (
 // 飞书词典目前为二级分类体系, 每个词条可添加多个二级分类, 但选择的二级分类必须从属于不同的一级分类。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/baike-v1/classification/list
+// new doc: https://open.feishu.cn/document/server-docs/baike-v1/classification/list
 func (r *BaikeService) GetBaikeClassificationList(ctx context.Context, request *GetBaikeClassificationListReq, options ...MethodOptionFunc) (*GetBaikeClassificationListResp, *Response, error) {
 	if r.cli.mock.mockBaikeGetBaikeClassificationList != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Baike#GetBaikeClassificationList mock enable")

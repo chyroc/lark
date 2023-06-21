@@ -24,6 +24,7 @@ import (
 // GetSearchDataSourceItem 获取单个数据记录。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/search-v2/data_source-item/get
+// new doc: https://open.feishu.cn/document/server-docs/search-v2/open-search/data_source-item/get
 func (r *SearchService) GetSearchDataSourceItem(ctx context.Context, request *GetSearchDataSourceItemReq, options ...MethodOptionFunc) (*GetSearchDataSourceItemResp, *Response, error) {
 	if r.cli.mock.mockSearchGetSearchDataSourceItem != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Search#GetSearchDataSourceItem mock enable")

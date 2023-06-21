@@ -24,6 +24,7 @@ import (
 // CreateSearchDataSource 创建一个数据源。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/search-v2/data_source/create
+// new doc: https://open.feishu.cn/document/server-docs/search-v2/open-search/data_source/create
 func (r *SearchService) CreateSearchDataSource(ctx context.Context, request *CreateSearchDataSourceReq, options ...MethodOptionFunc) (*CreateSearchDataSourceResp, *Response, error) {
 	if r.cli.mock.mockSearchCreateSearchDataSource != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Search#CreateSearchDataSource mock enable")

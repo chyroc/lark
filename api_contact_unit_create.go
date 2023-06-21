@@ -24,6 +24,7 @@ import (
 // CreateContactUnit 该接口用于创建单位。注意: 单位功能属于旗舰版付费功能, 企业需开通对应版本才可以创建单位, 不同版本请参考[飞书版本对比](https://www.feishu.cn/service)。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/unit/create
+// new doc: https://open.feishu.cn/document/server-docs/contact-v3/unit/create
 func (r *ContactService) CreateContactUnit(ctx context.Context, request *CreateContactUnitReq, options ...MethodOptionFunc) (*CreateContactUnitResp, *Response, error) {
 	if r.cli.mock.mockContactCreateContactUnit != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Contact#CreateContactUnit mock enable")

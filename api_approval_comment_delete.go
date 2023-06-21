@@ -24,6 +24,7 @@ import (
 // DeleteApprovalComment 逻辑删除某审批实例下的一条评论或评论回复（不包含审批同意、拒绝、转交等附加的理由或意见）。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/instance-comment/delete
+// new doc: https://open.feishu.cn/document/server-docs/approval-v4/instance-comment/delete
 func (r *ApprovalService) DeleteApprovalComment(ctx context.Context, request *DeleteApprovalCommentReq, options ...MethodOptionFunc) (*DeleteApprovalCommentResp, *Response, error) {
 	if r.cli.mock.mockApprovalDeleteApprovalComment != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Approval#DeleteApprovalComment mock enable")

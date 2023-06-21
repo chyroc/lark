@@ -28,6 +28,7 @@ import (
 // 2. 离职人员没有考勤组, 所以写入和返回的时间会有差异
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/user_approval/create
+// new doc: https://open.feishu.cn/document/server-docs/attendance-v1/user_approval/create
 func (r *AttendanceService) CreateAttendanceUserApproval(ctx context.Context, request *CreateAttendanceUserApprovalReq, options ...MethodOptionFunc) (*CreateAttendanceUserApprovalResp, *Response, error) {
 	if r.cli.mock.mockAttendanceCreateAttendanceUserApproval != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Attendance#CreateAttendanceUserApproval mock enable")

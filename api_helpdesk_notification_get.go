@@ -24,6 +24,7 @@ import (
 // GetHelpdeskNotification 查询推送详情。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/notification/get
+// new doc: https://open.feishu.cn/document/server-docs/helpdesk-v1/notification/get
 func (r *HelpdeskService) GetHelpdeskNotification(ctx context.Context, request *GetHelpdeskNotificationReq, options ...MethodOptionFunc) (*GetHelpdeskNotificationResp, *Response, error) {
 	if r.cli.mock.mockHelpdeskGetHelpdeskNotification != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Helpdesk#GetHelpdeskNotification mock enable")

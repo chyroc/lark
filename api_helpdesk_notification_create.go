@@ -24,6 +24,7 @@ import (
 // CreateHelpdeskNotification 调用接口创建推送, 创建成功后为草稿状态。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/notification/create
+// new doc: https://open.feishu.cn/document/server-docs/helpdesk-v1/notification/create
 func (r *HelpdeskService) CreateHelpdeskNotification(ctx context.Context, request *CreateHelpdeskNotificationReq, options ...MethodOptionFunc) (*CreateHelpdeskNotificationResp, *Response, error) {
 	if r.cli.mock.mockHelpdeskCreateHelpdeskNotification != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Helpdesk#CreateHelpdeskNotification mock enable")

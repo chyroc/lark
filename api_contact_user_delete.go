@@ -27,6 +27,7 @@ import (
 // - 用户可以在删除员工时指定员工数据（如部门群, 文档, 日程等）的接收者, 如不指定将触发默认处理逻辑。不同数据的默认处理逻辑不同, 详见下文接口各acceptor请求参数的描述
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/delete
+// new doc: https://open.feishu.cn/document/server-docs/contact-v3/user/delete
 func (r *ContactService) DeleteUser(ctx context.Context, request *DeleteUserReq, options ...MethodOptionFunc) (*DeleteUserResp, *Response, error) {
 	if r.cli.mock.mockContactDeleteUser != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Contact#DeleteUser mock enable")

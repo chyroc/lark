@@ -26,6 +26,7 @@ import (
 // 打开一个聊天页面，单聊会话或群聊会话
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/uYjL24iN/applink-protocol/supported-protocol/open-a-chat-page
+// new doc: https://open.feishu.cn/document/common-capabilities/applink-protocol/supported-protocol/open-a-chat-page
 func (r *AppLinkService) OpenChat(req *OpenChatReq) string {
 	return internal.JoinAppLinkURL("https://applink.feishu.cn/client/chat/open", req)
 }

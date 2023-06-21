@@ -24,6 +24,7 @@ import (
 // GetVCParticipantList 查询参会人明细。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/vc-v1/participant_list/get
+// new doc: https://open.feishu.cn/document/server-docs/vc-v1/meeting-room-data/get-2
 func (r *VCService) GetVCParticipantList(ctx context.Context, request *GetVCParticipantListReq, options ...MethodOptionFunc) (*GetVCParticipantListResp, *Response, error) {
 	if r.cli.mock.mockVCGetVCParticipantList != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] VC#GetVCParticipantList mock enable")

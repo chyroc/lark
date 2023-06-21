@@ -24,6 +24,7 @@ import (
 // BatchOpenPersonalSettingsSystemStatus 批量开启用户系统状态可用。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/personal_settings-v1/system_status/batch_open
+// new doc: https://open.feishu.cn/document/server-docs/personal_settings-v1/system_status/batch_open
 func (r *PersonalSettingsService) BatchOpenPersonalSettingsSystemStatus(ctx context.Context, request *BatchOpenPersonalSettingsSystemStatusReq, options ...MethodOptionFunc) (*BatchOpenPersonalSettingsSystemStatusResp, *Response, error) {
 	if r.cli.mock.mockPersonalSettingsBatchOpenPersonalSettingsSystemStatus != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] PersonalSettings#BatchOpenPersonalSettingsSystemStatus mock enable")

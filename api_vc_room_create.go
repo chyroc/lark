@@ -24,6 +24,7 @@ import (
 // CreateVCRoom 该接口用于创建会议室。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/vc-v1/room/create
+// new doc: https://open.feishu.cn/document/server-docs/vc-v1/room/create
 func (r *VCService) CreateVCRoom(ctx context.Context, request *CreateVCRoomReq, options ...MethodOptionFunc) (*CreateVCRoomResp, *Response, error) {
 	if r.cli.mock.mockVCCreateVCRoom != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] VC#CreateVCRoom mock enable")

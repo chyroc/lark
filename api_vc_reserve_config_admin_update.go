@@ -24,6 +24,7 @@ import (
 // UpdateVCReserveConfigAdmin 更新会议室预定管理员。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/vc-v1/reserve_config-admin/patch
+// new doc: https://open.feishu.cn/document/server-docs/vc-v1/scope_config/patch-3
 func (r *VCService) UpdateVCReserveConfigAdmin(ctx context.Context, request *UpdateVCReserveConfigAdminReq, options ...MethodOptionFunc) (*UpdateVCReserveConfigAdminResp, *Response, error) {
 	if r.cli.mock.mockVCUpdateVCReserveConfigAdmin != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] VC#UpdateVCReserveConfigAdmin mock enable")

@@ -32,6 +32,7 @@ import (
 // - 特殊情况下可能会收到重复的推送, 如有幂等需求请使用 [message_id]去重, 不要依赖event_id
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/events/receive
+// new doc: https://open.feishu.cn/document/server-docs/im-v1/message/events/receive
 func (r *EventCallbackService) HandlerEventV2IMMessageReceiveV1(f EventV2IMMessageReceiveV1Handler) {
 	r.cli.eventHandler.eventV2IMMessageReceiveV1Handler = f
 }

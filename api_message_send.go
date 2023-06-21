@@ -30,6 +30,7 @@ import (
 // - 为避免对用户造成打扰, 向同一用户发送消息的限频为 [5 QPS], 向同一群组发送消息的限频为群内机器人共享 [5 QPS]
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/create
+// new doc: https://open.feishu.cn/document/server-docs/im-v1/message/create
 func (r *MessageService) SendRawMessage(ctx context.Context, request *SendRawMessageReq, options ...MethodOptionFunc) (*SendRawMessageResp, *Response, error) {
 	if r.cli.mock.mockMessageSendRawMessage != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Message#SendRawMessage mock enable")

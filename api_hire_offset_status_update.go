@@ -27,6 +27,7 @@ import (
 // - 更新 Offer 发送和接受状态, 需要在系统内「设置 - Offer 设置 - Offer 规则设置」开启「通过 OA 系统发送 Offer」；仅支持投递阶段在「待入职」之前更新；如当前 Offer 已通过飞书招聘发给过候选人, 则不可通过此接口更新 Offer 发送和接收状态
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/offer/offer_status
+// new doc: https://open.feishu.cn/document/server-docs/hire-v1/candidate-management/delivery-process-management/offer/offer_status
 func (r *HireService) UpdateHireOfferStatus(ctx context.Context, request *UpdateHireOfferStatusReq, options ...MethodOptionFunc) (*UpdateHireOfferStatusResp, *Response, error) {
 	if r.cli.mock.mockHireUpdateHireOfferStatus != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Hire#UpdateHireOfferStatus mock enable")

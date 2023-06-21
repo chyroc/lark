@@ -26,6 +26,7 @@ import (
 // 文件被删除到回收站将触发此事件。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/event/delete-file-to-trash-can
+// new doc: https://open.feishu.cn/document/server-docs/docs/drive-v1/event/list/delete-file-to-trash-can
 func (r *EventCallbackService) HandlerEventV2DriveFileTrashedV1(f EventV2DriveFileTrashedV1Handler) {
 	r.cli.eventHandler.eventV2DriveFileTrashedV1Handler = f
 }

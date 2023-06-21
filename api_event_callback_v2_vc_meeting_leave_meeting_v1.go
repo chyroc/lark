@@ -24,6 +24,7 @@ import (
 // EventV2VCMeetingLeaveMeetingV1 发生在有人离开会议时【仅通过Open API预约的会议会产生此类事件】{使用示例}(url=/api/tools/api_explore/api_explore_config?project=vc&version=v1&resource=meeting&event=leave_meeting)
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/vc-v1/meeting/events/leave_meeting
+// new doc: https://open.feishu.cn/document/server-docs/vc-v1/meeting/events/leave_meeting
 func (r *EventCallbackService) HandlerEventV2VCMeetingLeaveMeetingV1(f EventV2VCMeetingLeaveMeetingV1Handler) {
 	r.cli.eventHandler.eventV2VCMeetingLeaveMeetingV1Handler = f
 }

@@ -24,6 +24,7 @@ import (
 // MoveSheetDimension 该接口用于移动行列, 行列被移动到目标位置后, 原本在目标位置的行列会对应右移或下移。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/sheets-v3/spreadsheet-sheet/move_dimension
+// new doc: https://open.feishu.cn/document/server-docs/docs/sheets-v3/sheet-rowcol/move_dimension
 func (r *DriveService) MoveSheetDimension(ctx context.Context, request *MoveSheetDimensionReq, options ...MethodOptionFunc) (*MoveSheetDimensionResp, *Response, error) {
 	if r.cli.mock.mockDriveMoveSheetDimension != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Drive#MoveSheetDimension mock enable")

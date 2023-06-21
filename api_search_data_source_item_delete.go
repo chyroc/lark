@@ -24,6 +24,7 @@ import (
 // DeleteSearchDataSourceItem 删除数据项。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/search-v2/data_source-item/delete
+// new doc: https://open.feishu.cn/document/server-docs/search-v2/open-search/data_source-item/delete
 func (r *SearchService) DeleteSearchDataSourceItem(ctx context.Context, request *DeleteSearchDataSourceItemReq, options ...MethodOptionFunc) (*DeleteSearchDataSourceItemResp, *Response, error) {
 	if r.cli.mock.mockSearchDeleteSearchDataSourceItem != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Search#DeleteSearchDataSourceItem mock enable")

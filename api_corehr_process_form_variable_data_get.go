@@ -24,6 +24,7 @@ import (
 // GetCoreHrProcessFormVariableData 获取流程表单数据。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/process-form_variable_data/get
+// new doc: https://open.feishu.cn/document/server-docs/corehr-v1/process-form_variable_data/get
 func (r *CoreHrService) GetCoreHrProcessFormVariableData(ctx context.Context, request *GetCoreHrProcessFormVariableDataReq, options ...MethodOptionFunc) (*GetCoreHrProcessFormVariableDataResp, *Response, error) {
 	if r.cli.mock.mockCoreHrGetCoreHrProcessFormVariableData != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] CoreHr#GetCoreHrProcessFormVariableData mock enable")

@@ -24,6 +24,7 @@ import (
 // GetContactUnitList 通过该接口获取企业的单位列表, 需获取单位的权限。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/unit/list
+// new doc: https://open.feishu.cn/document/server-docs/contact-v3/unit/list
 func (r *ContactService) GetContactUnitList(ctx context.Context, request *GetContactUnitListReq, options ...MethodOptionFunc) (*GetContactUnitListResp, *Response, error) {
 	if r.cli.mock.mockContactGetContactUnitList != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Contact#GetContactUnitList mock enable")

@@ -35,6 +35,7 @@ import (
 // - 为避免对用户造成打扰, 向同一用户发送消息的限频为 [5 QPS], 向同一群组发送消息的限频为群内机器人共享 [5 QPS]
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/forward
+// new doc: https://open.feishu.cn/document/server-docs/im-v1/message/forward
 func (r *MessageService) ForwardMessage(ctx context.Context, request *ForwardMessageReq, options ...MethodOptionFunc) (*ForwardMessageResp, *Response, error) {
 	if r.cli.mock.mockMessageForwardMessage != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Message#ForwardMessage mock enable")

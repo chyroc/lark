@@ -24,6 +24,7 @@ import (
 // GetAdminBadgeGrant 通过该接口可以获取特定授予名单的信息。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/admin-v1/badge-grant/get
+// new doc: https://open.feishu.cn/document/server-docs/admin-v1/badge/badge-grant/get
 func (r *AdminService) GetAdminBadgeGrant(ctx context.Context, request *GetAdminBadgeGrantReq, options ...MethodOptionFunc) (*GetAdminBadgeGrantResp, *Response, error) {
 	if r.cli.mock.mockAdminGetAdminBadgeGrant != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Admin#GetAdminBadgeGrant mock enable")

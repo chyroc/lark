@@ -26,6 +26,7 @@ import (
 // 该接口一次性返回所有数据, 分页参数无效
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/mail-v1/mailgroup-alias/list
+// new doc: https://open.feishu.cn/document/server-docs/mail-v1/mail-group/mailgroup-alias/list
 func (r *MailService) GetMailGroupAliasList(ctx context.Context, request *GetMailGroupAliasListReq, options ...MethodOptionFunc) (*GetMailGroupAliasListResp, *Response, error) {
 	if r.cli.mock.mockMailGetMailGroupAliasList != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Mail#GetMailGroupAliasList mock enable")

@@ -32,6 +32,7 @@ import (
 // - 获取内部群分享链接时, 操作者须与群组在同一租户下
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat/link
+// new doc: https://open.feishu.cn/document/server-docs/group/chat/link
 func (r *ChatService) GenChatShareLink(ctx context.Context, request *GenChatShareLinkReq, options ...MethodOptionFunc) (*GenChatShareLinkResp, *Response, error) {
 	if r.cli.mock.mockChatGenChatShareLink != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Chat#GenChatShareLink mock enable")

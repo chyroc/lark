@@ -26,6 +26,7 @@ import (
 // >  备注: 免费模式的应用不会产生订单, 仅收费应用会产生订单 (含免费版)。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uETNwUjLxUDM14SM1ATN
+// new doc: https://open.feishu.cn/document/server-docs/application-v6/appstore-paid-info/query-an-app-tenant’s-paid-orders
 func (r *ApplicationService) GetApplicationOrderList(ctx context.Context, request *GetApplicationOrderListReq, options ...MethodOptionFunc) (*GetApplicationOrderListResp, *Response, error) {
 	if r.cli.mock.mockApplicationGetApplicationOrderList != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Application#GetApplicationOrderList mock enable")

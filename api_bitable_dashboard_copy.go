@@ -24,6 +24,7 @@ import (
 // CopyBitableDashboard 该接口用于根据现有仪表盘复制出新的仪表盘
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-dashboard/copy
+// new doc: https://open.feishu.cn/document/server-docs/docs/bitable-v1/app-dashboard/copy
 func (r *BitableService) CopyBitableDashboard(ctx context.Context, request *CopyBitableDashboardReq, options ...MethodOptionFunc) (*CopyBitableDashboardResp, *Response, error) {
 	if r.cli.mock.mockBitableCopyBitableDashboard != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Bitable#CopyBitableDashboard mock enable")

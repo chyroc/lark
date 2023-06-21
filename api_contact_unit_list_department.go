@@ -24,6 +24,7 @@ import (
 // GetContactUnitDepartmentList 通过该接口获取单位绑定的部门列表, 需具有获取单位的权限。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/unit/list_department
+// new doc: https://open.feishu.cn/document/server-docs/contact-v3/unit/list_department
 func (r *ContactService) GetContactUnitDepartmentList(ctx context.Context, request *GetContactUnitDepartmentListReq, options ...MethodOptionFunc) (*GetContactUnitDepartmentListResp, *Response, error) {
 	if r.cli.mock.mockContactGetContactUnitDepartmentList != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Contact#GetContactUnitDepartmentList mock enable")

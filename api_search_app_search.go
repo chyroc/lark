@@ -24,6 +24,7 @@ import (
 // SearchApp 用户可以通过关键字搜索到可见应用, 应用可见性与套件内搜索一致。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/search-v2/app/create
+// new doc: https://open.feishu.cn/document/server-docs/search-v2/suite-search/create-2
 func (r *SearchService) SearchApp(ctx context.Context, request *SearchAppReq, options ...MethodOptionFunc) (*SearchAppResp, *Response, error) {
 	if r.cli.mock.mockSearchSearchApp != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Search#SearchApp mock enable")

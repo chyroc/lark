@@ -29,6 +29,7 @@ import (
 // ## 文本消息
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/ugzMugzMugzM/event/receive-message
+// new doc:
 func (r *EventCallbackService) HandlerEventV1ReceiveMessage(f EventV1ReceiveMessageHandler) {
 	r.cli.eventHandler.eventV1ReceiveMessageHandler = f
 }

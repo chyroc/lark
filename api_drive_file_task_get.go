@@ -24,6 +24,7 @@ import (
 // GetDriveFileTask 查询删除文件夹等异步任务的状态信息。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file/task_check
+// new doc: https://open.feishu.cn/document/server-docs/docs/drive-v1/file/async-task/task_check
 func (r *DriveService) GetDriveFileTask(ctx context.Context, request *GetDriveFileTaskReq, options ...MethodOptionFunc) (*GetDriveFileTaskResp, *Response, error) {
 	if r.cli.mock.mockDriveGetDriveFileTask != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Drive#GetDriveFileTask mock enable")

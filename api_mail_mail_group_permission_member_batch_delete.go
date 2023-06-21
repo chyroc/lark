@@ -24,6 +24,7 @@ import (
 // BatchDeleteMailGroupPermissionMember 一次请求可以删除一个邮件组中的多个权限成员。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/mail-v1/mailgroup-permission_member/batch_delete
+// new doc: https://open.feishu.cn/document/server-docs/mail-v1/mail-group/mailgroup-permission_member/batch_delete
 func (r *MailService) BatchDeleteMailGroupPermissionMember(ctx context.Context, request *BatchDeleteMailGroupPermissionMemberReq, options ...MethodOptionFunc) (*BatchDeleteMailGroupPermissionMemberResp, *Response, error) {
 	if r.cli.mock.mockMailBatchDeleteMailGroupPermissionMember != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Mail#BatchDeleteMailGroupPermissionMember mock enable")

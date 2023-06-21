@@ -24,6 +24,7 @@ import (
 // KickoutVCMeeting 将参会人从会议中移除。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/vc-v1/meeting/kickout
+// new doc: https://open.feishu.cn/document/server-docs/vc-v1/meeting/kickout
 func (r *VCService) KickoutVCMeeting(ctx context.Context, request *KickoutVCMeetingReq, options ...MethodOptionFunc) (*KickoutVCMeetingResp, *Response, error) {
 	if r.cli.mock.mockVCKickoutVCMeeting != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] VC#KickoutVCMeeting mock enable")

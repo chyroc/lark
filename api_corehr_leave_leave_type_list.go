@@ -24,6 +24,7 @@ import (
 // GetCoreHrLeaveTypeList 获取休假设置后台配置的假期类型列表（比如年假、事假、婚假等）。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/leave/leave_types
+// new doc: https://open.feishu.cn/document/server-docs/corehr-v1/leave/leave_types
 func (r *CoreHrService) GetCoreHrLeaveTypeList(ctx context.Context, request *GetCoreHrLeaveTypeListReq, options ...MethodOptionFunc) (*GetCoreHrLeaveTypeListResp, *Response, error) {
 	if r.cli.mock.mockCoreHrGetCoreHrLeaveTypeList != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] CoreHr#GetCoreHrLeaveTypeList mock enable")

@@ -24,6 +24,7 @@ import (
 // GetBitableRecord 该接口用于根据 record_id 的值检索现有记录
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table-record/get
+// new doc: https://open.feishu.cn/document/server-docs/docs/bitable-v1/app-table-record/get
 func (r *BitableService) GetBitableRecord(ctx context.Context, request *GetBitableRecordReq, options ...MethodOptionFunc) (*GetBitableRecordResp, *Response, error) {
 	if r.cli.mock.mockBitableGetBitableRecord != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Bitable#GetBitableRecord mock enable")

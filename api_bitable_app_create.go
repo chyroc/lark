@@ -24,6 +24,7 @@ import (
 // CreateBitableApp 在指定目录下创建多维表格
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app/create
+// new doc: https://open.feishu.cn/document/server-docs/docs/bitable-v1/app/create
 func (r *BitableService) CreateBitableApp(ctx context.Context, request *CreateBitableAppReq, options ...MethodOptionFunc) (*CreateBitableAppResp, *Response, error) {
 	if r.cli.mock.mockBitableCreateBitableApp != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Bitable#CreateBitableApp mock enable")

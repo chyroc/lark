@@ -24,6 +24,7 @@ import (
 // SearchVCRoom 该接口可以用来搜索会议室, 支持使用关键词进行搜索, 也支持使用自定义会议室 ID 进行查询。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/vc-v1/room/search
+// new doc: https://open.feishu.cn/document/server-docs/vc-v1/room/search
 func (r *VCService) SearchVCRoom(ctx context.Context, request *SearchVCRoomReq, options ...MethodOptionFunc) (*SearchVCRoomResp, *Response, error) {
 	if r.cli.mock.mockVCSearchVCRoom != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] VC#SearchVCRoom mock enable")

@@ -26,6 +26,7 @@ import (
 // 只能获取归属于自己的预约的活跃会议（一个预约最多有一个正在进行中的会议）
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/vc-v1/reserve/get_active_meeting
+// new doc: https://open.feishu.cn/document/server-docs/vc-v1/reserve/get_active_meeting
 func (r *VCService) GetVCReserveActiveMeeting(ctx context.Context, request *GetVCReserveActiveMeetingReq, options ...MethodOptionFunc) (*GetVCReserveActiveMeetingResp, *Response, error) {
 	if r.cli.mock.mockVCGetVCReserveActiveMeeting != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] VC#GetVCReserveActiveMeeting mock enable")

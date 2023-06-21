@@ -24,6 +24,7 @@ import (
 // CreateMailGroup 创建一个邮件组
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/mail-v1/mailgroup/create
+// new doc: https://open.feishu.cn/document/server-docs/mail-v1/mail-group/mailgroup/create
 func (r *MailService) CreateMailGroup(ctx context.Context, request *CreateMailGroupReq, options ...MethodOptionFunc) (*CreateMailGroupResp, *Response, error) {
 	if r.cli.mock.mockMailCreateMailGroup != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Mail#CreateMailGroup mock enable")

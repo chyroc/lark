@@ -24,6 +24,7 @@ import (
 // ReplaceSheet 按照指定的条件查找子表的某个范围内的数据符合条件的单元格并替换值, 返回替换成功的单元格位置。一次请求最多允许替换5000个单元格, 如果超过请将range缩小范围再操作。请求体中的 range、find、replacement 字段必填。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/sheets-v3/spreadsheet-sheet/replace
+// new doc: https://open.feishu.cn/document/server-docs/docs/sheets-v3/data-operation/replace
 func (r *DriveService) ReplaceSheet(ctx context.Context, request *ReplaceSheetReq, options ...MethodOptionFunc) (*ReplaceSheetResp, *Response, error) {
 	if r.cli.mock.mockDriveReplaceSheet != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Drive#ReplaceSheet mock enable")

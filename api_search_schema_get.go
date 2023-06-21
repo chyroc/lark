@@ -24,6 +24,7 @@ import (
 // GetSearchSchema 获取单个数据范式。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/search-v2/schema/get
+// new doc: https://open.feishu.cn/document/server-docs/search-v2/open-search/schema/get
 func (r *SearchService) GetSearchSchema(ctx context.Context, request *GetSearchSchemaReq, options ...MethodOptionFunc) (*GetSearchSchemaResp, *Response, error) {
 	if r.cli.mock.mockSearchGetSearchSchema != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Search#GetSearchSchema mock enable")

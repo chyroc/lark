@@ -26,6 +26,7 @@ import (
 // 文件协作者添加用户/群时将触发此事件。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/event/file-collaborator-add
+// new doc: https://open.feishu.cn/document/server-docs/docs/drive-v1/event/list/file-collaborator-add
 func (r *EventCallbackService) HandlerEventV2DriveFilePermissionMemberAddedV1(f EventV2DriveFilePermissionMemberAddedV1Handler) {
 	r.cli.eventHandler.eventV2DriveFilePermissionMemberAddedV1Handler = f
 }

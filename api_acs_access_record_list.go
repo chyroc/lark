@@ -26,6 +26,7 @@ import (
 // 该接口返回满足查询参数的识别记录。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/acs-v1/access_record/list
+// new doc: https://open.feishu.cn/document/server-docs/acs-v1/access_record/list
 func (r *ACSService) GetACSAccessRecordList(ctx context.Context, request *GetACSAccessRecordListReq, options ...MethodOptionFunc) (*GetACSAccessRecordListResp, *Response, error) {
 	if r.cli.mock.mockACSGetACSAccessRecordList != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] ACS#GetACSAccessRecordList mock enable")

@@ -24,6 +24,7 @@ import (
 // GetCoreHrCountryRegion 查询单条国家/地区信息。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/country_region/get
+// new doc: https://open.feishu.cn/document/server-docs/corehr-v1/basic-infomation/location_data/get
 func (r *CoreHrService) GetCoreHrCountryRegion(ctx context.Context, request *GetCoreHrCountryRegionReq, options ...MethodOptionFunc) (*GetCoreHrCountryRegionResp, *Response, error) {
 	if r.cli.mock.mockCoreHrGetCoreHrCountryRegion != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] CoreHr#GetCoreHrCountryRegion mock enable")

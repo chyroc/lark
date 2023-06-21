@@ -29,6 +29,7 @@ import (
 // - 操作API后, 将返回群内所有菜单。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-menu_tree/delete
+// new doc: https://open.feishu.cn/document/server-docs/group/chat-menu_tree/delete
 func (r *ChatService) DeleteChatMenuTree(ctx context.Context, request *DeleteChatMenuTreeReq, options ...MethodOptionFunc) (*DeleteChatMenuTreeResp, *Response, error) {
 	if r.cli.mock.mockChatDeleteChatMenuTree != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Chat#DeleteChatMenuTree mock enable")

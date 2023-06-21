@@ -28,6 +28,7 @@ import (
 // - 待恢复成员的手机号和邮箱不能被企业内其他成员使用。如有重复, 请先修改对应成员的信息, 否则接口会报错。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/resurrect
+// new doc: https://open.feishu.cn/document/server-docs/contact-v3/user/resurrect
 func (r *ContactService) ResurrectUser(ctx context.Context, request *ResurrectUserReq, options ...MethodOptionFunc) (*ResurrectUserResp, *Response, error) {
 	if r.cli.mock.mockContactResurrectUser != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Contact#ResurrectUser mock enable")

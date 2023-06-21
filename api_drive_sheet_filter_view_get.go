@@ -24,6 +24,7 @@ import (
 // GetSheetFilterView 获取指定筛选视图 id 的名字和筛选范围。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/sheets-v3/spreadsheet-sheet-filter_view/get
+// new doc: https://open.feishu.cn/document/server-docs/docs/sheets-v3/spreadsheet-sheet-filter_view/get
 func (r *DriveService) GetSheetFilterView(ctx context.Context, request *GetSheetFilterViewReq, options ...MethodOptionFunc) (*GetSheetFilterViewResp, *Response, error) {
 	if r.cli.mock.mockDriveGetSheetFilterView != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Drive#GetSheetFilterView mock enable")

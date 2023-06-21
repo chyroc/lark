@@ -24,6 +24,7 @@ import (
 // RefreshAccessToken `user_access_token` 的最大有效期是 6900 秒。当 `user_access_token` 过期时, 可以调用本接口获取新的 `user_access_token`。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/authen-v1/refresh_access_token/create
+// new doc: https://open.feishu.cn/document/server-docs/authentication-management/access-token/create
 func (r *AuthService) RefreshAccessToken(ctx context.Context, request *RefreshAccessTokenReq, options ...MethodOptionFunc) (*RefreshAccessTokenResp, *Response, error) {
 	if r.cli.mock.mockAuthRefreshAccessToken != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Auth#RefreshAccessToken mock enable")

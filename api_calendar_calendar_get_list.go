@@ -28,6 +28,7 @@ import (
 // - 调用时首先使用 page_token 分页拉取存量数据, 之后使用 sync_token 增量同步变更数据。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar/list
+// new doc: https://open.feishu.cn/document/server-docs/calendar-v4/calendar/list-2
 func (r *CalendarService) GetCalendarList(ctx context.Context, request *GetCalendarListReq, options ...MethodOptionFunc) (*GetCalendarListResp, *Response, error) {
 	if r.cli.mock.mockCalendarGetCalendarList != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Calendar#GetCalendarList mock enable")

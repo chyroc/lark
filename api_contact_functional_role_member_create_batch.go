@@ -24,6 +24,7 @@ import (
 // BatchCreateContactFunctionalRoleMember 通过”批量添加角色成员“接口可批量添加成员, 成员信息同步展示至租户的管理后台-角色管理模块。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/functional_role-member/batch_create
+// new doc: https://open.feishu.cn/document/server-docs/contact-v3/functional_role-member/batch_create
 func (r *ContactService) BatchCreateContactFunctionalRoleMember(ctx context.Context, request *BatchCreateContactFunctionalRoleMemberReq, options ...MethodOptionFunc) (*BatchCreateContactFunctionalRoleMemberResp, *Response, error) {
 	if r.cli.mock.mockContactBatchCreateContactFunctionalRoleMember != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Contact#BatchCreateContactFunctionalRoleMember mock enable")

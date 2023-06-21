@@ -33,6 +33,7 @@ import (
 // 8. 已超时的审批实例手动恢复, 推送【OVERTIME_RECOVER】状态
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uIDO24iM4YjLygjN/event/common-event/approval-instance-event
+// new doc: https://open.feishu.cn/document/server-docs/approval-v4/event/common-event/approval-instance-event
 func (r *EventCallbackService) HandlerEventV1ApprovalInstance(f EventV1ApprovalInstanceHandler) {
 	r.cli.eventHandler.eventV1ApprovalInstanceHandler = f
 }

@@ -28,6 +28,7 @@ import (
 // - 删除系统状态后, 并不影响正在使用该状态用户下系统状态的客户端展示。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/personal_settings-v1/system_status/delete
+// new doc: https://open.feishu.cn/document/server-docs/personal_settings-v1/system_status/delete
 func (r *PersonalSettingsService) DeletePersonalSettingsSystemStatus(ctx context.Context, request *DeletePersonalSettingsSystemStatusReq, options ...MethodOptionFunc) (*DeletePersonalSettingsSystemStatusResp, *Response, error) {
 	if r.cli.mock.mockPersonalSettingsDeletePersonalSettingsSystemStatus != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] PersonalSettings#DeletePersonalSettingsSystemStatus mock enable")

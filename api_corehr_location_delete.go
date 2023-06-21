@@ -24,6 +24,7 @@ import (
 // DeleteCoreHrLocation 删除地点。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/location/delete
+// new doc: https://open.feishu.cn/document/server-docs/corehr-v1/organization-management/location/delete
 func (r *CoreHrService) DeleteCoreHrLocation(ctx context.Context, request *DeleteCoreHrLocationReq, options ...MethodOptionFunc) (*DeleteCoreHrLocationResp, *Response, error) {
 	if r.cli.mock.mockCoreHrDeleteCoreHrLocation != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] CoreHr#DeleteCoreHrLocation mock enable")

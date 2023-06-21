@@ -24,6 +24,7 @@ import (
 // GetSpreadsheet 该接口用于获取电子表格的基础信息。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/sheets-v3/spreadsheet/get
+// new doc: https://open.feishu.cn/document/server-docs/docs/sheets-v3/spreadsheet/get
 func (r *DriveService) GetSpreadsheet(ctx context.Context, request *GetSpreadsheetReq, options ...MethodOptionFunc) (*GetSpreadsheetResp, *Response, error) {
 	if r.cli.mock.mockDriveGetSpreadsheet != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Drive#GetSpreadsheet mock enable")

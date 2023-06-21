@@ -24,6 +24,7 @@ import (
 // GetHelpdeskAgentSkill 该接口用于获取客服技能。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/agent_skill/get
+// new doc: https://open.feishu.cn/document/server-docs/helpdesk-v1/agent-function/agent_skill/get
 func (r *HelpdeskService) GetHelpdeskAgentSkill(ctx context.Context, request *GetHelpdeskAgentSkillReq, options ...MethodOptionFunc) (*GetHelpdeskAgentSkillResp, *Response, error) {
 	if r.cli.mock.mockHelpdeskGetHelpdeskAgentSkill != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Helpdesk#GetHelpdeskAgentSkill mock enable")

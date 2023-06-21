@@ -31,6 +31,7 @@ import (
 // 该接口不支持并发调用, 且调用频率上限为5QPS
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uUTNzUjL1UzM14SN1MTN/delete-sheet
+// new doc: https://open.feishu.cn/document/server-docs/historic-version/docs/drive/file/delete-sheet
 //
 // Deprecated
 func (r *DriveService) DeleteDriveSheetFile(ctx context.Context, request *DeleteDriveSheetFileReq, options ...MethodOptionFunc) (*DeleteDriveSheetFileResp, *Response, error) {

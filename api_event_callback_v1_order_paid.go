@@ -27,6 +27,7 @@ import (
 // - 订阅条件: 只有应用商店应用才能订阅此事件。自建应用无此事件。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/application-v6/event/public-app-purchase
+// new doc: https://open.feishu.cn/document/server-docs/application-v6/event/public-app-purchase
 func (r *EventCallbackService) HandlerEventV1OrderPaid(f EventV1OrderPaidHandler) {
 	r.cli.eventHandler.eventV1OrderPaidHandler = f
 }

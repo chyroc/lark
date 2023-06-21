@@ -24,6 +24,7 @@ import (
 // GetCoreHrAuthorizationList 批量查询「飞书人事」-「权限设置」中的用户授权信息。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/authorization/batch-query-user-authorization
+// new doc: https://open.feishu.cn/document/server-docs/corehr-v1/authorization/batch-query-user-authorization
 func (r *CoreHrService) GetCoreHrAuthorizationList(ctx context.Context, request *GetCoreHrAuthorizationListReq, options ...MethodOptionFunc) (*GetCoreHrAuthorizationListResp, *Response, error) {
 	if r.cli.mock.mockCoreHrGetCoreHrAuthorizationList != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] CoreHr#GetCoreHrAuthorizationList mock enable")

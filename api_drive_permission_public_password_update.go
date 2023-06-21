@@ -26,6 +26,7 @@ import (
 // 注意: 刷新密码, 需要先通过”云文档“-“权限”-“设置”-“更新云文档权限设置”的接口更新元文档为互联网上获得链接的任何人可阅读/编辑
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/permission-public-password/update
+// new doc: https://open.feishu.cn/document/server-docs/docs/permission/permission-public/permission-public-password/update
 func (r *DriveService) UpdateDrivePermissionPublicPassword(ctx context.Context, request *UpdateDrivePermissionPublicPasswordReq, options ...MethodOptionFunc) (*UpdateDrivePermissionPublicPasswordResp, *Response, error) {
 	if r.cli.mock.mockDriveUpdateDrivePermissionPublicPassword != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Drive#UpdateDrivePermissionPublicPassword mock enable")

@@ -38,6 +38,7 @@ import (
 // - 目标父节点容器编辑权限
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/wiki-v2/space-node/move_docs_to_wiki
+// new doc: https://open.feishu.cn/document/server-docs/docs/wiki-v2/task/move_docs_to_wiki
 func (r *DriveService) MoveDocsToWiki(ctx context.Context, request *MoveDocsToWikiReq, options ...MethodOptionFunc) (*MoveDocsToWikiResp, *Response, error) {
 	if r.cli.mock.mockDriveMoveDocsToWiki != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Drive#MoveDocsToWiki mock enable")

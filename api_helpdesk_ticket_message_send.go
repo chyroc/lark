@@ -24,6 +24,7 @@ import (
 // SendHelpdeskTicketMessage 该接口用于发送工单消息。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/ticket-message/create
+// new doc: https://open.feishu.cn/document/server-docs/helpdesk-v1/ticket-management/ticket-message/create
 func (r *HelpdeskService) SendHelpdeskTicketMessage(ctx context.Context, request *SendHelpdeskTicketMessageReq, options ...MethodOptionFunc) (*SendHelpdeskTicketMessageResp, *Response, error) {
 	if r.cli.mock.mockHelpdeskSendHelpdeskTicketMessage != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Helpdesk#SendHelpdeskTicketMessage mock enable")

@@ -24,6 +24,7 @@ import (
 // EventV2VCMeetingAllMeetingEndedV1 发生在会议结束时, 包含企业内所有会议结束事件。{使用示例}(url=/api/tools/api_explore/api_explore_config?project=vc&version=v1&resource=meeting&event=all_meeting_ended)
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/vc-v1/meeting/events/all_meeting_ended
+// new doc: https://open.feishu.cn/document/server-docs/vc-v1/meeting/events/all_meeting_ended
 func (r *EventCallbackService) HandlerEventV2VCMeetingAllMeetingEndedV1(f EventV2VCMeetingAllMeetingEndedV1Handler) {
 	r.cli.eventHandler.eventV2VCMeetingAllMeetingEndedV1Handler = f
 }

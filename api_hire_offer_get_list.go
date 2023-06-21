@@ -24,6 +24,7 @@ import (
 // GetHireOfferList 根据人才 ID 获取 Offer 列表。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/offer/list
+// new doc: https://open.feishu.cn/document/server-docs/hire-v1/candidate-management/delivery-process-management/offer/list
 func (r *HireService) GetHireOfferList(ctx context.Context, request *GetHireOfferListReq, options ...MethodOptionFunc) (*GetHireOfferListResp, *Response, error) {
 	if r.cli.mock.mockHireGetHireOfferList != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Hire#GetHireOfferList mock enable")

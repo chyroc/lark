@@ -24,6 +24,7 @@ import (
 // UnsubscribeApprovalSubscription 取消订阅 approval_code 后, 无法再收到该审批定义对应实例的事件通知
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/approval/unsubscribe
+// new doc: https://open.feishu.cn/document/server-docs/approval-v4/event/event-interface/unsubscribe
 func (r *ApprovalService) UnsubscribeApprovalSubscription(ctx context.Context, request *UnsubscribeApprovalSubscriptionReq, options ...MethodOptionFunc) (*UnsubscribeApprovalSubscriptionResp, *Response, error) {
 	if r.cli.mock.mockApprovalUnsubscribeApprovalSubscription != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Approval#UnsubscribeApprovalSubscription mock enable")

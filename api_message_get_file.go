@@ -30,6 +30,7 @@ import (
 // - 暂不支持获取合并转发消息中的子消息的资源文件
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message-resource/get
+// new doc: https://open.feishu.cn/document/server-docs/im-v1/message/get-2
 func (r *MessageService) GetMessageFile(ctx context.Context, request *GetMessageFileReq, options ...MethodOptionFunc) (*GetMessageFileResp, *Response, error) {
 	if r.cli.mock.mockMessageGetMessageFile != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Message#GetMessageFile mock enable")

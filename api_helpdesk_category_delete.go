@@ -24,6 +24,7 @@ import (
 // DeleteHelpdeskCategory 该接口用于删除知识库分类详情。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/category/delete
+// new doc: https://open.feishu.cn/document/server-docs/helpdesk-v1/faq-management/category/delete
 func (r *HelpdeskService) DeleteHelpdeskCategory(ctx context.Context, request *DeleteHelpdeskCategoryReq, options ...MethodOptionFunc) (*DeleteHelpdeskCategoryResp, *Response, error) {
 	if r.cli.mock.mockHelpdeskDeleteHelpdeskCategory != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Helpdesk#DeleteHelpdeskCategory mock enable")

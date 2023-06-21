@@ -34,6 +34,7 @@ import (
 // fetch_child 决定是否递归)。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/list
+// new doc: https://open.feishu.cn/document/server-docs/historic-version//department/list
 //
 // Deprecated
 func (r *ContactService) GetDepartmentListOld(ctx context.Context, request *GetDepartmentListOldReq, options ...MethodOptionFunc) (*GetDepartmentListOldResp, *Response, error) {

@@ -24,6 +24,7 @@ import (
 // GetContactGroup 根据用户组 ID 查询某个用户组的基本信息, 支持查询普通用户组和动态用户组。请确保应用的通讯录权限范围里包括该用户组或者是“全部员工”, [点击了解通讯录权限范围](https://open.feishu.cn/document/ukTMukTMukTM/uETNz4SM1MjLxUzM/v3/guides/scope_authority)。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/group/get
+// new doc: https://open.feishu.cn/document/server-docs/contact-v3/group/get
 func (r *ContactService) GetContactGroup(ctx context.Context, request *GetContactGroupReq, options ...MethodOptionFunc) (*GetContactGroupResp, *Response, error) {
 	if r.cli.mock.mockContactGetContactGroup != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Contact#GetContactGroup mock enable")

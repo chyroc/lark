@@ -27,6 +27,7 @@ import (
 // - 为任务创建者
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/wiki-v2/task/get
+// new doc: https://open.feishu.cn/document/server-docs/docs/wiki-v2/task/get
 func (r *DriveService) GetWikiTask(ctx context.Context, request *GetWikiTaskReq, options ...MethodOptionFunc) (*GetWikiTaskResp, *Response, error) {
 	if r.cli.mock.mockDriveGetWikiTask != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Drive#GetWikiTask mock enable")

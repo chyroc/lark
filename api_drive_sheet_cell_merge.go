@@ -24,6 +24,7 @@ import (
 // MergeSheetCell 该接口用于根据 spreadsheetToken 和维度信息合并单元格；单次操作不超过5000行, 100列。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/ukDNzUjL5QzM14SO0MTN
+// new doc: https://open.feishu.cn/document/server-docs/docs/sheets-v3/data-operation/merge-cells
 func (r *DriveService) MergeSheetCell(ctx context.Context, request *MergeSheetCellReq, options ...MethodOptionFunc) (*MergeSheetCellResp, *Response, error) {
 	if r.cli.mock.mockDriveMergeSheetCell != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Drive#MergeSheetCell mock enable")

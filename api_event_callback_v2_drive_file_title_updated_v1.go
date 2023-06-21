@@ -26,6 +26,7 @@ import (
 // 文件标题变更时将触发此事件。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/event/file-title-update
+// new doc: https://open.feishu.cn/document/server-docs/docs/drive-v1/event/list/file-title-update
 func (r *EventCallbackService) HandlerEventV2DriveFileTitleUpdatedV1(f EventV2DriveFileTitleUpdatedV1Handler) {
 	r.cli.eventHandler.eventV2DriveFileTitleUpdatedV1Handler = f
 }

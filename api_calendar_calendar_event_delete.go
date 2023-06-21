@@ -28,6 +28,7 @@ import (
 // 当前身份必须是日程的组织者。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar-event/delete
+// new doc: https://open.feishu.cn/document/server-docs/calendar-v4/calendar-event/delete
 func (r *CalendarService) DeleteCalendarEvent(ctx context.Context, request *DeleteCalendarEventReq, options ...MethodOptionFunc) (*DeleteCalendarEventResp, *Response, error) {
 	if r.cli.mock.mockCalendarDeleteCalendarEvent != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Calendar#DeleteCalendarEvent mock enable")

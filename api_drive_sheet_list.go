@@ -24,6 +24,7 @@ import (
 // GetSheetList 该接口用于获取电子表格下所有工作表及其属性。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/sheets-v3/spreadsheet-sheet/query
+// new doc: https://open.feishu.cn/document/server-docs/docs/sheets-v3/spreadsheet-sheet/query
 func (r *DriveService) GetSheetList(ctx context.Context, request *GetSheetListReq, options ...MethodOptionFunc) (*GetSheetListResp, *Response, error) {
 	if r.cli.mock.mockDriveGetSheetList != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Drive#GetSheetList mock enable")

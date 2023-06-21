@@ -26,6 +26,7 @@ import (
 // 跳转日历 tab 并进入日程创建页面，用户可新建日程。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/uYjL24iN/applink-protocol/supported-protocol/open-calender/open-the-schedule-creation-page
+// new doc: https://open.feishu.cn/document/common-capabilities/applink-protocol/supported-protocol/open-calender/open-the-schedule-creation-page
 func (r *AppLinkService) OpenCalenderEventCreate(req *OpenCalenderEventCreateReq) string {
 	return internal.JoinAppLinkURL("https://applink.feishu.cn/client/calendar/event/create", req)
 }

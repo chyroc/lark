@@ -24,6 +24,7 @@ import (
 // UnsubscribeHelpdeskEvent 本接口用于取消订阅服务台事件。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/event/unsubscribe
+// new doc: https://open.feishu.cn/document/server-docs/helpdesk-v1/event/unsubscribe
 func (r *HelpdeskService) UnsubscribeHelpdeskEvent(ctx context.Context, request *UnsubscribeHelpdeskEventReq, options ...MethodOptionFunc) (*UnsubscribeHelpdeskEventResp, *Response, error) {
 	if r.cli.mock.mockHelpdeskUnsubscribeHelpdeskEvent != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Helpdesk#UnsubscribeHelpdeskEvent mock enable")

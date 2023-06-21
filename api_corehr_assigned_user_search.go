@@ -24,6 +24,7 @@ import (
 // SearchCoreHrAssignedUser 查询组织类角色的授权信息。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/assigned_user/search
+// new doc: https://open.feishu.cn/document/server-docs/corehr-v1/authorization/search
 func (r *CoreHrService) SearchCoreHrAssignedUser(ctx context.Context, request *SearchCoreHrAssignedUserReq, options ...MethodOptionFunc) (*SearchCoreHrAssignedUserResp, *Response, error) {
 	if r.cli.mock.mockCoreHrSearchCoreHrAssignedUser != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] CoreHr#SearchCoreHrAssignedUser mock enable")

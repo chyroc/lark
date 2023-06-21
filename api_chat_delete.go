@@ -31,6 +31,7 @@ import (
 // - 如果使用user_access_token, 需要对应的用户是群主才可解散群
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat/delete
+// new doc: https://open.feishu.cn/document/server-docs/group/chat/delete
 func (r *ChatService) DeleteChat(ctx context.Context, request *DeleteChatReq, options ...MethodOptionFunc) (*DeleteChatResp, *Response, error) {
 	if r.cli.mock.mockChatDeleteChat != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Chat#DeleteChat mock enable")

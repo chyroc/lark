@@ -29,6 +29,7 @@ import (
 // - 机器人只能收到所在群聊内的消息被删除表情回复事件
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message-reaction/events/deleted
+// new doc: https://open.feishu.cn/document/server-docs/im-v1/message-reaction/event/deleted
 func (r *EventCallbackService) HandlerEventV2IMMessageReactionDeletedV1(f EventV2IMMessageReactionDeletedV1Handler) {
 	r.cli.eventHandler.eventV2IMMessageReactionDeletedV1Handler = f
 }

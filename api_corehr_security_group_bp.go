@@ -24,6 +24,7 @@ import (
 // GetCoreHrSecurityGroupBp 通过部门或工作地点, 查询对应的 HRBP/属地 BP。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/security_group/query
+// new doc: https://open.feishu.cn/document/server-docs/corehr-v1/authorization/query
 func (r *CoreHrService) GetCoreHrSecurityGroupBp(ctx context.Context, request *GetCoreHrSecurityGroupBpReq, options ...MethodOptionFunc) (*GetCoreHrSecurityGroupBpResp, *Response, error) {
 	if r.cli.mock.mockCoreHrGetCoreHrSecurityGroupBp != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] CoreHr#GetCoreHrSecurityGroupBp mock enable")

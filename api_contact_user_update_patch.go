@@ -24,6 +24,7 @@ import (
 // UpdateUserPatch 该接口用于更新通讯录中用户的字段, 未传递的参数不会更新。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/patch
+// new doc: https://open.feishu.cn/document/server-docs/contact-v3/user/patch
 func (r *ContactService) UpdateUserPatch(ctx context.Context, request *UpdateUserPatchReq, options ...MethodOptionFunc) (*UpdateUserPatchResp, *Response, error) {
 	if r.cli.mock.mockContactUpdateUserPatch != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Contact#UpdateUserPatch mock enable")

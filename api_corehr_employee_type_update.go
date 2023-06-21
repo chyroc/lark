@@ -24,6 +24,7 @@ import (
 // UpdateCoreHrEmployeeType 更新人员类型。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/employee_type/patch
+// new doc: https://open.feishu.cn/document/server-docs/corehr-v1/basic-infomation/employee_type/patch
 func (r *CoreHrService) UpdateCoreHrEmployeeType(ctx context.Context, request *UpdateCoreHrEmployeeTypeReq, options ...MethodOptionFunc) (*UpdateCoreHrEmployeeTypeResp, *Response, error) {
 	if r.cli.mock.mockCoreHrUpdateCoreHrEmployeeType != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] CoreHr#UpdateCoreHrEmployeeType mock enable")

@@ -24,6 +24,7 @@ import (
 // GetAdminBadgeGrantList 通过该接口可以获取特定勋章下的授予名单列表, 授予名单的排列顺序按照创建时间倒序排列。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/admin-v1/badge-grant/list
+// new doc: https://open.feishu.cn/document/server-docs/admin-v1/badge/badge-grant/list
 func (r *AdminService) GetAdminBadgeGrantList(ctx context.Context, request *GetAdminBadgeGrantListReq, options ...MethodOptionFunc) (*GetAdminBadgeGrantListResp, *Response, error) {
 	if r.cli.mock.mockAdminGetAdminBadgeGrantList != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Admin#GetAdminBadgeGrantList mock enable")

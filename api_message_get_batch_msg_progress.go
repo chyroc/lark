@@ -28,6 +28,7 @@ import (
 // - 该接口返回的数据为查询时刻的快照数据
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/batch_message/get_progress
+// new doc: https://open.feishu.cn/document/server-docs/im-v1/batch_message/get_progress
 func (r *MessageService) GetBatchSentMessageProgress(ctx context.Context, request *GetBatchSentMessageProgressReq, options ...MethodOptionFunc) (*GetBatchSentMessageProgressResp, *Response, error) {
 	if r.cli.mock.mockMessageGetBatchSentMessageProgress != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Message#GetBatchSentMessageProgress mock enable")

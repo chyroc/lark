@@ -26,6 +26,7 @@ import (
 // IP 地址有变更可能, 建议应用每隔 6 小时定时拉取最新的 IP 地址, 以免由于企业防火墙设置, 导致应用无法及时接收到飞书开放平台推送的事件。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uYDNxYjL2QTM24iN0EjN/event-v1/outbound_ip/list
+// new doc: https://open.feishu.cn/document/server-docs/event-subscription-guide/list
 func (r *EventService) GetEventOutboundIpList(ctx context.Context, request *GetEventOutboundIpListReq, options ...MethodOptionFunc) (*GetEventOutboundIpListResp, *Response, error) {
 	if r.cli.mock.mockEventGetEventOutboundIpList != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Event#GetEventOutboundIpList mock enable")

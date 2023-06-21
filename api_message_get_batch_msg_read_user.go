@@ -28,6 +28,7 @@ import (
 // - 该接口返回的数据为查询时刻的快照数据
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/batch_message/read_user
+// new doc: https://open.feishu.cn/document/server-docs/im-v1/batch_message/read_user
 func (r *MessageService) GetBatchSentMessageReadUser(ctx context.Context, request *GetBatchSentMessageReadUserReq, options ...MethodOptionFunc) (*GetBatchSentMessageReadUserResp, *Response, error) {
 	if r.cli.mock.mockMessageGetBatchSentMessageReadUser != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Message#GetBatchSentMessageReadUser mock enable")

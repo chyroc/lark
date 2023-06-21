@@ -24,6 +24,7 @@ import (
 // AddContactGroupMember 向用户组中添加成员(目前成员仅支持用户, 未来会支持部门), 如果应用的通讯录权限范围是“全部员工”, 则可将任何成员添加到任何用户组。如果应用的通讯录权限范围不是“全部员工”, 则仅可将通讯录权限范围中的成员添加到通讯录权限范围的用户组中, [点击了解通讯录权限范围](https://open.feishu.cn/document/ukTMukTMukTM/uETNz4SM1MjLxUzM/v3/guides/scope_authority)。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/group-member/add
+// new doc: https://open.feishu.cn/document/server-docs/contact-v3/group-member/add
 func (r *ContactService) AddContactGroupMember(ctx context.Context, request *AddContactGroupMemberReq, options ...MethodOptionFunc) (*AddContactGroupMemberResp, *Response, error) {
 	if r.cli.mock.mockContactAddContactGroupMember != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Contact#AddContactGroupMember mock enable")

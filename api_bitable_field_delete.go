@@ -24,6 +24,7 @@ import (
 // DeleteBitableField 该接口用于在数据表中删除一个字段
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table-field/delete
+// new doc: https://open.feishu.cn/document/server-docs/docs/bitable-v1/app-table-field/delete
 func (r *BitableService) DeleteBitableField(ctx context.Context, request *DeleteBitableFieldReq, options ...MethodOptionFunc) (*DeleteBitableFieldResp, *Response, error) {
 	if r.cli.mock.mockBitableDeleteBitableField != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Bitable#DeleteBitableField mock enable")

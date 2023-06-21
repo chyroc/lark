@@ -24,6 +24,7 @@ import (
 // CreateSearchSchema 创建一个数据范式。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/search-v2/schema/create
+// new doc: https://open.feishu.cn/document/server-docs/search-v2/open-search/schema/create
 func (r *SearchService) CreateSearchSchema(ctx context.Context, request *CreateSearchSchemaReq, options ...MethodOptionFunc) (*CreateSearchSchemaResp, *Response, error) {
 	if r.cli.mock.mockSearchCreateSearchSchema != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Search#CreateSearchSchema mock enable")

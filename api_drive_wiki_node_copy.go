@@ -24,6 +24,7 @@ import (
 // CopyWikiNode 此接口用于在知识空间创建节点副本到指定位置。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/wiki-v2/space-node/copy
+// new doc: https://open.feishu.cn/document/server-docs/docs/wiki-v2/space-node/copy
 func (r *DriveService) CopyWikiNode(ctx context.Context, request *CopyWikiNodeReq, options ...MethodOptionFunc) (*CopyWikiNodeResp, *Response, error) {
 	if r.cli.mock.mockDriveCopyWikiNode != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Drive#CopyWikiNode mock enable")

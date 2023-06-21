@@ -27,6 +27,7 @@ import (
 // - 应用需要开启[机器人能力](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-enable-bot-ability)。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar/create
+// new doc: https://open.feishu.cn/document/server-docs/calendar-v4/calendar/create
 func (r *CalendarService) CreateCalendar(ctx context.Context, request *CreateCalendarReq, options ...MethodOptionFunc) (*CreateCalendarResp, *Response, error) {
 	if r.cli.mock.mockCalendarCreateCalendar != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Calendar#CreateCalendar mock enable")

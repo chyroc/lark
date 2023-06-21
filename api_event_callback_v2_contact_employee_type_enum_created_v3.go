@@ -24,6 +24,7 @@ import (
 // EventV2ContactEmployeeTypeEnumCreatedV3 新建人员类型会发出对应事件。{使用示例}(url=/api/tools/api_explore/api_explore_config?project=contact&version=v3&resource=employee_type_enum&event=created)
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/employee_type_enum/events/created
+// new doc: https://open.feishu.cn/document/server-docs/contact-v3/employee_type_enum/events/created
 func (r *EventCallbackService) HandlerEventV2ContactEmployeeTypeEnumCreatedV3(f EventV2ContactEmployeeTypeEnumCreatedV3Handler) {
 	r.cli.eventHandler.eventV2ContactEmployeeTypeEnumCreatedV3Handler = f
 }

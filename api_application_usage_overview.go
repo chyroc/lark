@@ -31,6 +31,7 @@ import (
 // 6. 调用频控为100次/分
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/application-v6/application-app_usage/overview
+// new doc: https://open.feishu.cn/document/server-docs/application-v6/app-usage/overview
 func (r *ApplicationService) GetApplicationUsageOverview(ctx context.Context, request *GetApplicationUsageOverviewReq, options ...MethodOptionFunc) (*GetApplicationUsageOverviewResp, *Response, error) {
 	if r.cli.mock.mockApplicationGetApplicationUsageOverview != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Application#GetApplicationUsageOverview mock enable")

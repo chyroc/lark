@@ -24,6 +24,7 @@ import (
 // GetMinutesStatistics 通过这个接口, 可以获得妙记的访问情况统计, 包含PV、UV、访问过的 user id、访问过的 user timestamp。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/minutes-v1/minute-statistics/get
+// new doc: https://open.feishu.cn/document/server-docs/minutes-v1/minute-statistics/get
 func (r *MinutesService) GetMinutesStatistics(ctx context.Context, request *GetMinutesStatisticsReq, options ...MethodOptionFunc) (*GetMinutesStatisticsResp, *Response, error) {
 	if r.cli.mock.mockMinutesGetMinutesStatistics != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Minutes#GetMinutesStatistics mock enable")

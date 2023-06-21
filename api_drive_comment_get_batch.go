@@ -24,6 +24,7 @@ import (
 // BatchGetDriveComment 该接口用于根据评论 ID 列表批量获取全文评论, 暂时不支持局部评论
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file-comment/batch_query
+// new doc: https://open.feishu.cn/document/server-docs/docs/CommentAPI/batch_query
 func (r *DriveService) BatchGetDriveComment(ctx context.Context, request *BatchGetDriveCommentReq, options ...MethodOptionFunc) (*BatchGetDriveCommentResp, *Response, error) {
 	if r.cli.mock.mockDriveBatchGetDriveComment != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Drive#BatchGetDriveComment mock enable")

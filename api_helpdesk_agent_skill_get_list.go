@@ -24,6 +24,7 @@ import (
 // GetHelpdeskAgentSkillList 获取全部客服技能。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/agent_skill/list
+// new doc: https://open.feishu.cn/document/server-docs/helpdesk-v1/agent-function/agent_skill/list
 func (r *HelpdeskService) GetHelpdeskAgentSkillList(ctx context.Context, request *GetHelpdeskAgentSkillListReq, options ...MethodOptionFunc) (*GetHelpdeskAgentSkillListResp, *Response, error) {
 	if r.cli.mock.mockHelpdeskGetHelpdeskAgentSkillList != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Helpdesk#GetHelpdeskAgentSkillList mock enable")

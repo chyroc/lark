@@ -24,6 +24,7 @@ import (
 // DeleteMailGroupAlias 删除邮件组别名。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/mail-v1/mailgroup-alias/delete
+// new doc: https://open.feishu.cn/document/server-docs/mail-v1/mail-group/mailgroup-alias/delete
 func (r *MailService) DeleteMailGroupAlias(ctx context.Context, request *DeleteMailGroupAliasReq, options ...MethodOptionFunc) (*DeleteMailGroupAliasResp, *Response, error) {
 	if r.cli.mock.mockMailDeleteMailGroupAlias != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Mail#DeleteMailGroupAlias mock enable")

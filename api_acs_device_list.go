@@ -24,6 +24,7 @@ import (
 // GetACSDeviceList 使用该接口获取租户内所有门禁设备。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/acs-v1/device/list
+// new doc: https://open.feishu.cn/document/server-docs/acs-v1/device/list
 func (r *ACSService) GetACSDeviceList(ctx context.Context, request *GetACSDeviceListReq, options ...MethodOptionFunc) (*GetACSDeviceListResp, *Response, error) {
 	if r.cli.mock.mockACSGetACSDeviceList != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] ACS#GetACSDeviceList mock enable")

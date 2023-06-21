@@ -24,6 +24,7 @@ import (
 // CreateDriveFileShortcut 创建指定文件的快捷方式到云空间的其它文件夹中。此接口不支持在同一个文件夹下并发创建多个快捷方式。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file/create_shortcut
+// new doc: https://open.feishu.cn/document/server-docs/docs/drive-v1/file/create_shortcut
 func (r *DriveService) CreateDriveFileShortcut(ctx context.Context, request *CreateDriveFileShortcutReq, options ...MethodOptionFunc) (*CreateDriveFileShortcutResp, *Response, error) {
 	if r.cli.mock.mockDriveCreateDriveFileShortcut != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Drive#CreateDriveFileShortcut mock enable")

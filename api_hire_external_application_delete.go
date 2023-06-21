@@ -24,6 +24,7 @@ import (
 // DeleteHireExternalApplication 将外部投递删除
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/external_application/delete
+// new doc: https://open.feishu.cn/document/server-docs/hire-v1/get-candidates/import-external-system-information/delete
 func (r *HireService) DeleteHireExternalApplication(ctx context.Context, request *DeleteHireExternalApplicationReq, options ...MethodOptionFunc) (*DeleteHireExternalApplicationResp, *Response, error) {
 	if r.cli.mock.mockHireDeleteHireExternalApplication != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Hire#DeleteHireExternalApplication mock enable")

@@ -27,6 +27,7 @@ import (
 // 此接口目前仅支持小程序的使用情况查询, 不支持网页应用和机器人应用的使用情况查询;仅支持查询自建应用, 不支持查询商店应用
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uITN0YjLyUDN24iM1QjN
+// new doc: https://open.feishu.cn/document
 func (r *ApplicationService) GetApplicationUsageTrend(ctx context.Context, request *GetApplicationUsageTrendReq, options ...MethodOptionFunc) (*GetApplicationUsageTrendResp, *Response, error) {
 	if r.cli.mock.mockApplicationGetApplicationUsageTrend != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Application#GetApplicationUsageTrend mock enable")

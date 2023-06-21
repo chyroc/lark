@@ -24,6 +24,7 @@ import (
 // CreateHireExternalInterview 导入来自其他系统的面试信息, 创建为外部面试。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/external_interview/create
+// new doc: https://open.feishu.cn/document/server-docs/hire-v1/get-candidates/import-external-system-information/create-3
 func (r *HireService) CreateHireExternalInterview(ctx context.Context, request *CreateHireExternalInterviewReq, options ...MethodOptionFunc) (*CreateHireExternalInterviewResp, *Response, error) {
 	if r.cli.mock.mockHireCreateHireExternalInterview != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Hire#CreateHireExternalInterview mock enable")

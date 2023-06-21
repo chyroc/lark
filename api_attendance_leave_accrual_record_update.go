@@ -27,6 +27,7 @@ import (
 // - 由系统生成的授予记录不可被更新
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/leave_accrual_record/patch
+// new doc: https://open.feishu.cn/document/server-docs/attendance-v1/leave_accrual_record/patch
 func (r *AttendanceService) UpdateAttendanceLeaveAccrualRecord(ctx context.Context, request *UpdateAttendanceLeaveAccrualRecordReq, options ...MethodOptionFunc) (*UpdateAttendanceLeaveAccrualRecordResp, *Response, error) {
 	if r.cli.mock.mockAttendanceUpdateAttendanceLeaveAccrualRecord != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Attendance#UpdateAttendanceLeaveAccrualRecord mock enable")

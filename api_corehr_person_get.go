@@ -24,6 +24,7 @@ import (
 // GetCoreHrPerson 根据 ID 查询单个人员的个人信息。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/person/get
+// new doc: https://open.feishu.cn/document/server-docs/corehr-v1/employee/person/get
 func (r *CoreHrService) GetCoreHrPerson(ctx context.Context, request *GetCoreHrPersonReq, options ...MethodOptionFunc) (*GetCoreHrPersonResp, *Response, error) {
 	if r.cli.mock.mockCoreHrGetCoreHrPerson != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] CoreHr#GetCoreHrPerson mock enable")

@@ -24,6 +24,7 @@ import (
 // UpdateHelpdeskCategory 该接口用于更新知识库分类详情。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/category/patch
+// new doc: https://open.feishu.cn/document/server-docs/helpdesk-v1/faq-management/category/patch
 func (r *HelpdeskService) UpdateHelpdeskCategory(ctx context.Context, request *UpdateHelpdeskCategoryReq, options ...MethodOptionFunc) (*UpdateHelpdeskCategoryResp, *Response, error) {
 	if r.cli.mock.mockHelpdeskUpdateHelpdeskCategory != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Helpdesk#UpdateHelpdeskCategory mock enable")

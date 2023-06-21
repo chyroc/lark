@@ -24,6 +24,7 @@ import (
 // DeleteAttendanceShift 通过班次 ID 删除班次。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/shift/delete
+// new doc: https://open.feishu.cn/document/server-docs/attendance-v1/shift/delete
 func (r *AttendanceService) DeleteAttendanceShift(ctx context.Context, request *DeleteAttendanceShiftReq, options ...MethodOptionFunc) (*DeleteAttendanceShiftResp, *Response, error) {
 	if r.cli.mock.mockAttendanceDeleteAttendanceShift != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Attendance#DeleteAttendanceShift mock enable")

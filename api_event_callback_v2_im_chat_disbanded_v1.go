@@ -30,6 +30,7 @@ import (
 // - 解散群并勾选【为群成员保留历史记录】不会触发该事件
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat/events/disbanded
+// new doc: https://open.feishu.cn/document/server-docs/group/chat/events/disbanded
 func (r *EventCallbackService) HandlerEventV2IMChatDisbandedV1(f EventV2IMChatDisbandedV1Handler) {
 	r.cli.eventHandler.eventV2IMChatDisbandedV1Handler = f
 }

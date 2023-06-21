@@ -24,6 +24,7 @@ import (
 // CreateCoreHrEmployeeType 创建人员类型。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/employee_type/create
+// new doc: https://open.feishu.cn/document/server-docs/corehr-v1/basic-infomation/employee_type/create
 func (r *CoreHrService) CreateCoreHrEmployeeType(ctx context.Context, request *CreateCoreHrEmployeeTypeReq, options ...MethodOptionFunc) (*CreateCoreHrEmployeeTypeResp, *Response, error) {
 	if r.cli.mock.mockCoreHrCreateCoreHrEmployeeType != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] CoreHr#CreateCoreHrEmployeeType mock enable")

@@ -24,6 +24,7 @@ import (
 // UpdateDriveComment 更新云文档中的某条回复。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file-comment-reply/update
+// new doc: https://open.feishu.cn/document/server-docs/docs/CommentAPI/update
 func (r *DriveService) UpdateDriveComment(ctx context.Context, request *UpdateDriveCommentReq, options ...MethodOptionFunc) (*UpdateDriveCommentResp, *Response, error) {
 	if r.cli.mock.mockDriveUpdateDriveComment != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Drive#UpdateDriveComment mock enable")

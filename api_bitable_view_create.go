@@ -24,6 +24,7 @@ import (
 // CreateBitableView 在数据表中新增一个视图
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table-view/create
+// new doc: https://open.feishu.cn/document/server-docs/docs/bitable-v1/app-table-view/create
 func (r *BitableService) CreateBitableView(ctx context.Context, request *CreateBitableViewReq, options ...MethodOptionFunc) (*CreateBitableViewResp, *Response, error) {
 	if r.cli.mock.mockBitableCreateBitableView != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Bitable#CreateBitableView mock enable")

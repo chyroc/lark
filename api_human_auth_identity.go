@@ -27,6 +27,7 @@ import (
 // 仅通过计费申请的应用, 才能在[开发者后台](https://open.feishu.cn/app)查找并申请该接口的权限。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/human_authentication-v1/identity/create
+// new doc: https://open.feishu.cn/document/server-docs/human_authentication-v1/create
 func (r *HumanAuthService) CreateIdentity(ctx context.Context, request *CreateIdentityReq, options ...MethodOptionFunc) (*CreateIdentityResp, *Response, error) {
 	if r.cli.mock.mockHumanAuthCreateIdentity != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] HumanAuth#CreateIdentity mock enable")

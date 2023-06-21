@@ -24,6 +24,7 @@ import (
 // CreateHelpdeskFAQ 该接口用于创建知识库。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/faq/create
+// new doc: https://open.feishu.cn/document/server-docs/helpdesk-v1/faq-management/faq/create
 func (r *HelpdeskService) CreateHelpdeskFAQ(ctx context.Context, request *CreateHelpdeskFAQReq, options ...MethodOptionFunc) (*CreateHelpdeskFAQResp, *Response, error) {
 	if r.cli.mock.mockHelpdeskCreateHelpdeskFAQ != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Helpdesk#CreateHelpdeskFAQ mock enable")

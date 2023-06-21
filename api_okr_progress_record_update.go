@@ -24,6 +24,7 @@ import (
 // UpdateOKRProgressRecord 根据 OKR 进展记录 ID 更新进展详情。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/okr-v1/progress_record/update
+// new doc: https://open.feishu.cn/document/server-docs/okr-v1/progress_record/update
 func (r *OKRService) UpdateOKRProgressRecord(ctx context.Context, request *UpdateOKRProgressRecordReq, options ...MethodOptionFunc) (*UpdateOKRProgressRecordResp, *Response, error) {
 	if r.cli.mock.mockOKRUpdateOKRProgressRecord != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] OKR#UpdateOKRProgressRecord mock enable")

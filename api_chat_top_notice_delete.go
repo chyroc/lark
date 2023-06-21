@@ -29,6 +29,7 @@ import (
 // - 撤销内部群置顶时, 操作者须与群组在同一租户下
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-top_notice/delete_top_notice
+// new doc: https://open.feishu.cn/document/server-docs/group/chat/delete_top_notice
 func (r *ChatService) DeleteChatTopNotice(ctx context.Context, request *DeleteChatTopNoticeReq, options ...MethodOptionFunc) (*DeleteChatTopNoticeResp, *Response, error) {
 	if r.cli.mock.mockChatDeleteChatTopNotice != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Chat#DeleteChatTopNotice mock enable")

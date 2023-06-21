@@ -24,6 +24,7 @@ import (
 // GetBitableView 该接口根据 view_id 检索现有视图
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table-view/get
+// new doc: https://open.feishu.cn/document/server-docs/docs/bitable-v1/app-table-view/get
 func (r *BitableService) GetBitableView(ctx context.Context, request *GetBitableViewReq, options ...MethodOptionFunc) (*GetBitableViewResp, *Response, error) {
 	if r.cli.mock.mockBitableGetBitableView != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Bitable#GetBitableView mock enable")

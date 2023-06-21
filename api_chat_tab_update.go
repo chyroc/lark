@@ -32,6 +32,7 @@ import (
 // - 操作内部群时, 操作者须与群组在同一租户下
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-tab/update_tabs
+// new doc: https://open.feishu.cn/document/server-docs/group/chat-tab/update_tabs
 func (r *ChatService) UpdateChatTab(ctx context.Context, request *UpdateChatTabReq, options ...MethodOptionFunc) (*UpdateChatTabResp, *Response, error) {
 	if r.cli.mock.mockChatUpdateChatTab != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Chat#UpdateChatTab mock enable")

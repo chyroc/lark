@@ -24,6 +24,7 @@ import (
 // UpdateCoreHrDepartment 更新部门。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/department/patch
+// new doc: https://open.feishu.cn/document/server-docs/corehr-v1/organization-management/department/patch
 func (r *CoreHrService) UpdateCoreHrDepartment(ctx context.Context, request *UpdateCoreHrDepartmentReq, options ...MethodOptionFunc) (*UpdateCoreHrDepartmentResp, *Response, error) {
 	if r.cli.mock.mockCoreHrUpdateCoreHrDepartment != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] CoreHr#UpdateCoreHrDepartment mock enable")

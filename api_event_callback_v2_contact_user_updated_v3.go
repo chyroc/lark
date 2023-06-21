@@ -26,6 +26,7 @@ import (
 // 只有当应用拥有被改动字段的数据权限时, 才会接收到事件。具体的数据权限与字段的关系请参考[应用权限](https://open.feishu.cn/document/ukTMukTMukTM/uQjN3QjL0YzN04CN2cDN), 或查看事件体参数列表的字段描述。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/events/updated
+// new doc: https://open.feishu.cn/document/server-docs/contact-v3/user/events/updated
 func (r *EventCallbackService) HandlerEventV2ContactUserUpdatedV3(f EventV2ContactUserUpdatedV3Handler) {
 	r.cli.eventHandler.eventV2ContactUserUpdatedV3Handler = f
 }

@@ -24,6 +24,7 @@ import (
 // UpdateSheetProperty 该接口用于根据 spreadsheetToken 更新表格属性, 如更新表格标题。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/ucTMzUjL3EzM14yNxMTN
+// new doc: https://open.feishu.cn/document/server-docs/historic-version/docs/sheets/update-spreadsheet-properties
 //
 // Deprecated
 func (r *DriveService) UpdateSheetProperty(ctx context.Context, request *UpdateSheetPropertyReq, options ...MethodOptionFunc) (*UpdateSheetPropertyResp, *Response, error) {

@@ -27,6 +27,7 @@ import (
 // - 此接口非原子操作, 先修改多维表格名字, 后开关高级权限。可能存在部分成功的情况
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app/update
+// new doc: https://open.feishu.cn/document/server-docs/docs/bitable-v1/app/update
 func (r *BitableService) UpdateBitableMeta(ctx context.Context, request *UpdateBitableMetaReq, options ...MethodOptionFunc) (*UpdateBitableMetaResp, *Response, error) {
 	if r.cli.mock.mockBitableUpdateBitableMeta != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Bitable#UpdateBitableMeta mock enable")

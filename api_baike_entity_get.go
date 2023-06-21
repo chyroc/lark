@@ -26,6 +26,7 @@ import (
 // 也支持通过 provider 和 outer_id 返回对应实体的详情数据。此时路径中的 entity_id 为固定的 enterprise_0
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/baike-v1/entity/get
+// new doc: https://open.feishu.cn/document/server-docs/baike-v1/entity/get
 func (r *BaikeService) GetBaikeEntity(ctx context.Context, request *GetBaikeEntityReq, options ...MethodOptionFunc) (*GetBaikeEntityResp, *Response, error) {
 	if r.cli.mock.mockBaikeGetBaikeEntity != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Baike#GetBaikeEntity mock enable")

@@ -24,6 +24,7 @@ import (
 // GetApplicationFavourite 获取用户自定义常用的应用。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/application-v5/application/favourite
+// new doc: https://open.feishu.cn/document/server-docs/workplace-v1/app_recommend_rule/favourite
 func (r *ApplicationService) GetApplicationFavourite(ctx context.Context, request *GetApplicationFavouriteReq, options ...MethodOptionFunc) (*GetApplicationFavouriteResp, *Response, error) {
 	if r.cli.mock.mockApplicationGetApplicationFavourite != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Application#GetApplicationFavourite mock enable")

@@ -24,6 +24,7 @@ import (
 // GetHireQuestionnaireList 获取面试满意度问卷列表。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/questionnaire/list
+// new doc: https://open.feishu.cn/document/server-docs/hire-v1/candidate-management/delivery-process-management/interview/list-2
 func (r *HireService) GetHireQuestionnaireList(ctx context.Context, request *GetHireQuestionnaireListReq, options ...MethodOptionFunc) (*GetHireQuestionnaireListResp, *Response, error) {
 	if r.cli.mock.mockHireGetHireQuestionnaireList != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Hire#GetHireQuestionnaireList mock enable")

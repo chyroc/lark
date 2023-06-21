@@ -28,6 +28,7 @@ import (
 // 该接口支持调用频率上限为 5QPS
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file/download
+// new doc: https://open.feishu.cn/document/server-docs/docs/drive-v1/download/download
 func (r *DriveService) DownloadDriveFile(ctx context.Context, request *DownloadDriveFileReq, options ...MethodOptionFunc) (*DownloadDriveFileResp, *Response, error) {
 	if r.cli.mock.mockDriveDownloadDriveFile != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Drive#DownloadDriveFile mock enable")

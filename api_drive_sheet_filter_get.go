@@ -24,6 +24,7 @@ import (
 // GetSheetFilter 获取子表的详细筛选信息
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/sheets-v3/spreadsheet-sheet-filter/get
+// new doc: https://open.feishu.cn/document/server-docs/docs/sheets-v3/spreadsheet-sheet-filter/get
 func (r *DriveService) GetSheetFilter(ctx context.Context, request *GetSheetFilterReq, options ...MethodOptionFunc) (*GetSheetFilterResp, *Response, error) {
 	if r.cli.mock.mockDriveGetSheetFilter != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Drive#GetSheetFilter mock enable")

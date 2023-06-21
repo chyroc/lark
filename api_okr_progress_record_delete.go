@@ -24,6 +24,7 @@ import (
 // DeleteOKRProgressRecord 根据 ID 删除 OKR 进展记录。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/okr-v1/progress_record/delete
+// new doc: https://open.feishu.cn/document/server-docs/okr-v1/progress_record/delete
 func (r *OKRService) DeleteOKRProgressRecord(ctx context.Context, request *DeleteOKRProgressRecordReq, options ...MethodOptionFunc) (*DeleteOKRProgressRecordResp, *Response, error) {
 	if r.cli.mock.mockOKRDeleteOKRProgressRecord != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] OKR#DeleteOKRProgressRecord mock enable")

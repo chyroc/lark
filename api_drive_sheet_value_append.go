@@ -24,6 +24,7 @@ import (
 // AppendSheetValue 该接口用于在已有数据的末尾追加写入给定的数据。该接口会从给定的range中的起始行列开始向下寻找（如range为"sheet1!A1:B2", 将会依次寻找A1、A2、A3...）, 找到第一个空白位置后将数据写入到该区域。单次写入不得超过5000行, 100列, 每个格子不得超过5万字符。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uMjMzUjLzIzM14yMyMTN
+// new doc: https://open.feishu.cn/document/server-docs/docs/sheets-v3/data-operation/append-data
 func (r *DriveService) AppendSheetValue(ctx context.Context, request *AppendSheetValueReq, options ...MethodOptionFunc) (*AppendSheetValueResp, *Response, error) {
 	if r.cli.mock.mockDriveAppendSheetValue != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Drive#AppendSheetValue mock enable")

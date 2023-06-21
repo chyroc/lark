@@ -55,6 +55,7 @@ import (
 // 回调示例
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/event/user-attendance-records-event
+// new doc: https://open.feishu.cn/document/server-docs/attendance-v1/event/user-attendance-records-event
 func (r *EventCallbackService) HandlerEventV2AttendanceUserFlowCreatedV1(f EventV2AttendanceUserFlowCreatedV1Handler) {
 	r.cli.eventHandler.eventV2AttendanceUserFlowCreatedV1Handler = f
 }

@@ -26,6 +26,7 @@ import (
 // 浮动图片参考: [浮动图片指南](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/sheets-v3/spreadsheet-sheet-float_image/float-image-user-guide)
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/sheets-v3/spreadsheet-sheet-float_image/query
+// new doc: https://open.feishu.cn/document/server-docs/docs/sheets-v3/spreadsheet-sheet-float_image/query
 func (r *DriveService) QuerySheetFloatImage(ctx context.Context, request *QuerySheetFloatImageReq, options ...MethodOptionFunc) (*QuerySheetFloatImageResp, *Response, error) {
 	if r.cli.mock.mockDriveQuerySheetFloatImage != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Drive#QuerySheetFloatImage mock enable")

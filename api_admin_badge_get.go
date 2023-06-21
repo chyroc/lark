@@ -24,6 +24,7 @@ import (
 // GetAdminBadge 可以通过该接口查询勋章的详情。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/admin-v1/badge/get
+// new doc: https://open.feishu.cn/document/server-docs/admin-v1/badge/badge/get
 func (r *AdminService) GetAdminBadge(ctx context.Context, request *GetAdminBadgeReq, options ...MethodOptionFunc) (*GetAdminBadgeResp, *Response, error) {
 	if r.cli.mock.mockAdminGetAdminBadge != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Admin#GetAdminBadge mock enable")

@@ -28,6 +28,7 @@ import (
 // - 当前不支持创建`文件`类型节点。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/wiki-v2/space-node/create
+// new doc: https://open.feishu.cn/document/server-docs/docs/wiki-v2/space-node/create
 func (r *DriveService) CreateWikiNode(ctx context.Context, request *CreateWikiNodeReq, options ...MethodOptionFunc) (*CreateWikiNodeResp, *Response, error) {
 	if r.cli.mock.mockDriveCreateWikiNode != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Drive#CreateWikiNode mock enable")

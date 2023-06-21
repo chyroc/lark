@@ -24,6 +24,7 @@ import (
 // CreateBitableAppRole 新增自定义角色
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-role/create
+// new doc: https://open.feishu.cn/document/server-docs/docs/bitable-v1/advanced-permission/app-role/create
 func (r *BitableService) CreateBitableAppRole(ctx context.Context, request *CreateBitableAppRoleReq, options ...MethodOptionFunc) (*CreateBitableAppRoleResp, *Response, error) {
 	if r.cli.mock.mockBitableCreateBitableAppRole != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Bitable#CreateBitableAppRole mock enable")

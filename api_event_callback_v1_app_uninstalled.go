@@ -27,6 +27,7 @@ import (
 // - 企业解散后会推送此事件。商店应用开发者可在收到此事件后进行相应的账户注销、数据清理等处理。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/application-v6/event/app-uninstalled
+// new doc: https://open.feishu.cn/document/server-docs/application-v6/event/app-uninstalled
 func (r *EventCallbackService) HandlerEventV1AppUninstalled(f EventV1AppUninstalledHandler) {
 	r.cli.eventHandler.eventV1AppUninstalledHandler = f
 }

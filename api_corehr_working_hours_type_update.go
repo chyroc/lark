@@ -24,6 +24,7 @@ import (
 // UpdateCoreHrWorkingHoursType 更新工时制度。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/working_hours_type/patch
+// new doc: https://open.feishu.cn/document/server-docs/corehr-v1/basic-infomation/working_hours_type/patch
 func (r *CoreHrService) UpdateCoreHrWorkingHoursType(ctx context.Context, request *UpdateCoreHrWorkingHoursTypeReq, options ...MethodOptionFunc) (*UpdateCoreHrWorkingHoursTypeResp, *Response, error) {
 	if r.cli.mock.mockCoreHrUpdateCoreHrWorkingHoursType != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] CoreHr#UpdateCoreHrWorkingHoursType mock enable")

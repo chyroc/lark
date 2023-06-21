@@ -24,6 +24,7 @@ import (
 // QuerySheetFilterView 查询子表内所有的筛选视图基本信息, 包括 id、name 和 range
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/sheets-v3/spreadsheet-sheet-filter_view/query
+// new doc: https://open.feishu.cn/document/server-docs/docs/sheets-v3/spreadsheet-sheet-filter_view/query
 func (r *DriveService) QuerySheetFilterView(ctx context.Context, request *QuerySheetFilterViewReq, options ...MethodOptionFunc) (*QuerySheetFilterViewResp, *Response, error) {
 	if r.cli.mock.mockDriveQuerySheetFilterView != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Drive#QuerySheetFilterView mock enable")

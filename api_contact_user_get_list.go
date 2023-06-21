@@ -28,6 +28,7 @@ import (
 // - 使用`tenant_access_token`会根据应用通讯录的范围进行权限过滤。 如果请求的部门ID为0, 则校验应用是否具有全员通讯录权限； 如果是非0的部门ID, 则会验证应用是否具有该部门的通讯录权限。 无权限返回无权限错误码, 有权限则返回对应部门下的直接用户列表。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/find_by_department
+// new doc: https://open.feishu.cn/document/server-docs/contact-v3/user/find_by_department
 func (r *ContactService) GetUserList(ctx context.Context, request *GetUserListReq, options ...MethodOptionFunc) (*GetUserListResp, *Response, error) {
 	if r.cli.mock.mockContactGetUserList != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Contact#GetUserList mock enable")

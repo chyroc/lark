@@ -24,6 +24,7 @@ import (
 // UpdateCoreHrEmployment 更新雇佣信息。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/employment/patch
+// new doc: https://open.feishu.cn/document/server-docs/corehr-v1/employee/employment/patch
 func (r *CoreHrService) UpdateCoreHrEmployment(ctx context.Context, request *UpdateCoreHrEmploymentReq, options ...MethodOptionFunc) (*UpdateCoreHrEmploymentResp, *Response, error) {
 	if r.cli.mock.mockCoreHrUpdateCoreHrEmployment != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] CoreHr#UpdateCoreHrEmployment mock enable")

@@ -24,6 +24,7 @@ import (
 // GetVCExportTask 查看异步导出的进度。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/vc-v1/export/get
+// new doc: https://open.feishu.cn/document/server-docs/vc-v1/export/get
 func (r *VCService) GetVCExportTask(ctx context.Context, request *GetVCExportTaskReq, options ...MethodOptionFunc) (*GetVCExportTaskResp, *Response, error) {
 	if r.cli.mock.mockVCGetVCExportTask != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] VC#GetVCExportTask mock enable")

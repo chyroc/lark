@@ -26,6 +26,7 @@ import (
 // 让应用（tenant_access_token）访问个人云空间中的文件夹请参阅[常见问题](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/faq)第三点。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file/list
+// new doc: https://open.feishu.cn/document/server-docs/docs/drive-v1/folder/list
 func (r *DriveService) GetDriveFileList(ctx context.Context, request *GetDriveFileListReq, options ...MethodOptionFunc) (*GetDriveFileListResp, *Response, error) {
 	if r.cli.mock.mockDriveGetDriveFileList != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Drive#GetDriveFileList mock enable")

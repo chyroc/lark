@@ -24,6 +24,7 @@ import (
 // SearchApprovalCarbonCopy 该接口通过不同条件查询审批系统中符合条件的审批抄送列表。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/instance/search_cc
+// new doc: https://open.feishu.cn/document/server-docs/approval-v4/approval-search/search_cc
 func (r *ApprovalService) SearchApprovalCarbonCopy(ctx context.Context, request *SearchApprovalCarbonCopyReq, options ...MethodOptionFunc) (*SearchApprovalCarbonCopyResp, *Response, error) {
 	if r.cli.mock.mockApprovalSearchApprovalCarbonCopy != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Approval#SearchApprovalCarbonCopy mock enable")

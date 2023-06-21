@@ -24,6 +24,7 @@ import (
 // BatchCreateBitableAppRoleMember 批量新增自定义角色的协作者
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-role-member/batch_create
+// new doc: https://open.feishu.cn/document/server-docs/docs/bitable-v1/advanced-permission/app-role-member/batch_create
 func (r *BitableService) BatchCreateBitableAppRoleMember(ctx context.Context, request *BatchCreateBitableAppRoleMemberReq, options ...MethodOptionFunc) (*BatchCreateBitableAppRoleMemberResp, *Response, error) {
 	if r.cli.mock.mockBitableBatchCreateBitableAppRoleMember != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Bitable#BatchCreateBitableAppRoleMember mock enable")

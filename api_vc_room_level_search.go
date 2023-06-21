@@ -24,6 +24,7 @@ import (
 // SearchVCRoomLevel 该接口可以用来搜索会议室层级, 支持使用自定义会议室层级 ID 进行查询。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/vc-v1/room_level/search
+// new doc: https://open.feishu.cn/document/server-docs/vc-v1/room_level/search
 func (r *VCService) SearchVCRoomLevel(ctx context.Context, request *SearchVCRoomLevelReq, options ...MethodOptionFunc) (*SearchVCRoomLevelResp, *Response, error) {
 	if r.cli.mock.mockVCSearchVCRoomLevel != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] VC#SearchVCRoomLevel mock enable")

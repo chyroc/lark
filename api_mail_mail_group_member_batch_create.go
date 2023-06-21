@@ -24,6 +24,7 @@ import (
 // BatchCreateMailGroupMember 一次请求可以给一个邮件组添加多个成员。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/mail-v1/mailgroup-member/batch_create
+// new doc: https://open.feishu.cn/document/server-docs/mail-v1/mail-group/mailgroup-member/batch_create
 func (r *MailService) BatchCreateMailGroupMember(ctx context.Context, request *BatchCreateMailGroupMemberReq, options ...MethodOptionFunc) (*BatchCreateMailGroupMemberResp, *Response, error) {
 	if r.cli.mock.mockMailBatchCreateMailGroupMember != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Mail#BatchCreateMailGroupMember mock enable")

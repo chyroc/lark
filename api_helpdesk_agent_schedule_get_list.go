@@ -24,6 +24,7 @@ import (
 // GetHelpdeskAgentScheduleList 该接口用于获取所有客服信息。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/agent_schedule/list
+// new doc: https://open.feishu.cn/document/server-docs/helpdesk-v1/agent-function/agent-schedules/list
 func (r *HelpdeskService) GetHelpdeskAgentScheduleList(ctx context.Context, request *GetHelpdeskAgentScheduleListReq, options ...MethodOptionFunc) (*GetHelpdeskAgentScheduleListResp, *Response, error) {
 	if r.cli.mock.mockHelpdeskGetHelpdeskAgentScheduleList != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Helpdesk#GetHelpdeskAgentScheduleList mock enable")

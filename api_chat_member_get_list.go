@@ -32,6 +32,7 @@ import (
 // - 获取内部群信息时, 操作者须与群组在同一租户下
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-members/get
+// new doc: https://open.feishu.cn/document/server-docs/group/chat-member/get
 func (r *ChatService) GetChatMemberList(ctx context.Context, request *GetChatMemberListReq, options ...MethodOptionFunc) (*GetChatMemberListResp, *Response, error) {
 	if r.cli.mock.mockChatGetChatMemberList != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Chat#GetChatMemberList mock enable")

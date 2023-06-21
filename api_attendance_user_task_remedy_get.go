@@ -24,6 +24,7 @@ import (
 // GetAttendanceUserTaskRemedy 获取授权内员工的补卡记录。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/user_task_remedy/query
+// new doc: https://open.feishu.cn/document/server-docs/attendance-v1/user_task_remedy/query
 func (r *AttendanceService) GetAttendanceUserTaskRemedy(ctx context.Context, request *GetAttendanceUserTaskRemedyReq, options ...MethodOptionFunc) (*GetAttendanceUserTaskRemedyResp, *Response, error) {
 	if r.cli.mock.mockAttendanceGetAttendanceUserTaskRemedy != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Attendance#GetAttendanceUserTaskRemedy mock enable")

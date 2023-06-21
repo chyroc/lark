@@ -34,6 +34,7 @@ import (
 // - 若开启了 [仅群主和管理员可以邀请用户或机器人入群], 需要设置 [群分享权限] 为 [不允许分享]
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat/update
+// new doc: https://open.feishu.cn/document/server-docs/group/chat/update-2
 func (r *ChatService) UpdateChat(ctx context.Context, request *UpdateChatReq, options ...MethodOptionFunc) (*UpdateChatResp, *Response, error) {
 	if r.cli.mock.mockChatUpdateChat != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Chat#UpdateChat mock enable")

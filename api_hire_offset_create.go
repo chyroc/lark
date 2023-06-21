@@ -24,6 +24,7 @@ import (
 // CreateHireOffer 创建 Offer 时, 需传入本文档中标注为必传的参数, 其余参数是否必传参考「获取 Offer 申请表模板信息」的参数定义。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/offer/create
+// new doc: https://open.feishu.cn/document/server-docs/hire-v1/candidate-management/delivery-process-management/offer/create
 func (r *HireService) CreateHireOffer(ctx context.Context, request *CreateHireOfferReq, options ...MethodOptionFunc) (*CreateHireOfferResp, *Response, error) {
 	if r.cli.mock.mockHireCreateHireOffer != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Hire#CreateHireOffer mock enable")

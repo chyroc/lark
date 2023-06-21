@@ -26,6 +26,7 @@ import (
 // 你能获取到协作者列表的前提是你对该文档有分享权限
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uATN3UjLwUzN14CM1cTN
+// new doc: https://open.feishu.cn/document/server-docs/docs/permission/permission-member/obtain-a-collaborator-list
 func (r *DriveService) GetDriveMemberPermissionListOld(ctx context.Context, request *GetDriveMemberPermissionListOldReq, options ...MethodOptionFunc) (*GetDriveMemberPermissionListOldResp, *Response, error) {
 	if r.cli.mock.mockDriveGetDriveMemberPermissionListOld != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Drive#GetDriveMemberPermissionListOld mock enable")

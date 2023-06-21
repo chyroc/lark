@@ -26,6 +26,7 @@ import (
 // 如 startIndex=3, endIndex=7, 则从第 4 行开始开始插入行列, 一直到第 7 行, 共插入 4 行；单次操作不超过5000行或列。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uQjMzUjL0IzM14CNyMTN
+// new doc: https://open.feishu.cn/document/server-docs/docs/sheets-v3/sheet-rowcol/insert-rows-or-columns
 func (r *DriveService) InsertSheetDimensionRange(ctx context.Context, request *InsertSheetDimensionRangeReq, options ...MethodOptionFunc) (*InsertSheetDimensionRangeResp, *Response, error) {
 	if r.cli.mock.mockDriveInsertSheetDimensionRange != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Drive#InsertSheetDimensionRange mock enable")

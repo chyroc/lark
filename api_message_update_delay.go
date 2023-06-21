@@ -37,6 +37,7 @@ import (
 // - 同一token仅能使用3次
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uMDO1YjLzgTN24yM4UjN
+// new doc: https://open.feishu.cn/document/server-docs/im-v1/message-card/delay-update-message-card
 func (r *MessageService) UpdateMessageDelay(ctx context.Context, request *UpdateMessageDelayReq, options ...MethodOptionFunc) (*UpdateMessageDelayResp, *Response, error) {
 	if r.cli.mock.mockMessageUpdateMessageDelay != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Message#UpdateMessageDelay mock enable")

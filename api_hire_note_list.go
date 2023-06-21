@@ -24,6 +24,7 @@ import (
 // GetHireNoteList 获取备注列表。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/note/list
+// new doc: https://open.feishu.cn/document/server-docs/hire-v1/candidate-management/note/list
 func (r *HireService) GetHireNoteList(ctx context.Context, request *GetHireNoteListReq, options ...MethodOptionFunc) (*GetHireNoteListResp, *Response, error) {
 	if r.cli.mock.mockHireGetHireNoteList != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Hire#GetHireNoteList mock enable")

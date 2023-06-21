@@ -29,6 +29,7 @@ import (
 // - 该API暂时不支持在一级菜单上添加或者删除二级菜单。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-menu_item/patch
+// new doc: https://open.feishu.cn/document/server-docs/group/chat-menu_tree/patch
 func (r *ChatService) UpdateChatMenuTree(ctx context.Context, request *UpdateChatMenuTreeReq, options ...MethodOptionFunc) (*UpdateChatMenuTreeResp, *Response, error) {
 	if r.cli.mock.mockChatUpdateChatMenuTree != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Chat#UpdateChatMenuTree mock enable")

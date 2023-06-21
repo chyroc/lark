@@ -24,6 +24,7 @@ import (
 // CreateBaikeEntity 通过此接口创建的词条, 无需经过词典管理员审核, 直接写入词库。因此, 调用此接口时, 应当慎重操作。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/baike-v1/entity/create
+// new doc: https://open.feishu.cn/document/server-docs/baike-v1/entity/create
 func (r *BaikeService) CreateBaikeEntity(ctx context.Context, request *CreateBaikeEntityReq, options ...MethodOptionFunc) (*CreateBaikeEntityResp, *Response, error) {
 	if r.cli.mock.mockBaikeCreateBaikeEntity != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Baike#CreateBaikeEntity mock enable")

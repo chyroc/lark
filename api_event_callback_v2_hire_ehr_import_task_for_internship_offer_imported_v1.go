@@ -26,6 +26,7 @@ import (
 // 搭配使用: [更新 e-HR 导入任务结果](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/ehr_import_task/patch)更新本次导入事件的结果{使用示例}(url=/api/tools/api_explore/api_explore_config?project=hire&version=v1&resource=ehr_import_task_for_internship_offer&event=imported)
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/ehr_import_task_for_internship_offer/events/imported
+// new doc: https://open.feishu.cn/document/server-docs/hire-v1/candidate-management/delivery-process-management/onboard/events/imported
 func (r *EventCallbackService) HandlerEventV2HireEHRImportTaskForInternshipOfferImportedV1(f EventV2HireEHRImportTaskForInternshipOfferImportedV1Handler) {
 	r.cli.eventHandler.eventV2HireEHRImportTaskForInternshipOfferImportedV1Handler = f
 }

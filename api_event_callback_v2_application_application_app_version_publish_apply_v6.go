@@ -24,6 +24,7 @@ import (
 // EventV2ApplicationApplicationAppVersionPublishApplyV6 通过订阅该事件, 可接收应用提交发布申请事件{使用示例}(url=/api/tools/api_explore/api_explore_config?project=application&version=v6&resource=application.app_version&event=publish_apply)
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/application-v6/application-app_version/events/publish_apply
+// new doc: https://open.feishu.cn/document/server-docs/application-v6/event/publish_apply
 func (r *EventCallbackService) HandlerEventV2ApplicationApplicationAppVersionPublishApplyV6(f EventV2ApplicationApplicationAppVersionPublishApplyV6Handler) {
 	r.cli.eventHandler.eventV2ApplicationApplicationAppVersionPublishApplyV6Handler = f
 }

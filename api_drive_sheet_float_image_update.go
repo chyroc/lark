@@ -26,6 +26,7 @@ import (
 // 浮动图片更新参考: [浮动图片指南](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/sheets-v3/spreadsheet-sheet-float_image/float-image-user-guide)
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/sheets-v3/spreadsheet-sheet-float_image/patch
+// new doc: https://open.feishu.cn/document/server-docs/docs/sheets-v3/spreadsheet-sheet-float_image/patch
 func (r *DriveService) UpdateSheetFloatImage(ctx context.Context, request *UpdateSheetFloatImageReq, options ...MethodOptionFunc) (*UpdateSheetFloatImageResp, *Response, error) {
 	if r.cli.mock.mockDriveUpdateSheetFloatImage != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Drive#UpdateSheetFloatImage mock enable")

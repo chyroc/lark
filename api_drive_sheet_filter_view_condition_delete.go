@@ -24,6 +24,7 @@ import (
 // DeleteSheetFilterViewCondition 删除筛选视图的筛选范围某一列的筛选条件。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/sheets-v3/spreadsheet-sheet-filter_view-condition/delete
+// new doc: https://open.feishu.cn/document/server-docs/docs/sheets-v3/spreadsheet-sheet-filter_view/spreadsheet-sheet-filter_view-condition/delete
 func (r *DriveService) DeleteSheetFilterViewCondition(ctx context.Context, request *DeleteSheetFilterViewConditionReq, options ...MethodOptionFunc) (*DeleteSheetFilterViewConditionResp, *Response, error) {
 	if r.cli.mock.mockDriveDeleteSheetFilterViewCondition != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Drive#DeleteSheetFilterViewCondition mock enable")

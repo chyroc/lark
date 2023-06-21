@@ -24,6 +24,7 @@ import (
 // CreateCoreHrLocation 创建地点。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/location/create
+// new doc: https://open.feishu.cn/document/server-docs/corehr-v1/organization-management/location/create
 func (r *CoreHrService) CreateCoreHrLocation(ctx context.Context, request *CreateCoreHrLocationReq, options ...MethodOptionFunc) (*CreateCoreHrLocationResp, *Response, error) {
 	if r.cli.mock.mockCoreHrCreateCoreHrLocation != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] CoreHr#CreateCoreHrLocation mock enable")

@@ -28,6 +28,7 @@ import (
 // - [例外日程](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar-event/introduction#71c5ec78)可通过event_id的非0时间戳后缀, 来获取修改的重复性日程的哪一天日程的时间信息。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar-event/get
+// new doc: https://open.feishu.cn/document/server-docs/calendar-v4/calendar-event/get
 func (r *CalendarService) GetCalendarEvent(ctx context.Context, request *GetCalendarEventReq, options ...MethodOptionFunc) (*GetCalendarEventResp, *Response, error) {
 	if r.cli.mock.mockCalendarGetCalendarEvent != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Calendar#GetCalendarEvent mock enable")

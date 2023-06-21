@@ -24,6 +24,7 @@ import (
 // CreateEmployeeTypeEnum 新增自定义人员类型。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/employee_type_enum/create
+// new doc: https://open.feishu.cn/document/server-docs/contact-v3/employee_type_enum/create
 func (r *ContactService) CreateEmployeeTypeEnum(ctx context.Context, request *CreateEmployeeTypeEnumReq, options ...MethodOptionFunc) (*CreateEmployeeTypeEnumResp, *Response, error) {
 	if r.cli.mock.mockContactCreateEmployeeTypeEnum != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Contact#CreateEmployeeTypeEnum mock enable")

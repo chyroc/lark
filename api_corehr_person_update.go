@@ -24,6 +24,7 @@ import (
 // UpdateCoreHrPerson 更新个人信息
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/person/patch
+// new doc: https://open.feishu.cn/document/server-docs/corehr-v1/employee/person/patch-2
 func (r *CoreHrService) UpdateCoreHrPerson(ctx context.Context, request *UpdateCoreHrPersonReq, options ...MethodOptionFunc) (*UpdateCoreHrPersonResp, *Response, error) {
 	if r.cli.mock.mockCoreHrUpdateCoreHrPerson != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] CoreHr#UpdateCoreHrPerson mock enable")

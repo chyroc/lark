@@ -26,6 +26,7 @@ import (
 // 特殊说明: 应用首先需要调用上述接口建立订阅关系。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar-acl/events/deleted
+// new doc: https://open.feishu.cn/document/server-docs/calendar-v4/calendar-acl/events/deleted
 func (r *EventCallbackService) HandlerEventV2CalendarCalendarACLDeletedV4(f EventV2CalendarCalendarACLDeletedV4Handler) {
 	r.cli.eventHandler.eventV2CalendarCalendarACLDeletedV4Handler = f
 }

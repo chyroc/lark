@@ -26,6 +26,7 @@ import (
 // 通讯录权限范围是指应用在调用通讯录相关接口, 可以获取的部门和用户的数据范围。应用无法获取权限范围之外的通讯录数据。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/application-v6/application/contacts_range_configuration
+// new doc: https://open.feishu.cn/document/server-docs/application-v6/admin/contacts_range_configuration
 func (r *ApplicationService) GetApplicationContactsRangeConfiguration(ctx context.Context, request *GetApplicationContactsRangeConfigurationReq, options ...MethodOptionFunc) (*GetApplicationContactsRangeConfigurationResp, *Response, error) {
 	if r.cli.mock.mockApplicationGetApplicationContactsRangeConfiguration != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Application#GetApplicationContactsRangeConfiguration mock enable")

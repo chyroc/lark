@@ -28,6 +28,7 @@ import (
 // - 机器人必须在群里。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-menu_tree/get
+// new doc: https://open.feishu.cn/document/server-docs/group/chat-menu_tree/get
 func (r *ChatService) GetChatMenuTree(ctx context.Context, request *GetChatMenuTreeReq, options ...MethodOptionFunc) (*GetChatMenuTreeResp, *Response, error) {
 	if r.cli.mock.mockChatGetChatMenuTree != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Chat#GetChatMenuTree mock enable")

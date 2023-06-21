@@ -28,6 +28,7 @@ import (
 // - 父节点阅读权限
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/wiki-v2/space-node/list
+// new doc: https://open.feishu.cn/document/server-docs/docs/wiki-v2/space-node/list
 func (r *DriveService) GetWikiNodeList(ctx context.Context, request *GetWikiNodeListReq, options ...MethodOptionFunc) (*GetWikiNodeListResp, *Response, error) {
 	if r.cli.mock.mockDriveGetWikiNodeList != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Drive#GetWikiNodeList mock enable")

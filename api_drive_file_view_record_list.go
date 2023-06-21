@@ -24,6 +24,7 @@ import (
 // GetDriveFileViewRecordList 获取文档的历史访问记录
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file-view_record/list
+// new doc: https://open.feishu.cn/document/server-docs/docs/drive-v1/file-view_record/list
 func (r *DriveService) GetDriveFileViewRecordList(ctx context.Context, request *GetDriveFileViewRecordListReq, options ...MethodOptionFunc) (*GetDriveFileViewRecordListResp, *Response, error) {
 	if r.cli.mock.mockDriveGetDriveFileViewRecordList != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Drive#GetDriveFileViewRecordList mock enable")

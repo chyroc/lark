@@ -26,6 +26,7 @@ import (
 // 特殊说明: 应用首先需要调用上述接口建立订阅关系。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar-acl/events/created
+// new doc: https://open.feishu.cn/document/server-docs/calendar-v4/calendar-acl/events/created
 func (r *EventCallbackService) HandlerEventV2CalendarCalendarACLCreatedV4(f EventV2CalendarCalendarACLCreatedV4Handler) {
 	r.cli.eventHandler.eventV2CalendarCalendarACLCreatedV4Handler = f
 }

@@ -24,6 +24,7 @@ import (
 // GetTenant 获取企业名称、企业编号等企业信息
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/tenant-v2/tenant/query
+// new doc: https://open.feishu.cn/document/server-docs/tenant-v2/query
 func (r *TenantService) GetTenant(ctx context.Context, request *GetTenantReq, options ...MethodOptionFunc) (*GetTenantResp, *Response, error) {
 	if r.cli.mock.mockTenantGetTenant != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Tenant#GetTenant mock enable")

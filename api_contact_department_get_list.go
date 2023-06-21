@@ -30,6 +30,7 @@ import (
 // 如果部门ID为0, 会检验应用是否有全员通讯录权限, 如果是非0 部门ID, 则会校验应用是否有该部门的通讯录权限。无部门权限返回无部门通讯录权限错误码, 有权限则返回部门下子部门列表（根据fetch_child决定是否递归）。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/children
+// new doc: https://open.feishu.cn/document/server-docs/contact-v3/department/children
 func (r *ContactService) GetDepartmentList(ctx context.Context, request *GetDepartmentListReq, options ...MethodOptionFunc) (*GetDepartmentListResp, *Response, error) {
 	if r.cli.mock.mockContactGetDepartmentList != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Contact#GetDepartmentList mock enable")

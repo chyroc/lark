@@ -24,6 +24,7 @@ import (
 // UpdateBitableView 该接口用于增量修改视图信息
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table-view/patch
+// new doc: https://open.feishu.cn/document/server-docs/docs/bitable-v1/app-table-view/patch
 func (r *BitableService) UpdateBitableView(ctx context.Context, request *UpdateBitableViewReq, options ...MethodOptionFunc) (*UpdateBitableViewResp, *Response, error) {
 	if r.cli.mock.mockBitableUpdateBitableView != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Bitable#UpdateBitableView mock enable")

@@ -24,6 +24,7 @@ import (
 // SearchApprovalTask 该接口通过不同条件查询审批系统中符合条件的审批任务列表。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/task/search
+// new doc: https://open.feishu.cn/document/server-docs/approval-v4/approval-search/search
 func (r *ApprovalService) SearchApprovalTask(ctx context.Context, request *SearchApprovalTaskReq, options ...MethodOptionFunc) (*SearchApprovalTaskResp, *Response, error) {
 	if r.cli.mock.mockApprovalSearchApprovalTask != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Approval#SearchApprovalTask mock enable")

@@ -24,6 +24,7 @@ import (
 // GetDrivePublicPermission 该接口用于根据 filetoken 获取云文档的权限设置。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/permission-public/get
+// new doc: https://open.feishu.cn/document/server-docs/docs/permission/permission-public/get
 func (r *DriveService) GetDrivePublicPermission(ctx context.Context, request *GetDrivePublicPermissionReq, options ...MethodOptionFunc) (*GetDrivePublicPermissionResp, *Response, error) {
 	if r.cli.mock.mockDriveGetDrivePublicPermission != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Drive#GetDrivePublicPermission mock enable")

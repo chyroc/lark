@@ -26,6 +26,7 @@ import (
 // 部门存在, 但用户搜索不到并不一定是搜索有问题, 可能是管理员在后台配置了权限控制, 导致用户无法搜索到该部门。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/search
+// new doc: https://open.feishu.cn/document/server-docs/contact-v3/department/search
 func (r *ContactService) SearchDepartment(ctx context.Context, request *SearchDepartmentReq, options ...MethodOptionFunc) (*SearchDepartmentResp, *Response, error) {
 	if r.cli.mock.mockContactSearchDepartment != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Contact#SearchDepartment mock enable")

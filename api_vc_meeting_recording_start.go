@@ -26,6 +26,7 @@ import (
 // 会议正在进行中, 且操作者具有相应权限（如果操作者为用户, 必须是会中当前主持人）
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/vc-v1/meeting-recording/start
+// new doc: https://open.feishu.cn/document/server-docs/vc-v1/meeting-recording/start
 func (r *VCService) StartVCMeetingRecording(ctx context.Context, request *StartVCMeetingRecordingReq, options ...MethodOptionFunc) (*StartVCMeetingRecordingResp, *Response, error) {
 	if r.cli.mock.mockVCStartVCMeetingRecording != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] VC#StartVCMeetingRecording mock enable")

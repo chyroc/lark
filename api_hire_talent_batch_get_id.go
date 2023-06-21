@@ -24,6 +24,7 @@ import (
 // BatchGetHireTalent 通过手机号或邮箱获取人才 ID。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/talent/batch_get_id
+// new doc: https://open.feishu.cn/document/server-docs/hire-v1/candidate-management/talent/batch_get_id
 func (r *HireService) BatchGetHireTalent(ctx context.Context, request *BatchGetHireTalentReq, options ...MethodOptionFunc) (*BatchGetHireTalentResp, *Response, error) {
 	if r.cli.mock.mockHireBatchGetHireTalent != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Hire#BatchGetHireTalent mock enable")

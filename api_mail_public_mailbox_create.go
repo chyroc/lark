@@ -24,6 +24,7 @@ import (
 // CreatePublicMailbox 创建一个公共邮箱。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/mail-v1/public_mailbox/create
+// new doc: https://open.feishu.cn/document/server-docs/mail-v1/public-mailbox/public_mailbox/create
 func (r *MailService) CreatePublicMailbox(ctx context.Context, request *CreatePublicMailboxReq, options ...MethodOptionFunc) (*CreatePublicMailboxResp, *Response, error) {
 	if r.cli.mock.mockMailCreatePublicMailbox != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Mail#CreatePublicMailbox mock enable")

@@ -24,6 +24,7 @@ import (
 // CopyBitableApp 复制一个多维表格, 可以指定复制到某个有权限的文件夹下
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app/copy
+// new doc: https://open.feishu.cn/document/server-docs/docs/bitable-v1/app/copy
 func (r *BitableService) CopyBitableApp(ctx context.Context, request *CopyBitableAppReq, options ...MethodOptionFunc) (*CopyBitableAppResp, *Response, error) {
 	if r.cli.mock.mockBitableCopyBitableApp != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Bitable#CopyBitableApp mock enable")

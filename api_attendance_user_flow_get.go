@@ -24,6 +24,7 @@ import (
 // GetAttendanceUserFlow 通过打卡记录 ID 获取用户的打卡流水记录。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/user_flow/get
+// new doc: https://open.feishu.cn/document/server-docs/attendance-v1/user_task/get
 func (r *AttendanceService) GetAttendanceUserFlow(ctx context.Context, request *GetAttendanceUserFlowReq, options ...MethodOptionFunc) (*GetAttendanceUserFlowResp, *Response, error) {
 	if r.cli.mock.mockAttendanceGetAttendanceUserFlow != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Attendance#GetAttendanceUserFlow mock enable")

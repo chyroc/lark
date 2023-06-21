@@ -30,6 +30,7 @@ import (
 // 该接口不支持并发创建, 且调用频率上限为 5QPS 且 10000次/天
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uQTNzUjL0UzM14CN1MTN
+// new doc: https://open.feishu.cn/document/server-docs/docs/drive-v1/file/create-online-document
 func (r *DriveService) CreateDriveFile(ctx context.Context, request *CreateDriveFileReq, options ...MethodOptionFunc) (*CreateDriveFileResp, *Response, error) {
 	if r.cli.mock.mockDriveCreateDriveFile != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Drive#CreateDriveFile mock enable")

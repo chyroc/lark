@@ -26,6 +26,7 @@ import (
 // 当前身份必须对日历有reader、writer或owner权限（调用[获取日历](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar/get)接口, role字段可查看权限）。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar-event/subscription
+// new doc: https://open.feishu.cn/document/server-docs/calendar-v4/calendar-event/subscription
 func (r *CalendarService) SubscribeCalendarEvent(ctx context.Context, request *SubscribeCalendarEventReq, options ...MethodOptionFunc) (*SubscribeCalendarEventResp, *Response, error) {
 	if r.cli.mock.mockCalendarSubscribeCalendarEvent != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Calendar#SubscribeCalendarEvent mock enable")

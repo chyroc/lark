@@ -24,6 +24,7 @@ import (
 // UpdateCoreHrPreHire 更新待入职信息。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/pre_hire/patch
+// new doc: https://open.feishu.cn/document/server-docs/corehr-v1/pre_hire/patch
 func (r *CoreHrService) UpdateCoreHrPreHire(ctx context.Context, request *UpdateCoreHrPreHireReq, options ...MethodOptionFunc) (*UpdateCoreHrPreHireResp, *Response, error) {
 	if r.cli.mock.mockCoreHrUpdateCoreHrPreHire != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] CoreHr#UpdateCoreHrPreHire mock enable")

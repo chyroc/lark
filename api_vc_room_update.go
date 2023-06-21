@@ -24,6 +24,7 @@ import (
 // UpdateVCRoom 该接口可以用来更新某个会议室的信息。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/vc-v1/room/patch
+// new doc: https://open.feishu.cn/document/server-docs/vc-v1/room/patch
 func (r *VCService) UpdateVCRoom(ctx context.Context, request *UpdateVCRoomReq, options ...MethodOptionFunc) (*UpdateVCRoomResp, *Response, error) {
 	if r.cli.mock.mockVCUpdateVCRoom != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] VC#UpdateVCRoom mock enable")

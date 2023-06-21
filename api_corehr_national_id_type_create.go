@@ -24,6 +24,7 @@ import (
 // CreateCoreHrNationalIDType 创建国家证件类型。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/national_id_type/create
+// new doc: https://open.feishu.cn/document/server-docs/corehr-v1/basic-infomation/national_id_type/create
 func (r *CoreHrService) CreateCoreHrNationalIDType(ctx context.Context, request *CreateCoreHrNationalIDTypeReq, options ...MethodOptionFunc) (*CreateCoreHrNationalIDTypeResp, *Response, error) {
 	if r.cli.mock.mockCoreHrCreateCoreHrNationalIDType != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] CoreHr#CreateCoreHrNationalIDType mock enable")

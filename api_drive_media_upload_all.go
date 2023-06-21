@@ -28,6 +28,7 @@ import (
 // 该接口支持调用频率上限为5QPS
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/media/upload_all
+// new doc: https://open.feishu.cn/document/server-docs/docs/drive-v1/media/upload_all
 func (r *DriveService) UploadDriveMedia(ctx context.Context, request *UploadDriveMediaReq, options ...MethodOptionFunc) (*UploadDriveMediaResp, *Response, error) {
 	if r.cli.mock.mockDriveUploadDriveMedia != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Drive#UploadDriveMedia mock enable")

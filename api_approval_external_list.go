@@ -29,6 +29,7 @@ import (
 // 4.通过page_token获取下一批数据
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/external_task/list
+// new doc: https://open.feishu.cn/document/server-docs/approval-v4/external_task/list
 func (r *ApprovalService) GetApprovalExternalList(ctx context.Context, request *GetApprovalExternalListReq, options ...MethodOptionFunc) (*GetApprovalExternalListResp, *Response, error) {
 	if r.cli.mock.mockApprovalGetApprovalExternalList != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Approval#GetApprovalExternalList mock enable")

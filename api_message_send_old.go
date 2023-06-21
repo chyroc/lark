@@ -27,6 +27,7 @@ import (
 // - 需要启用机器人能力；私聊会话时机器人需要拥有对用户的可见性, 群会话需要机器人在群里
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uUjNz4SN2MjL1YzM
+// new doc: https://open.feishu.cn/document
 func (r *MessageService) SendRawMessageOld(ctx context.Context, request *SendRawMessageOldReq, options ...MethodOptionFunc) (*SendRawMessageOldResp, *Response, error) {
 	if r.cli.mock.mockMessageSendRawMessageOld != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Message#SendRawMessageOld mock enable")

@@ -24,6 +24,7 @@ import (
 // SearchCoreHrEmployee 该接口会按照应用拥有的「员工数据」的权限范围返回数据, 请确定在「开发者后台 - 权限管理 - 数据权限」中有申请「员工资源」权限范围
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/employee/search
+// new doc: https://open.feishu.cn/document/server-docs/corehr-v1/employee/search
 func (r *CoreHrService) SearchCoreHrEmployee(ctx context.Context, request *SearchCoreHrEmployeeReq, options ...MethodOptionFunc) (*SearchCoreHrEmployeeResp, *Response, error) {
 	if r.cli.mock.mockCoreHrSearchCoreHrEmployee != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] CoreHr#SearchCoreHrEmployee mock enable")

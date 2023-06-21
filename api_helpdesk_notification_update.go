@@ -24,6 +24,7 @@ import (
 // UpdateHelpdeskNotification 更新推送信息, 只有在草稿状态下才可以调用此接口进行更新。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/notification/patch
+// new doc: https://open.feishu.cn/document/server-docs/helpdesk-v1/notification/patch
 func (r *HelpdeskService) UpdateHelpdeskNotification(ctx context.Context, request *UpdateHelpdeskNotificationReq, options ...MethodOptionFunc) (*UpdateHelpdeskNotificationResp, *Response, error) {
 	if r.cli.mock.mockHelpdeskUpdateHelpdeskNotification != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Helpdesk#UpdateHelpdeskNotification mock enable")

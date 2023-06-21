@@ -24,6 +24,7 @@ import (
 // EventV2CorehrPersonDeletedV1 个人信息删除{使用示例}(url=/api/tools/api_explore/api_explore_config?project=corehr&version=v1&resource=person&event=deleted)
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/person/events/deleted
+// new doc: https://open.feishu.cn/document/server-docs/corehr-v1/employee/person/deleted
 func (r *EventCallbackService) HandlerEventV2CorehrPersonDeletedV1(f EventV2CorehrPersonDeletedV1Handler) {
 	r.cli.eventHandler.eventV2CorehrPersonDeletedV1Handler = f
 }

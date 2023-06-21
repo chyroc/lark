@@ -31,6 +31,7 @@ import (
 // - 开启管理员能力后预约会议室可不受会议室预约范围的限制（当前不支持用管理员身份给其他人的日程预约会议室）
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar-event-attendee/create
+// new doc: https://open.feishu.cn/document/server-docs/calendar-v4/calendar-event-attendee/create
 func (r *CalendarService) CreateCalendarEventAttendee(ctx context.Context, request *CreateCalendarEventAttendeeReq, options ...MethodOptionFunc) (*CreateCalendarEventAttendeeResp, *Response, error) {
 	if r.cli.mock.mockCalendarCreateCalendarEventAttendee != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Calendar#CreateCalendarEventAttendee mock enable")

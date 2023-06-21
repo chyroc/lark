@@ -24,6 +24,7 @@ import (
 // GetCoreHrCompany 根据 ID 查询单个公司。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/company/get
+// new doc: https://open.feishu.cn/document/server-docs/corehr-v1/organization-management/company/get
 func (r *CoreHrService) GetCoreHrCompany(ctx context.Context, request *GetCoreHrCompanyReq, options ...MethodOptionFunc) (*GetCoreHrCompanyResp, *Response, error) {
 	if r.cli.mock.mockCoreHrGetCoreHrCompany != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] CoreHr#GetCoreHrCompany mock enable")

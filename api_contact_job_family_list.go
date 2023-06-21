@@ -24,6 +24,7 @@ import (
 // GetContactJobFamilyList 该接口用于获取租户序列列表。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/job_family/list
+// new doc: https://open.feishu.cn/document/server-docs/contact-v3/job_family/list
 func (r *ContactService) GetContactJobFamilyList(ctx context.Context, request *GetContactJobFamilyListReq, options ...MethodOptionFunc) (*GetContactJobFamilyListResp, *Response, error) {
 	if r.cli.mock.mockContactGetContactJobFamilyList != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Contact#GetContactJobFamilyList mock enable")

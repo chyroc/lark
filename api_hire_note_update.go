@@ -24,6 +24,7 @@ import (
 // UpdateHireNote 根据备注 ID 更新备注信息。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/note/patch
+// new doc: https://open.feishu.cn/document/server-docs/hire-v1/candidate-management/note/patch
 func (r *HireService) UpdateHireNote(ctx context.Context, request *UpdateHireNoteReq, options ...MethodOptionFunc) (*UpdateHireNoteResp, *Response, error) {
 	if r.cli.mock.mockHireUpdateHireNote != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Hire#UpdateHireNote mock enable")

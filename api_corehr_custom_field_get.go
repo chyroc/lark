@@ -24,6 +24,7 @@ import (
 // GetCoreHrCustomField 获取「飞书人事」对象下某字段的详细信息。可通过该接口获取某个对象中字段的枚举值列表, 支持系统预置字段和自定义字段。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/custom_field/get_by_param
+// new doc: https://open.feishu.cn/document/server-docs/corehr-v1/basic-infomation/custom_field/get_by_param
 func (r *CoreHrService) GetCoreHrCustomField(ctx context.Context, request *GetCoreHrCustomFieldReq, options ...MethodOptionFunc) (*GetCoreHrCustomFieldResp, *Response, error) {
 	if r.cli.mock.mockCoreHrGetCoreHrCustomField != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] CoreHr#GetCoreHrCustomField mock enable")

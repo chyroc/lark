@@ -24,6 +24,7 @@ import (
 // SearchDriveFile 该接口用于根据搜索条件进行文档搜索。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/ugDM4UjL4ADO14COwgTN
+// new doc: https://open.feishu.cn/document/server-docs/docs/drive-v1/search/document-search
 func (r *DriveService) SearchDriveFile(ctx context.Context, request *SearchDriveFileReq, options ...MethodOptionFunc) (*SearchDriveFileResp, *Response, error) {
 	if r.cli.mock.mockDriveSearchDriveFile != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Drive#SearchDriveFile mock enable")

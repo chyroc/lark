@@ -27,6 +27,7 @@ import (
 // * 依赖权限: [访问审批应用] 或 [查看、创建、更新、删除审批应用相关信息]
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uIDO24iM4YjLygjN/event/overtime
+// new doc: https://open.feishu.cn/document/server-docs/approval-v4/event/special-event/overtime
 func (r *EventCallbackService) HandlerEventV1WorkApproval(f EventV1WorkApprovalHandler) {
 	r.cli.eventHandler.eventV1WorkApprovalHandler = f
 }
