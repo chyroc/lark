@@ -27,7 +27,6 @@ import (
 // - 使用`user_access_token`时, 用户需要有待查询部门的可见性, 如果需要获取根部门信息, 则要求员工可见所有人。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/batch
-// new doc: https://open.feishu.cn/document
 func (r *ContactService) BatchGetDepartment(ctx context.Context, request *BatchGetDepartmentReq, options ...MethodOptionFunc) (*BatchGetDepartmentResp, *Response, error) {
 	if r.cli.mock.mockContactBatchGetDepartment != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Contact#BatchGetDepartment mock enable")

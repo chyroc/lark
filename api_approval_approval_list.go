@@ -24,7 +24,6 @@ import (
 // GetApprovalList 查询当前用户可发起的审批定义列表。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/approval/list
-// new doc:
 //
 // Deprecated
 func (r *ApprovalService) GetApprovalList(ctx context.Context, request *GetApprovalListReq, options ...MethodOptionFunc) (*GetApprovalListResp, *Response, error) {

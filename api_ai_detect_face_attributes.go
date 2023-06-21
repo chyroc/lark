@@ -26,7 +26,6 @@ import (
 // 注意: 返回值为 -1 表示该功能还暂未实现
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/ai/face_detection-v1/image/detect_face_attributes
-// new doc:
 //
 // Deprecated
 func (r *AIService) DetectFaceAttributes(ctx context.Context, request *DetectFaceAttributesReq, options ...MethodOptionFunc) (*DetectFaceAttributesResp, *Response, error) {

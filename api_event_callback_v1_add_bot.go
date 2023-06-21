@@ -27,7 +27,6 @@ import (
 // - 依赖条件: 应用必须开启了[机器人能力](https://open.feishu.cn/document/home/develop-a-bot-in-5-minutes/create-an-app)。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uMTNxYjLzUTM24yM1EjN
-// new doc:
 func (r *EventCallbackService) HandlerEventV1AddBot(f EventV1AddBotHandler) {
 	r.cli.eventHandler.eventV1AddBotHandler = f
 }

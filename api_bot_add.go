@@ -26,7 +26,6 @@ import (
 // 拉机器人进群
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uYDO04iN4QjL2gDN
-// new doc:
 //
 // Deprecated
 func (r *BotService) AddBotToChat(ctx context.Context, request *AddBotToChatReq, options ...MethodOptionFunc) (*AddBotToChatResp, *Response, error) {

@@ -28,7 +28,6 @@ import (
 // * 特殊说明: 只有开启机器人能力并且机器人所在的群被解散时才能触发此事件。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uQDOwUjL0gDM14CN4ATN/event/group-closed
-// new doc:
 func (r *EventCallbackService) HandlerEventV1ChatDisband(f EventV1ChatDisbandHandler) {
 	r.cli.eventHandler.eventV1ChatDisbandHandler = f
 }

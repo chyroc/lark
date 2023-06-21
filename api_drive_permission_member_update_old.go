@@ -24,7 +24,6 @@ import (
 // UpdateDriveMemberPermissionOld 该接口用于根据 filetoken 更新文档协作者的权限。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/ucTN3UjL3UzN14yN1cTN
-// new doc: https://open.feishu.cn/document
 func (r *DriveService) UpdateDriveMemberPermissionOld(ctx context.Context, request *UpdateDriveMemberPermissionOldReq, options ...MethodOptionFunc) (*UpdateDriveMemberPermissionOldResp, *Response, error) {
 	if r.cli.mock.mockDriveUpdateDriveMemberPermissionOld != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Drive#UpdateDriveMemberPermissionOld mock enable")

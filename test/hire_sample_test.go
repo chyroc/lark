@@ -219,6 +219,30 @@ func Test_Hire_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
+			cli.Mock().MockHireGetHireReferralWebsiteJobPostList(func(ctx context.Context, request *lark.GetHireReferralWebsiteJobPostListReq, options ...lark.MethodOptionFunc) (*lark.GetHireReferralWebsiteJobPostListResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockHireGetHireReferralWebsiteJobPostList()
+
+			_, _, err := moduleCli.GetHireReferralWebsiteJobPostList(ctx, &lark.GetHireReferralWebsiteJobPostListReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			cli.Mock().MockHireGetHireReferralWebsiteJobPost(func(ctx context.Context, request *lark.GetHireReferralWebsiteJobPostReq, options ...lark.MethodOptionFunc) (*lark.GetHireReferralWebsiteJobPostResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockHireGetHireReferralWebsiteJobPost()
+
+			_, _, err := moduleCli.GetHireReferralWebsiteJobPost(ctx, &lark.GetHireReferralWebsiteJobPostReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
 			cli.Mock().MockHireGetHireReferralByApplication(func(ctx context.Context, request *lark.GetHireReferralByApplicationReq, options ...lark.MethodOptionFunc) (*lark.GetHireReferralByApplicationResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -728,6 +752,22 @@ func Test_Hire_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
+			_, _, err := moduleCli.GetHireReferralWebsiteJobPostList(ctx, &lark.GetHireReferralWebsiteJobPostListReq{})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.GetHireReferralWebsiteJobPost(ctx, &lark.GetHireReferralWebsiteJobPostReq{
+				JobPostID: "x",
+			})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+
 			_, _, err := moduleCli.GetHireReferralByApplication(ctx, &lark.GetHireReferralByApplicationReq{})
 			as.NotNil(err)
 			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
@@ -1104,6 +1144,22 @@ func Test_Hire_Sample_Failed(t *testing.T) {
 		t.Run("", func(t *testing.T) {
 
 			_, _, err := moduleCli.GetHireNoteList(ctx, &lark.GetHireNoteListReq{})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.GetHireReferralWebsiteJobPostList(ctx, &lark.GetHireReferralWebsiteJobPostListReq{})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.GetHireReferralWebsiteJobPost(ctx, &lark.GetHireReferralWebsiteJobPostReq{
+				JobPostID: "x",
+			})
 			as.NotNil(err)
 			as.Equal("fake raw request", err.Error())
 		})
