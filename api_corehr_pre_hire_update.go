@@ -21,136 +21,136 @@ import (
 	"context"
 )
 
-// UpdateCoreHrPreHire 更新待入职信息。
+// UpdateCoreHRPreHire 更新待入职信息。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/pre_hire/patch
 // new doc: https://open.feishu.cn/document/server-docs/corehr-v1/pre_hire/patch
-func (r *CoreHrService) UpdateCoreHrPreHire(ctx context.Context, request *UpdateCoreHrPreHireReq, options ...MethodOptionFunc) (*UpdateCoreHrPreHireResp, *Response, error) {
-	if r.cli.mock.mockCoreHrUpdateCoreHrPreHire != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] CoreHr#UpdateCoreHrPreHire mock enable")
-		return r.cli.mock.mockCoreHrUpdateCoreHrPreHire(ctx, request, options...)
+func (r *CoreHRService) UpdateCoreHRPreHire(ctx context.Context, request *UpdateCoreHRPreHireReq, options ...MethodOptionFunc) (*UpdateCoreHRPreHireResp, *Response, error) {
+	if r.cli.mock.mockCoreHRUpdateCoreHRPreHire != nil {
+		r.cli.log(ctx, LogLevelDebug, "[lark] CoreHR#UpdateCoreHRPreHire mock enable")
+		return r.cli.mock.mockCoreHRUpdateCoreHRPreHire(ctx, request, options...)
 	}
 
 	req := &RawRequestReq{
-		Scope:                 "CoreHr",
-		API:                   "UpdateCoreHrPreHire",
+		Scope:                 "CoreHR",
+		API:                   "UpdateCoreHRPreHire",
 		Method:                "PATCH",
 		URL:                   r.cli.openBaseURL + "/open-apis/corehr/v1/pre_hires/:pre_hire_id",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
 	}
-	resp := new(updateCoreHrPreHireResp)
+	resp := new(updateCoreHRPreHireResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
 	return resp.Data, response, err
 }
 
-// MockCoreHrUpdateCoreHrPreHire mock CoreHrUpdateCoreHrPreHire method
-func (r *Mock) MockCoreHrUpdateCoreHrPreHire(f func(ctx context.Context, request *UpdateCoreHrPreHireReq, options ...MethodOptionFunc) (*UpdateCoreHrPreHireResp, *Response, error)) {
-	r.mockCoreHrUpdateCoreHrPreHire = f
+// MockCoreHRUpdateCoreHRPreHire mock CoreHRUpdateCoreHRPreHire method
+func (r *Mock) MockCoreHRUpdateCoreHRPreHire(f func(ctx context.Context, request *UpdateCoreHRPreHireReq, options ...MethodOptionFunc) (*UpdateCoreHRPreHireResp, *Response, error)) {
+	r.mockCoreHRUpdateCoreHRPreHire = f
 }
 
-// UnMockCoreHrUpdateCoreHrPreHire un-mock CoreHrUpdateCoreHrPreHire method
-func (r *Mock) UnMockCoreHrUpdateCoreHrPreHire() {
-	r.mockCoreHrUpdateCoreHrPreHire = nil
+// UnMockCoreHRUpdateCoreHRPreHire un-mock CoreHRUpdateCoreHRPreHire method
+func (r *Mock) UnMockCoreHRUpdateCoreHRPreHire() {
+	r.mockCoreHRUpdateCoreHRPreHire = nil
 }
 
-// UpdateCoreHrPreHireReq ...
-type UpdateCoreHrPreHireReq struct {
+// UpdateCoreHRPreHireReq ...
+type UpdateCoreHRPreHireReq struct {
 	PreHireID        string                                  `path:"pre_hire_id" json:"-"`         // 待入职ID, 示例值: "1616161616"
 	ClientToken      *string                                 `query:"client_token" json:"-"`       // 根据client_token是否一致来判断是否为同一请求, 示例值: 12454646
 	AtsApplicationID *string                                 `json:"ats_application_id,omitempty"` // 招聘投递 ID, 详细信息可以通过招聘的【获取投递信息】接口查询获得, 示例值: "4719168654814483759"
 	HireDate         *string                                 `json:"hire_date,omitempty"`          // 入职日期, 示例值: "2020-01-01"
-	EmployeeType     *UpdateCoreHrPreHireReqEmployeeType     `json:"employee_type,omitempty"`      // 雇佣类型
+	EmployeeType     *UpdateCoreHRPreHireReqEmployeeType     `json:"employee_type,omitempty"`      // 雇佣类型
 	WorkerID         *string                                 `json:"worker_id,omitempty"`          // 人员编号, 示例值: "1245646"
 	EmployeeTypeID   *string                                 `json:"employee_type_id,omitempty"`   // 雇佣类型, 示例值: "正式"
 	PersonID         *string                                 `json:"person_id,omitempty"`          // 引用Person ID, 示例值: "656464648662"
-	CustomFields     []*UpdateCoreHrPreHireReqCustomField    `json:"custom_fields,omitempty"`      // 自定义字段
-	CostCenterRate   []*UpdateCoreHrPreHireReqCostCenterRate `json:"cost_center_rate,omitempty"`   // 成本中心分摊信息
-	OnboardingStatus *UpdateCoreHrPreHireReqOnboardingStatus `json:"onboarding_status,omitempty"`  // 入职状态, 待入职(preboarding), 已删除(deleted), 准备就绪(day_one), 已撤销(withdrawn), 已完成(completed)
+	CustomFields     []*UpdateCoreHRPreHireReqCustomField    `json:"custom_fields,omitempty"`      // 自定义字段
+	CostCenterRate   []*UpdateCoreHRPreHireReqCostCenterRate `json:"cost_center_rate,omitempty"`   // 成本中心分摊信息
+	OnboardingStatus *UpdateCoreHRPreHireReqOnboardingStatus `json:"onboarding_status,omitempty"`  // 入职状态, 待入职(preboarding), 已删除(deleted), 准备就绪(day_one), 已撤销(withdrawn), 已完成(completed)
 }
 
-// UpdateCoreHrPreHireReqCostCenterRate ...
-type UpdateCoreHrPreHireReqCostCenterRate struct {
+// UpdateCoreHRPreHireReqCostCenterRate ...
+type UpdateCoreHRPreHireReqCostCenterRate struct {
 	CostCenterID *string `json:"cost_center_id,omitempty"` // 支持的成本中心id, 示例值: "6950635856373745165"
 	Rate         *int64  `json:"rate,omitempty"`           // 分摊比例, 示例值: 100
 }
 
-// UpdateCoreHrPreHireReqCustomField ...
-type UpdateCoreHrPreHireReqCustomField struct {
+// UpdateCoreHRPreHireReqCustomField ...
+type UpdateCoreHRPreHireReqCustomField struct {
 	FieldName string `json:"field_name,omitempty"` // 字段名, 示例值: "name"
 	Value     string `json:"value,omitempty"`      // 字段值, 是json转义后的字符串, 根据元数据定义不同, 字段格式不同(如123, 123.23, "true", [\"id1\", \"id2\"], "2006-01-02 15:04:05"), 示例值: "\"Sandy\""
 }
 
-// UpdateCoreHrPreHireReqEmployeeType ...
-type UpdateCoreHrPreHireReqEmployeeType struct {
+// UpdateCoreHRPreHireReqEmployeeType ...
+type UpdateCoreHRPreHireReqEmployeeType struct {
 	EnumName string `json:"enum_name,omitempty"` // 枚举值, 示例值: "type_1"
 }
 
-// UpdateCoreHrPreHireReqOnboardingStatus ...
-type UpdateCoreHrPreHireReqOnboardingStatus struct {
+// UpdateCoreHRPreHireReqOnboardingStatus ...
+type UpdateCoreHRPreHireReqOnboardingStatus struct {
 	EnumName string `json:"enum_name,omitempty"` // 枚举值, 示例值: "type_1"
 }
 
-// UpdateCoreHrPreHireResp ...
-type UpdateCoreHrPreHireResp struct {
-	PreHire *UpdateCoreHrPreHireRespPreHire `json:"pre_hire,omitempty"` // 待入职数据
+// UpdateCoreHRPreHireResp ...
+type UpdateCoreHRPreHireResp struct {
+	PreHire *UpdateCoreHRPreHireRespPreHire `json:"pre_hire,omitempty"` // 待入职数据
 }
 
-// UpdateCoreHrPreHireRespPreHire ...
-type UpdateCoreHrPreHireRespPreHire struct {
+// UpdateCoreHRPreHireRespPreHire ...
+type UpdateCoreHRPreHireRespPreHire struct {
 	AtsApplicationID string                                          `json:"ats_application_id,omitempty"` // 招聘投递 ID, 详细信息可以通过招聘的【获取投递信息】接口查询获得
 	ID               string                                          `json:"id,omitempty"`                 // 待入职ID
 	HireDate         string                                          `json:"hire_date,omitempty"`          // 入职日期
-	EmployeeType     *UpdateCoreHrPreHireRespPreHireEmployeeType     `json:"employee_type,omitempty"`      // 雇佣类型
+	EmployeeType     *UpdateCoreHRPreHireRespPreHireEmployeeType     `json:"employee_type,omitempty"`      // 雇佣类型
 	WorkerID         string                                          `json:"worker_id,omitempty"`          // 人员编号
 	EmployeeTypeID   string                                          `json:"employee_type_id,omitempty"`   // 雇佣类型
 	PersonID         string                                          `json:"person_id,omitempty"`          // 引用Person ID
-	CustomFields     []*UpdateCoreHrPreHireRespPreHireCustomField    `json:"custom_fields,omitempty"`      // 自定义字段
-	CostCenterRate   []*UpdateCoreHrPreHireRespPreHireCostCenterRate `json:"cost_center_rate,omitempty"`   // 成本中心分摊信息
-	OnboardingStatus *UpdateCoreHrPreHireRespPreHireOnboardingStatus `json:"onboarding_status,omitempty"`  // 入职状态, 待入职(preboarding), 已删除(deleted), 准备就绪(day_one), 已撤销(withdrawn), 已完成(completed)
+	CustomFields     []*UpdateCoreHRPreHireRespPreHireCustomField    `json:"custom_fields,omitempty"`      // 自定义字段
+	CostCenterRate   []*UpdateCoreHRPreHireRespPreHireCostCenterRate `json:"cost_center_rate,omitempty"`   // 成本中心分摊信息
+	OnboardingStatus *UpdateCoreHRPreHireRespPreHireOnboardingStatus `json:"onboarding_status,omitempty"`  // 入职状态, 待入职(preboarding), 已删除(deleted), 准备就绪(day_one), 已撤销(withdrawn), 已完成(completed)
 }
 
-// UpdateCoreHrPreHireRespPreHireCostCenterRate ...
-type UpdateCoreHrPreHireRespPreHireCostCenterRate struct {
+// UpdateCoreHRPreHireRespPreHireCostCenterRate ...
+type UpdateCoreHRPreHireRespPreHireCostCenterRate struct {
 	CostCenterID string `json:"cost_center_id,omitempty"` // 支持的成本中心id
 	Rate         int64  `json:"rate,omitempty"`           // 分摊比例
 }
 
-// UpdateCoreHrPreHireRespPreHireCustomField ...
-type UpdateCoreHrPreHireRespPreHireCustomField struct {
+// UpdateCoreHRPreHireRespPreHireCustomField ...
+type UpdateCoreHRPreHireRespPreHireCustomField struct {
 	FieldName string `json:"field_name,omitempty"` // 字段名
 	Value     string `json:"value,omitempty"`      // 字段值, 是json转义后的字符串, 根据元数据定义不同, 字段格式不同(如123, 123.23, "true", [\"id1\", \"id2\"], "2006-01-02 15:04:05")
 }
 
-// UpdateCoreHrPreHireRespPreHireEmployeeType ...
-type UpdateCoreHrPreHireRespPreHireEmployeeType struct {
+// UpdateCoreHRPreHireRespPreHireEmployeeType ...
+type UpdateCoreHRPreHireRespPreHireEmployeeType struct {
 	EnumName string                                               `json:"enum_name,omitempty"` // 枚举值
-	Display  []*UpdateCoreHrPreHireRespPreHireEmployeeTypeDisplay `json:"display,omitempty"`   // 枚举多语展示
+	Display  []*UpdateCoreHRPreHireRespPreHireEmployeeTypeDisplay `json:"display,omitempty"`   // 枚举多语展示
 }
 
-// UpdateCoreHrPreHireRespPreHireEmployeeTypeDisplay ...
-type UpdateCoreHrPreHireRespPreHireEmployeeTypeDisplay struct {
+// UpdateCoreHRPreHireRespPreHireEmployeeTypeDisplay ...
+type UpdateCoreHRPreHireRespPreHireEmployeeTypeDisplay struct {
 	Lang  string `json:"lang,omitempty"`  // 名称信息的语言
 	Value string `json:"value,omitempty"` // 名称信息的内容
 }
 
-// UpdateCoreHrPreHireRespPreHireOnboardingStatus ...
-type UpdateCoreHrPreHireRespPreHireOnboardingStatus struct {
+// UpdateCoreHRPreHireRespPreHireOnboardingStatus ...
+type UpdateCoreHRPreHireRespPreHireOnboardingStatus struct {
 	EnumName string                                                   `json:"enum_name,omitempty"` // 枚举值
-	Display  []*UpdateCoreHrPreHireRespPreHireOnboardingStatusDisplay `json:"display,omitempty"`   // 枚举多语展示
+	Display  []*UpdateCoreHRPreHireRespPreHireOnboardingStatusDisplay `json:"display,omitempty"`   // 枚举多语展示
 }
 
-// UpdateCoreHrPreHireRespPreHireOnboardingStatusDisplay ...
-type UpdateCoreHrPreHireRespPreHireOnboardingStatusDisplay struct {
+// UpdateCoreHRPreHireRespPreHireOnboardingStatusDisplay ...
+type UpdateCoreHRPreHireRespPreHireOnboardingStatusDisplay struct {
 	Lang  string `json:"lang,omitempty"`  // 名称信息的语言
 	Value string `json:"value,omitempty"` // 名称信息的内容
 }
 
-// updateCoreHrPreHireResp ...
-type updateCoreHrPreHireResp struct {
+// updateCoreHRPreHireResp ...
+type updateCoreHRPreHireResp struct {
 	Code int64                    `json:"code,omitempty"` // 错误码, 非 0 表示失败
 	Msg  string                   `json:"msg,omitempty"`  // 错误描述
-	Data *UpdateCoreHrPreHireResp `json:"data,omitempty"`
+	Data *UpdateCoreHRPreHireResp `json:"data,omitempty"`
 }

@@ -21,129 +21,129 @@ import (
 	"context"
 )
 
-// GetCoreHrProcessFormVariableData 获取流程表单数据。
+// GetCoreHRProcessFormVariableData 获取流程表单数据。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/process-form_variable_data/get
 // new doc: https://open.feishu.cn/document/server-docs/corehr-v1/process-form_variable_data/get
-func (r *CoreHrService) GetCoreHrProcessFormVariableData(ctx context.Context, request *GetCoreHrProcessFormVariableDataReq, options ...MethodOptionFunc) (*GetCoreHrProcessFormVariableDataResp, *Response, error) {
-	if r.cli.mock.mockCoreHrGetCoreHrProcessFormVariableData != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] CoreHr#GetCoreHrProcessFormVariableData mock enable")
-		return r.cli.mock.mockCoreHrGetCoreHrProcessFormVariableData(ctx, request, options...)
+func (r *CoreHRService) GetCoreHRProcessFormVariableData(ctx context.Context, request *GetCoreHRProcessFormVariableDataReq, options ...MethodOptionFunc) (*GetCoreHRProcessFormVariableDataResp, *Response, error) {
+	if r.cli.mock.mockCoreHRGetCoreHRProcessFormVariableData != nil {
+		r.cli.log(ctx, LogLevelDebug, "[lark] CoreHR#GetCoreHRProcessFormVariableData mock enable")
+		return r.cli.mock.mockCoreHRGetCoreHRProcessFormVariableData(ctx, request, options...)
 	}
 
 	req := &RawRequestReq{
-		Scope:                 "CoreHr",
-		API:                   "GetCoreHrProcessFormVariableData",
+		Scope:                 "CoreHR",
+		API:                   "GetCoreHRProcessFormVariableData",
 		Method:                "GET",
 		URL:                   r.cli.openBaseURL + "/open-apis/corehr/v1/processes/:process_id/form_variable_data",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
 	}
-	resp := new(getCoreHrProcessFormVariableDataResp)
+	resp := new(getCoreHRProcessFormVariableDataResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
 	return resp.Data, response, err
 }
 
-// MockCoreHrGetCoreHrProcessFormVariableData mock CoreHrGetCoreHrProcessFormVariableData method
-func (r *Mock) MockCoreHrGetCoreHrProcessFormVariableData(f func(ctx context.Context, request *GetCoreHrProcessFormVariableDataReq, options ...MethodOptionFunc) (*GetCoreHrProcessFormVariableDataResp, *Response, error)) {
-	r.mockCoreHrGetCoreHrProcessFormVariableData = f
+// MockCoreHRGetCoreHRProcessFormVariableData mock CoreHRGetCoreHRProcessFormVariableData method
+func (r *Mock) MockCoreHRGetCoreHRProcessFormVariableData(f func(ctx context.Context, request *GetCoreHRProcessFormVariableDataReq, options ...MethodOptionFunc) (*GetCoreHRProcessFormVariableDataResp, *Response, error)) {
+	r.mockCoreHRGetCoreHRProcessFormVariableData = f
 }
 
-// UnMockCoreHrGetCoreHrProcessFormVariableData un-mock CoreHrGetCoreHrProcessFormVariableData method
-func (r *Mock) UnMockCoreHrGetCoreHrProcessFormVariableData() {
-	r.mockCoreHrGetCoreHrProcessFormVariableData = nil
+// UnMockCoreHRGetCoreHRProcessFormVariableData un-mock CoreHRGetCoreHRProcessFormVariableData method
+func (r *Mock) UnMockCoreHRGetCoreHRProcessFormVariableData() {
+	r.mockCoreHRGetCoreHRProcessFormVariableData = nil
 }
 
-// GetCoreHrProcessFormVariableDataReq ...
-type GetCoreHrProcessFormVariableDataReq struct {
+// GetCoreHRProcessFormVariableDataReq ...
+type GetCoreHRProcessFormVariableDataReq struct {
 	ProcessID string `path:"process_id" json:"-"` // 流程ID, 示例值: "123456987"
 }
 
-// GetCoreHrProcessFormVariableDataResp ...
-type GetCoreHrProcessFormVariableDataResp struct {
-	FieldVariableValues []*GetCoreHrProcessFormVariableDataRespFieldVariableValue `json:"field_variable_values,omitempty"` // 流程变量
+// GetCoreHRProcessFormVariableDataResp ...
+type GetCoreHRProcessFormVariableDataResp struct {
+	FieldVariableValues []*GetCoreHRProcessFormVariableDataRespFieldVariableValue `json:"field_variable_values,omitempty"` // 流程变量
 }
 
-// GetCoreHrProcessFormVariableDataRespFieldVariableValue ...
-type GetCoreHrProcessFormVariableDataRespFieldVariableValue struct {
+// GetCoreHRProcessFormVariableDataRespFieldVariableValue ...
+type GetCoreHRProcessFormVariableDataRespFieldVariableValue struct {
 	VariableApiName string                                                               `json:"variable_api_name,omitempty"` // 变量api名称
-	VariableName    *GetCoreHrProcessFormVariableDataRespFieldVariableValueVariableName  `json:"variable_name,omitempty"`     // 变量名称的i18n描述
-	VariableValue   *GetCoreHrProcessFormVariableDataRespFieldVariableValueVariableValue `json:"variable_value,omitempty"`    // 变量值的对象
+	VariableName    *GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableName  `json:"variable_name,omitempty"`     // 变量名称的i18n描述
+	VariableValue   *GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValue `json:"variable_value,omitempty"`    // 变量值的对象
 }
 
-// GetCoreHrProcessFormVariableDataRespFieldVariableValueVariableName ...
-type GetCoreHrProcessFormVariableDataRespFieldVariableValueVariableName struct {
+// GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableName ...
+type GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableName struct {
 	ZhCn string `json:"zh_cn,omitempty"` // i18n类型字段, 中文值
 	EnUs string `json:"en_us,omitempty"` // i18n类型字段, 英文值
 }
 
-// GetCoreHrProcessFormVariableDataRespFieldVariableValueVariableValue ...
-type GetCoreHrProcessFormVariableDataRespFieldVariableValueVariableValue struct {
-	TextValue       *GetCoreHrProcessFormVariableDataRespFieldVariableValueVariableValueTextValue       `json:"text_value,omitempty"`       // 文本变量对象
-	NumberValue     *GetCoreHrProcessFormVariableDataRespFieldVariableValueVariableValueNumberValue     `json:"number_value,omitempty"`     // 数值变量对象
-	DateValue       *GetCoreHrProcessFormVariableDataRespFieldVariableValueVariableValueDateValue       `json:"date_value,omitempty"`       // 日期变量对象
-	EmploymentValue *GetCoreHrProcessFormVariableDataRespFieldVariableValueVariableValueEmploymentValue `json:"employment_value,omitempty"` // 员工变量对象
-	DateTimeValue   *GetCoreHrProcessFormVariableDataRespFieldVariableValueVariableValueDateTimeValue   `json:"date_time_value,omitempty"`  // 日期时间变量对象
-	EnumValue       *GetCoreHrProcessFormVariableDataRespFieldVariableValueVariableValueEnumValue       `json:"enum_value,omitempty"`       // 枚举变量对象
-	NullValue       *GetCoreHrProcessFormVariableDataRespFieldVariableValueVariableValueNullValue       `json:"null_value,omitempty"`       // 空变量对象
-	BoolValue       *GetCoreHrProcessFormVariableDataRespFieldVariableValueVariableValueBoolValue       `json:"bool_value,omitempty"`       // 布尔变量对象
-	DepartmentValue *GetCoreHrProcessFormVariableDataRespFieldVariableValueVariableValueDepartmentValue `json:"department_value,omitempty"` // 部门变量对象
-	FileValue       *GetCoreHrProcessFormVariableDataRespFieldVariableValueVariableValueFileValue       `json:"file_value,omitempty"`       // 文件变量对象
-	I18nValue       *GetCoreHrProcessFormVariableDataRespFieldVariableValueVariableValueI18nValue       `json:"i18n_value,omitempty"`       // i18n变量对象
-	ObjectValue     *GetCoreHrProcessFormVariableDataRespFieldVariableValueVariableValueObjectValue     `json:"object_value,omitempty"`     // 对象变量
-	ListValue       *GetCoreHrProcessFormVariableDataRespFieldVariableValueVariableValueListValue       `json:"list_value,omitempty"`       // 列表对象
+// GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValue ...
+type GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValue struct {
+	TextValue       *GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueTextValue       `json:"text_value,omitempty"`       // 文本变量对象
+	NumberValue     *GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueNumberValue     `json:"number_value,omitempty"`     // 数值变量对象
+	DateValue       *GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueDateValue       `json:"date_value,omitempty"`       // 日期变量对象
+	EmploymentValue *GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueEmploymentValue `json:"employment_value,omitempty"` // 员工变量对象
+	DateTimeValue   *GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueDateTimeValue   `json:"date_time_value,omitempty"`  // 日期时间变量对象
+	EnumValue       *GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueEnumValue       `json:"enum_value,omitempty"`       // 枚举变量对象
+	NullValue       *GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueNullValue       `json:"null_value,omitempty"`       // 空变量对象
+	BoolValue       *GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueBoolValue       `json:"bool_value,omitempty"`       // 布尔变量对象
+	DepartmentValue *GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueDepartmentValue `json:"department_value,omitempty"` // 部门变量对象
+	FileValue       *GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueFileValue       `json:"file_value,omitempty"`       // 文件变量对象
+	I18nValue       *GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueI18nValue       `json:"i18n_value,omitempty"`       // i18n变量对象
+	ObjectValue     *GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueObjectValue     `json:"object_value,omitempty"`     // 对象变量
+	ListValue       *GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueListValue       `json:"list_value,omitempty"`       // 列表对象
 }
 
-// GetCoreHrProcessFormVariableDataRespFieldVariableValueVariableValueBoolValue ...
-type GetCoreHrProcessFormVariableDataRespFieldVariableValueVariableValueBoolValue struct {
+// GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueBoolValue ...
+type GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueBoolValue struct {
 	Value bool `json:"value,omitempty"` // 布尔变量的值
 }
 
-// GetCoreHrProcessFormVariableDataRespFieldVariableValueVariableValueDateTimeValue ...
-type GetCoreHrProcessFormVariableDataRespFieldVariableValueVariableValueDateTimeValue struct {
+// GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueDateTimeValue ...
+type GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueDateTimeValue struct {
 	Value int64  `json:"value,omitempty"` // 毫秒的时间戳
 	Zone  string `json:"zone,omitempty"`  // 时区
 }
 
-// GetCoreHrProcessFormVariableDataRespFieldVariableValueVariableValueDateValue ...
-type GetCoreHrProcessFormVariableDataRespFieldVariableValueVariableValueDateValue struct {
+// GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueDateValue ...
+type GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueDateValue struct {
 	Value int64 `json:"value,omitempty"` // 日期变量的值, 从1970起的天数
 }
 
-// GetCoreHrProcessFormVariableDataRespFieldVariableValueVariableValueDepartmentValue ...
-type GetCoreHrProcessFormVariableDataRespFieldVariableValueVariableValueDepartmentValue struct {
+// GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueDepartmentValue ...
+type GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueDepartmentValue struct {
 	Value string `json:"value,omitempty"` // 部门ID
 }
 
-// GetCoreHrProcessFormVariableDataRespFieldVariableValueVariableValueEmploymentValue ...
-type GetCoreHrProcessFormVariableDataRespFieldVariableValueVariableValueEmploymentValue struct {
+// GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueEmploymentValue ...
+type GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueEmploymentValue struct {
 	Value  string `json:"value,omitempty"`   // employmentID
 	UserID string `json:"user_id,omitempty"` // 员工ID 如3158117
 }
 
-// GetCoreHrProcessFormVariableDataRespFieldVariableValueVariableValueEnumValue ...
-type GetCoreHrProcessFormVariableDataRespFieldVariableValueVariableValueEnumValue struct {
+// GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueEnumValue ...
+type GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueEnumValue struct {
 	Value string                                                                            `json:"value,omitempty"` // 枚举值
-	Name  *GetCoreHrProcessFormVariableDataRespFieldVariableValueVariableValueEnumValueName `json:"name,omitempty"`  // 枚举的名称
-	Desc  *GetCoreHrProcessFormVariableDataRespFieldVariableValueVariableValueEnumValueDesc `json:"desc,omitempty"`  // 枚举的描述
+	Name  *GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueEnumValueName `json:"name,omitempty"`  // 枚举的名称
+	Desc  *GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueEnumValueDesc `json:"desc,omitempty"`  // 枚举的描述
 }
 
-// GetCoreHrProcessFormVariableDataRespFieldVariableValueVariableValueEnumValueDesc ...
-type GetCoreHrProcessFormVariableDataRespFieldVariableValueVariableValueEnumValueDesc struct {
+// GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueEnumValueDesc ...
+type GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueEnumValueDesc struct {
 	ZhCn string `json:"zh_cn,omitempty"` // i18n类型字段, 中文值
 	EnUs string `json:"en_us,omitempty"` // i18n类型字段, 英文值
 }
 
-// GetCoreHrProcessFormVariableDataRespFieldVariableValueVariableValueEnumValueName ...
-type GetCoreHrProcessFormVariableDataRespFieldVariableValueVariableValueEnumValueName struct {
+// GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueEnumValueName ...
+type GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueEnumValueName struct {
 	ZhCn string `json:"zh_cn,omitempty"` // i18n类型字段, 中文值
 	EnUs string `json:"en_us,omitempty"` // i18n类型字段, 英文值
 }
 
-// GetCoreHrProcessFormVariableDataRespFieldVariableValueVariableValueFileValue ...
-type GetCoreHrProcessFormVariableDataRespFieldVariableValueVariableValueFileValue struct {
+// GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueFileValue ...
+type GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueFileValue struct {
 	SourceType int64  `json:"source_type,omitempty"` // 文件源类型（1BPM; 2主数据）
 	FileID     string `json:"file_id,omitempty"`     // 文件id
 	FileName   string `json:"file_name,omitempty"`   // 文件名称
@@ -151,86 +151,86 @@ type GetCoreHrProcessFormVariableDataRespFieldVariableValueVariableValueFileValu
 	MimeType   string `json:"mime_type,omitempty"`   // mime type
 }
 
-// GetCoreHrProcessFormVariableDataRespFieldVariableValueVariableValueI18nValue ...
-type GetCoreHrProcessFormVariableDataRespFieldVariableValueVariableValueI18nValue struct {
-	Value *GetCoreHrProcessFormVariableDataRespFieldVariableValueVariableValueI18nValueValue `json:"value,omitempty"` // i18n值
+// GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueI18nValue ...
+type GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueI18nValue struct {
+	Value *GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueI18nValueValue `json:"value,omitempty"` // i18n值
 }
 
-// GetCoreHrProcessFormVariableDataRespFieldVariableValueVariableValueI18nValueValue ...
-type GetCoreHrProcessFormVariableDataRespFieldVariableValueVariableValueI18nValueValue struct {
+// GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueI18nValueValue ...
+type GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueI18nValueValue struct {
 	ZhCn string `json:"zh_cn,omitempty"` // i18n类型字段, 中文值
 	EnUs string `json:"en_us,omitempty"` // i18n类型字段, 英文值
 }
 
-// GetCoreHrProcessFormVariableDataRespFieldVariableValueVariableValueListValue ...
-type GetCoreHrProcessFormVariableDataRespFieldVariableValueVariableValueListValue struct {
-	Values []*GetCoreHrProcessFormVariableDataRespFieldVariableValueVariableValueListValueValue `json:"values,omitempty"` // 列表值
+// GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueListValue ...
+type GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueListValue struct {
+	Values []*GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueListValueValue `json:"values,omitempty"` // 列表值
 }
 
-// GetCoreHrProcessFormVariableDataRespFieldVariableValueVariableValueListValueValue ...
-type GetCoreHrProcessFormVariableDataRespFieldVariableValueVariableValueListValueValue struct {
-	TextValue       *GetCoreHrProcessFormVariableDataRespFieldVariableValueVariableValueListValueValueTextValue       `json:"text_value,omitempty"`       // 文本变量对象
-	NumberValue     *GetCoreHrProcessFormVariableDataRespFieldVariableValueVariableValueListValueValueNumberValue     `json:"number_value,omitempty"`     // 数值变量对象
-	DateValue       *GetCoreHrProcessFormVariableDataRespFieldVariableValueVariableValueListValueValueDateValue       `json:"date_value,omitempty"`       // 日期变量对象
-	EmploymentValue *GetCoreHrProcessFormVariableDataRespFieldVariableValueVariableValueListValueValueEmploymentValue `json:"employment_value,omitempty"` // 员工变量对象
-	DateTimeValue   *GetCoreHrProcessFormVariableDataRespFieldVariableValueVariableValueListValueValueDateTimeValue   `json:"date_time_value,omitempty"`  // 日期时间变量对象
-	EnumValue       *GetCoreHrProcessFormVariableDataRespFieldVariableValueVariableValueListValueValueEnumValue       `json:"enum_value,omitempty"`       // 枚举变量对象
-	NullValue       *GetCoreHrProcessFormVariableDataRespFieldVariableValueVariableValueListValueValueNullValue       `json:"null_value,omitempty"`       // 空变量对象
-	BoolValue       *GetCoreHrProcessFormVariableDataRespFieldVariableValueVariableValueListValueValueBoolValue       `json:"bool_value,omitempty"`       // 布尔变量对象
-	DepartmentValue *GetCoreHrProcessFormVariableDataRespFieldVariableValueVariableValueListValueValueDepartmentValue `json:"department_value,omitempty"` // 部门变量对象
-	FileValue       *GetCoreHrProcessFormVariableDataRespFieldVariableValueVariableValueListValueValueFileValue       `json:"file_value,omitempty"`       // 文件变量对象
-	I18nValue       *GetCoreHrProcessFormVariableDataRespFieldVariableValueVariableValueListValueValueI18nValue       `json:"i18n_value,omitempty"`       // i18n变量对象
-	ObjectValue     *GetCoreHrProcessFormVariableDataRespFieldVariableValueVariableValueListValueValueObjectValue     `json:"object_value,omitempty"`     // 对象变量
+// GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueListValueValue ...
+type GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueListValueValue struct {
+	TextValue       *GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueListValueValueTextValue       `json:"text_value,omitempty"`       // 文本变量对象
+	NumberValue     *GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueListValueValueNumberValue     `json:"number_value,omitempty"`     // 数值变量对象
+	DateValue       *GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueListValueValueDateValue       `json:"date_value,omitempty"`       // 日期变量对象
+	EmploymentValue *GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueListValueValueEmploymentValue `json:"employment_value,omitempty"` // 员工变量对象
+	DateTimeValue   *GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueListValueValueDateTimeValue   `json:"date_time_value,omitempty"`  // 日期时间变量对象
+	EnumValue       *GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueListValueValueEnumValue       `json:"enum_value,omitempty"`       // 枚举变量对象
+	NullValue       *GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueListValueValueNullValue       `json:"null_value,omitempty"`       // 空变量对象
+	BoolValue       *GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueListValueValueBoolValue       `json:"bool_value,omitempty"`       // 布尔变量对象
+	DepartmentValue *GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueListValueValueDepartmentValue `json:"department_value,omitempty"` // 部门变量对象
+	FileValue       *GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueListValueValueFileValue       `json:"file_value,omitempty"`       // 文件变量对象
+	I18nValue       *GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueListValueValueI18nValue       `json:"i18n_value,omitempty"`       // i18n变量对象
+	ObjectValue     *GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueListValueValueObjectValue     `json:"object_value,omitempty"`     // 对象变量
 }
 
-// GetCoreHrProcessFormVariableDataRespFieldVariableValueVariableValueListValueValueBoolValue ...
-type GetCoreHrProcessFormVariableDataRespFieldVariableValueVariableValueListValueValueBoolValue struct {
+// GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueListValueValueBoolValue ...
+type GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueListValueValueBoolValue struct {
 	Value bool `json:"value,omitempty"` // 布尔变量的值
 }
 
-// GetCoreHrProcessFormVariableDataRespFieldVariableValueVariableValueListValueValueDateTimeValue ...
-type GetCoreHrProcessFormVariableDataRespFieldVariableValueVariableValueListValueValueDateTimeValue struct {
+// GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueListValueValueDateTimeValue ...
+type GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueListValueValueDateTimeValue struct {
 	Value int64  `json:"value,omitempty"` // 毫秒的时间戳
 	Zone  string `json:"zone,omitempty"`  // 时区
 }
 
-// GetCoreHrProcessFormVariableDataRespFieldVariableValueVariableValueListValueValueDateValue ...
-type GetCoreHrProcessFormVariableDataRespFieldVariableValueVariableValueListValueValueDateValue struct {
+// GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueListValueValueDateValue ...
+type GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueListValueValueDateValue struct {
 	Value int64 `json:"value,omitempty"` // 日期变量的值, 从1970起的天数
 }
 
-// GetCoreHrProcessFormVariableDataRespFieldVariableValueVariableValueListValueValueDepartmentValue ...
-type GetCoreHrProcessFormVariableDataRespFieldVariableValueVariableValueListValueValueDepartmentValue struct {
+// GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueListValueValueDepartmentValue ...
+type GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueListValueValueDepartmentValue struct {
 	Value string `json:"value,omitempty"` // 部门ID
 }
 
-// GetCoreHrProcessFormVariableDataRespFieldVariableValueVariableValueListValueValueEmploymentValue ...
-type GetCoreHrProcessFormVariableDataRespFieldVariableValueVariableValueListValueValueEmploymentValue struct {
+// GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueListValueValueEmploymentValue ...
+type GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueListValueValueEmploymentValue struct {
 	Value  string `json:"value,omitempty"`   // employmentID
 	UserID string `json:"user_id,omitempty"` // 员工ID 如3158117
 }
 
-// GetCoreHrProcessFormVariableDataRespFieldVariableValueVariableValueListValueValueEnumValue ...
-type GetCoreHrProcessFormVariableDataRespFieldVariableValueVariableValueListValueValueEnumValue struct {
+// GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueListValueValueEnumValue ...
+type GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueListValueValueEnumValue struct {
 	Value string                                                                                          `json:"value,omitempty"` // 枚举值
-	Name  *GetCoreHrProcessFormVariableDataRespFieldVariableValueVariableValueListValueValueEnumValueName `json:"name,omitempty"`  // 枚举的名称
-	Desc  *GetCoreHrProcessFormVariableDataRespFieldVariableValueVariableValueListValueValueEnumValueDesc `json:"desc,omitempty"`  // 枚举的描述
+	Name  *GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueListValueValueEnumValueName `json:"name,omitempty"`  // 枚举的名称
+	Desc  *GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueListValueValueEnumValueDesc `json:"desc,omitempty"`  // 枚举的描述
 }
 
-// GetCoreHrProcessFormVariableDataRespFieldVariableValueVariableValueListValueValueEnumValueDesc ...
-type GetCoreHrProcessFormVariableDataRespFieldVariableValueVariableValueListValueValueEnumValueDesc struct {
+// GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueListValueValueEnumValueDesc ...
+type GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueListValueValueEnumValueDesc struct {
 	ZhCn string `json:"zh_cn,omitempty"` // i18n类型字段, 中文值
 	EnUs string `json:"en_us,omitempty"` // i18n类型字段, 英文值
 }
 
-// GetCoreHrProcessFormVariableDataRespFieldVariableValueVariableValueListValueValueEnumValueName ...
-type GetCoreHrProcessFormVariableDataRespFieldVariableValueVariableValueListValueValueEnumValueName struct {
+// GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueListValueValueEnumValueName ...
+type GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueListValueValueEnumValueName struct {
 	ZhCn string `json:"zh_cn,omitempty"` // i18n类型字段, 中文值
 	EnUs string `json:"en_us,omitempty"` // i18n类型字段, 英文值
 }
 
-// GetCoreHrProcessFormVariableDataRespFieldVariableValueVariableValueListValueValueFileValue ...
-type GetCoreHrProcessFormVariableDataRespFieldVariableValueVariableValueListValueValueFileValue struct {
+// GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueListValueValueFileValue ...
+type GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueListValueValueFileValue struct {
 	SourceType int64  `json:"source_type,omitempty"` // 文件源类型（1BPM; 2主数据）
 	FileID     string `json:"file_id,omitempty"`     // 文件id
 	FileName   string `json:"file_name,omitempty"`   // 文件名称
@@ -238,52 +238,52 @@ type GetCoreHrProcessFormVariableDataRespFieldVariableValueVariableValueListValu
 	MimeType   string `json:"mime_type,omitempty"`   // mime type
 }
 
-// GetCoreHrProcessFormVariableDataRespFieldVariableValueVariableValueListValueValueI18nValue ...
-type GetCoreHrProcessFormVariableDataRespFieldVariableValueVariableValueListValueValueI18nValue struct {
-	Value *GetCoreHrProcessFormVariableDataRespFieldVariableValueVariableValueListValueValueI18nValueValue `json:"value,omitempty"` // i18n值
+// GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueListValueValueI18nValue ...
+type GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueListValueValueI18nValue struct {
+	Value *GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueListValueValueI18nValueValue `json:"value,omitempty"` // i18n值
 }
 
-// GetCoreHrProcessFormVariableDataRespFieldVariableValueVariableValueListValueValueI18nValueValue ...
-type GetCoreHrProcessFormVariableDataRespFieldVariableValueVariableValueListValueValueI18nValueValue struct {
+// GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueListValueValueI18nValueValue ...
+type GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueListValueValueI18nValueValue struct {
 	ZhCn string `json:"zh_cn,omitempty"` // i18n类型字段, 中文值
 	EnUs string `json:"en_us,omitempty"` // i18n类型字段, 英文值
 }
 
-// GetCoreHrProcessFormVariableDataRespFieldVariableValueVariableValueListValueValueNumberValue ...
-type GetCoreHrProcessFormVariableDataRespFieldVariableValueVariableValueListValueValueNumberValue struct {
+// GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueListValueValueNumberValue ...
+type GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueListValueValueNumberValue struct {
 	Value string `json:"value,omitempty"` // 数值类型变量的值
 }
 
-// GetCoreHrProcessFormVariableDataRespFieldVariableValueVariableValueListValueValueObjectValue ...
-type GetCoreHrProcessFormVariableDataRespFieldVariableValueVariableValueListValueValueObjectValue struct {
+// GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueListValueValueObjectValue ...
+type GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueListValueValueObjectValue struct {
 	Value     string `json:"value,omitempty"`       // 对象ID
 	WkApiName string `json:"wk_api_name,omitempty"` // 主数据apiName
 }
 
-// GetCoreHrProcessFormVariableDataRespFieldVariableValueVariableValueListValueValueTextValue ...
-type GetCoreHrProcessFormVariableDataRespFieldVariableValueVariableValueListValueValueTextValue struct {
+// GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueListValueValueTextValue ...
+type GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueListValueValueTextValue struct {
 	Value string `json:"value,omitempty"` // 文本类型变量的值
 }
 
-// GetCoreHrProcessFormVariableDataRespFieldVariableValueVariableValueNumberValue ...
-type GetCoreHrProcessFormVariableDataRespFieldVariableValueVariableValueNumberValue struct {
+// GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueNumberValue ...
+type GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueNumberValue struct {
 	Value string `json:"value,omitempty"` // 数值类型变量的值
 }
 
-// GetCoreHrProcessFormVariableDataRespFieldVariableValueVariableValueObjectValue ...
-type GetCoreHrProcessFormVariableDataRespFieldVariableValueVariableValueObjectValue struct {
+// GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueObjectValue ...
+type GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueObjectValue struct {
 	Value     string `json:"value,omitempty"`       // 对象ID
 	WkApiName string `json:"wk_api_name,omitempty"` // 主数据apiName
 }
 
-// GetCoreHrProcessFormVariableDataRespFieldVariableValueVariableValueTextValue ...
-type GetCoreHrProcessFormVariableDataRespFieldVariableValueVariableValueTextValue struct {
+// GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueTextValue ...
+type GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueTextValue struct {
 	Value string `json:"value,omitempty"` // 文本类型变量的值
 }
 
-// getCoreHrProcessFormVariableDataResp ...
-type getCoreHrProcessFormVariableDataResp struct {
+// getCoreHRProcessFormVariableDataResp ...
+type getCoreHRProcessFormVariableDataResp struct {
 	Code int64                                 `json:"code,omitempty"` // 错误码, 非 0 表示失败
 	Msg  string                                `json:"msg,omitempty"`  // 错误描述
-	Data *GetCoreHrProcessFormVariableDataResp `json:"data,omitempty"`
+	Data *GetCoreHRProcessFormVariableDataResp `json:"data,omitempty"`
 }

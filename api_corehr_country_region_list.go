@@ -21,71 +21,71 @@ import (
 	"context"
 )
 
-// GetCoreHrCountryRegionList 批量查询国家/地区信息。
+// GetCoreHRCountryRegionList 批量查询国家/地区信息。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/country_region/list
 // new doc: https://open.feishu.cn/document/server-docs/corehr-v1/basic-infomation/location_data/list
-func (r *CoreHrService) GetCoreHrCountryRegionList(ctx context.Context, request *GetCoreHrCountryRegionListReq, options ...MethodOptionFunc) (*GetCoreHrCountryRegionListResp, *Response, error) {
-	if r.cli.mock.mockCoreHrGetCoreHrCountryRegionList != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] CoreHr#GetCoreHrCountryRegionList mock enable")
-		return r.cli.mock.mockCoreHrGetCoreHrCountryRegionList(ctx, request, options...)
+func (r *CoreHRService) GetCoreHRCountryRegionList(ctx context.Context, request *GetCoreHRCountryRegionListReq, options ...MethodOptionFunc) (*GetCoreHRCountryRegionListResp, *Response, error) {
+	if r.cli.mock.mockCoreHRGetCoreHRCountryRegionList != nil {
+		r.cli.log(ctx, LogLevelDebug, "[lark] CoreHR#GetCoreHRCountryRegionList mock enable")
+		return r.cli.mock.mockCoreHRGetCoreHRCountryRegionList(ctx, request, options...)
 	}
 
 	req := &RawRequestReq{
-		Scope:                 "CoreHr",
-		API:                   "GetCoreHrCountryRegionList",
+		Scope:                 "CoreHR",
+		API:                   "GetCoreHRCountryRegionList",
 		Method:                "GET",
 		URL:                   r.cli.openBaseURL + "/open-apis/corehr/v1/country_regions",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
 	}
-	resp := new(getCoreHrCountryRegionListResp)
+	resp := new(getCoreHRCountryRegionListResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
 	return resp.Data, response, err
 }
 
-// MockCoreHrGetCoreHrCountryRegionList mock CoreHrGetCoreHrCountryRegionList method
-func (r *Mock) MockCoreHrGetCoreHrCountryRegionList(f func(ctx context.Context, request *GetCoreHrCountryRegionListReq, options ...MethodOptionFunc) (*GetCoreHrCountryRegionListResp, *Response, error)) {
-	r.mockCoreHrGetCoreHrCountryRegionList = f
+// MockCoreHRGetCoreHRCountryRegionList mock CoreHRGetCoreHRCountryRegionList method
+func (r *Mock) MockCoreHRGetCoreHRCountryRegionList(f func(ctx context.Context, request *GetCoreHRCountryRegionListReq, options ...MethodOptionFunc) (*GetCoreHRCountryRegionListResp, *Response, error)) {
+	r.mockCoreHRGetCoreHRCountryRegionList = f
 }
 
-// UnMockCoreHrGetCoreHrCountryRegionList un-mock CoreHrGetCoreHrCountryRegionList method
-func (r *Mock) UnMockCoreHrGetCoreHrCountryRegionList() {
-	r.mockCoreHrGetCoreHrCountryRegionList = nil
+// UnMockCoreHRGetCoreHRCountryRegionList un-mock CoreHRGetCoreHRCountryRegionList method
+func (r *Mock) UnMockCoreHRGetCoreHRCountryRegionList() {
+	r.mockCoreHRGetCoreHRCountryRegionList = nil
 }
 
-// GetCoreHrCountryRegionListReq ...
-type GetCoreHrCountryRegionListReq struct {
+// GetCoreHRCountryRegionListReq ...
+type GetCoreHRCountryRegionListReq struct {
 	PageToken *string `query:"page_token" json:"-"` // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果, 示例值: 1231231987
 	PageSize  int64   `query:"page_size" json:"-"`  // 分页大小, 示例值: 100
 }
 
-// GetCoreHrCountryRegionListResp ...
-type GetCoreHrCountryRegionListResp struct {
-	Items     []*GetCoreHrCountryRegionListRespItem `json:"items,omitempty"`      // 国家/地区信息
+// GetCoreHRCountryRegionListResp ...
+type GetCoreHRCountryRegionListResp struct {
+	Items     []*GetCoreHRCountryRegionListRespItem `json:"items,omitempty"`      // 国家/地区信息
 	HasMore   bool                                  `json:"has_more,omitempty"`   // 是否还有更多项
 	PageToken string                                `json:"page_token,omitempty"` // 分页标记, 当 has_more 为 true 时, 会同时返回新的 page_token, 否则不返回 page_token
 }
 
-// GetCoreHrCountryRegionListRespItem ...
-type GetCoreHrCountryRegionListRespItem struct {
+// GetCoreHRCountryRegionListRespItem ...
+type GetCoreHRCountryRegionListRespItem struct {
 	ID         string                                    `json:"id,omitempty"`           // 国家/地区id
-	Name       []*GetCoreHrCountryRegionListRespItemName `json:"name,omitempty"`         // 国家/地区名称
+	Name       []*GetCoreHRCountryRegionListRespItemName `json:"name,omitempty"`         // 国家/地区名称
 	Alpha3Code string                                    `json:"alpha_3_code,omitempty"` // 国家地区三字码
 	Alpha2Code string                                    `json:"alpha_2_code,omitempty"` // 国家地区二字码
 }
 
-// GetCoreHrCountryRegionListRespItemName ...
-type GetCoreHrCountryRegionListRespItemName struct {
+// GetCoreHRCountryRegionListRespItemName ...
+type GetCoreHRCountryRegionListRespItemName struct {
 	Lang  string `json:"lang,omitempty"`  // 名称信息的语言
 	Value string `json:"value,omitempty"` // 名称信息的内容
 }
 
-// getCoreHrCountryRegionListResp ...
-type getCoreHrCountryRegionListResp struct {
+// getCoreHRCountryRegionListResp ...
+type getCoreHRCountryRegionListResp struct {
 	Code int64                           `json:"code,omitempty"` // 错误码, 非 0 表示失败
 	Msg  string                          `json:"msg,omitempty"`  // 错误描述
-	Data *GetCoreHrCountryRegionListResp `json:"data,omitempty"`
+	Data *GetCoreHRCountryRegionListResp `json:"data,omitempty"`
 }

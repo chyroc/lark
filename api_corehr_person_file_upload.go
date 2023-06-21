@@ -19,57 +19,73 @@ package lark
 
 import (
 	"context"
+	"io"
 )
 
-// UploadCoreHrPersonFile 上传文件。
+// UploadCoreHRPersonFile 上传文件。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/person/upload
 // new doc: https://open.feishu.cn/document/server-docs/corehr-v1/employee/person/upload
-func (r *CoreHrService) UploadCoreHrPersonFile(ctx context.Context, request *UploadCoreHrPersonFileReq, options ...MethodOptionFunc) (*UploadCoreHrPersonFileResp, *Response, error) {
-	if r.cli.mock.mockCoreHrUploadCoreHrPersonFile != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] CoreHr#UploadCoreHrPersonFile mock enable")
-		return r.cli.mock.mockCoreHrUploadCoreHrPersonFile(ctx, request, options...)
+func (r *CoreHRService) UploadCoreHRPersonFile(ctx context.Context, request *UploadCoreHRPersonFileReq, options ...MethodOptionFunc) (*UploadCoreHRPersonFileResp, *Response, error) {
+	if r.cli.mock.mockCoreHRUploadCoreHRPersonFile != nil {
+		r.cli.log(ctx, LogLevelDebug, "[lark] CoreHR#UploadCoreHRPersonFile mock enable")
+		return r.cli.mock.mockCoreHRUploadCoreHRPersonFile(ctx, request, options...)
 	}
 
 	req := &RawRequestReq{
-		Scope:                 "CoreHr",
-		API:                   "UploadCoreHrPersonFile",
+		Scope:                 "CoreHR",
+		API:                   "UploadCoreHRPersonFile",
 		Method:                "POST",
 		URL:                   r.cli.openBaseURL + "/open-apis/corehr/v1/persons/upload",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
 	}
-	resp := new(uploadCoreHrPersonFileResp)
+	resp := new(uploadCoreHRPersonFileResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
 	return resp.Data, response, err
 }
 
-// MockCoreHrUploadCoreHrPersonFile mock CoreHrUploadCoreHrPersonFile method
-func (r *Mock) MockCoreHrUploadCoreHrPersonFile(f func(ctx context.Context, request *UploadCoreHrPersonFileReq, options ...MethodOptionFunc) (*UploadCoreHrPersonFileResp, *Response, error)) {
-	r.mockCoreHrUploadCoreHrPersonFile = f
+// MockCoreHRUploadCoreHRPersonFile mock CoreHRUploadCoreHRPersonFile method
+func (r *Mock) MockCoreHRUploadCoreHRPersonFile(f func(ctx context.Context, request *UploadCoreHRPersonFileReq, options ...MethodOptionFunc) (*UploadCoreHRPersonFileResp, *Response, error)) {
+	r.mockCoreHRUploadCoreHRPersonFile = f
 }
 
-// UnMockCoreHrUploadCoreHrPersonFile un-mock CoreHrUploadCoreHrPersonFile method
-func (r *Mock) UnMockCoreHrUploadCoreHrPersonFile() {
-	r.mockCoreHrUploadCoreHrPersonFile = nil
+// UnMockCoreHRUploadCoreHRPersonFile un-mock CoreHRUploadCoreHRPersonFile method
+func (r *Mock) UnMockCoreHRUploadCoreHRPersonFile() {
+	r.mockCoreHRUploadCoreHRPersonFile = nil
 }
 
-// UploadCoreHrPersonFileReq ...
-type UploadCoreHrPersonFileReq struct {
+// UploadCoreHRPersonFileReq ...
+type UploadCoreHRPersonFileReq struct {
 	FileContent io.Reader `json:"file_content,omitempty"` // 文件二进制内容, 示例值: file binary
 	FileName    string    `json:"file_name,omitempty"`    // 文件名称, 示例值: "个人信息"
 }
 
-// UploadCoreHrPersonFileResp ...
-type UploadCoreHrPersonFileResp struct {
-	ID string `json:"id,omitempty"` // 上传文件ID
-}
-
-// uploadCoreHrPersonFileResp ...
-type uploadCoreHrPersonFileResp struct {
+// uploadCoreHRPersonFileResp ...
+type uploadCoreHRPersonFileResp struct {
 	Code int64                       `json:"code,omitempty"` // 错误码, 非 0 表示失败
 	Msg  string                      `json:"msg,omitempty"`  // 错误描述
-	Data *UploadCoreHrPersonFileResp `json:"data,omitempty"`
+	Data *UploadCoreHRPersonFileResp `json:"data,omitempty"`
+}
+
+func (r *uploadCoreHRPersonFileResp) SetReader(file io.Reader) {
+	if r.Data == nil {
+		r.Data = &UploadCoreHRPersonFileResp{}
+	}
+	r.Data.File = file
+}
+
+func (r *uploadCoreHRPersonFileResp) SetFilename(filename string) {
+	if r.Data == nil {
+		r.Data = &UploadCoreHRPersonFileResp{}
+	}
+	r.Data.Filename = filename
+}
+
+// UploadCoreHRPersonFileResp ...
+type UploadCoreHRPersonFileResp struct {
+	File     io.Reader `json:"file,omitempty"`
+	Filename string    `json:"filename,omitempty"`
 }

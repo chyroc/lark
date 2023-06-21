@@ -21,53 +21,53 @@ import (
 	"context"
 )
 
-// DeleteCoreHrJob 删除职务。
+// DeleteCoreHRJob 删除职务。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job/delete
 // new doc: https://open.feishu.cn/document/server-docs/corehr-v1/job-management/job/delete
-func (r *CoreHrService) DeleteCoreHrJob(ctx context.Context, request *DeleteCoreHrJobReq, options ...MethodOptionFunc) (*DeleteCoreHrJobResp, *Response, error) {
-	if r.cli.mock.mockCoreHrDeleteCoreHrJob != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] CoreHr#DeleteCoreHrJob mock enable")
-		return r.cli.mock.mockCoreHrDeleteCoreHrJob(ctx, request, options...)
+func (r *CoreHRService) DeleteCoreHRJob(ctx context.Context, request *DeleteCoreHRJobReq, options ...MethodOptionFunc) (*DeleteCoreHRJobResp, *Response, error) {
+	if r.cli.mock.mockCoreHRDeleteCoreHRJob != nil {
+		r.cli.log(ctx, LogLevelDebug, "[lark] CoreHR#DeleteCoreHRJob mock enable")
+		return r.cli.mock.mockCoreHRDeleteCoreHRJob(ctx, request, options...)
 	}
 
 	req := &RawRequestReq{
-		Scope:                 "CoreHr",
-		API:                   "DeleteCoreHrJob",
+		Scope:                 "CoreHR",
+		API:                   "DeleteCoreHRJob",
 		Method:                "DELETE",
 		URL:                   r.cli.openBaseURL + "/open-apis/corehr/v1/jobs/:job_id",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
 	}
-	resp := new(deleteCoreHrJobResp)
+	resp := new(deleteCoreHRJobResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
 	return resp.Data, response, err
 }
 
-// MockCoreHrDeleteCoreHrJob mock CoreHrDeleteCoreHrJob method
-func (r *Mock) MockCoreHrDeleteCoreHrJob(f func(ctx context.Context, request *DeleteCoreHrJobReq, options ...MethodOptionFunc) (*DeleteCoreHrJobResp, *Response, error)) {
-	r.mockCoreHrDeleteCoreHrJob = f
+// MockCoreHRDeleteCoreHRJob mock CoreHRDeleteCoreHRJob method
+func (r *Mock) MockCoreHRDeleteCoreHRJob(f func(ctx context.Context, request *DeleteCoreHRJobReq, options ...MethodOptionFunc) (*DeleteCoreHRJobResp, *Response, error)) {
+	r.mockCoreHRDeleteCoreHRJob = f
 }
 
-// UnMockCoreHrDeleteCoreHrJob un-mock CoreHrDeleteCoreHrJob method
-func (r *Mock) UnMockCoreHrDeleteCoreHrJob() {
-	r.mockCoreHrDeleteCoreHrJob = nil
+// UnMockCoreHRDeleteCoreHRJob un-mock CoreHRDeleteCoreHRJob method
+func (r *Mock) UnMockCoreHRDeleteCoreHRJob() {
+	r.mockCoreHRDeleteCoreHRJob = nil
 }
 
-// DeleteCoreHrJobReq ...
-type DeleteCoreHrJobReq struct {
+// DeleteCoreHRJobReq ...
+type DeleteCoreHRJobReq struct {
 	JobID string `path:"job_id" json:"-"` // 需要删除的职务 ID, 示例值: "67163716371"
 }
 
-// DeleteCoreHrJobResp ...
-type DeleteCoreHrJobResp struct {
+// DeleteCoreHRJobResp ...
+type DeleteCoreHRJobResp struct {
 }
 
-// deleteCoreHrJobResp ...
-type deleteCoreHrJobResp struct {
+// deleteCoreHRJobResp ...
+type deleteCoreHRJobResp struct {
 	Code int64                `json:"code,omitempty"` // 错误码, 非 0 表示失败
 	Msg  string               `json:"msg,omitempty"`  // 错误描述
-	Data *DeleteCoreHrJobResp `json:"data,omitempty"`
+	Data *DeleteCoreHRJobResp `json:"data,omitempty"`
 }

@@ -21,43 +21,43 @@ import (
 	"context"
 )
 
-// SearchCoreHrOffboarding 搜索离职信息, 该接口会按照应用拥有的「员工数据」的权限范围返回数据, 请确定在「开发者后台 - 权限管理 - 数据权限」中有申请「员工资源」权限范围
+// SearchCoreHROffboarding 搜索离职信息, 该接口会按照应用拥有的「员工数据」的权限范围返回数据, 请确定在「开发者后台 - 权限管理 - 数据权限」中有申请「员工资源」权限范围
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/offboarding/search
 // new doc: https://open.feishu.cn/document/server-docs/corehr-v1/offboarding/search
-func (r *CoreHrService) SearchCoreHrOffboarding(ctx context.Context, request *SearchCoreHrOffboardingReq, options ...MethodOptionFunc) (*SearchCoreHrOffboardingResp, *Response, error) {
-	if r.cli.mock.mockCoreHrSearchCoreHrOffboarding != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] CoreHr#SearchCoreHrOffboarding mock enable")
-		return r.cli.mock.mockCoreHrSearchCoreHrOffboarding(ctx, request, options...)
+func (r *CoreHRService) SearchCoreHROffboarding(ctx context.Context, request *SearchCoreHROffboardingReq, options ...MethodOptionFunc) (*SearchCoreHROffboardingResp, *Response, error) {
+	if r.cli.mock.mockCoreHRSearchCoreHROffboarding != nil {
+		r.cli.log(ctx, LogLevelDebug, "[lark] CoreHR#SearchCoreHROffboarding mock enable")
+		return r.cli.mock.mockCoreHRSearchCoreHROffboarding(ctx, request, options...)
 	}
 
 	req := &RawRequestReq{
-		Scope:                 "CoreHr",
-		API:                   "SearchCoreHrOffboarding",
+		Scope:                 "CoreHR",
+		API:                   "SearchCoreHROffboarding",
 		Method:                "POST",
 		URL:                   r.cli.openBaseURL + "/open-apis/corehr/v1/offboardings/search",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
 	}
-	resp := new(searchCoreHrOffboardingResp)
+	resp := new(searchCoreHROffboardingResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
 	return resp.Data, response, err
 }
 
-// MockCoreHrSearchCoreHrOffboarding mock CoreHrSearchCoreHrOffboarding method
-func (r *Mock) MockCoreHrSearchCoreHrOffboarding(f func(ctx context.Context, request *SearchCoreHrOffboardingReq, options ...MethodOptionFunc) (*SearchCoreHrOffboardingResp, *Response, error)) {
-	r.mockCoreHrSearchCoreHrOffboarding = f
+// MockCoreHRSearchCoreHROffboarding mock CoreHRSearchCoreHROffboarding method
+func (r *Mock) MockCoreHRSearchCoreHROffboarding(f func(ctx context.Context, request *SearchCoreHROffboardingReq, options ...MethodOptionFunc) (*SearchCoreHROffboardingResp, *Response, error)) {
+	r.mockCoreHRSearchCoreHROffboarding = f
 }
 
-// UnMockCoreHrSearchCoreHrOffboarding un-mock CoreHrSearchCoreHrOffboarding method
-func (r *Mock) UnMockCoreHrSearchCoreHrOffboarding() {
-	r.mockCoreHrSearchCoreHrOffboarding = nil
+// UnMockCoreHRSearchCoreHROffboarding un-mock CoreHRSearchCoreHROffboarding method
+func (r *Mock) UnMockCoreHRSearchCoreHROffboarding() {
+	r.mockCoreHRSearchCoreHROffboarding = nil
 }
 
-// SearchCoreHrOffboardingReq ...
-type SearchCoreHrOffboardingReq struct {
+// SearchCoreHROffboardingReq ...
+type SearchCoreHROffboardingReq struct {
 	PageSize                     int64    `query:"page_size" json:"-"`                       // 分页大小, 示例值: 100, 取值范围: `1` ～ `100`
 	PageToken                    *string  `query:"page_token" json:"-"`                      // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果, 示例值: 6891251722631890445
 	UserIDType                   *IDType  `query:"user_id_type" json:"-"`                    // 用户 ID 类型, 示例值: open_id, 可选值有: open_id: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid), union_id: 标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id), user_id: 标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id), people_corehr_id: 以飞书人事的 ID 来识别用户, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
@@ -73,92 +73,92 @@ type SearchCoreHrOffboardingReq struct {
 	EmployeeReasons              []string `json:"employee_reasons,omitempty"`                // 离职原因（员工）列表, 可以通过【查询员工离职原因列表】接口获取, 查询时不返回下级原因相关的离职信息, <b>字段权限要求: </b>, 按照离职原因搜索(corehr:employment.offboarding_reason.search:read), 示例值: ["voluntary"]
 }
 
-// SearchCoreHrOffboardingResp ...
-type SearchCoreHrOffboardingResp struct {
-	Items     []*SearchCoreHrOffboardingRespItem `json:"items,omitempty"`      // 查询的员工离职信息
+// SearchCoreHROffboardingResp ...
+type SearchCoreHROffboardingResp struct {
+	Items     []*SearchCoreHROffboardingRespItem `json:"items,omitempty"`      // 查询的员工离职信息
 	PageToken string                             `json:"page_token,omitempty"` // 分页标记, 当 has_more 为 true 时, 会同时返回新的 page_token, 否则不返回 page_token
 	HasMore   bool                               `json:"has_more,omitempty"`   // 是否还有更多项
 }
 
-// SearchCoreHrOffboardingRespItem ...
-type SearchCoreHrOffboardingRespItem struct {
+// SearchCoreHROffboardingRespItem ...
+type SearchCoreHROffboardingRespItem struct {
 	InitiatingType       string                                               `json:"initiating_type,omitempty"`       // 离职发起类型, 包括:
 	Status               string                                               `json:"status,omitempty"`                // 离职状态, 可选值有: Approving: 审批中, Approved: 审批通过, Offboarded: 已离职, Rejected: 已拒绝, Withdrawn: 已撤销, NoNeedApproval: 无需审批
-	ApplicationInfo      *SearchCoreHrOffboardingRespItemApplicationInfo      `json:"application_info,omitempty"`      // 离职审批信息
-	OffboardingInfo      *SearchCoreHrOffboardingRespItemOffboardingInfo      `json:"offboarding_info,omitempty"`      // 员工离职信息
-	OffboardingChecklist *SearchCoreHrOffboardingRespItemOffboardingChecklist `json:"offboarding_checklist,omitempty"` // 离职办理流程信息
+	ApplicationInfo      *SearchCoreHROffboardingRespItemApplicationInfo      `json:"application_info,omitempty"`      // 离职审批信息
+	OffboardingInfo      *SearchCoreHROffboardingRespItemOffboardingInfo      `json:"offboarding_info,omitempty"`      // 员工离职信息
+	OffboardingChecklist *SearchCoreHROffboardingRespItemOffboardingChecklist `json:"offboarding_checklist,omitempty"` // 离职办理流程信息
 }
 
-// SearchCoreHrOffboardingRespItemApplicationInfo ...
-type SearchCoreHrOffboardingRespItemApplicationInfo struct {
+// SearchCoreHROffboardingRespItemApplicationInfo ...
+type SearchCoreHROffboardingRespItemApplicationInfo struct {
 	ApplyInitiatorID    string `json:"apply_initiator_id,omitempty"`    // 离职审批发起人的雇佣 ID
 	ApplyInitiatingTime string `json:"apply_initiating_time,omitempty"` // 离职申请流程发起时间
 	ApplyFinishTime     string `json:"apply_finish_time,omitempty"`     // 离职申请流程结束时间
 	ProcessID           string `json:"process_id,omitempty"`            // 流程 ID
 }
 
-// SearchCoreHrOffboardingRespItemOffboardingChecklist ...
-type SearchCoreHrOffboardingRespItemOffboardingChecklist struct {
+// SearchCoreHROffboardingRespItemOffboardingChecklist ...
+type SearchCoreHROffboardingRespItemOffboardingChecklist struct {
 	ChecklistStatus     string `json:"checklist_status,omitempty"`      // 离职办理状态, 可选值有: AntiBegin: 未发起, Approving: 审批中, Finished: 完成办理, Rejected: 已拒绝, Withdrawn: 已撤销
 	ChecklistStartTime  string `json:"checklist_start_time,omitempty"`  // 离职流转开始时间
 	ChecklistFinishTime string `json:"checklist_finish_time,omitempty"` // 离职流转结束时间
 	ChecklistProcessID  string `json:"checklist_process_id,omitempty"`  // 离职流转流程实例 ID
 }
 
-// SearchCoreHrOffboardingRespItemOffboardingInfo ...
-type SearchCoreHrOffboardingRespItemOffboardingInfo struct {
+// SearchCoreHROffboardingRespItemOffboardingInfo ...
+type SearchCoreHROffboardingRespItemOffboardingInfo struct {
 	EmploymentID              string                                                        `json:"employment_id,omitempty"`               // 离职员工的雇佣 ID
 	HrbpID                    []string                                                      `json:"hrbp_id,omitempty"`                     // 员工的 hrbp 列表, 所有的 hrbp
 	ExpectedOffboardingDate   string                                                        `json:"expected_offboarding_date,omitempty"`   // 期望离职日期
 	OffboardingDate           string                                                        `json:"offboarding_date,omitempty"`            // 离职日期
-	Reason                    *SearchCoreHrOffboardingRespItemOffboardingInfoReason         `json:"reason,omitempty"`                      // 离职原因, 字段权限要求: 获取员工离职原因
+	Reason                    *SearchCoreHROffboardingRespItemOffboardingInfoReason         `json:"reason,omitempty"`                      // 离职原因, 字段权限要求: 获取员工离职原因
 	ReasonExplanation         string                                                        `json:"reason_explanation,omitempty"`          // 离职原因说明, 字段权限要求: 获取员工离职原因
-	EmployeeReason            *SearchCoreHrOffboardingRespItemOffboardingInfoEmployeeReason `json:"employee_reason,omitempty"`             // 离职原因（员工）, 字段权限要求: 获取员工离职原因
+	EmployeeReason            *SearchCoreHROffboardingRespItemOffboardingInfoEmployeeReason `json:"employee_reason,omitempty"`             // 离职原因（员工）, 字段权限要求: 获取员工离职原因
 	EmployeeReasonExplanation string                                                        `json:"employee_reason_explanation,omitempty"` // 离职原因说明（员工）, 字段权限要求: 获取员工离职原因
-	CustomFields              []*SearchCoreHrOffboardingRespItemOffboardingInfoCustomField  `json:"custom_fields,omitempty"`               // 自定义字段, 字段权限要求: 获取离职信息自定义字段信息
+	CustomFields              []*SearchCoreHROffboardingRespItemOffboardingInfoCustomField  `json:"custom_fields,omitempty"`               // 自定义字段, 字段权限要求: 获取离职信息自定义字段信息
 }
 
-// SearchCoreHrOffboardingRespItemOffboardingInfoCustomField ...
-type SearchCoreHrOffboardingRespItemOffboardingInfoCustomField struct {
+// SearchCoreHROffboardingRespItemOffboardingInfoCustomField ...
+type SearchCoreHROffboardingRespItemOffboardingInfoCustomField struct {
 	CustomApiName string                                                         `json:"custom_api_name,omitempty"` // 自定义字段 apiname, 即自定义字段的唯一标识
-	Name          *SearchCoreHrOffboardingRespItemOffboardingInfoCustomFieldName `json:"name,omitempty"`            // 自定义字段名称
+	Name          *SearchCoreHROffboardingRespItemOffboardingInfoCustomFieldName `json:"name,omitempty"`            // 自定义字段名称
 	Type          int64                                                          `json:"type,omitempty"`            // 自定义字段类型
 	Value         string                                                         `json:"value,omitempty"`           // 字段值, 是 json 转义后的字符串, 根据元数据定义不同, 字段格式不同（如 123, 123.23, "true", ["id1", "id2"], "2006-01-02 15:04:05"）
 }
 
-// SearchCoreHrOffboardingRespItemOffboardingInfoCustomFieldName ...
-type SearchCoreHrOffboardingRespItemOffboardingInfoCustomFieldName struct {
+// SearchCoreHROffboardingRespItemOffboardingInfoCustomFieldName ...
+type SearchCoreHROffboardingRespItemOffboardingInfoCustomFieldName struct {
 	ZhCn string `json:"zh_cn,omitempty"` // 中文
 	EnUs string `json:"en_us,omitempty"` // 英文
 }
 
-// SearchCoreHrOffboardingRespItemOffboardingInfoEmployeeReason ...
-type SearchCoreHrOffboardingRespItemOffboardingInfoEmployeeReason struct {
+// SearchCoreHROffboardingRespItemOffboardingInfoEmployeeReason ...
+type SearchCoreHROffboardingRespItemOffboardingInfoEmployeeReason struct {
 	EnumName string                                                                 `json:"enum_name,omitempty"` // 枚举值
-	Display  []*SearchCoreHrOffboardingRespItemOffboardingInfoEmployeeReasonDisplay `json:"display,omitempty"`   // 枚举多语展示
+	Display  []*SearchCoreHROffboardingRespItemOffboardingInfoEmployeeReasonDisplay `json:"display,omitempty"`   // 枚举多语展示
 }
 
-// SearchCoreHrOffboardingRespItemOffboardingInfoEmployeeReasonDisplay ...
-type SearchCoreHrOffboardingRespItemOffboardingInfoEmployeeReasonDisplay struct {
+// SearchCoreHROffboardingRespItemOffboardingInfoEmployeeReasonDisplay ...
+type SearchCoreHROffboardingRespItemOffboardingInfoEmployeeReasonDisplay struct {
 	Lang  string `json:"lang,omitempty"`  // 语言
 	Value string `json:"value,omitempty"` // 内容
 }
 
-// SearchCoreHrOffboardingRespItemOffboardingInfoReason ...
-type SearchCoreHrOffboardingRespItemOffboardingInfoReason struct {
+// SearchCoreHROffboardingRespItemOffboardingInfoReason ...
+type SearchCoreHROffboardingRespItemOffboardingInfoReason struct {
 	EnumName string                                                         `json:"enum_name,omitempty"` // 枚举值
-	Display  []*SearchCoreHrOffboardingRespItemOffboardingInfoReasonDisplay `json:"display,omitempty"`   // 枚举多语展示
+	Display  []*SearchCoreHROffboardingRespItemOffboardingInfoReasonDisplay `json:"display,omitempty"`   // 枚举多语展示
 }
 
-// SearchCoreHrOffboardingRespItemOffboardingInfoReasonDisplay ...
-type SearchCoreHrOffboardingRespItemOffboardingInfoReasonDisplay struct {
+// SearchCoreHROffboardingRespItemOffboardingInfoReasonDisplay ...
+type SearchCoreHROffboardingRespItemOffboardingInfoReasonDisplay struct {
 	Lang  string `json:"lang,omitempty"`  // 语言
 	Value string `json:"value,omitempty"` // 内容
 }
 
-// searchCoreHrOffboardingResp ...
-type searchCoreHrOffboardingResp struct {
+// searchCoreHROffboardingResp ...
+type searchCoreHROffboardingResp struct {
 	Code int64                        `json:"code,omitempty"` // 错误码, 非 0 表示失败
 	Msg  string                       `json:"msg,omitempty"`  // 错误描述
-	Data *SearchCoreHrOffboardingResp `json:"data,omitempty"`
+	Data *SearchCoreHROffboardingResp `json:"data,omitempty"`
 }

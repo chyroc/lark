@@ -21,53 +21,53 @@ import (
 	"context"
 )
 
-// DeleteCoreHrNationalIDType 删除国家证件类型。
+// DeleteCoreHRNationalIDType 删除国家证件类型。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/national_id_type/delete
 // new doc: https://open.feishu.cn/document/server-docs/corehr-v1/basic-infomation/national_id_type/delete
-func (r *CoreHrService) DeleteCoreHrNationalIDType(ctx context.Context, request *DeleteCoreHrNationalIDTypeReq, options ...MethodOptionFunc) (*DeleteCoreHrNationalIDTypeResp, *Response, error) {
-	if r.cli.mock.mockCoreHrDeleteCoreHrNationalIDType != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] CoreHr#DeleteCoreHrNationalIDType mock enable")
-		return r.cli.mock.mockCoreHrDeleteCoreHrNationalIDType(ctx, request, options...)
+func (r *CoreHRService) DeleteCoreHRNationalIDType(ctx context.Context, request *DeleteCoreHRNationalIDTypeReq, options ...MethodOptionFunc) (*DeleteCoreHRNationalIDTypeResp, *Response, error) {
+	if r.cli.mock.mockCoreHRDeleteCoreHRNationalIDType != nil {
+		r.cli.log(ctx, LogLevelDebug, "[lark] CoreHR#DeleteCoreHRNationalIDType mock enable")
+		return r.cli.mock.mockCoreHRDeleteCoreHRNationalIDType(ctx, request, options...)
 	}
 
 	req := &RawRequestReq{
-		Scope:                 "CoreHr",
-		API:                   "DeleteCoreHrNationalIDType",
+		Scope:                 "CoreHR",
+		API:                   "DeleteCoreHRNationalIDType",
 		Method:                "DELETE",
 		URL:                   r.cli.openBaseURL + "/open-apis/corehr/v1/national_id_types/:national_id_type_id",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
 	}
-	resp := new(deleteCoreHrNationalIDTypeResp)
+	resp := new(deleteCoreHRNationalIDTypeResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
 	return resp.Data, response, err
 }
 
-// MockCoreHrDeleteCoreHrNationalIDType mock CoreHrDeleteCoreHrNationalIDType method
-func (r *Mock) MockCoreHrDeleteCoreHrNationalIDType(f func(ctx context.Context, request *DeleteCoreHrNationalIDTypeReq, options ...MethodOptionFunc) (*DeleteCoreHrNationalIDTypeResp, *Response, error)) {
-	r.mockCoreHrDeleteCoreHrNationalIDType = f
+// MockCoreHRDeleteCoreHRNationalIDType mock CoreHRDeleteCoreHRNationalIDType method
+func (r *Mock) MockCoreHRDeleteCoreHRNationalIDType(f func(ctx context.Context, request *DeleteCoreHRNationalIDTypeReq, options ...MethodOptionFunc) (*DeleteCoreHRNationalIDTypeResp, *Response, error)) {
+	r.mockCoreHRDeleteCoreHRNationalIDType = f
 }
 
-// UnMockCoreHrDeleteCoreHrNationalIDType un-mock CoreHrDeleteCoreHrNationalIDType method
-func (r *Mock) UnMockCoreHrDeleteCoreHrNationalIDType() {
-	r.mockCoreHrDeleteCoreHrNationalIDType = nil
+// UnMockCoreHRDeleteCoreHRNationalIDType un-mock CoreHRDeleteCoreHRNationalIDType method
+func (r *Mock) UnMockCoreHRDeleteCoreHRNationalIDType() {
+	r.mockCoreHRDeleteCoreHRNationalIDType = nil
 }
 
-// DeleteCoreHrNationalIDTypeReq ...
-type DeleteCoreHrNationalIDTypeReq struct {
+// DeleteCoreHRNationalIDTypeReq ...
+type DeleteCoreHRNationalIDTypeReq struct {
 	NationalIDTypeID string `path:"national_id_type_id" json:"-"` // 需要删除的国家证件类型 ID, 示例值: "27837817381"
 }
 
-// DeleteCoreHrNationalIDTypeResp ...
-type DeleteCoreHrNationalIDTypeResp struct {
+// DeleteCoreHRNationalIDTypeResp ...
+type DeleteCoreHRNationalIDTypeResp struct {
 }
 
-// deleteCoreHrNationalIDTypeResp ...
-type deleteCoreHrNationalIDTypeResp struct {
+// deleteCoreHRNationalIDTypeResp ...
+type deleteCoreHRNationalIDTypeResp struct {
 	Code int64                           `json:"code,omitempty"` // 错误码, 非 0 表示失败
 	Msg  string                          `json:"msg,omitempty"`  // 错误描述
-	Data *DeleteCoreHrNationalIDTypeResp `json:"data,omitempty"`
+	Data *DeleteCoreHRNationalIDTypeResp `json:"data,omitempty"`
 }

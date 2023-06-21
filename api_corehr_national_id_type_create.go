@@ -21,128 +21,128 @@ import (
 	"context"
 )
 
-// CreateCoreHrNationalIDType 创建国家证件类型。
+// CreateCoreHRNationalIDType 创建国家证件类型。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/national_id_type/create
 // new doc: https://open.feishu.cn/document/server-docs/corehr-v1/basic-infomation/national_id_type/create
-func (r *CoreHrService) CreateCoreHrNationalIDType(ctx context.Context, request *CreateCoreHrNationalIDTypeReq, options ...MethodOptionFunc) (*CreateCoreHrNationalIDTypeResp, *Response, error) {
-	if r.cli.mock.mockCoreHrCreateCoreHrNationalIDType != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] CoreHr#CreateCoreHrNationalIDType mock enable")
-		return r.cli.mock.mockCoreHrCreateCoreHrNationalIDType(ctx, request, options...)
+func (r *CoreHRService) CreateCoreHRNationalIDType(ctx context.Context, request *CreateCoreHRNationalIDTypeReq, options ...MethodOptionFunc) (*CreateCoreHRNationalIDTypeResp, *Response, error) {
+	if r.cli.mock.mockCoreHRCreateCoreHRNationalIDType != nil {
+		r.cli.log(ctx, LogLevelDebug, "[lark] CoreHR#CreateCoreHRNationalIDType mock enable")
+		return r.cli.mock.mockCoreHRCreateCoreHRNationalIDType(ctx, request, options...)
 	}
 
 	req := &RawRequestReq{
-		Scope:                 "CoreHr",
-		API:                   "CreateCoreHrNationalIDType",
+		Scope:                 "CoreHR",
+		API:                   "CreateCoreHRNationalIDType",
 		Method:                "POST",
 		URL:                   r.cli.openBaseURL + "/open-apis/corehr/v1/national_id_types",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
 	}
-	resp := new(createCoreHrNationalIDTypeResp)
+	resp := new(createCoreHRNationalIDTypeResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
 	return resp.Data, response, err
 }
 
-// MockCoreHrCreateCoreHrNationalIDType mock CoreHrCreateCoreHrNationalIDType method
-func (r *Mock) MockCoreHrCreateCoreHrNationalIDType(f func(ctx context.Context, request *CreateCoreHrNationalIDTypeReq, options ...MethodOptionFunc) (*CreateCoreHrNationalIDTypeResp, *Response, error)) {
-	r.mockCoreHrCreateCoreHrNationalIDType = f
+// MockCoreHRCreateCoreHRNationalIDType mock CoreHRCreateCoreHRNationalIDType method
+func (r *Mock) MockCoreHRCreateCoreHRNationalIDType(f func(ctx context.Context, request *CreateCoreHRNationalIDTypeReq, options ...MethodOptionFunc) (*CreateCoreHRNationalIDTypeResp, *Response, error)) {
+	r.mockCoreHRCreateCoreHRNationalIDType = f
 }
 
-// UnMockCoreHrCreateCoreHrNationalIDType un-mock CoreHrCreateCoreHrNationalIDType method
-func (r *Mock) UnMockCoreHrCreateCoreHrNationalIDType() {
-	r.mockCoreHrCreateCoreHrNationalIDType = nil
+// UnMockCoreHRCreateCoreHRNationalIDType un-mock CoreHRCreateCoreHRNationalIDType method
+func (r *Mock) UnMockCoreHRCreateCoreHRNationalIDType() {
+	r.mockCoreHRCreateCoreHRNationalIDType = nil
 }
 
-// CreateCoreHrNationalIDTypeReq ...
-type CreateCoreHrNationalIDTypeReq struct {
+// CreateCoreHRNationalIDTypeReq ...
+type CreateCoreHRNationalIDTypeReq struct {
 	ClientToken               *string                                                   `query:"client_token" json:"-"`                // 根据client_token是否一致来判断是否为同一请求, 示例值: 12454646
 	CountryRegionID           string                                                    `json:"country_region_id,omitempty"`           // 国家 / 地区, 示例值: "6862995747139225096"
-	Name                      []*CreateCoreHrNationalIDTypeReqName                      `json:"name,omitempty"`                        // 名称
+	Name                      []*CreateCoreHRNationalIDTypeReqName                      `json:"name,omitempty"`                        // 名称
 	Active                    bool                                                      `json:"active,omitempty"`                      // 是否启用, 示例值: true
 	ValidationRule            string                                                    `json:"validation_rule,omitempty"`             // 校验规则, 示例值: "^\d{9}$"
-	ValidationRuleDescription []*CreateCoreHrNationalIDTypeReqValidationRuleDescription `json:"validation_rule_description,omitempty"` // 校验规则描述
+	ValidationRuleDescription []*CreateCoreHRNationalIDTypeReqValidationRuleDescription `json:"validation_rule_description,omitempty"` // 校验规则描述
 	Code                      string                                                    `json:"code,omitempty"`                        // 编码, 示例值: "AUS-TFN"
-	IdentificationType        *CreateCoreHrNationalIDTypeReqIdentificationType          `json:"identification_type,omitempty"`         // 证件类型
-	CustomFields              []*CreateCoreHrNationalIDTypeReqCustomField               `json:"custom_fields,omitempty"`               // 自定义字段
+	IdentificationType        *CreateCoreHRNationalIDTypeReqIdentificationType          `json:"identification_type,omitempty"`         // 证件类型
+	CustomFields              []*CreateCoreHRNationalIDTypeReqCustomField               `json:"custom_fields,omitempty"`               // 自定义字段
 }
 
-// CreateCoreHrNationalIDTypeReqCustomField ...
-type CreateCoreHrNationalIDTypeReqCustomField struct {
+// CreateCoreHRNationalIDTypeReqCustomField ...
+type CreateCoreHRNationalIDTypeReqCustomField struct {
 	FieldName string `json:"field_name,omitempty"` // 字段名, 示例值: "name"
 	Value     string `json:"value,omitempty"`      // 字段值, 是json转义后的字符串, 根据元数据定义不同, 字段格式不同(如123, 123.23, "true", [\"id1\", \"id2\"], "2006-01-02 15:04:05"), 示例值: "\"Sandy\""
 }
 
-// CreateCoreHrNationalIDTypeReqIdentificationType ...
-type CreateCoreHrNationalIDTypeReqIdentificationType struct {
+// CreateCoreHRNationalIDTypeReqIdentificationType ...
+type CreateCoreHRNationalIDTypeReqIdentificationType struct {
 	EnumName string `json:"enum_name,omitempty"` // 枚举值, 示例值: "type_1"
 }
 
-// CreateCoreHrNationalIDTypeReqName ...
-type CreateCoreHrNationalIDTypeReqName struct {
+// CreateCoreHRNationalIDTypeReqName ...
+type CreateCoreHRNationalIDTypeReqName struct {
 	Lang  string `json:"lang,omitempty"`  // 名称信息的语言, 示例值: "zh-CN"
 	Value string `json:"value,omitempty"` // 名称信息的内容, 示例值: "张三"
 }
 
-// CreateCoreHrNationalIDTypeReqValidationRuleDescription ...
-type CreateCoreHrNationalIDTypeReqValidationRuleDescription struct {
+// CreateCoreHRNationalIDTypeReqValidationRuleDescription ...
+type CreateCoreHRNationalIDTypeReqValidationRuleDescription struct {
 	Lang  string `json:"lang,omitempty"`  // 名称信息的语言, 示例值: "zh-CN"
 	Value string `json:"value,omitempty"` // 名称信息的内容, 示例值: "张三"
 }
 
-// CreateCoreHrNationalIDTypeResp ...
-type CreateCoreHrNationalIDTypeResp struct {
-	NationalIDType *CreateCoreHrNationalIDTypeRespNationalIDType `json:"national_id_type,omitempty"` // 创建成功的国家证件类型数据
+// CreateCoreHRNationalIDTypeResp ...
+type CreateCoreHRNationalIDTypeResp struct {
+	NationalIDType *CreateCoreHRNationalIDTypeRespNationalIDType `json:"national_id_type,omitempty"` // 创建成功的国家证件类型数据
 }
 
-// CreateCoreHrNationalIDTypeRespNationalIDType ...
-type CreateCoreHrNationalIDTypeRespNationalIDType struct {
+// CreateCoreHRNationalIDTypeRespNationalIDType ...
+type CreateCoreHRNationalIDTypeRespNationalIDType struct {
 	ID                        string                                                                   `json:"id,omitempty"`                          // 证件类型 ID
 	CountryRegionID           string                                                                   `json:"country_region_id,omitempty"`           // 国家 / 地区
-	Name                      []*CreateCoreHrNationalIDTypeRespNationalIDTypeName                      `json:"name,omitempty"`                        // 名称
+	Name                      []*CreateCoreHRNationalIDTypeRespNationalIDTypeName                      `json:"name,omitempty"`                        // 名称
 	Active                    bool                                                                     `json:"active,omitempty"`                      // 是否启用
 	ValidationRule            string                                                                   `json:"validation_rule,omitempty"`             // 校验规则
-	ValidationRuleDescription []*CreateCoreHrNationalIDTypeRespNationalIDTypeValidationRuleDescription `json:"validation_rule_description,omitempty"` // 校验规则描述
+	ValidationRuleDescription []*CreateCoreHRNationalIDTypeRespNationalIDTypeValidationRuleDescription `json:"validation_rule_description,omitempty"` // 校验规则描述
 	Code                      string                                                                   `json:"code,omitempty"`                        // 编码
-	IdentificationType        *CreateCoreHrNationalIDTypeRespNationalIDTypeIdentificationType          `json:"identification_type,omitempty"`         // 证件类型
-	CustomFields              []*CreateCoreHrNationalIDTypeRespNationalIDTypeCustomField               `json:"custom_fields,omitempty"`               // 自定义字段
+	IdentificationType        *CreateCoreHRNationalIDTypeRespNationalIDTypeIdentificationType          `json:"identification_type,omitempty"`         // 证件类型
+	CustomFields              []*CreateCoreHRNationalIDTypeRespNationalIDTypeCustomField               `json:"custom_fields,omitempty"`               // 自定义字段
 }
 
-// CreateCoreHrNationalIDTypeRespNationalIDTypeCustomField ...
-type CreateCoreHrNationalIDTypeRespNationalIDTypeCustomField struct {
+// CreateCoreHRNationalIDTypeRespNationalIDTypeCustomField ...
+type CreateCoreHRNationalIDTypeRespNationalIDTypeCustomField struct {
 	FieldName string `json:"field_name,omitempty"` // 字段名
 	Value     string `json:"value,omitempty"`      // 字段值, 是json转义后的字符串, 根据元数据定义不同, 字段格式不同(如123, 123.23, "true", [\"id1\", \"id2\"], "2006-01-02 15:04:05")
 }
 
-// CreateCoreHrNationalIDTypeRespNationalIDTypeIdentificationType ...
-type CreateCoreHrNationalIDTypeRespNationalIDTypeIdentificationType struct {
+// CreateCoreHRNationalIDTypeRespNationalIDTypeIdentificationType ...
+type CreateCoreHRNationalIDTypeRespNationalIDTypeIdentificationType struct {
 	EnumName string                                                                   `json:"enum_name,omitempty"` // 枚举值
-	Display  []*CreateCoreHrNationalIDTypeRespNationalIDTypeIdentificationTypeDisplay `json:"display,omitempty"`   // 枚举多语展示
+	Display  []*CreateCoreHRNationalIDTypeRespNationalIDTypeIdentificationTypeDisplay `json:"display,omitempty"`   // 枚举多语展示
 }
 
-// CreateCoreHrNationalIDTypeRespNationalIDTypeIdentificationTypeDisplay ...
-type CreateCoreHrNationalIDTypeRespNationalIDTypeIdentificationTypeDisplay struct {
+// CreateCoreHRNationalIDTypeRespNationalIDTypeIdentificationTypeDisplay ...
+type CreateCoreHRNationalIDTypeRespNationalIDTypeIdentificationTypeDisplay struct {
 	Lang  string `json:"lang,omitempty"`  // 名称信息的语言
 	Value string `json:"value,omitempty"` // 名称信息的内容
 }
 
-// CreateCoreHrNationalIDTypeRespNationalIDTypeName ...
-type CreateCoreHrNationalIDTypeRespNationalIDTypeName struct {
+// CreateCoreHRNationalIDTypeRespNationalIDTypeName ...
+type CreateCoreHRNationalIDTypeRespNationalIDTypeName struct {
 	Lang  string `json:"lang,omitempty"`  // 名称信息的语言
 	Value string `json:"value,omitempty"` // 名称信息的内容
 }
 
-// CreateCoreHrNationalIDTypeRespNationalIDTypeValidationRuleDescription ...
-type CreateCoreHrNationalIDTypeRespNationalIDTypeValidationRuleDescription struct {
+// CreateCoreHRNationalIDTypeRespNationalIDTypeValidationRuleDescription ...
+type CreateCoreHRNationalIDTypeRespNationalIDTypeValidationRuleDescription struct {
 	Lang  string `json:"lang,omitempty"`  // 名称信息的语言
 	Value string `json:"value,omitempty"` // 名称信息的内容
 }
 
-// createCoreHrNationalIDTypeResp ...
-type createCoreHrNationalIDTypeResp struct {
+// createCoreHRNationalIDTypeResp ...
+type createCoreHRNationalIDTypeResp struct {
 	Code int64                           `json:"code,omitempty"` // 错误码, 非 0 表示失败
 	Msg  string                          `json:"msg,omitempty"`  // 错误描述
-	Data *CreateCoreHrNationalIDTypeResp `json:"data,omitempty"`
+	Data *CreateCoreHRNationalIDTypeResp `json:"data,omitempty"`
 }

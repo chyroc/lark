@@ -21,107 +21,107 @@ import (
 	"context"
 )
 
-// CreateCoreHrJobLevel 创建职级
+// CreateCoreHRJobLevel 创建职级
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job_level/create
 // new doc: https://open.feishu.cn/document/server-docs/corehr-v1/job-management/job_level/create
-func (r *CoreHrService) CreateCoreHrJobLevel(ctx context.Context, request *CreateCoreHrJobLevelReq, options ...MethodOptionFunc) (*CreateCoreHrJobLevelResp, *Response, error) {
-	if r.cli.mock.mockCoreHrCreateCoreHrJobLevel != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] CoreHr#CreateCoreHrJobLevel mock enable")
-		return r.cli.mock.mockCoreHrCreateCoreHrJobLevel(ctx, request, options...)
+func (r *CoreHRService) CreateCoreHRJobLevel(ctx context.Context, request *CreateCoreHRJobLevelReq, options ...MethodOptionFunc) (*CreateCoreHRJobLevelResp, *Response, error) {
+	if r.cli.mock.mockCoreHRCreateCoreHRJobLevel != nil {
+		r.cli.log(ctx, LogLevelDebug, "[lark] CoreHR#CreateCoreHRJobLevel mock enable")
+		return r.cli.mock.mockCoreHRCreateCoreHRJobLevel(ctx, request, options...)
 	}
 
 	req := &RawRequestReq{
-		Scope:                 "CoreHr",
-		API:                   "CreateCoreHrJobLevel",
+		Scope:                 "CoreHR",
+		API:                   "CreateCoreHRJobLevel",
 		Method:                "POST",
 		URL:                   r.cli.openBaseURL + "/open-apis/corehr/v1/job_levels",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
 	}
-	resp := new(createCoreHrJobLevelResp)
+	resp := new(createCoreHRJobLevelResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
 	return resp.Data, response, err
 }
 
-// MockCoreHrCreateCoreHrJobLevel mock CoreHrCreateCoreHrJobLevel method
-func (r *Mock) MockCoreHrCreateCoreHrJobLevel(f func(ctx context.Context, request *CreateCoreHrJobLevelReq, options ...MethodOptionFunc) (*CreateCoreHrJobLevelResp, *Response, error)) {
-	r.mockCoreHrCreateCoreHrJobLevel = f
+// MockCoreHRCreateCoreHRJobLevel mock CoreHRCreateCoreHRJobLevel method
+func (r *Mock) MockCoreHRCreateCoreHRJobLevel(f func(ctx context.Context, request *CreateCoreHRJobLevelReq, options ...MethodOptionFunc) (*CreateCoreHRJobLevelResp, *Response, error)) {
+	r.mockCoreHRCreateCoreHRJobLevel = f
 }
 
-// UnMockCoreHrCreateCoreHrJobLevel un-mock CoreHrCreateCoreHrJobLevel method
-func (r *Mock) UnMockCoreHrCreateCoreHrJobLevel() {
-	r.mockCoreHrCreateCoreHrJobLevel = nil
+// UnMockCoreHRCreateCoreHRJobLevel un-mock CoreHRCreateCoreHRJobLevel method
+func (r *Mock) UnMockCoreHRCreateCoreHRJobLevel() {
+	r.mockCoreHRCreateCoreHRJobLevel = nil
 }
 
-// CreateCoreHrJobLevelReq ...
-type CreateCoreHrJobLevelReq struct {
+// CreateCoreHRJobLevelReq ...
+type CreateCoreHRJobLevelReq struct {
 	ClientToken  *string                               `query:"client_token" json:"-"`  // 根据client_token是否一致来判断是否为同一请求, 示例值: 12454646
 	LevelOrder   int64                                 `json:"level_order,omitempty"`   // 职级数值, 示例值: 9999
 	Code         *string                               `json:"code,omitempty"`          // 编码, 示例值: "VQzo/BSonp8l6PmcZ+VlDhkd2595LMkhyBAGX6HAlCY="
-	Name         []*CreateCoreHrJobLevelReqName        `json:"name,omitempty"`          // 名称
-	Description  []*CreateCoreHrJobLevelReqDescription `json:"description,omitempty"`   // 描述
+	Name         []*CreateCoreHRJobLevelReqName        `json:"name,omitempty"`          // 名称
+	Description  []*CreateCoreHRJobLevelReqDescription `json:"description,omitempty"`   // 描述
 	Active       bool                                  `json:"active,omitempty"`        // 是否启用, 示例值: true
-	CustomFields []*CreateCoreHrJobLevelReqCustomField `json:"custom_fields,omitempty"` // 自定义字段
+	CustomFields []*CreateCoreHRJobLevelReqCustomField `json:"custom_fields,omitempty"` // 自定义字段
 }
 
-// CreateCoreHrJobLevelReqCustomField ...
-type CreateCoreHrJobLevelReqCustomField struct {
+// CreateCoreHRJobLevelReqCustomField ...
+type CreateCoreHRJobLevelReqCustomField struct {
 	FieldName string `json:"field_name,omitempty"` // 字段名, 示例值: "name"
 	Value     string `json:"value,omitempty"`      // 字段值, 是json转义后的字符串, 根据元数据定义不同, 字段格式不同(如123, 123.23, "true", [\"id1\", \"id2\"], "2006-01-02 15:04:05"), 示例值: "\"Sandy\""
 }
 
-// CreateCoreHrJobLevelReqDescription ...
-type CreateCoreHrJobLevelReqDescription struct {
+// CreateCoreHRJobLevelReqDescription ...
+type CreateCoreHRJobLevelReqDescription struct {
 	Lang  string `json:"lang,omitempty"`  // 名称信息的语言, 示例值: "zh-CN"
 	Value string `json:"value,omitempty"` // 名称信息的内容, 示例值: "张三"
 }
 
-// CreateCoreHrJobLevelReqName ...
-type CreateCoreHrJobLevelReqName struct {
+// CreateCoreHRJobLevelReqName ...
+type CreateCoreHRJobLevelReqName struct {
 	Lang  string `json:"lang,omitempty"`  // 名称信息的语言, 示例值: "zh-CN"
 	Value string `json:"value,omitempty"` // 名称信息的内容, 示例值: "张三"
 }
 
-// CreateCoreHrJobLevelResp ...
-type CreateCoreHrJobLevelResp struct {
-	JobLevel *CreateCoreHrJobLevelRespJobLevel `json:"job_level,omitempty"` // 创建成功的职级信息
+// CreateCoreHRJobLevelResp ...
+type CreateCoreHRJobLevelResp struct {
+	JobLevel *CreateCoreHRJobLevelRespJobLevel `json:"job_level,omitempty"` // 创建成功的职级信息
 }
 
-// CreateCoreHrJobLevelRespJobLevel ...
-type CreateCoreHrJobLevelRespJobLevel struct {
+// CreateCoreHRJobLevelRespJobLevel ...
+type CreateCoreHRJobLevelRespJobLevel struct {
 	ID           string                                         `json:"id,omitempty"`            // 职级 ID
 	LevelOrder   int64                                          `json:"level_order,omitempty"`   // 职级数值
 	Code         string                                         `json:"code,omitempty"`          // 编码
-	Name         []*CreateCoreHrJobLevelRespJobLevelName        `json:"name,omitempty"`          // 名称
-	Description  []*CreateCoreHrJobLevelRespJobLevelDescription `json:"description,omitempty"`   // 描述
+	Name         []*CreateCoreHRJobLevelRespJobLevelName        `json:"name,omitempty"`          // 名称
+	Description  []*CreateCoreHRJobLevelRespJobLevelDescription `json:"description,omitempty"`   // 描述
 	Active       bool                                           `json:"active,omitempty"`        // 是否启用
-	CustomFields []*CreateCoreHrJobLevelRespJobLevelCustomField `json:"custom_fields,omitempty"` // 自定义字段
+	CustomFields []*CreateCoreHRJobLevelRespJobLevelCustomField `json:"custom_fields,omitempty"` // 自定义字段
 }
 
-// CreateCoreHrJobLevelRespJobLevelCustomField ...
-type CreateCoreHrJobLevelRespJobLevelCustomField struct {
+// CreateCoreHRJobLevelRespJobLevelCustomField ...
+type CreateCoreHRJobLevelRespJobLevelCustomField struct {
 	FieldName string `json:"field_name,omitempty"` // 字段名
 	Value     string `json:"value,omitempty"`      // 字段值, 是json转义后的字符串, 根据元数据定义不同, 字段格式不同(如123, 123.23, "true", [\"id1\", \"id2\"], "2006-01-02 15:04:05")
 }
 
-// CreateCoreHrJobLevelRespJobLevelDescription ...
-type CreateCoreHrJobLevelRespJobLevelDescription struct {
+// CreateCoreHRJobLevelRespJobLevelDescription ...
+type CreateCoreHRJobLevelRespJobLevelDescription struct {
 	Lang  string `json:"lang,omitempty"`  // 名称信息的语言
 	Value string `json:"value,omitempty"` // 名称信息的内容
 }
 
-// CreateCoreHrJobLevelRespJobLevelName ...
-type CreateCoreHrJobLevelRespJobLevelName struct {
+// CreateCoreHRJobLevelRespJobLevelName ...
+type CreateCoreHRJobLevelRespJobLevelName struct {
 	Lang  string `json:"lang,omitempty"`  // 名称信息的语言
 	Value string `json:"value,omitempty"` // 名称信息的内容
 }
 
-// createCoreHrJobLevelResp ...
-type createCoreHrJobLevelResp struct {
+// createCoreHRJobLevelResp ...
+type createCoreHRJobLevelResp struct {
 	Code int64                     `json:"code,omitempty"` // 错误码, 非 0 表示失败
 	Msg  string                    `json:"msg,omitempty"`  // 错误描述
-	Data *CreateCoreHrJobLevelResp `json:"data,omitempty"`
+	Data *CreateCoreHRJobLevelResp `json:"data,omitempty"`
 }

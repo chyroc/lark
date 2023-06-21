@@ -21,94 +21,94 @@ import (
 	"context"
 )
 
-// GetCoreHrJob 根据 ID 查询单个职务。
+// GetCoreHRJob 根据 ID 查询单个职务。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job/get
 // new doc: https://open.feishu.cn/document/server-docs/corehr-v1/job-management/job/get
-func (r *CoreHrService) GetCoreHrJob(ctx context.Context, request *GetCoreHrJobReq, options ...MethodOptionFunc) (*GetCoreHrJobResp, *Response, error) {
-	if r.cli.mock.mockCoreHrGetCoreHrJob != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] CoreHr#GetCoreHrJob mock enable")
-		return r.cli.mock.mockCoreHrGetCoreHrJob(ctx, request, options...)
+func (r *CoreHRService) GetCoreHRJob(ctx context.Context, request *GetCoreHRJobReq, options ...MethodOptionFunc) (*GetCoreHRJobResp, *Response, error) {
+	if r.cli.mock.mockCoreHRGetCoreHRJob != nil {
+		r.cli.log(ctx, LogLevelDebug, "[lark] CoreHR#GetCoreHRJob mock enable")
+		return r.cli.mock.mockCoreHRGetCoreHRJob(ctx, request, options...)
 	}
 
 	req := &RawRequestReq{
-		Scope:                 "CoreHr",
-		API:                   "GetCoreHrJob",
+		Scope:                 "CoreHR",
+		API:                   "GetCoreHRJob",
 		Method:                "GET",
 		URL:                   r.cli.openBaseURL + "/open-apis/corehr/v1/jobs/:job_id",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
 	}
-	resp := new(getCoreHrJobResp)
+	resp := new(getCoreHRJobResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
 	return resp.Data, response, err
 }
 
-// MockCoreHrGetCoreHrJob mock CoreHrGetCoreHrJob method
-func (r *Mock) MockCoreHrGetCoreHrJob(f func(ctx context.Context, request *GetCoreHrJobReq, options ...MethodOptionFunc) (*GetCoreHrJobResp, *Response, error)) {
-	r.mockCoreHrGetCoreHrJob = f
+// MockCoreHRGetCoreHRJob mock CoreHRGetCoreHRJob method
+func (r *Mock) MockCoreHRGetCoreHRJob(f func(ctx context.Context, request *GetCoreHRJobReq, options ...MethodOptionFunc) (*GetCoreHRJobResp, *Response, error)) {
+	r.mockCoreHRGetCoreHRJob = f
 }
 
-// UnMockCoreHrGetCoreHrJob un-mock CoreHrGetCoreHrJob method
-func (r *Mock) UnMockCoreHrGetCoreHrJob() {
-	r.mockCoreHrGetCoreHrJob = nil
+// UnMockCoreHRGetCoreHRJob un-mock CoreHRGetCoreHRJob method
+func (r *Mock) UnMockCoreHRGetCoreHRJob() {
+	r.mockCoreHRGetCoreHRJob = nil
 }
 
-// GetCoreHrJobReq ...
-type GetCoreHrJobReq struct {
+// GetCoreHRJobReq ...
+type GetCoreHRJobReq struct {
 	JobID string `path:"job_id" json:"-"` // 职务 ID, 示例值: "151515"
 }
 
-// GetCoreHrJobResp ...
-type GetCoreHrJobResp struct {
-	Job *GetCoreHrJobRespJob `json:"job,omitempty"` // 职务信息
+// GetCoreHRJobResp ...
+type GetCoreHRJobResp struct {
+	Job *GetCoreHRJobRespJob `json:"job,omitempty"` // 职务信息
 }
 
-// GetCoreHrJobRespJob ...
-type GetCoreHrJobRespJob struct {
+// GetCoreHRJobRespJob ...
+type GetCoreHRJobRespJob struct {
 	ID                 string                            `json:"id,omitempty"`                    // 职务 ID
 	Code               string                            `json:"code,omitempty"`                  // 编码
-	Name               []*GetCoreHrJobRespJobName        `json:"name,omitempty"`                  // 名称
-	Description        []*GetCoreHrJobRespJobDescription `json:"description,omitempty"`           // 描述
+	Name               []*GetCoreHRJobRespJobName        `json:"name,omitempty"`                  // 名称
+	Description        []*GetCoreHRJobRespJobDescription `json:"description,omitempty"`           // 描述
 	Active             bool                              `json:"active,omitempty"`                // 是否启用
-	JobTitle           []*GetCoreHrJobRespJobJobTitle    `json:"job_title,omitempty"`             // 职务头衔
+	JobTitle           []*GetCoreHRJobRespJobJobTitle    `json:"job_title,omitempty"`             // 职务头衔
 	JobFamilyIDList    []string                          `json:"job_family_id_list,omitempty"`    // 职务序列 ID 列表, 枚举值及详细信息可通过【批量查询职务序列】接口查询获得
 	JobLevelIDList     []string                          `json:"job_level_id_list,omitempty"`     // 职务级别 ID 列表, 枚举值及详细信息可通过【批量查询职务级别】接口查询获得
 	WorkingHoursTypeID string                            `json:"working_hours_type_id,omitempty"` // 工时制度 ID, 枚举值及详细信息可通过【批量查询工时制度】接口查询获得
 	EffectiveTime      string                            `json:"effective_time,omitempty"`        // 生效时间
 	ExpirationTime     string                            `json:"expiration_time,omitempty"`       // 失效时间
-	CustomFields       []*GetCoreHrJobRespJobCustomField `json:"custom_fields,omitempty"`         // 自定义字段
+	CustomFields       []*GetCoreHRJobRespJobCustomField `json:"custom_fields,omitempty"`         // 自定义字段
 }
 
-// GetCoreHrJobRespJobCustomField ...
-type GetCoreHrJobRespJobCustomField struct {
+// GetCoreHRJobRespJobCustomField ...
+type GetCoreHRJobRespJobCustomField struct {
 	FieldName string `json:"field_name,omitempty"` // 字段名
 	Value     string `json:"value,omitempty"`      // 字段值, 是json转义后的字符串, 根据元数据定义不同, 字段格式不同(如123, 123.23, "true", [\"id1\", \"id2\"], "2006-01-02 15:04:05")
 }
 
-// GetCoreHrJobRespJobDescription ...
-type GetCoreHrJobRespJobDescription struct {
+// GetCoreHRJobRespJobDescription ...
+type GetCoreHRJobRespJobDescription struct {
 	Lang  string `json:"lang,omitempty"`  // 名称信息的语言
 	Value string `json:"value,omitempty"` // 名称信息的内容
 }
 
-// GetCoreHrJobRespJobJobTitle ...
-type GetCoreHrJobRespJobJobTitle struct {
+// GetCoreHRJobRespJobJobTitle ...
+type GetCoreHRJobRespJobJobTitle struct {
 	Lang  string `json:"lang,omitempty"`  // 名称信息的语言
 	Value string `json:"value,omitempty"` // 名称信息的内容
 }
 
-// GetCoreHrJobRespJobName ...
-type GetCoreHrJobRespJobName struct {
+// GetCoreHRJobRespJobName ...
+type GetCoreHRJobRespJobName struct {
 	Lang  string `json:"lang,omitempty"`  // 名称信息的语言
 	Value string `json:"value,omitempty"` // 名称信息的内容
 }
 
-// getCoreHrJobResp ...
-type getCoreHrJobResp struct {
+// getCoreHRJobResp ...
+type getCoreHRJobResp struct {
 	Code int64             `json:"code,omitempty"` // 错误码, 非 0 表示失败
 	Msg  string            `json:"msg,omitempty"`  // 错误描述
-	Data *GetCoreHrJobResp `json:"data,omitempty"`
+	Data *GetCoreHRJobResp `json:"data,omitempty"`
 }

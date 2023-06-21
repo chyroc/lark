@@ -21,79 +21,79 @@ import (
 	"context"
 )
 
-// GetCoreHrSecurityGroupList 批量查询「飞书人事」-「权限设置」-「角色设置」中的角色列表。
+// GetCoreHRSecurityGroupList 批量查询「飞书人事」-「权限设置」-「角色设置」中的角色列表。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/security_group/list
 // new doc: https://open.feishu.cn/document/server-docs/corehr-v1/authorization/list
-func (r *CoreHrService) GetCoreHrSecurityGroupList(ctx context.Context, request *GetCoreHrSecurityGroupListReq, options ...MethodOptionFunc) (*GetCoreHrSecurityGroupListResp, *Response, error) {
-	if r.cli.mock.mockCoreHrGetCoreHrSecurityGroupList != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] CoreHr#GetCoreHrSecurityGroupList mock enable")
-		return r.cli.mock.mockCoreHrGetCoreHrSecurityGroupList(ctx, request, options...)
+func (r *CoreHRService) GetCoreHRSecurityGroupList(ctx context.Context, request *GetCoreHRSecurityGroupListReq, options ...MethodOptionFunc) (*GetCoreHRSecurityGroupListResp, *Response, error) {
+	if r.cli.mock.mockCoreHRGetCoreHRSecurityGroupList != nil {
+		r.cli.log(ctx, LogLevelDebug, "[lark] CoreHR#GetCoreHRSecurityGroupList mock enable")
+		return r.cli.mock.mockCoreHRGetCoreHRSecurityGroupList(ctx, request, options...)
 	}
 
 	req := &RawRequestReq{
-		Scope:                 "CoreHr",
-		API:                   "GetCoreHrSecurityGroupList",
+		Scope:                 "CoreHR",
+		API:                   "GetCoreHRSecurityGroupList",
 		Method:                "GET",
 		URL:                   r.cli.openBaseURL + "/open-apis/corehr/v1/security_groups",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
 	}
-	resp := new(getCoreHrSecurityGroupListResp)
+	resp := new(getCoreHRSecurityGroupListResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
 	return resp.Data, response, err
 }
 
-// MockCoreHrGetCoreHrSecurityGroupList mock CoreHrGetCoreHrSecurityGroupList method
-func (r *Mock) MockCoreHrGetCoreHrSecurityGroupList(f func(ctx context.Context, request *GetCoreHrSecurityGroupListReq, options ...MethodOptionFunc) (*GetCoreHrSecurityGroupListResp, *Response, error)) {
-	r.mockCoreHrGetCoreHrSecurityGroupList = f
+// MockCoreHRGetCoreHRSecurityGroupList mock CoreHRGetCoreHRSecurityGroupList method
+func (r *Mock) MockCoreHRGetCoreHRSecurityGroupList(f func(ctx context.Context, request *GetCoreHRSecurityGroupListReq, options ...MethodOptionFunc) (*GetCoreHRSecurityGroupListResp, *Response, error)) {
+	r.mockCoreHRGetCoreHRSecurityGroupList = f
 }
 
-// UnMockCoreHrGetCoreHrSecurityGroupList un-mock CoreHrGetCoreHrSecurityGroupList method
-func (r *Mock) UnMockCoreHrGetCoreHrSecurityGroupList() {
-	r.mockCoreHrGetCoreHrSecurityGroupList = nil
+// UnMockCoreHRGetCoreHRSecurityGroupList un-mock CoreHRGetCoreHRSecurityGroupList method
+func (r *Mock) UnMockCoreHRGetCoreHRSecurityGroupList() {
+	r.mockCoreHRGetCoreHRSecurityGroupList = nil
 }
 
-// GetCoreHrSecurityGroupListReq ...
-type GetCoreHrSecurityGroupListReq struct {
+// GetCoreHRSecurityGroupListReq ...
+type GetCoreHRSecurityGroupListReq struct {
 	PageToken *string `query:"page_token" json:"-"` // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果, 示例值: 10
 	PageSize  int64   `query:"page_size" json:"-"`  // 分页大小, 示例值: 100
 }
 
-// GetCoreHrSecurityGroupListResp ...
-type GetCoreHrSecurityGroupListResp struct {
-	Items     []*GetCoreHrSecurityGroupListRespItem `json:"items,omitempty"`      // 查询的用户角色信息
+// GetCoreHRSecurityGroupListResp ...
+type GetCoreHRSecurityGroupListResp struct {
+	Items     []*GetCoreHRSecurityGroupListRespItem `json:"items,omitempty"`      // 查询的用户角色信息
 	HasMore   bool                                  `json:"has_more,omitempty"`   // 是否还有更多项
 	PageToken string                                `json:"page_token,omitempty"` // 分页标记, 当 has_more 为 true 时, 会同时返回新的 page_token, 否则不返回 page_token
 }
 
-// GetCoreHrSecurityGroupListRespItem ...
-type GetCoreHrSecurityGroupListRespItem struct {
+// GetCoreHRSecurityGroupListRespItem ...
+type GetCoreHRSecurityGroupListRespItem struct {
 	ID           string                                         `json:"id,omitempty"`            // 角色ID
 	Code         string                                         `json:"code,omitempty"`          // 角色code, 通常用于与其他系统进行交互
-	Name         *GetCoreHrSecurityGroupListRespItemName        `json:"name,omitempty"`          // 角色名称
+	Name         *GetCoreHRSecurityGroupListRespItemName        `json:"name,omitempty"`          // 角色名称
 	ActiveStatus int64                                          `json:"active_status,omitempty"` // 状态, 1 = Inactive / 停用, 2 = Active / 启用, 3 = TobeActivated / 待启用
-	Description  *GetCoreHrSecurityGroupListRespItemDescription `json:"description,omitempty"`   // 角色描述
+	Description  *GetCoreHRSecurityGroupListRespItemDescription `json:"description,omitempty"`   // 角色描述
 	UpdateTime   string                                         `json:"update_time,omitempty"`   // 更新时间
 }
 
-// GetCoreHrSecurityGroupListRespItemDescription ...
-type GetCoreHrSecurityGroupListRespItemDescription struct {
+// GetCoreHRSecurityGroupListRespItemDescription ...
+type GetCoreHRSecurityGroupListRespItemDescription struct {
 	ZhCn string `json:"zh_cn,omitempty"` // 中文
 	EnUs string `json:"en_us,omitempty"` // 英文
 }
 
-// GetCoreHrSecurityGroupListRespItemName ...
-type GetCoreHrSecurityGroupListRespItemName struct {
+// GetCoreHRSecurityGroupListRespItemName ...
+type GetCoreHRSecurityGroupListRespItemName struct {
 	ZhCn string `json:"zh_cn,omitempty"` // 中文
 	EnUs string `json:"en_us,omitempty"` // 英文
 }
 
-// getCoreHrSecurityGroupListResp ...
-type getCoreHrSecurityGroupListResp struct {
+// getCoreHRSecurityGroupListResp ...
+type getCoreHRSecurityGroupListResp struct {
 	Code int64                           `json:"code,omitempty"` // 错误码, 非 0 表示失败
 	Msg  string                          `json:"msg,omitempty"`  // 错误描述
-	Data *GetCoreHrSecurityGroupListResp `json:"data,omitempty"`
+	Data *GetCoreHRSecurityGroupListResp `json:"data,omitempty"`
 }

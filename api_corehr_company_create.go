@@ -21,249 +21,249 @@ import (
 	"context"
 )
 
-// CreateCoreHrCompany 创建公司。
+// CreateCoreHRCompany 创建公司。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/company/create
 // new doc: https://open.feishu.cn/document/server-docs/corehr-v1/organization-management/company/create
-func (r *CoreHrService) CreateCoreHrCompany(ctx context.Context, request *CreateCoreHrCompanyReq, options ...MethodOptionFunc) (*CreateCoreHrCompanyResp, *Response, error) {
-	if r.cli.mock.mockCoreHrCreateCoreHrCompany != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] CoreHr#CreateCoreHrCompany mock enable")
-		return r.cli.mock.mockCoreHrCreateCoreHrCompany(ctx, request, options...)
+func (r *CoreHRService) CreateCoreHRCompany(ctx context.Context, request *CreateCoreHRCompanyReq, options ...MethodOptionFunc) (*CreateCoreHRCompanyResp, *Response, error) {
+	if r.cli.mock.mockCoreHRCreateCoreHRCompany != nil {
+		r.cli.log(ctx, LogLevelDebug, "[lark] CoreHR#CreateCoreHRCompany mock enable")
+		return r.cli.mock.mockCoreHRCreateCoreHRCompany(ctx, request, options...)
 	}
 
 	req := &RawRequestReq{
-		Scope:                 "CoreHr",
-		API:                   "CreateCoreHrCompany",
+		Scope:                 "CoreHR",
+		API:                   "CreateCoreHRCompany",
 		Method:                "POST",
 		URL:                   r.cli.openBaseURL + "/open-apis/corehr/v1/companies",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
 	}
-	resp := new(createCoreHrCompanyResp)
+	resp := new(createCoreHRCompanyResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
 	return resp.Data, response, err
 }
 
-// MockCoreHrCreateCoreHrCompany mock CoreHrCreateCoreHrCompany method
-func (r *Mock) MockCoreHrCreateCoreHrCompany(f func(ctx context.Context, request *CreateCoreHrCompanyReq, options ...MethodOptionFunc) (*CreateCoreHrCompanyResp, *Response, error)) {
-	r.mockCoreHrCreateCoreHrCompany = f
+// MockCoreHRCreateCoreHRCompany mock CoreHRCreateCoreHRCompany method
+func (r *Mock) MockCoreHRCreateCoreHRCompany(f func(ctx context.Context, request *CreateCoreHRCompanyReq, options ...MethodOptionFunc) (*CreateCoreHRCompanyResp, *Response, error)) {
+	r.mockCoreHRCreateCoreHRCompany = f
 }
 
-// UnMockCoreHrCreateCoreHrCompany un-mock CoreHrCreateCoreHrCompany method
-func (r *Mock) UnMockCoreHrCreateCoreHrCompany() {
-	r.mockCoreHrCreateCoreHrCompany = nil
+// UnMockCoreHRCreateCoreHRCompany un-mock CoreHRCreateCoreHRCompany method
+func (r *Mock) UnMockCoreHRCreateCoreHRCompany() {
+	r.mockCoreHRCreateCoreHRCompany = nil
 }
 
-// CreateCoreHrCompanyReq ...
-type CreateCoreHrCompanyReq struct {
+// CreateCoreHRCompanyReq ...
+type CreateCoreHRCompanyReq struct {
 	ClientToken         *string                                      `query:"client_token" json:"-"`         // 根据client_token是否一致来判断是否为同一请求, 示例值: 12454646
-	HiberarchyCommon    *CreateCoreHrCompanyReqHiberarchyCommon      `json:"hiberarchy_common,omitempty"`    // 层级关系, 内层字段见实体
-	Type                *CreateCoreHrCompanyReqType                  `json:"type,omitempty"`                 // 性质, 枚举值可通过文档[【飞书人事枚举常量】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)公司类型（company_type）枚举定义部分获得
-	IndustryList        []*CreateCoreHrCompanyReqIndustry            `json:"industry_list,omitempty"`        // 行业, 枚举值可通过文档[【飞书人事枚举常量】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)行业（industry）枚举定义部分获得
-	LegalRepresentative []*CreateCoreHrCompanyReqLegalRepresentative `json:"legal_representative,omitempty"` // 法定代表人
+	HiberarchyCommon    *CreateCoreHRCompanyReqHiberarchyCommon      `json:"hiberarchy_common,omitempty"`    // 层级关系, 内层字段见实体
+	Type                *CreateCoreHRCompanyReqType                  `json:"type,omitempty"`                 // 性质, 枚举值可通过文档[【飞书人事枚举常量】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)公司类型（company_type）枚举定义部分获得
+	IndustryList        []*CreateCoreHRCompanyReqIndustry            `json:"industry_list,omitempty"`        // 行业, 枚举值可通过文档[【飞书人事枚举常量】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)行业（industry）枚举定义部分获得
+	LegalRepresentative []*CreateCoreHRCompanyReqLegalRepresentative `json:"legal_representative,omitempty"` // 法定代表人
 	PostCode            *string                                      `json:"post_code,omitempty"`            // 邮编, 示例值: "邮编"
 	TaxPayerID          *string                                      `json:"tax_payer_id,omitempty"`         // 纳税人识别号, 示例值: "123456840"
 	Confidential        *bool                                        `json:"confidential,omitempty"`         // 是否保密, 示例值: true
-	SubTypeList         []*CreateCoreHrCompanyReqSubType             `json:"sub_type_list,omitempty"`        // 主体类型, 枚举值可通过文档[【飞书人事枚举常量】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)主体类型（company_sub_type）枚举定义部分获得
+	SubTypeList         []*CreateCoreHRCompanyReqSubType             `json:"sub_type_list,omitempty"`        // 主体类型, 枚举值可通过文档[【飞书人事枚举常量】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)主体类型（company_sub_type）枚举定义部分获得
 	BranchCompany       *bool                                        `json:"branch_company,omitempty"`       // 是否为分公司, 示例值: true
-	PrimaryManager      []*CreateCoreHrCompanyReqPrimaryManager      `json:"primary_manager,omitempty"`      // 主要负责人
-	CustomFields        []*CreateCoreHrCompanyReqCustomField         `json:"custom_fields,omitempty"`        // 自定义字段
+	PrimaryManager      []*CreateCoreHRCompanyReqPrimaryManager      `json:"primary_manager,omitempty"`      // 主要负责人
+	CustomFields        []*CreateCoreHRCompanyReqCustomField         `json:"custom_fields,omitempty"`        // 自定义字段
 }
 
-// CreateCoreHrCompanyReqCustomField ...
-type CreateCoreHrCompanyReqCustomField struct {
+// CreateCoreHRCompanyReqCustomField ...
+type CreateCoreHRCompanyReqCustomField struct {
 	FieldName string `json:"field_name,omitempty"` // 字段名, 示例值: "name"
 	Value     string `json:"value,omitempty"`      // 字段值, 是json转义后的字符串, 根据元数据定义不同, 字段格式不同(如123, 123.23, "true", [\"id1\", \"id2\"], "2006-01-02 15:04:05"), 示例值: "\"Sandy\""
 }
 
-// CreateCoreHrCompanyReqHiberarchyCommon ...
-type CreateCoreHrCompanyReqHiberarchyCommon struct {
+// CreateCoreHRCompanyReqHiberarchyCommon ...
+type CreateCoreHRCompanyReqHiberarchyCommon struct {
 	ParentID       *string                                              `json:"parent_id,omitempty"`       // 上级组织 ID, 示例值: "4719168654814483759"
-	Name           []*CreateCoreHrCompanyReqHiberarchyCommonName        `json:"name,omitempty"`            // 名称
-	Type           *CreateCoreHrCompanyReqHiberarchyCommonType          `json:"type,omitempty"`            // 组织类型, 枚举值可通过文档[【飞书人事枚举常量】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)组织类型（organization_type）枚举定义部分获得
+	Name           []*CreateCoreHRCompanyReqHiberarchyCommonName        `json:"name,omitempty"`            // 名称
+	Type           *CreateCoreHRCompanyReqHiberarchyCommonType          `json:"type,omitempty"`            // 组织类型, 枚举值可通过文档[【飞书人事枚举常量】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)组织类型（organization_type）枚举定义部分获得
 	Active         bool                                                 `json:"active,omitempty"`          // 是否启用, 示例值: true
 	EffectiveTime  *string                                              `json:"effective_time,omitempty"`  // 生效时间, 示例值: "2020-05-01 00:00:00"
 	ExpirationTime *string                                              `json:"expiration_time,omitempty"` // 失效时间, 示例值: "2020-05-02 00:00:00"
 	Code           *string                                              `json:"code,omitempty"`            // 编码, 示例值: "12456"
-	Description    []*CreateCoreHrCompanyReqHiberarchyCommonDescription `json:"description,omitempty"`     // 描述
-	CustomFields   []*CreateCoreHrCompanyReqHiberarchyCommonCustomField `json:"custom_fields,omitempty"`   // 自定义字段
+	Description    []*CreateCoreHRCompanyReqHiberarchyCommonDescription `json:"description,omitempty"`     // 描述
+	CustomFields   []*CreateCoreHRCompanyReqHiberarchyCommonCustomField `json:"custom_fields,omitempty"`   // 自定义字段
 }
 
-// CreateCoreHrCompanyReqHiberarchyCommonCustomField ...
-type CreateCoreHrCompanyReqHiberarchyCommonCustomField struct {
+// CreateCoreHRCompanyReqHiberarchyCommonCustomField ...
+type CreateCoreHRCompanyReqHiberarchyCommonCustomField struct {
 	FieldName string `json:"field_name,omitempty"` // 字段名, 示例值: "name"
 	Value     string `json:"value,omitempty"`      // 字段值, 是json转义后的字符串, 根据元数据定义不同, 字段格式不同(如123, 123.23, "true", [\"id1\", \"id2\"], "2006-01-02 15:04:05"), 示例值: "\"Sandy\""
 }
 
-// CreateCoreHrCompanyReqHiberarchyCommonDescription ...
-type CreateCoreHrCompanyReqHiberarchyCommonDescription struct {
+// CreateCoreHRCompanyReqHiberarchyCommonDescription ...
+type CreateCoreHRCompanyReqHiberarchyCommonDescription struct {
 	Lang  string `json:"lang,omitempty"`  // 名称信息的语言, 示例值: "zh-CN"
 	Value string `json:"value,omitempty"` // 名称信息的内容, 示例值: "张三"
 }
 
-// CreateCoreHrCompanyReqHiberarchyCommonName ...
-type CreateCoreHrCompanyReqHiberarchyCommonName struct {
+// CreateCoreHRCompanyReqHiberarchyCommonName ...
+type CreateCoreHRCompanyReqHiberarchyCommonName struct {
 	Lang  string `json:"lang,omitempty"`  // 名称信息的语言, 示例值: "zh-CN"
 	Value string `json:"value,omitempty"` // 名称信息的内容, 示例值: "张三"
 }
 
-// CreateCoreHrCompanyReqHiberarchyCommonType ...
-type CreateCoreHrCompanyReqHiberarchyCommonType struct {
+// CreateCoreHRCompanyReqHiberarchyCommonType ...
+type CreateCoreHRCompanyReqHiberarchyCommonType struct {
 	EnumName string `json:"enum_name,omitempty"` // 枚举值, 示例值: "type_1"
 }
 
-// CreateCoreHrCompanyReqIndustry ...
-type CreateCoreHrCompanyReqIndustry struct {
+// CreateCoreHRCompanyReqIndustry ...
+type CreateCoreHRCompanyReqIndustry struct {
 	EnumName string `json:"enum_name,omitempty"` // 枚举值, 示例值: "type_1"
 }
 
-// CreateCoreHrCompanyReqLegalRepresentative ...
-type CreateCoreHrCompanyReqLegalRepresentative struct {
+// CreateCoreHRCompanyReqLegalRepresentative ...
+type CreateCoreHRCompanyReqLegalRepresentative struct {
 	Lang  string `json:"lang,omitempty"`  // 名称信息的语言, 示例值: "zh-CN"
 	Value string `json:"value,omitempty"` // 名称信息的内容, 示例值: "张三"
 }
 
-// CreateCoreHrCompanyReqPrimaryManager ...
-type CreateCoreHrCompanyReqPrimaryManager struct {
+// CreateCoreHRCompanyReqPrimaryManager ...
+type CreateCoreHRCompanyReqPrimaryManager struct {
 	Lang  string `json:"lang,omitempty"`  // 名称信息的语言, 示例值: "zh-CN"
 	Value string `json:"value,omitempty"` // 名称信息的内容, 示例值: "张三"
 }
 
-// CreateCoreHrCompanyReqSubType ...
-type CreateCoreHrCompanyReqSubType struct {
+// CreateCoreHRCompanyReqSubType ...
+type CreateCoreHRCompanyReqSubType struct {
 	EnumName string `json:"enum_name,omitempty"` // 枚举值, 示例值: "type_1"
 }
 
-// CreateCoreHrCompanyReqType ...
-type CreateCoreHrCompanyReqType struct {
+// CreateCoreHRCompanyReqType ...
+type CreateCoreHRCompanyReqType struct {
 	EnumName string `json:"enum_name,omitempty"` // 枚举值, 示例值: "type_1"
 }
 
-// CreateCoreHrCompanyResp ...
-type CreateCoreHrCompanyResp struct {
-	Company *CreateCoreHrCompanyRespCompany `json:"company,omitempty"` // 创建成功的公司信息
+// CreateCoreHRCompanyResp ...
+type CreateCoreHRCompanyResp struct {
+	Company *CreateCoreHRCompanyRespCompany `json:"company,omitempty"` // 创建成功的公司信息
 }
 
-// CreateCoreHrCompanyRespCompany ...
-type CreateCoreHrCompanyRespCompany struct {
+// CreateCoreHRCompanyRespCompany ...
+type CreateCoreHRCompanyRespCompany struct {
 	ID                  string                                               `json:"id,omitempty"`                   // 公司 ID
-	HiberarchyCommon    *CreateCoreHrCompanyRespCompanyHiberarchyCommon      `json:"hiberarchy_common,omitempty"`    // 层级关系, 内层字段见实体
-	Type                *CreateCoreHrCompanyRespCompanyType                  `json:"type,omitempty"`                 // 性质, 枚举值可通过文档[【飞书人事枚举常量】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)公司类型（company_type）枚举定义部分获得
-	IndustryList        []*CreateCoreHrCompanyRespCompanyIndustry            `json:"industry_list,omitempty"`        // 行业, 枚举值可通过文档[【飞书人事枚举常量】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)行业（industry）枚举定义部分获得
-	LegalRepresentative []*CreateCoreHrCompanyRespCompanyLegalRepresentative `json:"legal_representative,omitempty"` // 法定代表人
+	HiberarchyCommon    *CreateCoreHRCompanyRespCompanyHiberarchyCommon      `json:"hiberarchy_common,omitempty"`    // 层级关系, 内层字段见实体
+	Type                *CreateCoreHRCompanyRespCompanyType                  `json:"type,omitempty"`                 // 性质, 枚举值可通过文档[【飞书人事枚举常量】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)公司类型（company_type）枚举定义部分获得
+	IndustryList        []*CreateCoreHRCompanyRespCompanyIndustry            `json:"industry_list,omitempty"`        // 行业, 枚举值可通过文档[【飞书人事枚举常量】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)行业（industry）枚举定义部分获得
+	LegalRepresentative []*CreateCoreHRCompanyRespCompanyLegalRepresentative `json:"legal_representative,omitempty"` // 法定代表人
 	PostCode            string                                               `json:"post_code,omitempty"`            // 邮编
 	TaxPayerID          string                                               `json:"tax_payer_id,omitempty"`         // 纳税人识别号
 	Confidential        bool                                                 `json:"confidential,omitempty"`         // 是否保密
-	SubTypeList         []*CreateCoreHrCompanyRespCompanySubType             `json:"sub_type_list,omitempty"`        // 主体类型, 枚举值可通过文档[【飞书人事枚举常量】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)主体类型（company_sub_type）枚举定义部分获得
+	SubTypeList         []*CreateCoreHRCompanyRespCompanySubType             `json:"sub_type_list,omitempty"`        // 主体类型, 枚举值可通过文档[【飞书人事枚举常量】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)主体类型（company_sub_type）枚举定义部分获得
 	BranchCompany       bool                                                 `json:"branch_company,omitempty"`       // 是否为分公司
-	PrimaryManager      []*CreateCoreHrCompanyRespCompanyPrimaryManager      `json:"primary_manager,omitempty"`      // 主要负责人
-	CustomFields        []*CreateCoreHrCompanyRespCompanyCustomField         `json:"custom_fields,omitempty"`        // 自定义字段
+	PrimaryManager      []*CreateCoreHRCompanyRespCompanyPrimaryManager      `json:"primary_manager,omitempty"`      // 主要负责人
+	CustomFields        []*CreateCoreHRCompanyRespCompanyCustomField         `json:"custom_fields,omitempty"`        // 自定义字段
 }
 
-// CreateCoreHrCompanyRespCompanyCustomField ...
-type CreateCoreHrCompanyRespCompanyCustomField struct {
+// CreateCoreHRCompanyRespCompanyCustomField ...
+type CreateCoreHRCompanyRespCompanyCustomField struct {
 	FieldName string `json:"field_name,omitempty"` // 字段名
 	Value     string `json:"value,omitempty"`      // 字段值, 是json转义后的字符串, 根据元数据定义不同, 字段格式不同(如123, 123.23, "true", [\"id1\", \"id2\"], "2006-01-02 15:04:05")
 }
 
-// CreateCoreHrCompanyRespCompanyHiberarchyCommon ...
-type CreateCoreHrCompanyRespCompanyHiberarchyCommon struct {
+// CreateCoreHRCompanyRespCompanyHiberarchyCommon ...
+type CreateCoreHRCompanyRespCompanyHiberarchyCommon struct {
 	ParentID       string                                                       `json:"parent_id,omitempty"`       // 上级组织 ID
-	Name           []*CreateCoreHrCompanyRespCompanyHiberarchyCommonName        `json:"name,omitempty"`            // 名称
-	Type           *CreateCoreHrCompanyRespCompanyHiberarchyCommonType          `json:"type,omitempty"`            // 组织类型, 枚举值可通过文档[【飞书人事枚举常量】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)组织类型（organization_type）枚举定义部分获得
+	Name           []*CreateCoreHRCompanyRespCompanyHiberarchyCommonName        `json:"name,omitempty"`            // 名称
+	Type           *CreateCoreHRCompanyRespCompanyHiberarchyCommonType          `json:"type,omitempty"`            // 组织类型, 枚举值可通过文档[【飞书人事枚举常量】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)组织类型（organization_type）枚举定义部分获得
 	Active         bool                                                         `json:"active,omitempty"`          // 是否启用
 	EffectiveTime  string                                                       `json:"effective_time,omitempty"`  // 生效时间
 	ExpirationTime string                                                       `json:"expiration_time,omitempty"` // 失效时间
 	Code           string                                                       `json:"code,omitempty"`            // 编码
-	Description    []*CreateCoreHrCompanyRespCompanyHiberarchyCommonDescription `json:"description,omitempty"`     // 描述
+	Description    []*CreateCoreHRCompanyRespCompanyHiberarchyCommonDescription `json:"description,omitempty"`     // 描述
 	TreeOrder      string                                                       `json:"tree_order,omitempty"`      // 树形排序, 代表同层级的部门排序序号
 	ListOrder      string                                                       `json:"list_order,omitempty"`      // 列表排序, 代表所有部门的混排序号
-	CustomFields   []*CreateCoreHrCompanyRespCompanyHiberarchyCommonCustomField `json:"custom_fields,omitempty"`   // 自定义字段
+	CustomFields   []*CreateCoreHRCompanyRespCompanyHiberarchyCommonCustomField `json:"custom_fields,omitempty"`   // 自定义字段
 }
 
-// CreateCoreHrCompanyRespCompanyHiberarchyCommonCustomField ...
-type CreateCoreHrCompanyRespCompanyHiberarchyCommonCustomField struct {
+// CreateCoreHRCompanyRespCompanyHiberarchyCommonCustomField ...
+type CreateCoreHRCompanyRespCompanyHiberarchyCommonCustomField struct {
 	FieldName string `json:"field_name,omitempty"` // 字段名
 	Value     string `json:"value,omitempty"`      // 字段值, 是json转义后的字符串, 根据元数据定义不同, 字段格式不同(如123, 123.23, "true", [\"id1\", \"id2\"], "2006-01-02 15:04:05")
 }
 
-// CreateCoreHrCompanyRespCompanyHiberarchyCommonDescription ...
-type CreateCoreHrCompanyRespCompanyHiberarchyCommonDescription struct {
+// CreateCoreHRCompanyRespCompanyHiberarchyCommonDescription ...
+type CreateCoreHRCompanyRespCompanyHiberarchyCommonDescription struct {
 	Lang  string `json:"lang,omitempty"`  // 名称信息的语言
 	Value string `json:"value,omitempty"` // 名称信息的内容
 }
 
-// CreateCoreHrCompanyRespCompanyHiberarchyCommonName ...
-type CreateCoreHrCompanyRespCompanyHiberarchyCommonName struct {
+// CreateCoreHRCompanyRespCompanyHiberarchyCommonName ...
+type CreateCoreHRCompanyRespCompanyHiberarchyCommonName struct {
 	Lang  string `json:"lang,omitempty"`  // 名称信息的语言
 	Value string `json:"value,omitempty"` // 名称信息的内容
 }
 
-// CreateCoreHrCompanyRespCompanyHiberarchyCommonType ...
-type CreateCoreHrCompanyRespCompanyHiberarchyCommonType struct {
+// CreateCoreHRCompanyRespCompanyHiberarchyCommonType ...
+type CreateCoreHRCompanyRespCompanyHiberarchyCommonType struct {
 	EnumName string                                                       `json:"enum_name,omitempty"` // 枚举值
-	Display  []*CreateCoreHrCompanyRespCompanyHiberarchyCommonTypeDisplay `json:"display,omitempty"`   // 枚举多语展示
+	Display  []*CreateCoreHRCompanyRespCompanyHiberarchyCommonTypeDisplay `json:"display,omitempty"`   // 枚举多语展示
 }
 
-// CreateCoreHrCompanyRespCompanyHiberarchyCommonTypeDisplay ...
-type CreateCoreHrCompanyRespCompanyHiberarchyCommonTypeDisplay struct {
+// CreateCoreHRCompanyRespCompanyHiberarchyCommonTypeDisplay ...
+type CreateCoreHRCompanyRespCompanyHiberarchyCommonTypeDisplay struct {
 	Lang  string `json:"lang,omitempty"`  // 名称信息的语言
 	Value string `json:"value,omitempty"` // 名称信息的内容
 }
 
-// CreateCoreHrCompanyRespCompanyIndustry ...
-type CreateCoreHrCompanyRespCompanyIndustry struct {
+// CreateCoreHRCompanyRespCompanyIndustry ...
+type CreateCoreHRCompanyRespCompanyIndustry struct {
 	EnumName string                                           `json:"enum_name,omitempty"` // 枚举值
-	Display  []*CreateCoreHrCompanyRespCompanyIndustryDisplay `json:"display,omitempty"`   // 枚举多语展示
+	Display  []*CreateCoreHRCompanyRespCompanyIndustryDisplay `json:"display,omitempty"`   // 枚举多语展示
 }
 
-// CreateCoreHrCompanyRespCompanyIndustryDisplay ...
-type CreateCoreHrCompanyRespCompanyIndustryDisplay struct {
+// CreateCoreHRCompanyRespCompanyIndustryDisplay ...
+type CreateCoreHRCompanyRespCompanyIndustryDisplay struct {
 	Lang  string `json:"lang,omitempty"`  // 名称信息的语言
 	Value string `json:"value,omitempty"` // 名称信息的内容
 }
 
-// CreateCoreHrCompanyRespCompanyLegalRepresentative ...
-type CreateCoreHrCompanyRespCompanyLegalRepresentative struct {
+// CreateCoreHRCompanyRespCompanyLegalRepresentative ...
+type CreateCoreHRCompanyRespCompanyLegalRepresentative struct {
 	Lang  string `json:"lang,omitempty"`  // 名称信息的语言
 	Value string `json:"value,omitempty"` // 名称信息的内容
 }
 
-// CreateCoreHrCompanyRespCompanyPrimaryManager ...
-type CreateCoreHrCompanyRespCompanyPrimaryManager struct {
+// CreateCoreHRCompanyRespCompanyPrimaryManager ...
+type CreateCoreHRCompanyRespCompanyPrimaryManager struct {
 	Lang  string `json:"lang,omitempty"`  // 名称信息的语言
 	Value string `json:"value,omitempty"` // 名称信息的内容
 }
 
-// CreateCoreHrCompanyRespCompanySubType ...
-type CreateCoreHrCompanyRespCompanySubType struct {
+// CreateCoreHRCompanyRespCompanySubType ...
+type CreateCoreHRCompanyRespCompanySubType struct {
 	EnumName string                                          `json:"enum_name,omitempty"` // 枚举值
-	Display  []*CreateCoreHrCompanyRespCompanySubTypeDisplay `json:"display,omitempty"`   // 枚举多语展示
+	Display  []*CreateCoreHRCompanyRespCompanySubTypeDisplay `json:"display,omitempty"`   // 枚举多语展示
 }
 
-// CreateCoreHrCompanyRespCompanySubTypeDisplay ...
-type CreateCoreHrCompanyRespCompanySubTypeDisplay struct {
+// CreateCoreHRCompanyRespCompanySubTypeDisplay ...
+type CreateCoreHRCompanyRespCompanySubTypeDisplay struct {
 	Lang  string `json:"lang,omitempty"`  // 名称信息的语言
 	Value string `json:"value,omitempty"` // 名称信息的内容
 }
 
-// CreateCoreHrCompanyRespCompanyType ...
-type CreateCoreHrCompanyRespCompanyType struct {
+// CreateCoreHRCompanyRespCompanyType ...
+type CreateCoreHRCompanyRespCompanyType struct {
 	EnumName string                                       `json:"enum_name,omitempty"` // 枚举值
-	Display  []*CreateCoreHrCompanyRespCompanyTypeDisplay `json:"display,omitempty"`   // 枚举多语展示
+	Display  []*CreateCoreHRCompanyRespCompanyTypeDisplay `json:"display,omitempty"`   // 枚举多语展示
 }
 
-// CreateCoreHrCompanyRespCompanyTypeDisplay ...
-type CreateCoreHrCompanyRespCompanyTypeDisplay struct {
+// CreateCoreHRCompanyRespCompanyTypeDisplay ...
+type CreateCoreHRCompanyRespCompanyTypeDisplay struct {
 	Lang  string `json:"lang,omitempty"`  // 名称信息的语言
 	Value string `json:"value,omitempty"` // 名称信息的内容
 }
 
-// createCoreHrCompanyResp ...
-type createCoreHrCompanyResp struct {
+// createCoreHRCompanyResp ...
+type createCoreHRCompanyResp struct {
 	Code int64                    `json:"code,omitempty"` // 错误码, 非 0 表示失败
 	Msg  string                   `json:"msg,omitempty"`  // 错误描述
-	Data *CreateCoreHrCompanyResp `json:"data,omitempty"`
+	Data *CreateCoreHRCompanyResp `json:"data,omitempty"`
 }

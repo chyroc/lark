@@ -21,97 +21,97 @@ import (
 	"context"
 )
 
-// CreateCoreHrJobFamily 创建序列。
+// CreateCoreHRJobFamily 创建序列。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job_family/create
 // new doc: https://open.feishu.cn/document/server-docs/corehr-v1/job-management/job_family/create
-func (r *CoreHrService) CreateCoreHrJobFamily(ctx context.Context, request *CreateCoreHrJobFamilyReq, options ...MethodOptionFunc) (*CreateCoreHrJobFamilyResp, *Response, error) {
-	if r.cli.mock.mockCoreHrCreateCoreHrJobFamily != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] CoreHr#CreateCoreHrJobFamily mock enable")
-		return r.cli.mock.mockCoreHrCreateCoreHrJobFamily(ctx, request, options...)
+func (r *CoreHRService) CreateCoreHRJobFamily(ctx context.Context, request *CreateCoreHRJobFamilyReq, options ...MethodOptionFunc) (*CreateCoreHRJobFamilyResp, *Response, error) {
+	if r.cli.mock.mockCoreHRCreateCoreHRJobFamily != nil {
+		r.cli.log(ctx, LogLevelDebug, "[lark] CoreHR#CreateCoreHRJobFamily mock enable")
+		return r.cli.mock.mockCoreHRCreateCoreHRJobFamily(ctx, request, options...)
 	}
 
 	req := &RawRequestReq{
-		Scope:                 "CoreHr",
-		API:                   "CreateCoreHrJobFamily",
+		Scope:                 "CoreHR",
+		API:                   "CreateCoreHRJobFamily",
 		Method:                "POST",
 		URL:                   r.cli.openBaseURL + "/open-apis/corehr/v1/job_families",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
 	}
-	resp := new(createCoreHrJobFamilyResp)
+	resp := new(createCoreHRJobFamilyResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
 	return resp.Data, response, err
 }
 
-// MockCoreHrCreateCoreHrJobFamily mock CoreHrCreateCoreHrJobFamily method
-func (r *Mock) MockCoreHrCreateCoreHrJobFamily(f func(ctx context.Context, request *CreateCoreHrJobFamilyReq, options ...MethodOptionFunc) (*CreateCoreHrJobFamilyResp, *Response, error)) {
-	r.mockCoreHrCreateCoreHrJobFamily = f
+// MockCoreHRCreateCoreHRJobFamily mock CoreHRCreateCoreHRJobFamily method
+func (r *Mock) MockCoreHRCreateCoreHRJobFamily(f func(ctx context.Context, request *CreateCoreHRJobFamilyReq, options ...MethodOptionFunc) (*CreateCoreHRJobFamilyResp, *Response, error)) {
+	r.mockCoreHRCreateCoreHRJobFamily = f
 }
 
-// UnMockCoreHrCreateCoreHrJobFamily un-mock CoreHrCreateCoreHrJobFamily method
-func (r *Mock) UnMockCoreHrCreateCoreHrJobFamily() {
-	r.mockCoreHrCreateCoreHrJobFamily = nil
+// UnMockCoreHRCreateCoreHRJobFamily un-mock CoreHRCreateCoreHRJobFamily method
+func (r *Mock) UnMockCoreHRCreateCoreHRJobFamily() {
+	r.mockCoreHRCreateCoreHRJobFamily = nil
 }
 
-// CreateCoreHrJobFamilyReq ...
-type CreateCoreHrJobFamilyReq struct {
+// CreateCoreHRJobFamilyReq ...
+type CreateCoreHRJobFamilyReq struct {
 	ClientToken    *string                                `query:"client_token" json:"-"`    // 根据client_token是否一致来判断是否为同一请求, 示例值: 12454646
-	Name           []*CreateCoreHrJobFamilyReqName        `json:"name,omitempty"`            // 名称
+	Name           []*CreateCoreHRJobFamilyReqName        `json:"name,omitempty"`            // 名称
 	Active         bool                                   `json:"active,omitempty"`          // 是否启用, 示例值: true
 	ParentID       *string                                `json:"parent_id,omitempty"`       // 上级序列 ID, 枚举值及详细信息可通过【批量查询序列】接口查询获得, 示例值: "4698020757495316313"
 	EffectiveTime  string                                 `json:"effective_time,omitempty"`  // 生效时间, 示例值: "2020-05-01 00:00:00"
 	ExpirationTime *string                                `json:"expiration_time,omitempty"` // 失效时间, 示例值: "2020-05-02 00:00:00"
 	Code           *string                                `json:"code,omitempty"`            // 编码, 示例值: "123456"
-	CustomFields   []*CreateCoreHrJobFamilyReqCustomField `json:"custom_fields,omitempty"`   // 自定义字段
+	CustomFields   []*CreateCoreHRJobFamilyReqCustomField `json:"custom_fields,omitempty"`   // 自定义字段
 }
 
-// CreateCoreHrJobFamilyReqCustomField ...
-type CreateCoreHrJobFamilyReqCustomField struct {
+// CreateCoreHRJobFamilyReqCustomField ...
+type CreateCoreHRJobFamilyReqCustomField struct {
 	FieldName string `json:"field_name,omitempty"` // 字段名, 示例值: "name"
 	Value     string `json:"value,omitempty"`      // 字段值, 是json转义后的字符串, 根据元数据定义不同, 字段格式不同(如123, 123.23, "true", [\"id1\", \"id2\"], "2006-01-02 15:04:05"), 示例值: "\"Sandy\""
 }
 
-// CreateCoreHrJobFamilyReqName ...
-type CreateCoreHrJobFamilyReqName struct {
+// CreateCoreHRJobFamilyReqName ...
+type CreateCoreHRJobFamilyReqName struct {
 	Lang  string `json:"lang,omitempty"`  // 名称信息的语言, 示例值: "zh-CN"
 	Value string `json:"value,omitempty"` // 名称信息的内容, 示例值: "张三"
 }
 
-// CreateCoreHrJobFamilyResp ...
-type CreateCoreHrJobFamilyResp struct {
-	JobFamily *CreateCoreHrJobFamilyRespJobFamily `json:"job_family,omitempty"` // 创建成功的序列信息
+// CreateCoreHRJobFamilyResp ...
+type CreateCoreHRJobFamilyResp struct {
+	JobFamily *CreateCoreHRJobFamilyRespJobFamily `json:"job_family,omitempty"` // 创建成功的序列信息
 }
 
-// CreateCoreHrJobFamilyRespJobFamily ...
-type CreateCoreHrJobFamilyRespJobFamily struct {
+// CreateCoreHRJobFamilyRespJobFamily ...
+type CreateCoreHRJobFamilyRespJobFamily struct {
 	ID             string                                           `json:"id,omitempty"`              // 序列 ID
-	Name           []*CreateCoreHrJobFamilyRespJobFamilyName        `json:"name,omitempty"`            // 名称
+	Name           []*CreateCoreHRJobFamilyRespJobFamilyName        `json:"name,omitempty"`            // 名称
 	Active         bool                                             `json:"active,omitempty"`          // 是否启用
 	ParentID       string                                           `json:"parent_id,omitempty"`       // 上级序列 ID, 枚举值及详细信息可通过【批量查询序列】接口查询获得
 	EffectiveTime  string                                           `json:"effective_time,omitempty"`  // 生效时间
 	ExpirationTime string                                           `json:"expiration_time,omitempty"` // 失效时间
 	Code           string                                           `json:"code,omitempty"`            // 编码
-	CustomFields   []*CreateCoreHrJobFamilyRespJobFamilyCustomField `json:"custom_fields,omitempty"`   // 自定义字段
+	CustomFields   []*CreateCoreHRJobFamilyRespJobFamilyCustomField `json:"custom_fields,omitempty"`   // 自定义字段
 }
 
-// CreateCoreHrJobFamilyRespJobFamilyCustomField ...
-type CreateCoreHrJobFamilyRespJobFamilyCustomField struct {
+// CreateCoreHRJobFamilyRespJobFamilyCustomField ...
+type CreateCoreHRJobFamilyRespJobFamilyCustomField struct {
 	FieldName string `json:"field_name,omitempty"` // 字段名
 	Value     string `json:"value,omitempty"`      // 字段值, 是json转义后的字符串, 根据元数据定义不同, 字段格式不同(如123, 123.23, "true", [\"id1\", \"id2\"], "2006-01-02 15:04:05")
 }
 
-// CreateCoreHrJobFamilyRespJobFamilyName ...
-type CreateCoreHrJobFamilyRespJobFamilyName struct {
+// CreateCoreHRJobFamilyRespJobFamilyName ...
+type CreateCoreHRJobFamilyRespJobFamilyName struct {
 	Lang  string `json:"lang,omitempty"`  // 名称信息的语言
 	Value string `json:"value,omitempty"` // 名称信息的内容
 }
 
-// createCoreHrJobFamilyResp ...
-type createCoreHrJobFamilyResp struct {
+// createCoreHRJobFamilyResp ...
+type createCoreHRJobFamilyResp struct {
 	Code int64                      `json:"code,omitempty"` // 错误码, 非 0 表示失败
 	Msg  string                     `json:"msg,omitempty"`  // 错误描述
-	Data *CreateCoreHrJobFamilyResp `json:"data,omitempty"`
+	Data *CreateCoreHRJobFamilyResp `json:"data,omitempty"`
 }

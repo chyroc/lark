@@ -21,115 +21,115 @@ import (
 	"context"
 )
 
-// GetCoreHrContractList 批量查询合同。
+// GetCoreHRContractList 批量查询合同。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/contract/list
 // new doc: https://open.feishu.cn/document/server-docs/corehr-v1/contract/list
-func (r *CoreHrService) GetCoreHrContractList(ctx context.Context, request *GetCoreHrContractListReq, options ...MethodOptionFunc) (*GetCoreHrContractListResp, *Response, error) {
-	if r.cli.mock.mockCoreHrGetCoreHrContractList != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] CoreHr#GetCoreHrContractList mock enable")
-		return r.cli.mock.mockCoreHrGetCoreHrContractList(ctx, request, options...)
+func (r *CoreHRService) GetCoreHRContractList(ctx context.Context, request *GetCoreHRContractListReq, options ...MethodOptionFunc) (*GetCoreHRContractListResp, *Response, error) {
+	if r.cli.mock.mockCoreHRGetCoreHRContractList != nil {
+		r.cli.log(ctx, LogLevelDebug, "[lark] CoreHR#GetCoreHRContractList mock enable")
+		return r.cli.mock.mockCoreHRGetCoreHRContractList(ctx, request, options...)
 	}
 
 	req := &RawRequestReq{
-		Scope:                 "CoreHr",
-		API:                   "GetCoreHrContractList",
+		Scope:                 "CoreHR",
+		API:                   "GetCoreHRContractList",
 		Method:                "GET",
 		URL:                   r.cli.openBaseURL + "/open-apis/corehr/v1/contracts",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
 	}
-	resp := new(getCoreHrContractListResp)
+	resp := new(getCoreHRContractListResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
 	return resp.Data, response, err
 }
 
-// MockCoreHrGetCoreHrContractList mock CoreHrGetCoreHrContractList method
-func (r *Mock) MockCoreHrGetCoreHrContractList(f func(ctx context.Context, request *GetCoreHrContractListReq, options ...MethodOptionFunc) (*GetCoreHrContractListResp, *Response, error)) {
-	r.mockCoreHrGetCoreHrContractList = f
+// MockCoreHRGetCoreHRContractList mock CoreHRGetCoreHRContractList method
+func (r *Mock) MockCoreHRGetCoreHRContractList(f func(ctx context.Context, request *GetCoreHRContractListReq, options ...MethodOptionFunc) (*GetCoreHRContractListResp, *Response, error)) {
+	r.mockCoreHRGetCoreHRContractList = f
 }
 
-// UnMockCoreHrGetCoreHrContractList un-mock CoreHrGetCoreHrContractList method
-func (r *Mock) UnMockCoreHrGetCoreHrContractList() {
-	r.mockCoreHrGetCoreHrContractList = nil
+// UnMockCoreHRGetCoreHRContractList un-mock CoreHRGetCoreHRContractList method
+func (r *Mock) UnMockCoreHRGetCoreHRContractList() {
+	r.mockCoreHRGetCoreHRContractList = nil
 }
 
-// GetCoreHrContractListReq ...
-type GetCoreHrContractListReq struct {
+// GetCoreHRContractListReq ...
+type GetCoreHRContractListReq struct {
 	PageToken *string `query:"page_token" json:"-"` // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果, 示例值: 1231231987
 	PageSize  int64   `query:"page_size" json:"-"`  // 分页大小, 示例值: 100
 }
 
-// GetCoreHrContractListResp ...
-type GetCoreHrContractListResp struct {
-	Items     []*GetCoreHrContractListRespItem `json:"items,omitempty"`      // 查询的合同信息
+// GetCoreHRContractListResp ...
+type GetCoreHRContractListResp struct {
+	Items     []*GetCoreHRContractListRespItem `json:"items,omitempty"`      // 查询的合同信息
 	HasMore   bool                             `json:"has_more,omitempty"`   // 是否还有更多项
 	PageToken string                           `json:"page_token,omitempty"` // 分页标记, 当 has_more 为 true 时, 会同时返回新的 page_token, 否则不返回 page_token
 }
 
-// GetCoreHrContractListRespItem ...
-type GetCoreHrContractListRespItem struct {
+// GetCoreHRContractListRespItem ...
+type GetCoreHRContractListRespItem struct {
 	ID                  string                                      `json:"id,omitempty"`                     // 合同ID
 	EffectiveTime       string                                      `json:"effective_time,omitempty"`         // 合同开始日期
 	ExpirationTime      string                                      `json:"expiration_time,omitempty"`        // 实际结束日期
 	EmploymentID        string                                      `json:"employment_id,omitempty"`          // 雇员 ID, 枚举值及详细信息可通过【批量查询雇佣信息】接口查询获得
-	ContractType        *GetCoreHrContractListRespItemContractType  `json:"contract_type,omitempty"`          // 合同类型, 枚举值可通过文档[【飞书人事枚举常量】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)合同类型（contract_type）枚举定义部分获得
+	ContractType        *GetCoreHRContractListRespItemContractType  `json:"contract_type,omitempty"`          // 合同类型, 枚举值可通过文档[【飞书人事枚举常量】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)合同类型（contract_type）枚举定义部分获得
 	FirstPartyCompanyID string                                      `json:"first_party_company_id,omitempty"` // 甲方, 引用Company的ID, 枚举值及详细信息可通过【批量查询公司】接口查询获得
 	PersonID            string                                      `json:"person_id,omitempty"`              // Person ID, 枚举值及详细信息可通过【批量查询个人信息】接口查询获得
-	CustomFields        []*GetCoreHrContractListRespItemCustomField `json:"custom_fields,omitempty"`          // 自定义字段
-	DurationType        *GetCoreHrContractListRespItemDurationType  `json:"duration_type,omitempty"`          // 期限类型, 枚举值可通过文档[【飞书人事枚举常量】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)合同期限类型（duration_type）枚举定义部分获得
+	CustomFields        []*GetCoreHRContractListRespItemCustomField `json:"custom_fields,omitempty"`          // 自定义字段
+	DurationType        *GetCoreHRContractListRespItemDurationType  `json:"duration_type,omitempty"`          // 期限类型, 枚举值可通过文档[【飞书人事枚举常量】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)合同期限类型（duration_type）枚举定义部分获得
 	ContractEndDate     string                                      `json:"contract_end_date,omitempty"`      // 合同结束日期
 	ContractNumber      string                                      `json:"contract_number,omitempty"`        // 合同编号
-	SigningType         *GetCoreHrContractListRespItemSigningType   `json:"signing_type,omitempty"`           // 签订类型, 枚举值可通过文档[【飞书人事枚举常量】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)签订类型（signing_type）枚举定义部分获得
+	SigningType         *GetCoreHRContractListRespItemSigningType   `json:"signing_type,omitempty"`           // 签订类型, 枚举值可通过文档[【飞书人事枚举常量】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)签订类型（signing_type）枚举定义部分获得
 }
 
-// GetCoreHrContractListRespItemContractType ...
-type GetCoreHrContractListRespItemContractType struct {
+// GetCoreHRContractListRespItemContractType ...
+type GetCoreHRContractListRespItemContractType struct {
 	EnumName string                                              `json:"enum_name,omitempty"` // 枚举值
-	Display  []*GetCoreHrContractListRespItemContractTypeDisplay `json:"display,omitempty"`   // 枚举多语展示
+	Display  []*GetCoreHRContractListRespItemContractTypeDisplay `json:"display,omitempty"`   // 枚举多语展示
 }
 
-// GetCoreHrContractListRespItemContractTypeDisplay ...
-type GetCoreHrContractListRespItemContractTypeDisplay struct {
+// GetCoreHRContractListRespItemContractTypeDisplay ...
+type GetCoreHRContractListRespItemContractTypeDisplay struct {
 	Lang  string `json:"lang,omitempty"`  // 名称信息的语言
 	Value string `json:"value,omitempty"` // 名称信息的内容
 }
 
-// GetCoreHrContractListRespItemCustomField ...
-type GetCoreHrContractListRespItemCustomField struct {
+// GetCoreHRContractListRespItemCustomField ...
+type GetCoreHRContractListRespItemCustomField struct {
 	FieldName string `json:"field_name,omitempty"` // 字段名
 	Value     string `json:"value,omitempty"`      // 字段值, 是json转义后的字符串, 根据元数据定义不同, 字段格式不同(如123, 123.23, "true", [\"id1\", \"id2\"], "2006-01-02 15:04:05")
 }
 
-// GetCoreHrContractListRespItemDurationType ...
-type GetCoreHrContractListRespItemDurationType struct {
+// GetCoreHRContractListRespItemDurationType ...
+type GetCoreHRContractListRespItemDurationType struct {
 	EnumName string                                              `json:"enum_name,omitempty"` // 枚举值
-	Display  []*GetCoreHrContractListRespItemDurationTypeDisplay `json:"display,omitempty"`   // 枚举多语展示
+	Display  []*GetCoreHRContractListRespItemDurationTypeDisplay `json:"display,omitempty"`   // 枚举多语展示
 }
 
-// GetCoreHrContractListRespItemDurationTypeDisplay ...
-type GetCoreHrContractListRespItemDurationTypeDisplay struct {
+// GetCoreHRContractListRespItemDurationTypeDisplay ...
+type GetCoreHRContractListRespItemDurationTypeDisplay struct {
 	Lang  string `json:"lang,omitempty"`  // 名称信息的语言
 	Value string `json:"value,omitempty"` // 名称信息的内容
 }
 
-// GetCoreHrContractListRespItemSigningType ...
-type GetCoreHrContractListRespItemSigningType struct {
+// GetCoreHRContractListRespItemSigningType ...
+type GetCoreHRContractListRespItemSigningType struct {
 	EnumName string                                             `json:"enum_name,omitempty"` // 枚举值
-	Display  []*GetCoreHrContractListRespItemSigningTypeDisplay `json:"display,omitempty"`   // 枚举多语展示
+	Display  []*GetCoreHRContractListRespItemSigningTypeDisplay `json:"display,omitempty"`   // 枚举多语展示
 }
 
-// GetCoreHrContractListRespItemSigningTypeDisplay ...
-type GetCoreHrContractListRespItemSigningTypeDisplay struct {
+// GetCoreHRContractListRespItemSigningTypeDisplay ...
+type GetCoreHRContractListRespItemSigningTypeDisplay struct {
 	Lang  string `json:"lang,omitempty"`  // 名称信息的语言
 	Value string `json:"value,omitempty"` // 名称信息的内容
 }
 
-// getCoreHrContractListResp ...
-type getCoreHrContractListResp struct {
+// getCoreHRContractListResp ...
+type getCoreHRContractListResp struct {
 	Code int64                      `json:"code,omitempty"` // 错误码, 非 0 表示失败
 	Msg  string                     `json:"msg,omitempty"`  // 错误描述
-	Data *GetCoreHrContractListResp `json:"data,omitempty"`
+	Data *GetCoreHRContractListResp `json:"data,omitempty"`
 }

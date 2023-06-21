@@ -21,53 +21,53 @@ import (
 	"context"
 )
 
-// DeleteCoreHrLocation 删除地点。
+// DeleteCoreHRLocation 删除地点。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/location/delete
 // new doc: https://open.feishu.cn/document/server-docs/corehr-v1/organization-management/location/delete
-func (r *CoreHrService) DeleteCoreHrLocation(ctx context.Context, request *DeleteCoreHrLocationReq, options ...MethodOptionFunc) (*DeleteCoreHrLocationResp, *Response, error) {
-	if r.cli.mock.mockCoreHrDeleteCoreHrLocation != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] CoreHr#DeleteCoreHrLocation mock enable")
-		return r.cli.mock.mockCoreHrDeleteCoreHrLocation(ctx, request, options...)
+func (r *CoreHRService) DeleteCoreHRLocation(ctx context.Context, request *DeleteCoreHRLocationReq, options ...MethodOptionFunc) (*DeleteCoreHRLocationResp, *Response, error) {
+	if r.cli.mock.mockCoreHRDeleteCoreHRLocation != nil {
+		r.cli.log(ctx, LogLevelDebug, "[lark] CoreHR#DeleteCoreHRLocation mock enable")
+		return r.cli.mock.mockCoreHRDeleteCoreHRLocation(ctx, request, options...)
 	}
 
 	req := &RawRequestReq{
-		Scope:                 "CoreHr",
-		API:                   "DeleteCoreHrLocation",
+		Scope:                 "CoreHR",
+		API:                   "DeleteCoreHRLocation",
 		Method:                "DELETE",
 		URL:                   r.cli.openBaseURL + "/open-apis/corehr/v1/locations/:location_id",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
 	}
-	resp := new(deleteCoreHrLocationResp)
+	resp := new(deleteCoreHRLocationResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
 	return resp.Data, response, err
 }
 
-// MockCoreHrDeleteCoreHrLocation mock CoreHrDeleteCoreHrLocation method
-func (r *Mock) MockCoreHrDeleteCoreHrLocation(f func(ctx context.Context, request *DeleteCoreHrLocationReq, options ...MethodOptionFunc) (*DeleteCoreHrLocationResp, *Response, error)) {
-	r.mockCoreHrDeleteCoreHrLocation = f
+// MockCoreHRDeleteCoreHRLocation mock CoreHRDeleteCoreHRLocation method
+func (r *Mock) MockCoreHRDeleteCoreHRLocation(f func(ctx context.Context, request *DeleteCoreHRLocationReq, options ...MethodOptionFunc) (*DeleteCoreHRLocationResp, *Response, error)) {
+	r.mockCoreHRDeleteCoreHRLocation = f
 }
 
-// UnMockCoreHrDeleteCoreHrLocation un-mock CoreHrDeleteCoreHrLocation method
-func (r *Mock) UnMockCoreHrDeleteCoreHrLocation() {
-	r.mockCoreHrDeleteCoreHrLocation = nil
+// UnMockCoreHRDeleteCoreHRLocation un-mock CoreHRDeleteCoreHRLocation method
+func (r *Mock) UnMockCoreHRDeleteCoreHRLocation() {
+	r.mockCoreHRDeleteCoreHRLocation = nil
 }
 
-// DeleteCoreHrLocationReq ...
-type DeleteCoreHrLocationReq struct {
+// DeleteCoreHRLocationReq ...
+type DeleteCoreHRLocationReq struct {
 	LocationID string `path:"location_id" json:"-"` // 需要删除的地点 ID, 示例值: "4312443243"
 }
 
-// DeleteCoreHrLocationResp ...
-type DeleteCoreHrLocationResp struct {
+// DeleteCoreHRLocationResp ...
+type DeleteCoreHRLocationResp struct {
 }
 
-// deleteCoreHrLocationResp ...
-type deleteCoreHrLocationResp struct {
+// deleteCoreHRLocationResp ...
+type deleteCoreHRLocationResp struct {
 	Code int64                     `json:"code,omitempty"` // 错误码, 非 0 表示失败
 	Msg  string                    `json:"msg,omitempty"`  // 错误描述
-	Data *DeleteCoreHrLocationResp `json:"data,omitempty"`
+	Data *DeleteCoreHRLocationResp `json:"data,omitempty"`
 }

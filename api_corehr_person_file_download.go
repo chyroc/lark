@@ -22,61 +22,61 @@ import (
 	"io"
 )
 
-// DownloadCoreHrPersonFile 根据ID下载文件
+// DownloadCoreHRPersonFile 根据ID下载文件
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/file/get
 // new doc: https://open.feishu.cn/document/server-docs/corehr-v1/employee/person/get-2
-func (r *CoreHrService) DownloadCoreHrPersonFile(ctx context.Context, request *DownloadCoreHrPersonFileReq, options ...MethodOptionFunc) (*DownloadCoreHrPersonFileResp, *Response, error) {
-	if r.cli.mock.mockCoreHrDownloadCoreHrPersonFile != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] CoreHr#DownloadCoreHrPersonFile mock enable")
-		return r.cli.mock.mockCoreHrDownloadCoreHrPersonFile(ctx, request, options...)
+func (r *CoreHRService) DownloadCoreHRPersonFile(ctx context.Context, request *DownloadCoreHRPersonFileReq, options ...MethodOptionFunc) (*DownloadCoreHRPersonFileResp, *Response, error) {
+	if r.cli.mock.mockCoreHRDownloadCoreHRPersonFile != nil {
+		r.cli.log(ctx, LogLevelDebug, "[lark] CoreHR#DownloadCoreHRPersonFile mock enable")
+		return r.cli.mock.mockCoreHRDownloadCoreHRPersonFile(ctx, request, options...)
 	}
 
 	req := &RawRequestReq{
-		Scope:                 "CoreHr",
-		API:                   "DownloadCoreHrPersonFile",
+		Scope:                 "CoreHR",
+		API:                   "DownloadCoreHRPersonFile",
 		Method:                "GET",
 		URL:                   r.cli.openBaseURL + "/open-apis/corehr/v1/files/:id",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
 	}
-	resp := new(downloadCoreHrPersonFileResp)
+	resp := new(downloadCoreHRPersonFileResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
 	return resp.Data, response, err
 }
 
-// MockCoreHrDownloadCoreHrPersonFile mock CoreHrDownloadCoreHrPersonFile method
-func (r *Mock) MockCoreHrDownloadCoreHrPersonFile(f func(ctx context.Context, request *DownloadCoreHrPersonFileReq, options ...MethodOptionFunc) (*DownloadCoreHrPersonFileResp, *Response, error)) {
-	r.mockCoreHrDownloadCoreHrPersonFile = f
+// MockCoreHRDownloadCoreHRPersonFile mock CoreHRDownloadCoreHRPersonFile method
+func (r *Mock) MockCoreHRDownloadCoreHRPersonFile(f func(ctx context.Context, request *DownloadCoreHRPersonFileReq, options ...MethodOptionFunc) (*DownloadCoreHRPersonFileResp, *Response, error)) {
+	r.mockCoreHRDownloadCoreHRPersonFile = f
 }
 
-// UnMockCoreHrDownloadCoreHrPersonFile un-mock CoreHrDownloadCoreHrPersonFile method
-func (r *Mock) UnMockCoreHrDownloadCoreHrPersonFile() {
-	r.mockCoreHrDownloadCoreHrPersonFile = nil
+// UnMockCoreHRDownloadCoreHRPersonFile un-mock CoreHRDownloadCoreHRPersonFile method
+func (r *Mock) UnMockCoreHRDownloadCoreHRPersonFile() {
+	r.mockCoreHRDownloadCoreHRPersonFile = nil
 }
 
-// DownloadCoreHrPersonFileReq ...
-type DownloadCoreHrPersonFileReq struct {
+// DownloadCoreHRPersonFileReq ...
+type DownloadCoreHRPersonFileReq struct {
 	ID string `path:"id" json:"-"` // 上传文件ID, 示例值: "150018109586e8ea745e47ae8feb3722dbe1d03a181336393633393133303431393831343930373235150200"
 }
 
-// downloadCoreHrPersonFileResp ...
-type downloadCoreHrPersonFileResp struct {
+// downloadCoreHRPersonFileResp ...
+type downloadCoreHRPersonFileResp struct {
 	Code int64                         `json:"code,omitempty"`
 	Msg  string                        `json:"msg,omitempty"`
-	Data *DownloadCoreHrPersonFileResp `json:"data,omitempty"`
+	Data *DownloadCoreHRPersonFileResp `json:"data,omitempty"`
 }
 
-func (r *downloadCoreHrPersonFileResp) SetReader(file io.Reader) {
+func (r *downloadCoreHRPersonFileResp) SetReader(file io.Reader) {
 	if r.Data == nil {
-		r.Data = &DownloadCoreHrPersonFileResp{}
+		r.Data = &DownloadCoreHRPersonFileResp{}
 	}
 	r.Data.File = file
 }
 
-// DownloadCoreHrPersonFileResp ...
-type DownloadCoreHrPersonFileResp struct {
+// DownloadCoreHRPersonFileResp ...
+type DownloadCoreHRPersonFileResp struct {
 	File io.Reader `json:"file,omitempty"`
 }

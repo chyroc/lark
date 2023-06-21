@@ -21,80 +21,80 @@ import (
 	"context"
 )
 
-// GetCoreHrSubdivision 查询单条省份/行政区信息。
+// GetCoreHRSubdivision 查询单条省份/行政区信息。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/subdivision/get
 // new doc: https://open.feishu.cn/document/server-docs/corehr-v1/basic-infomation/location_data/get-2
-func (r *CoreHrService) GetCoreHrSubdivision(ctx context.Context, request *GetCoreHrSubdivisionReq, options ...MethodOptionFunc) (*GetCoreHrSubdivisionResp, *Response, error) {
-	if r.cli.mock.mockCoreHrGetCoreHrSubdivision != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] CoreHr#GetCoreHrSubdivision mock enable")
-		return r.cli.mock.mockCoreHrGetCoreHrSubdivision(ctx, request, options...)
+func (r *CoreHRService) GetCoreHRSubdivision(ctx context.Context, request *GetCoreHRSubdivisionReq, options ...MethodOptionFunc) (*GetCoreHRSubdivisionResp, *Response, error) {
+	if r.cli.mock.mockCoreHRGetCoreHRSubdivision != nil {
+		r.cli.log(ctx, LogLevelDebug, "[lark] CoreHR#GetCoreHRSubdivision mock enable")
+		return r.cli.mock.mockCoreHRGetCoreHRSubdivision(ctx, request, options...)
 	}
 
 	req := &RawRequestReq{
-		Scope:                 "CoreHr",
-		API:                   "GetCoreHrSubdivision",
+		Scope:                 "CoreHR",
+		API:                   "GetCoreHRSubdivision",
 		Method:                "GET",
 		URL:                   r.cli.openBaseURL + "/open-apis/corehr/v1/subdivisions/:subdivision_id",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
 	}
-	resp := new(getCoreHrSubdivisionResp)
+	resp := new(getCoreHRSubdivisionResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
 	return resp.Data, response, err
 }
 
-// MockCoreHrGetCoreHrSubdivision mock CoreHrGetCoreHrSubdivision method
-func (r *Mock) MockCoreHrGetCoreHrSubdivision(f func(ctx context.Context, request *GetCoreHrSubdivisionReq, options ...MethodOptionFunc) (*GetCoreHrSubdivisionResp, *Response, error)) {
-	r.mockCoreHrGetCoreHrSubdivision = f
+// MockCoreHRGetCoreHRSubdivision mock CoreHRGetCoreHRSubdivision method
+func (r *Mock) MockCoreHRGetCoreHRSubdivision(f func(ctx context.Context, request *GetCoreHRSubdivisionReq, options ...MethodOptionFunc) (*GetCoreHRSubdivisionResp, *Response, error)) {
+	r.mockCoreHRGetCoreHRSubdivision = f
 }
 
-// UnMockCoreHrGetCoreHrSubdivision un-mock CoreHrGetCoreHrSubdivision method
-func (r *Mock) UnMockCoreHrGetCoreHrSubdivision() {
-	r.mockCoreHrGetCoreHrSubdivision = nil
+// UnMockCoreHRGetCoreHRSubdivision un-mock CoreHRGetCoreHRSubdivision method
+func (r *Mock) UnMockCoreHRGetCoreHRSubdivision() {
+	r.mockCoreHRGetCoreHRSubdivision = nil
 }
 
-// GetCoreHrSubdivisionReq ...
-type GetCoreHrSubdivisionReq struct {
+// GetCoreHRSubdivisionReq ...
+type GetCoreHRSubdivisionReq struct {
 	SubdivisionID string `path:"subdivision_id" json:"-"` // 省份/行政区 ID, 示例值: "67489937334909845"
 }
 
-// GetCoreHrSubdivisionResp ...
-type GetCoreHrSubdivisionResp struct {
-	Subdivision *GetCoreHrSubdivisionRespSubdivision `json:"subdivision,omitempty"` // 国家/地址信息
+// GetCoreHRSubdivisionResp ...
+type GetCoreHRSubdivisionResp struct {
+	Subdivision *GetCoreHRSubdivisionRespSubdivision `json:"subdivision,omitempty"` // 国家/地址信息
 }
 
-// GetCoreHrSubdivisionRespSubdivision ...
-type GetCoreHrSubdivisionRespSubdivision struct {
+// GetCoreHRSubdivisionRespSubdivision ...
+type GetCoreHRSubdivisionRespSubdivision struct {
 	ID              string                                              `json:"id,omitempty"`                // 省份/行政区id
-	Name            []*GetCoreHrSubdivisionRespSubdivisionName          `json:"name,omitempty"`              // 省份/行政区名称
+	Name            []*GetCoreHRSubdivisionRespSubdivisionName          `json:"name,omitempty"`              // 省份/行政区名称
 	CountryRegionID string                                              `json:"country_region_id,omitempty"` // 所属国家/地区id, 详细信息可通过【查询国家/地区信息】接口查询获得
-	SubdivisionType *GetCoreHrSubdivisionRespSubdivisionSubdivisionType `json:"subdivision_type,omitempty"`  // 行政区类型, 枚举值可通过文档【飞书人事枚举常量】行政区类型（subdivision_type）枚举定义部分获得
+	SubdivisionType *GetCoreHRSubdivisionRespSubdivisionSubdivisionType `json:"subdivision_type,omitempty"`  // 行政区类型, 枚举值可通过文档【飞书人事枚举常量】行政区类型（subdivision_type）枚举定义部分获得
 }
 
-// GetCoreHrSubdivisionRespSubdivisionName ...
-type GetCoreHrSubdivisionRespSubdivisionName struct {
+// GetCoreHRSubdivisionRespSubdivisionName ...
+type GetCoreHRSubdivisionRespSubdivisionName struct {
 	Lang  string `json:"lang,omitempty"`  // 名称信息的语言
 	Value string `json:"value,omitempty"` // 名称信息的内容
 }
 
-// GetCoreHrSubdivisionRespSubdivisionSubdivisionType ...
-type GetCoreHrSubdivisionRespSubdivisionSubdivisionType struct {
+// GetCoreHRSubdivisionRespSubdivisionSubdivisionType ...
+type GetCoreHRSubdivisionRespSubdivisionSubdivisionType struct {
 	EnumName string                                                       `json:"enum_name,omitempty"` // 枚举值
-	Display  []*GetCoreHrSubdivisionRespSubdivisionSubdivisionTypeDisplay `json:"display,omitempty"`   // 枚举多语展示
+	Display  []*GetCoreHRSubdivisionRespSubdivisionSubdivisionTypeDisplay `json:"display,omitempty"`   // 枚举多语展示
 }
 
-// GetCoreHrSubdivisionRespSubdivisionSubdivisionTypeDisplay ...
-type GetCoreHrSubdivisionRespSubdivisionSubdivisionTypeDisplay struct {
+// GetCoreHRSubdivisionRespSubdivisionSubdivisionTypeDisplay ...
+type GetCoreHRSubdivisionRespSubdivisionSubdivisionTypeDisplay struct {
 	Lang  string `json:"lang,omitempty"`  // 名称信息的语言
 	Value string `json:"value,omitempty"` // 名称信息的内容
 }
 
-// getCoreHrSubdivisionResp ...
-type getCoreHrSubdivisionResp struct {
+// getCoreHRSubdivisionResp ...
+type getCoreHRSubdivisionResp struct {
 	Code int64                     `json:"code,omitempty"` // 错误码, 非 0 表示失败
 	Msg  string                    `json:"msg,omitempty"`  // 错误描述
-	Data *GetCoreHrSubdivisionResp `json:"data,omitempty"`
+	Data *GetCoreHRSubdivisionResp `json:"data,omitempty"`
 }

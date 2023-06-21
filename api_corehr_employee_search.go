@@ -21,43 +21,43 @@ import (
 	"context"
 )
 
-// SearchCoreHrEmployee 该接口会按照应用拥有的「员工数据」的权限范围返回数据, 请确定在「开发者后台 - 权限管理 - 数据权限」中有申请「员工资源」权限范围
+// SearchCoreHREmployee 该接口会按照应用拥有的「员工数据」的权限范围返回数据, 请确定在「开发者后台 - 权限管理 - 数据权限」中有申请「员工资源」权限范围
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/employee/search
 // new doc: https://open.feishu.cn/document/server-docs/corehr-v1/employee/search
-func (r *CoreHrService) SearchCoreHrEmployee(ctx context.Context, request *SearchCoreHrEmployeeReq, options ...MethodOptionFunc) (*SearchCoreHrEmployeeResp, *Response, error) {
-	if r.cli.mock.mockCoreHrSearchCoreHrEmployee != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] CoreHr#SearchCoreHrEmployee mock enable")
-		return r.cli.mock.mockCoreHrSearchCoreHrEmployee(ctx, request, options...)
+func (r *CoreHRService) SearchCoreHREmployee(ctx context.Context, request *SearchCoreHREmployeeReq, options ...MethodOptionFunc) (*SearchCoreHREmployeeResp, *Response, error) {
+	if r.cli.mock.mockCoreHRSearchCoreHREmployee != nil {
+		r.cli.log(ctx, LogLevelDebug, "[lark] CoreHR#SearchCoreHREmployee mock enable")
+		return r.cli.mock.mockCoreHRSearchCoreHREmployee(ctx, request, options...)
 	}
 
 	req := &RawRequestReq{
-		Scope:                 "CoreHr",
-		API:                   "SearchCoreHrEmployee",
+		Scope:                 "CoreHR",
+		API:                   "SearchCoreHREmployee",
 		Method:                "POST",
 		URL:                   r.cli.openBaseURL + "/open-apis/corehr/v2/employees/search",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
 	}
-	resp := new(searchCoreHrEmployeeResp)
+	resp := new(searchCoreHREmployeeResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
 	return resp.Data, response, err
 }
 
-// MockCoreHrSearchCoreHrEmployee mock CoreHrSearchCoreHrEmployee method
-func (r *Mock) MockCoreHrSearchCoreHrEmployee(f func(ctx context.Context, request *SearchCoreHrEmployeeReq, options ...MethodOptionFunc) (*SearchCoreHrEmployeeResp, *Response, error)) {
-	r.mockCoreHrSearchCoreHrEmployee = f
+// MockCoreHRSearchCoreHREmployee mock CoreHRSearchCoreHREmployee method
+func (r *Mock) MockCoreHRSearchCoreHREmployee(f func(ctx context.Context, request *SearchCoreHREmployeeReq, options ...MethodOptionFunc) (*SearchCoreHREmployeeResp, *Response, error)) {
+	r.mockCoreHRSearchCoreHREmployee = f
 }
 
-// UnMockCoreHrSearchCoreHrEmployee un-mock CoreHrSearchCoreHrEmployee method
-func (r *Mock) UnMockCoreHrSearchCoreHrEmployee() {
-	r.mockCoreHrSearchCoreHrEmployee = nil
+// UnMockCoreHRSearchCoreHREmployee un-mock CoreHRSearchCoreHREmployee method
+func (r *Mock) UnMockCoreHRSearchCoreHREmployee() {
+	r.mockCoreHRSearchCoreHREmployee = nil
 }
 
-// SearchCoreHrEmployeeReq ...
-type SearchCoreHrEmployeeReq struct {
+// SearchCoreHREmployeeReq ...
+type SearchCoreHREmployeeReq struct {
 	PageSize                      int64             `query:"page_size" json:"-"`                         // 分页大小, 最大 100, 示例值: 100, 取值范围: `1` ～ `100`
 	PageToken                     *string           `query:"page_token" json:"-"`                        // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果, 示例值: 6891251722631890445
 	UserIDType                    *IDType           `query:"user_id_type" json:"-"`                      // 用户 ID 类型, 示例值: open_id, 可选值有: open_id: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid), union_id: 标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id), user_id: 标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id), people_corehr_id: 以飞书人事的 ID 来识别用户, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
@@ -86,15 +86,15 @@ type SearchCoreHrEmployeeReq struct {
 	DepartmentIDListIncludeSub    []string          `json:"department_id_list_include_sub,omitempty"`    // 部门 ID 列表, 查询属于该部门及下级部门的员工, 示例值: ["7140964208476371111"], 最大长度: `100`
 }
 
-// SearchCoreHrEmployeeResp ...
-type SearchCoreHrEmployeeResp struct {
-	Items     []*SearchCoreHrEmployeeRespItem `json:"items,omitempty"`      // 查询的雇佣信息
+// SearchCoreHREmployeeResp ...
+type SearchCoreHREmployeeResp struct {
+	Items     []*SearchCoreHREmployeeRespItem `json:"items,omitempty"`      // 查询的雇佣信息
 	PageToken string                          `json:"page_token,omitempty"` // 分页标记, 当 has_more 为 true 时, 会同时返回新的 page_token, 否则不返回 page_token
 	HasMore   bool                            `json:"has_more,omitempty"`   // 是否还有更多项
 }
 
-// SearchCoreHrEmployeeRespItem ...
-type SearchCoreHrEmployeeRespItem struct {
+// SearchCoreHREmployeeRespItem ...
+type SearchCoreHREmployeeRespItem struct {
 	EmploymentID             string                                            `json:"employment_id,omitempty"`               // 雇佣 ID
 	AtsApplicationID         string                                            `json:"ats_application_id,omitempty"`          // 招聘投递 ID, 详细信息可以通过【获取投递信息】接口查询获得
 	PrehireID                string                                            `json:"prehire_id,omitempty"`                  // 待入职 ID
@@ -116,23 +116,23 @@ type SearchCoreHrEmployeeRespItem struct {
 	ProbationEndDate         string                                            `json:"probation_end_date,omitempty"`          // 试用期结束日期（实际结束日期）
 	DirectManagerID          string                                            `json:"direct_manager_id,omitempty"`           // 直接上级的雇佣 ID
 	DottedLineManagerID      string                                            `json:"dotted_line_manager_id,omitempty"`      // 虚线上级的雇佣 ID
-	EmploymentType           *SearchCoreHrEmployeeRespItemEmploymentType       `json:"employment_type,omitempty"`             // 雇佣类型, 枚举值可通过文档【飞书人事枚举常量】雇佣类型（employment_type）枚举定义获得
-	EmploymentStatus         *SearchCoreHrEmployeeRespItemEmploymentStatus     `json:"employment_status,omitempty"`           // 雇佣状态, 枚举值可通过文档【飞书人事枚举常量】雇员状态（employment_status）枚举定义获得
+	EmploymentType           *SearchCoreHREmployeeRespItemEmploymentType       `json:"employment_type,omitempty"`             // 雇佣类型, 枚举值可通过文档【飞书人事枚举常量】雇佣类型（employment_type）枚举定义获得
+	EmploymentStatus         *SearchCoreHREmployeeRespItemEmploymentStatus     `json:"employment_status,omitempty"`           // 雇佣状态, 枚举值可通过文档【飞书人事枚举常量】雇员状态（employment_status）枚举定义获得
 	ExpirationDate           string                                            `json:"expiration_date,omitempty"`             // 离职日期, 即员工的最后一个工作日, 最后一个工作日时员工的雇佣状态仍为“在职”, 次日凌晨将更改为“离职”
-	ReasonForOffboarding     *SearchCoreHrEmployeeRespItemReasonForOffboarding `json:"reason_for_offboarding,omitempty"`      // 离职原因, 枚举值可通过文档【飞书人事枚举常量】离职原因（reason_for_offboarding）枚举定义部分获得, 字段权限要求: 获取员工离职原因
+	ReasonForOffboarding     *SearchCoreHREmployeeRespItemReasonForOffboarding `json:"reason_for_offboarding,omitempty"`      // 离职原因, 枚举值可通过文档【飞书人事枚举常量】离职原因（reason_for_offboarding）枚举定义部分获得, 字段权限要求: 获取员工离职原因
 	EmailAddress             string                                            `json:"email_address,omitempty"`               // 邮箱地址
-	WorkEmailList            []*SearchCoreHrEmployeeRespItemWorkEmail          `json:"work_email_list,omitempty"`             // 工作邮箱列表, 只有当邮箱满足下面所有条件时, 才在个人信息页面可见
-	CostCenterList           []*SearchCoreHrEmployeeRespItemCostCenter         `json:"cost_center_list,omitempty"`            // 成本中心列表
-	Rehire                   *SearchCoreHrEmployeeRespItemRehire               `json:"rehire,omitempty"`                      // 是否离职重聘
+	WorkEmailList            []*SearchCoreHREmployeeRespItemWorkEmail          `json:"work_email_list,omitempty"`             // 工作邮箱列表, 只有当邮箱满足下面所有条件时, 才在个人信息页面可见
+	CostCenterList           []*SearchCoreHREmployeeRespItemCostCenter         `json:"cost_center_list,omitempty"`            // 成本中心列表
+	Rehire                   *SearchCoreHREmployeeRespItemRehire               `json:"rehire,omitempty"`                      // 是否离职重聘
 	RehireEmploymentID       string                                            `json:"rehire_employment_id,omitempty"`        // 历史雇佣信息 ID, 可以通过【查询单个雇佣信息】查询详细信息
-	PersonInfo               *SearchCoreHrEmployeeRespItemPersonInfo           `json:"person_info,omitempty"`                 // 基本个人信息
-	CustomFields             []*SearchCoreHrEmployeeRespItemCustomField        `json:"custom_fields,omitempty"`               // 自定义字段, 字段权限要求: 获取雇佣信息自定义字段信息
-	NoncompeteStatus         *SearchCoreHrEmployeeRespItemNoncompeteStatus     `json:"noncompete_status,omitempty"`           // 竞业状态, 枚举值包括:1.竞业中；2.未竞业
+	PersonInfo               *SearchCoreHREmployeeRespItemPersonInfo           `json:"person_info,omitempty"`                 // 基本个人信息
+	CustomFields             []*SearchCoreHREmployeeRespItemCustomField        `json:"custom_fields,omitempty"`               // 自定义字段, 字段权限要求: 获取雇佣信息自定义字段信息
+	NoncompeteStatus         *SearchCoreHREmployeeRespItemNoncompeteStatus     `json:"noncompete_status,omitempty"`           // 竞业状态, 枚举值包括:1.竞业中；2.未竞业
 	PastOffboarding          bool                                              `json:"past_offboarding,omitempty"`            // 是否历史离职人员
 	RegularEmployeeStartDate string                                            `json:"regular_employee_start_date,omitempty"` // 转正式日期
 	ExternalID               string                                            `json:"external_id,omitempty"`                 // 外部系统 ID, 可存储租户系统中的员工 ID
 	TimesEmployed            int64                                             `json:"times_employed,omitempty"`              // 入职次数
-	RecruitmentType          *SearchCoreHrEmployeeRespItemRecruitmentType      `json:"recruitment_type,omitempty"`            // 招聘来源, 枚举值 api_name 可通过【获取自定义字段详情】接口查询
+	RecruitmentType          *SearchCoreHREmployeeRespItemRecruitmentType      `json:"recruitment_type,omitempty"`            // 招聘来源, 枚举值 api_name 可通过【获取自定义字段详情】接口查询
 	AvatarURL                string                                            `json:"avatar_url,omitempty"`                  // 员工头像
 	PrimaryContractID        string                                            `json:"primary_contract_id,omitempty"`         // 主合同 ID
 	ContractStartDate        string                                            `json:"contract_start_date,omitempty"`         // 主合同开始日期, 字段权限要求: 获取合同期限信息
@@ -143,103 +143,103 @@ type SearchCoreHrEmployeeRespItem struct {
 	WorkCalendarID           string                                            `json:"work_calendar_id,omitempty"`            // 工作日历 ID
 }
 
-// SearchCoreHrEmployeeRespItemCostCenter ...
-type SearchCoreHrEmployeeRespItemCostCenter struct {
+// SearchCoreHREmployeeRespItemCostCenter ...
+type SearchCoreHREmployeeRespItemCostCenter struct {
 	CostCenterID string `json:"cost_center_id,omitempty"` // 成本中心 ID, 可以通过【查询单个成本中心信息】接口获取对应的成本中心信息
 	Rate         int64  `json:"rate,omitempty"`           // 分摊比例
 }
 
-// SearchCoreHrEmployeeRespItemCustomField ...
-type SearchCoreHrEmployeeRespItemCustomField struct {
+// SearchCoreHREmployeeRespItemCustomField ...
+type SearchCoreHREmployeeRespItemCustomField struct {
 	CustomApiName string                                       `json:"custom_api_name,omitempty"` // 自定义字段 apiname, 即自定义字段的唯一标识
-	Name          *SearchCoreHrEmployeeRespItemCustomFieldName `json:"name,omitempty"`            // 自定义字段名称
+	Name          *SearchCoreHREmployeeRespItemCustomFieldName `json:"name,omitempty"`            // 自定义字段名称
 	Type          int64                                        `json:"type,omitempty"`            // 自定义字段类型
 	Value         string                                       `json:"value,omitempty"`           // 字段值, 是 json 转义后的字符串, 根据元数据定义不同, 字段格式不同（如 123, 123.23, "true", ["id1", "id2"], "2006-01-02 15:04:05"）
 }
 
-// SearchCoreHrEmployeeRespItemCustomFieldName ...
-type SearchCoreHrEmployeeRespItemCustomFieldName struct {
+// SearchCoreHREmployeeRespItemCustomFieldName ...
+type SearchCoreHREmployeeRespItemCustomFieldName struct {
 	ZhCn string `json:"zh_cn,omitempty"` // 中文
 	EnUs string `json:"en_us,omitempty"` // 英文
 }
 
-// SearchCoreHrEmployeeRespItemEmploymentStatus ...
-type SearchCoreHrEmployeeRespItemEmploymentStatus struct {
+// SearchCoreHREmployeeRespItemEmploymentStatus ...
+type SearchCoreHREmployeeRespItemEmploymentStatus struct {
 	EnumName string                                                 `json:"enum_name,omitempty"` // 枚举值
-	Display  []*SearchCoreHrEmployeeRespItemEmploymentStatusDisplay `json:"display,omitempty"`   // 枚举多语展示
+	Display  []*SearchCoreHREmployeeRespItemEmploymentStatusDisplay `json:"display,omitempty"`   // 枚举多语展示
 }
 
-// SearchCoreHrEmployeeRespItemEmploymentStatusDisplay ...
-type SearchCoreHrEmployeeRespItemEmploymentStatusDisplay struct {
+// SearchCoreHREmployeeRespItemEmploymentStatusDisplay ...
+type SearchCoreHREmployeeRespItemEmploymentStatusDisplay struct {
 	Lang  string `json:"lang,omitempty"`  // 语言
 	Value string `json:"value,omitempty"` // 内容
 }
 
-// SearchCoreHrEmployeeRespItemEmploymentType ...
-type SearchCoreHrEmployeeRespItemEmploymentType struct {
+// SearchCoreHREmployeeRespItemEmploymentType ...
+type SearchCoreHREmployeeRespItemEmploymentType struct {
 	EnumName string                                               `json:"enum_name,omitempty"` // 枚举值
-	Display  []*SearchCoreHrEmployeeRespItemEmploymentTypeDisplay `json:"display,omitempty"`   // 枚举多语展示
+	Display  []*SearchCoreHREmployeeRespItemEmploymentTypeDisplay `json:"display,omitempty"`   // 枚举多语展示
 }
 
-// SearchCoreHrEmployeeRespItemEmploymentTypeDisplay ...
-type SearchCoreHrEmployeeRespItemEmploymentTypeDisplay struct {
+// SearchCoreHREmployeeRespItemEmploymentTypeDisplay ...
+type SearchCoreHREmployeeRespItemEmploymentTypeDisplay struct {
 	Lang  string `json:"lang,omitempty"`  // 语言
 	Value string `json:"value,omitempty"` // 内容
 }
 
-// SearchCoreHrEmployeeRespItemNoncompeteStatus ...
-type SearchCoreHrEmployeeRespItemNoncompeteStatus struct {
+// SearchCoreHREmployeeRespItemNoncompeteStatus ...
+type SearchCoreHREmployeeRespItemNoncompeteStatus struct {
 	EnumName string                                                 `json:"enum_name,omitempty"` // 枚举值
-	Display  []*SearchCoreHrEmployeeRespItemNoncompeteStatusDisplay `json:"display,omitempty"`   // 枚举多语展示
+	Display  []*SearchCoreHREmployeeRespItemNoncompeteStatusDisplay `json:"display,omitempty"`   // 枚举多语展示
 }
 
-// SearchCoreHrEmployeeRespItemNoncompeteStatusDisplay ...
-type SearchCoreHrEmployeeRespItemNoncompeteStatusDisplay struct {
+// SearchCoreHREmployeeRespItemNoncompeteStatusDisplay ...
+type SearchCoreHREmployeeRespItemNoncompeteStatusDisplay struct {
 	Lang  string `json:"lang,omitempty"`  // 语言
 	Value string `json:"value,omitempty"` // 内容
 }
 
-// SearchCoreHrEmployeeRespItemPersonInfo ...
-type SearchCoreHrEmployeeRespItemPersonInfo struct {
+// SearchCoreHREmployeeRespItemPersonInfo ...
+type SearchCoreHREmployeeRespItemPersonInfo struct {
 	PersonID                 string                                                          `json:"person_id,omitempty"`                   // 个人信息 ID
 	PhoneNumber              string                                                          `json:"phone_number,omitempty"`                // 个人电话, 字段权限要求（满足任一）: 获取个人手机号信息, 读写个人手机号信息
 	LegalName                string                                                          `json:"legal_name,omitempty"`                  // 法定姓名, 字段权限要求（满足任一）: 获取法定姓名信息, 读写法定姓名信息
 	PreferredName            string                                                          `json:"preferred_name,omitempty"`              // 常用名
 	PreferredLocalFullName   string                                                          `json:"preferred_local_full_name,omitempty"`   // 常用本地全名
 	PreferredEnglishFullName string                                                          `json:"preferred_english_full_name,omitempty"` // 常用英文全名
-	NameList                 []*SearchCoreHrEmployeeRespItemPersonInfoName                   `json:"name_list,omitempty"`                   // 姓名列表, 字段权限要求（满足任一）: 获取法定姓名信息, 读写法定姓名信息
-	Gender                   *SearchCoreHrEmployeeRespItemPersonInfoGender                   `json:"gender,omitempty"`                      // 性别, 枚举值可通过文档【飞书人事枚举常量】性别（gender）枚举定义部分获得, 字段权限要求（满足任一）: 获取性别信息, 读写性别信息
+	NameList                 []*SearchCoreHREmployeeRespItemPersonInfoName                   `json:"name_list,omitempty"`                   // 姓名列表, 字段权限要求（满足任一）: 获取法定姓名信息, 读写法定姓名信息
+	Gender                   *SearchCoreHREmployeeRespItemPersonInfoGender                   `json:"gender,omitempty"`                      // 性别, 枚举值可通过文档【飞书人事枚举常量】性别（gender）枚举定义部分获得, 字段权限要求（满足任一）: 获取性别信息, 读写性别信息
 	DateOfBirth              string                                                          `json:"date_of_birth,omitempty"`               // 出生日期, 字段权限要求（满足任一）: 获取生日信息, 读写生日信息
-	Race                     *SearchCoreHrEmployeeRespItemPersonInfoRace                     `json:"race,omitempty"`                        // 民族 / 种族, 枚举值可通过文档【飞书人事枚举常量】民族（race）枚举定义部分获得, 字段权限要求: 获取民族/种族信息
-	MaritalStatus            *SearchCoreHrEmployeeRespItemPersonInfoMaritalStatus            `json:"marital_status,omitempty"`              // 婚姻状况, 枚举值可通过文档【飞书人事枚举常量】婚姻状况（marital_status）枚举定义部分获得, 字段权限要求（满足任一）: 获取婚姻状况信息, 读写婚姻状况信息
-	PhoneList                []*SearchCoreHrEmployeeRespItemPersonInfoPhone                  `json:"phone_list,omitempty"`                  // 电话列表, 只有当满足下面所有条件时, 电话在个人信息页才可见, 字段权限要求（满足任一）: 获取个人手机号信息, 读写个人手机号信息
-	AddressList              []*SearchCoreHrEmployeeRespItemPersonInfoAddress                `json:"address_list,omitempty"`                // 地址列表, 字段权限要求（满足任一）: 读取个人地址信息, 读写个人地址信息
-	EmailList                []*SearchCoreHrEmployeeRespItemPersonInfoEmail                  `json:"email_list,omitempty"`                  // 邮箱列表, 字段权限要求（满足任一）: 获取个人邮箱信息, 读写个人邮箱信息
-	WorkExperienceList       []*SearchCoreHrEmployeeRespItemPersonInfoWorkExperience         `json:"work_experience_list,omitempty"`        // 工作经历列表, 字段权限要求（满足任一）: 获取工作履历信息, 读写工作履历信息
-	EducationList            []*SearchCoreHrEmployeeRespItemPersonInfoEducation              `json:"education_list,omitempty"`              // 教育经历列表, 字段权限要求（满足任一）: 获取教育经历信息, 读写教育经历信息
-	BankAccountList          []*SearchCoreHrEmployeeRespItemPersonInfoBankAccount            `json:"bank_account_list,omitempty"`           // 银行账户, 字段权限要求（满足任一）: 获取银行账号列表信息, 读写银行账号信息
-	NationalIDList           []*SearchCoreHrEmployeeRespItemPersonInfoNationalID             `json:"national_id_list,omitempty"`            // 证件, 字段权限要求（满足任一）: 获取证件信息, 读写证件信息
-	DependentList            []*SearchCoreHrEmployeeRespItemPersonInfoDependent              `json:"dependent_list,omitempty"`              // 家庭成员列表, 字段权限要求（满足任一）: 获取家庭成员信息, 读写家庭成员信息
-	EmergencyContactList     []*SearchCoreHrEmployeeRespItemPersonInfoEmergencyContact       `json:"emergency_contact_list,omitempty"`      // 紧急联系人列表, 字段权限要求（满足任一）: 获取紧急联系人信息, 读写紧急联系人信息
+	Race                     *SearchCoreHREmployeeRespItemPersonInfoRace                     `json:"race,omitempty"`                        // 民族 / 种族, 枚举值可通过文档【飞书人事枚举常量】民族（race）枚举定义部分获得, 字段权限要求: 获取民族/种族信息
+	MaritalStatus            *SearchCoreHREmployeeRespItemPersonInfoMaritalStatus            `json:"marital_status,omitempty"`              // 婚姻状况, 枚举值可通过文档【飞书人事枚举常量】婚姻状况（marital_status）枚举定义部分获得, 字段权限要求（满足任一）: 获取婚姻状况信息, 读写婚姻状况信息
+	PhoneList                []*SearchCoreHREmployeeRespItemPersonInfoPhone                  `json:"phone_list,omitempty"`                  // 电话列表, 只有当满足下面所有条件时, 电话在个人信息页才可见, 字段权限要求（满足任一）: 获取个人手机号信息, 读写个人手机号信息
+	AddressList              []*SearchCoreHREmployeeRespItemPersonInfoAddress                `json:"address_list,omitempty"`                // 地址列表, 字段权限要求（满足任一）: 读取个人地址信息, 读写个人地址信息
+	EmailList                []*SearchCoreHREmployeeRespItemPersonInfoEmail                  `json:"email_list,omitempty"`                  // 邮箱列表, 字段权限要求（满足任一）: 获取个人邮箱信息, 读写个人邮箱信息
+	WorkExperienceList       []*SearchCoreHREmployeeRespItemPersonInfoWorkExperience         `json:"work_experience_list,omitempty"`        // 工作经历列表, 字段权限要求（满足任一）: 获取工作履历信息, 读写工作履历信息
+	EducationList            []*SearchCoreHREmployeeRespItemPersonInfoEducation              `json:"education_list,omitempty"`              // 教育经历列表, 字段权限要求（满足任一）: 获取教育经历信息, 读写教育经历信息
+	BankAccountList          []*SearchCoreHREmployeeRespItemPersonInfoBankAccount            `json:"bank_account_list,omitempty"`           // 银行账户, 字段权限要求（满足任一）: 获取银行账号列表信息, 读写银行账号信息
+	NationalIDList           []*SearchCoreHREmployeeRespItemPersonInfoNationalID             `json:"national_id_list,omitempty"`            // 证件, 字段权限要求（满足任一）: 获取证件信息, 读写证件信息
+	DependentList            []*SearchCoreHREmployeeRespItemPersonInfoDependent              `json:"dependent_list,omitempty"`              // 家庭成员列表, 字段权限要求（满足任一）: 获取家庭成员信息, 读写家庭成员信息
+	EmergencyContactList     []*SearchCoreHREmployeeRespItemPersonInfoEmergencyContact       `json:"emergency_contact_list,omitempty"`      // 紧急联系人列表, 字段权限要求（满足任一）: 获取紧急联系人信息, 读写紧急联系人信息
 	DateEnteredWorkforce     string                                                          `json:"date_entered_workforce,omitempty"`      // 参加工作日期, 字段权限要求（满足任一）: 获取参加工作日期, 读写参加工作日期
 	WorkingYears             int64                                                           `json:"working_years,omitempty"`               // 工龄
 	ProfileImageID           string                                                          `json:"profile_image_id,omitempty"`            // 头像资源的 ID
 	EmailAddress             string                                                          `json:"email_address,omitempty"`               // 邮箱地址, 字段权限要求（满足任一）: 获取个人邮箱信息, 读写个人邮箱信息
 	Age                      int64                                                           `json:"age,omitempty"`                         // 年龄, 字段权限要求（满足任一）: 获取生日信息, 读写生日信息
-	HighestLevelOfEducation  *SearchCoreHrEmployeeRespItemPersonInfoHighestLevelOfEducation  `json:"highest_level_of_education,omitempty"`  // 最高学历教育经历, 字段权限要求（满足任一）: 获取教育经历信息, 读写教育经历信息
-	HighestDegreeOfEducation *SearchCoreHrEmployeeRespItemPersonInfoHighestDegreeOfEducation `json:"highest_degree_of_education,omitempty"` // 最高学位教育经历, 字段权限要求（满足任一）: 获取教育经历信息, 读写教育经历信息
-	PersonalProfile          []*SearchCoreHrEmployeeRespItemPersonInfoPersonalProfile        `json:"personal_profile,omitempty"`            // 个人资料附件, 字段权限要求（满足任一）: 获取个人资料信息, 读写个人资料信息
+	HighestLevelOfEducation  *SearchCoreHREmployeeRespItemPersonInfoHighestLevelOfEducation  `json:"highest_level_of_education,omitempty"`  // 最高学历教育经历, 字段权限要求（满足任一）: 获取教育经历信息, 读写教育经历信息
+	HighestDegreeOfEducation *SearchCoreHREmployeeRespItemPersonInfoHighestDegreeOfEducation `json:"highest_degree_of_education,omitempty"` // 最高学位教育经历, 字段权限要求（满足任一）: 获取教育经历信息, 读写教育经历信息
+	PersonalProfile          []*SearchCoreHREmployeeRespItemPersonInfoPersonalProfile        `json:"personal_profile,omitempty"`            // 个人资料附件, 字段权限要求（满足任一）: 获取个人资料信息, 读写个人资料信息
 	NativeRegion             string                                                          `json:"native_region,omitempty"`               // 籍贯 ID, 字段权限要求（满足任一）: 获取籍贯信息, 读写籍贯信息
-	HukouType                *SearchCoreHrEmployeeRespItemPersonInfoHukouType                `json:"hukou_type,omitempty"`                  // 户口类型, 枚举值可通过文档【飞书人事枚举常量】户口类型（hukou_type）枚举定义部分获得, 字段权限要求（满足任一）: 获取户口信息, 读写户口信息
+	HukouType                *SearchCoreHREmployeeRespItemPersonInfoHukouType                `json:"hukou_type,omitempty"`                  // 户口类型, 枚举值可通过文档【飞书人事枚举常量】户口类型（hukou_type）枚举定义部分获得, 字段权限要求（满足任一）: 获取户口信息, 读写户口信息
 	HukouLocation            string                                                          `json:"hukou_location,omitempty"`              // 户口所在地, 字段权限要求（满足任一）: 获取户口信息, 读写户口信息
 	TalentID                 string                                                          `json:"talent_id,omitempty"`                   // 人才ID
-	CustomFields             []*SearchCoreHrEmployeeRespItemPersonInfoCustomField            `json:"custom_fields,omitempty"`               // 自定义字段, 字段权限要求: 获取个人信息自定义字段信息
+	CustomFields             []*SearchCoreHREmployeeRespItemPersonInfoCustomField            `json:"custom_fields,omitempty"`               // 自定义字段, 字段权限要求: 获取个人信息自定义字段信息
 	NationalIDNumber         string                                                          `json:"national_id_number,omitempty"`          // 居民身份证件号码, 字段权限要求（满足任一）: 获取证件信息, 读写证件信息
 	FamilyAddress            string                                                          `json:"family_address,omitempty"`              // 家庭地址, 字段权限要求（满足任一）: 读取个人地址信息, 读写个人地址信息
 }
 
-// SearchCoreHrEmployeeRespItemPersonInfoAddress ...
-type SearchCoreHrEmployeeRespItemPersonInfoAddress struct {
+// SearchCoreHREmployeeRespItemPersonInfoAddress ...
+type SearchCoreHREmployeeRespItemPersonInfoAddress struct {
 	FullAddressLocalScript   string                                                      `json:"full_address_local_script,omitempty"`   // 完整地址（本地文字）
 	FullAddressWesternScript string                                                      `json:"full_address_western_script,omitempty"` // 完整地址（西方文字）
 	AddressID                string                                                      `json:"address_id,omitempty"`                  // 地址 ID
@@ -255,124 +255,124 @@ type SearchCoreHrEmployeeRespItemPersonInfoAddress struct {
 	LocalAddressLine8        string                                                      `json:"local_address_line8,omitempty"`         // 地址行 8（非拉丁语系的本地文字）
 	LocalAddressLine9        string                                                      `json:"local_address_line9,omitempty"`         // 地址行 9（非拉丁语系的本地文字）
 	PostalCode               string                                                      `json:"postal_code,omitempty"`                 // 邮政编码
-	AddressTypeList          []*SearchCoreHrEmployeeRespItemPersonInfoAddressAddressType `json:"address_type_list,omitempty"`           // 地址类型
+	AddressTypeList          []*SearchCoreHREmployeeRespItemPersonInfoAddressAddressType `json:"address_type_list,omitempty"`           // 地址类型
 	IsPrimary                bool                                                        `json:"is_primary,omitempty"`                  // 主要地址
 	IsPublic                 bool                                                        `json:"is_public,omitempty"`                   // 公开地址
-	CustomFields             []*SearchCoreHrEmployeeRespItemPersonInfoAddressCustomField `json:"custom_fields,omitempty"`               // 自定义字段
+	CustomFields             []*SearchCoreHREmployeeRespItemPersonInfoAddressCustomField `json:"custom_fields,omitempty"`               // 自定义字段
 }
 
-// SearchCoreHrEmployeeRespItemPersonInfoAddressAddressType ...
-type SearchCoreHrEmployeeRespItemPersonInfoAddressAddressType struct {
+// SearchCoreHREmployeeRespItemPersonInfoAddressAddressType ...
+type SearchCoreHREmployeeRespItemPersonInfoAddressAddressType struct {
 	EnumName string                                                             `json:"enum_name,omitempty"` // 枚举值
-	Display  []*SearchCoreHrEmployeeRespItemPersonInfoAddressAddressTypeDisplay `json:"display,omitempty"`   // 枚举多语展示
+	Display  []*SearchCoreHREmployeeRespItemPersonInfoAddressAddressTypeDisplay `json:"display,omitempty"`   // 枚举多语展示
 }
 
-// SearchCoreHrEmployeeRespItemPersonInfoAddressAddressTypeDisplay ...
-type SearchCoreHrEmployeeRespItemPersonInfoAddressAddressTypeDisplay struct {
+// SearchCoreHREmployeeRespItemPersonInfoAddressAddressTypeDisplay ...
+type SearchCoreHREmployeeRespItemPersonInfoAddressAddressTypeDisplay struct {
 	Lang  string `json:"lang,omitempty"`  // 语言
 	Value string `json:"value,omitempty"` // 内容
 }
 
-// SearchCoreHrEmployeeRespItemPersonInfoAddressCustomField ...
-type SearchCoreHrEmployeeRespItemPersonInfoAddressCustomField struct {
+// SearchCoreHREmployeeRespItemPersonInfoAddressCustomField ...
+type SearchCoreHREmployeeRespItemPersonInfoAddressCustomField struct {
 	CustomApiName string                                                        `json:"custom_api_name,omitempty"` // 自定义字段 apiname, 即自定义字段的唯一标识
-	Name          *SearchCoreHrEmployeeRespItemPersonInfoAddressCustomFieldName `json:"name,omitempty"`            // 自定义字段名称
+	Name          *SearchCoreHREmployeeRespItemPersonInfoAddressCustomFieldName `json:"name,omitempty"`            // 自定义字段名称
 	Type          int64                                                         `json:"type,omitempty"`            // 自定义字段类型
 	Value         string                                                        `json:"value,omitempty"`           // 字段值, 是 json 转义后的字符串, 根据元数据定义不同, 字段格式不同（如 123, 123.23, "true", ["id1", "id2"], "2006-01-02 15:04:05"）
 }
 
-// SearchCoreHrEmployeeRespItemPersonInfoAddressCustomFieldName ...
-type SearchCoreHrEmployeeRespItemPersonInfoAddressCustomFieldName struct {
+// SearchCoreHREmployeeRespItemPersonInfoAddressCustomFieldName ...
+type SearchCoreHREmployeeRespItemPersonInfoAddressCustomFieldName struct {
 	ZhCn string `json:"zh_cn,omitempty"` // 中文
 	EnUs string `json:"en_us,omitempty"` // 英文
 }
 
-// SearchCoreHrEmployeeRespItemPersonInfoBankAccount ...
-type SearchCoreHrEmployeeRespItemPersonInfoBankAccount struct {
+// SearchCoreHREmployeeRespItemPersonInfoBankAccount ...
+type SearchCoreHREmployeeRespItemPersonInfoBankAccount struct {
 	BankName          string                                                               `json:"bank_name,omitempty"`           // 银行名称
 	BankAccountNumber string                                                               `json:"bank_account_number,omitempty"` // 银行账号
 	AccountHolder     string                                                               `json:"account_holder,omitempty"`      // 开户人姓名
 	BranchName        string                                                               `json:"branch_name,omitempty"`         // 支行名称
 	CountryRegionID   string                                                               `json:"country_region_id,omitempty"`   // 国家/地区 ID, 详细信息可通过【查询国家/地区信息】接口查询获得
-	BankAccountUsage  []*SearchCoreHrEmployeeRespItemPersonInfoBankAccountBankAccountUsage `json:"bank_account_usage,omitempty"`  // 银行卡用途, 枚举值可通过文档【飞书人事枚举常量】银行卡用途（Bank Account Usage）枚举定义部分获得
-	BankAccountType   *SearchCoreHrEmployeeRespItemPersonInfoBankAccountBankAccountType    `json:"bank_account_type,omitempty"`   // 银行卡类型, 枚举值可通过文档【飞书人事枚举常量】银行卡类型（Bank Account Type）枚举定义部分获得
+	BankAccountUsage  []*SearchCoreHREmployeeRespItemPersonInfoBankAccountBankAccountUsage `json:"bank_account_usage,omitempty"`  // 银行卡用途, 枚举值可通过文档【飞书人事枚举常量】银行卡用途（Bank Account Usage）枚举定义部分获得
+	BankAccountType   *SearchCoreHREmployeeRespItemPersonInfoBankAccountBankAccountType    `json:"bank_account_type,omitempty"`   // 银行卡类型, 枚举值可通过文档【飞书人事枚举常量】银行卡类型（Bank Account Type）枚举定义部分获得
 	CurrencyID        string                                                               `json:"currency_id,omitempty"`         // 货币 ID
-	CustomFields      []*SearchCoreHrEmployeeRespItemPersonInfoBankAccountCustomField      `json:"custom_fields,omitempty"`       // 自定义字段
+	CustomFields      []*SearchCoreHREmployeeRespItemPersonInfoBankAccountCustomField      `json:"custom_fields,omitempty"`       // 自定义字段
 }
 
-// SearchCoreHrEmployeeRespItemPersonInfoBankAccountBankAccountType ...
-type SearchCoreHrEmployeeRespItemPersonInfoBankAccountBankAccountType struct {
+// SearchCoreHREmployeeRespItemPersonInfoBankAccountBankAccountType ...
+type SearchCoreHREmployeeRespItemPersonInfoBankAccountBankAccountType struct {
 	EnumName string                                                                     `json:"enum_name,omitempty"` // 枚举值
-	Display  []*SearchCoreHrEmployeeRespItemPersonInfoBankAccountBankAccountTypeDisplay `json:"display,omitempty"`   // 枚举多语展示
+	Display  []*SearchCoreHREmployeeRespItemPersonInfoBankAccountBankAccountTypeDisplay `json:"display,omitempty"`   // 枚举多语展示
 }
 
-// SearchCoreHrEmployeeRespItemPersonInfoBankAccountBankAccountTypeDisplay ...
-type SearchCoreHrEmployeeRespItemPersonInfoBankAccountBankAccountTypeDisplay struct {
+// SearchCoreHREmployeeRespItemPersonInfoBankAccountBankAccountTypeDisplay ...
+type SearchCoreHREmployeeRespItemPersonInfoBankAccountBankAccountTypeDisplay struct {
 	Lang  string `json:"lang,omitempty"`  // 语言
 	Value string `json:"value,omitempty"` // 内容
 }
 
-// SearchCoreHrEmployeeRespItemPersonInfoBankAccountBankAccountUsage ...
-type SearchCoreHrEmployeeRespItemPersonInfoBankAccountBankAccountUsage struct {
+// SearchCoreHREmployeeRespItemPersonInfoBankAccountBankAccountUsage ...
+type SearchCoreHREmployeeRespItemPersonInfoBankAccountBankAccountUsage struct {
 	EnumName string                                                                      `json:"enum_name,omitempty"` // 枚举值
-	Display  []*SearchCoreHrEmployeeRespItemPersonInfoBankAccountBankAccountUsageDisplay `json:"display,omitempty"`   // 枚举多语展示
+	Display  []*SearchCoreHREmployeeRespItemPersonInfoBankAccountBankAccountUsageDisplay `json:"display,omitempty"`   // 枚举多语展示
 }
 
-// SearchCoreHrEmployeeRespItemPersonInfoBankAccountBankAccountUsageDisplay ...
-type SearchCoreHrEmployeeRespItemPersonInfoBankAccountBankAccountUsageDisplay struct {
+// SearchCoreHREmployeeRespItemPersonInfoBankAccountBankAccountUsageDisplay ...
+type SearchCoreHREmployeeRespItemPersonInfoBankAccountBankAccountUsageDisplay struct {
 	Lang  string `json:"lang,omitempty"`  // 语言
 	Value string `json:"value,omitempty"` // 内容
 }
 
-// SearchCoreHrEmployeeRespItemPersonInfoBankAccountCustomField ...
-type SearchCoreHrEmployeeRespItemPersonInfoBankAccountCustomField struct {
+// SearchCoreHREmployeeRespItemPersonInfoBankAccountCustomField ...
+type SearchCoreHREmployeeRespItemPersonInfoBankAccountCustomField struct {
 	CustomApiName string                                                            `json:"custom_api_name,omitempty"` // 自定义字段 apiname, 即自定义字段的唯一标识
-	Name          *SearchCoreHrEmployeeRespItemPersonInfoBankAccountCustomFieldName `json:"name,omitempty"`            // 自定义字段名称
+	Name          *SearchCoreHREmployeeRespItemPersonInfoBankAccountCustomFieldName `json:"name,omitempty"`            // 自定义字段名称
 	Type          int64                                                             `json:"type,omitempty"`            // 自定义字段类型
 	Value         string                                                            `json:"value,omitempty"`           // 字段值, 是 json 转义后的字符串, 根据元数据定义不同, 字段格式不同（如 123, 123.23, "true", ["id1", "id2"], "2006-01-02 15:04:05"）
 }
 
-// SearchCoreHrEmployeeRespItemPersonInfoBankAccountCustomFieldName ...
-type SearchCoreHrEmployeeRespItemPersonInfoBankAccountCustomFieldName struct {
+// SearchCoreHREmployeeRespItemPersonInfoBankAccountCustomFieldName ...
+type SearchCoreHREmployeeRespItemPersonInfoBankAccountCustomFieldName struct {
 	ZhCn string `json:"zh_cn,omitempty"` // 中文
 	EnUs string `json:"en_us,omitempty"` // 英文
 }
 
-// SearchCoreHrEmployeeRespItemPersonInfoCustomField ...
-type SearchCoreHrEmployeeRespItemPersonInfoCustomField struct {
+// SearchCoreHREmployeeRespItemPersonInfoCustomField ...
+type SearchCoreHREmployeeRespItemPersonInfoCustomField struct {
 	CustomApiName string                                                 `json:"custom_api_name,omitempty"` // 自定义字段 apiname, 即自定义字段的唯一标识
-	Name          *SearchCoreHrEmployeeRespItemPersonInfoCustomFieldName `json:"name,omitempty"`            // 自定义字段名称
+	Name          *SearchCoreHREmployeeRespItemPersonInfoCustomFieldName `json:"name,omitempty"`            // 自定义字段名称
 	Type          int64                                                  `json:"type,omitempty"`            // 自定义字段类型
 	Value         string                                                 `json:"value,omitempty"`           // 字段值, 是 json 转义后的字符串, 根据元数据定义不同, 字段格式不同（如 123, 123.23, "true", ["id1", "id2"], "2006-01-02 15:04:05"）
 }
 
-// SearchCoreHrEmployeeRespItemPersonInfoCustomFieldName ...
-type SearchCoreHrEmployeeRespItemPersonInfoCustomFieldName struct {
+// SearchCoreHREmployeeRespItemPersonInfoCustomFieldName ...
+type SearchCoreHREmployeeRespItemPersonInfoCustomFieldName struct {
 	ZhCn string `json:"zh_cn,omitempty"` // 中文
 	EnUs string `json:"en_us,omitempty"` // 英文
 }
 
-// SearchCoreHrEmployeeRespItemPersonInfoDependent ...
-type SearchCoreHrEmployeeRespItemPersonInfoDependent struct {
-	Name                                 *SearchCoreHrEmployeeRespItemPersonInfoDependentName                      `json:"name,omitempty"`                                       // 姓名
-	Relationship                         *SearchCoreHrEmployeeRespItemPersonInfoDependentRelationship              `json:"relationship,omitempty"`                               // 关系
-	Gender                               *SearchCoreHrEmployeeRespItemPersonInfoDependentGender                    `json:"gender,omitempty"`                                     // 性别
-	DateOfBirth                          string                                                                    `json:"date_of_birth,omitempty"`                              // 生日
-	NationalIDList                       []*SearchCoreHrEmployeeRespItemPersonInfoDependentNationalID              `json:"national_id_list,omitempty"`                           // 证件号码
-	SpousesWorkingStatus                 *SearchCoreHrEmployeeRespItemPersonInfoDependentSpousesWorkingStatus      `json:"spouses_working_status,omitempty"`                     // 配偶工作状态
-	IsThisPersonCoveredByHealthInsurance bool                                                                      `json:"is_this_person_covered_by_health_insurance,omitempty"` // 包含家属医疗保险
-	IsThisPersonAllowedForTaxDeduction   bool                                                                      `json:"is_this_person_allowed_for_tax_deduction,omitempty"`   // 允许家属抵扣税款
-	CustomFields                         []*SearchCoreHrEmployeeRespItemPersonInfoDependentCustomField             `json:"custom_fields,omitempty"`                              // 自定义字段
-	DependentName                        string                                                                    `json:"dependent_name,omitempty"`                             // 家庭成员姓名
-	Employer                             string                                                                    `json:"employer,omitempty"`                                   // 工作单位
-	Job                                  string                                                                    `json:"job,omitempty"`                                        // 岗位
-	Phone                                *SearchCoreHrEmployeeRespItemPersonInfoDependentPhone                     `json:"phone,omitempty"`                                      // 电话
-	Address                              *SearchCoreHrEmployeeRespItemPersonInfoDependentAddress                   `json:"address,omitempty"`                                    // 联系地址
-	BirthCertificateOfChild              []*SearchCoreHrEmployeeRespItemPersonInfoDependentBirthCertificateOfChild `json:"birth_certificate_of_child,omitempty"`                 // 出生证明
+// SearchCoreHREmployeeRespItemPersonInfoDependent ...
+type SearchCoreHREmployeeRespItemPersonInfoDependent struct {
+	Name                                 *SearchCoreHREmployeeRespItemPersonInfoDependentName                    `json:"name,omitempty"`                                       // 姓名
+	Relationship                         *SearchCoreHREmployeeRespItemPersonInfoDependentRelationship            `json:"relationship,omitempty"`                               // 关系
+	Gender                               *SearchCoreHREmployeeRespItemPersonInfoDependentGender                  `json:"gender,omitempty"`                                     // 性别
+	DateOfBirth                          string                                                                  `json:"date_of_birth,omitempty"`                              // 生日
+	NationalIDList                       []*SearchCoreHREmployeeRespItemPersonInfoDependentNationalID            `json:"national_id_list,omitempty"`                           // 证件号码
+	SpousesWorkingStatus                 *SearchCoreHREmployeeRespItemPersonInfoDependentSpousesWorkingStatus    `json:"spouses_working_status,omitempty"`                     // 配偶工作状态
+	IsThisPersonCoveredByHealthInsurance bool                                                                    `json:"is_this_person_covered_by_health_insurance,omitempty"` // 包含家属医疗保险
+	IsThisPersonAllowedForTaxDeduction   bool                                                                    `json:"is_this_person_allowed_for_tax_deduction,omitempty"`   // 允许家属抵扣税款
+	CustomFields                         []*SearchCoreHREmployeeRespItemPersonInfoDependentCustomField           `json:"custom_fields,omitempty"`                              // 自定义字段
+	DependentName                        string                                                                  `json:"dependent_name,omitempty"`                             // 家庭成员姓名
+	Employer                             string                                                                  `json:"employer,omitempty"`                                   // 工作单位
+	Job                                  string                                                                  `json:"job,omitempty"`                                        // 岗位
+	Phone                                *SearchCoreHREmployeeRespItemPersonInfoDependentPhone                   `json:"phone,omitempty"`                                      // 电话
+	Address                              *SearchCoreHREmployeeRespItemPersonInfoDependentAddress                 `json:"address,omitempty"`                                    // 联系地址
+	BirthCertificateOfChild              *SearchCoreHREmployeeRespItemPersonInfoDependentBirthCertificateOfChild `json:"birth_certificate_of_child,omitempty"`                 // 出生证明
 }
 
-// SearchCoreHrEmployeeRespItemPersonInfoDependentAddress ...
-type SearchCoreHrEmployeeRespItemPersonInfoDependentAddress struct {
+// SearchCoreHREmployeeRespItemPersonInfoDependentAddress ...
+type SearchCoreHREmployeeRespItemPersonInfoDependentAddress struct {
 	FullAddressLocalScript   string                                                               `json:"full_address_local_script,omitempty"`   // 完整地址（本地文字）
 	FullAddressWesternScript string                                                               `json:"full_address_western_script,omitempty"` // 完整地址（西方文字）
 	AddressID                string                                                               `json:"address_id,omitempty"`                  // 地址 ID
@@ -388,73 +388,78 @@ type SearchCoreHrEmployeeRespItemPersonInfoDependentAddress struct {
 	LocalAddressLine8        string                                                               `json:"local_address_line8,omitempty"`         // 地址行 8（非拉丁语系的本地文字）
 	LocalAddressLine9        string                                                               `json:"local_address_line9,omitempty"`         // 地址行 9（非拉丁语系的本地文字）
 	PostalCode               string                                                               `json:"postal_code,omitempty"`                 // 邮政编码
-	AddressTypeList          []*SearchCoreHrEmployeeRespItemPersonInfoDependentAddressAddressType `json:"address_type_list,omitempty"`           // 地址类型
+	AddressTypeList          []*SearchCoreHREmployeeRespItemPersonInfoDependentAddressAddressType `json:"address_type_list,omitempty"`           // 地址类型
 	IsPrimary                bool                                                                 `json:"is_primary,omitempty"`                  // 主要地址
 	IsPublic                 bool                                                                 `json:"is_public,omitempty"`                   // 公开地址
-	CustomFields             []*SearchCoreHrEmployeeRespItemPersonInfoDependentAddressCustomField `json:"custom_fields,omitempty"`               // 自定义字段
+	CustomFields             []*SearchCoreHREmployeeRespItemPersonInfoDependentAddressCustomField `json:"custom_fields,omitempty"`               // 自定义字段
 }
 
-// SearchCoreHrEmployeeRespItemPersonInfoDependentAddressAddressType ...
-type SearchCoreHrEmployeeRespItemPersonInfoDependentAddressAddressType struct {
+// SearchCoreHREmployeeRespItemPersonInfoDependentAddressAddressType ...
+type SearchCoreHREmployeeRespItemPersonInfoDependentAddressAddressType struct {
 	EnumName string                                                                      `json:"enum_name,omitempty"` // 枚举值
-	Display  []*SearchCoreHrEmployeeRespItemPersonInfoDependentAddressAddressTypeDisplay `json:"display,omitempty"`   // 枚举多语展示
+	Display  []*SearchCoreHREmployeeRespItemPersonInfoDependentAddressAddressTypeDisplay `json:"display,omitempty"`   // 枚举多语展示
 }
 
-// SearchCoreHrEmployeeRespItemPersonInfoDependentAddressAddressTypeDisplay ...
-type SearchCoreHrEmployeeRespItemPersonInfoDependentAddressAddressTypeDisplay struct {
+// SearchCoreHREmployeeRespItemPersonInfoDependentAddressAddressTypeDisplay ...
+type SearchCoreHREmployeeRespItemPersonInfoDependentAddressAddressTypeDisplay struct {
 	Lang  string `json:"lang,omitempty"`  // 语言
 	Value string `json:"value,omitempty"` // 内容
 }
 
-// SearchCoreHrEmployeeRespItemPersonInfoDependentAddressCustomField ...
-type SearchCoreHrEmployeeRespItemPersonInfoDependentAddressCustomField struct {
+// SearchCoreHREmployeeRespItemPersonInfoDependentAddressCustomField ...
+type SearchCoreHREmployeeRespItemPersonInfoDependentAddressCustomField struct {
 	CustomApiName string                                                                 `json:"custom_api_name,omitempty"` // 自定义字段 apiname, 即自定义字段的唯一标识
-	Name          *SearchCoreHrEmployeeRespItemPersonInfoDependentAddressCustomFieldName `json:"name,omitempty"`            // 自定义字段名称
+	Name          *SearchCoreHREmployeeRespItemPersonInfoDependentAddressCustomFieldName `json:"name,omitempty"`            // 自定义字段名称
 	Type          int64                                                                  `json:"type,omitempty"`            // 自定义字段类型
 	Value         string                                                                 `json:"value,omitempty"`           // 字段值, 是 json 转义后的字符串, 根据元数据定义不同, 字段格式不同（如 123, 123.23, "true", ["id1", "id2"], "2006-01-02 15:04:05"）
 }
 
-// SearchCoreHrEmployeeRespItemPersonInfoDependentAddressCustomFieldName ...
-type SearchCoreHrEmployeeRespItemPersonInfoDependentAddressCustomFieldName struct {
+// SearchCoreHREmployeeRespItemPersonInfoDependentAddressCustomFieldName ...
+type SearchCoreHREmployeeRespItemPersonInfoDependentAddressCustomFieldName struct {
 	ZhCn string `json:"zh_cn,omitempty"` // 中文
 	EnUs string `json:"en_us,omitempty"` // 英文
 }
 
-// SearchCoreHrEmployeeRespItemPersonInfoDependentCustomField ...
-type SearchCoreHrEmployeeRespItemPersonInfoDependentCustomField struct {
+// SearchCoreHREmployeeRespItemPersonInfoDependentBirthCertificateOfChild ...
+type SearchCoreHREmployeeRespItemPersonInfoDependentBirthCertificateOfChild struct {
+	ID string `json:"id,omitempty"` // 上传文件ID
+}
+
+// SearchCoreHREmployeeRespItemPersonInfoDependentCustomField ...
+type SearchCoreHREmployeeRespItemPersonInfoDependentCustomField struct {
 	CustomApiName string                                                          `json:"custom_api_name,omitempty"` // 自定义字段 apiname, 即自定义字段的唯一标识
-	Name          *SearchCoreHrEmployeeRespItemPersonInfoDependentCustomFieldName `json:"name,omitempty"`            // 自定义字段名称
+	Name          *SearchCoreHREmployeeRespItemPersonInfoDependentCustomFieldName `json:"name,omitempty"`            // 自定义字段名称
 	Type          int64                                                           `json:"type,omitempty"`            // 自定义字段类型
 	Value         string                                                          `json:"value,omitempty"`           // 字段值, 是 json 转义后的字符串, 根据元数据定义不同, 字段格式不同（如 123, 123.23, "true", ["id1", "id2"], "2006-01-02 15:04:05"）
 }
 
-// SearchCoreHrEmployeeRespItemPersonInfoDependentCustomFieldName ...
-type SearchCoreHrEmployeeRespItemPersonInfoDependentCustomFieldName struct {
+// SearchCoreHREmployeeRespItemPersonInfoDependentCustomFieldName ...
+type SearchCoreHREmployeeRespItemPersonInfoDependentCustomFieldName struct {
 	ZhCn string `json:"zh_cn,omitempty"` // 中文
 	EnUs string `json:"en_us,omitempty"` // 英文
 }
 
-// SearchCoreHrEmployeeRespItemPersonInfoDependentGender ...
-type SearchCoreHrEmployeeRespItemPersonInfoDependentGender struct {
+// SearchCoreHREmployeeRespItemPersonInfoDependentGender ...
+type SearchCoreHREmployeeRespItemPersonInfoDependentGender struct {
 	EnumName string                                                          `json:"enum_name,omitempty"` // 枚举值
-	Display  []*SearchCoreHrEmployeeRespItemPersonInfoDependentGenderDisplay `json:"display,omitempty"`   // 枚举多语展示
+	Display  []*SearchCoreHREmployeeRespItemPersonInfoDependentGenderDisplay `json:"display,omitempty"`   // 枚举多语展示
 }
 
-// SearchCoreHrEmployeeRespItemPersonInfoDependentGenderDisplay ...
-type SearchCoreHrEmployeeRespItemPersonInfoDependentGenderDisplay struct {
+// SearchCoreHREmployeeRespItemPersonInfoDependentGenderDisplay ...
+type SearchCoreHREmployeeRespItemPersonInfoDependentGenderDisplay struct {
 	Lang  string `json:"lang,omitempty"`  // 语言
 	Value string `json:"value,omitempty"` // 内容
 }
 
-// SearchCoreHrEmployeeRespItemPersonInfoDependentName ...
-type SearchCoreHrEmployeeRespItemPersonInfoDependentName struct {
+// SearchCoreHREmployeeRespItemPersonInfoDependentName ...
+type SearchCoreHREmployeeRespItemPersonInfoDependentName struct {
 	LocalPrimary                     string                                                                 `json:"local_primary,omitempty"`                         // 姓 - 本地文字
 	LocalFirstName                   string                                                                 `json:"local_first_name,omitempty"`                      // 名 - 本地文字
 	CountryRegionID                  string                                                                 `json:"country_region_id,omitempty"`                     // 国家 / 地区
-	NameType                         *SearchCoreHrEmployeeRespItemPersonInfoDependentNameNameType           `json:"name_type,omitempty"`                             // 姓名类型
+	NameType                         *SearchCoreHREmployeeRespItemPersonInfoDependentNameNameType           `json:"name_type,omitempty"`                             // 姓名类型
 	LocalFirstName2                  string                                                                 `json:"local_first_name_2,omitempty"`                    // 名 - 第二本地文字
 	LocalPrimary2                    string                                                                 `json:"local_primary_2,omitempty"`                       // 姓 - 第二本地文字
-	AdditionalNameType               *SearchCoreHrEmployeeRespItemPersonInfoDependentNameAdditionalNameType `json:"additional_name_type,omitempty"`                  // 补充姓名类型
+	AdditionalNameType               *SearchCoreHREmployeeRespItemPersonInfoDependentNameAdditionalNameType `json:"additional_name_type,omitempty"`                  // 补充姓名类型
 	FirstName                        string                                                                 `json:"first_name,omitempty"`                            // 名
 	FullName                         string                                                                 `json:"full_name,omitempty"`                             // 全名
 	Hereditary                       string                                                                 `json:"hereditary,omitempty"`                            // 姓氏称谓
@@ -463,9 +468,9 @@ type SearchCoreHrEmployeeRespItemPersonInfoDependentName struct {
 	MiddleName                       string                                                                 `json:"middle_name,omitempty"`                           // 中间名
 	NamePrimary                      string                                                                 `json:"name_primary,omitempty"`                          // 姓
 	Secondary                        string                                                                 `json:"secondary,omitempty"`                             // 第二姓氏
-	Social                           *SearchCoreHrEmployeeRespItemPersonInfoDependentNameSocial             `json:"social,omitempty"`                                // 尊称
+	Social                           *SearchCoreHREmployeeRespItemPersonInfoDependentNameSocial             `json:"social,omitempty"`                                // 尊称
 	Tertiary                         string                                                                 `json:"tertiary,omitempty"`                              // 婚后姓氏
-	Title                            *SearchCoreHrEmployeeRespItemPersonInfoDependentNameTitle              `json:"title,omitempty"`                                 // 头衔
+	Title                            *SearchCoreHREmployeeRespItemPersonInfoDependentNameTitle              `json:"title,omitempty"`                                 // 头衔
 	LocalMiddleName                  string                                                                 `json:"local_middle_name,omitempty"`                     // 本地中间名
 	LocalSecondary                   string                                                                 `json:"local_secondary,omitempty"`                       // 第二姓氏 - 本地文字
 	DisplayNameLocalAndWesternScript string                                                                 `json:"display_name_local_and_western_script,omitempty"` // 展示姓名（本地和西方文字）
@@ -473,291 +478,291 @@ type SearchCoreHrEmployeeRespItemPersonInfoDependentName struct {
 	DisplayNameWesternScript         string                                                                 `json:"display_name_western_script,omitempty"`           // 展示姓名（西方文字）
 }
 
-// SearchCoreHrEmployeeRespItemPersonInfoDependentNameAdditionalNameType ...
-type SearchCoreHrEmployeeRespItemPersonInfoDependentNameAdditionalNameType struct {
+// SearchCoreHREmployeeRespItemPersonInfoDependentNameAdditionalNameType ...
+type SearchCoreHREmployeeRespItemPersonInfoDependentNameAdditionalNameType struct {
 	EnumName string                                                                          `json:"enum_name,omitempty"` // 枚举值
-	Display  []*SearchCoreHrEmployeeRespItemPersonInfoDependentNameAdditionalNameTypeDisplay `json:"display,omitempty"`   // 枚举多语展示
+	Display  []*SearchCoreHREmployeeRespItemPersonInfoDependentNameAdditionalNameTypeDisplay `json:"display,omitempty"`   // 枚举多语展示
 }
 
-// SearchCoreHrEmployeeRespItemPersonInfoDependentNameAdditionalNameTypeDisplay ...
-type SearchCoreHrEmployeeRespItemPersonInfoDependentNameAdditionalNameTypeDisplay struct {
+// SearchCoreHREmployeeRespItemPersonInfoDependentNameAdditionalNameTypeDisplay ...
+type SearchCoreHREmployeeRespItemPersonInfoDependentNameAdditionalNameTypeDisplay struct {
 	Lang  string `json:"lang,omitempty"`  // 语言
 	Value string `json:"value,omitempty"` // 内容
 }
 
-// SearchCoreHrEmployeeRespItemPersonInfoDependentNameNameType ...
-type SearchCoreHrEmployeeRespItemPersonInfoDependentNameNameType struct {
+// SearchCoreHREmployeeRespItemPersonInfoDependentNameNameType ...
+type SearchCoreHREmployeeRespItemPersonInfoDependentNameNameType struct {
 	EnumName string                                                                `json:"enum_name,omitempty"` // 枚举值
-	Display  []*SearchCoreHrEmployeeRespItemPersonInfoDependentNameNameTypeDisplay `json:"display,omitempty"`   // 枚举多语展示
+	Display  []*SearchCoreHREmployeeRespItemPersonInfoDependentNameNameTypeDisplay `json:"display,omitempty"`   // 枚举多语展示
 }
 
-// SearchCoreHrEmployeeRespItemPersonInfoDependentNameNameTypeDisplay ...
-type SearchCoreHrEmployeeRespItemPersonInfoDependentNameNameTypeDisplay struct {
+// SearchCoreHREmployeeRespItemPersonInfoDependentNameNameTypeDisplay ...
+type SearchCoreHREmployeeRespItemPersonInfoDependentNameNameTypeDisplay struct {
 	Lang  string `json:"lang,omitempty"`  // 语言
 	Value string `json:"value,omitempty"` // 内容
 }
 
-// SearchCoreHrEmployeeRespItemPersonInfoDependentNameSocial ...
-type SearchCoreHrEmployeeRespItemPersonInfoDependentNameSocial struct {
+// SearchCoreHREmployeeRespItemPersonInfoDependentNameSocial ...
+type SearchCoreHREmployeeRespItemPersonInfoDependentNameSocial struct {
 	EnumName string                                                              `json:"enum_name,omitempty"` // 枚举值
-	Display  []*SearchCoreHrEmployeeRespItemPersonInfoDependentNameSocialDisplay `json:"display,omitempty"`   // 枚举多语展示
+	Display  []*SearchCoreHREmployeeRespItemPersonInfoDependentNameSocialDisplay `json:"display,omitempty"`   // 枚举多语展示
 }
 
-// SearchCoreHrEmployeeRespItemPersonInfoDependentNameSocialDisplay ...
-type SearchCoreHrEmployeeRespItemPersonInfoDependentNameSocialDisplay struct {
+// SearchCoreHREmployeeRespItemPersonInfoDependentNameSocialDisplay ...
+type SearchCoreHREmployeeRespItemPersonInfoDependentNameSocialDisplay struct {
 	Lang  string `json:"lang,omitempty"`  // 语言
 	Value string `json:"value,omitempty"` // 内容
 }
 
-// SearchCoreHrEmployeeRespItemPersonInfoDependentNameTitle ...
-type SearchCoreHrEmployeeRespItemPersonInfoDependentNameTitle struct {
+// SearchCoreHREmployeeRespItemPersonInfoDependentNameTitle ...
+type SearchCoreHREmployeeRespItemPersonInfoDependentNameTitle struct {
 	EnumName string                                                             `json:"enum_name,omitempty"` // 枚举值
-	Display  []*SearchCoreHrEmployeeRespItemPersonInfoDependentNameTitleDisplay `json:"display,omitempty"`   // 枚举多语展示
+	Display  []*SearchCoreHREmployeeRespItemPersonInfoDependentNameTitleDisplay `json:"display,omitempty"`   // 枚举多语展示
 }
 
-// SearchCoreHrEmployeeRespItemPersonInfoDependentNameTitleDisplay ...
-type SearchCoreHrEmployeeRespItemPersonInfoDependentNameTitleDisplay struct {
+// SearchCoreHREmployeeRespItemPersonInfoDependentNameTitleDisplay ...
+type SearchCoreHREmployeeRespItemPersonInfoDependentNameTitleDisplay struct {
 	Lang  string `json:"lang,omitempty"`  // 语言
 	Value string `json:"value,omitempty"` // 内容
 }
 
-// SearchCoreHrEmployeeRespItemPersonInfoDependentNationalID ...
-type SearchCoreHrEmployeeRespItemPersonInfoDependentNationalID struct {
+// SearchCoreHREmployeeRespItemPersonInfoDependentNationalID ...
+type SearchCoreHREmployeeRespItemPersonInfoDependentNationalID struct {
 	NationalIDTypeID string                                                                  `json:"national_id_type_id,omitempty"` // 国家证件类型
 	NationalIDNumber string                                                                  `json:"national_id_number,omitempty"`  // 证件号码
 	IssueDate        string                                                                  `json:"issue_date,omitempty"`          // 证件签发日期
 	ExpirationDate   string                                                                  `json:"expiration_date,omitempty"`     // 证件到期日期
 	CountryRegionID  string                                                                  `json:"country_region_id,omitempty"`   // 国家 / 地区
 	IssuedBy         string                                                                  `json:"issued_by,omitempty"`           // 证件签发机构
-	CustomFields     []*SearchCoreHrEmployeeRespItemPersonInfoDependentNationalIDCustomField `json:"custom_fields,omitempty"`       // 自定义字段
+	CustomFields     []*SearchCoreHREmployeeRespItemPersonInfoDependentNationalIDCustomField `json:"custom_fields,omitempty"`       // 自定义字段
 }
 
-// SearchCoreHrEmployeeRespItemPersonInfoDependentNationalIDCustomField ...
-type SearchCoreHrEmployeeRespItemPersonInfoDependentNationalIDCustomField struct {
+// SearchCoreHREmployeeRespItemPersonInfoDependentNationalIDCustomField ...
+type SearchCoreHREmployeeRespItemPersonInfoDependentNationalIDCustomField struct {
 	CustomApiName string                                                                    `json:"custom_api_name,omitempty"` // 自定义字段 apiname, 即自定义字段的唯一标识
-	Name          *SearchCoreHrEmployeeRespItemPersonInfoDependentNationalIDCustomFieldName `json:"name,omitempty"`            // 自定义字段名称
+	Name          *SearchCoreHREmployeeRespItemPersonInfoDependentNationalIDCustomFieldName `json:"name,omitempty"`            // 自定义字段名称
 	Type          int64                                                                     `json:"type,omitempty"`            // 自定义字段类型
 	Value         string                                                                    `json:"value,omitempty"`           // 字段值, 是 json 转义后的字符串, 根据元数据定义不同, 字段格式不同（如 123, 123.23, "true", ["id1", "id2"], "2006-01-02 15:04:05"）
 }
 
-// SearchCoreHrEmployeeRespItemPersonInfoDependentNationalIDCustomFieldName ...
-type SearchCoreHrEmployeeRespItemPersonInfoDependentNationalIDCustomFieldName struct {
+// SearchCoreHREmployeeRespItemPersonInfoDependentNationalIDCustomFieldName ...
+type SearchCoreHREmployeeRespItemPersonInfoDependentNationalIDCustomFieldName struct {
 	ZhCn string `json:"zh_cn,omitempty"` // 中文
 	EnUs string `json:"en_us,omitempty"` // 英文
 }
 
-// SearchCoreHrEmployeeRespItemPersonInfoDependentPhone ...
-type SearchCoreHrEmployeeRespItemPersonInfoDependentPhone struct {
-	InternationalAreaCode *SearchCoreHrEmployeeRespItemPersonInfoDependentPhoneInternationalAreaCode `json:"international_area_code,omitempty"` // 国家区号
+// SearchCoreHREmployeeRespItemPersonInfoDependentPhone ...
+type SearchCoreHREmployeeRespItemPersonInfoDependentPhone struct {
+	InternationalAreaCode *SearchCoreHREmployeeRespItemPersonInfoDependentPhoneInternationalAreaCode `json:"international_area_code,omitempty"` // 国家区号
 	PhoneNumber           string                                                                     `json:"phone_number,omitempty"`            // 电话号码
 	FormattedPhoneNumber  string                                                                     `json:"formatted_phone_number,omitempty"`  // 完整电话号码
-	DeviceType            *SearchCoreHrEmployeeRespItemPersonInfoDependentPhoneDeviceType            `json:"device_type,omitempty"`             // 设备类型
-	PhoneUsage            *SearchCoreHrEmployeeRespItemPersonInfoDependentPhonePhoneUsage            `json:"phone_usage,omitempty"`             // 电话用途
+	DeviceType            *SearchCoreHREmployeeRespItemPersonInfoDependentPhoneDeviceType            `json:"device_type,omitempty"`             // 设备类型
+	PhoneUsage            *SearchCoreHREmployeeRespItemPersonInfoDependentPhonePhoneUsage            `json:"phone_usage,omitempty"`             // 电话用途
 	IsPrimary             bool                                                                       `json:"is_primary,omitempty"`              // 主要电话
 	IsPublic              bool                                                                       `json:"is_public,omitempty"`               // 公开电话
 }
 
-// SearchCoreHrEmployeeRespItemPersonInfoDependentPhoneDeviceType ...
-type SearchCoreHrEmployeeRespItemPersonInfoDependentPhoneDeviceType struct {
+// SearchCoreHREmployeeRespItemPersonInfoDependentPhoneDeviceType ...
+type SearchCoreHREmployeeRespItemPersonInfoDependentPhoneDeviceType struct {
 	EnumName string                                                                   `json:"enum_name,omitempty"` // 枚举值
-	Display  []*SearchCoreHrEmployeeRespItemPersonInfoDependentPhoneDeviceTypeDisplay `json:"display,omitempty"`   // 枚举多语展示
+	Display  []*SearchCoreHREmployeeRespItemPersonInfoDependentPhoneDeviceTypeDisplay `json:"display,omitempty"`   // 枚举多语展示
 }
 
-// SearchCoreHrEmployeeRespItemPersonInfoDependentPhoneDeviceTypeDisplay ...
-type SearchCoreHrEmployeeRespItemPersonInfoDependentPhoneDeviceTypeDisplay struct {
+// SearchCoreHREmployeeRespItemPersonInfoDependentPhoneDeviceTypeDisplay ...
+type SearchCoreHREmployeeRespItemPersonInfoDependentPhoneDeviceTypeDisplay struct {
 	Lang  string `json:"lang,omitempty"`  // 语言
 	Value string `json:"value,omitempty"` // 内容
 }
 
-// SearchCoreHrEmployeeRespItemPersonInfoDependentPhoneInternationalAreaCode ...
-type SearchCoreHrEmployeeRespItemPersonInfoDependentPhoneInternationalAreaCode struct {
+// SearchCoreHREmployeeRespItemPersonInfoDependentPhoneInternationalAreaCode ...
+type SearchCoreHREmployeeRespItemPersonInfoDependentPhoneInternationalAreaCode struct {
 	EnumName string                                                                              `json:"enum_name,omitempty"` // 枚举值
-	Display  []*SearchCoreHrEmployeeRespItemPersonInfoDependentPhoneInternationalAreaCodeDisplay `json:"display,omitempty"`   // 枚举多语展示
+	Display  []*SearchCoreHREmployeeRespItemPersonInfoDependentPhoneInternationalAreaCodeDisplay `json:"display,omitempty"`   // 枚举多语展示
 }
 
-// SearchCoreHrEmployeeRespItemPersonInfoDependentPhoneInternationalAreaCodeDisplay ...
-type SearchCoreHrEmployeeRespItemPersonInfoDependentPhoneInternationalAreaCodeDisplay struct {
+// SearchCoreHREmployeeRespItemPersonInfoDependentPhoneInternationalAreaCodeDisplay ...
+type SearchCoreHREmployeeRespItemPersonInfoDependentPhoneInternationalAreaCodeDisplay struct {
 	Lang  string `json:"lang,omitempty"`  // 语言
 	Value string `json:"value,omitempty"` // 内容
 }
 
-// SearchCoreHrEmployeeRespItemPersonInfoDependentPhonePhoneUsage ...
-type SearchCoreHrEmployeeRespItemPersonInfoDependentPhonePhoneUsage struct {
+// SearchCoreHREmployeeRespItemPersonInfoDependentPhonePhoneUsage ...
+type SearchCoreHREmployeeRespItemPersonInfoDependentPhonePhoneUsage struct {
 	EnumName string                                                                   `json:"enum_name,omitempty"` // 枚举值
-	Display  []*SearchCoreHrEmployeeRespItemPersonInfoDependentPhonePhoneUsageDisplay `json:"display,omitempty"`   // 枚举多语展示
+	Display  []*SearchCoreHREmployeeRespItemPersonInfoDependentPhonePhoneUsageDisplay `json:"display,omitempty"`   // 枚举多语展示
 }
 
-// SearchCoreHrEmployeeRespItemPersonInfoDependentPhonePhoneUsageDisplay ...
-type SearchCoreHrEmployeeRespItemPersonInfoDependentPhonePhoneUsageDisplay struct {
+// SearchCoreHREmployeeRespItemPersonInfoDependentPhonePhoneUsageDisplay ...
+type SearchCoreHREmployeeRespItemPersonInfoDependentPhonePhoneUsageDisplay struct {
 	Lang  string `json:"lang,omitempty"`  // 语言
 	Value string `json:"value,omitempty"` // 内容
 }
 
-// SearchCoreHrEmployeeRespItemPersonInfoDependentRelationship ...
-type SearchCoreHrEmployeeRespItemPersonInfoDependentRelationship struct {
+// SearchCoreHREmployeeRespItemPersonInfoDependentRelationship ...
+type SearchCoreHREmployeeRespItemPersonInfoDependentRelationship struct {
 	EnumName string                                                                `json:"enum_name,omitempty"` // 枚举值
-	Display  []*SearchCoreHrEmployeeRespItemPersonInfoDependentRelationshipDisplay `json:"display,omitempty"`   // 枚举多语展示
+	Display  []*SearchCoreHREmployeeRespItemPersonInfoDependentRelationshipDisplay `json:"display,omitempty"`   // 枚举多语展示
 }
 
-// SearchCoreHrEmployeeRespItemPersonInfoDependentRelationshipDisplay ...
-type SearchCoreHrEmployeeRespItemPersonInfoDependentRelationshipDisplay struct {
+// SearchCoreHREmployeeRespItemPersonInfoDependentRelationshipDisplay ...
+type SearchCoreHREmployeeRespItemPersonInfoDependentRelationshipDisplay struct {
 	Lang  string `json:"lang,omitempty"`  // 语言
 	Value string `json:"value,omitempty"` // 内容
 }
 
-// SearchCoreHrEmployeeRespItemPersonInfoDependentSpousesWorkingStatus ...
-type SearchCoreHrEmployeeRespItemPersonInfoDependentSpousesWorkingStatus struct {
+// SearchCoreHREmployeeRespItemPersonInfoDependentSpousesWorkingStatus ...
+type SearchCoreHREmployeeRespItemPersonInfoDependentSpousesWorkingStatus struct {
 	EnumName string                                                                        `json:"enum_name,omitempty"` // 枚举值
-	Display  []*SearchCoreHrEmployeeRespItemPersonInfoDependentSpousesWorkingStatusDisplay `json:"display,omitempty"`   // 枚举多语展示
+	Display  []*SearchCoreHREmployeeRespItemPersonInfoDependentSpousesWorkingStatusDisplay `json:"display,omitempty"`   // 枚举多语展示
 }
 
-// SearchCoreHrEmployeeRespItemPersonInfoDependentSpousesWorkingStatusDisplay ...
-type SearchCoreHrEmployeeRespItemPersonInfoDependentSpousesWorkingStatusDisplay struct {
+// SearchCoreHREmployeeRespItemPersonInfoDependentSpousesWorkingStatusDisplay ...
+type SearchCoreHREmployeeRespItemPersonInfoDependentSpousesWorkingStatusDisplay struct {
 	Lang  string `json:"lang,omitempty"`  // 语言
 	Value string `json:"value,omitempty"` // 内容
 }
 
-// SearchCoreHrEmployeeRespItemPersonInfoEducation ...
-type SearchCoreHrEmployeeRespItemPersonInfoEducation struct {
-	School           []*SearchCoreHrEmployeeRespItemPersonInfoEducationSchool         `json:"school,omitempty"`              // 学校
-	LevelOfEducation *SearchCoreHrEmployeeRespItemPersonInfoEducationLevelOfEducation `json:"level_of_education,omitempty"`  // 学历
+// SearchCoreHREmployeeRespItemPersonInfoEducation ...
+type SearchCoreHREmployeeRespItemPersonInfoEducation struct {
+	School           []*SearchCoreHREmployeeRespItemPersonInfoEducationSchool         `json:"school,omitempty"`              // 学校
+	LevelOfEducation *SearchCoreHREmployeeRespItemPersonInfoEducationLevelOfEducation `json:"level_of_education,omitempty"`  // 学历
 	StartDate        string                                                           `json:"start_date,omitempty"`          // 开始日期
 	EndDate          string                                                           `json:"end_date,omitempty"`            // 结束日期
-	FieldOfStudy     []*SearchCoreHrEmployeeRespItemPersonInfoEducationFieldOfStudy   `json:"field_of_study,omitempty"`      // 专业
-	Degree           *SearchCoreHrEmployeeRespItemPersonInfoEducationDegree           `json:"degree,omitempty"`              // 学位
-	SchoolName       *SearchCoreHrEmployeeRespItemPersonInfoEducationSchoolName       `json:"school_name,omitempty"`         // 学校名称
-	FieldOfStudyName *SearchCoreHrEmployeeRespItemPersonInfoEducationFieldOfStudyName `json:"field_of_study_name,omitempty"` // 专业名称
+	FieldOfStudy     []*SearchCoreHREmployeeRespItemPersonInfoEducationFieldOfStudy   `json:"field_of_study,omitempty"`      // 专业
+	Degree           *SearchCoreHREmployeeRespItemPersonInfoEducationDegree           `json:"degree,omitempty"`              // 学位
+	SchoolName       *SearchCoreHREmployeeRespItemPersonInfoEducationSchoolName       `json:"school_name,omitempty"`         // 学校名称
+	FieldOfStudyName *SearchCoreHREmployeeRespItemPersonInfoEducationFieldOfStudyName `json:"field_of_study_name,omitempty"` // 专业名称
 	CountryRegionID  string                                                           `json:"country_region_id,omitempty"`   // 国家地区ID
 	ExpectedEndDate  string                                                           `json:"expected_end_date,omitempty"`   // 预期结束日期
-	CustomFields     []*SearchCoreHrEmployeeRespItemPersonInfoEducationCustomField    `json:"custom_fields,omitempty"`       // 自定义字段
+	CustomFields     []*SearchCoreHREmployeeRespItemPersonInfoEducationCustomField    `json:"custom_fields,omitempty"`       // 自定义字段
 }
 
-// SearchCoreHrEmployeeRespItemPersonInfoEducationCustomField ...
-type SearchCoreHrEmployeeRespItemPersonInfoEducationCustomField struct {
+// SearchCoreHREmployeeRespItemPersonInfoEducationCustomField ...
+type SearchCoreHREmployeeRespItemPersonInfoEducationCustomField struct {
 	CustomApiName string                                                          `json:"custom_api_name,omitempty"` // 自定义字段 apiname, 即自定义字段的唯一标识
-	Name          *SearchCoreHrEmployeeRespItemPersonInfoEducationCustomFieldName `json:"name,omitempty"`            // 自定义字段名称
+	Name          *SearchCoreHREmployeeRespItemPersonInfoEducationCustomFieldName `json:"name,omitempty"`            // 自定义字段名称
 	Type          int64                                                           `json:"type,omitempty"`            // 自定义字段类型
 	Value         string                                                          `json:"value,omitempty"`           // 字段值, 是 json 转义后的字符串, 根据元数据定义不同, 字段格式不同（如 123, 123.23, "true", ["id1", "id2"], "2006-01-02 15:04:05"）
 }
 
-// SearchCoreHrEmployeeRespItemPersonInfoEducationCustomFieldName ...
-type SearchCoreHrEmployeeRespItemPersonInfoEducationCustomFieldName struct {
+// SearchCoreHREmployeeRespItemPersonInfoEducationCustomFieldName ...
+type SearchCoreHREmployeeRespItemPersonInfoEducationCustomFieldName struct {
 	ZhCn string `json:"zh_cn,omitempty"` // 中文
 	EnUs string `json:"en_us,omitempty"` // 英文
 }
 
-// SearchCoreHrEmployeeRespItemPersonInfoEducationDegree ...
-type SearchCoreHrEmployeeRespItemPersonInfoEducationDegree struct {
+// SearchCoreHREmployeeRespItemPersonInfoEducationDegree ...
+type SearchCoreHREmployeeRespItemPersonInfoEducationDegree struct {
 	EnumName string                                                          `json:"enum_name,omitempty"` // 枚举值
-	Display  []*SearchCoreHrEmployeeRespItemPersonInfoEducationDegreeDisplay `json:"display,omitempty"`   // 枚举多语展示
+	Display  []*SearchCoreHREmployeeRespItemPersonInfoEducationDegreeDisplay `json:"display,omitempty"`   // 枚举多语展示
 }
 
-// SearchCoreHrEmployeeRespItemPersonInfoEducationDegreeDisplay ...
-type SearchCoreHrEmployeeRespItemPersonInfoEducationDegreeDisplay struct {
+// SearchCoreHREmployeeRespItemPersonInfoEducationDegreeDisplay ...
+type SearchCoreHREmployeeRespItemPersonInfoEducationDegreeDisplay struct {
 	Lang  string `json:"lang,omitempty"`  // 语言
 	Value string `json:"value,omitempty"` // 内容
 }
 
-// SearchCoreHrEmployeeRespItemPersonInfoEducationFieldOfStudy ...
-type SearchCoreHrEmployeeRespItemPersonInfoEducationFieldOfStudy struct {
+// SearchCoreHREmployeeRespItemPersonInfoEducationFieldOfStudy ...
+type SearchCoreHREmployeeRespItemPersonInfoEducationFieldOfStudy struct {
 	Lang  string `json:"lang,omitempty"`  // 语言
 	Value string `json:"value,omitempty"` // 内容
 }
 
-// SearchCoreHrEmployeeRespItemPersonInfoEducationFieldOfStudyName ...
-type SearchCoreHrEmployeeRespItemPersonInfoEducationFieldOfStudyName struct {
+// SearchCoreHREmployeeRespItemPersonInfoEducationFieldOfStudyName ...
+type SearchCoreHREmployeeRespItemPersonInfoEducationFieldOfStudyName struct {
 	EnumName string                                                                    `json:"enum_name,omitempty"` // 枚举值
-	Display  []*SearchCoreHrEmployeeRespItemPersonInfoEducationFieldOfStudyNameDisplay `json:"display,omitempty"`   // 枚举多语展示
+	Display  []*SearchCoreHREmployeeRespItemPersonInfoEducationFieldOfStudyNameDisplay `json:"display,omitempty"`   // 枚举多语展示
 }
 
-// SearchCoreHrEmployeeRespItemPersonInfoEducationFieldOfStudyNameDisplay ...
-type SearchCoreHrEmployeeRespItemPersonInfoEducationFieldOfStudyNameDisplay struct {
+// SearchCoreHREmployeeRespItemPersonInfoEducationFieldOfStudyNameDisplay ...
+type SearchCoreHREmployeeRespItemPersonInfoEducationFieldOfStudyNameDisplay struct {
 	Lang  string `json:"lang,omitempty"`  // 语言
 	Value string `json:"value,omitempty"` // 内容
 }
 
-// SearchCoreHrEmployeeRespItemPersonInfoEducationLevelOfEducation ...
-type SearchCoreHrEmployeeRespItemPersonInfoEducationLevelOfEducation struct {
+// SearchCoreHREmployeeRespItemPersonInfoEducationLevelOfEducation ...
+type SearchCoreHREmployeeRespItemPersonInfoEducationLevelOfEducation struct {
 	EnumName string                                                                    `json:"enum_name,omitempty"` // 枚举值
-	Display  []*SearchCoreHrEmployeeRespItemPersonInfoEducationLevelOfEducationDisplay `json:"display,omitempty"`   // 枚举多语展示
+	Display  []*SearchCoreHREmployeeRespItemPersonInfoEducationLevelOfEducationDisplay `json:"display,omitempty"`   // 枚举多语展示
 }
 
-// SearchCoreHrEmployeeRespItemPersonInfoEducationLevelOfEducationDisplay ...
-type SearchCoreHrEmployeeRespItemPersonInfoEducationLevelOfEducationDisplay struct {
+// SearchCoreHREmployeeRespItemPersonInfoEducationLevelOfEducationDisplay ...
+type SearchCoreHREmployeeRespItemPersonInfoEducationLevelOfEducationDisplay struct {
 	Lang  string `json:"lang,omitempty"`  // 语言
 	Value string `json:"value,omitempty"` // 内容
 }
 
-// SearchCoreHrEmployeeRespItemPersonInfoEducationSchool ...
-type SearchCoreHrEmployeeRespItemPersonInfoEducationSchool struct {
+// SearchCoreHREmployeeRespItemPersonInfoEducationSchool ...
+type SearchCoreHREmployeeRespItemPersonInfoEducationSchool struct {
 	Lang  string `json:"lang,omitempty"`  // 语言
 	Value string `json:"value,omitempty"` // 内容
 }
 
-// SearchCoreHrEmployeeRespItemPersonInfoEducationSchoolName ...
-type SearchCoreHrEmployeeRespItemPersonInfoEducationSchoolName struct {
+// SearchCoreHREmployeeRespItemPersonInfoEducationSchoolName ...
+type SearchCoreHREmployeeRespItemPersonInfoEducationSchoolName struct {
 	EnumName string                                                              `json:"enum_name,omitempty"` // 枚举值
-	Display  []*SearchCoreHrEmployeeRespItemPersonInfoEducationSchoolNameDisplay `json:"display,omitempty"`   // 枚举多语展示
+	Display  []*SearchCoreHREmployeeRespItemPersonInfoEducationSchoolNameDisplay `json:"display,omitempty"`   // 枚举多语展示
 }
 
-// SearchCoreHrEmployeeRespItemPersonInfoEducationSchoolNameDisplay ...
-type SearchCoreHrEmployeeRespItemPersonInfoEducationSchoolNameDisplay struct {
+// SearchCoreHREmployeeRespItemPersonInfoEducationSchoolNameDisplay ...
+type SearchCoreHREmployeeRespItemPersonInfoEducationSchoolNameDisplay struct {
 	Lang  string `json:"lang,omitempty"`  // 语言
 	Value string `json:"value,omitempty"` // 内容
 }
 
-// SearchCoreHrEmployeeRespItemPersonInfoEmail ...
-type SearchCoreHrEmployeeRespItemPersonInfoEmail struct {
+// SearchCoreHREmployeeRespItemPersonInfoEmail ...
+type SearchCoreHREmployeeRespItemPersonInfoEmail struct {
 	Email      string                                                 `json:"email,omitempty"`       // 邮箱地址
 	IsPrimary  bool                                                   `json:"is_primary,omitempty"`  // 是否为主要邮箱
 	IsPublic   bool                                                   `json:"is_public,omitempty"`   // 是否为公开邮箱
-	EmailUsage *SearchCoreHrEmployeeRespItemPersonInfoEmailEmailUsage `json:"email_usage,omitempty"` // 邮箱用途, 枚举值可通过文档【飞书人事枚举常量】邮箱用途（email_usage）枚举定义获得
+	EmailUsage *SearchCoreHREmployeeRespItemPersonInfoEmailEmailUsage `json:"email_usage,omitempty"` // 邮箱用途, 枚举值可通过文档【飞书人事枚举常量】邮箱用途（email_usage）枚举定义获得
 }
 
-// SearchCoreHrEmployeeRespItemPersonInfoEmailEmailUsage ...
-type SearchCoreHrEmployeeRespItemPersonInfoEmailEmailUsage struct {
+// SearchCoreHREmployeeRespItemPersonInfoEmailEmailUsage ...
+type SearchCoreHREmployeeRespItemPersonInfoEmailEmailUsage struct {
 	EnumName string                                                          `json:"enum_name,omitempty"` // 枚举值
-	Display  []*SearchCoreHrEmployeeRespItemPersonInfoEmailEmailUsageDisplay `json:"display,omitempty"`   // 枚举多语展示
+	Display  []*SearchCoreHREmployeeRespItemPersonInfoEmailEmailUsageDisplay `json:"display,omitempty"`   // 枚举多语展示
 }
 
-// SearchCoreHrEmployeeRespItemPersonInfoEmailEmailUsageDisplay ...
-type SearchCoreHrEmployeeRespItemPersonInfoEmailEmailUsageDisplay struct {
+// SearchCoreHREmployeeRespItemPersonInfoEmailEmailUsageDisplay ...
+type SearchCoreHREmployeeRespItemPersonInfoEmailEmailUsageDisplay struct {
 	Lang  string `json:"lang,omitempty"`  // 语言
 	Value string `json:"value,omitempty"` // 内容
 }
 
-// SearchCoreHrEmployeeRespItemPersonInfoEmergencyContact ...
-type SearchCoreHrEmployeeRespItemPersonInfoEmergencyContact struct {
-	Name         *SearchCoreHrEmployeeRespItemPersonInfoEmergencyContactName          `json:"name,omitempty"`          // 姓名
-	Relationship *SearchCoreHrEmployeeRespItemPersonInfoEmergencyContactRelationship  `json:"relationship,omitempty"`  // 关系
-	PhoneIst     []*SearchCoreHrEmployeeRespItemPersonInfoEmergencyContactPhoneIst    `json:"phone_ist,omitempty"`     // 电话
+// SearchCoreHREmployeeRespItemPersonInfoEmergencyContact ...
+type SearchCoreHREmployeeRespItemPersonInfoEmergencyContact struct {
+	Name         *SearchCoreHREmployeeRespItemPersonInfoEmergencyContactName          `json:"name,omitempty"`          // 姓名
+	Relationship *SearchCoreHREmployeeRespItemPersonInfoEmergencyContactRelationship  `json:"relationship,omitempty"`  // 关系
+	PhoneIst     []*SearchCoreHREmployeeRespItemPersonInfoEmergencyContactPhoneIst    `json:"phone_ist,omitempty"`     // 电话
 	LegalName    string                                                               `json:"legal_name,omitempty"`    // 法定姓名
-	CustomFields []*SearchCoreHrEmployeeRespItemPersonInfoEmergencyContactCustomField `json:"custom_fields,omitempty"` // 自定义字段
+	CustomFields []*SearchCoreHREmployeeRespItemPersonInfoEmergencyContactCustomField `json:"custom_fields,omitempty"` // 自定义字段
 }
 
-// SearchCoreHrEmployeeRespItemPersonInfoEmergencyContactCustomField ...
-type SearchCoreHrEmployeeRespItemPersonInfoEmergencyContactCustomField struct {
+// SearchCoreHREmployeeRespItemPersonInfoEmergencyContactCustomField ...
+type SearchCoreHREmployeeRespItemPersonInfoEmergencyContactCustomField struct {
 	CustomApiName string                                                                 `json:"custom_api_name,omitempty"` // 自定义字段 apiname, 即自定义字段的唯一标识
-	Name          *SearchCoreHrEmployeeRespItemPersonInfoEmergencyContactCustomFieldName `json:"name,omitempty"`            // 自定义字段名称
+	Name          *SearchCoreHREmployeeRespItemPersonInfoEmergencyContactCustomFieldName `json:"name,omitempty"`            // 自定义字段名称
 	Type          int64                                                                  `json:"type,omitempty"`            // 自定义字段类型
 	Value         string                                                                 `json:"value,omitempty"`           // 字段值, 是 json 转义后的字符串, 根据元数据定义不同, 字段格式不同（如 123, 123.23, "true", ["id1", "id2"], "2006-01-02 15:04:05"）
 }
 
-// SearchCoreHrEmployeeRespItemPersonInfoEmergencyContactCustomFieldName ...
-type SearchCoreHrEmployeeRespItemPersonInfoEmergencyContactCustomFieldName struct {
+// SearchCoreHREmployeeRespItemPersonInfoEmergencyContactCustomFieldName ...
+type SearchCoreHREmployeeRespItemPersonInfoEmergencyContactCustomFieldName struct {
 	ZhCn string `json:"zh_cn,omitempty"` // 中文
 	EnUs string `json:"en_us,omitempty"` // 英文
 }
 
-// SearchCoreHrEmployeeRespItemPersonInfoEmergencyContactName ...
-type SearchCoreHrEmployeeRespItemPersonInfoEmergencyContactName struct {
+// SearchCoreHREmployeeRespItemPersonInfoEmergencyContactName ...
+type SearchCoreHREmployeeRespItemPersonInfoEmergencyContactName struct {
 	LocalPrimary                     string                                                                        `json:"local_primary,omitempty"`                         // 姓 - 本地文字
 	LocalFirstName                   string                                                                        `json:"local_first_name,omitempty"`                      // 名 - 本地文字
 	CountryRegionID                  string                                                                        `json:"country_region_id,omitempty"`                     // 国家 / 地区
-	NameType                         *SearchCoreHrEmployeeRespItemPersonInfoEmergencyContactNameNameType           `json:"name_type,omitempty"`                             // 姓名类型
+	NameType                         *SearchCoreHREmployeeRespItemPersonInfoEmergencyContactNameNameType           `json:"name_type,omitempty"`                             // 姓名类型
 	LocalFirstName2                  string                                                                        `json:"local_first_name_2,omitempty"`                    // 名 - 第二本地文字
 	LocalPrimary2                    string                                                                        `json:"local_primary_2,omitempty"`                       // 姓 - 第二本地文字
-	AdditionalNameType               *SearchCoreHrEmployeeRespItemPersonInfoEmergencyContactNameAdditionalNameType `json:"additional_name_type,omitempty"`                  // 补充姓名类型
+	AdditionalNameType               *SearchCoreHREmployeeRespItemPersonInfoEmergencyContactNameAdditionalNameType `json:"additional_name_type,omitempty"`                  // 补充姓名类型
 	FirstName                        string                                                                        `json:"first_name,omitempty"`                            // 名
 	FullName                         string                                                                        `json:"full_name,omitempty"`                             // 全名
 	Hereditary                       string                                                                        `json:"hereditary,omitempty"`                            // 姓氏称谓
@@ -766,9 +771,9 @@ type SearchCoreHrEmployeeRespItemPersonInfoEmergencyContactName struct {
 	MiddleName                       string                                                                        `json:"middle_name,omitempty"`                           // 中间名
 	NamePrimary                      string                                                                        `json:"name_primary,omitempty"`                          // 姓
 	Secondary                        string                                                                        `json:"secondary,omitempty"`                             // 第二姓氏
-	Social                           *SearchCoreHrEmployeeRespItemPersonInfoEmergencyContactNameSocial             `json:"social,omitempty"`                                // 尊称
+	Social                           *SearchCoreHREmployeeRespItemPersonInfoEmergencyContactNameSocial             `json:"social,omitempty"`                                // 尊称
 	Tertiary                         string                                                                        `json:"tertiary,omitempty"`                              // 婚后姓氏
-	Title                            *SearchCoreHrEmployeeRespItemPersonInfoEmergencyContactNameTitle              `json:"title,omitempty"`                                 // 头衔
+	Title                            *SearchCoreHREmployeeRespItemPersonInfoEmergencyContactNameTitle              `json:"title,omitempty"`                                 // 头衔
 	LocalMiddleName                  string                                                                        `json:"local_middle_name,omitempty"`                     // 本地中间名
 	LocalSecondary                   string                                                                        `json:"local_secondary,omitempty"`                       // 第二姓氏 - 本地文字
 	DisplayNameLocalAndWesternScript string                                                                        `json:"display_name_local_and_western_script,omitempty"` // 展示姓名（本地和西方文字）
@@ -776,336 +781,336 @@ type SearchCoreHrEmployeeRespItemPersonInfoEmergencyContactName struct {
 	DisplayNameWesternScript         string                                                                        `json:"display_name_western_script,omitempty"`           // 展示姓名（西方文字）
 }
 
-// SearchCoreHrEmployeeRespItemPersonInfoEmergencyContactNameAdditionalNameType ...
-type SearchCoreHrEmployeeRespItemPersonInfoEmergencyContactNameAdditionalNameType struct {
+// SearchCoreHREmployeeRespItemPersonInfoEmergencyContactNameAdditionalNameType ...
+type SearchCoreHREmployeeRespItemPersonInfoEmergencyContactNameAdditionalNameType struct {
 	EnumName string                                                                                 `json:"enum_name,omitempty"` // 枚举值
-	Display  []*SearchCoreHrEmployeeRespItemPersonInfoEmergencyContactNameAdditionalNameTypeDisplay `json:"display,omitempty"`   // 枚举多语展示
+	Display  []*SearchCoreHREmployeeRespItemPersonInfoEmergencyContactNameAdditionalNameTypeDisplay `json:"display,omitempty"`   // 枚举多语展示
 }
 
-// SearchCoreHrEmployeeRespItemPersonInfoEmergencyContactNameAdditionalNameTypeDisplay ...
-type SearchCoreHrEmployeeRespItemPersonInfoEmergencyContactNameAdditionalNameTypeDisplay struct {
+// SearchCoreHREmployeeRespItemPersonInfoEmergencyContactNameAdditionalNameTypeDisplay ...
+type SearchCoreHREmployeeRespItemPersonInfoEmergencyContactNameAdditionalNameTypeDisplay struct {
 	Lang  string `json:"lang,omitempty"`  // 语言
 	Value string `json:"value,omitempty"` // 内容
 }
 
-// SearchCoreHrEmployeeRespItemPersonInfoEmergencyContactNameNameType ...
-type SearchCoreHrEmployeeRespItemPersonInfoEmergencyContactNameNameType struct {
+// SearchCoreHREmployeeRespItemPersonInfoEmergencyContactNameNameType ...
+type SearchCoreHREmployeeRespItemPersonInfoEmergencyContactNameNameType struct {
 	EnumName string                                                                       `json:"enum_name,omitempty"` // 枚举值
-	Display  []*SearchCoreHrEmployeeRespItemPersonInfoEmergencyContactNameNameTypeDisplay `json:"display,omitempty"`   // 枚举多语展示
+	Display  []*SearchCoreHREmployeeRespItemPersonInfoEmergencyContactNameNameTypeDisplay `json:"display,omitempty"`   // 枚举多语展示
 }
 
-// SearchCoreHrEmployeeRespItemPersonInfoEmergencyContactNameNameTypeDisplay ...
-type SearchCoreHrEmployeeRespItemPersonInfoEmergencyContactNameNameTypeDisplay struct {
+// SearchCoreHREmployeeRespItemPersonInfoEmergencyContactNameNameTypeDisplay ...
+type SearchCoreHREmployeeRespItemPersonInfoEmergencyContactNameNameTypeDisplay struct {
 	Lang  string `json:"lang,omitempty"`  // 语言
 	Value string `json:"value,omitempty"` // 内容
 }
 
-// SearchCoreHrEmployeeRespItemPersonInfoEmergencyContactNameSocial ...
-type SearchCoreHrEmployeeRespItemPersonInfoEmergencyContactNameSocial struct {
+// SearchCoreHREmployeeRespItemPersonInfoEmergencyContactNameSocial ...
+type SearchCoreHREmployeeRespItemPersonInfoEmergencyContactNameSocial struct {
 	EnumName string                                                                     `json:"enum_name,omitempty"` // 枚举值
-	Display  []*SearchCoreHrEmployeeRespItemPersonInfoEmergencyContactNameSocialDisplay `json:"display,omitempty"`   // 枚举多语展示
+	Display  []*SearchCoreHREmployeeRespItemPersonInfoEmergencyContactNameSocialDisplay `json:"display,omitempty"`   // 枚举多语展示
 }
 
-// SearchCoreHrEmployeeRespItemPersonInfoEmergencyContactNameSocialDisplay ...
-type SearchCoreHrEmployeeRespItemPersonInfoEmergencyContactNameSocialDisplay struct {
+// SearchCoreHREmployeeRespItemPersonInfoEmergencyContactNameSocialDisplay ...
+type SearchCoreHREmployeeRespItemPersonInfoEmergencyContactNameSocialDisplay struct {
 	Lang  string `json:"lang,omitempty"`  // 语言
 	Value string `json:"value,omitempty"` // 内容
 }
 
-// SearchCoreHrEmployeeRespItemPersonInfoEmergencyContactNameTitle ...
-type SearchCoreHrEmployeeRespItemPersonInfoEmergencyContactNameTitle struct {
+// SearchCoreHREmployeeRespItemPersonInfoEmergencyContactNameTitle ...
+type SearchCoreHREmployeeRespItemPersonInfoEmergencyContactNameTitle struct {
 	EnumName string                                                                    `json:"enum_name,omitempty"` // 枚举值
-	Display  []*SearchCoreHrEmployeeRespItemPersonInfoEmergencyContactNameTitleDisplay `json:"display,omitempty"`   // 枚举多语展示
+	Display  []*SearchCoreHREmployeeRespItemPersonInfoEmergencyContactNameTitleDisplay `json:"display,omitempty"`   // 枚举多语展示
 }
 
-// SearchCoreHrEmployeeRespItemPersonInfoEmergencyContactNameTitleDisplay ...
-type SearchCoreHrEmployeeRespItemPersonInfoEmergencyContactNameTitleDisplay struct {
+// SearchCoreHREmployeeRespItemPersonInfoEmergencyContactNameTitleDisplay ...
+type SearchCoreHREmployeeRespItemPersonInfoEmergencyContactNameTitleDisplay struct {
 	Lang  string `json:"lang,omitempty"`  // 语言
 	Value string `json:"value,omitempty"` // 内容
 }
 
-// SearchCoreHrEmployeeRespItemPersonInfoEmergencyContactPhoneIst ...
-type SearchCoreHrEmployeeRespItemPersonInfoEmergencyContactPhoneIst struct {
-	InternationalAreaCode *SearchCoreHrEmployeeRespItemPersonInfoEmergencyContactPhoneIstInternationalAreaCode `json:"international_area_code,omitempty"` // 国家区号
+// SearchCoreHREmployeeRespItemPersonInfoEmergencyContactPhoneIst ...
+type SearchCoreHREmployeeRespItemPersonInfoEmergencyContactPhoneIst struct {
+	InternationalAreaCode *SearchCoreHREmployeeRespItemPersonInfoEmergencyContactPhoneIstInternationalAreaCode `json:"international_area_code,omitempty"` // 国家区号
 	PhoneNumber           string                                                                               `json:"phone_number,omitempty"`            // 电话号码
 	FormattedPhoneNumber  string                                                                               `json:"formatted_phone_number,omitempty"`  // 完整电话号码
-	DeviceType            *SearchCoreHrEmployeeRespItemPersonInfoEmergencyContactPhoneIstDeviceType            `json:"device_type,omitempty"`             // 设备类型
-	PhoneUsage            *SearchCoreHrEmployeeRespItemPersonInfoEmergencyContactPhoneIstPhoneUsage            `json:"phone_usage,omitempty"`             // 电话用途
+	DeviceType            *SearchCoreHREmployeeRespItemPersonInfoEmergencyContactPhoneIstDeviceType            `json:"device_type,omitempty"`             // 设备类型
+	PhoneUsage            *SearchCoreHREmployeeRespItemPersonInfoEmergencyContactPhoneIstPhoneUsage            `json:"phone_usage,omitempty"`             // 电话用途
 	IsPrimary             bool                                                                                 `json:"is_primary,omitempty"`              // 主要电话
 	IsPublic              bool                                                                                 `json:"is_public,omitempty"`               // 公开电话
 }
 
-// SearchCoreHrEmployeeRespItemPersonInfoEmergencyContactPhoneIstDeviceType ...
-type SearchCoreHrEmployeeRespItemPersonInfoEmergencyContactPhoneIstDeviceType struct {
+// SearchCoreHREmployeeRespItemPersonInfoEmergencyContactPhoneIstDeviceType ...
+type SearchCoreHREmployeeRespItemPersonInfoEmergencyContactPhoneIstDeviceType struct {
 	EnumName string                                                                             `json:"enum_name,omitempty"` // 枚举值
-	Display  []*SearchCoreHrEmployeeRespItemPersonInfoEmergencyContactPhoneIstDeviceTypeDisplay `json:"display,omitempty"`   // 枚举多语展示
+	Display  []*SearchCoreHREmployeeRespItemPersonInfoEmergencyContactPhoneIstDeviceTypeDisplay `json:"display,omitempty"`   // 枚举多语展示
 }
 
-// SearchCoreHrEmployeeRespItemPersonInfoEmergencyContactPhoneIstDeviceTypeDisplay ...
-type SearchCoreHrEmployeeRespItemPersonInfoEmergencyContactPhoneIstDeviceTypeDisplay struct {
+// SearchCoreHREmployeeRespItemPersonInfoEmergencyContactPhoneIstDeviceTypeDisplay ...
+type SearchCoreHREmployeeRespItemPersonInfoEmergencyContactPhoneIstDeviceTypeDisplay struct {
 	Lang  string `json:"lang,omitempty"`  // 语言
 	Value string `json:"value,omitempty"` // 内容
 }
 
-// SearchCoreHrEmployeeRespItemPersonInfoEmergencyContactPhoneIstInternationalAreaCode ...
-type SearchCoreHrEmployeeRespItemPersonInfoEmergencyContactPhoneIstInternationalAreaCode struct {
+// SearchCoreHREmployeeRespItemPersonInfoEmergencyContactPhoneIstInternationalAreaCode ...
+type SearchCoreHREmployeeRespItemPersonInfoEmergencyContactPhoneIstInternationalAreaCode struct {
 	EnumName string                                                                                        `json:"enum_name,omitempty"` // 枚举值
-	Display  []*SearchCoreHrEmployeeRespItemPersonInfoEmergencyContactPhoneIstInternationalAreaCodeDisplay `json:"display,omitempty"`   // 枚举多语展示
+	Display  []*SearchCoreHREmployeeRespItemPersonInfoEmergencyContactPhoneIstInternationalAreaCodeDisplay `json:"display,omitempty"`   // 枚举多语展示
 }
 
-// SearchCoreHrEmployeeRespItemPersonInfoEmergencyContactPhoneIstInternationalAreaCodeDisplay ...
-type SearchCoreHrEmployeeRespItemPersonInfoEmergencyContactPhoneIstInternationalAreaCodeDisplay struct {
+// SearchCoreHREmployeeRespItemPersonInfoEmergencyContactPhoneIstInternationalAreaCodeDisplay ...
+type SearchCoreHREmployeeRespItemPersonInfoEmergencyContactPhoneIstInternationalAreaCodeDisplay struct {
 	Lang  string `json:"lang,omitempty"`  // 语言
 	Value string `json:"value,omitempty"` // 内容
 }
 
-// SearchCoreHrEmployeeRespItemPersonInfoEmergencyContactPhoneIstPhoneUsage ...
-type SearchCoreHrEmployeeRespItemPersonInfoEmergencyContactPhoneIstPhoneUsage struct {
+// SearchCoreHREmployeeRespItemPersonInfoEmergencyContactPhoneIstPhoneUsage ...
+type SearchCoreHREmployeeRespItemPersonInfoEmergencyContactPhoneIstPhoneUsage struct {
 	EnumName string                                                                             `json:"enum_name,omitempty"` // 枚举值
-	Display  []*SearchCoreHrEmployeeRespItemPersonInfoEmergencyContactPhoneIstPhoneUsageDisplay `json:"display,omitempty"`   // 枚举多语展示
+	Display  []*SearchCoreHREmployeeRespItemPersonInfoEmergencyContactPhoneIstPhoneUsageDisplay `json:"display,omitempty"`   // 枚举多语展示
 }
 
-// SearchCoreHrEmployeeRespItemPersonInfoEmergencyContactPhoneIstPhoneUsageDisplay ...
-type SearchCoreHrEmployeeRespItemPersonInfoEmergencyContactPhoneIstPhoneUsageDisplay struct {
+// SearchCoreHREmployeeRespItemPersonInfoEmergencyContactPhoneIstPhoneUsageDisplay ...
+type SearchCoreHREmployeeRespItemPersonInfoEmergencyContactPhoneIstPhoneUsageDisplay struct {
 	Lang  string `json:"lang,omitempty"`  // 语言
 	Value string `json:"value,omitempty"` // 内容
 }
 
-// SearchCoreHrEmployeeRespItemPersonInfoEmergencyContactRelationship ...
-type SearchCoreHrEmployeeRespItemPersonInfoEmergencyContactRelationship struct {
+// SearchCoreHREmployeeRespItemPersonInfoEmergencyContactRelationship ...
+type SearchCoreHREmployeeRespItemPersonInfoEmergencyContactRelationship struct {
 	EnumName string                                                                       `json:"enum_name,omitempty"` // 枚举值
-	Display  []*SearchCoreHrEmployeeRespItemPersonInfoEmergencyContactRelationshipDisplay `json:"display,omitempty"`   // 枚举多语展示
+	Display  []*SearchCoreHREmployeeRespItemPersonInfoEmergencyContactRelationshipDisplay `json:"display,omitempty"`   // 枚举多语展示
 }
 
-// SearchCoreHrEmployeeRespItemPersonInfoEmergencyContactRelationshipDisplay ...
-type SearchCoreHrEmployeeRespItemPersonInfoEmergencyContactRelationshipDisplay struct {
+// SearchCoreHREmployeeRespItemPersonInfoEmergencyContactRelationshipDisplay ...
+type SearchCoreHREmployeeRespItemPersonInfoEmergencyContactRelationshipDisplay struct {
 	Lang  string `json:"lang,omitempty"`  // 语言
 	Value string `json:"value,omitempty"` // 内容
 }
 
-// SearchCoreHrEmployeeRespItemPersonInfoGender ...
-type SearchCoreHrEmployeeRespItemPersonInfoGender struct {
+// SearchCoreHREmployeeRespItemPersonInfoGender ...
+type SearchCoreHREmployeeRespItemPersonInfoGender struct {
 	EnumName string                                                 `json:"enum_name,omitempty"` // 枚举值
-	Display  []*SearchCoreHrEmployeeRespItemPersonInfoGenderDisplay `json:"display,omitempty"`   // 枚举多语展示
+	Display  []*SearchCoreHREmployeeRespItemPersonInfoGenderDisplay `json:"display,omitempty"`   // 枚举多语展示
 }
 
-// SearchCoreHrEmployeeRespItemPersonInfoGenderDisplay ...
-type SearchCoreHrEmployeeRespItemPersonInfoGenderDisplay struct {
+// SearchCoreHREmployeeRespItemPersonInfoGenderDisplay ...
+type SearchCoreHREmployeeRespItemPersonInfoGenderDisplay struct {
 	Lang  string `json:"lang,omitempty"`  // 语言
 	Value string `json:"value,omitempty"` // 内容
 }
 
-// SearchCoreHrEmployeeRespItemPersonInfoHighestDegreeOfEducation ...
-type SearchCoreHrEmployeeRespItemPersonInfoHighestDegreeOfEducation struct {
-	School           []*SearchCoreHrEmployeeRespItemPersonInfoHighestDegreeOfEducationSchool         `json:"school,omitempty"`              // 学校
-	LevelOfEducation *SearchCoreHrEmployeeRespItemPersonInfoHighestDegreeOfEducationLevelOfEducation `json:"level_of_education,omitempty"`  // 学历
+// SearchCoreHREmployeeRespItemPersonInfoHighestDegreeOfEducation ...
+type SearchCoreHREmployeeRespItemPersonInfoHighestDegreeOfEducation struct {
+	School           []*SearchCoreHREmployeeRespItemPersonInfoHighestDegreeOfEducationSchool         `json:"school,omitempty"`              // 学校
+	LevelOfEducation *SearchCoreHREmployeeRespItemPersonInfoHighestDegreeOfEducationLevelOfEducation `json:"level_of_education,omitempty"`  // 学历
 	StartDate        string                                                                          `json:"start_date,omitempty"`          // 开始日期
 	EndDate          string                                                                          `json:"end_date,omitempty"`            // 结束日期
-	FieldOfStudy     []*SearchCoreHrEmployeeRespItemPersonInfoHighestDegreeOfEducationFieldOfStudy   `json:"field_of_study,omitempty"`      // 专业
-	Degree           *SearchCoreHrEmployeeRespItemPersonInfoHighestDegreeOfEducationDegree           `json:"degree,omitempty"`              // 学位
-	SchoolName       *SearchCoreHrEmployeeRespItemPersonInfoHighestDegreeOfEducationSchoolName       `json:"school_name,omitempty"`         // 学校名称
-	FieldOfStudyName *SearchCoreHrEmployeeRespItemPersonInfoHighestDegreeOfEducationFieldOfStudyName `json:"field_of_study_name,omitempty"` // 专业名称
+	FieldOfStudy     []*SearchCoreHREmployeeRespItemPersonInfoHighestDegreeOfEducationFieldOfStudy   `json:"field_of_study,omitempty"`      // 专业
+	Degree           *SearchCoreHREmployeeRespItemPersonInfoHighestDegreeOfEducationDegree           `json:"degree,omitempty"`              // 学位
+	SchoolName       *SearchCoreHREmployeeRespItemPersonInfoHighestDegreeOfEducationSchoolName       `json:"school_name,omitempty"`         // 学校名称
+	FieldOfStudyName *SearchCoreHREmployeeRespItemPersonInfoHighestDegreeOfEducationFieldOfStudyName `json:"field_of_study_name,omitempty"` // 专业名称
 	CountryRegionID  string                                                                          `json:"country_region_id,omitempty"`   // 国家地区ID
 	ExpectedEndDate  string                                                                          `json:"expected_end_date,omitempty"`   // 预期结束日期
-	CustomFields     []*SearchCoreHrEmployeeRespItemPersonInfoHighestDegreeOfEducationCustomField    `json:"custom_fields,omitempty"`       // 自定义字段
+	CustomFields     []*SearchCoreHREmployeeRespItemPersonInfoHighestDegreeOfEducationCustomField    `json:"custom_fields,omitempty"`       // 自定义字段
 }
 
-// SearchCoreHrEmployeeRespItemPersonInfoHighestDegreeOfEducationCustomField ...
-type SearchCoreHrEmployeeRespItemPersonInfoHighestDegreeOfEducationCustomField struct {
+// SearchCoreHREmployeeRespItemPersonInfoHighestDegreeOfEducationCustomField ...
+type SearchCoreHREmployeeRespItemPersonInfoHighestDegreeOfEducationCustomField struct {
 	CustomApiName string                                                                         `json:"custom_api_name,omitempty"` // 自定义字段 apiname, 即自定义字段的唯一标识
-	Name          *SearchCoreHrEmployeeRespItemPersonInfoHighestDegreeOfEducationCustomFieldName `json:"name,omitempty"`            // 自定义字段名称
+	Name          *SearchCoreHREmployeeRespItemPersonInfoHighestDegreeOfEducationCustomFieldName `json:"name,omitempty"`            // 自定义字段名称
 	Type          int64                                                                          `json:"type,omitempty"`            // 自定义字段类型
 	Value         string                                                                         `json:"value,omitempty"`           // 字段值, 是 json 转义后的字符串, 根据元数据定义不同, 字段格式不同（如 123, 123.23, "true", ["id1", "id2"], "2006-01-02 15:04:05"）
 }
 
-// SearchCoreHrEmployeeRespItemPersonInfoHighestDegreeOfEducationCustomFieldName ...
-type SearchCoreHrEmployeeRespItemPersonInfoHighestDegreeOfEducationCustomFieldName struct {
+// SearchCoreHREmployeeRespItemPersonInfoHighestDegreeOfEducationCustomFieldName ...
+type SearchCoreHREmployeeRespItemPersonInfoHighestDegreeOfEducationCustomFieldName struct {
 	ZhCn string `json:"zh_cn,omitempty"` // 中文
 	EnUs string `json:"en_us,omitempty"` // 英文
 }
 
-// SearchCoreHrEmployeeRespItemPersonInfoHighestDegreeOfEducationDegree ...
-type SearchCoreHrEmployeeRespItemPersonInfoHighestDegreeOfEducationDegree struct {
+// SearchCoreHREmployeeRespItemPersonInfoHighestDegreeOfEducationDegree ...
+type SearchCoreHREmployeeRespItemPersonInfoHighestDegreeOfEducationDegree struct {
 	EnumName string                                                                         `json:"enum_name,omitempty"` // 枚举值
-	Display  []*SearchCoreHrEmployeeRespItemPersonInfoHighestDegreeOfEducationDegreeDisplay `json:"display,omitempty"`   // 枚举多语展示
+	Display  []*SearchCoreHREmployeeRespItemPersonInfoHighestDegreeOfEducationDegreeDisplay `json:"display,omitempty"`   // 枚举多语展示
 }
 
-// SearchCoreHrEmployeeRespItemPersonInfoHighestDegreeOfEducationDegreeDisplay ...
-type SearchCoreHrEmployeeRespItemPersonInfoHighestDegreeOfEducationDegreeDisplay struct {
+// SearchCoreHREmployeeRespItemPersonInfoHighestDegreeOfEducationDegreeDisplay ...
+type SearchCoreHREmployeeRespItemPersonInfoHighestDegreeOfEducationDegreeDisplay struct {
 	Lang  string `json:"lang,omitempty"`  // 语言
 	Value string `json:"value,omitempty"` // 内容
 }
 
-// SearchCoreHrEmployeeRespItemPersonInfoHighestDegreeOfEducationFieldOfStudy ...
-type SearchCoreHrEmployeeRespItemPersonInfoHighestDegreeOfEducationFieldOfStudy struct {
+// SearchCoreHREmployeeRespItemPersonInfoHighestDegreeOfEducationFieldOfStudy ...
+type SearchCoreHREmployeeRespItemPersonInfoHighestDegreeOfEducationFieldOfStudy struct {
 	Lang  string `json:"lang,omitempty"`  // 语言
 	Value string `json:"value,omitempty"` // 内容
 }
 
-// SearchCoreHrEmployeeRespItemPersonInfoHighestDegreeOfEducationFieldOfStudyName ...
-type SearchCoreHrEmployeeRespItemPersonInfoHighestDegreeOfEducationFieldOfStudyName struct {
+// SearchCoreHREmployeeRespItemPersonInfoHighestDegreeOfEducationFieldOfStudyName ...
+type SearchCoreHREmployeeRespItemPersonInfoHighestDegreeOfEducationFieldOfStudyName struct {
 	EnumName string                                                                                   `json:"enum_name,omitempty"` // 枚举值
-	Display  []*SearchCoreHrEmployeeRespItemPersonInfoHighestDegreeOfEducationFieldOfStudyNameDisplay `json:"display,omitempty"`   // 枚举多语展示
+	Display  []*SearchCoreHREmployeeRespItemPersonInfoHighestDegreeOfEducationFieldOfStudyNameDisplay `json:"display,omitempty"`   // 枚举多语展示
 }
 
-// SearchCoreHrEmployeeRespItemPersonInfoHighestDegreeOfEducationFieldOfStudyNameDisplay ...
-type SearchCoreHrEmployeeRespItemPersonInfoHighestDegreeOfEducationFieldOfStudyNameDisplay struct {
+// SearchCoreHREmployeeRespItemPersonInfoHighestDegreeOfEducationFieldOfStudyNameDisplay ...
+type SearchCoreHREmployeeRespItemPersonInfoHighestDegreeOfEducationFieldOfStudyNameDisplay struct {
 	Lang  string `json:"lang,omitempty"`  // 语言
 	Value string `json:"value,omitempty"` // 内容
 }
 
-// SearchCoreHrEmployeeRespItemPersonInfoHighestDegreeOfEducationLevelOfEducation ...
-type SearchCoreHrEmployeeRespItemPersonInfoHighestDegreeOfEducationLevelOfEducation struct {
+// SearchCoreHREmployeeRespItemPersonInfoHighestDegreeOfEducationLevelOfEducation ...
+type SearchCoreHREmployeeRespItemPersonInfoHighestDegreeOfEducationLevelOfEducation struct {
 	EnumName string                                                                                   `json:"enum_name,omitempty"` // 枚举值
-	Display  []*SearchCoreHrEmployeeRespItemPersonInfoHighestDegreeOfEducationLevelOfEducationDisplay `json:"display,omitempty"`   // 枚举多语展示
+	Display  []*SearchCoreHREmployeeRespItemPersonInfoHighestDegreeOfEducationLevelOfEducationDisplay `json:"display,omitempty"`   // 枚举多语展示
 }
 
-// SearchCoreHrEmployeeRespItemPersonInfoHighestDegreeOfEducationLevelOfEducationDisplay ...
-type SearchCoreHrEmployeeRespItemPersonInfoHighestDegreeOfEducationLevelOfEducationDisplay struct {
+// SearchCoreHREmployeeRespItemPersonInfoHighestDegreeOfEducationLevelOfEducationDisplay ...
+type SearchCoreHREmployeeRespItemPersonInfoHighestDegreeOfEducationLevelOfEducationDisplay struct {
 	Lang  string `json:"lang,omitempty"`  // 语言
 	Value string `json:"value,omitempty"` // 内容
 }
 
-// SearchCoreHrEmployeeRespItemPersonInfoHighestDegreeOfEducationSchool ...
-type SearchCoreHrEmployeeRespItemPersonInfoHighestDegreeOfEducationSchool struct {
+// SearchCoreHREmployeeRespItemPersonInfoHighestDegreeOfEducationSchool ...
+type SearchCoreHREmployeeRespItemPersonInfoHighestDegreeOfEducationSchool struct {
 	Lang  string `json:"lang,omitempty"`  // 语言
 	Value string `json:"value,omitempty"` // 内容
 }
 
-// SearchCoreHrEmployeeRespItemPersonInfoHighestDegreeOfEducationSchoolName ...
-type SearchCoreHrEmployeeRespItemPersonInfoHighestDegreeOfEducationSchoolName struct {
+// SearchCoreHREmployeeRespItemPersonInfoHighestDegreeOfEducationSchoolName ...
+type SearchCoreHREmployeeRespItemPersonInfoHighestDegreeOfEducationSchoolName struct {
 	EnumName string                                                                             `json:"enum_name,omitempty"` // 枚举值
-	Display  []*SearchCoreHrEmployeeRespItemPersonInfoHighestDegreeOfEducationSchoolNameDisplay `json:"display,omitempty"`   // 枚举多语展示
+	Display  []*SearchCoreHREmployeeRespItemPersonInfoHighestDegreeOfEducationSchoolNameDisplay `json:"display,omitempty"`   // 枚举多语展示
 }
 
-// SearchCoreHrEmployeeRespItemPersonInfoHighestDegreeOfEducationSchoolNameDisplay ...
-type SearchCoreHrEmployeeRespItemPersonInfoHighestDegreeOfEducationSchoolNameDisplay struct {
+// SearchCoreHREmployeeRespItemPersonInfoHighestDegreeOfEducationSchoolNameDisplay ...
+type SearchCoreHREmployeeRespItemPersonInfoHighestDegreeOfEducationSchoolNameDisplay struct {
 	Lang  string `json:"lang,omitempty"`  // 语言
 	Value string `json:"value,omitempty"` // 内容
 }
 
-// SearchCoreHrEmployeeRespItemPersonInfoHighestLevelOfEducation ...
-type SearchCoreHrEmployeeRespItemPersonInfoHighestLevelOfEducation struct {
-	School           []*SearchCoreHrEmployeeRespItemPersonInfoHighestLevelOfEducationSchool         `json:"school,omitempty"`              // 学校
-	LevelOfEducation *SearchCoreHrEmployeeRespItemPersonInfoHighestLevelOfEducationLevelOfEducation `json:"level_of_education,omitempty"`  // 学历
+// SearchCoreHREmployeeRespItemPersonInfoHighestLevelOfEducation ...
+type SearchCoreHREmployeeRespItemPersonInfoHighestLevelOfEducation struct {
+	School           []*SearchCoreHREmployeeRespItemPersonInfoHighestLevelOfEducationSchool         `json:"school,omitempty"`              // 学校
+	LevelOfEducation *SearchCoreHREmployeeRespItemPersonInfoHighestLevelOfEducationLevelOfEducation `json:"level_of_education,omitempty"`  // 学历
 	StartDate        string                                                                         `json:"start_date,omitempty"`          // 开始日期
 	EndDate          string                                                                         `json:"end_date,omitempty"`            // 结束日期
-	FieldOfStudy     []*SearchCoreHrEmployeeRespItemPersonInfoHighestLevelOfEducationFieldOfStudy   `json:"field_of_study,omitempty"`      // 专业
-	Degree           *SearchCoreHrEmployeeRespItemPersonInfoHighestLevelOfEducationDegree           `json:"degree,omitempty"`              // 学位
-	SchoolName       *SearchCoreHrEmployeeRespItemPersonInfoHighestLevelOfEducationSchoolName       `json:"school_name,omitempty"`         // 学校名称
-	FieldOfStudyName *SearchCoreHrEmployeeRespItemPersonInfoHighestLevelOfEducationFieldOfStudyName `json:"field_of_study_name,omitempty"` // 专业名称
+	FieldOfStudy     []*SearchCoreHREmployeeRespItemPersonInfoHighestLevelOfEducationFieldOfStudy   `json:"field_of_study,omitempty"`      // 专业
+	Degree           *SearchCoreHREmployeeRespItemPersonInfoHighestLevelOfEducationDegree           `json:"degree,omitempty"`              // 学位
+	SchoolName       *SearchCoreHREmployeeRespItemPersonInfoHighestLevelOfEducationSchoolName       `json:"school_name,omitempty"`         // 学校名称
+	FieldOfStudyName *SearchCoreHREmployeeRespItemPersonInfoHighestLevelOfEducationFieldOfStudyName `json:"field_of_study_name,omitempty"` // 专业名称
 	CountryRegionID  string                                                                         `json:"country_region_id,omitempty"`   // 国家地区ID
 	ExpectedEndDate  string                                                                         `json:"expected_end_date,omitempty"`   // 预期结束日期
-	CustomFields     []*SearchCoreHrEmployeeRespItemPersonInfoHighestLevelOfEducationCustomField    `json:"custom_fields,omitempty"`       // 自定义字段
+	CustomFields     []*SearchCoreHREmployeeRespItemPersonInfoHighestLevelOfEducationCustomField    `json:"custom_fields,omitempty"`       // 自定义字段
 }
 
-// SearchCoreHrEmployeeRespItemPersonInfoHighestLevelOfEducationCustomField ...
-type SearchCoreHrEmployeeRespItemPersonInfoHighestLevelOfEducationCustomField struct {
+// SearchCoreHREmployeeRespItemPersonInfoHighestLevelOfEducationCustomField ...
+type SearchCoreHREmployeeRespItemPersonInfoHighestLevelOfEducationCustomField struct {
 	CustomApiName string                                                                        `json:"custom_api_name,omitempty"` // 自定义字段 apiname, 即自定义字段的唯一标识
-	Name          *SearchCoreHrEmployeeRespItemPersonInfoHighestLevelOfEducationCustomFieldName `json:"name,omitempty"`            // 自定义字段名称
+	Name          *SearchCoreHREmployeeRespItemPersonInfoHighestLevelOfEducationCustomFieldName `json:"name,omitempty"`            // 自定义字段名称
 	Type          int64                                                                         `json:"type,omitempty"`            // 自定义字段类型
 	Value         string                                                                        `json:"value,omitempty"`           // 字段值, 是 json 转义后的字符串, 根据元数据定义不同, 字段格式不同（如 123, 123.23, "true", ["id1", "id2"], "2006-01-02 15:04:05"）
 }
 
-// SearchCoreHrEmployeeRespItemPersonInfoHighestLevelOfEducationCustomFieldName ...
-type SearchCoreHrEmployeeRespItemPersonInfoHighestLevelOfEducationCustomFieldName struct {
+// SearchCoreHREmployeeRespItemPersonInfoHighestLevelOfEducationCustomFieldName ...
+type SearchCoreHREmployeeRespItemPersonInfoHighestLevelOfEducationCustomFieldName struct {
 	ZhCn string `json:"zh_cn,omitempty"` // 中文
 	EnUs string `json:"en_us,omitempty"` // 英文
 }
 
-// SearchCoreHrEmployeeRespItemPersonInfoHighestLevelOfEducationDegree ...
-type SearchCoreHrEmployeeRespItemPersonInfoHighestLevelOfEducationDegree struct {
+// SearchCoreHREmployeeRespItemPersonInfoHighestLevelOfEducationDegree ...
+type SearchCoreHREmployeeRespItemPersonInfoHighestLevelOfEducationDegree struct {
 	EnumName string                                                                        `json:"enum_name,omitempty"` // 枚举值
-	Display  []*SearchCoreHrEmployeeRespItemPersonInfoHighestLevelOfEducationDegreeDisplay `json:"display,omitempty"`   // 枚举多语展示
+	Display  []*SearchCoreHREmployeeRespItemPersonInfoHighestLevelOfEducationDegreeDisplay `json:"display,omitempty"`   // 枚举多语展示
 }
 
-// SearchCoreHrEmployeeRespItemPersonInfoHighestLevelOfEducationDegreeDisplay ...
-type SearchCoreHrEmployeeRespItemPersonInfoHighestLevelOfEducationDegreeDisplay struct {
+// SearchCoreHREmployeeRespItemPersonInfoHighestLevelOfEducationDegreeDisplay ...
+type SearchCoreHREmployeeRespItemPersonInfoHighestLevelOfEducationDegreeDisplay struct {
 	Lang  string `json:"lang,omitempty"`  // 语言
 	Value string `json:"value,omitempty"` // 内容
 }
 
-// SearchCoreHrEmployeeRespItemPersonInfoHighestLevelOfEducationFieldOfStudy ...
-type SearchCoreHrEmployeeRespItemPersonInfoHighestLevelOfEducationFieldOfStudy struct {
+// SearchCoreHREmployeeRespItemPersonInfoHighestLevelOfEducationFieldOfStudy ...
+type SearchCoreHREmployeeRespItemPersonInfoHighestLevelOfEducationFieldOfStudy struct {
 	Lang  string `json:"lang,omitempty"`  // 语言
 	Value string `json:"value,omitempty"` // 内容
 }
 
-// SearchCoreHrEmployeeRespItemPersonInfoHighestLevelOfEducationFieldOfStudyName ...
-type SearchCoreHrEmployeeRespItemPersonInfoHighestLevelOfEducationFieldOfStudyName struct {
+// SearchCoreHREmployeeRespItemPersonInfoHighestLevelOfEducationFieldOfStudyName ...
+type SearchCoreHREmployeeRespItemPersonInfoHighestLevelOfEducationFieldOfStudyName struct {
 	EnumName string                                                                                  `json:"enum_name,omitempty"` // 枚举值
-	Display  []*SearchCoreHrEmployeeRespItemPersonInfoHighestLevelOfEducationFieldOfStudyNameDisplay `json:"display,omitempty"`   // 枚举多语展示
+	Display  []*SearchCoreHREmployeeRespItemPersonInfoHighestLevelOfEducationFieldOfStudyNameDisplay `json:"display,omitempty"`   // 枚举多语展示
 }
 
-// SearchCoreHrEmployeeRespItemPersonInfoHighestLevelOfEducationFieldOfStudyNameDisplay ...
-type SearchCoreHrEmployeeRespItemPersonInfoHighestLevelOfEducationFieldOfStudyNameDisplay struct {
+// SearchCoreHREmployeeRespItemPersonInfoHighestLevelOfEducationFieldOfStudyNameDisplay ...
+type SearchCoreHREmployeeRespItemPersonInfoHighestLevelOfEducationFieldOfStudyNameDisplay struct {
 	Lang  string `json:"lang,omitempty"`  // 语言
 	Value string `json:"value,omitempty"` // 内容
 }
 
-// SearchCoreHrEmployeeRespItemPersonInfoHighestLevelOfEducationLevelOfEducation ...
-type SearchCoreHrEmployeeRespItemPersonInfoHighestLevelOfEducationLevelOfEducation struct {
+// SearchCoreHREmployeeRespItemPersonInfoHighestLevelOfEducationLevelOfEducation ...
+type SearchCoreHREmployeeRespItemPersonInfoHighestLevelOfEducationLevelOfEducation struct {
 	EnumName string                                                                                  `json:"enum_name,omitempty"` // 枚举值
-	Display  []*SearchCoreHrEmployeeRespItemPersonInfoHighestLevelOfEducationLevelOfEducationDisplay `json:"display,omitempty"`   // 枚举多语展示
+	Display  []*SearchCoreHREmployeeRespItemPersonInfoHighestLevelOfEducationLevelOfEducationDisplay `json:"display,omitempty"`   // 枚举多语展示
 }
 
-// SearchCoreHrEmployeeRespItemPersonInfoHighestLevelOfEducationLevelOfEducationDisplay ...
-type SearchCoreHrEmployeeRespItemPersonInfoHighestLevelOfEducationLevelOfEducationDisplay struct {
+// SearchCoreHREmployeeRespItemPersonInfoHighestLevelOfEducationLevelOfEducationDisplay ...
+type SearchCoreHREmployeeRespItemPersonInfoHighestLevelOfEducationLevelOfEducationDisplay struct {
 	Lang  string `json:"lang,omitempty"`  // 语言
 	Value string `json:"value,omitempty"` // 内容
 }
 
-// SearchCoreHrEmployeeRespItemPersonInfoHighestLevelOfEducationSchool ...
-type SearchCoreHrEmployeeRespItemPersonInfoHighestLevelOfEducationSchool struct {
+// SearchCoreHREmployeeRespItemPersonInfoHighestLevelOfEducationSchool ...
+type SearchCoreHREmployeeRespItemPersonInfoHighestLevelOfEducationSchool struct {
 	Lang  string `json:"lang,omitempty"`  // 语言
 	Value string `json:"value,omitempty"` // 内容
 }
 
-// SearchCoreHrEmployeeRespItemPersonInfoHighestLevelOfEducationSchoolName ...
-type SearchCoreHrEmployeeRespItemPersonInfoHighestLevelOfEducationSchoolName struct {
+// SearchCoreHREmployeeRespItemPersonInfoHighestLevelOfEducationSchoolName ...
+type SearchCoreHREmployeeRespItemPersonInfoHighestLevelOfEducationSchoolName struct {
 	EnumName string                                                                            `json:"enum_name,omitempty"` // 枚举值
-	Display  []*SearchCoreHrEmployeeRespItemPersonInfoHighestLevelOfEducationSchoolNameDisplay `json:"display,omitempty"`   // 枚举多语展示
+	Display  []*SearchCoreHREmployeeRespItemPersonInfoHighestLevelOfEducationSchoolNameDisplay `json:"display,omitempty"`   // 枚举多语展示
 }
 
-// SearchCoreHrEmployeeRespItemPersonInfoHighestLevelOfEducationSchoolNameDisplay ...
-type SearchCoreHrEmployeeRespItemPersonInfoHighestLevelOfEducationSchoolNameDisplay struct {
+// SearchCoreHREmployeeRespItemPersonInfoHighestLevelOfEducationSchoolNameDisplay ...
+type SearchCoreHREmployeeRespItemPersonInfoHighestLevelOfEducationSchoolNameDisplay struct {
 	Lang  string `json:"lang,omitempty"`  // 语言
 	Value string `json:"value,omitempty"` // 内容
 }
 
-// SearchCoreHrEmployeeRespItemPersonInfoHukouType ...
-type SearchCoreHrEmployeeRespItemPersonInfoHukouType struct {
+// SearchCoreHREmployeeRespItemPersonInfoHukouType ...
+type SearchCoreHREmployeeRespItemPersonInfoHukouType struct {
 	EnumName string                                                    `json:"enum_name,omitempty"` // 枚举值
-	Display  []*SearchCoreHrEmployeeRespItemPersonInfoHukouTypeDisplay `json:"display,omitempty"`   // 枚举多语展示
+	Display  []*SearchCoreHREmployeeRespItemPersonInfoHukouTypeDisplay `json:"display,omitempty"`   // 枚举多语展示
 }
 
-// SearchCoreHrEmployeeRespItemPersonInfoHukouTypeDisplay ...
-type SearchCoreHrEmployeeRespItemPersonInfoHukouTypeDisplay struct {
+// SearchCoreHREmployeeRespItemPersonInfoHukouTypeDisplay ...
+type SearchCoreHREmployeeRespItemPersonInfoHukouTypeDisplay struct {
 	Lang  string `json:"lang,omitempty"`  // 语言
 	Value string `json:"value,omitempty"` // 内容
 }
 
-// SearchCoreHrEmployeeRespItemPersonInfoMaritalStatus ...
-type SearchCoreHrEmployeeRespItemPersonInfoMaritalStatus struct {
+// SearchCoreHREmployeeRespItemPersonInfoMaritalStatus ...
+type SearchCoreHREmployeeRespItemPersonInfoMaritalStatus struct {
 	EnumName string                                                        `json:"enum_name,omitempty"` // 枚举值
-	Display  []*SearchCoreHrEmployeeRespItemPersonInfoMaritalStatusDisplay `json:"display,omitempty"`   // 枚举多语展示
+	Display  []*SearchCoreHREmployeeRespItemPersonInfoMaritalStatusDisplay `json:"display,omitempty"`   // 枚举多语展示
 }
 
-// SearchCoreHrEmployeeRespItemPersonInfoMaritalStatusDisplay ...
-type SearchCoreHrEmployeeRespItemPersonInfoMaritalStatusDisplay struct {
+// SearchCoreHREmployeeRespItemPersonInfoMaritalStatusDisplay ...
+type SearchCoreHREmployeeRespItemPersonInfoMaritalStatusDisplay struct {
 	Lang  string `json:"lang,omitempty"`  // 语言
 	Value string `json:"value,omitempty"` // 内容
 }
 
-// SearchCoreHrEmployeeRespItemPersonInfoName ...
-type SearchCoreHrEmployeeRespItemPersonInfoName struct {
+// SearchCoreHREmployeeRespItemPersonInfoName ...
+type SearchCoreHREmployeeRespItemPersonInfoName struct {
 	LocalPrimary                     string                                                        `json:"local_primary,omitempty"`                         // 姓 - 本地文字
 	LocalFirstName                   string                                                        `json:"local_first_name,omitempty"`                      // 名 - 本地文字
 	CountryRegionID                  string                                                        `json:"country_region_id,omitempty"`                     // 国家 / 地区
-	NameType                         *SearchCoreHrEmployeeRespItemPersonInfoNameNameType           `json:"name_type,omitempty"`                             // 姓名类型
+	NameType                         *SearchCoreHREmployeeRespItemPersonInfoNameNameType           `json:"name_type,omitempty"`                             // 姓名类型
 	LocalFirstName2                  string                                                        `json:"local_first_name_2,omitempty"`                    // 名 - 第二本地文字
 	LocalPrimary2                    string                                                        `json:"local_primary_2,omitempty"`                       // 姓 - 第二本地文字
-	AdditionalNameType               *SearchCoreHrEmployeeRespItemPersonInfoNameAdditionalNameType `json:"additional_name_type,omitempty"`                  // 补充姓名类型
+	AdditionalNameType               *SearchCoreHREmployeeRespItemPersonInfoNameAdditionalNameType `json:"additional_name_type,omitempty"`                  // 补充姓名类型
 	FirstName                        string                                                        `json:"first_name,omitempty"`                            // 名
 	FullName                         string                                                        `json:"full_name,omitempty"`                             // 全名
 	Hereditary                       string                                                        `json:"hereditary,omitempty"`                            // 姓氏称谓
@@ -1114,9 +1119,9 @@ type SearchCoreHrEmployeeRespItemPersonInfoName struct {
 	MiddleName                       string                                                        `json:"middle_name,omitempty"`                           // 中间名
 	NamePrimary                      string                                                        `json:"name_primary,omitempty"`                          // 姓
 	Secondary                        string                                                        `json:"secondary,omitempty"`                             // 第二姓氏
-	Social                           *SearchCoreHrEmployeeRespItemPersonInfoNameSocial             `json:"social,omitempty"`                                // 尊称
+	Social                           *SearchCoreHREmployeeRespItemPersonInfoNameSocial             `json:"social,omitempty"`                                // 尊称
 	Tertiary                         string                                                        `json:"tertiary,omitempty"`                              // 婚后姓氏
-	Title                            *SearchCoreHrEmployeeRespItemPersonInfoNameTitle              `json:"title,omitempty"`                                 // 头衔
+	Title                            *SearchCoreHREmployeeRespItemPersonInfoNameTitle              `json:"title,omitempty"`                                 // 头衔
 	LocalMiddleName                  string                                                        `json:"local_middle_name,omitempty"`                     // 本地中间名
 	LocalSecondary                   string                                                        `json:"local_secondary,omitempty"`                       // 第二姓氏 - 本地文字
 	DisplayNameLocalAndWesternScript string                                                        `json:"display_name_local_and_western_script,omitempty"` // 展示姓名（本地和西方文字）
@@ -1124,268 +1129,268 @@ type SearchCoreHrEmployeeRespItemPersonInfoName struct {
 	DisplayNameWesternScript         string                                                        `json:"display_name_western_script,omitempty"`           // 展示姓名（西方文字）
 }
 
-// SearchCoreHrEmployeeRespItemPersonInfoNameAdditionalNameType ...
-type SearchCoreHrEmployeeRespItemPersonInfoNameAdditionalNameType struct {
+// SearchCoreHREmployeeRespItemPersonInfoNameAdditionalNameType ...
+type SearchCoreHREmployeeRespItemPersonInfoNameAdditionalNameType struct {
 	EnumName string                                                                 `json:"enum_name,omitempty"` // 枚举值
-	Display  []*SearchCoreHrEmployeeRespItemPersonInfoNameAdditionalNameTypeDisplay `json:"display,omitempty"`   // 枚举多语展示
+	Display  []*SearchCoreHREmployeeRespItemPersonInfoNameAdditionalNameTypeDisplay `json:"display,omitempty"`   // 枚举多语展示
 }
 
-// SearchCoreHrEmployeeRespItemPersonInfoNameAdditionalNameTypeDisplay ...
-type SearchCoreHrEmployeeRespItemPersonInfoNameAdditionalNameTypeDisplay struct {
+// SearchCoreHREmployeeRespItemPersonInfoNameAdditionalNameTypeDisplay ...
+type SearchCoreHREmployeeRespItemPersonInfoNameAdditionalNameTypeDisplay struct {
 	Lang  string `json:"lang,omitempty"`  // 语言
 	Value string `json:"value,omitempty"` // 内容
 }
 
-// SearchCoreHrEmployeeRespItemPersonInfoNameNameType ...
-type SearchCoreHrEmployeeRespItemPersonInfoNameNameType struct {
+// SearchCoreHREmployeeRespItemPersonInfoNameNameType ...
+type SearchCoreHREmployeeRespItemPersonInfoNameNameType struct {
 	EnumName string                                                       `json:"enum_name,omitempty"` // 枚举值
-	Display  []*SearchCoreHrEmployeeRespItemPersonInfoNameNameTypeDisplay `json:"display,omitempty"`   // 枚举多语展示
+	Display  []*SearchCoreHREmployeeRespItemPersonInfoNameNameTypeDisplay `json:"display,omitempty"`   // 枚举多语展示
 }
 
-// SearchCoreHrEmployeeRespItemPersonInfoNameNameTypeDisplay ...
-type SearchCoreHrEmployeeRespItemPersonInfoNameNameTypeDisplay struct {
+// SearchCoreHREmployeeRespItemPersonInfoNameNameTypeDisplay ...
+type SearchCoreHREmployeeRespItemPersonInfoNameNameTypeDisplay struct {
 	Lang  string `json:"lang,omitempty"`  // 语言
 	Value string `json:"value,omitempty"` // 内容
 }
 
-// SearchCoreHrEmployeeRespItemPersonInfoNameSocial ...
-type SearchCoreHrEmployeeRespItemPersonInfoNameSocial struct {
+// SearchCoreHREmployeeRespItemPersonInfoNameSocial ...
+type SearchCoreHREmployeeRespItemPersonInfoNameSocial struct {
 	EnumName string                                                     `json:"enum_name,omitempty"` // 枚举值
-	Display  []*SearchCoreHrEmployeeRespItemPersonInfoNameSocialDisplay `json:"display,omitempty"`   // 枚举多语展示
+	Display  []*SearchCoreHREmployeeRespItemPersonInfoNameSocialDisplay `json:"display,omitempty"`   // 枚举多语展示
 }
 
-// SearchCoreHrEmployeeRespItemPersonInfoNameSocialDisplay ...
-type SearchCoreHrEmployeeRespItemPersonInfoNameSocialDisplay struct {
+// SearchCoreHREmployeeRespItemPersonInfoNameSocialDisplay ...
+type SearchCoreHREmployeeRespItemPersonInfoNameSocialDisplay struct {
 	Lang  string `json:"lang,omitempty"`  // 语言
 	Value string `json:"value,omitempty"` // 内容
 }
 
-// SearchCoreHrEmployeeRespItemPersonInfoNameTitle ...
-type SearchCoreHrEmployeeRespItemPersonInfoNameTitle struct {
+// SearchCoreHREmployeeRespItemPersonInfoNameTitle ...
+type SearchCoreHREmployeeRespItemPersonInfoNameTitle struct {
 	EnumName string                                                    `json:"enum_name,omitempty"` // 枚举值
-	Display  []*SearchCoreHrEmployeeRespItemPersonInfoNameTitleDisplay `json:"display,omitempty"`   // 枚举多语展示
+	Display  []*SearchCoreHREmployeeRespItemPersonInfoNameTitleDisplay `json:"display,omitempty"`   // 枚举多语展示
 }
 
-// SearchCoreHrEmployeeRespItemPersonInfoNameTitleDisplay ...
-type SearchCoreHrEmployeeRespItemPersonInfoNameTitleDisplay struct {
+// SearchCoreHREmployeeRespItemPersonInfoNameTitleDisplay ...
+type SearchCoreHREmployeeRespItemPersonInfoNameTitleDisplay struct {
 	Lang  string `json:"lang,omitempty"`  // 语言
 	Value string `json:"value,omitempty"` // 内容
 }
 
-// SearchCoreHrEmployeeRespItemPersonInfoNationalID ...
-type SearchCoreHrEmployeeRespItemPersonInfoNationalID struct {
+// SearchCoreHREmployeeRespItemPersonInfoNationalID ...
+type SearchCoreHREmployeeRespItemPersonInfoNationalID struct {
 	NationalIDTypeID string                                                         `json:"national_id_type_id,omitempty"` // 国家证件类型
 	NationalIDNumber string                                                         `json:"national_id_number,omitempty"`  // 证件号码
 	IssueDate        string                                                         `json:"issue_date,omitempty"`          // 证件签发日期
 	ExpirationDate   string                                                         `json:"expiration_date,omitempty"`     // 证件到期日期
 	CountryRegionID  string                                                         `json:"country_region_id,omitempty"`   // 国家 / 地区
 	IssuedBy         string                                                         `json:"issued_by,omitempty"`           // 证件签发机构
-	CustomFields     []*SearchCoreHrEmployeeRespItemPersonInfoNationalIDCustomField `json:"custom_fields,omitempty"`       // 自定义字段
+	CustomFields     []*SearchCoreHREmployeeRespItemPersonInfoNationalIDCustomField `json:"custom_fields,omitempty"`       // 自定义字段
 }
 
-// SearchCoreHrEmployeeRespItemPersonInfoNationalIDCustomField ...
-type SearchCoreHrEmployeeRespItemPersonInfoNationalIDCustomField struct {
+// SearchCoreHREmployeeRespItemPersonInfoNationalIDCustomField ...
+type SearchCoreHREmployeeRespItemPersonInfoNationalIDCustomField struct {
 	CustomApiName string                                                           `json:"custom_api_name,omitempty"` // 自定义字段 apiname, 即自定义字段的唯一标识
-	Name          *SearchCoreHrEmployeeRespItemPersonInfoNationalIDCustomFieldName `json:"name,omitempty"`            // 自定义字段名称
+	Name          *SearchCoreHREmployeeRespItemPersonInfoNationalIDCustomFieldName `json:"name,omitempty"`            // 自定义字段名称
 	Type          int64                                                            `json:"type,omitempty"`            // 自定义字段类型
 	Value         string                                                           `json:"value,omitempty"`           // 字段值, 是 json 转义后的字符串, 根据元数据定义不同, 字段格式不同（如 123, 123.23, "true", ["id1", "id2"], "2006-01-02 15:04:05"）
 }
 
-// SearchCoreHrEmployeeRespItemPersonInfoNationalIDCustomFieldName ...
-type SearchCoreHrEmployeeRespItemPersonInfoNationalIDCustomFieldName struct {
+// SearchCoreHREmployeeRespItemPersonInfoNationalIDCustomFieldName ...
+type SearchCoreHREmployeeRespItemPersonInfoNationalIDCustomFieldName struct {
 	ZhCn string `json:"zh_cn,omitempty"` // 中文
 	EnUs string `json:"en_us,omitempty"` // 英文
 }
 
-// SearchCoreHrEmployeeRespItemPersonInfoPersonalProfile ...
-type SearchCoreHrEmployeeRespItemPersonInfoPersonalProfile struct {
+// SearchCoreHREmployeeRespItemPersonInfoPersonalProfile ...
+type SearchCoreHREmployeeRespItemPersonInfoPersonalProfile struct {
 	PersonalProfileID   string                                                                    `json:"personal_profile_id,omitempty"`   // 个人资料 ID
-	PersonalProfileType *SearchCoreHrEmployeeRespItemPersonInfoPersonalProfilePersonalProfileType `json:"personal_profile_type,omitempty"` // 资料类型
-	Files               []*SearchCoreHrEmployeeRespItemPersonInfoPersonalProfileFile              `json:"files,omitempty"`                 // 上传文件列表
+	PersonalProfileType *SearchCoreHREmployeeRespItemPersonInfoPersonalProfilePersonalProfileType `json:"personal_profile_type,omitempty"` // 资料类型
+	Files               []*SearchCoreHREmployeeRespItemPersonInfoPersonalProfileFile              `json:"files,omitempty"`                 // 上传文件列表
 }
 
-// SearchCoreHrEmployeeRespItemPersonInfoPersonalProfileFile ...
-type SearchCoreHrEmployeeRespItemPersonInfoPersonalProfileFile struct {
+// SearchCoreHREmployeeRespItemPersonInfoPersonalProfileFile ...
+type SearchCoreHREmployeeRespItemPersonInfoPersonalProfileFile struct {
 	ID string `json:"id,omitempty"` // 上传文件ID
 }
 
-// SearchCoreHrEmployeeRespItemPersonInfoPersonalProfilePersonalProfileType ...
-type SearchCoreHrEmployeeRespItemPersonInfoPersonalProfilePersonalProfileType struct {
+// SearchCoreHREmployeeRespItemPersonInfoPersonalProfilePersonalProfileType ...
+type SearchCoreHREmployeeRespItemPersonInfoPersonalProfilePersonalProfileType struct {
 	EnumName string                                                                             `json:"enum_name,omitempty"` // 枚举值
-	Display  []*SearchCoreHrEmployeeRespItemPersonInfoPersonalProfilePersonalProfileTypeDisplay `json:"display,omitempty"`   // 枚举多语展示
+	Display  []*SearchCoreHREmployeeRespItemPersonInfoPersonalProfilePersonalProfileTypeDisplay `json:"display,omitempty"`   // 枚举多语展示
 }
 
-// SearchCoreHrEmployeeRespItemPersonInfoPersonalProfilePersonalProfileTypeDisplay ...
-type SearchCoreHrEmployeeRespItemPersonInfoPersonalProfilePersonalProfileTypeDisplay struct {
+// SearchCoreHREmployeeRespItemPersonInfoPersonalProfilePersonalProfileTypeDisplay ...
+type SearchCoreHREmployeeRespItemPersonInfoPersonalProfilePersonalProfileTypeDisplay struct {
 	Lang  string `json:"lang,omitempty"`  // 语言
 	Value string `json:"value,omitempty"` // 内容
 }
 
-// SearchCoreHrEmployeeRespItemPersonInfoPhone ...
-type SearchCoreHrEmployeeRespItemPersonInfoPhone struct {
-	InternationalAreaCode *SearchCoreHrEmployeeRespItemPersonInfoPhoneInternationalAreaCode `json:"international_area_code,omitempty"` // 国家区号
+// SearchCoreHREmployeeRespItemPersonInfoPhone ...
+type SearchCoreHREmployeeRespItemPersonInfoPhone struct {
+	InternationalAreaCode *SearchCoreHREmployeeRespItemPersonInfoPhoneInternationalAreaCode `json:"international_area_code,omitempty"` // 国家区号
 	PhoneNumber           string                                                            `json:"phone_number,omitempty"`            // 电话号码
 	FormattedPhoneNumber  string                                                            `json:"formatted_phone_number,omitempty"`  // 完整电话号码
-	DeviceType            *SearchCoreHrEmployeeRespItemPersonInfoPhoneDeviceType            `json:"device_type,omitempty"`             // 设备类型
-	PhoneUsage            *SearchCoreHrEmployeeRespItemPersonInfoPhonePhoneUsage            `json:"phone_usage,omitempty"`             // 电话用途
+	DeviceType            *SearchCoreHREmployeeRespItemPersonInfoPhoneDeviceType            `json:"device_type,omitempty"`             // 设备类型
+	PhoneUsage            *SearchCoreHREmployeeRespItemPersonInfoPhonePhoneUsage            `json:"phone_usage,omitempty"`             // 电话用途
 	IsPrimary             bool                                                              `json:"is_primary,omitempty"`              // 主要电话
 	IsPublic              bool                                                              `json:"is_public,omitempty"`               // 公开电话
 }
 
-// SearchCoreHrEmployeeRespItemPersonInfoPhoneDeviceType ...
-type SearchCoreHrEmployeeRespItemPersonInfoPhoneDeviceType struct {
+// SearchCoreHREmployeeRespItemPersonInfoPhoneDeviceType ...
+type SearchCoreHREmployeeRespItemPersonInfoPhoneDeviceType struct {
 	EnumName string                                                          `json:"enum_name,omitempty"` // 枚举值
-	Display  []*SearchCoreHrEmployeeRespItemPersonInfoPhoneDeviceTypeDisplay `json:"display,omitempty"`   // 枚举多语展示
+	Display  []*SearchCoreHREmployeeRespItemPersonInfoPhoneDeviceTypeDisplay `json:"display,omitempty"`   // 枚举多语展示
 }
 
-// SearchCoreHrEmployeeRespItemPersonInfoPhoneDeviceTypeDisplay ...
-type SearchCoreHrEmployeeRespItemPersonInfoPhoneDeviceTypeDisplay struct {
+// SearchCoreHREmployeeRespItemPersonInfoPhoneDeviceTypeDisplay ...
+type SearchCoreHREmployeeRespItemPersonInfoPhoneDeviceTypeDisplay struct {
 	Lang  string `json:"lang,omitempty"`  // 语言
 	Value string `json:"value,omitempty"` // 内容
 }
 
-// SearchCoreHrEmployeeRespItemPersonInfoPhoneInternationalAreaCode ...
-type SearchCoreHrEmployeeRespItemPersonInfoPhoneInternationalAreaCode struct {
+// SearchCoreHREmployeeRespItemPersonInfoPhoneInternationalAreaCode ...
+type SearchCoreHREmployeeRespItemPersonInfoPhoneInternationalAreaCode struct {
 	EnumName string                                                                     `json:"enum_name,omitempty"` // 枚举值
-	Display  []*SearchCoreHrEmployeeRespItemPersonInfoPhoneInternationalAreaCodeDisplay `json:"display,omitempty"`   // 枚举多语展示
+	Display  []*SearchCoreHREmployeeRespItemPersonInfoPhoneInternationalAreaCodeDisplay `json:"display,omitempty"`   // 枚举多语展示
 }
 
-// SearchCoreHrEmployeeRespItemPersonInfoPhoneInternationalAreaCodeDisplay ...
-type SearchCoreHrEmployeeRespItemPersonInfoPhoneInternationalAreaCodeDisplay struct {
+// SearchCoreHREmployeeRespItemPersonInfoPhoneInternationalAreaCodeDisplay ...
+type SearchCoreHREmployeeRespItemPersonInfoPhoneInternationalAreaCodeDisplay struct {
 	Lang  string `json:"lang,omitempty"`  // 语言
 	Value string `json:"value,omitempty"` // 内容
 }
 
-// SearchCoreHrEmployeeRespItemPersonInfoPhonePhoneUsage ...
-type SearchCoreHrEmployeeRespItemPersonInfoPhonePhoneUsage struct {
+// SearchCoreHREmployeeRespItemPersonInfoPhonePhoneUsage ...
+type SearchCoreHREmployeeRespItemPersonInfoPhonePhoneUsage struct {
 	EnumName string                                                          `json:"enum_name,omitempty"` // 枚举值
-	Display  []*SearchCoreHrEmployeeRespItemPersonInfoPhonePhoneUsageDisplay `json:"display,omitempty"`   // 枚举多语展示
+	Display  []*SearchCoreHREmployeeRespItemPersonInfoPhonePhoneUsageDisplay `json:"display,omitempty"`   // 枚举多语展示
 }
 
-// SearchCoreHrEmployeeRespItemPersonInfoPhonePhoneUsageDisplay ...
-type SearchCoreHrEmployeeRespItemPersonInfoPhonePhoneUsageDisplay struct {
+// SearchCoreHREmployeeRespItemPersonInfoPhonePhoneUsageDisplay ...
+type SearchCoreHREmployeeRespItemPersonInfoPhonePhoneUsageDisplay struct {
 	Lang  string `json:"lang,omitempty"`  // 语言
 	Value string `json:"value,omitempty"` // 内容
 }
 
-// SearchCoreHrEmployeeRespItemPersonInfoRace ...
-type SearchCoreHrEmployeeRespItemPersonInfoRace struct {
+// SearchCoreHREmployeeRespItemPersonInfoRace ...
+type SearchCoreHREmployeeRespItemPersonInfoRace struct {
 	EnumName string                                               `json:"enum_name,omitempty"` // 枚举值
-	Display  []*SearchCoreHrEmployeeRespItemPersonInfoRaceDisplay `json:"display,omitempty"`   // 枚举多语展示
+	Display  []*SearchCoreHREmployeeRespItemPersonInfoRaceDisplay `json:"display,omitempty"`   // 枚举多语展示
 }
 
-// SearchCoreHrEmployeeRespItemPersonInfoRaceDisplay ...
-type SearchCoreHrEmployeeRespItemPersonInfoRaceDisplay struct {
+// SearchCoreHREmployeeRespItemPersonInfoRaceDisplay ...
+type SearchCoreHREmployeeRespItemPersonInfoRaceDisplay struct {
 	Lang  string `json:"lang,omitempty"`  // 语言
 	Value string `json:"value,omitempty"` // 内容
 }
 
-// SearchCoreHrEmployeeRespItemPersonInfoWorkExperience ...
-type SearchCoreHrEmployeeRespItemPersonInfoWorkExperience struct {
-	CompanyOrganization []*SearchCoreHrEmployeeRespItemPersonInfoWorkExperienceCompanyOrganization `json:"company_organization,omitempty"` // 公司 / 组织
-	Department          []*SearchCoreHrEmployeeRespItemPersonInfoWorkExperienceDepartment          `json:"department,omitempty"`           // 部门
-	Job                 []*SearchCoreHrEmployeeRespItemPersonInfoWorkExperienceJob                 `json:"job,omitempty"`                  // 岗位
-	Description         []*SearchCoreHrEmployeeRespItemPersonInfoWorkExperienceDescription         `json:"description,omitempty"`          // 工作描述
+// SearchCoreHREmployeeRespItemPersonInfoWorkExperience ...
+type SearchCoreHREmployeeRespItemPersonInfoWorkExperience struct {
+	CompanyOrganization []*SearchCoreHREmployeeRespItemPersonInfoWorkExperienceCompanyOrganization `json:"company_organization,omitempty"` // 公司 / 组织
+	Department          []*SearchCoreHREmployeeRespItemPersonInfoWorkExperienceDepartment          `json:"department,omitempty"`           // 部门
+	Job                 []*SearchCoreHREmployeeRespItemPersonInfoWorkExperienceJob                 `json:"job,omitempty"`                  // 岗位
+	Description         []*SearchCoreHREmployeeRespItemPersonInfoWorkExperienceDescription         `json:"description,omitempty"`          // 工作描述
 	StartDate           string                                                                     `json:"start_date,omitempty"`           // 开始日期
 	EndDate             string                                                                     `json:"end_date,omitempty"`             // 结束日期
-	CustomFields        []*SearchCoreHrEmployeeRespItemPersonInfoWorkExperienceCustomField         `json:"custom_fields,omitempty"`        // 自定义字段
+	CustomFields        []*SearchCoreHREmployeeRespItemPersonInfoWorkExperienceCustomField         `json:"custom_fields,omitempty"`        // 自定义字段
 }
 
-// SearchCoreHrEmployeeRespItemPersonInfoWorkExperienceCompanyOrganization ...
-type SearchCoreHrEmployeeRespItemPersonInfoWorkExperienceCompanyOrganization struct {
+// SearchCoreHREmployeeRespItemPersonInfoWorkExperienceCompanyOrganization ...
+type SearchCoreHREmployeeRespItemPersonInfoWorkExperienceCompanyOrganization struct {
 	Lang  string `json:"lang,omitempty"`  // 语言
 	Value string `json:"value,omitempty"` // 内容
 }
 
-// SearchCoreHrEmployeeRespItemPersonInfoWorkExperienceCustomField ...
-type SearchCoreHrEmployeeRespItemPersonInfoWorkExperienceCustomField struct {
+// SearchCoreHREmployeeRespItemPersonInfoWorkExperienceCustomField ...
+type SearchCoreHREmployeeRespItemPersonInfoWorkExperienceCustomField struct {
 	CustomApiName string                                                               `json:"custom_api_name,omitempty"` // 自定义字段 apiname, 即自定义字段的唯一标识
-	Name          *SearchCoreHrEmployeeRespItemPersonInfoWorkExperienceCustomFieldName `json:"name,omitempty"`            // 自定义字段名称
+	Name          *SearchCoreHREmployeeRespItemPersonInfoWorkExperienceCustomFieldName `json:"name,omitempty"`            // 自定义字段名称
 	Type          int64                                                                `json:"type,omitempty"`            // 自定义字段类型
 	Value         string                                                               `json:"value,omitempty"`           // 字段值, 是 json 转义后的字符串, 根据元数据定义不同, 字段格式不同（如 123, 123.23, "true", ["id1", "id2"], "2006-01-02 15:04:05"）
 }
 
-// SearchCoreHrEmployeeRespItemPersonInfoWorkExperienceCustomFieldName ...
-type SearchCoreHrEmployeeRespItemPersonInfoWorkExperienceCustomFieldName struct {
+// SearchCoreHREmployeeRespItemPersonInfoWorkExperienceCustomFieldName ...
+type SearchCoreHREmployeeRespItemPersonInfoWorkExperienceCustomFieldName struct {
 	ZhCn string `json:"zh_cn,omitempty"` // 中文
 	EnUs string `json:"en_us,omitempty"` // 英文
 }
 
-// SearchCoreHrEmployeeRespItemPersonInfoWorkExperienceDepartment ...
-type SearchCoreHrEmployeeRespItemPersonInfoWorkExperienceDepartment struct {
+// SearchCoreHREmployeeRespItemPersonInfoWorkExperienceDepartment ...
+type SearchCoreHREmployeeRespItemPersonInfoWorkExperienceDepartment struct {
 	Lang  string `json:"lang,omitempty"`  // 语言
 	Value string `json:"value,omitempty"` // 内容
 }
 
-// SearchCoreHrEmployeeRespItemPersonInfoWorkExperienceDescription ...
-type SearchCoreHrEmployeeRespItemPersonInfoWorkExperienceDescription struct {
+// SearchCoreHREmployeeRespItemPersonInfoWorkExperienceDescription ...
+type SearchCoreHREmployeeRespItemPersonInfoWorkExperienceDescription struct {
 	Lang  string `json:"lang,omitempty"`  // 语言
 	Value string `json:"value,omitempty"` // 内容
 }
 
-// SearchCoreHrEmployeeRespItemPersonInfoWorkExperienceJob ...
-type SearchCoreHrEmployeeRespItemPersonInfoWorkExperienceJob struct {
+// SearchCoreHREmployeeRespItemPersonInfoWorkExperienceJob ...
+type SearchCoreHREmployeeRespItemPersonInfoWorkExperienceJob struct {
 	Lang  string `json:"lang,omitempty"`  // 语言
 	Value string `json:"value,omitempty"` // 内容
 }
 
-// SearchCoreHrEmployeeRespItemReasonForOffboarding ...
-type SearchCoreHrEmployeeRespItemReasonForOffboarding struct {
+// SearchCoreHREmployeeRespItemReasonForOffboarding ...
+type SearchCoreHREmployeeRespItemReasonForOffboarding struct {
 	EnumName string                                                     `json:"enum_name,omitempty"` // 枚举值
-	Display  []*SearchCoreHrEmployeeRespItemReasonForOffboardingDisplay `json:"display,omitempty"`   // 枚举多语展示
+	Display  []*SearchCoreHREmployeeRespItemReasonForOffboardingDisplay `json:"display,omitempty"`   // 枚举多语展示
 }
 
-// SearchCoreHrEmployeeRespItemReasonForOffboardingDisplay ...
-type SearchCoreHrEmployeeRespItemReasonForOffboardingDisplay struct {
+// SearchCoreHREmployeeRespItemReasonForOffboardingDisplay ...
+type SearchCoreHREmployeeRespItemReasonForOffboardingDisplay struct {
 	Lang  string `json:"lang,omitempty"`  // 语言
 	Value string `json:"value,omitempty"` // 内容
 }
 
-// SearchCoreHrEmployeeRespItemRecruitmentType ...
-type SearchCoreHrEmployeeRespItemRecruitmentType struct {
+// SearchCoreHREmployeeRespItemRecruitmentType ...
+type SearchCoreHREmployeeRespItemRecruitmentType struct {
 	EnumName string                                                `json:"enum_name,omitempty"` // 枚举值
-	Display  []*SearchCoreHrEmployeeRespItemRecruitmentTypeDisplay `json:"display,omitempty"`   // 枚举多语展示
+	Display  []*SearchCoreHREmployeeRespItemRecruitmentTypeDisplay `json:"display,omitempty"`   // 枚举多语展示
 }
 
-// SearchCoreHrEmployeeRespItemRecruitmentTypeDisplay ...
-type SearchCoreHrEmployeeRespItemRecruitmentTypeDisplay struct {
+// SearchCoreHREmployeeRespItemRecruitmentTypeDisplay ...
+type SearchCoreHREmployeeRespItemRecruitmentTypeDisplay struct {
 	Lang  string `json:"lang,omitempty"`  // 语言
 	Value string `json:"value,omitempty"` // 内容
 }
 
-// SearchCoreHrEmployeeRespItemRehire ...
-type SearchCoreHrEmployeeRespItemRehire struct {
+// SearchCoreHREmployeeRespItemRehire ...
+type SearchCoreHREmployeeRespItemRehire struct {
 	EnumName string                                       `json:"enum_name,omitempty"` // 枚举值
-	Display  []*SearchCoreHrEmployeeRespItemRehireDisplay `json:"display,omitempty"`   // 枚举多语展示
+	Display  []*SearchCoreHREmployeeRespItemRehireDisplay `json:"display,omitempty"`   // 枚举多语展示
 }
 
-// SearchCoreHrEmployeeRespItemRehireDisplay ...
-type SearchCoreHrEmployeeRespItemRehireDisplay struct {
+// SearchCoreHREmployeeRespItemRehireDisplay ...
+type SearchCoreHREmployeeRespItemRehireDisplay struct {
 	Lang  string `json:"lang,omitempty"`  // 语言
 	Value string `json:"value,omitempty"` // 内容
 }
 
-// SearchCoreHrEmployeeRespItemWorkEmail ...
-type SearchCoreHrEmployeeRespItemWorkEmail struct {
+// SearchCoreHREmployeeRespItemWorkEmail ...
+type SearchCoreHREmployeeRespItemWorkEmail struct {
 	Email      string                                           `json:"email,omitempty"`       // 邮箱地址
-	EmailUsage *SearchCoreHrEmployeeRespItemWorkEmailEmailUsage `json:"email_usage,omitempty"` // 邮箱用途, 枚举值可通过文档【飞书人事枚举常量】邮箱用途（email_usage）枚举定义获得
+	EmailUsage *SearchCoreHREmployeeRespItemWorkEmailEmailUsage `json:"email_usage,omitempty"` // 邮箱用途, 枚举值可通过文档【飞书人事枚举常量】邮箱用途（email_usage）枚举定义获得
 }
 
-// SearchCoreHrEmployeeRespItemWorkEmailEmailUsage ...
-type SearchCoreHrEmployeeRespItemWorkEmailEmailUsage struct {
+// SearchCoreHREmployeeRespItemWorkEmailEmailUsage ...
+type SearchCoreHREmployeeRespItemWorkEmailEmailUsage struct {
 	EnumName string                                                    `json:"enum_name,omitempty"` // 枚举值
-	Display  []*SearchCoreHrEmployeeRespItemWorkEmailEmailUsageDisplay `json:"display,omitempty"`   // 枚举多语展示
+	Display  []*SearchCoreHREmployeeRespItemWorkEmailEmailUsageDisplay `json:"display,omitempty"`   // 枚举多语展示
 }
 
-// SearchCoreHrEmployeeRespItemWorkEmailEmailUsageDisplay ...
-type SearchCoreHrEmployeeRespItemWorkEmailEmailUsageDisplay struct {
+// SearchCoreHREmployeeRespItemWorkEmailEmailUsageDisplay ...
+type SearchCoreHREmployeeRespItemWorkEmailEmailUsageDisplay struct {
 	Lang  string `json:"lang,omitempty"`  // 语言
 	Value string `json:"value,omitempty"` // 内容
 }
 
-// searchCoreHrEmployeeResp ...
-type searchCoreHrEmployeeResp struct {
+// searchCoreHREmployeeResp ...
+type searchCoreHREmployeeResp struct {
 	Code int64                     `json:"code,omitempty"` // 错误码, 非 0 表示失败
 	Msg  string                    `json:"msg,omitempty"`  // 错误描述
-	Data *SearchCoreHrEmployeeResp `json:"data,omitempty"`
+	Data *SearchCoreHREmployeeResp `json:"data,omitempty"`
 }

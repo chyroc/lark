@@ -21,69 +21,69 @@ import (
 	"context"
 )
 
-// GetCoreHrSecurityGroupBp 通过部门或工作地点, 查询对应的 HRBP/属地 BP。
+// GetCoreHRSecurityGroupBp 通过部门或工作地点, 查询对应的 HRBP/属地 BP。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/security_group/query
 // new doc: https://open.feishu.cn/document/server-docs/corehr-v1/authorization/query
-func (r *CoreHrService) GetCoreHrSecurityGroupBp(ctx context.Context, request *GetCoreHrSecurityGroupBpReq, options ...MethodOptionFunc) (*GetCoreHrSecurityGroupBpResp, *Response, error) {
-	if r.cli.mock.mockCoreHrGetCoreHrSecurityGroupBp != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] CoreHr#GetCoreHrSecurityGroupBp mock enable")
-		return r.cli.mock.mockCoreHrGetCoreHrSecurityGroupBp(ctx, request, options...)
+func (r *CoreHRService) GetCoreHRSecurityGroupBp(ctx context.Context, request *GetCoreHRSecurityGroupBpReq, options ...MethodOptionFunc) (*GetCoreHRSecurityGroupBpResp, *Response, error) {
+	if r.cli.mock.mockCoreHRGetCoreHRSecurityGroupBp != nil {
+		r.cli.log(ctx, LogLevelDebug, "[lark] CoreHR#GetCoreHRSecurityGroupBp mock enable")
+		return r.cli.mock.mockCoreHRGetCoreHRSecurityGroupBp(ctx, request, options...)
 	}
 
 	req := &RawRequestReq{
-		Scope:                 "CoreHr",
-		API:                   "GetCoreHrSecurityGroupBp",
+		Scope:                 "CoreHR",
+		API:                   "GetCoreHRSecurityGroupBp",
 		Method:                "POST",
 		URL:                   r.cli.openBaseURL + "/open-apis/corehr/v1/security_groups/query",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
 	}
-	resp := new(getCoreHrSecurityGroupBpResp)
+	resp := new(getCoreHRSecurityGroupBpResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
 	return resp.Data, response, err
 }
 
-// MockCoreHrGetCoreHrSecurityGroupBp mock CoreHrGetCoreHrSecurityGroupBp method
-func (r *Mock) MockCoreHrGetCoreHrSecurityGroupBp(f func(ctx context.Context, request *GetCoreHrSecurityGroupBpReq, options ...MethodOptionFunc) (*GetCoreHrSecurityGroupBpResp, *Response, error)) {
-	r.mockCoreHrGetCoreHrSecurityGroupBp = f
+// MockCoreHRGetCoreHRSecurityGroupBp mock CoreHRGetCoreHRSecurityGroupBp method
+func (r *Mock) MockCoreHRGetCoreHRSecurityGroupBp(f func(ctx context.Context, request *GetCoreHRSecurityGroupBpReq, options ...MethodOptionFunc) (*GetCoreHRSecurityGroupBpResp, *Response, error)) {
+	r.mockCoreHRGetCoreHRSecurityGroupBp = f
 }
 
-// UnMockCoreHrGetCoreHrSecurityGroupBp un-mock CoreHrGetCoreHrSecurityGroupBp method
-func (r *Mock) UnMockCoreHrGetCoreHrSecurityGroupBp() {
-	r.mockCoreHrGetCoreHrSecurityGroupBp = nil
+// UnMockCoreHRGetCoreHRSecurityGroupBp un-mock CoreHRGetCoreHRSecurityGroupBp method
+func (r *Mock) UnMockCoreHRGetCoreHRSecurityGroupBp() {
+	r.mockCoreHRGetCoreHRSecurityGroupBp = nil
 }
 
-// GetCoreHrSecurityGroupBpReq ...
-type GetCoreHrSecurityGroupBpReq struct {
+// GetCoreHRSecurityGroupBpReq ...
+type GetCoreHRSecurityGroupBpReq struct {
 	DepartmentIDType *DepartmentIDType                  `query:"department_id_type" json:"-"` // 此次调用中使用的部门 ID 类型, 示例值: people_corehr_department_id, 可选值有: open_department_id: 以 open_department_id 来标识部门, department_id: 以 department_id 来标识部门, people_corehr_department_id: 以 people_corehr_department_id 来标识部门, 默认值: `people_corehr_department_id`
-	ItemList         []*GetCoreHrSecurityGroupBpReqItem `json:"item_list,omitempty"`          // 角色列表, 一次最多支持查询 50 个
+	ItemList         []*GetCoreHRSecurityGroupBpReqItem `json:"item_list,omitempty"`          // 角色列表, 一次最多支持查询 50 个
 }
 
-// GetCoreHrSecurityGroupBpReqItem ...
-type GetCoreHrSecurityGroupBpReqItem struct {
+// GetCoreHRSecurityGroupBpReqItem ...
+type GetCoreHRSecurityGroupBpReqItem struct {
 	RoleKey        string  `json:"role_key,omitempty"`         // 角色类型的唯一标识, HRBP: 与部门有关, role_key 固定为 「hrbp」, 属地 BP: 与部门、工作地点有关, role_key 固定为 「location_bp」, 示例值: "location_bp"
 	DepartmentID   string  `json:"department_id,omitempty"`    // 部门 ID, 查询 HRBP 需输入部门 ID, 示例值: "7063072995761456670"
 	WorkLocationID *string `json:"work_location_id,omitempty"` // 工作地点 ID, 查询属地 BP 需要输入部门 ID 与 工作地点 ID, 示例值: "6892687221355185677"
 }
 
-// GetCoreHrSecurityGroupBpResp ...
-type GetCoreHrSecurityGroupBpResp struct {
-	HrbpList []*GetCoreHrSecurityGroupBpRespHrbp `json:"hrbp_list,omitempty"` // HRBP/属地 BP 信息
+// GetCoreHRSecurityGroupBpResp ...
+type GetCoreHRSecurityGroupBpResp struct {
+	HrbpList []*GetCoreHRSecurityGroupBpRespHrbp `json:"hrbp_list,omitempty"` // HRBP/属地 BP 信息
 }
 
-// GetCoreHrSecurityGroupBpRespHrbp ...
-type GetCoreHrSecurityGroupBpRespHrbp struct {
+// GetCoreHRSecurityGroupBpRespHrbp ...
+type GetCoreHRSecurityGroupBpRespHrbp struct {
 	EmploymentIDList []string `json:"employment_id_list,omitempty"` // HRBP/属地 BP 的雇员ID : 对于 HRBP 而言, 若入参的部门没有找到对应的 HRBP, 将向上找寻, 即向其上级部门取对应的 HRBP, 且同一部门可能有多个 HRBP；, 对于 属地 BP 而言, 若入参的部门和地点没有找到对应的属地 BP, 将优先拿地点向上找寻, 即向其上级地点取对应的属地 BP
 	DepartmentID     string   `json:"department_id,omitempty"`      // 部门 ID
 	WorkLocationID   string   `json:"work_location_id,omitempty"`   // 工作地点 ID
 }
 
-// getCoreHrSecurityGroupBpResp ...
-type getCoreHrSecurityGroupBpResp struct {
+// getCoreHRSecurityGroupBpResp ...
+type getCoreHRSecurityGroupBpResp struct {
 	Code int64                         `json:"code,omitempty"` // 错误码, 非 0 表示失败
 	Msg  string                        `json:"msg,omitempty"`  // 错误描述
-	Data *GetCoreHrSecurityGroupBpResp `json:"data,omitempty"`
+	Data *GetCoreHRSecurityGroupBpResp `json:"data,omitempty"`
 }

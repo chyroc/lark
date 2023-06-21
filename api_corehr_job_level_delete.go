@@ -21,53 +21,53 @@ import (
 	"context"
 )
 
-// DeleteCoreHrJobLevel 删除职级
+// DeleteCoreHRJobLevel 删除职级
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job_level/delete
 // new doc: https://open.feishu.cn/document/server-docs/corehr-v1/job-management/job_level/delete
-func (r *CoreHrService) DeleteCoreHrJobLevel(ctx context.Context, request *DeleteCoreHrJobLevelReq, options ...MethodOptionFunc) (*DeleteCoreHrJobLevelResp, *Response, error) {
-	if r.cli.mock.mockCoreHrDeleteCoreHrJobLevel != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] CoreHr#DeleteCoreHrJobLevel mock enable")
-		return r.cli.mock.mockCoreHrDeleteCoreHrJobLevel(ctx, request, options...)
+func (r *CoreHRService) DeleteCoreHRJobLevel(ctx context.Context, request *DeleteCoreHRJobLevelReq, options ...MethodOptionFunc) (*DeleteCoreHRJobLevelResp, *Response, error) {
+	if r.cli.mock.mockCoreHRDeleteCoreHRJobLevel != nil {
+		r.cli.log(ctx, LogLevelDebug, "[lark] CoreHR#DeleteCoreHRJobLevel mock enable")
+		return r.cli.mock.mockCoreHRDeleteCoreHRJobLevel(ctx, request, options...)
 	}
 
 	req := &RawRequestReq{
-		Scope:                 "CoreHr",
-		API:                   "DeleteCoreHrJobLevel",
+		Scope:                 "CoreHR",
+		API:                   "DeleteCoreHRJobLevel",
 		Method:                "DELETE",
 		URL:                   r.cli.openBaseURL + "/open-apis/corehr/v1/job_levels/:job_level_id",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
 	}
-	resp := new(deleteCoreHrJobLevelResp)
+	resp := new(deleteCoreHRJobLevelResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
 	return resp.Data, response, err
 }
 
-// MockCoreHrDeleteCoreHrJobLevel mock CoreHrDeleteCoreHrJobLevel method
-func (r *Mock) MockCoreHrDeleteCoreHrJobLevel(f func(ctx context.Context, request *DeleteCoreHrJobLevelReq, options ...MethodOptionFunc) (*DeleteCoreHrJobLevelResp, *Response, error)) {
-	r.mockCoreHrDeleteCoreHrJobLevel = f
+// MockCoreHRDeleteCoreHRJobLevel mock CoreHRDeleteCoreHRJobLevel method
+func (r *Mock) MockCoreHRDeleteCoreHRJobLevel(f func(ctx context.Context, request *DeleteCoreHRJobLevelReq, options ...MethodOptionFunc) (*DeleteCoreHRJobLevelResp, *Response, error)) {
+	r.mockCoreHRDeleteCoreHRJobLevel = f
 }
 
-// UnMockCoreHrDeleteCoreHrJobLevel un-mock CoreHrDeleteCoreHrJobLevel method
-func (r *Mock) UnMockCoreHrDeleteCoreHrJobLevel() {
-	r.mockCoreHrDeleteCoreHrJobLevel = nil
+// UnMockCoreHRDeleteCoreHRJobLevel un-mock CoreHRDeleteCoreHRJobLevel method
+func (r *Mock) UnMockCoreHRDeleteCoreHRJobLevel() {
+	r.mockCoreHRDeleteCoreHRJobLevel = nil
 }
 
-// DeleteCoreHrJobLevelReq ...
-type DeleteCoreHrJobLevelReq struct {
+// DeleteCoreHRJobLevelReq ...
+type DeleteCoreHRJobLevelReq struct {
 	JobLevelID string `path:"job_level_id" json:"-"` // 需要删除的职级 ID, 示例值: "5423452542"
 }
 
-// DeleteCoreHrJobLevelResp ...
-type DeleteCoreHrJobLevelResp struct {
+// DeleteCoreHRJobLevelResp ...
+type DeleteCoreHRJobLevelResp struct {
 }
 
-// deleteCoreHrJobLevelResp ...
-type deleteCoreHrJobLevelResp struct {
+// deleteCoreHRJobLevelResp ...
+type deleteCoreHRJobLevelResp struct {
 	Code int64                     `json:"code,omitempty"` // 错误码, 非 0 表示失败
 	Msg  string                    `json:"msg,omitempty"`  // 错误描述
-	Data *DeleteCoreHrJobLevelResp `json:"data,omitempty"`
+	Data *DeleteCoreHRJobLevelResp `json:"data,omitempty"`
 }

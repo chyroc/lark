@@ -21,80 +21,80 @@ import (
 	"context"
 )
 
-// GetCoreHrWorkingHoursTypeList 批量查询工时制度。
+// GetCoreHRWorkingHoursTypeList 批量查询工时制度。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/working_hours_type/list
 // new doc: https://open.feishu.cn/document/server-docs/corehr-v1/basic-infomation/working_hours_type/list
-func (r *CoreHrService) GetCoreHrWorkingHoursTypeList(ctx context.Context, request *GetCoreHrWorkingHoursTypeListReq, options ...MethodOptionFunc) (*GetCoreHrWorkingHoursTypeListResp, *Response, error) {
-	if r.cli.mock.mockCoreHrGetCoreHrWorkingHoursTypeList != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] CoreHr#GetCoreHrWorkingHoursTypeList mock enable")
-		return r.cli.mock.mockCoreHrGetCoreHrWorkingHoursTypeList(ctx, request, options...)
+func (r *CoreHRService) GetCoreHRWorkingHoursTypeList(ctx context.Context, request *GetCoreHRWorkingHoursTypeListReq, options ...MethodOptionFunc) (*GetCoreHRWorkingHoursTypeListResp, *Response, error) {
+	if r.cli.mock.mockCoreHRGetCoreHRWorkingHoursTypeList != nil {
+		r.cli.log(ctx, LogLevelDebug, "[lark] CoreHR#GetCoreHRWorkingHoursTypeList mock enable")
+		return r.cli.mock.mockCoreHRGetCoreHRWorkingHoursTypeList(ctx, request, options...)
 	}
 
 	req := &RawRequestReq{
-		Scope:                 "CoreHr",
-		API:                   "GetCoreHrWorkingHoursTypeList",
+		Scope:                 "CoreHR",
+		API:                   "GetCoreHRWorkingHoursTypeList",
 		Method:                "GET",
 		URL:                   r.cli.openBaseURL + "/open-apis/corehr/v1/working_hours_types",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
 	}
-	resp := new(getCoreHrWorkingHoursTypeListResp)
+	resp := new(getCoreHRWorkingHoursTypeListResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
 	return resp.Data, response, err
 }
 
-// MockCoreHrGetCoreHrWorkingHoursTypeList mock CoreHrGetCoreHrWorkingHoursTypeList method
-func (r *Mock) MockCoreHrGetCoreHrWorkingHoursTypeList(f func(ctx context.Context, request *GetCoreHrWorkingHoursTypeListReq, options ...MethodOptionFunc) (*GetCoreHrWorkingHoursTypeListResp, *Response, error)) {
-	r.mockCoreHrGetCoreHrWorkingHoursTypeList = f
+// MockCoreHRGetCoreHRWorkingHoursTypeList mock CoreHRGetCoreHRWorkingHoursTypeList method
+func (r *Mock) MockCoreHRGetCoreHRWorkingHoursTypeList(f func(ctx context.Context, request *GetCoreHRWorkingHoursTypeListReq, options ...MethodOptionFunc) (*GetCoreHRWorkingHoursTypeListResp, *Response, error)) {
+	r.mockCoreHRGetCoreHRWorkingHoursTypeList = f
 }
 
-// UnMockCoreHrGetCoreHrWorkingHoursTypeList un-mock CoreHrGetCoreHrWorkingHoursTypeList method
-func (r *Mock) UnMockCoreHrGetCoreHrWorkingHoursTypeList() {
-	r.mockCoreHrGetCoreHrWorkingHoursTypeList = nil
+// UnMockCoreHRGetCoreHRWorkingHoursTypeList un-mock CoreHRGetCoreHRWorkingHoursTypeList method
+func (r *Mock) UnMockCoreHRGetCoreHRWorkingHoursTypeList() {
+	r.mockCoreHRGetCoreHRWorkingHoursTypeList = nil
 }
 
-// GetCoreHrWorkingHoursTypeListReq ...
-type GetCoreHrWorkingHoursTypeListReq struct {
+// GetCoreHRWorkingHoursTypeListReq ...
+type GetCoreHRWorkingHoursTypeListReq struct {
 	PageToken *string `query:"page_token" json:"-"` // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果, 示例值: 1231231987
 	PageSize  int64   `query:"page_size" json:"-"`  // 分页大小, 示例值: 100
 }
 
-// GetCoreHrWorkingHoursTypeListResp ...
-type GetCoreHrWorkingHoursTypeListResp struct {
-	Items     []*GetCoreHrWorkingHoursTypeListRespItem `json:"items,omitempty"`      // 查询的工时制度信息
+// GetCoreHRWorkingHoursTypeListResp ...
+type GetCoreHRWorkingHoursTypeListResp struct {
+	Items     []*GetCoreHRWorkingHoursTypeListRespItem `json:"items,omitempty"`      // 查询的工时制度信息
 	HasMore   bool                                     `json:"has_more,omitempty"`   // 是否还有更多项
 	PageToken string                                   `json:"page_token,omitempty"` // 分页标记, 当 has_more 为 true 时, 会同时返回新的 page_token, 否则不返回 page_token
 }
 
-// GetCoreHrWorkingHoursTypeListRespItem ...
-type GetCoreHrWorkingHoursTypeListRespItem struct {
+// GetCoreHRWorkingHoursTypeListRespItem ...
+type GetCoreHRWorkingHoursTypeListRespItem struct {
 	ID                  string                                              `json:"id,omitempty"`                     // 工时制度 ID
 	Code                string                                              `json:"code,omitempty"`                   // 编码
-	Name                []*GetCoreHrWorkingHoursTypeListRespItemName        `json:"name,omitempty"`                   // 名称
+	Name                []*GetCoreHRWorkingHoursTypeListRespItemName        `json:"name,omitempty"`                   // 名称
 	CountryRegionIDList []string                                            `json:"country_region_id_list,omitempty"` // 国家/地区 ID 列表
 	DefaultForJob       bool                                                `json:"default_for_job,omitempty"`        // 职务默认值
 	Active              bool                                                `json:"active,omitempty"`                 // 是否启用
-	CustomFields        []*GetCoreHrWorkingHoursTypeListRespItemCustomField `json:"custom_fields,omitempty"`          // 自定义字段
+	CustomFields        []*GetCoreHRWorkingHoursTypeListRespItemCustomField `json:"custom_fields,omitempty"`          // 自定义字段
 }
 
-// GetCoreHrWorkingHoursTypeListRespItemCustomField ...
-type GetCoreHrWorkingHoursTypeListRespItemCustomField struct {
+// GetCoreHRWorkingHoursTypeListRespItemCustomField ...
+type GetCoreHRWorkingHoursTypeListRespItemCustomField struct {
 	FieldName string `json:"field_name,omitempty"` // 字段名
 	Value     string `json:"value,omitempty"`      // 字段值, 是json转义后的字符串, 根据元数据定义不同, 字段格式不同(如123, 123.23, "true", [\"id1\", \"id2\"], "2006-01-02 15:04:05")
 }
 
-// GetCoreHrWorkingHoursTypeListRespItemName ...
-type GetCoreHrWorkingHoursTypeListRespItemName struct {
+// GetCoreHRWorkingHoursTypeListRespItemName ...
+type GetCoreHRWorkingHoursTypeListRespItemName struct {
 	Lang  string `json:"lang,omitempty"`  // 名称信息的语言
 	Value string `json:"value,omitempty"` // 名称信息的内容
 }
 
-// getCoreHrWorkingHoursTypeListResp ...
-type getCoreHrWorkingHoursTypeListResp struct {
+// getCoreHRWorkingHoursTypeListResp ...
+type getCoreHRWorkingHoursTypeListResp struct {
 	Code int64                              `json:"code,omitempty"` // 错误码, 非 0 表示失败
 	Msg  string                             `json:"msg,omitempty"`  // 错误描述
-	Data *GetCoreHrWorkingHoursTypeListResp `json:"data,omitempty"`
+	Data *GetCoreHRWorkingHoursTypeListResp `json:"data,omitempty"`
 }

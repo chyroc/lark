@@ -21,113 +21,113 @@ import (
 	"context"
 )
 
-// CreateCoreHrEmployment 创建人员的雇佣信息。
+// CreateCoreHREmployment 创建人员的雇佣信息。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/employment/create
 // new doc: https://open.feishu.cn/document/server-docs/corehr-v1/employee/employment/create
-func (r *CoreHrService) CreateCoreHrEmployment(ctx context.Context, request *CreateCoreHrEmploymentReq, options ...MethodOptionFunc) (*CreateCoreHrEmploymentResp, *Response, error) {
-	if r.cli.mock.mockCoreHrCreateCoreHrEmployment != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] CoreHr#CreateCoreHrEmployment mock enable")
-		return r.cli.mock.mockCoreHrCreateCoreHrEmployment(ctx, request, options...)
+func (r *CoreHRService) CreateCoreHREmployment(ctx context.Context, request *CreateCoreHREmploymentReq, options ...MethodOptionFunc) (*CreateCoreHREmploymentResp, *Response, error) {
+	if r.cli.mock.mockCoreHRCreateCoreHREmployment != nil {
+		r.cli.log(ctx, LogLevelDebug, "[lark] CoreHR#CreateCoreHREmployment mock enable")
+		return r.cli.mock.mockCoreHRCreateCoreHREmployment(ctx, request, options...)
 	}
 
 	req := &RawRequestReq{
-		Scope:                 "CoreHr",
-		API:                   "CreateCoreHrEmployment",
+		Scope:                 "CoreHR",
+		API:                   "CreateCoreHREmployment",
 		Method:                "POST",
 		URL:                   r.cli.openBaseURL + "/open-apis/corehr/v1/employments",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
 	}
-	resp := new(createCoreHrEmploymentResp)
+	resp := new(createCoreHREmploymentResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
 	return resp.Data, response, err
 }
 
-// MockCoreHrCreateCoreHrEmployment mock CoreHrCreateCoreHrEmployment method
-func (r *Mock) MockCoreHrCreateCoreHrEmployment(f func(ctx context.Context, request *CreateCoreHrEmploymentReq, options ...MethodOptionFunc) (*CreateCoreHrEmploymentResp, *Response, error)) {
-	r.mockCoreHrCreateCoreHrEmployment = f
+// MockCoreHRCreateCoreHREmployment mock CoreHRCreateCoreHREmployment method
+func (r *Mock) MockCoreHRCreateCoreHREmployment(f func(ctx context.Context, request *CreateCoreHREmploymentReq, options ...MethodOptionFunc) (*CreateCoreHREmploymentResp, *Response, error)) {
+	r.mockCoreHRCreateCoreHREmployment = f
 }
 
-// UnMockCoreHrCreateCoreHrEmployment un-mock CoreHrCreateCoreHrEmployment method
-func (r *Mock) UnMockCoreHrCreateCoreHrEmployment() {
-	r.mockCoreHrCreateCoreHrEmployment = nil
+// UnMockCoreHRCreateCoreHREmployment un-mock CoreHRCreateCoreHREmployment method
+func (r *Mock) UnMockCoreHRCreateCoreHREmployment() {
+	r.mockCoreHRCreateCoreHREmployment = nil
 }
 
-// CreateCoreHrEmploymentReq ...
-type CreateCoreHrEmploymentReq struct {
+// CreateCoreHREmploymentReq ...
+type CreateCoreHREmploymentReq struct {
 	ClientToken          *string                                        `query:"client_token" json:"-"`           // 根据client_token是否一致来判断是否为同一请求, 示例值: 12454646
 	SeniorityDate        *string                                        `json:"seniority_date,omitempty"`         // 资历起算日期, 示例值: "2020-01-01"
 	EmployeeNumber       *string                                        `json:"employee_number,omitempty"`        // 员工编号, 示例值: "1000000"
 	EffectiveTime        string                                         `json:"effective_time,omitempty"`         // 入职日期, 示例值: "2020-01-01 00:00:00"
 	ExpirationTime       *string                                        `json:"expiration_time,omitempty"`        // 离职日期, 示例值: "2021-01-01"
-	EmploymentType       *CreateCoreHrEmploymentReqEmploymentType       `json:"employment_type,omitempty"`        // 雇佣类型
+	EmploymentType       *CreateCoreHREmploymentReqEmploymentType       `json:"employment_type,omitempty"`        // 雇佣类型
 	PersonID             string                                         `json:"person_id,omitempty"`              // 人员信息, 引用Person的ID, 示例值: "6919733936050406926"
 	PrimaryEmployment    bool                                           `json:"primary_employment,omitempty"`     // 是否是主雇佣信息, 示例值: true
-	EmploymentStatus     *CreateCoreHrEmploymentReqEmploymentStatus     `json:"employment_status,omitempty"`      // 雇员状态
-	CustomFields         []*CreateCoreHrEmploymentReqCustomField        `json:"custom_fields,omitempty"`          // 自定义字段
-	WorkEmailList        []*CreateCoreHrEmploymentReqWorkEmail          `json:"work_email_list,omitempty"`        // 工作邮箱列表, 只有当邮箱下面所有条件时, 才在个人信息页面可见: is_primary = "true", is_public = "true", email_usage = "work"
-	ReasonForOffboarding *CreateCoreHrEmploymentReqReasonForOffboarding `json:"reason_for_offboarding,omitempty"` // 离职原因
+	EmploymentStatus     *CreateCoreHREmploymentReqEmploymentStatus     `json:"employment_status,omitempty"`      // 雇员状态
+	CustomFields         []*CreateCoreHREmploymentReqCustomField        `json:"custom_fields,omitempty"`          // 自定义字段
+	WorkEmailList        []*CreateCoreHREmploymentReqWorkEmail          `json:"work_email_list,omitempty"`        // 工作邮箱列表, 只有当邮箱下面所有条件时, 才在个人信息页面可见: is_primary = "true", is_public = "true", email_usage = "work"
+	ReasonForOffboarding *CreateCoreHREmploymentReqReasonForOffboarding `json:"reason_for_offboarding,omitempty"` // 离职原因
 	AtsApplicationID     *string                                        `json:"ats_application_id,omitempty"`     // 招聘投递 ID, 详细信息可以通过[【获取投递信息】](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/application/get)接口查询获得, 示例值: "6838119494196871234"
-	Rehire               *CreateCoreHrEmploymentReqRehire               `json:"rehire,omitempty"`                 // 是否离职重聘, `to_be_confirmed`: 待确认, 系统会判断该员工是否存在历史雇佣记录, 如果存在且需要二次确认时会调用失败, 并返回历史雇佣记录, `no`: 否, 系统直接标为非离职重聘人员, 不再做重复判断, `yes`: 是, 要求历史雇佣信息 ID 必填, 示例值: `no`, 默认值: `to_be_confirmed`
+	Rehire               *CreateCoreHREmploymentReqRehire               `json:"rehire,omitempty"`                 // 是否离职重聘, `to_be_confirmed`: 待确认, 系统会判断该员工是否存在历史雇佣记录, 如果存在且需要二次确认时会调用失败, 并返回历史雇佣记录, `no`: 否, 系统直接标为非离职重聘人员, 不再做重复判断, `yes`: 是, 要求历史雇佣信息 ID 必填, 示例值: `no`, 默认值: `to_be_confirmed`
 	RehireEmploymentID   *string                                        `json:"rehire_employment_id,omitempty"`   // 历史雇佣信息 ID, 示例值: "7051837122449425964"
 }
 
-// CreateCoreHrEmploymentReqCustomField ...
-type CreateCoreHrEmploymentReqCustomField struct {
+// CreateCoreHREmploymentReqCustomField ...
+type CreateCoreHREmploymentReqCustomField struct {
 	FieldName string `json:"field_name,omitempty"` // 字段名, 示例值: "name"
 	Value     string `json:"value,omitempty"`      // 字段值, 是json转义后的字符串, 根据元数据定义不同, 字段格式不同(如123, 123.23, "true", [\"id1\", \"id2\"], "2006-01-02 15:04:05"), 示例值: "\"Sandy\""
 }
 
-// CreateCoreHrEmploymentReqEmploymentStatus ...
-type CreateCoreHrEmploymentReqEmploymentStatus struct {
+// CreateCoreHREmploymentReqEmploymentStatus ...
+type CreateCoreHREmploymentReqEmploymentStatus struct {
 	EnumName string `json:"enum_name,omitempty"` // 枚举值, 示例值: "type_1"
 }
 
-// CreateCoreHrEmploymentReqEmploymentType ...
-type CreateCoreHrEmploymentReqEmploymentType struct {
+// CreateCoreHREmploymentReqEmploymentType ...
+type CreateCoreHREmploymentReqEmploymentType struct {
 	EnumName string `json:"enum_name,omitempty"` // 枚举值, 示例值: "type_1"
 }
 
-// CreateCoreHrEmploymentReqReasonForOffboarding ...
-type CreateCoreHrEmploymentReqReasonForOffboarding struct {
+// CreateCoreHREmploymentReqReasonForOffboarding ...
+type CreateCoreHREmploymentReqReasonForOffboarding struct {
 	EnumName string `json:"enum_name,omitempty"` // 枚举值, 示例值: "type_1"
 }
 
-// CreateCoreHrEmploymentReqRehire ...
-type CreateCoreHrEmploymentReqRehire struct {
+// CreateCoreHREmploymentReqRehire ...
+type CreateCoreHREmploymentReqRehire struct {
 	EnumName string `json:"enum_name,omitempty"` // 枚举值, 示例值: "type_1"
 }
 
-// CreateCoreHrEmploymentReqWorkEmail ...
-type CreateCoreHrEmploymentReqWorkEmail struct {
+// CreateCoreHREmploymentReqWorkEmail ...
+type CreateCoreHREmploymentReqWorkEmail struct {
 	Email        string                                           `json:"email,omitempty"`         // 邮箱号, 示例值: "12456@test.com"
 	IsPrimary    *bool                                            `json:"is_primary,omitempty"`    // 是否为主要邮箱, 示例值: true
 	IsPublic     *bool                                            `json:"is_public,omitempty"`     // 是否为公开邮箱, 示例值: true
-	EmailUsage   *CreateCoreHrEmploymentReqWorkEmailEmailUsage    `json:"email_usage,omitempty"`   // 邮箱用途, 枚举值可通过文档[【飞书人事枚举常量】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)邮箱用途（email_usage）枚举定义获得
-	CustomFields []*CreateCoreHrEmploymentReqWorkEmailCustomField `json:"custom_fields,omitempty"` // 自定义字段
+	EmailUsage   *CreateCoreHREmploymentReqWorkEmailEmailUsage    `json:"email_usage,omitempty"`   // 邮箱用途, 枚举值可通过文档[【飞书人事枚举常量】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)邮箱用途（email_usage）枚举定义获得
+	CustomFields []*CreateCoreHREmploymentReqWorkEmailCustomField `json:"custom_fields,omitempty"` // 自定义字段
 }
 
-// CreateCoreHrEmploymentReqWorkEmailCustomField ...
-type CreateCoreHrEmploymentReqWorkEmailCustomField struct {
+// CreateCoreHREmploymentReqWorkEmailCustomField ...
+type CreateCoreHREmploymentReqWorkEmailCustomField struct {
 	FieldName string `json:"field_name,omitempty"` // 字段名, 示例值: "name"
 	Value     string `json:"value,omitempty"`      // 字段值, 是json转义后的字符串, 根据元数据定义不同, 字段格式不同(如123, 123.23, "true", [\"id1\", \"id2\"], "2006-01-02 15:04:05"), 示例值: "\"Sandy\""
 }
 
-// CreateCoreHrEmploymentReqWorkEmailEmailUsage ...
-type CreateCoreHrEmploymentReqWorkEmailEmailUsage struct {
+// CreateCoreHREmploymentReqWorkEmailEmailUsage ...
+type CreateCoreHREmploymentReqWorkEmailEmailUsage struct {
 	EnumName string `json:"enum_name,omitempty"` // 枚举值, 示例值: "type_1"
 }
 
-// CreateCoreHrEmploymentResp ...
-type CreateCoreHrEmploymentResp struct {
-	Employment *CreateCoreHrEmploymentRespEmployment `json:"employment,omitempty"` // 创建人员的雇佣信息成功返回信息
+// CreateCoreHREmploymentResp ...
+type CreateCoreHREmploymentResp struct {
+	Employment *CreateCoreHREmploymentRespEmployment `json:"employment,omitempty"` // 创建人员的雇佣信息成功返回信息
 }
 
-// CreateCoreHrEmploymentRespEmployment ...
-type CreateCoreHrEmploymentRespEmployment struct {
+// CreateCoreHREmploymentRespEmployment ...
+type CreateCoreHREmploymentRespEmployment struct {
 	PrehireID            string                                                    `json:"prehire_id,omitempty"`             // 待入职ID
 	EmployeeTypeID       string                                                    `json:"employee_type_id,omitempty"`       // 人员类型
 	Tenure               string                                                    `json:"tenure,omitempty"`                 // 司龄
@@ -143,120 +143,120 @@ type CreateCoreHrEmploymentRespEmployment struct {
 	EmployeeNumber       string                                                    `json:"employee_number,omitempty"`        // 员工编号
 	EffectiveTime        string                                                    `json:"effective_time,omitempty"`         // 入职日期
 	ExpirationTime       string                                                    `json:"expiration_time,omitempty"`        // 离职日期
-	EmploymentType       *CreateCoreHrEmploymentRespEmploymentEmploymentType       `json:"employment_type,omitempty"`        // 雇佣类型
+	EmploymentType       *CreateCoreHREmploymentRespEmploymentEmploymentType       `json:"employment_type,omitempty"`        // 雇佣类型
 	PersonID             string                                                    `json:"person_id,omitempty"`              // 人员信息, 引用Person的ID
 	ProbationPeriod      int64                                                     `json:"probation_period,omitempty"`       // 试用期时长
 	OnProbation          string                                                    `json:"on_probation,omitempty"`           // 是否在试用期中
 	ProbationEndDate     string                                                    `json:"probation_end_date,omitempty"`     // 试用期结束日期
 	PrimaryEmployment    bool                                                      `json:"primary_employment,omitempty"`     // 是否是主雇佣信息
-	EmploymentStatus     *CreateCoreHrEmploymentRespEmploymentEmploymentStatus     `json:"employment_status,omitempty"`      // 雇员状态
-	CustomFields         []*CreateCoreHrEmploymentRespEmploymentCustomField        `json:"custom_fields,omitempty"`          // 自定义字段
-	WorkEmailList        []*CreateCoreHrEmploymentRespEmploymentWorkEmail          `json:"work_email_list,omitempty"`        // 工作邮箱列表, 只有当邮箱下面所有条件时, 才在个人信息页面可见: is_primary = "true", is_public = "true", email_usage = "work"
+	EmploymentStatus     *CreateCoreHREmploymentRespEmploymentEmploymentStatus     `json:"employment_status,omitempty"`      // 雇员状态
+	CustomFields         []*CreateCoreHREmploymentRespEmploymentCustomField        `json:"custom_fields,omitempty"`          // 自定义字段
+	WorkEmailList        []*CreateCoreHREmploymentRespEmploymentWorkEmail          `json:"work_email_list,omitempty"`        // 工作邮箱列表, 只有当邮箱下面所有条件时, 才在个人信息页面可见: is_primary = "true", is_public = "true", email_usage = "work"
 	EmailAddress         string                                                    `json:"email_address,omitempty"`          // 邮箱
-	ReasonForOffboarding *CreateCoreHrEmploymentRespEmploymentReasonForOffboarding `json:"reason_for_offboarding,omitempty"` // 离职原因
-	CostCenterList       []*CreateCoreHrEmploymentRespEmploymentCostCenter         `json:"cost_center_list,omitempty"`       // 成本中心id列表
+	ReasonForOffboarding *CreateCoreHREmploymentRespEmploymentReasonForOffboarding `json:"reason_for_offboarding,omitempty"` // 离职原因
+	CostCenterList       []*CreateCoreHREmploymentRespEmploymentCostCenter         `json:"cost_center_list,omitempty"`       // 成本中心id列表
 	AtsApplicationID     string                                                    `json:"ats_application_id,omitempty"`     // 招聘投递 ID, 详细信息可以通过[【获取投递信息】](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/application/get)接口查询获得
-	Rehire               *CreateCoreHrEmploymentRespEmploymentRehire               `json:"rehire,omitempty"`                 // 是否离职重聘
+	Rehire               *CreateCoreHREmploymentRespEmploymentRehire               `json:"rehire,omitempty"`                 // 是否离职重聘
 	RehireEmploymentID   string                                                    `json:"rehire_employment_id,omitempty"`   // 历史雇佣信息 ID
 }
 
-// CreateCoreHrEmploymentRespEmploymentCostCenter ...
-type CreateCoreHrEmploymentRespEmploymentCostCenter struct {
+// CreateCoreHREmploymentRespEmploymentCostCenter ...
+type CreateCoreHREmploymentRespEmploymentCostCenter struct {
 	CostCenterID string                                                       `json:"cost_center_id,omitempty"` // 成本中心id, 可以通过【查询单个成本中心信息】接口获取对应的成本中心信息
 	Rate         int64                                                        `json:"rate,omitempty"`           // 分摊比例
-	CustomFields []*CreateCoreHrEmploymentRespEmploymentCostCenterCustomField `json:"custom_fields,omitempty"`  // 自定义字段
+	CustomFields []*CreateCoreHREmploymentRespEmploymentCostCenterCustomField `json:"custom_fields,omitempty"`  // 自定义字段
 }
 
-// CreateCoreHrEmploymentRespEmploymentCostCenterCustomField ...
-type CreateCoreHrEmploymentRespEmploymentCostCenterCustomField struct {
+// CreateCoreHREmploymentRespEmploymentCostCenterCustomField ...
+type CreateCoreHREmploymentRespEmploymentCostCenterCustomField struct {
 	FieldName string `json:"field_name,omitempty"` // 字段名
 	Value     string `json:"value,omitempty"`      // 字段值, 是json转义后的字符串, 根据元数据定义不同, 字段格式不同(如123, 123.23, "true", [\"id1\", \"id2\"], "2006-01-02 15:04:05")
 }
 
-// CreateCoreHrEmploymentRespEmploymentCustomField ...
-type CreateCoreHrEmploymentRespEmploymentCustomField struct {
+// CreateCoreHREmploymentRespEmploymentCustomField ...
+type CreateCoreHREmploymentRespEmploymentCustomField struct {
 	FieldName string `json:"field_name,omitempty"` // 字段名
 	Value     string `json:"value,omitempty"`      // 字段值, 是json转义后的字符串, 根据元数据定义不同, 字段格式不同(如123, 123.23, "true", [\"id1\", \"id2\"], "2006-01-02 15:04:05")
 }
 
-// CreateCoreHrEmploymentRespEmploymentEmploymentStatus ...
-type CreateCoreHrEmploymentRespEmploymentEmploymentStatus struct {
+// CreateCoreHREmploymentRespEmploymentEmploymentStatus ...
+type CreateCoreHREmploymentRespEmploymentEmploymentStatus struct {
 	EnumName string                                                         `json:"enum_name,omitempty"` // 枚举值
-	Display  []*CreateCoreHrEmploymentRespEmploymentEmploymentStatusDisplay `json:"display,omitempty"`   // 枚举多语展示
+	Display  []*CreateCoreHREmploymentRespEmploymentEmploymentStatusDisplay `json:"display,omitempty"`   // 枚举多语展示
 }
 
-// CreateCoreHrEmploymentRespEmploymentEmploymentStatusDisplay ...
-type CreateCoreHrEmploymentRespEmploymentEmploymentStatusDisplay struct {
+// CreateCoreHREmploymentRespEmploymentEmploymentStatusDisplay ...
+type CreateCoreHREmploymentRespEmploymentEmploymentStatusDisplay struct {
 	Lang  string `json:"lang,omitempty"`  // 名称信息的语言
 	Value string `json:"value,omitempty"` // 名称信息的内容
 }
 
-// CreateCoreHrEmploymentRespEmploymentEmploymentType ...
-type CreateCoreHrEmploymentRespEmploymentEmploymentType struct {
+// CreateCoreHREmploymentRespEmploymentEmploymentType ...
+type CreateCoreHREmploymentRespEmploymentEmploymentType struct {
 	EnumName string                                                       `json:"enum_name,omitempty"` // 枚举值
-	Display  []*CreateCoreHrEmploymentRespEmploymentEmploymentTypeDisplay `json:"display,omitempty"`   // 枚举多语展示
+	Display  []*CreateCoreHREmploymentRespEmploymentEmploymentTypeDisplay `json:"display,omitempty"`   // 枚举多语展示
 }
 
-// CreateCoreHrEmploymentRespEmploymentEmploymentTypeDisplay ...
-type CreateCoreHrEmploymentRespEmploymentEmploymentTypeDisplay struct {
+// CreateCoreHREmploymentRespEmploymentEmploymentTypeDisplay ...
+type CreateCoreHREmploymentRespEmploymentEmploymentTypeDisplay struct {
 	Lang  string `json:"lang,omitempty"`  // 名称信息的语言
 	Value string `json:"value,omitempty"` // 名称信息的内容
 }
 
-// CreateCoreHrEmploymentRespEmploymentReasonForOffboarding ...
-type CreateCoreHrEmploymentRespEmploymentReasonForOffboarding struct {
+// CreateCoreHREmploymentRespEmploymentReasonForOffboarding ...
+type CreateCoreHREmploymentRespEmploymentReasonForOffboarding struct {
 	EnumName string                                                             `json:"enum_name,omitempty"` // 枚举值
-	Display  []*CreateCoreHrEmploymentRespEmploymentReasonForOffboardingDisplay `json:"display,omitempty"`   // 枚举多语展示
+	Display  []*CreateCoreHREmploymentRespEmploymentReasonForOffboardingDisplay `json:"display,omitempty"`   // 枚举多语展示
 }
 
-// CreateCoreHrEmploymentRespEmploymentReasonForOffboardingDisplay ...
-type CreateCoreHrEmploymentRespEmploymentReasonForOffboardingDisplay struct {
+// CreateCoreHREmploymentRespEmploymentReasonForOffboardingDisplay ...
+type CreateCoreHREmploymentRespEmploymentReasonForOffboardingDisplay struct {
 	Lang  string `json:"lang,omitempty"`  // 名称信息的语言
 	Value string `json:"value,omitempty"` // 名称信息的内容
 }
 
-// CreateCoreHrEmploymentRespEmploymentRehire ...
-type CreateCoreHrEmploymentRespEmploymentRehire struct {
+// CreateCoreHREmploymentRespEmploymentRehire ...
+type CreateCoreHREmploymentRespEmploymentRehire struct {
 	EnumName string                                               `json:"enum_name,omitempty"` // 枚举值
-	Display  []*CreateCoreHrEmploymentRespEmploymentRehireDisplay `json:"display,omitempty"`   // 枚举多语展示
+	Display  []*CreateCoreHREmploymentRespEmploymentRehireDisplay `json:"display,omitempty"`   // 枚举多语展示
 }
 
-// CreateCoreHrEmploymentRespEmploymentRehireDisplay ...
-type CreateCoreHrEmploymentRespEmploymentRehireDisplay struct {
+// CreateCoreHREmploymentRespEmploymentRehireDisplay ...
+type CreateCoreHREmploymentRespEmploymentRehireDisplay struct {
 	Lang  string `json:"lang,omitempty"`  // 名称信息的语言
 	Value string `json:"value,omitempty"` // 名称信息的内容
 }
 
-// CreateCoreHrEmploymentRespEmploymentWorkEmail ...
-type CreateCoreHrEmploymentRespEmploymentWorkEmail struct {
+// CreateCoreHREmploymentRespEmploymentWorkEmail ...
+type CreateCoreHREmploymentRespEmploymentWorkEmail struct {
 	Email        string                                                      `json:"email,omitempty"`         // 邮箱号
 	IsPrimary    bool                                                        `json:"is_primary,omitempty"`    // 是否为主要邮箱
 	IsPublic     bool                                                        `json:"is_public,omitempty"`     // 是否为公开邮箱
-	EmailUsage   *CreateCoreHrEmploymentRespEmploymentWorkEmailEmailUsage    `json:"email_usage,omitempty"`   // 邮箱用途, 枚举值可通过文档[【飞书人事枚举常量】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)邮箱用途（email_usage）枚举定义获得
-	CustomFields []*CreateCoreHrEmploymentRespEmploymentWorkEmailCustomField `json:"custom_fields,omitempty"` // 自定义字段
+	EmailUsage   *CreateCoreHREmploymentRespEmploymentWorkEmailEmailUsage    `json:"email_usage,omitempty"`   // 邮箱用途, 枚举值可通过文档[【飞书人事枚举常量】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)邮箱用途（email_usage）枚举定义获得
+	CustomFields []*CreateCoreHREmploymentRespEmploymentWorkEmailCustomField `json:"custom_fields,omitempty"` // 自定义字段
 }
 
-// CreateCoreHrEmploymentRespEmploymentWorkEmailCustomField ...
-type CreateCoreHrEmploymentRespEmploymentWorkEmailCustomField struct {
+// CreateCoreHREmploymentRespEmploymentWorkEmailCustomField ...
+type CreateCoreHREmploymentRespEmploymentWorkEmailCustomField struct {
 	FieldName string `json:"field_name,omitempty"` // 字段名
 	Value     string `json:"value,omitempty"`      // 字段值, 是json转义后的字符串, 根据元数据定义不同, 字段格式不同(如123, 123.23, "true", [\"id1\", \"id2\"], "2006-01-02 15:04:05")
 }
 
-// CreateCoreHrEmploymentRespEmploymentWorkEmailEmailUsage ...
-type CreateCoreHrEmploymentRespEmploymentWorkEmailEmailUsage struct {
+// CreateCoreHREmploymentRespEmploymentWorkEmailEmailUsage ...
+type CreateCoreHREmploymentRespEmploymentWorkEmailEmailUsage struct {
 	EnumName string                                                            `json:"enum_name,omitempty"` // 枚举值
-	Display  []*CreateCoreHrEmploymentRespEmploymentWorkEmailEmailUsageDisplay `json:"display,omitempty"`   // 枚举多语展示
+	Display  []*CreateCoreHREmploymentRespEmploymentWorkEmailEmailUsageDisplay `json:"display,omitempty"`   // 枚举多语展示
 }
 
-// CreateCoreHrEmploymentRespEmploymentWorkEmailEmailUsageDisplay ...
-type CreateCoreHrEmploymentRespEmploymentWorkEmailEmailUsageDisplay struct {
+// CreateCoreHREmploymentRespEmploymentWorkEmailEmailUsageDisplay ...
+type CreateCoreHREmploymentRespEmploymentWorkEmailEmailUsageDisplay struct {
 	Lang  string `json:"lang,omitempty"`  // 名称信息的语言
 	Value string `json:"value,omitempty"` // 名称信息的内容
 }
 
-// createCoreHrEmploymentResp ...
-type createCoreHrEmploymentResp struct {
+// createCoreHREmploymentResp ...
+type createCoreHREmploymentResp struct {
 	Code int64                       `json:"code,omitempty"` // 错误码, 非 0 表示失败
 	Msg  string                      `json:"msg,omitempty"`  // 错误描述
-	Data *CreateCoreHrEmploymentResp `json:"data,omitempty"`
+	Data *CreateCoreHREmploymentResp `json:"data,omitempty"`
 }

@@ -21,108 +21,108 @@ import (
 	"context"
 )
 
-// UpdateCoreHrJobLevel 更新职级。
+// UpdateCoreHRJobLevel 更新职级。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job_level/patch
 // new doc: https://open.feishu.cn/document/server-docs/corehr-v1/job-management/job_level/patch
-func (r *CoreHrService) UpdateCoreHrJobLevel(ctx context.Context, request *UpdateCoreHrJobLevelReq, options ...MethodOptionFunc) (*UpdateCoreHrJobLevelResp, *Response, error) {
-	if r.cli.mock.mockCoreHrUpdateCoreHrJobLevel != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] CoreHr#UpdateCoreHrJobLevel mock enable")
-		return r.cli.mock.mockCoreHrUpdateCoreHrJobLevel(ctx, request, options...)
+func (r *CoreHRService) UpdateCoreHRJobLevel(ctx context.Context, request *UpdateCoreHRJobLevelReq, options ...MethodOptionFunc) (*UpdateCoreHRJobLevelResp, *Response, error) {
+	if r.cli.mock.mockCoreHRUpdateCoreHRJobLevel != nil {
+		r.cli.log(ctx, LogLevelDebug, "[lark] CoreHR#UpdateCoreHRJobLevel mock enable")
+		return r.cli.mock.mockCoreHRUpdateCoreHRJobLevel(ctx, request, options...)
 	}
 
 	req := &RawRequestReq{
-		Scope:                 "CoreHr",
-		API:                   "UpdateCoreHrJobLevel",
+		Scope:                 "CoreHR",
+		API:                   "UpdateCoreHRJobLevel",
 		Method:                "PATCH",
 		URL:                   r.cli.openBaseURL + "/open-apis/corehr/v1/job_levels/:job_level_id",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
 	}
-	resp := new(updateCoreHrJobLevelResp)
+	resp := new(updateCoreHRJobLevelResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
 	return resp.Data, response, err
 }
 
-// MockCoreHrUpdateCoreHrJobLevel mock CoreHrUpdateCoreHrJobLevel method
-func (r *Mock) MockCoreHrUpdateCoreHrJobLevel(f func(ctx context.Context, request *UpdateCoreHrJobLevelReq, options ...MethodOptionFunc) (*UpdateCoreHrJobLevelResp, *Response, error)) {
-	r.mockCoreHrUpdateCoreHrJobLevel = f
+// MockCoreHRUpdateCoreHRJobLevel mock CoreHRUpdateCoreHRJobLevel method
+func (r *Mock) MockCoreHRUpdateCoreHRJobLevel(f func(ctx context.Context, request *UpdateCoreHRJobLevelReq, options ...MethodOptionFunc) (*UpdateCoreHRJobLevelResp, *Response, error)) {
+	r.mockCoreHRUpdateCoreHRJobLevel = f
 }
 
-// UnMockCoreHrUpdateCoreHrJobLevel un-mock CoreHrUpdateCoreHrJobLevel method
-func (r *Mock) UnMockCoreHrUpdateCoreHrJobLevel() {
-	r.mockCoreHrUpdateCoreHrJobLevel = nil
+// UnMockCoreHRUpdateCoreHRJobLevel un-mock CoreHRUpdateCoreHRJobLevel method
+func (r *Mock) UnMockCoreHRUpdateCoreHRJobLevel() {
+	r.mockCoreHRUpdateCoreHRJobLevel = nil
 }
 
-// UpdateCoreHrJobLevelReq ...
-type UpdateCoreHrJobLevelReq struct {
+// UpdateCoreHRJobLevelReq ...
+type UpdateCoreHRJobLevelReq struct {
 	JobLevelID   string                                `path:"job_level_id" json:"-"`   // 级别ID, 示例值: "1616161616"
 	ClientToken  *string                               `query:"client_token" json:"-"`  // 根据client_token是否一致来判断是否为同一请求, 示例值: 12454646
 	LevelOrder   *int64                                `json:"level_order,omitempty"`   // 职级数值, 示例值: 9999
 	Code         *string                               `json:"code,omitempty"`          // 编码, 示例值: "VQzo/BSonp8l6PmcZ+VlDhkd2595LMkhyBAGX6HAlCY="
-	Name         []*UpdateCoreHrJobLevelReqName        `json:"name,omitempty"`          // 名称
-	Description  []*UpdateCoreHrJobLevelReqDescription `json:"description,omitempty"`   // 描述
+	Name         []*UpdateCoreHRJobLevelReqName        `json:"name,omitempty"`          // 名称
+	Description  []*UpdateCoreHRJobLevelReqDescription `json:"description,omitempty"`   // 描述
 	Active       *bool                                 `json:"active,omitempty"`        // 是否启用, 示例值: true
-	CustomFields []*UpdateCoreHrJobLevelReqCustomField `json:"custom_fields,omitempty"` // 自定义字段
+	CustomFields []*UpdateCoreHRJobLevelReqCustomField `json:"custom_fields,omitempty"` // 自定义字段
 }
 
-// UpdateCoreHrJobLevelReqCustomField ...
-type UpdateCoreHrJobLevelReqCustomField struct {
+// UpdateCoreHRJobLevelReqCustomField ...
+type UpdateCoreHRJobLevelReqCustomField struct {
 	FieldName string `json:"field_name,omitempty"` // 字段名, 示例值: "name"
 	Value     string `json:"value,omitempty"`      // 字段值, 是json转义后的字符串, 根据元数据定义不同, 字段格式不同(如123, 123.23, "true", [\"id1\", \"id2\"], "2006-01-02 15:04:05"), 示例值: "\"Sandy\""
 }
 
-// UpdateCoreHrJobLevelReqDescription ...
-type UpdateCoreHrJobLevelReqDescription struct {
+// UpdateCoreHRJobLevelReqDescription ...
+type UpdateCoreHRJobLevelReqDescription struct {
 	Lang  string `json:"lang,omitempty"`  // 名称信息的语言, 示例值: "zh-CN"
 	Value string `json:"value,omitempty"` // 名称信息的内容, 示例值: "张三"
 }
 
-// UpdateCoreHrJobLevelReqName ...
-type UpdateCoreHrJobLevelReqName struct {
+// UpdateCoreHRJobLevelReqName ...
+type UpdateCoreHRJobLevelReqName struct {
 	Lang  string `json:"lang,omitempty"`  // 名称信息的语言, 示例值: "zh-CN"
 	Value string `json:"value,omitempty"` // 名称信息的内容, 示例值: "张三"
 }
 
-// UpdateCoreHrJobLevelResp ...
-type UpdateCoreHrJobLevelResp struct {
-	JobLevel *UpdateCoreHrJobLevelRespJobLevel `json:"job_level,omitempty"` // 职级
+// UpdateCoreHRJobLevelResp ...
+type UpdateCoreHRJobLevelResp struct {
+	JobLevel *UpdateCoreHRJobLevelRespJobLevel `json:"job_level,omitempty"` // 职级
 }
 
-// UpdateCoreHrJobLevelRespJobLevel ...
-type UpdateCoreHrJobLevelRespJobLevel struct {
+// UpdateCoreHRJobLevelRespJobLevel ...
+type UpdateCoreHRJobLevelRespJobLevel struct {
 	ID           string                                         `json:"id,omitempty"`            // 职级 ID
 	LevelOrder   int64                                          `json:"level_order,omitempty"`   // 职级数值
 	Code         string                                         `json:"code,omitempty"`          // 编码
-	Name         []*UpdateCoreHrJobLevelRespJobLevelName        `json:"name,omitempty"`          // 名称
-	Description  []*UpdateCoreHrJobLevelRespJobLevelDescription `json:"description,omitempty"`   // 描述
+	Name         []*UpdateCoreHRJobLevelRespJobLevelName        `json:"name,omitempty"`          // 名称
+	Description  []*UpdateCoreHRJobLevelRespJobLevelDescription `json:"description,omitempty"`   // 描述
 	Active       bool                                           `json:"active,omitempty"`        // 是否启用
-	CustomFields []*UpdateCoreHrJobLevelRespJobLevelCustomField `json:"custom_fields,omitempty"` // 自定义字段
+	CustomFields []*UpdateCoreHRJobLevelRespJobLevelCustomField `json:"custom_fields,omitempty"` // 自定义字段
 }
 
-// UpdateCoreHrJobLevelRespJobLevelCustomField ...
-type UpdateCoreHrJobLevelRespJobLevelCustomField struct {
+// UpdateCoreHRJobLevelRespJobLevelCustomField ...
+type UpdateCoreHRJobLevelRespJobLevelCustomField struct {
 	FieldName string `json:"field_name,omitempty"` // 字段名
 	Value     string `json:"value,omitempty"`      // 字段值, 是json转义后的字符串, 根据元数据定义不同, 字段格式不同(如123, 123.23, "true", [\"id1\", \"id2\"], "2006-01-02 15:04:05")
 }
 
-// UpdateCoreHrJobLevelRespJobLevelDescription ...
-type UpdateCoreHrJobLevelRespJobLevelDescription struct {
+// UpdateCoreHRJobLevelRespJobLevelDescription ...
+type UpdateCoreHRJobLevelRespJobLevelDescription struct {
 	Lang  string `json:"lang,omitempty"`  // 名称信息的语言
 	Value string `json:"value,omitempty"` // 名称信息的内容
 }
 
-// UpdateCoreHrJobLevelRespJobLevelName ...
-type UpdateCoreHrJobLevelRespJobLevelName struct {
+// UpdateCoreHRJobLevelRespJobLevelName ...
+type UpdateCoreHRJobLevelRespJobLevelName struct {
 	Lang  string `json:"lang,omitempty"`  // 名称信息的语言
 	Value string `json:"value,omitempty"` // 名称信息的内容
 }
 
-// updateCoreHrJobLevelResp ...
-type updateCoreHrJobLevelResp struct {
+// updateCoreHRJobLevelResp ...
+type updateCoreHRJobLevelResp struct {
 	Code int64                     `json:"code,omitempty"` // 错误码, 非 0 表示失败
 	Msg  string                    `json:"msg,omitempty"`  // 错误描述
-	Data *UpdateCoreHrJobLevelResp `json:"data,omitempty"`
+	Data *UpdateCoreHRJobLevelResp `json:"data,omitempty"`
 }

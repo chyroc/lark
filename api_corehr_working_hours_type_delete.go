@@ -21,53 +21,53 @@ import (
 	"context"
 )
 
-// DeleteCoreHrWorkingHoursType 删除工时制度。
+// DeleteCoreHRWorkingHoursType 删除工时制度。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/working_hours_type/delete
 // new doc: https://open.feishu.cn/document/server-docs/corehr-v1/basic-infomation/working_hours_type/delete
-func (r *CoreHrService) DeleteCoreHrWorkingHoursType(ctx context.Context, request *DeleteCoreHrWorkingHoursTypeReq, options ...MethodOptionFunc) (*DeleteCoreHrWorkingHoursTypeResp, *Response, error) {
-	if r.cli.mock.mockCoreHrDeleteCoreHrWorkingHoursType != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] CoreHr#DeleteCoreHrWorkingHoursType mock enable")
-		return r.cli.mock.mockCoreHrDeleteCoreHrWorkingHoursType(ctx, request, options...)
+func (r *CoreHRService) DeleteCoreHRWorkingHoursType(ctx context.Context, request *DeleteCoreHRWorkingHoursTypeReq, options ...MethodOptionFunc) (*DeleteCoreHRWorkingHoursTypeResp, *Response, error) {
+	if r.cli.mock.mockCoreHRDeleteCoreHRWorkingHoursType != nil {
+		r.cli.log(ctx, LogLevelDebug, "[lark] CoreHR#DeleteCoreHRWorkingHoursType mock enable")
+		return r.cli.mock.mockCoreHRDeleteCoreHRWorkingHoursType(ctx, request, options...)
 	}
 
 	req := &RawRequestReq{
-		Scope:                 "CoreHr",
-		API:                   "DeleteCoreHrWorkingHoursType",
+		Scope:                 "CoreHR",
+		API:                   "DeleteCoreHRWorkingHoursType",
 		Method:                "DELETE",
 		URL:                   r.cli.openBaseURL + "/open-apis/corehr/v1/working_hours_types/:working_hours_type_id",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
 	}
-	resp := new(deleteCoreHrWorkingHoursTypeResp)
+	resp := new(deleteCoreHRWorkingHoursTypeResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
 	return resp.Data, response, err
 }
 
-// MockCoreHrDeleteCoreHrWorkingHoursType mock CoreHrDeleteCoreHrWorkingHoursType method
-func (r *Mock) MockCoreHrDeleteCoreHrWorkingHoursType(f func(ctx context.Context, request *DeleteCoreHrWorkingHoursTypeReq, options ...MethodOptionFunc) (*DeleteCoreHrWorkingHoursTypeResp, *Response, error)) {
-	r.mockCoreHrDeleteCoreHrWorkingHoursType = f
+// MockCoreHRDeleteCoreHRWorkingHoursType mock CoreHRDeleteCoreHRWorkingHoursType method
+func (r *Mock) MockCoreHRDeleteCoreHRWorkingHoursType(f func(ctx context.Context, request *DeleteCoreHRWorkingHoursTypeReq, options ...MethodOptionFunc) (*DeleteCoreHRWorkingHoursTypeResp, *Response, error)) {
+	r.mockCoreHRDeleteCoreHRWorkingHoursType = f
 }
 
-// UnMockCoreHrDeleteCoreHrWorkingHoursType un-mock CoreHrDeleteCoreHrWorkingHoursType method
-func (r *Mock) UnMockCoreHrDeleteCoreHrWorkingHoursType() {
-	r.mockCoreHrDeleteCoreHrWorkingHoursType = nil
+// UnMockCoreHRDeleteCoreHRWorkingHoursType un-mock CoreHRDeleteCoreHRWorkingHoursType method
+func (r *Mock) UnMockCoreHRDeleteCoreHRWorkingHoursType() {
+	r.mockCoreHRDeleteCoreHRWorkingHoursType = nil
 }
 
-// DeleteCoreHrWorkingHoursTypeReq ...
-type DeleteCoreHrWorkingHoursTypeReq struct {
+// DeleteCoreHRWorkingHoursTypeReq ...
+type DeleteCoreHRWorkingHoursTypeReq struct {
 	WorkingHoursTypeID string `path:"working_hours_type_id" json:"-"` // 需要删除的工时制度 ID, 示例值: "325325254"
 }
 
-// DeleteCoreHrWorkingHoursTypeResp ...
-type DeleteCoreHrWorkingHoursTypeResp struct {
+// DeleteCoreHRWorkingHoursTypeResp ...
+type DeleteCoreHRWorkingHoursTypeResp struct {
 }
 
-// deleteCoreHrWorkingHoursTypeResp ...
-type deleteCoreHrWorkingHoursTypeResp struct {
+// deleteCoreHRWorkingHoursTypeResp ...
+type deleteCoreHRWorkingHoursTypeResp struct {
 	Code int64                             `json:"code,omitempty"` // 错误码, 非 0 表示失败
 	Msg  string                            `json:"msg,omitempty"`  // 错误描述
-	Data *DeleteCoreHrWorkingHoursTypeResp `json:"data,omitempty"`
+	Data *DeleteCoreHRWorkingHoursTypeResp `json:"data,omitempty"`
 }

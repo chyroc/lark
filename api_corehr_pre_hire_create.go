@@ -21,55 +21,55 @@ import (
 	"context"
 )
 
-// CreateCoreHrPreHire 创建待入职人员。
+// CreateCoreHRPreHire 创建待入职人员。
 //
 // Offer ID 仅支持传入飞书招聘 ID, 如果未使用飞书招聘请置空。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/pre_hire/create
 // new doc: https://open.feishu.cn/document/server-docs/corehr-v1/pre_hire/create
-func (r *CoreHrService) CreateCoreHrPreHire(ctx context.Context, request *CreateCoreHrPreHireReq, options ...MethodOptionFunc) (*CreateCoreHrPreHireResp, *Response, error) {
-	if r.cli.mock.mockCoreHrCreateCoreHrPreHire != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] CoreHr#CreateCoreHrPreHire mock enable")
-		return r.cli.mock.mockCoreHrCreateCoreHrPreHire(ctx, request, options...)
+func (r *CoreHRService) CreateCoreHRPreHire(ctx context.Context, request *CreateCoreHRPreHireReq, options ...MethodOptionFunc) (*CreateCoreHRPreHireResp, *Response, error) {
+	if r.cli.mock.mockCoreHRCreateCoreHRPreHire != nil {
+		r.cli.log(ctx, LogLevelDebug, "[lark] CoreHR#CreateCoreHRPreHire mock enable")
+		return r.cli.mock.mockCoreHRCreateCoreHRPreHire(ctx, request, options...)
 	}
 
 	req := &RawRequestReq{
-		Scope:                 "CoreHr",
-		API:                   "CreateCoreHrPreHire",
+		Scope:                 "CoreHR",
+		API:                   "CreateCoreHRPreHire",
 		Method:                "POST",
 		URL:                   r.cli.openBaseURL + "/open-apis/corehr/v2/pre_hires",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
 	}
-	resp := new(createCoreHrPreHireResp)
+	resp := new(createCoreHRPreHireResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
 	return resp.Data, response, err
 }
 
-// MockCoreHrCreateCoreHrPreHire mock CoreHrCreateCoreHrPreHire method
-func (r *Mock) MockCoreHrCreateCoreHrPreHire(f func(ctx context.Context, request *CreateCoreHrPreHireReq, options ...MethodOptionFunc) (*CreateCoreHrPreHireResp, *Response, error)) {
-	r.mockCoreHrCreateCoreHrPreHire = f
+// MockCoreHRCreateCoreHRPreHire mock CoreHRCreateCoreHRPreHire method
+func (r *Mock) MockCoreHRCreateCoreHRPreHire(f func(ctx context.Context, request *CreateCoreHRPreHireReq, options ...MethodOptionFunc) (*CreateCoreHRPreHireResp, *Response, error)) {
+	r.mockCoreHRCreateCoreHRPreHire = f
 }
 
-// UnMockCoreHrCreateCoreHrPreHire un-mock CoreHrCreateCoreHrPreHire method
-func (r *Mock) UnMockCoreHrCreateCoreHrPreHire() {
-	r.mockCoreHrCreateCoreHrPreHire = nil
+// UnMockCoreHRCreateCoreHRPreHire un-mock CoreHRCreateCoreHRPreHire method
+func (r *Mock) UnMockCoreHRCreateCoreHRPreHire() {
+	r.mockCoreHRCreateCoreHRPreHire = nil
 }
 
-// CreateCoreHrPreHireReq ...
-type CreateCoreHrPreHireReq struct {
-	BasicInfo        *CreateCoreHrPreHireReqBasicInfo        `json:"basic_info,omitempty"`         // 个人信息
-	OfferInfo        *CreateCoreHrPreHireReqOfferInfo        `json:"offer_info,omitempty"`         // 职位信息
-	EducationInfo    []*CreateCoreHrPreHireReqEducationInfo  `json:"education_info,omitempty"`     // 教育经历
-	WorkExperience   []*CreateCoreHrPreHireReqWorkExperience `json:"work_experience,omitempty"`    // 工作经历
+// CreateCoreHRPreHireReq ...
+type CreateCoreHRPreHireReq struct {
+	BasicInfo        *CreateCoreHRPreHireReqBasicInfo        `json:"basic_info,omitempty"`         // 个人信息
+	OfferInfo        *CreateCoreHRPreHireReqOfferInfo        `json:"offer_info,omitempty"`         // 职位信息
+	EducationInfo    []*CreateCoreHRPreHireReqEducationInfo  `json:"education_info,omitempty"`     // 教育经历
+	WorkExperience   []*CreateCoreHRPreHireReqWorkExperience `json:"work_experience,omitempty"`    // 工作经历
 	AtsApplicationID *string                                 `json:"ats_application_id,omitempty"` // 招聘应用 ID, 仅支持飞书招聘 ID, 详细信息可以通过招聘【获取投递信息】接口查询获得, 示例值: "7140946969586010376"
 }
 
-// CreateCoreHrPreHireReqBasicInfo ...
-type CreateCoreHrPreHireReqBasicInfo struct {
-	Name                  *CreateCoreHrPreHireReqBasicInfoName `json:"name,omitempty"`                    // 描述
+// CreateCoreHRPreHireReqBasicInfo ...
+type CreateCoreHRPreHireReqBasicInfo struct {
+	Name                  *CreateCoreHRPreHireReqBasicInfoName `json:"name,omitempty"`                    // 描述
 	PhoneNumber           *string                              `json:"phone_number,omitempty"`            // 手机号, 示例值: "31123127"
 	InternationalAreaCode *string                              `json:"international_area_code,omitempty"` // 区号, 示例值: "86_china"
 	Email                 *string                              `json:"email,omitempty"`                   // 个人邮箱, 示例值: "xx@xx.com"
@@ -82,8 +82,8 @@ type CreateCoreHrPreHireReqBasicInfo struct {
 	WorkerID              *string                              `json:"worker_id,omitempty"`               // 人员编号, 示例值: "6862995757234914824"
 }
 
-// CreateCoreHrPreHireReqBasicInfoName ...
-type CreateCoreHrPreHireReqBasicInfoName struct {
+// CreateCoreHRPreHireReqBasicInfoName ...
+type CreateCoreHRPreHireReqBasicInfoName struct {
 	FullName        *string `json:"full_name,omitempty"`         // 全名, 示例值: "李一一"
 	FirstName       *string `json:"first_name,omitempty"`        // 名, 示例值: "一"
 	MiddleName      *string `json:"middle_name,omitempty"`       // 中间名, 示例值: "一"
@@ -93,8 +93,8 @@ type CreateCoreHrPreHireReqBasicInfoName struct {
 	LocalPrimary    *string `json:"local_primary,omitempty"`     // 姓 - 本地文字, 示例值: "李"
 }
 
-// CreateCoreHrPreHireReqEducationInfo ...
-type CreateCoreHrPreHireReqEducationInfo struct {
+// CreateCoreHRPreHireReqEducationInfo ...
+type CreateCoreHRPreHireReqEducationInfo struct {
 	SchoolName   *string `json:"school_name,omitempty"`    // 学校名称, 示例值: "长安大学"
 	Education    *string `json:"education,omitempty"`      // 学历, 示例值: "phd"
 	StartTime    *string `json:"start_time,omitempty"`     // 开始时间, 示例值: "2017-04-01"
@@ -102,10 +102,10 @@ type CreateCoreHrPreHireReqEducationInfo struct {
 	FieldOfStudy *string `json:"field_of_study,omitempty"` // 专业, 示例值: "医学影像技术"
 }
 
-// CreateCoreHrPreHireReqOfferInfo ...
-type CreateCoreHrPreHireReqOfferInfo struct {
+// CreateCoreHRPreHireReqOfferInfo ...
+type CreateCoreHRPreHireReqOfferInfo struct {
 	OfferID              *string                                          `json:"offer_id,omitempty"`                // Offer ID, 仅支持飞书招聘 ID, 可以通过飞书招聘【获取 Offer 申请表列表】接口获取, 示例值: "7032210902531327521"
-	OfferHrID            *string                                          `json:"offer_hr_id,omitempty"`             // Offer HR ID, 示例值: "7032210902531327521"
+	OfferHRID            *string                                          `json:"offer_hr_id,omitempty"`             // Offer HR ID, 示例值: "7032210902531327521"
 	DepartmentID         *string                                          `json:"department_id,omitempty"`           // 部门 ID, 可以通过【批量获取部门】接口获取, 示例值: "7147562782945478177"
 	DirectLeaderID       *string                                          `json:"direct_leader_id,omitempty"`        // 直属领导的雇佣 ID, 可以通过【查询员工信息】接口获取, 示例值: "7032210902531327521"
 	JobID                *string                                          `json:"job_id,omitempty"`                  // 职务 ID, 可以通过招聘【批量查询职务】接口获取, 示例值: "6977976735715378724"
@@ -130,24 +130,24 @@ type CreateCoreHrPreHireReqOfferInfo struct {
 	SocialSecurityCityID *string                                          `json:"social_security_city_id,omitempty"` // 社保城市 ID, 详细信息可通过【批量查询地点】接口获得, 示例值: "xxx"
 	ContractType         *string                                          `json:"contract_type,omitempty"`           // 合同类型, 枚举值 api_name 可通过【获取自定义字段详情】接口查询, 查询参数如下: object_api_name = "pre_hire", custom_api_name = "contract_type", 示例值: "6738317738688661772"
 	Company              *string                                          `json:"company,omitempty"`                 // 公司 ID, 详细信息可通过【批量查询公司】接口获得, 示例值: "6738317738688661772"
-	CostCenterRate       []*CreateCoreHrPreHireReqOfferInfoCostCenterRate `json:"cost_center_rate,omitempty"`        // 成本中心分摊信息
-	CustomFields         []*CreateCoreHrPreHireReqOfferInfoCustomField    `json:"custom_fields,omitempty"`           // 自定义字段
+	CostCenterRate       []*CreateCoreHRPreHireReqOfferInfoCostCenterRate `json:"cost_center_rate,omitempty"`        // 成本中心分摊信息
+	CustomFields         []*CreateCoreHRPreHireReqOfferInfoCustomField    `json:"custom_fields,omitempty"`           // 自定义字段
 }
 
-// CreateCoreHrPreHireReqOfferInfoCostCenterRate ...
-type CreateCoreHrPreHireReqOfferInfoCostCenterRate struct {
+// CreateCoreHRPreHireReqOfferInfoCostCenterRate ...
+type CreateCoreHRPreHireReqOfferInfoCostCenterRate struct {
 	CostCenterID *string `json:"cost_center_id,omitempty"` // 成本中心 ID, 可以通过【查询单个成本中心信息】接口获取对应的成本中心信息, 示例值: "6950635856373745165"
 	Rate         *int64  `json:"rate,omitempty"`           // 分摊比例, 示例值: 100
 }
 
-// CreateCoreHrPreHireReqOfferInfoCustomField ...
-type CreateCoreHrPreHireReqOfferInfoCustomField struct {
+// CreateCoreHRPreHireReqOfferInfoCustomField ...
+type CreateCoreHRPreHireReqOfferInfoCustomField struct {
 	FieldName string `json:"field_name,omitempty"` // 字段名, 示例值: "name"
 	Value     string `json:"value,omitempty"`      // 字段值, 是 json 转义后的字符串, 根据元数据定义不同, 字段格式不同(123, 123.23, true, [\"id1\", \"id2\], 2006-01-02 15:04:05]), 示例值: "Sandy"
 }
 
-// CreateCoreHrPreHireReqWorkExperience ...
-type CreateCoreHrPreHireReqWorkExperience struct {
+// CreateCoreHRPreHireReqWorkExperience ...
+type CreateCoreHRPreHireReqWorkExperience struct {
 	CompanyName *string `json:"company_name,omitempty"` // 公司名称, 示例值: "猎豹"
 	StartTime   *string `json:"start_time,omitempty"`   // 开始时间, 示例值: "2015-02-01"
 	EndTime     *string `json:"end_time,omitempty"`     // 结束时间, 示例值: "2017-02-01"
@@ -155,14 +155,14 @@ type CreateCoreHrPreHireReqWorkExperience struct {
 	Description *string `json:"description,omitempty"`  // 工作描述, 示例值: "app"
 }
 
-// CreateCoreHrPreHireResp ...
-type CreateCoreHrPreHireResp struct {
+// CreateCoreHRPreHireResp ...
+type CreateCoreHRPreHireResp struct {
 	PreHireID string `json:"pre_hire_id,omitempty"` // 待入职 ID
 }
 
-// createCoreHrPreHireResp ...
-type createCoreHrPreHireResp struct {
+// createCoreHRPreHireResp ...
+type createCoreHRPreHireResp struct {
 	Code int64                    `json:"code,omitempty"` // 错误码, 非 0 表示失败
 	Msg  string                   `json:"msg,omitempty"`  // 错误描述
-	Data *CreateCoreHrPreHireResp `json:"data,omitempty"`
+	Data *CreateCoreHRPreHireResp `json:"data,omitempty"`
 }

@@ -21,43 +21,43 @@ import (
 	"context"
 )
 
-// GetCoreHrLeaveRequestHistoryList 批量获取员工的请假记录数据。
+// GetCoreHRLeaveRequestHistoryList 批量获取员工的请假记录数据。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/leave/leave_request_history
 // new doc: https://open.feishu.cn/document/server-docs/corehr-v1/leave/leave_request_history
-func (r *CoreHrService) GetCoreHrLeaveRequestHistoryList(ctx context.Context, request *GetCoreHrLeaveRequestHistoryListReq, options ...MethodOptionFunc) (*GetCoreHrLeaveRequestHistoryListResp, *Response, error) {
-	if r.cli.mock.mockCoreHrGetCoreHrLeaveRequestHistoryList != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] CoreHr#GetCoreHrLeaveRequestHistoryList mock enable")
-		return r.cli.mock.mockCoreHrGetCoreHrLeaveRequestHistoryList(ctx, request, options...)
+func (r *CoreHRService) GetCoreHRLeaveRequestHistoryList(ctx context.Context, request *GetCoreHRLeaveRequestHistoryListReq, options ...MethodOptionFunc) (*GetCoreHRLeaveRequestHistoryListResp, *Response, error) {
+	if r.cli.mock.mockCoreHRGetCoreHRLeaveRequestHistoryList != nil {
+		r.cli.log(ctx, LogLevelDebug, "[lark] CoreHR#GetCoreHRLeaveRequestHistoryList mock enable")
+		return r.cli.mock.mockCoreHRGetCoreHRLeaveRequestHistoryList(ctx, request, options...)
 	}
 
 	req := &RawRequestReq{
-		Scope:                 "CoreHr",
-		API:                   "GetCoreHrLeaveRequestHistoryList",
+		Scope:                 "CoreHR",
+		API:                   "GetCoreHRLeaveRequestHistoryList",
 		Method:                "GET",
 		URL:                   r.cli.openBaseURL + "/open-apis/corehr/v1/leaves/leave_request_history",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
 	}
-	resp := new(getCoreHrLeaveRequestHistoryListResp)
+	resp := new(getCoreHRLeaveRequestHistoryListResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
 	return resp.Data, response, err
 }
 
-// MockCoreHrGetCoreHrLeaveRequestHistoryList mock CoreHrGetCoreHrLeaveRequestHistoryList method
-func (r *Mock) MockCoreHrGetCoreHrLeaveRequestHistoryList(f func(ctx context.Context, request *GetCoreHrLeaveRequestHistoryListReq, options ...MethodOptionFunc) (*GetCoreHrLeaveRequestHistoryListResp, *Response, error)) {
-	r.mockCoreHrGetCoreHrLeaveRequestHistoryList = f
+// MockCoreHRGetCoreHRLeaveRequestHistoryList mock CoreHRGetCoreHRLeaveRequestHistoryList method
+func (r *Mock) MockCoreHRGetCoreHRLeaveRequestHistoryList(f func(ctx context.Context, request *GetCoreHRLeaveRequestHistoryListReq, options ...MethodOptionFunc) (*GetCoreHRLeaveRequestHistoryListResp, *Response, error)) {
+	r.mockCoreHRGetCoreHRLeaveRequestHistoryList = f
 }
 
-// UnMockCoreHrGetCoreHrLeaveRequestHistoryList un-mock CoreHrGetCoreHrLeaveRequestHistoryList method
-func (r *Mock) UnMockCoreHrGetCoreHrLeaveRequestHistoryList() {
-	r.mockCoreHrGetCoreHrLeaveRequestHistoryList = nil
+// UnMockCoreHRGetCoreHRLeaveRequestHistoryList un-mock CoreHRGetCoreHRLeaveRequestHistoryList method
+func (r *Mock) UnMockCoreHRGetCoreHRLeaveRequestHistoryList() {
+	r.mockCoreHRGetCoreHRLeaveRequestHistoryList = nil
 }
 
-// GetCoreHrLeaveRequestHistoryListReq ...
-type GetCoreHrLeaveRequestHistoryListReq struct {
+// GetCoreHRLeaveRequestHistoryListReq ...
+type GetCoreHRLeaveRequestHistoryListReq struct {
 	PageToken          *string  `query:"page_token" json:"-"`            // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果, 示例值: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9
 	PageSize           int64    `query:"page_size" json:"-"`             // 分页大小, 示例值: 100
 	EmploymentIDList   []string `query:"employment_id_list" json:"-"`    // 员工 ID 列表, 最大 100 个（不传则默认查询全部员工）, 示例值: 6919733291281024522
@@ -75,20 +75,20 @@ type GetCoreHrLeaveRequestHistoryListReq struct {
 	LeaveUpdateTimeMax *string  `query:"leave_update_time_max" json:"-"` // 请假记录更新时间早于等于的时间, 示例值: 2022-10-24 10:00:00
 }
 
-// GetCoreHrLeaveRequestHistoryListResp ...
-type GetCoreHrLeaveRequestHistoryListResp struct {
-	LeaveRequestList []*GetCoreHrLeaveRequestHistoryListRespLeaveRequest `json:"leave_request_list,omitempty"` // 请假记录信息列表
+// GetCoreHRLeaveRequestHistoryListResp ...
+type GetCoreHRLeaveRequestHistoryListResp struct {
+	LeaveRequestList []*GetCoreHRLeaveRequestHistoryListRespLeaveRequest `json:"leave_request_list,omitempty"` // 请假记录信息列表
 	HasMore          bool                                                `json:"has_more,omitempty"`           // 是否还有更多项
 	PageToken        string                                              `json:"page_token,omitempty"`         // 分页标记, 当 has_more 为 true 时, 会同时返回新的 page_token, 否则不返回 page_token
 }
 
-// GetCoreHrLeaveRequestHistoryListRespLeaveRequest ...
-type GetCoreHrLeaveRequestHistoryListRespLeaveRequest struct {
+// GetCoreHRLeaveRequestHistoryListRespLeaveRequest ...
+type GetCoreHRLeaveRequestHistoryListRespLeaveRequest struct {
 	LeaveRequestID     string                                                            `json:"leave_request_id,omitempty"`     // 请假记录ID
 	EmploymentID       string                                                            `json:"employment_id,omitempty"`        // 雇佣信息ID
-	EmploymentName     []*GetCoreHrLeaveRequestHistoryListRespLeaveRequestEmploymentName `json:"employment_name,omitempty"`      // 员工姓名
+	EmploymentName     []*GetCoreHRLeaveRequestHistoryListRespLeaveRequestEmploymentName `json:"employment_name,omitempty"`      // 员工姓名
 	LeaveTypeID        string                                                            `json:"leave_type_id,omitempty"`        // 假期类型ID
-	LeaveTypeName      []*GetCoreHrLeaveRequestHistoryListRespLeaveRequestLeaveTypeName  `json:"leave_type_name,omitempty"`      // 假期类型名称
+	LeaveTypeName      []*GetCoreHRLeaveRequestHistoryListRespLeaveRequestLeaveTypeName  `json:"leave_type_name,omitempty"`      // 假期类型名称
 	StartTime          string                                                            `json:"start_time,omitempty"`           // 假期开始时间, 格式可能为: 字符串日期: 如 "2022-09-09", 字符串日期加 morning/afternoon: 如 "2022-09-09 morning""
 	EndTime            string                                                            `json:"end_time,omitempty"`             // 假期结束时间, 格式可能为: 字符串日期: 如 "2022-09-09", 字符串日期加 morning/afternoon: 如 "2022-09-09 morning""
 	LeaveDuration      string                                                            `json:"leave_duration,omitempty"`       // 假期时长
@@ -101,21 +101,21 @@ type GetCoreHrLeaveRequestHistoryListRespLeaveRequest struct {
 	Notes              string                                                            `json:"notes,omitempty"`                // 备注
 }
 
-// GetCoreHrLeaveRequestHistoryListRespLeaveRequestEmploymentName ...
-type GetCoreHrLeaveRequestHistoryListRespLeaveRequestEmploymentName struct {
+// GetCoreHRLeaveRequestHistoryListRespLeaveRequestEmploymentName ...
+type GetCoreHRLeaveRequestHistoryListRespLeaveRequestEmploymentName struct {
 	Lang  string `json:"lang,omitempty"`  // 名称信息的语言
 	Value string `json:"value,omitempty"` // 名称信息的内容
 }
 
-// GetCoreHrLeaveRequestHistoryListRespLeaveRequestLeaveTypeName ...
-type GetCoreHrLeaveRequestHistoryListRespLeaveRequestLeaveTypeName struct {
+// GetCoreHRLeaveRequestHistoryListRespLeaveRequestLeaveTypeName ...
+type GetCoreHRLeaveRequestHistoryListRespLeaveRequestLeaveTypeName struct {
 	Lang  string `json:"lang,omitempty"`  // 名称信息的语言
 	Value string `json:"value,omitempty"` // 名称信息的内容
 }
 
-// getCoreHrLeaveRequestHistoryListResp ...
-type getCoreHrLeaveRequestHistoryListResp struct {
+// getCoreHRLeaveRequestHistoryListResp ...
+type getCoreHRLeaveRequestHistoryListResp struct {
 	Code int64                                 `json:"code,omitempty"` // 错误码, 非 0 表示失败
 	Msg  string                                `json:"msg,omitempty"`  // 错误描述
-	Data *GetCoreHrLeaveRequestHistoryListResp `json:"data,omitempty"`
+	Data *GetCoreHRLeaveRequestHistoryListResp `json:"data,omitempty"`
 }

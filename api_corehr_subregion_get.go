@@ -21,68 +21,68 @@ import (
 	"context"
 )
 
-// GetCoreHrSubregion 查询单条城市/区域信息。
+// GetCoreHRSubregion 查询单条城市/区域信息。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/subregion/get
 // new doc: https://open.feishu.cn/document/server-docs/corehr-v1/basic-infomation/location_data/get-3
-func (r *CoreHrService) GetCoreHrSubregion(ctx context.Context, request *GetCoreHrSubregionReq, options ...MethodOptionFunc) (*GetCoreHrSubregionResp, *Response, error) {
-	if r.cli.mock.mockCoreHrGetCoreHrSubregion != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] CoreHr#GetCoreHrSubregion mock enable")
-		return r.cli.mock.mockCoreHrGetCoreHrSubregion(ctx, request, options...)
+func (r *CoreHRService) GetCoreHRSubregion(ctx context.Context, request *GetCoreHRSubregionReq, options ...MethodOptionFunc) (*GetCoreHRSubregionResp, *Response, error) {
+	if r.cli.mock.mockCoreHRGetCoreHRSubregion != nil {
+		r.cli.log(ctx, LogLevelDebug, "[lark] CoreHR#GetCoreHRSubregion mock enable")
+		return r.cli.mock.mockCoreHRGetCoreHRSubregion(ctx, request, options...)
 	}
 
 	req := &RawRequestReq{
-		Scope:                 "CoreHr",
-		API:                   "GetCoreHrSubregion",
+		Scope:                 "CoreHR",
+		API:                   "GetCoreHRSubregion",
 		Method:                "GET",
 		URL:                   r.cli.openBaseURL + "/open-apis/corehr/v1/subregions/:subregion_id",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
 	}
-	resp := new(getCoreHrSubregionResp)
+	resp := new(getCoreHRSubregionResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
 	return resp.Data, response, err
 }
 
-// MockCoreHrGetCoreHrSubregion mock CoreHrGetCoreHrSubregion method
-func (r *Mock) MockCoreHrGetCoreHrSubregion(f func(ctx context.Context, request *GetCoreHrSubregionReq, options ...MethodOptionFunc) (*GetCoreHrSubregionResp, *Response, error)) {
-	r.mockCoreHrGetCoreHrSubregion = f
+// MockCoreHRGetCoreHRSubregion mock CoreHRGetCoreHRSubregion method
+func (r *Mock) MockCoreHRGetCoreHRSubregion(f func(ctx context.Context, request *GetCoreHRSubregionReq, options ...MethodOptionFunc) (*GetCoreHRSubregionResp, *Response, error)) {
+	r.mockCoreHRGetCoreHRSubregion = f
 }
 
-// UnMockCoreHrGetCoreHrSubregion un-mock CoreHrGetCoreHrSubregion method
-func (r *Mock) UnMockCoreHrGetCoreHrSubregion() {
-	r.mockCoreHrGetCoreHrSubregion = nil
+// UnMockCoreHRGetCoreHRSubregion un-mock CoreHRGetCoreHRSubregion method
+func (r *Mock) UnMockCoreHRGetCoreHRSubregion() {
+	r.mockCoreHRGetCoreHRSubregion = nil
 }
 
-// GetCoreHrSubregionReq ...
-type GetCoreHrSubregionReq struct {
+// GetCoreHRSubregionReq ...
+type GetCoreHRSubregionReq struct {
 	SubregionID string `path:"subregion_id" json:"-"` // 城市/区域 ID, 示例值: "67489937334909845"
 }
 
-// GetCoreHrSubregionResp ...
-type GetCoreHrSubregionResp struct {
-	Subregion *GetCoreHrSubregionRespSubregion `json:"subregion,omitempty"` // 城市/区域信息
+// GetCoreHRSubregionResp ...
+type GetCoreHRSubregionResp struct {
+	Subregion *GetCoreHRSubregionRespSubregion `json:"subregion,omitempty"` // 城市/区域信息
 }
 
-// GetCoreHrSubregionRespSubregion ...
-type GetCoreHrSubregionRespSubregion struct {
+// GetCoreHRSubregionRespSubregion ...
+type GetCoreHRSubregionRespSubregion struct {
 	ID                  string                                 `json:"id,omitempty"`                    // 城市/区域id
-	Name                []*GetCoreHrSubregionRespSubregionName `json:"name,omitempty"`                  // 城市/区域名称
+	Name                []*GetCoreHRSubregionRespSubregionName `json:"name,omitempty"`                  // 城市/区域名称
 	SubdivisionID       string                                 `json:"subdivision_id,omitempty"`        // 所属省份/行政区id, 详细信息可通过【查询省份/行政区信息】接口查询获得
 	SuperiorSubregionID string                                 `json:"superior_subregion_id,omitempty"` // 上级城市/区域区id
 }
 
-// GetCoreHrSubregionRespSubregionName ...
-type GetCoreHrSubregionRespSubregionName struct {
+// GetCoreHRSubregionRespSubregionName ...
+type GetCoreHRSubregionRespSubregionName struct {
 	Lang  string `json:"lang,omitempty"`  // 名称信息的语言
 	Value string `json:"value,omitempty"` // 名称信息的内容
 }
 
-// getCoreHrSubregionResp ...
-type getCoreHrSubregionResp struct {
+// getCoreHRSubregionResp ...
+type getCoreHRSubregionResp struct {
 	Code int64                   `json:"code,omitempty"` // 错误码, 非 0 表示失败
 	Msg  string                  `json:"msg,omitempty"`  // 错误描述
-	Data *GetCoreHrSubregionResp `json:"data,omitempty"`
+	Data *GetCoreHRSubregionResp `json:"data,omitempty"`
 }

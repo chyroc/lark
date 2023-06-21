@@ -21,72 +21,72 @@ import (
 	"context"
 )
 
-// GetCoreHrCustomFieldObjectApiNameList 获取「飞书人事」中的对象列表, 含系统预置对象与自定义对象。
+// GetCoreHRCustomFieldObjectApiNameList 获取「飞书人事」中的对象列表, 含系统预置对象与自定义对象。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/custom_field/list_object_api_name
 // new doc: https://open.feishu.cn/document/server-docs/corehr-v1/basic-infomation/custom_field/list_object_api_name
-func (r *CoreHrService) GetCoreHrCustomFieldObjectApiNameList(ctx context.Context, request *GetCoreHrCustomFieldObjectApiNameListReq, options ...MethodOptionFunc) (*GetCoreHrCustomFieldObjectApiNameListResp, *Response, error) {
-	if r.cli.mock.mockCoreHrGetCoreHrCustomFieldObjectApiNameList != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] CoreHr#GetCoreHrCustomFieldObjectApiNameList mock enable")
-		return r.cli.mock.mockCoreHrGetCoreHrCustomFieldObjectApiNameList(ctx, request, options...)
+func (r *CoreHRService) GetCoreHRCustomFieldObjectApiNameList(ctx context.Context, request *GetCoreHRCustomFieldObjectApiNameListReq, options ...MethodOptionFunc) (*GetCoreHRCustomFieldObjectApiNameListResp, *Response, error) {
+	if r.cli.mock.mockCoreHRGetCoreHRCustomFieldObjectApiNameList != nil {
+		r.cli.log(ctx, LogLevelDebug, "[lark] CoreHR#GetCoreHRCustomFieldObjectApiNameList mock enable")
+		return r.cli.mock.mockCoreHRGetCoreHRCustomFieldObjectApiNameList(ctx, request, options...)
 	}
 
 	req := &RawRequestReq{
-		Scope:                 "CoreHr",
-		API:                   "GetCoreHrCustomFieldObjectApiNameList",
+		Scope:                 "CoreHR",
+		API:                   "GetCoreHRCustomFieldObjectApiNameList",
 		Method:                "GET",
 		URL:                   r.cli.openBaseURL + "/open-apis/corehr/v1/custom_fields/list_object_api_name",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
 	}
-	resp := new(getCoreHrCustomFieldObjectApiNameListResp)
+	resp := new(getCoreHRCustomFieldObjectApiNameListResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
 	return resp.Data, response, err
 }
 
-// MockCoreHrGetCoreHrCustomFieldObjectApiNameList mock CoreHrGetCoreHrCustomFieldObjectApiNameList method
-func (r *Mock) MockCoreHrGetCoreHrCustomFieldObjectApiNameList(f func(ctx context.Context, request *GetCoreHrCustomFieldObjectApiNameListReq, options ...MethodOptionFunc) (*GetCoreHrCustomFieldObjectApiNameListResp, *Response, error)) {
-	r.mockCoreHrGetCoreHrCustomFieldObjectApiNameList = f
+// MockCoreHRGetCoreHRCustomFieldObjectApiNameList mock CoreHRGetCoreHRCustomFieldObjectApiNameList method
+func (r *Mock) MockCoreHRGetCoreHRCustomFieldObjectApiNameList(f func(ctx context.Context, request *GetCoreHRCustomFieldObjectApiNameListReq, options ...MethodOptionFunc) (*GetCoreHRCustomFieldObjectApiNameListResp, *Response, error)) {
+	r.mockCoreHRGetCoreHRCustomFieldObjectApiNameList = f
 }
 
-// UnMockCoreHrGetCoreHrCustomFieldObjectApiNameList un-mock CoreHrGetCoreHrCustomFieldObjectApiNameList method
-func (r *Mock) UnMockCoreHrGetCoreHrCustomFieldObjectApiNameList() {
-	r.mockCoreHrGetCoreHrCustomFieldObjectApiNameList = nil
+// UnMockCoreHRGetCoreHRCustomFieldObjectApiNameList un-mock CoreHRGetCoreHRCustomFieldObjectApiNameList method
+func (r *Mock) UnMockCoreHRGetCoreHRCustomFieldObjectApiNameList() {
+	r.mockCoreHRGetCoreHRCustomFieldObjectApiNameList = nil
 }
 
-// GetCoreHrCustomFieldObjectApiNameListReq ...
-type GetCoreHrCustomFieldObjectApiNameListReq struct {
+// GetCoreHRCustomFieldObjectApiNameListReq ...
+type GetCoreHRCustomFieldObjectApiNameListReq struct {
 	PageToken *string `query:"page_token" json:"-"` // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果, 示例值: 11
 	PageSize  int64   `query:"page_size" json:"-"`  // 分页大小, 示例值: 100
 }
 
-// GetCoreHrCustomFieldObjectApiNameListResp ...
-type GetCoreHrCustomFieldObjectApiNameListResp struct {
-	Items     []*GetCoreHrCustomFieldObjectApiNameListRespItem `json:"items,omitempty"`      // 对象列表
+// GetCoreHRCustomFieldObjectApiNameListResp ...
+type GetCoreHRCustomFieldObjectApiNameListResp struct {
+	Items     []*GetCoreHRCustomFieldObjectApiNameListRespItem `json:"items,omitempty"`      // 对象列表
 	HasMore   bool                                             `json:"has_more,omitempty"`   // 是否还有更多项
 	PageToken string                                           `json:"page_token,omitempty"` // 分页标记, 当 has_more 为 true 时, 会同时返回新的 page_token, 否则不返回 page_token
 }
 
-// GetCoreHrCustomFieldObjectApiNameListRespItem ...
-type GetCoreHrCustomFieldObjectApiNameListRespItem struct {
+// GetCoreHRCustomFieldObjectApiNameListRespItem ...
+type GetCoreHRCustomFieldObjectApiNameListRespItem struct {
 	ObjectApiName string                                             `json:"object_api_name,omitempty"` // 对象的唯一标识
-	Name          *GetCoreHrCustomFieldObjectApiNameListRespItemName `json:"name,omitempty"`            // 对象名称
+	Name          *GetCoreHRCustomFieldObjectApiNameListRespItemName `json:"name,omitempty"`            // 对象名称
 	IsOpen        bool                                               `json:"is_open,omitempty"`         // 是否启用, True 为已启用, False 为未启用
 	CreateTime    string                                             `json:"create_time,omitempty"`     // 创建时间, 秒级时间戳
 	UpdateTime    string                                             `json:"update_time,omitempty"`     // 更新时间, 秒级时间戳
 }
 
-// GetCoreHrCustomFieldObjectApiNameListRespItemName ...
-type GetCoreHrCustomFieldObjectApiNameListRespItemName struct {
+// GetCoreHRCustomFieldObjectApiNameListRespItemName ...
+type GetCoreHRCustomFieldObjectApiNameListRespItemName struct {
 	ZhCn string `json:"zh_cn,omitempty"` // 中文
 	EnUs string `json:"en_us,omitempty"` // 英文
 }
 
-// getCoreHrCustomFieldObjectApiNameListResp ...
-type getCoreHrCustomFieldObjectApiNameListResp struct {
+// getCoreHRCustomFieldObjectApiNameListResp ...
+type getCoreHRCustomFieldObjectApiNameListResp struct {
 	Code int64                                      `json:"code,omitempty"` // 错误码, 非 0 表示失败
 	Msg  string                                     `json:"msg,omitempty"`  // 错误描述
-	Data *GetCoreHrCustomFieldObjectApiNameListResp `json:"data,omitempty"`
+	Data *GetCoreHRCustomFieldObjectApiNameListResp `json:"data,omitempty"`
 }

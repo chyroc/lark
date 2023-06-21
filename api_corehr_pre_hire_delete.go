@@ -21,53 +21,53 @@ import (
 	"context"
 )
 
-// DeleteCoreHrPreHire 删除待入职人员。
+// DeleteCoreHRPreHire 删除待入职人员。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/pre_hire/delete
 // new doc: https://open.feishu.cn/document/server-docs/corehr-v1/pre_hire/delete
-func (r *CoreHrService) DeleteCoreHrPreHire(ctx context.Context, request *DeleteCoreHrPreHireReq, options ...MethodOptionFunc) (*DeleteCoreHrPreHireResp, *Response, error) {
-	if r.cli.mock.mockCoreHrDeleteCoreHrPreHire != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] CoreHr#DeleteCoreHrPreHire mock enable")
-		return r.cli.mock.mockCoreHrDeleteCoreHrPreHire(ctx, request, options...)
+func (r *CoreHRService) DeleteCoreHRPreHire(ctx context.Context, request *DeleteCoreHRPreHireReq, options ...MethodOptionFunc) (*DeleteCoreHRPreHireResp, *Response, error) {
+	if r.cli.mock.mockCoreHRDeleteCoreHRPreHire != nil {
+		r.cli.log(ctx, LogLevelDebug, "[lark] CoreHR#DeleteCoreHRPreHire mock enable")
+		return r.cli.mock.mockCoreHRDeleteCoreHRPreHire(ctx, request, options...)
 	}
 
 	req := &RawRequestReq{
-		Scope:                 "CoreHr",
-		API:                   "DeleteCoreHrPreHire",
+		Scope:                 "CoreHR",
+		API:                   "DeleteCoreHRPreHire",
 		Method:                "DELETE",
 		URL:                   r.cli.openBaseURL + "/open-apis/corehr/v1/pre_hires/:pre_hire_id",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
 	}
-	resp := new(deleteCoreHrPreHireResp)
+	resp := new(deleteCoreHRPreHireResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
 	return resp.Data, response, err
 }
 
-// MockCoreHrDeleteCoreHrPreHire mock CoreHrDeleteCoreHrPreHire method
-func (r *Mock) MockCoreHrDeleteCoreHrPreHire(f func(ctx context.Context, request *DeleteCoreHrPreHireReq, options ...MethodOptionFunc) (*DeleteCoreHrPreHireResp, *Response, error)) {
-	r.mockCoreHrDeleteCoreHrPreHire = f
+// MockCoreHRDeleteCoreHRPreHire mock CoreHRDeleteCoreHRPreHire method
+func (r *Mock) MockCoreHRDeleteCoreHRPreHire(f func(ctx context.Context, request *DeleteCoreHRPreHireReq, options ...MethodOptionFunc) (*DeleteCoreHRPreHireResp, *Response, error)) {
+	r.mockCoreHRDeleteCoreHRPreHire = f
 }
 
-// UnMockCoreHrDeleteCoreHrPreHire un-mock CoreHrDeleteCoreHrPreHire method
-func (r *Mock) UnMockCoreHrDeleteCoreHrPreHire() {
-	r.mockCoreHrDeleteCoreHrPreHire = nil
+// UnMockCoreHRDeleteCoreHRPreHire un-mock CoreHRDeleteCoreHRPreHire method
+func (r *Mock) UnMockCoreHRDeleteCoreHRPreHire() {
+	r.mockCoreHRDeleteCoreHRPreHire = nil
 }
 
-// DeleteCoreHrPreHireReq ...
-type DeleteCoreHrPreHireReq struct {
+// DeleteCoreHRPreHireReq ...
+type DeleteCoreHRPreHireReq struct {
 	PreHireID string `path:"pre_hire_id" json:"-"` // 需要删除的待入职人员信息ID, 示例值: "76534545454"
 }
 
-// DeleteCoreHrPreHireResp ...
-type DeleteCoreHrPreHireResp struct {
+// DeleteCoreHRPreHireResp ...
+type DeleteCoreHRPreHireResp struct {
 }
 
-// deleteCoreHrPreHireResp ...
-type deleteCoreHrPreHireResp struct {
+// deleteCoreHRPreHireResp ...
+type deleteCoreHRPreHireResp struct {
 	Code int64                    `json:"code,omitempty"` // 错误码, 非 0 表示失败
 	Msg  string                   `json:"msg,omitempty"`  // 错误描述
-	Data *DeleteCoreHrPreHireResp `json:"data,omitempty"`
+	Data *DeleteCoreHRPreHireResp `json:"data,omitempty"`
 }

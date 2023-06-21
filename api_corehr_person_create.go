@@ -21,71 +21,71 @@ import (
 	"context"
 )
 
-// CreateCoreHrPerson 创建个人信息
+// CreateCoreHRPerson 创建个人信息
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/person/create
 // new doc: https://open.feishu.cn/document/server-docs/corehr-v1/employee/person/create-2
-func (r *CoreHrService) CreateCoreHrPerson(ctx context.Context, request *CreateCoreHrPersonReq, options ...MethodOptionFunc) (*CreateCoreHrPersonResp, *Response, error) {
-	if r.cli.mock.mockCoreHrCreateCoreHrPerson != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] CoreHr#CreateCoreHrPerson mock enable")
-		return r.cli.mock.mockCoreHrCreateCoreHrPerson(ctx, request, options...)
+func (r *CoreHRService) CreateCoreHRPerson(ctx context.Context, request *CreateCoreHRPersonReq, options ...MethodOptionFunc) (*CreateCoreHRPersonResp, *Response, error) {
+	if r.cli.mock.mockCoreHRCreateCoreHRPerson != nil {
+		r.cli.log(ctx, LogLevelDebug, "[lark] CoreHR#CreateCoreHRPerson mock enable")
+		return r.cli.mock.mockCoreHRCreateCoreHRPerson(ctx, request, options...)
 	}
 
 	req := &RawRequestReq{
-		Scope:                 "CoreHr",
-		API:                   "CreateCoreHrPerson",
+		Scope:                 "CoreHR",
+		API:                   "CreateCoreHRPerson",
 		Method:                "POST",
 		URL:                   r.cli.openBaseURL + "/open-apis/corehr/v2/persons",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
 	}
-	resp := new(createCoreHrPersonResp)
+	resp := new(createCoreHRPersonResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
 	return resp.Data, response, err
 }
 
-// MockCoreHrCreateCoreHrPerson mock CoreHrCreateCoreHrPerson method
-func (r *Mock) MockCoreHrCreateCoreHrPerson(f func(ctx context.Context, request *CreateCoreHrPersonReq, options ...MethodOptionFunc) (*CreateCoreHrPersonResp, *Response, error)) {
-	r.mockCoreHrCreateCoreHrPerson = f
+// MockCoreHRCreateCoreHRPerson mock CoreHRCreateCoreHRPerson method
+func (r *Mock) MockCoreHRCreateCoreHRPerson(f func(ctx context.Context, request *CreateCoreHRPersonReq, options ...MethodOptionFunc) (*CreateCoreHRPersonResp, *Response, error)) {
+	r.mockCoreHRCreateCoreHRPerson = f
 }
 
-// UnMockCoreHrCreateCoreHrPerson un-mock CoreHrCreateCoreHrPerson method
-func (r *Mock) UnMockCoreHrCreateCoreHrPerson() {
-	r.mockCoreHrCreateCoreHrPerson = nil
+// UnMockCoreHRCreateCoreHRPerson un-mock CoreHRCreateCoreHRPerson method
+func (r *Mock) UnMockCoreHRCreateCoreHRPerson() {
+	r.mockCoreHRCreateCoreHRPerson = nil
 }
 
-// CreateCoreHrPersonReq ...
-type CreateCoreHrPersonReq struct {
+// CreateCoreHRPersonReq ...
+type CreateCoreHRPersonReq struct {
 	ClientToken          *string                                  `query:"client_token" json:"-"`           // 根据client_token是否一致来判断是否为同一请求, 示例值: 12454646
-	NameList             []*CreateCoreHrPersonReqName             `json:"name_list,omitempty"`              // 姓名列表, 当不为离职重聘员工时, 该字段必填, <b>字段权限要求: </b>, 读写法定姓名信息(corehr:person.legal_name:write)
-	Gender               *CreateCoreHrPersonReqGender             `json:"gender,omitempty"`                 // 性别, 枚举值 api_name 可通过[【获取字段详情】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/custom_field/get_by_param)接口查询, 查询参数如下: object_api_name = "person", custom_api_name = "gendar", <b>字段权限要求: </b>, 读写性别信息(corehr:person.gender:write)
+	NameList             []*CreateCoreHRPersonReqName             `json:"name_list,omitempty"`              // 姓名列表, 当不为离职重聘员工时, 该字段必填, <b>字段权限要求: </b>, 读写法定姓名信息(corehr:person.legal_name:write)
+	Gender               *CreateCoreHRPersonReqGender             `json:"gender,omitempty"`                 // 性别, 枚举值 api_name 可通过[【获取字段详情】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/custom_field/get_by_param)接口查询, 查询参数如下: object_api_name = "person", custom_api_name = "gendar", <b>字段权限要求: </b>, 读写性别信息(corehr:person.gender:write)
 	DateOfBirth          *string                                  `json:"date_of_birth,omitempty"`          // 出生日期, <b>字段权限要求: </b>, 读写生日信息(corehr:person.date_of_birth:write), 示例值: "2020-01-01"
-	Race                 *CreateCoreHrPersonReqRace               `json:"race,omitempty"`                   // 民族 / 种族, 枚举值 api_name 可通过[【获取字段详情】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/custom_field/get_by_param)接口查询, 查询参数如下: object_api_name = "person", custom_api_name = "race"
-	MaritalStatus        *CreateCoreHrPersonReqMaritalStatus      `json:"marital_status,omitempty"`         // 婚姻状况, 枚举值 api_name 可通过[【获取字段详情】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/custom_field/get_by_param)接口查询, 查询参数如下: object_api_name = "person", custom_api_name = "marital_status", <b>字段权限要求: </b>, 读写婚姻状况信息(corehr:person.marital_status:write)
-	PhoneList            []*CreateCoreHrPersonReqPhone            `json:"phone_list,omitempty"`             // 电话列表, 只有当满足下面所有条件时, 电话在个人信息页才可见
-	AddressList          []*CreateCoreHrPersonReqAddress          `json:"address_list,omitempty"`           // 地址列表, <b>字段权限要求: </b>, 读取个人地址信息(corehr:person.address:write)
-	EmailList            []*CreateCoreHrPersonReqEmail            `json:"email_list,omitempty"`             // 邮箱列表, <b>字段权限要求: </b>, 读写个人邮箱信息(corehr:person.email:write)
-	WorkExperienceList   []*CreateCoreHrPersonReqWorkExperience   `json:"work_experience_list,omitempty"`   // 工作经历列表, <b>字段权限要求: </b>, 读写工作履历信息(corehr:person.work_experience:write)
-	EducationList        []*CreateCoreHrPersonReqEducation        `json:"education_list,omitempty"`         // 教育经历列表, <b>字段权限要求: </b>, 读写教育经历信息(corehr:person.education:write)
-	BankAccountList      []*CreateCoreHrPersonReqBankAccount      `json:"bank_account_list,omitempty"`      // 银行账户, <b>字段权限要求: </b>, 读写银行账号列表信息(corehr:person.bank_account:write)
-	NationalIDList       []*CreateCoreHrPersonReqNationalID       `json:"national_id_list,omitempty"`       // 证件列表, <b>字段权限要求: </b>, 读写证件信息(corehr:person.national_id:write)
-	DependentList        []*CreateCoreHrPersonReqDependent        `json:"dependent_list,omitempty"`         // 家庭成员列表, <b>字段权限要求: </b>, 读写家庭成员信息(corehr:person.dependent:write)
-	EmergencyContactList []*CreateCoreHrPersonReqEmergencyContact `json:"emergency_contact_list,omitempty"` // 紧急联系人列表, <b>字段权限要求: </b>, 读写紧急联系人信息(corehr:person.emergency_contact:write)
+	Race                 *CreateCoreHRPersonReqRace               `json:"race,omitempty"`                   // 民族 / 种族, 枚举值 api_name 可通过[【获取字段详情】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/custom_field/get_by_param)接口查询, 查询参数如下: object_api_name = "person", custom_api_name = "race"
+	MaritalStatus        *CreateCoreHRPersonReqMaritalStatus      `json:"marital_status,omitempty"`         // 婚姻状况, 枚举值 api_name 可通过[【获取字段详情】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/custom_field/get_by_param)接口查询, 查询参数如下: object_api_name = "person", custom_api_name = "marital_status", <b>字段权限要求: </b>, 读写婚姻状况信息(corehr:person.marital_status:write)
+	PhoneList            []*CreateCoreHRPersonReqPhone            `json:"phone_list,omitempty"`             // 电话列表, 只有当满足下面所有条件时, 电话在个人信息页才可见
+	AddressList          []*CreateCoreHRPersonReqAddress          `json:"address_list,omitempty"`           // 地址列表, <b>字段权限要求: </b>, 读取个人地址信息(corehr:person.address:write)
+	EmailList            []*CreateCoreHRPersonReqEmail            `json:"email_list,omitempty"`             // 邮箱列表, <b>字段权限要求: </b>, 读写个人邮箱信息(corehr:person.email:write)
+	WorkExperienceList   []*CreateCoreHRPersonReqWorkExperience   `json:"work_experience_list,omitempty"`   // 工作经历列表, <b>字段权限要求: </b>, 读写工作履历信息(corehr:person.work_experience:write)
+	EducationList        []*CreateCoreHRPersonReqEducation        `json:"education_list,omitempty"`         // 教育经历列表, <b>字段权限要求: </b>, 读写教育经历信息(corehr:person.education:write)
+	BankAccountList      []*CreateCoreHRPersonReqBankAccount      `json:"bank_account_list,omitempty"`      // 银行账户, <b>字段权限要求: </b>, 读写银行账号列表信息(corehr:person.bank_account:write)
+	NationalIDList       []*CreateCoreHRPersonReqNationalID       `json:"national_id_list,omitempty"`       // 证件列表, <b>字段权限要求: </b>, 读写证件信息(corehr:person.national_id:write)
+	DependentList        []*CreateCoreHRPersonReqDependent        `json:"dependent_list,omitempty"`         // 家庭成员列表, <b>字段权限要求: </b>, 读写家庭成员信息(corehr:person.dependent:write)
+	EmergencyContactList []*CreateCoreHRPersonReqEmergencyContact `json:"emergency_contact_list,omitempty"` // 紧急联系人列表, <b>字段权限要求: </b>, 读写紧急联系人信息(corehr:person.emergency_contact:write)
 	DateEnteredWorkforce *string                                  `json:"date_entered_workforce,omitempty"` // 参加工作日期, <b>字段权限要求: </b>, 读写参加工作日期(corehr:person.date_entered_workforce:write), 示例值: "2020-10-01"
 	ProfileImageID       *string                                  `json:"profile_image_id,omitempty"`       // 头像资源的 ID, 示例值: "dfysuc8x76dsfsw"
 	Age                  *int64                                   `json:"age,omitempty"`                    // 年龄, <b>字段权限要求: </b>, 读写生日信息(corehr:person.date_of_birth:write), 示例值: 22
-	PersonalProfile      []*CreateCoreHrPersonReqPersonalProfile  `json:"personal_profile,omitempty"`       // 个人资料附件, <b>字段权限要求: </b>, 读写个人资料信息(corehr:person.personal_profile:write)
+	PersonalProfile      []*CreateCoreHRPersonReqPersonalProfile  `json:"personal_profile,omitempty"`       // 个人资料附件, <b>字段权限要求: </b>, 读写个人资料信息(corehr:person.personal_profile:write)
 	NativeRegion         *string                                  `json:"native_region,omitempty"`          // 籍贯 ID, 详细数据可通过[【查询单条省份/行政区信息】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/subdivision/get)接口查询, <b>字段权限要求: </b>, 读写籍贯信息(corehr:person.native_region:write), 示例值: "6863326262618752111"
-	HukouType            *CreateCoreHrPersonReqHukouType          `json:"hukou_type,omitempty"`             // 户口类型, 枚举值 api_name 可通过[【获取字段详情】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/custom_field/get_by_param)接口查询, 查询参数如下: object_api_name = "person_info_chn", custom_api_name = "hukou_type", <b>字段权限要求: </b>, 读写户口信息(corehr:person.hukou:write)
+	HukouType            *CreateCoreHRPersonReqHukouType          `json:"hukou_type,omitempty"`             // 户口类型, 枚举值 api_name 可通过[【获取字段详情】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/custom_field/get_by_param)接口查询, 查询参数如下: object_api_name = "person_info_chn", custom_api_name = "hukou_type", <b>字段权限要求: </b>, 读写户口信息(corehr:person.hukou:write)
 	HukouLocation        *string                                  `json:"hukou_location,omitempty"`         // 户口所在地, <b>字段权限要求: </b>, 读写户口信息(corehr:person.hukou:write), 示例值: "山东省平阴县"
 	TalentID             *string                                  `json:"talent_id,omitempty"`              // 人才ID, 示例值: "6863326262618752123"
-	CustomFields         []*CreateCoreHrPersonReqCustomField      `json:"custom_fields,omitempty"`          // 自定义字段
+	CustomFields         []*CreateCoreHRPersonReqCustomField      `json:"custom_fields,omitempty"`          // 自定义字段
 }
 
-// CreateCoreHrPersonReqAddress ...
-type CreateCoreHrPersonReqAddress struct {
+// CreateCoreHRPersonReqAddress ...
+type CreateCoreHRPersonReqAddress struct {
 	AddressID         *string                                    `json:"address_id,omitempty"`          // 地址 ID, 示例值: "6989822217869624863"
 	CountryRegionID   string                                     `json:"country_region_id,omitempty"`   // 国家 / 地区, 示例值: "6862995757234914824"
 	RegionID          *string                                    `json:"region_id,omitempty"`           // 主要行政区, 示例值: "6863326815667095047"
@@ -99,78 +99,78 @@ type CreateCoreHrPersonReqAddress struct {
 	LocalAddressLine8 *string                                    `json:"local_address_line8,omitempty"` // 地址行 8（非拉丁语系的本地文字）, 示例值: "rafSu"
 	LocalAddressLine9 *string                                    `json:"local_address_line9,omitempty"` // 地址行 9（非拉丁语系的本地文字）, 示例值: "McPRG"
 	PostalCode        *string                                    `json:"postal_code,omitempty"`         // 邮政编码, 示例值: "611530"
-	AddressTypeList   []*CreateCoreHrPersonReqAddressAddressType `json:"address_type_list,omitempty"`   // 地址类型
+	AddressTypeList   []*CreateCoreHRPersonReqAddressAddressType `json:"address_type_list,omitempty"`   // 地址类型
 	IsPrimary         bool                                       `json:"is_primary,omitempty"`          // 主要地址, 示例值: true
 	IsPublic          bool                                       `json:"is_public,omitempty"`           // 公开地址, 示例值: true
-	CustomFields      []*CreateCoreHrPersonReqAddressCustomField `json:"custom_fields,omitempty"`       // 自定义字段
+	CustomFields      []*CreateCoreHRPersonReqAddressCustomField `json:"custom_fields,omitempty"`       // 自定义字段
 }
 
-// CreateCoreHrPersonReqAddressAddressType ...
-type CreateCoreHrPersonReqAddressAddressType struct {
+// CreateCoreHRPersonReqAddressAddressType ...
+type CreateCoreHRPersonReqAddressAddressType struct {
 	EnumName string `json:"enum_name,omitempty"` // 枚举值, 示例值: "phone_type"
 }
 
-// CreateCoreHrPersonReqAddressCustomField ...
-type CreateCoreHrPersonReqAddressCustomField struct {
+// CreateCoreHRPersonReqAddressCustomField ...
+type CreateCoreHRPersonReqAddressCustomField struct {
 	CustomApiName string `json:"custom_api_name,omitempty"` // 自定义字段 apiname, 即自定义字段的唯一标识, 示例值: "name"
 	Value         string `json:"value,omitempty"`           // 字段值, 是 json 转义后的字符串, 根据元数据定义不同, 字段格式不同（如 123, 123.23, "true", ["id1", "id2"], "2006-01-02 15:04:05"）, 示例值: "\"231\""
 }
 
-// CreateCoreHrPersonReqBankAccount ...
-type CreateCoreHrPersonReqBankAccount struct {
+// CreateCoreHRPersonReqBankAccount ...
+type CreateCoreHRPersonReqBankAccount struct {
 	BankName          *string                                             `json:"bank_name,omitempty"`           // 银行名称, 示例值: "中国农业银行"
 	BankAccountNumber string                                              `json:"bank_account_number,omitempty"` // 银行账号, 示例值: "6231200000001223"
 	AccountHolder     string                                              `json:"account_holder,omitempty"`      // 开户人姓名, 示例值: "孟十五"
 	BranchName        *string                                             `json:"branch_name,omitempty"`         // 支行名称, 示例值: "中国农业银行支行"
 	CountryRegionID   *string                                             `json:"country_region_id,omitempty"`   // 国家/地区 ID, 详细信息可通过【查询国家/地区信息】接口查询获得, 示例值: "12"
-	BankAccountUsage  []*CreateCoreHrPersonReqBankAccountBankAccountUsage `json:"bank_account_usage,omitempty"`  // 银行卡用途, 枚举值可通过文档【飞书人事枚举常量】银行卡用途（Bank Account Usage）枚举定义部分获得
-	BankAccountType   *CreateCoreHrPersonReqBankAccountBankAccountType    `json:"bank_account_type,omitempty"`   // 银行卡类型, 枚举值可通过文档【飞书人事枚举常量】银行卡类型（Bank Account Type）枚举定义部分获得
+	BankAccountUsage  []*CreateCoreHRPersonReqBankAccountBankAccountUsage `json:"bank_account_usage,omitempty"`  // 银行卡用途, 枚举值可通过文档【飞书人事枚举常量】银行卡用途（Bank Account Usage）枚举定义部分获得
+	BankAccountType   *CreateCoreHRPersonReqBankAccountBankAccountType    `json:"bank_account_type,omitempty"`   // 银行卡类型, 枚举值可通过文档【飞书人事枚举常量】银行卡类型（Bank Account Type）枚举定义部分获得
 	CurrencyID        *string                                             `json:"currency_id,omitempty"`         // 货币id, 示例值: "12QueryCountryRegionSubdivisionDataReq"
-	CustomFields      []*CreateCoreHrPersonReqBankAccountCustomField      `json:"custom_fields,omitempty"`       // 自定义字段
+	CustomFields      []*CreateCoreHRPersonReqBankAccountCustomField      `json:"custom_fields,omitempty"`       // 自定义字段
 }
 
-// CreateCoreHrPersonReqBankAccountBankAccountType ...
-type CreateCoreHrPersonReqBankAccountBankAccountType struct {
+// CreateCoreHRPersonReqBankAccountBankAccountType ...
+type CreateCoreHRPersonReqBankAccountBankAccountType struct {
 	EnumName string `json:"enum_name,omitempty"` // 枚举值, 示例值: "phone_type"
 }
 
-// CreateCoreHrPersonReqBankAccountBankAccountUsage ...
-type CreateCoreHrPersonReqBankAccountBankAccountUsage struct {
+// CreateCoreHRPersonReqBankAccountBankAccountUsage ...
+type CreateCoreHRPersonReqBankAccountBankAccountUsage struct {
 	EnumName string `json:"enum_name,omitempty"` // 枚举值, 示例值: "phone_type"
 }
 
-// CreateCoreHrPersonReqBankAccountCustomField ...
-type CreateCoreHrPersonReqBankAccountCustomField struct {
+// CreateCoreHRPersonReqBankAccountCustomField ...
+type CreateCoreHRPersonReqBankAccountCustomField struct {
 	CustomApiName string `json:"custom_api_name,omitempty"` // 自定义字段 apiname, 即自定义字段的唯一标识, 示例值: "name"
 	Value         string `json:"value,omitempty"`           // 字段值, 是 json 转义后的字符串, 根据元数据定义不同, 字段格式不同（如 123, 123.23, "true", ["id1", "id2"], "2006-01-02 15:04:05"）, 示例值: "\"231\""
 }
 
-// CreateCoreHrPersonReqCustomField ...
-type CreateCoreHrPersonReqCustomField struct {
+// CreateCoreHRPersonReqCustomField ...
+type CreateCoreHRPersonReqCustomField struct {
 	CustomApiName string `json:"custom_api_name,omitempty"` // 自定义字段 apiname, 即自定义字段的唯一标识, 示例值: "name"
 	Value         string `json:"value,omitempty"`           // 字段值, 是 json 转义后的字符串, 根据元数据定义不同, 字段格式不同（如 123, 123.23, "true", ["id1", "id2"], "2006-01-02 15:04:05"）, 示例值: "\"231\""
 }
 
-// CreateCoreHrPersonReqDependent ...
-type CreateCoreHrPersonReqDependent struct {
-	Relationship                         *CreateCoreHrPersonReqDependentRelationship              `json:"relationship,omitempty"`                               // 关系
-	Gender                               *CreateCoreHrPersonReqDependentGender                    `json:"gender,omitempty"`                                     // 性别
-	DateOfBirth                          *string                                                  `json:"date_of_birth,omitempty"`                              // 生日, 示例值: "2020-01-01"
-	NationalIDList                       []*CreateCoreHrPersonReqDependentNationalID              `json:"national_id_list,omitempty"`                           // 证件号码
-	SpousesWorkingStatus                 *CreateCoreHrPersonReqDependentSpousesWorkingStatus      `json:"spouses_working_status,omitempty"`                     // 配偶工作状态
-	IsThisPersonCoveredByHealthInsurance *bool                                                    `json:"is_this_person_covered_by_health_insurance,omitempty"` // 包含家属医疗保险, 示例值: true
-	IsThisPersonAllowedForTaxDeduction   *bool                                                    `json:"is_this_person_allowed_for_tax_deduction,omitempty"`   // 允许家属抵扣税款, 示例值: false
-	CustomFields                         []*CreateCoreHrPersonReqDependentCustomField             `json:"custom_fields,omitempty"`                              // 自定义字段
-	DependentName                        *string                                                  `json:"dependent_name,omitempty"`                             // 家庭成员姓名, 示例值: "张三"
-	Employer                             *string                                                  `json:"employer,omitempty"`                                   // 工作单位, 示例值: "海淀区交警大队"
-	Job                                  *string                                                  `json:"job,omitempty"`                                        // 岗位, 示例值: "保安"
-	Phone                                *CreateCoreHrPersonReqDependentPhone                     `json:"phone,omitempty"`                                      // 电话
-	Address                              *CreateCoreHrPersonReqDependentAddress                   `json:"address,omitempty"`                                    // 联系地址
-	BirthCertificateOfChild              []*CreateCoreHrPersonReqDependentBirthCertificateOfChild `json:"birth_certificate_of_child,omitempty"`                 // 出生证明
+// CreateCoreHRPersonReqDependent ...
+type CreateCoreHRPersonReqDependent struct {
+	Relationship                         *CreateCoreHRPersonReqDependentRelationship            `json:"relationship,omitempty"`                               // 关系
+	Gender                               *CreateCoreHRPersonReqDependentGender                  `json:"gender,omitempty"`                                     // 性别
+	DateOfBirth                          *string                                                `json:"date_of_birth,omitempty"`                              // 生日, 示例值: "2020-01-01"
+	NationalIDList                       []*CreateCoreHRPersonReqDependentNationalID            `json:"national_id_list,omitempty"`                           // 证件号码
+	SpousesWorkingStatus                 *CreateCoreHRPersonReqDependentSpousesWorkingStatus    `json:"spouses_working_status,omitempty"`                     // 配偶工作状态
+	IsThisPersonCoveredByHealthInsurance *bool                                                  `json:"is_this_person_covered_by_health_insurance,omitempty"` // 包含家属医疗保险, 示例值: true
+	IsThisPersonAllowedForTaxDeduction   *bool                                                  `json:"is_this_person_allowed_for_tax_deduction,omitempty"`   // 允许家属抵扣税款, 示例值: false
+	CustomFields                         []*CreateCoreHRPersonReqDependentCustomField           `json:"custom_fields,omitempty"`                              // 自定义字段
+	DependentName                        *string                                                `json:"dependent_name,omitempty"`                             // 家庭成员姓名, 示例值: "张三"
+	Employer                             *string                                                `json:"employer,omitempty"`                                   // 工作单位, 示例值: "海淀区交警大队"
+	Job                                  *string                                                `json:"job,omitempty"`                                        // 岗位, 示例值: "保安"
+	Phone                                *CreateCoreHRPersonReqDependentPhone                   `json:"phone,omitempty"`                                      // 电话
+	Address                              *CreateCoreHRPersonReqDependentAddress                 `json:"address,omitempty"`                                    // 联系地址
+	BirthCertificateOfChild              *CreateCoreHRPersonReqDependentBirthCertificateOfChild `json:"birth_certificate_of_child,omitempty"`                 // 出生证明
 }
 
-// CreateCoreHrPersonReqDependentAddress ...
-type CreateCoreHrPersonReqDependentAddress struct {
+// CreateCoreHRPersonReqDependentAddress ...
+type CreateCoreHRPersonReqDependentAddress struct {
 	AddressID         *string                                             `json:"address_id,omitempty"`          // 地址 ID, 示例值: "6989822217869624863"
 	CountryRegionID   string                                              `json:"country_region_id,omitempty"`   // 国家 / 地区, 示例值: "6862995757234914824"
 	RegionID          *string                                             `json:"region_id,omitempty"`           // 主要行政区, 示例值: "6863326815667095047"
@@ -184,147 +184,152 @@ type CreateCoreHrPersonReqDependentAddress struct {
 	LocalAddressLine8 *string                                             `json:"local_address_line8,omitempty"` // 地址行 8（非拉丁语系的本地文字）, 示例值: "rafSu"
 	LocalAddressLine9 *string                                             `json:"local_address_line9,omitempty"` // 地址行 9（非拉丁语系的本地文字）, 示例值: "McPRG"
 	PostalCode        *string                                             `json:"postal_code,omitempty"`         // 邮政编码, 示例值: "611530"
-	CustomFields      []*CreateCoreHrPersonReqDependentAddressCustomField `json:"custom_fields,omitempty"`       // 自定义字段
+	CustomFields      []*CreateCoreHRPersonReqDependentAddressCustomField `json:"custom_fields,omitempty"`       // 自定义字段
 }
 
-// CreateCoreHrPersonReqDependentAddressCustomField ...
-type CreateCoreHrPersonReqDependentAddressCustomField struct {
+// CreateCoreHRPersonReqDependentAddressCustomField ...
+type CreateCoreHRPersonReqDependentAddressCustomField struct {
 	CustomApiName string `json:"custom_api_name,omitempty"` // 自定义字段 apiname, 即自定义字段的唯一标识, 示例值: "name"
 	Value         string `json:"value,omitempty"`           // 字段值, 是 json 转义后的字符串, 根据元数据定义不同, 字段格式不同（如 123, 123.23, "true", ["id1", "id2"], "2006-01-02 15:04:05"）, 示例值: "\"231\""
 }
 
-// CreateCoreHrPersonReqDependentCustomField ...
-type CreateCoreHrPersonReqDependentCustomField struct {
+// CreateCoreHRPersonReqDependentBirthCertificateOfChild ...
+type CreateCoreHRPersonReqDependentBirthCertificateOfChild struct {
+	ID *string `json:"id,omitempty"` // 上传文件ID, 示例值: "150018109586e8ea745e47ae8feb3722dbe1d03a181336393633393133303431393831343930373235150200"
+}
+
+// CreateCoreHRPersonReqDependentCustomField ...
+type CreateCoreHRPersonReqDependentCustomField struct {
 	CustomApiName string `json:"custom_api_name,omitempty"` // 自定义字段 apiname, 即自定义字段的唯一标识, 示例值: "name"
 	Value         string `json:"value,omitempty"`           // 字段值, 是 json 转义后的字符串, 根据元数据定义不同, 字段格式不同（如 123, 123.23, "true", ["id1", "id2"], "2006-01-02 15:04:05"）, 示例值: "\"231\""
 }
 
-// CreateCoreHrPersonReqDependentGender ...
-type CreateCoreHrPersonReqDependentGender struct {
+// CreateCoreHRPersonReqDependentGender ...
+type CreateCoreHRPersonReqDependentGender struct {
 	EnumName string `json:"enum_name,omitempty"` // 枚举值, 示例值: "phone_type"
 }
 
-// CreateCoreHrPersonReqDependentNationalID ...
-type CreateCoreHrPersonReqDependentNationalID struct {
+// CreateCoreHRPersonReqDependentNationalID ...
+type CreateCoreHRPersonReqDependentNationalID struct {
 	NationalIDTypeID string                                                 `json:"national_id_type_id,omitempty"` // 国家证件类型, 示例值: "6863330041896371725"
 	NationalIDNumber string                                                 `json:"national_id_number,omitempty"`  // 证件号码, 示例值: "1231131333"
 	IssueDate        *string                                                `json:"issue_date,omitempty"`          // 证件签发日期, 示例值: "2020-04-01"
 	ExpirationDate   *string                                                `json:"expiration_date,omitempty"`     // 证件到期日期, 示例值: "2020-05-21"
 	CountryRegionID  string                                                 `json:"country_region_id,omitempty"`   // 国家 / 地区, 示例值: "6862995757234914824"
 	IssuedBy         *string                                                `json:"issued_by,omitempty"`           // 证件签发机构, 示例值: "北京市公安局"
-	CustomFields     []*CreateCoreHrPersonReqDependentNationalIDCustomField `json:"custom_fields,omitempty"`       // 自定义字段
+	CustomFields     []*CreateCoreHRPersonReqDependentNationalIDCustomField `json:"custom_fields,omitempty"`       // 自定义字段
 }
 
-// CreateCoreHrPersonReqDependentNationalIDCustomField ...
-type CreateCoreHrPersonReqDependentNationalIDCustomField struct {
+// CreateCoreHRPersonReqDependentNationalIDCustomField ...
+type CreateCoreHRPersonReqDependentNationalIDCustomField struct {
 	CustomApiName string `json:"custom_api_name,omitempty"` // 自定义字段 apiname, 即自定义字段的唯一标识, 示例值: "name"
 	Value         string `json:"value,omitempty"`           // 字段值, 是 json 转义后的字符串, 根据元数据定义不同, 字段格式不同（如 123, 123.23, "true", ["id1", "id2"], "2006-01-02 15:04:05"）, 示例值: "\"231\""
 }
 
-// CreateCoreHrPersonReqDependentPhone ...
-type CreateCoreHrPersonReqDependentPhone struct {
-	InternationalAreaCode *CreateCoreHrPersonReqDependentPhoneInternationalAreaCode `json:"international_area_code,omitempty"` // 国家区号, 枚举值 api_name 可通过[【获取字段详情】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/custom_field/get_by_param)接口查询, 查询参数如下: object_api_name = "phone", custom_api_name = "international_area_code"
+// CreateCoreHRPersonReqDependentPhone ...
+type CreateCoreHRPersonReqDependentPhone struct {
+	InternationalAreaCode *CreateCoreHRPersonReqDependentPhoneInternationalAreaCode `json:"international_area_code,omitempty"` // 国家区号, 枚举值 api_name 可通过[【获取字段详情】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/custom_field/get_by_param)接口查询, 查询参数如下: object_api_name = "phone", custom_api_name = "international_area_code"
 	PhoneNumber           string                                                    `json:"phone_number,omitempty"`            // 电话号码, 示例值: "010-12345678"
 }
 
-// CreateCoreHrPersonReqDependentPhoneInternationalAreaCode ...
-type CreateCoreHrPersonReqDependentPhoneInternationalAreaCode struct {
+// CreateCoreHRPersonReqDependentPhoneInternationalAreaCode ...
+type CreateCoreHRPersonReqDependentPhoneInternationalAreaCode struct {
 	EnumName string `json:"enum_name,omitempty"` // 枚举值, 示例值: "phone_type"
 }
 
-// CreateCoreHrPersonReqDependentRelationship ...
-type CreateCoreHrPersonReqDependentRelationship struct {
+// CreateCoreHRPersonReqDependentRelationship ...
+type CreateCoreHRPersonReqDependentRelationship struct {
 	EnumName string `json:"enum_name,omitempty"` // 枚举值, 示例值: "phone_type"
 }
 
-// CreateCoreHrPersonReqDependentSpousesWorkingStatus ...
-type CreateCoreHrPersonReqDependentSpousesWorkingStatus struct {
+// CreateCoreHRPersonReqDependentSpousesWorkingStatus ...
+type CreateCoreHRPersonReqDependentSpousesWorkingStatus struct {
 	EnumName string `json:"enum_name,omitempty"` // 枚举值, 示例值: "phone_type"
 }
 
-// CreateCoreHrPersonReqEducation ...
-type CreateCoreHrPersonReqEducation struct {
-	School           []*CreateCoreHrPersonReqEducationSchool         `json:"school,omitempty"`              // 学校
-	LevelOfEducation *CreateCoreHrPersonReqEducationLevelOfEducation `json:"level_of_education,omitempty"`  // 学历
+// CreateCoreHRPersonReqEducation ...
+type CreateCoreHRPersonReqEducation struct {
+	School           []*CreateCoreHRPersonReqEducationSchool         `json:"school,omitempty"`              // 学校
+	LevelOfEducation *CreateCoreHRPersonReqEducationLevelOfEducation `json:"level_of_education,omitempty"`  // 学历
 	StartDate        *string                                         `json:"start_date,omitempty"`          // 开始日期, 示例值: "2011-09-01"
 	EndDate          *string                                         `json:"end_date,omitempty"`            // 结束日期, 示例值: "2015-06-30"
-	FieldOfStudy     []*CreateCoreHrPersonReqEducationFieldOfStudy   `json:"field_of_study,omitempty"`      // 专业
-	Degree           *CreateCoreHrPersonReqEducationDegree           `json:"degree,omitempty"`              // 学位
-	SchoolName       *CreateCoreHrPersonReqEducationSchoolName       `json:"school_name,omitempty"`         // 学校名称
-	FieldOfStudyName *CreateCoreHrPersonReqEducationFieldOfStudyName `json:"field_of_study_name,omitempty"` // 专业名称
+	FieldOfStudy     []*CreateCoreHRPersonReqEducationFieldOfStudy   `json:"field_of_study,omitempty"`      // 专业
+	Degree           *CreateCoreHRPersonReqEducationDegree           `json:"degree,omitempty"`              // 学位
+	SchoolName       *CreateCoreHRPersonReqEducationSchoolName       `json:"school_name,omitempty"`         // 学校名称
+	FieldOfStudyName *CreateCoreHRPersonReqEducationFieldOfStudyName `json:"field_of_study_name,omitempty"` // 专业名称
 	CountryRegionID  *string                                         `json:"country_region_id,omitempty"`   // 国家地区ID, 示例值: "1"
 	ExpectedEndDate  *string                                         `json:"expected_end_date,omitempty"`   // 预期结束日期, 示例值: "2011-09-01"
-	CustomFields     []*CreateCoreHrPersonReqEducationCustomField    `json:"custom_fields,omitempty"`       // 自定义字段
+	CustomFields     []*CreateCoreHRPersonReqEducationCustomField    `json:"custom_fields,omitempty"`       // 自定义字段
 }
 
-// CreateCoreHrPersonReqEducationCustomField ...
-type CreateCoreHrPersonReqEducationCustomField struct {
+// CreateCoreHRPersonReqEducationCustomField ...
+type CreateCoreHRPersonReqEducationCustomField struct {
 	CustomApiName string `json:"custom_api_name,omitempty"` // 自定义字段 apiname, 即自定义字段的唯一标识, 示例值: "name"
 	Value         string `json:"value,omitempty"`           // 字段值, 是 json 转义后的字符串, 根据元数据定义不同, 字段格式不同（如 123, 123.23, "true", ["id1", "id2"], "2006-01-02 15:04:05"）, 示例值: "\"231\""
 }
 
-// CreateCoreHrPersonReqEducationDegree ...
-type CreateCoreHrPersonReqEducationDegree struct {
+// CreateCoreHRPersonReqEducationDegree ...
+type CreateCoreHRPersonReqEducationDegree struct {
 	EnumName string `json:"enum_name,omitempty"` // 枚举值, 示例值: "phone_type"
 }
 
-// CreateCoreHrPersonReqEducationFieldOfStudy ...
-type CreateCoreHrPersonReqEducationFieldOfStudy struct {
+// CreateCoreHRPersonReqEducationFieldOfStudy ...
+type CreateCoreHRPersonReqEducationFieldOfStudy struct {
 	Lang  string `json:"lang,omitempty"`  // 语言, 示例值: "zh-CN"
 	Value string `json:"value,omitempty"` // 内容, 示例值: "张三"
 }
 
-// CreateCoreHrPersonReqEducationFieldOfStudyName ...
-type CreateCoreHrPersonReqEducationFieldOfStudyName struct {
+// CreateCoreHRPersonReqEducationFieldOfStudyName ...
+type CreateCoreHRPersonReqEducationFieldOfStudyName struct {
 	EnumName string `json:"enum_name,omitempty"` // 枚举值, 示例值: "phone_type"
 }
 
-// CreateCoreHrPersonReqEducationLevelOfEducation ...
-type CreateCoreHrPersonReqEducationLevelOfEducation struct {
+// CreateCoreHRPersonReqEducationLevelOfEducation ...
+type CreateCoreHRPersonReqEducationLevelOfEducation struct {
 	EnumName string `json:"enum_name,omitempty"` // 枚举值, 示例值: "phone_type"
 }
 
-// CreateCoreHrPersonReqEducationSchool ...
-type CreateCoreHrPersonReqEducationSchool struct {
+// CreateCoreHRPersonReqEducationSchool ...
+type CreateCoreHRPersonReqEducationSchool struct {
 	Lang  string `json:"lang,omitempty"`  // 语言, 示例值: "zh-CN"
 	Value string `json:"value,omitempty"` // 内容, 示例值: "张三"
 }
 
-// CreateCoreHrPersonReqEducationSchoolName ...
-type CreateCoreHrPersonReqEducationSchoolName struct {
+// CreateCoreHRPersonReqEducationSchoolName ...
+type CreateCoreHRPersonReqEducationSchoolName struct {
 	EnumName string `json:"enum_name,omitempty"` // 枚举值, 示例值: "phone_type"
 }
 
-// CreateCoreHrPersonReqEmail ...
-type CreateCoreHrPersonReqEmail struct {
+// CreateCoreHRPersonReqEmail ...
+type CreateCoreHRPersonReqEmail struct {
 	Email      string                                `json:"email,omitempty"`       // 邮箱地址, 示例值: "1234567@bytedance.com"
 	IsPrimary  *bool                                 `json:"is_primary,omitempty"`  // 是否为主要邮箱, 示例值: true
 	IsPublic   *bool                                 `json:"is_public,omitempty"`   // 是否为公开邮箱, 示例值: true
-	EmailUsage *CreateCoreHrPersonReqEmailEmailUsage `json:"email_usage,omitempty"` // 邮箱用途, 枚举值 api_name 可通过[【获取字段详情】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/custom_field/get_by_param)接口查询, 查询参数如下: object_api_name = "email", custom_api_name = "email_usage"
+	EmailUsage *CreateCoreHRPersonReqEmailEmailUsage `json:"email_usage,omitempty"` // 邮箱用途, 枚举值 api_name 可通过[【获取字段详情】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/custom_field/get_by_param)接口查询, 查询参数如下: object_api_name = "email", custom_api_name = "email_usage"
 }
 
-// CreateCoreHrPersonReqEmailEmailUsage ...
-type CreateCoreHrPersonReqEmailEmailUsage struct {
+// CreateCoreHRPersonReqEmailEmailUsage ...
+type CreateCoreHRPersonReqEmailEmailUsage struct {
 	EnumName string `json:"enum_name,omitempty"` // 枚举值, 示例值: "phone_type"
 }
 
-// CreateCoreHrPersonReqEmergencyContact ...
-type CreateCoreHrPersonReqEmergencyContact struct {
-	Name         *CreateCoreHrPersonReqEmergencyContactName         `json:"name,omitempty"`         // 姓名
-	Relationship *CreateCoreHrPersonReqEmergencyContactRelationship `json:"relationship,omitempty"` // 关系
-	PhoneIst     []*CreateCoreHrPersonReqEmergencyContactPhoneIst   `json:"phone_ist,omitempty"`    // 电话
+// CreateCoreHRPersonReqEmergencyContact ...
+type CreateCoreHRPersonReqEmergencyContact struct {
+	Name         *CreateCoreHRPersonReqEmergencyContactName         `json:"name,omitempty"`         // 姓名
+	Relationship *CreateCoreHRPersonReqEmergencyContactRelationship `json:"relationship,omitempty"` // 关系
+	PhoneIst     []*CreateCoreHRPersonReqEmergencyContactPhoneIst   `json:"phone_ist,omitempty"`    // 电话
 	LegalName    *string                                            `json:"legal_name,omitempty"`   // 法定姓名, 示例值: "张三"
 }
 
-// CreateCoreHrPersonReqEmergencyContactName ...
-type CreateCoreHrPersonReqEmergencyContactName struct {
+// CreateCoreHRPersonReqEmergencyContactName ...
+type CreateCoreHRPersonReqEmergencyContactName struct {
 	LocalPrimary       *string                                                      `json:"local_primary,omitempty"`        // 姓 - 本地文字, 示例值: "黄"
 	LocalFirstName     *string                                                      `json:"local_first_name,omitempty"`     // 名 - 本地文字, 示例值: "四"
 	CountryRegionID    string                                                       `json:"country_region_id,omitempty"`    // 国家 / 地区, 示例值: "6862995757234914824"
-	NameType           *CreateCoreHrPersonReqEmergencyContactNameNameType           `json:"name_type,omitempty"`            // 姓名类型
+	NameType           *CreateCoreHRPersonReqEmergencyContactNameNameType           `json:"name_type,omitempty"`            // 姓名类型
 	LocalFirstName2    *string                                                      `json:"local_first_name_2,omitempty"`   // 名 - 第二本地文字, 示例值: "五"
 	LocalPrimary2      *string                                                      `json:"local_primary_2,omitempty"`      // 姓 - 第二本地文字, 示例值: "王"
-	AdditionalNameType *CreateCoreHrPersonReqEmergencyContactNameAdditionalNameType `json:"additional_name_type,omitempty"` // 补充姓名类型
+	AdditionalNameType *CreateCoreHRPersonReqEmergencyContactNameAdditionalNameType `json:"additional_name_type,omitempty"` // 补充姓名类型
 	FirstName          *string                                                      `json:"first_name,omitempty"`           // 名, 示例值: "帅"
 	FullName           *string                                                      `json:"full_name,omitempty"`            // 全名, 示例值: "王大帅"
 	Hereditary         *string                                                      `json:"hereditary,omitempty"`           // 姓氏称谓, 示例值: "王"
@@ -333,73 +338,73 @@ type CreateCoreHrPersonReqEmergencyContactName struct {
 	MiddleName         *string                                                      `json:"middle_name,omitempty"`          // 中间名, 示例值: "大"
 	NamePrimary        *string                                                      `json:"name_primary,omitempty"`         // 姓, 示例值: "王"
 	Secondary          *string                                                      `json:"secondary,omitempty"`            // 第二姓氏, 示例值: "王"
-	Social             *CreateCoreHrPersonReqEmergencyContactNameSocial             `json:"social,omitempty"`               // 尊称, 示例值: 王大帅
+	Social             *CreateCoreHRPersonReqEmergencyContactNameSocial             `json:"social,omitempty"`               // 尊称, 示例值: 王大帅
 	Tertiary           *string                                                      `json:"tertiary,omitempty"`             // 婚后姓氏, 示例值: "王"
-	Title              *CreateCoreHrPersonReqEmergencyContactNameTitle              `json:"title,omitempty"`                // 头衔, 示例值: 王
+	Title              *CreateCoreHRPersonReqEmergencyContactNameTitle              `json:"title,omitempty"`                // 头衔, 示例值: 王
 	LocalMiddleName    *string                                                      `json:"local_middle_name,omitempty"`    // 本地中间名, 示例值: "大"
 	LocalSecondary     *string                                                      `json:"local_secondary,omitempty"`      // 第二姓氏 - 本地文字, 示例值: "王"
 }
 
-// CreateCoreHrPersonReqEmergencyContactNameAdditionalNameType ...
-type CreateCoreHrPersonReqEmergencyContactNameAdditionalNameType struct {
+// CreateCoreHRPersonReqEmergencyContactNameAdditionalNameType ...
+type CreateCoreHRPersonReqEmergencyContactNameAdditionalNameType struct {
 	EnumName string `json:"enum_name,omitempty"` // 枚举值, 示例值: "phone_type"
 }
 
-// CreateCoreHrPersonReqEmergencyContactNameNameType ...
-type CreateCoreHrPersonReqEmergencyContactNameNameType struct {
+// CreateCoreHRPersonReqEmergencyContactNameNameType ...
+type CreateCoreHRPersonReqEmergencyContactNameNameType struct {
 	EnumName string `json:"enum_name,omitempty"` // 枚举值, 示例值: "phone_type"
 }
 
-// CreateCoreHrPersonReqEmergencyContactNameSocial ...
-type CreateCoreHrPersonReqEmergencyContactNameSocial struct {
+// CreateCoreHRPersonReqEmergencyContactNameSocial ...
+type CreateCoreHRPersonReqEmergencyContactNameSocial struct {
 	EnumName string `json:"enum_name,omitempty"` // 枚举值, 示例值: "phone_type"
 }
 
-// CreateCoreHrPersonReqEmergencyContactNameTitle ...
-type CreateCoreHrPersonReqEmergencyContactNameTitle struct {
+// CreateCoreHRPersonReqEmergencyContactNameTitle ...
+type CreateCoreHRPersonReqEmergencyContactNameTitle struct {
 	EnumName string `json:"enum_name,omitempty"` // 枚举值, 示例值: "phone_type"
 }
 
-// CreateCoreHrPersonReqEmergencyContactPhoneIst ...
-type CreateCoreHrPersonReqEmergencyContactPhoneIst struct {
-	InternationalAreaCode *CreateCoreHrPersonReqEmergencyContactPhoneIstInternationalAreaCode `json:"international_area_code,omitempty"` // 国家区号, 枚举值 api_name 可通过[【获取字段详情】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/custom_field/get_by_param)接口查询, 查询参数如下: object_api_name = "phone", custom_api_name = "international_area_code"
+// CreateCoreHRPersonReqEmergencyContactPhoneIst ...
+type CreateCoreHRPersonReqEmergencyContactPhoneIst struct {
+	InternationalAreaCode *CreateCoreHRPersonReqEmergencyContactPhoneIstInternationalAreaCode `json:"international_area_code,omitempty"` // 国家区号, 枚举值 api_name 可通过[【获取字段详情】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/custom_field/get_by_param)接口查询, 查询参数如下: object_api_name = "phone", custom_api_name = "international_area_code"
 	PhoneNumber           string                                                              `json:"phone_number,omitempty"`            // 电话号码, 示例值: "010-12345678"
 }
 
-// CreateCoreHrPersonReqEmergencyContactPhoneIstInternationalAreaCode ...
-type CreateCoreHrPersonReqEmergencyContactPhoneIstInternationalAreaCode struct {
+// CreateCoreHRPersonReqEmergencyContactPhoneIstInternationalAreaCode ...
+type CreateCoreHRPersonReqEmergencyContactPhoneIstInternationalAreaCode struct {
 	EnumName string `json:"enum_name,omitempty"` // 枚举值, 示例值: "phone_type"
 }
 
-// CreateCoreHrPersonReqEmergencyContactRelationship ...
-type CreateCoreHrPersonReqEmergencyContactRelationship struct {
+// CreateCoreHRPersonReqEmergencyContactRelationship ...
+type CreateCoreHRPersonReqEmergencyContactRelationship struct {
 	EnumName string `json:"enum_name,omitempty"` // 枚举值, 示例值: "phone_type"
 }
 
-// CreateCoreHrPersonReqGender ...
-type CreateCoreHrPersonReqGender struct {
+// CreateCoreHRPersonReqGender ...
+type CreateCoreHRPersonReqGender struct {
 	EnumName string `json:"enum_name,omitempty"` // 枚举值, 示例值: "phone_type"
 }
 
-// CreateCoreHrPersonReqHukouType ...
-type CreateCoreHrPersonReqHukouType struct {
+// CreateCoreHRPersonReqHukouType ...
+type CreateCoreHRPersonReqHukouType struct {
 	EnumName string `json:"enum_name,omitempty"` // 枚举值, 示例值: "phone_type"
 }
 
-// CreateCoreHrPersonReqMaritalStatus ...
-type CreateCoreHrPersonReqMaritalStatus struct {
+// CreateCoreHRPersonReqMaritalStatus ...
+type CreateCoreHRPersonReqMaritalStatus struct {
 	EnumName string `json:"enum_name,omitempty"` // 枚举值, 示例值: "phone_type"
 }
 
-// CreateCoreHrPersonReqName ...
-type CreateCoreHrPersonReqName struct {
+// CreateCoreHRPersonReqName ...
+type CreateCoreHRPersonReqName struct {
 	LocalPrimary       *string                                      `json:"local_primary,omitempty"`        // 姓 - 本地文字, 示例值: "黄"
 	LocalFirstName     *string                                      `json:"local_first_name,omitempty"`     // 名 - 本地文字, 示例值: "四"
 	CountryRegionID    string                                       `json:"country_region_id,omitempty"`    // 国家 / 地区, 示例值: "6862995757234914824"
-	NameType           *CreateCoreHrPersonReqNameNameType           `json:"name_type,omitempty"`            // 姓名类型
+	NameType           *CreateCoreHRPersonReqNameNameType           `json:"name_type,omitempty"`            // 姓名类型
 	LocalFirstName2    *string                                      `json:"local_first_name_2,omitempty"`   // 名 - 第二本地文字, 示例值: "五"
 	LocalPrimary2      *string                                      `json:"local_primary_2,omitempty"`      // 姓 - 第二本地文字, 示例值: "王"
-	AdditionalNameType *CreateCoreHrPersonReqNameAdditionalNameType `json:"additional_name_type,omitempty"` // 补充姓名类型
+	AdditionalNameType *CreateCoreHRPersonReqNameAdditionalNameType `json:"additional_name_type,omitempty"` // 补充姓名类型
 	FirstName          *string                                      `json:"first_name,omitempty"`           // 名, 示例值: "帅"
 	FullName           *string                                      `json:"full_name,omitempty"`            // 全名, 示例值: "王大帅"
 	Hereditary         *string                                      `json:"hereditary,omitempty"`           // 姓氏称谓, 示例值: "王"
@@ -408,166 +413,166 @@ type CreateCoreHrPersonReqName struct {
 	MiddleName         *string                                      `json:"middle_name,omitempty"`          // 中间名, 示例值: "大"
 	NamePrimary        *string                                      `json:"name_primary,omitempty"`         // 姓, 示例值: "王"
 	Secondary          *string                                      `json:"secondary,omitempty"`            // 第二姓氏, 示例值: "王"
-	Social             *CreateCoreHrPersonReqNameSocial             `json:"social,omitempty"`               // 尊称, 示例值: 王大帅
+	Social             *CreateCoreHRPersonReqNameSocial             `json:"social,omitempty"`               // 尊称, 示例值: 王大帅
 	Tertiary           *string                                      `json:"tertiary,omitempty"`             // 婚后姓氏, 示例值: "王"
-	Title              *CreateCoreHrPersonReqNameTitle              `json:"title,omitempty"`                // 头衔, 示例值: 王
+	Title              *CreateCoreHRPersonReqNameTitle              `json:"title,omitempty"`                // 头衔, 示例值: 王
 	LocalMiddleName    *string                                      `json:"local_middle_name,omitempty"`    // 本地中间名, 示例值: "大"
 	LocalSecondary     *string                                      `json:"local_secondary,omitempty"`      // 第二姓氏 - 本地文字, 示例值: "王"
 }
 
-// CreateCoreHrPersonReqNameAdditionalNameType ...
-type CreateCoreHrPersonReqNameAdditionalNameType struct {
+// CreateCoreHRPersonReqNameAdditionalNameType ...
+type CreateCoreHRPersonReqNameAdditionalNameType struct {
 	EnumName string `json:"enum_name,omitempty"` // 枚举值, 示例值: "phone_type"
 }
 
-// CreateCoreHrPersonReqNameNameType ...
-type CreateCoreHrPersonReqNameNameType struct {
+// CreateCoreHRPersonReqNameNameType ...
+type CreateCoreHRPersonReqNameNameType struct {
 	EnumName string `json:"enum_name,omitempty"` // 枚举值, 示例值: "phone_type"
 }
 
-// CreateCoreHrPersonReqNameSocial ...
-type CreateCoreHrPersonReqNameSocial struct {
+// CreateCoreHRPersonReqNameSocial ...
+type CreateCoreHRPersonReqNameSocial struct {
 	EnumName string `json:"enum_name,omitempty"` // 枚举值, 示例值: "phone_type"
 }
 
-// CreateCoreHrPersonReqNameTitle ...
-type CreateCoreHrPersonReqNameTitle struct {
+// CreateCoreHRPersonReqNameTitle ...
+type CreateCoreHRPersonReqNameTitle struct {
 	EnumName string `json:"enum_name,omitempty"` // 枚举值, 示例值: "phone_type"
 }
 
-// CreateCoreHrPersonReqNationalID ...
-type CreateCoreHrPersonReqNationalID struct {
+// CreateCoreHRPersonReqNationalID ...
+type CreateCoreHRPersonReqNationalID struct {
 	NationalIDTypeID string                                        `json:"national_id_type_id,omitempty"` // 国家证件类型, 示例值: "6863330041896371725"
 	NationalIDNumber string                                        `json:"national_id_number,omitempty"`  // 证件号码, 示例值: "1231131333"
 	IssueDate        *string                                       `json:"issue_date,omitempty"`          // 证件签发日期, 示例值: "2020-04-01"
 	ExpirationDate   *string                                       `json:"expiration_date,omitempty"`     // 证件到期日期, 示例值: "2020-05-21"
 	CountryRegionID  string                                        `json:"country_region_id,omitempty"`   // 国家 / 地区, 示例值: "6862995757234914824"
 	IssuedBy         *string                                       `json:"issued_by,omitempty"`           // 证件签发机构, 示例值: "北京市公安局"
-	CustomFields     []*CreateCoreHrPersonReqNationalIDCustomField `json:"custom_fields,omitempty"`       // 自定义字段
+	CustomFields     []*CreateCoreHRPersonReqNationalIDCustomField `json:"custom_fields,omitempty"`       // 自定义字段
 }
 
-// CreateCoreHrPersonReqNationalIDCustomField ...
-type CreateCoreHrPersonReqNationalIDCustomField struct {
+// CreateCoreHRPersonReqNationalIDCustomField ...
+type CreateCoreHRPersonReqNationalIDCustomField struct {
 	CustomApiName string `json:"custom_api_name,omitempty"` // 自定义字段 apiname, 即自定义字段的唯一标识, 示例值: "name"
 	Value         string `json:"value,omitempty"`           // 字段值, 是 json 转义后的字符串, 根据元数据定义不同, 字段格式不同（如 123, 123.23, "true", ["id1", "id2"], "2006-01-02 15:04:05"）, 示例值: "\"231\""
 }
 
-// CreateCoreHrPersonReqPersonalProfile ...
-type CreateCoreHrPersonReqPersonalProfile struct {
+// CreateCoreHRPersonReqPersonalProfile ...
+type CreateCoreHRPersonReqPersonalProfile struct {
 	PersonalProfileID   *string                                                  `json:"personal_profile_id,omitempty"`   // 个人资料 ID, 示例值: "150018109586e8ea745e47ae8feb3722dbe1d03a181336393633393133303431393831343930373235150200"
-	PersonalProfileType *CreateCoreHrPersonReqPersonalProfilePersonalProfileType `json:"personal_profile_type,omitempty"` // 资料类型
-	Files               []*CreateCoreHrPersonReqPersonalProfileFile              `json:"files,omitempty"`                 // 上传文件列表
+	PersonalProfileType *CreateCoreHRPersonReqPersonalProfilePersonalProfileType `json:"personal_profile_type,omitempty"` // 资料类型
+	Files               []*CreateCoreHRPersonReqPersonalProfileFile              `json:"files,omitempty"`                 // 上传文件列表
 }
 
-// CreateCoreHrPersonReqPersonalProfileFile ...
-type CreateCoreHrPersonReqPersonalProfileFile struct {
+// CreateCoreHRPersonReqPersonalProfileFile ...
+type CreateCoreHRPersonReqPersonalProfileFile struct {
 	ID *string `json:"id,omitempty"` // 上传文件ID, 示例值: "150018109586e8ea745e47ae8feb3722dbe1d03a181336393633393133303431393831343930373235150200"
 }
 
-// CreateCoreHrPersonReqPersonalProfilePersonalProfileType ...
-type CreateCoreHrPersonReqPersonalProfilePersonalProfileType struct {
+// CreateCoreHRPersonReqPersonalProfilePersonalProfileType ...
+type CreateCoreHRPersonReqPersonalProfilePersonalProfileType struct {
 	EnumName string `json:"enum_name,omitempty"` // 枚举值, 示例值: "phone_type"
 }
 
-// CreateCoreHrPersonReqPhone ...
-type CreateCoreHrPersonReqPhone struct {
-	InternationalAreaCode *CreateCoreHrPersonReqPhoneInternationalAreaCode `json:"international_area_code,omitempty"` // 国家区号
+// CreateCoreHRPersonReqPhone ...
+type CreateCoreHRPersonReqPhone struct {
+	InternationalAreaCode *CreateCoreHRPersonReqPhoneInternationalAreaCode `json:"international_area_code,omitempty"` // 国家区号
 	PhoneNumber           string                                           `json:"phone_number,omitempty"`            // 电话号码, 示例值: "010-12345678"
 }
 
-// CreateCoreHrPersonReqPhoneInternationalAreaCode ...
-type CreateCoreHrPersonReqPhoneInternationalAreaCode struct {
+// CreateCoreHRPersonReqPhoneInternationalAreaCode ...
+type CreateCoreHRPersonReqPhoneInternationalAreaCode struct {
 	EnumName string `json:"enum_name,omitempty"` // 枚举值, 示例值: "phone_type"
 }
 
-// CreateCoreHrPersonReqRace ...
-type CreateCoreHrPersonReqRace struct {
+// CreateCoreHRPersonReqRace ...
+type CreateCoreHRPersonReqRace struct {
 	EnumName string `json:"enum_name,omitempty"` // 枚举值, 示例值: "phone_type"
 }
 
-// CreateCoreHrPersonReqWorkExperience ...
-type CreateCoreHrPersonReqWorkExperience struct {
-	CompanyOrganization []*CreateCoreHrPersonReqWorkExperienceCompanyOrganization `json:"company_organization,omitempty"` // 公司 / 组织
-	Department          []*CreateCoreHrPersonReqWorkExperienceDepartment          `json:"department,omitempty"`           // 部门
-	Job                 []*CreateCoreHrPersonReqWorkExperienceJob                 `json:"job,omitempty"`                  // 岗位
-	Description         []*CreateCoreHrPersonReqWorkExperienceDescription         `json:"description,omitempty"`          // 工作描述
+// CreateCoreHRPersonReqWorkExperience ...
+type CreateCoreHRPersonReqWorkExperience struct {
+	CompanyOrganization []*CreateCoreHRPersonReqWorkExperienceCompanyOrganization `json:"company_organization,omitempty"` // 公司 / 组织
+	Department          []*CreateCoreHRPersonReqWorkExperienceDepartment          `json:"department,omitempty"`           // 部门
+	Job                 []*CreateCoreHRPersonReqWorkExperienceJob                 `json:"job,omitempty"`                  // 岗位
+	Description         []*CreateCoreHRPersonReqWorkExperienceDescription         `json:"description,omitempty"`          // 工作描述
 	StartDate           *string                                                   `json:"start_date,omitempty"`           // 开始日期, 示例值: "2020-01-01"
 	EndDate             *string                                                   `json:"end_date,omitempty"`             // 结束日期, 示例值: "2020-01-01"
-	CustomFields        []*CreateCoreHrPersonReqWorkExperienceCustomField         `json:"custom_fields,omitempty"`        // 自定义字段
+	CustomFields        []*CreateCoreHRPersonReqWorkExperienceCustomField         `json:"custom_fields,omitempty"`        // 自定义字段
 }
 
-// CreateCoreHrPersonReqWorkExperienceCompanyOrganization ...
-type CreateCoreHrPersonReqWorkExperienceCompanyOrganization struct {
+// CreateCoreHRPersonReqWorkExperienceCompanyOrganization ...
+type CreateCoreHRPersonReqWorkExperienceCompanyOrganization struct {
 	Lang  string `json:"lang,omitempty"`  // 语言, 示例值: "zh-CN"
 	Value string `json:"value,omitempty"` // 内容, 示例值: "张三"
 }
 
-// CreateCoreHrPersonReqWorkExperienceCustomField ...
-type CreateCoreHrPersonReqWorkExperienceCustomField struct {
+// CreateCoreHRPersonReqWorkExperienceCustomField ...
+type CreateCoreHRPersonReqWorkExperienceCustomField struct {
 	CustomApiName string `json:"custom_api_name,omitempty"` // 自定义字段 apiname, 即自定义字段的唯一标识, 示例值: "name"
 	Value         string `json:"value,omitempty"`           // 字段值, 是 json 转义后的字符串, 根据元数据定义不同, 字段格式不同（如 123, 123.23, "true", ["id1", "id2"], "2006-01-02 15:04:05"）, 示例值: "\"231\""
 }
 
-// CreateCoreHrPersonReqWorkExperienceDepartment ...
-type CreateCoreHrPersonReqWorkExperienceDepartment struct {
+// CreateCoreHRPersonReqWorkExperienceDepartment ...
+type CreateCoreHRPersonReqWorkExperienceDepartment struct {
 	Lang  string `json:"lang,omitempty"`  // 语言, 示例值: "zh-CN"
 	Value string `json:"value,omitempty"` // 内容, 示例值: "张三"
 }
 
-// CreateCoreHrPersonReqWorkExperienceDescription ...
-type CreateCoreHrPersonReqWorkExperienceDescription struct {
+// CreateCoreHRPersonReqWorkExperienceDescription ...
+type CreateCoreHRPersonReqWorkExperienceDescription struct {
 	Lang  string `json:"lang,omitempty"`  // 语言, 示例值: "zh-CN"
 	Value string `json:"value,omitempty"` // 内容, 示例值: "张三"
 }
 
-// CreateCoreHrPersonReqWorkExperienceJob ...
-type CreateCoreHrPersonReqWorkExperienceJob struct {
+// CreateCoreHRPersonReqWorkExperienceJob ...
+type CreateCoreHRPersonReqWorkExperienceJob struct {
 	Lang  string `json:"lang,omitempty"`  // 语言, 示例值: "zh-CN"
 	Value string `json:"value,omitempty"` // 内容, 示例值: "张三"
 }
 
-// CreateCoreHrPersonResp ...
-type CreateCoreHrPersonResp struct {
-	Person *CreateCoreHrPersonRespPerson `json:"person,omitempty"` // 个人信息
+// CreateCoreHRPersonResp ...
+type CreateCoreHRPersonResp struct {
+	Person *CreateCoreHRPersonRespPerson `json:"person,omitempty"` // 个人信息
 }
 
-// CreateCoreHrPersonRespPerson ...
-type CreateCoreHrPersonRespPerson struct {
+// CreateCoreHRPersonRespPerson ...
+type CreateCoreHRPersonRespPerson struct {
 	PersonID                 string                                                `json:"person_id,omitempty"`                   // 个人信息 ID
 	PhoneNumber              string                                                `json:"phone_number,omitempty"`                // 个人电话, 字段权限要求（满足任一）: 获取个人手机号信息, 读写个人手机号信息
 	LegalName                string                                                `json:"legal_name,omitempty"`                  // 法定姓名, 字段权限要求（满足任一）: 获取法定姓名信息, 读写法定姓名信息
 	PreferredName            string                                                `json:"preferred_name,omitempty"`              // 常用名
-	NameList                 []*CreateCoreHrPersonRespPersonName                   `json:"name_list,omitempty"`                   // 姓名列表, 字段权限要求（满足任一）: 获取法定姓名信息, 读写法定姓名信息
-	Gender                   *CreateCoreHrPersonRespPersonGender                   `json:"gender,omitempty"`                      // 性别, 枚举值可通过文档【飞书人事枚举常量】性别（gender）枚举定义部分获得, 字段权限要求（满足任一）: 获取性别信息, 读写性别信息
+	NameList                 []*CreateCoreHRPersonRespPersonName                   `json:"name_list,omitempty"`                   // 姓名列表, 字段权限要求（满足任一）: 获取法定姓名信息, 读写法定姓名信息
+	Gender                   *CreateCoreHRPersonRespPersonGender                   `json:"gender,omitempty"`                      // 性别, 枚举值可通过文档【飞书人事枚举常量】性别（gender）枚举定义部分获得, 字段权限要求（满足任一）: 获取性别信息, 读写性别信息
 	DateOfBirth              string                                                `json:"date_of_birth,omitempty"`               // 出生日期, 字段权限要求（满足任一）: 获取生日信息, 读写生日信息
-	Race                     *CreateCoreHrPersonRespPersonRace                     `json:"race,omitempty"`                        // 民族 / 种族, 枚举值 api_name 可通过[【获取字段详情】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/custom_field/get_by_param)接口查询, 查询参数如下: object_api_name = "person", custom_api_name = "race", 字段权限要求: 获取民族/种族信息
-	MaritalStatus            *CreateCoreHrPersonRespPersonMaritalStatus            `json:"marital_status,omitempty"`              // 婚姻状况, 枚举值 api_name 可通过[【获取字段详情】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/custom_field/get_by_param)接口查询, 查询参数如下: object_api_name = "person", custom_api_name = "marital_status", <b>字段权限要求: </b>, 读写婚姻状况信息(corehr:person.marital_status:write), 字段权限要求（满足任一）: 获取婚姻状况信息, 读写婚姻状况信息
-	PhoneList                []*CreateCoreHrPersonRespPersonPhone                  `json:"phone_list,omitempty"`                  // 电话列表, 只有当满足下面所有条件时, 电话在个人信息页才可见: 电话号码不为空, is_primary = "true", phone_usage = "home", <b>字段权限要求: </b>, 读写个人手机号信息(corehr:person.phone:write), 字段权限要求（满足任一）: 获取个人手机号信息, 读写个人手机号信息
-	AddressList              []*CreateCoreHrPersonRespPersonAddress                `json:"address_list,omitempty"`                // 地址列表, 字段权限要求（满足任一）: 读取个人地址信息, 读写个人地址信息
-	EmailList                []*CreateCoreHrPersonRespPersonEmail                  `json:"email_list,omitempty"`                  // 邮箱列表, 字段权限要求（满足任一）: 获取个人邮箱信息, 读写个人邮箱信息
-	WorkExperienceList       []*CreateCoreHrPersonRespPersonWorkExperience         `json:"work_experience_list,omitempty"`        // 工作经历列表, 字段权限要求（满足任一）: 获取工作履历信息, 读写工作履历信息
-	EducationList            []*CreateCoreHrPersonRespPersonEducation              `json:"education_list,omitempty"`              // 教育经历列表, 字段权限要求（满足任一）: 获取教育经历信息, 读写教育经历信息
-	BankAccountList          []*CreateCoreHrPersonRespPersonBankAccount            `json:"bank_account_list,omitempty"`           // 银行账户, 字段权限要求（满足任一）: 获取银行账号列表信息, 读写银行账号信息
-	NationalIDList           []*CreateCoreHrPersonRespPersonNationalID             `json:"national_id_list,omitempty"`            // 证件, 字段权限要求（满足任一）: 获取证件信息, 读写证件信息
-	DependentList            []*CreateCoreHrPersonRespPersonDependent              `json:"dependent_list,omitempty"`              // 家庭成员列表, 字段权限要求（满足任一）: 获取家庭成员信息, 读写家庭成员信息
-	EmergencyContactList     []*CreateCoreHrPersonRespPersonEmergencyContact       `json:"emergency_contact_list,omitempty"`      // 紧急联系人列表, 字段权限要求（满足任一）: 获取紧急联系人信息, 读写紧急联系人信息
+	Race                     *CreateCoreHRPersonRespPersonRace                     `json:"race,omitempty"`                        // 民族 / 种族, 枚举值 api_name 可通过[【获取字段详情】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/custom_field/get_by_param)接口查询, 查询参数如下: object_api_name = "person", custom_api_name = "race", 字段权限要求: 获取民族/种族信息
+	MaritalStatus            *CreateCoreHRPersonRespPersonMaritalStatus            `json:"marital_status,omitempty"`              // 婚姻状况, 枚举值 api_name 可通过[【获取字段详情】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/custom_field/get_by_param)接口查询, 查询参数如下: object_api_name = "person", custom_api_name = "marital_status", <b>字段权限要求: </b>, 读写婚姻状况信息(corehr:person.marital_status:write), 字段权限要求（满足任一）: 获取婚姻状况信息, 读写婚姻状况信息
+	PhoneList                []*CreateCoreHRPersonRespPersonPhone                  `json:"phone_list,omitempty"`                  // 电话列表, 只有当满足下面所有条件时, 电话在个人信息页才可见: 电话号码不为空, is_primary = "true", phone_usage = "home", <b>字段权限要求: </b>, 读写个人手机号信息(corehr:person.phone:write), 字段权限要求（满足任一）: 获取个人手机号信息, 读写个人手机号信息
+	AddressList              []*CreateCoreHRPersonRespPersonAddress                `json:"address_list,omitempty"`                // 地址列表, 字段权限要求（满足任一）: 读取个人地址信息, 读写个人地址信息
+	EmailList                []*CreateCoreHRPersonRespPersonEmail                  `json:"email_list,omitempty"`                  // 邮箱列表, 字段权限要求（满足任一）: 获取个人邮箱信息, 读写个人邮箱信息
+	WorkExperienceList       []*CreateCoreHRPersonRespPersonWorkExperience         `json:"work_experience_list,omitempty"`        // 工作经历列表, 字段权限要求（满足任一）: 获取工作履历信息, 读写工作履历信息
+	EducationList            []*CreateCoreHRPersonRespPersonEducation              `json:"education_list,omitempty"`              // 教育经历列表, 字段权限要求（满足任一）: 获取教育经历信息, 读写教育经历信息
+	BankAccountList          []*CreateCoreHRPersonRespPersonBankAccount            `json:"bank_account_list,omitempty"`           // 银行账户, 字段权限要求（满足任一）: 获取银行账号列表信息, 读写银行账号信息
+	NationalIDList           []*CreateCoreHRPersonRespPersonNationalID             `json:"national_id_list,omitempty"`            // 证件, 字段权限要求（满足任一）: 获取证件信息, 读写证件信息
+	DependentList            []*CreateCoreHRPersonRespPersonDependent              `json:"dependent_list,omitempty"`              // 家庭成员列表, 字段权限要求（满足任一）: 获取家庭成员信息, 读写家庭成员信息
+	EmergencyContactList     []*CreateCoreHRPersonRespPersonEmergencyContact       `json:"emergency_contact_list,omitempty"`      // 紧急联系人列表, 字段权限要求（满足任一）: 获取紧急联系人信息, 读写紧急联系人信息
 	DateEnteredWorkforce     string                                                `json:"date_entered_workforce,omitempty"`      // 参加工作日期, 字段权限要求（满足任一）: 获取参加工作日期, 读写参加工作日期
 	WorkingYears             int64                                                 `json:"working_years,omitempty"`               // 工龄
 	ProfileImageID           string                                                `json:"profile_image_id,omitempty"`            // 头像资源的 ID
 	EmailAddress             string                                                `json:"email_address,omitempty"`               // 邮箱地址, 字段权限要求（满足任一）: 获取个人邮箱信息, 读写个人邮箱信息
 	Age                      int64                                                 `json:"age,omitempty"`                         // 年龄, 字段权限要求（满足任一）: 获取生日信息, 读写生日信息
-	HighestLevelOfEducation  *CreateCoreHrPersonRespPersonHighestLevelOfEducation  `json:"highest_level_of_education,omitempty"`  // 最高学历教育经历, 字段权限要求（满足任一）: 获取教育经历信息, 读写教育经历信息
-	HighestDegreeOfEducation *CreateCoreHrPersonRespPersonHighestDegreeOfEducation `json:"highest_degree_of_education,omitempty"` // 最高学位教育经历, 字段权限要求（满足任一）: 获取教育经历信息, 读写教育经历信息
-	PersonalProfile          []*CreateCoreHrPersonRespPersonPersonalProfile        `json:"personal_profile,omitempty"`            // 个人资料附件, 字段权限要求（满足任一）: 获取个人资料信息, 读写个人资料信息
+	HighestLevelOfEducation  *CreateCoreHRPersonRespPersonHighestLevelOfEducation  `json:"highest_level_of_education,omitempty"`  // 最高学历教育经历, 字段权限要求（满足任一）: 获取教育经历信息, 读写教育经历信息
+	HighestDegreeOfEducation *CreateCoreHRPersonRespPersonHighestDegreeOfEducation `json:"highest_degree_of_education,omitempty"` // 最高学位教育经历, 字段权限要求（满足任一）: 获取教育经历信息, 读写教育经历信息
+	PersonalProfile          []*CreateCoreHRPersonRespPersonPersonalProfile        `json:"personal_profile,omitempty"`            // 个人资料附件, 字段权限要求（满足任一）: 获取个人资料信息, 读写个人资料信息
 	NativeRegion             string                                                `json:"native_region,omitempty"`               // 籍贯 ID, 字段权限要求（满足任一）: 获取籍贯信息, 读写籍贯信息
-	HukouType                *CreateCoreHrPersonRespPersonHukouType                `json:"hukou_type,omitempty"`                  // 户口类型, 枚举值可通过文档【飞书人事枚举常量】户口类型（hukou_type）枚举定义部分获得, 字段权限要求（满足任一）: 获取户口信息, 读写户口信息
+	HukouType                *CreateCoreHRPersonRespPersonHukouType                `json:"hukou_type,omitempty"`                  // 户口类型, 枚举值可通过文档【飞书人事枚举常量】户口类型（hukou_type）枚举定义部分获得, 字段权限要求（满足任一）: 获取户口信息, 读写户口信息
 	HukouLocation            string                                                `json:"hukou_location,omitempty"`              // 户口所在地, 字段权限要求（满足任一）: 获取户口信息, 读写户口信息
 	TalentID                 string                                                `json:"talent_id,omitempty"`                   // 人才ID
-	CustomFields             []*CreateCoreHrPersonRespPersonCustomField            `json:"custom_fields,omitempty"`               // 自定义字段, 字段权限要求: 获取个人信息自定义字段信息
+	CustomFields             []*CreateCoreHRPersonRespPersonCustomField            `json:"custom_fields,omitempty"`               // 自定义字段, 字段权限要求: 获取个人信息自定义字段信息
 }
 
-// CreateCoreHrPersonRespPersonAddress ...
-type CreateCoreHrPersonRespPersonAddress struct {
+// CreateCoreHRPersonRespPersonAddress ...
+type CreateCoreHRPersonRespPersonAddress struct {
 	FullAddressLocalScript   string                                            `json:"full_address_local_script,omitempty"`   // 完整地址（本地文字）
 	FullAddressWesternScript string                                            `json:"full_address_western_script,omitempty"` // 完整地址（西方文字）
 	AddressID                string                                            `json:"address_id,omitempty"`                  // 地址 ID
@@ -583,124 +588,124 @@ type CreateCoreHrPersonRespPersonAddress struct {
 	LocalAddressLine8        string                                            `json:"local_address_line8,omitempty"`         // 地址行 8（非拉丁语系的本地文字）
 	LocalAddressLine9        string                                            `json:"local_address_line9,omitempty"`         // 地址行 9（非拉丁语系的本地文字）
 	PostalCode               string                                            `json:"postal_code,omitempty"`                 // 邮政编码
-	AddressTypeList          []*CreateCoreHrPersonRespPersonAddressAddressType `json:"address_type_list,omitempty"`           // 地址类型
+	AddressTypeList          []*CreateCoreHRPersonRespPersonAddressAddressType `json:"address_type_list,omitempty"`           // 地址类型
 	IsPrimary                bool                                              `json:"is_primary,omitempty"`                  // 主要地址
 	IsPublic                 bool                                              `json:"is_public,omitempty"`                   // 公开地址
-	CustomFields             []*CreateCoreHrPersonRespPersonAddressCustomField `json:"custom_fields,omitempty"`               // 自定义字段
+	CustomFields             []*CreateCoreHRPersonRespPersonAddressCustomField `json:"custom_fields,omitempty"`               // 自定义字段
 }
 
-// CreateCoreHrPersonRespPersonAddressAddressType ...
-type CreateCoreHrPersonRespPersonAddressAddressType struct {
+// CreateCoreHRPersonRespPersonAddressAddressType ...
+type CreateCoreHRPersonRespPersonAddressAddressType struct {
 	EnumName string                                                   `json:"enum_name,omitempty"` // 枚举值
-	Display  []*CreateCoreHrPersonRespPersonAddressAddressTypeDisplay `json:"display,omitempty"`   // 枚举多语展示
+	Display  []*CreateCoreHRPersonRespPersonAddressAddressTypeDisplay `json:"display,omitempty"`   // 枚举多语展示
 }
 
-// CreateCoreHrPersonRespPersonAddressAddressTypeDisplay ...
-type CreateCoreHrPersonRespPersonAddressAddressTypeDisplay struct {
+// CreateCoreHRPersonRespPersonAddressAddressTypeDisplay ...
+type CreateCoreHRPersonRespPersonAddressAddressTypeDisplay struct {
 	Lang  string `json:"lang,omitempty"`  // 语言
 	Value string `json:"value,omitempty"` // 内容
 }
 
-// CreateCoreHrPersonRespPersonAddressCustomField ...
-type CreateCoreHrPersonRespPersonAddressCustomField struct {
+// CreateCoreHRPersonRespPersonAddressCustomField ...
+type CreateCoreHRPersonRespPersonAddressCustomField struct {
 	CustomApiName string                                              `json:"custom_api_name,omitempty"` // 自定义字段 apiname, 即自定义字段的唯一标识
-	Name          *CreateCoreHrPersonRespPersonAddressCustomFieldName `json:"name,omitempty"`            // 自定义字段名称
+	Name          *CreateCoreHRPersonRespPersonAddressCustomFieldName `json:"name,omitempty"`            // 自定义字段名称
 	Type          int64                                               `json:"type,omitempty"`            // 自定义字段类型
 	Value         string                                              `json:"value,omitempty"`           // 字段值, 是 json 转义后的字符串, 根据元数据定义不同, 字段格式不同（如 123, 123.23, "true", ["id1", "id2"], "2006-01-02 15:04:05"）
 }
 
-// CreateCoreHrPersonRespPersonAddressCustomFieldName ...
-type CreateCoreHrPersonRespPersonAddressCustomFieldName struct {
+// CreateCoreHRPersonRespPersonAddressCustomFieldName ...
+type CreateCoreHRPersonRespPersonAddressCustomFieldName struct {
 	ZhCn string `json:"zh_cn,omitempty"` // 中文
 	EnUs string `json:"en_us,omitempty"` // 英文
 }
 
-// CreateCoreHrPersonRespPersonBankAccount ...
-type CreateCoreHrPersonRespPersonBankAccount struct {
+// CreateCoreHRPersonRespPersonBankAccount ...
+type CreateCoreHRPersonRespPersonBankAccount struct {
 	BankName          string                                                     `json:"bank_name,omitempty"`           // 银行名称
 	BankAccountNumber string                                                     `json:"bank_account_number,omitempty"` // 银行账号
 	AccountHolder     string                                                     `json:"account_holder,omitempty"`      // 开户人姓名
 	BranchName        string                                                     `json:"branch_name,omitempty"`         // 支行名称
 	CountryRegionID   string                                                     `json:"country_region_id,omitempty"`   // 国家/地区 ID, 详细信息可通过【查询国家/地区信息】接口查询获得
-	BankAccountUsage  []*CreateCoreHrPersonRespPersonBankAccountBankAccountUsage `json:"bank_account_usage,omitempty"`  // 银行卡用途, 枚举值可通过文档【飞书人事枚举常量】银行卡用途（Bank Account Usage）枚举定义部分获得
-	BankAccountType   *CreateCoreHrPersonRespPersonBankAccountBankAccountType    `json:"bank_account_type,omitempty"`   // 银行卡类型, 枚举值可通过文档【飞书人事枚举常量】银行卡类型（Bank Account Type）枚举定义部分获得
+	BankAccountUsage  []*CreateCoreHRPersonRespPersonBankAccountBankAccountUsage `json:"bank_account_usage,omitempty"`  // 银行卡用途, 枚举值可通过文档【飞书人事枚举常量】银行卡用途（Bank Account Usage）枚举定义部分获得
+	BankAccountType   *CreateCoreHRPersonRespPersonBankAccountBankAccountType    `json:"bank_account_type,omitempty"`   // 银行卡类型, 枚举值可通过文档【飞书人事枚举常量】银行卡类型（Bank Account Type）枚举定义部分获得
 	CurrencyID        string                                                     `json:"currency_id,omitempty"`         // 货币id
-	CustomFields      []*CreateCoreHrPersonRespPersonBankAccountCustomField      `json:"custom_fields,omitempty"`       // 自定义字段
+	CustomFields      []*CreateCoreHRPersonRespPersonBankAccountCustomField      `json:"custom_fields,omitempty"`       // 自定义字段
 }
 
-// CreateCoreHrPersonRespPersonBankAccountBankAccountType ...
-type CreateCoreHrPersonRespPersonBankAccountBankAccountType struct {
+// CreateCoreHRPersonRespPersonBankAccountBankAccountType ...
+type CreateCoreHRPersonRespPersonBankAccountBankAccountType struct {
 	EnumName string                                                           `json:"enum_name,omitempty"` // 枚举值
-	Display  []*CreateCoreHrPersonRespPersonBankAccountBankAccountTypeDisplay `json:"display,omitempty"`   // 枚举多语展示
+	Display  []*CreateCoreHRPersonRespPersonBankAccountBankAccountTypeDisplay `json:"display,omitempty"`   // 枚举多语展示
 }
 
-// CreateCoreHrPersonRespPersonBankAccountBankAccountTypeDisplay ...
-type CreateCoreHrPersonRespPersonBankAccountBankAccountTypeDisplay struct {
+// CreateCoreHRPersonRespPersonBankAccountBankAccountTypeDisplay ...
+type CreateCoreHRPersonRespPersonBankAccountBankAccountTypeDisplay struct {
 	Lang  string `json:"lang,omitempty"`  // 语言
 	Value string `json:"value,omitempty"` // 内容
 }
 
-// CreateCoreHrPersonRespPersonBankAccountBankAccountUsage ...
-type CreateCoreHrPersonRespPersonBankAccountBankAccountUsage struct {
+// CreateCoreHRPersonRespPersonBankAccountBankAccountUsage ...
+type CreateCoreHRPersonRespPersonBankAccountBankAccountUsage struct {
 	EnumName string                                                            `json:"enum_name,omitempty"` // 枚举值
-	Display  []*CreateCoreHrPersonRespPersonBankAccountBankAccountUsageDisplay `json:"display,omitempty"`   // 枚举多语展示
+	Display  []*CreateCoreHRPersonRespPersonBankAccountBankAccountUsageDisplay `json:"display,omitempty"`   // 枚举多语展示
 }
 
-// CreateCoreHrPersonRespPersonBankAccountBankAccountUsageDisplay ...
-type CreateCoreHrPersonRespPersonBankAccountBankAccountUsageDisplay struct {
+// CreateCoreHRPersonRespPersonBankAccountBankAccountUsageDisplay ...
+type CreateCoreHRPersonRespPersonBankAccountBankAccountUsageDisplay struct {
 	Lang  string `json:"lang,omitempty"`  // 语言
 	Value string `json:"value,omitempty"` // 内容
 }
 
-// CreateCoreHrPersonRespPersonBankAccountCustomField ...
-type CreateCoreHrPersonRespPersonBankAccountCustomField struct {
+// CreateCoreHRPersonRespPersonBankAccountCustomField ...
+type CreateCoreHRPersonRespPersonBankAccountCustomField struct {
 	CustomApiName string                                                  `json:"custom_api_name,omitempty"` // 自定义字段 apiname, 即自定义字段的唯一标识
-	Name          *CreateCoreHrPersonRespPersonBankAccountCustomFieldName `json:"name,omitempty"`            // 自定义字段名称
+	Name          *CreateCoreHRPersonRespPersonBankAccountCustomFieldName `json:"name,omitempty"`            // 自定义字段名称
 	Type          int64                                                   `json:"type,omitempty"`            // 自定义字段类型
 	Value         string                                                  `json:"value,omitempty"`           // 字段值, 是 json 转义后的字符串, 根据元数据定义不同, 字段格式不同（如 123, 123.23, "true", ["id1", "id2"], "2006-01-02 15:04:05"）
 }
 
-// CreateCoreHrPersonRespPersonBankAccountCustomFieldName ...
-type CreateCoreHrPersonRespPersonBankAccountCustomFieldName struct {
+// CreateCoreHRPersonRespPersonBankAccountCustomFieldName ...
+type CreateCoreHRPersonRespPersonBankAccountCustomFieldName struct {
 	ZhCn string `json:"zh_cn,omitempty"` // 中文
 	EnUs string `json:"en_us,omitempty"` // 英文
 }
 
-// CreateCoreHrPersonRespPersonCustomField ...
-type CreateCoreHrPersonRespPersonCustomField struct {
+// CreateCoreHRPersonRespPersonCustomField ...
+type CreateCoreHRPersonRespPersonCustomField struct {
 	CustomApiName string                                       `json:"custom_api_name,omitempty"` // 自定义字段 apiname, 即自定义字段的唯一标识
-	Name          *CreateCoreHrPersonRespPersonCustomFieldName `json:"name,omitempty"`            // 自定义字段名称
+	Name          *CreateCoreHRPersonRespPersonCustomFieldName `json:"name,omitempty"`            // 自定义字段名称
 	Type          int64                                        `json:"type,omitempty"`            // 自定义字段类型
 	Value         string                                       `json:"value,omitempty"`           // 字段值, 是 json 转义后的字符串, 根据元数据定义不同, 字段格式不同（如 123, 123.23, "true", ["id1", "id2"], "2006-01-02 15:04:05"）
 }
 
-// CreateCoreHrPersonRespPersonCustomFieldName ...
-type CreateCoreHrPersonRespPersonCustomFieldName struct {
+// CreateCoreHRPersonRespPersonCustomFieldName ...
+type CreateCoreHRPersonRespPersonCustomFieldName struct {
 	ZhCn string `json:"zh_cn,omitempty"` // 中文
 	EnUs string `json:"en_us,omitempty"` // 英文
 }
 
-// CreateCoreHrPersonRespPersonDependent ...
-type CreateCoreHrPersonRespPersonDependent struct {
-	Name                                 *CreateCoreHrPersonRespPersonDependentName                      `json:"name,omitempty"`                                       // 姓名
-	Relationship                         *CreateCoreHrPersonRespPersonDependentRelationship              `json:"relationship,omitempty"`                               // 关系
-	Gender                               *CreateCoreHrPersonRespPersonDependentGender                    `json:"gender,omitempty"`                                     // 性别
-	DateOfBirth                          string                                                          `json:"date_of_birth,omitempty"`                              // 生日
-	NationalIDList                       []*CreateCoreHrPersonRespPersonDependentNationalID              `json:"national_id_list,omitempty"`                           // 证件号码
-	SpousesWorkingStatus                 *CreateCoreHrPersonRespPersonDependentSpousesWorkingStatus      `json:"spouses_working_status,omitempty"`                     // 配偶工作状态
-	IsThisPersonCoveredByHealthInsurance bool                                                            `json:"is_this_person_covered_by_health_insurance,omitempty"` // 包含家属医疗保险
-	IsThisPersonAllowedForTaxDeduction   bool                                                            `json:"is_this_person_allowed_for_tax_deduction,omitempty"`   // 允许家属抵扣税款
-	CustomFields                         []*CreateCoreHrPersonRespPersonDependentCustomField             `json:"custom_fields,omitempty"`                              // 自定义字段
-	DependentName                        string                                                          `json:"dependent_name,omitempty"`                             // 家庭成员姓名
-	Employer                             string                                                          `json:"employer,omitempty"`                                   // 工作单位
-	Job                                  string                                                          `json:"job,omitempty"`                                        // 岗位
-	Phone                                *CreateCoreHrPersonRespPersonDependentPhone                     `json:"phone,omitempty"`                                      // 电话
-	Address                              *CreateCoreHrPersonRespPersonDependentAddress                   `json:"address,omitempty"`                                    // 联系地址
-	BirthCertificateOfChild              []*CreateCoreHrPersonRespPersonDependentBirthCertificateOfChild `json:"birth_certificate_of_child,omitempty"`                 // 出生证明
+// CreateCoreHRPersonRespPersonDependent ...
+type CreateCoreHRPersonRespPersonDependent struct {
+	Name                                 *CreateCoreHRPersonRespPersonDependentName                    `json:"name,omitempty"`                                       // 姓名
+	Relationship                         *CreateCoreHRPersonRespPersonDependentRelationship            `json:"relationship,omitempty"`                               // 关系
+	Gender                               *CreateCoreHRPersonRespPersonDependentGender                  `json:"gender,omitempty"`                                     // 性别
+	DateOfBirth                          string                                                        `json:"date_of_birth,omitempty"`                              // 生日
+	NationalIDList                       []*CreateCoreHRPersonRespPersonDependentNationalID            `json:"national_id_list,omitempty"`                           // 证件号码
+	SpousesWorkingStatus                 *CreateCoreHRPersonRespPersonDependentSpousesWorkingStatus    `json:"spouses_working_status,omitempty"`                     // 配偶工作状态
+	IsThisPersonCoveredByHealthInsurance bool                                                          `json:"is_this_person_covered_by_health_insurance,omitempty"` // 包含家属医疗保险
+	IsThisPersonAllowedForTaxDeduction   bool                                                          `json:"is_this_person_allowed_for_tax_deduction,omitempty"`   // 允许家属抵扣税款
+	CustomFields                         []*CreateCoreHRPersonRespPersonDependentCustomField           `json:"custom_fields,omitempty"`                              // 自定义字段
+	DependentName                        string                                                        `json:"dependent_name,omitempty"`                             // 家庭成员姓名
+	Employer                             string                                                        `json:"employer,omitempty"`                                   // 工作单位
+	Job                                  string                                                        `json:"job,omitempty"`                                        // 岗位
+	Phone                                *CreateCoreHRPersonRespPersonDependentPhone                   `json:"phone,omitempty"`                                      // 电话
+	Address                              *CreateCoreHRPersonRespPersonDependentAddress                 `json:"address,omitempty"`                                    // 联系地址
+	BirthCertificateOfChild              *CreateCoreHRPersonRespPersonDependentBirthCertificateOfChild `json:"birth_certificate_of_child,omitempty"`                 // 出生证明
 }
 
-// CreateCoreHrPersonRespPersonDependentAddress ...
-type CreateCoreHrPersonRespPersonDependentAddress struct {
+// CreateCoreHRPersonRespPersonDependentAddress ...
+type CreateCoreHRPersonRespPersonDependentAddress struct {
 	FullAddressLocalScript   string                                                     `json:"full_address_local_script,omitempty"`   // 完整地址（本地文字）
 	FullAddressWesternScript string                                                     `json:"full_address_western_script,omitempty"` // 完整地址（西方文字）
 	AddressID                string                                                     `json:"address_id,omitempty"`                  // 地址 ID
@@ -716,73 +721,78 @@ type CreateCoreHrPersonRespPersonDependentAddress struct {
 	LocalAddressLine8        string                                                     `json:"local_address_line8,omitempty"`         // 地址行 8（非拉丁语系的本地文字）
 	LocalAddressLine9        string                                                     `json:"local_address_line9,omitempty"`         // 地址行 9（非拉丁语系的本地文字）
 	PostalCode               string                                                     `json:"postal_code,omitempty"`                 // 邮政编码
-	AddressTypeList          []*CreateCoreHrPersonRespPersonDependentAddressAddressType `json:"address_type_list,omitempty"`           // 地址类型
+	AddressTypeList          []*CreateCoreHRPersonRespPersonDependentAddressAddressType `json:"address_type_list,omitempty"`           // 地址类型
 	IsPrimary                bool                                                       `json:"is_primary,omitempty"`                  // 主要地址
 	IsPublic                 bool                                                       `json:"is_public,omitempty"`                   // 公开地址
-	CustomFields             []*CreateCoreHrPersonRespPersonDependentAddressCustomField `json:"custom_fields,omitempty"`               // 自定义字段
+	CustomFields             []*CreateCoreHRPersonRespPersonDependentAddressCustomField `json:"custom_fields,omitempty"`               // 自定义字段
 }
 
-// CreateCoreHrPersonRespPersonDependentAddressAddressType ...
-type CreateCoreHrPersonRespPersonDependentAddressAddressType struct {
+// CreateCoreHRPersonRespPersonDependentAddressAddressType ...
+type CreateCoreHRPersonRespPersonDependentAddressAddressType struct {
 	EnumName string                                                            `json:"enum_name,omitempty"` // 枚举值
-	Display  []*CreateCoreHrPersonRespPersonDependentAddressAddressTypeDisplay `json:"display,omitempty"`   // 枚举多语展示
+	Display  []*CreateCoreHRPersonRespPersonDependentAddressAddressTypeDisplay `json:"display,omitempty"`   // 枚举多语展示
 }
 
-// CreateCoreHrPersonRespPersonDependentAddressAddressTypeDisplay ...
-type CreateCoreHrPersonRespPersonDependentAddressAddressTypeDisplay struct {
+// CreateCoreHRPersonRespPersonDependentAddressAddressTypeDisplay ...
+type CreateCoreHRPersonRespPersonDependentAddressAddressTypeDisplay struct {
 	Lang  string `json:"lang,omitempty"`  // 语言
 	Value string `json:"value,omitempty"` // 内容
 }
 
-// CreateCoreHrPersonRespPersonDependentAddressCustomField ...
-type CreateCoreHrPersonRespPersonDependentAddressCustomField struct {
+// CreateCoreHRPersonRespPersonDependentAddressCustomField ...
+type CreateCoreHRPersonRespPersonDependentAddressCustomField struct {
 	CustomApiName string                                                       `json:"custom_api_name,omitempty"` // 自定义字段 apiname, 即自定义字段的唯一标识
-	Name          *CreateCoreHrPersonRespPersonDependentAddressCustomFieldName `json:"name,omitempty"`            // 自定义字段名称
+	Name          *CreateCoreHRPersonRespPersonDependentAddressCustomFieldName `json:"name,omitempty"`            // 自定义字段名称
 	Type          int64                                                        `json:"type,omitempty"`            // 自定义字段类型
 	Value         string                                                       `json:"value,omitempty"`           // 字段值, 是 json 转义后的字符串, 根据元数据定义不同, 字段格式不同（如 123, 123.23, "true", ["id1", "id2"], "2006-01-02 15:04:05"）
 }
 
-// CreateCoreHrPersonRespPersonDependentAddressCustomFieldName ...
-type CreateCoreHrPersonRespPersonDependentAddressCustomFieldName struct {
+// CreateCoreHRPersonRespPersonDependentAddressCustomFieldName ...
+type CreateCoreHRPersonRespPersonDependentAddressCustomFieldName struct {
 	ZhCn string `json:"zh_cn,omitempty"` // 中文
 	EnUs string `json:"en_us,omitempty"` // 英文
 }
 
-// CreateCoreHrPersonRespPersonDependentCustomField ...
-type CreateCoreHrPersonRespPersonDependentCustomField struct {
+// CreateCoreHRPersonRespPersonDependentBirthCertificateOfChild ...
+type CreateCoreHRPersonRespPersonDependentBirthCertificateOfChild struct {
+	ID string `json:"id,omitempty"` // 上传文件ID
+}
+
+// CreateCoreHRPersonRespPersonDependentCustomField ...
+type CreateCoreHRPersonRespPersonDependentCustomField struct {
 	CustomApiName string                                                `json:"custom_api_name,omitempty"` // 自定义字段 apiname, 即自定义字段的唯一标识
-	Name          *CreateCoreHrPersonRespPersonDependentCustomFieldName `json:"name,omitempty"`            // 自定义字段名称
+	Name          *CreateCoreHRPersonRespPersonDependentCustomFieldName `json:"name,omitempty"`            // 自定义字段名称
 	Type          int64                                                 `json:"type,omitempty"`            // 自定义字段类型
 	Value         string                                                `json:"value,omitempty"`           // 字段值, 是 json 转义后的字符串, 根据元数据定义不同, 字段格式不同（如 123, 123.23, "true", ["id1", "id2"], "2006-01-02 15:04:05"）
 }
 
-// CreateCoreHrPersonRespPersonDependentCustomFieldName ...
-type CreateCoreHrPersonRespPersonDependentCustomFieldName struct {
+// CreateCoreHRPersonRespPersonDependentCustomFieldName ...
+type CreateCoreHRPersonRespPersonDependentCustomFieldName struct {
 	ZhCn string `json:"zh_cn,omitempty"` // 中文
 	EnUs string `json:"en_us,omitempty"` // 英文
 }
 
-// CreateCoreHrPersonRespPersonDependentGender ...
-type CreateCoreHrPersonRespPersonDependentGender struct {
+// CreateCoreHRPersonRespPersonDependentGender ...
+type CreateCoreHRPersonRespPersonDependentGender struct {
 	EnumName string                                                `json:"enum_name,omitempty"` // 枚举值
-	Display  []*CreateCoreHrPersonRespPersonDependentGenderDisplay `json:"display,omitempty"`   // 枚举多语展示
+	Display  []*CreateCoreHRPersonRespPersonDependentGenderDisplay `json:"display,omitempty"`   // 枚举多语展示
 }
 
-// CreateCoreHrPersonRespPersonDependentGenderDisplay ...
-type CreateCoreHrPersonRespPersonDependentGenderDisplay struct {
+// CreateCoreHRPersonRespPersonDependentGenderDisplay ...
+type CreateCoreHRPersonRespPersonDependentGenderDisplay struct {
 	Lang  string `json:"lang,omitempty"`  // 语言
 	Value string `json:"value,omitempty"` // 内容
 }
 
-// CreateCoreHrPersonRespPersonDependentName ...
-type CreateCoreHrPersonRespPersonDependentName struct {
+// CreateCoreHRPersonRespPersonDependentName ...
+type CreateCoreHRPersonRespPersonDependentName struct {
 	LocalPrimary                     string                                                       `json:"local_primary,omitempty"`                         // 姓 - 本地文字
 	LocalFirstName                   string                                                       `json:"local_first_name,omitempty"`                      // 名 - 本地文字
 	CountryRegionID                  string                                                       `json:"country_region_id,omitempty"`                     // 国家 / 地区
-	NameType                         *CreateCoreHrPersonRespPersonDependentNameNameType           `json:"name_type,omitempty"`                             // 姓名类型
+	NameType                         *CreateCoreHRPersonRespPersonDependentNameNameType           `json:"name_type,omitempty"`                             // 姓名类型
 	LocalFirstName2                  string                                                       `json:"local_first_name_2,omitempty"`                    // 名 - 第二本地文字
 	LocalPrimary2                    string                                                       `json:"local_primary_2,omitempty"`                       // 姓 - 第二本地文字
-	AdditionalNameType               *CreateCoreHrPersonRespPersonDependentNameAdditionalNameType `json:"additional_name_type,omitempty"`                  // 补充姓名类型
+	AdditionalNameType               *CreateCoreHRPersonRespPersonDependentNameAdditionalNameType `json:"additional_name_type,omitempty"`                  // 补充姓名类型
 	FirstName                        string                                                       `json:"first_name,omitempty"`                            // 名
 	FullName                         string                                                       `json:"full_name,omitempty"`                             // 全名
 	Hereditary                       string                                                       `json:"hereditary,omitempty"`                            // 姓氏称谓
@@ -791,9 +801,9 @@ type CreateCoreHrPersonRespPersonDependentName struct {
 	MiddleName                       string                                                       `json:"middle_name,omitempty"`                           // 中间名
 	NamePrimary                      string                                                       `json:"name_primary,omitempty"`                          // 姓
 	Secondary                        string                                                       `json:"secondary,omitempty"`                             // 第二姓氏
-	Social                           *CreateCoreHrPersonRespPersonDependentNameSocial             `json:"social,omitempty"`                                // 尊称
+	Social                           *CreateCoreHRPersonRespPersonDependentNameSocial             `json:"social,omitempty"`                                // 尊称
 	Tertiary                         string                                                       `json:"tertiary,omitempty"`                              // 婚后姓氏
-	Title                            *CreateCoreHrPersonRespPersonDependentNameTitle              `json:"title,omitempty"`                                 // 头衔
+	Title                            *CreateCoreHRPersonRespPersonDependentNameTitle              `json:"title,omitempty"`                                 // 头衔
 	LocalMiddleName                  string                                                       `json:"local_middle_name,omitempty"`                     // 本地中间名
 	LocalSecondary                   string                                                       `json:"local_secondary,omitempty"`                       // 第二姓氏 - 本地文字
 	DisplayNameLocalAndWesternScript string                                                       `json:"display_name_local_and_western_script,omitempty"` // 展示姓名（本地和西方文字）
@@ -801,291 +811,291 @@ type CreateCoreHrPersonRespPersonDependentName struct {
 	DisplayNameWesternScript         string                                                       `json:"display_name_western_script,omitempty"`           // 展示姓名（西方文字）
 }
 
-// CreateCoreHrPersonRespPersonDependentNameAdditionalNameType ...
-type CreateCoreHrPersonRespPersonDependentNameAdditionalNameType struct {
+// CreateCoreHRPersonRespPersonDependentNameAdditionalNameType ...
+type CreateCoreHRPersonRespPersonDependentNameAdditionalNameType struct {
 	EnumName string                                                                `json:"enum_name,omitempty"` // 枚举值
-	Display  []*CreateCoreHrPersonRespPersonDependentNameAdditionalNameTypeDisplay `json:"display,omitempty"`   // 枚举多语展示
+	Display  []*CreateCoreHRPersonRespPersonDependentNameAdditionalNameTypeDisplay `json:"display,omitempty"`   // 枚举多语展示
 }
 
-// CreateCoreHrPersonRespPersonDependentNameAdditionalNameTypeDisplay ...
-type CreateCoreHrPersonRespPersonDependentNameAdditionalNameTypeDisplay struct {
+// CreateCoreHRPersonRespPersonDependentNameAdditionalNameTypeDisplay ...
+type CreateCoreHRPersonRespPersonDependentNameAdditionalNameTypeDisplay struct {
 	Lang  string `json:"lang,omitempty"`  // 语言
 	Value string `json:"value,omitempty"` // 内容
 }
 
-// CreateCoreHrPersonRespPersonDependentNameNameType ...
-type CreateCoreHrPersonRespPersonDependentNameNameType struct {
+// CreateCoreHRPersonRespPersonDependentNameNameType ...
+type CreateCoreHRPersonRespPersonDependentNameNameType struct {
 	EnumName string                                                      `json:"enum_name,omitempty"` // 枚举值
-	Display  []*CreateCoreHrPersonRespPersonDependentNameNameTypeDisplay `json:"display,omitempty"`   // 枚举多语展示
+	Display  []*CreateCoreHRPersonRespPersonDependentNameNameTypeDisplay `json:"display,omitempty"`   // 枚举多语展示
 }
 
-// CreateCoreHrPersonRespPersonDependentNameNameTypeDisplay ...
-type CreateCoreHrPersonRespPersonDependentNameNameTypeDisplay struct {
+// CreateCoreHRPersonRespPersonDependentNameNameTypeDisplay ...
+type CreateCoreHRPersonRespPersonDependentNameNameTypeDisplay struct {
 	Lang  string `json:"lang,omitempty"`  // 语言
 	Value string `json:"value,omitempty"` // 内容
 }
 
-// CreateCoreHrPersonRespPersonDependentNameSocial ...
-type CreateCoreHrPersonRespPersonDependentNameSocial struct {
+// CreateCoreHRPersonRespPersonDependentNameSocial ...
+type CreateCoreHRPersonRespPersonDependentNameSocial struct {
 	EnumName string                                                    `json:"enum_name,omitempty"` // 枚举值
-	Display  []*CreateCoreHrPersonRespPersonDependentNameSocialDisplay `json:"display,omitempty"`   // 枚举多语展示
+	Display  []*CreateCoreHRPersonRespPersonDependentNameSocialDisplay `json:"display,omitempty"`   // 枚举多语展示
 }
 
-// CreateCoreHrPersonRespPersonDependentNameSocialDisplay ...
-type CreateCoreHrPersonRespPersonDependentNameSocialDisplay struct {
+// CreateCoreHRPersonRespPersonDependentNameSocialDisplay ...
+type CreateCoreHRPersonRespPersonDependentNameSocialDisplay struct {
 	Lang  string `json:"lang,omitempty"`  // 语言
 	Value string `json:"value,omitempty"` // 内容
 }
 
-// CreateCoreHrPersonRespPersonDependentNameTitle ...
-type CreateCoreHrPersonRespPersonDependentNameTitle struct {
+// CreateCoreHRPersonRespPersonDependentNameTitle ...
+type CreateCoreHRPersonRespPersonDependentNameTitle struct {
 	EnumName string                                                   `json:"enum_name,omitempty"` // 枚举值
-	Display  []*CreateCoreHrPersonRespPersonDependentNameTitleDisplay `json:"display,omitempty"`   // 枚举多语展示
+	Display  []*CreateCoreHRPersonRespPersonDependentNameTitleDisplay `json:"display,omitempty"`   // 枚举多语展示
 }
 
-// CreateCoreHrPersonRespPersonDependentNameTitleDisplay ...
-type CreateCoreHrPersonRespPersonDependentNameTitleDisplay struct {
+// CreateCoreHRPersonRespPersonDependentNameTitleDisplay ...
+type CreateCoreHRPersonRespPersonDependentNameTitleDisplay struct {
 	Lang  string `json:"lang,omitempty"`  // 语言
 	Value string `json:"value,omitempty"` // 内容
 }
 
-// CreateCoreHrPersonRespPersonDependentNationalID ...
-type CreateCoreHrPersonRespPersonDependentNationalID struct {
+// CreateCoreHRPersonRespPersonDependentNationalID ...
+type CreateCoreHRPersonRespPersonDependentNationalID struct {
 	NationalIDTypeID string                                                        `json:"national_id_type_id,omitempty"` // 国家证件类型
 	NationalIDNumber string                                                        `json:"national_id_number,omitempty"`  // 证件号码
 	IssueDate        string                                                        `json:"issue_date,omitempty"`          // 证件签发日期
 	ExpirationDate   string                                                        `json:"expiration_date,omitempty"`     // 证件到期日期
 	CountryRegionID  string                                                        `json:"country_region_id,omitempty"`   // 国家 / 地区
 	IssuedBy         string                                                        `json:"issued_by,omitempty"`           // 证件签发机构
-	CustomFields     []*CreateCoreHrPersonRespPersonDependentNationalIDCustomField `json:"custom_fields,omitempty"`       // 自定义字段
+	CustomFields     []*CreateCoreHRPersonRespPersonDependentNationalIDCustomField `json:"custom_fields,omitempty"`       // 自定义字段
 }
 
-// CreateCoreHrPersonRespPersonDependentNationalIDCustomField ...
-type CreateCoreHrPersonRespPersonDependentNationalIDCustomField struct {
+// CreateCoreHRPersonRespPersonDependentNationalIDCustomField ...
+type CreateCoreHRPersonRespPersonDependentNationalIDCustomField struct {
 	CustomApiName string                                                          `json:"custom_api_name,omitempty"` // 自定义字段 apiname, 即自定义字段的唯一标识
-	Name          *CreateCoreHrPersonRespPersonDependentNationalIDCustomFieldName `json:"name,omitempty"`            // 自定义字段名称
+	Name          *CreateCoreHRPersonRespPersonDependentNationalIDCustomFieldName `json:"name,omitempty"`            // 自定义字段名称
 	Type          int64                                                           `json:"type,omitempty"`            // 自定义字段类型
 	Value         string                                                          `json:"value,omitempty"`           // 字段值, 是 json 转义后的字符串, 根据元数据定义不同, 字段格式不同（如 123, 123.23, "true", ["id1", "id2"], "2006-01-02 15:04:05"）
 }
 
-// CreateCoreHrPersonRespPersonDependentNationalIDCustomFieldName ...
-type CreateCoreHrPersonRespPersonDependentNationalIDCustomFieldName struct {
+// CreateCoreHRPersonRespPersonDependentNationalIDCustomFieldName ...
+type CreateCoreHRPersonRespPersonDependentNationalIDCustomFieldName struct {
 	ZhCn string `json:"zh_cn,omitempty"` // 中文
 	EnUs string `json:"en_us,omitempty"` // 英文
 }
 
-// CreateCoreHrPersonRespPersonDependentPhone ...
-type CreateCoreHrPersonRespPersonDependentPhone struct {
-	InternationalAreaCode *CreateCoreHrPersonRespPersonDependentPhoneInternationalAreaCode `json:"international_area_code,omitempty"` // 国家区号
+// CreateCoreHRPersonRespPersonDependentPhone ...
+type CreateCoreHRPersonRespPersonDependentPhone struct {
+	InternationalAreaCode *CreateCoreHRPersonRespPersonDependentPhoneInternationalAreaCode `json:"international_area_code,omitempty"` // 国家区号
 	PhoneNumber           string                                                           `json:"phone_number,omitempty"`            // 电话号码
 	FormattedPhoneNumber  string                                                           `json:"formatted_phone_number,omitempty"`  // 完整电话号码
-	DeviceType            *CreateCoreHrPersonRespPersonDependentPhoneDeviceType            `json:"device_type,omitempty"`             // 设备类型, 可选值如下: mobile_phone: 手机, landline: 座机, fax: 传真类型
-	PhoneUsage            *CreateCoreHrPersonRespPersonDependentPhonePhoneUsage            `json:"phone_usage,omitempty"`             // 电话用途, 可选值如下: home: 家庭, work: 工作, emergency_contact: 紧急联系人, company: 公司
+	DeviceType            *CreateCoreHRPersonRespPersonDependentPhoneDeviceType            `json:"device_type,omitempty"`             // 设备类型, 可选值如下: mobile_phone: 手机, landline: 座机, fax: 传真类型
+	PhoneUsage            *CreateCoreHRPersonRespPersonDependentPhonePhoneUsage            `json:"phone_usage,omitempty"`             // 电话用途, 可选值如下: home: 家庭, work: 工作, emergency_contact: 紧急联系人, company: 公司
 	IsPrimary             bool                                                             `json:"is_primary,omitempty"`              // 主要电话
 	IsPublic              bool                                                             `json:"is_public,omitempty"`               // 公开电话
 }
 
-// CreateCoreHrPersonRespPersonDependentPhoneDeviceType ...
-type CreateCoreHrPersonRespPersonDependentPhoneDeviceType struct {
+// CreateCoreHRPersonRespPersonDependentPhoneDeviceType ...
+type CreateCoreHRPersonRespPersonDependentPhoneDeviceType struct {
 	EnumName string                                                         `json:"enum_name,omitempty"` // 枚举值
-	Display  []*CreateCoreHrPersonRespPersonDependentPhoneDeviceTypeDisplay `json:"display,omitempty"`   // 枚举多语展示
+	Display  []*CreateCoreHRPersonRespPersonDependentPhoneDeviceTypeDisplay `json:"display,omitempty"`   // 枚举多语展示
 }
 
-// CreateCoreHrPersonRespPersonDependentPhoneDeviceTypeDisplay ...
-type CreateCoreHrPersonRespPersonDependentPhoneDeviceTypeDisplay struct {
+// CreateCoreHRPersonRespPersonDependentPhoneDeviceTypeDisplay ...
+type CreateCoreHRPersonRespPersonDependentPhoneDeviceTypeDisplay struct {
 	Lang  string `json:"lang,omitempty"`  // 语言
 	Value string `json:"value,omitempty"` // 内容
 }
 
-// CreateCoreHrPersonRespPersonDependentPhoneInternationalAreaCode ...
-type CreateCoreHrPersonRespPersonDependentPhoneInternationalAreaCode struct {
+// CreateCoreHRPersonRespPersonDependentPhoneInternationalAreaCode ...
+type CreateCoreHRPersonRespPersonDependentPhoneInternationalAreaCode struct {
 	EnumName string                                                                    `json:"enum_name,omitempty"` // 枚举值
-	Display  []*CreateCoreHrPersonRespPersonDependentPhoneInternationalAreaCodeDisplay `json:"display,omitempty"`   // 枚举多语展示
+	Display  []*CreateCoreHRPersonRespPersonDependentPhoneInternationalAreaCodeDisplay `json:"display,omitempty"`   // 枚举多语展示
 }
 
-// CreateCoreHrPersonRespPersonDependentPhoneInternationalAreaCodeDisplay ...
-type CreateCoreHrPersonRespPersonDependentPhoneInternationalAreaCodeDisplay struct {
+// CreateCoreHRPersonRespPersonDependentPhoneInternationalAreaCodeDisplay ...
+type CreateCoreHRPersonRespPersonDependentPhoneInternationalAreaCodeDisplay struct {
 	Lang  string `json:"lang,omitempty"`  // 语言
 	Value string `json:"value,omitempty"` // 内容
 }
 
-// CreateCoreHrPersonRespPersonDependentPhonePhoneUsage ...
-type CreateCoreHrPersonRespPersonDependentPhonePhoneUsage struct {
+// CreateCoreHRPersonRespPersonDependentPhonePhoneUsage ...
+type CreateCoreHRPersonRespPersonDependentPhonePhoneUsage struct {
 	EnumName string                                                         `json:"enum_name,omitempty"` // 枚举值
-	Display  []*CreateCoreHrPersonRespPersonDependentPhonePhoneUsageDisplay `json:"display,omitempty"`   // 枚举多语展示
+	Display  []*CreateCoreHRPersonRespPersonDependentPhonePhoneUsageDisplay `json:"display,omitempty"`   // 枚举多语展示
 }
 
-// CreateCoreHrPersonRespPersonDependentPhonePhoneUsageDisplay ...
-type CreateCoreHrPersonRespPersonDependentPhonePhoneUsageDisplay struct {
+// CreateCoreHRPersonRespPersonDependentPhonePhoneUsageDisplay ...
+type CreateCoreHRPersonRespPersonDependentPhonePhoneUsageDisplay struct {
 	Lang  string `json:"lang,omitempty"`  // 语言
 	Value string `json:"value,omitempty"` // 内容
 }
 
-// CreateCoreHrPersonRespPersonDependentRelationship ...
-type CreateCoreHrPersonRespPersonDependentRelationship struct {
+// CreateCoreHRPersonRespPersonDependentRelationship ...
+type CreateCoreHRPersonRespPersonDependentRelationship struct {
 	EnumName string                                                      `json:"enum_name,omitempty"` // 枚举值
-	Display  []*CreateCoreHrPersonRespPersonDependentRelationshipDisplay `json:"display,omitempty"`   // 枚举多语展示
+	Display  []*CreateCoreHRPersonRespPersonDependentRelationshipDisplay `json:"display,omitempty"`   // 枚举多语展示
 }
 
-// CreateCoreHrPersonRespPersonDependentRelationshipDisplay ...
-type CreateCoreHrPersonRespPersonDependentRelationshipDisplay struct {
+// CreateCoreHRPersonRespPersonDependentRelationshipDisplay ...
+type CreateCoreHRPersonRespPersonDependentRelationshipDisplay struct {
 	Lang  string `json:"lang,omitempty"`  // 语言
 	Value string `json:"value,omitempty"` // 内容
 }
 
-// CreateCoreHrPersonRespPersonDependentSpousesWorkingStatus ...
-type CreateCoreHrPersonRespPersonDependentSpousesWorkingStatus struct {
+// CreateCoreHRPersonRespPersonDependentSpousesWorkingStatus ...
+type CreateCoreHRPersonRespPersonDependentSpousesWorkingStatus struct {
 	EnumName string                                                              `json:"enum_name,omitempty"` // 枚举值
-	Display  []*CreateCoreHrPersonRespPersonDependentSpousesWorkingStatusDisplay `json:"display,omitempty"`   // 枚举多语展示
+	Display  []*CreateCoreHRPersonRespPersonDependentSpousesWorkingStatusDisplay `json:"display,omitempty"`   // 枚举多语展示
 }
 
-// CreateCoreHrPersonRespPersonDependentSpousesWorkingStatusDisplay ...
-type CreateCoreHrPersonRespPersonDependentSpousesWorkingStatusDisplay struct {
+// CreateCoreHRPersonRespPersonDependentSpousesWorkingStatusDisplay ...
+type CreateCoreHRPersonRespPersonDependentSpousesWorkingStatusDisplay struct {
 	Lang  string `json:"lang,omitempty"`  // 语言
 	Value string `json:"value,omitempty"` // 内容
 }
 
-// CreateCoreHrPersonRespPersonEducation ...
-type CreateCoreHrPersonRespPersonEducation struct {
-	School           []*CreateCoreHrPersonRespPersonEducationSchool         `json:"school,omitempty"`              // 学校
-	LevelOfEducation *CreateCoreHrPersonRespPersonEducationLevelOfEducation `json:"level_of_education,omitempty"`  // 学历
+// CreateCoreHRPersonRespPersonEducation ...
+type CreateCoreHRPersonRespPersonEducation struct {
+	School           []*CreateCoreHRPersonRespPersonEducationSchool         `json:"school,omitempty"`              // 学校
+	LevelOfEducation *CreateCoreHRPersonRespPersonEducationLevelOfEducation `json:"level_of_education,omitempty"`  // 学历
 	StartDate        string                                                 `json:"start_date,omitempty"`          // 开始日期
 	EndDate          string                                                 `json:"end_date,omitempty"`            // 结束日期
-	FieldOfStudy     []*CreateCoreHrPersonRespPersonEducationFieldOfStudy   `json:"field_of_study,omitempty"`      // 专业
-	Degree           *CreateCoreHrPersonRespPersonEducationDegree           `json:"degree,omitempty"`              // 学位
-	SchoolName       *CreateCoreHrPersonRespPersonEducationSchoolName       `json:"school_name,omitempty"`         // 学校名称
-	FieldOfStudyName *CreateCoreHrPersonRespPersonEducationFieldOfStudyName `json:"field_of_study_name,omitempty"` // 专业名称
+	FieldOfStudy     []*CreateCoreHRPersonRespPersonEducationFieldOfStudy   `json:"field_of_study,omitempty"`      // 专业
+	Degree           *CreateCoreHRPersonRespPersonEducationDegree           `json:"degree,omitempty"`              // 学位
+	SchoolName       *CreateCoreHRPersonRespPersonEducationSchoolName       `json:"school_name,omitempty"`         // 学校名称
+	FieldOfStudyName *CreateCoreHRPersonRespPersonEducationFieldOfStudyName `json:"field_of_study_name,omitempty"` // 专业名称
 	CountryRegionID  string                                                 `json:"country_region_id,omitempty"`   // 国家地区ID
 	ExpectedEndDate  string                                                 `json:"expected_end_date,omitempty"`   // 预期结束日期
-	CustomFields     []*CreateCoreHrPersonRespPersonEducationCustomField    `json:"custom_fields,omitempty"`       // 自定义字段
+	CustomFields     []*CreateCoreHRPersonRespPersonEducationCustomField    `json:"custom_fields,omitempty"`       // 自定义字段
 }
 
-// CreateCoreHrPersonRespPersonEducationCustomField ...
-type CreateCoreHrPersonRespPersonEducationCustomField struct {
+// CreateCoreHRPersonRespPersonEducationCustomField ...
+type CreateCoreHRPersonRespPersonEducationCustomField struct {
 	CustomApiName string                                                `json:"custom_api_name,omitempty"` // 自定义字段 apiname, 即自定义字段的唯一标识
-	Name          *CreateCoreHrPersonRespPersonEducationCustomFieldName `json:"name,omitempty"`            // 自定义字段名称
+	Name          *CreateCoreHRPersonRespPersonEducationCustomFieldName `json:"name,omitempty"`            // 自定义字段名称
 	Type          int64                                                 `json:"type,omitempty"`            // 自定义字段类型
 	Value         string                                                `json:"value,omitempty"`           // 字段值, 是 json 转义后的字符串, 根据元数据定义不同, 字段格式不同（如 123, 123.23, "true", ["id1", "id2"], "2006-01-02 15:04:05"）
 }
 
-// CreateCoreHrPersonRespPersonEducationCustomFieldName ...
-type CreateCoreHrPersonRespPersonEducationCustomFieldName struct {
+// CreateCoreHRPersonRespPersonEducationCustomFieldName ...
+type CreateCoreHRPersonRespPersonEducationCustomFieldName struct {
 	ZhCn string `json:"zh_cn,omitempty"` // 中文
 	EnUs string `json:"en_us,omitempty"` // 英文
 }
 
-// CreateCoreHrPersonRespPersonEducationDegree ...
-type CreateCoreHrPersonRespPersonEducationDegree struct {
+// CreateCoreHRPersonRespPersonEducationDegree ...
+type CreateCoreHRPersonRespPersonEducationDegree struct {
 	EnumName string                                                `json:"enum_name,omitempty"` // 枚举值
-	Display  []*CreateCoreHrPersonRespPersonEducationDegreeDisplay `json:"display,omitempty"`   // 枚举多语展示
+	Display  []*CreateCoreHRPersonRespPersonEducationDegreeDisplay `json:"display,omitempty"`   // 枚举多语展示
 }
 
-// CreateCoreHrPersonRespPersonEducationDegreeDisplay ...
-type CreateCoreHrPersonRespPersonEducationDegreeDisplay struct {
+// CreateCoreHRPersonRespPersonEducationDegreeDisplay ...
+type CreateCoreHRPersonRespPersonEducationDegreeDisplay struct {
 	Lang  string `json:"lang,omitempty"`  // 语言
 	Value string `json:"value,omitempty"` // 内容
 }
 
-// CreateCoreHrPersonRespPersonEducationFieldOfStudy ...
-type CreateCoreHrPersonRespPersonEducationFieldOfStudy struct {
+// CreateCoreHRPersonRespPersonEducationFieldOfStudy ...
+type CreateCoreHRPersonRespPersonEducationFieldOfStudy struct {
 	Lang  string `json:"lang,omitempty"`  // 语言
 	Value string `json:"value,omitempty"` // 内容
 }
 
-// CreateCoreHrPersonRespPersonEducationFieldOfStudyName ...
-type CreateCoreHrPersonRespPersonEducationFieldOfStudyName struct {
+// CreateCoreHRPersonRespPersonEducationFieldOfStudyName ...
+type CreateCoreHRPersonRespPersonEducationFieldOfStudyName struct {
 	EnumName string                                                          `json:"enum_name,omitempty"` // 枚举值
-	Display  []*CreateCoreHrPersonRespPersonEducationFieldOfStudyNameDisplay `json:"display,omitempty"`   // 枚举多语展示
+	Display  []*CreateCoreHRPersonRespPersonEducationFieldOfStudyNameDisplay `json:"display,omitempty"`   // 枚举多语展示
 }
 
-// CreateCoreHrPersonRespPersonEducationFieldOfStudyNameDisplay ...
-type CreateCoreHrPersonRespPersonEducationFieldOfStudyNameDisplay struct {
+// CreateCoreHRPersonRespPersonEducationFieldOfStudyNameDisplay ...
+type CreateCoreHRPersonRespPersonEducationFieldOfStudyNameDisplay struct {
 	Lang  string `json:"lang,omitempty"`  // 语言
 	Value string `json:"value,omitempty"` // 内容
 }
 
-// CreateCoreHrPersonRespPersonEducationLevelOfEducation ...
-type CreateCoreHrPersonRespPersonEducationLevelOfEducation struct {
+// CreateCoreHRPersonRespPersonEducationLevelOfEducation ...
+type CreateCoreHRPersonRespPersonEducationLevelOfEducation struct {
 	EnumName string                                                          `json:"enum_name,omitempty"` // 枚举值
-	Display  []*CreateCoreHrPersonRespPersonEducationLevelOfEducationDisplay `json:"display,omitempty"`   // 枚举多语展示
+	Display  []*CreateCoreHRPersonRespPersonEducationLevelOfEducationDisplay `json:"display,omitempty"`   // 枚举多语展示
 }
 
-// CreateCoreHrPersonRespPersonEducationLevelOfEducationDisplay ...
-type CreateCoreHrPersonRespPersonEducationLevelOfEducationDisplay struct {
+// CreateCoreHRPersonRespPersonEducationLevelOfEducationDisplay ...
+type CreateCoreHRPersonRespPersonEducationLevelOfEducationDisplay struct {
 	Lang  string `json:"lang,omitempty"`  // 语言
 	Value string `json:"value,omitempty"` // 内容
 }
 
-// CreateCoreHrPersonRespPersonEducationSchool ...
-type CreateCoreHrPersonRespPersonEducationSchool struct {
+// CreateCoreHRPersonRespPersonEducationSchool ...
+type CreateCoreHRPersonRespPersonEducationSchool struct {
 	Lang  string `json:"lang,omitempty"`  // 语言
 	Value string `json:"value,omitempty"` // 内容
 }
 
-// CreateCoreHrPersonRespPersonEducationSchoolName ...
-type CreateCoreHrPersonRespPersonEducationSchoolName struct {
+// CreateCoreHRPersonRespPersonEducationSchoolName ...
+type CreateCoreHRPersonRespPersonEducationSchoolName struct {
 	EnumName string                                                    `json:"enum_name,omitempty"` // 枚举值
-	Display  []*CreateCoreHrPersonRespPersonEducationSchoolNameDisplay `json:"display,omitempty"`   // 枚举多语展示
+	Display  []*CreateCoreHRPersonRespPersonEducationSchoolNameDisplay `json:"display,omitempty"`   // 枚举多语展示
 }
 
-// CreateCoreHrPersonRespPersonEducationSchoolNameDisplay ...
-type CreateCoreHrPersonRespPersonEducationSchoolNameDisplay struct {
+// CreateCoreHRPersonRespPersonEducationSchoolNameDisplay ...
+type CreateCoreHRPersonRespPersonEducationSchoolNameDisplay struct {
 	Lang  string `json:"lang,omitempty"`  // 语言
 	Value string `json:"value,omitempty"` // 内容
 }
 
-// CreateCoreHrPersonRespPersonEmail ...
-type CreateCoreHrPersonRespPersonEmail struct {
+// CreateCoreHRPersonRespPersonEmail ...
+type CreateCoreHRPersonRespPersonEmail struct {
 	Email      string                                       `json:"email,omitempty"`       // 邮箱地址
 	IsPrimary  bool                                         `json:"is_primary,omitempty"`  // 是否为主要邮箱
 	IsPublic   bool                                         `json:"is_public,omitempty"`   // 是否为公开邮箱
-	EmailUsage *CreateCoreHrPersonRespPersonEmailEmailUsage `json:"email_usage,omitempty"` // 邮箱用途, 枚举值可通过文档【飞书人事枚举常量】邮箱用途（email_usage）枚举定义获得
+	EmailUsage *CreateCoreHRPersonRespPersonEmailEmailUsage `json:"email_usage,omitempty"` // 邮箱用途, 枚举值可通过文档【飞书人事枚举常量】邮箱用途（email_usage）枚举定义获得
 }
 
-// CreateCoreHrPersonRespPersonEmailEmailUsage ...
-type CreateCoreHrPersonRespPersonEmailEmailUsage struct {
+// CreateCoreHRPersonRespPersonEmailEmailUsage ...
+type CreateCoreHRPersonRespPersonEmailEmailUsage struct {
 	EnumName string                                                `json:"enum_name,omitempty"` // 枚举值
-	Display  []*CreateCoreHrPersonRespPersonEmailEmailUsageDisplay `json:"display,omitempty"`   // 枚举多语展示
+	Display  []*CreateCoreHRPersonRespPersonEmailEmailUsageDisplay `json:"display,omitempty"`   // 枚举多语展示
 }
 
-// CreateCoreHrPersonRespPersonEmailEmailUsageDisplay ...
-type CreateCoreHrPersonRespPersonEmailEmailUsageDisplay struct {
+// CreateCoreHRPersonRespPersonEmailEmailUsageDisplay ...
+type CreateCoreHRPersonRespPersonEmailEmailUsageDisplay struct {
 	Lang  string `json:"lang,omitempty"`  // 语言
 	Value string `json:"value,omitempty"` // 内容
 }
 
-// CreateCoreHrPersonRespPersonEmergencyContact ...
-type CreateCoreHrPersonRespPersonEmergencyContact struct {
-	Name         *CreateCoreHrPersonRespPersonEmergencyContactName          `json:"name,omitempty"`          // 姓名
-	Relationship *CreateCoreHrPersonRespPersonEmergencyContactRelationship  `json:"relationship,omitempty"`  // 关系
-	PhoneIst     []*CreateCoreHrPersonRespPersonEmergencyContactPhoneIst    `json:"phone_ist,omitempty"`     // 电话
+// CreateCoreHRPersonRespPersonEmergencyContact ...
+type CreateCoreHRPersonRespPersonEmergencyContact struct {
+	Name         *CreateCoreHRPersonRespPersonEmergencyContactName          `json:"name,omitempty"`          // 姓名
+	Relationship *CreateCoreHRPersonRespPersonEmergencyContactRelationship  `json:"relationship,omitempty"`  // 关系
+	PhoneIst     []*CreateCoreHRPersonRespPersonEmergencyContactPhoneIst    `json:"phone_ist,omitempty"`     // 电话
 	LegalName    string                                                     `json:"legal_name,omitempty"`    // 法定姓名
-	CustomFields []*CreateCoreHrPersonRespPersonEmergencyContactCustomField `json:"custom_fields,omitempty"` // 自定义字段
+	CustomFields []*CreateCoreHRPersonRespPersonEmergencyContactCustomField `json:"custom_fields,omitempty"` // 自定义字段
 }
 
-// CreateCoreHrPersonRespPersonEmergencyContactCustomField ...
-type CreateCoreHrPersonRespPersonEmergencyContactCustomField struct {
+// CreateCoreHRPersonRespPersonEmergencyContactCustomField ...
+type CreateCoreHRPersonRespPersonEmergencyContactCustomField struct {
 	CustomApiName string                                                       `json:"custom_api_name,omitempty"` // 自定义字段 apiname, 即自定义字段的唯一标识
-	Name          *CreateCoreHrPersonRespPersonEmergencyContactCustomFieldName `json:"name,omitempty"`            // 自定义字段名称
+	Name          *CreateCoreHRPersonRespPersonEmergencyContactCustomFieldName `json:"name,omitempty"`            // 自定义字段名称
 	Type          int64                                                        `json:"type,omitempty"`            // 自定义字段类型
 	Value         string                                                       `json:"value,omitempty"`           // 字段值, 是 json 转义后的字符串, 根据元数据定义不同, 字段格式不同（如 123, 123.23, "true", ["id1", "id2"], "2006-01-02 15:04:05"）
 }
 
-// CreateCoreHrPersonRespPersonEmergencyContactCustomFieldName ...
-type CreateCoreHrPersonRespPersonEmergencyContactCustomFieldName struct {
+// CreateCoreHRPersonRespPersonEmergencyContactCustomFieldName ...
+type CreateCoreHRPersonRespPersonEmergencyContactCustomFieldName struct {
 	ZhCn string `json:"zh_cn,omitempty"` // 中文
 	EnUs string `json:"en_us,omitempty"` // 英文
 }
 
-// CreateCoreHrPersonRespPersonEmergencyContactName ...
-type CreateCoreHrPersonRespPersonEmergencyContactName struct {
+// CreateCoreHRPersonRespPersonEmergencyContactName ...
+type CreateCoreHRPersonRespPersonEmergencyContactName struct {
 	LocalPrimary                     string                                                              `json:"local_primary,omitempty"`                         // 姓 - 本地文字
 	LocalFirstName                   string                                                              `json:"local_first_name,omitempty"`                      // 名 - 本地文字
 	CountryRegionID                  string                                                              `json:"country_region_id,omitempty"`                     // 国家 / 地区
-	NameType                         *CreateCoreHrPersonRespPersonEmergencyContactNameNameType           `json:"name_type,omitempty"`                             // 姓名类型
+	NameType                         *CreateCoreHRPersonRespPersonEmergencyContactNameNameType           `json:"name_type,omitempty"`                             // 姓名类型
 	LocalFirstName2                  string                                                              `json:"local_first_name_2,omitempty"`                    // 名 - 第二本地文字
 	LocalPrimary2                    string                                                              `json:"local_primary_2,omitempty"`                       // 姓 - 第二本地文字
-	AdditionalNameType               *CreateCoreHrPersonRespPersonEmergencyContactNameAdditionalNameType `json:"additional_name_type,omitempty"`                  // 补充姓名类型
+	AdditionalNameType               *CreateCoreHRPersonRespPersonEmergencyContactNameAdditionalNameType `json:"additional_name_type,omitempty"`                  // 补充姓名类型
 	FirstName                        string                                                              `json:"first_name,omitempty"`                            // 名
 	FullName                         string                                                              `json:"full_name,omitempty"`                             // 全名
 	Hereditary                       string                                                              `json:"hereditary,omitempty"`                            // 姓氏称谓
@@ -1094,9 +1104,9 @@ type CreateCoreHrPersonRespPersonEmergencyContactName struct {
 	MiddleName                       string                                                              `json:"middle_name,omitempty"`                           // 中间名
 	NamePrimary                      string                                                              `json:"name_primary,omitempty"`                          // 姓
 	Secondary                        string                                                              `json:"secondary,omitempty"`                             // 第二姓氏
-	Social                           *CreateCoreHrPersonRespPersonEmergencyContactNameSocial             `json:"social,omitempty"`                                // 尊称
+	Social                           *CreateCoreHRPersonRespPersonEmergencyContactNameSocial             `json:"social,omitempty"`                                // 尊称
 	Tertiary                         string                                                              `json:"tertiary,omitempty"`                              // 婚后姓氏
-	Title                            *CreateCoreHrPersonRespPersonEmergencyContactNameTitle              `json:"title,omitempty"`                                 // 头衔
+	Title                            *CreateCoreHRPersonRespPersonEmergencyContactNameTitle              `json:"title,omitempty"`                                 // 头衔
 	LocalMiddleName                  string                                                              `json:"local_middle_name,omitempty"`                     // 本地中间名
 	LocalSecondary                   string                                                              `json:"local_secondary,omitempty"`                       // 第二姓氏 - 本地文字
 	DisplayNameLocalAndWesternScript string                                                              `json:"display_name_local_and_western_script,omitempty"` // 展示姓名（本地和西方文字）
@@ -1104,336 +1114,336 @@ type CreateCoreHrPersonRespPersonEmergencyContactName struct {
 	DisplayNameWesternScript         string                                                              `json:"display_name_western_script,omitempty"`           // 展示姓名（西方文字）
 }
 
-// CreateCoreHrPersonRespPersonEmergencyContactNameAdditionalNameType ...
-type CreateCoreHrPersonRespPersonEmergencyContactNameAdditionalNameType struct {
+// CreateCoreHRPersonRespPersonEmergencyContactNameAdditionalNameType ...
+type CreateCoreHRPersonRespPersonEmergencyContactNameAdditionalNameType struct {
 	EnumName string                                                                       `json:"enum_name,omitempty"` // 枚举值
-	Display  []*CreateCoreHrPersonRespPersonEmergencyContactNameAdditionalNameTypeDisplay `json:"display,omitempty"`   // 枚举多语展示
+	Display  []*CreateCoreHRPersonRespPersonEmergencyContactNameAdditionalNameTypeDisplay `json:"display,omitempty"`   // 枚举多语展示
 }
 
-// CreateCoreHrPersonRespPersonEmergencyContactNameAdditionalNameTypeDisplay ...
-type CreateCoreHrPersonRespPersonEmergencyContactNameAdditionalNameTypeDisplay struct {
+// CreateCoreHRPersonRespPersonEmergencyContactNameAdditionalNameTypeDisplay ...
+type CreateCoreHRPersonRespPersonEmergencyContactNameAdditionalNameTypeDisplay struct {
 	Lang  string `json:"lang,omitempty"`  // 语言
 	Value string `json:"value,omitempty"` // 内容
 }
 
-// CreateCoreHrPersonRespPersonEmergencyContactNameNameType ...
-type CreateCoreHrPersonRespPersonEmergencyContactNameNameType struct {
+// CreateCoreHRPersonRespPersonEmergencyContactNameNameType ...
+type CreateCoreHRPersonRespPersonEmergencyContactNameNameType struct {
 	EnumName string                                                             `json:"enum_name,omitempty"` // 枚举值
-	Display  []*CreateCoreHrPersonRespPersonEmergencyContactNameNameTypeDisplay `json:"display,omitempty"`   // 枚举多语展示
+	Display  []*CreateCoreHRPersonRespPersonEmergencyContactNameNameTypeDisplay `json:"display,omitempty"`   // 枚举多语展示
 }
 
-// CreateCoreHrPersonRespPersonEmergencyContactNameNameTypeDisplay ...
-type CreateCoreHrPersonRespPersonEmergencyContactNameNameTypeDisplay struct {
+// CreateCoreHRPersonRespPersonEmergencyContactNameNameTypeDisplay ...
+type CreateCoreHRPersonRespPersonEmergencyContactNameNameTypeDisplay struct {
 	Lang  string `json:"lang,omitempty"`  // 语言
 	Value string `json:"value,omitempty"` // 内容
 }
 
-// CreateCoreHrPersonRespPersonEmergencyContactNameSocial ...
-type CreateCoreHrPersonRespPersonEmergencyContactNameSocial struct {
+// CreateCoreHRPersonRespPersonEmergencyContactNameSocial ...
+type CreateCoreHRPersonRespPersonEmergencyContactNameSocial struct {
 	EnumName string                                                           `json:"enum_name,omitempty"` // 枚举值
-	Display  []*CreateCoreHrPersonRespPersonEmergencyContactNameSocialDisplay `json:"display,omitempty"`   // 枚举多语展示
+	Display  []*CreateCoreHRPersonRespPersonEmergencyContactNameSocialDisplay `json:"display,omitempty"`   // 枚举多语展示
 }
 
-// CreateCoreHrPersonRespPersonEmergencyContactNameSocialDisplay ...
-type CreateCoreHrPersonRespPersonEmergencyContactNameSocialDisplay struct {
+// CreateCoreHRPersonRespPersonEmergencyContactNameSocialDisplay ...
+type CreateCoreHRPersonRespPersonEmergencyContactNameSocialDisplay struct {
 	Lang  string `json:"lang,omitempty"`  // 语言
 	Value string `json:"value,omitempty"` // 内容
 }
 
-// CreateCoreHrPersonRespPersonEmergencyContactNameTitle ...
-type CreateCoreHrPersonRespPersonEmergencyContactNameTitle struct {
+// CreateCoreHRPersonRespPersonEmergencyContactNameTitle ...
+type CreateCoreHRPersonRespPersonEmergencyContactNameTitle struct {
 	EnumName string                                                          `json:"enum_name,omitempty"` // 枚举值
-	Display  []*CreateCoreHrPersonRespPersonEmergencyContactNameTitleDisplay `json:"display,omitempty"`   // 枚举多语展示
+	Display  []*CreateCoreHRPersonRespPersonEmergencyContactNameTitleDisplay `json:"display,omitempty"`   // 枚举多语展示
 }
 
-// CreateCoreHrPersonRespPersonEmergencyContactNameTitleDisplay ...
-type CreateCoreHrPersonRespPersonEmergencyContactNameTitleDisplay struct {
+// CreateCoreHRPersonRespPersonEmergencyContactNameTitleDisplay ...
+type CreateCoreHRPersonRespPersonEmergencyContactNameTitleDisplay struct {
 	Lang  string `json:"lang,omitempty"`  // 语言
 	Value string `json:"value,omitempty"` // 内容
 }
 
-// CreateCoreHrPersonRespPersonEmergencyContactPhoneIst ...
-type CreateCoreHrPersonRespPersonEmergencyContactPhoneIst struct {
-	InternationalAreaCode *CreateCoreHrPersonRespPersonEmergencyContactPhoneIstInternationalAreaCode `json:"international_area_code,omitempty"` // 国家区号
+// CreateCoreHRPersonRespPersonEmergencyContactPhoneIst ...
+type CreateCoreHRPersonRespPersonEmergencyContactPhoneIst struct {
+	InternationalAreaCode *CreateCoreHRPersonRespPersonEmergencyContactPhoneIstInternationalAreaCode `json:"international_area_code,omitempty"` // 国家区号
 	PhoneNumber           string                                                                     `json:"phone_number,omitempty"`            // 电话号码
 	FormattedPhoneNumber  string                                                                     `json:"formatted_phone_number,omitempty"`  // 完整电话号码
-	DeviceType            *CreateCoreHrPersonRespPersonEmergencyContactPhoneIstDeviceType            `json:"device_type,omitempty"`             // 设备类型, 可选值如下: mobile_phone: 手机, landline: 座机, fax: 传真类型
-	PhoneUsage            *CreateCoreHrPersonRespPersonEmergencyContactPhoneIstPhoneUsage            `json:"phone_usage,omitempty"`             // 电话用途, 可选值如下: home: 家庭, work: 工作, emergency_contact: 紧急联系人, company: 公司
+	DeviceType            *CreateCoreHRPersonRespPersonEmergencyContactPhoneIstDeviceType            `json:"device_type,omitempty"`             // 设备类型, 可选值如下: mobile_phone: 手机, landline: 座机, fax: 传真类型
+	PhoneUsage            *CreateCoreHRPersonRespPersonEmergencyContactPhoneIstPhoneUsage            `json:"phone_usage,omitempty"`             // 电话用途, 可选值如下: home: 家庭, work: 工作, emergency_contact: 紧急联系人, company: 公司
 	IsPrimary             bool                                                                       `json:"is_primary,omitempty"`              // 主要电话
 	IsPublic              bool                                                                       `json:"is_public,omitempty"`               // 公开电话
 }
 
-// CreateCoreHrPersonRespPersonEmergencyContactPhoneIstDeviceType ...
-type CreateCoreHrPersonRespPersonEmergencyContactPhoneIstDeviceType struct {
+// CreateCoreHRPersonRespPersonEmergencyContactPhoneIstDeviceType ...
+type CreateCoreHRPersonRespPersonEmergencyContactPhoneIstDeviceType struct {
 	EnumName string                                                                   `json:"enum_name,omitempty"` // 枚举值
-	Display  []*CreateCoreHrPersonRespPersonEmergencyContactPhoneIstDeviceTypeDisplay `json:"display,omitempty"`   // 枚举多语展示
+	Display  []*CreateCoreHRPersonRespPersonEmergencyContactPhoneIstDeviceTypeDisplay `json:"display,omitempty"`   // 枚举多语展示
 }
 
-// CreateCoreHrPersonRespPersonEmergencyContactPhoneIstDeviceTypeDisplay ...
-type CreateCoreHrPersonRespPersonEmergencyContactPhoneIstDeviceTypeDisplay struct {
+// CreateCoreHRPersonRespPersonEmergencyContactPhoneIstDeviceTypeDisplay ...
+type CreateCoreHRPersonRespPersonEmergencyContactPhoneIstDeviceTypeDisplay struct {
 	Lang  string `json:"lang,omitempty"`  // 语言
 	Value string `json:"value,omitempty"` // 内容
 }
 
-// CreateCoreHrPersonRespPersonEmergencyContactPhoneIstInternationalAreaCode ...
-type CreateCoreHrPersonRespPersonEmergencyContactPhoneIstInternationalAreaCode struct {
+// CreateCoreHRPersonRespPersonEmergencyContactPhoneIstInternationalAreaCode ...
+type CreateCoreHRPersonRespPersonEmergencyContactPhoneIstInternationalAreaCode struct {
 	EnumName string                                                                              `json:"enum_name,omitempty"` // 枚举值
-	Display  []*CreateCoreHrPersonRespPersonEmergencyContactPhoneIstInternationalAreaCodeDisplay `json:"display,omitempty"`   // 枚举多语展示
+	Display  []*CreateCoreHRPersonRespPersonEmergencyContactPhoneIstInternationalAreaCodeDisplay `json:"display,omitempty"`   // 枚举多语展示
 }
 
-// CreateCoreHrPersonRespPersonEmergencyContactPhoneIstInternationalAreaCodeDisplay ...
-type CreateCoreHrPersonRespPersonEmergencyContactPhoneIstInternationalAreaCodeDisplay struct {
+// CreateCoreHRPersonRespPersonEmergencyContactPhoneIstInternationalAreaCodeDisplay ...
+type CreateCoreHRPersonRespPersonEmergencyContactPhoneIstInternationalAreaCodeDisplay struct {
 	Lang  string `json:"lang,omitempty"`  // 语言
 	Value string `json:"value,omitempty"` // 内容
 }
 
-// CreateCoreHrPersonRespPersonEmergencyContactPhoneIstPhoneUsage ...
-type CreateCoreHrPersonRespPersonEmergencyContactPhoneIstPhoneUsage struct {
+// CreateCoreHRPersonRespPersonEmergencyContactPhoneIstPhoneUsage ...
+type CreateCoreHRPersonRespPersonEmergencyContactPhoneIstPhoneUsage struct {
 	EnumName string                                                                   `json:"enum_name,omitempty"` // 枚举值
-	Display  []*CreateCoreHrPersonRespPersonEmergencyContactPhoneIstPhoneUsageDisplay `json:"display,omitempty"`   // 枚举多语展示
+	Display  []*CreateCoreHRPersonRespPersonEmergencyContactPhoneIstPhoneUsageDisplay `json:"display,omitempty"`   // 枚举多语展示
 }
 
-// CreateCoreHrPersonRespPersonEmergencyContactPhoneIstPhoneUsageDisplay ...
-type CreateCoreHrPersonRespPersonEmergencyContactPhoneIstPhoneUsageDisplay struct {
+// CreateCoreHRPersonRespPersonEmergencyContactPhoneIstPhoneUsageDisplay ...
+type CreateCoreHRPersonRespPersonEmergencyContactPhoneIstPhoneUsageDisplay struct {
 	Lang  string `json:"lang,omitempty"`  // 语言
 	Value string `json:"value,omitempty"` // 内容
 }
 
-// CreateCoreHrPersonRespPersonEmergencyContactRelationship ...
-type CreateCoreHrPersonRespPersonEmergencyContactRelationship struct {
+// CreateCoreHRPersonRespPersonEmergencyContactRelationship ...
+type CreateCoreHRPersonRespPersonEmergencyContactRelationship struct {
 	EnumName string                                                             `json:"enum_name,omitempty"` // 枚举值
-	Display  []*CreateCoreHrPersonRespPersonEmergencyContactRelationshipDisplay `json:"display,omitempty"`   // 枚举多语展示
+	Display  []*CreateCoreHRPersonRespPersonEmergencyContactRelationshipDisplay `json:"display,omitempty"`   // 枚举多语展示
 }
 
-// CreateCoreHrPersonRespPersonEmergencyContactRelationshipDisplay ...
-type CreateCoreHrPersonRespPersonEmergencyContactRelationshipDisplay struct {
+// CreateCoreHRPersonRespPersonEmergencyContactRelationshipDisplay ...
+type CreateCoreHRPersonRespPersonEmergencyContactRelationshipDisplay struct {
 	Lang  string `json:"lang,omitempty"`  // 语言
 	Value string `json:"value,omitempty"` // 内容
 }
 
-// CreateCoreHrPersonRespPersonGender ...
-type CreateCoreHrPersonRespPersonGender struct {
+// CreateCoreHRPersonRespPersonGender ...
+type CreateCoreHRPersonRespPersonGender struct {
 	EnumName string                                       `json:"enum_name,omitempty"` // 枚举值
-	Display  []*CreateCoreHrPersonRespPersonGenderDisplay `json:"display,omitempty"`   // 枚举多语展示
+	Display  []*CreateCoreHRPersonRespPersonGenderDisplay `json:"display,omitempty"`   // 枚举多语展示
 }
 
-// CreateCoreHrPersonRespPersonGenderDisplay ...
-type CreateCoreHrPersonRespPersonGenderDisplay struct {
+// CreateCoreHRPersonRespPersonGenderDisplay ...
+type CreateCoreHRPersonRespPersonGenderDisplay struct {
 	Lang  string `json:"lang,omitempty"`  // 语言
 	Value string `json:"value,omitempty"` // 内容
 }
 
-// CreateCoreHrPersonRespPersonHighestDegreeOfEducation ...
-type CreateCoreHrPersonRespPersonHighestDegreeOfEducation struct {
-	School           []*CreateCoreHrPersonRespPersonHighestDegreeOfEducationSchool         `json:"school,omitempty"`              // 学校
-	LevelOfEducation *CreateCoreHrPersonRespPersonHighestDegreeOfEducationLevelOfEducation `json:"level_of_education,omitempty"`  // 学历
+// CreateCoreHRPersonRespPersonHighestDegreeOfEducation ...
+type CreateCoreHRPersonRespPersonHighestDegreeOfEducation struct {
+	School           []*CreateCoreHRPersonRespPersonHighestDegreeOfEducationSchool         `json:"school,omitempty"`              // 学校
+	LevelOfEducation *CreateCoreHRPersonRespPersonHighestDegreeOfEducationLevelOfEducation `json:"level_of_education,omitempty"`  // 学历
 	StartDate        string                                                                `json:"start_date,omitempty"`          // 开始日期
 	EndDate          string                                                                `json:"end_date,omitempty"`            // 结束日期
-	FieldOfStudy     []*CreateCoreHrPersonRespPersonHighestDegreeOfEducationFieldOfStudy   `json:"field_of_study,omitempty"`      // 专业
-	Degree           *CreateCoreHrPersonRespPersonHighestDegreeOfEducationDegree           `json:"degree,omitempty"`              // 学位
-	SchoolName       *CreateCoreHrPersonRespPersonHighestDegreeOfEducationSchoolName       `json:"school_name,omitempty"`         // 学校名称
-	FieldOfStudyName *CreateCoreHrPersonRespPersonHighestDegreeOfEducationFieldOfStudyName `json:"field_of_study_name,omitempty"` // 专业名称
+	FieldOfStudy     []*CreateCoreHRPersonRespPersonHighestDegreeOfEducationFieldOfStudy   `json:"field_of_study,omitempty"`      // 专业
+	Degree           *CreateCoreHRPersonRespPersonHighestDegreeOfEducationDegree           `json:"degree,omitempty"`              // 学位
+	SchoolName       *CreateCoreHRPersonRespPersonHighestDegreeOfEducationSchoolName       `json:"school_name,omitempty"`         // 学校名称
+	FieldOfStudyName *CreateCoreHRPersonRespPersonHighestDegreeOfEducationFieldOfStudyName `json:"field_of_study_name,omitempty"` // 专业名称
 	CountryRegionID  string                                                                `json:"country_region_id,omitempty"`   // 国家地区ID
 	ExpectedEndDate  string                                                                `json:"expected_end_date,omitempty"`   // 预期结束日期
-	CustomFields     []*CreateCoreHrPersonRespPersonHighestDegreeOfEducationCustomField    `json:"custom_fields,omitempty"`       // 自定义字段
+	CustomFields     []*CreateCoreHRPersonRespPersonHighestDegreeOfEducationCustomField    `json:"custom_fields,omitempty"`       // 自定义字段
 }
 
-// CreateCoreHrPersonRespPersonHighestDegreeOfEducationCustomField ...
-type CreateCoreHrPersonRespPersonHighestDegreeOfEducationCustomField struct {
+// CreateCoreHRPersonRespPersonHighestDegreeOfEducationCustomField ...
+type CreateCoreHRPersonRespPersonHighestDegreeOfEducationCustomField struct {
 	CustomApiName string                                                               `json:"custom_api_name,omitempty"` // 自定义字段 apiname, 即自定义字段的唯一标识
-	Name          *CreateCoreHrPersonRespPersonHighestDegreeOfEducationCustomFieldName `json:"name,omitempty"`            // 自定义字段名称
+	Name          *CreateCoreHRPersonRespPersonHighestDegreeOfEducationCustomFieldName `json:"name,omitempty"`            // 自定义字段名称
 	Type          int64                                                                `json:"type,omitempty"`            // 自定义字段类型
 	Value         string                                                               `json:"value,omitempty"`           // 字段值, 是 json 转义后的字符串, 根据元数据定义不同, 字段格式不同（如 123, 123.23, "true", ["id1", "id2"], "2006-01-02 15:04:05"）
 }
 
-// CreateCoreHrPersonRespPersonHighestDegreeOfEducationCustomFieldName ...
-type CreateCoreHrPersonRespPersonHighestDegreeOfEducationCustomFieldName struct {
+// CreateCoreHRPersonRespPersonHighestDegreeOfEducationCustomFieldName ...
+type CreateCoreHRPersonRespPersonHighestDegreeOfEducationCustomFieldName struct {
 	ZhCn string `json:"zh_cn,omitempty"` // 中文
 	EnUs string `json:"en_us,omitempty"` // 英文
 }
 
-// CreateCoreHrPersonRespPersonHighestDegreeOfEducationDegree ...
-type CreateCoreHrPersonRespPersonHighestDegreeOfEducationDegree struct {
+// CreateCoreHRPersonRespPersonHighestDegreeOfEducationDegree ...
+type CreateCoreHRPersonRespPersonHighestDegreeOfEducationDegree struct {
 	EnumName string                                                               `json:"enum_name,omitempty"` // 枚举值
-	Display  []*CreateCoreHrPersonRespPersonHighestDegreeOfEducationDegreeDisplay `json:"display,omitempty"`   // 枚举多语展示
+	Display  []*CreateCoreHRPersonRespPersonHighestDegreeOfEducationDegreeDisplay `json:"display,omitempty"`   // 枚举多语展示
 }
 
-// CreateCoreHrPersonRespPersonHighestDegreeOfEducationDegreeDisplay ...
-type CreateCoreHrPersonRespPersonHighestDegreeOfEducationDegreeDisplay struct {
+// CreateCoreHRPersonRespPersonHighestDegreeOfEducationDegreeDisplay ...
+type CreateCoreHRPersonRespPersonHighestDegreeOfEducationDegreeDisplay struct {
 	Lang  string `json:"lang,omitempty"`  // 语言
 	Value string `json:"value,omitempty"` // 内容
 }
 
-// CreateCoreHrPersonRespPersonHighestDegreeOfEducationFieldOfStudy ...
-type CreateCoreHrPersonRespPersonHighestDegreeOfEducationFieldOfStudy struct {
+// CreateCoreHRPersonRespPersonHighestDegreeOfEducationFieldOfStudy ...
+type CreateCoreHRPersonRespPersonHighestDegreeOfEducationFieldOfStudy struct {
 	Lang  string `json:"lang,omitempty"`  // 语言
 	Value string `json:"value,omitempty"` // 内容
 }
 
-// CreateCoreHrPersonRespPersonHighestDegreeOfEducationFieldOfStudyName ...
-type CreateCoreHrPersonRespPersonHighestDegreeOfEducationFieldOfStudyName struct {
+// CreateCoreHRPersonRespPersonHighestDegreeOfEducationFieldOfStudyName ...
+type CreateCoreHRPersonRespPersonHighestDegreeOfEducationFieldOfStudyName struct {
 	EnumName string                                                                         `json:"enum_name,omitempty"` // 枚举值
-	Display  []*CreateCoreHrPersonRespPersonHighestDegreeOfEducationFieldOfStudyNameDisplay `json:"display,omitempty"`   // 枚举多语展示
+	Display  []*CreateCoreHRPersonRespPersonHighestDegreeOfEducationFieldOfStudyNameDisplay `json:"display,omitempty"`   // 枚举多语展示
 }
 
-// CreateCoreHrPersonRespPersonHighestDegreeOfEducationFieldOfStudyNameDisplay ...
-type CreateCoreHrPersonRespPersonHighestDegreeOfEducationFieldOfStudyNameDisplay struct {
+// CreateCoreHRPersonRespPersonHighestDegreeOfEducationFieldOfStudyNameDisplay ...
+type CreateCoreHRPersonRespPersonHighestDegreeOfEducationFieldOfStudyNameDisplay struct {
 	Lang  string `json:"lang,omitempty"`  // 语言
 	Value string `json:"value,omitempty"` // 内容
 }
 
-// CreateCoreHrPersonRespPersonHighestDegreeOfEducationLevelOfEducation ...
-type CreateCoreHrPersonRespPersonHighestDegreeOfEducationLevelOfEducation struct {
+// CreateCoreHRPersonRespPersonHighestDegreeOfEducationLevelOfEducation ...
+type CreateCoreHRPersonRespPersonHighestDegreeOfEducationLevelOfEducation struct {
 	EnumName string                                                                         `json:"enum_name,omitempty"` // 枚举值
-	Display  []*CreateCoreHrPersonRespPersonHighestDegreeOfEducationLevelOfEducationDisplay `json:"display,omitempty"`   // 枚举多语展示
+	Display  []*CreateCoreHRPersonRespPersonHighestDegreeOfEducationLevelOfEducationDisplay `json:"display,omitempty"`   // 枚举多语展示
 }
 
-// CreateCoreHrPersonRespPersonHighestDegreeOfEducationLevelOfEducationDisplay ...
-type CreateCoreHrPersonRespPersonHighestDegreeOfEducationLevelOfEducationDisplay struct {
+// CreateCoreHRPersonRespPersonHighestDegreeOfEducationLevelOfEducationDisplay ...
+type CreateCoreHRPersonRespPersonHighestDegreeOfEducationLevelOfEducationDisplay struct {
 	Lang  string `json:"lang,omitempty"`  // 语言
 	Value string `json:"value,omitempty"` // 内容
 }
 
-// CreateCoreHrPersonRespPersonHighestDegreeOfEducationSchool ...
-type CreateCoreHrPersonRespPersonHighestDegreeOfEducationSchool struct {
+// CreateCoreHRPersonRespPersonHighestDegreeOfEducationSchool ...
+type CreateCoreHRPersonRespPersonHighestDegreeOfEducationSchool struct {
 	Lang  string `json:"lang,omitempty"`  // 语言
 	Value string `json:"value,omitempty"` // 内容
 }
 
-// CreateCoreHrPersonRespPersonHighestDegreeOfEducationSchoolName ...
-type CreateCoreHrPersonRespPersonHighestDegreeOfEducationSchoolName struct {
+// CreateCoreHRPersonRespPersonHighestDegreeOfEducationSchoolName ...
+type CreateCoreHRPersonRespPersonHighestDegreeOfEducationSchoolName struct {
 	EnumName string                                                                   `json:"enum_name,omitempty"` // 枚举值
-	Display  []*CreateCoreHrPersonRespPersonHighestDegreeOfEducationSchoolNameDisplay `json:"display,omitempty"`   // 枚举多语展示
+	Display  []*CreateCoreHRPersonRespPersonHighestDegreeOfEducationSchoolNameDisplay `json:"display,omitempty"`   // 枚举多语展示
 }
 
-// CreateCoreHrPersonRespPersonHighestDegreeOfEducationSchoolNameDisplay ...
-type CreateCoreHrPersonRespPersonHighestDegreeOfEducationSchoolNameDisplay struct {
+// CreateCoreHRPersonRespPersonHighestDegreeOfEducationSchoolNameDisplay ...
+type CreateCoreHRPersonRespPersonHighestDegreeOfEducationSchoolNameDisplay struct {
 	Lang  string `json:"lang,omitempty"`  // 语言
 	Value string `json:"value,omitempty"` // 内容
 }
 
-// CreateCoreHrPersonRespPersonHighestLevelOfEducation ...
-type CreateCoreHrPersonRespPersonHighestLevelOfEducation struct {
-	School           []*CreateCoreHrPersonRespPersonHighestLevelOfEducationSchool         `json:"school,omitempty"`              // 学校
-	LevelOfEducation *CreateCoreHrPersonRespPersonHighestLevelOfEducationLevelOfEducation `json:"level_of_education,omitempty"`  // 学历
+// CreateCoreHRPersonRespPersonHighestLevelOfEducation ...
+type CreateCoreHRPersonRespPersonHighestLevelOfEducation struct {
+	School           []*CreateCoreHRPersonRespPersonHighestLevelOfEducationSchool         `json:"school,omitempty"`              // 学校
+	LevelOfEducation *CreateCoreHRPersonRespPersonHighestLevelOfEducationLevelOfEducation `json:"level_of_education,omitempty"`  // 学历
 	StartDate        string                                                               `json:"start_date,omitempty"`          // 开始日期
 	EndDate          string                                                               `json:"end_date,omitempty"`            // 结束日期
-	FieldOfStudy     []*CreateCoreHrPersonRespPersonHighestLevelOfEducationFieldOfStudy   `json:"field_of_study,omitempty"`      // 专业
-	Degree           *CreateCoreHrPersonRespPersonHighestLevelOfEducationDegree           `json:"degree,omitempty"`              // 学位
-	SchoolName       *CreateCoreHrPersonRespPersonHighestLevelOfEducationSchoolName       `json:"school_name,omitempty"`         // 学校名称
-	FieldOfStudyName *CreateCoreHrPersonRespPersonHighestLevelOfEducationFieldOfStudyName `json:"field_of_study_name,omitempty"` // 专业名称
+	FieldOfStudy     []*CreateCoreHRPersonRespPersonHighestLevelOfEducationFieldOfStudy   `json:"field_of_study,omitempty"`      // 专业
+	Degree           *CreateCoreHRPersonRespPersonHighestLevelOfEducationDegree           `json:"degree,omitempty"`              // 学位
+	SchoolName       *CreateCoreHRPersonRespPersonHighestLevelOfEducationSchoolName       `json:"school_name,omitempty"`         // 学校名称
+	FieldOfStudyName *CreateCoreHRPersonRespPersonHighestLevelOfEducationFieldOfStudyName `json:"field_of_study_name,omitempty"` // 专业名称
 	CountryRegionID  string                                                               `json:"country_region_id,omitempty"`   // 国家地区ID
 	ExpectedEndDate  string                                                               `json:"expected_end_date,omitempty"`   // 预期结束日期
-	CustomFields     []*CreateCoreHrPersonRespPersonHighestLevelOfEducationCustomField    `json:"custom_fields,omitempty"`       // 自定义字段
+	CustomFields     []*CreateCoreHRPersonRespPersonHighestLevelOfEducationCustomField    `json:"custom_fields,omitempty"`       // 自定义字段
 }
 
-// CreateCoreHrPersonRespPersonHighestLevelOfEducationCustomField ...
-type CreateCoreHrPersonRespPersonHighestLevelOfEducationCustomField struct {
+// CreateCoreHRPersonRespPersonHighestLevelOfEducationCustomField ...
+type CreateCoreHRPersonRespPersonHighestLevelOfEducationCustomField struct {
 	CustomApiName string                                                              `json:"custom_api_name,omitempty"` // 自定义字段 apiname, 即自定义字段的唯一标识
-	Name          *CreateCoreHrPersonRespPersonHighestLevelOfEducationCustomFieldName `json:"name,omitempty"`            // 自定义字段名称
+	Name          *CreateCoreHRPersonRespPersonHighestLevelOfEducationCustomFieldName `json:"name,omitempty"`            // 自定义字段名称
 	Type          int64                                                               `json:"type,omitempty"`            // 自定义字段类型
 	Value         string                                                              `json:"value,omitempty"`           // 字段值, 是 json 转义后的字符串, 根据元数据定义不同, 字段格式不同（如 123, 123.23, "true", ["id1", "id2"], "2006-01-02 15:04:05"）
 }
 
-// CreateCoreHrPersonRespPersonHighestLevelOfEducationCustomFieldName ...
-type CreateCoreHrPersonRespPersonHighestLevelOfEducationCustomFieldName struct {
+// CreateCoreHRPersonRespPersonHighestLevelOfEducationCustomFieldName ...
+type CreateCoreHRPersonRespPersonHighestLevelOfEducationCustomFieldName struct {
 	ZhCn string `json:"zh_cn,omitempty"` // 中文
 	EnUs string `json:"en_us,omitempty"` // 英文
 }
 
-// CreateCoreHrPersonRespPersonHighestLevelOfEducationDegree ...
-type CreateCoreHrPersonRespPersonHighestLevelOfEducationDegree struct {
+// CreateCoreHRPersonRespPersonHighestLevelOfEducationDegree ...
+type CreateCoreHRPersonRespPersonHighestLevelOfEducationDegree struct {
 	EnumName string                                                              `json:"enum_name,omitempty"` // 枚举值
-	Display  []*CreateCoreHrPersonRespPersonHighestLevelOfEducationDegreeDisplay `json:"display,omitempty"`   // 枚举多语展示
+	Display  []*CreateCoreHRPersonRespPersonHighestLevelOfEducationDegreeDisplay `json:"display,omitempty"`   // 枚举多语展示
 }
 
-// CreateCoreHrPersonRespPersonHighestLevelOfEducationDegreeDisplay ...
-type CreateCoreHrPersonRespPersonHighestLevelOfEducationDegreeDisplay struct {
+// CreateCoreHRPersonRespPersonHighestLevelOfEducationDegreeDisplay ...
+type CreateCoreHRPersonRespPersonHighestLevelOfEducationDegreeDisplay struct {
 	Lang  string `json:"lang,omitempty"`  // 语言
 	Value string `json:"value,omitempty"` // 内容
 }
 
-// CreateCoreHrPersonRespPersonHighestLevelOfEducationFieldOfStudy ...
-type CreateCoreHrPersonRespPersonHighestLevelOfEducationFieldOfStudy struct {
+// CreateCoreHRPersonRespPersonHighestLevelOfEducationFieldOfStudy ...
+type CreateCoreHRPersonRespPersonHighestLevelOfEducationFieldOfStudy struct {
 	Lang  string `json:"lang,omitempty"`  // 语言
 	Value string `json:"value,omitempty"` // 内容
 }
 
-// CreateCoreHrPersonRespPersonHighestLevelOfEducationFieldOfStudyName ...
-type CreateCoreHrPersonRespPersonHighestLevelOfEducationFieldOfStudyName struct {
+// CreateCoreHRPersonRespPersonHighestLevelOfEducationFieldOfStudyName ...
+type CreateCoreHRPersonRespPersonHighestLevelOfEducationFieldOfStudyName struct {
 	EnumName string                                                                        `json:"enum_name,omitempty"` // 枚举值
-	Display  []*CreateCoreHrPersonRespPersonHighestLevelOfEducationFieldOfStudyNameDisplay `json:"display,omitempty"`   // 枚举多语展示
+	Display  []*CreateCoreHRPersonRespPersonHighestLevelOfEducationFieldOfStudyNameDisplay `json:"display,omitempty"`   // 枚举多语展示
 }
 
-// CreateCoreHrPersonRespPersonHighestLevelOfEducationFieldOfStudyNameDisplay ...
-type CreateCoreHrPersonRespPersonHighestLevelOfEducationFieldOfStudyNameDisplay struct {
+// CreateCoreHRPersonRespPersonHighestLevelOfEducationFieldOfStudyNameDisplay ...
+type CreateCoreHRPersonRespPersonHighestLevelOfEducationFieldOfStudyNameDisplay struct {
 	Lang  string `json:"lang,omitempty"`  // 语言
 	Value string `json:"value,omitempty"` // 内容
 }
 
-// CreateCoreHrPersonRespPersonHighestLevelOfEducationLevelOfEducation ...
-type CreateCoreHrPersonRespPersonHighestLevelOfEducationLevelOfEducation struct {
+// CreateCoreHRPersonRespPersonHighestLevelOfEducationLevelOfEducation ...
+type CreateCoreHRPersonRespPersonHighestLevelOfEducationLevelOfEducation struct {
 	EnumName string                                                                        `json:"enum_name,omitempty"` // 枚举值
-	Display  []*CreateCoreHrPersonRespPersonHighestLevelOfEducationLevelOfEducationDisplay `json:"display,omitempty"`   // 枚举多语展示
+	Display  []*CreateCoreHRPersonRespPersonHighestLevelOfEducationLevelOfEducationDisplay `json:"display,omitempty"`   // 枚举多语展示
 }
 
-// CreateCoreHrPersonRespPersonHighestLevelOfEducationLevelOfEducationDisplay ...
-type CreateCoreHrPersonRespPersonHighestLevelOfEducationLevelOfEducationDisplay struct {
+// CreateCoreHRPersonRespPersonHighestLevelOfEducationLevelOfEducationDisplay ...
+type CreateCoreHRPersonRespPersonHighestLevelOfEducationLevelOfEducationDisplay struct {
 	Lang  string `json:"lang,omitempty"`  // 语言
 	Value string `json:"value,omitempty"` // 内容
 }
 
-// CreateCoreHrPersonRespPersonHighestLevelOfEducationSchool ...
-type CreateCoreHrPersonRespPersonHighestLevelOfEducationSchool struct {
+// CreateCoreHRPersonRespPersonHighestLevelOfEducationSchool ...
+type CreateCoreHRPersonRespPersonHighestLevelOfEducationSchool struct {
 	Lang  string `json:"lang,omitempty"`  // 语言
 	Value string `json:"value,omitempty"` // 内容
 }
 
-// CreateCoreHrPersonRespPersonHighestLevelOfEducationSchoolName ...
-type CreateCoreHrPersonRespPersonHighestLevelOfEducationSchoolName struct {
+// CreateCoreHRPersonRespPersonHighestLevelOfEducationSchoolName ...
+type CreateCoreHRPersonRespPersonHighestLevelOfEducationSchoolName struct {
 	EnumName string                                                                  `json:"enum_name,omitempty"` // 枚举值
-	Display  []*CreateCoreHrPersonRespPersonHighestLevelOfEducationSchoolNameDisplay `json:"display,omitempty"`   // 枚举多语展示
+	Display  []*CreateCoreHRPersonRespPersonHighestLevelOfEducationSchoolNameDisplay `json:"display,omitempty"`   // 枚举多语展示
 }
 
-// CreateCoreHrPersonRespPersonHighestLevelOfEducationSchoolNameDisplay ...
-type CreateCoreHrPersonRespPersonHighestLevelOfEducationSchoolNameDisplay struct {
+// CreateCoreHRPersonRespPersonHighestLevelOfEducationSchoolNameDisplay ...
+type CreateCoreHRPersonRespPersonHighestLevelOfEducationSchoolNameDisplay struct {
 	Lang  string `json:"lang,omitempty"`  // 语言
 	Value string `json:"value,omitempty"` // 内容
 }
 
-// CreateCoreHrPersonRespPersonHukouType ...
-type CreateCoreHrPersonRespPersonHukouType struct {
+// CreateCoreHRPersonRespPersonHukouType ...
+type CreateCoreHRPersonRespPersonHukouType struct {
 	EnumName string                                          `json:"enum_name,omitempty"` // 枚举值
-	Display  []*CreateCoreHrPersonRespPersonHukouTypeDisplay `json:"display,omitempty"`   // 枚举多语展示
+	Display  []*CreateCoreHRPersonRespPersonHukouTypeDisplay `json:"display,omitempty"`   // 枚举多语展示
 }
 
-// CreateCoreHrPersonRespPersonHukouTypeDisplay ...
-type CreateCoreHrPersonRespPersonHukouTypeDisplay struct {
+// CreateCoreHRPersonRespPersonHukouTypeDisplay ...
+type CreateCoreHRPersonRespPersonHukouTypeDisplay struct {
 	Lang  string `json:"lang,omitempty"`  // 语言
 	Value string `json:"value,omitempty"` // 内容
 }
 
-// CreateCoreHrPersonRespPersonMaritalStatus ...
-type CreateCoreHrPersonRespPersonMaritalStatus struct {
+// CreateCoreHRPersonRespPersonMaritalStatus ...
+type CreateCoreHRPersonRespPersonMaritalStatus struct {
 	EnumName string                                              `json:"enum_name,omitempty"` // 枚举值
-	Display  []*CreateCoreHrPersonRespPersonMaritalStatusDisplay `json:"display,omitempty"`   // 枚举多语展示
+	Display  []*CreateCoreHRPersonRespPersonMaritalStatusDisplay `json:"display,omitempty"`   // 枚举多语展示
 }
 
-// CreateCoreHrPersonRespPersonMaritalStatusDisplay ...
-type CreateCoreHrPersonRespPersonMaritalStatusDisplay struct {
+// CreateCoreHRPersonRespPersonMaritalStatusDisplay ...
+type CreateCoreHRPersonRespPersonMaritalStatusDisplay struct {
 	Lang  string `json:"lang,omitempty"`  // 语言
 	Value string `json:"value,omitempty"` // 内容
 }
 
-// CreateCoreHrPersonRespPersonName ...
-type CreateCoreHrPersonRespPersonName struct {
+// CreateCoreHRPersonRespPersonName ...
+type CreateCoreHRPersonRespPersonName struct {
 	LocalPrimary                     string                                              `json:"local_primary,omitempty"`                         // 姓 - 本地文字
 	LocalFirstName                   string                                              `json:"local_first_name,omitempty"`                      // 名 - 本地文字
 	CountryRegionID                  string                                              `json:"country_region_id,omitempty"`                     // 国家 / 地区
-	NameType                         *CreateCoreHrPersonRespPersonNameNameType           `json:"name_type,omitempty"`                             // 姓名类型
+	NameType                         *CreateCoreHRPersonRespPersonNameNameType           `json:"name_type,omitempty"`                             // 姓名类型
 	LocalFirstName2                  string                                              `json:"local_first_name_2,omitempty"`                    // 名 - 第二本地文字
 	LocalPrimary2                    string                                              `json:"local_primary_2,omitempty"`                       // 姓 - 第二本地文字
-	AdditionalNameType               *CreateCoreHrPersonRespPersonNameAdditionalNameType `json:"additional_name_type,omitempty"`                  // 补充姓名类型
+	AdditionalNameType               *CreateCoreHRPersonRespPersonNameAdditionalNameType `json:"additional_name_type,omitempty"`                  // 补充姓名类型
 	FirstName                        string                                              `json:"first_name,omitempty"`                            // 名
 	FullName                         string                                              `json:"full_name,omitempty"`                             // 全名
 	Hereditary                       string                                              `json:"hereditary,omitempty"`                            // 姓氏称谓
@@ -1442,9 +1452,9 @@ type CreateCoreHrPersonRespPersonName struct {
 	MiddleName                       string                                              `json:"middle_name,omitempty"`                           // 中间名
 	NamePrimary                      string                                              `json:"name_primary,omitempty"`                          // 姓
 	Secondary                        string                                              `json:"secondary,omitempty"`                             // 第二姓氏
-	Social                           *CreateCoreHrPersonRespPersonNameSocial             `json:"social,omitempty"`                                // 尊称
+	Social                           *CreateCoreHRPersonRespPersonNameSocial             `json:"social,omitempty"`                                // 尊称
 	Tertiary                         string                                              `json:"tertiary,omitempty"`                              // 婚后姓氏
-	Title                            *CreateCoreHrPersonRespPersonNameTitle              `json:"title,omitempty"`                                 // 头衔
+	Title                            *CreateCoreHRPersonRespPersonNameTitle              `json:"title,omitempty"`                                 // 头衔
 	LocalMiddleName                  string                                              `json:"local_middle_name,omitempty"`                     // 本地中间名
 	LocalSecondary                   string                                              `json:"local_secondary,omitempty"`                       // 第二姓氏 - 本地文字
 	DisplayNameLocalAndWesternScript string                                              `json:"display_name_local_and_western_script,omitempty"` // 展示姓名（本地和西方文字）
@@ -1452,214 +1462,214 @@ type CreateCoreHrPersonRespPersonName struct {
 	DisplayNameWesternScript         string                                              `json:"display_name_western_script,omitempty"`           // 展示姓名（西方文字）
 }
 
-// CreateCoreHrPersonRespPersonNameAdditionalNameType ...
-type CreateCoreHrPersonRespPersonNameAdditionalNameType struct {
+// CreateCoreHRPersonRespPersonNameAdditionalNameType ...
+type CreateCoreHRPersonRespPersonNameAdditionalNameType struct {
 	EnumName string                                                       `json:"enum_name,omitempty"` // 枚举值
-	Display  []*CreateCoreHrPersonRespPersonNameAdditionalNameTypeDisplay `json:"display,omitempty"`   // 枚举多语展示
+	Display  []*CreateCoreHRPersonRespPersonNameAdditionalNameTypeDisplay `json:"display,omitempty"`   // 枚举多语展示
 }
 
-// CreateCoreHrPersonRespPersonNameAdditionalNameTypeDisplay ...
-type CreateCoreHrPersonRespPersonNameAdditionalNameTypeDisplay struct {
+// CreateCoreHRPersonRespPersonNameAdditionalNameTypeDisplay ...
+type CreateCoreHRPersonRespPersonNameAdditionalNameTypeDisplay struct {
 	Lang  string `json:"lang,omitempty"`  // 语言
 	Value string `json:"value,omitempty"` // 内容
 }
 
-// CreateCoreHrPersonRespPersonNameNameType ...
-type CreateCoreHrPersonRespPersonNameNameType struct {
+// CreateCoreHRPersonRespPersonNameNameType ...
+type CreateCoreHRPersonRespPersonNameNameType struct {
 	EnumName string                                             `json:"enum_name,omitempty"` // 枚举值
-	Display  []*CreateCoreHrPersonRespPersonNameNameTypeDisplay `json:"display,omitempty"`   // 枚举多语展示
+	Display  []*CreateCoreHRPersonRespPersonNameNameTypeDisplay `json:"display,omitempty"`   // 枚举多语展示
 }
 
-// CreateCoreHrPersonRespPersonNameNameTypeDisplay ...
-type CreateCoreHrPersonRespPersonNameNameTypeDisplay struct {
+// CreateCoreHRPersonRespPersonNameNameTypeDisplay ...
+type CreateCoreHRPersonRespPersonNameNameTypeDisplay struct {
 	Lang  string `json:"lang,omitempty"`  // 语言
 	Value string `json:"value,omitempty"` // 内容
 }
 
-// CreateCoreHrPersonRespPersonNameSocial ...
-type CreateCoreHrPersonRespPersonNameSocial struct {
+// CreateCoreHRPersonRespPersonNameSocial ...
+type CreateCoreHRPersonRespPersonNameSocial struct {
 	EnumName string                                           `json:"enum_name,omitempty"` // 枚举值
-	Display  []*CreateCoreHrPersonRespPersonNameSocialDisplay `json:"display,omitempty"`   // 枚举多语展示
+	Display  []*CreateCoreHRPersonRespPersonNameSocialDisplay `json:"display,omitempty"`   // 枚举多语展示
 }
 
-// CreateCoreHrPersonRespPersonNameSocialDisplay ...
-type CreateCoreHrPersonRespPersonNameSocialDisplay struct {
+// CreateCoreHRPersonRespPersonNameSocialDisplay ...
+type CreateCoreHRPersonRespPersonNameSocialDisplay struct {
 	Lang  string `json:"lang,omitempty"`  // 语言
 	Value string `json:"value,omitempty"` // 内容
 }
 
-// CreateCoreHrPersonRespPersonNameTitle ...
-type CreateCoreHrPersonRespPersonNameTitle struct {
+// CreateCoreHRPersonRespPersonNameTitle ...
+type CreateCoreHRPersonRespPersonNameTitle struct {
 	EnumName string                                          `json:"enum_name,omitempty"` // 枚举值
-	Display  []*CreateCoreHrPersonRespPersonNameTitleDisplay `json:"display,omitempty"`   // 枚举多语展示
+	Display  []*CreateCoreHRPersonRespPersonNameTitleDisplay `json:"display,omitempty"`   // 枚举多语展示
 }
 
-// CreateCoreHrPersonRespPersonNameTitleDisplay ...
-type CreateCoreHrPersonRespPersonNameTitleDisplay struct {
+// CreateCoreHRPersonRespPersonNameTitleDisplay ...
+type CreateCoreHRPersonRespPersonNameTitleDisplay struct {
 	Lang  string `json:"lang,omitempty"`  // 语言
 	Value string `json:"value,omitempty"` // 内容
 }
 
-// CreateCoreHrPersonRespPersonNationalID ...
-type CreateCoreHrPersonRespPersonNationalID struct {
+// CreateCoreHRPersonRespPersonNationalID ...
+type CreateCoreHRPersonRespPersonNationalID struct {
 	NationalIDTypeID string                                               `json:"national_id_type_id,omitempty"` // 国家证件类型
 	NationalIDNumber string                                               `json:"national_id_number,omitempty"`  // 证件号码
 	IssueDate        string                                               `json:"issue_date,omitempty"`          // 证件签发日期
 	ExpirationDate   string                                               `json:"expiration_date,omitempty"`     // 证件到期日期
 	CountryRegionID  string                                               `json:"country_region_id,omitempty"`   // 国家 / 地区
 	IssuedBy         string                                               `json:"issued_by,omitempty"`           // 证件签发机构
-	CustomFields     []*CreateCoreHrPersonRespPersonNationalIDCustomField `json:"custom_fields,omitempty"`       // 自定义字段
+	CustomFields     []*CreateCoreHRPersonRespPersonNationalIDCustomField `json:"custom_fields,omitempty"`       // 自定义字段
 }
 
-// CreateCoreHrPersonRespPersonNationalIDCustomField ...
-type CreateCoreHrPersonRespPersonNationalIDCustomField struct {
+// CreateCoreHRPersonRespPersonNationalIDCustomField ...
+type CreateCoreHRPersonRespPersonNationalIDCustomField struct {
 	CustomApiName string                                                 `json:"custom_api_name,omitempty"` // 自定义字段 apiname, 即自定义字段的唯一标识
-	Name          *CreateCoreHrPersonRespPersonNationalIDCustomFieldName `json:"name,omitempty"`            // 自定义字段名称
+	Name          *CreateCoreHRPersonRespPersonNationalIDCustomFieldName `json:"name,omitempty"`            // 自定义字段名称
 	Type          int64                                                  `json:"type,omitempty"`            // 自定义字段类型
 	Value         string                                                 `json:"value,omitempty"`           // 字段值, 是 json 转义后的字符串, 根据元数据定义不同, 字段格式不同（如 123, 123.23, "true", ["id1", "id2"], "2006-01-02 15:04:05"）
 }
 
-// CreateCoreHrPersonRespPersonNationalIDCustomFieldName ...
-type CreateCoreHrPersonRespPersonNationalIDCustomFieldName struct {
+// CreateCoreHRPersonRespPersonNationalIDCustomFieldName ...
+type CreateCoreHRPersonRespPersonNationalIDCustomFieldName struct {
 	ZhCn string `json:"zh_cn,omitempty"` // 中文
 	EnUs string `json:"en_us,omitempty"` // 英文
 }
 
-// CreateCoreHrPersonRespPersonPersonalProfile ...
-type CreateCoreHrPersonRespPersonPersonalProfile struct {
+// CreateCoreHRPersonRespPersonPersonalProfile ...
+type CreateCoreHRPersonRespPersonPersonalProfile struct {
 	PersonalProfileID   string                                                          `json:"personal_profile_id,omitempty"`   // 个人资料 ID
-	PersonalProfileType *CreateCoreHrPersonRespPersonPersonalProfilePersonalProfileType `json:"personal_profile_type,omitempty"` // 资料类型
-	Files               []*CreateCoreHrPersonRespPersonPersonalProfileFile              `json:"files,omitempty"`                 // 上传文件列表
+	PersonalProfileType *CreateCoreHRPersonRespPersonPersonalProfilePersonalProfileType `json:"personal_profile_type,omitempty"` // 资料类型
+	Files               []*CreateCoreHRPersonRespPersonPersonalProfileFile              `json:"files,omitempty"`                 // 上传文件列表
 }
 
-// CreateCoreHrPersonRespPersonPersonalProfileFile ...
-type CreateCoreHrPersonRespPersonPersonalProfileFile struct {
+// CreateCoreHRPersonRespPersonPersonalProfileFile ...
+type CreateCoreHRPersonRespPersonPersonalProfileFile struct {
 	ID string `json:"id,omitempty"` // 上传文件ID
 }
 
-// CreateCoreHrPersonRespPersonPersonalProfilePersonalProfileType ...
-type CreateCoreHrPersonRespPersonPersonalProfilePersonalProfileType struct {
+// CreateCoreHRPersonRespPersonPersonalProfilePersonalProfileType ...
+type CreateCoreHRPersonRespPersonPersonalProfilePersonalProfileType struct {
 	EnumName string                                                                   `json:"enum_name,omitempty"` // 枚举值
-	Display  []*CreateCoreHrPersonRespPersonPersonalProfilePersonalProfileTypeDisplay `json:"display,omitempty"`   // 枚举多语展示
+	Display  []*CreateCoreHRPersonRespPersonPersonalProfilePersonalProfileTypeDisplay `json:"display,omitempty"`   // 枚举多语展示
 }
 
-// CreateCoreHrPersonRespPersonPersonalProfilePersonalProfileTypeDisplay ...
-type CreateCoreHrPersonRespPersonPersonalProfilePersonalProfileTypeDisplay struct {
+// CreateCoreHRPersonRespPersonPersonalProfilePersonalProfileTypeDisplay ...
+type CreateCoreHRPersonRespPersonPersonalProfilePersonalProfileTypeDisplay struct {
 	Lang  string `json:"lang,omitempty"`  // 语言
 	Value string `json:"value,omitempty"` // 内容
 }
 
-// CreateCoreHrPersonRespPersonPhone ...
-type CreateCoreHrPersonRespPersonPhone struct {
-	InternationalAreaCode *CreateCoreHrPersonRespPersonPhoneInternationalAreaCode `json:"international_area_code,omitempty"` // 国家区号, 枚举值 api_name 可通过[【获取字段详情】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/custom_field/get_by_param)接口查询, 查询参数如下: object_api_name = "phone", custom_api_name = "international_area_code"
+// CreateCoreHRPersonRespPersonPhone ...
+type CreateCoreHRPersonRespPersonPhone struct {
+	InternationalAreaCode *CreateCoreHRPersonRespPersonPhoneInternationalAreaCode `json:"international_area_code,omitempty"` // 国家区号, 枚举值 api_name 可通过[【获取字段详情】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/custom_field/get_by_param)接口查询, 查询参数如下: object_api_name = "phone", custom_api_name = "international_area_code"
 	PhoneNumber           string                                                  `json:"phone_number,omitempty"`            // 电话号码
 	FormattedPhoneNumber  string                                                  `json:"formatted_phone_number,omitempty"`  // 完整电话号码
-	DeviceType            *CreateCoreHrPersonRespPersonPhoneDeviceType            `json:"device_type,omitempty"`             // 设备类型, 可选值如下: mobile_phone: 手机, landline: 座机, fax: 传真类型
-	PhoneUsage            *CreateCoreHrPersonRespPersonPhonePhoneUsage            `json:"phone_usage,omitempty"`             // 电话用途, 可选值如下: home: 家庭, work: 工作, emergency_contact: 紧急联系人, company: 公司
+	DeviceType            *CreateCoreHRPersonRespPersonPhoneDeviceType            `json:"device_type,omitempty"`             // 设备类型, 可选值如下: mobile_phone: 手机, landline: 座机, fax: 传真类型
+	PhoneUsage            *CreateCoreHRPersonRespPersonPhonePhoneUsage            `json:"phone_usage,omitempty"`             // 电话用途, 可选值如下: home: 家庭, work: 工作, emergency_contact: 紧急联系人, company: 公司
 	IsPrimary             bool                                                    `json:"is_primary,omitempty"`              // 主要电话
 	IsPublic              bool                                                    `json:"is_public,omitempty"`               // 公开电话
 }
 
-// CreateCoreHrPersonRespPersonPhoneDeviceType ...
-type CreateCoreHrPersonRespPersonPhoneDeviceType struct {
+// CreateCoreHRPersonRespPersonPhoneDeviceType ...
+type CreateCoreHRPersonRespPersonPhoneDeviceType struct {
 	EnumName string                                                `json:"enum_name,omitempty"` // 枚举值
-	Display  []*CreateCoreHrPersonRespPersonPhoneDeviceTypeDisplay `json:"display,omitempty"`   // 枚举多语展示
+	Display  []*CreateCoreHRPersonRespPersonPhoneDeviceTypeDisplay `json:"display,omitempty"`   // 枚举多语展示
 }
 
-// CreateCoreHrPersonRespPersonPhoneDeviceTypeDisplay ...
-type CreateCoreHrPersonRespPersonPhoneDeviceTypeDisplay struct {
+// CreateCoreHRPersonRespPersonPhoneDeviceTypeDisplay ...
+type CreateCoreHRPersonRespPersonPhoneDeviceTypeDisplay struct {
 	Lang  string `json:"lang,omitempty"`  // 语言
 	Value string `json:"value,omitempty"` // 内容
 }
 
-// CreateCoreHrPersonRespPersonPhoneInternationalAreaCode ...
-type CreateCoreHrPersonRespPersonPhoneInternationalAreaCode struct {
+// CreateCoreHRPersonRespPersonPhoneInternationalAreaCode ...
+type CreateCoreHRPersonRespPersonPhoneInternationalAreaCode struct {
 	EnumName string                                                           `json:"enum_name,omitempty"` // 枚举值
-	Display  []*CreateCoreHrPersonRespPersonPhoneInternationalAreaCodeDisplay `json:"display,omitempty"`   // 枚举多语展示
+	Display  []*CreateCoreHRPersonRespPersonPhoneInternationalAreaCodeDisplay `json:"display,omitempty"`   // 枚举多语展示
 }
 
-// CreateCoreHrPersonRespPersonPhoneInternationalAreaCodeDisplay ...
-type CreateCoreHrPersonRespPersonPhoneInternationalAreaCodeDisplay struct {
+// CreateCoreHRPersonRespPersonPhoneInternationalAreaCodeDisplay ...
+type CreateCoreHRPersonRespPersonPhoneInternationalAreaCodeDisplay struct {
 	Lang  string `json:"lang,omitempty"`  // 语言
 	Value string `json:"value,omitempty"` // 内容
 }
 
-// CreateCoreHrPersonRespPersonPhonePhoneUsage ...
-type CreateCoreHrPersonRespPersonPhonePhoneUsage struct {
+// CreateCoreHRPersonRespPersonPhonePhoneUsage ...
+type CreateCoreHRPersonRespPersonPhonePhoneUsage struct {
 	EnumName string                                                `json:"enum_name,omitempty"` // 枚举值
-	Display  []*CreateCoreHrPersonRespPersonPhonePhoneUsageDisplay `json:"display,omitempty"`   // 枚举多语展示
+	Display  []*CreateCoreHRPersonRespPersonPhonePhoneUsageDisplay `json:"display,omitempty"`   // 枚举多语展示
 }
 
-// CreateCoreHrPersonRespPersonPhonePhoneUsageDisplay ...
-type CreateCoreHrPersonRespPersonPhonePhoneUsageDisplay struct {
+// CreateCoreHRPersonRespPersonPhonePhoneUsageDisplay ...
+type CreateCoreHRPersonRespPersonPhonePhoneUsageDisplay struct {
 	Lang  string `json:"lang,omitempty"`  // 语言
 	Value string `json:"value,omitempty"` // 内容
 }
 
-// CreateCoreHrPersonRespPersonRace ...
-type CreateCoreHrPersonRespPersonRace struct {
+// CreateCoreHRPersonRespPersonRace ...
+type CreateCoreHRPersonRespPersonRace struct {
 	EnumName string                                     `json:"enum_name,omitempty"` // 枚举值
-	Display  []*CreateCoreHrPersonRespPersonRaceDisplay `json:"display,omitempty"`   // 枚举多语展示
+	Display  []*CreateCoreHRPersonRespPersonRaceDisplay `json:"display,omitempty"`   // 枚举多语展示
 }
 
-// CreateCoreHrPersonRespPersonRaceDisplay ...
-type CreateCoreHrPersonRespPersonRaceDisplay struct {
+// CreateCoreHRPersonRespPersonRaceDisplay ...
+type CreateCoreHRPersonRespPersonRaceDisplay struct {
 	Lang  string `json:"lang,omitempty"`  // 语言
 	Value string `json:"value,omitempty"` // 内容
 }
 
-// CreateCoreHrPersonRespPersonWorkExperience ...
-type CreateCoreHrPersonRespPersonWorkExperience struct {
-	CompanyOrganization []*CreateCoreHrPersonRespPersonWorkExperienceCompanyOrganization `json:"company_organization,omitempty"` // 公司 / 组织
-	Department          []*CreateCoreHrPersonRespPersonWorkExperienceDepartment          `json:"department,omitempty"`           // 部门
-	Job                 []*CreateCoreHrPersonRespPersonWorkExperienceJob                 `json:"job,omitempty"`                  // 岗位
-	Description         []*CreateCoreHrPersonRespPersonWorkExperienceDescription         `json:"description,omitempty"`          // 工作描述
+// CreateCoreHRPersonRespPersonWorkExperience ...
+type CreateCoreHRPersonRespPersonWorkExperience struct {
+	CompanyOrganization []*CreateCoreHRPersonRespPersonWorkExperienceCompanyOrganization `json:"company_organization,omitempty"` // 公司 / 组织
+	Department          []*CreateCoreHRPersonRespPersonWorkExperienceDepartment          `json:"department,omitempty"`           // 部门
+	Job                 []*CreateCoreHRPersonRespPersonWorkExperienceJob                 `json:"job,omitempty"`                  // 岗位
+	Description         []*CreateCoreHRPersonRespPersonWorkExperienceDescription         `json:"description,omitempty"`          // 工作描述
 	StartDate           string                                                           `json:"start_date,omitempty"`           // 开始日期
 	EndDate             string                                                           `json:"end_date,omitempty"`             // 结束日期
-	CustomFields        []*CreateCoreHrPersonRespPersonWorkExperienceCustomField         `json:"custom_fields,omitempty"`        // 自定义字段
+	CustomFields        []*CreateCoreHRPersonRespPersonWorkExperienceCustomField         `json:"custom_fields,omitempty"`        // 自定义字段
 }
 
-// CreateCoreHrPersonRespPersonWorkExperienceCompanyOrganization ...
-type CreateCoreHrPersonRespPersonWorkExperienceCompanyOrganization struct {
+// CreateCoreHRPersonRespPersonWorkExperienceCompanyOrganization ...
+type CreateCoreHRPersonRespPersonWorkExperienceCompanyOrganization struct {
 	Lang  string `json:"lang,omitempty"`  // 语言
 	Value string `json:"value,omitempty"` // 内容
 }
 
-// CreateCoreHrPersonRespPersonWorkExperienceCustomField ...
-type CreateCoreHrPersonRespPersonWorkExperienceCustomField struct {
+// CreateCoreHRPersonRespPersonWorkExperienceCustomField ...
+type CreateCoreHRPersonRespPersonWorkExperienceCustomField struct {
 	CustomApiName string                                                     `json:"custom_api_name,omitempty"` // 自定义字段 apiname, 即自定义字段的唯一标识
-	Name          *CreateCoreHrPersonRespPersonWorkExperienceCustomFieldName `json:"name,omitempty"`            // 自定义字段名称
+	Name          *CreateCoreHRPersonRespPersonWorkExperienceCustomFieldName `json:"name,omitempty"`            // 自定义字段名称
 	Type          int64                                                      `json:"type,omitempty"`            // 自定义字段类型
 	Value         string                                                     `json:"value,omitempty"`           // 字段值, 是 json 转义后的字符串, 根据元数据定义不同, 字段格式不同（如 123, 123.23, "true", ["id1", "id2"], "2006-01-02 15:04:05"）
 }
 
-// CreateCoreHrPersonRespPersonWorkExperienceCustomFieldName ...
-type CreateCoreHrPersonRespPersonWorkExperienceCustomFieldName struct {
+// CreateCoreHRPersonRespPersonWorkExperienceCustomFieldName ...
+type CreateCoreHRPersonRespPersonWorkExperienceCustomFieldName struct {
 	ZhCn string `json:"zh_cn,omitempty"` // 中文
 	EnUs string `json:"en_us,omitempty"` // 英文
 }
 
-// CreateCoreHrPersonRespPersonWorkExperienceDepartment ...
-type CreateCoreHrPersonRespPersonWorkExperienceDepartment struct {
+// CreateCoreHRPersonRespPersonWorkExperienceDepartment ...
+type CreateCoreHRPersonRespPersonWorkExperienceDepartment struct {
 	Lang  string `json:"lang,omitempty"`  // 语言
 	Value string `json:"value,omitempty"` // 内容
 }
 
-// CreateCoreHrPersonRespPersonWorkExperienceDescription ...
-type CreateCoreHrPersonRespPersonWorkExperienceDescription struct {
+// CreateCoreHRPersonRespPersonWorkExperienceDescription ...
+type CreateCoreHRPersonRespPersonWorkExperienceDescription struct {
 	Lang  string `json:"lang,omitempty"`  // 语言
 	Value string `json:"value,omitempty"` // 内容
 }
 
-// CreateCoreHrPersonRespPersonWorkExperienceJob ...
-type CreateCoreHrPersonRespPersonWorkExperienceJob struct {
+// CreateCoreHRPersonRespPersonWorkExperienceJob ...
+type CreateCoreHRPersonRespPersonWorkExperienceJob struct {
 	Lang  string `json:"lang,omitempty"`  // 语言
 	Value string `json:"value,omitempty"` // 内容
 }
 
-// createCoreHrPersonResp ...
-type createCoreHrPersonResp struct {
+// createCoreHRPersonResp ...
+type createCoreHRPersonResp struct {
 	Code int64                   `json:"code,omitempty"` // 错误码, 非 0 表示失败
 	Msg  string                  `json:"msg,omitempty"`  // 错误描述
-	Data *CreateCoreHrPersonResp `json:"data,omitempty"`
+	Data *CreateCoreHRPersonResp `json:"data,omitempty"`
 }

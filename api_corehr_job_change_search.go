@@ -21,43 +21,43 @@ import (
 	"context"
 )
 
-// SearchCoreHrJobChange 搜索异动信息, 该接口会按照应用拥有的「员工数据」的权限范围返回数据, 请确定在「开发者后台 - 权限管理 - 数据权限」中有申请「员工资源」权限范围
+// SearchCoreHRJobChange 搜索异动信息, 该接口会按照应用拥有的「员工数据」的权限范围返回数据, 请确定在「开发者后台 - 权限管理 - 数据权限」中有申请「员工资源」权限范围
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/job_change/search
 // new doc: https://open.feishu.cn/document/server-docs/corehr-v1/job_change/search
-func (r *CoreHrService) SearchCoreHrJobChange(ctx context.Context, request *SearchCoreHrJobChangeReq, options ...MethodOptionFunc) (*SearchCoreHrJobChangeResp, *Response, error) {
-	if r.cli.mock.mockCoreHrSearchCoreHrJobChange != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] CoreHr#SearchCoreHrJobChange mock enable")
-		return r.cli.mock.mockCoreHrSearchCoreHrJobChange(ctx, request, options...)
+func (r *CoreHRService) SearchCoreHRJobChange(ctx context.Context, request *SearchCoreHRJobChangeReq, options ...MethodOptionFunc) (*SearchCoreHRJobChangeResp, *Response, error) {
+	if r.cli.mock.mockCoreHRSearchCoreHRJobChange != nil {
+		r.cli.log(ctx, LogLevelDebug, "[lark] CoreHR#SearchCoreHRJobChange mock enable")
+		return r.cli.mock.mockCoreHRSearchCoreHRJobChange(ctx, request, options...)
 	}
 
 	req := &RawRequestReq{
-		Scope:                 "CoreHr",
-		API:                   "SearchCoreHrJobChange",
+		Scope:                 "CoreHR",
+		API:                   "SearchCoreHRJobChange",
 		Method:                "POST",
 		URL:                   r.cli.openBaseURL + "/open-apis/corehr/v2/job_changes/search",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
 	}
-	resp := new(searchCoreHrJobChangeResp)
+	resp := new(searchCoreHRJobChangeResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
 	return resp.Data, response, err
 }
 
-// MockCoreHrSearchCoreHrJobChange mock CoreHrSearchCoreHrJobChange method
-func (r *Mock) MockCoreHrSearchCoreHrJobChange(f func(ctx context.Context, request *SearchCoreHrJobChangeReq, options ...MethodOptionFunc) (*SearchCoreHrJobChangeResp, *Response, error)) {
-	r.mockCoreHrSearchCoreHrJobChange = f
+// MockCoreHRSearchCoreHRJobChange mock CoreHRSearchCoreHRJobChange method
+func (r *Mock) MockCoreHRSearchCoreHRJobChange(f func(ctx context.Context, request *SearchCoreHRJobChangeReq, options ...MethodOptionFunc) (*SearchCoreHRJobChangeResp, *Response, error)) {
+	r.mockCoreHRSearchCoreHRJobChange = f
 }
 
-// UnMockCoreHrSearchCoreHrJobChange un-mock CoreHrSearchCoreHrJobChange method
-func (r *Mock) UnMockCoreHrSearchCoreHrJobChange() {
-	r.mockCoreHrSearchCoreHrJobChange = nil
+// UnMockCoreHRSearchCoreHRJobChange un-mock CoreHRSearchCoreHRJobChange method
+func (r *Mock) UnMockCoreHRSearchCoreHRJobChange() {
+	r.mockCoreHRSearchCoreHRJobChange = nil
 }
 
-// SearchCoreHrJobChangeReq ...
-type SearchCoreHrJobChangeReq struct {
+// SearchCoreHRJobChangeReq ...
+type SearchCoreHRJobChangeReq struct {
 	PageSize         int64             `query:"page_size" json:"-"`          // 分页大小, 示例值: 100, 取值范围: `1` ～ `100`
 	PageToken        *string           `query:"page_token" json:"-"`         // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果, 示例值: 6891251722631890445
 	UserIDType       *IDType           `query:"user_id_type" json:"-"`       // 用户 ID 类型, 示例值: open_id, 可选值有: open_id: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid), union_id: 标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id), user_id: 标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id), people_corehr_id: 以飞书人事的 ID 来识别用户, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
@@ -67,15 +67,15 @@ type SearchCoreHrJobChangeReq struct {
 	Statuses         []string          `json:"statuses,omitempty"`           // 异动状态, 多个状态之间为「或」的关系, 示例值: ["Approving"], 可选值有: Approving: Approving  审批中, Approved: Approved  审批通过, Transformed: Transformed  已异动, Rejected: Rejected  已拒绝, Cancelled: Cancelled  已撤销, NoNeedApproval: NoNeedApproval  无需审批, 最大长度: `10`
 }
 
-// SearchCoreHrJobChangeResp ...
-type SearchCoreHrJobChangeResp struct {
-	Items     []*SearchCoreHrJobChangeRespItem `json:"items,omitempty"`      // 员工异动列表
+// SearchCoreHRJobChangeResp ...
+type SearchCoreHRJobChangeResp struct {
+	Items     []*SearchCoreHRJobChangeRespItem `json:"items,omitempty"`      // 员工异动列表
 	HasMore   bool                             `json:"has_more,omitempty"`   // 是否还有更多项
 	PageToken string                           `json:"page_token,omitempty"` // 分页标记, 当 has_more 为 true 时, 会同时返回新的 page_token, 否则不返回 page_token
 }
 
-// SearchCoreHrJobChangeRespItem ...
-type SearchCoreHrJobChangeRespItem struct {
+// SearchCoreHRJobChangeRespItem ...
+type SearchCoreHRJobChangeRespItem struct {
 	JobChangeID                    string                                     `json:"job_change_id,omitempty"`                     // 异动记录 id
 	EmploymentID                   string                                     `json:"employment_id,omitempty"`                     // 雇员 id
 	Status                         string                                     `json:"status,omitempty"`                            // 异动状态, 可选值有: Approving: 审批中, Approved: 审批通过, Transformed: 已异动, Rejected: 已拒绝, Cancelled: 已撤销, NoNeedApproval: 无需审批
@@ -85,11 +85,11 @@ type SearchCoreHrJobChangeRespItem struct {
 	EffectiveDate                  string                                     `json:"effective_date,omitempty"`                    // 生效时间
 	CreatedTime                    string                                     `json:"created_time,omitempty"`                      // 创建时间
 	UpdatedTime                    string                                     `json:"updated_time,omitempty"`                      // 更新时间
-	TransferInfo                   *SearchCoreHrJobChangeRespItemTransferInfo `json:"transfer_info,omitempty"`                     // 异动详细信息
+	TransferInfo                   *SearchCoreHRJobChangeRespItemTransferInfo `json:"transfer_info,omitempty"`                     // 异动详细信息
 }
 
-// SearchCoreHrJobChangeRespItemTransferInfo ...
-type SearchCoreHrJobChangeRespItemTransferInfo struct {
+// SearchCoreHRJobChangeRespItemTransferInfo ...
+type SearchCoreHRJobChangeRespItemTransferInfo struct {
 	Remark                     string                                                             `json:"remark,omitempty"`                        // 备注
 	OfferInfo                  string                                                             `json:"offer_info,omitempty"`                    // offer信息
 	TargetDottedManagerClean   bool                                                               `json:"target_dotted_manager_clean,omitempty"`   // 是否撤销虚线上级
@@ -134,25 +134,25 @@ type SearchCoreHrJobChangeRespItemTransferInfo struct {
 	TargetWeeklyWorkingHours   string                                                             `json:"target_weekly_working_hours,omitempty"`   // 新周工作时长
 	OriginalWorkShift          string                                                             `json:"original_work_shift,omitempty"`           // 原排班
 	TargetWorkShift            string                                                             `json:"target_work_shift,omitempty"`             // 新排班
-	OriginalCostCenterRate     []*SearchCoreHrJobChangeRespItemTransferInfoOriginalCostCenterRate `json:"original_cost_center_rate,omitempty"`     // 原成本中心分摊方式
-	TargetCostCenterRate       []*SearchCoreHrJobChangeRespItemTransferInfoTargetCostCenterRate   `json:"target_cost_center_rate,omitempty"`       // 新成本中心分摊方式
+	OriginalCostCenterRate     []*SearchCoreHRJobChangeRespItemTransferInfoOriginalCostCenterRate `json:"original_cost_center_rate,omitempty"`     // 原成本中心分摊方式
+	TargetCostCenterRate       []*SearchCoreHRJobChangeRespItemTransferInfoTargetCostCenterRate   `json:"target_cost_center_rate,omitempty"`       // 新成本中心分摊方式
 }
 
-// SearchCoreHrJobChangeRespItemTransferInfoOriginalCostCenterRate ...
-type SearchCoreHrJobChangeRespItemTransferInfoOriginalCostCenterRate struct {
+// SearchCoreHRJobChangeRespItemTransferInfoOriginalCostCenterRate ...
+type SearchCoreHRJobChangeRespItemTransferInfoOriginalCostCenterRate struct {
 	CostCenterID string `json:"cost_center_id,omitempty"` // 成本中心 ID, 可以通过【查询单个成本中心信息】接口获取对应的成本中心信息
 	Rate         int64  `json:"rate,omitempty"`           // 分摊比例
 }
 
-// SearchCoreHrJobChangeRespItemTransferInfoTargetCostCenterRate ...
-type SearchCoreHrJobChangeRespItemTransferInfoTargetCostCenterRate struct {
+// SearchCoreHRJobChangeRespItemTransferInfoTargetCostCenterRate ...
+type SearchCoreHRJobChangeRespItemTransferInfoTargetCostCenterRate struct {
 	CostCenterID string `json:"cost_center_id,omitempty"` // 成本中心 ID, 可以通过【查询单个成本中心信息】接口获取对应的成本中心信息
 	Rate         int64  `json:"rate,omitempty"`           // 分摊比例
 }
 
-// searchCoreHrJobChangeResp ...
-type searchCoreHrJobChangeResp struct {
+// searchCoreHRJobChangeResp ...
+type searchCoreHRJobChangeResp struct {
 	Code int64                      `json:"code,omitempty"` // 错误码, 非 0 表示失败
 	Msg  string                     `json:"msg,omitempty"`  // 错误描述
-	Data *SearchCoreHrJobChangeResp `json:"data,omitempty"`
+	Data *SearchCoreHRJobChangeResp `json:"data,omitempty"`
 }

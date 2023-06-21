@@ -21,43 +21,43 @@ import (
 	"context"
 )
 
-// GetCoreHrJobDataList 批量查询人员的任职信息。
+// GetCoreHRJobDataList 批量查询人员的任职信息。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job_data/list
 // new doc: https://open.feishu.cn/document/server-docs/corehr-v1/employee/job_data/list
-func (r *CoreHrService) GetCoreHrJobDataList(ctx context.Context, request *GetCoreHrJobDataListReq, options ...MethodOptionFunc) (*GetCoreHrJobDataListResp, *Response, error) {
-	if r.cli.mock.mockCoreHrGetCoreHrJobDataList != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] CoreHr#GetCoreHrJobDataList mock enable")
-		return r.cli.mock.mockCoreHrGetCoreHrJobDataList(ctx, request, options...)
+func (r *CoreHRService) GetCoreHRJobDataList(ctx context.Context, request *GetCoreHRJobDataListReq, options ...MethodOptionFunc) (*GetCoreHRJobDataListResp, *Response, error) {
+	if r.cli.mock.mockCoreHRGetCoreHRJobDataList != nil {
+		r.cli.log(ctx, LogLevelDebug, "[lark] CoreHR#GetCoreHRJobDataList mock enable")
+		return r.cli.mock.mockCoreHRGetCoreHRJobDataList(ctx, request, options...)
 	}
 
 	req := &RawRequestReq{
-		Scope:                 "CoreHr",
-		API:                   "GetCoreHrJobDataList",
+		Scope:                 "CoreHR",
+		API:                   "GetCoreHRJobDataList",
 		Method:                "GET",
 		URL:                   r.cli.openBaseURL + "/open-apis/corehr/v1/job_datas",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
 	}
-	resp := new(getCoreHrJobDataListResp)
+	resp := new(getCoreHRJobDataListResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
 	return resp.Data, response, err
 }
 
-// MockCoreHrGetCoreHrJobDataList mock CoreHrGetCoreHrJobDataList method
-func (r *Mock) MockCoreHrGetCoreHrJobDataList(f func(ctx context.Context, request *GetCoreHrJobDataListReq, options ...MethodOptionFunc) (*GetCoreHrJobDataListResp, *Response, error)) {
-	r.mockCoreHrGetCoreHrJobDataList = f
+// MockCoreHRGetCoreHRJobDataList mock CoreHRGetCoreHRJobDataList method
+func (r *Mock) MockCoreHRGetCoreHRJobDataList(f func(ctx context.Context, request *GetCoreHRJobDataListReq, options ...MethodOptionFunc) (*GetCoreHRJobDataListResp, *Response, error)) {
+	r.mockCoreHRGetCoreHRJobDataList = f
 }
 
-// UnMockCoreHrGetCoreHrJobDataList un-mock CoreHrGetCoreHrJobDataList method
-func (r *Mock) UnMockCoreHrGetCoreHrJobDataList() {
-	r.mockCoreHrGetCoreHrJobDataList = nil
+// UnMockCoreHRGetCoreHRJobDataList un-mock CoreHRGetCoreHRJobDataList method
+func (r *Mock) UnMockCoreHRGetCoreHRJobDataList() {
+	r.mockCoreHRGetCoreHRJobDataList = nil
 }
 
-// GetCoreHrJobDataListReq ...
-type GetCoreHrJobDataListReq struct {
+// GetCoreHRJobDataListReq ...
+type GetCoreHRJobDataListReq struct {
 	PageToken        *string           `query:"page_token" json:"-"`         // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果, 示例值: 6994718879515739656
 	PageSize         int64             `query:"page_size" json:"-"`          // 分页大小, 示例值: 100
 	EmploymentID     *string           `query:"employment_id" json:"-"`      // 雇佣 ID, 示例值: 7072306364927985196
@@ -69,15 +69,15 @@ type GetCoreHrJobDataListReq struct {
 	DepartmentIDType *DepartmentIDType `query:"department_id_type" json:"-"` // 此次调用中使用的部门 ID 类型, 示例值: open_department_id, 可选值有: open_department_id: 以 open_department_id 来标识部门, department_id: 以 department_id 来标识部门, people_corehr_department_id: 以 people_corehr_department_id 来标识部门, 默认值: `people_corehr_department_id`
 }
 
-// GetCoreHrJobDataListResp ...
-type GetCoreHrJobDataListResp struct {
-	Items     []*GetCoreHrJobDataListRespItem `json:"items,omitempty"`      // 查询的任职信息
+// GetCoreHRJobDataListResp ...
+type GetCoreHRJobDataListResp struct {
+	Items     []*GetCoreHRJobDataListRespItem `json:"items,omitempty"`      // 查询的任职信息
 	HasMore   bool                            `json:"has_more,omitempty"`   // 是否还有更多项
 	PageToken string                          `json:"page_token,omitempty"` // 分页标记, 当 has_more 为 true 时, 会同时返回新的 page_token, 否则不返回 page_token
 }
 
-// GetCoreHrJobDataListRespItem ...
-type GetCoreHrJobDataListRespItem struct {
+// GetCoreHRJobDataListRespItem ...
+type GetCoreHRJobDataListRespItem struct {
 	ID                       string                                             `json:"id,omitempty"`                          // 任职信息 ID
 	VersionID                string                                             `json:"version_id,omitempty"`                  // 任职记录版本 ID
 	JobLevelID               string                                             `json:"job_level_id,omitempty"`                // 职务级别 ID, 枚举值及详细信息可通过【查询单个职务级别】接口查询获得
@@ -93,56 +93,56 @@ type GetCoreHrJobDataListRespItem struct {
 	EffectiveTime            string                                             `json:"effective_time,omitempty"`              // 生效时间
 	ExpirationTime           string                                             `json:"expiration_time,omitempty"`             // 失效时间
 	JobFamilyID              string                                             `json:"job_family_id,omitempty"`               // 职务序列 ID, 枚举值及详细信息可通过【查询单个职务序列】接口查询获得
-	AssignmentStartReason    *GetCoreHrJobDataListRespItemAssignmentStartReason `json:"assignment_start_reason,omitempty"`     // 任职原因, 枚举值可通过文档[【飞书人事枚举常量】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)任职原因（assignment_start_reason）枚举定义部分获得
+	AssignmentStartReason    *GetCoreHRJobDataListRespItemAssignmentStartReason `json:"assignment_start_reason,omitempty"`     // 任职原因, 枚举值可通过文档[【飞书人事枚举常量】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)任职原因（assignment_start_reason）枚举定义部分获得
 	ProbationExpectedEndDate string                                             `json:"probation_expected_end_date,omitempty"` // 预计试用期结束日期
-	ProbationOutcome         *GetCoreHrJobDataListRespItemProbationOutcome      `json:"probation_outcome,omitempty"`           // 试用期结果, 枚举值可通过文档[【飞书人事枚举常量】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)试用期结果（probation_outcome）枚举定义部分获得
+	ProbationOutcome         *GetCoreHRJobDataListRespItemProbationOutcome      `json:"probation_outcome,omitempty"`           // 试用期结果, 枚举值可通过文档[【飞书人事枚举常量】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)试用期结果（probation_outcome）枚举定义部分获得
 	WeeklyWorkingHours       int64                                              `json:"weekly_working_hours,omitempty"`        // 周工作时长
 	DirectManagerID          string                                             `json:"direct_manager_id,omitempty"`           // 实线主管的任职记录ID
 	DottedLineManagerIDList  []string                                           `json:"dotted_line_manager_id_list,omitempty"` // 虚线主管的任职记录ID
 	SecondDirectManagerID    string                                             `json:"second_direct_manager_id,omitempty"`    // 第二实线主管的任职记录ID
-	CostCenterRate           []*GetCoreHrJobDataListRespItemCostCenterRate      `json:"cost_center_rate,omitempty"`            // 成本中心分摊信息
-	CustomFields             []*GetCoreHrJobDataListRespItemCustomField         `json:"custom_fields,omitempty"`               // 自定义字段
+	CostCenterRate           []*GetCoreHRJobDataListRespItemCostCenterRate      `json:"cost_center_rate,omitempty"`            // 成本中心分摊信息
+	CustomFields             []*GetCoreHRJobDataListRespItemCustomField         `json:"custom_fields,omitempty"`               // 自定义字段
 }
 
-// GetCoreHrJobDataListRespItemAssignmentStartReason ...
-type GetCoreHrJobDataListRespItemAssignmentStartReason struct {
+// GetCoreHRJobDataListRespItemAssignmentStartReason ...
+type GetCoreHRJobDataListRespItemAssignmentStartReason struct {
 	EnumName string                                                      `json:"enum_name,omitempty"` // 枚举值
-	Display  []*GetCoreHrJobDataListRespItemAssignmentStartReasonDisplay `json:"display,omitempty"`   // 枚举多语展示
+	Display  []*GetCoreHRJobDataListRespItemAssignmentStartReasonDisplay `json:"display,omitempty"`   // 枚举多语展示
 }
 
-// GetCoreHrJobDataListRespItemAssignmentStartReasonDisplay ...
-type GetCoreHrJobDataListRespItemAssignmentStartReasonDisplay struct {
+// GetCoreHRJobDataListRespItemAssignmentStartReasonDisplay ...
+type GetCoreHRJobDataListRespItemAssignmentStartReasonDisplay struct {
 	Lang  string `json:"lang,omitempty"`  // 名称信息的语言
 	Value string `json:"value,omitempty"` // 名称信息的内容
 }
 
-// GetCoreHrJobDataListRespItemCostCenterRate ...
-type GetCoreHrJobDataListRespItemCostCenterRate struct {
+// GetCoreHRJobDataListRespItemCostCenterRate ...
+type GetCoreHRJobDataListRespItemCostCenterRate struct {
 	CostCenterID string `json:"cost_center_id,omitempty"` // 支持的成本中心id
 	Rate         int64  `json:"rate,omitempty"`           // 分摊比例
 }
 
-// GetCoreHrJobDataListRespItemCustomField ...
-type GetCoreHrJobDataListRespItemCustomField struct {
+// GetCoreHRJobDataListRespItemCustomField ...
+type GetCoreHRJobDataListRespItemCustomField struct {
 	FieldName string `json:"field_name,omitempty"` // 字段名
 	Value     string `json:"value,omitempty"`      // 字段值, 是json转义后的字符串, 根据元数据定义不同, 字段格式不同(如123, 123.23, "true", [\"id1\", \"id2\"], "2006-01-02 15:04:05")
 }
 
-// GetCoreHrJobDataListRespItemProbationOutcome ...
-type GetCoreHrJobDataListRespItemProbationOutcome struct {
+// GetCoreHRJobDataListRespItemProbationOutcome ...
+type GetCoreHRJobDataListRespItemProbationOutcome struct {
 	EnumName string                                                 `json:"enum_name,omitempty"` // 枚举值
-	Display  []*GetCoreHrJobDataListRespItemProbationOutcomeDisplay `json:"display,omitempty"`   // 枚举多语展示
+	Display  []*GetCoreHRJobDataListRespItemProbationOutcomeDisplay `json:"display,omitempty"`   // 枚举多语展示
 }
 
-// GetCoreHrJobDataListRespItemProbationOutcomeDisplay ...
-type GetCoreHrJobDataListRespItemProbationOutcomeDisplay struct {
+// GetCoreHRJobDataListRespItemProbationOutcomeDisplay ...
+type GetCoreHRJobDataListRespItemProbationOutcomeDisplay struct {
 	Lang  string `json:"lang,omitempty"`  // 名称信息的语言
 	Value string `json:"value,omitempty"` // 名称信息的内容
 }
 
-// getCoreHrJobDataListResp ...
-type getCoreHrJobDataListResp struct {
+// getCoreHRJobDataListResp ...
+type getCoreHRJobDataListResp struct {
 	Code int64                     `json:"code,omitempty"` // 错误码, 非 0 表示失败
 	Msg  string                    `json:"msg,omitempty"`  // 错误描述
-	Data *GetCoreHrJobDataListResp `json:"data,omitempty"`
+	Data *GetCoreHRJobDataListResp `json:"data,omitempty"`
 }

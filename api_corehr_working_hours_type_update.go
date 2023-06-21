@@ -21,96 +21,96 @@ import (
 	"context"
 )
 
-// UpdateCoreHrWorkingHoursType 更新工时制度。
+// UpdateCoreHRWorkingHoursType 更新工时制度。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/working_hours_type/patch
 // new doc: https://open.feishu.cn/document/server-docs/corehr-v1/basic-infomation/working_hours_type/patch
-func (r *CoreHrService) UpdateCoreHrWorkingHoursType(ctx context.Context, request *UpdateCoreHrWorkingHoursTypeReq, options ...MethodOptionFunc) (*UpdateCoreHrWorkingHoursTypeResp, *Response, error) {
-	if r.cli.mock.mockCoreHrUpdateCoreHrWorkingHoursType != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] CoreHr#UpdateCoreHrWorkingHoursType mock enable")
-		return r.cli.mock.mockCoreHrUpdateCoreHrWorkingHoursType(ctx, request, options...)
+func (r *CoreHRService) UpdateCoreHRWorkingHoursType(ctx context.Context, request *UpdateCoreHRWorkingHoursTypeReq, options ...MethodOptionFunc) (*UpdateCoreHRWorkingHoursTypeResp, *Response, error) {
+	if r.cli.mock.mockCoreHRUpdateCoreHRWorkingHoursType != nil {
+		r.cli.log(ctx, LogLevelDebug, "[lark] CoreHR#UpdateCoreHRWorkingHoursType mock enable")
+		return r.cli.mock.mockCoreHRUpdateCoreHRWorkingHoursType(ctx, request, options...)
 	}
 
 	req := &RawRequestReq{
-		Scope:                 "CoreHr",
-		API:                   "UpdateCoreHrWorkingHoursType",
+		Scope:                 "CoreHR",
+		API:                   "UpdateCoreHRWorkingHoursType",
 		Method:                "PATCH",
 		URL:                   r.cli.openBaseURL + "/open-apis/corehr/v1/working_hours_types/:working_hours_type_id",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
 	}
-	resp := new(updateCoreHrWorkingHoursTypeResp)
+	resp := new(updateCoreHRWorkingHoursTypeResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
 	return resp.Data, response, err
 }
 
-// MockCoreHrUpdateCoreHrWorkingHoursType mock CoreHrUpdateCoreHrWorkingHoursType method
-func (r *Mock) MockCoreHrUpdateCoreHrWorkingHoursType(f func(ctx context.Context, request *UpdateCoreHrWorkingHoursTypeReq, options ...MethodOptionFunc) (*UpdateCoreHrWorkingHoursTypeResp, *Response, error)) {
-	r.mockCoreHrUpdateCoreHrWorkingHoursType = f
+// MockCoreHRUpdateCoreHRWorkingHoursType mock CoreHRUpdateCoreHRWorkingHoursType method
+func (r *Mock) MockCoreHRUpdateCoreHRWorkingHoursType(f func(ctx context.Context, request *UpdateCoreHRWorkingHoursTypeReq, options ...MethodOptionFunc) (*UpdateCoreHRWorkingHoursTypeResp, *Response, error)) {
+	r.mockCoreHRUpdateCoreHRWorkingHoursType = f
 }
 
-// UnMockCoreHrUpdateCoreHrWorkingHoursType un-mock CoreHrUpdateCoreHrWorkingHoursType method
-func (r *Mock) UnMockCoreHrUpdateCoreHrWorkingHoursType() {
-	r.mockCoreHrUpdateCoreHrWorkingHoursType = nil
+// UnMockCoreHRUpdateCoreHRWorkingHoursType un-mock CoreHRUpdateCoreHRWorkingHoursType method
+func (r *Mock) UnMockCoreHRUpdateCoreHRWorkingHoursType() {
+	r.mockCoreHRUpdateCoreHRWorkingHoursType = nil
 }
 
-// UpdateCoreHrWorkingHoursTypeReq ...
-type UpdateCoreHrWorkingHoursTypeReq struct {
+// UpdateCoreHRWorkingHoursTypeReq ...
+type UpdateCoreHRWorkingHoursTypeReq struct {
 	WorkingHoursTypeID  string                                        `path:"working_hours_type_id" json:"-"`   // 工时制度ID, 示例值: "1616161616"
 	ClientToken         *string                                       `query:"client_token" json:"-"`           // 根据client_token是否一致来判断是否为同一请求, 示例值: 12454646
 	Code                *string                                       `json:"code,omitempty"`                   // 编码, 示例值: "1"
-	Name                []*UpdateCoreHrWorkingHoursTypeReqName        `json:"name,omitempty"`                   // 名称
+	Name                []*UpdateCoreHRWorkingHoursTypeReqName        `json:"name,omitempty"`                   // 名称
 	CountryRegionIDList []string                                      `json:"country_region_id_list,omitempty"` // 国家/地区 ID 列表, 示例值: ["4378784343"]
 	DefaultForJob       *bool                                         `json:"default_for_job,omitempty"`        // 职务默认值, 示例值: true
 	Active              *bool                                         `json:"active,omitempty"`                 // 是否启用, 示例值: true
-	CustomFields        []*UpdateCoreHrWorkingHoursTypeReqCustomField `json:"custom_fields,omitempty"`          // 自定义字段
+	CustomFields        []*UpdateCoreHRWorkingHoursTypeReqCustomField `json:"custom_fields,omitempty"`          // 自定义字段
 }
 
-// UpdateCoreHrWorkingHoursTypeReqCustomField ...
-type UpdateCoreHrWorkingHoursTypeReqCustomField struct {
+// UpdateCoreHRWorkingHoursTypeReqCustomField ...
+type UpdateCoreHRWorkingHoursTypeReqCustomField struct {
 	FieldName string `json:"field_name,omitempty"` // 字段名, 示例值: "name"
 	Value     string `json:"value,omitempty"`      // 字段值, 是json转义后的字符串, 根据元数据定义不同, 字段格式不同(如123, 123.23, "true", [\"id1\", \"id2\"], "2006-01-02 15:04:05"), 示例值: "\"Sandy\""
 }
 
-// UpdateCoreHrWorkingHoursTypeReqName ...
-type UpdateCoreHrWorkingHoursTypeReqName struct {
+// UpdateCoreHRWorkingHoursTypeReqName ...
+type UpdateCoreHRWorkingHoursTypeReqName struct {
 	Lang  string `json:"lang,omitempty"`  // 名称信息的语言, 示例值: "zh-CN"
 	Value string `json:"value,omitempty"` // 名称信息的内容, 示例值: "张三"
 }
 
-// UpdateCoreHrWorkingHoursTypeResp ...
-type UpdateCoreHrWorkingHoursTypeResp struct {
-	WorkingHoursType *UpdateCoreHrWorkingHoursTypeRespWorkingHoursType `json:"working_hours_type,omitempty"` // 工时制度
+// UpdateCoreHRWorkingHoursTypeResp ...
+type UpdateCoreHRWorkingHoursTypeResp struct {
+	WorkingHoursType *UpdateCoreHRWorkingHoursTypeRespWorkingHoursType `json:"working_hours_type,omitempty"` // 工时制度
 }
 
-// UpdateCoreHrWorkingHoursTypeRespWorkingHoursType ...
-type UpdateCoreHrWorkingHoursTypeRespWorkingHoursType struct {
+// UpdateCoreHRWorkingHoursTypeRespWorkingHoursType ...
+type UpdateCoreHRWorkingHoursTypeRespWorkingHoursType struct {
 	ID                  string                                                         `json:"id,omitempty"`                     // 工时制度 ID
 	Code                string                                                         `json:"code,omitempty"`                   // 编码
-	Name                []*UpdateCoreHrWorkingHoursTypeRespWorkingHoursTypeName        `json:"name,omitempty"`                   // 名称
+	Name                []*UpdateCoreHRWorkingHoursTypeRespWorkingHoursTypeName        `json:"name,omitempty"`                   // 名称
 	CountryRegionIDList []string                                                       `json:"country_region_id_list,omitempty"` // 国家/地区 ID 列表
 	DefaultForJob       bool                                                           `json:"default_for_job,omitempty"`        // 职务默认值
 	Active              bool                                                           `json:"active,omitempty"`                 // 是否启用
-	CustomFields        []*UpdateCoreHrWorkingHoursTypeRespWorkingHoursTypeCustomField `json:"custom_fields,omitempty"`          // 自定义字段
+	CustomFields        []*UpdateCoreHRWorkingHoursTypeRespWorkingHoursTypeCustomField `json:"custom_fields,omitempty"`          // 自定义字段
 }
 
-// UpdateCoreHrWorkingHoursTypeRespWorkingHoursTypeCustomField ...
-type UpdateCoreHrWorkingHoursTypeRespWorkingHoursTypeCustomField struct {
+// UpdateCoreHRWorkingHoursTypeRespWorkingHoursTypeCustomField ...
+type UpdateCoreHRWorkingHoursTypeRespWorkingHoursTypeCustomField struct {
 	FieldName string `json:"field_name,omitempty"` // 字段名
 	Value     string `json:"value,omitempty"`      // 字段值, 是json转义后的字符串, 根据元数据定义不同, 字段格式不同(如123, 123.23, "true", [\"id1\", \"id2\"], "2006-01-02 15:04:05")
 }
 
-// UpdateCoreHrWorkingHoursTypeRespWorkingHoursTypeName ...
-type UpdateCoreHrWorkingHoursTypeRespWorkingHoursTypeName struct {
+// UpdateCoreHRWorkingHoursTypeRespWorkingHoursTypeName ...
+type UpdateCoreHRWorkingHoursTypeRespWorkingHoursTypeName struct {
 	Lang  string `json:"lang,omitempty"`  // 名称信息的语言
 	Value string `json:"value,omitempty"` // 名称信息的内容
 }
 
-// updateCoreHrWorkingHoursTypeResp ...
-type updateCoreHrWorkingHoursTypeResp struct {
+// updateCoreHRWorkingHoursTypeResp ...
+type updateCoreHRWorkingHoursTypeResp struct {
 	Code int64                             `json:"code,omitempty"` // 错误码, 非 0 表示失败
 	Msg  string                            `json:"msg,omitempty"`  // 错误描述
-	Data *UpdateCoreHrWorkingHoursTypeResp `json:"data,omitempty"`
+	Data *UpdateCoreHRWorkingHoursTypeResp `json:"data,omitempty"`
 }

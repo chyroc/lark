@@ -21,78 +21,78 @@ import (
 	"context"
 )
 
-// GetCoreHrTransferTypeList 获取异动类型列表。
+// GetCoreHRTransferTypeList 获取异动类型列表。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/transfer_type/query
 // new doc: https://open.feishu.cn/document/server-docs/corehr-v1/job_change/query
-func (r *CoreHrService) GetCoreHrTransferTypeList(ctx context.Context, request *GetCoreHrTransferTypeListReq, options ...MethodOptionFunc) (*GetCoreHrTransferTypeListResp, *Response, error) {
-	if r.cli.mock.mockCoreHrGetCoreHrTransferTypeList != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] CoreHr#GetCoreHrTransferTypeList mock enable")
-		return r.cli.mock.mockCoreHrGetCoreHrTransferTypeList(ctx, request, options...)
+func (r *CoreHRService) GetCoreHRTransferTypeList(ctx context.Context, request *GetCoreHRTransferTypeListReq, options ...MethodOptionFunc) (*GetCoreHRTransferTypeListResp, *Response, error) {
+	if r.cli.mock.mockCoreHRGetCoreHRTransferTypeList != nil {
+		r.cli.log(ctx, LogLevelDebug, "[lark] CoreHR#GetCoreHRTransferTypeList mock enable")
+		return r.cli.mock.mockCoreHRGetCoreHRTransferTypeList(ctx, request, options...)
 	}
 
 	req := &RawRequestReq{
-		Scope:                 "CoreHr",
-		API:                   "GetCoreHrTransferTypeList",
+		Scope:                 "CoreHR",
+		API:                   "GetCoreHRTransferTypeList",
 		Method:                "GET",
 		URL:                   r.cli.openBaseURL + "/open-apis/corehr/v1/transfer_types/query",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
 	}
-	resp := new(getCoreHrTransferTypeListResp)
+	resp := new(getCoreHRTransferTypeListResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
 	return resp.Data, response, err
 }
 
-// MockCoreHrGetCoreHrTransferTypeList mock CoreHrGetCoreHrTransferTypeList method
-func (r *Mock) MockCoreHrGetCoreHrTransferTypeList(f func(ctx context.Context, request *GetCoreHrTransferTypeListReq, options ...MethodOptionFunc) (*GetCoreHrTransferTypeListResp, *Response, error)) {
-	r.mockCoreHrGetCoreHrTransferTypeList = f
+// MockCoreHRGetCoreHRTransferTypeList mock CoreHRGetCoreHRTransferTypeList method
+func (r *Mock) MockCoreHRGetCoreHRTransferTypeList(f func(ctx context.Context, request *GetCoreHRTransferTypeListReq, options ...MethodOptionFunc) (*GetCoreHRTransferTypeListResp, *Response, error)) {
+	r.mockCoreHRGetCoreHRTransferTypeList = f
 }
 
-// UnMockCoreHrGetCoreHrTransferTypeList un-mock CoreHrGetCoreHrTransferTypeList method
-func (r *Mock) UnMockCoreHrGetCoreHrTransferTypeList() {
-	r.mockCoreHrGetCoreHrTransferTypeList = nil
+// UnMockCoreHRGetCoreHRTransferTypeList un-mock CoreHRGetCoreHRTransferTypeList method
+func (r *Mock) UnMockCoreHRGetCoreHRTransferTypeList() {
+	r.mockCoreHRGetCoreHRTransferTypeList = nil
 }
 
-// GetCoreHrTransferTypeListReq ...
-type GetCoreHrTransferTypeListReq struct {
+// GetCoreHRTransferTypeListReq ...
+type GetCoreHRTransferTypeListReq struct {
 	Active                       *bool    `query:"active" json:"-"`                          // 异动类型状态, 示例值: true
 	TransferTypeUniqueIdentifier []string `query:"transfer_type_unique_identifier" json:"-"` // 异动类型唯一标识, 多条时最多数量为10, 示例值: job_status_change, 最大长度: `10`
 }
 
-// GetCoreHrTransferTypeListResp ...
-type GetCoreHrTransferTypeListResp struct {
-	Items []*GetCoreHrTransferTypeListRespItem `json:"items,omitempty"` // 异动类型列表
+// GetCoreHRTransferTypeListResp ...
+type GetCoreHRTransferTypeListResp struct {
+	Items []*GetCoreHRTransferTypeListRespItem `json:"items,omitempty"` // 异动类型列表
 }
 
-// GetCoreHrTransferTypeListRespItem ...
-type GetCoreHrTransferTypeListRespItem struct {
+// GetCoreHRTransferTypeListRespItem ...
+type GetCoreHRTransferTypeListRespItem struct {
 	TransferTypeUniqueIdentifier string                                       `json:"transfer_type_unique_identifier,omitempty"` // 异动类型唯一标识
-	Name                         []*GetCoreHrTransferTypeListRespItemName     `json:"name,omitempty"`                            // 异动类型名称
+	Name                         []*GetCoreHRTransferTypeListRespItemName     `json:"name,omitempty"`                            // 异动类型名称
 	Active                       bool                                         `json:"active,omitempty"`                          // 异动类型状态
 	FlowID                       string                                       `json:"flow_id,omitempty"`                         // 关联流程唯一标识符
-	FlowName                     []*GetCoreHrTransferTypeListRespItemFlowName `json:"flow_name,omitempty"`                       // 关联流程名称
+	FlowName                     []*GetCoreHRTransferTypeListRespItemFlowName `json:"flow_name,omitempty"`                       // 关联流程名称
 	CreatedTime                  string                                       `json:"created_time,omitempty"`                    // 创建时间
 	UpdatedTime                  string                                       `json:"updated_time,omitempty"`                    // 更新时间
 }
 
-// GetCoreHrTransferTypeListRespItemFlowName ...
-type GetCoreHrTransferTypeListRespItemFlowName struct {
+// GetCoreHRTransferTypeListRespItemFlowName ...
+type GetCoreHRTransferTypeListRespItemFlowName struct {
 	Lang  string `json:"lang,omitempty"`  // 名称信息的语言
 	Value string `json:"value,omitempty"` // 名称信息的内容
 }
 
-// GetCoreHrTransferTypeListRespItemName ...
-type GetCoreHrTransferTypeListRespItemName struct {
+// GetCoreHRTransferTypeListRespItemName ...
+type GetCoreHRTransferTypeListRespItemName struct {
 	Lang  string `json:"lang,omitempty"`  // 名称信息的语言
 	Value string `json:"value,omitempty"` // 名称信息的内容
 }
 
-// getCoreHrTransferTypeListResp ...
-type getCoreHrTransferTypeListResp struct {
+// getCoreHRTransferTypeListResp ...
+type getCoreHRTransferTypeListResp struct {
 	Code int64                          `json:"code,omitempty"` // 错误码, 非 0 表示失败
 	Msg  string                         `json:"msg,omitempty"`  // 错误描述
-	Data *GetCoreHrTransferTypeListResp `json:"data,omitempty"`
+	Data *GetCoreHRTransferTypeListResp `json:"data,omitempty"`
 }

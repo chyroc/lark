@@ -21,53 +21,53 @@ import (
 	"context"
 )
 
-// DeleteCoreHrEmployeeType 删除人员类型。
+// DeleteCoreHREmployeeType 删除人员类型。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/employee_type/delete
 // new doc: https://open.feishu.cn/document/server-docs/corehr-v1/basic-infomation/employee_type/delete
-func (r *CoreHrService) DeleteCoreHrEmployeeType(ctx context.Context, request *DeleteCoreHrEmployeeTypeReq, options ...MethodOptionFunc) (*DeleteCoreHrEmployeeTypeResp, *Response, error) {
-	if r.cli.mock.mockCoreHrDeleteCoreHrEmployeeType != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] CoreHr#DeleteCoreHrEmployeeType mock enable")
-		return r.cli.mock.mockCoreHrDeleteCoreHrEmployeeType(ctx, request, options...)
+func (r *CoreHRService) DeleteCoreHREmployeeType(ctx context.Context, request *DeleteCoreHREmployeeTypeReq, options ...MethodOptionFunc) (*DeleteCoreHREmployeeTypeResp, *Response, error) {
+	if r.cli.mock.mockCoreHRDeleteCoreHREmployeeType != nil {
+		r.cli.log(ctx, LogLevelDebug, "[lark] CoreHR#DeleteCoreHREmployeeType mock enable")
+		return r.cli.mock.mockCoreHRDeleteCoreHREmployeeType(ctx, request, options...)
 	}
 
 	req := &RawRequestReq{
-		Scope:                 "CoreHr",
-		API:                   "DeleteCoreHrEmployeeType",
+		Scope:                 "CoreHR",
+		API:                   "DeleteCoreHREmployeeType",
 		Method:                "DELETE",
 		URL:                   r.cli.openBaseURL + "/open-apis/corehr/v1/employee_types/:employee_type_id",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
 	}
-	resp := new(deleteCoreHrEmployeeTypeResp)
+	resp := new(deleteCoreHREmployeeTypeResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
 	return resp.Data, response, err
 }
 
-// MockCoreHrDeleteCoreHrEmployeeType mock CoreHrDeleteCoreHrEmployeeType method
-func (r *Mock) MockCoreHrDeleteCoreHrEmployeeType(f func(ctx context.Context, request *DeleteCoreHrEmployeeTypeReq, options ...MethodOptionFunc) (*DeleteCoreHrEmployeeTypeResp, *Response, error)) {
-	r.mockCoreHrDeleteCoreHrEmployeeType = f
+// MockCoreHRDeleteCoreHREmployeeType mock CoreHRDeleteCoreHREmployeeType method
+func (r *Mock) MockCoreHRDeleteCoreHREmployeeType(f func(ctx context.Context, request *DeleteCoreHREmployeeTypeReq, options ...MethodOptionFunc) (*DeleteCoreHREmployeeTypeResp, *Response, error)) {
+	r.mockCoreHRDeleteCoreHREmployeeType = f
 }
 
-// UnMockCoreHrDeleteCoreHrEmployeeType un-mock CoreHrDeleteCoreHrEmployeeType method
-func (r *Mock) UnMockCoreHrDeleteCoreHrEmployeeType() {
-	r.mockCoreHrDeleteCoreHrEmployeeType = nil
+// UnMockCoreHRDeleteCoreHREmployeeType un-mock CoreHRDeleteCoreHREmployeeType method
+func (r *Mock) UnMockCoreHRDeleteCoreHREmployeeType() {
+	r.mockCoreHRDeleteCoreHREmployeeType = nil
 }
 
-// DeleteCoreHrEmployeeTypeReq ...
-type DeleteCoreHrEmployeeTypeReq struct {
+// DeleteCoreHREmployeeTypeReq ...
+type DeleteCoreHREmployeeTypeReq struct {
 	EmployeeTypeID string `path:"employee_type_id" json:"-"` // 需要删除的人员类型ID, 示例值: "434343434"
 }
 
-// DeleteCoreHrEmployeeTypeResp ...
-type DeleteCoreHrEmployeeTypeResp struct {
+// DeleteCoreHREmployeeTypeResp ...
+type DeleteCoreHREmployeeTypeResp struct {
 }
 
-// deleteCoreHrEmployeeTypeResp ...
-type deleteCoreHrEmployeeTypeResp struct {
+// deleteCoreHREmployeeTypeResp ...
+type deleteCoreHREmployeeTypeResp struct {
 	Code int64                         `json:"code,omitempty"` // 错误码, 非 0 表示失败
 	Msg  string                        `json:"msg,omitempty"`  // 错误描述
-	Data *DeleteCoreHrEmployeeTypeResp `json:"data,omitempty"`
+	Data *DeleteCoreHREmployeeTypeResp `json:"data,omitempty"`
 }

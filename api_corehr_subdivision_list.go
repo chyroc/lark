@@ -21,84 +21,84 @@ import (
 	"context"
 )
 
-// GetCoreHrSubdivisionList 批量查询省份/行政区信息。
+// GetCoreHRSubdivisionList 批量查询省份/行政区信息。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/subdivision/list
 // new doc: https://open.feishu.cn/document/server-docs/corehr-v1/basic-infomation/location_data/list-2
-func (r *CoreHrService) GetCoreHrSubdivisionList(ctx context.Context, request *GetCoreHrSubdivisionListReq, options ...MethodOptionFunc) (*GetCoreHrSubdivisionListResp, *Response, error) {
-	if r.cli.mock.mockCoreHrGetCoreHrSubdivisionList != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] CoreHr#GetCoreHrSubdivisionList mock enable")
-		return r.cli.mock.mockCoreHrGetCoreHrSubdivisionList(ctx, request, options...)
+func (r *CoreHRService) GetCoreHRSubdivisionList(ctx context.Context, request *GetCoreHRSubdivisionListReq, options ...MethodOptionFunc) (*GetCoreHRSubdivisionListResp, *Response, error) {
+	if r.cli.mock.mockCoreHRGetCoreHRSubdivisionList != nil {
+		r.cli.log(ctx, LogLevelDebug, "[lark] CoreHR#GetCoreHRSubdivisionList mock enable")
+		return r.cli.mock.mockCoreHRGetCoreHRSubdivisionList(ctx, request, options...)
 	}
 
 	req := &RawRequestReq{
-		Scope:                 "CoreHr",
-		API:                   "GetCoreHrSubdivisionList",
+		Scope:                 "CoreHR",
+		API:                   "GetCoreHRSubdivisionList",
 		Method:                "GET",
 		URL:                   r.cli.openBaseURL + "/open-apis/corehr/v1/subdivisions",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
 	}
-	resp := new(getCoreHrSubdivisionListResp)
+	resp := new(getCoreHRSubdivisionListResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
 	return resp.Data, response, err
 }
 
-// MockCoreHrGetCoreHrSubdivisionList mock CoreHrGetCoreHrSubdivisionList method
-func (r *Mock) MockCoreHrGetCoreHrSubdivisionList(f func(ctx context.Context, request *GetCoreHrSubdivisionListReq, options ...MethodOptionFunc) (*GetCoreHrSubdivisionListResp, *Response, error)) {
-	r.mockCoreHrGetCoreHrSubdivisionList = f
+// MockCoreHRGetCoreHRSubdivisionList mock CoreHRGetCoreHRSubdivisionList method
+func (r *Mock) MockCoreHRGetCoreHRSubdivisionList(f func(ctx context.Context, request *GetCoreHRSubdivisionListReq, options ...MethodOptionFunc) (*GetCoreHRSubdivisionListResp, *Response, error)) {
+	r.mockCoreHRGetCoreHRSubdivisionList = f
 }
 
-// UnMockCoreHrGetCoreHrSubdivisionList un-mock CoreHrGetCoreHrSubdivisionList method
-func (r *Mock) UnMockCoreHrGetCoreHrSubdivisionList() {
-	r.mockCoreHrGetCoreHrSubdivisionList = nil
+// UnMockCoreHRGetCoreHRSubdivisionList un-mock CoreHRGetCoreHRSubdivisionList method
+func (r *Mock) UnMockCoreHRGetCoreHRSubdivisionList() {
+	r.mockCoreHRGetCoreHRSubdivisionList = nil
 }
 
-// GetCoreHrSubdivisionListReq ...
-type GetCoreHrSubdivisionListReq struct {
+// GetCoreHRSubdivisionListReq ...
+type GetCoreHRSubdivisionListReq struct {
 	PageToken       *string `query:"page_token" json:"-"`        // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果, 示例值: 1231231987
 	PageSize        int64   `query:"page_size" json:"-"`         // 分页大小, 示例值: 100
 	CountryRegionID *string `query:"country_region_id" json:"-"` // 国家/地区id, 填写后只查询该国家/地区下的省份/行政区, 示例值: 100
 }
 
-// GetCoreHrSubdivisionListResp ...
-type GetCoreHrSubdivisionListResp struct {
-	Items     []*GetCoreHrSubdivisionListRespItem `json:"items,omitempty"`      // 省份/行政区信息
+// GetCoreHRSubdivisionListResp ...
+type GetCoreHRSubdivisionListResp struct {
+	Items     []*GetCoreHRSubdivisionListRespItem `json:"items,omitempty"`      // 省份/行政区信息
 	HasMore   bool                                `json:"has_more,omitempty"`   // 是否还有更多项
 	PageToken string                              `json:"page_token,omitempty"` // 分页标记, 当 has_more 为 true 时, 会同时返回新的 page_token, 否则不返回 page_token
 }
 
-// GetCoreHrSubdivisionListRespItem ...
-type GetCoreHrSubdivisionListRespItem struct {
+// GetCoreHRSubdivisionListRespItem ...
+type GetCoreHRSubdivisionListRespItem struct {
 	ID              string                                           `json:"id,omitempty"`                // 省份/行政区id
-	Name            []*GetCoreHrSubdivisionListRespItemName          `json:"name,omitempty"`              // 省份/行政区名称
+	Name            []*GetCoreHRSubdivisionListRespItemName          `json:"name,omitempty"`              // 省份/行政区名称
 	CountryRegionID string                                           `json:"country_region_id,omitempty"` // 所属国家/地区id, 详细信息可通过【查询国家/地区信息】接口查询获得
-	SubdivisionType *GetCoreHrSubdivisionListRespItemSubdivisionType `json:"subdivision_type,omitempty"`  // 行政区类型, 枚举值可通过文档【飞书人事枚举常量】行政区类型（subdivision_type）枚举定义部分获得
+	SubdivisionType *GetCoreHRSubdivisionListRespItemSubdivisionType `json:"subdivision_type,omitempty"`  // 行政区类型, 枚举值可通过文档【飞书人事枚举常量】行政区类型（subdivision_type）枚举定义部分获得
 }
 
-// GetCoreHrSubdivisionListRespItemName ...
-type GetCoreHrSubdivisionListRespItemName struct {
+// GetCoreHRSubdivisionListRespItemName ...
+type GetCoreHRSubdivisionListRespItemName struct {
 	Lang  string `json:"lang,omitempty"`  // 名称信息的语言
 	Value string `json:"value,omitempty"` // 名称信息的内容
 }
 
-// GetCoreHrSubdivisionListRespItemSubdivisionType ...
-type GetCoreHrSubdivisionListRespItemSubdivisionType struct {
+// GetCoreHRSubdivisionListRespItemSubdivisionType ...
+type GetCoreHRSubdivisionListRespItemSubdivisionType struct {
 	EnumName string                                                    `json:"enum_name,omitempty"` // 枚举值
-	Display  []*GetCoreHrSubdivisionListRespItemSubdivisionTypeDisplay `json:"display,omitempty"`   // 枚举多语展示
+	Display  []*GetCoreHRSubdivisionListRespItemSubdivisionTypeDisplay `json:"display,omitempty"`   // 枚举多语展示
 }
 
-// GetCoreHrSubdivisionListRespItemSubdivisionTypeDisplay ...
-type GetCoreHrSubdivisionListRespItemSubdivisionTypeDisplay struct {
+// GetCoreHRSubdivisionListRespItemSubdivisionTypeDisplay ...
+type GetCoreHRSubdivisionListRespItemSubdivisionTypeDisplay struct {
 	Lang  string `json:"lang,omitempty"`  // 名称信息的语言
 	Value string `json:"value,omitempty"` // 名称信息的内容
 }
 
-// getCoreHrSubdivisionListResp ...
-type getCoreHrSubdivisionListResp struct {
+// getCoreHRSubdivisionListResp ...
+type getCoreHRSubdivisionListResp struct {
 	Code int64                         `json:"code,omitempty"` // 错误码, 非 0 表示失败
 	Msg  string                        `json:"msg,omitempty"`  // 错误描述
-	Data *GetCoreHrSubdivisionListResp `json:"data,omitempty"`
+	Data *GetCoreHRSubdivisionListResp `json:"data,omitempty"`
 }

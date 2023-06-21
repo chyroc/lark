@@ -21,53 +21,53 @@ import (
 	"context"
 )
 
-// DeleteCoreHrCompany 删除公司。
+// DeleteCoreHRCompany 删除公司。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/company/delete
 // new doc: https://open.feishu.cn/document/server-docs/corehr-v1/organization-management/company/delete
-func (r *CoreHrService) DeleteCoreHrCompany(ctx context.Context, request *DeleteCoreHrCompanyReq, options ...MethodOptionFunc) (*DeleteCoreHrCompanyResp, *Response, error) {
-	if r.cli.mock.mockCoreHrDeleteCoreHrCompany != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] CoreHr#DeleteCoreHrCompany mock enable")
-		return r.cli.mock.mockCoreHrDeleteCoreHrCompany(ctx, request, options...)
+func (r *CoreHRService) DeleteCoreHRCompany(ctx context.Context, request *DeleteCoreHRCompanyReq, options ...MethodOptionFunc) (*DeleteCoreHRCompanyResp, *Response, error) {
+	if r.cli.mock.mockCoreHRDeleteCoreHRCompany != nil {
+		r.cli.log(ctx, LogLevelDebug, "[lark] CoreHR#DeleteCoreHRCompany mock enable")
+		return r.cli.mock.mockCoreHRDeleteCoreHRCompany(ctx, request, options...)
 	}
 
 	req := &RawRequestReq{
-		Scope:                 "CoreHr",
-		API:                   "DeleteCoreHrCompany",
+		Scope:                 "CoreHR",
+		API:                   "DeleteCoreHRCompany",
 		Method:                "DELETE",
 		URL:                   r.cli.openBaseURL + "/open-apis/corehr/v1/companies/:company_id",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
 	}
-	resp := new(deleteCoreHrCompanyResp)
+	resp := new(deleteCoreHRCompanyResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
 	return resp.Data, response, err
 }
 
-// MockCoreHrDeleteCoreHrCompany mock CoreHrDeleteCoreHrCompany method
-func (r *Mock) MockCoreHrDeleteCoreHrCompany(f func(ctx context.Context, request *DeleteCoreHrCompanyReq, options ...MethodOptionFunc) (*DeleteCoreHrCompanyResp, *Response, error)) {
-	r.mockCoreHrDeleteCoreHrCompany = f
+// MockCoreHRDeleteCoreHRCompany mock CoreHRDeleteCoreHRCompany method
+func (r *Mock) MockCoreHRDeleteCoreHRCompany(f func(ctx context.Context, request *DeleteCoreHRCompanyReq, options ...MethodOptionFunc) (*DeleteCoreHRCompanyResp, *Response, error)) {
+	r.mockCoreHRDeleteCoreHRCompany = f
 }
 
-// UnMockCoreHrDeleteCoreHrCompany un-mock CoreHrDeleteCoreHrCompany method
-func (r *Mock) UnMockCoreHrDeleteCoreHrCompany() {
-	r.mockCoreHrDeleteCoreHrCompany = nil
+// UnMockCoreHRDeleteCoreHRCompany un-mock CoreHRDeleteCoreHRCompany method
+func (r *Mock) UnMockCoreHRDeleteCoreHRCompany() {
+	r.mockCoreHRDeleteCoreHRCompany = nil
 }
 
-// DeleteCoreHrCompanyReq ...
-type DeleteCoreHrCompanyReq struct {
+// DeleteCoreHRCompanyReq ...
+type DeleteCoreHRCompanyReq struct {
 	CompanyID string `path:"company_id" json:"-"` // 需要删除的公司ID, 示例值: "341432424"
 }
 
-// DeleteCoreHrCompanyResp ...
-type DeleteCoreHrCompanyResp struct {
+// DeleteCoreHRCompanyResp ...
+type DeleteCoreHRCompanyResp struct {
 }
 
-// deleteCoreHrCompanyResp ...
-type deleteCoreHrCompanyResp struct {
+// deleteCoreHRCompanyResp ...
+type deleteCoreHRCompanyResp struct {
 	Code int64                    `json:"code,omitempty"` // 错误码, 非 0 表示失败
 	Msg  string                   `json:"msg,omitempty"`  // 错误描述
-	Data *DeleteCoreHrCompanyResp `json:"data,omitempty"`
+	Data *DeleteCoreHRCompanyResp `json:"data,omitempty"`
 }

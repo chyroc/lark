@@ -21,54 +21,54 @@ import (
 	"context"
 )
 
-// GetCoreHrAuthorization 查询「飞书人事」-「权限设置」中的单个用户授权信息。
+// GetCoreHRAuthorization 查询「飞书人事」-「权限设置」中的单个用户授权信息。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/authorization/query-user-authorization
 // new doc: https://open.feishu.cn/document/server-docs/corehr-v1/authorization/query-user-authorization
-func (r *CoreHrService) GetCoreHrAuthorization(ctx context.Context, request *GetCoreHrAuthorizationReq, options ...MethodOptionFunc) (*GetCoreHrAuthorizationResp, *Response, error) {
-	if r.cli.mock.mockCoreHrGetCoreHrAuthorization != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] CoreHr#GetCoreHrAuthorization mock enable")
-		return r.cli.mock.mockCoreHrGetCoreHrAuthorization(ctx, request, options...)
+func (r *CoreHRService) GetCoreHRAuthorization(ctx context.Context, request *GetCoreHRAuthorizationReq, options ...MethodOptionFunc) (*GetCoreHRAuthorizationResp, *Response, error) {
+	if r.cli.mock.mockCoreHRGetCoreHRAuthorization != nil {
+		r.cli.log(ctx, LogLevelDebug, "[lark] CoreHR#GetCoreHRAuthorization mock enable")
+		return r.cli.mock.mockCoreHRGetCoreHRAuthorization(ctx, request, options...)
 	}
 
 	req := &RawRequestReq{
-		Scope:                 "CoreHr",
-		API:                   "GetCoreHrAuthorization",
+		Scope:                 "CoreHR",
+		API:                   "GetCoreHRAuthorization",
 		Method:                "GET",
 		URL:                   r.cli.openBaseURL + "/open-apis/corehr/v1/authorizations/get_by_param",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
 	}
-	resp := new(getCoreHrAuthorizationResp)
+	resp := new(getCoreHRAuthorizationResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
 	return resp.Data, response, err
 }
 
-// MockCoreHrGetCoreHrAuthorization mock CoreHrGetCoreHrAuthorization method
-func (r *Mock) MockCoreHrGetCoreHrAuthorization(f func(ctx context.Context, request *GetCoreHrAuthorizationReq, options ...MethodOptionFunc) (*GetCoreHrAuthorizationResp, *Response, error)) {
-	r.mockCoreHrGetCoreHrAuthorization = f
+// MockCoreHRGetCoreHRAuthorization mock CoreHRGetCoreHRAuthorization method
+func (r *Mock) MockCoreHRGetCoreHRAuthorization(f func(ctx context.Context, request *GetCoreHRAuthorizationReq, options ...MethodOptionFunc) (*GetCoreHRAuthorizationResp, *Response, error)) {
+	r.mockCoreHRGetCoreHRAuthorization = f
 }
 
-// UnMockCoreHrGetCoreHrAuthorization un-mock CoreHrGetCoreHrAuthorization method
-func (r *Mock) UnMockCoreHrGetCoreHrAuthorization() {
-	r.mockCoreHrGetCoreHrAuthorization = nil
+// UnMockCoreHRGetCoreHRAuthorization un-mock CoreHRGetCoreHRAuthorization method
+func (r *Mock) UnMockCoreHRGetCoreHRAuthorization() {
+	r.mockCoreHRGetCoreHRAuthorization = nil
 }
 
-// GetCoreHrAuthorizationReq ...
-type GetCoreHrAuthorizationReq struct {
+// GetCoreHRAuthorizationReq ...
+type GetCoreHRAuthorizationReq struct {
 	EmploymentID string  `query:"employment_id" json:"-"` // 雇员 ID, 示例值: "67489937334909845"
 	UserIDType   *IDType `query:"user_id_type" json:"-"`  // 用户 ID 类型, 示例值: "open_id", 可选值有: open_id: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid), union_id: 标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id), user_id: 标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id), people_corehr_id: 以飞书人事的 ID 来识别用户, 默认值: `people_corehr_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
 }
 
-// GetCoreHrAuthorizationResp ...
-type GetCoreHrAuthorizationResp struct {
+// GetCoreHRAuthorizationResp ...
+type GetCoreHRAuthorizationResp struct {
 }
 
-// getCoreHrAuthorizationResp ...
-type getCoreHrAuthorizationResp struct {
+// getCoreHRAuthorizationResp ...
+type getCoreHRAuthorizationResp struct {
 	Code int64                       `json:"code,omitempty"` // 错误码, 非 0 表示失败
 	Msg  string                      `json:"msg,omitempty"`  // 错误描述
-	Data *GetCoreHrAuthorizationResp `json:"data,omitempty"`
+	Data *GetCoreHRAuthorizationResp `json:"data,omitempty"`
 }

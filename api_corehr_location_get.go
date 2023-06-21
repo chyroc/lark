@@ -21,68 +21,68 @@ import (
 	"context"
 )
 
-// GetCoreHrLocation 根据 ID 查询单个地点。
+// GetCoreHRLocation 根据 ID 查询单个地点。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/location/get
 // new doc: https://open.feishu.cn/document/server-docs/corehr-v1/organization-management/location/get
-func (r *CoreHrService) GetCoreHrLocation(ctx context.Context, request *GetCoreHrLocationReq, options ...MethodOptionFunc) (*GetCoreHrLocationResp, *Response, error) {
-	if r.cli.mock.mockCoreHrGetCoreHrLocation != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] CoreHr#GetCoreHrLocation mock enable")
-		return r.cli.mock.mockCoreHrGetCoreHrLocation(ctx, request, options...)
+func (r *CoreHRService) GetCoreHRLocation(ctx context.Context, request *GetCoreHRLocationReq, options ...MethodOptionFunc) (*GetCoreHRLocationResp, *Response, error) {
+	if r.cli.mock.mockCoreHRGetCoreHRLocation != nil {
+		r.cli.log(ctx, LogLevelDebug, "[lark] CoreHR#GetCoreHRLocation mock enable")
+		return r.cli.mock.mockCoreHRGetCoreHRLocation(ctx, request, options...)
 	}
 
 	req := &RawRequestReq{
-		Scope:                 "CoreHr",
-		API:                   "GetCoreHrLocation",
+		Scope:                 "CoreHR",
+		API:                   "GetCoreHRLocation",
 		Method:                "GET",
 		URL:                   r.cli.openBaseURL + "/open-apis/corehr/v1/locations/:location_id",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
 	}
-	resp := new(getCoreHrLocationResp)
+	resp := new(getCoreHRLocationResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
 	return resp.Data, response, err
 }
 
-// MockCoreHrGetCoreHrLocation mock CoreHrGetCoreHrLocation method
-func (r *Mock) MockCoreHrGetCoreHrLocation(f func(ctx context.Context, request *GetCoreHrLocationReq, options ...MethodOptionFunc) (*GetCoreHrLocationResp, *Response, error)) {
-	r.mockCoreHrGetCoreHrLocation = f
+// MockCoreHRGetCoreHRLocation mock CoreHRGetCoreHRLocation method
+func (r *Mock) MockCoreHRGetCoreHRLocation(f func(ctx context.Context, request *GetCoreHRLocationReq, options ...MethodOptionFunc) (*GetCoreHRLocationResp, *Response, error)) {
+	r.mockCoreHRGetCoreHRLocation = f
 }
 
-// UnMockCoreHrGetCoreHrLocation un-mock CoreHrGetCoreHrLocation method
-func (r *Mock) UnMockCoreHrGetCoreHrLocation() {
-	r.mockCoreHrGetCoreHrLocation = nil
+// UnMockCoreHRGetCoreHRLocation un-mock CoreHRGetCoreHRLocation method
+func (r *Mock) UnMockCoreHRGetCoreHRLocation() {
+	r.mockCoreHRGetCoreHRLocation = nil
 }
 
-// GetCoreHrLocationReq ...
-type GetCoreHrLocationReq struct {
+// GetCoreHRLocationReq ...
+type GetCoreHRLocationReq struct {
 	LocationID string `path:"location_id" json:"-"` // 地点 ID, 示例值: "1215"
 }
 
-// GetCoreHrLocationResp ...
-type GetCoreHrLocationResp struct {
-	Location *GetCoreHrLocationRespLocation `json:"location,omitempty"` // 地点信息
+// GetCoreHRLocationResp ...
+type GetCoreHRLocationResp struct {
+	Location *GetCoreHRLocationRespLocation `json:"location,omitempty"` // 地点信息
 }
 
-// GetCoreHrLocationRespLocation ...
-type GetCoreHrLocationRespLocation struct {
+// GetCoreHRLocationRespLocation ...
+type GetCoreHRLocationRespLocation struct {
 	ID                 string                                         `json:"id,omitempty"`                    // 实体在CoreHR内部的唯一键
-	HiberarchyCommon   *GetCoreHrLocationRespLocationHiberarchyCommon `json:"hiberarchy_common,omitempty"`     // 层级关系, 内层字段见实体
-	LocationUsageList  []*GetCoreHrLocationRespLocationLocationUsage  `json:"location_usage_list,omitempty"`   // 地点用途
-	Address            []*GetCoreHrLocationRespLocationAddres         `json:"address,omitempty"`               // 地址
+	HiberarchyCommon   *GetCoreHRLocationRespLocationHiberarchyCommon `json:"hiberarchy_common,omitempty"`     // 层级关系, 内层字段见实体
+	LocationUsageList  []*GetCoreHRLocationRespLocationLocationUsage  `json:"location_usage_list,omitempty"`   // 地点用途
+	Address            []*GetCoreHRLocationRespLocationAddres         `json:"address,omitempty"`               // 地址
 	WorkingHoursTypeID string                                         `json:"working_hours_type_id,omitempty"` // 工时制度
 	EffectiveTime      string                                         `json:"effective_time,omitempty"`        // 生效时间
 	ExpirationTime     string                                         `json:"expiration_time,omitempty"`       // 失效时间
-	CustomFields       []*GetCoreHrLocationRespLocationCustomField    `json:"custom_fields,omitempty"`         // 自定义字段
-	Locale             *GetCoreHrLocationRespLocationLocale           `json:"locale,omitempty"`                // 区域设置
+	CustomFields       []*GetCoreHRLocationRespLocationCustomField    `json:"custom_fields,omitempty"`         // 自定义字段
+	Locale             *GetCoreHRLocationRespLocationLocale           `json:"locale,omitempty"`                // 区域设置
 	TimeZoneID         string                                         `json:"time_zone_id,omitempty"`          // 时区
 	DisplayLanguageID  string                                         `json:"display_language_id,omitempty"`   // 默认显示语言
 }
 
-// GetCoreHrLocationRespLocationAddres ...
-type GetCoreHrLocationRespLocationAddres struct {
+// GetCoreHRLocationRespLocationAddres ...
+type GetCoreHRLocationRespLocationAddres struct {
 	FullAddressLocalScript   string                                            `json:"full_address_local_script,omitempty"`   // 完整地址（本地文字）
 	FullAddressWesternScript string                                            `json:"full_address_western_script,omitempty"` // 完整地址（西方文字）
 	ID                       string                                            `json:"id,omitempty"`                          // 地址ID
@@ -100,108 +100,108 @@ type GetCoreHrLocationRespLocationAddres struct {
 	LocalAddressLine8        string                                            `json:"local_address_line8,omitempty"`         // 地址行 8（非拉丁语系的本地文字）
 	LocalAddressLine9        string                                            `json:"local_address_line9,omitempty"`         // 地址行 9（非拉丁语系的本地文字）
 	PostalCode               string                                            `json:"postal_code,omitempty"`                 // 邮政编码
-	AddressTypeList          []*GetCoreHrLocationRespLocationAddresAddressType `json:"address_type_list,omitempty"`           // 地址类型
+	AddressTypeList          []*GetCoreHRLocationRespLocationAddresAddressType `json:"address_type_list,omitempty"`           // 地址类型
 	IsPrimary                bool                                              `json:"is_primary,omitempty"`                  // 主要地址
 	IsPublic                 bool                                              `json:"is_public,omitempty"`                   // 公开地址
-	CustomFields             []*GetCoreHrLocationRespLocationAddresCustomField `json:"custom_fields,omitempty"`               // 自定义字段
+	CustomFields             []*GetCoreHRLocationRespLocationAddresCustomField `json:"custom_fields,omitempty"`               // 自定义字段
 }
 
-// GetCoreHrLocationRespLocationAddresAddressType ...
-type GetCoreHrLocationRespLocationAddresAddressType struct {
+// GetCoreHRLocationRespLocationAddresAddressType ...
+type GetCoreHRLocationRespLocationAddresAddressType struct {
 	EnumName string                                                   `json:"enum_name,omitempty"` // 枚举值
-	Display  []*GetCoreHrLocationRespLocationAddresAddressTypeDisplay `json:"display,omitempty"`   // 枚举多语展示
+	Display  []*GetCoreHRLocationRespLocationAddresAddressTypeDisplay `json:"display,omitempty"`   // 枚举多语展示
 }
 
-// GetCoreHrLocationRespLocationAddresAddressTypeDisplay ...
-type GetCoreHrLocationRespLocationAddresAddressTypeDisplay struct {
+// GetCoreHRLocationRespLocationAddresAddressTypeDisplay ...
+type GetCoreHRLocationRespLocationAddresAddressTypeDisplay struct {
 	Lang  string `json:"lang,omitempty"`  // 语言
 	Value string `json:"value,omitempty"` // 内容
 }
 
-// GetCoreHrLocationRespLocationAddresCustomField ...
-type GetCoreHrLocationRespLocationAddresCustomField struct {
+// GetCoreHRLocationRespLocationAddresCustomField ...
+type GetCoreHRLocationRespLocationAddresCustomField struct {
 	FieldName string `json:"field_name,omitempty"` // 字段名
 	Value     string `json:"value,omitempty"`      // 字段值, 是json转义后的字符串, 根据元数据定义不同, 字段格式不同(123, 123.23, true, [\"id1\", \"id2\], 2006-01-02 15:04:05])
 }
 
-// GetCoreHrLocationRespLocationCustomField ...
-type GetCoreHrLocationRespLocationCustomField struct {
+// GetCoreHRLocationRespLocationCustomField ...
+type GetCoreHRLocationRespLocationCustomField struct {
 	FieldName string `json:"field_name,omitempty"` // 字段名
 	Value     string `json:"value,omitempty"`      // 字段值, 是json转义后的字符串, 根据元数据定义不同, 字段格式不同(123, 123.23, true, [\"id1\", \"id2\], 2006-01-02 15:04:05])
 }
 
-// GetCoreHrLocationRespLocationHiberarchyCommon ...
-type GetCoreHrLocationRespLocationHiberarchyCommon struct {
+// GetCoreHRLocationRespLocationHiberarchyCommon ...
+type GetCoreHRLocationRespLocationHiberarchyCommon struct {
 	ParentID       string                                                      `json:"parent_id,omitempty"`       // 上级组织
-	Name           []*GetCoreHrLocationRespLocationHiberarchyCommonName        `json:"name,omitempty"`            // 名称
-	Type           *GetCoreHrLocationRespLocationHiberarchyCommonType          `json:"type,omitempty"`            // 组织类型
+	Name           []*GetCoreHRLocationRespLocationHiberarchyCommonName        `json:"name,omitempty"`            // 名称
+	Type           *GetCoreHRLocationRespLocationHiberarchyCommonType          `json:"type,omitempty"`            // 组织类型
 	Active         bool                                                        `json:"active,omitempty"`          // 启用
 	EffectiveTime  string                                                      `json:"effective_time,omitempty"`  // 生效时间
 	ExpirationTime string                                                      `json:"expiration_time,omitempty"` // 失效时间
 	Code           string                                                      `json:"code,omitempty"`            // 编码
-	Description    []*GetCoreHrLocationRespLocationHiberarchyCommonDescription `json:"description,omitempty"`     // 描述
+	Description    []*GetCoreHRLocationRespLocationHiberarchyCommonDescription `json:"description,omitempty"`     // 描述
 	TreeOrder      string                                                      `json:"tree_order,omitempty"`      // 树形排序, 代表同层级的部门排序序号
 	ListOrder      string                                                      `json:"list_order,omitempty"`      // 列表排序, 代表所有部门的混排序号
-	CustomFields   []*GetCoreHrLocationRespLocationHiberarchyCommonCustomField `json:"custom_fields,omitempty"`   // 自定义字段
+	CustomFields   []*GetCoreHRLocationRespLocationHiberarchyCommonCustomField `json:"custom_fields,omitempty"`   // 自定义字段
 }
 
-// GetCoreHrLocationRespLocationHiberarchyCommonCustomField ...
-type GetCoreHrLocationRespLocationHiberarchyCommonCustomField struct {
+// GetCoreHRLocationRespLocationHiberarchyCommonCustomField ...
+type GetCoreHRLocationRespLocationHiberarchyCommonCustomField struct {
 	FieldName string `json:"field_name,omitempty"` // 字段名
 	Value     string `json:"value,omitempty"`      // 字段值, 是json转义后的字符串, 根据元数据定义不同, 字段格式不同(123, 123.23, true, [\"id1\", \"id2\], 2006-01-02 15:04:05])
 }
 
-// GetCoreHrLocationRespLocationHiberarchyCommonDescription ...
-type GetCoreHrLocationRespLocationHiberarchyCommonDescription struct {
+// GetCoreHRLocationRespLocationHiberarchyCommonDescription ...
+type GetCoreHRLocationRespLocationHiberarchyCommonDescription struct {
 	Lang  string `json:"lang,omitempty"`  // 语言
 	Value string `json:"value,omitempty"` // 内容
 }
 
-// GetCoreHrLocationRespLocationHiberarchyCommonName ...
-type GetCoreHrLocationRespLocationHiberarchyCommonName struct {
+// GetCoreHRLocationRespLocationHiberarchyCommonName ...
+type GetCoreHRLocationRespLocationHiberarchyCommonName struct {
 	Lang  string `json:"lang,omitempty"`  // 语言
 	Value string `json:"value,omitempty"` // 内容
 }
 
-// GetCoreHrLocationRespLocationHiberarchyCommonType ...
-type GetCoreHrLocationRespLocationHiberarchyCommonType struct {
+// GetCoreHRLocationRespLocationHiberarchyCommonType ...
+type GetCoreHRLocationRespLocationHiberarchyCommonType struct {
 	EnumName string                                                      `json:"enum_name,omitempty"` // 枚举值
-	Display  []*GetCoreHrLocationRespLocationHiberarchyCommonTypeDisplay `json:"display,omitempty"`   // 枚举多语展示
+	Display  []*GetCoreHRLocationRespLocationHiberarchyCommonTypeDisplay `json:"display,omitempty"`   // 枚举多语展示
 }
 
-// GetCoreHrLocationRespLocationHiberarchyCommonTypeDisplay ...
-type GetCoreHrLocationRespLocationHiberarchyCommonTypeDisplay struct {
+// GetCoreHRLocationRespLocationHiberarchyCommonTypeDisplay ...
+type GetCoreHRLocationRespLocationHiberarchyCommonTypeDisplay struct {
 	Lang  string `json:"lang,omitempty"`  // 语言
 	Value string `json:"value,omitempty"` // 内容
 }
 
-// GetCoreHrLocationRespLocationLocale ...
-type GetCoreHrLocationRespLocationLocale struct {
+// GetCoreHRLocationRespLocationLocale ...
+type GetCoreHRLocationRespLocationLocale struct {
 	EnumName string                                        `json:"enum_name,omitempty"` // 枚举值
-	Display  []*GetCoreHrLocationRespLocationLocaleDisplay `json:"display,omitempty"`   // 枚举多语展示
+	Display  []*GetCoreHRLocationRespLocationLocaleDisplay `json:"display,omitempty"`   // 枚举多语展示
 }
 
-// GetCoreHrLocationRespLocationLocaleDisplay ...
-type GetCoreHrLocationRespLocationLocaleDisplay struct {
+// GetCoreHRLocationRespLocationLocaleDisplay ...
+type GetCoreHRLocationRespLocationLocaleDisplay struct {
 	Lang  string `json:"lang,omitempty"`  // 语言
 	Value string `json:"value,omitempty"` // 内容
 }
 
-// GetCoreHrLocationRespLocationLocationUsage ...
-type GetCoreHrLocationRespLocationLocationUsage struct {
+// GetCoreHRLocationRespLocationLocationUsage ...
+type GetCoreHRLocationRespLocationLocationUsage struct {
 	EnumName string                                               `json:"enum_name,omitempty"` // 枚举值
-	Display  []*GetCoreHrLocationRespLocationLocationUsageDisplay `json:"display,omitempty"`   // 枚举多语展示
+	Display  []*GetCoreHRLocationRespLocationLocationUsageDisplay `json:"display,omitempty"`   // 枚举多语展示
 }
 
-// GetCoreHrLocationRespLocationLocationUsageDisplay ...
-type GetCoreHrLocationRespLocationLocationUsageDisplay struct {
+// GetCoreHRLocationRespLocationLocationUsageDisplay ...
+type GetCoreHRLocationRespLocationLocationUsageDisplay struct {
 	Lang  string `json:"lang,omitempty"`  // 语言
 	Value string `json:"value,omitempty"` // 内容
 }
 
-// getCoreHrLocationResp ...
-type getCoreHrLocationResp struct {
+// getCoreHRLocationResp ...
+type getCoreHRLocationResp struct {
 	Code int64                  `json:"code,omitempty"` // 错误码, 非 0 表示失败
 	Msg  string                 `json:"msg,omitempty"`  // 错误描述
-	Data *GetCoreHrLocationResp `json:"data,omitempty"`
+	Data *GetCoreHRLocationResp `json:"data,omitempty"`
 }

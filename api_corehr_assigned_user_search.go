@@ -21,79 +21,79 @@ import (
 	"context"
 )
 
-// SearchCoreHrAssignedUser 查询组织类角色的授权信息。
+// SearchCoreHRAssignedUser 查询组织类角色的授权信息。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/assigned_user/search
 // new doc: https://open.feishu.cn/document/server-docs/corehr-v1/authorization/search
-func (r *CoreHrService) SearchCoreHrAssignedUser(ctx context.Context, request *SearchCoreHrAssignedUserReq, options ...MethodOptionFunc) (*SearchCoreHrAssignedUserResp, *Response, error) {
-	if r.cli.mock.mockCoreHrSearchCoreHrAssignedUser != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] CoreHr#SearchCoreHrAssignedUser mock enable")
-		return r.cli.mock.mockCoreHrSearchCoreHrAssignedUser(ctx, request, options...)
+func (r *CoreHRService) SearchCoreHRAssignedUser(ctx context.Context, request *SearchCoreHRAssignedUserReq, options ...MethodOptionFunc) (*SearchCoreHRAssignedUserResp, *Response, error) {
+	if r.cli.mock.mockCoreHRSearchCoreHRAssignedUser != nil {
+		r.cli.log(ctx, LogLevelDebug, "[lark] CoreHR#SearchCoreHRAssignedUser mock enable")
+		return r.cli.mock.mockCoreHRSearchCoreHRAssignedUser(ctx, request, options...)
 	}
 
 	req := &RawRequestReq{
-		Scope:                 "CoreHr",
-		API:                   "SearchCoreHrAssignedUser",
+		Scope:                 "CoreHR",
+		API:                   "SearchCoreHRAssignedUser",
 		Method:                "POST",
 		URL:                   r.cli.openBaseURL + "/open-apis/corehr/v1/assigned_users/search",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
 	}
-	resp := new(searchCoreHrAssignedUserResp)
+	resp := new(searchCoreHRAssignedUserResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
 	return resp.Data, response, err
 }
 
-// MockCoreHrSearchCoreHrAssignedUser mock CoreHrSearchCoreHrAssignedUser method
-func (r *Mock) MockCoreHrSearchCoreHrAssignedUser(f func(ctx context.Context, request *SearchCoreHrAssignedUserReq, options ...MethodOptionFunc) (*SearchCoreHrAssignedUserResp, *Response, error)) {
-	r.mockCoreHrSearchCoreHrAssignedUser = f
+// MockCoreHRSearchCoreHRAssignedUser mock CoreHRSearchCoreHRAssignedUser method
+func (r *Mock) MockCoreHRSearchCoreHRAssignedUser(f func(ctx context.Context, request *SearchCoreHRAssignedUserReq, options ...MethodOptionFunc) (*SearchCoreHRAssignedUserResp, *Response, error)) {
+	r.mockCoreHRSearchCoreHRAssignedUser = f
 }
 
-// UnMockCoreHrSearchCoreHrAssignedUser un-mock CoreHrSearchCoreHrAssignedUser method
-func (r *Mock) UnMockCoreHrSearchCoreHrAssignedUser() {
-	r.mockCoreHrSearchCoreHrAssignedUser = nil
+// UnMockCoreHRSearchCoreHRAssignedUser un-mock CoreHRSearchCoreHRAssignedUser method
+func (r *Mock) UnMockCoreHRSearchCoreHRAssignedUser() {
+	r.mockCoreHRSearchCoreHRAssignedUser = nil
 }
 
-// SearchCoreHrAssignedUserReq ...
-type SearchCoreHrAssignedUserReq struct {
+// SearchCoreHRAssignedUserReq ...
+type SearchCoreHRAssignedUserReq struct {
 	UserIDType          *IDType                                       `query:"user_id_type" json:"-"`          // 用户 ID 类型, 示例值: people_corehr_id, 可选值有: open_id: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid), union_id: 标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id), user_id: 标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id), people_corehr_id: 以飞书人事的 ID 来识别用户, 默认值: `people_corehr_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
 	RoleID              string                                        `json:"role_id,omitempty"`               // 角色 ID, 仅支持组织类角色, 角色 ID 可通过【批量获取角色列表】接口获取, 示例值: "100"
-	ManagementScopeList []*SearchCoreHrAssignedUserReqManagementScope `json:"management_scope_list,omitempty"` // 管理范围信息
+	ManagementScopeList []*SearchCoreHRAssignedUserReqManagementScope `json:"management_scope_list,omitempty"` // 管理范围信息
 	SearchMethod        string                                        `json:"search_method,omitempty"`         // 查找方式, 可选值有: 1: 只查找指定 部门/工作地点/公司/社保城市, 如无授权信息则返回为空, 2: 当指定的 部门/工作地点/公司/社保城市 无授权信息, 向上查找第一个授权记录并直接返回, 示例值: "1"
 	PageToken           *string                                       `json:"page_token,omitempty"`            // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果, 示例值: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9"
 	PageSize            int64                                         `json:"page_size,omitempty"`             // 分页大小, 示例值: "100"
 }
 
-// SearchCoreHrAssignedUserReqManagementScope ...
-type SearchCoreHrAssignedUserReqManagementScope struct {
+// SearchCoreHRAssignedUserReqManagementScope ...
+type SearchCoreHRAssignedUserReqManagementScope struct {
 	ManagementDimension string `json:"management_dimension,omitempty"` // 管理维度, 可选值有: department: 部门, work_location: 工作地点, company: 公司, social_security_location: 社保城市, 示例值: "department"
 	ObjID               string `json:"obj_id,omitempty"`               // 被授权部门/工作地点/公司/社保城市 ID, 示例值: "7023318326176777742"
 }
 
-// SearchCoreHrAssignedUserResp ...
-type SearchCoreHrAssignedUserResp struct {
-	Items     []*SearchCoreHrAssignedUserRespItem `json:"items,omitempty"`      // 用户授权信息
+// SearchCoreHRAssignedUserResp ...
+type SearchCoreHRAssignedUserResp struct {
+	Items     []*SearchCoreHRAssignedUserRespItem `json:"items,omitempty"`      // 用户授权信息
 	HasMore   bool                                `json:"has_more,omitempty"`   // 是否还有更多项
 	PageToken string                              `json:"page_token,omitempty"` // 分页标记, 当 has_more 为 true 时, 会同时返回新的 page_token, 否则不返回 page_token
 }
 
-// SearchCoreHrAssignedUserRespItem ...
-type SearchCoreHrAssignedUserRespItem struct {
+// SearchCoreHRAssignedUserRespItem ...
+type SearchCoreHRAssignedUserRespItem struct {
 	EmploymentID        string                                             `json:"employment_id,omitempty"`         // 员工 ID
-	ManagementScopeList []*SearchCoreHrAssignedUserRespItemManagementScope `json:"management_scope_list,omitempty"` // 实际授权管理范围
+	ManagementScopeList []*SearchCoreHRAssignedUserRespItemManagementScope `json:"management_scope_list,omitempty"` // 实际授权管理范围
 }
 
-// SearchCoreHrAssignedUserRespItemManagementScope ...
-type SearchCoreHrAssignedUserRespItemManagementScope struct {
+// SearchCoreHRAssignedUserRespItemManagementScope ...
+type SearchCoreHRAssignedUserRespItemManagementScope struct {
 	ManagementDimension string `json:"management_dimension,omitempty"` // 管理维度, 可选值有: department: 部门, work_location: 工作地点, company: 公司, social_security_location: 社保城市
 	ObjID               string `json:"obj_id,omitempty"`               // 被授权部门/工作地点/公司/社保城市 ID
 }
 
-// searchCoreHrAssignedUserResp ...
-type searchCoreHrAssignedUserResp struct {
+// searchCoreHRAssignedUserResp ...
+type searchCoreHRAssignedUserResp struct {
 	Code int64                         `json:"code,omitempty"` // 错误码, 非 0 表示失败
 	Msg  string                        `json:"msg,omitempty"`  // 错误描述
-	Data *SearchCoreHrAssignedUserResp `json:"data,omitempty"`
+	Data *SearchCoreHRAssignedUserResp `json:"data,omitempty"`
 }

@@ -21,71 +21,71 @@ import (
 	"context"
 )
 
-// GetCoreHrOffboardingList 查询「飞书人事」-「离职设置」中的离职原因。
+// GetCoreHROffboardingList 查询「飞书人事」-「离职设置」中的离职原因。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/offboarding/query
 // new doc: https://open.feishu.cn/document/server-docs/corehr-v1/offboarding/query
-func (r *CoreHrService) GetCoreHrOffboardingList(ctx context.Context, request *GetCoreHrOffboardingListReq, options ...MethodOptionFunc) (*GetCoreHrOffboardingListResp, *Response, error) {
-	if r.cli.mock.mockCoreHrGetCoreHrOffboardingList != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] CoreHr#GetCoreHrOffboardingList mock enable")
-		return r.cli.mock.mockCoreHrGetCoreHrOffboardingList(ctx, request, options...)
+func (r *CoreHRService) GetCoreHROffboardingList(ctx context.Context, request *GetCoreHROffboardingListReq, options ...MethodOptionFunc) (*GetCoreHROffboardingListResp, *Response, error) {
+	if r.cli.mock.mockCoreHRGetCoreHROffboardingList != nil {
+		r.cli.log(ctx, LogLevelDebug, "[lark] CoreHR#GetCoreHROffboardingList mock enable")
+		return r.cli.mock.mockCoreHRGetCoreHROffboardingList(ctx, request, options...)
 	}
 
 	req := &RawRequestReq{
-		Scope:                 "CoreHr",
-		API:                   "GetCoreHrOffboardingList",
+		Scope:                 "CoreHR",
+		API:                   "GetCoreHROffboardingList",
 		Method:                "POST",
 		URL:                   r.cli.openBaseURL + "/open-apis/corehr/v1/offboardings/query",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
 	}
-	resp := new(getCoreHrOffboardingListResp)
+	resp := new(getCoreHROffboardingListResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
 	return resp.Data, response, err
 }
 
-// MockCoreHrGetCoreHrOffboardingList mock CoreHrGetCoreHrOffboardingList method
-func (r *Mock) MockCoreHrGetCoreHrOffboardingList(f func(ctx context.Context, request *GetCoreHrOffboardingListReq, options ...MethodOptionFunc) (*GetCoreHrOffboardingListResp, *Response, error)) {
-	r.mockCoreHrGetCoreHrOffboardingList = f
+// MockCoreHRGetCoreHROffboardingList mock CoreHRGetCoreHROffboardingList method
+func (r *Mock) MockCoreHRGetCoreHROffboardingList(f func(ctx context.Context, request *GetCoreHROffboardingListReq, options ...MethodOptionFunc) (*GetCoreHROffboardingListResp, *Response, error)) {
+	r.mockCoreHRGetCoreHROffboardingList = f
 }
 
-// UnMockCoreHrGetCoreHrOffboardingList un-mock CoreHrGetCoreHrOffboardingList method
-func (r *Mock) UnMockCoreHrGetCoreHrOffboardingList() {
-	r.mockCoreHrGetCoreHrOffboardingList = nil
+// UnMockCoreHRGetCoreHROffboardingList un-mock CoreHRGetCoreHROffboardingList method
+func (r *Mock) UnMockCoreHRGetCoreHROffboardingList() {
+	r.mockCoreHRGetCoreHROffboardingList = nil
 }
 
-// GetCoreHrOffboardingListReq ...
-type GetCoreHrOffboardingListReq struct {
+// GetCoreHROffboardingListReq ...
+type GetCoreHROffboardingListReq struct {
 	Active                            *bool    `json:"active,omitempty"`                               // 是否启用, 示例值: true
 	OffboardingReasonUniqueIdentifier []string `json:"offboarding_reason_unique_identifier,omitempty"` // 离职原因唯一标识列表, 用于过滤, 最大20个, 示例值: ["reason_for_offboarding_option"]
 }
 
-// GetCoreHrOffboardingListResp ...
-type GetCoreHrOffboardingListResp struct {
-	Items []*GetCoreHrOffboardingListRespItem `json:"items,omitempty"` // 离职原因列表
+// GetCoreHROffboardingListResp ...
+type GetCoreHROffboardingListResp struct {
+	Items []*GetCoreHROffboardingListRespItem `json:"items,omitempty"` // 离职原因列表
 }
 
-// GetCoreHrOffboardingListRespItem ...
-type GetCoreHrOffboardingListRespItem struct {
+// GetCoreHROffboardingListRespItem ...
+type GetCoreHROffboardingListRespItem struct {
 	OffboardingReasonUniqueIdentifier       string                                  `json:"offboarding_reason_unique_identifier,omitempty"`        // 离职原因唯一标识
-	Name                                    []*GetCoreHrOffboardingListRespItemName `json:"name,omitempty"`                                        // 名称
+	Name                                    []*GetCoreHROffboardingListRespItemName `json:"name,omitempty"`                                        // 名称
 	Active                                  bool                                    `json:"active,omitempty"`                                      // 是否启用, true为启用
 	ParentOffboardingReasonUniqueIdentifier string                                  `json:"parent_offboarding_reason_unique_identifier,omitempty"` // 当前离职原因的父级原因唯一标识
 	CreatedTime                             string                                  `json:"created_time,omitempty"`                                // 创建时间
 	UpdatedTime                             string                                  `json:"updated_time,omitempty"`                                // 更新时间
 }
 
-// GetCoreHrOffboardingListRespItemName ...
-type GetCoreHrOffboardingListRespItemName struct {
+// GetCoreHROffboardingListRespItemName ...
+type GetCoreHROffboardingListRespItemName struct {
 	Lang  string `json:"lang,omitempty"`  // 名称信息的语言
 	Value string `json:"value,omitempty"` // 名称信息的内容
 }
 
-// getCoreHrOffboardingListResp ...
-type getCoreHrOffboardingListResp struct {
+// getCoreHROffboardingListResp ...
+type getCoreHROffboardingListResp struct {
 	Code int64                         `json:"code,omitempty"` // 错误码, 非 0 表示失败
 	Msg  string                        `json:"msg,omitempty"`  // 错误描述
-	Data *GetCoreHrOffboardingListResp `json:"data,omitempty"`
+	Data *GetCoreHROffboardingListResp `json:"data,omitempty"`
 }

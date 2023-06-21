@@ -21,54 +21,54 @@ import (
 	"context"
 )
 
-// DeleteCoreHrEmployment 删除人员的雇佣信息。
+// DeleteCoreHREmployment 删除人员的雇佣信息。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/employment/delete
 // new doc: https://open.feishu.cn/document/server-docs/corehr-v1/employee/employment/delete
-func (r *CoreHrService) DeleteCoreHrEmployment(ctx context.Context, request *DeleteCoreHrEmploymentReq, options ...MethodOptionFunc) (*DeleteCoreHrEmploymentResp, *Response, error) {
-	if r.cli.mock.mockCoreHrDeleteCoreHrEmployment != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] CoreHr#DeleteCoreHrEmployment mock enable")
-		return r.cli.mock.mockCoreHrDeleteCoreHrEmployment(ctx, request, options...)
+func (r *CoreHRService) DeleteCoreHREmployment(ctx context.Context, request *DeleteCoreHREmploymentReq, options ...MethodOptionFunc) (*DeleteCoreHREmploymentResp, *Response, error) {
+	if r.cli.mock.mockCoreHRDeleteCoreHREmployment != nil {
+		r.cli.log(ctx, LogLevelDebug, "[lark] CoreHR#DeleteCoreHREmployment mock enable")
+		return r.cli.mock.mockCoreHRDeleteCoreHREmployment(ctx, request, options...)
 	}
 
 	req := &RawRequestReq{
-		Scope:                 "CoreHr",
-		API:                   "DeleteCoreHrEmployment",
+		Scope:                 "CoreHR",
+		API:                   "DeleteCoreHREmployment",
 		Method:                "DELETE",
 		URL:                   r.cli.openBaseURL + "/open-apis/corehr/v1/employments/:employment_id",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
 	}
-	resp := new(deleteCoreHrEmploymentResp)
+	resp := new(deleteCoreHREmploymentResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
 	return resp.Data, response, err
 }
 
-// MockCoreHrDeleteCoreHrEmployment mock CoreHrDeleteCoreHrEmployment method
-func (r *Mock) MockCoreHrDeleteCoreHrEmployment(f func(ctx context.Context, request *DeleteCoreHrEmploymentReq, options ...MethodOptionFunc) (*DeleteCoreHrEmploymentResp, *Response, error)) {
-	r.mockCoreHrDeleteCoreHrEmployment = f
+// MockCoreHRDeleteCoreHREmployment mock CoreHRDeleteCoreHREmployment method
+func (r *Mock) MockCoreHRDeleteCoreHREmployment(f func(ctx context.Context, request *DeleteCoreHREmploymentReq, options ...MethodOptionFunc) (*DeleteCoreHREmploymentResp, *Response, error)) {
+	r.mockCoreHRDeleteCoreHREmployment = f
 }
 
-// UnMockCoreHrDeleteCoreHrEmployment un-mock CoreHrDeleteCoreHrEmployment method
-func (r *Mock) UnMockCoreHrDeleteCoreHrEmployment() {
-	r.mockCoreHrDeleteCoreHrEmployment = nil
+// UnMockCoreHRDeleteCoreHREmployment un-mock CoreHRDeleteCoreHREmployment method
+func (r *Mock) UnMockCoreHRDeleteCoreHREmployment() {
+	r.mockCoreHRDeleteCoreHREmployment = nil
 }
 
-// DeleteCoreHrEmploymentReq ...
-type DeleteCoreHrEmploymentReq struct {
+// DeleteCoreHREmploymentReq ...
+type DeleteCoreHREmploymentReq struct {
 	EmploymentID string  `path:"employment_id" json:"-"` // 需要删除的雇佣信息对应的ID, 示例值: "65536878783232"
 	UserIDType   *IDType `query:"user_id_type" json:"-"` // 用户 ID 类型, 示例值: open_id, 可选值有: open_id: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid), union_id: 标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id), user_id: 标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id), people_corehr_id: 以飞书人事的 ID 来识别用户, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
 }
 
-// DeleteCoreHrEmploymentResp ...
-type DeleteCoreHrEmploymentResp struct {
+// DeleteCoreHREmploymentResp ...
+type DeleteCoreHREmploymentResp struct {
 }
 
-// deleteCoreHrEmploymentResp ...
-type deleteCoreHrEmploymentResp struct {
+// deleteCoreHREmploymentResp ...
+type deleteCoreHREmploymentResp struct {
 	Code int64                       `json:"code,omitempty"` // 错误码, 非 0 表示失败
 	Msg  string                      `json:"msg,omitempty"`  // 错误描述
-	Data *DeleteCoreHrEmploymentResp `json:"data,omitempty"`
+	Data *DeleteCoreHREmploymentResp `json:"data,omitempty"`
 }

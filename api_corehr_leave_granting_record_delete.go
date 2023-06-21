@@ -21,53 +21,53 @@ import (
 	"context"
 )
 
-// DeleteCoreHrLeaveGrantingRecord 删除飞书人事休假系统中的假期授予记录（仅支持删除授予来源是「手动授予」或「外部系统授予」的记录）。
+// DeleteCoreHRLeaveGrantingRecord 删除飞书人事休假系统中的假期授予记录（仅支持删除授予来源是「手动授予」或「外部系统授予」的记录）。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/leave_granting_record/delete
 // new doc: https://open.feishu.cn/document/server-docs/corehr-v1/leave/delete
-func (r *CoreHrService) DeleteCoreHrLeaveGrantingRecord(ctx context.Context, request *DeleteCoreHrLeaveGrantingRecordReq, options ...MethodOptionFunc) (*DeleteCoreHrLeaveGrantingRecordResp, *Response, error) {
-	if r.cli.mock.mockCoreHrDeleteCoreHrLeaveGrantingRecord != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] CoreHr#DeleteCoreHrLeaveGrantingRecord mock enable")
-		return r.cli.mock.mockCoreHrDeleteCoreHrLeaveGrantingRecord(ctx, request, options...)
+func (r *CoreHRService) DeleteCoreHRLeaveGrantingRecord(ctx context.Context, request *DeleteCoreHRLeaveGrantingRecordReq, options ...MethodOptionFunc) (*DeleteCoreHRLeaveGrantingRecordResp, *Response, error) {
+	if r.cli.mock.mockCoreHRDeleteCoreHRLeaveGrantingRecord != nil {
+		r.cli.log(ctx, LogLevelDebug, "[lark] CoreHR#DeleteCoreHRLeaveGrantingRecord mock enable")
+		return r.cli.mock.mockCoreHRDeleteCoreHRLeaveGrantingRecord(ctx, request, options...)
 	}
 
 	req := &RawRequestReq{
-		Scope:                 "CoreHr",
-		API:                   "DeleteCoreHrLeaveGrantingRecord",
+		Scope:                 "CoreHR",
+		API:                   "DeleteCoreHRLeaveGrantingRecord",
 		Method:                "DELETE",
 		URL:                   r.cli.openBaseURL + "/open-apis/corehr/v1/leave_granting_records/:leave_granting_record_id",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
 	}
-	resp := new(deleteCoreHrLeaveGrantingRecordResp)
+	resp := new(deleteCoreHRLeaveGrantingRecordResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
 	return resp.Data, response, err
 }
 
-// MockCoreHrDeleteCoreHrLeaveGrantingRecord mock CoreHrDeleteCoreHrLeaveGrantingRecord method
-func (r *Mock) MockCoreHrDeleteCoreHrLeaveGrantingRecord(f func(ctx context.Context, request *DeleteCoreHrLeaveGrantingRecordReq, options ...MethodOptionFunc) (*DeleteCoreHrLeaveGrantingRecordResp, *Response, error)) {
-	r.mockCoreHrDeleteCoreHrLeaveGrantingRecord = f
+// MockCoreHRDeleteCoreHRLeaveGrantingRecord mock CoreHRDeleteCoreHRLeaveGrantingRecord method
+func (r *Mock) MockCoreHRDeleteCoreHRLeaveGrantingRecord(f func(ctx context.Context, request *DeleteCoreHRLeaveGrantingRecordReq, options ...MethodOptionFunc) (*DeleteCoreHRLeaveGrantingRecordResp, *Response, error)) {
+	r.mockCoreHRDeleteCoreHRLeaveGrantingRecord = f
 }
 
-// UnMockCoreHrDeleteCoreHrLeaveGrantingRecord un-mock CoreHrDeleteCoreHrLeaveGrantingRecord method
-func (r *Mock) UnMockCoreHrDeleteCoreHrLeaveGrantingRecord() {
-	r.mockCoreHrDeleteCoreHrLeaveGrantingRecord = nil
+// UnMockCoreHRDeleteCoreHRLeaveGrantingRecord un-mock CoreHRDeleteCoreHRLeaveGrantingRecord method
+func (r *Mock) UnMockCoreHRDeleteCoreHRLeaveGrantingRecord() {
+	r.mockCoreHRDeleteCoreHRLeaveGrantingRecord = nil
 }
 
-// DeleteCoreHrLeaveGrantingRecordReq ...
-type DeleteCoreHrLeaveGrantingRecordReq struct {
+// DeleteCoreHRLeaveGrantingRecordReq ...
+type DeleteCoreHRLeaveGrantingRecordReq struct {
 	LeaveGrantingRecordID string `path:"leave_granting_record_id" json:"-"` // 假期授予记录 ID, 示例值: "6893014062142064135"
 }
 
-// DeleteCoreHrLeaveGrantingRecordResp ...
-type DeleteCoreHrLeaveGrantingRecordResp struct {
+// DeleteCoreHRLeaveGrantingRecordResp ...
+type DeleteCoreHRLeaveGrantingRecordResp struct {
 }
 
-// deleteCoreHrLeaveGrantingRecordResp ...
-type deleteCoreHrLeaveGrantingRecordResp struct {
+// deleteCoreHRLeaveGrantingRecordResp ...
+type deleteCoreHRLeaveGrantingRecordResp struct {
 	Code int64                                `json:"code,omitempty"` // 错误码, 非 0 表示失败
 	Msg  string                               `json:"msg,omitempty"`  // 错误描述
-	Data *DeleteCoreHrLeaveGrantingRecordResp `json:"data,omitempty"`
+	Data *DeleteCoreHRLeaveGrantingRecordResp `json:"data,omitempty"`
 }

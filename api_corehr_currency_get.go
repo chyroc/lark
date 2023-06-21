@@ -21,69 +21,69 @@ import (
 	"context"
 )
 
-// GetCoreHrCurrency 查询单个货币信息。
+// GetCoreHRCurrency 查询单个货币信息。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/currency/get
 // new doc: https://open.feishu.cn/document/server-docs/corehr-v1/basic-infomation/currency/get
-func (r *CoreHrService) GetCoreHrCurrency(ctx context.Context, request *GetCoreHrCurrencyReq, options ...MethodOptionFunc) (*GetCoreHrCurrencyResp, *Response, error) {
-	if r.cli.mock.mockCoreHrGetCoreHrCurrency != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] CoreHr#GetCoreHrCurrency mock enable")
-		return r.cli.mock.mockCoreHrGetCoreHrCurrency(ctx, request, options...)
+func (r *CoreHRService) GetCoreHRCurrency(ctx context.Context, request *GetCoreHRCurrencyReq, options ...MethodOptionFunc) (*GetCoreHRCurrencyResp, *Response, error) {
+	if r.cli.mock.mockCoreHRGetCoreHRCurrency != nil {
+		r.cli.log(ctx, LogLevelDebug, "[lark] CoreHR#GetCoreHRCurrency mock enable")
+		return r.cli.mock.mockCoreHRGetCoreHRCurrency(ctx, request, options...)
 	}
 
 	req := &RawRequestReq{
-		Scope:                 "CoreHr",
-		API:                   "GetCoreHrCurrency",
+		Scope:                 "CoreHR",
+		API:                   "GetCoreHRCurrency",
 		Method:                "GET",
 		URL:                   r.cli.openBaseURL + "/open-apis/corehr/v1/currencies/:currency_id",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
 	}
-	resp := new(getCoreHrCurrencyResp)
+	resp := new(getCoreHRCurrencyResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
 	return resp.Data, response, err
 }
 
-// MockCoreHrGetCoreHrCurrency mock CoreHrGetCoreHrCurrency method
-func (r *Mock) MockCoreHrGetCoreHrCurrency(f func(ctx context.Context, request *GetCoreHrCurrencyReq, options ...MethodOptionFunc) (*GetCoreHrCurrencyResp, *Response, error)) {
-	r.mockCoreHrGetCoreHrCurrency = f
+// MockCoreHRGetCoreHRCurrency mock CoreHRGetCoreHRCurrency method
+func (r *Mock) MockCoreHRGetCoreHRCurrency(f func(ctx context.Context, request *GetCoreHRCurrencyReq, options ...MethodOptionFunc) (*GetCoreHRCurrencyResp, *Response, error)) {
+	r.mockCoreHRGetCoreHRCurrency = f
 }
 
-// UnMockCoreHrGetCoreHrCurrency un-mock CoreHrGetCoreHrCurrency method
-func (r *Mock) UnMockCoreHrGetCoreHrCurrency() {
-	r.mockCoreHrGetCoreHrCurrency = nil
+// UnMockCoreHRGetCoreHRCurrency un-mock CoreHRGetCoreHRCurrency method
+func (r *Mock) UnMockCoreHRGetCoreHRCurrency() {
+	r.mockCoreHRGetCoreHRCurrency = nil
 }
 
-// GetCoreHrCurrencyReq ...
-type GetCoreHrCurrencyReq struct {
+// GetCoreHRCurrencyReq ...
+type GetCoreHRCurrencyReq struct {
 	CurrencyID string `path:"currency_id" json:"-"` // 货币 ID, 示例值: "67489937334909845"
 }
 
-// GetCoreHrCurrencyResp ...
-type GetCoreHrCurrencyResp struct {
-	Currency *GetCoreHrCurrencyRespCurrency `json:"currency,omitempty"` // 货币信息
+// GetCoreHRCurrencyResp ...
+type GetCoreHRCurrencyResp struct {
+	Currency *GetCoreHRCurrencyRespCurrency `json:"currency,omitempty"` // 货币信息
 }
 
-// GetCoreHrCurrencyRespCurrency ...
-type GetCoreHrCurrencyRespCurrency struct {
+// GetCoreHRCurrencyRespCurrency ...
+type GetCoreHRCurrencyRespCurrency struct {
 	ID                 string                                       `json:"id,omitempty"`                    // 货币id
 	CountryRegionID    string                                       `json:"country_region_id,omitempty"`     // 货币所属国家/地区id, 详细信息可通过【查询国家/地区信息】接口查询获得
-	CurrencyName       []*GetCoreHrCurrencyRespCurrencyCurrencyName `json:"currency_name,omitempty"`         // 货币名称
+	CurrencyName       []*GetCoreHRCurrencyRespCurrencyCurrencyName `json:"currency_name,omitempty"`         // 货币名称
 	NumericCode        int64                                        `json:"numeric_code,omitempty"`          // 数字代码
 	CurrencyAlpha3Code string                                       `json:"currency_alpha_3_code,omitempty"` // 三位字母代码
 }
 
-// GetCoreHrCurrencyRespCurrencyCurrencyName ...
-type GetCoreHrCurrencyRespCurrencyCurrencyName struct {
+// GetCoreHRCurrencyRespCurrencyCurrencyName ...
+type GetCoreHRCurrencyRespCurrencyCurrencyName struct {
 	Lang  string `json:"lang,omitempty"`  // 名称信息的语言
 	Value string `json:"value,omitempty"` // 名称信息的内容
 }
 
-// getCoreHrCurrencyResp ...
-type getCoreHrCurrencyResp struct {
+// getCoreHRCurrencyResp ...
+type getCoreHRCurrencyResp struct {
 	Code int64                  `json:"code,omitempty"` // 错误码, 非 0 表示失败
 	Msg  string                 `json:"msg,omitempty"`  // 错误描述
-	Data *GetCoreHrCurrencyResp `json:"data,omitempty"`
+	Data *GetCoreHRCurrencyResp `json:"data,omitempty"`
 }

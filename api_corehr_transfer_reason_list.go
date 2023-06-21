@@ -21,71 +21,71 @@ import (
 	"context"
 )
 
-// GetCoreHrTransferReasonList 获取异动原因列表。
+// GetCoreHRTransferReasonList 获取异动原因列表。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/transfer_reason/query
 // new doc: https://open.feishu.cn/document/server-docs/corehr-v1/job_change/query-2
-func (r *CoreHrService) GetCoreHrTransferReasonList(ctx context.Context, request *GetCoreHrTransferReasonListReq, options ...MethodOptionFunc) (*GetCoreHrTransferReasonListResp, *Response, error) {
-	if r.cli.mock.mockCoreHrGetCoreHrTransferReasonList != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] CoreHr#GetCoreHrTransferReasonList mock enable")
-		return r.cli.mock.mockCoreHrGetCoreHrTransferReasonList(ctx, request, options...)
+func (r *CoreHRService) GetCoreHRTransferReasonList(ctx context.Context, request *GetCoreHRTransferReasonListReq, options ...MethodOptionFunc) (*GetCoreHRTransferReasonListResp, *Response, error) {
+	if r.cli.mock.mockCoreHRGetCoreHRTransferReasonList != nil {
+		r.cli.log(ctx, LogLevelDebug, "[lark] CoreHR#GetCoreHRTransferReasonList mock enable")
+		return r.cli.mock.mockCoreHRGetCoreHRTransferReasonList(ctx, request, options...)
 	}
 
 	req := &RawRequestReq{
-		Scope:                 "CoreHr",
-		API:                   "GetCoreHrTransferReasonList",
+		Scope:                 "CoreHR",
+		API:                   "GetCoreHRTransferReasonList",
 		Method:                "GET",
 		URL:                   r.cli.openBaseURL + "/open-apis/corehr/v1/transfer_reasons/query",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
 	}
-	resp := new(getCoreHrTransferReasonListResp)
+	resp := new(getCoreHRTransferReasonListResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
 	return resp.Data, response, err
 }
 
-// MockCoreHrGetCoreHrTransferReasonList mock CoreHrGetCoreHrTransferReasonList method
-func (r *Mock) MockCoreHrGetCoreHrTransferReasonList(f func(ctx context.Context, request *GetCoreHrTransferReasonListReq, options ...MethodOptionFunc) (*GetCoreHrTransferReasonListResp, *Response, error)) {
-	r.mockCoreHrGetCoreHrTransferReasonList = f
+// MockCoreHRGetCoreHRTransferReasonList mock CoreHRGetCoreHRTransferReasonList method
+func (r *Mock) MockCoreHRGetCoreHRTransferReasonList(f func(ctx context.Context, request *GetCoreHRTransferReasonListReq, options ...MethodOptionFunc) (*GetCoreHRTransferReasonListResp, *Response, error)) {
+	r.mockCoreHRGetCoreHRTransferReasonList = f
 }
 
-// UnMockCoreHrGetCoreHrTransferReasonList un-mock CoreHrGetCoreHrTransferReasonList method
-func (r *Mock) UnMockCoreHrGetCoreHrTransferReasonList() {
-	r.mockCoreHrGetCoreHrTransferReasonList = nil
+// UnMockCoreHRGetCoreHRTransferReasonList un-mock CoreHRGetCoreHRTransferReasonList method
+func (r *Mock) UnMockCoreHRGetCoreHRTransferReasonList() {
+	r.mockCoreHRGetCoreHRTransferReasonList = nil
 }
 
-// GetCoreHrTransferReasonListReq ...
-type GetCoreHrTransferReasonListReq struct {
+// GetCoreHRTransferReasonListReq ...
+type GetCoreHRTransferReasonListReq struct {
 	Active                         *bool    `query:"active" json:"-"`                            // 异动原因状态, 示例值: true
 	TransferReasonUniqueIdentifier []string `query:"transfer_reason_unique_identifier" json:"-"` // 异动原因唯一标识, 多条时最多数量为10, 示例值: voluntary_transfer, 最大长度: `10`
 }
 
-// GetCoreHrTransferReasonListResp ...
-type GetCoreHrTransferReasonListResp struct {
-	Items []*GetCoreHrTransferReasonListRespItem `json:"items,omitempty"` // 异动原因列表
+// GetCoreHRTransferReasonListResp ...
+type GetCoreHRTransferReasonListResp struct {
+	Items []*GetCoreHRTransferReasonListRespItem `json:"items,omitempty"` // 异动原因列表
 }
 
-// GetCoreHrTransferReasonListRespItem ...
-type GetCoreHrTransferReasonListRespItem struct {
+// GetCoreHRTransferReasonListRespItem ...
+type GetCoreHRTransferReasonListRespItem struct {
 	TransferReasonUniqueIdentifier       string                                     `json:"transfer_reason_unique_identifier,omitempty"`        // 异动原因唯一标识
-	Name                                 []*GetCoreHrTransferReasonListRespItemName `json:"name,omitempty"`                                     // 异动原因的名称信息
+	Name                                 []*GetCoreHRTransferReasonListRespItemName `json:"name,omitempty"`                                     // 异动原因的名称信息
 	Active                               bool                                       `json:"active,omitempty"`                                   // 异动原因状态
 	ParentTransferReasonUniqueIdentifier string                                     `json:"parent_transfer_reason_unique_identifier,omitempty"` // 上级异动原因唯一标识
 	CreatedTime                          string                                     `json:"created_time,omitempty"`                             // 创建时间
 	UpdatedTime                          string                                     `json:"updated_time,omitempty"`                             // 更新时间
 }
 
-// GetCoreHrTransferReasonListRespItemName ...
-type GetCoreHrTransferReasonListRespItemName struct {
+// GetCoreHRTransferReasonListRespItemName ...
+type GetCoreHRTransferReasonListRespItemName struct {
 	Lang  string `json:"lang,omitempty"`  // 名称信息的语言
 	Value string `json:"value,omitempty"` // 名称信息的内容
 }
 
-// getCoreHrTransferReasonListResp ...
-type getCoreHrTransferReasonListResp struct {
+// getCoreHRTransferReasonListResp ...
+type getCoreHRTransferReasonListResp struct {
 	Code int64                            `json:"code,omitempty"` // 错误码, 非 0 表示失败
 	Msg  string                           `json:"msg,omitempty"`  // 错误描述
-	Data *GetCoreHrTransferReasonListResp `json:"data,omitempty"`
+	Data *GetCoreHRTransferReasonListResp `json:"data,omitempty"`
 }

@@ -21,137 +21,137 @@ import (
 	"context"
 )
 
-// GetCoreHrPreHireList 批量查询待入职人员。
+// GetCoreHRPreHireList 批量查询待入职人员。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/pre_hire/list
 // new doc: https://open.feishu.cn/document/server-docs/corehr-v1/pre_hire/list
-func (r *CoreHrService) GetCoreHrPreHireList(ctx context.Context, request *GetCoreHrPreHireListReq, options ...MethodOptionFunc) (*GetCoreHrPreHireListResp, *Response, error) {
-	if r.cli.mock.mockCoreHrGetCoreHrPreHireList != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] CoreHr#GetCoreHrPreHireList mock enable")
-		return r.cli.mock.mockCoreHrGetCoreHrPreHireList(ctx, request, options...)
+func (r *CoreHRService) GetCoreHRPreHireList(ctx context.Context, request *GetCoreHRPreHireListReq, options ...MethodOptionFunc) (*GetCoreHRPreHireListResp, *Response, error) {
+	if r.cli.mock.mockCoreHRGetCoreHRPreHireList != nil {
+		r.cli.log(ctx, LogLevelDebug, "[lark] CoreHR#GetCoreHRPreHireList mock enable")
+		return r.cli.mock.mockCoreHRGetCoreHRPreHireList(ctx, request, options...)
 	}
 
 	req := &RawRequestReq{
-		Scope:                 "CoreHr",
-		API:                   "GetCoreHrPreHireList",
+		Scope:                 "CoreHR",
+		API:                   "GetCoreHRPreHireList",
 		Method:                "GET",
 		URL:                   r.cli.openBaseURL + "/open-apis/corehr/v1/pre_hires",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
 	}
-	resp := new(getCoreHrPreHireListResp)
+	resp := new(getCoreHRPreHireListResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
 	return resp.Data, response, err
 }
 
-// MockCoreHrGetCoreHrPreHireList mock CoreHrGetCoreHrPreHireList method
-func (r *Mock) MockCoreHrGetCoreHrPreHireList(f func(ctx context.Context, request *GetCoreHrPreHireListReq, options ...MethodOptionFunc) (*GetCoreHrPreHireListResp, *Response, error)) {
-	r.mockCoreHrGetCoreHrPreHireList = f
+// MockCoreHRGetCoreHRPreHireList mock CoreHRGetCoreHRPreHireList method
+func (r *Mock) MockCoreHRGetCoreHRPreHireList(f func(ctx context.Context, request *GetCoreHRPreHireListReq, options ...MethodOptionFunc) (*GetCoreHRPreHireListResp, *Response, error)) {
+	r.mockCoreHRGetCoreHRPreHireList = f
 }
 
-// UnMockCoreHrGetCoreHrPreHireList un-mock CoreHrGetCoreHrPreHireList method
-func (r *Mock) UnMockCoreHrGetCoreHrPreHireList() {
-	r.mockCoreHrGetCoreHrPreHireList = nil
+// UnMockCoreHRGetCoreHRPreHireList un-mock CoreHRGetCoreHRPreHireList method
+func (r *Mock) UnMockCoreHRGetCoreHRPreHireList() {
+	r.mockCoreHRGetCoreHRPreHireList = nil
 }
 
-// GetCoreHrPreHireListReq ...
-type GetCoreHrPreHireListReq struct {
+// GetCoreHRPreHireListReq ...
+type GetCoreHRPreHireListReq struct {
 	PageToken  *string  `query:"page_token" json:"-"`   // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果, 示例值: 1231231987
 	PageSize   int64    `query:"page_size" json:"-"`    // 分页大小, 示例值: 100
 	PreHireIDs []string `query:"pre_hire_ids" json:"-"` // 待入职ID列表, 示例值: 7140964208476371, 最大长度: `10`
 }
 
-// GetCoreHrPreHireListResp ...
-type GetCoreHrPreHireListResp struct {
-	Items     []*GetCoreHrPreHireListRespItem `json:"items,omitempty"`      // 查询的待入职信息
+// GetCoreHRPreHireListResp ...
+type GetCoreHRPreHireListResp struct {
+	Items     []*GetCoreHRPreHireListRespItem `json:"items,omitempty"`      // 查询的待入职信息
 	HasMore   bool                            `json:"has_more,omitempty"`   // 是否还有更多项
 	PageToken string                          `json:"page_token,omitempty"` // 分页标记, 当 has_more 为 true 时, 会同时返回新的 page_token, 否则不返回 page_token
 }
 
-// GetCoreHrPreHireListRespItem ...
-type GetCoreHrPreHireListRespItem struct {
+// GetCoreHRPreHireListRespItem ...
+type GetCoreHRPreHireListRespItem struct {
 	AtsApplicationID string                                        `json:"ats_application_id,omitempty"` // 招聘投递 ID, 详细信息可以通过招聘的【获取投递信息】接口查询获得
 	ID               string                                        `json:"id,omitempty"`                 // 实体在CoreHR内部的唯一键
 	HireDate         string                                        `json:"hire_date,omitempty"`          // 入职日期
-	EmployeeType     *GetCoreHrPreHireListRespItemEmployeeType     `json:"employee_type,omitempty"`      // 雇佣类型
+	EmployeeType     *GetCoreHRPreHireListRespItemEmployeeType     `json:"employee_type,omitempty"`      // 雇佣类型
 	WorkerID         string                                        `json:"worker_id,omitempty"`          // 人员编号
 	EmployeeTypeID   string                                        `json:"employee_type_id,omitempty"`   // 雇佣类型
 	PersonID         string                                        `json:"person_id,omitempty"`          // 引用Person ID
-	CustomFields     []*GetCoreHrPreHireListRespItemCustomField    `json:"custom_fields,omitempty"`      // 自定义字段
-	OnboardingStatus *GetCoreHrPreHireListRespItemOnboardingStatus `json:"onboarding_status,omitempty"`  // 入职状态, `preboarding`: 待入职, `day_one`: 准备就绪, `completed`: 已完成, `withdrawn`: 已撤销, `deleted`: 已删除, 对应的系统操作是将待入职人员回退至 Offer 沟通阶段
-	CostCenterRate   []*GetCoreHrPreHireListRespItemCostCenterRate `json:"cost_center_rate,omitempty"`   // 成本中心分摊信息
-	WorkEmailList    []*GetCoreHrPreHireListRespItemWorkEmail      `json:"work_email_list,omitempty"`    // 工作邮箱
+	CustomFields     []*GetCoreHRPreHireListRespItemCustomField    `json:"custom_fields,omitempty"`      // 自定义字段
+	OnboardingStatus *GetCoreHRPreHireListRespItemOnboardingStatus `json:"onboarding_status,omitempty"`  // 入职状态, `preboarding`: 待入职, `day_one`: 准备就绪, `completed`: 已完成, `withdrawn`: 已撤销, `deleted`: 已删除, 对应的系统操作是将待入职人员回退至 Offer 沟通阶段
+	CostCenterRate   []*GetCoreHRPreHireListRespItemCostCenterRate `json:"cost_center_rate,omitempty"`   // 成本中心分摊信息
+	WorkEmailList    []*GetCoreHRPreHireListRespItemWorkEmail      `json:"work_email_list,omitempty"`    // 工作邮箱
 	DepartmentID     string                                        `json:"department_id,omitempty"`      // 部门ID
 }
 
-// GetCoreHrPreHireListRespItemCostCenterRate ...
-type GetCoreHrPreHireListRespItemCostCenterRate struct {
+// GetCoreHRPreHireListRespItemCostCenterRate ...
+type GetCoreHRPreHireListRespItemCostCenterRate struct {
 	CostCenterID string `json:"cost_center_id,omitempty"` // 支持的成本中心id
 	Rate         int64  `json:"rate,omitempty"`           // 分摊比例
 }
 
-// GetCoreHrPreHireListRespItemCustomField ...
-type GetCoreHrPreHireListRespItemCustomField struct {
+// GetCoreHRPreHireListRespItemCustomField ...
+type GetCoreHRPreHireListRespItemCustomField struct {
 	FieldName string `json:"field_name,omitempty"` // 字段名
 	Value     string `json:"value,omitempty"`      // 字段值, 是json转义后的字符串, 根据元数据定义不同, 字段格式不同(如123, 123.23, "true", [\"id1\", \"id2\"], "2006-01-02 15:04:05")
 }
 
-// GetCoreHrPreHireListRespItemEmployeeType ...
-type GetCoreHrPreHireListRespItemEmployeeType struct {
+// GetCoreHRPreHireListRespItemEmployeeType ...
+type GetCoreHRPreHireListRespItemEmployeeType struct {
 	EnumName string                                             `json:"enum_name,omitempty"` // 枚举值
-	Display  []*GetCoreHrPreHireListRespItemEmployeeTypeDisplay `json:"display,omitempty"`   // 枚举多语展示
+	Display  []*GetCoreHRPreHireListRespItemEmployeeTypeDisplay `json:"display,omitempty"`   // 枚举多语展示
 }
 
-// GetCoreHrPreHireListRespItemEmployeeTypeDisplay ...
-type GetCoreHrPreHireListRespItemEmployeeTypeDisplay struct {
+// GetCoreHRPreHireListRespItemEmployeeTypeDisplay ...
+type GetCoreHRPreHireListRespItemEmployeeTypeDisplay struct {
 	Lang  string `json:"lang,omitempty"`  // 名称信息的语言
 	Value string `json:"value,omitempty"` // 名称信息的内容
 }
 
-// GetCoreHrPreHireListRespItemOnboardingStatus ...
-type GetCoreHrPreHireListRespItemOnboardingStatus struct {
+// GetCoreHRPreHireListRespItemOnboardingStatus ...
+type GetCoreHRPreHireListRespItemOnboardingStatus struct {
 	EnumName string                                                 `json:"enum_name,omitempty"` // 枚举值
-	Display  []*GetCoreHrPreHireListRespItemOnboardingStatusDisplay `json:"display,omitempty"`   // 枚举多语展示
+	Display  []*GetCoreHRPreHireListRespItemOnboardingStatusDisplay `json:"display,omitempty"`   // 枚举多语展示
 }
 
-// GetCoreHrPreHireListRespItemOnboardingStatusDisplay ...
-type GetCoreHrPreHireListRespItemOnboardingStatusDisplay struct {
+// GetCoreHRPreHireListRespItemOnboardingStatusDisplay ...
+type GetCoreHRPreHireListRespItemOnboardingStatusDisplay struct {
 	Lang  string `json:"lang,omitempty"`  // 名称信息的语言
 	Value string `json:"value,omitempty"` // 名称信息的内容
 }
 
-// GetCoreHrPreHireListRespItemWorkEmail ...
-type GetCoreHrPreHireListRespItemWorkEmail struct {
+// GetCoreHRPreHireListRespItemWorkEmail ...
+type GetCoreHRPreHireListRespItemWorkEmail struct {
 	Email        string                                              `json:"email,omitempty"`         // 邮箱号
 	IsPrimary    bool                                                `json:"is_primary,omitempty"`    // 是否为主要邮箱
 	IsPublic     bool                                                `json:"is_public,omitempty"`     // 是否为公开邮箱
-	EmailUsage   *GetCoreHrPreHireListRespItemWorkEmailEmailUsage    `json:"email_usage,omitempty"`   // 邮箱用途, 枚举值可通过文档[【飞书人事枚举常量】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)邮箱用途（email_usage）枚举定义获得
-	CustomFields []*GetCoreHrPreHireListRespItemWorkEmailCustomField `json:"custom_fields,omitempty"` // 自定义字段
+	EmailUsage   *GetCoreHRPreHireListRespItemWorkEmailEmailUsage    `json:"email_usage,omitempty"`   // 邮箱用途, 枚举值可通过文档[【飞书人事枚举常量】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)邮箱用途（email_usage）枚举定义获得
+	CustomFields []*GetCoreHRPreHireListRespItemWorkEmailCustomField `json:"custom_fields,omitempty"` // 自定义字段
 }
 
-// GetCoreHrPreHireListRespItemWorkEmailCustomField ...
-type GetCoreHrPreHireListRespItemWorkEmailCustomField struct {
+// GetCoreHRPreHireListRespItemWorkEmailCustomField ...
+type GetCoreHRPreHireListRespItemWorkEmailCustomField struct {
 	FieldName string `json:"field_name,omitempty"` // 字段名
 	Value     string `json:"value,omitempty"`      // 字段值, 是json转义后的字符串, 根据元数据定义不同, 字段格式不同(如123, 123.23, "true", [\"id1\", \"id2\"], "2006-01-02 15:04:05")
 }
 
-// GetCoreHrPreHireListRespItemWorkEmailEmailUsage ...
-type GetCoreHrPreHireListRespItemWorkEmailEmailUsage struct {
+// GetCoreHRPreHireListRespItemWorkEmailEmailUsage ...
+type GetCoreHRPreHireListRespItemWorkEmailEmailUsage struct {
 	EnumName string                                                    `json:"enum_name,omitempty"` // 枚举值
-	Display  []*GetCoreHrPreHireListRespItemWorkEmailEmailUsageDisplay `json:"display,omitempty"`   // 枚举多语展示
+	Display  []*GetCoreHRPreHireListRespItemWorkEmailEmailUsageDisplay `json:"display,omitempty"`   // 枚举多语展示
 }
 
-// GetCoreHrPreHireListRespItemWorkEmailEmailUsageDisplay ...
-type GetCoreHrPreHireListRespItemWorkEmailEmailUsageDisplay struct {
+// GetCoreHRPreHireListRespItemWorkEmailEmailUsageDisplay ...
+type GetCoreHRPreHireListRespItemWorkEmailEmailUsageDisplay struct {
 	Lang  string `json:"lang,omitempty"`  // 名称信息的语言
 	Value string `json:"value,omitempty"` // 名称信息的内容
 }
 
-// getCoreHrPreHireListResp ...
-type getCoreHrPreHireListResp struct {
+// getCoreHRPreHireListResp ...
+type getCoreHRPreHireListResp struct {
 	Code int64                     `json:"code,omitempty"` // 错误码, 非 0 表示失败
 	Msg  string                    `json:"msg,omitempty"`  // 错误描述
-	Data *GetCoreHrPreHireListResp `json:"data,omitempty"`
+	Data *GetCoreHRPreHireListResp `json:"data,omitempty"`
 }
