@@ -57,7 +57,7 @@ func (r *Mock) UnMockAttendanceGetAttendanceShift() {
 
 // GetAttendanceShiftReq ...
 type GetAttendanceShiftReq struct {
-	ShiftName string `query:"shift_name" json:"-"` // 班次名称, 示例值: "早班"
+	ShiftName string `query:"shift_name" json:"-"` // 班次名称, 示例值: 早班
 }
 
 // GetAttendanceShiftResp ...
