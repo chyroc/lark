@@ -40,6 +40,7 @@ func (r *CoreHRService) UploadCoreHRPersonFile(ctx context.Context, request *Upl
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
+		IsFile:                true,
 	}
 	resp := new(uploadCoreHRPersonFileResp)
 
@@ -63,29 +64,14 @@ type UploadCoreHRPersonFileReq struct {
 	FileName    string    `json:"file_name,omitempty"`    // 文件名称, 示例值: "个人信息"
 }
 
+// UploadCoreHRPersonFileResp ...
+type UploadCoreHRPersonFileResp struct {
+	ID string `json:"id,omitempty"` // 上传文件ID
+}
+
 // uploadCoreHRPersonFileResp ...
 type uploadCoreHRPersonFileResp struct {
 	Code int64                       `json:"code,omitempty"` // 错误码, 非 0 表示失败
 	Msg  string                      `json:"msg,omitempty"`  // 错误描述
 	Data *UploadCoreHRPersonFileResp `json:"data,omitempty"`
-}
-
-func (r *uploadCoreHRPersonFileResp) SetReader(file io.Reader) {
-	if r.Data == nil {
-		r.Data = &UploadCoreHRPersonFileResp{}
-	}
-	r.Data.File = file
-}
-
-func (r *uploadCoreHRPersonFileResp) SetFilename(filename string) {
-	if r.Data == nil {
-		r.Data = &UploadCoreHRPersonFileResp{}
-	}
-	r.Data.Filename = filename
-}
-
-// UploadCoreHRPersonFileResp ...
-type UploadCoreHRPersonFileResp struct {
-	File     io.Reader `json:"file,omitempty"`
-	Filename string    `json:"filename,omitempty"`
 }

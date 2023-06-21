@@ -171,12 +171,12 @@ func Test_Attendance_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
-			cli.Mock().MockAttendanceCreateAttendanceShift(func(ctx context.Context, request *lark.CreateAttendanceShiftReq, options ...lark.MethodOptionFunc) (*lark.CreateAttendanceShiftResp, *lark.Response, error) {
+			cli.Mock().MockAttendanceGetAttendanceLeaveEmployExpireRecord(func(ctx context.Context, request *lark.GetAttendanceLeaveEmployExpireRecordReq, options ...lark.MethodOptionFunc) (*lark.GetAttendanceLeaveEmployExpireRecordResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
-			defer cli.Mock().UnMockAttendanceCreateAttendanceShift()
+			defer cli.Mock().UnMockAttendanceGetAttendanceLeaveEmployExpireRecord()
 
-			_, _, err := moduleCli.CreateAttendanceShift(ctx, &lark.CreateAttendanceShiftReq{})
+			_, _, err := moduleCli.GetAttendanceLeaveEmployExpireRecord(ctx, &lark.GetAttendanceLeaveEmployExpireRecordReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "mock-failed")
 		})
@@ -521,7 +521,7 @@ func Test_Attendance_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
-			_, _, err := moduleCli.CreateAttendanceShift(ctx, &lark.CreateAttendanceShiftReq{
+			_, _, err := moduleCli.GetAttendanceLeaveEmployExpireRecord(ctx, &lark.GetAttendanceLeaveEmployExpireRecordReq{
 				LeaveID: "x",
 			})
 			as.NotNil(err)
@@ -772,7 +772,7 @@ func Test_Attendance_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
-			_, _, err := moduleCli.CreateAttendanceShift(ctx, &lark.CreateAttendanceShiftReq{
+			_, _, err := moduleCli.GetAttendanceLeaveEmployExpireRecord(ctx, &lark.GetAttendanceLeaveEmployExpireRecordReq{
 				LeaveID: "x",
 			})
 			as.NotNil(err)

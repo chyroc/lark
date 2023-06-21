@@ -166,7 +166,7 @@ API 总数: 872, 事件总数: 124
   - GetAttendanceShiftDetail
   - DeleteAttendanceShift
   - UpdateAttendanceLeaveAccrualRecord
-  - CreateAttendanceShift
+  - GetAttendanceLeaveEmployExpireRecord
   - CreateAttendanceShift
   - GetAttendanceUserDailyShift
   - BatchCreateAttendanceUserDailyShift

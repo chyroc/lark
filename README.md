@@ -166,7 +166,7 @@ API Count: 872, Event Count: 124
   - GetAttendanceShiftDetail
   - DeleteAttendanceShift
   - UpdateAttendanceLeaveAccrualRecord
-  - CreateAttendanceShift
+  - GetAttendanceLeaveEmployExpireRecord
   - CreateAttendanceShift
   - GetAttendanceUserDailyShift
   - BatchCreateAttendanceUserDailyShift

@@ -87,7 +87,6 @@ type GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValue struct 
 	EmploymentValue *GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueEmploymentValue `json:"employment_value,omitempty"` // 员工变量对象
 	DateTimeValue   *GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueDateTimeValue   `json:"date_time_value,omitempty"`  // 日期时间变量对象
 	EnumValue       *GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueEnumValue       `json:"enum_value,omitempty"`       // 枚举变量对象
-	NullValue       *GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueNullValue       `json:"null_value,omitempty"`       // 空变量对象
 	BoolValue       *GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueBoolValue       `json:"bool_value,omitempty"`       // 布尔变量对象
 	DepartmentValue *GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueDepartmentValue `json:"department_value,omitempty"` // 部门变量对象
 	FileValue       *GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueFileValue       `json:"file_value,omitempty"`       // 文件变量对象
@@ -175,7 +174,6 @@ type GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueListValu
 	EmploymentValue *GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueListValueValueEmploymentValue `json:"employment_value,omitempty"` // 员工变量对象
 	DateTimeValue   *GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueListValueValueDateTimeValue   `json:"date_time_value,omitempty"`  // 日期时间变量对象
 	EnumValue       *GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueListValueValueEnumValue       `json:"enum_value,omitempty"`       // 枚举变量对象
-	NullValue       *GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueListValueValueNullValue       `json:"null_value,omitempty"`       // 空变量对象
 	BoolValue       *GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueListValueValueBoolValue       `json:"bool_value,omitempty"`       // 布尔变量对象
 	DepartmentValue *GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueListValueValueDepartmentValue `json:"department_value,omitempty"` // 部门变量对象
 	FileValue       *GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueListValueValueFileValue       `json:"file_value,omitempty"`       // 文件变量对象

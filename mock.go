@@ -122,7 +122,7 @@ type Mock struct {
 	mockAttendanceGetAttendanceShiftDetail                     func(ctx context.Context, request *GetAttendanceShiftDetailReq, options ...MethodOptionFunc) (*GetAttendanceShiftDetailResp, *Response, error)
 	mockAttendanceDeleteAttendanceShift                        func(ctx context.Context, request *DeleteAttendanceShiftReq, options ...MethodOptionFunc) (*DeleteAttendanceShiftResp, *Response, error)
 	mockAttendanceUpdateAttendanceLeaveAccrualRecord           func(ctx context.Context, request *UpdateAttendanceLeaveAccrualRecordReq, options ...MethodOptionFunc) (*UpdateAttendanceLeaveAccrualRecordResp, *Response, error)
-	mockAttendanceCreateAttendanceShift                        func(ctx context.Context, request *CreateAttendanceShiftReq, options ...MethodOptionFunc) (*CreateAttendanceShiftResp, *Response, error)
+	mockAttendanceGetAttendanceLeaveEmployExpireRecord         func(ctx context.Context, request *GetAttendanceLeaveEmployExpireRecordReq, options ...MethodOptionFunc) (*GetAttendanceLeaveEmployExpireRecordResp, *Response, error)
 	mockAttendanceCreateAttendanceShift                        func(ctx context.Context, request *CreateAttendanceShiftReq, options ...MethodOptionFunc) (*CreateAttendanceShiftResp, *Response, error)
 	mockAttendanceGetAttendanceUserDailyShift                  func(ctx context.Context, request *GetAttendanceUserDailyShiftReq, options ...MethodOptionFunc) (*GetAttendanceUserDailyShiftResp, *Response, error)
 	mockAttendanceBatchCreateAttendanceUserDailyShift          func(ctx context.Context, request *BatchCreateAttendanceUserDailyShiftReq, options ...MethodOptionFunc) (*BatchCreateAttendanceUserDailyShiftResp, *Response, error)
