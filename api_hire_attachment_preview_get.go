@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// GetHireAttachmentPreview 根据附件 ID 获取附件预览信息。
+// GetHireAttachmentPreview 根据人才简历附件 ID 获取附件预览信息, 可通过[获取人才信息](https://open.feishu.cn/document/server-docs/hire-v1/candidate-management/talent/get-2)接口获取人才的简历附件
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/attachment/preview
 // new doc: https://open.feishu.cn/document/server-docs/hire-v1/attachment/preview

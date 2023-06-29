@@ -58,7 +58,7 @@ func (r *Mock) UnMockAttendanceBatchCreateAttendanceUserDailyShift() {
 
 // BatchCreateAttendanceUserDailyShiftReq ...
 type BatchCreateAttendanceUserDailyShiftReq struct {
-	EmployeeType    EmployeeType                                            `query:"employee_type" json:"-"`     // 请求体和响应体中的 user_id 的员工工号类型, 示例值: "employee_id", 可选值有: employee_id: 员工 employee ID, 即[飞书管理后台](https://bytedance.feishu.cn/admin/contacts/departmentanduser) > 组织架构 > 成员与部门 > 成员详情中的用户 ID, employee_no: 员工工号, 即[飞书管理后台](https://bytedance.feishu.cn/admin/contacts/departmentanduser) > 组织架构 > 成员与部门 > 成员详情中的工号
+	EmployeeType    EmployeeType                                            `query:"employee_type" json:"-"`     // 请求体和响应体中的 user_id 的员工工号类型, 示例值: employee_id, 可选值有: employee_id: 员工 employee ID, 即[飞书管理后台](https://bytedance.feishu.cn/admin/contacts/departmentanduser) > 组织架构 > 成员与部门 > 成员详情中的用户 ID, employee_no: 员工工号, 即[飞书管理后台](https://bytedance.feishu.cn/admin/contacts/departmentanduser) > 组织架构 > 成员与部门 > 成员详情中的工号
 	UserDailyShifts []*BatchCreateAttendanceUserDailyShiftReqUserDailyShift `json:"user_daily_shifts,omitempty"` // 班表信息列表（数量限制50以内）
 	OperatorID      *string                                                 `json:"operator_id,omitempty"`       // 操作人uid, 如果您未操作[考勤管理后台“API 接入”流程](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/attendance-development-guidelines), 则此字段为必填字段, 示例值: "dd31248a"
 }

@@ -60,7 +60,7 @@ func (r *Mock) UnMockAttendanceUploadAttendanceFile() {
 
 // UploadAttendanceFileReq ...
 type UploadAttendanceFileReq struct {
-	FileName string    `query:"file_name" json:"-"` // 带后缀的文件名, 示例值: "人脸照片.jpg"
+	FileName string    `query:"file_name" json:"-"` // 带后缀的文件名, 示例值: 人脸照片.jpg
 	File     io.Reader `json:"file,omitempty"`      // 文件内容, 示例值: 二进制文件
 }
 

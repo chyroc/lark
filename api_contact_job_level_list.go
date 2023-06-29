@@ -59,8 +59,8 @@ func (r *Mock) UnMockContactGetContactJobLevelList() {
 // GetContactJobLevelListReq ...
 type GetContactJobLevelListReq struct {
 	PageSize  *int64  `query:"page_size" json:"-"`  // 分页大小, 示例值: 10, 默认值: `10`, 取值范围: `1` ～ `50`
-	PageToken *string `query:"page_token" json:"-"` // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果, 示例值: "AQD9/Rn9eij9Pm39ED40/RD/cIFmu77WxpxPB/2oHfQLZ+G8JG6tK7+ZnHiT7COhD2hMSICh/eBl7cpzU6JEC3J7COKNe4jrQ8ExwBCR"
-	Name      *string `query:"name" json:"-"`       // 传入该字段时, 可查询指定职级名称对应的职级信息, 示例值: "高级", 长度范围: `1` ～ `255` 字符
+	PageToken *string `query:"page_token" json:"-"` // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果, 示例值: AQD9/Rn9eij9Pm39ED40/RD/cIFmu77WxpxPB/2oHfQLZ+G8JG6tK7+ZnHiT7COhD2hMSICh/eBl7cpzU6JEC3J7COKNe4jrQ8ExwBCR
+	Name      *string `query:"name" json:"-"`       // 传入该字段时, 可查询指定职级名称对应的职级信息, 示例值: 高级, 长度范围: `1` ～ `255` 字符
 }
 
 // GetContactJobLevelListResp ...

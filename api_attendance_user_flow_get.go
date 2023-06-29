@@ -59,7 +59,7 @@ func (r *Mock) UnMockAttendanceGetAttendanceUserFlow() {
 // GetAttendanceUserFlowReq ...
 type GetAttendanceUserFlowReq struct {
 	UserFlowID   string       `path:"user_flow_id" json:"-"`   // 打卡流水记录 ID, 获取方式: 1）[批量查询打卡流水记录](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/user_flow/query) 2）[获取打卡结果](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/user_task/query) 3）[导入打卡流水记录](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/user_flow/batch_create), 示例值: "6708236686834352397"
-	EmployeeType EmployeeType `query:"employee_type" json:"-"` // 响应体中的 user_id 和 creator_id 的员工工号类型, 示例值: "employee_id", 可选值有: open_id: 开放 openID, employee_id: 员工 employee ID, 即飞书管理后台 > 组织架构 > 成员与部门 > 成员详情中的用户 ID, employee_no: 员工工号, 即飞书管理后台 > 组织架构 > 成员与部门 > 成员详情中的工号
+	EmployeeType EmployeeType `query:"employee_type" json:"-"` // 响应体中的 user_id 和 creator_id 的员工工号类型, 示例值: employee_id, 可选值有: open_id: 开放 openID, employee_id: 员工 employee ID, 即飞书管理后台 > 组织架构 > 成员与部门 > 成员详情中的用户 ID, employee_no: 员工工号, 即飞书管理后台 > 组织架构 > 成员与部门 > 成员详情中的工号
 }
 
 // GetAttendanceUserFlowResp ...

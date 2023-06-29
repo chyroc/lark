@@ -72,7 +72,6 @@ type CreateHireExternalInterviewResp struct {
 
 // CreateHireExternalInterviewRespExternalInterview ...
 type CreateHireExternalInterviewRespExternalInterview struct {
-	ExternalID            string `json:"external_id,omitempty"`             // 外部系统面试主键 （仅用于幂等）
 	ExternalApplicationID string `json:"external_application_id,omitempty"` // 外部投递 ID
 	ID                    string `json:"id,omitempty"`                      // 外部面试 ID
 	ParticipateStatus     int64  `json:"participate_status,omitempty"`      // 参与状态, 可选值有: 1: 未参与, 2: 参与, 3: 爽约

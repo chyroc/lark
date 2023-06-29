@@ -691,6 +691,7 @@ func (r *MessageContentCardModuleNote) SetElements(val ...MessageContentCardElem
 	return r
 }
 
+// MessageContentCardModuleColumnSet 列集
 type MessageContentCardModuleColumnSet struct {
 	Columns           []*MessageContentCardModuleColumn `json:"columns,omitempty"`            // 存放布局子容器的数组
 	FlexMode          *string                           `json:"flex_mode,omitempty"`          // 移动端窄屏幕下，各列的自适应方式。 none：默认值。移动端与PC端表现一致，不进行布局自适应，在窄屏幕下按比例压缩列宽度。stretch：在移动端和PC的窄窗口模式下，列布局变为 行布局，且每列（行）宽度强制拉伸为100%，所有列自适应为上下堆叠排布。flow: 列流式排布（自动换行），当一行展示不下下一列时，自动换至下一行展示。bisect：在移动端和PC的窄窗口模式下，两列等分布局。trisect：在移动端和PC的窄窗口模式下，三列等分布局。
@@ -727,6 +728,7 @@ func (r *MessageContentCardModuleColumnSet) SetAction(val MessageContentCardElem
 	return r
 }
 
+// MessageContentCardModuleColumn 列
 type MessageContentCardModuleColumn struct {
 	Modules       []MessageContentCardModule `json:"elements,omitempty"`       // 需要在列内展示的卡片元素
 	Width         *string                    `json:"width"`                    // 列宽度属性。枚举值包括： auto：列宽度与列内元素宽度一致,weighted:列宽度按weight定义的权重分布

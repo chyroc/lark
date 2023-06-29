@@ -194,45 +194,15 @@ type GetHireInterviewListRespItemCreatorName struct {
 
 // GetHireInterviewListRespItemInterviewRecord ...
 type GetHireInterviewListRespItemInterviewRecord struct {
-	ID                      string                                                            `json:"id,omitempty"`                        // 面试记录 ID
-	UserID                  string                                                            `json:"user_id,omitempty"`                   // 面试官用户 ID
-	Content                 string                                                            `json:"content,omitempty"`                   // 系统预设「记录」题目内容
-	MinJobLevelID           string                                                            `json:"min_job_level_id,omitempty"`          // 建议定级下限的职级 ID
-	MaxJobLevelID           string                                                            `json:"max_job_level_id,omitempty"`          // 建议定级上限的职级 ID
-	CommitStatus            int64                                                             `json:"commit_status,omitempty"`             // 提交状态, 可选值有: 1: 已提交, 2: 未提交
-	Conclusion              int64                                                             `json:"conclusion,omitempty"`                // 面试结论, 可选值有: 1: 通过, 2: 未通过
-	InterviewScore          *GetHireInterviewListRespItemInterviewRecordInterviewScore        `json:"interview_score,omitempty"`           // 面试评分
-	Interviewer             *GetHireInterviewListRespItemInterviewRecordInterviewer           `json:"interviewer,omitempty"`               // 面试官信息
-	DimensionAssessmentList []*GetHireInterviewListRespItemInterviewRecordDimensionAssessment `json:"dimension_assessment_list,omitempty"` // 面试评价
-}
-
-// GetHireInterviewListRespItemInterviewRecordDimensionAssessment ...
-type GetHireInterviewListRespItemInterviewRecordDimensionAssessment struct {
-	ID                 string                                                                          `json:"id,omitempty"`                   // 题目评价 ID
-	Name               *GetHireInterviewListRespItemInterviewRecordDimensionAssessmentName             `json:"name,omitempty"`                 // 题目名称
-	Content            string                                                                          `json:"content,omitempty"`              // 当题目类型为描述题时, 从此取值
-	DimensionID        string                                                                          `json:"dimension_id,omitempty"`         // 题目 ID
-	DimensionScore     *GetHireInterviewListRespItemInterviewRecordDimensionAssessmentDimensionScore   `json:"dimension_score,omitempty"`      // 当题目类型为单选题时, 从此取值
-	DimensionScoreList []*GetHireInterviewListRespItemInterviewRecordDimensionAssessmentDimensionScore `json:"dimension_score_list,omitempty"` // 当题目类型为多选题时, 从此取值
-	DimensionType      int64                                                                           `json:"dimension_type,omitempty"`       // 题目类型, 可选值有: 1: 单选题, 2: 多选题, 3: 描述题, 4: 单行文本, 5: 职级范围, 10: 系统预设题目 - 结论, 11: 系统预设题目 - 得分, 12: 系统预设题目 - 记录
-}
-
-// GetHireInterviewListRespItemInterviewRecordDimensionAssessmentDimensionScore ...
-type GetHireInterviewListRespItemInterviewRecordDimensionAssessmentDimensionScore struct {
-	ID   string                                                                            `json:"id,omitempty"`   // 选项 ID
-	Name *GetHireInterviewListRespItemInterviewRecordDimensionAssessmentDimensionScoreName `json:"name,omitempty"` // 选项名称
-}
-
-// GetHireInterviewListRespItemInterviewRecordDimensionAssessmentDimensionScoreName ...
-type GetHireInterviewListRespItemInterviewRecordDimensionAssessmentDimensionScoreName struct {
-	ZhCn string `json:"zh_cn,omitempty"` // 中文
-	EnUs string `json:"en_us,omitempty"` // 英文
-}
-
-// GetHireInterviewListRespItemInterviewRecordDimensionAssessmentName ...
-type GetHireInterviewListRespItemInterviewRecordDimensionAssessmentName struct {
-	ZhCn string `json:"zh_cn,omitempty"` // 中文
-	EnUs string `json:"en_us,omitempty"` // 英文
+	ID             string                                                     `json:"id,omitempty"`               // 面试记录 ID
+	UserID         string                                                     `json:"user_id,omitempty"`          // 面试官用户 ID
+	Content        string                                                     `json:"content,omitempty"`          // 系统预设「记录」题目内容
+	MinJobLevelID  string                                                     `json:"min_job_level_id,omitempty"` // 建议定级下限的职级 ID
+	MaxJobLevelID  string                                                     `json:"max_job_level_id,omitempty"` // 建议定级上限的职级 ID
+	CommitStatus   int64                                                      `json:"commit_status,omitempty"`    // 提交状态, 可选值有: 1: 已提交, 2: 未提交
+	Conclusion     int64                                                      `json:"conclusion,omitempty"`       // 面试结论, 可选值有: 1: 通过, 2: 未通过
+	InterviewScore *GetHireInterviewListRespItemInterviewRecordInterviewScore `json:"interview_score,omitempty"`  // 面试评分
+	Interviewer    *GetHireInterviewListRespItemInterviewRecordInterviewer    `json:"interviewer,omitempty"`      // 面试官信息
 }
 
 // GetHireInterviewListRespItemInterviewRecordInterviewScore ...

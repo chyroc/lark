@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// GetAdminDeptStats 该接口用于获取部门维度的用户活跃和功能使用数据, 即IM（即时通讯）、日历、云文档、音视频会议功能的使用数据。
+// GetAdminDeptStats 该接口用于获取部门维度的用户活跃和功能使用数据, 即IM（即时通讯）、日历、云文档、音视频会议、邮箱功能的使用数据。
 //
 // - 只有企业自建应用才有权限调用此接口
 // - 当天的数据会在第二天的早上九点半产出（UTC+8）
@@ -61,13 +61,13 @@ func (r *Mock) UnMockAdminGetAdminDeptStats() {
 
 // GetAdminDeptStatsReq ...
 type GetAdminDeptStatsReq struct {
-	DepartmentIDType  DepartmentIDType `query:"department_id_type" json:"-"`  // 部门ID类型, 示例值: "open_department_id", 可选值有: department_id: 部门的 ID, open_department_id: 部门的 Open ID
-	StartDate         string           `query:"start_date" json:"-"`          // 起始日期（包含）, 格式是YYYY-mm-dd, 示例值: "2020-02-15"
-	EndDate           string           `query:"end_date" json:"-"`            // 终止日期（包含）, 格式是YYYY-mm-dd, 起止日期之间相差不能超过91天（包含91天）, 示例值: "2020-02-15"
-	DepartmentID      string           `query:"department_id" json:"-"`       // 部门的 ID, 取决于department_id_type, 仅支持根部门及其下前4级子部门, 示例值: "od-382e2793cfc9471f892e8a672987654c"
+	DepartmentIDType  DepartmentIDType `query:"department_id_type" json:"-"`  // 部门ID类型, 示例值: open_department_id, 可选值有: department_id: 部门的 ID, open_department_id: 部门的 Open ID
+	StartDate         string           `query:"start_date" json:"-"`          // 起始日期（包含）, 格式是YYYY-mm-dd, 示例值: 2020-02-15
+	EndDate           string           `query:"end_date" json:"-"`            // 终止日期（包含）, 格式是YYYY-mm-dd, 起止日期之间相差不能超过91天（包含91天）, 示例值: 2020-02-15
+	DepartmentID      string           `query:"department_id" json:"-"`       // 部门的 ID, 取决于department_id_type, 仅支持根部门及其下前4级子部门, 示例值: od-382e2793cfc9471f892e8a672987654c
 	ContainsChildDept bool             `query:"contains_child_dept" json:"-"` // 是否包含子部门, 如果该值为false, 则只查出本部门直属用户活跃和功能使用数据；如果该值为true, 则查出该部门以及其子部门（子部门层级最多不超过根部门下的前4级）的用户活跃和功能使用数据, 示例值: false
 	PageSize          *int64           `query:"page_size" json:"-"`           // 分页大小, 示例值: 10, 取值范围: `1` ～ `20`
-	PageToken         *string          `query:"page_token" json:"-"`          // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果, 示例值: "2"
+	PageToken         *string          `query:"page_token" json:"-"`          // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果, 示例值: 2
 }
 
 // GetAdminDeptStatsResp ...
@@ -111,6 +111,12 @@ type GetAdminDeptStatsRespItem struct {
 	CreateTaskUserNum    int64  `json:"create_task_user_num,omitempty"`    // 创建任务人数
 	CreateTaskNum        int64  `json:"create_task_num,omitempty"`         // 创建任务数
 	AvgCreateTaskNum     string `json:"avg_create_task_num,omitempty"`     // 人均创建任务数
+	EmailSendCount       string `json:"email_send_count,omitempty"`        // 邮件总发件量
+	EmailReceiveCount    string `json:"email_receive_count,omitempty"`     // 邮件总收件量
+	EmailSendExtCount    string `json:"email_send_ext_count,omitempty"`    // 对外发件数
+	EmailReceiveExtCount string `json:"email_receive_ext_count,omitempty"` // 来自外部收件数
+	EmailSendInCount     string `json:"email_send_in_count,omitempty"`     // 对内发件数
+	EmailReceiveInCount  string `json:"email_receive_in_count,omitempty"`  // 来自内部收件数
 }
 
 // getAdminDeptStatsResp ...

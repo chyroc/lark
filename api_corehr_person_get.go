@@ -88,7 +88,7 @@ type GetCoreHRPersonRespPerson struct {
 	NationalIDList           []*GetCoreHRPersonRespPersonNationalID             `json:"national_id_list,omitempty"`            // 证件号码
 	DependentList            []*GetCoreHRPersonRespPersonDependent              `json:"dependent_list,omitempty"`              // 亲属
 	EmergencyContactList     []*GetCoreHRPersonRespPersonEmergencyContact       `json:"emergency_contact_list,omitempty"`      // 紧急联系人
-	DateEnteredWorkforce     string                                             `json:"date_entered_workforce,omitempty"`      // 进入工作地的日期
+	DateEnteredWorkforce     string                                             `json:"date_entered_workforce,omitempty"`      // 参加工作日期
 	ProfileImageID           string                                             `json:"profile_image_id,omitempty"`            // 头像资源的id
 	CustomFields             []*GetCoreHRPersonRespPersonCustomField            `json:"custom_fields,omitempty"`               // 自定义字段
 	EmailAddress             string                                             `json:"email_address,omitempty"`               // 邮箱

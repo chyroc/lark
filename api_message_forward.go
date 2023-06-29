@@ -28,7 +28,6 @@ import (
 // - 向用户转发消息, 需要机器人对用户有[可用性](https://open.feishu.cn/document/home/introduction-to-scope-and-authorization/availability)
 // - 向群组转发消息, 需要机器人在群组中
 // - 对于要转发的消息与转发到的对象, 本接口有以下限制:
-// - 不支持转发整个话题
 // - 不支持将消息转发至话题回复中
 // - 不支持红包、投票、语音、日程转让等消息类型
 // - 不支持再次转发合并转发消息中的子消息（含有[upper_message_id]字段的消息）
@@ -70,8 +69,8 @@ func (r *Mock) UnMockMessageForwardMessage() {
 // ForwardMessageReq ...
 type ForwardMessageReq struct {
 	MessageID     string  `path:"message_id" json:"-"`       // 要转发的消息ID, 详情参见[消息ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/intro#ac79c1c2), 示例值: "om_dc13264520392913993dd051dba21dcf"
-	ReceiveIDType IDType  `query:"receive_id_type" json:"-"` // 消息接收者id类型 open_id/user_id/union_id/email/chat_id, 示例值: "open_id", 可选值有: open_id: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid), user_id: 标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id), union_id: 标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id), email: 以用户的真实邮箱来标识用户。, chat_id: 以群ID来标识群聊。[了解更多: 如何获取群ID ](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-id-description)
-	UUID          *string `query:"uuid" json:"-"`            // 由开发者生成的唯一字符串序列, 用于转发消息请求去重；持有相同uuid的请求在1小时内向同一个目标的转发只可成功一次, 示例值: "b13g2t38-1jd2-458b-8djf-dtbca5104204", 最大长度: `50` 字符
+	ReceiveIDType IDType  `query:"receive_id_type" json:"-"` // 消息接收者id类型 open_id/user_id/union_id/email/chat_id, 示例值: open_id, 可选值有: open_id: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid), user_id: 标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id), union_id: 标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id), email: 以用户的真实邮箱来标识用户。, chat_id: 以群ID来标识群聊。[了解更多: 如何获取群ID ](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-id-description)
+	UUID          *string `query:"uuid" json:"-"`            // 由开发者生成的唯一字符串序列, 用于转发消息请求去重；持有相同uuid的请求在1小时内向同一个目标的转发只可成功一次, 示例值: b13g2t38-1jd2-458b-8djf-dtbca5104204, 最大长度: `50` 字符
 	ReceiveID     string  `json:"receive_id,omitempty"`      // 依据`receive_id_type`的值, 填写对应的转发目标的ID, 示例值: "ou_a0553eda9014c201e6969b478895c230"
 }
 

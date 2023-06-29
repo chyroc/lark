@@ -21,9 +21,9 @@ import (
 	"context"
 )
 
-// MinaCodeToSession 通过 [login](https://open.feishu.cn/document/uYjL24iN/uYzMuYzMuYzM)接口获取到登录凭证`code`后, 开发者可以通过服务器发送请求的方式获取 session_key 和 用户信息
+// MinaCodeToSession 通过 [login](https://open.feishu.cn/document/uYjL24iN/uYzMuYzMuYzM)接口获取到登录凭证`code`后, 开发者可以通过服务器发送请求的方式获取 session_key 和 用户凭证信息。
 //
-// 本接口应在服务端调用, 调用方法参见 [如何调用服务端API](https://open.feishu.cn/document/ukTMukTMukTM/uITNz4iM1MjLyUzM)
+// 本接口适用于 [小程序登录](https://open.feishu.cn/document/uYjL24iN/uETO5QjLxkTO04SM5kDN) 及[小组件登录](https://open.feishu.cn/document/uAjLw4CM/uYjL24iN/block/guide/open-ability/block-login)。
 //
 // doc: https://open.feishu.cn/document/uYjL24iN/ukjM04SOyQjL5IDN
 // new doc: https://open.feishu.cn/document/client-docs/gadget/-web-app-api/open-ability/login/code2session

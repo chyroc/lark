@@ -59,7 +59,7 @@ func (r *Mock) UnMockAttendanceUpdateAttendanceUserStatsView() {
 // UpdateAttendanceUserStatsViewReq ...
 type UpdateAttendanceUserStatsViewReq struct {
 	UserStatsViewID string                                `path:"user_stats_view_id" json:"-"` // 用户视图 ID, 获取方式: 1）[查询统计设置](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/user_stats_view/query), 示例值: "TmpZNU5qTTJORFF6T1RnNU5UTTNOakV6TWl0dGIyNTBhQT09"
-	EmployeeType    EmployeeType                          `query:"employee_type" json:"-"`     // 员工工号类型, 示例值: "employee_id", 可选值有: employee_id: 员工 employee ID, 即飞书管理后台 > 组织架构 > 成员与部门 > 成员详情中的用户 ID, employee_no: 员工工号, 即飞书管理后台 > 组织架构 > 成员与部门 > 成员详情中的工号
+	EmployeeType    EmployeeType                          `query:"employee_type" json:"-"`     // 员工工号类型, 示例值: employee_id, 可选值有: employee_id: 员工 employee ID, 即飞书管理后台 > 组织架构 > 成员与部门 > 成员详情中的用户 ID, employee_no: 员工工号, 即飞书管理后台 > 组织架构 > 成员与部门 > 成员详情中的工号
 	View            *UpdateAttendanceUserStatsViewReqView `json:"view,omitempty"`              // 统计设置
 }
 

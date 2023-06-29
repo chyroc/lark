@@ -23,6 +23,8 @@ import (
 
 // GetAttendanceUserStatsField 查询考勤统计支持的日度统计或月度统计的统计表头。
 //
+// 调用统计开放接口api目前不返回休假加班新增字段类型
+//
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/user_stats_field/query
 // new doc: https://open.feishu.cn/document/server-docs/attendance-v1/user_stats_data/query-2
 func (r *AttendanceService) GetAttendanceUserStatsField(ctx context.Context, request *GetAttendanceUserStatsFieldReq, options ...MethodOptionFunc) (*GetAttendanceUserStatsFieldResp, *Response, error) {
@@ -58,7 +60,7 @@ func (r *Mock) UnMockAttendanceGetAttendanceUserStatsField() {
 
 // GetAttendanceUserStatsFieldReq ...
 type GetAttendanceUserStatsFieldReq struct {
-	EmployeeType EmployeeType `query:"employee_type" json:"-"` // 响应体中的 user_id 的员工工号类型, 示例值: "employee_id", 可选值有: employee_id: 员工 employee ID, 即飞书管理后台 > 组织架构 > 成员与部门 > 成员详情中的用户 ID, employee_no: 员工工号, 即飞书管理后台 > 组织架构 > 成员与部门 > 成员详情中的工号
+	EmployeeType EmployeeType `query:"employee_type" json:"-"` // 响应体中的 user_id 的员工工号类型, 示例值: employee_id, 可选值有: employee_id: 员工 employee ID, 即飞书管理后台 > 组织架构 > 成员与部门 > 成员详情中的用户 ID, employee_no: 员工工号, 即飞书管理后台 > 组织架构 > 成员与部门 > 成员详情中的工号
 	Locale       string       `json:"locale,omitempty"`        // 语言类型, 示例值: "zh", 可选值有: en: 英语, ja: 日语, zh: 中文
 	StatsType    string       `json:"stats_type,omitempty"`    // 统计类型, 示例值: "daily", 可选值有: daily: 日度统计, month: 月度统计
 	StartDate    int64        `json:"start_date,omitempty"`    // 开始时间, 示例值: 20210316

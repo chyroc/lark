@@ -59,7 +59,7 @@ func (r *Mock) UnMockHireGetHireTalent() {
 // GetHireTalentReq ...
 type GetHireTalentReq struct {
 	TalentID   string  `path:"talent_id" json:"-"`     // 人才ID, 示例值: "6891560630172518670"
-	UserIDType *IDType `query:"user_id_type" json:"-"` // 用户 ID 类型, 示例值: "open_id", 可选值有: open_id: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid), union_id: 标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id), user_id: 标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id), people_admin_id: 以 people_admin_id 来识别用户, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
+	UserIDType *IDType `query:"user_id_type" json:"-"` // 用户 ID 类型, 示例值: open_id, 可选值有: open_id: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid), union_id: 标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id), user_id: 标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id), people_admin_id: 以 people_admin_id 来识别用户, 默认值: `people_admin_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
 }
 
 // GetHireTalentResp ...
@@ -127,7 +127,7 @@ type GetHireTalentRespTalentAwardCustomizedDataValueCustomizedAttachment struct 
 	FileID      string `json:"file_id,omitempty"`      // 附件 ID
 	FileName    string `json:"file_name,omitempty"`    // 附件名称
 	ContentType string `json:"content_type,omitempty"` // 附件类型
-	FileSize    string `json:"file_size,omitempty"`    // 附件大小
+	FileSize    int64  `json:"file_size,omitempty"`    // 附件大小
 }
 
 // GetHireTalentRespTalentAwardCustomizedDataValueOption ...
@@ -158,13 +158,12 @@ type GetHireTalentRespTalentBasicInfo struct {
 	ExperienceYears      int64                                             `json:"experience_years,omitempty"`      // 工作年限
 	Age                  int64                                             `json:"age,omitempty"`                   // 年龄
 	Nationality          *GetHireTalentRespTalentBasicInfoNationality      `json:"nationality,omitempty"`           // 国籍
-	Gender               int64                                             `json:"gender,omitempty"`                // 性别, 可选值有: 1: 男, 2: 女, 3: 其他
+	Gender               int64                                             `json:"gender,omitempty"`                // 性别, 可选值有: 1: 男, 2: 女, 3: 保密
 	CurrentCity          *GetHireTalentRespTalentBasicInfoCurrentCity      `json:"current_city,omitempty"`          // 所在地点
 	HometownCity         *GetHireTalentRespTalentBasicInfoHometownCity     `json:"hometown_city,omitempty"`         // 家乡
 	PreferredCityList    []*GetHireTalentRespTalentBasicInfoPreferredCity  `json:"preferred_city_list,omitempty"`   // 意向地点
 	IdentificationType   int64                                             `json:"identification_type,omitempty"`   // 证件类型, 可选值有: 1: 中国 - 居民身份证, 2: 护照, 3: 中国 - 港澳居民居住证, 4: 中国 - 台湾居民来往大陆通行证, 5: 其他, 6: 中国 - 港澳居民来往内地通行证, 9: 中国 - 台湾居民居住证
 	IdentificationNumber string                                            `json:"identification_number,omitempty"` // 证件号
-	Identification       *GetHireTalentRespTalentBasicInfoIdentification   `json:"identification,omitempty"`        // 证件信息
 	Birthday             int64                                             `json:"birthday,omitempty"`              // 生日
 	CreatorID            string                                            `json:"creator_id,omitempty"`            // 创建人
 	MaritalStatus        int64                                             `json:"marital_status,omitempty"`        // 婚姻状况, 可选值有: 1: 已婚, 2: 未婚
@@ -210,7 +209,7 @@ type GetHireTalentRespTalentBasicInfoCustomizedDataValueCustomizedAttachment str
 	FileID      string `json:"file_id,omitempty"`      // 附件 ID
 	FileName    string `json:"file_name,omitempty"`    // 附件名称
 	ContentType string `json:"content_type,omitempty"` // 附件类型
-	FileSize    string `json:"file_size,omitempty"`    // 附件大小
+	FileSize    int64  `json:"file_size,omitempty"`    // 附件大小
 }
 
 // GetHireTalentRespTalentBasicInfoCustomizedDataValueOption ...
@@ -236,12 +235,6 @@ type GetHireTalentRespTalentBasicInfoHometownCity struct {
 	CityCode string `json:"city_code,omitempty"` // 城市码
 	ZhName   string `json:"zh_name,omitempty"`   // 中文名
 	EnName   string `json:"en_name,omitempty"`   // 英文名
-}
-
-// GetHireTalentRespTalentBasicInfoIdentification ...
-type GetHireTalentRespTalentBasicInfoIdentification struct {
-	IdentificationType   int64  `json:"identification_type,omitempty"`   // 证件类型, 可选值有: 1: 中国 - 居民身份证, 2: 护照, 3: 中国 - 港澳居民居住证, 4: 中国 - 台湾居民来往大陆通行证, 5: 其他, 6: 中国 - 港澳居民来往内地通行证, 9: 中国 - 台湾居民居住证
-	IdentificationNumber string `json:"identification_number,omitempty"` // 证件号
 }
 
 // GetHireTalentRespTalentBasicInfoNationality ...
@@ -301,7 +294,7 @@ type GetHireTalentRespTalentCareerCustomizedDataValueCustomizedAttachment struct
 	FileID      string `json:"file_id,omitempty"`      // 附件 ID
 	FileName    string `json:"file_name,omitempty"`    // 附件名称
 	ContentType string `json:"content_type,omitempty"` // 附件类型
-	FileSize    string `json:"file_size,omitempty"`    // 附件大小
+	FileSize    int64  `json:"file_size,omitempty"`    // 附件大小
 }
 
 // GetHireTalentRespTalentCareerCustomizedDataValueOption ...
@@ -360,7 +353,7 @@ type GetHireTalentRespTalentCustomizedDataChildrenValueCustomizedAttachment stru
 	FileID      string `json:"file_id,omitempty"`      // 附件 ID
 	FileName    string `json:"file_name,omitempty"`    // 附件名称
 	ContentType string `json:"content_type,omitempty"` // 附件类型
-	FileSize    string `json:"file_size,omitempty"`    // 附件大小
+	FileSize    int64  `json:"file_size,omitempty"`    // 附件大小
 }
 
 // GetHireTalentRespTalentCustomizedDataChildrenValueOption ...
@@ -431,7 +424,7 @@ type GetHireTalentRespTalentEducationCustomizedDataValueCustomizedAttachment str
 	FileID      string `json:"file_id,omitempty"`      // 附件 ID
 	FileName    string `json:"file_name,omitempty"`    // 附件名称
 	ContentType string `json:"content_type,omitempty"` // 附件类型
-	FileSize    string `json:"file_size,omitempty"`    // 附件大小
+	FileSize    int64  `json:"file_size,omitempty"`    // 附件大小
 }
 
 // GetHireTalentRespTalentEducationCustomizedDataValueOption ...
@@ -497,7 +490,7 @@ type GetHireTalentRespTalentLanguageCustomizedDataValueCustomizedAttachment stru
 	FileID      string `json:"file_id,omitempty"`      // 附件 ID
 	FileName    string `json:"file_name,omitempty"`    // 附件名称
 	ContentType string `json:"content_type,omitempty"` // 附件类型
-	FileSize    string `json:"file_size,omitempty"`    // 附件大小
+	FileSize    int64  `json:"file_size,omitempty"`    // 附件大小
 }
 
 // GetHireTalentRespTalentLanguageCustomizedDataValueOption ...
@@ -560,7 +553,7 @@ type GetHireTalentRespTalentProjectCustomizedDataValueCustomizedAttachment struc
 	FileID      string `json:"file_id,omitempty"`      // 附件 ID
 	FileName    string `json:"file_name,omitempty"`    // 附件名称
 	ContentType string `json:"content_type,omitempty"` // 附件类型
-	FileSize    string `json:"file_size,omitempty"`    // 附件大小
+	FileSize    int64  `json:"file_size,omitempty"`    // 附件大小
 }
 
 // GetHireTalentRespTalentProjectCustomizedDataValueOption ...
@@ -626,7 +619,7 @@ type GetHireTalentRespTalentSnsCustomizedDataValueCustomizedAttachment struct {
 	FileID      string `json:"file_id,omitempty"`      // 附件 ID
 	FileName    string `json:"file_name,omitempty"`    // 附件名称
 	ContentType string `json:"content_type,omitempty"` // 附件类型
-	FileSize    string `json:"file_size,omitempty"`    // 附件大小
+	FileSize    int64  `json:"file_size,omitempty"`    // 附件大小
 }
 
 // GetHireTalentRespTalentSnsCustomizedDataValueOption ...
@@ -686,7 +679,7 @@ type GetHireTalentRespTalentWorksCustomizedDataValueCustomizedAttachment struct 
 	FileID      string `json:"file_id,omitempty"`      // 附件 ID
 	FileName    string `json:"file_name,omitempty"`    // 附件名称
 	ContentType string `json:"content_type,omitempty"` // 附件类型
-	FileSize    string `json:"file_size,omitempty"`    // 附件大小
+	FileSize    int64  `json:"file_size,omitempty"`    // 附件大小
 }
 
 // GetHireTalentRespTalentWorksCustomizedDataValueOption ...

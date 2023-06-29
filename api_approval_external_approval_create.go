@@ -61,17 +61,17 @@ func (r *Mock) UnMockApprovalCreateApprovalExternalApproval() {
 
 // CreateApprovalExternalApprovalReq ...
 type CreateApprovalExternalApprovalReq struct {
-	DepartmentIDType *DepartmentIDType                                `query:"department_id_type" json:"-"` // 此次调用中使用的部门ID的类型, 示例值: "open_department_id", 可选值有: department_id: 以自定义department_id来标识部门, open_department_id: 以open_department_id来标识部门, 默认值: `open_department_id`
-	UserIDType       *IDType                                          `query:"user_id_type" json:"-"`       // 用户 ID 类型, 示例值: "open_id", 可选值有: open_id: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid), union_id: 标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id), user_id: 标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id), 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
+	DepartmentIDType *DepartmentIDType                                `query:"department_id_type" json:"-"` // 此次调用中使用的部门ID的类型, 示例值: open_department_id, 可选值有: department_id: 以自定义department_id来标识部门, open_department_id: 以open_department_id来标识部门, 默认值: `open_department_id`
+	UserIDType       *IDType                                          `query:"user_id_type" json:"-"`       // 用户 ID 类型, 示例值: open_id, 可选值有: open_id: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid), union_id: 标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id), user_id: 标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id), 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
 	ApprovalName     string                                           `json:"approval_name,omitempty"`      // 审批定义名称, 创建审批定义返回的值, 表示该实例属于哪个流程；该字段会影响到列表中该实例的标题, 标题取自对应定义的 name 字段, 示例值: "@i18n@1"
 	ApprovalCode     string                                           `json:"approval_code,omitempty"`      // 审批定义 code, 用户自定义, 定义的唯一标识, 如果不存在该 code, 则创建, 否则更新, 示例值: "permission_test"
 	GroupCode        string                                           `json:"group_code,omitempty"`         // 审批定义所属审批分组, 用户自定义； 如果group_code当前不存在, 则会新建审批分组； 如果group_code已经存在, 则会使用group_name更新审批分组名称, 示例值: "work_group"
 	GroupName        *string                                          `json:"group_name,omitempty"`         // 分组名称, 值的格式是 i18n key, 文案放在 i18n_resource； 如果是 group_code 当前不存在, 则该 group_name 必填, 否则, 如果填写了则会更新分组名称, 不填则不更新分组名称； 审批发起页 审批定义的分组名称来自该字段, 示例值: "@i18n@2"
 	Description      *string                                          `json:"description,omitempty"`        // 审批定义的说明, 值的格式是 i18n key, 文案放在 i18n_resource； 审批发起页 审批定义的说明内容来自该字段, 示例值: "@i18n@2"
 	External         *CreateApprovalExternalApprovalReqExternal       `json:"external,omitempty"`           // 三方审批相关
-	Viewers          []*CreateApprovalExternalApprovalReqViewer       `json:"viewers,omitempty"`            // 可见人列表, 可通知配置多个可见人, 只有在配置的范围内用户可以在审批发起也看到该审批, 默认不传, 则是任何人不可见
+	Viewers          []*CreateApprovalExternalApprovalReqViewer       `json:"viewers,omitempty"`            // 可见人列表, 可通知配置多个可见人, 只有在配置的范围内用户可以在审批发起页看到该审批, 默认不传, 则是任何人不可见
 	I18nResources    []*CreateApprovalExternalApprovalReqI18nResource `json:"i18n_resources,omitempty"`     // 国际化文案
-	Managers         []string                                         `json:"managers,omitempty"`           // 根据user_id_type填写流程管理员id, 示例值: 19a294c2
+	Managers         []string                                         `json:"managers,omitempty"`           // 根据user_id_type填写流程管理员id, 示例值: ["19a294c2"]
 }
 
 // CreateApprovalExternalApprovalReqExternal ...
@@ -95,7 +95,7 @@ type CreateApprovalExternalApprovalReqExternal struct {
 // CreateApprovalExternalApprovalReqI18nResource ...
 type CreateApprovalExternalApprovalReqI18nResource struct {
 	Locale    string                                               `json:"locale,omitempty"`     // 语言可选值有: zh-CN: 中文 en-US: 英文 ja-JP: 日文, 示例值: "zh-CN", 可选值有: zh-CN: 中文, en-US: 英文, ja-JP: 日文
-	Texts     []*CreateApprovalExternalApprovalReqI18nResourceText `json:"texts,omitempty"`      // 文案 key, value, i18n key 以 @i18n@ 开头； 该字段主要用于做国际化, 允许用户同时传多个语言的文案, 审批中心会根据用户当前的语音环境使用对应的文案, 如果没有传用户当前的语音环境文案, 则会使用默认的语言文案。
+	Texts     []*CreateApprovalExternalApprovalReqI18nResourceText `json:"texts,omitempty"`      // 文案 key, value, i18n key 以 @i18n@ 开头； 该字段主要用于做国际化, 允许用户同时传多个语言的文案, 审批中心会根据用户当前的语音环境使用对应的文案, 如果没有传用户当前的语音环境文案, 则会使用默认的语言文案, 示例值: { "@i18n@1": "权限申请", "@i18n@2": "OA审批", "@i18n@3": "Permission" }
 	IsDefault bool                                                 `json:"is_default,omitempty"` // 是否默认语言, 默认语言需要包含所有key, 非默认语言如果key不存在会使用默认语言代替, 示例值: true
 }
 

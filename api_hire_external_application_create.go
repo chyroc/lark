@@ -78,7 +78,6 @@ type CreateHireExternalApplicationResp struct {
 // CreateHireExternalApplicationRespExternalApplication ...
 type CreateHireExternalApplicationRespExternalApplication struct {
 	ID                 string `json:"id,omitempty"`                   // 外部投递 ID
-	ExternalID         string `json:"external_id,omitempty"`          // 外部系统投递主键 （仅用于幂等）
 	JobRecruitmentType int64  `json:"job_recruitment_type,omitempty"` // 职位招聘类型, 可选值有: 1: 社招, 2: 校招
 	JobTitle           string `json:"job_title,omitempty"`            // 职位名称
 	ResumeSource       string `json:"resume_source,omitempty"`        // 简历来源

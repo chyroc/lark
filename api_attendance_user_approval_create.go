@@ -62,7 +62,7 @@ func (r *Mock) UnMockAttendanceCreateAttendanceUserApproval() {
 
 // CreateAttendanceUserApprovalReq ...
 type CreateAttendanceUserApprovalReq struct {
-	EmployeeType EmployeeType                                 `query:"employee_type" json:"-"` // 请求体和响应体中的 user_id 的员工工号类型, 示例值: "employee_id", 可选值有: employee_id: 员工 employee ID, 即[飞书管理后台](https://bytedance.feishu.cn/admin/contacts/departmentanduser) > 组织架构 > 成员与部门 > 成员详情中的用户 ID, employee_no: 员工工号, 即[飞书管理后台](https://bytedance.feishu.cn/admin/contacts/departmentanduser) > 组织架构 > 成员与部门 > 成员详情中的工号
+	EmployeeType EmployeeType                                 `query:"employee_type" json:"-"` // 请求体和响应体中的 user_id 的员工工号类型, 示例值: employee_id, 可选值有: employee_id: 员工 employee ID, 即[飞书管理后台](https://bytedance.feishu.cn/admin/contacts/departmentanduser) > 组织架构 > 成员与部门 > 成员详情中的用户 ID, employee_no: 员工工号, 即[飞书管理后台](https://bytedance.feishu.cn/admin/contacts/departmentanduser) > 组织架构 > 成员与部门 > 成员详情中的工号
 	UserApproval *CreateAttendanceUserApprovalReqUserApproval `json:"user_approval,omitempty"` // 审批信息
 }
 
@@ -74,6 +74,7 @@ type CreateAttendanceUserApprovalReqUserApproval struct {
 	Leaves        []*CreateAttendanceUserApprovalReqUserApprovalLeave        `json:"leaves,omitempty"`         // 请假信息
 	OvertimeWorks []*CreateAttendanceUserApprovalReqUserApprovalOvertimeWork `json:"overtime_works,omitempty"` // 加班信息
 	Trips         []*CreateAttendanceUserApprovalReqUserApprovalTrip         `json:"trips,omitempty"`          // 出差信息
+	TimeZone      *string                                                    `json:"time_zone,omitempty"`      // 计算时间所用的时区信息, 为空是0时区, 示例值: "0"
 }
 
 // CreateAttendanceUserApprovalReqUserApprovalLeave ...
@@ -132,6 +133,7 @@ type CreateAttendanceUserApprovalRespUserApproval struct {
 	Leaves        []*CreateAttendanceUserApprovalRespUserApprovalLeave        `json:"leaves,omitempty"`         // 请假信息
 	OvertimeWorks []*CreateAttendanceUserApprovalRespUserApprovalOvertimeWork `json:"overtime_works,omitempty"` // 加班信息
 	Trips         []*CreateAttendanceUserApprovalRespUserApprovalTrip         `json:"trips,omitempty"`          // 出差信息
+	TimeZone      string                                                      `json:"time_zone,omitempty"`      // 计算时间所用的时区信息, 为空是0时区
 }
 
 // CreateAttendanceUserApprovalRespUserApprovalLeave ...

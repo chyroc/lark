@@ -63,7 +63,7 @@ type CreateHireExternalBackgroundCheckReq struct {
 	Date                  *int64   `json:"date,omitempty"`                    // 背调日期, 示例值: 1626602069393
 	Name                  *string  `json:"name,omitempty"`                    // 背调名字, 示例值: "测试.pdf"
 	Result                *string  `json:"result,omitempty"`                  // 背调结果, 示例值: "1"
-	AttachmentIDList      []string `json:"attachment_id_list,omitempty"`      // 背调附件ID列表, 示例值: ["6989181065243969836"]
+	AttachmentIDList      []string `json:"attachment_id_list,omitempty"`      // 背调附件ID列表, 示例值: ["7249929009008494908"]
 }
 
 // CreateHireExternalBackgroundCheckResp ...
@@ -74,7 +74,6 @@ type CreateHireExternalBackgroundCheckResp struct {
 // CreateHireExternalBackgroundCheckRespExternalBackgroundCheck ...
 type CreateHireExternalBackgroundCheckRespExternalBackgroundCheck struct {
 	ID                    string                                                                    `json:"id,omitempty"`                      // 外部背调 ID
-	ExternalID            string                                                                    `json:"external_id,omitempty"`             // 外部系统背调主键 （仅用于幂等）
 	ExternalApplicationID string                                                                    `json:"external_application_id,omitempty"` // 外部投递 ID
 	Date                  int64                                                                     `json:"date,omitempty"`                    // 背调日期
 	Name                  string                                                                    `json:"name,omitempty"`                    // 背调名字

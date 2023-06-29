@@ -62,12 +62,12 @@ type BatchGetHireTalentReq struct {
 	MobileNumberList         []string `json:"mobile_number_list,omitempty"`         // 手机号, 区号均采用 mobile_code 参数的值, 最多 100 个, 示例值: ["182900291190"]
 	EmailList                []string `json:"email_list,omitempty"`                 // 邮箱信息列表, 最多 100 个, 示例值: ["foo@bytedance.com"]
 	IdentificationType       *int64   `json:"identification_type,omitempty"`        // 证件类型, 可参考招聘枚举常量文档下的 IdentificationType 枚举定义, 示例值: 1
-	IdentificationNumberList []string `json:"identification_number_list,omitempty"` // 证件号, 示例值: ["identification"]
+	IdentificationNumberList []string `json:"identification_number_list,omitempty"` // 证件号, 示例值: ["130xxxxxxx"]
 }
 
 // BatchGetHireTalentResp ...
 type BatchGetHireTalentResp struct {
-	Talent []*BatchGetHireTalentRespTalent `json:"talent,omitempty"` // 人才信息列表
+	TalentList []*BatchGetHireTalentRespTalent `json:"talent_list,omitempty"` // 人才信息列表
 }
 
 // BatchGetHireTalentRespTalent ...

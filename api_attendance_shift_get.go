@@ -73,6 +73,7 @@ type GetAttendanceShiftResp struct {
 	PunchTimeRule     []*GetAttendanceShiftRespPunchTimeRule     `json:"punch_time_rule,omitempty"`       // 打卡规则
 	LateOffLateOnRule []*GetAttendanceShiftRespLateOffLateOnRule `json:"late_off_late_on_rule,omitempty"` // 晚走晚到规则
 	RestTimeRule      []*GetAttendanceShiftRespRestTimeRule      `json:"rest_time_rule,omitempty"`        // 休息规则
+	OvertimeRule      []*GetAttendanceShiftRespOvertimeRule      `json:"overtime_rule,omitempty"`         // 打卡规则
 }
 
 // GetAttendanceShiftRespFlexibleRule ...
@@ -85,6 +86,12 @@ type GetAttendanceShiftRespFlexibleRule struct {
 type GetAttendanceShiftRespLateOffLateOnRule struct {
 	LateOffMinutes int64 `json:"late_off_minutes,omitempty"` // 晚走多久
 	LateOnMinutes  int64 `json:"late_on_minutes,omitempty"`  // 晚到多久
+}
+
+// GetAttendanceShiftRespOvertimeRule ...
+type GetAttendanceShiftRespOvertimeRule struct {
+	OnOvertime  string `json:"on_overtime,omitempty"`  // 上班时间
+	OffOvertime string `json:"off_overtime,omitempty"` // 下班时间
 }
 
 // GetAttendanceShiftRespPunchTimeRule ...

@@ -82,13 +82,13 @@ type BatchGetDepartmentRespItem struct {
 	ChatID                 string                              `json:"chat_id,omitempty"`                   // 部门群ID, 字段权限要求（满足任一）: 以应用身份读取通讯录, 获取部门基础信息, 以应用身份访问通讯录, 读取通讯录
 	Order                  string                              `json:"order,omitempty"`                     // 部门的排序, 即部门在其同级部门的展示顺序, 字段权限要求（满足任一）: 以应用身份读取通讯录, 获取通讯录部门组织架构信息, 以应用身份访问通讯录, 读取通讯录
 	UnitIDs                []string                            `json:"unit_ids,omitempty"`                  // 部门单位自定义ID列表, 当前只支持一个, 字段权限要求（满足任一）: 以应用身份读取通讯录, 获取通讯录部门组织架构信息, 以应用身份访问通讯录, 读取通讯录
-	MemberCount            int64                               `json:"member_count,omitempty"`              // 部门下用户的个数, 字段权限要求（满足任一）: 以应用身份读取通讯录, 获取通讯录部门组织架构信息, 以应用身份访问通讯录, 读取通讯录
+	MemberCount            int64                               `json:"member_count,omitempty"`              // 当前部门及其下属部门下用户（包含部门负责人）的个数, 字段权限要求（满足任一）: 以应用身份读取通讯录, 获取通讯录部门组织架构信息, 以应用身份访问通讯录, 读取通讯录
 	Status                 *BatchGetDepartmentRespItemStatus   `json:"status,omitempty"`                    // 部门状态, 字段权限要求（满足任一）: 以应用身份读取通讯录, 获取部门基础信息, 以应用身份访问通讯录, 读取通讯录
 	CreateGroupChat        bool                                `json:"create_group_chat,omitempty"`         // 是否创建部门群, 默认不创建
 	Leaders                []*BatchGetDepartmentRespItemLeader `json:"leaders,omitempty"`                   // 部门负责人
 	GroupChatEmployeeTypes []int64                             `json:"group_chat_employee_types,omitempty"` // 部门群雇员类型限制。[]空列表时, 表示为无任何雇员类型。类型字段可包含以下值, 支持多个类型值；若有多个, 用英文', '分隔: 1、正式员工, 2、实习生, 3、外包, 4、劳务, 5、顾问, 6、其他自定义类型字段, 可通过下方接口获取到该租户的自定义员工类型的名称, 参见[获取人员类型](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/employee_type_enum/list)。
 	DepartmentHrbps        []string                            `json:"department_hrbps,omitempty"`          // 部门HRBP, 字段权限要求: 查询部门 HRBP 信息
-	PrimaryMemberCount     int64                               `json:"primary_member_count,omitempty"`      // 当前部门主属成员（即成员的主部门为当前部门）的数量, 字段权限要求（满足任一）: 以应用身份读取通讯录, 获取通讯录部门组织架构信息, 以应用身份访问通讯录, 读取通讯录
+	PrimaryMemberCount     int64                               `json:"primary_member_count,omitempty"`      // 当前部门及其下属部门的主属成员（即成员的主部门为当前部门）的数量, 字段权限要求（满足任一）: 以应用身份读取通讯录, 获取通讯录部门组织架构信息, 以应用身份访问通讯录, 读取通讯录
 }
 
 // BatchGetDepartmentRespItemI18nName ...

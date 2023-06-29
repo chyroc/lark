@@ -93,8 +93,8 @@ type GetAttendanceGroupResp struct {
 	ShowOverTime            bool                                           `json:"show_over_time,omitempty"`              // 是否展示加班时长
 	HideStaffPunchTime      bool                                           `json:"hide_staff_punch_time,omitempty"`       // 是否隐藏员工打卡详情
 	FacePunch               bool                                           `json:"face_punch,omitempty"`                  // 是否开启人脸识别打卡
-	FacePunchCfg            int64                                          `json:"face_punch_cfg,omitempty"`              // 人脸识别打卡规则, 1: 每次打卡均需人脸识别, 2: 疑似作弊打卡时需要人脸识别
-	FaceLiveNeedAction      bool                                           `json:"face_live_need_action,omitempty"`       // 人脸打卡规则, * false: 开启活体验证, * true: 动作验证, 仅在 face_punch_cfg = 1 时有效
+	FacePunchCfg            int64                                          `json:"face_punch_cfg,omitempty"`              // 人脸识别打卡规则, 可选值有: * 1: 每次打卡均需人脸识别, * 2: 疑似作弊打卡时需要人脸识别
+	FaceLiveNeedAction      bool                                           `json:"face_live_need_action,omitempty"`       // 人脸打卡规则, 可选值有: * false: 开启活体验证, * true: 动作验证, 仅在 face_punch_cfg = 1 时有效
 	FaceDowngrade           bool                                           `json:"face_downgrade,omitempty"`              // 人脸识别失败时是否允许普通拍照打卡
 	ReplaceBasicPic         bool                                           `json:"replace_basic_pic,omitempty"`           // 人脸识别失败时是否允许替换基准图片
 	Machines                []*GetAttendanceGroupRespMachine               `json:"machines,omitempty"`                    // 考勤机列表
@@ -122,6 +122,8 @@ type GetAttendanceGroupResp struct {
 	GoOutNeedPunchCfg       *GetAttendanceGroupRespGoOutNeedPunchCfg       `json:"go_out_need_punch_cfg,omitempty"`       // 外出期间打卡规则
 	TravelNeedPunch         int64                                          `json:"travel_need_punch,omitempty"`           // 出差期间是否需打卡
 	TravelNeedPunchCfg      *GetAttendanceGroupRespTravelNeedPunchCfg      `json:"travel_need_punch_cfg,omitempty"`       // 出差期间打卡规则
+	NeedPunchMembers        []*GetAttendanceGroupRespNeedPunchMember       `json:"need_punch_members,omitempty"`          // 需要打卡的人员配置（新）
+	NoNeedPunchMembers      []*GetAttendanceGroupRespNoNeedPunchMember     `json:"no_need_punch_members,omitempty"`       // 无需打卡的人员配置（新）
 }
 
 // GetAttendanceGroupRespFreePunchCfg ...
@@ -154,7 +156,7 @@ type GetAttendanceGroupRespLeaveNeedPunchCfg struct {
 type GetAttendanceGroupRespLocation struct {
 	LocationID   string  `json:"location_id,omitempty"`   // 地址 ID
 	LocationName string  `json:"location_name,omitempty"` // 地址名称
-	LocationType int64   `json:"location_type,omitempty"` // 地址类型, 1: GPS, 2: Wi-Fi, 8: IP
+	LocationType int64   `json:"location_type,omitempty"` // 地址类型, 可选值有: * 1: GPS, * 2: Wi-Fi, * 8: IP
 	Latitude     float64 `json:"latitude,omitempty"`      // 地址纬度
 	Longitude    float64 `json:"longitude,omitempty"`     // 地址经度
 	Ssid         string  `json:"ssid,omitempty"`          // Wi-Fi 名称
@@ -180,10 +182,50 @@ type GetAttendanceGroupRespMemberStatusChange struct {
 	OffboardingOffNoNeedPunch bool `json:"offboarding_off_no_need_punch,omitempty"` // 是否离职日下班无需打卡
 }
 
+// GetAttendanceGroupRespNeedPunchMember ...
+type GetAttendanceGroupRespNeedPunchMember struct {
+	RuleScopeType  int64                                                `json:"rule_scope_type,omitempty"`  // 圈人方式, 可选值有: * 0 无, * 1 全部, * 2 自定义
+	ScopeGroupList *GetAttendanceGroupRespNeedPunchMemberScopeGroupList `json:"scope_group_list,omitempty"` // 圈人规则列表
+}
+
+// GetAttendanceGroupRespNeedPunchMemberScopeGroupList ...
+type GetAttendanceGroupRespNeedPunchMemberScopeGroupList struct {
+	ScopeValueType int64                                                       `json:"scope_value_type,omitempty"` // 类型, 可选值有: * 1: 部门, * 2:人员, * 3:国家地区, * 4:员工类型, * 5:性别, * 6:工作城市
+	OperationType  int64                                                       `json:"operation_type,omitempty"`   // 范围类型（是否包含）
+	Right          []*GetAttendanceGroupRespNeedPunchMemberScopeGroupListRight `json:"right,omitempty"`            // 如果是人员/部门类型 不需要使用该字段
+	MemberIDs      []string                                                    `json:"member_ids,omitempty"`       // 部门/人员id列表
+}
+
+// GetAttendanceGroupRespNeedPunchMemberScopeGroupListRight ...
+type GetAttendanceGroupRespNeedPunchMemberScopeGroupListRight struct {
+	Key  string `json:"key,omitempty"`  // 标识Key
+	Name string `json:"name,omitempty"` // 名称
+}
+
 // GetAttendanceGroupRespNeedPunchSpecialDay ...
 type GetAttendanceGroupRespNeedPunchSpecialDay struct {
 	PunchDay int64  `json:"punch_day,omitempty"` // 打卡日期
 	ShiftID  string `json:"shift_id,omitempty"`  // 班次 ID
+}
+
+// GetAttendanceGroupRespNoNeedPunchMember ...
+type GetAttendanceGroupRespNoNeedPunchMember struct {
+	RuleScopeType  int64                                                  `json:"rule_scope_type,omitempty"`  // 圈人方式, 可选值有: * 0 无, * 1 全部, * 2 自定义
+	ScopeGroupList *GetAttendanceGroupRespNoNeedPunchMemberScopeGroupList `json:"scope_group_list,omitempty"` // 圈人规则列表
+}
+
+// GetAttendanceGroupRespNoNeedPunchMemberScopeGroupList ...
+type GetAttendanceGroupRespNoNeedPunchMemberScopeGroupList struct {
+	ScopeValueType int64                                                         `json:"scope_value_type,omitempty"` // 类型, 可选值有: * 1: 部门, * 2:人员, * 3:国家地区, * 4:员工类型, * 5:性别, * 6:工作城市
+	OperationType  int64                                                         `json:"operation_type,omitempty"`   // 范围类型（是否包含）
+	Right          []*GetAttendanceGroupRespNoNeedPunchMemberScopeGroupListRight `json:"right,omitempty"`            // 如果是人员/部门类型 不需要使用该字段
+	MemberIDs      []string                                                      `json:"member_ids,omitempty"`       // 部门/人员id列表
+}
+
+// GetAttendanceGroupRespNoNeedPunchMemberScopeGroupListRight ...
+type GetAttendanceGroupRespNoNeedPunchMemberScopeGroupListRight struct {
+	Key  string `json:"key,omitempty"`  // 标识Key
+	Name string `json:"name,omitempty"` // 名称
 }
 
 // GetAttendanceGroupRespNoNeedPunchSpecialDay ...

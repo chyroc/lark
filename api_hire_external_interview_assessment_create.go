@@ -70,7 +70,7 @@ type CreateHireExternalInterviewAssessmentReq struct {
 type CreateHireExternalInterviewAssessmentReqAssessmentDimension struct {
 	Score          *int64   `json:"score,omitempty"`           // 打分题分数（当题目类型为「打分题」时使用）, 示例值: 99
 	Option         *string  `json:"option,omitempty"`          // 单选选项（当题目类型为「单选题」时使用）, 示例值: "opt"
-	Options        []string `json:"options,omitempty"`         // 多选选项（当题目类型为「多选题」时使用）, 示例值: ["6989181065243969836"]
+	Options        []string `json:"options,omitempty"`         // 多选选项（当题目类型为「多选题」时使用）, 示例值: ["opt"]
 	Content        *string  `json:"content,omitempty"`         // 描述内容（当题目类型为「描述题」时使用）, 示例值: "content"
 	AssessmentType *int64   `json:"assessment_type,omitempty"` // 题目类型, 示例值: 1, 可选值有: 1: 打分题, 2: 单选题, 3: 描述题, 4: 多选题
 	Title          *string  `json:"title,omitempty"`           // 题目标题, 示例值: "title"
@@ -85,7 +85,6 @@ type CreateHireExternalInterviewAssessmentResp struct {
 // CreateHireExternalInterviewAssessmentRespExternalInterviewAssessment ...
 type CreateHireExternalInterviewAssessmentRespExternalInterviewAssessment struct {
 	ID                      string                                                                                     `json:"id,omitempty"`                        // 外部面评 ID
-	ExternalID              string                                                                                     `json:"external_id,omitempty"`               // 外部系统面评主键（仅用于幂等）
 	Username                string                                                                                     `json:"username,omitempty"`                  // 面试官姓名
 	Conclusion              int64                                                                                      `json:"conclusion,omitempty"`                // 面试结果, 可选值有: 1: 不通过, 2: 通过, 3: 待定
 	AssessmentDimensionList []*CreateHireExternalInterviewAssessmentRespExternalInterviewAssessmentAssessmentDimension `json:"assessment_dimension_list,omitempty"` // 评价维度列表

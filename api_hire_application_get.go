@@ -71,7 +71,7 @@ type GetHireApplicationRespApplication struct {
 	ID                           string                                                       `json:"id,omitempty"`                              // 投递id
 	JobID                        string                                                       `json:"job_id,omitempty"`                          // 投递的职位 ID
 	TalentID                     string                                                       `json:"talent_id,omitempty"`                       // 候选人 ID
-	ResumeResourceID             string                                                       `json:"resume_resource_id,omitempty"`              // 简历来源 ID
+	ResumeSourceID               string                                                       `json:"resume_source_id,omitempty"`                // 简历来源 ID
 	Stage                        *GetHireApplicationRespApplicationStage                      `json:"stage,omitempty"`                           // 投递处于的阶段
 	ActiveStatus                 int64                                                        `json:"active_status,omitempty"`                   // 活跃状态, 可选值有: 1: 活跃, 2: 非活跃, 即为「已终止」, 3: 全部
 	DeliveryType                 int64                                                        `json:"delivery_type,omitempty"`                   // 投递方式, 可选值有: 1: HR寻访, 2: 候选人主动投递
