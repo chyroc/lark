@@ -147,6 +147,18 @@ func Test_Message_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
+			cli.Mock().MockMessageUpdateMessageEdit(func(ctx context.Context, request *lark.UpdateMessageEditReq, options ...lark.MethodOptionFunc) (*lark.UpdateMessageEditResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockMessageUpdateMessageEdit()
+
+			_, _, err := moduleCli.UpdateMessageEdit(ctx, &lark.UpdateMessageEditReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
 			cli.Mock().MockMessageDeleteMessage(func(ctx context.Context, request *lark.DeleteMessageReq, options ...lark.MethodOptionFunc) (*lark.DeleteMessageResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -445,6 +457,15 @@ func Test_Message_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
+			_, _, err := moduleCli.UpdateMessageEdit(ctx, &lark.UpdateMessageEditReq{
+				MessageID: "x",
+			})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+
 			_, _, err := moduleCli.DeleteMessage(ctx, &lark.DeleteMessageReq{
 				MessageID: "x",
 			})
@@ -671,6 +692,15 @@ func Test_Message_Sample_Failed(t *testing.T) {
 		t.Run("", func(t *testing.T) {
 
 			_, _, err := moduleCli.ReplyRawMessage(ctx, &lark.ReplyRawMessageReq{
+				MessageID: "x",
+			})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.UpdateMessageEdit(ctx, &lark.UpdateMessageEditReq{
 				MessageID: "x",
 			})
 			as.NotNil(err)

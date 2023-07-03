@@ -38,7 +38,7 @@ https://godoc.org/github.com/chyroc/lark
 
 ## Support APIs
 
-API Count: 872, Event Count: 124
+API Count: 876, Event Count: 124
 
 <details>
   <summary>
@@ -95,6 +95,9 @@ API Count: 872, Event Count: 124
   - OpenTaskDetail
   - OpenTaskTab
 - Application
+  - SearchApplicationWorkplaceAccessData
+  - SearchApplicationCustomWorkplaceAccessData
+  - SearchApplicationWorkplaceBlockAccessData
   - GetApplicationFavourite
   - GetApplicationRecommend
   - GetApplicationRecommendRuleList
@@ -933,6 +936,7 @@ API Count: 872, Event Count: 124
   - SendRawMessageOld
   - BatchSendOldRawMessage
   - ReplyRawMessage
+  - UpdateMessageEdit
   - DeleteMessage
   - ForwardMessage
   - MergeForwardMessage

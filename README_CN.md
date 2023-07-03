@@ -38,7 +38,7 @@ https://godoc.org/github.com/chyroc/lark
 
 ## 支持的接口
 
-API 总数: 872, 事件总数: 124
+API 总数: 876, 事件总数: 124
 
 <details>
   <summary>
@@ -95,6 +95,9 @@ API 总数: 872, 事件总数: 124
   - OpenTaskDetail
   - OpenTaskTab
 - Application
+  - SearchApplicationWorkplaceAccessData
+  - SearchApplicationCustomWorkplaceAccessData
+  - SearchApplicationWorkplaceBlockAccessData
   - GetApplicationFavourite
   - GetApplicationRecommend
   - GetApplicationRecommendRuleList
@@ -933,6 +936,7 @@ API 总数: 872, 事件总数: 124
   - SendRawMessageOld
   - BatchSendOldRawMessage
   - ReplyRawMessage
+  - UpdateMessageEdit
   - DeleteMessage
   - ForwardMessage
   - MergeForwardMessage

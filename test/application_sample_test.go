@@ -38,7 +38,7 @@ func Test_Application_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
-			_, _, err := moduleCli.GetApplicationRecommendRuleList(ctx, &lark.GetApplicationRecommendRuleListReq{})
+			_, _, err := moduleCli.SearchApplicationWorkplaceAccessData(ctx, &lark.SearchApplicationWorkplaceAccessDataReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "failed")
 		})
@@ -48,6 +48,42 @@ func Test_Application_Sample_Failed(t *testing.T) {
 	t.Run("request mock failed", func(t *testing.T) {
 		cli := AppAllPermission.Ins()
 		moduleCli := cli.Application
+
+		t.Run("", func(t *testing.T) {
+
+			cli.Mock().MockApplicationSearchApplicationWorkplaceAccessData(func(ctx context.Context, request *lark.SearchApplicationWorkplaceAccessDataReq, options ...lark.MethodOptionFunc) (*lark.SearchApplicationWorkplaceAccessDataResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockApplicationSearchApplicationWorkplaceAccessData()
+
+			_, _, err := moduleCli.SearchApplicationWorkplaceAccessData(ctx, &lark.SearchApplicationWorkplaceAccessDataReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			cli.Mock().MockApplicationSearchApplicationCustomWorkplaceAccessData(func(ctx context.Context, request *lark.SearchApplicationCustomWorkplaceAccessDataReq, options ...lark.MethodOptionFunc) (*lark.SearchApplicationCustomWorkplaceAccessDataResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockApplicationSearchApplicationCustomWorkplaceAccessData()
+
+			_, _, err := moduleCli.SearchApplicationCustomWorkplaceAccessData(ctx, &lark.SearchApplicationCustomWorkplaceAccessDataReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			cli.Mock().MockApplicationSearchApplicationWorkplaceBlockAccessData(func(ctx context.Context, request *lark.SearchApplicationWorkplaceBlockAccessDataReq, options ...lark.MethodOptionFunc) (*lark.SearchApplicationWorkplaceBlockAccessDataResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockApplicationSearchApplicationWorkplaceBlockAccessData()
+
+			_, _, err := moduleCli.SearchApplicationWorkplaceBlockAccessData(ctx, &lark.SearchApplicationWorkplaceBlockAccessDataReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
 
 		t.Run("", func(t *testing.T) {
 
@@ -369,6 +405,27 @@ func Test_Application_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
+			_, _, err := moduleCli.SearchApplicationWorkplaceAccessData(ctx, &lark.SearchApplicationWorkplaceAccessDataReq{})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.SearchApplicationCustomWorkplaceAccessData(ctx, &lark.SearchApplicationCustomWorkplaceAccessDataReq{})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.SearchApplicationWorkplaceBlockAccessData(ctx, &lark.SearchApplicationWorkplaceBlockAccessDataReq{})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+
 			_, _, err := moduleCli.GetApplicationFavourite(ctx, &lark.GetApplicationFavouriteReq{})
 			as.NotNil(err)
 			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
@@ -582,6 +639,27 @@ func Test_Application_Sample_Failed(t *testing.T) {
 		moduleCli := cli.Application
 		cli.Mock().MockRawRequest(func(ctx context.Context, req *lark.RawRequestReq, resp interface{}) (response *lark.Response, err error) {
 			return nil, fmt.Errorf("fake raw request")
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.SearchApplicationWorkplaceAccessData(ctx, &lark.SearchApplicationWorkplaceAccessDataReq{})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.SearchApplicationCustomWorkplaceAccessData(ctx, &lark.SearchApplicationCustomWorkplaceAccessDataReq{})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.SearchApplicationWorkplaceBlockAccessData(ctx, &lark.SearchApplicationWorkplaceBlockAccessDataReq{})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
