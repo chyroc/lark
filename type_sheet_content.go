@@ -236,7 +236,7 @@ func (r *SheetContent) UnmarshalJSON(bytes []byte) error {
 // MarshalJSON ...
 func (r SheetContent) MarshalJSON() ([]byte, error) {
 	if r.String != nil {
-		return []byte(fmt.Sprintf("%q", *r.String)), nil
+		return json.Marshal(*r.String)
 	} else if r.Int != nil {
 		return []byte(strconv.FormatInt(*r.Int, 10)), nil
 	} else if r.Float != nil {
