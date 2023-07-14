@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// GetHireAttachment 获取招聘系统中附件的元信息, 比如文件名、创建时间、文件 URL 等。
+// GetHireAttachment 根据人才简历附件 ID 获取招聘系统中附件的元信息, 比如文件名、创建时间、文件 URL 等, 可通过[获取人才信息接口](https://open.feishu.cn/document/server-docs/hire-v1/candidate-management/talent/get)获取人才的简历附件
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/attachment/get
 // new doc: https://open.feishu.cn/document/server-docs/hire-v1/attachment/get

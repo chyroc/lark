@@ -62,7 +62,7 @@ func (r *Mock) UnMockDriveGetWikiNode() {
 
 // GetWikiNodeReq ...
 type GetWikiNodeReq struct {
-	Token string `query:"token" json:"-"` // 文档的节点token, 示例值: "wikcnKQ1k3p**8Vabcef"
+	Token string `query:"token" json:"-"` // 文档的节点token, 示例值: wikcnKQ1k3p**8Vabcef
 }
 
 // GetWikiNodeResp ...

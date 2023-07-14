@@ -64,7 +64,7 @@ func (r *Mock) UnMockPersonalSettingsUpdatePersonalSettingsSystemStatus() {
 type UpdatePersonalSettingsSystemStatusReq struct {
 	SystemStatusID string                                             `path:"system_status_id" json:"-"` // 系统状态ID, [获取系统状态ID](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/personal_settings-v1/system_status/list), 示例值: "7101214603622940633"
 	SystemStatus   *UpdatePersonalSettingsSystemStatusReqSystemStatus `json:"system_status,omitempty"`   // 系统状态
-	UpdateFields   []string                                           `json:"update_fields,omitempty"`   // 需要更新的字段, 示例值: ['TITLE'], 可选值有: TITLE: 系统状态名称, I18N_TITLE: 系统状态国际化名称, ICON: 图标, COLOR: 颜色, PRIORITY: 优先级, SYNC_SETTING: 同步设置, 最小长度: `1`
+	UpdateFields   []string                                           `json:"update_fields,omitempty"`   // 需要更新的字段, 示例值: ["ICON"], 可选值有: TITLE: 系统状态名称, I18N_TITLE: 系统状态国际化名称, ICON: 图标, COLOR: 颜色, PRIORITY: 优先级, SYNC_SETTING: 同步设置, 最小长度: `1`
 }
 
 // UpdatePersonalSettingsSystemStatusReqSystemStatus ...

@@ -99,7 +99,7 @@ type GetAttendanceGroupResp struct {
 	ReplaceBasicPic         bool                                           `json:"replace_basic_pic,omitempty"`           // 人脸识别失败时是否允许替换基准图片
 	Machines                []*GetAttendanceGroupRespMachine               `json:"machines,omitempty"`                    // 考勤机列表
 	GpsRange                int64                                          `json:"gps_range,omitempty"`                   // GPS 打卡的有效范围（不建议使用）
-	Locations               []*GetAttendanceGroupRespLocation              `json:"locations,omitempty"`                   // 地址列表
+	Locations               []*GetAttendanceGroupRespLocation              `json:"locations,omitempty"`                   // 地址列表（仅追加, 不会覆盖之前的列表）
 	GroupType               int64                                          `json:"group_type,omitempty"`                  // 考勤类型, 0: 固定班制, 2: 排班制, 3: 自由班制
 	PunchDayShiftIDs        []string                                       `json:"punch_day_shift_ids,omitempty"`         // 固定班制必须填
 	FreePunchCfg            *GetAttendanceGroupRespFreePunchCfg            `json:"free_punch_cfg,omitempty"`              // 配置自由班制
@@ -122,8 +122,10 @@ type GetAttendanceGroupResp struct {
 	GoOutNeedPunchCfg       *GetAttendanceGroupRespGoOutNeedPunchCfg       `json:"go_out_need_punch_cfg,omitempty"`       // 外出期间打卡规则
 	TravelNeedPunch         int64                                          `json:"travel_need_punch,omitempty"`           // 出差期间是否需打卡
 	TravelNeedPunchCfg      *GetAttendanceGroupRespTravelNeedPunchCfg      `json:"travel_need_punch_cfg,omitempty"`       // 出差期间打卡规则
-	NeedPunchMembers        []*GetAttendanceGroupRespNeedPunchMember       `json:"need_punch_members,omitempty"`          // 需要打卡的人员配置（新）
-	NoNeedPunchMembers      []*GetAttendanceGroupRespNoNeedPunchMember     `json:"no_need_punch_members,omitempty"`       // 无需打卡的人员配置（新）
+	NeedPunchMembers        []*GetAttendanceGroupRespNeedPunchMember       `json:"need_punch_members,omitempty"`          // 需要打卡的人员集合（该字段暂不支持使用）
+	NoNeedPunchMembers      []*GetAttendanceGroupRespNoNeedPunchMember     `json:"no_need_punch_members,omitempty"`       // 无需打卡的人员集合（该字段暂不支持使用）
+	SaveAutoChanges         bool                                           `json:"save_auto_changes,omitempty"`           // 是否允许保存有冲突人员的考勤组。如果 true, 则冲突人员将被自动拉入到当前设置的考勤组中, 并从原考勤组中移除；如果 false, 则需手动调整冲突人员（该字段暂不支持使用）
+	OrgChangeAutoAdjust     bool                                           `json:"org_change_auto_adjust,omitempty"`      // 当有新员工入职或人员异动, 符合条件的人员是否自动加入考勤组（该字段暂不支持使用）
 }
 
 // GetAttendanceGroupRespFreePunchCfg ...

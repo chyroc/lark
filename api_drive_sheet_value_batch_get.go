@@ -60,7 +60,7 @@ func (r *Mock) UnMockDriveBatchGetSheetValue() {
 // BatchGetSheetValueReq ...
 type BatchGetSheetValueReq struct {
 	SpreadSheetToken     string   `path:"spreadsheetToken" json:"-"`      // spreadsheet 的 token, 获取方式见[在线表格开发指南](https://open.feishu.cn/document/ukTMukTMukTM/uATMzUjLwEzM14CMxMTN/overview)
-	Ranges               []string `query:"ranges" join_sep:"," json:"-"`  // 多个查询范围 如 url?ranges=range1, range2, ⁣其中 range 包含 sheetId 与单元格范围两部分, 目前支持四种索引方式, 详见 [在线表格开发指南](https://open.feishu.cn/document/ukTMukTMukTM/uATMzUjLwEzM14CMxMTN/overview)
+	Ranges               []string `query:"ranges" json:"-"`               // 多个查询范围, 范围之间使用逗号分隔, 如range1, range2。⁣其中 range 包含 sheetId 与单元格范围两部分, 目前支持四种索引方式, 详见 [在线表格开发指南](https://open.feishu.cn/document/ukTMukTMukTM/uATMzUjLwEzM14CMxMTN/overview) 。若查询范围中使用形如<sheetId>!<开始单元格>:<结束列>的范围时, 仅支持获取100列数据。
 	ValueRenderOption    *string  `query:"valueRenderOption" json:"-"`    // valueRenderOption=ToString 可返回纯文本的值(数值类型除外)；valueRenderOption=FormattedValue 计算并格式化单元格；valueRenderOption=Formula单元格中含有公式时返回公式本身；valueRenderOption=UnformattedValue计算但不对单元格进行格式化
 	DateTimeRenderOption *string  `query:"dateTimeRenderOption" json:"-"` // dateTimeRenderOption=FormattedString 计算并将时间日期按照其格式进行格式化, 但不会对数字进行格式化, 返回格式化后的字符串。详见[电子表格常见问题](https://open.feishu.cn/document/ukTMukTMukTM/uATMzUjLwEzM14CMxMTN/guide/sheets-faq)
 	UserIDType           *IDType  `query:"user_id_type" json:"-"`         // 返回的用户id类型, 可选open_id, union_id

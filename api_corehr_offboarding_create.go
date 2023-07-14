@@ -58,12 +58,16 @@ func (r *Mock) UnMockCoreHRCreateCoreHROffboarding() {
 
 // CreateCoreHROffboardingReq ...
 type CreateCoreHROffboardingReq struct {
-	UserIDType                        *IDType                                  `query:"user_id_type" json:"-"`                         // 用户 ID 类型, 示例值: open_id, 可选值有: open_id: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid), union_id: 标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id), user_id: 标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id), people_corehr_id: 以飞书人事的 ID 来识别用户, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
+	UserIDType                        *IDType                                  `query:"user_id_type" json:"-"`                         // 用户 ID 类型, 示例值: people_corehr_id, 可选值有: open_id: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid), union_id: 标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id), user_id: 标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id), people_corehr_id: 以飞书人事的 ID 来识别用户, 默认值: `people_corehr_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
 	OffboardingMode                   int64                                    `json:"offboarding_mode,omitempty"`                     // 离职方式, 示例值: 1, 可选值有: 1: 直接离职
 	EmploymentID                      string                                   `json:"employment_id,omitempty"`                        // 雇员 id, 示例值: "6982509313466189342"
 	OffboardingDate                   string                                   `json:"offboarding_date,omitempty"`                     // 离职日期, 示例值: "2022-05-18"
 	OffboardingReasonUniqueIdentifier string                                   `json:"offboarding_reason_unique_identifier,omitempty"` // 离职原因, 可通过接口, [【查询员工离职原因列表】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/offboarding/query)获取, 示例值: "reason_for_offboarding_option8"
 	OffboardingReasonExplanation      *string                                  `json:"offboarding_reason_explanation,omitempty"`       // 离职原因说明, 长度限制6000, 示例值: "离职原因说明"
+	InitiatorID                       *string                                  `json:"initiator_id,omitempty"`                         // 操作发起人 ID（employment_id）, 为空默认为系统发起。注意: 只有操作发起人可以撤销流程, 示例值: "6982509313466189341"
+	AddBlockList                      *bool                                    `json:"add_block_list,omitempty"`                       // 是否加入离职屏蔽名单, 示例值: false
+	BlockReason                       *string                                  `json:"block_reason,omitempty"`                         // 屏蔽原因, 示例值: "红线"
+	BlockReasonExplanation            *string                                  `json:"block_reason_explanation,omitempty"`             // 屏蔽原因说明, 示例值: "xx 年 xx 月 xx 日因 xx 原因红线"
 	CustomFields                      []*CreateCoreHROffboardingReqCustomField `json:"custom_fields,omitempty"`                        // 自定义字段
 }
 
@@ -80,6 +84,9 @@ type CreateCoreHROffboardingResp struct {
 	OffboardingReasonUniqueIdentifier string `json:"offboarding_reason_unique_identifier,omitempty"` // 离职原因
 	OffboardingDate                   string `json:"offboarding_date,omitempty"`                     // 离职日期
 	OffboardingReasonExplanation      string `json:"offboarding_reason_explanation,omitempty"`       // 离职原因说明
+	AddBlockList                      string `json:"add_block_list,omitempty"`                       // 是否加入离职屏蔽名单
+	BlockReason                       string `json:"block_reason,omitempty"`                         // 屏蔽原因
+	BlockReasonExplanation            string `json:"block_reason_explanation,omitempty"`             // 屏蔽原因说明
 	CreatedTime                       string `json:"created_time,omitempty"`                         // 创建时间
 }
 

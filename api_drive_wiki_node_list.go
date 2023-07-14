@@ -65,8 +65,8 @@ func (r *Mock) UnMockDriveGetWikiNodeList() {
 type GetWikiNodeListReq struct {
 	SpaceID         string  `path:"space_id" json:"-"`           // 知识空间id, 示例值: "6946843325487906839"
 	PageSize        *int64  `query:"page_size" json:"-"`         // 分页大小, 示例值: 10, 最大值: `50`
-	PageToken       *string `query:"page_token" json:"-"`        // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果, 示例值: "6946843325487456878"
-	ParentNodeToken *string `query:"parent_node_token" json:"-"` // 父节点token, 示例值: "wikcnKQ1k3p**8Vabce"
+	PageToken       *string `query:"page_token" json:"-"`        // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果, 示例值: 6946843325487456878
+	ParentNodeToken *string `query:"parent_node_token" json:"-"` // 父节点token, 示例值: wikcnKQ1k3p**8Vabce
 }
 
 // GetWikiNodeListResp ...

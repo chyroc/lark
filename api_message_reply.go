@@ -65,9 +65,9 @@ func (r *Mock) UnMockMessageReplyRawMessage() {
 // ReplyRawMessageReq ...
 type ReplyRawMessageReq struct {
 	MessageID string  `path:"message_id" json:"-"` // 待回复的消息的ID, 详情参见[消息ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/intro#ac79c1c2), 示例值: "om_dc13264520392913993dd051dba21dcf"
-	Content   string  `json:"content,omitempty"`   // 消息内容 json 格式, 格式说明参考: [发送消息Content](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/im-v1/message/create_json), 示例值: "{\"text\":\"<at user_id=\\\"ou_155184d1e73cbfb8973e5a9e698e74f2\\\">Tom </at> test content\"}"
+	Content   string  `json:"content,omitempty"`   // 消息内容 json 格式, 格式说明参考: [发送消息内容](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/im-v1/message/create_json), 示例值: "{\"text\":\"test content\"}"
 	MsgType   MsgType `json:"msg_type,omitempty"`  // 消息类型, 包括: text、post、image、file、audio、media、sticker、interactive、share_card、share_user, 示例值: "text"
-	UUID      *string `json:"uuid,omitempty"`      // 由开发者生成的唯一字符串序列, 用于回复消息请求去重；持有相同uuid的请求1小时内至多成功执行一次, 示例值: "a0d69e20-1dd1-458b-k525-dfeca4015204", 最大长度: `50` 字符
+	UUID      *string `json:"uuid,omitempty"`      // 由开发者生成的唯一字符串序列, 用于回复消息请求去重；持有相同uuid的请求1小时内至多成功执行一次, 示例值: "选填, 若填写每次调用前请更换, 如: a0d69e20-1dd1-458b-k525-dfeca4015204", 最大长度: `50` 字符
 }
 
 // ReplyRawMessageResp ...

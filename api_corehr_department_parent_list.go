@@ -61,7 +61,7 @@ type GetCoreHRDepartmentParentListReq struct {
 	DepartmentIDType *DepartmentIDType `query:"department_id_type" json:"-"` // 此次调用中使用的部门 ID 类型, 示例值: open_department_id, 可选值有: open_department_id: 以 open_department_id 来标识部门, department_id: 以 department_id 来标识部门, people_corehr_department_id: 以 people_corehr_department_id 来标识部门, 默认值: `open_department_id`
 	PageToken        *string           `query:"page_token" json:"-"`         // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果, 示例值: eVQrYzJBNDNONlk4VFZBZVlSdzlKdFJ4bVVHVExENDNKVHoxaVdiVnViQT0=
 	PageSize         *int64            `query:"page_size" json:"-"`          // 分页大小, 示例值: 10, 默认值: `20`
-	DepartmentIDList []string          `json:"department_id_list,omitempty"` // 部门 ID 列表, 最多 100 个, 示例值: ["6893014062142064111"], 长度范围: `1` ～ `100`
+	DepartmentIDList []string          `json:"department_id_list,omitempty"` // 部门 ID 列表, 一次性最多传入 100 个部门 ID, 示例值: ["6893014062142064111"], 长度范围: `1` ～ `100`
 }
 
 // GetCoreHRDepartmentParentListResp ...

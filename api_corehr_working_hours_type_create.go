@@ -61,7 +61,7 @@ type CreateCoreHRWorkingHoursTypeReq struct {
 	ClientToken         *string                                       `query:"client_token" json:"-"`           // 根据client_token是否一致来判断是否为同一请求, 示例值: 12454646
 	Code                *string                                       `json:"code,omitempty"`                   // 编码, 示例值: "1"
 	Name                []*CreateCoreHRWorkingHoursTypeReqName        `json:"name,omitempty"`                   // 名称
-	CountryRegionIDList []string                                      `json:"country_region_id_list,omitempty"` // 国家/地区 ID 列表, 示例值: ["4378784343"]
+	CountryRegionIDList []string                                      `json:"country_region_id_list,omitempty"` // 国家/地区 ID 列表, 示例值: ["6890452208593356295"]
 	DefaultForJob       bool                                          `json:"default_for_job,omitempty"`        // 职务默认值, 示例值: true
 	Active              bool                                          `json:"active,omitempty"`                 // 是否启用, 示例值: true
 	CustomFields        []*CreateCoreHRWorkingHoursTypeReqCustomField `json:"custom_fields,omitempty"`          // 自定义字段

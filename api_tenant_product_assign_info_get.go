@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// GetTenantProductAssignInfo 获取租户下的席位列表, 包含席位名称、席位ID、数量及对应有效期。
+// GetTenantProductAssignInfo 获取租户下待分配的席位列表, 包含席位名称、席位ID、数量及对应有效期。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/tenant-v2/tenant-product_assign_info/query
 // new doc: https://open.feishu.cn/document/server-docs/tenant-v2/tenant-product_assign_info/query

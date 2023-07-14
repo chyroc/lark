@@ -60,7 +60,7 @@ func (r *Mock) UnMockTaskUpdateTask() {
 // UpdateTaskReq ...
 type UpdateTaskReq struct {
 	TaskID       string             `path:"task_id" json:"-"`        // 任务 ID, 示例值: "83912691-2e43-47fc-94a4-d512e03984fa"
-	UserIDType   *IDType            `query:"user_id_type" json:"-"`  // 用户 ID 类型, 示例值: "open_id", 可选值有: open_id: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid), union_id: 标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id), user_id: 标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id), 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
+	UserIDType   *IDType            `query:"user_id_type" json:"-"`  // 用户 ID 类型, 示例值: open_id, 可选值有: open_id: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid), union_id: 标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id), user_id: 标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id), 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
 	Task         *UpdateTaskReqTask `json:"task,omitempty"`          // 被更新的任务实体基础信息
 	UpdateFields []string           `json:"update_fields,omitempty"` // 指定需要更新的任务字段。可以更新的字段包括: summary: 任务标题（普通文本）, rich_summary: 任务标题（富文本）, description: 任务描述（普通文本）, rich_description: 任务描述（富文本）, due: 任务截止时间, extra: 任务附属信息, custom: 任务自定义完成规则, follower_ids: 任务关注人ID列表, collaborator_ids: 任务执行者ID列表, repeat_rule: 任务重复规则, 示例值: ["summary"]
 }
@@ -76,8 +76,8 @@ type UpdateTaskReqTask struct {
 	Custom          *string                          `json:"custom,omitempty"`           // 自定义完成配置, 此字段用于设置完成任务时的页面跳转, 或展示提示语。详细参见: [任务字段补充说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/task-v1/Supplementary-directions-of-task-fields), 示例值: "{\"custom_complete\":{\"android\":{\"href\":\"https://www.feishu.cn/\", \"tip\":{\"zh_cn\":\"你好\", \"en_us\":\"hello\"}}, \"ios\":{\"href\":\"https://www.feishu.cn/\", \"tip\":{\"zh_cn\":\"你好\", \"en_us\":\"hello\"}}, \"pc\":{\"href\":\"https://www.feishu.cn/\", \"tip\":{\"zh_cn\":\"你好\", \"en_us\":\"hello\"}}}}", 长度范围: `0` ～ `65536` 字符
 	Followers       []*UpdateTaskReqTaskFollower     `json:"followers,omitempty"`        // 任务的关注者, 示例值: ou_03c21c80caea2c816665f8056dc59027
 	Collaborators   []*UpdateTaskReqTaskCollaborator `json:"collaborators,omitempty"`    // 任务的执行者, 示例值: ou_558d4999baae26e32aa2fd9bb228660b
-	CollaboratorIDs []string                         `json:"collaborator_ids,omitempty"` // 创建任务时添加的执行者用户id列表, 传入的值为 user_id 或 open_id, 由user_id_type 决定。user_id和open_id的获取可见文档: [如何获取相关id](https://open.feishu.cn/document/home/user-identity-introduction/how-to-get), 示例值: ["ou_1400208f15333e20e11339d39067844b"], 最大长度: `100`
-	FollowerIDs     []string                         `json:"follower_ids,omitempty"`     // 创建任务时添加的关注者用户id列表, 传入的值为 user_id 或 open_id, 由user_id_type 决定。user_id和open_id的获取可见文档: [如何获取相关id](https://open.feishu.cn/document/home/user-identity-introduction/how-to-get), 示例值: ["ou_1400208f15333e20e11339d39067844b"], 最大长度: `100`
+	CollaboratorIDs []string                         `json:"collaborator_ids,omitempty"` // 创建任务时添加的执行者用户id列表, 传入的值为 user_id 或 open_id, 由user_id_type 决定。user_id和open_id的获取可见文档: [如何获取相关id](https://open.feishu.cn/document/home/user-identity-introduction/how-to-get), 示例值: ["ou_49dadcd6fd55da971d887087c4f3a37a"], 最大长度: `100`
+	FollowerIDs     []string                         `json:"follower_ids,omitempty"`     // 创建任务时添加的关注者用户id列表, 传入的值为 user_id 或 open_id, 由user_id_type 决定。user_id和open_id的获取可见文档: [如何获取相关id](https://open.feishu.cn/document/home/user-identity-introduction/how-to-get), 示例值: ["ou_49dadcd6fd55da971d887087c4f3a37a"], 最大长度: `100`
 	RepeatRule      *string                          `json:"repeat_rule,omitempty"`      // 重复任务的规则表达式, 语法格式参见[RRule语法规范](https://www.ietf.org/rfc/rfc2445.txt) 4.3.10小节, 示例值: "FREQ=WEEKLY;INTERVAL=1;BYDAY=MO, TU, WE, TH, FR"
 	RichSummary     *string                          `json:"rich_summary,omitempty"`     // 富文本任务标题。语法格式参见[Markdown模块](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/task-v1/markdown-module), 。创建任务时, 任务标题(summary字段)和任务富文本标题(rich_summary字段)不能同时为空, 需要至少填充其中一个字段, 示例值: "完成本季度OKR编写\[飞书开放平台](https://open.feishu.cn/)", 长度范围: `0` ～ `1000` 字符
 	RichDescription *string                          `json:"rich_description,omitempty"` // 富文本任务备注。语法格式参见[Markdown模块](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/task-v1/markdown-module), 示例值: "对本次会议内容复盘总结, 编写更新本季度OKR\[飞书开放平台](https://open.feishu.cn/)", 长度范围: `0` ～ `65536` 字符
@@ -86,7 +86,7 @@ type UpdateTaskReqTask struct {
 // UpdateTaskReqTaskCollaborator ...
 type UpdateTaskReqTaskCollaborator struct {
 	ID     *string  `json:"id,omitempty"`      // 任务执行者的 ID, 传入的值为 user_id 或 open_id, 由user_id_type 决定。user_id和open_id的获取可见文档[如何获取相关id](https://open.feishu.cn/document/home/user-identity-introduction/how-to-get), 已经废弃, 为了向前兼容早期只支持单次添加一个人的情况而保留, 但不再推荐使用, 建议使用id_list字段, 示例值: "ou_99e1a581b36ecc4862cbfbce473f1234"
-	IDList []string `json:"id_list,omitempty"` // 执行者的用户ID列表, 传入的值为 user_id 或 open_id, 由user_id_type 决定。user_id和open_id的获取可见文档[如何获取相关id](https://open.feishu.cn/document/home/user-identity-introduction/how-to-get), 示例值: ["ou_550cc75233d8b7b9fcbdad65f34433f4"]
+	IDList []string `json:"id_list,omitempty"` // 执行者的用户ID列表, 传入的值为 user_id 或 open_id, 由user_id_type 决定。user_id和open_id的获取可见文档[如何获取相关id](https://open.feishu.cn/document/home/user-identity-introduction/how-to-get), 示例值: ["ou_99e1a581b36ecc4862cbfbce473f3123"]
 }
 
 // UpdateTaskReqTaskDue ...
@@ -99,7 +99,7 @@ type UpdateTaskReqTaskDue struct {
 // UpdateTaskReqTaskFollower ...
 type UpdateTaskReqTaskFollower struct {
 	ID     *string  `json:"id,omitempty"`      // 任务关注人 ID, 示例值: "ou_99e1a581b36ecc4862cbfbce473f3123"
-	IDList []string `json:"id_list,omitempty"` // 要删除的关注人ID列表, 示例值: ["ou_550cc75233d8b7b9fcbdad65f34433f4"]
+	IDList []string `json:"id_list,omitempty"` // 要删除的关注人ID列表, 示例值: ["ou_99e1a581b36ecc4862cbfbce473f3123"]
 }
 
 // UpdateTaskReqTaskOrigin ...

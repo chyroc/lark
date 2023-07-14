@@ -60,7 +60,7 @@ func (r *Mock) UnMockVCDownloadVCExportFile() {
 
 // DownloadVCExportFileReq ...
 type DownloadVCExportFileReq struct {
-	FileToken string `query:"file_token" json:"-"` // 文档token, 示例值: "6yHu7Igp7Igy62Ez6fLr6IJz7j9i5WMe6fHq5yZeY2Jz6yLqYAMAY46fZfEz64Lr5fYyYQ=="
+	FileToken string `query:"file_token" json:"-"` // 文档token, 示例值: 6yHu7Igp7Igy62Ez6fLr6IJz7j9i5WMe6fHq5yZeY2Jz6yLqYAMAY46fZfEz64Lr5fYyYQ==
 }
 
 // downloadVCExportFileResp ...

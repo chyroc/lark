@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// SearchApplicationWorkplaceBlockAccessData 获取定制工作台小组件(block)访问数据
+// SearchApplicationWorkplaceBlockAccessData 获取定制工作台小组件访问数据
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/workplace-v1/workplace_block_access_data/search
 func (r *ApplicationService) SearchApplicationWorkplaceBlockAccessData(ctx context.Context, request *SearchApplicationWorkplaceBlockAccessDataReq, options ...MethodOptionFunc) (*SearchApplicationWorkplaceBlockAccessDataResp, *Response, error) {

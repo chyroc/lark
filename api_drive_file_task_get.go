@@ -59,7 +59,7 @@ func (r *Mock) UnMockDriveGetDriveFileTask() {
 
 // GetDriveFileTaskReq ...
 type GetDriveFileTaskReq struct {
-	TaskID string `query:"task_id" json:"-"` // 文件相关异步任务id, 示例值: "12345"
+	TaskID string `query:"task_id" json:"-"` // 文件相关异步任务id, 示例值: 12345
 }
 
 // GetDriveFileTaskResp ...

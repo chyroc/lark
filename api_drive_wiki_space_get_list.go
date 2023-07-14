@@ -25,7 +25,7 @@ import (
 //
 // 此接口为分页接口。由于权限过滤, 可能返回列表为空, 但分页标记（has_more）为true, 可以继续分页请求。
 // 对于知识空间各项属性描述请参阅[获取知识空间信息](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/wiki-v2/space/get)
-// 使用tenant access token调用时, 请确认应用/机器人拥有部分知识空间的访问权限, 否则返回列表容易为空。
+// 使用tenant access token调用时, 请确认应用/机器人拥有部分知识空间的访问权限, 否则返回列表容易为空。参阅[如何将应用添加为知识库管理员（成员）](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/wiki-v2/wiki-qa#b5da330b)。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/wiki-v2/space/list
 // new doc: https://open.feishu.cn/document/server-docs/docs/wiki-v2/space/list
@@ -64,7 +64,7 @@ func (r *Mock) UnMockDriveGetWikiSpaceList() {
 // GetWikiSpaceListReq ...
 type GetWikiSpaceListReq struct {
 	PageSize  *int64  `query:"page_size" json:"-"`  // 分页大小, 示例值: 10, 最大值: `50`
-	PageToken *string `query:"page_token" json:"-"` // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果, 示例值: "1565676577122621"
+	PageToken *string `query:"page_token" json:"-"` // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果, 示例值: 1565676577122621
 }
 
 // GetWikiSpaceListResp ...

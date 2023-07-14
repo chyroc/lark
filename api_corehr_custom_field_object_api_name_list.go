@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// GetCoreHRCustomFieldObjectApiNameList 获取「飞书人事」中的对象列表, 含系统预置对象与自定义对象。
+// GetCoreHRCustomFieldObjectApiNameList 获取「飞书人事」中的对象列表, 含系统预置对象与自定义对象。使用方式可参考[【操作手册】如何通过 OpenAPI 维护自定义字段](https://bytedance.feishu.cn/docx/UZYmdBj1ho8RPixJwlKcpkzQn2b)
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/custom_field/list_object_api_name
 // new doc: https://open.feishu.cn/document/server-docs/corehr-v1/basic-infomation/custom_field/list_object_api_name

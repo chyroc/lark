@@ -59,7 +59,7 @@ func (r *Mock) UnMockCoreHRGetCoreHROffboardingList() {
 // GetCoreHROffboardingListReq ...
 type GetCoreHROffboardingListReq struct {
 	Active                            *bool    `json:"active,omitempty"`                               // 是否启用, 示例值: true
-	OffboardingReasonUniqueIdentifier []string `json:"offboarding_reason_unique_identifier,omitempty"` // 离职原因唯一标识列表, 用于过滤, 最大20个, 示例值: ["reason_for_offboarding_option"]
+	OffboardingReasonUniqueIdentifier []string `json:"offboarding_reason_unique_identifier,omitempty"` // 离职原因唯一标识列表, 用于过滤, 最大20个, 示例值: ["offboarding_reason_unique_identifier"]
 }
 
 // GetCoreHROffboardingListResp ...

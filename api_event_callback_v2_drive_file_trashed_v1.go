@@ -37,7 +37,7 @@ type EventV2DriveFileTrashedV1Handler func(ctx context.Context, cli *Lark, schem
 // EventV2DriveFileTrashedV1 ...
 type EventV2DriveFileTrashedV1 struct {
 	FileToken  string                               `json:"file_token,omitempty"`  // 文件token. 如: doccnxxxxxx
-	FileType   FileType                             `json:"file_type,omitempty"`   // 文件类型, 目前有doc、sheet. 如: doc
+	FileType   FileType                             `json:"file_type,omitempty"`   // 文件类型, 目前有doc、sheet、docx、bitable. 如: doc
 	OperatorID *EventV2DriveFileTrashedV1OperatorID `json:"operator_id,omitempty"` // 操作者id
 }
 

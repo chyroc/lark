@@ -58,15 +58,15 @@ func (r *Mock) UnMockHireGetHireApplicationList() {
 
 // GetHireApplicationListReq ...
 type GetHireApplicationListReq struct {
-	ProcessID       *string `query:"process_id" json:"-"`        // 按流程过滤, 招聘流程 ID, 枚举值通过接口「获取招聘流程信息」接口获取, 示例值: "6960663240925956554"
-	StageID         *string `query:"stage_id" json:"-"`          // 按招聘阶段过滤, 招聘阶段 ID, 枚举值通过「获取招聘流程信息」接口获取, 示例值: "614218419274131"
-	TalentID        *string `query:"talent_id" json:"-"`         // 按人才过滤, 示例值: "6891560630172518670"
-	ActiveStatus    *string `query:"active_status" json:"-"`     // 按活跃状态筛选 1=活跃投递, 2=非活跃投递, 3=全部, 示例值: "1"
-	JobID           *string `query:"job_id" json:"-"`            // 职位 ID, 示例值: "7334134355464633"
-	PageToken       *string `query:"page_token" json:"-"`        // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果, 示例值: "1"
+	ProcessID       *string `query:"process_id" json:"-"`        // 按流程过滤, 招聘流程 ID, 枚举值通过接口「获取招聘流程信息」接口获取, 示例值: 6960663240925956554
+	StageID         *string `query:"stage_id" json:"-"`          // 按招聘阶段过滤, 招聘阶段 ID, 枚举值通过「获取招聘流程信息」接口获取, 示例值: 614218419274131
+	TalentID        *string `query:"talent_id" json:"-"`         // 按人才过滤, 示例值: 6891560630172518670
+	ActiveStatus    *string `query:"active_status" json:"-"`     // 按活跃状态筛选 1=活跃投递, 2=非活跃投递, 3=全部, 示例值: 1
+	JobID           *string `query:"job_id" json:"-"`            // 职位 ID, 示例值: 7334134355464633
+	PageToken       *string `query:"page_token" json:"-"`        // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果, 示例值: 1
 	PageSize        *int64  `query:"page_size" json:"-"`         // 分页大小, 示例值: 100
-	UpdateStartTime *string `query:"update_start_time" json:"-"` // 最早更新时间, 毫秒级时间戳, 示例值: "1618500278663"
-	UpdateEndTime   *string `query:"update_end_time" json:"-"`   // 最晚更新时间, 毫秒级时间戳, 示例值: "1618500278663"
+	UpdateStartTime *string `query:"update_start_time" json:"-"` // 最早更新时间, 毫秒级时间戳, 示例值: 1618500278663
+	UpdateEndTime   *string `query:"update_end_time" json:"-"`   // 最晚更新时间, 毫秒级时间戳, 示例值: 1618500278663
 }
 
 // GetHireApplicationListResp ...

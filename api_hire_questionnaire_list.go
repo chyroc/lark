@@ -58,12 +58,12 @@ func (r *Mock) UnMockHireGetHireQuestionnaireList() {
 
 // GetHireQuestionnaireListReq ...
 type GetHireQuestionnaireListReq struct {
-	PageToken       *string `query:"page_token" json:"-"`        // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果, 示例值: "1231231987"
+	PageToken       *string `query:"page_token" json:"-"`        // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果, 示例值: 1231231987
 	PageSize        *int64  `query:"page_size" json:"-"`         // 分页大小, 示例值: 100, 默认值: `1`
-	ApplicationID   *string `query:"application_id" json:"-"`    // 投递 ID, 示例值: "6985833807195212076"
-	InterviewID     *string `query:"interview_id" json:"-"`      // 面试 ID, 示例值: "7038435261598763308"
-	UpdateStartTime *string `query:"update_start_time" json:"-"` // 最早更新时间, 示例值: "1638848468868"
-	UpdateEndTime   *string `query:"update_end_time" json:"-"`   // 最晚更新时间, 示例值: "1638848468869"
+	ApplicationID   *string `query:"application_id" json:"-"`    // 投递 ID, 示例值: 6985833807195212076
+	InterviewID     *string `query:"interview_id" json:"-"`      // 面试 ID, 示例值: 7038435261598763308
+	UpdateStartTime *string `query:"update_start_time" json:"-"` // 最早更新时间, 示例值: 1638848468868
+	UpdateEndTime   *string `query:"update_end_time" json:"-"`   // 最晚更新时间, 示例值: 1638848468869
 }
 
 // GetHireQuestionnaireListResp ...

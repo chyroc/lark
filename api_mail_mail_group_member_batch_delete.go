@@ -59,7 +59,7 @@ func (r *Mock) UnMockMailBatchDeleteMailGroupMember() {
 // BatchDeleteMailGroupMemberReq ...
 type BatchDeleteMailGroupMemberReq struct {
 	MailGroupID  string   `path:"mailgroup_id" json:"-"`    // The unique ID or email address of a mail group, 示例值: "xxxxxxxxxxxxxxx or test_mail_group@xxx.xx"
-	MemberIDList []string `json:"member_id_list,omitempty"` // 本次调用删除的成员ID列表, 示例值: ["xxxxxxx", "yyyyyyy"], 长度范围: `1` ～ `200`
+	MemberIDList []string `json:"member_id_list,omitempty"` // 本次调用删除的成员ID列表, 示例值: ["xxxxxxxxxxxxxxx"], 长度范围: `1` ～ `200`
 }
 
 // BatchDeleteMailGroupMemberResp ...

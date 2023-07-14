@@ -59,7 +59,7 @@ func (r *Mock) UnMockVCDeleteVCRoomLevel() {
 
 // DeleteVCRoomLevelReq ...
 type DeleteVCRoomLevelReq struct {
-	RoomLevelID string `json:"room_level_id,omitempty"` // 层级ID, 示例值: "omb_4ad1a2c7a2fbc5fc9570f38456931293"
+	RoomLevelID string `json:"room_level_id,omitempty"` // 层级ID, 示例值: "omb_4ad1a2c7a2fbc5fc9570f38456931293", 长度范围: `1` ～ `100` 字符
 	DeleteChild *bool  `json:"delete_child,omitempty"`  // 是否删除所有子层级, 示例值: false
 }
 

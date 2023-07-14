@@ -63,7 +63,7 @@ func (r *Mock) UnMockDriveGetWikiTask() {
 // GetWikiTaskReq ...
 type GetWikiTaskReq struct {
 	TaskID   string `path:"task_id" json:"-"`    // 任务id, 示例值: "7037044037068177428-075c9481e6a0007c1df689dfbe5b55a08b6b06f7"
-	TaskType string `query:"task_type" json:"-"` // 任务类型, 示例值: "move", 可选值有: move: [移动云空间文档至知识空间](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/wiki-v2/space-node/move_docs_to_wiki)任务
+	TaskType string `query:"task_type" json:"-"` // 任务类型, 示例值: move, 可选值有: move: [移动云空间文档至知识空间](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/wiki-v2/space-node/move_docs_to_wiki)任务
 }
 
 // GetWikiTaskResp ...

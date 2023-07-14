@@ -58,7 +58,7 @@ func (r *Mock) UnMockMailGetMailUser() {
 
 // GetMailUserReq ...
 type GetMailUserReq struct {
-	EmailList []string `json:"email_list,omitempty"` // 需要查询的邮箱地址列表, 示例值: ["aaa@lark.com", "bbb@lark.com"]
+	EmailList []string `json:"email_list,omitempty"` // 需要查询的邮箱地址列表, 示例值: ["test@a.com"]
 }
 
 // GetMailUserResp ...

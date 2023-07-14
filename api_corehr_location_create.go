@@ -131,13 +131,13 @@ type CreateCoreHRLocationReqHiberarchyCommonCustomField struct {
 // CreateCoreHRLocationReqHiberarchyCommonDescription ...
 type CreateCoreHRLocationReqHiberarchyCommonDescription struct {
 	Lang  string `json:"lang,omitempty"`  // 语言, 示例值: "zh-CN"
-	Value string `json:"value,omitempty"` // 内容, 示例值: "张三"
+	Value string `json:"value,omitempty"` // 内容, 示例值: "刘梓新"
 }
 
 // CreateCoreHRLocationReqHiberarchyCommonName ...
 type CreateCoreHRLocationReqHiberarchyCommonName struct {
 	Lang  string `json:"lang,omitempty"`  // 语言, 示例值: "zh-CN"
-	Value string `json:"value,omitempty"` // 内容, 示例值: "张三"
+	Value string `json:"value,omitempty"` // 内容, 示例值: "刘梓新"
 }
 
 // CreateCoreHRLocationReqHiberarchyCommonType ...

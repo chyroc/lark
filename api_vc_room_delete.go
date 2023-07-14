@@ -59,7 +59,7 @@ func (r *Mock) UnMockVCDeleteVCRoom() {
 
 // DeleteVCRoomReq ...
 type DeleteVCRoomReq struct {
-	RoomID string `path:"room_id" json:"-"` // 会议室ID, 示例值: "omm_4de32cf10a4358788ff4e09e37ebbf9b"
+	RoomID string `path:"room_id" json:"-"` // 会议室ID, 示例值: "omm_4de32cf10a4358788ff4e09e37ebbf9b", 长度范围: `1` ～ `100` 字符
 }
 
 // DeleteVCRoomResp ...

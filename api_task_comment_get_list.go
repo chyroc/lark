@@ -61,8 +61,9 @@ func (r *Mock) UnMockTaskGetTaskCommentList() {
 type GetTaskCommentListReq struct {
 	TaskID        string  `path:"task_id" json:"-"`         // 任务id, 示例值: ""83912691-2e43-47fc-94a4-d512e03984fa""
 	PageSize      *int64  `query:"page_size" json:"-"`      // 分页大小, 示例值: 10, 最大值: `100`
-	PageToken     *string `query:"page_token" json:"-"`     // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果, 示例值: ""MTYzMTg3ODUxNQ==""
+	PageToken     *string `query:"page_token" json:"-"`     // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果, 示例值: "MTYzMTg3ODUxNQ=="
 	ListDirection *int64  `query:"list_direction" json:"-"` // 评论排序标记, 可按照评论时间从小到大查询, 或者评论时间从大到小查询, 不填默认按照从小到大, 示例值: 0, 可选值有: 0: 按照回复时间从小到大查询, 1: 按照回复时间从大到小查询, 默认值: `0`
+	UserIDType    *IDType `query:"user_id_type" json:"-"`   // 用户 ID 类型, 示例值: open_id, 可选值有: open_id: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid), union_id: 标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id), user_id: 标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id), 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
 }
 
 // GetTaskCommentListResp ...
@@ -79,6 +80,7 @@ type GetTaskCommentListRespItem struct {
 	ID              string `json:"id,omitempty"`                // 评论ID, 由飞书服务器发号
 	CreateMilliTime string `json:"create_milli_time,omitempty"` // 评论创建的时间戳, 单位为毫秒, 用于展示, 创建时不用填写
 	RichContent     string `json:"rich_content,omitempty"`      // 富文本评论内容。语法格式参见[Markdown模块](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/task-v1/markdown-module)
+	CreatorID       string `json:"creator_id,omitempty"`        // 评论的创建者 ID。在创建评论时无需填充该字段
 }
 
 // getTaskCommentListResp ...

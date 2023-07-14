@@ -61,7 +61,7 @@ func (r *Mock) UnMockDriveGetSheetDataValidationDropdown() {
 type GetSheetDataValidationDropdownReq struct {
 	SpreadSheetToken   string `path:"spreadsheetToken" json:"-"`    // spreadsheet 的 token, 获取方式见 [在线表格开发指南](https://open.feishu.cn/document/ukTMukTMukTM/uATMzUjLwEzM14CMxMTN/overview)
 	Range              string `query:"range" json:"-"`              // 查询范围, 包含 sheetId 与单元格范围两部分, 目前支持四种索引方式, 详见[在线表格开发指南](https://open.feishu.cn/document/ukTMukTMukTM/uATMzUjLwEzM14CMxMTN/overview)
-	DataValidationType string `query:"dataValidationType" json:"-"` // 下拉列表填"list"
+	DataValidationType string `query:"dataValidationType" json:"-"` // 固定为"list", 表示下拉列表
 }
 
 // GetSheetDataValidationDropdownResp ...
@@ -75,7 +75,7 @@ type GetSheetDataValidationDropdownResp struct {
 // GetSheetDataValidationDropdownRespDataValidation ...
 type GetSheetDataValidationDropdownRespDataValidation struct {
 	DataValidationID   int64                                                    `json:"dataValidationId,omitempty"`   // 唯一标示id
-	DataValidationType string                                                   `json:"dataValidationType,omitempty"` // 下拉列表为"list"
+	DataValidationType string                                                   `json:"dataValidationType,omitempty"` // 固定为"list", 表示下拉列表
 	ConditionValues    []string                                                 `json:"conditionValues,omitempty"`    // 下拉列表选项值
 	Options            *GetSheetDataValidationDropdownRespDataValidationOptions `json:"options,omitempty"`            // 可选属性
 }

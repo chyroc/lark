@@ -141,6 +141,10 @@ type SearchCoreHREmployeeRespItem struct {
 	PayGroupID               string                                            `json:"pay_group_id,omitempty"`                // 所属薪资组 ID
 	InternationalAssignment  bool                                              `json:"international_assignment,omitempty"`    // 是否外派
 	WorkCalendarID           string                                            `json:"work_calendar_id,omitempty"`            // 工作日历 ID
+	Department               *SearchCoreHREmployeeRespItemDepartment           `json:"department,omitempty"`                  // 部门基本信息
+	DirectManager            *SearchCoreHREmployeeRespItemDirectManager        `json:"direct_manager,omitempty"`              // 直接上级基本信息
+	DottedLineManager        *SearchCoreHREmployeeRespItemDottedLineManager    `json:"dotted_line_manager,omitempty"`         // 虚线上级基本信息
+	TimeZone                 string                                            `json:"time_zone,omitempty"`                   // 时区
 }
 
 // SearchCoreHREmployeeRespItemCostCenter ...
@@ -161,6 +165,50 @@ type SearchCoreHREmployeeRespItemCustomField struct {
 type SearchCoreHREmployeeRespItemCustomFieldName struct {
 	ZhCn string `json:"zh_cn,omitempty"` // 中文
 	EnUs string `json:"en_us,omitempty"` // 英文
+}
+
+// SearchCoreHREmployeeRespItemDepartment ...
+type SearchCoreHREmployeeRespItemDepartment struct {
+	ID             string                                                  `json:"id,omitempty"`              // 部门 ID
+	DepartmentName []*SearchCoreHREmployeeRespItemDepartmentDepartmentName `json:"department_name,omitempty"` // 部门名称
+}
+
+// SearchCoreHREmployeeRespItemDepartmentDepartmentName ...
+type SearchCoreHREmployeeRespItemDepartmentDepartmentName struct {
+	Lang  string `json:"lang,omitempty"`  // 语言
+	Value string `json:"value,omitempty"` // 内容
+}
+
+// SearchCoreHREmployeeRespItemDirectManager ...
+type SearchCoreHREmployeeRespItemDirectManager struct {
+	EmploymentID   string                                               `json:"employment_id,omitempty"`   // 雇佣 ID
+	EmployeeNumber string                                               `json:"employee_number,omitempty"` // 工号
+	EmailAddress   string                                               `json:"email_address,omitempty"`   // 邮箱地址
+	PersonInfo     *SearchCoreHREmployeeRespItemDirectManagerPersonInfo `json:"person_info,omitempty"`     // 基本个人信息
+}
+
+// SearchCoreHREmployeeRespItemDirectManagerPersonInfo ...
+type SearchCoreHREmployeeRespItemDirectManagerPersonInfo struct {
+	PersonID                 string `json:"person_id,omitempty"`                   // 个人信息 ID
+	PreferredName            string `json:"preferred_name,omitempty"`              // 常用名
+	PreferredLocalFullName   string `json:"preferred_local_full_name,omitempty"`   // 常用本地全名
+	PreferredEnglishFullName string `json:"preferred_english_full_name,omitempty"` // 常用英文全名
+}
+
+// SearchCoreHREmployeeRespItemDottedLineManager ...
+type SearchCoreHREmployeeRespItemDottedLineManager struct {
+	EmploymentID   string                                                   `json:"employment_id,omitempty"`   // 雇佣 ID
+	EmployeeNumber string                                                   `json:"employee_number,omitempty"` // 工号
+	EmailAddress   string                                                   `json:"email_address,omitempty"`   // 邮箱地址
+	PersonInfo     *SearchCoreHREmployeeRespItemDottedLineManagerPersonInfo `json:"person_info,omitempty"`     // 基本个人信息
+}
+
+// SearchCoreHREmployeeRespItemDottedLineManagerPersonInfo ...
+type SearchCoreHREmployeeRespItemDottedLineManagerPersonInfo struct {
+	PersonID                 string `json:"person_id,omitempty"`                   // 个人信息 ID
+	PreferredName            string `json:"preferred_name,omitempty"`              // 常用名
+	PreferredLocalFullName   string `json:"preferred_local_full_name,omitempty"`   // 常用本地全名
+	PreferredEnglishFullName string `json:"preferred_english_full_name,omitempty"` // 常用英文全名
 }
 
 // SearchCoreHREmployeeRespItemEmploymentStatus ...

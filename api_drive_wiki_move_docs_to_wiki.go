@@ -82,7 +82,7 @@ type MoveDocsToWikiReq struct {
 
 // MoveDocsToWikiResp ...
 type MoveDocsToWikiResp struct {
-	WikiToken string `json:"wiki_token,omitempty"` // 移动后的知识库token
+	WikiToken string `json:"wiki_token,omitempty"` // 移动后的知识库节点token
 	TaskID    string `json:"task_id,omitempty"`    // 任务id
 	Applied   bool   `json:"applied,omitempty"`    // 是否提交了文档迁入申请
 }

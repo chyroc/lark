@@ -59,7 +59,7 @@ func (r *Mock) UnMockMailDeleteMailUserMailbox() {
 // DeleteMailUserMailboxReq ...
 type DeleteMailUserMailboxReq struct {
 	UserMailboxID   string  `path:"user_mailbox_id" json:"-"`   // 要释放的邮箱地址, 示例值: "111111@abc.com"
-	TransferMailbox *string `query:"transfer_mailbox" json:"-"` // 用于接受转移的邮箱地址, 示例值: "888888@abc.com"
+	TransferMailbox *string `query:"transfer_mailbox" json:"-"` // 用于接受转移的邮箱地址, 示例值: 888888@abc.com
 }
 
 // DeleteMailUserMailboxResp ...

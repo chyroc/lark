@@ -60,8 +60,8 @@ func (r *Mock) UnMockContactUpdateUserPatch() {
 // UpdateUserPatchReq ...
 type UpdateUserPatchReq struct {
 	UserID           string                          `path:"user_id" json:"-"`             // 用户ID, 需要与查询参数中的user_id_type类型保持一致, 示例值: "ou_7dab8a3d3cdcc9da365777c7ad535d62"
-	UserIDType       *IDType                         `query:"user_id_type" json:"-"`       // 用户 ID 类型, 示例值: "open_id", 可选值有: open_id: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid), union_id: 标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id), user_id: 标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id), 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
-	DepartmentIDType *DepartmentIDType               `query:"department_id_type" json:"-"` // 此次调用中使用的部门ID的类型, 示例值: "open_department_id", 可选值有: department_id: 以自定义department_id来标识部门, open_department_id: 以open_department_id来标识部门, 默认值: `open_department_id`
+	UserIDType       *IDType                         `query:"user_id_type" json:"-"`       // 用户 ID 类型, 示例值: open_id, 可选值有: open_id: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid), union_id: 标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id), user_id: 标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id), 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
+	DepartmentIDType *DepartmentIDType               `query:"department_id_type" json:"-"` // 此次调用中使用的部门ID的类型, 示例值: open_department_id, 可选值有: department_id: 以自定义department_id来标识部门, open_department_id: 以open_department_id来标识部门, 默认值: `open_department_id`
 	Name             *string                         `json:"name,omitempty"`               // 用户名, 示例值: "张三", 最小长度: `1` 字符
 	EnName           *string                         `json:"en_name,omitempty"`            // 英文名, 示例值: "San Zhang"
 	Nickname         *string                         `json:"nickname,omitempty"`           // 别名, 示例值: "Alex Zhang"
@@ -85,7 +85,7 @@ type UpdateUserPatchReq struct {
 	IsFrozen         *bool                           `json:"is_frozen,omitempty"`          // 是否暂停用户, 示例值: false
 	JobLevelID       *string                         `json:"job_level_id,omitempty"`       // 职级ID, 示例值: "mga5oa8ayjlp9rb"
 	JobFamilyID      *string                         `json:"job_family_id,omitempty"`      // 序列ID, 示例值: "mga5oa8ayjlp9rb"
-	SubscriptionIDs  []string                        `json:"subscription_ids,omitempty"`   // 分配给用户的席位ID列表, 需开通“分配用户席位”权限。可通过下方接口获取到该租户的可用席位ID, 参见[获取企业席位信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/tenant-v2/tenant-product_assign_info/query), 示例值: ["7079609167680782300"]
+	SubscriptionIDs  []string                        `json:"subscription_ids,omitempty"`   // 分配给用户的席位ID列表, 需开通“分配用户席位”权限。可通过下方接口获取到该租户的可用席位ID, 参见[获取企业席位信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/tenant-v2/tenant-product_assign_info/query), 示例值: ["23213213213123123"]
 }
 
 // UpdateUserPatchReqCustomAttr ...
@@ -145,7 +145,7 @@ type UpdateUserPatchRespUser struct {
 	WorkStation     string                               `json:"work_station,omitempty"`      // 工位, 字段权限要求（满足任一）: 以应用身份读取通讯录, 获取用户受雇信息, 以应用身份访问通讯录, 读取通讯录
 	JoinTime        int64                                `json:"join_time,omitempty"`         // 入职时间, 时间戳格式, 表示从1970年1月1日开始所经过的秒数, 字段权限要求（满足任一）: 以应用身份读取通讯录, 获取用户受雇信息, 以应用身份访问通讯录, 读取通讯录
 	IsTenantManager bool                                 `json:"is_tenant_manager,omitempty"` // 是否是租户超级管理员, 字段权限要求（满足任一）: 以应用身份读取通讯录, 获取用户受雇信息, 以应用身份访问通讯录, 读取通讯录
-	EmployeeNo      string                               `json:"employee_no,omitempty"`       // 工号, 字段权限要求（满足任一）: 以应用身份读取通讯录, 获取用户受雇信息, 以应用身份访问通讯录, 读取通讯录
+	EmployeeNo      string                               `json:"employee_no,omitempty"`       // 工号, 字段权限要求（满足任一）: 获取用户受雇信息, 查看成员工号, 以应用身份读取通讯录, 以应用身份访问通讯录, 读取通讯录
 	EmployeeType    int64                                `json:"employee_type,omitempty"`     // 员工类型, 可选值有: `1`: 正式员工, `2`: 实习生, `3`: 外包, `4`: 劳务, `5`: 顾问, 同时可读取到自定义员工类型的 int 值, 可通过下方接口获取到该租户的自定义员工类型的名称, 参见[获取人员类型](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/employee_type_enum/list), 字段权限要求（满足任一）: 以应用身份读取通讯录, 获取用户受雇信息, 以应用身份访问通讯录, 读取通讯录
 	Orders          []*UpdateUserPatchRespUserOrder      `json:"orders,omitempty"`            // 用户排序信息, 用于标记通讯录下组织架构的人员顺序, 人员可能存在多个部门中, 且有不同的排序, 字段权限要求（满足任一）: 以应用身份读取通讯录, 获取用户组织架构信息, 以应用身份访问通讯录, 读取通讯录
 	CustomAttrs     []*UpdateUserPatchRespUserCustomAttr `json:"custom_attrs,omitempty"`      // 自定义字段, 请确保你的组织管理员已在管理后台/组织架构/成员字段管理/自定义字段管理/全局设置中开启了“允许开放平台 API 调用“, 否则该字段不会生效/返回, 更多详情参见[用户接口相关问题](https://open.feishu.cn/document/ugTN1YjL4UTN24CO1UjN/uQzN1YjL0cTN24CN3UjN#77061525), 字段权限要求（满足任一）: 以应用身份读取通讯录, 获取用户受雇信息, 以应用身份访问通讯录, 读取通讯录
