@@ -315,6 +315,18 @@ func Test_Approval_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
+			cli.Mock().MockApprovalGetApprovalExternalApproval(func(ctx context.Context, request *lark.GetApprovalExternalApprovalReq, options ...lark.MethodOptionFunc) (*lark.GetApprovalExternalApprovalResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockApprovalGetApprovalExternalApproval()
+
+			_, _, err := moduleCli.GetApprovalExternalApproval(ctx, &lark.GetApprovalExternalApprovalReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
 			cli.Mock().MockApprovalCreateApprovalExternalInstance(func(ctx context.Context, request *lark.CreateApprovalExternalInstanceReq, options ...lark.MethodOptionFunc) (*lark.CreateApprovalExternalInstanceResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -624,6 +636,15 @@ func Test_Approval_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
+			_, _, err := moduleCli.GetApprovalExternalApproval(ctx, &lark.GetApprovalExternalApprovalReq{
+				ApprovalCode: "x",
+			})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+
 			_, _, err := moduleCli.CreateApprovalExternalInstance(ctx, &lark.CreateApprovalExternalInstanceReq{})
 			as.NotNil(err)
 			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
@@ -875,6 +896,15 @@ func Test_Approval_Sample_Failed(t *testing.T) {
 		t.Run("", func(t *testing.T) {
 
 			_, _, err := moduleCli.CreateApprovalExternalApproval(ctx, &lark.CreateApprovalExternalApprovalReq{})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.GetApprovalExternalApproval(ctx, &lark.GetApprovalExternalApprovalReq{
+				ApprovalCode: "x",
+			})
 			as.NotNil(err)
 			as.Equal("fake raw request", err.Error())
 		})

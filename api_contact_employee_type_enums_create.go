@@ -67,7 +67,7 @@ type CreateEmployeeTypeEnumReq struct {
 // CreateEmployeeTypeEnumReqI18nContent ...
 type CreateEmployeeTypeEnumReqI18nContent struct {
 	Locale *string `json:"locale,omitempty"` // 语言版本, 示例值: "zh_cn"
-	Value  *string `json:"value,omitempty"`  // 字段名, 示例值: "专家"
+	Value  *string `json:"value,omitempty"`  // 字段名, 示例值: "专家（中文）"
 }
 
 // CreateEmployeeTypeEnumResp ...

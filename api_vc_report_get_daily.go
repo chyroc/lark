@@ -60,8 +60,8 @@ func (r *Mock) UnMockVCGetVCDailyReport() {
 
 // GetVCDailyReportReq ...
 type GetVCDailyReportReq struct {
-	StartTime string `query:"start_time" json:"-"` // 开始时间（unix时间, 单位sec）, 示例值: "1608888867"
-	EndTime   string `query:"end_time" json:"-"`   // 结束时间（unix时间, 单位sec）, 示例值: "1608888966"
+	StartTime string `query:"start_time" json:"-"` // 开始时间（unix时间, 单位sec）, 示例值: 1608888867
+	EndTime   string `query:"end_time" json:"-"`   // 结束时间（unix时间, 单位sec）, 示例值: 1608888966
 }
 
 // GetVCDailyReportResp ...

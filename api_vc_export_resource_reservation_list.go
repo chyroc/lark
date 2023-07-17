@@ -59,7 +59,7 @@ func (r *Mock) UnMockVCExportVCResourceReservationList() {
 
 // ExportVCResourceReservationListReq ...
 type ExportVCResourceReservationListReq struct {
-	RoomLevelID string   `json:"room_level_id,omitempty"` // 会议室层级id, 示例值: "omm_608d34d82d531b27fa993902d350a307"
+	RoomLevelID string   `json:"room_level_id,omitempty"` // 会议室层级id, 示例值: "omb_57c9cc7d9a81e27e54c8fabfd02759e7"
 	NeedTopic   *bool    `json:"need_topic,omitempty"`    // 是否展示会议主题, 示例值: true
 	StartTime   string   `json:"start_time,omitempty"`    // 查询开始时间（unix时间, 单位sec）, 示例值: "1655276858"
 	EndTime     string   `json:"end_time,omitempty"`      // 查询结束时间（unix时间, 单位sec）, 示例值: "1655276858"

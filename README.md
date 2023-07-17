@@ -38,7 +38,7 @@ https://godoc.org/github.com/chyroc/lark
 
 ## Support APIs
 
-API Count: 876, Event Count: 124
+API Count: 882, Event Count: 124
 
 <details>
   <summary>
@@ -147,6 +147,7 @@ API Count: 876, Event Count: 124
   - DeleteApprovalComment
   - RemoveApprovalComment
   - CreateApprovalExternalApproval
+  - GetApprovalExternalApproval
   - CreateApprovalExternalInstance
   - CheckApprovalExternalInstance
   - GetApprovalExternalList
@@ -434,6 +435,7 @@ API Count: 876, Event Count: 124
   - GetCoreHRJobData
   - GetCoreHRJobDataList
   - GetCoreHRDepartmentParentList
+  - SearchCoreHRDepartment
   - CreateCoreHRDepartment
   - DeleteCoreHRDepartment
   - UpdateCoreHRDepartment
@@ -956,6 +958,8 @@ API Count: 876, Event Count: 124
   - CreateMessagePin
   - DeleteMessagePin
   - GetMessagePinList
+  - GetMessageSpecialFocusList
+  - GetMessageSpecialFocusUnread
 - Mina
   - MinaCodeToSession
 - Minutes
@@ -1068,6 +1072,8 @@ API Count: 876, Event Count: 124
   - UpdateVCReserveConfigForm
   - GetVCReserveConfigAdmin
   - UpdateVCReserveConfigAdmin
+  - GetVCReserveConfigDisableInform
+  - UpdateVCReserveConfigDisableInform
   - ExportVCMeetingList
   - ExportVCParticipantList
   - ExportVCParticipantQualityList

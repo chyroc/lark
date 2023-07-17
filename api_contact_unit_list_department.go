@@ -58,9 +58,9 @@ func (r *Mock) UnMockContactGetContactUnitDepartmentList() {
 
 // GetContactUnitDepartmentListReq ...
 type GetContactUnitDepartmentListReq struct {
-	UnitID           string            `query:"unit_id" json:"-"`            // 单位ID, 示例值: "BU121"
-	DepartmentIDType *DepartmentIDType `query:"department_id_type" json:"-"` // 此次调用中预获取的部门ID的类型, 示例值: "open_department_id", 可选值有: department_id: 以自定义department_id来标识部门, open_department_id: 以open_department_id来标识部门, 默认值: `open_department_id`
-	PageToken        *string           `query:"page_token" json:"-"`         // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果, 示例值: "AQD9/Rn9eij9Pm39ED40/dk53s4Ebp882DYfFaPFbz00L4CMZJrqGdzNyc8BcZtDbwVUvRmQTvyMYicnGWrde9X56TgdBuS+JKiSIkdexPw="
+	UnitID           string            `query:"unit_id" json:"-"`            // 单位ID, 示例值: BU121
+	DepartmentIDType *DepartmentIDType `query:"department_id_type" json:"-"` // 此次调用中预获取的部门ID的类型, 示例值: open_department_id, 可选值有: department_id: 以自定义department_id来标识部门, open_department_id: 以open_department_id来标识部门, 默认值: `open_department_id`
+	PageToken        *string           `query:"page_token" json:"-"`         // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果, 示例值: AQD9/Rn9eij9Pm39ED40/dk53s4Ebp882DYfFaPFbz00L4CMZJrqGdzNyc8BcZtDbwVUvRmQTvyMYicnGWrde9X56TgdBuS+JKiSIkdexPw=
 	PageSize         *int64            `query:"page_size" json:"-"`          // 分页大小, 示例值: 50, 默认值: `50`, 最大值: `100`
 }
 

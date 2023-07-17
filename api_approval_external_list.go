@@ -63,11 +63,11 @@ func (r *Mock) UnMockApprovalGetApprovalExternalList() {
 
 // GetApprovalExternalListReq ...
 type GetApprovalExternalListReq struct {
-	PageSize      *int64   `query:"page_size" json:"-"`      // 分页大小, 示例值: 100, 最大值: `500`
-	PageToken     *string  `query:"page_token" json:"-"`     // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果, 示例值: "nF1ZXJ5VGhlbkZldGNoCgAAAAAA6PZwFmUzSldvTC1yU"
-	ApprovalCodes []string `json:"approval_codes,omitempty"` // 审批定义 Code, 用于指定只获取这些定义下的数据, 示例值: B7B65FFE-C2GC-452F-9F0F-9AA8352363D6, 最大长度: `20`
-	InstanceIDs   []string `json:"instance_ids,omitempty"`   // 审批实例 ID, 用于指定只获取这些实例下的数据, 最多支持 20 个, 示例值: oa_159160304
-	UserIDs       []string `json:"user_ids,omitempty"`       // 审批人 user_id, 用于指定只获取这些用户的数据, 示例值: 112321
+	PageSize      *int64   `query:"page_size" json:"-"`      // 分页大小, 示例值: 100, 默认值: `50`, 最大值: `500`
+	PageToken     *string  `query:"page_token" json:"-"`     // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果, 示例值: nF1ZXJ5VGhlbkZldGNoCgAAAAAA6PZwFmUzSldvTC1yU
+	ApprovalCodes []string `json:"approval_codes,omitempty"` // 审批定义 Code, 用于指定只获取这些定义下的数据, 示例值: ["E78F1022-A166-447C-8320-E151DA90D70F"], 最大长度: `20`
+	InstanceIDs   []string `json:"instance_ids,omitempty"`   // 审批实例 ID, 用于指定只获取这些实例下的数据, 最多支持 20 个, 示例值: ["oa_159160304"]
+	UserIDs       []string `json:"user_ids,omitempty"`       // 审批人 user_id, 用于指定只获取这些用户的数据, 示例值: ["112321"]
 	Status        *string  `json:"status,omitempty"`         // 审批任务状态, 用于指定获取该状态下的数据, 示例值: "PENDING", 可选值有: PENDING: 审批中, APPROVED: 审批流程结束, 结果为同意, REJECTED: 审批流程结束, 结果为拒绝, TRANSFERRED: 任务转交, DONE: 任务通过但审批人未操作；审批人看不到这个任务, 若想要看到, 可以通过抄送该人.
 }
 

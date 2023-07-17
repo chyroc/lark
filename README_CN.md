@@ -38,7 +38,7 @@ https://godoc.org/github.com/chyroc/lark
 
 ## 支持的接口
 
-API 总数: 876, 事件总数: 124
+API 总数: 882, 事件总数: 124
 
 <details>
   <summary>
@@ -147,6 +147,7 @@ API 总数: 876, 事件总数: 124
   - DeleteApprovalComment
   - RemoveApprovalComment
   - CreateApprovalExternalApproval
+  - GetApprovalExternalApproval
   - CreateApprovalExternalInstance
   - CheckApprovalExternalInstance
   - GetApprovalExternalList
@@ -434,6 +435,7 @@ API 总数: 876, 事件总数: 124
   - GetCoreHRJobData
   - GetCoreHRJobDataList
   - GetCoreHRDepartmentParentList
+  - SearchCoreHRDepartment
   - CreateCoreHRDepartment
   - DeleteCoreHRDepartment
   - UpdateCoreHRDepartment
@@ -956,6 +958,8 @@ API 总数: 876, 事件总数: 124
   - CreateMessagePin
   - DeleteMessagePin
   - GetMessagePinList
+  - GetMessageSpecialFocusList
+  - GetMessageSpecialFocusUnread
 - Mina
   - MinaCodeToSession
 - Minutes
@@ -1068,6 +1072,8 @@ API 总数: 876, 事件总数: 124
   - UpdateVCReserveConfigForm
   - GetVCReserveConfigAdmin
   - UpdateVCReserveConfigAdmin
+  - GetVCReserveConfigDisableInform
+  - UpdateVCReserveConfigDisableInform
   - ExportVCMeetingList
   - ExportVCParticipantList
   - ExportVCParticipantQualityList

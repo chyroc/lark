@@ -114,7 +114,7 @@ type SetVCScopeConfigReqScopeConfigRoomBoxDigitalSignageMaterial struct {
 	Duration     *int64  `json:"duration,omitempty"`      // 播放时长（单位sec）, 取值1~43200, 示例值: 15
 	Cover        *string `json:"cover,omitempty"`         // 素材封面url, 示例值: "url"
 	Md5          *string `json:"md5,omitempty"`           // 素材文件md5, 示例值: "md5"
-	Vid          *string `json:"vid,omitempty"`           // 素材文件vid, 示例值: "vid"
+	Vid          *string `json:"vid,omitempty"`           // 素材文件vid, 示例值: "v039b2g10000ca89uj3c77u5pfdkfvpg"
 	Size         *string `json:"size,omitempty"`          // 素材文件大小（单位byte）, 示例值: "100"
 }
 

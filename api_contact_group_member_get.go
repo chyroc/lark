@@ -60,9 +60,9 @@ func (r *Mock) UnMockContactGetContactGroupMember() {
 type GetContactGroupMemberReq struct {
 	GroupID      string  `path:"group_id" json:"-"`        // 用户组ID, 示例值: "g128187"
 	PageSize     *int64  `query:"page_size" json:"-"`      // 分页大小, 示例值: 50, 默认值: `50`, 最大值: `100`
-	PageToken    *string `query:"page_token" json:"-"`     // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果, 示例值: "AQD9/Rn9eij9Pm39ED40/dk53s4Ebp882DYfFaPFbz00L4CMZJrqGdzNyc8BcZtDbwVUvRmQTvyMYicnGWrde9X56TgdBuS+JKiSIkdexPw="
-	MemberIDType *IDType `query:"member_id_type" json:"-"` // 欲获取成员ID类型, 当member_type=user时候, member_id_type表示user_id_type, 枚举值open_id, union_id和user_id, 当member_type=department时候, member_id_type表示department_id_type, 枚举值open_id和department_id, 示例值: "open_id", 可选值有: open_id: member_type =user时候, 表示用户的open_id, union_id: member_type =user时候, 表示用户的union_id, user_id: member_type =user时候, 表示用户的user_id, department_id: member_type=department时候, 表示部门的department_id, 默认值: `open_id`
-	MemberType   *string `query:"member_type" json:"-"`    // 欲获取的用户组成员类型, 示例值: "user", 可选值有: user: 用户。返回归属于该用户组的用户列表, department: 部门。返回归属于该用户组的部门列表, 默认值: `user`
+	PageToken    *string `query:"page_token" json:"-"`     // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果, 示例值: AQD9/Rn9eij9Pm39ED40/dk53s4Ebp882DYfFaPFbz00L4CMZJrqGdzNyc8BcZtDbwVUvRmQTvyMYicnGWrde9X56TgdBuS+JKiSIkdexPw=
+	MemberIDType *IDType `query:"member_id_type" json:"-"` // 欲获取成员ID类型, 当member_type=user时候, member_id_type表示user_id_type, 枚举值open_id, union_id和user_id, 当member_type=department时候, member_id_type表示department_id_type, 枚举值open_id和department_id, 示例值: open_id, 可选值有: open_id: member_type =user时候, 表示用户的open_id, union_id: member_type =user时候, 表示用户的union_id, user_id: member_type =user时候, 表示用户的user_id, department_id: member_type=department时候, 表示部门的department_id, 默认值: `open_id`
+	MemberType   *string `query:"member_type" json:"-"`    // 欲获取的用户组成员类型, 示例值: user, 可选值有: user: 用户。返回归属于该用户组的用户列表, department: 部门。返回归属于该用户组的部门列表, 默认值: `user`
 }
 
 // GetContactGroupMemberResp ...

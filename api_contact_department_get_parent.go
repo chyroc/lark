@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// GetParentDepartment 该接口用来递归获取部门父部门的信息, 并按照由子到父的顺序返回有权限的父部门信息列表。
+// GetParentDepartment 该接口用来递归获取部门父部门的信息, 并按照由子到父的顺序返回有权限的父部门信息列表（不包含根部门）。
 //
 // 使用`tenant_access_token`时, 该接口只返回可见性范围内的父部门信息。
 // 例如: A >>B>>C>>D四级部门, 通讯录权限只到B, 那么查询D部门的parent, 会返回B和C两级部门。
