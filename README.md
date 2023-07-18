@@ -38,7 +38,7 @@ https://godoc.org/github.com/chyroc/lark
 
 ## Support APIs
 
-API Count: 882, Event Count: 124
+API Count: 886, Event Count: 124
 
 <details>
   <summary>
@@ -378,6 +378,10 @@ API Count: 882, Event Count: 124
   - UpdateContactJobFamily
   - GetContactJobFamily
   - GetContactJobFamilyList
+  - GetContactJobTitle
+  - GetContactJobTitleList
+  - GetContactWorkCity
+  - GetContactWorkCityList
   - GetEmployeeTypeEnumList
   - UpdateEmployeeTypeEnumPatch
   - DeleteEmployeeTypeEnum

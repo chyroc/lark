@@ -38,7 +38,7 @@ https://godoc.org/github.com/chyroc/lark
 
 ## 支持的接口
 
-API 总数: 882, 事件总数: 124
+API 总数: 886, 事件总数: 124
 
 <details>
   <summary>
@@ -378,6 +378,10 @@ API 总数: 882, 事件总数: 124
   - UpdateContactJobFamily
   - GetContactJobFamily
   - GetContactJobFamilyList
+  - GetContactJobTitle
+  - GetContactJobTitleList
+  - GetContactWorkCity
+  - GetContactWorkCityList
   - GetEmployeeTypeEnumList
   - UpdateEmployeeTypeEnumPatch
   - DeleteEmployeeTypeEnum
