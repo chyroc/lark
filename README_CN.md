@@ -38,7 +38,7 @@ https://godoc.org/github.com/chyroc/lark
 
 ## 支持的接口
 
-API 总数: 886, 事件总数: 124
+API 总数: 887, 事件总数: 124
 
 <details>
   <summary>
@@ -326,7 +326,6 @@ API 总数: 886, 事件总数: 124
   - SortChatMenuTree
   - GetChatMenuTree
 - Contact
-  - SearchUserOld
   - CreateUser
   - DeleteUser
   - ResurrectUser
@@ -338,6 +337,8 @@ API 总数: 886, 事件总数: 124
   - UpdateUser
   - BatchGetUserByID
   - BatchGetUserByIDOld
+  - SearchUserOld
+  - UpdateUserID
   - CreateDepartment
   - GetDepartment
   - BatchGetDepartment

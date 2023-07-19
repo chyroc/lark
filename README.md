@@ -38,7 +38,7 @@ https://godoc.org/github.com/chyroc/lark
 
 ## Support APIs
 
-API Count: 886, Event Count: 124
+API Count: 887, Event Count: 124
 
 <details>
   <summary>
@@ -326,7 +326,6 @@ API Count: 886, Event Count: 124
   - SortChatMenuTree
   - GetChatMenuTree
 - Contact
-  - SearchUserOld
   - CreateUser
   - DeleteUser
   - ResurrectUser
@@ -338,6 +337,8 @@ API Count: 886, Event Count: 124
   - UpdateUser
   - BatchGetUserByID
   - BatchGetUserByIDOld
+  - SearchUserOld
+  - UpdateUserID
   - CreateDepartment
   - GetDepartment
   - BatchGetDepartment

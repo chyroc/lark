@@ -51,18 +51,6 @@ func Test_Contact_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
-			cli.Mock().MockContactSearchUserOld(func(ctx context.Context, request *lark.SearchUserOldReq, options ...lark.MethodOptionFunc) (*lark.SearchUserOldResp, *lark.Response, error) {
-				return nil, nil, fmt.Errorf("mock-failed")
-			})
-			defer cli.Mock().UnMockContactSearchUserOld()
-
-			_, _, err := moduleCli.SearchUserOld(ctx, &lark.SearchUserOldReq{})
-			as.NotNil(err)
-			as.Equal(err.Error(), "mock-failed")
-		})
-
-		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockContactCreateUser(func(ctx context.Context, request *lark.CreateUserReq, options ...lark.MethodOptionFunc) (*lark.CreateUserResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -189,6 +177,30 @@ func Test_Contact_Sample_Failed(t *testing.T) {
 			defer cli.Mock().UnMockContactBatchGetUserByIDOld()
 
 			_, _, err := moduleCli.BatchGetUserByIDOld(ctx, &lark.BatchGetUserByIDOldReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			cli.Mock().MockContactSearchUserOld(func(ctx context.Context, request *lark.SearchUserOldReq, options ...lark.MethodOptionFunc) (*lark.SearchUserOldResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockContactSearchUserOld()
+
+			_, _, err := moduleCli.SearchUserOld(ctx, &lark.SearchUserOldReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			cli.Mock().MockContactUpdateUserID(func(ctx context.Context, request *lark.UpdateUserIDReq, options ...lark.MethodOptionFunc) (*lark.UpdateUserIDResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockContactUpdateUserID()
+
+			_, _, err := moduleCli.UpdateUserID(ctx, &lark.UpdateUserIDReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "mock-failed")
 		})
@@ -897,13 +909,6 @@ func Test_Contact_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
-			_, _, err := moduleCli.SearchUserOld(ctx, &lark.SearchUserOldReq{})
-			as.NotNil(err)
-			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
-		})
-
-		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.CreateUser(ctx, &lark.CreateUserReq{})
 			as.NotNil(err)
 			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
@@ -985,6 +990,22 @@ func Test_Contact_Sample_Failed(t *testing.T) {
 		t.Run("", func(t *testing.T) {
 
 			_, _, err := moduleCli.BatchGetUserByIDOld(ctx, &lark.BatchGetUserByIDOldReq{})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.SearchUserOld(ctx, &lark.SearchUserOldReq{})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.UpdateUserID(ctx, &lark.UpdateUserIDReq{
+				UserID: "x",
+			})
 			as.NotNil(err)
 			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
 		})
@@ -1473,13 +1494,6 @@ func Test_Contact_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
-			_, _, err := moduleCli.SearchUserOld(ctx, &lark.SearchUserOldReq{})
-			as.NotNil(err)
-			as.Equal("fake raw request", err.Error())
-		})
-
-		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.CreateUser(ctx, &lark.CreateUserReq{})
 			as.NotNil(err)
 			as.Equal("fake raw request", err.Error())
@@ -1561,6 +1575,22 @@ func Test_Contact_Sample_Failed(t *testing.T) {
 		t.Run("", func(t *testing.T) {
 
 			_, _, err := moduleCli.BatchGetUserByIDOld(ctx, &lark.BatchGetUserByIDOldReq{})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.SearchUserOld(ctx, &lark.SearchUserOldReq{})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.UpdateUserID(ctx, &lark.UpdateUserIDReq{
+				UserID: "x",
+			})
 			as.NotNil(err)
 			as.Equal("fake raw request", err.Error())
 		})
