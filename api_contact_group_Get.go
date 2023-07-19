@@ -58,7 +58,9 @@ func (r *Mock) UnMockContactGetContactGroup() {
 
 // GetContactGroupReq ...
 type GetContactGroupReq struct {
-	GroupID string `path:"group_id" json:"-"` // 用户组ID, 示例值: "g193821"
+	GroupID          string            `path:"group_id" json:"-"`            // 用户组ID, 示例值: "g193821"
+	UserIDType       *IDType           `query:"user_id_type" json:"-"`       // 用户 ID 类型, 示例值: open_id, 可选值有: open_id: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid), union_id: 标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id), user_id: 标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id), 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
+	DepartmentIDType *DepartmentIDType `query:"department_id_type" json:"-"` // 此次调用中使用的部门ID的类型, 示例值: open_department_id, 可选值有: open_department_id: 以open_department_id来标识部门, department_id: 以自定义department_id来标识部门
 }
 
 // GetContactGroupResp ...
@@ -68,11 +70,39 @@ type GetContactGroupResp struct {
 
 // GetContactGroupRespGroup ...
 type GetContactGroupRespGroup struct {
-	ID                    string `json:"id,omitempty"`                      // 用户组ID
-	Name                  string `json:"name,omitempty"`                    // 用户组名字
-	Description           string `json:"description,omitempty"`             // 用户组描述
-	MemberUserCount       int64  `json:"member_user_count,omitempty"`       // 用户组成员中用户的数量
-	MemberDepartmentCount int64  `json:"member_department_count,omitempty"` // 普通用户组成员中部门的数量, 动态用户组成员中没有部门。
+	ID                    string                                    `json:"id,omitempty"`                      // 用户组ID
+	Name                  string                                    `json:"name,omitempty"`                    // 用户组名字
+	Description           string                                    `json:"description,omitempty"`             // 用户组描述
+	MemberUserCount       int64                                     `json:"member_user_count,omitempty"`       // 用户组成员中用户的数量
+	MemberDepartmentCount int64                                     `json:"member_department_count,omitempty"` // 普通用户组成员中部门的数量, 动态用户组成员中没有部门。
+	Type                  int64                                     `json:"type,omitempty"`                    // 用户组的类型, 可选值有: 1: 普通用户组, 2: 动态用户组
+	DynamicGroupRule      *GetContactGroupRespGroupDynamicGroupRule `json:"dynamic_group_rule,omitempty"`      // 动态用户组的规则
+	VisibleScope          *GetContactGroupRespGroupVisibleScope     `json:"visible_scope,omitempty"`           // 用户组指定可见范围
+	DepartmentScopeList   []string                                  `json:"department_scope_list,omitempty"`   // 部门范围
+}
+
+// GetContactGroupRespGroupDynamicGroupRule ...
+type GetContactGroupRespGroupDynamicGroupRule struct {
+	DepartmentLevel string                                                `json:"department_level,omitempty"` // 动态用户组匹配部门层级, 可选值有: recursive: 递归, 匹配部门包括下级部门, non_recursive: 非递归, 匹配部门不包括下级部门
+	Expressions     []*GetContactGroupRespGroupDynamicGroupRuleExpression `json:"expressions,omitempty"`      // 动态用户组规则表达式
+	JoinerRule      string                                                `json:"joiner_rule,omitempty"`      // 动态用户组表达式组合关系
+	GroupStatus     string                                                `json:"group_status,omitempty"`     // 动态用户组计算状态, 只读, 创建、更新用户组时不需要填写, 可选值有: completed: 计算完成, failure: 计算失败, creating: 创建中, updating: 更新中
+}
+
+// GetContactGroupRespGroupDynamicGroupRuleExpression ...
+type GetContactGroupRespGroupDynamicGroupRuleExpression struct {
+	Field    string   `json:"field,omitempty"`    // 动态用户组表达式的左值, 属性名称
+	Operator string   `json:"operator,omitempty"` // 操作符, 表示左值进行什么操作
+	Value    string   `json:"value,omitempty"`    // 值, 单个结果, 用于单值运算, 比如: 等于操作
+	Values   []string `json:"values,omitempty"`   // 值, 多个结果, 用于多值操作, 比如属于
+}
+
+// GetContactGroupRespGroupVisibleScope ...
+type GetContactGroupRespGroupVisibleScope struct {
+	VisibleScopeType   string   `json:"visible_scope_type,omitempty"`  // 可见范围的 id 类型, 包用户、部门两类, 可选值有: invisible: 所有人不可见, public: 所有人可见, group_member_visible: 组内成员可见, specified_scope_visible: 指定可见范围的成员可见
+	VisibleUsers       []string `json:"visible_users,omitempty"`       // 指定可见用户组的用户 ID列表
+	VisibleDepartments []string `json:"visible_departments,omitempty"` // 指定可见用户组的部门 ID 列表
+	SceneTypes         []int64  `json:"scene_types,omitempty"`         // 用户组可用范围
 }
 
 // getContactGroupResp ...

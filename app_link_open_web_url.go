@@ -26,7 +26,7 @@ import (
 // 用户在端内点击这类applink，不必跳转外部浏览器，可以直接在聊天的侧边栏、或飞书的独立窗口中打开指定的网页。
 // 可以配置这类applink在消息卡片的“查看详情”跳转上，使用户连贯地消费消息中的详情内容。
 //
-// ![image.png](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/761f68be5274fea59bf8145489633c88_Z6KZ6NyGCh.png?lazyload=true&width=1649&height=962)
+// ![image.png](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/761f68be5274fea59bf8145489633c88_Z6KZ6NyGCh.png?height=962&lazyload=true&width=1649)
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/uYjL24iN/applink-protocol/supported-protocol/open-the-web-view-in-feishu-to-access-the-specified-url
 // new doc: https://open.feishu.cn/document/common-capabilities/applink-protocol/supported-protocol/open-the-web-view-in-feishu-to-access-the-specified-url

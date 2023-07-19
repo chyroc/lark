@@ -58,18 +58,18 @@ func (r *Mock) UnMockContactGetContactMemberGroupList() {
 
 // GetContactMemberGroupListReq ...
 type GetContactMemberGroupListReq struct {
-	MemberID     string  `query:"member_id" json:"-"`      // 成员ID, 示例值: "u287xj12"
-	MemberIDType *IDType `query:"member_id_type" json:"-"` // 成员ID类型, 示例值: "open_id", 可选值有: open_id: member_id_type为user时, 表示用户的open_id, union_id: member_id_type为user时, 表示用户的union_id, user_id: member_id_type为user时, 表示用户的user_id, 默认值: `open_id`
+	MemberID     string  `query:"member_id" json:"-"`      // 成员ID, 示例值: u287xj12
+	MemberIDType *IDType `query:"member_id_type" json:"-"` // 成员ID类型, 示例值: open_id, 可选值有: open_id: member_id_type为user时, 表示用户的open_id, union_id: member_id_type为user时, 表示用户的union_id, user_id: member_id_type为user时, 表示用户的user_id, 默认值: `open_id`
 	GroupType    *int64  `query:"group_type" json:"-"`     // 欲获取的用户组类型, 示例值: 1, 可选值有: 1: 普通用户组, 2: 动态用户组, 取值范围: `1` ～ `2`
 	PageSize     *int64  `query:"page_size" json:"-"`      // 分页查询大小, 示例值: 500, 默认值: `500`, 取值范围: `1` ～ `1000`
-	PageToken    *string `query:"page_token" json:"-"`     // 分页查询Token, 示例值: "AQD9/Rn9eij9Pm39ED40/dk53s4Ebp882DYfFaPFbz00L4CMZJrqGdzNyc8BcZtDbwVUvRmQTvyMYicnGWrde9X56TgdBuS+JKiSIkdexPw="
+	PageToken    *string `query:"page_token" json:"-"`     // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果, 示例值: AQD9/Rn9eij9Pm39ED40/dk53s4Ebp882DYfFaPFbz00L4CMZJrqGdzNyc8BcZtDbwVUvRmQTvyMYicnGWrde9X56TgdBuS+JKiSIkdexPw=
 }
 
 // GetContactMemberGroupListResp ...
 type GetContactMemberGroupListResp struct {
 	GroupList []string `json:"group_list,omitempty"` // 用户组ID列表
-	PageToken string   `json:"page_token,omitempty"` // 分页查询Token
-	HasMore   bool     `json:"has_more,omitempty"`   // 是否有更多结果
+	PageToken string   `json:"page_token,omitempty"` // 分页标记, 当 has_more 为 true 时, 会同时返回新的 page_token, 否则不返回 page_token
+	HasMore   bool     `json:"has_more,omitempty"`   // 是否还有更多项
 }
 
 // getContactMemberGroupListResp ...

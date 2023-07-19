@@ -58,8 +58,8 @@ func (r *Mock) UnMockContactGetContactGroupList() {
 
 // GetContactGroupListReq ...
 type GetContactGroupListReq struct {
-	PageSize  *int64  `query:"page_size" json:"-"`  // 分页大小, 示例值: 50, 最大值: `100`
-	PageToken *string `query:"page_token" json:"-"` // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果, 示例值: "AQD9/Rn9eij9Pm39ED40/dk53s4Ebp882DYfFaPFbz00L4CMZJrqGdzNyc8BcZtDbwVUvRmQTvyMYicnGWrde9X56TgdBuS+JKiSIkdexPw="
+	PageSize  *int64  `query:"page_size" json:"-"`  // 分页大小, 示例值: 50, 默认值: `50`, 最大值: `100`
+	PageToken *string `query:"page_token" json:"-"` // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果, 示例值: AQD9/Rn9eij9Pm39ED40/dk53s4Ebp882DYfFaPFbz00L4CMZJrqGdzNyc8BcZtDbwVUvRmQTvyMYicnGWrde9X56TgdBuS+JKiSIkdexPw=
 	Type      *int64  `query:"type" json:"-"`       // 用户组类型, 示例值: 1, 可选值有: 1: 普通用户组, 2: 动态用户组, 默认值: `1`
 }
 
@@ -72,11 +72,14 @@ type GetContactGroupListResp struct {
 
 // GetContactGroupListRespGroup ...
 type GetContactGroupListRespGroup struct {
-	ID                    string `json:"id,omitempty"`                      // 用户组ID
-	Name                  string `json:"name,omitempty"`                    // 用户组名字
-	Description           string `json:"description,omitempty"`             // 用户组描述
-	MemberUserCount       int64  `json:"member_user_count,omitempty"`       // 用户组成员中用户的数量
-	MemberDepartmentCount int64  `json:"member_department_count,omitempty"` // 普通用户组成员中部门的数量, 动态用户组成员中没有部门。
+	ID                    string   `json:"id,omitempty"`                      // 用户组ID
+	Name                  string   `json:"name,omitempty"`                    // 用户组名字
+	Description           string   `json:"description,omitempty"`             // 用户组描述
+	MemberUserCount       int64    `json:"member_user_count,omitempty"`       // 用户组成员中用户的数量
+	MemberDepartmentCount int64    `json:"member_department_count,omitempty"` // 普通用户组成员中部门的数量, 动态用户组成员中没有部门。
+	Type                  int64    `json:"type,omitempty"`                    // 用户组的类型, 可选值有: 1: 普通用户组, 2: 动态用户组
+	DepartmentScopeList   []string `json:"department_scope_list,omitempty"`   // 部门范围
+	GroupID               string   `json:"group_id,omitempty"`                // 自定义用户组ID
 }
 
 // getContactGroupListResp ...
