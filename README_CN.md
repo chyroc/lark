@@ -38,7 +38,7 @@ https://godoc.org/github.com/chyroc/lark
 
 ## 支持的接口
 
-API 总数: 887, 事件总数: 124
+API 总数: 890, 事件总数: 124
 
 <details>
   <summary>
@@ -120,6 +120,7 @@ API 总数: 887, 事件总数: 124
   - GetApplicationVersionContactsRangeSuggest
   - UpdateApplicationVersion
   - UpdateApplication
+  - GetApplicationUsageDepartmentOverview
   - GetApplicationUsageOverview
   - GetApplicationUsageTrend
   - UpdateApplicationFeedback
@@ -525,6 +526,8 @@ API 总数: 887, 事件总数: 124
   - BatchDeleteDocxBlock
   - GetDocxBlockListOfBlock
   - SubscribeDriveFile
+  - UnsubscribeDriveFile
+  - GetSubscribeDriveFile
   - SearchDriveFile
   - DeleteDriveSheetFile
   - GetDriveFolderChildren

@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// SetSheetStyle 该接口用于根据 spreadsheetToken 、range 和样式信息更新单元格样式；单次写入不超过5000行, 100列。
+// SetSheetStyle 该接口用于根据 spreadsheetToken 、range 和样式信息更新单元格样式；单次写入不超过5000行, 100列。建议在设置边框样式时, 每次更新的单元格数量不要超过30000个。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/ukjMzUjL5IzM14SOyMTN
 // new doc: https://open.feishu.cn/document/server-docs/docs/sheets-v3/data-operation/set-cell-style

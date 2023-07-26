@@ -99,6 +99,7 @@ type BatchGetUserRespItem struct {
 	EnterpriseEmail string                                `json:"enterprise_email,omitempty"`  // 企业邮箱, 请先确保已在管理后台启用飞书邮箱服务, 创建用户时, 企业邮箱的使用方式参见[用户接口相关问题](https://open.feishu.cn/document/ugTN1YjL4UTN24CO1UjN/uQzN1YjL0cTN24CN3UjN#77061525), 字段权限要求（满足任一）: 以应用身份读取通讯录, 获取用户受雇信息, 以应用身份访问通讯录, 读取通讯录
 	JobTitle        string                                `json:"job_title,omitempty"`         // 职务, 字段权限要求（满足任一）: 以应用身份读取通讯录, 获取用户受雇信息, 以应用身份访问通讯录, 读取通讯录
 	IsFrozen        bool                                  `json:"is_frozen,omitempty"`         // 是否冻结用户
+	Geo             string                                `json:"geo,omitempty"`               // 数据驻留地, 字段权限要求: 查看成员数据驻留地
 	JobLevelID      string                                `json:"job_level_id,omitempty"`      // 职级ID, 字段权限要求: 查询用户职级
 	JobFamilyID     string                                `json:"job_family_id,omitempty"`     // 序列ID, 字段权限要求: 查询用户所属的工作序列
 	SubscriptionIDs []string                              `json:"subscription_ids,omitempty"`  // 分配给用户的席位ID列表, 字段权限要求: 分配用户席位

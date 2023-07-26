@@ -81,7 +81,8 @@ type GetHireTalentRespTalent struct {
 	LanguageList              []*GetHireTalentRespTalentLanguage              `json:"language_list,omitempty"`               // 语言能力
 	SnsList                   []*GetHireTalentRespTalentSns                   `json:"sns_list,omitempty"`                    // 社交账号
 	ResumeSourceList          []*GetHireTalentRespTalentResumeSource          `json:"resume_source_list,omitempty"`          // 简历来源
-	InterviewRegistrationList []*GetHireTalentRespTalentInterviewRegistration `json:"interview_registration_list,omitempty"` // 面试登记表
+	InterviewRegistrationList []*GetHireTalentRespTalentInterviewRegistration `json:"interview_registration_list,omitempty"` // 面试登记表, 推荐使用 registration_list 字段获取完整登记表列表
+	RegistrationList          []*GetHireTalentRespTalentRegistration          `json:"registration_list,omitempty"`           // 登记表列表
 	ResumeAttachmentIDList    []string                                        `json:"resume_attachment_id_list,omitempty"`   // 简历附件id列表（按照简历创建时间降序）
 	CustomizedDataList        []*GetHireTalentRespTalentCustomizedData        `json:"customized_data_list,omitempty"`        // 自定义模块
 	TopDegree                 int64                                           `json:"top_degree,omitempty"`                  // 最高学历, 可选值有: 1: 小学, 2: 初中, 3: 专职, 4: 高中, 5: 大专, 6: 本科, 7: 硕士, 8: 博士, 9: 其他
@@ -572,6 +573,14 @@ type GetHireTalentRespTalentProjectCustomizedDataValueOptionName struct {
 type GetHireTalentRespTalentProjectCustomizedDataValueTimeRange struct {
 	StartTime string `json:"start_time,omitempty"` // 开始时间
 	EndTime   string `json:"end_time,omitempty"`   // 结束时间, 当值为至今时, 返回「-」
+}
+
+// GetHireTalentRespTalentRegistration ...
+type GetHireTalentRespTalentRegistration struct {
+	ID               string `json:"id,omitempty"`                // ID
+	RegistrationTime int64  `json:"registration_time,omitempty"` // 创建时间
+	DownloadURL      string `json:"download_url,omitempty"`      // 下载链接
+	Scenario         int64  `json:"scenario,omitempty"`          // 登记表场景, 可选值有: 5: 面试登记表, 6: 入职登记表, 14: 信息更新登记表
 }
 
 // GetHireTalentRespTalentResumeSource ...

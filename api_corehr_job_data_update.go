@@ -78,7 +78,7 @@ type UpdateCoreHRJobDataReq struct {
 	EffectiveTime            *string                                      `json:"effective_time,omitempty"`              // 生效时间, 示例值: "2020-05-01 00:00:00"
 	ExpirationTime           *string                                      `json:"expiration_time,omitempty"`             // 失效时间, 示例值: "2020-05-02 00:00:00"
 	JobFamilyID              *string                                      `json:"job_family_id,omitempty"`               // 职务序列 ID, 枚举值及详细信息可通过【查询单个职务序列】接口查询获得, 示例值: "1245678"
-	AssignmentStartReason    *UpdateCoreHRJobDataReqAssignmentStartReason `json:"assignment_start_reason,omitempty"`     // 任职原因, 枚举值可通过文档[【飞书人事枚举常量】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)任职原因（assignment_start_reason）枚举定义部分获得, 示例值: onboarding
+	AssignmentStartReason    *UpdateCoreHRJobDataReqAssignmentStartReason `json:"assignment_start_reason,omitempty"`     // 任职原因, 枚举值可通过文档[【飞书人事枚举常量】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant) 任职原因（assignment_start_reason）枚举定义部分获得。请注意, 「任职原因」不允许填写为「onboarding」, 当上一个任职版本的「任职原因」为「onboarding」时, 「任职原因」必填。
 	ProbationExpectedEndDate *string                                      `json:"probation_expected_end_date,omitempty"` // 预计试用期结束日期, 示例值: "2006-01-02"
 	DirectManagerID          *string                                      `json:"direct_manager_id,omitempty"`           // 实线主管的任职记录ID, 示例值: "6890452208593372679"
 	DottedLineManagerIDList  []string                                     `json:"dotted_line_manager_id_list,omitempty"` // 虚线主管的任职记录ID, 示例值: ["6890452208593372681"]
@@ -89,7 +89,7 @@ type UpdateCoreHRJobDataReq struct {
 
 // UpdateCoreHRJobDataReqAssignmentStartReason ...
 type UpdateCoreHRJobDataReqAssignmentStartReason struct {
-	EnumName string `json:"enum_name,omitempty"` // 枚举值, 示例值: "type_1"
+	EnumName string `json:"enum_name,omitempty"` // 枚举值, 示例值: "job_status_change"
 }
 
 // UpdateCoreHRJobDataReqCostCenterRate ...

@@ -34,5 +34,14 @@ type EventV2CorehrJobDataChangedV1Handler func(ctx context.Context, cli *Lark, s
 
 // EventV2CorehrJobDataChangedV1 ...
 type EventV2CorehrJobDataChangedV1 struct {
-	JobDataID string `json:"job_data_id,omitempty"` // 主对象ID
+	JobDataID    string                                     `json:"job_data_id,omitempty"`    // 任职信息 ID
+	EmploymentID string                                     `json:"employment_id,omitempty"`  // 员工雇佣 ID
+	TargetUserID *EventV2CorehrJobDataChangedV1TargetUserID `json:"target_user_id,omitempty"` // 用户 ID
+}
+
+// EventV2CorehrJobDataChangedV1TargetUserID ...
+type EventV2CorehrJobDataChangedV1TargetUserID struct {
+	UnionID string `json:"union_id,omitempty"` // 用户的 union id
+	UserID  string `json:"user_id,omitempty"`  // 用户的 user id, 字段权限要求: 获取用户 user ID
+	OpenID  string `json:"open_id,omitempty"`  // 用户的 open id
 }

@@ -23,7 +23,7 @@ import (
 
 // GetContactCustomAttrList 获取企业自定义的用户字段配置信息
 //
-// 此接口仅返回字段来源为通用信息的字段, 如字段来源标注为人事的字段不会返回。
+// 此接口仅返回字段来源为“通用信息”的字段, 如字段来源标注为“人事”的字段不会返回。
 // 调用该接口前, 需要先确认[企业管理员](https://www.feishu.cn/hc/zh-CN/articles/360049067822)在[企业管理后台 - 组织架构 - 成员字段管理](http://www.feishu.cn/admin/contacts/employee-field-new/custom) 自定义字段管理栏开启了“允许开放平台API调用“。
 // ![通讯录.gif](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/544738c94f13ef0b9ebaff53a5133cc7_E9EGMkXyzX.gif)
 //

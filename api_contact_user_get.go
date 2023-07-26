@@ -98,10 +98,11 @@ type GetUserRespUser struct {
 	CustomAttrs     []*GetUserRespUserCustomAttr     `json:"custom_attrs,omitempty"`      // 自定义字段, 请确保你的组织管理员已在管理后台/组织架构/成员字段管理/自定义字段管理/全局设置中开启了“允许开放平台 API 调用“, 否则该字段不会生效/返回, 更多详情参见[用户接口相关问题](https://open.feishu.cn/document/ugTN1YjL4UTN24CO1UjN/uQzN1YjL0cTN24CN3UjN#77061525), 字段权限要求（满足任一）: 以应用身份读取通讯录, 获取用户受雇信息, 以应用身份访问通讯录, 读取通讯录
 	EnterpriseEmail string                           `json:"enterprise_email,omitempty"`  // 企业邮箱, 请先确保已在管理后台启用飞书邮箱服务, 创建用户时, 企业邮箱的使用方式参见[用户接口相关问题](https://open.feishu.cn/document/ugTN1YjL4UTN24CO1UjN/uQzN1YjL0cTN24CN3UjN#77061525), 字段权限要求（满足任一）: 以应用身份读取通讯录, 获取用户受雇信息, 以应用身份访问通讯录, 读取通讯录
 	JobTitle        string                           `json:"job_title,omitempty"`         // 职务, 字段权限要求（满足任一）: 以应用身份读取通讯录, 获取用户受雇信息, 以应用身份访问通讯录, 读取通讯录
+	Geo             string                           `json:"geo,omitempty"`               // 数据驻留地, 字段权限要求: 查看成员数据驻留地
 	JobLevelID      string                           `json:"job_level_id,omitempty"`      // 职级ID, 字段权限要求: 查询用户职级
 	JobFamilyID     string                           `json:"job_family_id,omitempty"`     // 序列ID, 字段权限要求: 查询用户所属的工作序列
 	AssignInfo      []*GetUserRespUserAssignInfo     `json:"assign_info,omitempty"`       // 用户席位列表, 字段权限要求: 查询用户席位信息
-	DepartmentPath  []*GetUserRespUserDepartmentPath `json:"department_path,omitempty"`   // 部门路径, 字段权限要求: 获取成员所在部门路径
+	DepartmentPath  []*GetUserRespUserDepartmentPath `json:"department_path,omitempty"`   // 部门路径。此字段需要使用`user_access_token`获取, 字段权限要求: 获取成员所在部门路径
 }
 
 // GetUserRespUserAssignInfo ...

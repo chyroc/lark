@@ -87,7 +87,8 @@ type CreateHireJobReq struct {
 	AddressIDList                 []string                          `json:"address_id_list,omitempty"`                  // 工作地点列表, 枚举通过接口「获取地址列表」获取, 选择地点用途为「职位地址」, 与「address_id」必填其一, 同时使用则以当前字段为准, 推荐使用当前字段, 示例值: ["7243965681799839748"]
 	JobAttribute                  *int64                            `json:"job_attribute,omitempty"`                    // 职位属性, 1是实体职位, 2是虚拟职位, 示例值: 1, 可选值有: 1: 实体职位, 2: 虚拟职位
 	ExpiryTimestamp               *string                           `json:"expiry_timestamp,omitempty"`                 // 到期日期的毫秒时间戳, 如果「是否长期有效」字段选择true, 则不会实际使用该字段的值, 职位为长期有效, 示例值: "1622484739955"
-	InterviewRegistrationSchemaID *string                           `json:"interview_registration_schema_id,omitempty"` // 面试登记表ID, 当在飞书招聘「设置 - 面试登记表使用设置 - 面试登记表使用方式」中选择「全部职位应用同一登记表」时, 「职位设置」下的面试登记表不生效；选择「HR 按职位选择登记表」时, 该字段为必填, 示例值: "6930815272790114324"
+	InterviewRegistrationSchemaID *string                           `json:"interview_registration_schema_id,omitempty"` // 面试登记表ID, 当在飞书招聘「设置 - 信息登记表使用设置 - 面试登记表使用方式」中选择「HR 按职位选择登记表」时, 该字段为必填；否则该字段不生效, 示例值: "6930815272790114324"
+	OnboardRegistrationSchemaID   *string                           `json:"onboard_registration_schema_id,omitempty"`   // 入职登记表ID, 当在飞书招聘「设置 - 信息登记表使用设置 - 入职登记表使用方式」中选择「HR 按职位选择登记表」时, 该字段为必填；否则该字段不生效, 示例值: "6930815272790114325"
 }
 
 // CreateHireJobReqCustomizedData ...
@@ -110,6 +111,7 @@ type CreateHireJobResp struct {
 	Job                             *CreateHireJobRespJob                             `json:"job,omitempty"`                                // 职位
 	JobManager                      *CreateHireJobRespJobManager                      `json:"job_manager,omitempty"`                        // 职位负责人
 	InterviewRegistrationSchemaInfo *CreateHireJobRespInterviewRegistrationSchemaInfo `json:"interview_registration_schema_info,omitempty"` // 面试登记表信息
+	OnboardRegistrationSchemaInfo   *CreateHireJobRespOnboardRegistrationSchemaInfo   `json:"onboard_registration_schema_info,omitempty"`   // 入职登记表信息
 }
 
 // CreateHireJobRespDefaultJobPost ...
@@ -119,7 +121,7 @@ type CreateHireJobRespDefaultJobPost struct {
 
 // CreateHireJobRespInterviewRegistrationSchemaInfo ...
 type CreateHireJobRespInterviewRegistrationSchemaInfo struct {
-	SchemaID string `json:"schema_id,omitempty"` // 面试登记表ID
+	SchemaID string `json:"schema_id,omitempty"` // 入职登记表ID
 	Name     string `json:"name,omitempty"`      // 面试登记表名称
 }
 
@@ -300,6 +302,12 @@ type CreateHireJobRespJobSubject struct {
 type CreateHireJobRespJobSubjectName struct {
 	ZhCn string `json:"zh_cn,omitempty"` // 中文
 	EnUs string `json:"en_us,omitempty"` // 英文
+}
+
+// CreateHireJobRespOnboardRegistrationSchemaInfo ...
+type CreateHireJobRespOnboardRegistrationSchemaInfo struct {
+	SchemaID string `json:"schema_id,omitempty"` // 入职登记表ID
+	Name     string `json:"name,omitempty"`      // 入职登记表名称
 }
 
 // createHireJobResp ...

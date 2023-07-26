@@ -23,6 +23,7 @@ import (
 
 // CreateUser 使用该接口向通讯录创建一个用户, 可以理解为员工入职。创建用户后只返回有数据权限的数据。具体的数据权限的与字段的对应关系请参照[应用权限](https://open.feishu.cn/document/ukTMukTMukTM/uQjN3QjL0YzN04CN2cDN)。
 //
+// - 当在[混合license模式](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/tenant-v2/tenant-product_assign_info/query)下, 席位字段为必填。
 // - 新增用户的所有部门必须都在当前应用的通讯录授权范围内才允许新增用户, 如果想要在根部门下新增用户, 必须要有全员权限。
 // - 应用商店应用无权限调用此接口。
 // - 创建用户后, 会给用户发送邀请短信/邮件, 用户在操作同意后才可访问团队。
@@ -87,9 +88,10 @@ type CreateUserReq struct {
 	CustomAttrs      []*CreateUserReqCustomAttr `json:"custom_attrs,omitempty"`       // 自定义字段, 请确保你的组织管理员已在管理后台/组织架构/成员字段管理/自定义字段管理/全局设置中开启了“允许开放平台 API 调用“, 否则该字段不会生效/返回, 更多详情参见[用户接口相关问题](https://open.feishu.cn/document/ugTN1YjL4UTN24CO1UjN/uQzN1YjL0cTN24CN3UjN#77061525)
 	EnterpriseEmail  *string                    `json:"enterprise_email,omitempty"`   // 企业邮箱, 请先确保已在管理后台启用飞书邮箱服务, 创建用户时, 企业邮箱的使用方式参见[用户接口相关问题](https://open.feishu.cn/document/ugTN1YjL4UTN24CO1UjN/uQzN1YjL0cTN24CN3UjN#77061525), 示例值: "demo@mail.com"
 	JobTitle         *string                    `json:"job_title,omitempty"`          // 职务, 示例值: "xxxxx"
+	Geo              *string                    `json:"geo,omitempty"`                // 数据驻留地, 示例值: "cn"
 	JobLevelID       *string                    `json:"job_level_id,omitempty"`       // 职级ID, 示例值: "mga5oa8ayjlp9rb"
 	JobFamilyID      *string                    `json:"job_family_id,omitempty"`      // 序列ID, 示例值: "mga5oa8ayjlp9rb"
-	SubscriptionIDs  []string                   `json:"subscription_ids,omitempty"`   // 分配给用户的席位ID列表, 需开通“分配用户席位”权限。可通过下方接口获取到该租户的可用席位ID, 参见[获取企业席位信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/tenant-v2/tenant-product_assign_info/query), 示例值: ["23213213213123123"]
+	SubscriptionIDs  []string                   `json:"subscription_ids,omitempty"`   // 分配给用户的席位ID列表, 需开通“分配用户席位”权限。可通过下方接口获取到该租户的可用席位ID, 参见[获取企业席位信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/tenant-v2/tenant-product_assign_info/query)。当在混合license模式下, 此字段为必填, 示例值: ["23213213213123123"]
 }
 
 // CreateUserReqCustomAttr ...
@@ -156,6 +158,7 @@ type CreateUserRespUser struct {
 	EnterpriseEmail string                          `json:"enterprise_email,omitempty"`  // 企业邮箱, 请先确保已在管理后台启用飞书邮箱服务, 创建用户时, 企业邮箱的使用方式参见[用户接口相关问题](https://open.feishu.cn/document/ugTN1YjL4UTN24CO1UjN/uQzN1YjL0cTN24CN3UjN#77061525), 字段权限要求（满足任一）: 以应用身份读取通讯录, 获取用户受雇信息, 以应用身份访问通讯录, 读取通讯录
 	JobTitle        string                          `json:"job_title,omitempty"`         // 职务, 字段权限要求（满足任一）: 以应用身份读取通讯录, 获取用户受雇信息, 以应用身份访问通讯录, 读取通讯录
 	IsFrozen        bool                            `json:"is_frozen,omitempty"`         // 是否暂停用户
+	Geo             string                          `json:"geo,omitempty"`               // 数据驻留地, 字段权限要求: 查看成员数据驻留地
 	JobLevelID      string                          `json:"job_level_id,omitempty"`      // 职级ID, 字段权限要求: 查询用户职级
 	JobFamilyID     string                          `json:"job_family_id,omitempty"`     // 序列ID, 字段权限要求: 查询用户所属的工作序列
 }

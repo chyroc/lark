@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// CreateCoreHRJobData 在系统中第一次创建员工任职数据, 通常在员工入职或者做数据批量导入的时候使用, 【任职原因】只支持填写“入职”。
+// CreateCoreHRJobData 在系统中第一次创建员工任职数据, 通常在员工入职或者做数据批量导入的时候使用, 【任职原因】只支持填写“onboarding”。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job_data/create
 // new doc: https://open.feishu.cn/document/server-docs/corehr-v1/employee/job_data/create
@@ -74,7 +74,7 @@ type CreateCoreHRJobDataReq struct {
 	EffectiveTime            string                                       `json:"effective_time,omitempty"`              // 生效时间, 示例值: "2020-05-01 00:00:00"
 	ExpirationTime           *string                                      `json:"expiration_time,omitempty"`             // 失效时间, 示例值: "2020-05-02 00:00:00"
 	JobFamilyID              *string                                      `json:"job_family_id,omitempty"`               // 职务序列 ID, 枚举值及详细信息可通过【查询单个职务序列】接口查询获得, 示例值: "1245678"
-	AssignmentStartReason    *CreateCoreHRJobDataReqAssignmentStartReason `json:"assignment_start_reason,omitempty"`     // 任职原因, 枚举值可通过文档[【飞书人事枚举常量】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)任职原因（assignment_start_reason）枚举定义部分获得, 示例值: onboarding
+	AssignmentStartReason    *CreateCoreHRJobDataReqAssignmentStartReason `json:"assignment_start_reason,omitempty"`     // 任职原因, 枚举值可通过文档[【飞书人事枚举常量】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)任职原因（assignment_start_reason）枚举定义部分获得, 这里只支持填写"onboarding"
 	ProbationExpectedEndDate *string                                      `json:"probation_expected_end_date,omitempty"` // 预计试用期结束日期, 示例值: "2006-01-02"
 	DirectManagerID          *string                                      `json:"direct_manager_id,omitempty"`           // 实线主管的任职记录ID, 示例值: "6890452208593372679"
 	DottedLineManagerIDList  []string                                     `json:"dotted_line_manager_id_list,omitempty"` // 虚线主管的任职记录ID, 示例值: ["6890452208593372681"]
@@ -85,7 +85,7 @@ type CreateCoreHRJobDataReq struct {
 
 // CreateCoreHRJobDataReqAssignmentStartReason ...
 type CreateCoreHRJobDataReqAssignmentStartReason struct {
-	EnumName string `json:"enum_name,omitempty"` // 枚举值, 示例值: "type_1"
+	EnumName string `json:"enum_name,omitempty"` // 枚举值, 示例值: "onboarding"
 }
 
 // CreateCoreHRJobDataReqCostCenterRate ...
