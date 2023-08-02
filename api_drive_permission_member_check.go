@@ -60,8 +60,8 @@ func (r *Mock) UnMockDriveCheckDriveMemberPermission() {
 // CheckDriveMemberPermissionReq ...
 type CheckDriveMemberPermissionReq struct {
 	Token  string `path:"token" json:"-"`   // 文件的 token, 示例值: "doccnBKgoMyY5OMbUG6FioTXuBe"
-	Type   string `query:"type" json:"-"`   // 文件类型, 需要与文件的 token 相匹配, 示例值: "doc", 可选值有: doc: 文档, sheet: 电子表格, file: 云空间文件, wiki: 知识库节点, bitable: 多维表格, docx: 新版文档, mindnote: 思维笔记, minutes: 妙记
-	Action string `query:"action" json:"-"` // 需要判断的权限, 示例值: "view", 可选值有: view: 阅读, edit: 编辑, share: 分享, comment: 评论, export: 导出, copy: 拷贝, print: 打印
+	Type   string `query:"type" json:"-"`   // 文件类型, 需要与文件的 token 相匹配, 示例值: doc, 可选值有: doc: 文档, sheet: 电子表格, file: 云空间文件, wiki: 知识库节点, bitable: 多维表格, docx: 新版文档, mindnote: 思维笔记, minutes: 妙记
+	Action string `query:"action" json:"-"` // 需要判断的权限, 示例值: view, 可选值有: view: 阅读, edit: 编辑, share: 分享, comment: 评论, export: 导出, copy: 拷贝, print: 打印
 }
 
 // CheckDriveMemberPermissionResp ...

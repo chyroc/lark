@@ -60,7 +60,7 @@ func (r *Mock) UnMockDriveUpdateDrivePublicPermission() {
 // UpdateDrivePublicPermissionReq ...
 type UpdateDrivePublicPermissionReq struct {
 	Token           string  `path:"token" json:"-"`              // 文件的 token, 获取方式见 [如何获取云文档资源相关 token](https://open.feishu.cn/document/ukTMukTMukTM/uczNzUjL3czM14yN3MTN#08bb5df6), 示例值: "doccnBKgoMyY5OMbUG6FioTXuBe"
-	Type            string  `query:"type" json:"-"`              // 文件类型, 需要与文件的 token 相匹配, 示例值: "doc", 可选值有: doc: 文档, sheet: 电子表格, file: 云空间文件, wiki: 知识库节点, bitable: 多维表格, docx: 新版文档, mindnote: 思维笔记, minutes: 妙记
+	Type            string  `query:"type" json:"-"`              // 文件类型, 需要与文件的 token 相匹配, 示例值: doc, 可选值有: doc: 文档, sheet: 电子表格, file: 云空间文件, wiki: 知识库节点, bitable: 多维表格, docx: 新版文档, mindnote: 思维笔记, minutes: 妙记
 	ExternalAccess  *bool   `json:"external_access,omitempty"`   // 允许内容被分享到组织外, 示例值: true
 	SecurityEntity  *string `json:"security_entity,omitempty"`   // 谁可以复制内容、创建副本、打印、下载, 示例值: "anyone_can_view", 可选值有: anyone_can_view: 拥有可阅读权限的用户, anyone_can_edit: 拥有可编辑权限的用户, only_full_access: 拥有可管理权限（包括我）的用户
 	CommentEntity   *string `json:"comment_entity,omitempty"`    // 谁可以评论, 示例值: "anyone_can_view", 可选值有: anyone_can_view: 拥有可阅读权限的用户, anyone_can_edit: 拥有可编辑权限的用户

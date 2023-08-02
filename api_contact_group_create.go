@@ -58,38 +58,12 @@ func (r *Mock) UnMockContactCreateContactGroup() {
 
 // CreateContactGroupReq ...
 type CreateContactGroupReq struct {
-	UserIDType          *IDType                                `query:"user_id_type" json:"-"`          // 用户 ID 类型, 示例值: open_id, 可选值有: open_id: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid), union_id: 标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id), user_id: 标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id), 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
-	DepartmentIDType    *DepartmentIDType                      `query:"department_id_type" json:"-"`    // 此次调用中使用的部门ID的类型, 示例值: open_department_id, 可选值有: open_department_id: 以open_department_id来标识部门, department_id: 以自定义department_id来标识部门
-	Name                string                                 `json:"name,omitempty"`                  // 用户组的名字, 企业内唯一, 最大长度: 100 字符, 示例值: "IT 外包组"
-	Description         *string                                `json:"description,omitempty"`           // 用户组描述, 示例值: "IT服务人员的集合"
-	Type                *int64                                 `json:"type,omitempty"`                  // 用户组的类型。默认为1表示普通用户组, 示例值: 1, 可选值有: 1: 普通用户组, 2: 动态用户组
-	DynamicGroupRule    *CreateContactGroupReqDynamicGroupRule `json:"dynamic_group_rule,omitempty"`    // 动态用户组的动态圈人匹配规则, 动态用户组动态圈人规则详见[动态用户组资源介绍](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/group/overview)
-	VisibleScope        *CreateContactGroupReqVisibleScope     `json:"visible_scope,omitempty"`         // 用户组指定可见范围
-	DepartmentScopeList []string                               `json:"department_scope_list,omitempty"` // 部门范围, 示例值: ["od-4e6ac4d14bcd5071a37a39de902c7141"]
-	GroupID             *string                                `json:"group_id,omitempty"`              // 自定义用户组ID, 可在创建时自定义, 不自定义则由系统自动生成, 已创建用户组不允许修改 group_id, 自定义group_id 最大长度: 64 字符, 校验规则: 数字、大小写字母的组合, 不能包含空格, 示例值: "g122817"
-}
-
-// CreateContactGroupReqDynamicGroupRule ...
-type CreateContactGroupReqDynamicGroupRule struct {
-	DepartmentLevel *string                                            `json:"department_level,omitempty"` // 动态用户组匹配部门层级, 示例值: "recursive", 可选值有: recursive: 递归, 匹配部门包括下级部门, non_recursive: 非递归, 匹配部门不包括下级部门
-	Expressions     []*CreateContactGroupReqDynamicGroupRuleExpression `json:"expressions,omitempty"`      // 动态用户组规则表达式
-	JoinerRule      *string                                            `json:"joiner_rule,omitempty"`      // 动态用户组表达式组合关系, 示例值: "1"
-}
-
-// CreateContactGroupReqDynamicGroupRuleExpression ...
-type CreateContactGroupReqDynamicGroupRuleExpression struct {
-	Field    *string  `json:"field,omitempty"`    // 动态用户组表达式的左值, 属性名称, 示例值: "user.name"
-	Operator *string  `json:"operator,omitempty"` // 操作符, 表示左值进行什么操作, 示例值: "-eq"
-	Value    *string  `json:"value,omitempty"`    // 值, 单个结果, 用于单值运算, 比如: 等于操作, 示例值: "value"
-	Values   []string `json:"values,omitempty"`   // 值, 多个结果, 用于多值操作, 比如属于, 示例值: ["value"]
-}
-
-// CreateContactGroupReqVisibleScope ...
-type CreateContactGroupReqVisibleScope struct {
-	VisibleScopeType   *string  `json:"visible_scope_type,omitempty"`  // 可见范围的 id 类型, 包用户、部门两类, 示例值: "specified_scope_visible", 可选值有: invisible: 所有人不可见, public: 所有人可见, group_member_visible: 组内成员可见, specified_scope_visible: 指定可见范围的成员可见
-	VisibleUsers       []string `json:"visible_users,omitempty"`       // 指定可见用户组的用户 ID列表, 示例值: ["ou_7dab8a3d3cdcc9da365777c7ad535d62"]
-	VisibleDepartments []string `json:"visible_departments,omitempty"` // 指定可见用户组的部门 ID 列表, 示例值: ["od-4e6ac4d14bcd5071a37a39de902c7141"]
-	SceneTypes         []int64  `json:"scene_types,omitempty"`         // 用户组可用范围, 示例值: [1]
+	UserIDType       *IDType           `query:"user_id_type" json:"-"`       // 用户 ID 类型, 示例值: open_id, 可选值有: open_id: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid), union_id: 标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id), user_id: 标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id), 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
+	DepartmentIDType *DepartmentIDType `query:"department_id_type" json:"-"` // 此次调用中使用的部门ID的类型, 示例值: open_department_id, 可选值有: open_department_id: 以open_department_id来标识部门, department_id: 以自定义department_id来标识部门
+	Name             string            `json:"name,omitempty"`               // 用户组的名字, 企业内唯一, 最大长度: 100 字符, 示例值: "IT 外包组"
+	Description      *string           `json:"description,omitempty"`        // 用户组描述, 示例值: "IT服务人员的集合"
+	Type             *int64            `json:"type,omitempty"`               // 用户组的类型。默认为1表示普通用户组, 示例值: 1, 可选值有: 1: 普通用户组, 2: 动态用户组
+	GroupID          *string           `json:"group_id,omitempty"`           // 自定义用户组ID, 可在创建时自定义, 不自定义则由系统自动生成, 已创建用户组不允许修改 group_id, 自定义group_id 最大长度: 64 字符, 校验规则: 数字、大小写字母的组合, 不能包含空格, 示例值: "g122817"
 }
 
 // CreateContactGroupResp ...

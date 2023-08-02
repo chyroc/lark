@@ -63,7 +63,7 @@ type GetBitableTableFormFieldListReq struct {
 	TableID   string  `path:"table_id" json:"-"`    // 表格 ID, 示例值: "tblxI2tWaxP5dG7p"
 	FormID    string  `path:"form_id" json:"-"`     // 表单 ID, 示例值: "vewTpR1urY"
 	PageSize  *int64  `query:"page_size" json:"-"`  // 分页大小, 示例值: 10, 最大值: `100`
-	PageToken *string `query:"page_token" json:"-"` // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果, 示例值: "vewTpR1urY"
+	PageToken *string `query:"page_token" json:"-"` // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果, 示例值: vewTpR1urY
 }
 
 // GetBitableTableFormFieldListResp ...

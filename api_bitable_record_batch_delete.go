@@ -61,7 +61,7 @@ func (r *Mock) UnMockBitableBatchDeleteBitableRecord() {
 type BatchDeleteBitableRecordReq struct {
 	AppToken string   `path:"app_token" json:"-"` // base app token, 示例值: "appbcbWCzen6D8dezhoCH2RpMAh"
 	TableID  string   `path:"table_id" json:"-"`  // table id, 示例值: "tblsRc9GRRXKqhvW"
-	Records  []string `json:"records,omitempty"`  // 删除的多条记录id列表, 示例值: ["recIcJBbvC", "recvmiCORa"]
+	Records  []string `json:"records,omitempty"`  // 删除的多条记录id列表, 示例值: ["recwNXzPQv"]
 }
 
 // BatchDeleteBitableRecordResp ...

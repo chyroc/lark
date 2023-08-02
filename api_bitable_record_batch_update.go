@@ -61,36 +61,14 @@ func (r *Mock) UnMockBitableBatchUpdateBitableRecord() {
 type BatchUpdateBitableRecordReq struct {
 	AppToken   string                               `path:"app_token" json:"-"`     // base app token, 示例值: "appbcbWCzen6D8dezhoCH2RpMAh"
 	TableID    string                               `path:"table_id" json:"-"`      // table id, 示例值: "tblsRc9GRRXKqhvW"
-	UserIDType *IDType                              `query:"user_id_type" json:"-"` // 用户 ID 类型, 示例值: "open_id", 可选值有: open_id: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid), union_id: 标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id), user_id: 标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id), 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
+	UserIDType *IDType                              `query:"user_id_type" json:"-"` // 用户 ID 类型, 示例值: open_id, 可选值有: open_id: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid), union_id: 标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id), user_id: 标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id), 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
 	Records    []*BatchUpdateBitableRecordReqRecord `json:"records,omitempty"`      // 记录
 }
 
 // BatchUpdateBitableRecordReqRecord ...
 type BatchUpdateBitableRecordReqRecord struct {
-	RecordID         *string                                          `json:"record_id,omitempty"`          // 一条记录的唯一标识 id [record_id 参数说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/bitable/notification#15d8db94), 示例值: "recqwIwhc6"
-	CreatedBy        *BatchUpdateBitableRecordReqRecordCreatedBy      `json:"created_by,omitempty"`         // 该记录的创建人
-	CreatedTime      *int64                                           `json:"created_time,omitempty"`       // 该记录的创建时间, 示例值: 1610281603
-	LastModifiedBy   *BatchUpdateBitableRecordReqRecordLastModifiedBy `json:"last_modified_by,omitempty"`   // 该记录最新一次更新的修改人
-	LastModifiedTime *int64                                           `json:"last_modified_time,omitempty"` // 该记录最近一次的更新时间, 示例值: 1610281603
-	Fields           map[string]interface{}                           `json:"fields,omitempty"`             // 数据表的字段, 即数据表的列, 当前接口支持的字段类型请参考[接入指南](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/bitable/notification#31f78a3c), 不同类型字段的数据结构请参考[数据结构概述](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/bitable/development-guide/bitable-structure), 示例值: {"多行文本":"HelloWorld"}
-}
-
-// BatchUpdateBitableRecordReqRecordCreatedBy ...
-type BatchUpdateBitableRecordReqRecordCreatedBy struct {
-	ID        *string `json:"id,omitempty"`         // 用户id, id类型等于user_id_type所指定的类型, 示例值: "testesttest"
-	Name      *string `json:"name,omitempty"`       // 用户的中文名称, 示例值: "黄泡泡"
-	EnName    *string `json:"en_name,omitempty"`    // 用户的英文名称, 示例值: "Paopao Huang"
-	Email     *string `json:"email,omitempty"`      // 用户的邮箱, 示例值: "huangpaopao@feishu.cn"
-	AvatarURL *string `json:"avatar_url,omitempty"` // 头像链接, 示例值: "https://example.com/avatar"
-}
-
-// BatchUpdateBitableRecordReqRecordLastModifiedBy ...
-type BatchUpdateBitableRecordReqRecordLastModifiedBy struct {
-	ID        *string `json:"id,omitempty"`         // 用户id, id类型等于user_id_type所指定的类型, 示例值: "testesttest"
-	Name      *string `json:"name,omitempty"`       // 用户的中文名称, 示例值: "黄泡泡"
-	EnName    *string `json:"en_name,omitempty"`    // 用户的英文名称, 示例值: "Paopao Huang"
-	Email     *string `json:"email,omitempty"`      // 用户的邮箱, 示例值: "huangpaopao@feishu.cn"
-	AvatarURL *string `json:"avatar_url,omitempty"` // 头像链接, 示例值: "https://example.com/avatar"
+	RecordID *string                `json:"record_id,omitempty"` // 一条记录的唯一标识 id [record_id 参数说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/bitable/notification#15d8db94), 示例值: "recqwIwhc6"
+	Fields   map[string]interface{} `json:"fields,omitempty"`    // 数据表的字段, 即数据表的列, 当前接口支持的字段类型请参考[接入指南](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/bitable/notification#31f78a3c), 不同类型字段的数据结构请参考[数据结构概述](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/bitable/development-guide/bitable-structure), 示例值: {"多行文本":"HelloWorld"}
 }
 
 // BatchUpdateBitableRecordResp ...

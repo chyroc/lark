@@ -63,8 +63,8 @@ func (r *Mock) UnMockDriveGetDriveMemberPermissionList() {
 // GetDriveMemberPermissionListReq ...
 type GetDriveMemberPermissionListReq struct {
 	Token  string  `path:"token" json:"-"`   // 文件的 token, 获取方式见 [如何获取云文档资源相关 token](https://open.feishu.cn/document/ukTMukTMukTM/uczNzUjL3czM14yN3MTN#08bb5df6), 示例值: "doccnBKgoMyY5OMbUG6FioTXuBe"
-	Type   string  `query:"type" json:"-"`   // 文件类型, 需要与文件的 token 相匹配, 示例值: "doc", 可选值有: doc: 文档, sheet: 电子表格, file: 云空间文件, wiki: 知识库节点, bitable: 多维表格, docx: 新版文档, mindnote: 思维笔记, minutes: 妙记
-	Fields *string `query:"fields" json:"-"` // 指定返回的协作者字段信息, 如无指定则默认不返回, 可选值有: `name`: 协作者名, `type`: 协作者类型, `avatar`: 头像, `external_label`: 外部标签, 注意: 你可以使用特殊值`*`指定返回目前支持的所有字段, 你可以使用`, `分隔若干个你想指定返回的字段, 如: `name, avatar`, 按需指定返回字段接口性能更好, 示例值: "*"
+	Type   string  `query:"type" json:"-"`   // 文件类型, 需要与文件的 token 相匹配, 示例值: doc, 可选值有: doc: 文档, sheet: 电子表格, file: 云空间文件, wiki: 知识库节点, bitable: 多维表格, docx: 新版文档, mindnote: 思维笔记, minutes: 妙记
+	Fields *string `query:"fields" json:"-"` // 指定返回的协作者字段信息, 如无指定则默认不返回, 可选值有: `name`: 协作者名, `type`: 协作者类型, `avatar`: 头像, `external_label`: 外部标签, 注意: 你可以使用特殊值`*`指定返回目前支持的所有字段, 你可以使用`, `分隔若干个你想指定返回的字段, 如: `name, avatar`, 按需指定返回字段接口性能更好, 示例值: *
 }
 
 // GetDriveMemberPermissionListResp ...

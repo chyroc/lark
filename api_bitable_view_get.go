@@ -79,8 +79,9 @@ type GetBitableViewRespView struct {
 
 // GetBitableViewRespViewProperty ...
 type GetBitableViewRespViewProperty struct {
-	FilterInfo   *GetBitableViewRespViewPropertyFilterInfo `json:"filter_info,omitempty"`   // 过滤条件
-	HiddenFields []string                                  `json:"hidden_fields,omitempty"` // 隐藏字段ID列表
+	FilterInfo      *GetBitableViewRespViewPropertyFilterInfo      `json:"filter_info,omitempty"`      // 过滤条件
+	HiddenFields    []string                                       `json:"hidden_fields,omitempty"`    // 隐藏字段ID列表
+	HierarchyConfig *GetBitableViewRespViewPropertyHierarchyConfig `json:"hierarchy_config,omitempty"` // 表格视图层级结构设置
 }
 
 // GetBitableViewRespViewPropertyFilterInfo ...
@@ -97,6 +98,11 @@ type GetBitableViewRespViewPropertyFilterInfoCondition struct {
 	Value       string `json:"value,omitempty"`        // 筛选值
 	ConditionID string `json:"condition_id,omitempty"` // 过滤条件的唯一ID
 	FieldType   string `json:"field_type,omitempty"`   // 用于过滤的字段类型
+}
+
+// GetBitableViewRespViewPropertyHierarchyConfig ...
+type GetBitableViewRespViewPropertyHierarchyConfig struct {
+	FieldID string `json:"field_id,omitempty"` // 层级结构的关联列id
 }
 
 // getBitableViewResp ...

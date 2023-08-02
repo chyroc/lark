@@ -89,17 +89,29 @@ type CreateBitableTableReqTableFieldDescription struct {
 
 // CreateBitableTableReqTableFieldProperty ...
 type CreateBitableTableReqTableFieldProperty struct {
-	Options           []*CreateBitableTableReqTableFieldPropertyOption   `json:"options,omitempty"`            // 单选、多选字段的选项信息
-	Formatter         *string                                            `json:"formatter,omitempty"`          // 数字、公式字段的显示格式, 示例值: "0"
-	DateFormatter     *string                                            `json:"date_formatter,omitempty"`     // 日期、创建时间、最后更新时间字段的显示格式, 示例值: "日期格式"
-	AutoFill          *bool                                              `json:"auto_fill,omitempty"`          // 日期字段中新纪录自动填写创建时间, 示例值: false
-	Multiple          *bool                                              `json:"multiple,omitempty"`           // 人员字段中允许添加多个成员, 单向关联、双向关联中允许添加多个记录, 示例值: false
-	TableID           *string                                            `json:"table_id,omitempty"`           // 单向关联、双向关联字段中关联的数据表的id, 示例值: "tblsRc9GRRXKqhvW"
-	TableName         *string                                            `json:"table_name,omitempty"`         // 单向关联、双向关联字段中关联的数据表的名字, 示例值: ""table2""
-	BackFieldName     *string                                            `json:"back_field_name,omitempty"`    // 双向关联字段中关联的数据表中对应的双向关联字段的名字, 示例值: ""table1-双向关联""
-	AutoSerial        *CreateBitableTableReqTableFieldPropertyAutoSerial `json:"auto_serial,omitempty"`        // 自动编号类型
-	Location          *CreateBitableTableReqTableFieldPropertyLocation   `json:"location,omitempty"`           // 地理位置输入方式
-	FormulaExpression *string                                            `json:"formula_expression,omitempty"` // 公式字段的表达式, 示例值: "bitable::$table[tblNj92WQBAasdEf].$field[fldMV60rYs]*2"
+	Options           []*CreateBitableTableReqTableFieldPropertyOption         `json:"options,omitempty"`            // 单选、多选字段的选项信息
+	Formatter         *string                                                  `json:"formatter,omitempty"`          // 数字、公式字段的显示格式, 示例值: "0"
+	DateFormatter     *string                                                  `json:"date_formatter,omitempty"`     // 日期、创建时间、最后更新时间字段的显示格式, 示例值: "日期格式"
+	AutoFill          *bool                                                    `json:"auto_fill,omitempty"`          // 日期字段中新纪录自动填写创建时间, 示例值: false
+	Multiple          *bool                                                    `json:"multiple,omitempty"`           // 人员字段中允许添加多个成员, 单向关联、双向关联中允许添加多个记录, 示例值: false
+	TableID           *string                                                  `json:"table_id,omitempty"`           // 单向关联、双向关联字段中关联的数据表的id, 示例值: "tblsRc9GRRXKqhvW"
+	TableName         *string                                                  `json:"table_name,omitempty"`         // 单向关联、双向关联字段中关联的数据表的名字, 示例值: ""table2""
+	BackFieldName     *string                                                  `json:"back_field_name,omitempty"`    // 双向关联字段中关联的数据表中对应的双向关联字段的名字, 示例值: ""table1-双向关联""
+	AutoSerial        *CreateBitableTableReqTableFieldPropertyAutoSerial       `json:"auto_serial,omitempty"`        // 自动编号类型
+	Location          *CreateBitableTableReqTableFieldPropertyLocation         `json:"location,omitempty"`           // 地理位置输入方式
+	FormulaExpression *string                                                  `json:"formula_expression,omitempty"` // 公式字段的表达式, 示例值: "bitable::$table[tblNj92WQBAasdEf].$field[fldMV60rYs]*2"
+	AllowedEditModes  *CreateBitableTableReqTableFieldPropertyAllowedEditModes `json:"allowed_edit_modes,omitempty"` // 字段支持的编辑模式
+	Min               *float64                                                 `json:"min,omitempty"`                // 进度、评分等字段的数据范围最小值, 示例值: 0
+	Max               *float64                                                 `json:"max,omitempty"`                // 进度、评分等字段的数据范围最大值, 示例值: 10
+	RangeCustomize    *bool                                                    `json:"range_customize,omitempty"`    // 进度等字段是否支持自定义范围, 示例值: true
+	CurrencyCode      *string                                                  `json:"currency_code,omitempty"`      // 货币币种, 示例值: "CNY"
+	Rating            *CreateBitableTableReqTableFieldPropertyRating           `json:"rating,omitempty"`             // 评分字段的相关设置
+}
+
+// CreateBitableTableReqTableFieldPropertyAllowedEditModes ...
+type CreateBitableTableReqTableFieldPropertyAllowedEditModes struct {
+	Manual *bool `json:"manual,omitempty"` // 是否允许手动录入, 示例值: true
+	Scan   *bool `json:"scan,omitempty"`   // 是否允许移动端录入, 示例值: true
 }
 
 // CreateBitableTableReqTableFieldPropertyAutoSerial ...
@@ -124,6 +136,11 @@ type CreateBitableTableReqTableFieldPropertyOption struct {
 	Name  *string `json:"name,omitempty"`  // 选项名, 示例值: "红色"
 	ID    *string `json:"id,omitempty"`    // 选项 ID, 创建时不允许指定 ID, 示例值: "optKl35lnG"
 	Color *int64  `json:"color,omitempty"` // 选项颜色, 示例值: 0, 取值范围: `0` ～ `54`
+}
+
+// CreateBitableTableReqTableFieldPropertyRating ...
+type CreateBitableTableReqTableFieldPropertyRating struct {
+	Symbol *string `json:"symbol,omitempty"` // 评分字段的符号展示, 示例值: "star"
 }
 
 // CreateBitableTableResp ...

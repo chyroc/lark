@@ -23,6 +23,8 @@ import (
 
 // UpdateUserPatch 该接口用于更新通讯录中用户的字段, 未传递的参数不会更新。
 //
+// 变更department_ids、is_frozen时限制调用频率为1QPS。
+//
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/patch
 // new doc: https://open.feishu.cn/document/server-docs/contact-v3/user/patch
 func (r *ContactService) UpdateUserPatch(ctx context.Context, request *UpdateUserPatchReq, options ...MethodOptionFunc) (*UpdateUserPatchResp, *Response, error) {

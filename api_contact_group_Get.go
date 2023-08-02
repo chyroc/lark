@@ -70,39 +70,12 @@ type GetContactGroupResp struct {
 
 // GetContactGroupRespGroup ...
 type GetContactGroupRespGroup struct {
-	ID                    string                                    `json:"id,omitempty"`                      // 用户组ID
-	Name                  string                                    `json:"name,omitempty"`                    // 用户组名字
-	Description           string                                    `json:"description,omitempty"`             // 用户组描述
-	MemberUserCount       int64                                     `json:"member_user_count,omitempty"`       // 用户组成员中用户的数量
-	MemberDepartmentCount int64                                     `json:"member_department_count,omitempty"` // 普通用户组成员中部门的数量, 动态用户组成员中没有部门。
-	Type                  int64                                     `json:"type,omitempty"`                    // 用户组的类型, 可选值有: 1: 普通用户组, 2: 动态用户组
-	DynamicGroupRule      *GetContactGroupRespGroupDynamicGroupRule `json:"dynamic_group_rule,omitempty"`      // 动态用户组的规则
-	VisibleScope          *GetContactGroupRespGroupVisibleScope     `json:"visible_scope,omitempty"`           // 用户组指定可见范围
-	DepartmentScopeList   []string                                  `json:"department_scope_list,omitempty"`   // 部门范围
-}
-
-// GetContactGroupRespGroupDynamicGroupRule ...
-type GetContactGroupRespGroupDynamicGroupRule struct {
-	DepartmentLevel string                                                `json:"department_level,omitempty"` // 动态用户组匹配部门层级, 可选值有: recursive: 递归, 匹配部门包括下级部门, non_recursive: 非递归, 匹配部门不包括下级部门
-	Expressions     []*GetContactGroupRespGroupDynamicGroupRuleExpression `json:"expressions,omitempty"`      // 动态用户组规则表达式
-	JoinerRule      string                                                `json:"joiner_rule,omitempty"`      // 动态用户组表达式组合关系
-	GroupStatus     string                                                `json:"group_status,omitempty"`     // 动态用户组计算状态, 只读, 创建、更新用户组时不需要填写, 可选值有: completed: 计算完成, failure: 计算失败, creating: 创建中, updating: 更新中
-}
-
-// GetContactGroupRespGroupDynamicGroupRuleExpression ...
-type GetContactGroupRespGroupDynamicGroupRuleExpression struct {
-	Field    string   `json:"field,omitempty"`    // 动态用户组表达式的左值, 属性名称
-	Operator string   `json:"operator,omitempty"` // 操作符, 表示左值进行什么操作
-	Value    string   `json:"value,omitempty"`    // 值, 单个结果, 用于单值运算, 比如: 等于操作
-	Values   []string `json:"values,omitempty"`   // 值, 多个结果, 用于多值操作, 比如属于
-}
-
-// GetContactGroupRespGroupVisibleScope ...
-type GetContactGroupRespGroupVisibleScope struct {
-	VisibleScopeType   string   `json:"visible_scope_type,omitempty"`  // 可见范围的 id 类型, 包用户、部门两类, 可选值有: invisible: 所有人不可见, public: 所有人可见, group_member_visible: 组内成员可见, specified_scope_visible: 指定可见范围的成员可见
-	VisibleUsers       []string `json:"visible_users,omitempty"`       // 指定可见用户组的用户 ID列表
-	VisibleDepartments []string `json:"visible_departments,omitempty"` // 指定可见用户组的部门 ID 列表
-	SceneTypes         []int64  `json:"scene_types,omitempty"`         // 用户组可用范围
+	ID                    string `json:"id,omitempty"`                      // 用户组ID
+	Name                  string `json:"name,omitempty"`                    // 用户组名字
+	Description           string `json:"description,omitempty"`             // 用户组描述
+	MemberUserCount       int64  `json:"member_user_count,omitempty"`       // 用户组成员中用户的数量
+	MemberDepartmentCount int64  `json:"member_department_count,omitempty"` // 普通用户组成员中部门的数量, 动态用户组成员中没有部门。
+	Type                  int64  `json:"type,omitempty"`                    // 用户组的类型, 可选值有: 1: 普通用户组, 2: 动态用户组
 }
 
 // getContactGroupResp ...

@@ -137,7 +137,10 @@ type UpdateDocxBlockReqReplaceFile struct {
 
 // UpdateDocxBlockReqReplaceImage ...
 type UpdateDocxBlockReqReplaceImage struct {
-	Token string `json:"token,omitempty"` // 图片 token, 示例值: "boxbckbfvfcqEg22hAzN8Dh9gJd"
+	Token  string `json:"token,omitempty"`  // 图片 token, 示例值: "boxbckbfvfcqEg22hAzN8Dh9gJd"
+	Width  *int64 `json:"width,omitempty"`  // 图片宽度, 单位 px, 示例值: 100
+	Height *int64 `json:"height,omitempty"` // 图片高度, 单位 px, 示例值: 100
+	Align  *int64 `json:"align,omitempty"`  // 对齐方式, 示例值: 2, 可选值有: 1: 居左排版, 2: 居中排版, 3: 居右排版
 }
 
 // UpdateDocxBlockReqUnmergeTableCells ...
@@ -153,8 +156,10 @@ type UpdateDocxBlockReqUpdateGridColumnWidthRatio struct {
 
 // UpdateDocxBlockReqUpdateTableProperty ...
 type UpdateDocxBlockReqUpdateTableProperty struct {
-	ColumnWidth int64 `json:"column_width,omitempty"` // 表格列宽, 示例值: 100, 最小值: `50`
-	ColumnIndex int64 `json:"column_index,omitempty"` // 需要修改列宽的表格列的索引, 示例值: 0, 最小值: `0`
+	ColumnWidth  *int64 `json:"column_width,omitempty"`  // 表格列宽, 示例值: 100, 最小值: `50`
+	ColumnIndex  *int64 `json:"column_index,omitempty"`  // 需要修改列宽的表格列的索引, 示例值: 0, 最小值: `0`
+	HeaderRow    *bool  `json:"header_row,omitempty"`    // 设置首行为标题行, 示例值: false
+	HeaderColumn *bool  `json:"header_column,omitempty"` // 设置首列为标题列, 示例值: false
 }
 
 // UpdateDocxBlockReqUpdateText ...

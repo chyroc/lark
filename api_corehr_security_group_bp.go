@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// GetCoreHRSecurityGroupBp 通过部门或工作地点, 查询对应的 HRBP/属地 BP。
+// GetCoreHRSecurityGroupBp 通过部门或工作地点, 查询对应的 HRBP / 属地 BP。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/security_group/query
 // new doc: https://open.feishu.cn/document/server-docs/corehr-v1/authorization/query

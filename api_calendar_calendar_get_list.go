@@ -64,14 +64,14 @@ func (r *Mock) UnMockCalendarGetCalendarList() {
 // GetCalendarListReq ...
 type GetCalendarListReq struct {
 	PageSize  *int64  `query:"page_size" json:"-"`  // 一次请求要求返回最大数量, 默认500, 取值范围为[50. 1000], 示例值: 50, 默认值: `500`, 取值范围: `50` ～ `1000`
-	PageToken *string `query:"page_token" json:"-"` // 上次请求Response返回的分页标记, 首次请求时为空, 示例值: "ListCalendarsPageToken_xxx"
-	SyncToken *string `query:"sync_token" json:"-"` // 上次请求Response返回的增量同步标记, 分页请求未结束时为空, 示例值: "ListCalendarsSyncToken_xxx"
+	PageToken *string `query:"page_token" json:"-"` // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果, 示例值: ListCalendarsPageToken_xxx
+	SyncToken *string `query:"sync_token" json:"-"` // 上次请求Response返回的增量同步标记, 分页请求未结束时为空, 示例值: ListCalendarsSyncToken_xxx
 }
 
 // GetCalendarListResp ...
 type GetCalendarListResp struct {
-	HasMore      bool                           `json:"has_more,omitempty"`      // 是否还有更多数据
-	PageToken    string                         `json:"page_token,omitempty"`    // 下次请求需要带上的分页标记, 90 天有效期
+	HasMore      bool                           `json:"has_more,omitempty"`      // 是否还有更多项
+	PageToken    string                         `json:"page_token,omitempty"`    // 分页标记, 当 has_more 为 true 时, 会同时返回新的 page_token, 否则不返回 page_token
 	SyncToken    string                         `json:"sync_token,omitempty"`    // 下次请求需要带上的增量同步标记, 90 天有效期
 	CalendarList []*GetCalendarListRespCalendar `json:"calendar_list,omitempty"` // 分页加载的日历数据列表
 }
