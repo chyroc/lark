@@ -19,25 +19,50 @@ import (
 	"github.com/chyroc/lark"
 )
 
-// 回传数据按钮
+// Button 回传数据按钮
 func Button(text string, value interface{}) *lark.MessageContentCardElementButton {
 	return &lark.MessageContentCardElementButton{
-		Text:  Text(text),
-		Value: value,
-		Type:  "default",
+		Text:       Text(text),
+		Value:      value,
+		Type:       "default",
+		ActionType: lark.MessageContentCardElementButtonRequest,
+	}
+}
+
+// SubmitButton 触发表单容器的提交事件
+func SubmitButton(name, text string, value interface{}) *lark.MessageContentCardElementButton {
+	return &lark.MessageContentCardElementButton{
+		Name:       name,
+		Text:       Text(text),
+		Value:      value,
+		Type:       "default",
+		ActionType: lark.MessageContentCardElementButtonFormSubmit,
+	}
+}
+
+// ResetButton 触发表单容器的取消提交事件
+func ResetButton(name, text string, value interface{}) *lark.MessageContentCardElementButton {
+	return &lark.MessageContentCardElementButton{
+		Name:       name,
+		Text:       Text(text),
+		Value:      value,
+		Type:       "default",
+		ActionType: lark.MessageContentCardElementButtonFormReset,
 	}
 }
 
 func LinkButton(text string, url string) *lark.MessageContentCardElementButton {
 	return &lark.MessageContentCardElementButton{
-		Text: Text(text),
-		URL:  url,
+		Text:       Text(text),
+		URL:        url,
+		ActionType: lark.MessageContentCardElementButtonMulti,
 	}
 }
 
 func MultiLinkButton(text string, url *lark.MessageContentCardObjectURL) *lark.MessageContentCardElementButton {
 	return &lark.MessageContentCardElementButton{
-		Text:     Text(text),
-		MultiURL: url,
+		Text:       Text(text),
+		MultiURL:   url,
+		ActionType: lark.MessageContentCardElementButtonMulti,
 	}
 }

@@ -245,13 +245,26 @@ const (
 //
 // https://open.feishu.cn/document/ukTMukTMukTM/uEzNwUjLxcDM14SM3ATN
 type MessageContentCardElementButton struct {
-	Text     *MessageContentCardObjectText    `json:"text,omitempty"`      // 按钮中的文本
-	URL      string                           `json:"url,omitempty"`       // 跳转链接，和multi_url互斥
-	MultiURL *MessageContentCardObjectURL     `json:"multi_url,omitempty"` // 多端跳转链接
-	Type     string                           `json:"type,omitempty"`      // 配置按钮样式，默认为"default", 可选值: "default"/"primary"/"danger"
-	Value    interface{}                      `json:"value,omitempty"`     // 点击后返回业务方，	仅支持key-value形式的json结构，且key为String类型。
-	Confirm  *MessageContentCardObjectConfirm `json:"confirm,omitempty"`   // 二次确认的弹框
+	Name       string                                    `json:"name,omitempty"`        // 组件的唯一标识，用于识别用户在交互后，点击的是哪个组件
+	Text       *MessageContentCardObjectText             `json:"text,omitempty"`        // 按钮中的文本
+	URL        string                                    `json:"url,omitempty"`         // 跳转链接，和multi_url互斥
+	MultiURL   *MessageContentCardObjectURL              `json:"multi_url,omitempty"`   // 多端跳转链接
+	Type       string                                    `json:"type,omitempty"`        // 配置按钮样式，默认为"default", 可选值: "default"/"primary"/"danger"
+	Value      interface{}                               `json:"value,omitempty"`       // 点击后返回业务方，	仅支持key-value形式的json结构，且key为String类型。
+	Confirm    *MessageContentCardObjectConfirm          `json:"confirm,omitempty"`     // 二次确认的弹框
+	ActionType MessageContentCardElementButtonActionType `json:"action_type,omitempty"` // - 指定按钮的交互类型，只在按钮上扩展此属性。 - 枚举型。枚举值包括：- link：仅链接跳转- request：仅回传交互- multi：链接跳转+回传交互同时生效- form_submit：触发表单容器的提交事件，异步提交表单容器中所有用户填写的表单内容- form_reset：触发表单容器的取消提交事件，重置所有表单组件的输入值为初始值
 }
+
+type MessageContentCardElementButtonActionType string
+
+const (
+	MessageContentCardElementButtonLink       MessageContentCardElementButtonActionType = "link"        // 仅链接跳转
+	MessageContentCardElementButtonRequest    MessageContentCardElementButtonActionType = "request"     // 仅回传交互
+	MessageContentCardElementButtonMulti      MessageContentCardElementButtonActionType = "multi"       // 链接跳转+回传交互同时生效
+	MessageContentCardElementButtonFormSubmit MessageContentCardElementButtonActionType = "form_submit" // 触发表单容器的提交事件，异步提交表单容器中所有用户填写的表单内容
+	MessageContentCardElementButtonFormReset  MessageContentCardElementButtonActionType = "form_reset"  // 触发表单容器的取消提交事件，重置所有表单组件的输入值为初始值
+
+)
 
 // IsMessageContentCardElement ...
 func (r MessageContentCardElementButton) IsMessageContentCardElement() {}
@@ -259,6 +272,11 @@ func (r MessageContentCardElementButton) IsMessageContentCardElement() {}
 // MarshalJSON ...
 func (r MessageContentCardElementButton) MarshalJSON() ([]byte, error) {
 	return marshalJSONWithMap(r, map[string]interface{}{"tag": MessageContentCardElementTagButton})
+}
+
+func (r *MessageContentCardElementButton) SetName(val string) *MessageContentCardElementButton {
+	r.Name = val
+	return r
 }
 
 func (r *MessageContentCardElementButton) SetText(val *MessageContentCardObjectText) *MessageContentCardElementButton {
@@ -298,6 +316,11 @@ func (r *MessageContentCardElementButton) SetValue(val interface{}) *MessageCont
 
 func (r *MessageContentCardElementButton) SetConfirm(val *MessageContentCardObjectConfirm) *MessageContentCardElementButton {
 	r.Confirm = val
+	return r
+}
+
+func (r *MessageContentCardElementButton) SetActionType(val MessageContentCardElementButtonActionType) *MessageContentCardElementButton {
+	r.ActionType = val
 	return r
 }
 
@@ -492,6 +515,7 @@ const (
 	MessageContentCardModuleTagAction    MessageContentCardModuleTag = "action"
 	MessageContentCardModuleTagNote      MessageContentCardModuleTag = "note"
 	MessageContentCardModuleTagColumnSet MessageContentCardModuleTag = "column_set"
+	MessageContentCardModuleTagForm      MessageContentCardModuleTag = "form"
 )
 
 // === MessageContentCardModuleAction ===
@@ -793,6 +817,34 @@ func (r *MessageContentCardModuleColumn) SetBottomVerticalAlign() *MessageConten
 
 // === MessageContentCardModuleNote ===
 
+// === MessageContentCardModuleForm ===
+
+// MessageContentCardModuleForm 表单容器
+type MessageContentCardModuleForm struct {
+	Name     string                      `json:"name"`
+	Elements []MessageContentCardElement `json:"elements"` // Form 表单的叶子节点 可内嵌布局容器、呈现组件、交互组件
+}
+
+// IsMessageContentCardModule ...
+func (r MessageContentCardModuleForm) IsMessageContentCardModule() {}
+
+// MarshalJSON ...
+func (r MessageContentCardModuleForm) MarshalJSON() ([]byte, error) {
+	return marshalJSONWithMap(r, map[string]interface{}{"tag": MessageContentCardModuleTagForm})
+}
+
+func (r *MessageContentCardModuleForm) SetText(val string) *MessageContentCardModuleForm {
+	r.Name = val
+	return r
+}
+
+func (r *MessageContentCardModuleForm) SetElements(val ...MessageContentCardElement) *MessageContentCardModuleForm {
+	r.Elements = val
+	return r
+}
+
+// === MessageContentCardModuleForm ===
+
 // === MessageContentCardObjectConfirm ===
 
 // MessageContentCardObjectConfirm 用于交互元素的二次确认
@@ -911,6 +963,73 @@ func (r *MessageContentCardObjectText) SetLines(val int) *MessageContentCardObje
 }
 
 // === MessageContentCardObjectText ===
+
+// === MessageContentCardObjectInput ===
+
+// MessageContentCardObjectInput 文本输入框组件
+//
+// docs: https://bytedance.feishu.cn/docx/Iy8EdadF9ohXepxGInHcdgFLn5g
+type MessageContentCardObjectInput struct {
+	Name          string                           `json:"name"`                     // 组件唯一标识, 默认为空。 当 input 组件嵌套在 Form 容器中时必填。指当前交互组件的唯一标识。帮助开发者在交互的回传事件中识别用户用户提交的具体是哪个交互组件。
+	Placeholder   *MessageContentCardObjectText    `json:"placeholder"`              // 占位文案, 默认文案为“请输入” 指在用户未激活文本输入框时，展示的一句灰字引导文案。文本输入框的展示空间有限，建议你精简占位文案的表述。占位文案最多可输入100个字符，超出则被截断。
+	MaxLength     int64                            `json:"max_length"`               // 最大文本输入长度, 默认值为1000。可取1~1000范围内的整数。 声明此字段后，可限制用户在文本输入框中填写的最大文本长度。如果终端用户录入的内容超过最大长度，组件将在文本输入框上报错提示，并拒绝提交用户输入的内容。
+	DefaultValue  string                           `json:"default_value,omitempty"`  // 预填内容
+	Label         *MessageContentCardObjectText    `json:"label,omitempty"`          // 文本标签
+	LabelPosition string                           `json:"label_position,omitempty"` // 默认为top。枚举值仅有 top | left，填充其他值则报错。 指定文本标签展示在输入框的哪个相对位置上。在移动端等窄屏幕场景下，文本标签将自适应固定展示在输入框上方。
+	Value         map[string]interface{}           `json:"value,omitempty"`          // 开发者可在交互事件中自定义的回传数据。支持回传纯字符或一个对象。
+	Confirm       *MessageContentCardObjectConfirm `json:"confirm,omitempty"`        // 指在提交前是否弹出二次确认弹窗提示。只有用户点击确认后，才提交输入的内容。属性配置同 confirm 元素。 注意：input  组件嵌入在 form 容器中时，不生效单一组件绑定的 confirm元素。仅在用户点击包含提交属性的按钮时触发二次确认弹窗。
+}
+
+// IsMessageContentCardElement ...
+func (r MessageContentCardObjectInput) IsMessageContentCardElement() {}
+
+// func (r MessageContentCardObjectInput) IsMessageContentCardModule()  {}
+
+func (r MessageContentCardObjectInput) MarshalJSON() ([]byte, error) {
+	return marshalJSONWithMap(r, map[string]interface{}{"tag": "input"})
+}
+
+func (r *MessageContentCardObjectInput) SetName(val string) *MessageContentCardObjectInput {
+	r.Name = val
+	return r
+}
+
+func (r *MessageContentCardObjectInput) SetPlaceholder(val *MessageContentCardObjectText) *MessageContentCardObjectInput {
+	r.Placeholder = val
+	return r
+}
+
+func (r *MessageContentCardObjectInput) SetMaxLength(val int64) *MessageContentCardObjectInput {
+	r.MaxLength = val
+	return r
+}
+
+func (r *MessageContentCardObjectInput) SetDefaultValue(val string) *MessageContentCardObjectInput {
+	r.DefaultValue = val
+	return r
+}
+
+func (r *MessageContentCardObjectInput) SetLabel(val *MessageContentCardObjectText) *MessageContentCardObjectInput {
+	r.Label = val
+	return r
+}
+
+func (r *MessageContentCardObjectInput) SetLabelPosition(val string) *MessageContentCardObjectInput {
+	r.LabelPosition = val
+	return r
+}
+
+func (r *MessageContentCardObjectInput) SetValue(val map[string]interface{}) *MessageContentCardObjectInput {
+	r.Value = val
+	return r
+}
+
+func (r *MessageContentCardObjectInput) SetConfirm(val *MessageContentCardObjectConfirm) *MessageContentCardObjectInput {
+	r.Confirm = val
+	return r
+}
+
+// === MessageContentCardObjectInput ===
 
 // === MessageContentCardElementImageCombination ===
 

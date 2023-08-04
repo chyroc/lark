@@ -186,6 +186,9 @@ func marshalJSONWithMap(v interface{}, m map[string]interface{}) ([]byte, error)
 		if len(jsonTag) > 10 && jsonTag[len(jsonTag)-10:] == ",omitempty" {
 			jsonTag = jsonTag[:len(jsonTag)-10]
 		}
+		if jsonTag == "-" {
+			continue
+		}
 		vvf := vv.Field(i)
 		if vvf.IsZero() {
 			continue
