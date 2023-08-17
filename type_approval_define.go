@@ -39,7 +39,7 @@ const (
 	ApprovalWidgetTypeRadioV2      ApprovalWidgetType = "radioV2"      // 单选
 	ApprovalWidgetTypeCheckbox     ApprovalWidgetType = "checkbox"     // 多选
 	ApprovalWidgetTypeCheckboxV2   ApprovalWidgetType = "checkboxV2"   // 多选
-	ApprovalWidgetTypeAttachment   ApprovalWidgetType = "attachement"  // 附件
+	ApprovalWidgetTypeAttachment   ApprovalWidgetType = "attachment"   // 附件
 	ApprovalWidgetTypeAttachmentV2 ApprovalWidgetType = "attachmentV2" // 附件
 	ApprovalWidgetTypeDepartment   ApprovalWidgetType = "department"   // 部门
 	ApprovalWidgetTypeImage        ApprovalWidgetType = "image"        // 图片
