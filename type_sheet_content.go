@@ -137,7 +137,8 @@ func (r *SheetContent) UnmarshalJSON(bytes []byte) error {
 		}
 		r.String = &dest
 		return nil
-	} else if bytes[0] >= '0' && bytes[0] <= '9' {
+	} else if (bytes[0] >= '0' && bytes[0] <= '9') ||
+		(bytes[0] == '-' && len(bytes) > 1 && bytes[1] >= '0' && bytes[1] <= '9') {
 		str := string(bytes)
 		if strings.Contains(str, ".") {
 			float, err := strconv.ParseFloat(str, 64)
