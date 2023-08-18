@@ -66,10 +66,10 @@ type CreateBitableFieldReq struct {
 	TableID     string                            `path:"table_id" json:"-"`      // 多维表格数据表的唯一标识符 [table_id 参数说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/bitable/notification#735fe883), 示例值: "tblsRc9GRRXKqhvW"
 	ClientToken *string                           `query:"client_token" json:"-"` // 格式为标准的 uuidv4, 操作的唯一标识, 用于幂等的进行更新操作。此值为空表示将发起一次新的请求, 此值非空表示幂等的进行更新操作, 示例值: fe599b60-450f-46ff-b2ef-9f6675625b97
 	FieldName   string                            `json:"field_name,omitempty"`   // 多维表格字段名, 请注意: 1. 名称中的首尾空格将会被去除, 示例值: "多行文本"
-	Type        int64                             `json:"type,omitempty"`         // 多维表格字段类型, 示例值: 1, 可选值有: 1: 多行文本, 2: 数字, 3: 单选, 4: 多选, 5: 日期, 7: 复选框, 11: 人员, 15: 超链接, 17: 附件, 18: 关联, 20: 公式, 21: 双向关联, 1001: 创建时间, 1002: 最后更新时间, 1003: 创建人, 1004: 修改人, 1005: 自动编号, 13: 电话号码, 22: 地理位置, 23: 群组
+	Type        int64                             `json:"type,omitempty"`         // 多维表格字段类型, 示例值: 1, 可选值有: 1: 多行文本, 2: 数字, 3: 单选, 4: 多选, 5: 日期, 7: 复选框, 11: 人员, 13: 电话号码, 15: 超链接, 17: 附件, 18: 关联, 20: 公式, 21: 双向关联, 22: 地理位置, 23: 群组, 1001: 创建时间, 1002: 最后更新时间, 1003: 创建人, 1004: 修改人, 1005: 自动编号
 	Property    *CreateBitableFieldReqProperty    `json:"property,omitempty"`     // 字段属性, 具体参考: [字段编辑指南](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table-field/guide)
 	Description *CreateBitableFieldReqDescription `json:"description,omitempty"`  // 字段的描述
-	UiType      *string                           `json:"ui_type,omitempty"`      // 字段在界面上的展示类型, 例如进度字段是数字的一种展示形态, 示例值: "Progress"
+	UiType      *string                           `json:"ui_type,omitempty"`      // 字段在界面上的展示类型, 例如进度字段是数字的一种展示形态, 示例值: "Progress", 可选值有: Text: 多行文本, Barcode: 条码, Number: 数字, Progress: 进度, Currency: 货币, Rating: 评分, SingleSelect: 单选, MultiSelect: 多选, DateTime: 日期, Checkbox: 复选框, User: 人员, GroupChat: 群组, Phone: 电话号码, Url: 超链接, Attachment: 附件, SingleLink: 单向关联, Formula: 公式, DuplexLink: 双向关联, Location: 地理位置, CreatedTime: 创建时间, ModifiedTime: 最后更新时间, CreatedUser: 创建人, ModifiedUser: 修改人, AutoNumber: 自动编号
 }
 
 // CreateBitableFieldReqDescription ...
@@ -141,13 +141,13 @@ type CreateBitableFieldResp struct {
 
 // CreateBitableFieldRespField ...
 type CreateBitableFieldRespField struct {
-	FieldID     string                                  `json:"field_id,omitempty"`    // 多维表格字段 id
 	FieldName   string                                  `json:"field_name,omitempty"`  // 多维表格字段名, 请注意: 1. 名称中的首尾空格将会被去除。
-	Type        int64                                   `json:"type,omitempty"`        // 多维表格字段类型, 可选值有: 1: 多行文本, 2: 数字, 3: 单选, 4: 多选, 5: 日期, 7: 复选框, 11: 人员, 15: 超链接, 17: 附件, 18: 关联, 20: 公式, 21: 双向关联, 1001: 创建时间, 1002: 最后更新时间, 1003: 创建人, 1004: 修改人, 1005: 自动编号, 13: 电话号码, 22: 地理位置, 23: 群组
+	Type        int64                                   `json:"type,omitempty"`        // 多维表格字段类型, 可选值有: 1: 多行文本, 2: 数字, 3: 单选, 4: 多选, 5: 日期, 7: 复选框, 11: 人员, 13: 电话号码, 15: 超链接, 17: 附件, 18: 关联, 20: 公式, 21: 双向关联, 22: 地理位置, 23: 群组, 1001: 创建时间, 1002: 最后更新时间, 1003: 创建人, 1004: 修改人, 1005: 自动编号
 	Property    *CreateBitableFieldRespFieldProperty    `json:"property,omitempty"`    // 字段属性, 具体参考: [字段编辑指南](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table-field/guide)
 	Description *CreateBitableFieldRespFieldDescription `json:"description,omitempty"` // 字段的描述
 	IsPrimary   bool                                    `json:"is_primary,omitempty"`  // 是否是索引列
-	UiType      string                                  `json:"ui_type,omitempty"`     // 字段在界面上的展示类型, 例如进度字段是数字的一种展示形态
+	FieldID     string                                  `json:"field_id,omitempty"`    // 多维表格字段 id
+	UiType      string                                  `json:"ui_type,omitempty"`     // 字段在界面上的展示类型, 例如进度字段是数字的一种展示形态, 可选值有: Text: 多行文本, Barcode: 条码, Number: 数字, Progress: 进度, Currency: 货币, Rating: 评分, SingleSelect: 单选, MultiSelect: 多选, DateTime: 日期, Checkbox: 复选框, User: 人员, GroupChat: 群组, Phone: 电话号码, Url: 超链接, Attachment: 附件, SingleLink: 单向关联, Formula: 公式, DuplexLink: 双向关联, Location: 地理位置, CreatedTime: 创建时间, ModifiedTime: 最后更新时间, CreatedUser: 创建人, ModifiedUser: 修改人, AutoNumber: 自动编号
 	IsHidden    bool                                    `json:"is_hidden,omitempty"`   // 是否是隐藏字段
 }
 

@@ -21,10 +21,10 @@ import (
 	"context"
 )
 
-// UpdateAttendanceLeaveAccrualRecord 仅可更新「授予数量」和「失效日期」
+// UpdateAttendanceLeaveAccrualRecord 仅可更新「发放数量」和「失效日期」
 //
 // - 仅飞书人事企业版可用
-// - 由系统生成的授予记录不可被更新
+// - 由系统生成的发放记录不可被更新
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/leave_accrual_record/patch
 // new doc: https://open.feishu.cn/document/server-docs/attendance-v1/leave_accrual_record/patch
@@ -63,10 +63,10 @@ func (r *Mock) UnMockAttendanceUpdateAttendanceLeaveAccrualRecord() {
 type UpdateAttendanceLeaveAccrualRecordReq struct {
 	LeaveID               string                                         `path:"leave_id" json:"-"`                  // 假期类型ID, 示例值: "7111688079785723436"
 	UserIDType            *IDType                                        `query:"user_id_type" json:"-"`             // 用户 ID 类型, 示例值: open_id, 可选值有: open_id: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid), union_id: 标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id), user_id: 标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id), people_corehr_id: 以飞书人事的 ID 来识别用户, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
-	LeaveGrantingRecordID string                                         `json:"leave_granting_record_id,omitempty"` // 授予记录的唯一ID, 示例值: "6893014062142064135"
+	LeaveGrantingRecordID string                                         `json:"leave_granting_record_id,omitempty"` // 发放记录的唯一ID, 示例值: "6893014062142064135"
 	EmploymentID          string                                         `json:"employment_id,omitempty"`            // 员工ID, 示例值: "6982509313466189342"
 	LeaveTypeID           string                                         `json:"leave_type_id,omitempty"`            // 假期类型ID, 示例值: "7111688079785723436"
-	Reason                []*UpdateAttendanceLeaveAccrualRecordReqReason `json:"reason,omitempty"`                   // 修改授予记录原因
+	Reason                []*UpdateAttendanceLeaveAccrualRecordReqReason `json:"reason,omitempty"`                   // 修改发放记录原因
 	TimeOffset            *int64                                         `json:"time_offset,omitempty"`              // 时间偏移, 东八区: 480    8*60, 示例值: 480
 	ExpirationDate        *string                                        `json:"expiration_date,omitempty"`          // 失效日期, 格式"2020-01-01", 示例值: "2020-01-01"
 	Quantity              *string                                        `json:"quantity,omitempty"`                 // 修改source 余额, 示例值: "1"
@@ -80,24 +80,24 @@ type UpdateAttendanceLeaveAccrualRecordReqReason struct {
 
 // UpdateAttendanceLeaveAccrualRecordResp ...
 type UpdateAttendanceLeaveAccrualRecordResp struct {
-	Record *UpdateAttendanceLeaveAccrualRecordRespRecord `json:"record,omitempty"` // 员工过期日期的授予记录
+	Record *UpdateAttendanceLeaveAccrualRecordRespRecord `json:"record,omitempty"` // 员工过期日期的发放记录
 }
 
 // UpdateAttendanceLeaveAccrualRecordRespRecord ...
 type UpdateAttendanceLeaveAccrualRecordRespRecord struct {
-	ID               string                                                `json:"id,omitempty"`                // 授予记录唯一ID
+	ID               string                                                `json:"id,omitempty"`                // 发放记录唯一ID
 	EmploymentID     string                                                `json:"employment_id,omitempty"`     // 员工ID
 	LeaveTypeID      string                                                `json:"leave_type_id,omitempty"`     // 假期类型ID
-	GrantingQuantity string                                                `json:"granting_quantity,omitempty"` // 授予数量
-	GrantingUnit     int64                                                 `json:"granting_unit,omitempty"`     // 授予单位, 1表示天, 2表示小时
+	GrantingQuantity string                                                `json:"granting_quantity,omitempty"` // 发放数量
+	GrantingUnit     int64                                                 `json:"granting_unit,omitempty"`     // 发放单位, 1表示天, 2表示小时
 	EffectiveDate    string                                                `json:"effective_date,omitempty"`    // 生效日期, 格式"2020-01-01"
 	ExpirationDate   string                                                `json:"expiration_date,omitempty"`   // 失效日期, 格式"2020-01-01"
-	GrantedBy        int64                                                 `json:"granted_by,omitempty"`        // 授予来源, 1: 系统授予；2: 手动授予；3: 外部系统授予
-	Reason           []*UpdateAttendanceLeaveAccrualRecordRespRecordReason `json:"reason,omitempty"`            // 授予原因
-	CreatedAt        string                                                `json:"created_at,omitempty"`        // 授予记录的创建时间, unix时间戳
-	CreatedBy        string                                                `json:"created_by,omitempty"`        // 授予记录的创建人的ID
-	UpdatedAt        string                                                `json:"updated_at,omitempty"`        // 授予记录的更新时间, unix时间戳
-	UpdatedBy        string                                                `json:"updated_by,omitempty"`        // 授予记录的更新人的ID
+	GrantedBy        int64                                                 `json:"granted_by,omitempty"`        // 发放来源, 1: 系统发放；2: 手动发放；3: 外部系统发放
+	Reason           []*UpdateAttendanceLeaveAccrualRecordRespRecordReason `json:"reason,omitempty"`            // 发放原因
+	CreatedAt        string                                                `json:"created_at,omitempty"`        // 发放记录的创建时间, unix时间戳
+	CreatedBy        string                                                `json:"created_by,omitempty"`        // 发放记录的创建人的ID
+	UpdatedAt        string                                                `json:"updated_at,omitempty"`        // 发放记录的更新时间, unix时间戳
+	UpdatedBy        string                                                `json:"updated_by,omitempty"`        // 发放记录的更新人的ID
 }
 
 // UpdateAttendanceLeaveAccrualRecordRespRecordReason ...

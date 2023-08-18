@@ -86,7 +86,7 @@ type UpdateHireOfferReqBasicInfo struct {
 	RecommendedWords      *string  `json:"recommended_words,omitempty"`      // Offer 推荐语, 示例值: "十分优秀, 推荐入职"
 	JobRequirementID      *string  `json:"job_requirement_id,omitempty"`     // 招聘需求 ID, 示例值: "2342352224"
 	JobProcessTypeID      *int64   `json:"job_process_type_id,omitempty"`    // 招聘流程类型 ID, 示例值: 2
-	AttachmentIDList      []string `json:"attachment_id_list,omitempty"`     // 附件ID列表, 示例值: ["7081582717280831752"]
+	AttachmentIDList      []string `json:"attachment_id_list,omitempty"`     // 附件ID列表, 示例值: ["7215414994641320000"]
 	AttachmentDescription *string  `json:"attachment_description,omitempty"` // 附件描述, 示例值: "张三的简历"
 	OperatorUserID        string   `json:"operator_user_id,omitempty"`       // Offer操作人 ID, 示例值: "ou_ce613028fe74745421f5dc320bb9c709"
 }

@@ -23,7 +23,7 @@ import (
 
 // UpdateUserPatch 该接口用于更新通讯录中用户的字段, 未传递的参数不会更新。
 //
-// 变更department_ids、is_frozen时限制调用频率为1QPS。
+// 并发操作冻结用户时因事务冲突会遇到概率性失败。请尝试降低请求速率或改为串行执行。变更department_ids、is_frozen时限制调用频率为1QPS。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/patch
 // new doc: https://open.feishu.cn/document/server-docs/contact-v3/user/patch

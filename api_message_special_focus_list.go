@@ -24,7 +24,8 @@ import (
 // GetMessageSpecialFocusList 获取用户的特别关注列表。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/special_focus/list
-// new doc: https://open.feishu.cn/document/server-docs/im-v1/special_focus/list
+//
+// Deprecated
 func (r *MessageService) GetMessageSpecialFocusList(ctx context.Context, request *GetMessageSpecialFocusListReq, options ...MethodOptionFunc) (*GetMessageSpecialFocusListResp, *Response, error) {
 	if r.cli.mock.mockMessageGetMessageSpecialFocusList != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Message#GetMessageSpecialFocusList mock enable")

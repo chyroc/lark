@@ -59,11 +59,11 @@ func (r *Mock) UnMockHelpdeskGetHelpdeskFAQList() {
 
 // GetHelpdeskFAQListReq ...
 type GetHelpdeskFAQListReq struct {
-	CategoryID *string `query:"category_id" json:"-"` // 知识库分类ID, 示例值: "6856395522433908739"
-	Status     *string `query:"status" json:"-"`      // 搜索条件: 知识库状态 1:在线 0:删除, 可恢复 2: 删除, 不可恢复, 示例值: "1"
-	Search     *string `query:"search" json:"-"`      // 搜索条件: 关键词, 匹配问题标题, 问题关键字, 用户姓名, 示例值: "点餐"
-	PageToken  *string `query:"page_token" json:"-"`  // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果, 示例值: "6856395634652479491"
-	PageSize   *int64  `query:"page_size" json:"-"`   // 分页大小, 示例值: 10, 默认值: `20`, 最大值: `100`
+	CategoryID *string `query:"category_id" json:"-"` // 知识库分类ID, 示例值: 6856395522433908739
+	Status     *string `query:"status" json:"-"`      // 搜索条件: 知识库状态 1:在线 0:删除, 可恢复 2: 删除, 不可恢复, 示例值: 1
+	Search     *string `query:"search" json:"-"`      // 搜索条件: 关键词, 匹配问题标题, 问题关键字, 用户姓名, 示例值: 点餐
+	PageToken  *string `query:"page_token" json:"-"`  // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果, 示例值: 6856395634652479491
+	PageSize   *int64  `query:"page_size" json:"-"`   // 示例值: 10, 默认值: `20`, 最大值: `100`
 }
 
 // GetHelpdeskFAQListResp ...

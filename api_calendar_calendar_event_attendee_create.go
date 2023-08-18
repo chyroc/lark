@@ -68,11 +68,12 @@ func (r *Mock) UnMockCalendarCreateCalendarEventAttendee() {
 type CreateCalendarEventAttendeeReq struct {
 	CalendarID             string                                    `path:"calendar_id" json:"-"`                // 日历ID。参见[日历ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar/introduction), 示例值: "feishu.cn_xxxxxxxxxx@group.calendar.feishu.cn"
 	EventID                string                                    `path:"event_id" json:"-"`                   // 日程ID。参见[日程ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar-event/introduction), 示例值: "xxxxxxxxx_0"
-	UserIDType             *IDType                                   `query:"user_id_type" json:"-"`              // 用户 ID 类型, 示例值: "open_id", 可选值有: open_id: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid), union_id: 标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id), user_id: 标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id), 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
-	Attendees              []*CreateCalendarEventAttendeeReqAttendee `json:"attendees,omitempty"`                 // 新增参与人列表；, 单次请求会议室的数量限制为100。
+	UserIDType             *IDType                                   `query:"user_id_type" json:"-"`              // 用户 ID 类型, 示例值: open_id, 可选值有: open_id: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid), union_id: 标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id), user_id: 标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id), 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
+	Attendees              []*CreateCalendarEventAttendeeReqAttendee `json:"attendees,omitempty"`                 // 新增参与人列表；, 单次请求参与人数量（含会议室）限制为1000, 单次请求会议室的数量限制为100。
 	NeedNotification       *bool                                     `json:"need_notification,omitempty"`         // 是否给参与人发送bot通知 默认为true, 示例值: false
 	InstanceStartTimeAdmin *string                                   `json:"instance_start_time_admin,omitempty"` // 使用管理员身份访问时要修改的实例(仅用于重复日程修改其中的一个实例, 非重复日程无需填此字段), 示例值: "1647320400"
 	IsEnableAdmin          *bool                                     `json:"is_enable_admin,omitempty"`           // 是否启用管理员身份(需先在管理后台设置某人为会议室管理员)；开启后只会处理会议室数据, 其他参与人操作不会生效, 示例值: false
+	AddOperatorToAttendee  *bool                                     `json:"add_operator_to_attendee,omitempty"`  // 是否添加会议室operate_id标识的用户到参与人, 示例值: false
 }
 
 // CreateCalendarEventAttendeeReqAttendee ...
@@ -85,6 +86,7 @@ type CreateCalendarEventAttendeeReqAttendee struct {
 	ThirdPartyEmail       *string                                                        `json:"third_party_email,omitempty"`      // third_party类型参与人的邮箱, 示例值: "wangwu@email.com"
 	OperateID             *string                                                        `json:"operate_id,omitempty"`             // 如果日程是使用应用身份创建的, 在添加会议室的时候, 用来指定会议室的联系人, 在会议室视图展示。参见[用户相关的 ID 概念](https://open.feishu.cn/document/home/user-identity-introduction/introduction), 示例值: "ou_xxxxxxxx"
 	ResourceCustomization []*CreateCalendarEventAttendeeReqAttendeeResourceCustomization `json:"resource_customization,omitempty"` // 会议室的个性化配置
+	ApprovalReason        *string                                                        `json:"approval_reason,omitempty"`        // 申请预定审批会议室的原因, 仅user_access_token预定审批会议室时, approval_reason字段生效, tenant_access_token预定审批会议室时, 会直接失败, 对于审批会议室, 不传approval_reason会直接预约失败, 示例值: "申请审批原因", 最大长度: `200` 字符
 }
 
 // CreateCalendarEventAttendeeReqAttendeeResourceCustomization ...
@@ -121,6 +123,7 @@ type CreateCalendarEventAttendeeRespAttendee struct {
 	ThirdPartyEmail       string                                                          `json:"third_party_email,omitempty"`      // third_party类型参与人的邮箱
 	OperateID             string                                                          `json:"operate_id,omitempty"`             // 如果日程是使用应用身份创建的, 在添加会议室的时候, 用来指定会议室的联系人, 在会议室视图展示。参见[用户相关的 ID 概念](https://open.feishu.cn/document/home/user-identity-introduction/introduction)
 	ResourceCustomization []*CreateCalendarEventAttendeeRespAttendeeResourceCustomization `json:"resource_customization,omitempty"` // 会议室的个性化配置
+	ApprovalReason        string                                                          `json:"approval_reason,omitempty"`        // 申请预定审批会议室的原因, 仅user_access_token预定审批会议室时, approval_reason字段生效, tenant_access_token预定审批会议室时, 会直接失败, 对于审批会议室, 不传approval_reason会直接预约失败。
 }
 
 // CreateCalendarEventAttendeeRespAttendeeChatMember ...

@@ -63,8 +63,10 @@ func (r *Mock) UnMockCalendarGetCalendarEvent() {
 
 // GetCalendarEventReq ...
 type GetCalendarEventReq struct {
-	CalendarID string `path:"calendar_id" json:"-"` // 日历ID。参见[日历ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar/introduction), 示例值: "feishu.cn_xxxxxxxxxx@group.calendar.feishu.cn"
-	EventID    string `path:"event_id" json:"-"`    // 日程ID。参见[日程ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar-event/introduction), 示例值: "xxxxxxxxx_0"
+	CalendarID          string  `path:"calendar_id" json:"-"`            // 日历ID。参见[日历ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar/introduction), 示例值: "feishu.cn_xxxxxxxxxx@group.calendar.feishu.cn"
+	EventID             string  `path:"event_id" json:"-"`               // 日程ID。参见[日程ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar-event/introduction), 示例值: "xxxxxxxxx_0"
+	NeedMeetingSettings *bool   `query:"need_meeting_settings" json:"-"` // 是否需要返回会前设置, 日程的会议类型(vc_type)为vc, 需要有日程的编辑权限, 示例值: false
+	UserIDType          *IDType `query:"user_id_type" json:"-"`          // 用户 ID 类型, 示例值: open_id, 可选值有: open_id: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid), union_id: 标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id), user_id: 标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id), 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
 }
 
 // GetCalendarEventResp ...
@@ -131,10 +133,21 @@ type GetCalendarEventRespEventStartTime struct {
 
 // GetCalendarEventRespEventVchat ...
 type GetCalendarEventRespEventVchat struct {
-	VCType      string `json:"vc_type,omitempty"`     // 视频会议类型, 可选值有: vc: 飞书视频会议, 取该类型时, 其他字段无效。, third_party: 第三方链接视频会议, 取该类型时, icon_type、description、meeting_url字段生效。, no_meeting: 无视频会议, 取该类型时, 其他字段无效。, lark_live: 飞书直播, 内部类型, 飞书客户端使用, API不支持创建, 只读。, unknown: 未知类型, 做兼容使用, 飞书客户端使用, API不支持创建, 只读。
-	IconType    string `json:"icon_type,omitempty"`   // 第三方视频会议icon类型；可以为空, 为空展示默认icon, 可选值有: vc: 飞书视频会议icon, live: 直播视频会议icon, default: 默认icon
-	Description string `json:"description,omitempty"` // 第三方视频会议文案, 可以为空, 为空展示默认文案
-	MeetingURL  string `json:"meeting_url,omitempty"` // 视频会议URL
+	VCType          string                                         `json:"vc_type,omitempty"`          // 视频会议类型；可以为空, 为空会在首次添加日程参与人时, 自动生成飞书视频会议URL。若无需视频会议时需显式传入no_meeting, 可选值有: vc: 飞书视频会议, 取该类型时, 其他字段无效。, third_party: 第三方链接视频会议, 取该类型时, icon_type、description、meeting_url字段生效。, no_meeting: 无视频会议, 取该类型时, 其他字段无效。, lark_live: 飞书直播, 内部类型, 飞书客户端使用, API不支持创建, 只读。, unknown: 未知类型, 做兼容使用, 飞书客户端使用, API不支持创建, 只读。
+	IconType        string                                         `json:"icon_type,omitempty"`        // 第三方视频会议icon类型；可以为空, 为空展示默认icon, 可选值有: vc: 飞书视频会议icon, live: 直播视频会议icon, default: 默认icon
+	Description     string                                         `json:"description,omitempty"`      // 第三方视频会议文案, 可以为空, 为空展示默认文案
+	MeetingURL      string                                         `json:"meeting_url,omitempty"`      // 视频会议URL
+	MeetingSettings *GetCalendarEventRespEventVchatMeetingSettings `json:"meeting_settings,omitempty"` // VC视频会议的会前设置。需要满足以下条件(需全部满足): 当vc_type为vc时生效, 需要有日程的编辑权限。
+}
+
+// GetCalendarEventRespEventVchatMeetingSettings ...
+type GetCalendarEventRespEventVchatMeetingSettings struct {
+	OwnerID               string   `json:"owner_id,omitempty"`                // 设置会议 owner。需要满足以下条件(需全部满足): tenant_access_token身份请求, 且在应用日历上操作日程, 首次将日程设置为VC会议, 才能设置owner, owner不能为非用户身份, owner不能为外租户用户身份。
+	JoinMeetingPermission string   `json:"join_meeting_permission,omitempty"` // 设置入会范围, 可选值有: anyone_can_join: 所有人可以加入会议, only_organization_employees: 仅企业内用户可以加入会议, only_event_attendees: 仅日程参与者可以加入会议
+	AssignHosts           []string `json:"assign_hosts,omitempty"`            // 指定主持人, 仅日程组织者可以指定主持人, 主持人不能是非用户身份, 主持人不能是外租户用户身份, 应用日历上操作日程时, 不允许指定主持人。
+	AutoRecord            bool     `json:"auto_record,omitempty"`             // 设置自动录制
+	OpenLobby             bool     `json:"open_lobby,omitempty"`              // 开启等候室
+	AllowAttendeesStart   bool     `json:"allow_attendees_start,omitempty"`   // 允许日程参与者发起会议, 应用日历上操作日程时, 该字段必须为true, 否则没有人能发起会议。
 }
 
 // getCalendarEventResp ...

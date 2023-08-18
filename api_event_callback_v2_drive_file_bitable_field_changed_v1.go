@@ -46,7 +46,7 @@ type EventV2DriveFileBitableFieldChangedV1 struct {
 
 // EventV2DriveFileBitableFieldChangedV1Action ...
 type EventV2DriveFileBitableFieldChangedV1Action struct {
-	Action      string                                                  `json:"action,omitempty"`       // 操作类型
+	Action      string                                                  `json:"action,omitempty"`       // 操作类型, action目前有三种, field_added表示有新增字段操作, field_edited表示有更新字段操作, field_delete表示有删除字段操作
 	FieldID     string                                                  `json:"field_id,omitempty"`     // 字段 ID
 	BeforeValue *EventV2DriveFileBitableFieldChangedV1ActionBeforeValue `json:"before_value,omitempty"` // 操作前的字段值
 	AfterValue  *EventV2DriveFileBitableFieldChangedV1ActionAfterValue  `json:"after_value,omitempty"`  // 操作后的字段值

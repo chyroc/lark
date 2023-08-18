@@ -64,7 +64,7 @@ func (r *Mock) UnMockMessageBatchDeleteMessage() {
 
 // BatchDeleteMessageReq ...
 type BatchDeleteMessageReq struct {
-	BatchMessageID string `path:"batch_message_id" json:"-"` // 待撤回的批量消息的ID, 为[批量发送消息](https://open.feishu.cn/document/ukTMukTMukTM/ucDO1EjL3gTNx4yN4UTM)接口返回值中的`message_id`字段, 用于标识一次批量发送消息请求, 示例值: "bm-dc13264520392913993dd051dba21dcf"
+	BatchMessageID string `path:"batch_message_id" json:"-"` // 待撤回的批量消息任务 ID, 为[批量发送消息](https://open.feishu.cn/document/ukTMukTMukTM/ucDO1EjL3gTNx4yN4UTM)接口返回值中的`message_id`字段, 用于标识一次批量发送消息请求, 示例值: "bm-dc13264520392913993dd051dba21dcf"
 }
 
 // BatchDeleteMessageResp ...

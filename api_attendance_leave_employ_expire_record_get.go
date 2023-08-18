@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// GetAttendanceLeaveEmployExpireRecord 只能获取到对应时间段过期的授予记录
+// GetAttendanceLeaveEmployExpireRecord 只能获取到对应时间段过期的发放记录
 //
 // 仅飞书人事企业版可用
 //
@@ -71,7 +71,7 @@ type GetAttendanceLeaveEmployExpireRecordReq struct {
 
 // GetAttendanceLeaveEmployExpireRecordResp ...
 type GetAttendanceLeaveEmployExpireRecordResp struct {
-	Records []*GetAttendanceLeaveEmployExpireRecordRespRecord `json:"records,omitempty"` // 员工过期日期的授予记录
+	Records []*GetAttendanceLeaveEmployExpireRecordRespRecord `json:"records,omitempty"` // 员工过期日期的发放记录
 }
 
 // GetAttendanceLeaveEmployExpireRecordRespRecord ...
@@ -79,14 +79,14 @@ type GetAttendanceLeaveEmployExpireRecordRespRecord struct {
 	ID                   string                                                  `json:"id,omitempty"`                     // record id
 	EmploymentID         string                                                  `json:"employment_id,omitempty"`          // 员工ID
 	LeaveTypeID          string                                                  `json:"leave_type_id,omitempty"`          // 假期类型ID
-	GrantingQuantity     string                                                  `json:"granting_quantity,omitempty"`      // 授予余额数量
-	LeftGrantingQuantity string                                                  `json:"left_granting_quantity,omitempty"` // 授予数量 扣减完后的授予数量
-	GrantingUnit         int64                                                   `json:"granting_unit,omitempty"`          // 授予单位, 1表示天, 2表示小时
+	GrantingQuantity     string                                                  `json:"granting_quantity,omitempty"`      // 发放余额数量
+	LeftGrantingQuantity string                                                  `json:"left_granting_quantity,omitempty"` // 发放数量 扣减完后的发放数量
+	GrantingUnit         int64                                                   `json:"granting_unit,omitempty"`          // 发放单位, 1表示天, 2表示小时
 	EffectiveDate        string                                                  `json:"effective_date,omitempty"`         // 生效日期, 格式"2020-01-01"
 	ExpirationDate       string                                                  `json:"expiration_date,omitempty"`        // 失效日期, 格式"2020-01-01"
-	Reason               []*GetAttendanceLeaveEmployExpireRecordRespRecordReason `json:"reason,omitempty"`                 // 授予原因
+	Reason               []*GetAttendanceLeaveEmployExpireRecordRespRecordReason `json:"reason,omitempty"`                 // 发放原因
 	IsUpdateByExternal   bool                                                    `json:"is_update_by_external,omitempty"`  // 是否已经被外部系统更改过
-	AccrualSource        int64                                                   `json:"accrual_source,omitempty"`         // 授予来源, 可选值有: 1: 系统授予, 2: 人工授予, 3: 外部系统授予, 4: 虚拟授予, 5: 旧系统导入, 6: 加班转入
+	AccrualSource        int64                                                   `json:"accrual_source,omitempty"`         // 发放来源, 可选值有: 1: 系统发放, 2: 人工发放, 3: 外部系统发放, 4: 虚拟发放, 5: 旧系统导入, 6: 加班转入
 	LeaveSubTypeID       string                                                  `json:"leave_sub_type_id,omitempty"`      // 假期子类型id
 }
 

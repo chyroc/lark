@@ -25,7 +25,7 @@ import (
 //
 // 身份由 Header Authorization 的 Token 类型决定。
 // - 当前身份必须对日历有reader、writer或owner权限才会返回日程详细信息（调用[获取日历](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar/get)接口, role字段可查看权限）。
-// - 仅支持primary、shared和resource类型的日历获取日程列表。
+// - 根据日历ID获取该日历下的日程列表。仅支持primary、shared和resource类型的日历, 暂不支持google、exchange类型的日历。
 // - page_token 分页拉取存量数据, sync_token 增量同步变更数据；目前仅传anchor_time时, 会返回page_token。
 // - 为了确保调用方日程同步数据的一致性, 在使用sync_token时, 不能同时使用start_time和end_time, 否则可能造成日程数据缺失。
 //
@@ -67,19 +67,19 @@ func (r *Mock) UnMockCalendarGetCalendarEventList() {
 type GetCalendarEventListReq struct {
 	CalendarID string  `path:"calendar_id" json:"-"`  // 日历ID。参见[日历ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar/introduction), 示例值: "feishu.cn_xxxxxxxxxx@group.calendar.feishu.cn"
 	PageSize   *int64  `query:"page_size" json:"-"`   // 一次请求要求返回最大数量, 默认500, 取值范围为[50, 1000], 示例值: 50, 默认值: `500`, 取值范围: `50` ～ `1000`
-	AnchorTime *string `query:"anchor_time" json:"-"` // 拉取anchor_time之后的日程, 为timestamp, 示例值: "1609430400"
-	PageToken  *string `query:"page_token" json:"-"`  // 上次请求Response返回的分页标记, 首次请求时为空, 示例值: "ListCalendarsPageToken_1632452910_1632539310"
-	SyncToken  *string `query:"sync_token" json:"-"`  // 上次请求Response返回的增量同步标记, 分页请求未结束时为空, 示例值: "ListCalendarsSyncToken_1632452910"
-	StartTime  *string `query:"start_time" json:"-"`  // 日程开始Unix时间戳, 单位为秒, 示例值: "1631777271"
-	EndTime    *string `query:"end_time" json:"-"`    // 日程结束Unix时间戳, 单位为秒, 示例值: "1631777271"
+	AnchorTime *string `query:"anchor_time" json:"-"` // 拉取anchor_time之后的日程, 为timestamp, 示例值: 1609430400
+	PageToken  *string `query:"page_token" json:"-"`  // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果, 示例值: ListCalendarsPageToken_1632452910_1632539310
+	SyncToken  *string `query:"sync_token" json:"-"`  // 上次请求Response返回的增量同步标记, 分页请求未结束时为空, 示例值: ListCalendarsSyncToken_1632452910
+	StartTime  *string `query:"start_time" json:"-"`  // 日程开始Unix时间戳, 单位为秒, 示例值: 1631777271
+	EndTime    *string `query:"end_time" json:"-"`    // 日程结束Unix时间戳, 单位为秒, 示例值: 1631777271
 }
 
 // GetCalendarEventListResp ...
 type GetCalendarEventListResp struct {
-	HasMore   bool                            `json:"has_more,omitempty"`   // 是否还有更多数据
-	PageToken string                          `json:"page_token,omitempty"` // 下次请求需要带上的分页标记
+	HasMore   bool                            `json:"has_more,omitempty"`   // 是否还有更多项
+	PageToken string                          `json:"page_token,omitempty"` // 分页标记, 当 has_more 为 true 时, 会同时返回新的 page_token, 否则不返回 page_token
 	SyncToken string                          `json:"sync_token,omitempty"` // 下次请求需要带上的增量同步标记
-	Items     []*GetCalendarEventListRespItem `json:"items,omitempty"`      // 日程列表
+	Items     []*GetCalendarEventListRespItem `json:"items,omitempty"`      // 日程列表, 结果为空时返回空数组
 }
 
 // GetCalendarEventListRespItem ...
@@ -141,7 +141,7 @@ type GetCalendarEventListRespItemStartTime struct {
 
 // GetCalendarEventListRespItemVchat ...
 type GetCalendarEventListRespItemVchat struct {
-	VCType      string `json:"vc_type,omitempty"`     // 视频会议类型, 可选值有: vc: 飞书视频会议, 取该类型时, 其他字段无效。, third_party: 第三方链接视频会议, 取该类型时, icon_type、description、meeting_url字段生效。, no_meeting: 无视频会议, 取该类型时, 其他字段无效。, lark_live: 飞书直播, 内部类型, 飞书客户端使用, API不支持创建, 只读。, unknown: 未知类型, 做兼容使用, 飞书客户端使用, API不支持创建, 只读。
+	VCType      string `json:"vc_type,omitempty"`     // 视频会议类型；可以为空, 为空会在首次添加日程参与人时, 自动生成飞书视频会议URL。若无需视频会议时需显式传入no_meeting, 可选值有: vc: 飞书视频会议, 取该类型时, 其他字段无效。, third_party: 第三方链接视频会议, 取该类型时, icon_type、description、meeting_url字段生效。, no_meeting: 无视频会议, 取该类型时, 其他字段无效。, lark_live: 飞书直播, 内部类型, 飞书客户端使用, API不支持创建, 只读。, unknown: 未知类型, 做兼容使用, 飞书客户端使用, API不支持创建, 只读。
 	IconType    string `json:"icon_type,omitempty"`   // 第三方视频会议icon类型；可以为空, 为空展示默认icon, 可选值有: vc: 飞书视频会议icon, live: 直播视频会议icon, default: 默认icon
 	Description string `json:"description,omitempty"` // 第三方视频会议文案, 可以为空, 为空展示默认文案
 	MeetingURL  string `json:"meeting_url,omitempty"` // 视频会议URL

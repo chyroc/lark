@@ -24,7 +24,8 @@ import (
 // GetMessageSpecialFocusUnread 支持按单聊类型和群聊类型获取用户的特别关注未读消息数。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/special_focus/unread
-// new doc: https://open.feishu.cn/document/server-docs/im-v1/special_focus/unread
+//
+// Deprecated
 func (r *MessageService) GetMessageSpecialFocusUnread(ctx context.Context, request *GetMessageSpecialFocusUnreadReq, options ...MethodOptionFunc) (*GetMessageSpecialFocusUnreadResp, *Response, error) {
 	if r.cli.mock.mockMessageGetMessageSpecialFocusUnread != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Message#GetMessageSpecialFocusUnread mock enable")

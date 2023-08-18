@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// GetBatchSentMessageReadUser 批量发送消息后, 可以通过该接口查询批量消息推送的总人数和阅读人数。
+// GetBatchSentMessageReadUser 发送批量消息请求后, 可以通过该接口查询批量消息推送的总人数和阅读人数。
 //
 // 注意事项:
 // - 只能查询30天内通过[批量发送消息](https://open.feishu.cn/document/ukTMukTMukTM/ucDO1EjL3gTNx4yN4UTM)接口产生的消息
@@ -62,7 +62,7 @@ func (r *Mock) UnMockMessageGetBatchSentMessageReadUser() {
 
 // GetBatchSentMessageReadUserReq ...
 type GetBatchSentMessageReadUserReq struct {
-	BatchMessageID string `path:"batch_message_id" json:"-"` // 待查询的批量消息的ID, 通过调用[批量发送消息接口](	/ssl:ttdoc/ukTMukTMukTM/ucDO1EjL3gTNx4yN4UTM)的返回值中得到, 示例值: "bm_dc13264520392913993dd051dba21dcf"
+	BatchMessageID string `path:"batch_message_id" json:"-"` // 待查询的批量消息任务 ID, 通过调用[批量发送消息接口](	/ssl:ttdoc/ukTMukTMukTM/ucDO1EjL3gTNx4yN4UTM)的返回值`message_id`中得到, 示例值: "bm_dc13264520392913993dd051dba21dcf"
 }
 
 // GetBatchSentMessageReadUserResp ...

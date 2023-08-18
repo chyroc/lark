@@ -23,6 +23,8 @@ import (
 
 // GetCoreHRLeaveTypeList 获取休假设置后台配置的假期类型列表（比如年假、事假、婚假等）。
 //
+// 仅飞书人事企业版可用
+//
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/leave/leave_types
 // new doc: https://open.feishu.cn/document/server-docs/corehr-v1/leave/leave_types
 func (r *CoreHRService) GetCoreHRLeaveTypeList(ctx context.Context, request *GetCoreHRLeaveTypeListReq, options ...MethodOptionFunc) (*GetCoreHRLeaveTypeListResp, *Response, error) {

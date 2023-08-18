@@ -23,6 +23,8 @@ import (
 
 // GetCoreHRLeaveRequestHistoryList 批量获取员工的请假记录数据。
 //
+// 仅飞书人事企业版可用
+//
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/leave/leave_request_history
 // new doc: https://open.feishu.cn/document/server-docs/corehr-v1/leave/leave_request_history
 func (r *CoreHRService) GetCoreHRLeaveRequestHistoryList(ctx context.Context, request *GetCoreHRLeaveRequestHistoryListReq, options ...MethodOptionFunc) (*GetCoreHRLeaveRequestHistoryListResp, *Response, error) {

@@ -23,6 +23,8 @@ import (
 
 // GetCoreHRLeaveBalanceList 批量获取员工各个假期的余额数据。
 //
+// 仅飞书人事企业版可用
+//
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/leave/leave_balances
 // new doc: https://open.feishu.cn/document/server-docs/corehr-v1/leave/leave_balances
 func (r *CoreHRService) GetCoreHRLeaveBalanceList(ctx context.Context, request *GetCoreHRLeaveBalanceListReq, options ...MethodOptionFunc) (*GetCoreHRLeaveBalanceListResp, *Response, error) {

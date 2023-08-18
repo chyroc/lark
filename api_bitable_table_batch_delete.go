@@ -63,7 +63,7 @@ func (r *Mock) UnMockBitableBatchDeleteBitableTable() {
 // BatchDeleteBitableTableReq ...
 type BatchDeleteBitableTableReq struct {
 	AppToken string   `path:"app_token" json:"-"`  // 多维表格的唯一标识符 [app_token 参数说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/bitable/notification#8121eebe), 示例值: "appbcbWCzen6D8dezhoCH2RpMAh", 最小长度: `1` 字符
-	TableIDs []string `json:"table_ids,omitempty"` // 待删除的数据表的id [table_id 参数说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/bitable/notification#735fe883), 示例值: ["tbl1TkhyTWDkSoZ3"]
+	TableIDs []string `json:"table_ids,omitempty"` // 待删除的数据表的id [table_id 参数说明], 当前一次操作最多支持50个数据表(/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/bitable/notification#735fe883), 示例值: ["tbl1TkhyTWDkSoZ3"]
 }
 
 // BatchDeleteBitableTableResp ...

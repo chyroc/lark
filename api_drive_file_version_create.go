@@ -69,8 +69,8 @@ type CreateDriveFileVersionReq struct {
 	CreateTime  *string `json:"create_time,omitempty"`  // 版本文档创建时间, 示例值: "1660708537"
 	UpdateTime  *string `json:"update_time,omitempty"`  // 版本文档更新时间, 示例值: "1660708537"
 	Status      *string `json:"status,omitempty"`       // 版本文档状态, 示例值: "0", 可选值有: 0: 正常状态, 1: 删除状态, 2: 回收站状态
-	ObjType     *string `json:"obj_type,omitempty"`     // 版本文档类型, 示例值: "docx", 可选值有: doc: doc文档, sheet: sheet文档, bitable: bitable文档, docx: docx文档
-	ParentType  *string `json:"parent_type,omitempty"`  // 源文档类型, 示例值: "docx", 可选值有: doc: doc文档, sheet: sheet文档, bitable: bitable文档, docx: docx文档
+	ObjType     *string `json:"obj_type,omitempty"`     // 版本文档类型, 示例值: "docx", 可选值有: docx: 新版文档
+	ParentType  *string `json:"parent_type,omitempty"`  // 源文档类型, 示例值: "docx", 可选值有: docx: 新版文档
 }
 
 // CreateDriveFileVersionResp ...
@@ -83,8 +83,8 @@ type CreateDriveFileVersionResp struct {
 	CreateTime  string `json:"create_time,omitempty"`  // 版本文档创建时间
 	UpdateTime  string `json:"update_time,omitempty"`  // 版本文档更新时间
 	Status      string `json:"status,omitempty"`       // 版本文档状态, 可选值有: 0: 正常状态, 1: 删除状态, 2: 回收站状态
-	ObjType     string `json:"obj_type,omitempty"`     // 版本文档类型, 可选值有: doc: doc文档, sheet: sheet文档, bitable: bitable文档, docx: docx文档
-	ParentType  string `json:"parent_type,omitempty"`  // 源文档类型, 可选值有: doc: doc文档, sheet: sheet文档, bitable: bitable文档, docx: docx文档
+	ObjType     string `json:"obj_type,omitempty"`     // 版本文档类型, 可选值有: docx: 新版文档
+	ParentType  string `json:"parent_type,omitempty"`  // 源文档类型, 可选值有: docx: 新版文档
 }
 
 // createDriveFileVersionResp ...

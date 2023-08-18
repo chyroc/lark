@@ -58,7 +58,7 @@ func (r *Mock) UnMockHireAddHireTalentToFolder() {
 
 // AddHireTalentToFolderReq ...
 type AddHireTalentToFolderReq struct {
-	TalentIDList []string `json:"talent_id_list,omitempty"` // 人才 ID 列表, 示例值: ["6039620186502138151"], 最大长度: `50`
+	TalentIDList []string `json:"talent_id_list,omitempty"` // 人才 ID 列表, 示例值: ["7039620186502138157"], 最大长度: `50`
 	FolderID     *string  `json:"folder_id,omitempty"`      // 文件夹 ID, 示例值: "7039620186502138156"
 }
 

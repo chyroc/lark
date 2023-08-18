@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// GetBatchSentMessageProgress 该接口在[查询批量消息推送和阅读人数](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/batch_message/read_user)查询结果的基础上, 增加了批量请求中有效的userid数量以及消息撤回进度数据。
+// GetBatchSentMessageProgress 该接口在[查询批量消息推送和阅读人数](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/batch_message/read_user)查询结果的基础上, 增加了批量请求中有效的user id数量以及消息撤回进度数据。
 //
 // 注意事项:
 // - 只能查询30天内通过[批量发送消息](https://open.feishu.cn/document/ukTMukTMukTM/ucDO1EjL3gTNx4yN4UTM)接口产生的消息
@@ -62,7 +62,7 @@ func (r *Mock) UnMockMessageGetBatchSentMessageProgress() {
 
 // GetBatchSentMessageProgressReq ...
 type GetBatchSentMessageProgressReq struct {
-	BatchMessageID string `path:"batch_message_id" json:"-"` // 待查询的批量消息的ID, 通过调用[批量发送消息接口](	/ssl:ttdoc/ukTMukTMukTM/ucDO1EjL3gTNx4yN4UTM)的返回值中得到, 示例值: "bm-0b3d5d1b2df7c6d5dbd1abe2c91e2217"
+	BatchMessageID string `path:"batch_message_id" json:"-"` // 待查询的批量消息任务ID, 通过调用[批量发送消息接口](	/ssl:ttdoc/ukTMukTMukTM/ucDO1EjL3gTNx4yN4UTM)的返回值`message_id`中得到, 示例值: "bm-0b3d5d1b2df7c6d5dbd1abe2c91e2217"
 }
 
 // GetBatchSentMessageProgressResp ...
