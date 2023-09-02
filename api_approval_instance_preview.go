@@ -60,7 +60,7 @@ func (r *Mock) UnMockApprovalPreviewApprovalInstance() {
 type PreviewApprovalInstanceReq struct {
 	UserIDType   *IDType            `query:"user_id_type" json:"-"`  // 用户 ID 类型, 示例值: "open_id", 可选值有: `open_id`: 用户的 open id, `union_id`: 用户的 union id, `user_id`: 用户的 user id, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
 	ApprovalCode *string            `json:"approval_code,omitempty"` // 审批定义 Code
-	UserID       string             `json:"user_id,omitempty"`       // 发起审批用户, employeid或者openid
+	UserID       string             `json:"user_id"`                 // 发起审批用户, employeid或者openid
 	DepartmentID *string            `json:"department_id,omitempty"` // 发起审批用户部门, 如果用户只属于一个部门, 可以不填, 如果属于多个部门, 必须填其中一个部门
 	Form         ApprovalWidgetList `json:"form,omitempty"`          // JSON字符串, 控件值。提交审批之前, 查看预览流程时, 该字段必填
 	InstanceCode *string            `json:"instance_code,omitempty"` // 审批实例code

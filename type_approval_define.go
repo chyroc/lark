@@ -61,12 +61,12 @@ type ApprovalWidgetList []*ApprovalWidget
 // ApprovalWidget 审批挂件
 type ApprovalWidget struct {
 	EnableDefaultValue bool                   `json:"enable_default_value,omitempty"` // 此控件是否启用了默认值
-	ID                 string                 `json:"id,omitempty"`                   //	控件 ID
+	ID                 string                 `json:"id"`                             //	控件 ID
 	WidgetDefaultValue string                 `json:"widget_default_value,omitempty"` //	控件的默认值
 	CustomID           string                 `json:"custom_id,omitempty"`            // 控件自定义 ID
 	DefaultValueType   string                 `json:"default_value_type,omitempty"`   // 控件的默认值类型
 	Name               string                 `json:"name,omitempty"`                 // 控件名称
-	Type               ApprovalWidgetType     `json:"type,omitempty"`                 //	控件类型
+	Type               ApprovalWidgetType     `json:"type"`                           //	控件类型
 	Value              interface{}            `json:"value"`
 	Option             *ApprovalWidgetOptions `json:"option,omitempty"`
 	Children           []*ApprovalWidget      `json:"children,omitempty"`
