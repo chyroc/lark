@@ -154,11 +154,22 @@ func (r *SheetContent) UnmarshalJSON(bytes []byte) error {
 			r.Int = &integer
 		}
 		return nil
+	} else if bytes[0] == 't' || bytes[0] == 'f' || bytes[0] == 'T' || bytes[0] == 'F' {
+		var t = "true"
+		var f = "false"
+		if len(bytes) == 4 && strings.ToLower(string(bytes)) == t {
+			r.String = &t
+			return nil
+		} else if len(bytes) == 5 && strings.ToLower(string(bytes)) == f {
+			r.String = &f
+			return nil
+		}
+		return fmt.Errorf("unsupport sheet bool value")
 	} else if bytes[0] == 'n' {
 		if len(bytes) == 4 && string(bytes) == "null" {
 			return nil
 		}
-		return fmt.Errorf("unsupport sheet value")
+		return fmt.Errorf("unsupport sheet null value")
 	} else if bytes[0] == '{' {
 		var obj struct {
 			Type     string `json:"type"`
