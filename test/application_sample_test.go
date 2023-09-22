@@ -171,6 +171,18 @@ func Test_Application_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
+			cli.Mock().MockApplicationUpdateApplicationContactsRangeConfiguration(func(ctx context.Context, request *lark.UpdateApplicationContactsRangeConfigurationReq, options ...lark.MethodOptionFunc) (*lark.UpdateApplicationContactsRangeConfigurationResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockApplicationUpdateApplicationContactsRangeConfiguration()
+
+			_, _, err := moduleCli.UpdateApplicationContactsRangeConfiguration(ctx, &lark.UpdateApplicationContactsRangeConfigurationReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
 			cli.Mock().MockApplicationGetApplicationUserVisibleApp(func(ctx context.Context, request *lark.GetApplicationUserVisibleAppReq, options ...lark.MethodOptionFunc) (*lark.GetApplicationUserVisibleAppResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -213,6 +225,18 @@ func Test_Application_Sample_Failed(t *testing.T) {
 			defer cli.Mock().UnMockApplicationUpdateApplicationAppVisibility()
 
 			_, _, err := moduleCli.UpdateApplicationAppVisibility(ctx, &lark.UpdateApplicationAppVisibilityReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			cli.Mock().MockApplicationUpdateApplicationAppVisibilityV6(func(ctx context.Context, request *lark.UpdateApplicationAppVisibilityV6Req, options ...lark.MethodOptionFunc) (*lark.UpdateApplicationAppVisibilityV6Resp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockApplicationUpdateApplicationAppVisibilityV6()
+
+			_, _, err := moduleCli.UpdateApplicationAppVisibilityV6(ctx, &lark.UpdateApplicationAppVisibilityV6Req{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "mock-failed")
 		})
@@ -489,6 +513,15 @@ func Test_Application_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
+			_, _, err := moduleCli.UpdateApplicationContactsRangeConfiguration(ctx, &lark.UpdateApplicationContactsRangeConfigurationReq{
+				AppID: "x",
+			})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+
 			_, _, err := moduleCli.GetApplicationUserVisibleApp(ctx, &lark.GetApplicationUserVisibleAppReq{})
 			as.NotNil(err)
 			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
@@ -513,6 +546,15 @@ func Test_Application_Sample_Failed(t *testing.T) {
 		t.Run("", func(t *testing.T) {
 
 			_, _, err := moduleCli.UpdateApplicationAppVisibility(ctx, &lark.UpdateApplicationAppVisibilityReq{})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.UpdateApplicationAppVisibilityV6(ctx, &lark.UpdateApplicationAppVisibilityV6Req{
+				AppID: "x",
+			})
 			as.NotNil(err)
 			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
 		})
@@ -736,6 +778,15 @@ func Test_Application_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
+			_, _, err := moduleCli.UpdateApplicationContactsRangeConfiguration(ctx, &lark.UpdateApplicationContactsRangeConfigurationReq{
+				AppID: "x",
+			})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+
 			_, _, err := moduleCli.GetApplicationUserVisibleApp(ctx, &lark.GetApplicationUserVisibleAppReq{})
 			as.NotNil(err)
 			as.Equal("fake raw request", err.Error())
@@ -760,6 +811,15 @@ func Test_Application_Sample_Failed(t *testing.T) {
 		t.Run("", func(t *testing.T) {
 
 			_, _, err := moduleCli.UpdateApplicationAppVisibility(ctx, &lark.UpdateApplicationAppVisibilityReq{})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.UpdateApplicationAppVisibilityV6(ctx, &lark.UpdateApplicationAppVisibilityV6Req{
+				AppID: "x",
+			})
 			as.NotNil(err)
 			as.Equal("fake raw request", err.Error())
 		})

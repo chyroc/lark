@@ -24,9 +24,11 @@ import (
 // UpdateApplicationAppVisibility 该接口用于更新当前企业内自建应用或已安装的商店应用的可见范围, 包括可用人员与禁用人员。更新后对线上立即生效。
 //
 // 当通过接口新增用户或部门时, 提前判断对应用户或部门是否已在禁用名单中, 如果已在禁用名单中, 则即便将用户或部门添加到可用名单, 该用户或部门也无法看到该应用, 即禁用名单优先级高于可用名单。
-// 同一个成员(user_id)在30s内不能重复添加到禁用名单, 否则会导致调用失败
 //
-// doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/application-v6/application-visibility/patch
+// doc: https://open.feishu.cn/document/ukTMukTMukTM/ucDN3UjL3QzN14yN0cTN
+// new doc: https://open.feishu.cn/document/server-docs/application-v6/admin/update-the-availability-of-an-app
+//
+// Deprecated
 func (r *ApplicationService) UpdateApplicationAppVisibility(ctx context.Context, request *UpdateApplicationAppVisibilityReq, options ...MethodOptionFunc) (*UpdateApplicationAppVisibilityResp, *Response, error) {
 	if r.cli.mock.mockApplicationUpdateApplicationAppVisibility != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Application#UpdateApplicationAppVisibility mock enable")
@@ -36,8 +38,8 @@ func (r *ApplicationService) UpdateApplicationAppVisibility(ctx context.Context,
 	req := &RawRequestReq{
 		Scope:                 "Application",
 		API:                   "UpdateApplicationAppVisibility",
-		Method:                "PATCH",
-		URL:                   r.cli.openBaseURL + "/open-apis/application/v6/applications/:app_id/visibility",
+		Method:                "POST",
+		URL:                   r.cli.openBaseURL + "/open-apis/application/v3/app/update_visibility",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
@@ -60,42 +62,24 @@ func (r *Mock) UnMockApplicationUpdateApplicationAppVisibility() {
 
 // UpdateApplicationAppVisibilityReq ...
 type UpdateApplicationAppVisibilityReq struct {
-	AppID            string                                             `path:"app_id" json:"-"`              // 应用id, 示例值: "cli_9b445f5258795107"
-	DepartmentIDType *DepartmentIDType                                  `query:"department_id_type" json:"-"` // 部门id 类型, 示例值: open_department_id, 可选值有: open_department_id: 以open_department_id标识部门, department_id: 以department_id标识部门, 默认值: `open_department_id`
-	UserIDType       *IDType                                            `query:"user_id_type" json:"-"`       // 用户 ID 类型, 示例值: open_id, 可选值有: open_id: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid), union_id: 标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id), user_id: 标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id), 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
-	AddVisibleList   *UpdateApplicationAppVisibilityReqAddVisibleList   `json:"add_visible_list,omitempty"`   // 添加可用人员列表, 如果参数is_visible_to_all不设置且当前已经是全员可见, 或者参数is_visible_to_all设置为true, 则该参数不生效
-	DelVisibleList   *UpdateApplicationAppVisibilityReqDelVisibleList   `json:"del_visible_list,omitempty"`   // 删除可用人员列表, 如果参数is_visible_to_all不设置且当前已经是全员可见, 或者参数is_visible_to_all设置为true, 则该参数不生效
-	AddInvisibleList *UpdateApplicationAppVisibilityReqAddInvisibleList `json:"add_invisible_list,omitempty"` // 添加禁用人员列表
-	DelInvisibleList *UpdateApplicationAppVisibilityReqDelInvisibleList `json:"del_invisible_list,omitempty"` // 删除禁用人员列表
-	IsVisibleToAll   *bool                                              `json:"is_visible_to_all,omitempty"`  // 是否全员可见, false: 否, true: 是, 不设置: 继续保持当前状态不改变, 如果参数不设置且当前已经是全员可见, 或者设置为true, 则add_visible_list/del_visible_list不生效, 示例值: false
+	AppID           string                                      `json:"app_id,omitempty"`             // 目标应用的 ID
+	DelUsers        []*UpdateApplicationAppVisibilityReqDelUser `json:"del_users,omitempty"`          // 删除的用户列表, 元素个数不超过 500, 先增加后删除
+	AddUsers        []*UpdateApplicationAppVisibilityReqAddUser `json:"add_users,omitempty"`          // 增加的用户列表, 元素个数不超过500, 先增加后删除
+	IsVisiableToAll *int64                                      `json:"is_visiable_to_all,omitempty"` // 是否全员可见, 0: 否；1: 是；不填: 继续当前状态不改变
+	AddDepartments  []string                                    `json:"add_departments,omitempty"`    // 添加的部门列表, 元素个数不超过 500, 先增加后删除
+	DelDepartments  []string                                    `json:"del_departments,omitempty"`    // 删除的部门列表, 元素个数不超过 500, 先增加后删除
 }
 
-// UpdateApplicationAppVisibilityReqAddInvisibleList ...
-type UpdateApplicationAppVisibilityReqAddInvisibleList struct {
-	UserIDs       []string `json:"user_ids,omitempty"`       // 成员id列表 id类型根据user_id_type参数指定, 相同的成员不能在30s内重复添加到禁用列表, 否则会导致调用失败, 示例值: ["ou_84aad35d084aa403a838cf73ee18467"], 最大长度: `100`
-	DepartmentIDs []string `json:"department_ids,omitempty"` // 部门id列表 id类型根据department_id_type参数指定, 示例值: ["od-4e6ac4d14bcd5071a37a39de902c7141"], 最大长度: `100`
-	GroupIDs      []string `json:"group_ids,omitempty"`      // 用户组id列表, 示例值: ["g193821"], 最大长度: `100`
+// UpdateApplicationAppVisibilityReqAddUser ...
+type UpdateApplicationAppVisibilityReqAddUser struct {
+	OpenID *string `json:"open_id,omitempty"` // 与 user_id 至少给其中之一, user_id 优先于 open_id
+	UserID *string `json:"user_id,omitempty"`
 }
 
-// UpdateApplicationAppVisibilityReqAddVisibleList ...
-type UpdateApplicationAppVisibilityReqAddVisibleList struct {
-	UserIDs       []string `json:"user_ids,omitempty"`       // 成员id列表 id类型根据user_id_type参数指定, 示例值: ["ou_84aad35d084aa403a838cf73ee18467"], 最大长度: `100`
-	DepartmentIDs []string `json:"department_ids,omitempty"` // 部门id列表 id类型根据department_id_type参数指定, 示例值: ["od-4e6ac4d14bcd5071a37a39de902c7141"], 最大长度: `100`
-	GroupIDs      []string `json:"group_ids,omitempty"`      // 用户组id列表, 示例值: ["g193821"], 最大长度: `100`
-}
-
-// UpdateApplicationAppVisibilityReqDelInvisibleList ...
-type UpdateApplicationAppVisibilityReqDelInvisibleList struct {
-	UserIDs       []string `json:"user_ids,omitempty"`       // 成员id列表 id类型根据user_id_type参数指定, 示例值: ["ou_84aad35d084aa403a838cf73ee18467"], 最大长度: `100`
-	DepartmentIDs []string `json:"department_ids,omitempty"` // 部门id列表 id类型根据department_id_type参数指定, 示例值: ["od-4e6ac4d14bcd5071a37a39de902c7141"], 最大长度: `100`
-	GroupIDs      []string `json:"group_ids,omitempty"`      // 用户组id列表, 示例值: ["g193821"], 最大长度: `100`
-}
-
-// UpdateApplicationAppVisibilityReqDelVisibleList ...
-type UpdateApplicationAppVisibilityReqDelVisibleList struct {
-	UserIDs       []string `json:"user_ids,omitempty"`       // 成员id列表 id类型根据user_id_type参数指定, 示例值: ["ou_84aad35d084aa403a838cf73ee18467"], 最大长度: `100`
-	DepartmentIDs []string `json:"department_ids,omitempty"` // 部门id列表 id类型根据department_id_type参数指定, 示例值: ["od-4e6ac4d14bcd5071a37a39de902c7141"], 最大长度: `100`
-	GroupIDs      []string `json:"group_ids,omitempty"`      // 用户组id, 示例值: ["g193821"], 最大长度: `100`
+// UpdateApplicationAppVisibilityReqDelUser ...
+type UpdateApplicationAppVisibilityReqDelUser struct {
+	OpenID *string `json:"open_id,omitempty"` // 与 user_id 至少给其中之一, user_id 优先于 open_id
+	UserID *string `json:"user_id,omitempty"`
 }
 
 // UpdateApplicationAppVisibilityResp ...
@@ -104,7 +88,7 @@ type UpdateApplicationAppVisibilityResp struct {
 
 // updateApplicationAppVisibilityResp ...
 type updateApplicationAppVisibilityResp struct {
-	Code int64                               `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string                              `json:"msg,omitempty"`  // 错误描述
-	Data *UpdateApplicationAppVisibilityResp `json:"data,omitempty"`
+	Code int64                               `json:"code,omitempty"` // 返回码, 非 0 表示失败
+	Msg  string                              `json:"msg,omitempty"`  // 返回码的描述
+	Data *UpdateApplicationAppVisibilityResp `json:"data,omitempty"` // 返回的业务信息
 }

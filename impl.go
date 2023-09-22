@@ -81,6 +81,7 @@ type Lark struct {
 	Minutes          *MinutesService
 	OKR              *OKRService
 	Passport         *PassportService
+	Performance      *PerformanceService
 	PersonalSettings *PersonalSettingsService
 	Search           *SearchService
 	Task             *TaskService
@@ -122,6 +123,7 @@ func (r *Lark) init() {
 	r.Minutes = &MinutesService{cli: r}
 	r.OKR = &OKRService{cli: r}
 	r.Passport = &PassportService{cli: r}
+	r.Performance = &PerformanceService{cli: r}
 	r.PersonalSettings = &PersonalSettingsService{cli: r}
 	r.Search = &SearchService{cli: r}
 	r.Task = &TaskService{cli: r}
@@ -192,6 +194,7 @@ type MinaService struct{ cli *Lark }
 type MinutesService struct{ cli *Lark }
 type OKRService struct{ cli *Lark }
 type PassportService struct{ cli *Lark }
+type PerformanceService struct{ cli *Lark }
 type PersonalSettingsService struct{ cli *Lark }
 type SearchService struct{ cli *Lark }
 type TaskService struct{ cli *Lark }

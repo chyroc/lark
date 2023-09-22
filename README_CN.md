@@ -38,7 +38,7 @@ https://godoc.org/github.com/chyroc/lark
 
 ## 支持的接口
 
-API 总数: 890, 事件总数: 124
+API 总数: 899, 事件总数: 124
 
 <details>
   <summary>
@@ -105,10 +105,12 @@ API 总数: 890, 事件总数: 124
   - GetApplicationUserAdminScope
   - GetApplicationAppVisibility
   - GetApplicationContactsRangeConfiguration
+  - UpdateApplicationContactsRangeConfiguration
   - GetApplicationUserVisibleApp
   - CheckApplicationVisibleWhiteBlackList
   - GetApplicationAppList
   - UpdateApplicationAppVisibility
+  - UpdateApplicationAppVisibilityV6
   - GetApplicationAppAdminUserList
   - CheckUserIsInApplicationPaidScope
   - GetApplicationOrderList
@@ -425,6 +427,7 @@ API 总数: 890, 事件总数: 124
   - GetCoreHRWorkingHoursTypeList
   - GetCoreHRCurrency
   - GetCoreHRCurrencyList
+  - BatchGetCoreHREmployee
   - SearchCoreHREmployee
   - CreateCoreHREmployment
   - DeleteCoreHREmployment
@@ -558,11 +561,14 @@ API 总数: 890, 事件总数: 124
   - DeleteDrivePermissionPublicPassword
   - GetDrivePublicPermission
   - UpdateDrivePublicPermission
+  - GetDrivePublicPermissionV2
+  - UpdateDrivePublicPermissionV2
   - BatchGetDriveMediaTmpDownloadURL
   - GetDriveCommentList
+  - CreateDriveComment
   - GetDriveComment
   - BatchGetDriveComment
-  - CreateDriveComment
+  - GetDriveCommentReplyList
   - UpdateDriveComment
   - DeleteDriveComment
   - UpdateDriveCommentPatch
@@ -990,6 +996,10 @@ API 总数: 890, 事件总数: 124
   - GetOKRMetricSourceTableItemList
 - Passport
   - GetPassportSession
+- Performance
+  - GetPerformanceSemesterList
+  - GetPerformanceStageTaskByUser
+  - GetPerformanceStageTaskByPage
 - PersonalSettings
   - CreatePersonalSettingsSystemStatus
   - DeletePersonalSettingsSystemStatus

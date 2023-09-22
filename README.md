@@ -38,7 +38,7 @@ https://godoc.org/github.com/chyroc/lark
 
 ## Support APIs
 
-API Count: 890, Event Count: 124
+API Count: 899, Event Count: 124
 
 <details>
   <summary>
@@ -105,10 +105,12 @@ API Count: 890, Event Count: 124
   - GetApplicationUserAdminScope
   - GetApplicationAppVisibility
   - GetApplicationContactsRangeConfiguration
+  - UpdateApplicationContactsRangeConfiguration
   - GetApplicationUserVisibleApp
   - CheckApplicationVisibleWhiteBlackList
   - GetApplicationAppList
   - UpdateApplicationAppVisibility
+  - UpdateApplicationAppVisibilityV6
   - GetApplicationAppAdminUserList
   - CheckUserIsInApplicationPaidScope
   - GetApplicationOrderList
@@ -425,6 +427,7 @@ API Count: 890, Event Count: 124
   - GetCoreHRWorkingHoursTypeList
   - GetCoreHRCurrency
   - GetCoreHRCurrencyList
+  - BatchGetCoreHREmployee
   - SearchCoreHREmployee
   - CreateCoreHREmployment
   - DeleteCoreHREmployment
@@ -558,11 +561,14 @@ API Count: 890, Event Count: 124
   - DeleteDrivePermissionPublicPassword
   - GetDrivePublicPermission
   - UpdateDrivePublicPermission
+  - GetDrivePublicPermissionV2
+  - UpdateDrivePublicPermissionV2
   - BatchGetDriveMediaTmpDownloadURL
   - GetDriveCommentList
+  - CreateDriveComment
   - GetDriveComment
   - BatchGetDriveComment
-  - CreateDriveComment
+  - GetDriveCommentReplyList
   - UpdateDriveComment
   - DeleteDriveComment
   - UpdateDriveCommentPatch
@@ -990,6 +996,10 @@ API Count: 890, Event Count: 124
   - GetOKRMetricSourceTableItemList
 - Passport
   - GetPassportSession
+- Performance
+  - GetPerformanceSemesterList
+  - GetPerformanceStageTaskByUser
+  - GetPerformanceStageTaskByPage
 - PersonalSettings
   - CreatePersonalSettingsSystemStatus
   - DeletePersonalSettingsSystemStatus
