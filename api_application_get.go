@@ -23,6 +23,8 @@ import (
 
 // GetApplication 根据app_id获取应用的基础信息
 //
+// 商店应用必须正式发布版本后, 才可以调用该接口获取应用信息。如果灰度发布应用, 调用该接口将会报错 210504 错误码。
+//
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/application-v6/application/get
 // new doc: https://open.feishu.cn/document/server-docs/application-v6/application/get
 func (r *ApplicationService) GetApplication(ctx context.Context, request *GetApplicationReq, options ...MethodOptionFunc) (*GetApplicationResp, *Response, error) {

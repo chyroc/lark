@@ -45,8 +45,8 @@ type EventV1LeaveApprovalV2 struct {
 	UserID                 string                                     `json:"user_id,omitempty"`                   // 用户id. 如: xxx
 	OpenID                 string                                     `json:"open_id,omitempty"`                   // 用户open_id. 如: ou_xxx
 	OriginInstanceCode     string                                     `json:"origin_instance_code,omitempty"`      // 销假单关联的原始单据. 如: xxxx
-	StartTime              int64                                      `json:"start_time,omitempty"`                // 审批发起时间. 如: 1564590532
-	EndTime                int64                                      `json:"end_time,omitempty"`                  // 审批结束时间. 如: 1564590532
+	StartTime              int64                                      `json:"start_time,omitempty"`                // 审批发起时间, 单位: 秒. 如: 1564590532
+	EndTime                int64                                      `json:"end_time,omitempty"`                  // 审批结束时间, 单位: 秒. 如: 1564590532
 	LeaveFeedingArriveLate int64                                      `json:"leave_feeding_arrive_late,omitempty"` // 上班晚到（哺乳假相关）. 如: 0
 	LeaveFeedingLeaveEarly int64                                      `json:"leave_feeding_leave_early,omitempty"` // 下班早走（哺乳假相关）. 如: 0
 	LeaveFeedingRestDaily  int64                                      `json:"leave_feeding_rest_daily,omitempty"`  // 每日休息（哺乳假相关）. 如: 0

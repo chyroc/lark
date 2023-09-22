@@ -45,9 +45,9 @@ type EventV1RemedyApprovalObject struct {
 	Type         string `json:"type,omitempty"`          // 类型. 如: remedy_approval_v2
 	InstanceCode string `json:"instance_code,omitempty"` // 审批实例code
 	EmployeeID   string `json:"employee_id,omitempty"`   // 用户id
-	StartTime    int64  `json:"start_time,omitempty"`    // 审批发起时间. 如: 0
-	EndTime      int64  `json:"end_time,omitempty"`      // 审批结束时间. 如: 0
-	RemedyTime   int64  `json:"remedy_time,omitempty"`   // 补卡时间. 如: 0
+	StartTime    int64  `json:"start_time,omitempty"`    // 审批发起时间, 单位: 秒. 如: 0
+	EndTime      int64  `json:"end_time,omitempty"`      // 审批结束时间, 单位: 秒. 如: 0
+	RemedyTime   int64  `json:"remedy_time,omitempty"`   // 补卡时间, 单位: 毫秒. 如: 0
 	RemedyReason string `json:"remedy_reason,omitempty"` // 补卡原因
 	Status       string `json:"status,omitempty"`        // 实例状态
 }

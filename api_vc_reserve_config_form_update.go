@@ -67,10 +67,11 @@ type UpdateVCReserveConfigFormReq struct {
 
 // UpdateVCReserveConfigFormReqReserveFormConfig ...
 type UpdateVCReserveConfigFormReqReserveFormConfig struct {
-	ReserveForm   bool                                                         `json:"reserve_form,omitempty"`   // 预定表单开关, true表示打开, false表示关闭, 示例值: false, 默认值: `false`
-	NotifiedUsers []*UpdateVCReserveConfigFormReqReserveFormConfigNotifiedUser `json:"notified_users,omitempty"` // 通知人列表
-	NotifiedTime  *int64                                                       `json:"notified_time,omitempty"`  // 最晚于会议开始前 notified_time收到通知（单位: 分/时/天）, 示例值: 3
-	TimeUnit      *int64                                                       `json:"time_unit,omitempty"`      // 时间单位, 1为分钟；2为小时；3为天, 默认为天, 示例值: 3, 取值范围: `1` ～ `3`
+	IfCoverChildScope *bool                                                        `json:"if_cover_child_scope,omitempty"` // 是否覆盖子层级及会议室, 示例值: true
+	ReserveForm       bool                                                         `json:"reserve_form,omitempty"`         // 预定表单开关, true表示打开, false表示关闭, 示例值: false, 默认值: `false`
+	NotifiedUsers     []*UpdateVCReserveConfigFormReqReserveFormConfigNotifiedUser `json:"notified_users,omitempty"`       // 通知人列表
+	NotifiedTime      *int64                                                       `json:"notified_time,omitempty"`        // 最晚于会议开始前 notified_time收到通知（单位: 分/时/天）, 示例值: 3
+	TimeUnit          *int64                                                       `json:"time_unit,omitempty"`            // 时间单位, 1为分钟；2为小时；3为天, 默认为天, 示例值: 3, 取值范围: `1` ～ `3`
 }
 
 // UpdateVCReserveConfigFormReqReserveFormConfigNotifiedUser ...

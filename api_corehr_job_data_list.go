@@ -80,19 +80,19 @@ type GetCoreHRJobDataListResp struct {
 type GetCoreHRJobDataListRespItem struct {
 	ID                       string                                             `json:"id,omitempty"`                          // 任职信息 ID
 	VersionID                string                                             `json:"version_id,omitempty"`                  // 任职记录版本 ID
-	JobLevelID               string                                             `json:"job_level_id,omitempty"`                // 职务级别 ID, 枚举值及详细信息可通过【查询单个职务级别】接口查询获得
-	EmployeeTypeID           string                                             `json:"employee_type_id,omitempty"`            // 人员类型 ID, 枚举值及详细信息可通过【查询单个人员类型】接口查询获得
-	WorkingHoursTypeID       string                                             `json:"working_hours_type_id,omitempty"`       // 工时制度 ID, 枚举值及详细信息可通过【查询单个工时制度】接口查询获得
-	WorkLocationID           string                                             `json:"work_location_id,omitempty"`            // 工作地点 ID, 枚举值及详细信息可通过【查询单个地点】接口查询获得
-	DepartmentID             string                                             `json:"department_id,omitempty"`               // 部门 ID, 枚举值及详细信息可通过【查询单个部门】接口查询获得
-	JobID                    string                                             `json:"job_id,omitempty"`                      // 职务 ID, 枚举值及详细信息可通过【查询单个职务】接口查询获得
+	JobLevelID               string                                             `json:"job_level_id,omitempty"`                // 职务级别 ID, 枚举值及详细信息可通过[查询单个职级](https://open.feishu.cn/document/server-docs/corehr-v1/job-management/job_level/get)接口查询获得
+	EmployeeTypeID           string                                             `json:"employee_type_id,omitempty"`            // 人员类型 ID, 枚举值及详细信息可通过[查询单个人员类型](https://open.feishu.cn/document/server-docs/corehr-v1/basic-infomation/employee_type/get)接口查询获得
+	WorkingHoursTypeID       string                                             `json:"working_hours_type_id,omitempty"`       // 工时制度 ID, 枚举值及详细信息可通过[查询单个工时制度](https://open.feishu.cn/document/server-docs/corehr-v1/basic-infomation/working_hours_type/get)接口查询获得
+	WorkLocationID           string                                             `json:"work_location_id,omitempty"`            // 工作地点 ID, 枚举值及详细信息可通过[查询单个地点](https://open.feishu.cn/document/server-docs/corehr-v1/organization-management/location/get)接口查询获得
+	DepartmentID             string                                             `json:"department_id,omitempty"`               // 部门 ID, 枚举值及详细信息可通过[查询单个部门](https://open.feishu.cn/document/server-docs/corehr-v1/organization-management/department/get)接口查询获得
+	JobID                    string                                             `json:"job_id,omitempty"`                      // 职务 ID, 枚举值及详细信息可通过[查询单个职务](https://open.feishu.cn/document/server-docs/corehr-v1/job-management/job/get)接口查询获得
 	ProbationStartDate       string                                             `json:"probation_start_date,omitempty"`        // 试用期开始日期
 	ProbationEndDate         string                                             `json:"probation_end_date,omitempty"`          // 试用期结束日期（实际结束日期）
 	PrimaryJobData           bool                                               `json:"primary_job_data,omitempty"`            // 是否为主任职
 	EmploymentID             string                                             `json:"employment_id,omitempty"`               // 雇佣 ID
 	EffectiveTime            string                                             `json:"effective_time,omitempty"`              // 生效时间
 	ExpirationTime           string                                             `json:"expiration_time,omitempty"`             // 失效时间
-	JobFamilyID              string                                             `json:"job_family_id,omitempty"`               // 职务序列 ID, 枚举值及详细信息可通过【查询单个职务序列】接口查询获得
+	JobFamilyID              string                                             `json:"job_family_id,omitempty"`               // 序列 ID, 枚举值及详细信息可通过[查询单个序列](https://open.feishu.cn/document/server-docs/corehr-v1/job-management/job_family/get)接口查询获得
 	AssignmentStartReason    *GetCoreHRJobDataListRespItemAssignmentStartReason `json:"assignment_start_reason,omitempty"`     // 任职原因, 枚举值可通过文档[【飞书人事枚举常量】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)任职原因（assignment_start_reason）枚举定义部分获得
 	ProbationExpectedEndDate string                                             `json:"probation_expected_end_date,omitempty"` // 预计试用期结束日期
 	ProbationOutcome         *GetCoreHRJobDataListRespItemProbationOutcome      `json:"probation_outcome,omitempty"`           // 试用期结果, 枚举值可通过文档[【飞书人事枚举常量】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)试用期结果（probation_outcome）枚举定义部分获得

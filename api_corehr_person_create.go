@@ -23,6 +23,9 @@ import (
 
 // CreateCoreHRPerson 创建个人信息
 //
+// 接口已升级, 推荐使用, 性能更优。
+// 如需继续使用旧版本接口, 可点击[创建个人信息](https://open.feishu.cn/document/server-docs/corehr-v1/employee/person/create)
+//
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/person/create
 // new doc: https://open.feishu.cn/document/server-docs/corehr-v1/employee/person/create-2
 func (r *CoreHRService) CreateCoreHRPerson(ctx context.Context, request *CreateCoreHRPersonReq, options ...MethodOptionFunc) (*CreateCoreHRPersonResp, *Response, error) {

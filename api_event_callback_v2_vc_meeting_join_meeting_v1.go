@@ -43,7 +43,7 @@ type EventV2VCMeetingJoinMeetingV1Meeting struct {
 	ID        string                                        `json:"id,omitempty"`         // 会议ID（视频会议的唯一标识, 视频会议开始后才会产生）
 	Topic     string                                        `json:"topic,omitempty"`      // 会议主题
 	MeetingNo string                                        `json:"meeting_no,omitempty"` // 9位会议号（飞书用户可通过输入9位会议号快捷入会）
-	StartTime string                                        `json:"start_time,omitempty"` // 会议结束时间（unix时间, 单位: 秒）
+	StartTime string                                        `json:"start_time,omitempty"` // 会议开始时间（unix时间, 单位: 秒）
 	EndTime   string                                        `json:"end_time,omitempty"`   // 会议结束时间（unix时间, 单位: 秒）
 	HostUser  *EventV2VCMeetingJoinMeetingV1MeetingHostUser `json:"host_user,omitempty"`  // 会议主持人
 	Owner     *EventV2VCMeetingJoinMeetingV1MeetingOwner    `json:"owner,omitempty"`      // 会议拥有者

@@ -85,6 +85,8 @@ type UpdateChatReq struct {
 	MembershipApproval     *MembershipApproval                 `json:"membership_approval,omitempty"`      // 加群审批, 可选值有: `no_approval_required`: 无需审批, `approval_required`: 需要审批, 示例值: "no_approval_required"
 	RestrictedModeSetting  *UpdateChatReqRestrictedModeSetting `json:"restricted_mode_setting,omitempty"`  // 保密模式设置
 	ChatType               *ChatType                           `json:"chat_type,omitempty"`                // 群类型, 可选值有: `private`: 私有群, `public`: 公开群, 示例值: "private"
+	UrgentSetting          *string                             `json:"urgent_setting,omitempty"`           // 谁可以加急, 示例值: "all_members", 可选值有: only_owner: 仅群主和管理员, all_members: 所有成员
+	VideoConferenceSetting *string                             `json:"video_conference_setting,omitempty"` // 谁可以发起视频会议, 示例值: "all_members", 可选值有: only_owner: 仅群主和管理员, all_members: 所有成员
 }
 
 // UpdateChatReqRestrictedModeSetting ...

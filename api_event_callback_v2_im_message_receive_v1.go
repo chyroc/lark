@@ -28,7 +28,8 @@ import (
 // - 同时, 将根据应用具备的权限, 判断可推送的信息:
 // --当具备[获取用户发给机器人的单聊消息]或者[读取用户发给机器人的单聊消息] 权限, 可接收与机器人单聊会话中用户发送的所有消息
 // --当具备[获取群组中所有消息] 权限时, 可接收与机器人所在群聊会话中用户发送的所有消息
-// --当具备[获取用户在群组中@机器人的消息]或者[接收群聊中@机器人消息事件] 权限, 可接收机器人所在群聊中用户 @ 机器人的消息
+// --当具备[获取用户在群组中@机器人的消息]或者[接收群聊中@机器人消息事件] 权限时, 可接收机器人所在群聊中用户 @ 机器人的消息
+// --当具备[获取客户端用户代理信息]权限时, 可获取`user_agent` 用户代理信息
 // - 特殊情况下可能会收到重复的推送, 如有幂等需求请使用 [message_id]去重, 不要依赖event_id
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/events/receive
@@ -52,11 +53,13 @@ type EventV2IMMessageReceiveV1Message struct {
 	RootID      string                                     `json:"root_id,omitempty"`      // 根消息id, 用于回复消息场景, 说明参见: [消息ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/intro#ac79c1c2)
 	ParentID    string                                     `json:"parent_id,omitempty"`    // 父消息的id, 用于回复消息场景, 说明参见: [消息ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/intro#ac79c1c2)
 	CreateTime  string                                     `json:"create_time,omitempty"`  // 消息发送时间（毫秒）
+	UpdateTime  string                                     `json:"update_time,omitempty"`  // 消息更新时间（毫秒）
 	ChatID      string                                     `json:"chat_id,omitempty"`      // 消息所在的群组 ID
 	ChatType    ChatMode                                   `json:"chat_type,omitempty"`    // 消息所在的群组类型, 可选值有: `p2p`: 单聊, `group`: 群组
 	MessageType MsgType                                    `json:"message_type,omitempty"` // 消息类型
-	Content     string                                     `json:"content,omitempty"`      // 消息内容, json 格式, [各类型消息Content](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/im-v1/message/events/message_content)
+	Content     string                                     `json:"content,omitempty"`      // 消息内容, JSON 格式, [各类型消息Content](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/im-v1/message/events/message_content)
 	Mentions    []*EventV2IMMessageReceiveV1MessageMention `json:"mentions,omitempty"`     // 被提及用户的信息
+	UserAgent   string                                     `json:"user_agent,omitempty"`   // 用户代理数据, 仅在接收事件的机器人具备[获取客户端用户代理信息]权限时返回
 }
 
 // EventV2IMMessageReceiveV1MessageMention ...

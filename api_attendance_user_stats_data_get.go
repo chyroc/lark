@@ -23,7 +23,8 @@ import (
 
 // GetAttendanceUserStatsData 查询日度统计或月度统计的统计数据。
 //
-// 调用统计开放接口api目前不返回休假加班新增字段类型
+// * 调用统计开放接口api目前不返回休假加班新增字段类型
+// * 当天不在考勤组时没有相关统计数据
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/user_stats_data/query
 // new doc: https://open.feishu.cn/document/server-docs/attendance-v1/user_stats_data/query-3
@@ -65,10 +66,10 @@ type GetAttendanceUserStatsDataReq struct {
 	StatsType        string       `json:"stats_type,omitempty"`         // 统计类型, 示例值: "month", 可选值有: daily: 日度统计, month: 月度统计
 	StartDate        int64        `json:"start_date,omitempty"`         // 开始时间, 示例值: 20210316
 	EndDate          int64        `json:"end_date,omitempty"`           // 结束时间, （时间间隔不超过 31 天）, 示例值: 20210323
-	UserIDs          []string     `json:"user_ids,omitempty"`           // 查询的用户 ID 列表, （用户数量不超过 200）, * 必填字段(已全部升级到新系统, 新系统要求必填), 示例值: ["ec8ddg56, af5ddg73"]
+	UserIDs          []string     `json:"user_ids,omitempty"`           // 查询的用户 ID 列表, （用户数量不超过 200）, * 必填字段(已全部升级到新系统, 新系统要求必填), 示例值: ["ec8ddg56", "af5ddg73"]
 	NeedHistory      *bool        `json:"need_history,omitempty"`       // 是否需要历史数据, 示例值: true
 	CurrentGroupOnly *bool        `json:"current_group_only,omitempty"` // 只展示当前考勤组, 示例值: true
-	UserID           *string      `json:"user_id,omitempty"`            // 操作者的用户id, * 必填字段(已全部升级到新系统, 新系统要求必填), 示例值: "ec8ddg56"
+	UserID           *string      `json:"user_id,omitempty"`            // 操作者的 user_id, * 不同的操作者（管理员）的每个报表可能有不同的字段设置, 系统将根据 user_id 查询指定报表的统计数据, * 必填字段（已全部升级到新系统, 新系统要求该字段必填）, 示例值: "ec8ddg56"
 }
 
 // GetAttendanceUserStatsDataResp ...

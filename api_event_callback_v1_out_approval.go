@@ -47,8 +47,8 @@ type EventV1OutApproval struct {
 	OutStartTime  string                                 `json:"out_start_time,omitempty"` // 如: 2020-05-15 15:00:00
 	OutEndTime    string                                 `json:"out_end_time,omitempty"`   // 如: 2020-05-15 18:00:00
 	OutUnit       string                                 `json:"out_unit,omitempty"`       // 外出时长的单位, HOUR 小时, DAY 天, HALF_DAY 半天. 如: HOUR
-	StartTime     int64                                  `json:"start_time,omitempty"`     // 审批开始时间. 如: 1589527346
-	EndTime       int64                                  `json:"end_time,omitempty"`       // 审批结束时间. 如: 1589527354
+	StartTime     int64                                  `json:"start_time,omitempty"`     // 审批开始时间, 单位: 秒. 如: 1589527346
+	EndTime       int64                                  `json:"end_time,omitempty"`       // 审批结束时间, 单位: 秒. 如: 1589527354
 	TenantKey     string                                 `json:"tenant_key,omitempty"`     // 企业唯一标识. 如: 2d520d3b434f175e
 	Type          string                                 `json:"type,omitempty"`           // 事件类型. 如: out_approval
 	OpenID        string                                 `json:"open_id,omitempty"`        // 申请发起人open_id. 如: ou_xxx

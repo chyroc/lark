@@ -70,12 +70,12 @@ type DeleteUserReq struct {
 	ApplicationAcceptorUserID    *string                     `json:"application_acceptor_user_id,omitempty"`     // 应用接受者。用户被删除时, 其创建的应用转让给接收者, 不指定接收者则默认转让给直属上级。如果无直属上级则保留应用在该用户名下, 但该用户无法登录开发者后台进行应用管理, 管理员可以在管理后台手动转移应用给其他人, 示例值: "ou_7dab8a3d3cdcc9da365777c7ad535d62"
 	MinutesAcceptorUserID        *string                     `json:"minutes_acceptor_user_id,omitempty"`         // 妙记接收者。用户被删除时, 其拥有的妙记资源转让给接收者。如果不指定接收者, 则默认转让给直属上级。如果无直属上级则将妙记保留在该用户名下, 示例值: "ou_7dab8a3d3cdcc9da365777c7ad535d62"
 	SurveyAcceptorUserID         *string                     `json:"survey_acceptor_user_id,omitempty"`          // 飞书问卷接收者。用户被删除时, 其拥有的飞书问卷资源转让给接收者, 不指定接收者则默认转让给直属上级, 如果无直属上级则直接删除飞书问卷资源, 示例值: "ou_7dab8a3d3cdcc9da365777c7ad535d62"
-	EmailAcceptor                *DeleteUserReqEmailAcceptor `json:"email_acceptor,omitempty"`                   // 用户邮件资源处理方式。用户被删除时, 根据传递的操作指令对其拥有的邮件资源做对应处理。未传递指令时默认将邮件资源转让给直属上级, 如果无直属上级则保留邮件资源在该用户名下。
+	EmailAcceptor                *DeleteUserReqEmailAcceptor `json:"email_acceptor,omitempty"`                   // 用户邮件资源处理方式。用户被删除时, 根据传递的操作指令对其拥有的邮件资源做对应处理。
 }
 
 // DeleteUserReqEmailAcceptor ...
 type DeleteUserReqEmailAcceptor struct {
-	ProcessingType string  `json:"processing_type,omitempty"`  // 邮件处理方式, 示例值: "1", 可选值有: 1: 转移资源, 2: 保留资源, 3: 删除资源
+	ProcessingType string  `json:"processing_type,omitempty"`  // 邮件处理方式。如果未传值, 则默认将邮件资源转让给直属上级, 如果无直属上级则保留邮件资源在该用户名下, 示例值: "1", 可选值有: 1: 转移资源, 2: 保留资源, 3: 删除资源
 	AcceptorUserID *string `json:"acceptor_user_id,omitempty"` // 在 processing_type 为 1 （转移资源时）, 邮件资源接收者, 示例值: "ou_7dab8a3d3cdcc9da365777c7ad535d62"
 }
 

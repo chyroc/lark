@@ -67,9 +67,10 @@ type UpdateVCReserveConfigDisableInformReq struct {
 
 // UpdateVCReserveConfigDisableInformReqDisableInform ...
 type UpdateVCReserveConfigDisableInformReqDisableInform struct {
-	IfInform      bool                                                              `json:"if_inform,omitempty"`      // 禁用状态变更通知开关, 示例值: false, 默认值: `false`
-	InformedUsers []*UpdateVCReserveConfigDisableInformReqDisableInformInformedUser `json:"informed_users,omitempty"` // 通知成员列表
-	InformedDepts []*UpdateVCReserveConfigDisableInformReqDisableInformInformedDept `json:"informed_depts,omitempty"` // 通知部门列表
+	IfCoverChildScope *bool                                                             `json:"if_cover_child_scope,omitempty"` // 是否覆盖子层级及会议室, 示例值: true
+	IfInform          bool                                                              `json:"if_inform,omitempty"`            // 禁用状态变更通知开关, 示例值: false, 默认值: `false`
+	InformedUsers     []*UpdateVCReserveConfigDisableInformReqDisableInformInformedUser `json:"informed_users,omitempty"`       // 通知成员列表
+	InformedDepts     []*UpdateVCReserveConfigDisableInformReqDisableInformInformedDept `json:"informed_depts,omitempty"`       // 通知部门列表
 }
 
 // UpdateVCReserveConfigDisableInformReqDisableInformInformedDept ...

@@ -62,7 +62,8 @@ func (r *Mock) UnMockDriveGetWikiNode() {
 
 // GetWikiNodeReq ...
 type GetWikiNodeReq struct {
-	Token string `query:"token" json:"-"` // 文档的节点token, 示例值: wikcnKQ1k3p**8Vabcef
+	Token   string  `query:"token" json:"-"`    // 文档的token, 使用文档token查询时, 需要obj_type参数传入文档对应的类型, 示例值: wikcnKQ1k3p**8Vabcef
+	ObjType *string `query:"obj_type" json:"-"` // 文档类型。不传时默认以wiki类型查询, 示例值: docx, 可选值有: doc: 旧版文档, docx: 新版文档, sheet: 表格, mindnote: 思维导图, bitable: 多维表格, file: 文件, slides: 幻灯片, wiki: 知识库节点, 默认值: `wiki`
 }
 
 // GetWikiNodeResp ...

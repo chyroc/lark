@@ -92,8 +92,8 @@ type GetAttendanceUserApprovalRespUserApprovalLeave struct {
 	UniqID           string     `json:"uniq_id,omitempty"`            // 假期类型唯一 ID, 代表一种假期类型, 长度小于 14, * 此ID对应假期类型(即: i18n_names), 因此需要保证唯一
 	Unit             int64      `json:"unit,omitempty"`               // 假期时长单位, 可选值有: 1: 天, 2: 小时, 3: 半天, 4: 半小时
 	Interval         int64      `json:"interval,omitempty"`           // 假期时长（单位: 秒）, 暂未开放提供, 待后续提供
-	StartTime        string     `json:"start_time,omitempty"`         // 开始时间, 时间格式为 yyyy-MM-dd HH:mm:ss
-	EndTime          string     `json:"end_time,omitempty"`           // 结束时间, 时间格式为 yyyy-MM-dd HH:mm:ss
+	StartTime        string     `json:"start_time,omitempty"`         // 开始时间, 时间格式为 yyyy-MM-dd HH:mm:ss, 时间按照审批发起人当前考勤组的时区进行取值, 如果发起人已离职, 则默认为 0 时区。
+	EndTime          string     `json:"end_time,omitempty"`           // 结束时间, 时间格式为 yyyy-MM-dd HH:mm:ss, 时间按照审批发起人当前考勤组的时区进行取值, 如果发起人已离职, 则默认为 0 时区。
 	I18nNames        *I18nNames `json:"i18n_names,omitempty"`         // 假期多语言展示, 格式为 map, key 为 ["ch"、"en"、"ja"], 其中 ch 代表中文、en 代表英语、ja 代表日语
 	DefaultLocale    string     `json:"default_locale,omitempty"`     // 默认语言类型, 由于飞书客户端支持中、英、日三种语言, 当用户切换语言时, 如果假期名称没有所对应的语言, 会使用默认语言的名称, 可选值有: ch: 中文, en: 英文, ja: 日文
 	Reason           string     `json:"reason,omitempty"`             // 请假理由, 必选字段
@@ -107,8 +107,8 @@ type GetAttendanceUserApprovalRespUserApprovalOut struct {
 	UniqID           string     `json:"uniq_id,omitempty"`            // 外出类型唯一 ID, 代表一种假期类型, 长度小于 14, * 此ID对应假期类型(即: i18n_names), 因此需要保证唯一
 	Unit             int64      `json:"unit,omitempty"`               // 外出时长单位, 可选值有: 1: 天, 2: 小时, 3: 半天, 4: 半小时
 	Interval         int64      `json:"interval,omitempty"`           // 外出时长（单位: 秒）
-	StartTime        string     `json:"start_time,omitempty"`         // 开始时间, 时间格式为 yyyy-MM-dd HH:mm:ss
-	EndTime          string     `json:"end_time,omitempty"`           // 结束时间, 时间格式为 yyyy-MM-dd HH:mm:ss
+	StartTime        string     `json:"start_time,omitempty"`         // 开始时间, 时间格式为 yyyy-MM-dd HH:mm:ss, 时间按照审批发起人当前考勤组的时区进行取值, 如果发起人已离职, 则默认为 0 时区。
+	EndTime          string     `json:"end_time,omitempty"`           // 结束时间, 时间格式为 yyyy-MM-dd HH:mm:ss, 时间按照审批发起人当前考勤组的时区进行取值, 如果发起人已离职, 则默认为 0 时区。
 	I18nNames        *I18nNames `json:"i18n_names,omitempty"`         // 外出多语言展示, 格式为 map, key 为 ["ch"、"en"、"ja"], 其中 ch 代表中文、en 代表英语、ja 代表日语
 	DefaultLocale    string     `json:"default_locale,omitempty"`     // 默认语言类型, 由于飞书客户端支持中、英、日三种语言, 当用户切换语言时, 如果假期名称没有所对应的语言, 会使用默认语言的名称
 	Reason           string     `json:"reason,omitempty"`             // 外出理由
@@ -123,15 +123,15 @@ type GetAttendanceUserApprovalRespUserApprovalOvertimeWork struct {
 	Unit       int64   `json:"unit,omitempty"`        // 加班时长单位, 可选值有: 1: 天, 2: 小时, 3: 半天, 4: 半小时
 	Category   int64   `json:"category,omitempty"`    // 加班日期类型, 可选值有: 1: 工作日, 2: 休息日, 3: 节假日
 	Type       int64   `json:"type,omitempty"`        // 加班规则类型, 可选值有: 0: 不关联加班规则, 1: 调休, 2: 加班费, 3: 关联加班规则, 没有调休或加班费
-	StartTime  string  `json:"start_time,omitempty"`  // 开始时间, 时间格式为 yyyy-MM-dd HH:mm:ss
-	EndTime    string  `json:"end_time,omitempty"`    // 结束时间, 时间格式为 yyyy-MM-dd HH:mm:ss
+	StartTime  string  `json:"start_time,omitempty"`  // 开始时间, 时间格式为 yyyy-MM-dd HH:mm:ss, 时间按照审批发起人当前考勤组的时区进行取值, 如果发起人已离职, 则默认为 0 时区。
+	EndTime    string  `json:"end_time,omitempty"`    // 结束时间, 时间格式为 yyyy-MM-dd HH:mm:ss, 时间按照审批发起人当前考勤组的时区进行取值, 如果发起人已离职, 则默认为 0 时区。
 }
 
 // GetAttendanceUserApprovalRespUserApprovalTrip ...
 type GetAttendanceUserApprovalRespUserApprovalTrip struct {
 	ApprovalID       string `json:"approval_id,omitempty"`        // 审批实例 ID
-	StartTime        string `json:"start_time,omitempty"`         // 开始时间, 时间格式为 yyyy-MM-dd HH:mm:ss
-	EndTime          string `json:"end_time,omitempty"`           // 结束时间, 时间格式为 yyyy-MM-dd HH:mm:ss
+	StartTime        string `json:"start_time,omitempty"`         // 开始时间, 时间格式为 yyyy-MM-dd HH:mm:ss, 时间按照审批发起人当前考勤组的时区进行取值, 如果发起人已离职, 则默认为 0 时区。
+	EndTime          string `json:"end_time,omitempty"`           // 结束时间, 时间格式为 yyyy-MM-dd HH:mm:ss, 时间按照审批发起人当前考勤组的时区进行取值, 如果发起人已离职, 则默认为 0 时区。
 	Reason           string `json:"reason,omitempty"`             // 出差理由
 	ApprovePassTime  string `json:"approve_pass_time,omitempty"`  // 审批通过时间, 时间格式为 yyyy-MM-dd HH:mm:ss
 	ApproveApplyTime string `json:"approve_apply_time,omitempty"` // 审批申请时间, 时间格式为 yyyy-MM-dd HH:mm:ss

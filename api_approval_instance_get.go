@@ -58,10 +58,10 @@ func (r *Mock) UnMockApprovalGetApprovalInstance() {
 
 // GetApprovalInstanceReq ...
 type GetApprovalInstanceReq struct {
-	InstanceID string  `path:"instance_id" json:"-"`   // 审批实例 Code, 若在创建的时候传了uuid, 也可以通过传uuid获取, 示例值: "81D31358-93AF-92D6-7425-01A5D67C4E71"
-	Locale     *string `query:"locale" json:"-"`       // 语言, 示例值: "zh-CN", 可选值有: zh-CN: 中文, en-US: 英文, ja-JP: 日文
-	UserID     *string `query:"user_id" json:"-"`      // 发起审批用户id, 仅自建应用可返回, 示例值: "f7cb567e"
-	UserIDType *IDType `query:"user_id_type" json:"-"` // 用户 ID 类型, 示例值: "open_id", 可选值有: open_id: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid), union_id: 标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id), user_id: 标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id), 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
+	InstanceID string  `path:"instance_id" json:"-"`   // 审批实例 Code, 若在创建的时候传了 uuid, 也可以通过传 uuid 获取, 示例值: "81D31358-93AF-92D6-7425-01A5D67C4E71"
+	Locale     *string `query:"locale" json:"-"`       // 语言。默认值为[创建审批定义](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/approval/create)时在 i18n_resources 字段中配置的语言, 示例值: zh-CN, 可选值有: zh-CN: 中文, en-US: 英文, ja-JP: 日文
+	UserID     *string `query:"user_id" json:"-"`      // 发起审批用户 id, 仅自建应用可返回, 示例值: f7cb567e
+	UserIDType *IDType `query:"user_id_type" json:"-"` // 用户 ID 类型, 示例值: user_id, 可选值有: open_id: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid), union_id: 标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id), user_id: 标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id), 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
 }
 
 // GetApprovalInstanceResp ...
@@ -74,8 +74,8 @@ type GetApprovalInstanceResp struct {
 	SerialNumber         string                             `json:"serial_number,omitempty"`          // 审批单编号
 	DepartmentID         string                             `json:"department_id,omitempty"`          // 发起审批用户所在部门
 	Status               string                             `json:"status,omitempty"`                 // 审批实例状态, 可选值有: PENDING: 审批中, APPROVED: 通过, REJECTED: 拒绝, CANCELED: 撤回, DELETED: 删除
-	UUID                 string                             `json:"uuid,omitempty"`                   // 用户的唯一标识id
-	Form                 ApprovalWidgetList                 `json:"form,omitempty"`                   // json字符串, 控件值详情见下方
+	UUID                 string                             `json:"uuid,omitempty"`                   // 用户的唯一标识 id
+	Form                 ApprovalWidgetList                 `json:"form,omitempty"`                   // json 字符串, 控件值详情见下方
 	TaskList             []*GetApprovalInstanceRespTask     `json:"task_list,omitempty"`              // 审批任务列表
 	CommentList          []*GetApprovalInstanceRespComment  `json:"comment_list,omitempty"`           // 评论列表
 	Timeline             []*GetApprovalInstanceRespTimeline `json:"timeline,omitempty"`               // 审批动态
@@ -107,9 +107,9 @@ type GetApprovalInstanceRespCommentFile struct {
 // GetApprovalInstanceRespTask ...
 type GetApprovalInstanceRespTask struct {
 	ID           string `json:"id,omitempty"`             // task id
-	UserID       string `json:"user_id,omitempty"`        // 审批人的用户id, 自动通过、自动拒绝 时为空
+	UserID       string `json:"user_id,omitempty"`        // 审批人的用户 id, 自动通过、自动拒绝 时为空
 	OpenID       string `json:"open_id,omitempty"`        // 审批人 open id
-	Status       string `json:"status,omitempty"`         // 任务状态, 可选值有: PENDING: 审批中, APPROVED: 同意, REJECTED: 拒绝, TRANSFERRED: 已转交, DONE: 完成
+	Status       string `json:"status,omitempty"`         // 任务状态, 可选值有: PENDING: 审批中, APPROVED: 通过, REJECTED: 拒绝, TRANSFERRED: 已转交, DONE: 完成
 	NodeID       string `json:"node_id,omitempty"`        // task 所属节点 id
 	NodeName     string `json:"node_name,omitempty"`      // task 所属节点名称
 	CustomNodeID string `json:"custom_node_id,omitempty"` // task 所属节点自定义 id, 如果没设置自定义 id, 则不返回该字段
@@ -130,7 +130,7 @@ type GetApprovalInstanceRespTimeline struct {
 	Comment    string                                   `json:"comment,omitempty"`      // 理由
 	CcUserList []*GetApprovalInstanceRespTimelineCcUser `json:"cc_user_list,omitempty"` // 抄送人列表
 	Ext        *GetApprovalInstanceRespTimelineExt      `json:"ext,omitempty"`          // 动态其他信息, json格式, 目前包括 user_id_list, user_id, open_id_list, open_id
-	NodeKey    string                                   `json:"node_key,omitempty"`     // 产生task的节点key
+	NodeKey    string                                   `json:"node_key,omitempty"`     // 产生 task 的节点 key
 	Files      []*GetApprovalInstanceRespTimelineFile   `json:"files,omitempty"`        // 审批附件
 }
 

@@ -58,11 +58,11 @@ func (r *Mock) UnMockApplicationGetApplicationUserVisibleApp() {
 
 // GetApplicationUserVisibleAppReq ...
 type GetApplicationUserVisibleAppReq struct {
-	PageToken *string `query:"page_token" json:"-"` // 分页起始位置标示, 不填表示从头开始
-	PageSize  *int64  `query:"page_size" json:"-"`  // 单页需求最大个数（最大 100）, 0 自动最大个数
-	Lang      *string `query:"lang" json:"-"`       // 优先展示的应用信息的语言版本（zh_cn: 中文, en_us: 英文, ja_jp: 日文）
-	OpenID    *string `query:"open_id" json:"-"`    // 目标用户 open_id
-	UserID    *string `query:"user_id" json:"-"`    // 目标用户 user_id, 与 open_id 至少给其中之一, user_id 优先于 open_id
+	PageToken *string `query:"page_token" json:"-"` // 分页起始位置标示, 不填表示从头开始。
+	PageSize  *int64  `query:"page_size" json:"-"`  // 单页需求最大个数（最大 100）, 0 自动最大个数。
+	Lang      *string `query:"lang" json:"-"`       // 优先展示的应用信息的语言版本, zh_cn: 简体中文, zh_hk: 繁体中文（中国香港）, zh_tw: 繁体中文（中国台湾）, en_us: 英文, ja_jp: 日文, ko_kr: 韩语, es_es: 西班牙语, pt-br: 葡萄牙语（巴西）, th_th: 泰语, vi_vn: 越南语, id_id: 印尼语
+	OpenID    *string `query:"open_id" json:"-"`    // 目标用户 open_id。
+	UserID    *string `query:"user_id" json:"-"`    // 目标用户 user_id, 与 open_id 至少给其中之一, user_id 优先于 open_id。
 }
 
 // GetApplicationUserVisibleAppResp ...

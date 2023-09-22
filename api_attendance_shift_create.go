@@ -61,15 +61,18 @@ func (r *Mock) UnMockAttendanceCreateAttendanceShift() {
 
 // CreateAttendanceShiftReq ...
 type CreateAttendanceShiftReq struct {
-	ShiftName         string                                       `json:"shift_name,omitempty"`            // 班次名称, 示例值: "早班"
-	PunchTimes        int64                                        `json:"punch_times,omitempty"`           // 打卡次数, 示例值: 1
-	IsFlexible        *bool                                        `json:"is_flexible,omitempty"`           // 是否弹性打卡, 示例值: false
-	FlexibleMinutes   *int64                                       `json:"flexible_minutes,omitempty"`      // 弹性打卡时间, 设置【上班最多可晚到】与【下班最多可早走】时间, 如果不设置flexible_rule则生效, 示例值: 60
-	FlexibleRule      []*CreateAttendanceShiftReqFlexibleRule      `json:"flexible_rule,omitempty"`         // 弹性打卡时间设置
-	NoNeedOff         *bool                                        `json:"no_need_off,omitempty"`           // 不需要打下班卡, 示例值: true
-	PunchTimeRule     []*CreateAttendanceShiftReqPunchTimeRule     `json:"punch_time_rule,omitempty"`       // 打卡规则
-	LateOffLateOnRule []*CreateAttendanceShiftReqLateOffLateOnRule `json:"late_off_late_on_rule,omitempty"` // 晚走晚到规则
-	RestTimeRule      []*CreateAttendanceShiftReqRestTimeRule      `json:"rest_time_rule,omitempty"`        // 休息规则
+	ShiftName          string                                       `json:"shift_name,omitempty"`            // 班次名称, 示例值: "早班"
+	PunchTimes         int64                                        `json:"punch_times,omitempty"`           // 打卡次数, 示例值: 1
+	SubShiftLeaderIDs  []string                                     `json:"sub_shift_leader_ids,omitempty"`  // 排班组子负责人id列表, 示例值: ["员工id:dd31248a或者员工工号:456123"]
+	IsFlexible         *bool                                        `json:"is_flexible,omitempty"`           // 是否弹性打卡, 示例值: false
+	FlexibleMinutes    *int64                                       `json:"flexible_minutes,omitempty"`      // 弹性打卡时间, 设置【上班最多可晚到】与【下班最多可早走】时间, 如果不设置flexible_rule则生效, 示例值: 60
+	FlexibleRule       []*CreateAttendanceShiftReqFlexibleRule      `json:"flexible_rule,omitempty"`         // 弹性打卡时间设置
+	NoNeedOff          *bool                                        `json:"no_need_off,omitempty"`           // 不需要打下班卡, 示例值: true
+	PunchTimeRule      []*CreateAttendanceShiftReqPunchTimeRule     `json:"punch_time_rule,omitempty"`       // 打卡规则
+	LateOffLateOnRule  []*CreateAttendanceShiftReqLateOffLateOnRule `json:"late_off_late_on_rule,omitempty"` // 晚走晚到规则
+	RestTimeRule       []*CreateAttendanceShiftReqRestTimeRule      `json:"rest_time_rule,omitempty"`        // 休息规则
+	OvertimeRule       []*CreateAttendanceShiftReqOvertimeRule      `json:"overtime_rule,omitempty"`         // 打卡规则
+	AllowPunchApproval *bool                                        `json:"allow_punch_approval,omitempty"`  // 是否允许在非打卡时段申请打卡, 示例值: false
 }
 
 // CreateAttendanceShiftReqFlexibleRule ...
@@ -82,6 +85,12 @@ type CreateAttendanceShiftReqFlexibleRule struct {
 type CreateAttendanceShiftReqLateOffLateOnRule struct {
 	LateOffMinutes int64 `json:"late_off_minutes,omitempty"` // 晚走多久, 示例值: 60
 	LateOnMinutes  int64 `json:"late_on_minutes,omitempty"`  // 晚到多久, 示例值: 30
+}
+
+// CreateAttendanceShiftReqOvertimeRule ...
+type CreateAttendanceShiftReqOvertimeRule struct {
+	OnOvertime  string `json:"on_overtime,omitempty"`  // 上班时间, 示例值: "9:00"
+	OffOvertime string `json:"off_overtime,omitempty"` // 下班时间, 示例值: "18:00"
 }
 
 // CreateAttendanceShiftReqPunchTimeRule ...
@@ -110,16 +119,19 @@ type CreateAttendanceShiftResp struct {
 
 // CreateAttendanceShiftRespShift ...
 type CreateAttendanceShiftRespShift struct {
-	ShiftID           string                                             `json:"shift_id,omitempty"`              // 班次 ID
-	ShiftName         string                                             `json:"shift_name,omitempty"`            // 班次名称
-	PunchTimes        int64                                              `json:"punch_times,omitempty"`           // 打卡次数
-	IsFlexible        bool                                               `json:"is_flexible,omitempty"`           // 是否弹性打卡
-	FlexibleMinutes   int64                                              `json:"flexible_minutes,omitempty"`      // 弹性打卡时间, 设置【上班最多可晚到】与【下班最多可早走】时间, 如果不设置flexible_rule则生效
-	FlexibleRule      []*CreateAttendanceShiftRespShiftFlexibleRule      `json:"flexible_rule,omitempty"`         // 弹性打卡时间设置
-	NoNeedOff         bool                                               `json:"no_need_off,omitempty"`           // 不需要打下班卡
-	PunchTimeRule     []*CreateAttendanceShiftRespShiftPunchTimeRule     `json:"punch_time_rule,omitempty"`       // 打卡规则
-	LateOffLateOnRule []*CreateAttendanceShiftRespShiftLateOffLateOnRule `json:"late_off_late_on_rule,omitempty"` // 晚走晚到规则
-	RestTimeRule      []*CreateAttendanceShiftRespShiftRestTimeRule      `json:"rest_time_rule,omitempty"`        // 休息规则
+	ShiftID            string                                             `json:"shift_id,omitempty"`              // 班次 ID
+	ShiftName          string                                             `json:"shift_name,omitempty"`            // 班次名称
+	PunchTimes         int64                                              `json:"punch_times,omitempty"`           // 打卡次数
+	SubShiftLeaderIDs  []string                                           `json:"sub_shift_leader_ids,omitempty"`  // 排班组子负责人id列表
+	IsFlexible         bool                                               `json:"is_flexible,omitempty"`           // 是否弹性打卡
+	FlexibleMinutes    int64                                              `json:"flexible_minutes,omitempty"`      // 弹性打卡时间, 设置【上班最多可晚到】与【下班最多可早走】时间, 如果不设置flexible_rule则生效
+	FlexibleRule       []*CreateAttendanceShiftRespShiftFlexibleRule      `json:"flexible_rule,omitempty"`         // 弹性打卡时间设置
+	NoNeedOff          bool                                               `json:"no_need_off,omitempty"`           // 不需要打下班卡
+	PunchTimeRule      []*CreateAttendanceShiftRespShiftPunchTimeRule     `json:"punch_time_rule,omitempty"`       // 打卡规则
+	LateOffLateOnRule  []*CreateAttendanceShiftRespShiftLateOffLateOnRule `json:"late_off_late_on_rule,omitempty"` // 晚走晚到规则
+	RestTimeRule       []*CreateAttendanceShiftRespShiftRestTimeRule      `json:"rest_time_rule,omitempty"`        // 休息规则
+	OvertimeRule       []*CreateAttendanceShiftRespShiftOvertimeRule      `json:"overtime_rule,omitempty"`         // 打卡规则（暂不支持）
+	AllowPunchApproval bool                                               `json:"allow_punch_approval,omitempty"`  // 是否允许在非打卡时段申请打卡
 }
 
 // CreateAttendanceShiftRespShiftFlexibleRule ...
@@ -132,6 +144,12 @@ type CreateAttendanceShiftRespShiftFlexibleRule struct {
 type CreateAttendanceShiftRespShiftLateOffLateOnRule struct {
 	LateOffMinutes int64 `json:"late_off_minutes,omitempty"` // 晚走多久
 	LateOnMinutes  int64 `json:"late_on_minutes,omitempty"`  // 晚到多久
+}
+
+// CreateAttendanceShiftRespShiftOvertimeRule ...
+type CreateAttendanceShiftRespShiftOvertimeRule struct {
+	OnOvertime  string `json:"on_overtime,omitempty"`  // 上班时间
+	OffOvertime string `json:"off_overtime,omitempty"` // 下班时间
 }
 
 // CreateAttendanceShiftRespShiftPunchTimeRule ...

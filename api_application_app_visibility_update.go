@@ -27,6 +27,8 @@ import (
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/ucDN3UjL3QzN14yN0cTN
 // new doc: https://open.feishu.cn/document/server-docs/application-v6/admin/update-the-availability-of-an-app
+//
+// Deprecated
 func (r *ApplicationService) UpdateApplicationAppVisibility(ctx context.Context, request *UpdateApplicationAppVisibilityReq, options ...MethodOptionFunc) (*UpdateApplicationAppVisibilityResp, *Response, error) {
 	if r.cli.mock.mockApplicationUpdateApplicationAppVisibility != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Application#UpdateApplicationAppVisibility mock enable")

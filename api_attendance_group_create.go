@@ -114,8 +114,8 @@ type CreateAttendanceGroupReqGroup struct {
 	EffectNow               *bool                                                 `json:"effect_now,omitempty"`                  // 是否立即生效, 默认 false, 示例值: true
 	RemedyPeriodType        *int64                                                `json:"remedy_period_type,omitempty"`          // 补卡周期类型, 示例值: 0
 	RemedyPeriodCustomDate  *int64                                                `json:"remedy_period_custom_date,omitempty"`   // 补卡自定义周期起始日期, 示例值: 1
-	PunchType               *int64                                                `json:"punch_type,omitempty"`                  // 打卡类型, 位运算, 可选值: * 1: GPS 打卡, * 2: Wi-Fi 打卡, * 4: 考勤机打卡, * 8: IP 打卡, 示例值: 1
-	RestClockInNeedApproval *bool                                                 `json:"rest_clockIn_need_approval,omitempty"`  // 休息日打卡需审批, 示例值: true
+	PunchType               *int64                                                `json:"punch_type,omitempty"`                  // 打卡类型, 位运算, 即如需设置 1 和 2 两种打卡类型, 则需要传入加和值 3, 可选值: * 1: GPS 打卡, * 2: Wi-Fi 打卡, * 4: 考勤机打卡, * 8: IP 打卡, 示例值: 1
+	RestClockInNeedApproval *bool                                                 `json:"rest_clockIn_need_approval,omitempty"`  // 休息日打卡需审批。当设置 `rest_clockIn_need_approval=true` 时, 休息日一天开始时间会被重置为 4:00, 示例值: true
 	ClockInNeedPhoto        *bool                                                 `json:"clockIn_need_photo,omitempty"`          // 每次打卡均需拍照, 示例值: true
 	MemberStatusChange      *CreateAttendanceGroupReqGroupMemberStatusChange      `json:"member_status_change,omitempty"`        // 人员异动打卡设置
 	LeaveNeedPunch          *bool                                                 `json:"leave_need_punch,omitempty"`            // 请假离岗或返岗是否需打卡, 示例值: false
@@ -124,10 +124,12 @@ type CreateAttendanceGroupReqGroup struct {
 	GoOutNeedPunchCfg       *CreateAttendanceGroupReqGroupGoOutNeedPunchCfg       `json:"go_out_need_punch_cfg,omitempty"`       // 外出期间打卡规则
 	TravelNeedPunch         *int64                                                `json:"travel_need_punch,omitempty"`           // 出差期间是否需打卡, 示例值: 0
 	TravelNeedPunchCfg      *CreateAttendanceGroupReqGroupTravelNeedPunchCfg      `json:"travel_need_punch_cfg,omitempty"`       // 出差期间打卡规则
-	NeedPunchMembers        []*CreateAttendanceGroupReqGroupNeedPunchMember       `json:"need_punch_members,omitempty"`          // 需要打卡的人员集合（该字段暂不支持使用）
-	NoNeedPunchMembers      []*CreateAttendanceGroupReqGroupNoNeedPunchMember     `json:"no_need_punch_members,omitempty"`       // 无需打卡的人员集合（该字段暂不支持使用）
-	SaveAutoChanges         *bool                                                 `json:"save_auto_changes,omitempty"`           // 是否允许保存有冲突人员的考勤组。如果 true, 则冲突人员将被自动拉入到当前设置的考勤组中, 并从原考勤组中移除；如果 false, 则需手动调整冲突人员（该字段暂不支持使用）, 示例值: false
-	OrgChangeAutoAdjust     *bool                                                 `json:"org_change_auto_adjust,omitempty"`      // 当有新员工入职或人员异动, 符合条件的人员是否自动加入考勤组（该字段暂不支持使用）, 示例值: false
+	NeedPunchMembers        []*CreateAttendanceGroupReqGroupNeedPunchMember       `json:"need_punch_members,omitempty"`          // 需要打卡的人员集合（新版人事圈人使用该字段）
+	NoNeedPunchMembers      []*CreateAttendanceGroupReqGroupNoNeedPunchMember     `json:"no_need_punch_members,omitempty"`       // 无需打卡的人员集合（新版人事圈人使用该字段）
+	SaveAutoChanges         *bool                                                 `json:"save_auto_changes,omitempty"`           // 是否允许保存有冲突人员的考勤组。如果 true, 则冲突人员将被自动拉入到当前设置的考勤组中, 并从原考勤组中移除；如果 false, 则需手动调整冲突人员（新版人事圈人使用该字段）, 示例值: false
+	OrgChangeAutoAdjust     *bool                                                 `json:"org_change_auto_adjust,omitempty"`      // 当有新员工入职或人员异动, 符合条件的人员是否自动加入考勤组（新版人事圈人使用该字段）, 示例值: false
+	BindDefaultDeptIDs      []string                                              `json:"bind_default_dept_ids,omitempty"`       // 参与无需打卡的部门 ID 列表, 示例值: ["od-fcb45c28a45311afd440b7869541fce8"]
+	BindDefaultUserIDs      []string                                              `json:"bind_default_user_ids,omitempty"`       // 参与无需打卡的人员 ID 列表, 示例值: ["员工id:dd31248a或者员工工号:456123"]
 }
 
 // CreateAttendanceGroupReqGroupFreePunchCfg ...
@@ -193,11 +195,13 @@ type CreateAttendanceGroupReqGroupNeedPunchMember struct {
 
 // CreateAttendanceGroupReqGroupNeedPunchMemberScopeGroupList ...
 type CreateAttendanceGroupReqGroupNeedPunchMemberScopeGroupList struct {
-	ScopeValueType *int64                                                             `json:"scope_value_type,omitempty"` // 类型, 可选值有: * 1: 部门, * 2:人员, * 3:国家地区, * 4:员工类型, * 5:性别, * 6:工作城市, 示例值: 1
-	OperationType  *int64                                                             `json:"operation_type,omitempty"`   // 范围类型（是否包含）, 示例值: 1
-	Right          []*CreateAttendanceGroupReqGroupNeedPunchMemberScopeGroupListRight `json:"right,omitempty"`            // 如果是人员/部门类型 不需要使用该字段
-	Name           *string                                                            `json:"name,omitempty"`             // 名称, 示例值: "中国大陆"
-	MemberIDs      []string                                                           `json:"member_ids,omitempty"`       // 部门/人员id列表, 示例值: ["ec8ddg56"]
+	ScopeValueType     *int64                                                             `json:"scope_value_type,omitempty"`      // 类型: * 1: 部门, * 2:人员, * 3: 国家地区, * 4: 员工类型, * 5: 工作城市, * 6: 职级, * 7: 序列, * 8: 职务（企业版）, * 9: 工时制度（企业版）, * 100: 自定义字段（企业版）, 示例值: 1
+	OperationType      *int64                                                             `json:"operation_type,omitempty"`        // 范围类型（是否包含）, 示例值: 1
+	Right              []*CreateAttendanceGroupReqGroupNeedPunchMemberScopeGroupListRight `json:"right,omitempty"`                 // 如果是人员/部门类型 不需要使用该字段
+	Name               *string                                                            `json:"name,omitempty"`                  // 名称, 示例值: "中国大陆"
+	MemberIDs          []string                                                           `json:"member_ids,omitempty"`            // 部门/人员 ID 列表（根据 scope_value_type 判断为部门或人员）, 示例值: ["ec8ddg56"]
+	CustomFieldID      *string                                                            `json:"custom_field_ID,omitempty"`       // 企业版自定义字段唯一键 ID, 需要从飞书人事获取, 示例值: "123213123"
+	CustomFieldObjType *string                                                            `json:"custom_field_obj_type,omitempty"` // 企业版自定义字段对象类型, * "Employment": 主数据对象, 员工雇佣信息, * "Person": 主数据对象, 个人, 示例值: "employment"
 }
 
 // CreateAttendanceGroupReqGroupNeedPunchMemberScopeGroupListRight ...
@@ -219,11 +223,13 @@ type CreateAttendanceGroupReqGroupNoNeedPunchMember struct {
 
 // CreateAttendanceGroupReqGroupNoNeedPunchMemberScopeGroupList ...
 type CreateAttendanceGroupReqGroupNoNeedPunchMemberScopeGroupList struct {
-	ScopeValueType *int64                                                               `json:"scope_value_type,omitempty"` // 类型: 1: 部门 2: 人员 3:国家地区 4:员工类型 5:性别 6:工作城市, 示例值: 1
-	OperationType  *int64                                                               `json:"operation_type,omitempty"`   // 范围类型（是否包含）, 示例值: 1
-	Right          []*CreateAttendanceGroupReqGroupNoNeedPunchMemberScopeGroupListRight `json:"right,omitempty"`            // 如果是人员/部门类型 不需要使用该字段
-	Name           *string                                                              `json:"name,omitempty"`             // 名称, 示例值: "中国大陆"
-	MemberIDs      []string                                                             `json:"member_ids,omitempty"`       // 部门/人员id列表, 示例值: ["ec8ddg56"]
+	ScopeValueType     *int64                                                               `json:"scope_value_type,omitempty"`      // 类型: * 1: 部门, * 2:人员, * 3: 国家地区, * 4: 员工类型, * 5: 工作城市, * 6: 职级, * 7: 序列, * 8: 职务（企业版）, * 9: 工时制度（企业版）, * 100: 自定义字段（企业版）, 示例值: 1
+	OperationType      *int64                                                               `json:"operation_type,omitempty"`        // 范围类型（是否包含）, 示例值: 1
+	Right              []*CreateAttendanceGroupReqGroupNoNeedPunchMemberScopeGroupListRight `json:"right,omitempty"`                 // 如果是人员/部门类型 不需要使用该字段
+	Name               *string                                                              `json:"name,omitempty"`                  // 名称, 示例值: "中国大陆"
+	MemberIDs          []string                                                             `json:"member_ids,omitempty"`            // 部门/人员 ID 列表（根据 scope_value_type 判断为部门或人员）, 示例值: ["ec8ddg56"]
+	CustomFieldID      *string                                                              `json:"custom_field_ID,omitempty"`       // 企业版自定义字段唯一键 ID, 需要从飞书人事获取, 示例值: "123213123"
+	CustomFieldObjType *string                                                              `json:"custom_field_obj_type,omitempty"` // 企业版自定义字段对象类型, * "Employment": 主数据对象, 员工雇佣信息, * "Person": 主数据对象, 个人, 示例值: "employment"
 }
 
 // CreateAttendanceGroupReqGroupNoNeedPunchMemberScopeGroupListRight ...
@@ -297,7 +303,7 @@ type CreateAttendanceGroupRespGroup struct {
 	EffectNow               bool                                                   `json:"effect_now,omitempty"`                  // 是否立即生效, 默认 false
 	RemedyPeriodType        int64                                                  `json:"remedy_period_type,omitempty"`          // 补卡周期类型
 	RemedyPeriodCustomDate  int64                                                  `json:"remedy_period_custom_date,omitempty"`   // 补卡自定义周期起始日期
-	PunchType               int64                                                  `json:"punch_type,omitempty"`                  // 打卡类型, 位运算, 可选值有: * 1:GPS 打卡, * 2:Wi-Fi 打卡, * 4:考勤机打卡, * 8:IP 打卡
+	PunchType               int64                                                  `json:"punch_type,omitempty"`                  // 打卡类型, 位运算, 即如果设置了 1 和 2 两种打卡类型, 则对应的参数加和值为 3, 可选值: * 1: GPS 打卡, * 2: Wi-Fi 打卡, * 4: 考勤机打卡, * 8: IP 打卡
 	EffectTime              string                                                 `json:"effect_time,omitempty"`                 // 生效时间, 精确到秒的时间戳
 	FixshiftEffectTime      string                                                 `json:"fixshift_effect_time,omitempty"`        // 固定班次生效时间, 精确到秒的时间戳
 	MemberEffectTime        string                                                 `json:"member_effect_time,omitempty"`          // 参加考勤的人员、部门变动生效时间, 精确到秒的时间戳
@@ -310,10 +316,12 @@ type CreateAttendanceGroupRespGroup struct {
 	GoOutNeedPunchCfg       *CreateAttendanceGroupRespGroupGoOutNeedPunchCfg       `json:"go_out_need_punch_cfg,omitempty"`       // 外出期间打卡规则
 	TravelNeedPunch         int64                                                  `json:"travel_need_punch,omitempty"`           // 出差期间是否需打卡
 	TravelNeedPunchCfg      *CreateAttendanceGroupRespGroupTravelNeedPunchCfg      `json:"travel_need_punch_cfg,omitempty"`       // 出差期间打卡规则
-	NeedPunchMembers        []*CreateAttendanceGroupRespGroupNeedPunchMember       `json:"need_punch_members,omitempty"`          // 需要打卡的人员集合（该字段暂不支持使用）
-	NoNeedPunchMembers      []*CreateAttendanceGroupRespGroupNoNeedPunchMember     `json:"no_need_punch_members,omitempty"`       // 无需打卡的人员集合（该字段暂不支持使用）
-	SaveAutoChanges         bool                                                   `json:"save_auto_changes,omitempty"`           // 是否允许保存有冲突人员的考勤组。如果 true, 则冲突人员将被自动拉入到当前设置的考勤组中, 并从原考勤组中移除；如果 false, 则需手动调整冲突人员（该字段暂不支持使用）
-	OrgChangeAutoAdjust     bool                                                   `json:"org_change_auto_adjust,omitempty"`      // 当有新员工入职或人员异动, 符合条件的人员是否自动加入考勤组（该字段暂不支持使用）
+	NeedPunchMembers        []*CreateAttendanceGroupRespGroupNeedPunchMember       `json:"need_punch_members,omitempty"`          // 需要打卡的人员集合（新版人事圈人使用该字段）
+	NoNeedPunchMembers      []*CreateAttendanceGroupRespGroupNoNeedPunchMember     `json:"no_need_punch_members,omitempty"`       // 无需打卡的人员集合（新版人事圈人使用该字段）
+	SaveAutoChanges         bool                                                   `json:"save_auto_changes,omitempty"`           // 是否允许保存有冲突人员的考勤组。如果 true, 则冲突人员将被自动拉入到当前设置的考勤组中, 并从原考勤组中移除；如果 false, 则需手动调整冲突人员（新版人事圈人使用该字段）
+	OrgChangeAutoAdjust     bool                                                   `json:"org_change_auto_adjust,omitempty"`      // 当有新员工入职或人员异动, 符合条件的人员是否自动加入考勤组（新版人事圈人使用该字段）
+	BindDefaultDeptIDs      []string                                               `json:"bind_default_dept_ids,omitempty"`       // 默认出勤的部门id列表
+	BindDefaultUserIDs      []string                                               `json:"bind_default_user_ids,omitempty"`       // 默认出勤的用户ID列表
 }
 
 // CreateAttendanceGroupRespGroupFreePunchCfg ...
@@ -380,11 +388,13 @@ type CreateAttendanceGroupRespGroupNeedPunchMember struct {
 
 // CreateAttendanceGroupRespGroupNeedPunchMemberScopeGroupList ...
 type CreateAttendanceGroupRespGroupNeedPunchMemberScopeGroupList struct {
-	ScopeValueType int64                                                               `json:"scope_value_type,omitempty"` // 类型, 可选值有: * 1: 部门, * 2: 人员, * 3:国家地区, * 4:员工类型, * 5:性别, * 6:工作城市
-	OperationType  int64                                                               `json:"operation_type,omitempty"`   // 范围类型（是否包含）
-	Right          []*CreateAttendanceGroupRespGroupNeedPunchMemberScopeGroupListRight `json:"right,omitempty"`            // 如果是人员/部门类型 不需要使用该字段
-	Name           string                                                              `json:"name,omitempty"`             // 名称
-	MemberIDs      []string                                                            `json:"member_ids,omitempty"`       // 部门/人员id列表
+	ScopeValueType     int64                                                               `json:"scope_value_type,omitempty"`      // 类型: * 1: 部门, * 2:人员, * 3: 国家地区, * 4: 员工类型, * 5: 工作城市, * 6: 职级, * 7: 序列, * 8: 职务（企业版）, * 9: 工时制度（企业版）, * 100: 自定义字段（企业版）
+	OperationType      int64                                                               `json:"operation_type,omitempty"`        // 范围类型（是否包含）
+	Right              []*CreateAttendanceGroupRespGroupNeedPunchMemberScopeGroupListRight `json:"right,omitempty"`                 // 如果是人员/部门类型 不需要使用该字段
+	Name               string                                                              `json:"name,omitempty"`                  // 名称
+	MemberIDs          []string                                                            `json:"member_ids,omitempty"`            // 部门/人员 ID 列表（根据 scope_value_type 判断为部门或人员）
+	CustomFieldID      string                                                              `json:"custom_field_ID,omitempty"`       // 企业版自定义字段唯一键 ID, 需要从飞书人事那边获取
+	CustomFieldObjType string                                                              `json:"custom_field_obj_type,omitempty"` // 企业版自定义字段对象类型, * "Employment": 主数据对象, 员工雇佣信息, * "Person": 主数据对象, 个人
 }
 
 // CreateAttendanceGroupRespGroupNeedPunchMemberScopeGroupListRight ...
@@ -406,11 +416,13 @@ type CreateAttendanceGroupRespGroupNoNeedPunchMember struct {
 
 // CreateAttendanceGroupRespGroupNoNeedPunchMemberScopeGroupList ...
 type CreateAttendanceGroupRespGroupNoNeedPunchMemberScopeGroupList struct {
-	ScopeValueType int64                                                                 `json:"scope_value_type,omitempty"` // 类型, 可选值有: * 1: 部门, * 2: 人员, * 3:国家地区, * 4:员工类型, * 5:性别, * 6:工作城市
-	OperationType  int64                                                                 `json:"operation_type,omitempty"`   // 范围类型（是否包含）
-	Right          []*CreateAttendanceGroupRespGroupNoNeedPunchMemberScopeGroupListRight `json:"right,omitempty"`            // 如果是人员/部门类型 不需要使用该字段
-	Name           string                                                                `json:"name,omitempty"`             // 名称
-	MemberIDs      []string                                                              `json:"member_ids,omitempty"`       // 部门/人员id列表
+	ScopeValueType     int64                                                                 `json:"scope_value_type,omitempty"`      // 类型: * 1: 部门, * 2:人员, * 3: 国家地区, * 4: 员工类型, * 5: 工作城市, * 6: 职级, * 7: 序列, * 8: 职务（企业版）, * 9: 工时制度（企业版）, * 100: 自定义字段（企业版）
+	OperationType      int64                                                                 `json:"operation_type,omitempty"`        // 范围类型（是否包含）
+	Right              []*CreateAttendanceGroupRespGroupNoNeedPunchMemberScopeGroupListRight `json:"right,omitempty"`                 // 如果是人员/部门类型 不需要使用该字段
+	Name               string                                                                `json:"name,omitempty"`                  // 名称
+	MemberIDs          []string                                                              `json:"member_ids,omitempty"`            // 部门/人员id列表（具体类型根据scope_value_type判断）
+	CustomFieldID      string                                                                `json:"custom_field_ID,omitempty"`       // 企业版自定义字段唯一键 ID, 需要从飞书人事那边获取
+	CustomFieldObjType string                                                                `json:"custom_field_obj_type,omitempty"` // 企业版自定义字段对象类型, * "Employment": 主数据对象, 员工雇佣信息, * "Person": 主数据对象, 个人
 }
 
 // CreateAttendanceGroupRespGroupNoNeedPunchMemberScopeGroupListRight ...

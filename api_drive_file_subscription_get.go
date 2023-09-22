@@ -58,11 +58,9 @@ func (r *Mock) UnMockDriveGetDriveFileSubscription() {
 
 // GetDriveFileSubscriptionReq ...
 type GetDriveFileSubscriptionReq struct {
-	FileToken        string   `path:"file_token" json:"-"`         // 文档token, 示例值: "doxcnxxxxxxxxxxxxxxxxxxxxxx"
-	SubscriptionID   string   `path:"subscription_id" json:"-"`    // 订阅关系ID, 示例值: "1234567890987654321"
-	SubscriptionType *string  `json:"subscription_type,omitempty"` // 订阅类型, 示例值: "comment_update", 可选值有: comment_update: 评论更新
-	IsSubcribe       *bool    `json:"is_subcribe,omitempty"`       // 是否订阅, 示例值: true
-	FileType         FileType `json:"file_type,omitempty"`         // 文档类型, 示例值: "doc", 可选值有: doc: 文档, docx: 新版文档, wiki: 知识库wiki
+	FileToken      string   `path:"file_token" json:"-"`      // 文档token, 示例值: "doxcnxxxxxxxxxxxxxxxxxxxxxx"
+	SubscriptionID string   `path:"subscription_id" json:"-"` // 订阅关系ID, 示例值: "1234567890987654321"
+	FileType       FileType `json:"file_type,omitempty"`      // 文档类型, 示例值: "doc", 可选值有: doc: 旧版文档, docx: 新版文档, wiki: 云空间
 }
 
 // GetDriveFileSubscriptionResp ...

@@ -76,11 +76,12 @@ type SetVCScopeConfigReqScopeConfig struct {
 
 // SetVCScopeConfigReqScopeConfigDigitalSignage ...
 type SetVCScopeConfigReqScopeConfigDigitalSignage struct {
-	Enable       *bool                                                   `json:"enable,omitempty"`        // 是否开启数字标牌功能, 示例值: true
-	Mute         *bool                                                   `json:"mute,omitempty"`          // 是否静音播放, 示例值: true
-	StartDisplay *int64                                                  `json:"start_display,omitempty"` // 在会议结束n分钟后开始播放, 取值1~720（仅对飞书会议室数字标牌生效）, 示例值: 3
-	StopDisplay  *int64                                                  `json:"stop_display,omitempty"`  // 在日程会议开始前n分钟停止播放, 取值1~720（仅对飞书会议室数字标牌生效）, 示例值: 3
-	Materials    []*SetVCScopeConfigReqScopeConfigDigitalSignageMaterial `json:"materials,omitempty"`     // 素材列表
+	IfCoverChildScope *bool                                                   `json:"if_cover_child_scope,omitempty"` // 是否覆盖子层级及会议室, 示例值: true
+	Enable            *bool                                                   `json:"enable,omitempty"`               // 是否开启数字标牌功能, 示例值: true
+	Mute              *bool                                                   `json:"mute,omitempty"`                 // 是否静音播放, 示例值: true
+	StartDisplay      *int64                                                  `json:"start_display,omitempty"`        // 在会议结束n分钟后开始播放, 取值1~720（仅对飞书会议室数字标牌生效）, 示例值: 3
+	StopDisplay       *int64                                                  `json:"stop_display,omitempty"`         // 在日程会议开始前n分钟停止播放, 取值1~720（仅对飞书会议室数字标牌生效）, 示例值: 3
+	Materials         []*SetVCScopeConfigReqScopeConfigDigitalSignageMaterial `json:"materials,omitempty"`            // 素材列表
 }
 
 // SetVCScopeConfigReqScopeConfigDigitalSignageMaterial ...
@@ -98,11 +99,12 @@ type SetVCScopeConfigReqScopeConfigDigitalSignageMaterial struct {
 
 // SetVCScopeConfigReqScopeConfigRoomBoxDigitalSignage ...
 type SetVCScopeConfigReqScopeConfigRoomBoxDigitalSignage struct {
-	Enable       *bool                                                          `json:"enable,omitempty"`        // 是否开启数字标牌功能, 示例值: true
-	Mute         *bool                                                          `json:"mute,omitempty"`          // 是否静音播放, 示例值: true
-	StartDisplay *int64                                                         `json:"start_display,omitempty"` // 在会议结束n分钟后开始播放, 取值1~720（仅对飞书会议室数字标牌生效）, 示例值: 3
-	StopDisplay  *int64                                                         `json:"stop_display,omitempty"`  // 在日程会议开始前n分钟停止播放, 取值1~720（仅对飞书会议室数字标牌生效）, 示例值: 3
-	Materials    []*SetVCScopeConfigReqScopeConfigRoomBoxDigitalSignageMaterial `json:"materials,omitempty"`     // 素材列表
+	IfCoverChildScope *bool                                                          `json:"if_cover_child_scope,omitempty"` // 是否覆盖子层级及会议室, 示例值: true
+	Enable            *bool                                                          `json:"enable,omitempty"`               // 是否开启数字标牌功能, 示例值: true
+	Mute              *bool                                                          `json:"mute,omitempty"`                 // 是否静音播放, 示例值: true
+	StartDisplay      *int64                                                         `json:"start_display,omitempty"`        // 在会议结束n分钟后开始播放, 取值1~720（仅对飞书会议室数字标牌生效）, 示例值: 3
+	StopDisplay       *int64                                                         `json:"stop_display,omitempty"`         // 在日程会议开始前n分钟停止播放, 取值1~720（仅对飞书会议室数字标牌生效）, 示例值: 3
+	Materials         []*SetVCScopeConfigReqScopeConfigRoomBoxDigitalSignageMaterial `json:"materials,omitempty"`            // 素材列表
 }
 
 // SetVCScopeConfigReqScopeConfigRoomBoxDigitalSignageMaterial ...

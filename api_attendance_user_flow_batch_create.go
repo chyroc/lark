@@ -77,7 +77,7 @@ type BatchCreateAttendanceUserFlowReqFlowRecord struct {
 	IsField      *bool    `json:"is_field,omitempty"`      // 是否为外勤打卡, 示例值: true
 	IsWifi       *bool    `json:"is_wifi,omitempty"`       // 是否为 Wi-Fi 打卡, 示例值: true
 	Type         *int64   `json:"type,omitempty"`          // 记录生成方式, 示例值: 在开放平台调用时, 此参数无效, 内部值始终是7, 可选值有: 0: 用户打卡, 1: 管理员修改, 2: 用户补卡, 3: 系统自动生成, 4: 下班免打卡, 5: 考勤机, 6: 极速打卡, 7: 考勤开放平台导入
-	PhotoURLs    []string `json:"photo_urls,omitempty"`    // 打卡照片列表, 示例值: ["https://time.clockin.biz/manage/download/6840389754748502021"]
+	PhotoURLs    []string `json:"photo_urls,omitempty"`    // 打卡照片列表（该字段目前不支持）, 示例值: ["https://time.clockin.biz/manage/download/6840389754748502021"]
 	CheckResult  *string  `json:"check_result,omitempty"`  // 打卡结果, 示例值: "Invalid", 可选值有: NoNeedCheck: 无需打卡, SystemCheck: 系统打卡, Normal: 正常, Early: 早退, Late: 迟到, SeriousLate: 严重迟到, Lack: 缺卡, Invalid: 无效, None: 无状态, Todo: 尚未打卡
 }
 

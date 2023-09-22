@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// GetChatAnnouncement 获取会话中的群公告信息, 公告信息格式与[云文档](https://open.feishu.cn/document/ukTMukTMukTM/uAzM5YjLwMTO24CMzkjN)格式相同。
+// GetChatAnnouncement 获取会话中的群公告信息, 公告信息格式与[旧版云文档](https://open.feishu.cn/document/ukTMukTMukTM/uAzM5YjLwMTO24CMzkjN)格式相同。
 //
 // 注意事项:
 // - 应用需要开启[机器人能力](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-enable-bot-ability)

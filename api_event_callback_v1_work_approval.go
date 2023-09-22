@@ -43,8 +43,8 @@ type EventV1WorkApproval struct {
 	InstanceCode  string `json:"instance_code,omitempty"`   // 审批实例Code. 如: xxx
 	EmployeeID    string `json:"employee_id,omitempty"`     // 用户id. 如: xxx
 	OpenID        string `json:"open_id,omitempty"`         // 用户open_id. 如: ou_xxx
-	StartTime     int64  `json:"start_time,omitempty"`      // 审批发起时间. 如: 1502199207
-	EndTime       int64  `json:"end_time,omitempty"`        // 审批结束时间. 如: 1502199307
+	StartTime     int64  `json:"start_time,omitempty"`      // 审批发起时间, 单位: 秒. 如: 1502199207
+	EndTime       int64  `json:"end_time,omitempty"`        // 审批结束时间, 单位: 秒. 如: 1502199307
 	WorkType      string `json:"work_type,omitempty"`       // 加班类型. 如: xxx
 	WorkStartTime string `json:"work_start_time,omitempty"` // 加班开始时间. 如: 2018-12-01 12:00:00
 	WorkEndTime   string `json:"work_end_time,omitempty"`   // 加班结束时间. 如: 2018-12-02 12:00:00

@@ -21,7 +21,9 @@ import (
 	"context"
 )
 
-// EventV2HelpdeskTicketUpdatedV1 可监听工单状态和阶段变更事件。需使用订阅接口订阅: [事件订阅](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/event/subscribe){使用示例}(url=/api/tools/api_explore/api_explore_config?project=helpdesk&version=v1&resource=ticket&event=updated)
+// EventV2HelpdeskTicketUpdatedV1 可监听工单状态和阶段变更事件。需使用订阅接口订阅: [事件订阅](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/event/subscribe)。
+//
+// 如果你需要监听工单的阶段变更, 可以使用该事件。例如, 使用该事件监听工单阶段由机器人变更为人工。{使用示例}(url=/api/tools/api_explore/api_explore_config?project=helpdesk&version=v1&resource=ticket&event=updated)
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/ticket/events/updated
 // new doc: https://open.feishu.cn/document/server-docs/helpdesk-v1/ticket-management/ticket/events/updated

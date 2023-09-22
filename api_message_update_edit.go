@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// UpdateMessageEdit 编辑已发送的消息内容, 当前支持编辑文本、富文本消息。
+// UpdateMessageEdit 编辑已发送的消息内容, 当前支持编辑文本、富文本消息。如需更新消息卡片, 请参考[更新应用发送的消息卡片](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/patch)。
 //
 // 注意事项:
 // - 一条消息最多可编辑20次

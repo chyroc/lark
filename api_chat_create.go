@@ -78,6 +78,9 @@ type CreateChatReq struct {
 	LeaveMessageVisibility *MessageVisibility                  `json:"leave_message_visibility,omitempty"` // 退群消息可见性, 可选值有: `only_owner`: 仅群主和管理员可见, `all_members`: 所有成员可见, `not_anyone`: 任何人均不可见, 示例值: "all_members", 默认值: `all_members`
 	MembershipApproval     *MembershipApproval                 `json:"membership_approval,omitempty"`      // 加群审批, 可选值有: `no_approval_required`: 无需审批, `approval_required`: 需要审批, 示例值: "no_approval_required", 默认值: `no_approval_required`
 	RestrictedModeSetting  *CreateChatReqRestrictedModeSetting `json:"restricted_mode_setting,omitempty"`  // 保密模式设置
+	UrgentSetting          *string                             `json:"urgent_setting,omitempty"`           // 谁可以加急, 示例值: "all_members", 可选值有: only_owner: 仅群主和管理员, all_members: 所有成员
+	VideoConferenceSetting *string                             `json:"video_conference_setting,omitempty"` // 谁可以发起视频会议, 示例值: "all_members", 可选值有: only_owner: 仅群主和管理员, all_members: 所有成员
+	EditPermission         *EditPermission                     `json:"edit_permission,omitempty"`          // 谁可以编辑群信息, 示例值: "all_members", 可选值有: only_owner: 仅群主和管理员, all_members: 所有成员
 }
 
 // CreateChatReqRestrictedModeSetting ...
@@ -97,6 +100,8 @@ type CreateChatResp struct {
 	I18nNames              *I18nNames                           `json:"i18n_names,omitempty"`               // 群国际化名称
 	OwnerID                string                               `json:"owner_id,omitempty"`                 // 群主 ID, ID值与查询参数中的 [user_id_type] 对应；不同 ID 的说明参见 [用户相关的 ID 概念](https://open.feishu.cn/document/home/user-identity-introduction/introduction), 注意: 当群主是机器人时, 该字段不返回
 	OwnerIDType            IDType                               `json:"owner_id_type,omitempty"`            // 群主 ID 对应的ID类型, 与查询参数中的 [user_id_type] 相同。取值为: `open_id`、`user_id`、`union_id`其中之一, 注意: 当群主是机器人时, 该字段不返回
+	UrgentSetting          string                               `json:"urgent_setting,omitempty"`           // 谁可以加急, 可选值有: only_owner: 仅群主和管理员, all_members: 所有成员
+	VideoConferenceSetting string                               `json:"video_conference_setting,omitempty"` // 谁可以发起视频会议, 可选值有: only_owner: 仅群主和管理员, all_members: 所有成员
 	AddMemberPermission    AddMemberPermission                  `json:"add_member_permission,omitempty"`    // 拉 用户或机器人 入群权限, 可选值有: `only_owner`: 仅群主和管理员, `all_members`: 所有成员
 	ShareCardPermission    ShareCardPermission                  `json:"share_card_permission,omitempty"`    // 群分享权限, 可选值有: `allowed`: 允许, `not_allowed`: 不允许
 	AtAllPermission        AtAllPermission                      `json:"at_all_permission,omitempty"`        // at 所有人权限, 可选值有: `only_owner`: 仅群主和管理员, `all_members`: 所有成员

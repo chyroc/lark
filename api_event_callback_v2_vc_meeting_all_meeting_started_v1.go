@@ -44,7 +44,7 @@ type EventV2VCMeetingAllMeetingStartedV1Meeting struct {
 	Topic           string                                              `json:"topic,omitempty"`             // 会议主题
 	MeetingNo       string                                              `json:"meeting_no,omitempty"`        // 9位会议号（飞书用户可通过输入9位会议号快捷入会）
 	MeetingSource   int64                                               `json:"meeting_source,omitempty"`    // 会议创建源, 可选值有: 1: 日程会议, 2: 即时会议, 3: 面试会议, 4: 开放平台会议, 100: 其他会议类型
-	StartTime       string                                              `json:"start_time,omitempty"`        // 会议结束时间（unix时间, 单位: 秒）
+	StartTime       string                                              `json:"start_time,omitempty"`        // 会议开始时间（unix时间, 单位: 秒）
 	EndTime         string                                              `json:"end_time,omitempty"`          // 会议结束时间（unix时间, 单位: 秒）
 	HostUser        *EventV2VCMeetingAllMeetingStartedV1MeetingHostUser `json:"host_user,omitempty"`         // 会议主持人
 	Owner           *EventV2VCMeetingAllMeetingStartedV1MeetingOwner    `json:"owner,omitempty"`             // 会议拥有者

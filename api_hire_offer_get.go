@@ -93,13 +93,20 @@ type GetHireOfferRespOfferBasicInfo struct {
 	OnboardDate       string                                         `json:"onboard_date,omitempty"`        // 入职日期
 	DepartmentID      string                                         `json:"department_id,omitempty"`       // 入职部门
 	ProbationMonth    int64                                          `json:"probation_month,omitempty"`     // 试用期, 比如试用期6个月
-	ContractYear      int64                                          `json:"contract_year,omitempty"`       // 合同期, 比如3年
+	ContractYear      int64                                          `json:"contract_year,omitempty"`       // 合同期(年), 推荐使用「contract_period」, 如果Offer申请表中「合同期(年)」字段已停用, 则不可使用该字段
+	ContractPeriod    *GetHireOfferRespOfferBasicInfoContractPeriod  `json:"contract_period,omitempty"`     // 合同期（年/月）
 	RecruitmentType   *GetHireOfferRespOfferBasicInfoRecruitmentType `json:"recruitment_type,omitempty"`    // 雇员类型
 	Sequence          *GetHireOfferRespOfferBasicInfoSequence        `json:"sequence,omitempty"`            // 序列
 	Level             *GetHireOfferRespOfferBasicInfoLevel           `json:"level,omitempty"`               // 级别
 	OnboardAddress    *GetHireOfferRespOfferBasicInfoOnboardAddress  `json:"onboard_address,omitempty"`     // 入职地点
 	WorkAddress       *GetHireOfferRespOfferBasicInfoWorkAddress     `json:"work_address,omitempty"`        // 工作地点
 	CustomizeInfoList []*GetHireOfferRespOfferBasicInfoCustomizeInfo `json:"customize_info_list,omitempty"` // 自定义字段信息
+}
+
+// GetHireOfferRespOfferBasicInfoContractPeriod ...
+type GetHireOfferRespOfferBasicInfoContractPeriod struct {
+	PeriodType int64 `json:"period_type,omitempty"` // 合同周期类型, 可选值有: 1: 月, 2: 年
+	Period     int64 `json:"period,omitempty"`      // 合同时长
 }
 
 // GetHireOfferRespOfferBasicInfoCustomizeInfo ...

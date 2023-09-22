@@ -70,10 +70,11 @@ type CreateBitableAppResp struct {
 
 // CreateBitableAppRespApp ...
 type CreateBitableAppRespApp struct {
-	AppToken    string `json:"app_token,omitempty"`    // 多维表格的 app_token
-	Name        string `json:"name,omitempty"`         // 多维表格的名字
-	FolderToken string `json:"folder_token,omitempty"` // 多维表格 App 归属文件夹
-	URL         string `json:"url,omitempty"`          // 多维表格 App URL
+	AppToken       string `json:"app_token,omitempty"`        // 多维表格的 app_token
+	Name           string `json:"name,omitempty"`             // 多维表格的名字
+	FolderToken    string `json:"folder_token,omitempty"`     // 多维表格 App 归属文件夹
+	URL            string `json:"url,omitempty"`              // 多维表格 App URL
+	DefaultTableID string `json:"default_table_id,omitempty"` // 默认的表格id
 }
 
 // createBitableAppResp ...

@@ -155,8 +155,8 @@ func (r *SheetContent) UnmarshalJSON(bytes []byte) error {
 		}
 		return nil
 	} else if bytes[0] == 't' || bytes[0] == 'f' || bytes[0] == 'T' || bytes[0] == 'F' {
-		var t = "true"
-		var f = "false"
+		t := "true"
+		f := "false"
 		if len(bytes) == 4 && strings.ToLower(string(bytes)) == t {
 			r.String = &t
 			return nil

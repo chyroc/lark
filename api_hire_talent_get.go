@@ -171,6 +171,7 @@ type GetHireTalentRespTalentBasicInfo struct {
 	CurrentHomeAddress   string                                            `json:"current_home_address,omitempty"`  // 家庭住址
 	CustomizedDataList   []*GetHireTalentRespTalentBasicInfoCustomizedData `json:"customized_data_list,omitempty"`  // 自定义字段
 	ModifyTime           string                                            `json:"modify_time,omitempty"`           // 修改时间
+	HukouLocationCode    string                                            `json:"hukou_location_code,omitempty"`   // 户口所在地
 }
 
 // GetHireTalentRespTalentBasicInfoCurrentCity ...

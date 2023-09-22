@@ -23,7 +23,8 @@ import (
 
 // GetDriveMemberPermissionListOld 该接口用于根据 filetoken 查询协作者, 目前包括人("user")和群("chat") 。
 //
-// 你能获取到协作者列表的前提是你对该文档有分享权限
+// - 该接口为旧版接口。推荐你使用新版接口接入业务, 详情参见[获取协作者列表（新版本）](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/permission-member/list)。
+// - 你能获取到协作者列表的前提是你对该文档有分享权限。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uATN3UjLwUzN14CM1cTN
 // new doc: https://open.feishu.cn/document/server-docs/docs/permission/permission-member/obtain-a-collaborator-list
@@ -62,7 +63,7 @@ func (r *Mock) UnMockDriveGetDriveMemberPermissionListOld() {
 // GetDriveMemberPermissionListOldReq ...
 type GetDriveMemberPermissionListOldReq struct {
 	Token string `json:"token,omitempty"` // 文件的 token, 获取方式见 [如何获取云文档资源相关 token](https://open.feishu.cn/document/ukTMukTMukTM/uczNzUjL3czM14yN3MTN#08bb5df6)
-	Type  string `json:"type,omitempty"`  // 文档类型, 可选 doc、docx、sheet、bitable、file
+	Type  string `json:"type,omitempty"`  // 文档类型, 可选 doc、docx、sheet、bitable、file、minutes
 }
 
 // GetDriveMemberPermissionListOldResp ...

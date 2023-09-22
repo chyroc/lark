@@ -94,6 +94,8 @@ type GetChatResp struct {
 	UserCount              string                            `json:"user_count,omitempty"`               // 群成员人数
 	BotCount               string                            `json:"bot_count,omitempty"`                // 群机器人数
 	RestrictedModeSetting  *GetChatRespRestrictedModeSetting `json:"restricted_mode_setting,omitempty"`  // 保密模式设置
+	UrgentSetting          string                            `json:"urgent_setting,omitempty"`           // 谁可以加急, 可选值有: only_owner: 仅群主和管理员, all_members: 所有成员
+	VideoConferenceSetting string                            `json:"video_conference_setting,omitempty"` // 谁可以发起视频会议, 可选值有: only_owner: 仅群主和管理员, all_members: 所有成员
 }
 
 // GetChatRespRestrictedModeSetting ...

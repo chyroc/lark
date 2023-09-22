@@ -72,7 +72,7 @@ type ApplyVCReserveReq struct {
 type ApplyVCReserveReqMeetingSettings struct {
 	Topic              *string                                             `json:"topic,omitempty"`                // 会议主题, 示例值: "my meeting"
 	ActionPermissions  []*ApplyVCReserveReqMeetingSettingsActionPermission `json:"action_permissions,omitempty"`   // 会议权限配置列表, 如果存在相同的权限配置项则它们之间为"逻辑或"的关系（即 有一个为true则拥有该权限）
-	MeetingInitialType *int64                                              `json:"meeting_initial_type,omitempty"` // 会议初始类型, 示例值: 1, 可选值有: 1: 多人会议, 2: 1v1呼叫
+	MeetingInitialType *int64                                              `json:"meeting_initial_type,omitempty"` // 会议初始类型, 示例值: 1, 可选值有: 1: 多人会议, 2: 1v1呼叫(仅支持预约PSTN用户)
 	CallSetting        *ApplyVCReserveReqMeetingSettingsCallSetting        `json:"call_setting,omitempty"`         // 1v1呼叫相关参数
 	AutoRecord         *bool                                               `json:"auto_record,omitempty"`          // 使用飞书视频会议时, 是否开启自动录制, 默认false, 示例值: true
 	AssignHostList     []*ApplyVCReserveReqMeetingSettingsAssignHost       `json:"assign_host_list,omitempty"`     // 指定主持人列表

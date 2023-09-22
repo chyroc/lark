@@ -23,6 +23,9 @@ import (
 
 // SearchCoreHREmployee 该接口会按照应用拥有的「员工数据」的权限范围返回数据, 请确定在「开发者后台 - 权限管理 - 数据权限」中有申请「员工资源」权限范围
 //
+// 接口已升级, 推荐使用, 性能更优。
+// 如需继续使用旧版本接口, 可点击[ 查询单个雇佣信息](https://open.feishu.cn/document/server-docs/corehr-v1/employee/employment/get) [ 查询单个个人信息](https://open.feishu.cn/document/server-docs/corehr-v1/employee/person/get)
+//
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/employee/search
 // new doc: https://open.feishu.cn/document/server-docs/corehr-v1/employee/search
 func (r *CoreHRService) SearchCoreHREmployee(ctx context.Context, request *SearchCoreHREmployeeReq, options ...MethodOptionFunc) (*SearchCoreHREmployeeResp, *Response, error) {
@@ -101,10 +104,10 @@ type SearchCoreHREmployeeRespItem struct {
 	EmployeeNumber           string                                            `json:"employee_number,omitempty"`             // 工号
 	EmployeeTypeID           string                                            `json:"employee_type_id,omitempty"`            // 人员类型 ID, 详细信息可通过【查询单个人员类型】接口获得
 	DepartmentID             string                                            `json:"department_id,omitempty"`               // 部门 ID, 详细信息可通过【查询单个部门】接口获得
-	JobLevelID               string                                            `json:"job_level_id,omitempty"`                // 职级 ID, 详细信息可通过【查询单个职务级别】接口获得, 字段权限要求: 获取职务级别信息
+	JobLevelID               string                                            `json:"job_level_id,omitempty"`                // 职级 ID, 详细信息可通过【查询单个职务级别】接口获得, 字段权限要求（满足任一）: 获取职务级别信息, 读写员工的职务级别信息
 	WorkLocationID           string                                            `json:"work_location_id,omitempty"`            // 工作地点 ID, 详细信息可通过【查询单个地点】接口获得
 	JobFamilyID              string                                            `json:"job_family_id,omitempty"`               // 序列 ID, 详细信息可通过【查询单个职务序列】接口获得
-	JobID                    string                                            `json:"job_id,omitempty"`                      // 职务 ID, 详细信息可通过【查询单个职务】接口获得, 字段权限要求: 获取职务级别信息
+	JobID                    string                                            `json:"job_id,omitempty"`                      // 职务 ID, 详细信息可通过【查询单个职务】接口获得, 字段权限要求（满足任一）: 获取职务信息, 获取职务级别信息, 读写员工的职务级别信息
 	CompanyID                string                                            `json:"company_id,omitempty"`                  // 所属公司 ID, 详细信息可通过【查询单个公司】接口获得
 	WorkingHoursTypeID       string                                            `json:"working_hours_type_id,omitempty"`       // 工时制度 ID, 详细信息可通过【查询单个工时制度】接口获得
 	Tenure                   string                                            `json:"tenure,omitempty"`                      // 司龄
@@ -135,10 +138,10 @@ type SearchCoreHREmployeeRespItem struct {
 	RecruitmentType          *SearchCoreHREmployeeRespItemRecruitmentType      `json:"recruitment_type,omitempty"`            // 招聘来源, 枚举值 api_name 可通过【获取自定义字段详情】接口查询
 	AvatarURL                string                                            `json:"avatar_url,omitempty"`                  // 员工头像
 	PrimaryContractID        string                                            `json:"primary_contract_id,omitempty"`         // 主合同 ID
-	ContractStartDate        string                                            `json:"contract_start_date,omitempty"`         // 主合同开始日期, 字段权限要求: 获取合同期限信息
-	ContractEndDate          string                                            `json:"contract_end_date,omitempty"`           // 主合同到期日期, 字段权限要求: 获取合同期限信息
-	ContractExpectedEndDate  string                                            `json:"contract_expected_end_date,omitempty"`  // 主合同预计到期日期, 字段权限要求: 获取合同期限信息
-	PayGroupID               string                                            `json:"pay_group_id,omitempty"`                // 所属薪资组 ID
+	ContractStartDate        string                                            `json:"contract_start_date,omitempty"`         // 主合同开始日期, 字段权限要求（满足任一）: 获取合同期限信息, 读写合同期限信息
+	ContractEndDate          string                                            `json:"contract_end_date,omitempty"`           // 主合同到期日期, 字段权限要求（满足任一）: 获取合同期限信息, 读写合同期限信息
+	ContractExpectedEndDate  string                                            `json:"contract_expected_end_date,omitempty"`  // 主合同预计到期日期, 字段权限要求（满足任一）: 获取合同期限信息, 读写合同期限信息
+	PayGroupID               string                                            `json:"pay_group_id,omitempty"`                // 所属薪资组 ID, 字段权限要求: 获取员工薪资组信息
 	InternationalAssignment  bool                                              `json:"international_assignment,omitempty"`    // 是否外派
 	WorkCalendarID           string                                            `json:"work_calendar_id,omitempty"`            // 工作日历 ID
 	Department               *SearchCoreHREmployeeRespItemDepartment           `json:"department,omitempty"`                  // 部门基本信息
@@ -256,10 +259,10 @@ type SearchCoreHREmployeeRespItemPersonInfo struct {
 	PreferredLocalFullName   string                                                          `json:"preferred_local_full_name,omitempty"`   // 常用本地全名
 	PreferredEnglishFullName string                                                          `json:"preferred_english_full_name,omitempty"` // 常用英文全名
 	NameList                 []*SearchCoreHREmployeeRespItemPersonInfoName                   `json:"name_list,omitempty"`                   // 姓名列表, 字段权限要求（满足任一）: 获取法定姓名信息, 读写法定姓名信息
-	Gender                   *SearchCoreHREmployeeRespItemPersonInfoGender                   `json:"gender,omitempty"`                      // 性别, 枚举值可通过文档【飞书人事枚举常量】性别（gender）枚举定义部分获得, 字段权限要求（满足任一）: 获取性别信息, 读写性别信息
+	Gender                   *SearchCoreHREmployeeRespItemPersonInfoGender                   `json:"gender,omitempty"`                      // -| 性别, 枚举值可查询【获取字段详情】接口获取, 按如下参数查询即可: custom_api_name: gender - object_api_name: person, 字段权限要求（满足任一）: 获取性别信息, 读写性别信息
 	DateOfBirth              string                                                          `json:"date_of_birth,omitempty"`               // 出生日期, 字段权限要求（满足任一）: 获取生日信息, 读写生日信息
-	Race                     *SearchCoreHREmployeeRespItemPersonInfoRace                     `json:"race,omitempty"`                        // 民族 / 种族, 枚举值可通过文档【飞书人事枚举常量】民族（race）枚举定义部分获得, 字段权限要求: 获取民族/种族信息
-	MaritalStatus            *SearchCoreHREmployeeRespItemPersonInfoMaritalStatus            `json:"marital_status,omitempty"`              // 婚姻状况, 枚举值可通过文档【飞书人事枚举常量】婚姻状况（marital_status）枚举定义部分获得, 字段权限要求（满足任一）: 获取婚姻状况信息, 读写婚姻状况信息
+	Race                     *SearchCoreHREmployeeRespItemPersonInfoRace                     `json:"race,omitempty"`                        // -| 民族 / 种族, 枚举值可查询【获取字段详情】接口获取, 按如下参数查询即可: custom_api_name: ethnicity_race - object_api_name: person, 字段权限要求: 获取民族/种族信息
+	MaritalStatus            *SearchCoreHREmployeeRespItemPersonInfoMaritalStatus            `json:"marital_status,omitempty"`              // -| 婚姻状况, 枚举值可查询【获取字段详情】接口获取, 按如下参数查询即可: custom_api_name: marital_status - object_api_name: person, 字段权限要求（满足任一）: 获取婚姻状况信息, 读写婚姻状况信息
 	PhoneList                []*SearchCoreHREmployeeRespItemPersonInfoPhone                  `json:"phone_list,omitempty"`                  // 电话列表, 只有当满足下面所有条件时, 电话在个人信息页才可见, 字段权限要求（满足任一）: 获取个人手机号信息, 读写个人手机号信息
 	AddressList              []*SearchCoreHREmployeeRespItemPersonInfoAddress                `json:"address_list,omitempty"`                // 地址列表, 字段权限要求（满足任一）: 读取个人地址信息, 读写个人地址信息
 	EmailList                []*SearchCoreHREmployeeRespItemPersonInfoEmail                  `json:"email_list,omitempty"`                  // 邮箱列表, 字段权限要求（满足任一）: 获取个人邮箱信息, 读写个人邮箱信息
@@ -280,10 +283,19 @@ type SearchCoreHREmployeeRespItemPersonInfo struct {
 	NativeRegion             string                                                          `json:"native_region,omitempty"`               // 籍贯 ID, 字段权限要求（满足任一）: 获取籍贯信息, 读写籍贯信息
 	HukouType                *SearchCoreHREmployeeRespItemPersonInfoHukouType                `json:"hukou_type,omitempty"`                  // 户口类型, 枚举值可通过文档【飞书人事枚举常量】户口类型（hukou_type）枚举定义部分获得, 字段权限要求（满足任一）: 获取户口信息, 读写户口信息
 	HukouLocation            string                                                          `json:"hukou_location,omitempty"`              // 户口所在地, 字段权限要求（满足任一）: 获取户口信息, 读写户口信息
-	TalentID                 string                                                          `json:"talent_id,omitempty"`                   // 人才ID
-	CustomFields             []*SearchCoreHREmployeeRespItemPersonInfoCustomField            `json:"custom_fields,omitempty"`               // 自定义字段, 字段权限要求: 获取个人信息自定义字段信息
+	TalentID                 string                                                          `json:"talent_id,omitempty"`                   // 人才 ID
+	CustomFields             []*SearchCoreHREmployeeRespItemPersonInfoCustomField            `json:"custom_fields,omitempty"`               // 自定义字段, 字段权限要求（满足任一）: 获取个人信息自定义字段信息, 读写个人信息中的自定义字段信息
 	NationalIDNumber         string                                                          `json:"national_id_number,omitempty"`          // 居民身份证件号码, 字段权限要求（满足任一）: 获取证件信息, 读写证件信息
 	FamilyAddress            string                                                          `json:"family_address,omitempty"`              // 家庭地址, 字段权限要求（满足任一）: 读取个人地址信息, 读写个人地址信息
+	BornCountryRegion        string                                                          `json:"born_country_region,omitempty"`         // 出生国家/地区, 字段权限要求（满足任一）: 获取出生国家/地区信息, 读写出生国家/地区信息
+	IsDisabled               bool                                                            `json:"is_disabled,omitempty"`                 // 是否残疾, 字段权限要求（满足任一）: 获取残疾信息, 读写残疾信息
+	DisableCardNumber        string                                                          `json:"disable_card_number,omitempty"`         // 残疾证号, 字段权限要求（满足任一）: 获取残疾信息, 读写残疾信息
+	IsMartyrFamily           bool                                                            `json:"is_martyr_family,omitempty"`            // 是否烈属, 字段权限要求（满足任一）: 获取烈属信息, 读写烈属信息
+	MartyrCardNumber         string                                                          `json:"martyr_card_number,omitempty"`          // 烈属证号, 字段权限要求（满足任一）: 获取烈属信息, 读写烈属信息
+	IsOldAlone               bool                                                            `json:"is_old_alone,omitempty"`                // 是否孤老, 字段权限要求（满足任一）: 获取孤老信息, 读写孤老信息
+	ResidentTaxes            []*SearchCoreHREmployeeRespItemPersonInfoResidentTaxe           `json:"resident_taxes,omitempty"`              // 居民身份信息, 字段权限要求（满足任一）: 获取居民身份信息, 读写居民身份信息
+	FirstEntryTime           string                                                          `json:"first_entry_time,omitempty"`            // 首次入境日期, 字段权限要求（满足任一）: 获取出入境日期, 读写出入境日期
+	LeaveTime                string                                                          `json:"leave_time,omitempty"`                  // 预计离境日期, 字段权限要求（满足任一）: 获取出入境日期, 读写出入境日期
 }
 
 // SearchCoreHREmployeeRespItemPersonInfoAddress ...
@@ -1329,6 +1341,32 @@ type SearchCoreHREmployeeRespItemPersonInfoRace struct {
 
 // SearchCoreHREmployeeRespItemPersonInfoRaceDisplay ...
 type SearchCoreHREmployeeRespItemPersonInfoRaceDisplay struct {
+	Lang  string `json:"lang,omitempty"`  // 语言
+	Value string `json:"value,omitempty"` // 内容
+}
+
+// SearchCoreHREmployeeRespItemPersonInfoResidentTaxe ...
+type SearchCoreHREmployeeRespItemPersonInfoResidentTaxe struct {
+	YearResidentTax    string                                                            `json:"year_resident_tax,omitempty"`     // 年度
+	ResidentStatus     *SearchCoreHREmployeeRespItemPersonInfoResidentTaxeResidentStatus `json:"resident_status,omitempty"`       // -| 居民身份, 枚举值 api_name 可通过【获取字段详情】接口查询, 查询参数如下: object_api_name = "resident_tax" - custom_api_name = "resident_status"
+	TaxCountryRegionID string                                                            `json:"tax_country_region_id,omitempty"` // 国家/地区, 可通过【查询国家/地区信息】 接口查询
+	CustomFields       []*SearchCoreHREmployeeRespItemPersonInfoResidentTaxeCustomField  `json:"custom_fields,omitempty"`         // 自定义字段, 字段权限要求（满足任一）: 获取居民身份自定义字段信息, 读写居民身份自定义字段信息
+}
+
+// SearchCoreHREmployeeRespItemPersonInfoResidentTaxeCustomField ...
+type SearchCoreHREmployeeRespItemPersonInfoResidentTaxeCustomField struct {
+	FieldName string `json:"field_name,omitempty"` // 字段名
+	Value     string `json:"value,omitempty"`      // 字段值, 是json转义后的字符串, 根据元数据定义不同, 字段格式不同(123, 123.23, true, [\"id1\", \"id2\], 2006-01-02 15:04:05])
+}
+
+// SearchCoreHREmployeeRespItemPersonInfoResidentTaxeResidentStatus ...
+type SearchCoreHREmployeeRespItemPersonInfoResidentTaxeResidentStatus struct {
+	EnumName string                                                                     `json:"enum_name,omitempty"` // 枚举值
+	Display  []*SearchCoreHREmployeeRespItemPersonInfoResidentTaxeResidentStatusDisplay `json:"display,omitempty"`   // 枚举多语展示
+}
+
+// SearchCoreHREmployeeRespItemPersonInfoResidentTaxeResidentStatusDisplay ...
+type SearchCoreHREmployeeRespItemPersonInfoResidentTaxeResidentStatusDisplay struct {
 	Lang  string `json:"lang,omitempty"`  // 语言
 	Value string `json:"value,omitempty"` // 内容
 }

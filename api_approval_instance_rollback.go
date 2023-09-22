@@ -58,12 +58,12 @@ func (r *Mock) UnMockApprovalRollbackApprovalInstance() {
 
 // RollbackApprovalInstanceReq ...
 type RollbackApprovalInstanceReq struct {
-	UserIDType     *IDType  `query:"user_id_type" json:"-"`      // 用户 ID 类型, 示例值: "open_id", 可选值有: open_id: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid), union_id: 标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id), user_id: 标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id), 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
-	UserID         string   `json:"user_id,omitempty"`           // 用户ID, 示例值: "893g4c45"
-	TaskID         string   `json:"task_id,omitempty"`           // 回退的任务ID, 示例值: "7026591166355210260"
+	UserIDType     *IDType  `query:"user_id_type" json:"-"`      // 用户 ID 类型, 示例值: open_id, 可选值有: open_id: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid), union_id: 标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id), user_id: 标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id), 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
+	UserID         string   `json:"user_id,omitempty"`           // 当前审批任务的审批人的用户 ID, 从实例详情中的 task_list 字段获取, 且相应任务的状态必须为 PENDING, 示例值: "893g4c45"
+	TaskID         string   `json:"task_id,omitempty"`           // 当前需要回退的审批任务的任务 ID, 从实例详情中的 task_list 字段获取, 且相应任务的状态必须为 PENDING, 示例值: "7026591166355210260"
 	Reason         *string  `json:"reason,omitempty"`            // 退回原因, 示例值: "申请事项填写不具体, 请重新填写"
 	Extra          *string  `json:"extra,omitempty"`             // 扩展字段, 示例值: "暂不填写"
-	TaskDefKeyList []string `json:"task_def_key_list,omitempty"` // 指定退回的任务node_key, 从实例详情中获取timeline中获取, 必须是PASS的任务node_key, 示例值: ["START", "APPROVAL_27997_285502", "APPROVAL_462205_2734554"], 长度范围: `1` ～ `100`
+	TaskDefKeyList []string `json:"task_def_key_list,omitempty"` // 需要退回到的任务 node_key。node_key 从实例详情中 timeline 字段获取, 且相应任务的状态必须为 PASS, 示例值: ["START", "APPROVAL_27997_285502", "APPROVAL_462205_2734554"], 长度范围: `1` ～ `100`
 }
 
 // RollbackApprovalInstanceResp ...
